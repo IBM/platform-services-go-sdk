@@ -24,7 +24,7 @@ import (
 	"github.com/joho/godotenv"
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
-	"github.ibm.com/ibmcloud/platform-services-go-sdk/globaltaggingv1"
+	"github.com/IBM/platform-services-go-sdk/globaltaggingv1"
 	"os"
 	"time"
 )
