@@ -1,5 +1,5 @@
 .DS_Store
-.env
+*.env
 
 # ignore vendor/
 vendor/
