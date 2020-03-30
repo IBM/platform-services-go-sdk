@@ -7,6 +7,9 @@
 Go client library to interact with various
 [IBM Cloud Platform Service APIs](https://cloud.ibm.com/apidocs?category=platform_services).
 
+Disclaimer: this SDK is being released initially as a **pre-release** version.
+Changes might occur which impact applications that use this SDK.
+
 ## Table of Contents
 <!--
   The TOC below is generated using the `markdown-toc` node package.
