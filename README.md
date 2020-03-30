@@ -3,7 +3,7 @@
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
 
-# IBM Cloud Platform Services Go SDK Version 0.0.0
+# IBM Cloud Platform Services Go SDK Version 0.1.0
 
 Go client library to interact with various
 [IBM Cloud Platform Service APIs](https://cloud.ibm.com/apidocs?category=platform_services).
@@ -59,7 +59,7 @@ Service Name | Package name
 * Go version 1.12 or above.
 
 ## Installation
-The current version of this SDK: 0.0.0
+The current version of this SDK: 0.1.0
 
 There are a few different ways to download and install the Platform Services Go SDK project for use by your
 Go application:
@@ -92,7 +92,7 @@ to your `Gopkg.toml` file.  Here is an example:
 ```
 [[constraint]]
   name = "github.com/IBM/platform-services-go-sdk/globalsearchv2"
-  version = "0.0.0"
+  version = "0.1.0"
 
 ```
 
