@@ -86,6 +86,8 @@ var _ = Describe("Global Search and Tagging - Tagging integration test", func() 
 		It("Successfully get all tags", func() {
 			shouldSkipTest()
 
+
+            var err error
 			result, detailedResponse, err := service.ListTags(listTagsModel)
 			Expect(err).To(BeNil())
 			Expect(detailedResponse.StatusCode).To(Equal(200))
