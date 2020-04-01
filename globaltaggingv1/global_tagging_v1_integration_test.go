@@ -72,6 +72,7 @@ var _ = Describe("Global Search and Tagging - Tagging integration test", func() 
 			Authenticator: authenticator,
 			URL:           os.Getenv("GST_TAGS_URL"),
 		}
+		var err error
 		service, err := globaltaggingv1.NewGlobalTaggingV1(options)
 		Expect(err).To(BeNil())
 		Expect(service).ToNot(BeNil())
