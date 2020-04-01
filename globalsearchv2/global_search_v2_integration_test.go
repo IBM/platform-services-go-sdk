@@ -60,7 +60,8 @@ var _ = Describe("Global Search and Tagging - Search integration test", func() {
 			Authenticator: authenticator,
 			URL:           os.Getenv("GST_API_URL"),
 		}
-		service, err := globalsearchv2.NewGlobalSearchV2(options)
+		var err error
+        service, err = globalsearchv2.NewGlobalSearchV2(options)
 		Expect(err).To(BeNil())
 		Expect(service).ToNot(BeNil())
 	})
