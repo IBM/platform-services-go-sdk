@@ -19,17 +19,20 @@ package globalsearchv2_test
  */
 
 import (
+	"os"
+
 	"github.com/IBM/go-sdk-core/v3/core"
 	"github.com/IBM/platform-services-go-sdk/globalsearchv2"
 	"github.com/joho/godotenv"
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
-	"os"
 )
 
 var service *globalsearchv2.GlobalSearchV2
 var configLoaded = false
-const externalConfigFile = "../.ghostenv"
+var gstQuery string
+
+const externalConfigFile = "../ghost.env"
 
 func shouldSkipTest() {
 	if !configLoaded {
@@ -41,8 +44,12 @@ var _ = Describe("Global Search and Tagging - Search integration test", func() {
 	It("Successfully load the configuration", func() {
 		err := godotenv.Load(externalConfigFile)
 		if err == nil {
-			configLoaded = true
-		} else {
+			gstQuery = os.Getenv("GST_QUERY")
+			if gstQuery != "" {
+				configLoaded = true
+			}
+		}
+		if !configLoaded {
 			Skip("External configuration could not be loaded, skipping...")
 		}
 	})
@@ -60,20 +67,23 @@ var _ = Describe("Global Search and Tagging - Search integration test", func() {
 			Authenticator: authenticator,
 			URL:           os.Getenv("GST_API_URL"),
 		}
-		service, err := globalsearchv2.NewGlobalSearchV2(options)
+		var err error
+		service, err = globalsearchv2.NewGlobalSearchV2(options)
 		Expect(err).To(BeNil())
 		Expect(service).ToNot(BeNil())
 	})
 
 	Describe("Call Search v3 api with query 'name:gst-sdk*' all fields", func() {
 
-		// Construct an instance of the SearchOptions model
-		searchOptionsModel := service.NewSearchOptions()
-		searchOptionsModel.SetQuery(os.Getenv("GST_QUERY"))
-		searchOptionsModel.SetFields([]string{"*"})
-
 		It("Successfully list all resources", func() {
 			shouldSkipTest()
+
+			// Construct an instance of the SearchOptions model
+			searchOptionsModel := service.NewSearchOptions()
+			searchOptionsModel.SetQuery(gstQuery)
+			searchOptionsModel.SetFields([]string{"*"})
+
+			var err error
 			result, detailedResponse, err := service.Search(searchOptionsModel)
 			Expect(err).To(BeNil())
 			Expect(detailedResponse.StatusCode).To(Equal(200))
@@ -89,14 +99,16 @@ var _ = Describe("Global Search and Tagging - Search integration test", func() {
 
 	Describe("Call Search v3 api with query 'name:gst-sdk*' retrieving only the attributes crn and name", func() {
 
-		// Construct an instance of the SearchOptions model
-		searchOptionsModel := service.NewSearchOptions()
-		searchOptionsModel.SetQuery(os.Getenv("GST_QUERY"))
-		searchOptionsModel.SetLimit(1)
-		searchOptionsModel.SetFields([]string{"crn", "name"})
-
 		It("Successfully list resource using cursor", func() {
 			shouldSkipTest()
+
+			// Construct an instance of the SearchOptions model
+			searchOptionsModel := service.NewSearchOptions()
+			searchOptionsModel.SetQuery(gstQuery)
+			searchOptionsModel.SetLimit(1)
+			searchOptionsModel.SetFields([]string{"crn", "name"})
+
+			var err error
 			result, detailedResponse, err := service.Search(searchOptionsModel)
 			Expect(err).To(BeNil())
 			Expect(detailedResponse.StatusCode).To(Equal(200))
@@ -111,7 +123,7 @@ var _ = Describe("Global Search and Tagging - Search integration test", func() {
 
 			search_cursor := *result.SearchCursor
 			searchOptionsModelCursor := service.NewSearchOptions()
-			searchOptionsModelCursor.SetQuery(os.Getenv("GST_QUERY"))
+			searchOptionsModelCursor.SetQuery(gstQuery)
 			searchOptionsModelCursor.SetLimit(1)
 			searchOptionsModelCursor.SetFields([]string{"crn", "name"})
 			searchOptionsModelCursor.SetSearchCursor(search_cursor)
@@ -134,12 +146,13 @@ var _ = Describe("Global Search and Tagging - Search integration test", func() {
 
 	Describe("Call GetSupportedTypes", func() {
 
-		// Construct an instance of the SearchOptions model
-		supportedTypessModel := service.NewGetSupportedTypesOptions()
-
 		It("Successfully list all resources", func() {
 			shouldSkipTest()
-			
+
+			// Construct an instance of the SearchOptions model
+			supportedTypessModel := service.NewGetSupportedTypesOptions()
+
+			var err error
 			result, detailedResponse, err := service.GetSupportedTypes(supportedTypessModel)
 			Expect(err).To(BeNil())
 			Expect(detailedResponse.StatusCode).To(Equal(200))

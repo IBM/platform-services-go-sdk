@@ -20,13 +20,15 @@ package globaltaggingv1_test
 
 import (
 	"fmt"
-	"github.com/IBM/go-sdk-core/v3/core"
+	"os"
+	"time"
+	
 	"github.com/joho/godotenv"
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
+	
+	"github.com/IBM/go-sdk-core/v3/core"
 	"github.com/IBM/platform-services-go-sdk/globaltaggingv1"
-	"os"
-	"time"
 )
 
 type Resource = globaltaggingv1.Resource
@@ -35,7 +37,15 @@ type Tag = globaltaggingv1.Tag
 var service *globaltaggingv1.GlobalTaggingV1
 var configLoaded = false
 
-const externalConfigFile = "../.ghostenv"
+var crn string
+
+var tagName string = fmt.Sprint("go-sdk-", time.Now().Unix())
+
+var tagElem = Tag{
+	Name: core.StringPtr(tagName),
+}
+
+const externalConfigFile = "../ghost.env"
 
 func shouldSkipTest() {
 	if !configLoaded {
@@ -47,17 +57,15 @@ var _ = Describe("Global Search and Tagging - Tagging integration test", func() 
 	It("Successfully load the configuration", func() {
 		err := godotenv.Load(externalConfigFile)
 		if err == nil {
-			configLoaded = true
-		} else {
+			crn = os.Getenv("GST_RESOURCE_CRN")
+			if crn != "" {
+				configLoaded = true
+			}
+		}
+		if !configLoaded {
 			Skip("External configuration could not be loaded, skipping...")
 		}
 	})
-
-	crn := os.Getenv("GST_RESOURCE_CRN")
-	tagName := fmt.Sprint("go-sdk-", time.Now().Unix())
-	tagElem := Tag{
-		Name: core.StringPtr(tagName),
-	}
 
 	It("Successfully construct service", func() {
 		shouldSkipTest()
@@ -72,19 +80,21 @@ var _ = Describe("Global Search and Tagging - Tagging integration test", func() 
 			Authenticator: authenticator,
 			URL:           os.Getenv("GST_TAGS_URL"),
 		}
-		service, err := globaltaggingv1.NewGlobalTaggingV1(options)
+		var err error
+		service, err = globaltaggingv1.NewGlobalTaggingV1(options)
 		Expect(err).To(BeNil())
 		Expect(service).ToNot(BeNil())
 	})
 
 	Describe("Call GetAllTags", func() {
 
-		// Construct an instance of the ListTags model
-		listTagsModel := service.NewListTagsOptions()
-
 		It("Successfully get all tags", func() {
 			shouldSkipTest()
 
+			// Construct an instance of the ListTags model
+			listTagsModel := service.NewListTagsOptions()
+
+			var err error
 			result, detailedResponse, err := service.ListTags(listTagsModel)
 			Expect(err).To(BeNil())
 			Expect(detailedResponse.StatusCode).To(Equal(200))
@@ -94,16 +104,20 @@ var _ = Describe("Global Search and Tagging - Tagging integration test", func() 
 
 	Describe("Attach a tag", func() {
 
-		// Construct an instance of the AttachTag model
-		resource, _ := service.NewResource(crn)
-		array := []Resource{*resource}
-		attachTagOptions := service.NewAttachTagOptions(array)
-		attachTagOptions.SetTagNames([]string{tagName})
-
 		It("Successfully attach a tag", func() {
 			shouldSkipTest()
 
+			// Construct an instance of the Resource model
+			resource, _ := service.NewResource(crn)
+			array := []Resource{*resource}
+			attachTagOptions := service.NewAttachTagOptions(array)
+			attachTagOptions.SetTagNames([]string{tagName})
+
+			var err error
 			result, detailedResponse, err := service.AttachTag(attachTagOptions)
+
+			//fmt.Println("attach tag response", detailedResponse)
+
 			Expect(err).To(BeNil())
 			Expect(detailedResponse.StatusCode).To(Equal(200))
 			for _, elem := range result.Results {
@@ -123,15 +137,16 @@ var _ = Describe("Global Search and Tagging - Tagging integration test", func() 
 
 	Describe("Detach a tag", func() {
 
-		// Construct an instance of the DetachTag model
-		resource, _ := service.NewResource(crn)
-		array := []Resource{*resource}
-		detachTagOptions := service.NewDetachTagOptions(array)
-		detachTagOptions.SetTagNames([]string{tagName})
-
 		It("Successfully detached a tag", func() {
 			shouldSkipTest()
 
+			// Construct an instance of the DetachTag model
+			resource, _ := service.NewResource(crn)
+			array := []Resource{*resource}
+			detachTagOptions := service.NewDetachTagOptions(array)
+			detachTagOptions.SetTagNames([]string{tagName})
+
+			var err error
 			result, detailedResponse, err := service.DetachTag(detachTagOptions)
 			Expect(err).To(BeNil())
 			Expect(detailedResponse.StatusCode).To(Equal(200))
@@ -151,12 +166,13 @@ var _ = Describe("Global Search and Tagging - Tagging integration test", func() 
 
 	Describe("Delete a tag", func() {
 
-		// Construct an instance of the DeleteTag model
-		deleteTagOptions := service.NewDeleteTagOptions(tagName)
-
 		It("Successfully delete a tag", func() {
 			shouldSkipTest()
 
+			// Construct an instance of the DeleteTag model
+			deleteTagOptions := service.NewDeleteTagOptions(tagName)
+
+			var err error
 			result, detailedResponse, err := service.DeleteTag(deleteTagOptions)
 			Expect(err).To(BeNil())
 			Expect(detailedResponse.StatusCode).To(Equal(200))
