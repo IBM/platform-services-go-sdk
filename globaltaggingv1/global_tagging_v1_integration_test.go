@@ -88,7 +88,7 @@ var _ = Describe("Global Search and Tagging - Tagging integration test", func() 
 
 
             var err error
-			result, detailedResponse, err = service.ListTags(listTagsModel)
+			result, detailedResponse, err := service.ListTags(listTagsModel)
 			Expect(err).To(BeNil())
 			Expect(detailedResponse.StatusCode).To(Equal(200))
 			Expect(result.Items).NotTo(BeEmpty())
@@ -107,7 +107,7 @@ var _ = Describe("Global Search and Tagging - Tagging integration test", func() 
 			shouldSkipTest()
 
             var err error
-			result, detailedResponse, err = service.AttachTag(attachTagOptions)
+			result, detailedResponse, err := service.AttachTag(attachTagOptions)
 			Expect(err).To(BeNil())
 			Expect(detailedResponse.StatusCode).To(Equal(200))
 			for _, elem := range result.Results {
@@ -137,7 +137,7 @@ var _ = Describe("Global Search and Tagging - Tagging integration test", func() 
 			shouldSkipTest()
 
             var err error
-			result, detailedResponse, err = service.DetachTag(detachTagOptions)
+			result, detailedResponse, err := service.DetachTag(detachTagOptions)
 			Expect(err).To(BeNil())
 			Expect(detailedResponse.StatusCode).To(Equal(200))
 			for _, elem := range result.Results {
@@ -163,7 +163,7 @@ var _ = Describe("Global Search and Tagging - Tagging integration test", func() 
 			shouldSkipTest()
 
             var err error
-			result, detailedResponse, err = service.DeleteTag(deleteTagOptions)
+			result, detailedResponse, err := service.DeleteTag(deleteTagOptions)
 			Expect(err).To(BeNil())
 			Expect(detailedResponse.StatusCode).To(Equal(200))
 			for _, elem := range result.Results {

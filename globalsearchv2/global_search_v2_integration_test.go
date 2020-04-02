@@ -19,16 +19,19 @@ package globalsearchv2_test
  */
 
 import (
+	"fmt"
+	"os"
+
 	"github.com/IBM/go-sdk-core/v3/core"
 	"github.com/IBM/platform-services-go-sdk/globalsearchv2"
 	"github.com/joho/godotenv"
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
-	"os"
 )
 
 var service *globalsearchv2.GlobalSearchV2
 var configLoaded = false
+
 const externalConfigFile = "../.ghostenv"
 
 func shouldSkipTest() {
@@ -61,7 +64,7 @@ var _ = Describe("Global Search and Tagging - Search integration test", func() {
 			URL:           os.Getenv("GST_API_URL"),
 		}
 		var err error
-        service, err = globalsearchv2.NewGlobalSearchV2(options)
+		service, err = globalsearchv2.NewGlobalSearchV2(options)
 		Expect(err).To(BeNil())
 		Expect(service).ToNot(BeNil())
 	})
@@ -76,7 +79,9 @@ var _ = Describe("Global Search and Tagging - Search integration test", func() {
 		It("Successfully list all resources", func() {
 			shouldSkipTest()
 			var err error
-			result, detailedResponse, err = service.Search(searchOptionsModel)
+			result, detailedResponse, err := service.Search(searchOptionsModel)
+			fmt.Println("eccolo", result)
+			fmt.Println("eccolo details", detailedResponse)
 			Expect(err).To(BeNil())
 			Expect(detailedResponse.StatusCode).To(Equal(200))
 			Expect(result.Items).To(HaveLen(2))
@@ -100,7 +105,7 @@ var _ = Describe("Global Search and Tagging - Search integration test", func() {
 		It("Successfully list resource using cursor", func() {
 			shouldSkipTest()
 			var err error
-			result, detailedResponse, err = service.Search(searchOptionsModel)
+			result, detailedResponse, err := service.Search(searchOptionsModel)
 			Expect(err).To(BeNil())
 			Expect(detailedResponse.StatusCode).To(Equal(200))
 			Expect(result.Items).To(HaveLen(1))
@@ -144,7 +149,7 @@ var _ = Describe("Global Search and Tagging - Search integration test", func() {
 			shouldSkipTest()
 
 			var err error
-			result, detailedResponse, err = service.GetSupportedTypes(supportedTypessModel)
+			result, detailedResponse, err := service.GetSupportedTypes(supportedTypessModel)
 			Expect(err).To(BeNil())
 			Expect(detailedResponse.StatusCode).To(Equal(200))
 			Expect(result.SupportedTypes).To(ContainElement("cf-space"))
