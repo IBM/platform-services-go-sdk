@@ -19,14 +19,16 @@
 package iamaccessgroupsv2_test
 
 import (
+	"os"
+
 	"github.com/joho/godotenv"
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
+
 	"github.com/IBM/platform-services-go-sdk/iamaccessgroupsv2"
-	"os"
 )
 
-const externalConfigFile = "../.iam_access_groups_env"
+const externalConfigFile = "../iam_access_groups.env"
 
 var (
 	service *iamaccessgroupsv2.IamAccessGroupsV2
@@ -44,7 +46,7 @@ var (
 
 	userType     string = "user"
 	etagHeader   string = "Etag"
-	configLoaded        = false
+	configLoaded bool   = false
 )
 
 func shouldSkipTest() {
@@ -57,13 +59,15 @@ var _ = Describe("IAM Access Groups - Integration Tests", func() {
 	It("Successfully load the configuration", func() {
 		err = godotenv.Load(externalConfigFile)
 		if err == nil {
-			configLoaded = true
-		} else {
+			testAccountID = os.Getenv("IAM_ACCESS_GROUPS_TEST_ACCOUNT_ID")
+			if testAccountID != "" {
+				configLoaded = true
+			}
+		}
+		if !configLoaded {
 			Skip("External configuration could not be loaded, skipping...")
 		}
 	})
-
-	testAccountID = os.Getenv("IAM_ACCESS_GROUPS_TEST_ACCOUNT_ID")
 
 	It(`Successfully created IamAccessGroupsV2 service instance`, func() {
 		shouldSkipTest()
