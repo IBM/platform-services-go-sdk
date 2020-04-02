@@ -73,7 +73,7 @@ var _ = Describe("Global Search and Tagging - Tagging integration test", func() 
 			URL:           os.Getenv("GST_TAGS_URL"),
 		}
 		var err error
-		service, err := globaltaggingv1.NewGlobalTaggingV1(options)
+		service, err = globaltaggingv1.NewGlobalTaggingV1(options)
 		Expect(err).To(BeNil())
 		Expect(service).ToNot(BeNil())
 	})
@@ -88,7 +88,7 @@ var _ = Describe("Global Search and Tagging - Tagging integration test", func() 
 
 
             var err error
-			result, detailedResponse, err := service.ListTags(listTagsModel)
+			result, detailedResponse, err = service.ListTags(listTagsModel)
 			Expect(err).To(BeNil())
 			Expect(detailedResponse.StatusCode).To(Equal(200))
 			Expect(result.Items).NotTo(BeEmpty())
@@ -106,7 +106,8 @@ var _ = Describe("Global Search and Tagging - Tagging integration test", func() 
 		It("Successfully attach a tag", func() {
 			shouldSkipTest()
 
-			result, detailedResponse, err := service.AttachTag(attachTagOptions)
+            var err error
+			result, detailedResponse, err = service.AttachTag(attachTagOptions)
 			Expect(err).To(BeNil())
 			Expect(detailedResponse.StatusCode).To(Equal(200))
 			for _, elem := range result.Results {
@@ -135,7 +136,8 @@ var _ = Describe("Global Search and Tagging - Tagging integration test", func() 
 		It("Successfully detached a tag", func() {
 			shouldSkipTest()
 
-			result, detailedResponse, err := service.DetachTag(detachTagOptions)
+            var err error
+			result, detailedResponse, err = service.DetachTag(detachTagOptions)
 			Expect(err).To(BeNil())
 			Expect(detailedResponse.StatusCode).To(Equal(200))
 			for _, elem := range result.Results {
@@ -160,7 +162,8 @@ var _ = Describe("Global Search and Tagging - Tagging integration test", func() 
 		It("Successfully delete a tag", func() {
 			shouldSkipTest()
 
-			result, detailedResponse, err := service.DeleteTag(deleteTagOptions)
+            var err error
+			result, detailedResponse, err = service.DeleteTag(deleteTagOptions)
 			Expect(err).To(BeNil())
 			Expect(detailedResponse.StatusCode).To(Equal(200))
 			for _, elem := range result.Results {

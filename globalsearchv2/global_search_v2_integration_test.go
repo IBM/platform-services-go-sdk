@@ -75,7 +75,8 @@ var _ = Describe("Global Search and Tagging - Search integration test", func() {
 
 		It("Successfully list all resources", func() {
 			shouldSkipTest()
-			result, detailedResponse, err := service.Search(searchOptionsModel)
+			var err error
+			result, detailedResponse, err = service.Search(searchOptionsModel)
 			Expect(err).To(BeNil())
 			Expect(detailedResponse.StatusCode).To(Equal(200))
 			Expect(result.Items).To(HaveLen(2))
@@ -98,7 +99,8 @@ var _ = Describe("Global Search and Tagging - Search integration test", func() {
 
 		It("Successfully list resource using cursor", func() {
 			shouldSkipTest()
-			result, detailedResponse, err := service.Search(searchOptionsModel)
+			var err error
+			result, detailedResponse, err = service.Search(searchOptionsModel)
 			Expect(err).To(BeNil())
 			Expect(detailedResponse.StatusCode).To(Equal(200))
 			Expect(result.Items).To(HaveLen(1))
@@ -140,8 +142,9 @@ var _ = Describe("Global Search and Tagging - Search integration test", func() {
 
 		It("Successfully list all resources", func() {
 			shouldSkipTest()
-			
-			result, detailedResponse, err := service.GetSupportedTypes(supportedTypessModel)
+
+			var err error
+			result, detailedResponse, err = service.GetSupportedTypes(supportedTypessModel)
 			Expect(err).To(BeNil())
 			Expect(detailedResponse.StatusCode).To(Equal(200))
 			Expect(result.SupportedTypes).To(ContainElement("cf-space"))
