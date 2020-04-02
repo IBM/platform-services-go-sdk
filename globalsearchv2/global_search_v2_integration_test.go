@@ -101,6 +101,7 @@ var _ = Describe("Global Search and Tagging - Search integration test", func() {
 		searchOptionsModel.SetQuery(os.Getenv("GST_QUERY"))
 		searchOptionsModel.SetLimit(1)
 		searchOptionsModel.SetFields([]string{"crn", "name"})
+		fmt.Println("query", os.Getenv("GST_QUERY"))
 
 		It("Successfully list resource using cursor", func() {
 			shouldSkipTest()
@@ -118,6 +119,7 @@ var _ = Describe("Global Search and Tagging - Search integration test", func() {
 			firstCrn := *result.Items[0].Crn
 
 			search_cursor := *result.SearchCursor
+			fmt.Println("cursor", search_cursor)
 			searchOptionsModelCursor := service.NewSearchOptions()
 			searchOptionsModelCursor.SetQuery(os.Getenv("GST_QUERY"))
 			searchOptionsModelCursor.SetLimit(1)

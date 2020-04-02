@@ -89,6 +89,7 @@ var _ = Describe("Global Search and Tagging - Tagging integration test", func() 
 
             var err error
 			result, detailedResponse, err := service.ListTags(listTagsModel)
+			fmt.Println("respget", detailedResponse)
 			Expect(err).To(BeNil())
 			Expect(detailedResponse.StatusCode).To(Equal(200))
 			Expect(result.Items).NotTo(BeEmpty())
@@ -108,6 +109,7 @@ var _ = Describe("Global Search and Tagging - Tagging integration test", func() 
 
             var err error
 			result, detailedResponse, err := service.AttachTag(attachTagOptions)
+			fmt.Println("respattach", detailedResponse)
 			Expect(err).To(BeNil())
 			Expect(detailedResponse.StatusCode).To(Equal(200))
 			for _, elem := range result.Results {

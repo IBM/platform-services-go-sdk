@@ -17,7 +17,7 @@ before_install:
 - sudo apt-get install python
 - nvm install 12
 - npm install -g npm@6.x
-- openssl aes-256-cbc -K $encrypted_387a65da973c_key -iv $encrypted_387a65da973c_iv -in .ghostenv.enc -out .ghostenv -d
+-  '[ "${TRAVIS_PULL_REQUEST}" == "false" ] && openssl aes-256-cbc -K $encrypted_387a65da973c_key -iv $encrypted_387a65da973c_iv -in .ghostenv.enc -out .ghostenv -d || true'
 # - '[ "${TRAVIS_PULL_REQUEST}" == "false" ] && openssl aes-256-cbc -K "$ghost_key" -iv "$ghost_iv" -in .ghostenv.enc -out .ghostenv -d || true'
 # - '[ "${TRAVIS_PULL_REQUEST}" == "false" ] && openssl aes-256-cbc -K $encrypted_3b05ea0a069c_key -iv $encrypted_3b05ea0a069c_iv -in .iam_access_groups_env.enc -out .iam_access_groups_env -d || true'
 
