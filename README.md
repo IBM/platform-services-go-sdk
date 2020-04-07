@@ -47,6 +47,7 @@ The IBM Cloud Platform Services Go SDK allows developers to programmatically int
 
 Service Name | Package name 
 --- | --- 
+[Global Catalog](https://cloud.ibm.com/apidocs/resource-catalog/global-catalog) | globalcatalogv1
 [Global Search](https://cloud.ibm.com/apidocs/search) | globalsearchv2
 [Global Tagging](https://cloud.ibm.com/apidocs/tagging) | globaltaggingv1
 [IAM Access Groups](https://cloud.ibm.com/apidocs/iam-access-groups) | iamaccessgroupsv2
