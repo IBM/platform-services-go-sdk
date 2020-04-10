@@ -18,6 +18,7 @@
 package globalcatalogv1
 
 import (
+	"encoding/json"
 	"fmt"
 	"github.com/IBM/go-sdk-core/v3/core"
 	common "github.com/IBM/platform-services-go-sdk/common"
@@ -215,9 +216,6 @@ func (globalCatalog *GlobalCatalogV1) CreateCatalogEntry(createCatalogEntryOptio
 	}
 
 	body := make(map[string]interface{})
-	if createCatalogEntryOptions.ID != nil {
-		body["id"] = createCatalogEntryOptions.ID
-	}
 	if createCatalogEntryOptions.Name != nil {
 		body["name"] = createCatalogEntryOptions.Name
 	}
@@ -236,38 +234,17 @@ func (globalCatalog *GlobalCatalogV1) CreateCatalogEntry(createCatalogEntryOptio
 	if createCatalogEntryOptions.Tags != nil {
 		body["tags"] = createCatalogEntryOptions.Tags
 	}
-	if createCatalogEntryOptions.GeoTags != nil {
-		body["geo_tags"] = createCatalogEntryOptions.GeoTags
-	}
-	if createCatalogEntryOptions.PricingTags != nil {
-		body["pricing_tags"] = createCatalogEntryOptions.PricingTags
-	}
-	if createCatalogEntryOptions.Group != nil {
-		body["group"] = createCatalogEntryOptions.Group
-	}
 	if createCatalogEntryOptions.Provider != nil {
 		body["provider"] = createCatalogEntryOptions.Provider
-	}
-	if createCatalogEntryOptions.CatalogCrn != nil {
-		body["catalog_crn"] = createCatalogEntryOptions.CatalogCrn
-	}
-	if createCatalogEntryOptions.URL != nil {
-		body["url"] = createCatalogEntryOptions.URL
 	}
 	if createCatalogEntryOptions.ParentID != nil {
 		body["parent_id"] = createCatalogEntryOptions.ParentID
 	}
-	if createCatalogEntryOptions.ChildrenURL != nil {
-		body["children_url"] = createCatalogEntryOptions.ChildrenURL
-	}
 	if createCatalogEntryOptions.ParentURL != nil {
 		body["parent_url"] = createCatalogEntryOptions.ParentURL
 	}
-	if createCatalogEntryOptions.Created != nil {
-		body["created"] = createCatalogEntryOptions.Created
-	}
-	if createCatalogEntryOptions.Updated != nil {
-		body["updated"] = createCatalogEntryOptions.Updated
+	if createCatalogEntryOptions.Group != nil {
+		body["group"] = createCatalogEntryOptions.Group
 	}
 	if createCatalogEntryOptions.Metadata != nil {
 		body["metadata"] = createCatalogEntryOptions.Metadata
@@ -400,68 +377,44 @@ func (globalCatalog *GlobalCatalogV1) UpdateCatalogEntry(updateCatalogEntryOptio
 	}
 
 	body := make(map[string]interface{})
-	if updateCatalogEntryOptions.NewID != nil {
-		body["id"] = updateCatalogEntryOptions.NewID
+	if updateCatalogEntryOptions.Name != nil {
+		body["name"] = updateCatalogEntryOptions.Name
 	}
-	if updateCatalogEntryOptions.NewName != nil {
-		body["name"] = updateCatalogEntryOptions.NewName
+	if updateCatalogEntryOptions.OverviewUi != nil {
+		body["overview_ui"] = updateCatalogEntryOptions.OverviewUi
 	}
-	if updateCatalogEntryOptions.NewOverviewUi != nil {
-		body["overview_ui"] = updateCatalogEntryOptions.NewOverviewUi
+	if updateCatalogEntryOptions.Kind != nil {
+		body["kind"] = updateCatalogEntryOptions.Kind
 	}
-	if updateCatalogEntryOptions.NewKind != nil {
-		body["kind"] = updateCatalogEntryOptions.NewKind
+	if updateCatalogEntryOptions.Images != nil {
+		body["images"] = updateCatalogEntryOptions.Images
 	}
-	if updateCatalogEntryOptions.NewImages != nil {
-		body["images"] = updateCatalogEntryOptions.NewImages
+	if updateCatalogEntryOptions.Disabled != nil {
+		body["disabled"] = updateCatalogEntryOptions.Disabled
 	}
-	if updateCatalogEntryOptions.NewDisabled != nil {
-		body["disabled"] = updateCatalogEntryOptions.NewDisabled
+	if updateCatalogEntryOptions.Tags != nil {
+		body["tags"] = updateCatalogEntryOptions.Tags
 	}
-	if updateCatalogEntryOptions.NewTags != nil {
-		body["tags"] = updateCatalogEntryOptions.NewTags
+	if updateCatalogEntryOptions.Provider != nil {
+		body["provider"] = updateCatalogEntryOptions.Provider
 	}
-	if updateCatalogEntryOptions.NewGeoTags != nil {
-		body["geo_tags"] = updateCatalogEntryOptions.NewGeoTags
+	if updateCatalogEntryOptions.ParentID != nil {
+		body["parent_id"] = updateCatalogEntryOptions.ParentID
 	}
-	if updateCatalogEntryOptions.NewPricingTags != nil {
-		body["pricing_tags"] = updateCatalogEntryOptions.NewPricingTags
+	if updateCatalogEntryOptions.ParentURL != nil {
+		body["parent_url"] = updateCatalogEntryOptions.ParentURL
 	}
-	if updateCatalogEntryOptions.NewGroup != nil {
-		body["group"] = updateCatalogEntryOptions.NewGroup
+	if updateCatalogEntryOptions.Group != nil {
+		body["group"] = updateCatalogEntryOptions.Group
 	}
-	if updateCatalogEntryOptions.NewProvider != nil {
-		body["provider"] = updateCatalogEntryOptions.NewProvider
+	if updateCatalogEntryOptions.Metadata != nil {
+		body["metadata"] = updateCatalogEntryOptions.Metadata
 	}
-	if updateCatalogEntryOptions.NewCatalogCrn != nil {
-		body["catalog_crn"] = updateCatalogEntryOptions.NewCatalogCrn
+	if updateCatalogEntryOptions.Active != nil {
+		body["active"] = updateCatalogEntryOptions.Active
 	}
-	if updateCatalogEntryOptions.NewURL != nil {
-		body["url"] = updateCatalogEntryOptions.NewURL
-	}
-	if updateCatalogEntryOptions.NewParentID != nil {
-		body["parent_id"] = updateCatalogEntryOptions.NewParentID
-	}
-	if updateCatalogEntryOptions.NewChildrenURL != nil {
-		body["children_url"] = updateCatalogEntryOptions.NewChildrenURL
-	}
-	if updateCatalogEntryOptions.NewParentURL != nil {
-		body["parent_url"] = updateCatalogEntryOptions.NewParentURL
-	}
-	if updateCatalogEntryOptions.NewCreated != nil {
-		body["created"] = updateCatalogEntryOptions.NewCreated
-	}
-	if updateCatalogEntryOptions.NewUpdated != nil {
-		body["updated"] = updateCatalogEntryOptions.NewUpdated
-	}
-	if updateCatalogEntryOptions.NewMetadata != nil {
-		body["metadata"] = updateCatalogEntryOptions.NewMetadata
-	}
-	if updateCatalogEntryOptions.NewActive != nil {
-		body["active"] = updateCatalogEntryOptions.NewActive
-	}
-	if updateCatalogEntryOptions.NewChildren != nil {
-		body["children"] = updateCatalogEntryOptions.NewChildren
+	if updateCatalogEntryOptions.Children != nil {
+		body["children"] = updateCatalogEntryOptions.Children
 	}
 	_, err = builder.SetBodyContentJSON(body)
 	if err != nil {
@@ -735,9 +688,6 @@ func (globalCatalog *GlobalCatalogV1) UpdateVisibility(updateVisibilityOptions *
 	}
 
 	body := make(map[string]interface{})
-	if updateVisibilityOptions.Restrictions != nil {
-		body["restrictions"] = updateVisibilityOptions.Restrictions
-	}
 	if updateVisibilityOptions.Owner != nil {
 		body["owner"] = updateVisibilityOptions.Owner
 	}
@@ -746,9 +696,6 @@ func (globalCatalog *GlobalCatalogV1) UpdateVisibility(updateVisibilityOptions *
 	}
 	if updateVisibilityOptions.Exclude != nil {
 		body["exclude"] = updateVisibilityOptions.Exclude
-	}
-	if updateVisibilityOptions.Approved != nil {
-		body["approved"] = updateVisibilityOptions.Approved
 	}
 	_, err = builder.SetBodyContentJSON(body)
 	if err != nil {
@@ -1577,7 +1524,7 @@ func UnmarshalCallbacksSliceAsProperty(m map[string]interface{}, propertyName st
 // CatalogEntry : An entry in the global catalog.
 type CatalogEntry struct {
 	// Catalog entry's unique ID. It's the same across all catalog instances.
-	ID *string `json:"id" validate:"required"`
+	ID *string `json:"id,omitempty"`
 
 	// The cloud resource name of the catalog entry.
 	CatalogCrn *string `json:"catalog_crn,omitempty"`
@@ -1616,13 +1563,13 @@ type CatalogEntry struct {
 	Tags []string `json:"tags" validate:"required"`
 
 	// A list of tags representing deployment locations, for example, `us-south`, `eu-gb`, `us-south-dal10`.
-	GeoTags []string `json:"geo_tags" validate:"required"`
+	GeoTags []string `json:"geo_tags,omitempty"`
 
 	// A list of tags representing pricing types, for example, free lite, subscription, paid only.
-	PricingTags []string `json:"pricing_tags" validate:"required"`
+	PricingTags []string `json:"pricing_tags,omitempty"`
 
 	// Boolean value that determines whether the catalog entry is a group.
-	Group *bool `json:"group" validate:"required"`
+	Group *bool `json:"group,omitempty"`
 
 	// Information related to the provider associated with a catalog entry.
 	Provider *Provider `json:"provider" validate:"required"`
@@ -1646,18 +1593,14 @@ type CatalogEntry struct {
 
 
 // NewCatalogEntry : Instantiate CatalogEntry (Generic Model Constructor)
-func (*GlobalCatalogV1) NewCatalogEntry(id string, name string, overviewUi *OverviewUI, kind string, images *Image, disabled bool, tags []string, geoTags []string, pricingTags []string, group bool, provider *Provider) (model *CatalogEntry, err error) {
+func (*GlobalCatalogV1) NewCatalogEntry(name string, overviewUi *OverviewUI, kind string, images *Image, disabled bool, tags []string, provider *Provider) (model *CatalogEntry, err error) {
 	model = &CatalogEntry{
-		ID: core.StringPtr(id),
 		Name: core.StringPtr(name),
 		OverviewUi: overviewUi,
 		Kind: core.StringPtr(kind),
 		Images: images,
 		Disabled: core.BoolPtr(disabled),
 		Tags: tags,
-		GeoTags: geoTags,
-		PricingTags: pricingTags,
-		Group: core.BoolPtr(group),
 		Provider: provider,
 	}
 	err = core.ValidateStruct(model, "required parameters")
@@ -1805,9 +1748,6 @@ func UnmarshalCatalogEntrySliceAsProperty(m map[string]interface{}, propertyName
 
 // CreateCatalogEntryOptions : The CreateCatalogEntry options.
 type CreateCatalogEntryOptions struct {
-	// Catalog entry's unique ID. It's the same across all catalog instances.
-	ID *string `json:"id" validate:"required"`
-
 	// Programmatic name for this catalog entry, which must be formatted like a CRN segment. See the display name in
 	// OverviewUI for a user-readable name.
 	Name *string `json:"name" validate:"required"`
@@ -1829,38 +1769,17 @@ type CreateCatalogEntryOptions struct {
 	// A list of tags. For example, IBM, 3rd Party, Beta, GA, and Single Tenant.
 	Tags []string `json:"tags" validate:"required"`
 
-	// A list of tags representing deployment locations, for example, `us-south`, `eu-gb`, `us-south-dal10`.
-	GeoTags []string `json:"geo_tags" validate:"required"`
-
-	// A list of tags representing pricing types, for example, free lite, subscription, paid only.
-	PricingTags []string `json:"pricing_tags" validate:"required"`
-
-	// Boolean value that determines whether the catalog entry is a group.
-	Group *bool `json:"group" validate:"required"`
-
 	// Information related to the provider associated with a catalog entry.
 	Provider *Provider `json:"provider" validate:"required"`
-
-	// The cloud resource name of the catalog entry.
-	CatalogCrn *string `json:"catalog_crn,omitempty"`
-
-	// The catalog URL for the catalog entry.
-	URL *string `json:"url,omitempty"`
 
 	// The ID of the parent catalog entry if it exists.
 	ParentID *string `json:"parent_id,omitempty"`
 
-	// The catalog URL of child elements for the catalog entry.
-	ChildrenURL *string `json:"children_url,omitempty"`
-
 	// The catalog URL of the parent catalog entry.
 	ParentURL *string `json:"parent_url,omitempty"`
 
-	// The date the catalog entry was created.
-	Created *strfmt.DateTime `json:"created,omitempty"`
-
-	// The date the catalog entry was last updated.
-	Updated *strfmt.DateTime `json:"updated,omitempty"`
+	// Boolean value that determines whether the catalog entry is a group.
+	Group *bool `json:"group,omitempty"`
 
 	// Metadata is not returned by default, and includes specific data depending on the object **kind**.
 	Metadata *ObjectMetaData `json:"metadata,omitempty"`
@@ -1882,26 +1801,16 @@ type CreateCatalogEntryOptions struct {
 }
 
 // NewCreateCatalogEntryOptions : Instantiate CreateCatalogEntryOptions
-func (*GlobalCatalogV1) NewCreateCatalogEntryOptions(id string, name string, overviewUi *OverviewUI, kind string, images *Image, disabled bool, tags []string, geoTags []string, pricingTags []string, group bool, provider *Provider) *CreateCatalogEntryOptions {
+func (*GlobalCatalogV1) NewCreateCatalogEntryOptions(name string, overviewUi *OverviewUI, kind string, images *Image, disabled bool, tags []string, provider *Provider) *CreateCatalogEntryOptions {
 	return &CreateCatalogEntryOptions{
-		ID: core.StringPtr(id),
 		Name: core.StringPtr(name),
 		OverviewUi: overviewUi,
 		Kind: core.StringPtr(kind),
 		Images: images,
 		Disabled: core.BoolPtr(disabled),
 		Tags: tags,
-		GeoTags: geoTags,
-		PricingTags: pricingTags,
-		Group: core.BoolPtr(group),
 		Provider: provider,
 	}
-}
-
-// SetID : Allow user to set ID
-func (options *CreateCatalogEntryOptions) SetID(id string) *CreateCatalogEntryOptions {
-	options.ID = core.StringPtr(id)
-	return options
 }
 
 // SetName : Allow user to set Name
@@ -1940,39 +1849,9 @@ func (options *CreateCatalogEntryOptions) SetTags(tags []string) *CreateCatalogE
 	return options
 }
 
-// SetGeoTags : Allow user to set GeoTags
-func (options *CreateCatalogEntryOptions) SetGeoTags(geoTags []string) *CreateCatalogEntryOptions {
-	options.GeoTags = geoTags
-	return options
-}
-
-// SetPricingTags : Allow user to set PricingTags
-func (options *CreateCatalogEntryOptions) SetPricingTags(pricingTags []string) *CreateCatalogEntryOptions {
-	options.PricingTags = pricingTags
-	return options
-}
-
-// SetGroup : Allow user to set Group
-func (options *CreateCatalogEntryOptions) SetGroup(group bool) *CreateCatalogEntryOptions {
-	options.Group = core.BoolPtr(group)
-	return options
-}
-
 // SetProvider : Allow user to set Provider
 func (options *CreateCatalogEntryOptions) SetProvider(provider *Provider) *CreateCatalogEntryOptions {
 	options.Provider = provider
-	return options
-}
-
-// SetCatalogCrn : Allow user to set CatalogCrn
-func (options *CreateCatalogEntryOptions) SetCatalogCrn(catalogCrn string) *CreateCatalogEntryOptions {
-	options.CatalogCrn = core.StringPtr(catalogCrn)
-	return options
-}
-
-// SetURL : Allow user to set URL
-func (options *CreateCatalogEntryOptions) SetURL(url string) *CreateCatalogEntryOptions {
-	options.URL = core.StringPtr(url)
 	return options
 }
 
@@ -1982,27 +1861,15 @@ func (options *CreateCatalogEntryOptions) SetParentID(parentID string) *CreateCa
 	return options
 }
 
-// SetChildrenURL : Allow user to set ChildrenURL
-func (options *CreateCatalogEntryOptions) SetChildrenURL(childrenURL string) *CreateCatalogEntryOptions {
-	options.ChildrenURL = core.StringPtr(childrenURL)
-	return options
-}
-
 // SetParentURL : Allow user to set ParentURL
 func (options *CreateCatalogEntryOptions) SetParentURL(parentURL string) *CreateCatalogEntryOptions {
 	options.ParentURL = core.StringPtr(parentURL)
 	return options
 }
 
-// SetCreated : Allow user to set Created
-func (options *CreateCatalogEntryOptions) SetCreated(created *strfmt.DateTime) *CreateCatalogEntryOptions {
-	options.Created = created
-	return options
-}
-
-// SetUpdated : Allow user to set Updated
-func (options *CreateCatalogEntryOptions) SetUpdated(updated *strfmt.DateTime) *CreateCatalogEntryOptions {
-	options.Updated = updated
+// SetGroup : Allow user to set Group
+func (options *CreateCatalogEntryOptions) SetGroup(group bool) *CreateCatalogEntryOptions {
+	options.Group = core.BoolPtr(group)
 	return options
 }
 
@@ -2484,17 +2351,53 @@ func (options *GetVisibilityOptions) SetHeaders(param map[string]string) *GetVis
 
 // I18N : Language specific translation of translation properties, like label and description.
 type I18N struct {
-	// Information related to a translated text message.
-	Language *Strings `json:"_language_,omitempty"`
+
+	// Allows users to set arbitrary properties
+	additionalProperties map[string]*Strings
 }
 
 
+// SetProperty allows the user to set an arbitrary property on an instance of I18N
+func (o *I18N) SetProperty(key string, value *Strings) {
+	if o.additionalProperties == nil {
+		o.additionalProperties = make(map[string]*Strings)
+	}
+	o.additionalProperties[key] = value
+}
+
+// GetProperty allows the user to retrieve an arbitrary property from an instance of I18N
+func (o *I18N) GetProperty(key string) *Strings {
+	return o.additionalProperties[key]
+}
+
+// GetProperties allows the user to retrieve the map of arbitrary properties from an instance of I18N
+func (o *I18N) GetProperties() map[string]*Strings {
+	return o.additionalProperties
+}
+
+// MarshalJSON performs custom serialization for instances of I18N
+func (o *I18N) MarshalJSON() (buffer []byte, err error) {
+	m := make(map[string]interface{})
+	if len(o.additionalProperties) > 0 {
+		for k, v := range o.additionalProperties {
+			m[k] = v
+		}
+	}
+	buffer, err = json.Marshal(m)	
+	return
+}
+
 // UnmarshalI18N constructs an instance of I18N from the specified map.
 func UnmarshalI18N(m map[string]interface{}) (result *I18N, err error) {
+	m = core.CopyMap(m)
 	obj := new(I18N)
-	obj.Language, err = UnmarshalStringsAsProperty(m, "_language_")
-	if err != nil {
-		return
+	for k := range m {
+		v, e := UnmarshalStringsAsProperty(m, k)
+		if e != nil {
+			err = e
+			return
+		}
+		obj.SetProperty(k, v)
 	}
 	result = obj
 	return
@@ -2930,7 +2833,7 @@ type ObjectMetaData struct {
 	Version *string `json:"version,omitempty"`
 
 	// The original name of the object.
-	OriginName *string `json:"origin_name,omitempty"`
+	OriginalName *string `json:"original_name,omitempty"`
 
 	// Additional information.
 	Other interface{} `json:"other,omitempty"`
@@ -2988,7 +2891,7 @@ func UnmarshalObjectMetaData(m map[string]interface{}) (result *ObjectMetaData, 
 	if err != nil {
 		return
 	}
-	obj.OriginName, err = core.UnmarshalString(m, "origin_name")
+	obj.OriginalName, err = core.UnmarshalString(m, "original_name")
 	if err != nil {
 		return
 	}
@@ -4193,17 +4096,53 @@ func UnmarshalOverviewSliceAsProperty(m map[string]interface{}, propertyName str
 
 // OverviewUI : Overview is nested in the top level. The key value pair is `[_language_]overview_ui`.
 type OverviewUI struct {
-	// Overview is nested in the top level. The key value pair is `[_language_]overview_ui`.
-	Language *Overview `json:"_language_,omitempty"`
+
+	// Allows users to set arbitrary properties
+	additionalProperties map[string]*Overview
 }
 
 
+// SetProperty allows the user to set an arbitrary property on an instance of OverviewUI
+func (o *OverviewUI) SetProperty(key string, value *Overview) {
+	if o.additionalProperties == nil {
+		o.additionalProperties = make(map[string]*Overview)
+	}
+	o.additionalProperties[key] = value
+}
+
+// GetProperty allows the user to retrieve an arbitrary property from an instance of OverviewUI
+func (o *OverviewUI) GetProperty(key string) *Overview {
+	return o.additionalProperties[key]
+}
+
+// GetProperties allows the user to retrieve the map of arbitrary properties from an instance of OverviewUI
+func (o *OverviewUI) GetProperties() map[string]*Overview {
+	return o.additionalProperties
+}
+
+// MarshalJSON performs custom serialization for instances of OverviewUI
+func (o *OverviewUI) MarshalJSON() (buffer []byte, err error) {
+	m := make(map[string]interface{})
+	if len(o.additionalProperties) > 0 {
+		for k, v := range o.additionalProperties {
+			m[k] = v
+		}
+	}
+	buffer, err = json.Marshal(m)	
+	return
+}
+
 // UnmarshalOverviewUI constructs an instance of OverviewUI from the specified map.
 func UnmarshalOverviewUI(m map[string]interface{}) (result *OverviewUI, err error) {
+	m = core.CopyMap(m)
 	obj := new(OverviewUI)
-	obj.Language, err = UnmarshalOverviewAsProperty(m, "_language_")
-	if err != nil {
-		return
+	for k := range m {
+		v, e := UnmarshalOverviewAsProperty(m, k)
+		if e != nil {
+			err = e
+			return
+		}
+		obj.SetProperty(k, v)
 	}
 	result = obj
 	return
@@ -5265,72 +5204,48 @@ type UpdateCatalogEntryOptions struct {
 	// The object's unique ID.
 	ID *string `json:"id" validate:"required"`
 
-	// Catalog entry's unique ID. It's the same across all catalog instances.
-	NewID *string `json:"new_id" validate:"required"`
-
 	// Programmatic name for this catalog entry, which must be formatted like a CRN segment. See the display name in
 	// OverviewUI for a user-readable name.
-	NewName *string `json:"new_name" validate:"required"`
+	Name *string `json:"name" validate:"required"`
 
 	// Overview is nested in the top level. The key value pair is `[_language_]overview_ui`.
-	NewOverviewUi *OverviewUI `json:"new_overview_ui" validate:"required"`
+	OverviewUi *OverviewUI `json:"overview_ui" validate:"required"`
 
 	// The type of catalog entry, **service**, **template**, **dashboard**, which determines the type and shape of the
 	// object.
-	NewKind *string `json:"new_kind" validate:"required"`
+	Kind *string `json:"kind" validate:"required"`
 
 	// Image annotation for this catalog entry. The image is a URL.
-	NewImages *Image `json:"new_images" validate:"required"`
+	Images *Image `json:"images" validate:"required"`
 
 	// Boolean value that determines the global visibility for the catalog entry, and its children. If it is not enabled,
 	// all plans are disabled.
-	NewDisabled *bool `json:"new_disabled" validate:"required"`
+	Disabled *bool `json:"disabled" validate:"required"`
 
 	// A list of tags. For example, IBM, 3rd Party, Beta, GA, and Single Tenant.
-	NewTags []string `json:"new_tags" validate:"required"`
-
-	// A list of tags representing deployment locations, for example, `us-south`, `eu-gb`, `us-south-dal10`.
-	NewGeoTags []string `json:"new_geo_tags" validate:"required"`
-
-	// A list of tags representing pricing types, for example, free lite, subscription, paid only.
-	NewPricingTags []string `json:"new_pricing_tags" validate:"required"`
-
-	// Boolean value that determines whether the catalog entry is a group.
-	NewGroup *bool `json:"new_group" validate:"required"`
+	Tags []string `json:"tags" validate:"required"`
 
 	// Information related to the provider associated with a catalog entry.
-	NewProvider *Provider `json:"new_provider" validate:"required"`
-
-	// The cloud resource name of the catalog entry.
-	NewCatalogCrn *string `json:"new_catalog_crn,omitempty"`
-
-	// The catalog URL for the catalog entry.
-	NewURL *string `json:"new_url,omitempty"`
+	Provider *Provider `json:"provider" validate:"required"`
 
 	// The ID of the parent catalog entry if it exists.
-	NewParentID *string `json:"new_parent_id,omitempty"`
-
-	// The catalog URL of child elements for the catalog entry.
-	NewChildrenURL *string `json:"new_children_url,omitempty"`
+	ParentID *string `json:"parent_id,omitempty"`
 
 	// The catalog URL of the parent catalog entry.
-	NewParentURL *string `json:"new_parent_url,omitempty"`
+	ParentURL *string `json:"parent_url,omitempty"`
 
-	// The date the catalog entry was created.
-	NewCreated *strfmt.DateTime `json:"new_created,omitempty"`
-
-	// The date the catalog entry was last updated.
-	NewUpdated *strfmt.DateTime `json:"new_updated,omitempty"`
+	// Boolean value that determines whether the catalog entry is a group.
+	Group *bool `json:"group,omitempty"`
 
 	// Metadata is not returned by default, and includes specific data depending on the object **kind**.
-	NewMetadata *ObjectMetaData `json:"new_metadata,omitempty"`
+	Metadata *ObjectMetaData `json:"metadata,omitempty"`
 
 	// Boolean value that describes whether the service is active.
-	NewActive *bool `json:"new_active,omitempty"`
+	Active *bool `json:"active,omitempty"`
 
 	// The children of this catalog entry. This is read-only and ignored on put or post. It is filled in when
 	// `?depth=_value_` is used.
-	NewChildren []CatalogEntry `json:"new_children,omitempty"`
+	Children []CatalogEntry `json:"children,omitempty"`
 
 	// This changes the scope of the request regardless of the authorization header. Example scopes are `account` and
 	// `global`. `account=global` is reqired if operating with a service ID that has a global admin policy, for example
@@ -5348,20 +5263,16 @@ type UpdateCatalogEntryOptions struct {
 }
 
 // NewUpdateCatalogEntryOptions : Instantiate UpdateCatalogEntryOptions
-func (*GlobalCatalogV1) NewUpdateCatalogEntryOptions(id string, newID string, newName string, newOverviewUi *OverviewUI, newKind string, newImages *Image, newDisabled bool, newTags []string, newGeoTags []string, newPricingTags []string, newGroup bool, newProvider *Provider) *UpdateCatalogEntryOptions {
+func (*GlobalCatalogV1) NewUpdateCatalogEntryOptions(id string, name string, overviewUi *OverviewUI, kind string, images *Image, disabled bool, tags []string, provider *Provider) *UpdateCatalogEntryOptions {
 	return &UpdateCatalogEntryOptions{
 		ID: core.StringPtr(id),
-		NewID: core.StringPtr(newID),
-		NewName: core.StringPtr(newName),
-		NewOverviewUi: newOverviewUi,
-		NewKind: core.StringPtr(newKind),
-		NewImages: newImages,
-		NewDisabled: core.BoolPtr(newDisabled),
-		NewTags: newTags,
-		NewGeoTags: newGeoTags,
-		NewPricingTags: newPricingTags,
-		NewGroup: core.BoolPtr(newGroup),
-		NewProvider: newProvider,
+		Name: core.StringPtr(name),
+		OverviewUi: overviewUi,
+		Kind: core.StringPtr(kind),
+		Images: images,
+		Disabled: core.BoolPtr(disabled),
+		Tags: tags,
+		Provider: provider,
 	}
 }
 
@@ -5371,129 +5282,81 @@ func (options *UpdateCatalogEntryOptions) SetID(id string) *UpdateCatalogEntryOp
 	return options
 }
 
-// SetNewID : Allow user to set NewID
-func (options *UpdateCatalogEntryOptions) SetNewID(newID string) *UpdateCatalogEntryOptions {
-	options.NewID = core.StringPtr(newID)
+// SetName : Allow user to set Name
+func (options *UpdateCatalogEntryOptions) SetName(name string) *UpdateCatalogEntryOptions {
+	options.Name = core.StringPtr(name)
 	return options
 }
 
-// SetNewName : Allow user to set NewName
-func (options *UpdateCatalogEntryOptions) SetNewName(newName string) *UpdateCatalogEntryOptions {
-	options.NewName = core.StringPtr(newName)
+// SetOverviewUi : Allow user to set OverviewUi
+func (options *UpdateCatalogEntryOptions) SetOverviewUi(overviewUi *OverviewUI) *UpdateCatalogEntryOptions {
+	options.OverviewUi = overviewUi
 	return options
 }
 
-// SetNewOverviewUi : Allow user to set NewOverviewUi
-func (options *UpdateCatalogEntryOptions) SetNewOverviewUi(newOverviewUi *OverviewUI) *UpdateCatalogEntryOptions {
-	options.NewOverviewUi = newOverviewUi
+// SetKind : Allow user to set Kind
+func (options *UpdateCatalogEntryOptions) SetKind(kind string) *UpdateCatalogEntryOptions {
+	options.Kind = core.StringPtr(kind)
 	return options
 }
 
-// SetNewKind : Allow user to set NewKind
-func (options *UpdateCatalogEntryOptions) SetNewKind(newKind string) *UpdateCatalogEntryOptions {
-	options.NewKind = core.StringPtr(newKind)
+// SetImages : Allow user to set Images
+func (options *UpdateCatalogEntryOptions) SetImages(images *Image) *UpdateCatalogEntryOptions {
+	options.Images = images
 	return options
 }
 
-// SetNewImages : Allow user to set NewImages
-func (options *UpdateCatalogEntryOptions) SetNewImages(newImages *Image) *UpdateCatalogEntryOptions {
-	options.NewImages = newImages
+// SetDisabled : Allow user to set Disabled
+func (options *UpdateCatalogEntryOptions) SetDisabled(disabled bool) *UpdateCatalogEntryOptions {
+	options.Disabled = core.BoolPtr(disabled)
 	return options
 }
 
-// SetNewDisabled : Allow user to set NewDisabled
-func (options *UpdateCatalogEntryOptions) SetNewDisabled(newDisabled bool) *UpdateCatalogEntryOptions {
-	options.NewDisabled = core.BoolPtr(newDisabled)
+// SetTags : Allow user to set Tags
+func (options *UpdateCatalogEntryOptions) SetTags(tags []string) *UpdateCatalogEntryOptions {
+	options.Tags = tags
 	return options
 }
 
-// SetNewTags : Allow user to set NewTags
-func (options *UpdateCatalogEntryOptions) SetNewTags(newTags []string) *UpdateCatalogEntryOptions {
-	options.NewTags = newTags
+// SetProvider : Allow user to set Provider
+func (options *UpdateCatalogEntryOptions) SetProvider(provider *Provider) *UpdateCatalogEntryOptions {
+	options.Provider = provider
 	return options
 }
 
-// SetNewGeoTags : Allow user to set NewGeoTags
-func (options *UpdateCatalogEntryOptions) SetNewGeoTags(newGeoTags []string) *UpdateCatalogEntryOptions {
-	options.NewGeoTags = newGeoTags
+// SetParentID : Allow user to set ParentID
+func (options *UpdateCatalogEntryOptions) SetParentID(parentID string) *UpdateCatalogEntryOptions {
+	options.ParentID = core.StringPtr(parentID)
 	return options
 }
 
-// SetNewPricingTags : Allow user to set NewPricingTags
-func (options *UpdateCatalogEntryOptions) SetNewPricingTags(newPricingTags []string) *UpdateCatalogEntryOptions {
-	options.NewPricingTags = newPricingTags
+// SetParentURL : Allow user to set ParentURL
+func (options *UpdateCatalogEntryOptions) SetParentURL(parentURL string) *UpdateCatalogEntryOptions {
+	options.ParentURL = core.StringPtr(parentURL)
 	return options
 }
 
-// SetNewGroup : Allow user to set NewGroup
-func (options *UpdateCatalogEntryOptions) SetNewGroup(newGroup bool) *UpdateCatalogEntryOptions {
-	options.NewGroup = core.BoolPtr(newGroup)
+// SetGroup : Allow user to set Group
+func (options *UpdateCatalogEntryOptions) SetGroup(group bool) *UpdateCatalogEntryOptions {
+	options.Group = core.BoolPtr(group)
 	return options
 }
 
-// SetNewProvider : Allow user to set NewProvider
-func (options *UpdateCatalogEntryOptions) SetNewProvider(newProvider *Provider) *UpdateCatalogEntryOptions {
-	options.NewProvider = newProvider
+// SetMetadata : Allow user to set Metadata
+func (options *UpdateCatalogEntryOptions) SetMetadata(metadata *ObjectMetaData) *UpdateCatalogEntryOptions {
+	options.Metadata = metadata
 	return options
 }
 
-// SetNewCatalogCrn : Allow user to set NewCatalogCrn
-func (options *UpdateCatalogEntryOptions) SetNewCatalogCrn(newCatalogCrn string) *UpdateCatalogEntryOptions {
-	options.NewCatalogCrn = core.StringPtr(newCatalogCrn)
+// SetActive : Allow user to set Active
+func (options *UpdateCatalogEntryOptions) SetActive(active bool) *UpdateCatalogEntryOptions {
+	options.Active = core.BoolPtr(active)
 	return options
 }
 
-// SetNewURL : Allow user to set NewURL
-func (options *UpdateCatalogEntryOptions) SetNewURL(newURL string) *UpdateCatalogEntryOptions {
-	options.NewURL = core.StringPtr(newURL)
-	return options
-}
-
-// SetNewParentID : Allow user to set NewParentID
-func (options *UpdateCatalogEntryOptions) SetNewParentID(newParentID string) *UpdateCatalogEntryOptions {
-	options.NewParentID = core.StringPtr(newParentID)
-	return options
-}
-
-// SetNewChildrenURL : Allow user to set NewChildrenURL
-func (options *UpdateCatalogEntryOptions) SetNewChildrenURL(newChildrenURL string) *UpdateCatalogEntryOptions {
-	options.NewChildrenURL = core.StringPtr(newChildrenURL)
-	return options
-}
-
-// SetNewParentURL : Allow user to set NewParentURL
-func (options *UpdateCatalogEntryOptions) SetNewParentURL(newParentURL string) *UpdateCatalogEntryOptions {
-	options.NewParentURL = core.StringPtr(newParentURL)
-	return options
-}
-
-// SetNewCreated : Allow user to set NewCreated
-func (options *UpdateCatalogEntryOptions) SetNewCreated(newCreated *strfmt.DateTime) *UpdateCatalogEntryOptions {
-	options.NewCreated = newCreated
-	return options
-}
-
-// SetNewUpdated : Allow user to set NewUpdated
-func (options *UpdateCatalogEntryOptions) SetNewUpdated(newUpdated *strfmt.DateTime) *UpdateCatalogEntryOptions {
-	options.NewUpdated = newUpdated
-	return options
-}
-
-// SetNewMetadata : Allow user to set NewMetadata
-func (options *UpdateCatalogEntryOptions) SetNewMetadata(newMetadata *ObjectMetaData) *UpdateCatalogEntryOptions {
-	options.NewMetadata = newMetadata
-	return options
-}
-
-// SetNewActive : Allow user to set NewActive
-func (options *UpdateCatalogEntryOptions) SetNewActive(newActive bool) *UpdateCatalogEntryOptions {
-	options.NewActive = core.BoolPtr(newActive)
-	return options
-}
-
-// SetNewChildren : Allow user to set NewChildren
-func (options *UpdateCatalogEntryOptions) SetNewChildren(newChildren []CatalogEntry) *UpdateCatalogEntryOptions {
-	options.NewChildren = newChildren
+// SetChildren : Allow user to set Children
+func (options *UpdateCatalogEntryOptions) SetChildren(children []CatalogEntry) *UpdateCatalogEntryOptions {
+	options.Children = children
 	return options
 }
 
@@ -5520,11 +5383,6 @@ type UpdateVisibilityOptions struct {
 	// The object's unique ID.
 	ID *string `json:"id" validate:"required"`
 
-	// This controls the overall visibility. It is an enum of *public*, *ibm_only*, and *private*. public means it is
-	// visible to all. ibm_only means it is visible to all IBM unless their account is explicitly excluded. private means
-	// it is visible only to the included accounts.
-	Restrictions *string `json:"restrictions,omitempty"`
-
 	// IAM Scope-related information associated with a catalog entry.
 	Owner *Scope `json:"owner,omitempty"`
 
@@ -5533,10 +5391,6 @@ type UpdateVisibilityOptions struct {
 
 	// Visibility details related to a catalog entry.
 	Exclude *VisibilityDetail `json:"exclude,omitempty"`
-
-	// Determines whether the owning account has full control over the visibility of the entry such as adding non-IBM
-	// accounts to the whitelist and making entries `private`, `ibm_only` or `public`.
-	Approved *bool `json:"approved,omitempty"`
 
 	// This changes the scope of the request regardless of the authorization header. Example scopes are `account` and
 	// `global`. `account=global` is reqired if operating with a service ID that has a global admin policy, for example
@@ -5560,12 +5414,6 @@ func (options *UpdateVisibilityOptions) SetID(id string) *UpdateVisibilityOption
 	return options
 }
 
-// SetRestrictions : Allow user to set Restrictions
-func (options *UpdateVisibilityOptions) SetRestrictions(restrictions string) *UpdateVisibilityOptions {
-	options.Restrictions = core.StringPtr(restrictions)
-	return options
-}
-
 // SetOwner : Allow user to set Owner
 func (options *UpdateVisibilityOptions) SetOwner(owner *Scope) *UpdateVisibilityOptions {
 	options.Owner = owner
@@ -5581,12 +5429,6 @@ func (options *UpdateVisibilityOptions) SetInclude(include *VisibilityDetail) *U
 // SetExclude : Allow user to set Exclude
 func (options *UpdateVisibilityOptions) SetExclude(exclude *VisibilityDetail) *UpdateVisibilityOptions {
 	options.Exclude = exclude
-	return options
-}
-
-// SetApproved : Allow user to set Approved
-func (options *UpdateVisibilityOptions) SetApproved(approved bool) *UpdateVisibilityOptions {
-	options.Approved = core.BoolPtr(approved)
 	return options
 }
 
