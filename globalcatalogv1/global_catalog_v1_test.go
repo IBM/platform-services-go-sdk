@@ -35,105 +35,105 @@ import (
 var _ = Describe(`GlobalCatalogV1`, func() {
 	var testServer *httptest.Server
     Describe(`Service constructor tests`, func() {
-        It(`Instantiate service client`, func() {
-            testService, testServiceErr := globalcatalogv1.NewGlobalCatalogV1(&globalcatalogv1.GlobalCatalogV1Options{
-                Authenticator: &core.NoAuthAuthenticator{},
-            })
-            Expect(testService).ToNot(BeNil())
-            Expect(testServiceErr).To(BeNil())
-        })
-        It(`Instantiate service client with error: Invalid URL`, func() {
-            testService, testServiceErr := globalcatalogv1.NewGlobalCatalogV1(&globalcatalogv1.GlobalCatalogV1Options{
-                URL: "{{BAD_URL_STRING",
-            })
-            Expect(testService).To(BeNil())
-            Expect(testServiceErr).ToNot(BeNil())
-        })
-        It(`Instantiate service client with error: Invalid Auth`, func() {
-            testService, testServiceErr := globalcatalogv1.NewGlobalCatalogV1(&globalcatalogv1.GlobalCatalogV1Options{
-                URL: "https://globalcatalogv1/api",
-                Authenticator: &core.BasicAuthenticator{
-                    Username: "",
-                    Password: "",
-                },
-            })
-            Expect(testService).To(BeNil())
-            Expect(testServiceErr).ToNot(BeNil())
-        })
-    })
-    Describe(`Service constructor tests using external config`, func() {
-        Context(`Using external config, construct service client instances`, func() {
-            // Map containing environment variables used in testing.
-            var testEnvironment = map[string]string{
-                "GLOBAL_CATALOG_URL": "https://globalcatalogv1/api",
-                "GLOBAL_CATALOG_AUTH_TYPE": "noauth",
-            }
+		It(`Instantiate service client`, func() {
+			testService, testServiceErr := globalcatalogv1.NewGlobalCatalogV1(&globalcatalogv1.GlobalCatalogV1Options{
+				Authenticator: &core.NoAuthAuthenticator{},
+			})
+			Expect(testService).ToNot(BeNil())
+			Expect(testServiceErr).To(BeNil())
+		})
+		It(`Instantiate service client with error: Invalid URL`, func() {
+			testService, testServiceErr := globalcatalogv1.NewGlobalCatalogV1(&globalcatalogv1.GlobalCatalogV1Options{
+				URL: "{{BAD_URL_STRING",
+			})
+			Expect(testService).To(BeNil())
+			Expect(testServiceErr).ToNot(BeNil())
+		})
+		It(`Instantiate service client with error: Invalid Auth`, func() {
+			testService, testServiceErr := globalcatalogv1.NewGlobalCatalogV1(&globalcatalogv1.GlobalCatalogV1Options{
+				URL: "https://globalcatalogv1/api",
+				Authenticator: &core.BasicAuthenticator{
+					Username: "",
+					Password: "",
+				},
+			})
+			Expect(testService).To(BeNil())
+			Expect(testServiceErr).ToNot(BeNil())
+		})
+	})
+	Describe(`Service constructor tests using external config`, func() {
+		Context(`Using external config, construct service client instances`, func() {
+			// Map containing environment variables used in testing.
+			var testEnvironment = map[string]string{
+				"GLOBAL_CATALOG_URL": "https://globalcatalogv1/api",
+				"GLOBAL_CATALOG_AUTH_TYPE": "noauth",
+			}
 
-            It(`Create service client using external config successfully`, func() {
-                SetTestEnvironment(testEnvironment)
-                testService, testServiceErr := globalcatalogv1.NewGlobalCatalogV1UsingExternalConfig(&globalcatalogv1.GlobalCatalogV1Options{
-                })
-                Expect(testService).ToNot(BeNil())
-                Expect(testServiceErr).To(BeNil())
-                ClearTestEnvironment(testEnvironment)
-            })
-            It(`Create service client using external config and set url from constructor successfully`, func() {
-                SetTestEnvironment(testEnvironment)
-                testService, testServiceErr := globalcatalogv1.NewGlobalCatalogV1UsingExternalConfig(&globalcatalogv1.GlobalCatalogV1Options{
-                    URL: "https://testService/api",
-                })
-                Expect(testService).ToNot(BeNil())
-                Expect(testServiceErr).To(BeNil())
-                Expect(testService.Service.GetServiceURL()).To(Equal("https://testService/api"))
-                ClearTestEnvironment(testEnvironment)
-            })
-            It(`Create service client using external config and set url programatically successfully`, func() {
-                SetTestEnvironment(testEnvironment)
-                testService, testServiceErr := globalcatalogv1.NewGlobalCatalogV1UsingExternalConfig(&globalcatalogv1.GlobalCatalogV1Options{
-                })
-                err := testService.SetServiceURL("https://testService/api")
-                Expect(err).To(BeNil())
-                Expect(testService).ToNot(BeNil())
-                Expect(testServiceErr).To(BeNil())
-                Expect(testService.Service.GetServiceURL()).To(Equal("https://testService/api"))
-                ClearTestEnvironment(testEnvironment)
-            })
-        })
-        Context(`Using external config, construct service client instances with error: Invalid Auth`, func() {
-            // Map containing environment variables used in testing.
-            var testEnvironment = map[string]string{
-                "GLOBAL_CATALOG_URL": "https://globalcatalogv1/api",
-                "GLOBAL_CATALOG_AUTH_TYPE": "someOtherAuth",
-            }
+			It(`Create service client using external config successfully`, func() {
+				SetTestEnvironment(testEnvironment)
+				testService, testServiceErr := globalcatalogv1.NewGlobalCatalogV1UsingExternalConfig(&globalcatalogv1.GlobalCatalogV1Options{
+				})
+				Expect(testService).ToNot(BeNil())
+				Expect(testServiceErr).To(BeNil())
+				ClearTestEnvironment(testEnvironment)
+			})
+			It(`Create service client using external config and set url from constructor successfully`, func() {
+				SetTestEnvironment(testEnvironment)
+				testService, testServiceErr := globalcatalogv1.NewGlobalCatalogV1UsingExternalConfig(&globalcatalogv1.GlobalCatalogV1Options{
+					URL: "https://testService/api",
+				})
+				Expect(testService).ToNot(BeNil())
+				Expect(testServiceErr).To(BeNil())
+				Expect(testService.Service.GetServiceURL()).To(Equal("https://testService/api"))
+				ClearTestEnvironment(testEnvironment)
+			})
+			It(`Create service client using external config and set url programatically successfully`, func() {
+				SetTestEnvironment(testEnvironment)
+				testService, testServiceErr := globalcatalogv1.NewGlobalCatalogV1UsingExternalConfig(&globalcatalogv1.GlobalCatalogV1Options{
+				})
+				err := testService.SetServiceURL("https://testService/api")
+				Expect(err).To(BeNil())
+				Expect(testService).ToNot(BeNil())
+				Expect(testServiceErr).To(BeNil())
+				Expect(testService.Service.GetServiceURL()).To(Equal("https://testService/api"))
+				ClearTestEnvironment(testEnvironment)
+			})
+		})
+		Context(`Using external config, construct service client instances with error: Invalid Auth`, func() {
+			// Map containing environment variables used in testing.
+			var testEnvironment = map[string]string{
+				"GLOBAL_CATALOG_URL": "https://globalcatalogv1/api",
+				"GLOBAL_CATALOG_AUTH_TYPE": "someOtherAuth",
+			}
 
-            SetTestEnvironment(testEnvironment)
-            testService, testServiceErr := globalcatalogv1.NewGlobalCatalogV1UsingExternalConfig(&globalcatalogv1.GlobalCatalogV1Options{
-            })
+			SetTestEnvironment(testEnvironment)
+			testService, testServiceErr := globalcatalogv1.NewGlobalCatalogV1UsingExternalConfig(&globalcatalogv1.GlobalCatalogV1Options{
+			})
 
-            It(`Instantiate service client with error`, func() {
-                Expect(testService).To(BeNil())
-                Expect(testServiceErr).ToNot(BeNil())
-                ClearTestEnvironment(testEnvironment)
-            })
-	    })
-        Context(`Using external config, construct service client instances with error: Invalid URL`, func() {
-            // Map containing environment variables used in testing.
-            var testEnvironment = map[string]string{
-                "GLOBAL_CATALOG_AUTH_TYPE":   "NOAuth",
-            }
+			It(`Instantiate service client with error`, func() {
+				Expect(testService).To(BeNil())
+				Expect(testServiceErr).ToNot(BeNil())
+				ClearTestEnvironment(testEnvironment)
+			})
+		})
+		Context(`Using external config, construct service client instances with error: Invalid URL`, func() {
+			// Map containing environment variables used in testing.
+			var testEnvironment = map[string]string{
+				"GLOBAL_CATALOG_AUTH_TYPE":   "NOAuth",
+			}
 
-            SetTestEnvironment(testEnvironment)
-            testService, testServiceErr := globalcatalogv1.NewGlobalCatalogV1UsingExternalConfig(&globalcatalogv1.GlobalCatalogV1Options{
-                URL: "{{BAD_URL_STRING",
-            })
+			SetTestEnvironment(testEnvironment)
+			testService, testServiceErr := globalcatalogv1.NewGlobalCatalogV1UsingExternalConfig(&globalcatalogv1.GlobalCatalogV1Options{
+				URL: "{{BAD_URL_STRING",
+			})
 
-            It(`Instantiate service client with error`, func() {
-                Expect(testService).To(BeNil())
-                Expect(testServiceErr).ToNot(BeNil())
-                ClearTestEnvironment(testEnvironment)
-            })
-        })
-    })
+			It(`Instantiate service client with error`, func() {
+				Expect(testService).To(BeNil())
+				Expect(testServiceErr).ToNot(BeNil())
+				ClearTestEnvironment(testEnvironment)
+			})
+		})
+	})
 	Describe(`ListCatalogEntries(listCatalogEntriesOptions *ListCatalogEntriesOptions) - Operation response error`, func() {
 		listCatalogEntriesPath := "/"
 		Context(`Using mock server endpoint`, func() {
@@ -546,14 +546,14 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 
 				// Construct an instance of the CreateCatalogEntryOptions model
 				createCatalogEntryOptionsModel := new(globalcatalogv1.CreateCatalogEntryOptions)
-				createCatalogEntryOptionsModel.ID = core.StringPtr("testString")
 				createCatalogEntryOptionsModel.Name = core.StringPtr("testString")
 				createCatalogEntryOptionsModel.OverviewUi = overviewUiModel
-				createCatalogEntryOptionsModel.Kind = core.StringPtr("testString")
 				createCatalogEntryOptionsModel.Images = imageModel
 				createCatalogEntryOptionsModel.Disabled = core.BoolPtr(true)
 				createCatalogEntryOptionsModel.Tags = []string{"testString"}
 				createCatalogEntryOptionsModel.Provider = providerModel
+				createCatalogEntryOptionsModel.Kind = core.StringPtr("service")
+				createCatalogEntryOptionsModel.ID = core.StringPtr("testString")
 				createCatalogEntryOptionsModel.ParentID = core.StringPtr("testString")
 				createCatalogEntryOptionsModel.Group = core.BoolPtr(true)
 				createCatalogEntryOptionsModel.Metadata = objectMetaDataModel
@@ -586,7 +586,7 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, `{"id": "ID", "name": "Name", "overview_ui": {}, "kind": "Kind", "images": {"image": "Image", "small_image": "SmallImage", "medium_image": "MediumImage", "feature_image": "FeatureImage"}, "parent_id": "ParentID", "disabled": true, "tags": ["Tags"], "group": false, "provider": {"email": "Email", "name": "Name", "contact": "Contact", "support_email": "SupportEmail", "phone": "Phone"}, "metadata": {"rc_compatible": true, "ui": {"strings": {}, "urls": {"doc_url": "DocURL", "instructions_url": "InstructionsURL", "api_url": "ApiURL", "create_url": "CreateURL", "sdk_download_url": "SdkDownloadURL", "terms_url": "TermsURL", "custom_create_page_url": "CustomCreatePageURL", "catalog_details_url": "CatalogDetailsURL", "deprecation_doc_url": "DeprecationDocURL"}, "embeddable_dashboard": "EmbeddableDashboard", "embeddable_dashboard_full_width": true, "navigation_order": ["NavigationOrder"], "not_creatable": true, "reservable": true, "primary_offering_id": "PrimaryOfferingID", "accessible_during_provision": false, "side_by_side_index": 15, "end_of_service_time": "2019-01-01T12:00:00"}, "pricing": {"type": "Type", "origin": "Origin", "starting_price": {"plan_id": "PlanID", "deployment_id": "DeploymentID", "amount": [{"counrty": "Counrty", "currency": "Currency", "prices": [{"quantity_tier": 12, "Price": 5}]}]}, "metrics": [{"metric_id": "MetricID", "tier_model": "TierModel", "charge_unit_name": "ChargeUnitName", "charge_unit_quantity": "ChargeUnitQuantity", "resource_display_name": "ResourceDisplayName", "charge_unit_display_name": "ChargeUnitDisplayName", "usage_cap_qty": 11, "amounts": [{"counrty": "Counrty", "currency": "Currency", "prices": [{"quantity_tier": 12, "Price": 5}]}]}]}, "compliance": ["Compliance"], "service": {"type": "Type", "iam_compatible": false, "unique_api_key": true, "provisionable": false, "async_provisioning_supported": true, "async_unprovisioning_supported": true, "cf_guid": "CfGuid", "bindable": true, "requires": ["Requires"], "plan_updateable": true, "state": "State", "service_check_enabled": false, "test_check_interval": 17, "service_key_supported": false}, "plan": {"bindable": true, "reservable": true, "allow_internal_users": true, "async_provisioning_supported": true, "async_unprovisioning_supported": true, "test_check_interval": 17, "single_scope_instance": "SingleScopeInstance", "service_check_enabled": false, "cf_guid": "CfGuid"}, "template": {"services": ["Services"], "default_memory": 13, "start_cmd": "StartCmd", "source": {"path": "Path", "type": "Type", "url": "URL"}, "runtime_catalog_id": "RuntimeCatalogID", "cf_runtime_id": "CfRuntimeID", "template_id": "TemplateID", "executable_file": "ExecutableFile", "buildpack": "Buildpack", "environment_variables": {"_key_": "Key"}}, "deployment": {"location": "Location", "location_url": "LocationURL", "target_crn": "TargetCrn", "broker": {"name": "Name", "guid": "Guid", "password": {"text": "Text", "key": "Key", "iv": "Iv"}}, "supports_rc_migration": false}, "alias": {"type": "Type", "plan_id": "PlanID"}, "sla": {"terms": "Terms", "tenancy": "Tenancy", "provisioning": "Provisioning", "responsiveness": "Responsiveness", "dr": {"dr": true, "description": "Description"}}, "callbacks": {"broker_utl": "BrokerUtl", "broker_proxy_url": "BrokerProxyURL", "dashboard_url": "DashboardURL", "dashboard_data_url": "DashboardDataURL", "dashboard_detail_tab_url": "DashboardDetailTabURL", "dashboard_detail_tab_ext_url": "DashboardDetailTabExtURL", "service_monitor_api": "ServiceMonitorApi", "service_monitor_app": "ServiceMonitorApp", "service_staging_url": "ServiceStagingURL", "service_production_url": "ServiceProductionURL"}, "version": "Version", "original_name": "OriginalName", "other": {"anyKey": "anyValue"}}, "active": true, "catalog_crn": "CatalogCrn", "url": "URL", "children_url": "ChildrenURL", "parent_url": "ParentURL", "geo_tags": ["GeoTags"], "pricing_tags": ["PricingTags"], "created": "2019-01-01T12:00:00", "updated": "2019-01-01T12:00:00", "children": [{"id": "ID", "name": "Name", "overview_ui": {}, "kind": "Kind", "images": {"image": "Image", "small_image": "SmallImage", "medium_image": "MediumImage", "feature_image": "FeatureImage"}, "parent_id": "ParentID", "disabled": true, "tags": ["Tags"], "group": false, "provider": {"email": "Email", "name": "Name", "contact": "Contact", "support_email": "SupportEmail", "phone": "Phone"}, "metadata": {"rc_compatible": true, "ui": {"strings": {}, "urls": {"doc_url": "DocURL", "instructions_url": "InstructionsURL", "api_url": "ApiURL", "create_url": "CreateURL", "sdk_download_url": "SdkDownloadURL", "terms_url": "TermsURL", "custom_create_page_url": "CustomCreatePageURL", "catalog_details_url": "CatalogDetailsURL", "deprecation_doc_url": "DeprecationDocURL"}, "embeddable_dashboard": "EmbeddableDashboard", "embeddable_dashboard_full_width": true, "navigation_order": ["NavigationOrder"], "not_creatable": true, "reservable": true, "primary_offering_id": "PrimaryOfferingID", "accessible_during_provision": false, "side_by_side_index": 15, "end_of_service_time": "2019-01-01T12:00:00"}, "pricing": {"type": "Type", "origin": "Origin", "starting_price": {"plan_id": "PlanID", "deployment_id": "DeploymentID", "amount": [{"counrty": "Counrty", "currency": "Currency", "prices": [{"quantity_tier": 12, "Price": 5}]}]}, "metrics": [{"metric_id": "MetricID", "tier_model": "TierModel", "charge_unit_name": "ChargeUnitName", "charge_unit_quantity": "ChargeUnitQuantity", "resource_display_name": "ResourceDisplayName", "charge_unit_display_name": "ChargeUnitDisplayName", "usage_cap_qty": 11, "amounts": [{"counrty": "Counrty", "currency": "Currency", "prices": [{"quantity_tier": 12, "Price": 5}]}]}]}, "compliance": ["Compliance"], "service": {"type": "Type", "iam_compatible": false, "unique_api_key": true, "provisionable": false, "async_provisioning_supported": true, "async_unprovisioning_supported": true, "cf_guid": "CfGuid", "bindable": true, "requires": ["Requires"], "plan_updateable": true, "state": "State", "service_check_enabled": false, "test_check_interval": 17, "service_key_supported": false}, "plan": {"bindable": true, "reservable": true, "allow_internal_users": true, "async_provisioning_supported": true, "async_unprovisioning_supported": true, "test_check_interval": 17, "single_scope_instance": "SingleScopeInstance", "service_check_enabled": false, "cf_guid": "CfGuid"}, "template": {"services": ["Services"], "default_memory": 13, "start_cmd": "StartCmd", "source": {"path": "Path", "type": "Type", "url": "URL"}, "runtime_catalog_id": "RuntimeCatalogID", "cf_runtime_id": "CfRuntimeID", "template_id": "TemplateID", "executable_file": "ExecutableFile", "buildpack": "Buildpack", "environment_variables": {"_key_": "Key"}}, "deployment": {"location": "Location", "location_url": "LocationURL", "target_crn": "TargetCrn", "broker": {"name": "Name", "guid": "Guid", "password": {"text": "Text", "key": "Key", "iv": "Iv"}}, "supports_rc_migration": false}, "alias": {"type": "Type", "plan_id": "PlanID"}, "sla": {"terms": "Terms", "tenancy": "Tenancy", "provisioning": "Provisioning", "responsiveness": "Responsiveness", "dr": {"dr": true, "description": "Description"}}, "callbacks": {"broker_utl": "BrokerUtl", "broker_proxy_url": "BrokerProxyURL", "dashboard_url": "DashboardURL", "dashboard_data_url": "DashboardDataURL", "dashboard_detail_tab_url": "DashboardDetailTabURL", "dashboard_detail_tab_ext_url": "DashboardDetailTabExtURL", "service_monitor_api": "ServiceMonitorApi", "service_monitor_app": "ServiceMonitorApp", "service_staging_url": "ServiceStagingURL", "service_production_url": "ServiceProductionURL"}, "version": "Version", "original_name": "OriginalName", "other": {"anyKey": "anyValue"}}, "active": true, "catalog_crn": "CatalogCrn", "url": "URL", "children_url": "ChildrenURL", "parent_url": "ParentURL", "geo_tags": ["GeoTags"], "pricing_tags": ["PricingTags"], "created": "2019-01-01T12:00:00", "updated": "2019-01-01T12:00:00", "children": [{"id": "ID", "name": "Name", "overview_ui": {}, "kind": "Kind", "images": {"image": "Image", "small_image": "SmallImage", "medium_image": "MediumImage", "feature_image": "FeatureImage"}, "parent_id": "ParentID", "disabled": true, "tags": ["Tags"], "group": false, "provider": {"email": "Email", "name": "Name", "contact": "Contact", "support_email": "SupportEmail", "phone": "Phone"}, "metadata": {"rc_compatible": true, "ui": {"strings": {}, "urls": {"doc_url": "DocURL", "instructions_url": "InstructionsURL", "api_url": "ApiURL", "create_url": "CreateURL", "sdk_download_url": "SdkDownloadURL", "terms_url": "TermsURL", "custom_create_page_url": "CustomCreatePageURL", "catalog_details_url": "CatalogDetailsURL", "deprecation_doc_url": "DeprecationDocURL"}, "embeddable_dashboard": "EmbeddableDashboard", "embeddable_dashboard_full_width": true, "navigation_order": ["NavigationOrder"], "not_creatable": true, "reservable": true, "primary_offering_id": "PrimaryOfferingID", "accessible_during_provision": false, "side_by_side_index": 15, "end_of_service_time": "2019-01-01T12:00:00"}, "pricing": {"type": "Type", "origin": "Origin", "starting_price": {"plan_id": "PlanID", "deployment_id": "DeploymentID", "amount": [{"counrty": "Counrty", "currency": "Currency", "prices": [{"quantity_tier": 12, "Price": 5}]}]}, "metrics": [{"metric_id": "MetricID", "tier_model": "TierModel", "charge_unit_name": "ChargeUnitName", "charge_unit_quantity": "ChargeUnitQuantity", "resource_display_name": "ResourceDisplayName", "charge_unit_display_name": "ChargeUnitDisplayName", "usage_cap_qty": 11, "amounts": [{"counrty": "Counrty", "currency": "Currency", "prices": [{"quantity_tier": 12, "Price": 5}]}]}]}, "compliance": ["Compliance"], "service": {"type": "Type", "iam_compatible": false, "unique_api_key": true, "provisionable": false, "async_provisioning_supported": true, "async_unprovisioning_supported": true, "cf_guid": "CfGuid", "bindable": true, "requires": ["Requires"], "plan_updateable": true, "state": "State", "service_check_enabled": false, "test_check_interval": 17, "service_key_supported": false}, "plan": {"bindable": true, "reservable": true, "allow_internal_users": true, "async_provisioning_supported": true, "async_unprovisioning_supported": true, "test_check_interval": 17, "single_scope_instance": "SingleScopeInstance", "service_check_enabled": false, "cf_guid": "CfGuid"}, "template": {"services": ["Services"], "default_memory": 13, "start_cmd": "StartCmd", "source": {"path": "Path", "type": "Type", "url": "URL"}, "runtime_catalog_id": "RuntimeCatalogID", "cf_runtime_id": "CfRuntimeID", "template_id": "TemplateID", "executable_file": "ExecutableFile", "buildpack": "Buildpack", "environment_variables": {"_key_": "Key"}}, "deployment": {"location": "Location", "location_url": "LocationURL", "target_crn": "TargetCrn", "broker": {"name": "Name", "guid": "Guid", "password": {"text": "Text", "key": "Key", "iv": "Iv"}}, "supports_rc_migration": false}, "alias": {"type": "Type", "plan_id": "PlanID"}, "sla": {"terms": "Terms", "tenancy": "Tenancy", "provisioning": "Provisioning", "responsiveness": "Responsiveness", "dr": {"dr": true, "description": "Description"}}, "callbacks": {"broker_utl": "BrokerUtl", "broker_proxy_url": "BrokerProxyURL", "dashboard_url": "DashboardURL", "dashboard_data_url": "DashboardDataURL", "dashboard_detail_tab_url": "DashboardDetailTabURL", "dashboard_detail_tab_ext_url": "DashboardDetailTabExtURL", "service_monitor_api": "ServiceMonitorApi", "service_monitor_app": "ServiceMonitorApp", "service_staging_url": "ServiceStagingURL", "service_production_url": "ServiceProductionURL"}, "version": "Version", "original_name": "OriginalName", "other": {"anyKey": "anyValue"}}, "active": true, "catalog_crn": "CatalogCrn", "url": "URL", "children_url": "ChildrenURL", "parent_url": "ParentURL", "geo_tags": ["GeoTags"], "pricing_tags": ["PricingTags"], "created": "2019-01-01T12:00:00", "updated": "2019-01-01T12:00:00", "children": [{"id": "ID", "name": "Name", "overview_ui": {}, "kind": "Kind", "images": {"image": "Image", "small_image": "SmallImage", "medium_image": "MediumImage", "feature_image": "FeatureImage"}, "parent_id": "ParentID", "disabled": true, "tags": ["Tags"], "group": false, "provider": {"email": "Email", "name": "Name", "contact": "Contact", "support_email": "SupportEmail", "phone": "Phone"}, "metadata": {"rc_compatible": true, "ui": {"strings": {}, "urls": {"doc_url": "DocURL", "instructions_url": "InstructionsURL", "api_url": "ApiURL", "create_url": "CreateURL", "sdk_download_url": "SdkDownloadURL", "terms_url": "TermsURL", "custom_create_page_url": "CustomCreatePageURL", "catalog_details_url": "CatalogDetailsURL", "deprecation_doc_url": "DeprecationDocURL"}, "embeddable_dashboard": "EmbeddableDashboard", "embeddable_dashboard_full_width": true, "navigation_order": ["NavigationOrder"], "not_creatable": true, "reservable": true, "primary_offering_id": "PrimaryOfferingID", "accessible_during_provision": false, "side_by_side_index": 15, "end_of_service_time": "2019-01-01T12:00:00"}, "pricing": {"type": "Type", "origin": "Origin", "starting_price": {"plan_id": "PlanID", "deployment_id": "DeploymentID", "amount": [{"counrty": "Counrty", "currency": "Currency", "prices": [{"quantity_tier": 12, "Price": 5}]}]}, "metrics": [{"metric_id": "MetricID", "tier_model": "TierModel", "charge_unit_name": "ChargeUnitName", "charge_unit_quantity": "ChargeUnitQuantity", "resource_display_name": "ResourceDisplayName", "charge_unit_display_name": "ChargeUnitDisplayName", "usage_cap_qty": 11, "amounts": [{"counrty": "Counrty", "currency": "Currency", "prices": [{"quantity_tier": 12, "Price": 5}]}]}]}, "compliance": ["Compliance"], "service": {"type": "Type", "iam_compatible": false, "unique_api_key": true, "provisionable": false, "async_provisioning_supported": true, "async_unprovisioning_supported": true, "cf_guid": "CfGuid", "bindable": true, "requires": ["Requires"], "plan_updateable": true, "state": "State", "service_check_enabled": false, "test_check_interval": 17, "service_key_supported": false}, "plan": {"bindable": true, "reservable": true, "allow_internal_users": true, "async_provisioning_supported": true, "async_unprovisioning_supported": true, "test_check_interval": 17, "single_scope_instance": "SingleScopeInstance", "service_check_enabled": false, "cf_guid": "CfGuid"}, "template": {"services": ["Services"], "default_memory": 13, "start_cmd": "StartCmd", "source": {"path": "Path", "type": "Type", "url": "URL"}, "runtime_catalog_id": "RuntimeCatalogID", "cf_runtime_id": "CfRuntimeID", "template_id": "TemplateID", "executable_file": "ExecutableFile", "buildpack": "Buildpack", "environment_variables": {"_key_": "Key"}}, "deployment": {"location": "Location", "location_url": "LocationURL", "target_crn": "TargetCrn", "broker": {"name": "Name", "guid": "Guid", "password": {"text": "Text", "key": "Key", "iv": "Iv"}}, "supports_rc_migration": false}, "alias": {"type": "Type", "plan_id": "PlanID"}, "sla": {"terms": "Terms", "tenancy": "Tenancy", "provisioning": "Provisioning", "responsiveness": "Responsiveness", "dr": {"dr": true, "description": "Description"}}, "callbacks": {"broker_utl": "BrokerUtl", "broker_proxy_url": "BrokerProxyURL", "dashboard_url": "DashboardURL", "dashboard_data_url": "DashboardDataURL", "dashboard_detail_tab_url": "DashboardDetailTabURL", "dashboard_detail_tab_ext_url": "DashboardDetailTabExtURL", "service_monitor_api": "ServiceMonitorApi", "service_monitor_app": "ServiceMonitorApp", "service_staging_url": "ServiceStagingURL", "service_production_url": "ServiceProductionURL"}, "version": "Version", "original_name": "OriginalName", "other": {"anyKey": "anyValue"}}, "active": true, "catalog_crn": "CatalogCrn", "url": "URL", "children_url": "ChildrenURL", "parent_url": "ParentURL", "geo_tags": ["GeoTags"], "pricing_tags": ["PricingTags"], "created": "2019-01-01T12:00:00", "updated": "2019-01-01T12:00:00", "children": [{"id": "ID", "name": "Name", "overview_ui": {}, "kind": "Kind", "images": {"image": "Image", "small_image": "SmallImage", "medium_image": "MediumImage", "feature_image": "FeatureImage"}, "parent_id": "ParentID", "disabled": true, "tags": ["Tags"], "group": false, "provider": {"email": "Email", "name": "Name", "contact": "Contact", "support_email": "SupportEmail", "phone": "Phone"}, "metadata": {"rc_compatible": true, "ui": {"strings": {}, "urls": {"doc_url": "DocURL", "instructions_url": "InstructionsURL", "api_url": "ApiURL", "create_url": "CreateURL", "sdk_download_url": "SdkDownloadURL", "terms_url": "TermsURL", "custom_create_page_url": "CustomCreatePageURL", "catalog_details_url": "CatalogDetailsURL", "deprecation_doc_url": "DeprecationDocURL"}, "embeddable_dashboard": "EmbeddableDashboard", "embeddable_dashboard_full_width": true, "navigation_order": ["NavigationOrder"], "not_creatable": true, "reservable": true, "primary_offering_id": "PrimaryOfferingID", "accessible_during_provision": false, "side_by_side_index": 15, "end_of_service_time": "2019-01-01T12:00:00"}, "pricing": {"type": "Type", "origin": "Origin", "starting_price": {"plan_id": "PlanID", "deployment_id": "DeploymentID", "amount": [{"counrty": "Counrty", "currency": "Currency", "prices": [{"quantity_tier": 12, "Price": 5}]}]}, "metrics": [{"metric_id": "MetricID", "tier_model": "TierModel", "charge_unit_name": "ChargeUnitName", "charge_unit_quantity": "ChargeUnitQuantity", "resource_display_name": "ResourceDisplayName", "charge_unit_display_name": "ChargeUnitDisplayName", "usage_cap_qty": 11, "amounts": [{"counrty": "Counrty", "currency": "Currency", "prices": [{"quantity_tier": 12, "Price": 5}]}]}]}, "compliance": ["Compliance"], "service": {"type": "Type", "iam_compatible": false, "unique_api_key": true, "provisionable": false, "async_provisioning_supported": true, "async_unprovisioning_supported": true, "cf_guid": "CfGuid", "bindable": true, "requires": ["Requires"], "plan_updateable": true, "state": "State", "service_check_enabled": false, "test_check_interval": 17, "service_key_supported": false}, "plan": {"bindable": true, "reservable": true, "allow_internal_users": true, "async_provisioning_supported": true, "async_unprovisioning_supported": true, "test_check_interval": 17, "single_scope_instance": "SingleScopeInstance", "service_check_enabled": false, "cf_guid": "CfGuid"}, "template": {"services": ["Services"], "default_memory": 13, "start_cmd": "StartCmd", "source": {"path": "Path", "type": "Type", "url": "URL"}, "runtime_catalog_id": "RuntimeCatalogID", "cf_runtime_id": "CfRuntimeID", "template_id": "TemplateID", "executable_file": "ExecutableFile", "buildpack": "Buildpack", "environment_variables": {"_key_": "Key"}}, "deployment": {"location": "Location", "location_url": "LocationURL", "target_crn": "TargetCrn", "broker": {"name": "Name", "guid": "Guid", "password": {"text": "Text", "key": "Key", "iv": "Iv"}}, "supports_rc_migration": false}, "alias": {"type": "Type", "plan_id": "PlanID"}, "sla": {"terms": "Terms", "tenancy": "Tenancy", "provisioning": "Provisioning", "responsiveness": "Responsiveness", "dr": {"dr": true, "description": "Description"}}, "callbacks": {"broker_utl": "BrokerUtl", "broker_proxy_url": "BrokerProxyURL", "dashboard_url": "DashboardURL", "dashboard_data_url": "DashboardDataURL", "dashboard_detail_tab_url": "DashboardDetailTabURL", "dashboard_detail_tab_ext_url": "DashboardDetailTabExtURL", "service_monitor_api": "ServiceMonitorApi", "service_monitor_app": "ServiceMonitorApp", "service_staging_url": "ServiceStagingURL", "service_production_url": "ServiceProductionURL"}, "version": "Version", "original_name": "OriginalName", "other": {"anyKey": "anyValue"}}, "active": true, "catalog_crn": "CatalogCrn", "url": "URL", "children_url": "ChildrenURL", "parent_url": "ParentURL", "geo_tags": ["GeoTags"], "pricing_tags": ["PricingTags"], "created": "2019-01-01T12:00:00", "updated": "2019-01-01T12:00:00", "children": [{"id": "ID", "name": "Name", "overview_ui": {}, "kind": "Kind", "images": {"image": "Image", "small_image": "SmallImage", "medium_image": "MediumImage", "feature_image": "FeatureImage"}, "parent_id": "ParentID", "disabled": true, "tags": ["Tags"], "group": false, "provider": {"email": "Email", "name": "Name", "contact": "Contact", "support_email": "SupportEmail", "phone": "Phone"}, "metadata": {"rc_compatible": true, "ui": {"strings": {}, "urls": {"doc_url": "DocURL", "instructions_url": "InstructionsURL", "api_url": "ApiURL", "create_url": "CreateURL", "sdk_download_url": "SdkDownloadURL", "terms_url": "TermsURL", "custom_create_page_url": "CustomCreatePageURL", "catalog_details_url": "CatalogDetailsURL", "deprecation_doc_url": "DeprecationDocURL"}, "embeddable_dashboard": "EmbeddableDashboard", "embeddable_dashboard_full_width": true, "navigation_order": ["NavigationOrder"], "not_creatable": true, "reservable": true, "primary_offering_id": "PrimaryOfferingID", "accessible_during_provision": false, "side_by_side_index": 15, "end_of_service_time": "2019-01-01T12:00:00"}, "pricing": {"type": "Type", "origin": "Origin", "starting_price": {"plan_id": "PlanID", "deployment_id": "DeploymentID", "amount": [{"counrty": "Counrty", "currency": "Currency", "prices": []}]}, "metrics": [{"metric_id": "MetricID", "tier_model": "TierModel", "charge_unit_name": "ChargeUnitName", "charge_unit_quantity": "ChargeUnitQuantity", "resource_display_name": "ResourceDisplayName", "charge_unit_display_name": "ChargeUnitDisplayName", "usage_cap_qty": 11, "amounts": [{"counrty": "Counrty", "currency": "Currency", "prices": []}]}]}, "compliance": ["Compliance"], "service": {"type": "Type", "iam_compatible": false, "unique_api_key": true, "provisionable": false, "async_provisioning_supported": true, "async_unprovisioning_supported": true, "cf_guid": "CfGuid", "bindable": true, "requires": ["Requires"], "plan_updateable": true, "state": "State", "service_check_enabled": false, "test_check_interval": 17, "service_key_supported": false}, "plan": {"bindable": true, "reservable": true, "allow_internal_users": true, "async_provisioning_supported": true, "async_unprovisioning_supported": true, "test_check_interval": 17, "single_scope_instance": "SingleScopeInstance", "service_check_enabled": false, "cf_guid": "CfGuid"}, "template": {"services": ["Services"], "default_memory": 13, "start_cmd": "StartCmd", "source": {"path": "Path", "type": "Type", "url": "URL"}, "runtime_catalog_id": "RuntimeCatalogID", "cf_runtime_id": "CfRuntimeID", "template_id": "TemplateID", "executable_file": "ExecutableFile", "buildpack": "Buildpack", "environment_variables": {"_key_": "Key"}}, "deployment": {"location": "Location", "location_url": "LocationURL", "target_crn": "TargetCrn", "broker": {"name": "Name", "guid": "Guid", "password": {"text": "Text", "key": "Key", "iv": "Iv"}}, "supports_rc_migration": false}, "alias": {"type": "Type", "plan_id": "PlanID"}, "sla": {"terms": "Terms", "tenancy": "Tenancy", "provisioning": "Provisioning", "responsiveness": "Responsiveness", "dr": {"dr": true, "description": "Description"}}, "callbacks": {"broker_utl": "BrokerUtl", "broker_proxy_url": "BrokerProxyURL", "dashboard_url": "DashboardURL", "dashboard_data_url": "DashboardDataURL", "dashboard_detail_tab_url": "DashboardDetailTabURL", "dashboard_detail_tab_ext_url": "DashboardDetailTabExtURL", "service_monitor_api": "ServiceMonitorApi", "service_monitor_app": "ServiceMonitorApp", "service_staging_url": "ServiceStagingURL", "service_production_url": "ServiceProductionURL"}, "version": "Version", "original_name": "OriginalName", "other": {"anyKey": "anyValue"}}, "active": true, "catalog_crn": "CatalogCrn", "url": "URL", "children_url": "ChildrenURL", "parent_url": "ParentURL", "geo_tags": ["GeoTags"], "pricing_tags": ["PricingTags"], "created": "2019-01-01T12:00:00", "updated": "2019-01-01T12:00:00", "children": [{"id": "ID", "name": "Name", "overview_ui": {}, "kind": "Kind", "images": {"image": "Image", "small_image": "SmallImage", "medium_image": "MediumImage", "feature_image": "FeatureImage"}, "parent_id": "ParentID", "disabled": true, "tags": ["Tags"], "group": false, "provider": {"email": "Email", "name": "Name", "contact": "Contact", "support_email": "SupportEmail", "phone": "Phone"}, "metadata": {"rc_compatible": true, "ui": {"strings": {}, "urls": {"doc_url": "DocURL", "instructions_url": "InstructionsURL", "api_url": "ApiURL", "create_url": "CreateURL", "sdk_download_url": "SdkDownloadURL", "terms_url": "TermsURL", "custom_create_page_url": "CustomCreatePageURL", "catalog_details_url": "CatalogDetailsURL", "deprecation_doc_url": "DeprecationDocURL"}, "embeddable_dashboard": "EmbeddableDashboard", "embeddable_dashboard_full_width": true, "navigation_order": ["NavigationOrder"], "not_creatable": true, "reservable": true, "primary_offering_id": "PrimaryOfferingID", "accessible_during_provision": false, "side_by_side_index": 15, "end_of_service_time": "2019-01-01T12:00:00"}, "pricing": {"type": "Type", "origin": "Origin", "starting_price": {"plan_id": "PlanID", "deployment_id": "DeploymentID", "amount": []}, "metrics": [{"metric_id": "MetricID", "tier_model": "TierModel", "charge_unit_name": "ChargeUnitName", "charge_unit_quantity": "ChargeUnitQuantity", "resource_display_name": "ResourceDisplayName", "charge_unit_display_name": "ChargeUnitDisplayName", "usage_cap_qty": 11, "amounts": []}]}, "compliance": ["Compliance"], "service": {"type": "Type", "iam_compatible": false, "unique_api_key": true, "provisionable": false, "async_provisioning_supported": true, "async_unprovisioning_supported": true, "cf_guid": "CfGuid", "bindable": true, "requires": ["Requires"], "plan_updateable": true, "state": "State", "service_check_enabled": false, "test_check_interval": 17, "service_key_supported": false}, "plan": {"bindable": true, "reservable": true, "allow_internal_users": true, "async_provisioning_supported": true, "async_unprovisioning_supported": true, "test_check_interval": 17, "single_scope_instance": "SingleScopeInstance", "service_check_enabled": false, "cf_guid": "CfGuid"}, "template": {"services": ["Services"], "default_memory": 13, "start_cmd": "StartCmd", "source": {"path": "Path", "type": "Type", "url": "URL"}, "runtime_catalog_id": "RuntimeCatalogID", "cf_runtime_id": "CfRuntimeID", "template_id": "TemplateID", "executable_file": "ExecutableFile", "buildpack": "Buildpack", "environment_variables": {"_key_": "Key"}}, "deployment": {"location": "Location", "location_url": "LocationURL", "target_crn": "TargetCrn", "broker": {"name": "Name", "guid": "Guid"}, "supports_rc_migration": false}, "alias": {"type": "Type", "plan_id": "PlanID"}, "sla": {"terms": "Terms", "tenancy": "Tenancy", "provisioning": "Provisioning", "responsiveness": "Responsiveness", "dr": {"dr": true, "description": "Description"}}, "callbacks": {"broker_utl": "BrokerUtl", "broker_proxy_url": "BrokerProxyURL", "dashboard_url": "DashboardURL", "dashboard_data_url": "DashboardDataURL", "dashboard_detail_tab_url": "DashboardDetailTabURL", "dashboard_detail_tab_ext_url": "DashboardDetailTabExtURL", "service_monitor_api": "ServiceMonitorApi", "service_monitor_app": "ServiceMonitorApp", "service_staging_url": "ServiceStagingURL", "service_production_url": "ServiceProductionURL"}, "version": "Version", "original_name": "OriginalName", "other": {"anyKey": "anyValue"}}, "active": true, "catalog_crn": "CatalogCrn", "url": "URL", "children_url": "ChildrenURL", "parent_url": "ParentURL", "geo_tags": ["GeoTags"], "pricing_tags": ["PricingTags"], "created": "2019-01-01T12:00:00", "updated": "2019-01-01T12:00:00", "children": [{"id": "ID", "name": "Name", "overview_ui": {}, "kind": "Kind", "images": {"image": "Image", "small_image": "SmallImage", "medium_image": "MediumImage", "feature_image": "FeatureImage"}, "parent_id": "ParentID", "disabled": true, "tags": ["Tags"], "group": false, "provider": {"email": "Email", "name": "Name", "contact": "Contact", "support_email": "SupportEmail", "phone": "Phone"}, "metadata": {"rc_compatible": true, "ui": {"embeddable_dashboard": "EmbeddableDashboard", "embeddable_dashboard_full_width": true, "navigation_order": ["NavigationOrder"], "not_creatable": true, "reservable": true, "primary_offering_id": "PrimaryOfferingID", "accessible_during_provision": false, "side_by_side_index": 15, "end_of_service_time": "2019-01-01T12:00:00"}, "pricing": {"type": "Type", "origin": "Origin", "metrics": []}, "compliance": ["Compliance"], "service": {"type": "Type", "iam_compatible": false, "unique_api_key": true, "provisionable": false, "async_provisioning_supported": true, "async_unprovisioning_supported": true, "cf_guid": "CfGuid", "bindable": true, "requires": ["Requires"], "plan_updateable": true, "state": "State", "service_check_enabled": false, "test_check_interval": 17, "service_key_supported": false}, "plan": {"bindable": true, "reservable": true, "allow_internal_users": true, "async_provisioning_supported": true, "async_unprovisioning_supported": true, "test_check_interval": 17, "single_scope_instance": "SingleScopeInstance", "service_check_enabled": false, "cf_guid": "CfGuid"}, "template": {"services": ["Services"], "default_memory": 13, "start_cmd": "StartCmd", "runtime_catalog_id": "RuntimeCatalogID", "cf_runtime_id": "CfRuntimeID", "template_id": "TemplateID", "executable_file": "ExecutableFile", "buildpack": "Buildpack"}, "deployment": {"location": "Location", "location_url": "LocationURL", "target_crn": "TargetCrn", "supports_rc_migration": false}, "alias": {"type": "Type", "plan_id": "PlanID"}, "sla": {"terms": "Terms", "tenancy": "Tenancy", "provisioning": "Provisioning", "responsiveness": "Responsiveness"}, "callbacks": {"broker_utl": "BrokerUtl", "broker_proxy_url": "BrokerProxyURL", "dashboard_url": "DashboardURL", "dashboard_data_url": "DashboardDataURL", "dashboard_detail_tab_url": "DashboardDetailTabURL", "dashboard_detail_tab_ext_url": "DashboardDetailTabExtURL", "service_monitor_api": "ServiceMonitorApi", "service_monitor_app": "ServiceMonitorApp", "service_staging_url": "ServiceStagingURL", "service_production_url": "ServiceProductionURL"}, "version": "Version", "original_name": "OriginalName", "other": {"anyKey": "anyValue"}}, "active": true, "catalog_crn": "CatalogCrn", "url": "URL", "children_url": "ChildrenURL", "parent_url": "ParentURL", "geo_tags": ["GeoTags"], "pricing_tags": ["PricingTags"], "created": "2019-01-01T12:00:00", "updated": "2019-01-01T12:00:00", "children": [{"id": "ID", "name": "Name", "overview_ui": {}, "kind": "Kind", "images": {"image": "Image", "small_image": "SmallImage", "medium_image": "MediumImage", "feature_image": "FeatureImage"}, "parent_id": "ParentID", "disabled": true, "tags": ["Tags"], "group": false, "provider": {"email": "Email", "name": "Name", "contact": "Contact", "support_email": "SupportEmail", "phone": "Phone"}, "metadata": {"rc_compatible": true, "compliance": ["Compliance"], "version": "Version", "original_name": "OriginalName", "other": {"anyKey": "anyValue"}}, "active": true, "catalog_crn": "CatalogCrn", "url": "URL", "children_url": "ChildrenURL", "parent_url": "ParentURL", "geo_tags": ["GeoTags"], "pricing_tags": ["PricingTags"], "created": "2019-01-01T12:00:00", "updated": "2019-01-01T12:00:00", "children": [{"id": "ID", "name": "Name", "kind": "Kind", "parent_id": "ParentID", "disabled": true, "tags": ["Tags"], "group": false, "active": true, "catalog_crn": "CatalogCrn", "url": "URL", "children_url": "ChildrenURL", "parent_url": "ParentURL", "geo_tags": ["GeoTags"], "pricing_tags": ["PricingTags"], "created": "2019-01-01T12:00:00", "updated": "2019-01-01T12:00:00", "children": []}]}]}]}]}]}]}]}]}]}`)
+					fmt.Fprintf(res, `{"name": "Name", "overview_ui": {}, "images": {"image": "Image", "small_image": "SmallImage", "medium_image": "MediumImage", "feature_image": "FeatureImage"}, "parent_id": "ParentID", "disabled": true, "tags": ["Tags"], "group": false, "provider": {"email": "Email", "name": "Name", "contact": "Contact", "support_email": "SupportEmail", "phone": "Phone"}, "metadata": {"rc_compatible": true, "ui": {"strings": {}, "urls": {"doc_url": "DocURL", "instructions_url": "InstructionsURL", "api_url": "ApiURL", "create_url": "CreateURL", "sdk_download_url": "SdkDownloadURL", "terms_url": "TermsURL", "custom_create_page_url": "CustomCreatePageURL", "catalog_details_url": "CatalogDetailsURL", "deprecation_doc_url": "DeprecationDocURL"}, "embeddable_dashboard": "EmbeddableDashboard", "embeddable_dashboard_full_width": true, "navigation_order": ["NavigationOrder"], "not_creatable": true, "reservable": true, "primary_offering_id": "PrimaryOfferingID", "accessible_during_provision": false, "side_by_side_index": 15, "end_of_service_time": "2019-01-01T12:00:00"}, "pricing": {"type": "Type", "origin": "Origin", "starting_price": {"plan_id": "PlanID", "deployment_id": "DeploymentID", "amount": [{"counrty": "Counrty", "currency": "Currency", "prices": [{"quantity_tier": 12, "Price": 5}]}]}, "metrics": [{"metric_id": "MetricID", "tier_model": "TierModel", "charge_unit_name": "ChargeUnitName", "charge_unit_quantity": "ChargeUnitQuantity", "resource_display_name": "ResourceDisplayName", "charge_unit_display_name": "ChargeUnitDisplayName", "usage_cap_qty": 11, "amounts": [{"counrty": "Counrty", "currency": "Currency", "prices": [{"quantity_tier": 12, "Price": 5}]}]}]}, "compliance": ["Compliance"], "service": {"type": "Type", "iam_compatible": false, "unique_api_key": true, "provisionable": false, "async_provisioning_supported": true, "async_unprovisioning_supported": true, "cf_guid": "CfGuid", "bindable": true, "requires": ["Requires"], "plan_updateable": true, "state": "State", "service_check_enabled": false, "test_check_interval": 17, "service_key_supported": false}, "plan": {"bindable": true, "reservable": true, "allow_internal_users": true, "async_provisioning_supported": true, "async_unprovisioning_supported": true, "test_check_interval": 17, "single_scope_instance": "SingleScopeInstance", "service_check_enabled": false, "cf_guid": "CfGuid"}, "template": {"services": ["Services"], "default_memory": 13, "start_cmd": "StartCmd", "source": {"path": "Path", "type": "Type", "url": "URL"}, "runtime_catalog_id": "RuntimeCatalogID", "cf_runtime_id": "CfRuntimeID", "template_id": "TemplateID", "executable_file": "ExecutableFile", "buildpack": "Buildpack", "environment_variables": {"_key_": "Key"}}, "deployment": {"location": "Location", "location_url": "LocationURL", "target_crn": "TargetCrn", "broker": {"name": "Name", "guid": "Guid", "password": {"text": "Text", "key": "Key", "iv": "Iv"}}, "supports_rc_migration": false}, "alias": {"type": "Type", "plan_id": "PlanID"}, "sla": {"terms": "Terms", "tenancy": "Tenancy", "provisioning": "Provisioning", "responsiveness": "Responsiveness", "dr": {"dr": true, "description": "Description"}}, "callbacks": {"broker_utl": "BrokerUtl", "broker_proxy_url": "BrokerProxyURL", "dashboard_url": "DashboardURL", "dashboard_data_url": "DashboardDataURL", "dashboard_detail_tab_url": "DashboardDetailTabURL", "dashboard_detail_tab_ext_url": "DashboardDetailTabExtURL", "service_monitor_api": "ServiceMonitorApi", "service_monitor_app": "ServiceMonitorApp", "service_staging_url": "ServiceStagingURL", "service_production_url": "ServiceProductionURL"}, "version": "Version", "original_name": "OriginalName", "other": {"anyKey": "anyValue"}}, "active": true, "catalog_crn": "CatalogCrn", "url": "URL", "children_url": "ChildrenURL", "parent_url": "ParentURL", "geo_tags": ["GeoTags"], "pricing_tags": ["PricingTags"], "created": "2019-01-01T12:00:00", "updated": "2019-01-01T12:00:00", "children": [{"name": "Name", "overview_ui": {}, "images": {"image": "Image", "small_image": "SmallImage", "medium_image": "MediumImage", "feature_image": "FeatureImage"}, "parent_id": "ParentID", "disabled": true, "tags": ["Tags"], "group": false, "provider": {"email": "Email", "name": "Name", "contact": "Contact", "support_email": "SupportEmail", "phone": "Phone"}, "metadata": {"rc_compatible": true, "ui": {"strings": {}, "urls": {"doc_url": "DocURL", "instructions_url": "InstructionsURL", "api_url": "ApiURL", "create_url": "CreateURL", "sdk_download_url": "SdkDownloadURL", "terms_url": "TermsURL", "custom_create_page_url": "CustomCreatePageURL", "catalog_details_url": "CatalogDetailsURL", "deprecation_doc_url": "DeprecationDocURL"}, "embeddable_dashboard": "EmbeddableDashboard", "embeddable_dashboard_full_width": true, "navigation_order": ["NavigationOrder"], "not_creatable": true, "reservable": true, "primary_offering_id": "PrimaryOfferingID", "accessible_during_provision": false, "side_by_side_index": 15, "end_of_service_time": "2019-01-01T12:00:00"}, "pricing": {"type": "Type", "origin": "Origin", "starting_price": {"plan_id": "PlanID", "deployment_id": "DeploymentID", "amount": [{"counrty": "Counrty", "currency": "Currency", "prices": [{"quantity_tier": 12, "Price": 5}]}]}, "metrics": [{"metric_id": "MetricID", "tier_model": "TierModel", "charge_unit_name": "ChargeUnitName", "charge_unit_quantity": "ChargeUnitQuantity", "resource_display_name": "ResourceDisplayName", "charge_unit_display_name": "ChargeUnitDisplayName", "usage_cap_qty": 11, "amounts": [{"counrty": "Counrty", "currency": "Currency", "prices": [{"quantity_tier": 12, "Price": 5}]}]}]}, "compliance": ["Compliance"], "service": {"type": "Type", "iam_compatible": false, "unique_api_key": true, "provisionable": false, "async_provisioning_supported": true, "async_unprovisioning_supported": true, "cf_guid": "CfGuid", "bindable": true, "requires": ["Requires"], "plan_updateable": true, "state": "State", "service_check_enabled": false, "test_check_interval": 17, "service_key_supported": false}, "plan": {"bindable": true, "reservable": true, "allow_internal_users": true, "async_provisioning_supported": true, "async_unprovisioning_supported": true, "test_check_interval": 17, "single_scope_instance": "SingleScopeInstance", "service_check_enabled": false, "cf_guid": "CfGuid"}, "template": {"services": ["Services"], "default_memory": 13, "start_cmd": "StartCmd", "source": {"path": "Path", "type": "Type", "url": "URL"}, "runtime_catalog_id": "RuntimeCatalogID", "cf_runtime_id": "CfRuntimeID", "template_id": "TemplateID", "executable_file": "ExecutableFile", "buildpack": "Buildpack", "environment_variables": {"_key_": "Key"}}, "deployment": {"location": "Location", "location_url": "LocationURL", "target_crn": "TargetCrn", "broker": {"name": "Name", "guid": "Guid", "password": {"text": "Text", "key": "Key", "iv": "Iv"}}, "supports_rc_migration": false}, "alias": {"type": "Type", "plan_id": "PlanID"}, "sla": {"terms": "Terms", "tenancy": "Tenancy", "provisioning": "Provisioning", "responsiveness": "Responsiveness", "dr": {"dr": true, "description": "Description"}}, "callbacks": {"broker_utl": "BrokerUtl", "broker_proxy_url": "BrokerProxyURL", "dashboard_url": "DashboardURL", "dashboard_data_url": "DashboardDataURL", "dashboard_detail_tab_url": "DashboardDetailTabURL", "dashboard_detail_tab_ext_url": "DashboardDetailTabExtURL", "service_monitor_api": "ServiceMonitorApi", "service_monitor_app": "ServiceMonitorApp", "service_staging_url": "ServiceStagingURL", "service_production_url": "ServiceProductionURL"}, "version": "Version", "original_name": "OriginalName", "other": {"anyKey": "anyValue"}}, "active": true, "catalog_crn": "CatalogCrn", "url": "URL", "children_url": "ChildrenURL", "parent_url": "ParentURL", "geo_tags": ["GeoTags"], "pricing_tags": ["PricingTags"], "created": "2019-01-01T12:00:00", "updated": "2019-01-01T12:00:00", "children": [{"name": "Name", "overview_ui": {}, "images": {"image": "Image", "small_image": "SmallImage", "medium_image": "MediumImage", "feature_image": "FeatureImage"}, "parent_id": "ParentID", "disabled": true, "tags": ["Tags"], "group": false, "provider": {"email": "Email", "name": "Name", "contact": "Contact", "support_email": "SupportEmail", "phone": "Phone"}, "metadata": {"rc_compatible": true, "ui": {"strings": {}, "urls": {"doc_url": "DocURL", "instructions_url": "InstructionsURL", "api_url": "ApiURL", "create_url": "CreateURL", "sdk_download_url": "SdkDownloadURL", "terms_url": "TermsURL", "custom_create_page_url": "CustomCreatePageURL", "catalog_details_url": "CatalogDetailsURL", "deprecation_doc_url": "DeprecationDocURL"}, "embeddable_dashboard": "EmbeddableDashboard", "embeddable_dashboard_full_width": true, "navigation_order": ["NavigationOrder"], "not_creatable": true, "reservable": true, "primary_offering_id": "PrimaryOfferingID", "accessible_during_provision": false, "side_by_side_index": 15, "end_of_service_time": "2019-01-01T12:00:00"}, "pricing": {"type": "Type", "origin": "Origin", "starting_price": {"plan_id": "PlanID", "deployment_id": "DeploymentID", "amount": [{"counrty": "Counrty", "currency": "Currency", "prices": [{"quantity_tier": 12, "Price": 5}]}]}, "metrics": [{"metric_id": "MetricID", "tier_model": "TierModel", "charge_unit_name": "ChargeUnitName", "charge_unit_quantity": "ChargeUnitQuantity", "resource_display_name": "ResourceDisplayName", "charge_unit_display_name": "ChargeUnitDisplayName", "usage_cap_qty": 11, "amounts": [{"counrty": "Counrty", "currency": "Currency", "prices": [{"quantity_tier": 12, "Price": 5}]}]}]}, "compliance": ["Compliance"], "service": {"type": "Type", "iam_compatible": false, "unique_api_key": true, "provisionable": false, "async_provisioning_supported": true, "async_unprovisioning_supported": true, "cf_guid": "CfGuid", "bindable": true, "requires": ["Requires"], "plan_updateable": true, "state": "State", "service_check_enabled": false, "test_check_interval": 17, "service_key_supported": false}, "plan": {"bindable": true, "reservable": true, "allow_internal_users": true, "async_provisioning_supported": true, "async_unprovisioning_supported": true, "test_check_interval": 17, "single_scope_instance": "SingleScopeInstance", "service_check_enabled": false, "cf_guid": "CfGuid"}, "template": {"services": ["Services"], "default_memory": 13, "start_cmd": "StartCmd", "source": {"path": "Path", "type": "Type", "url": "URL"}, "runtime_catalog_id": "RuntimeCatalogID", "cf_runtime_id": "CfRuntimeID", "template_id": "TemplateID", "executable_file": "ExecutableFile", "buildpack": "Buildpack", "environment_variables": {"_key_": "Key"}}, "deployment": {"location": "Location", "location_url": "LocationURL", "target_crn": "TargetCrn", "broker": {"name": "Name", "guid": "Guid", "password": {"text": "Text", "key": "Key", "iv": "Iv"}}, "supports_rc_migration": false}, "alias": {"type": "Type", "plan_id": "PlanID"}, "sla": {"terms": "Terms", "tenancy": "Tenancy", "provisioning": "Provisioning", "responsiveness": "Responsiveness", "dr": {"dr": true, "description": "Description"}}, "callbacks": {"broker_utl": "BrokerUtl", "broker_proxy_url": "BrokerProxyURL", "dashboard_url": "DashboardURL", "dashboard_data_url": "DashboardDataURL", "dashboard_detail_tab_url": "DashboardDetailTabURL", "dashboard_detail_tab_ext_url": "DashboardDetailTabExtURL", "service_monitor_api": "ServiceMonitorApi", "service_monitor_app": "ServiceMonitorApp", "service_staging_url": "ServiceStagingURL", "service_production_url": "ServiceProductionURL"}, "version": "Version", "original_name": "OriginalName", "other": {"anyKey": "anyValue"}}, "active": true, "catalog_crn": "CatalogCrn", "url": "URL", "children_url": "ChildrenURL", "parent_url": "ParentURL", "geo_tags": ["GeoTags"], "pricing_tags": ["PricingTags"], "created": "2019-01-01T12:00:00", "updated": "2019-01-01T12:00:00", "children": [{"name": "Name", "overview_ui": {}, "images": {"image": "Image", "small_image": "SmallImage", "medium_image": "MediumImage", "feature_image": "FeatureImage"}, "parent_id": "ParentID", "disabled": true, "tags": ["Tags"], "group": false, "provider": {"email": "Email", "name": "Name", "contact": "Contact", "support_email": "SupportEmail", "phone": "Phone"}, "metadata": {"rc_compatible": true, "ui": {"strings": {}, "urls": {"doc_url": "DocURL", "instructions_url": "InstructionsURL", "api_url": "ApiURL", "create_url": "CreateURL", "sdk_download_url": "SdkDownloadURL", "terms_url": "TermsURL", "custom_create_page_url": "CustomCreatePageURL", "catalog_details_url": "CatalogDetailsURL", "deprecation_doc_url": "DeprecationDocURL"}, "embeddable_dashboard": "EmbeddableDashboard", "embeddable_dashboard_full_width": true, "navigation_order": ["NavigationOrder"], "not_creatable": true, "reservable": true, "primary_offering_id": "PrimaryOfferingID", "accessible_during_provision": false, "side_by_side_index": 15, "end_of_service_time": "2019-01-01T12:00:00"}, "pricing": {"type": "Type", "origin": "Origin", "starting_price": {"plan_id": "PlanID", "deployment_id": "DeploymentID", "amount": [{"counrty": "Counrty", "currency": "Currency", "prices": [{"quantity_tier": 12, "Price": 5}]}]}, "metrics": [{"metric_id": "MetricID", "tier_model": "TierModel", "charge_unit_name": "ChargeUnitName", "charge_unit_quantity": "ChargeUnitQuantity", "resource_display_name": "ResourceDisplayName", "charge_unit_display_name": "ChargeUnitDisplayName", "usage_cap_qty": 11, "amounts": [{"counrty": "Counrty", "currency": "Currency", "prices": [{"quantity_tier": 12, "Price": 5}]}]}]}, "compliance": ["Compliance"], "service": {"type": "Type", "iam_compatible": false, "unique_api_key": true, "provisionable": false, "async_provisioning_supported": true, "async_unprovisioning_supported": true, "cf_guid": "CfGuid", "bindable": true, "requires": ["Requires"], "plan_updateable": true, "state": "State", "service_check_enabled": false, "test_check_interval": 17, "service_key_supported": false}, "plan": {"bindable": true, "reservable": true, "allow_internal_users": true, "async_provisioning_supported": true, "async_unprovisioning_supported": true, "test_check_interval": 17, "single_scope_instance": "SingleScopeInstance", "service_check_enabled": false, "cf_guid": "CfGuid"}, "template": {"services": ["Services"], "default_memory": 13, "start_cmd": "StartCmd", "source": {"path": "Path", "type": "Type", "url": "URL"}, "runtime_catalog_id": "RuntimeCatalogID", "cf_runtime_id": "CfRuntimeID", "template_id": "TemplateID", "executable_file": "ExecutableFile", "buildpack": "Buildpack", "environment_variables": {"_key_": "Key"}}, "deployment": {"location": "Location", "location_url": "LocationURL", "target_crn": "TargetCrn", "broker": {"name": "Name", "guid": "Guid", "password": {"text": "Text", "key": "Key", "iv": "Iv"}}, "supports_rc_migration": false}, "alias": {"type": "Type", "plan_id": "PlanID"}, "sla": {"terms": "Terms", "tenancy": "Tenancy", "provisioning": "Provisioning", "responsiveness": "Responsiveness", "dr": {"dr": true, "description": "Description"}}, "callbacks": {"broker_utl": "BrokerUtl", "broker_proxy_url": "BrokerProxyURL", "dashboard_url": "DashboardURL", "dashboard_data_url": "DashboardDataURL", "dashboard_detail_tab_url": "DashboardDetailTabURL", "dashboard_detail_tab_ext_url": "DashboardDetailTabExtURL", "service_monitor_api": "ServiceMonitorApi", "service_monitor_app": "ServiceMonitorApp", "service_staging_url": "ServiceStagingURL", "service_production_url": "ServiceProductionURL"}, "version": "Version", "original_name": "OriginalName", "other": {"anyKey": "anyValue"}}, "active": true, "catalog_crn": "CatalogCrn", "url": "URL", "children_url": "ChildrenURL", "parent_url": "ParentURL", "geo_tags": ["GeoTags"], "pricing_tags": ["PricingTags"], "created": "2019-01-01T12:00:00", "updated": "2019-01-01T12:00:00", "children": [{"name": "Name", "overview_ui": {}, "images": {"image": "Image", "small_image": "SmallImage", "medium_image": "MediumImage", "feature_image": "FeatureImage"}, "parent_id": "ParentID", "disabled": true, "tags": ["Tags"], "group": false, "provider": {"email": "Email", "name": "Name", "contact": "Contact", "support_email": "SupportEmail", "phone": "Phone"}, "metadata": {"rc_compatible": true, "ui": {"strings": {}, "urls": {"doc_url": "DocURL", "instructions_url": "InstructionsURL", "api_url": "ApiURL", "create_url": "CreateURL", "sdk_download_url": "SdkDownloadURL", "terms_url": "TermsURL", "custom_create_page_url": "CustomCreatePageURL", "catalog_details_url": "CatalogDetailsURL", "deprecation_doc_url": "DeprecationDocURL"}, "embeddable_dashboard": "EmbeddableDashboard", "embeddable_dashboard_full_width": true, "navigation_order": ["NavigationOrder"], "not_creatable": true, "reservable": true, "primary_offering_id": "PrimaryOfferingID", "accessible_during_provision": false, "side_by_side_index": 15, "end_of_service_time": "2019-01-01T12:00:00"}, "pricing": {"type": "Type", "origin": "Origin", "starting_price": {"plan_id": "PlanID", "deployment_id": "DeploymentID", "amount": [{"counrty": "Counrty", "currency": "Currency", "prices": [{"quantity_tier": 12, "Price": 5}]}]}, "metrics": [{"metric_id": "MetricID", "tier_model": "TierModel", "charge_unit_name": "ChargeUnitName", "charge_unit_quantity": "ChargeUnitQuantity", "resource_display_name": "ResourceDisplayName", "charge_unit_display_name": "ChargeUnitDisplayName", "usage_cap_qty": 11, "amounts": [{"counrty": "Counrty", "currency": "Currency", "prices": [{"quantity_tier": 12, "Price": 5}]}]}]}, "compliance": ["Compliance"], "service": {"type": "Type", "iam_compatible": false, "unique_api_key": true, "provisionable": false, "async_provisioning_supported": true, "async_unprovisioning_supported": true, "cf_guid": "CfGuid", "bindable": true, "requires": ["Requires"], "plan_updateable": true, "state": "State", "service_check_enabled": false, "test_check_interval": 17, "service_key_supported": false}, "plan": {"bindable": true, "reservable": true, "allow_internal_users": true, "async_provisioning_supported": true, "async_unprovisioning_supported": true, "test_check_interval": 17, "single_scope_instance": "SingleScopeInstance", "service_check_enabled": false, "cf_guid": "CfGuid"}, "template": {"services": ["Services"], "default_memory": 13, "start_cmd": "StartCmd", "source": {"path": "Path", "type": "Type", "url": "URL"}, "runtime_catalog_id": "RuntimeCatalogID", "cf_runtime_id": "CfRuntimeID", "template_id": "TemplateID", "executable_file": "ExecutableFile", "buildpack": "Buildpack", "environment_variables": {"_key_": "Key"}}, "deployment": {"location": "Location", "location_url": "LocationURL", "target_crn": "TargetCrn", "broker": {"name": "Name", "guid": "Guid", "password": {"text": "Text", "key": "Key", "iv": "Iv"}}, "supports_rc_migration": false}, "alias": {"type": "Type", "plan_id": "PlanID"}, "sla": {"terms": "Terms", "tenancy": "Tenancy", "provisioning": "Provisioning", "responsiveness": "Responsiveness", "dr": {"dr": true, "description": "Description"}}, "callbacks": {"broker_utl": "BrokerUtl", "broker_proxy_url": "BrokerProxyURL", "dashboard_url": "DashboardURL", "dashboard_data_url": "DashboardDataURL", "dashboard_detail_tab_url": "DashboardDetailTabURL", "dashboard_detail_tab_ext_url": "DashboardDetailTabExtURL", "service_monitor_api": "ServiceMonitorApi", "service_monitor_app": "ServiceMonitorApp", "service_staging_url": "ServiceStagingURL", "service_production_url": "ServiceProductionURL"}, "version": "Version", "original_name": "OriginalName", "other": {"anyKey": "anyValue"}}, "active": true, "catalog_crn": "CatalogCrn", "url": "URL", "children_url": "ChildrenURL", "parent_url": "ParentURL", "geo_tags": ["GeoTags"], "pricing_tags": ["PricingTags"], "created": "2019-01-01T12:00:00", "updated": "2019-01-01T12:00:00", "children": [{"name": "Name", "overview_ui": {}, "images": {"image": "Image", "small_image": "SmallImage", "medium_image": "MediumImage", "feature_image": "FeatureImage"}, "parent_id": "ParentID", "disabled": true, "tags": ["Tags"], "group": false, "provider": {"email": "Email", "name": "Name", "contact": "Contact", "support_email": "SupportEmail", "phone": "Phone"}, "metadata": {"rc_compatible": true, "ui": {"strings": {}, "urls": {"doc_url": "DocURL", "instructions_url": "InstructionsURL", "api_url": "ApiURL", "create_url": "CreateURL", "sdk_download_url": "SdkDownloadURL", "terms_url": "TermsURL", "custom_create_page_url": "CustomCreatePageURL", "catalog_details_url": "CatalogDetailsURL", "deprecation_doc_url": "DeprecationDocURL"}, "embeddable_dashboard": "EmbeddableDashboard", "embeddable_dashboard_full_width": true, "navigation_order": ["NavigationOrder"], "not_creatable": true, "reservable": true, "primary_offering_id": "PrimaryOfferingID", "accessible_during_provision": false, "side_by_side_index": 15, "end_of_service_time": "2019-01-01T12:00:00"}, "pricing": {"type": "Type", "origin": "Origin", "starting_price": {"plan_id": "PlanID", "deployment_id": "DeploymentID", "amount": [{"counrty": "Counrty", "currency": "Currency", "prices": []}]}, "metrics": [{"metric_id": "MetricID", "tier_model": "TierModel", "charge_unit_name": "ChargeUnitName", "charge_unit_quantity": "ChargeUnitQuantity", "resource_display_name": "ResourceDisplayName", "charge_unit_display_name": "ChargeUnitDisplayName", "usage_cap_qty": 11, "amounts": [{"counrty": "Counrty", "currency": "Currency", "prices": []}]}]}, "compliance": ["Compliance"], "service": {"type": "Type", "iam_compatible": false, "unique_api_key": true, "provisionable": false, "async_provisioning_supported": true, "async_unprovisioning_supported": true, "cf_guid": "CfGuid", "bindable": true, "requires": ["Requires"], "plan_updateable": true, "state": "State", "service_check_enabled": false, "test_check_interval": 17, "service_key_supported": false}, "plan": {"bindable": true, "reservable": true, "allow_internal_users": true, "async_provisioning_supported": true, "async_unprovisioning_supported": true, "test_check_interval": 17, "single_scope_instance": "SingleScopeInstance", "service_check_enabled": false, "cf_guid": "CfGuid"}, "template": {"services": ["Services"], "default_memory": 13, "start_cmd": "StartCmd", "source": {"path": "Path", "type": "Type", "url": "URL"}, "runtime_catalog_id": "RuntimeCatalogID", "cf_runtime_id": "CfRuntimeID", "template_id": "TemplateID", "executable_file": "ExecutableFile", "buildpack": "Buildpack", "environment_variables": {"_key_": "Key"}}, "deployment": {"location": "Location", "location_url": "LocationURL", "target_crn": "TargetCrn", "broker": {"name": "Name", "guid": "Guid", "password": {"text": "Text", "key": "Key", "iv": "Iv"}}, "supports_rc_migration": false}, "alias": {"type": "Type", "plan_id": "PlanID"}, "sla": {"terms": "Terms", "tenancy": "Tenancy", "provisioning": "Provisioning", "responsiveness": "Responsiveness", "dr": {"dr": true, "description": "Description"}}, "callbacks": {"broker_utl": "BrokerUtl", "broker_proxy_url": "BrokerProxyURL", "dashboard_url": "DashboardURL", "dashboard_data_url": "DashboardDataURL", "dashboard_detail_tab_url": "DashboardDetailTabURL", "dashboard_detail_tab_ext_url": "DashboardDetailTabExtURL", "service_monitor_api": "ServiceMonitorApi", "service_monitor_app": "ServiceMonitorApp", "service_staging_url": "ServiceStagingURL", "service_production_url": "ServiceProductionURL"}, "version": "Version", "original_name": "OriginalName", "other": {"anyKey": "anyValue"}}, "active": true, "catalog_crn": "CatalogCrn", "url": "URL", "children_url": "ChildrenURL", "parent_url": "ParentURL", "geo_tags": ["GeoTags"], "pricing_tags": ["PricingTags"], "created": "2019-01-01T12:00:00", "updated": "2019-01-01T12:00:00", "children": [{"name": "Name", "overview_ui": {}, "images": {"image": "Image", "small_image": "SmallImage", "medium_image": "MediumImage", "feature_image": "FeatureImage"}, "parent_id": "ParentID", "disabled": true, "tags": ["Tags"], "group": false, "provider": {"email": "Email", "name": "Name", "contact": "Contact", "support_email": "SupportEmail", "phone": "Phone"}, "metadata": {"rc_compatible": true, "ui": {"strings": {}, "urls": {"doc_url": "DocURL", "instructions_url": "InstructionsURL", "api_url": "ApiURL", "create_url": "CreateURL", "sdk_download_url": "SdkDownloadURL", "terms_url": "TermsURL", "custom_create_page_url": "CustomCreatePageURL", "catalog_details_url": "CatalogDetailsURL", "deprecation_doc_url": "DeprecationDocURL"}, "embeddable_dashboard": "EmbeddableDashboard", "embeddable_dashboard_full_width": true, "navigation_order": ["NavigationOrder"], "not_creatable": true, "reservable": true, "primary_offering_id": "PrimaryOfferingID", "accessible_during_provision": false, "side_by_side_index": 15, "end_of_service_time": "2019-01-01T12:00:00"}, "pricing": {"type": "Type", "origin": "Origin", "starting_price": {"plan_id": "PlanID", "deployment_id": "DeploymentID", "amount": []}, "metrics": [{"metric_id": "MetricID", "tier_model": "TierModel", "charge_unit_name": "ChargeUnitName", "charge_unit_quantity": "ChargeUnitQuantity", "resource_display_name": "ResourceDisplayName", "charge_unit_display_name": "ChargeUnitDisplayName", "usage_cap_qty": 11, "amounts": []}]}, "compliance": ["Compliance"], "service": {"type": "Type", "iam_compatible": false, "unique_api_key": true, "provisionable": false, "async_provisioning_supported": true, "async_unprovisioning_supported": true, "cf_guid": "CfGuid", "bindable": true, "requires": ["Requires"], "plan_updateable": true, "state": "State", "service_check_enabled": false, "test_check_interval": 17, "service_key_supported": false}, "plan": {"bindable": true, "reservable": true, "allow_internal_users": true, "async_provisioning_supported": true, "async_unprovisioning_supported": true, "test_check_interval": 17, "single_scope_instance": "SingleScopeInstance", "service_check_enabled": false, "cf_guid": "CfGuid"}, "template": {"services": ["Services"], "default_memory": 13, "start_cmd": "StartCmd", "source": {"path": "Path", "type": "Type", "url": "URL"}, "runtime_catalog_id": "RuntimeCatalogID", "cf_runtime_id": "CfRuntimeID", "template_id": "TemplateID", "executable_file": "ExecutableFile", "buildpack": "Buildpack", "environment_variables": {"_key_": "Key"}}, "deployment": {"location": "Location", "location_url": "LocationURL", "target_crn": "TargetCrn", "broker": {"name": "Name", "guid": "Guid"}, "supports_rc_migration": false}, "alias": {"type": "Type", "plan_id": "PlanID"}, "sla": {"terms": "Terms", "tenancy": "Tenancy", "provisioning": "Provisioning", "responsiveness": "Responsiveness", "dr": {"dr": true, "description": "Description"}}, "callbacks": {"broker_utl": "BrokerUtl", "broker_proxy_url": "BrokerProxyURL", "dashboard_url": "DashboardURL", "dashboard_data_url": "DashboardDataURL", "dashboard_detail_tab_url": "DashboardDetailTabURL", "dashboard_detail_tab_ext_url": "DashboardDetailTabExtURL", "service_monitor_api": "ServiceMonitorApi", "service_monitor_app": "ServiceMonitorApp", "service_staging_url": "ServiceStagingURL", "service_production_url": "ServiceProductionURL"}, "version": "Version", "original_name": "OriginalName", "other": {"anyKey": "anyValue"}}, "active": true, "catalog_crn": "CatalogCrn", "url": "URL", "children_url": "ChildrenURL", "parent_url": "ParentURL", "geo_tags": ["GeoTags"], "pricing_tags": ["PricingTags"], "created": "2019-01-01T12:00:00", "updated": "2019-01-01T12:00:00", "children": [{"name": "Name", "overview_ui": {}, "images": {"image": "Image", "small_image": "SmallImage", "medium_image": "MediumImage", "feature_image": "FeatureImage"}, "parent_id": "ParentID", "disabled": true, "tags": ["Tags"], "group": false, "provider": {"email": "Email", "name": "Name", "contact": "Contact", "support_email": "SupportEmail", "phone": "Phone"}, "metadata": {"rc_compatible": true, "ui": {"embeddable_dashboard": "EmbeddableDashboard", "embeddable_dashboard_full_width": true, "navigation_order": ["NavigationOrder"], "not_creatable": true, "reservable": true, "primary_offering_id": "PrimaryOfferingID", "accessible_during_provision": false, "side_by_side_index": 15, "end_of_service_time": "2019-01-01T12:00:00"}, "pricing": {"type": "Type", "origin": "Origin", "metrics": []}, "compliance": ["Compliance"], "service": {"type": "Type", "iam_compatible": false, "unique_api_key": true, "provisionable": false, "async_provisioning_supported": true, "async_unprovisioning_supported": true, "cf_guid": "CfGuid", "bindable": true, "requires": ["Requires"], "plan_updateable": true, "state": "State", "service_check_enabled": false, "test_check_interval": 17, "service_key_supported": false}, "plan": {"bindable": true, "reservable": true, "allow_internal_users": true, "async_provisioning_supported": true, "async_unprovisioning_supported": true, "test_check_interval": 17, "single_scope_instance": "SingleScopeInstance", "service_check_enabled": false, "cf_guid": "CfGuid"}, "template": {"services": ["Services"], "default_memory": 13, "start_cmd": "StartCmd", "runtime_catalog_id": "RuntimeCatalogID", "cf_runtime_id": "CfRuntimeID", "template_id": "TemplateID", "executable_file": "ExecutableFile", "buildpack": "Buildpack"}, "deployment": {"location": "Location", "location_url": "LocationURL", "target_crn": "TargetCrn", "supports_rc_migration": false}, "alias": {"type": "Type", "plan_id": "PlanID"}, "sla": {"terms": "Terms", "tenancy": "Tenancy", "provisioning": "Provisioning", "responsiveness": "Responsiveness"}, "callbacks": {"broker_utl": "BrokerUtl", "broker_proxy_url": "BrokerProxyURL", "dashboard_url": "DashboardURL", "dashboard_data_url": "DashboardDataURL", "dashboard_detail_tab_url": "DashboardDetailTabURL", "dashboard_detail_tab_ext_url": "DashboardDetailTabExtURL", "service_monitor_api": "ServiceMonitorApi", "service_monitor_app": "ServiceMonitorApp", "service_staging_url": "ServiceStagingURL", "service_production_url": "ServiceProductionURL"}, "version": "Version", "original_name": "OriginalName", "other": {"anyKey": "anyValue"}}, "active": true, "catalog_crn": "CatalogCrn", "url": "URL", "children_url": "ChildrenURL", "parent_url": "ParentURL", "geo_tags": ["GeoTags"], "pricing_tags": ["PricingTags"], "created": "2019-01-01T12:00:00", "updated": "2019-01-01T12:00:00", "children": [{"name": "Name", "overview_ui": {}, "images": {"image": "Image", "small_image": "SmallImage", "medium_image": "MediumImage", "feature_image": "FeatureImage"}, "parent_id": "ParentID", "disabled": true, "tags": ["Tags"], "group": false, "provider": {"email": "Email", "name": "Name", "contact": "Contact", "support_email": "SupportEmail", "phone": "Phone"}, "metadata": {"rc_compatible": true, "compliance": ["Compliance"], "version": "Version", "original_name": "OriginalName", "other": {"anyKey": "anyValue"}}, "active": true, "catalog_crn": "CatalogCrn", "url": "URL", "children_url": "ChildrenURL", "parent_url": "ParentURL", "geo_tags": ["GeoTags"], "pricing_tags": ["PricingTags"], "created": "2019-01-01T12:00:00", "updated": "2019-01-01T12:00:00", "children": [{"name": "Name", "parent_id": "ParentID", "disabled": true, "tags": ["Tags"], "group": false, "active": true, "catalog_crn": "CatalogCrn", "url": "URL", "children_url": "ChildrenURL", "parent_url": "ParentURL", "geo_tags": ["GeoTags"], "pricing_tags": ["PricingTags"], "created": "2019-01-01T12:00:00", "updated": "2019-01-01T12:00:00", "children": [], "kind": "service", "id": "ID"}], "kind": "service", "id": "ID"}], "kind": "service", "id": "ID"}], "kind": "service", "id": "ID"}], "kind": "service", "id": "ID"}], "kind": "service", "id": "ID"}], "kind": "service", "id": "ID"}], "kind": "service", "id": "ID"}], "kind": "service", "id": "ID"}], "kind": "service", "id": "ID"}`)
 				}))
 			})
 			It(`Invoke CreateCatalogEntry successfully`, func() {
@@ -839,14 +839,14 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 
 				// Construct an instance of the CreateCatalogEntryOptions model
 				createCatalogEntryOptionsModel := new(globalcatalogv1.CreateCatalogEntryOptions)
-				createCatalogEntryOptionsModel.ID = core.StringPtr("testString")
 				createCatalogEntryOptionsModel.Name = core.StringPtr("testString")
 				createCatalogEntryOptionsModel.OverviewUi = overviewUiModel
-				createCatalogEntryOptionsModel.Kind = core.StringPtr("testString")
 				createCatalogEntryOptionsModel.Images = imageModel
 				createCatalogEntryOptionsModel.Disabled = core.BoolPtr(true)
 				createCatalogEntryOptionsModel.Tags = []string{"testString"}
 				createCatalogEntryOptionsModel.Provider = providerModel
+				createCatalogEntryOptionsModel.Kind = core.StringPtr("service")
+				createCatalogEntryOptionsModel.ID = core.StringPtr("testString")
 				createCatalogEntryOptionsModel.ParentID = core.StringPtr("testString")
 				createCatalogEntryOptionsModel.Group = core.BoolPtr(true)
 				createCatalogEntryOptionsModel.Metadata = objectMetaDataModel
@@ -1104,14 +1104,14 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 
 				// Construct an instance of the CreateCatalogEntryOptions model
 				createCatalogEntryOptionsModel := new(globalcatalogv1.CreateCatalogEntryOptions)
-				createCatalogEntryOptionsModel.ID = core.StringPtr("testString")
 				createCatalogEntryOptionsModel.Name = core.StringPtr("testString")
 				createCatalogEntryOptionsModel.OverviewUi = overviewUiModel
-				createCatalogEntryOptionsModel.Kind = core.StringPtr("testString")
 				createCatalogEntryOptionsModel.Images = imageModel
 				createCatalogEntryOptionsModel.Disabled = core.BoolPtr(true)
 				createCatalogEntryOptionsModel.Tags = []string{"testString"}
 				createCatalogEntryOptionsModel.Provider = providerModel
+				createCatalogEntryOptionsModel.Kind = core.StringPtr("service")
+				createCatalogEntryOptionsModel.ID = core.StringPtr("testString")
 				createCatalogEntryOptionsModel.ParentID = core.StringPtr("testString")
 				createCatalogEntryOptionsModel.Group = core.BoolPtr(true)
 				createCatalogEntryOptionsModel.Metadata = objectMetaDataModel
@@ -1215,7 +1215,7 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, `{"id": "ID", "name": "Name", "overview_ui": {}, "kind": "Kind", "images": {"image": "Image", "small_image": "SmallImage", "medium_image": "MediumImage", "feature_image": "FeatureImage"}, "parent_id": "ParentID", "disabled": true, "tags": ["Tags"], "group": false, "provider": {"email": "Email", "name": "Name", "contact": "Contact", "support_email": "SupportEmail", "phone": "Phone"}, "metadata": {"rc_compatible": true, "ui": {"strings": {}, "urls": {"doc_url": "DocURL", "instructions_url": "InstructionsURL", "api_url": "ApiURL", "create_url": "CreateURL", "sdk_download_url": "SdkDownloadURL", "terms_url": "TermsURL", "custom_create_page_url": "CustomCreatePageURL", "catalog_details_url": "CatalogDetailsURL", "deprecation_doc_url": "DeprecationDocURL"}, "embeddable_dashboard": "EmbeddableDashboard", "embeddable_dashboard_full_width": true, "navigation_order": ["NavigationOrder"], "not_creatable": true, "reservable": true, "primary_offering_id": "PrimaryOfferingID", "accessible_during_provision": false, "side_by_side_index": 15, "end_of_service_time": "2019-01-01T12:00:00"}, "pricing": {"type": "Type", "origin": "Origin", "starting_price": {"plan_id": "PlanID", "deployment_id": "DeploymentID", "amount": [{"counrty": "Counrty", "currency": "Currency", "prices": [{"quantity_tier": 12, "Price": 5}]}]}, "metrics": [{"metric_id": "MetricID", "tier_model": "TierModel", "charge_unit_name": "ChargeUnitName", "charge_unit_quantity": "ChargeUnitQuantity", "resource_display_name": "ResourceDisplayName", "charge_unit_display_name": "ChargeUnitDisplayName", "usage_cap_qty": 11, "amounts": [{"counrty": "Counrty", "currency": "Currency", "prices": [{"quantity_tier": 12, "Price": 5}]}]}]}, "compliance": ["Compliance"], "service": {"type": "Type", "iam_compatible": false, "unique_api_key": true, "provisionable": false, "async_provisioning_supported": true, "async_unprovisioning_supported": true, "cf_guid": "CfGuid", "bindable": true, "requires": ["Requires"], "plan_updateable": true, "state": "State", "service_check_enabled": false, "test_check_interval": 17, "service_key_supported": false}, "plan": {"bindable": true, "reservable": true, "allow_internal_users": true, "async_provisioning_supported": true, "async_unprovisioning_supported": true, "test_check_interval": 17, "single_scope_instance": "SingleScopeInstance", "service_check_enabled": false, "cf_guid": "CfGuid"}, "template": {"services": ["Services"], "default_memory": 13, "start_cmd": "StartCmd", "source": {"path": "Path", "type": "Type", "url": "URL"}, "runtime_catalog_id": "RuntimeCatalogID", "cf_runtime_id": "CfRuntimeID", "template_id": "TemplateID", "executable_file": "ExecutableFile", "buildpack": "Buildpack", "environment_variables": {"_key_": "Key"}}, "deployment": {"location": "Location", "location_url": "LocationURL", "target_crn": "TargetCrn", "broker": {"name": "Name", "guid": "Guid", "password": {"text": "Text", "key": "Key", "iv": "Iv"}}, "supports_rc_migration": false}, "alias": {"type": "Type", "plan_id": "PlanID"}, "sla": {"terms": "Terms", "tenancy": "Tenancy", "provisioning": "Provisioning", "responsiveness": "Responsiveness", "dr": {"dr": true, "description": "Description"}}, "callbacks": {"broker_utl": "BrokerUtl", "broker_proxy_url": "BrokerProxyURL", "dashboard_url": "DashboardURL", "dashboard_data_url": "DashboardDataURL", "dashboard_detail_tab_url": "DashboardDetailTabURL", "dashboard_detail_tab_ext_url": "DashboardDetailTabExtURL", "service_monitor_api": "ServiceMonitorApi", "service_monitor_app": "ServiceMonitorApp", "service_staging_url": "ServiceStagingURL", "service_production_url": "ServiceProductionURL"}, "version": "Version", "original_name": "OriginalName", "other": {"anyKey": "anyValue"}}, "active": true, "catalog_crn": "CatalogCrn", "url": "URL", "children_url": "ChildrenURL", "parent_url": "ParentURL", "geo_tags": ["GeoTags"], "pricing_tags": ["PricingTags"], "created": "2019-01-01T12:00:00", "updated": "2019-01-01T12:00:00", "children": [{"id": "ID", "name": "Name", "overview_ui": {}, "kind": "Kind", "images": {"image": "Image", "small_image": "SmallImage", "medium_image": "MediumImage", "feature_image": "FeatureImage"}, "parent_id": "ParentID", "disabled": true, "tags": ["Tags"], "group": false, "provider": {"email": "Email", "name": "Name", "contact": "Contact", "support_email": "SupportEmail", "phone": "Phone"}, "metadata": {"rc_compatible": true, "ui": {"strings": {}, "urls": {"doc_url": "DocURL", "instructions_url": "InstructionsURL", "api_url": "ApiURL", "create_url": "CreateURL", "sdk_download_url": "SdkDownloadURL", "terms_url": "TermsURL", "custom_create_page_url": "CustomCreatePageURL", "catalog_details_url": "CatalogDetailsURL", "deprecation_doc_url": "DeprecationDocURL"}, "embeddable_dashboard": "EmbeddableDashboard", "embeddable_dashboard_full_width": true, "navigation_order": ["NavigationOrder"], "not_creatable": true, "reservable": true, "primary_offering_id": "PrimaryOfferingID", "accessible_during_provision": false, "side_by_side_index": 15, "end_of_service_time": "2019-01-01T12:00:00"}, "pricing": {"type": "Type", "origin": "Origin", "starting_price": {"plan_id": "PlanID", "deployment_id": "DeploymentID", "amount": [{"counrty": "Counrty", "currency": "Currency", "prices": [{"quantity_tier": 12, "Price": 5}]}]}, "metrics": [{"metric_id": "MetricID", "tier_model": "TierModel", "charge_unit_name": "ChargeUnitName", "charge_unit_quantity": "ChargeUnitQuantity", "resource_display_name": "ResourceDisplayName", "charge_unit_display_name": "ChargeUnitDisplayName", "usage_cap_qty": 11, "amounts": [{"counrty": "Counrty", "currency": "Currency", "prices": [{"quantity_tier": 12, "Price": 5}]}]}]}, "compliance": ["Compliance"], "service": {"type": "Type", "iam_compatible": false, "unique_api_key": true, "provisionable": false, "async_provisioning_supported": true, "async_unprovisioning_supported": true, "cf_guid": "CfGuid", "bindable": true, "requires": ["Requires"], "plan_updateable": true, "state": "State", "service_check_enabled": false, "test_check_interval": 17, "service_key_supported": false}, "plan": {"bindable": true, "reservable": true, "allow_internal_users": true, "async_provisioning_supported": true, "async_unprovisioning_supported": true, "test_check_interval": 17, "single_scope_instance": "SingleScopeInstance", "service_check_enabled": false, "cf_guid": "CfGuid"}, "template": {"services": ["Services"], "default_memory": 13, "start_cmd": "StartCmd", "source": {"path": "Path", "type": "Type", "url": "URL"}, "runtime_catalog_id": "RuntimeCatalogID", "cf_runtime_id": "CfRuntimeID", "template_id": "TemplateID", "executable_file": "ExecutableFile", "buildpack": "Buildpack", "environment_variables": {"_key_": "Key"}}, "deployment": {"location": "Location", "location_url": "LocationURL", "target_crn": "TargetCrn", "broker": {"name": "Name", "guid": "Guid", "password": {"text": "Text", "key": "Key", "iv": "Iv"}}, "supports_rc_migration": false}, "alias": {"type": "Type", "plan_id": "PlanID"}, "sla": {"terms": "Terms", "tenancy": "Tenancy", "provisioning": "Provisioning", "responsiveness": "Responsiveness", "dr": {"dr": true, "description": "Description"}}, "callbacks": {"broker_utl": "BrokerUtl", "broker_proxy_url": "BrokerProxyURL", "dashboard_url": "DashboardURL", "dashboard_data_url": "DashboardDataURL", "dashboard_detail_tab_url": "DashboardDetailTabURL", "dashboard_detail_tab_ext_url": "DashboardDetailTabExtURL", "service_monitor_api": "ServiceMonitorApi", "service_monitor_app": "ServiceMonitorApp", "service_staging_url": "ServiceStagingURL", "service_production_url": "ServiceProductionURL"}, "version": "Version", "original_name": "OriginalName", "other": {"anyKey": "anyValue"}}, "active": true, "catalog_crn": "CatalogCrn", "url": "URL", "children_url": "ChildrenURL", "parent_url": "ParentURL", "geo_tags": ["GeoTags"], "pricing_tags": ["PricingTags"], "created": "2019-01-01T12:00:00", "updated": "2019-01-01T12:00:00", "children": [{"id": "ID", "name": "Name", "overview_ui": {}, "kind": "Kind", "images": {"image": "Image", "small_image": "SmallImage", "medium_image": "MediumImage", "feature_image": "FeatureImage"}, "parent_id": "ParentID", "disabled": true, "tags": ["Tags"], "group": false, "provider": {"email": "Email", "name": "Name", "contact": "Contact", "support_email": "SupportEmail", "phone": "Phone"}, "metadata": {"rc_compatible": true, "ui": {"strings": {}, "urls": {"doc_url": "DocURL", "instructions_url": "InstructionsURL", "api_url": "ApiURL", "create_url": "CreateURL", "sdk_download_url": "SdkDownloadURL", "terms_url": "TermsURL", "custom_create_page_url": "CustomCreatePageURL", "catalog_details_url": "CatalogDetailsURL", "deprecation_doc_url": "DeprecationDocURL"}, "embeddable_dashboard": "EmbeddableDashboard", "embeddable_dashboard_full_width": true, "navigation_order": ["NavigationOrder"], "not_creatable": true, "reservable": true, "primary_offering_id": "PrimaryOfferingID", "accessible_during_provision": false, "side_by_side_index": 15, "end_of_service_time": "2019-01-01T12:00:00"}, "pricing": {"type": "Type", "origin": "Origin", "starting_price": {"plan_id": "PlanID", "deployment_id": "DeploymentID", "amount": [{"counrty": "Counrty", "currency": "Currency", "prices": [{"quantity_tier": 12, "Price": 5}]}]}, "metrics": [{"metric_id": "MetricID", "tier_model": "TierModel", "charge_unit_name": "ChargeUnitName", "charge_unit_quantity": "ChargeUnitQuantity", "resource_display_name": "ResourceDisplayName", "charge_unit_display_name": "ChargeUnitDisplayName", "usage_cap_qty": 11, "amounts": [{"counrty": "Counrty", "currency": "Currency", "prices": [{"quantity_tier": 12, "Price": 5}]}]}]}, "compliance": ["Compliance"], "service": {"type": "Type", "iam_compatible": false, "unique_api_key": true, "provisionable": false, "async_provisioning_supported": true, "async_unprovisioning_supported": true, "cf_guid": "CfGuid", "bindable": true, "requires": ["Requires"], "plan_updateable": true, "state": "State", "service_check_enabled": false, "test_check_interval": 17, "service_key_supported": false}, "plan": {"bindable": true, "reservable": true, "allow_internal_users": true, "async_provisioning_supported": true, "async_unprovisioning_supported": true, "test_check_interval": 17, "single_scope_instance": "SingleScopeInstance", "service_check_enabled": false, "cf_guid": "CfGuid"}, "template": {"services": ["Services"], "default_memory": 13, "start_cmd": "StartCmd", "source": {"path": "Path", "type": "Type", "url": "URL"}, "runtime_catalog_id": "RuntimeCatalogID", "cf_runtime_id": "CfRuntimeID", "template_id": "TemplateID", "executable_file": "ExecutableFile", "buildpack": "Buildpack", "environment_variables": {"_key_": "Key"}}, "deployment": {"location": "Location", "location_url": "LocationURL", "target_crn": "TargetCrn", "broker": {"name": "Name", "guid": "Guid", "password": {"text": "Text", "key": "Key", "iv": "Iv"}}, "supports_rc_migration": false}, "alias": {"type": "Type", "plan_id": "PlanID"}, "sla": {"terms": "Terms", "tenancy": "Tenancy", "provisioning": "Provisioning", "responsiveness": "Responsiveness", "dr": {"dr": true, "description": "Description"}}, "callbacks": {"broker_utl": "BrokerUtl", "broker_proxy_url": "BrokerProxyURL", "dashboard_url": "DashboardURL", "dashboard_data_url": "DashboardDataURL", "dashboard_detail_tab_url": "DashboardDetailTabURL", "dashboard_detail_tab_ext_url": "DashboardDetailTabExtURL", "service_monitor_api": "ServiceMonitorApi", "service_monitor_app": "ServiceMonitorApp", "service_staging_url": "ServiceStagingURL", "service_production_url": "ServiceProductionURL"}, "version": "Version", "original_name": "OriginalName", "other": {"anyKey": "anyValue"}}, "active": true, "catalog_crn": "CatalogCrn", "url": "URL", "children_url": "ChildrenURL", "parent_url": "ParentURL", "geo_tags": ["GeoTags"], "pricing_tags": ["PricingTags"], "created": "2019-01-01T12:00:00", "updated": "2019-01-01T12:00:00", "children": [{"id": "ID", "name": "Name", "overview_ui": {}, "kind": "Kind", "images": {"image": "Image", "small_image": "SmallImage", "medium_image": "MediumImage", "feature_image": "FeatureImage"}, "parent_id": "ParentID", "disabled": true, "tags": ["Tags"], "group": false, "provider": {"email": "Email", "name": "Name", "contact": "Contact", "support_email": "SupportEmail", "phone": "Phone"}, "metadata": {"rc_compatible": true, "ui": {"strings": {}, "urls": {"doc_url": "DocURL", "instructions_url": "InstructionsURL", "api_url": "ApiURL", "create_url": "CreateURL", "sdk_download_url": "SdkDownloadURL", "terms_url": "TermsURL", "custom_create_page_url": "CustomCreatePageURL", "catalog_details_url": "CatalogDetailsURL", "deprecation_doc_url": "DeprecationDocURL"}, "embeddable_dashboard": "EmbeddableDashboard", "embeddable_dashboard_full_width": true, "navigation_order": ["NavigationOrder"], "not_creatable": true, "reservable": true, "primary_offering_id": "PrimaryOfferingID", "accessible_during_provision": false, "side_by_side_index": 15, "end_of_service_time": "2019-01-01T12:00:00"}, "pricing": {"type": "Type", "origin": "Origin", "starting_price": {"plan_id": "PlanID", "deployment_id": "DeploymentID", "amount": [{"counrty": "Counrty", "currency": "Currency", "prices": [{"quantity_tier": 12, "Price": 5}]}]}, "metrics": [{"metric_id": "MetricID", "tier_model": "TierModel", "charge_unit_name": "ChargeUnitName", "charge_unit_quantity": "ChargeUnitQuantity", "resource_display_name": "ResourceDisplayName", "charge_unit_display_name": "ChargeUnitDisplayName", "usage_cap_qty": 11, "amounts": [{"counrty": "Counrty", "currency": "Currency", "prices": [{"quantity_tier": 12, "Price": 5}]}]}]}, "compliance": ["Compliance"], "service": {"type": "Type", "iam_compatible": false, "unique_api_key": true, "provisionable": false, "async_provisioning_supported": true, "async_unprovisioning_supported": true, "cf_guid": "CfGuid", "bindable": true, "requires": ["Requires"], "plan_updateable": true, "state": "State", "service_check_enabled": false, "test_check_interval": 17, "service_key_supported": false}, "plan": {"bindable": true, "reservable": true, "allow_internal_users": true, "async_provisioning_supported": true, "async_unprovisioning_supported": true, "test_check_interval": 17, "single_scope_instance": "SingleScopeInstance", "service_check_enabled": false, "cf_guid": "CfGuid"}, "template": {"services": ["Services"], "default_memory": 13, "start_cmd": "StartCmd", "source": {"path": "Path", "type": "Type", "url": "URL"}, "runtime_catalog_id": "RuntimeCatalogID", "cf_runtime_id": "CfRuntimeID", "template_id": "TemplateID", "executable_file": "ExecutableFile", "buildpack": "Buildpack", "environment_variables": {"_key_": "Key"}}, "deployment": {"location": "Location", "location_url": "LocationURL", "target_crn": "TargetCrn", "broker": {"name": "Name", "guid": "Guid", "password": {"text": "Text", "key": "Key", "iv": "Iv"}}, "supports_rc_migration": false}, "alias": {"type": "Type", "plan_id": "PlanID"}, "sla": {"terms": "Terms", "tenancy": "Tenancy", "provisioning": "Provisioning", "responsiveness": "Responsiveness", "dr": {"dr": true, "description": "Description"}}, "callbacks": {"broker_utl": "BrokerUtl", "broker_proxy_url": "BrokerProxyURL", "dashboard_url": "DashboardURL", "dashboard_data_url": "DashboardDataURL", "dashboard_detail_tab_url": "DashboardDetailTabURL", "dashboard_detail_tab_ext_url": "DashboardDetailTabExtURL", "service_monitor_api": "ServiceMonitorApi", "service_monitor_app": "ServiceMonitorApp", "service_staging_url": "ServiceStagingURL", "service_production_url": "ServiceProductionURL"}, "version": "Version", "original_name": "OriginalName", "other": {"anyKey": "anyValue"}}, "active": true, "catalog_crn": "CatalogCrn", "url": "URL", "children_url": "ChildrenURL", "parent_url": "ParentURL", "geo_tags": ["GeoTags"], "pricing_tags": ["PricingTags"], "created": "2019-01-01T12:00:00", "updated": "2019-01-01T12:00:00", "children": [{"id": "ID", "name": "Name", "overview_ui": {}, "kind": "Kind", "images": {"image": "Image", "small_image": "SmallImage", "medium_image": "MediumImage", "feature_image": "FeatureImage"}, "parent_id": "ParentID", "disabled": true, "tags": ["Tags"], "group": false, "provider": {"email": "Email", "name": "Name", "contact": "Contact", "support_email": "SupportEmail", "phone": "Phone"}, "metadata": {"rc_compatible": true, "ui": {"strings": {}, "urls": {"doc_url": "DocURL", "instructions_url": "InstructionsURL", "api_url": "ApiURL", "create_url": "CreateURL", "sdk_download_url": "SdkDownloadURL", "terms_url": "TermsURL", "custom_create_page_url": "CustomCreatePageURL", "catalog_details_url": "CatalogDetailsURL", "deprecation_doc_url": "DeprecationDocURL"}, "embeddable_dashboard": "EmbeddableDashboard", "embeddable_dashboard_full_width": true, "navigation_order": ["NavigationOrder"], "not_creatable": true, "reservable": true, "primary_offering_id": "PrimaryOfferingID", "accessible_during_provision": false, "side_by_side_index": 15, "end_of_service_time": "2019-01-01T12:00:00"}, "pricing": {"type": "Type", "origin": "Origin", "starting_price": {"plan_id": "PlanID", "deployment_id": "DeploymentID", "amount": [{"counrty": "Counrty", "currency": "Currency", "prices": [{"quantity_tier": 12, "Price": 5}]}]}, "metrics": [{"metric_id": "MetricID", "tier_model": "TierModel", "charge_unit_name": "ChargeUnitName", "charge_unit_quantity": "ChargeUnitQuantity", "resource_display_name": "ResourceDisplayName", "charge_unit_display_name": "ChargeUnitDisplayName", "usage_cap_qty": 11, "amounts": [{"counrty": "Counrty", "currency": "Currency", "prices": [{"quantity_tier": 12, "Price": 5}]}]}]}, "compliance": ["Compliance"], "service": {"type": "Type", "iam_compatible": false, "unique_api_key": true, "provisionable": false, "async_provisioning_supported": true, "async_unprovisioning_supported": true, "cf_guid": "CfGuid", "bindable": true, "requires": ["Requires"], "plan_updateable": true, "state": "State", "service_check_enabled": false, "test_check_interval": 17, "service_key_supported": false}, "plan": {"bindable": true, "reservable": true, "allow_internal_users": true, "async_provisioning_supported": true, "async_unprovisioning_supported": true, "test_check_interval": 17, "single_scope_instance": "SingleScopeInstance", "service_check_enabled": false, "cf_guid": "CfGuid"}, "template": {"services": ["Services"], "default_memory": 13, "start_cmd": "StartCmd", "source": {"path": "Path", "type": "Type", "url": "URL"}, "runtime_catalog_id": "RuntimeCatalogID", "cf_runtime_id": "CfRuntimeID", "template_id": "TemplateID", "executable_file": "ExecutableFile", "buildpack": "Buildpack", "environment_variables": {"_key_": "Key"}}, "deployment": {"location": "Location", "location_url": "LocationURL", "target_crn": "TargetCrn", "broker": {"name": "Name", "guid": "Guid", "password": {"text": "Text", "key": "Key", "iv": "Iv"}}, "supports_rc_migration": false}, "alias": {"type": "Type", "plan_id": "PlanID"}, "sla": {"terms": "Terms", "tenancy": "Tenancy", "provisioning": "Provisioning", "responsiveness": "Responsiveness", "dr": {"dr": true, "description": "Description"}}, "callbacks": {"broker_utl": "BrokerUtl", "broker_proxy_url": "BrokerProxyURL", "dashboard_url": "DashboardURL", "dashboard_data_url": "DashboardDataURL", "dashboard_detail_tab_url": "DashboardDetailTabURL", "dashboard_detail_tab_ext_url": "DashboardDetailTabExtURL", "service_monitor_api": "ServiceMonitorApi", "service_monitor_app": "ServiceMonitorApp", "service_staging_url": "ServiceStagingURL", "service_production_url": "ServiceProductionURL"}, "version": "Version", "original_name": "OriginalName", "other": {"anyKey": "anyValue"}}, "active": true, "catalog_crn": "CatalogCrn", "url": "URL", "children_url": "ChildrenURL", "parent_url": "ParentURL", "geo_tags": ["GeoTags"], "pricing_tags": ["PricingTags"], "created": "2019-01-01T12:00:00", "updated": "2019-01-01T12:00:00", "children": [{"id": "ID", "name": "Name", "overview_ui": {}, "kind": "Kind", "images": {"image": "Image", "small_image": "SmallImage", "medium_image": "MediumImage", "feature_image": "FeatureImage"}, "parent_id": "ParentID", "disabled": true, "tags": ["Tags"], "group": false, "provider": {"email": "Email", "name": "Name", "contact": "Contact", "support_email": "SupportEmail", "phone": "Phone"}, "metadata": {"rc_compatible": true, "ui": {"strings": {}, "urls": {"doc_url": "DocURL", "instructions_url": "InstructionsURL", "api_url": "ApiURL", "create_url": "CreateURL", "sdk_download_url": "SdkDownloadURL", "terms_url": "TermsURL", "custom_create_page_url": "CustomCreatePageURL", "catalog_details_url": "CatalogDetailsURL", "deprecation_doc_url": "DeprecationDocURL"}, "embeddable_dashboard": "EmbeddableDashboard", "embeddable_dashboard_full_width": true, "navigation_order": ["NavigationOrder"], "not_creatable": true, "reservable": true, "primary_offering_id": "PrimaryOfferingID", "accessible_during_provision": false, "side_by_side_index": 15, "end_of_service_time": "2019-01-01T12:00:00"}, "pricing": {"type": "Type", "origin": "Origin", "starting_price": {"plan_id": "PlanID", "deployment_id": "DeploymentID", "amount": [{"counrty": "Counrty", "currency": "Currency", "prices": []}]}, "metrics": [{"metric_id": "MetricID", "tier_model": "TierModel", "charge_unit_name": "ChargeUnitName", "charge_unit_quantity": "ChargeUnitQuantity", "resource_display_name": "ResourceDisplayName", "charge_unit_display_name": "ChargeUnitDisplayName", "usage_cap_qty": 11, "amounts": [{"counrty": "Counrty", "currency": "Currency", "prices": []}]}]}, "compliance": ["Compliance"], "service": {"type": "Type", "iam_compatible": false, "unique_api_key": true, "provisionable": false, "async_provisioning_supported": true, "async_unprovisioning_supported": true, "cf_guid": "CfGuid", "bindable": true, "requires": ["Requires"], "plan_updateable": true, "state": "State", "service_check_enabled": false, "test_check_interval": 17, "service_key_supported": false}, "plan": {"bindable": true, "reservable": true, "allow_internal_users": true, "async_provisioning_supported": true, "async_unprovisioning_supported": true, "test_check_interval": 17, "single_scope_instance": "SingleScopeInstance", "service_check_enabled": false, "cf_guid": "CfGuid"}, "template": {"services": ["Services"], "default_memory": 13, "start_cmd": "StartCmd", "source": {"path": "Path", "type": "Type", "url": "URL"}, "runtime_catalog_id": "RuntimeCatalogID", "cf_runtime_id": "CfRuntimeID", "template_id": "TemplateID", "executable_file": "ExecutableFile", "buildpack": "Buildpack", "environment_variables": {"_key_": "Key"}}, "deployment": {"location": "Location", "location_url": "LocationURL", "target_crn": "TargetCrn", "broker": {"name": "Name", "guid": "Guid", "password": {"text": "Text", "key": "Key", "iv": "Iv"}}, "supports_rc_migration": false}, "alias": {"type": "Type", "plan_id": "PlanID"}, "sla": {"terms": "Terms", "tenancy": "Tenancy", "provisioning": "Provisioning", "responsiveness": "Responsiveness", "dr": {"dr": true, "description": "Description"}}, "callbacks": {"broker_utl": "BrokerUtl", "broker_proxy_url": "BrokerProxyURL", "dashboard_url": "DashboardURL", "dashboard_data_url": "DashboardDataURL", "dashboard_detail_tab_url": "DashboardDetailTabURL", "dashboard_detail_tab_ext_url": "DashboardDetailTabExtURL", "service_monitor_api": "ServiceMonitorApi", "service_monitor_app": "ServiceMonitorApp", "service_staging_url": "ServiceStagingURL", "service_production_url": "ServiceProductionURL"}, "version": "Version", "original_name": "OriginalName", "other": {"anyKey": "anyValue"}}, "active": true, "catalog_crn": "CatalogCrn", "url": "URL", "children_url": "ChildrenURL", "parent_url": "ParentURL", "geo_tags": ["GeoTags"], "pricing_tags": ["PricingTags"], "created": "2019-01-01T12:00:00", "updated": "2019-01-01T12:00:00", "children": [{"id": "ID", "name": "Name", "overview_ui": {}, "kind": "Kind", "images": {"image": "Image", "small_image": "SmallImage", "medium_image": "MediumImage", "feature_image": "FeatureImage"}, "parent_id": "ParentID", "disabled": true, "tags": ["Tags"], "group": false, "provider": {"email": "Email", "name": "Name", "contact": "Contact", "support_email": "SupportEmail", "phone": "Phone"}, "metadata": {"rc_compatible": true, "ui": {"strings": {}, "urls": {"doc_url": "DocURL", "instructions_url": "InstructionsURL", "api_url": "ApiURL", "create_url": "CreateURL", "sdk_download_url": "SdkDownloadURL", "terms_url": "TermsURL", "custom_create_page_url": "CustomCreatePageURL", "catalog_details_url": "CatalogDetailsURL", "deprecation_doc_url": "DeprecationDocURL"}, "embeddable_dashboard": "EmbeddableDashboard", "embeddable_dashboard_full_width": true, "navigation_order": ["NavigationOrder"], "not_creatable": true, "reservable": true, "primary_offering_id": "PrimaryOfferingID", "accessible_during_provision": false, "side_by_side_index": 15, "end_of_service_time": "2019-01-01T12:00:00"}, "pricing": {"type": "Type", "origin": "Origin", "starting_price": {"plan_id": "PlanID", "deployment_id": "DeploymentID", "amount": []}, "metrics": [{"metric_id": "MetricID", "tier_model": "TierModel", "charge_unit_name": "ChargeUnitName", "charge_unit_quantity": "ChargeUnitQuantity", "resource_display_name": "ResourceDisplayName", "charge_unit_display_name": "ChargeUnitDisplayName", "usage_cap_qty": 11, "amounts": []}]}, "compliance": ["Compliance"], "service": {"type": "Type", "iam_compatible": false, "unique_api_key": true, "provisionable": false, "async_provisioning_supported": true, "async_unprovisioning_supported": true, "cf_guid": "CfGuid", "bindable": true, "requires": ["Requires"], "plan_updateable": true, "state": "State", "service_check_enabled": false, "test_check_interval": 17, "service_key_supported": false}, "plan": {"bindable": true, "reservable": true, "allow_internal_users": true, "async_provisioning_supported": true, "async_unprovisioning_supported": true, "test_check_interval": 17, "single_scope_instance": "SingleScopeInstance", "service_check_enabled": false, "cf_guid": "CfGuid"}, "template": {"services": ["Services"], "default_memory": 13, "start_cmd": "StartCmd", "source": {"path": "Path", "type": "Type", "url": "URL"}, "runtime_catalog_id": "RuntimeCatalogID", "cf_runtime_id": "CfRuntimeID", "template_id": "TemplateID", "executable_file": "ExecutableFile", "buildpack": "Buildpack", "environment_variables": {"_key_": "Key"}}, "deployment": {"location": "Location", "location_url": "LocationURL", "target_crn": "TargetCrn", "broker": {"name": "Name", "guid": "Guid"}, "supports_rc_migration": false}, "alias": {"type": "Type", "plan_id": "PlanID"}, "sla": {"terms": "Terms", "tenancy": "Tenancy", "provisioning": "Provisioning", "responsiveness": "Responsiveness", "dr": {"dr": true, "description": "Description"}}, "callbacks": {"broker_utl": "BrokerUtl", "broker_proxy_url": "BrokerProxyURL", "dashboard_url": "DashboardURL", "dashboard_data_url": "DashboardDataURL", "dashboard_detail_tab_url": "DashboardDetailTabURL", "dashboard_detail_tab_ext_url": "DashboardDetailTabExtURL", "service_monitor_api": "ServiceMonitorApi", "service_monitor_app": "ServiceMonitorApp", "service_staging_url": "ServiceStagingURL", "service_production_url": "ServiceProductionURL"}, "version": "Version", "original_name": "OriginalName", "other": {"anyKey": "anyValue"}}, "active": true, "catalog_crn": "CatalogCrn", "url": "URL", "children_url": "ChildrenURL", "parent_url": "ParentURL", "geo_tags": ["GeoTags"], "pricing_tags": ["PricingTags"], "created": "2019-01-01T12:00:00", "updated": "2019-01-01T12:00:00", "children": [{"id": "ID", "name": "Name", "overview_ui": {}, "kind": "Kind", "images": {"image": "Image", "small_image": "SmallImage", "medium_image": "MediumImage", "feature_image": "FeatureImage"}, "parent_id": "ParentID", "disabled": true, "tags": ["Tags"], "group": false, "provider": {"email": "Email", "name": "Name", "contact": "Contact", "support_email": "SupportEmail", "phone": "Phone"}, "metadata": {"rc_compatible": true, "ui": {"embeddable_dashboard": "EmbeddableDashboard", "embeddable_dashboard_full_width": true, "navigation_order": ["NavigationOrder"], "not_creatable": true, "reservable": true, "primary_offering_id": "PrimaryOfferingID", "accessible_during_provision": false, "side_by_side_index": 15, "end_of_service_time": "2019-01-01T12:00:00"}, "pricing": {"type": "Type", "origin": "Origin", "metrics": []}, "compliance": ["Compliance"], "service": {"type": "Type", "iam_compatible": false, "unique_api_key": true, "provisionable": false, "async_provisioning_supported": true, "async_unprovisioning_supported": true, "cf_guid": "CfGuid", "bindable": true, "requires": ["Requires"], "plan_updateable": true, "state": "State", "service_check_enabled": false, "test_check_interval": 17, "service_key_supported": false}, "plan": {"bindable": true, "reservable": true, "allow_internal_users": true, "async_provisioning_supported": true, "async_unprovisioning_supported": true, "test_check_interval": 17, "single_scope_instance": "SingleScopeInstance", "service_check_enabled": false, "cf_guid": "CfGuid"}, "template": {"services": ["Services"], "default_memory": 13, "start_cmd": "StartCmd", "runtime_catalog_id": "RuntimeCatalogID", "cf_runtime_id": "CfRuntimeID", "template_id": "TemplateID", "executable_file": "ExecutableFile", "buildpack": "Buildpack"}, "deployment": {"location": "Location", "location_url": "LocationURL", "target_crn": "TargetCrn", "supports_rc_migration": false}, "alias": {"type": "Type", "plan_id": "PlanID"}, "sla": {"terms": "Terms", "tenancy": "Tenancy", "provisioning": "Provisioning", "responsiveness": "Responsiveness"}, "callbacks": {"broker_utl": "BrokerUtl", "broker_proxy_url": "BrokerProxyURL", "dashboard_url": "DashboardURL", "dashboard_data_url": "DashboardDataURL", "dashboard_detail_tab_url": "DashboardDetailTabURL", "dashboard_detail_tab_ext_url": "DashboardDetailTabExtURL", "service_monitor_api": "ServiceMonitorApi", "service_monitor_app": "ServiceMonitorApp", "service_staging_url": "ServiceStagingURL", "service_production_url": "ServiceProductionURL"}, "version": "Version", "original_name": "OriginalName", "other": {"anyKey": "anyValue"}}, "active": true, "catalog_crn": "CatalogCrn", "url": "URL", "children_url": "ChildrenURL", "parent_url": "ParentURL", "geo_tags": ["GeoTags"], "pricing_tags": ["PricingTags"], "created": "2019-01-01T12:00:00", "updated": "2019-01-01T12:00:00", "children": [{"id": "ID", "name": "Name", "overview_ui": {}, "kind": "Kind", "images": {"image": "Image", "small_image": "SmallImage", "medium_image": "MediumImage", "feature_image": "FeatureImage"}, "parent_id": "ParentID", "disabled": true, "tags": ["Tags"], "group": false, "provider": {"email": "Email", "name": "Name", "contact": "Contact", "support_email": "SupportEmail", "phone": "Phone"}, "metadata": {"rc_compatible": true, "compliance": ["Compliance"], "version": "Version", "original_name": "OriginalName", "other": {"anyKey": "anyValue"}}, "active": true, "catalog_crn": "CatalogCrn", "url": "URL", "children_url": "ChildrenURL", "parent_url": "ParentURL", "geo_tags": ["GeoTags"], "pricing_tags": ["PricingTags"], "created": "2019-01-01T12:00:00", "updated": "2019-01-01T12:00:00", "children": [{"id": "ID", "name": "Name", "kind": "Kind", "parent_id": "ParentID", "disabled": true, "tags": ["Tags"], "group": false, "active": true, "catalog_crn": "CatalogCrn", "url": "URL", "children_url": "ChildrenURL", "parent_url": "ParentURL", "geo_tags": ["GeoTags"], "pricing_tags": ["PricingTags"], "created": "2019-01-01T12:00:00", "updated": "2019-01-01T12:00:00", "children": []}]}]}]}]}]}]}]}]}]}`)
+					fmt.Fprintf(res, `{"name": "Name", "overview_ui": {}, "images": {"image": "Image", "small_image": "SmallImage", "medium_image": "MediumImage", "feature_image": "FeatureImage"}, "parent_id": "ParentID", "disabled": true, "tags": ["Tags"], "group": false, "provider": {"email": "Email", "name": "Name", "contact": "Contact", "support_email": "SupportEmail", "phone": "Phone"}, "metadata": {"rc_compatible": true, "ui": {"strings": {}, "urls": {"doc_url": "DocURL", "instructions_url": "InstructionsURL", "api_url": "ApiURL", "create_url": "CreateURL", "sdk_download_url": "SdkDownloadURL", "terms_url": "TermsURL", "custom_create_page_url": "CustomCreatePageURL", "catalog_details_url": "CatalogDetailsURL", "deprecation_doc_url": "DeprecationDocURL"}, "embeddable_dashboard": "EmbeddableDashboard", "embeddable_dashboard_full_width": true, "navigation_order": ["NavigationOrder"], "not_creatable": true, "reservable": true, "primary_offering_id": "PrimaryOfferingID", "accessible_during_provision": false, "side_by_side_index": 15, "end_of_service_time": "2019-01-01T12:00:00"}, "pricing": {"type": "Type", "origin": "Origin", "starting_price": {"plan_id": "PlanID", "deployment_id": "DeploymentID", "amount": [{"counrty": "Counrty", "currency": "Currency", "prices": [{"quantity_tier": 12, "Price": 5}]}]}, "metrics": [{"metric_id": "MetricID", "tier_model": "TierModel", "charge_unit_name": "ChargeUnitName", "charge_unit_quantity": "ChargeUnitQuantity", "resource_display_name": "ResourceDisplayName", "charge_unit_display_name": "ChargeUnitDisplayName", "usage_cap_qty": 11, "amounts": [{"counrty": "Counrty", "currency": "Currency", "prices": [{"quantity_tier": 12, "Price": 5}]}]}]}, "compliance": ["Compliance"], "service": {"type": "Type", "iam_compatible": false, "unique_api_key": true, "provisionable": false, "async_provisioning_supported": true, "async_unprovisioning_supported": true, "cf_guid": "CfGuid", "bindable": true, "requires": ["Requires"], "plan_updateable": true, "state": "State", "service_check_enabled": false, "test_check_interval": 17, "service_key_supported": false}, "plan": {"bindable": true, "reservable": true, "allow_internal_users": true, "async_provisioning_supported": true, "async_unprovisioning_supported": true, "test_check_interval": 17, "single_scope_instance": "SingleScopeInstance", "service_check_enabled": false, "cf_guid": "CfGuid"}, "template": {"services": ["Services"], "default_memory": 13, "start_cmd": "StartCmd", "source": {"path": "Path", "type": "Type", "url": "URL"}, "runtime_catalog_id": "RuntimeCatalogID", "cf_runtime_id": "CfRuntimeID", "template_id": "TemplateID", "executable_file": "ExecutableFile", "buildpack": "Buildpack", "environment_variables": {"_key_": "Key"}}, "deployment": {"location": "Location", "location_url": "LocationURL", "target_crn": "TargetCrn", "broker": {"name": "Name", "guid": "Guid", "password": {"text": "Text", "key": "Key", "iv": "Iv"}}, "supports_rc_migration": false}, "alias": {"type": "Type", "plan_id": "PlanID"}, "sla": {"terms": "Terms", "tenancy": "Tenancy", "provisioning": "Provisioning", "responsiveness": "Responsiveness", "dr": {"dr": true, "description": "Description"}}, "callbacks": {"broker_utl": "BrokerUtl", "broker_proxy_url": "BrokerProxyURL", "dashboard_url": "DashboardURL", "dashboard_data_url": "DashboardDataURL", "dashboard_detail_tab_url": "DashboardDetailTabURL", "dashboard_detail_tab_ext_url": "DashboardDetailTabExtURL", "service_monitor_api": "ServiceMonitorApi", "service_monitor_app": "ServiceMonitorApp", "service_staging_url": "ServiceStagingURL", "service_production_url": "ServiceProductionURL"}, "version": "Version", "original_name": "OriginalName", "other": {"anyKey": "anyValue"}}, "active": true, "catalog_crn": "CatalogCrn", "url": "URL", "children_url": "ChildrenURL", "parent_url": "ParentURL", "geo_tags": ["GeoTags"], "pricing_tags": ["PricingTags"], "created": "2019-01-01T12:00:00", "updated": "2019-01-01T12:00:00", "children": [{"name": "Name", "overview_ui": {}, "images": {"image": "Image", "small_image": "SmallImage", "medium_image": "MediumImage", "feature_image": "FeatureImage"}, "parent_id": "ParentID", "disabled": true, "tags": ["Tags"], "group": false, "provider": {"email": "Email", "name": "Name", "contact": "Contact", "support_email": "SupportEmail", "phone": "Phone"}, "metadata": {"rc_compatible": true, "ui": {"strings": {}, "urls": {"doc_url": "DocURL", "instructions_url": "InstructionsURL", "api_url": "ApiURL", "create_url": "CreateURL", "sdk_download_url": "SdkDownloadURL", "terms_url": "TermsURL", "custom_create_page_url": "CustomCreatePageURL", "catalog_details_url": "CatalogDetailsURL", "deprecation_doc_url": "DeprecationDocURL"}, "embeddable_dashboard": "EmbeddableDashboard", "embeddable_dashboard_full_width": true, "navigation_order": ["NavigationOrder"], "not_creatable": true, "reservable": true, "primary_offering_id": "PrimaryOfferingID", "accessible_during_provision": false, "side_by_side_index": 15, "end_of_service_time": "2019-01-01T12:00:00"}, "pricing": {"type": "Type", "origin": "Origin", "starting_price": {"plan_id": "PlanID", "deployment_id": "DeploymentID", "amount": [{"counrty": "Counrty", "currency": "Currency", "prices": [{"quantity_tier": 12, "Price": 5}]}]}, "metrics": [{"metric_id": "MetricID", "tier_model": "TierModel", "charge_unit_name": "ChargeUnitName", "charge_unit_quantity": "ChargeUnitQuantity", "resource_display_name": "ResourceDisplayName", "charge_unit_display_name": "ChargeUnitDisplayName", "usage_cap_qty": 11, "amounts": [{"counrty": "Counrty", "currency": "Currency", "prices": [{"quantity_tier": 12, "Price": 5}]}]}]}, "compliance": ["Compliance"], "service": {"type": "Type", "iam_compatible": false, "unique_api_key": true, "provisionable": false, "async_provisioning_supported": true, "async_unprovisioning_supported": true, "cf_guid": "CfGuid", "bindable": true, "requires": ["Requires"], "plan_updateable": true, "state": "State", "service_check_enabled": false, "test_check_interval": 17, "service_key_supported": false}, "plan": {"bindable": true, "reservable": true, "allow_internal_users": true, "async_provisioning_supported": true, "async_unprovisioning_supported": true, "test_check_interval": 17, "single_scope_instance": "SingleScopeInstance", "service_check_enabled": false, "cf_guid": "CfGuid"}, "template": {"services": ["Services"], "default_memory": 13, "start_cmd": "StartCmd", "source": {"path": "Path", "type": "Type", "url": "URL"}, "runtime_catalog_id": "RuntimeCatalogID", "cf_runtime_id": "CfRuntimeID", "template_id": "TemplateID", "executable_file": "ExecutableFile", "buildpack": "Buildpack", "environment_variables": {"_key_": "Key"}}, "deployment": {"location": "Location", "location_url": "LocationURL", "target_crn": "TargetCrn", "broker": {"name": "Name", "guid": "Guid", "password": {"text": "Text", "key": "Key", "iv": "Iv"}}, "supports_rc_migration": false}, "alias": {"type": "Type", "plan_id": "PlanID"}, "sla": {"terms": "Terms", "tenancy": "Tenancy", "provisioning": "Provisioning", "responsiveness": "Responsiveness", "dr": {"dr": true, "description": "Description"}}, "callbacks": {"broker_utl": "BrokerUtl", "broker_proxy_url": "BrokerProxyURL", "dashboard_url": "DashboardURL", "dashboard_data_url": "DashboardDataURL", "dashboard_detail_tab_url": "DashboardDetailTabURL", "dashboard_detail_tab_ext_url": "DashboardDetailTabExtURL", "service_monitor_api": "ServiceMonitorApi", "service_monitor_app": "ServiceMonitorApp", "service_staging_url": "ServiceStagingURL", "service_production_url": "ServiceProductionURL"}, "version": "Version", "original_name": "OriginalName", "other": {"anyKey": "anyValue"}}, "active": true, "catalog_crn": "CatalogCrn", "url": "URL", "children_url": "ChildrenURL", "parent_url": "ParentURL", "geo_tags": ["GeoTags"], "pricing_tags": ["PricingTags"], "created": "2019-01-01T12:00:00", "updated": "2019-01-01T12:00:00", "children": [{"name": "Name", "overview_ui": {}, "images": {"image": "Image", "small_image": "SmallImage", "medium_image": "MediumImage", "feature_image": "FeatureImage"}, "parent_id": "ParentID", "disabled": true, "tags": ["Tags"], "group": false, "provider": {"email": "Email", "name": "Name", "contact": "Contact", "support_email": "SupportEmail", "phone": "Phone"}, "metadata": {"rc_compatible": true, "ui": {"strings": {}, "urls": {"doc_url": "DocURL", "instructions_url": "InstructionsURL", "api_url": "ApiURL", "create_url": "CreateURL", "sdk_download_url": "SdkDownloadURL", "terms_url": "TermsURL", "custom_create_page_url": "CustomCreatePageURL", "catalog_details_url": "CatalogDetailsURL", "deprecation_doc_url": "DeprecationDocURL"}, "embeddable_dashboard": "EmbeddableDashboard", "embeddable_dashboard_full_width": true, "navigation_order": ["NavigationOrder"], "not_creatable": true, "reservable": true, "primary_offering_id": "PrimaryOfferingID", "accessible_during_provision": false, "side_by_side_index": 15, "end_of_service_time": "2019-01-01T12:00:00"}, "pricing": {"type": "Type", "origin": "Origin", "starting_price": {"plan_id": "PlanID", "deployment_id": "DeploymentID", "amount": [{"counrty": "Counrty", "currency": "Currency", "prices": [{"quantity_tier": 12, "Price": 5}]}]}, "metrics": [{"metric_id": "MetricID", "tier_model": "TierModel", "charge_unit_name": "ChargeUnitName", "charge_unit_quantity": "ChargeUnitQuantity", "resource_display_name": "ResourceDisplayName", "charge_unit_display_name": "ChargeUnitDisplayName", "usage_cap_qty": 11, "amounts": [{"counrty": "Counrty", "currency": "Currency", "prices": [{"quantity_tier": 12, "Price": 5}]}]}]}, "compliance": ["Compliance"], "service": {"type": "Type", "iam_compatible": false, "unique_api_key": true, "provisionable": false, "async_provisioning_supported": true, "async_unprovisioning_supported": true, "cf_guid": "CfGuid", "bindable": true, "requires": ["Requires"], "plan_updateable": true, "state": "State", "service_check_enabled": false, "test_check_interval": 17, "service_key_supported": false}, "plan": {"bindable": true, "reservable": true, "allow_internal_users": true, "async_provisioning_supported": true, "async_unprovisioning_supported": true, "test_check_interval": 17, "single_scope_instance": "SingleScopeInstance", "service_check_enabled": false, "cf_guid": "CfGuid"}, "template": {"services": ["Services"], "default_memory": 13, "start_cmd": "StartCmd", "source": {"path": "Path", "type": "Type", "url": "URL"}, "runtime_catalog_id": "RuntimeCatalogID", "cf_runtime_id": "CfRuntimeID", "template_id": "TemplateID", "executable_file": "ExecutableFile", "buildpack": "Buildpack", "environment_variables": {"_key_": "Key"}}, "deployment": {"location": "Location", "location_url": "LocationURL", "target_crn": "TargetCrn", "broker": {"name": "Name", "guid": "Guid", "password": {"text": "Text", "key": "Key", "iv": "Iv"}}, "supports_rc_migration": false}, "alias": {"type": "Type", "plan_id": "PlanID"}, "sla": {"terms": "Terms", "tenancy": "Tenancy", "provisioning": "Provisioning", "responsiveness": "Responsiveness", "dr": {"dr": true, "description": "Description"}}, "callbacks": {"broker_utl": "BrokerUtl", "broker_proxy_url": "BrokerProxyURL", "dashboard_url": "DashboardURL", "dashboard_data_url": "DashboardDataURL", "dashboard_detail_tab_url": "DashboardDetailTabURL", "dashboard_detail_tab_ext_url": "DashboardDetailTabExtURL", "service_monitor_api": "ServiceMonitorApi", "service_monitor_app": "ServiceMonitorApp", "service_staging_url": "ServiceStagingURL", "service_production_url": "ServiceProductionURL"}, "version": "Version", "original_name": "OriginalName", "other": {"anyKey": "anyValue"}}, "active": true, "catalog_crn": "CatalogCrn", "url": "URL", "children_url": "ChildrenURL", "parent_url": "ParentURL", "geo_tags": ["GeoTags"], "pricing_tags": ["PricingTags"], "created": "2019-01-01T12:00:00", "updated": "2019-01-01T12:00:00", "children": [{"name": "Name", "overview_ui": {}, "images": {"image": "Image", "small_image": "SmallImage", "medium_image": "MediumImage", "feature_image": "FeatureImage"}, "parent_id": "ParentID", "disabled": true, "tags": ["Tags"], "group": false, "provider": {"email": "Email", "name": "Name", "contact": "Contact", "support_email": "SupportEmail", "phone": "Phone"}, "metadata": {"rc_compatible": true, "ui": {"strings": {}, "urls": {"doc_url": "DocURL", "instructions_url": "InstructionsURL", "api_url": "ApiURL", "create_url": "CreateURL", "sdk_download_url": "SdkDownloadURL", "terms_url": "TermsURL", "custom_create_page_url": "CustomCreatePageURL", "catalog_details_url": "CatalogDetailsURL", "deprecation_doc_url": "DeprecationDocURL"}, "embeddable_dashboard": "EmbeddableDashboard", "embeddable_dashboard_full_width": true, "navigation_order": ["NavigationOrder"], "not_creatable": true, "reservable": true, "primary_offering_id": "PrimaryOfferingID", "accessible_during_provision": false, "side_by_side_index": 15, "end_of_service_time": "2019-01-01T12:00:00"}, "pricing": {"type": "Type", "origin": "Origin", "starting_price": {"plan_id": "PlanID", "deployment_id": "DeploymentID", "amount": [{"counrty": "Counrty", "currency": "Currency", "prices": [{"quantity_tier": 12, "Price": 5}]}]}, "metrics": [{"metric_id": "MetricID", "tier_model": "TierModel", "charge_unit_name": "ChargeUnitName", "charge_unit_quantity": "ChargeUnitQuantity", "resource_display_name": "ResourceDisplayName", "charge_unit_display_name": "ChargeUnitDisplayName", "usage_cap_qty": 11, "amounts": [{"counrty": "Counrty", "currency": "Currency", "prices": [{"quantity_tier": 12, "Price": 5}]}]}]}, "compliance": ["Compliance"], "service": {"type": "Type", "iam_compatible": false, "unique_api_key": true, "provisionable": false, "async_provisioning_supported": true, "async_unprovisioning_supported": true, "cf_guid": "CfGuid", "bindable": true, "requires": ["Requires"], "plan_updateable": true, "state": "State", "service_check_enabled": false, "test_check_interval": 17, "service_key_supported": false}, "plan": {"bindable": true, "reservable": true, "allow_internal_users": true, "async_provisioning_supported": true, "async_unprovisioning_supported": true, "test_check_interval": 17, "single_scope_instance": "SingleScopeInstance", "service_check_enabled": false, "cf_guid": "CfGuid"}, "template": {"services": ["Services"], "default_memory": 13, "start_cmd": "StartCmd", "source": {"path": "Path", "type": "Type", "url": "URL"}, "runtime_catalog_id": "RuntimeCatalogID", "cf_runtime_id": "CfRuntimeID", "template_id": "TemplateID", "executable_file": "ExecutableFile", "buildpack": "Buildpack", "environment_variables": {"_key_": "Key"}}, "deployment": {"location": "Location", "location_url": "LocationURL", "target_crn": "TargetCrn", "broker": {"name": "Name", "guid": "Guid", "password": {"text": "Text", "key": "Key", "iv": "Iv"}}, "supports_rc_migration": false}, "alias": {"type": "Type", "plan_id": "PlanID"}, "sla": {"terms": "Terms", "tenancy": "Tenancy", "provisioning": "Provisioning", "responsiveness": "Responsiveness", "dr": {"dr": true, "description": "Description"}}, "callbacks": {"broker_utl": "BrokerUtl", "broker_proxy_url": "BrokerProxyURL", "dashboard_url": "DashboardURL", "dashboard_data_url": "DashboardDataURL", "dashboard_detail_tab_url": "DashboardDetailTabURL", "dashboard_detail_tab_ext_url": "DashboardDetailTabExtURL", "service_monitor_api": "ServiceMonitorApi", "service_monitor_app": "ServiceMonitorApp", "service_staging_url": "ServiceStagingURL", "service_production_url": "ServiceProductionURL"}, "version": "Version", "original_name": "OriginalName", "other": {"anyKey": "anyValue"}}, "active": true, "catalog_crn": "CatalogCrn", "url": "URL", "children_url": "ChildrenURL", "parent_url": "ParentURL", "geo_tags": ["GeoTags"], "pricing_tags": ["PricingTags"], "created": "2019-01-01T12:00:00", "updated": "2019-01-01T12:00:00", "children": [{"name": "Name", "overview_ui": {}, "images": {"image": "Image", "small_image": "SmallImage", "medium_image": "MediumImage", "feature_image": "FeatureImage"}, "parent_id": "ParentID", "disabled": true, "tags": ["Tags"], "group": false, "provider": {"email": "Email", "name": "Name", "contact": "Contact", "support_email": "SupportEmail", "phone": "Phone"}, "metadata": {"rc_compatible": true, "ui": {"strings": {}, "urls": {"doc_url": "DocURL", "instructions_url": "InstructionsURL", "api_url": "ApiURL", "create_url": "CreateURL", "sdk_download_url": "SdkDownloadURL", "terms_url": "TermsURL", "custom_create_page_url": "CustomCreatePageURL", "catalog_details_url": "CatalogDetailsURL", "deprecation_doc_url": "DeprecationDocURL"}, "embeddable_dashboard": "EmbeddableDashboard", "embeddable_dashboard_full_width": true, "navigation_order": ["NavigationOrder"], "not_creatable": true, "reservable": true, "primary_offering_id": "PrimaryOfferingID", "accessible_during_provision": false, "side_by_side_index": 15, "end_of_service_time": "2019-01-01T12:00:00"}, "pricing": {"type": "Type", "origin": "Origin", "starting_price": {"plan_id": "PlanID", "deployment_id": "DeploymentID", "amount": [{"counrty": "Counrty", "currency": "Currency", "prices": [{"quantity_tier": 12, "Price": 5}]}]}, "metrics": [{"metric_id": "MetricID", "tier_model": "TierModel", "charge_unit_name": "ChargeUnitName", "charge_unit_quantity": "ChargeUnitQuantity", "resource_display_name": "ResourceDisplayName", "charge_unit_display_name": "ChargeUnitDisplayName", "usage_cap_qty": 11, "amounts": [{"counrty": "Counrty", "currency": "Currency", "prices": [{"quantity_tier": 12, "Price": 5}]}]}]}, "compliance": ["Compliance"], "service": {"type": "Type", "iam_compatible": false, "unique_api_key": true, "provisionable": false, "async_provisioning_supported": true, "async_unprovisioning_supported": true, "cf_guid": "CfGuid", "bindable": true, "requires": ["Requires"], "plan_updateable": true, "state": "State", "service_check_enabled": false, "test_check_interval": 17, "service_key_supported": false}, "plan": {"bindable": true, "reservable": true, "allow_internal_users": true, "async_provisioning_supported": true, "async_unprovisioning_supported": true, "test_check_interval": 17, "single_scope_instance": "SingleScopeInstance", "service_check_enabled": false, "cf_guid": "CfGuid"}, "template": {"services": ["Services"], "default_memory": 13, "start_cmd": "StartCmd", "source": {"path": "Path", "type": "Type", "url": "URL"}, "runtime_catalog_id": "RuntimeCatalogID", "cf_runtime_id": "CfRuntimeID", "template_id": "TemplateID", "executable_file": "ExecutableFile", "buildpack": "Buildpack", "environment_variables": {"_key_": "Key"}}, "deployment": {"location": "Location", "location_url": "LocationURL", "target_crn": "TargetCrn", "broker": {"name": "Name", "guid": "Guid", "password": {"text": "Text", "key": "Key", "iv": "Iv"}}, "supports_rc_migration": false}, "alias": {"type": "Type", "plan_id": "PlanID"}, "sla": {"terms": "Terms", "tenancy": "Tenancy", "provisioning": "Provisioning", "responsiveness": "Responsiveness", "dr": {"dr": true, "description": "Description"}}, "callbacks": {"broker_utl": "BrokerUtl", "broker_proxy_url": "BrokerProxyURL", "dashboard_url": "DashboardURL", "dashboard_data_url": "DashboardDataURL", "dashboard_detail_tab_url": "DashboardDetailTabURL", "dashboard_detail_tab_ext_url": "DashboardDetailTabExtURL", "service_monitor_api": "ServiceMonitorApi", "service_monitor_app": "ServiceMonitorApp", "service_staging_url": "ServiceStagingURL", "service_production_url": "ServiceProductionURL"}, "version": "Version", "original_name": "OriginalName", "other": {"anyKey": "anyValue"}}, "active": true, "catalog_crn": "CatalogCrn", "url": "URL", "children_url": "ChildrenURL", "parent_url": "ParentURL", "geo_tags": ["GeoTags"], "pricing_tags": ["PricingTags"], "created": "2019-01-01T12:00:00", "updated": "2019-01-01T12:00:00", "children": [{"name": "Name", "overview_ui": {}, "images": {"image": "Image", "small_image": "SmallImage", "medium_image": "MediumImage", "feature_image": "FeatureImage"}, "parent_id": "ParentID", "disabled": true, "tags": ["Tags"], "group": false, "provider": {"email": "Email", "name": "Name", "contact": "Contact", "support_email": "SupportEmail", "phone": "Phone"}, "metadata": {"rc_compatible": true, "ui": {"strings": {}, "urls": {"doc_url": "DocURL", "instructions_url": "InstructionsURL", "api_url": "ApiURL", "create_url": "CreateURL", "sdk_download_url": "SdkDownloadURL", "terms_url": "TermsURL", "custom_create_page_url": "CustomCreatePageURL", "catalog_details_url": "CatalogDetailsURL", "deprecation_doc_url": "DeprecationDocURL"}, "embeddable_dashboard": "EmbeddableDashboard", "embeddable_dashboard_full_width": true, "navigation_order": ["NavigationOrder"], "not_creatable": true, "reservable": true, "primary_offering_id": "PrimaryOfferingID", "accessible_during_provision": false, "side_by_side_index": 15, "end_of_service_time": "2019-01-01T12:00:00"}, "pricing": {"type": "Type", "origin": "Origin", "starting_price": {"plan_id": "PlanID", "deployment_id": "DeploymentID", "amount": [{"counrty": "Counrty", "currency": "Currency", "prices": []}]}, "metrics": [{"metric_id": "MetricID", "tier_model": "TierModel", "charge_unit_name": "ChargeUnitName", "charge_unit_quantity": "ChargeUnitQuantity", "resource_display_name": "ResourceDisplayName", "charge_unit_display_name": "ChargeUnitDisplayName", "usage_cap_qty": 11, "amounts": [{"counrty": "Counrty", "currency": "Currency", "prices": []}]}]}, "compliance": ["Compliance"], "service": {"type": "Type", "iam_compatible": false, "unique_api_key": true, "provisionable": false, "async_provisioning_supported": true, "async_unprovisioning_supported": true, "cf_guid": "CfGuid", "bindable": true, "requires": ["Requires"], "plan_updateable": true, "state": "State", "service_check_enabled": false, "test_check_interval": 17, "service_key_supported": false}, "plan": {"bindable": true, "reservable": true, "allow_internal_users": true, "async_provisioning_supported": true, "async_unprovisioning_supported": true, "test_check_interval": 17, "single_scope_instance": "SingleScopeInstance", "service_check_enabled": false, "cf_guid": "CfGuid"}, "template": {"services": ["Services"], "default_memory": 13, "start_cmd": "StartCmd", "source": {"path": "Path", "type": "Type", "url": "URL"}, "runtime_catalog_id": "RuntimeCatalogID", "cf_runtime_id": "CfRuntimeID", "template_id": "TemplateID", "executable_file": "ExecutableFile", "buildpack": "Buildpack", "environment_variables": {"_key_": "Key"}}, "deployment": {"location": "Location", "location_url": "LocationURL", "target_crn": "TargetCrn", "broker": {"name": "Name", "guid": "Guid", "password": {"text": "Text", "key": "Key", "iv": "Iv"}}, "supports_rc_migration": false}, "alias": {"type": "Type", "plan_id": "PlanID"}, "sla": {"terms": "Terms", "tenancy": "Tenancy", "provisioning": "Provisioning", "responsiveness": "Responsiveness", "dr": {"dr": true, "description": "Description"}}, "callbacks": {"broker_utl": "BrokerUtl", "broker_proxy_url": "BrokerProxyURL", "dashboard_url": "DashboardURL", "dashboard_data_url": "DashboardDataURL", "dashboard_detail_tab_url": "DashboardDetailTabURL", "dashboard_detail_tab_ext_url": "DashboardDetailTabExtURL", "service_monitor_api": "ServiceMonitorApi", "service_monitor_app": "ServiceMonitorApp", "service_staging_url": "ServiceStagingURL", "service_production_url": "ServiceProductionURL"}, "version": "Version", "original_name": "OriginalName", "other": {"anyKey": "anyValue"}}, "active": true, "catalog_crn": "CatalogCrn", "url": "URL", "children_url": "ChildrenURL", "parent_url": "ParentURL", "geo_tags": ["GeoTags"], "pricing_tags": ["PricingTags"], "created": "2019-01-01T12:00:00", "updated": "2019-01-01T12:00:00", "children": [{"name": "Name", "overview_ui": {}, "images": {"image": "Image", "small_image": "SmallImage", "medium_image": "MediumImage", "feature_image": "FeatureImage"}, "parent_id": "ParentID", "disabled": true, "tags": ["Tags"], "group": false, "provider": {"email": "Email", "name": "Name", "contact": "Contact", "support_email": "SupportEmail", "phone": "Phone"}, "metadata": {"rc_compatible": true, "ui": {"strings": {}, "urls": {"doc_url": "DocURL", "instructions_url": "InstructionsURL", "api_url": "ApiURL", "create_url": "CreateURL", "sdk_download_url": "SdkDownloadURL", "terms_url": "TermsURL", "custom_create_page_url": "CustomCreatePageURL", "catalog_details_url": "CatalogDetailsURL", "deprecation_doc_url": "DeprecationDocURL"}, "embeddable_dashboard": "EmbeddableDashboard", "embeddable_dashboard_full_width": true, "navigation_order": ["NavigationOrder"], "not_creatable": true, "reservable": true, "primary_offering_id": "PrimaryOfferingID", "accessible_during_provision": false, "side_by_side_index": 15, "end_of_service_time": "2019-01-01T12:00:00"}, "pricing": {"type": "Type", "origin": "Origin", "starting_price": {"plan_id": "PlanID", "deployment_id": "DeploymentID", "amount": []}, "metrics": [{"metric_id": "MetricID", "tier_model": "TierModel", "charge_unit_name": "ChargeUnitName", "charge_unit_quantity": "ChargeUnitQuantity", "resource_display_name": "ResourceDisplayName", "charge_unit_display_name": "ChargeUnitDisplayName", "usage_cap_qty": 11, "amounts": []}]}, "compliance": ["Compliance"], "service": {"type": "Type", "iam_compatible": false, "unique_api_key": true, "provisionable": false, "async_provisioning_supported": true, "async_unprovisioning_supported": true, "cf_guid": "CfGuid", "bindable": true, "requires": ["Requires"], "plan_updateable": true, "state": "State", "service_check_enabled": false, "test_check_interval": 17, "service_key_supported": false}, "plan": {"bindable": true, "reservable": true, "allow_internal_users": true, "async_provisioning_supported": true, "async_unprovisioning_supported": true, "test_check_interval": 17, "single_scope_instance": "SingleScopeInstance", "service_check_enabled": false, "cf_guid": "CfGuid"}, "template": {"services": ["Services"], "default_memory": 13, "start_cmd": "StartCmd", "source": {"path": "Path", "type": "Type", "url": "URL"}, "runtime_catalog_id": "RuntimeCatalogID", "cf_runtime_id": "CfRuntimeID", "template_id": "TemplateID", "executable_file": "ExecutableFile", "buildpack": "Buildpack", "environment_variables": {"_key_": "Key"}}, "deployment": {"location": "Location", "location_url": "LocationURL", "target_crn": "TargetCrn", "broker": {"name": "Name", "guid": "Guid"}, "supports_rc_migration": false}, "alias": {"type": "Type", "plan_id": "PlanID"}, "sla": {"terms": "Terms", "tenancy": "Tenancy", "provisioning": "Provisioning", "responsiveness": "Responsiveness", "dr": {"dr": true, "description": "Description"}}, "callbacks": {"broker_utl": "BrokerUtl", "broker_proxy_url": "BrokerProxyURL", "dashboard_url": "DashboardURL", "dashboard_data_url": "DashboardDataURL", "dashboard_detail_tab_url": "DashboardDetailTabURL", "dashboard_detail_tab_ext_url": "DashboardDetailTabExtURL", "service_monitor_api": "ServiceMonitorApi", "service_monitor_app": "ServiceMonitorApp", "service_staging_url": "ServiceStagingURL", "service_production_url": "ServiceProductionURL"}, "version": "Version", "original_name": "OriginalName", "other": {"anyKey": "anyValue"}}, "active": true, "catalog_crn": "CatalogCrn", "url": "URL", "children_url": "ChildrenURL", "parent_url": "ParentURL", "geo_tags": ["GeoTags"], "pricing_tags": ["PricingTags"], "created": "2019-01-01T12:00:00", "updated": "2019-01-01T12:00:00", "children": [{"name": "Name", "overview_ui": {}, "images": {"image": "Image", "small_image": "SmallImage", "medium_image": "MediumImage", "feature_image": "FeatureImage"}, "parent_id": "ParentID", "disabled": true, "tags": ["Tags"], "group": false, "provider": {"email": "Email", "name": "Name", "contact": "Contact", "support_email": "SupportEmail", "phone": "Phone"}, "metadata": {"rc_compatible": true, "ui": {"embeddable_dashboard": "EmbeddableDashboard", "embeddable_dashboard_full_width": true, "navigation_order": ["NavigationOrder"], "not_creatable": true, "reservable": true, "primary_offering_id": "PrimaryOfferingID", "accessible_during_provision": false, "side_by_side_index": 15, "end_of_service_time": "2019-01-01T12:00:00"}, "pricing": {"type": "Type", "origin": "Origin", "metrics": []}, "compliance": ["Compliance"], "service": {"type": "Type", "iam_compatible": false, "unique_api_key": true, "provisionable": false, "async_provisioning_supported": true, "async_unprovisioning_supported": true, "cf_guid": "CfGuid", "bindable": true, "requires": ["Requires"], "plan_updateable": true, "state": "State", "service_check_enabled": false, "test_check_interval": 17, "service_key_supported": false}, "plan": {"bindable": true, "reservable": true, "allow_internal_users": true, "async_provisioning_supported": true, "async_unprovisioning_supported": true, "test_check_interval": 17, "single_scope_instance": "SingleScopeInstance", "service_check_enabled": false, "cf_guid": "CfGuid"}, "template": {"services": ["Services"], "default_memory": 13, "start_cmd": "StartCmd", "runtime_catalog_id": "RuntimeCatalogID", "cf_runtime_id": "CfRuntimeID", "template_id": "TemplateID", "executable_file": "ExecutableFile", "buildpack": "Buildpack"}, "deployment": {"location": "Location", "location_url": "LocationURL", "target_crn": "TargetCrn", "supports_rc_migration": false}, "alias": {"type": "Type", "plan_id": "PlanID"}, "sla": {"terms": "Terms", "tenancy": "Tenancy", "provisioning": "Provisioning", "responsiveness": "Responsiveness"}, "callbacks": {"broker_utl": "BrokerUtl", "broker_proxy_url": "BrokerProxyURL", "dashboard_url": "DashboardURL", "dashboard_data_url": "DashboardDataURL", "dashboard_detail_tab_url": "DashboardDetailTabURL", "dashboard_detail_tab_ext_url": "DashboardDetailTabExtURL", "service_monitor_api": "ServiceMonitorApi", "service_monitor_app": "ServiceMonitorApp", "service_staging_url": "ServiceStagingURL", "service_production_url": "ServiceProductionURL"}, "version": "Version", "original_name": "OriginalName", "other": {"anyKey": "anyValue"}}, "active": true, "catalog_crn": "CatalogCrn", "url": "URL", "children_url": "ChildrenURL", "parent_url": "ParentURL", "geo_tags": ["GeoTags"], "pricing_tags": ["PricingTags"], "created": "2019-01-01T12:00:00", "updated": "2019-01-01T12:00:00", "children": [{"name": "Name", "overview_ui": {}, "images": {"image": "Image", "small_image": "SmallImage", "medium_image": "MediumImage", "feature_image": "FeatureImage"}, "parent_id": "ParentID", "disabled": true, "tags": ["Tags"], "group": false, "provider": {"email": "Email", "name": "Name", "contact": "Contact", "support_email": "SupportEmail", "phone": "Phone"}, "metadata": {"rc_compatible": true, "compliance": ["Compliance"], "version": "Version", "original_name": "OriginalName", "other": {"anyKey": "anyValue"}}, "active": true, "catalog_crn": "CatalogCrn", "url": "URL", "children_url": "ChildrenURL", "parent_url": "ParentURL", "geo_tags": ["GeoTags"], "pricing_tags": ["PricingTags"], "created": "2019-01-01T12:00:00", "updated": "2019-01-01T12:00:00", "children": [{"name": "Name", "parent_id": "ParentID", "disabled": true, "tags": ["Tags"], "group": false, "active": true, "catalog_crn": "CatalogCrn", "url": "URL", "children_url": "ChildrenURL", "parent_url": "ParentURL", "geo_tags": ["GeoTags"], "pricing_tags": ["PricingTags"], "created": "2019-01-01T12:00:00", "updated": "2019-01-01T12:00:00", "children": [], "kind": "service", "id": "ID"}], "kind": "service", "id": "ID"}], "kind": "service", "id": "ID"}], "kind": "service", "id": "ID"}], "kind": "service", "id": "ID"}], "kind": "service", "id": "ID"}], "kind": "service", "id": "ID"}], "kind": "service", "id": "ID"}], "kind": "service", "id": "ID"}], "kind": "service", "id": "ID"}`)
 				}))
 			})
 			It(`Invoke GetCatalogEntry successfully`, func() {
@@ -1551,7 +1551,6 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				catalogEntryModel := new(globalcatalogv1.CatalogEntry)
 				catalogEntryModel.Name = core.StringPtr("testString")
 				catalogEntryModel.OverviewUi = overviewUiModel
-				catalogEntryModel.Kind = core.StringPtr("testString")
 				catalogEntryModel.Images = imageModel
 				catalogEntryModel.ParentID = core.StringPtr("testString")
 				catalogEntryModel.Disabled = core.BoolPtr(true)
@@ -1561,31 +1560,30 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				catalogEntryModel.Metadata = objectMetaDataModel
 				catalogEntryModel.Active = core.BoolPtr(true)
 				catalogEntryModel.ParentURL = core.StringPtr("testString")
+				catalogEntryModel.Kind = core.StringPtr("service")
 
 				// Construct an instance of the UpdateCatalogEntryOptions model
 				updateCatalogEntryOptionsModel := new(globalcatalogv1.UpdateCatalogEntryOptions)
 				updateCatalogEntryOptionsModel.ID = core.StringPtr("testString")
-				updateCatalogEntryOptionsModel.NewID = core.StringPtr("testString")
-				updateCatalogEntryOptionsModel.NewName = core.StringPtr("testString")
-				updateCatalogEntryOptionsModel.NewOverviewUi = overviewUiModel
-				updateCatalogEntryOptionsModel.NewKind = core.StringPtr("testString")
-				updateCatalogEntryOptionsModel.NewImages = imageModel
-				updateCatalogEntryOptionsModel.NewDisabled = core.BoolPtr(true)
-				updateCatalogEntryOptionsModel.NewTags = []string{"testString"}
-				updateCatalogEntryOptionsModel.NewProvider = providerModel
-				updateCatalogEntryOptionsModel.NewParentID = core.StringPtr("testString")
-				updateCatalogEntryOptionsModel.NewGroup = core.BoolPtr(true)
-				updateCatalogEntryOptionsModel.NewMetadata = objectMetaDataModel
-				updateCatalogEntryOptionsModel.NewActive = core.BoolPtr(true)
-				updateCatalogEntryOptionsModel.NewCatalogCrn = core.StringPtr("testString")
-				updateCatalogEntryOptionsModel.NewURL = core.StringPtr("testString")
-				updateCatalogEntryOptionsModel.NewChildrenURL = core.StringPtr("testString")
-				updateCatalogEntryOptionsModel.NewParentURL = core.StringPtr("testString")
-				updateCatalogEntryOptionsModel.NewGeoTags = []string{"testString"}
-				updateCatalogEntryOptionsModel.NewPricingTags = []string{"testString"}
-				updateCatalogEntryOptionsModel.NewCreated = CreateMockDateTime()
-				updateCatalogEntryOptionsModel.NewUpdated = CreateMockDateTime()
-				updateCatalogEntryOptionsModel.NewChildren = []globalcatalogv1.CatalogEntry{*catalogEntryModel}
+				updateCatalogEntryOptionsModel.Name = core.StringPtr("testString")
+				updateCatalogEntryOptionsModel.OverviewUi = overviewUiModel
+				updateCatalogEntryOptionsModel.Images = imageModel
+				updateCatalogEntryOptionsModel.Disabled = core.BoolPtr(true)
+				updateCatalogEntryOptionsModel.Tags = []string{"testString"}
+				updateCatalogEntryOptionsModel.Provider = providerModel
+				updateCatalogEntryOptionsModel.ParentID = core.StringPtr("testString")
+				updateCatalogEntryOptionsModel.Group = core.BoolPtr(true)
+				updateCatalogEntryOptionsModel.Metadata = objectMetaDataModel
+				updateCatalogEntryOptionsModel.Active = core.BoolPtr(true)
+				updateCatalogEntryOptionsModel.CatalogCrn = core.StringPtr("testString")
+				updateCatalogEntryOptionsModel.URL = core.StringPtr("testString")
+				updateCatalogEntryOptionsModel.ChildrenURL = core.StringPtr("testString")
+				updateCatalogEntryOptionsModel.ParentURL = core.StringPtr("testString")
+				updateCatalogEntryOptionsModel.GeoTags = []string{"testString"}
+				updateCatalogEntryOptionsModel.PricingTags = []string{"testString"}
+				updateCatalogEntryOptionsModel.Created = CreateMockDateTime()
+				updateCatalogEntryOptionsModel.Updated = CreateMockDateTime()
+				updateCatalogEntryOptionsModel.Children = []globalcatalogv1.CatalogEntry{*catalogEntryModel}
 				updateCatalogEntryOptionsModel.Account = core.StringPtr("testString")
 				updateCatalogEntryOptionsModel.Move = core.StringPtr("testString")
 				updateCatalogEntryOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
@@ -1617,7 +1615,7 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, `{"id": "ID", "name": "Name", "overview_ui": {}, "kind": "Kind", "images": {"image": "Image", "small_image": "SmallImage", "medium_image": "MediumImage", "feature_image": "FeatureImage"}, "parent_id": "ParentID", "disabled": true, "tags": ["Tags"], "group": false, "provider": {"email": "Email", "name": "Name", "contact": "Contact", "support_email": "SupportEmail", "phone": "Phone"}, "metadata": {"rc_compatible": true, "ui": {"strings": {}, "urls": {"doc_url": "DocURL", "instructions_url": "InstructionsURL", "api_url": "ApiURL", "create_url": "CreateURL", "sdk_download_url": "SdkDownloadURL", "terms_url": "TermsURL", "custom_create_page_url": "CustomCreatePageURL", "catalog_details_url": "CatalogDetailsURL", "deprecation_doc_url": "DeprecationDocURL"}, "embeddable_dashboard": "EmbeddableDashboard", "embeddable_dashboard_full_width": true, "navigation_order": ["NavigationOrder"], "not_creatable": true, "reservable": true, "primary_offering_id": "PrimaryOfferingID", "accessible_during_provision": false, "side_by_side_index": 15, "end_of_service_time": "2019-01-01T12:00:00"}, "pricing": {"type": "Type", "origin": "Origin", "starting_price": {"plan_id": "PlanID", "deployment_id": "DeploymentID", "amount": [{"counrty": "Counrty", "currency": "Currency", "prices": [{"quantity_tier": 12, "Price": 5}]}]}, "metrics": [{"metric_id": "MetricID", "tier_model": "TierModel", "charge_unit_name": "ChargeUnitName", "charge_unit_quantity": "ChargeUnitQuantity", "resource_display_name": "ResourceDisplayName", "charge_unit_display_name": "ChargeUnitDisplayName", "usage_cap_qty": 11, "amounts": [{"counrty": "Counrty", "currency": "Currency", "prices": [{"quantity_tier": 12, "Price": 5}]}]}]}, "compliance": ["Compliance"], "service": {"type": "Type", "iam_compatible": false, "unique_api_key": true, "provisionable": false, "async_provisioning_supported": true, "async_unprovisioning_supported": true, "cf_guid": "CfGuid", "bindable": true, "requires": ["Requires"], "plan_updateable": true, "state": "State", "service_check_enabled": false, "test_check_interval": 17, "service_key_supported": false}, "plan": {"bindable": true, "reservable": true, "allow_internal_users": true, "async_provisioning_supported": true, "async_unprovisioning_supported": true, "test_check_interval": 17, "single_scope_instance": "SingleScopeInstance", "service_check_enabled": false, "cf_guid": "CfGuid"}, "template": {"services": ["Services"], "default_memory": 13, "start_cmd": "StartCmd", "source": {"path": "Path", "type": "Type", "url": "URL"}, "runtime_catalog_id": "RuntimeCatalogID", "cf_runtime_id": "CfRuntimeID", "template_id": "TemplateID", "executable_file": "ExecutableFile", "buildpack": "Buildpack", "environment_variables": {"_key_": "Key"}}, "deployment": {"location": "Location", "location_url": "LocationURL", "target_crn": "TargetCrn", "broker": {"name": "Name", "guid": "Guid", "password": {"text": "Text", "key": "Key", "iv": "Iv"}}, "supports_rc_migration": false}, "alias": {"type": "Type", "plan_id": "PlanID"}, "sla": {"terms": "Terms", "tenancy": "Tenancy", "provisioning": "Provisioning", "responsiveness": "Responsiveness", "dr": {"dr": true, "description": "Description"}}, "callbacks": {"broker_utl": "BrokerUtl", "broker_proxy_url": "BrokerProxyURL", "dashboard_url": "DashboardURL", "dashboard_data_url": "DashboardDataURL", "dashboard_detail_tab_url": "DashboardDetailTabURL", "dashboard_detail_tab_ext_url": "DashboardDetailTabExtURL", "service_monitor_api": "ServiceMonitorApi", "service_monitor_app": "ServiceMonitorApp", "service_staging_url": "ServiceStagingURL", "service_production_url": "ServiceProductionURL"}, "version": "Version", "original_name": "OriginalName", "other": {"anyKey": "anyValue"}}, "active": true, "catalog_crn": "CatalogCrn", "url": "URL", "children_url": "ChildrenURL", "parent_url": "ParentURL", "geo_tags": ["GeoTags"], "pricing_tags": ["PricingTags"], "created": "2019-01-01T12:00:00", "updated": "2019-01-01T12:00:00", "children": [{"id": "ID", "name": "Name", "overview_ui": {}, "kind": "Kind", "images": {"image": "Image", "small_image": "SmallImage", "medium_image": "MediumImage", "feature_image": "FeatureImage"}, "parent_id": "ParentID", "disabled": true, "tags": ["Tags"], "group": false, "provider": {"email": "Email", "name": "Name", "contact": "Contact", "support_email": "SupportEmail", "phone": "Phone"}, "metadata": {"rc_compatible": true, "ui": {"strings": {}, "urls": {"doc_url": "DocURL", "instructions_url": "InstructionsURL", "api_url": "ApiURL", "create_url": "CreateURL", "sdk_download_url": "SdkDownloadURL", "terms_url": "TermsURL", "custom_create_page_url": "CustomCreatePageURL", "catalog_details_url": "CatalogDetailsURL", "deprecation_doc_url": "DeprecationDocURL"}, "embeddable_dashboard": "EmbeddableDashboard", "embeddable_dashboard_full_width": true, "navigation_order": ["NavigationOrder"], "not_creatable": true, "reservable": true, "primary_offering_id": "PrimaryOfferingID", "accessible_during_provision": false, "side_by_side_index": 15, "end_of_service_time": "2019-01-01T12:00:00"}, "pricing": {"type": "Type", "origin": "Origin", "starting_price": {"plan_id": "PlanID", "deployment_id": "DeploymentID", "amount": [{"counrty": "Counrty", "currency": "Currency", "prices": [{"quantity_tier": 12, "Price": 5}]}]}, "metrics": [{"metric_id": "MetricID", "tier_model": "TierModel", "charge_unit_name": "ChargeUnitName", "charge_unit_quantity": "ChargeUnitQuantity", "resource_display_name": "ResourceDisplayName", "charge_unit_display_name": "ChargeUnitDisplayName", "usage_cap_qty": 11, "amounts": [{"counrty": "Counrty", "currency": "Currency", "prices": [{"quantity_tier": 12, "Price": 5}]}]}]}, "compliance": ["Compliance"], "service": {"type": "Type", "iam_compatible": false, "unique_api_key": true, "provisionable": false, "async_provisioning_supported": true, "async_unprovisioning_supported": true, "cf_guid": "CfGuid", "bindable": true, "requires": ["Requires"], "plan_updateable": true, "state": "State", "service_check_enabled": false, "test_check_interval": 17, "service_key_supported": false}, "plan": {"bindable": true, "reservable": true, "allow_internal_users": true, "async_provisioning_supported": true, "async_unprovisioning_supported": true, "test_check_interval": 17, "single_scope_instance": "SingleScopeInstance", "service_check_enabled": false, "cf_guid": "CfGuid"}, "template": {"services": ["Services"], "default_memory": 13, "start_cmd": "StartCmd", "source": {"path": "Path", "type": "Type", "url": "URL"}, "runtime_catalog_id": "RuntimeCatalogID", "cf_runtime_id": "CfRuntimeID", "template_id": "TemplateID", "executable_file": "ExecutableFile", "buildpack": "Buildpack", "environment_variables": {"_key_": "Key"}}, "deployment": {"location": "Location", "location_url": "LocationURL", "target_crn": "TargetCrn", "broker": {"name": "Name", "guid": "Guid", "password": {"text": "Text", "key": "Key", "iv": "Iv"}}, "supports_rc_migration": false}, "alias": {"type": "Type", "plan_id": "PlanID"}, "sla": {"terms": "Terms", "tenancy": "Tenancy", "provisioning": "Provisioning", "responsiveness": "Responsiveness", "dr": {"dr": true, "description": "Description"}}, "callbacks": {"broker_utl": "BrokerUtl", "broker_proxy_url": "BrokerProxyURL", "dashboard_url": "DashboardURL", "dashboard_data_url": "DashboardDataURL", "dashboard_detail_tab_url": "DashboardDetailTabURL", "dashboard_detail_tab_ext_url": "DashboardDetailTabExtURL", "service_monitor_api": "ServiceMonitorApi", "service_monitor_app": "ServiceMonitorApp", "service_staging_url": "ServiceStagingURL", "service_production_url": "ServiceProductionURL"}, "version": "Version", "original_name": "OriginalName", "other": {"anyKey": "anyValue"}}, "active": true, "catalog_crn": "CatalogCrn", "url": "URL", "children_url": "ChildrenURL", "parent_url": "ParentURL", "geo_tags": ["GeoTags"], "pricing_tags": ["PricingTags"], "created": "2019-01-01T12:00:00", "updated": "2019-01-01T12:00:00", "children": [{"id": "ID", "name": "Name", "overview_ui": {}, "kind": "Kind", "images": {"image": "Image", "small_image": "SmallImage", "medium_image": "MediumImage", "feature_image": "FeatureImage"}, "parent_id": "ParentID", "disabled": true, "tags": ["Tags"], "group": false, "provider": {"email": "Email", "name": "Name", "contact": "Contact", "support_email": "SupportEmail", "phone": "Phone"}, "metadata": {"rc_compatible": true, "ui": {"strings": {}, "urls": {"doc_url": "DocURL", "instructions_url": "InstructionsURL", "api_url": "ApiURL", "create_url": "CreateURL", "sdk_download_url": "SdkDownloadURL", "terms_url": "TermsURL", "custom_create_page_url": "CustomCreatePageURL", "catalog_details_url": "CatalogDetailsURL", "deprecation_doc_url": "DeprecationDocURL"}, "embeddable_dashboard": "EmbeddableDashboard", "embeddable_dashboard_full_width": true, "navigation_order": ["NavigationOrder"], "not_creatable": true, "reservable": true, "primary_offering_id": "PrimaryOfferingID", "accessible_during_provision": false, "side_by_side_index": 15, "end_of_service_time": "2019-01-01T12:00:00"}, "pricing": {"type": "Type", "origin": "Origin", "starting_price": {"plan_id": "PlanID", "deployment_id": "DeploymentID", "amount": [{"counrty": "Counrty", "currency": "Currency", "prices": [{"quantity_tier": 12, "Price": 5}]}]}, "metrics": [{"metric_id": "MetricID", "tier_model": "TierModel", "charge_unit_name": "ChargeUnitName", "charge_unit_quantity": "ChargeUnitQuantity", "resource_display_name": "ResourceDisplayName", "charge_unit_display_name": "ChargeUnitDisplayName", "usage_cap_qty": 11, "amounts": [{"counrty": "Counrty", "currency": "Currency", "prices": [{"quantity_tier": 12, "Price": 5}]}]}]}, "compliance": ["Compliance"], "service": {"type": "Type", "iam_compatible": false, "unique_api_key": true, "provisionable": false, "async_provisioning_supported": true, "async_unprovisioning_supported": true, "cf_guid": "CfGuid", "bindable": true, "requires": ["Requires"], "plan_updateable": true, "state": "State", "service_check_enabled": false, "test_check_interval": 17, "service_key_supported": false}, "plan": {"bindable": true, "reservable": true, "allow_internal_users": true, "async_provisioning_supported": true, "async_unprovisioning_supported": true, "test_check_interval": 17, "single_scope_instance": "SingleScopeInstance", "service_check_enabled": false, "cf_guid": "CfGuid"}, "template": {"services": ["Services"], "default_memory": 13, "start_cmd": "StartCmd", "source": {"path": "Path", "type": "Type", "url": "URL"}, "runtime_catalog_id": "RuntimeCatalogID", "cf_runtime_id": "CfRuntimeID", "template_id": "TemplateID", "executable_file": "ExecutableFile", "buildpack": "Buildpack", "environment_variables": {"_key_": "Key"}}, "deployment": {"location": "Location", "location_url": "LocationURL", "target_crn": "TargetCrn", "broker": {"name": "Name", "guid": "Guid", "password": {"text": "Text", "key": "Key", "iv": "Iv"}}, "supports_rc_migration": false}, "alias": {"type": "Type", "plan_id": "PlanID"}, "sla": {"terms": "Terms", "tenancy": "Tenancy", "provisioning": "Provisioning", "responsiveness": "Responsiveness", "dr": {"dr": true, "description": "Description"}}, "callbacks": {"broker_utl": "BrokerUtl", "broker_proxy_url": "BrokerProxyURL", "dashboard_url": "DashboardURL", "dashboard_data_url": "DashboardDataURL", "dashboard_detail_tab_url": "DashboardDetailTabURL", "dashboard_detail_tab_ext_url": "DashboardDetailTabExtURL", "service_monitor_api": "ServiceMonitorApi", "service_monitor_app": "ServiceMonitorApp", "service_staging_url": "ServiceStagingURL", "service_production_url": "ServiceProductionURL"}, "version": "Version", "original_name": "OriginalName", "other": {"anyKey": "anyValue"}}, "active": true, "catalog_crn": "CatalogCrn", "url": "URL", "children_url": "ChildrenURL", "parent_url": "ParentURL", "geo_tags": ["GeoTags"], "pricing_tags": ["PricingTags"], "created": "2019-01-01T12:00:00", "updated": "2019-01-01T12:00:00", "children": [{"id": "ID", "name": "Name", "overview_ui": {}, "kind": "Kind", "images": {"image": "Image", "small_image": "SmallImage", "medium_image": "MediumImage", "feature_image": "FeatureImage"}, "parent_id": "ParentID", "disabled": true, "tags": ["Tags"], "group": false, "provider": {"email": "Email", "name": "Name", "contact": "Contact", "support_email": "SupportEmail", "phone": "Phone"}, "metadata": {"rc_compatible": true, "ui": {"strings": {}, "urls": {"doc_url": "DocURL", "instructions_url": "InstructionsURL", "api_url": "ApiURL", "create_url": "CreateURL", "sdk_download_url": "SdkDownloadURL", "terms_url": "TermsURL", "custom_create_page_url": "CustomCreatePageURL", "catalog_details_url": "CatalogDetailsURL", "deprecation_doc_url": "DeprecationDocURL"}, "embeddable_dashboard": "EmbeddableDashboard", "embeddable_dashboard_full_width": true, "navigation_order": ["NavigationOrder"], "not_creatable": true, "reservable": true, "primary_offering_id": "PrimaryOfferingID", "accessible_during_provision": false, "side_by_side_index": 15, "end_of_service_time": "2019-01-01T12:00:00"}, "pricing": {"type": "Type", "origin": "Origin", "starting_price": {"plan_id": "PlanID", "deployment_id": "DeploymentID", "amount": [{"counrty": "Counrty", "currency": "Currency", "prices": [{"quantity_tier": 12, "Price": 5}]}]}, "metrics": [{"metric_id": "MetricID", "tier_model": "TierModel", "charge_unit_name": "ChargeUnitName", "charge_unit_quantity": "ChargeUnitQuantity", "resource_display_name": "ResourceDisplayName", "charge_unit_display_name": "ChargeUnitDisplayName", "usage_cap_qty": 11, "amounts": [{"counrty": "Counrty", "currency": "Currency", "prices": [{"quantity_tier": 12, "Price": 5}]}]}]}, "compliance": ["Compliance"], "service": {"type": "Type", "iam_compatible": false, "unique_api_key": true, "provisionable": false, "async_provisioning_supported": true, "async_unprovisioning_supported": true, "cf_guid": "CfGuid", "bindable": true, "requires": ["Requires"], "plan_updateable": true, "state": "State", "service_check_enabled": false, "test_check_interval": 17, "service_key_supported": false}, "plan": {"bindable": true, "reservable": true, "allow_internal_users": true, "async_provisioning_supported": true, "async_unprovisioning_supported": true, "test_check_interval": 17, "single_scope_instance": "SingleScopeInstance", "service_check_enabled": false, "cf_guid": "CfGuid"}, "template": {"services": ["Services"], "default_memory": 13, "start_cmd": "StartCmd", "source": {"path": "Path", "type": "Type", "url": "URL"}, "runtime_catalog_id": "RuntimeCatalogID", "cf_runtime_id": "CfRuntimeID", "template_id": "TemplateID", "executable_file": "ExecutableFile", "buildpack": "Buildpack", "environment_variables": {"_key_": "Key"}}, "deployment": {"location": "Location", "location_url": "LocationURL", "target_crn": "TargetCrn", "broker": {"name": "Name", "guid": "Guid", "password": {"text": "Text", "key": "Key", "iv": "Iv"}}, "supports_rc_migration": false}, "alias": {"type": "Type", "plan_id": "PlanID"}, "sla": {"terms": "Terms", "tenancy": "Tenancy", "provisioning": "Provisioning", "responsiveness": "Responsiveness", "dr": {"dr": true, "description": "Description"}}, "callbacks": {"broker_utl": "BrokerUtl", "broker_proxy_url": "BrokerProxyURL", "dashboard_url": "DashboardURL", "dashboard_data_url": "DashboardDataURL", "dashboard_detail_tab_url": "DashboardDetailTabURL", "dashboard_detail_tab_ext_url": "DashboardDetailTabExtURL", "service_monitor_api": "ServiceMonitorApi", "service_monitor_app": "ServiceMonitorApp", "service_staging_url": "ServiceStagingURL", "service_production_url": "ServiceProductionURL"}, "version": "Version", "original_name": "OriginalName", "other": {"anyKey": "anyValue"}}, "active": true, "catalog_crn": "CatalogCrn", "url": "URL", "children_url": "ChildrenURL", "parent_url": "ParentURL", "geo_tags": ["GeoTags"], "pricing_tags": ["PricingTags"], "created": "2019-01-01T12:00:00", "updated": "2019-01-01T12:00:00", "children": [{"id": "ID", "name": "Name", "overview_ui": {}, "kind": "Kind", "images": {"image": "Image", "small_image": "SmallImage", "medium_image": "MediumImage", "feature_image": "FeatureImage"}, "parent_id": "ParentID", "disabled": true, "tags": ["Tags"], "group": false, "provider": {"email": "Email", "name": "Name", "contact": "Contact", "support_email": "SupportEmail", "phone": "Phone"}, "metadata": {"rc_compatible": true, "ui": {"strings": {}, "urls": {"doc_url": "DocURL", "instructions_url": "InstructionsURL", "api_url": "ApiURL", "create_url": "CreateURL", "sdk_download_url": "SdkDownloadURL", "terms_url": "TermsURL", "custom_create_page_url": "CustomCreatePageURL", "catalog_details_url": "CatalogDetailsURL", "deprecation_doc_url": "DeprecationDocURL"}, "embeddable_dashboard": "EmbeddableDashboard", "embeddable_dashboard_full_width": true, "navigation_order": ["NavigationOrder"], "not_creatable": true, "reservable": true, "primary_offering_id": "PrimaryOfferingID", "accessible_during_provision": false, "side_by_side_index": 15, "end_of_service_time": "2019-01-01T12:00:00"}, "pricing": {"type": "Type", "origin": "Origin", "starting_price": {"plan_id": "PlanID", "deployment_id": "DeploymentID", "amount": [{"counrty": "Counrty", "currency": "Currency", "prices": [{"quantity_tier": 12, "Price": 5}]}]}, "metrics": [{"metric_id": "MetricID", "tier_model": "TierModel", "charge_unit_name": "ChargeUnitName", "charge_unit_quantity": "ChargeUnitQuantity", "resource_display_name": "ResourceDisplayName", "charge_unit_display_name": "ChargeUnitDisplayName", "usage_cap_qty": 11, "amounts": [{"counrty": "Counrty", "currency": "Currency", "prices": [{"quantity_tier": 12, "Price": 5}]}]}]}, "compliance": ["Compliance"], "service": {"type": "Type", "iam_compatible": false, "unique_api_key": true, "provisionable": false, "async_provisioning_supported": true, "async_unprovisioning_supported": true, "cf_guid": "CfGuid", "bindable": true, "requires": ["Requires"], "plan_updateable": true, "state": "State", "service_check_enabled": false, "test_check_interval": 17, "service_key_supported": false}, "plan": {"bindable": true, "reservable": true, "allow_internal_users": true, "async_provisioning_supported": true, "async_unprovisioning_supported": true, "test_check_interval": 17, "single_scope_instance": "SingleScopeInstance", "service_check_enabled": false, "cf_guid": "CfGuid"}, "template": {"services": ["Services"], "default_memory": 13, "start_cmd": "StartCmd", "source": {"path": "Path", "type": "Type", "url": "URL"}, "runtime_catalog_id": "RuntimeCatalogID", "cf_runtime_id": "CfRuntimeID", "template_id": "TemplateID", "executable_file": "ExecutableFile", "buildpack": "Buildpack", "environment_variables": {"_key_": "Key"}}, "deployment": {"location": "Location", "location_url": "LocationURL", "target_crn": "TargetCrn", "broker": {"name": "Name", "guid": "Guid", "password": {"text": "Text", "key": "Key", "iv": "Iv"}}, "supports_rc_migration": false}, "alias": {"type": "Type", "plan_id": "PlanID"}, "sla": {"terms": "Terms", "tenancy": "Tenancy", "provisioning": "Provisioning", "responsiveness": "Responsiveness", "dr": {"dr": true, "description": "Description"}}, "callbacks": {"broker_utl": "BrokerUtl", "broker_proxy_url": "BrokerProxyURL", "dashboard_url": "DashboardURL", "dashboard_data_url": "DashboardDataURL", "dashboard_detail_tab_url": "DashboardDetailTabURL", "dashboard_detail_tab_ext_url": "DashboardDetailTabExtURL", "service_monitor_api": "ServiceMonitorApi", "service_monitor_app": "ServiceMonitorApp", "service_staging_url": "ServiceStagingURL", "service_production_url": "ServiceProductionURL"}, "version": "Version", "original_name": "OriginalName", "other": {"anyKey": "anyValue"}}, "active": true, "catalog_crn": "CatalogCrn", "url": "URL", "children_url": "ChildrenURL", "parent_url": "ParentURL", "geo_tags": ["GeoTags"], "pricing_tags": ["PricingTags"], "created": "2019-01-01T12:00:00", "updated": "2019-01-01T12:00:00", "children": [{"id": "ID", "name": "Name", "overview_ui": {}, "kind": "Kind", "images": {"image": "Image", "small_image": "SmallImage", "medium_image": "MediumImage", "feature_image": "FeatureImage"}, "parent_id": "ParentID", "disabled": true, "tags": ["Tags"], "group": false, "provider": {"email": "Email", "name": "Name", "contact": "Contact", "support_email": "SupportEmail", "phone": "Phone"}, "metadata": {"rc_compatible": true, "ui": {"strings": {}, "urls": {"doc_url": "DocURL", "instructions_url": "InstructionsURL", "api_url": "ApiURL", "create_url": "CreateURL", "sdk_download_url": "SdkDownloadURL", "terms_url": "TermsURL", "custom_create_page_url": "CustomCreatePageURL", "catalog_details_url": "CatalogDetailsURL", "deprecation_doc_url": "DeprecationDocURL"}, "embeddable_dashboard": "EmbeddableDashboard", "embeddable_dashboard_full_width": true, "navigation_order": ["NavigationOrder"], "not_creatable": true, "reservable": true, "primary_offering_id": "PrimaryOfferingID", "accessible_during_provision": false, "side_by_side_index": 15, "end_of_service_time": "2019-01-01T12:00:00"}, "pricing": {"type": "Type", "origin": "Origin", "starting_price": {"plan_id": "PlanID", "deployment_id": "DeploymentID", "amount": [{"counrty": "Counrty", "currency": "Currency", "prices": []}]}, "metrics": [{"metric_id": "MetricID", "tier_model": "TierModel", "charge_unit_name": "ChargeUnitName", "charge_unit_quantity": "ChargeUnitQuantity", "resource_display_name": "ResourceDisplayName", "charge_unit_display_name": "ChargeUnitDisplayName", "usage_cap_qty": 11, "amounts": [{"counrty": "Counrty", "currency": "Currency", "prices": []}]}]}, "compliance": ["Compliance"], "service": {"type": "Type", "iam_compatible": false, "unique_api_key": true, "provisionable": false, "async_provisioning_supported": true, "async_unprovisioning_supported": true, "cf_guid": "CfGuid", "bindable": true, "requires": ["Requires"], "plan_updateable": true, "state": "State", "service_check_enabled": false, "test_check_interval": 17, "service_key_supported": false}, "plan": {"bindable": true, "reservable": true, "allow_internal_users": true, "async_provisioning_supported": true, "async_unprovisioning_supported": true, "test_check_interval": 17, "single_scope_instance": "SingleScopeInstance", "service_check_enabled": false, "cf_guid": "CfGuid"}, "template": {"services": ["Services"], "default_memory": 13, "start_cmd": "StartCmd", "source": {"path": "Path", "type": "Type", "url": "URL"}, "runtime_catalog_id": "RuntimeCatalogID", "cf_runtime_id": "CfRuntimeID", "template_id": "TemplateID", "executable_file": "ExecutableFile", "buildpack": "Buildpack", "environment_variables": {"_key_": "Key"}}, "deployment": {"location": "Location", "location_url": "LocationURL", "target_crn": "TargetCrn", "broker": {"name": "Name", "guid": "Guid", "password": {"text": "Text", "key": "Key", "iv": "Iv"}}, "supports_rc_migration": false}, "alias": {"type": "Type", "plan_id": "PlanID"}, "sla": {"terms": "Terms", "tenancy": "Tenancy", "provisioning": "Provisioning", "responsiveness": "Responsiveness", "dr": {"dr": true, "description": "Description"}}, "callbacks": {"broker_utl": "BrokerUtl", "broker_proxy_url": "BrokerProxyURL", "dashboard_url": "DashboardURL", "dashboard_data_url": "DashboardDataURL", "dashboard_detail_tab_url": "DashboardDetailTabURL", "dashboard_detail_tab_ext_url": "DashboardDetailTabExtURL", "service_monitor_api": "ServiceMonitorApi", "service_monitor_app": "ServiceMonitorApp", "service_staging_url": "ServiceStagingURL", "service_production_url": "ServiceProductionURL"}, "version": "Version", "original_name": "OriginalName", "other": {"anyKey": "anyValue"}}, "active": true, "catalog_crn": "CatalogCrn", "url": "URL", "children_url": "ChildrenURL", "parent_url": "ParentURL", "geo_tags": ["GeoTags"], "pricing_tags": ["PricingTags"], "created": "2019-01-01T12:00:00", "updated": "2019-01-01T12:00:00", "children": [{"id": "ID", "name": "Name", "overview_ui": {}, "kind": "Kind", "images": {"image": "Image", "small_image": "SmallImage", "medium_image": "MediumImage", "feature_image": "FeatureImage"}, "parent_id": "ParentID", "disabled": true, "tags": ["Tags"], "group": false, "provider": {"email": "Email", "name": "Name", "contact": "Contact", "support_email": "SupportEmail", "phone": "Phone"}, "metadata": {"rc_compatible": true, "ui": {"strings": {}, "urls": {"doc_url": "DocURL", "instructions_url": "InstructionsURL", "api_url": "ApiURL", "create_url": "CreateURL", "sdk_download_url": "SdkDownloadURL", "terms_url": "TermsURL", "custom_create_page_url": "CustomCreatePageURL", "catalog_details_url": "CatalogDetailsURL", "deprecation_doc_url": "DeprecationDocURL"}, "embeddable_dashboard": "EmbeddableDashboard", "embeddable_dashboard_full_width": true, "navigation_order": ["NavigationOrder"], "not_creatable": true, "reservable": true, "primary_offering_id": "PrimaryOfferingID", "accessible_during_provision": false, "side_by_side_index": 15, "end_of_service_time": "2019-01-01T12:00:00"}, "pricing": {"type": "Type", "origin": "Origin", "starting_price": {"plan_id": "PlanID", "deployment_id": "DeploymentID", "amount": []}, "metrics": [{"metric_id": "MetricID", "tier_model": "TierModel", "charge_unit_name": "ChargeUnitName", "charge_unit_quantity": "ChargeUnitQuantity", "resource_display_name": "ResourceDisplayName", "charge_unit_display_name": "ChargeUnitDisplayName", "usage_cap_qty": 11, "amounts": []}]}, "compliance": ["Compliance"], "service": {"type": "Type", "iam_compatible": false, "unique_api_key": true, "provisionable": false, "async_provisioning_supported": true, "async_unprovisioning_supported": true, "cf_guid": "CfGuid", "bindable": true, "requires": ["Requires"], "plan_updateable": true, "state": "State", "service_check_enabled": false, "test_check_interval": 17, "service_key_supported": false}, "plan": {"bindable": true, "reservable": true, "allow_internal_users": true, "async_provisioning_supported": true, "async_unprovisioning_supported": true, "test_check_interval": 17, "single_scope_instance": "SingleScopeInstance", "service_check_enabled": false, "cf_guid": "CfGuid"}, "template": {"services": ["Services"], "default_memory": 13, "start_cmd": "StartCmd", "source": {"path": "Path", "type": "Type", "url": "URL"}, "runtime_catalog_id": "RuntimeCatalogID", "cf_runtime_id": "CfRuntimeID", "template_id": "TemplateID", "executable_file": "ExecutableFile", "buildpack": "Buildpack", "environment_variables": {"_key_": "Key"}}, "deployment": {"location": "Location", "location_url": "LocationURL", "target_crn": "TargetCrn", "broker": {"name": "Name", "guid": "Guid"}, "supports_rc_migration": false}, "alias": {"type": "Type", "plan_id": "PlanID"}, "sla": {"terms": "Terms", "tenancy": "Tenancy", "provisioning": "Provisioning", "responsiveness": "Responsiveness", "dr": {"dr": true, "description": "Description"}}, "callbacks": {"broker_utl": "BrokerUtl", "broker_proxy_url": "BrokerProxyURL", "dashboard_url": "DashboardURL", "dashboard_data_url": "DashboardDataURL", "dashboard_detail_tab_url": "DashboardDetailTabURL", "dashboard_detail_tab_ext_url": "DashboardDetailTabExtURL", "service_monitor_api": "ServiceMonitorApi", "service_monitor_app": "ServiceMonitorApp", "service_staging_url": "ServiceStagingURL", "service_production_url": "ServiceProductionURL"}, "version": "Version", "original_name": "OriginalName", "other": {"anyKey": "anyValue"}}, "active": true, "catalog_crn": "CatalogCrn", "url": "URL", "children_url": "ChildrenURL", "parent_url": "ParentURL", "geo_tags": ["GeoTags"], "pricing_tags": ["PricingTags"], "created": "2019-01-01T12:00:00", "updated": "2019-01-01T12:00:00", "children": [{"id": "ID", "name": "Name", "overview_ui": {}, "kind": "Kind", "images": {"image": "Image", "small_image": "SmallImage", "medium_image": "MediumImage", "feature_image": "FeatureImage"}, "parent_id": "ParentID", "disabled": true, "tags": ["Tags"], "group": false, "provider": {"email": "Email", "name": "Name", "contact": "Contact", "support_email": "SupportEmail", "phone": "Phone"}, "metadata": {"rc_compatible": true, "ui": {"embeddable_dashboard": "EmbeddableDashboard", "embeddable_dashboard_full_width": true, "navigation_order": ["NavigationOrder"], "not_creatable": true, "reservable": true, "primary_offering_id": "PrimaryOfferingID", "accessible_during_provision": false, "side_by_side_index": 15, "end_of_service_time": "2019-01-01T12:00:00"}, "pricing": {"type": "Type", "origin": "Origin", "metrics": []}, "compliance": ["Compliance"], "service": {"type": "Type", "iam_compatible": false, "unique_api_key": true, "provisionable": false, "async_provisioning_supported": true, "async_unprovisioning_supported": true, "cf_guid": "CfGuid", "bindable": true, "requires": ["Requires"], "plan_updateable": true, "state": "State", "service_check_enabled": false, "test_check_interval": 17, "service_key_supported": false}, "plan": {"bindable": true, "reservable": true, "allow_internal_users": true, "async_provisioning_supported": true, "async_unprovisioning_supported": true, "test_check_interval": 17, "single_scope_instance": "SingleScopeInstance", "service_check_enabled": false, "cf_guid": "CfGuid"}, "template": {"services": ["Services"], "default_memory": 13, "start_cmd": "StartCmd", "runtime_catalog_id": "RuntimeCatalogID", "cf_runtime_id": "CfRuntimeID", "template_id": "TemplateID", "executable_file": "ExecutableFile", "buildpack": "Buildpack"}, "deployment": {"location": "Location", "location_url": "LocationURL", "target_crn": "TargetCrn", "supports_rc_migration": false}, "alias": {"type": "Type", "plan_id": "PlanID"}, "sla": {"terms": "Terms", "tenancy": "Tenancy", "provisioning": "Provisioning", "responsiveness": "Responsiveness"}, "callbacks": {"broker_utl": "BrokerUtl", "broker_proxy_url": "BrokerProxyURL", "dashboard_url": "DashboardURL", "dashboard_data_url": "DashboardDataURL", "dashboard_detail_tab_url": "DashboardDetailTabURL", "dashboard_detail_tab_ext_url": "DashboardDetailTabExtURL", "service_monitor_api": "ServiceMonitorApi", "service_monitor_app": "ServiceMonitorApp", "service_staging_url": "ServiceStagingURL", "service_production_url": "ServiceProductionURL"}, "version": "Version", "original_name": "OriginalName", "other": {"anyKey": "anyValue"}}, "active": true, "catalog_crn": "CatalogCrn", "url": "URL", "children_url": "ChildrenURL", "parent_url": "ParentURL", "geo_tags": ["GeoTags"], "pricing_tags": ["PricingTags"], "created": "2019-01-01T12:00:00", "updated": "2019-01-01T12:00:00", "children": [{"id": "ID", "name": "Name", "overview_ui": {}, "kind": "Kind", "images": {"image": "Image", "small_image": "SmallImage", "medium_image": "MediumImage", "feature_image": "FeatureImage"}, "parent_id": "ParentID", "disabled": true, "tags": ["Tags"], "group": false, "provider": {"email": "Email", "name": "Name", "contact": "Contact", "support_email": "SupportEmail", "phone": "Phone"}, "metadata": {"rc_compatible": true, "compliance": ["Compliance"], "version": "Version", "original_name": "OriginalName", "other": {"anyKey": "anyValue"}}, "active": true, "catalog_crn": "CatalogCrn", "url": "URL", "children_url": "ChildrenURL", "parent_url": "ParentURL", "geo_tags": ["GeoTags"], "pricing_tags": ["PricingTags"], "created": "2019-01-01T12:00:00", "updated": "2019-01-01T12:00:00", "children": [{"id": "ID", "name": "Name", "kind": "Kind", "parent_id": "ParentID", "disabled": true, "tags": ["Tags"], "group": false, "active": true, "catalog_crn": "CatalogCrn", "url": "URL", "children_url": "ChildrenURL", "parent_url": "ParentURL", "geo_tags": ["GeoTags"], "pricing_tags": ["PricingTags"], "created": "2019-01-01T12:00:00", "updated": "2019-01-01T12:00:00", "children": []}]}]}]}]}]}]}]}]}]}`)
+					fmt.Fprintf(res, `{"name": "Name", "overview_ui": {}, "images": {"image": "Image", "small_image": "SmallImage", "medium_image": "MediumImage", "feature_image": "FeatureImage"}, "parent_id": "ParentID", "disabled": true, "tags": ["Tags"], "group": false, "provider": {"email": "Email", "name": "Name", "contact": "Contact", "support_email": "SupportEmail", "phone": "Phone"}, "metadata": {"rc_compatible": true, "ui": {"strings": {}, "urls": {"doc_url": "DocURL", "instructions_url": "InstructionsURL", "api_url": "ApiURL", "create_url": "CreateURL", "sdk_download_url": "SdkDownloadURL", "terms_url": "TermsURL", "custom_create_page_url": "CustomCreatePageURL", "catalog_details_url": "CatalogDetailsURL", "deprecation_doc_url": "DeprecationDocURL"}, "embeddable_dashboard": "EmbeddableDashboard", "embeddable_dashboard_full_width": true, "navigation_order": ["NavigationOrder"], "not_creatable": true, "reservable": true, "primary_offering_id": "PrimaryOfferingID", "accessible_during_provision": false, "side_by_side_index": 15, "end_of_service_time": "2019-01-01T12:00:00"}, "pricing": {"type": "Type", "origin": "Origin", "starting_price": {"plan_id": "PlanID", "deployment_id": "DeploymentID", "amount": [{"counrty": "Counrty", "currency": "Currency", "prices": [{"quantity_tier": 12, "Price": 5}]}]}, "metrics": [{"metric_id": "MetricID", "tier_model": "TierModel", "charge_unit_name": "ChargeUnitName", "charge_unit_quantity": "ChargeUnitQuantity", "resource_display_name": "ResourceDisplayName", "charge_unit_display_name": "ChargeUnitDisplayName", "usage_cap_qty": 11, "amounts": [{"counrty": "Counrty", "currency": "Currency", "prices": [{"quantity_tier": 12, "Price": 5}]}]}]}, "compliance": ["Compliance"], "service": {"type": "Type", "iam_compatible": false, "unique_api_key": true, "provisionable": false, "async_provisioning_supported": true, "async_unprovisioning_supported": true, "cf_guid": "CfGuid", "bindable": true, "requires": ["Requires"], "plan_updateable": true, "state": "State", "service_check_enabled": false, "test_check_interval": 17, "service_key_supported": false}, "plan": {"bindable": true, "reservable": true, "allow_internal_users": true, "async_provisioning_supported": true, "async_unprovisioning_supported": true, "test_check_interval": 17, "single_scope_instance": "SingleScopeInstance", "service_check_enabled": false, "cf_guid": "CfGuid"}, "template": {"services": ["Services"], "default_memory": 13, "start_cmd": "StartCmd", "source": {"path": "Path", "type": "Type", "url": "URL"}, "runtime_catalog_id": "RuntimeCatalogID", "cf_runtime_id": "CfRuntimeID", "template_id": "TemplateID", "executable_file": "ExecutableFile", "buildpack": "Buildpack", "environment_variables": {"_key_": "Key"}}, "deployment": {"location": "Location", "location_url": "LocationURL", "target_crn": "TargetCrn", "broker": {"name": "Name", "guid": "Guid", "password": {"text": "Text", "key": "Key", "iv": "Iv"}}, "supports_rc_migration": false}, "alias": {"type": "Type", "plan_id": "PlanID"}, "sla": {"terms": "Terms", "tenancy": "Tenancy", "provisioning": "Provisioning", "responsiveness": "Responsiveness", "dr": {"dr": true, "description": "Description"}}, "callbacks": {"broker_utl": "BrokerUtl", "broker_proxy_url": "BrokerProxyURL", "dashboard_url": "DashboardURL", "dashboard_data_url": "DashboardDataURL", "dashboard_detail_tab_url": "DashboardDetailTabURL", "dashboard_detail_tab_ext_url": "DashboardDetailTabExtURL", "service_monitor_api": "ServiceMonitorApi", "service_monitor_app": "ServiceMonitorApp", "service_staging_url": "ServiceStagingURL", "service_production_url": "ServiceProductionURL"}, "version": "Version", "original_name": "OriginalName", "other": {"anyKey": "anyValue"}}, "active": true, "catalog_crn": "CatalogCrn", "url": "URL", "children_url": "ChildrenURL", "parent_url": "ParentURL", "geo_tags": ["GeoTags"], "pricing_tags": ["PricingTags"], "created": "2019-01-01T12:00:00", "updated": "2019-01-01T12:00:00", "children": [{"name": "Name", "overview_ui": {}, "images": {"image": "Image", "small_image": "SmallImage", "medium_image": "MediumImage", "feature_image": "FeatureImage"}, "parent_id": "ParentID", "disabled": true, "tags": ["Tags"], "group": false, "provider": {"email": "Email", "name": "Name", "contact": "Contact", "support_email": "SupportEmail", "phone": "Phone"}, "metadata": {"rc_compatible": true, "ui": {"strings": {}, "urls": {"doc_url": "DocURL", "instructions_url": "InstructionsURL", "api_url": "ApiURL", "create_url": "CreateURL", "sdk_download_url": "SdkDownloadURL", "terms_url": "TermsURL", "custom_create_page_url": "CustomCreatePageURL", "catalog_details_url": "CatalogDetailsURL", "deprecation_doc_url": "DeprecationDocURL"}, "embeddable_dashboard": "EmbeddableDashboard", "embeddable_dashboard_full_width": true, "navigation_order": ["NavigationOrder"], "not_creatable": true, "reservable": true, "primary_offering_id": "PrimaryOfferingID", "accessible_during_provision": false, "side_by_side_index": 15, "end_of_service_time": "2019-01-01T12:00:00"}, "pricing": {"type": "Type", "origin": "Origin", "starting_price": {"plan_id": "PlanID", "deployment_id": "DeploymentID", "amount": [{"counrty": "Counrty", "currency": "Currency", "prices": [{"quantity_tier": 12, "Price": 5}]}]}, "metrics": [{"metric_id": "MetricID", "tier_model": "TierModel", "charge_unit_name": "ChargeUnitName", "charge_unit_quantity": "ChargeUnitQuantity", "resource_display_name": "ResourceDisplayName", "charge_unit_display_name": "ChargeUnitDisplayName", "usage_cap_qty": 11, "amounts": [{"counrty": "Counrty", "currency": "Currency", "prices": [{"quantity_tier": 12, "Price": 5}]}]}]}, "compliance": ["Compliance"], "service": {"type": "Type", "iam_compatible": false, "unique_api_key": true, "provisionable": false, "async_provisioning_supported": true, "async_unprovisioning_supported": true, "cf_guid": "CfGuid", "bindable": true, "requires": ["Requires"], "plan_updateable": true, "state": "State", "service_check_enabled": false, "test_check_interval": 17, "service_key_supported": false}, "plan": {"bindable": true, "reservable": true, "allow_internal_users": true, "async_provisioning_supported": true, "async_unprovisioning_supported": true, "test_check_interval": 17, "single_scope_instance": "SingleScopeInstance", "service_check_enabled": false, "cf_guid": "CfGuid"}, "template": {"services": ["Services"], "default_memory": 13, "start_cmd": "StartCmd", "source": {"path": "Path", "type": "Type", "url": "URL"}, "runtime_catalog_id": "RuntimeCatalogID", "cf_runtime_id": "CfRuntimeID", "template_id": "TemplateID", "executable_file": "ExecutableFile", "buildpack": "Buildpack", "environment_variables": {"_key_": "Key"}}, "deployment": {"location": "Location", "location_url": "LocationURL", "target_crn": "TargetCrn", "broker": {"name": "Name", "guid": "Guid", "password": {"text": "Text", "key": "Key", "iv": "Iv"}}, "supports_rc_migration": false}, "alias": {"type": "Type", "plan_id": "PlanID"}, "sla": {"terms": "Terms", "tenancy": "Tenancy", "provisioning": "Provisioning", "responsiveness": "Responsiveness", "dr": {"dr": true, "description": "Description"}}, "callbacks": {"broker_utl": "BrokerUtl", "broker_proxy_url": "BrokerProxyURL", "dashboard_url": "DashboardURL", "dashboard_data_url": "DashboardDataURL", "dashboard_detail_tab_url": "DashboardDetailTabURL", "dashboard_detail_tab_ext_url": "DashboardDetailTabExtURL", "service_monitor_api": "ServiceMonitorApi", "service_monitor_app": "ServiceMonitorApp", "service_staging_url": "ServiceStagingURL", "service_production_url": "ServiceProductionURL"}, "version": "Version", "original_name": "OriginalName", "other": {"anyKey": "anyValue"}}, "active": true, "catalog_crn": "CatalogCrn", "url": "URL", "children_url": "ChildrenURL", "parent_url": "ParentURL", "geo_tags": ["GeoTags"], "pricing_tags": ["PricingTags"], "created": "2019-01-01T12:00:00", "updated": "2019-01-01T12:00:00", "children": [{"name": "Name", "overview_ui": {}, "images": {"image": "Image", "small_image": "SmallImage", "medium_image": "MediumImage", "feature_image": "FeatureImage"}, "parent_id": "ParentID", "disabled": true, "tags": ["Tags"], "group": false, "provider": {"email": "Email", "name": "Name", "contact": "Contact", "support_email": "SupportEmail", "phone": "Phone"}, "metadata": {"rc_compatible": true, "ui": {"strings": {}, "urls": {"doc_url": "DocURL", "instructions_url": "InstructionsURL", "api_url": "ApiURL", "create_url": "CreateURL", "sdk_download_url": "SdkDownloadURL", "terms_url": "TermsURL", "custom_create_page_url": "CustomCreatePageURL", "catalog_details_url": "CatalogDetailsURL", "deprecation_doc_url": "DeprecationDocURL"}, "embeddable_dashboard": "EmbeddableDashboard", "embeddable_dashboard_full_width": true, "navigation_order": ["NavigationOrder"], "not_creatable": true, "reservable": true, "primary_offering_id": "PrimaryOfferingID", "accessible_during_provision": false, "side_by_side_index": 15, "end_of_service_time": "2019-01-01T12:00:00"}, "pricing": {"type": "Type", "origin": "Origin", "starting_price": {"plan_id": "PlanID", "deployment_id": "DeploymentID", "amount": [{"counrty": "Counrty", "currency": "Currency", "prices": [{"quantity_tier": 12, "Price": 5}]}]}, "metrics": [{"metric_id": "MetricID", "tier_model": "TierModel", "charge_unit_name": "ChargeUnitName", "charge_unit_quantity": "ChargeUnitQuantity", "resource_display_name": "ResourceDisplayName", "charge_unit_display_name": "ChargeUnitDisplayName", "usage_cap_qty": 11, "amounts": [{"counrty": "Counrty", "currency": "Currency", "prices": [{"quantity_tier": 12, "Price": 5}]}]}]}, "compliance": ["Compliance"], "service": {"type": "Type", "iam_compatible": false, "unique_api_key": true, "provisionable": false, "async_provisioning_supported": true, "async_unprovisioning_supported": true, "cf_guid": "CfGuid", "bindable": true, "requires": ["Requires"], "plan_updateable": true, "state": "State", "service_check_enabled": false, "test_check_interval": 17, "service_key_supported": false}, "plan": {"bindable": true, "reservable": true, "allow_internal_users": true, "async_provisioning_supported": true, "async_unprovisioning_supported": true, "test_check_interval": 17, "single_scope_instance": "SingleScopeInstance", "service_check_enabled": false, "cf_guid": "CfGuid"}, "template": {"services": ["Services"], "default_memory": 13, "start_cmd": "StartCmd", "source": {"path": "Path", "type": "Type", "url": "URL"}, "runtime_catalog_id": "RuntimeCatalogID", "cf_runtime_id": "CfRuntimeID", "template_id": "TemplateID", "executable_file": "ExecutableFile", "buildpack": "Buildpack", "environment_variables": {"_key_": "Key"}}, "deployment": {"location": "Location", "location_url": "LocationURL", "target_crn": "TargetCrn", "broker": {"name": "Name", "guid": "Guid", "password": {"text": "Text", "key": "Key", "iv": "Iv"}}, "supports_rc_migration": false}, "alias": {"type": "Type", "plan_id": "PlanID"}, "sla": {"terms": "Terms", "tenancy": "Tenancy", "provisioning": "Provisioning", "responsiveness": "Responsiveness", "dr": {"dr": true, "description": "Description"}}, "callbacks": {"broker_utl": "BrokerUtl", "broker_proxy_url": "BrokerProxyURL", "dashboard_url": "DashboardURL", "dashboard_data_url": "DashboardDataURL", "dashboard_detail_tab_url": "DashboardDetailTabURL", "dashboard_detail_tab_ext_url": "DashboardDetailTabExtURL", "service_monitor_api": "ServiceMonitorApi", "service_monitor_app": "ServiceMonitorApp", "service_staging_url": "ServiceStagingURL", "service_production_url": "ServiceProductionURL"}, "version": "Version", "original_name": "OriginalName", "other": {"anyKey": "anyValue"}}, "active": true, "catalog_crn": "CatalogCrn", "url": "URL", "children_url": "ChildrenURL", "parent_url": "ParentURL", "geo_tags": ["GeoTags"], "pricing_tags": ["PricingTags"], "created": "2019-01-01T12:00:00", "updated": "2019-01-01T12:00:00", "children": [{"name": "Name", "overview_ui": {}, "images": {"image": "Image", "small_image": "SmallImage", "medium_image": "MediumImage", "feature_image": "FeatureImage"}, "parent_id": "ParentID", "disabled": true, "tags": ["Tags"], "group": false, "provider": {"email": "Email", "name": "Name", "contact": "Contact", "support_email": "SupportEmail", "phone": "Phone"}, "metadata": {"rc_compatible": true, "ui": {"strings": {}, "urls": {"doc_url": "DocURL", "instructions_url": "InstructionsURL", "api_url": "ApiURL", "create_url": "CreateURL", "sdk_download_url": "SdkDownloadURL", "terms_url": "TermsURL", "custom_create_page_url": "CustomCreatePageURL", "catalog_details_url": "CatalogDetailsURL", "deprecation_doc_url": "DeprecationDocURL"}, "embeddable_dashboard": "EmbeddableDashboard", "embeddable_dashboard_full_width": true, "navigation_order": ["NavigationOrder"], "not_creatable": true, "reservable": true, "primary_offering_id": "PrimaryOfferingID", "accessible_during_provision": false, "side_by_side_index": 15, "end_of_service_time": "2019-01-01T12:00:00"}, "pricing": {"type": "Type", "origin": "Origin", "starting_price": {"plan_id": "PlanID", "deployment_id": "DeploymentID", "amount": [{"counrty": "Counrty", "currency": "Currency", "prices": [{"quantity_tier": 12, "Price": 5}]}]}, "metrics": [{"metric_id": "MetricID", "tier_model": "TierModel", "charge_unit_name": "ChargeUnitName", "charge_unit_quantity": "ChargeUnitQuantity", "resource_display_name": "ResourceDisplayName", "charge_unit_display_name": "ChargeUnitDisplayName", "usage_cap_qty": 11, "amounts": [{"counrty": "Counrty", "currency": "Currency", "prices": [{"quantity_tier": 12, "Price": 5}]}]}]}, "compliance": ["Compliance"], "service": {"type": "Type", "iam_compatible": false, "unique_api_key": true, "provisionable": false, "async_provisioning_supported": true, "async_unprovisioning_supported": true, "cf_guid": "CfGuid", "bindable": true, "requires": ["Requires"], "plan_updateable": true, "state": "State", "service_check_enabled": false, "test_check_interval": 17, "service_key_supported": false}, "plan": {"bindable": true, "reservable": true, "allow_internal_users": true, "async_provisioning_supported": true, "async_unprovisioning_supported": true, "test_check_interval": 17, "single_scope_instance": "SingleScopeInstance", "service_check_enabled": false, "cf_guid": "CfGuid"}, "template": {"services": ["Services"], "default_memory": 13, "start_cmd": "StartCmd", "source": {"path": "Path", "type": "Type", "url": "URL"}, "runtime_catalog_id": "RuntimeCatalogID", "cf_runtime_id": "CfRuntimeID", "template_id": "TemplateID", "executable_file": "ExecutableFile", "buildpack": "Buildpack", "environment_variables": {"_key_": "Key"}}, "deployment": {"location": "Location", "location_url": "LocationURL", "target_crn": "TargetCrn", "broker": {"name": "Name", "guid": "Guid", "password": {"text": "Text", "key": "Key", "iv": "Iv"}}, "supports_rc_migration": false}, "alias": {"type": "Type", "plan_id": "PlanID"}, "sla": {"terms": "Terms", "tenancy": "Tenancy", "provisioning": "Provisioning", "responsiveness": "Responsiveness", "dr": {"dr": true, "description": "Description"}}, "callbacks": {"broker_utl": "BrokerUtl", "broker_proxy_url": "BrokerProxyURL", "dashboard_url": "DashboardURL", "dashboard_data_url": "DashboardDataURL", "dashboard_detail_tab_url": "DashboardDetailTabURL", "dashboard_detail_tab_ext_url": "DashboardDetailTabExtURL", "service_monitor_api": "ServiceMonitorApi", "service_monitor_app": "ServiceMonitorApp", "service_staging_url": "ServiceStagingURL", "service_production_url": "ServiceProductionURL"}, "version": "Version", "original_name": "OriginalName", "other": {"anyKey": "anyValue"}}, "active": true, "catalog_crn": "CatalogCrn", "url": "URL", "children_url": "ChildrenURL", "parent_url": "ParentURL", "geo_tags": ["GeoTags"], "pricing_tags": ["PricingTags"], "created": "2019-01-01T12:00:00", "updated": "2019-01-01T12:00:00", "children": [{"name": "Name", "overview_ui": {}, "images": {"image": "Image", "small_image": "SmallImage", "medium_image": "MediumImage", "feature_image": "FeatureImage"}, "parent_id": "ParentID", "disabled": true, "tags": ["Tags"], "group": false, "provider": {"email": "Email", "name": "Name", "contact": "Contact", "support_email": "SupportEmail", "phone": "Phone"}, "metadata": {"rc_compatible": true, "ui": {"strings": {}, "urls": {"doc_url": "DocURL", "instructions_url": "InstructionsURL", "api_url": "ApiURL", "create_url": "CreateURL", "sdk_download_url": "SdkDownloadURL", "terms_url": "TermsURL", "custom_create_page_url": "CustomCreatePageURL", "catalog_details_url": "CatalogDetailsURL", "deprecation_doc_url": "DeprecationDocURL"}, "embeddable_dashboard": "EmbeddableDashboard", "embeddable_dashboard_full_width": true, "navigation_order": ["NavigationOrder"], "not_creatable": true, "reservable": true, "primary_offering_id": "PrimaryOfferingID", "accessible_during_provision": false, "side_by_side_index": 15, "end_of_service_time": "2019-01-01T12:00:00"}, "pricing": {"type": "Type", "origin": "Origin", "starting_price": {"plan_id": "PlanID", "deployment_id": "DeploymentID", "amount": [{"counrty": "Counrty", "currency": "Currency", "prices": [{"quantity_tier": 12, "Price": 5}]}]}, "metrics": [{"metric_id": "MetricID", "tier_model": "TierModel", "charge_unit_name": "ChargeUnitName", "charge_unit_quantity": "ChargeUnitQuantity", "resource_display_name": "ResourceDisplayName", "charge_unit_display_name": "ChargeUnitDisplayName", "usage_cap_qty": 11, "amounts": [{"counrty": "Counrty", "currency": "Currency", "prices": [{"quantity_tier": 12, "Price": 5}]}]}]}, "compliance": ["Compliance"], "service": {"type": "Type", "iam_compatible": false, "unique_api_key": true, "provisionable": false, "async_provisioning_supported": true, "async_unprovisioning_supported": true, "cf_guid": "CfGuid", "bindable": true, "requires": ["Requires"], "plan_updateable": true, "state": "State", "service_check_enabled": false, "test_check_interval": 17, "service_key_supported": false}, "plan": {"bindable": true, "reservable": true, "allow_internal_users": true, "async_provisioning_supported": true, "async_unprovisioning_supported": true, "test_check_interval": 17, "single_scope_instance": "SingleScopeInstance", "service_check_enabled": false, "cf_guid": "CfGuid"}, "template": {"services": ["Services"], "default_memory": 13, "start_cmd": "StartCmd", "source": {"path": "Path", "type": "Type", "url": "URL"}, "runtime_catalog_id": "RuntimeCatalogID", "cf_runtime_id": "CfRuntimeID", "template_id": "TemplateID", "executable_file": "ExecutableFile", "buildpack": "Buildpack", "environment_variables": {"_key_": "Key"}}, "deployment": {"location": "Location", "location_url": "LocationURL", "target_crn": "TargetCrn", "broker": {"name": "Name", "guid": "Guid", "password": {"text": "Text", "key": "Key", "iv": "Iv"}}, "supports_rc_migration": false}, "alias": {"type": "Type", "plan_id": "PlanID"}, "sla": {"terms": "Terms", "tenancy": "Tenancy", "provisioning": "Provisioning", "responsiveness": "Responsiveness", "dr": {"dr": true, "description": "Description"}}, "callbacks": {"broker_utl": "BrokerUtl", "broker_proxy_url": "BrokerProxyURL", "dashboard_url": "DashboardURL", "dashboard_data_url": "DashboardDataURL", "dashboard_detail_tab_url": "DashboardDetailTabURL", "dashboard_detail_tab_ext_url": "DashboardDetailTabExtURL", "service_monitor_api": "ServiceMonitorApi", "service_monitor_app": "ServiceMonitorApp", "service_staging_url": "ServiceStagingURL", "service_production_url": "ServiceProductionURL"}, "version": "Version", "original_name": "OriginalName", "other": {"anyKey": "anyValue"}}, "active": true, "catalog_crn": "CatalogCrn", "url": "URL", "children_url": "ChildrenURL", "parent_url": "ParentURL", "geo_tags": ["GeoTags"], "pricing_tags": ["PricingTags"], "created": "2019-01-01T12:00:00", "updated": "2019-01-01T12:00:00", "children": [{"name": "Name", "overview_ui": {}, "images": {"image": "Image", "small_image": "SmallImage", "medium_image": "MediumImage", "feature_image": "FeatureImage"}, "parent_id": "ParentID", "disabled": true, "tags": ["Tags"], "group": false, "provider": {"email": "Email", "name": "Name", "contact": "Contact", "support_email": "SupportEmail", "phone": "Phone"}, "metadata": {"rc_compatible": true, "ui": {"strings": {}, "urls": {"doc_url": "DocURL", "instructions_url": "InstructionsURL", "api_url": "ApiURL", "create_url": "CreateURL", "sdk_download_url": "SdkDownloadURL", "terms_url": "TermsURL", "custom_create_page_url": "CustomCreatePageURL", "catalog_details_url": "CatalogDetailsURL", "deprecation_doc_url": "DeprecationDocURL"}, "embeddable_dashboard": "EmbeddableDashboard", "embeddable_dashboard_full_width": true, "navigation_order": ["NavigationOrder"], "not_creatable": true, "reservable": true, "primary_offering_id": "PrimaryOfferingID", "accessible_during_provision": false, "side_by_side_index": 15, "end_of_service_time": "2019-01-01T12:00:00"}, "pricing": {"type": "Type", "origin": "Origin", "starting_price": {"plan_id": "PlanID", "deployment_id": "DeploymentID", "amount": [{"counrty": "Counrty", "currency": "Currency", "prices": []}]}, "metrics": [{"metric_id": "MetricID", "tier_model": "TierModel", "charge_unit_name": "ChargeUnitName", "charge_unit_quantity": "ChargeUnitQuantity", "resource_display_name": "ResourceDisplayName", "charge_unit_display_name": "ChargeUnitDisplayName", "usage_cap_qty": 11, "amounts": [{"counrty": "Counrty", "currency": "Currency", "prices": []}]}]}, "compliance": ["Compliance"], "service": {"type": "Type", "iam_compatible": false, "unique_api_key": true, "provisionable": false, "async_provisioning_supported": true, "async_unprovisioning_supported": true, "cf_guid": "CfGuid", "bindable": true, "requires": ["Requires"], "plan_updateable": true, "state": "State", "service_check_enabled": false, "test_check_interval": 17, "service_key_supported": false}, "plan": {"bindable": true, "reservable": true, "allow_internal_users": true, "async_provisioning_supported": true, "async_unprovisioning_supported": true, "test_check_interval": 17, "single_scope_instance": "SingleScopeInstance", "service_check_enabled": false, "cf_guid": "CfGuid"}, "template": {"services": ["Services"], "default_memory": 13, "start_cmd": "StartCmd", "source": {"path": "Path", "type": "Type", "url": "URL"}, "runtime_catalog_id": "RuntimeCatalogID", "cf_runtime_id": "CfRuntimeID", "template_id": "TemplateID", "executable_file": "ExecutableFile", "buildpack": "Buildpack", "environment_variables": {"_key_": "Key"}}, "deployment": {"location": "Location", "location_url": "LocationURL", "target_crn": "TargetCrn", "broker": {"name": "Name", "guid": "Guid", "password": {"text": "Text", "key": "Key", "iv": "Iv"}}, "supports_rc_migration": false}, "alias": {"type": "Type", "plan_id": "PlanID"}, "sla": {"terms": "Terms", "tenancy": "Tenancy", "provisioning": "Provisioning", "responsiveness": "Responsiveness", "dr": {"dr": true, "description": "Description"}}, "callbacks": {"broker_utl": "BrokerUtl", "broker_proxy_url": "BrokerProxyURL", "dashboard_url": "DashboardURL", "dashboard_data_url": "DashboardDataURL", "dashboard_detail_tab_url": "DashboardDetailTabURL", "dashboard_detail_tab_ext_url": "DashboardDetailTabExtURL", "service_monitor_api": "ServiceMonitorApi", "service_monitor_app": "ServiceMonitorApp", "service_staging_url": "ServiceStagingURL", "service_production_url": "ServiceProductionURL"}, "version": "Version", "original_name": "OriginalName", "other": {"anyKey": "anyValue"}}, "active": true, "catalog_crn": "CatalogCrn", "url": "URL", "children_url": "ChildrenURL", "parent_url": "ParentURL", "geo_tags": ["GeoTags"], "pricing_tags": ["PricingTags"], "created": "2019-01-01T12:00:00", "updated": "2019-01-01T12:00:00", "children": [{"name": "Name", "overview_ui": {}, "images": {"image": "Image", "small_image": "SmallImage", "medium_image": "MediumImage", "feature_image": "FeatureImage"}, "parent_id": "ParentID", "disabled": true, "tags": ["Tags"], "group": false, "provider": {"email": "Email", "name": "Name", "contact": "Contact", "support_email": "SupportEmail", "phone": "Phone"}, "metadata": {"rc_compatible": true, "ui": {"strings": {}, "urls": {"doc_url": "DocURL", "instructions_url": "InstructionsURL", "api_url": "ApiURL", "create_url": "CreateURL", "sdk_download_url": "SdkDownloadURL", "terms_url": "TermsURL", "custom_create_page_url": "CustomCreatePageURL", "catalog_details_url": "CatalogDetailsURL", "deprecation_doc_url": "DeprecationDocURL"}, "embeddable_dashboard": "EmbeddableDashboard", "embeddable_dashboard_full_width": true, "navigation_order": ["NavigationOrder"], "not_creatable": true, "reservable": true, "primary_offering_id": "PrimaryOfferingID", "accessible_during_provision": false, "side_by_side_index": 15, "end_of_service_time": "2019-01-01T12:00:00"}, "pricing": {"type": "Type", "origin": "Origin", "starting_price": {"plan_id": "PlanID", "deployment_id": "DeploymentID", "amount": []}, "metrics": [{"metric_id": "MetricID", "tier_model": "TierModel", "charge_unit_name": "ChargeUnitName", "charge_unit_quantity": "ChargeUnitQuantity", "resource_display_name": "ResourceDisplayName", "charge_unit_display_name": "ChargeUnitDisplayName", "usage_cap_qty": 11, "amounts": []}]}, "compliance": ["Compliance"], "service": {"type": "Type", "iam_compatible": false, "unique_api_key": true, "provisionable": false, "async_provisioning_supported": true, "async_unprovisioning_supported": true, "cf_guid": "CfGuid", "bindable": true, "requires": ["Requires"], "plan_updateable": true, "state": "State", "service_check_enabled": false, "test_check_interval": 17, "service_key_supported": false}, "plan": {"bindable": true, "reservable": true, "allow_internal_users": true, "async_provisioning_supported": true, "async_unprovisioning_supported": true, "test_check_interval": 17, "single_scope_instance": "SingleScopeInstance", "service_check_enabled": false, "cf_guid": "CfGuid"}, "template": {"services": ["Services"], "default_memory": 13, "start_cmd": "StartCmd", "source": {"path": "Path", "type": "Type", "url": "URL"}, "runtime_catalog_id": "RuntimeCatalogID", "cf_runtime_id": "CfRuntimeID", "template_id": "TemplateID", "executable_file": "ExecutableFile", "buildpack": "Buildpack", "environment_variables": {"_key_": "Key"}}, "deployment": {"location": "Location", "location_url": "LocationURL", "target_crn": "TargetCrn", "broker": {"name": "Name", "guid": "Guid"}, "supports_rc_migration": false}, "alias": {"type": "Type", "plan_id": "PlanID"}, "sla": {"terms": "Terms", "tenancy": "Tenancy", "provisioning": "Provisioning", "responsiveness": "Responsiveness", "dr": {"dr": true, "description": "Description"}}, "callbacks": {"broker_utl": "BrokerUtl", "broker_proxy_url": "BrokerProxyURL", "dashboard_url": "DashboardURL", "dashboard_data_url": "DashboardDataURL", "dashboard_detail_tab_url": "DashboardDetailTabURL", "dashboard_detail_tab_ext_url": "DashboardDetailTabExtURL", "service_monitor_api": "ServiceMonitorApi", "service_monitor_app": "ServiceMonitorApp", "service_staging_url": "ServiceStagingURL", "service_production_url": "ServiceProductionURL"}, "version": "Version", "original_name": "OriginalName", "other": {"anyKey": "anyValue"}}, "active": true, "catalog_crn": "CatalogCrn", "url": "URL", "children_url": "ChildrenURL", "parent_url": "ParentURL", "geo_tags": ["GeoTags"], "pricing_tags": ["PricingTags"], "created": "2019-01-01T12:00:00", "updated": "2019-01-01T12:00:00", "children": [{"name": "Name", "overview_ui": {}, "images": {"image": "Image", "small_image": "SmallImage", "medium_image": "MediumImage", "feature_image": "FeatureImage"}, "parent_id": "ParentID", "disabled": true, "tags": ["Tags"], "group": false, "provider": {"email": "Email", "name": "Name", "contact": "Contact", "support_email": "SupportEmail", "phone": "Phone"}, "metadata": {"rc_compatible": true, "ui": {"embeddable_dashboard": "EmbeddableDashboard", "embeddable_dashboard_full_width": true, "navigation_order": ["NavigationOrder"], "not_creatable": true, "reservable": true, "primary_offering_id": "PrimaryOfferingID", "accessible_during_provision": false, "side_by_side_index": 15, "end_of_service_time": "2019-01-01T12:00:00"}, "pricing": {"type": "Type", "origin": "Origin", "metrics": []}, "compliance": ["Compliance"], "service": {"type": "Type", "iam_compatible": false, "unique_api_key": true, "provisionable": false, "async_provisioning_supported": true, "async_unprovisioning_supported": true, "cf_guid": "CfGuid", "bindable": true, "requires": ["Requires"], "plan_updateable": true, "state": "State", "service_check_enabled": false, "test_check_interval": 17, "service_key_supported": false}, "plan": {"bindable": true, "reservable": true, "allow_internal_users": true, "async_provisioning_supported": true, "async_unprovisioning_supported": true, "test_check_interval": 17, "single_scope_instance": "SingleScopeInstance", "service_check_enabled": false, "cf_guid": "CfGuid"}, "template": {"services": ["Services"], "default_memory": 13, "start_cmd": "StartCmd", "runtime_catalog_id": "RuntimeCatalogID", "cf_runtime_id": "CfRuntimeID", "template_id": "TemplateID", "executable_file": "ExecutableFile", "buildpack": "Buildpack"}, "deployment": {"location": "Location", "location_url": "LocationURL", "target_crn": "TargetCrn", "supports_rc_migration": false}, "alias": {"type": "Type", "plan_id": "PlanID"}, "sla": {"terms": "Terms", "tenancy": "Tenancy", "provisioning": "Provisioning", "responsiveness": "Responsiveness"}, "callbacks": {"broker_utl": "BrokerUtl", "broker_proxy_url": "BrokerProxyURL", "dashboard_url": "DashboardURL", "dashboard_data_url": "DashboardDataURL", "dashboard_detail_tab_url": "DashboardDetailTabURL", "dashboard_detail_tab_ext_url": "DashboardDetailTabExtURL", "service_monitor_api": "ServiceMonitorApi", "service_monitor_app": "ServiceMonitorApp", "service_staging_url": "ServiceStagingURL", "service_production_url": "ServiceProductionURL"}, "version": "Version", "original_name": "OriginalName", "other": {"anyKey": "anyValue"}}, "active": true, "catalog_crn": "CatalogCrn", "url": "URL", "children_url": "ChildrenURL", "parent_url": "ParentURL", "geo_tags": ["GeoTags"], "pricing_tags": ["PricingTags"], "created": "2019-01-01T12:00:00", "updated": "2019-01-01T12:00:00", "children": [{"name": "Name", "overview_ui": {}, "images": {"image": "Image", "small_image": "SmallImage", "medium_image": "MediumImage", "feature_image": "FeatureImage"}, "parent_id": "ParentID", "disabled": true, "tags": ["Tags"], "group": false, "provider": {"email": "Email", "name": "Name", "contact": "Contact", "support_email": "SupportEmail", "phone": "Phone"}, "metadata": {"rc_compatible": true, "compliance": ["Compliance"], "version": "Version", "original_name": "OriginalName", "other": {"anyKey": "anyValue"}}, "active": true, "catalog_crn": "CatalogCrn", "url": "URL", "children_url": "ChildrenURL", "parent_url": "ParentURL", "geo_tags": ["GeoTags"], "pricing_tags": ["PricingTags"], "created": "2019-01-01T12:00:00", "updated": "2019-01-01T12:00:00", "children": [{"name": "Name", "parent_id": "ParentID", "disabled": true, "tags": ["Tags"], "group": false, "active": true, "catalog_crn": "CatalogCrn", "url": "URL", "children_url": "ChildrenURL", "parent_url": "ParentURL", "geo_tags": ["GeoTags"], "pricing_tags": ["PricingTags"], "created": "2019-01-01T12:00:00", "updated": "2019-01-01T12:00:00", "children": [], "kind": "service", "id": "ID"}], "kind": "service", "id": "ID"}], "kind": "service", "id": "ID"}], "kind": "service", "id": "ID"}], "kind": "service", "id": "ID"}], "kind": "service", "id": "ID"}], "kind": "service", "id": "ID"}], "kind": "service", "id": "ID"}], "kind": "service", "id": "ID"}], "kind": "service", "id": "ID"}`)
 				}))
 			})
 			It(`Invoke UpdateCatalogEntry successfully`, func() {
@@ -1872,7 +1870,6 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				catalogEntryModel := new(globalcatalogv1.CatalogEntry)
 				catalogEntryModel.Name = core.StringPtr("testString")
 				catalogEntryModel.OverviewUi = overviewUiModel
-				catalogEntryModel.Kind = core.StringPtr("testString")
 				catalogEntryModel.Images = imageModel
 				catalogEntryModel.ParentID = core.StringPtr("testString")
 				catalogEntryModel.Disabled = core.BoolPtr(true)
@@ -1882,31 +1879,30 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				catalogEntryModel.Metadata = objectMetaDataModel
 				catalogEntryModel.Active = core.BoolPtr(true)
 				catalogEntryModel.ParentURL = core.StringPtr("testString")
+				catalogEntryModel.Kind = core.StringPtr("service")
 
 				// Construct an instance of the UpdateCatalogEntryOptions model
 				updateCatalogEntryOptionsModel := new(globalcatalogv1.UpdateCatalogEntryOptions)
 				updateCatalogEntryOptionsModel.ID = core.StringPtr("testString")
-				updateCatalogEntryOptionsModel.NewID = core.StringPtr("testString")
-				updateCatalogEntryOptionsModel.NewName = core.StringPtr("testString")
-				updateCatalogEntryOptionsModel.NewOverviewUi = overviewUiModel
-				updateCatalogEntryOptionsModel.NewKind = core.StringPtr("testString")
-				updateCatalogEntryOptionsModel.NewImages = imageModel
-				updateCatalogEntryOptionsModel.NewDisabled = core.BoolPtr(true)
-				updateCatalogEntryOptionsModel.NewTags = []string{"testString"}
-				updateCatalogEntryOptionsModel.NewProvider = providerModel
-				updateCatalogEntryOptionsModel.NewParentID = core.StringPtr("testString")
-				updateCatalogEntryOptionsModel.NewGroup = core.BoolPtr(true)
-				updateCatalogEntryOptionsModel.NewMetadata = objectMetaDataModel
-				updateCatalogEntryOptionsModel.NewActive = core.BoolPtr(true)
-				updateCatalogEntryOptionsModel.NewCatalogCrn = core.StringPtr("testString")
-				updateCatalogEntryOptionsModel.NewURL = core.StringPtr("testString")
-				updateCatalogEntryOptionsModel.NewChildrenURL = core.StringPtr("testString")
-				updateCatalogEntryOptionsModel.NewParentURL = core.StringPtr("testString")
-				updateCatalogEntryOptionsModel.NewGeoTags = []string{"testString"}
-				updateCatalogEntryOptionsModel.NewPricingTags = []string{"testString"}
-				updateCatalogEntryOptionsModel.NewCreated = CreateMockDateTime()
-				updateCatalogEntryOptionsModel.NewUpdated = CreateMockDateTime()
-				updateCatalogEntryOptionsModel.NewChildren = []globalcatalogv1.CatalogEntry{*catalogEntryModel}
+				updateCatalogEntryOptionsModel.Name = core.StringPtr("testString")
+				updateCatalogEntryOptionsModel.OverviewUi = overviewUiModel
+				updateCatalogEntryOptionsModel.Images = imageModel
+				updateCatalogEntryOptionsModel.Disabled = core.BoolPtr(true)
+				updateCatalogEntryOptionsModel.Tags = []string{"testString"}
+				updateCatalogEntryOptionsModel.Provider = providerModel
+				updateCatalogEntryOptionsModel.ParentID = core.StringPtr("testString")
+				updateCatalogEntryOptionsModel.Group = core.BoolPtr(true)
+				updateCatalogEntryOptionsModel.Metadata = objectMetaDataModel
+				updateCatalogEntryOptionsModel.Active = core.BoolPtr(true)
+				updateCatalogEntryOptionsModel.CatalogCrn = core.StringPtr("testString")
+				updateCatalogEntryOptionsModel.URL = core.StringPtr("testString")
+				updateCatalogEntryOptionsModel.ChildrenURL = core.StringPtr("testString")
+				updateCatalogEntryOptionsModel.ParentURL = core.StringPtr("testString")
+				updateCatalogEntryOptionsModel.GeoTags = []string{"testString"}
+				updateCatalogEntryOptionsModel.PricingTags = []string{"testString"}
+				updateCatalogEntryOptionsModel.Created = CreateMockDateTime()
+				updateCatalogEntryOptionsModel.Updated = CreateMockDateTime()
+				updateCatalogEntryOptionsModel.Children = []globalcatalogv1.CatalogEntry{*catalogEntryModel}
 				updateCatalogEntryOptionsModel.Account = core.StringPtr("testString")
 				updateCatalogEntryOptionsModel.Move = core.StringPtr("testString")
  				updateCatalogEntryOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
@@ -2163,7 +2159,6 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				catalogEntryModel := new(globalcatalogv1.CatalogEntry)
 				catalogEntryModel.Name = core.StringPtr("testString")
 				catalogEntryModel.OverviewUi = overviewUiModel
-				catalogEntryModel.Kind = core.StringPtr("testString")
 				catalogEntryModel.Images = imageModel
 				catalogEntryModel.ParentID = core.StringPtr("testString")
 				catalogEntryModel.Disabled = core.BoolPtr(true)
@@ -2173,31 +2168,30 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				catalogEntryModel.Metadata = objectMetaDataModel
 				catalogEntryModel.Active = core.BoolPtr(true)
 				catalogEntryModel.ParentURL = core.StringPtr("testString")
+				catalogEntryModel.Kind = core.StringPtr("service")
 
 				// Construct an instance of the UpdateCatalogEntryOptions model
 				updateCatalogEntryOptionsModel := new(globalcatalogv1.UpdateCatalogEntryOptions)
 				updateCatalogEntryOptionsModel.ID = core.StringPtr("testString")
-				updateCatalogEntryOptionsModel.NewID = core.StringPtr("testString")
-				updateCatalogEntryOptionsModel.NewName = core.StringPtr("testString")
-				updateCatalogEntryOptionsModel.NewOverviewUi = overviewUiModel
-				updateCatalogEntryOptionsModel.NewKind = core.StringPtr("testString")
-				updateCatalogEntryOptionsModel.NewImages = imageModel
-				updateCatalogEntryOptionsModel.NewDisabled = core.BoolPtr(true)
-				updateCatalogEntryOptionsModel.NewTags = []string{"testString"}
-				updateCatalogEntryOptionsModel.NewProvider = providerModel
-				updateCatalogEntryOptionsModel.NewParentID = core.StringPtr("testString")
-				updateCatalogEntryOptionsModel.NewGroup = core.BoolPtr(true)
-				updateCatalogEntryOptionsModel.NewMetadata = objectMetaDataModel
-				updateCatalogEntryOptionsModel.NewActive = core.BoolPtr(true)
-				updateCatalogEntryOptionsModel.NewCatalogCrn = core.StringPtr("testString")
-				updateCatalogEntryOptionsModel.NewURL = core.StringPtr("testString")
-				updateCatalogEntryOptionsModel.NewChildrenURL = core.StringPtr("testString")
-				updateCatalogEntryOptionsModel.NewParentURL = core.StringPtr("testString")
-				updateCatalogEntryOptionsModel.NewGeoTags = []string{"testString"}
-				updateCatalogEntryOptionsModel.NewPricingTags = []string{"testString"}
-				updateCatalogEntryOptionsModel.NewCreated = CreateMockDateTime()
-				updateCatalogEntryOptionsModel.NewUpdated = CreateMockDateTime()
-				updateCatalogEntryOptionsModel.NewChildren = []globalcatalogv1.CatalogEntry{*catalogEntryModel}
+				updateCatalogEntryOptionsModel.Name = core.StringPtr("testString")
+				updateCatalogEntryOptionsModel.OverviewUi = overviewUiModel
+				updateCatalogEntryOptionsModel.Images = imageModel
+				updateCatalogEntryOptionsModel.Disabled = core.BoolPtr(true)
+				updateCatalogEntryOptionsModel.Tags = []string{"testString"}
+				updateCatalogEntryOptionsModel.Provider = providerModel
+				updateCatalogEntryOptionsModel.ParentID = core.StringPtr("testString")
+				updateCatalogEntryOptionsModel.Group = core.BoolPtr(true)
+				updateCatalogEntryOptionsModel.Metadata = objectMetaDataModel
+				updateCatalogEntryOptionsModel.Active = core.BoolPtr(true)
+				updateCatalogEntryOptionsModel.CatalogCrn = core.StringPtr("testString")
+				updateCatalogEntryOptionsModel.URL = core.StringPtr("testString")
+				updateCatalogEntryOptionsModel.ChildrenURL = core.StringPtr("testString")
+				updateCatalogEntryOptionsModel.ParentURL = core.StringPtr("testString")
+				updateCatalogEntryOptionsModel.GeoTags = []string{"testString"}
+				updateCatalogEntryOptionsModel.PricingTags = []string{"testString"}
+				updateCatalogEntryOptionsModel.Created = CreateMockDateTime()
+				updateCatalogEntryOptionsModel.Updated = CreateMockDateTime()
+				updateCatalogEntryOptionsModel.Children = []globalcatalogv1.CatalogEntry{*catalogEntryModel}
 				updateCatalogEntryOptionsModel.Account = core.StringPtr("testString")
 				updateCatalogEntryOptionsModel.Move = core.StringPtr("testString")
 				updateCatalogEntryOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
@@ -2531,105 +2525,105 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 		})
 	})
     Describe(`Service constructor tests`, func() {
-        It(`Instantiate service client`, func() {
-            testService, testServiceErr := globalcatalogv1.NewGlobalCatalogV1(&globalcatalogv1.GlobalCatalogV1Options{
-                Authenticator: &core.NoAuthAuthenticator{},
-            })
-            Expect(testService).ToNot(BeNil())
-            Expect(testServiceErr).To(BeNil())
-        })
-        It(`Instantiate service client with error: Invalid URL`, func() {
-            testService, testServiceErr := globalcatalogv1.NewGlobalCatalogV1(&globalcatalogv1.GlobalCatalogV1Options{
-                URL: "{{BAD_URL_STRING",
-            })
-            Expect(testService).To(BeNil())
-            Expect(testServiceErr).ToNot(BeNil())
-        })
-        It(`Instantiate service client with error: Invalid Auth`, func() {
-            testService, testServiceErr := globalcatalogv1.NewGlobalCatalogV1(&globalcatalogv1.GlobalCatalogV1Options{
-                URL: "https://globalcatalogv1/api",
-                Authenticator: &core.BasicAuthenticator{
-                    Username: "",
-                    Password: "",
-                },
-            })
-            Expect(testService).To(BeNil())
-            Expect(testServiceErr).ToNot(BeNil())
-        })
-    })
-    Describe(`Service constructor tests using external config`, func() {
-        Context(`Using external config, construct service client instances`, func() {
-            // Map containing environment variables used in testing.
-            var testEnvironment = map[string]string{
-                "GLOBAL_CATALOG_URL": "https://globalcatalogv1/api",
-                "GLOBAL_CATALOG_AUTH_TYPE": "noauth",
-            }
+		It(`Instantiate service client`, func() {
+			testService, testServiceErr := globalcatalogv1.NewGlobalCatalogV1(&globalcatalogv1.GlobalCatalogV1Options{
+				Authenticator: &core.NoAuthAuthenticator{},
+			})
+			Expect(testService).ToNot(BeNil())
+			Expect(testServiceErr).To(BeNil())
+		})
+		It(`Instantiate service client with error: Invalid URL`, func() {
+			testService, testServiceErr := globalcatalogv1.NewGlobalCatalogV1(&globalcatalogv1.GlobalCatalogV1Options{
+				URL: "{{BAD_URL_STRING",
+			})
+			Expect(testService).To(BeNil())
+			Expect(testServiceErr).ToNot(BeNil())
+		})
+		It(`Instantiate service client with error: Invalid Auth`, func() {
+			testService, testServiceErr := globalcatalogv1.NewGlobalCatalogV1(&globalcatalogv1.GlobalCatalogV1Options{
+				URL: "https://globalcatalogv1/api",
+				Authenticator: &core.BasicAuthenticator{
+					Username: "",
+					Password: "",
+				},
+			})
+			Expect(testService).To(BeNil())
+			Expect(testServiceErr).ToNot(BeNil())
+		})
+	})
+	Describe(`Service constructor tests using external config`, func() {
+		Context(`Using external config, construct service client instances`, func() {
+			// Map containing environment variables used in testing.
+			var testEnvironment = map[string]string{
+				"GLOBAL_CATALOG_URL": "https://globalcatalogv1/api",
+				"GLOBAL_CATALOG_AUTH_TYPE": "noauth",
+			}
 
-            It(`Create service client using external config successfully`, func() {
-                SetTestEnvironment(testEnvironment)
-                testService, testServiceErr := globalcatalogv1.NewGlobalCatalogV1UsingExternalConfig(&globalcatalogv1.GlobalCatalogV1Options{
-                })
-                Expect(testService).ToNot(BeNil())
-                Expect(testServiceErr).To(BeNil())
-                ClearTestEnvironment(testEnvironment)
-            })
-            It(`Create service client using external config and set url from constructor successfully`, func() {
-                SetTestEnvironment(testEnvironment)
-                testService, testServiceErr := globalcatalogv1.NewGlobalCatalogV1UsingExternalConfig(&globalcatalogv1.GlobalCatalogV1Options{
-                    URL: "https://testService/api",
-                })
-                Expect(testService).ToNot(BeNil())
-                Expect(testServiceErr).To(BeNil())
-                Expect(testService.Service.GetServiceURL()).To(Equal("https://testService/api"))
-                ClearTestEnvironment(testEnvironment)
-            })
-            It(`Create service client using external config and set url programatically successfully`, func() {
-                SetTestEnvironment(testEnvironment)
-                testService, testServiceErr := globalcatalogv1.NewGlobalCatalogV1UsingExternalConfig(&globalcatalogv1.GlobalCatalogV1Options{
-                })
-                err := testService.SetServiceURL("https://testService/api")
-                Expect(err).To(BeNil())
-                Expect(testService).ToNot(BeNil())
-                Expect(testServiceErr).To(BeNil())
-                Expect(testService.Service.GetServiceURL()).To(Equal("https://testService/api"))
-                ClearTestEnvironment(testEnvironment)
-            })
-        })
-        Context(`Using external config, construct service client instances with error: Invalid Auth`, func() {
-            // Map containing environment variables used in testing.
-            var testEnvironment = map[string]string{
-                "GLOBAL_CATALOG_URL": "https://globalcatalogv1/api",
-                "GLOBAL_CATALOG_AUTH_TYPE": "someOtherAuth",
-            }
+			It(`Create service client using external config successfully`, func() {
+				SetTestEnvironment(testEnvironment)
+				testService, testServiceErr := globalcatalogv1.NewGlobalCatalogV1UsingExternalConfig(&globalcatalogv1.GlobalCatalogV1Options{
+				})
+				Expect(testService).ToNot(BeNil())
+				Expect(testServiceErr).To(BeNil())
+				ClearTestEnvironment(testEnvironment)
+			})
+			It(`Create service client using external config and set url from constructor successfully`, func() {
+				SetTestEnvironment(testEnvironment)
+				testService, testServiceErr := globalcatalogv1.NewGlobalCatalogV1UsingExternalConfig(&globalcatalogv1.GlobalCatalogV1Options{
+					URL: "https://testService/api",
+				})
+				Expect(testService).ToNot(BeNil())
+				Expect(testServiceErr).To(BeNil())
+				Expect(testService.Service.GetServiceURL()).To(Equal("https://testService/api"))
+				ClearTestEnvironment(testEnvironment)
+			})
+			It(`Create service client using external config and set url programatically successfully`, func() {
+				SetTestEnvironment(testEnvironment)
+				testService, testServiceErr := globalcatalogv1.NewGlobalCatalogV1UsingExternalConfig(&globalcatalogv1.GlobalCatalogV1Options{
+				})
+				err := testService.SetServiceURL("https://testService/api")
+				Expect(err).To(BeNil())
+				Expect(testService).ToNot(BeNil())
+				Expect(testServiceErr).To(BeNil())
+				Expect(testService.Service.GetServiceURL()).To(Equal("https://testService/api"))
+				ClearTestEnvironment(testEnvironment)
+			})
+		})
+		Context(`Using external config, construct service client instances with error: Invalid Auth`, func() {
+			// Map containing environment variables used in testing.
+			var testEnvironment = map[string]string{
+				"GLOBAL_CATALOG_URL": "https://globalcatalogv1/api",
+				"GLOBAL_CATALOG_AUTH_TYPE": "someOtherAuth",
+			}
 
-            SetTestEnvironment(testEnvironment)
-            testService, testServiceErr := globalcatalogv1.NewGlobalCatalogV1UsingExternalConfig(&globalcatalogv1.GlobalCatalogV1Options{
-            })
+			SetTestEnvironment(testEnvironment)
+			testService, testServiceErr := globalcatalogv1.NewGlobalCatalogV1UsingExternalConfig(&globalcatalogv1.GlobalCatalogV1Options{
+			})
 
-            It(`Instantiate service client with error`, func() {
-                Expect(testService).To(BeNil())
-                Expect(testServiceErr).ToNot(BeNil())
-                ClearTestEnvironment(testEnvironment)
-            })
-	    })
-        Context(`Using external config, construct service client instances with error: Invalid URL`, func() {
-            // Map containing environment variables used in testing.
-            var testEnvironment = map[string]string{
-                "GLOBAL_CATALOG_AUTH_TYPE":   "NOAuth",
-            }
+			It(`Instantiate service client with error`, func() {
+				Expect(testService).To(BeNil())
+				Expect(testServiceErr).ToNot(BeNil())
+				ClearTestEnvironment(testEnvironment)
+			})
+		})
+		Context(`Using external config, construct service client instances with error: Invalid URL`, func() {
+			// Map containing environment variables used in testing.
+			var testEnvironment = map[string]string{
+				"GLOBAL_CATALOG_AUTH_TYPE":   "NOAuth",
+			}
 
-            SetTestEnvironment(testEnvironment)
-            testService, testServiceErr := globalcatalogv1.NewGlobalCatalogV1UsingExternalConfig(&globalcatalogv1.GlobalCatalogV1Options{
-                URL: "{{BAD_URL_STRING",
-            })
+			SetTestEnvironment(testEnvironment)
+			testService, testServiceErr := globalcatalogv1.NewGlobalCatalogV1UsingExternalConfig(&globalcatalogv1.GlobalCatalogV1Options{
+				URL: "{{BAD_URL_STRING",
+			})
 
-            It(`Instantiate service client with error`, func() {
-                Expect(testService).To(BeNil())
-                Expect(testServiceErr).ToNot(BeNil())
-                ClearTestEnvironment(testEnvironment)
-            })
-        })
-    })
+			It(`Instantiate service client with error`, func() {
+				Expect(testService).To(BeNil())
+				Expect(testServiceErr).ToNot(BeNil())
+				ClearTestEnvironment(testEnvironment)
+			})
+		})
+	})
 	Describe(`GetVisibility(getVisibilityOptions *GetVisibilityOptions) - Operation response error`, func() {
 		getVisibilityPath := "/testString/visibility"
 		Context(`Using mock server endpoint`, func() {
@@ -2854,105 +2848,105 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 		})
 	})
     Describe(`Service constructor tests`, func() {
-        It(`Instantiate service client`, func() {
-            testService, testServiceErr := globalcatalogv1.NewGlobalCatalogV1(&globalcatalogv1.GlobalCatalogV1Options{
-                Authenticator: &core.NoAuthAuthenticator{},
-            })
-            Expect(testService).ToNot(BeNil())
-            Expect(testServiceErr).To(BeNil())
-        })
-        It(`Instantiate service client with error: Invalid URL`, func() {
-            testService, testServiceErr := globalcatalogv1.NewGlobalCatalogV1(&globalcatalogv1.GlobalCatalogV1Options{
-                URL: "{{BAD_URL_STRING",
-            })
-            Expect(testService).To(BeNil())
-            Expect(testServiceErr).ToNot(BeNil())
-        })
-        It(`Instantiate service client with error: Invalid Auth`, func() {
-            testService, testServiceErr := globalcatalogv1.NewGlobalCatalogV1(&globalcatalogv1.GlobalCatalogV1Options{
-                URL: "https://globalcatalogv1/api",
-                Authenticator: &core.BasicAuthenticator{
-                    Username: "",
-                    Password: "",
-                },
-            })
-            Expect(testService).To(BeNil())
-            Expect(testServiceErr).ToNot(BeNil())
-        })
-    })
-    Describe(`Service constructor tests using external config`, func() {
-        Context(`Using external config, construct service client instances`, func() {
-            // Map containing environment variables used in testing.
-            var testEnvironment = map[string]string{
-                "GLOBAL_CATALOG_URL": "https://globalcatalogv1/api",
-                "GLOBAL_CATALOG_AUTH_TYPE": "noauth",
-            }
+		It(`Instantiate service client`, func() {
+			testService, testServiceErr := globalcatalogv1.NewGlobalCatalogV1(&globalcatalogv1.GlobalCatalogV1Options{
+				Authenticator: &core.NoAuthAuthenticator{},
+			})
+			Expect(testService).ToNot(BeNil())
+			Expect(testServiceErr).To(BeNil())
+		})
+		It(`Instantiate service client with error: Invalid URL`, func() {
+			testService, testServiceErr := globalcatalogv1.NewGlobalCatalogV1(&globalcatalogv1.GlobalCatalogV1Options{
+				URL: "{{BAD_URL_STRING",
+			})
+			Expect(testService).To(BeNil())
+			Expect(testServiceErr).ToNot(BeNil())
+		})
+		It(`Instantiate service client with error: Invalid Auth`, func() {
+			testService, testServiceErr := globalcatalogv1.NewGlobalCatalogV1(&globalcatalogv1.GlobalCatalogV1Options{
+				URL: "https://globalcatalogv1/api",
+				Authenticator: &core.BasicAuthenticator{
+					Username: "",
+					Password: "",
+				},
+			})
+			Expect(testService).To(BeNil())
+			Expect(testServiceErr).ToNot(BeNil())
+		})
+	})
+	Describe(`Service constructor tests using external config`, func() {
+		Context(`Using external config, construct service client instances`, func() {
+			// Map containing environment variables used in testing.
+			var testEnvironment = map[string]string{
+				"GLOBAL_CATALOG_URL": "https://globalcatalogv1/api",
+				"GLOBAL_CATALOG_AUTH_TYPE": "noauth",
+			}
 
-            It(`Create service client using external config successfully`, func() {
-                SetTestEnvironment(testEnvironment)
-                testService, testServiceErr := globalcatalogv1.NewGlobalCatalogV1UsingExternalConfig(&globalcatalogv1.GlobalCatalogV1Options{
-                })
-                Expect(testService).ToNot(BeNil())
-                Expect(testServiceErr).To(BeNil())
-                ClearTestEnvironment(testEnvironment)
-            })
-            It(`Create service client using external config and set url from constructor successfully`, func() {
-                SetTestEnvironment(testEnvironment)
-                testService, testServiceErr := globalcatalogv1.NewGlobalCatalogV1UsingExternalConfig(&globalcatalogv1.GlobalCatalogV1Options{
-                    URL: "https://testService/api",
-                })
-                Expect(testService).ToNot(BeNil())
-                Expect(testServiceErr).To(BeNil())
-                Expect(testService.Service.GetServiceURL()).To(Equal("https://testService/api"))
-                ClearTestEnvironment(testEnvironment)
-            })
-            It(`Create service client using external config and set url programatically successfully`, func() {
-                SetTestEnvironment(testEnvironment)
-                testService, testServiceErr := globalcatalogv1.NewGlobalCatalogV1UsingExternalConfig(&globalcatalogv1.GlobalCatalogV1Options{
-                })
-                err := testService.SetServiceURL("https://testService/api")
-                Expect(err).To(BeNil())
-                Expect(testService).ToNot(BeNil())
-                Expect(testServiceErr).To(BeNil())
-                Expect(testService.Service.GetServiceURL()).To(Equal("https://testService/api"))
-                ClearTestEnvironment(testEnvironment)
-            })
-        })
-        Context(`Using external config, construct service client instances with error: Invalid Auth`, func() {
-            // Map containing environment variables used in testing.
-            var testEnvironment = map[string]string{
-                "GLOBAL_CATALOG_URL": "https://globalcatalogv1/api",
-                "GLOBAL_CATALOG_AUTH_TYPE": "someOtherAuth",
-            }
+			It(`Create service client using external config successfully`, func() {
+				SetTestEnvironment(testEnvironment)
+				testService, testServiceErr := globalcatalogv1.NewGlobalCatalogV1UsingExternalConfig(&globalcatalogv1.GlobalCatalogV1Options{
+				})
+				Expect(testService).ToNot(BeNil())
+				Expect(testServiceErr).To(BeNil())
+				ClearTestEnvironment(testEnvironment)
+			})
+			It(`Create service client using external config and set url from constructor successfully`, func() {
+				SetTestEnvironment(testEnvironment)
+				testService, testServiceErr := globalcatalogv1.NewGlobalCatalogV1UsingExternalConfig(&globalcatalogv1.GlobalCatalogV1Options{
+					URL: "https://testService/api",
+				})
+				Expect(testService).ToNot(BeNil())
+				Expect(testServiceErr).To(BeNil())
+				Expect(testService.Service.GetServiceURL()).To(Equal("https://testService/api"))
+				ClearTestEnvironment(testEnvironment)
+			})
+			It(`Create service client using external config and set url programatically successfully`, func() {
+				SetTestEnvironment(testEnvironment)
+				testService, testServiceErr := globalcatalogv1.NewGlobalCatalogV1UsingExternalConfig(&globalcatalogv1.GlobalCatalogV1Options{
+				})
+				err := testService.SetServiceURL("https://testService/api")
+				Expect(err).To(BeNil())
+				Expect(testService).ToNot(BeNil())
+				Expect(testServiceErr).To(BeNil())
+				Expect(testService.Service.GetServiceURL()).To(Equal("https://testService/api"))
+				ClearTestEnvironment(testEnvironment)
+			})
+		})
+		Context(`Using external config, construct service client instances with error: Invalid Auth`, func() {
+			// Map containing environment variables used in testing.
+			var testEnvironment = map[string]string{
+				"GLOBAL_CATALOG_URL": "https://globalcatalogv1/api",
+				"GLOBAL_CATALOG_AUTH_TYPE": "someOtherAuth",
+			}
 
-            SetTestEnvironment(testEnvironment)
-            testService, testServiceErr := globalcatalogv1.NewGlobalCatalogV1UsingExternalConfig(&globalcatalogv1.GlobalCatalogV1Options{
-            })
+			SetTestEnvironment(testEnvironment)
+			testService, testServiceErr := globalcatalogv1.NewGlobalCatalogV1UsingExternalConfig(&globalcatalogv1.GlobalCatalogV1Options{
+			})
 
-            It(`Instantiate service client with error`, func() {
-                Expect(testService).To(BeNil())
-                Expect(testServiceErr).ToNot(BeNil())
-                ClearTestEnvironment(testEnvironment)
-            })
-	    })
-        Context(`Using external config, construct service client instances with error: Invalid URL`, func() {
-            // Map containing environment variables used in testing.
-            var testEnvironment = map[string]string{
-                "GLOBAL_CATALOG_AUTH_TYPE":   "NOAuth",
-            }
+			It(`Instantiate service client with error`, func() {
+				Expect(testService).To(BeNil())
+				Expect(testServiceErr).ToNot(BeNil())
+				ClearTestEnvironment(testEnvironment)
+			})
+		})
+		Context(`Using external config, construct service client instances with error: Invalid URL`, func() {
+			// Map containing environment variables used in testing.
+			var testEnvironment = map[string]string{
+				"GLOBAL_CATALOG_AUTH_TYPE":   "NOAuth",
+			}
 
-            SetTestEnvironment(testEnvironment)
-            testService, testServiceErr := globalcatalogv1.NewGlobalCatalogV1UsingExternalConfig(&globalcatalogv1.GlobalCatalogV1Options{
-                URL: "{{BAD_URL_STRING",
-            })
+			SetTestEnvironment(testEnvironment)
+			testService, testServiceErr := globalcatalogv1.NewGlobalCatalogV1UsingExternalConfig(&globalcatalogv1.GlobalCatalogV1Options{
+				URL: "{{BAD_URL_STRING",
+			})
 
-            It(`Instantiate service client with error`, func() {
-                Expect(testService).To(BeNil())
-                Expect(testServiceErr).ToNot(BeNil())
-                ClearTestEnvironment(testEnvironment)
-            })
-        })
-    })
+			It(`Instantiate service client with error`, func() {
+				Expect(testService).To(BeNil())
+				Expect(testServiceErr).ToNot(BeNil())
+				ClearTestEnvironment(testEnvironment)
+			})
+		})
+	})
 	Describe(`GetPricing(getPricingOptions *GetPricingOptions) - Operation response error`, func() {
 		getPricingPath := "/testString/pricing"
 		Context(`Using mock server endpoint`, func() {
@@ -3073,105 +3067,105 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 		})
 	})
     Describe(`Service constructor tests`, func() {
-        It(`Instantiate service client`, func() {
-            testService, testServiceErr := globalcatalogv1.NewGlobalCatalogV1(&globalcatalogv1.GlobalCatalogV1Options{
-                Authenticator: &core.NoAuthAuthenticator{},
-            })
-            Expect(testService).ToNot(BeNil())
-            Expect(testServiceErr).To(BeNil())
-        })
-        It(`Instantiate service client with error: Invalid URL`, func() {
-            testService, testServiceErr := globalcatalogv1.NewGlobalCatalogV1(&globalcatalogv1.GlobalCatalogV1Options{
-                URL: "{{BAD_URL_STRING",
-            })
-            Expect(testService).To(BeNil())
-            Expect(testServiceErr).ToNot(BeNil())
-        })
-        It(`Instantiate service client with error: Invalid Auth`, func() {
-            testService, testServiceErr := globalcatalogv1.NewGlobalCatalogV1(&globalcatalogv1.GlobalCatalogV1Options{
-                URL: "https://globalcatalogv1/api",
-                Authenticator: &core.BasicAuthenticator{
-                    Username: "",
-                    Password: "",
-                },
-            })
-            Expect(testService).To(BeNil())
-            Expect(testServiceErr).ToNot(BeNil())
-        })
-    })
-    Describe(`Service constructor tests using external config`, func() {
-        Context(`Using external config, construct service client instances`, func() {
-            // Map containing environment variables used in testing.
-            var testEnvironment = map[string]string{
-                "GLOBAL_CATALOG_URL": "https://globalcatalogv1/api",
-                "GLOBAL_CATALOG_AUTH_TYPE": "noauth",
-            }
+		It(`Instantiate service client`, func() {
+			testService, testServiceErr := globalcatalogv1.NewGlobalCatalogV1(&globalcatalogv1.GlobalCatalogV1Options{
+				Authenticator: &core.NoAuthAuthenticator{},
+			})
+			Expect(testService).ToNot(BeNil())
+			Expect(testServiceErr).To(BeNil())
+		})
+		It(`Instantiate service client with error: Invalid URL`, func() {
+			testService, testServiceErr := globalcatalogv1.NewGlobalCatalogV1(&globalcatalogv1.GlobalCatalogV1Options{
+				URL: "{{BAD_URL_STRING",
+			})
+			Expect(testService).To(BeNil())
+			Expect(testServiceErr).ToNot(BeNil())
+		})
+		It(`Instantiate service client with error: Invalid Auth`, func() {
+			testService, testServiceErr := globalcatalogv1.NewGlobalCatalogV1(&globalcatalogv1.GlobalCatalogV1Options{
+				URL: "https://globalcatalogv1/api",
+				Authenticator: &core.BasicAuthenticator{
+					Username: "",
+					Password: "",
+				},
+			})
+			Expect(testService).To(BeNil())
+			Expect(testServiceErr).ToNot(BeNil())
+		})
+	})
+	Describe(`Service constructor tests using external config`, func() {
+		Context(`Using external config, construct service client instances`, func() {
+			// Map containing environment variables used in testing.
+			var testEnvironment = map[string]string{
+				"GLOBAL_CATALOG_URL": "https://globalcatalogv1/api",
+				"GLOBAL_CATALOG_AUTH_TYPE": "noauth",
+			}
 
-            It(`Create service client using external config successfully`, func() {
-                SetTestEnvironment(testEnvironment)
-                testService, testServiceErr := globalcatalogv1.NewGlobalCatalogV1UsingExternalConfig(&globalcatalogv1.GlobalCatalogV1Options{
-                })
-                Expect(testService).ToNot(BeNil())
-                Expect(testServiceErr).To(BeNil())
-                ClearTestEnvironment(testEnvironment)
-            })
-            It(`Create service client using external config and set url from constructor successfully`, func() {
-                SetTestEnvironment(testEnvironment)
-                testService, testServiceErr := globalcatalogv1.NewGlobalCatalogV1UsingExternalConfig(&globalcatalogv1.GlobalCatalogV1Options{
-                    URL: "https://testService/api",
-                })
-                Expect(testService).ToNot(BeNil())
-                Expect(testServiceErr).To(BeNil())
-                Expect(testService.Service.GetServiceURL()).To(Equal("https://testService/api"))
-                ClearTestEnvironment(testEnvironment)
-            })
-            It(`Create service client using external config and set url programatically successfully`, func() {
-                SetTestEnvironment(testEnvironment)
-                testService, testServiceErr := globalcatalogv1.NewGlobalCatalogV1UsingExternalConfig(&globalcatalogv1.GlobalCatalogV1Options{
-                })
-                err := testService.SetServiceURL("https://testService/api")
-                Expect(err).To(BeNil())
-                Expect(testService).ToNot(BeNil())
-                Expect(testServiceErr).To(BeNil())
-                Expect(testService.Service.GetServiceURL()).To(Equal("https://testService/api"))
-                ClearTestEnvironment(testEnvironment)
-            })
-        })
-        Context(`Using external config, construct service client instances with error: Invalid Auth`, func() {
-            // Map containing environment variables used in testing.
-            var testEnvironment = map[string]string{
-                "GLOBAL_CATALOG_URL": "https://globalcatalogv1/api",
-                "GLOBAL_CATALOG_AUTH_TYPE": "someOtherAuth",
-            }
+			It(`Create service client using external config successfully`, func() {
+				SetTestEnvironment(testEnvironment)
+				testService, testServiceErr := globalcatalogv1.NewGlobalCatalogV1UsingExternalConfig(&globalcatalogv1.GlobalCatalogV1Options{
+				})
+				Expect(testService).ToNot(BeNil())
+				Expect(testServiceErr).To(BeNil())
+				ClearTestEnvironment(testEnvironment)
+			})
+			It(`Create service client using external config and set url from constructor successfully`, func() {
+				SetTestEnvironment(testEnvironment)
+				testService, testServiceErr := globalcatalogv1.NewGlobalCatalogV1UsingExternalConfig(&globalcatalogv1.GlobalCatalogV1Options{
+					URL: "https://testService/api",
+				})
+				Expect(testService).ToNot(BeNil())
+				Expect(testServiceErr).To(BeNil())
+				Expect(testService.Service.GetServiceURL()).To(Equal("https://testService/api"))
+				ClearTestEnvironment(testEnvironment)
+			})
+			It(`Create service client using external config and set url programatically successfully`, func() {
+				SetTestEnvironment(testEnvironment)
+				testService, testServiceErr := globalcatalogv1.NewGlobalCatalogV1UsingExternalConfig(&globalcatalogv1.GlobalCatalogV1Options{
+				})
+				err := testService.SetServiceURL("https://testService/api")
+				Expect(err).To(BeNil())
+				Expect(testService).ToNot(BeNil())
+				Expect(testServiceErr).To(BeNil())
+				Expect(testService.Service.GetServiceURL()).To(Equal("https://testService/api"))
+				ClearTestEnvironment(testEnvironment)
+			})
+		})
+		Context(`Using external config, construct service client instances with error: Invalid Auth`, func() {
+			// Map containing environment variables used in testing.
+			var testEnvironment = map[string]string{
+				"GLOBAL_CATALOG_URL": "https://globalcatalogv1/api",
+				"GLOBAL_CATALOG_AUTH_TYPE": "someOtherAuth",
+			}
 
-            SetTestEnvironment(testEnvironment)
-            testService, testServiceErr := globalcatalogv1.NewGlobalCatalogV1UsingExternalConfig(&globalcatalogv1.GlobalCatalogV1Options{
-            })
+			SetTestEnvironment(testEnvironment)
+			testService, testServiceErr := globalcatalogv1.NewGlobalCatalogV1UsingExternalConfig(&globalcatalogv1.GlobalCatalogV1Options{
+			})
 
-            It(`Instantiate service client with error`, func() {
-                Expect(testService).To(BeNil())
-                Expect(testServiceErr).ToNot(BeNil())
-                ClearTestEnvironment(testEnvironment)
-            })
-	    })
-        Context(`Using external config, construct service client instances with error: Invalid URL`, func() {
-            // Map containing environment variables used in testing.
-            var testEnvironment = map[string]string{
-                "GLOBAL_CATALOG_AUTH_TYPE":   "NOAuth",
-            }
+			It(`Instantiate service client with error`, func() {
+				Expect(testService).To(BeNil())
+				Expect(testServiceErr).ToNot(BeNil())
+				ClearTestEnvironment(testEnvironment)
+			})
+		})
+		Context(`Using external config, construct service client instances with error: Invalid URL`, func() {
+			// Map containing environment variables used in testing.
+			var testEnvironment = map[string]string{
+				"GLOBAL_CATALOG_AUTH_TYPE":   "NOAuth",
+			}
 
-            SetTestEnvironment(testEnvironment)
-            testService, testServiceErr := globalcatalogv1.NewGlobalCatalogV1UsingExternalConfig(&globalcatalogv1.GlobalCatalogV1Options{
-                URL: "{{BAD_URL_STRING",
-            })
+			SetTestEnvironment(testEnvironment)
+			testService, testServiceErr := globalcatalogv1.NewGlobalCatalogV1UsingExternalConfig(&globalcatalogv1.GlobalCatalogV1Options{
+				URL: "{{BAD_URL_STRING",
+			})
 
-            It(`Instantiate service client with error`, func() {
-                Expect(testService).To(BeNil())
-                Expect(testServiceErr).ToNot(BeNil())
-                ClearTestEnvironment(testEnvironment)
-            })
-        })
-    })
+			It(`Instantiate service client with error`, func() {
+				Expect(testService).To(BeNil())
+				Expect(testServiceErr).ToNot(BeNil())
+				ClearTestEnvironment(testEnvironment)
+			})
+		})
+	})
 	Describe(`GetAuditLogs(getAuditLogsOptions *GetAuditLogsOptions) - Operation response error`, func() {
 		getAuditLogsPath := "/testString/logs"
 		Context(`Using mock server endpoint`, func() {
@@ -3320,105 +3314,105 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 		})
 	})
     Describe(`Service constructor tests`, func() {
-        It(`Instantiate service client`, func() {
-            testService, testServiceErr := globalcatalogv1.NewGlobalCatalogV1(&globalcatalogv1.GlobalCatalogV1Options{
-                Authenticator: &core.NoAuthAuthenticator{},
-            })
-            Expect(testService).ToNot(BeNil())
-            Expect(testServiceErr).To(BeNil())
-        })
-        It(`Instantiate service client with error: Invalid URL`, func() {
-            testService, testServiceErr := globalcatalogv1.NewGlobalCatalogV1(&globalcatalogv1.GlobalCatalogV1Options{
-                URL: "{{BAD_URL_STRING",
-            })
-            Expect(testService).To(BeNil())
-            Expect(testServiceErr).ToNot(BeNil())
-        })
-        It(`Instantiate service client with error: Invalid Auth`, func() {
-            testService, testServiceErr := globalcatalogv1.NewGlobalCatalogV1(&globalcatalogv1.GlobalCatalogV1Options{
-                URL: "https://globalcatalogv1/api",
-                Authenticator: &core.BasicAuthenticator{
-                    Username: "",
-                    Password: "",
-                },
-            })
-            Expect(testService).To(BeNil())
-            Expect(testServiceErr).ToNot(BeNil())
-        })
-    })
-    Describe(`Service constructor tests using external config`, func() {
-        Context(`Using external config, construct service client instances`, func() {
-            // Map containing environment variables used in testing.
-            var testEnvironment = map[string]string{
-                "GLOBAL_CATALOG_URL": "https://globalcatalogv1/api",
-                "GLOBAL_CATALOG_AUTH_TYPE": "noauth",
-            }
+		It(`Instantiate service client`, func() {
+			testService, testServiceErr := globalcatalogv1.NewGlobalCatalogV1(&globalcatalogv1.GlobalCatalogV1Options{
+				Authenticator: &core.NoAuthAuthenticator{},
+			})
+			Expect(testService).ToNot(BeNil())
+			Expect(testServiceErr).To(BeNil())
+		})
+		It(`Instantiate service client with error: Invalid URL`, func() {
+			testService, testServiceErr := globalcatalogv1.NewGlobalCatalogV1(&globalcatalogv1.GlobalCatalogV1Options{
+				URL: "{{BAD_URL_STRING",
+			})
+			Expect(testService).To(BeNil())
+			Expect(testServiceErr).ToNot(BeNil())
+		})
+		It(`Instantiate service client with error: Invalid Auth`, func() {
+			testService, testServiceErr := globalcatalogv1.NewGlobalCatalogV1(&globalcatalogv1.GlobalCatalogV1Options{
+				URL: "https://globalcatalogv1/api",
+				Authenticator: &core.BasicAuthenticator{
+					Username: "",
+					Password: "",
+				},
+			})
+			Expect(testService).To(BeNil())
+			Expect(testServiceErr).ToNot(BeNil())
+		})
+	})
+	Describe(`Service constructor tests using external config`, func() {
+		Context(`Using external config, construct service client instances`, func() {
+			// Map containing environment variables used in testing.
+			var testEnvironment = map[string]string{
+				"GLOBAL_CATALOG_URL": "https://globalcatalogv1/api",
+				"GLOBAL_CATALOG_AUTH_TYPE": "noauth",
+			}
 
-            It(`Create service client using external config successfully`, func() {
-                SetTestEnvironment(testEnvironment)
-                testService, testServiceErr := globalcatalogv1.NewGlobalCatalogV1UsingExternalConfig(&globalcatalogv1.GlobalCatalogV1Options{
-                })
-                Expect(testService).ToNot(BeNil())
-                Expect(testServiceErr).To(BeNil())
-                ClearTestEnvironment(testEnvironment)
-            })
-            It(`Create service client using external config and set url from constructor successfully`, func() {
-                SetTestEnvironment(testEnvironment)
-                testService, testServiceErr := globalcatalogv1.NewGlobalCatalogV1UsingExternalConfig(&globalcatalogv1.GlobalCatalogV1Options{
-                    URL: "https://testService/api",
-                })
-                Expect(testService).ToNot(BeNil())
-                Expect(testServiceErr).To(BeNil())
-                Expect(testService.Service.GetServiceURL()).To(Equal("https://testService/api"))
-                ClearTestEnvironment(testEnvironment)
-            })
-            It(`Create service client using external config and set url programatically successfully`, func() {
-                SetTestEnvironment(testEnvironment)
-                testService, testServiceErr := globalcatalogv1.NewGlobalCatalogV1UsingExternalConfig(&globalcatalogv1.GlobalCatalogV1Options{
-                })
-                err := testService.SetServiceURL("https://testService/api")
-                Expect(err).To(BeNil())
-                Expect(testService).ToNot(BeNil())
-                Expect(testServiceErr).To(BeNil())
-                Expect(testService.Service.GetServiceURL()).To(Equal("https://testService/api"))
-                ClearTestEnvironment(testEnvironment)
-            })
-        })
-        Context(`Using external config, construct service client instances with error: Invalid Auth`, func() {
-            // Map containing environment variables used in testing.
-            var testEnvironment = map[string]string{
-                "GLOBAL_CATALOG_URL": "https://globalcatalogv1/api",
-                "GLOBAL_CATALOG_AUTH_TYPE": "someOtherAuth",
-            }
+			It(`Create service client using external config successfully`, func() {
+				SetTestEnvironment(testEnvironment)
+				testService, testServiceErr := globalcatalogv1.NewGlobalCatalogV1UsingExternalConfig(&globalcatalogv1.GlobalCatalogV1Options{
+				})
+				Expect(testService).ToNot(BeNil())
+				Expect(testServiceErr).To(BeNil())
+				ClearTestEnvironment(testEnvironment)
+			})
+			It(`Create service client using external config and set url from constructor successfully`, func() {
+				SetTestEnvironment(testEnvironment)
+				testService, testServiceErr := globalcatalogv1.NewGlobalCatalogV1UsingExternalConfig(&globalcatalogv1.GlobalCatalogV1Options{
+					URL: "https://testService/api",
+				})
+				Expect(testService).ToNot(BeNil())
+				Expect(testServiceErr).To(BeNil())
+				Expect(testService.Service.GetServiceURL()).To(Equal("https://testService/api"))
+				ClearTestEnvironment(testEnvironment)
+			})
+			It(`Create service client using external config and set url programatically successfully`, func() {
+				SetTestEnvironment(testEnvironment)
+				testService, testServiceErr := globalcatalogv1.NewGlobalCatalogV1UsingExternalConfig(&globalcatalogv1.GlobalCatalogV1Options{
+				})
+				err := testService.SetServiceURL("https://testService/api")
+				Expect(err).To(BeNil())
+				Expect(testService).ToNot(BeNil())
+				Expect(testServiceErr).To(BeNil())
+				Expect(testService.Service.GetServiceURL()).To(Equal("https://testService/api"))
+				ClearTestEnvironment(testEnvironment)
+			})
+		})
+		Context(`Using external config, construct service client instances with error: Invalid Auth`, func() {
+			// Map containing environment variables used in testing.
+			var testEnvironment = map[string]string{
+				"GLOBAL_CATALOG_URL": "https://globalcatalogv1/api",
+				"GLOBAL_CATALOG_AUTH_TYPE": "someOtherAuth",
+			}
 
-            SetTestEnvironment(testEnvironment)
-            testService, testServiceErr := globalcatalogv1.NewGlobalCatalogV1UsingExternalConfig(&globalcatalogv1.GlobalCatalogV1Options{
-            })
+			SetTestEnvironment(testEnvironment)
+			testService, testServiceErr := globalcatalogv1.NewGlobalCatalogV1UsingExternalConfig(&globalcatalogv1.GlobalCatalogV1Options{
+			})
 
-            It(`Instantiate service client with error`, func() {
-                Expect(testService).To(BeNil())
-                Expect(testServiceErr).ToNot(BeNil())
-                ClearTestEnvironment(testEnvironment)
-            })
-	    })
-        Context(`Using external config, construct service client instances with error: Invalid URL`, func() {
-            // Map containing environment variables used in testing.
-            var testEnvironment = map[string]string{
-                "GLOBAL_CATALOG_AUTH_TYPE":   "NOAuth",
-            }
+			It(`Instantiate service client with error`, func() {
+				Expect(testService).To(BeNil())
+				Expect(testServiceErr).ToNot(BeNil())
+				ClearTestEnvironment(testEnvironment)
+			})
+		})
+		Context(`Using external config, construct service client instances with error: Invalid URL`, func() {
+			// Map containing environment variables used in testing.
+			var testEnvironment = map[string]string{
+				"GLOBAL_CATALOG_AUTH_TYPE":   "NOAuth",
+			}
 
-            SetTestEnvironment(testEnvironment)
-            testService, testServiceErr := globalcatalogv1.NewGlobalCatalogV1UsingExternalConfig(&globalcatalogv1.GlobalCatalogV1Options{
-                URL: "{{BAD_URL_STRING",
-            })
+			SetTestEnvironment(testEnvironment)
+			testService, testServiceErr := globalcatalogv1.NewGlobalCatalogV1UsingExternalConfig(&globalcatalogv1.GlobalCatalogV1Options{
+				URL: "{{BAD_URL_STRING",
+			})
 
-            It(`Instantiate service client with error`, func() {
-                Expect(testService).To(BeNil())
-                Expect(testServiceErr).ToNot(BeNil())
-                ClearTestEnvironment(testEnvironment)
-            })
-        })
-    })
+			It(`Instantiate service client with error`, func() {
+				Expect(testService).To(BeNil())
+				Expect(testServiceErr).ToNot(BeNil())
+				ClearTestEnvironment(testEnvironment)
+			})
+		})
+	})
 	Describe(`ListArtifacts(listArtifactsOptions *ListArtifactsOptions) - Operation response error`, func() {
 		listArtifactsPath := "/testString/artifacts"
 		Context(`Using mock server endpoint`, func() {
@@ -3623,6 +3617,8 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 					// Verify the contents of the request
 					Expect(req.URL.Path).To(Equal(uploadArtifactPath))
 					Expect(req.Method).To(Equal("PUT"))
+					Expect(req.Header["Content-Type"]).ToNot(BeNil())
+					Expect(req.Header["Content-Type"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					Expect(req.URL.Query()["account"]).To(Equal([]string{"testString"}))
 
 					res.WriteHeader(200)
@@ -3645,6 +3641,8 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				uploadArtifactOptionsModel := new(globalcatalogv1.UploadArtifactOptions)
 				uploadArtifactOptionsModel.ObjectID = core.StringPtr("testString")
 				uploadArtifactOptionsModel.ArtifactID = core.StringPtr("testString")
+				uploadArtifactOptionsModel.Artifact = CreateMockReader("This is a mock file.")
+				uploadArtifactOptionsModel.ContentType = core.StringPtr("testString")
 				uploadArtifactOptionsModel.Account = core.StringPtr("testString")
  				uploadArtifactOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
@@ -3665,6 +3663,8 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				uploadArtifactOptionsModel := new(globalcatalogv1.UploadArtifactOptions)
 				uploadArtifactOptionsModel.ObjectID = core.StringPtr("testString")
 				uploadArtifactOptionsModel.ArtifactID = core.StringPtr("testString")
+				uploadArtifactOptionsModel.Artifact = CreateMockReader("This is a mock file.")
+				uploadArtifactOptionsModel.ContentType = core.StringPtr("testString")
 				uploadArtifactOptionsModel.Account = core.StringPtr("testString")
 				uploadArtifactOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
@@ -3767,22 +3767,642 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				Authenticator: &core.NoAuthAuthenticator{},
 			})
 			It(`Invoke NewCatalogEntry successfully`, func() {
-				id := "testString"
 				name := "testString"
 				var overviewUi *globalcatalogv1.OverviewUI = nil
-				kind := "testString"
 				var images *globalcatalogv1.Image = nil
 				disabled := true
 				tags := []string{"testString"}
 				var provider *globalcatalogv1.Provider = nil
-				_, err := testService.NewCatalogEntry(id, name, overviewUi, kind, images, disabled, tags, provider)
+				kind := "service"
+				_, err := testService.NewCatalogEntry(name, overviewUi, images, disabled, tags, provider, kind)
 				Expect(err).ToNot(BeNil())
+			})
+			It(`Invoke NewCreateCatalogEntryOptions successfully`, func() {
+				// Construct an instance of the Bullets model
+				bulletsModel := new(globalcatalogv1.Bullets)
+				Expect(bulletsModel).ToNot(BeNil())
+				bulletsModel.Title = core.StringPtr("testString")
+				bulletsModel.Description = core.StringPtr("testString")
+				bulletsModel.Icon = core.StringPtr("testString")
+				bulletsModel.Quantity = core.StringPtr("testString")
+				Expect(bulletsModel.Title).To(Equal(core.StringPtr("testString")))
+				Expect(bulletsModel.Description).To(Equal(core.StringPtr("testString")))
+				Expect(bulletsModel.Icon).To(Equal(core.StringPtr("testString")))
+				Expect(bulletsModel.Quantity).To(Equal(core.StringPtr("testString")))
+
+				// Construct an instance of the Price model
+				priceModel := new(globalcatalogv1.Price)
+				Expect(priceModel).ToNot(BeNil())
+				priceModel.QuantityTier = core.Int64Ptr(int64(38))
+				priceModel.Price = core.Float64Ptr(72.5)
+				Expect(priceModel.QuantityTier).To(Equal(core.Int64Ptr(int64(38))))
+				Expect(priceModel.Price).To(Equal(core.Float64Ptr(72.5)))
+
+				// Construct an instance of the UIMetaMedia model
+				uiMetaMediaModel := new(globalcatalogv1.UIMetaMedia)
+				Expect(uiMetaMediaModel).ToNot(BeNil())
+				uiMetaMediaModel.Caption = core.StringPtr("testString")
+				uiMetaMediaModel.ThumbnailURL = core.StringPtr("testString")
+				uiMetaMediaModel.Type = core.StringPtr("testString")
+				uiMetaMediaModel.URL = core.StringPtr("testString")
+				uiMetaMediaModel.Source = bulletsModel
+				Expect(uiMetaMediaModel.Caption).To(Equal(core.StringPtr("testString")))
+				Expect(uiMetaMediaModel.ThumbnailURL).To(Equal(core.StringPtr("testString")))
+				Expect(uiMetaMediaModel.Type).To(Equal(core.StringPtr("testString")))
+				Expect(uiMetaMediaModel.URL).To(Equal(core.StringPtr("testString")))
+				Expect(uiMetaMediaModel.Source).To(Equal(bulletsModel))
+
+				// Construct an instance of the Amount model
+				amountModel := new(globalcatalogv1.Amount)
+				Expect(amountModel).ToNot(BeNil())
+				amountModel.Counrty = core.StringPtr("testString")
+				amountModel.Currency = core.StringPtr("testString")
+				amountModel.Prices = []globalcatalogv1.Price{*priceModel}
+				Expect(amountModel.Counrty).To(Equal(core.StringPtr("testString")))
+				Expect(amountModel.Currency).To(Equal(core.StringPtr("testString")))
+				Expect(amountModel.Prices).To(Equal([]globalcatalogv1.Price{*priceModel}))
+
+				// Construct an instance of the ObjectMetaDataDeploymentBrokerPassword model
+				objectMetaDataDeploymentBrokerPasswordModel := new(globalcatalogv1.ObjectMetaDataDeploymentBrokerPassword)
+				Expect(objectMetaDataDeploymentBrokerPasswordModel).ToNot(BeNil())
+				objectMetaDataDeploymentBrokerPasswordModel.Text = core.StringPtr("testString")
+				objectMetaDataDeploymentBrokerPasswordModel.Key = core.StringPtr("testString")
+				objectMetaDataDeploymentBrokerPasswordModel.Iv = core.StringPtr("testString")
+				Expect(objectMetaDataDeploymentBrokerPasswordModel.Text).To(Equal(core.StringPtr("testString")))
+				Expect(objectMetaDataDeploymentBrokerPasswordModel.Key).To(Equal(core.StringPtr("testString")))
+				Expect(objectMetaDataDeploymentBrokerPasswordModel.Iv).To(Equal(core.StringPtr("testString")))
+
+				// Construct an instance of the Strings model
+				stringsModel := new(globalcatalogv1.Strings)
+				Expect(stringsModel).ToNot(BeNil())
+				stringsModel.Bullets = []globalcatalogv1.Bullets{*bulletsModel}
+				stringsModel.Media = []globalcatalogv1.UIMetaMedia{*uiMetaMediaModel}
+				stringsModel.NotCreatableMsg = core.StringPtr("testString")
+				stringsModel.NotCreatableRobotMsg = core.StringPtr("testString")
+				stringsModel.DeprecationWarning = core.StringPtr("testString")
+				stringsModel.PopupWarningMessage = core.StringPtr("testString")
+				stringsModel.Instruction = core.StringPtr("testString")
+				Expect(stringsModel.Bullets).To(Equal([]globalcatalogv1.Bullets{*bulletsModel}))
+				Expect(stringsModel.Media).To(Equal([]globalcatalogv1.UIMetaMedia{*uiMetaMediaModel}))
+				Expect(stringsModel.NotCreatableMsg).To(Equal(core.StringPtr("testString")))
+				Expect(stringsModel.NotCreatableRobotMsg).To(Equal(core.StringPtr("testString")))
+				Expect(stringsModel.DeprecationWarning).To(Equal(core.StringPtr("testString")))
+				Expect(stringsModel.PopupWarningMessage).To(Equal(core.StringPtr("testString")))
+				Expect(stringsModel.Instruction).To(Equal(core.StringPtr("testString")))
+
+				// Construct an instance of the I18N model
+				i18NModel := new(globalcatalogv1.I18N)
+				Expect(i18NModel).ToNot(BeNil())
+				i18NModel.SetProperty("foo", stringsModel)
+				Expect(i18NModel.GetProperty("foo")).To(Equal(stringsModel))
+				Expect(i18NModel.GetProperties()).ToNot(BeEmpty())
+
+				// Construct an instance of the Metrics model
+				metricsModel := new(globalcatalogv1.Metrics)
+				Expect(metricsModel).ToNot(BeNil())
+				metricsModel.MetricID = core.StringPtr("testString")
+				metricsModel.TierModel = core.StringPtr("testString")
+				metricsModel.ChargeUnitName = core.StringPtr("testString")
+				metricsModel.ChargeUnitQuantity = core.StringPtr("testString")
+				metricsModel.ResourceDisplayName = core.StringPtr("testString")
+				metricsModel.ChargeUnitDisplayName = core.StringPtr("testString")
+				metricsModel.UsageCapQty = core.Int64Ptr(int64(38))
+				metricsModel.Amounts = []globalcatalogv1.Amount{*amountModel}
+				Expect(metricsModel.MetricID).To(Equal(core.StringPtr("testString")))
+				Expect(metricsModel.TierModel).To(Equal(core.StringPtr("testString")))
+				Expect(metricsModel.ChargeUnitName).To(Equal(core.StringPtr("testString")))
+				Expect(metricsModel.ChargeUnitQuantity).To(Equal(core.StringPtr("testString")))
+				Expect(metricsModel.ResourceDisplayName).To(Equal(core.StringPtr("testString")))
+				Expect(metricsModel.ChargeUnitDisplayName).To(Equal(core.StringPtr("testString")))
+				Expect(metricsModel.UsageCapQty).To(Equal(core.Int64Ptr(int64(38))))
+				Expect(metricsModel.Amounts).To(Equal([]globalcatalogv1.Amount{*amountModel}))
+
+				// Construct an instance of the ObjectMetaDataDeploymentBroker model
+				objectMetaDataDeploymentBrokerModel := new(globalcatalogv1.ObjectMetaDataDeploymentBroker)
+				Expect(objectMetaDataDeploymentBrokerModel).ToNot(BeNil())
+				objectMetaDataDeploymentBrokerModel.Name = core.StringPtr("testString")
+				objectMetaDataDeploymentBrokerModel.Guid = core.StringPtr("testString")
+				objectMetaDataDeploymentBrokerModel.Password = objectMetaDataDeploymentBrokerPasswordModel
+				Expect(objectMetaDataDeploymentBrokerModel.Name).To(Equal(core.StringPtr("testString")))
+				Expect(objectMetaDataDeploymentBrokerModel.Guid).To(Equal(core.StringPtr("testString")))
+				Expect(objectMetaDataDeploymentBrokerModel.Password).To(Equal(objectMetaDataDeploymentBrokerPasswordModel))
+
+				// Construct an instance of the ObjectMetaDataSlaDr model
+				objectMetaDataSlaDrModel := new(globalcatalogv1.ObjectMetaDataSlaDr)
+				Expect(objectMetaDataSlaDrModel).ToNot(BeNil())
+				objectMetaDataSlaDrModel.Dr = core.BoolPtr(true)
+				objectMetaDataSlaDrModel.Description = core.StringPtr("testString")
+				Expect(objectMetaDataSlaDrModel.Dr).To(Equal(core.BoolPtr(true)))
+				Expect(objectMetaDataSlaDrModel.Description).To(Equal(core.StringPtr("testString")))
+
+				// Construct an instance of the ObjectMetaDataTemplateEnvironmentVariables model
+				objectMetaDataTemplateEnvironmentVariablesModel := new(globalcatalogv1.ObjectMetaDataTemplateEnvironmentVariables)
+				Expect(objectMetaDataTemplateEnvironmentVariablesModel).ToNot(BeNil())
+				objectMetaDataTemplateEnvironmentVariablesModel.Key = core.StringPtr("testString")
+				Expect(objectMetaDataTemplateEnvironmentVariablesModel.Key).To(Equal(core.StringPtr("testString")))
+
+				// Construct an instance of the ObjectMetaDataTemplateSource model
+				objectMetaDataTemplateSourceModel := new(globalcatalogv1.ObjectMetaDataTemplateSource)
+				Expect(objectMetaDataTemplateSourceModel).ToNot(BeNil())
+				objectMetaDataTemplateSourceModel.Path = core.StringPtr("testString")
+				objectMetaDataTemplateSourceModel.Type = core.StringPtr("testString")
+				objectMetaDataTemplateSourceModel.URL = core.StringPtr("testString")
+				Expect(objectMetaDataTemplateSourceModel.Path).To(Equal(core.StringPtr("testString")))
+				Expect(objectMetaDataTemplateSourceModel.Type).To(Equal(core.StringPtr("testString")))
+				Expect(objectMetaDataTemplateSourceModel.URL).To(Equal(core.StringPtr("testString")))
+
+				// Construct an instance of the StartingPrice model
+				startingPriceModel := new(globalcatalogv1.StartingPrice)
+				Expect(startingPriceModel).ToNot(BeNil())
+				startingPriceModel.PlanID = core.StringPtr("testString")
+				startingPriceModel.DeploymentID = core.StringPtr("testString")
+				startingPriceModel.Amount = []globalcatalogv1.Amount{*amountModel}
+				Expect(startingPriceModel.PlanID).To(Equal(core.StringPtr("testString")))
+				Expect(startingPriceModel.DeploymentID).To(Equal(core.StringPtr("testString")))
+				Expect(startingPriceModel.Amount).To(Equal([]globalcatalogv1.Amount{*amountModel}))
+
+				// Construct an instance of the URLS model
+				urlsModel := new(globalcatalogv1.URLS)
+				Expect(urlsModel).ToNot(BeNil())
+				urlsModel.DocURL = core.StringPtr("testString")
+				urlsModel.InstructionsURL = core.StringPtr("testString")
+				urlsModel.ApiURL = core.StringPtr("testString")
+				urlsModel.CreateURL = core.StringPtr("testString")
+				urlsModel.SdkDownloadURL = core.StringPtr("testString")
+				urlsModel.TermsURL = core.StringPtr("testString")
+				urlsModel.CustomCreatePageURL = core.StringPtr("testString")
+				urlsModel.CatalogDetailsURL = core.StringPtr("testString")
+				urlsModel.DeprecationDocURL = core.StringPtr("testString")
+				Expect(urlsModel.DocURL).To(Equal(core.StringPtr("testString")))
+				Expect(urlsModel.InstructionsURL).To(Equal(core.StringPtr("testString")))
+				Expect(urlsModel.ApiURL).To(Equal(core.StringPtr("testString")))
+				Expect(urlsModel.CreateURL).To(Equal(core.StringPtr("testString")))
+				Expect(urlsModel.SdkDownloadURL).To(Equal(core.StringPtr("testString")))
+				Expect(urlsModel.TermsURL).To(Equal(core.StringPtr("testString")))
+				Expect(urlsModel.CustomCreatePageURL).To(Equal(core.StringPtr("testString")))
+				Expect(urlsModel.CatalogDetailsURL).To(Equal(core.StringPtr("testString")))
+				Expect(urlsModel.DeprecationDocURL).To(Equal(core.StringPtr("testString")))
+
+				// Construct an instance of the Callbacks model
+				callbacksModel := new(globalcatalogv1.Callbacks)
+				Expect(callbacksModel).ToNot(BeNil())
+				callbacksModel.BrokerUtl = core.StringPtr("testString")
+				callbacksModel.BrokerProxyURL = core.StringPtr("testString")
+				callbacksModel.DashboardURL = core.StringPtr("testString")
+				callbacksModel.DashboardDataURL = core.StringPtr("testString")
+				callbacksModel.DashboardDetailTabURL = core.StringPtr("testString")
+				callbacksModel.DashboardDetailTabExtURL = core.StringPtr("testString")
+				callbacksModel.ServiceMonitorApi = core.StringPtr("testString")
+				callbacksModel.ServiceMonitorApp = core.StringPtr("testString")
+				callbacksModel.ServiceStagingURL = core.StringPtr("testString")
+				callbacksModel.ServiceProductionURL = core.StringPtr("testString")
+				Expect(callbacksModel.BrokerUtl).To(Equal(core.StringPtr("testString")))
+				Expect(callbacksModel.BrokerProxyURL).To(Equal(core.StringPtr("testString")))
+				Expect(callbacksModel.DashboardURL).To(Equal(core.StringPtr("testString")))
+				Expect(callbacksModel.DashboardDataURL).To(Equal(core.StringPtr("testString")))
+				Expect(callbacksModel.DashboardDetailTabURL).To(Equal(core.StringPtr("testString")))
+				Expect(callbacksModel.DashboardDetailTabExtURL).To(Equal(core.StringPtr("testString")))
+				Expect(callbacksModel.ServiceMonitorApi).To(Equal(core.StringPtr("testString")))
+				Expect(callbacksModel.ServiceMonitorApp).To(Equal(core.StringPtr("testString")))
+				Expect(callbacksModel.ServiceStagingURL).To(Equal(core.StringPtr("testString")))
+				Expect(callbacksModel.ServiceProductionURL).To(Equal(core.StringPtr("testString")))
+
+				// Construct an instance of the ObjectMetaDataAlias model
+				objectMetaDataAliasModel := new(globalcatalogv1.ObjectMetaDataAlias)
+				Expect(objectMetaDataAliasModel).ToNot(BeNil())
+				objectMetaDataAliasModel.Type = core.StringPtr("testString")
+				objectMetaDataAliasModel.PlanID = core.StringPtr("testString")
+				Expect(objectMetaDataAliasModel.Type).To(Equal(core.StringPtr("testString")))
+				Expect(objectMetaDataAliasModel.PlanID).To(Equal(core.StringPtr("testString")))
+
+				// Construct an instance of the ObjectMetaDataDeployment model
+				objectMetaDataDeploymentModel := new(globalcatalogv1.ObjectMetaDataDeployment)
+				Expect(objectMetaDataDeploymentModel).ToNot(BeNil())
+				objectMetaDataDeploymentModel.Location = core.StringPtr("testString")
+				objectMetaDataDeploymentModel.TargetCrn = core.StringPtr("testString")
+				objectMetaDataDeploymentModel.Broker = objectMetaDataDeploymentBrokerModel
+				objectMetaDataDeploymentModel.SupportsRcMigration = core.BoolPtr(true)
+				Expect(objectMetaDataDeploymentModel.Location).To(Equal(core.StringPtr("testString")))
+				Expect(objectMetaDataDeploymentModel.TargetCrn).To(Equal(core.StringPtr("testString")))
+				Expect(objectMetaDataDeploymentModel.Broker).To(Equal(objectMetaDataDeploymentBrokerModel))
+				Expect(objectMetaDataDeploymentModel.SupportsRcMigration).To(Equal(core.BoolPtr(true)))
+
+				// Construct an instance of the ObjectMetaDataPlan model
+				objectMetaDataPlanModel := new(globalcatalogv1.ObjectMetaDataPlan)
+				Expect(objectMetaDataPlanModel).ToNot(BeNil())
+				objectMetaDataPlanModel.Bindable = core.BoolPtr(true)
+				objectMetaDataPlanModel.Reservable = core.BoolPtr(true)
+				objectMetaDataPlanModel.AllowInternalUsers = core.BoolPtr(true)
+				objectMetaDataPlanModel.AsyncProvisioningSupported = core.BoolPtr(true)
+				objectMetaDataPlanModel.AsyncUnprovisioningSupported = core.BoolPtr(true)
+				objectMetaDataPlanModel.TestCheckInterval = core.Int64Ptr(int64(38))
+				objectMetaDataPlanModel.SingleScopeInstance = core.StringPtr("testString")
+				objectMetaDataPlanModel.ServiceCheckEnabled = core.BoolPtr(true)
+				objectMetaDataPlanModel.CfGuid = core.StringPtr("testString")
+				Expect(objectMetaDataPlanModel.Bindable).To(Equal(core.BoolPtr(true)))
+				Expect(objectMetaDataPlanModel.Reservable).To(Equal(core.BoolPtr(true)))
+				Expect(objectMetaDataPlanModel.AllowInternalUsers).To(Equal(core.BoolPtr(true)))
+				Expect(objectMetaDataPlanModel.AsyncProvisioningSupported).To(Equal(core.BoolPtr(true)))
+				Expect(objectMetaDataPlanModel.AsyncUnprovisioningSupported).To(Equal(core.BoolPtr(true)))
+				Expect(objectMetaDataPlanModel.TestCheckInterval).To(Equal(core.Int64Ptr(int64(38))))
+				Expect(objectMetaDataPlanModel.SingleScopeInstance).To(Equal(core.StringPtr("testString")))
+				Expect(objectMetaDataPlanModel.ServiceCheckEnabled).To(Equal(core.BoolPtr(true)))
+				Expect(objectMetaDataPlanModel.CfGuid).To(Equal(core.StringPtr("testString")))
+
+				// Construct an instance of the ObjectMetaDataService model
+				objectMetaDataServiceModel := new(globalcatalogv1.ObjectMetaDataService)
+				Expect(objectMetaDataServiceModel).ToNot(BeNil())
+				objectMetaDataServiceModel.Type = core.StringPtr("testString")
+				objectMetaDataServiceModel.IamCompatible = core.BoolPtr(true)
+				objectMetaDataServiceModel.UniqueApiKey = core.BoolPtr(true)
+				objectMetaDataServiceModel.Provisionable = core.BoolPtr(true)
+				objectMetaDataServiceModel.AsyncProvisioningSupported = core.BoolPtr(true)
+				objectMetaDataServiceModel.AsyncUnprovisioningSupported = core.BoolPtr(true)
+				objectMetaDataServiceModel.CfGuid = core.StringPtr("testString")
+				objectMetaDataServiceModel.Bindable = core.BoolPtr(true)
+				objectMetaDataServiceModel.Requires = []string{"testString"}
+				objectMetaDataServiceModel.PlanUpdateable = core.BoolPtr(true)
+				objectMetaDataServiceModel.State = core.StringPtr("testString")
+				objectMetaDataServiceModel.ServiceCheckEnabled = core.BoolPtr(true)
+				objectMetaDataServiceModel.TestCheckInterval = core.Int64Ptr(int64(38))
+				objectMetaDataServiceModel.ServiceKeySupported = core.BoolPtr(true)
+				Expect(objectMetaDataServiceModel.Type).To(Equal(core.StringPtr("testString")))
+				Expect(objectMetaDataServiceModel.IamCompatible).To(Equal(core.BoolPtr(true)))
+				Expect(objectMetaDataServiceModel.UniqueApiKey).To(Equal(core.BoolPtr(true)))
+				Expect(objectMetaDataServiceModel.Provisionable).To(Equal(core.BoolPtr(true)))
+				Expect(objectMetaDataServiceModel.AsyncProvisioningSupported).To(Equal(core.BoolPtr(true)))
+				Expect(objectMetaDataServiceModel.AsyncUnprovisioningSupported).To(Equal(core.BoolPtr(true)))
+				Expect(objectMetaDataServiceModel.CfGuid).To(Equal(core.StringPtr("testString")))
+				Expect(objectMetaDataServiceModel.Bindable).To(Equal(core.BoolPtr(true)))
+				Expect(objectMetaDataServiceModel.Requires).To(Equal([]string{"testString"}))
+				Expect(objectMetaDataServiceModel.PlanUpdateable).To(Equal(core.BoolPtr(true)))
+				Expect(objectMetaDataServiceModel.State).To(Equal(core.StringPtr("testString")))
+				Expect(objectMetaDataServiceModel.ServiceCheckEnabled).To(Equal(core.BoolPtr(true)))
+				Expect(objectMetaDataServiceModel.TestCheckInterval).To(Equal(core.Int64Ptr(int64(38))))
+				Expect(objectMetaDataServiceModel.ServiceKeySupported).To(Equal(core.BoolPtr(true)))
+
+				// Construct an instance of the ObjectMetaDataSla model
+				objectMetaDataSlaModel := new(globalcatalogv1.ObjectMetaDataSla)
+				Expect(objectMetaDataSlaModel).ToNot(BeNil())
+				objectMetaDataSlaModel.Terms = core.StringPtr("testString")
+				objectMetaDataSlaModel.Tenancy = core.StringPtr("testString")
+				objectMetaDataSlaModel.Provisioning = core.StringPtr("testString")
+				objectMetaDataSlaModel.Responsiveness = core.StringPtr("testString")
+				objectMetaDataSlaModel.Dr = objectMetaDataSlaDrModel
+				Expect(objectMetaDataSlaModel.Terms).To(Equal(core.StringPtr("testString")))
+				Expect(objectMetaDataSlaModel.Tenancy).To(Equal(core.StringPtr("testString")))
+				Expect(objectMetaDataSlaModel.Provisioning).To(Equal(core.StringPtr("testString")))
+				Expect(objectMetaDataSlaModel.Responsiveness).To(Equal(core.StringPtr("testString")))
+				Expect(objectMetaDataSlaModel.Dr).To(Equal(objectMetaDataSlaDrModel))
+
+				// Construct an instance of the ObjectMetaDataTemplate model
+				objectMetaDataTemplateModel := new(globalcatalogv1.ObjectMetaDataTemplate)
+				Expect(objectMetaDataTemplateModel).ToNot(BeNil())
+				objectMetaDataTemplateModel.Services = []string{"testString"}
+				objectMetaDataTemplateModel.DefaultMemory = core.Int64Ptr(int64(38))
+				objectMetaDataTemplateModel.StartCmd = core.StringPtr("testString")
+				objectMetaDataTemplateModel.Source = objectMetaDataTemplateSourceModel
+				objectMetaDataTemplateModel.RuntimeCatalogID = core.StringPtr("testString")
+				objectMetaDataTemplateModel.CfRuntimeID = core.StringPtr("testString")
+				objectMetaDataTemplateModel.TemplateID = core.StringPtr("testString")
+				objectMetaDataTemplateModel.ExecutableFile = core.StringPtr("testString")
+				objectMetaDataTemplateModel.Buildpack = core.StringPtr("testString")
+				objectMetaDataTemplateModel.EnvironmentVariables = objectMetaDataTemplateEnvironmentVariablesModel
+				Expect(objectMetaDataTemplateModel.Services).To(Equal([]string{"testString"}))
+				Expect(objectMetaDataTemplateModel.DefaultMemory).To(Equal(core.Int64Ptr(int64(38))))
+				Expect(objectMetaDataTemplateModel.StartCmd).To(Equal(core.StringPtr("testString")))
+				Expect(objectMetaDataTemplateModel.Source).To(Equal(objectMetaDataTemplateSourceModel))
+				Expect(objectMetaDataTemplateModel.RuntimeCatalogID).To(Equal(core.StringPtr("testString")))
+				Expect(objectMetaDataTemplateModel.CfRuntimeID).To(Equal(core.StringPtr("testString")))
+				Expect(objectMetaDataTemplateModel.TemplateID).To(Equal(core.StringPtr("testString")))
+				Expect(objectMetaDataTemplateModel.ExecutableFile).To(Equal(core.StringPtr("testString")))
+				Expect(objectMetaDataTemplateModel.Buildpack).To(Equal(core.StringPtr("testString")))
+				Expect(objectMetaDataTemplateModel.EnvironmentVariables).To(Equal(objectMetaDataTemplateEnvironmentVariablesModel))
+
+				// Construct an instance of the Overview model
+				overviewModel := new(globalcatalogv1.Overview)
+				Expect(overviewModel).ToNot(BeNil())
+				overviewModel.DisplayName = core.StringPtr("testString")
+				overviewModel.LongDescription = core.StringPtr("testString")
+				overviewModel.Description = core.StringPtr("testString")
+				Expect(overviewModel.DisplayName).To(Equal(core.StringPtr("testString")))
+				Expect(overviewModel.LongDescription).To(Equal(core.StringPtr("testString")))
+				Expect(overviewModel.Description).To(Equal(core.StringPtr("testString")))
+
+				// Construct an instance of the Pricing model
+				pricingModel := new(globalcatalogv1.Pricing)
+				Expect(pricingModel).ToNot(BeNil())
+				pricingModel.Type = core.StringPtr("testString")
+				pricingModel.Origin = core.StringPtr("testString")
+				pricingModel.StartingPrice = startingPriceModel
+				pricingModel.Metrics = []globalcatalogv1.Metrics{*metricsModel}
+				Expect(pricingModel.Type).To(Equal(core.StringPtr("testString")))
+				Expect(pricingModel.Origin).To(Equal(core.StringPtr("testString")))
+				Expect(pricingModel.StartingPrice).To(Equal(startingPriceModel))
+				Expect(pricingModel.Metrics).To(Equal([]globalcatalogv1.Metrics{*metricsModel}))
+
+				// Construct an instance of the UIMetaData model
+				uiMetaDataModel := new(globalcatalogv1.UIMetaData)
+				Expect(uiMetaDataModel).ToNot(BeNil())
+				uiMetaDataModel.Strings = i18NModel
+				uiMetaDataModel.Urls = urlsModel
+				uiMetaDataModel.EmbeddableDashboard = core.StringPtr("testString")
+				uiMetaDataModel.EmbeddableDashboardFullWidth = core.BoolPtr(true)
+				uiMetaDataModel.NavigationOrder = []string{"testString"}
+				uiMetaDataModel.NotCreatable = core.BoolPtr(true)
+				uiMetaDataModel.Reservable = core.BoolPtr(true)
+				uiMetaDataModel.PrimaryOfferingID = core.StringPtr("testString")
+				uiMetaDataModel.AccessibleDuringProvision = core.BoolPtr(true)
+				uiMetaDataModel.SideBySideIndex = core.Int64Ptr(int64(38))
+				uiMetaDataModel.EndOfServiceTime = CreateMockDateTime()
+				Expect(uiMetaDataModel.Strings).To(Equal(i18NModel))
+				Expect(uiMetaDataModel.Urls).To(Equal(urlsModel))
+				Expect(uiMetaDataModel.EmbeddableDashboard).To(Equal(core.StringPtr("testString")))
+				Expect(uiMetaDataModel.EmbeddableDashboardFullWidth).To(Equal(core.BoolPtr(true)))
+				Expect(uiMetaDataModel.NavigationOrder).To(Equal([]string{"testString"}))
+				Expect(uiMetaDataModel.NotCreatable).To(Equal(core.BoolPtr(true)))
+				Expect(uiMetaDataModel.Reservable).To(Equal(core.BoolPtr(true)))
+				Expect(uiMetaDataModel.PrimaryOfferingID).To(Equal(core.StringPtr("testString")))
+				Expect(uiMetaDataModel.AccessibleDuringProvision).To(Equal(core.BoolPtr(true)))
+				Expect(uiMetaDataModel.SideBySideIndex).To(Equal(core.Int64Ptr(int64(38))))
+				Expect(uiMetaDataModel.EndOfServiceTime).To(Equal(CreateMockDateTime()))
+
+				// Construct an instance of the Image model
+				imageModel := new(globalcatalogv1.Image)
+				Expect(imageModel).ToNot(BeNil())
+				imageModel.Image = core.StringPtr("testString")
+				imageModel.SmallImage = core.StringPtr("testString")
+				imageModel.MediumImage = core.StringPtr("testString")
+				imageModel.FeatureImage = core.StringPtr("testString")
+				Expect(imageModel.Image).To(Equal(core.StringPtr("testString")))
+				Expect(imageModel.SmallImage).To(Equal(core.StringPtr("testString")))
+				Expect(imageModel.MediumImage).To(Equal(core.StringPtr("testString")))
+				Expect(imageModel.FeatureImage).To(Equal(core.StringPtr("testString")))
+
+				// Construct an instance of the ObjectMetaData model
+				objectMetaDataModel := new(globalcatalogv1.ObjectMetaData)
+				Expect(objectMetaDataModel).ToNot(BeNil())
+				objectMetaDataModel.RcCompatible = core.BoolPtr(true)
+				objectMetaDataModel.Ui = uiMetaDataModel
+				objectMetaDataModel.Pricing = pricingModel
+				objectMetaDataModel.Compliance = []string{"testString"}
+				objectMetaDataModel.Service = objectMetaDataServiceModel
+				objectMetaDataModel.Plan = objectMetaDataPlanModel
+				objectMetaDataModel.Template = objectMetaDataTemplateModel
+				objectMetaDataModel.Deployment = objectMetaDataDeploymentModel
+				objectMetaDataModel.Alias = objectMetaDataAliasModel
+				objectMetaDataModel.Sla = objectMetaDataSlaModel
+				objectMetaDataModel.Callbacks = callbacksModel
+				objectMetaDataModel.Version = core.StringPtr("testString")
+				objectMetaDataModel.OriginalName = core.StringPtr("testString")
+				objectMetaDataModel.Other = CreateMockMap()
+				Expect(objectMetaDataModel.RcCompatible).To(Equal(core.BoolPtr(true)))
+				Expect(objectMetaDataModel.Ui).To(Equal(uiMetaDataModel))
+				Expect(objectMetaDataModel.Pricing).To(Equal(pricingModel))
+				Expect(objectMetaDataModel.Compliance).To(Equal([]string{"testString"}))
+				Expect(objectMetaDataModel.Service).To(Equal(objectMetaDataServiceModel))
+				Expect(objectMetaDataModel.Plan).To(Equal(objectMetaDataPlanModel))
+				Expect(objectMetaDataModel.Template).To(Equal(objectMetaDataTemplateModel))
+				Expect(objectMetaDataModel.Deployment).To(Equal(objectMetaDataDeploymentModel))
+				Expect(objectMetaDataModel.Alias).To(Equal(objectMetaDataAliasModel))
+				Expect(objectMetaDataModel.Sla).To(Equal(objectMetaDataSlaModel))
+				Expect(objectMetaDataModel.Callbacks).To(Equal(callbacksModel))
+				Expect(objectMetaDataModel.Version).To(Equal(core.StringPtr("testString")))
+				Expect(objectMetaDataModel.OriginalName).To(Equal(core.StringPtr("testString")))
+				Expect(objectMetaDataModel.Other).To(Equal(CreateMockMap()))
+
+				// Construct an instance of the OverviewUI model
+				overviewUiModel := new(globalcatalogv1.OverviewUI)
+				Expect(overviewUiModel).ToNot(BeNil())
+				overviewUiModel.SetProperty("foo", overviewModel)
+				Expect(overviewUiModel.GetProperty("foo")).To(Equal(overviewModel))
+				Expect(overviewUiModel.GetProperties()).ToNot(BeEmpty())
+
+				// Construct an instance of the Provider model
+				providerModel := new(globalcatalogv1.Provider)
+				Expect(providerModel).ToNot(BeNil())
+				providerModel.Email = core.StringPtr("testString")
+				providerModel.Name = core.StringPtr("testString")
+				providerModel.Contact = core.StringPtr("testString")
+				providerModel.SupportEmail = core.StringPtr("testString")
+				providerModel.Phone = core.StringPtr("testString")
+				Expect(providerModel.Email).To(Equal(core.StringPtr("testString")))
+				Expect(providerModel.Name).To(Equal(core.StringPtr("testString")))
+				Expect(providerModel.Contact).To(Equal(core.StringPtr("testString")))
+				Expect(providerModel.SupportEmail).To(Equal(core.StringPtr("testString")))
+				Expect(providerModel.Phone).To(Equal(core.StringPtr("testString")))
+
+				createCatalogEntryOptionsName := "testString"
+				var createCatalogEntryOptionsOverviewUi *globalcatalogv1.OverviewUI = nil
+				var createCatalogEntryOptionsImages *globalcatalogv1.Image = nil
+				createCatalogEntryOptionsDisabled := true
+				createCatalogEntryOptionsTags := []string{"testString"}
+				var createCatalogEntryOptionsProvider *globalcatalogv1.Provider = nil
+				createCatalogEntryOptionsKind := "service"
+				createCatalogEntryOptionsID := "testString"
+				// Construct an instance of the CreateCatalogEntryOptions model
+				createCatalogEntryOptionsModel := testService.NewCreateCatalogEntryOptions(createCatalogEntryOptionsName, createCatalogEntryOptionsOverviewUi, createCatalogEntryOptionsImages, createCatalogEntryOptionsDisabled, createCatalogEntryOptionsTags, createCatalogEntryOptionsProvider, createCatalogEntryOptionsKind, createCatalogEntryOptionsID)
+				createCatalogEntryOptionsModel.SetName("testString")
+				createCatalogEntryOptionsModel.SetOverviewUi(overviewUiModel)
+				createCatalogEntryOptionsModel.SetImages(imageModel)
+				createCatalogEntryOptionsModel.SetDisabled(true)
+				createCatalogEntryOptionsModel.SetTags([]string{"testString"})
+				createCatalogEntryOptionsModel.SetProvider(providerModel)
+				createCatalogEntryOptionsModel.SetKind("service")
+				createCatalogEntryOptionsModel.SetID("testString")
+				createCatalogEntryOptionsModel.SetParentID("testString")
+				createCatalogEntryOptionsModel.SetGroup(true)
+				createCatalogEntryOptionsModel.SetMetadata(objectMetaDataModel)
+				createCatalogEntryOptionsModel.SetActive(true)
+				createCatalogEntryOptionsModel.SetAccount("testString")
+				createCatalogEntryOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(createCatalogEntryOptionsModel).ToNot(BeNil())
+				Expect(createCatalogEntryOptionsModel.Name).To(Equal(core.StringPtr("testString")))
+				Expect(createCatalogEntryOptionsModel.OverviewUi).To(Equal(overviewUiModel))
+				Expect(createCatalogEntryOptionsModel.Images).To(Equal(imageModel))
+				Expect(createCatalogEntryOptionsModel.Disabled).To(Equal(core.BoolPtr(true)))
+				Expect(createCatalogEntryOptionsModel.Tags).To(Equal([]string{"testString"}))
+				Expect(createCatalogEntryOptionsModel.Provider).To(Equal(providerModel))
+				Expect(createCatalogEntryOptionsModel.Kind).To(Equal(core.StringPtr("service")))
+				Expect(createCatalogEntryOptionsModel.ID).To(Equal(core.StringPtr("testString")))
+				Expect(createCatalogEntryOptionsModel.ParentID).To(Equal(core.StringPtr("testString")))
+				Expect(createCatalogEntryOptionsModel.Group).To(Equal(core.BoolPtr(true)))
+				Expect(createCatalogEntryOptionsModel.Metadata).To(Equal(objectMetaDataModel))
+				Expect(createCatalogEntryOptionsModel.Active).To(Equal(core.BoolPtr(true)))
+				Expect(createCatalogEntryOptionsModel.Account).To(Equal(core.StringPtr("testString")))
+				Expect(createCatalogEntryOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
+			It(`Invoke NewDeleteArtifactOptions successfully`, func() {
+				objectID := "testString"
+				artifactID := "testString"
+				// Construct an instance of the DeleteArtifactOptions model
+				deleteArtifactOptionsModel := testService.NewDeleteArtifactOptions(objectID, artifactID)
+				deleteArtifactOptionsModel.SetObjectID("testString")
+				deleteArtifactOptionsModel.SetArtifactID("testString")
+				deleteArtifactOptionsModel.SetAccount("testString")
+				deleteArtifactOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(deleteArtifactOptionsModel).ToNot(BeNil())
+				Expect(deleteArtifactOptionsModel.ObjectID).To(Equal(core.StringPtr("testString")))
+				Expect(deleteArtifactOptionsModel.ArtifactID).To(Equal(core.StringPtr("testString")))
+				Expect(deleteArtifactOptionsModel.Account).To(Equal(core.StringPtr("testString")))
+				Expect(deleteArtifactOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
+			It(`Invoke NewDeleteCatalogEntryOptions successfully`, func() {
+				id := "testString"
+				// Construct an instance of the DeleteCatalogEntryOptions model
+				deleteCatalogEntryOptionsModel := testService.NewDeleteCatalogEntryOptions(id)
+				deleteCatalogEntryOptionsModel.SetID("testString")
+				deleteCatalogEntryOptionsModel.SetAccount("testString")
+				deleteCatalogEntryOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(deleteCatalogEntryOptionsModel).ToNot(BeNil())
+				Expect(deleteCatalogEntryOptionsModel.ID).To(Equal(core.StringPtr("testString")))
+				Expect(deleteCatalogEntryOptionsModel.Account).To(Equal(core.StringPtr("testString")))
+				Expect(deleteCatalogEntryOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
+			It(`Invoke NewGetArtifactOptions successfully`, func() {
+				objectID := "testString"
+				artifactID := "testString"
+				// Construct an instance of the GetArtifactOptions model
+				getArtifactOptionsModel := testService.NewGetArtifactOptions(objectID, artifactID)
+				getArtifactOptionsModel.SetObjectID("testString")
+				getArtifactOptionsModel.SetArtifactID("testString")
+				getArtifactOptionsModel.SetAccount("testString")
+				getArtifactOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(getArtifactOptionsModel).ToNot(BeNil())
+				Expect(getArtifactOptionsModel.ObjectID).To(Equal(core.StringPtr("testString")))
+				Expect(getArtifactOptionsModel.ArtifactID).To(Equal(core.StringPtr("testString")))
+				Expect(getArtifactOptionsModel.Account).To(Equal(core.StringPtr("testString")))
+				Expect(getArtifactOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
+			It(`Invoke NewGetAuditLogsOptions successfully`, func() {
+				id := "testString"
+				// Construct an instance of the GetAuditLogsOptions model
+				getAuditLogsOptionsModel := testService.NewGetAuditLogsOptions(id)
+				getAuditLogsOptionsModel.SetID("testString")
+				getAuditLogsOptionsModel.SetAccount("testString")
+				getAuditLogsOptionsModel.SetAscending("testString")
+				getAuditLogsOptionsModel.SetStartat("testString")
+				getAuditLogsOptionsModel.SetOffset(int64(38))
+				getAuditLogsOptionsModel.SetLimit(int64(38))
+				getAuditLogsOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(getAuditLogsOptionsModel).ToNot(BeNil())
+				Expect(getAuditLogsOptionsModel.ID).To(Equal(core.StringPtr("testString")))
+				Expect(getAuditLogsOptionsModel.Account).To(Equal(core.StringPtr("testString")))
+				Expect(getAuditLogsOptionsModel.Ascending).To(Equal(core.StringPtr("testString")))
+				Expect(getAuditLogsOptionsModel.Startat).To(Equal(core.StringPtr("testString")))
+				Expect(getAuditLogsOptionsModel.Offset).To(Equal(core.Int64Ptr(int64(38))))
+				Expect(getAuditLogsOptionsModel.Limit).To(Equal(core.Int64Ptr(int64(38))))
+				Expect(getAuditLogsOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
+			It(`Invoke NewGetCatalogEntryOptions successfully`, func() {
+				id := "testString"
+				// Construct an instance of the GetCatalogEntryOptions model
+				getCatalogEntryOptionsModel := testService.NewGetCatalogEntryOptions(id)
+				getCatalogEntryOptionsModel.SetID("testString")
+				getCatalogEntryOptionsModel.SetAccount("testString")
+				getCatalogEntryOptionsModel.SetInclude("testString")
+				getCatalogEntryOptionsModel.SetLanguages("testString")
+				getCatalogEntryOptionsModel.SetComplete("testString")
+				getCatalogEntryOptionsModel.SetDepth(int64(38))
+				getCatalogEntryOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(getCatalogEntryOptionsModel).ToNot(BeNil())
+				Expect(getCatalogEntryOptionsModel.ID).To(Equal(core.StringPtr("testString")))
+				Expect(getCatalogEntryOptionsModel.Account).To(Equal(core.StringPtr("testString")))
+				Expect(getCatalogEntryOptionsModel.Include).To(Equal(core.StringPtr("testString")))
+				Expect(getCatalogEntryOptionsModel.Languages).To(Equal(core.StringPtr("testString")))
+				Expect(getCatalogEntryOptionsModel.Complete).To(Equal(core.StringPtr("testString")))
+				Expect(getCatalogEntryOptionsModel.Depth).To(Equal(core.Int64Ptr(int64(38))))
+				Expect(getCatalogEntryOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
+			It(`Invoke NewGetChildObjectsOptions successfully`, func() {
+				id := "testString"
+				kind := "testString"
+				// Construct an instance of the GetChildObjectsOptions model
+				getChildObjectsOptionsModel := testService.NewGetChildObjectsOptions(id, kind)
+				getChildObjectsOptionsModel.SetID("testString")
+				getChildObjectsOptionsModel.SetKind("testString")
+				getChildObjectsOptionsModel.SetAccount("testString")
+				getChildObjectsOptionsModel.SetInclude("testString")
+				getChildObjectsOptionsModel.SetQ("testString")
+				getChildObjectsOptionsModel.SetSortBy("testString")
+				getChildObjectsOptionsModel.SetDescending("testString")
+				getChildObjectsOptionsModel.SetLanguages("testString")
+				getChildObjectsOptionsModel.SetComplete("testString")
+				getChildObjectsOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(getChildObjectsOptionsModel).ToNot(BeNil())
+				Expect(getChildObjectsOptionsModel.ID).To(Equal(core.StringPtr("testString")))
+				Expect(getChildObjectsOptionsModel.Kind).To(Equal(core.StringPtr("testString")))
+				Expect(getChildObjectsOptionsModel.Account).To(Equal(core.StringPtr("testString")))
+				Expect(getChildObjectsOptionsModel.Include).To(Equal(core.StringPtr("testString")))
+				Expect(getChildObjectsOptionsModel.Q).To(Equal(core.StringPtr("testString")))
+				Expect(getChildObjectsOptionsModel.SortBy).To(Equal(core.StringPtr("testString")))
+				Expect(getChildObjectsOptionsModel.Descending).To(Equal(core.StringPtr("testString")))
+				Expect(getChildObjectsOptionsModel.Languages).To(Equal(core.StringPtr("testString")))
+				Expect(getChildObjectsOptionsModel.Complete).To(Equal(core.StringPtr("testString")))
+				Expect(getChildObjectsOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
+			It(`Invoke NewGetPricingOptions successfully`, func() {
+				id := "testString"
+				// Construct an instance of the GetPricingOptions model
+				getPricingOptionsModel := testService.NewGetPricingOptions(id)
+				getPricingOptionsModel.SetID("testString")
+				getPricingOptionsModel.SetAccount("testString")
+				getPricingOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(getPricingOptionsModel).ToNot(BeNil())
+				Expect(getPricingOptionsModel.ID).To(Equal(core.StringPtr("testString")))
+				Expect(getPricingOptionsModel.Account).To(Equal(core.StringPtr("testString")))
+				Expect(getPricingOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
+			It(`Invoke NewGetVisibilityOptions successfully`, func() {
+				id := "testString"
+				// Construct an instance of the GetVisibilityOptions model
+				getVisibilityOptionsModel := testService.NewGetVisibilityOptions(id)
+				getVisibilityOptionsModel.SetID("testString")
+				getVisibilityOptionsModel.SetAccount("testString")
+				getVisibilityOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(getVisibilityOptionsModel).ToNot(BeNil())
+				Expect(getVisibilityOptionsModel.ID).To(Equal(core.StringPtr("testString")))
+				Expect(getVisibilityOptionsModel.Account).To(Equal(core.StringPtr("testString")))
+				Expect(getVisibilityOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewImage successfully`, func() {
 				image := "testString"
 				model, err := testService.NewImage(image)
 				Expect(model).ToNot(BeNil())
 				Expect(err).To(BeNil())
+			})
+			It(`Invoke NewListArtifactsOptions successfully`, func() {
+				objectID := "testString"
+				// Construct an instance of the ListArtifactsOptions model
+				listArtifactsOptionsModel := testService.NewListArtifactsOptions(objectID)
+				listArtifactsOptionsModel.SetObjectID("testString")
+				listArtifactsOptionsModel.SetAccount("testString")
+				listArtifactsOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(listArtifactsOptionsModel).ToNot(BeNil())
+				Expect(listArtifactsOptionsModel.ObjectID).To(Equal(core.StringPtr("testString")))
+				Expect(listArtifactsOptionsModel.Account).To(Equal(core.StringPtr("testString")))
+				Expect(listArtifactsOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
+			It(`Invoke NewListCatalogEntriesOptions successfully`, func() {
+				// Construct an instance of the ListCatalogEntriesOptions model
+				listCatalogEntriesOptionsModel := testService.NewListCatalogEntriesOptions()
+				listCatalogEntriesOptionsModel.SetAccount("testString")
+				listCatalogEntriesOptionsModel.SetInclude("testString")
+				listCatalogEntriesOptionsModel.SetQ("testString")
+				listCatalogEntriesOptionsModel.SetSortBy("testString")
+				listCatalogEntriesOptionsModel.SetDescending("testString")
+				listCatalogEntriesOptionsModel.SetLanguages("testString")
+				listCatalogEntriesOptionsModel.SetComplete("testString")
+				listCatalogEntriesOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(listCatalogEntriesOptionsModel).ToNot(BeNil())
+				Expect(listCatalogEntriesOptionsModel.Account).To(Equal(core.StringPtr("testString")))
+				Expect(listCatalogEntriesOptionsModel.Include).To(Equal(core.StringPtr("testString")))
+				Expect(listCatalogEntriesOptionsModel.Q).To(Equal(core.StringPtr("testString")))
+				Expect(listCatalogEntriesOptionsModel.SortBy).To(Equal(core.StringPtr("testString")))
+				Expect(listCatalogEntriesOptionsModel.Descending).To(Equal(core.StringPtr("testString")))
+				Expect(listCatalogEntriesOptionsModel.Languages).To(Equal(core.StringPtr("testString")))
+				Expect(listCatalogEntriesOptionsModel.Complete).To(Equal(core.StringPtr("testString")))
+				Expect(listCatalogEntriesOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewOverview successfully`, func() {
 				displayName := "testString"
@@ -3798,6 +4418,575 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				model, err := testService.NewProvider(email, name)
 				Expect(model).ToNot(BeNil())
 				Expect(err).To(BeNil())
+			})
+			It(`Invoke NewRestoreCatalogEntryOptions successfully`, func() {
+				id := "testString"
+				// Construct an instance of the RestoreCatalogEntryOptions model
+				restoreCatalogEntryOptionsModel := testService.NewRestoreCatalogEntryOptions(id)
+				restoreCatalogEntryOptionsModel.SetID("testString")
+				restoreCatalogEntryOptionsModel.SetAccount("testString")
+				restoreCatalogEntryOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(restoreCatalogEntryOptionsModel).ToNot(BeNil())
+				Expect(restoreCatalogEntryOptionsModel.ID).To(Equal(core.StringPtr("testString")))
+				Expect(restoreCatalogEntryOptionsModel.Account).To(Equal(core.StringPtr("testString")))
+				Expect(restoreCatalogEntryOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
+			It(`Invoke NewUpdateCatalogEntryOptions successfully`, func() {
+				// Construct an instance of the Bullets model
+				bulletsModel := new(globalcatalogv1.Bullets)
+				Expect(bulletsModel).ToNot(BeNil())
+				bulletsModel.Title = core.StringPtr("testString")
+				bulletsModel.Description = core.StringPtr("testString")
+				bulletsModel.Icon = core.StringPtr("testString")
+				bulletsModel.Quantity = core.StringPtr("testString")
+				Expect(bulletsModel.Title).To(Equal(core.StringPtr("testString")))
+				Expect(bulletsModel.Description).To(Equal(core.StringPtr("testString")))
+				Expect(bulletsModel.Icon).To(Equal(core.StringPtr("testString")))
+				Expect(bulletsModel.Quantity).To(Equal(core.StringPtr("testString")))
+
+				// Construct an instance of the Price model
+				priceModel := new(globalcatalogv1.Price)
+				Expect(priceModel).ToNot(BeNil())
+				priceModel.QuantityTier = core.Int64Ptr(int64(38))
+				priceModel.Price = core.Float64Ptr(72.5)
+				Expect(priceModel.QuantityTier).To(Equal(core.Int64Ptr(int64(38))))
+				Expect(priceModel.Price).To(Equal(core.Float64Ptr(72.5)))
+
+				// Construct an instance of the UIMetaMedia model
+				uiMetaMediaModel := new(globalcatalogv1.UIMetaMedia)
+				Expect(uiMetaMediaModel).ToNot(BeNil())
+				uiMetaMediaModel.Caption = core.StringPtr("testString")
+				uiMetaMediaModel.ThumbnailURL = core.StringPtr("testString")
+				uiMetaMediaModel.Type = core.StringPtr("testString")
+				uiMetaMediaModel.URL = core.StringPtr("testString")
+				uiMetaMediaModel.Source = bulletsModel
+				Expect(uiMetaMediaModel.Caption).To(Equal(core.StringPtr("testString")))
+				Expect(uiMetaMediaModel.ThumbnailURL).To(Equal(core.StringPtr("testString")))
+				Expect(uiMetaMediaModel.Type).To(Equal(core.StringPtr("testString")))
+				Expect(uiMetaMediaModel.URL).To(Equal(core.StringPtr("testString")))
+				Expect(uiMetaMediaModel.Source).To(Equal(bulletsModel))
+
+				// Construct an instance of the Amount model
+				amountModel := new(globalcatalogv1.Amount)
+				Expect(amountModel).ToNot(BeNil())
+				amountModel.Counrty = core.StringPtr("testString")
+				amountModel.Currency = core.StringPtr("testString")
+				amountModel.Prices = []globalcatalogv1.Price{*priceModel}
+				Expect(amountModel.Counrty).To(Equal(core.StringPtr("testString")))
+				Expect(amountModel.Currency).To(Equal(core.StringPtr("testString")))
+				Expect(amountModel.Prices).To(Equal([]globalcatalogv1.Price{*priceModel}))
+
+				// Construct an instance of the ObjectMetaDataDeploymentBrokerPassword model
+				objectMetaDataDeploymentBrokerPasswordModel := new(globalcatalogv1.ObjectMetaDataDeploymentBrokerPassword)
+				Expect(objectMetaDataDeploymentBrokerPasswordModel).ToNot(BeNil())
+				objectMetaDataDeploymentBrokerPasswordModel.Text = core.StringPtr("testString")
+				objectMetaDataDeploymentBrokerPasswordModel.Key = core.StringPtr("testString")
+				objectMetaDataDeploymentBrokerPasswordModel.Iv = core.StringPtr("testString")
+				Expect(objectMetaDataDeploymentBrokerPasswordModel.Text).To(Equal(core.StringPtr("testString")))
+				Expect(objectMetaDataDeploymentBrokerPasswordModel.Key).To(Equal(core.StringPtr("testString")))
+				Expect(objectMetaDataDeploymentBrokerPasswordModel.Iv).To(Equal(core.StringPtr("testString")))
+
+				// Construct an instance of the Strings model
+				stringsModel := new(globalcatalogv1.Strings)
+				Expect(stringsModel).ToNot(BeNil())
+				stringsModel.Bullets = []globalcatalogv1.Bullets{*bulletsModel}
+				stringsModel.Media = []globalcatalogv1.UIMetaMedia{*uiMetaMediaModel}
+				stringsModel.NotCreatableMsg = core.StringPtr("testString")
+				stringsModel.NotCreatableRobotMsg = core.StringPtr("testString")
+				stringsModel.DeprecationWarning = core.StringPtr("testString")
+				stringsModel.PopupWarningMessage = core.StringPtr("testString")
+				stringsModel.Instruction = core.StringPtr("testString")
+				Expect(stringsModel.Bullets).To(Equal([]globalcatalogv1.Bullets{*bulletsModel}))
+				Expect(stringsModel.Media).To(Equal([]globalcatalogv1.UIMetaMedia{*uiMetaMediaModel}))
+				Expect(stringsModel.NotCreatableMsg).To(Equal(core.StringPtr("testString")))
+				Expect(stringsModel.NotCreatableRobotMsg).To(Equal(core.StringPtr("testString")))
+				Expect(stringsModel.DeprecationWarning).To(Equal(core.StringPtr("testString")))
+				Expect(stringsModel.PopupWarningMessage).To(Equal(core.StringPtr("testString")))
+				Expect(stringsModel.Instruction).To(Equal(core.StringPtr("testString")))
+
+				// Construct an instance of the I18N model
+				i18NModel := new(globalcatalogv1.I18N)
+				Expect(i18NModel).ToNot(BeNil())
+				i18NModel.SetProperty("foo", stringsModel)
+				Expect(i18NModel.GetProperty("foo")).To(Equal(stringsModel))
+				Expect(i18NModel.GetProperties()).ToNot(BeEmpty())
+
+				// Construct an instance of the Metrics model
+				metricsModel := new(globalcatalogv1.Metrics)
+				Expect(metricsModel).ToNot(BeNil())
+				metricsModel.MetricID = core.StringPtr("testString")
+				metricsModel.TierModel = core.StringPtr("testString")
+				metricsModel.ChargeUnitName = core.StringPtr("testString")
+				metricsModel.ChargeUnitQuantity = core.StringPtr("testString")
+				metricsModel.ResourceDisplayName = core.StringPtr("testString")
+				metricsModel.ChargeUnitDisplayName = core.StringPtr("testString")
+				metricsModel.UsageCapQty = core.Int64Ptr(int64(38))
+				metricsModel.Amounts = []globalcatalogv1.Amount{*amountModel}
+				Expect(metricsModel.MetricID).To(Equal(core.StringPtr("testString")))
+				Expect(metricsModel.TierModel).To(Equal(core.StringPtr("testString")))
+				Expect(metricsModel.ChargeUnitName).To(Equal(core.StringPtr("testString")))
+				Expect(metricsModel.ChargeUnitQuantity).To(Equal(core.StringPtr("testString")))
+				Expect(metricsModel.ResourceDisplayName).To(Equal(core.StringPtr("testString")))
+				Expect(metricsModel.ChargeUnitDisplayName).To(Equal(core.StringPtr("testString")))
+				Expect(metricsModel.UsageCapQty).To(Equal(core.Int64Ptr(int64(38))))
+				Expect(metricsModel.Amounts).To(Equal([]globalcatalogv1.Amount{*amountModel}))
+
+				// Construct an instance of the ObjectMetaDataDeploymentBroker model
+				objectMetaDataDeploymentBrokerModel := new(globalcatalogv1.ObjectMetaDataDeploymentBroker)
+				Expect(objectMetaDataDeploymentBrokerModel).ToNot(BeNil())
+				objectMetaDataDeploymentBrokerModel.Name = core.StringPtr("testString")
+				objectMetaDataDeploymentBrokerModel.Guid = core.StringPtr("testString")
+				objectMetaDataDeploymentBrokerModel.Password = objectMetaDataDeploymentBrokerPasswordModel
+				Expect(objectMetaDataDeploymentBrokerModel.Name).To(Equal(core.StringPtr("testString")))
+				Expect(objectMetaDataDeploymentBrokerModel.Guid).To(Equal(core.StringPtr("testString")))
+				Expect(objectMetaDataDeploymentBrokerModel.Password).To(Equal(objectMetaDataDeploymentBrokerPasswordModel))
+
+				// Construct an instance of the ObjectMetaDataSlaDr model
+				objectMetaDataSlaDrModel := new(globalcatalogv1.ObjectMetaDataSlaDr)
+				Expect(objectMetaDataSlaDrModel).ToNot(BeNil())
+				objectMetaDataSlaDrModel.Dr = core.BoolPtr(true)
+				objectMetaDataSlaDrModel.Description = core.StringPtr("testString")
+				Expect(objectMetaDataSlaDrModel.Dr).To(Equal(core.BoolPtr(true)))
+				Expect(objectMetaDataSlaDrModel.Description).To(Equal(core.StringPtr("testString")))
+
+				// Construct an instance of the ObjectMetaDataTemplateEnvironmentVariables model
+				objectMetaDataTemplateEnvironmentVariablesModel := new(globalcatalogv1.ObjectMetaDataTemplateEnvironmentVariables)
+				Expect(objectMetaDataTemplateEnvironmentVariablesModel).ToNot(BeNil())
+				objectMetaDataTemplateEnvironmentVariablesModel.Key = core.StringPtr("testString")
+				Expect(objectMetaDataTemplateEnvironmentVariablesModel.Key).To(Equal(core.StringPtr("testString")))
+
+				// Construct an instance of the ObjectMetaDataTemplateSource model
+				objectMetaDataTemplateSourceModel := new(globalcatalogv1.ObjectMetaDataTemplateSource)
+				Expect(objectMetaDataTemplateSourceModel).ToNot(BeNil())
+				objectMetaDataTemplateSourceModel.Path = core.StringPtr("testString")
+				objectMetaDataTemplateSourceModel.Type = core.StringPtr("testString")
+				objectMetaDataTemplateSourceModel.URL = core.StringPtr("testString")
+				Expect(objectMetaDataTemplateSourceModel.Path).To(Equal(core.StringPtr("testString")))
+				Expect(objectMetaDataTemplateSourceModel.Type).To(Equal(core.StringPtr("testString")))
+				Expect(objectMetaDataTemplateSourceModel.URL).To(Equal(core.StringPtr("testString")))
+
+				// Construct an instance of the StartingPrice model
+				startingPriceModel := new(globalcatalogv1.StartingPrice)
+				Expect(startingPriceModel).ToNot(BeNil())
+				startingPriceModel.PlanID = core.StringPtr("testString")
+				startingPriceModel.DeploymentID = core.StringPtr("testString")
+				startingPriceModel.Amount = []globalcatalogv1.Amount{*amountModel}
+				Expect(startingPriceModel.PlanID).To(Equal(core.StringPtr("testString")))
+				Expect(startingPriceModel.DeploymentID).To(Equal(core.StringPtr("testString")))
+				Expect(startingPriceModel.Amount).To(Equal([]globalcatalogv1.Amount{*amountModel}))
+
+				// Construct an instance of the URLS model
+				urlsModel := new(globalcatalogv1.URLS)
+				Expect(urlsModel).ToNot(BeNil())
+				urlsModel.DocURL = core.StringPtr("testString")
+				urlsModel.InstructionsURL = core.StringPtr("testString")
+				urlsModel.ApiURL = core.StringPtr("testString")
+				urlsModel.CreateURL = core.StringPtr("testString")
+				urlsModel.SdkDownloadURL = core.StringPtr("testString")
+				urlsModel.TermsURL = core.StringPtr("testString")
+				urlsModel.CustomCreatePageURL = core.StringPtr("testString")
+				urlsModel.CatalogDetailsURL = core.StringPtr("testString")
+				urlsModel.DeprecationDocURL = core.StringPtr("testString")
+				Expect(urlsModel.DocURL).To(Equal(core.StringPtr("testString")))
+				Expect(urlsModel.InstructionsURL).To(Equal(core.StringPtr("testString")))
+				Expect(urlsModel.ApiURL).To(Equal(core.StringPtr("testString")))
+				Expect(urlsModel.CreateURL).To(Equal(core.StringPtr("testString")))
+				Expect(urlsModel.SdkDownloadURL).To(Equal(core.StringPtr("testString")))
+				Expect(urlsModel.TermsURL).To(Equal(core.StringPtr("testString")))
+				Expect(urlsModel.CustomCreatePageURL).To(Equal(core.StringPtr("testString")))
+				Expect(urlsModel.CatalogDetailsURL).To(Equal(core.StringPtr("testString")))
+				Expect(urlsModel.DeprecationDocURL).To(Equal(core.StringPtr("testString")))
+
+				// Construct an instance of the Callbacks model
+				callbacksModel := new(globalcatalogv1.Callbacks)
+				Expect(callbacksModel).ToNot(BeNil())
+				callbacksModel.BrokerUtl = core.StringPtr("testString")
+				callbacksModel.BrokerProxyURL = core.StringPtr("testString")
+				callbacksModel.DashboardURL = core.StringPtr("testString")
+				callbacksModel.DashboardDataURL = core.StringPtr("testString")
+				callbacksModel.DashboardDetailTabURL = core.StringPtr("testString")
+				callbacksModel.DashboardDetailTabExtURL = core.StringPtr("testString")
+				callbacksModel.ServiceMonitorApi = core.StringPtr("testString")
+				callbacksModel.ServiceMonitorApp = core.StringPtr("testString")
+				callbacksModel.ServiceStagingURL = core.StringPtr("testString")
+				callbacksModel.ServiceProductionURL = core.StringPtr("testString")
+				Expect(callbacksModel.BrokerUtl).To(Equal(core.StringPtr("testString")))
+				Expect(callbacksModel.BrokerProxyURL).To(Equal(core.StringPtr("testString")))
+				Expect(callbacksModel.DashboardURL).To(Equal(core.StringPtr("testString")))
+				Expect(callbacksModel.DashboardDataURL).To(Equal(core.StringPtr("testString")))
+				Expect(callbacksModel.DashboardDetailTabURL).To(Equal(core.StringPtr("testString")))
+				Expect(callbacksModel.DashboardDetailTabExtURL).To(Equal(core.StringPtr("testString")))
+				Expect(callbacksModel.ServiceMonitorApi).To(Equal(core.StringPtr("testString")))
+				Expect(callbacksModel.ServiceMonitorApp).To(Equal(core.StringPtr("testString")))
+				Expect(callbacksModel.ServiceStagingURL).To(Equal(core.StringPtr("testString")))
+				Expect(callbacksModel.ServiceProductionURL).To(Equal(core.StringPtr("testString")))
+
+				// Construct an instance of the ObjectMetaDataAlias model
+				objectMetaDataAliasModel := new(globalcatalogv1.ObjectMetaDataAlias)
+				Expect(objectMetaDataAliasModel).ToNot(BeNil())
+				objectMetaDataAliasModel.Type = core.StringPtr("testString")
+				objectMetaDataAliasModel.PlanID = core.StringPtr("testString")
+				Expect(objectMetaDataAliasModel.Type).To(Equal(core.StringPtr("testString")))
+				Expect(objectMetaDataAliasModel.PlanID).To(Equal(core.StringPtr("testString")))
+
+				// Construct an instance of the ObjectMetaDataDeployment model
+				objectMetaDataDeploymentModel := new(globalcatalogv1.ObjectMetaDataDeployment)
+				Expect(objectMetaDataDeploymentModel).ToNot(BeNil())
+				objectMetaDataDeploymentModel.Location = core.StringPtr("testString")
+				objectMetaDataDeploymentModel.TargetCrn = core.StringPtr("testString")
+				objectMetaDataDeploymentModel.Broker = objectMetaDataDeploymentBrokerModel
+				objectMetaDataDeploymentModel.SupportsRcMigration = core.BoolPtr(true)
+				Expect(objectMetaDataDeploymentModel.Location).To(Equal(core.StringPtr("testString")))
+				Expect(objectMetaDataDeploymentModel.TargetCrn).To(Equal(core.StringPtr("testString")))
+				Expect(objectMetaDataDeploymentModel.Broker).To(Equal(objectMetaDataDeploymentBrokerModel))
+				Expect(objectMetaDataDeploymentModel.SupportsRcMigration).To(Equal(core.BoolPtr(true)))
+
+				// Construct an instance of the ObjectMetaDataPlan model
+				objectMetaDataPlanModel := new(globalcatalogv1.ObjectMetaDataPlan)
+				Expect(objectMetaDataPlanModel).ToNot(BeNil())
+				objectMetaDataPlanModel.Bindable = core.BoolPtr(true)
+				objectMetaDataPlanModel.Reservable = core.BoolPtr(true)
+				objectMetaDataPlanModel.AllowInternalUsers = core.BoolPtr(true)
+				objectMetaDataPlanModel.AsyncProvisioningSupported = core.BoolPtr(true)
+				objectMetaDataPlanModel.AsyncUnprovisioningSupported = core.BoolPtr(true)
+				objectMetaDataPlanModel.TestCheckInterval = core.Int64Ptr(int64(38))
+				objectMetaDataPlanModel.SingleScopeInstance = core.StringPtr("testString")
+				objectMetaDataPlanModel.ServiceCheckEnabled = core.BoolPtr(true)
+				objectMetaDataPlanModel.CfGuid = core.StringPtr("testString")
+				Expect(objectMetaDataPlanModel.Bindable).To(Equal(core.BoolPtr(true)))
+				Expect(objectMetaDataPlanModel.Reservable).To(Equal(core.BoolPtr(true)))
+				Expect(objectMetaDataPlanModel.AllowInternalUsers).To(Equal(core.BoolPtr(true)))
+				Expect(objectMetaDataPlanModel.AsyncProvisioningSupported).To(Equal(core.BoolPtr(true)))
+				Expect(objectMetaDataPlanModel.AsyncUnprovisioningSupported).To(Equal(core.BoolPtr(true)))
+				Expect(objectMetaDataPlanModel.TestCheckInterval).To(Equal(core.Int64Ptr(int64(38))))
+				Expect(objectMetaDataPlanModel.SingleScopeInstance).To(Equal(core.StringPtr("testString")))
+				Expect(objectMetaDataPlanModel.ServiceCheckEnabled).To(Equal(core.BoolPtr(true)))
+				Expect(objectMetaDataPlanModel.CfGuid).To(Equal(core.StringPtr("testString")))
+
+				// Construct an instance of the ObjectMetaDataService model
+				objectMetaDataServiceModel := new(globalcatalogv1.ObjectMetaDataService)
+				Expect(objectMetaDataServiceModel).ToNot(BeNil())
+				objectMetaDataServiceModel.Type = core.StringPtr("testString")
+				objectMetaDataServiceModel.IamCompatible = core.BoolPtr(true)
+				objectMetaDataServiceModel.UniqueApiKey = core.BoolPtr(true)
+				objectMetaDataServiceModel.Provisionable = core.BoolPtr(true)
+				objectMetaDataServiceModel.AsyncProvisioningSupported = core.BoolPtr(true)
+				objectMetaDataServiceModel.AsyncUnprovisioningSupported = core.BoolPtr(true)
+				objectMetaDataServiceModel.CfGuid = core.StringPtr("testString")
+				objectMetaDataServiceModel.Bindable = core.BoolPtr(true)
+				objectMetaDataServiceModel.Requires = []string{"testString"}
+				objectMetaDataServiceModel.PlanUpdateable = core.BoolPtr(true)
+				objectMetaDataServiceModel.State = core.StringPtr("testString")
+				objectMetaDataServiceModel.ServiceCheckEnabled = core.BoolPtr(true)
+				objectMetaDataServiceModel.TestCheckInterval = core.Int64Ptr(int64(38))
+				objectMetaDataServiceModel.ServiceKeySupported = core.BoolPtr(true)
+				Expect(objectMetaDataServiceModel.Type).To(Equal(core.StringPtr("testString")))
+				Expect(objectMetaDataServiceModel.IamCompatible).To(Equal(core.BoolPtr(true)))
+				Expect(objectMetaDataServiceModel.UniqueApiKey).To(Equal(core.BoolPtr(true)))
+				Expect(objectMetaDataServiceModel.Provisionable).To(Equal(core.BoolPtr(true)))
+				Expect(objectMetaDataServiceModel.AsyncProvisioningSupported).To(Equal(core.BoolPtr(true)))
+				Expect(objectMetaDataServiceModel.AsyncUnprovisioningSupported).To(Equal(core.BoolPtr(true)))
+				Expect(objectMetaDataServiceModel.CfGuid).To(Equal(core.StringPtr("testString")))
+				Expect(objectMetaDataServiceModel.Bindable).To(Equal(core.BoolPtr(true)))
+				Expect(objectMetaDataServiceModel.Requires).To(Equal([]string{"testString"}))
+				Expect(objectMetaDataServiceModel.PlanUpdateable).To(Equal(core.BoolPtr(true)))
+				Expect(objectMetaDataServiceModel.State).To(Equal(core.StringPtr("testString")))
+				Expect(objectMetaDataServiceModel.ServiceCheckEnabled).To(Equal(core.BoolPtr(true)))
+				Expect(objectMetaDataServiceModel.TestCheckInterval).To(Equal(core.Int64Ptr(int64(38))))
+				Expect(objectMetaDataServiceModel.ServiceKeySupported).To(Equal(core.BoolPtr(true)))
+
+				// Construct an instance of the ObjectMetaDataSla model
+				objectMetaDataSlaModel := new(globalcatalogv1.ObjectMetaDataSla)
+				Expect(objectMetaDataSlaModel).ToNot(BeNil())
+				objectMetaDataSlaModel.Terms = core.StringPtr("testString")
+				objectMetaDataSlaModel.Tenancy = core.StringPtr("testString")
+				objectMetaDataSlaModel.Provisioning = core.StringPtr("testString")
+				objectMetaDataSlaModel.Responsiveness = core.StringPtr("testString")
+				objectMetaDataSlaModel.Dr = objectMetaDataSlaDrModel
+				Expect(objectMetaDataSlaModel.Terms).To(Equal(core.StringPtr("testString")))
+				Expect(objectMetaDataSlaModel.Tenancy).To(Equal(core.StringPtr("testString")))
+				Expect(objectMetaDataSlaModel.Provisioning).To(Equal(core.StringPtr("testString")))
+				Expect(objectMetaDataSlaModel.Responsiveness).To(Equal(core.StringPtr("testString")))
+				Expect(objectMetaDataSlaModel.Dr).To(Equal(objectMetaDataSlaDrModel))
+
+				// Construct an instance of the ObjectMetaDataTemplate model
+				objectMetaDataTemplateModel := new(globalcatalogv1.ObjectMetaDataTemplate)
+				Expect(objectMetaDataTemplateModel).ToNot(BeNil())
+				objectMetaDataTemplateModel.Services = []string{"testString"}
+				objectMetaDataTemplateModel.DefaultMemory = core.Int64Ptr(int64(38))
+				objectMetaDataTemplateModel.StartCmd = core.StringPtr("testString")
+				objectMetaDataTemplateModel.Source = objectMetaDataTemplateSourceModel
+				objectMetaDataTemplateModel.RuntimeCatalogID = core.StringPtr("testString")
+				objectMetaDataTemplateModel.CfRuntimeID = core.StringPtr("testString")
+				objectMetaDataTemplateModel.TemplateID = core.StringPtr("testString")
+				objectMetaDataTemplateModel.ExecutableFile = core.StringPtr("testString")
+				objectMetaDataTemplateModel.Buildpack = core.StringPtr("testString")
+				objectMetaDataTemplateModel.EnvironmentVariables = objectMetaDataTemplateEnvironmentVariablesModel
+				Expect(objectMetaDataTemplateModel.Services).To(Equal([]string{"testString"}))
+				Expect(objectMetaDataTemplateModel.DefaultMemory).To(Equal(core.Int64Ptr(int64(38))))
+				Expect(objectMetaDataTemplateModel.StartCmd).To(Equal(core.StringPtr("testString")))
+				Expect(objectMetaDataTemplateModel.Source).To(Equal(objectMetaDataTemplateSourceModel))
+				Expect(objectMetaDataTemplateModel.RuntimeCatalogID).To(Equal(core.StringPtr("testString")))
+				Expect(objectMetaDataTemplateModel.CfRuntimeID).To(Equal(core.StringPtr("testString")))
+				Expect(objectMetaDataTemplateModel.TemplateID).To(Equal(core.StringPtr("testString")))
+				Expect(objectMetaDataTemplateModel.ExecutableFile).To(Equal(core.StringPtr("testString")))
+				Expect(objectMetaDataTemplateModel.Buildpack).To(Equal(core.StringPtr("testString")))
+				Expect(objectMetaDataTemplateModel.EnvironmentVariables).To(Equal(objectMetaDataTemplateEnvironmentVariablesModel))
+
+				// Construct an instance of the Overview model
+				overviewModel := new(globalcatalogv1.Overview)
+				Expect(overviewModel).ToNot(BeNil())
+				overviewModel.DisplayName = core.StringPtr("testString")
+				overviewModel.LongDescription = core.StringPtr("testString")
+				overviewModel.Description = core.StringPtr("testString")
+				Expect(overviewModel.DisplayName).To(Equal(core.StringPtr("testString")))
+				Expect(overviewModel.LongDescription).To(Equal(core.StringPtr("testString")))
+				Expect(overviewModel.Description).To(Equal(core.StringPtr("testString")))
+
+				// Construct an instance of the Pricing model
+				pricingModel := new(globalcatalogv1.Pricing)
+				Expect(pricingModel).ToNot(BeNil())
+				pricingModel.Type = core.StringPtr("testString")
+				pricingModel.Origin = core.StringPtr("testString")
+				pricingModel.StartingPrice = startingPriceModel
+				pricingModel.Metrics = []globalcatalogv1.Metrics{*metricsModel}
+				Expect(pricingModel.Type).To(Equal(core.StringPtr("testString")))
+				Expect(pricingModel.Origin).To(Equal(core.StringPtr("testString")))
+				Expect(pricingModel.StartingPrice).To(Equal(startingPriceModel))
+				Expect(pricingModel.Metrics).To(Equal([]globalcatalogv1.Metrics{*metricsModel}))
+
+				// Construct an instance of the UIMetaData model
+				uiMetaDataModel := new(globalcatalogv1.UIMetaData)
+				Expect(uiMetaDataModel).ToNot(BeNil())
+				uiMetaDataModel.Strings = i18NModel
+				uiMetaDataModel.Urls = urlsModel
+				uiMetaDataModel.EmbeddableDashboard = core.StringPtr("testString")
+				uiMetaDataModel.EmbeddableDashboardFullWidth = core.BoolPtr(true)
+				uiMetaDataModel.NavigationOrder = []string{"testString"}
+				uiMetaDataModel.NotCreatable = core.BoolPtr(true)
+				uiMetaDataModel.Reservable = core.BoolPtr(true)
+				uiMetaDataModel.PrimaryOfferingID = core.StringPtr("testString")
+				uiMetaDataModel.AccessibleDuringProvision = core.BoolPtr(true)
+				uiMetaDataModel.SideBySideIndex = core.Int64Ptr(int64(38))
+				uiMetaDataModel.EndOfServiceTime = CreateMockDateTime()
+				Expect(uiMetaDataModel.Strings).To(Equal(i18NModel))
+				Expect(uiMetaDataModel.Urls).To(Equal(urlsModel))
+				Expect(uiMetaDataModel.EmbeddableDashboard).To(Equal(core.StringPtr("testString")))
+				Expect(uiMetaDataModel.EmbeddableDashboardFullWidth).To(Equal(core.BoolPtr(true)))
+				Expect(uiMetaDataModel.NavigationOrder).To(Equal([]string{"testString"}))
+				Expect(uiMetaDataModel.NotCreatable).To(Equal(core.BoolPtr(true)))
+				Expect(uiMetaDataModel.Reservable).To(Equal(core.BoolPtr(true)))
+				Expect(uiMetaDataModel.PrimaryOfferingID).To(Equal(core.StringPtr("testString")))
+				Expect(uiMetaDataModel.AccessibleDuringProvision).To(Equal(core.BoolPtr(true)))
+				Expect(uiMetaDataModel.SideBySideIndex).To(Equal(core.Int64Ptr(int64(38))))
+				Expect(uiMetaDataModel.EndOfServiceTime).To(Equal(CreateMockDateTime()))
+
+				// Construct an instance of the Image model
+				imageModel := new(globalcatalogv1.Image)
+				Expect(imageModel).ToNot(BeNil())
+				imageModel.Image = core.StringPtr("testString")
+				imageModel.SmallImage = core.StringPtr("testString")
+				imageModel.MediumImage = core.StringPtr("testString")
+				imageModel.FeatureImage = core.StringPtr("testString")
+				Expect(imageModel.Image).To(Equal(core.StringPtr("testString")))
+				Expect(imageModel.SmallImage).To(Equal(core.StringPtr("testString")))
+				Expect(imageModel.MediumImage).To(Equal(core.StringPtr("testString")))
+				Expect(imageModel.FeatureImage).To(Equal(core.StringPtr("testString")))
+
+				// Construct an instance of the ObjectMetaData model
+				objectMetaDataModel := new(globalcatalogv1.ObjectMetaData)
+				Expect(objectMetaDataModel).ToNot(BeNil())
+				objectMetaDataModel.RcCompatible = core.BoolPtr(true)
+				objectMetaDataModel.Ui = uiMetaDataModel
+				objectMetaDataModel.Pricing = pricingModel
+				objectMetaDataModel.Compliance = []string{"testString"}
+				objectMetaDataModel.Service = objectMetaDataServiceModel
+				objectMetaDataModel.Plan = objectMetaDataPlanModel
+				objectMetaDataModel.Template = objectMetaDataTemplateModel
+				objectMetaDataModel.Deployment = objectMetaDataDeploymentModel
+				objectMetaDataModel.Alias = objectMetaDataAliasModel
+				objectMetaDataModel.Sla = objectMetaDataSlaModel
+				objectMetaDataModel.Callbacks = callbacksModel
+				objectMetaDataModel.Version = core.StringPtr("testString")
+				objectMetaDataModel.OriginalName = core.StringPtr("testString")
+				objectMetaDataModel.Other = CreateMockMap()
+				Expect(objectMetaDataModel.RcCompatible).To(Equal(core.BoolPtr(true)))
+				Expect(objectMetaDataModel.Ui).To(Equal(uiMetaDataModel))
+				Expect(objectMetaDataModel.Pricing).To(Equal(pricingModel))
+				Expect(objectMetaDataModel.Compliance).To(Equal([]string{"testString"}))
+				Expect(objectMetaDataModel.Service).To(Equal(objectMetaDataServiceModel))
+				Expect(objectMetaDataModel.Plan).To(Equal(objectMetaDataPlanModel))
+				Expect(objectMetaDataModel.Template).To(Equal(objectMetaDataTemplateModel))
+				Expect(objectMetaDataModel.Deployment).To(Equal(objectMetaDataDeploymentModel))
+				Expect(objectMetaDataModel.Alias).To(Equal(objectMetaDataAliasModel))
+				Expect(objectMetaDataModel.Sla).To(Equal(objectMetaDataSlaModel))
+				Expect(objectMetaDataModel.Callbacks).To(Equal(callbacksModel))
+				Expect(objectMetaDataModel.Version).To(Equal(core.StringPtr("testString")))
+				Expect(objectMetaDataModel.OriginalName).To(Equal(core.StringPtr("testString")))
+				Expect(objectMetaDataModel.Other).To(Equal(CreateMockMap()))
+
+				// Construct an instance of the OverviewUI model
+				overviewUiModel := new(globalcatalogv1.OverviewUI)
+				Expect(overviewUiModel).ToNot(BeNil())
+				overviewUiModel.SetProperty("foo", overviewModel)
+				Expect(overviewUiModel.GetProperty("foo")).To(Equal(overviewModel))
+				Expect(overviewUiModel.GetProperties()).ToNot(BeEmpty())
+
+				// Construct an instance of the Provider model
+				providerModel := new(globalcatalogv1.Provider)
+				Expect(providerModel).ToNot(BeNil())
+				providerModel.Email = core.StringPtr("testString")
+				providerModel.Name = core.StringPtr("testString")
+				providerModel.Contact = core.StringPtr("testString")
+				providerModel.SupportEmail = core.StringPtr("testString")
+				providerModel.Phone = core.StringPtr("testString")
+				Expect(providerModel.Email).To(Equal(core.StringPtr("testString")))
+				Expect(providerModel.Name).To(Equal(core.StringPtr("testString")))
+				Expect(providerModel.Contact).To(Equal(core.StringPtr("testString")))
+				Expect(providerModel.SupportEmail).To(Equal(core.StringPtr("testString")))
+				Expect(providerModel.Phone).To(Equal(core.StringPtr("testString")))
+
+				// Construct an instance of the CatalogEntry model
+				catalogEntryModel := new(globalcatalogv1.CatalogEntry)
+				Expect(catalogEntryModel).ToNot(BeNil())
+				catalogEntryModel.Name = core.StringPtr("testString")
+				catalogEntryModel.OverviewUi = overviewUiModel
+				catalogEntryModel.Images = imageModel
+				catalogEntryModel.ParentID = core.StringPtr("testString")
+				catalogEntryModel.Disabled = core.BoolPtr(true)
+				catalogEntryModel.Tags = []string{"testString"}
+				catalogEntryModel.Group = core.BoolPtr(true)
+				catalogEntryModel.Provider = providerModel
+				catalogEntryModel.Metadata = objectMetaDataModel
+				catalogEntryModel.Active = core.BoolPtr(true)
+				catalogEntryModel.ParentURL = core.StringPtr("testString")
+				catalogEntryModel.Kind = core.StringPtr("service")
+				Expect(catalogEntryModel.Name).To(Equal(core.StringPtr("testString")))
+				Expect(catalogEntryModel.OverviewUi).To(Equal(overviewUiModel))
+				Expect(catalogEntryModel.Images).To(Equal(imageModel))
+				Expect(catalogEntryModel.ParentID).To(Equal(core.StringPtr("testString")))
+				Expect(catalogEntryModel.Disabled).To(Equal(core.BoolPtr(true)))
+				Expect(catalogEntryModel.Tags).To(Equal([]string{"testString"}))
+				Expect(catalogEntryModel.Group).To(Equal(core.BoolPtr(true)))
+				Expect(catalogEntryModel.Provider).To(Equal(providerModel))
+				Expect(catalogEntryModel.Metadata).To(Equal(objectMetaDataModel))
+				Expect(catalogEntryModel.Active).To(Equal(core.BoolPtr(true)))
+				Expect(catalogEntryModel.ParentURL).To(Equal(core.StringPtr("testString")))
+				Expect(catalogEntryModel.Kind).To(Equal(core.StringPtr("service")))
+
+				id := "testString"
+				updateCatalogEntryOptionsName := "testString"
+				var updateCatalogEntryOptionsOverviewUi *globalcatalogv1.OverviewUI = nil
+				var updateCatalogEntryOptionsImages *globalcatalogv1.Image = nil
+				updateCatalogEntryOptionsDisabled := true
+				updateCatalogEntryOptionsTags := []string{"testString"}
+				var updateCatalogEntryOptionsProvider *globalcatalogv1.Provider = nil
+				// Construct an instance of the UpdateCatalogEntryOptions model
+				updateCatalogEntryOptionsModel := testService.NewUpdateCatalogEntryOptions(id, updateCatalogEntryOptionsName, updateCatalogEntryOptionsOverviewUi, updateCatalogEntryOptionsImages, updateCatalogEntryOptionsDisabled, updateCatalogEntryOptionsTags, updateCatalogEntryOptionsProvider)
+				updateCatalogEntryOptionsModel.SetID("testString")
+				updateCatalogEntryOptionsModel.SetName("testString")
+				updateCatalogEntryOptionsModel.SetOverviewUi(overviewUiModel)
+				updateCatalogEntryOptionsModel.SetImages(imageModel)
+				updateCatalogEntryOptionsModel.SetDisabled(true)
+				updateCatalogEntryOptionsModel.SetTags([]string{"testString"})
+				updateCatalogEntryOptionsModel.SetProvider(providerModel)
+				updateCatalogEntryOptionsModel.SetParentID("testString")
+				updateCatalogEntryOptionsModel.SetGroup(true)
+				updateCatalogEntryOptionsModel.SetMetadata(objectMetaDataModel)
+				updateCatalogEntryOptionsModel.SetActive(true)
+				updateCatalogEntryOptionsModel.SetCatalogCrn("testString")
+				updateCatalogEntryOptionsModel.SetURL("testString")
+				updateCatalogEntryOptionsModel.SetChildrenURL("testString")
+				updateCatalogEntryOptionsModel.SetParentURL("testString")
+				updateCatalogEntryOptionsModel.SetGeoTags([]string{"testString"})
+				updateCatalogEntryOptionsModel.SetPricingTags([]string{"testString"})
+				updateCatalogEntryOptionsModel.SetCreated(CreateMockDateTime())
+				updateCatalogEntryOptionsModel.SetUpdated(CreateMockDateTime())
+				updateCatalogEntryOptionsModel.SetChildren([]globalcatalogv1.CatalogEntry{*catalogEntryModel})
+				updateCatalogEntryOptionsModel.SetAccount("testString")
+				updateCatalogEntryOptionsModel.SetMove("testString")
+				updateCatalogEntryOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(updateCatalogEntryOptionsModel).ToNot(BeNil())
+				Expect(updateCatalogEntryOptionsModel.ID).To(Equal(core.StringPtr("testString")))
+				Expect(updateCatalogEntryOptionsModel.Name).To(Equal(core.StringPtr("testString")))
+				Expect(updateCatalogEntryOptionsModel.OverviewUi).To(Equal(overviewUiModel))
+				Expect(updateCatalogEntryOptionsModel.Images).To(Equal(imageModel))
+				Expect(updateCatalogEntryOptionsModel.Disabled).To(Equal(core.BoolPtr(true)))
+				Expect(updateCatalogEntryOptionsModel.Tags).To(Equal([]string{"testString"}))
+				Expect(updateCatalogEntryOptionsModel.Provider).To(Equal(providerModel))
+				Expect(updateCatalogEntryOptionsModel.ParentID).To(Equal(core.StringPtr("testString")))
+				Expect(updateCatalogEntryOptionsModel.Group).To(Equal(core.BoolPtr(true)))
+				Expect(updateCatalogEntryOptionsModel.Metadata).To(Equal(objectMetaDataModel))
+				Expect(updateCatalogEntryOptionsModel.Active).To(Equal(core.BoolPtr(true)))
+				Expect(updateCatalogEntryOptionsModel.CatalogCrn).To(Equal(core.StringPtr("testString")))
+				Expect(updateCatalogEntryOptionsModel.URL).To(Equal(core.StringPtr("testString")))
+				Expect(updateCatalogEntryOptionsModel.ChildrenURL).To(Equal(core.StringPtr("testString")))
+				Expect(updateCatalogEntryOptionsModel.ParentURL).To(Equal(core.StringPtr("testString")))
+				Expect(updateCatalogEntryOptionsModel.GeoTags).To(Equal([]string{"testString"}))
+				Expect(updateCatalogEntryOptionsModel.PricingTags).To(Equal([]string{"testString"}))
+				Expect(updateCatalogEntryOptionsModel.Created).To(Equal(CreateMockDateTime()))
+				Expect(updateCatalogEntryOptionsModel.Updated).To(Equal(CreateMockDateTime()))
+				Expect(updateCatalogEntryOptionsModel.Children).To(Equal([]globalcatalogv1.CatalogEntry{*catalogEntryModel}))
+				Expect(updateCatalogEntryOptionsModel.Account).To(Equal(core.StringPtr("testString")))
+				Expect(updateCatalogEntryOptionsModel.Move).To(Equal(core.StringPtr("testString")))
+				Expect(updateCatalogEntryOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
+			It(`Invoke NewUpdateVisibilityOptions successfully`, func() {
+				// Construct an instance of the VisibilityDetailAccounts model
+				visibilityDetailAccountsModel := new(globalcatalogv1.VisibilityDetailAccounts)
+				Expect(visibilityDetailAccountsModel).ToNot(BeNil())
+				visibilityDetailAccountsModel.Accountid = core.StringPtr("testString")
+				Expect(visibilityDetailAccountsModel.Accountid).To(Equal(core.StringPtr("testString")))
+
+				// Construct an instance of the Scope model
+				scopeModel := new(globalcatalogv1.Scope)
+				Expect(scopeModel).ToNot(BeNil())
+				scopeModel.Type = core.StringPtr("testString")
+				scopeModel.Value = core.StringPtr("testString")
+				Expect(scopeModel.Type).To(Equal(core.StringPtr("testString")))
+				Expect(scopeModel.Value).To(Equal(core.StringPtr("testString")))
+
+				// Construct an instance of the VisibilityDetail model
+				visibilityDetailModel := new(globalcatalogv1.VisibilityDetail)
+				Expect(visibilityDetailModel).ToNot(BeNil())
+				visibilityDetailModel.Accounts = visibilityDetailAccountsModel
+				Expect(visibilityDetailModel.Accounts).To(Equal(visibilityDetailAccountsModel))
+
+				id := "testString"
+				// Construct an instance of the UpdateVisibilityOptions model
+				updateVisibilityOptionsModel := testService.NewUpdateVisibilityOptions(id)
+				updateVisibilityOptionsModel.SetID("testString")
+				updateVisibilityOptionsModel.SetOwner(scopeModel)
+				updateVisibilityOptionsModel.SetInclude(visibilityDetailModel)
+				updateVisibilityOptionsModel.SetExclude(visibilityDetailModel)
+				updateVisibilityOptionsModel.SetAccount("testString")
+				updateVisibilityOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(updateVisibilityOptionsModel).ToNot(BeNil())
+				Expect(updateVisibilityOptionsModel.ID).To(Equal(core.StringPtr("testString")))
+				Expect(updateVisibilityOptionsModel.Owner).To(Equal(scopeModel))
+				Expect(updateVisibilityOptionsModel.Include).To(Equal(visibilityDetailModel))
+				Expect(updateVisibilityOptionsModel.Exclude).To(Equal(visibilityDetailModel))
+				Expect(updateVisibilityOptionsModel.Account).To(Equal(core.StringPtr("testString")))
+				Expect(updateVisibilityOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
+			It(`Invoke NewUploadArtifactOptions successfully`, func() {
+				objectID := "testString"
+				artifactID := "testString"
+				// Construct an instance of the UploadArtifactOptions model
+				uploadArtifactOptionsModel := testService.NewUploadArtifactOptions(objectID, artifactID)
+				uploadArtifactOptionsModel.SetObjectID("testString")
+				uploadArtifactOptionsModel.SetArtifactID("testString")
+				uploadArtifactOptionsModel.SetArtifact(CreateMockReader("This is a mock file."))
+				uploadArtifactOptionsModel.SetContentType("testString")
+				uploadArtifactOptionsModel.SetAccount("testString")
+				uploadArtifactOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(uploadArtifactOptionsModel).ToNot(BeNil())
+				Expect(uploadArtifactOptionsModel.ObjectID).To(Equal(core.StringPtr("testString")))
+				Expect(uploadArtifactOptionsModel.ArtifactID).To(Equal(core.StringPtr("testString")))
+				Expect(uploadArtifactOptionsModel.Artifact).To(Equal(CreateMockReader("This is a mock file.")))
+				Expect(uploadArtifactOptionsModel.ContentType).To(Equal(core.StringPtr("testString")))
+				Expect(uploadArtifactOptionsModel.Account).To(Equal(core.StringPtr("testString")))
+				Expect(uploadArtifactOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewVisibilityDetail successfully`, func() {
 				var accounts *globalcatalogv1.VisibilityDetailAccounts = nil
@@ -3859,12 +5048,12 @@ func CreateMockReader(mockData string) io.ReadCloser {
 }
 
 func CreateMockDate() *strfmt.Date {
-	d := strfmt.Date(time.Now())
+	d := strfmt.Date(time.Date(2009, time.November, 10, 23, 0, 0, 0, time.UTC))
 	return &d
 }
 
 func CreateMockDateTime() *strfmt.DateTime {
-	d := strfmt.DateTime(time.Now())
+	d := strfmt.DateTime(time.Date(2009, time.November, 10, 23, 0, 0, 0, time.UTC))
 	return &d
 }
 
