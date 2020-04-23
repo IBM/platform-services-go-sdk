@@ -221,6 +221,9 @@ func (globalCatalog *GlobalCatalogV1) CreateCatalogEntry(createCatalogEntryOptio
 	if createCatalogEntryOptions.Name != nil {
 		body["name"] = createCatalogEntryOptions.Name
 	}
+	if createCatalogEntryOptions.Kind != nil {
+		body["kind"] = createCatalogEntryOptions.Kind
+	}
 	if createCatalogEntryOptions.OverviewUi != nil {
 		body["overview_ui"] = createCatalogEntryOptions.OverviewUi
 	}
@@ -236,9 +239,6 @@ func (globalCatalog *GlobalCatalogV1) CreateCatalogEntry(createCatalogEntryOptio
 	if createCatalogEntryOptions.Provider != nil {
 		body["provider"] = createCatalogEntryOptions.Provider
 	}
-	if createCatalogEntryOptions.Kind != nil {
-		body["kind"] = createCatalogEntryOptions.Kind
-	}
 	if createCatalogEntryOptions.ID != nil {
 		body["id"] = createCatalogEntryOptions.ID
 	}
@@ -248,11 +248,11 @@ func (globalCatalog *GlobalCatalogV1) CreateCatalogEntry(createCatalogEntryOptio
 	if createCatalogEntryOptions.Group != nil {
 		body["group"] = createCatalogEntryOptions.Group
 	}
-	if createCatalogEntryOptions.Metadata != nil {
-		body["metadata"] = createCatalogEntryOptions.Metadata
-	}
 	if createCatalogEntryOptions.Active != nil {
 		body["active"] = createCatalogEntryOptions.Active
+	}
+	if createCatalogEntryOptions.Metadata != nil {
+		body["metadata"] = createCatalogEntryOptions.Metadata
 	}
 	_, err = builder.SetBodyContentJSON(body)
 	if err != nil {
@@ -389,6 +389,9 @@ func (globalCatalog *GlobalCatalogV1) UpdateCatalogEntry(updateCatalogEntryOptio
 	if updateCatalogEntryOptions.Name != nil {
 		body["name"] = updateCatalogEntryOptions.Name
 	}
+	if updateCatalogEntryOptions.Kind != nil {
+		body["kind"] = updateCatalogEntryOptions.Kind
+	}
 	if updateCatalogEntryOptions.OverviewUi != nil {
 		body["overview_ui"] = updateCatalogEntryOptions.OverviewUi
 	}
@@ -410,38 +413,11 @@ func (globalCatalog *GlobalCatalogV1) UpdateCatalogEntry(updateCatalogEntryOptio
 	if updateCatalogEntryOptions.Group != nil {
 		body["group"] = updateCatalogEntryOptions.Group
 	}
-	if updateCatalogEntryOptions.Metadata != nil {
-		body["metadata"] = updateCatalogEntryOptions.Metadata
-	}
 	if updateCatalogEntryOptions.Active != nil {
 		body["active"] = updateCatalogEntryOptions.Active
 	}
-	if updateCatalogEntryOptions.CatalogCrn != nil {
-		body["catalog_crn"] = updateCatalogEntryOptions.CatalogCrn
-	}
-	if updateCatalogEntryOptions.URL != nil {
-		body["url"] = updateCatalogEntryOptions.URL
-	}
-	if updateCatalogEntryOptions.ChildrenURL != nil {
-		body["children_url"] = updateCatalogEntryOptions.ChildrenURL
-	}
-	if updateCatalogEntryOptions.ParentURL != nil {
-		body["parent_url"] = updateCatalogEntryOptions.ParentURL
-	}
-	if updateCatalogEntryOptions.GeoTags != nil {
-		body["geo_tags"] = updateCatalogEntryOptions.GeoTags
-	}
-	if updateCatalogEntryOptions.PricingTags != nil {
-		body["pricing_tags"] = updateCatalogEntryOptions.PricingTags
-	}
-	if updateCatalogEntryOptions.Created != nil {
-		body["created"] = updateCatalogEntryOptions.Created
-	}
-	if updateCatalogEntryOptions.Updated != nil {
-		body["updated"] = updateCatalogEntryOptions.Updated
-	}
-	if updateCatalogEntryOptions.Children != nil {
-		body["children"] = updateCatalogEntryOptions.Children
+	if updateCatalogEntryOptions.Metadata != nil {
+		body["metadata"] = updateCatalogEntryOptions.Metadata
 	}
 	_, err = builder.SetBodyContentJSON(body)
 	if err != nil {
@@ -724,9 +700,6 @@ func (globalCatalog *GlobalCatalogV1) UpdateVisibility(updateVisibilityOptions *
 	}
 
 	body := make(map[string]interface{})
-	if updateVisibilityOptions.Owner != nil {
-		body["owner"] = updateVisibilityOptions.Owner
-	}
 	if updateVisibilityOptions.Include != nil {
 		body["include"] = updateVisibilityOptions.Include
 	}
@@ -751,7 +724,7 @@ func (globalCatalog *GlobalCatalogV1) UpdateVisibility(updateVisibilityOptions *
 // GetPricing : Get the pricing for an object
 // This endpoint returns the pricing for an object. Static pricing is defined in the catalog. Dynamic pricing is stored
 // in Bluemix Pricing Catalog.
-func (globalCatalog *GlobalCatalogV1) GetPricing(getPricingOptions *GetPricingOptions) (result *Pricing, response *core.DetailedResponse, err error) {
+func (globalCatalog *GlobalCatalogV1) GetPricing(getPricingOptions *GetPricingOptions) (result *PricingGet, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(getPricingOptions, "getPricingOptions cannot be nil")
 	if err != nil {
 		return
@@ -796,7 +769,7 @@ func (globalCatalog *GlobalCatalogV1) GetPricing(getPricingOptions *GetPricingOp
 			err = fmt.Errorf("an error occurred while processing the operation response")
 			return
 		}
-		result, err = UnmarshalPricing(m)
+		result, err = UnmarshalPricingGet(m)
 		response.Result = result
 	}
 
@@ -1532,6 +1505,10 @@ type CatalogEntry struct {
 	// OverviewUI for a user-readable name.
 	Name *string `json:"name" validate:"required"`
 
+	// The type of catalog entry, **service**, **template**, **dashboard**, which determines the type and shape of the
+	// object.
+	Kind *string `json:"kind" validate:"required"`
+
 	// Overview is nested in the top level. The key value pair is `[_language_]overview_ui`.
 	OverviewUi *OverviewUI `json:"overview_ui" validate:"required"`
 
@@ -1554,46 +1531,28 @@ type CatalogEntry struct {
 	// Information related to the provider associated with a catalog entry.
 	Provider *Provider `json:"provider" validate:"required"`
 
-	// Metadata is not returned by default, and includes specific data depending on the object **kind**.
-	Metadata *ObjectMetaData `json:"metadata,omitempty"`
-
 	// Boolean value that describes whether the service is active.
 	Active *bool `json:"active,omitempty"`
 
-	// The cloud resource name of the catalog entry.
-	CatalogCrn *string `json:"catalog_crn,omitempty"`
-
-	// The catalog URL for the catalog entry.
-	URL *string `json:"url,omitempty"`
-
-	// The catalog URL of child elements for the catalog entry.
-	ChildrenURL *string `json:"children_url,omitempty"`
-
-	// The catalog URL of the parent catalog entry.
-	ParentURL *string `json:"parent_url,omitempty"`
-
-	// A list of tags representing deployment locations, for example, `us-south`, `eu-gb`, `us-south-dal10`.
-	GeoTags []string `json:"geo_tags,omitempty"`
-
-	// A list of tags representing pricing types, for example, free lite, subscription, paid only.
-	PricingTags []string `json:"pricing_tags,omitempty"`
-
-	// The date the catalog entry was created.
-	Created *strfmt.DateTime `json:"created,omitempty"`
-
-	// The date the catalog entry was last updated.
-	Updated *strfmt.DateTime `json:"updated,omitempty"`
-
-	// The children of this catalog entry. This is read-only and ignored on put or post. It is filled in when
-	// `?depth=_value_` is used.
-	Children []CatalogEntry `json:"children,omitempty"`
-
-	// The type of catalog entry, **service**, **template**, **dashboard**, which determines the type and shape of the
-	// object.
-	Kind *string `json:"kind" validate:"required"`
+	// Model used to describe metadata object that can be set.
+	Metadata *ObjectMetadataSet `json:"metadata,omitempty"`
 
 	// Catalog entry's unique ID. It's the same across all catalog instances.
 	ID *string `json:"id,omitempty"`
+
+	CatalogCrn interface{} `json:"catalog_crn,omitempty"`
+
+	URL interface{} `json:"url,omitempty"`
+
+	ChildrenURL interface{} `json:"children_url,omitempty"`
+
+	GeoTags interface{} `json:"geo_tags,omitempty"`
+
+	PricingTags interface{} `json:"pricing_tags,omitempty"`
+
+	Created interface{} `json:"created,omitempty"`
+
+	Updated interface{} `json:"updated,omitempty"`
 }
 
 // Constants associated with the CatalogEntry.Kind property.
@@ -1606,25 +1565,14 @@ const (
 )
 
 
-// NewCatalogEntry : Instantiate CatalogEntry (Generic Model Constructor)
-func (*GlobalCatalogV1) NewCatalogEntry(name string, overviewUi *OverviewUI, images *Image, disabled bool, tags []string, provider *Provider, kind string) (model *CatalogEntry, err error) {
-	model = &CatalogEntry{
-		Name: core.StringPtr(name),
-		OverviewUi: overviewUi,
-		Images: images,
-		Disabled: core.BoolPtr(disabled),
-		Tags: tags,
-		Provider: provider,
-		Kind: core.StringPtr(kind),
-	}
-	err = core.ValidateStruct(model, "required parameters")
-	return
-}
-
 // UnmarshalCatalogEntry constructs an instance of CatalogEntry from the specified map.
 func UnmarshalCatalogEntry(m map[string]interface{}) (result *CatalogEntry, err error) {
 	obj := new(CatalogEntry)
 	obj.Name, err = core.UnmarshalString(m, "name")
+	if err != nil {
+		return
+	}
+	obj.Kind, err = core.UnmarshalString(m, "kind")
 	if err != nil {
 		return
 	}
@@ -1656,55 +1604,43 @@ func UnmarshalCatalogEntry(m map[string]interface{}) (result *CatalogEntry, err 
 	if err != nil {
 		return
 	}
-	obj.Metadata, err = UnmarshalObjectMetaDataAsProperty(m, "metadata")
-	if err != nil {
-		return
-	}
 	obj.Active, err = core.UnmarshalBool(m, "active")
 	if err != nil {
 		return
 	}
-	obj.CatalogCrn, err = core.UnmarshalString(m, "catalog_crn")
-	if err != nil {
-		return
-	}
-	obj.URL, err = core.UnmarshalString(m, "url")
-	if err != nil {
-		return
-	}
-	obj.ChildrenURL, err = core.UnmarshalString(m, "children_url")
-	if err != nil {
-		return
-	}
-	obj.ParentURL, err = core.UnmarshalString(m, "parent_url")
-	if err != nil {
-		return
-	}
-	obj.GeoTags, err = core.UnmarshalStringSlice(m, "geo_tags")
-	if err != nil {
-		return
-	}
-	obj.PricingTags, err = core.UnmarshalStringSlice(m, "pricing_tags")
-	if err != nil {
-		return
-	}
-	obj.Created, err = core.UnmarshalDateTime(m, "created")
-	if err != nil {
-		return
-	}
-	obj.Updated, err = core.UnmarshalDateTime(m, "updated")
-	if err != nil {
-		return
-	}
-	obj.Children, err = UnmarshalCatalogEntrySliceAsProperty(m, "children")
-	if err != nil {
-		return
-	}
-	obj.Kind, err = core.UnmarshalString(m, "kind")
+	obj.Metadata, err = UnmarshalObjectMetadataSetAsProperty(m, "metadata")
 	if err != nil {
 		return
 	}
 	obj.ID, err = core.UnmarshalString(m, "id")
+	if err != nil {
+		return
+	}
+	obj.CatalogCrn, err = core.UnmarshalAny(m, "catalog_crn")
+	if err != nil {
+		return
+	}
+	obj.URL, err = core.UnmarshalAny(m, "url")
+	if err != nil {
+		return
+	}
+	obj.ChildrenURL, err = core.UnmarshalAny(m, "children_url")
+	if err != nil {
+		return
+	}
+	obj.GeoTags, err = core.UnmarshalAny(m, "geo_tags")
+	if err != nil {
+		return
+	}
+	obj.PricingTags, err = core.UnmarshalAny(m, "pricing_tags")
+	if err != nil {
+		return
+	}
+	obj.Created, err = core.UnmarshalAny(m, "created")
+	if err != nil {
+		return
+	}
+	obj.Updated, err = core.UnmarshalAny(m, "updated")
 	if err != nil {
 		return
 	}
@@ -1766,6 +1702,10 @@ type CreateCatalogEntryOptions struct {
 	// OverviewUI for a user-readable name.
 	Name *string `json:"name" validate:"required"`
 
+	// The type of catalog entry, **service**, **template**, **dashboard**, which determines the type and shape of the
+	// object.
+	Kind *string `json:"kind" validate:"required"`
+
 	// Overview is nested in the top level. The key value pair is `[_language_]overview_ui`.
 	OverviewUi *OverviewUI `json:"overview_ui" validate:"required"`
 
@@ -1782,10 +1722,6 @@ type CreateCatalogEntryOptions struct {
 	// Information related to the provider associated with a catalog entry.
 	Provider *Provider `json:"provider" validate:"required"`
 
-	// The type of catalog entry, **service**, **template**, **dashboard**, which determines the type and shape of the
-	// object.
-	Kind *string `json:"kind" validate:"required"`
-
 	// Catalog entry's unique ID. It's the same across all catalog instances.
 	ID *string `json:"id" validate:"required"`
 
@@ -1795,11 +1731,11 @@ type CreateCatalogEntryOptions struct {
 	// Boolean value that determines whether the catalog entry is a group.
 	Group *bool `json:"group,omitempty"`
 
-	// Metadata is not returned by default, and includes specific data depending on the object **kind**.
-	Metadata *ObjectMetaData `json:"metadata,omitempty"`
-
 	// Boolean value that describes whether the service is active.
 	Active *bool `json:"active,omitempty"`
+
+	// Model used to describe metadata object that can be set.
+	Metadata *ObjectMetadataSet `json:"metadata,omitempty"`
 
 	// This changes the scope of the request regardless of the authorization header. Example scopes are `account` and
 	// `global`. `account=global` is reqired if operating with a service ID that has a global admin policy, for example
@@ -1820,15 +1756,15 @@ const (
 )
 
 // NewCreateCatalogEntryOptions : Instantiate CreateCatalogEntryOptions
-func (*GlobalCatalogV1) NewCreateCatalogEntryOptions(name string, overviewUi *OverviewUI, images *Image, disabled bool, tags []string, provider *Provider, kind string, id string) *CreateCatalogEntryOptions {
+func (*GlobalCatalogV1) NewCreateCatalogEntryOptions(name string, kind string, overviewUi *OverviewUI, images *Image, disabled bool, tags []string, provider *Provider, id string) *CreateCatalogEntryOptions {
 	return &CreateCatalogEntryOptions{
 		Name: core.StringPtr(name),
+		Kind: core.StringPtr(kind),
 		OverviewUi: overviewUi,
 		Images: images,
 		Disabled: core.BoolPtr(disabled),
 		Tags: tags,
 		Provider: provider,
-		Kind: core.StringPtr(kind),
 		ID: core.StringPtr(id),
 	}
 }
@@ -1836,6 +1772,12 @@ func (*GlobalCatalogV1) NewCreateCatalogEntryOptions(name string, overviewUi *Ov
 // SetName : Allow user to set Name
 func (options *CreateCatalogEntryOptions) SetName(name string) *CreateCatalogEntryOptions {
 	options.Name = core.StringPtr(name)
+	return options
+}
+
+// SetKind : Allow user to set Kind
+func (options *CreateCatalogEntryOptions) SetKind(kind string) *CreateCatalogEntryOptions {
+	options.Kind = core.StringPtr(kind)
 	return options
 }
 
@@ -1869,12 +1811,6 @@ func (options *CreateCatalogEntryOptions) SetProvider(provider *Provider) *Creat
 	return options
 }
 
-// SetKind : Allow user to set Kind
-func (options *CreateCatalogEntryOptions) SetKind(kind string) *CreateCatalogEntryOptions {
-	options.Kind = core.StringPtr(kind)
-	return options
-}
-
 // SetID : Allow user to set ID
 func (options *CreateCatalogEntryOptions) SetID(id string) *CreateCatalogEntryOptions {
 	options.ID = core.StringPtr(id)
@@ -1893,15 +1829,15 @@ func (options *CreateCatalogEntryOptions) SetGroup(group bool) *CreateCatalogEnt
 	return options
 }
 
-// SetMetadata : Allow user to set Metadata
-func (options *CreateCatalogEntryOptions) SetMetadata(metadata *ObjectMetaData) *CreateCatalogEntryOptions {
-	options.Metadata = metadata
-	return options
-}
-
 // SetActive : Allow user to set Active
 func (options *CreateCatalogEntryOptions) SetActive(active bool) *CreateCatalogEntryOptions {
 	options.Active = core.BoolPtr(active)
+	return options
+}
+
+// SetMetadata : Allow user to set Metadata
+func (options *CreateCatalogEntryOptions) SetMetadata(metadata *ObjectMetadataSet) *CreateCatalogEntryOptions {
+	options.Metadata = metadata
 	return options
 }
 
@@ -2003,6 +1939,173 @@ func (options *DeleteCatalogEntryOptions) SetAccount(account string) *DeleteCata
 func (options *DeleteCatalogEntryOptions) SetHeaders(param map[string]string) *DeleteCatalogEntryOptions {
 	options.Headers = param
 	return options
+}
+
+// DeploymentBase : Deployment-related metadata.
+type DeploymentBase struct {
+	// Describes the region where the service is located.
+	Location *string `json:"location,omitempty"`
+
+	// A CRN that describes the deployment. crn:v1:[cname]:[ctype]:[location]:[scope]::[resource-type]:[resource].
+	TargetCrn *string `json:"target_crn,omitempty"`
+
+	// The broker associated with a catalog entry.
+	Broker *DeploymentBaseBroker `json:"broker,omitempty"`
+
+	// This deployment not only supports RC but is ready to migrate and support the RC broker for a location.
+	SupportsRcMigration *bool `json:"supports_rc_migration,omitempty"`
+
+	// network to use during deployment.
+	TargetNetwork *string `json:"target_network,omitempty"`
+}
+
+
+// UnmarshalDeploymentBase constructs an instance of DeploymentBase from the specified map.
+func UnmarshalDeploymentBase(m map[string]interface{}) (result *DeploymentBase, err error) {
+	obj := new(DeploymentBase)
+	obj.Location, err = core.UnmarshalString(m, "location")
+	if err != nil {
+		return
+	}
+	obj.TargetCrn, err = core.UnmarshalString(m, "target_crn")
+	if err != nil {
+		return
+	}
+	obj.Broker, err = UnmarshalDeploymentBaseBrokerAsProperty(m, "broker")
+	if err != nil {
+		return
+	}
+	obj.SupportsRcMigration, err = core.UnmarshalBool(m, "supports_rc_migration")
+	if err != nil {
+		return
+	}
+	obj.TargetNetwork, err = core.UnmarshalString(m, "target_network")
+	if err != nil {
+		return
+	}
+	result = obj
+	return
+}
+
+// UnmarshalDeploymentBaseSlice unmarshals a slice of DeploymentBase instances from the specified list of maps.
+func UnmarshalDeploymentBaseSlice(s []interface{}) (slice []DeploymentBase, err error) {
+	for _, v := range s {
+		objMap, ok := v.(map[string]interface{})
+		if !ok {
+			err = fmt.Errorf("slice element should be a map containing an instance of 'DeploymentBase'")
+			return
+		}
+		obj, e := UnmarshalDeploymentBase(objMap)
+		if e != nil {
+			err = e
+			return
+		}
+		slice = append(slice, *obj)
+	}
+	return
+}
+
+// UnmarshalDeploymentBaseAsProperty unmarshals an instance of DeploymentBase that is stored as a property
+// within the specified map.
+func UnmarshalDeploymentBaseAsProperty(m map[string]interface{}, propertyName string) (result *DeploymentBase, err error) {
+	v, foundIt := m[propertyName]
+	if foundIt && v != nil {
+		objMap, ok := v.(map[string]interface{})
+		if !ok {
+			err = fmt.Errorf("map property '%s' should be a map containing an instance of 'DeploymentBase'", propertyName)
+			return
+		}
+		result, err = UnmarshalDeploymentBase(objMap)
+	}
+	return
+}
+
+// UnmarshalDeploymentBaseSliceAsProperty unmarshals a slice of DeploymentBase instances that are stored as a property
+// within the specified map.
+func UnmarshalDeploymentBaseSliceAsProperty(m map[string]interface{}, propertyName string) (slice []DeploymentBase, err error) {
+	v, foundIt := m[propertyName]
+	if foundIt && v != nil {
+		vSlice, ok := v.([]interface{})
+		if !ok {
+			err = fmt.Errorf("map property '%s' should be a slice of maps, each containing an instance of 'DeploymentBase'", propertyName)
+			return
+		}
+		slice, err = UnmarshalDeploymentBaseSlice(vSlice)
+	}
+	return
+}
+
+// DeploymentBaseBroker : The broker associated with a catalog entry.
+type DeploymentBaseBroker struct {
+	// Broker name.
+	Name *string `json:"name,omitempty"`
+
+	// Broker guid.
+	Guid *string `json:"guid,omitempty"`
+}
+
+
+// UnmarshalDeploymentBaseBroker constructs an instance of DeploymentBaseBroker from the specified map.
+func UnmarshalDeploymentBaseBroker(m map[string]interface{}) (result *DeploymentBaseBroker, err error) {
+	obj := new(DeploymentBaseBroker)
+	obj.Name, err = core.UnmarshalString(m, "name")
+	if err != nil {
+		return
+	}
+	obj.Guid, err = core.UnmarshalString(m, "guid")
+	if err != nil {
+		return
+	}
+	result = obj
+	return
+}
+
+// UnmarshalDeploymentBaseBrokerSlice unmarshals a slice of DeploymentBaseBroker instances from the specified list of maps.
+func UnmarshalDeploymentBaseBrokerSlice(s []interface{}) (slice []DeploymentBaseBroker, err error) {
+	for _, v := range s {
+		objMap, ok := v.(map[string]interface{})
+		if !ok {
+			err = fmt.Errorf("slice element should be a map containing an instance of 'DeploymentBaseBroker'")
+			return
+		}
+		obj, e := UnmarshalDeploymentBaseBroker(objMap)
+		if e != nil {
+			err = e
+			return
+		}
+		slice = append(slice, *obj)
+	}
+	return
+}
+
+// UnmarshalDeploymentBaseBrokerAsProperty unmarshals an instance of DeploymentBaseBroker that is stored as a property
+// within the specified map.
+func UnmarshalDeploymentBaseBrokerAsProperty(m map[string]interface{}, propertyName string) (result *DeploymentBaseBroker, err error) {
+	v, foundIt := m[propertyName]
+	if foundIt && v != nil {
+		objMap, ok := v.(map[string]interface{})
+		if !ok {
+			err = fmt.Errorf("map property '%s' should be a map containing an instance of 'DeploymentBaseBroker'", propertyName)
+			return
+		}
+		result, err = UnmarshalDeploymentBaseBroker(objMap)
+	}
+	return
+}
+
+// UnmarshalDeploymentBaseBrokerSliceAsProperty unmarshals a slice of DeploymentBaseBroker instances that are stored as a property
+// within the specified map.
+func UnmarshalDeploymentBaseBrokerSliceAsProperty(m map[string]interface{}, propertyName string) (slice []DeploymentBaseBroker, err error) {
+	v, foundIt := m[propertyName]
+	if foundIt && v != nil {
+		vSlice, ok := v.([]interface{})
+		if !ok {
+			err = fmt.Errorf("map property '%s' should be a slice of maps, each containing an instance of 'DeploymentBaseBroker'", propertyName)
+			return
+		}
+		slice, err = UnmarshalDeploymentBaseBrokerSlice(vSlice)
+	}
+	return
 }
 
 // GetArtifactOptions : The GetArtifact options.
@@ -2847,165 +2950,8 @@ func UnmarshalMetricsSliceAsProperty(m map[string]interface{}, propertyName stri
 	return
 }
 
-// ObjectMetaData : Metadata is not returned by default, and includes specific data depending on the object **kind**.
-type ObjectMetaData struct {
-	// Boolean value that describes whether the service is compatible with the Resource Controller.
-	RcCompatible *bool `json:"rc_compatible,omitempty"`
-
-	// Information related to the UI presentation associated with a catalog entry.
-	Ui *UIMetaData `json:"ui,omitempty"`
-
-	// Pricing-related information.
-	Pricing *Pricing `json:"pricing,omitempty"`
-
-	// Compliance information for HIPAA and PCI.
-	Compliance []string `json:"compliance,omitempty"`
-
-	// Service-related metadata.
-	Service *ObjectMetaDataService `json:"service,omitempty"`
-
-	// Plan-related metadata.
-	Plan *ObjectMetaDataPlan `json:"plan,omitempty"`
-
-	// Template-related metadata.
-	Template *ObjectMetaDataTemplate `json:"template,omitempty"`
-
-	// Deployment-related metadata.
-	Deployment *ObjectMetaDataDeployment `json:"deployment,omitempty"`
-
-	// Alias-related metadata.
-	Alias *ObjectMetaDataAlias `json:"alias,omitempty"`
-
-	// Service Level Agreement related metadata.
-	Sla *ObjectMetaDataSla `json:"sla,omitempty"`
-
-	// Callback-related information associated with a catalog entry.
-	Callbacks *Callbacks `json:"callbacks,omitempty"`
-
-	// Optional version of the object.
-	Version *string `json:"version,omitempty"`
-
-	// The original name of the object.
-	OriginalName *string `json:"original_name,omitempty"`
-
-	// Additional information.
-	Other interface{} `json:"other,omitempty"`
-}
-
-
-// UnmarshalObjectMetaData constructs an instance of ObjectMetaData from the specified map.
-func UnmarshalObjectMetaData(m map[string]interface{}) (result *ObjectMetaData, err error) {
-	obj := new(ObjectMetaData)
-	obj.RcCompatible, err = core.UnmarshalBool(m, "rc_compatible")
-	if err != nil {
-		return
-	}
-	obj.Ui, err = UnmarshalUIMetaDataAsProperty(m, "ui")
-	if err != nil {
-		return
-	}
-	obj.Pricing, err = UnmarshalPricingAsProperty(m, "pricing")
-	if err != nil {
-		return
-	}
-	obj.Compliance, err = core.UnmarshalStringSlice(m, "compliance")
-	if err != nil {
-		return
-	}
-	obj.Service, err = UnmarshalObjectMetaDataServiceAsProperty(m, "service")
-	if err != nil {
-		return
-	}
-	obj.Plan, err = UnmarshalObjectMetaDataPlanAsProperty(m, "plan")
-	if err != nil {
-		return
-	}
-	obj.Template, err = UnmarshalObjectMetaDataTemplateAsProperty(m, "template")
-	if err != nil {
-		return
-	}
-	obj.Deployment, err = UnmarshalObjectMetaDataDeploymentAsProperty(m, "deployment")
-	if err != nil {
-		return
-	}
-	obj.Alias, err = UnmarshalObjectMetaDataAliasAsProperty(m, "alias")
-	if err != nil {
-		return
-	}
-	obj.Sla, err = UnmarshalObjectMetaDataSlaAsProperty(m, "sla")
-	if err != nil {
-		return
-	}
-	obj.Callbacks, err = UnmarshalCallbacksAsProperty(m, "callbacks")
-	if err != nil {
-		return
-	}
-	obj.Version, err = core.UnmarshalString(m, "version")
-	if err != nil {
-		return
-	}
-	obj.OriginalName, err = core.UnmarshalString(m, "original_name")
-	if err != nil {
-		return
-	}
-	obj.Other, err = core.UnmarshalAny(m, "other")
-	if err != nil {
-		return
-	}
-	result = obj
-	return
-}
-
-// UnmarshalObjectMetaDataSlice unmarshals a slice of ObjectMetaData instances from the specified list of maps.
-func UnmarshalObjectMetaDataSlice(s []interface{}) (slice []ObjectMetaData, err error) {
-	for _, v := range s {
-		objMap, ok := v.(map[string]interface{})
-		if !ok {
-			err = fmt.Errorf("slice element should be a map containing an instance of 'ObjectMetaData'")
-			return
-		}
-		obj, e := UnmarshalObjectMetaData(objMap)
-		if e != nil {
-			err = e
-			return
-		}
-		slice = append(slice, *obj)
-	}
-	return
-}
-
-// UnmarshalObjectMetaDataAsProperty unmarshals an instance of ObjectMetaData that is stored as a property
-// within the specified map.
-func UnmarshalObjectMetaDataAsProperty(m map[string]interface{}, propertyName string) (result *ObjectMetaData, err error) {
-	v, foundIt := m[propertyName]
-	if foundIt && v != nil {
-		objMap, ok := v.(map[string]interface{})
-		if !ok {
-			err = fmt.Errorf("map property '%s' should be a map containing an instance of 'ObjectMetaData'", propertyName)
-			return
-		}
-		result, err = UnmarshalObjectMetaData(objMap)
-	}
-	return
-}
-
-// UnmarshalObjectMetaDataSliceAsProperty unmarshals a slice of ObjectMetaData instances that are stored as a property
-// within the specified map.
-func UnmarshalObjectMetaDataSliceAsProperty(m map[string]interface{}, propertyName string) (slice []ObjectMetaData, err error) {
-	v, foundIt := m[propertyName]
-	if foundIt && v != nil {
-		vSlice, ok := v.([]interface{})
-		if !ok {
-			err = fmt.Errorf("map property '%s' should be a slice of maps, each containing an instance of 'ObjectMetaData'", propertyName)
-			return
-		}
-		slice, err = UnmarshalObjectMetaDataSlice(vSlice)
-	}
-	return
-}
-
-// ObjectMetaDataAlias : Alias-related metadata.
-type ObjectMetaDataAlias struct {
+// ObjectMetadataBaseAlias : Alias-related metadata.
+type ObjectMetadataBaseAlias struct {
 	// Type of alias.
 	Type *string `json:"type,omitempty"`
 
@@ -3014,9 +2960,9 @@ type ObjectMetaDataAlias struct {
 }
 
 
-// UnmarshalObjectMetaDataAlias constructs an instance of ObjectMetaDataAlias from the specified map.
-func UnmarshalObjectMetaDataAlias(m map[string]interface{}) (result *ObjectMetaDataAlias, err error) {
-	obj := new(ObjectMetaDataAlias)
+// UnmarshalObjectMetadataBaseAlias constructs an instance of ObjectMetadataBaseAlias from the specified map.
+func UnmarshalObjectMetadataBaseAlias(m map[string]interface{}) (result *ObjectMetadataBaseAlias, err error) {
+	obj := new(ObjectMetadataBaseAlias)
 	obj.Type, err = core.UnmarshalString(m, "type")
 	if err != nil {
 		return
@@ -3029,15 +2975,15 @@ func UnmarshalObjectMetaDataAlias(m map[string]interface{}) (result *ObjectMetaD
 	return
 }
 
-// UnmarshalObjectMetaDataAliasSlice unmarshals a slice of ObjectMetaDataAlias instances from the specified list of maps.
-func UnmarshalObjectMetaDataAliasSlice(s []interface{}) (slice []ObjectMetaDataAlias, err error) {
+// UnmarshalObjectMetadataBaseAliasSlice unmarshals a slice of ObjectMetadataBaseAlias instances from the specified list of maps.
+func UnmarshalObjectMetadataBaseAliasSlice(s []interface{}) (slice []ObjectMetadataBaseAlias, err error) {
 	for _, v := range s {
 		objMap, ok := v.(map[string]interface{})
 		if !ok {
-			err = fmt.Errorf("slice element should be a map containing an instance of 'ObjectMetaDataAlias'")
+			err = fmt.Errorf("slice element should be a map containing an instance of 'ObjectMetadataBaseAlias'")
 			return
 		}
-		obj, e := UnmarshalObjectMetaDataAlias(objMap)
+		obj, e := UnmarshalObjectMetadataBaseAlias(objMap)
 		if e != nil {
 			err = e
 			return
@@ -3047,292 +2993,38 @@ func UnmarshalObjectMetaDataAliasSlice(s []interface{}) (slice []ObjectMetaDataA
 	return
 }
 
-// UnmarshalObjectMetaDataAliasAsProperty unmarshals an instance of ObjectMetaDataAlias that is stored as a property
+// UnmarshalObjectMetadataBaseAliasAsProperty unmarshals an instance of ObjectMetadataBaseAlias that is stored as a property
 // within the specified map.
-func UnmarshalObjectMetaDataAliasAsProperty(m map[string]interface{}, propertyName string) (result *ObjectMetaDataAlias, err error) {
+func UnmarshalObjectMetadataBaseAliasAsProperty(m map[string]interface{}, propertyName string) (result *ObjectMetadataBaseAlias, err error) {
 	v, foundIt := m[propertyName]
 	if foundIt && v != nil {
 		objMap, ok := v.(map[string]interface{})
 		if !ok {
-			err = fmt.Errorf("map property '%s' should be a map containing an instance of 'ObjectMetaDataAlias'", propertyName)
+			err = fmt.Errorf("map property '%s' should be a map containing an instance of 'ObjectMetadataBaseAlias'", propertyName)
 			return
 		}
-		result, err = UnmarshalObjectMetaDataAlias(objMap)
+		result, err = UnmarshalObjectMetadataBaseAlias(objMap)
 	}
 	return
 }
 
-// UnmarshalObjectMetaDataAliasSliceAsProperty unmarshals a slice of ObjectMetaDataAlias instances that are stored as a property
+// UnmarshalObjectMetadataBaseAliasSliceAsProperty unmarshals a slice of ObjectMetadataBaseAlias instances that are stored as a property
 // within the specified map.
-func UnmarshalObjectMetaDataAliasSliceAsProperty(m map[string]interface{}, propertyName string) (slice []ObjectMetaDataAlias, err error) {
+func UnmarshalObjectMetadataBaseAliasSliceAsProperty(m map[string]interface{}, propertyName string) (slice []ObjectMetadataBaseAlias, err error) {
 	v, foundIt := m[propertyName]
 	if foundIt && v != nil {
 		vSlice, ok := v.([]interface{})
 		if !ok {
-			err = fmt.Errorf("map property '%s' should be a slice of maps, each containing an instance of 'ObjectMetaDataAlias'", propertyName)
+			err = fmt.Errorf("map property '%s' should be a slice of maps, each containing an instance of 'ObjectMetadataBaseAlias'", propertyName)
 			return
 		}
-		slice, err = UnmarshalObjectMetaDataAliasSlice(vSlice)
+		slice, err = UnmarshalObjectMetadataBaseAliasSlice(vSlice)
 	}
 	return
 }
 
-// ObjectMetaDataDeployment : Deployment-related metadata.
-type ObjectMetaDataDeployment struct {
-	// Describes the region where the service is located.
-	Location *string `json:"location,omitempty"`
-
-	// Pointer to the location resource in the catalog.
-	LocationURL *string `json:"location_url,omitempty"`
-
-	// A CRN that describes the deployment. crn:v1:[cname]:[ctype]:[location]:[scope]::[resource-type]:[resource].
-	TargetCrn *string `json:"target_crn,omitempty"`
-
-	// The broker associated with a catalog entry.
-	Broker *ObjectMetaDataDeploymentBroker `json:"broker,omitempty"`
-
-	// This deployment not only supports RC but is ready to migrate and support the RC broker for a location.
-	SupportsRcMigration *bool `json:"supports_rc_migration,omitempty"`
-}
-
-
-// UnmarshalObjectMetaDataDeployment constructs an instance of ObjectMetaDataDeployment from the specified map.
-func UnmarshalObjectMetaDataDeployment(m map[string]interface{}) (result *ObjectMetaDataDeployment, err error) {
-	obj := new(ObjectMetaDataDeployment)
-	obj.Location, err = core.UnmarshalString(m, "location")
-	if err != nil {
-		return
-	}
-	obj.LocationURL, err = core.UnmarshalString(m, "location_url")
-	if err != nil {
-		return
-	}
-	obj.TargetCrn, err = core.UnmarshalString(m, "target_crn")
-	if err != nil {
-		return
-	}
-	obj.Broker, err = UnmarshalObjectMetaDataDeploymentBrokerAsProperty(m, "broker")
-	if err != nil {
-		return
-	}
-	obj.SupportsRcMigration, err = core.UnmarshalBool(m, "supports_rc_migration")
-	if err != nil {
-		return
-	}
-	result = obj
-	return
-}
-
-// UnmarshalObjectMetaDataDeploymentSlice unmarshals a slice of ObjectMetaDataDeployment instances from the specified list of maps.
-func UnmarshalObjectMetaDataDeploymentSlice(s []interface{}) (slice []ObjectMetaDataDeployment, err error) {
-	for _, v := range s {
-		objMap, ok := v.(map[string]interface{})
-		if !ok {
-			err = fmt.Errorf("slice element should be a map containing an instance of 'ObjectMetaDataDeployment'")
-			return
-		}
-		obj, e := UnmarshalObjectMetaDataDeployment(objMap)
-		if e != nil {
-			err = e
-			return
-		}
-		slice = append(slice, *obj)
-	}
-	return
-}
-
-// UnmarshalObjectMetaDataDeploymentAsProperty unmarshals an instance of ObjectMetaDataDeployment that is stored as a property
-// within the specified map.
-func UnmarshalObjectMetaDataDeploymentAsProperty(m map[string]interface{}, propertyName string) (result *ObjectMetaDataDeployment, err error) {
-	v, foundIt := m[propertyName]
-	if foundIt && v != nil {
-		objMap, ok := v.(map[string]interface{})
-		if !ok {
-			err = fmt.Errorf("map property '%s' should be a map containing an instance of 'ObjectMetaDataDeployment'", propertyName)
-			return
-		}
-		result, err = UnmarshalObjectMetaDataDeployment(objMap)
-	}
-	return
-}
-
-// UnmarshalObjectMetaDataDeploymentSliceAsProperty unmarshals a slice of ObjectMetaDataDeployment instances that are stored as a property
-// within the specified map.
-func UnmarshalObjectMetaDataDeploymentSliceAsProperty(m map[string]interface{}, propertyName string) (slice []ObjectMetaDataDeployment, err error) {
-	v, foundIt := m[propertyName]
-	if foundIt && v != nil {
-		vSlice, ok := v.([]interface{})
-		if !ok {
-			err = fmt.Errorf("map property '%s' should be a slice of maps, each containing an instance of 'ObjectMetaDataDeployment'", propertyName)
-			return
-		}
-		slice, err = UnmarshalObjectMetaDataDeploymentSlice(vSlice)
-	}
-	return
-}
-
-// ObjectMetaDataDeploymentBroker : The broker associated with a catalog entry.
-type ObjectMetaDataDeploymentBroker struct {
-	// Broker name.
-	Name *string `json:"name,omitempty"`
-
-	// Broker guid.
-	Guid *string `json:"guid,omitempty"`
-
-	// Broker password.
-	Password *ObjectMetaDataDeploymentBrokerPassword `json:"password,omitempty"`
-}
-
-
-// UnmarshalObjectMetaDataDeploymentBroker constructs an instance of ObjectMetaDataDeploymentBroker from the specified map.
-func UnmarshalObjectMetaDataDeploymentBroker(m map[string]interface{}) (result *ObjectMetaDataDeploymentBroker, err error) {
-	obj := new(ObjectMetaDataDeploymentBroker)
-	obj.Name, err = core.UnmarshalString(m, "name")
-	if err != nil {
-		return
-	}
-	obj.Guid, err = core.UnmarshalString(m, "guid")
-	if err != nil {
-		return
-	}
-	obj.Password, err = UnmarshalObjectMetaDataDeploymentBrokerPasswordAsProperty(m, "password")
-	if err != nil {
-		return
-	}
-	result = obj
-	return
-}
-
-// UnmarshalObjectMetaDataDeploymentBrokerSlice unmarshals a slice of ObjectMetaDataDeploymentBroker instances from the specified list of maps.
-func UnmarshalObjectMetaDataDeploymentBrokerSlice(s []interface{}) (slice []ObjectMetaDataDeploymentBroker, err error) {
-	for _, v := range s {
-		objMap, ok := v.(map[string]interface{})
-		if !ok {
-			err = fmt.Errorf("slice element should be a map containing an instance of 'ObjectMetaDataDeploymentBroker'")
-			return
-		}
-		obj, e := UnmarshalObjectMetaDataDeploymentBroker(objMap)
-		if e != nil {
-			err = e
-			return
-		}
-		slice = append(slice, *obj)
-	}
-	return
-}
-
-// UnmarshalObjectMetaDataDeploymentBrokerAsProperty unmarshals an instance of ObjectMetaDataDeploymentBroker that is stored as a property
-// within the specified map.
-func UnmarshalObjectMetaDataDeploymentBrokerAsProperty(m map[string]interface{}, propertyName string) (result *ObjectMetaDataDeploymentBroker, err error) {
-	v, foundIt := m[propertyName]
-	if foundIt && v != nil {
-		objMap, ok := v.(map[string]interface{})
-		if !ok {
-			err = fmt.Errorf("map property '%s' should be a map containing an instance of 'ObjectMetaDataDeploymentBroker'", propertyName)
-			return
-		}
-		result, err = UnmarshalObjectMetaDataDeploymentBroker(objMap)
-	}
-	return
-}
-
-// UnmarshalObjectMetaDataDeploymentBrokerSliceAsProperty unmarshals a slice of ObjectMetaDataDeploymentBroker instances that are stored as a property
-// within the specified map.
-func UnmarshalObjectMetaDataDeploymentBrokerSliceAsProperty(m map[string]interface{}, propertyName string) (slice []ObjectMetaDataDeploymentBroker, err error) {
-	v, foundIt := m[propertyName]
-	if foundIt && v != nil {
-		vSlice, ok := v.([]interface{})
-		if !ok {
-			err = fmt.Errorf("map property '%s' should be a slice of maps, each containing an instance of 'ObjectMetaDataDeploymentBroker'", propertyName)
-			return
-		}
-		slice, err = UnmarshalObjectMetaDataDeploymentBrokerSlice(vSlice)
-	}
-	return
-}
-
-// ObjectMetaDataDeploymentBrokerPassword : Broker password.
-type ObjectMetaDataDeploymentBrokerPassword struct {
-	// Broker password string.
-	Text *string `json:"text,omitempty"`
-
-	// Broker password key.
-	Key *string `json:"key,omitempty"`
-
-	// Broker password IV.
-	Iv *string `json:"iv,omitempty"`
-}
-
-
-// UnmarshalObjectMetaDataDeploymentBrokerPassword constructs an instance of ObjectMetaDataDeploymentBrokerPassword from the specified map.
-func UnmarshalObjectMetaDataDeploymentBrokerPassword(m map[string]interface{}) (result *ObjectMetaDataDeploymentBrokerPassword, err error) {
-	obj := new(ObjectMetaDataDeploymentBrokerPassword)
-	obj.Text, err = core.UnmarshalString(m, "text")
-	if err != nil {
-		return
-	}
-	obj.Key, err = core.UnmarshalString(m, "key")
-	if err != nil {
-		return
-	}
-	obj.Iv, err = core.UnmarshalString(m, "iv")
-	if err != nil {
-		return
-	}
-	result = obj
-	return
-}
-
-// UnmarshalObjectMetaDataDeploymentBrokerPasswordSlice unmarshals a slice of ObjectMetaDataDeploymentBrokerPassword instances from the specified list of maps.
-func UnmarshalObjectMetaDataDeploymentBrokerPasswordSlice(s []interface{}) (slice []ObjectMetaDataDeploymentBrokerPassword, err error) {
-	for _, v := range s {
-		objMap, ok := v.(map[string]interface{})
-		if !ok {
-			err = fmt.Errorf("slice element should be a map containing an instance of 'ObjectMetaDataDeploymentBrokerPassword'")
-			return
-		}
-		obj, e := UnmarshalObjectMetaDataDeploymentBrokerPassword(objMap)
-		if e != nil {
-			err = e
-			return
-		}
-		slice = append(slice, *obj)
-	}
-	return
-}
-
-// UnmarshalObjectMetaDataDeploymentBrokerPasswordAsProperty unmarshals an instance of ObjectMetaDataDeploymentBrokerPassword that is stored as a property
-// within the specified map.
-func UnmarshalObjectMetaDataDeploymentBrokerPasswordAsProperty(m map[string]interface{}, propertyName string) (result *ObjectMetaDataDeploymentBrokerPassword, err error) {
-	v, foundIt := m[propertyName]
-	if foundIt && v != nil {
-		objMap, ok := v.(map[string]interface{})
-		if !ok {
-			err = fmt.Errorf("map property '%s' should be a map containing an instance of 'ObjectMetaDataDeploymentBrokerPassword'", propertyName)
-			return
-		}
-		result, err = UnmarshalObjectMetaDataDeploymentBrokerPassword(objMap)
-	}
-	return
-}
-
-// UnmarshalObjectMetaDataDeploymentBrokerPasswordSliceAsProperty unmarshals a slice of ObjectMetaDataDeploymentBrokerPassword instances that are stored as a property
-// within the specified map.
-func UnmarshalObjectMetaDataDeploymentBrokerPasswordSliceAsProperty(m map[string]interface{}, propertyName string) (slice []ObjectMetaDataDeploymentBrokerPassword, err error) {
-	v, foundIt := m[propertyName]
-	if foundIt && v != nil {
-		vSlice, ok := v.([]interface{})
-		if !ok {
-			err = fmt.Errorf("map property '%s' should be a slice of maps, each containing an instance of 'ObjectMetaDataDeploymentBrokerPassword'", propertyName)
-			return
-		}
-		slice, err = UnmarshalObjectMetaDataDeploymentBrokerPasswordSlice(vSlice)
-	}
-	return
-}
-
-// ObjectMetaDataPlan : Plan-related metadata.
-type ObjectMetaDataPlan struct {
+// ObjectMetadataBasePlan : Plan-related metadata.
+type ObjectMetadataBasePlan struct {
 	// Boolean value that describes whether the service can be bound to an application.
 	Bindable *bool `json:"bindable,omitempty"`
 
@@ -3363,9 +3055,9 @@ type ObjectMetaDataPlan struct {
 }
 
 
-// UnmarshalObjectMetaDataPlan constructs an instance of ObjectMetaDataPlan from the specified map.
-func UnmarshalObjectMetaDataPlan(m map[string]interface{}) (result *ObjectMetaDataPlan, err error) {
-	obj := new(ObjectMetaDataPlan)
+// UnmarshalObjectMetadataBasePlan constructs an instance of ObjectMetadataBasePlan from the specified map.
+func UnmarshalObjectMetadataBasePlan(m map[string]interface{}) (result *ObjectMetadataBasePlan, err error) {
+	obj := new(ObjectMetadataBasePlan)
 	obj.Bindable, err = core.UnmarshalBool(m, "bindable")
 	if err != nil {
 		return
@@ -3406,15 +3098,15 @@ func UnmarshalObjectMetaDataPlan(m map[string]interface{}) (result *ObjectMetaDa
 	return
 }
 
-// UnmarshalObjectMetaDataPlanSlice unmarshals a slice of ObjectMetaDataPlan instances from the specified list of maps.
-func UnmarshalObjectMetaDataPlanSlice(s []interface{}) (slice []ObjectMetaDataPlan, err error) {
+// UnmarshalObjectMetadataBasePlanSlice unmarshals a slice of ObjectMetadataBasePlan instances from the specified list of maps.
+func UnmarshalObjectMetadataBasePlanSlice(s []interface{}) (slice []ObjectMetadataBasePlan, err error) {
 	for _, v := range s {
 		objMap, ok := v.(map[string]interface{})
 		if !ok {
-			err = fmt.Errorf("slice element should be a map containing an instance of 'ObjectMetaDataPlan'")
+			err = fmt.Errorf("slice element should be a map containing an instance of 'ObjectMetadataBasePlan'")
 			return
 		}
-		obj, e := UnmarshalObjectMetaDataPlan(objMap)
+		obj, e := UnmarshalObjectMetadataBasePlan(objMap)
 		if e != nil {
 			err = e
 			return
@@ -3424,38 +3116,38 @@ func UnmarshalObjectMetaDataPlanSlice(s []interface{}) (slice []ObjectMetaDataPl
 	return
 }
 
-// UnmarshalObjectMetaDataPlanAsProperty unmarshals an instance of ObjectMetaDataPlan that is stored as a property
+// UnmarshalObjectMetadataBasePlanAsProperty unmarshals an instance of ObjectMetadataBasePlan that is stored as a property
 // within the specified map.
-func UnmarshalObjectMetaDataPlanAsProperty(m map[string]interface{}, propertyName string) (result *ObjectMetaDataPlan, err error) {
+func UnmarshalObjectMetadataBasePlanAsProperty(m map[string]interface{}, propertyName string) (result *ObjectMetadataBasePlan, err error) {
 	v, foundIt := m[propertyName]
 	if foundIt && v != nil {
 		objMap, ok := v.(map[string]interface{})
 		if !ok {
-			err = fmt.Errorf("map property '%s' should be a map containing an instance of 'ObjectMetaDataPlan'", propertyName)
+			err = fmt.Errorf("map property '%s' should be a map containing an instance of 'ObjectMetadataBasePlan'", propertyName)
 			return
 		}
-		result, err = UnmarshalObjectMetaDataPlan(objMap)
+		result, err = UnmarshalObjectMetadataBasePlan(objMap)
 	}
 	return
 }
 
-// UnmarshalObjectMetaDataPlanSliceAsProperty unmarshals a slice of ObjectMetaDataPlan instances that are stored as a property
+// UnmarshalObjectMetadataBasePlanSliceAsProperty unmarshals a slice of ObjectMetadataBasePlan instances that are stored as a property
 // within the specified map.
-func UnmarshalObjectMetaDataPlanSliceAsProperty(m map[string]interface{}, propertyName string) (slice []ObjectMetaDataPlan, err error) {
+func UnmarshalObjectMetadataBasePlanSliceAsProperty(m map[string]interface{}, propertyName string) (slice []ObjectMetadataBasePlan, err error) {
 	v, foundIt := m[propertyName]
 	if foundIt && v != nil {
 		vSlice, ok := v.([]interface{})
 		if !ok {
-			err = fmt.Errorf("map property '%s' should be a slice of maps, each containing an instance of 'ObjectMetaDataPlan'", propertyName)
+			err = fmt.Errorf("map property '%s' should be a slice of maps, each containing an instance of 'ObjectMetadataBasePlan'", propertyName)
 			return
 		}
-		slice, err = UnmarshalObjectMetaDataPlanSlice(vSlice)
+		slice, err = UnmarshalObjectMetadataBasePlanSlice(vSlice)
 	}
 	return
 }
 
-// ObjectMetaDataService : Service-related metadata.
-type ObjectMetaDataService struct {
+// ObjectMetadataBaseService : Service-related metadata.
+type ObjectMetadataBaseService struct {
 	// Type of service.
 	Type *string `json:"type,omitempty"`
 
@@ -3502,9 +3194,9 @@ type ObjectMetaDataService struct {
 }
 
 
-// UnmarshalObjectMetaDataService constructs an instance of ObjectMetaDataService from the specified map.
-func UnmarshalObjectMetaDataService(m map[string]interface{}) (result *ObjectMetaDataService, err error) {
-	obj := new(ObjectMetaDataService)
+// UnmarshalObjectMetadataBaseService constructs an instance of ObjectMetadataBaseService from the specified map.
+func UnmarshalObjectMetadataBaseService(m map[string]interface{}) (result *ObjectMetadataBaseService, err error) {
+	obj := new(ObjectMetadataBaseService)
 	obj.Type, err = core.UnmarshalString(m, "type")
 	if err != nil {
 		return
@@ -3565,15 +3257,15 @@ func UnmarshalObjectMetaDataService(m map[string]interface{}) (result *ObjectMet
 	return
 }
 
-// UnmarshalObjectMetaDataServiceSlice unmarshals a slice of ObjectMetaDataService instances from the specified list of maps.
-func UnmarshalObjectMetaDataServiceSlice(s []interface{}) (slice []ObjectMetaDataService, err error) {
+// UnmarshalObjectMetadataBaseServiceSlice unmarshals a slice of ObjectMetadataBaseService instances from the specified list of maps.
+func UnmarshalObjectMetadataBaseServiceSlice(s []interface{}) (slice []ObjectMetadataBaseService, err error) {
 	for _, v := range s {
 		objMap, ok := v.(map[string]interface{})
 		if !ok {
-			err = fmt.Errorf("slice element should be a map containing an instance of 'ObjectMetaDataService'")
+			err = fmt.Errorf("slice element should be a map containing an instance of 'ObjectMetadataBaseService'")
 			return
 		}
-		obj, e := UnmarshalObjectMetaDataService(objMap)
+		obj, e := UnmarshalObjectMetadataBaseService(objMap)
 		if e != nil {
 			err = e
 			return
@@ -3583,38 +3275,38 @@ func UnmarshalObjectMetaDataServiceSlice(s []interface{}) (slice []ObjectMetaDat
 	return
 }
 
-// UnmarshalObjectMetaDataServiceAsProperty unmarshals an instance of ObjectMetaDataService that is stored as a property
+// UnmarshalObjectMetadataBaseServiceAsProperty unmarshals an instance of ObjectMetadataBaseService that is stored as a property
 // within the specified map.
-func UnmarshalObjectMetaDataServiceAsProperty(m map[string]interface{}, propertyName string) (result *ObjectMetaDataService, err error) {
+func UnmarshalObjectMetadataBaseServiceAsProperty(m map[string]interface{}, propertyName string) (result *ObjectMetadataBaseService, err error) {
 	v, foundIt := m[propertyName]
 	if foundIt && v != nil {
 		objMap, ok := v.(map[string]interface{})
 		if !ok {
-			err = fmt.Errorf("map property '%s' should be a map containing an instance of 'ObjectMetaDataService'", propertyName)
+			err = fmt.Errorf("map property '%s' should be a map containing an instance of 'ObjectMetadataBaseService'", propertyName)
 			return
 		}
-		result, err = UnmarshalObjectMetaDataService(objMap)
+		result, err = UnmarshalObjectMetadataBaseService(objMap)
 	}
 	return
 }
 
-// UnmarshalObjectMetaDataServiceSliceAsProperty unmarshals a slice of ObjectMetaDataService instances that are stored as a property
+// UnmarshalObjectMetadataBaseServiceSliceAsProperty unmarshals a slice of ObjectMetadataBaseService instances that are stored as a property
 // within the specified map.
-func UnmarshalObjectMetaDataServiceSliceAsProperty(m map[string]interface{}, propertyName string) (slice []ObjectMetaDataService, err error) {
+func UnmarshalObjectMetadataBaseServiceSliceAsProperty(m map[string]interface{}, propertyName string) (slice []ObjectMetadataBaseService, err error) {
 	v, foundIt := m[propertyName]
 	if foundIt && v != nil {
 		vSlice, ok := v.([]interface{})
 		if !ok {
-			err = fmt.Errorf("map property '%s' should be a slice of maps, each containing an instance of 'ObjectMetaDataService'", propertyName)
+			err = fmt.Errorf("map property '%s' should be a slice of maps, each containing an instance of 'ObjectMetadataBaseService'", propertyName)
 			return
 		}
-		slice, err = UnmarshalObjectMetaDataServiceSlice(vSlice)
+		slice, err = UnmarshalObjectMetadataBaseServiceSlice(vSlice)
 	}
 	return
 }
 
-// ObjectMetaDataSla : Service Level Agreement related metadata.
-type ObjectMetaDataSla struct {
+// ObjectMetadataBaseSla : Service Level Agreement related metadata.
+type ObjectMetadataBaseSla struct {
 	// Required Service License Agreement Terms of Use.
 	Terms *string `json:"terms,omitempty"`
 
@@ -3629,13 +3321,13 @@ type ObjectMetaDataSla struct {
 	Responsiveness *string `json:"responsiveness,omitempty"`
 
 	// SLA Disaster Recovery-related metadata.
-	Dr *ObjectMetaDataSlaDr `json:"dr,omitempty"`
+	Dr *ObjectMetadataBaseSlaDr `json:"dr,omitempty"`
 }
 
 
-// UnmarshalObjectMetaDataSla constructs an instance of ObjectMetaDataSla from the specified map.
-func UnmarshalObjectMetaDataSla(m map[string]interface{}) (result *ObjectMetaDataSla, err error) {
-	obj := new(ObjectMetaDataSla)
+// UnmarshalObjectMetadataBaseSla constructs an instance of ObjectMetadataBaseSla from the specified map.
+func UnmarshalObjectMetadataBaseSla(m map[string]interface{}) (result *ObjectMetadataBaseSla, err error) {
+	obj := new(ObjectMetadataBaseSla)
 	obj.Terms, err = core.UnmarshalString(m, "terms")
 	if err != nil {
 		return
@@ -3652,7 +3344,7 @@ func UnmarshalObjectMetaDataSla(m map[string]interface{}) (result *ObjectMetaDat
 	if err != nil {
 		return
 	}
-	obj.Dr, err = UnmarshalObjectMetaDataSlaDrAsProperty(m, "dr")
+	obj.Dr, err = UnmarshalObjectMetadataBaseSlaDrAsProperty(m, "dr")
 	if err != nil {
 		return
 	}
@@ -3660,15 +3352,15 @@ func UnmarshalObjectMetaDataSla(m map[string]interface{}) (result *ObjectMetaDat
 	return
 }
 
-// UnmarshalObjectMetaDataSlaSlice unmarshals a slice of ObjectMetaDataSla instances from the specified list of maps.
-func UnmarshalObjectMetaDataSlaSlice(s []interface{}) (slice []ObjectMetaDataSla, err error) {
+// UnmarshalObjectMetadataBaseSlaSlice unmarshals a slice of ObjectMetadataBaseSla instances from the specified list of maps.
+func UnmarshalObjectMetadataBaseSlaSlice(s []interface{}) (slice []ObjectMetadataBaseSla, err error) {
 	for _, v := range s {
 		objMap, ok := v.(map[string]interface{})
 		if !ok {
-			err = fmt.Errorf("slice element should be a map containing an instance of 'ObjectMetaDataSla'")
+			err = fmt.Errorf("slice element should be a map containing an instance of 'ObjectMetadataBaseSla'")
 			return
 		}
-		obj, e := UnmarshalObjectMetaDataSla(objMap)
+		obj, e := UnmarshalObjectMetadataBaseSla(objMap)
 		if e != nil {
 			err = e
 			return
@@ -3678,38 +3370,38 @@ func UnmarshalObjectMetaDataSlaSlice(s []interface{}) (slice []ObjectMetaDataSla
 	return
 }
 
-// UnmarshalObjectMetaDataSlaAsProperty unmarshals an instance of ObjectMetaDataSla that is stored as a property
+// UnmarshalObjectMetadataBaseSlaAsProperty unmarshals an instance of ObjectMetadataBaseSla that is stored as a property
 // within the specified map.
-func UnmarshalObjectMetaDataSlaAsProperty(m map[string]interface{}, propertyName string) (result *ObjectMetaDataSla, err error) {
+func UnmarshalObjectMetadataBaseSlaAsProperty(m map[string]interface{}, propertyName string) (result *ObjectMetadataBaseSla, err error) {
 	v, foundIt := m[propertyName]
 	if foundIt && v != nil {
 		objMap, ok := v.(map[string]interface{})
 		if !ok {
-			err = fmt.Errorf("map property '%s' should be a map containing an instance of 'ObjectMetaDataSla'", propertyName)
+			err = fmt.Errorf("map property '%s' should be a map containing an instance of 'ObjectMetadataBaseSla'", propertyName)
 			return
 		}
-		result, err = UnmarshalObjectMetaDataSla(objMap)
+		result, err = UnmarshalObjectMetadataBaseSla(objMap)
 	}
 	return
 }
 
-// UnmarshalObjectMetaDataSlaSliceAsProperty unmarshals a slice of ObjectMetaDataSla instances that are stored as a property
+// UnmarshalObjectMetadataBaseSlaSliceAsProperty unmarshals a slice of ObjectMetadataBaseSla instances that are stored as a property
 // within the specified map.
-func UnmarshalObjectMetaDataSlaSliceAsProperty(m map[string]interface{}, propertyName string) (slice []ObjectMetaDataSla, err error) {
+func UnmarshalObjectMetadataBaseSlaSliceAsProperty(m map[string]interface{}, propertyName string) (slice []ObjectMetadataBaseSla, err error) {
 	v, foundIt := m[propertyName]
 	if foundIt && v != nil {
 		vSlice, ok := v.([]interface{})
 		if !ok {
-			err = fmt.Errorf("map property '%s' should be a slice of maps, each containing an instance of 'ObjectMetaDataSla'", propertyName)
+			err = fmt.Errorf("map property '%s' should be a slice of maps, each containing an instance of 'ObjectMetadataBaseSla'", propertyName)
 			return
 		}
-		slice, err = UnmarshalObjectMetaDataSlaSlice(vSlice)
+		slice, err = UnmarshalObjectMetadataBaseSlaSlice(vSlice)
 	}
 	return
 }
 
-// ObjectMetaDataSlaDr : SLA Disaster Recovery-related metadata.
-type ObjectMetaDataSlaDr struct {
+// ObjectMetadataBaseSlaDr : SLA Disaster Recovery-related metadata.
+type ObjectMetadataBaseSlaDr struct {
 	// Required boolean value that describes whether disaster recovery is on.
 	Dr *bool `json:"dr,omitempty"`
 
@@ -3718,9 +3410,9 @@ type ObjectMetaDataSlaDr struct {
 }
 
 
-// UnmarshalObjectMetaDataSlaDr constructs an instance of ObjectMetaDataSlaDr from the specified map.
-func UnmarshalObjectMetaDataSlaDr(m map[string]interface{}) (result *ObjectMetaDataSlaDr, err error) {
-	obj := new(ObjectMetaDataSlaDr)
+// UnmarshalObjectMetadataBaseSlaDr constructs an instance of ObjectMetadataBaseSlaDr from the specified map.
+func UnmarshalObjectMetadataBaseSlaDr(m map[string]interface{}) (result *ObjectMetadataBaseSlaDr, err error) {
+	obj := new(ObjectMetadataBaseSlaDr)
 	obj.Dr, err = core.UnmarshalBool(m, "dr")
 	if err != nil {
 		return
@@ -3733,15 +3425,15 @@ func UnmarshalObjectMetaDataSlaDr(m map[string]interface{}) (result *ObjectMetaD
 	return
 }
 
-// UnmarshalObjectMetaDataSlaDrSlice unmarshals a slice of ObjectMetaDataSlaDr instances from the specified list of maps.
-func UnmarshalObjectMetaDataSlaDrSlice(s []interface{}) (slice []ObjectMetaDataSlaDr, err error) {
+// UnmarshalObjectMetadataBaseSlaDrSlice unmarshals a slice of ObjectMetadataBaseSlaDr instances from the specified list of maps.
+func UnmarshalObjectMetadataBaseSlaDrSlice(s []interface{}) (slice []ObjectMetadataBaseSlaDr, err error) {
 	for _, v := range s {
 		objMap, ok := v.(map[string]interface{})
 		if !ok {
-			err = fmt.Errorf("slice element should be a map containing an instance of 'ObjectMetaDataSlaDr'")
+			err = fmt.Errorf("slice element should be a map containing an instance of 'ObjectMetadataBaseSlaDr'")
 			return
 		}
-		obj, e := UnmarshalObjectMetaDataSlaDr(objMap)
+		obj, e := UnmarshalObjectMetadataBaseSlaDr(objMap)
 		if e != nil {
 			err = e
 			return
@@ -3751,38 +3443,38 @@ func UnmarshalObjectMetaDataSlaDrSlice(s []interface{}) (slice []ObjectMetaDataS
 	return
 }
 
-// UnmarshalObjectMetaDataSlaDrAsProperty unmarshals an instance of ObjectMetaDataSlaDr that is stored as a property
+// UnmarshalObjectMetadataBaseSlaDrAsProperty unmarshals an instance of ObjectMetadataBaseSlaDr that is stored as a property
 // within the specified map.
-func UnmarshalObjectMetaDataSlaDrAsProperty(m map[string]interface{}, propertyName string) (result *ObjectMetaDataSlaDr, err error) {
+func UnmarshalObjectMetadataBaseSlaDrAsProperty(m map[string]interface{}, propertyName string) (result *ObjectMetadataBaseSlaDr, err error) {
 	v, foundIt := m[propertyName]
 	if foundIt && v != nil {
 		objMap, ok := v.(map[string]interface{})
 		if !ok {
-			err = fmt.Errorf("map property '%s' should be a map containing an instance of 'ObjectMetaDataSlaDr'", propertyName)
+			err = fmt.Errorf("map property '%s' should be a map containing an instance of 'ObjectMetadataBaseSlaDr'", propertyName)
 			return
 		}
-		result, err = UnmarshalObjectMetaDataSlaDr(objMap)
+		result, err = UnmarshalObjectMetadataBaseSlaDr(objMap)
 	}
 	return
 }
 
-// UnmarshalObjectMetaDataSlaDrSliceAsProperty unmarshals a slice of ObjectMetaDataSlaDr instances that are stored as a property
+// UnmarshalObjectMetadataBaseSlaDrSliceAsProperty unmarshals a slice of ObjectMetadataBaseSlaDr instances that are stored as a property
 // within the specified map.
-func UnmarshalObjectMetaDataSlaDrSliceAsProperty(m map[string]interface{}, propertyName string) (slice []ObjectMetaDataSlaDr, err error) {
+func UnmarshalObjectMetadataBaseSlaDrSliceAsProperty(m map[string]interface{}, propertyName string) (slice []ObjectMetadataBaseSlaDr, err error) {
 	v, foundIt := m[propertyName]
 	if foundIt && v != nil {
 		vSlice, ok := v.([]interface{})
 		if !ok {
-			err = fmt.Errorf("map property '%s' should be a slice of maps, each containing an instance of 'ObjectMetaDataSlaDr'", propertyName)
+			err = fmt.Errorf("map property '%s' should be a slice of maps, each containing an instance of 'ObjectMetadataBaseSlaDr'", propertyName)
 			return
 		}
-		slice, err = UnmarshalObjectMetaDataSlaDrSlice(vSlice)
+		slice, err = UnmarshalObjectMetadataBaseSlaDrSlice(vSlice)
 	}
 	return
 }
 
-// ObjectMetaDataTemplate : Template-related metadata.
-type ObjectMetaDataTemplate struct {
+// ObjectMetadataBaseTemplate : Template-related metadata.
+type ObjectMetadataBaseTemplate struct {
 	// List of required offering or plan IDs.
 	Services []string `json:"services,omitempty"`
 
@@ -3793,7 +3485,7 @@ type ObjectMetaDataTemplate struct {
 	StartCmd *string `json:"start_cmd,omitempty"`
 
 	// Location of your applications source files.
-	Source *ObjectMetaDataTemplateSource `json:"source,omitempty"`
+	Source *ObjectMetadataBaseTemplateSource `json:"source,omitempty"`
 
 	// ID of the runtime.
 	RuntimeCatalogID *string `json:"runtime_catalog_id,omitempty"`
@@ -3811,13 +3503,13 @@ type ObjectMetaDataTemplate struct {
 	Buildpack *string `json:"buildpack,omitempty"`
 
 	// Environment variables for the template.
-	EnvironmentVariables *ObjectMetaDataTemplateEnvironmentVariables `json:"environment_variables,omitempty"`
+	EnvironmentVariables *ObjectMetadataBaseTemplateEnvironmentVariables `json:"environment_variables,omitempty"`
 }
 
 
-// UnmarshalObjectMetaDataTemplate constructs an instance of ObjectMetaDataTemplate from the specified map.
-func UnmarshalObjectMetaDataTemplate(m map[string]interface{}) (result *ObjectMetaDataTemplate, err error) {
-	obj := new(ObjectMetaDataTemplate)
+// UnmarshalObjectMetadataBaseTemplate constructs an instance of ObjectMetadataBaseTemplate from the specified map.
+func UnmarshalObjectMetadataBaseTemplate(m map[string]interface{}) (result *ObjectMetadataBaseTemplate, err error) {
+	obj := new(ObjectMetadataBaseTemplate)
 	obj.Services, err = core.UnmarshalStringSlice(m, "services")
 	if err != nil {
 		return
@@ -3830,7 +3522,7 @@ func UnmarshalObjectMetaDataTemplate(m map[string]interface{}) (result *ObjectMe
 	if err != nil {
 		return
 	}
-	obj.Source, err = UnmarshalObjectMetaDataTemplateSourceAsProperty(m, "source")
+	obj.Source, err = UnmarshalObjectMetadataBaseTemplateSourceAsProperty(m, "source")
 	if err != nil {
 		return
 	}
@@ -3854,7 +3546,7 @@ func UnmarshalObjectMetaDataTemplate(m map[string]interface{}) (result *ObjectMe
 	if err != nil {
 		return
 	}
-	obj.EnvironmentVariables, err = UnmarshalObjectMetaDataTemplateEnvironmentVariablesAsProperty(m, "environment_variables")
+	obj.EnvironmentVariables, err = UnmarshalObjectMetadataBaseTemplateEnvironmentVariablesAsProperty(m, "environment_variables")
 	if err != nil {
 		return
 	}
@@ -3862,15 +3554,15 @@ func UnmarshalObjectMetaDataTemplate(m map[string]interface{}) (result *ObjectMe
 	return
 }
 
-// UnmarshalObjectMetaDataTemplateSlice unmarshals a slice of ObjectMetaDataTemplate instances from the specified list of maps.
-func UnmarshalObjectMetaDataTemplateSlice(s []interface{}) (slice []ObjectMetaDataTemplate, err error) {
+// UnmarshalObjectMetadataBaseTemplateSlice unmarshals a slice of ObjectMetadataBaseTemplate instances from the specified list of maps.
+func UnmarshalObjectMetadataBaseTemplateSlice(s []interface{}) (slice []ObjectMetadataBaseTemplate, err error) {
 	for _, v := range s {
 		objMap, ok := v.(map[string]interface{})
 		if !ok {
-			err = fmt.Errorf("slice element should be a map containing an instance of 'ObjectMetaDataTemplate'")
+			err = fmt.Errorf("slice element should be a map containing an instance of 'ObjectMetadataBaseTemplate'")
 			return
 		}
-		obj, e := UnmarshalObjectMetaDataTemplate(objMap)
+		obj, e := UnmarshalObjectMetadataBaseTemplate(objMap)
 		if e != nil {
 			err = e
 			return
@@ -3880,46 +3572,46 @@ func UnmarshalObjectMetaDataTemplateSlice(s []interface{}) (slice []ObjectMetaDa
 	return
 }
 
-// UnmarshalObjectMetaDataTemplateAsProperty unmarshals an instance of ObjectMetaDataTemplate that is stored as a property
+// UnmarshalObjectMetadataBaseTemplateAsProperty unmarshals an instance of ObjectMetadataBaseTemplate that is stored as a property
 // within the specified map.
-func UnmarshalObjectMetaDataTemplateAsProperty(m map[string]interface{}, propertyName string) (result *ObjectMetaDataTemplate, err error) {
+func UnmarshalObjectMetadataBaseTemplateAsProperty(m map[string]interface{}, propertyName string) (result *ObjectMetadataBaseTemplate, err error) {
 	v, foundIt := m[propertyName]
 	if foundIt && v != nil {
 		objMap, ok := v.(map[string]interface{})
 		if !ok {
-			err = fmt.Errorf("map property '%s' should be a map containing an instance of 'ObjectMetaDataTemplate'", propertyName)
+			err = fmt.Errorf("map property '%s' should be a map containing an instance of 'ObjectMetadataBaseTemplate'", propertyName)
 			return
 		}
-		result, err = UnmarshalObjectMetaDataTemplate(objMap)
+		result, err = UnmarshalObjectMetadataBaseTemplate(objMap)
 	}
 	return
 }
 
-// UnmarshalObjectMetaDataTemplateSliceAsProperty unmarshals a slice of ObjectMetaDataTemplate instances that are stored as a property
+// UnmarshalObjectMetadataBaseTemplateSliceAsProperty unmarshals a slice of ObjectMetadataBaseTemplate instances that are stored as a property
 // within the specified map.
-func UnmarshalObjectMetaDataTemplateSliceAsProperty(m map[string]interface{}, propertyName string) (slice []ObjectMetaDataTemplate, err error) {
+func UnmarshalObjectMetadataBaseTemplateSliceAsProperty(m map[string]interface{}, propertyName string) (slice []ObjectMetadataBaseTemplate, err error) {
 	v, foundIt := m[propertyName]
 	if foundIt && v != nil {
 		vSlice, ok := v.([]interface{})
 		if !ok {
-			err = fmt.Errorf("map property '%s' should be a slice of maps, each containing an instance of 'ObjectMetaDataTemplate'", propertyName)
+			err = fmt.Errorf("map property '%s' should be a slice of maps, each containing an instance of 'ObjectMetadataBaseTemplate'", propertyName)
 			return
 		}
-		slice, err = UnmarshalObjectMetaDataTemplateSlice(vSlice)
+		slice, err = UnmarshalObjectMetadataBaseTemplateSlice(vSlice)
 	}
 	return
 }
 
-// ObjectMetaDataTemplateEnvironmentVariables : Environment variables for the template.
-type ObjectMetaDataTemplateEnvironmentVariables struct {
+// ObjectMetadataBaseTemplateEnvironmentVariables : Environment variables for the template.
+type ObjectMetadataBaseTemplateEnvironmentVariables struct {
 	// Key is the editable first string in a key:value pair of environment variables.
 	Key *string `json:"_key_,omitempty"`
 }
 
 
-// UnmarshalObjectMetaDataTemplateEnvironmentVariables constructs an instance of ObjectMetaDataTemplateEnvironmentVariables from the specified map.
-func UnmarshalObjectMetaDataTemplateEnvironmentVariables(m map[string]interface{}) (result *ObjectMetaDataTemplateEnvironmentVariables, err error) {
-	obj := new(ObjectMetaDataTemplateEnvironmentVariables)
+// UnmarshalObjectMetadataBaseTemplateEnvironmentVariables constructs an instance of ObjectMetadataBaseTemplateEnvironmentVariables from the specified map.
+func UnmarshalObjectMetadataBaseTemplateEnvironmentVariables(m map[string]interface{}) (result *ObjectMetadataBaseTemplateEnvironmentVariables, err error) {
+	obj := new(ObjectMetadataBaseTemplateEnvironmentVariables)
 	obj.Key, err = core.UnmarshalString(m, "_key_")
 	if err != nil {
 		return
@@ -3928,15 +3620,15 @@ func UnmarshalObjectMetaDataTemplateEnvironmentVariables(m map[string]interface{
 	return
 }
 
-// UnmarshalObjectMetaDataTemplateEnvironmentVariablesSlice unmarshals a slice of ObjectMetaDataTemplateEnvironmentVariables instances from the specified list of maps.
-func UnmarshalObjectMetaDataTemplateEnvironmentVariablesSlice(s []interface{}) (slice []ObjectMetaDataTemplateEnvironmentVariables, err error) {
+// UnmarshalObjectMetadataBaseTemplateEnvironmentVariablesSlice unmarshals a slice of ObjectMetadataBaseTemplateEnvironmentVariables instances from the specified list of maps.
+func UnmarshalObjectMetadataBaseTemplateEnvironmentVariablesSlice(s []interface{}) (slice []ObjectMetadataBaseTemplateEnvironmentVariables, err error) {
 	for _, v := range s {
 		objMap, ok := v.(map[string]interface{})
 		if !ok {
-			err = fmt.Errorf("slice element should be a map containing an instance of 'ObjectMetaDataTemplateEnvironmentVariables'")
+			err = fmt.Errorf("slice element should be a map containing an instance of 'ObjectMetadataBaseTemplateEnvironmentVariables'")
 			return
 		}
-		obj, e := UnmarshalObjectMetaDataTemplateEnvironmentVariables(objMap)
+		obj, e := UnmarshalObjectMetadataBaseTemplateEnvironmentVariables(objMap)
 		if e != nil {
 			err = e
 			return
@@ -3946,38 +3638,38 @@ func UnmarshalObjectMetaDataTemplateEnvironmentVariablesSlice(s []interface{}) (
 	return
 }
 
-// UnmarshalObjectMetaDataTemplateEnvironmentVariablesAsProperty unmarshals an instance of ObjectMetaDataTemplateEnvironmentVariables that is stored as a property
+// UnmarshalObjectMetadataBaseTemplateEnvironmentVariablesAsProperty unmarshals an instance of ObjectMetadataBaseTemplateEnvironmentVariables that is stored as a property
 // within the specified map.
-func UnmarshalObjectMetaDataTemplateEnvironmentVariablesAsProperty(m map[string]interface{}, propertyName string) (result *ObjectMetaDataTemplateEnvironmentVariables, err error) {
+func UnmarshalObjectMetadataBaseTemplateEnvironmentVariablesAsProperty(m map[string]interface{}, propertyName string) (result *ObjectMetadataBaseTemplateEnvironmentVariables, err error) {
 	v, foundIt := m[propertyName]
 	if foundIt && v != nil {
 		objMap, ok := v.(map[string]interface{})
 		if !ok {
-			err = fmt.Errorf("map property '%s' should be a map containing an instance of 'ObjectMetaDataTemplateEnvironmentVariables'", propertyName)
+			err = fmt.Errorf("map property '%s' should be a map containing an instance of 'ObjectMetadataBaseTemplateEnvironmentVariables'", propertyName)
 			return
 		}
-		result, err = UnmarshalObjectMetaDataTemplateEnvironmentVariables(objMap)
+		result, err = UnmarshalObjectMetadataBaseTemplateEnvironmentVariables(objMap)
 	}
 	return
 }
 
-// UnmarshalObjectMetaDataTemplateEnvironmentVariablesSliceAsProperty unmarshals a slice of ObjectMetaDataTemplateEnvironmentVariables instances that are stored as a property
+// UnmarshalObjectMetadataBaseTemplateEnvironmentVariablesSliceAsProperty unmarshals a slice of ObjectMetadataBaseTemplateEnvironmentVariables instances that are stored as a property
 // within the specified map.
-func UnmarshalObjectMetaDataTemplateEnvironmentVariablesSliceAsProperty(m map[string]interface{}, propertyName string) (slice []ObjectMetaDataTemplateEnvironmentVariables, err error) {
+func UnmarshalObjectMetadataBaseTemplateEnvironmentVariablesSliceAsProperty(m map[string]interface{}, propertyName string) (slice []ObjectMetadataBaseTemplateEnvironmentVariables, err error) {
 	v, foundIt := m[propertyName]
 	if foundIt && v != nil {
 		vSlice, ok := v.([]interface{})
 		if !ok {
-			err = fmt.Errorf("map property '%s' should be a slice of maps, each containing an instance of 'ObjectMetaDataTemplateEnvironmentVariables'", propertyName)
+			err = fmt.Errorf("map property '%s' should be a slice of maps, each containing an instance of 'ObjectMetadataBaseTemplateEnvironmentVariables'", propertyName)
 			return
 		}
-		slice, err = UnmarshalObjectMetaDataTemplateEnvironmentVariablesSlice(vSlice)
+		slice, err = UnmarshalObjectMetadataBaseTemplateEnvironmentVariablesSlice(vSlice)
 	}
 	return
 }
 
-// ObjectMetaDataTemplateSource : Location of your applications source files.
-type ObjectMetaDataTemplateSource struct {
+// ObjectMetadataBaseTemplateSource : Location of your applications source files.
+type ObjectMetadataBaseTemplateSource struct {
 	// Path to your application.
 	Path *string `json:"path,omitempty"`
 
@@ -3989,9 +3681,9 @@ type ObjectMetaDataTemplateSource struct {
 }
 
 
-// UnmarshalObjectMetaDataTemplateSource constructs an instance of ObjectMetaDataTemplateSource from the specified map.
-func UnmarshalObjectMetaDataTemplateSource(m map[string]interface{}) (result *ObjectMetaDataTemplateSource, err error) {
-	obj := new(ObjectMetaDataTemplateSource)
+// UnmarshalObjectMetadataBaseTemplateSource constructs an instance of ObjectMetadataBaseTemplateSource from the specified map.
+func UnmarshalObjectMetadataBaseTemplateSource(m map[string]interface{}) (result *ObjectMetadataBaseTemplateSource, err error) {
+	obj := new(ObjectMetadataBaseTemplateSource)
 	obj.Path, err = core.UnmarshalString(m, "path")
 	if err != nil {
 		return
@@ -4008,15 +3700,15 @@ func UnmarshalObjectMetaDataTemplateSource(m map[string]interface{}) (result *Ob
 	return
 }
 
-// UnmarshalObjectMetaDataTemplateSourceSlice unmarshals a slice of ObjectMetaDataTemplateSource instances from the specified list of maps.
-func UnmarshalObjectMetaDataTemplateSourceSlice(s []interface{}) (slice []ObjectMetaDataTemplateSource, err error) {
+// UnmarshalObjectMetadataBaseTemplateSourceSlice unmarshals a slice of ObjectMetadataBaseTemplateSource instances from the specified list of maps.
+func UnmarshalObjectMetadataBaseTemplateSourceSlice(s []interface{}) (slice []ObjectMetadataBaseTemplateSource, err error) {
 	for _, v := range s {
 		objMap, ok := v.(map[string]interface{})
 		if !ok {
-			err = fmt.Errorf("slice element should be a map containing an instance of 'ObjectMetaDataTemplateSource'")
+			err = fmt.Errorf("slice element should be a map containing an instance of 'ObjectMetadataBaseTemplateSource'")
 			return
 		}
-		obj, e := UnmarshalObjectMetaDataTemplateSource(objMap)
+		obj, e := UnmarshalObjectMetadataBaseTemplateSource(objMap)
 		if e != nil {
 			err = e
 			return
@@ -4026,32 +3718,189 @@ func UnmarshalObjectMetaDataTemplateSourceSlice(s []interface{}) (slice []Object
 	return
 }
 
-// UnmarshalObjectMetaDataTemplateSourceAsProperty unmarshals an instance of ObjectMetaDataTemplateSource that is stored as a property
+// UnmarshalObjectMetadataBaseTemplateSourceAsProperty unmarshals an instance of ObjectMetadataBaseTemplateSource that is stored as a property
 // within the specified map.
-func UnmarshalObjectMetaDataTemplateSourceAsProperty(m map[string]interface{}, propertyName string) (result *ObjectMetaDataTemplateSource, err error) {
+func UnmarshalObjectMetadataBaseTemplateSourceAsProperty(m map[string]interface{}, propertyName string) (result *ObjectMetadataBaseTemplateSource, err error) {
 	v, foundIt := m[propertyName]
 	if foundIt && v != nil {
 		objMap, ok := v.(map[string]interface{})
 		if !ok {
-			err = fmt.Errorf("map property '%s' should be a map containing an instance of 'ObjectMetaDataTemplateSource'", propertyName)
+			err = fmt.Errorf("map property '%s' should be a map containing an instance of 'ObjectMetadataBaseTemplateSource'", propertyName)
 			return
 		}
-		result, err = UnmarshalObjectMetaDataTemplateSource(objMap)
+		result, err = UnmarshalObjectMetadataBaseTemplateSource(objMap)
 	}
 	return
 }
 
-// UnmarshalObjectMetaDataTemplateSourceSliceAsProperty unmarshals a slice of ObjectMetaDataTemplateSource instances that are stored as a property
+// UnmarshalObjectMetadataBaseTemplateSourceSliceAsProperty unmarshals a slice of ObjectMetadataBaseTemplateSource instances that are stored as a property
 // within the specified map.
-func UnmarshalObjectMetaDataTemplateSourceSliceAsProperty(m map[string]interface{}, propertyName string) (slice []ObjectMetaDataTemplateSource, err error) {
+func UnmarshalObjectMetadataBaseTemplateSourceSliceAsProperty(m map[string]interface{}, propertyName string) (slice []ObjectMetadataBaseTemplateSource, err error) {
 	v, foundIt := m[propertyName]
 	if foundIt && v != nil {
 		vSlice, ok := v.([]interface{})
 		if !ok {
-			err = fmt.Errorf("map property '%s' should be a slice of maps, each containing an instance of 'ObjectMetaDataTemplateSource'", propertyName)
+			err = fmt.Errorf("map property '%s' should be a slice of maps, each containing an instance of 'ObjectMetadataBaseTemplateSource'", propertyName)
 			return
 		}
-		slice, err = UnmarshalObjectMetaDataTemplateSourceSlice(vSlice)
+		slice, err = UnmarshalObjectMetadataBaseTemplateSourceSlice(vSlice)
+	}
+	return
+}
+
+// ObjectMetadataSet : Model used to describe metadata object that can be set.
+type ObjectMetadataSet struct {
+	// Boolean value that describes whether the service is compatible with the Resource Controller.
+	RcCompatible *bool `json:"rc_compatible,omitempty"`
+
+	// Information related to the UI presentation associated with a catalog entry.
+	Ui *UIMetaData `json:"ui,omitempty"`
+
+	// Compliance information for HIPAA and PCI.
+	Compliance []string `json:"compliance,omitempty"`
+
+	// Service-related metadata.
+	Service *ObjectMetadataBaseService `json:"service,omitempty"`
+
+	// Plan-related metadata.
+	Plan *ObjectMetadataBasePlan `json:"plan,omitempty"`
+
+	// Template-related metadata.
+	Template *ObjectMetadataBaseTemplate `json:"template,omitempty"`
+
+	// Alias-related metadata.
+	Alias *ObjectMetadataBaseAlias `json:"alias,omitempty"`
+
+	// Service Level Agreement related metadata.
+	Sla *ObjectMetadataBaseSla `json:"sla,omitempty"`
+
+	// Callback-related information associated with a catalog entry.
+	Callbacks *Callbacks `json:"callbacks,omitempty"`
+
+	// Optional version of the object.
+	Version *string `json:"version,omitempty"`
+
+	// The original name of the object.
+	OriginalName *string `json:"original_name,omitempty"`
+
+	// Additional information.
+	Other interface{} `json:"other,omitempty"`
+
+	// Pricing-related information.
+	Pricing *PricingSet `json:"pricing,omitempty"`
+
+	// Deployment-related metadata.
+	Deployment *DeploymentBase `json:"deployment,omitempty"`
+}
+
+
+// UnmarshalObjectMetadataSet constructs an instance of ObjectMetadataSet from the specified map.
+func UnmarshalObjectMetadataSet(m map[string]interface{}) (result *ObjectMetadataSet, err error) {
+	obj := new(ObjectMetadataSet)
+	obj.RcCompatible, err = core.UnmarshalBool(m, "rc_compatible")
+	if err != nil {
+		return
+	}
+	obj.Ui, err = UnmarshalUIMetaDataAsProperty(m, "ui")
+	if err != nil {
+		return
+	}
+	obj.Compliance, err = core.UnmarshalStringSlice(m, "compliance")
+	if err != nil {
+		return
+	}
+	obj.Service, err = UnmarshalObjectMetadataBaseServiceAsProperty(m, "service")
+	if err != nil {
+		return
+	}
+	obj.Plan, err = UnmarshalObjectMetadataBasePlanAsProperty(m, "plan")
+	if err != nil {
+		return
+	}
+	obj.Template, err = UnmarshalObjectMetadataBaseTemplateAsProperty(m, "template")
+	if err != nil {
+		return
+	}
+	obj.Alias, err = UnmarshalObjectMetadataBaseAliasAsProperty(m, "alias")
+	if err != nil {
+		return
+	}
+	obj.Sla, err = UnmarshalObjectMetadataBaseSlaAsProperty(m, "sla")
+	if err != nil {
+		return
+	}
+	obj.Callbacks, err = UnmarshalCallbacksAsProperty(m, "callbacks")
+	if err != nil {
+		return
+	}
+	obj.Version, err = core.UnmarshalString(m, "version")
+	if err != nil {
+		return
+	}
+	obj.OriginalName, err = core.UnmarshalString(m, "original_name")
+	if err != nil {
+		return
+	}
+	obj.Other, err = core.UnmarshalAny(m, "other")
+	if err != nil {
+		return
+	}
+	obj.Pricing, err = UnmarshalPricingSetAsProperty(m, "pricing")
+	if err != nil {
+		return
+	}
+	obj.Deployment, err = UnmarshalDeploymentBaseAsProperty(m, "deployment")
+	if err != nil {
+		return
+	}
+	result = obj
+	return
+}
+
+// UnmarshalObjectMetadataSetSlice unmarshals a slice of ObjectMetadataSet instances from the specified list of maps.
+func UnmarshalObjectMetadataSetSlice(s []interface{}) (slice []ObjectMetadataSet, err error) {
+	for _, v := range s {
+		objMap, ok := v.(map[string]interface{})
+		if !ok {
+			err = fmt.Errorf("slice element should be a map containing an instance of 'ObjectMetadataSet'")
+			return
+		}
+		obj, e := UnmarshalObjectMetadataSet(objMap)
+		if e != nil {
+			err = e
+			return
+		}
+		slice = append(slice, *obj)
+	}
+	return
+}
+
+// UnmarshalObjectMetadataSetAsProperty unmarshals an instance of ObjectMetadataSet that is stored as a property
+// within the specified map.
+func UnmarshalObjectMetadataSetAsProperty(m map[string]interface{}, propertyName string) (result *ObjectMetadataSet, err error) {
+	v, foundIt := m[propertyName]
+	if foundIt && v != nil {
+		objMap, ok := v.(map[string]interface{})
+		if !ok {
+			err = fmt.Errorf("map property '%s' should be a map containing an instance of 'ObjectMetadataSet'", propertyName)
+			return
+		}
+		result, err = UnmarshalObjectMetadataSet(objMap)
+	}
+	return
+}
+
+// UnmarshalObjectMetadataSetSliceAsProperty unmarshals a slice of ObjectMetadataSet instances that are stored as a property
+// within the specified map.
+func UnmarshalObjectMetadataSetSliceAsProperty(m map[string]interface{}, propertyName string) (slice []ObjectMetadataSet, err error) {
+	v, foundIt := m[propertyName]
+	if foundIt && v != nil {
+		vSlice, ok := v.([]interface{})
+		if !ok {
+			err = fmt.Errorf("map property '%s' should be a slice of maps, each containing an instance of 'ObjectMetadataSet'", propertyName)
+			return
+		}
+		slice, err = UnmarshalObjectMetadataSetSlice(vSlice)
 	}
 	return
 }
@@ -4322,8 +4171,8 @@ func UnmarshalPriceSliceAsProperty(m map[string]interface{}, propertyName string
 	return
 }
 
-// Pricing : Pricing-related information.
-type Pricing struct {
+// PricingGet : Pricing-related information.
+type PricingGet struct {
 	// Type of plan. Valid values are `free`, `trial`, `paygo`, `bluemix-subscription`, and `ibm-subscription`.
 	Type *string `json:"type,omitempty"`
 
@@ -4338,9 +4187,9 @@ type Pricing struct {
 }
 
 
-// UnmarshalPricing constructs an instance of Pricing from the specified map.
-func UnmarshalPricing(m map[string]interface{}) (result *Pricing, err error) {
-	obj := new(Pricing)
+// UnmarshalPricingGet constructs an instance of PricingGet from the specified map.
+func UnmarshalPricingGet(m map[string]interface{}) (result *PricingGet, err error) {
+	obj := new(PricingGet)
 	obj.Type, err = core.UnmarshalString(m, "type")
 	if err != nil {
 		return
@@ -4361,15 +4210,15 @@ func UnmarshalPricing(m map[string]interface{}) (result *Pricing, err error) {
 	return
 }
 
-// UnmarshalPricingSlice unmarshals a slice of Pricing instances from the specified list of maps.
-func UnmarshalPricingSlice(s []interface{}) (slice []Pricing, err error) {
+// UnmarshalPricingGetSlice unmarshals a slice of PricingGet instances from the specified list of maps.
+func UnmarshalPricingGetSlice(s []interface{}) (slice []PricingGet, err error) {
 	for _, v := range s {
 		objMap, ok := v.(map[string]interface{})
 		if !ok {
-			err = fmt.Errorf("slice element should be a map containing an instance of 'Pricing'")
+			err = fmt.Errorf("slice element should be a map containing an instance of 'PricingGet'")
 			return
 		}
-		obj, e := UnmarshalPricing(objMap)
+		obj, e := UnmarshalPricingGet(objMap)
 		if e != nil {
 			err = e
 			return
@@ -4379,32 +4228,112 @@ func UnmarshalPricingSlice(s []interface{}) (slice []Pricing, err error) {
 	return
 }
 
-// UnmarshalPricingAsProperty unmarshals an instance of Pricing that is stored as a property
+// UnmarshalPricingGetAsProperty unmarshals an instance of PricingGet that is stored as a property
 // within the specified map.
-func UnmarshalPricingAsProperty(m map[string]interface{}, propertyName string) (result *Pricing, err error) {
+func UnmarshalPricingGetAsProperty(m map[string]interface{}, propertyName string) (result *PricingGet, err error) {
 	v, foundIt := m[propertyName]
 	if foundIt && v != nil {
 		objMap, ok := v.(map[string]interface{})
 		if !ok {
-			err = fmt.Errorf("map property '%s' should be a map containing an instance of 'Pricing'", propertyName)
+			err = fmt.Errorf("map property '%s' should be a map containing an instance of 'PricingGet'", propertyName)
 			return
 		}
-		result, err = UnmarshalPricing(objMap)
+		result, err = UnmarshalPricingGet(objMap)
 	}
 	return
 }
 
-// UnmarshalPricingSliceAsProperty unmarshals a slice of Pricing instances that are stored as a property
+// UnmarshalPricingGetSliceAsProperty unmarshals a slice of PricingGet instances that are stored as a property
 // within the specified map.
-func UnmarshalPricingSliceAsProperty(m map[string]interface{}, propertyName string) (slice []Pricing, err error) {
+func UnmarshalPricingGetSliceAsProperty(m map[string]interface{}, propertyName string) (slice []PricingGet, err error) {
 	v, foundIt := m[propertyName]
 	if foundIt && v != nil {
 		vSlice, ok := v.([]interface{})
 		if !ok {
-			err = fmt.Errorf("map property '%s' should be a slice of maps, each containing an instance of 'Pricing'", propertyName)
+			err = fmt.Errorf("map property '%s' should be a slice of maps, each containing an instance of 'PricingGet'", propertyName)
 			return
 		}
-		slice, err = UnmarshalPricingSlice(vSlice)
+		slice, err = UnmarshalPricingGetSlice(vSlice)
+	}
+	return
+}
+
+// PricingSet : Pricing-related information.
+type PricingSet struct {
+	// Type of plan. Valid values are `free`, `trial`, `paygo`, `bluemix-subscription`, and `ibm-subscription`.
+	Type *string `json:"type,omitempty"`
+
+	// Defines where the pricing originates.
+	Origin *string `json:"origin,omitempty"`
+
+	// Plan-specific starting price information.
+	StartingPrice *StartingPrice `json:"starting_price,omitempty"`
+}
+
+
+// UnmarshalPricingSet constructs an instance of PricingSet from the specified map.
+func UnmarshalPricingSet(m map[string]interface{}) (result *PricingSet, err error) {
+	obj := new(PricingSet)
+	obj.Type, err = core.UnmarshalString(m, "type")
+	if err != nil {
+		return
+	}
+	obj.Origin, err = core.UnmarshalString(m, "origin")
+	if err != nil {
+		return
+	}
+	obj.StartingPrice, err = UnmarshalStartingPriceAsProperty(m, "starting_price")
+	if err != nil {
+		return
+	}
+	result = obj
+	return
+}
+
+// UnmarshalPricingSetSlice unmarshals a slice of PricingSet instances from the specified list of maps.
+func UnmarshalPricingSetSlice(s []interface{}) (slice []PricingSet, err error) {
+	for _, v := range s {
+		objMap, ok := v.(map[string]interface{})
+		if !ok {
+			err = fmt.Errorf("slice element should be a map containing an instance of 'PricingSet'")
+			return
+		}
+		obj, e := UnmarshalPricingSet(objMap)
+		if e != nil {
+			err = e
+			return
+		}
+		slice = append(slice, *obj)
+	}
+	return
+}
+
+// UnmarshalPricingSetAsProperty unmarshals an instance of PricingSet that is stored as a property
+// within the specified map.
+func UnmarshalPricingSetAsProperty(m map[string]interface{}, propertyName string) (result *PricingSet, err error) {
+	v, foundIt := m[propertyName]
+	if foundIt && v != nil {
+		objMap, ok := v.(map[string]interface{})
+		if !ok {
+			err = fmt.Errorf("map property '%s' should be a map containing an instance of 'PricingSet'", propertyName)
+			return
+		}
+		result, err = UnmarshalPricingSet(objMap)
+	}
+	return
+}
+
+// UnmarshalPricingSetSliceAsProperty unmarshals a slice of PricingSet instances that are stored as a property
+// within the specified map.
+func UnmarshalPricingSetSliceAsProperty(m map[string]interface{}, propertyName string) (slice []PricingSet, err error) {
+	v, foundIt := m[propertyName]
+	if foundIt && v != nil {
+		vSlice, ok := v.([]interface{})
+		if !ok {
+			err = fmt.Errorf("map property '%s' should be a slice of maps, each containing an instance of 'PricingSet'", propertyName)
+			return
+		}
+		slice, err = UnmarshalPricingSetSlice(vSlice)
 	}
 	return
 }
@@ -4550,79 +4479,6 @@ func (options *RestoreCatalogEntryOptions) SetAccount(account string) *RestoreCa
 func (options *RestoreCatalogEntryOptions) SetHeaders(param map[string]string) *RestoreCatalogEntryOptions {
 	options.Headers = param
 	return options
-}
-
-// Scope : IAM Scope-related information associated with a catalog entry.
-type Scope struct {
-	// Type of IAM scope. Valid values are `global`, `account`, or `org`.
-	Type *string `json:"type,omitempty"`
-
-	// Specific account or organization.
-	Value *string `json:"value,omitempty"`
-}
-
-
-// UnmarshalScope constructs an instance of Scope from the specified map.
-func UnmarshalScope(m map[string]interface{}) (result *Scope, err error) {
-	obj := new(Scope)
-	obj.Type, err = core.UnmarshalString(m, "type")
-	if err != nil {
-		return
-	}
-	obj.Value, err = core.UnmarshalString(m, "value")
-	if err != nil {
-		return
-	}
-	result = obj
-	return
-}
-
-// UnmarshalScopeSlice unmarshals a slice of Scope instances from the specified list of maps.
-func UnmarshalScopeSlice(s []interface{}) (slice []Scope, err error) {
-	for _, v := range s {
-		objMap, ok := v.(map[string]interface{})
-		if !ok {
-			err = fmt.Errorf("slice element should be a map containing an instance of 'Scope'")
-			return
-		}
-		obj, e := UnmarshalScope(objMap)
-		if e != nil {
-			err = e
-			return
-		}
-		slice = append(slice, *obj)
-	}
-	return
-}
-
-// UnmarshalScopeAsProperty unmarshals an instance of Scope that is stored as a property
-// within the specified map.
-func UnmarshalScopeAsProperty(m map[string]interface{}, propertyName string) (result *Scope, err error) {
-	v, foundIt := m[propertyName]
-	if foundIt && v != nil {
-		objMap, ok := v.(map[string]interface{})
-		if !ok {
-			err = fmt.Errorf("map property '%s' should be a map containing an instance of 'Scope'", propertyName)
-			return
-		}
-		result, err = UnmarshalScope(objMap)
-	}
-	return
-}
-
-// UnmarshalScopeSliceAsProperty unmarshals a slice of Scope instances that are stored as a property
-// within the specified map.
-func UnmarshalScopeSliceAsProperty(m map[string]interface{}, propertyName string) (slice []Scope, err error) {
-	v, foundIt := m[propertyName]
-	if foundIt && v != nil {
-		vSlice, ok := v.([]interface{})
-		if !ok {
-			err = fmt.Errorf("map property '%s' should be a slice of maps, each containing an instance of 'Scope'", propertyName)
-			return
-		}
-		slice, err = UnmarshalScopeSlice(vSlice)
-	}
-	return
 }
 
 // SearchResult : The results obtained by performing a search.
@@ -5261,6 +5117,10 @@ type UpdateCatalogEntryOptions struct {
 	// OverviewUI for a user-readable name.
 	Name *string `json:"name" validate:"required"`
 
+	// The type of catalog entry, **service**, **template**, **dashboard**, which determines the type and shape of the
+	// object.
+	Kind *string `json:"kind" validate:"required"`
+
 	// Overview is nested in the top level. The key value pair is `[_language_]overview_ui`.
 	OverviewUi *OverviewUI `json:"overview_ui" validate:"required"`
 
@@ -5283,39 +5143,11 @@ type UpdateCatalogEntryOptions struct {
 	// Boolean value that determines whether the catalog entry is a group.
 	Group *bool `json:"group,omitempty"`
 
-	// Metadata is not returned by default, and includes specific data depending on the object **kind**.
-	Metadata *ObjectMetaData `json:"metadata,omitempty"`
-
 	// Boolean value that describes whether the service is active.
 	Active *bool `json:"active,omitempty"`
 
-	// The cloud resource name of the catalog entry.
-	CatalogCrn *string `json:"catalog_crn,omitempty"`
-
-	// The catalog URL for the catalog entry.
-	URL *string `json:"url,omitempty"`
-
-	// The catalog URL of child elements for the catalog entry.
-	ChildrenURL *string `json:"children_url,omitempty"`
-
-	// The catalog URL of the parent catalog entry.
-	ParentURL *string `json:"parent_url,omitempty"`
-
-	// A list of tags representing deployment locations, for example, `us-south`, `eu-gb`, `us-south-dal10`.
-	GeoTags []string `json:"geo_tags,omitempty"`
-
-	// A list of tags representing pricing types, for example, free lite, subscription, paid only.
-	PricingTags []string `json:"pricing_tags,omitempty"`
-
-	// The date the catalog entry was created.
-	Created *strfmt.DateTime `json:"created,omitempty"`
-
-	// The date the catalog entry was last updated.
-	Updated *strfmt.DateTime `json:"updated,omitempty"`
-
-	// The children of this catalog entry. This is read-only and ignored on put or post. It is filled in when
-	// `?depth=_value_` is used.
-	Children []CatalogEntry `json:"children,omitempty"`
+	// Model used to describe metadata object that can be set.
+	Metadata *ObjectMetadataSet `json:"metadata,omitempty"`
 
 	// This changes the scope of the request regardless of the authorization header. Example scopes are `account` and
 	// `global`. `account=global` is reqired if operating with a service ID that has a global admin policy, for example
@@ -5332,11 +5164,21 @@ type UpdateCatalogEntryOptions struct {
 	Headers map[string]string
 }
 
+// Constants associated with the UpdateCatalogEntryOptions.Kind property.
+// The type of catalog entry, **service**, **template**, **dashboard**, which determines the type and shape of the
+// object.
+const (
+	UpdateCatalogEntryOptions_Kind_Dashboard = "dashboard"
+	UpdateCatalogEntryOptions_Kind_Service = "service"
+	UpdateCatalogEntryOptions_Kind_Template = "template"
+)
+
 // NewUpdateCatalogEntryOptions : Instantiate UpdateCatalogEntryOptions
-func (*GlobalCatalogV1) NewUpdateCatalogEntryOptions(id string, name string, overviewUi *OverviewUI, images *Image, disabled bool, tags []string, provider *Provider) *UpdateCatalogEntryOptions {
+func (*GlobalCatalogV1) NewUpdateCatalogEntryOptions(id string, name string, kind string, overviewUi *OverviewUI, images *Image, disabled bool, tags []string, provider *Provider) *UpdateCatalogEntryOptions {
 	return &UpdateCatalogEntryOptions{
 		ID: core.StringPtr(id),
 		Name: core.StringPtr(name),
+		Kind: core.StringPtr(kind),
 		OverviewUi: overviewUi,
 		Images: images,
 		Disabled: core.BoolPtr(disabled),
@@ -5354,6 +5196,12 @@ func (options *UpdateCatalogEntryOptions) SetID(id string) *UpdateCatalogEntryOp
 // SetName : Allow user to set Name
 func (options *UpdateCatalogEntryOptions) SetName(name string) *UpdateCatalogEntryOptions {
 	options.Name = core.StringPtr(name)
+	return options
+}
+
+// SetKind : Allow user to set Kind
+func (options *UpdateCatalogEntryOptions) SetKind(kind string) *UpdateCatalogEntryOptions {
+	options.Kind = core.StringPtr(kind)
 	return options
 }
 
@@ -5399,69 +5247,15 @@ func (options *UpdateCatalogEntryOptions) SetGroup(group bool) *UpdateCatalogEnt
 	return options
 }
 
-// SetMetadata : Allow user to set Metadata
-func (options *UpdateCatalogEntryOptions) SetMetadata(metadata *ObjectMetaData) *UpdateCatalogEntryOptions {
-	options.Metadata = metadata
-	return options
-}
-
 // SetActive : Allow user to set Active
 func (options *UpdateCatalogEntryOptions) SetActive(active bool) *UpdateCatalogEntryOptions {
 	options.Active = core.BoolPtr(active)
 	return options
 }
 
-// SetCatalogCrn : Allow user to set CatalogCrn
-func (options *UpdateCatalogEntryOptions) SetCatalogCrn(catalogCrn string) *UpdateCatalogEntryOptions {
-	options.CatalogCrn = core.StringPtr(catalogCrn)
-	return options
-}
-
-// SetURL : Allow user to set URL
-func (options *UpdateCatalogEntryOptions) SetURL(url string) *UpdateCatalogEntryOptions {
-	options.URL = core.StringPtr(url)
-	return options
-}
-
-// SetChildrenURL : Allow user to set ChildrenURL
-func (options *UpdateCatalogEntryOptions) SetChildrenURL(childrenURL string) *UpdateCatalogEntryOptions {
-	options.ChildrenURL = core.StringPtr(childrenURL)
-	return options
-}
-
-// SetParentURL : Allow user to set ParentURL
-func (options *UpdateCatalogEntryOptions) SetParentURL(parentURL string) *UpdateCatalogEntryOptions {
-	options.ParentURL = core.StringPtr(parentURL)
-	return options
-}
-
-// SetGeoTags : Allow user to set GeoTags
-func (options *UpdateCatalogEntryOptions) SetGeoTags(geoTags []string) *UpdateCatalogEntryOptions {
-	options.GeoTags = geoTags
-	return options
-}
-
-// SetPricingTags : Allow user to set PricingTags
-func (options *UpdateCatalogEntryOptions) SetPricingTags(pricingTags []string) *UpdateCatalogEntryOptions {
-	options.PricingTags = pricingTags
-	return options
-}
-
-// SetCreated : Allow user to set Created
-func (options *UpdateCatalogEntryOptions) SetCreated(created *strfmt.DateTime) *UpdateCatalogEntryOptions {
-	options.Created = created
-	return options
-}
-
-// SetUpdated : Allow user to set Updated
-func (options *UpdateCatalogEntryOptions) SetUpdated(updated *strfmt.DateTime) *UpdateCatalogEntryOptions {
-	options.Updated = updated
-	return options
-}
-
-// SetChildren : Allow user to set Children
-func (options *UpdateCatalogEntryOptions) SetChildren(children []CatalogEntry) *UpdateCatalogEntryOptions {
-	options.Children = children
+// SetMetadata : Allow user to set Metadata
+func (options *UpdateCatalogEntryOptions) SetMetadata(metadata *ObjectMetadataSet) *UpdateCatalogEntryOptions {
+	options.Metadata = metadata
 	return options
 }
 
@@ -5488,9 +5282,6 @@ type UpdateVisibilityOptions struct {
 	// The object's unique ID.
 	ID *string `json:"id" validate:"required"`
 
-	// IAM Scope-related information associated with a catalog entry.
-	Owner *Scope `json:"owner,omitempty"`
-
 	// Visibility details related to a catalog entry.
 	Include *VisibilityDetail `json:"include,omitempty"`
 
@@ -5516,12 +5307,6 @@ func (*GlobalCatalogV1) NewUpdateVisibilityOptions(id string) *UpdateVisibilityO
 // SetID : Allow user to set ID
 func (options *UpdateVisibilityOptions) SetID(id string) *UpdateVisibilityOptions {
 	options.ID = core.StringPtr(id)
-	return options
-}
-
-// SetOwner : Allow user to set Owner
-func (options *UpdateVisibilityOptions) SetOwner(owner *Scope) *UpdateVisibilityOptions {
-	options.Owner = owner
 	return options
 }
 
@@ -5623,7 +5408,7 @@ type Visibility struct {
 	Restrictions *string `json:"restrictions,omitempty"`
 
 	// IAM Scope-related information associated with a catalog entry.
-	Owner *Scope `json:"owner,omitempty"`
+	Owner *string `json:"owner,omitempty"`
 
 	// Visibility details related to a catalog entry.
 	Include *VisibilityDetail `json:"include,omitempty"`
@@ -5644,7 +5429,7 @@ func UnmarshalVisibility(m map[string]interface{}) (result *Visibility, err erro
 	if err != nil {
 		return
 	}
-	obj.Owner, err = UnmarshalScopeAsProperty(m, "owner")
+	obj.Owner, err = core.UnmarshalString(m, "owner")
 	if err != nil {
 		return
 	}
