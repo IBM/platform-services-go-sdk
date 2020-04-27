@@ -8,7 +8,7 @@
 # IBM Cloud Platform Services Go SDK Version 0.1.0
 
 Go client library to interact with various
-[IBM Cloud Platform Service APIs](https://cloud.ibm.com/apidocs?category=platform_services).
+[IBM Cloud Platform Service APIs](https://cloud.ibm.com/docs?tab=api-docs&category=platform_services).
 
 Disclaimer: this SDK is being released initially as a **pre-release** version.
 Changes might occur which impact applications that use this SDK.
