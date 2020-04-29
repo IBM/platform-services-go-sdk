@@ -9,3 +9,6 @@ vendor/
 .openapi-generator/VERSION
 /.project
 package-lock.json
+
+# IDE files
+*.idea
