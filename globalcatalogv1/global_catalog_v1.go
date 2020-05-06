@@ -20,10 +20,11 @@ package globalcatalogv1
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/IBM/go-sdk-core/v3/core"
+	"github.com/IBM/go-sdk-core/v4/core"
 	common "github.com/IBM/platform-services-go-sdk/common"
 	"github.com/go-openapi/strfmt"
 	"io"
+	"reflect"
 )
 
 // GlobalCatalogV1 : The catalog service manages offerings across geographies as the system of record. The catalog
@@ -113,7 +114,7 @@ func (globalCatalog *GlobalCatalogV1) SetServiceURL(url string) error {
 
 // ListCatalogEntries : Returns parent catalog entries
 // Includes key information, such as ID, name, kind, CRN, tags, and provider. This endpoint is ETag enabled.
-func (globalCatalog *GlobalCatalogV1) ListCatalogEntries(listCatalogEntriesOptions *ListCatalogEntriesOptions) (result *SearchResult, response *core.DetailedResponse, err error) {
+func (globalCatalog *GlobalCatalogV1) ListCatalogEntries(listCatalogEntriesOptions *ListCatalogEntriesOptions) (result *EntrySearchResult, response *core.DetailedResponse, err error) {
 	err = core.ValidateStruct(listCatalogEntriesOptions, "listCatalogEntriesOptions")
 	if err != nil {
 		return
@@ -165,16 +166,16 @@ func (globalCatalog *GlobalCatalogV1) ListCatalogEntries(listCatalogEntriesOptio
 		return
 	}
 
-	response, err = globalCatalog.Service.Request(request, make(map[string]interface{}))
-	if err == nil {
-		m, ok := response.Result.(map[string]interface{})
-		if !ok {
-			err = fmt.Errorf("an error occurred while processing the operation response")
-			return
-		}
-		result, err = UnmarshalSearchResult(m)
-		response.Result = result
+	var rawResponse map[string]json.RawMessage
+	response, err = globalCatalog.Service.Request(request, &rawResponse)
+	if err != nil {
+		return
 	}
+	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalEntrySearchResult)
+	if err != nil {
+		return
+	}
+	response.Result = result
 
 	return
 }
@@ -264,16 +265,16 @@ func (globalCatalog *GlobalCatalogV1) CreateCatalogEntry(createCatalogEntryOptio
 		return
 	}
 
-	response, err = globalCatalog.Service.Request(request, make(map[string]interface{}))
-	if err == nil {
-		m, ok := response.Result.(map[string]interface{})
-		if !ok {
-			err = fmt.Errorf("an error occurred while processing the operation response")
-			return
-		}
-		result, err = UnmarshalCatalogEntry(m)
-		response.Result = result
+	var rawResponse map[string]json.RawMessage
+	response, err = globalCatalog.Service.Request(request, &rawResponse)
+	if err != nil {
+		return
 	}
+	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalCatalogEntry)
+	if err != nil {
+		return
+	}
+	response.Result = result
 
 	return
 }
@@ -331,16 +332,16 @@ func (globalCatalog *GlobalCatalogV1) GetCatalogEntry(getCatalogEntryOptions *Ge
 		return
 	}
 
-	response, err = globalCatalog.Service.Request(request, make(map[string]interface{}))
-	if err == nil {
-		m, ok := response.Result.(map[string]interface{})
-		if !ok {
-			err = fmt.Errorf("an error occurred while processing the operation response")
-			return
-		}
-		result, err = UnmarshalCatalogEntry(m)
-		response.Result = result
+	var rawResponse map[string]json.RawMessage
+	response, err = globalCatalog.Service.Request(request, &rawResponse)
+	if err != nil {
+		return
 	}
+	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalCatalogEntry)
+	if err != nil {
+		return
+	}
+	response.Result = result
 
 	return
 }
@@ -429,16 +430,16 @@ func (globalCatalog *GlobalCatalogV1) UpdateCatalogEntry(updateCatalogEntryOptio
 		return
 	}
 
-	response, err = globalCatalog.Service.Request(request, make(map[string]interface{}))
-	if err == nil {
-		m, ok := response.Result.(map[string]interface{})
-		if !ok {
-			err = fmt.Errorf("an error occurred while processing the operation response")
-			return
-		}
-		result, err = UnmarshalCatalogEntry(m)
-		response.Result = result
+	var rawResponse map[string]json.RawMessage
+	response, err = globalCatalog.Service.Request(request, &rawResponse)
+	if err != nil {
+		return
 	}
+	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalCatalogEntry)
+	if err != nil {
+		return
+	}
+	response.Result = result
 
 	return
 }
@@ -478,6 +479,9 @@ func (globalCatalog *GlobalCatalogV1) DeleteCatalogEntry(deleteCatalogEntryOptio
 	if deleteCatalogEntryOptions.Account != nil {
 		builder.AddQuery("account", fmt.Sprint(*deleteCatalogEntryOptions.Account))
 	}
+	if deleteCatalogEntryOptions.Force != nil {
+		builder.AddQuery("force", fmt.Sprint(*deleteCatalogEntryOptions.Force))
+	}
 
 	request, err := builder.Build()
 	if err != nil {
@@ -491,7 +495,7 @@ func (globalCatalog *GlobalCatalogV1) DeleteCatalogEntry(deleteCatalogEntryOptio
 
 // GetChildObjects : Get child catalog entries of a specific kind
 // Fetch child catalog entries for a catalog entry with a specific id. This endpoint is ETag enabled.
-func (globalCatalog *GlobalCatalogV1) GetChildObjects(getChildObjectsOptions *GetChildObjectsOptions) (result *[]SearchResult, response *core.DetailedResponse, err error) {
+func (globalCatalog *GlobalCatalogV1) GetChildObjects(getChildObjectsOptions *GetChildObjectsOptions) (result *EntrySearchResult, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(getChildObjectsOptions, "getChildObjectsOptions cannot be nil")
 	if err != nil {
 		return
@@ -547,18 +551,16 @@ func (globalCatalog *GlobalCatalogV1) GetChildObjects(getChildObjectsOptions *Ge
 		return
 	}
 
-	response, err = globalCatalog.Service.Request(request, make([]map[string]interface{}, 1))
-	if err == nil {
-		s, ok := response.Result.([]interface{})
-		if !ok {
-			err = fmt.Errorf("an error occurred while processing the operation response")
-			return
-		}
-		slice, e := UnmarshalSearchResultSlice(s)
-		result = &slice
-		err = e
-		response.Result = result
+	var rawResponse map[string]json.RawMessage
+	response, err = globalCatalog.Service.Request(request, &rawResponse)
+	if err != nil {
+		return
 	}
+	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalEntrySearchResult)
+	if err != nil {
+		return
+	}
+	response.Result = result
 
 	return
 }
@@ -649,16 +651,16 @@ func (globalCatalog *GlobalCatalogV1) GetVisibility(getVisibilityOptions *GetVis
 		return
 	}
 
-	response, err = globalCatalog.Service.Request(request, make(map[string]interface{}))
-	if err == nil {
-		m, ok := response.Result.(map[string]interface{})
-		if !ok {
-			err = fmt.Errorf("an error occurred while processing the operation response")
-			return
-		}
-		result, err = UnmarshalVisibility(m)
-		response.Result = result
+	var rawResponse map[string]json.RawMessage
+	response, err = globalCatalog.Service.Request(request, &rawResponse)
+	if err != nil {
+		return
 	}
+	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalVisibility)
+	if err != nil {
+		return
+	}
+	response.Result = result
 
 	return
 }
@@ -700,6 +702,9 @@ func (globalCatalog *GlobalCatalogV1) UpdateVisibility(updateVisibilityOptions *
 	}
 
 	body := make(map[string]interface{})
+	if updateVisibilityOptions.Extendable != nil {
+		body["extendable"] = updateVisibilityOptions.Extendable
+	}
 	if updateVisibilityOptions.Include != nil {
 		body["include"] = updateVisibilityOptions.Include
 	}
@@ -762,23 +767,23 @@ func (globalCatalog *GlobalCatalogV1) GetPricing(getPricingOptions *GetPricingOp
 		return
 	}
 
-	response, err = globalCatalog.Service.Request(request, make(map[string]interface{}))
-	if err == nil {
-		m, ok := response.Result.(map[string]interface{})
-		if !ok {
-			err = fmt.Errorf("an error occurred while processing the operation response")
-			return
-		}
-		result, err = UnmarshalPricingGet(m)
-		response.Result = result
+	var rawResponse map[string]json.RawMessage
+	response, err = globalCatalog.Service.Request(request, &rawResponse)
+	if err != nil {
+		return
 	}
+	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalPricingGet)
+	if err != nil {
+		return
+	}
+	response.Result = result
 
 	return
 }
 
 // GetAuditLogs : Get the audit logs for an object
 // This endpoint returns the audit logs for an object. Only administrators and editors can get logs.
-func (globalCatalog *GlobalCatalogV1) GetAuditLogs(getAuditLogsOptions *GetAuditLogsOptions) (result *SearchResult, response *core.DetailedResponse, err error) {
+func (globalCatalog *GlobalCatalogV1) GetAuditLogs(getAuditLogsOptions *GetAuditLogsOptions) (result *AuditSearchResult, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(getAuditLogsOptions, "getAuditLogsOptions cannot be nil")
 	if err != nil {
 		return
@@ -828,16 +833,16 @@ func (globalCatalog *GlobalCatalogV1) GetAuditLogs(getAuditLogsOptions *GetAudit
 		return
 	}
 
-	response, err = globalCatalog.Service.Request(request, make(map[string]interface{}))
-	if err == nil {
-		m, ok := response.Result.(map[string]interface{})
-		if !ok {
-			err = fmt.Errorf("an error occurred while processing the operation response")
-			return
-		}
-		result, err = UnmarshalSearchResult(m)
-		response.Result = result
+	var rawResponse map[string]json.RawMessage
+	response, err = globalCatalog.Service.Request(request, &rawResponse)
+	if err != nil {
+		return
 	}
+	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalAuditSearchResult)
+	if err != nil {
+		return
+	}
+	response.Result = result
 
 	return
 }
@@ -882,23 +887,23 @@ func (globalCatalog *GlobalCatalogV1) ListArtifacts(listArtifactsOptions *ListAr
 		return
 	}
 
-	response, err = globalCatalog.Service.Request(request, make(map[string]interface{}))
-	if err == nil {
-		m, ok := response.Result.(map[string]interface{})
-		if !ok {
-			err = fmt.Errorf("an error occurred while processing the operation response")
-			return
-		}
-		result, err = UnmarshalArtifacts(m)
-		response.Result = result
+	var rawResponse map[string]json.RawMessage
+	response, err = globalCatalog.Service.Request(request, &rawResponse)
+	if err != nil {
+		return
 	}
+	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalArtifacts)
+	if err != nil {
+		return
+	}
+	response.Result = result
 
 	return
 }
 
 // GetArtifact : Get artifact
 // This endpoint returns the binary of an artifact.
-func (globalCatalog *GlobalCatalogV1) GetArtifact(getArtifactOptions *GetArtifactOptions) (response *core.DetailedResponse, err error) {
+func (globalCatalog *GlobalCatalogV1) GetArtifact(getArtifactOptions *GetArtifactOptions) (result io.ReadCloser, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(getArtifactOptions, "getArtifactOptions cannot be nil")
 	if err != nil {
 		return
@@ -925,6 +930,10 @@ func (globalCatalog *GlobalCatalogV1) GetArtifact(getArtifactOptions *GetArtifac
 	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
+	builder.AddHeader("Accept", "*/*")
+	if getArtifactOptions.Accept != nil {
+		builder.AddHeader("Accept", fmt.Sprint(*getArtifactOptions.Accept))
+	}
 
 	if getArtifactOptions.Account != nil {
 		builder.AddQuery("account", fmt.Sprint(*getArtifactOptions.Account))
@@ -935,7 +944,7 @@ func (globalCatalog *GlobalCatalogV1) GetArtifact(getArtifactOptions *GetArtifac
 		return
 	}
 
-	response, err = globalCatalog.Service.Request(request, nil)
+	response, err = globalCatalog.Service.Request(request, &result)
 
 	return
 }
@@ -1036,10 +1045,35 @@ func (globalCatalog *GlobalCatalogV1) DeleteArtifact(deleteArtifactOptions *Dele
 	return
 }
 
+// AliasMetaData : Alias-related metadata.
+type AliasMetaData struct {
+	// Type of alias.
+	Type *string `json:"type,omitempty"`
+
+	// Points to the plan that this object is an alias for.
+	PlanID *string `json:"plan_id,omitempty"`
+}
+
+
+// UnmarshalAliasMetaData unmarshals an instance of AliasMetaData from the specified map of raw messages.
+func UnmarshalAliasMetaData(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(AliasMetaData)
+	err = core.UnmarshalPrimitive(m, "type", &obj.Type)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "plan_id", &obj.PlanID)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
 // Amount : Country-specific pricing information.
 type Amount struct {
 	// Country.
-	Counrty *string `json:"counrty,omitempty"`
+	Country *string `json:"country,omitempty"`
 
 	// Currency.
 	Currency *string `json:"currency,omitempty"`
@@ -1049,70 +1083,22 @@ type Amount struct {
 }
 
 
-// UnmarshalAmount constructs an instance of Amount from the specified map.
-func UnmarshalAmount(m map[string]interface{}) (result *Amount, err error) {
+// UnmarshalAmount unmarshals an instance of Amount from the specified map of raw messages.
+func UnmarshalAmount(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(Amount)
-	obj.Counrty, err = core.UnmarshalString(m, "counrty")
+	err = core.UnmarshalPrimitive(m, "country", &obj.Country)
 	if err != nil {
 		return
 	}
-	obj.Currency, err = core.UnmarshalString(m, "currency")
+	err = core.UnmarshalPrimitive(m, "currency", &obj.Currency)
 	if err != nil {
 		return
 	}
-	obj.Prices, err = UnmarshalPriceSliceAsProperty(m, "prices")
+	err = core.UnmarshalModel(m, "prices", &obj.Prices, UnmarshalPrice)
 	if err != nil {
 		return
 	}
-	result = obj
-	return
-}
-
-// UnmarshalAmountSlice unmarshals a slice of Amount instances from the specified list of maps.
-func UnmarshalAmountSlice(s []interface{}) (slice []Amount, err error) {
-	for _, v := range s {
-		objMap, ok := v.(map[string]interface{})
-		if !ok {
-			err = fmt.Errorf("slice element should be a map containing an instance of 'Amount'")
-			return
-		}
-		obj, e := UnmarshalAmount(objMap)
-		if e != nil {
-			err = e
-			return
-		}
-		slice = append(slice, *obj)
-	}
-	return
-}
-
-// UnmarshalAmountAsProperty unmarshals an instance of Amount that is stored as a property
-// within the specified map.
-func UnmarshalAmountAsProperty(m map[string]interface{}, propertyName string) (result *Amount, err error) {
-	v, foundIt := m[propertyName]
-	if foundIt && v != nil {
-		objMap, ok := v.(map[string]interface{})
-		if !ok {
-			err = fmt.Errorf("map property '%s' should be a map containing an instance of 'Amount'", propertyName)
-			return
-		}
-		result, err = UnmarshalAmount(objMap)
-	}
-	return
-}
-
-// UnmarshalAmountSliceAsProperty unmarshals a slice of Amount instances that are stored as a property
-// within the specified map.
-func UnmarshalAmountSliceAsProperty(m map[string]interface{}, propertyName string) (slice []Amount, err error) {
-	v, foundIt := m[propertyName]
-	if foundIt && v != nil {
-		vSlice, ok := v.([]interface{})
-		if !ok {
-			err = fmt.Errorf("map property '%s' should be a slice of maps, each containing an instance of 'Amount'", propertyName)
-			return
-		}
-		slice, err = UnmarshalAmountSlice(vSlice)
-	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
 	return
 }
 
@@ -1122,7 +1108,7 @@ type Artifact struct {
 	Name *string `json:"name,omitempty"`
 
 	// The timestamp of the last update to the artifact.
-	Updated *string `json:"updated,omitempty"`
+	Updated *strfmt.DateTime `json:"updated,omitempty"`
 
 	// The url for the artifact.
 	URL *string `json:"url,omitempty"`
@@ -1135,78 +1121,30 @@ type Artifact struct {
 }
 
 
-// UnmarshalArtifact constructs an instance of Artifact from the specified map.
-func UnmarshalArtifact(m map[string]interface{}) (result *Artifact, err error) {
+// UnmarshalArtifact unmarshals an instance of Artifact from the specified map of raw messages.
+func UnmarshalArtifact(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(Artifact)
-	obj.Name, err = core.UnmarshalString(m, "name")
+	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
 	if err != nil {
 		return
 	}
-	obj.Updated, err = core.UnmarshalString(m, "updated")
+	err = core.UnmarshalPrimitive(m, "updated", &obj.Updated)
 	if err != nil {
 		return
 	}
-	obj.URL, err = core.UnmarshalString(m, "url")
+	err = core.UnmarshalPrimitive(m, "url", &obj.URL)
 	if err != nil {
 		return
 	}
-	obj.Etag, err = core.UnmarshalString(m, "etag")
+	err = core.UnmarshalPrimitive(m, "etag", &obj.Etag)
 	if err != nil {
 		return
 	}
-	obj.Size, err = core.UnmarshalInt64(m, "size")
+	err = core.UnmarshalPrimitive(m, "size", &obj.Size)
 	if err != nil {
 		return
 	}
-	result = obj
-	return
-}
-
-// UnmarshalArtifactSlice unmarshals a slice of Artifact instances from the specified list of maps.
-func UnmarshalArtifactSlice(s []interface{}) (slice []Artifact, err error) {
-	for _, v := range s {
-		objMap, ok := v.(map[string]interface{})
-		if !ok {
-			err = fmt.Errorf("slice element should be a map containing an instance of 'Artifact'")
-			return
-		}
-		obj, e := UnmarshalArtifact(objMap)
-		if e != nil {
-			err = e
-			return
-		}
-		slice = append(slice, *obj)
-	}
-	return
-}
-
-// UnmarshalArtifactAsProperty unmarshals an instance of Artifact that is stored as a property
-// within the specified map.
-func UnmarshalArtifactAsProperty(m map[string]interface{}, propertyName string) (result *Artifact, err error) {
-	v, foundIt := m[propertyName]
-	if foundIt && v != nil {
-		objMap, ok := v.(map[string]interface{})
-		if !ok {
-			err = fmt.Errorf("map property '%s' should be a map containing an instance of 'Artifact'", propertyName)
-			return
-		}
-		result, err = UnmarshalArtifact(objMap)
-	}
-	return
-}
-
-// UnmarshalArtifactSliceAsProperty unmarshals a slice of Artifact instances that are stored as a property
-// within the specified map.
-func UnmarshalArtifactSliceAsProperty(m map[string]interface{}, propertyName string) (slice []Artifact, err error) {
-	v, foundIt := m[propertyName]
-	if foundIt && v != nil {
-		vSlice, ok := v.([]interface{})
-		if !ok {
-			err = fmt.Errorf("map property '%s' should be a slice of maps, each containing an instance of 'Artifact'", propertyName)
-			return
-		}
-		slice, err = UnmarshalArtifactSlice(vSlice)
-	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
 	return
 }
 
@@ -1220,66 +1158,117 @@ type Artifacts struct {
 }
 
 
-// UnmarshalArtifacts constructs an instance of Artifacts from the specified map.
-func UnmarshalArtifacts(m map[string]interface{}) (result *Artifacts, err error) {
+// UnmarshalArtifacts unmarshals an instance of Artifacts from the specified map of raw messages.
+func UnmarshalArtifacts(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(Artifacts)
-	obj.Count, err = core.UnmarshalInt64(m, "count")
+	err = core.UnmarshalPrimitive(m, "count", &obj.Count)
 	if err != nil {
 		return
 	}
-	obj.Resources, err = UnmarshalArtifactSliceAsProperty(m, "resources")
+	err = core.UnmarshalModel(m, "resources", &obj.Resources, UnmarshalArtifact)
 	if err != nil {
 		return
 	}
-	result = obj
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
 	return
 }
 
-// UnmarshalArtifactsSlice unmarshals a slice of Artifacts instances from the specified list of maps.
-func UnmarshalArtifactsSlice(s []interface{}) (slice []Artifacts, err error) {
-	for _, v := range s {
-		objMap, ok := v.(map[string]interface{})
-		if !ok {
-			err = fmt.Errorf("slice element should be a map containing an instance of 'Artifacts'")
-			return
-		}
-		obj, e := UnmarshalArtifacts(objMap)
-		if e != nil {
-			err = e
-			return
-		}
-		slice = append(slice, *obj)
+// AuditSearchResult : A paginated search result containing audit logs.
+type AuditSearchResult struct {
+	// The offset (origin 0) of the first resource in this page of search results.
+	Offset *int64 `json:"offset,omitempty"`
+
+	// The maximum number of resources returned in each page of search results.
+	Limit *int64 `json:"limit,omitempty"`
+
+	// The overall total number of resources in the search result set.
+	Count *int64 `json:"count,omitempty"`
+
+	// The number of resources returned in this page of search results.
+	ResourceCount *int64 `json:"resource_count,omitempty"`
+
+	// A URL for retrieving the first page of search results.
+	First *string `json:"first,omitempty"`
+
+	// A URL for retrieving the last page of search results.
+	Last *string `json:"last,omitempty"`
+
+	// A URL for retrieving the previous page of search results.
+	Prev *string `json:"prev,omitempty"`
+
+	// A URL for retrieving the next page of search results.
+	Next *string `json:"next,omitempty"`
+
+	// The resources (audit messages) contained in this page of search results.
+	Resources []Message `json:"resources,omitempty"`
+}
+
+
+// UnmarshalAuditSearchResult unmarshals an instance of AuditSearchResult from the specified map of raw messages.
+func UnmarshalAuditSearchResult(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(AuditSearchResult)
+	err = core.UnmarshalPrimitive(m, "offset", &obj.Offset)
+	if err != nil {
+		return
 	}
+	err = core.UnmarshalPrimitive(m, "limit", &obj.Limit)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "count", &obj.Count)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "resource_count", &obj.ResourceCount)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "first", &obj.First)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "last", &obj.Last)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "prev", &obj.Prev)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "next", &obj.Next)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "resources", &obj.Resources, UnmarshalMessage)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
 	return
 }
 
-// UnmarshalArtifactsAsProperty unmarshals an instance of Artifacts that is stored as a property
-// within the specified map.
-func UnmarshalArtifactsAsProperty(m map[string]interface{}, propertyName string) (result *Artifacts, err error) {
-	v, foundIt := m[propertyName]
-	if foundIt && v != nil {
-		objMap, ok := v.(map[string]interface{})
-		if !ok {
-			err = fmt.Errorf("map property '%s' should be a map containing an instance of 'Artifacts'", propertyName)
-			return
-		}
-		result, err = UnmarshalArtifacts(objMap)
-	}
-	return
+// Broker : The broker associated with a catalog entry.
+type Broker struct {
+	// Broker name.
+	Name *string `json:"name,omitempty"`
+
+	// Broker guid.
+	Guid *string `json:"guid,omitempty"`
 }
 
-// UnmarshalArtifactsSliceAsProperty unmarshals a slice of Artifacts instances that are stored as a property
-// within the specified map.
-func UnmarshalArtifactsSliceAsProperty(m map[string]interface{}, propertyName string) (slice []Artifacts, err error) {
-	v, foundIt := m[propertyName]
-	if foundIt && v != nil {
-		vSlice, ok := v.([]interface{})
-		if !ok {
-			err = fmt.Errorf("map property '%s' should be a slice of maps, each containing an instance of 'Artifacts'", propertyName)
-			return
-		}
-		slice, err = UnmarshalArtifactsSlice(vSlice)
+
+// UnmarshalBroker unmarshals an instance of Broker from the specified map of raw messages.
+func UnmarshalBroker(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(Broker)
+	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
+	if err != nil {
+		return
 	}
+	err = core.UnmarshalPrimitive(m, "guid", &obj.Guid)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
 	return
 }
 
@@ -1295,85 +1284,151 @@ type Bullets struct {
 	Icon *string `json:"icon,omitempty"`
 
 	// The bullet quantity.
-	Quantity *string `json:"quantity,omitempty"`
+	Quantity *int64 `json:"quantity,omitempty"`
 }
 
 
-// UnmarshalBullets constructs an instance of Bullets from the specified map.
-func UnmarshalBullets(m map[string]interface{}) (result *Bullets, err error) {
+// UnmarshalBullets unmarshals an instance of Bullets from the specified map of raw messages.
+func UnmarshalBullets(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(Bullets)
-	obj.Title, err = core.UnmarshalString(m, "title")
+	err = core.UnmarshalPrimitive(m, "title", &obj.Title)
 	if err != nil {
 		return
 	}
-	obj.Description, err = core.UnmarshalString(m, "description")
+	err = core.UnmarshalPrimitive(m, "description", &obj.Description)
 	if err != nil {
 		return
 	}
-	obj.Icon, err = core.UnmarshalString(m, "icon")
+	err = core.UnmarshalPrimitive(m, "icon", &obj.Icon)
 	if err != nil {
 		return
 	}
-	obj.Quantity, err = core.UnmarshalString(m, "quantity")
+	err = core.UnmarshalPrimitive(m, "quantity", &obj.Quantity)
 	if err != nil {
 		return
 	}
-	result = obj
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
 	return
 }
 
-// UnmarshalBulletsSlice unmarshals a slice of Bullets instances from the specified list of maps.
-func UnmarshalBulletsSlice(s []interface{}) (slice []Bullets, err error) {
-	for _, v := range s {
-		objMap, ok := v.(map[string]interface{})
-		if !ok {
-			err = fmt.Errorf("slice element should be a map containing an instance of 'Bullets'")
-			return
-		}
-		obj, e := UnmarshalBullets(objMap)
-		if e != nil {
-			err = e
-			return
-		}
-		slice = append(slice, *obj)
-	}
-	return
+// CFMetaData : Service-related metadata.
+type CFMetaData struct {
+	// Type of service.
+	Type *string `json:"type,omitempty"`
+
+	// Boolean value that describes whether the service is compatible with Identity and Access Management.
+	IamCompatible *bool `json:"iam_compatible,omitempty"`
+
+	// Boolean value that describes whether the service has a unique API key.
+	UniqueApiKey *bool `json:"unique_api_key,omitempty"`
+
+	// Boolean value that describes whether the service is provisionable or not. You may need sales or support to create
+	// this service.
+	Provisionable *bool `json:"provisionable,omitempty"`
+
+	// Boolean value that describes whether you can create bindings for this service.
+	Bindable *bool `json:"bindable,omitempty"`
+
+	// Boolean value that describes whether the service supports asynchronous provisioning.
+	AsyncProvisioningSupported *bool `json:"async_provisioning_supported,omitempty"`
+
+	// Boolean value that describes whether the service supports asynchronous unprovisioning.
+	AsyncUnprovisioningSupported *bool `json:"async_unprovisioning_supported,omitempty"`
+
+	// Service dependencies.
+	Requires []string `json:"requires,omitempty"`
+
+	// Boolean value that describes whether the service supports upgrade or downgrade for some plans.
+	PlanUpdateable *bool `json:"plan_updateable,omitempty"`
+
+	// String that describes whether the service is active or inactive.
+	State *string `json:"state,omitempty"`
+
+	// Boolean value that describes whether the service check is enabled.
+	ServiceCheckEnabled *bool `json:"service_check_enabled,omitempty"`
+
+	// Test check interval.
+	TestCheckInterval *int64 `json:"test_check_interval,omitempty"`
+
+	// Boolean value that describes whether the service supports service keys.
+	ServiceKeySupported *bool `json:"service_key_supported,omitempty"`
+
+	// If the field is imported from Cloud Foundry, the Cloud Foundry region's GUID. This is a required field. For example,
+	// `us-south=123`.
+	CfGuid map[string]string `json:"cf_guid,omitempty"`
 }
 
-// UnmarshalBulletsAsProperty unmarshals an instance of Bullets that is stored as a property
-// within the specified map.
-func UnmarshalBulletsAsProperty(m map[string]interface{}, propertyName string) (result *Bullets, err error) {
-	v, foundIt := m[propertyName]
-	if foundIt && v != nil {
-		objMap, ok := v.(map[string]interface{})
-		if !ok {
-			err = fmt.Errorf("map property '%s' should be a map containing an instance of 'Bullets'", propertyName)
-			return
-		}
-		result, err = UnmarshalBullets(objMap)
-	}
-	return
-}
 
-// UnmarshalBulletsSliceAsProperty unmarshals a slice of Bullets instances that are stored as a property
-// within the specified map.
-func UnmarshalBulletsSliceAsProperty(m map[string]interface{}, propertyName string) (slice []Bullets, err error) {
-	v, foundIt := m[propertyName]
-	if foundIt && v != nil {
-		vSlice, ok := v.([]interface{})
-		if !ok {
-			err = fmt.Errorf("map property '%s' should be a slice of maps, each containing an instance of 'Bullets'", propertyName)
-			return
-		}
-		slice, err = UnmarshalBulletsSlice(vSlice)
+// UnmarshalCFMetaData unmarshals an instance of CFMetaData from the specified map of raw messages.
+func UnmarshalCFMetaData(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(CFMetaData)
+	err = core.UnmarshalPrimitive(m, "type", &obj.Type)
+	if err != nil {
+		return
 	}
+	err = core.UnmarshalPrimitive(m, "iam_compatible", &obj.IamCompatible)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "unique_api_key", &obj.UniqueApiKey)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "provisionable", &obj.Provisionable)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "bindable", &obj.Bindable)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "async_provisioning_supported", &obj.AsyncProvisioningSupported)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "async_unprovisioning_supported", &obj.AsyncUnprovisioningSupported)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "requires", &obj.Requires)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "plan_updateable", &obj.PlanUpdateable)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "state", &obj.State)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "service_check_enabled", &obj.ServiceCheckEnabled)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "test_check_interval", &obj.TestCheckInterval)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "service_key_supported", &obj.ServiceKeySupported)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "cf_guid", &obj.CfGuid)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
 	return
 }
 
 // Callbacks : Callback-related information associated with a catalog entry.
 type Callbacks struct {
+	// The URL of the deployment controller.
+	ControllerURL *string `json:"controller_url,omitempty"`
+
 	// The URL of the deployment broker.
-	BrokerUtl *string `json:"broker_utl,omitempty"`
+	BrokerURL *string `json:"broker_url,omitempty"`
 
 	// The URL of the deployment broker SC proxy.
 	BrokerProxyURL *string `json:"broker_proxy_url,omitempty"`
@@ -1396,106 +1451,55 @@ type Callbacks struct {
 	// Service monitor app URL.
 	ServiceMonitorApp *string `json:"service_monitor_app,omitempty"`
 
-	// Service URL in staging.
-	ServiceStagingURL *string `json:"service_staging_url,omitempty"`
-
-	// Service URL in production.
-	ServiceProductionURL *string `json:"service_production_url,omitempty"`
+	// API endpoint.
+	ApiEndpoint map[string]string `json:"api_endpoint,omitempty"`
 }
 
 
-// UnmarshalCallbacks constructs an instance of Callbacks from the specified map.
-func UnmarshalCallbacks(m map[string]interface{}) (result *Callbacks, err error) {
+// UnmarshalCallbacks unmarshals an instance of Callbacks from the specified map of raw messages.
+func UnmarshalCallbacks(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(Callbacks)
-	obj.BrokerUtl, err = core.UnmarshalString(m, "broker_utl")
+	err = core.UnmarshalPrimitive(m, "controller_url", &obj.ControllerURL)
 	if err != nil {
 		return
 	}
-	obj.BrokerProxyURL, err = core.UnmarshalString(m, "broker_proxy_url")
+	err = core.UnmarshalPrimitive(m, "broker_url", &obj.BrokerURL)
 	if err != nil {
 		return
 	}
-	obj.DashboardURL, err = core.UnmarshalString(m, "dashboard_url")
+	err = core.UnmarshalPrimitive(m, "broker_proxy_url", &obj.BrokerProxyURL)
 	if err != nil {
 		return
 	}
-	obj.DashboardDataURL, err = core.UnmarshalString(m, "dashboard_data_url")
+	err = core.UnmarshalPrimitive(m, "dashboard_url", &obj.DashboardURL)
 	if err != nil {
 		return
 	}
-	obj.DashboardDetailTabURL, err = core.UnmarshalString(m, "dashboard_detail_tab_url")
+	err = core.UnmarshalPrimitive(m, "dashboard_data_url", &obj.DashboardDataURL)
 	if err != nil {
 		return
 	}
-	obj.DashboardDetailTabExtURL, err = core.UnmarshalString(m, "dashboard_detail_tab_ext_url")
+	err = core.UnmarshalPrimitive(m, "dashboard_detail_tab_url", &obj.DashboardDetailTabURL)
 	if err != nil {
 		return
 	}
-	obj.ServiceMonitorApi, err = core.UnmarshalString(m, "service_monitor_api")
+	err = core.UnmarshalPrimitive(m, "dashboard_detail_tab_ext_url", &obj.DashboardDetailTabExtURL)
 	if err != nil {
 		return
 	}
-	obj.ServiceMonitorApp, err = core.UnmarshalString(m, "service_monitor_app")
+	err = core.UnmarshalPrimitive(m, "service_monitor_api", &obj.ServiceMonitorApi)
 	if err != nil {
 		return
 	}
-	obj.ServiceStagingURL, err = core.UnmarshalString(m, "service_staging_url")
+	err = core.UnmarshalPrimitive(m, "service_monitor_app", &obj.ServiceMonitorApp)
 	if err != nil {
 		return
 	}
-	obj.ServiceProductionURL, err = core.UnmarshalString(m, "service_production_url")
+	err = core.UnmarshalPrimitive(m, "api_endpoint", &obj.ApiEndpoint)
 	if err != nil {
 		return
 	}
-	result = obj
-	return
-}
-
-// UnmarshalCallbacksSlice unmarshals a slice of Callbacks instances from the specified list of maps.
-func UnmarshalCallbacksSlice(s []interface{}) (slice []Callbacks, err error) {
-	for _, v := range s {
-		objMap, ok := v.(map[string]interface{})
-		if !ok {
-			err = fmt.Errorf("slice element should be a map containing an instance of 'Callbacks'")
-			return
-		}
-		obj, e := UnmarshalCallbacks(objMap)
-		if e != nil {
-			err = e
-			return
-		}
-		slice = append(slice, *obj)
-	}
-	return
-}
-
-// UnmarshalCallbacksAsProperty unmarshals an instance of Callbacks that is stored as a property
-// within the specified map.
-func UnmarshalCallbacksAsProperty(m map[string]interface{}, propertyName string) (result *Callbacks, err error) {
-	v, foundIt := m[propertyName]
-	if foundIt && v != nil {
-		objMap, ok := v.(map[string]interface{})
-		if !ok {
-			err = fmt.Errorf("map property '%s' should be a map containing an instance of 'Callbacks'", propertyName)
-			return
-		}
-		result, err = UnmarshalCallbacks(objMap)
-	}
-	return
-}
-
-// UnmarshalCallbacksSliceAsProperty unmarshals a slice of Callbacks instances that are stored as a property
-// within the specified map.
-func UnmarshalCallbacksSliceAsProperty(m map[string]interface{}, propertyName string) (slice []Callbacks, err error) {
-	v, foundIt := m[propertyName]
-	if foundIt && v != nil {
-		vSlice, ok := v.([]interface{})
-		if !ok {
-			err = fmt.Errorf("map property '%s' should be a slice of maps, each containing an instance of 'Callbacks'", propertyName)
-			return
-		}
-		slice, err = UnmarshalCallbacksSlice(vSlice)
-	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
 	return
 }
 
@@ -1534,8 +1538,8 @@ type CatalogEntry struct {
 	// Boolean value that describes whether the service is active.
 	Active *bool `json:"active,omitempty"`
 
-	// Model used to describe metadata object that can be set.
-	Metadata *ObjectMetadataSet `json:"metadata,omitempty"`
+	// Model used to describe metadata object returned.
+	Metadata *CatalogEntryMetadata `json:"metadata,omitempty"`
 
 	// Catalog entry's unique ID. It's the same across all catalog instances.
 	ID *string `json:"id,omitempty"`
@@ -1565,134 +1569,308 @@ const (
 )
 
 
-// UnmarshalCatalogEntry constructs an instance of CatalogEntry from the specified map.
-func UnmarshalCatalogEntry(m map[string]interface{}) (result *CatalogEntry, err error) {
+// UnmarshalCatalogEntry unmarshals an instance of CatalogEntry from the specified map of raw messages.
+func UnmarshalCatalogEntry(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(CatalogEntry)
-	obj.Name, err = core.UnmarshalString(m, "name")
+	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
 	if err != nil {
 		return
 	}
-	obj.Kind, err = core.UnmarshalString(m, "kind")
+	err = core.UnmarshalPrimitive(m, "kind", &obj.Kind)
 	if err != nil {
 		return
 	}
-	obj.OverviewUi, err = UnmarshalOverviewUIAsProperty(m, "overview_ui")
+	err = core.UnmarshalModel(m, "overview_ui", &obj.OverviewUi, UnmarshalOverviewUI)
 	if err != nil {
 		return
 	}
-	obj.Images, err = UnmarshalImageAsProperty(m, "images")
+	err = core.UnmarshalModel(m, "images", &obj.Images, UnmarshalImage)
 	if err != nil {
 		return
 	}
-	obj.ParentID, err = core.UnmarshalString(m, "parent_id")
+	err = core.UnmarshalPrimitive(m, "parent_id", &obj.ParentID)
 	if err != nil {
 		return
 	}
-	obj.Disabled, err = core.UnmarshalBool(m, "disabled")
+	err = core.UnmarshalPrimitive(m, "disabled", &obj.Disabled)
 	if err != nil {
 		return
 	}
-	obj.Tags, err = core.UnmarshalStringSlice(m, "tags")
+	err = core.UnmarshalPrimitive(m, "tags", &obj.Tags)
 	if err != nil {
 		return
 	}
-	obj.Group, err = core.UnmarshalBool(m, "group")
+	err = core.UnmarshalPrimitive(m, "group", &obj.Group)
 	if err != nil {
 		return
 	}
-	obj.Provider, err = UnmarshalProviderAsProperty(m, "provider")
+	err = core.UnmarshalModel(m, "provider", &obj.Provider, UnmarshalProvider)
 	if err != nil {
 		return
 	}
-	obj.Active, err = core.UnmarshalBool(m, "active")
+	err = core.UnmarshalPrimitive(m, "active", &obj.Active)
 	if err != nil {
 		return
 	}
-	obj.Metadata, err = UnmarshalObjectMetadataSetAsProperty(m, "metadata")
+	err = core.UnmarshalModel(m, "metadata", &obj.Metadata, UnmarshalCatalogEntryMetadata)
 	if err != nil {
 		return
 	}
-	obj.ID, err = core.UnmarshalString(m, "id")
+	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
 	if err != nil {
 		return
 	}
-	obj.CatalogCrn, err = core.UnmarshalAny(m, "catalog_crn")
+	err = core.UnmarshalPrimitive(m, "catalog_crn", &obj.CatalogCrn)
 	if err != nil {
 		return
 	}
-	obj.URL, err = core.UnmarshalAny(m, "url")
+	err = core.UnmarshalPrimitive(m, "url", &obj.URL)
 	if err != nil {
 		return
 	}
-	obj.ChildrenURL, err = core.UnmarshalAny(m, "children_url")
+	err = core.UnmarshalPrimitive(m, "children_url", &obj.ChildrenURL)
 	if err != nil {
 		return
 	}
-	obj.GeoTags, err = core.UnmarshalAny(m, "geo_tags")
+	err = core.UnmarshalPrimitive(m, "geo_tags", &obj.GeoTags)
 	if err != nil {
 		return
 	}
-	obj.PricingTags, err = core.UnmarshalAny(m, "pricing_tags")
+	err = core.UnmarshalPrimitive(m, "pricing_tags", &obj.PricingTags)
 	if err != nil {
 		return
 	}
-	obj.Created, err = core.UnmarshalAny(m, "created")
+	err = core.UnmarshalPrimitive(m, "created", &obj.Created)
 	if err != nil {
 		return
 	}
-	obj.Updated, err = core.UnmarshalAny(m, "updated")
+	err = core.UnmarshalPrimitive(m, "updated", &obj.Updated)
 	if err != nil {
 		return
 	}
-	result = obj
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
 	return
 }
 
-// UnmarshalCatalogEntrySlice unmarshals a slice of CatalogEntry instances from the specified list of maps.
-func UnmarshalCatalogEntrySlice(s []interface{}) (slice []CatalogEntry, err error) {
-	for _, v := range s {
-		objMap, ok := v.(map[string]interface{})
-		if !ok {
-			err = fmt.Errorf("slice element should be a map containing an instance of 'CatalogEntry'")
-			return
-		}
-		obj, e := UnmarshalCatalogEntry(objMap)
-		if e != nil {
-			err = e
-			return
-		}
-		slice = append(slice, *obj)
+// CatalogEntryMetadata : Model used to describe metadata object returned.
+type CatalogEntryMetadata struct {
+	// Boolean value that describes whether the service is compatible with the Resource Controller.
+	RcCompatible *bool `json:"rc_compatible,omitempty"`
+
+	// Service-related metadata.
+	Service *CFMetaData `json:"service,omitempty"`
+
+	// Plan-related metadata.
+	Plan *PlanMetaData `json:"plan,omitempty"`
+
+	// Alias-related metadata.
+	Alias *AliasMetaData `json:"alias,omitempty"`
+
+	// Template-related metadata.
+	Template *TemplateMetaData `json:"template,omitempty"`
+
+	// Information related to the UI presentation associated with a catalog entry.
+	Ui *UIMetaData `json:"ui,omitempty"`
+
+	// Compliance information for HIPAA and PCI.
+	Compliance []string `json:"compliance,omitempty"`
+
+	// Service Level Agreement related metadata.
+	Sla *SLAMetaData `json:"sla,omitempty"`
+
+	// Callback-related information associated with a catalog entry.
+	Callbacks *Callbacks `json:"callbacks,omitempty"`
+
+	// The original name of the object.
+	OriginalName *string `json:"original_name,omitempty"`
+
+	// Optional version of the object.
+	Version *string `json:"version,omitempty"`
+
+	// Additional information.
+	Other map[string]interface{} `json:"other,omitempty"`
+
+	// Pricing-related information.
+	Pricing *CatalogEntryMetadataPricing `json:"pricing,omitempty"`
+
+	// Deployment-related metadata.
+	Deployment *CatalogEntryMetadataDeployment `json:"deployment,omitempty"`
+}
+
+
+// UnmarshalCatalogEntryMetadata unmarshals an instance of CatalogEntryMetadata from the specified map of raw messages.
+func UnmarshalCatalogEntryMetadata(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(CatalogEntryMetadata)
+	err = core.UnmarshalPrimitive(m, "rc_compatible", &obj.RcCompatible)
+	if err != nil {
+		return
 	}
+	err = core.UnmarshalModel(m, "service", &obj.Service, UnmarshalCFMetaData)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "plan", &obj.Plan, UnmarshalPlanMetaData)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "alias", &obj.Alias, UnmarshalAliasMetaData)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "template", &obj.Template, UnmarshalTemplateMetaData)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "ui", &obj.Ui, UnmarshalUIMetaData)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "compliance", &obj.Compliance)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "sla", &obj.Sla, UnmarshalSLAMetaData)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "callbacks", &obj.Callbacks, UnmarshalCallbacks)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "original_name", &obj.OriginalName)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "version", &obj.Version)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "other", &obj.Other)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "pricing", &obj.Pricing, UnmarshalCatalogEntryMetadataPricing)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "deployment", &obj.Deployment, UnmarshalCatalogEntryMetadataDeployment)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
 	return
 }
 
-// UnmarshalCatalogEntryAsProperty unmarshals an instance of CatalogEntry that is stored as a property
-// within the specified map.
-func UnmarshalCatalogEntryAsProperty(m map[string]interface{}, propertyName string) (result *CatalogEntry, err error) {
-	v, foundIt := m[propertyName]
-	if foundIt && v != nil {
-		objMap, ok := v.(map[string]interface{})
-		if !ok {
-			err = fmt.Errorf("map property '%s' should be a map containing an instance of 'CatalogEntry'", propertyName)
-			return
-		}
-		result, err = UnmarshalCatalogEntry(objMap)
+// CatalogEntryMetadataDeployment : Deployment-related metadata.
+type CatalogEntryMetadataDeployment struct {
+	// Describes the region where the service is located.
+	Location *string `json:"location,omitempty"`
+
+	// Pointer to the location resource in the catalog.
+	LocationURL *string `json:"location_url,omitempty"`
+
+	// Original service location.
+	OriginalLocation *string `json:"original_location,omitempty"`
+
+	// A CRN that describes the deployment. crn:v1:[cname]:[ctype]:[location]:[scope]::[resource-type]:[resource].
+	TargetCrn *string `json:"target_crn,omitempty"`
+
+	// CRN for the service.
+	ServiceCrn *string `json:"service_crn,omitempty"`
+
+	// ID for MCCP.
+	MccpID *string `json:"mccp_id,omitempty"`
+
+	// The broker associated with a catalog entry.
+	Broker *Broker `json:"broker,omitempty"`
+
+	// This deployment not only supports RC but is ready to migrate and support the RC broker for a location.
+	SupportsRcMigration *bool `json:"supports_rc_migration,omitempty"`
+
+	// network to use during deployment.
+	TargetNetwork *string `json:"target_network,omitempty"`
+}
+
+
+// UnmarshalCatalogEntryMetadataDeployment unmarshals an instance of CatalogEntryMetadataDeployment from the specified map of raw messages.
+func UnmarshalCatalogEntryMetadataDeployment(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(CatalogEntryMetadataDeployment)
+	err = core.UnmarshalPrimitive(m, "location", &obj.Location)
+	if err != nil {
+		return
 	}
+	err = core.UnmarshalPrimitive(m, "location_url", &obj.LocationURL)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "original_location", &obj.OriginalLocation)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "target_crn", &obj.TargetCrn)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "service_crn", &obj.ServiceCrn)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "mccp_id", &obj.MccpID)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "broker", &obj.Broker, UnmarshalBroker)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "supports_rc_migration", &obj.SupportsRcMigration)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "target_network", &obj.TargetNetwork)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
 	return
 }
 
-// UnmarshalCatalogEntrySliceAsProperty unmarshals a slice of CatalogEntry instances that are stored as a property
-// within the specified map.
-func UnmarshalCatalogEntrySliceAsProperty(m map[string]interface{}, propertyName string) (slice []CatalogEntry, err error) {
-	v, foundIt := m[propertyName]
-	if foundIt && v != nil {
-		vSlice, ok := v.([]interface{})
-		if !ok {
-			err = fmt.Errorf("map property '%s' should be a slice of maps, each containing an instance of 'CatalogEntry'", propertyName)
-			return
-		}
-		slice, err = UnmarshalCatalogEntrySlice(vSlice)
+// CatalogEntryMetadataPricing : Pricing-related information.
+type CatalogEntryMetadataPricing struct {
+	// Type of plan. Valid values are `free`, `trial`, `paygo`, `bluemix-subscription`, and `ibm-subscription`.
+	Type *string `json:"type,omitempty"`
+
+	// Defines where the pricing originates.
+	Origin *string `json:"origin,omitempty"`
+
+	// Plan-specific starting price information.
+	StartingPrice *StartingPrice `json:"starting_price,omitempty"`
+
+	// Plan-specific cost metric structure.
+	Metrics []Metrics `json:"metrics,omitempty"`
+}
+
+
+// UnmarshalCatalogEntryMetadataPricing unmarshals an instance of CatalogEntryMetadataPricing from the specified map of raw messages.
+func UnmarshalCatalogEntryMetadataPricing(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(CatalogEntryMetadataPricing)
+	err = core.UnmarshalPrimitive(m, "type", &obj.Type)
+	if err != nil {
+		return
 	}
+	err = core.UnmarshalPrimitive(m, "origin", &obj.Origin)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "starting_price", &obj.StartingPrice, UnmarshalStartingPrice)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "metrics", &obj.Metrics, UnmarshalMetrics)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
 	return
 }
 
@@ -1853,6 +2031,31 @@ func (options *CreateCatalogEntryOptions) SetHeaders(param map[string]string) *C
 	return options
 }
 
+// DRMetaData : SLA Disaster Recovery-related metadata.
+type DRMetaData struct {
+	// Required boolean value that describes whether disaster recovery is on.
+	Dr *bool `json:"dr,omitempty"`
+
+	// Description of the disaster recovery implementation.
+	Description *string `json:"description,omitempty"`
+}
+
+
+// UnmarshalDRMetaData unmarshals an instance of DRMetaData from the specified map of raw messages.
+func UnmarshalDRMetaData(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(DRMetaData)
+	err = core.UnmarshalPrimitive(m, "dr", &obj.Dr)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "description", &obj.Description)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
 // DeleteArtifactOptions : The DeleteArtifact options.
 type DeleteArtifactOptions struct {
 	// The object's unique ID.
@@ -1912,6 +2115,10 @@ type DeleteCatalogEntryOptions struct {
 	// `GET /?account=global`.
 	Account *string `json:"account,omitempty"`
 
+	// This will cause entry to be deleted fully. By default it is archived for two weeks, so that it can be restored if
+	// necessary.
+	Force *bool `json:"force,omitempty"`
+
 	// Allows users to set headers on API requests
 	Headers map[string]string
 }
@@ -1935,6 +2142,12 @@ func (options *DeleteCatalogEntryOptions) SetAccount(account string) *DeleteCata
 	return options
 }
 
+// SetForce : Allow user to set Force
+func (options *DeleteCatalogEntryOptions) SetForce(force bool) *DeleteCatalogEntryOptions {
+	options.Force = core.BoolPtr(force)
+	return options
+}
+
 // SetHeaders : Allow user to set Headers
 func (options *DeleteCatalogEntryOptions) SetHeaders(param map[string]string) *DeleteCatalogEntryOptions {
 	options.Headers = param
@@ -1946,11 +2159,23 @@ type DeploymentBase struct {
 	// Describes the region where the service is located.
 	Location *string `json:"location,omitempty"`
 
+	// URL of deployment.
+	LocationURL *string `json:"location_url,omitempty"`
+
+	// Original service location.
+	OriginalLocation *string `json:"original_location,omitempty"`
+
 	// A CRN that describes the deployment. crn:v1:[cname]:[ctype]:[location]:[scope]::[resource-type]:[resource].
 	TargetCrn *string `json:"target_crn,omitempty"`
 
+	// CRN for the service.
+	ServiceCrn *string `json:"service_crn,omitempty"`
+
+	// ID for MCCP.
+	MccpID *string `json:"mccp_id,omitempty"`
+
 	// The broker associated with a catalog entry.
-	Broker *DeploymentBaseBroker `json:"broker,omitempty"`
+	Broker *Broker `json:"broker,omitempty"`
 
 	// This deployment not only supports RC but is ready to migrate and support the RC broker for a location.
 	SupportsRcMigration *bool `json:"supports_rc_migration,omitempty"`
@@ -1960,151 +2185,120 @@ type DeploymentBase struct {
 }
 
 
-// UnmarshalDeploymentBase constructs an instance of DeploymentBase from the specified map.
-func UnmarshalDeploymentBase(m map[string]interface{}) (result *DeploymentBase, err error) {
+// UnmarshalDeploymentBase unmarshals an instance of DeploymentBase from the specified map of raw messages.
+func UnmarshalDeploymentBase(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(DeploymentBase)
-	obj.Location, err = core.UnmarshalString(m, "location")
+	err = core.UnmarshalPrimitive(m, "location", &obj.Location)
 	if err != nil {
 		return
 	}
-	obj.TargetCrn, err = core.UnmarshalString(m, "target_crn")
+	err = core.UnmarshalPrimitive(m, "location_url", &obj.LocationURL)
 	if err != nil {
 		return
 	}
-	obj.Broker, err = UnmarshalDeploymentBaseBrokerAsProperty(m, "broker")
+	err = core.UnmarshalPrimitive(m, "original_location", &obj.OriginalLocation)
 	if err != nil {
 		return
 	}
-	obj.SupportsRcMigration, err = core.UnmarshalBool(m, "supports_rc_migration")
+	err = core.UnmarshalPrimitive(m, "target_crn", &obj.TargetCrn)
 	if err != nil {
 		return
 	}
-	obj.TargetNetwork, err = core.UnmarshalString(m, "target_network")
+	err = core.UnmarshalPrimitive(m, "service_crn", &obj.ServiceCrn)
 	if err != nil {
 		return
 	}
-	result = obj
-	return
-}
-
-// UnmarshalDeploymentBaseSlice unmarshals a slice of DeploymentBase instances from the specified list of maps.
-func UnmarshalDeploymentBaseSlice(s []interface{}) (slice []DeploymentBase, err error) {
-	for _, v := range s {
-		objMap, ok := v.(map[string]interface{})
-		if !ok {
-			err = fmt.Errorf("slice element should be a map containing an instance of 'DeploymentBase'")
-			return
-		}
-		obj, e := UnmarshalDeploymentBase(objMap)
-		if e != nil {
-			err = e
-			return
-		}
-		slice = append(slice, *obj)
-	}
-	return
-}
-
-// UnmarshalDeploymentBaseAsProperty unmarshals an instance of DeploymentBase that is stored as a property
-// within the specified map.
-func UnmarshalDeploymentBaseAsProperty(m map[string]interface{}, propertyName string) (result *DeploymentBase, err error) {
-	v, foundIt := m[propertyName]
-	if foundIt && v != nil {
-		objMap, ok := v.(map[string]interface{})
-		if !ok {
-			err = fmt.Errorf("map property '%s' should be a map containing an instance of 'DeploymentBase'", propertyName)
-			return
-		}
-		result, err = UnmarshalDeploymentBase(objMap)
-	}
-	return
-}
-
-// UnmarshalDeploymentBaseSliceAsProperty unmarshals a slice of DeploymentBase instances that are stored as a property
-// within the specified map.
-func UnmarshalDeploymentBaseSliceAsProperty(m map[string]interface{}, propertyName string) (slice []DeploymentBase, err error) {
-	v, foundIt := m[propertyName]
-	if foundIt && v != nil {
-		vSlice, ok := v.([]interface{})
-		if !ok {
-			err = fmt.Errorf("map property '%s' should be a slice of maps, each containing an instance of 'DeploymentBase'", propertyName)
-			return
-		}
-		slice, err = UnmarshalDeploymentBaseSlice(vSlice)
-	}
-	return
-}
-
-// DeploymentBaseBroker : The broker associated with a catalog entry.
-type DeploymentBaseBroker struct {
-	// Broker name.
-	Name *string `json:"name,omitempty"`
-
-	// Broker guid.
-	Guid *string `json:"guid,omitempty"`
-}
-
-
-// UnmarshalDeploymentBaseBroker constructs an instance of DeploymentBaseBroker from the specified map.
-func UnmarshalDeploymentBaseBroker(m map[string]interface{}) (result *DeploymentBaseBroker, err error) {
-	obj := new(DeploymentBaseBroker)
-	obj.Name, err = core.UnmarshalString(m, "name")
+	err = core.UnmarshalPrimitive(m, "mccp_id", &obj.MccpID)
 	if err != nil {
 		return
 	}
-	obj.Guid, err = core.UnmarshalString(m, "guid")
+	err = core.UnmarshalModel(m, "broker", &obj.Broker, UnmarshalBroker)
 	if err != nil {
 		return
 	}
-	result = obj
+	err = core.UnmarshalPrimitive(m, "supports_rc_migration", &obj.SupportsRcMigration)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "target_network", &obj.TargetNetwork)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
 	return
 }
 
-// UnmarshalDeploymentBaseBrokerSlice unmarshals a slice of DeploymentBaseBroker instances from the specified list of maps.
-func UnmarshalDeploymentBaseBrokerSlice(s []interface{}) (slice []DeploymentBaseBroker, err error) {
-	for _, v := range s {
-		objMap, ok := v.(map[string]interface{})
-		if !ok {
-			err = fmt.Errorf("slice element should be a map containing an instance of 'DeploymentBaseBroker'")
-			return
-		}
-		obj, e := UnmarshalDeploymentBaseBroker(objMap)
-		if e != nil {
-			err = e
-			return
-		}
-		slice = append(slice, *obj)
-	}
-	return
+// EntrySearchResult : A paginated search result containing catalog entries.
+type EntrySearchResult struct {
+	// The offset (origin 0) of the first resource in this page of search results.
+	Offset *int64 `json:"offset,omitempty"`
+
+	// The maximum number of resources returned in each page of search results.
+	Limit *int64 `json:"limit,omitempty"`
+
+	// The overall total number of resources in the search result set.
+	Count *int64 `json:"count,omitempty"`
+
+	// The number of resources returned in this page of search results.
+	ResourceCount *int64 `json:"resource_count,omitempty"`
+
+	// A URL for retrieving the first page of search results.
+	First *string `json:"first,omitempty"`
+
+	// A URL for retrieving the last page of search results.
+	Last *string `json:"last,omitempty"`
+
+	// A URL for retrieving the previous page of search results.
+	Prev *string `json:"prev,omitempty"`
+
+	// A URL for retrieving the next page of search results.
+	Next *string `json:"next,omitempty"`
+
+	// The resources (catalog entries) contained in this page of search results.
+	Resources []CatalogEntry `json:"resources,omitempty"`
 }
 
-// UnmarshalDeploymentBaseBrokerAsProperty unmarshals an instance of DeploymentBaseBroker that is stored as a property
-// within the specified map.
-func UnmarshalDeploymentBaseBrokerAsProperty(m map[string]interface{}, propertyName string) (result *DeploymentBaseBroker, err error) {
-	v, foundIt := m[propertyName]
-	if foundIt && v != nil {
-		objMap, ok := v.(map[string]interface{})
-		if !ok {
-			err = fmt.Errorf("map property '%s' should be a map containing an instance of 'DeploymentBaseBroker'", propertyName)
-			return
-		}
-		result, err = UnmarshalDeploymentBaseBroker(objMap)
-	}
-	return
-}
 
-// UnmarshalDeploymentBaseBrokerSliceAsProperty unmarshals a slice of DeploymentBaseBroker instances that are stored as a property
-// within the specified map.
-func UnmarshalDeploymentBaseBrokerSliceAsProperty(m map[string]interface{}, propertyName string) (slice []DeploymentBaseBroker, err error) {
-	v, foundIt := m[propertyName]
-	if foundIt && v != nil {
-		vSlice, ok := v.([]interface{})
-		if !ok {
-			err = fmt.Errorf("map property '%s' should be a slice of maps, each containing an instance of 'DeploymentBaseBroker'", propertyName)
-			return
-		}
-		slice, err = UnmarshalDeploymentBaseBrokerSlice(vSlice)
+// UnmarshalEntrySearchResult unmarshals an instance of EntrySearchResult from the specified map of raw messages.
+func UnmarshalEntrySearchResult(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(EntrySearchResult)
+	err = core.UnmarshalPrimitive(m, "offset", &obj.Offset)
+	if err != nil {
+		return
 	}
+	err = core.UnmarshalPrimitive(m, "limit", &obj.Limit)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "count", &obj.Count)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "resource_count", &obj.ResourceCount)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "first", &obj.First)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "last", &obj.Last)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "prev", &obj.Prev)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "next", &obj.Next)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "resources", &obj.Resources, UnmarshalCatalogEntry)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
 	return
 }
 
@@ -2115,6 +2309,9 @@ type GetArtifactOptions struct {
 
 	// The artifact's ID.
 	ArtifactID *string `json:"artifact_id" validate:"required"`
+
+	// The type of the response:  or *_/_*.
+	Accept *string `json:"Accept,omitempty"`
 
 	// This changes the scope of the request regardless of the authorization header. Example scopes are `account` and
 	// `global`. `account=global` is reqired if operating with a service ID that has a global admin policy, for example
@@ -2142,6 +2339,12 @@ func (options *GetArtifactOptions) SetObjectID(objectID string) *GetArtifactOpti
 // SetArtifactID : Allow user to set ArtifactID
 func (options *GetArtifactOptions) SetArtifactID(artifactID string) *GetArtifactOptions {
 	options.ArtifactID = core.StringPtr(artifactID)
+	return options
+}
+
+// SetAccept : Allow user to set Accept
+func (options *GetArtifactOptions) SetAccept(accept string) *GetArtifactOptions {
+	options.Accept = core.StringPtr(accept)
 	return options
 }
 
@@ -2543,67 +2746,19 @@ func (o *I18N) MarshalJSON() (buffer []byte, err error) {
 	return
 }
 
-// UnmarshalI18N constructs an instance of I18N from the specified map.
-func UnmarshalI18N(m map[string]interface{}) (result *I18N, err error) {
-	m = core.CopyMap(m)
+// UnmarshalI18N unmarshals an instance of I18N from the specified map of raw messages.
+func UnmarshalI18N(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(I18N)
 	for k := range m {
-		v, e := UnmarshalStringsAsProperty(m, k)
+		var v *Strings
+		e := core.UnmarshalModel(m, k, &v, UnmarshalStrings)
 		if e != nil {
 			err = e
 			return
 		}
 		obj.SetProperty(k, v)
 	}
-	result = obj
-	return
-}
-
-// UnmarshalI18NSlice unmarshals a slice of I18N instances from the specified list of maps.
-func UnmarshalI18NSlice(s []interface{}) (slice []I18N, err error) {
-	for _, v := range s {
-		objMap, ok := v.(map[string]interface{})
-		if !ok {
-			err = fmt.Errorf("slice element should be a map containing an instance of 'I18N'")
-			return
-		}
-		obj, e := UnmarshalI18N(objMap)
-		if e != nil {
-			err = e
-			return
-		}
-		slice = append(slice, *obj)
-	}
-	return
-}
-
-// UnmarshalI18NAsProperty unmarshals an instance of I18N that is stored as a property
-// within the specified map.
-func UnmarshalI18NAsProperty(m map[string]interface{}, propertyName string) (result *I18N, err error) {
-	v, foundIt := m[propertyName]
-	if foundIt && v != nil {
-		objMap, ok := v.(map[string]interface{})
-		if !ok {
-			err = fmt.Errorf("map property '%s' should be a map containing an instance of 'I18N'", propertyName)
-			return
-		}
-		result, err = UnmarshalI18N(objMap)
-	}
-	return
-}
-
-// UnmarshalI18NSliceAsProperty unmarshals a slice of I18N instances that are stored as a property
-// within the specified map.
-func UnmarshalI18NSliceAsProperty(m map[string]interface{}, propertyName string) (slice []I18N, err error) {
-	v, foundIt := m[propertyName]
-	if foundIt && v != nil {
-		vSlice, ok := v.([]interface{})
-		if !ok {
-			err = fmt.Errorf("map property '%s' should be a slice of maps, each containing an instance of 'I18N'", propertyName)
-			return
-		}
-		slice, err = UnmarshalI18NSlice(vSlice)
-	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
 	return
 }
 
@@ -2632,74 +2787,26 @@ func (*GlobalCatalogV1) NewImage(image string) (model *Image, err error) {
 	return
 }
 
-// UnmarshalImage constructs an instance of Image from the specified map.
-func UnmarshalImage(m map[string]interface{}) (result *Image, err error) {
+// UnmarshalImage unmarshals an instance of Image from the specified map of raw messages.
+func UnmarshalImage(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(Image)
-	obj.Image, err = core.UnmarshalString(m, "image")
+	err = core.UnmarshalPrimitive(m, "image", &obj.Image)
 	if err != nil {
 		return
 	}
-	obj.SmallImage, err = core.UnmarshalString(m, "small_image")
+	err = core.UnmarshalPrimitive(m, "small_image", &obj.SmallImage)
 	if err != nil {
 		return
 	}
-	obj.MediumImage, err = core.UnmarshalString(m, "medium_image")
+	err = core.UnmarshalPrimitive(m, "medium_image", &obj.MediumImage)
 	if err != nil {
 		return
 	}
-	obj.FeatureImage, err = core.UnmarshalString(m, "feature_image")
+	err = core.UnmarshalPrimitive(m, "feature_image", &obj.FeatureImage)
 	if err != nil {
 		return
 	}
-	result = obj
-	return
-}
-
-// UnmarshalImageSlice unmarshals a slice of Image instances from the specified list of maps.
-func UnmarshalImageSlice(s []interface{}) (slice []Image, err error) {
-	for _, v := range s {
-		objMap, ok := v.(map[string]interface{})
-		if !ok {
-			err = fmt.Errorf("slice element should be a map containing an instance of 'Image'")
-			return
-		}
-		obj, e := UnmarshalImage(objMap)
-		if e != nil {
-			err = e
-			return
-		}
-		slice = append(slice, *obj)
-	}
-	return
-}
-
-// UnmarshalImageAsProperty unmarshals an instance of Image that is stored as a property
-// within the specified map.
-func UnmarshalImageAsProperty(m map[string]interface{}, propertyName string) (result *Image, err error) {
-	v, foundIt := m[propertyName]
-	if foundIt && v != nil {
-		objMap, ok := v.(map[string]interface{})
-		if !ok {
-			err = fmt.Errorf("map property '%s' should be a map containing an instance of 'Image'", propertyName)
-			return
-		}
-		result, err = UnmarshalImage(objMap)
-	}
-	return
-}
-
-// UnmarshalImageSliceAsProperty unmarshals a slice of Image instances that are stored as a property
-// within the specified map.
-func UnmarshalImageSliceAsProperty(m map[string]interface{}, propertyName string) (slice []Image, err error) {
-	v, foundIt := m[propertyName]
-	if foundIt && v != nil {
-		vSlice, ok := v.([]interface{})
-		if !ok {
-			err = fmt.Errorf("map property '%s' should be a slice of maps, each containing an instance of 'Image'", propertyName)
-			return
-		}
-		slice, err = UnmarshalImageSlice(vSlice)
-	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
 	return
 }
 
@@ -2835,13 +2942,107 @@ func (options *ListCatalogEntriesOptions) SetHeaders(param map[string]string) *L
 	return options
 }
 
+// Message : log object describing who did what.
+type Message struct {
+	// id of catalog entry.
+	ID *string `json:"id,omitempty"`
+
+	// Information related to the visibility of a catalog entry.
+	Effective *Visibility `json:"effective,omitempty"`
+
+	// time of action.
+	Time *strfmt.DateTime `json:"time,omitempty"`
+
+	// user ID of person who did action.
+	WhoID *string `json:"who_id,omitempty"`
+
+	// name of person who did action.
+	WhoName *string `json:"who_name,omitempty"`
+
+	// user email of person who did action.
+	WhoEmail *string `json:"who_email,omitempty"`
+
+	// Global catalog instance where this occured.
+	Instance *string `json:"instance,omitempty"`
+
+	// transaction id associatd with action.
+	Gid *string `json:"gid,omitempty"`
+
+	// type of action taken.
+	Type *string `json:"type,omitempty"`
+
+	// message describing action.
+	Message *string `json:"message,omitempty"`
+
+	// JSON object containing details on changes made to object data.
+	Data interface{} `json:"data,omitempty"`
+}
+
+
+// UnmarshalMessage unmarshals an instance of Message from the specified map of raw messages.
+func UnmarshalMessage(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(Message)
+	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "effective", &obj.Effective, UnmarshalVisibility)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "time", &obj.Time)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "who_id", &obj.WhoID)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "who_name", &obj.WhoName)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "who_email", &obj.WhoEmail)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "instance", &obj.Instance)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "gid", &obj.Gid)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "type", &obj.Type)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "message", &obj.Message)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "data", &obj.Data)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
 // Metrics : Plan-specific cost metrics information.
 type Metrics struct {
+	// The part reference.
+	PartRef *string `json:"part_ref,omitempty"`
+
 	// The metric ID or part number.
 	MetricID *string `json:"metric_id,omitempty"`
 
 	// The tier model.
 	TierModel *string `json:"tier_model,omitempty"`
+
+	// The unit to charge.
+	ChargeUnit *string `json:"charge_unit,omitempty"`
 
 	// The charge unit name.
 	ChargeUnitName *string `json:"charge_unit_name,omitempty"`
@@ -2858,893 +3059,76 @@ type Metrics struct {
 	// Usage limit for the metric.
 	UsageCapQty *int64 `json:"usage_cap_qty,omitempty"`
 
+	// Display capacity.
+	DisplayCap *int64 `json:"display_cap,omitempty"`
+
+	// Effective from time.
+	EffectiveFrom *strfmt.DateTime `json:"effective_from,omitempty"`
+
+	// Effective until time.
+	EffectiveUntil *strfmt.DateTime `json:"effective_until,omitempty"`
+
 	// The pricing per metric by country and currency.
 	Amounts []Amount `json:"amounts,omitempty"`
 }
 
 
-// UnmarshalMetrics constructs an instance of Metrics from the specified map.
-func UnmarshalMetrics(m map[string]interface{}) (result *Metrics, err error) {
+// UnmarshalMetrics unmarshals an instance of Metrics from the specified map of raw messages.
+func UnmarshalMetrics(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(Metrics)
-	obj.MetricID, err = core.UnmarshalString(m, "metric_id")
+	err = core.UnmarshalPrimitive(m, "part_ref", &obj.PartRef)
 	if err != nil {
 		return
 	}
-	obj.TierModel, err = core.UnmarshalString(m, "tier_model")
+	err = core.UnmarshalPrimitive(m, "metric_id", &obj.MetricID)
 	if err != nil {
 		return
 	}
-	obj.ChargeUnitName, err = core.UnmarshalString(m, "charge_unit_name")
+	err = core.UnmarshalPrimitive(m, "tier_model", &obj.TierModel)
 	if err != nil {
 		return
 	}
-	obj.ChargeUnitQuantity, err = core.UnmarshalString(m, "charge_unit_quantity")
+	err = core.UnmarshalPrimitive(m, "charge_unit", &obj.ChargeUnit)
 	if err != nil {
 		return
 	}
-	obj.ResourceDisplayName, err = core.UnmarshalString(m, "resource_display_name")
+	err = core.UnmarshalPrimitive(m, "charge_unit_name", &obj.ChargeUnitName)
 	if err != nil {
 		return
 	}
-	obj.ChargeUnitDisplayName, err = core.UnmarshalString(m, "charge_unit_display_name")
+	err = core.UnmarshalPrimitive(m, "charge_unit_quantity", &obj.ChargeUnitQuantity)
 	if err != nil {
 		return
 	}
-	obj.UsageCapQty, err = core.UnmarshalInt64(m, "usage_cap_qty")
+	err = core.UnmarshalPrimitive(m, "resource_display_name", &obj.ResourceDisplayName)
 	if err != nil {
 		return
 	}
-	obj.Amounts, err = UnmarshalAmountSliceAsProperty(m, "amounts")
+	err = core.UnmarshalPrimitive(m, "charge_unit_display_name", &obj.ChargeUnitDisplayName)
 	if err != nil {
 		return
 	}
-	result = obj
-	return
-}
-
-// UnmarshalMetricsSlice unmarshals a slice of Metrics instances from the specified list of maps.
-func UnmarshalMetricsSlice(s []interface{}) (slice []Metrics, err error) {
-	for _, v := range s {
-		objMap, ok := v.(map[string]interface{})
-		if !ok {
-			err = fmt.Errorf("slice element should be a map containing an instance of 'Metrics'")
-			return
-		}
-		obj, e := UnmarshalMetrics(objMap)
-		if e != nil {
-			err = e
-			return
-		}
-		slice = append(slice, *obj)
-	}
-	return
-}
-
-// UnmarshalMetricsAsProperty unmarshals an instance of Metrics that is stored as a property
-// within the specified map.
-func UnmarshalMetricsAsProperty(m map[string]interface{}, propertyName string) (result *Metrics, err error) {
-	v, foundIt := m[propertyName]
-	if foundIt && v != nil {
-		objMap, ok := v.(map[string]interface{})
-		if !ok {
-			err = fmt.Errorf("map property '%s' should be a map containing an instance of 'Metrics'", propertyName)
-			return
-		}
-		result, err = UnmarshalMetrics(objMap)
-	}
-	return
-}
-
-// UnmarshalMetricsSliceAsProperty unmarshals a slice of Metrics instances that are stored as a property
-// within the specified map.
-func UnmarshalMetricsSliceAsProperty(m map[string]interface{}, propertyName string) (slice []Metrics, err error) {
-	v, foundIt := m[propertyName]
-	if foundIt && v != nil {
-		vSlice, ok := v.([]interface{})
-		if !ok {
-			err = fmt.Errorf("map property '%s' should be a slice of maps, each containing an instance of 'Metrics'", propertyName)
-			return
-		}
-		slice, err = UnmarshalMetricsSlice(vSlice)
-	}
-	return
-}
-
-// ObjectMetadataBaseAlias : Alias-related metadata.
-type ObjectMetadataBaseAlias struct {
-	// Type of alias.
-	Type *string `json:"type,omitempty"`
-
-	// Points to the plan that this object is an alias for.
-	PlanID *string `json:"plan_id,omitempty"`
-}
-
-
-// UnmarshalObjectMetadataBaseAlias constructs an instance of ObjectMetadataBaseAlias from the specified map.
-func UnmarshalObjectMetadataBaseAlias(m map[string]interface{}) (result *ObjectMetadataBaseAlias, err error) {
-	obj := new(ObjectMetadataBaseAlias)
-	obj.Type, err = core.UnmarshalString(m, "type")
+	err = core.UnmarshalPrimitive(m, "usage_cap_qty", &obj.UsageCapQty)
 	if err != nil {
 		return
 	}
-	obj.PlanID, err = core.UnmarshalString(m, "plan_id")
+	err = core.UnmarshalPrimitive(m, "display_cap", &obj.DisplayCap)
 	if err != nil {
 		return
 	}
-	result = obj
-	return
-}
-
-// UnmarshalObjectMetadataBaseAliasSlice unmarshals a slice of ObjectMetadataBaseAlias instances from the specified list of maps.
-func UnmarshalObjectMetadataBaseAliasSlice(s []interface{}) (slice []ObjectMetadataBaseAlias, err error) {
-	for _, v := range s {
-		objMap, ok := v.(map[string]interface{})
-		if !ok {
-			err = fmt.Errorf("slice element should be a map containing an instance of 'ObjectMetadataBaseAlias'")
-			return
-		}
-		obj, e := UnmarshalObjectMetadataBaseAlias(objMap)
-		if e != nil {
-			err = e
-			return
-		}
-		slice = append(slice, *obj)
-	}
-	return
-}
-
-// UnmarshalObjectMetadataBaseAliasAsProperty unmarshals an instance of ObjectMetadataBaseAlias that is stored as a property
-// within the specified map.
-func UnmarshalObjectMetadataBaseAliasAsProperty(m map[string]interface{}, propertyName string) (result *ObjectMetadataBaseAlias, err error) {
-	v, foundIt := m[propertyName]
-	if foundIt && v != nil {
-		objMap, ok := v.(map[string]interface{})
-		if !ok {
-			err = fmt.Errorf("map property '%s' should be a map containing an instance of 'ObjectMetadataBaseAlias'", propertyName)
-			return
-		}
-		result, err = UnmarshalObjectMetadataBaseAlias(objMap)
-	}
-	return
-}
-
-// UnmarshalObjectMetadataBaseAliasSliceAsProperty unmarshals a slice of ObjectMetadataBaseAlias instances that are stored as a property
-// within the specified map.
-func UnmarshalObjectMetadataBaseAliasSliceAsProperty(m map[string]interface{}, propertyName string) (slice []ObjectMetadataBaseAlias, err error) {
-	v, foundIt := m[propertyName]
-	if foundIt && v != nil {
-		vSlice, ok := v.([]interface{})
-		if !ok {
-			err = fmt.Errorf("map property '%s' should be a slice of maps, each containing an instance of 'ObjectMetadataBaseAlias'", propertyName)
-			return
-		}
-		slice, err = UnmarshalObjectMetadataBaseAliasSlice(vSlice)
-	}
-	return
-}
-
-// ObjectMetadataBasePlan : Plan-related metadata.
-type ObjectMetadataBasePlan struct {
-	// Boolean value that describes whether the service can be bound to an application.
-	Bindable *bool `json:"bindable,omitempty"`
-
-	// Boolean value that describes whether the service can be reserved.
-	Reservable *bool `json:"reservable,omitempty"`
-
-	// Boolean value that describes whether the service can be used internally.
-	AllowInternalUsers *bool `json:"allow_internal_users,omitempty"`
-
-	// Boolean value that describes whether the service can be provisioned asynchronously.
-	AsyncProvisioningSupported *bool `json:"async_provisioning_supported,omitempty"`
-
-	// Boolean value that describes whether the service can be unprovisioned asynchronously.
-	AsyncUnprovisioningSupported *bool `json:"async_unprovisioning_supported,omitempty"`
-
-	// Test check interval.
-	TestCheckInterval *int64 `json:"test_check_interval,omitempty"`
-
-	// Single scope instance.
-	SingleScopeInstance *string `json:"single_scope_instance,omitempty"`
-
-	// Boolean value that describes whether the service check is enabled.
-	ServiceCheckEnabled *bool `json:"service_check_enabled,omitempty"`
-
-	// If the field is imported from Cloud Foundry, the Cloud Foundry region's GUID. This is a required field. For example,
-	// `us-south=123`.
-	CfGuid *string `json:"cf_guid,omitempty"`
-}
-
-
-// UnmarshalObjectMetadataBasePlan constructs an instance of ObjectMetadataBasePlan from the specified map.
-func UnmarshalObjectMetadataBasePlan(m map[string]interface{}) (result *ObjectMetadataBasePlan, err error) {
-	obj := new(ObjectMetadataBasePlan)
-	obj.Bindable, err = core.UnmarshalBool(m, "bindable")
+	err = core.UnmarshalPrimitive(m, "effective_from", &obj.EffectiveFrom)
 	if err != nil {
 		return
 	}
-	obj.Reservable, err = core.UnmarshalBool(m, "reservable")
+	err = core.UnmarshalPrimitive(m, "effective_until", &obj.EffectiveUntil)
 	if err != nil {
 		return
 	}
-	obj.AllowInternalUsers, err = core.UnmarshalBool(m, "allow_internal_users")
+	err = core.UnmarshalModel(m, "amounts", &obj.Amounts, UnmarshalAmount)
 	if err != nil {
 		return
 	}
-	obj.AsyncProvisioningSupported, err = core.UnmarshalBool(m, "async_provisioning_supported")
-	if err != nil {
-		return
-	}
-	obj.AsyncUnprovisioningSupported, err = core.UnmarshalBool(m, "async_unprovisioning_supported")
-	if err != nil {
-		return
-	}
-	obj.TestCheckInterval, err = core.UnmarshalInt64(m, "test_check_interval")
-	if err != nil {
-		return
-	}
-	obj.SingleScopeInstance, err = core.UnmarshalString(m, "single_scope_instance")
-	if err != nil {
-		return
-	}
-	obj.ServiceCheckEnabled, err = core.UnmarshalBool(m, "service_check_enabled")
-	if err != nil {
-		return
-	}
-	obj.CfGuid, err = core.UnmarshalString(m, "cf_guid")
-	if err != nil {
-		return
-	}
-	result = obj
-	return
-}
-
-// UnmarshalObjectMetadataBasePlanSlice unmarshals a slice of ObjectMetadataBasePlan instances from the specified list of maps.
-func UnmarshalObjectMetadataBasePlanSlice(s []interface{}) (slice []ObjectMetadataBasePlan, err error) {
-	for _, v := range s {
-		objMap, ok := v.(map[string]interface{})
-		if !ok {
-			err = fmt.Errorf("slice element should be a map containing an instance of 'ObjectMetadataBasePlan'")
-			return
-		}
-		obj, e := UnmarshalObjectMetadataBasePlan(objMap)
-		if e != nil {
-			err = e
-			return
-		}
-		slice = append(slice, *obj)
-	}
-	return
-}
-
-// UnmarshalObjectMetadataBasePlanAsProperty unmarshals an instance of ObjectMetadataBasePlan that is stored as a property
-// within the specified map.
-func UnmarshalObjectMetadataBasePlanAsProperty(m map[string]interface{}, propertyName string) (result *ObjectMetadataBasePlan, err error) {
-	v, foundIt := m[propertyName]
-	if foundIt && v != nil {
-		objMap, ok := v.(map[string]interface{})
-		if !ok {
-			err = fmt.Errorf("map property '%s' should be a map containing an instance of 'ObjectMetadataBasePlan'", propertyName)
-			return
-		}
-		result, err = UnmarshalObjectMetadataBasePlan(objMap)
-	}
-	return
-}
-
-// UnmarshalObjectMetadataBasePlanSliceAsProperty unmarshals a slice of ObjectMetadataBasePlan instances that are stored as a property
-// within the specified map.
-func UnmarshalObjectMetadataBasePlanSliceAsProperty(m map[string]interface{}, propertyName string) (slice []ObjectMetadataBasePlan, err error) {
-	v, foundIt := m[propertyName]
-	if foundIt && v != nil {
-		vSlice, ok := v.([]interface{})
-		if !ok {
-			err = fmt.Errorf("map property '%s' should be a slice of maps, each containing an instance of 'ObjectMetadataBasePlan'", propertyName)
-			return
-		}
-		slice, err = UnmarshalObjectMetadataBasePlanSlice(vSlice)
-	}
-	return
-}
-
-// ObjectMetadataBaseService : Service-related metadata.
-type ObjectMetadataBaseService struct {
-	// Type of service.
-	Type *string `json:"type,omitempty"`
-
-	// Boolean value that describes whether the service is compatible with Identity and Access Management.
-	IamCompatible *bool `json:"iam_compatible,omitempty"`
-
-	// Boolean value that describes whether the service has a unique API key.
-	UniqueApiKey *bool `json:"unique_api_key,omitempty"`
-
-	// Boolean value that describes whether the service is provisionable or not. You may need sales or support to create
-	// this service.
-	Provisionable *bool `json:"provisionable,omitempty"`
-
-	// Boolean value that describes whether the service supports asynchronous provisioning.
-	AsyncProvisioningSupported *bool `json:"async_provisioning_supported,omitempty"`
-
-	// Boolean value that describes whether the service supports asynchronous unprovisioning.
-	AsyncUnprovisioningSupported *bool `json:"async_unprovisioning_supported,omitempty"`
-
-	// If the field is imported from Cloud Foundry, the Cloud Foundry region's GUID. This is a required field. For example,
-	// `us-south=123`.
-	CfGuid *string `json:"cf_guid,omitempty"`
-
-	// Boolean value that describes whether you can create bindings for this service.
-	Bindable *bool `json:"bindable,omitempty"`
-
-	// Service dependencies.
-	Requires []string `json:"requires,omitempty"`
-
-	// Boolean value that describes whether the service supports upgrade or downgrade for some plans.
-	PlanUpdateable *bool `json:"plan_updateable,omitempty"`
-
-	// String that describes whether the service is active or inactive.
-	State *string `json:"state,omitempty"`
-
-	// Boolean value that describes whether the service check is enabled.
-	ServiceCheckEnabled *bool `json:"service_check_enabled,omitempty"`
-
-	// Test check interval.
-	TestCheckInterval *int64 `json:"test_check_interval,omitempty"`
-
-	// Boolean value that describes whether the service supports service keys.
-	ServiceKeySupported *bool `json:"service_key_supported,omitempty"`
-}
-
-
-// UnmarshalObjectMetadataBaseService constructs an instance of ObjectMetadataBaseService from the specified map.
-func UnmarshalObjectMetadataBaseService(m map[string]interface{}) (result *ObjectMetadataBaseService, err error) {
-	obj := new(ObjectMetadataBaseService)
-	obj.Type, err = core.UnmarshalString(m, "type")
-	if err != nil {
-		return
-	}
-	obj.IamCompatible, err = core.UnmarshalBool(m, "iam_compatible")
-	if err != nil {
-		return
-	}
-	obj.UniqueApiKey, err = core.UnmarshalBool(m, "unique_api_key")
-	if err != nil {
-		return
-	}
-	obj.Provisionable, err = core.UnmarshalBool(m, "provisionable")
-	if err != nil {
-		return
-	}
-	obj.AsyncProvisioningSupported, err = core.UnmarshalBool(m, "async_provisioning_supported")
-	if err != nil {
-		return
-	}
-	obj.AsyncUnprovisioningSupported, err = core.UnmarshalBool(m, "async_unprovisioning_supported")
-	if err != nil {
-		return
-	}
-	obj.CfGuid, err = core.UnmarshalString(m, "cf_guid")
-	if err != nil {
-		return
-	}
-	obj.Bindable, err = core.UnmarshalBool(m, "bindable")
-	if err != nil {
-		return
-	}
-	obj.Requires, err = core.UnmarshalStringSlice(m, "requires")
-	if err != nil {
-		return
-	}
-	obj.PlanUpdateable, err = core.UnmarshalBool(m, "plan_updateable")
-	if err != nil {
-		return
-	}
-	obj.State, err = core.UnmarshalString(m, "state")
-	if err != nil {
-		return
-	}
-	obj.ServiceCheckEnabled, err = core.UnmarshalBool(m, "service_check_enabled")
-	if err != nil {
-		return
-	}
-	obj.TestCheckInterval, err = core.UnmarshalInt64(m, "test_check_interval")
-	if err != nil {
-		return
-	}
-	obj.ServiceKeySupported, err = core.UnmarshalBool(m, "service_key_supported")
-	if err != nil {
-		return
-	}
-	result = obj
-	return
-}
-
-// UnmarshalObjectMetadataBaseServiceSlice unmarshals a slice of ObjectMetadataBaseService instances from the specified list of maps.
-func UnmarshalObjectMetadataBaseServiceSlice(s []interface{}) (slice []ObjectMetadataBaseService, err error) {
-	for _, v := range s {
-		objMap, ok := v.(map[string]interface{})
-		if !ok {
-			err = fmt.Errorf("slice element should be a map containing an instance of 'ObjectMetadataBaseService'")
-			return
-		}
-		obj, e := UnmarshalObjectMetadataBaseService(objMap)
-		if e != nil {
-			err = e
-			return
-		}
-		slice = append(slice, *obj)
-	}
-	return
-}
-
-// UnmarshalObjectMetadataBaseServiceAsProperty unmarshals an instance of ObjectMetadataBaseService that is stored as a property
-// within the specified map.
-func UnmarshalObjectMetadataBaseServiceAsProperty(m map[string]interface{}, propertyName string) (result *ObjectMetadataBaseService, err error) {
-	v, foundIt := m[propertyName]
-	if foundIt && v != nil {
-		objMap, ok := v.(map[string]interface{})
-		if !ok {
-			err = fmt.Errorf("map property '%s' should be a map containing an instance of 'ObjectMetadataBaseService'", propertyName)
-			return
-		}
-		result, err = UnmarshalObjectMetadataBaseService(objMap)
-	}
-	return
-}
-
-// UnmarshalObjectMetadataBaseServiceSliceAsProperty unmarshals a slice of ObjectMetadataBaseService instances that are stored as a property
-// within the specified map.
-func UnmarshalObjectMetadataBaseServiceSliceAsProperty(m map[string]interface{}, propertyName string) (slice []ObjectMetadataBaseService, err error) {
-	v, foundIt := m[propertyName]
-	if foundIt && v != nil {
-		vSlice, ok := v.([]interface{})
-		if !ok {
-			err = fmt.Errorf("map property '%s' should be a slice of maps, each containing an instance of 'ObjectMetadataBaseService'", propertyName)
-			return
-		}
-		slice, err = UnmarshalObjectMetadataBaseServiceSlice(vSlice)
-	}
-	return
-}
-
-// ObjectMetadataBaseSla : Service Level Agreement related metadata.
-type ObjectMetadataBaseSla struct {
-	// Required Service License Agreement Terms of Use.
-	Terms *string `json:"terms,omitempty"`
-
-	// Required deployment type. Valid values are dedicated, local, or public. It can be Single or Multi tennancy, more
-	// specifically on a Server, VM, Physical, or Pod.
-	Tenancy *string `json:"tenancy,omitempty"`
-
-	// Provisioning reliability, for example, 99.95.
-	Provisioning *string `json:"provisioning,omitempty"`
-
-	// Uptime reliability of the service, for example, 99.95.
-	Responsiveness *string `json:"responsiveness,omitempty"`
-
-	// SLA Disaster Recovery-related metadata.
-	Dr *ObjectMetadataBaseSlaDr `json:"dr,omitempty"`
-}
-
-
-// UnmarshalObjectMetadataBaseSla constructs an instance of ObjectMetadataBaseSla from the specified map.
-func UnmarshalObjectMetadataBaseSla(m map[string]interface{}) (result *ObjectMetadataBaseSla, err error) {
-	obj := new(ObjectMetadataBaseSla)
-	obj.Terms, err = core.UnmarshalString(m, "terms")
-	if err != nil {
-		return
-	}
-	obj.Tenancy, err = core.UnmarshalString(m, "tenancy")
-	if err != nil {
-		return
-	}
-	obj.Provisioning, err = core.UnmarshalString(m, "provisioning")
-	if err != nil {
-		return
-	}
-	obj.Responsiveness, err = core.UnmarshalString(m, "responsiveness")
-	if err != nil {
-		return
-	}
-	obj.Dr, err = UnmarshalObjectMetadataBaseSlaDrAsProperty(m, "dr")
-	if err != nil {
-		return
-	}
-	result = obj
-	return
-}
-
-// UnmarshalObjectMetadataBaseSlaSlice unmarshals a slice of ObjectMetadataBaseSla instances from the specified list of maps.
-func UnmarshalObjectMetadataBaseSlaSlice(s []interface{}) (slice []ObjectMetadataBaseSla, err error) {
-	for _, v := range s {
-		objMap, ok := v.(map[string]interface{})
-		if !ok {
-			err = fmt.Errorf("slice element should be a map containing an instance of 'ObjectMetadataBaseSla'")
-			return
-		}
-		obj, e := UnmarshalObjectMetadataBaseSla(objMap)
-		if e != nil {
-			err = e
-			return
-		}
-		slice = append(slice, *obj)
-	}
-	return
-}
-
-// UnmarshalObjectMetadataBaseSlaAsProperty unmarshals an instance of ObjectMetadataBaseSla that is stored as a property
-// within the specified map.
-func UnmarshalObjectMetadataBaseSlaAsProperty(m map[string]interface{}, propertyName string) (result *ObjectMetadataBaseSla, err error) {
-	v, foundIt := m[propertyName]
-	if foundIt && v != nil {
-		objMap, ok := v.(map[string]interface{})
-		if !ok {
-			err = fmt.Errorf("map property '%s' should be a map containing an instance of 'ObjectMetadataBaseSla'", propertyName)
-			return
-		}
-		result, err = UnmarshalObjectMetadataBaseSla(objMap)
-	}
-	return
-}
-
-// UnmarshalObjectMetadataBaseSlaSliceAsProperty unmarshals a slice of ObjectMetadataBaseSla instances that are stored as a property
-// within the specified map.
-func UnmarshalObjectMetadataBaseSlaSliceAsProperty(m map[string]interface{}, propertyName string) (slice []ObjectMetadataBaseSla, err error) {
-	v, foundIt := m[propertyName]
-	if foundIt && v != nil {
-		vSlice, ok := v.([]interface{})
-		if !ok {
-			err = fmt.Errorf("map property '%s' should be a slice of maps, each containing an instance of 'ObjectMetadataBaseSla'", propertyName)
-			return
-		}
-		slice, err = UnmarshalObjectMetadataBaseSlaSlice(vSlice)
-	}
-	return
-}
-
-// ObjectMetadataBaseSlaDr : SLA Disaster Recovery-related metadata.
-type ObjectMetadataBaseSlaDr struct {
-	// Required boolean value that describes whether disaster recovery is on.
-	Dr *bool `json:"dr,omitempty"`
-
-	// Description of the disaster recovery implementation.
-	Description *string `json:"description,omitempty"`
-}
-
-
-// UnmarshalObjectMetadataBaseSlaDr constructs an instance of ObjectMetadataBaseSlaDr from the specified map.
-func UnmarshalObjectMetadataBaseSlaDr(m map[string]interface{}) (result *ObjectMetadataBaseSlaDr, err error) {
-	obj := new(ObjectMetadataBaseSlaDr)
-	obj.Dr, err = core.UnmarshalBool(m, "dr")
-	if err != nil {
-		return
-	}
-	obj.Description, err = core.UnmarshalString(m, "description")
-	if err != nil {
-		return
-	}
-	result = obj
-	return
-}
-
-// UnmarshalObjectMetadataBaseSlaDrSlice unmarshals a slice of ObjectMetadataBaseSlaDr instances from the specified list of maps.
-func UnmarshalObjectMetadataBaseSlaDrSlice(s []interface{}) (slice []ObjectMetadataBaseSlaDr, err error) {
-	for _, v := range s {
-		objMap, ok := v.(map[string]interface{})
-		if !ok {
-			err = fmt.Errorf("slice element should be a map containing an instance of 'ObjectMetadataBaseSlaDr'")
-			return
-		}
-		obj, e := UnmarshalObjectMetadataBaseSlaDr(objMap)
-		if e != nil {
-			err = e
-			return
-		}
-		slice = append(slice, *obj)
-	}
-	return
-}
-
-// UnmarshalObjectMetadataBaseSlaDrAsProperty unmarshals an instance of ObjectMetadataBaseSlaDr that is stored as a property
-// within the specified map.
-func UnmarshalObjectMetadataBaseSlaDrAsProperty(m map[string]interface{}, propertyName string) (result *ObjectMetadataBaseSlaDr, err error) {
-	v, foundIt := m[propertyName]
-	if foundIt && v != nil {
-		objMap, ok := v.(map[string]interface{})
-		if !ok {
-			err = fmt.Errorf("map property '%s' should be a map containing an instance of 'ObjectMetadataBaseSlaDr'", propertyName)
-			return
-		}
-		result, err = UnmarshalObjectMetadataBaseSlaDr(objMap)
-	}
-	return
-}
-
-// UnmarshalObjectMetadataBaseSlaDrSliceAsProperty unmarshals a slice of ObjectMetadataBaseSlaDr instances that are stored as a property
-// within the specified map.
-func UnmarshalObjectMetadataBaseSlaDrSliceAsProperty(m map[string]interface{}, propertyName string) (slice []ObjectMetadataBaseSlaDr, err error) {
-	v, foundIt := m[propertyName]
-	if foundIt && v != nil {
-		vSlice, ok := v.([]interface{})
-		if !ok {
-			err = fmt.Errorf("map property '%s' should be a slice of maps, each containing an instance of 'ObjectMetadataBaseSlaDr'", propertyName)
-			return
-		}
-		slice, err = UnmarshalObjectMetadataBaseSlaDrSlice(vSlice)
-	}
-	return
-}
-
-// ObjectMetadataBaseTemplate : Template-related metadata.
-type ObjectMetadataBaseTemplate struct {
-	// List of required offering or plan IDs.
-	Services []string `json:"services,omitempty"`
-
-	// Cloud Foundry instance memory value.
-	DefaultMemory *int64 `json:"default_memory,omitempty"`
-
-	// Start Command.
-	StartCmd *string `json:"start_cmd,omitempty"`
-
-	// Location of your applications source files.
-	Source *ObjectMetadataBaseTemplateSource `json:"source,omitempty"`
-
-	// ID of the runtime.
-	RuntimeCatalogID *string `json:"runtime_catalog_id,omitempty"`
-
-	// ID of the Cloud Foundry runtime.
-	CfRuntimeID *string `json:"cf_runtime_id,omitempty"`
-
-	// ID of the boilerplate or template.
-	TemplateID *string `json:"template_id,omitempty"`
-
-	// File path to the executable file for the template.
-	ExecutableFile *string `json:"executable_file,omitempty"`
-
-	// ID of the buildpack used by the template.
-	Buildpack *string `json:"buildpack,omitempty"`
-
-	// Environment variables for the template.
-	EnvironmentVariables *ObjectMetadataBaseTemplateEnvironmentVariables `json:"environment_variables,omitempty"`
-}
-
-
-// UnmarshalObjectMetadataBaseTemplate constructs an instance of ObjectMetadataBaseTemplate from the specified map.
-func UnmarshalObjectMetadataBaseTemplate(m map[string]interface{}) (result *ObjectMetadataBaseTemplate, err error) {
-	obj := new(ObjectMetadataBaseTemplate)
-	obj.Services, err = core.UnmarshalStringSlice(m, "services")
-	if err != nil {
-		return
-	}
-	obj.DefaultMemory, err = core.UnmarshalInt64(m, "default_memory")
-	if err != nil {
-		return
-	}
-	obj.StartCmd, err = core.UnmarshalString(m, "start_cmd")
-	if err != nil {
-		return
-	}
-	obj.Source, err = UnmarshalObjectMetadataBaseTemplateSourceAsProperty(m, "source")
-	if err != nil {
-		return
-	}
-	obj.RuntimeCatalogID, err = core.UnmarshalString(m, "runtime_catalog_id")
-	if err != nil {
-		return
-	}
-	obj.CfRuntimeID, err = core.UnmarshalString(m, "cf_runtime_id")
-	if err != nil {
-		return
-	}
-	obj.TemplateID, err = core.UnmarshalString(m, "template_id")
-	if err != nil {
-		return
-	}
-	obj.ExecutableFile, err = core.UnmarshalString(m, "executable_file")
-	if err != nil {
-		return
-	}
-	obj.Buildpack, err = core.UnmarshalString(m, "buildpack")
-	if err != nil {
-		return
-	}
-	obj.EnvironmentVariables, err = UnmarshalObjectMetadataBaseTemplateEnvironmentVariablesAsProperty(m, "environment_variables")
-	if err != nil {
-		return
-	}
-	result = obj
-	return
-}
-
-// UnmarshalObjectMetadataBaseTemplateSlice unmarshals a slice of ObjectMetadataBaseTemplate instances from the specified list of maps.
-func UnmarshalObjectMetadataBaseTemplateSlice(s []interface{}) (slice []ObjectMetadataBaseTemplate, err error) {
-	for _, v := range s {
-		objMap, ok := v.(map[string]interface{})
-		if !ok {
-			err = fmt.Errorf("slice element should be a map containing an instance of 'ObjectMetadataBaseTemplate'")
-			return
-		}
-		obj, e := UnmarshalObjectMetadataBaseTemplate(objMap)
-		if e != nil {
-			err = e
-			return
-		}
-		slice = append(slice, *obj)
-	}
-	return
-}
-
-// UnmarshalObjectMetadataBaseTemplateAsProperty unmarshals an instance of ObjectMetadataBaseTemplate that is stored as a property
-// within the specified map.
-func UnmarshalObjectMetadataBaseTemplateAsProperty(m map[string]interface{}, propertyName string) (result *ObjectMetadataBaseTemplate, err error) {
-	v, foundIt := m[propertyName]
-	if foundIt && v != nil {
-		objMap, ok := v.(map[string]interface{})
-		if !ok {
-			err = fmt.Errorf("map property '%s' should be a map containing an instance of 'ObjectMetadataBaseTemplate'", propertyName)
-			return
-		}
-		result, err = UnmarshalObjectMetadataBaseTemplate(objMap)
-	}
-	return
-}
-
-// UnmarshalObjectMetadataBaseTemplateSliceAsProperty unmarshals a slice of ObjectMetadataBaseTemplate instances that are stored as a property
-// within the specified map.
-func UnmarshalObjectMetadataBaseTemplateSliceAsProperty(m map[string]interface{}, propertyName string) (slice []ObjectMetadataBaseTemplate, err error) {
-	v, foundIt := m[propertyName]
-	if foundIt && v != nil {
-		vSlice, ok := v.([]interface{})
-		if !ok {
-			err = fmt.Errorf("map property '%s' should be a slice of maps, each containing an instance of 'ObjectMetadataBaseTemplate'", propertyName)
-			return
-		}
-		slice, err = UnmarshalObjectMetadataBaseTemplateSlice(vSlice)
-	}
-	return
-}
-
-// ObjectMetadataBaseTemplateEnvironmentVariables : Environment variables for the template.
-type ObjectMetadataBaseTemplateEnvironmentVariables struct {
-	// Key is the editable first string in a key:value pair of environment variables.
-	Key *string `json:"_key_,omitempty"`
-}
-
-
-// UnmarshalObjectMetadataBaseTemplateEnvironmentVariables constructs an instance of ObjectMetadataBaseTemplateEnvironmentVariables from the specified map.
-func UnmarshalObjectMetadataBaseTemplateEnvironmentVariables(m map[string]interface{}) (result *ObjectMetadataBaseTemplateEnvironmentVariables, err error) {
-	obj := new(ObjectMetadataBaseTemplateEnvironmentVariables)
-	obj.Key, err = core.UnmarshalString(m, "_key_")
-	if err != nil {
-		return
-	}
-	result = obj
-	return
-}
-
-// UnmarshalObjectMetadataBaseTemplateEnvironmentVariablesSlice unmarshals a slice of ObjectMetadataBaseTemplateEnvironmentVariables instances from the specified list of maps.
-func UnmarshalObjectMetadataBaseTemplateEnvironmentVariablesSlice(s []interface{}) (slice []ObjectMetadataBaseTemplateEnvironmentVariables, err error) {
-	for _, v := range s {
-		objMap, ok := v.(map[string]interface{})
-		if !ok {
-			err = fmt.Errorf("slice element should be a map containing an instance of 'ObjectMetadataBaseTemplateEnvironmentVariables'")
-			return
-		}
-		obj, e := UnmarshalObjectMetadataBaseTemplateEnvironmentVariables(objMap)
-		if e != nil {
-			err = e
-			return
-		}
-		slice = append(slice, *obj)
-	}
-	return
-}
-
-// UnmarshalObjectMetadataBaseTemplateEnvironmentVariablesAsProperty unmarshals an instance of ObjectMetadataBaseTemplateEnvironmentVariables that is stored as a property
-// within the specified map.
-func UnmarshalObjectMetadataBaseTemplateEnvironmentVariablesAsProperty(m map[string]interface{}, propertyName string) (result *ObjectMetadataBaseTemplateEnvironmentVariables, err error) {
-	v, foundIt := m[propertyName]
-	if foundIt && v != nil {
-		objMap, ok := v.(map[string]interface{})
-		if !ok {
-			err = fmt.Errorf("map property '%s' should be a map containing an instance of 'ObjectMetadataBaseTemplateEnvironmentVariables'", propertyName)
-			return
-		}
-		result, err = UnmarshalObjectMetadataBaseTemplateEnvironmentVariables(objMap)
-	}
-	return
-}
-
-// UnmarshalObjectMetadataBaseTemplateEnvironmentVariablesSliceAsProperty unmarshals a slice of ObjectMetadataBaseTemplateEnvironmentVariables instances that are stored as a property
-// within the specified map.
-func UnmarshalObjectMetadataBaseTemplateEnvironmentVariablesSliceAsProperty(m map[string]interface{}, propertyName string) (slice []ObjectMetadataBaseTemplateEnvironmentVariables, err error) {
-	v, foundIt := m[propertyName]
-	if foundIt && v != nil {
-		vSlice, ok := v.([]interface{})
-		if !ok {
-			err = fmt.Errorf("map property '%s' should be a slice of maps, each containing an instance of 'ObjectMetadataBaseTemplateEnvironmentVariables'", propertyName)
-			return
-		}
-		slice, err = UnmarshalObjectMetadataBaseTemplateEnvironmentVariablesSlice(vSlice)
-	}
-	return
-}
-
-// ObjectMetadataBaseTemplateSource : Location of your applications source files.
-type ObjectMetadataBaseTemplateSource struct {
-	// Path to your application.
-	Path *string `json:"path,omitempty"`
-
-	// Type of source, for example, git.
-	Type *string `json:"type,omitempty"`
-
-	// URL to source.
-	URL *string `json:"url,omitempty"`
-}
-
-
-// UnmarshalObjectMetadataBaseTemplateSource constructs an instance of ObjectMetadataBaseTemplateSource from the specified map.
-func UnmarshalObjectMetadataBaseTemplateSource(m map[string]interface{}) (result *ObjectMetadataBaseTemplateSource, err error) {
-	obj := new(ObjectMetadataBaseTemplateSource)
-	obj.Path, err = core.UnmarshalString(m, "path")
-	if err != nil {
-		return
-	}
-	obj.Type, err = core.UnmarshalString(m, "type")
-	if err != nil {
-		return
-	}
-	obj.URL, err = core.UnmarshalString(m, "url")
-	if err != nil {
-		return
-	}
-	result = obj
-	return
-}
-
-// UnmarshalObjectMetadataBaseTemplateSourceSlice unmarshals a slice of ObjectMetadataBaseTemplateSource instances from the specified list of maps.
-func UnmarshalObjectMetadataBaseTemplateSourceSlice(s []interface{}) (slice []ObjectMetadataBaseTemplateSource, err error) {
-	for _, v := range s {
-		objMap, ok := v.(map[string]interface{})
-		if !ok {
-			err = fmt.Errorf("slice element should be a map containing an instance of 'ObjectMetadataBaseTemplateSource'")
-			return
-		}
-		obj, e := UnmarshalObjectMetadataBaseTemplateSource(objMap)
-		if e != nil {
-			err = e
-			return
-		}
-		slice = append(slice, *obj)
-	}
-	return
-}
-
-// UnmarshalObjectMetadataBaseTemplateSourceAsProperty unmarshals an instance of ObjectMetadataBaseTemplateSource that is stored as a property
-// within the specified map.
-func UnmarshalObjectMetadataBaseTemplateSourceAsProperty(m map[string]interface{}, propertyName string) (result *ObjectMetadataBaseTemplateSource, err error) {
-	v, foundIt := m[propertyName]
-	if foundIt && v != nil {
-		objMap, ok := v.(map[string]interface{})
-		if !ok {
-			err = fmt.Errorf("map property '%s' should be a map containing an instance of 'ObjectMetadataBaseTemplateSource'", propertyName)
-			return
-		}
-		result, err = UnmarshalObjectMetadataBaseTemplateSource(objMap)
-	}
-	return
-}
-
-// UnmarshalObjectMetadataBaseTemplateSourceSliceAsProperty unmarshals a slice of ObjectMetadataBaseTemplateSource instances that are stored as a property
-// within the specified map.
-func UnmarshalObjectMetadataBaseTemplateSourceSliceAsProperty(m map[string]interface{}, propertyName string) (slice []ObjectMetadataBaseTemplateSource, err error) {
-	v, foundIt := m[propertyName]
-	if foundIt && v != nil {
-		vSlice, ok := v.([]interface{})
-		if !ok {
-			err = fmt.Errorf("map property '%s' should be a slice of maps, each containing an instance of 'ObjectMetadataBaseTemplateSource'", propertyName)
-			return
-		}
-		slice, err = UnmarshalObjectMetadataBaseTemplateSourceSlice(vSlice)
-	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
 	return
 }
 
@@ -3753,38 +3137,38 @@ type ObjectMetadataSet struct {
 	// Boolean value that describes whether the service is compatible with the Resource Controller.
 	RcCompatible *bool `json:"rc_compatible,omitempty"`
 
+	// Service-related metadata.
+	Service *CFMetaData `json:"service,omitempty"`
+
+	// Plan-related metadata.
+	Plan *PlanMetaData `json:"plan,omitempty"`
+
+	// Alias-related metadata.
+	Alias *AliasMetaData `json:"alias,omitempty"`
+
+	// Template-related metadata.
+	Template *TemplateMetaData `json:"template,omitempty"`
+
 	// Information related to the UI presentation associated with a catalog entry.
 	Ui *UIMetaData `json:"ui,omitempty"`
 
 	// Compliance information for HIPAA and PCI.
 	Compliance []string `json:"compliance,omitempty"`
 
-	// Service-related metadata.
-	Service *ObjectMetadataBaseService `json:"service,omitempty"`
-
-	// Plan-related metadata.
-	Plan *ObjectMetadataBasePlan `json:"plan,omitempty"`
-
-	// Template-related metadata.
-	Template *ObjectMetadataBaseTemplate `json:"template,omitempty"`
-
-	// Alias-related metadata.
-	Alias *ObjectMetadataBaseAlias `json:"alias,omitempty"`
-
 	// Service Level Agreement related metadata.
-	Sla *ObjectMetadataBaseSla `json:"sla,omitempty"`
+	Sla *SLAMetaData `json:"sla,omitempty"`
 
 	// Callback-related information associated with a catalog entry.
 	Callbacks *Callbacks `json:"callbacks,omitempty"`
 
-	// Optional version of the object.
-	Version *string `json:"version,omitempty"`
-
 	// The original name of the object.
 	OriginalName *string `json:"original_name,omitempty"`
 
+	// Optional version of the object.
+	Version *string `json:"version,omitempty"`
+
 	// Additional information.
-	Other interface{} `json:"other,omitempty"`
+	Other map[string]interface{} `json:"other,omitempty"`
 
 	// Pricing-related information.
 	Pricing *PricingSet `json:"pricing,omitempty"`
@@ -3794,114 +3178,66 @@ type ObjectMetadataSet struct {
 }
 
 
-// UnmarshalObjectMetadataSet constructs an instance of ObjectMetadataSet from the specified map.
-func UnmarshalObjectMetadataSet(m map[string]interface{}) (result *ObjectMetadataSet, err error) {
+// UnmarshalObjectMetadataSet unmarshals an instance of ObjectMetadataSet from the specified map of raw messages.
+func UnmarshalObjectMetadataSet(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(ObjectMetadataSet)
-	obj.RcCompatible, err = core.UnmarshalBool(m, "rc_compatible")
+	err = core.UnmarshalPrimitive(m, "rc_compatible", &obj.RcCompatible)
 	if err != nil {
 		return
 	}
-	obj.Ui, err = UnmarshalUIMetaDataAsProperty(m, "ui")
+	err = core.UnmarshalModel(m, "service", &obj.Service, UnmarshalCFMetaData)
 	if err != nil {
 		return
 	}
-	obj.Compliance, err = core.UnmarshalStringSlice(m, "compliance")
+	err = core.UnmarshalModel(m, "plan", &obj.Plan, UnmarshalPlanMetaData)
 	if err != nil {
 		return
 	}
-	obj.Service, err = UnmarshalObjectMetadataBaseServiceAsProperty(m, "service")
+	err = core.UnmarshalModel(m, "alias", &obj.Alias, UnmarshalAliasMetaData)
 	if err != nil {
 		return
 	}
-	obj.Plan, err = UnmarshalObjectMetadataBasePlanAsProperty(m, "plan")
+	err = core.UnmarshalModel(m, "template", &obj.Template, UnmarshalTemplateMetaData)
 	if err != nil {
 		return
 	}
-	obj.Template, err = UnmarshalObjectMetadataBaseTemplateAsProperty(m, "template")
+	err = core.UnmarshalModel(m, "ui", &obj.Ui, UnmarshalUIMetaData)
 	if err != nil {
 		return
 	}
-	obj.Alias, err = UnmarshalObjectMetadataBaseAliasAsProperty(m, "alias")
+	err = core.UnmarshalPrimitive(m, "compliance", &obj.Compliance)
 	if err != nil {
 		return
 	}
-	obj.Sla, err = UnmarshalObjectMetadataBaseSlaAsProperty(m, "sla")
+	err = core.UnmarshalModel(m, "sla", &obj.Sla, UnmarshalSLAMetaData)
 	if err != nil {
 		return
 	}
-	obj.Callbacks, err = UnmarshalCallbacksAsProperty(m, "callbacks")
+	err = core.UnmarshalModel(m, "callbacks", &obj.Callbacks, UnmarshalCallbacks)
 	if err != nil {
 		return
 	}
-	obj.Version, err = core.UnmarshalString(m, "version")
+	err = core.UnmarshalPrimitive(m, "original_name", &obj.OriginalName)
 	if err != nil {
 		return
 	}
-	obj.OriginalName, err = core.UnmarshalString(m, "original_name")
+	err = core.UnmarshalPrimitive(m, "version", &obj.Version)
 	if err != nil {
 		return
 	}
-	obj.Other, err = core.UnmarshalAny(m, "other")
+	err = core.UnmarshalPrimitive(m, "other", &obj.Other)
 	if err != nil {
 		return
 	}
-	obj.Pricing, err = UnmarshalPricingSetAsProperty(m, "pricing")
+	err = core.UnmarshalModel(m, "pricing", &obj.Pricing, UnmarshalPricingSet)
 	if err != nil {
 		return
 	}
-	obj.Deployment, err = UnmarshalDeploymentBaseAsProperty(m, "deployment")
+	err = core.UnmarshalModel(m, "deployment", &obj.Deployment, UnmarshalDeploymentBase)
 	if err != nil {
 		return
 	}
-	result = obj
-	return
-}
-
-// UnmarshalObjectMetadataSetSlice unmarshals a slice of ObjectMetadataSet instances from the specified list of maps.
-func UnmarshalObjectMetadataSetSlice(s []interface{}) (slice []ObjectMetadataSet, err error) {
-	for _, v := range s {
-		objMap, ok := v.(map[string]interface{})
-		if !ok {
-			err = fmt.Errorf("slice element should be a map containing an instance of 'ObjectMetadataSet'")
-			return
-		}
-		obj, e := UnmarshalObjectMetadataSet(objMap)
-		if e != nil {
-			err = e
-			return
-		}
-		slice = append(slice, *obj)
-	}
-	return
-}
-
-// UnmarshalObjectMetadataSetAsProperty unmarshals an instance of ObjectMetadataSet that is stored as a property
-// within the specified map.
-func UnmarshalObjectMetadataSetAsProperty(m map[string]interface{}, propertyName string) (result *ObjectMetadataSet, err error) {
-	v, foundIt := m[propertyName]
-	if foundIt && v != nil {
-		objMap, ok := v.(map[string]interface{})
-		if !ok {
-			err = fmt.Errorf("map property '%s' should be a map containing an instance of 'ObjectMetadataSet'", propertyName)
-			return
-		}
-		result, err = UnmarshalObjectMetadataSet(objMap)
-	}
-	return
-}
-
-// UnmarshalObjectMetadataSetSliceAsProperty unmarshals a slice of ObjectMetadataSet instances that are stored as a property
-// within the specified map.
-func UnmarshalObjectMetadataSetSliceAsProperty(m map[string]interface{}, propertyName string) (slice []ObjectMetadataSet, err error) {
-	v, foundIt := m[propertyName]
-	if foundIt && v != nil {
-		vSlice, ok := v.([]interface{})
-		if !ok {
-			err = fmt.Errorf("map property '%s' should be a slice of maps, each containing an instance of 'ObjectMetadataSet'", propertyName)
-			return
-		}
-		slice, err = UnmarshalObjectMetadataSetSlice(vSlice)
-	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
 	return
 }
 
@@ -3915,6 +3251,9 @@ type Overview struct {
 
 	// The translated description.
 	Description *string `json:"description" validate:"required"`
+
+	// The translated description that will be featured.
+	FeaturedDescription *string `json:"featured_description,omitempty"`
 }
 
 
@@ -3929,70 +3268,26 @@ func (*GlobalCatalogV1) NewOverview(displayName string, longDescription string, 
 	return
 }
 
-// UnmarshalOverview constructs an instance of Overview from the specified map.
-func UnmarshalOverview(m map[string]interface{}) (result *Overview, err error) {
+// UnmarshalOverview unmarshals an instance of Overview from the specified map of raw messages.
+func UnmarshalOverview(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(Overview)
-	obj.DisplayName, err = core.UnmarshalString(m, "display_name")
+	err = core.UnmarshalPrimitive(m, "display_name", &obj.DisplayName)
 	if err != nil {
 		return
 	}
-	obj.LongDescription, err = core.UnmarshalString(m, "long_description")
+	err = core.UnmarshalPrimitive(m, "long_description", &obj.LongDescription)
 	if err != nil {
 		return
 	}
-	obj.Description, err = core.UnmarshalString(m, "description")
+	err = core.UnmarshalPrimitive(m, "description", &obj.Description)
 	if err != nil {
 		return
 	}
-	result = obj
-	return
-}
-
-// UnmarshalOverviewSlice unmarshals a slice of Overview instances from the specified list of maps.
-func UnmarshalOverviewSlice(s []interface{}) (slice []Overview, err error) {
-	for _, v := range s {
-		objMap, ok := v.(map[string]interface{})
-		if !ok {
-			err = fmt.Errorf("slice element should be a map containing an instance of 'Overview'")
-			return
-		}
-		obj, e := UnmarshalOverview(objMap)
-		if e != nil {
-			err = e
-			return
-		}
-		slice = append(slice, *obj)
+	err = core.UnmarshalPrimitive(m, "featured_description", &obj.FeaturedDescription)
+	if err != nil {
+		return
 	}
-	return
-}
-
-// UnmarshalOverviewAsProperty unmarshals an instance of Overview that is stored as a property
-// within the specified map.
-func UnmarshalOverviewAsProperty(m map[string]interface{}, propertyName string) (result *Overview, err error) {
-	v, foundIt := m[propertyName]
-	if foundIt && v != nil {
-		objMap, ok := v.(map[string]interface{})
-		if !ok {
-			err = fmt.Errorf("map property '%s' should be a map containing an instance of 'Overview'", propertyName)
-			return
-		}
-		result, err = UnmarshalOverview(objMap)
-	}
-	return
-}
-
-// UnmarshalOverviewSliceAsProperty unmarshals a slice of Overview instances that are stored as a property
-// within the specified map.
-func UnmarshalOverviewSliceAsProperty(m map[string]interface{}, propertyName string) (slice []Overview, err error) {
-	v, foundIt := m[propertyName]
-	if foundIt && v != nil {
-		vSlice, ok := v.([]interface{})
-		if !ok {
-			err = fmt.Errorf("map property '%s' should be a slice of maps, each containing an instance of 'Overview'", propertyName)
-			return
-		}
-		slice, err = UnmarshalOverviewSlice(vSlice)
-	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
 	return
 }
 
@@ -4034,67 +3329,94 @@ func (o *OverviewUI) MarshalJSON() (buffer []byte, err error) {
 	return
 }
 
-// UnmarshalOverviewUI constructs an instance of OverviewUI from the specified map.
-func UnmarshalOverviewUI(m map[string]interface{}) (result *OverviewUI, err error) {
-	m = core.CopyMap(m)
+// UnmarshalOverviewUI unmarshals an instance of OverviewUI from the specified map of raw messages.
+func UnmarshalOverviewUI(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(OverviewUI)
 	for k := range m {
-		v, e := UnmarshalOverviewAsProperty(m, k)
+		var v *Overview
+		e := core.UnmarshalModel(m, k, &v, UnmarshalOverview)
 		if e != nil {
 			err = e
 			return
 		}
 		obj.SetProperty(k, v)
 	}
-	result = obj
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
 	return
 }
 
-// UnmarshalOverviewUISlice unmarshals a slice of OverviewUI instances from the specified list of maps.
-func UnmarshalOverviewUISlice(s []interface{}) (slice []OverviewUI, err error) {
-	for _, v := range s {
-		objMap, ok := v.(map[string]interface{})
-		if !ok {
-			err = fmt.Errorf("slice element should be a map containing an instance of 'OverviewUI'")
-			return
-		}
-		obj, e := UnmarshalOverviewUI(objMap)
-		if e != nil {
-			err = e
-			return
-		}
-		slice = append(slice, *obj)
-	}
-	return
+// PlanMetaData : Plan-related metadata.
+type PlanMetaData struct {
+	// Boolean value that describes whether the service can be bound to an application.
+	Bindable *bool `json:"bindable,omitempty"`
+
+	// Boolean value that describes whether the service can be reserved.
+	Reservable *bool `json:"reservable,omitempty"`
+
+	// Boolean value that describes whether the service can be used internally.
+	AllowInternalUsers *bool `json:"allow_internal_users,omitempty"`
+
+	// Boolean value that describes whether the service can be provisioned asynchronously.
+	AsyncProvisioningSupported *bool `json:"async_provisioning_supported,omitempty"`
+
+	// Boolean value that describes whether the service can be unprovisioned asynchronously.
+	AsyncUnprovisioningSupported *bool `json:"async_unprovisioning_supported,omitempty"`
+
+	// Test check interval.
+	TestCheckInterval *int64 `json:"test_check_interval,omitempty"`
+
+	// Single scope instance.
+	SingleScopeInstance *string `json:"single_scope_instance,omitempty"`
+
+	// Boolean value that describes whether the service check is enabled.
+	ServiceCheckEnabled *bool `json:"service_check_enabled,omitempty"`
+
+	// If the field is imported from Cloud Foundry, the Cloud Foundry region's GUID. This is a required field. For example,
+	// `us-south=123`.
+	CfGuid map[string]string `json:"cf_guid,omitempty"`
 }
 
-// UnmarshalOverviewUIAsProperty unmarshals an instance of OverviewUI that is stored as a property
-// within the specified map.
-func UnmarshalOverviewUIAsProperty(m map[string]interface{}, propertyName string) (result *OverviewUI, err error) {
-	v, foundIt := m[propertyName]
-	if foundIt && v != nil {
-		objMap, ok := v.(map[string]interface{})
-		if !ok {
-			err = fmt.Errorf("map property '%s' should be a map containing an instance of 'OverviewUI'", propertyName)
-			return
-		}
-		result, err = UnmarshalOverviewUI(objMap)
-	}
-	return
-}
 
-// UnmarshalOverviewUISliceAsProperty unmarshals a slice of OverviewUI instances that are stored as a property
-// within the specified map.
-func UnmarshalOverviewUISliceAsProperty(m map[string]interface{}, propertyName string) (slice []OverviewUI, err error) {
-	v, foundIt := m[propertyName]
-	if foundIt && v != nil {
-		vSlice, ok := v.([]interface{})
-		if !ok {
-			err = fmt.Errorf("map property '%s' should be a slice of maps, each containing an instance of 'OverviewUI'", propertyName)
-			return
-		}
-		slice, err = UnmarshalOverviewUISlice(vSlice)
+// UnmarshalPlanMetaData unmarshals an instance of PlanMetaData from the specified map of raw messages.
+func UnmarshalPlanMetaData(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(PlanMetaData)
+	err = core.UnmarshalPrimitive(m, "bindable", &obj.Bindable)
+	if err != nil {
+		return
 	}
+	err = core.UnmarshalPrimitive(m, "reservable", &obj.Reservable)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "allow_internal_users", &obj.AllowInternalUsers)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "async_provisioning_supported", &obj.AsyncProvisioningSupported)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "async_unprovisioning_supported", &obj.AsyncUnprovisioningSupported)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "test_check_interval", &obj.TestCheckInterval)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "single_scope_instance", &obj.SingleScopeInstance)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "service_check_enabled", &obj.ServiceCheckEnabled)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "cf_guid", &obj.CfGuid)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
 	return
 }
 
@@ -4108,66 +3430,18 @@ type Price struct {
 }
 
 
-// UnmarshalPrice constructs an instance of Price from the specified map.
-func UnmarshalPrice(m map[string]interface{}) (result *Price, err error) {
+// UnmarshalPrice unmarshals an instance of Price from the specified map of raw messages.
+func UnmarshalPrice(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(Price)
-	obj.QuantityTier, err = core.UnmarshalInt64(m, "quantity_tier")
+	err = core.UnmarshalPrimitive(m, "quantity_tier", &obj.QuantityTier)
 	if err != nil {
 		return
 	}
-	obj.Price, err = core.UnmarshalFloat64(m, "Price")
+	err = core.UnmarshalPrimitive(m, "Price", &obj.Price)
 	if err != nil {
 		return
 	}
-	result = obj
-	return
-}
-
-// UnmarshalPriceSlice unmarshals a slice of Price instances from the specified list of maps.
-func UnmarshalPriceSlice(s []interface{}) (slice []Price, err error) {
-	for _, v := range s {
-		objMap, ok := v.(map[string]interface{})
-		if !ok {
-			err = fmt.Errorf("slice element should be a map containing an instance of 'Price'")
-			return
-		}
-		obj, e := UnmarshalPrice(objMap)
-		if e != nil {
-			err = e
-			return
-		}
-		slice = append(slice, *obj)
-	}
-	return
-}
-
-// UnmarshalPriceAsProperty unmarshals an instance of Price that is stored as a property
-// within the specified map.
-func UnmarshalPriceAsProperty(m map[string]interface{}, propertyName string) (result *Price, err error) {
-	v, foundIt := m[propertyName]
-	if foundIt && v != nil {
-		objMap, ok := v.(map[string]interface{})
-		if !ok {
-			err = fmt.Errorf("map property '%s' should be a map containing an instance of 'Price'", propertyName)
-			return
-		}
-		result, err = UnmarshalPrice(objMap)
-	}
-	return
-}
-
-// UnmarshalPriceSliceAsProperty unmarshals a slice of Price instances that are stored as a property
-// within the specified map.
-func UnmarshalPriceSliceAsProperty(m map[string]interface{}, propertyName string) (slice []Price, err error) {
-	v, foundIt := m[propertyName]
-	if foundIt && v != nil {
-		vSlice, ok := v.([]interface{})
-		if !ok {
-			err = fmt.Errorf("map property '%s' should be a slice of maps, each containing an instance of 'Price'", propertyName)
-			return
-		}
-		slice, err = UnmarshalPriceSlice(vSlice)
-	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
 	return
 }
 
@@ -4187,74 +3461,26 @@ type PricingGet struct {
 }
 
 
-// UnmarshalPricingGet constructs an instance of PricingGet from the specified map.
-func UnmarshalPricingGet(m map[string]interface{}) (result *PricingGet, err error) {
+// UnmarshalPricingGet unmarshals an instance of PricingGet from the specified map of raw messages.
+func UnmarshalPricingGet(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(PricingGet)
-	obj.Type, err = core.UnmarshalString(m, "type")
+	err = core.UnmarshalPrimitive(m, "type", &obj.Type)
 	if err != nil {
 		return
 	}
-	obj.Origin, err = core.UnmarshalString(m, "origin")
+	err = core.UnmarshalPrimitive(m, "origin", &obj.Origin)
 	if err != nil {
 		return
 	}
-	obj.StartingPrice, err = UnmarshalStartingPriceAsProperty(m, "starting_price")
+	err = core.UnmarshalModel(m, "starting_price", &obj.StartingPrice, UnmarshalStartingPrice)
 	if err != nil {
 		return
 	}
-	obj.Metrics, err = UnmarshalMetricsSliceAsProperty(m, "metrics")
+	err = core.UnmarshalModel(m, "metrics", &obj.Metrics, UnmarshalMetrics)
 	if err != nil {
 		return
 	}
-	result = obj
-	return
-}
-
-// UnmarshalPricingGetSlice unmarshals a slice of PricingGet instances from the specified list of maps.
-func UnmarshalPricingGetSlice(s []interface{}) (slice []PricingGet, err error) {
-	for _, v := range s {
-		objMap, ok := v.(map[string]interface{})
-		if !ok {
-			err = fmt.Errorf("slice element should be a map containing an instance of 'PricingGet'")
-			return
-		}
-		obj, e := UnmarshalPricingGet(objMap)
-		if e != nil {
-			err = e
-			return
-		}
-		slice = append(slice, *obj)
-	}
-	return
-}
-
-// UnmarshalPricingGetAsProperty unmarshals an instance of PricingGet that is stored as a property
-// within the specified map.
-func UnmarshalPricingGetAsProperty(m map[string]interface{}, propertyName string) (result *PricingGet, err error) {
-	v, foundIt := m[propertyName]
-	if foundIt && v != nil {
-		objMap, ok := v.(map[string]interface{})
-		if !ok {
-			err = fmt.Errorf("map property '%s' should be a map containing an instance of 'PricingGet'", propertyName)
-			return
-		}
-		result, err = UnmarshalPricingGet(objMap)
-	}
-	return
-}
-
-// UnmarshalPricingGetSliceAsProperty unmarshals a slice of PricingGet instances that are stored as a property
-// within the specified map.
-func UnmarshalPricingGetSliceAsProperty(m map[string]interface{}, propertyName string) (slice []PricingGet, err error) {
-	v, foundIt := m[propertyName]
-	if foundIt && v != nil {
-		vSlice, ok := v.([]interface{})
-		if !ok {
-			err = fmt.Errorf("map property '%s' should be a slice of maps, each containing an instance of 'PricingGet'", propertyName)
-			return
-		}
-		slice, err = UnmarshalPricingGetSlice(vSlice)
-	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
 	return
 }
 
@@ -4271,70 +3497,22 @@ type PricingSet struct {
 }
 
 
-// UnmarshalPricingSet constructs an instance of PricingSet from the specified map.
-func UnmarshalPricingSet(m map[string]interface{}) (result *PricingSet, err error) {
+// UnmarshalPricingSet unmarshals an instance of PricingSet from the specified map of raw messages.
+func UnmarshalPricingSet(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(PricingSet)
-	obj.Type, err = core.UnmarshalString(m, "type")
+	err = core.UnmarshalPrimitive(m, "type", &obj.Type)
 	if err != nil {
 		return
 	}
-	obj.Origin, err = core.UnmarshalString(m, "origin")
+	err = core.UnmarshalPrimitive(m, "origin", &obj.Origin)
 	if err != nil {
 		return
 	}
-	obj.StartingPrice, err = UnmarshalStartingPriceAsProperty(m, "starting_price")
+	err = core.UnmarshalModel(m, "starting_price", &obj.StartingPrice, UnmarshalStartingPrice)
 	if err != nil {
 		return
 	}
-	result = obj
-	return
-}
-
-// UnmarshalPricingSetSlice unmarshals a slice of PricingSet instances from the specified list of maps.
-func UnmarshalPricingSetSlice(s []interface{}) (slice []PricingSet, err error) {
-	for _, v := range s {
-		objMap, ok := v.(map[string]interface{})
-		if !ok {
-			err = fmt.Errorf("slice element should be a map containing an instance of 'PricingSet'")
-			return
-		}
-		obj, e := UnmarshalPricingSet(objMap)
-		if e != nil {
-			err = e
-			return
-		}
-		slice = append(slice, *obj)
-	}
-	return
-}
-
-// UnmarshalPricingSetAsProperty unmarshals an instance of PricingSet that is stored as a property
-// within the specified map.
-func UnmarshalPricingSetAsProperty(m map[string]interface{}, propertyName string) (result *PricingSet, err error) {
-	v, foundIt := m[propertyName]
-	if foundIt && v != nil {
-		objMap, ok := v.(map[string]interface{})
-		if !ok {
-			err = fmt.Errorf("map property '%s' should be a map containing an instance of 'PricingSet'", propertyName)
-			return
-		}
-		result, err = UnmarshalPricingSet(objMap)
-	}
-	return
-}
-
-// UnmarshalPricingSetSliceAsProperty unmarshals a slice of PricingSet instances that are stored as a property
-// within the specified map.
-func UnmarshalPricingSetSliceAsProperty(m map[string]interface{}, propertyName string) (slice []PricingSet, err error) {
-	v, foundIt := m[propertyName]
-	if foundIt && v != nil {
-		vSlice, ok := v.([]interface{})
-		if !ok {
-			err = fmt.Errorf("map property '%s' should be a slice of maps, each containing an instance of 'PricingSet'", propertyName)
-			return
-		}
-		slice, err = UnmarshalPricingSetSlice(vSlice)
-	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
 	return
 }
 
@@ -4367,78 +3545,30 @@ func (*GlobalCatalogV1) NewProvider(email string, name string) (model *Provider,
 	return
 }
 
-// UnmarshalProvider constructs an instance of Provider from the specified map.
-func UnmarshalProvider(m map[string]interface{}) (result *Provider, err error) {
+// UnmarshalProvider unmarshals an instance of Provider from the specified map of raw messages.
+func UnmarshalProvider(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(Provider)
-	obj.Email, err = core.UnmarshalString(m, "email")
+	err = core.UnmarshalPrimitive(m, "email", &obj.Email)
 	if err != nil {
 		return
 	}
-	obj.Name, err = core.UnmarshalString(m, "name")
+	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
 	if err != nil {
 		return
 	}
-	obj.Contact, err = core.UnmarshalString(m, "contact")
+	err = core.UnmarshalPrimitive(m, "contact", &obj.Contact)
 	if err != nil {
 		return
 	}
-	obj.SupportEmail, err = core.UnmarshalString(m, "support_email")
+	err = core.UnmarshalPrimitive(m, "support_email", &obj.SupportEmail)
 	if err != nil {
 		return
 	}
-	obj.Phone, err = core.UnmarshalString(m, "phone")
+	err = core.UnmarshalPrimitive(m, "phone", &obj.Phone)
 	if err != nil {
 		return
 	}
-	result = obj
-	return
-}
-
-// UnmarshalProviderSlice unmarshals a slice of Provider instances from the specified list of maps.
-func UnmarshalProviderSlice(s []interface{}) (slice []Provider, err error) {
-	for _, v := range s {
-		objMap, ok := v.(map[string]interface{})
-		if !ok {
-			err = fmt.Errorf("slice element should be a map containing an instance of 'Provider'")
-			return
-		}
-		obj, e := UnmarshalProvider(objMap)
-		if e != nil {
-			err = e
-			return
-		}
-		slice = append(slice, *obj)
-	}
-	return
-}
-
-// UnmarshalProviderAsProperty unmarshals an instance of Provider that is stored as a property
-// within the specified map.
-func UnmarshalProviderAsProperty(m map[string]interface{}, propertyName string) (result *Provider, err error) {
-	v, foundIt := m[propertyName]
-	if foundIt && v != nil {
-		objMap, ok := v.(map[string]interface{})
-		if !ok {
-			err = fmt.Errorf("map property '%s' should be a map containing an instance of 'Provider'", propertyName)
-			return
-		}
-		result, err = UnmarshalProvider(objMap)
-	}
-	return
-}
-
-// UnmarshalProviderSliceAsProperty unmarshals a slice of Provider instances that are stored as a property
-// within the specified map.
-func UnmarshalProviderSliceAsProperty(m map[string]interface{}, propertyName string) (slice []Provider, err error) {
-	v, foundIt := m[propertyName]
-	if foundIt && v != nil {
-		vSlice, ok := v.([]interface{})
-		if !ok {
-			err = fmt.Errorf("map property '%s' should be a slice of maps, each containing an instance of 'Provider'", propertyName)
-			return
-		}
-		slice, err = UnmarshalProviderSlice(vSlice)
-	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
 	return
 }
 
@@ -4481,90 +3611,82 @@ func (options *RestoreCatalogEntryOptions) SetHeaders(param map[string]string) *
 	return options
 }
 
-// SearchResult : The results obtained by performing a search.
-type SearchResult struct {
-	// Returned Page Number.
-	Page *string `json:"page,omitempty"`
+// SLAMetaData : Service Level Agreement related metadata.
+type SLAMetaData struct {
+	// Required Service License Agreement Terms of Use.
+	Terms *string `json:"terms,omitempty"`
 
-	// Results Per Page – if the page is full.
-	ResultsPerPage *string `json:"results_per_page,omitempty"`
+	// Required deployment type. Valid values are dedicated, local, or public. It can be Single or Multi tennancy, more
+	// specifically on a Server, VM, Physical, or Pod.
+	Tenancy *string `json:"tenancy,omitempty"`
 
-	// Total number of results.
-	TotalResults *string `json:"total_results,omitempty"`
+	// Provisioning reliability, for example, 99.95.
+	Provisioning *string `json:"provisioning,omitempty"`
 
-	// Resulting objects.
-	Resources []interface{} `json:"resources,omitempty"`
+	// Uptime reliability of the service, for example, 99.95.
+	Responsiveness *string `json:"responsiveness,omitempty"`
+
+	// SLA Disaster Recovery-related metadata.
+	Dr *DRMetaData `json:"dr,omitempty"`
 }
 
 
-// UnmarshalSearchResult constructs an instance of SearchResult from the specified map.
-func UnmarshalSearchResult(m map[string]interface{}) (result *SearchResult, err error) {
-	obj := new(SearchResult)
-	obj.Page, err = core.UnmarshalString(m, "page")
+// UnmarshalSLAMetaData unmarshals an instance of SLAMetaData from the specified map of raw messages.
+func UnmarshalSLAMetaData(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(SLAMetaData)
+	err = core.UnmarshalPrimitive(m, "terms", &obj.Terms)
 	if err != nil {
 		return
 	}
-	obj.ResultsPerPage, err = core.UnmarshalString(m, "results_per_page")
+	err = core.UnmarshalPrimitive(m, "tenancy", &obj.Tenancy)
 	if err != nil {
 		return
 	}
-	obj.TotalResults, err = core.UnmarshalString(m, "total_results")
+	err = core.UnmarshalPrimitive(m, "provisioning", &obj.Provisioning)
 	if err != nil {
 		return
 	}
-	obj.Resources, err = core.UnmarshalAnySlice(m, "resources")
+	err = core.UnmarshalPrimitive(m, "responsiveness", &obj.Responsiveness)
 	if err != nil {
 		return
 	}
-	result = obj
+	err = core.UnmarshalModel(m, "dr", &obj.Dr, UnmarshalDRMetaData)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
 	return
 }
 
-// UnmarshalSearchResultSlice unmarshals a slice of SearchResult instances from the specified list of maps.
-func UnmarshalSearchResultSlice(s []interface{}) (slice []SearchResult, err error) {
-	for _, v := range s {
-		objMap, ok := v.(map[string]interface{})
-		if !ok {
-			err = fmt.Errorf("slice element should be a map containing an instance of 'SearchResult'")
-			return
-		}
-		obj, e := UnmarshalSearchResult(objMap)
-		if e != nil {
-			err = e
-			return
-		}
-		slice = append(slice, *obj)
-	}
-	return
+// SourceMetaData : Location of your applications source files.
+type SourceMetaData struct {
+	// Path to your application.
+	Path *string `json:"path,omitempty"`
+
+	// Type of source, for example, git.
+	Type *string `json:"type,omitempty"`
+
+	// URL to source.
+	URL *string `json:"url,omitempty"`
 }
 
-// UnmarshalSearchResultAsProperty unmarshals an instance of SearchResult that is stored as a property
-// within the specified map.
-func UnmarshalSearchResultAsProperty(m map[string]interface{}, propertyName string) (result *SearchResult, err error) {
-	v, foundIt := m[propertyName]
-	if foundIt && v != nil {
-		objMap, ok := v.(map[string]interface{})
-		if !ok {
-			err = fmt.Errorf("map property '%s' should be a map containing an instance of 'SearchResult'", propertyName)
-			return
-		}
-		result, err = UnmarshalSearchResult(objMap)
-	}
-	return
-}
 
-// UnmarshalSearchResultSliceAsProperty unmarshals a slice of SearchResult instances that are stored as a property
-// within the specified map.
-func UnmarshalSearchResultSliceAsProperty(m map[string]interface{}, propertyName string) (slice []SearchResult, err error) {
-	v, foundIt := m[propertyName]
-	if foundIt && v != nil {
-		vSlice, ok := v.([]interface{})
-		if !ok {
-			err = fmt.Errorf("map property '%s' should be a slice of maps, each containing an instance of 'SearchResult'", propertyName)
-			return
-		}
-		slice, err = UnmarshalSearchResultSlice(vSlice)
+// UnmarshalSourceMetaData unmarshals an instance of SourceMetaData from the specified map of raw messages.
+func UnmarshalSourceMetaData(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(SourceMetaData)
+	err = core.UnmarshalPrimitive(m, "path", &obj.Path)
+	if err != nil {
+		return
 	}
+	err = core.UnmarshalPrimitive(m, "type", &obj.Type)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "url", &obj.URL)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
 	return
 }
 
@@ -4576,75 +3698,34 @@ type StartingPrice struct {
 	// ID of the deployment the starting price is calculated.
 	DeploymentID *string `json:"deployment_id,omitempty"`
 
+	// Pricing unit.
+	Unit *string `json:"unit,omitempty"`
+
 	// The pricing per metric by country and currency.
 	Amount []Amount `json:"amount,omitempty"`
 }
 
 
-// UnmarshalStartingPrice constructs an instance of StartingPrice from the specified map.
-func UnmarshalStartingPrice(m map[string]interface{}) (result *StartingPrice, err error) {
+// UnmarshalStartingPrice unmarshals an instance of StartingPrice from the specified map of raw messages.
+func UnmarshalStartingPrice(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(StartingPrice)
-	obj.PlanID, err = core.UnmarshalString(m, "plan_id")
+	err = core.UnmarshalPrimitive(m, "plan_id", &obj.PlanID)
 	if err != nil {
 		return
 	}
-	obj.DeploymentID, err = core.UnmarshalString(m, "deployment_id")
+	err = core.UnmarshalPrimitive(m, "deployment_id", &obj.DeploymentID)
 	if err != nil {
 		return
 	}
-	obj.Amount, err = UnmarshalAmountSliceAsProperty(m, "amount")
+	err = core.UnmarshalPrimitive(m, "unit", &obj.Unit)
 	if err != nil {
 		return
 	}
-	result = obj
-	return
-}
-
-// UnmarshalStartingPriceSlice unmarshals a slice of StartingPrice instances from the specified list of maps.
-func UnmarshalStartingPriceSlice(s []interface{}) (slice []StartingPrice, err error) {
-	for _, v := range s {
-		objMap, ok := v.(map[string]interface{})
-		if !ok {
-			err = fmt.Errorf("slice element should be a map containing an instance of 'StartingPrice'")
-			return
-		}
-		obj, e := UnmarshalStartingPrice(objMap)
-		if e != nil {
-			err = e
-			return
-		}
-		slice = append(slice, *obj)
+	err = core.UnmarshalModel(m, "amount", &obj.Amount, UnmarshalAmount)
+	if err != nil {
+		return
 	}
-	return
-}
-
-// UnmarshalStartingPriceAsProperty unmarshals an instance of StartingPrice that is stored as a property
-// within the specified map.
-func UnmarshalStartingPriceAsProperty(m map[string]interface{}, propertyName string) (result *StartingPrice, err error) {
-	v, foundIt := m[propertyName]
-	if foundIt && v != nil {
-		objMap, ok := v.(map[string]interface{})
-		if !ok {
-			err = fmt.Errorf("map property '%s' should be a map containing an instance of 'StartingPrice'", propertyName)
-			return
-		}
-		result, err = UnmarshalStartingPrice(objMap)
-	}
-	return
-}
-
-// UnmarshalStartingPriceSliceAsProperty unmarshals a slice of StartingPrice instances that are stored as a property
-// within the specified map.
-func UnmarshalStartingPriceSliceAsProperty(m map[string]interface{}, propertyName string) (slice []StartingPrice, err error) {
-	v, foundIt := m[propertyName]
-	if foundIt && v != nil {
-		vSlice, ok := v.([]interface{})
-		if !ok {
-			err = fmt.Errorf("map property '%s' should be a slice of maps, each containing an instance of 'StartingPrice'", propertyName)
-			return
-		}
-		slice, err = UnmarshalStartingPriceSlice(vSlice)
-	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
 	return
 }
 
@@ -4673,86 +3754,119 @@ type Strings struct {
 }
 
 
-// UnmarshalStrings constructs an instance of Strings from the specified map.
-func UnmarshalStrings(m map[string]interface{}) (result *Strings, err error) {
+// UnmarshalStrings unmarshals an instance of Strings from the specified map of raw messages.
+func UnmarshalStrings(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(Strings)
-	obj.Bullets, err = UnmarshalBulletsSliceAsProperty(m, "bullets")
+	err = core.UnmarshalModel(m, "bullets", &obj.Bullets, UnmarshalBullets)
 	if err != nil {
 		return
 	}
-	obj.Media, err = UnmarshalUIMetaMediaSliceAsProperty(m, "media")
+	err = core.UnmarshalModel(m, "media", &obj.Media, UnmarshalUIMetaMedia)
 	if err != nil {
 		return
 	}
-	obj.NotCreatableMsg, err = core.UnmarshalString(m, "not_creatable_msg")
+	err = core.UnmarshalPrimitive(m, "not_creatable_msg", &obj.NotCreatableMsg)
 	if err != nil {
 		return
 	}
-	obj.NotCreatableRobotMsg, err = core.UnmarshalString(m, "not_creatable__robot_msg")
+	err = core.UnmarshalPrimitive(m, "not_creatable__robot_msg", &obj.NotCreatableRobotMsg)
 	if err != nil {
 		return
 	}
-	obj.DeprecationWarning, err = core.UnmarshalString(m, "deprecation_warning")
+	err = core.UnmarshalPrimitive(m, "deprecation_warning", &obj.DeprecationWarning)
 	if err != nil {
 		return
 	}
-	obj.PopupWarningMessage, err = core.UnmarshalString(m, "popup_warning_message")
+	err = core.UnmarshalPrimitive(m, "popup_warning_message", &obj.PopupWarningMessage)
 	if err != nil {
 		return
 	}
-	obj.Instruction, err = core.UnmarshalString(m, "instruction")
+	err = core.UnmarshalPrimitive(m, "instruction", &obj.Instruction)
 	if err != nil {
 		return
 	}
-	result = obj
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
 	return
 }
 
-// UnmarshalStringsSlice unmarshals a slice of Strings instances from the specified list of maps.
-func UnmarshalStringsSlice(s []interface{}) (slice []Strings, err error) {
-	for _, v := range s {
-		objMap, ok := v.(map[string]interface{})
-		if !ok {
-			err = fmt.Errorf("slice element should be a map containing an instance of 'Strings'")
-			return
-		}
-		obj, e := UnmarshalStrings(objMap)
-		if e != nil {
-			err = e
-			return
-		}
-		slice = append(slice, *obj)
-	}
-	return
+// TemplateMetaData : Template-related metadata.
+type TemplateMetaData struct {
+	// List of required offering or plan IDs.
+	Services []string `json:"services,omitempty"`
+
+	// Cloud Foundry instance memory value.
+	DefaultMemory *int64 `json:"default_memory,omitempty"`
+
+	// Start Command.
+	StartCmd *string `json:"start_cmd,omitempty"`
+
+	// Location of your applications source files.
+	Source *SourceMetaData `json:"source,omitempty"`
+
+	// ID of the runtime.
+	RuntimeCatalogID *string `json:"runtime_catalog_id,omitempty"`
+
+	// ID of the Cloud Foundry runtime.
+	CfRuntimeID *string `json:"cf_runtime_id,omitempty"`
+
+	// ID of the boilerplate or template.
+	TemplateID *string `json:"template_id,omitempty"`
+
+	// File path to the executable file for the template.
+	ExecutableFile *string `json:"executable_file,omitempty"`
+
+	// ID of the buildpack used by the template.
+	Buildpack *string `json:"buildpack,omitempty"`
+
+	// Environment variables (key/value pairs) for the template.
+	EnvironmentVariables map[string]string `json:"environment_variables,omitempty"`
 }
 
-// UnmarshalStringsAsProperty unmarshals an instance of Strings that is stored as a property
-// within the specified map.
-func UnmarshalStringsAsProperty(m map[string]interface{}, propertyName string) (result *Strings, err error) {
-	v, foundIt := m[propertyName]
-	if foundIt && v != nil {
-		objMap, ok := v.(map[string]interface{})
-		if !ok {
-			err = fmt.Errorf("map property '%s' should be a map containing an instance of 'Strings'", propertyName)
-			return
-		}
-		result, err = UnmarshalStrings(objMap)
-	}
-	return
-}
 
-// UnmarshalStringsSliceAsProperty unmarshals a slice of Strings instances that are stored as a property
-// within the specified map.
-func UnmarshalStringsSliceAsProperty(m map[string]interface{}, propertyName string) (slice []Strings, err error) {
-	v, foundIt := m[propertyName]
-	if foundIt && v != nil {
-		vSlice, ok := v.([]interface{})
-		if !ok {
-			err = fmt.Errorf("map property '%s' should be a slice of maps, each containing an instance of 'Strings'", propertyName)
-			return
-		}
-		slice, err = UnmarshalStringsSlice(vSlice)
+// UnmarshalTemplateMetaData unmarshals an instance of TemplateMetaData from the specified map of raw messages.
+func UnmarshalTemplateMetaData(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(TemplateMetaData)
+	err = core.UnmarshalPrimitive(m, "services", &obj.Services)
+	if err != nil {
+		return
 	}
+	err = core.UnmarshalPrimitive(m, "default_memory", &obj.DefaultMemory)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "start_cmd", &obj.StartCmd)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "source", &obj.Source, UnmarshalSourceMetaData)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "runtime_catalog_id", &obj.RuntimeCatalogID)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "cf_runtime_id", &obj.CfRuntimeID)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "template_id", &obj.TemplateID)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "executable_file", &obj.ExecutableFile)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "buildpack", &obj.Buildpack)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "environment_variables", &obj.EnvironmentVariables)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
 	return
 }
 
@@ -4776,9 +3890,6 @@ type UIMetaData struct {
 	// Describes whether this entry is able to be created from the UI element or CLI.
 	NotCreatable *bool `json:"not_creatable,omitempty"`
 
-	// Describes whether a plan or flavor is reservable.
-	Reservable *bool `json:"reservable,omitempty"`
-
 	// ID of the primary offering for a group.
 	PrimaryOfferingID *string `json:"primary_offering_id,omitempty"`
 
@@ -4790,105 +3901,74 @@ type UIMetaData struct {
 
 	// Date and time the service will no longer be available.
 	EndOfServiceTime *strfmt.DateTime `json:"end_of_service_time,omitempty"`
+
+	// Denotes visibility.
+	Hidden *bool `json:"hidden,omitempty"`
+
+	// Denotes lite metering visibility.
+	HideLiteMetering *bool `json:"hide_lite_metering,omitempty"`
+
+	// Denotes whether an upgrade should occurr.
+	NoUpgradeNextStep *bool `json:"no_upgrade_next_step,omitempty"`
 }
 
 
-// UnmarshalUIMetaData constructs an instance of UIMetaData from the specified map.
-func UnmarshalUIMetaData(m map[string]interface{}) (result *UIMetaData, err error) {
+// UnmarshalUIMetaData unmarshals an instance of UIMetaData from the specified map of raw messages.
+func UnmarshalUIMetaData(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(UIMetaData)
-	obj.Strings, err = UnmarshalI18NAsProperty(m, "strings")
+	err = core.UnmarshalModel(m, "strings", &obj.Strings, UnmarshalI18N)
 	if err != nil {
 		return
 	}
-	obj.Urls, err = UnmarshalURLSAsProperty(m, "urls")
+	err = core.UnmarshalModel(m, "urls", &obj.Urls, UnmarshalURLS)
 	if err != nil {
 		return
 	}
-	obj.EmbeddableDashboard, err = core.UnmarshalString(m, "embeddable_dashboard")
+	err = core.UnmarshalPrimitive(m, "embeddable_dashboard", &obj.EmbeddableDashboard)
 	if err != nil {
 		return
 	}
-	obj.EmbeddableDashboardFullWidth, err = core.UnmarshalBool(m, "embeddable_dashboard_full_width")
+	err = core.UnmarshalPrimitive(m, "embeddable_dashboard_full_width", &obj.EmbeddableDashboardFullWidth)
 	if err != nil {
 		return
 	}
-	obj.NavigationOrder, err = core.UnmarshalStringSlice(m, "navigation_order")
+	err = core.UnmarshalPrimitive(m, "navigation_order", &obj.NavigationOrder)
 	if err != nil {
 		return
 	}
-	obj.NotCreatable, err = core.UnmarshalBool(m, "not_creatable")
+	err = core.UnmarshalPrimitive(m, "not_creatable", &obj.NotCreatable)
 	if err != nil {
 		return
 	}
-	obj.Reservable, err = core.UnmarshalBool(m, "reservable")
+	err = core.UnmarshalPrimitive(m, "primary_offering_id", &obj.PrimaryOfferingID)
 	if err != nil {
 		return
 	}
-	obj.PrimaryOfferingID, err = core.UnmarshalString(m, "primary_offering_id")
+	err = core.UnmarshalPrimitive(m, "accessible_during_provision", &obj.AccessibleDuringProvision)
 	if err != nil {
 		return
 	}
-	obj.AccessibleDuringProvision, err = core.UnmarshalBool(m, "accessible_during_provision")
+	err = core.UnmarshalPrimitive(m, "side_by_side_index", &obj.SideBySideIndex)
 	if err != nil {
 		return
 	}
-	obj.SideBySideIndex, err = core.UnmarshalInt64(m, "side_by_side_index")
+	err = core.UnmarshalPrimitive(m, "end_of_service_time", &obj.EndOfServiceTime)
 	if err != nil {
 		return
 	}
-	obj.EndOfServiceTime, err = core.UnmarshalDateTime(m, "end_of_service_time")
+	err = core.UnmarshalPrimitive(m, "hidden", &obj.Hidden)
 	if err != nil {
 		return
 	}
-	result = obj
-	return
-}
-
-// UnmarshalUIMetaDataSlice unmarshals a slice of UIMetaData instances from the specified list of maps.
-func UnmarshalUIMetaDataSlice(s []interface{}) (slice []UIMetaData, err error) {
-	for _, v := range s {
-		objMap, ok := v.(map[string]interface{})
-		if !ok {
-			err = fmt.Errorf("slice element should be a map containing an instance of 'UIMetaData'")
-			return
-		}
-		obj, e := UnmarshalUIMetaData(objMap)
-		if e != nil {
-			err = e
-			return
-		}
-		slice = append(slice, *obj)
+	err = core.UnmarshalPrimitive(m, "hide_lite_metering", &obj.HideLiteMetering)
+	if err != nil {
+		return
 	}
-	return
-}
-
-// UnmarshalUIMetaDataAsProperty unmarshals an instance of UIMetaData that is stored as a property
-// within the specified map.
-func UnmarshalUIMetaDataAsProperty(m map[string]interface{}, propertyName string) (result *UIMetaData, err error) {
-	v, foundIt := m[propertyName]
-	if foundIt && v != nil {
-		objMap, ok := v.(map[string]interface{})
-		if !ok {
-			err = fmt.Errorf("map property '%s' should be a map containing an instance of 'UIMetaData'", propertyName)
-			return
-		}
-		result, err = UnmarshalUIMetaData(objMap)
+	err = core.UnmarshalPrimitive(m, "no_upgrade_next_step", &obj.NoUpgradeNextStep)
+	if err != nil {
+		return
 	}
-	return
-}
-
-// UnmarshalUIMetaDataSliceAsProperty unmarshals a slice of UIMetaData instances that are stored as a property
-// within the specified map.
-func UnmarshalUIMetaDataSliceAsProperty(m map[string]interface{}, propertyName string) (slice []UIMetaData, err error) {
-	v, foundIt := m[propertyName]
-	if foundIt && v != nil {
-		vSlice, ok := v.([]interface{})
-		if !ok {
-			err = fmt.Errorf("map property '%s' should be a slice of maps, each containing an instance of 'UIMetaData'", propertyName)
-			return
-		}
-		slice, err = UnmarshalUIMetaDataSlice(vSlice)
-	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
 	return
 }
 
@@ -4911,78 +3991,30 @@ type UIMetaMedia struct {
 }
 
 
-// UnmarshalUIMetaMedia constructs an instance of UIMetaMedia from the specified map.
-func UnmarshalUIMetaMedia(m map[string]interface{}) (result *UIMetaMedia, err error) {
+// UnmarshalUIMetaMedia unmarshals an instance of UIMetaMedia from the specified map of raw messages.
+func UnmarshalUIMetaMedia(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(UIMetaMedia)
-	obj.Caption, err = core.UnmarshalString(m, "caption")
+	err = core.UnmarshalPrimitive(m, "caption", &obj.Caption)
 	if err != nil {
 		return
 	}
-	obj.ThumbnailURL, err = core.UnmarshalString(m, "thumbnail_url")
+	err = core.UnmarshalPrimitive(m, "thumbnail_url", &obj.ThumbnailURL)
 	if err != nil {
 		return
 	}
-	obj.Type, err = core.UnmarshalString(m, "type")
+	err = core.UnmarshalPrimitive(m, "type", &obj.Type)
 	if err != nil {
 		return
 	}
-	obj.URL, err = core.UnmarshalString(m, "URL")
+	err = core.UnmarshalPrimitive(m, "URL", &obj.URL)
 	if err != nil {
 		return
 	}
-	obj.Source, err = UnmarshalBulletsAsProperty(m, "source")
+	err = core.UnmarshalModel(m, "source", &obj.Source, UnmarshalBullets)
 	if err != nil {
 		return
 	}
-	result = obj
-	return
-}
-
-// UnmarshalUIMetaMediaSlice unmarshals a slice of UIMetaMedia instances from the specified list of maps.
-func UnmarshalUIMetaMediaSlice(s []interface{}) (slice []UIMetaMedia, err error) {
-	for _, v := range s {
-		objMap, ok := v.(map[string]interface{})
-		if !ok {
-			err = fmt.Errorf("slice element should be a map containing an instance of 'UIMetaMedia'")
-			return
-		}
-		obj, e := UnmarshalUIMetaMedia(objMap)
-		if e != nil {
-			err = e
-			return
-		}
-		slice = append(slice, *obj)
-	}
-	return
-}
-
-// UnmarshalUIMetaMediaAsProperty unmarshals an instance of UIMetaMedia that is stored as a property
-// within the specified map.
-func UnmarshalUIMetaMediaAsProperty(m map[string]interface{}, propertyName string) (result *UIMetaMedia, err error) {
-	v, foundIt := m[propertyName]
-	if foundIt && v != nil {
-		objMap, ok := v.(map[string]interface{})
-		if !ok {
-			err = fmt.Errorf("map property '%s' should be a map containing an instance of 'UIMetaMedia'", propertyName)
-			return
-		}
-		result, err = UnmarshalUIMetaMedia(objMap)
-	}
-	return
-}
-
-// UnmarshalUIMetaMediaSliceAsProperty unmarshals a slice of UIMetaMedia instances that are stored as a property
-// within the specified map.
-func UnmarshalUIMetaMediaSliceAsProperty(m map[string]interface{}, propertyName string) (slice []UIMetaMedia, err error) {
-	v, foundIt := m[propertyName]
-	if foundIt && v != nil {
-		vSlice, ok := v.([]interface{})
-		if !ok {
-			err = fmt.Errorf("map property '%s' should be a slice of maps, each containing an instance of 'UIMetaMedia'", propertyName)
-			return
-		}
-		slice, err = UnmarshalUIMetaMediaSlice(vSlice)
-	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
 	return
 }
 
@@ -5014,97 +4046,70 @@ type URLS struct {
 
 	// URL for deprecation documentation.
 	DeprecationDocURL *string `json:"deprecation_doc_url,omitempty"`
+
+	// URL for dashboard.
+	DashboardURL *string `json:"dashboard_url,omitempty"`
+
+	// URL for registration.
+	RegistrationURL *string `json:"registration_url,omitempty"`
+
+	// URL for API documentation.
+	Apidocsurl *string `json:"apidocsurl,omitempty"`
 }
 
 
-// UnmarshalURLS constructs an instance of URLS from the specified map.
-func UnmarshalURLS(m map[string]interface{}) (result *URLS, err error) {
+// UnmarshalURLS unmarshals an instance of URLS from the specified map of raw messages.
+func UnmarshalURLS(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(URLS)
-	obj.DocURL, err = core.UnmarshalString(m, "doc_url")
+	err = core.UnmarshalPrimitive(m, "doc_url", &obj.DocURL)
 	if err != nil {
 		return
 	}
-	obj.InstructionsURL, err = core.UnmarshalString(m, "instructions_url")
+	err = core.UnmarshalPrimitive(m, "instructions_url", &obj.InstructionsURL)
 	if err != nil {
 		return
 	}
-	obj.ApiURL, err = core.UnmarshalString(m, "api_url")
+	err = core.UnmarshalPrimitive(m, "api_url", &obj.ApiURL)
 	if err != nil {
 		return
 	}
-	obj.CreateURL, err = core.UnmarshalString(m, "create_url")
+	err = core.UnmarshalPrimitive(m, "create_url", &obj.CreateURL)
 	if err != nil {
 		return
 	}
-	obj.SdkDownloadURL, err = core.UnmarshalString(m, "sdk_download_url")
+	err = core.UnmarshalPrimitive(m, "sdk_download_url", &obj.SdkDownloadURL)
 	if err != nil {
 		return
 	}
-	obj.TermsURL, err = core.UnmarshalString(m, "terms_url")
+	err = core.UnmarshalPrimitive(m, "terms_url", &obj.TermsURL)
 	if err != nil {
 		return
 	}
-	obj.CustomCreatePageURL, err = core.UnmarshalString(m, "custom_create_page_url")
+	err = core.UnmarshalPrimitive(m, "custom_create_page_url", &obj.CustomCreatePageURL)
 	if err != nil {
 		return
 	}
-	obj.CatalogDetailsURL, err = core.UnmarshalString(m, "catalog_details_url")
+	err = core.UnmarshalPrimitive(m, "catalog_details_url", &obj.CatalogDetailsURL)
 	if err != nil {
 		return
 	}
-	obj.DeprecationDocURL, err = core.UnmarshalString(m, "deprecation_doc_url")
+	err = core.UnmarshalPrimitive(m, "deprecation_doc_url", &obj.DeprecationDocURL)
 	if err != nil {
 		return
 	}
-	result = obj
-	return
-}
-
-// UnmarshalURLSSlice unmarshals a slice of URLS instances from the specified list of maps.
-func UnmarshalURLSSlice(s []interface{}) (slice []URLS, err error) {
-	for _, v := range s {
-		objMap, ok := v.(map[string]interface{})
-		if !ok {
-			err = fmt.Errorf("slice element should be a map containing an instance of 'URLS'")
-			return
-		}
-		obj, e := UnmarshalURLS(objMap)
-		if e != nil {
-			err = e
-			return
-		}
-		slice = append(slice, *obj)
+	err = core.UnmarshalPrimitive(m, "dashboard_url", &obj.DashboardURL)
+	if err != nil {
+		return
 	}
-	return
-}
-
-// UnmarshalURLSAsProperty unmarshals an instance of URLS that is stored as a property
-// within the specified map.
-func UnmarshalURLSAsProperty(m map[string]interface{}, propertyName string) (result *URLS, err error) {
-	v, foundIt := m[propertyName]
-	if foundIt && v != nil {
-		objMap, ok := v.(map[string]interface{})
-		if !ok {
-			err = fmt.Errorf("map property '%s' should be a map containing an instance of 'URLS'", propertyName)
-			return
-		}
-		result, err = UnmarshalURLS(objMap)
+	err = core.UnmarshalPrimitive(m, "registration_url", &obj.RegistrationURL)
+	if err != nil {
+		return
 	}
-	return
-}
-
-// UnmarshalURLSSliceAsProperty unmarshals a slice of URLS instances that are stored as a property
-// within the specified map.
-func UnmarshalURLSSliceAsProperty(m map[string]interface{}, propertyName string) (slice []URLS, err error) {
-	v, foundIt := m[propertyName]
-	if foundIt && v != nil {
-		vSlice, ok := v.([]interface{})
-		if !ok {
-			err = fmt.Errorf("map property '%s' should be a slice of maps, each containing an instance of 'URLS'", propertyName)
-			return
-		}
-		slice, err = UnmarshalURLSSlice(vSlice)
+	err = core.UnmarshalPrimitive(m, "apidocsurl", &obj.Apidocsurl)
+	if err != nil {
+		return
 	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
 	return
 }
 
@@ -5282,6 +4287,9 @@ type UpdateVisibilityOptions struct {
 	// The object's unique ID.
 	ID *string `json:"id" validate:"required"`
 
+	// Allows the visibility to be extenable.
+	Extendable *bool `json:"extendable,omitempty"`
+
 	// Visibility details related to a catalog entry.
 	Include *VisibilityDetail `json:"include,omitempty"`
 
@@ -5307,6 +4315,12 @@ func (*GlobalCatalogV1) NewUpdateVisibilityOptions(id string) *UpdateVisibilityO
 // SetID : Allow user to set ID
 func (options *UpdateVisibilityOptions) SetID(id string) *UpdateVisibilityOptions {
 	options.ID = core.StringPtr(id)
+	return options
+}
+
+// SetExtendable : Allow user to set Extendable
+func (options *UpdateVisibilityOptions) SetExtendable(extendable bool) *UpdateVisibilityOptions {
+	options.Extendable = core.BoolPtr(extendable)
 	return options
 }
 
@@ -5410,6 +4424,9 @@ type Visibility struct {
 	// IAM Scope-related information associated with a catalog entry.
 	Owner *string `json:"owner,omitempty"`
 
+	// Allows the visibility to be extenable.
+	Extendable *bool `json:"extendable,omitempty"`
+
 	// Visibility details related to a catalog entry.
 	Include *VisibilityDetail `json:"include,omitempty"`
 
@@ -5422,78 +4439,34 @@ type Visibility struct {
 }
 
 
-// UnmarshalVisibility constructs an instance of Visibility from the specified map.
-func UnmarshalVisibility(m map[string]interface{}) (result *Visibility, err error) {
+// UnmarshalVisibility unmarshals an instance of Visibility from the specified map of raw messages.
+func UnmarshalVisibility(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(Visibility)
-	obj.Restrictions, err = core.UnmarshalString(m, "restrictions")
+	err = core.UnmarshalPrimitive(m, "restrictions", &obj.Restrictions)
 	if err != nil {
 		return
 	}
-	obj.Owner, err = core.UnmarshalString(m, "owner")
+	err = core.UnmarshalPrimitive(m, "owner", &obj.Owner)
 	if err != nil {
 		return
 	}
-	obj.Include, err = UnmarshalVisibilityDetailAsProperty(m, "include")
+	err = core.UnmarshalPrimitive(m, "extendable", &obj.Extendable)
 	if err != nil {
 		return
 	}
-	obj.Exclude, err = UnmarshalVisibilityDetailAsProperty(m, "exclude")
+	err = core.UnmarshalModel(m, "include", &obj.Include, UnmarshalVisibilityDetail)
 	if err != nil {
 		return
 	}
-	obj.Approved, err = core.UnmarshalBool(m, "approved")
+	err = core.UnmarshalModel(m, "exclude", &obj.Exclude, UnmarshalVisibilityDetail)
 	if err != nil {
 		return
 	}
-	result = obj
-	return
-}
-
-// UnmarshalVisibilitySlice unmarshals a slice of Visibility instances from the specified list of maps.
-func UnmarshalVisibilitySlice(s []interface{}) (slice []Visibility, err error) {
-	for _, v := range s {
-		objMap, ok := v.(map[string]interface{})
-		if !ok {
-			err = fmt.Errorf("slice element should be a map containing an instance of 'Visibility'")
-			return
-		}
-		obj, e := UnmarshalVisibility(objMap)
-		if e != nil {
-			err = e
-			return
-		}
-		slice = append(slice, *obj)
+	err = core.UnmarshalPrimitive(m, "approved", &obj.Approved)
+	if err != nil {
+		return
 	}
-	return
-}
-
-// UnmarshalVisibilityAsProperty unmarshals an instance of Visibility that is stored as a property
-// within the specified map.
-func UnmarshalVisibilityAsProperty(m map[string]interface{}, propertyName string) (result *Visibility, err error) {
-	v, foundIt := m[propertyName]
-	if foundIt && v != nil {
-		objMap, ok := v.(map[string]interface{})
-		if !ok {
-			err = fmt.Errorf("map property '%s' should be a map containing an instance of 'Visibility'", propertyName)
-			return
-		}
-		result, err = UnmarshalVisibility(objMap)
-	}
-	return
-}
-
-// UnmarshalVisibilitySliceAsProperty unmarshals a slice of Visibility instances that are stored as a property
-// within the specified map.
-func UnmarshalVisibilitySliceAsProperty(m map[string]interface{}, propertyName string) (slice []Visibility, err error) {
-	v, foundIt := m[propertyName]
-	if foundIt && v != nil {
-		vSlice, ok := v.([]interface{})
-		if !ok {
-			err = fmt.Errorf("map property '%s' should be a slice of maps, each containing an instance of 'Visibility'", propertyName)
-			return
-		}
-		slice, err = UnmarshalVisibilitySlice(vSlice)
-	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
 	return
 }
 
@@ -5513,62 +4486,14 @@ func (*GlobalCatalogV1) NewVisibilityDetail(accounts *VisibilityDetailAccounts) 
 	return
 }
 
-// UnmarshalVisibilityDetail constructs an instance of VisibilityDetail from the specified map.
-func UnmarshalVisibilityDetail(m map[string]interface{}) (result *VisibilityDetail, err error) {
+// UnmarshalVisibilityDetail unmarshals an instance of VisibilityDetail from the specified map of raw messages.
+func UnmarshalVisibilityDetail(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(VisibilityDetail)
-	obj.Accounts, err = UnmarshalVisibilityDetailAccountsAsProperty(m, "accounts")
+	err = core.UnmarshalModel(m, "accounts", &obj.Accounts, UnmarshalVisibilityDetailAccounts)
 	if err != nil {
 		return
 	}
-	result = obj
-	return
-}
-
-// UnmarshalVisibilityDetailSlice unmarshals a slice of VisibilityDetail instances from the specified list of maps.
-func UnmarshalVisibilityDetailSlice(s []interface{}) (slice []VisibilityDetail, err error) {
-	for _, v := range s {
-		objMap, ok := v.(map[string]interface{})
-		if !ok {
-			err = fmt.Errorf("slice element should be a map containing an instance of 'VisibilityDetail'")
-			return
-		}
-		obj, e := UnmarshalVisibilityDetail(objMap)
-		if e != nil {
-			err = e
-			return
-		}
-		slice = append(slice, *obj)
-	}
-	return
-}
-
-// UnmarshalVisibilityDetailAsProperty unmarshals an instance of VisibilityDetail that is stored as a property
-// within the specified map.
-func UnmarshalVisibilityDetailAsProperty(m map[string]interface{}, propertyName string) (result *VisibilityDetail, err error) {
-	v, foundIt := m[propertyName]
-	if foundIt && v != nil {
-		objMap, ok := v.(map[string]interface{})
-		if !ok {
-			err = fmt.Errorf("map property '%s' should be a map containing an instance of 'VisibilityDetail'", propertyName)
-			return
-		}
-		result, err = UnmarshalVisibilityDetail(objMap)
-	}
-	return
-}
-
-// UnmarshalVisibilityDetailSliceAsProperty unmarshals a slice of VisibilityDetail instances that are stored as a property
-// within the specified map.
-func UnmarshalVisibilityDetailSliceAsProperty(m map[string]interface{}, propertyName string) (slice []VisibilityDetail, err error) {
-	v, foundIt := m[propertyName]
-	if foundIt && v != nil {
-		vSlice, ok := v.([]interface{})
-		if !ok {
-			err = fmt.Errorf("map property '%s' should be a slice of maps, each containing an instance of 'VisibilityDetail'", propertyName)
-			return
-		}
-		slice, err = UnmarshalVisibilityDetailSlice(vSlice)
-	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
 	return
 }
 
@@ -5580,61 +4505,13 @@ type VisibilityDetailAccounts struct {
 }
 
 
-// UnmarshalVisibilityDetailAccounts constructs an instance of VisibilityDetailAccounts from the specified map.
-func UnmarshalVisibilityDetailAccounts(m map[string]interface{}) (result *VisibilityDetailAccounts, err error) {
+// UnmarshalVisibilityDetailAccounts unmarshals an instance of VisibilityDetailAccounts from the specified map of raw messages.
+func UnmarshalVisibilityDetailAccounts(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(VisibilityDetailAccounts)
-	obj.Accountid, err = core.UnmarshalString(m, "_accountid_")
+	err = core.UnmarshalPrimitive(m, "_accountid_", &obj.Accountid)
 	if err != nil {
 		return
 	}
-	result = obj
-	return
-}
-
-// UnmarshalVisibilityDetailAccountsSlice unmarshals a slice of VisibilityDetailAccounts instances from the specified list of maps.
-func UnmarshalVisibilityDetailAccountsSlice(s []interface{}) (slice []VisibilityDetailAccounts, err error) {
-	for _, v := range s {
-		objMap, ok := v.(map[string]interface{})
-		if !ok {
-			err = fmt.Errorf("slice element should be a map containing an instance of 'VisibilityDetailAccounts'")
-			return
-		}
-		obj, e := UnmarshalVisibilityDetailAccounts(objMap)
-		if e != nil {
-			err = e
-			return
-		}
-		slice = append(slice, *obj)
-	}
-	return
-}
-
-// UnmarshalVisibilityDetailAccountsAsProperty unmarshals an instance of VisibilityDetailAccounts that is stored as a property
-// within the specified map.
-func UnmarshalVisibilityDetailAccountsAsProperty(m map[string]interface{}, propertyName string) (result *VisibilityDetailAccounts, err error) {
-	v, foundIt := m[propertyName]
-	if foundIt && v != nil {
-		objMap, ok := v.(map[string]interface{})
-		if !ok {
-			err = fmt.Errorf("map property '%s' should be a map containing an instance of 'VisibilityDetailAccounts'", propertyName)
-			return
-		}
-		result, err = UnmarshalVisibilityDetailAccounts(objMap)
-	}
-	return
-}
-
-// UnmarshalVisibilityDetailAccountsSliceAsProperty unmarshals a slice of VisibilityDetailAccounts instances that are stored as a property
-// within the specified map.
-func UnmarshalVisibilityDetailAccountsSliceAsProperty(m map[string]interface{}, propertyName string) (slice []VisibilityDetailAccounts, err error) {
-	v, foundIt := m[propertyName]
-	if foundIt && v != nil {
-		vSlice, ok := v.([]interface{})
-		if !ok {
-			err = fmt.Errorf("map property '%s' should be a slice of maps, each containing an instance of 'VisibilityDetailAccounts'", propertyName)
-			return
-		}
-		slice, err = UnmarshalVisibilityDetailAccountsSlice(vSlice)
-	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
 	return
 }

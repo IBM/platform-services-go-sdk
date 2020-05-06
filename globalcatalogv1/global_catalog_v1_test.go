@@ -19,7 +19,7 @@ package globalcatalogv1_test
 import (
 	"bytes"
 	"fmt"
-	"github.com/IBM/go-sdk-core/v3/core"
+	"github.com/IBM/go-sdk-core/v4/core"
 	"github.com/IBM/platform-services-go-sdk/globalcatalogv1"
 	"github.com/go-openapi/strfmt"
 	. "github.com/onsi/ginkgo"
@@ -44,7 +44,7 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 		})
 		It(`Instantiate service client with error: Invalid URL`, func() {
 			testService, testServiceErr := globalcatalogv1.NewGlobalCatalogV1(&globalcatalogv1.GlobalCatalogV1Options{
-				URL: "{{BAD_URL_STRING",
+				URL: "{BAD_URL_STRING",
 			})
 			Expect(testService).To(BeNil())
 			Expect(testServiceErr).ToNot(BeNil())
@@ -124,7 +124,7 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 
 			SetTestEnvironment(testEnvironment)
 			testService, testServiceErr := globalcatalogv1.NewGlobalCatalogV1UsingExternalConfig(&globalcatalogv1.GlobalCatalogV1Options{
-				URL: "{{BAD_URL_STRING",
+				URL: "{BAD_URL_STRING",
 			})
 
 			It(`Instantiate service client with error`, func() {
@@ -158,7 +158,7 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 
 					Expect(req.URL.Query()["complete"]).To(Equal([]string{"testString"}))
 
-					res.Header().Set("Content-type", "text/plain")
+					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
 					fmt.Fprintf(res, `} this is not valid json {`)
 				}))
@@ -219,7 +219,7 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, `{"page": "Page", "results_per_page": "ResultsPerPage", "total_results": "TotalResults", "resources": [{"anyKey": "anyValue"}]}`)
+					fmt.Fprintf(res, `{"offset": 6, "limit": 5, "count": 5, "resource_count": 13, "first": "First", "last": "Last", "prev": "Prev", "next": "Next", "resources": [{"name": "Name", "kind": "service", "overview_ui": {}, "images": {"image": "Image", "small_image": "SmallImage", "medium_image": "MediumImage", "feature_image": "FeatureImage"}, "parent_id": "ParentID", "disabled": true, "tags": ["Tags"], "group": false, "provider": {"email": "Email", "name": "Name", "contact": "Contact", "support_email": "SupportEmail", "phone": "Phone"}, "active": true, "metadata": {"rc_compatible": true, "service": {"type": "Type", "iam_compatible": false, "unique_api_key": true, "provisionable": false, "bindable": true, "async_provisioning_supported": true, "async_unprovisioning_supported": true, "requires": ["Requires"], "plan_updateable": true, "state": "State", "service_check_enabled": false, "test_check_interval": 17, "service_key_supported": false, "cf_guid": {"mapKey": "Inner"}}, "plan": {"bindable": true, "reservable": true, "allow_internal_users": true, "async_provisioning_supported": true, "async_unprovisioning_supported": true, "test_check_interval": 17, "single_scope_instance": "SingleScopeInstance", "service_check_enabled": false, "cf_guid": {"mapKey": "Inner"}}, "alias": {"type": "Type", "plan_id": "PlanID"}, "template": {"services": ["Services"], "default_memory": 13, "start_cmd": "StartCmd", "source": {"path": "Path", "type": "Type", "url": "URL"}, "runtime_catalog_id": "RuntimeCatalogID", "cf_runtime_id": "CfRuntimeID", "template_id": "TemplateID", "executable_file": "ExecutableFile", "buildpack": "Buildpack", "environment_variables": {"mapKey": "Inner"}}, "ui": {"strings": {}, "urls": {"doc_url": "DocURL", "instructions_url": "InstructionsURL", "api_url": "ApiURL", "create_url": "CreateURL", "sdk_download_url": "SdkDownloadURL", "terms_url": "TermsURL", "custom_create_page_url": "CustomCreatePageURL", "catalog_details_url": "CatalogDetailsURL", "deprecation_doc_url": "DeprecationDocURL", "dashboard_url": "DashboardURL", "registration_url": "RegistrationURL", "apidocsurl": "Apidocsurl"}, "embeddable_dashboard": "EmbeddableDashboard", "embeddable_dashboard_full_width": true, "navigation_order": ["NavigationOrder"], "not_creatable": true, "primary_offering_id": "PrimaryOfferingID", "accessible_during_provision": false, "side_by_side_index": 15, "end_of_service_time": "2019-01-01T12:00:00", "hidden": true, "hide_lite_metering": true, "no_upgrade_next_step": false}, "compliance": ["Compliance"], "sla": {"terms": "Terms", "tenancy": "Tenancy", "provisioning": "Provisioning", "responsiveness": "Responsiveness", "dr": {"dr": true, "description": "Description"}}, "callbacks": {"controller_url": "ControllerURL", "broker_url": "BrokerURL", "broker_proxy_url": "BrokerProxyURL", "dashboard_url": "DashboardURL", "dashboard_data_url": "DashboardDataURL", "dashboard_detail_tab_url": "DashboardDetailTabURL", "dashboard_detail_tab_ext_url": "DashboardDetailTabExtURL", "service_monitor_api": "ServiceMonitorApi", "service_monitor_app": "ServiceMonitorApp", "api_endpoint": {"mapKey": "Inner"}}, "original_name": "OriginalName", "version": "Version", "other": {"mapKey": {"anyKey": "anyValue"}}, "pricing": {"type": "Type", "origin": "Origin", "starting_price": {"plan_id": "PlanID", "deployment_id": "DeploymentID", "unit": "Unit", "amount": [{"country": "Country", "currency": "Currency", "prices": [{"quantity_tier": 12, "Price": 5}]}]}, "metrics": [{"part_ref": "PartRef", "metric_id": "MetricID", "tier_model": "TierModel", "charge_unit": "ChargeUnit", "charge_unit_name": "ChargeUnitName", "charge_unit_quantity": "ChargeUnitQuantity", "resource_display_name": "ResourceDisplayName", "charge_unit_display_name": "ChargeUnitDisplayName", "usage_cap_qty": 11, "display_cap": 10, "effective_from": "2019-01-01T12:00:00", "effective_until": "2019-01-01T12:00:00", "amounts": [{"country": "Country", "currency": "Currency", "prices": [{"quantity_tier": 12, "Price": 5}]}]}]}, "deployment": {"location": "Location", "location_url": "LocationURL", "original_location": "OriginalLocation", "target_crn": "TargetCrn", "service_crn": "ServiceCrn", "mccp_id": "MccpID", "broker": {"name": "Name", "guid": "Guid"}, "supports_rc_migration": false, "target_network": "TargetNetwork"}}, "id": "ID", "catalog_crn": "anyValue", "url": "anyValue", "children_url": "anyValue", "geo_tags": "anyValue", "pricing_tags": "anyValue", "created": "anyValue", "updated": "anyValue"}]}`)
 				}))
 			})
 			It(`Invoke ListCatalogEntries successfully`, func() {
@@ -297,7 +297,7 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 					Expect(req.Method).To(Equal("POST"))
 					Expect(req.URL.Query()["account"]).To(Equal([]string{"testString"}))
 
-					res.Header().Set("Content-type", "text/plain")
+					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
 					fmt.Fprintf(res, `} this is not valid json {`)
 				}))
@@ -315,7 +315,7 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				bulletsModel.Title = core.StringPtr("testString")
 				bulletsModel.Description = core.StringPtr("testString")
 				bulletsModel.Icon = core.StringPtr("testString")
-				bulletsModel.Quantity = core.StringPtr("testString")
+				bulletsModel.Quantity = core.Int64Ptr(int64(38))
 
 				// Construct an instance of the Price model
 				priceModel := new(globalcatalogv1.Price)
@@ -332,7 +332,7 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 
 				// Construct an instance of the Amount model
 				amountModel := new(globalcatalogv1.Amount)
-				amountModel.Counrty = core.StringPtr("testString")
+				amountModel.Country = core.StringPtr("testString")
 				amountModel.Currency = core.StringPtr("testString")
 				amountModel.Prices = []globalcatalogv1.Price{*priceModel}
 
@@ -346,34 +346,31 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				stringsModel.PopupWarningMessage = core.StringPtr("testString")
 				stringsModel.Instruction = core.StringPtr("testString")
 
-				// Construct an instance of the DeploymentBaseBroker model
-				deploymentBaseBrokerModel := new(globalcatalogv1.DeploymentBaseBroker)
-				deploymentBaseBrokerModel.Name = core.StringPtr("testString")
-				deploymentBaseBrokerModel.Guid = core.StringPtr("testString")
+				// Construct an instance of the Broker model
+				brokerModel := new(globalcatalogv1.Broker)
+				brokerModel.Name = core.StringPtr("testString")
+				brokerModel.Guid = core.StringPtr("testString")
+
+				// Construct an instance of the DRMetaData model
+				drMetaDataModel := new(globalcatalogv1.DRMetaData)
+				drMetaDataModel.Dr = core.BoolPtr(true)
+				drMetaDataModel.Description = core.StringPtr("testString")
 
 				// Construct an instance of the I18N model
 				i18NModel := new(globalcatalogv1.I18N)
 				i18NModel.SetProperty("foo", stringsModel)
 
-				// Construct an instance of the ObjectMetadataBaseSlaDr model
-				objectMetadataBaseSlaDrModel := new(globalcatalogv1.ObjectMetadataBaseSlaDr)
-				objectMetadataBaseSlaDrModel.Dr = core.BoolPtr(true)
-				objectMetadataBaseSlaDrModel.Description = core.StringPtr("testString")
-
-				// Construct an instance of the ObjectMetadataBaseTemplateEnvironmentVariables model
-				objectMetadataBaseTemplateEnvironmentVariablesModel := new(globalcatalogv1.ObjectMetadataBaseTemplateEnvironmentVariables)
-				objectMetadataBaseTemplateEnvironmentVariablesModel.Key = core.StringPtr("testString")
-
-				// Construct an instance of the ObjectMetadataBaseTemplateSource model
-				objectMetadataBaseTemplateSourceModel := new(globalcatalogv1.ObjectMetadataBaseTemplateSource)
-				objectMetadataBaseTemplateSourceModel.Path = core.StringPtr("testString")
-				objectMetadataBaseTemplateSourceModel.Type = core.StringPtr("testString")
-				objectMetadataBaseTemplateSourceModel.URL = core.StringPtr("testString")
+				// Construct an instance of the SourceMetaData model
+				sourceMetaDataModel := new(globalcatalogv1.SourceMetaData)
+				sourceMetaDataModel.Path = core.StringPtr("testString")
+				sourceMetaDataModel.Type = core.StringPtr("testString")
+				sourceMetaDataModel.URL = core.StringPtr("testString")
 
 				// Construct an instance of the StartingPrice model
 				startingPriceModel := new(globalcatalogv1.StartingPrice)
 				startingPriceModel.PlanID = core.StringPtr("testString")
 				startingPriceModel.DeploymentID = core.StringPtr("testString")
+				startingPriceModel.Unit = core.StringPtr("testString")
 				startingPriceModel.Amount = []globalcatalogv1.Amount{*amountModel}
 
 				// Construct an instance of the URLS model
@@ -387,10 +384,36 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				urlsModel.CustomCreatePageURL = core.StringPtr("testString")
 				urlsModel.CatalogDetailsURL = core.StringPtr("testString")
 				urlsModel.DeprecationDocURL = core.StringPtr("testString")
+				urlsModel.DashboardURL = core.StringPtr("testString")
+				urlsModel.RegistrationURL = core.StringPtr("testString")
+				urlsModel.Apidocsurl = core.StringPtr("testString")
+
+				// Construct an instance of the AliasMetaData model
+				aliasMetaDataModel := new(globalcatalogv1.AliasMetaData)
+				aliasMetaDataModel.Type = core.StringPtr("testString")
+				aliasMetaDataModel.PlanID = core.StringPtr("testString")
+
+				// Construct an instance of the CFMetaData model
+				cfMetaDataModel := new(globalcatalogv1.CFMetaData)
+				cfMetaDataModel.Type = core.StringPtr("testString")
+				cfMetaDataModel.IamCompatible = core.BoolPtr(true)
+				cfMetaDataModel.UniqueApiKey = core.BoolPtr(true)
+				cfMetaDataModel.Provisionable = core.BoolPtr(true)
+				cfMetaDataModel.Bindable = core.BoolPtr(true)
+				cfMetaDataModel.AsyncProvisioningSupported = core.BoolPtr(true)
+				cfMetaDataModel.AsyncUnprovisioningSupported = core.BoolPtr(true)
+				cfMetaDataModel.Requires = []string{"testString"}
+				cfMetaDataModel.PlanUpdateable = core.BoolPtr(true)
+				cfMetaDataModel.State = core.StringPtr("testString")
+				cfMetaDataModel.ServiceCheckEnabled = core.BoolPtr(true)
+				cfMetaDataModel.TestCheckInterval = core.Int64Ptr(int64(38))
+				cfMetaDataModel.ServiceKeySupported = core.BoolPtr(true)
+				cfMetaDataModel.CfGuid = make(map[string]string)
 
 				// Construct an instance of the Callbacks model
 				callbacksModel := new(globalcatalogv1.Callbacks)
-				callbacksModel.BrokerUtl = core.StringPtr("testString")
+				callbacksModel.ControllerURL = core.StringPtr("testString")
+				callbacksModel.BrokerURL = core.StringPtr("testString")
 				callbacksModel.BrokerProxyURL = core.StringPtr("testString")
 				callbacksModel.DashboardURL = core.StringPtr("testString")
 				callbacksModel.DashboardDataURL = core.StringPtr("testString")
@@ -398,83 +421,65 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				callbacksModel.DashboardDetailTabExtURL = core.StringPtr("testString")
 				callbacksModel.ServiceMonitorApi = core.StringPtr("testString")
 				callbacksModel.ServiceMonitorApp = core.StringPtr("testString")
-				callbacksModel.ServiceStagingURL = core.StringPtr("testString")
-				callbacksModel.ServiceProductionURL = core.StringPtr("testString")
+				callbacksModel.ApiEndpoint = make(map[string]string)
 
 				// Construct an instance of the DeploymentBase model
 				deploymentBaseModel := new(globalcatalogv1.DeploymentBase)
 				deploymentBaseModel.Location = core.StringPtr("testString")
+				deploymentBaseModel.LocationURL = core.StringPtr("testString")
+				deploymentBaseModel.OriginalLocation = core.StringPtr("testString")
 				deploymentBaseModel.TargetCrn = core.StringPtr("testString")
-				deploymentBaseModel.Broker = deploymentBaseBrokerModel
+				deploymentBaseModel.ServiceCrn = core.StringPtr("testString")
+				deploymentBaseModel.MccpID = core.StringPtr("testString")
+				deploymentBaseModel.Broker = brokerModel
 				deploymentBaseModel.SupportsRcMigration = core.BoolPtr(true)
 				deploymentBaseModel.TargetNetwork = core.StringPtr("testString")
-
-				// Construct an instance of the ObjectMetadataBaseAlias model
-				objectMetadataBaseAliasModel := new(globalcatalogv1.ObjectMetadataBaseAlias)
-				objectMetadataBaseAliasModel.Type = core.StringPtr("testString")
-				objectMetadataBaseAliasModel.PlanID = core.StringPtr("testString")
-
-				// Construct an instance of the ObjectMetadataBasePlan model
-				objectMetadataBasePlanModel := new(globalcatalogv1.ObjectMetadataBasePlan)
-				objectMetadataBasePlanModel.Bindable = core.BoolPtr(true)
-				objectMetadataBasePlanModel.Reservable = core.BoolPtr(true)
-				objectMetadataBasePlanModel.AllowInternalUsers = core.BoolPtr(true)
-				objectMetadataBasePlanModel.AsyncProvisioningSupported = core.BoolPtr(true)
-				objectMetadataBasePlanModel.AsyncUnprovisioningSupported = core.BoolPtr(true)
-				objectMetadataBasePlanModel.TestCheckInterval = core.Int64Ptr(int64(38))
-				objectMetadataBasePlanModel.SingleScopeInstance = core.StringPtr("testString")
-				objectMetadataBasePlanModel.ServiceCheckEnabled = core.BoolPtr(true)
-				objectMetadataBasePlanModel.CfGuid = core.StringPtr("testString")
-
-				// Construct an instance of the ObjectMetadataBaseService model
-				objectMetadataBaseServiceModel := new(globalcatalogv1.ObjectMetadataBaseService)
-				objectMetadataBaseServiceModel.Type = core.StringPtr("testString")
-				objectMetadataBaseServiceModel.IamCompatible = core.BoolPtr(true)
-				objectMetadataBaseServiceModel.UniqueApiKey = core.BoolPtr(true)
-				objectMetadataBaseServiceModel.Provisionable = core.BoolPtr(true)
-				objectMetadataBaseServiceModel.AsyncProvisioningSupported = core.BoolPtr(true)
-				objectMetadataBaseServiceModel.AsyncUnprovisioningSupported = core.BoolPtr(true)
-				objectMetadataBaseServiceModel.CfGuid = core.StringPtr("testString")
-				objectMetadataBaseServiceModel.Bindable = core.BoolPtr(true)
-				objectMetadataBaseServiceModel.Requires = []string{"testString"}
-				objectMetadataBaseServiceModel.PlanUpdateable = core.BoolPtr(true)
-				objectMetadataBaseServiceModel.State = core.StringPtr("testString")
-				objectMetadataBaseServiceModel.ServiceCheckEnabled = core.BoolPtr(true)
-				objectMetadataBaseServiceModel.TestCheckInterval = core.Int64Ptr(int64(38))
-				objectMetadataBaseServiceModel.ServiceKeySupported = core.BoolPtr(true)
-
-				// Construct an instance of the ObjectMetadataBaseSla model
-				objectMetadataBaseSlaModel := new(globalcatalogv1.ObjectMetadataBaseSla)
-				objectMetadataBaseSlaModel.Terms = core.StringPtr("testString")
-				objectMetadataBaseSlaModel.Tenancy = core.StringPtr("testString")
-				objectMetadataBaseSlaModel.Provisioning = core.StringPtr("testString")
-				objectMetadataBaseSlaModel.Responsiveness = core.StringPtr("testString")
-				objectMetadataBaseSlaModel.Dr = objectMetadataBaseSlaDrModel
-
-				// Construct an instance of the ObjectMetadataBaseTemplate model
-				objectMetadataBaseTemplateModel := new(globalcatalogv1.ObjectMetadataBaseTemplate)
-				objectMetadataBaseTemplateModel.Services = []string{"testString"}
-				objectMetadataBaseTemplateModel.DefaultMemory = core.Int64Ptr(int64(38))
-				objectMetadataBaseTemplateModel.StartCmd = core.StringPtr("testString")
-				objectMetadataBaseTemplateModel.Source = objectMetadataBaseTemplateSourceModel
-				objectMetadataBaseTemplateModel.RuntimeCatalogID = core.StringPtr("testString")
-				objectMetadataBaseTemplateModel.CfRuntimeID = core.StringPtr("testString")
-				objectMetadataBaseTemplateModel.TemplateID = core.StringPtr("testString")
-				objectMetadataBaseTemplateModel.ExecutableFile = core.StringPtr("testString")
-				objectMetadataBaseTemplateModel.Buildpack = core.StringPtr("testString")
-				objectMetadataBaseTemplateModel.EnvironmentVariables = objectMetadataBaseTemplateEnvironmentVariablesModel
 
 				// Construct an instance of the Overview model
 				overviewModel := new(globalcatalogv1.Overview)
 				overviewModel.DisplayName = core.StringPtr("testString")
 				overviewModel.LongDescription = core.StringPtr("testString")
 				overviewModel.Description = core.StringPtr("testString")
+				overviewModel.FeaturedDescription = core.StringPtr("testString")
+
+				// Construct an instance of the PlanMetaData model
+				planMetaDataModel := new(globalcatalogv1.PlanMetaData)
+				planMetaDataModel.Bindable = core.BoolPtr(true)
+				planMetaDataModel.Reservable = core.BoolPtr(true)
+				planMetaDataModel.AllowInternalUsers = core.BoolPtr(true)
+				planMetaDataModel.AsyncProvisioningSupported = core.BoolPtr(true)
+				planMetaDataModel.AsyncUnprovisioningSupported = core.BoolPtr(true)
+				planMetaDataModel.TestCheckInterval = core.Int64Ptr(int64(38))
+				planMetaDataModel.SingleScopeInstance = core.StringPtr("testString")
+				planMetaDataModel.ServiceCheckEnabled = core.BoolPtr(true)
+				planMetaDataModel.CfGuid = make(map[string]string)
 
 				// Construct an instance of the PricingSet model
 				pricingSetModel := new(globalcatalogv1.PricingSet)
 				pricingSetModel.Type = core.StringPtr("testString")
 				pricingSetModel.Origin = core.StringPtr("testString")
 				pricingSetModel.StartingPrice = startingPriceModel
+
+				// Construct an instance of the SLAMetaData model
+				slaMetaDataModel := new(globalcatalogv1.SLAMetaData)
+				slaMetaDataModel.Terms = core.StringPtr("testString")
+				slaMetaDataModel.Tenancy = core.StringPtr("testString")
+				slaMetaDataModel.Provisioning = core.StringPtr("testString")
+				slaMetaDataModel.Responsiveness = core.StringPtr("testString")
+				slaMetaDataModel.Dr = drMetaDataModel
+
+				// Construct an instance of the TemplateMetaData model
+				templateMetaDataModel := new(globalcatalogv1.TemplateMetaData)
+				templateMetaDataModel.Services = []string{"testString"}
+				templateMetaDataModel.DefaultMemory = core.Int64Ptr(int64(38))
+				templateMetaDataModel.StartCmd = core.StringPtr("testString")
+				templateMetaDataModel.Source = sourceMetaDataModel
+				templateMetaDataModel.RuntimeCatalogID = core.StringPtr("testString")
+				templateMetaDataModel.CfRuntimeID = core.StringPtr("testString")
+				templateMetaDataModel.TemplateID = core.StringPtr("testString")
+				templateMetaDataModel.ExecutableFile = core.StringPtr("testString")
+				templateMetaDataModel.Buildpack = core.StringPtr("testString")
+				templateMetaDataModel.EnvironmentVariables = make(map[string]string)
 
 				// Construct an instance of the UIMetaData model
 				uiMetaDataModel := new(globalcatalogv1.UIMetaData)
@@ -484,11 +489,13 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				uiMetaDataModel.EmbeddableDashboardFullWidth = core.BoolPtr(true)
 				uiMetaDataModel.NavigationOrder = []string{"testString"}
 				uiMetaDataModel.NotCreatable = core.BoolPtr(true)
-				uiMetaDataModel.Reservable = core.BoolPtr(true)
 				uiMetaDataModel.PrimaryOfferingID = core.StringPtr("testString")
 				uiMetaDataModel.AccessibleDuringProvision = core.BoolPtr(true)
 				uiMetaDataModel.SideBySideIndex = core.Int64Ptr(int64(38))
 				uiMetaDataModel.EndOfServiceTime = CreateMockDateTime()
+				uiMetaDataModel.Hidden = core.BoolPtr(true)
+				uiMetaDataModel.HideLiteMetering = core.BoolPtr(true)
+				uiMetaDataModel.NoUpgradeNextStep = core.BoolPtr(true)
 
 				// Construct an instance of the Image model
 				imageModel := new(globalcatalogv1.Image)
@@ -500,17 +507,17 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				// Construct an instance of the ObjectMetadataSet model
 				objectMetadataSetModel := new(globalcatalogv1.ObjectMetadataSet)
 				objectMetadataSetModel.RcCompatible = core.BoolPtr(true)
+				objectMetadataSetModel.Service = cfMetaDataModel
+				objectMetadataSetModel.Plan = planMetaDataModel
+				objectMetadataSetModel.Alias = aliasMetaDataModel
+				objectMetadataSetModel.Template = templateMetaDataModel
 				objectMetadataSetModel.Ui = uiMetaDataModel
 				objectMetadataSetModel.Compliance = []string{"testString"}
-				objectMetadataSetModel.Service = objectMetadataBaseServiceModel
-				objectMetadataSetModel.Plan = objectMetadataBasePlanModel
-				objectMetadataSetModel.Template = objectMetadataBaseTemplateModel
-				objectMetadataSetModel.Alias = objectMetadataBaseAliasModel
-				objectMetadataSetModel.Sla = objectMetadataBaseSlaModel
+				objectMetadataSetModel.Sla = slaMetaDataModel
 				objectMetadataSetModel.Callbacks = callbacksModel
-				objectMetadataSetModel.Version = core.StringPtr("testString")
 				objectMetadataSetModel.OriginalName = core.StringPtr("testString")
-				objectMetadataSetModel.Other = CreateMockMap()
+				objectMetadataSetModel.Version = core.StringPtr("testString")
+				objectMetadataSetModel.Other = make(map[string]interface{})
 				objectMetadataSetModel.Pricing = pricingSetModel
 				objectMetadataSetModel.Deployment = deploymentBaseModel
 
@@ -568,7 +575,7 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, `{"name": "Name", "kind": "service", "overview_ui": {}, "images": {"image": "Image", "small_image": "SmallImage", "medium_image": "MediumImage", "feature_image": "FeatureImage"}, "parent_id": "ParentID", "disabled": true, "tags": ["Tags"], "group": false, "provider": {"email": "Email", "name": "Name", "contact": "Contact", "support_email": "SupportEmail", "phone": "Phone"}, "active": true, "metadata": {"rc_compatible": true, "ui": {"strings": {}, "urls": {"doc_url": "DocURL", "instructions_url": "InstructionsURL", "api_url": "ApiURL", "create_url": "CreateURL", "sdk_download_url": "SdkDownloadURL", "terms_url": "TermsURL", "custom_create_page_url": "CustomCreatePageURL", "catalog_details_url": "CatalogDetailsURL", "deprecation_doc_url": "DeprecationDocURL"}, "embeddable_dashboard": "EmbeddableDashboard", "embeddable_dashboard_full_width": true, "navigation_order": ["NavigationOrder"], "not_creatable": true, "reservable": true, "primary_offering_id": "PrimaryOfferingID", "accessible_during_provision": false, "side_by_side_index": 15, "end_of_service_time": "2019-01-01T12:00:00"}, "compliance": ["Compliance"], "service": {"type": "Type", "iam_compatible": false, "unique_api_key": true, "provisionable": false, "async_provisioning_supported": true, "async_unprovisioning_supported": true, "cf_guid": "CfGuid", "bindable": true, "requires": ["Requires"], "plan_updateable": true, "state": "State", "service_check_enabled": false, "test_check_interval": 17, "service_key_supported": false}, "plan": {"bindable": true, "reservable": true, "allow_internal_users": true, "async_provisioning_supported": true, "async_unprovisioning_supported": true, "test_check_interval": 17, "single_scope_instance": "SingleScopeInstance", "service_check_enabled": false, "cf_guid": "CfGuid"}, "template": {"services": ["Services"], "default_memory": 13, "start_cmd": "StartCmd", "source": {"path": "Path", "type": "Type", "url": "URL"}, "runtime_catalog_id": "RuntimeCatalogID", "cf_runtime_id": "CfRuntimeID", "template_id": "TemplateID", "executable_file": "ExecutableFile", "buildpack": "Buildpack", "environment_variables": {"_key_": "Key"}}, "alias": {"type": "Type", "plan_id": "PlanID"}, "sla": {"terms": "Terms", "tenancy": "Tenancy", "provisioning": "Provisioning", "responsiveness": "Responsiveness", "dr": {"dr": true, "description": "Description"}}, "callbacks": {"broker_utl": "BrokerUtl", "broker_proxy_url": "BrokerProxyURL", "dashboard_url": "DashboardURL", "dashboard_data_url": "DashboardDataURL", "dashboard_detail_tab_url": "DashboardDetailTabURL", "dashboard_detail_tab_ext_url": "DashboardDetailTabExtURL", "service_monitor_api": "ServiceMonitorApi", "service_monitor_app": "ServiceMonitorApp", "service_staging_url": "ServiceStagingURL", "service_production_url": "ServiceProductionURL"}, "version": "Version", "original_name": "OriginalName", "other": {"anyKey": "anyValue"}, "pricing": {"type": "Type", "origin": "Origin", "starting_price": {"plan_id": "PlanID", "deployment_id": "DeploymentID", "amount": [{"counrty": "Counrty", "currency": "Currency", "prices": [{"quantity_tier": 12, "Price": 5}]}]}}, "deployment": {"location": "Location", "target_crn": "TargetCrn", "broker": {"name": "Name", "guid": "Guid"}, "supports_rc_migration": false, "target_network": "TargetNetwork"}}, "id": "ID", "catalog_crn": {"anyKey": "anyValue"}, "url": {"anyKey": "anyValue"}, "children_url": {"anyKey": "anyValue"}, "geo_tags": {"anyKey": "anyValue"}, "pricing_tags": {"anyKey": "anyValue"}, "created": {"anyKey": "anyValue"}, "updated": {"anyKey": "anyValue"}}`)
+					fmt.Fprintf(res, `{"name": "Name", "kind": "service", "overview_ui": {}, "images": {"image": "Image", "small_image": "SmallImage", "medium_image": "MediumImage", "feature_image": "FeatureImage"}, "parent_id": "ParentID", "disabled": true, "tags": ["Tags"], "group": false, "provider": {"email": "Email", "name": "Name", "contact": "Contact", "support_email": "SupportEmail", "phone": "Phone"}, "active": true, "metadata": {"rc_compatible": true, "service": {"type": "Type", "iam_compatible": false, "unique_api_key": true, "provisionable": false, "bindable": true, "async_provisioning_supported": true, "async_unprovisioning_supported": true, "requires": ["Requires"], "plan_updateable": true, "state": "State", "service_check_enabled": false, "test_check_interval": 17, "service_key_supported": false, "cf_guid": {"mapKey": "Inner"}}, "plan": {"bindable": true, "reservable": true, "allow_internal_users": true, "async_provisioning_supported": true, "async_unprovisioning_supported": true, "test_check_interval": 17, "single_scope_instance": "SingleScopeInstance", "service_check_enabled": false, "cf_guid": {"mapKey": "Inner"}}, "alias": {"type": "Type", "plan_id": "PlanID"}, "template": {"services": ["Services"], "default_memory": 13, "start_cmd": "StartCmd", "source": {"path": "Path", "type": "Type", "url": "URL"}, "runtime_catalog_id": "RuntimeCatalogID", "cf_runtime_id": "CfRuntimeID", "template_id": "TemplateID", "executable_file": "ExecutableFile", "buildpack": "Buildpack", "environment_variables": {"mapKey": "Inner"}}, "ui": {"strings": {}, "urls": {"doc_url": "DocURL", "instructions_url": "InstructionsURL", "api_url": "ApiURL", "create_url": "CreateURL", "sdk_download_url": "SdkDownloadURL", "terms_url": "TermsURL", "custom_create_page_url": "CustomCreatePageURL", "catalog_details_url": "CatalogDetailsURL", "deprecation_doc_url": "DeprecationDocURL", "dashboard_url": "DashboardURL", "registration_url": "RegistrationURL", "apidocsurl": "Apidocsurl"}, "embeddable_dashboard": "EmbeddableDashboard", "embeddable_dashboard_full_width": true, "navigation_order": ["NavigationOrder"], "not_creatable": true, "primary_offering_id": "PrimaryOfferingID", "accessible_during_provision": false, "side_by_side_index": 15, "end_of_service_time": "2019-01-01T12:00:00", "hidden": true, "hide_lite_metering": true, "no_upgrade_next_step": false}, "compliance": ["Compliance"], "sla": {"terms": "Terms", "tenancy": "Tenancy", "provisioning": "Provisioning", "responsiveness": "Responsiveness", "dr": {"dr": true, "description": "Description"}}, "callbacks": {"controller_url": "ControllerURL", "broker_url": "BrokerURL", "broker_proxy_url": "BrokerProxyURL", "dashboard_url": "DashboardURL", "dashboard_data_url": "DashboardDataURL", "dashboard_detail_tab_url": "DashboardDetailTabURL", "dashboard_detail_tab_ext_url": "DashboardDetailTabExtURL", "service_monitor_api": "ServiceMonitorApi", "service_monitor_app": "ServiceMonitorApp", "api_endpoint": {"mapKey": "Inner"}}, "original_name": "OriginalName", "version": "Version", "other": {"mapKey": {"anyKey": "anyValue"}}, "pricing": {"type": "Type", "origin": "Origin", "starting_price": {"plan_id": "PlanID", "deployment_id": "DeploymentID", "unit": "Unit", "amount": [{"country": "Country", "currency": "Currency", "prices": [{"quantity_tier": 12, "Price": 5}]}]}, "metrics": [{"part_ref": "PartRef", "metric_id": "MetricID", "tier_model": "TierModel", "charge_unit": "ChargeUnit", "charge_unit_name": "ChargeUnitName", "charge_unit_quantity": "ChargeUnitQuantity", "resource_display_name": "ResourceDisplayName", "charge_unit_display_name": "ChargeUnitDisplayName", "usage_cap_qty": 11, "display_cap": 10, "effective_from": "2019-01-01T12:00:00", "effective_until": "2019-01-01T12:00:00", "amounts": [{"country": "Country", "currency": "Currency", "prices": [{"quantity_tier": 12, "Price": 5}]}]}]}, "deployment": {"location": "Location", "location_url": "LocationURL", "original_location": "OriginalLocation", "target_crn": "TargetCrn", "service_crn": "ServiceCrn", "mccp_id": "MccpID", "broker": {"name": "Name", "guid": "Guid"}, "supports_rc_migration": false, "target_network": "TargetNetwork"}}, "id": "ID", "catalog_crn": "anyValue", "url": "anyValue", "children_url": "anyValue", "geo_tags": "anyValue", "pricing_tags": "anyValue", "created": "anyValue", "updated": "anyValue"}`)
 				}))
 			})
 			It(`Invoke CreateCatalogEntry successfully`, func() {
@@ -590,7 +597,7 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				bulletsModel.Title = core.StringPtr("testString")
 				bulletsModel.Description = core.StringPtr("testString")
 				bulletsModel.Icon = core.StringPtr("testString")
-				bulletsModel.Quantity = core.StringPtr("testString")
+				bulletsModel.Quantity = core.Int64Ptr(int64(38))
 
 				// Construct an instance of the Price model
 				priceModel := new(globalcatalogv1.Price)
@@ -607,7 +614,7 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 
 				// Construct an instance of the Amount model
 				amountModel := new(globalcatalogv1.Amount)
-				amountModel.Counrty = core.StringPtr("testString")
+				amountModel.Country = core.StringPtr("testString")
 				amountModel.Currency = core.StringPtr("testString")
 				amountModel.Prices = []globalcatalogv1.Price{*priceModel}
 
@@ -621,34 +628,31 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				stringsModel.PopupWarningMessage = core.StringPtr("testString")
 				stringsModel.Instruction = core.StringPtr("testString")
 
-				// Construct an instance of the DeploymentBaseBroker model
-				deploymentBaseBrokerModel := new(globalcatalogv1.DeploymentBaseBroker)
-				deploymentBaseBrokerModel.Name = core.StringPtr("testString")
-				deploymentBaseBrokerModel.Guid = core.StringPtr("testString")
+				// Construct an instance of the Broker model
+				brokerModel := new(globalcatalogv1.Broker)
+				brokerModel.Name = core.StringPtr("testString")
+				brokerModel.Guid = core.StringPtr("testString")
+
+				// Construct an instance of the DRMetaData model
+				drMetaDataModel := new(globalcatalogv1.DRMetaData)
+				drMetaDataModel.Dr = core.BoolPtr(true)
+				drMetaDataModel.Description = core.StringPtr("testString")
 
 				// Construct an instance of the I18N model
 				i18NModel := new(globalcatalogv1.I18N)
 				i18NModel.SetProperty("foo", stringsModel)
 
-				// Construct an instance of the ObjectMetadataBaseSlaDr model
-				objectMetadataBaseSlaDrModel := new(globalcatalogv1.ObjectMetadataBaseSlaDr)
-				objectMetadataBaseSlaDrModel.Dr = core.BoolPtr(true)
-				objectMetadataBaseSlaDrModel.Description = core.StringPtr("testString")
-
-				// Construct an instance of the ObjectMetadataBaseTemplateEnvironmentVariables model
-				objectMetadataBaseTemplateEnvironmentVariablesModel := new(globalcatalogv1.ObjectMetadataBaseTemplateEnvironmentVariables)
-				objectMetadataBaseTemplateEnvironmentVariablesModel.Key = core.StringPtr("testString")
-
-				// Construct an instance of the ObjectMetadataBaseTemplateSource model
-				objectMetadataBaseTemplateSourceModel := new(globalcatalogv1.ObjectMetadataBaseTemplateSource)
-				objectMetadataBaseTemplateSourceModel.Path = core.StringPtr("testString")
-				objectMetadataBaseTemplateSourceModel.Type = core.StringPtr("testString")
-				objectMetadataBaseTemplateSourceModel.URL = core.StringPtr("testString")
+				// Construct an instance of the SourceMetaData model
+				sourceMetaDataModel := new(globalcatalogv1.SourceMetaData)
+				sourceMetaDataModel.Path = core.StringPtr("testString")
+				sourceMetaDataModel.Type = core.StringPtr("testString")
+				sourceMetaDataModel.URL = core.StringPtr("testString")
 
 				// Construct an instance of the StartingPrice model
 				startingPriceModel := new(globalcatalogv1.StartingPrice)
 				startingPriceModel.PlanID = core.StringPtr("testString")
 				startingPriceModel.DeploymentID = core.StringPtr("testString")
+				startingPriceModel.Unit = core.StringPtr("testString")
 				startingPriceModel.Amount = []globalcatalogv1.Amount{*amountModel}
 
 				// Construct an instance of the URLS model
@@ -662,10 +666,36 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				urlsModel.CustomCreatePageURL = core.StringPtr("testString")
 				urlsModel.CatalogDetailsURL = core.StringPtr("testString")
 				urlsModel.DeprecationDocURL = core.StringPtr("testString")
+				urlsModel.DashboardURL = core.StringPtr("testString")
+				urlsModel.RegistrationURL = core.StringPtr("testString")
+				urlsModel.Apidocsurl = core.StringPtr("testString")
+
+				// Construct an instance of the AliasMetaData model
+				aliasMetaDataModel := new(globalcatalogv1.AliasMetaData)
+				aliasMetaDataModel.Type = core.StringPtr("testString")
+				aliasMetaDataModel.PlanID = core.StringPtr("testString")
+
+				// Construct an instance of the CFMetaData model
+				cfMetaDataModel := new(globalcatalogv1.CFMetaData)
+				cfMetaDataModel.Type = core.StringPtr("testString")
+				cfMetaDataModel.IamCompatible = core.BoolPtr(true)
+				cfMetaDataModel.UniqueApiKey = core.BoolPtr(true)
+				cfMetaDataModel.Provisionable = core.BoolPtr(true)
+				cfMetaDataModel.Bindable = core.BoolPtr(true)
+				cfMetaDataModel.AsyncProvisioningSupported = core.BoolPtr(true)
+				cfMetaDataModel.AsyncUnprovisioningSupported = core.BoolPtr(true)
+				cfMetaDataModel.Requires = []string{"testString"}
+				cfMetaDataModel.PlanUpdateable = core.BoolPtr(true)
+				cfMetaDataModel.State = core.StringPtr("testString")
+				cfMetaDataModel.ServiceCheckEnabled = core.BoolPtr(true)
+				cfMetaDataModel.TestCheckInterval = core.Int64Ptr(int64(38))
+				cfMetaDataModel.ServiceKeySupported = core.BoolPtr(true)
+				cfMetaDataModel.CfGuid = make(map[string]string)
 
 				// Construct an instance of the Callbacks model
 				callbacksModel := new(globalcatalogv1.Callbacks)
-				callbacksModel.BrokerUtl = core.StringPtr("testString")
+				callbacksModel.ControllerURL = core.StringPtr("testString")
+				callbacksModel.BrokerURL = core.StringPtr("testString")
 				callbacksModel.BrokerProxyURL = core.StringPtr("testString")
 				callbacksModel.DashboardURL = core.StringPtr("testString")
 				callbacksModel.DashboardDataURL = core.StringPtr("testString")
@@ -673,83 +703,65 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				callbacksModel.DashboardDetailTabExtURL = core.StringPtr("testString")
 				callbacksModel.ServiceMonitorApi = core.StringPtr("testString")
 				callbacksModel.ServiceMonitorApp = core.StringPtr("testString")
-				callbacksModel.ServiceStagingURL = core.StringPtr("testString")
-				callbacksModel.ServiceProductionURL = core.StringPtr("testString")
+				callbacksModel.ApiEndpoint = make(map[string]string)
 
 				// Construct an instance of the DeploymentBase model
 				deploymentBaseModel := new(globalcatalogv1.DeploymentBase)
 				deploymentBaseModel.Location = core.StringPtr("testString")
+				deploymentBaseModel.LocationURL = core.StringPtr("testString")
+				deploymentBaseModel.OriginalLocation = core.StringPtr("testString")
 				deploymentBaseModel.TargetCrn = core.StringPtr("testString")
-				deploymentBaseModel.Broker = deploymentBaseBrokerModel
+				deploymentBaseModel.ServiceCrn = core.StringPtr("testString")
+				deploymentBaseModel.MccpID = core.StringPtr("testString")
+				deploymentBaseModel.Broker = brokerModel
 				deploymentBaseModel.SupportsRcMigration = core.BoolPtr(true)
 				deploymentBaseModel.TargetNetwork = core.StringPtr("testString")
-
-				// Construct an instance of the ObjectMetadataBaseAlias model
-				objectMetadataBaseAliasModel := new(globalcatalogv1.ObjectMetadataBaseAlias)
-				objectMetadataBaseAliasModel.Type = core.StringPtr("testString")
-				objectMetadataBaseAliasModel.PlanID = core.StringPtr("testString")
-
-				// Construct an instance of the ObjectMetadataBasePlan model
-				objectMetadataBasePlanModel := new(globalcatalogv1.ObjectMetadataBasePlan)
-				objectMetadataBasePlanModel.Bindable = core.BoolPtr(true)
-				objectMetadataBasePlanModel.Reservable = core.BoolPtr(true)
-				objectMetadataBasePlanModel.AllowInternalUsers = core.BoolPtr(true)
-				objectMetadataBasePlanModel.AsyncProvisioningSupported = core.BoolPtr(true)
-				objectMetadataBasePlanModel.AsyncUnprovisioningSupported = core.BoolPtr(true)
-				objectMetadataBasePlanModel.TestCheckInterval = core.Int64Ptr(int64(38))
-				objectMetadataBasePlanModel.SingleScopeInstance = core.StringPtr("testString")
-				objectMetadataBasePlanModel.ServiceCheckEnabled = core.BoolPtr(true)
-				objectMetadataBasePlanModel.CfGuid = core.StringPtr("testString")
-
-				// Construct an instance of the ObjectMetadataBaseService model
-				objectMetadataBaseServiceModel := new(globalcatalogv1.ObjectMetadataBaseService)
-				objectMetadataBaseServiceModel.Type = core.StringPtr("testString")
-				objectMetadataBaseServiceModel.IamCompatible = core.BoolPtr(true)
-				objectMetadataBaseServiceModel.UniqueApiKey = core.BoolPtr(true)
-				objectMetadataBaseServiceModel.Provisionable = core.BoolPtr(true)
-				objectMetadataBaseServiceModel.AsyncProvisioningSupported = core.BoolPtr(true)
-				objectMetadataBaseServiceModel.AsyncUnprovisioningSupported = core.BoolPtr(true)
-				objectMetadataBaseServiceModel.CfGuid = core.StringPtr("testString")
-				objectMetadataBaseServiceModel.Bindable = core.BoolPtr(true)
-				objectMetadataBaseServiceModel.Requires = []string{"testString"}
-				objectMetadataBaseServiceModel.PlanUpdateable = core.BoolPtr(true)
-				objectMetadataBaseServiceModel.State = core.StringPtr("testString")
-				objectMetadataBaseServiceModel.ServiceCheckEnabled = core.BoolPtr(true)
-				objectMetadataBaseServiceModel.TestCheckInterval = core.Int64Ptr(int64(38))
-				objectMetadataBaseServiceModel.ServiceKeySupported = core.BoolPtr(true)
-
-				// Construct an instance of the ObjectMetadataBaseSla model
-				objectMetadataBaseSlaModel := new(globalcatalogv1.ObjectMetadataBaseSla)
-				objectMetadataBaseSlaModel.Terms = core.StringPtr("testString")
-				objectMetadataBaseSlaModel.Tenancy = core.StringPtr("testString")
-				objectMetadataBaseSlaModel.Provisioning = core.StringPtr("testString")
-				objectMetadataBaseSlaModel.Responsiveness = core.StringPtr("testString")
-				objectMetadataBaseSlaModel.Dr = objectMetadataBaseSlaDrModel
-
-				// Construct an instance of the ObjectMetadataBaseTemplate model
-				objectMetadataBaseTemplateModel := new(globalcatalogv1.ObjectMetadataBaseTemplate)
-				objectMetadataBaseTemplateModel.Services = []string{"testString"}
-				objectMetadataBaseTemplateModel.DefaultMemory = core.Int64Ptr(int64(38))
-				objectMetadataBaseTemplateModel.StartCmd = core.StringPtr("testString")
-				objectMetadataBaseTemplateModel.Source = objectMetadataBaseTemplateSourceModel
-				objectMetadataBaseTemplateModel.RuntimeCatalogID = core.StringPtr("testString")
-				objectMetadataBaseTemplateModel.CfRuntimeID = core.StringPtr("testString")
-				objectMetadataBaseTemplateModel.TemplateID = core.StringPtr("testString")
-				objectMetadataBaseTemplateModel.ExecutableFile = core.StringPtr("testString")
-				objectMetadataBaseTemplateModel.Buildpack = core.StringPtr("testString")
-				objectMetadataBaseTemplateModel.EnvironmentVariables = objectMetadataBaseTemplateEnvironmentVariablesModel
 
 				// Construct an instance of the Overview model
 				overviewModel := new(globalcatalogv1.Overview)
 				overviewModel.DisplayName = core.StringPtr("testString")
 				overviewModel.LongDescription = core.StringPtr("testString")
 				overviewModel.Description = core.StringPtr("testString")
+				overviewModel.FeaturedDescription = core.StringPtr("testString")
+
+				// Construct an instance of the PlanMetaData model
+				planMetaDataModel := new(globalcatalogv1.PlanMetaData)
+				planMetaDataModel.Bindable = core.BoolPtr(true)
+				planMetaDataModel.Reservable = core.BoolPtr(true)
+				planMetaDataModel.AllowInternalUsers = core.BoolPtr(true)
+				planMetaDataModel.AsyncProvisioningSupported = core.BoolPtr(true)
+				planMetaDataModel.AsyncUnprovisioningSupported = core.BoolPtr(true)
+				planMetaDataModel.TestCheckInterval = core.Int64Ptr(int64(38))
+				planMetaDataModel.SingleScopeInstance = core.StringPtr("testString")
+				planMetaDataModel.ServiceCheckEnabled = core.BoolPtr(true)
+				planMetaDataModel.CfGuid = make(map[string]string)
 
 				// Construct an instance of the PricingSet model
 				pricingSetModel := new(globalcatalogv1.PricingSet)
 				pricingSetModel.Type = core.StringPtr("testString")
 				pricingSetModel.Origin = core.StringPtr("testString")
 				pricingSetModel.StartingPrice = startingPriceModel
+
+				// Construct an instance of the SLAMetaData model
+				slaMetaDataModel := new(globalcatalogv1.SLAMetaData)
+				slaMetaDataModel.Terms = core.StringPtr("testString")
+				slaMetaDataModel.Tenancy = core.StringPtr("testString")
+				slaMetaDataModel.Provisioning = core.StringPtr("testString")
+				slaMetaDataModel.Responsiveness = core.StringPtr("testString")
+				slaMetaDataModel.Dr = drMetaDataModel
+
+				// Construct an instance of the TemplateMetaData model
+				templateMetaDataModel := new(globalcatalogv1.TemplateMetaData)
+				templateMetaDataModel.Services = []string{"testString"}
+				templateMetaDataModel.DefaultMemory = core.Int64Ptr(int64(38))
+				templateMetaDataModel.StartCmd = core.StringPtr("testString")
+				templateMetaDataModel.Source = sourceMetaDataModel
+				templateMetaDataModel.RuntimeCatalogID = core.StringPtr("testString")
+				templateMetaDataModel.CfRuntimeID = core.StringPtr("testString")
+				templateMetaDataModel.TemplateID = core.StringPtr("testString")
+				templateMetaDataModel.ExecutableFile = core.StringPtr("testString")
+				templateMetaDataModel.Buildpack = core.StringPtr("testString")
+				templateMetaDataModel.EnvironmentVariables = make(map[string]string)
 
 				// Construct an instance of the UIMetaData model
 				uiMetaDataModel := new(globalcatalogv1.UIMetaData)
@@ -759,11 +771,13 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				uiMetaDataModel.EmbeddableDashboardFullWidth = core.BoolPtr(true)
 				uiMetaDataModel.NavigationOrder = []string{"testString"}
 				uiMetaDataModel.NotCreatable = core.BoolPtr(true)
-				uiMetaDataModel.Reservable = core.BoolPtr(true)
 				uiMetaDataModel.PrimaryOfferingID = core.StringPtr("testString")
 				uiMetaDataModel.AccessibleDuringProvision = core.BoolPtr(true)
 				uiMetaDataModel.SideBySideIndex = core.Int64Ptr(int64(38))
 				uiMetaDataModel.EndOfServiceTime = CreateMockDateTime()
+				uiMetaDataModel.Hidden = core.BoolPtr(true)
+				uiMetaDataModel.HideLiteMetering = core.BoolPtr(true)
+				uiMetaDataModel.NoUpgradeNextStep = core.BoolPtr(true)
 
 				// Construct an instance of the Image model
 				imageModel := new(globalcatalogv1.Image)
@@ -775,17 +789,17 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				// Construct an instance of the ObjectMetadataSet model
 				objectMetadataSetModel := new(globalcatalogv1.ObjectMetadataSet)
 				objectMetadataSetModel.RcCompatible = core.BoolPtr(true)
+				objectMetadataSetModel.Service = cfMetaDataModel
+				objectMetadataSetModel.Plan = planMetaDataModel
+				objectMetadataSetModel.Alias = aliasMetaDataModel
+				objectMetadataSetModel.Template = templateMetaDataModel
 				objectMetadataSetModel.Ui = uiMetaDataModel
 				objectMetadataSetModel.Compliance = []string{"testString"}
-				objectMetadataSetModel.Service = objectMetadataBaseServiceModel
-				objectMetadataSetModel.Plan = objectMetadataBasePlanModel
-				objectMetadataSetModel.Template = objectMetadataBaseTemplateModel
-				objectMetadataSetModel.Alias = objectMetadataBaseAliasModel
-				objectMetadataSetModel.Sla = objectMetadataBaseSlaModel
+				objectMetadataSetModel.Sla = slaMetaDataModel
 				objectMetadataSetModel.Callbacks = callbacksModel
-				objectMetadataSetModel.Version = core.StringPtr("testString")
 				objectMetadataSetModel.OriginalName = core.StringPtr("testString")
-				objectMetadataSetModel.Other = CreateMockMap()
+				objectMetadataSetModel.Version = core.StringPtr("testString")
+				objectMetadataSetModel.Other = make(map[string]interface{})
 				objectMetadataSetModel.Pricing = pricingSetModel
 				objectMetadataSetModel.Deployment = deploymentBaseModel
 
@@ -837,7 +851,7 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				bulletsModel.Title = core.StringPtr("testString")
 				bulletsModel.Description = core.StringPtr("testString")
 				bulletsModel.Icon = core.StringPtr("testString")
-				bulletsModel.Quantity = core.StringPtr("testString")
+				bulletsModel.Quantity = core.Int64Ptr(int64(38))
 
 				// Construct an instance of the Price model
 				priceModel := new(globalcatalogv1.Price)
@@ -854,7 +868,7 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 
 				// Construct an instance of the Amount model
 				amountModel := new(globalcatalogv1.Amount)
-				amountModel.Counrty = core.StringPtr("testString")
+				amountModel.Country = core.StringPtr("testString")
 				amountModel.Currency = core.StringPtr("testString")
 				amountModel.Prices = []globalcatalogv1.Price{*priceModel}
 
@@ -868,34 +882,31 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				stringsModel.PopupWarningMessage = core.StringPtr("testString")
 				stringsModel.Instruction = core.StringPtr("testString")
 
-				// Construct an instance of the DeploymentBaseBroker model
-				deploymentBaseBrokerModel := new(globalcatalogv1.DeploymentBaseBroker)
-				deploymentBaseBrokerModel.Name = core.StringPtr("testString")
-				deploymentBaseBrokerModel.Guid = core.StringPtr("testString")
+				// Construct an instance of the Broker model
+				brokerModel := new(globalcatalogv1.Broker)
+				brokerModel.Name = core.StringPtr("testString")
+				brokerModel.Guid = core.StringPtr("testString")
+
+				// Construct an instance of the DRMetaData model
+				drMetaDataModel := new(globalcatalogv1.DRMetaData)
+				drMetaDataModel.Dr = core.BoolPtr(true)
+				drMetaDataModel.Description = core.StringPtr("testString")
 
 				// Construct an instance of the I18N model
 				i18NModel := new(globalcatalogv1.I18N)
 				i18NModel.SetProperty("foo", stringsModel)
 
-				// Construct an instance of the ObjectMetadataBaseSlaDr model
-				objectMetadataBaseSlaDrModel := new(globalcatalogv1.ObjectMetadataBaseSlaDr)
-				objectMetadataBaseSlaDrModel.Dr = core.BoolPtr(true)
-				objectMetadataBaseSlaDrModel.Description = core.StringPtr("testString")
-
-				// Construct an instance of the ObjectMetadataBaseTemplateEnvironmentVariables model
-				objectMetadataBaseTemplateEnvironmentVariablesModel := new(globalcatalogv1.ObjectMetadataBaseTemplateEnvironmentVariables)
-				objectMetadataBaseTemplateEnvironmentVariablesModel.Key = core.StringPtr("testString")
-
-				// Construct an instance of the ObjectMetadataBaseTemplateSource model
-				objectMetadataBaseTemplateSourceModel := new(globalcatalogv1.ObjectMetadataBaseTemplateSource)
-				objectMetadataBaseTemplateSourceModel.Path = core.StringPtr("testString")
-				objectMetadataBaseTemplateSourceModel.Type = core.StringPtr("testString")
-				objectMetadataBaseTemplateSourceModel.URL = core.StringPtr("testString")
+				// Construct an instance of the SourceMetaData model
+				sourceMetaDataModel := new(globalcatalogv1.SourceMetaData)
+				sourceMetaDataModel.Path = core.StringPtr("testString")
+				sourceMetaDataModel.Type = core.StringPtr("testString")
+				sourceMetaDataModel.URL = core.StringPtr("testString")
 
 				// Construct an instance of the StartingPrice model
 				startingPriceModel := new(globalcatalogv1.StartingPrice)
 				startingPriceModel.PlanID = core.StringPtr("testString")
 				startingPriceModel.DeploymentID = core.StringPtr("testString")
+				startingPriceModel.Unit = core.StringPtr("testString")
 				startingPriceModel.Amount = []globalcatalogv1.Amount{*amountModel}
 
 				// Construct an instance of the URLS model
@@ -909,10 +920,36 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				urlsModel.CustomCreatePageURL = core.StringPtr("testString")
 				urlsModel.CatalogDetailsURL = core.StringPtr("testString")
 				urlsModel.DeprecationDocURL = core.StringPtr("testString")
+				urlsModel.DashboardURL = core.StringPtr("testString")
+				urlsModel.RegistrationURL = core.StringPtr("testString")
+				urlsModel.Apidocsurl = core.StringPtr("testString")
+
+				// Construct an instance of the AliasMetaData model
+				aliasMetaDataModel := new(globalcatalogv1.AliasMetaData)
+				aliasMetaDataModel.Type = core.StringPtr("testString")
+				aliasMetaDataModel.PlanID = core.StringPtr("testString")
+
+				// Construct an instance of the CFMetaData model
+				cfMetaDataModel := new(globalcatalogv1.CFMetaData)
+				cfMetaDataModel.Type = core.StringPtr("testString")
+				cfMetaDataModel.IamCompatible = core.BoolPtr(true)
+				cfMetaDataModel.UniqueApiKey = core.BoolPtr(true)
+				cfMetaDataModel.Provisionable = core.BoolPtr(true)
+				cfMetaDataModel.Bindable = core.BoolPtr(true)
+				cfMetaDataModel.AsyncProvisioningSupported = core.BoolPtr(true)
+				cfMetaDataModel.AsyncUnprovisioningSupported = core.BoolPtr(true)
+				cfMetaDataModel.Requires = []string{"testString"}
+				cfMetaDataModel.PlanUpdateable = core.BoolPtr(true)
+				cfMetaDataModel.State = core.StringPtr("testString")
+				cfMetaDataModel.ServiceCheckEnabled = core.BoolPtr(true)
+				cfMetaDataModel.TestCheckInterval = core.Int64Ptr(int64(38))
+				cfMetaDataModel.ServiceKeySupported = core.BoolPtr(true)
+				cfMetaDataModel.CfGuid = make(map[string]string)
 
 				// Construct an instance of the Callbacks model
 				callbacksModel := new(globalcatalogv1.Callbacks)
-				callbacksModel.BrokerUtl = core.StringPtr("testString")
+				callbacksModel.ControllerURL = core.StringPtr("testString")
+				callbacksModel.BrokerURL = core.StringPtr("testString")
 				callbacksModel.BrokerProxyURL = core.StringPtr("testString")
 				callbacksModel.DashboardURL = core.StringPtr("testString")
 				callbacksModel.DashboardDataURL = core.StringPtr("testString")
@@ -920,83 +957,65 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				callbacksModel.DashboardDetailTabExtURL = core.StringPtr("testString")
 				callbacksModel.ServiceMonitorApi = core.StringPtr("testString")
 				callbacksModel.ServiceMonitorApp = core.StringPtr("testString")
-				callbacksModel.ServiceStagingURL = core.StringPtr("testString")
-				callbacksModel.ServiceProductionURL = core.StringPtr("testString")
+				callbacksModel.ApiEndpoint = make(map[string]string)
 
 				// Construct an instance of the DeploymentBase model
 				deploymentBaseModel := new(globalcatalogv1.DeploymentBase)
 				deploymentBaseModel.Location = core.StringPtr("testString")
+				deploymentBaseModel.LocationURL = core.StringPtr("testString")
+				deploymentBaseModel.OriginalLocation = core.StringPtr("testString")
 				deploymentBaseModel.TargetCrn = core.StringPtr("testString")
-				deploymentBaseModel.Broker = deploymentBaseBrokerModel
+				deploymentBaseModel.ServiceCrn = core.StringPtr("testString")
+				deploymentBaseModel.MccpID = core.StringPtr("testString")
+				deploymentBaseModel.Broker = brokerModel
 				deploymentBaseModel.SupportsRcMigration = core.BoolPtr(true)
 				deploymentBaseModel.TargetNetwork = core.StringPtr("testString")
-
-				// Construct an instance of the ObjectMetadataBaseAlias model
-				objectMetadataBaseAliasModel := new(globalcatalogv1.ObjectMetadataBaseAlias)
-				objectMetadataBaseAliasModel.Type = core.StringPtr("testString")
-				objectMetadataBaseAliasModel.PlanID = core.StringPtr("testString")
-
-				// Construct an instance of the ObjectMetadataBasePlan model
-				objectMetadataBasePlanModel := new(globalcatalogv1.ObjectMetadataBasePlan)
-				objectMetadataBasePlanModel.Bindable = core.BoolPtr(true)
-				objectMetadataBasePlanModel.Reservable = core.BoolPtr(true)
-				objectMetadataBasePlanModel.AllowInternalUsers = core.BoolPtr(true)
-				objectMetadataBasePlanModel.AsyncProvisioningSupported = core.BoolPtr(true)
-				objectMetadataBasePlanModel.AsyncUnprovisioningSupported = core.BoolPtr(true)
-				objectMetadataBasePlanModel.TestCheckInterval = core.Int64Ptr(int64(38))
-				objectMetadataBasePlanModel.SingleScopeInstance = core.StringPtr("testString")
-				objectMetadataBasePlanModel.ServiceCheckEnabled = core.BoolPtr(true)
-				objectMetadataBasePlanModel.CfGuid = core.StringPtr("testString")
-
-				// Construct an instance of the ObjectMetadataBaseService model
-				objectMetadataBaseServiceModel := new(globalcatalogv1.ObjectMetadataBaseService)
-				objectMetadataBaseServiceModel.Type = core.StringPtr("testString")
-				objectMetadataBaseServiceModel.IamCompatible = core.BoolPtr(true)
-				objectMetadataBaseServiceModel.UniqueApiKey = core.BoolPtr(true)
-				objectMetadataBaseServiceModel.Provisionable = core.BoolPtr(true)
-				objectMetadataBaseServiceModel.AsyncProvisioningSupported = core.BoolPtr(true)
-				objectMetadataBaseServiceModel.AsyncUnprovisioningSupported = core.BoolPtr(true)
-				objectMetadataBaseServiceModel.CfGuid = core.StringPtr("testString")
-				objectMetadataBaseServiceModel.Bindable = core.BoolPtr(true)
-				objectMetadataBaseServiceModel.Requires = []string{"testString"}
-				objectMetadataBaseServiceModel.PlanUpdateable = core.BoolPtr(true)
-				objectMetadataBaseServiceModel.State = core.StringPtr("testString")
-				objectMetadataBaseServiceModel.ServiceCheckEnabled = core.BoolPtr(true)
-				objectMetadataBaseServiceModel.TestCheckInterval = core.Int64Ptr(int64(38))
-				objectMetadataBaseServiceModel.ServiceKeySupported = core.BoolPtr(true)
-
-				// Construct an instance of the ObjectMetadataBaseSla model
-				objectMetadataBaseSlaModel := new(globalcatalogv1.ObjectMetadataBaseSla)
-				objectMetadataBaseSlaModel.Terms = core.StringPtr("testString")
-				objectMetadataBaseSlaModel.Tenancy = core.StringPtr("testString")
-				objectMetadataBaseSlaModel.Provisioning = core.StringPtr("testString")
-				objectMetadataBaseSlaModel.Responsiveness = core.StringPtr("testString")
-				objectMetadataBaseSlaModel.Dr = objectMetadataBaseSlaDrModel
-
-				// Construct an instance of the ObjectMetadataBaseTemplate model
-				objectMetadataBaseTemplateModel := new(globalcatalogv1.ObjectMetadataBaseTemplate)
-				objectMetadataBaseTemplateModel.Services = []string{"testString"}
-				objectMetadataBaseTemplateModel.DefaultMemory = core.Int64Ptr(int64(38))
-				objectMetadataBaseTemplateModel.StartCmd = core.StringPtr("testString")
-				objectMetadataBaseTemplateModel.Source = objectMetadataBaseTemplateSourceModel
-				objectMetadataBaseTemplateModel.RuntimeCatalogID = core.StringPtr("testString")
-				objectMetadataBaseTemplateModel.CfRuntimeID = core.StringPtr("testString")
-				objectMetadataBaseTemplateModel.TemplateID = core.StringPtr("testString")
-				objectMetadataBaseTemplateModel.ExecutableFile = core.StringPtr("testString")
-				objectMetadataBaseTemplateModel.Buildpack = core.StringPtr("testString")
-				objectMetadataBaseTemplateModel.EnvironmentVariables = objectMetadataBaseTemplateEnvironmentVariablesModel
 
 				// Construct an instance of the Overview model
 				overviewModel := new(globalcatalogv1.Overview)
 				overviewModel.DisplayName = core.StringPtr("testString")
 				overviewModel.LongDescription = core.StringPtr("testString")
 				overviewModel.Description = core.StringPtr("testString")
+				overviewModel.FeaturedDescription = core.StringPtr("testString")
+
+				// Construct an instance of the PlanMetaData model
+				planMetaDataModel := new(globalcatalogv1.PlanMetaData)
+				planMetaDataModel.Bindable = core.BoolPtr(true)
+				planMetaDataModel.Reservable = core.BoolPtr(true)
+				planMetaDataModel.AllowInternalUsers = core.BoolPtr(true)
+				planMetaDataModel.AsyncProvisioningSupported = core.BoolPtr(true)
+				planMetaDataModel.AsyncUnprovisioningSupported = core.BoolPtr(true)
+				planMetaDataModel.TestCheckInterval = core.Int64Ptr(int64(38))
+				planMetaDataModel.SingleScopeInstance = core.StringPtr("testString")
+				planMetaDataModel.ServiceCheckEnabled = core.BoolPtr(true)
+				planMetaDataModel.CfGuid = make(map[string]string)
 
 				// Construct an instance of the PricingSet model
 				pricingSetModel := new(globalcatalogv1.PricingSet)
 				pricingSetModel.Type = core.StringPtr("testString")
 				pricingSetModel.Origin = core.StringPtr("testString")
 				pricingSetModel.StartingPrice = startingPriceModel
+
+				// Construct an instance of the SLAMetaData model
+				slaMetaDataModel := new(globalcatalogv1.SLAMetaData)
+				slaMetaDataModel.Terms = core.StringPtr("testString")
+				slaMetaDataModel.Tenancy = core.StringPtr("testString")
+				slaMetaDataModel.Provisioning = core.StringPtr("testString")
+				slaMetaDataModel.Responsiveness = core.StringPtr("testString")
+				slaMetaDataModel.Dr = drMetaDataModel
+
+				// Construct an instance of the TemplateMetaData model
+				templateMetaDataModel := new(globalcatalogv1.TemplateMetaData)
+				templateMetaDataModel.Services = []string{"testString"}
+				templateMetaDataModel.DefaultMemory = core.Int64Ptr(int64(38))
+				templateMetaDataModel.StartCmd = core.StringPtr("testString")
+				templateMetaDataModel.Source = sourceMetaDataModel
+				templateMetaDataModel.RuntimeCatalogID = core.StringPtr("testString")
+				templateMetaDataModel.CfRuntimeID = core.StringPtr("testString")
+				templateMetaDataModel.TemplateID = core.StringPtr("testString")
+				templateMetaDataModel.ExecutableFile = core.StringPtr("testString")
+				templateMetaDataModel.Buildpack = core.StringPtr("testString")
+				templateMetaDataModel.EnvironmentVariables = make(map[string]string)
 
 				// Construct an instance of the UIMetaData model
 				uiMetaDataModel := new(globalcatalogv1.UIMetaData)
@@ -1006,11 +1025,13 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				uiMetaDataModel.EmbeddableDashboardFullWidth = core.BoolPtr(true)
 				uiMetaDataModel.NavigationOrder = []string{"testString"}
 				uiMetaDataModel.NotCreatable = core.BoolPtr(true)
-				uiMetaDataModel.Reservable = core.BoolPtr(true)
 				uiMetaDataModel.PrimaryOfferingID = core.StringPtr("testString")
 				uiMetaDataModel.AccessibleDuringProvision = core.BoolPtr(true)
 				uiMetaDataModel.SideBySideIndex = core.Int64Ptr(int64(38))
 				uiMetaDataModel.EndOfServiceTime = CreateMockDateTime()
+				uiMetaDataModel.Hidden = core.BoolPtr(true)
+				uiMetaDataModel.HideLiteMetering = core.BoolPtr(true)
+				uiMetaDataModel.NoUpgradeNextStep = core.BoolPtr(true)
 
 				// Construct an instance of the Image model
 				imageModel := new(globalcatalogv1.Image)
@@ -1022,17 +1043,17 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				// Construct an instance of the ObjectMetadataSet model
 				objectMetadataSetModel := new(globalcatalogv1.ObjectMetadataSet)
 				objectMetadataSetModel.RcCompatible = core.BoolPtr(true)
+				objectMetadataSetModel.Service = cfMetaDataModel
+				objectMetadataSetModel.Plan = planMetaDataModel
+				objectMetadataSetModel.Alias = aliasMetaDataModel
+				objectMetadataSetModel.Template = templateMetaDataModel
 				objectMetadataSetModel.Ui = uiMetaDataModel
 				objectMetadataSetModel.Compliance = []string{"testString"}
-				objectMetadataSetModel.Service = objectMetadataBaseServiceModel
-				objectMetadataSetModel.Plan = objectMetadataBasePlanModel
-				objectMetadataSetModel.Template = objectMetadataBaseTemplateModel
-				objectMetadataSetModel.Alias = objectMetadataBaseAliasModel
-				objectMetadataSetModel.Sla = objectMetadataBaseSlaModel
+				objectMetadataSetModel.Sla = slaMetaDataModel
 				objectMetadataSetModel.Callbacks = callbacksModel
-				objectMetadataSetModel.Version = core.StringPtr("testString")
 				objectMetadataSetModel.OriginalName = core.StringPtr("testString")
-				objectMetadataSetModel.Other = CreateMockMap()
+				objectMetadataSetModel.Version = core.StringPtr("testString")
+				objectMetadataSetModel.Other = make(map[string]interface{})
 				objectMetadataSetModel.Pricing = pricingSetModel
 				objectMetadataSetModel.Deployment = deploymentBaseModel
 
@@ -1105,7 +1126,7 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 
 					Expect(req.URL.Query()["depth"]).To(Equal([]string{fmt.Sprint(int64(38))}))
 
-					res.Header().Set("Content-type", "text/plain")
+					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
 					fmt.Fprintf(res, `} this is not valid json {`)
 				}))
@@ -1161,7 +1182,7 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, `{"name": "Name", "kind": "service", "overview_ui": {}, "images": {"image": "Image", "small_image": "SmallImage", "medium_image": "MediumImage", "feature_image": "FeatureImage"}, "parent_id": "ParentID", "disabled": true, "tags": ["Tags"], "group": false, "provider": {"email": "Email", "name": "Name", "contact": "Contact", "support_email": "SupportEmail", "phone": "Phone"}, "active": true, "metadata": {"rc_compatible": true, "ui": {"strings": {}, "urls": {"doc_url": "DocURL", "instructions_url": "InstructionsURL", "api_url": "ApiURL", "create_url": "CreateURL", "sdk_download_url": "SdkDownloadURL", "terms_url": "TermsURL", "custom_create_page_url": "CustomCreatePageURL", "catalog_details_url": "CatalogDetailsURL", "deprecation_doc_url": "DeprecationDocURL"}, "embeddable_dashboard": "EmbeddableDashboard", "embeddable_dashboard_full_width": true, "navigation_order": ["NavigationOrder"], "not_creatable": true, "reservable": true, "primary_offering_id": "PrimaryOfferingID", "accessible_during_provision": false, "side_by_side_index": 15, "end_of_service_time": "2019-01-01T12:00:00"}, "compliance": ["Compliance"], "service": {"type": "Type", "iam_compatible": false, "unique_api_key": true, "provisionable": false, "async_provisioning_supported": true, "async_unprovisioning_supported": true, "cf_guid": "CfGuid", "bindable": true, "requires": ["Requires"], "plan_updateable": true, "state": "State", "service_check_enabled": false, "test_check_interval": 17, "service_key_supported": false}, "plan": {"bindable": true, "reservable": true, "allow_internal_users": true, "async_provisioning_supported": true, "async_unprovisioning_supported": true, "test_check_interval": 17, "single_scope_instance": "SingleScopeInstance", "service_check_enabled": false, "cf_guid": "CfGuid"}, "template": {"services": ["Services"], "default_memory": 13, "start_cmd": "StartCmd", "source": {"path": "Path", "type": "Type", "url": "URL"}, "runtime_catalog_id": "RuntimeCatalogID", "cf_runtime_id": "CfRuntimeID", "template_id": "TemplateID", "executable_file": "ExecutableFile", "buildpack": "Buildpack", "environment_variables": {"_key_": "Key"}}, "alias": {"type": "Type", "plan_id": "PlanID"}, "sla": {"terms": "Terms", "tenancy": "Tenancy", "provisioning": "Provisioning", "responsiveness": "Responsiveness", "dr": {"dr": true, "description": "Description"}}, "callbacks": {"broker_utl": "BrokerUtl", "broker_proxy_url": "BrokerProxyURL", "dashboard_url": "DashboardURL", "dashboard_data_url": "DashboardDataURL", "dashboard_detail_tab_url": "DashboardDetailTabURL", "dashboard_detail_tab_ext_url": "DashboardDetailTabExtURL", "service_monitor_api": "ServiceMonitorApi", "service_monitor_app": "ServiceMonitorApp", "service_staging_url": "ServiceStagingURL", "service_production_url": "ServiceProductionURL"}, "version": "Version", "original_name": "OriginalName", "other": {"anyKey": "anyValue"}, "pricing": {"type": "Type", "origin": "Origin", "starting_price": {"plan_id": "PlanID", "deployment_id": "DeploymentID", "amount": [{"counrty": "Counrty", "currency": "Currency", "prices": [{"quantity_tier": 12, "Price": 5}]}]}}, "deployment": {"location": "Location", "target_crn": "TargetCrn", "broker": {"name": "Name", "guid": "Guid"}, "supports_rc_migration": false, "target_network": "TargetNetwork"}}, "id": "ID", "catalog_crn": {"anyKey": "anyValue"}, "url": {"anyKey": "anyValue"}, "children_url": {"anyKey": "anyValue"}, "geo_tags": {"anyKey": "anyValue"}, "pricing_tags": {"anyKey": "anyValue"}, "created": {"anyKey": "anyValue"}, "updated": {"anyKey": "anyValue"}}`)
+					fmt.Fprintf(res, `{"name": "Name", "kind": "service", "overview_ui": {}, "images": {"image": "Image", "small_image": "SmallImage", "medium_image": "MediumImage", "feature_image": "FeatureImage"}, "parent_id": "ParentID", "disabled": true, "tags": ["Tags"], "group": false, "provider": {"email": "Email", "name": "Name", "contact": "Contact", "support_email": "SupportEmail", "phone": "Phone"}, "active": true, "metadata": {"rc_compatible": true, "service": {"type": "Type", "iam_compatible": false, "unique_api_key": true, "provisionable": false, "bindable": true, "async_provisioning_supported": true, "async_unprovisioning_supported": true, "requires": ["Requires"], "plan_updateable": true, "state": "State", "service_check_enabled": false, "test_check_interval": 17, "service_key_supported": false, "cf_guid": {"mapKey": "Inner"}}, "plan": {"bindable": true, "reservable": true, "allow_internal_users": true, "async_provisioning_supported": true, "async_unprovisioning_supported": true, "test_check_interval": 17, "single_scope_instance": "SingleScopeInstance", "service_check_enabled": false, "cf_guid": {"mapKey": "Inner"}}, "alias": {"type": "Type", "plan_id": "PlanID"}, "template": {"services": ["Services"], "default_memory": 13, "start_cmd": "StartCmd", "source": {"path": "Path", "type": "Type", "url": "URL"}, "runtime_catalog_id": "RuntimeCatalogID", "cf_runtime_id": "CfRuntimeID", "template_id": "TemplateID", "executable_file": "ExecutableFile", "buildpack": "Buildpack", "environment_variables": {"mapKey": "Inner"}}, "ui": {"strings": {}, "urls": {"doc_url": "DocURL", "instructions_url": "InstructionsURL", "api_url": "ApiURL", "create_url": "CreateURL", "sdk_download_url": "SdkDownloadURL", "terms_url": "TermsURL", "custom_create_page_url": "CustomCreatePageURL", "catalog_details_url": "CatalogDetailsURL", "deprecation_doc_url": "DeprecationDocURL", "dashboard_url": "DashboardURL", "registration_url": "RegistrationURL", "apidocsurl": "Apidocsurl"}, "embeddable_dashboard": "EmbeddableDashboard", "embeddable_dashboard_full_width": true, "navigation_order": ["NavigationOrder"], "not_creatable": true, "primary_offering_id": "PrimaryOfferingID", "accessible_during_provision": false, "side_by_side_index": 15, "end_of_service_time": "2019-01-01T12:00:00", "hidden": true, "hide_lite_metering": true, "no_upgrade_next_step": false}, "compliance": ["Compliance"], "sla": {"terms": "Terms", "tenancy": "Tenancy", "provisioning": "Provisioning", "responsiveness": "Responsiveness", "dr": {"dr": true, "description": "Description"}}, "callbacks": {"controller_url": "ControllerURL", "broker_url": "BrokerURL", "broker_proxy_url": "BrokerProxyURL", "dashboard_url": "DashboardURL", "dashboard_data_url": "DashboardDataURL", "dashboard_detail_tab_url": "DashboardDetailTabURL", "dashboard_detail_tab_ext_url": "DashboardDetailTabExtURL", "service_monitor_api": "ServiceMonitorApi", "service_monitor_app": "ServiceMonitorApp", "api_endpoint": {"mapKey": "Inner"}}, "original_name": "OriginalName", "version": "Version", "other": {"mapKey": {"anyKey": "anyValue"}}, "pricing": {"type": "Type", "origin": "Origin", "starting_price": {"plan_id": "PlanID", "deployment_id": "DeploymentID", "unit": "Unit", "amount": [{"country": "Country", "currency": "Currency", "prices": [{"quantity_tier": 12, "Price": 5}]}]}, "metrics": [{"part_ref": "PartRef", "metric_id": "MetricID", "tier_model": "TierModel", "charge_unit": "ChargeUnit", "charge_unit_name": "ChargeUnitName", "charge_unit_quantity": "ChargeUnitQuantity", "resource_display_name": "ResourceDisplayName", "charge_unit_display_name": "ChargeUnitDisplayName", "usage_cap_qty": 11, "display_cap": 10, "effective_from": "2019-01-01T12:00:00", "effective_until": "2019-01-01T12:00:00", "amounts": [{"country": "Country", "currency": "Currency", "prices": [{"quantity_tier": 12, "Price": 5}]}]}]}, "deployment": {"location": "Location", "location_url": "LocationURL", "original_location": "OriginalLocation", "target_crn": "TargetCrn", "service_crn": "ServiceCrn", "mccp_id": "MccpID", "broker": {"name": "Name", "guid": "Guid"}, "supports_rc_migration": false, "target_network": "TargetNetwork"}}, "id": "ID", "catalog_crn": "anyValue", "url": "anyValue", "children_url": "anyValue", "geo_tags": "anyValue", "pricing_tags": "anyValue", "created": "anyValue", "updated": "anyValue"}`)
 				}))
 			})
 			It(`Invoke GetCatalogEntry successfully`, func() {
@@ -1246,7 +1267,7 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 
 					Expect(req.URL.Query()["move"]).To(Equal([]string{"testString"}))
 
-					res.Header().Set("Content-type", "text/plain")
+					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
 					fmt.Fprintf(res, `} this is not valid json {`)
 				}))
@@ -1264,7 +1285,7 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				bulletsModel.Title = core.StringPtr("testString")
 				bulletsModel.Description = core.StringPtr("testString")
 				bulletsModel.Icon = core.StringPtr("testString")
-				bulletsModel.Quantity = core.StringPtr("testString")
+				bulletsModel.Quantity = core.Int64Ptr(int64(38))
 
 				// Construct an instance of the Price model
 				priceModel := new(globalcatalogv1.Price)
@@ -1281,7 +1302,7 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 
 				// Construct an instance of the Amount model
 				amountModel := new(globalcatalogv1.Amount)
-				amountModel.Counrty = core.StringPtr("testString")
+				amountModel.Country = core.StringPtr("testString")
 				amountModel.Currency = core.StringPtr("testString")
 				amountModel.Prices = []globalcatalogv1.Price{*priceModel}
 
@@ -1295,34 +1316,31 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				stringsModel.PopupWarningMessage = core.StringPtr("testString")
 				stringsModel.Instruction = core.StringPtr("testString")
 
-				// Construct an instance of the DeploymentBaseBroker model
-				deploymentBaseBrokerModel := new(globalcatalogv1.DeploymentBaseBroker)
-				deploymentBaseBrokerModel.Name = core.StringPtr("testString")
-				deploymentBaseBrokerModel.Guid = core.StringPtr("testString")
+				// Construct an instance of the Broker model
+				brokerModel := new(globalcatalogv1.Broker)
+				brokerModel.Name = core.StringPtr("testString")
+				brokerModel.Guid = core.StringPtr("testString")
+
+				// Construct an instance of the DRMetaData model
+				drMetaDataModel := new(globalcatalogv1.DRMetaData)
+				drMetaDataModel.Dr = core.BoolPtr(true)
+				drMetaDataModel.Description = core.StringPtr("testString")
 
 				// Construct an instance of the I18N model
 				i18NModel := new(globalcatalogv1.I18N)
 				i18NModel.SetProperty("foo", stringsModel)
 
-				// Construct an instance of the ObjectMetadataBaseSlaDr model
-				objectMetadataBaseSlaDrModel := new(globalcatalogv1.ObjectMetadataBaseSlaDr)
-				objectMetadataBaseSlaDrModel.Dr = core.BoolPtr(true)
-				objectMetadataBaseSlaDrModel.Description = core.StringPtr("testString")
-
-				// Construct an instance of the ObjectMetadataBaseTemplateEnvironmentVariables model
-				objectMetadataBaseTemplateEnvironmentVariablesModel := new(globalcatalogv1.ObjectMetadataBaseTemplateEnvironmentVariables)
-				objectMetadataBaseTemplateEnvironmentVariablesModel.Key = core.StringPtr("testString")
-
-				// Construct an instance of the ObjectMetadataBaseTemplateSource model
-				objectMetadataBaseTemplateSourceModel := new(globalcatalogv1.ObjectMetadataBaseTemplateSource)
-				objectMetadataBaseTemplateSourceModel.Path = core.StringPtr("testString")
-				objectMetadataBaseTemplateSourceModel.Type = core.StringPtr("testString")
-				objectMetadataBaseTemplateSourceModel.URL = core.StringPtr("testString")
+				// Construct an instance of the SourceMetaData model
+				sourceMetaDataModel := new(globalcatalogv1.SourceMetaData)
+				sourceMetaDataModel.Path = core.StringPtr("testString")
+				sourceMetaDataModel.Type = core.StringPtr("testString")
+				sourceMetaDataModel.URL = core.StringPtr("testString")
 
 				// Construct an instance of the StartingPrice model
 				startingPriceModel := new(globalcatalogv1.StartingPrice)
 				startingPriceModel.PlanID = core.StringPtr("testString")
 				startingPriceModel.DeploymentID = core.StringPtr("testString")
+				startingPriceModel.Unit = core.StringPtr("testString")
 				startingPriceModel.Amount = []globalcatalogv1.Amount{*amountModel}
 
 				// Construct an instance of the URLS model
@@ -1336,10 +1354,36 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				urlsModel.CustomCreatePageURL = core.StringPtr("testString")
 				urlsModel.CatalogDetailsURL = core.StringPtr("testString")
 				urlsModel.DeprecationDocURL = core.StringPtr("testString")
+				urlsModel.DashboardURL = core.StringPtr("testString")
+				urlsModel.RegistrationURL = core.StringPtr("testString")
+				urlsModel.Apidocsurl = core.StringPtr("testString")
+
+				// Construct an instance of the AliasMetaData model
+				aliasMetaDataModel := new(globalcatalogv1.AliasMetaData)
+				aliasMetaDataModel.Type = core.StringPtr("testString")
+				aliasMetaDataModel.PlanID = core.StringPtr("testString")
+
+				// Construct an instance of the CFMetaData model
+				cfMetaDataModel := new(globalcatalogv1.CFMetaData)
+				cfMetaDataModel.Type = core.StringPtr("testString")
+				cfMetaDataModel.IamCompatible = core.BoolPtr(true)
+				cfMetaDataModel.UniqueApiKey = core.BoolPtr(true)
+				cfMetaDataModel.Provisionable = core.BoolPtr(true)
+				cfMetaDataModel.Bindable = core.BoolPtr(true)
+				cfMetaDataModel.AsyncProvisioningSupported = core.BoolPtr(true)
+				cfMetaDataModel.AsyncUnprovisioningSupported = core.BoolPtr(true)
+				cfMetaDataModel.Requires = []string{"testString"}
+				cfMetaDataModel.PlanUpdateable = core.BoolPtr(true)
+				cfMetaDataModel.State = core.StringPtr("testString")
+				cfMetaDataModel.ServiceCheckEnabled = core.BoolPtr(true)
+				cfMetaDataModel.TestCheckInterval = core.Int64Ptr(int64(38))
+				cfMetaDataModel.ServiceKeySupported = core.BoolPtr(true)
+				cfMetaDataModel.CfGuid = make(map[string]string)
 
 				// Construct an instance of the Callbacks model
 				callbacksModel := new(globalcatalogv1.Callbacks)
-				callbacksModel.BrokerUtl = core.StringPtr("testString")
+				callbacksModel.ControllerURL = core.StringPtr("testString")
+				callbacksModel.BrokerURL = core.StringPtr("testString")
 				callbacksModel.BrokerProxyURL = core.StringPtr("testString")
 				callbacksModel.DashboardURL = core.StringPtr("testString")
 				callbacksModel.DashboardDataURL = core.StringPtr("testString")
@@ -1347,83 +1391,65 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				callbacksModel.DashboardDetailTabExtURL = core.StringPtr("testString")
 				callbacksModel.ServiceMonitorApi = core.StringPtr("testString")
 				callbacksModel.ServiceMonitorApp = core.StringPtr("testString")
-				callbacksModel.ServiceStagingURL = core.StringPtr("testString")
-				callbacksModel.ServiceProductionURL = core.StringPtr("testString")
+				callbacksModel.ApiEndpoint = make(map[string]string)
 
 				// Construct an instance of the DeploymentBase model
 				deploymentBaseModel := new(globalcatalogv1.DeploymentBase)
 				deploymentBaseModel.Location = core.StringPtr("testString")
+				deploymentBaseModel.LocationURL = core.StringPtr("testString")
+				deploymentBaseModel.OriginalLocation = core.StringPtr("testString")
 				deploymentBaseModel.TargetCrn = core.StringPtr("testString")
-				deploymentBaseModel.Broker = deploymentBaseBrokerModel
+				deploymentBaseModel.ServiceCrn = core.StringPtr("testString")
+				deploymentBaseModel.MccpID = core.StringPtr("testString")
+				deploymentBaseModel.Broker = brokerModel
 				deploymentBaseModel.SupportsRcMigration = core.BoolPtr(true)
 				deploymentBaseModel.TargetNetwork = core.StringPtr("testString")
-
-				// Construct an instance of the ObjectMetadataBaseAlias model
-				objectMetadataBaseAliasModel := new(globalcatalogv1.ObjectMetadataBaseAlias)
-				objectMetadataBaseAliasModel.Type = core.StringPtr("testString")
-				objectMetadataBaseAliasModel.PlanID = core.StringPtr("testString")
-
-				// Construct an instance of the ObjectMetadataBasePlan model
-				objectMetadataBasePlanModel := new(globalcatalogv1.ObjectMetadataBasePlan)
-				objectMetadataBasePlanModel.Bindable = core.BoolPtr(true)
-				objectMetadataBasePlanModel.Reservable = core.BoolPtr(true)
-				objectMetadataBasePlanModel.AllowInternalUsers = core.BoolPtr(true)
-				objectMetadataBasePlanModel.AsyncProvisioningSupported = core.BoolPtr(true)
-				objectMetadataBasePlanModel.AsyncUnprovisioningSupported = core.BoolPtr(true)
-				objectMetadataBasePlanModel.TestCheckInterval = core.Int64Ptr(int64(38))
-				objectMetadataBasePlanModel.SingleScopeInstance = core.StringPtr("testString")
-				objectMetadataBasePlanModel.ServiceCheckEnabled = core.BoolPtr(true)
-				objectMetadataBasePlanModel.CfGuid = core.StringPtr("testString")
-
-				// Construct an instance of the ObjectMetadataBaseService model
-				objectMetadataBaseServiceModel := new(globalcatalogv1.ObjectMetadataBaseService)
-				objectMetadataBaseServiceModel.Type = core.StringPtr("testString")
-				objectMetadataBaseServiceModel.IamCompatible = core.BoolPtr(true)
-				objectMetadataBaseServiceModel.UniqueApiKey = core.BoolPtr(true)
-				objectMetadataBaseServiceModel.Provisionable = core.BoolPtr(true)
-				objectMetadataBaseServiceModel.AsyncProvisioningSupported = core.BoolPtr(true)
-				objectMetadataBaseServiceModel.AsyncUnprovisioningSupported = core.BoolPtr(true)
-				objectMetadataBaseServiceModel.CfGuid = core.StringPtr("testString")
-				objectMetadataBaseServiceModel.Bindable = core.BoolPtr(true)
-				objectMetadataBaseServiceModel.Requires = []string{"testString"}
-				objectMetadataBaseServiceModel.PlanUpdateable = core.BoolPtr(true)
-				objectMetadataBaseServiceModel.State = core.StringPtr("testString")
-				objectMetadataBaseServiceModel.ServiceCheckEnabled = core.BoolPtr(true)
-				objectMetadataBaseServiceModel.TestCheckInterval = core.Int64Ptr(int64(38))
-				objectMetadataBaseServiceModel.ServiceKeySupported = core.BoolPtr(true)
-
-				// Construct an instance of the ObjectMetadataBaseSla model
-				objectMetadataBaseSlaModel := new(globalcatalogv1.ObjectMetadataBaseSla)
-				objectMetadataBaseSlaModel.Terms = core.StringPtr("testString")
-				objectMetadataBaseSlaModel.Tenancy = core.StringPtr("testString")
-				objectMetadataBaseSlaModel.Provisioning = core.StringPtr("testString")
-				objectMetadataBaseSlaModel.Responsiveness = core.StringPtr("testString")
-				objectMetadataBaseSlaModel.Dr = objectMetadataBaseSlaDrModel
-
-				// Construct an instance of the ObjectMetadataBaseTemplate model
-				objectMetadataBaseTemplateModel := new(globalcatalogv1.ObjectMetadataBaseTemplate)
-				objectMetadataBaseTemplateModel.Services = []string{"testString"}
-				objectMetadataBaseTemplateModel.DefaultMemory = core.Int64Ptr(int64(38))
-				objectMetadataBaseTemplateModel.StartCmd = core.StringPtr("testString")
-				objectMetadataBaseTemplateModel.Source = objectMetadataBaseTemplateSourceModel
-				objectMetadataBaseTemplateModel.RuntimeCatalogID = core.StringPtr("testString")
-				objectMetadataBaseTemplateModel.CfRuntimeID = core.StringPtr("testString")
-				objectMetadataBaseTemplateModel.TemplateID = core.StringPtr("testString")
-				objectMetadataBaseTemplateModel.ExecutableFile = core.StringPtr("testString")
-				objectMetadataBaseTemplateModel.Buildpack = core.StringPtr("testString")
-				objectMetadataBaseTemplateModel.EnvironmentVariables = objectMetadataBaseTemplateEnvironmentVariablesModel
 
 				// Construct an instance of the Overview model
 				overviewModel := new(globalcatalogv1.Overview)
 				overviewModel.DisplayName = core.StringPtr("testString")
 				overviewModel.LongDescription = core.StringPtr("testString")
 				overviewModel.Description = core.StringPtr("testString")
+				overviewModel.FeaturedDescription = core.StringPtr("testString")
+
+				// Construct an instance of the PlanMetaData model
+				planMetaDataModel := new(globalcatalogv1.PlanMetaData)
+				planMetaDataModel.Bindable = core.BoolPtr(true)
+				planMetaDataModel.Reservable = core.BoolPtr(true)
+				planMetaDataModel.AllowInternalUsers = core.BoolPtr(true)
+				planMetaDataModel.AsyncProvisioningSupported = core.BoolPtr(true)
+				planMetaDataModel.AsyncUnprovisioningSupported = core.BoolPtr(true)
+				planMetaDataModel.TestCheckInterval = core.Int64Ptr(int64(38))
+				planMetaDataModel.SingleScopeInstance = core.StringPtr("testString")
+				planMetaDataModel.ServiceCheckEnabled = core.BoolPtr(true)
+				planMetaDataModel.CfGuid = make(map[string]string)
 
 				// Construct an instance of the PricingSet model
 				pricingSetModel := new(globalcatalogv1.PricingSet)
 				pricingSetModel.Type = core.StringPtr("testString")
 				pricingSetModel.Origin = core.StringPtr("testString")
 				pricingSetModel.StartingPrice = startingPriceModel
+
+				// Construct an instance of the SLAMetaData model
+				slaMetaDataModel := new(globalcatalogv1.SLAMetaData)
+				slaMetaDataModel.Terms = core.StringPtr("testString")
+				slaMetaDataModel.Tenancy = core.StringPtr("testString")
+				slaMetaDataModel.Provisioning = core.StringPtr("testString")
+				slaMetaDataModel.Responsiveness = core.StringPtr("testString")
+				slaMetaDataModel.Dr = drMetaDataModel
+
+				// Construct an instance of the TemplateMetaData model
+				templateMetaDataModel := new(globalcatalogv1.TemplateMetaData)
+				templateMetaDataModel.Services = []string{"testString"}
+				templateMetaDataModel.DefaultMemory = core.Int64Ptr(int64(38))
+				templateMetaDataModel.StartCmd = core.StringPtr("testString")
+				templateMetaDataModel.Source = sourceMetaDataModel
+				templateMetaDataModel.RuntimeCatalogID = core.StringPtr("testString")
+				templateMetaDataModel.CfRuntimeID = core.StringPtr("testString")
+				templateMetaDataModel.TemplateID = core.StringPtr("testString")
+				templateMetaDataModel.ExecutableFile = core.StringPtr("testString")
+				templateMetaDataModel.Buildpack = core.StringPtr("testString")
+				templateMetaDataModel.EnvironmentVariables = make(map[string]string)
 
 				// Construct an instance of the UIMetaData model
 				uiMetaDataModel := new(globalcatalogv1.UIMetaData)
@@ -1433,11 +1459,13 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				uiMetaDataModel.EmbeddableDashboardFullWidth = core.BoolPtr(true)
 				uiMetaDataModel.NavigationOrder = []string{"testString"}
 				uiMetaDataModel.NotCreatable = core.BoolPtr(true)
-				uiMetaDataModel.Reservable = core.BoolPtr(true)
 				uiMetaDataModel.PrimaryOfferingID = core.StringPtr("testString")
 				uiMetaDataModel.AccessibleDuringProvision = core.BoolPtr(true)
 				uiMetaDataModel.SideBySideIndex = core.Int64Ptr(int64(38))
 				uiMetaDataModel.EndOfServiceTime = CreateMockDateTime()
+				uiMetaDataModel.Hidden = core.BoolPtr(true)
+				uiMetaDataModel.HideLiteMetering = core.BoolPtr(true)
+				uiMetaDataModel.NoUpgradeNextStep = core.BoolPtr(true)
 
 				// Construct an instance of the Image model
 				imageModel := new(globalcatalogv1.Image)
@@ -1449,17 +1477,17 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				// Construct an instance of the ObjectMetadataSet model
 				objectMetadataSetModel := new(globalcatalogv1.ObjectMetadataSet)
 				objectMetadataSetModel.RcCompatible = core.BoolPtr(true)
+				objectMetadataSetModel.Service = cfMetaDataModel
+				objectMetadataSetModel.Plan = planMetaDataModel
+				objectMetadataSetModel.Alias = aliasMetaDataModel
+				objectMetadataSetModel.Template = templateMetaDataModel
 				objectMetadataSetModel.Ui = uiMetaDataModel
 				objectMetadataSetModel.Compliance = []string{"testString"}
-				objectMetadataSetModel.Service = objectMetadataBaseServiceModel
-				objectMetadataSetModel.Plan = objectMetadataBasePlanModel
-				objectMetadataSetModel.Template = objectMetadataBaseTemplateModel
-				objectMetadataSetModel.Alias = objectMetadataBaseAliasModel
-				objectMetadataSetModel.Sla = objectMetadataBaseSlaModel
+				objectMetadataSetModel.Sla = slaMetaDataModel
 				objectMetadataSetModel.Callbacks = callbacksModel
-				objectMetadataSetModel.Version = core.StringPtr("testString")
 				objectMetadataSetModel.OriginalName = core.StringPtr("testString")
-				objectMetadataSetModel.Other = CreateMockMap()
+				objectMetadataSetModel.Version = core.StringPtr("testString")
+				objectMetadataSetModel.Other = make(map[string]interface{})
 				objectMetadataSetModel.Pricing = pricingSetModel
 				objectMetadataSetModel.Deployment = deploymentBaseModel
 
@@ -1520,7 +1548,7 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, `{"name": "Name", "kind": "service", "overview_ui": {}, "images": {"image": "Image", "small_image": "SmallImage", "medium_image": "MediumImage", "feature_image": "FeatureImage"}, "parent_id": "ParentID", "disabled": true, "tags": ["Tags"], "group": false, "provider": {"email": "Email", "name": "Name", "contact": "Contact", "support_email": "SupportEmail", "phone": "Phone"}, "active": true, "metadata": {"rc_compatible": true, "ui": {"strings": {}, "urls": {"doc_url": "DocURL", "instructions_url": "InstructionsURL", "api_url": "ApiURL", "create_url": "CreateURL", "sdk_download_url": "SdkDownloadURL", "terms_url": "TermsURL", "custom_create_page_url": "CustomCreatePageURL", "catalog_details_url": "CatalogDetailsURL", "deprecation_doc_url": "DeprecationDocURL"}, "embeddable_dashboard": "EmbeddableDashboard", "embeddable_dashboard_full_width": true, "navigation_order": ["NavigationOrder"], "not_creatable": true, "reservable": true, "primary_offering_id": "PrimaryOfferingID", "accessible_during_provision": false, "side_by_side_index": 15, "end_of_service_time": "2019-01-01T12:00:00"}, "compliance": ["Compliance"], "service": {"type": "Type", "iam_compatible": false, "unique_api_key": true, "provisionable": false, "async_provisioning_supported": true, "async_unprovisioning_supported": true, "cf_guid": "CfGuid", "bindable": true, "requires": ["Requires"], "plan_updateable": true, "state": "State", "service_check_enabled": false, "test_check_interval": 17, "service_key_supported": false}, "plan": {"bindable": true, "reservable": true, "allow_internal_users": true, "async_provisioning_supported": true, "async_unprovisioning_supported": true, "test_check_interval": 17, "single_scope_instance": "SingleScopeInstance", "service_check_enabled": false, "cf_guid": "CfGuid"}, "template": {"services": ["Services"], "default_memory": 13, "start_cmd": "StartCmd", "source": {"path": "Path", "type": "Type", "url": "URL"}, "runtime_catalog_id": "RuntimeCatalogID", "cf_runtime_id": "CfRuntimeID", "template_id": "TemplateID", "executable_file": "ExecutableFile", "buildpack": "Buildpack", "environment_variables": {"_key_": "Key"}}, "alias": {"type": "Type", "plan_id": "PlanID"}, "sla": {"terms": "Terms", "tenancy": "Tenancy", "provisioning": "Provisioning", "responsiveness": "Responsiveness", "dr": {"dr": true, "description": "Description"}}, "callbacks": {"broker_utl": "BrokerUtl", "broker_proxy_url": "BrokerProxyURL", "dashboard_url": "DashboardURL", "dashboard_data_url": "DashboardDataURL", "dashboard_detail_tab_url": "DashboardDetailTabURL", "dashboard_detail_tab_ext_url": "DashboardDetailTabExtURL", "service_monitor_api": "ServiceMonitorApi", "service_monitor_app": "ServiceMonitorApp", "service_staging_url": "ServiceStagingURL", "service_production_url": "ServiceProductionURL"}, "version": "Version", "original_name": "OriginalName", "other": {"anyKey": "anyValue"}, "pricing": {"type": "Type", "origin": "Origin", "starting_price": {"plan_id": "PlanID", "deployment_id": "DeploymentID", "amount": [{"counrty": "Counrty", "currency": "Currency", "prices": [{"quantity_tier": 12, "Price": 5}]}]}}, "deployment": {"location": "Location", "target_crn": "TargetCrn", "broker": {"name": "Name", "guid": "Guid"}, "supports_rc_migration": false, "target_network": "TargetNetwork"}}, "id": "ID", "catalog_crn": {"anyKey": "anyValue"}, "url": {"anyKey": "anyValue"}, "children_url": {"anyKey": "anyValue"}, "geo_tags": {"anyKey": "anyValue"}, "pricing_tags": {"anyKey": "anyValue"}, "created": {"anyKey": "anyValue"}, "updated": {"anyKey": "anyValue"}}`)
+					fmt.Fprintf(res, `{"name": "Name", "kind": "service", "overview_ui": {}, "images": {"image": "Image", "small_image": "SmallImage", "medium_image": "MediumImage", "feature_image": "FeatureImage"}, "parent_id": "ParentID", "disabled": true, "tags": ["Tags"], "group": false, "provider": {"email": "Email", "name": "Name", "contact": "Contact", "support_email": "SupportEmail", "phone": "Phone"}, "active": true, "metadata": {"rc_compatible": true, "service": {"type": "Type", "iam_compatible": false, "unique_api_key": true, "provisionable": false, "bindable": true, "async_provisioning_supported": true, "async_unprovisioning_supported": true, "requires": ["Requires"], "plan_updateable": true, "state": "State", "service_check_enabled": false, "test_check_interval": 17, "service_key_supported": false, "cf_guid": {"mapKey": "Inner"}}, "plan": {"bindable": true, "reservable": true, "allow_internal_users": true, "async_provisioning_supported": true, "async_unprovisioning_supported": true, "test_check_interval": 17, "single_scope_instance": "SingleScopeInstance", "service_check_enabled": false, "cf_guid": {"mapKey": "Inner"}}, "alias": {"type": "Type", "plan_id": "PlanID"}, "template": {"services": ["Services"], "default_memory": 13, "start_cmd": "StartCmd", "source": {"path": "Path", "type": "Type", "url": "URL"}, "runtime_catalog_id": "RuntimeCatalogID", "cf_runtime_id": "CfRuntimeID", "template_id": "TemplateID", "executable_file": "ExecutableFile", "buildpack": "Buildpack", "environment_variables": {"mapKey": "Inner"}}, "ui": {"strings": {}, "urls": {"doc_url": "DocURL", "instructions_url": "InstructionsURL", "api_url": "ApiURL", "create_url": "CreateURL", "sdk_download_url": "SdkDownloadURL", "terms_url": "TermsURL", "custom_create_page_url": "CustomCreatePageURL", "catalog_details_url": "CatalogDetailsURL", "deprecation_doc_url": "DeprecationDocURL", "dashboard_url": "DashboardURL", "registration_url": "RegistrationURL", "apidocsurl": "Apidocsurl"}, "embeddable_dashboard": "EmbeddableDashboard", "embeddable_dashboard_full_width": true, "navigation_order": ["NavigationOrder"], "not_creatable": true, "primary_offering_id": "PrimaryOfferingID", "accessible_during_provision": false, "side_by_side_index": 15, "end_of_service_time": "2019-01-01T12:00:00", "hidden": true, "hide_lite_metering": true, "no_upgrade_next_step": false}, "compliance": ["Compliance"], "sla": {"terms": "Terms", "tenancy": "Tenancy", "provisioning": "Provisioning", "responsiveness": "Responsiveness", "dr": {"dr": true, "description": "Description"}}, "callbacks": {"controller_url": "ControllerURL", "broker_url": "BrokerURL", "broker_proxy_url": "BrokerProxyURL", "dashboard_url": "DashboardURL", "dashboard_data_url": "DashboardDataURL", "dashboard_detail_tab_url": "DashboardDetailTabURL", "dashboard_detail_tab_ext_url": "DashboardDetailTabExtURL", "service_monitor_api": "ServiceMonitorApi", "service_monitor_app": "ServiceMonitorApp", "api_endpoint": {"mapKey": "Inner"}}, "original_name": "OriginalName", "version": "Version", "other": {"mapKey": {"anyKey": "anyValue"}}, "pricing": {"type": "Type", "origin": "Origin", "starting_price": {"plan_id": "PlanID", "deployment_id": "DeploymentID", "unit": "Unit", "amount": [{"country": "Country", "currency": "Currency", "prices": [{"quantity_tier": 12, "Price": 5}]}]}, "metrics": [{"part_ref": "PartRef", "metric_id": "MetricID", "tier_model": "TierModel", "charge_unit": "ChargeUnit", "charge_unit_name": "ChargeUnitName", "charge_unit_quantity": "ChargeUnitQuantity", "resource_display_name": "ResourceDisplayName", "charge_unit_display_name": "ChargeUnitDisplayName", "usage_cap_qty": 11, "display_cap": 10, "effective_from": "2019-01-01T12:00:00", "effective_until": "2019-01-01T12:00:00", "amounts": [{"country": "Country", "currency": "Currency", "prices": [{"quantity_tier": 12, "Price": 5}]}]}]}, "deployment": {"location": "Location", "location_url": "LocationURL", "original_location": "OriginalLocation", "target_crn": "TargetCrn", "service_crn": "ServiceCrn", "mccp_id": "MccpID", "broker": {"name": "Name", "guid": "Guid"}, "supports_rc_migration": false, "target_network": "TargetNetwork"}}, "id": "ID", "catalog_crn": "anyValue", "url": "anyValue", "children_url": "anyValue", "geo_tags": "anyValue", "pricing_tags": "anyValue", "created": "anyValue", "updated": "anyValue"}`)
 				}))
 			})
 			It(`Invoke UpdateCatalogEntry successfully`, func() {
@@ -1542,7 +1570,7 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				bulletsModel.Title = core.StringPtr("testString")
 				bulletsModel.Description = core.StringPtr("testString")
 				bulletsModel.Icon = core.StringPtr("testString")
-				bulletsModel.Quantity = core.StringPtr("testString")
+				bulletsModel.Quantity = core.Int64Ptr(int64(38))
 
 				// Construct an instance of the Price model
 				priceModel := new(globalcatalogv1.Price)
@@ -1559,7 +1587,7 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 
 				// Construct an instance of the Amount model
 				amountModel := new(globalcatalogv1.Amount)
-				amountModel.Counrty = core.StringPtr("testString")
+				amountModel.Country = core.StringPtr("testString")
 				amountModel.Currency = core.StringPtr("testString")
 				amountModel.Prices = []globalcatalogv1.Price{*priceModel}
 
@@ -1573,34 +1601,31 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				stringsModel.PopupWarningMessage = core.StringPtr("testString")
 				stringsModel.Instruction = core.StringPtr("testString")
 
-				// Construct an instance of the DeploymentBaseBroker model
-				deploymentBaseBrokerModel := new(globalcatalogv1.DeploymentBaseBroker)
-				deploymentBaseBrokerModel.Name = core.StringPtr("testString")
-				deploymentBaseBrokerModel.Guid = core.StringPtr("testString")
+				// Construct an instance of the Broker model
+				brokerModel := new(globalcatalogv1.Broker)
+				brokerModel.Name = core.StringPtr("testString")
+				brokerModel.Guid = core.StringPtr("testString")
+
+				// Construct an instance of the DRMetaData model
+				drMetaDataModel := new(globalcatalogv1.DRMetaData)
+				drMetaDataModel.Dr = core.BoolPtr(true)
+				drMetaDataModel.Description = core.StringPtr("testString")
 
 				// Construct an instance of the I18N model
 				i18NModel := new(globalcatalogv1.I18N)
 				i18NModel.SetProperty("foo", stringsModel)
 
-				// Construct an instance of the ObjectMetadataBaseSlaDr model
-				objectMetadataBaseSlaDrModel := new(globalcatalogv1.ObjectMetadataBaseSlaDr)
-				objectMetadataBaseSlaDrModel.Dr = core.BoolPtr(true)
-				objectMetadataBaseSlaDrModel.Description = core.StringPtr("testString")
-
-				// Construct an instance of the ObjectMetadataBaseTemplateEnvironmentVariables model
-				objectMetadataBaseTemplateEnvironmentVariablesModel := new(globalcatalogv1.ObjectMetadataBaseTemplateEnvironmentVariables)
-				objectMetadataBaseTemplateEnvironmentVariablesModel.Key = core.StringPtr("testString")
-
-				// Construct an instance of the ObjectMetadataBaseTemplateSource model
-				objectMetadataBaseTemplateSourceModel := new(globalcatalogv1.ObjectMetadataBaseTemplateSource)
-				objectMetadataBaseTemplateSourceModel.Path = core.StringPtr("testString")
-				objectMetadataBaseTemplateSourceModel.Type = core.StringPtr("testString")
-				objectMetadataBaseTemplateSourceModel.URL = core.StringPtr("testString")
+				// Construct an instance of the SourceMetaData model
+				sourceMetaDataModel := new(globalcatalogv1.SourceMetaData)
+				sourceMetaDataModel.Path = core.StringPtr("testString")
+				sourceMetaDataModel.Type = core.StringPtr("testString")
+				sourceMetaDataModel.URL = core.StringPtr("testString")
 
 				// Construct an instance of the StartingPrice model
 				startingPriceModel := new(globalcatalogv1.StartingPrice)
 				startingPriceModel.PlanID = core.StringPtr("testString")
 				startingPriceModel.DeploymentID = core.StringPtr("testString")
+				startingPriceModel.Unit = core.StringPtr("testString")
 				startingPriceModel.Amount = []globalcatalogv1.Amount{*amountModel}
 
 				// Construct an instance of the URLS model
@@ -1614,10 +1639,36 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				urlsModel.CustomCreatePageURL = core.StringPtr("testString")
 				urlsModel.CatalogDetailsURL = core.StringPtr("testString")
 				urlsModel.DeprecationDocURL = core.StringPtr("testString")
+				urlsModel.DashboardURL = core.StringPtr("testString")
+				urlsModel.RegistrationURL = core.StringPtr("testString")
+				urlsModel.Apidocsurl = core.StringPtr("testString")
+
+				// Construct an instance of the AliasMetaData model
+				aliasMetaDataModel := new(globalcatalogv1.AliasMetaData)
+				aliasMetaDataModel.Type = core.StringPtr("testString")
+				aliasMetaDataModel.PlanID = core.StringPtr("testString")
+
+				// Construct an instance of the CFMetaData model
+				cfMetaDataModel := new(globalcatalogv1.CFMetaData)
+				cfMetaDataModel.Type = core.StringPtr("testString")
+				cfMetaDataModel.IamCompatible = core.BoolPtr(true)
+				cfMetaDataModel.UniqueApiKey = core.BoolPtr(true)
+				cfMetaDataModel.Provisionable = core.BoolPtr(true)
+				cfMetaDataModel.Bindable = core.BoolPtr(true)
+				cfMetaDataModel.AsyncProvisioningSupported = core.BoolPtr(true)
+				cfMetaDataModel.AsyncUnprovisioningSupported = core.BoolPtr(true)
+				cfMetaDataModel.Requires = []string{"testString"}
+				cfMetaDataModel.PlanUpdateable = core.BoolPtr(true)
+				cfMetaDataModel.State = core.StringPtr("testString")
+				cfMetaDataModel.ServiceCheckEnabled = core.BoolPtr(true)
+				cfMetaDataModel.TestCheckInterval = core.Int64Ptr(int64(38))
+				cfMetaDataModel.ServiceKeySupported = core.BoolPtr(true)
+				cfMetaDataModel.CfGuid = make(map[string]string)
 
 				// Construct an instance of the Callbacks model
 				callbacksModel := new(globalcatalogv1.Callbacks)
-				callbacksModel.BrokerUtl = core.StringPtr("testString")
+				callbacksModel.ControllerURL = core.StringPtr("testString")
+				callbacksModel.BrokerURL = core.StringPtr("testString")
 				callbacksModel.BrokerProxyURL = core.StringPtr("testString")
 				callbacksModel.DashboardURL = core.StringPtr("testString")
 				callbacksModel.DashboardDataURL = core.StringPtr("testString")
@@ -1625,83 +1676,65 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				callbacksModel.DashboardDetailTabExtURL = core.StringPtr("testString")
 				callbacksModel.ServiceMonitorApi = core.StringPtr("testString")
 				callbacksModel.ServiceMonitorApp = core.StringPtr("testString")
-				callbacksModel.ServiceStagingURL = core.StringPtr("testString")
-				callbacksModel.ServiceProductionURL = core.StringPtr("testString")
+				callbacksModel.ApiEndpoint = make(map[string]string)
 
 				// Construct an instance of the DeploymentBase model
 				deploymentBaseModel := new(globalcatalogv1.DeploymentBase)
 				deploymentBaseModel.Location = core.StringPtr("testString")
+				deploymentBaseModel.LocationURL = core.StringPtr("testString")
+				deploymentBaseModel.OriginalLocation = core.StringPtr("testString")
 				deploymentBaseModel.TargetCrn = core.StringPtr("testString")
-				deploymentBaseModel.Broker = deploymentBaseBrokerModel
+				deploymentBaseModel.ServiceCrn = core.StringPtr("testString")
+				deploymentBaseModel.MccpID = core.StringPtr("testString")
+				deploymentBaseModel.Broker = brokerModel
 				deploymentBaseModel.SupportsRcMigration = core.BoolPtr(true)
 				deploymentBaseModel.TargetNetwork = core.StringPtr("testString")
-
-				// Construct an instance of the ObjectMetadataBaseAlias model
-				objectMetadataBaseAliasModel := new(globalcatalogv1.ObjectMetadataBaseAlias)
-				objectMetadataBaseAliasModel.Type = core.StringPtr("testString")
-				objectMetadataBaseAliasModel.PlanID = core.StringPtr("testString")
-
-				// Construct an instance of the ObjectMetadataBasePlan model
-				objectMetadataBasePlanModel := new(globalcatalogv1.ObjectMetadataBasePlan)
-				objectMetadataBasePlanModel.Bindable = core.BoolPtr(true)
-				objectMetadataBasePlanModel.Reservable = core.BoolPtr(true)
-				objectMetadataBasePlanModel.AllowInternalUsers = core.BoolPtr(true)
-				objectMetadataBasePlanModel.AsyncProvisioningSupported = core.BoolPtr(true)
-				objectMetadataBasePlanModel.AsyncUnprovisioningSupported = core.BoolPtr(true)
-				objectMetadataBasePlanModel.TestCheckInterval = core.Int64Ptr(int64(38))
-				objectMetadataBasePlanModel.SingleScopeInstance = core.StringPtr("testString")
-				objectMetadataBasePlanModel.ServiceCheckEnabled = core.BoolPtr(true)
-				objectMetadataBasePlanModel.CfGuid = core.StringPtr("testString")
-
-				// Construct an instance of the ObjectMetadataBaseService model
-				objectMetadataBaseServiceModel := new(globalcatalogv1.ObjectMetadataBaseService)
-				objectMetadataBaseServiceModel.Type = core.StringPtr("testString")
-				objectMetadataBaseServiceModel.IamCompatible = core.BoolPtr(true)
-				objectMetadataBaseServiceModel.UniqueApiKey = core.BoolPtr(true)
-				objectMetadataBaseServiceModel.Provisionable = core.BoolPtr(true)
-				objectMetadataBaseServiceModel.AsyncProvisioningSupported = core.BoolPtr(true)
-				objectMetadataBaseServiceModel.AsyncUnprovisioningSupported = core.BoolPtr(true)
-				objectMetadataBaseServiceModel.CfGuid = core.StringPtr("testString")
-				objectMetadataBaseServiceModel.Bindable = core.BoolPtr(true)
-				objectMetadataBaseServiceModel.Requires = []string{"testString"}
-				objectMetadataBaseServiceModel.PlanUpdateable = core.BoolPtr(true)
-				objectMetadataBaseServiceModel.State = core.StringPtr("testString")
-				objectMetadataBaseServiceModel.ServiceCheckEnabled = core.BoolPtr(true)
-				objectMetadataBaseServiceModel.TestCheckInterval = core.Int64Ptr(int64(38))
-				objectMetadataBaseServiceModel.ServiceKeySupported = core.BoolPtr(true)
-
-				// Construct an instance of the ObjectMetadataBaseSla model
-				objectMetadataBaseSlaModel := new(globalcatalogv1.ObjectMetadataBaseSla)
-				objectMetadataBaseSlaModel.Terms = core.StringPtr("testString")
-				objectMetadataBaseSlaModel.Tenancy = core.StringPtr("testString")
-				objectMetadataBaseSlaModel.Provisioning = core.StringPtr("testString")
-				objectMetadataBaseSlaModel.Responsiveness = core.StringPtr("testString")
-				objectMetadataBaseSlaModel.Dr = objectMetadataBaseSlaDrModel
-
-				// Construct an instance of the ObjectMetadataBaseTemplate model
-				objectMetadataBaseTemplateModel := new(globalcatalogv1.ObjectMetadataBaseTemplate)
-				objectMetadataBaseTemplateModel.Services = []string{"testString"}
-				objectMetadataBaseTemplateModel.DefaultMemory = core.Int64Ptr(int64(38))
-				objectMetadataBaseTemplateModel.StartCmd = core.StringPtr("testString")
-				objectMetadataBaseTemplateModel.Source = objectMetadataBaseTemplateSourceModel
-				objectMetadataBaseTemplateModel.RuntimeCatalogID = core.StringPtr("testString")
-				objectMetadataBaseTemplateModel.CfRuntimeID = core.StringPtr("testString")
-				objectMetadataBaseTemplateModel.TemplateID = core.StringPtr("testString")
-				objectMetadataBaseTemplateModel.ExecutableFile = core.StringPtr("testString")
-				objectMetadataBaseTemplateModel.Buildpack = core.StringPtr("testString")
-				objectMetadataBaseTemplateModel.EnvironmentVariables = objectMetadataBaseTemplateEnvironmentVariablesModel
 
 				// Construct an instance of the Overview model
 				overviewModel := new(globalcatalogv1.Overview)
 				overviewModel.DisplayName = core.StringPtr("testString")
 				overviewModel.LongDescription = core.StringPtr("testString")
 				overviewModel.Description = core.StringPtr("testString")
+				overviewModel.FeaturedDescription = core.StringPtr("testString")
+
+				// Construct an instance of the PlanMetaData model
+				planMetaDataModel := new(globalcatalogv1.PlanMetaData)
+				planMetaDataModel.Bindable = core.BoolPtr(true)
+				planMetaDataModel.Reservable = core.BoolPtr(true)
+				planMetaDataModel.AllowInternalUsers = core.BoolPtr(true)
+				planMetaDataModel.AsyncProvisioningSupported = core.BoolPtr(true)
+				planMetaDataModel.AsyncUnprovisioningSupported = core.BoolPtr(true)
+				planMetaDataModel.TestCheckInterval = core.Int64Ptr(int64(38))
+				planMetaDataModel.SingleScopeInstance = core.StringPtr("testString")
+				planMetaDataModel.ServiceCheckEnabled = core.BoolPtr(true)
+				planMetaDataModel.CfGuid = make(map[string]string)
 
 				// Construct an instance of the PricingSet model
 				pricingSetModel := new(globalcatalogv1.PricingSet)
 				pricingSetModel.Type = core.StringPtr("testString")
 				pricingSetModel.Origin = core.StringPtr("testString")
 				pricingSetModel.StartingPrice = startingPriceModel
+
+				// Construct an instance of the SLAMetaData model
+				slaMetaDataModel := new(globalcatalogv1.SLAMetaData)
+				slaMetaDataModel.Terms = core.StringPtr("testString")
+				slaMetaDataModel.Tenancy = core.StringPtr("testString")
+				slaMetaDataModel.Provisioning = core.StringPtr("testString")
+				slaMetaDataModel.Responsiveness = core.StringPtr("testString")
+				slaMetaDataModel.Dr = drMetaDataModel
+
+				// Construct an instance of the TemplateMetaData model
+				templateMetaDataModel := new(globalcatalogv1.TemplateMetaData)
+				templateMetaDataModel.Services = []string{"testString"}
+				templateMetaDataModel.DefaultMemory = core.Int64Ptr(int64(38))
+				templateMetaDataModel.StartCmd = core.StringPtr("testString")
+				templateMetaDataModel.Source = sourceMetaDataModel
+				templateMetaDataModel.RuntimeCatalogID = core.StringPtr("testString")
+				templateMetaDataModel.CfRuntimeID = core.StringPtr("testString")
+				templateMetaDataModel.TemplateID = core.StringPtr("testString")
+				templateMetaDataModel.ExecutableFile = core.StringPtr("testString")
+				templateMetaDataModel.Buildpack = core.StringPtr("testString")
+				templateMetaDataModel.EnvironmentVariables = make(map[string]string)
 
 				// Construct an instance of the UIMetaData model
 				uiMetaDataModel := new(globalcatalogv1.UIMetaData)
@@ -1711,11 +1744,13 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				uiMetaDataModel.EmbeddableDashboardFullWidth = core.BoolPtr(true)
 				uiMetaDataModel.NavigationOrder = []string{"testString"}
 				uiMetaDataModel.NotCreatable = core.BoolPtr(true)
-				uiMetaDataModel.Reservable = core.BoolPtr(true)
 				uiMetaDataModel.PrimaryOfferingID = core.StringPtr("testString")
 				uiMetaDataModel.AccessibleDuringProvision = core.BoolPtr(true)
 				uiMetaDataModel.SideBySideIndex = core.Int64Ptr(int64(38))
 				uiMetaDataModel.EndOfServiceTime = CreateMockDateTime()
+				uiMetaDataModel.Hidden = core.BoolPtr(true)
+				uiMetaDataModel.HideLiteMetering = core.BoolPtr(true)
+				uiMetaDataModel.NoUpgradeNextStep = core.BoolPtr(true)
 
 				// Construct an instance of the Image model
 				imageModel := new(globalcatalogv1.Image)
@@ -1727,17 +1762,17 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				// Construct an instance of the ObjectMetadataSet model
 				objectMetadataSetModel := new(globalcatalogv1.ObjectMetadataSet)
 				objectMetadataSetModel.RcCompatible = core.BoolPtr(true)
+				objectMetadataSetModel.Service = cfMetaDataModel
+				objectMetadataSetModel.Plan = planMetaDataModel
+				objectMetadataSetModel.Alias = aliasMetaDataModel
+				objectMetadataSetModel.Template = templateMetaDataModel
 				objectMetadataSetModel.Ui = uiMetaDataModel
 				objectMetadataSetModel.Compliance = []string{"testString"}
-				objectMetadataSetModel.Service = objectMetadataBaseServiceModel
-				objectMetadataSetModel.Plan = objectMetadataBasePlanModel
-				objectMetadataSetModel.Template = objectMetadataBaseTemplateModel
-				objectMetadataSetModel.Alias = objectMetadataBaseAliasModel
-				objectMetadataSetModel.Sla = objectMetadataBaseSlaModel
+				objectMetadataSetModel.Sla = slaMetaDataModel
 				objectMetadataSetModel.Callbacks = callbacksModel
-				objectMetadataSetModel.Version = core.StringPtr("testString")
 				objectMetadataSetModel.OriginalName = core.StringPtr("testString")
-				objectMetadataSetModel.Other = CreateMockMap()
+				objectMetadataSetModel.Version = core.StringPtr("testString")
+				objectMetadataSetModel.Other = make(map[string]interface{})
 				objectMetadataSetModel.Pricing = pricingSetModel
 				objectMetadataSetModel.Deployment = deploymentBaseModel
 
@@ -1790,7 +1825,7 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				bulletsModel.Title = core.StringPtr("testString")
 				bulletsModel.Description = core.StringPtr("testString")
 				bulletsModel.Icon = core.StringPtr("testString")
-				bulletsModel.Quantity = core.StringPtr("testString")
+				bulletsModel.Quantity = core.Int64Ptr(int64(38))
 
 				// Construct an instance of the Price model
 				priceModel := new(globalcatalogv1.Price)
@@ -1807,7 +1842,7 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 
 				// Construct an instance of the Amount model
 				amountModel := new(globalcatalogv1.Amount)
-				amountModel.Counrty = core.StringPtr("testString")
+				amountModel.Country = core.StringPtr("testString")
 				amountModel.Currency = core.StringPtr("testString")
 				amountModel.Prices = []globalcatalogv1.Price{*priceModel}
 
@@ -1821,34 +1856,31 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				stringsModel.PopupWarningMessage = core.StringPtr("testString")
 				stringsModel.Instruction = core.StringPtr("testString")
 
-				// Construct an instance of the DeploymentBaseBroker model
-				deploymentBaseBrokerModel := new(globalcatalogv1.DeploymentBaseBroker)
-				deploymentBaseBrokerModel.Name = core.StringPtr("testString")
-				deploymentBaseBrokerModel.Guid = core.StringPtr("testString")
+				// Construct an instance of the Broker model
+				brokerModel := new(globalcatalogv1.Broker)
+				brokerModel.Name = core.StringPtr("testString")
+				brokerModel.Guid = core.StringPtr("testString")
+
+				// Construct an instance of the DRMetaData model
+				drMetaDataModel := new(globalcatalogv1.DRMetaData)
+				drMetaDataModel.Dr = core.BoolPtr(true)
+				drMetaDataModel.Description = core.StringPtr("testString")
 
 				// Construct an instance of the I18N model
 				i18NModel := new(globalcatalogv1.I18N)
 				i18NModel.SetProperty("foo", stringsModel)
 
-				// Construct an instance of the ObjectMetadataBaseSlaDr model
-				objectMetadataBaseSlaDrModel := new(globalcatalogv1.ObjectMetadataBaseSlaDr)
-				objectMetadataBaseSlaDrModel.Dr = core.BoolPtr(true)
-				objectMetadataBaseSlaDrModel.Description = core.StringPtr("testString")
-
-				// Construct an instance of the ObjectMetadataBaseTemplateEnvironmentVariables model
-				objectMetadataBaseTemplateEnvironmentVariablesModel := new(globalcatalogv1.ObjectMetadataBaseTemplateEnvironmentVariables)
-				objectMetadataBaseTemplateEnvironmentVariablesModel.Key = core.StringPtr("testString")
-
-				// Construct an instance of the ObjectMetadataBaseTemplateSource model
-				objectMetadataBaseTemplateSourceModel := new(globalcatalogv1.ObjectMetadataBaseTemplateSource)
-				objectMetadataBaseTemplateSourceModel.Path = core.StringPtr("testString")
-				objectMetadataBaseTemplateSourceModel.Type = core.StringPtr("testString")
-				objectMetadataBaseTemplateSourceModel.URL = core.StringPtr("testString")
+				// Construct an instance of the SourceMetaData model
+				sourceMetaDataModel := new(globalcatalogv1.SourceMetaData)
+				sourceMetaDataModel.Path = core.StringPtr("testString")
+				sourceMetaDataModel.Type = core.StringPtr("testString")
+				sourceMetaDataModel.URL = core.StringPtr("testString")
 
 				// Construct an instance of the StartingPrice model
 				startingPriceModel := new(globalcatalogv1.StartingPrice)
 				startingPriceModel.PlanID = core.StringPtr("testString")
 				startingPriceModel.DeploymentID = core.StringPtr("testString")
+				startingPriceModel.Unit = core.StringPtr("testString")
 				startingPriceModel.Amount = []globalcatalogv1.Amount{*amountModel}
 
 				// Construct an instance of the URLS model
@@ -1862,10 +1894,36 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				urlsModel.CustomCreatePageURL = core.StringPtr("testString")
 				urlsModel.CatalogDetailsURL = core.StringPtr("testString")
 				urlsModel.DeprecationDocURL = core.StringPtr("testString")
+				urlsModel.DashboardURL = core.StringPtr("testString")
+				urlsModel.RegistrationURL = core.StringPtr("testString")
+				urlsModel.Apidocsurl = core.StringPtr("testString")
+
+				// Construct an instance of the AliasMetaData model
+				aliasMetaDataModel := new(globalcatalogv1.AliasMetaData)
+				aliasMetaDataModel.Type = core.StringPtr("testString")
+				aliasMetaDataModel.PlanID = core.StringPtr("testString")
+
+				// Construct an instance of the CFMetaData model
+				cfMetaDataModel := new(globalcatalogv1.CFMetaData)
+				cfMetaDataModel.Type = core.StringPtr("testString")
+				cfMetaDataModel.IamCompatible = core.BoolPtr(true)
+				cfMetaDataModel.UniqueApiKey = core.BoolPtr(true)
+				cfMetaDataModel.Provisionable = core.BoolPtr(true)
+				cfMetaDataModel.Bindable = core.BoolPtr(true)
+				cfMetaDataModel.AsyncProvisioningSupported = core.BoolPtr(true)
+				cfMetaDataModel.AsyncUnprovisioningSupported = core.BoolPtr(true)
+				cfMetaDataModel.Requires = []string{"testString"}
+				cfMetaDataModel.PlanUpdateable = core.BoolPtr(true)
+				cfMetaDataModel.State = core.StringPtr("testString")
+				cfMetaDataModel.ServiceCheckEnabled = core.BoolPtr(true)
+				cfMetaDataModel.TestCheckInterval = core.Int64Ptr(int64(38))
+				cfMetaDataModel.ServiceKeySupported = core.BoolPtr(true)
+				cfMetaDataModel.CfGuid = make(map[string]string)
 
 				// Construct an instance of the Callbacks model
 				callbacksModel := new(globalcatalogv1.Callbacks)
-				callbacksModel.BrokerUtl = core.StringPtr("testString")
+				callbacksModel.ControllerURL = core.StringPtr("testString")
+				callbacksModel.BrokerURL = core.StringPtr("testString")
 				callbacksModel.BrokerProxyURL = core.StringPtr("testString")
 				callbacksModel.DashboardURL = core.StringPtr("testString")
 				callbacksModel.DashboardDataURL = core.StringPtr("testString")
@@ -1873,83 +1931,65 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				callbacksModel.DashboardDetailTabExtURL = core.StringPtr("testString")
 				callbacksModel.ServiceMonitorApi = core.StringPtr("testString")
 				callbacksModel.ServiceMonitorApp = core.StringPtr("testString")
-				callbacksModel.ServiceStagingURL = core.StringPtr("testString")
-				callbacksModel.ServiceProductionURL = core.StringPtr("testString")
+				callbacksModel.ApiEndpoint = make(map[string]string)
 
 				// Construct an instance of the DeploymentBase model
 				deploymentBaseModel := new(globalcatalogv1.DeploymentBase)
 				deploymentBaseModel.Location = core.StringPtr("testString")
+				deploymentBaseModel.LocationURL = core.StringPtr("testString")
+				deploymentBaseModel.OriginalLocation = core.StringPtr("testString")
 				deploymentBaseModel.TargetCrn = core.StringPtr("testString")
-				deploymentBaseModel.Broker = deploymentBaseBrokerModel
+				deploymentBaseModel.ServiceCrn = core.StringPtr("testString")
+				deploymentBaseModel.MccpID = core.StringPtr("testString")
+				deploymentBaseModel.Broker = brokerModel
 				deploymentBaseModel.SupportsRcMigration = core.BoolPtr(true)
 				deploymentBaseModel.TargetNetwork = core.StringPtr("testString")
-
-				// Construct an instance of the ObjectMetadataBaseAlias model
-				objectMetadataBaseAliasModel := new(globalcatalogv1.ObjectMetadataBaseAlias)
-				objectMetadataBaseAliasModel.Type = core.StringPtr("testString")
-				objectMetadataBaseAliasModel.PlanID = core.StringPtr("testString")
-
-				// Construct an instance of the ObjectMetadataBasePlan model
-				objectMetadataBasePlanModel := new(globalcatalogv1.ObjectMetadataBasePlan)
-				objectMetadataBasePlanModel.Bindable = core.BoolPtr(true)
-				objectMetadataBasePlanModel.Reservable = core.BoolPtr(true)
-				objectMetadataBasePlanModel.AllowInternalUsers = core.BoolPtr(true)
-				objectMetadataBasePlanModel.AsyncProvisioningSupported = core.BoolPtr(true)
-				objectMetadataBasePlanModel.AsyncUnprovisioningSupported = core.BoolPtr(true)
-				objectMetadataBasePlanModel.TestCheckInterval = core.Int64Ptr(int64(38))
-				objectMetadataBasePlanModel.SingleScopeInstance = core.StringPtr("testString")
-				objectMetadataBasePlanModel.ServiceCheckEnabled = core.BoolPtr(true)
-				objectMetadataBasePlanModel.CfGuid = core.StringPtr("testString")
-
-				// Construct an instance of the ObjectMetadataBaseService model
-				objectMetadataBaseServiceModel := new(globalcatalogv1.ObjectMetadataBaseService)
-				objectMetadataBaseServiceModel.Type = core.StringPtr("testString")
-				objectMetadataBaseServiceModel.IamCompatible = core.BoolPtr(true)
-				objectMetadataBaseServiceModel.UniqueApiKey = core.BoolPtr(true)
-				objectMetadataBaseServiceModel.Provisionable = core.BoolPtr(true)
-				objectMetadataBaseServiceModel.AsyncProvisioningSupported = core.BoolPtr(true)
-				objectMetadataBaseServiceModel.AsyncUnprovisioningSupported = core.BoolPtr(true)
-				objectMetadataBaseServiceModel.CfGuid = core.StringPtr("testString")
-				objectMetadataBaseServiceModel.Bindable = core.BoolPtr(true)
-				objectMetadataBaseServiceModel.Requires = []string{"testString"}
-				objectMetadataBaseServiceModel.PlanUpdateable = core.BoolPtr(true)
-				objectMetadataBaseServiceModel.State = core.StringPtr("testString")
-				objectMetadataBaseServiceModel.ServiceCheckEnabled = core.BoolPtr(true)
-				objectMetadataBaseServiceModel.TestCheckInterval = core.Int64Ptr(int64(38))
-				objectMetadataBaseServiceModel.ServiceKeySupported = core.BoolPtr(true)
-
-				// Construct an instance of the ObjectMetadataBaseSla model
-				objectMetadataBaseSlaModel := new(globalcatalogv1.ObjectMetadataBaseSla)
-				objectMetadataBaseSlaModel.Terms = core.StringPtr("testString")
-				objectMetadataBaseSlaModel.Tenancy = core.StringPtr("testString")
-				objectMetadataBaseSlaModel.Provisioning = core.StringPtr("testString")
-				objectMetadataBaseSlaModel.Responsiveness = core.StringPtr("testString")
-				objectMetadataBaseSlaModel.Dr = objectMetadataBaseSlaDrModel
-
-				// Construct an instance of the ObjectMetadataBaseTemplate model
-				objectMetadataBaseTemplateModel := new(globalcatalogv1.ObjectMetadataBaseTemplate)
-				objectMetadataBaseTemplateModel.Services = []string{"testString"}
-				objectMetadataBaseTemplateModel.DefaultMemory = core.Int64Ptr(int64(38))
-				objectMetadataBaseTemplateModel.StartCmd = core.StringPtr("testString")
-				objectMetadataBaseTemplateModel.Source = objectMetadataBaseTemplateSourceModel
-				objectMetadataBaseTemplateModel.RuntimeCatalogID = core.StringPtr("testString")
-				objectMetadataBaseTemplateModel.CfRuntimeID = core.StringPtr("testString")
-				objectMetadataBaseTemplateModel.TemplateID = core.StringPtr("testString")
-				objectMetadataBaseTemplateModel.ExecutableFile = core.StringPtr("testString")
-				objectMetadataBaseTemplateModel.Buildpack = core.StringPtr("testString")
-				objectMetadataBaseTemplateModel.EnvironmentVariables = objectMetadataBaseTemplateEnvironmentVariablesModel
 
 				// Construct an instance of the Overview model
 				overviewModel := new(globalcatalogv1.Overview)
 				overviewModel.DisplayName = core.StringPtr("testString")
 				overviewModel.LongDescription = core.StringPtr("testString")
 				overviewModel.Description = core.StringPtr("testString")
+				overviewModel.FeaturedDescription = core.StringPtr("testString")
+
+				// Construct an instance of the PlanMetaData model
+				planMetaDataModel := new(globalcatalogv1.PlanMetaData)
+				planMetaDataModel.Bindable = core.BoolPtr(true)
+				planMetaDataModel.Reservable = core.BoolPtr(true)
+				planMetaDataModel.AllowInternalUsers = core.BoolPtr(true)
+				planMetaDataModel.AsyncProvisioningSupported = core.BoolPtr(true)
+				planMetaDataModel.AsyncUnprovisioningSupported = core.BoolPtr(true)
+				planMetaDataModel.TestCheckInterval = core.Int64Ptr(int64(38))
+				planMetaDataModel.SingleScopeInstance = core.StringPtr("testString")
+				planMetaDataModel.ServiceCheckEnabled = core.BoolPtr(true)
+				planMetaDataModel.CfGuid = make(map[string]string)
 
 				// Construct an instance of the PricingSet model
 				pricingSetModel := new(globalcatalogv1.PricingSet)
 				pricingSetModel.Type = core.StringPtr("testString")
 				pricingSetModel.Origin = core.StringPtr("testString")
 				pricingSetModel.StartingPrice = startingPriceModel
+
+				// Construct an instance of the SLAMetaData model
+				slaMetaDataModel := new(globalcatalogv1.SLAMetaData)
+				slaMetaDataModel.Terms = core.StringPtr("testString")
+				slaMetaDataModel.Tenancy = core.StringPtr("testString")
+				slaMetaDataModel.Provisioning = core.StringPtr("testString")
+				slaMetaDataModel.Responsiveness = core.StringPtr("testString")
+				slaMetaDataModel.Dr = drMetaDataModel
+
+				// Construct an instance of the TemplateMetaData model
+				templateMetaDataModel := new(globalcatalogv1.TemplateMetaData)
+				templateMetaDataModel.Services = []string{"testString"}
+				templateMetaDataModel.DefaultMemory = core.Int64Ptr(int64(38))
+				templateMetaDataModel.StartCmd = core.StringPtr("testString")
+				templateMetaDataModel.Source = sourceMetaDataModel
+				templateMetaDataModel.RuntimeCatalogID = core.StringPtr("testString")
+				templateMetaDataModel.CfRuntimeID = core.StringPtr("testString")
+				templateMetaDataModel.TemplateID = core.StringPtr("testString")
+				templateMetaDataModel.ExecutableFile = core.StringPtr("testString")
+				templateMetaDataModel.Buildpack = core.StringPtr("testString")
+				templateMetaDataModel.EnvironmentVariables = make(map[string]string)
 
 				// Construct an instance of the UIMetaData model
 				uiMetaDataModel := new(globalcatalogv1.UIMetaData)
@@ -1959,11 +1999,13 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				uiMetaDataModel.EmbeddableDashboardFullWidth = core.BoolPtr(true)
 				uiMetaDataModel.NavigationOrder = []string{"testString"}
 				uiMetaDataModel.NotCreatable = core.BoolPtr(true)
-				uiMetaDataModel.Reservable = core.BoolPtr(true)
 				uiMetaDataModel.PrimaryOfferingID = core.StringPtr("testString")
 				uiMetaDataModel.AccessibleDuringProvision = core.BoolPtr(true)
 				uiMetaDataModel.SideBySideIndex = core.Int64Ptr(int64(38))
 				uiMetaDataModel.EndOfServiceTime = CreateMockDateTime()
+				uiMetaDataModel.Hidden = core.BoolPtr(true)
+				uiMetaDataModel.HideLiteMetering = core.BoolPtr(true)
+				uiMetaDataModel.NoUpgradeNextStep = core.BoolPtr(true)
 
 				// Construct an instance of the Image model
 				imageModel := new(globalcatalogv1.Image)
@@ -1975,17 +2017,17 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				// Construct an instance of the ObjectMetadataSet model
 				objectMetadataSetModel := new(globalcatalogv1.ObjectMetadataSet)
 				objectMetadataSetModel.RcCompatible = core.BoolPtr(true)
+				objectMetadataSetModel.Service = cfMetaDataModel
+				objectMetadataSetModel.Plan = planMetaDataModel
+				objectMetadataSetModel.Alias = aliasMetaDataModel
+				objectMetadataSetModel.Template = templateMetaDataModel
 				objectMetadataSetModel.Ui = uiMetaDataModel
 				objectMetadataSetModel.Compliance = []string{"testString"}
-				objectMetadataSetModel.Service = objectMetadataBaseServiceModel
-				objectMetadataSetModel.Plan = objectMetadataBasePlanModel
-				objectMetadataSetModel.Template = objectMetadataBaseTemplateModel
-				objectMetadataSetModel.Alias = objectMetadataBaseAliasModel
-				objectMetadataSetModel.Sla = objectMetadataBaseSlaModel
+				objectMetadataSetModel.Sla = slaMetaDataModel
 				objectMetadataSetModel.Callbacks = callbacksModel
-				objectMetadataSetModel.Version = core.StringPtr("testString")
 				objectMetadataSetModel.OriginalName = core.StringPtr("testString")
-				objectMetadataSetModel.Other = CreateMockMap()
+				objectMetadataSetModel.Version = core.StringPtr("testString")
+				objectMetadataSetModel.Other = make(map[string]interface{})
 				objectMetadataSetModel.Pricing = pricingSetModel
 				objectMetadataSetModel.Deployment = deploymentBaseModel
 
@@ -2052,6 +2094,9 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 					Expect(req.Method).To(Equal("DELETE"))
 					Expect(req.URL.Query()["account"]).To(Equal([]string{"testString"}))
 
+
+					// TODO: Add check for force query parameter
+
 					res.WriteHeader(204)
 				}))
 			})
@@ -2072,6 +2117,7 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				deleteCatalogEntryOptionsModel := new(globalcatalogv1.DeleteCatalogEntryOptions)
 				deleteCatalogEntryOptionsModel.ID = core.StringPtr("testString")
 				deleteCatalogEntryOptionsModel.Account = core.StringPtr("testString")
+				deleteCatalogEntryOptionsModel.Force = core.BoolPtr(true)
  				deleteCatalogEntryOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
@@ -2091,6 +2137,7 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				deleteCatalogEntryOptionsModel := new(globalcatalogv1.DeleteCatalogEntryOptions)
 				deleteCatalogEntryOptionsModel.ID = core.StringPtr("testString")
 				deleteCatalogEntryOptionsModel.Account = core.StringPtr("testString")
+				deleteCatalogEntryOptionsModel.Force = core.BoolPtr(true)
 				deleteCatalogEntryOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := testService.SetServiceURL("")
@@ -2135,7 +2182,7 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 
 					Expect(req.URL.Query()["complete"]).To(Equal([]string{"testString"}))
 
-					res.Header().Set("Content-type", "text/plain")
+					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
 					fmt.Fprintf(res, `} this is not valid json {`)
 				}))
@@ -2198,7 +2245,7 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, `[{"page": "Page", "results_per_page": "ResultsPerPage", "total_results": "TotalResults", "resources": [{"anyKey": "anyValue"}]}]`)
+					fmt.Fprintf(res, `{"offset": 6, "limit": 5, "count": 5, "resource_count": 13, "first": "First", "last": "Last", "prev": "Prev", "next": "Next", "resources": [{"name": "Name", "kind": "service", "overview_ui": {}, "images": {"image": "Image", "small_image": "SmallImage", "medium_image": "MediumImage", "feature_image": "FeatureImage"}, "parent_id": "ParentID", "disabled": true, "tags": ["Tags"], "group": false, "provider": {"email": "Email", "name": "Name", "contact": "Contact", "support_email": "SupportEmail", "phone": "Phone"}, "active": true, "metadata": {"rc_compatible": true, "service": {"type": "Type", "iam_compatible": false, "unique_api_key": true, "provisionable": false, "bindable": true, "async_provisioning_supported": true, "async_unprovisioning_supported": true, "requires": ["Requires"], "plan_updateable": true, "state": "State", "service_check_enabled": false, "test_check_interval": 17, "service_key_supported": false, "cf_guid": {"mapKey": "Inner"}}, "plan": {"bindable": true, "reservable": true, "allow_internal_users": true, "async_provisioning_supported": true, "async_unprovisioning_supported": true, "test_check_interval": 17, "single_scope_instance": "SingleScopeInstance", "service_check_enabled": false, "cf_guid": {"mapKey": "Inner"}}, "alias": {"type": "Type", "plan_id": "PlanID"}, "template": {"services": ["Services"], "default_memory": 13, "start_cmd": "StartCmd", "source": {"path": "Path", "type": "Type", "url": "URL"}, "runtime_catalog_id": "RuntimeCatalogID", "cf_runtime_id": "CfRuntimeID", "template_id": "TemplateID", "executable_file": "ExecutableFile", "buildpack": "Buildpack", "environment_variables": {"mapKey": "Inner"}}, "ui": {"strings": {}, "urls": {"doc_url": "DocURL", "instructions_url": "InstructionsURL", "api_url": "ApiURL", "create_url": "CreateURL", "sdk_download_url": "SdkDownloadURL", "terms_url": "TermsURL", "custom_create_page_url": "CustomCreatePageURL", "catalog_details_url": "CatalogDetailsURL", "deprecation_doc_url": "DeprecationDocURL", "dashboard_url": "DashboardURL", "registration_url": "RegistrationURL", "apidocsurl": "Apidocsurl"}, "embeddable_dashboard": "EmbeddableDashboard", "embeddable_dashboard_full_width": true, "navigation_order": ["NavigationOrder"], "not_creatable": true, "primary_offering_id": "PrimaryOfferingID", "accessible_during_provision": false, "side_by_side_index": 15, "end_of_service_time": "2019-01-01T12:00:00", "hidden": true, "hide_lite_metering": true, "no_upgrade_next_step": false}, "compliance": ["Compliance"], "sla": {"terms": "Terms", "tenancy": "Tenancy", "provisioning": "Provisioning", "responsiveness": "Responsiveness", "dr": {"dr": true, "description": "Description"}}, "callbacks": {"controller_url": "ControllerURL", "broker_url": "BrokerURL", "broker_proxy_url": "BrokerProxyURL", "dashboard_url": "DashboardURL", "dashboard_data_url": "DashboardDataURL", "dashboard_detail_tab_url": "DashboardDetailTabURL", "dashboard_detail_tab_ext_url": "DashboardDetailTabExtURL", "service_monitor_api": "ServiceMonitorApi", "service_monitor_app": "ServiceMonitorApp", "api_endpoint": {"mapKey": "Inner"}}, "original_name": "OriginalName", "version": "Version", "other": {"mapKey": {"anyKey": "anyValue"}}, "pricing": {"type": "Type", "origin": "Origin", "starting_price": {"plan_id": "PlanID", "deployment_id": "DeploymentID", "unit": "Unit", "amount": [{"country": "Country", "currency": "Currency", "prices": [{"quantity_tier": 12, "Price": 5}]}]}, "metrics": [{"part_ref": "PartRef", "metric_id": "MetricID", "tier_model": "TierModel", "charge_unit": "ChargeUnit", "charge_unit_name": "ChargeUnitName", "charge_unit_quantity": "ChargeUnitQuantity", "resource_display_name": "ResourceDisplayName", "charge_unit_display_name": "ChargeUnitDisplayName", "usage_cap_qty": 11, "display_cap": 10, "effective_from": "2019-01-01T12:00:00", "effective_until": "2019-01-01T12:00:00", "amounts": [{"country": "Country", "currency": "Currency", "prices": [{"quantity_tier": 12, "Price": 5}]}]}]}, "deployment": {"location": "Location", "location_url": "LocationURL", "original_location": "OriginalLocation", "target_crn": "TargetCrn", "service_crn": "ServiceCrn", "mccp_id": "MccpID", "broker": {"name": "Name", "guid": "Guid"}, "supports_rc_migration": false, "target_network": "TargetNetwork"}}, "id": "ID", "catalog_crn": "anyValue", "url": "anyValue", "children_url": "anyValue", "geo_tags": "anyValue", "pricing_tags": "anyValue", "created": "anyValue", "updated": "anyValue"}]}`)
 				}))
 			})
 			It(`Invoke GetChildObjects successfully`, func() {
@@ -2357,7 +2404,7 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 		})
 		It(`Instantiate service client with error: Invalid URL`, func() {
 			testService, testServiceErr := globalcatalogv1.NewGlobalCatalogV1(&globalcatalogv1.GlobalCatalogV1Options{
-				URL: "{{BAD_URL_STRING",
+				URL: "{BAD_URL_STRING",
 			})
 			Expect(testService).To(BeNil())
 			Expect(testServiceErr).ToNot(BeNil())
@@ -2437,7 +2484,7 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 
 			SetTestEnvironment(testEnvironment)
 			testService, testServiceErr := globalcatalogv1.NewGlobalCatalogV1UsingExternalConfig(&globalcatalogv1.GlobalCatalogV1Options{
-				URL: "{{BAD_URL_STRING",
+				URL: "{BAD_URL_STRING",
 			})
 
 			It(`Instantiate service client with error`, func() {
@@ -2459,7 +2506,7 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 					Expect(req.Method).To(Equal("GET"))
 					Expect(req.URL.Query()["account"]).To(Equal([]string{"testString"}))
 
-					res.Header().Set("Content-type", "text/plain")
+					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
 					fmt.Fprintf(res, `} this is not valid json {`)
 				}))
@@ -2503,7 +2550,7 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, `{"restrictions": "Restrictions", "owner": "Owner", "include": {"accounts": {"_accountid_": "Accountid"}}, "exclude": {"accounts": {"_accountid_": "Accountid"}}, "approved": true}`)
+					fmt.Fprintf(res, `{"restrictions": "Restrictions", "owner": "Owner", "extendable": true, "include": {"accounts": {"_accountid_": "Accountid"}}, "exclude": {"accounts": {"_accountid_": "Accountid"}}, "approved": true}`)
 				}))
 			})
 			It(`Invoke GetVisibility successfully`, func() {
@@ -2606,6 +2653,7 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				// Construct an instance of the UpdateVisibilityOptions model
 				updateVisibilityOptionsModel := new(globalcatalogv1.UpdateVisibilityOptions)
 				updateVisibilityOptionsModel.ID = core.StringPtr("testString")
+				updateVisibilityOptionsModel.Extendable = core.BoolPtr(true)
 				updateVisibilityOptionsModel.Include = visibilityDetailModel
 				updateVisibilityOptionsModel.Exclude = visibilityDetailModel
 				updateVisibilityOptionsModel.Account = core.StringPtr("testString")
@@ -2635,6 +2683,7 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				// Construct an instance of the UpdateVisibilityOptions model
 				updateVisibilityOptionsModel := new(globalcatalogv1.UpdateVisibilityOptions)
 				updateVisibilityOptionsModel.ID = core.StringPtr("testString")
+				updateVisibilityOptionsModel.Extendable = core.BoolPtr(true)
 				updateVisibilityOptionsModel.Include = visibilityDetailModel
 				updateVisibilityOptionsModel.Exclude = visibilityDetailModel
 				updateVisibilityOptionsModel.Account = core.StringPtr("testString")
@@ -2668,7 +2717,7 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 		})
 		It(`Instantiate service client with error: Invalid URL`, func() {
 			testService, testServiceErr := globalcatalogv1.NewGlobalCatalogV1(&globalcatalogv1.GlobalCatalogV1Options{
-				URL: "{{BAD_URL_STRING",
+				URL: "{BAD_URL_STRING",
 			})
 			Expect(testService).To(BeNil())
 			Expect(testServiceErr).ToNot(BeNil())
@@ -2748,7 +2797,7 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 
 			SetTestEnvironment(testEnvironment)
 			testService, testServiceErr := globalcatalogv1.NewGlobalCatalogV1UsingExternalConfig(&globalcatalogv1.GlobalCatalogV1Options{
-				URL: "{{BAD_URL_STRING",
+				URL: "{BAD_URL_STRING",
 			})
 
 			It(`Instantiate service client with error`, func() {
@@ -2770,7 +2819,7 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 					Expect(req.Method).To(Equal("GET"))
 					Expect(req.URL.Query()["account"]).To(Equal([]string{"testString"}))
 
-					res.Header().Set("Content-type", "text/plain")
+					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
 					fmt.Fprintf(res, `} this is not valid json {`)
 				}))
@@ -2814,7 +2863,7 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, `{"type": "Type", "origin": "Origin", "starting_price": {"plan_id": "PlanID", "deployment_id": "DeploymentID", "amount": [{"counrty": "Counrty", "currency": "Currency", "prices": [{"quantity_tier": 12, "Price": 5}]}]}, "metrics": [{"metric_id": "MetricID", "tier_model": "TierModel", "charge_unit_name": "ChargeUnitName", "charge_unit_quantity": "ChargeUnitQuantity", "resource_display_name": "ResourceDisplayName", "charge_unit_display_name": "ChargeUnitDisplayName", "usage_cap_qty": 11, "amounts": [{"counrty": "Counrty", "currency": "Currency", "prices": [{"quantity_tier": 12, "Price": 5}]}]}]}`)
+					fmt.Fprintf(res, `{"type": "Type", "origin": "Origin", "starting_price": {"plan_id": "PlanID", "deployment_id": "DeploymentID", "unit": "Unit", "amount": [{"country": "Country", "currency": "Currency", "prices": [{"quantity_tier": 12, "Price": 5}]}]}, "metrics": [{"part_ref": "PartRef", "metric_id": "MetricID", "tier_model": "TierModel", "charge_unit": "ChargeUnit", "charge_unit_name": "ChargeUnitName", "charge_unit_quantity": "ChargeUnitQuantity", "resource_display_name": "ResourceDisplayName", "charge_unit_display_name": "ChargeUnitDisplayName", "usage_cap_qty": 11, "display_cap": 10, "effective_from": "2019-01-01T12:00:00", "effective_until": "2019-01-01T12:00:00", "amounts": [{"country": "Country", "currency": "Currency", "prices": [{"quantity_tier": 12, "Price": 5}]}]}]}`)
 				}))
 			})
 			It(`Invoke GetPricing successfully`, func() {
@@ -2887,7 +2936,7 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 		})
 		It(`Instantiate service client with error: Invalid URL`, func() {
 			testService, testServiceErr := globalcatalogv1.NewGlobalCatalogV1(&globalcatalogv1.GlobalCatalogV1Options{
-				URL: "{{BAD_URL_STRING",
+				URL: "{BAD_URL_STRING",
 			})
 			Expect(testService).To(BeNil())
 			Expect(testServiceErr).ToNot(BeNil())
@@ -2967,7 +3016,7 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 
 			SetTestEnvironment(testEnvironment)
 			testService, testServiceErr := globalcatalogv1.NewGlobalCatalogV1UsingExternalConfig(&globalcatalogv1.GlobalCatalogV1Options{
-				URL: "{{BAD_URL_STRING",
+				URL: "{BAD_URL_STRING",
 			})
 
 			It(`Instantiate service client with error`, func() {
@@ -2997,7 +3046,7 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 
 					Expect(req.URL.Query()["_limit"]).To(Equal([]string{fmt.Sprint(int64(38))}))
 
-					res.Header().Set("Content-type", "text/plain")
+					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
 					fmt.Fprintf(res, `} this is not valid json {`)
 				}))
@@ -3053,7 +3102,7 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, `{"page": "Page", "results_per_page": "ResultsPerPage", "total_results": "TotalResults", "resources": [{"anyKey": "anyValue"}]}`)
+					fmt.Fprintf(res, `{"offset": 6, "limit": 5, "count": 5, "resource_count": 13, "first": "First", "last": "Last", "prev": "Prev", "next": "Next", "resources": [{"id": "ID", "effective": {"restrictions": "Restrictions", "owner": "Owner", "extendable": true, "include": {"accounts": {"_accountid_": "Accountid"}}, "exclude": {"accounts": {"_accountid_": "Accountid"}}, "approved": true}, "time": "2019-01-01T12:00:00", "who_id": "WhoID", "who_name": "WhoName", "who_email": "WhoEmail", "instance": "Instance", "gid": "Gid", "type": "Type", "message": "Message", "data": {"anyKey": "anyValue"}}]}`)
 				}))
 			})
 			It(`Invoke GetAuditLogs successfully`, func() {
@@ -3134,7 +3183,7 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 		})
 		It(`Instantiate service client with error: Invalid URL`, func() {
 			testService, testServiceErr := globalcatalogv1.NewGlobalCatalogV1(&globalcatalogv1.GlobalCatalogV1Options{
-				URL: "{{BAD_URL_STRING",
+				URL: "{BAD_URL_STRING",
 			})
 			Expect(testService).To(BeNil())
 			Expect(testServiceErr).ToNot(BeNil())
@@ -3214,7 +3263,7 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 
 			SetTestEnvironment(testEnvironment)
 			testService, testServiceErr := globalcatalogv1.NewGlobalCatalogV1UsingExternalConfig(&globalcatalogv1.GlobalCatalogV1Options{
-				URL: "{{BAD_URL_STRING",
+				URL: "{BAD_URL_STRING",
 			})
 
 			It(`Instantiate service client with error`, func() {
@@ -3236,7 +3285,7 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 					Expect(req.Method).To(Equal("GET"))
 					Expect(req.URL.Query()["account"]).To(Equal([]string{"testString"}))
 
-					res.Header().Set("Content-type", "text/plain")
+					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
 					fmt.Fprintf(res, `} this is not valid json {`)
 				}))
@@ -3280,7 +3329,7 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, `{"count": 5, "resources": [{"name": "Name", "updated": "Updated", "url": "URL", "etag": "Etag", "size": 4}]}`)
+					fmt.Fprintf(res, `{"count": 5, "resources": [{"name": "Name", "updated": "2019-01-01T12:00:00", "url": "URL", "etag": "Etag", "size": 4}]}`)
 				}))
 			})
 			It(`Invoke ListArtifacts successfully`, func() {
@@ -3354,9 +3403,13 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 					// Verify the contents of the request
 					Expect(req.URL.Path).To(Equal(getArtifactPath))
 					Expect(req.Method).To(Equal("GET"))
+					Expect(req.Header["Accept"]).ToNot(BeNil())
+					Expect(req.Header["Accept"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					Expect(req.URL.Query()["account"]).To(Equal([]string{"testString"}))
 
+					res.Header().Set("Content-type", "*/*")
 					res.WriteHeader(200)
+					fmt.Fprintf(res, `Contents of response byte-stream...`)
 				}))
 			})
 			It(`Invoke GetArtifact successfully`, func() {
@@ -3368,21 +3421,24 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				Expect(testService).ToNot(BeNil())
 
 				// Invoke operation with nil options model (negative test)
-				response, operationErr := testService.GetArtifact(nil)
+				result, response, operationErr := testService.GetArtifact(nil)
 				Expect(operationErr).NotTo(BeNil())
 				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
 
 				// Construct an instance of the GetArtifactOptions model
 				getArtifactOptionsModel := new(globalcatalogv1.GetArtifactOptions)
 				getArtifactOptionsModel.ObjectID = core.StringPtr("testString")
 				getArtifactOptionsModel.ArtifactID = core.StringPtr("testString")
+				getArtifactOptionsModel.Accept = core.StringPtr("testString")
 				getArtifactOptionsModel.Account = core.StringPtr("testString")
  				getArtifactOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
-				response, operationErr = testService.GetArtifact(getArtifactOptionsModel)
+				result, response, operationErr = testService.GetArtifact(getArtifactOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
 			})
 			It(`Invoke GetArtifact with error: Operation validation and request error`, func() {
 				testService, testServiceErr := globalcatalogv1.NewGlobalCatalogV1(&globalcatalogv1.GlobalCatalogV1Options{
@@ -3396,21 +3452,24 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				getArtifactOptionsModel := new(globalcatalogv1.GetArtifactOptions)
 				getArtifactOptionsModel.ObjectID = core.StringPtr("testString")
 				getArtifactOptionsModel.ArtifactID = core.StringPtr("testString")
+				getArtifactOptionsModel.Accept = core.StringPtr("testString")
 				getArtifactOptionsModel.Account = core.StringPtr("testString")
 				getArtifactOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := testService.SetServiceURL("")
 				Expect(err).To(BeNil())
-				response, operationErr := testService.GetArtifact(getArtifactOptionsModel)
+				result, response, operationErr := testService.GetArtifact(getArtifactOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
 				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
 				// Construct a second instance of the GetArtifactOptions model with no property values
 				getArtifactOptionsModelNew := new(globalcatalogv1.GetArtifactOptions)
 				// Invoke operation with invalid model (negative test)
-				response, operationErr = testService.GetArtifact(getArtifactOptionsModelNew)
+				result, response, operationErr = testService.GetArtifact(getArtifactOptionsModelNew)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
 			})
 			AfterEach(func() {
 				testServer.Close()
@@ -3584,11 +3643,11 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				bulletsModel.Title = core.StringPtr("testString")
 				bulletsModel.Description = core.StringPtr("testString")
 				bulletsModel.Icon = core.StringPtr("testString")
-				bulletsModel.Quantity = core.StringPtr("testString")
+				bulletsModel.Quantity = core.Int64Ptr(int64(38))
 				Expect(bulletsModel.Title).To(Equal(core.StringPtr("testString")))
 				Expect(bulletsModel.Description).To(Equal(core.StringPtr("testString")))
 				Expect(bulletsModel.Icon).To(Equal(core.StringPtr("testString")))
-				Expect(bulletsModel.Quantity).To(Equal(core.StringPtr("testString")))
+				Expect(bulletsModel.Quantity).To(Equal(core.Int64Ptr(int64(38))))
 
 				// Construct an instance of the Price model
 				priceModel := new(globalcatalogv1.Price)
@@ -3615,10 +3674,10 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				// Construct an instance of the Amount model
 				amountModel := new(globalcatalogv1.Amount)
 				Expect(amountModel).ToNot(BeNil())
-				amountModel.Counrty = core.StringPtr("testString")
+				amountModel.Country = core.StringPtr("testString")
 				amountModel.Currency = core.StringPtr("testString")
 				amountModel.Prices = []globalcatalogv1.Price{*priceModel}
-				Expect(amountModel.Counrty).To(Equal(core.StringPtr("testString")))
+				Expect(amountModel.Country).To(Equal(core.StringPtr("testString")))
 				Expect(amountModel.Currency).To(Equal(core.StringPtr("testString")))
 				Expect(amountModel.Prices).To(Equal([]globalcatalogv1.Price{*priceModel}))
 
@@ -3640,13 +3699,21 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				Expect(stringsModel.PopupWarningMessage).To(Equal(core.StringPtr("testString")))
 				Expect(stringsModel.Instruction).To(Equal(core.StringPtr("testString")))
 
-				// Construct an instance of the DeploymentBaseBroker model
-				deploymentBaseBrokerModel := new(globalcatalogv1.DeploymentBaseBroker)
-				Expect(deploymentBaseBrokerModel).ToNot(BeNil())
-				deploymentBaseBrokerModel.Name = core.StringPtr("testString")
-				deploymentBaseBrokerModel.Guid = core.StringPtr("testString")
-				Expect(deploymentBaseBrokerModel.Name).To(Equal(core.StringPtr("testString")))
-				Expect(deploymentBaseBrokerModel.Guid).To(Equal(core.StringPtr("testString")))
+				// Construct an instance of the Broker model
+				brokerModel := new(globalcatalogv1.Broker)
+				Expect(brokerModel).ToNot(BeNil())
+				brokerModel.Name = core.StringPtr("testString")
+				brokerModel.Guid = core.StringPtr("testString")
+				Expect(brokerModel.Name).To(Equal(core.StringPtr("testString")))
+				Expect(brokerModel.Guid).To(Equal(core.StringPtr("testString")))
+
+				// Construct an instance of the DRMetaData model
+				drMetaDataModel := new(globalcatalogv1.DRMetaData)
+				Expect(drMetaDataModel).ToNot(BeNil())
+				drMetaDataModel.Dr = core.BoolPtr(true)
+				drMetaDataModel.Description = core.StringPtr("testString")
+				Expect(drMetaDataModel.Dr).To(Equal(core.BoolPtr(true)))
+				Expect(drMetaDataModel.Description).To(Equal(core.StringPtr("testString")))
 
 				// Construct an instance of the I18N model
 				i18NModel := new(globalcatalogv1.I18N)
@@ -3655,38 +3722,26 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				Expect(i18NModel.GetProperty("foo")).To(Equal(stringsModel))
 				Expect(i18NModel.GetProperties()).ToNot(BeEmpty())
 
-				// Construct an instance of the ObjectMetadataBaseSlaDr model
-				objectMetadataBaseSlaDrModel := new(globalcatalogv1.ObjectMetadataBaseSlaDr)
-				Expect(objectMetadataBaseSlaDrModel).ToNot(BeNil())
-				objectMetadataBaseSlaDrModel.Dr = core.BoolPtr(true)
-				objectMetadataBaseSlaDrModel.Description = core.StringPtr("testString")
-				Expect(objectMetadataBaseSlaDrModel.Dr).To(Equal(core.BoolPtr(true)))
-				Expect(objectMetadataBaseSlaDrModel.Description).To(Equal(core.StringPtr("testString")))
-
-				// Construct an instance of the ObjectMetadataBaseTemplateEnvironmentVariables model
-				objectMetadataBaseTemplateEnvironmentVariablesModel := new(globalcatalogv1.ObjectMetadataBaseTemplateEnvironmentVariables)
-				Expect(objectMetadataBaseTemplateEnvironmentVariablesModel).ToNot(BeNil())
-				objectMetadataBaseTemplateEnvironmentVariablesModel.Key = core.StringPtr("testString")
-				Expect(objectMetadataBaseTemplateEnvironmentVariablesModel.Key).To(Equal(core.StringPtr("testString")))
-
-				// Construct an instance of the ObjectMetadataBaseTemplateSource model
-				objectMetadataBaseTemplateSourceModel := new(globalcatalogv1.ObjectMetadataBaseTemplateSource)
-				Expect(objectMetadataBaseTemplateSourceModel).ToNot(BeNil())
-				objectMetadataBaseTemplateSourceModel.Path = core.StringPtr("testString")
-				objectMetadataBaseTemplateSourceModel.Type = core.StringPtr("testString")
-				objectMetadataBaseTemplateSourceModel.URL = core.StringPtr("testString")
-				Expect(objectMetadataBaseTemplateSourceModel.Path).To(Equal(core.StringPtr("testString")))
-				Expect(objectMetadataBaseTemplateSourceModel.Type).To(Equal(core.StringPtr("testString")))
-				Expect(objectMetadataBaseTemplateSourceModel.URL).To(Equal(core.StringPtr("testString")))
+				// Construct an instance of the SourceMetaData model
+				sourceMetaDataModel := new(globalcatalogv1.SourceMetaData)
+				Expect(sourceMetaDataModel).ToNot(BeNil())
+				sourceMetaDataModel.Path = core.StringPtr("testString")
+				sourceMetaDataModel.Type = core.StringPtr("testString")
+				sourceMetaDataModel.URL = core.StringPtr("testString")
+				Expect(sourceMetaDataModel.Path).To(Equal(core.StringPtr("testString")))
+				Expect(sourceMetaDataModel.Type).To(Equal(core.StringPtr("testString")))
+				Expect(sourceMetaDataModel.URL).To(Equal(core.StringPtr("testString")))
 
 				// Construct an instance of the StartingPrice model
 				startingPriceModel := new(globalcatalogv1.StartingPrice)
 				Expect(startingPriceModel).ToNot(BeNil())
 				startingPriceModel.PlanID = core.StringPtr("testString")
 				startingPriceModel.DeploymentID = core.StringPtr("testString")
+				startingPriceModel.Unit = core.StringPtr("testString")
 				startingPriceModel.Amount = []globalcatalogv1.Amount{*amountModel}
 				Expect(startingPriceModel.PlanID).To(Equal(core.StringPtr("testString")))
 				Expect(startingPriceModel.DeploymentID).To(Equal(core.StringPtr("testString")))
+				Expect(startingPriceModel.Unit).To(Equal(core.StringPtr("testString")))
 				Expect(startingPriceModel.Amount).To(Equal([]globalcatalogv1.Amount{*amountModel}))
 
 				// Construct an instance of the URLS model
@@ -3701,6 +3756,9 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				urlsModel.CustomCreatePageURL = core.StringPtr("testString")
 				urlsModel.CatalogDetailsURL = core.StringPtr("testString")
 				urlsModel.DeprecationDocURL = core.StringPtr("testString")
+				urlsModel.DashboardURL = core.StringPtr("testString")
+				urlsModel.RegistrationURL = core.StringPtr("testString")
+				urlsModel.Apidocsurl = core.StringPtr("testString")
 				Expect(urlsModel.DocURL).To(Equal(core.StringPtr("testString")))
 				Expect(urlsModel.InstructionsURL).To(Equal(core.StringPtr("testString")))
 				Expect(urlsModel.ApiURL).To(Equal(core.StringPtr("testString")))
@@ -3710,11 +3768,55 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				Expect(urlsModel.CustomCreatePageURL).To(Equal(core.StringPtr("testString")))
 				Expect(urlsModel.CatalogDetailsURL).To(Equal(core.StringPtr("testString")))
 				Expect(urlsModel.DeprecationDocURL).To(Equal(core.StringPtr("testString")))
+				Expect(urlsModel.DashboardURL).To(Equal(core.StringPtr("testString")))
+				Expect(urlsModel.RegistrationURL).To(Equal(core.StringPtr("testString")))
+				Expect(urlsModel.Apidocsurl).To(Equal(core.StringPtr("testString")))
+
+				// Construct an instance of the AliasMetaData model
+				aliasMetaDataModel := new(globalcatalogv1.AliasMetaData)
+				Expect(aliasMetaDataModel).ToNot(BeNil())
+				aliasMetaDataModel.Type = core.StringPtr("testString")
+				aliasMetaDataModel.PlanID = core.StringPtr("testString")
+				Expect(aliasMetaDataModel.Type).To(Equal(core.StringPtr("testString")))
+				Expect(aliasMetaDataModel.PlanID).To(Equal(core.StringPtr("testString")))
+
+				// Construct an instance of the CFMetaData model
+				cfMetaDataModel := new(globalcatalogv1.CFMetaData)
+				Expect(cfMetaDataModel).ToNot(BeNil())
+				cfMetaDataModel.Type = core.StringPtr("testString")
+				cfMetaDataModel.IamCompatible = core.BoolPtr(true)
+				cfMetaDataModel.UniqueApiKey = core.BoolPtr(true)
+				cfMetaDataModel.Provisionable = core.BoolPtr(true)
+				cfMetaDataModel.Bindable = core.BoolPtr(true)
+				cfMetaDataModel.AsyncProvisioningSupported = core.BoolPtr(true)
+				cfMetaDataModel.AsyncUnprovisioningSupported = core.BoolPtr(true)
+				cfMetaDataModel.Requires = []string{"testString"}
+				cfMetaDataModel.PlanUpdateable = core.BoolPtr(true)
+				cfMetaDataModel.State = core.StringPtr("testString")
+				cfMetaDataModel.ServiceCheckEnabled = core.BoolPtr(true)
+				cfMetaDataModel.TestCheckInterval = core.Int64Ptr(int64(38))
+				cfMetaDataModel.ServiceKeySupported = core.BoolPtr(true)
+				cfMetaDataModel.CfGuid = make(map[string]string)
+				Expect(cfMetaDataModel.Type).To(Equal(core.StringPtr("testString")))
+				Expect(cfMetaDataModel.IamCompatible).To(Equal(core.BoolPtr(true)))
+				Expect(cfMetaDataModel.UniqueApiKey).To(Equal(core.BoolPtr(true)))
+				Expect(cfMetaDataModel.Provisionable).To(Equal(core.BoolPtr(true)))
+				Expect(cfMetaDataModel.Bindable).To(Equal(core.BoolPtr(true)))
+				Expect(cfMetaDataModel.AsyncProvisioningSupported).To(Equal(core.BoolPtr(true)))
+				Expect(cfMetaDataModel.AsyncUnprovisioningSupported).To(Equal(core.BoolPtr(true)))
+				Expect(cfMetaDataModel.Requires).To(Equal([]string{"testString"}))
+				Expect(cfMetaDataModel.PlanUpdateable).To(Equal(core.BoolPtr(true)))
+				Expect(cfMetaDataModel.State).To(Equal(core.StringPtr("testString")))
+				Expect(cfMetaDataModel.ServiceCheckEnabled).To(Equal(core.BoolPtr(true)))
+				Expect(cfMetaDataModel.TestCheckInterval).To(Equal(core.Int64Ptr(int64(38))))
+				Expect(cfMetaDataModel.ServiceKeySupported).To(Equal(core.BoolPtr(true)))
+				Expect(cfMetaDataModel.CfGuid).To(Equal(make(map[string]string)))
 
 				// Construct an instance of the Callbacks model
 				callbacksModel := new(globalcatalogv1.Callbacks)
 				Expect(callbacksModel).ToNot(BeNil())
-				callbacksModel.BrokerUtl = core.StringPtr("testString")
+				callbacksModel.ControllerURL = core.StringPtr("testString")
+				callbacksModel.BrokerURL = core.StringPtr("testString")
 				callbacksModel.BrokerProxyURL = core.StringPtr("testString")
 				callbacksModel.DashboardURL = core.StringPtr("testString")
 				callbacksModel.DashboardDataURL = core.StringPtr("testString")
@@ -3722,9 +3824,9 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				callbacksModel.DashboardDetailTabExtURL = core.StringPtr("testString")
 				callbacksModel.ServiceMonitorApi = core.StringPtr("testString")
 				callbacksModel.ServiceMonitorApp = core.StringPtr("testString")
-				callbacksModel.ServiceStagingURL = core.StringPtr("testString")
-				callbacksModel.ServiceProductionURL = core.StringPtr("testString")
-				Expect(callbacksModel.BrokerUtl).To(Equal(core.StringPtr("testString")))
+				callbacksModel.ApiEndpoint = make(map[string]string)
+				Expect(callbacksModel.ControllerURL).To(Equal(core.StringPtr("testString")))
+				Expect(callbacksModel.BrokerURL).To(Equal(core.StringPtr("testString")))
 				Expect(callbacksModel.BrokerProxyURL).To(Equal(core.StringPtr("testString")))
 				Expect(callbacksModel.DashboardURL).To(Equal(core.StringPtr("testString")))
 				Expect(callbacksModel.DashboardDataURL).To(Equal(core.StringPtr("testString")))
@@ -3732,122 +3834,29 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				Expect(callbacksModel.DashboardDetailTabExtURL).To(Equal(core.StringPtr("testString")))
 				Expect(callbacksModel.ServiceMonitorApi).To(Equal(core.StringPtr("testString")))
 				Expect(callbacksModel.ServiceMonitorApp).To(Equal(core.StringPtr("testString")))
-				Expect(callbacksModel.ServiceStagingURL).To(Equal(core.StringPtr("testString")))
-				Expect(callbacksModel.ServiceProductionURL).To(Equal(core.StringPtr("testString")))
+				Expect(callbacksModel.ApiEndpoint).To(Equal(make(map[string]string)))
 
 				// Construct an instance of the DeploymentBase model
 				deploymentBaseModel := new(globalcatalogv1.DeploymentBase)
 				Expect(deploymentBaseModel).ToNot(BeNil())
 				deploymentBaseModel.Location = core.StringPtr("testString")
+				deploymentBaseModel.LocationURL = core.StringPtr("testString")
+				deploymentBaseModel.OriginalLocation = core.StringPtr("testString")
 				deploymentBaseModel.TargetCrn = core.StringPtr("testString")
-				deploymentBaseModel.Broker = deploymentBaseBrokerModel
+				deploymentBaseModel.ServiceCrn = core.StringPtr("testString")
+				deploymentBaseModel.MccpID = core.StringPtr("testString")
+				deploymentBaseModel.Broker = brokerModel
 				deploymentBaseModel.SupportsRcMigration = core.BoolPtr(true)
 				deploymentBaseModel.TargetNetwork = core.StringPtr("testString")
 				Expect(deploymentBaseModel.Location).To(Equal(core.StringPtr("testString")))
+				Expect(deploymentBaseModel.LocationURL).To(Equal(core.StringPtr("testString")))
+				Expect(deploymentBaseModel.OriginalLocation).To(Equal(core.StringPtr("testString")))
 				Expect(deploymentBaseModel.TargetCrn).To(Equal(core.StringPtr("testString")))
-				Expect(deploymentBaseModel.Broker).To(Equal(deploymentBaseBrokerModel))
+				Expect(deploymentBaseModel.ServiceCrn).To(Equal(core.StringPtr("testString")))
+				Expect(deploymentBaseModel.MccpID).To(Equal(core.StringPtr("testString")))
+				Expect(deploymentBaseModel.Broker).To(Equal(brokerModel))
 				Expect(deploymentBaseModel.SupportsRcMigration).To(Equal(core.BoolPtr(true)))
 				Expect(deploymentBaseModel.TargetNetwork).To(Equal(core.StringPtr("testString")))
-
-				// Construct an instance of the ObjectMetadataBaseAlias model
-				objectMetadataBaseAliasModel := new(globalcatalogv1.ObjectMetadataBaseAlias)
-				Expect(objectMetadataBaseAliasModel).ToNot(BeNil())
-				objectMetadataBaseAliasModel.Type = core.StringPtr("testString")
-				objectMetadataBaseAliasModel.PlanID = core.StringPtr("testString")
-				Expect(objectMetadataBaseAliasModel.Type).To(Equal(core.StringPtr("testString")))
-				Expect(objectMetadataBaseAliasModel.PlanID).To(Equal(core.StringPtr("testString")))
-
-				// Construct an instance of the ObjectMetadataBasePlan model
-				objectMetadataBasePlanModel := new(globalcatalogv1.ObjectMetadataBasePlan)
-				Expect(objectMetadataBasePlanModel).ToNot(BeNil())
-				objectMetadataBasePlanModel.Bindable = core.BoolPtr(true)
-				objectMetadataBasePlanModel.Reservable = core.BoolPtr(true)
-				objectMetadataBasePlanModel.AllowInternalUsers = core.BoolPtr(true)
-				objectMetadataBasePlanModel.AsyncProvisioningSupported = core.BoolPtr(true)
-				objectMetadataBasePlanModel.AsyncUnprovisioningSupported = core.BoolPtr(true)
-				objectMetadataBasePlanModel.TestCheckInterval = core.Int64Ptr(int64(38))
-				objectMetadataBasePlanModel.SingleScopeInstance = core.StringPtr("testString")
-				objectMetadataBasePlanModel.ServiceCheckEnabled = core.BoolPtr(true)
-				objectMetadataBasePlanModel.CfGuid = core.StringPtr("testString")
-				Expect(objectMetadataBasePlanModel.Bindable).To(Equal(core.BoolPtr(true)))
-				Expect(objectMetadataBasePlanModel.Reservable).To(Equal(core.BoolPtr(true)))
-				Expect(objectMetadataBasePlanModel.AllowInternalUsers).To(Equal(core.BoolPtr(true)))
-				Expect(objectMetadataBasePlanModel.AsyncProvisioningSupported).To(Equal(core.BoolPtr(true)))
-				Expect(objectMetadataBasePlanModel.AsyncUnprovisioningSupported).To(Equal(core.BoolPtr(true)))
-				Expect(objectMetadataBasePlanModel.TestCheckInterval).To(Equal(core.Int64Ptr(int64(38))))
-				Expect(objectMetadataBasePlanModel.SingleScopeInstance).To(Equal(core.StringPtr("testString")))
-				Expect(objectMetadataBasePlanModel.ServiceCheckEnabled).To(Equal(core.BoolPtr(true)))
-				Expect(objectMetadataBasePlanModel.CfGuid).To(Equal(core.StringPtr("testString")))
-
-				// Construct an instance of the ObjectMetadataBaseService model
-				objectMetadataBaseServiceModel := new(globalcatalogv1.ObjectMetadataBaseService)
-				Expect(objectMetadataBaseServiceModel).ToNot(BeNil())
-				objectMetadataBaseServiceModel.Type = core.StringPtr("testString")
-				objectMetadataBaseServiceModel.IamCompatible = core.BoolPtr(true)
-				objectMetadataBaseServiceModel.UniqueApiKey = core.BoolPtr(true)
-				objectMetadataBaseServiceModel.Provisionable = core.BoolPtr(true)
-				objectMetadataBaseServiceModel.AsyncProvisioningSupported = core.BoolPtr(true)
-				objectMetadataBaseServiceModel.AsyncUnprovisioningSupported = core.BoolPtr(true)
-				objectMetadataBaseServiceModel.CfGuid = core.StringPtr("testString")
-				objectMetadataBaseServiceModel.Bindable = core.BoolPtr(true)
-				objectMetadataBaseServiceModel.Requires = []string{"testString"}
-				objectMetadataBaseServiceModel.PlanUpdateable = core.BoolPtr(true)
-				objectMetadataBaseServiceModel.State = core.StringPtr("testString")
-				objectMetadataBaseServiceModel.ServiceCheckEnabled = core.BoolPtr(true)
-				objectMetadataBaseServiceModel.TestCheckInterval = core.Int64Ptr(int64(38))
-				objectMetadataBaseServiceModel.ServiceKeySupported = core.BoolPtr(true)
-				Expect(objectMetadataBaseServiceModel.Type).To(Equal(core.StringPtr("testString")))
-				Expect(objectMetadataBaseServiceModel.IamCompatible).To(Equal(core.BoolPtr(true)))
-				Expect(objectMetadataBaseServiceModel.UniqueApiKey).To(Equal(core.BoolPtr(true)))
-				Expect(objectMetadataBaseServiceModel.Provisionable).To(Equal(core.BoolPtr(true)))
-				Expect(objectMetadataBaseServiceModel.AsyncProvisioningSupported).To(Equal(core.BoolPtr(true)))
-				Expect(objectMetadataBaseServiceModel.AsyncUnprovisioningSupported).To(Equal(core.BoolPtr(true)))
-				Expect(objectMetadataBaseServiceModel.CfGuid).To(Equal(core.StringPtr("testString")))
-				Expect(objectMetadataBaseServiceModel.Bindable).To(Equal(core.BoolPtr(true)))
-				Expect(objectMetadataBaseServiceModel.Requires).To(Equal([]string{"testString"}))
-				Expect(objectMetadataBaseServiceModel.PlanUpdateable).To(Equal(core.BoolPtr(true)))
-				Expect(objectMetadataBaseServiceModel.State).To(Equal(core.StringPtr("testString")))
-				Expect(objectMetadataBaseServiceModel.ServiceCheckEnabled).To(Equal(core.BoolPtr(true)))
-				Expect(objectMetadataBaseServiceModel.TestCheckInterval).To(Equal(core.Int64Ptr(int64(38))))
-				Expect(objectMetadataBaseServiceModel.ServiceKeySupported).To(Equal(core.BoolPtr(true)))
-
-				// Construct an instance of the ObjectMetadataBaseSla model
-				objectMetadataBaseSlaModel := new(globalcatalogv1.ObjectMetadataBaseSla)
-				Expect(objectMetadataBaseSlaModel).ToNot(BeNil())
-				objectMetadataBaseSlaModel.Terms = core.StringPtr("testString")
-				objectMetadataBaseSlaModel.Tenancy = core.StringPtr("testString")
-				objectMetadataBaseSlaModel.Provisioning = core.StringPtr("testString")
-				objectMetadataBaseSlaModel.Responsiveness = core.StringPtr("testString")
-				objectMetadataBaseSlaModel.Dr = objectMetadataBaseSlaDrModel
-				Expect(objectMetadataBaseSlaModel.Terms).To(Equal(core.StringPtr("testString")))
-				Expect(objectMetadataBaseSlaModel.Tenancy).To(Equal(core.StringPtr("testString")))
-				Expect(objectMetadataBaseSlaModel.Provisioning).To(Equal(core.StringPtr("testString")))
-				Expect(objectMetadataBaseSlaModel.Responsiveness).To(Equal(core.StringPtr("testString")))
-				Expect(objectMetadataBaseSlaModel.Dr).To(Equal(objectMetadataBaseSlaDrModel))
-
-				// Construct an instance of the ObjectMetadataBaseTemplate model
-				objectMetadataBaseTemplateModel := new(globalcatalogv1.ObjectMetadataBaseTemplate)
-				Expect(objectMetadataBaseTemplateModel).ToNot(BeNil())
-				objectMetadataBaseTemplateModel.Services = []string{"testString"}
-				objectMetadataBaseTemplateModel.DefaultMemory = core.Int64Ptr(int64(38))
-				objectMetadataBaseTemplateModel.StartCmd = core.StringPtr("testString")
-				objectMetadataBaseTemplateModel.Source = objectMetadataBaseTemplateSourceModel
-				objectMetadataBaseTemplateModel.RuntimeCatalogID = core.StringPtr("testString")
-				objectMetadataBaseTemplateModel.CfRuntimeID = core.StringPtr("testString")
-				objectMetadataBaseTemplateModel.TemplateID = core.StringPtr("testString")
-				objectMetadataBaseTemplateModel.ExecutableFile = core.StringPtr("testString")
-				objectMetadataBaseTemplateModel.Buildpack = core.StringPtr("testString")
-				objectMetadataBaseTemplateModel.EnvironmentVariables = objectMetadataBaseTemplateEnvironmentVariablesModel
-				Expect(objectMetadataBaseTemplateModel.Services).To(Equal([]string{"testString"}))
-				Expect(objectMetadataBaseTemplateModel.DefaultMemory).To(Equal(core.Int64Ptr(int64(38))))
-				Expect(objectMetadataBaseTemplateModel.StartCmd).To(Equal(core.StringPtr("testString")))
-				Expect(objectMetadataBaseTemplateModel.Source).To(Equal(objectMetadataBaseTemplateSourceModel))
-				Expect(objectMetadataBaseTemplateModel.RuntimeCatalogID).To(Equal(core.StringPtr("testString")))
-				Expect(objectMetadataBaseTemplateModel.CfRuntimeID).To(Equal(core.StringPtr("testString")))
-				Expect(objectMetadataBaseTemplateModel.TemplateID).To(Equal(core.StringPtr("testString")))
-				Expect(objectMetadataBaseTemplateModel.ExecutableFile).To(Equal(core.StringPtr("testString")))
-				Expect(objectMetadataBaseTemplateModel.Buildpack).To(Equal(core.StringPtr("testString")))
-				Expect(objectMetadataBaseTemplateModel.EnvironmentVariables).To(Equal(objectMetadataBaseTemplateEnvironmentVariablesModel))
 
 				// Construct an instance of the Overview model
 				overviewModel := new(globalcatalogv1.Overview)
@@ -3855,9 +3864,33 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				overviewModel.DisplayName = core.StringPtr("testString")
 				overviewModel.LongDescription = core.StringPtr("testString")
 				overviewModel.Description = core.StringPtr("testString")
+				overviewModel.FeaturedDescription = core.StringPtr("testString")
 				Expect(overviewModel.DisplayName).To(Equal(core.StringPtr("testString")))
 				Expect(overviewModel.LongDescription).To(Equal(core.StringPtr("testString")))
 				Expect(overviewModel.Description).To(Equal(core.StringPtr("testString")))
+				Expect(overviewModel.FeaturedDescription).To(Equal(core.StringPtr("testString")))
+
+				// Construct an instance of the PlanMetaData model
+				planMetaDataModel := new(globalcatalogv1.PlanMetaData)
+				Expect(planMetaDataModel).ToNot(BeNil())
+				planMetaDataModel.Bindable = core.BoolPtr(true)
+				planMetaDataModel.Reservable = core.BoolPtr(true)
+				planMetaDataModel.AllowInternalUsers = core.BoolPtr(true)
+				planMetaDataModel.AsyncProvisioningSupported = core.BoolPtr(true)
+				planMetaDataModel.AsyncUnprovisioningSupported = core.BoolPtr(true)
+				planMetaDataModel.TestCheckInterval = core.Int64Ptr(int64(38))
+				planMetaDataModel.SingleScopeInstance = core.StringPtr("testString")
+				planMetaDataModel.ServiceCheckEnabled = core.BoolPtr(true)
+				planMetaDataModel.CfGuid = make(map[string]string)
+				Expect(planMetaDataModel.Bindable).To(Equal(core.BoolPtr(true)))
+				Expect(planMetaDataModel.Reservable).To(Equal(core.BoolPtr(true)))
+				Expect(planMetaDataModel.AllowInternalUsers).To(Equal(core.BoolPtr(true)))
+				Expect(planMetaDataModel.AsyncProvisioningSupported).To(Equal(core.BoolPtr(true)))
+				Expect(planMetaDataModel.AsyncUnprovisioningSupported).To(Equal(core.BoolPtr(true)))
+				Expect(planMetaDataModel.TestCheckInterval).To(Equal(core.Int64Ptr(int64(38))))
+				Expect(planMetaDataModel.SingleScopeInstance).To(Equal(core.StringPtr("testString")))
+				Expect(planMetaDataModel.ServiceCheckEnabled).To(Equal(core.BoolPtr(true)))
+				Expect(planMetaDataModel.CfGuid).To(Equal(make(map[string]string)))
 
 				// Construct an instance of the PricingSet model
 				pricingSetModel := new(globalcatalogv1.PricingSet)
@@ -3869,6 +3902,44 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				Expect(pricingSetModel.Origin).To(Equal(core.StringPtr("testString")))
 				Expect(pricingSetModel.StartingPrice).To(Equal(startingPriceModel))
 
+				// Construct an instance of the SLAMetaData model
+				slaMetaDataModel := new(globalcatalogv1.SLAMetaData)
+				Expect(slaMetaDataModel).ToNot(BeNil())
+				slaMetaDataModel.Terms = core.StringPtr("testString")
+				slaMetaDataModel.Tenancy = core.StringPtr("testString")
+				slaMetaDataModel.Provisioning = core.StringPtr("testString")
+				slaMetaDataModel.Responsiveness = core.StringPtr("testString")
+				slaMetaDataModel.Dr = drMetaDataModel
+				Expect(slaMetaDataModel.Terms).To(Equal(core.StringPtr("testString")))
+				Expect(slaMetaDataModel.Tenancy).To(Equal(core.StringPtr("testString")))
+				Expect(slaMetaDataModel.Provisioning).To(Equal(core.StringPtr("testString")))
+				Expect(slaMetaDataModel.Responsiveness).To(Equal(core.StringPtr("testString")))
+				Expect(slaMetaDataModel.Dr).To(Equal(drMetaDataModel))
+
+				// Construct an instance of the TemplateMetaData model
+				templateMetaDataModel := new(globalcatalogv1.TemplateMetaData)
+				Expect(templateMetaDataModel).ToNot(BeNil())
+				templateMetaDataModel.Services = []string{"testString"}
+				templateMetaDataModel.DefaultMemory = core.Int64Ptr(int64(38))
+				templateMetaDataModel.StartCmd = core.StringPtr("testString")
+				templateMetaDataModel.Source = sourceMetaDataModel
+				templateMetaDataModel.RuntimeCatalogID = core.StringPtr("testString")
+				templateMetaDataModel.CfRuntimeID = core.StringPtr("testString")
+				templateMetaDataModel.TemplateID = core.StringPtr("testString")
+				templateMetaDataModel.ExecutableFile = core.StringPtr("testString")
+				templateMetaDataModel.Buildpack = core.StringPtr("testString")
+				templateMetaDataModel.EnvironmentVariables = make(map[string]string)
+				Expect(templateMetaDataModel.Services).To(Equal([]string{"testString"}))
+				Expect(templateMetaDataModel.DefaultMemory).To(Equal(core.Int64Ptr(int64(38))))
+				Expect(templateMetaDataModel.StartCmd).To(Equal(core.StringPtr("testString")))
+				Expect(templateMetaDataModel.Source).To(Equal(sourceMetaDataModel))
+				Expect(templateMetaDataModel.RuntimeCatalogID).To(Equal(core.StringPtr("testString")))
+				Expect(templateMetaDataModel.CfRuntimeID).To(Equal(core.StringPtr("testString")))
+				Expect(templateMetaDataModel.TemplateID).To(Equal(core.StringPtr("testString")))
+				Expect(templateMetaDataModel.ExecutableFile).To(Equal(core.StringPtr("testString")))
+				Expect(templateMetaDataModel.Buildpack).To(Equal(core.StringPtr("testString")))
+				Expect(templateMetaDataModel.EnvironmentVariables).To(Equal(make(map[string]string)))
+
 				// Construct an instance of the UIMetaData model
 				uiMetaDataModel := new(globalcatalogv1.UIMetaData)
 				Expect(uiMetaDataModel).ToNot(BeNil())
@@ -3878,22 +3949,26 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				uiMetaDataModel.EmbeddableDashboardFullWidth = core.BoolPtr(true)
 				uiMetaDataModel.NavigationOrder = []string{"testString"}
 				uiMetaDataModel.NotCreatable = core.BoolPtr(true)
-				uiMetaDataModel.Reservable = core.BoolPtr(true)
 				uiMetaDataModel.PrimaryOfferingID = core.StringPtr("testString")
 				uiMetaDataModel.AccessibleDuringProvision = core.BoolPtr(true)
 				uiMetaDataModel.SideBySideIndex = core.Int64Ptr(int64(38))
 				uiMetaDataModel.EndOfServiceTime = CreateMockDateTime()
+				uiMetaDataModel.Hidden = core.BoolPtr(true)
+				uiMetaDataModel.HideLiteMetering = core.BoolPtr(true)
+				uiMetaDataModel.NoUpgradeNextStep = core.BoolPtr(true)
 				Expect(uiMetaDataModel.Strings).To(Equal(i18NModel))
 				Expect(uiMetaDataModel.Urls).To(Equal(urlsModel))
 				Expect(uiMetaDataModel.EmbeddableDashboard).To(Equal(core.StringPtr("testString")))
 				Expect(uiMetaDataModel.EmbeddableDashboardFullWidth).To(Equal(core.BoolPtr(true)))
 				Expect(uiMetaDataModel.NavigationOrder).To(Equal([]string{"testString"}))
 				Expect(uiMetaDataModel.NotCreatable).To(Equal(core.BoolPtr(true)))
-				Expect(uiMetaDataModel.Reservable).To(Equal(core.BoolPtr(true)))
 				Expect(uiMetaDataModel.PrimaryOfferingID).To(Equal(core.StringPtr("testString")))
 				Expect(uiMetaDataModel.AccessibleDuringProvision).To(Equal(core.BoolPtr(true)))
 				Expect(uiMetaDataModel.SideBySideIndex).To(Equal(core.Int64Ptr(int64(38))))
 				Expect(uiMetaDataModel.EndOfServiceTime).To(Equal(CreateMockDateTime()))
+				Expect(uiMetaDataModel.Hidden).To(Equal(core.BoolPtr(true)))
+				Expect(uiMetaDataModel.HideLiteMetering).To(Equal(core.BoolPtr(true)))
+				Expect(uiMetaDataModel.NoUpgradeNextStep).To(Equal(core.BoolPtr(true)))
 
 				// Construct an instance of the Image model
 				imageModel := new(globalcatalogv1.Image)
@@ -3911,31 +3986,31 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				objectMetadataSetModel := new(globalcatalogv1.ObjectMetadataSet)
 				Expect(objectMetadataSetModel).ToNot(BeNil())
 				objectMetadataSetModel.RcCompatible = core.BoolPtr(true)
+				objectMetadataSetModel.Service = cfMetaDataModel
+				objectMetadataSetModel.Plan = planMetaDataModel
+				objectMetadataSetModel.Alias = aliasMetaDataModel
+				objectMetadataSetModel.Template = templateMetaDataModel
 				objectMetadataSetModel.Ui = uiMetaDataModel
 				objectMetadataSetModel.Compliance = []string{"testString"}
-				objectMetadataSetModel.Service = objectMetadataBaseServiceModel
-				objectMetadataSetModel.Plan = objectMetadataBasePlanModel
-				objectMetadataSetModel.Template = objectMetadataBaseTemplateModel
-				objectMetadataSetModel.Alias = objectMetadataBaseAliasModel
-				objectMetadataSetModel.Sla = objectMetadataBaseSlaModel
+				objectMetadataSetModel.Sla = slaMetaDataModel
 				objectMetadataSetModel.Callbacks = callbacksModel
-				objectMetadataSetModel.Version = core.StringPtr("testString")
 				objectMetadataSetModel.OriginalName = core.StringPtr("testString")
-				objectMetadataSetModel.Other = CreateMockMap()
+				objectMetadataSetModel.Version = core.StringPtr("testString")
+				objectMetadataSetModel.Other = make(map[string]interface{})
 				objectMetadataSetModel.Pricing = pricingSetModel
 				objectMetadataSetModel.Deployment = deploymentBaseModel
 				Expect(objectMetadataSetModel.RcCompatible).To(Equal(core.BoolPtr(true)))
+				Expect(objectMetadataSetModel.Service).To(Equal(cfMetaDataModel))
+				Expect(objectMetadataSetModel.Plan).To(Equal(planMetaDataModel))
+				Expect(objectMetadataSetModel.Alias).To(Equal(aliasMetaDataModel))
+				Expect(objectMetadataSetModel.Template).To(Equal(templateMetaDataModel))
 				Expect(objectMetadataSetModel.Ui).To(Equal(uiMetaDataModel))
 				Expect(objectMetadataSetModel.Compliance).To(Equal([]string{"testString"}))
-				Expect(objectMetadataSetModel.Service).To(Equal(objectMetadataBaseServiceModel))
-				Expect(objectMetadataSetModel.Plan).To(Equal(objectMetadataBasePlanModel))
-				Expect(objectMetadataSetModel.Template).To(Equal(objectMetadataBaseTemplateModel))
-				Expect(objectMetadataSetModel.Alias).To(Equal(objectMetadataBaseAliasModel))
-				Expect(objectMetadataSetModel.Sla).To(Equal(objectMetadataBaseSlaModel))
+				Expect(objectMetadataSetModel.Sla).To(Equal(slaMetaDataModel))
 				Expect(objectMetadataSetModel.Callbacks).To(Equal(callbacksModel))
-				Expect(objectMetadataSetModel.Version).To(Equal(core.StringPtr("testString")))
 				Expect(objectMetadataSetModel.OriginalName).To(Equal(core.StringPtr("testString")))
-				Expect(objectMetadataSetModel.Other).To(Equal(CreateMockMap()))
+				Expect(objectMetadataSetModel.Version).To(Equal(core.StringPtr("testString")))
+				Expect(objectMetadataSetModel.Other).To(Equal(make(map[string]interface{})))
 				Expect(objectMetadataSetModel.Pricing).To(Equal(pricingSetModel))
 				Expect(objectMetadataSetModel.Deployment).To(Equal(deploymentBaseModel))
 
@@ -3960,6 +4035,7 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				Expect(providerModel.SupportEmail).To(Equal(core.StringPtr("testString")))
 				Expect(providerModel.Phone).To(Equal(core.StringPtr("testString")))
 
+				// Construct an instance of the CreateCatalogEntryOptions model
 				createCatalogEntryOptionsName := "testString"
 				createCatalogEntryOptionsKind := "service"
 				var createCatalogEntryOptionsOverviewUi *globalcatalogv1.OverviewUI = nil
@@ -3968,7 +4044,6 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				createCatalogEntryOptionsTags := []string{"testString"}
 				var createCatalogEntryOptionsProvider *globalcatalogv1.Provider = nil
 				createCatalogEntryOptionsID := "testString"
-				// Construct an instance of the CreateCatalogEntryOptions model
 				createCatalogEntryOptionsModel := testService.NewCreateCatalogEntryOptions(createCatalogEntryOptionsName, createCatalogEntryOptionsKind, createCatalogEntryOptionsOverviewUi, createCatalogEntryOptionsImages, createCatalogEntryOptionsDisabled, createCatalogEntryOptionsTags, createCatalogEntryOptionsProvider, createCatalogEntryOptionsID)
 				createCatalogEntryOptionsModel.SetName("testString")
 				createCatalogEntryOptionsModel.SetKind("service")
@@ -4001,9 +4076,9 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				Expect(createCatalogEntryOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewDeleteArtifactOptions successfully`, func() {
+				// Construct an instance of the DeleteArtifactOptions model
 				objectID := "testString"
 				artifactID := "testString"
-				// Construct an instance of the DeleteArtifactOptions model
 				deleteArtifactOptionsModel := testService.NewDeleteArtifactOptions(objectID, artifactID)
 				deleteArtifactOptionsModel.SetObjectID("testString")
 				deleteArtifactOptionsModel.SetArtifactID("testString")
@@ -4016,35 +4091,39 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				Expect(deleteArtifactOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewDeleteCatalogEntryOptions successfully`, func() {
-				id := "testString"
 				// Construct an instance of the DeleteCatalogEntryOptions model
+				id := "testString"
 				deleteCatalogEntryOptionsModel := testService.NewDeleteCatalogEntryOptions(id)
 				deleteCatalogEntryOptionsModel.SetID("testString")
 				deleteCatalogEntryOptionsModel.SetAccount("testString")
+				deleteCatalogEntryOptionsModel.SetForce(true)
 				deleteCatalogEntryOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(deleteCatalogEntryOptionsModel).ToNot(BeNil())
 				Expect(deleteCatalogEntryOptionsModel.ID).To(Equal(core.StringPtr("testString")))
 				Expect(deleteCatalogEntryOptionsModel.Account).To(Equal(core.StringPtr("testString")))
+				Expect(deleteCatalogEntryOptionsModel.Force).To(Equal(core.BoolPtr(true)))
 				Expect(deleteCatalogEntryOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewGetArtifactOptions successfully`, func() {
+				// Construct an instance of the GetArtifactOptions model
 				objectID := "testString"
 				artifactID := "testString"
-				// Construct an instance of the GetArtifactOptions model
 				getArtifactOptionsModel := testService.NewGetArtifactOptions(objectID, artifactID)
 				getArtifactOptionsModel.SetObjectID("testString")
 				getArtifactOptionsModel.SetArtifactID("testString")
+				getArtifactOptionsModel.SetAccept("testString")
 				getArtifactOptionsModel.SetAccount("testString")
 				getArtifactOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(getArtifactOptionsModel).ToNot(BeNil())
 				Expect(getArtifactOptionsModel.ObjectID).To(Equal(core.StringPtr("testString")))
 				Expect(getArtifactOptionsModel.ArtifactID).To(Equal(core.StringPtr("testString")))
+				Expect(getArtifactOptionsModel.Accept).To(Equal(core.StringPtr("testString")))
 				Expect(getArtifactOptionsModel.Account).To(Equal(core.StringPtr("testString")))
 				Expect(getArtifactOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewGetAuditLogsOptions successfully`, func() {
-				id := "testString"
 				// Construct an instance of the GetAuditLogsOptions model
+				id := "testString"
 				getAuditLogsOptionsModel := testService.NewGetAuditLogsOptions(id)
 				getAuditLogsOptionsModel.SetID("testString")
 				getAuditLogsOptionsModel.SetAccount("testString")
@@ -4063,8 +4142,8 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				Expect(getAuditLogsOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewGetCatalogEntryOptions successfully`, func() {
-				id := "testString"
 				// Construct an instance of the GetCatalogEntryOptions model
+				id := "testString"
 				getCatalogEntryOptionsModel := testService.NewGetCatalogEntryOptions(id)
 				getCatalogEntryOptionsModel.SetID("testString")
 				getCatalogEntryOptionsModel.SetAccount("testString")
@@ -4083,9 +4162,9 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				Expect(getCatalogEntryOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewGetChildObjectsOptions successfully`, func() {
+				// Construct an instance of the GetChildObjectsOptions model
 				id := "testString"
 				kind := "testString"
-				// Construct an instance of the GetChildObjectsOptions model
 				getChildObjectsOptionsModel := testService.NewGetChildObjectsOptions(id, kind)
 				getChildObjectsOptionsModel.SetID("testString")
 				getChildObjectsOptionsModel.SetKind("testString")
@@ -4110,8 +4189,8 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				Expect(getChildObjectsOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewGetPricingOptions successfully`, func() {
-				id := "testString"
 				// Construct an instance of the GetPricingOptions model
+				id := "testString"
 				getPricingOptionsModel := testService.NewGetPricingOptions(id)
 				getPricingOptionsModel.SetID("testString")
 				getPricingOptionsModel.SetAccount("testString")
@@ -4122,8 +4201,8 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				Expect(getPricingOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewGetVisibilityOptions successfully`, func() {
-				id := "testString"
 				// Construct an instance of the GetVisibilityOptions model
+				id := "testString"
 				getVisibilityOptionsModel := testService.NewGetVisibilityOptions(id)
 				getVisibilityOptionsModel.SetID("testString")
 				getVisibilityOptionsModel.SetAccount("testString")
@@ -4140,8 +4219,8 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				Expect(err).To(BeNil())
 			})
 			It(`Invoke NewListArtifactsOptions successfully`, func() {
-				objectID := "testString"
 				// Construct an instance of the ListArtifactsOptions model
+				objectID := "testString"
 				listArtifactsOptionsModel := testService.NewListArtifactsOptions(objectID)
 				listArtifactsOptionsModel.SetObjectID("testString")
 				listArtifactsOptionsModel.SetAccount("testString")
@@ -4188,8 +4267,8 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				Expect(err).To(BeNil())
 			})
 			It(`Invoke NewRestoreCatalogEntryOptions successfully`, func() {
-				id := "testString"
 				// Construct an instance of the RestoreCatalogEntryOptions model
+				id := "testString"
 				restoreCatalogEntryOptionsModel := testService.NewRestoreCatalogEntryOptions(id)
 				restoreCatalogEntryOptionsModel.SetID("testString")
 				restoreCatalogEntryOptionsModel.SetAccount("testString")
@@ -4206,11 +4285,11 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				bulletsModel.Title = core.StringPtr("testString")
 				bulletsModel.Description = core.StringPtr("testString")
 				bulletsModel.Icon = core.StringPtr("testString")
-				bulletsModel.Quantity = core.StringPtr("testString")
+				bulletsModel.Quantity = core.Int64Ptr(int64(38))
 				Expect(bulletsModel.Title).To(Equal(core.StringPtr("testString")))
 				Expect(bulletsModel.Description).To(Equal(core.StringPtr("testString")))
 				Expect(bulletsModel.Icon).To(Equal(core.StringPtr("testString")))
-				Expect(bulletsModel.Quantity).To(Equal(core.StringPtr("testString")))
+				Expect(bulletsModel.Quantity).To(Equal(core.Int64Ptr(int64(38))))
 
 				// Construct an instance of the Price model
 				priceModel := new(globalcatalogv1.Price)
@@ -4237,10 +4316,10 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				// Construct an instance of the Amount model
 				amountModel := new(globalcatalogv1.Amount)
 				Expect(amountModel).ToNot(BeNil())
-				amountModel.Counrty = core.StringPtr("testString")
+				amountModel.Country = core.StringPtr("testString")
 				amountModel.Currency = core.StringPtr("testString")
 				amountModel.Prices = []globalcatalogv1.Price{*priceModel}
-				Expect(amountModel.Counrty).To(Equal(core.StringPtr("testString")))
+				Expect(amountModel.Country).To(Equal(core.StringPtr("testString")))
 				Expect(amountModel.Currency).To(Equal(core.StringPtr("testString")))
 				Expect(amountModel.Prices).To(Equal([]globalcatalogv1.Price{*priceModel}))
 
@@ -4262,13 +4341,21 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				Expect(stringsModel.PopupWarningMessage).To(Equal(core.StringPtr("testString")))
 				Expect(stringsModel.Instruction).To(Equal(core.StringPtr("testString")))
 
-				// Construct an instance of the DeploymentBaseBroker model
-				deploymentBaseBrokerModel := new(globalcatalogv1.DeploymentBaseBroker)
-				Expect(deploymentBaseBrokerModel).ToNot(BeNil())
-				deploymentBaseBrokerModel.Name = core.StringPtr("testString")
-				deploymentBaseBrokerModel.Guid = core.StringPtr("testString")
-				Expect(deploymentBaseBrokerModel.Name).To(Equal(core.StringPtr("testString")))
-				Expect(deploymentBaseBrokerModel.Guid).To(Equal(core.StringPtr("testString")))
+				// Construct an instance of the Broker model
+				brokerModel := new(globalcatalogv1.Broker)
+				Expect(brokerModel).ToNot(BeNil())
+				brokerModel.Name = core.StringPtr("testString")
+				brokerModel.Guid = core.StringPtr("testString")
+				Expect(brokerModel.Name).To(Equal(core.StringPtr("testString")))
+				Expect(brokerModel.Guid).To(Equal(core.StringPtr("testString")))
+
+				// Construct an instance of the DRMetaData model
+				drMetaDataModel := new(globalcatalogv1.DRMetaData)
+				Expect(drMetaDataModel).ToNot(BeNil())
+				drMetaDataModel.Dr = core.BoolPtr(true)
+				drMetaDataModel.Description = core.StringPtr("testString")
+				Expect(drMetaDataModel.Dr).To(Equal(core.BoolPtr(true)))
+				Expect(drMetaDataModel.Description).To(Equal(core.StringPtr("testString")))
 
 				// Construct an instance of the I18N model
 				i18NModel := new(globalcatalogv1.I18N)
@@ -4277,38 +4364,26 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				Expect(i18NModel.GetProperty("foo")).To(Equal(stringsModel))
 				Expect(i18NModel.GetProperties()).ToNot(BeEmpty())
 
-				// Construct an instance of the ObjectMetadataBaseSlaDr model
-				objectMetadataBaseSlaDrModel := new(globalcatalogv1.ObjectMetadataBaseSlaDr)
-				Expect(objectMetadataBaseSlaDrModel).ToNot(BeNil())
-				objectMetadataBaseSlaDrModel.Dr = core.BoolPtr(true)
-				objectMetadataBaseSlaDrModel.Description = core.StringPtr("testString")
-				Expect(objectMetadataBaseSlaDrModel.Dr).To(Equal(core.BoolPtr(true)))
-				Expect(objectMetadataBaseSlaDrModel.Description).To(Equal(core.StringPtr("testString")))
-
-				// Construct an instance of the ObjectMetadataBaseTemplateEnvironmentVariables model
-				objectMetadataBaseTemplateEnvironmentVariablesModel := new(globalcatalogv1.ObjectMetadataBaseTemplateEnvironmentVariables)
-				Expect(objectMetadataBaseTemplateEnvironmentVariablesModel).ToNot(BeNil())
-				objectMetadataBaseTemplateEnvironmentVariablesModel.Key = core.StringPtr("testString")
-				Expect(objectMetadataBaseTemplateEnvironmentVariablesModel.Key).To(Equal(core.StringPtr("testString")))
-
-				// Construct an instance of the ObjectMetadataBaseTemplateSource model
-				objectMetadataBaseTemplateSourceModel := new(globalcatalogv1.ObjectMetadataBaseTemplateSource)
-				Expect(objectMetadataBaseTemplateSourceModel).ToNot(BeNil())
-				objectMetadataBaseTemplateSourceModel.Path = core.StringPtr("testString")
-				objectMetadataBaseTemplateSourceModel.Type = core.StringPtr("testString")
-				objectMetadataBaseTemplateSourceModel.URL = core.StringPtr("testString")
-				Expect(objectMetadataBaseTemplateSourceModel.Path).To(Equal(core.StringPtr("testString")))
-				Expect(objectMetadataBaseTemplateSourceModel.Type).To(Equal(core.StringPtr("testString")))
-				Expect(objectMetadataBaseTemplateSourceModel.URL).To(Equal(core.StringPtr("testString")))
+				// Construct an instance of the SourceMetaData model
+				sourceMetaDataModel := new(globalcatalogv1.SourceMetaData)
+				Expect(sourceMetaDataModel).ToNot(BeNil())
+				sourceMetaDataModel.Path = core.StringPtr("testString")
+				sourceMetaDataModel.Type = core.StringPtr("testString")
+				sourceMetaDataModel.URL = core.StringPtr("testString")
+				Expect(sourceMetaDataModel.Path).To(Equal(core.StringPtr("testString")))
+				Expect(sourceMetaDataModel.Type).To(Equal(core.StringPtr("testString")))
+				Expect(sourceMetaDataModel.URL).To(Equal(core.StringPtr("testString")))
 
 				// Construct an instance of the StartingPrice model
 				startingPriceModel := new(globalcatalogv1.StartingPrice)
 				Expect(startingPriceModel).ToNot(BeNil())
 				startingPriceModel.PlanID = core.StringPtr("testString")
 				startingPriceModel.DeploymentID = core.StringPtr("testString")
+				startingPriceModel.Unit = core.StringPtr("testString")
 				startingPriceModel.Amount = []globalcatalogv1.Amount{*amountModel}
 				Expect(startingPriceModel.PlanID).To(Equal(core.StringPtr("testString")))
 				Expect(startingPriceModel.DeploymentID).To(Equal(core.StringPtr("testString")))
+				Expect(startingPriceModel.Unit).To(Equal(core.StringPtr("testString")))
 				Expect(startingPriceModel.Amount).To(Equal([]globalcatalogv1.Amount{*amountModel}))
 
 				// Construct an instance of the URLS model
@@ -4323,6 +4398,9 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				urlsModel.CustomCreatePageURL = core.StringPtr("testString")
 				urlsModel.CatalogDetailsURL = core.StringPtr("testString")
 				urlsModel.DeprecationDocURL = core.StringPtr("testString")
+				urlsModel.DashboardURL = core.StringPtr("testString")
+				urlsModel.RegistrationURL = core.StringPtr("testString")
+				urlsModel.Apidocsurl = core.StringPtr("testString")
 				Expect(urlsModel.DocURL).To(Equal(core.StringPtr("testString")))
 				Expect(urlsModel.InstructionsURL).To(Equal(core.StringPtr("testString")))
 				Expect(urlsModel.ApiURL).To(Equal(core.StringPtr("testString")))
@@ -4332,11 +4410,55 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				Expect(urlsModel.CustomCreatePageURL).To(Equal(core.StringPtr("testString")))
 				Expect(urlsModel.CatalogDetailsURL).To(Equal(core.StringPtr("testString")))
 				Expect(urlsModel.DeprecationDocURL).To(Equal(core.StringPtr("testString")))
+				Expect(urlsModel.DashboardURL).To(Equal(core.StringPtr("testString")))
+				Expect(urlsModel.RegistrationURL).To(Equal(core.StringPtr("testString")))
+				Expect(urlsModel.Apidocsurl).To(Equal(core.StringPtr("testString")))
+
+				// Construct an instance of the AliasMetaData model
+				aliasMetaDataModel := new(globalcatalogv1.AliasMetaData)
+				Expect(aliasMetaDataModel).ToNot(BeNil())
+				aliasMetaDataModel.Type = core.StringPtr("testString")
+				aliasMetaDataModel.PlanID = core.StringPtr("testString")
+				Expect(aliasMetaDataModel.Type).To(Equal(core.StringPtr("testString")))
+				Expect(aliasMetaDataModel.PlanID).To(Equal(core.StringPtr("testString")))
+
+				// Construct an instance of the CFMetaData model
+				cfMetaDataModel := new(globalcatalogv1.CFMetaData)
+				Expect(cfMetaDataModel).ToNot(BeNil())
+				cfMetaDataModel.Type = core.StringPtr("testString")
+				cfMetaDataModel.IamCompatible = core.BoolPtr(true)
+				cfMetaDataModel.UniqueApiKey = core.BoolPtr(true)
+				cfMetaDataModel.Provisionable = core.BoolPtr(true)
+				cfMetaDataModel.Bindable = core.BoolPtr(true)
+				cfMetaDataModel.AsyncProvisioningSupported = core.BoolPtr(true)
+				cfMetaDataModel.AsyncUnprovisioningSupported = core.BoolPtr(true)
+				cfMetaDataModel.Requires = []string{"testString"}
+				cfMetaDataModel.PlanUpdateable = core.BoolPtr(true)
+				cfMetaDataModel.State = core.StringPtr("testString")
+				cfMetaDataModel.ServiceCheckEnabled = core.BoolPtr(true)
+				cfMetaDataModel.TestCheckInterval = core.Int64Ptr(int64(38))
+				cfMetaDataModel.ServiceKeySupported = core.BoolPtr(true)
+				cfMetaDataModel.CfGuid = make(map[string]string)
+				Expect(cfMetaDataModel.Type).To(Equal(core.StringPtr("testString")))
+				Expect(cfMetaDataModel.IamCompatible).To(Equal(core.BoolPtr(true)))
+				Expect(cfMetaDataModel.UniqueApiKey).To(Equal(core.BoolPtr(true)))
+				Expect(cfMetaDataModel.Provisionable).To(Equal(core.BoolPtr(true)))
+				Expect(cfMetaDataModel.Bindable).To(Equal(core.BoolPtr(true)))
+				Expect(cfMetaDataModel.AsyncProvisioningSupported).To(Equal(core.BoolPtr(true)))
+				Expect(cfMetaDataModel.AsyncUnprovisioningSupported).To(Equal(core.BoolPtr(true)))
+				Expect(cfMetaDataModel.Requires).To(Equal([]string{"testString"}))
+				Expect(cfMetaDataModel.PlanUpdateable).To(Equal(core.BoolPtr(true)))
+				Expect(cfMetaDataModel.State).To(Equal(core.StringPtr("testString")))
+				Expect(cfMetaDataModel.ServiceCheckEnabled).To(Equal(core.BoolPtr(true)))
+				Expect(cfMetaDataModel.TestCheckInterval).To(Equal(core.Int64Ptr(int64(38))))
+				Expect(cfMetaDataModel.ServiceKeySupported).To(Equal(core.BoolPtr(true)))
+				Expect(cfMetaDataModel.CfGuid).To(Equal(make(map[string]string)))
 
 				// Construct an instance of the Callbacks model
 				callbacksModel := new(globalcatalogv1.Callbacks)
 				Expect(callbacksModel).ToNot(BeNil())
-				callbacksModel.BrokerUtl = core.StringPtr("testString")
+				callbacksModel.ControllerURL = core.StringPtr("testString")
+				callbacksModel.BrokerURL = core.StringPtr("testString")
 				callbacksModel.BrokerProxyURL = core.StringPtr("testString")
 				callbacksModel.DashboardURL = core.StringPtr("testString")
 				callbacksModel.DashboardDataURL = core.StringPtr("testString")
@@ -4344,9 +4466,9 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				callbacksModel.DashboardDetailTabExtURL = core.StringPtr("testString")
 				callbacksModel.ServiceMonitorApi = core.StringPtr("testString")
 				callbacksModel.ServiceMonitorApp = core.StringPtr("testString")
-				callbacksModel.ServiceStagingURL = core.StringPtr("testString")
-				callbacksModel.ServiceProductionURL = core.StringPtr("testString")
-				Expect(callbacksModel.BrokerUtl).To(Equal(core.StringPtr("testString")))
+				callbacksModel.ApiEndpoint = make(map[string]string)
+				Expect(callbacksModel.ControllerURL).To(Equal(core.StringPtr("testString")))
+				Expect(callbacksModel.BrokerURL).To(Equal(core.StringPtr("testString")))
 				Expect(callbacksModel.BrokerProxyURL).To(Equal(core.StringPtr("testString")))
 				Expect(callbacksModel.DashboardURL).To(Equal(core.StringPtr("testString")))
 				Expect(callbacksModel.DashboardDataURL).To(Equal(core.StringPtr("testString")))
@@ -4354,122 +4476,29 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				Expect(callbacksModel.DashboardDetailTabExtURL).To(Equal(core.StringPtr("testString")))
 				Expect(callbacksModel.ServiceMonitorApi).To(Equal(core.StringPtr("testString")))
 				Expect(callbacksModel.ServiceMonitorApp).To(Equal(core.StringPtr("testString")))
-				Expect(callbacksModel.ServiceStagingURL).To(Equal(core.StringPtr("testString")))
-				Expect(callbacksModel.ServiceProductionURL).To(Equal(core.StringPtr("testString")))
+				Expect(callbacksModel.ApiEndpoint).To(Equal(make(map[string]string)))
 
 				// Construct an instance of the DeploymentBase model
 				deploymentBaseModel := new(globalcatalogv1.DeploymentBase)
 				Expect(deploymentBaseModel).ToNot(BeNil())
 				deploymentBaseModel.Location = core.StringPtr("testString")
+				deploymentBaseModel.LocationURL = core.StringPtr("testString")
+				deploymentBaseModel.OriginalLocation = core.StringPtr("testString")
 				deploymentBaseModel.TargetCrn = core.StringPtr("testString")
-				deploymentBaseModel.Broker = deploymentBaseBrokerModel
+				deploymentBaseModel.ServiceCrn = core.StringPtr("testString")
+				deploymentBaseModel.MccpID = core.StringPtr("testString")
+				deploymentBaseModel.Broker = brokerModel
 				deploymentBaseModel.SupportsRcMigration = core.BoolPtr(true)
 				deploymentBaseModel.TargetNetwork = core.StringPtr("testString")
 				Expect(deploymentBaseModel.Location).To(Equal(core.StringPtr("testString")))
+				Expect(deploymentBaseModel.LocationURL).To(Equal(core.StringPtr("testString")))
+				Expect(deploymentBaseModel.OriginalLocation).To(Equal(core.StringPtr("testString")))
 				Expect(deploymentBaseModel.TargetCrn).To(Equal(core.StringPtr("testString")))
-				Expect(deploymentBaseModel.Broker).To(Equal(deploymentBaseBrokerModel))
+				Expect(deploymentBaseModel.ServiceCrn).To(Equal(core.StringPtr("testString")))
+				Expect(deploymentBaseModel.MccpID).To(Equal(core.StringPtr("testString")))
+				Expect(deploymentBaseModel.Broker).To(Equal(brokerModel))
 				Expect(deploymentBaseModel.SupportsRcMigration).To(Equal(core.BoolPtr(true)))
 				Expect(deploymentBaseModel.TargetNetwork).To(Equal(core.StringPtr("testString")))
-
-				// Construct an instance of the ObjectMetadataBaseAlias model
-				objectMetadataBaseAliasModel := new(globalcatalogv1.ObjectMetadataBaseAlias)
-				Expect(objectMetadataBaseAliasModel).ToNot(BeNil())
-				objectMetadataBaseAliasModel.Type = core.StringPtr("testString")
-				objectMetadataBaseAliasModel.PlanID = core.StringPtr("testString")
-				Expect(objectMetadataBaseAliasModel.Type).To(Equal(core.StringPtr("testString")))
-				Expect(objectMetadataBaseAliasModel.PlanID).To(Equal(core.StringPtr("testString")))
-
-				// Construct an instance of the ObjectMetadataBasePlan model
-				objectMetadataBasePlanModel := new(globalcatalogv1.ObjectMetadataBasePlan)
-				Expect(objectMetadataBasePlanModel).ToNot(BeNil())
-				objectMetadataBasePlanModel.Bindable = core.BoolPtr(true)
-				objectMetadataBasePlanModel.Reservable = core.BoolPtr(true)
-				objectMetadataBasePlanModel.AllowInternalUsers = core.BoolPtr(true)
-				objectMetadataBasePlanModel.AsyncProvisioningSupported = core.BoolPtr(true)
-				objectMetadataBasePlanModel.AsyncUnprovisioningSupported = core.BoolPtr(true)
-				objectMetadataBasePlanModel.TestCheckInterval = core.Int64Ptr(int64(38))
-				objectMetadataBasePlanModel.SingleScopeInstance = core.StringPtr("testString")
-				objectMetadataBasePlanModel.ServiceCheckEnabled = core.BoolPtr(true)
-				objectMetadataBasePlanModel.CfGuid = core.StringPtr("testString")
-				Expect(objectMetadataBasePlanModel.Bindable).To(Equal(core.BoolPtr(true)))
-				Expect(objectMetadataBasePlanModel.Reservable).To(Equal(core.BoolPtr(true)))
-				Expect(objectMetadataBasePlanModel.AllowInternalUsers).To(Equal(core.BoolPtr(true)))
-				Expect(objectMetadataBasePlanModel.AsyncProvisioningSupported).To(Equal(core.BoolPtr(true)))
-				Expect(objectMetadataBasePlanModel.AsyncUnprovisioningSupported).To(Equal(core.BoolPtr(true)))
-				Expect(objectMetadataBasePlanModel.TestCheckInterval).To(Equal(core.Int64Ptr(int64(38))))
-				Expect(objectMetadataBasePlanModel.SingleScopeInstance).To(Equal(core.StringPtr("testString")))
-				Expect(objectMetadataBasePlanModel.ServiceCheckEnabled).To(Equal(core.BoolPtr(true)))
-				Expect(objectMetadataBasePlanModel.CfGuid).To(Equal(core.StringPtr("testString")))
-
-				// Construct an instance of the ObjectMetadataBaseService model
-				objectMetadataBaseServiceModel := new(globalcatalogv1.ObjectMetadataBaseService)
-				Expect(objectMetadataBaseServiceModel).ToNot(BeNil())
-				objectMetadataBaseServiceModel.Type = core.StringPtr("testString")
-				objectMetadataBaseServiceModel.IamCompatible = core.BoolPtr(true)
-				objectMetadataBaseServiceModel.UniqueApiKey = core.BoolPtr(true)
-				objectMetadataBaseServiceModel.Provisionable = core.BoolPtr(true)
-				objectMetadataBaseServiceModel.AsyncProvisioningSupported = core.BoolPtr(true)
-				objectMetadataBaseServiceModel.AsyncUnprovisioningSupported = core.BoolPtr(true)
-				objectMetadataBaseServiceModel.CfGuid = core.StringPtr("testString")
-				objectMetadataBaseServiceModel.Bindable = core.BoolPtr(true)
-				objectMetadataBaseServiceModel.Requires = []string{"testString"}
-				objectMetadataBaseServiceModel.PlanUpdateable = core.BoolPtr(true)
-				objectMetadataBaseServiceModel.State = core.StringPtr("testString")
-				objectMetadataBaseServiceModel.ServiceCheckEnabled = core.BoolPtr(true)
-				objectMetadataBaseServiceModel.TestCheckInterval = core.Int64Ptr(int64(38))
-				objectMetadataBaseServiceModel.ServiceKeySupported = core.BoolPtr(true)
-				Expect(objectMetadataBaseServiceModel.Type).To(Equal(core.StringPtr("testString")))
-				Expect(objectMetadataBaseServiceModel.IamCompatible).To(Equal(core.BoolPtr(true)))
-				Expect(objectMetadataBaseServiceModel.UniqueApiKey).To(Equal(core.BoolPtr(true)))
-				Expect(objectMetadataBaseServiceModel.Provisionable).To(Equal(core.BoolPtr(true)))
-				Expect(objectMetadataBaseServiceModel.AsyncProvisioningSupported).To(Equal(core.BoolPtr(true)))
-				Expect(objectMetadataBaseServiceModel.AsyncUnprovisioningSupported).To(Equal(core.BoolPtr(true)))
-				Expect(objectMetadataBaseServiceModel.CfGuid).To(Equal(core.StringPtr("testString")))
-				Expect(objectMetadataBaseServiceModel.Bindable).To(Equal(core.BoolPtr(true)))
-				Expect(objectMetadataBaseServiceModel.Requires).To(Equal([]string{"testString"}))
-				Expect(objectMetadataBaseServiceModel.PlanUpdateable).To(Equal(core.BoolPtr(true)))
-				Expect(objectMetadataBaseServiceModel.State).To(Equal(core.StringPtr("testString")))
-				Expect(objectMetadataBaseServiceModel.ServiceCheckEnabled).To(Equal(core.BoolPtr(true)))
-				Expect(objectMetadataBaseServiceModel.TestCheckInterval).To(Equal(core.Int64Ptr(int64(38))))
-				Expect(objectMetadataBaseServiceModel.ServiceKeySupported).To(Equal(core.BoolPtr(true)))
-
-				// Construct an instance of the ObjectMetadataBaseSla model
-				objectMetadataBaseSlaModel := new(globalcatalogv1.ObjectMetadataBaseSla)
-				Expect(objectMetadataBaseSlaModel).ToNot(BeNil())
-				objectMetadataBaseSlaModel.Terms = core.StringPtr("testString")
-				objectMetadataBaseSlaModel.Tenancy = core.StringPtr("testString")
-				objectMetadataBaseSlaModel.Provisioning = core.StringPtr("testString")
-				objectMetadataBaseSlaModel.Responsiveness = core.StringPtr("testString")
-				objectMetadataBaseSlaModel.Dr = objectMetadataBaseSlaDrModel
-				Expect(objectMetadataBaseSlaModel.Terms).To(Equal(core.StringPtr("testString")))
-				Expect(objectMetadataBaseSlaModel.Tenancy).To(Equal(core.StringPtr("testString")))
-				Expect(objectMetadataBaseSlaModel.Provisioning).To(Equal(core.StringPtr("testString")))
-				Expect(objectMetadataBaseSlaModel.Responsiveness).To(Equal(core.StringPtr("testString")))
-				Expect(objectMetadataBaseSlaModel.Dr).To(Equal(objectMetadataBaseSlaDrModel))
-
-				// Construct an instance of the ObjectMetadataBaseTemplate model
-				objectMetadataBaseTemplateModel := new(globalcatalogv1.ObjectMetadataBaseTemplate)
-				Expect(objectMetadataBaseTemplateModel).ToNot(BeNil())
-				objectMetadataBaseTemplateModel.Services = []string{"testString"}
-				objectMetadataBaseTemplateModel.DefaultMemory = core.Int64Ptr(int64(38))
-				objectMetadataBaseTemplateModel.StartCmd = core.StringPtr("testString")
-				objectMetadataBaseTemplateModel.Source = objectMetadataBaseTemplateSourceModel
-				objectMetadataBaseTemplateModel.RuntimeCatalogID = core.StringPtr("testString")
-				objectMetadataBaseTemplateModel.CfRuntimeID = core.StringPtr("testString")
-				objectMetadataBaseTemplateModel.TemplateID = core.StringPtr("testString")
-				objectMetadataBaseTemplateModel.ExecutableFile = core.StringPtr("testString")
-				objectMetadataBaseTemplateModel.Buildpack = core.StringPtr("testString")
-				objectMetadataBaseTemplateModel.EnvironmentVariables = objectMetadataBaseTemplateEnvironmentVariablesModel
-				Expect(objectMetadataBaseTemplateModel.Services).To(Equal([]string{"testString"}))
-				Expect(objectMetadataBaseTemplateModel.DefaultMemory).To(Equal(core.Int64Ptr(int64(38))))
-				Expect(objectMetadataBaseTemplateModel.StartCmd).To(Equal(core.StringPtr("testString")))
-				Expect(objectMetadataBaseTemplateModel.Source).To(Equal(objectMetadataBaseTemplateSourceModel))
-				Expect(objectMetadataBaseTemplateModel.RuntimeCatalogID).To(Equal(core.StringPtr("testString")))
-				Expect(objectMetadataBaseTemplateModel.CfRuntimeID).To(Equal(core.StringPtr("testString")))
-				Expect(objectMetadataBaseTemplateModel.TemplateID).To(Equal(core.StringPtr("testString")))
-				Expect(objectMetadataBaseTemplateModel.ExecutableFile).To(Equal(core.StringPtr("testString")))
-				Expect(objectMetadataBaseTemplateModel.Buildpack).To(Equal(core.StringPtr("testString")))
-				Expect(objectMetadataBaseTemplateModel.EnvironmentVariables).To(Equal(objectMetadataBaseTemplateEnvironmentVariablesModel))
 
 				// Construct an instance of the Overview model
 				overviewModel := new(globalcatalogv1.Overview)
@@ -4477,9 +4506,33 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				overviewModel.DisplayName = core.StringPtr("testString")
 				overviewModel.LongDescription = core.StringPtr("testString")
 				overviewModel.Description = core.StringPtr("testString")
+				overviewModel.FeaturedDescription = core.StringPtr("testString")
 				Expect(overviewModel.DisplayName).To(Equal(core.StringPtr("testString")))
 				Expect(overviewModel.LongDescription).To(Equal(core.StringPtr("testString")))
 				Expect(overviewModel.Description).To(Equal(core.StringPtr("testString")))
+				Expect(overviewModel.FeaturedDescription).To(Equal(core.StringPtr("testString")))
+
+				// Construct an instance of the PlanMetaData model
+				planMetaDataModel := new(globalcatalogv1.PlanMetaData)
+				Expect(planMetaDataModel).ToNot(BeNil())
+				planMetaDataModel.Bindable = core.BoolPtr(true)
+				planMetaDataModel.Reservable = core.BoolPtr(true)
+				planMetaDataModel.AllowInternalUsers = core.BoolPtr(true)
+				planMetaDataModel.AsyncProvisioningSupported = core.BoolPtr(true)
+				planMetaDataModel.AsyncUnprovisioningSupported = core.BoolPtr(true)
+				planMetaDataModel.TestCheckInterval = core.Int64Ptr(int64(38))
+				planMetaDataModel.SingleScopeInstance = core.StringPtr("testString")
+				planMetaDataModel.ServiceCheckEnabled = core.BoolPtr(true)
+				planMetaDataModel.CfGuid = make(map[string]string)
+				Expect(planMetaDataModel.Bindable).To(Equal(core.BoolPtr(true)))
+				Expect(planMetaDataModel.Reservable).To(Equal(core.BoolPtr(true)))
+				Expect(planMetaDataModel.AllowInternalUsers).To(Equal(core.BoolPtr(true)))
+				Expect(planMetaDataModel.AsyncProvisioningSupported).To(Equal(core.BoolPtr(true)))
+				Expect(planMetaDataModel.AsyncUnprovisioningSupported).To(Equal(core.BoolPtr(true)))
+				Expect(planMetaDataModel.TestCheckInterval).To(Equal(core.Int64Ptr(int64(38))))
+				Expect(planMetaDataModel.SingleScopeInstance).To(Equal(core.StringPtr("testString")))
+				Expect(planMetaDataModel.ServiceCheckEnabled).To(Equal(core.BoolPtr(true)))
+				Expect(planMetaDataModel.CfGuid).To(Equal(make(map[string]string)))
 
 				// Construct an instance of the PricingSet model
 				pricingSetModel := new(globalcatalogv1.PricingSet)
@@ -4491,6 +4544,44 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				Expect(pricingSetModel.Origin).To(Equal(core.StringPtr("testString")))
 				Expect(pricingSetModel.StartingPrice).To(Equal(startingPriceModel))
 
+				// Construct an instance of the SLAMetaData model
+				slaMetaDataModel := new(globalcatalogv1.SLAMetaData)
+				Expect(slaMetaDataModel).ToNot(BeNil())
+				slaMetaDataModel.Terms = core.StringPtr("testString")
+				slaMetaDataModel.Tenancy = core.StringPtr("testString")
+				slaMetaDataModel.Provisioning = core.StringPtr("testString")
+				slaMetaDataModel.Responsiveness = core.StringPtr("testString")
+				slaMetaDataModel.Dr = drMetaDataModel
+				Expect(slaMetaDataModel.Terms).To(Equal(core.StringPtr("testString")))
+				Expect(slaMetaDataModel.Tenancy).To(Equal(core.StringPtr("testString")))
+				Expect(slaMetaDataModel.Provisioning).To(Equal(core.StringPtr("testString")))
+				Expect(slaMetaDataModel.Responsiveness).To(Equal(core.StringPtr("testString")))
+				Expect(slaMetaDataModel.Dr).To(Equal(drMetaDataModel))
+
+				// Construct an instance of the TemplateMetaData model
+				templateMetaDataModel := new(globalcatalogv1.TemplateMetaData)
+				Expect(templateMetaDataModel).ToNot(BeNil())
+				templateMetaDataModel.Services = []string{"testString"}
+				templateMetaDataModel.DefaultMemory = core.Int64Ptr(int64(38))
+				templateMetaDataModel.StartCmd = core.StringPtr("testString")
+				templateMetaDataModel.Source = sourceMetaDataModel
+				templateMetaDataModel.RuntimeCatalogID = core.StringPtr("testString")
+				templateMetaDataModel.CfRuntimeID = core.StringPtr("testString")
+				templateMetaDataModel.TemplateID = core.StringPtr("testString")
+				templateMetaDataModel.ExecutableFile = core.StringPtr("testString")
+				templateMetaDataModel.Buildpack = core.StringPtr("testString")
+				templateMetaDataModel.EnvironmentVariables = make(map[string]string)
+				Expect(templateMetaDataModel.Services).To(Equal([]string{"testString"}))
+				Expect(templateMetaDataModel.DefaultMemory).To(Equal(core.Int64Ptr(int64(38))))
+				Expect(templateMetaDataModel.StartCmd).To(Equal(core.StringPtr("testString")))
+				Expect(templateMetaDataModel.Source).To(Equal(sourceMetaDataModel))
+				Expect(templateMetaDataModel.RuntimeCatalogID).To(Equal(core.StringPtr("testString")))
+				Expect(templateMetaDataModel.CfRuntimeID).To(Equal(core.StringPtr("testString")))
+				Expect(templateMetaDataModel.TemplateID).To(Equal(core.StringPtr("testString")))
+				Expect(templateMetaDataModel.ExecutableFile).To(Equal(core.StringPtr("testString")))
+				Expect(templateMetaDataModel.Buildpack).To(Equal(core.StringPtr("testString")))
+				Expect(templateMetaDataModel.EnvironmentVariables).To(Equal(make(map[string]string)))
+
 				// Construct an instance of the UIMetaData model
 				uiMetaDataModel := new(globalcatalogv1.UIMetaData)
 				Expect(uiMetaDataModel).ToNot(BeNil())
@@ -4500,22 +4591,26 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				uiMetaDataModel.EmbeddableDashboardFullWidth = core.BoolPtr(true)
 				uiMetaDataModel.NavigationOrder = []string{"testString"}
 				uiMetaDataModel.NotCreatable = core.BoolPtr(true)
-				uiMetaDataModel.Reservable = core.BoolPtr(true)
 				uiMetaDataModel.PrimaryOfferingID = core.StringPtr("testString")
 				uiMetaDataModel.AccessibleDuringProvision = core.BoolPtr(true)
 				uiMetaDataModel.SideBySideIndex = core.Int64Ptr(int64(38))
 				uiMetaDataModel.EndOfServiceTime = CreateMockDateTime()
+				uiMetaDataModel.Hidden = core.BoolPtr(true)
+				uiMetaDataModel.HideLiteMetering = core.BoolPtr(true)
+				uiMetaDataModel.NoUpgradeNextStep = core.BoolPtr(true)
 				Expect(uiMetaDataModel.Strings).To(Equal(i18NModel))
 				Expect(uiMetaDataModel.Urls).To(Equal(urlsModel))
 				Expect(uiMetaDataModel.EmbeddableDashboard).To(Equal(core.StringPtr("testString")))
 				Expect(uiMetaDataModel.EmbeddableDashboardFullWidth).To(Equal(core.BoolPtr(true)))
 				Expect(uiMetaDataModel.NavigationOrder).To(Equal([]string{"testString"}))
 				Expect(uiMetaDataModel.NotCreatable).To(Equal(core.BoolPtr(true)))
-				Expect(uiMetaDataModel.Reservable).To(Equal(core.BoolPtr(true)))
 				Expect(uiMetaDataModel.PrimaryOfferingID).To(Equal(core.StringPtr("testString")))
 				Expect(uiMetaDataModel.AccessibleDuringProvision).To(Equal(core.BoolPtr(true)))
 				Expect(uiMetaDataModel.SideBySideIndex).To(Equal(core.Int64Ptr(int64(38))))
 				Expect(uiMetaDataModel.EndOfServiceTime).To(Equal(CreateMockDateTime()))
+				Expect(uiMetaDataModel.Hidden).To(Equal(core.BoolPtr(true)))
+				Expect(uiMetaDataModel.HideLiteMetering).To(Equal(core.BoolPtr(true)))
+				Expect(uiMetaDataModel.NoUpgradeNextStep).To(Equal(core.BoolPtr(true)))
 
 				// Construct an instance of the Image model
 				imageModel := new(globalcatalogv1.Image)
@@ -4533,31 +4628,31 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				objectMetadataSetModel := new(globalcatalogv1.ObjectMetadataSet)
 				Expect(objectMetadataSetModel).ToNot(BeNil())
 				objectMetadataSetModel.RcCompatible = core.BoolPtr(true)
+				objectMetadataSetModel.Service = cfMetaDataModel
+				objectMetadataSetModel.Plan = planMetaDataModel
+				objectMetadataSetModel.Alias = aliasMetaDataModel
+				objectMetadataSetModel.Template = templateMetaDataModel
 				objectMetadataSetModel.Ui = uiMetaDataModel
 				objectMetadataSetModel.Compliance = []string{"testString"}
-				objectMetadataSetModel.Service = objectMetadataBaseServiceModel
-				objectMetadataSetModel.Plan = objectMetadataBasePlanModel
-				objectMetadataSetModel.Template = objectMetadataBaseTemplateModel
-				objectMetadataSetModel.Alias = objectMetadataBaseAliasModel
-				objectMetadataSetModel.Sla = objectMetadataBaseSlaModel
+				objectMetadataSetModel.Sla = slaMetaDataModel
 				objectMetadataSetModel.Callbacks = callbacksModel
-				objectMetadataSetModel.Version = core.StringPtr("testString")
 				objectMetadataSetModel.OriginalName = core.StringPtr("testString")
-				objectMetadataSetModel.Other = CreateMockMap()
+				objectMetadataSetModel.Version = core.StringPtr("testString")
+				objectMetadataSetModel.Other = make(map[string]interface{})
 				objectMetadataSetModel.Pricing = pricingSetModel
 				objectMetadataSetModel.Deployment = deploymentBaseModel
 				Expect(objectMetadataSetModel.RcCompatible).To(Equal(core.BoolPtr(true)))
+				Expect(objectMetadataSetModel.Service).To(Equal(cfMetaDataModel))
+				Expect(objectMetadataSetModel.Plan).To(Equal(planMetaDataModel))
+				Expect(objectMetadataSetModel.Alias).To(Equal(aliasMetaDataModel))
+				Expect(objectMetadataSetModel.Template).To(Equal(templateMetaDataModel))
 				Expect(objectMetadataSetModel.Ui).To(Equal(uiMetaDataModel))
 				Expect(objectMetadataSetModel.Compliance).To(Equal([]string{"testString"}))
-				Expect(objectMetadataSetModel.Service).To(Equal(objectMetadataBaseServiceModel))
-				Expect(objectMetadataSetModel.Plan).To(Equal(objectMetadataBasePlanModel))
-				Expect(objectMetadataSetModel.Template).To(Equal(objectMetadataBaseTemplateModel))
-				Expect(objectMetadataSetModel.Alias).To(Equal(objectMetadataBaseAliasModel))
-				Expect(objectMetadataSetModel.Sla).To(Equal(objectMetadataBaseSlaModel))
+				Expect(objectMetadataSetModel.Sla).To(Equal(slaMetaDataModel))
 				Expect(objectMetadataSetModel.Callbacks).To(Equal(callbacksModel))
-				Expect(objectMetadataSetModel.Version).To(Equal(core.StringPtr("testString")))
 				Expect(objectMetadataSetModel.OriginalName).To(Equal(core.StringPtr("testString")))
-				Expect(objectMetadataSetModel.Other).To(Equal(CreateMockMap()))
+				Expect(objectMetadataSetModel.Version).To(Equal(core.StringPtr("testString")))
+				Expect(objectMetadataSetModel.Other).To(Equal(make(map[string]interface{})))
 				Expect(objectMetadataSetModel.Pricing).To(Equal(pricingSetModel))
 				Expect(objectMetadataSetModel.Deployment).To(Equal(deploymentBaseModel))
 
@@ -4582,6 +4677,7 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				Expect(providerModel.SupportEmail).To(Equal(core.StringPtr("testString")))
 				Expect(providerModel.Phone).To(Equal(core.StringPtr("testString")))
 
+				// Construct an instance of the UpdateCatalogEntryOptions model
 				id := "testString"
 				updateCatalogEntryOptionsName := "testString"
 				updateCatalogEntryOptionsKind := "service"
@@ -4590,7 +4686,6 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				updateCatalogEntryOptionsDisabled := true
 				updateCatalogEntryOptionsTags := []string{"testString"}
 				var updateCatalogEntryOptionsProvider *globalcatalogv1.Provider = nil
-				// Construct an instance of the UpdateCatalogEntryOptions model
 				updateCatalogEntryOptionsModel := testService.NewUpdateCatalogEntryOptions(id, updateCatalogEntryOptionsName, updateCatalogEntryOptionsKind, updateCatalogEntryOptionsOverviewUi, updateCatalogEntryOptionsImages, updateCatalogEntryOptionsDisabled, updateCatalogEntryOptionsTags, updateCatalogEntryOptionsProvider)
 				updateCatalogEntryOptionsModel.SetID("testString")
 				updateCatalogEntryOptionsModel.SetName("testString")
@@ -4637,25 +4732,27 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				visibilityDetailModel.Accounts = visibilityDetailAccountsModel
 				Expect(visibilityDetailModel.Accounts).To(Equal(visibilityDetailAccountsModel))
 
-				id := "testString"
 				// Construct an instance of the UpdateVisibilityOptions model
+				id := "testString"
 				updateVisibilityOptionsModel := testService.NewUpdateVisibilityOptions(id)
 				updateVisibilityOptionsModel.SetID("testString")
+				updateVisibilityOptionsModel.SetExtendable(true)
 				updateVisibilityOptionsModel.SetInclude(visibilityDetailModel)
 				updateVisibilityOptionsModel.SetExclude(visibilityDetailModel)
 				updateVisibilityOptionsModel.SetAccount("testString")
 				updateVisibilityOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(updateVisibilityOptionsModel).ToNot(BeNil())
 				Expect(updateVisibilityOptionsModel.ID).To(Equal(core.StringPtr("testString")))
+				Expect(updateVisibilityOptionsModel.Extendable).To(Equal(core.BoolPtr(true)))
 				Expect(updateVisibilityOptionsModel.Include).To(Equal(visibilityDetailModel))
 				Expect(updateVisibilityOptionsModel.Exclude).To(Equal(visibilityDetailModel))
 				Expect(updateVisibilityOptionsModel.Account).To(Equal(core.StringPtr("testString")))
 				Expect(updateVisibilityOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewUploadArtifactOptions successfully`, func() {
+				// Construct an instance of the UploadArtifactOptions model
 				objectID := "testString"
 				artifactID := "testString"
-				// Construct an instance of the UploadArtifactOptions model
 				uploadArtifactOptionsModel := testService.NewUploadArtifactOptions(objectID, artifactID)
 				uploadArtifactOptionsModel.SetObjectID("testString")
 				uploadArtifactOptionsModel.SetArtifactID("testString")
@@ -4679,10 +4776,6 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 		})
 	})
 	Describe(`Utility function tests`, func() {
-		It(`Invoke CreateMockMap() successfully`, func() {
-			mockMap := CreateMockMap()
-			Expect(mockMap).ToNot(BeNil())
-		})
 		It(`Invoke CreateMockByteArray() successfully`, func() {
 			mockByteArray := CreateMockByteArray("This is a test")
 			Expect(mockByteArray).ToNot(BeNil())
@@ -4710,13 +4803,8 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 // Utility functions used by the generated test code
 //
 
-func CreateMockMap() map[string]interface{} {
-	m := make(map[string]interface{})
-	return m
-}
-
 func CreateMockByteArray(mockData string) *[]byte {
-	ba := make([]byte, len(mockData))
+	ba := make([]byte, 0)
 	ba = append(ba, mockData...)
 	return &ba
 }
