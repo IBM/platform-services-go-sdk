@@ -311,18 +311,14 @@ var _ = Describe("Global Catalog - Integration Tests", func() {
 			service.CreateCatalogEntry(defaultCreate)
 			service.CreateCatalogEntry(defaultChild)
 			result, detailedResponse, err := service.GetChildObjects(getChild)
-			Expect(err).To(BeNil()) // TODO: busted, error is returned: "an error occurred while processing the operation response"
+			Expect(err).To(BeNil())
 			Expect(detailedResponse.StatusCode).To(Equal(200))
-
-			Expect(len(*result)).To(Equal(1))
-			/*
-				Expect(result[0].ID).To(Equal(defaultUpdate.ID))
-				Expect(result[0].Resources[0].Name).To(Equal(defaultUpdate.Name))
-				Expect(result[0].Resources[0].Kind).To(Equal(defaultUpdate.Kind))
-				Expect(result[0].Resources[0].Images).To(Equal(defaultUpdate.Images))
-				Expect(result[0].Resources[0].Tags).To(Equal(defaultUpdate.Tags))
-				Expect(result[0].Resources[0].Provider).To(Equal(defaultUpdate.Provider))
-			*/
+			Expect(result).ToNot(BeNil())
+			Expect(result.Resources[0].Name).To(Equal(defaultUpdate.Name))
+			Expect(result.Resources[0].Kind).To(Equal(defaultUpdate.Kind))
+			Expect(result.Resources[0].Images).To(Equal(defaultUpdate.Images))
+			Expect(result.Resources[0].Tags).To(Equal(defaultUpdate.Tags))
+			Expect(result.Resources[0].Provider).To(Equal(defaultUpdate.Provider))
 		})
 
 		It("Fail to get a child catalog entry that does not exist", func() {
@@ -451,10 +447,10 @@ var _ = Describe("Global Catalog - Integration Tests", func() {
 			service.CreateCatalogEntry(defaultCreate)
 			service.UploadArtifact(defaultArtifact)
 
-			detailedResponse, err := service.GetArtifact(getArtifact)
+			result, detailedResponse, err := service.GetArtifact(getArtifact)
 			Expect(err).To(BeNil())
 			Expect(detailedResponse.StatusCode).To(Equal(200))
-			Expect(detailedResponse.Result).To(Equal(artifact)) // TODO: busted, doesn't get artifact, nil is returned
+			Expect(detailedResponse.Result).To(Equal(result))
 		})
 
 		It("Fail to get artifacts that do not exists", func() {
@@ -462,13 +458,13 @@ var _ = Describe("Global Catalog - Integration Tests", func() {
 
 			service.CreateCatalogEntry(defaultCreate)
 
-			detailedResponseExists, errExists := service.GetArtifact(getArtifact)
+			_, detailedResponseExists, errExists := service.GetArtifact(getArtifact)
 			Expect(errExists).NotTo(BeNil())
 			Expect(detailedResponseExists.StatusCode).To(Equal(404))
 
 			service.DeleteCatalogEntry(defaultDelete)
 
-			detailedResponseNotExists, errNotExists := service.GetArtifact(getArtifact)
+			_, detailedResponseNotExists, errNotExists := service.GetArtifact(getArtifact)
 			Expect(errNotExists).NotTo(BeNil())
 			Expect(detailedResponseNotExists.StatusCode).To(Equal(404))
 		})
