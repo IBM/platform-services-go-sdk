@@ -21,7 +21,7 @@ package globalsearchv2_test
 import (
 	"os"
 
-	"github.com/IBM/go-sdk-core/v3/core"
+	"github.com/IBM/go-sdk-core/v4/core"
 	"github.com/IBM/platform-services-go-sdk/globalsearchv2"
 	"github.com/joho/godotenv"
 	. "github.com/onsi/ginkgo"

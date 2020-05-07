@@ -20,8 +20,9 @@ package globaltaggingv1
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/IBM/go-sdk-core/v3/core"
+	"github.com/IBM/go-sdk-core/v4/core"
 	common "github.com/IBM/platform-services-go-sdk/common"
+	"reflect"
 	"strings"
 )
 
@@ -165,16 +166,16 @@ func (globalTagging *GlobalTaggingV1) ListTags(listTagsOptions *ListTagsOptions)
 		return
 	}
 
-	response, err = globalTagging.Service.Request(request, make(map[string]interface{}))
-	if err == nil {
-		m, ok := response.Result.(map[string]interface{})
-		if !ok {
-			err = fmt.Errorf("an error occurred while processing the operation response")
-			return
-		}
-		result, err = UnmarshalTagList(m)
-		response.Result = result
+	var rawResponse map[string]json.RawMessage
+	response, err = globalTagging.Service.Request(request, &rawResponse)
+	if err != nil {
+		return
 	}
+	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalTagList)
+	if err != nil {
+		return
+	}
+	response.Result = result
 
 	return
 }
@@ -215,16 +216,16 @@ func (globalTagging *GlobalTaggingV1) DeleteTagAll(deleteTagAllOptions *DeleteTa
 		return
 	}
 
-	response, err = globalTagging.Service.Request(request, make(map[string]interface{}))
-	if err == nil {
-		m, ok := response.Result.(map[string]interface{})
-		if !ok {
-			err = fmt.Errorf("an error occurred while processing the operation response")
-			return
-		}
-		result, err = UnmarshalDeleteTagsResult(m)
-		response.Result = result
+	var rawResponse map[string]json.RawMessage
+	response, err = globalTagging.Service.Request(request, &rawResponse)
+	if err != nil {
+		return
 	}
+	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalDeleteTagsResult)
+	if err != nil {
+		return
+	}
+	response.Result = result
 
 	return
 }
@@ -269,16 +270,16 @@ func (globalTagging *GlobalTaggingV1) DeleteTag(deleteTagOptions *DeleteTagOptio
 		return
 	}
 
-	response, err = globalTagging.Service.Request(request, make(map[string]interface{}))
-	if err == nil {
-		m, ok := response.Result.(map[string]interface{})
-		if !ok {
-			err = fmt.Errorf("an error occurred while processing the operation response")
-			return
-		}
-		result, err = UnmarshalDeleteTagResults(m)
-		response.Result = result
+	var rawResponse map[string]json.RawMessage
+	response, err = globalTagging.Service.Request(request, &rawResponse)
+	if err != nil {
+		return
 	}
+	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalDeleteTagResults)
+	if err != nil {
+		return
+	}
+	response.Result = result
 
 	return
 }
@@ -338,16 +339,16 @@ func (globalTagging *GlobalTaggingV1) AttachTag(attachTagOptions *AttachTagOptio
 		return
 	}
 
-	response, err = globalTagging.Service.Request(request, make(map[string]interface{}))
-	if err == nil {
-		m, ok := response.Result.(map[string]interface{})
-		if !ok {
-			err = fmt.Errorf("an error occurred while processing the operation response")
-			return
-		}
-		result, err = UnmarshalTagResults(m)
-		response.Result = result
+	var rawResponse map[string]json.RawMessage
+	response, err = globalTagging.Service.Request(request, &rawResponse)
+	if err != nil {
+		return
 	}
+	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalTagResults)
+	if err != nil {
+		return
+	}
+	response.Result = result
 
 	return
 }
@@ -407,16 +408,16 @@ func (globalTagging *GlobalTaggingV1) DetachTag(detachTagOptions *DetachTagOptio
 		return
 	}
 
-	response, err = globalTagging.Service.Request(request, make(map[string]interface{}))
-	if err == nil {
-		m, ok := response.Result.(map[string]interface{})
-		if !ok {
-			err = fmt.Errorf("an error occurred while processing the operation response")
-			return
-		}
-		result, err = UnmarshalTagResults(m)
-		response.Result = result
+	var rawResponse map[string]json.RawMessage
+	response, err = globalTagging.Service.Request(request, &rawResponse)
+	if err != nil {
+		return
 	}
+	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalTagResults)
+	if err != nil {
+		return
+	}
+	response.Result = result
 
 	return
 }
@@ -550,62 +551,14 @@ type DeleteTagResults struct {
 }
 
 
-// UnmarshalDeleteTagResults constructs an instance of DeleteTagResults from the specified map.
-func UnmarshalDeleteTagResults(m map[string]interface{}) (result *DeleteTagResults, err error) {
+// UnmarshalDeleteTagResults unmarshals an instance of DeleteTagResults from the specified map of raw messages.
+func UnmarshalDeleteTagResults(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(DeleteTagResults)
-	obj.Results, err = UnmarshalDeleteTagResultsItemSliceAsProperty(m, "results")
+	err = core.UnmarshalModel(m, "results", &obj.Results, UnmarshalDeleteTagResultsItem)
 	if err != nil {
 		return
 	}
-	result = obj
-	return
-}
-
-// UnmarshalDeleteTagResultsSlice unmarshals a slice of DeleteTagResults instances from the specified list of maps.
-func UnmarshalDeleteTagResultsSlice(s []interface{}) (slice []DeleteTagResults, err error) {
-	for _, v := range s {
-		objMap, ok := v.(map[string]interface{})
-		if !ok {
-			err = fmt.Errorf("slice element should be a map containing an instance of 'DeleteTagResults'")
-			return
-		}
-		obj, e := UnmarshalDeleteTagResults(objMap)
-		if e != nil {
-			err = e
-			return
-		}
-		slice = append(slice, *obj)
-	}
-	return
-}
-
-// UnmarshalDeleteTagResultsAsProperty unmarshals an instance of DeleteTagResults that is stored as a property
-// within the specified map.
-func UnmarshalDeleteTagResultsAsProperty(m map[string]interface{}, propertyName string) (result *DeleteTagResults, err error) {
-	v, foundIt := m[propertyName]
-	if foundIt {
-		objMap, ok := v.(map[string]interface{})
-		if !ok {
-			err = fmt.Errorf("map property '%s' should be a map containing an instance of 'DeleteTagResults'", propertyName)
-			return
-		}
-		result, err = UnmarshalDeleteTagResults(objMap)
-	}
-	return
-}
-
-// UnmarshalDeleteTagResultsSliceAsProperty unmarshals a slice of DeleteTagResults instances that are stored as a property
-// within the specified map.
-func UnmarshalDeleteTagResultsSliceAsProperty(m map[string]interface{}, propertyName string) (slice []DeleteTagResults, err error) {
-	v, foundIt := m[propertyName]
-	if foundIt {
-		vSlice, ok := v.([]interface{})
-		if !ok {
-			err = fmt.Errorf("map property '%s' should be a slice of maps, each containing an instance of 'DeleteTagResults'", propertyName)
-			return
-		}
-		slice, err = UnmarshalDeleteTagResultsSlice(vSlice)
-	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
 	return
 }
 
@@ -661,81 +614,33 @@ func (o *DeleteTagResultsItem) MarshalJSON() (buffer []byte, err error) {
 	if o.IsError != nil {
 		m["is_error"] = o.IsError
 	}
-	buffer, err = json.Marshal(m)	
+	buffer, err = json.Marshal(m)
 	return
 }
 
-// UnmarshalDeleteTagResultsItem constructs an instance of DeleteTagResultsItem from the specified map.
-func UnmarshalDeleteTagResultsItem(m map[string]interface{}) (result *DeleteTagResultsItem, err error) {
-	m = core.CopyMap(m)
+// UnmarshalDeleteTagResultsItem unmarshals an instance of DeleteTagResultsItem from the specified map of raw messages.
+func UnmarshalDeleteTagResultsItem(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(DeleteTagResultsItem)
-	obj.Provider, err = core.UnmarshalString(m, "provider")
+	err = core.UnmarshalPrimitive(m, "provider", &obj.Provider)
 	if err != nil {
 		return
 	}
 	delete(m, "provider")
-	obj.IsError, err = core.UnmarshalBool(m, "is_error")
+	err = core.UnmarshalPrimitive(m, "is_error", &obj.IsError)
 	if err != nil {
 		return
 	}
 	delete(m, "is_error")
 	for k := range m {
-		v, e := core.UnmarshalAny(m, k)
+		var v interface{}
+		e := core.UnmarshalPrimitive(m, k, &v)
 		if e != nil {
 			err = e
 			return
 		}
 		obj.SetProperty(k, v)
 	}
-	result = obj
-	return
-}
-
-// UnmarshalDeleteTagResultsItemSlice unmarshals a slice of DeleteTagResultsItem instances from the specified list of maps.
-func UnmarshalDeleteTagResultsItemSlice(s []interface{}) (slice []DeleteTagResultsItem, err error) {
-	for _, v := range s {
-		objMap, ok := v.(map[string]interface{})
-		if !ok {
-			err = fmt.Errorf("slice element should be a map containing an instance of 'DeleteTagResultsItem'")
-			return
-		}
-		obj, e := UnmarshalDeleteTagResultsItem(objMap)
-		if e != nil {
-			err = e
-			return
-		}
-		slice = append(slice, *obj)
-	}
-	return
-}
-
-// UnmarshalDeleteTagResultsItemAsProperty unmarshals an instance of DeleteTagResultsItem that is stored as a property
-// within the specified map.
-func UnmarshalDeleteTagResultsItemAsProperty(m map[string]interface{}, propertyName string) (result *DeleteTagResultsItem, err error) {
-	v, foundIt := m[propertyName]
-	if foundIt {
-		objMap, ok := v.(map[string]interface{})
-		if !ok {
-			err = fmt.Errorf("map property '%s' should be a map containing an instance of 'DeleteTagResultsItem'", propertyName)
-			return
-		}
-		result, err = UnmarshalDeleteTagResultsItem(objMap)
-	}
-	return
-}
-
-// UnmarshalDeleteTagResultsItemSliceAsProperty unmarshals a slice of DeleteTagResultsItem instances that are stored as a property
-// within the specified map.
-func UnmarshalDeleteTagResultsItemSliceAsProperty(m map[string]interface{}, propertyName string) (slice []DeleteTagResultsItem, err error) {
-	v, foundIt := m[propertyName]
-	if foundIt {
-		vSlice, ok := v.([]interface{})
-		if !ok {
-			err = fmt.Errorf("map property '%s' should be a slice of maps, each containing an instance of 'DeleteTagResultsItem'", propertyName)
-			return
-		}
-		slice, err = UnmarshalDeleteTagResultsItemSlice(vSlice)
-	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
 	return
 }
 
@@ -751,70 +656,22 @@ type DeleteTagsResult struct {
 }
 
 
-// UnmarshalDeleteTagsResult constructs an instance of DeleteTagsResult from the specified map.
-func UnmarshalDeleteTagsResult(m map[string]interface{}) (result *DeleteTagsResult, err error) {
+// UnmarshalDeleteTagsResult unmarshals an instance of DeleteTagsResult from the specified map of raw messages.
+func UnmarshalDeleteTagsResult(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(DeleteTagsResult)
-	obj.TotalCount, err = core.UnmarshalInt64(m, "total_count")
+	err = core.UnmarshalPrimitive(m, "total_count", &obj.TotalCount)
 	if err != nil {
 		return
 	}
-	obj.Errors, err = core.UnmarshalBool(m, "errors")
+	err = core.UnmarshalPrimitive(m, "errors", &obj.Errors)
 	if err != nil {
 		return
 	}
-	obj.Items, err = UnmarshalDeleteTagsResultItemSliceAsProperty(m, "items")
+	err = core.UnmarshalModel(m, "items", &obj.Items, UnmarshalDeleteTagsResultItem)
 	if err != nil {
 		return
 	}
-	result = obj
-	return
-}
-
-// UnmarshalDeleteTagsResultSlice unmarshals a slice of DeleteTagsResult instances from the specified list of maps.
-func UnmarshalDeleteTagsResultSlice(s []interface{}) (slice []DeleteTagsResult, err error) {
-	for _, v := range s {
-		objMap, ok := v.(map[string]interface{})
-		if !ok {
-			err = fmt.Errorf("slice element should be a map containing an instance of 'DeleteTagsResult'")
-			return
-		}
-		obj, e := UnmarshalDeleteTagsResult(objMap)
-		if e != nil {
-			err = e
-			return
-		}
-		slice = append(slice, *obj)
-	}
-	return
-}
-
-// UnmarshalDeleteTagsResultAsProperty unmarshals an instance of DeleteTagsResult that is stored as a property
-// within the specified map.
-func UnmarshalDeleteTagsResultAsProperty(m map[string]interface{}, propertyName string) (result *DeleteTagsResult, err error) {
-	v, foundIt := m[propertyName]
-	if foundIt {
-		objMap, ok := v.(map[string]interface{})
-		if !ok {
-			err = fmt.Errorf("map property '%s' should be a map containing an instance of 'DeleteTagsResult'", propertyName)
-			return
-		}
-		result, err = UnmarshalDeleteTagsResult(objMap)
-	}
-	return
-}
-
-// UnmarshalDeleteTagsResultSliceAsProperty unmarshals a slice of DeleteTagsResult instances that are stored as a property
-// within the specified map.
-func UnmarshalDeleteTagsResultSliceAsProperty(m map[string]interface{}, propertyName string) (slice []DeleteTagsResult, err error) {
-	v, foundIt := m[propertyName]
-	if foundIt {
-		vSlice, ok := v.([]interface{})
-		if !ok {
-			err = fmt.Errorf("map property '%s' should be a slice of maps, each containing an instance of 'DeleteTagsResult'", propertyName)
-			return
-		}
-		slice, err = UnmarshalDeleteTagsResultSlice(vSlice)
-	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
 	return
 }
 
@@ -828,66 +685,18 @@ type DeleteTagsResultItem struct {
 }
 
 
-// UnmarshalDeleteTagsResultItem constructs an instance of DeleteTagsResultItem from the specified map.
-func UnmarshalDeleteTagsResultItem(m map[string]interface{}) (result *DeleteTagsResultItem, err error) {
+// UnmarshalDeleteTagsResultItem unmarshals an instance of DeleteTagsResultItem from the specified map of raw messages.
+func UnmarshalDeleteTagsResultItem(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(DeleteTagsResultItem)
-	obj.TagName, err = core.UnmarshalString(m, "tag_name")
+	err = core.UnmarshalPrimitive(m, "tag_name", &obj.TagName)
 	if err != nil {
 		return
 	}
-	obj.IsError, err = core.UnmarshalBool(m, "is_error")
+	err = core.UnmarshalPrimitive(m, "is_error", &obj.IsError)
 	if err != nil {
 		return
 	}
-	result = obj
-	return
-}
-
-// UnmarshalDeleteTagsResultItemSlice unmarshals a slice of DeleteTagsResultItem instances from the specified list of maps.
-func UnmarshalDeleteTagsResultItemSlice(s []interface{}) (slice []DeleteTagsResultItem, err error) {
-	for _, v := range s {
-		objMap, ok := v.(map[string]interface{})
-		if !ok {
-			err = fmt.Errorf("slice element should be a map containing an instance of 'DeleteTagsResultItem'")
-			return
-		}
-		obj, e := UnmarshalDeleteTagsResultItem(objMap)
-		if e != nil {
-			err = e
-			return
-		}
-		slice = append(slice, *obj)
-	}
-	return
-}
-
-// UnmarshalDeleteTagsResultItemAsProperty unmarshals an instance of DeleteTagsResultItem that is stored as a property
-// within the specified map.
-func UnmarshalDeleteTagsResultItemAsProperty(m map[string]interface{}, propertyName string) (result *DeleteTagsResultItem, err error) {
-	v, foundIt := m[propertyName]
-	if foundIt {
-		objMap, ok := v.(map[string]interface{})
-		if !ok {
-			err = fmt.Errorf("map property '%s' should be a map containing an instance of 'DeleteTagsResultItem'", propertyName)
-			return
-		}
-		result, err = UnmarshalDeleteTagsResultItem(objMap)
-	}
-	return
-}
-
-// UnmarshalDeleteTagsResultItemSliceAsProperty unmarshals a slice of DeleteTagsResultItem instances that are stored as a property
-// within the specified map.
-func UnmarshalDeleteTagsResultItemSliceAsProperty(m map[string]interface{}, propertyName string) (slice []DeleteTagsResultItem, err error) {
-	v, foundIt := m[propertyName]
-	if foundIt {
-		vSlice, ok := v.([]interface{})
-		if !ok {
-			err = fmt.Errorf("map property '%s' should be a slice of maps, each containing an instance of 'DeleteTagsResultItem'", propertyName)
-			return
-		}
-		slice, err = UnmarshalDeleteTagsResultItemSlice(vSlice)
-	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
 	return
 }
 
@@ -1064,6 +873,21 @@ func (*GlobalTaggingV1) NewResource(resourceID string) (model *Resource, err err
 	return
 }
 
+// UnmarshalResource unmarshals an instance of Resource from the specified map of raw messages.
+func UnmarshalResource(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(Resource)
+	err = core.UnmarshalPrimitive(m, "resource_id", &obj.ResourceID)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "resource_type", &obj.ResourceType)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
 // Tag : A tag.
 type Tag struct {
 	// This is the name of the tag.
@@ -1071,62 +895,14 @@ type Tag struct {
 }
 
 
-// UnmarshalTag constructs an instance of Tag from the specified map.
-func UnmarshalTag(m map[string]interface{}) (result *Tag, err error) {
+// UnmarshalTag unmarshals an instance of Tag from the specified map of raw messages.
+func UnmarshalTag(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(Tag)
-	obj.Name, err = core.UnmarshalString(m, "name")
+	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
 	if err != nil {
 		return
 	}
-	result = obj
-	return
-}
-
-// UnmarshalTagSlice unmarshals a slice of Tag instances from the specified list of maps.
-func UnmarshalTagSlice(s []interface{}) (slice []Tag, err error) {
-	for _, v := range s {
-		objMap, ok := v.(map[string]interface{})
-		if !ok {
-			err = fmt.Errorf("slice element should be a map containing an instance of 'Tag'")
-			return
-		}
-		obj, e := UnmarshalTag(objMap)
-		if e != nil {
-			err = e
-			return
-		}
-		slice = append(slice, *obj)
-	}
-	return
-}
-
-// UnmarshalTagAsProperty unmarshals an instance of Tag that is stored as a property
-// within the specified map.
-func UnmarshalTagAsProperty(m map[string]interface{}, propertyName string) (result *Tag, err error) {
-	v, foundIt := m[propertyName]
-	if foundIt {
-		objMap, ok := v.(map[string]interface{})
-		if !ok {
-			err = fmt.Errorf("map property '%s' should be a map containing an instance of 'Tag'", propertyName)
-			return
-		}
-		result, err = UnmarshalTag(objMap)
-	}
-	return
-}
-
-// UnmarshalTagSliceAsProperty unmarshals a slice of Tag instances that are stored as a property
-// within the specified map.
-func UnmarshalTagSliceAsProperty(m map[string]interface{}, propertyName string) (slice []Tag, err error) {
-	v, foundIt := m[propertyName]
-	if foundIt {
-		vSlice, ok := v.([]interface{})
-		if !ok {
-			err = fmt.Errorf("map property '%s' should be a slice of maps, each containing an instance of 'Tag'", propertyName)
-			return
-		}
-		slice, err = UnmarshalTagSlice(vSlice)
-	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
 	return
 }
 
@@ -1146,74 +922,26 @@ type TagList struct {
 }
 
 
-// UnmarshalTagList constructs an instance of TagList from the specified map.
-func UnmarshalTagList(m map[string]interface{}) (result *TagList, err error) {
+// UnmarshalTagList unmarshals an instance of TagList from the specified map of raw messages.
+func UnmarshalTagList(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(TagList)
-	obj.TotalCount, err = core.UnmarshalInt64(m, "total_count")
+	err = core.UnmarshalPrimitive(m, "total_count", &obj.TotalCount)
 	if err != nil {
 		return
 	}
-	obj.Offset, err = core.UnmarshalInt64(m, "offset")
+	err = core.UnmarshalPrimitive(m, "offset", &obj.Offset)
 	if err != nil {
 		return
 	}
-	obj.Limit, err = core.UnmarshalInt64(m, "limit")
+	err = core.UnmarshalPrimitive(m, "limit", &obj.Limit)
 	if err != nil {
 		return
 	}
-	obj.Items, err = UnmarshalTagSliceAsProperty(m, "items")
+	err = core.UnmarshalModel(m, "items", &obj.Items, UnmarshalTag)
 	if err != nil {
 		return
 	}
-	result = obj
-	return
-}
-
-// UnmarshalTagListSlice unmarshals a slice of TagList instances from the specified list of maps.
-func UnmarshalTagListSlice(s []interface{}) (slice []TagList, err error) {
-	for _, v := range s {
-		objMap, ok := v.(map[string]interface{})
-		if !ok {
-			err = fmt.Errorf("slice element should be a map containing an instance of 'TagList'")
-			return
-		}
-		obj, e := UnmarshalTagList(objMap)
-		if e != nil {
-			err = e
-			return
-		}
-		slice = append(slice, *obj)
-	}
-	return
-}
-
-// UnmarshalTagListAsProperty unmarshals an instance of TagList that is stored as a property
-// within the specified map.
-func UnmarshalTagListAsProperty(m map[string]interface{}, propertyName string) (result *TagList, err error) {
-	v, foundIt := m[propertyName]
-	if foundIt {
-		objMap, ok := v.(map[string]interface{})
-		if !ok {
-			err = fmt.Errorf("map property '%s' should be a map containing an instance of 'TagList'", propertyName)
-			return
-		}
-		result, err = UnmarshalTagList(objMap)
-	}
-	return
-}
-
-// UnmarshalTagListSliceAsProperty unmarshals a slice of TagList instances that are stored as a property
-// within the specified map.
-func UnmarshalTagListSliceAsProperty(m map[string]interface{}, propertyName string) (slice []TagList, err error) {
-	v, foundIt := m[propertyName]
-	if foundIt {
-		vSlice, ok := v.([]interface{})
-		if !ok {
-			err = fmt.Errorf("map property '%s' should be a slice of maps, each containing an instance of 'TagList'", propertyName)
-			return
-		}
-		slice, err = UnmarshalTagListSlice(vSlice)
-	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
 	return
 }
 
@@ -1224,62 +952,14 @@ type TagResults struct {
 }
 
 
-// UnmarshalTagResults constructs an instance of TagResults from the specified map.
-func UnmarshalTagResults(m map[string]interface{}) (result *TagResults, err error) {
+// UnmarshalTagResults unmarshals an instance of TagResults from the specified map of raw messages.
+func UnmarshalTagResults(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(TagResults)
-	obj.Results, err = UnmarshalTagResultsItemSliceAsProperty(m, "results")
+	err = core.UnmarshalModel(m, "results", &obj.Results, UnmarshalTagResultsItem)
 	if err != nil {
 		return
 	}
-	result = obj
-	return
-}
-
-// UnmarshalTagResultsSlice unmarshals a slice of TagResults instances from the specified list of maps.
-func UnmarshalTagResultsSlice(s []interface{}) (slice []TagResults, err error) {
-	for _, v := range s {
-		objMap, ok := v.(map[string]interface{})
-		if !ok {
-			err = fmt.Errorf("slice element should be a map containing an instance of 'TagResults'")
-			return
-		}
-		obj, e := UnmarshalTagResults(objMap)
-		if e != nil {
-			err = e
-			return
-		}
-		slice = append(slice, *obj)
-	}
-	return
-}
-
-// UnmarshalTagResultsAsProperty unmarshals an instance of TagResults that is stored as a property
-// within the specified map.
-func UnmarshalTagResultsAsProperty(m map[string]interface{}, propertyName string) (result *TagResults, err error) {
-	v, foundIt := m[propertyName]
-	if foundIt {
-		objMap, ok := v.(map[string]interface{})
-		if !ok {
-			err = fmt.Errorf("map property '%s' should be a map containing an instance of 'TagResults'", propertyName)
-			return
-		}
-		result, err = UnmarshalTagResults(objMap)
-	}
-	return
-}
-
-// UnmarshalTagResultsSliceAsProperty unmarshals a slice of TagResults instances that are stored as a property
-// within the specified map.
-func UnmarshalTagResultsSliceAsProperty(m map[string]interface{}, propertyName string) (slice []TagResults, err error) {
-	v, foundIt := m[propertyName]
-	if foundIt {
-		vSlice, ok := v.([]interface{})
-		if !ok {
-			err = fmt.Errorf("map property '%s' should be a slice of maps, each containing an instance of 'TagResults'", propertyName)
-			return
-		}
-		slice, err = UnmarshalTagResultsSlice(vSlice)
-	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
 	return
 }
 
@@ -1293,65 +973,17 @@ type TagResultsItem struct {
 }
 
 
-// UnmarshalTagResultsItem constructs an instance of TagResultsItem from the specified map.
-func UnmarshalTagResultsItem(m map[string]interface{}) (result *TagResultsItem, err error) {
+// UnmarshalTagResultsItem unmarshals an instance of TagResultsItem from the specified map of raw messages.
+func UnmarshalTagResultsItem(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(TagResultsItem)
-	obj.ResourceID, err = core.UnmarshalString(m, "resource_id")
+	err = core.UnmarshalPrimitive(m, "resource_id", &obj.ResourceID)
 	if err != nil {
 		return
 	}
-	obj.IsError, err = core.UnmarshalBool(m, "is_error")
+	err = core.UnmarshalPrimitive(m, "is_error", &obj.IsError)
 	if err != nil {
 		return
 	}
-	result = obj
-	return
-}
-
-// UnmarshalTagResultsItemSlice unmarshals a slice of TagResultsItem instances from the specified list of maps.
-func UnmarshalTagResultsItemSlice(s []interface{}) (slice []TagResultsItem, err error) {
-	for _, v := range s {
-		objMap, ok := v.(map[string]interface{})
-		if !ok {
-			err = fmt.Errorf("slice element should be a map containing an instance of 'TagResultsItem'")
-			return
-		}
-		obj, e := UnmarshalTagResultsItem(objMap)
-		if e != nil {
-			err = e
-			return
-		}
-		slice = append(slice, *obj)
-	}
-	return
-}
-
-// UnmarshalTagResultsItemAsProperty unmarshals an instance of TagResultsItem that is stored as a property
-// within the specified map.
-func UnmarshalTagResultsItemAsProperty(m map[string]interface{}, propertyName string) (result *TagResultsItem, err error) {
-	v, foundIt := m[propertyName]
-	if foundIt {
-		objMap, ok := v.(map[string]interface{})
-		if !ok {
-			err = fmt.Errorf("map property '%s' should be a map containing an instance of 'TagResultsItem'", propertyName)
-			return
-		}
-		result, err = UnmarshalTagResultsItem(objMap)
-	}
-	return
-}
-
-// UnmarshalTagResultsItemSliceAsProperty unmarshals a slice of TagResultsItem instances that are stored as a property
-// within the specified map.
-func UnmarshalTagResultsItemSliceAsProperty(m map[string]interface{}, propertyName string) (slice []TagResultsItem, err error) {
-	v, foundIt := m[propertyName]
-	if foundIt {
-		vSlice, ok := v.([]interface{})
-		if !ok {
-			err = fmt.Errorf("map property '%s' should be a slice of maps, each containing an instance of 'TagResultsItem'", propertyName)
-			return
-		}
-		slice, err = UnmarshalTagResultsItemSlice(vSlice)
-	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
 	return
 }

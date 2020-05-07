@@ -1,5 +1,3 @@
-github.com/IBM/go-sdk-core/v3 v3.3.1 h1:DoXjP1+Wm8Yd4XJsvBMRcYLvQwSLFnzKlMjSrg3Rzpw=
-github.com/IBM/go-sdk-core/v3 v3.3.1/go.mod h1:lk9eOzNbNltPf3CBpcg1Ewkhw4qC3u2QCCKDRsUA2M0=
 github.com/IBM/go-sdk-core/v4 v4.0.0 h1:x3WT9m6sAii/Pdg2th8AKVcwG8Webd4/gRNi+TczZ/U=
 github.com/IBM/go-sdk-core/v4 v4.0.0/go.mod h1:YzFxVat+8fRdyiDhwZIQdvjDAOHLa2/hx1UOXLT6J40=
 github.com/asaskevich/govalidator v0.0.0-20190424111038-f61b66f89f4a h1:idn718Q4B6AGu/h5Sxe66HYVdqdGu2l9Iebqhi/AEoA=
