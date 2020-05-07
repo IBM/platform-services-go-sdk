@@ -1,3 +1,10 @@
+# [0.2.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.1.0...v0.2.0) (2020-05-07)
+
+
+### Features
+
+* **Global Catalog:** add service and unit test code to project ([#5](https://github.com/IBM/platform-services-go-sdk/issues/5)) ([ed9a372](https://github.com/IBM/platform-services-go-sdk/commit/ed9a3722b984ea64eec6a34a8bd881f803cf346b))
+
 # [0.1.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.0.0...v0.1.0) (2020-03-30)
 
 
