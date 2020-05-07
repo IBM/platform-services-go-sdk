@@ -8,7 +8,7 @@
 # IBM Cloud Platform Services Go SDK Version 0.1.0
 
 Go client library to interact with various
-[IBM Cloud Platform Service APIs](https://cloud.ibm.com/apidocs?category=platform_services).
+[IBM Cloud Platform Service APIs](https://cloud.ibm.com/docs?tab=api-docs&category=platform_services).
 
 Disclaimer: this SDK is being released initially as a **pre-release** version.
 Changes might occur which impact applications that use this SDK.
@@ -47,6 +47,7 @@ The IBM Cloud Platform Services Go SDK allows developers to programmatically int
 
 Service Name | Package name 
 --- | --- 
+[Global Catalog](https://cloud.ibm.com/apidocs/resource-catalog/global-catalog) | globalcatalogv1
 [Global Search](https://cloud.ibm.com/apidocs/search) | globalsearchv2
 [Global Tagging](https://cloud.ibm.com/apidocs/tagging) | globaltaggingv1
 [IAM Access Groups](https://cloud.ibm.com/apidocs/iam-access-groups) | iamaccessgroupsv2
