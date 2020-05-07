@@ -19,7 +19,11 @@
 package iamaccessgroupsv2_test
 
 import (
+	"fmt"
+	"math/rand"
 	"os"
+	"strconv"
+	"time"
 
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
@@ -41,7 +45,7 @@ var (
 	testGroupDescription string = "This group is used for integration test purposes. It can be deleted at any time."
 	testGroupEtag        string
 	testGroupID          string
-	testUserID           string = "IBMid-1234"
+	testUserID           string = "IBMid-" + strconv.Itoa(rand.Intn(100000))
 	testClaimRuleID      string
 	testClaimRuleEtag    string
 	testAccountSettings  *iamaccessgroupsv2.AccountSettings
@@ -421,13 +425,24 @@ var _ = AfterSuite(func() {
 	// iterate across the groups
 	for _, group := range result.Groups {
 
-		// force delete each test group
+		// force delete the test group (or any test groups older than 5 minutes)
 		if *group.Name == testGroupName {
-			options := service.NewDeleteAccessGroupOptions(*group.ID)
-			options.SetForce(true)
-			detailedResponse, err := service.DeleteAccessGroup(options)
-			Expect(err).To(BeNil())
-			Expect(detailedResponse.StatusCode).To(Equal(204))
+
+			createdAt, err := time.Parse(time.RFC3339, *group.CreatedAt)
+			if err != nil {
+				fmt.Printf("time.Parse error occurred: %v", err)
+				fmt.Printf("Cleanup of group (%v) failed", *group.ID)
+				continue
+			}
+			fiveMinutesAgo := time.Now().Add(-(time.Duration(5) * time.Minute))
+
+			if *group.ID == testGroupID || createdAt.Before(fiveMinutesAgo) {
+				options := service.NewDeleteAccessGroupOptions(*group.ID)
+				options.SetForce(true)
+				detailedResponse, err := service.DeleteAccessGroup(options)
+				Expect(err).To(BeNil())
+				Expect(detailedResponse.StatusCode).To(Equal(204))
+			}
 		}
 	}
 })
