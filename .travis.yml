@@ -20,6 +20,7 @@ before_install:
 - '[ "${TRAVIS_PULL_REQUEST}" == "false" ] && openssl aes-256-cbc -K $encrypted_3058bc69cb40_key -iv $encrypted_3058bc69cb40_iv -in ghost.env.enc -out ghost.env -d || true'
 - '[ "${TRAVIS_PULL_REQUEST}" == "false" ] && openssl aes-256-cbc -K $encrypted_66f264007c0d_key -iv $encrypted_66f264007c0d_iv -in iam_access_groups.env.enc -out iam_access_groups.env -d || true'
 - '[ "${TRAVIS_PULL_REQUEST}" == "false" ] && openssl aes-256-cbc -K $encrypted_94fa7fdf4df9_key -iv $encrypted_94fa7fdf4df9_iv -in global_catalog.env.enc -out global_catalog.env -d || true'
+- '[ "${TRAVIS_PULL_REQUEST}" == "false" ] && openssl aes-256-cbc -K $encrypted_dac53b985913_key -iv $encrypted_dac53b985913_iv -in case_management.env.enc -out case_management.env -d || true'
 
 install:
 - curl -sfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh| sh -s -- -b $(go env GOPATH)/bin v1.21.0
