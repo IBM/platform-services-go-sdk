@@ -27,7 +27,7 @@ import (
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
 	
-	"github.com/IBM/go-sdk-core/v3/core"
+	"github.com/IBM/go-sdk-core/v4/core"
 	"github.com/IBM/platform-services-go-sdk/globaltaggingv1"
 )
 
@@ -55,7 +55,7 @@ func shouldSkipTest() {
 
 var _ = Describe("Global Search and Tagging - Tagging integration test", func() {
 	It("Successfully load the configuration", func() {
-		err := godotenv.Load(externalConfigFile)
+		err := godotenv.Overload(externalConfigFile)
 		if err == nil {
 			crn = os.Getenv("GST_RESOURCE_CRN")
 			if crn != "" {

@@ -2742,7 +2742,7 @@ func (o *I18N) MarshalJSON() (buffer []byte, err error) {
 			m[k] = v
 		}
 	}
-	buffer, err = json.Marshal(m)	
+	buffer, err = json.Marshal(m)
 	return
 }
 
@@ -3325,7 +3325,7 @@ func (o *OverviewUI) MarshalJSON() (buffer []byte, err error) {
 			m[k] = v
 		}
 	}
-	buffer, err = json.Marshal(m)	
+	buffer, err = json.Marshal(m)
 	return
 }
 
