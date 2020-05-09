@@ -20,8 +20,9 @@ package globalsearchv2
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/IBM/go-sdk-core/v3/core"
+	"github.com/IBM/go-sdk-core/v4/core"
 	common "github.com/IBM/platform-services-go-sdk/common"
+	"reflect"
 	"strings"
 )
 
@@ -189,16 +190,16 @@ func (globalSearch *GlobalSearchV2) Search(searchOptions *SearchOptions) (result
 		return
 	}
 
-	response, err = globalSearch.Service.Request(request, make(map[string]interface{}))
-	if err == nil {
-		m, ok := response.Result.(map[string]interface{})
-		if !ok {
-			err = fmt.Errorf("an error occurred while processing the operation response")
-			return
-		}
-		result, err = UnmarshalScanResult(m)
-		response.Result = result
+	var rawResponse map[string]json.RawMessage
+	response, err = globalSearch.Service.Request(request, &rawResponse)
+	if err != nil {
+		return
 	}
+	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalScanResult)
+	if err != nil {
+		return
+	}
+	response.Result = result
 
 	return
 }
@@ -235,16 +236,16 @@ func (globalSearch *GlobalSearchV2) GetSupportedTypes(getSupportedTypesOptions *
 		return
 	}
 
-	response, err = globalSearch.Service.Request(request, make(map[string]interface{}))
-	if err == nil {
-		m, ok := response.Result.(map[string]interface{})
-		if !ok {
-			err = fmt.Errorf("an error occurred while processing the operation response")
-			return
-		}
-		result, err = UnmarshalSupportedTypesList(m)
-		response.Result = result
+	var rawResponse map[string]json.RawMessage
+	response, err = globalSearch.Service.Request(request, &rawResponse)
+	if err != nil {
+		return
 	}
+	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalSupportedTypesList)
+	if err != nil {
+		return
+	}
+	response.Result = result
 
 	return
 }
@@ -306,76 +307,28 @@ func (o *ResultItem) MarshalJSON() (buffer []byte, err error) {
 	if o.Crn != nil {
 		m["crn"] = o.Crn
 	}
-	buffer, err = json.Marshal(m)	
+	buffer, err = json.Marshal(m)
 	return
 }
 
-// UnmarshalResultItem constructs an instance of ResultItem from the specified map.
-func UnmarshalResultItem(m map[string]interface{}) (result *ResultItem, err error) {
-	m = core.CopyMap(m)
+// UnmarshalResultItem unmarshals an instance of ResultItem from the specified map of raw messages.
+func UnmarshalResultItem(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(ResultItem)
-	obj.Crn, err = core.UnmarshalString(m, "crn")
+	err = core.UnmarshalPrimitive(m, "crn", &obj.Crn)
 	if err != nil {
 		return
 	}
 	delete(m, "crn")
 	for k := range m {
-		v, e := core.UnmarshalAny(m, k)
+		var v interface{}
+		e := core.UnmarshalPrimitive(m, k, &v)
 		if e != nil {
 			err = e
 			return
 		}
 		obj.SetProperty(k, v)
 	}
-	result = obj
-	return
-}
-
-// UnmarshalResultItemSlice unmarshals a slice of ResultItem instances from the specified list of maps.
-func UnmarshalResultItemSlice(s []interface{}) (slice []ResultItem, err error) {
-	for _, v := range s {
-		objMap, ok := v.(map[string]interface{})
-		if !ok {
-			err = fmt.Errorf("slice element should be a map containing an instance of 'ResultItem'")
-			return
-		}
-		obj, e := UnmarshalResultItem(objMap)
-		if e != nil {
-			err = e
-			return
-		}
-		slice = append(slice, *obj)
-	}
-	return
-}
-
-// UnmarshalResultItemAsProperty unmarshals an instance of ResultItem that is stored as a property
-// within the specified map.
-func UnmarshalResultItemAsProperty(m map[string]interface{}, propertyName string) (result *ResultItem, err error) {
-	v, foundIt := m[propertyName]
-	if foundIt {
-		objMap, ok := v.(map[string]interface{})
-		if !ok {
-			err = fmt.Errorf("map property '%s' should be a map containing an instance of 'ResultItem'", propertyName)
-			return
-		}
-		result, err = UnmarshalResultItem(objMap)
-	}
-	return
-}
-
-// UnmarshalResultItemSliceAsProperty unmarshals a slice of ResultItem instances that are stored as a property
-// within the specified map.
-func UnmarshalResultItemSliceAsProperty(m map[string]interface{}, propertyName string) (slice []ResultItem, err error) {
-	v, foundIt := m[propertyName]
-	if foundIt {
-		vSlice, ok := v.([]interface{})
-		if !ok {
-			err = fmt.Errorf("map property '%s' should be a slice of maps, each containing an instance of 'ResultItem'", propertyName)
-			return
-		}
-		slice, err = UnmarshalResultItemSlice(vSlice)
-	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
 	return
 }
 
@@ -393,70 +346,22 @@ type ScanResult struct {
 }
 
 
-// UnmarshalScanResult constructs an instance of ScanResult from the specified map.
-func UnmarshalScanResult(m map[string]interface{}) (result *ScanResult, err error) {
+// UnmarshalScanResult unmarshals an instance of ScanResult from the specified map of raw messages.
+func UnmarshalScanResult(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(ScanResult)
-	obj.SearchCursor, err = core.UnmarshalString(m, "search_cursor")
+	err = core.UnmarshalPrimitive(m, "search_cursor", &obj.SearchCursor)
 	if err != nil {
 		return
 	}
-	obj.Limit, err = core.UnmarshalFloat64(m, "limit")
+	err = core.UnmarshalPrimitive(m, "limit", &obj.Limit)
 	if err != nil {
 		return
 	}
-	obj.Items, err = UnmarshalResultItemSliceAsProperty(m, "items")
+	err = core.UnmarshalModel(m, "items", &obj.Items, UnmarshalResultItem)
 	if err != nil {
 		return
 	}
-	result = obj
-	return
-}
-
-// UnmarshalScanResultSlice unmarshals a slice of ScanResult instances from the specified list of maps.
-func UnmarshalScanResultSlice(s []interface{}) (slice []ScanResult, err error) {
-	for _, v := range s {
-		objMap, ok := v.(map[string]interface{})
-		if !ok {
-			err = fmt.Errorf("slice element should be a map containing an instance of 'ScanResult'")
-			return
-		}
-		obj, e := UnmarshalScanResult(objMap)
-		if e != nil {
-			err = e
-			return
-		}
-		slice = append(slice, *obj)
-	}
-	return
-}
-
-// UnmarshalScanResultAsProperty unmarshals an instance of ScanResult that is stored as a property
-// within the specified map.
-func UnmarshalScanResultAsProperty(m map[string]interface{}, propertyName string) (result *ScanResult, err error) {
-	v, foundIt := m[propertyName]
-	if foundIt {
-		objMap, ok := v.(map[string]interface{})
-		if !ok {
-			err = fmt.Errorf("map property '%s' should be a map containing an instance of 'ScanResult'", propertyName)
-			return
-		}
-		result, err = UnmarshalScanResult(objMap)
-	}
-	return
-}
-
-// UnmarshalScanResultSliceAsProperty unmarshals a slice of ScanResult instances that are stored as a property
-// within the specified map.
-func UnmarshalScanResultSliceAsProperty(m map[string]interface{}, propertyName string) (slice []ScanResult, err error) {
-	v, foundIt := m[propertyName]
-	if foundIt {
-		vSlice, ok := v.([]interface{})
-		if !ok {
-			err = fmt.Errorf("map property '%s' should be a slice of maps, each containing an instance of 'ScanResult'", propertyName)
-			return
-		}
-		slice, err = UnmarshalScanResultSlice(vSlice)
-	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
 	return
 }
 
@@ -558,61 +463,13 @@ type SupportedTypesList struct {
 }
 
 
-// UnmarshalSupportedTypesList constructs an instance of SupportedTypesList from the specified map.
-func UnmarshalSupportedTypesList(m map[string]interface{}) (result *SupportedTypesList, err error) {
+// UnmarshalSupportedTypesList unmarshals an instance of SupportedTypesList from the specified map of raw messages.
+func UnmarshalSupportedTypesList(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(SupportedTypesList)
-	obj.SupportedTypes, err = core.UnmarshalStringSlice(m, "supported_types")
+	err = core.UnmarshalPrimitive(m, "supported_types", &obj.SupportedTypes)
 	if err != nil {
 		return
 	}
-	result = obj
-	return
-}
-
-// UnmarshalSupportedTypesListSlice unmarshals a slice of SupportedTypesList instances from the specified list of maps.
-func UnmarshalSupportedTypesListSlice(s []interface{}) (slice []SupportedTypesList, err error) {
-	for _, v := range s {
-		objMap, ok := v.(map[string]interface{})
-		if !ok {
-			err = fmt.Errorf("slice element should be a map containing an instance of 'SupportedTypesList'")
-			return
-		}
-		obj, e := UnmarshalSupportedTypesList(objMap)
-		if e != nil {
-			err = e
-			return
-		}
-		slice = append(slice, *obj)
-	}
-	return
-}
-
-// UnmarshalSupportedTypesListAsProperty unmarshals an instance of SupportedTypesList that is stored as a property
-// within the specified map.
-func UnmarshalSupportedTypesListAsProperty(m map[string]interface{}, propertyName string) (result *SupportedTypesList, err error) {
-	v, foundIt := m[propertyName]
-	if foundIt {
-		objMap, ok := v.(map[string]interface{})
-		if !ok {
-			err = fmt.Errorf("map property '%s' should be a map containing an instance of 'SupportedTypesList'", propertyName)
-			return
-		}
-		result, err = UnmarshalSupportedTypesList(objMap)
-	}
-	return
-}
-
-// UnmarshalSupportedTypesListSliceAsProperty unmarshals a slice of SupportedTypesList instances that are stored as a property
-// within the specified map.
-func UnmarshalSupportedTypesListSliceAsProperty(m map[string]interface{}, propertyName string) (slice []SupportedTypesList, err error) {
-	v, foundIt := m[propertyName]
-	if foundIt {
-		vSlice, ok := v.([]interface{})
-		if !ok {
-			err = fmt.Errorf("map property '%s' should be a slice of maps, each containing an instance of 'SupportedTypesList'", propertyName)
-			return
-		}
-		slice, err = UnmarshalSupportedTypesListSlice(vSlice)
-	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
 	return
 }

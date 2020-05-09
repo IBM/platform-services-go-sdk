@@ -21,7 +21,7 @@ package globalsearchv2_test
 import (
 	"os"
 
-	"github.com/IBM/go-sdk-core/v3/core"
+	"github.com/IBM/go-sdk-core/v4/core"
 	"github.com/IBM/platform-services-go-sdk/globalsearchv2"
 	"github.com/joho/godotenv"
 	. "github.com/onsi/ginkgo"
@@ -42,7 +42,7 @@ func shouldSkipTest() {
 
 var _ = Describe("Global Search and Tagging - Search integration test", func() {
 	It("Successfully load the configuration", func() {
-		err := godotenv.Load(externalConfigFile)
+		err := godotenv.Overload(externalConfigFile)
 		if err == nil {
 			gstQuery = os.Getenv("GST_QUERY")
 			if gstQuery != "" {

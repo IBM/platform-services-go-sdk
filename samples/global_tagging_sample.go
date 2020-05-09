@@ -24,7 +24,7 @@ import (
 	"os"
 
 	"github.com/joho/godotenv"
-	"github.com/IBM/go-sdk-core/v3/core"
+	"github.com/IBM/go-sdk-core/v4/core"
 	"github.com/IBM/platform-services-go-sdk/globaltaggingv1"
 )
 
@@ -37,7 +37,7 @@ func init() {
 	// Initialization
 
 	// Load environment variables (should be stored in .env file)
-	envVarErr := godotenv.Load("../.env")
+	envVarErr := godotenv.Overload("../.env")
 	if envVarErr != nil {
 		log.Fatal("Error loading .env file")
 	}

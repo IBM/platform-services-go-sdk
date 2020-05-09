@@ -21,10 +21,10 @@ package iamaccessgroupsv2_test
 import (
 	"os"
 
-	"github.com/joho/godotenv"
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
 
+	"github.com/IBM/go-sdk-core/v4/core"
 	"github.com/IBM/platform-services-go-sdk/iamaccessgroupsv2"
 )
 
@@ -33,6 +33,8 @@ const externalConfigFile = "../iam_access_groups.env"
 var (
 	service *iamaccessgroupsv2.IamAccessGroupsV2
 	err     error
+	config  map[string]string
+	configLoaded bool   = false
 
 	testAccountID        string
 	testGroupName        string = "SDK Test Group - Golang"
@@ -46,7 +48,6 @@ var (
 
 	userType     string = "user"
 	etagHeader   string = "Etag"
-	configLoaded bool   = false
 )
 
 func shouldSkipTest() {
@@ -57,9 +58,14 @@ func shouldSkipTest() {
 
 var _ = Describe("IAM Access Groups - Integration Tests", func() {
 	It("Successfully load the configuration", func() {
-		err = godotenv.Load(externalConfigFile)
+		err = os.Setenv("IBM_CREDENTIALS_FILE", externalConfigFile)
+		if err != nil {
+			Skip("Could not set IBM_CREDENTIALS_FILE environment variable: " + err.Error())
+		}
+		
+		config, err = core.GetServiceProperties(iamaccessgroupsv2.DefaultServiceName)
 		if err == nil {
-			testAccountID = os.Getenv("IAM_ACCESS_GROUPS_TEST_ACCOUNT_ID")
+			testAccountID = config["TEST_ACCOUNT_ID"]
 			if testAccountID != "" {
 				configLoaded = true
 			}
