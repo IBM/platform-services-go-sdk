@@ -18,9 +18,11 @@
 package iamaccessgroupsv2
 
 import (
+	"encoding/json"
 	"fmt"
-	"github.com/IBM/go-sdk-core/v3/core"
+	"github.com/IBM/go-sdk-core/v4/core"
 	common "github.com/IBM/platform-services-go-sdk/common"
+	"reflect"
 )
 
 // IamAccessGroupsV2 : The IAM Access Groups API allows for the management of Access Groups (Create, Read, Update,
@@ -161,16 +163,16 @@ func (iamAccessGroups *IamAccessGroupsV2) CreateAccessGroup(createAccessGroupOpt
 		return
 	}
 
-	response, err = iamAccessGroups.Service.Request(request, make(map[string]interface{}))
-	if err == nil {
-		m, ok := response.Result.(map[string]interface{})
-		if !ok {
-			err = fmt.Errorf("an error occurred while processing the operation response")
-			return
-		}
-		result, err = UnmarshalGroup(m)
-		response.Result = result
+	var rawResponse map[string]json.RawMessage
+	response, err = iamAccessGroups.Service.Request(request, &rawResponse)
+	if err != nil {
+		return
 	}
+	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalGroup)
+	if err != nil {
+		return
+	}
+	response.Result = result
 
 	return
 }
@@ -237,16 +239,16 @@ func (iamAccessGroups *IamAccessGroupsV2) ListAccessGroups(listAccessGroupsOptio
 		return
 	}
 
-	response, err = iamAccessGroups.Service.Request(request, make(map[string]interface{}))
-	if err == nil {
-		m, ok := response.Result.(map[string]interface{})
-		if !ok {
-			err = fmt.Errorf("an error occurred while processing the operation response")
-			return
-		}
-		result, err = UnmarshalGroupsList(m)
-		response.Result = result
+	var rawResponse map[string]json.RawMessage
+	response, err = iamAccessGroups.Service.Request(request, &rawResponse)
+	if err != nil {
+		return
 	}
+	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalGroupsList)
+	if err != nil {
+		return
+	}
+	response.Result = result
 
 	return
 }
@@ -296,16 +298,16 @@ func (iamAccessGroups *IamAccessGroupsV2) GetAccessGroup(getAccessGroupOptions *
 		return
 	}
 
-	response, err = iamAccessGroups.Service.Request(request, make(map[string]interface{}))
-	if err == nil {
-		m, ok := response.Result.(map[string]interface{})
-		if !ok {
-			err = fmt.Errorf("an error occurred while processing the operation response")
-			return
-		}
-		result, err = UnmarshalGroup(m)
-		response.Result = result
+	var rawResponse map[string]json.RawMessage
+	response, err = iamAccessGroups.Service.Request(request, &rawResponse)
+	if err != nil {
+		return
 	}
+	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalGroup)
+	if err != nil {
+		return
+	}
+	response.Result = result
 
 	return
 }
@@ -366,16 +368,16 @@ func (iamAccessGroups *IamAccessGroupsV2) UpdateAccessGroup(updateAccessGroupOpt
 		return
 	}
 
-	response, err = iamAccessGroups.Service.Request(request, make(map[string]interface{}))
-	if err == nil {
-		m, ok := response.Result.(map[string]interface{})
-		if !ok {
-			err = fmt.Errorf("an error occurred while processing the operation response")
-			return
-		}
-		result, err = UnmarshalGroup(m)
-		response.Result = result
+	var rawResponse map[string]json.RawMessage
+	response, err = iamAccessGroups.Service.Request(request, &rawResponse)
+	if err != nil {
+		return
 	}
+	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalGroup)
+	if err != nil {
+		return
+	}
+	response.Result = result
 
 	return
 }
@@ -470,16 +472,16 @@ func (iamAccessGroups *IamAccessGroupsV2) GetAccountSettings(getAccountSettingsO
 		return
 	}
 
-	response, err = iamAccessGroups.Service.Request(request, make(map[string]interface{}))
-	if err == nil {
-		m, ok := response.Result.(map[string]interface{})
-		if !ok {
-			err = fmt.Errorf("an error occurred while processing the operation response")
-			return
-		}
-		result, err = UnmarshalAccountSettings(m)
-		response.Result = result
+	var rawResponse map[string]json.RawMessage
+	response, err = iamAccessGroups.Service.Request(request, &rawResponse)
+	if err != nil {
+		return
 	}
+	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalAccountSettings)
+	if err != nil {
+		return
+	}
+	response.Result = result
 
 	return
 }
@@ -537,16 +539,16 @@ func (iamAccessGroups *IamAccessGroupsV2) UpdateAccountSettings(updateAccountSet
 		return
 	}
 
-	response, err = iamAccessGroups.Service.Request(request, make(map[string]interface{}))
-	if err == nil {
-		m, ok := response.Result.(map[string]interface{})
-		if !ok {
-			err = fmt.Errorf("an error occurred while processing the operation response")
-			return
-		}
-		result, err = UnmarshalAccountSettings(m)
-		response.Result = result
+	var rawResponse map[string]json.RawMessage
+	response, err = iamAccessGroups.Service.Request(request, &rawResponse)
+	if err != nil {
+		return
 	}
+	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalAccountSettings)
+	if err != nil {
+		return
+	}
+	response.Result = result
 
 	return
 }
@@ -648,16 +650,16 @@ func (iamAccessGroups *IamAccessGroupsV2) AddMembersToAccessGroup(addMembersToAc
 		return
 	}
 
-	response, err = iamAccessGroups.Service.Request(request, make(map[string]interface{}))
-	if err == nil {
-		m, ok := response.Result.(map[string]interface{})
-		if !ok {
-			err = fmt.Errorf("an error occurred while processing the operation response")
-			return
-		}
-		result, err = UnmarshalAddGroupMembersResponse(m)
-		response.Result = result
+	var rawResponse map[string]json.RawMessage
+	response, err = iamAccessGroups.Service.Request(request, &rawResponse)
+	if err != nil {
+		return
 	}
+	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalAddGroupMembersResponse)
+	if err != nil {
+		return
+	}
+	response.Result = result
 
 	return
 }
@@ -720,16 +722,16 @@ func (iamAccessGroups *IamAccessGroupsV2) ListAccessGroupMembers(listAccessGroup
 		return
 	}
 
-	response, err = iamAccessGroups.Service.Request(request, make(map[string]interface{}))
-	if err == nil {
-		m, ok := response.Result.(map[string]interface{})
-		if !ok {
-			err = fmt.Errorf("an error occurred while processing the operation response")
-			return
-		}
-		result, err = UnmarshalGroupMembersList(m)
-		response.Result = result
+	var rawResponse map[string]json.RawMessage
+	response, err = iamAccessGroups.Service.Request(request, &rawResponse)
+	if err != nil {
+		return
 	}
+	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalGroupMembersList)
+	if err != nil {
+		return
+	}
+	response.Result = result
 
 	return
 }
@@ -829,16 +831,16 @@ func (iamAccessGroups *IamAccessGroupsV2) RemoveMembersFromAccessGroup(removeMem
 		return
 	}
 
-	response, err = iamAccessGroups.Service.Request(request, make(map[string]interface{}))
-	if err == nil {
-		m, ok := response.Result.(map[string]interface{})
-		if !ok {
-			err = fmt.Errorf("an error occurred while processing the operation response")
-			return
-		}
-		result, err = UnmarshalDeleteGroupBulkMembersResponse(m)
-		response.Result = result
+	var rawResponse map[string]json.RawMessage
+	response, err = iamAccessGroups.Service.Request(request, &rawResponse)
+	if err != nil {
+		return
 	}
+	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalDeleteGroupBulkMembersResponse)
+	if err != nil {
+		return
+	}
+	response.Result = result
 
 	return
 }
@@ -886,16 +888,16 @@ func (iamAccessGroups *IamAccessGroupsV2) RemoveMemberFromAllAccessGroups(remove
 		return
 	}
 
-	response, err = iamAccessGroups.Service.Request(request, make(map[string]interface{}))
-	if err == nil {
-		m, ok := response.Result.(map[string]interface{})
-		if !ok {
-			err = fmt.Errorf("an error occurred while processing the operation response")
-			return
-		}
-		result, err = UnmarshalDeleteFromAllGroupsResponse(m)
-		response.Result = result
+	var rawResponse map[string]json.RawMessage
+	response, err = iamAccessGroups.Service.Request(request, &rawResponse)
+	if err != nil {
+		return
 	}
+	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalDeleteFromAllGroupsResponse)
+	if err != nil {
+		return
+	}
+	response.Result = result
 
 	return
 }
@@ -955,16 +957,16 @@ func (iamAccessGroups *IamAccessGroupsV2) AddMemberToMultipleAccessGroups(addMem
 		return
 	}
 
-	response, err = iamAccessGroups.Service.Request(request, make(map[string]interface{}))
-	if err == nil {
-		m, ok := response.Result.(map[string]interface{})
-		if !ok {
-			err = fmt.Errorf("an error occurred while processing the operation response")
-			return
-		}
-		result, err = UnmarshalAddMembershipMultipleGroupsResponse(m)
-		response.Result = result
+	var rawResponse map[string]json.RawMessage
+	response, err = iamAccessGroups.Service.Request(request, &rawResponse)
+	if err != nil {
+		return
 	}
+	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalAddMembershipMultipleGroupsResponse)
+	if err != nil {
+		return
+	}
+	response.Result = result
 
 	return
 }
@@ -1031,16 +1033,16 @@ func (iamAccessGroups *IamAccessGroupsV2) AddAccessGroupRule(addAccessGroupRuleO
 		return
 	}
 
-	response, err = iamAccessGroups.Service.Request(request, make(map[string]interface{}))
-	if err == nil {
-		m, ok := response.Result.(map[string]interface{})
-		if !ok {
-			err = fmt.Errorf("an error occurred while processing the operation response")
-			return
-		}
-		result, err = UnmarshalRule(m)
-		response.Result = result
+	var rawResponse map[string]json.RawMessage
+	response, err = iamAccessGroups.Service.Request(request, &rawResponse)
+	if err != nil {
+		return
 	}
+	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalRule)
+	if err != nil {
+		return
+	}
+	response.Result = result
 
 	return
 }
@@ -1085,16 +1087,16 @@ func (iamAccessGroups *IamAccessGroupsV2) ListAccessGroupRules(listAccessGroupRu
 		return
 	}
 
-	response, err = iamAccessGroups.Service.Request(request, make(map[string]interface{}))
-	if err == nil {
-		m, ok := response.Result.(map[string]interface{})
-		if !ok {
-			err = fmt.Errorf("an error occurred while processing the operation response")
-			return
-		}
-		result, err = UnmarshalRulesList(m)
-		response.Result = result
+	var rawResponse map[string]json.RawMessage
+	response, err = iamAccessGroups.Service.Request(request, &rawResponse)
+	if err != nil {
+		return
 	}
+	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalRulesList)
+	if err != nil {
+		return
+	}
+	response.Result = result
 
 	return
 }
@@ -1139,16 +1141,16 @@ func (iamAccessGroups *IamAccessGroupsV2) GetAccessGroupRule(getAccessGroupRuleO
 		return
 	}
 
-	response, err = iamAccessGroups.Service.Request(request, make(map[string]interface{}))
-	if err == nil {
-		m, ok := response.Result.(map[string]interface{})
-		if !ok {
-			err = fmt.Errorf("an error occurred while processing the operation response")
-			return
-		}
-		result, err = UnmarshalRule(m)
-		response.Result = result
+	var rawResponse map[string]json.RawMessage
+	response, err = iamAccessGroups.Service.Request(request, &rawResponse)
+	if err != nil {
+		return
 	}
+	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalRule)
+	if err != nil {
+		return
+	}
+	response.Result = result
 
 	return
 }
@@ -1215,16 +1217,16 @@ func (iamAccessGroups *IamAccessGroupsV2) ReplaceAccessGroupRule(replaceAccessGr
 		return
 	}
 
-	response, err = iamAccessGroups.Service.Request(request, make(map[string]interface{}))
-	if err == nil {
-		m, ok := response.Result.(map[string]interface{})
-		if !ok {
-			err = fmt.Errorf("an error occurred while processing the operation response")
-			return
-		}
-		result, err = UnmarshalRule(m)
-		response.Result = result
+	var rawResponse map[string]json.RawMessage
+	response, err = iamAccessGroups.Service.Request(request, &rawResponse)
+	if err != nil {
+		return
 	}
+	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalRule)
+	if err != nil {
+		return
+	}
+	response.Result = result
 
 	return
 }
@@ -1290,74 +1292,26 @@ type AccountSettings struct {
 }
 
 
-// UnmarshalAccountSettings constructs an instance of AccountSettings from the specified map.
-func UnmarshalAccountSettings(m map[string]interface{}) (result *AccountSettings, err error) {
+// UnmarshalAccountSettings unmarshals an instance of AccountSettings from the specified map of raw messages.
+func UnmarshalAccountSettings(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(AccountSettings)
-	obj.AccountID, err = core.UnmarshalString(m, "account_id")
+	err = core.UnmarshalPrimitive(m, "account_id", &obj.AccountID)
 	if err != nil {
 		return
 	}
-	obj.LastModifiedAt, err = core.UnmarshalString(m, "last_modified_at")
+	err = core.UnmarshalPrimitive(m, "last_modified_at", &obj.LastModifiedAt)
 	if err != nil {
 		return
 	}
-	obj.LastModifiedByID, err = core.UnmarshalString(m, "last_modified_by_id")
+	err = core.UnmarshalPrimitive(m, "last_modified_by_id", &obj.LastModifiedByID)
 	if err != nil {
 		return
 	}
-	obj.PublicAccessEnabled, err = core.UnmarshalBool(m, "public_access_enabled")
+	err = core.UnmarshalPrimitive(m, "public_access_enabled", &obj.PublicAccessEnabled)
 	if err != nil {
 		return
 	}
-	result = obj
-	return
-}
-
-// UnmarshalAccountSettingsSlice unmarshals a slice of AccountSettings instances from the specified list of maps.
-func UnmarshalAccountSettingsSlice(s []interface{}) (slice []AccountSettings, err error) {
-	for _, v := range s {
-		objMap, ok := v.(map[string]interface{})
-		if !ok {
-			err = fmt.Errorf("slice element should be a map containing an instance of 'AccountSettings'")
-			return
-		}
-		obj, e := UnmarshalAccountSettings(objMap)
-		if e != nil {
-			err = e
-			return
-		}
-		slice = append(slice, *obj)
-	}
-	return
-}
-
-// UnmarshalAccountSettingsAsProperty unmarshals an instance of AccountSettings that is stored as a property
-// within the specified map.
-func UnmarshalAccountSettingsAsProperty(m map[string]interface{}, propertyName string) (result *AccountSettings, err error) {
-	v, foundIt := m[propertyName]
-	if foundIt {
-		objMap, ok := v.(map[string]interface{})
-		if !ok {
-			err = fmt.Errorf("map property '%s' should be a map containing an instance of 'AccountSettings'", propertyName)
-			return
-		}
-		result, err = UnmarshalAccountSettings(objMap)
-	}
-	return
-}
-
-// UnmarshalAccountSettingsSliceAsProperty unmarshals a slice of AccountSettings instances that are stored as a property
-// within the specified map.
-func UnmarshalAccountSettingsSliceAsProperty(m map[string]interface{}, propertyName string) (slice []AccountSettings, err error) {
-	v, foundIt := m[propertyName]
-	if foundIt {
-		vSlice, ok := v.([]interface{})
-		if !ok {
-			err = fmt.Errorf("map property '%s' should be a slice of maps, each containing an instance of 'AccountSettings'", propertyName)
-			return
-		}
-		slice, err = UnmarshalAccountSettingsSlice(vSlice)
-	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
 	return
 }
 
@@ -1457,6 +1411,21 @@ func (*IamAccessGroupsV2) NewAddGroupMembersRequestMembersItem(iamID string, typ
 	return
 }
 
+// UnmarshalAddGroupMembersRequestMembersItem unmarshals an instance of AddGroupMembersRequestMembersItem from the specified map of raw messages.
+func UnmarshalAddGroupMembersRequestMembersItem(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(AddGroupMembersRequestMembersItem)
+	err = core.UnmarshalPrimitive(m, "iam_id", &obj.IamID)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "type", &obj.Type)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
 // AddGroupMembersResponse : The members added to an access group.
 type AddGroupMembersResponse struct {
 	// The members added to an access group.
@@ -1464,62 +1433,14 @@ type AddGroupMembersResponse struct {
 }
 
 
-// UnmarshalAddGroupMembersResponse constructs an instance of AddGroupMembersResponse from the specified map.
-func UnmarshalAddGroupMembersResponse(m map[string]interface{}) (result *AddGroupMembersResponse, err error) {
+// UnmarshalAddGroupMembersResponse unmarshals an instance of AddGroupMembersResponse from the specified map of raw messages.
+func UnmarshalAddGroupMembersResponse(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(AddGroupMembersResponse)
-	obj.Members, err = UnmarshalAddGroupMembersResponseMembersItemSliceAsProperty(m, "members")
+	err = core.UnmarshalModel(m, "members", &obj.Members, UnmarshalAddGroupMembersResponseMembersItem)
 	if err != nil {
 		return
 	}
-	result = obj
-	return
-}
-
-// UnmarshalAddGroupMembersResponseSlice unmarshals a slice of AddGroupMembersResponse instances from the specified list of maps.
-func UnmarshalAddGroupMembersResponseSlice(s []interface{}) (slice []AddGroupMembersResponse, err error) {
-	for _, v := range s {
-		objMap, ok := v.(map[string]interface{})
-		if !ok {
-			err = fmt.Errorf("slice element should be a map containing an instance of 'AddGroupMembersResponse'")
-			return
-		}
-		obj, e := UnmarshalAddGroupMembersResponse(objMap)
-		if e != nil {
-			err = e
-			return
-		}
-		slice = append(slice, *obj)
-	}
-	return
-}
-
-// UnmarshalAddGroupMembersResponseAsProperty unmarshals an instance of AddGroupMembersResponse that is stored as a property
-// within the specified map.
-func UnmarshalAddGroupMembersResponseAsProperty(m map[string]interface{}, propertyName string) (result *AddGroupMembersResponse, err error) {
-	v, foundIt := m[propertyName]
-	if foundIt {
-		objMap, ok := v.(map[string]interface{})
-		if !ok {
-			err = fmt.Errorf("map property '%s' should be a map containing an instance of 'AddGroupMembersResponse'", propertyName)
-			return
-		}
-		result, err = UnmarshalAddGroupMembersResponse(objMap)
-	}
-	return
-}
-
-// UnmarshalAddGroupMembersResponseSliceAsProperty unmarshals a slice of AddGroupMembersResponse instances that are stored as a property
-// within the specified map.
-func UnmarshalAddGroupMembersResponseSliceAsProperty(m map[string]interface{}, propertyName string) (slice []AddGroupMembersResponse, err error) {
-	v, foundIt := m[propertyName]
-	if foundIt {
-		vSlice, ok := v.([]interface{})
-		if !ok {
-			err = fmt.Errorf("map property '%s' should be a slice of maps, each containing an instance of 'AddGroupMembersResponse'", propertyName)
-			return
-		}
-		slice, err = UnmarshalAddGroupMembersResponseSlice(vSlice)
-	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
 	return
 }
 
@@ -1548,86 +1469,38 @@ type AddGroupMembersResponseMembersItem struct {
 }
 
 
-// UnmarshalAddGroupMembersResponseMembersItem constructs an instance of AddGroupMembersResponseMembersItem from the specified map.
-func UnmarshalAddGroupMembersResponseMembersItem(m map[string]interface{}) (result *AddGroupMembersResponseMembersItem, err error) {
+// UnmarshalAddGroupMembersResponseMembersItem unmarshals an instance of AddGroupMembersResponseMembersItem from the specified map of raw messages.
+func UnmarshalAddGroupMembersResponseMembersItem(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(AddGroupMembersResponseMembersItem)
-	obj.IamID, err = core.UnmarshalString(m, "iam_id")
+	err = core.UnmarshalPrimitive(m, "iam_id", &obj.IamID)
 	if err != nil {
 		return
 	}
-	obj.Type, err = core.UnmarshalString(m, "type")
+	err = core.UnmarshalPrimitive(m, "type", &obj.Type)
 	if err != nil {
 		return
 	}
-	obj.CreatedAt, err = core.UnmarshalString(m, "created_at")
+	err = core.UnmarshalPrimitive(m, "created_at", &obj.CreatedAt)
 	if err != nil {
 		return
 	}
-	obj.CreatedByID, err = core.UnmarshalString(m, "created_by_id")
+	err = core.UnmarshalPrimitive(m, "created_by_id", &obj.CreatedByID)
 	if err != nil {
 		return
 	}
-	obj.StatusCode, err = core.UnmarshalInt64(m, "status_code")
+	err = core.UnmarshalPrimitive(m, "status_code", &obj.StatusCode)
 	if err != nil {
 		return
 	}
-	obj.Trace, err = core.UnmarshalString(m, "trace")
+	err = core.UnmarshalPrimitive(m, "trace", &obj.Trace)
 	if err != nil {
 		return
 	}
-	obj.Errors, err = UnmarshalErrorSliceAsProperty(m, "errors")
+	err = core.UnmarshalModel(m, "errors", &obj.Errors, UnmarshalError)
 	if err != nil {
 		return
 	}
-	result = obj
-	return
-}
-
-// UnmarshalAddGroupMembersResponseMembersItemSlice unmarshals a slice of AddGroupMembersResponseMembersItem instances from the specified list of maps.
-func UnmarshalAddGroupMembersResponseMembersItemSlice(s []interface{}) (slice []AddGroupMembersResponseMembersItem, err error) {
-	for _, v := range s {
-		objMap, ok := v.(map[string]interface{})
-		if !ok {
-			err = fmt.Errorf("slice element should be a map containing an instance of 'AddGroupMembersResponseMembersItem'")
-			return
-		}
-		obj, e := UnmarshalAddGroupMembersResponseMembersItem(objMap)
-		if e != nil {
-			err = e
-			return
-		}
-		slice = append(slice, *obj)
-	}
-	return
-}
-
-// UnmarshalAddGroupMembersResponseMembersItemAsProperty unmarshals an instance of AddGroupMembersResponseMembersItem that is stored as a property
-// within the specified map.
-func UnmarshalAddGroupMembersResponseMembersItemAsProperty(m map[string]interface{}, propertyName string) (result *AddGroupMembersResponseMembersItem, err error) {
-	v, foundIt := m[propertyName]
-	if foundIt {
-		objMap, ok := v.(map[string]interface{})
-		if !ok {
-			err = fmt.Errorf("map property '%s' should be a map containing an instance of 'AddGroupMembersResponseMembersItem'", propertyName)
-			return
-		}
-		result, err = UnmarshalAddGroupMembersResponseMembersItem(objMap)
-	}
-	return
-}
-
-// UnmarshalAddGroupMembersResponseMembersItemSliceAsProperty unmarshals a slice of AddGroupMembersResponseMembersItem instances that are stored as a property
-// within the specified map.
-func UnmarshalAddGroupMembersResponseMembersItemSliceAsProperty(m map[string]interface{}, propertyName string) (slice []AddGroupMembersResponseMembersItem, err error) {
-	v, foundIt := m[propertyName]
-	if foundIt {
-		vSlice, ok := v.([]interface{})
-		if !ok {
-			err = fmt.Errorf("map property '%s' should be a slice of maps, each containing an instance of 'AddGroupMembersResponseMembersItem'", propertyName)
-			return
-		}
-		slice, err = UnmarshalAddGroupMembersResponseMembersItemSlice(vSlice)
-	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
 	return
 }
 
@@ -1752,66 +1625,18 @@ type AddMembershipMultipleGroupsResponse struct {
 }
 
 
-// UnmarshalAddMembershipMultipleGroupsResponse constructs an instance of AddMembershipMultipleGroupsResponse from the specified map.
-func UnmarshalAddMembershipMultipleGroupsResponse(m map[string]interface{}) (result *AddMembershipMultipleGroupsResponse, err error) {
+// UnmarshalAddMembershipMultipleGroupsResponse unmarshals an instance of AddMembershipMultipleGroupsResponse from the specified map of raw messages.
+func UnmarshalAddMembershipMultipleGroupsResponse(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(AddMembershipMultipleGroupsResponse)
-	obj.IamID, err = core.UnmarshalString(m, "iam_id")
+	err = core.UnmarshalPrimitive(m, "iam_id", &obj.IamID)
 	if err != nil {
 		return
 	}
-	obj.Groups, err = UnmarshalAddMembershipMultipleGroupsResponseGroupsItemSliceAsProperty(m, "groups")
+	err = core.UnmarshalModel(m, "groups", &obj.Groups, UnmarshalAddMembershipMultipleGroupsResponseGroupsItem)
 	if err != nil {
 		return
 	}
-	result = obj
-	return
-}
-
-// UnmarshalAddMembershipMultipleGroupsResponseSlice unmarshals a slice of AddMembershipMultipleGroupsResponse instances from the specified list of maps.
-func UnmarshalAddMembershipMultipleGroupsResponseSlice(s []interface{}) (slice []AddMembershipMultipleGroupsResponse, err error) {
-	for _, v := range s {
-		objMap, ok := v.(map[string]interface{})
-		if !ok {
-			err = fmt.Errorf("slice element should be a map containing an instance of 'AddMembershipMultipleGroupsResponse'")
-			return
-		}
-		obj, e := UnmarshalAddMembershipMultipleGroupsResponse(objMap)
-		if e != nil {
-			err = e
-			return
-		}
-		slice = append(slice, *obj)
-	}
-	return
-}
-
-// UnmarshalAddMembershipMultipleGroupsResponseAsProperty unmarshals an instance of AddMembershipMultipleGroupsResponse that is stored as a property
-// within the specified map.
-func UnmarshalAddMembershipMultipleGroupsResponseAsProperty(m map[string]interface{}, propertyName string) (result *AddMembershipMultipleGroupsResponse, err error) {
-	v, foundIt := m[propertyName]
-	if foundIt {
-		objMap, ok := v.(map[string]interface{})
-		if !ok {
-			err = fmt.Errorf("map property '%s' should be a map containing an instance of 'AddMembershipMultipleGroupsResponse'", propertyName)
-			return
-		}
-		result, err = UnmarshalAddMembershipMultipleGroupsResponse(objMap)
-	}
-	return
-}
-
-// UnmarshalAddMembershipMultipleGroupsResponseSliceAsProperty unmarshals a slice of AddMembershipMultipleGroupsResponse instances that are stored as a property
-// within the specified map.
-func UnmarshalAddMembershipMultipleGroupsResponseSliceAsProperty(m map[string]interface{}, propertyName string) (slice []AddMembershipMultipleGroupsResponse, err error) {
-	v, foundIt := m[propertyName]
-	if foundIt {
-		vSlice, ok := v.([]interface{})
-		if !ok {
-			err = fmt.Errorf("map property '%s' should be a slice of maps, each containing an instance of 'AddMembershipMultipleGroupsResponse'", propertyName)
-			return
-		}
-		slice, err = UnmarshalAddMembershipMultipleGroupsResponseSlice(vSlice)
-	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
 	return
 }
 
@@ -1831,74 +1656,26 @@ type AddMembershipMultipleGroupsResponseGroupsItem struct {
 }
 
 
-// UnmarshalAddMembershipMultipleGroupsResponseGroupsItem constructs an instance of AddMembershipMultipleGroupsResponseGroupsItem from the specified map.
-func UnmarshalAddMembershipMultipleGroupsResponseGroupsItem(m map[string]interface{}) (result *AddMembershipMultipleGroupsResponseGroupsItem, err error) {
+// UnmarshalAddMembershipMultipleGroupsResponseGroupsItem unmarshals an instance of AddMembershipMultipleGroupsResponseGroupsItem from the specified map of raw messages.
+func UnmarshalAddMembershipMultipleGroupsResponseGroupsItem(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(AddMembershipMultipleGroupsResponseGroupsItem)
-	obj.AccessGroupID, err = core.UnmarshalString(m, "access_group_id")
+	err = core.UnmarshalPrimitive(m, "access_group_id", &obj.AccessGroupID)
 	if err != nil {
 		return
 	}
-	obj.StatusCode, err = core.UnmarshalInt64(m, "status_code")
+	err = core.UnmarshalPrimitive(m, "status_code", &obj.StatusCode)
 	if err != nil {
 		return
 	}
-	obj.Trace, err = core.UnmarshalString(m, "trace")
+	err = core.UnmarshalPrimitive(m, "trace", &obj.Trace)
 	if err != nil {
 		return
 	}
-	obj.Errors, err = UnmarshalErrorSliceAsProperty(m, "errors")
+	err = core.UnmarshalModel(m, "errors", &obj.Errors, UnmarshalError)
 	if err != nil {
 		return
 	}
-	result = obj
-	return
-}
-
-// UnmarshalAddMembershipMultipleGroupsResponseGroupsItemSlice unmarshals a slice of AddMembershipMultipleGroupsResponseGroupsItem instances from the specified list of maps.
-func UnmarshalAddMembershipMultipleGroupsResponseGroupsItemSlice(s []interface{}) (slice []AddMembershipMultipleGroupsResponseGroupsItem, err error) {
-	for _, v := range s {
-		objMap, ok := v.(map[string]interface{})
-		if !ok {
-			err = fmt.Errorf("slice element should be a map containing an instance of 'AddMembershipMultipleGroupsResponseGroupsItem'")
-			return
-		}
-		obj, e := UnmarshalAddMembershipMultipleGroupsResponseGroupsItem(objMap)
-		if e != nil {
-			err = e
-			return
-		}
-		slice = append(slice, *obj)
-	}
-	return
-}
-
-// UnmarshalAddMembershipMultipleGroupsResponseGroupsItemAsProperty unmarshals an instance of AddMembershipMultipleGroupsResponseGroupsItem that is stored as a property
-// within the specified map.
-func UnmarshalAddMembershipMultipleGroupsResponseGroupsItemAsProperty(m map[string]interface{}, propertyName string) (result *AddMembershipMultipleGroupsResponseGroupsItem, err error) {
-	v, foundIt := m[propertyName]
-	if foundIt {
-		objMap, ok := v.(map[string]interface{})
-		if !ok {
-			err = fmt.Errorf("map property '%s' should be a map containing an instance of 'AddMembershipMultipleGroupsResponseGroupsItem'", propertyName)
-			return
-		}
-		result, err = UnmarshalAddMembershipMultipleGroupsResponseGroupsItem(objMap)
-	}
-	return
-}
-
-// UnmarshalAddMembershipMultipleGroupsResponseGroupsItemSliceAsProperty unmarshals a slice of AddMembershipMultipleGroupsResponseGroupsItem instances that are stored as a property
-// within the specified map.
-func UnmarshalAddMembershipMultipleGroupsResponseGroupsItemSliceAsProperty(m map[string]interface{}, propertyName string) (slice []AddMembershipMultipleGroupsResponseGroupsItem, err error) {
-	v, foundIt := m[propertyName]
-	if foundIt {
-		vSlice, ok := v.([]interface{})
-		if !ok {
-			err = fmt.Errorf("map property '%s' should be a slice of maps, each containing an instance of 'AddMembershipMultipleGroupsResponseGroupsItem'", propertyName)
-			return
-		}
-		slice, err = UnmarshalAddMembershipMultipleGroupsResponseGroupsItemSlice(vSlice)
-	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
 	return
 }
 
@@ -2014,66 +1791,18 @@ type DeleteFromAllGroupsResponse struct {
 }
 
 
-// UnmarshalDeleteFromAllGroupsResponse constructs an instance of DeleteFromAllGroupsResponse from the specified map.
-func UnmarshalDeleteFromAllGroupsResponse(m map[string]interface{}) (result *DeleteFromAllGroupsResponse, err error) {
+// UnmarshalDeleteFromAllGroupsResponse unmarshals an instance of DeleteFromAllGroupsResponse from the specified map of raw messages.
+func UnmarshalDeleteFromAllGroupsResponse(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(DeleteFromAllGroupsResponse)
-	obj.IamID, err = core.UnmarshalString(m, "iam_id")
+	err = core.UnmarshalPrimitive(m, "iam_id", &obj.IamID)
 	if err != nil {
 		return
 	}
-	obj.Groups, err = UnmarshalDeleteFromAllGroupsResponseGroupsItemSliceAsProperty(m, "groups")
+	err = core.UnmarshalModel(m, "groups", &obj.Groups, UnmarshalDeleteFromAllGroupsResponseGroupsItem)
 	if err != nil {
 		return
 	}
-	result = obj
-	return
-}
-
-// UnmarshalDeleteFromAllGroupsResponseSlice unmarshals a slice of DeleteFromAllGroupsResponse instances from the specified list of maps.
-func UnmarshalDeleteFromAllGroupsResponseSlice(s []interface{}) (slice []DeleteFromAllGroupsResponse, err error) {
-	for _, v := range s {
-		objMap, ok := v.(map[string]interface{})
-		if !ok {
-			err = fmt.Errorf("slice element should be a map containing an instance of 'DeleteFromAllGroupsResponse'")
-			return
-		}
-		obj, e := UnmarshalDeleteFromAllGroupsResponse(objMap)
-		if e != nil {
-			err = e
-			return
-		}
-		slice = append(slice, *obj)
-	}
-	return
-}
-
-// UnmarshalDeleteFromAllGroupsResponseAsProperty unmarshals an instance of DeleteFromAllGroupsResponse that is stored as a property
-// within the specified map.
-func UnmarshalDeleteFromAllGroupsResponseAsProperty(m map[string]interface{}, propertyName string) (result *DeleteFromAllGroupsResponse, err error) {
-	v, foundIt := m[propertyName]
-	if foundIt {
-		objMap, ok := v.(map[string]interface{})
-		if !ok {
-			err = fmt.Errorf("map property '%s' should be a map containing an instance of 'DeleteFromAllGroupsResponse'", propertyName)
-			return
-		}
-		result, err = UnmarshalDeleteFromAllGroupsResponse(objMap)
-	}
-	return
-}
-
-// UnmarshalDeleteFromAllGroupsResponseSliceAsProperty unmarshals a slice of DeleteFromAllGroupsResponse instances that are stored as a property
-// within the specified map.
-func UnmarshalDeleteFromAllGroupsResponseSliceAsProperty(m map[string]interface{}, propertyName string) (slice []DeleteFromAllGroupsResponse, err error) {
-	v, foundIt := m[propertyName]
-	if foundIt {
-		vSlice, ok := v.([]interface{})
-		if !ok {
-			err = fmt.Errorf("map property '%s' should be a slice of maps, each containing an instance of 'DeleteFromAllGroupsResponse'", propertyName)
-			return
-		}
-		slice, err = UnmarshalDeleteFromAllGroupsResponseSlice(vSlice)
-	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
 	return
 }
 
@@ -2093,74 +1822,26 @@ type DeleteFromAllGroupsResponseGroupsItem struct {
 }
 
 
-// UnmarshalDeleteFromAllGroupsResponseGroupsItem constructs an instance of DeleteFromAllGroupsResponseGroupsItem from the specified map.
-func UnmarshalDeleteFromAllGroupsResponseGroupsItem(m map[string]interface{}) (result *DeleteFromAllGroupsResponseGroupsItem, err error) {
+// UnmarshalDeleteFromAllGroupsResponseGroupsItem unmarshals an instance of DeleteFromAllGroupsResponseGroupsItem from the specified map of raw messages.
+func UnmarshalDeleteFromAllGroupsResponseGroupsItem(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(DeleteFromAllGroupsResponseGroupsItem)
-	obj.AccessGroupID, err = core.UnmarshalString(m, "access_group_id")
+	err = core.UnmarshalPrimitive(m, "access_group_id", &obj.AccessGroupID)
 	if err != nil {
 		return
 	}
-	obj.StatusCode, err = core.UnmarshalInt64(m, "status_code")
+	err = core.UnmarshalPrimitive(m, "status_code", &obj.StatusCode)
 	if err != nil {
 		return
 	}
-	obj.Trace, err = core.UnmarshalString(m, "trace")
+	err = core.UnmarshalPrimitive(m, "trace", &obj.Trace)
 	if err != nil {
 		return
 	}
-	obj.Errors, err = UnmarshalErrorSliceAsProperty(m, "errors")
+	err = core.UnmarshalModel(m, "errors", &obj.Errors, UnmarshalError)
 	if err != nil {
 		return
 	}
-	result = obj
-	return
-}
-
-// UnmarshalDeleteFromAllGroupsResponseGroupsItemSlice unmarshals a slice of DeleteFromAllGroupsResponseGroupsItem instances from the specified list of maps.
-func UnmarshalDeleteFromAllGroupsResponseGroupsItemSlice(s []interface{}) (slice []DeleteFromAllGroupsResponseGroupsItem, err error) {
-	for _, v := range s {
-		objMap, ok := v.(map[string]interface{})
-		if !ok {
-			err = fmt.Errorf("slice element should be a map containing an instance of 'DeleteFromAllGroupsResponseGroupsItem'")
-			return
-		}
-		obj, e := UnmarshalDeleteFromAllGroupsResponseGroupsItem(objMap)
-		if e != nil {
-			err = e
-			return
-		}
-		slice = append(slice, *obj)
-	}
-	return
-}
-
-// UnmarshalDeleteFromAllGroupsResponseGroupsItemAsProperty unmarshals an instance of DeleteFromAllGroupsResponseGroupsItem that is stored as a property
-// within the specified map.
-func UnmarshalDeleteFromAllGroupsResponseGroupsItemAsProperty(m map[string]interface{}, propertyName string) (result *DeleteFromAllGroupsResponseGroupsItem, err error) {
-	v, foundIt := m[propertyName]
-	if foundIt {
-		objMap, ok := v.(map[string]interface{})
-		if !ok {
-			err = fmt.Errorf("map property '%s' should be a map containing an instance of 'DeleteFromAllGroupsResponseGroupsItem'", propertyName)
-			return
-		}
-		result, err = UnmarshalDeleteFromAllGroupsResponseGroupsItem(objMap)
-	}
-	return
-}
-
-// UnmarshalDeleteFromAllGroupsResponseGroupsItemSliceAsProperty unmarshals a slice of DeleteFromAllGroupsResponseGroupsItem instances that are stored as a property
-// within the specified map.
-func UnmarshalDeleteFromAllGroupsResponseGroupsItemSliceAsProperty(m map[string]interface{}, propertyName string) (slice []DeleteFromAllGroupsResponseGroupsItem, err error) {
-	v, foundIt := m[propertyName]
-	if foundIt {
-		vSlice, ok := v.([]interface{})
-		if !ok {
-			err = fmt.Errorf("map property '%s' should be a slice of maps, each containing an instance of 'DeleteFromAllGroupsResponseGroupsItem'", propertyName)
-			return
-		}
-		slice, err = UnmarshalDeleteFromAllGroupsResponseGroupsItemSlice(vSlice)
-	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
 	return
 }
 
@@ -2174,66 +1855,18 @@ type DeleteGroupBulkMembersResponse struct {
 }
 
 
-// UnmarshalDeleteGroupBulkMembersResponse constructs an instance of DeleteGroupBulkMembersResponse from the specified map.
-func UnmarshalDeleteGroupBulkMembersResponse(m map[string]interface{}) (result *DeleteGroupBulkMembersResponse, err error) {
+// UnmarshalDeleteGroupBulkMembersResponse unmarshals an instance of DeleteGroupBulkMembersResponse from the specified map of raw messages.
+func UnmarshalDeleteGroupBulkMembersResponse(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(DeleteGroupBulkMembersResponse)
-	obj.AccessGroupID, err = core.UnmarshalString(m, "access_group_id")
+	err = core.UnmarshalPrimitive(m, "access_group_id", &obj.AccessGroupID)
 	if err != nil {
 		return
 	}
-	obj.Members, err = UnmarshalDeleteGroupBulkMembersResponseMembersItemSliceAsProperty(m, "members")
+	err = core.UnmarshalModel(m, "members", &obj.Members, UnmarshalDeleteGroupBulkMembersResponseMembersItem)
 	if err != nil {
 		return
 	}
-	result = obj
-	return
-}
-
-// UnmarshalDeleteGroupBulkMembersResponseSlice unmarshals a slice of DeleteGroupBulkMembersResponse instances from the specified list of maps.
-func UnmarshalDeleteGroupBulkMembersResponseSlice(s []interface{}) (slice []DeleteGroupBulkMembersResponse, err error) {
-	for _, v := range s {
-		objMap, ok := v.(map[string]interface{})
-		if !ok {
-			err = fmt.Errorf("slice element should be a map containing an instance of 'DeleteGroupBulkMembersResponse'")
-			return
-		}
-		obj, e := UnmarshalDeleteGroupBulkMembersResponse(objMap)
-		if e != nil {
-			err = e
-			return
-		}
-		slice = append(slice, *obj)
-	}
-	return
-}
-
-// UnmarshalDeleteGroupBulkMembersResponseAsProperty unmarshals an instance of DeleteGroupBulkMembersResponse that is stored as a property
-// within the specified map.
-func UnmarshalDeleteGroupBulkMembersResponseAsProperty(m map[string]interface{}, propertyName string) (result *DeleteGroupBulkMembersResponse, err error) {
-	v, foundIt := m[propertyName]
-	if foundIt {
-		objMap, ok := v.(map[string]interface{})
-		if !ok {
-			err = fmt.Errorf("map property '%s' should be a map containing an instance of 'DeleteGroupBulkMembersResponse'", propertyName)
-			return
-		}
-		result, err = UnmarshalDeleteGroupBulkMembersResponse(objMap)
-	}
-	return
-}
-
-// UnmarshalDeleteGroupBulkMembersResponseSliceAsProperty unmarshals a slice of DeleteGroupBulkMembersResponse instances that are stored as a property
-// within the specified map.
-func UnmarshalDeleteGroupBulkMembersResponseSliceAsProperty(m map[string]interface{}, propertyName string) (slice []DeleteGroupBulkMembersResponse, err error) {
-	v, foundIt := m[propertyName]
-	if foundIt {
-		vSlice, ok := v.([]interface{})
-		if !ok {
-			err = fmt.Errorf("map property '%s' should be a slice of maps, each containing an instance of 'DeleteGroupBulkMembersResponse'", propertyName)
-			return
-		}
-		slice, err = UnmarshalDeleteGroupBulkMembersResponseSlice(vSlice)
-	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
 	return
 }
 
@@ -2253,74 +1886,26 @@ type DeleteGroupBulkMembersResponseMembersItem struct {
 }
 
 
-// UnmarshalDeleteGroupBulkMembersResponseMembersItem constructs an instance of DeleteGroupBulkMembersResponseMembersItem from the specified map.
-func UnmarshalDeleteGroupBulkMembersResponseMembersItem(m map[string]interface{}) (result *DeleteGroupBulkMembersResponseMembersItem, err error) {
+// UnmarshalDeleteGroupBulkMembersResponseMembersItem unmarshals an instance of DeleteGroupBulkMembersResponseMembersItem from the specified map of raw messages.
+func UnmarshalDeleteGroupBulkMembersResponseMembersItem(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(DeleteGroupBulkMembersResponseMembersItem)
-	obj.IamID, err = core.UnmarshalString(m, "iam_id")
+	err = core.UnmarshalPrimitive(m, "iam_id", &obj.IamID)
 	if err != nil {
 		return
 	}
-	obj.Trace, err = core.UnmarshalString(m, "trace")
+	err = core.UnmarshalPrimitive(m, "trace", &obj.Trace)
 	if err != nil {
 		return
 	}
-	obj.StatusCode, err = core.UnmarshalInt64(m, "status_code")
+	err = core.UnmarshalPrimitive(m, "status_code", &obj.StatusCode)
 	if err != nil {
 		return
 	}
-	obj.Errors, err = UnmarshalErrorSliceAsProperty(m, "errors")
+	err = core.UnmarshalModel(m, "errors", &obj.Errors, UnmarshalError)
 	if err != nil {
 		return
 	}
-	result = obj
-	return
-}
-
-// UnmarshalDeleteGroupBulkMembersResponseMembersItemSlice unmarshals a slice of DeleteGroupBulkMembersResponseMembersItem instances from the specified list of maps.
-func UnmarshalDeleteGroupBulkMembersResponseMembersItemSlice(s []interface{}) (slice []DeleteGroupBulkMembersResponseMembersItem, err error) {
-	for _, v := range s {
-		objMap, ok := v.(map[string]interface{})
-		if !ok {
-			err = fmt.Errorf("slice element should be a map containing an instance of 'DeleteGroupBulkMembersResponseMembersItem'")
-			return
-		}
-		obj, e := UnmarshalDeleteGroupBulkMembersResponseMembersItem(objMap)
-		if e != nil {
-			err = e
-			return
-		}
-		slice = append(slice, *obj)
-	}
-	return
-}
-
-// UnmarshalDeleteGroupBulkMembersResponseMembersItemAsProperty unmarshals an instance of DeleteGroupBulkMembersResponseMembersItem that is stored as a property
-// within the specified map.
-func UnmarshalDeleteGroupBulkMembersResponseMembersItemAsProperty(m map[string]interface{}, propertyName string) (result *DeleteGroupBulkMembersResponseMembersItem, err error) {
-	v, foundIt := m[propertyName]
-	if foundIt {
-		objMap, ok := v.(map[string]interface{})
-		if !ok {
-			err = fmt.Errorf("map property '%s' should be a map containing an instance of 'DeleteGroupBulkMembersResponseMembersItem'", propertyName)
-			return
-		}
-		result, err = UnmarshalDeleteGroupBulkMembersResponseMembersItem(objMap)
-	}
-	return
-}
-
-// UnmarshalDeleteGroupBulkMembersResponseMembersItemSliceAsProperty unmarshals a slice of DeleteGroupBulkMembersResponseMembersItem instances that are stored as a property
-// within the specified map.
-func UnmarshalDeleteGroupBulkMembersResponseMembersItemSliceAsProperty(m map[string]interface{}, propertyName string) (slice []DeleteGroupBulkMembersResponseMembersItem, err error) {
-	v, foundIt := m[propertyName]
-	if foundIt {
-		vSlice, ok := v.([]interface{})
-		if !ok {
-			err = fmt.Errorf("map property '%s' should be a slice of maps, each containing an instance of 'DeleteGroupBulkMembersResponseMembersItem'", propertyName)
-			return
-		}
-		slice, err = UnmarshalDeleteGroupBulkMembersResponseMembersItemSlice(vSlice)
-	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
 	return
 }
 
@@ -2336,66 +1921,18 @@ type Error struct {
 }
 
 
-// UnmarshalError constructs an instance of Error from the specified map.
-func UnmarshalError(m map[string]interface{}) (result *Error, err error) {
+// UnmarshalError unmarshals an instance of Error from the specified map of raw messages.
+func UnmarshalError(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(Error)
-	obj.Code, err = core.UnmarshalString(m, "code")
+	err = core.UnmarshalPrimitive(m, "code", &obj.Code)
 	if err != nil {
 		return
 	}
-	obj.Message, err = core.UnmarshalString(m, "message")
+	err = core.UnmarshalPrimitive(m, "message", &obj.Message)
 	if err != nil {
 		return
 	}
-	result = obj
-	return
-}
-
-// UnmarshalErrorSlice unmarshals a slice of Error instances from the specified list of maps.
-func UnmarshalErrorSlice(s []interface{}) (slice []Error, err error) {
-	for _, v := range s {
-		objMap, ok := v.(map[string]interface{})
-		if !ok {
-			err = fmt.Errorf("slice element should be a map containing an instance of 'Error'")
-			return
-		}
-		obj, e := UnmarshalError(objMap)
-		if e != nil {
-			err = e
-			return
-		}
-		slice = append(slice, *obj)
-	}
-	return
-}
-
-// UnmarshalErrorAsProperty unmarshals an instance of Error that is stored as a property
-// within the specified map.
-func UnmarshalErrorAsProperty(m map[string]interface{}, propertyName string) (result *Error, err error) {
-	v, foundIt := m[propertyName]
-	if foundIt {
-		objMap, ok := v.(map[string]interface{})
-		if !ok {
-			err = fmt.Errorf("map property '%s' should be a map containing an instance of 'Error'", propertyName)
-			return
-		}
-		result, err = UnmarshalError(objMap)
-	}
-	return
-}
-
-// UnmarshalErrorSliceAsProperty unmarshals a slice of Error instances that are stored as a property
-// within the specified map.
-func UnmarshalErrorSliceAsProperty(m map[string]interface{}, propertyName string) (slice []Error, err error) {
-	v, foundIt := m[propertyName]
-	if foundIt {
-		vSlice, ok := v.([]interface{})
-		if !ok {
-			err = fmt.Errorf("map property '%s' should be a slice of maps, each containing an instance of 'Error'", propertyName)
-			return
-		}
-		slice, err = UnmarshalErrorSlice(vSlice)
-	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
 	return
 }
 
@@ -2564,98 +2101,50 @@ type Group struct {
 }
 
 
-// UnmarshalGroup constructs an instance of Group from the specified map.
-func UnmarshalGroup(m map[string]interface{}) (result *Group, err error) {
+// UnmarshalGroup unmarshals an instance of Group from the specified map of raw messages.
+func UnmarshalGroup(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(Group)
-	obj.ID, err = core.UnmarshalString(m, "id")
+	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
 	if err != nil {
 		return
 	}
-	obj.Name, err = core.UnmarshalString(m, "name")
+	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
 	if err != nil {
 		return
 	}
-	obj.Description, err = core.UnmarshalString(m, "description")
+	err = core.UnmarshalPrimitive(m, "description", &obj.Description)
 	if err != nil {
 		return
 	}
-	obj.AccountID, err = core.UnmarshalString(m, "account_id")
+	err = core.UnmarshalPrimitive(m, "account_id", &obj.AccountID)
 	if err != nil {
 		return
 	}
-	obj.CreatedAt, err = core.UnmarshalString(m, "created_at")
+	err = core.UnmarshalPrimitive(m, "created_at", &obj.CreatedAt)
 	if err != nil {
 		return
 	}
-	obj.CreatedByID, err = core.UnmarshalString(m, "created_by_id")
+	err = core.UnmarshalPrimitive(m, "created_by_id", &obj.CreatedByID)
 	if err != nil {
 		return
 	}
-	obj.LastModifiedAt, err = core.UnmarshalString(m, "last_modified_at")
+	err = core.UnmarshalPrimitive(m, "last_modified_at", &obj.LastModifiedAt)
 	if err != nil {
 		return
 	}
-	obj.LastModifiedByID, err = core.UnmarshalString(m, "last_modified_by_id")
+	err = core.UnmarshalPrimitive(m, "last_modified_by_id", &obj.LastModifiedByID)
 	if err != nil {
 		return
 	}
-	obj.Href, err = core.UnmarshalString(m, "href")
+	err = core.UnmarshalPrimitive(m, "href", &obj.Href)
 	if err != nil {
 		return
 	}
-	obj.IsFederated, err = core.UnmarshalBool(m, "is_federated")
+	err = core.UnmarshalPrimitive(m, "is_federated", &obj.IsFederated)
 	if err != nil {
 		return
 	}
-	result = obj
-	return
-}
-
-// UnmarshalGroupSlice unmarshals a slice of Group instances from the specified list of maps.
-func UnmarshalGroupSlice(s []interface{}) (slice []Group, err error) {
-	for _, v := range s {
-		objMap, ok := v.(map[string]interface{})
-		if !ok {
-			err = fmt.Errorf("slice element should be a map containing an instance of 'Group'")
-			return
-		}
-		obj, e := UnmarshalGroup(objMap)
-		if e != nil {
-			err = e
-			return
-		}
-		slice = append(slice, *obj)
-	}
-	return
-}
-
-// UnmarshalGroupAsProperty unmarshals an instance of Group that is stored as a property
-// within the specified map.
-func UnmarshalGroupAsProperty(m map[string]interface{}, propertyName string) (result *Group, err error) {
-	v, foundIt := m[propertyName]
-	if foundIt {
-		objMap, ok := v.(map[string]interface{})
-		if !ok {
-			err = fmt.Errorf("map property '%s' should be a map containing an instance of 'Group'", propertyName)
-			return
-		}
-		result, err = UnmarshalGroup(objMap)
-	}
-	return
-}
-
-// UnmarshalGroupSliceAsProperty unmarshals a slice of Group instances that are stored as a property
-// within the specified map.
-func UnmarshalGroupSliceAsProperty(m map[string]interface{}, propertyName string) (slice []Group, err error) {
-	v, foundIt := m[propertyName]
-	if foundIt {
-		vSlice, ok := v.([]interface{})
-		if !ok {
-			err = fmt.Errorf("map property '%s' should be a slice of maps, each containing an instance of 'Group'", propertyName)
-			return
-		}
-		slice, err = UnmarshalGroupSlice(vSlice)
-	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
 	return
 }
 
@@ -2687,90 +2176,42 @@ type GroupMembersList struct {
 }
 
 
-// UnmarshalGroupMembersList constructs an instance of GroupMembersList from the specified map.
-func UnmarshalGroupMembersList(m map[string]interface{}) (result *GroupMembersList, err error) {
+// UnmarshalGroupMembersList unmarshals an instance of GroupMembersList from the specified map of raw messages.
+func UnmarshalGroupMembersList(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(GroupMembersList)
-	obj.Limit, err = core.UnmarshalInt64(m, "limit")
+	err = core.UnmarshalPrimitive(m, "limit", &obj.Limit)
 	if err != nil {
 		return
 	}
-	obj.Offset, err = core.UnmarshalInt64(m, "offset")
+	err = core.UnmarshalPrimitive(m, "offset", &obj.Offset)
 	if err != nil {
 		return
 	}
-	obj.TotalCount, err = core.UnmarshalInt64(m, "total_count")
+	err = core.UnmarshalPrimitive(m, "total_count", &obj.TotalCount)
 	if err != nil {
 		return
 	}
-	obj.First, err = UnmarshalHrefStructAsProperty(m, "first")
+	err = core.UnmarshalModel(m, "first", &obj.First, UnmarshalHrefStruct)
 	if err != nil {
 		return
 	}
-	obj.Previous, err = UnmarshalHrefStructAsProperty(m, "previous")
+	err = core.UnmarshalModel(m, "previous", &obj.Previous, UnmarshalHrefStruct)
 	if err != nil {
 		return
 	}
-	obj.Next, err = UnmarshalHrefStructAsProperty(m, "next")
+	err = core.UnmarshalModel(m, "next", &obj.Next, UnmarshalHrefStruct)
 	if err != nil {
 		return
 	}
-	obj.Last, err = UnmarshalHrefStructAsProperty(m, "last")
+	err = core.UnmarshalModel(m, "last", &obj.Last, UnmarshalHrefStruct)
 	if err != nil {
 		return
 	}
-	obj.Members, err = UnmarshalListGroupMembersResponseMemberSliceAsProperty(m, "members")
+	err = core.UnmarshalModel(m, "members", &obj.Members, UnmarshalListGroupMembersResponseMember)
 	if err != nil {
 		return
 	}
-	result = obj
-	return
-}
-
-// UnmarshalGroupMembersListSlice unmarshals a slice of GroupMembersList instances from the specified list of maps.
-func UnmarshalGroupMembersListSlice(s []interface{}) (slice []GroupMembersList, err error) {
-	for _, v := range s {
-		objMap, ok := v.(map[string]interface{})
-		if !ok {
-			err = fmt.Errorf("slice element should be a map containing an instance of 'GroupMembersList'")
-			return
-		}
-		obj, e := UnmarshalGroupMembersList(objMap)
-		if e != nil {
-			err = e
-			return
-		}
-		slice = append(slice, *obj)
-	}
-	return
-}
-
-// UnmarshalGroupMembersListAsProperty unmarshals an instance of GroupMembersList that is stored as a property
-// within the specified map.
-func UnmarshalGroupMembersListAsProperty(m map[string]interface{}, propertyName string) (result *GroupMembersList, err error) {
-	v, foundIt := m[propertyName]
-	if foundIt {
-		objMap, ok := v.(map[string]interface{})
-		if !ok {
-			err = fmt.Errorf("map property '%s' should be a map containing an instance of 'GroupMembersList'", propertyName)
-			return
-		}
-		result, err = UnmarshalGroupMembersList(objMap)
-	}
-	return
-}
-
-// UnmarshalGroupMembersListSliceAsProperty unmarshals a slice of GroupMembersList instances that are stored as a property
-// within the specified map.
-func UnmarshalGroupMembersListSliceAsProperty(m map[string]interface{}, propertyName string) (slice []GroupMembersList, err error) {
-	v, foundIt := m[propertyName]
-	if foundIt {
-		vSlice, ok := v.([]interface{})
-		if !ok {
-			err = fmt.Errorf("map property '%s' should be a slice of maps, each containing an instance of 'GroupMembersList'", propertyName)
-			return
-		}
-		slice, err = UnmarshalGroupMembersListSlice(vSlice)
-	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
 	return
 }
 
@@ -2802,90 +2243,42 @@ type GroupsList struct {
 }
 
 
-// UnmarshalGroupsList constructs an instance of GroupsList from the specified map.
-func UnmarshalGroupsList(m map[string]interface{}) (result *GroupsList, err error) {
+// UnmarshalGroupsList unmarshals an instance of GroupsList from the specified map of raw messages.
+func UnmarshalGroupsList(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(GroupsList)
-	obj.Limit, err = core.UnmarshalInt64(m, "limit")
+	err = core.UnmarshalPrimitive(m, "limit", &obj.Limit)
 	if err != nil {
 		return
 	}
-	obj.Offset, err = core.UnmarshalInt64(m, "offset")
+	err = core.UnmarshalPrimitive(m, "offset", &obj.Offset)
 	if err != nil {
 		return
 	}
-	obj.TotalCount, err = core.UnmarshalInt64(m, "total_count")
+	err = core.UnmarshalPrimitive(m, "total_count", &obj.TotalCount)
 	if err != nil {
 		return
 	}
-	obj.First, err = UnmarshalHrefStructAsProperty(m, "first")
+	err = core.UnmarshalModel(m, "first", &obj.First, UnmarshalHrefStruct)
 	if err != nil {
 		return
 	}
-	obj.Previous, err = UnmarshalHrefStructAsProperty(m, "previous")
+	err = core.UnmarshalModel(m, "previous", &obj.Previous, UnmarshalHrefStruct)
 	if err != nil {
 		return
 	}
-	obj.Next, err = UnmarshalHrefStructAsProperty(m, "next")
+	err = core.UnmarshalModel(m, "next", &obj.Next, UnmarshalHrefStruct)
 	if err != nil {
 		return
 	}
-	obj.Last, err = UnmarshalHrefStructAsProperty(m, "last")
+	err = core.UnmarshalModel(m, "last", &obj.Last, UnmarshalHrefStruct)
 	if err != nil {
 		return
 	}
-	obj.Groups, err = UnmarshalGroupSliceAsProperty(m, "groups")
+	err = core.UnmarshalModel(m, "groups", &obj.Groups, UnmarshalGroup)
 	if err != nil {
 		return
 	}
-	result = obj
-	return
-}
-
-// UnmarshalGroupsListSlice unmarshals a slice of GroupsList instances from the specified list of maps.
-func UnmarshalGroupsListSlice(s []interface{}) (slice []GroupsList, err error) {
-	for _, v := range s {
-		objMap, ok := v.(map[string]interface{})
-		if !ok {
-			err = fmt.Errorf("slice element should be a map containing an instance of 'GroupsList'")
-			return
-		}
-		obj, e := UnmarshalGroupsList(objMap)
-		if e != nil {
-			err = e
-			return
-		}
-		slice = append(slice, *obj)
-	}
-	return
-}
-
-// UnmarshalGroupsListAsProperty unmarshals an instance of GroupsList that is stored as a property
-// within the specified map.
-func UnmarshalGroupsListAsProperty(m map[string]interface{}, propertyName string) (result *GroupsList, err error) {
-	v, foundIt := m[propertyName]
-	if foundIt {
-		objMap, ok := v.(map[string]interface{})
-		if !ok {
-			err = fmt.Errorf("map property '%s' should be a map containing an instance of 'GroupsList'", propertyName)
-			return
-		}
-		result, err = UnmarshalGroupsList(objMap)
-	}
-	return
-}
-
-// UnmarshalGroupsListSliceAsProperty unmarshals a slice of GroupsList instances that are stored as a property
-// within the specified map.
-func UnmarshalGroupsListSliceAsProperty(m map[string]interface{}, propertyName string) (slice []GroupsList, err error) {
-	v, foundIt := m[propertyName]
-	if foundIt {
-		vSlice, ok := v.([]interface{})
-		if !ok {
-			err = fmt.Errorf("map property '%s' should be a slice of maps, each containing an instance of 'GroupsList'", propertyName)
-			return
-		}
-		slice, err = UnmarshalGroupsListSlice(vSlice)
-	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
 	return
 }
 
@@ -2896,62 +2289,14 @@ type HrefStruct struct {
 }
 
 
-// UnmarshalHrefStruct constructs an instance of HrefStruct from the specified map.
-func UnmarshalHrefStruct(m map[string]interface{}) (result *HrefStruct, err error) {
+// UnmarshalHrefStruct unmarshals an instance of HrefStruct from the specified map of raw messages.
+func UnmarshalHrefStruct(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(HrefStruct)
-	obj.Href, err = core.UnmarshalString(m, "href")
+	err = core.UnmarshalPrimitive(m, "href", &obj.Href)
 	if err != nil {
 		return
 	}
-	result = obj
-	return
-}
-
-// UnmarshalHrefStructSlice unmarshals a slice of HrefStruct instances from the specified list of maps.
-func UnmarshalHrefStructSlice(s []interface{}) (slice []HrefStruct, err error) {
-	for _, v := range s {
-		objMap, ok := v.(map[string]interface{})
-		if !ok {
-			err = fmt.Errorf("slice element should be a map containing an instance of 'HrefStruct'")
-			return
-		}
-		obj, e := UnmarshalHrefStruct(objMap)
-		if e != nil {
-			err = e
-			return
-		}
-		slice = append(slice, *obj)
-	}
-	return
-}
-
-// UnmarshalHrefStructAsProperty unmarshals an instance of HrefStruct that is stored as a property
-// within the specified map.
-func UnmarshalHrefStructAsProperty(m map[string]interface{}, propertyName string) (result *HrefStruct, err error) {
-	v, foundIt := m[propertyName]
-	if foundIt {
-		objMap, ok := v.(map[string]interface{})
-		if !ok {
-			err = fmt.Errorf("map property '%s' should be a map containing an instance of 'HrefStruct'", propertyName)
-			return
-		}
-		result, err = UnmarshalHrefStruct(objMap)
-	}
-	return
-}
-
-// UnmarshalHrefStructSliceAsProperty unmarshals a slice of HrefStruct instances that are stored as a property
-// within the specified map.
-func UnmarshalHrefStructSliceAsProperty(m map[string]interface{}, propertyName string) (slice []HrefStruct, err error) {
-	v, foundIt := m[propertyName]
-	if foundIt {
-		vSlice, ok := v.([]interface{})
-		if !ok {
-			err = fmt.Errorf("map property '%s' should be a slice of maps, each containing an instance of 'HrefStruct'", propertyName)
-			return
-		}
-		slice, err = UnmarshalHrefStructSlice(vSlice)
-	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
 	return
 }
 
@@ -3241,90 +2586,42 @@ type ListGroupMembersResponseMember struct {
 }
 
 
-// UnmarshalListGroupMembersResponseMember constructs an instance of ListGroupMembersResponseMember from the specified map.
-func UnmarshalListGroupMembersResponseMember(m map[string]interface{}) (result *ListGroupMembersResponseMember, err error) {
+// UnmarshalListGroupMembersResponseMember unmarshals an instance of ListGroupMembersResponseMember from the specified map of raw messages.
+func UnmarshalListGroupMembersResponseMember(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(ListGroupMembersResponseMember)
-	obj.IamID, err = core.UnmarshalString(m, "iam_id")
+	err = core.UnmarshalPrimitive(m, "iam_id", &obj.IamID)
 	if err != nil {
 		return
 	}
-	obj.Type, err = core.UnmarshalString(m, "type")
+	err = core.UnmarshalPrimitive(m, "type", &obj.Type)
 	if err != nil {
 		return
 	}
-	obj.Name, err = core.UnmarshalString(m, "name")
+	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
 	if err != nil {
 		return
 	}
-	obj.Email, err = core.UnmarshalString(m, "email")
+	err = core.UnmarshalPrimitive(m, "email", &obj.Email)
 	if err != nil {
 		return
 	}
-	obj.Description, err = core.UnmarshalString(m, "description")
+	err = core.UnmarshalPrimitive(m, "description", &obj.Description)
 	if err != nil {
 		return
 	}
-	obj.Href, err = core.UnmarshalString(m, "href")
+	err = core.UnmarshalPrimitive(m, "href", &obj.Href)
 	if err != nil {
 		return
 	}
-	obj.CreatedAt, err = core.UnmarshalString(m, "created_at")
+	err = core.UnmarshalPrimitive(m, "created_at", &obj.CreatedAt)
 	if err != nil {
 		return
 	}
-	obj.CreatedByID, err = core.UnmarshalString(m, "created_by_id")
+	err = core.UnmarshalPrimitive(m, "created_by_id", &obj.CreatedByID)
 	if err != nil {
 		return
 	}
-	result = obj
-	return
-}
-
-// UnmarshalListGroupMembersResponseMemberSlice unmarshals a slice of ListGroupMembersResponseMember instances from the specified list of maps.
-func UnmarshalListGroupMembersResponseMemberSlice(s []interface{}) (slice []ListGroupMembersResponseMember, err error) {
-	for _, v := range s {
-		objMap, ok := v.(map[string]interface{})
-		if !ok {
-			err = fmt.Errorf("slice element should be a map containing an instance of 'ListGroupMembersResponseMember'")
-			return
-		}
-		obj, e := UnmarshalListGroupMembersResponseMember(objMap)
-		if e != nil {
-			err = e
-			return
-		}
-		slice = append(slice, *obj)
-	}
-	return
-}
-
-// UnmarshalListGroupMembersResponseMemberAsProperty unmarshals an instance of ListGroupMembersResponseMember that is stored as a property
-// within the specified map.
-func UnmarshalListGroupMembersResponseMemberAsProperty(m map[string]interface{}, propertyName string) (result *ListGroupMembersResponseMember, err error) {
-	v, foundIt := m[propertyName]
-	if foundIt {
-		objMap, ok := v.(map[string]interface{})
-		if !ok {
-			err = fmt.Errorf("map property '%s' should be a map containing an instance of 'ListGroupMembersResponseMember'", propertyName)
-			return
-		}
-		result, err = UnmarshalListGroupMembersResponseMember(objMap)
-	}
-	return
-}
-
-// UnmarshalListGroupMembersResponseMemberSliceAsProperty unmarshals a slice of ListGroupMembersResponseMember instances that are stored as a property
-// within the specified map.
-func UnmarshalListGroupMembersResponseMemberSliceAsProperty(m map[string]interface{}, propertyName string) (slice []ListGroupMembersResponseMember, err error) {
-	v, foundIt := m[propertyName]
-	if foundIt {
-		vSlice, ok := v.([]interface{})
-		if !ok {
-			err = fmt.Errorf("map property '%s' should be a slice of maps, each containing an instance of 'ListGroupMembersResponseMember'", propertyName)
-			return
-		}
-		slice, err = UnmarshalListGroupMembersResponseMemberSlice(vSlice)
-	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
 	return
 }
 
@@ -3648,102 +2945,54 @@ type Rule struct {
 }
 
 
-// UnmarshalRule constructs an instance of Rule from the specified map.
-func UnmarshalRule(m map[string]interface{}) (result *Rule, err error) {
+// UnmarshalRule unmarshals an instance of Rule from the specified map of raw messages.
+func UnmarshalRule(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(Rule)
-	obj.ID, err = core.UnmarshalString(m, "id")
+	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
 	if err != nil {
 		return
 	}
-	obj.Name, err = core.UnmarshalString(m, "name")
+	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
 	if err != nil {
 		return
 	}
-	obj.Expiration, err = core.UnmarshalInt64(m, "expiration")
+	err = core.UnmarshalPrimitive(m, "expiration", &obj.Expiration)
 	if err != nil {
 		return
 	}
-	obj.RealmName, err = core.UnmarshalString(m, "realm_name")
+	err = core.UnmarshalPrimitive(m, "realm_name", &obj.RealmName)
 	if err != nil {
 		return
 	}
-	obj.AccessGroupID, err = core.UnmarshalString(m, "access_group_id")
+	err = core.UnmarshalPrimitive(m, "access_group_id", &obj.AccessGroupID)
 	if err != nil {
 		return
 	}
-	obj.AccountID, err = core.UnmarshalString(m, "account_id")
+	err = core.UnmarshalPrimitive(m, "account_id", &obj.AccountID)
 	if err != nil {
 		return
 	}
-	obj.Conditions, err = UnmarshalRuleConditionsSliceAsProperty(m, "conditions")
+	err = core.UnmarshalModel(m, "conditions", &obj.Conditions, UnmarshalRuleConditions)
 	if err != nil {
 		return
 	}
-	obj.CreatedAt, err = core.UnmarshalString(m, "created_at")
+	err = core.UnmarshalPrimitive(m, "created_at", &obj.CreatedAt)
 	if err != nil {
 		return
 	}
-	obj.CreatedByID, err = core.UnmarshalString(m, "created_by_id")
+	err = core.UnmarshalPrimitive(m, "created_by_id", &obj.CreatedByID)
 	if err != nil {
 		return
 	}
-	obj.LastModifiedAt, err = core.UnmarshalString(m, "last_modified_at")
+	err = core.UnmarshalPrimitive(m, "last_modified_at", &obj.LastModifiedAt)
 	if err != nil {
 		return
 	}
-	obj.LastModifiedByID, err = core.UnmarshalString(m, "last_modified_by_id")
+	err = core.UnmarshalPrimitive(m, "last_modified_by_id", &obj.LastModifiedByID)
 	if err != nil {
 		return
 	}
-	result = obj
-	return
-}
-
-// UnmarshalRuleSlice unmarshals a slice of Rule instances from the specified list of maps.
-func UnmarshalRuleSlice(s []interface{}) (slice []Rule, err error) {
-	for _, v := range s {
-		objMap, ok := v.(map[string]interface{})
-		if !ok {
-			err = fmt.Errorf("slice element should be a map containing an instance of 'Rule'")
-			return
-		}
-		obj, e := UnmarshalRule(objMap)
-		if e != nil {
-			err = e
-			return
-		}
-		slice = append(slice, *obj)
-	}
-	return
-}
-
-// UnmarshalRuleAsProperty unmarshals an instance of Rule that is stored as a property
-// within the specified map.
-func UnmarshalRuleAsProperty(m map[string]interface{}, propertyName string) (result *Rule, err error) {
-	v, foundIt := m[propertyName]
-	if foundIt {
-		objMap, ok := v.(map[string]interface{})
-		if !ok {
-			err = fmt.Errorf("map property '%s' should be a map containing an instance of 'Rule'", propertyName)
-			return
-		}
-		result, err = UnmarshalRule(objMap)
-	}
-	return
-}
-
-// UnmarshalRuleSliceAsProperty unmarshals a slice of Rule instances that are stored as a property
-// within the specified map.
-func UnmarshalRuleSliceAsProperty(m map[string]interface{}, propertyName string) (slice []Rule, err error) {
-	v, foundIt := m[propertyName]
-	if foundIt {
-		vSlice, ok := v.([]interface{})
-		if !ok {
-			err = fmt.Errorf("map property '%s' should be a slice of maps, each containing an instance of 'Rule'", propertyName)
-			return
-		}
-		slice, err = UnmarshalRuleSlice(vSlice)
-	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
 	return
 }
 
@@ -3772,70 +3021,22 @@ func (*IamAccessGroupsV2) NewRuleConditions(claim string, operator string, value
 	return
 }
 
-// UnmarshalRuleConditions constructs an instance of RuleConditions from the specified map.
-func UnmarshalRuleConditions(m map[string]interface{}) (result *RuleConditions, err error) {
+// UnmarshalRuleConditions unmarshals an instance of RuleConditions from the specified map of raw messages.
+func UnmarshalRuleConditions(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(RuleConditions)
-	obj.Claim, err = core.UnmarshalString(m, "claim")
+	err = core.UnmarshalPrimitive(m, "claim", &obj.Claim)
 	if err != nil {
 		return
 	}
-	obj.Operator, err = core.UnmarshalString(m, "operator")
+	err = core.UnmarshalPrimitive(m, "operator", &obj.Operator)
 	if err != nil {
 		return
 	}
-	obj.Value, err = core.UnmarshalString(m, "value")
+	err = core.UnmarshalPrimitive(m, "value", &obj.Value)
 	if err != nil {
 		return
 	}
-	result = obj
-	return
-}
-
-// UnmarshalRuleConditionsSlice unmarshals a slice of RuleConditions instances from the specified list of maps.
-func UnmarshalRuleConditionsSlice(s []interface{}) (slice []RuleConditions, err error) {
-	for _, v := range s {
-		objMap, ok := v.(map[string]interface{})
-		if !ok {
-			err = fmt.Errorf("slice element should be a map containing an instance of 'RuleConditions'")
-			return
-		}
-		obj, e := UnmarshalRuleConditions(objMap)
-		if e != nil {
-			err = e
-			return
-		}
-		slice = append(slice, *obj)
-	}
-	return
-}
-
-// UnmarshalRuleConditionsAsProperty unmarshals an instance of RuleConditions that is stored as a property
-// within the specified map.
-func UnmarshalRuleConditionsAsProperty(m map[string]interface{}, propertyName string) (result *RuleConditions, err error) {
-	v, foundIt := m[propertyName]
-	if foundIt {
-		objMap, ok := v.(map[string]interface{})
-		if !ok {
-			err = fmt.Errorf("map property '%s' should be a map containing an instance of 'RuleConditions'", propertyName)
-			return
-		}
-		result, err = UnmarshalRuleConditions(objMap)
-	}
-	return
-}
-
-// UnmarshalRuleConditionsSliceAsProperty unmarshals a slice of RuleConditions instances that are stored as a property
-// within the specified map.
-func UnmarshalRuleConditionsSliceAsProperty(m map[string]interface{}, propertyName string) (slice []RuleConditions, err error) {
-	v, foundIt := m[propertyName]
-	if foundIt {
-		vSlice, ok := v.([]interface{})
-		if !ok {
-			err = fmt.Errorf("map property '%s' should be a slice of maps, each containing an instance of 'RuleConditions'", propertyName)
-			return
-		}
-		slice, err = UnmarshalRuleConditionsSlice(vSlice)
-	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
 	return
 }
 
@@ -3846,62 +3047,14 @@ type RulesList struct {
 }
 
 
-// UnmarshalRulesList constructs an instance of RulesList from the specified map.
-func UnmarshalRulesList(m map[string]interface{}) (result *RulesList, err error) {
+// UnmarshalRulesList unmarshals an instance of RulesList from the specified map of raw messages.
+func UnmarshalRulesList(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(RulesList)
-	obj.Rules, err = UnmarshalRuleSliceAsProperty(m, "rules")
+	err = core.UnmarshalModel(m, "rules", &obj.Rules, UnmarshalRule)
 	if err != nil {
 		return
 	}
-	result = obj
-	return
-}
-
-// UnmarshalRulesListSlice unmarshals a slice of RulesList instances from the specified list of maps.
-func UnmarshalRulesListSlice(s []interface{}) (slice []RulesList, err error) {
-	for _, v := range s {
-		objMap, ok := v.(map[string]interface{})
-		if !ok {
-			err = fmt.Errorf("slice element should be a map containing an instance of 'RulesList'")
-			return
-		}
-		obj, e := UnmarshalRulesList(objMap)
-		if e != nil {
-			err = e
-			return
-		}
-		slice = append(slice, *obj)
-	}
-	return
-}
-
-// UnmarshalRulesListAsProperty unmarshals an instance of RulesList that is stored as a property
-// within the specified map.
-func UnmarshalRulesListAsProperty(m map[string]interface{}, propertyName string) (result *RulesList, err error) {
-	v, foundIt := m[propertyName]
-	if foundIt {
-		objMap, ok := v.(map[string]interface{})
-		if !ok {
-			err = fmt.Errorf("map property '%s' should be a map containing an instance of 'RulesList'", propertyName)
-			return
-		}
-		result, err = UnmarshalRulesList(objMap)
-	}
-	return
-}
-
-// UnmarshalRulesListSliceAsProperty unmarshals a slice of RulesList instances that are stored as a property
-// within the specified map.
-func UnmarshalRulesListSliceAsProperty(m map[string]interface{}, propertyName string) (slice []RulesList, err error) {
-	v, foundIt := m[propertyName]
-	if foundIt {
-		vSlice, ok := v.([]interface{})
-		if !ok {
-			err = fmt.Errorf("map property '%s' should be a slice of maps, each containing an instance of 'RulesList'", propertyName)
-			return
-		}
-		slice, err = UnmarshalRulesListSlice(vSlice)
-	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
 	return
 }
 

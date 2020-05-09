@@ -19,12 +19,16 @@
 package iamaccessgroupsv2_test
 
 import (
+	"fmt"
+	"math/rand"
 	"os"
+	"strconv"
+	"time"
 
-	"github.com/joho/godotenv"
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
 
+	"github.com/IBM/go-sdk-core/v4/core"
 	"github.com/IBM/platform-services-go-sdk/iamaccessgroupsv2"
 )
 
@@ -33,20 +37,21 @@ const externalConfigFile = "../iam_access_groups.env"
 var (
 	service *iamaccessgroupsv2.IamAccessGroupsV2
 	err     error
+	config  map[string]string
+	configLoaded bool   = false
 
 	testAccountID        string
 	testGroupName        string = "SDK Test Group - Golang"
 	testGroupDescription string = "This group is used for integration test purposes. It can be deleted at any time."
 	testGroupEtag        string
 	testGroupID          string
-	testUserID           string = "IBMid-1234"
+	testUserID           string = "IBMid-" + strconv.Itoa(rand.Intn(100000))
 	testClaimRuleID      string
 	testClaimRuleEtag    string
 	testAccountSettings  *iamaccessgroupsv2.AccountSettings
 
 	userType     string = "user"
 	etagHeader   string = "Etag"
-	configLoaded bool   = false
 )
 
 func shouldSkipTest() {
@@ -57,9 +62,14 @@ func shouldSkipTest() {
 
 var _ = Describe("IAM Access Groups - Integration Tests", func() {
 	It("Successfully load the configuration", func() {
-		err = godotenv.Load(externalConfigFile)
+		err = os.Setenv("IBM_CREDENTIALS_FILE", externalConfigFile)
+		if err != nil {
+			Skip("Could not set IBM_CREDENTIALS_FILE environment variable: " + err.Error())
+		}
+		
+		config, err = core.GetServiceProperties(iamaccessgroupsv2.DefaultServiceName)
 		if err == nil {
-			testAccountID = os.Getenv("IAM_ACCESS_GROUPS_TEST_ACCOUNT_ID")
+			testAccountID = config["TEST_ACCOUNT_ID"]
 			if testAccountID != "" {
 				configLoaded = true
 			}
@@ -415,13 +425,24 @@ var _ = AfterSuite(func() {
 	// iterate across the groups
 	for _, group := range result.Groups {
 
-		// force delete each test group
+		// force delete the test group (or any test groups older than 5 minutes)
 		if *group.Name == testGroupName {
-			options := service.NewDeleteAccessGroupOptions(*group.ID)
-			options.SetForce(true)
-			detailedResponse, err := service.DeleteAccessGroup(options)
-			Expect(err).To(BeNil())
-			Expect(detailedResponse.StatusCode).To(Equal(204))
+
+			createdAt, err := time.Parse(time.RFC3339, *group.CreatedAt)
+			if err != nil {
+				fmt.Printf("time.Parse error occurred: %v", err)
+				fmt.Printf("Cleanup of group (%v) failed", *group.ID)
+				continue
+			}
+			fiveMinutesAgo := time.Now().Add(-(time.Duration(5) * time.Minute))
+
+			if *group.ID == testGroupID || createdAt.Before(fiveMinutesAgo) {
+				options := service.NewDeleteAccessGroupOptions(*group.ID)
+				options.SetForce(true)
+				detailedResponse, err := service.DeleteAccessGroup(options)
+				Expect(err).To(BeNil())
+				Expect(detailedResponse.StatusCode).To(Equal(204))
+			}
 		}
 	}
 })
