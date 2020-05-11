@@ -134,320 +134,6 @@ var _ = Describe(`ResourceManagerV2`, func() {
 			})
 		})
 	})
-	Describe(`ListQuotaDefinitions(listQuotaDefinitionsOptions *ListQuotaDefinitionsOptions) - Operation response error`, func() {
-		listQuotaDefinitionsPath := "/quota_definitions"
-		Context(`Using mock server endpoint`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-			 		defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.Path).To(Equal(listQuotaDefinitionsPath))
-					Expect(req.Method).To(Equal("GET"))
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(200)
-					fmt.Fprintf(res, `} this is not valid json {`)
-				}))
-			})
-			It(`Invoke ListQuotaDefinitions with error: Operation response processing error`, func() {
-				testService, testServiceErr := resourcemanagerv2.NewResourceManagerV2(&resourcemanagerv2.ResourceManagerV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(testServiceErr).To(BeNil())
-				Expect(testService).ToNot(BeNil())
-
-				// Construct an instance of the ListQuotaDefinitionsOptions model
-				listQuotaDefinitionsOptionsModel := new(resourcemanagerv2.ListQuotaDefinitionsOptions)
-				listQuotaDefinitionsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-				// Expect response parsing to fail since we are receiving a text/plain response
-				result, response, operationErr := testService.ListQuotaDefinitions(listQuotaDefinitionsOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-	})
-
-	Describe(`ListQuotaDefinitions(listQuotaDefinitionsOptions *ListQuotaDefinitionsOptions)`, func() {
-		listQuotaDefinitionsPath := "/quota_definitions"
-		Context(`Using mock server endpoint`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.Path).To(Equal(listQuotaDefinitionsPath))
-					Expect(req.Method).To(Equal("GET"))
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(200)
-					fmt.Fprintf(res, `{"resources": [{"id": "ID", "name": "Name", "type": "Type", "number_of_apps": 12, "number_of_service_instances": 24, "default_number_of_instances_per_lite_plan": 35, "instances_per_app": 15, "instance_memory": "InstanceMemory", "total_app_memory": "TotalAppMemory", "vsi_limit": 8, "resource_quotas": {"_id": "ID", "resource_id": "ResourceID", "crn": "Crn", "limit": 5}, "created_at": "2019-01-01T12:00:00", "updated_at": "2019-01-01T12:00:00"}]}`)
-				}))
-			})
-			It(`Invoke ListQuotaDefinitions successfully`, func() {
-				testService, testServiceErr := resourcemanagerv2.NewResourceManagerV2(&resourcemanagerv2.ResourceManagerV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(testServiceErr).To(BeNil())
-				Expect(testService).ToNot(BeNil())
-
-				// Invoke operation with nil options model (negative test)
-				result, response, operationErr := testService.ListQuotaDefinitions(nil)
-				Expect(operationErr).NotTo(BeNil())
-				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-
-				// Construct an instance of the ListQuotaDefinitionsOptions model
-				listQuotaDefinitionsOptionsModel := new(resourcemanagerv2.ListQuotaDefinitionsOptions)
- 				listQuotaDefinitionsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation with valid options model (positive test)
-				result, response, operationErr = testService.ListQuotaDefinitions(listQuotaDefinitionsOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).ToNot(BeNil())
-			})
-			It(`Invoke ListQuotaDefinitions with error: Operation request error`, func() {
-				testService, testServiceErr := resourcemanagerv2.NewResourceManagerV2(&resourcemanagerv2.ResourceManagerV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(testServiceErr).To(BeNil())
-				Expect(testService).ToNot(BeNil())
-
-				// Construct an instance of the ListQuotaDefinitionsOptions model
-				listQuotaDefinitionsOptionsModel := new(resourcemanagerv2.ListQuotaDefinitionsOptions)
-				listQuotaDefinitionsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-				// Invoke operation with empty URL (negative test)
-				err := testService.SetServiceURL("")
-				Expect(err).To(BeNil())
-				result, response, operationErr := testService.ListQuotaDefinitions(listQuotaDefinitionsOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
-				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-	})
-	Describe(`GetQuotaDefinition(getQuotaDefinitionOptions *GetQuotaDefinitionOptions) - Operation response error`, func() {
-		getQuotaDefinitionPath := "/quota_definitions/testString"
-		Context(`Using mock server endpoint`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-			 		defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.Path).To(Equal(getQuotaDefinitionPath))
-					Expect(req.Method).To(Equal("GET"))
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(200)
-					fmt.Fprintf(res, `} this is not valid json {`)
-				}))
-			})
-			It(`Invoke GetQuotaDefinition with error: Operation response processing error`, func() {
-				testService, testServiceErr := resourcemanagerv2.NewResourceManagerV2(&resourcemanagerv2.ResourceManagerV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(testServiceErr).To(BeNil())
-				Expect(testService).ToNot(BeNil())
-
-				// Construct an instance of the GetQuotaDefinitionOptions model
-				getQuotaDefinitionOptionsModel := new(resourcemanagerv2.GetQuotaDefinitionOptions)
-				getQuotaDefinitionOptionsModel.ID = core.StringPtr("testString")
-				getQuotaDefinitionOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-				// Expect response parsing to fail since we are receiving a text/plain response
-				result, response, operationErr := testService.GetQuotaDefinition(getQuotaDefinitionOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-	})
-
-	Describe(`GetQuotaDefinition(getQuotaDefinitionOptions *GetQuotaDefinitionOptions)`, func() {
-		getQuotaDefinitionPath := "/quota_definitions/testString"
-		Context(`Using mock server endpoint`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.Path).To(Equal(getQuotaDefinitionPath))
-					Expect(req.Method).To(Equal("GET"))
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(200)
-					fmt.Fprintf(res, `{"id": "ID", "name": "Name", "type": "Type", "number_of_apps": 12, "number_of_service_instances": 24, "default_number_of_instances_per_lite_plan": 35, "instances_per_app": 15, "instance_memory": "InstanceMemory", "total_app_memory": "TotalAppMemory", "vsi_limit": 8, "resource_quotas": {"_id": "ID", "resource_id": "ResourceID", "crn": "Crn", "limit": 5}, "created_at": "2019-01-01T12:00:00", "updated_at": "2019-01-01T12:00:00"}`)
-				}))
-			})
-			It(`Invoke GetQuotaDefinition successfully`, func() {
-				testService, testServiceErr := resourcemanagerv2.NewResourceManagerV2(&resourcemanagerv2.ResourceManagerV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(testServiceErr).To(BeNil())
-				Expect(testService).ToNot(BeNil())
-
-				// Invoke operation with nil options model (negative test)
-				result, response, operationErr := testService.GetQuotaDefinition(nil)
-				Expect(operationErr).NotTo(BeNil())
-				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-
-				// Construct an instance of the GetQuotaDefinitionOptions model
-				getQuotaDefinitionOptionsModel := new(resourcemanagerv2.GetQuotaDefinitionOptions)
-				getQuotaDefinitionOptionsModel.ID = core.StringPtr("testString")
- 				getQuotaDefinitionOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation with valid options model (positive test)
-				result, response, operationErr = testService.GetQuotaDefinition(getQuotaDefinitionOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).ToNot(BeNil())
-			})
-			It(`Invoke GetQuotaDefinition with error: Operation validation and request error`, func() {
-				testService, testServiceErr := resourcemanagerv2.NewResourceManagerV2(&resourcemanagerv2.ResourceManagerV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(testServiceErr).To(BeNil())
-				Expect(testService).ToNot(BeNil())
-
-				// Construct an instance of the GetQuotaDefinitionOptions model
-				getQuotaDefinitionOptionsModel := new(resourcemanagerv2.GetQuotaDefinitionOptions)
-				getQuotaDefinitionOptionsModel.ID = core.StringPtr("testString")
-				getQuotaDefinitionOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-				// Invoke operation with empty URL (negative test)
-				err := testService.SetServiceURL("")
-				Expect(err).To(BeNil())
-				result, response, operationErr := testService.GetQuotaDefinition(getQuotaDefinitionOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
-				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-				// Construct a second instance of the GetQuotaDefinitionOptions model with no property values
-				getQuotaDefinitionOptionsModelNew := new(resourcemanagerv2.GetQuotaDefinitionOptions)
-				// Invoke operation with invalid model (negative test)
-				result, response, operationErr = testService.GetQuotaDefinition(getQuotaDefinitionOptionsModelNew)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-	})
-    Describe(`Service constructor tests`, func() {
-		It(`Instantiate service client`, func() {
-			testService, testServiceErr := resourcemanagerv2.NewResourceManagerV2(&resourcemanagerv2.ResourceManagerV2Options{
-				Authenticator: &core.NoAuthAuthenticator{},
-			})
-			Expect(testService).ToNot(BeNil())
-			Expect(testServiceErr).To(BeNil())
-		})
-		It(`Instantiate service client with error: Invalid URL`, func() {
-			testService, testServiceErr := resourcemanagerv2.NewResourceManagerV2(&resourcemanagerv2.ResourceManagerV2Options{
-				URL: "{BAD_URL_STRING",
-			})
-			Expect(testService).To(BeNil())
-			Expect(testServiceErr).ToNot(BeNil())
-		})
-		It(`Instantiate service client with error: Invalid Auth`, func() {
-			testService, testServiceErr := resourcemanagerv2.NewResourceManagerV2(&resourcemanagerv2.ResourceManagerV2Options{
-				URL: "https://resourcemanagerv2/api",
-				Authenticator: &core.BasicAuthenticator{
-					Username: "",
-					Password: "",
-				},
-			})
-			Expect(testService).To(BeNil())
-			Expect(testServiceErr).ToNot(BeNil())
-		})
-	})
-	Describe(`Service constructor tests using external config`, func() {
-		Context(`Using external config, construct service client instances`, func() {
-			// Map containing environment variables used in testing.
-			var testEnvironment = map[string]string{
-				"RESOURCE_MANAGER_URL": "https://resourcemanagerv2/api",
-				"RESOURCE_MANAGER_AUTH_TYPE": "noauth",
-			}
-
-			It(`Create service client using external config successfully`, func() {
-				SetTestEnvironment(testEnvironment)
-				testService, testServiceErr := resourcemanagerv2.NewResourceManagerV2UsingExternalConfig(&resourcemanagerv2.ResourceManagerV2Options{
-				})
-				Expect(testService).ToNot(BeNil())
-				Expect(testServiceErr).To(BeNil())
-				ClearTestEnvironment(testEnvironment)
-			})
-			It(`Create service client using external config and set url from constructor successfully`, func() {
-				SetTestEnvironment(testEnvironment)
-				testService, testServiceErr := resourcemanagerv2.NewResourceManagerV2UsingExternalConfig(&resourcemanagerv2.ResourceManagerV2Options{
-					URL: "https://testService/api",
-				})
-				Expect(testService).ToNot(BeNil())
-				Expect(testServiceErr).To(BeNil())
-				Expect(testService.Service.GetServiceURL()).To(Equal("https://testService/api"))
-				ClearTestEnvironment(testEnvironment)
-			})
-			It(`Create service client using external config and set url programatically successfully`, func() {
-				SetTestEnvironment(testEnvironment)
-				testService, testServiceErr := resourcemanagerv2.NewResourceManagerV2UsingExternalConfig(&resourcemanagerv2.ResourceManagerV2Options{
-				})
-				err := testService.SetServiceURL("https://testService/api")
-				Expect(err).To(BeNil())
-				Expect(testService).ToNot(BeNil())
-				Expect(testServiceErr).To(BeNil())
-				Expect(testService.Service.GetServiceURL()).To(Equal("https://testService/api"))
-				ClearTestEnvironment(testEnvironment)
-			})
-		})
-		Context(`Using external config, construct service client instances with error: Invalid Auth`, func() {
-			// Map containing environment variables used in testing.
-			var testEnvironment = map[string]string{
-				"RESOURCE_MANAGER_URL": "https://resourcemanagerv2/api",
-				"RESOURCE_MANAGER_AUTH_TYPE": "someOtherAuth",
-			}
-
-			SetTestEnvironment(testEnvironment)
-			testService, testServiceErr := resourcemanagerv2.NewResourceManagerV2UsingExternalConfig(&resourcemanagerv2.ResourceManagerV2Options{
-			})
-
-			It(`Instantiate service client with error`, func() {
-				Expect(testService).To(BeNil())
-				Expect(testServiceErr).ToNot(BeNil())
-				ClearTestEnvironment(testEnvironment)
-			})
-		})
-		Context(`Using external config, construct service client instances with error: Invalid URL`, func() {
-			// Map containing environment variables used in testing.
-			var testEnvironment = map[string]string{
-				"RESOURCE_MANAGER_AUTH_TYPE":   "NOAuth",
-			}
-
-			SetTestEnvironment(testEnvironment)
-			testService, testServiceErr := resourcemanagerv2.NewResourceManagerV2UsingExternalConfig(&resourcemanagerv2.ResourceManagerV2Options{
-				URL: "{BAD_URL_STRING",
-			})
-
-			It(`Instantiate service client with error`, func() {
-				Expect(testService).To(BeNil())
-				Expect(testServiceErr).ToNot(BeNil())
-				ClearTestEnvironment(testEnvironment)
-			})
-		})
-	})
 	Describe(`ListResourceGroups(listResourceGroupsOptions *ListResourceGroupsOptions) - Operation response error`, func() {
 		listResourceGroupsPath := "/resource_groups"
 		Context(`Using mock server endpoint`, func() {
@@ -459,6 +145,8 @@ var _ = Describe(`ResourceManagerV2`, func() {
 					Expect(req.URL.Path).To(Equal(listResourceGroupsPath))
 					Expect(req.Method).To(Equal("GET"))
 					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"testString"}))
+
+					Expect(req.URL.Query()["date"]).To(Equal([]string{"testString"}))
 
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
@@ -476,6 +164,7 @@ var _ = Describe(`ResourceManagerV2`, func() {
 				// Construct an instance of the ListResourceGroupsOptions model
 				listResourceGroupsOptionsModel := new(resourcemanagerv2.ListResourceGroupsOptions)
 				listResourceGroupsOptionsModel.AccountID = core.StringPtr("testString")
+				listResourceGroupsOptionsModel.Date = core.StringPtr("testString")
 				listResourceGroupsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
 				result, response, operationErr := testService.ListResourceGroups(listResourceGroupsOptionsModel)
@@ -501,6 +190,8 @@ var _ = Describe(`ResourceManagerV2`, func() {
 					Expect(req.Method).To(Equal("GET"))
 					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"testString"}))
 
+					Expect(req.URL.Query()["date"]).To(Equal([]string{"testString"}))
+
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
 					fmt.Fprintf(res, `{"resources": [{"id": "ID", "crn": "Crn", "account_id": "AccountID", "name": "Name", "state": "State", "default": false, "quota_id": "QuotaID", "quota_url": "QuotaURL", "payment_methods_url": "PaymentMethodsURL", "resource_linkages": [{"anyKey": "anyValue"}], "teams_url": "TeamsURL", "created_at": "2019-01-01T12:00:00", "updated_at": "2019-01-01T12:00:00"}]}`)
@@ -523,6 +214,7 @@ var _ = Describe(`ResourceManagerV2`, func() {
 				// Construct an instance of the ListResourceGroupsOptions model
 				listResourceGroupsOptionsModel := new(resourcemanagerv2.ListResourceGroupsOptions)
 				listResourceGroupsOptionsModel.AccountID = core.StringPtr("testString")
+				listResourceGroupsOptionsModel.Date = core.StringPtr("testString")
  				listResourceGroupsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
@@ -542,6 +234,7 @@ var _ = Describe(`ResourceManagerV2`, func() {
 				// Construct an instance of the ListResourceGroupsOptions model
 				listResourceGroupsOptionsModel := new(resourcemanagerv2.ListResourceGroupsOptions)
 				listResourceGroupsOptionsModel.AccountID = core.StringPtr("testString")
+				listResourceGroupsOptionsModel.Date = core.StringPtr("testString")
 				listResourceGroupsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := testService.SetServiceURL("")
@@ -963,6 +656,320 @@ var _ = Describe(`ResourceManagerV2`, func() {
 			})
 		})
 	})
+    Describe(`Service constructor tests`, func() {
+		It(`Instantiate service client`, func() {
+			testService, testServiceErr := resourcemanagerv2.NewResourceManagerV2(&resourcemanagerv2.ResourceManagerV2Options{
+				Authenticator: &core.NoAuthAuthenticator{},
+			})
+			Expect(testService).ToNot(BeNil())
+			Expect(testServiceErr).To(BeNil())
+		})
+		It(`Instantiate service client with error: Invalid URL`, func() {
+			testService, testServiceErr := resourcemanagerv2.NewResourceManagerV2(&resourcemanagerv2.ResourceManagerV2Options{
+				URL: "{BAD_URL_STRING",
+			})
+			Expect(testService).To(BeNil())
+			Expect(testServiceErr).ToNot(BeNil())
+		})
+		It(`Instantiate service client with error: Invalid Auth`, func() {
+			testService, testServiceErr := resourcemanagerv2.NewResourceManagerV2(&resourcemanagerv2.ResourceManagerV2Options{
+				URL: "https://resourcemanagerv2/api",
+				Authenticator: &core.BasicAuthenticator{
+					Username: "",
+					Password: "",
+				},
+			})
+			Expect(testService).To(BeNil())
+			Expect(testServiceErr).ToNot(BeNil())
+		})
+	})
+	Describe(`Service constructor tests using external config`, func() {
+		Context(`Using external config, construct service client instances`, func() {
+			// Map containing environment variables used in testing.
+			var testEnvironment = map[string]string{
+				"RESOURCE_MANAGER_URL": "https://resourcemanagerv2/api",
+				"RESOURCE_MANAGER_AUTH_TYPE": "noauth",
+			}
+
+			It(`Create service client using external config successfully`, func() {
+				SetTestEnvironment(testEnvironment)
+				testService, testServiceErr := resourcemanagerv2.NewResourceManagerV2UsingExternalConfig(&resourcemanagerv2.ResourceManagerV2Options{
+				})
+				Expect(testService).ToNot(BeNil())
+				Expect(testServiceErr).To(BeNil())
+				ClearTestEnvironment(testEnvironment)
+			})
+			It(`Create service client using external config and set url from constructor successfully`, func() {
+				SetTestEnvironment(testEnvironment)
+				testService, testServiceErr := resourcemanagerv2.NewResourceManagerV2UsingExternalConfig(&resourcemanagerv2.ResourceManagerV2Options{
+					URL: "https://testService/api",
+				})
+				Expect(testService).ToNot(BeNil())
+				Expect(testServiceErr).To(BeNil())
+				Expect(testService.Service.GetServiceURL()).To(Equal("https://testService/api"))
+				ClearTestEnvironment(testEnvironment)
+			})
+			It(`Create service client using external config and set url programatically successfully`, func() {
+				SetTestEnvironment(testEnvironment)
+				testService, testServiceErr := resourcemanagerv2.NewResourceManagerV2UsingExternalConfig(&resourcemanagerv2.ResourceManagerV2Options{
+				})
+				err := testService.SetServiceURL("https://testService/api")
+				Expect(err).To(BeNil())
+				Expect(testService).ToNot(BeNil())
+				Expect(testServiceErr).To(BeNil())
+				Expect(testService.Service.GetServiceURL()).To(Equal("https://testService/api"))
+				ClearTestEnvironment(testEnvironment)
+			})
+		})
+		Context(`Using external config, construct service client instances with error: Invalid Auth`, func() {
+			// Map containing environment variables used in testing.
+			var testEnvironment = map[string]string{
+				"RESOURCE_MANAGER_URL": "https://resourcemanagerv2/api",
+				"RESOURCE_MANAGER_AUTH_TYPE": "someOtherAuth",
+			}
+
+			SetTestEnvironment(testEnvironment)
+			testService, testServiceErr := resourcemanagerv2.NewResourceManagerV2UsingExternalConfig(&resourcemanagerv2.ResourceManagerV2Options{
+			})
+
+			It(`Instantiate service client with error`, func() {
+				Expect(testService).To(BeNil())
+				Expect(testServiceErr).ToNot(BeNil())
+				ClearTestEnvironment(testEnvironment)
+			})
+		})
+		Context(`Using external config, construct service client instances with error: Invalid URL`, func() {
+			// Map containing environment variables used in testing.
+			var testEnvironment = map[string]string{
+				"RESOURCE_MANAGER_AUTH_TYPE":   "NOAuth",
+			}
+
+			SetTestEnvironment(testEnvironment)
+			testService, testServiceErr := resourcemanagerv2.NewResourceManagerV2UsingExternalConfig(&resourcemanagerv2.ResourceManagerV2Options{
+				URL: "{BAD_URL_STRING",
+			})
+
+			It(`Instantiate service client with error`, func() {
+				Expect(testService).To(BeNil())
+				Expect(testServiceErr).ToNot(BeNil())
+				ClearTestEnvironment(testEnvironment)
+			})
+		})
+	})
+	Describe(`ListQuotaDefinitions(listQuotaDefinitionsOptions *ListQuotaDefinitionsOptions) - Operation response error`, func() {
+		listQuotaDefinitionsPath := "/quota_definitions"
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+			 		defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.Path).To(Equal(listQuotaDefinitionsPath))
+					Expect(req.Method).To(Equal("GET"))
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, `} this is not valid json {`)
+				}))
+			})
+			It(`Invoke ListQuotaDefinitions with error: Operation response processing error`, func() {
+				testService, testServiceErr := resourcemanagerv2.NewResourceManagerV2(&resourcemanagerv2.ResourceManagerV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(testServiceErr).To(BeNil())
+				Expect(testService).ToNot(BeNil())
+
+				// Construct an instance of the ListQuotaDefinitionsOptions model
+				listQuotaDefinitionsOptionsModel := new(resourcemanagerv2.ListQuotaDefinitionsOptions)
+				listQuotaDefinitionsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Expect response parsing to fail since we are receiving a text/plain response
+				result, response, operationErr := testService.ListQuotaDefinitions(listQuotaDefinitionsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+
+	Describe(`ListQuotaDefinitions(listQuotaDefinitionsOptions *ListQuotaDefinitionsOptions)`, func() {
+		listQuotaDefinitionsPath := "/quota_definitions"
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.Path).To(Equal(listQuotaDefinitionsPath))
+					Expect(req.Method).To(Equal("GET"))
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, `{"resources": [{"id": "ID", "name": "Name", "type": "Type", "number_of_apps": 12, "number_of_service_instances": 24, "default_number_of_instances_per_lite_plan": 35, "instances_per_app": 15, "instance_memory": "InstanceMemory", "total_app_memory": "TotalAppMemory", "vsi_limit": 8, "resource_quotas": [{"_id": "ID", "resource_id": "ResourceID", "crn": "Crn", "limit": 5}], "created_at": "2019-01-01T12:00:00", "updated_at": "2019-01-01T12:00:00"}]}`)
+				}))
+			})
+			It(`Invoke ListQuotaDefinitions successfully`, func() {
+				testService, testServiceErr := resourcemanagerv2.NewResourceManagerV2(&resourcemanagerv2.ResourceManagerV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(testServiceErr).To(BeNil())
+				Expect(testService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				result, response, operationErr := testService.ListQuotaDefinitions(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+
+				// Construct an instance of the ListQuotaDefinitionsOptions model
+				listQuotaDefinitionsOptionsModel := new(resourcemanagerv2.ListQuotaDefinitionsOptions)
+ 				listQuotaDefinitionsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				result, response, operationErr = testService.ListQuotaDefinitions(listQuotaDefinitionsOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+			})
+			It(`Invoke ListQuotaDefinitions with error: Operation request error`, func() {
+				testService, testServiceErr := resourcemanagerv2.NewResourceManagerV2(&resourcemanagerv2.ResourceManagerV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(testServiceErr).To(BeNil())
+				Expect(testService).ToNot(BeNil())
+
+				// Construct an instance of the ListQuotaDefinitionsOptions model
+				listQuotaDefinitionsOptionsModel := new(resourcemanagerv2.ListQuotaDefinitionsOptions)
+				listQuotaDefinitionsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := testService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				result, response, operationErr := testService.ListQuotaDefinitions(listQuotaDefinitionsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`GetQuotaDefinition(getQuotaDefinitionOptions *GetQuotaDefinitionOptions) - Operation response error`, func() {
+		getQuotaDefinitionPath := "/quota_definitions/testString"
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+			 		defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.Path).To(Equal(getQuotaDefinitionPath))
+					Expect(req.Method).To(Equal("GET"))
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, `} this is not valid json {`)
+				}))
+			})
+			It(`Invoke GetQuotaDefinition with error: Operation response processing error`, func() {
+				testService, testServiceErr := resourcemanagerv2.NewResourceManagerV2(&resourcemanagerv2.ResourceManagerV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(testServiceErr).To(BeNil())
+				Expect(testService).ToNot(BeNil())
+
+				// Construct an instance of the GetQuotaDefinitionOptions model
+				getQuotaDefinitionOptionsModel := new(resourcemanagerv2.GetQuotaDefinitionOptions)
+				getQuotaDefinitionOptionsModel.ID = core.StringPtr("testString")
+				getQuotaDefinitionOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Expect response parsing to fail since we are receiving a text/plain response
+				result, response, operationErr := testService.GetQuotaDefinition(getQuotaDefinitionOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+
+	Describe(`GetQuotaDefinition(getQuotaDefinitionOptions *GetQuotaDefinitionOptions)`, func() {
+		getQuotaDefinitionPath := "/quota_definitions/testString"
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.Path).To(Equal(getQuotaDefinitionPath))
+					Expect(req.Method).To(Equal("GET"))
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, `{"id": "ID", "name": "Name", "type": "Type", "number_of_apps": 12, "number_of_service_instances": 24, "default_number_of_instances_per_lite_plan": 35, "instances_per_app": 15, "instance_memory": "InstanceMemory", "total_app_memory": "TotalAppMemory", "vsi_limit": 8, "resource_quotas": [{"_id": "ID", "resource_id": "ResourceID", "crn": "Crn", "limit": 5}], "created_at": "2019-01-01T12:00:00", "updated_at": "2019-01-01T12:00:00"}`)
+				}))
+			})
+			It(`Invoke GetQuotaDefinition successfully`, func() {
+				testService, testServiceErr := resourcemanagerv2.NewResourceManagerV2(&resourcemanagerv2.ResourceManagerV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(testServiceErr).To(BeNil())
+				Expect(testService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				result, response, operationErr := testService.GetQuotaDefinition(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+
+				// Construct an instance of the GetQuotaDefinitionOptions model
+				getQuotaDefinitionOptionsModel := new(resourcemanagerv2.GetQuotaDefinitionOptions)
+				getQuotaDefinitionOptionsModel.ID = core.StringPtr("testString")
+ 				getQuotaDefinitionOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				result, response, operationErr = testService.GetQuotaDefinition(getQuotaDefinitionOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+			})
+			It(`Invoke GetQuotaDefinition with error: Operation validation and request error`, func() {
+				testService, testServiceErr := resourcemanagerv2.NewResourceManagerV2(&resourcemanagerv2.ResourceManagerV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(testServiceErr).To(BeNil())
+				Expect(testService).ToNot(BeNil())
+
+				// Construct an instance of the GetQuotaDefinitionOptions model
+				getQuotaDefinitionOptionsModel := new(resourcemanagerv2.GetQuotaDefinitionOptions)
+				getQuotaDefinitionOptionsModel.ID = core.StringPtr("testString")
+				getQuotaDefinitionOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := testService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				result, response, operationErr := testService.GetQuotaDefinition(getQuotaDefinitionOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+				// Construct a second instance of the GetQuotaDefinitionOptions model with no property values
+				getQuotaDefinitionOptionsModelNew := new(resourcemanagerv2.GetQuotaDefinitionOptions)
+				// Invoke operation with invalid model (negative test)
+				result, response, operationErr = testService.GetQuotaDefinition(getQuotaDefinitionOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
 	Describe(`Model constructor tests`, func() {
 		Context(`Using a service client instance`, func() {
 			testService, _ := resourcemanagerv2.NewResourceManagerV2(&resourcemanagerv2.ResourceManagerV2Options{
@@ -1021,9 +1028,11 @@ var _ = Describe(`ResourceManagerV2`, func() {
 				// Construct an instance of the ListResourceGroupsOptions model
 				listResourceGroupsOptionsModel := testService.NewListResourceGroupsOptions()
 				listResourceGroupsOptionsModel.SetAccountID("testString")
+				listResourceGroupsOptionsModel.SetDate("testString")
 				listResourceGroupsOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(listResourceGroupsOptionsModel).ToNot(BeNil())
 				Expect(listResourceGroupsOptionsModel.AccountID).To(Equal(core.StringPtr("testString")))
+				Expect(listResourceGroupsOptionsModel.Date).To(Equal(core.StringPtr("testString")))
 				Expect(listResourceGroupsOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewUpdateResourceGroupOptions successfully`, func() {

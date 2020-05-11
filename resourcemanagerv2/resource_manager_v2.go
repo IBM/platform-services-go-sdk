@@ -34,7 +34,7 @@ type ResourceManagerV2 struct {
 }
 
 // DefaultServiceURL is the default URL to make service requests to.
-const DefaultServiceURL = "https://resource-controller.cloud.ibm.com"
+const DefaultServiceURL = "https://resource-controller.cloud.ibm.com/v2"
 
 // DefaultServiceName is the default key used to find external configuration information.
 const DefaultServiceName = "resource_manager"
@@ -106,102 +106,6 @@ func (resourceManager *ResourceManagerV2) SetServiceURL(url string) error {
 	return resourceManager.Service.SetServiceURL(url)
 }
 
-// ListQuotaDefinitions : Get a list of all quota definitions
-// Get a list of all quota definitions.
-func (resourceManager *ResourceManagerV2) ListQuotaDefinitions(listQuotaDefinitionsOptions *ListQuotaDefinitionsOptions) (result *QuotaDefinitionList, response *core.DetailedResponse, err error) {
-	err = core.ValidateStruct(listQuotaDefinitionsOptions, "listQuotaDefinitionsOptions")
-	if err != nil {
-		return
-	}
-
-	pathSegments := []string{"quota_definitions"}
-	pathParameters := []string{}
-
-	builder := core.NewRequestBuilder(core.GET)
-	_, err = builder.ConstructHTTPURL(resourceManager.Service.Options.URL, pathSegments, pathParameters)
-	if err != nil {
-		return
-	}
-
-	for headerName, headerValue := range listQuotaDefinitionsOptions.Headers {
-		builder.AddHeader(headerName, headerValue)
-	}
-
-	sdkHeaders := common.GetSdkHeaders("resource_manager", "V2", "ListQuotaDefinitions")
-	for headerName, headerValue := range sdkHeaders {
-		builder.AddHeader(headerName, headerValue)
-	}
-	builder.AddHeader("Accept", "application/json")
-
-	request, err := builder.Build()
-	if err != nil {
-		return
-	}
-
-	var rawResponse map[string]json.RawMessage
-	response, err = resourceManager.Service.Request(request, &rawResponse)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalQuotaDefinitionList)
-	if err != nil {
-		return
-	}
-	response.Result = result
-
-	return
-}
-
-// GetQuotaDefinition : Get a quota definition
-// Get a quota definition.
-func (resourceManager *ResourceManagerV2) GetQuotaDefinition(getQuotaDefinitionOptions *GetQuotaDefinitionOptions) (result *QuotaDefinition, response *core.DetailedResponse, err error) {
-	err = core.ValidateNotNil(getQuotaDefinitionOptions, "getQuotaDefinitionOptions cannot be nil")
-	if err != nil {
-		return
-	}
-	err = core.ValidateStruct(getQuotaDefinitionOptions, "getQuotaDefinitionOptions")
-	if err != nil {
-		return
-	}
-
-	pathSegments := []string{"quota_definitions"}
-	pathParameters := []string{*getQuotaDefinitionOptions.ID}
-
-	builder := core.NewRequestBuilder(core.GET)
-	_, err = builder.ConstructHTTPURL(resourceManager.Service.Options.URL, pathSegments, pathParameters)
-	if err != nil {
-		return
-	}
-
-	for headerName, headerValue := range getQuotaDefinitionOptions.Headers {
-		builder.AddHeader(headerName, headerValue)
-	}
-
-	sdkHeaders := common.GetSdkHeaders("resource_manager", "V2", "GetQuotaDefinition")
-	for headerName, headerValue := range sdkHeaders {
-		builder.AddHeader(headerName, headerValue)
-	}
-	builder.AddHeader("Accept", "application/json")
-
-	request, err := builder.Build()
-	if err != nil {
-		return
-	}
-
-	var rawResponse map[string]json.RawMessage
-	response, err = resourceManager.Service.Request(request, &rawResponse)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalQuotaDefinition)
-	if err != nil {
-		return
-	}
-	response.Result = result
-
-	return
-}
-
 // ListResourceGroups : Get a list of all resource groups
 // Get a list of all resource groups in an account.
 func (resourceManager *ResourceManagerV2) ListResourceGroups(listResourceGroupsOptions *ListResourceGroupsOptions) (result *ResourceGroupList, response *core.DetailedResponse, err error) {
@@ -231,6 +135,9 @@ func (resourceManager *ResourceManagerV2) ListResourceGroups(listResourceGroupsO
 
 	if listResourceGroupsOptions.AccountID != nil {
 		builder.AddQuery("account_id", fmt.Sprint(*listResourceGroupsOptions.AccountID))
+	}
+	if listResourceGroupsOptions.Date != nil {
+		builder.AddQuery("date", fmt.Sprint(*listResourceGroupsOptions.Date))
 	}
 
 	request, err := builder.Build()
@@ -464,6 +371,102 @@ func (resourceManager *ResourceManagerV2) DeleteResourceGroup(deleteResourceGrou
 	return
 }
 
+// ListQuotaDefinitions : List quota definitions
+// Get a list of all quota definitions.
+func (resourceManager *ResourceManagerV2) ListQuotaDefinitions(listQuotaDefinitionsOptions *ListQuotaDefinitionsOptions) (result *QuotaDefinitionList, response *core.DetailedResponse, err error) {
+	err = core.ValidateStruct(listQuotaDefinitionsOptions, "listQuotaDefinitionsOptions")
+	if err != nil {
+		return
+	}
+
+	pathSegments := []string{"quota_definitions"}
+	pathParameters := []string{}
+
+	builder := core.NewRequestBuilder(core.GET)
+	_, err = builder.ConstructHTTPURL(resourceManager.Service.Options.URL, pathSegments, pathParameters)
+	if err != nil {
+		return
+	}
+
+	for headerName, headerValue := range listQuotaDefinitionsOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("resource_manager", "V2", "ListQuotaDefinitions")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Accept", "application/json")
+
+	request, err := builder.Build()
+	if err != nil {
+		return
+	}
+
+	var rawResponse map[string]json.RawMessage
+	response, err = resourceManager.Service.Request(request, &rawResponse)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalQuotaDefinitionList)
+	if err != nil {
+		return
+	}
+	response.Result = result
+
+	return
+}
+
+// GetQuotaDefinition : Get a quota definition
+// Get a a quota definition.
+func (resourceManager *ResourceManagerV2) GetQuotaDefinition(getQuotaDefinitionOptions *GetQuotaDefinitionOptions) (result *QuotaDefinition, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(getQuotaDefinitionOptions, "getQuotaDefinitionOptions cannot be nil")
+	if err != nil {
+		return
+	}
+	err = core.ValidateStruct(getQuotaDefinitionOptions, "getQuotaDefinitionOptions")
+	if err != nil {
+		return
+	}
+
+	pathSegments := []string{"quota_definitions"}
+	pathParameters := []string{*getQuotaDefinitionOptions.ID}
+
+	builder := core.NewRequestBuilder(core.GET)
+	_, err = builder.ConstructHTTPURL(resourceManager.Service.Options.URL, pathSegments, pathParameters)
+	if err != nil {
+		return
+	}
+
+	for headerName, headerValue := range getQuotaDefinitionOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("resource_manager", "V2", "GetQuotaDefinition")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Accept", "application/json")
+
+	request, err := builder.Build()
+	if err != nil {
+		return
+	}
+
+	var rawResponse map[string]json.RawMessage
+	response, err = resourceManager.Service.Request(request, &rawResponse)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalQuotaDefinition)
+	if err != nil {
+		return
+	}
+	response.Result = result
+
+	return
+}
+
 // CreateResourceGroupOptions : The CreateResourceGroup options.
 type CreateResourceGroupOptions struct {
 	// The new name of the resource group.
@@ -606,6 +609,9 @@ type ListResourceGroupsOptions struct {
 	// The ID of the account that contains the resource groups that you want to get.
 	AccountID *string `json:"account_id,omitempty"`
 
+	// The date would be in a format of YYYY-MM which returns resource groups exclude the deleted ones before this month.
+	Date *string `json:"date,omitempty"`
+
 	// Allows users to set headers on API requests
 	Headers map[string]string
 }
@@ -618,6 +624,12 @@ func (*ResourceManagerV2) NewListResourceGroupsOptions() *ListResourceGroupsOpti
 // SetAccountID : Allow user to set AccountID
 func (options *ListResourceGroupsOptions) SetAccountID(accountID string) *ListResourceGroupsOptions {
 	options.AccountID = core.StringPtr(accountID)
+	return options
+}
+
+// SetDate : Allow user to set Date
+func (options *ListResourceGroupsOptions) SetDate(date string) *ListResourceGroupsOptions {
+	options.Date = core.StringPtr(date)
 	return options
 }
 
@@ -659,8 +671,8 @@ type QuotaDefinition struct {
 	// The VSI limit.
 	VsiLimit *float64 `json:"vsi_limit,omitempty"`
 
-	// A resource quota.
-	ResourceQuotas *ResourceQuota `json:"resource_quotas,omitempty"`
+	// The resource quotas associated with a quota definition.
+	ResourceQuotas []ResourceQuota `json:"resource_quotas,omitempty"`
 
 	// The date when the quota was initially created.
 	CreatedAt *strfmt.DateTime `json:"created_at,omitempty"`
