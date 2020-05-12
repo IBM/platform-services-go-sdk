@@ -19,9 +19,10 @@ package resourcemanagerv2_test
 
 import (
 	"github.com/IBM/platform-services-go-sdk/resourcemanagerv2"
-	"github.com/joho/godotenv"
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
+
+	"os"
 )
 
 const externalConfigFile = "../resource_manager.env"
@@ -44,7 +45,7 @@ func shouldSkipTest() {
 
 var _ = Describe("Resource Manager - Integration Tests", func() {
 	It("Successfully load the configuration", func() {
-		err = godotenv.Load(externalConfigFile)
+		err = os.Setenv("IBM_CREDENTIALS_FILE", externalConfigFile)
 		if err == nil {
 			configLoaded = true
 		}
