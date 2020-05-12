@@ -45,9 +45,12 @@ func shouldSkipTest() {
 
 var _ = Describe("Resource Manager - Integration Tests", func() {
 	It("Successfully load the configuration", func() {
-		err = os.Setenv("IBM_CREDENTIALS_FILE", externalConfigFile)
+		_, err = os.Stat(externalConfigFile)
 		if err == nil {
-			configLoaded = true
+			err = os.Setenv("IBM_CREDENTIALS_FILE", externalConfigFile)
+			if err == nil {
+				configLoaded = true
+			}
 		}
 		if !configLoaded {
 			Skip("External configuration could not be loaded, skipping...")
