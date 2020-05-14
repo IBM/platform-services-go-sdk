@@ -494,7 +494,7 @@ func (caseManagement *CaseManagementV1) AddWatchlist(addWatchlistOptions *AddWat
 
 // RemoveWatchlist : Remove users from watchlist of case
 // Remove users from the watchlist of a case.
-func (caseManagement *CaseManagementV1) RemoveWatchlist(removeWatchlistOptions *RemoveWatchlistOptions) (result []User, response *core.DetailedResponse, err error) {
+func (caseManagement *CaseManagementV1) RemoveWatchlist(removeWatchlistOptions *RemoveWatchlistOptions) (result *Watchlist, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(removeWatchlistOptions, "removeWatchlistOptions cannot be nil")
 	if err != nil {
 		return
@@ -538,12 +538,12 @@ func (caseManagement *CaseManagementV1) RemoveWatchlist(removeWatchlistOptions *
 		return
 	}
 
-	var rawResponse []json.RawMessage
+	var rawResponse map[string]json.RawMessage
 	response, err = caseManagement.Service.Request(request, &rawResponse)
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalUser)
+	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalWatchlist)
 	if err != nil {
 		return
 	}
@@ -876,7 +876,7 @@ type AddWatchlistOptions struct {
 	CaseNumber *string `json:"case_number" validate:"required"`
 
 	// Array of user ID objects.
-	Watchlist []UserIdAndRealm `json:"watchlist,omitempty"`
+	Watchlist []User `json:"watchlist,omitempty"`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -896,7 +896,7 @@ func (options *AddWatchlistOptions) SetCaseNumber(caseNumber string) *AddWatchli
 }
 
 // SetWatchlist : Allow user to set Watchlist
-func (options *AddWatchlistOptions) SetWatchlist(watchlist []UserIdAndRealm) *AddWatchlistOptions {
+func (options *AddWatchlistOptions) SetWatchlist(watchlist []User) *AddWatchlistOptions {
 	options.Watchlist = watchlist
 	return options
 }
@@ -1014,7 +1014,6 @@ type Case struct {
 
 	Eu *CaseEu `json:"eu,omitempty"`
 
-	// User IDs in the watchlist.
 	Watchlist []User `json:"watchlist,omitempty"`
 
 	// List of attachments/files of the case.
@@ -1843,7 +1842,7 @@ type RemoveWatchlistOptions struct {
 	CaseNumber *string `json:"case_number" validate:"required"`
 
 	// Array of user ID objects.
-	Watchlist []UserIdAndRealm `json:"watchlist,omitempty"`
+	Watchlist []User `json:"watchlist,omitempty"`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -1863,7 +1862,7 @@ func (options *RemoveWatchlistOptions) SetCaseNumber(caseNumber string) *RemoveW
 }
 
 // SetWatchlist : Allow user to set Watchlist
-func (options *RemoveWatchlistOptions) SetWatchlist(watchlist []UserIdAndRealm) *RemoveWatchlistOptions {
+func (options *RemoveWatchlistOptions) SetWatchlist(watchlist []User) *RemoveWatchlistOptions {
 	options.Watchlist = watchlist
 	return options
 }
@@ -2182,24 +2181,40 @@ func UnmarshalUserIdAndRealm(m map[string]json.RawMessage, result interface{}) (
 	return
 }
 
+// Watchlist : Watchlist struct
+type Watchlist struct {
+	// Array of user ID objects.
+	Watchlist []User `json:"watchlist,omitempty"`
+}
+
+
+// UnmarshalWatchlist unmarshals an instance of Watchlist from the specified map of raw messages.
+func UnmarshalWatchlist(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(Watchlist)
+	err = core.UnmarshalModel(m, "watchlist", &obj.Watchlist, UnmarshalUser)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
 // WatchlistAddResponse : WatchlistAddResponse struct
 type WatchlistAddResponse struct {
-	// User IDs in the watchlist.
-	Added []User `json:"added,omitempty"`
+	Added *Watchlist `json:"added,omitempty"`
 
-	// User IDs in the watchlist.
-	Failed []User `json:"failed,omitempty"`
+	Failed *Watchlist `json:"failed,omitempty"`
 }
 
 
 // UnmarshalWatchlistAddResponse unmarshals an instance of WatchlistAddResponse from the specified map of raw messages.
 func UnmarshalWatchlistAddResponse(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(WatchlistAddResponse)
-	err = core.UnmarshalModel(m, "added", &obj.Added, UnmarshalUser)
+	err = core.UnmarshalModel(m, "added", &obj.Added, UnmarshalWatchlist)
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(m, "failed", &obj.Failed, UnmarshalUser)
+	err = core.UnmarshalModel(m, "failed", &obj.Failed, UnmarshalWatchlist)
 	if err != nil {
 		return
 	}

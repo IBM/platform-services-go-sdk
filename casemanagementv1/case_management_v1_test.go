@@ -882,15 +882,16 @@ var _ = Describe(`CaseManagementV1`, func() {
 				Expect(testServiceErr).To(BeNil())
 				Expect(testService).ToNot(BeNil())
 
-				// Construct an instance of the UserIdAndRealm model
-				userIdAndRealmModel := new(casemanagementv1.UserIdAndRealm)
-				userIdAndRealmModel.Realm = core.StringPtr("IBMid")
-				userIdAndRealmModel.UserID = core.StringPtr("testString")
+				// Construct an instance of the User model
+				userModel := new(casemanagementv1.User)
+				userModel.Name = core.StringPtr("testString")
+				userModel.Realm = core.StringPtr("IBMid")
+				userModel.UserID = core.StringPtr("abc@ibm.com")
 
 				// Construct an instance of the AddWatchlistOptions model
 				addWatchlistOptionsModel := new(casemanagementv1.AddWatchlistOptions)
 				addWatchlistOptionsModel.CaseNumber = core.StringPtr("testString")
-				addWatchlistOptionsModel.Watchlist = []casemanagementv1.UserIdAndRealm{*userIdAndRealmModel}
+				addWatchlistOptionsModel.Watchlist = []casemanagementv1.User{*userModel}
 				addWatchlistOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
 				result, response, operationErr := testService.AddWatchlist(addWatchlistOptionsModel)
@@ -916,7 +917,7 @@ var _ = Describe(`CaseManagementV1`, func() {
 					Expect(req.Method).To(Equal("PUT"))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, `{"added": [{"name": "Name", "realm": "IBMid", "user_id": "abc@ibm.com"}], "failed": [{"name": "Name", "realm": "IBMid", "user_id": "abc@ibm.com"}]}`)
+					fmt.Fprintf(res, `{"added": {"watchlist": [{"name": "Name", "realm": "IBMid", "user_id": "abc@ibm.com"}]}, "failed": {"watchlist": [{"name": "Name", "realm": "IBMid", "user_id": "abc@ibm.com"}]}}`)
 				}))
 			})
 			It(`Invoke AddWatchlist successfully`, func() {
@@ -933,15 +934,16 @@ var _ = Describe(`CaseManagementV1`, func() {
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
 
-				// Construct an instance of the UserIdAndRealm model
-				userIdAndRealmModel := new(casemanagementv1.UserIdAndRealm)
-				userIdAndRealmModel.Realm = core.StringPtr("IBMid")
-				userIdAndRealmModel.UserID = core.StringPtr("testString")
+				// Construct an instance of the User model
+				userModel := new(casemanagementv1.User)
+				userModel.Name = core.StringPtr("testString")
+				userModel.Realm = core.StringPtr("IBMid")
+				userModel.UserID = core.StringPtr("abc@ibm.com")
 
 				// Construct an instance of the AddWatchlistOptions model
 				addWatchlistOptionsModel := new(casemanagementv1.AddWatchlistOptions)
 				addWatchlistOptionsModel.CaseNumber = core.StringPtr("testString")
-				addWatchlistOptionsModel.Watchlist = []casemanagementv1.UserIdAndRealm{*userIdAndRealmModel}
+				addWatchlistOptionsModel.Watchlist = []casemanagementv1.User{*userModel}
  				addWatchlistOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
@@ -958,15 +960,16 @@ var _ = Describe(`CaseManagementV1`, func() {
 				Expect(testServiceErr).To(BeNil())
 				Expect(testService).ToNot(BeNil())
 
-				// Construct an instance of the UserIdAndRealm model
-				userIdAndRealmModel := new(casemanagementv1.UserIdAndRealm)
-				userIdAndRealmModel.Realm = core.StringPtr("IBMid")
-				userIdAndRealmModel.UserID = core.StringPtr("testString")
+				// Construct an instance of the User model
+				userModel := new(casemanagementv1.User)
+				userModel.Name = core.StringPtr("testString")
+				userModel.Realm = core.StringPtr("IBMid")
+				userModel.UserID = core.StringPtr("abc@ibm.com")
 
 				// Construct an instance of the AddWatchlistOptions model
 				addWatchlistOptionsModel := new(casemanagementv1.AddWatchlistOptions)
 				addWatchlistOptionsModel.CaseNumber = core.StringPtr("testString")
-				addWatchlistOptionsModel.Watchlist = []casemanagementv1.UserIdAndRealm{*userIdAndRealmModel}
+				addWatchlistOptionsModel.Watchlist = []casemanagementv1.User{*userModel}
 				addWatchlistOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := testService.SetServiceURL("")
@@ -1012,15 +1015,16 @@ var _ = Describe(`CaseManagementV1`, func() {
 				Expect(testServiceErr).To(BeNil())
 				Expect(testService).ToNot(BeNil())
 
-				// Construct an instance of the UserIdAndRealm model
-				userIdAndRealmModel := new(casemanagementv1.UserIdAndRealm)
-				userIdAndRealmModel.Realm = core.StringPtr("IBMid")
-				userIdAndRealmModel.UserID = core.StringPtr("testString")
+				// Construct an instance of the User model
+				userModel := new(casemanagementv1.User)
+				userModel.Name = core.StringPtr("testString")
+				userModel.Realm = core.StringPtr("IBMid")
+				userModel.UserID = core.StringPtr("abc@ibm.com")
 
 				// Construct an instance of the RemoveWatchlistOptions model
 				removeWatchlistOptionsModel := new(casemanagementv1.RemoveWatchlistOptions)
 				removeWatchlistOptionsModel.CaseNumber = core.StringPtr("testString")
-				removeWatchlistOptionsModel.Watchlist = []casemanagementv1.UserIdAndRealm{*userIdAndRealmModel}
+				removeWatchlistOptionsModel.Watchlist = []casemanagementv1.User{*userModel}
 				removeWatchlistOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
 				result, response, operationErr := testService.RemoveWatchlist(removeWatchlistOptionsModel)
@@ -1046,7 +1050,7 @@ var _ = Describe(`CaseManagementV1`, func() {
 					Expect(req.Method).To(Equal("DELETE"))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, `[{"name": "Name", "realm": "IBMid", "user_id": "abc@ibm.com"}]`)
+					fmt.Fprintf(res, `{"watchlist": [{"name": "Name", "realm": "IBMid", "user_id": "abc@ibm.com"}]}`)
 				}))
 			})
 			It(`Invoke RemoveWatchlist successfully`, func() {
@@ -1063,15 +1067,16 @@ var _ = Describe(`CaseManagementV1`, func() {
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
 
-				// Construct an instance of the UserIdAndRealm model
-				userIdAndRealmModel := new(casemanagementv1.UserIdAndRealm)
-				userIdAndRealmModel.Realm = core.StringPtr("IBMid")
-				userIdAndRealmModel.UserID = core.StringPtr("testString")
+				// Construct an instance of the User model
+				userModel := new(casemanagementv1.User)
+				userModel.Name = core.StringPtr("testString")
+				userModel.Realm = core.StringPtr("IBMid")
+				userModel.UserID = core.StringPtr("abc@ibm.com")
 
 				// Construct an instance of the RemoveWatchlistOptions model
 				removeWatchlistOptionsModel := new(casemanagementv1.RemoveWatchlistOptions)
 				removeWatchlistOptionsModel.CaseNumber = core.StringPtr("testString")
-				removeWatchlistOptionsModel.Watchlist = []casemanagementv1.UserIdAndRealm{*userIdAndRealmModel}
+				removeWatchlistOptionsModel.Watchlist = []casemanagementv1.User{*userModel}
  				removeWatchlistOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
@@ -1088,15 +1093,16 @@ var _ = Describe(`CaseManagementV1`, func() {
 				Expect(testServiceErr).To(BeNil())
 				Expect(testService).ToNot(BeNil())
 
-				// Construct an instance of the UserIdAndRealm model
-				userIdAndRealmModel := new(casemanagementv1.UserIdAndRealm)
-				userIdAndRealmModel.Realm = core.StringPtr("IBMid")
-				userIdAndRealmModel.UserID = core.StringPtr("testString")
+				// Construct an instance of the User model
+				userModel := new(casemanagementv1.User)
+				userModel.Name = core.StringPtr("testString")
+				userModel.Realm = core.StringPtr("IBMid")
+				userModel.UserID = core.StringPtr("abc@ibm.com")
 
 				// Construct an instance of the RemoveWatchlistOptions model
 				removeWatchlistOptionsModel := new(casemanagementv1.RemoveWatchlistOptions)
 				removeWatchlistOptionsModel.CaseNumber = core.StringPtr("testString")
-				removeWatchlistOptionsModel.Watchlist = []casemanagementv1.UserIdAndRealm{*userIdAndRealmModel}
+				removeWatchlistOptionsModel.Watchlist = []casemanagementv1.User{*userModel}
 				removeWatchlistOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := testService.SetServiceURL("")
@@ -1605,23 +1611,25 @@ var _ = Describe(`CaseManagementV1`, func() {
 				Expect(addResourceOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewAddWatchlistOptions successfully`, func() {
-				// Construct an instance of the UserIdAndRealm model
-				userIdAndRealmModel := new(casemanagementv1.UserIdAndRealm)
-				Expect(userIdAndRealmModel).ToNot(BeNil())
-				userIdAndRealmModel.Realm = core.StringPtr("IBMid")
-				userIdAndRealmModel.UserID = core.StringPtr("testString")
-				Expect(userIdAndRealmModel.Realm).To(Equal(core.StringPtr("IBMid")))
-				Expect(userIdAndRealmModel.UserID).To(Equal(core.StringPtr("testString")))
+				// Construct an instance of the User model
+				userModel := new(casemanagementv1.User)
+				Expect(userModel).ToNot(BeNil())
+				userModel.Name = core.StringPtr("testString")
+				userModel.Realm = core.StringPtr("IBMid")
+				userModel.UserID = core.StringPtr("abc@ibm.com")
+				Expect(userModel.Name).To(Equal(core.StringPtr("testString")))
+				Expect(userModel.Realm).To(Equal(core.StringPtr("IBMid")))
+				Expect(userModel.UserID).To(Equal(core.StringPtr("abc@ibm.com")))
 
 				// Construct an instance of the AddWatchlistOptions model
 				caseNumber := "testString"
 				addWatchlistOptionsModel := testService.NewAddWatchlistOptions(caseNumber)
 				addWatchlistOptionsModel.SetCaseNumber("testString")
-				addWatchlistOptionsModel.SetWatchlist([]casemanagementv1.UserIdAndRealm{*userIdAndRealmModel})
+				addWatchlistOptionsModel.SetWatchlist([]casemanagementv1.User{*userModel})
 				addWatchlistOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(addWatchlistOptionsModel).ToNot(BeNil())
 				Expect(addWatchlistOptionsModel.CaseNumber).To(Equal(core.StringPtr("testString")))
-				Expect(addWatchlistOptionsModel.Watchlist).To(Equal([]casemanagementv1.UserIdAndRealm{*userIdAndRealmModel}))
+				Expect(addWatchlistOptionsModel.Watchlist).To(Equal([]casemanagementv1.User{*userModel}))
 				Expect(addWatchlistOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewCreateCaseOptions successfully`, func() {
@@ -1779,23 +1787,25 @@ var _ = Describe(`CaseManagementV1`, func() {
 				Expect(err).To(BeNil())
 			})
 			It(`Invoke NewRemoveWatchlistOptions successfully`, func() {
-				// Construct an instance of the UserIdAndRealm model
-				userIdAndRealmModel := new(casemanagementv1.UserIdAndRealm)
-				Expect(userIdAndRealmModel).ToNot(BeNil())
-				userIdAndRealmModel.Realm = core.StringPtr("IBMid")
-				userIdAndRealmModel.UserID = core.StringPtr("testString")
-				Expect(userIdAndRealmModel.Realm).To(Equal(core.StringPtr("IBMid")))
-				Expect(userIdAndRealmModel.UserID).To(Equal(core.StringPtr("testString")))
+				// Construct an instance of the User model
+				userModel := new(casemanagementv1.User)
+				Expect(userModel).ToNot(BeNil())
+				userModel.Name = core.StringPtr("testString")
+				userModel.Realm = core.StringPtr("IBMid")
+				userModel.UserID = core.StringPtr("abc@ibm.com")
+				Expect(userModel.Name).To(Equal(core.StringPtr("testString")))
+				Expect(userModel.Realm).To(Equal(core.StringPtr("IBMid")))
+				Expect(userModel.UserID).To(Equal(core.StringPtr("abc@ibm.com")))
 
 				// Construct an instance of the RemoveWatchlistOptions model
 				caseNumber := "testString"
 				removeWatchlistOptionsModel := testService.NewRemoveWatchlistOptions(caseNumber)
 				removeWatchlistOptionsModel.SetCaseNumber("testString")
-				removeWatchlistOptionsModel.SetWatchlist([]casemanagementv1.UserIdAndRealm{*userIdAndRealmModel})
+				removeWatchlistOptionsModel.SetWatchlist([]casemanagementv1.User{*userModel})
 				removeWatchlistOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(removeWatchlistOptionsModel).ToNot(BeNil())
 				Expect(removeWatchlistOptionsModel.CaseNumber).To(Equal(core.StringPtr("testString")))
-				Expect(removeWatchlistOptionsModel.Watchlist).To(Equal([]casemanagementv1.UserIdAndRealm{*userIdAndRealmModel}))
+				Expect(removeWatchlistOptionsModel.Watchlist).To(Equal([]casemanagementv1.User{*userModel}))
 				Expect(removeWatchlistOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewUpdateCaseStatusOptions successfully`, func() {
