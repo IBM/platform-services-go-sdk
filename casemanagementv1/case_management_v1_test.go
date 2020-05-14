@@ -917,7 +917,7 @@ var _ = Describe(`CaseManagementV1`, func() {
 					Expect(req.Method).To(Equal("PUT"))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, `{"added": {"watchlist": [{"name": "Name", "realm": "IBMid", "user_id": "abc@ibm.com"}]}, "failed": {"watchlist": [{"name": "Name", "realm": "IBMid", "user_id": "abc@ibm.com"}]}}`)
+					fmt.Fprintf(res, `{"added": [{"name": "Name", "realm": "IBMid", "user_id": "abc@ibm.com"}], "failed": [{"name": "Name", "realm": "IBMid", "user_id": "abc@ibm.com"}]}`)
 				}))
 			})
 			It(`Invoke AddWatchlist successfully`, func() {

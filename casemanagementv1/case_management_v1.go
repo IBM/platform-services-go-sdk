@@ -2201,20 +2201,22 @@ func UnmarshalWatchlist(m map[string]json.RawMessage, result interface{}) (err e
 
 // WatchlistAddResponse : WatchlistAddResponse struct
 type WatchlistAddResponse struct {
-	Added *Watchlist `json:"added,omitempty"`
+	// List of succefully added user IDs.
+	Added []User `json:"added,omitempty"`
 
-	Failed *Watchlist `json:"failed,omitempty"`
+	// List of failed-to-add user IDs.
+	Failed []User `json:"failed,omitempty"`
 }
 
 
 // UnmarshalWatchlistAddResponse unmarshals an instance of WatchlistAddResponse from the specified map of raw messages.
 func UnmarshalWatchlistAddResponse(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(WatchlistAddResponse)
-	err = core.UnmarshalModel(m, "added", &obj.Added, UnmarshalWatchlist)
+	err = core.UnmarshalModel(m, "added", &obj.Added, UnmarshalUser)
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(m, "failed", &obj.Failed, UnmarshalWatchlist)
+	err = core.UnmarshalModel(m, "failed", &obj.Failed, UnmarshalUser)
 	if err != nil {
 		return
 	}
