@@ -884,7 +884,6 @@ var _ = Describe(`CaseManagementV1`, func() {
 
 				// Construct an instance of the User model
 				userModel := new(casemanagementv1.User)
-				userModel.Name = core.StringPtr("testString")
 				userModel.Realm = core.StringPtr("IBMid")
 				userModel.UserID = core.StringPtr("abc@ibm.com")
 
@@ -936,7 +935,6 @@ var _ = Describe(`CaseManagementV1`, func() {
 
 				// Construct an instance of the User model
 				userModel := new(casemanagementv1.User)
-				userModel.Name = core.StringPtr("testString")
 				userModel.Realm = core.StringPtr("IBMid")
 				userModel.UserID = core.StringPtr("abc@ibm.com")
 
@@ -962,7 +960,6 @@ var _ = Describe(`CaseManagementV1`, func() {
 
 				// Construct an instance of the User model
 				userModel := new(casemanagementv1.User)
-				userModel.Name = core.StringPtr("testString")
 				userModel.Realm = core.StringPtr("IBMid")
 				userModel.UserID = core.StringPtr("abc@ibm.com")
 
@@ -1017,7 +1014,6 @@ var _ = Describe(`CaseManagementV1`, func() {
 
 				// Construct an instance of the User model
 				userModel := new(casemanagementv1.User)
-				userModel.Name = core.StringPtr("testString")
 				userModel.Realm = core.StringPtr("IBMid")
 				userModel.UserID = core.StringPtr("abc@ibm.com")
 
@@ -1069,7 +1065,6 @@ var _ = Describe(`CaseManagementV1`, func() {
 
 				// Construct an instance of the User model
 				userModel := new(casemanagementv1.User)
-				userModel.Name = core.StringPtr("testString")
 				userModel.Realm = core.StringPtr("IBMid")
 				userModel.UserID = core.StringPtr("abc@ibm.com")
 
@@ -1095,7 +1090,6 @@ var _ = Describe(`CaseManagementV1`, func() {
 
 				// Construct an instance of the User model
 				userModel := new(casemanagementv1.User)
-				userModel.Name = core.StringPtr("testString")
 				userModel.Realm = core.StringPtr("IBMid")
 				userModel.UserID = core.StringPtr("abc@ibm.com")
 
@@ -1614,10 +1608,8 @@ var _ = Describe(`CaseManagementV1`, func() {
 				// Construct an instance of the User model
 				userModel := new(casemanagementv1.User)
 				Expect(userModel).ToNot(BeNil())
-				userModel.Name = core.StringPtr("testString")
 				userModel.Realm = core.StringPtr("IBMid")
 				userModel.UserID = core.StringPtr("abc@ibm.com")
-				Expect(userModel.Name).To(Equal(core.StringPtr("testString")))
 				Expect(userModel.Realm).To(Equal(core.StringPtr("IBMid")))
 				Expect(userModel.UserID).To(Equal(core.StringPtr("abc@ibm.com")))
 
@@ -1790,10 +1782,8 @@ var _ = Describe(`CaseManagementV1`, func() {
 				// Construct an instance of the User model
 				userModel := new(casemanagementv1.User)
 				Expect(userModel).ToNot(BeNil())
-				userModel.Name = core.StringPtr("testString")
 				userModel.Realm = core.StringPtr("IBMid")
 				userModel.UserID = core.StringPtr("abc@ibm.com")
-				Expect(userModel.Name).To(Equal(core.StringPtr("testString")))
 				Expect(userModel.Realm).To(Equal(core.StringPtr("IBMid")))
 				Expect(userModel.UserID).To(Equal(core.StringPtr("abc@ibm.com")))
 
@@ -1853,6 +1843,13 @@ var _ = Describe(`CaseManagementV1`, func() {
 				Expect(uploadFileOptionsModel.CaseNumber).To(Equal(core.StringPtr("testString")))
 				Expect(uploadFileOptionsModel.File).To(Equal([]casemanagementv1.FileWithMetadata{casemanagementv1.FileWithMetadata{Data: CreateMockReader("This is a mock file."), Filename: core.StringPtr("mockfilename.txt"), }}))
 				Expect(uploadFileOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
+			It(`Invoke NewUser successfully`, func() {
+				realm := "IBMid"
+				userID := "abc@ibm.com"
+				model, err := testService.NewUser(realm, userID)
+				Expect(model).ToNot(BeNil())
+				Expect(err).To(BeNil())
 			})
 			It(`Invoke NewUserIdAndRealm successfully`, func() {
 				realm := "IBMid"

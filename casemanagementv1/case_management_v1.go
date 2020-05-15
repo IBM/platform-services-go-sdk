@@ -773,6 +773,7 @@ type AddCommentOptions struct {
 	// Unique identifier of a case.
 	CaseNumber *string `json:"case_number" validate:"required"`
 
+	// Comment to add to the case.
 	Comment *string `json:"comment" validate:"required"`
 
 	// Allows users to set headers on API requests
@@ -953,7 +954,7 @@ func UnmarshalAttachment(m map[string]json.RawMessage, result interface{}) (err 
 	return
 }
 
-// AttachmentList : AttachmentList struct
+// AttachmentList : List of attachments in the case.
 type AttachmentList struct {
 	// New attachments array.
 	Attachments []Attachment `json:"attachments,omitempty"`
@@ -971,7 +972,7 @@ func UnmarshalAttachmentList(m map[string]json.RawMessage, result interface{}) (
 	return
 }
 
-// Case : Case struct
+// Case : The support case.
 type Case struct {
 	// Number/ID of the case.
 	Number *string `json:"number,omitempty"`
@@ -985,16 +986,19 @@ type Case struct {
 	// Date time of case creation in UTC.
 	CreatedAt *string `json:"created_at,omitempty"`
 
+	// User info in a case.
 	CreatedBy *User `json:"created_by,omitempty"`
 
 	// Date time of the last update on the case in UTC.
 	UpdatedAt *string `json:"updated_at,omitempty"`
 
+	// User info in a case.
 	UpdatedBy *User `json:"updated_by,omitempty"`
 
 	// Name of the console to interact with the contact.
 	ContactType *string `json:"contact_type,omitempty"`
 
+	// User info in a case.
 	Contact *User `json:"contact,omitempty"`
 
 	// Status of the case.
@@ -1012,6 +1016,7 @@ type Case struct {
 	// Notes of case closing.
 	CloseNotes *string `json:"close_notes,omitempty"`
 
+	// EU support.
 	Eu *CaseEu `json:"eu,omitempty"`
 
 	Watchlist []User `json:"watchlist,omitempty"`
@@ -1019,6 +1024,7 @@ type Case struct {
 	// List of attachments/files of the case.
 	Attachments []Attachment `json:"attachments,omitempty"`
 
+	// Offering details.
 	Offering *Offering `json:"offering,omitempty"`
 
 	// List of attached resources.
@@ -1132,7 +1138,7 @@ func UnmarshalCase(m map[string]json.RawMessage, result interface{}) (err error)
 	return
 }
 
-// CaseEu : CaseEu struct
+// CaseEu : EU support.
 type CaseEu struct {
 	// Identifying whether the case has EU Support.
 	Support *bool `json:"support,omitempty"`
@@ -1157,19 +1163,24 @@ func UnmarshalCaseEu(m map[string]json.RawMessage, result interface{}) (err erro
 	return
 }
 
-// CaseList : CaseList struct
+// CaseList : Response of a GET /cases request.
 type CaseList struct {
 	// Total number of cases satisfying the query.
 	TotalCount *int64 `json:"total_count,omitempty"`
 
+	// URL to related pages of cases.
 	First *PaginationLink `json:"first,omitempty"`
 
+	// URL to related pages of cases.
 	Next *PaginationLink `json:"next,omitempty"`
 
+	// URL to related pages of cases.
 	Previous *PaginationLink `json:"previous,omitempty"`
 
+	// URL to related pages of cases.
 	Last *PaginationLink `json:"last,omitempty"`
 
+	// List of cases.
 	Cases []Case `json:"cases,omitempty"`
 }
 
@@ -1208,6 +1219,7 @@ func UnmarshalCaseList(m map[string]json.RawMessage, result interface{}) (err er
 // CasePayloadEu : Specify if the case should be treated as EU regulated. Only one of the following properties is required. Call EU
 // support utility endpoint to determine which property must be specified for your account.
 type CasePayloadEu struct {
+	// indicating whether the case is EU supported.
 	Supported *bool `json:"supported,omitempty"`
 
 	// If EU supported utility endpoint specifies datacenter then pass the datacenter id to mark a case as EU supported.
@@ -1230,7 +1242,7 @@ func UnmarshalCasePayloadEu(m map[string]json.RawMessage, result interface{}) (e
 	return
 }
 
-// Comment : Comment struct
+// Comment : A comment in a case.
 type Comment struct {
 	// The comment.
 	Value *string `json:"value,omitempty"`
@@ -1238,6 +1250,7 @@ type Comment struct {
 	// Timestamp of when comment is added.
 	AddedAt *string `json:"added_at,omitempty"`
 
+	// User info in a case.
 	AddedBy *User `json:"added_by,omitempty"`
 }
 
@@ -1271,12 +1284,14 @@ type CreateCaseOptions struct {
 	// Detailed description of the issue.
 	Description *string `json:"description" validate:"required"`
 
+	// Severity of the case. Smaller values mean higher severity.
 	Severity *int64 `json:"severity,omitempty"`
 
 	// Specify if the case should be treated as EU regulated. Only one of the following properties is required. Call EU
 	// support utility endpoint to determine which property must be specified for your account.
 	Eu *CasePayloadEu `json:"eu,omitempty"`
 
+	// Payload to specify the offering of a case.
 	Offering *OfferingPayload `json:"offering,omitempty"`
 
 	// List of resources to attach to case. If attaching Classic IaaS devices use type and id fields if Cloud Resource Name
@@ -1668,7 +1683,7 @@ func (options *GetCasesOptions) SetHeaders(param map[string]string) *GetCasesOpt
 	return options
 }
 
-// Offering : Offering struct
+// Offering : Offering details.
 type Offering struct {
 	// Name of the offering.
 	Name *string `json:"name" validate:"required"`
@@ -1692,7 +1707,7 @@ func UnmarshalOffering(m map[string]json.RawMessage, result interface{}) (err er
 	return
 }
 
-// OfferingPayload : OfferingPayload struct
+// OfferingPayload : Payload to specify the offering of a case.
 type OfferingPayload struct {
 	// Offering name.
 	Name *string `json:"name" validate:"required"`
@@ -1729,11 +1744,14 @@ func UnmarshalOfferingPayload(m map[string]json.RawMessage, result interface{}) 
 
 // OfferingPayloadType : Offering type.
 type OfferingPayloadType struct {
+	// Offering type group. "crn_service_name" is strongly prefered over "category" as the latter is legacy and will be
+	// deprecated in the future.
 	Group *string `json:"group" validate:"required"`
 
-	// crn service name of the offering.
+	// CRN service name of the offering.
 	Key *string `json:"key" validate:"required"`
 
+	// Optional. Platform kind of the offering.
 	Kind *string `json:"kind,omitempty"`
 
 	// Offering id in the catalog. This alone is enough to identify the offering.
@@ -1741,6 +1759,8 @@ type OfferingPayloadType struct {
 }
 
 // Constants associated with the OfferingPayloadType.Group property.
+// Offering type group. "crn_service_name" is strongly prefered over "category" as the latter is legacy and will be
+// deprecated in the future.
 const (
 	OfferingPayloadType_Group_Category = "category"
 	OfferingPayloadType_Group_CrnServiceName = "crn_service_name"
@@ -1819,7 +1839,7 @@ func UnmarshalOfferingType(m map[string]json.RawMessage, result interface{}) (er
 	return
 }
 
-// PaginationLink : PaginationLink struct
+// PaginationLink : URL to related pages of cases.
 type PaginationLink struct {
 	Href *string `json:"href,omitempty"`
 }
@@ -1873,7 +1893,7 @@ func (options *RemoveWatchlistOptions) SetHeaders(param map[string]string) *Remo
 	return options
 }
 
-// Resource : Resource struct
+// Resource : A resource record of a case.
 type Resource struct {
 	// ID of the resource.
 	Crn *string `json:"crn,omitempty"`
@@ -1919,7 +1939,7 @@ func UnmarshalResource(m map[string]json.RawMessage, result interface{}) (err er
 	return
 }
 
-// ResourcePayload : ResourcePayload struct
+// ResourcePayload : Payload to add a resource to a case.
 type ResourcePayload struct {
 	// Cloud Resource Name of the resource.
 	Crn *string `json:"crn,omitempty"`
@@ -1959,7 +1979,7 @@ func UnmarshalResourcePayload(m map[string]json.RawMessage, result interface{}) 
 	return
 }
 
-// StatusPayload : StatusPayload struct
+// StatusPayload : Payload to update status of the case.
 // Models which "extend" this model:
 // - StatusPayloadResolvePayload
 // - StatusPayloadUnresolvePayload
@@ -2028,6 +2048,7 @@ type UpdateCaseStatusOptions struct {
 	// Unique identifier of a case.
 	CaseNumber *string `json:"case_number" validate:"required"`
 
+	// Payload to update status of the case.
 	StatusPayload StatusPayloadIntf `json:"StatusPayload" validate:"required"`
 
 	// Allows users to set headers on API requests
@@ -2098,16 +2119,16 @@ func (options *UploadFileOptions) SetHeaders(param map[string]string) *UploadFil
 	return options
 }
 
-// User : User struct
+// User : User info in a case.
 type User struct {
 	// Full name of the user.
 	Name *string `json:"name,omitempty"`
 
 	// the ID realm.
-	Realm *string `json:"realm,omitempty"`
+	Realm *string `json:"realm" validate:"required"`
 
 	// unique user ID in the realm specified by the type.
-	UserID *string `json:"user_id,omitempty"`
+	UserID *string `json:"user_id" validate:"required"`
 }
 
 // Constants associated with the User.Realm property.
@@ -2118,6 +2139,16 @@ const (
 	User_Realm_Sl = "SL"
 )
 
+
+// NewUser : Instantiate User (Generic Model Constructor)
+func (*CaseManagementV1) NewUser(realm string, userID string) (model *User, err error) {
+	model = &User{
+		Realm: core.StringPtr(realm),
+		UserID: core.StringPtr(userID),
+	}
+	err = core.ValidateStruct(model, "required parameters")
+	return
+}
 
 // UnmarshalUser unmarshals an instance of User from the specified map of raw messages.
 func UnmarshalUser(m map[string]json.RawMessage, result interface{}) (err error) {
@@ -2138,7 +2169,7 @@ func UnmarshalUser(m map[string]json.RawMessage, result interface{}) (err error)
 	return
 }
 
-// UserIdAndRealm : UserIdAndRealm struct
+// UserIdAndRealm : user ID and realm.
 type UserIdAndRealm struct {
 	// the ID realm.
 	Realm *string `json:"realm" validate:"required"`
@@ -2181,7 +2212,7 @@ func UnmarshalUserIdAndRealm(m map[string]json.RawMessage, result interface{}) (
 	return
 }
 
-// Watchlist : Watchlist struct
+// Watchlist : Payload to add/remove users to/from the case watchlist.
 type Watchlist struct {
 	// Array of user ID objects.
 	Watchlist []User `json:"watchlist,omitempty"`
@@ -2199,12 +2230,12 @@ func UnmarshalWatchlist(m map[string]json.RawMessage, result interface{}) (err e
 	return
 }
 
-// WatchlistAddResponse : WatchlistAddResponse struct
+// WatchlistAddResponse : Response of a request adding to watchlist.
 type WatchlistAddResponse struct {
-	// List of succefully added user IDs.
+	// List of added user.
 	Added []User `json:"added,omitempty"`
 
-	// List of failed-to-add user IDs.
+	// List of failed to add user.
 	Failed []User `json:"failed,omitempty"`
 }
 
@@ -2224,13 +2255,13 @@ func UnmarshalWatchlistAddResponse(m map[string]json.RawMessage, result interfac
 	return
 }
 
-// StatusPayloadAcceptPayload : StatusPayloadAcceptPayload struct
+// StatusPayloadAcceptPayload : Payload to accept the proposed resolution of the case.
 // This model "extends" StatusPayload
 type StatusPayloadAcceptPayload struct {
 	// action to perform on the case.
 	Action *string `json:"action" validate:"required"`
 
-	// comment about accepting the proposed resolution.
+	// Comment about accepting the proposed resolution.
 	Comment *string `json:"comment,omitempty"`
 }
 
@@ -2271,7 +2302,7 @@ func UnmarshalStatusPayloadAcceptPayload(m map[string]json.RawMessage, result in
 	return
 }
 
-// StatusPayloadResolvePayload : StatusPayloadResolvePayload struct
+// StatusPayloadResolvePayload : Payload to resolve the case.
 // This model "extends" StatusPayload
 type StatusPayloadResolvePayload struct {
 	// action to perform on the case.
@@ -2333,13 +2364,13 @@ func UnmarshalStatusPayloadResolvePayload(m map[string]json.RawMessage, result i
 	return
 }
 
-// StatusPayloadUnresolvePayload : StatusPayloadUnresolvePayload struct
+// StatusPayloadUnresolvePayload : Payload to unresolve the case.
 // This model "extends" StatusPayload
 type StatusPayloadUnresolvePayload struct {
 	// action to perform on the case.
 	Action *string `json:"action" validate:"required"`
 
-	// comment why the case should be unresolved.
+	// Comment why the case should be unresolved.
 	Comment *string `json:"comment" validate:"required"`
 }
 
