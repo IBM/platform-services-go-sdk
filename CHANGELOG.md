@@ -1,3 +1,10 @@
+## [0.3.1](https://github.com/IBM/platform-services-go-sdk/compare/v0.3.0...v0.3.1) (2020-05-15)
+
+
+### Bug Fixes
+
+* **build:** disable integration tests in tagged-release builds ([359b2d0](https://github.com/IBM/platform-services-go-sdk/commit/359b2d0b2931ae2966bc375d86be2938d444edfd))
+
 # [0.3.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.2.0...v0.3.0) (2020-05-12)
 
 
