@@ -206,7 +206,7 @@ var _ = Describe(`CaseManagementV1`, func() {
 
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, `{"total_count": 10, "first": {"href": "Href"}, "next": {"href": "Href"}, "previous": {"href": "Href"}, "last": {"href": "Href"}, "cases": [{"number": "Number", "short_description": "ShortDescription", "description": "Description", "created_at": "CreatedAt", "created_by": {"name": "Name", "realm": "IBMid", "user_id": "abc@ibm.com"}, "updated_at": "UpdatedAt", "updated_by": {"name": "Name", "realm": "IBMid", "user_id": "abc@ibm.com"}, "contact_type": "Cloud Support Center", "contact": {"name": "Name", "realm": "IBMid", "user_id": "abc@ibm.com"}, "status": "Status", "severity": 8, "support_tier": "Free", "resolution": "Resolution", "close_notes": "CloseNotes", "eu": {"support": false, "data_center": "DataCenter"}, "watchlist": [{"name": "Name", "realm": "IBMid", "user_id": "abc@ibm.com"}], "attachments": [{"id": "ID", "filename": "Filename", "size_in_bytes": 11, "created_at": "CreatedAt", "url": "URL"}], "offering": {"name": "Name", "type": {"group": "Group", "key": "Key", "id": "ID", "kind": "Kind"}}, "resources": [{"crn": "Crn", "name": "Name", "type": "Type", "url": "URL", "note": "Note"}], "comments": [{"value": "Value", "added_at": "AddedAt", "added_by": {"name": "Name", "realm": "IBMid", "user_id": "abc@ibm.com"}}]}]}`)
+					fmt.Fprintf(res, `{"total_count": 10, "first": {"href": "Href"}, "next": {"href": "Href"}, "previous": {"href": "Href"}, "last": {"href": "Href"}, "cases": [{"number": "Number", "short_description": "ShortDescription", "description": "Description", "created_at": "CreatedAt", "created_by": {"name": "Name", "realm": "IBMid", "user_id": "abc@ibm.com"}, "updated_at": "UpdatedAt", "updated_by": {"name": "Name", "realm": "IBMid", "user_id": "abc@ibm.com"}, "contact_type": "Cloud Support Center", "contact": {"name": "Name", "realm": "IBMid", "user_id": "abc@ibm.com"}, "status": "Status", "severity": 8, "support_tier": "Free", "resolution": "Resolution", "close_notes": "CloseNotes", "eu": {"support": false, "data_center": "DataCenter"}, "watchlist": [{"name": "Name", "realm": "IBMid", "user_id": "abc@ibm.com"}], "attachments": [{"id": "ID", "filename": "Filename", "size_in_bytes": 11, "created_at": "CreatedAt", "url": "URL"}], "offering": {"name": "Name", "type": {"group": "crn_service_name", "key": "Key", "kind": "Kind", "id": "ID"}}, "resources": [{"crn": "Crn", "name": "Name", "type": "Type", "url": "URL", "note": "Note"}], "comments": [{"value": "Value", "added_at": "AddedAt", "added_by": {"name": "Name", "realm": "IBMid", "user_id": "abc@ibm.com"}}]}]}`)
 				}))
 			})
 			It(`Invoke GetCases successfully`, func() {
@@ -293,22 +293,22 @@ var _ = Describe(`CaseManagementV1`, func() {
 				Expect(testServiceErr).To(BeNil())
 				Expect(testService).ToNot(BeNil())
 
-				// Construct an instance of the OfferingPayloadType model
-				offeringPayloadTypeModel := new(casemanagementv1.OfferingPayloadType)
-				offeringPayloadTypeModel.Group = core.StringPtr("crn_service_name")
-				offeringPayloadTypeModel.Key = core.StringPtr("testString")
-				offeringPayloadTypeModel.Kind = core.StringPtr("testString")
-				offeringPayloadTypeModel.ID = core.StringPtr("testString")
+				// Construct an instance of the OfferingType model
+				offeringTypeModel := new(casemanagementv1.OfferingType)
+				offeringTypeModel.Group = core.StringPtr("crn_service_name")
+				offeringTypeModel.Key = core.StringPtr("testString")
+				offeringTypeModel.Kind = core.StringPtr("testString")
+				offeringTypeModel.ID = core.StringPtr("testString")
 
 				// Construct an instance of the CasePayloadEu model
 				casePayloadEuModel := new(casemanagementv1.CasePayloadEu)
 				casePayloadEuModel.Supported = core.BoolPtr(true)
 				casePayloadEuModel.DataCenter = core.Int64Ptr(int64(38))
 
-				// Construct an instance of the OfferingPayload model
-				offeringPayloadModel := new(casemanagementv1.OfferingPayload)
-				offeringPayloadModel.Name = core.StringPtr("testString")
-				offeringPayloadModel.Type = offeringPayloadTypeModel
+				// Construct an instance of the Offering model
+				offeringModel := new(casemanagementv1.Offering)
+				offeringModel.Name = core.StringPtr("testString")
+				offeringModel.Type = offeringTypeModel
 
 				// Construct an instance of the ResourcePayload model
 				resourcePayloadModel := new(casemanagementv1.ResourcePayload)
@@ -317,10 +317,10 @@ var _ = Describe(`CaseManagementV1`, func() {
 				resourcePayloadModel.ID = core.Float64Ptr(72.5)
 				resourcePayloadModel.Note = core.StringPtr("testString")
 
-				// Construct an instance of the UserIdAndRealm model
-				userIdAndRealmModel := new(casemanagementv1.UserIdAndRealm)
-				userIdAndRealmModel.Realm = core.StringPtr("IBMid")
-				userIdAndRealmModel.UserID = core.StringPtr("testString")
+				// Construct an instance of the User model
+				userModel := new(casemanagementv1.User)
+				userModel.Realm = core.StringPtr("IBMid")
+				userModel.UserID = core.StringPtr("abc@ibm.com")
 
 				// Construct an instance of the CreateCaseOptions model
 				createCaseOptionsModel := new(casemanagementv1.CreateCaseOptions)
@@ -329,9 +329,9 @@ var _ = Describe(`CaseManagementV1`, func() {
 				createCaseOptionsModel.Description = core.StringPtr("testString")
 				createCaseOptionsModel.Severity = core.Int64Ptr(int64(1))
 				createCaseOptionsModel.Eu = casePayloadEuModel
-				createCaseOptionsModel.Offering = offeringPayloadModel
+				createCaseOptionsModel.Offering = offeringModel
 				createCaseOptionsModel.Resources = []casemanagementv1.ResourcePayload{*resourcePayloadModel}
-				createCaseOptionsModel.Watchlist = []casemanagementv1.UserIdAndRealm{*userIdAndRealmModel}
+				createCaseOptionsModel.Watchlist = []casemanagementv1.User{*userModel}
 				createCaseOptionsModel.InvoiceNumber = core.StringPtr("testString")
 				createCaseOptionsModel.SlaCreditRequest = core.BoolPtr(true)
 				createCaseOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
@@ -359,7 +359,7 @@ var _ = Describe(`CaseManagementV1`, func() {
 					Expect(req.Method).To(Equal("POST"))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, `{"number": "Number", "short_description": "ShortDescription", "description": "Description", "created_at": "CreatedAt", "created_by": {"name": "Name", "realm": "IBMid", "user_id": "abc@ibm.com"}, "updated_at": "UpdatedAt", "updated_by": {"name": "Name", "realm": "IBMid", "user_id": "abc@ibm.com"}, "contact_type": "Cloud Support Center", "contact": {"name": "Name", "realm": "IBMid", "user_id": "abc@ibm.com"}, "status": "Status", "severity": 8, "support_tier": "Free", "resolution": "Resolution", "close_notes": "CloseNotes", "eu": {"support": false, "data_center": "DataCenter"}, "watchlist": [{"name": "Name", "realm": "IBMid", "user_id": "abc@ibm.com"}], "attachments": [{"id": "ID", "filename": "Filename", "size_in_bytes": 11, "created_at": "CreatedAt", "url": "URL"}], "offering": {"name": "Name", "type": {"group": "Group", "key": "Key", "id": "ID", "kind": "Kind"}}, "resources": [{"crn": "Crn", "name": "Name", "type": "Type", "url": "URL", "note": "Note"}], "comments": [{"value": "Value", "added_at": "AddedAt", "added_by": {"name": "Name", "realm": "IBMid", "user_id": "abc@ibm.com"}}]}`)
+					fmt.Fprintf(res, `{"number": "Number", "short_description": "ShortDescription", "description": "Description", "created_at": "CreatedAt", "created_by": {"name": "Name", "realm": "IBMid", "user_id": "abc@ibm.com"}, "updated_at": "UpdatedAt", "updated_by": {"name": "Name", "realm": "IBMid", "user_id": "abc@ibm.com"}, "contact_type": "Cloud Support Center", "contact": {"name": "Name", "realm": "IBMid", "user_id": "abc@ibm.com"}, "status": "Status", "severity": 8, "support_tier": "Free", "resolution": "Resolution", "close_notes": "CloseNotes", "eu": {"support": false, "data_center": "DataCenter"}, "watchlist": [{"name": "Name", "realm": "IBMid", "user_id": "abc@ibm.com"}], "attachments": [{"id": "ID", "filename": "Filename", "size_in_bytes": 11, "created_at": "CreatedAt", "url": "URL"}], "offering": {"name": "Name", "type": {"group": "crn_service_name", "key": "Key", "kind": "Kind", "id": "ID"}}, "resources": [{"crn": "Crn", "name": "Name", "type": "Type", "url": "URL", "note": "Note"}], "comments": [{"value": "Value", "added_at": "AddedAt", "added_by": {"name": "Name", "realm": "IBMid", "user_id": "abc@ibm.com"}}]}`)
 				}))
 			})
 			It(`Invoke CreateCase successfully`, func() {
@@ -376,22 +376,22 @@ var _ = Describe(`CaseManagementV1`, func() {
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
 
-				// Construct an instance of the OfferingPayloadType model
-				offeringPayloadTypeModel := new(casemanagementv1.OfferingPayloadType)
-				offeringPayloadTypeModel.Group = core.StringPtr("crn_service_name")
-				offeringPayloadTypeModel.Key = core.StringPtr("testString")
-				offeringPayloadTypeModel.Kind = core.StringPtr("testString")
-				offeringPayloadTypeModel.ID = core.StringPtr("testString")
+				// Construct an instance of the OfferingType model
+				offeringTypeModel := new(casemanagementv1.OfferingType)
+				offeringTypeModel.Group = core.StringPtr("crn_service_name")
+				offeringTypeModel.Key = core.StringPtr("testString")
+				offeringTypeModel.Kind = core.StringPtr("testString")
+				offeringTypeModel.ID = core.StringPtr("testString")
 
 				// Construct an instance of the CasePayloadEu model
 				casePayloadEuModel := new(casemanagementv1.CasePayloadEu)
 				casePayloadEuModel.Supported = core.BoolPtr(true)
 				casePayloadEuModel.DataCenter = core.Int64Ptr(int64(38))
 
-				// Construct an instance of the OfferingPayload model
-				offeringPayloadModel := new(casemanagementv1.OfferingPayload)
-				offeringPayloadModel.Name = core.StringPtr("testString")
-				offeringPayloadModel.Type = offeringPayloadTypeModel
+				// Construct an instance of the Offering model
+				offeringModel := new(casemanagementv1.Offering)
+				offeringModel.Name = core.StringPtr("testString")
+				offeringModel.Type = offeringTypeModel
 
 				// Construct an instance of the ResourcePayload model
 				resourcePayloadModel := new(casemanagementv1.ResourcePayload)
@@ -400,10 +400,10 @@ var _ = Describe(`CaseManagementV1`, func() {
 				resourcePayloadModel.ID = core.Float64Ptr(72.5)
 				resourcePayloadModel.Note = core.StringPtr("testString")
 
-				// Construct an instance of the UserIdAndRealm model
-				userIdAndRealmModel := new(casemanagementv1.UserIdAndRealm)
-				userIdAndRealmModel.Realm = core.StringPtr("IBMid")
-				userIdAndRealmModel.UserID = core.StringPtr("testString")
+				// Construct an instance of the User model
+				userModel := new(casemanagementv1.User)
+				userModel.Realm = core.StringPtr("IBMid")
+				userModel.UserID = core.StringPtr("abc@ibm.com")
 
 				// Construct an instance of the CreateCaseOptions model
 				createCaseOptionsModel := new(casemanagementv1.CreateCaseOptions)
@@ -412,9 +412,9 @@ var _ = Describe(`CaseManagementV1`, func() {
 				createCaseOptionsModel.Description = core.StringPtr("testString")
 				createCaseOptionsModel.Severity = core.Int64Ptr(int64(1))
 				createCaseOptionsModel.Eu = casePayloadEuModel
-				createCaseOptionsModel.Offering = offeringPayloadModel
+				createCaseOptionsModel.Offering = offeringModel
 				createCaseOptionsModel.Resources = []casemanagementv1.ResourcePayload{*resourcePayloadModel}
-				createCaseOptionsModel.Watchlist = []casemanagementv1.UserIdAndRealm{*userIdAndRealmModel}
+				createCaseOptionsModel.Watchlist = []casemanagementv1.User{*userModel}
 				createCaseOptionsModel.InvoiceNumber = core.StringPtr("testString")
 				createCaseOptionsModel.SlaCreditRequest = core.BoolPtr(true)
  				createCaseOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
@@ -433,22 +433,22 @@ var _ = Describe(`CaseManagementV1`, func() {
 				Expect(testServiceErr).To(BeNil())
 				Expect(testService).ToNot(BeNil())
 
-				// Construct an instance of the OfferingPayloadType model
-				offeringPayloadTypeModel := new(casemanagementv1.OfferingPayloadType)
-				offeringPayloadTypeModel.Group = core.StringPtr("crn_service_name")
-				offeringPayloadTypeModel.Key = core.StringPtr("testString")
-				offeringPayloadTypeModel.Kind = core.StringPtr("testString")
-				offeringPayloadTypeModel.ID = core.StringPtr("testString")
+				// Construct an instance of the OfferingType model
+				offeringTypeModel := new(casemanagementv1.OfferingType)
+				offeringTypeModel.Group = core.StringPtr("crn_service_name")
+				offeringTypeModel.Key = core.StringPtr("testString")
+				offeringTypeModel.Kind = core.StringPtr("testString")
+				offeringTypeModel.ID = core.StringPtr("testString")
 
 				// Construct an instance of the CasePayloadEu model
 				casePayloadEuModel := new(casemanagementv1.CasePayloadEu)
 				casePayloadEuModel.Supported = core.BoolPtr(true)
 				casePayloadEuModel.DataCenter = core.Int64Ptr(int64(38))
 
-				// Construct an instance of the OfferingPayload model
-				offeringPayloadModel := new(casemanagementv1.OfferingPayload)
-				offeringPayloadModel.Name = core.StringPtr("testString")
-				offeringPayloadModel.Type = offeringPayloadTypeModel
+				// Construct an instance of the Offering model
+				offeringModel := new(casemanagementv1.Offering)
+				offeringModel.Name = core.StringPtr("testString")
+				offeringModel.Type = offeringTypeModel
 
 				// Construct an instance of the ResourcePayload model
 				resourcePayloadModel := new(casemanagementv1.ResourcePayload)
@@ -457,10 +457,10 @@ var _ = Describe(`CaseManagementV1`, func() {
 				resourcePayloadModel.ID = core.Float64Ptr(72.5)
 				resourcePayloadModel.Note = core.StringPtr("testString")
 
-				// Construct an instance of the UserIdAndRealm model
-				userIdAndRealmModel := new(casemanagementv1.UserIdAndRealm)
-				userIdAndRealmModel.Realm = core.StringPtr("IBMid")
-				userIdAndRealmModel.UserID = core.StringPtr("testString")
+				// Construct an instance of the User model
+				userModel := new(casemanagementv1.User)
+				userModel.Realm = core.StringPtr("IBMid")
+				userModel.UserID = core.StringPtr("abc@ibm.com")
 
 				// Construct an instance of the CreateCaseOptions model
 				createCaseOptionsModel := new(casemanagementv1.CreateCaseOptions)
@@ -469,9 +469,9 @@ var _ = Describe(`CaseManagementV1`, func() {
 				createCaseOptionsModel.Description = core.StringPtr("testString")
 				createCaseOptionsModel.Severity = core.Int64Ptr(int64(1))
 				createCaseOptionsModel.Eu = casePayloadEuModel
-				createCaseOptionsModel.Offering = offeringPayloadModel
+				createCaseOptionsModel.Offering = offeringModel
 				createCaseOptionsModel.Resources = []casemanagementv1.ResourcePayload{*resourcePayloadModel}
-				createCaseOptionsModel.Watchlist = []casemanagementv1.UserIdAndRealm{*userIdAndRealmModel}
+				createCaseOptionsModel.Watchlist = []casemanagementv1.User{*userModel}
 				createCaseOptionsModel.InvoiceNumber = core.StringPtr("testString")
 				createCaseOptionsModel.SlaCreditRequest = core.BoolPtr(true)
 				createCaseOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
@@ -548,7 +548,7 @@ var _ = Describe(`CaseManagementV1`, func() {
 					Expect(req.Method).To(Equal("GET"))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, `{"number": "Number", "short_description": "ShortDescription", "description": "Description", "created_at": "CreatedAt", "created_by": {"name": "Name", "realm": "IBMid", "user_id": "abc@ibm.com"}, "updated_at": "UpdatedAt", "updated_by": {"name": "Name", "realm": "IBMid", "user_id": "abc@ibm.com"}, "contact_type": "Cloud Support Center", "contact": {"name": "Name", "realm": "IBMid", "user_id": "abc@ibm.com"}, "status": "Status", "severity": 8, "support_tier": "Free", "resolution": "Resolution", "close_notes": "CloseNotes", "eu": {"support": false, "data_center": "DataCenter"}, "watchlist": [{"name": "Name", "realm": "IBMid", "user_id": "abc@ibm.com"}], "attachments": [{"id": "ID", "filename": "Filename", "size_in_bytes": 11, "created_at": "CreatedAt", "url": "URL"}], "offering": {"name": "Name", "type": {"group": "Group", "key": "Key", "id": "ID", "kind": "Kind"}}, "resources": [{"crn": "Crn", "name": "Name", "type": "Type", "url": "URL", "note": "Note"}], "comments": [{"value": "Value", "added_at": "AddedAt", "added_by": {"name": "Name", "realm": "IBMid", "user_id": "abc@ibm.com"}}]}`)
+					fmt.Fprintf(res, `{"number": "Number", "short_description": "ShortDescription", "description": "Description", "created_at": "CreatedAt", "created_by": {"name": "Name", "realm": "IBMid", "user_id": "abc@ibm.com"}, "updated_at": "UpdatedAt", "updated_by": {"name": "Name", "realm": "IBMid", "user_id": "abc@ibm.com"}, "contact_type": "Cloud Support Center", "contact": {"name": "Name", "realm": "IBMid", "user_id": "abc@ibm.com"}, "status": "Status", "severity": 8, "support_tier": "Free", "resolution": "Resolution", "close_notes": "CloseNotes", "eu": {"support": false, "data_center": "DataCenter"}, "watchlist": [{"name": "Name", "realm": "IBMid", "user_id": "abc@ibm.com"}], "attachments": [{"id": "ID", "filename": "Filename", "size_in_bytes": 11, "created_at": "CreatedAt", "url": "URL"}], "offering": {"name": "Name", "type": {"group": "crn_service_name", "key": "Key", "kind": "Kind", "id": "ID"}}, "resources": [{"crn": "Crn", "name": "Name", "type": "Type", "url": "URL", "note": "Note"}], "comments": [{"value": "Value", "added_at": "AddedAt", "added_by": {"name": "Name", "realm": "IBMid", "user_id": "abc@ibm.com"}}]}`)
 				}))
 			})
 			It(`Invoke GetCase successfully`, func() {
@@ -634,8 +634,8 @@ var _ = Describe(`CaseManagementV1`, func() {
 				Expect(testServiceErr).To(BeNil())
 				Expect(testService).ToNot(BeNil())
 
-				// Construct an instance of the StatusPayloadResolvePayload model
-				statusPayloadModel := new(casemanagementv1.StatusPayloadResolvePayload)
+				// Construct an instance of the ResolvePayload model
+				statusPayloadModel := new(casemanagementv1.ResolvePayload)
 				statusPayloadModel.Action = core.StringPtr("resolve")
 				statusPayloadModel.Comment = core.StringPtr("testString")
 				statusPayloadModel.ResolutionCode = core.Int64Ptr(int64(1))
@@ -669,7 +669,7 @@ var _ = Describe(`CaseManagementV1`, func() {
 					Expect(req.Method).To(Equal("PUT"))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, `{"number": "Number", "short_description": "ShortDescription", "description": "Description", "created_at": "CreatedAt", "created_by": {"name": "Name", "realm": "IBMid", "user_id": "abc@ibm.com"}, "updated_at": "UpdatedAt", "updated_by": {"name": "Name", "realm": "IBMid", "user_id": "abc@ibm.com"}, "contact_type": "Cloud Support Center", "contact": {"name": "Name", "realm": "IBMid", "user_id": "abc@ibm.com"}, "status": "Status", "severity": 8, "support_tier": "Free", "resolution": "Resolution", "close_notes": "CloseNotes", "eu": {"support": false, "data_center": "DataCenter"}, "watchlist": [{"name": "Name", "realm": "IBMid", "user_id": "abc@ibm.com"}], "attachments": [{"id": "ID", "filename": "Filename", "size_in_bytes": 11, "created_at": "CreatedAt", "url": "URL"}], "offering": {"name": "Name", "type": {"group": "Group", "key": "Key", "id": "ID", "kind": "Kind"}}, "resources": [{"crn": "Crn", "name": "Name", "type": "Type", "url": "URL", "note": "Note"}], "comments": [{"value": "Value", "added_at": "AddedAt", "added_by": {"name": "Name", "realm": "IBMid", "user_id": "abc@ibm.com"}}]}`)
+					fmt.Fprintf(res, `{"number": "Number", "short_description": "ShortDescription", "description": "Description", "created_at": "CreatedAt", "created_by": {"name": "Name", "realm": "IBMid", "user_id": "abc@ibm.com"}, "updated_at": "UpdatedAt", "updated_by": {"name": "Name", "realm": "IBMid", "user_id": "abc@ibm.com"}, "contact_type": "Cloud Support Center", "contact": {"name": "Name", "realm": "IBMid", "user_id": "abc@ibm.com"}, "status": "Status", "severity": 8, "support_tier": "Free", "resolution": "Resolution", "close_notes": "CloseNotes", "eu": {"support": false, "data_center": "DataCenter"}, "watchlist": [{"name": "Name", "realm": "IBMid", "user_id": "abc@ibm.com"}], "attachments": [{"id": "ID", "filename": "Filename", "size_in_bytes": 11, "created_at": "CreatedAt", "url": "URL"}], "offering": {"name": "Name", "type": {"group": "crn_service_name", "key": "Key", "kind": "Kind", "id": "ID"}}, "resources": [{"crn": "Crn", "name": "Name", "type": "Type", "url": "URL", "note": "Note"}], "comments": [{"value": "Value", "added_at": "AddedAt", "added_by": {"name": "Name", "realm": "IBMid", "user_id": "abc@ibm.com"}}]}`)
 				}))
 			})
 			It(`Invoke UpdateCaseStatus successfully`, func() {
@@ -686,8 +686,8 @@ var _ = Describe(`CaseManagementV1`, func() {
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
 
-				// Construct an instance of the StatusPayloadResolvePayload model
-				statusPayloadModel := new(casemanagementv1.StatusPayloadResolvePayload)
+				// Construct an instance of the ResolvePayload model
+				statusPayloadModel := new(casemanagementv1.ResolvePayload)
 				statusPayloadModel.Action = core.StringPtr("resolve")
 				statusPayloadModel.Comment = core.StringPtr("testString")
 				statusPayloadModel.ResolutionCode = core.Int64Ptr(int64(1))
@@ -712,8 +712,8 @@ var _ = Describe(`CaseManagementV1`, func() {
 				Expect(testServiceErr).To(BeNil())
 				Expect(testService).ToNot(BeNil())
 
-				// Construct an instance of the StatusPayloadResolvePayload model
-				statusPayloadModel := new(casemanagementv1.StatusPayloadResolvePayload)
+				// Construct an instance of the ResolvePayload model
+				statusPayloadModel := new(casemanagementv1.ResolvePayload)
 				statusPayloadModel.Action = core.StringPtr("resolve")
 				statusPayloadModel.Comment = core.StringPtr("testString")
 				statusPayloadModel.ResolutionCode = core.Int64Ptr(int64(1))
@@ -1625,17 +1625,17 @@ var _ = Describe(`CaseManagementV1`, func() {
 				Expect(addWatchlistOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewCreateCaseOptions successfully`, func() {
-				// Construct an instance of the OfferingPayloadType model
-				offeringPayloadTypeModel := new(casemanagementv1.OfferingPayloadType)
-				Expect(offeringPayloadTypeModel).ToNot(BeNil())
-				offeringPayloadTypeModel.Group = core.StringPtr("crn_service_name")
-				offeringPayloadTypeModel.Key = core.StringPtr("testString")
-				offeringPayloadTypeModel.Kind = core.StringPtr("testString")
-				offeringPayloadTypeModel.ID = core.StringPtr("testString")
-				Expect(offeringPayloadTypeModel.Group).To(Equal(core.StringPtr("crn_service_name")))
-				Expect(offeringPayloadTypeModel.Key).To(Equal(core.StringPtr("testString")))
-				Expect(offeringPayloadTypeModel.Kind).To(Equal(core.StringPtr("testString")))
-				Expect(offeringPayloadTypeModel.ID).To(Equal(core.StringPtr("testString")))
+				// Construct an instance of the OfferingType model
+				offeringTypeModel := new(casemanagementv1.OfferingType)
+				Expect(offeringTypeModel).ToNot(BeNil())
+				offeringTypeModel.Group = core.StringPtr("crn_service_name")
+				offeringTypeModel.Key = core.StringPtr("testString")
+				offeringTypeModel.Kind = core.StringPtr("testString")
+				offeringTypeModel.ID = core.StringPtr("testString")
+				Expect(offeringTypeModel.Group).To(Equal(core.StringPtr("crn_service_name")))
+				Expect(offeringTypeModel.Key).To(Equal(core.StringPtr("testString")))
+				Expect(offeringTypeModel.Kind).To(Equal(core.StringPtr("testString")))
+				Expect(offeringTypeModel.ID).To(Equal(core.StringPtr("testString")))
 
 				// Construct an instance of the CasePayloadEu model
 				casePayloadEuModel := new(casemanagementv1.CasePayloadEu)
@@ -1645,13 +1645,13 @@ var _ = Describe(`CaseManagementV1`, func() {
 				Expect(casePayloadEuModel.Supported).To(Equal(core.BoolPtr(true)))
 				Expect(casePayloadEuModel.DataCenter).To(Equal(core.Int64Ptr(int64(38))))
 
-				// Construct an instance of the OfferingPayload model
-				offeringPayloadModel := new(casemanagementv1.OfferingPayload)
-				Expect(offeringPayloadModel).ToNot(BeNil())
-				offeringPayloadModel.Name = core.StringPtr("testString")
-				offeringPayloadModel.Type = offeringPayloadTypeModel
-				Expect(offeringPayloadModel.Name).To(Equal(core.StringPtr("testString")))
-				Expect(offeringPayloadModel.Type).To(Equal(offeringPayloadTypeModel))
+				// Construct an instance of the Offering model
+				offeringModel := new(casemanagementv1.Offering)
+				Expect(offeringModel).ToNot(BeNil())
+				offeringModel.Name = core.StringPtr("testString")
+				offeringModel.Type = offeringTypeModel
+				Expect(offeringModel.Name).To(Equal(core.StringPtr("testString")))
+				Expect(offeringModel.Type).To(Equal(offeringTypeModel))
 
 				// Construct an instance of the ResourcePayload model
 				resourcePayloadModel := new(casemanagementv1.ResourcePayload)
@@ -1665,13 +1665,13 @@ var _ = Describe(`CaseManagementV1`, func() {
 				Expect(resourcePayloadModel.ID).To(Equal(core.Float64Ptr(72.5)))
 				Expect(resourcePayloadModel.Note).To(Equal(core.StringPtr("testString")))
 
-				// Construct an instance of the UserIdAndRealm model
-				userIdAndRealmModel := new(casemanagementv1.UserIdAndRealm)
-				Expect(userIdAndRealmModel).ToNot(BeNil())
-				userIdAndRealmModel.Realm = core.StringPtr("IBMid")
-				userIdAndRealmModel.UserID = core.StringPtr("testString")
-				Expect(userIdAndRealmModel.Realm).To(Equal(core.StringPtr("IBMid")))
-				Expect(userIdAndRealmModel.UserID).To(Equal(core.StringPtr("testString")))
+				// Construct an instance of the User model
+				userModel := new(casemanagementv1.User)
+				Expect(userModel).ToNot(BeNil())
+				userModel.Realm = core.StringPtr("IBMid")
+				userModel.UserID = core.StringPtr("abc@ibm.com")
+				Expect(userModel.Realm).To(Equal(core.StringPtr("IBMid")))
+				Expect(userModel.UserID).To(Equal(core.StringPtr("abc@ibm.com")))
 
 				// Construct an instance of the CreateCaseOptions model
 				createCaseOptionsType := "technical"
@@ -1683,9 +1683,9 @@ var _ = Describe(`CaseManagementV1`, func() {
 				createCaseOptionsModel.SetDescription("testString")
 				createCaseOptionsModel.SetSeverity(int64(1))
 				createCaseOptionsModel.SetEu(casePayloadEuModel)
-				createCaseOptionsModel.SetOffering(offeringPayloadModel)
+				createCaseOptionsModel.SetOffering(offeringModel)
 				createCaseOptionsModel.SetResources([]casemanagementv1.ResourcePayload{*resourcePayloadModel})
-				createCaseOptionsModel.SetWatchlist([]casemanagementv1.UserIdAndRealm{*userIdAndRealmModel})
+				createCaseOptionsModel.SetWatchlist([]casemanagementv1.User{*userModel})
 				createCaseOptionsModel.SetInvoiceNumber("testString")
 				createCaseOptionsModel.SetSlaCreditRequest(true)
 				createCaseOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
@@ -1695,9 +1695,9 @@ var _ = Describe(`CaseManagementV1`, func() {
 				Expect(createCaseOptionsModel.Description).To(Equal(core.StringPtr("testString")))
 				Expect(createCaseOptionsModel.Severity).To(Equal(core.Int64Ptr(int64(1))))
 				Expect(createCaseOptionsModel.Eu).To(Equal(casePayloadEuModel))
-				Expect(createCaseOptionsModel.Offering).To(Equal(offeringPayloadModel))
+				Expect(createCaseOptionsModel.Offering).To(Equal(offeringModel))
 				Expect(createCaseOptionsModel.Resources).To(Equal([]casemanagementv1.ResourcePayload{*resourcePayloadModel}))
-				Expect(createCaseOptionsModel.Watchlist).To(Equal([]casemanagementv1.UserIdAndRealm{*userIdAndRealmModel}))
+				Expect(createCaseOptionsModel.Watchlist).To(Equal([]casemanagementv1.User{*userModel}))
 				Expect(createCaseOptionsModel.InvoiceNumber).To(Equal(core.StringPtr("testString")))
 				Expect(createCaseOptionsModel.SlaCreditRequest).To(Equal(core.BoolPtr(true)))
 				Expect(createCaseOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
@@ -1765,16 +1765,16 @@ var _ = Describe(`CaseManagementV1`, func() {
 				Expect(getCasesOptionsModel.Fields).To(Equal([]string{"number"}))
 				Expect(getCasesOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
-			It(`Invoke NewOfferingPayload successfully`, func() {
+			It(`Invoke NewOffering successfully`, func() {
 				name := "testString"
-				var typeVar *casemanagementv1.OfferingPayloadType = nil
-				_, err := testService.NewOfferingPayload(name, typeVar)
+				var typeVar *casemanagementv1.OfferingType = nil
+				_, err := testService.NewOffering(name, typeVar)
 				Expect(err).ToNot(BeNil())
 			})
-			It(`Invoke NewOfferingPayloadType successfully`, func() {
+			It(`Invoke NewOfferingType successfully`, func() {
 				group := "crn_service_name"
 				key := "testString"
-				model, err := testService.NewOfferingPayloadType(group, key)
+				model, err := testService.NewOfferingType(group, key)
 				Expect(model).ToNot(BeNil())
 				Expect(err).To(BeNil())
 			})
@@ -1799,8 +1799,8 @@ var _ = Describe(`CaseManagementV1`, func() {
 				Expect(removeWatchlistOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewUpdateCaseStatusOptions successfully`, func() {
-				// Construct an instance of the StatusPayloadResolvePayload model
-				statusPayloadModel := new(casemanagementv1.StatusPayloadResolvePayload)
+				// Construct an instance of the ResolvePayload model
+				statusPayloadModel := new(casemanagementv1.ResolvePayload)
 				Expect(statusPayloadModel).ToNot(BeNil())
 				statusPayloadModel.Action = core.StringPtr("resolve")
 				statusPayloadModel.Comment = core.StringPtr("testString")
@@ -1851,30 +1851,23 @@ var _ = Describe(`CaseManagementV1`, func() {
 				Expect(model).ToNot(BeNil())
 				Expect(err).To(BeNil())
 			})
-			It(`Invoke NewUserIdAndRealm successfully`, func() {
-				realm := "IBMid"
-				userID := "testString"
-				model, err := testService.NewUserIdAndRealm(realm, userID)
-				Expect(model).ToNot(BeNil())
-				Expect(err).To(BeNil())
-			})
-			It(`Invoke NewStatusPayloadAcceptPayload successfully`, func() {
+			It(`Invoke NewAcceptPayload successfully`, func() {
 				action := "accept"
-				model, err := testService.NewStatusPayloadAcceptPayload(action)
+				model, err := testService.NewAcceptPayload(action)
 				Expect(model).ToNot(BeNil())
 				Expect(err).To(BeNil())
 			})
-			It(`Invoke NewStatusPayloadResolvePayload successfully`, func() {
+			It(`Invoke NewResolvePayload successfully`, func() {
 				action := "resolve"
 				resolutionCode := int64(1)
-				model, err := testService.NewStatusPayloadResolvePayload(action, resolutionCode)
+				model, err := testService.NewResolvePayload(action, resolutionCode)
 				Expect(model).ToNot(BeNil())
 				Expect(err).To(BeNil())
 			})
-			It(`Invoke NewStatusPayloadUnresolvePayload successfully`, func() {
+			It(`Invoke NewUnresolvePayload successfully`, func() {
 				action := "unresolve"
 				comment := "testString"
-				model, err := testService.NewStatusPayloadUnresolvePayload(action, comment)
+				model, err := testService.NewUnresolvePayload(action, comment)
 				Expect(model).ToNot(BeNil())
 				Expect(err).To(BeNil())
 			})

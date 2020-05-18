@@ -1019,6 +1019,7 @@ type Case struct {
 	// EU support.
 	Eu *CaseEu `json:"eu,omitempty"`
 
+	// List of users in the case watchlist.
 	Watchlist []User `json:"watchlist,omitempty"`
 
 	// List of attachments/files of the case.
@@ -1168,16 +1169,16 @@ type CaseList struct {
 	// Total number of cases satisfying the query.
 	TotalCount *int64 `json:"total_count,omitempty"`
 
-	// URL to related pages of cases.
+	// Container for URL pointer to related pages of cases.
 	First *PaginationLink `json:"first,omitempty"`
 
-	// URL to related pages of cases.
+	// Container for URL pointer to related pages of cases.
 	Next *PaginationLink `json:"next,omitempty"`
 
-	// URL to related pages of cases.
+	// Container for URL pointer to related pages of cases.
 	Previous *PaginationLink `json:"previous,omitempty"`
 
-	// URL to related pages of cases.
+	// Container for URL pointer to related pages of cases.
 	Last *PaginationLink `json:"last,omitempty"`
 
 	// List of cases.
@@ -1276,6 +1277,7 @@ func UnmarshalComment(m map[string]json.RawMessage, result interface{}) (err err
 
 // CreateCaseOptions : The CreateCase options.
 type CreateCaseOptions struct {
+	// Case type.
 	Type *string `json:"type" validate:"required"`
 
 	// Subject of the case.
@@ -1291,8 +1293,8 @@ type CreateCaseOptions struct {
 	// support utility endpoint to determine which property must be specified for your account.
 	Eu *CasePayloadEu `json:"eu,omitempty"`
 
-	// Payload to specify the offering of a case.
-	Offering *OfferingPayload `json:"offering,omitempty"`
+	// Offering details.
+	Offering *Offering `json:"offering,omitempty"`
 
 	// List of resources to attach to case. If attaching Classic IaaS devices use type and id fields if Cloud Resource Name
 	// (CRN) is unavialable. Otherwise pass the resource CRN. The resource list must be consistent with the value selected
@@ -1300,7 +1302,7 @@ type CreateCaseOptions struct {
 	Resources []ResourcePayload `json:"resources,omitempty"`
 
 	// Array of user IDs to add to the watchlist.
-	Watchlist []UserIdAndRealm `json:"watchlist,omitempty"`
+	Watchlist []User `json:"watchlist,omitempty"`
 
 	// Invoice number of "Billing and Invoice" case type.
 	InvoiceNumber *string `json:"invoice_number,omitempty"`
@@ -1313,6 +1315,7 @@ type CreateCaseOptions struct {
 }
 
 // Constants associated with the CreateCaseOptions.Type property.
+// Case type.
 const (
 	CreateCaseOptions_Type_AccountAndAccess = "account_and_access"
 	CreateCaseOptions_Type_BillingAndInvoice = "billing_and_invoice"
@@ -1360,7 +1363,7 @@ func (options *CreateCaseOptions) SetEu(eu *CasePayloadEu) *CreateCaseOptions {
 }
 
 // SetOffering : Allow user to set Offering
-func (options *CreateCaseOptions) SetOffering(offering *OfferingPayload) *CreateCaseOptions {
+func (options *CreateCaseOptions) SetOffering(offering *Offering) *CreateCaseOptions {
 	options.Offering = offering
 	return options
 }
@@ -1372,7 +1375,7 @@ func (options *CreateCaseOptions) SetResources(resources []ResourcePayload) *Cre
 }
 
 // SetWatchlist : Allow user to set Watchlist
-func (options *CreateCaseOptions) SetWatchlist(watchlist []UserIdAndRealm) *CreateCaseOptions {
+func (options *CreateCaseOptions) SetWatchlist(watchlist []User) *CreateCaseOptions {
 	options.Watchlist = watchlist
 	return options
 }
@@ -1688,9 +1691,20 @@ type Offering struct {
 	// Name of the offering.
 	Name *string `json:"name" validate:"required"`
 
+	// Offering type.
 	Type *OfferingType `json:"type" validate:"required"`
 }
 
+
+// NewOffering : Instantiate Offering (Generic Model Constructor)
+func (*CaseManagementV1) NewOffering(name string, typeVar *OfferingType) (model *Offering, err error) {
+	model = &Offering{
+		Name: core.StringPtr(name),
+		Type: typeVar,
+	}
+	err = core.ValidateStruct(model, "required parameters")
+	return
+}
 
 // UnmarshalOffering unmarshals an instance of Offering from the specified map of raw messages.
 func UnmarshalOffering(m map[string]json.RawMessage, result interface{}) (err error) {
@@ -1707,43 +1721,8 @@ func UnmarshalOffering(m map[string]json.RawMessage, result interface{}) (err er
 	return
 }
 
-// OfferingPayload : Payload to specify the offering of a case.
-type OfferingPayload struct {
-	// Offering name.
-	Name *string `json:"name" validate:"required"`
-
-	// Offering type.
-	Type *OfferingPayloadType `json:"type" validate:"required"`
-}
-
-
-// NewOfferingPayload : Instantiate OfferingPayload (Generic Model Constructor)
-func (*CaseManagementV1) NewOfferingPayload(name string, typeVar *OfferingPayloadType) (model *OfferingPayload, err error) {
-	model = &OfferingPayload{
-		Name: core.StringPtr(name),
-		Type: typeVar,
-	}
-	err = core.ValidateStruct(model, "required parameters")
-	return
-}
-
-// UnmarshalOfferingPayload unmarshals an instance of OfferingPayload from the specified map of raw messages.
-func UnmarshalOfferingPayload(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(OfferingPayload)
-	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalModel(m, "type", &obj.Type, UnmarshalOfferingPayloadType)
-	if err != nil {
-		return
-	}
-	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
-	return
-}
-
-// OfferingPayloadType : Offering type.
-type OfferingPayloadType struct {
+// OfferingType : Offering type.
+type OfferingType struct {
 	// Offering type group. "crn_service_name" is strongly prefered over "category" as the latter is legacy and will be
 	// deprecated in the future.
 	Group *string `json:"group" validate:"required"`
@@ -1758,63 +1737,24 @@ type OfferingPayloadType struct {
 	ID *string `json:"id,omitempty"`
 }
 
-// Constants associated with the OfferingPayloadType.Group property.
+// Constants associated with the OfferingType.Group property.
 // Offering type group. "crn_service_name" is strongly prefered over "category" as the latter is legacy and will be
 // deprecated in the future.
 const (
-	OfferingPayloadType_Group_Category = "category"
-	OfferingPayloadType_Group_CrnServiceName = "crn_service_name"
+	OfferingType_Group_Category = "category"
+	OfferingType_Group_CrnServiceName = "crn_service_name"
 )
 
 
-// NewOfferingPayloadType : Instantiate OfferingPayloadType (Generic Model Constructor)
-func (*CaseManagementV1) NewOfferingPayloadType(group string, key string) (model *OfferingPayloadType, err error) {
-	model = &OfferingPayloadType{
+// NewOfferingType : Instantiate OfferingType (Generic Model Constructor)
+func (*CaseManagementV1) NewOfferingType(group string, key string) (model *OfferingType, err error) {
+	model = &OfferingType{
 		Group: core.StringPtr(group),
 		Key: core.StringPtr(key),
 	}
 	err = core.ValidateStruct(model, "required parameters")
 	return
 }
-
-// UnmarshalOfferingPayloadType unmarshals an instance of OfferingPayloadType from the specified map of raw messages.
-func UnmarshalOfferingPayloadType(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(OfferingPayloadType)
-	err = core.UnmarshalPrimitive(m, "group", &obj.Group)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "key", &obj.Key)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "kind", &obj.Kind)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
-	if err != nil {
-		return
-	}
-	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
-	return
-}
-
-// OfferingType : OfferingType struct
-type OfferingType struct {
-	// indicating whether this is an offering or a broad category.
-	Group *string `json:"group" validate:"required"`
-
-	// crn service name of the offering or the value of the category.
-	Key *string `json:"key" validate:"required"`
-
-	// catalog id of the offering.
-	ID *string `json:"id,omitempty"`
-
-	// kind of the offering.
-	Kind *string `json:"kind,omitempty"`
-}
-
 
 // UnmarshalOfferingType unmarshals an instance of OfferingType from the specified map of raw messages.
 func UnmarshalOfferingType(m map[string]json.RawMessage, result interface{}) (err error) {
@@ -1827,11 +1767,11 @@ func UnmarshalOfferingType(m map[string]json.RawMessage, result interface{}) (er
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
+	err = core.UnmarshalPrimitive(m, "kind", &obj.Kind)
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalPrimitive(m, "kind", &obj.Kind)
+	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
 	if err != nil {
 		return
 	}
@@ -1839,8 +1779,9 @@ func UnmarshalOfferingType(m map[string]json.RawMessage, result interface{}) (er
 	return
 }
 
-// PaginationLink : URL to related pages of cases.
+// PaginationLink : Container for URL pointer to related pages of cases.
 type PaginationLink struct {
+	// URL to related pages of cases.
 	Href *string `json:"href,omitempty"`
 }
 
@@ -1981,9 +1922,9 @@ func UnmarshalResourcePayload(m map[string]json.RawMessage, result interface{}) 
 
 // StatusPayload : Payload to update status of the case.
 // Models which "extend" this model:
-// - StatusPayloadResolvePayload
-// - StatusPayloadUnresolvePayload
-// - StatusPayloadAcceptPayload
+// - ResolvePayload
+// - UnresolvePayload
+// - AcceptPayload
 type StatusPayload struct {
 	// action to perform on the case.
 	Action *string `json:"action" validate:"required"`
@@ -2032,11 +1973,11 @@ func UnmarshalStatusPayload(m map[string]json.RawMessage, result interface{}) (e
 		return
 	}
 	if discValue == "resolve" {
-		err = core.UnmarshalModel(m, "", result, UnmarshalStatusPayloadResolvePayload)
+		err = core.UnmarshalModel(m, "", result, UnmarshalResolvePayload)
 	} else if discValue == "unresolve" {
-		err = core.UnmarshalModel(m, "", result, UnmarshalStatusPayloadUnresolvePayload)
+		err = core.UnmarshalModel(m, "", result, UnmarshalUnresolvePayload)
 	} else if discValue == "accept" {
-		err = core.UnmarshalModel(m, "", result, UnmarshalStatusPayloadAcceptPayload)
+		err = core.UnmarshalModel(m, "", result, UnmarshalAcceptPayload)
 	} else {
 		err = fmt.Errorf("unrecognized value for discriminator property 'action': %s", discValue)
 	}
@@ -2169,49 +2110,6 @@ func UnmarshalUser(m map[string]json.RawMessage, result interface{}) (err error)
 	return
 }
 
-// UserIdAndRealm : user ID and realm.
-type UserIdAndRealm struct {
-	// the ID realm.
-	Realm *string `json:"realm" validate:"required"`
-
-	// unique user ID in the realm specified by the type.
-	UserID *string `json:"user_id" validate:"required"`
-}
-
-// Constants associated with the UserIdAndRealm.Realm property.
-// the ID realm.
-const (
-	UserIdAndRealm_Realm_Bss = "BSS"
-	UserIdAndRealm_Realm_Ibmid = "IBMid"
-	UserIdAndRealm_Realm_Sl = "SL"
-)
-
-
-// NewUserIdAndRealm : Instantiate UserIdAndRealm (Generic Model Constructor)
-func (*CaseManagementV1) NewUserIdAndRealm(realm string, userID string) (model *UserIdAndRealm, err error) {
-	model = &UserIdAndRealm{
-		Realm: core.StringPtr(realm),
-		UserID: core.StringPtr(userID),
-	}
-	err = core.ValidateStruct(model, "required parameters")
-	return
-}
-
-// UnmarshalUserIdAndRealm unmarshals an instance of UserIdAndRealm from the specified map of raw messages.
-func UnmarshalUserIdAndRealm(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(UserIdAndRealm)
-	err = core.UnmarshalPrimitive(m, "realm", &obj.Realm)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "user_id", &obj.UserID)
-	if err != nil {
-		return
-	}
-	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
-	return
-}
-
 // Watchlist : Payload to add/remove users to/from the case watchlist.
 type Watchlist struct {
 	// Array of user ID objects.
@@ -2255,9 +2153,9 @@ func UnmarshalWatchlistAddResponse(m map[string]json.RawMessage, result interfac
 	return
 }
 
-// StatusPayloadAcceptPayload : Payload to accept the proposed resolution of the case.
+// AcceptPayload : Payload to accept the proposed resolution of the case.
 // This model "extends" StatusPayload
-type StatusPayloadAcceptPayload struct {
+type AcceptPayload struct {
 	// action to perform on the case.
 	Action *string `json:"action" validate:"required"`
 
@@ -2265,31 +2163,31 @@ type StatusPayloadAcceptPayload struct {
 	Comment *string `json:"comment,omitempty"`
 }
 
-// Constants associated with the StatusPayloadAcceptPayload.Action property.
+// Constants associated with the AcceptPayload.Action property.
 // action to perform on the case.
 const (
-	StatusPayloadAcceptPayload_Action_Accept = "accept"
-	StatusPayloadAcceptPayload_Action_Resolve = "resolve"
-	StatusPayloadAcceptPayload_Action_Unresolve = "unresolve"
+	AcceptPayload_Action_Accept = "accept"
+	AcceptPayload_Action_Resolve = "resolve"
+	AcceptPayload_Action_Unresolve = "unresolve"
 )
 
 
-// NewStatusPayloadAcceptPayload : Instantiate StatusPayloadAcceptPayload (Generic Model Constructor)
-func (*CaseManagementV1) NewStatusPayloadAcceptPayload(action string) (model *StatusPayloadAcceptPayload, err error) {
-	model = &StatusPayloadAcceptPayload{
+// NewAcceptPayload : Instantiate AcceptPayload (Generic Model Constructor)
+func (*CaseManagementV1) NewAcceptPayload(action string) (model *AcceptPayload, err error) {
+	model = &AcceptPayload{
 		Action: core.StringPtr(action),
 	}
 	err = core.ValidateStruct(model, "required parameters")
 	return
 }
 
-func (*StatusPayloadAcceptPayload) isaStatusPayload() bool {
+func (*AcceptPayload) isaStatusPayload() bool {
 	return true
 }
 
-// UnmarshalStatusPayloadAcceptPayload unmarshals an instance of StatusPayloadAcceptPayload from the specified map of raw messages.
-func UnmarshalStatusPayloadAcceptPayload(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(StatusPayloadAcceptPayload)
+// UnmarshalAcceptPayload unmarshals an instance of AcceptPayload from the specified map of raw messages.
+func UnmarshalAcceptPayload(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(AcceptPayload)
 	err = core.UnmarshalPrimitive(m, "action", &obj.Action)
 	if err != nil {
 		return
@@ -2302,9 +2200,9 @@ func UnmarshalStatusPayloadAcceptPayload(m map[string]json.RawMessage, result in
 	return
 }
 
-// StatusPayloadResolvePayload : Payload to resolve the case.
+// ResolvePayload : Payload to resolve the case.
 // This model "extends" StatusPayload
-type StatusPayloadResolvePayload struct {
+type ResolvePayload struct {
 	// action to perform on the case.
 	Action *string `json:"action" validate:"required"`
 
@@ -2322,18 +2220,18 @@ type StatusPayloadResolvePayload struct {
 	ResolutionCode *int64 `json:"resolution_code" validate:"required"`
 }
 
-// Constants associated with the StatusPayloadResolvePayload.Action property.
+// Constants associated with the ResolvePayload.Action property.
 // action to perform on the case.
 const (
-	StatusPayloadResolvePayload_Action_Accept = "accept"
-	StatusPayloadResolvePayload_Action_Resolve = "resolve"
-	StatusPayloadResolvePayload_Action_Unresolve = "unresolve"
+	ResolvePayload_Action_Accept = "accept"
+	ResolvePayload_Action_Resolve = "resolve"
+	ResolvePayload_Action_Unresolve = "unresolve"
 )
 
 
-// NewStatusPayloadResolvePayload : Instantiate StatusPayloadResolvePayload (Generic Model Constructor)
-func (*CaseManagementV1) NewStatusPayloadResolvePayload(action string, resolutionCode int64) (model *StatusPayloadResolvePayload, err error) {
-	model = &StatusPayloadResolvePayload{
+// NewResolvePayload : Instantiate ResolvePayload (Generic Model Constructor)
+func (*CaseManagementV1) NewResolvePayload(action string, resolutionCode int64) (model *ResolvePayload, err error) {
+	model = &ResolvePayload{
 		Action: core.StringPtr(action),
 		ResolutionCode: core.Int64Ptr(resolutionCode),
 	}
@@ -2341,13 +2239,13 @@ func (*CaseManagementV1) NewStatusPayloadResolvePayload(action string, resolutio
 	return
 }
 
-func (*StatusPayloadResolvePayload) isaStatusPayload() bool {
+func (*ResolvePayload) isaStatusPayload() bool {
 	return true
 }
 
-// UnmarshalStatusPayloadResolvePayload unmarshals an instance of StatusPayloadResolvePayload from the specified map of raw messages.
-func UnmarshalStatusPayloadResolvePayload(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(StatusPayloadResolvePayload)
+// UnmarshalResolvePayload unmarshals an instance of ResolvePayload from the specified map of raw messages.
+func UnmarshalResolvePayload(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(ResolvePayload)
 	err = core.UnmarshalPrimitive(m, "action", &obj.Action)
 	if err != nil {
 		return
@@ -2364,9 +2262,9 @@ func UnmarshalStatusPayloadResolvePayload(m map[string]json.RawMessage, result i
 	return
 }
 
-// StatusPayloadUnresolvePayload : Payload to unresolve the case.
+// UnresolvePayload : Payload to unresolve the case.
 // This model "extends" StatusPayload
-type StatusPayloadUnresolvePayload struct {
+type UnresolvePayload struct {
 	// action to perform on the case.
 	Action *string `json:"action" validate:"required"`
 
@@ -2374,18 +2272,18 @@ type StatusPayloadUnresolvePayload struct {
 	Comment *string `json:"comment" validate:"required"`
 }
 
-// Constants associated with the StatusPayloadUnresolvePayload.Action property.
+// Constants associated with the UnresolvePayload.Action property.
 // action to perform on the case.
 const (
-	StatusPayloadUnresolvePayload_Action_Accept = "accept"
-	StatusPayloadUnresolvePayload_Action_Resolve = "resolve"
-	StatusPayloadUnresolvePayload_Action_Unresolve = "unresolve"
+	UnresolvePayload_Action_Accept = "accept"
+	UnresolvePayload_Action_Resolve = "resolve"
+	UnresolvePayload_Action_Unresolve = "unresolve"
 )
 
 
-// NewStatusPayloadUnresolvePayload : Instantiate StatusPayloadUnresolvePayload (Generic Model Constructor)
-func (*CaseManagementV1) NewStatusPayloadUnresolvePayload(action string, comment string) (model *StatusPayloadUnresolvePayload, err error) {
-	model = &StatusPayloadUnresolvePayload{
+// NewUnresolvePayload : Instantiate UnresolvePayload (Generic Model Constructor)
+func (*CaseManagementV1) NewUnresolvePayload(action string, comment string) (model *UnresolvePayload, err error) {
+	model = &UnresolvePayload{
 		Action: core.StringPtr(action),
 		Comment: core.StringPtr(comment),
 	}
@@ -2393,13 +2291,13 @@ func (*CaseManagementV1) NewStatusPayloadUnresolvePayload(action string, comment
 	return
 }
 
-func (*StatusPayloadUnresolvePayload) isaStatusPayload() bool {
+func (*UnresolvePayload) isaStatusPayload() bool {
 	return true
 }
 
-// UnmarshalStatusPayloadUnresolvePayload unmarshals an instance of StatusPayloadUnresolvePayload from the specified map of raw messages.
-func UnmarshalStatusPayloadUnresolvePayload(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(StatusPayloadUnresolvePayload)
+// UnmarshalUnresolvePayload unmarshals an instance of UnresolvePayload from the specified map of raw messages.
+func UnmarshalUnresolvePayload(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(UnresolvePayload)
 	err = core.UnmarshalPrimitive(m, "action", &obj.Action)
 	if err != nil {
 		return
