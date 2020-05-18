@@ -286,10 +286,6 @@ var _ = Describe("Case Management - Integration Tests", func() {
 			shouldSkipTest()
 			_, detailedResponse, err := service.RemoveWatchlist(options)
 
-			if err != nil {
-				fmt.Printf("Remove watchlist response: %s\n", string(detailedResponse.RawResult))
-			}
-
 			Expect(err).To((BeNil()))
 			Expect(detailedResponse.StatusCode).To(Equal(200))
 		})
@@ -366,9 +362,6 @@ var _ = Describe("Case Management - Integration Tests", func() {
 			crn := *resourcePayload[0].Crn
 			options := service.NewAddResourceOptions(caseNumber)
 			options.SetCrn(crn)
-
-			temp, _ := json.Marshal(options)
-			fmt.Printf("add resource options: %s", string(temp))
 
 			result, detailedResponse, err := service.AddResource(options)
 
