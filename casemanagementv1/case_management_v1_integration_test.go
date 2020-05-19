@@ -130,6 +130,7 @@ var _ = Describe("Case Management - Integration Tests", func() {
 		})
 
 		It("Bad payload used to create a case", func() {
+			shouldSkipTest()
 			options.SetType("invalid_type")
 			options.Severity = nil
 			options.Offering = nil
@@ -365,6 +366,7 @@ var _ = Describe("Case Management - Integration Tests", func() {
 
 	Describe("Add Resource", func() {
 		It("Successfully added a resource", func() {
+			shouldSkipTest()
 			crn := *resourcePayload[0].Crn
 			options := service.NewAddResourceOptions(caseNumber)
 			options.SetCrn(crn)
