@@ -37,9 +37,7 @@ var (
 	service           *casemanagementv1.CaseManagementV1
 	err               error
 	
-	config            map[string]string
 	configLoaded      bool = false
-	testAccountID     string
 	
 	caseNumber         string
 	commentValue       = "Test comment"
@@ -73,20 +71,14 @@ func shouldSkipTest() {
 
 var _ = Describe("Case Management - Integration Tests", func() {
 	It("Successfully load the configuration", func() {
-		err = os.Setenv("IBM_CREDENTIALS_FILE", externalConfigFile)
-		if err != nil {
-			Skip("Could not set IBM_CREDENTIALS_FILE environment variable: " + err.Error())
-		}
-
-		// config, err = core.GetServiceProperties(iamaccessgroupsv2.DefaultServiceName)
-		config, err = core.GetServiceProperties(casemanagementv1.DefaultServiceName)
-		if err == nil {
-			testAccountID = config["ACCOUNT_ID"]
-			fmt.Printf("\nAccount ID: %s\n", testAccountID)
-			if testAccountID != "" {
+		if _, fileErr := os.Stat(externalConfigFile); fileErr == nil {
+			os.Setenv("IBM_CREDENTIALS_FILE", externalConfigFile)		
+			config, _ := core.GetServiceProperties(casemanagementv1.DefaultServiceName)
+			if len(config) > 0 {
 				configLoaded = true
 			}
 		}
+		
 		if !configLoaded {
 			Skip("External configuration could not be loaded, skipping...")
 		}
@@ -102,7 +94,7 @@ var _ = Describe("Case Management - Integration Tests", func() {
 		Expect(err).To(BeNil())
 		Expect(service).ToNot(BeNil())
 		
-		fmt.Printf("Service URL: %s\n", service.Service.GetServiceURL())
+		fmt.Printf("\nService URL: %s\n", service.Service.GetServiceURL())
 	})
 
 	Describe("Create a case", func() {
@@ -126,7 +118,7 @@ var _ = Describe("Case Management - Integration Tests", func() {
 
 			caseNumber = *result.Number
 
-			fmt.Printf("case number: %s", caseNumber)
+			fmt.Printf("\nCase number: %s\n", caseNumber)
 		})
 
 		It("Bad payload used to create a case", func() {
