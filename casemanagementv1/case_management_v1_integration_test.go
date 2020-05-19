@@ -21,10 +21,9 @@ package casemanagementv1_test
 import (
 	"bytes"
 	"fmt"
-	"os"
 	"io/ioutil"
+	"os"
 	"strings"
-	"encoding/json"
 
 	"github.com/joho/godotenv"
 	. "github.com/onsi/ginkgo"
@@ -50,7 +49,7 @@ var (
 var offeringType, _ = service.NewOfferingType(casemanagementv1.OfferingType_Group_CrnServiceName, "cloud-object-storage")
 
 var (
-	caseNumber         = "CS1310378"
+	caseNumber         string
 	commentValue       = "Test comment"
 	offeringPayload, _ = service.NewOffering("Cloud Object Storage", offeringType)
 	resourcePayload    = []casemanagementv1.ResourcePayload{casemanagementv1.ResourcePayload{
@@ -247,8 +246,11 @@ var _ = Describe("Case Management - Integration Tests", func() {
 	})
 
 	Describe("Add comment", func() {
-		// var options *casemanagementv1.AddCommentOptions
-		options := service.NewAddCommentOptions(caseNumber, commentValue)
+		var options *casemanagementv1.AddCommentOptions
+
+		BeforeEach(func() {
+			options = service.NewAddCommentOptions(caseNumber, commentValue)
+		})
 
 		// BeforeEach(func() {
 		// })
@@ -265,8 +267,12 @@ var _ = Describe("Case Management - Integration Tests", func() {
 	})
 
 	Describe("Add watchlist", func() {
-		options := service.NewAddWatchlistOptions(caseNumber)
-		options.SetWatchlist(watchlistPayload.Watchlist)
+		var options *casemanagementv1.AddWatchlistOptions
+
+		BeforeEach(func() {
+			options = service.NewAddWatchlistOptions(caseNumber)
+			options.SetWatchlist(watchlistPayload.Watchlist)
+		})
 
 		It("Successfully added users to case watchlist", func() {
 			shouldSkipTest()
@@ -279,8 +285,11 @@ var _ = Describe("Case Management - Integration Tests", func() {
 	})
 
 	Describe("Remove watchlist", func() {
-		options := service.NewRemoveWatchlistOptions(caseNumber)
-		options.SetWatchlist(watchlistPayload.Watchlist)
+		var options *casemanagementv1.RemoveWatchlistOptions
+		BeforeEach(func() {
+			options = service.NewRemoveWatchlistOptions(caseNumber)
+			options.SetWatchlist(watchlistPayload.Watchlist)
+		})
 
 		It("Successfully removed users from case watchlist", func() {
 			shouldSkipTest()
@@ -292,26 +301,26 @@ var _ = Describe("Case Management - Integration Tests", func() {
 	})
 
 	Describe("Update status", func() {
-		
+
 		It("Succefully resolve a case", func() {
 			shouldSkipTest()
 			resolvePayload, _ := service.NewResolvePayload(casemanagementv1.ResolvePayload_Action_Resolve, 1)
 			options := service.NewUpdateCaseStatusOptions(caseNumber, resolvePayload)
 
 			result, detailedResponse, err := service.UpdateCaseStatus(options)
-			
+
 			Expect(err).To(BeNil())
 			Expect(detailedResponse.StatusCode).To(Equal(200))
 			Expect(*result.Status).To(Equal("Resolved"))
 		})
 
-	It("Succefully unresolve a case", func() {
+		It("Succefully unresolve a case", func() {
 			shouldSkipTest()
 			unresolvePayload, _ := service.NewUnresolvePayload(casemanagementv1.UnresolvePayload_Action_Unresolve, "Test unresolve")
 			options := service.NewUpdateCaseStatusOptions(caseNumber, unresolvePayload)
 
 			result, detailedResponse, err := service.UpdateCaseStatus(options)
-			
+
 			Expect(err).To(BeNil())
 			Expect(detailedResponse.StatusCode).To(Equal(200))
 			Expect(*result.Status).To(Equal("In Progress"))
@@ -344,7 +353,7 @@ var _ = Describe("Case Management - Integration Tests", func() {
 		It("Successfully deleted file", func() {
 			shouldSkipTest()
 
-			if(fileID == "") {
+			if fileID == "" {
 				Skip("Case does not have target file to remove. Skipping ....")
 			}
 
