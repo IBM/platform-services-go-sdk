@@ -19,13 +19,11 @@
 package casemanagementv1_test
 
 import (
-	"bytes"
 	"fmt"
 	"io/ioutil"
 	"os"
 	"strings"
 
-	"github.com/joho/godotenv"
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
 
@@ -35,26 +33,24 @@ import (
 
 const externalConfigFile = "../case_management.env"
 
-// Config
 var (
 	service           *casemanagementv1.CaseManagementV1
 	err               error
+	
 	config            map[string]string
 	configLoaded      bool = false
 	testAccountID     string
-	testAccountAPIKey string
-)
-
-// Test values
-var offeringType, _ = service.NewOfferingType(casemanagementv1.OfferingType_Group_CrnServiceName, "cloud-object-storage")
-
-var (
+	
 	caseNumber         string
 	commentValue       = "Test comment"
+
+	offeringType, _ = service.NewOfferingType(casemanagementv1.OfferingType_Group_CrnServiceName, "cloud-object-storage")	
 	offeringPayload, _ = service.NewOffering("Cloud Object Storage", offeringType)
+
 	resourcePayload    = []casemanagementv1.ResourcePayload{casemanagementv1.ResourcePayload{
 		Crn: core.StringPtr("crn:v1:staging:public:cloud-object-storage:global:a/19c52e57800c4d8bb9aefc66b3e49755:61848e72-6ba6-415e-84e2-91f3915e194d::"),
 	}}
+
 	watchlistPayload = casemanagementv1.Watchlist{
 		Watchlist: []casemanagementv1.User{
 			casemanagementv1.User{
@@ -67,7 +63,6 @@ var (
 			},
 		},
 	}
-	file = bytes.NewBufferString("hello world\n")
 )
 
 func shouldSkipTest() {
@@ -84,9 +79,9 @@ var _ = Describe("Case Management - Integration Tests", func() {
 		}
 
 		// config, err = core.GetServiceProperties(iamaccessgroupsv2.DefaultServiceName)
-		err := godotenv.Overload(externalConfigFile)
+		config, err = core.GetServiceProperties(casemanagementv1.DefaultServiceName)
 		if err == nil {
-			testAccountID = os.Getenv("CASE_MANAGEMENT_ACCOUNT_ID")
+			testAccountID = config["ACCOUNT_ID"]
 			fmt.Printf("\nAccount ID: %s\n", testAccountID)
 			if testAccountID != "" {
 				configLoaded = true
@@ -106,6 +101,8 @@ var _ = Describe("Case Management - Integration Tests", func() {
 
 		Expect(err).To(BeNil())
 		Expect(service).ToNot(BeNil())
+		
+		fmt.Printf("Service URL: %s\n", service.Service.GetServiceURL())
 	})
 
 	Describe("Create a case", func() {
@@ -162,7 +159,7 @@ var _ = Describe("Case Management - Integration Tests", func() {
 			Expect(result.Cases).To(Not(BeNil()))
 		})
 
-		It("Successful got cases with non-default params", func() {
+		It("Successfully got cases with non-default params", func() {
 			shouldSkipTest()
 
 			options.SetOffset(10)
