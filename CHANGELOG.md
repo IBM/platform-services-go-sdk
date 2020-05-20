@@ -1,3 +1,10 @@
+# [0.4.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.3.1...v0.4.0) (2020-05-20)
+
+
+### Features
+
+* **Case Management:** add service to project ([#11](https://github.com/IBM/platform-services-go-sdk/issues/11)) ([93ae7ca](https://github.com/IBM/platform-services-go-sdk/commit/93ae7ca125b112b3cc3de827bff7ea60f5250b64))
+
 ## [0.3.1](https://github.com/IBM/platform-services-go-sdk/compare/v0.3.0...v0.3.1) (2020-05-15)
 
 
