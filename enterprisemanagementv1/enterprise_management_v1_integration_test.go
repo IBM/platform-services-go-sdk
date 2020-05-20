@@ -19,34 +19,32 @@
 package enterprisemanagementv1_test
 
 import (
+	"bytes"
 	"encoding/json"
+	"github.com/joho/godotenv"
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
+	"io/ioutil"
+	"log"
 	"math/rand"
+	"net/http"
+	"net/url"
 	"os"
 	"strconv"
 	"time"
-	//"github.com/ibm-developer/ibm-cloud-env-golang"
-	//"github.com/IBM/go-sdk-core/v4/core"
+
+	"github.com/IBM/go-sdk-core/v4/core"
 	"github.com/IBM/platform-services-go-sdk/enterprisemanagementv1"
-	"github.com/joho/godotenv"
-	//"strings"
-	"bytes"
-	iam "github.ibm.com/BSS/golang-iam"
-	"io/ioutil"
-	"log"
-	"net/http"
-	"net/url"
 )
 
 const externalConfigFile = "../enterprise-management.env"
 
 var (
-	//err     error
 	configLoaded          bool = false
-	service1              *enterprisemanagementv1.EnterpriseManagementV1
+	service               *enterprisemanagementv1.EnterpriseManagementV1
+	amAuth 		          *core.IamAuthenticator
 	email                 string = "aminttest+" + strconv.Itoa(rand.Intn(100000)) + "_" + strconv.Itoa(rand.Intn(100000)) + "@mail.test.ibm.com"
-	managementToken       string
+
 	account_id            string
 	activationId          string
 	owner_iam_id          string
@@ -77,42 +75,33 @@ var _ = Describe("Enterprise Management - Integration Tests", func() {
 			Skip("External configuration could not be loaded, skipping...")
 		}
 
-		err = godotenv.Load(externalConfigFile)
-		if err != nil {
-			log.Println("Error on response.\n[ERRO] -", err)
-		}
-		options1 := &enterprisemanagementv1.EnterpriseManagementV1Options{
-			ServiceName: "enterprise_management",
-			URL:         os.Getenv("ENTERPRISE_MANAGEMENT_URL"),
-		}
-		service1, err = enterprisemanagementv1.NewEnterpriseManagementV1UsingExternalConfig(options1)
+		err = godotenv.Overload(externalConfigFile)
 		Expect(err).To(BeNil())
-		Expect(service1).ToNot(BeNil())
-
 	})
 
-	It("Successfully created Service token", func() {
-
-		tc := iam.TokenCache{
-			URI:    os.Getenv("EMTEST_CONFIG_IAM_HOST"),
+	It("Successfully construct service instance", func() {
+		options := &enterprisemanagementv1.EnterpriseManagementV1Options{}
+		
+		service, err = enterprisemanagementv1.NewEnterpriseManagementV1UsingExternalConfig(options)
+		Expect(err).To(BeNil())
+		Expect(service).ToNot(BeNil())
+	})
+	
+	It("Successfully create IamAuthenticator for Account Mgmt API", func() {
+		// Initialize an IamAuthenticator to use with the Account Mgmt API.
+		amAuth = &core.IamAuthenticator{
+			URL: os.Getenv("ENTERPRISE_MANAGEMENT_AUTH_URL"),
 			ApiKey: os.Getenv("EMTEST_CONFIG_IAM_API_KEY"),
 		}
-		err = tc.Start()
-		if err != nil {
-			log.Println("Error on response.\n[ERRO] -", err)
-		}
-		managementToken = tc.GetToken()
-
-		time.Sleep(3000 * time.Millisecond)
-
 	})
 
-	It("Creates a standard account", func() {
-
+	It("Successfully create a standard account", func() {
 		apiUrl := os.Getenv("EMTEST_CONFIG_AM_HOST")
 		resource := "/coe/v2/accounts"
 
-		u, _ := url.ParseRequestURI(apiUrl)
+		u, err := url.ParseRequestURI(apiUrl)
+		Expect(err).To(BeNil())
+		
 		u.Path = resource
 		urlStr := u.String()
 
@@ -162,171 +151,153 @@ var _ = Describe("Enterprise Management - Integration Tests", func() {
 			},
 		}
 
-		accountPayloadJson, _ := json.Marshal(accountPayload) //convert the struct to JSON format
-
+		// Serialize the request body
+		accountPayloadJson, _ := json.Marshal(accountPayload)
+		
 		url := urlStr
 
 		// Create a new request using http
 		req, err := http.NewRequest("POST", url, bytes.NewBuffer(accountPayloadJson))
-		if err != nil {
-			log.Println("Error on response.\n[ERRO] -", err)
-		}
-		//
+		Expect(err).To(BeNil())
 
-		// add authorization header to the req
-		req.Header.Add("Authorization", managementToken)
+		err = amAuth.Authenticate(req)
+		Expect(err).To(BeNil())
 
 		// Send req using http Client
 		client := &http.Client{}
 		resp, err := client.Do(req)
-		if err != nil {
-			log.Println("Error on response.\n[ERRO] -", err)
-		}
+		Expect(err).To(BeNil())
 
 		body, _ := ioutil.ReadAll(resp.Body)
 
 		var data map[string]interface{} // TopTracks
 		err = json.Unmarshal(body, &data)
-		if err != nil {
-			log.Println("Error on response.\n[ERRO] -", err)
-		}
-		accountId := data["id"].(interface{})
-
-		account_id = accountId.(string)
+		Expect(err).To(BeNil())
+		
+		var ok bool
+		account_id, ok = data["id"].(string)
+		Expect(ok).To(BeTrue())
 	})
 
 	It("Successfully get activation code", func() {
-
 		time.Sleep(20000 * time.Millisecond)
 
 		apiUrl := os.Getenv("EMTEST_CONFIG_AM_HOST")
 		resource := "/v1/activation-codes/" + email
 
-		u, _ := url.ParseRequestURI(apiUrl)
+		u, err := url.ParseRequestURI(apiUrl)
+		Expect(err).To(BeNil())
+		
 		u.Path = resource
 		urlStr := u.String()
 
 		url := urlStr
 
 		req, err := http.NewRequest("GET", url, nil)
-		if err != nil {
-			log.Println("Error on response.\n[ERRO] -", err)
-		}
+		Expect(err).To(BeNil())
 
-		req.Header.Add("Authorization", managementToken)
+		err = amAuth.Authenticate(req)
+		Expect(err).To(BeNil())
 
 		// Send req using http Client
 		client := &http.Client{}
 		resp, err := client.Do(req)
-
-		if err != nil {
-			log.Println("Error on response.\n[ERRO] -", err)
-		}
+		Expect(err).To(BeNil())
 
 		body, err := ioutil.ReadAll(resp.Body)
-
-		if err != nil {
-			log.Println("Error on response.\n[ERRO] -", err)
-		}
+		Expect(err).To(BeNil())
 
 		var results map[string]interface{} // TopTracks
 
 		err = json.Unmarshal(body, &results)
-		if err != nil {
-			log.Println("Error on response.\n[ERRO] -", err)
-		}
+		Expect(err).To(BeNil())
 
 		res := results["resources"].([]interface{})
 
 		z := res[0].(map[string]interface{})
-		activationId = z["id"].(string)
-
+		
+		var ok bool
+		activationId, ok = z["id"].(string)
+		Expect(ok).To(BeTrue())
 	})
 
 	It("Successfully activate account", func() {
-
 		apiUrl := os.Getenv("EMTEST_CONFIG_AM_HOST")
 		resource := "/coe/v2/accounts/verify"
 
-		u, _ := url.ParseRequestURI(apiUrl)
+		u, err := url.ParseRequestURI(apiUrl)
+		Expect(err).To(BeNil())
+		
 		u.Path = resource
 		urlStr := u.String()
 
 		url := urlStr
 
 		req, err := http.NewRequest("GET", url, nil)
-		if err != nil {
-			log.Println("Error on response.\n[ERRO] -", err)
-		}
+		Expect(err).To(BeNil())
 
+		err = amAuth.Authenticate(req)
+		Expect(err).To(BeNil())
+		
 		q := req.URL.Query()
 		q.Add("token", activationId)
 		q.Add("email", email)
 		req.URL.RawQuery = q.Encode()
+
 		// Send req using http Client
 		client := &http.Client{}
 
 		resp, err := client.Do(req)
-		if err != nil {
-			log.Println("Error on response.\n[ERRO] -", err)
-		}
+		Expect(err).To(BeNil())
 
 		body, err := ioutil.ReadAll(resp.Body)
-		if err != nil {
-			log.Println("Error on response.\n[ERRO] -", err)
-		}
-		var data map[string]interface{} // TopTracks
-		err = json.Unmarshal(body, &data)
-		if err != nil {
-			log.Println("Error on response.\n[ERRO] -", err)
-		}
-
+		Expect(err).To(BeNil())
+		Expect(body).ToNot(BeNil())
 	})
 
 	It("Successfully get account", func() {
 
 		apiUrl := os.Getenv("EMTEST_CONFIG_AM_HOST")
 		resource := "/coe/v2/accounts/" + account_id
-		u, _ := url.ParseRequestURI(apiUrl)
+		u, err := url.ParseRequestURI(apiUrl)
+		Expect(err).To(BeNil())
+		
 		u.Path = resource
 		urlStr := u.String()
 
 		url := urlStr
 
 		req, err := http.NewRequest("GET", url, nil)
-		if err != nil {
-			log.Println("Error on response.\n[ERRO] -", err)
-		}
-		req.Header.Add("Authorization", managementToken)
+		Expect(err).To(BeNil())
+		
+		err = amAuth.Authenticate(req)
+		Expect(err).To(BeNil())
 
 		// Send req using http Client
 		client := &http.Client{}
 		resp, err := client.Do(req)
-		if err != nil {
-			log.Println("Error on response.\n[ERRO] -", err)
-		}
+		Expect(err).To(BeNil())
 
 		body, _ := ioutil.ReadAll(resp.Body)
 
 		var data map[string]interface{} // TopTracks
 		err = json.Unmarshal(body, &data)
-		if err != nil {
-			log.Println("Error on response.\n[ERRO] -", err)
-		}
+		Expect(err).To(BeNil())
 
 		res := data["entity"].(map[string]interface{})
 		owner_iam_id = res["owner_iam_id"].(string)
-		subscription_id = res["subscription_id"].(string)
-
-		//["owner_iam_id"]
-		//["subscription_id"]
+		
+		var ok bool
+		subscription_id, ok = res["subscription_id"].(string)
+		Expect(ok).To(BeTrue())
 	})
 
 	It("Successfully convert account from STANDARD to SUBSCRIPTION", func() {
-
 		apiUrl := os.Getenv("EMTEST_CONFIG_AM_HOST")
 		resource := "/coe/v2/accounts/" + account_id + "/bluemix_subscriptions/" + subscription_id
-		u, _ := url.ParseRequestURI(apiUrl)
+		u, err := url.ParseRequestURI(apiUrl)
+		Expect(err).To(BeNil())
+
 		u.Path = resource
 		urlStr := u.String()
 
@@ -381,30 +352,26 @@ var _ = Describe("Enterprise Management - Integration Tests", func() {
 		accountPayloadJson, _ := json.Marshal(accountPayload)
 
 		req, err := http.NewRequest("PATCH", url, bytes.NewBuffer(accountPayloadJson))
-		if err != nil {
-			log.Println("Error on response.\n[ERRO] -", err)
-		}
-		req.Header.Add("Authorization", managementToken)
+		Expect(err).To(BeNil())
+		
+		err = amAuth.Authenticate(req)
+		Expect(err).To(BeNil())
 
 		// Send req using http Client
 		client := &http.Client{}
 		resp, err := client.Do(req)
+		Expect(err).To(BeNil())
 
-		if err != nil {
-			log.Println("Error on response.\n[ERRO] -", err)
-		}
-
-		ioutil.ReadAll(resp.Body)
-
+		buf, err := ioutil.ReadAll(resp.Body)
+		Expect(err).To(BeNil())
+		Expect(buf).ToNot(BeNil())
 	})
 
-	It("Successfully create enterprise account", func() {
-		options := service1.NewCreateEnterpriseOptions(account_id, "IBM", owner_iam_id)
+	It("Successfully create enterprise", func() {
+		options := service.NewCreateEnterpriseOptions(account_id, "IBM", owner_iam_id)
 
-		result, detailedResponse, err := service1.CreateEnterprise(options)
-		if err != nil {
-			log.Println("Error on response.\n[ERRO] -", err)
-		}
+		result, detailedResponse, err := service.CreateEnterprise(options)
+		Expect(err).To(BeNil())
 		Expect(detailedResponse.StatusCode).To(Equal(202))
 
 		enterprise_id = *result.EnterpriseID
@@ -414,127 +381,101 @@ var _ = Describe("Enterprise Management - Integration Tests", func() {
 	})
 
 	It("Successfully get account", func() {
-
 		apiUrl := os.Getenv("EMTEST_CONFIG_AM_HOST")
 		resource := "/coe/v2/accounts/" + account_id
-		u, _ := url.ParseRequestURI(apiUrl)
+		u, err := url.ParseRequestURI(apiUrl)
+		Expect(err).To(BeNil())
+
 		u.Path = resource
 		urlStr := u.String()
 
 		url := urlStr
 
 		req, err := http.NewRequest("GET", url, nil)
-		if err != nil {
-			log.Println("Error on response.\n[ERRO] -", err)
-		}
-		req.Header.Add("Authorization", managementToken)
+		Expect(err).To(BeNil())
+		
+		err = amAuth.Authenticate(req)
+		Expect(err).To(BeNil())
 
 		// Send req using http Client
 		client := &http.Client{}
 		resp, err := client.Do(req)
-		if err != nil {
-			log.Println("Error on response.\n[ERRO] -", err)
-		}
+		Expect(err).To(BeNil())
 
 		body, _ := ioutil.ReadAll(resp.Body)
 
 		var data map[string]interface{} // TopTracks
 		err = json.Unmarshal(body, &data)
-		if err != nil {
-			log.Println("Error on response.\n[ERRO] -", err)
-		}
+		Expect(err).To(BeNil())
 
 		res := data["entity"].(map[string]interface{})
-		parent = res["parent"].(string)
-
-		//["owner_iam_id"]
-		//["subscription_id"]
+		
+		var ok bool
+		parent, ok = res["parent"].(string)
+		Expect(ok).To(BeTrue())
 	})
 
 	It("Successfully Create Account group", func() {
+		options := service.NewCreateAccountGroupOptions(parent, "IBM", owner_iam_id)
 
-		options := service1.NewCreateAccountGroupOptions(parent, "IBM", owner_iam_id)
-
-		result, detailedResponse, err := service1.CreateAccountGroup(options)
-		if err != nil {
-			log.Println("Error on response.\n[ERRO] -", err)
-		}
+		result, detailedResponse, err := service.CreateAccountGroup(options)
+		Expect(err).To(BeNil())
 		Expect(detailedResponse.StatusCode).To(Equal(201))
 
 		accountGroupID = *result.AccountGroupID
 	})
 
 	It("Successfully Create Account group", func() {
+		options := service.NewCreateAccountGroupOptions(parent, "IBM", owner_iam_id)
 
-		options := service1.NewCreateAccountGroupOptions(parent, "IBM", owner_iam_id)
-
-		result, detailedResponse, err := service1.CreateAccountGroup(options)
-
-		if err != nil {
-			log.Println("Error on response.\n[ERRO] -", err)
-		}
+		result, detailedResponse, err := service.CreateAccountGroup(options)
+		Expect(err).To(BeNil())
 		Expect(detailedResponse.StatusCode).To(Equal(201))
 
 		accountGroupID2 = *result.AccountGroupID
 	})
 
 	It("Successfully List Account groups", func() {
-		options := service1.NewListAccountGroupsOptions()
+		options := service.NewListAccountGroupsOptions()
 		options.SetEnterpriseID(enterprise_id)
-
 		options.SetParentAccountGroupID(accountGroupID)
-
 		options.SetParent(parent)
-
 		options.SetLimit(100)
 
-		result, detailedResponse, err := service1.ListAccountGroups(options)
-		if err != nil {
-			log.Println("Error on response.\n[ERRO] -", err)
-		}
+		result, detailedResponse, err := service.ListAccountGroups(options)
+		Expect(err).To(BeNil())
 		Expect(result).NotTo(BeNil())
 		Expect(detailedResponse.StatusCode).To(Equal(200))
 	})
 
 	It("Successfully Get Account group", func() {
-
-		options := service1.NewGetAccountGroupByIdOptions(accountGroupID)
-		result, detailedResponse, err := service1.GetAccountGroupByID(options)
-		if err != nil {
-			log.Println("Error on response.\n[ERRO] -", err)
-		}
+		options := service.NewGetAccountGroupOptions(accountGroupID)
+		
+		result, detailedResponse, err := service.GetAccountGroup(options)
+		Expect(err).To(BeNil())
 		Expect(detailedResponse.StatusCode).To(Equal(200))
 
 		crn = *result.Crn
 	})
 
 	It("Successfully Update Account group", func() {
-		options := service1.NewUpdateAccountGroupOptions(accountGroupID)
+		options := service.NewUpdateAccountGroupOptions(accountGroupID)
 		options.SetName("IBM")
 		options.SetPrimaryContactIamID(owner_iam_id)
-		result, err := service1.UpdateAccountGroup(options)
+		
+		result, err := service.UpdateAccountGroup(options)
 		Expect(err).To(BeNil())
 		Expect(result).NotTo(BeNil())
 		Expect(result.StatusCode).To(Equal(204))
 	})
 
-	It("Successfully Get Account Permissible Actions", func() {
-
-		actions := []string{"teststring"}
-		options := service1.NewGetAccountPermissibleActionsOptions(enterprise_account_id)
-		options.SetActions(actions)
-		result, err := service1.GetAccountPermissibleActions(options)
-		Expect(err).To(BeNil())
-		Expect(result).NotTo(BeNil())
-		Expect(result.StatusCode).To(Equal(200))
-	})
-
-	It("Creates a standard account", func() {
-
+	It("Successfully create a standard account", func() {
 		apiUrl := os.Getenv("EMTEST_CONFIG_AM_HOST")
 		resource := "/coe/v2/accounts"
 
-		u, _ := url.ParseRequestURI(apiUrl)
+		u, err := url.ParseRequestURI(apiUrl)
+		Expect(err).To(BeNil())
+		
 		u.Path = resource
 		urlStr := u.String()
 
@@ -590,172 +531,155 @@ var _ = Describe("Enterprise Management - Integration Tests", func() {
 
 		// Create a new request using http
 		req, err := http.NewRequest("POST", url, bytes.NewBuffer(accountPayloadJson))
-		if err != nil {
-			log.Println("Error on response.\n[ERRO] -", err)
-		}
-		//
+		Expect(err).To(BeNil())
 
 		// add authorization header to the req
-		req.Header.Add("Authorization", managementToken)
+		amAuth.Authenticate(req)
 
 		// Send req using http Client
 		client := &http.Client{}
 		resp, err := client.Do(req)
-		if err != nil {
-			log.Println("Error on response.\n[ERRO] -", err)
-		}
+		Expect(err).To(BeNil())
 
 		body, _ := ioutil.ReadAll(resp.Body)
 
 		var data map[string]interface{} // TopTracks
 		err = json.Unmarshal(body, &data)
-		if err != nil {
-			log.Println("Error on response.\n[ERRO] -", err)
-		}
+		Expect(err).To(BeNil())
 		accountId := data["id"].(interface{})
 
-		standard_account_id = accountId.(string)
+		var ok bool
+		standard_account_id, ok = accountId.(string)
+		Expect(ok).To(BeTrue())
 	})
 
 	It("Successfully get activation code", func() {
-
-		time.Sleep(20000 * time.Millisecond)
+		time.Sleep(25000 * time.Millisecond)
 
 		apiUrl := os.Getenv("EMTEST_CONFIG_AM_HOST")
 		resource := "/v1/activation-codes/" + email2
 
-		u, _ := url.ParseRequestURI(apiUrl)
+		u, err := url.ParseRequestURI(apiUrl)
+		Expect(err).To(BeNil())
+		
 		u.Path = resource
 		urlStr := u.String()
 
 		url := urlStr
 
 		req, err := http.NewRequest("GET", url, nil)
-		if err != nil {
-			log.Println("Error on response.\n[ERRO] -", err)
-		}
+		Expect(err).To(BeNil())
 
-		req.Header.Add("Authorization", managementToken)
+		err = amAuth.Authenticate(req)
+		Expect(err).To(BeNil())
 
 		// Send req using http Client
 		client := &http.Client{}
 		resp, err := client.Do(req)
-
-		if err != nil {
-			log.Println("Error on response.\n[ERRO] -", err)
-		}
+		Expect(err).To(BeNil())
 
 		body, err := ioutil.ReadAll(resp.Body)
-
-		if err != nil {
-			log.Println("Error on response.\n[ERRO] -", err)
-		}
+		Expect(err).To(BeNil())
 
 		var results map[string]interface{} // TopTracks
 
 		err = json.Unmarshal(body, &results)
-		if err != nil {
-			log.Println("Error on response.\n[ERRO] -", err)
-		}
+		Expect(err).To(BeNil())
 
 		res := results["resources"].([]interface{})
 
 		z := res[0].(map[string]interface{})
-		activationId = z["id"].(string)
-
+		
+		var ok bool
+		activationId, ok = z["id"].(string)
+		Expect(ok).To(BeTrue())
 	})
 
 	It("Successfully activate account", func() {
-
 		apiUrl := os.Getenv("EMTEST_CONFIG_AM_HOST")
 		resource := "/coe/v2/accounts/verify"
 
-		u, _ := url.ParseRequestURI(apiUrl)
+		u, err := url.ParseRequestURI(apiUrl)
+		Expect(err).To(BeNil())
+
 		u.Path = resource
 		urlStr := u.String()
 
 		url := urlStr
 
 		req, err := http.NewRequest("GET", url, nil)
-		if err != nil {
-			log.Println("Error on response.\n[ERRO] -", err)
-		}
+		Expect(err).To(BeNil())
 
 		q := req.URL.Query()
 		q.Add("token", activationId)
 		q.Add("email", email2)
 		req.URL.RawQuery = q.Encode()
+
+		err = amAuth.Authenticate(req)
+		Expect(err).To(BeNil())
+
 		// Send req using http Client
 		client := &http.Client{}
 
 		resp, err := client.Do(req)
-		if err != nil {
-			log.Println("Error on response.\n[ERRO] -", err)
-		}
+		Expect(err).To(BeNil())
 
 		body, err := ioutil.ReadAll(resp.Body)
-		if err != nil {
-			log.Println("Error on response.\n[ERRO] -", err)
-		}
-		var data map[string]interface{} // TopTracks
-		err = json.Unmarshal(body, &data)
-		if err != nil {
-			log.Println("Error on response.\n[ERRO] -", err)
-		}
-
+		Expect(err).To(BeNil())
+		Expect(body).ToNot(BeNil())
 	})
 
 	It("Successfully get account", func() {
-
 		apiUrl := os.Getenv("EMTEST_CONFIG_AM_HOST")
 		resource := "/coe/v2/accounts/" + standard_account_id
-		u, _ := url.ParseRequestURI(apiUrl)
+		u, err := url.ParseRequestURI(apiUrl)
+		Expect(err).To(BeNil())
+
 		u.Path = resource
 		urlStr := u.String()
 
 		url := urlStr
 
 		req, err := http.NewRequest("GET", url, nil)
-		if err != nil {
-			log.Println("Error on response.\n[ERRO] -", err)
-		}
-		req.Header.Add("Authorization", managementToken)
+		Expect(err).To(BeNil())
+		
+		err = amAuth.Authenticate(req)
+		Expect(err).To(BeNil())
 
 		// Send req using http Client
 		client := &http.Client{}
 		resp, err := client.Do(req)
-		if err != nil {
-			log.Println("Error on response.\n[ERRO] -", err)
-		}
+		Expect(err).To(BeNil())
 
 		body, _ := ioutil.ReadAll(resp.Body)
 
 		var data map[string]interface{} // TopTracks
 		err = json.Unmarshal(body, &data)
-		if err != nil {
-			log.Println("Error on response.\n[ERRO] -", err)
-		}
+		Expect(err).To(BeNil())
 
 		res := data["entity"].(map[string]interface{})
 		owner_iam_id = res["owner_iam_id"].(string)
-		subscription_id = res["subscription_id"].(string)
-
-		//["owner_iam_id"]
-		//["subscription_id"]
+		
+		var ok bool
+		subscription_id, ok = res["subscription_id"].(string)
+		Expect(ok).To(BeTrue())
 	})
 
 	It("Successfully Import Account to Enterprise", func() {
-		options := service1.NewImportAccountToEnterpriseOptions(enterprise_id, standard_account_id)
+		time.Sleep(10000 * time.Millisecond)
+		options := service.NewImportAccountToEnterpriseOptions(enterprise_id, standard_account_id)
 		options.SetParent(parent)
-		result, err := service1.ImportAccountToEnterprise(options)
+		
+		result, err := service.ImportAccountToEnterprise(options)
 		Expect(err).To(BeNil())
 		Expect(result).NotTo(BeNil())
 		Expect(result.StatusCode).To(Equal(202))
 	})
 
 	It("Successfully Create Account", func() {
-		options := service1.NewCreateAccountOptions(parent, "IBM", "IBMid-550006JKXX")
-		result, response, err := service1.CreateAccount(options)
+		options := service.NewCreateAccountOptions(parent, "IBM", "IBMid-550006JKXX")
+		
+		result, response, err := service.CreateAccount(options)
 		Expect(err).To(BeNil())
 		Expect(result).NotTo(BeNil())
 
@@ -764,65 +688,46 @@ var _ = Describe("Enterprise Management - Integration Tests", func() {
 	})
 
 	It("Successfully Get Account", func() {
-		options := service1.NewGetAccountByIdOptions(newAccount)
-		result, response, err := service1.GetAccountByID(options)
+		options := service.NewGetAccountOptions(newAccount)
+		
+		result, response, err := service.GetAccount(options)
 		Expect(err).To(BeNil())
 		Expect(result).NotTo(BeNil())
 		Expect(response.StatusCode).To(Equal(200))
 	})
 
-	It("Successfully List Account", func() {
-		options := service1.NewListAccountsOptions()
+	It("Successfully List Accounts", func() {
+		options := service.NewListAccountsOptions()
 		options.SetEnterpriseID(enterprise_id)
 		options.SetAccountGroupID(accountGroupID)
 		options.SetParent(parent)
 		options.SetLimit(100)
-		result, response, err := service1.ListAccounts(options)
+		
+		result, response, err := service.ListAccounts(options)
 		Expect(err).To(BeNil())
 		Expect(result).NotTo(BeNil())
 		Expect(response.StatusCode).To(Equal(200))
 	})
 
 	It("Successfully List Account groups", func() {
-		options := service1.NewListAccountGroupsOptions()
+		options := service.NewListAccountGroupsOptions()
 		options.SetEnterpriseID(enterprise_id)
-
 		options.SetParentAccountGroupID(accountGroupID2)
-
 		options.SetParent(parent)
-
 		options.SetLimit(100)
 
-		result, detailedResponse, err := service1.ListAccountGroups(options)
-		if err != nil {
-			log.Println("Error on response.\n[ERRO] -", err)
-		}
+		result, detailedResponse, err := service.ListAccountGroups(options)
+		Expect(err).To(BeNil())
 		Expect(result).NotTo(BeNil())
 		Expect(detailedResponse.StatusCode).To(Equal(200))
 	})
 
 	It("Successfully Move Account within an Enterprise", func() {
-		options := service1.NewUpdateAccountOptions(newAccount, crn)
+		options := service.NewUpdateAccountOptions(newAccount, crn)
 
-		result, err := service1.UpdateAccount(options)
-		if err != nil {
-			log.Println("Error on response.\n[ERRO] -", err)
-		}
+		result, err := service.UpdateAccount(options)
+		Expect(err).To(BeNil())
 		Expect(result).NotTo(BeNil())
 		Expect(result.StatusCode).To(Equal(202))
 	})
-
-	It("Successfully Get Account Permissible Actions", func() {
-		options := service1.NewGetAccountPermissibleActionsOptions(account_id)
-		actions := []string{"teststring"}
-		options.SetActions(actions)
-
-		result, err := service1.GetAccountPermissibleActions(options)
-		if err != nil {
-			log.Println("Error on response.\n[ERRO] -", err)
-		}
-		Expect(result).NotTo(BeNil())
-		Expect(result.StatusCode).To(Equal(200))
-	})
-
 })

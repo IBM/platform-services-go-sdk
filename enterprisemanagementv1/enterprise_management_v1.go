@@ -22,6 +22,7 @@ import (
 	"fmt"
 	"github.com/IBM/go-sdk-core/v4/core"
 	common "github.com/IBM/platform-services-go-sdk/common"
+	"github.com/go-openapi/strfmt"
 	"reflect"
 )
 
@@ -34,7 +35,7 @@ type EnterpriseManagementV1 struct {
 }
 
 // DefaultServiceURL is the default URL to make service requests to.
-const DefaultServiceURL = "https://enterprise.test.cloud.ibm.com/v1"
+const DefaultServiceURL = "https://enterprise.cloud.ibm.com/v1"
 
 // DefaultServiceName is the default key used to find external configuration information.
 const DefaultServiceName = "enterprise_management"
@@ -174,7 +175,7 @@ func (enterpriseManagement *EnterpriseManagementV1) CreateAccountGroup(createAcc
 	return
 }
 
-// ListAccountGroups : Get account groups by query parameter
+// ListAccountGroups : List account groups
 // Retrieve all account groups based on the values that are passed in the query parameters. If no query parameter is
 // passed, all of the account groups in the enterprise for which the calling identity has access are returned.
 // <br/><br/>You can use pagination parameters to filter the results. The `limit` field can be used to limit the number
@@ -242,21 +243,21 @@ func (enterpriseManagement *EnterpriseManagementV1) ListAccountGroups(listAccoun
 	return
 }
 
-// GetAccountGroupByID : Get account group by ID
+// GetAccountGroup : Get account group by ID
 // Retrieve an account by the `account_group_id` parameter. All data related to the account group is returned only if
 // the caller has access to retrieve the account group.
-func (enterpriseManagement *EnterpriseManagementV1) GetAccountGroupByID(getAccountGroupByIdOptions *GetAccountGroupByIdOptions) (result *AccountGroupResponse, response *core.DetailedResponse, err error) {
-	err = core.ValidateNotNil(getAccountGroupByIdOptions, "getAccountGroupByIdOptions cannot be nil")
+func (enterpriseManagement *EnterpriseManagementV1) GetAccountGroup(getAccountGroupOptions *GetAccountGroupOptions) (result *AccountGroup, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(getAccountGroupOptions, "getAccountGroupOptions cannot be nil")
 	if err != nil {
 		return
 	}
-	err = core.ValidateStruct(getAccountGroupByIdOptions, "getAccountGroupByIdOptions")
+	err = core.ValidateStruct(getAccountGroupOptions, "getAccountGroupOptions")
 	if err != nil {
 		return
 	}
 
 	pathSegments := []string{"account-groups"}
-	pathParameters := []string{*getAccountGroupByIdOptions.AccountGroupID}
+	pathParameters := []string{*getAccountGroupOptions.AccountGroupID}
 
 	builder := core.NewRequestBuilder(core.GET)
 	_, err = builder.ConstructHTTPURL(enterpriseManagement.Service.Options.URL, pathSegments, pathParameters)
@@ -264,11 +265,11 @@ func (enterpriseManagement *EnterpriseManagementV1) GetAccountGroupByID(getAccou
 		return
 	}
 
-	for headerName, headerValue := range getAccountGroupByIdOptions.Headers {
+	for headerName, headerValue := range getAccountGroupOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("enterprise_management", "V1", "GetAccountGroupByID")
+	sdkHeaders := common.GetSdkHeaders("enterprise_management", "V1", "GetAccountGroup")
 	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
@@ -284,7 +285,7 @@ func (enterpriseManagement *EnterpriseManagementV1) GetAccountGroupByID(getAccou
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalAccountGroupResponse)
+	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalAccountGroup)
 	if err != nil {
 		return
 	}
@@ -331,58 +332,6 @@ func (enterpriseManagement *EnterpriseManagementV1) UpdateAccountGroup(updateAcc
 	}
 	if updateAccountGroupOptions.PrimaryContactIamID != nil {
 		body["primary_contact_iam_id"] = updateAccountGroupOptions.PrimaryContactIamID
-	}
-	_, err = builder.SetBodyContentJSON(body)
-	if err != nil {
-		return
-	}
-
-	request, err := builder.Build()
-	if err != nil {
-		return
-	}
-
-	response, err = enterpriseManagement.Service.Request(request, nil)
-
-	return
-}
-
-// GetAccountGroupPermissibleActions : Get permissible actions for an account group
-// Return all the actions that are allowed on a particular account group. This method takes an array of IAM actions in
-// the body of the request and returns those actions that can be performed by the caller. An authentication check is
-// performed for each action that is passed in the payload.
-func (enterpriseManagement *EnterpriseManagementV1) GetAccountGroupPermissibleActions(getAccountGroupPermissibleActionsOptions *GetAccountGroupPermissibleActionsOptions) (response *core.DetailedResponse, err error) {
-	err = core.ValidateNotNil(getAccountGroupPermissibleActionsOptions, "getAccountGroupPermissibleActionsOptions cannot be nil")
-	if err != nil {
-		return
-	}
-	err = core.ValidateStruct(getAccountGroupPermissibleActionsOptions, "getAccountGroupPermissibleActionsOptions")
-	if err != nil {
-		return
-	}
-
-	pathSegments := []string{"account-groups", "permissible-actions"}
-	pathParameters := []string{*getAccountGroupPermissibleActionsOptions.AccountGroupID}
-
-	builder := core.NewRequestBuilder(core.POST)
-	_, err = builder.ConstructHTTPURL(enterpriseManagement.Service.Options.URL, pathSegments, pathParameters)
-	if err != nil {
-		return
-	}
-
-	for headerName, headerValue := range getAccountGroupPermissibleActionsOptions.Headers {
-		builder.AddHeader(headerName, headerValue)
-	}
-
-	sdkHeaders := common.GetSdkHeaders("enterprise_management", "V1", "GetAccountGroupPermissibleActions")
-	for headerName, headerValue := range sdkHeaders {
-		builder.AddHeader(headerName, headerValue)
-	}
-	builder.AddHeader("Content-Type", "application/json")
-
-	body := make(map[string]interface{})
-	if getAccountGroupPermissibleActionsOptions.Actions != nil {
-		body["actions"] = getAccountGroupPermissibleActionsOptions.Actions
 	}
 	_, err = builder.SetBodyContentJSON(body)
 	if err != nil {
@@ -527,7 +476,7 @@ func (enterpriseManagement *EnterpriseManagementV1) CreateAccount(createAccountO
 	return
 }
 
-// ListAccounts : Get accounts by query parameter
+// ListAccounts : List accounts
 // Retrieve all accounts based on the values that are passed in the query parameters. If no query parameter is passed,
 // all of the accounts in the enterprise for which the calling identity has access are returned. <br/><br/>You can use
 // pagination parameters to filter the results. The `limit` field can be used to limit the number of results that are
@@ -594,21 +543,21 @@ func (enterpriseManagement *EnterpriseManagementV1) ListAccounts(listAccountsOpt
 	return
 }
 
-// GetAccountByID : Get account by ID
+// GetAccount : Get account by ID
 // Retrieve an account by the `account_id` parameter. All data related to the account is returned only if the caller has
 // access to retrieve the account.
-func (enterpriseManagement *EnterpriseManagementV1) GetAccountByID(getAccountByIdOptions *GetAccountByIdOptions) (result *AccountResponse, response *core.DetailedResponse, err error) {
-	err = core.ValidateNotNil(getAccountByIdOptions, "getAccountByIdOptions cannot be nil")
+func (enterpriseManagement *EnterpriseManagementV1) GetAccount(getAccountOptions *GetAccountOptions) (result *Account, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(getAccountOptions, "getAccountOptions cannot be nil")
 	if err != nil {
 		return
 	}
-	err = core.ValidateStruct(getAccountByIdOptions, "getAccountByIdOptions")
+	err = core.ValidateStruct(getAccountOptions, "getAccountOptions")
 	if err != nil {
 		return
 	}
 
 	pathSegments := []string{"accounts"}
-	pathParameters := []string{*getAccountByIdOptions.AccountID}
+	pathParameters := []string{*getAccountOptions.AccountID}
 
 	builder := core.NewRequestBuilder(core.GET)
 	_, err = builder.ConstructHTTPURL(enterpriseManagement.Service.Options.URL, pathSegments, pathParameters)
@@ -616,11 +565,11 @@ func (enterpriseManagement *EnterpriseManagementV1) GetAccountByID(getAccountByI
 		return
 	}
 
-	for headerName, headerValue := range getAccountByIdOptions.Headers {
+	for headerName, headerValue := range getAccountOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("enterprise_management", "V1", "GetAccountByID")
+	sdkHeaders := common.GetSdkHeaders("enterprise_management", "V1", "GetAccount")
 	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
@@ -636,7 +585,7 @@ func (enterpriseManagement *EnterpriseManagementV1) GetAccountByID(getAccountByI
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalAccountResponse)
+	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalAccount)
 	if err != nil {
 		return
 	}
@@ -645,7 +594,7 @@ func (enterpriseManagement *EnterpriseManagementV1) GetAccountByID(getAccountByI
 	return
 }
 
-// UpdateAccount : Move an account with the enterprise
+// UpdateAccount : Move an account within the enterprise
 // Move an account to a different parent within the same enterprise.
 func (enterpriseManagement *EnterpriseManagementV1) UpdateAccount(updateAccountOptions *UpdateAccountOptions) (response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(updateAccountOptions, "updateAccountOptions cannot be nil")
@@ -679,58 +628,6 @@ func (enterpriseManagement *EnterpriseManagementV1) UpdateAccount(updateAccountO
 	body := make(map[string]interface{})
 	if updateAccountOptions.Parent != nil {
 		body["parent"] = updateAccountOptions.Parent
-	}
-	_, err = builder.SetBodyContentJSON(body)
-	if err != nil {
-		return
-	}
-
-	request, err := builder.Build()
-	if err != nil {
-		return
-	}
-
-	response, err = enterpriseManagement.Service.Request(request, nil)
-
-	return
-}
-
-// GetAccountPermissibleActions : Get permissible actions for an account
-// Return all the actions that are allowed on a particular account. This method takes an array of IAM actions in the
-// body of the request and returns those actions which can be performed by the caller. An authentication check is
-// performed for each action that is passed in the payload.
-func (enterpriseManagement *EnterpriseManagementV1) GetAccountPermissibleActions(getAccountPermissibleActionsOptions *GetAccountPermissibleActionsOptions) (response *core.DetailedResponse, err error) {
-	err = core.ValidateNotNil(getAccountPermissibleActionsOptions, "getAccountPermissibleActionsOptions cannot be nil")
-	if err != nil {
-		return
-	}
-	err = core.ValidateStruct(getAccountPermissibleActionsOptions, "getAccountPermissibleActionsOptions")
-	if err != nil {
-		return
-	}
-
-	pathSegments := []string{"accounts", "permissible-actions"}
-	pathParameters := []string{*getAccountPermissibleActionsOptions.AccountID}
-
-	builder := core.NewRequestBuilder(core.POST)
-	_, err = builder.ConstructHTTPURL(enterpriseManagement.Service.Options.URL, pathSegments, pathParameters)
-	if err != nil {
-		return
-	}
-
-	for headerName, headerValue := range getAccountPermissibleActionsOptions.Headers {
-		builder.AddHeader(headerName, headerValue)
-	}
-
-	sdkHeaders := common.GetSdkHeaders("enterprise_management", "V1", "GetAccountPermissibleActions")
-	for headerName, headerValue := range sdkHeaders {
-		builder.AddHeader(headerName, headerValue)
-	}
-	builder.AddHeader("Content-Type", "application/json")
-
-	body := make(map[string]interface{})
-	if getAccountPermissibleActionsOptions.Actions != nil {
-		body["actions"] = getAccountPermissibleActionsOptions.Actions
 	}
 	_, err = builder.SetBodyContentJSON(body)
 	if err != nil {
@@ -821,7 +718,7 @@ func (enterpriseManagement *EnterpriseManagementV1) CreateEnterprise(createEnter
 	return
 }
 
-// ListEnterprises : Get enterprise by query parameter
+// ListEnterprises : List enterprises
 // Retrieve all enterprises for a given ID by passing the IDs on query parameters. If no ID is passed, the enterprises
 // for which the calling identity is the primary contact are returned. You can use pagination parameters to filter the
 // results. <br/><br/>This method ensures that only the enterprises that the user has access to are returned. Access can
@@ -890,7 +787,7 @@ func (enterpriseManagement *EnterpriseManagementV1) ListEnterprises(listEnterpri
 // GetEnterprise : Get enterprise by ID
 // Retrieve an enterprise by the `enterprise_id` parameter. All data related to the enterprise is returned only if the
 // caller has access to retrieve the enterprise.
-func (enterpriseManagement *EnterpriseManagementV1) GetEnterprise(getEnterpriseOptions *GetEnterpriseOptions) (result *EnterpriseResponse, response *core.DetailedResponse, err error) {
+func (enterpriseManagement *EnterpriseManagementV1) GetEnterprise(getEnterpriseOptions *GetEnterpriseOptions) (result *Enterprise, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(getEnterpriseOptions, "getEnterpriseOptions cannot be nil")
 	if err != nil {
 		return
@@ -929,7 +826,7 @@ func (enterpriseManagement *EnterpriseManagementV1) GetEnterprise(getEnterpriseO
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalEnterpriseResponse)
+	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalEnterprise)
 	if err != nil {
 		return
 	}
@@ -995,176 +892,8 @@ func (enterpriseManagement *EnterpriseManagementV1) UpdateEnterprise(updateEnter
 	return
 }
 
-// GetEnterprisePermissibleActions : Get permissible actions for an enterprise
-// Return all the actions that are allowed on a particular enterprise. This method takes an array of IAM actions in the
-// body of the request and returns those actions which can be performed by the caller. An authentication check is
-// performed for each action that is passed in the payload.
-func (enterpriseManagement *EnterpriseManagementV1) GetEnterprisePermissibleActions(getEnterprisePermissibleActionsOptions *GetEnterprisePermissibleActionsOptions) (response *core.DetailedResponse, err error) {
-	err = core.ValidateNotNil(getEnterprisePermissibleActionsOptions, "getEnterprisePermissibleActionsOptions cannot be nil")
-	if err != nil {
-		return
-	}
-	err = core.ValidateStruct(getEnterprisePermissibleActionsOptions, "getEnterprisePermissibleActionsOptions")
-	if err != nil {
-		return
-	}
-
-	pathSegments := []string{"enterprises", "permissible-actions"}
-	pathParameters := []string{*getEnterprisePermissibleActionsOptions.EnterpriseID}
-
-	builder := core.NewRequestBuilder(core.POST)
-	_, err = builder.ConstructHTTPURL(enterpriseManagement.Service.Options.URL, pathSegments, pathParameters)
-	if err != nil {
-		return
-	}
-
-	for headerName, headerValue := range getEnterprisePermissibleActionsOptions.Headers {
-		builder.AddHeader(headerName, headerValue)
-	}
-
-	sdkHeaders := common.GetSdkHeaders("enterprise_management", "V1", "GetEnterprisePermissibleActions")
-	for headerName, headerValue := range sdkHeaders {
-		builder.AddHeader(headerName, headerValue)
-	}
-	builder.AddHeader("Content-Type", "application/json")
-
-	body := make(map[string]interface{})
-	if getEnterprisePermissibleActionsOptions.Actions != nil {
-		body["actions"] = getEnterprisePermissibleActionsOptions.Actions
-	}
-	_, err = builder.SetBodyContentJSON(body)
-	if err != nil {
-		return
-	}
-
-	request, err := builder.Build()
-	if err != nil {
-		return
-	}
-
-	response, err = enterpriseManagement.Service.Request(request, nil)
-
-	return
-}
-
-// AccountGroupResponse : An object that represents account group.
-type AccountGroupResponse struct {
-	// The URL of the account group.
-	URL *string `json:"url,omitempty"`
-
-	// The account group ID.
-	ID *string `json:"id,omitempty"`
-
-	// The CRN of the account group.
-	Crn *string `json:"crn,omitempty"`
-
-	// The CRN of the parent of the account group.
-	Parent *string `json:"parent,omitempty"`
-
-	// The enterprise account ID.
-	EnterpriseAccountID *string `json:"enterprise_account_id,omitempty"`
-
-	// The enterprise ID that the account group is a part of.
-	EnterpriseID *string `json:"enterprise_id,omitempty"`
-
-	// The path from the enterprise to this particular account group.
-	EnterprisePath *string `json:"enterprise_path,omitempty"`
-
-	// The name of the account group.
-	Name *string `json:"name,omitempty"`
-
-	// The state of the account group.
-	State *string `json:"state,omitempty"`
-
-	// The IAM ID of the primary contact of the account group.
-	PrimaryContactIamID *string `json:"primary_contact_iam_id,omitempty"`
-
-	// The email address of the primary contact of the account group.
-	PrimaryContactEmail *string `json:"primary_contact_email,omitempty"`
-
-	// The time stamp at which the account group was created.
-	CreatedAt *string `json:"created_at,omitempty"`
-
-	// The IAM ID of the user or service that created the account group.
-	CreatedBy *string `json:"created_by,omitempty"`
-
-	// The time stamp at which the account group was last updated.
-	UpdatedAt *string `json:"updated_at,omitempty"`
-
-	// The IAM ID of the user or service that updated the account group.
-	UpdatedBy *string `json:"updated_by,omitempty"`
-}
-
-
-// UnmarshalAccountGroupResponse unmarshals an instance of AccountGroupResponse from the specified map of raw messages.
-func UnmarshalAccountGroupResponse(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(AccountGroupResponse)
-	err = core.UnmarshalPrimitive(m, "url", &obj.URL)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "crn", &obj.Crn)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "parent", &obj.Parent)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "enterprise_account_id", &obj.EnterpriseAccountID)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "enterprise_id", &obj.EnterpriseID)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "enterprise_path", &obj.EnterprisePath)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "state", &obj.State)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "primary_contact_iam_id", &obj.PrimaryContactIamID)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "primary_contact_email", &obj.PrimaryContactEmail)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "created_at", &obj.CreatedAt)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "created_by", &obj.CreatedBy)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "updated_at", &obj.UpdatedAt)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "updated_by", &obj.UpdatedBy)
-	if err != nil {
-		return
-	}
-	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
-	return
-}
-
-// AccountResponse : The response from successfully calling get account.
-type AccountResponse struct {
+// Account : An account resource.
+type Account struct {
 	// The URL of the account.
 	URL *string `json:"url,omitempty"`
 
@@ -1205,22 +934,22 @@ type AccountResponse struct {
 	IsEnterpriseAccount *bool `json:"is_enterprise_account,omitempty"`
 
 	// The time stamp at which the account was created.
-	CreatedAt *string `json:"created_at,omitempty"`
+	CreatedAt *strfmt.DateTime `json:"created_at,omitempty"`
 
 	// The IAM ID of the user or service that created the account.
 	CreatedBy *string `json:"created_by,omitempty"`
 
 	// The time stamp at which the account was last updated.
-	UpdatedAt *string `json:"updated_at,omitempty"`
+	UpdatedAt *strfmt.DateTime `json:"updated_at,omitempty"`
 
 	// The IAM ID of the user or service that updated the account.
 	UpdatedBy *string `json:"updated_by,omitempty"`
 }
 
 
-// UnmarshalAccountResponse unmarshals an instance of AccountResponse from the specified map of raw messages.
-func UnmarshalAccountResponse(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(AccountResponse)
+// UnmarshalAccount unmarshals an instance of Account from the specified map of raw messages.
+func UnmarshalAccount(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(Account)
 	err = core.UnmarshalPrimitive(m, "url", &obj.URL)
 	if err != nil {
 		return
@@ -1293,6 +1022,122 @@ func UnmarshalAccountResponse(m map[string]json.RawMessage, result interface{}) 
 	return
 }
 
+// AccountGroup : An account group resource.
+type AccountGroup struct {
+	// The URL of the account group.
+	URL *string `json:"url,omitempty"`
+
+	// The account group ID.
+	ID *string `json:"id,omitempty"`
+
+	// The Cloud Resource Name (CRN) of the account group.
+	Crn *string `json:"crn,omitempty"`
+
+	// The CRN of the parent of the account group.
+	Parent *string `json:"parent,omitempty"`
+
+	// The enterprise account ID.
+	EnterpriseAccountID *string `json:"enterprise_account_id,omitempty"`
+
+	// The enterprise ID that the account group is a part of.
+	EnterpriseID *string `json:"enterprise_id,omitempty"`
+
+	// The path from the enterprise to this particular account group.
+	EnterprisePath *string `json:"enterprise_path,omitempty"`
+
+	// The name of the account group.
+	Name *string `json:"name,omitempty"`
+
+	// The state of the account group.
+	State *string `json:"state,omitempty"`
+
+	// The IAM ID of the primary contact of the account group.
+	PrimaryContactIamID *string `json:"primary_contact_iam_id,omitempty"`
+
+	// The email address of the primary contact of the account group.
+	PrimaryContactEmail *string `json:"primary_contact_email,omitempty"`
+
+	// The time stamp at which the account group was created.
+	CreatedAt *strfmt.DateTime `json:"created_at,omitempty"`
+
+	// The IAM ID of the user or service that created the account group.
+	CreatedBy *string `json:"created_by,omitempty"`
+
+	// The time stamp at which the account group was last updated.
+	UpdatedAt *strfmt.DateTime `json:"updated_at,omitempty"`
+
+	// The IAM ID of the user or service that updated the account group.
+	UpdatedBy *string `json:"updated_by,omitempty"`
+}
+
+
+// UnmarshalAccountGroup unmarshals an instance of AccountGroup from the specified map of raw messages.
+func UnmarshalAccountGroup(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(AccountGroup)
+	err = core.UnmarshalPrimitive(m, "url", &obj.URL)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "crn", &obj.Crn)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "parent", &obj.Parent)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "enterprise_account_id", &obj.EnterpriseAccountID)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "enterprise_id", &obj.EnterpriseID)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "enterprise_path", &obj.EnterprisePath)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "state", &obj.State)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "primary_contact_iam_id", &obj.PrimaryContactIamID)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "primary_contact_email", &obj.PrimaryContactEmail)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "created_at", &obj.CreatedAt)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "created_by", &obj.CreatedBy)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "updated_at", &obj.UpdatedAt)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "updated_by", &obj.UpdatedBy)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
 // CreateAccountGroupOptions : The CreateAccountGroup options.
 type CreateAccountGroupOptions struct {
 	// The CRN of the parent under which the account group will be created. The parent can be an existing account group or
@@ -1342,7 +1187,7 @@ func (options *CreateAccountGroupOptions) SetHeaders(param map[string]string) *C
 	return options
 }
 
-// CreateAccountGroupResponse : Create account group request completed successfully.
+// CreateAccountGroupResponse : A newly-created account group.
 type CreateAccountGroupResponse struct {
 	// The ID of the account group entity that was created.
 	AccountGroupID *string `json:"account_group_id,omitempty"`
@@ -1409,17 +1254,17 @@ func (options *CreateAccountOptions) SetHeaders(param map[string]string) *Create
 	return options
 }
 
-// CreateAccountResponse : The create account request completed successfully.
+// CreateAccountResponse : A newly-created account.
 type CreateAccountResponse struct {
-	// The ID of the account group entity that was created.
-	AccountGroupID *string `json:"account_group_id,omitempty"`
+	// The ID of the account entity that was created.
+	AccountID *string `json:"account_id,omitempty"`
 }
 
 
 // UnmarshalCreateAccountResponse unmarshals an instance of CreateAccountResponse from the specified map of raw messages.
 func UnmarshalCreateAccountResponse(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(CreateAccountResponse)
-	err = core.UnmarshalPrimitive(m, "account_group_id", &obj.AccountGroupID)
+	err = core.UnmarshalPrimitive(m, "account_id", &obj.AccountID)
 	if err != nil {
 		return
 	}
@@ -1510,8 +1355,8 @@ func UnmarshalCreateEnterpriseResponse(m map[string]json.RawMessage, result inte
 	return
 }
 
-// EnterpriseResponse : The response from calling get enterprise.
-type EnterpriseResponse struct {
+// Enterprise : An enterprise resource.
+type Enterprise struct {
 	// The URL of the enterprise.
 	URL *string `json:"url,omitempty"`
 
@@ -1540,22 +1385,22 @@ type EnterpriseResponse struct {
 	PrimaryContactEmail *string `json:"primary_contact_email,omitempty"`
 
 	// The time stamp at which the enterprise was created.
-	CreatedAt *string `json:"created_at,omitempty"`
+	CreatedAt *strfmt.DateTime `json:"created_at,omitempty"`
 
 	// The IAM ID of the user or service that created the enterprise.
 	CreatedBy *string `json:"created_by,omitempty"`
 
 	// The time stamp at which the enterprise was last updated.
-	UpdatedAt *string `json:"updated_at,omitempty"`
+	UpdatedAt *strfmt.DateTime `json:"updated_at,omitempty"`
 
 	// The IAM ID of the user or service that updated the enterprise.
 	UpdatedBy *string `json:"updated_by,omitempty"`
 }
 
 
-// UnmarshalEnterpriseResponse unmarshals an instance of EnterpriseResponse from the specified map of raw messages.
-func UnmarshalEnterpriseResponse(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(EnterpriseResponse)
+// UnmarshalEnterprise unmarshals an instance of Enterprise from the specified map of raw messages.
+func UnmarshalEnterprise(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(Enterprise)
 	err = core.UnmarshalPrimitive(m, "url", &obj.URL)
 	if err != nil {
 		return
@@ -1612,36 +1457,8 @@ func UnmarshalEnterpriseResponse(m map[string]json.RawMessage, result interface{
 	return
 }
 
-// GetAccountByIdOptions : The GetAccountByID options.
-type GetAccountByIdOptions struct {
-	// The ID of the account to retrieve.
-	AccountID *string `json:"account_id" validate:"required"`
-
-	// Allows users to set headers on API requests
-	Headers map[string]string
-}
-
-// NewGetAccountByIdOptions : Instantiate GetAccountByIdOptions
-func (*EnterpriseManagementV1) NewGetAccountByIdOptions(accountID string) *GetAccountByIdOptions {
-	return &GetAccountByIdOptions{
-		AccountID: core.StringPtr(accountID),
-	}
-}
-
-// SetAccountID : Allow user to set AccountID
-func (options *GetAccountByIdOptions) SetAccountID(accountID string) *GetAccountByIdOptions {
-	options.AccountID = core.StringPtr(accountID)
-	return options
-}
-
-// SetHeaders : Allow user to set Headers
-func (options *GetAccountByIdOptions) SetHeaders(param map[string]string) *GetAccountByIdOptions {
-	options.Headers = param
-	return options
-}
-
-// GetAccountGroupByIdOptions : The GetAccountGroupByID options.
-type GetAccountGroupByIdOptions struct {
+// GetAccountGroupOptions : The GetAccountGroup options.
+type GetAccountGroupOptions struct {
 	// The ID of the account group to retrieve.
 	AccountGroupID *string `json:"account_group_id" validate:"required"`
 
@@ -1649,95 +1466,49 @@ type GetAccountGroupByIdOptions struct {
 	Headers map[string]string
 }
 
-// NewGetAccountGroupByIdOptions : Instantiate GetAccountGroupByIdOptions
-func (*EnterpriseManagementV1) NewGetAccountGroupByIdOptions(accountGroupID string) *GetAccountGroupByIdOptions {
-	return &GetAccountGroupByIdOptions{
+// NewGetAccountGroupOptions : Instantiate GetAccountGroupOptions
+func (*EnterpriseManagementV1) NewGetAccountGroupOptions(accountGroupID string) *GetAccountGroupOptions {
+	return &GetAccountGroupOptions{
 		AccountGroupID: core.StringPtr(accountGroupID),
 	}
 }
 
 // SetAccountGroupID : Allow user to set AccountGroupID
-func (options *GetAccountGroupByIdOptions) SetAccountGroupID(accountGroupID string) *GetAccountGroupByIdOptions {
+func (options *GetAccountGroupOptions) SetAccountGroupID(accountGroupID string) *GetAccountGroupOptions {
 	options.AccountGroupID = core.StringPtr(accountGroupID)
 	return options
 }
 
 // SetHeaders : Allow user to set Headers
-func (options *GetAccountGroupByIdOptions) SetHeaders(param map[string]string) *GetAccountGroupByIdOptions {
+func (options *GetAccountGroupOptions) SetHeaders(param map[string]string) *GetAccountGroupOptions {
 	options.Headers = param
 	return options
 }
 
-// GetAccountGroupPermissibleActionsOptions : The GetAccountGroupPermissibleActions options.
-type GetAccountGroupPermissibleActionsOptions struct {
-	// The ID of the account group to check for permissible actions.
-	AccountGroupID *string `json:"account_group_id" validate:"required"`
-
-	// A list of names of permissible actions.
-	Actions []string `json:"actions,omitempty"`
-
-	// Allows users to set headers on API requests
-	Headers map[string]string
-}
-
-// NewGetAccountGroupPermissibleActionsOptions : Instantiate GetAccountGroupPermissibleActionsOptions
-func (*EnterpriseManagementV1) NewGetAccountGroupPermissibleActionsOptions(accountGroupID string) *GetAccountGroupPermissibleActionsOptions {
-	return &GetAccountGroupPermissibleActionsOptions{
-		AccountGroupID: core.StringPtr(accountGroupID),
-	}
-}
-
-// SetAccountGroupID : Allow user to set AccountGroupID
-func (options *GetAccountGroupPermissibleActionsOptions) SetAccountGroupID(accountGroupID string) *GetAccountGroupPermissibleActionsOptions {
-	options.AccountGroupID = core.StringPtr(accountGroupID)
-	return options
-}
-
-// SetActions : Allow user to set Actions
-func (options *GetAccountGroupPermissibleActionsOptions) SetActions(actions []string) *GetAccountGroupPermissibleActionsOptions {
-	options.Actions = actions
-	return options
-}
-
-// SetHeaders : Allow user to set Headers
-func (options *GetAccountGroupPermissibleActionsOptions) SetHeaders(param map[string]string) *GetAccountGroupPermissibleActionsOptions {
-	options.Headers = param
-	return options
-}
-
-// GetAccountPermissibleActionsOptions : The GetAccountPermissibleActions options.
-type GetAccountPermissibleActionsOptions struct {
-	// The ID of the account to check for permissible actions.
+// GetAccountOptions : The GetAccount options.
+type GetAccountOptions struct {
+	// The ID of the account to retrieve.
 	AccountID *string `json:"account_id" validate:"required"`
 
-	// A list of names of permissible actions.
-	Actions []string `json:"actions,omitempty"`
-
 	// Allows users to set headers on API requests
 	Headers map[string]string
 }
 
-// NewGetAccountPermissibleActionsOptions : Instantiate GetAccountPermissibleActionsOptions
-func (*EnterpriseManagementV1) NewGetAccountPermissibleActionsOptions(accountID string) *GetAccountPermissibleActionsOptions {
-	return &GetAccountPermissibleActionsOptions{
+// NewGetAccountOptions : Instantiate GetAccountOptions
+func (*EnterpriseManagementV1) NewGetAccountOptions(accountID string) *GetAccountOptions {
+	return &GetAccountOptions{
 		AccountID: core.StringPtr(accountID),
 	}
 }
 
 // SetAccountID : Allow user to set AccountID
-func (options *GetAccountPermissibleActionsOptions) SetAccountID(accountID string) *GetAccountPermissibleActionsOptions {
+func (options *GetAccountOptions) SetAccountID(accountID string) *GetAccountOptions {
 	options.AccountID = core.StringPtr(accountID)
 	return options
 }
 
-// SetActions : Allow user to set Actions
-func (options *GetAccountPermissibleActionsOptions) SetActions(actions []string) *GetAccountPermissibleActionsOptions {
-	options.Actions = actions
-	return options
-}
-
 // SetHeaders : Allow user to set Headers
-func (options *GetAccountPermissibleActionsOptions) SetHeaders(param map[string]string) *GetAccountPermissibleActionsOptions {
+func (options *GetAccountOptions) SetHeaders(param map[string]string) *GetAccountOptions {
 	options.Headers = param
 	return options
 }
@@ -1766,43 +1537,6 @@ func (options *GetEnterpriseOptions) SetEnterpriseID(enterpriseID string) *GetEn
 
 // SetHeaders : Allow user to set Headers
 func (options *GetEnterpriseOptions) SetHeaders(param map[string]string) *GetEnterpriseOptions {
-	options.Headers = param
-	return options
-}
-
-// GetEnterprisePermissibleActionsOptions : The GetEnterprisePermissibleActions options.
-type GetEnterprisePermissibleActionsOptions struct {
-	// The ID of the enterprise to check for permissible actions.
-	EnterpriseID *string `json:"enterprise_id" validate:"required"`
-
-	// A list of names of permissible actions.
-	Actions []string `json:"actions,omitempty"`
-
-	// Allows users to set headers on API requests
-	Headers map[string]string
-}
-
-// NewGetEnterprisePermissibleActionsOptions : Instantiate GetEnterprisePermissibleActionsOptions
-func (*EnterpriseManagementV1) NewGetEnterprisePermissibleActionsOptions(enterpriseID string) *GetEnterprisePermissibleActionsOptions {
-	return &GetEnterprisePermissibleActionsOptions{
-		EnterpriseID: core.StringPtr(enterpriseID),
-	}
-}
-
-// SetEnterpriseID : Allow user to set EnterpriseID
-func (options *GetEnterprisePermissibleActionsOptions) SetEnterpriseID(enterpriseID string) *GetEnterprisePermissibleActionsOptions {
-	options.EnterpriseID = core.StringPtr(enterpriseID)
-	return options
-}
-
-// SetActions : Allow user to set Actions
-func (options *GetEnterprisePermissibleActionsOptions) SetActions(actions []string) *GetEnterprisePermissibleActionsOptions {
-	options.Actions = actions
-	return options
-}
-
-// SetHeaders : Allow user to set Headers
-func (options *GetEnterprisePermissibleActionsOptions) SetHeaders(param map[string]string) *GetEnterprisePermissibleActionsOptions {
 	options.Headers = param
 	return options
 }
@@ -1918,123 +1652,7 @@ func (options *ListAccountGroupsOptions) SetHeaders(param map[string]string) *Li
 	return options
 }
 
-// ListAccountGroupsResources : An object that represents account groups resource.
-type ListAccountGroupsResources struct {
-	// The URL of the account group.
-	URL *string `json:"url,omitempty"`
-
-	// The account group ID.
-	ID *string `json:"id,omitempty"`
-
-	// The Cloud Resource Name (CRN) of the account group.
-	Crn *string `json:"crn,omitempty"`
-
-	// The CRN of the parent of the account group.
-	Parent *string `json:"parent,omitempty"`
-
-	// The enterprise account ID.
-	EnterpriseAccountID *string `json:"enterprise_account_id,omitempty"`
-
-	// The enterprise ID that the account group is a part of.
-	EnterpriseID *string `json:"enterprise_id,omitempty"`
-
-	// The path from the enterprise to this particular account group.
-	EnterprisePath *string `json:"enterprise_path,omitempty"`
-
-	// The name of the account group.
-	Name *string `json:"name,omitempty"`
-
-	// The state of the account group.
-	State *string `json:"state,omitempty"`
-
-	// The IAM ID of the primary contact of the account group.
-	PrimaryContactIamID *string `json:"primary_contact_iam_id,omitempty"`
-
-	// The email address of the primary contact of the account group.
-	PrimaryContactEmail *string `json:"primary_contact_email,omitempty"`
-
-	// The time stamp at which the account group was created.
-	CreatedAt *string `json:"created_at,omitempty"`
-
-	// The IAM ID of the user or service that created the account group.
-	CreatedBy *string `json:"created_by,omitempty"`
-
-	// The time stamp at which the account group was last updated.
-	UpdatedAt *string `json:"updated_at,omitempty"`
-
-	// The IAM ID of the user or service that updated the account group.
-	UpdatedBy *string `json:"updated_by,omitempty"`
-}
-
-
-// UnmarshalListAccountGroupsResources unmarshals an instance of ListAccountGroupsResources from the specified map of raw messages.
-func UnmarshalListAccountGroupsResources(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(ListAccountGroupsResources)
-	err = core.UnmarshalPrimitive(m, "url", &obj.URL)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "crn", &obj.Crn)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "parent", &obj.Parent)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "enterprise_account_id", &obj.EnterpriseAccountID)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "enterprise_id", &obj.EnterpriseID)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "enterprise_path", &obj.EnterprisePath)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "state", &obj.State)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "primary_contact_iam_id", &obj.PrimaryContactIamID)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "primary_contact_email", &obj.PrimaryContactEmail)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "created_at", &obj.CreatedAt)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "created_by", &obj.CreatedBy)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "updated_at", &obj.UpdatedAt)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "updated_by", &obj.UpdatedBy)
-	if err != nil {
-		return
-	}
-	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
-	return
-}
-
-// ListAccountGroupsResponse : The response from successfully calling list account groups.
+// ListAccountGroupsResponse : The list_account_groups operation response.
 type ListAccountGroupsResponse struct {
 	// The number of enterprises returned from calling list account groups.
 	RowsCount *int64 `json:"rows_count,omitempty"`
@@ -2043,7 +1661,7 @@ type ListAccountGroupsResponse struct {
 	NextURL *string `json:"next_url,omitempty"`
 
 	// A list of account groups.
-	Resources []ListAccountGroupsResources `json:"resources,omitempty"`
+	Resources []AccountGroup `json:"resources,omitempty"`
 }
 
 
@@ -2058,137 +1676,7 @@ func UnmarshalListAccountGroupsResponse(m map[string]json.RawMessage, result int
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(m, "resources", &obj.Resources, UnmarshalListAccountGroupsResources)
-	if err != nil {
-		return
-	}
-	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
-	return
-}
-
-// ListAccountResources : An object that represents account resource.
-type ListAccountResources struct {
-	// The URL of the account.
-	URL *string `json:"url,omitempty"`
-
-	// The account ID.
-	ID *string `json:"id,omitempty"`
-
-	// The Cloud Resource Name (CRN) of the account.
-	Crn *string `json:"crn,omitempty"`
-
-	// The CRN of the parent of the account.
-	Parent *string `json:"parent,omitempty"`
-
-	// The enterprise account ID.
-	EnterpriseAccountID *string `json:"enterprise_account_id,omitempty"`
-
-	// The enterprise ID that the account is a part of.
-	EnterpriseID *string `json:"enterprise_id,omitempty"`
-
-	// The path from the enterprise to this particular account.
-	EnterprisePath *string `json:"enterprise_path,omitempty"`
-
-	// The name of the account.
-	Name *string `json:"name,omitempty"`
-
-	// The state of the account.
-	State *string `json:"state,omitempty"`
-
-	// The IAM ID of the owner of the account.
-	OwnerIamID *string `json:"owner_iam_id,omitempty"`
-
-	// The type of account - whether it is free or paid.
-	Paid *bool `json:"paid,omitempty"`
-
-	// The email address of the owner of the account.
-	OwnerEmail *string `json:"owner_email,omitempty"`
-
-	// The flag to indicate whether the account is an enterprise account or not.
-	IsEnterpriseAccount *bool `json:"is_enterprise_account,omitempty"`
-
-	// The time stamp at which the account was created.
-	CreatedAt *string `json:"created_at,omitempty"`
-
-	// The IAM ID of the user or service that created the account.
-	CreatedBy *string `json:"created_by,omitempty"`
-
-	// The time stamp at which the account was last updated.
-	UpdatedAt *string `json:"updated_at,omitempty"`
-
-	// The IAM ID of the user or service that updated the account.
-	UpdatedBy *string `json:"updated_by,omitempty"`
-}
-
-
-// UnmarshalListAccountResources unmarshals an instance of ListAccountResources from the specified map of raw messages.
-func UnmarshalListAccountResources(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(ListAccountResources)
-	err = core.UnmarshalPrimitive(m, "url", &obj.URL)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "crn", &obj.Crn)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "parent", &obj.Parent)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "enterprise_account_id", &obj.EnterpriseAccountID)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "enterprise_id", &obj.EnterpriseID)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "enterprise_path", &obj.EnterprisePath)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "state", &obj.State)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "owner_iam_id", &obj.OwnerIamID)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "paid", &obj.Paid)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "owner_email", &obj.OwnerEmail)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "is_enterprise_account", &obj.IsEnterpriseAccount)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "created_at", &obj.CreatedAt)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "created_by", &obj.CreatedBy)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "updated_at", &obj.UpdatedAt)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "updated_by", &obj.UpdatedBy)
+	err = core.UnmarshalModel(m, "resources", &obj.Resources, UnmarshalAccountGroup)
 	if err != nil {
 		return
 	}
@@ -2249,7 +1737,7 @@ func (options *ListAccountsOptions) SetHeaders(param map[string]string) *ListAcc
 	return options
 }
 
-// ListAccountsResponse : The response from successfully calling list accounts.
+// ListAccountsResponse : The list_accounts operation response.
 type ListAccountsResponse struct {
 	// The number of enterprises returned from calling list accounts.
 	RowsCount *int64 `json:"rows_count,omitempty"`
@@ -2258,7 +1746,7 @@ type ListAccountsResponse struct {
 	NextURL *string `json:"next_url,omitempty"`
 
 	// A list of accounts.
-	Resources []ListAccountResources `json:"resources,omitempty"`
+	Resources []Account `json:"resources,omitempty"`
 }
 
 
@@ -2273,109 +1761,7 @@ func UnmarshalListAccountsResponse(m map[string]json.RawMessage, result interfac
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(m, "resources", &obj.Resources, UnmarshalListAccountResources)
-	if err != nil {
-		return
-	}
-	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
-	return
-}
-
-// ListEnterpriseResources : An object that represents an enterprise.
-type ListEnterpriseResources struct {
-	// The URL of the enterprise.
-	URL *string `json:"url,omitempty"`
-
-	// The enterprise ID.
-	ID *string `json:"id,omitempty"`
-
-	// The enterprise account ID.
-	EnterpriseAccountID *string `json:"enterprise_account_id,omitempty"`
-
-	// The Cloud Resource Name (CRN) of the enterprise.
-	Crn *string `json:"crn,omitempty"`
-
-	// The name of the enterprise.
-	Name *string `json:"name,omitempty"`
-
-	// The domain of the enterprise.
-	Domain *string `json:"domain,omitempty"`
-
-	// The state of the enterprise.
-	State *string `json:"state,omitempty"`
-
-	// The IAM ID of the primary contact of the enterprise, such as `IBMid-0123ABC`.
-	PrimaryContactIamID *string `json:"primary_contact_iam_id,omitempty"`
-
-	// The email of the primary contact of the enterprise.
-	PrimaryContactEmail *string `json:"primary_contact_email,omitempty"`
-
-	// The time stamp at which the enterprise was created.
-	CreatedAt *string `json:"created_at,omitempty"`
-
-	// The IAM ID of the user or service that created the enterprise.
-	CreatedBy *string `json:"created_by,omitempty"`
-
-	// The time stamp at which the enterprise was last updated.
-	UpdatedAt *string `json:"updated_at,omitempty"`
-
-	// The IAM ID of the user or service that updated the enterprise.
-	UpdatedBy *string `json:"updated_by,omitempty"`
-}
-
-
-// UnmarshalListEnterpriseResources unmarshals an instance of ListEnterpriseResources from the specified map of raw messages.
-func UnmarshalListEnterpriseResources(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(ListEnterpriseResources)
-	err = core.UnmarshalPrimitive(m, "url", &obj.URL)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "enterprise_account_id", &obj.EnterpriseAccountID)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "crn", &obj.Crn)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "domain", &obj.Domain)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "state", &obj.State)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "primary_contact_iam_id", &obj.PrimaryContactIamID)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "primary_contact_email", &obj.PrimaryContactEmail)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "created_at", &obj.CreatedAt)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "created_by", &obj.CreatedBy)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "updated_at", &obj.UpdatedAt)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "updated_by", &obj.UpdatedBy)
+	err = core.UnmarshalModel(m, "resources", &obj.Resources, UnmarshalAccount)
 	if err != nil {
 		return
 	}
@@ -2445,7 +1831,7 @@ type ListEnterprisesResponse struct {
 	NextURL *string `json:"next_url,omitempty"`
 
 	// A list of enterprise objects.
-	Resources []ListEnterpriseResources `json:"resources,omitempty"`
+	Resources []Enterprise `json:"resources,omitempty"`
 }
 
 
@@ -2460,7 +1846,7 @@ func UnmarshalListEnterprisesResponse(m map[string]json.RawMessage, result inter
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(m, "resources", &obj.Resources, UnmarshalListEnterpriseResources)
+	err = core.UnmarshalModel(m, "resources", &obj.Resources, UnmarshalEnterprise)
 	if err != nil {
 		return
 	}
