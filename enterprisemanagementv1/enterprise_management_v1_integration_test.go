@@ -25,7 +25,6 @@ import (
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
 	"io/ioutil"
-	"log"
 	"math/rand"
 	"net/http"
 	"net/url"
@@ -666,7 +665,7 @@ var _ = Describe("Enterprise Management - Integration Tests", func() {
 	})
 
 	It("Successfully Import Account to Enterprise", func() {
-		time.Sleep(10000 * time.Millisecond)
+		time.Sleep(15000 * time.Millisecond)
 		options := service.NewImportAccountToEnterpriseOptions(enterprise_id, standard_account_id)
 		options.SetParent(parent)
 		
