@@ -100,7 +100,7 @@ var _ = Describe("Resource Manager - Integration Tests", func() {
 			result, detailedResponse, err := service1.ListResourceGroups(listResourceGroupsOptionsModel)
 			Expect(err).To(BeNil())
 			Expect(detailedResponse.StatusCode).To(Equal(200))
-			Expect(result.Resources).To(HaveLen(1))
+			Expect(len(result.Resources)).To(BeNumerically(">=", 1))
 			Expect(result.Resources[0]).NotTo(BeNil())
 			Expect(result.Resources[0].ID).NotTo(BeNil())
 			Expect(result.Resources[0].Name).NotTo(BeNil())
