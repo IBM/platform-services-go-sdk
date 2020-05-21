@@ -21,7 +21,6 @@ package enterprisemanagementv1_test
 import (
 	"bytes"
 	"encoding/json"
-	"github.com/joho/godotenv"
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
 	"io/ioutil"
@@ -39,10 +38,11 @@ import (
 const externalConfigFile = "../enterprise-management.env"
 
 var (
-	configLoaded          bool = false
-	service               *enterprisemanagementv1.EnterpriseManagementV1
-	amAuth 		          *core.IamAuthenticator
-	email                 string = "aminttest+" + strconv.Itoa(rand.Intn(100000)) + "_" + strconv.Itoa(rand.Intn(100000)) + "@mail.test.ibm.com"
+	configLoaded bool = false
+	service      *enterprisemanagementv1.EnterpriseManagementV1
+	testConfig   map[string]string
+	amAuth       *core.IamAuthenticator
+	email        string = "aminttest+" + strconv.Itoa(rand.Intn(100000)) + "_" + strconv.Itoa(rand.Intn(100000)) + "@mail.test.ibm.com"
 
 	account_id            string
 	activationId          string
@@ -60,6 +60,12 @@ var (
 	accountGroupID2       string
 )
 
+func shouldSkipTest() {
+	if !configLoaded {
+		Skip("External configuration is not available, skipping...")
+	}
+}
+
 var _ = Describe("Enterprise Management - Integration Tests", func() {
 
 	It("Successfully load the configuration", func() {
@@ -74,33 +80,43 @@ var _ = Describe("Enterprise Management - Integration Tests", func() {
 			Skip("External configuration could not be loaded, skipping...")
 		}
 
-		err = godotenv.Overload(externalConfigFile)
-		Expect(err).To(BeNil())
-	})
-
-	It("Successfully construct service instance", func() {
 		options := &enterprisemanagementv1.EnterpriseManagementV1Options{}
-		
 		service, err = enterprisemanagementv1.NewEnterpriseManagementV1UsingExternalConfig(options)
 		Expect(err).To(BeNil())
 		Expect(service).ToNot(BeNil())
-	})
-	
-	It("Successfully create IamAuthenticator for Account Mgmt API", func() {
-		// Initialize an IamAuthenticator to use with the Account Mgmt API.
+
+		var svcConfig map[string]string
+		svcConfig, err = core.GetServiceProperties(enterprisemanagementv1.DefaultServiceName)
+		Expect(err).To(BeNil())
+		Expect(svcConfig).ToNot(BeNil())
+		Expect(len(svcConfig)).To(Equal(4))
+
+		testConfig, err = core.GetServiceProperties("EMTEST_CONFIG")
+		Expect(err).To(BeNil())
+		Expect(testConfig).ToNot(BeNil())
+		Expect(testConfig["AM_HOST"]).ToNot(BeNil())
+		Expect(testConfig["DB_URL"]).ToNot(BeNil())
+		Expect(testConfig["DB_USER"]).ToNot(BeNil())
+		Expect(testConfig["DB_PASS"]).ToNot(BeNil())
+		Expect(testConfig["ACTIVATION_DB_NAME"]).ToNot(BeNil())
+		Expect(testConfig["IAM_API_KEY"]).ToNot(BeNil())
+
+		// Construct an IamAuthenticator to use with the Account Mgmt API.
 		amAuth = &core.IamAuthenticator{
-			URL: os.Getenv("ENTERPRISE_MANAGEMENT_AUTH_URL"),
-			ApiKey: os.Getenv("EMTEST_CONFIG_IAM_API_KEY"),
+			URL:    svcConfig["AUTH_URL"],
+			ApiKey: testConfig["IAM_API_KEY"],
 		}
 	})
 
 	It("Successfully create a standard account", func() {
-		apiUrl := os.Getenv("EMTEST_CONFIG_AM_HOST")
+		shouldSkipTest()
+
+		apiUrl := testConfig["AM_HOST"]
 		resource := "/coe/v2/accounts"
 
 		u, err := url.ParseRequestURI(apiUrl)
 		Expect(err).To(BeNil())
-		
+
 		u.Path = resource
 		urlStr := u.String()
 
@@ -152,7 +168,7 @@ var _ = Describe("Enterprise Management - Integration Tests", func() {
 
 		// Serialize the request body
 		accountPayloadJson, _ := json.Marshal(accountPayload)
-		
+
 		url := urlStr
 
 		// Create a new request using http
@@ -172,21 +188,23 @@ var _ = Describe("Enterprise Management - Integration Tests", func() {
 		var data map[string]interface{} // TopTracks
 		err = json.Unmarshal(body, &data)
 		Expect(err).To(BeNil())
-		
+
 		var ok bool
 		account_id, ok = data["id"].(string)
 		Expect(ok).To(BeTrue())
 	})
 
 	It("Successfully get activation code", func() {
+		shouldSkipTest()
+
 		time.Sleep(20000 * time.Millisecond)
 
-		apiUrl := os.Getenv("EMTEST_CONFIG_AM_HOST")
+		apiUrl := testConfig["AM_HOST"]
 		resource := "/v1/activation-codes/" + email
 
 		u, err := url.ParseRequestURI(apiUrl)
 		Expect(err).To(BeNil())
-		
+
 		u.Path = resource
 		urlStr := u.String()
 
@@ -214,19 +232,21 @@ var _ = Describe("Enterprise Management - Integration Tests", func() {
 		res := results["resources"].([]interface{})
 
 		z := res[0].(map[string]interface{})
-		
+
 		var ok bool
 		activationId, ok = z["id"].(string)
 		Expect(ok).To(BeTrue())
 	})
 
 	It("Successfully activate account", func() {
-		apiUrl := os.Getenv("EMTEST_CONFIG_AM_HOST")
+		shouldSkipTest()
+
+		apiUrl := testConfig["AM_HOST"]
 		resource := "/coe/v2/accounts/verify"
 
 		u, err := url.ParseRequestURI(apiUrl)
 		Expect(err).To(BeNil())
-		
+
 		u.Path = resource
 		urlStr := u.String()
 
@@ -237,7 +257,7 @@ var _ = Describe("Enterprise Management - Integration Tests", func() {
 
 		err = amAuth.Authenticate(req)
 		Expect(err).To(BeNil())
-		
+
 		q := req.URL.Query()
 		q.Add("token", activationId)
 		q.Add("email", email)
@@ -255,12 +275,13 @@ var _ = Describe("Enterprise Management - Integration Tests", func() {
 	})
 
 	It("Successfully get account", func() {
+		shouldSkipTest()
 
-		apiUrl := os.Getenv("EMTEST_CONFIG_AM_HOST")
+		apiUrl := testConfig["AM_HOST"]
 		resource := "/coe/v2/accounts/" + account_id
 		u, err := url.ParseRequestURI(apiUrl)
 		Expect(err).To(BeNil())
-		
+
 		u.Path = resource
 		urlStr := u.String()
 
@@ -268,7 +289,7 @@ var _ = Describe("Enterprise Management - Integration Tests", func() {
 
 		req, err := http.NewRequest("GET", url, nil)
 		Expect(err).To(BeNil())
-		
+
 		err = amAuth.Authenticate(req)
 		Expect(err).To(BeNil())
 
@@ -285,14 +306,16 @@ var _ = Describe("Enterprise Management - Integration Tests", func() {
 
 		res := data["entity"].(map[string]interface{})
 		owner_iam_id = res["owner_iam_id"].(string)
-		
+
 		var ok bool
 		subscription_id, ok = res["subscription_id"].(string)
 		Expect(ok).To(BeTrue())
 	})
 
 	It("Successfully convert account from STANDARD to SUBSCRIPTION", func() {
-		apiUrl := os.Getenv("EMTEST_CONFIG_AM_HOST")
+		shouldSkipTest()
+
+		apiUrl := testConfig["AM_HOST"]
 		resource := "/coe/v2/accounts/" + account_id + "/bluemix_subscriptions/" + subscription_id
 		u, err := url.ParseRequestURI(apiUrl)
 		Expect(err).To(BeNil())
@@ -352,7 +375,7 @@ var _ = Describe("Enterprise Management - Integration Tests", func() {
 
 		req, err := http.NewRequest("PATCH", url, bytes.NewBuffer(accountPayloadJson))
 		Expect(err).To(BeNil())
-		
+
 		err = amAuth.Authenticate(req)
 		Expect(err).To(BeNil())
 
@@ -367,6 +390,8 @@ var _ = Describe("Enterprise Management - Integration Tests", func() {
 	})
 
 	It("Successfully create enterprise", func() {
+		shouldSkipTest()
+
 		options := service.NewCreateEnterpriseOptions(account_id, "IBM", owner_iam_id)
 
 		result, detailedResponse, err := service.CreateEnterprise(options)
@@ -380,7 +405,9 @@ var _ = Describe("Enterprise Management - Integration Tests", func() {
 	})
 
 	It("Successfully get account", func() {
-		apiUrl := os.Getenv("EMTEST_CONFIG_AM_HOST")
+		shouldSkipTest()
+
+		apiUrl := testConfig["AM_HOST"]
 		resource := "/coe/v2/accounts/" + account_id
 		u, err := url.ParseRequestURI(apiUrl)
 		Expect(err).To(BeNil())
@@ -392,7 +419,7 @@ var _ = Describe("Enterprise Management - Integration Tests", func() {
 
 		req, err := http.NewRequest("GET", url, nil)
 		Expect(err).To(BeNil())
-		
+
 		err = amAuth.Authenticate(req)
 		Expect(err).To(BeNil())
 
@@ -408,13 +435,15 @@ var _ = Describe("Enterprise Management - Integration Tests", func() {
 		Expect(err).To(BeNil())
 
 		res := data["entity"].(map[string]interface{})
-		
+
 		var ok bool
 		parent, ok = res["parent"].(string)
 		Expect(ok).To(BeTrue())
 	})
 
 	It("Successfully Create Account group", func() {
+		shouldSkipTest()
+
 		options := service.NewCreateAccountGroupOptions(parent, "IBM", owner_iam_id)
 
 		result, detailedResponse, err := service.CreateAccountGroup(options)
@@ -425,6 +454,8 @@ var _ = Describe("Enterprise Management - Integration Tests", func() {
 	})
 
 	It("Successfully Create Account group", func() {
+		shouldSkipTest()
+
 		options := service.NewCreateAccountGroupOptions(parent, "IBM", owner_iam_id)
 
 		result, detailedResponse, err := service.CreateAccountGroup(options)
@@ -435,6 +466,8 @@ var _ = Describe("Enterprise Management - Integration Tests", func() {
 	})
 
 	It("Successfully List Account groups", func() {
+		shouldSkipTest()
+
 		options := service.NewListAccountGroupsOptions()
 		options.SetEnterpriseID(enterprise_id)
 		options.SetParentAccountGroupID(accountGroupID)
@@ -448,8 +481,10 @@ var _ = Describe("Enterprise Management - Integration Tests", func() {
 	})
 
 	It("Successfully Get Account group", func() {
+		shouldSkipTest()
+
 		options := service.NewGetAccountGroupOptions(accountGroupID)
-		
+
 		result, detailedResponse, err := service.GetAccountGroup(options)
 		Expect(err).To(BeNil())
 		Expect(detailedResponse.StatusCode).To(Equal(200))
@@ -458,10 +493,12 @@ var _ = Describe("Enterprise Management - Integration Tests", func() {
 	})
 
 	It("Successfully Update Account group", func() {
+		shouldSkipTest()
+
 		options := service.NewUpdateAccountGroupOptions(accountGroupID)
 		options.SetName("IBM")
 		options.SetPrimaryContactIamID(owner_iam_id)
-		
+
 		result, err := service.UpdateAccountGroup(options)
 		Expect(err).To(BeNil())
 		Expect(result).NotTo(BeNil())
@@ -469,12 +506,14 @@ var _ = Describe("Enterprise Management - Integration Tests", func() {
 	})
 
 	It("Successfully create a standard account", func() {
-		apiUrl := os.Getenv("EMTEST_CONFIG_AM_HOST")
+		shouldSkipTest()
+
+		apiUrl := testConfig["AM_HOST"]
 		resource := "/coe/v2/accounts"
 
 		u, err := url.ParseRequestURI(apiUrl)
 		Expect(err).To(BeNil())
-		
+
 		u.Path = resource
 		urlStr := u.String()
 
@@ -553,14 +592,16 @@ var _ = Describe("Enterprise Management - Integration Tests", func() {
 	})
 
 	It("Successfully get activation code", func() {
+		shouldSkipTest()
+
 		time.Sleep(25000 * time.Millisecond)
 
-		apiUrl := os.Getenv("EMTEST_CONFIG_AM_HOST")
+		apiUrl := testConfig["AM_HOST"]
 		resource := "/v1/activation-codes/" + email2
 
 		u, err := url.ParseRequestURI(apiUrl)
 		Expect(err).To(BeNil())
-		
+
 		u.Path = resource
 		urlStr := u.String()
 
@@ -588,14 +629,16 @@ var _ = Describe("Enterprise Management - Integration Tests", func() {
 		res := results["resources"].([]interface{})
 
 		z := res[0].(map[string]interface{})
-		
+
 		var ok bool
 		activationId, ok = z["id"].(string)
 		Expect(ok).To(BeTrue())
 	})
 
 	It("Successfully activate account", func() {
-		apiUrl := os.Getenv("EMTEST_CONFIG_AM_HOST")
+		shouldSkipTest()
+
+		apiUrl := testConfig["AM_HOST"]
 		resource := "/coe/v2/accounts/verify"
 
 		u, err := url.ParseRequestURI(apiUrl)
@@ -629,7 +672,9 @@ var _ = Describe("Enterprise Management - Integration Tests", func() {
 	})
 
 	It("Successfully get account", func() {
-		apiUrl := os.Getenv("EMTEST_CONFIG_AM_HOST")
+		shouldSkipTest()
+
+		apiUrl := testConfig["AM_HOST"]
 		resource := "/coe/v2/accounts/" + standard_account_id
 		u, err := url.ParseRequestURI(apiUrl)
 		Expect(err).To(BeNil())
@@ -641,7 +686,7 @@ var _ = Describe("Enterprise Management - Integration Tests", func() {
 
 		req, err := http.NewRequest("GET", url, nil)
 		Expect(err).To(BeNil())
-		
+
 		err = amAuth.Authenticate(req)
 		Expect(err).To(BeNil())
 
@@ -658,17 +703,19 @@ var _ = Describe("Enterprise Management - Integration Tests", func() {
 
 		res := data["entity"].(map[string]interface{})
 		owner_iam_id = res["owner_iam_id"].(string)
-		
+
 		var ok bool
 		subscription_id, ok = res["subscription_id"].(string)
 		Expect(ok).To(BeTrue())
 	})
 
 	It("Successfully Import Account to Enterprise", func() {
-		time.Sleep(15000 * time.Millisecond)
+		shouldSkipTest()
+
+		time.Sleep(30000 * time.Millisecond)
 		options := service.NewImportAccountToEnterpriseOptions(enterprise_id, standard_account_id)
 		options.SetParent(parent)
-		
+
 		result, err := service.ImportAccountToEnterprise(options)
 		Expect(err).To(BeNil())
 		Expect(result).NotTo(BeNil())
@@ -676,8 +723,10 @@ var _ = Describe("Enterprise Management - Integration Tests", func() {
 	})
 
 	It("Successfully Create Account", func() {
+		shouldSkipTest()
+
 		options := service.NewCreateAccountOptions(parent, "IBM", "IBMid-550006JKXX")
-		
+
 		result, response, err := service.CreateAccount(options)
 		Expect(err).To(BeNil())
 		Expect(result).NotTo(BeNil())
@@ -687,8 +736,10 @@ var _ = Describe("Enterprise Management - Integration Tests", func() {
 	})
 
 	It("Successfully Get Account", func() {
+		shouldSkipTest()
+
 		options := service.NewGetAccountOptions(newAccount)
-		
+
 		result, response, err := service.GetAccount(options)
 		Expect(err).To(BeNil())
 		Expect(result).NotTo(BeNil())
@@ -696,12 +747,14 @@ var _ = Describe("Enterprise Management - Integration Tests", func() {
 	})
 
 	It("Successfully List Accounts", func() {
+		shouldSkipTest()
+
 		options := service.NewListAccountsOptions()
 		options.SetEnterpriseID(enterprise_id)
 		options.SetAccountGroupID(accountGroupID)
 		options.SetParent(parent)
 		options.SetLimit(100)
-		
+
 		result, response, err := service.ListAccounts(options)
 		Expect(err).To(BeNil())
 		Expect(result).NotTo(BeNil())
@@ -709,6 +762,8 @@ var _ = Describe("Enterprise Management - Integration Tests", func() {
 	})
 
 	It("Successfully List Account groups", func() {
+		shouldSkipTest()
+
 		options := service.NewListAccountGroupsOptions()
 		options.SetEnterpriseID(enterprise_id)
 		options.SetParentAccountGroupID(accountGroupID2)
@@ -722,6 +777,8 @@ var _ = Describe("Enterprise Management - Integration Tests", func() {
 	})
 
 	It("Successfully Move Account within an Enterprise", func() {
+		shouldSkipTest()
+
 		options := service.NewUpdateAccountOptions(newAccount, crn)
 
 		result, err := service.UpdateAccount(options)
