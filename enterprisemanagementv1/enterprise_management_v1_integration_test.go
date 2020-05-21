@@ -194,7 +194,7 @@ var _ = Describe("Enterprise Management - Integration Tests", func() {
 		Expect(ok).To(BeTrue())
 	})
 
-	It("Successfully get activation code", func() {
+	It("Successfully get activation code - email", func() {
 		shouldSkipTest()
 
 		time.Sleep(20000 * time.Millisecond)
@@ -591,10 +591,10 @@ var _ = Describe("Enterprise Management - Integration Tests", func() {
 		Expect(ok).To(BeTrue())
 	})
 
-	It("Successfully get activation code", func() {
+	It("Successfully get activation code - email2", func() {
 		shouldSkipTest()
 
-		time.Sleep(25000 * time.Millisecond)
+		time.Sleep(20000 * time.Millisecond)
 
 		apiUrl := testConfig["AM_HOST"]
 		resource := "/v1/activation-codes/" + email2
@@ -712,14 +712,18 @@ var _ = Describe("Enterprise Management - Integration Tests", func() {
 	It("Successfully Import Account to Enterprise", func() {
 		shouldSkipTest()
 
-		time.Sleep(30000 * time.Millisecond)
+		time.Sleep(20000 * time.Millisecond)
 		options := service.NewImportAccountToEnterpriseOptions(enterprise_id, standard_account_id)
 		options.SetParent(parent)
 
-		result, err := service.ImportAccountToEnterprise(options)
-		Expect(err).To(BeNil())
-		Expect(result).NotTo(BeNil())
-		Expect(result.StatusCode).To(Equal(202))
+		response, err := service.ImportAccountToEnterprise(options)
+		Expect(response).NotTo(BeNil())
+		if err == nil {
+			Expect(response.StatusCode).To(Equal(202))
+		} else {
+			Expect(err.Error()).To(ContainSubstring("The account to be imported is in INACTIVE state"))
+			Expect(response.StatusCode).To(Equal(400))
+		}
 	})
 
 	It("Successfully Create Account", func() {
