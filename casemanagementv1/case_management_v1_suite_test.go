@@ -14,7 +14,15 @@
  * limitations under the License.
  */
 
-package common
+package casemanagementv1_test
 
-// Version of the SDK
-const Version = "0.5.0"
+import (
+	. "github.com/onsi/ginkgo"
+	. "github.com/onsi/gomega"
+	"testing"
+)
+
+func TestCaseManagementV1(t *testing.T) {
+	RegisterFailHandler(Fail)
+	RunSpecs(t, "CaseManagementV1 Suite")
+}

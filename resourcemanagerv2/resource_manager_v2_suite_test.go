@@ -14,7 +14,15 @@
  * limitations under the License.
  */
 
-package common
+package resourcemanagerv2_test
 
-// Version of the SDK
-const Version = "0.5.0"
+import (
+	. "github.com/onsi/ginkgo"
+	. "github.com/onsi/gomega"
+	"testing"
+)
+
+func TestResourceManagerV2(t *testing.T) {
+	RegisterFailHandler(Fail)
+	RunSpecs(t, "ResourceManagerV2 Suite")
+}

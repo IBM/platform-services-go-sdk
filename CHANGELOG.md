@@ -1,3 +1,31 @@
+# [0.5.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.4.0...v0.5.0) (2020-05-21)
+
+
+### Features
+
+* **Enterprise Management:** add service to project ([b09545d](https://github.com/IBM/platform-services-go-sdk/commit/b09545d0b4ffbbbecb06d70feef06145d92732f2))
+
+# [0.4.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.3.1...v0.4.0) (2020-05-20)
+
+
+### Features
+
+* **Case Management:** add service to project ([#11](https://github.com/IBM/platform-services-go-sdk/issues/11)) ([93ae7ca](https://github.com/IBM/platform-services-go-sdk/commit/93ae7ca125b112b3cc3de827bff7ea60f5250b64))
+
+## [0.3.1](https://github.com/IBM/platform-services-go-sdk/compare/v0.3.0...v0.3.1) (2020-05-15)
+
+
+### Bug Fixes
+
+* **build:** disable integration tests in tagged-release builds ([359b2d0](https://github.com/IBM/platform-services-go-sdk/commit/359b2d0b2931ae2966bc375d86be2938d444edfd))
+
+# [0.3.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.2.0...v0.3.0) (2020-05-12)
+
+
+### Features
+
+* **Resource Manager:** add service to project ([#9](https://github.com/IBM/platform-services-go-sdk/issues/9)) ([6aa9cc1](https://github.com/IBM/platform-services-go-sdk/commit/6aa9cc10e6e2565118e8cefcb0c78ceef3c7422e)), closes [#14](https://github.com/IBM/platform-services-go-sdk/issues/14)
+
 # [0.2.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.1.0...v0.2.0) (2020-05-07)
 
 
