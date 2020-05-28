@@ -354,7 +354,7 @@ var _ = Describe("Enterprise Management - Integration Tests", func() {
 			State: "ACTIVE",
 			Payment_methods: Payment_method{
 				Start_date: "2020-03-01T07:00:00.000Z",
-				End_date:   "2020-11-30T08:00:00.000",
+				End_date:   "2020-11-30T08:00:00.000Z",
 			},
 			Subscription_amount:     100,
 			Quantity:                10,
