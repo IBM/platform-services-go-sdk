@@ -545,6 +545,12 @@ func (iamPolicyManagement *IamPolicyManagementV1) CreateRole(createRoleOptions *
 	}
 
 	body := make(map[string]interface{})
+	if createRoleOptions.DisplayName != nil {
+		body["display_name"] = createRoleOptions.DisplayName
+	}
+	if createRoleOptions.Actions != nil {
+		body["actions"] = createRoleOptions.Actions
+	}
 	if createRoleOptions.Name != nil {
 		body["name"] = createRoleOptions.Name
 	}
@@ -553,12 +559,6 @@ func (iamPolicyManagement *IamPolicyManagementV1) CreateRole(createRoleOptions *
 	}
 	if createRoleOptions.ServiceName != nil {
 		body["service_name"] = createRoleOptions.ServiceName
-	}
-	if createRoleOptions.DisplayName != nil {
-		body["display_name"] = createRoleOptions.DisplayName
-	}
-	if createRoleOptions.Actions != nil {
-		body["actions"] = createRoleOptions.Actions
 	}
 	if createRoleOptions.Description != nil {
 		body["description"] = createRoleOptions.Description
@@ -752,14 +752,14 @@ type CreatePolicyOptions struct {
 	// The policy type; either 'access' or 'authorization'.
 	Type *string `json:"type" validate:"required"`
 
-	// The subject attribute values that must match in order for this policy to apply in a permission decision.
-	Subjects []PolicyRequestSubjectsItem `json:"subjects" validate:"required"`
+	// The subjects associated with a policy.
+	Subjects []PolicySubject `json:"subjects" validate:"required"`
 
 	// A set of role cloud resource names (CRNs) granted by the policy.
-	Roles []PolicyRequestRolesItem `json:"roles" validate:"required"`
+	Roles []PolicyRole `json:"roles" validate:"required"`
 
-	// The attributes of the resource. Note that only one resource is allowed in a policy.
-	Resources []PolicyRequestResourcesItem `json:"resources" validate:"required"`
+	// The resources associated with a policy.
+	Resources []PolicyResource `json:"resources" validate:"required"`
 
 	// Translation language code.
 	AcceptLanguage *string `json:"Accept-Language,omitempty"`
@@ -769,7 +769,7 @@ type CreatePolicyOptions struct {
 }
 
 // NewCreatePolicyOptions : Instantiate CreatePolicyOptions
-func (*IamPolicyManagementV1) NewCreatePolicyOptions(typeVar string, subjects []PolicyRequestSubjectsItem, roles []PolicyRequestRolesItem, resources []PolicyRequestResourcesItem) *CreatePolicyOptions {
+func (*IamPolicyManagementV1) NewCreatePolicyOptions(typeVar string, subjects []PolicySubject, roles []PolicyRole, resources []PolicyResource) *CreatePolicyOptions {
 	return &CreatePolicyOptions{
 		Type: core.StringPtr(typeVar),
 		Subjects: subjects,
@@ -785,19 +785,19 @@ func (options *CreatePolicyOptions) SetType(typeVar string) *CreatePolicyOptions
 }
 
 // SetSubjects : Allow user to set Subjects
-func (options *CreatePolicyOptions) SetSubjects(subjects []PolicyRequestSubjectsItem) *CreatePolicyOptions {
+func (options *CreatePolicyOptions) SetSubjects(subjects []PolicySubject) *CreatePolicyOptions {
 	options.Subjects = subjects
 	return options
 }
 
 // SetRoles : Allow user to set Roles
-func (options *CreatePolicyOptions) SetRoles(roles []PolicyRequestRolesItem) *CreatePolicyOptions {
+func (options *CreatePolicyOptions) SetRoles(roles []PolicyRole) *CreatePolicyOptions {
 	options.Roles = roles
 	return options
 }
 
 // SetResources : Allow user to set Resources
-func (options *CreatePolicyOptions) SetResources(resources []PolicyRequestResourcesItem) *CreatePolicyOptions {
+func (options *CreatePolicyOptions) SetResources(resources []PolicyResource) *CreatePolicyOptions {
 	options.Resources = resources
 	return options
 }
@@ -816,6 +816,12 @@ func (options *CreatePolicyOptions) SetHeaders(param map[string]string) *CreateP
 
 // CreateRoleOptions : The CreateRole options.
 type CreateRoleOptions struct {
+	// The display name of the role that is shown in the console.
+	DisplayName *string `json:"display_name" validate:"required"`
+
+	// The actions of the role.
+	Actions []string `json:"actions" validate:"required"`
+
 	// The name of the role that is used in the CRN. Can only be alphanumeric and has to be capitalized.
 	Name *string `json:"name" validate:"required"`
 
@@ -824,12 +830,6 @@ type CreateRoleOptions struct {
 
 	// The service name.
 	ServiceName *string `json:"service_name" validate:"required"`
-
-	// The display name of the role that is shown in the console.
-	DisplayName *string `json:"display_name" validate:"required"`
-
-	// The actions of the role.
-	Actions []string `json:"actions" validate:"required"`
 
 	// The description of the role.
 	Description *string `json:"description,omitempty"`
@@ -842,14 +842,26 @@ type CreateRoleOptions struct {
 }
 
 // NewCreateRoleOptions : Instantiate CreateRoleOptions
-func (*IamPolicyManagementV1) NewCreateRoleOptions(name string, accountID string, serviceName string, displayName string, actions []string) *CreateRoleOptions {
+func (*IamPolicyManagementV1) NewCreateRoleOptions(displayName string, actions []string, name string, accountID string, serviceName string) *CreateRoleOptions {
 	return &CreateRoleOptions{
+		DisplayName: core.StringPtr(displayName),
+		Actions: actions,
 		Name: core.StringPtr(name),
 		AccountID: core.StringPtr(accountID),
 		ServiceName: core.StringPtr(serviceName),
-		DisplayName: core.StringPtr(displayName),
-		Actions: actions,
 	}
+}
+
+// SetDisplayName : Allow user to set DisplayName
+func (options *CreateRoleOptions) SetDisplayName(displayName string) *CreateRoleOptions {
+	options.DisplayName = core.StringPtr(displayName)
+	return options
+}
+
+// SetActions : Allow user to set Actions
+func (options *CreateRoleOptions) SetActions(actions []string) *CreateRoleOptions {
+	options.Actions = actions
+	return options
 }
 
 // SetName : Allow user to set Name
@@ -867,18 +879,6 @@ func (options *CreateRoleOptions) SetAccountID(accountID string) *CreateRoleOpti
 // SetServiceName : Allow user to set ServiceName
 func (options *CreateRoleOptions) SetServiceName(serviceName string) *CreateRoleOptions {
 	options.ServiceName = core.StringPtr(serviceName)
-	return options
-}
-
-// SetDisplayName : Allow user to set DisplayName
-func (options *CreateRoleOptions) SetDisplayName(displayName string) *CreateRoleOptions {
-	options.DisplayName = core.StringPtr(displayName)
-	return options
-}
-
-// SetActions : Allow user to set Actions
-func (options *CreateRoleOptions) SetActions(actions []string) *CreateRoleOptions {
-	options.Actions = actions
 	return options
 }
 
@@ -1129,469 +1129,6 @@ func (options *ListRolesOptions) SetHeaders(param map[string]string) *ListRolesO
 	return options
 }
 
-// PolicyBaseResourcesItem : PolicyBaseResourcesItem struct
-type PolicyBaseResourcesItem struct {
-	// List of resource attributes.
-	Attributes []PolicyBaseResourcesItemAttributesItem `json:"attributes,omitempty"`
-}
-
-
-// UnmarshalPolicyBaseResourcesItem unmarshals an instance of PolicyBaseResourcesItem from the specified map of raw messages.
-func UnmarshalPolicyBaseResourcesItem(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(PolicyBaseResourcesItem)
-	err = core.UnmarshalModel(m, "attributes", &obj.Attributes, UnmarshalPolicyBaseResourcesItemAttributesItem)
-	if err != nil {
-		return
-	}
-	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
-	return
-}
-
-// PolicyBaseResourcesItemAttributesItem : PolicyBaseResourcesItemAttributesItem struct
-type PolicyBaseResourcesItemAttributesItem struct {
-	// The name of an attribute.
-	Name *string `json:"name,omitempty"`
-
-	// The value of an attribute.
-	Value *string `json:"value,omitempty"`
-
-	// The operator of an attribute.
-	Operator *string `json:"operator,omitempty"`
-}
-
-
-// UnmarshalPolicyBaseResourcesItemAttributesItem unmarshals an instance of PolicyBaseResourcesItemAttributesItem from the specified map of raw messages.
-func UnmarshalPolicyBaseResourcesItemAttributesItem(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(PolicyBaseResourcesItemAttributesItem)
-	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "value", &obj.Value)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "operator", &obj.Operator)
-	if err != nil {
-		return
-	}
-	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
-	return
-}
-
-// PolicyBaseSubjectsItem : PolicyBaseSubjectsItem struct
-type PolicyBaseSubjectsItem struct {
-	// List of subject attributes.
-	Attributes []PolicyBaseSubjectsItemAttributesItem `json:"attributes,omitempty"`
-}
-
-
-// UnmarshalPolicyBaseSubjectsItem unmarshals an instance of PolicyBaseSubjectsItem from the specified map of raw messages.
-func UnmarshalPolicyBaseSubjectsItem(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(PolicyBaseSubjectsItem)
-	err = core.UnmarshalModel(m, "attributes", &obj.Attributes, UnmarshalPolicyBaseSubjectsItemAttributesItem)
-	if err != nil {
-		return
-	}
-	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
-	return
-}
-
-// PolicyBaseSubjectsItemAttributesItem : PolicyBaseSubjectsItemAttributesItem struct
-type PolicyBaseSubjectsItemAttributesItem struct {
-	// The name of an attribute.
-	Name *string `json:"name,omitempty"`
-
-	// The value of an attribute.
-	Value *string `json:"value,omitempty"`
-}
-
-
-// UnmarshalPolicyBaseSubjectsItemAttributesItem unmarshals an instance of PolicyBaseSubjectsItemAttributesItem from the specified map of raw messages.
-func UnmarshalPolicyBaseSubjectsItemAttributesItem(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(PolicyBaseSubjectsItemAttributesItem)
-	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "value", &obj.Value)
-	if err != nil {
-		return
-	}
-	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
-	return
-}
-
-// PolicyRequestResourcesItem : PolicyRequestResourcesItem struct
-type PolicyRequestResourcesItem struct {
-	// List of resource attributes.
-	Attributes []PolicyRequestResourcesItemAttributesItem `json:"attributes" validate:"required"`
-}
-
-
-// NewPolicyRequestResourcesItem : Instantiate PolicyRequestResourcesItem (Generic Model Constructor)
-func (*IamPolicyManagementV1) NewPolicyRequestResourcesItem(attributes []PolicyRequestResourcesItemAttributesItem) (model *PolicyRequestResourcesItem, err error) {
-	model = &PolicyRequestResourcesItem{
-		Attributes: attributes,
-	}
-	err = core.ValidateStruct(model, "required parameters")
-	return
-}
-
-// UnmarshalPolicyRequestResourcesItem unmarshals an instance of PolicyRequestResourcesItem from the specified map of raw messages.
-func UnmarshalPolicyRequestResourcesItem(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(PolicyRequestResourcesItem)
-	err = core.UnmarshalModel(m, "attributes", &obj.Attributes, UnmarshalPolicyRequestResourcesItemAttributesItem)
-	if err != nil {
-		return
-	}
-	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
-	return
-}
-
-// PolicyRequestResourcesItemAttributesItem : PolicyRequestResourcesItemAttributesItem struct
-type PolicyRequestResourcesItemAttributesItem struct {
-	// The name of an attribute.
-	Name *string `json:"name" validate:"required"`
-
-	// The value of an attribute.
-	Value *string `json:"value" validate:"required"`
-
-	// The operator of an attribute.
-	Operator *string `json:"operator,omitempty"`
-}
-
-
-// NewPolicyRequestResourcesItemAttributesItem : Instantiate PolicyRequestResourcesItemAttributesItem (Generic Model Constructor)
-func (*IamPolicyManagementV1) NewPolicyRequestResourcesItemAttributesItem(name string, value string) (model *PolicyRequestResourcesItemAttributesItem, err error) {
-	model = &PolicyRequestResourcesItemAttributesItem{
-		Name: core.StringPtr(name),
-		Value: core.StringPtr(value),
-	}
-	err = core.ValidateStruct(model, "required parameters")
-	return
-}
-
-// UnmarshalPolicyRequestResourcesItemAttributesItem unmarshals an instance of PolicyRequestResourcesItemAttributesItem from the specified map of raw messages.
-func UnmarshalPolicyRequestResourcesItemAttributesItem(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(PolicyRequestResourcesItemAttributesItem)
-	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "value", &obj.Value)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "operator", &obj.Operator)
-	if err != nil {
-		return
-	}
-	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
-	return
-}
-
-// PolicyRequestRolesItem : PolicyRequestRolesItem struct
-type PolicyRequestRolesItem struct {
-	// A role cloud resource name (CRN).
-	RoleID *string `json:"role_id" validate:"required"`
-}
-
-
-// NewPolicyRequestRolesItem : Instantiate PolicyRequestRolesItem (Generic Model Constructor)
-func (*IamPolicyManagementV1) NewPolicyRequestRolesItem(roleID string) (model *PolicyRequestRolesItem, err error) {
-	model = &PolicyRequestRolesItem{
-		RoleID: core.StringPtr(roleID),
-	}
-	err = core.ValidateStruct(model, "required parameters")
-	return
-}
-
-// UnmarshalPolicyRequestRolesItem unmarshals an instance of PolicyRequestRolesItem from the specified map of raw messages.
-func UnmarshalPolicyRequestRolesItem(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(PolicyRequestRolesItem)
-	err = core.UnmarshalPrimitive(m, "role_id", &obj.RoleID)
-	if err != nil {
-		return
-	}
-	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
-	return
-}
-
-// PolicyRequestSubjectsItem : PolicyRequestSubjectsItem struct
-type PolicyRequestSubjectsItem struct {
-	// List of subject attributes.
-	Attributes []PolicyRequestSubjectsItemAttributesItem `json:"attributes" validate:"required"`
-}
-
-
-// NewPolicyRequestSubjectsItem : Instantiate PolicyRequestSubjectsItem (Generic Model Constructor)
-func (*IamPolicyManagementV1) NewPolicyRequestSubjectsItem(attributes []PolicyRequestSubjectsItemAttributesItem) (model *PolicyRequestSubjectsItem, err error) {
-	model = &PolicyRequestSubjectsItem{
-		Attributes: attributes,
-	}
-	err = core.ValidateStruct(model, "required parameters")
-	return
-}
-
-// UnmarshalPolicyRequestSubjectsItem unmarshals an instance of PolicyRequestSubjectsItem from the specified map of raw messages.
-func UnmarshalPolicyRequestSubjectsItem(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(PolicyRequestSubjectsItem)
-	err = core.UnmarshalModel(m, "attributes", &obj.Attributes, UnmarshalPolicyRequestSubjectsItemAttributesItem)
-	if err != nil {
-		return
-	}
-	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
-	return
-}
-
-// PolicyRequestSubjectsItemAttributesItem : PolicyRequestSubjectsItemAttributesItem struct
-type PolicyRequestSubjectsItemAttributesItem struct {
-	// The name of an attribute.
-	Name *string `json:"name" validate:"required"`
-
-	// The value of an attribute.
-	Value *string `json:"value" validate:"required"`
-}
-
-
-// NewPolicyRequestSubjectsItemAttributesItem : Instantiate PolicyRequestSubjectsItemAttributesItem (Generic Model Constructor)
-func (*IamPolicyManagementV1) NewPolicyRequestSubjectsItemAttributesItem(name string, value string) (model *PolicyRequestSubjectsItemAttributesItem, err error) {
-	model = &PolicyRequestSubjectsItemAttributesItem{
-		Name: core.StringPtr(name),
-		Value: core.StringPtr(value),
-	}
-	err = core.ValidateStruct(model, "required parameters")
-	return
-}
-
-// UnmarshalPolicyRequestSubjectsItemAttributesItem unmarshals an instance of PolicyRequestSubjectsItemAttributesItem from the specified map of raw messages.
-func UnmarshalPolicyRequestSubjectsItemAttributesItem(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(PolicyRequestSubjectsItemAttributesItem)
-	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "value", &obj.Value)
-	if err != nil {
-		return
-	}
-	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
-	return
-}
-
-// PolicyRolesItem : PolicyRolesItem struct
-type PolicyRolesItem struct {
-	// The role cloud resource name granted by the policy.
-	RoleID *string `json:"role_id,omitempty"`
-
-	// The display name of the role.
-	DisplayName *string `json:"display_name,omitempty"`
-
-	// The description of the role.
-	Description *string `json:"description,omitempty"`
-}
-
-
-// UnmarshalPolicyRolesItem unmarshals an instance of PolicyRolesItem from the specified map of raw messages.
-func UnmarshalPolicyRolesItem(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(PolicyRolesItem)
-	err = core.UnmarshalPrimitive(m, "role_id", &obj.RoleID)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "display_name", &obj.DisplayName)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "description", &obj.Description)
-	if err != nil {
-		return
-	}
-	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
-	return
-}
-
-// RoleListCustomRolesItem : RoleListCustomRolesItem struct
-type RoleListCustomRolesItem struct {
-	// The role ID.
-	ID *string `json:"id,omitempty"`
-
-	// The name of the role that is used in the CRN. Can only be alphanumeric and has to be capitalized.
-	Name *string `json:"name,omitempty"`
-
-	// The account GUID.
-	AccountID *string `json:"account_id,omitempty"`
-
-	// The service name.
-	ServiceName *string `json:"service_name,omitempty"`
-
-	// The display name of the role that is shown in the console.
-	DisplayName *string `json:"display_name,omitempty"`
-
-	// The description of the role.
-	Description *string `json:"description,omitempty"`
-
-	// The role CRN.
-	Crn *string `json:"crn,omitempty"`
-
-	// The actions of the role.
-	Actions []string `json:"actions,omitempty"`
-
-	// The UTC timestamp when the role was created.
-	CreatedAt *strfmt.DateTime `json:"created_at,omitempty"`
-
-	// The iam ID of the entity that created the role.
-	CreatedByID *string `json:"created_by_id,omitempty"`
-
-	// The UTC timestamp when the role was last modified.
-	LastModifiedAt *strfmt.DateTime `json:"last_modified_at,omitempty"`
-
-	// The iam ID of the entity that last modified the policy.
-	LastModifiedByID *string `json:"last_modified_by_id,omitempty"`
-
-	// The href link back to the role.
-	Href *string `json:"href,omitempty"`
-}
-
-
-// UnmarshalRoleListCustomRolesItem unmarshals an instance of RoleListCustomRolesItem from the specified map of raw messages.
-func UnmarshalRoleListCustomRolesItem(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(RoleListCustomRolesItem)
-	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "account_id", &obj.AccountID)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "service_name", &obj.ServiceName)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "display_name", &obj.DisplayName)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "description", &obj.Description)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "crn", &obj.Crn)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "actions", &obj.Actions)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "created_at", &obj.CreatedAt)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "created_by_id", &obj.CreatedByID)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "last_modified_at", &obj.LastModifiedAt)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "last_modified_by_id", &obj.LastModifiedByID)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "href", &obj.Href)
-	if err != nil {
-		return
-	}
-	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
-	return
-}
-
-// RoleListServiceRolesItem : RoleListServiceRolesItem struct
-type RoleListServiceRolesItem struct {
-	// The display name of the role that is shown in the console.
-	DisplayName *string `json:"display_name,omitempty"`
-
-	// The description of the role.
-	Description *string `json:"description,omitempty"`
-
-	// The role CRN.
-	Crn *string `json:"crn,omitempty"`
-
-	// The actions of the role.
-	Actions []string `json:"actions,omitempty"`
-}
-
-
-// UnmarshalRoleListServiceRolesItem unmarshals an instance of RoleListServiceRolesItem from the specified map of raw messages.
-func UnmarshalRoleListServiceRolesItem(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(RoleListServiceRolesItem)
-	err = core.UnmarshalPrimitive(m, "display_name", &obj.DisplayName)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "description", &obj.Description)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "crn", &obj.Crn)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "actions", &obj.Actions)
-	if err != nil {
-		return
-	}
-	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
-	return
-}
-
-// RoleListSystemRolesItem : RoleListSystemRolesItem struct
-type RoleListSystemRolesItem struct {
-	// The display name of the role that is shown in the console.
-	DisplayName *string `json:"display_name,omitempty"`
-
-	// The description of the role.
-	Description *string `json:"description,omitempty"`
-
-	// The role CRN.
-	Crn *string `json:"crn,omitempty"`
-
-	// The actions of the role.
-	Actions []string `json:"actions,omitempty"`
-}
-
-
-// UnmarshalRoleListSystemRolesItem unmarshals an instance of RoleListSystemRolesItem from the specified map of raw messages.
-func UnmarshalRoleListSystemRolesItem(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(RoleListSystemRolesItem)
-	err = core.UnmarshalPrimitive(m, "display_name", &obj.DisplayName)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "description", &obj.Description)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "crn", &obj.Crn)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "actions", &obj.Actions)
-	if err != nil {
-		return
-	}
-	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
-	return
-}
-
 // UpdatePolicyOptions : The UpdatePolicy options.
 type UpdatePolicyOptions struct {
 	// The policy ID.
@@ -1604,21 +1141,21 @@ type UpdatePolicyOptions struct {
 	// The policy type; either 'access' or 'authorization'.
 	Type *string `json:"type" validate:"required"`
 
-	// The subject attribute values that must match in order for this policy to apply in a permission decision.
-	Subjects []PolicyRequestSubjectsItem `json:"subjects" validate:"required"`
+	// The subjects associated with a policy.
+	Subjects []PolicySubject `json:"subjects" validate:"required"`
 
 	// A set of role cloud resource names (CRNs) granted by the policy.
-	Roles []PolicyRequestRolesItem `json:"roles" validate:"required"`
+	Roles []PolicyRole `json:"roles" validate:"required"`
 
-	// The attributes of the resource. Note that only one resource is allowed in a policy.
-	Resources []PolicyRequestResourcesItem `json:"resources" validate:"required"`
+	// The resources associated with a policy.
+	Resources []PolicyResource `json:"resources" validate:"required"`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
 }
 
 // NewUpdatePolicyOptions : Instantiate UpdatePolicyOptions
-func (*IamPolicyManagementV1) NewUpdatePolicyOptions(policyID string, ifMatch string, typeVar string, subjects []PolicyRequestSubjectsItem, roles []PolicyRequestRolesItem, resources []PolicyRequestResourcesItem) *UpdatePolicyOptions {
+func (*IamPolicyManagementV1) NewUpdatePolicyOptions(policyID string, ifMatch string, typeVar string, subjects []PolicySubject, roles []PolicyRole, resources []PolicyResource) *UpdatePolicyOptions {
 	return &UpdatePolicyOptions{
 		PolicyID: core.StringPtr(policyID),
 		IfMatch: core.StringPtr(ifMatch),
@@ -1648,19 +1185,19 @@ func (options *UpdatePolicyOptions) SetType(typeVar string) *UpdatePolicyOptions
 }
 
 // SetSubjects : Allow user to set Subjects
-func (options *UpdatePolicyOptions) SetSubjects(subjects []PolicyRequestSubjectsItem) *UpdatePolicyOptions {
+func (options *UpdatePolicyOptions) SetSubjects(subjects []PolicySubject) *UpdatePolicyOptions {
 	options.Subjects = subjects
 	return options
 }
 
 // SetRoles : Allow user to set Roles
-func (options *UpdatePolicyOptions) SetRoles(roles []PolicyRequestRolesItem) *UpdatePolicyOptions {
+func (options *UpdatePolicyOptions) SetRoles(roles []PolicyRole) *UpdatePolicyOptions {
 	options.Roles = roles
 	return options
 }
 
 // SetResources : Allow user to set Resources
-func (options *UpdatePolicyOptions) SetResources(resources []PolicyRequestResourcesItem) *UpdatePolicyOptions {
+func (options *UpdatePolicyOptions) SetResources(resources []PolicyResource) *UpdatePolicyOptions {
 	options.Resources = resources
 	return options
 }
@@ -1737,10 +1274,22 @@ func (options *UpdateRoleOptions) SetHeaders(param map[string]string) *UpdateRol
 	return options
 }
 
-// CustomRole : CustomRole struct
+// CustomRole : An additional set of properties associated with a role.
 type CustomRole struct {
 	// The role ID.
 	ID *string `json:"id,omitempty"`
+
+	// The display name of the role that is shown in the console.
+	DisplayName *string `json:"display_name,omitempty"`
+
+	// The description of the role.
+	Description *string `json:"description,omitempty"`
+
+	// The actions of the role.
+	Actions []string `json:"actions,omitempty"`
+
+	// The role CRN.
+	Crn *string `json:"crn,omitempty"`
 
 	// The name of the role that is used in the CRN. Can only be alphanumeric and has to be capitalized.
 	Name *string `json:"name,omitempty"`
@@ -1750,18 +1299,6 @@ type CustomRole struct {
 
 	// The service name.
 	ServiceName *string `json:"service_name,omitempty"`
-
-	// The display name of the role that is shown in the console.
-	DisplayName *string `json:"display_name,omitempty"`
-
-	// The description of the role.
-	Description *string `json:"description,omitempty"`
-
-	// The role CRN.
-	Crn *string `json:"crn,omitempty"`
-
-	// The actions of the role.
-	Actions []string `json:"actions,omitempty"`
 
 	// The UTC timestamp when the role was created.
 	CreatedAt *strfmt.DateTime `json:"created_at,omitempty"`
@@ -1787,6 +1324,22 @@ func UnmarshalCustomRole(m map[string]json.RawMessage, result interface{}) (err 
 	if err != nil {
 		return
 	}
+	err = core.UnmarshalPrimitive(m, "display_name", &obj.DisplayName)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "description", &obj.Description)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "actions", &obj.Actions)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "crn", &obj.Crn)
+	if err != nil {
+		return
+	}
 	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
 	if err != nil {
 		return
@@ -1796,22 +1349,6 @@ func UnmarshalCustomRole(m map[string]json.RawMessage, result interface{}) (err 
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "service_name", &obj.ServiceName)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "display_name", &obj.DisplayName)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "description", &obj.Description)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "crn", &obj.Crn)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "actions", &obj.Actions)
 	if err != nil {
 		return
 	}
@@ -1839,7 +1376,7 @@ func UnmarshalCustomRole(m map[string]json.RawMessage, result interface{}) (err 
 	return
 }
 
-// Policy : Policy struct
+// Policy : The core set of properties associated with a policy.
 type Policy struct {
 	// The policy ID.
 	ID *string `json:"id,omitempty"`
@@ -1847,14 +1384,14 @@ type Policy struct {
 	// The policy type; either 'access' or 'authorization'.
 	Type *string `json:"type,omitempty"`
 
-	// The subject attribute values that must match in order for this policy to apply in a permission decision.
-	Subjects []PolicyBaseSubjectsItem `json:"subjects,omitempty"`
+	// The subjects associated with a policy.
+	Subjects []PolicySubject `json:"subjects,omitempty"`
 
 	// A set of role cloud resource names (CRNs) granted by the policy.
-	Roles []PolicyRolesItem `json:"roles,omitempty"`
+	Roles []PolicyRole `json:"roles,omitempty"`
 
-	// The attributes of the resource. Note that only one resource is allowed in a policy.
-	Resources []PolicyBaseResourcesItem `json:"resources,omitempty"`
+	// The resources associated with a policy.
+	Resources []PolicyResource `json:"resources,omitempty"`
 
 	// The href link back to the policy.
 	Href *string `json:"href,omitempty"`
@@ -1884,15 +1421,15 @@ func UnmarshalPolicy(m map[string]json.RawMessage, result interface{}) (err erro
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(m, "subjects", &obj.Subjects, UnmarshalPolicyBaseSubjectsItem)
+	err = core.UnmarshalModel(m, "subjects", &obj.Subjects, UnmarshalPolicySubject)
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(m, "roles", &obj.Roles, UnmarshalPolicyRolesItem)
+	err = core.UnmarshalModel(m, "roles", &obj.Roles, UnmarshalPolicyRole)
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(m, "resources", &obj.Resources, UnmarshalPolicyBaseResourcesItem)
+	err = core.UnmarshalModel(m, "resources", &obj.Resources, UnmarshalPolicyResource)
 	if err != nil {
 		return
 	}
@@ -1920,7 +1457,7 @@ func UnmarshalPolicy(m map[string]json.RawMessage, result interface{}) (err erro
 	return
 }
 
-// PolicyList : PolicyList struct
+// PolicyList : A collection of policies.
 type PolicyList struct {
 	// List of policies.
 	Policies []Policy `json:"policies,omitempty"`
@@ -1938,31 +1475,224 @@ func UnmarshalPolicyList(m map[string]json.RawMessage, result interface{}) (err 
 	return
 }
 
-// RoleList : RoleList struct
+// PolicyResource : The attributes of the resource. Note that only one resource is allowed in a policy.
+type PolicyResource struct {
+	// List of resource attributes.
+	Attributes []ResourceAttribute `json:"attributes,omitempty"`
+}
+
+
+// UnmarshalPolicyResource unmarshals an instance of PolicyResource from the specified map of raw messages.
+func UnmarshalPolicyResource(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(PolicyResource)
+	err = core.UnmarshalModel(m, "attributes", &obj.Attributes, UnmarshalResourceAttribute)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// PolicyRole : A role associated with a policy.
+type PolicyRole struct {
+	// The role cloud resource name granted by the policy.
+	RoleID *string `json:"role_id" validate:"required"`
+
+	// The display name of the role.
+	DisplayName *string `json:"display_name,omitempty"`
+
+	// The description of the role.
+	Description *string `json:"description,omitempty"`
+}
+
+
+// NewPolicyRole : Instantiate PolicyRole (Generic Model Constructor)
+func (*IamPolicyManagementV1) NewPolicyRole(roleID string) (model *PolicyRole, err error) {
+	model = &PolicyRole{
+		RoleID: core.StringPtr(roleID),
+	}
+	err = core.ValidateStruct(model, "required parameters")
+	return
+}
+
+// UnmarshalPolicyRole unmarshals an instance of PolicyRole from the specified map of raw messages.
+func UnmarshalPolicyRole(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(PolicyRole)
+	err = core.UnmarshalPrimitive(m, "role_id", &obj.RoleID)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "display_name", &obj.DisplayName)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "description", &obj.Description)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// PolicySubject : The subject attribute values that must match in order for this policy to apply in a permission decision.
+type PolicySubject struct {
+	// List of subject attributes.
+	Attributes []SubjectAttribute `json:"attributes,omitempty"`
+}
+
+
+// UnmarshalPolicySubject unmarshals an instance of PolicySubject from the specified map of raw messages.
+func UnmarshalPolicySubject(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(PolicySubject)
+	err = core.UnmarshalModel(m, "attributes", &obj.Attributes, UnmarshalSubjectAttribute)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// ResourceAttribute : An attribute associated with a resource.
+type ResourceAttribute struct {
+	// The name of an attribute.
+	Name *string `json:"name" validate:"required"`
+
+	// The value of an attribute.
+	Value *string `json:"value" validate:"required"`
+
+	// The operator of an attribute.
+	Operator *string `json:"operator,omitempty"`
+}
+
+
+// NewResourceAttribute : Instantiate ResourceAttribute (Generic Model Constructor)
+func (*IamPolicyManagementV1) NewResourceAttribute(name string, value string) (model *ResourceAttribute, err error) {
+	model = &ResourceAttribute{
+		Name: core.StringPtr(name),
+		Value: core.StringPtr(value),
+	}
+	err = core.ValidateStruct(model, "required parameters")
+	return
+}
+
+// UnmarshalResourceAttribute unmarshals an instance of ResourceAttribute from the specified map of raw messages.
+func UnmarshalResourceAttribute(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(ResourceAttribute)
+	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "value", &obj.Value)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "operator", &obj.Operator)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// Role : A role resource.
+type Role struct {
+	// The display name of the role that is shown in the console.
+	DisplayName *string `json:"display_name,omitempty"`
+
+	// The description of the role.
+	Description *string `json:"description,omitempty"`
+
+	// The actions of the role.
+	Actions []string `json:"actions,omitempty"`
+
+	// The role CRN.
+	Crn *string `json:"crn,omitempty"`
+}
+
+
+// UnmarshalRole unmarshals an instance of Role from the specified map of raw messages.
+func UnmarshalRole(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(Role)
+	err = core.UnmarshalPrimitive(m, "display_name", &obj.DisplayName)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "description", &obj.Description)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "actions", &obj.Actions)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "crn", &obj.Crn)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// RoleList : A collection of roles returned by the 'list roles' operation.
 type RoleList struct {
 	// List of custom roles.
-	CustomRoles []RoleListCustomRolesItem `json:"custom_roles,omitempty"`
+	CustomRoles []CustomRole `json:"custom_roles,omitempty"`
 
 	// List of service roles.
-	ServiceRoles []RoleListServiceRolesItem `json:"service_roles,omitempty"`
+	ServiceRoles []Role `json:"service_roles,omitempty"`
 
 	// List of system roles.
-	SystemRoles []RoleListSystemRolesItem `json:"system_roles,omitempty"`
+	SystemRoles []Role `json:"system_roles,omitempty"`
 }
 
 
 // UnmarshalRoleList unmarshals an instance of RoleList from the specified map of raw messages.
 func UnmarshalRoleList(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(RoleList)
-	err = core.UnmarshalModel(m, "custom_roles", &obj.CustomRoles, UnmarshalRoleListCustomRolesItem)
+	err = core.UnmarshalModel(m, "custom_roles", &obj.CustomRoles, UnmarshalCustomRole)
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(m, "service_roles", &obj.ServiceRoles, UnmarshalRoleListServiceRolesItem)
+	err = core.UnmarshalModel(m, "service_roles", &obj.ServiceRoles, UnmarshalRole)
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(m, "system_roles", &obj.SystemRoles, UnmarshalRoleListSystemRolesItem)
+	err = core.UnmarshalModel(m, "system_roles", &obj.SystemRoles, UnmarshalRole)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// SubjectAttribute : An attribute associated with a subject.
+type SubjectAttribute struct {
+	// The name of an attribute.
+	Name *string `json:"name" validate:"required"`
+
+	// The value of an attribute.
+	Value *string `json:"value" validate:"required"`
+}
+
+
+// NewSubjectAttribute : Instantiate SubjectAttribute (Generic Model Constructor)
+func (*IamPolicyManagementV1) NewSubjectAttribute(name string, value string) (model *SubjectAttribute, err error) {
+	model = &SubjectAttribute{
+		Name: core.StringPtr(name),
+		Value: core.StringPtr(value),
+	}
+	err = core.ValidateStruct(model, "required parameters")
+	return
+}
+
+// UnmarshalSubjectAttribute unmarshals an instance of SubjectAttribute from the specified map of raw messages.
+func UnmarshalSubjectAttribute(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(SubjectAttribute)
+	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "value", &obj.Value)
 	if err != nil {
 		return
 	}

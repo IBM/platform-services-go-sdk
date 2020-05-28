@@ -139,7 +139,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-			 		defer GinkgoRecover()
+					defer GinkgoRecover()
 
 					// Verify the contents of the request
 					Expect(req.URL.Path).To(Equal(listPoliciesPath))
@@ -290,7 +290,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-			 		defer GinkgoRecover()
+					defer GinkgoRecover()
 
 					// Verify the contents of the request
 					Expect(req.URL.Path).To(Equal(createPolicyPath))
@@ -310,35 +310,35 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				Expect(testServiceErr).To(BeNil())
 				Expect(testService).ToNot(BeNil())
 
-				// Construct an instance of the PolicyRequestResourcesItemAttributesItem model
-				policyRequestResourcesItemAttributesItemModel := new(iampolicymanagementv1.PolicyRequestResourcesItemAttributesItem)
-				policyRequestResourcesItemAttributesItemModel.Name = core.StringPtr("testString")
-				policyRequestResourcesItemAttributesItemModel.Value = core.StringPtr("testString")
-				policyRequestResourcesItemAttributesItemModel.Operator = core.StringPtr("testString")
+				// Construct an instance of the ResourceAttribute model
+				resourceAttributeModel := new(iampolicymanagementv1.ResourceAttribute)
+				resourceAttributeModel.Name = core.StringPtr("testString")
+				resourceAttributeModel.Value = core.StringPtr("testString")
+				resourceAttributeModel.Operator = core.StringPtr("testString")
 
-				// Construct an instance of the PolicyRequestSubjectsItemAttributesItem model
-				policyRequestSubjectsItemAttributesItemModel := new(iampolicymanagementv1.PolicyRequestSubjectsItemAttributesItem)
-				policyRequestSubjectsItemAttributesItemModel.Name = core.StringPtr("testString")
-				policyRequestSubjectsItemAttributesItemModel.Value = core.StringPtr("testString")
+				// Construct an instance of the SubjectAttribute model
+				subjectAttributeModel := new(iampolicymanagementv1.SubjectAttribute)
+				subjectAttributeModel.Name = core.StringPtr("testString")
+				subjectAttributeModel.Value = core.StringPtr("testString")
 
-				// Construct an instance of the PolicyRequestResourcesItem model
-				policyRequestResourcesItemModel := new(iampolicymanagementv1.PolicyRequestResourcesItem)
-				policyRequestResourcesItemModel.Attributes = []iampolicymanagementv1.PolicyRequestResourcesItemAttributesItem{*policyRequestResourcesItemAttributesItemModel}
+				// Construct an instance of the PolicyResource model
+				policyResourceModel := new(iampolicymanagementv1.PolicyResource)
+				policyResourceModel.Attributes = []iampolicymanagementv1.ResourceAttribute{*resourceAttributeModel}
 
-				// Construct an instance of the PolicyRequestRolesItem model
-				policyRequestRolesItemModel := new(iampolicymanagementv1.PolicyRequestRolesItem)
-				policyRequestRolesItemModel.RoleID = core.StringPtr("testString")
+				// Construct an instance of the PolicyRole model
+				policyRoleModel := new(iampolicymanagementv1.PolicyRole)
+				policyRoleModel.RoleID = core.StringPtr("testString")
 
-				// Construct an instance of the PolicyRequestSubjectsItem model
-				policyRequestSubjectsItemModel := new(iampolicymanagementv1.PolicyRequestSubjectsItem)
-				policyRequestSubjectsItemModel.Attributes = []iampolicymanagementv1.PolicyRequestSubjectsItemAttributesItem{*policyRequestSubjectsItemAttributesItemModel}
+				// Construct an instance of the PolicySubject model
+				policySubjectModel := new(iampolicymanagementv1.PolicySubject)
+				policySubjectModel.Attributes = []iampolicymanagementv1.SubjectAttribute{*subjectAttributeModel}
 
 				// Construct an instance of the CreatePolicyOptions model
 				createPolicyOptionsModel := new(iampolicymanagementv1.CreatePolicyOptions)
 				createPolicyOptionsModel.Type = core.StringPtr("testString")
-				createPolicyOptionsModel.Subjects = []iampolicymanagementv1.PolicyRequestSubjectsItem{*policyRequestSubjectsItemModel}
-				createPolicyOptionsModel.Roles = []iampolicymanagementv1.PolicyRequestRolesItem{*policyRequestRolesItemModel}
-				createPolicyOptionsModel.Resources = []iampolicymanagementv1.PolicyRequestResourcesItem{*policyRequestResourcesItemModel}
+				createPolicyOptionsModel.Subjects = []iampolicymanagementv1.PolicySubject{*policySubjectModel}
+				createPolicyOptionsModel.Roles = []iampolicymanagementv1.PolicyRole{*policyRoleModel}
+				createPolicyOptionsModel.Resources = []iampolicymanagementv1.PolicyResource{*policyResourceModel}
 				createPolicyOptionsModel.AcceptLanguage = core.StringPtr("testString")
 				createPolicyOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
@@ -384,35 +384,35 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
 
-				// Construct an instance of the PolicyRequestResourcesItemAttributesItem model
-				policyRequestResourcesItemAttributesItemModel := new(iampolicymanagementv1.PolicyRequestResourcesItemAttributesItem)
-				policyRequestResourcesItemAttributesItemModel.Name = core.StringPtr("testString")
-				policyRequestResourcesItemAttributesItemModel.Value = core.StringPtr("testString")
-				policyRequestResourcesItemAttributesItemModel.Operator = core.StringPtr("testString")
+				// Construct an instance of the ResourceAttribute model
+				resourceAttributeModel := new(iampolicymanagementv1.ResourceAttribute)
+				resourceAttributeModel.Name = core.StringPtr("testString")
+				resourceAttributeModel.Value = core.StringPtr("testString")
+				resourceAttributeModel.Operator = core.StringPtr("testString")
 
-				// Construct an instance of the PolicyRequestSubjectsItemAttributesItem model
-				policyRequestSubjectsItemAttributesItemModel := new(iampolicymanagementv1.PolicyRequestSubjectsItemAttributesItem)
-				policyRequestSubjectsItemAttributesItemModel.Name = core.StringPtr("testString")
-				policyRequestSubjectsItemAttributesItemModel.Value = core.StringPtr("testString")
+				// Construct an instance of the SubjectAttribute model
+				subjectAttributeModel := new(iampolicymanagementv1.SubjectAttribute)
+				subjectAttributeModel.Name = core.StringPtr("testString")
+				subjectAttributeModel.Value = core.StringPtr("testString")
 
-				// Construct an instance of the PolicyRequestResourcesItem model
-				policyRequestResourcesItemModel := new(iampolicymanagementv1.PolicyRequestResourcesItem)
-				policyRequestResourcesItemModel.Attributes = []iampolicymanagementv1.PolicyRequestResourcesItemAttributesItem{*policyRequestResourcesItemAttributesItemModel}
+				// Construct an instance of the PolicyResource model
+				policyResourceModel := new(iampolicymanagementv1.PolicyResource)
+				policyResourceModel.Attributes = []iampolicymanagementv1.ResourceAttribute{*resourceAttributeModel}
 
-				// Construct an instance of the PolicyRequestRolesItem model
-				policyRequestRolesItemModel := new(iampolicymanagementv1.PolicyRequestRolesItem)
-				policyRequestRolesItemModel.RoleID = core.StringPtr("testString")
+				// Construct an instance of the PolicyRole model
+				policyRoleModel := new(iampolicymanagementv1.PolicyRole)
+				policyRoleModel.RoleID = core.StringPtr("testString")
 
-				// Construct an instance of the PolicyRequestSubjectsItem model
-				policyRequestSubjectsItemModel := new(iampolicymanagementv1.PolicyRequestSubjectsItem)
-				policyRequestSubjectsItemModel.Attributes = []iampolicymanagementv1.PolicyRequestSubjectsItemAttributesItem{*policyRequestSubjectsItemAttributesItemModel}
+				// Construct an instance of the PolicySubject model
+				policySubjectModel := new(iampolicymanagementv1.PolicySubject)
+				policySubjectModel.Attributes = []iampolicymanagementv1.SubjectAttribute{*subjectAttributeModel}
 
 				// Construct an instance of the CreatePolicyOptions model
 				createPolicyOptionsModel := new(iampolicymanagementv1.CreatePolicyOptions)
 				createPolicyOptionsModel.Type = core.StringPtr("testString")
-				createPolicyOptionsModel.Subjects = []iampolicymanagementv1.PolicyRequestSubjectsItem{*policyRequestSubjectsItemModel}
-				createPolicyOptionsModel.Roles = []iampolicymanagementv1.PolicyRequestRolesItem{*policyRequestRolesItemModel}
-				createPolicyOptionsModel.Resources = []iampolicymanagementv1.PolicyRequestResourcesItem{*policyRequestResourcesItemModel}
+				createPolicyOptionsModel.Subjects = []iampolicymanagementv1.PolicySubject{*policySubjectModel}
+				createPolicyOptionsModel.Roles = []iampolicymanagementv1.PolicyRole{*policyRoleModel}
+				createPolicyOptionsModel.Resources = []iampolicymanagementv1.PolicyResource{*policyResourceModel}
 				createPolicyOptionsModel.AcceptLanguage = core.StringPtr("testString")
  				createPolicyOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
@@ -430,35 +430,35 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				Expect(testServiceErr).To(BeNil())
 				Expect(testService).ToNot(BeNil())
 
-				// Construct an instance of the PolicyRequestResourcesItemAttributesItem model
-				policyRequestResourcesItemAttributesItemModel := new(iampolicymanagementv1.PolicyRequestResourcesItemAttributesItem)
-				policyRequestResourcesItemAttributesItemModel.Name = core.StringPtr("testString")
-				policyRequestResourcesItemAttributesItemModel.Value = core.StringPtr("testString")
-				policyRequestResourcesItemAttributesItemModel.Operator = core.StringPtr("testString")
+				// Construct an instance of the ResourceAttribute model
+				resourceAttributeModel := new(iampolicymanagementv1.ResourceAttribute)
+				resourceAttributeModel.Name = core.StringPtr("testString")
+				resourceAttributeModel.Value = core.StringPtr("testString")
+				resourceAttributeModel.Operator = core.StringPtr("testString")
 
-				// Construct an instance of the PolicyRequestSubjectsItemAttributesItem model
-				policyRequestSubjectsItemAttributesItemModel := new(iampolicymanagementv1.PolicyRequestSubjectsItemAttributesItem)
-				policyRequestSubjectsItemAttributesItemModel.Name = core.StringPtr("testString")
-				policyRequestSubjectsItemAttributesItemModel.Value = core.StringPtr("testString")
+				// Construct an instance of the SubjectAttribute model
+				subjectAttributeModel := new(iampolicymanagementv1.SubjectAttribute)
+				subjectAttributeModel.Name = core.StringPtr("testString")
+				subjectAttributeModel.Value = core.StringPtr("testString")
 
-				// Construct an instance of the PolicyRequestResourcesItem model
-				policyRequestResourcesItemModel := new(iampolicymanagementv1.PolicyRequestResourcesItem)
-				policyRequestResourcesItemModel.Attributes = []iampolicymanagementv1.PolicyRequestResourcesItemAttributesItem{*policyRequestResourcesItemAttributesItemModel}
+				// Construct an instance of the PolicyResource model
+				policyResourceModel := new(iampolicymanagementv1.PolicyResource)
+				policyResourceModel.Attributes = []iampolicymanagementv1.ResourceAttribute{*resourceAttributeModel}
 
-				// Construct an instance of the PolicyRequestRolesItem model
-				policyRequestRolesItemModel := new(iampolicymanagementv1.PolicyRequestRolesItem)
-				policyRequestRolesItemModel.RoleID = core.StringPtr("testString")
+				// Construct an instance of the PolicyRole model
+				policyRoleModel := new(iampolicymanagementv1.PolicyRole)
+				policyRoleModel.RoleID = core.StringPtr("testString")
 
-				// Construct an instance of the PolicyRequestSubjectsItem model
-				policyRequestSubjectsItemModel := new(iampolicymanagementv1.PolicyRequestSubjectsItem)
-				policyRequestSubjectsItemModel.Attributes = []iampolicymanagementv1.PolicyRequestSubjectsItemAttributesItem{*policyRequestSubjectsItemAttributesItemModel}
+				// Construct an instance of the PolicySubject model
+				policySubjectModel := new(iampolicymanagementv1.PolicySubject)
+				policySubjectModel.Attributes = []iampolicymanagementv1.SubjectAttribute{*subjectAttributeModel}
 
 				// Construct an instance of the CreatePolicyOptions model
 				createPolicyOptionsModel := new(iampolicymanagementv1.CreatePolicyOptions)
 				createPolicyOptionsModel.Type = core.StringPtr("testString")
-				createPolicyOptionsModel.Subjects = []iampolicymanagementv1.PolicyRequestSubjectsItem{*policyRequestSubjectsItemModel}
-				createPolicyOptionsModel.Roles = []iampolicymanagementv1.PolicyRequestRolesItem{*policyRequestRolesItemModel}
-				createPolicyOptionsModel.Resources = []iampolicymanagementv1.PolicyRequestResourcesItem{*policyRequestResourcesItemModel}
+				createPolicyOptionsModel.Subjects = []iampolicymanagementv1.PolicySubject{*policySubjectModel}
+				createPolicyOptionsModel.Roles = []iampolicymanagementv1.PolicyRole{*policyRoleModel}
+				createPolicyOptionsModel.Resources = []iampolicymanagementv1.PolicyResource{*policyResourceModel}
 				createPolicyOptionsModel.AcceptLanguage = core.StringPtr("testString")
 				createPolicyOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
@@ -487,7 +487,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-			 		defer GinkgoRecover()
+					defer GinkgoRecover()
 
 					// Verify the contents of the request
 					Expect(req.URL.Path).To(Equal(updatePolicyPath))
@@ -507,37 +507,37 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				Expect(testServiceErr).To(BeNil())
 				Expect(testService).ToNot(BeNil())
 
-				// Construct an instance of the PolicyRequestResourcesItemAttributesItem model
-				policyRequestResourcesItemAttributesItemModel := new(iampolicymanagementv1.PolicyRequestResourcesItemAttributesItem)
-				policyRequestResourcesItemAttributesItemModel.Name = core.StringPtr("testString")
-				policyRequestResourcesItemAttributesItemModel.Value = core.StringPtr("testString")
-				policyRequestResourcesItemAttributesItemModel.Operator = core.StringPtr("testString")
+				// Construct an instance of the ResourceAttribute model
+				resourceAttributeModel := new(iampolicymanagementv1.ResourceAttribute)
+				resourceAttributeModel.Name = core.StringPtr("testString")
+				resourceAttributeModel.Value = core.StringPtr("testString")
+				resourceAttributeModel.Operator = core.StringPtr("testString")
 
-				// Construct an instance of the PolicyRequestSubjectsItemAttributesItem model
-				policyRequestSubjectsItemAttributesItemModel := new(iampolicymanagementv1.PolicyRequestSubjectsItemAttributesItem)
-				policyRequestSubjectsItemAttributesItemModel.Name = core.StringPtr("testString")
-				policyRequestSubjectsItemAttributesItemModel.Value = core.StringPtr("testString")
+				// Construct an instance of the SubjectAttribute model
+				subjectAttributeModel := new(iampolicymanagementv1.SubjectAttribute)
+				subjectAttributeModel.Name = core.StringPtr("testString")
+				subjectAttributeModel.Value = core.StringPtr("testString")
 
-				// Construct an instance of the PolicyRequestResourcesItem model
-				policyRequestResourcesItemModel := new(iampolicymanagementv1.PolicyRequestResourcesItem)
-				policyRequestResourcesItemModel.Attributes = []iampolicymanagementv1.PolicyRequestResourcesItemAttributesItem{*policyRequestResourcesItemAttributesItemModel}
+				// Construct an instance of the PolicyResource model
+				policyResourceModel := new(iampolicymanagementv1.PolicyResource)
+				policyResourceModel.Attributes = []iampolicymanagementv1.ResourceAttribute{*resourceAttributeModel}
 
-				// Construct an instance of the PolicyRequestRolesItem model
-				policyRequestRolesItemModel := new(iampolicymanagementv1.PolicyRequestRolesItem)
-				policyRequestRolesItemModel.RoleID = core.StringPtr("testString")
+				// Construct an instance of the PolicyRole model
+				policyRoleModel := new(iampolicymanagementv1.PolicyRole)
+				policyRoleModel.RoleID = core.StringPtr("testString")
 
-				// Construct an instance of the PolicyRequestSubjectsItem model
-				policyRequestSubjectsItemModel := new(iampolicymanagementv1.PolicyRequestSubjectsItem)
-				policyRequestSubjectsItemModel.Attributes = []iampolicymanagementv1.PolicyRequestSubjectsItemAttributesItem{*policyRequestSubjectsItemAttributesItemModel}
+				// Construct an instance of the PolicySubject model
+				policySubjectModel := new(iampolicymanagementv1.PolicySubject)
+				policySubjectModel.Attributes = []iampolicymanagementv1.SubjectAttribute{*subjectAttributeModel}
 
 				// Construct an instance of the UpdatePolicyOptions model
 				updatePolicyOptionsModel := new(iampolicymanagementv1.UpdatePolicyOptions)
 				updatePolicyOptionsModel.PolicyID = core.StringPtr("testString")
 				updatePolicyOptionsModel.IfMatch = core.StringPtr("testString")
 				updatePolicyOptionsModel.Type = core.StringPtr("testString")
-				updatePolicyOptionsModel.Subjects = []iampolicymanagementv1.PolicyRequestSubjectsItem{*policyRequestSubjectsItemModel}
-				updatePolicyOptionsModel.Roles = []iampolicymanagementv1.PolicyRequestRolesItem{*policyRequestRolesItemModel}
-				updatePolicyOptionsModel.Resources = []iampolicymanagementv1.PolicyRequestResourcesItem{*policyRequestResourcesItemModel}
+				updatePolicyOptionsModel.Subjects = []iampolicymanagementv1.PolicySubject{*policySubjectModel}
+				updatePolicyOptionsModel.Roles = []iampolicymanagementv1.PolicyRole{*policyRoleModel}
+				updatePolicyOptionsModel.Resources = []iampolicymanagementv1.PolicyResource{*policyResourceModel}
 				updatePolicyOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
 				result, response, operationErr := testService.UpdatePolicy(updatePolicyOptionsModel)
@@ -582,37 +582,37 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
 
-				// Construct an instance of the PolicyRequestResourcesItemAttributesItem model
-				policyRequestResourcesItemAttributesItemModel := new(iampolicymanagementv1.PolicyRequestResourcesItemAttributesItem)
-				policyRequestResourcesItemAttributesItemModel.Name = core.StringPtr("testString")
-				policyRequestResourcesItemAttributesItemModel.Value = core.StringPtr("testString")
-				policyRequestResourcesItemAttributesItemModel.Operator = core.StringPtr("testString")
+				// Construct an instance of the ResourceAttribute model
+				resourceAttributeModel := new(iampolicymanagementv1.ResourceAttribute)
+				resourceAttributeModel.Name = core.StringPtr("testString")
+				resourceAttributeModel.Value = core.StringPtr("testString")
+				resourceAttributeModel.Operator = core.StringPtr("testString")
 
-				// Construct an instance of the PolicyRequestSubjectsItemAttributesItem model
-				policyRequestSubjectsItemAttributesItemModel := new(iampolicymanagementv1.PolicyRequestSubjectsItemAttributesItem)
-				policyRequestSubjectsItemAttributesItemModel.Name = core.StringPtr("testString")
-				policyRequestSubjectsItemAttributesItemModel.Value = core.StringPtr("testString")
+				// Construct an instance of the SubjectAttribute model
+				subjectAttributeModel := new(iampolicymanagementv1.SubjectAttribute)
+				subjectAttributeModel.Name = core.StringPtr("testString")
+				subjectAttributeModel.Value = core.StringPtr("testString")
 
-				// Construct an instance of the PolicyRequestResourcesItem model
-				policyRequestResourcesItemModel := new(iampolicymanagementv1.PolicyRequestResourcesItem)
-				policyRequestResourcesItemModel.Attributes = []iampolicymanagementv1.PolicyRequestResourcesItemAttributesItem{*policyRequestResourcesItemAttributesItemModel}
+				// Construct an instance of the PolicyResource model
+				policyResourceModel := new(iampolicymanagementv1.PolicyResource)
+				policyResourceModel.Attributes = []iampolicymanagementv1.ResourceAttribute{*resourceAttributeModel}
 
-				// Construct an instance of the PolicyRequestRolesItem model
-				policyRequestRolesItemModel := new(iampolicymanagementv1.PolicyRequestRolesItem)
-				policyRequestRolesItemModel.RoleID = core.StringPtr("testString")
+				// Construct an instance of the PolicyRole model
+				policyRoleModel := new(iampolicymanagementv1.PolicyRole)
+				policyRoleModel.RoleID = core.StringPtr("testString")
 
-				// Construct an instance of the PolicyRequestSubjectsItem model
-				policyRequestSubjectsItemModel := new(iampolicymanagementv1.PolicyRequestSubjectsItem)
-				policyRequestSubjectsItemModel.Attributes = []iampolicymanagementv1.PolicyRequestSubjectsItemAttributesItem{*policyRequestSubjectsItemAttributesItemModel}
+				// Construct an instance of the PolicySubject model
+				policySubjectModel := new(iampolicymanagementv1.PolicySubject)
+				policySubjectModel.Attributes = []iampolicymanagementv1.SubjectAttribute{*subjectAttributeModel}
 
 				// Construct an instance of the UpdatePolicyOptions model
 				updatePolicyOptionsModel := new(iampolicymanagementv1.UpdatePolicyOptions)
 				updatePolicyOptionsModel.PolicyID = core.StringPtr("testString")
 				updatePolicyOptionsModel.IfMatch = core.StringPtr("testString")
 				updatePolicyOptionsModel.Type = core.StringPtr("testString")
-				updatePolicyOptionsModel.Subjects = []iampolicymanagementv1.PolicyRequestSubjectsItem{*policyRequestSubjectsItemModel}
-				updatePolicyOptionsModel.Roles = []iampolicymanagementv1.PolicyRequestRolesItem{*policyRequestRolesItemModel}
-				updatePolicyOptionsModel.Resources = []iampolicymanagementv1.PolicyRequestResourcesItem{*policyRequestResourcesItemModel}
+				updatePolicyOptionsModel.Subjects = []iampolicymanagementv1.PolicySubject{*policySubjectModel}
+				updatePolicyOptionsModel.Roles = []iampolicymanagementv1.PolicyRole{*policyRoleModel}
+				updatePolicyOptionsModel.Resources = []iampolicymanagementv1.PolicyResource{*policyResourceModel}
  				updatePolicyOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
@@ -629,37 +629,37 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				Expect(testServiceErr).To(BeNil())
 				Expect(testService).ToNot(BeNil())
 
-				// Construct an instance of the PolicyRequestResourcesItemAttributesItem model
-				policyRequestResourcesItemAttributesItemModel := new(iampolicymanagementv1.PolicyRequestResourcesItemAttributesItem)
-				policyRequestResourcesItemAttributesItemModel.Name = core.StringPtr("testString")
-				policyRequestResourcesItemAttributesItemModel.Value = core.StringPtr("testString")
-				policyRequestResourcesItemAttributesItemModel.Operator = core.StringPtr("testString")
+				// Construct an instance of the ResourceAttribute model
+				resourceAttributeModel := new(iampolicymanagementv1.ResourceAttribute)
+				resourceAttributeModel.Name = core.StringPtr("testString")
+				resourceAttributeModel.Value = core.StringPtr("testString")
+				resourceAttributeModel.Operator = core.StringPtr("testString")
 
-				// Construct an instance of the PolicyRequestSubjectsItemAttributesItem model
-				policyRequestSubjectsItemAttributesItemModel := new(iampolicymanagementv1.PolicyRequestSubjectsItemAttributesItem)
-				policyRequestSubjectsItemAttributesItemModel.Name = core.StringPtr("testString")
-				policyRequestSubjectsItemAttributesItemModel.Value = core.StringPtr("testString")
+				// Construct an instance of the SubjectAttribute model
+				subjectAttributeModel := new(iampolicymanagementv1.SubjectAttribute)
+				subjectAttributeModel.Name = core.StringPtr("testString")
+				subjectAttributeModel.Value = core.StringPtr("testString")
 
-				// Construct an instance of the PolicyRequestResourcesItem model
-				policyRequestResourcesItemModel := new(iampolicymanagementv1.PolicyRequestResourcesItem)
-				policyRequestResourcesItemModel.Attributes = []iampolicymanagementv1.PolicyRequestResourcesItemAttributesItem{*policyRequestResourcesItemAttributesItemModel}
+				// Construct an instance of the PolicyResource model
+				policyResourceModel := new(iampolicymanagementv1.PolicyResource)
+				policyResourceModel.Attributes = []iampolicymanagementv1.ResourceAttribute{*resourceAttributeModel}
 
-				// Construct an instance of the PolicyRequestRolesItem model
-				policyRequestRolesItemModel := new(iampolicymanagementv1.PolicyRequestRolesItem)
-				policyRequestRolesItemModel.RoleID = core.StringPtr("testString")
+				// Construct an instance of the PolicyRole model
+				policyRoleModel := new(iampolicymanagementv1.PolicyRole)
+				policyRoleModel.RoleID = core.StringPtr("testString")
 
-				// Construct an instance of the PolicyRequestSubjectsItem model
-				policyRequestSubjectsItemModel := new(iampolicymanagementv1.PolicyRequestSubjectsItem)
-				policyRequestSubjectsItemModel.Attributes = []iampolicymanagementv1.PolicyRequestSubjectsItemAttributesItem{*policyRequestSubjectsItemAttributesItemModel}
+				// Construct an instance of the PolicySubject model
+				policySubjectModel := new(iampolicymanagementv1.PolicySubject)
+				policySubjectModel.Attributes = []iampolicymanagementv1.SubjectAttribute{*subjectAttributeModel}
 
 				// Construct an instance of the UpdatePolicyOptions model
 				updatePolicyOptionsModel := new(iampolicymanagementv1.UpdatePolicyOptions)
 				updatePolicyOptionsModel.PolicyID = core.StringPtr("testString")
 				updatePolicyOptionsModel.IfMatch = core.StringPtr("testString")
 				updatePolicyOptionsModel.Type = core.StringPtr("testString")
-				updatePolicyOptionsModel.Subjects = []iampolicymanagementv1.PolicyRequestSubjectsItem{*policyRequestSubjectsItemModel}
-				updatePolicyOptionsModel.Roles = []iampolicymanagementv1.PolicyRequestRolesItem{*policyRequestRolesItemModel}
-				updatePolicyOptionsModel.Resources = []iampolicymanagementv1.PolicyRequestResourcesItem{*policyRequestResourcesItemModel}
+				updatePolicyOptionsModel.Subjects = []iampolicymanagementv1.PolicySubject{*policySubjectModel}
+				updatePolicyOptionsModel.Roles = []iampolicymanagementv1.PolicyRole{*policyRoleModel}
+				updatePolicyOptionsModel.Resources = []iampolicymanagementv1.PolicyResource{*policyResourceModel}
 				updatePolicyOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := testService.SetServiceURL("")
@@ -687,7 +687,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-			 		defer GinkgoRecover()
+					defer GinkgoRecover()
 
 					// Verify the contents of the request
 					Expect(req.URL.Path).To(Equal(getPolicyPath))
@@ -967,7 +967,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-			 		defer GinkgoRecover()
+					defer GinkgoRecover()
 
 					// Verify the contents of the request
 					Expect(req.URL.Path).To(Equal(listRolesPath))
@@ -1027,7 +1027,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, `{"custom_roles": [{"id": "ID", "name": "Name", "account_id": "AccountID", "service_name": "ServiceName", "display_name": "DisplayName", "description": "Description", "crn": "Crn", "actions": ["Actions"], "created_at": "2019-01-01T12:00:00", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00", "last_modified_by_id": "LastModifiedByID", "href": "Href"}], "service_roles": [{"display_name": "DisplayName", "description": "Description", "crn": "Crn", "actions": ["Actions"]}], "system_roles": [{"display_name": "DisplayName", "description": "Description", "crn": "Crn", "actions": ["Actions"]}]}`)
+					fmt.Fprintf(res, `{"custom_roles": [{"id": "ID", "display_name": "DisplayName", "description": "Description", "actions": ["Actions"], "crn": "Crn", "name": "Name", "account_id": "AccountID", "service_name": "ServiceName", "created_at": "2019-01-01T12:00:00", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00", "last_modified_by_id": "LastModifiedByID", "href": "Href"}], "service_roles": [{"display_name": "DisplayName", "description": "Description", "actions": ["Actions"], "crn": "Crn"}], "system_roles": [{"display_name": "DisplayName", "description": "Description", "actions": ["Actions"], "crn": "Crn"}]}`)
 				}))
 			})
 			It(`Invoke ListRoles successfully`, func() {
@@ -1090,7 +1090,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-			 		defer GinkgoRecover()
+					defer GinkgoRecover()
 
 					// Verify the contents of the request
 					Expect(req.URL.Path).To(Equal(createRolePath))
@@ -1112,11 +1112,11 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 
 				// Construct an instance of the CreateRoleOptions model
 				createRoleOptionsModel := new(iampolicymanagementv1.CreateRoleOptions)
+				createRoleOptionsModel.DisplayName = core.StringPtr("testString")
+				createRoleOptionsModel.Actions = []string{"testString"}
 				createRoleOptionsModel.Name = core.StringPtr("testString")
 				createRoleOptionsModel.AccountID = core.StringPtr("testString")
 				createRoleOptionsModel.ServiceName = core.StringPtr("testString")
-				createRoleOptionsModel.DisplayName = core.StringPtr("testString")
-				createRoleOptionsModel.Actions = []string{"testString"}
 				createRoleOptionsModel.Description = core.StringPtr("testString")
 				createRoleOptionsModel.AcceptLanguage = core.StringPtr("testString")
 				createRoleOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
@@ -1146,7 +1146,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 					Expect(req.Header["Accept-Language"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, `{"id": "ID", "name": "Name", "account_id": "AccountID", "service_name": "ServiceName", "display_name": "DisplayName", "description": "Description", "crn": "Crn", "actions": ["Actions"], "created_at": "2019-01-01T12:00:00", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00", "last_modified_by_id": "LastModifiedByID", "href": "Href"}`)
+					fmt.Fprintf(res, `{"id": "ID", "display_name": "DisplayName", "description": "Description", "actions": ["Actions"], "crn": "Crn", "name": "Name", "account_id": "AccountID", "service_name": "ServiceName", "created_at": "2019-01-01T12:00:00", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00", "last_modified_by_id": "LastModifiedByID", "href": "Href"}`)
 				}))
 			})
 			It(`Invoke CreateRole successfully`, func() {
@@ -1165,11 +1165,11 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 
 				// Construct an instance of the CreateRoleOptions model
 				createRoleOptionsModel := new(iampolicymanagementv1.CreateRoleOptions)
+				createRoleOptionsModel.DisplayName = core.StringPtr("testString")
+				createRoleOptionsModel.Actions = []string{"testString"}
 				createRoleOptionsModel.Name = core.StringPtr("testString")
 				createRoleOptionsModel.AccountID = core.StringPtr("testString")
 				createRoleOptionsModel.ServiceName = core.StringPtr("testString")
-				createRoleOptionsModel.DisplayName = core.StringPtr("testString")
-				createRoleOptionsModel.Actions = []string{"testString"}
 				createRoleOptionsModel.Description = core.StringPtr("testString")
 				createRoleOptionsModel.AcceptLanguage = core.StringPtr("testString")
  				createRoleOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
@@ -1190,11 +1190,11 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 
 				// Construct an instance of the CreateRoleOptions model
 				createRoleOptionsModel := new(iampolicymanagementv1.CreateRoleOptions)
+				createRoleOptionsModel.DisplayName = core.StringPtr("testString")
+				createRoleOptionsModel.Actions = []string{"testString"}
 				createRoleOptionsModel.Name = core.StringPtr("testString")
 				createRoleOptionsModel.AccountID = core.StringPtr("testString")
 				createRoleOptionsModel.ServiceName = core.StringPtr("testString")
-				createRoleOptionsModel.DisplayName = core.StringPtr("testString")
-				createRoleOptionsModel.Actions = []string{"testString"}
 				createRoleOptionsModel.Description = core.StringPtr("testString")
 				createRoleOptionsModel.AcceptLanguage = core.StringPtr("testString")
 				createRoleOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
@@ -1224,7 +1224,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-			 		defer GinkgoRecover()
+					defer GinkgoRecover()
 
 					// Verify the contents of the request
 					Expect(req.URL.Path).To(Equal(updateRolePath))
@@ -1278,7 +1278,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 					Expect(req.Header["If-Match"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, `{"id": "ID", "name": "Name", "account_id": "AccountID", "service_name": "ServiceName", "display_name": "DisplayName", "description": "Description", "crn": "Crn", "actions": ["Actions"], "created_at": "2019-01-01T12:00:00", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00", "last_modified_by_id": "LastModifiedByID", "href": "Href"}`)
+					fmt.Fprintf(res, `{"id": "ID", "display_name": "DisplayName", "description": "Description", "actions": ["Actions"], "crn": "Crn", "name": "Name", "account_id": "AccountID", "service_name": "ServiceName", "created_at": "2019-01-01T12:00:00", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00", "last_modified_by_id": "LastModifiedByID", "href": "Href"}`)
 				}))
 			})
 			It(`Invoke UpdateRole successfully`, func() {
@@ -1352,7 +1352,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-			 		defer GinkgoRecover()
+					defer GinkgoRecover()
 
 					// Verify the contents of the request
 					Expect(req.URL.Path).To(Equal(getRolePath))
@@ -1398,7 +1398,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 					Expect(req.Method).To(Equal("GET"))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, `{"id": "ID", "name": "Name", "account_id": "AccountID", "service_name": "ServiceName", "display_name": "DisplayName", "description": "Description", "crn": "Crn", "actions": ["Actions"], "created_at": "2019-01-01T12:00:00", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00", "last_modified_by_id": "LastModifiedByID", "href": "Href"}`)
+					fmt.Fprintf(res, `{"id": "ID", "display_name": "DisplayName", "description": "Description", "actions": ["Actions"], "crn": "Crn", "name": "Name", "account_id": "AccountID", "service_name": "ServiceName", "created_at": "2019-01-01T12:00:00", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00", "last_modified_by_id": "LastModifiedByID", "href": "Href"}`)
 				}))
 			})
 			It(`Invoke GetRole successfully`, func() {
@@ -1534,84 +1534,84 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				Authenticator: &core.NoAuthAuthenticator{},
 			})
 			It(`Invoke NewCreatePolicyOptions successfully`, func() {
-				// Construct an instance of the PolicyRequestResourcesItemAttributesItem model
-				policyRequestResourcesItemAttributesItemModel := new(iampolicymanagementv1.PolicyRequestResourcesItemAttributesItem)
-				Expect(policyRequestResourcesItemAttributesItemModel).ToNot(BeNil())
-				policyRequestResourcesItemAttributesItemModel.Name = core.StringPtr("testString")
-				policyRequestResourcesItemAttributesItemModel.Value = core.StringPtr("testString")
-				policyRequestResourcesItemAttributesItemModel.Operator = core.StringPtr("testString")
-				Expect(policyRequestResourcesItemAttributesItemModel.Name).To(Equal(core.StringPtr("testString")))
-				Expect(policyRequestResourcesItemAttributesItemModel.Value).To(Equal(core.StringPtr("testString")))
-				Expect(policyRequestResourcesItemAttributesItemModel.Operator).To(Equal(core.StringPtr("testString")))
+				// Construct an instance of the ResourceAttribute model
+				resourceAttributeModel := new(iampolicymanagementv1.ResourceAttribute)
+				Expect(resourceAttributeModel).ToNot(BeNil())
+				resourceAttributeModel.Name = core.StringPtr("testString")
+				resourceAttributeModel.Value = core.StringPtr("testString")
+				resourceAttributeModel.Operator = core.StringPtr("testString")
+				Expect(resourceAttributeModel.Name).To(Equal(core.StringPtr("testString")))
+				Expect(resourceAttributeModel.Value).To(Equal(core.StringPtr("testString")))
+				Expect(resourceAttributeModel.Operator).To(Equal(core.StringPtr("testString")))
 
-				// Construct an instance of the PolicyRequestSubjectsItemAttributesItem model
-				policyRequestSubjectsItemAttributesItemModel := new(iampolicymanagementv1.PolicyRequestSubjectsItemAttributesItem)
-				Expect(policyRequestSubjectsItemAttributesItemModel).ToNot(BeNil())
-				policyRequestSubjectsItemAttributesItemModel.Name = core.StringPtr("testString")
-				policyRequestSubjectsItemAttributesItemModel.Value = core.StringPtr("testString")
-				Expect(policyRequestSubjectsItemAttributesItemModel.Name).To(Equal(core.StringPtr("testString")))
-				Expect(policyRequestSubjectsItemAttributesItemModel.Value).To(Equal(core.StringPtr("testString")))
+				// Construct an instance of the SubjectAttribute model
+				subjectAttributeModel := new(iampolicymanagementv1.SubjectAttribute)
+				Expect(subjectAttributeModel).ToNot(BeNil())
+				subjectAttributeModel.Name = core.StringPtr("testString")
+				subjectAttributeModel.Value = core.StringPtr("testString")
+				Expect(subjectAttributeModel.Name).To(Equal(core.StringPtr("testString")))
+				Expect(subjectAttributeModel.Value).To(Equal(core.StringPtr("testString")))
 
-				// Construct an instance of the PolicyRequestResourcesItem model
-				policyRequestResourcesItemModel := new(iampolicymanagementv1.PolicyRequestResourcesItem)
-				Expect(policyRequestResourcesItemModel).ToNot(BeNil())
-				policyRequestResourcesItemModel.Attributes = []iampolicymanagementv1.PolicyRequestResourcesItemAttributesItem{*policyRequestResourcesItemAttributesItemModel}
-				Expect(policyRequestResourcesItemModel.Attributes).To(Equal([]iampolicymanagementv1.PolicyRequestResourcesItemAttributesItem{*policyRequestResourcesItemAttributesItemModel}))
+				// Construct an instance of the PolicyResource model
+				policyResourceModel := new(iampolicymanagementv1.PolicyResource)
+				Expect(policyResourceModel).ToNot(BeNil())
+				policyResourceModel.Attributes = []iampolicymanagementv1.ResourceAttribute{*resourceAttributeModel}
+				Expect(policyResourceModel.Attributes).To(Equal([]iampolicymanagementv1.ResourceAttribute{*resourceAttributeModel}))
 
-				// Construct an instance of the PolicyRequestRolesItem model
-				policyRequestRolesItemModel := new(iampolicymanagementv1.PolicyRequestRolesItem)
-				Expect(policyRequestRolesItemModel).ToNot(BeNil())
-				policyRequestRolesItemModel.RoleID = core.StringPtr("testString")
-				Expect(policyRequestRolesItemModel.RoleID).To(Equal(core.StringPtr("testString")))
+				// Construct an instance of the PolicyRole model
+				policyRoleModel := new(iampolicymanagementv1.PolicyRole)
+				Expect(policyRoleModel).ToNot(BeNil())
+				policyRoleModel.RoleID = core.StringPtr("testString")
+				Expect(policyRoleModel.RoleID).To(Equal(core.StringPtr("testString")))
 
-				// Construct an instance of the PolicyRequestSubjectsItem model
-				policyRequestSubjectsItemModel := new(iampolicymanagementv1.PolicyRequestSubjectsItem)
-				Expect(policyRequestSubjectsItemModel).ToNot(BeNil())
-				policyRequestSubjectsItemModel.Attributes = []iampolicymanagementv1.PolicyRequestSubjectsItemAttributesItem{*policyRequestSubjectsItemAttributesItemModel}
-				Expect(policyRequestSubjectsItemModel.Attributes).To(Equal([]iampolicymanagementv1.PolicyRequestSubjectsItemAttributesItem{*policyRequestSubjectsItemAttributesItemModel}))
+				// Construct an instance of the PolicySubject model
+				policySubjectModel := new(iampolicymanagementv1.PolicySubject)
+				Expect(policySubjectModel).ToNot(BeNil())
+				policySubjectModel.Attributes = []iampolicymanagementv1.SubjectAttribute{*subjectAttributeModel}
+				Expect(policySubjectModel.Attributes).To(Equal([]iampolicymanagementv1.SubjectAttribute{*subjectAttributeModel}))
 
 				// Construct an instance of the CreatePolicyOptions model
 				createPolicyOptionsType := "testString"
-				createPolicyOptionsSubjects := []iampolicymanagementv1.PolicyRequestSubjectsItem{}
-				createPolicyOptionsRoles := []iampolicymanagementv1.PolicyRequestRolesItem{}
-				createPolicyOptionsResources := []iampolicymanagementv1.PolicyRequestResourcesItem{}
+				createPolicyOptionsSubjects := []iampolicymanagementv1.PolicySubject{}
+				createPolicyOptionsRoles := []iampolicymanagementv1.PolicyRole{}
+				createPolicyOptionsResources := []iampolicymanagementv1.PolicyResource{}
 				createPolicyOptionsModel := testService.NewCreatePolicyOptions(createPolicyOptionsType, createPolicyOptionsSubjects, createPolicyOptionsRoles, createPolicyOptionsResources)
 				createPolicyOptionsModel.SetType("testString")
-				createPolicyOptionsModel.SetSubjects([]iampolicymanagementv1.PolicyRequestSubjectsItem{*policyRequestSubjectsItemModel})
-				createPolicyOptionsModel.SetRoles([]iampolicymanagementv1.PolicyRequestRolesItem{*policyRequestRolesItemModel})
-				createPolicyOptionsModel.SetResources([]iampolicymanagementv1.PolicyRequestResourcesItem{*policyRequestResourcesItemModel})
+				createPolicyOptionsModel.SetSubjects([]iampolicymanagementv1.PolicySubject{*policySubjectModel})
+				createPolicyOptionsModel.SetRoles([]iampolicymanagementv1.PolicyRole{*policyRoleModel})
+				createPolicyOptionsModel.SetResources([]iampolicymanagementv1.PolicyResource{*policyResourceModel})
 				createPolicyOptionsModel.SetAcceptLanguage("testString")
 				createPolicyOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(createPolicyOptionsModel).ToNot(BeNil())
 				Expect(createPolicyOptionsModel.Type).To(Equal(core.StringPtr("testString")))
-				Expect(createPolicyOptionsModel.Subjects).To(Equal([]iampolicymanagementv1.PolicyRequestSubjectsItem{*policyRequestSubjectsItemModel}))
-				Expect(createPolicyOptionsModel.Roles).To(Equal([]iampolicymanagementv1.PolicyRequestRolesItem{*policyRequestRolesItemModel}))
-				Expect(createPolicyOptionsModel.Resources).To(Equal([]iampolicymanagementv1.PolicyRequestResourcesItem{*policyRequestResourcesItemModel}))
+				Expect(createPolicyOptionsModel.Subjects).To(Equal([]iampolicymanagementv1.PolicySubject{*policySubjectModel}))
+				Expect(createPolicyOptionsModel.Roles).To(Equal([]iampolicymanagementv1.PolicyRole{*policyRoleModel}))
+				Expect(createPolicyOptionsModel.Resources).To(Equal([]iampolicymanagementv1.PolicyResource{*policyResourceModel}))
 				Expect(createPolicyOptionsModel.AcceptLanguage).To(Equal(core.StringPtr("testString")))
 				Expect(createPolicyOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewCreateRoleOptions successfully`, func() {
 				// Construct an instance of the CreateRoleOptions model
+				createRoleOptionsDisplayName := "testString"
+				createRoleOptionsActions := []string{"testString"}
 				createRoleOptionsName := "testString"
 				createRoleOptionsAccountID := "testString"
 				createRoleOptionsServiceName := "testString"
-				createRoleOptionsDisplayName := "testString"
-				createRoleOptionsActions := []string{"testString"}
-				createRoleOptionsModel := testService.NewCreateRoleOptions(createRoleOptionsName, createRoleOptionsAccountID, createRoleOptionsServiceName, createRoleOptionsDisplayName, createRoleOptionsActions)
+				createRoleOptionsModel := testService.NewCreateRoleOptions(createRoleOptionsDisplayName, createRoleOptionsActions, createRoleOptionsName, createRoleOptionsAccountID, createRoleOptionsServiceName)
+				createRoleOptionsModel.SetDisplayName("testString")
+				createRoleOptionsModel.SetActions([]string{"testString"})
 				createRoleOptionsModel.SetName("testString")
 				createRoleOptionsModel.SetAccountID("testString")
 				createRoleOptionsModel.SetServiceName("testString")
-				createRoleOptionsModel.SetDisplayName("testString")
-				createRoleOptionsModel.SetActions([]string{"testString"})
 				createRoleOptionsModel.SetDescription("testString")
 				createRoleOptionsModel.SetAcceptLanguage("testString")
 				createRoleOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(createRoleOptionsModel).ToNot(BeNil())
+				Expect(createRoleOptionsModel.DisplayName).To(Equal(core.StringPtr("testString")))
+				Expect(createRoleOptionsModel.Actions).To(Equal([]string{"testString"}))
 				Expect(createRoleOptionsModel.Name).To(Equal(core.StringPtr("testString")))
 				Expect(createRoleOptionsModel.AccountID).To(Equal(core.StringPtr("testString")))
 				Expect(createRoleOptionsModel.ServiceName).To(Equal(core.StringPtr("testString")))
-				Expect(createRoleOptionsModel.DisplayName).To(Equal(core.StringPtr("testString")))
-				Expect(createRoleOptionsModel.Actions).To(Equal([]string{"testString"}))
 				Expect(createRoleOptionsModel.Description).To(Equal(core.StringPtr("testString")))
 				Expect(createRoleOptionsModel.AcceptLanguage).To(Equal(core.StringPtr("testString")))
 				Expect(createRoleOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
@@ -1689,97 +1689,65 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				Expect(listRolesOptionsModel.ServiceName).To(Equal(core.StringPtr("testString")))
 				Expect(listRolesOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
-			It(`Invoke NewPolicyRequestResourcesItem successfully`, func() {
-				attributes := []iampolicymanagementv1.PolicyRequestResourcesItemAttributesItem{}
-				model, err := testService.NewPolicyRequestResourcesItem(attributes)
-				Expect(model).ToNot(BeNil())
-				Expect(err).To(BeNil())
-			})
-			It(`Invoke NewPolicyRequestResourcesItemAttributesItem successfully`, func() {
-				name := "testString"
-				value := "testString"
-				model, err := testService.NewPolicyRequestResourcesItemAttributesItem(name, value)
-				Expect(model).ToNot(BeNil())
-				Expect(err).To(BeNil())
-			})
-			It(`Invoke NewPolicyRequestRolesItem successfully`, func() {
-				roleID := "testString"
-				model, err := testService.NewPolicyRequestRolesItem(roleID)
-				Expect(model).ToNot(BeNil())
-				Expect(err).To(BeNil())
-			})
-			It(`Invoke NewPolicyRequestSubjectsItem successfully`, func() {
-				attributes := []iampolicymanagementv1.PolicyRequestSubjectsItemAttributesItem{}
-				model, err := testService.NewPolicyRequestSubjectsItem(attributes)
-				Expect(model).ToNot(BeNil())
-				Expect(err).To(BeNil())
-			})
-			It(`Invoke NewPolicyRequestSubjectsItemAttributesItem successfully`, func() {
-				name := "testString"
-				value := "testString"
-				model, err := testService.NewPolicyRequestSubjectsItemAttributesItem(name, value)
-				Expect(model).ToNot(BeNil())
-				Expect(err).To(BeNil())
-			})
 			It(`Invoke NewUpdatePolicyOptions successfully`, func() {
-				// Construct an instance of the PolicyRequestResourcesItemAttributesItem model
-				policyRequestResourcesItemAttributesItemModel := new(iampolicymanagementv1.PolicyRequestResourcesItemAttributesItem)
-				Expect(policyRequestResourcesItemAttributesItemModel).ToNot(BeNil())
-				policyRequestResourcesItemAttributesItemModel.Name = core.StringPtr("testString")
-				policyRequestResourcesItemAttributesItemModel.Value = core.StringPtr("testString")
-				policyRequestResourcesItemAttributesItemModel.Operator = core.StringPtr("testString")
-				Expect(policyRequestResourcesItemAttributesItemModel.Name).To(Equal(core.StringPtr("testString")))
-				Expect(policyRequestResourcesItemAttributesItemModel.Value).To(Equal(core.StringPtr("testString")))
-				Expect(policyRequestResourcesItemAttributesItemModel.Operator).To(Equal(core.StringPtr("testString")))
+				// Construct an instance of the ResourceAttribute model
+				resourceAttributeModel := new(iampolicymanagementv1.ResourceAttribute)
+				Expect(resourceAttributeModel).ToNot(BeNil())
+				resourceAttributeModel.Name = core.StringPtr("testString")
+				resourceAttributeModel.Value = core.StringPtr("testString")
+				resourceAttributeModel.Operator = core.StringPtr("testString")
+				Expect(resourceAttributeModel.Name).To(Equal(core.StringPtr("testString")))
+				Expect(resourceAttributeModel.Value).To(Equal(core.StringPtr("testString")))
+				Expect(resourceAttributeModel.Operator).To(Equal(core.StringPtr("testString")))
 
-				// Construct an instance of the PolicyRequestSubjectsItemAttributesItem model
-				policyRequestSubjectsItemAttributesItemModel := new(iampolicymanagementv1.PolicyRequestSubjectsItemAttributesItem)
-				Expect(policyRequestSubjectsItemAttributesItemModel).ToNot(BeNil())
-				policyRequestSubjectsItemAttributesItemModel.Name = core.StringPtr("testString")
-				policyRequestSubjectsItemAttributesItemModel.Value = core.StringPtr("testString")
-				Expect(policyRequestSubjectsItemAttributesItemModel.Name).To(Equal(core.StringPtr("testString")))
-				Expect(policyRequestSubjectsItemAttributesItemModel.Value).To(Equal(core.StringPtr("testString")))
+				// Construct an instance of the SubjectAttribute model
+				subjectAttributeModel := new(iampolicymanagementv1.SubjectAttribute)
+				Expect(subjectAttributeModel).ToNot(BeNil())
+				subjectAttributeModel.Name = core.StringPtr("testString")
+				subjectAttributeModel.Value = core.StringPtr("testString")
+				Expect(subjectAttributeModel.Name).To(Equal(core.StringPtr("testString")))
+				Expect(subjectAttributeModel.Value).To(Equal(core.StringPtr("testString")))
 
-				// Construct an instance of the PolicyRequestResourcesItem model
-				policyRequestResourcesItemModel := new(iampolicymanagementv1.PolicyRequestResourcesItem)
-				Expect(policyRequestResourcesItemModel).ToNot(BeNil())
-				policyRequestResourcesItemModel.Attributes = []iampolicymanagementv1.PolicyRequestResourcesItemAttributesItem{*policyRequestResourcesItemAttributesItemModel}
-				Expect(policyRequestResourcesItemModel.Attributes).To(Equal([]iampolicymanagementv1.PolicyRequestResourcesItemAttributesItem{*policyRequestResourcesItemAttributesItemModel}))
+				// Construct an instance of the PolicyResource model
+				policyResourceModel := new(iampolicymanagementv1.PolicyResource)
+				Expect(policyResourceModel).ToNot(BeNil())
+				policyResourceModel.Attributes = []iampolicymanagementv1.ResourceAttribute{*resourceAttributeModel}
+				Expect(policyResourceModel.Attributes).To(Equal([]iampolicymanagementv1.ResourceAttribute{*resourceAttributeModel}))
 
-				// Construct an instance of the PolicyRequestRolesItem model
-				policyRequestRolesItemModel := new(iampolicymanagementv1.PolicyRequestRolesItem)
-				Expect(policyRequestRolesItemModel).ToNot(BeNil())
-				policyRequestRolesItemModel.RoleID = core.StringPtr("testString")
-				Expect(policyRequestRolesItemModel.RoleID).To(Equal(core.StringPtr("testString")))
+				// Construct an instance of the PolicyRole model
+				policyRoleModel := new(iampolicymanagementv1.PolicyRole)
+				Expect(policyRoleModel).ToNot(BeNil())
+				policyRoleModel.RoleID = core.StringPtr("testString")
+				Expect(policyRoleModel.RoleID).To(Equal(core.StringPtr("testString")))
 
-				// Construct an instance of the PolicyRequestSubjectsItem model
-				policyRequestSubjectsItemModel := new(iampolicymanagementv1.PolicyRequestSubjectsItem)
-				Expect(policyRequestSubjectsItemModel).ToNot(BeNil())
-				policyRequestSubjectsItemModel.Attributes = []iampolicymanagementv1.PolicyRequestSubjectsItemAttributesItem{*policyRequestSubjectsItemAttributesItemModel}
-				Expect(policyRequestSubjectsItemModel.Attributes).To(Equal([]iampolicymanagementv1.PolicyRequestSubjectsItemAttributesItem{*policyRequestSubjectsItemAttributesItemModel}))
+				// Construct an instance of the PolicySubject model
+				policySubjectModel := new(iampolicymanagementv1.PolicySubject)
+				Expect(policySubjectModel).ToNot(BeNil())
+				policySubjectModel.Attributes = []iampolicymanagementv1.SubjectAttribute{*subjectAttributeModel}
+				Expect(policySubjectModel.Attributes).To(Equal([]iampolicymanagementv1.SubjectAttribute{*subjectAttributeModel}))
 
 				// Construct an instance of the UpdatePolicyOptions model
 				policyID := "testString"
 				ifMatch := "testString"
 				updatePolicyOptionsType := "testString"
-				updatePolicyOptionsSubjects := []iampolicymanagementv1.PolicyRequestSubjectsItem{}
-				updatePolicyOptionsRoles := []iampolicymanagementv1.PolicyRequestRolesItem{}
-				updatePolicyOptionsResources := []iampolicymanagementv1.PolicyRequestResourcesItem{}
+				updatePolicyOptionsSubjects := []iampolicymanagementv1.PolicySubject{}
+				updatePolicyOptionsRoles := []iampolicymanagementv1.PolicyRole{}
+				updatePolicyOptionsResources := []iampolicymanagementv1.PolicyResource{}
 				updatePolicyOptionsModel := testService.NewUpdatePolicyOptions(policyID, ifMatch, updatePolicyOptionsType, updatePolicyOptionsSubjects, updatePolicyOptionsRoles, updatePolicyOptionsResources)
 				updatePolicyOptionsModel.SetPolicyID("testString")
 				updatePolicyOptionsModel.SetIfMatch("testString")
 				updatePolicyOptionsModel.SetType("testString")
-				updatePolicyOptionsModel.SetSubjects([]iampolicymanagementv1.PolicyRequestSubjectsItem{*policyRequestSubjectsItemModel})
-				updatePolicyOptionsModel.SetRoles([]iampolicymanagementv1.PolicyRequestRolesItem{*policyRequestRolesItemModel})
-				updatePolicyOptionsModel.SetResources([]iampolicymanagementv1.PolicyRequestResourcesItem{*policyRequestResourcesItemModel})
+				updatePolicyOptionsModel.SetSubjects([]iampolicymanagementv1.PolicySubject{*policySubjectModel})
+				updatePolicyOptionsModel.SetRoles([]iampolicymanagementv1.PolicyRole{*policyRoleModel})
+				updatePolicyOptionsModel.SetResources([]iampolicymanagementv1.PolicyResource{*policyResourceModel})
 				updatePolicyOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(updatePolicyOptionsModel).ToNot(BeNil())
 				Expect(updatePolicyOptionsModel.PolicyID).To(Equal(core.StringPtr("testString")))
 				Expect(updatePolicyOptionsModel.IfMatch).To(Equal(core.StringPtr("testString")))
 				Expect(updatePolicyOptionsModel.Type).To(Equal(core.StringPtr("testString")))
-				Expect(updatePolicyOptionsModel.Subjects).To(Equal([]iampolicymanagementv1.PolicyRequestSubjectsItem{*policyRequestSubjectsItemModel}))
-				Expect(updatePolicyOptionsModel.Roles).To(Equal([]iampolicymanagementv1.PolicyRequestRolesItem{*policyRequestRolesItemModel}))
-				Expect(updatePolicyOptionsModel.Resources).To(Equal([]iampolicymanagementv1.PolicyRequestResourcesItem{*policyRequestResourcesItemModel}))
+				Expect(updatePolicyOptionsModel.Subjects).To(Equal([]iampolicymanagementv1.PolicySubject{*policySubjectModel}))
+				Expect(updatePolicyOptionsModel.Roles).To(Equal([]iampolicymanagementv1.PolicyRole{*policyRoleModel}))
+				Expect(updatePolicyOptionsModel.Resources).To(Equal([]iampolicymanagementv1.PolicyResource{*policyResourceModel}))
 				Expect(updatePolicyOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewUpdateRoleOptions successfully`, func() {
@@ -1800,6 +1768,26 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				Expect(updateRoleOptionsModel.Description).To(Equal(core.StringPtr("testString")))
 				Expect(updateRoleOptionsModel.Actions).To(Equal([]string{"testString"}))
 				Expect(updateRoleOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
+			It(`Invoke NewPolicyRole successfully`, func() {
+				roleID := "testString"
+				model, err := testService.NewPolicyRole(roleID)
+				Expect(model).ToNot(BeNil())
+				Expect(err).To(BeNil())
+			})
+			It(`Invoke NewResourceAttribute successfully`, func() {
+				name := "testString"
+				value := "testString"
+				model, err := testService.NewResourceAttribute(name, value)
+				Expect(model).ToNot(BeNil())
+				Expect(err).To(BeNil())
+			})
+			It(`Invoke NewSubjectAttribute successfully`, func() {
+				name := "testString"
+				value := "testString"
+				model, err := testService.NewSubjectAttribute(name, value)
+				Expect(model).ToNot(BeNil())
+				Expect(err).To(BeNil())
 			})
 		})
 	})
