@@ -114,8 +114,8 @@ var _ = Describe("Global Catalog - Integration Tests", func() {
 			featureImageUpdated = "feature"
 			tags                = []string{"a", "b", "c"}
 			tagsUpdated         = []string{"x", "y", "z"}
-			overviewUi          = &globalcatalogv1.OverviewUI{}
-			overviewUiUpdated   = &globalcatalogv1.OverviewUI{}
+			overviewUi          = make(map[string]globalcatalogv1.Overview)
+			overviewUiUpdated   = make(map[string]globalcatalogv1.Overview)
 			overview, _         = service.NewOverview(displayName, displayLongDesc, displayDesc)
 			overviewUpdated, _  = service.NewOverview(displayNameUpdated, displayLongDescUpdated, displayDescUpdated)
 			images              = &globalcatalogv1.Image{Image: &image,
@@ -142,8 +142,8 @@ var _ = Describe("Global Catalog - Integration Tests", func() {
 		Expect(err).To(BeNil())
 		Expect(service).ToNot(BeNil())
 
-		overviewUi.SetProperty(en, overview)
-		overviewUiUpdated.SetProperty(en, overviewUpdated)
+		overviewUi[en] = *overview
+		overviewUiUpdated[en] = *overviewUpdated
 
 		defaultCreate = service.NewCreateCatalogEntryOptions(name,
 			kind,

@@ -1514,7 +1514,7 @@ type CatalogEntry struct {
 	Kind *string `json:"kind" validate:"required"`
 
 	// Overview is nested in the top level. The key value pair is `[_language_]overview_ui`.
-	OverviewUi *OverviewUI `json:"overview_ui" validate:"required"`
+	OverviewUi map[string]Overview `json:"overview_ui" validate:"required"`
 
 	// Image annotation for this catalog entry. The image is a URL.
 	Images *Image `json:"images" validate:"required"`
@@ -1546,16 +1546,22 @@ type CatalogEntry struct {
 
 	CatalogCrn interface{} `json:"catalog_crn,omitempty"`
 
+	// URL to get details about this object.
 	URL interface{} `json:"url,omitempty"`
 
+	// URL to get details about children of this object.
 	ChildrenURL interface{} `json:"children_url,omitempty"`
 
+	// tags to indicate the locations this service is deployable to.
 	GeoTags interface{} `json:"geo_tags,omitempty"`
 
+	// tags to indicate the type of pricing plans this service supports.
 	PricingTags interface{} `json:"pricing_tags,omitempty"`
 
+	// Date created.
 	Created interface{} `json:"created,omitempty"`
 
+	// Date last updated.
 	Updated interface{} `json:"updated,omitempty"`
 }
 
@@ -1580,7 +1586,7 @@ func UnmarshalCatalogEntry(m map[string]json.RawMessage, result interface{}) (er
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(m, "overview_ui", &obj.OverviewUi, UnmarshalOverviewUI)
+	err = core.UnmarshalModel(m, "overview_ui", &obj.OverviewUi, UnmarshalOverview)
 	if err != nil {
 		return
 	}
@@ -1885,7 +1891,7 @@ type CreateCatalogEntryOptions struct {
 	Kind *string `json:"kind" validate:"required"`
 
 	// Overview is nested in the top level. The key value pair is `[_language_]overview_ui`.
-	OverviewUi *OverviewUI `json:"overview_ui" validate:"required"`
+	OverviewUi map[string]Overview `json:"overview_ui" validate:"required"`
 
 	// Image annotation for this catalog entry. The image is a URL.
 	Images *Image `json:"images" validate:"required"`
@@ -1934,7 +1940,7 @@ const (
 )
 
 // NewCreateCatalogEntryOptions : Instantiate CreateCatalogEntryOptions
-func (*GlobalCatalogV1) NewCreateCatalogEntryOptions(name string, kind string, overviewUi *OverviewUI, images *Image, disabled bool, tags []string, provider *Provider, id string) *CreateCatalogEntryOptions {
+func (*GlobalCatalogV1) NewCreateCatalogEntryOptions(name string, kind string, overviewUi map[string]Overview, images *Image, disabled bool, tags []string, provider *Provider, id string) *CreateCatalogEntryOptions {
 	return &CreateCatalogEntryOptions{
 		Name: core.StringPtr(name),
 		Kind: core.StringPtr(kind),
@@ -1960,7 +1966,7 @@ func (options *CreateCatalogEntryOptions) SetKind(kind string) *CreateCatalogEnt
 }
 
 // SetOverviewUi : Allow user to set OverviewUi
-func (options *CreateCatalogEntryOptions) SetOverviewUi(overviewUi *OverviewUI) *CreateCatalogEntryOptions {
+func (options *CreateCatalogEntryOptions) SetOverviewUi(overviewUi map[string]Overview) *CreateCatalogEntryOptions {
 	options.OverviewUi = overviewUi
 	return options
 }
@@ -2708,60 +2714,6 @@ func (options *GetVisibilityOptions) SetHeaders(param map[string]string) *GetVis
 	return options
 }
 
-// I18N : Language specific translation of translation properties, like label and description.
-type I18N struct {
-
-	// Allows users to set arbitrary properties
-	additionalProperties map[string]*Strings
-}
-
-
-// SetProperty allows the user to set an arbitrary property on an instance of I18N
-func (o *I18N) SetProperty(key string, value *Strings) {
-	if o.additionalProperties == nil {
-		o.additionalProperties = make(map[string]*Strings)
-	}
-	o.additionalProperties[key] = value
-}
-
-// GetProperty allows the user to retrieve an arbitrary property from an instance of I18N
-func (o *I18N) GetProperty(key string) *Strings {
-	return o.additionalProperties[key]
-}
-
-// GetProperties allows the user to retrieve the map of arbitrary properties from an instance of I18N
-func (o *I18N) GetProperties() map[string]*Strings {
-	return o.additionalProperties
-}
-
-// MarshalJSON performs custom serialization for instances of I18N
-func (o *I18N) MarshalJSON() (buffer []byte, err error) {
-	m := make(map[string]interface{})
-	if len(o.additionalProperties) > 0 {
-		for k, v := range o.additionalProperties {
-			m[k] = v
-		}
-	}
-	buffer, err = json.Marshal(m)
-	return
-}
-
-// UnmarshalI18N unmarshals an instance of I18N from the specified map of raw messages.
-func UnmarshalI18N(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(I18N)
-	for k := range m {
-		var v *Strings
-		e := core.UnmarshalModel(m, k, &v, UnmarshalStrings)
-		if e != nil {
-			err = e
-			return
-		}
-		obj.SetProperty(k, v)
-	}
-	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
-	return
-}
-
 // Image : Image annotation for this catalog entry. The image is a URL.
 type Image struct {
 	// URL for the large, default image.
@@ -3286,60 +3238,6 @@ func UnmarshalOverview(m map[string]json.RawMessage, result interface{}) (err er
 	err = core.UnmarshalPrimitive(m, "featured_description", &obj.FeaturedDescription)
 	if err != nil {
 		return
-	}
-	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
-	return
-}
-
-// OverviewUI : Overview is nested in the top level. The key value pair is `[_language_]overview_ui`.
-type OverviewUI struct {
-
-	// Allows users to set arbitrary properties
-	additionalProperties map[string]*Overview
-}
-
-
-// SetProperty allows the user to set an arbitrary property on an instance of OverviewUI
-func (o *OverviewUI) SetProperty(key string, value *Overview) {
-	if o.additionalProperties == nil {
-		o.additionalProperties = make(map[string]*Overview)
-	}
-	o.additionalProperties[key] = value
-}
-
-// GetProperty allows the user to retrieve an arbitrary property from an instance of OverviewUI
-func (o *OverviewUI) GetProperty(key string) *Overview {
-	return o.additionalProperties[key]
-}
-
-// GetProperties allows the user to retrieve the map of arbitrary properties from an instance of OverviewUI
-func (o *OverviewUI) GetProperties() map[string]*Overview {
-	return o.additionalProperties
-}
-
-// MarshalJSON performs custom serialization for instances of OverviewUI
-func (o *OverviewUI) MarshalJSON() (buffer []byte, err error) {
-	m := make(map[string]interface{})
-	if len(o.additionalProperties) > 0 {
-		for k, v := range o.additionalProperties {
-			m[k] = v
-		}
-	}
-	buffer, err = json.Marshal(m)
-	return
-}
-
-// UnmarshalOverviewUI unmarshals an instance of OverviewUI from the specified map of raw messages.
-func UnmarshalOverviewUI(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(OverviewUI)
-	for k := range m {
-		var v *Overview
-		e := core.UnmarshalModel(m, k, &v, UnmarshalOverview)
-		if e != nil {
-			err = e
-			return
-		}
-		obj.SetProperty(k, v)
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
 	return
@@ -3873,7 +3771,7 @@ func UnmarshalTemplateMetaData(m map[string]json.RawMessage, result interface{})
 // UIMetaData : Information related to the UI presentation associated with a catalog entry.
 type UIMetaData struct {
 	// Language specific translation of translation properties, like label and description.
-	Strings *I18N `json:"strings,omitempty"`
+	Strings map[string]Strings `json:"strings,omitempty"`
 
 	// UI based URLs.
 	Urls *URLS `json:"urls,omitempty"`
@@ -3916,7 +3814,7 @@ type UIMetaData struct {
 // UnmarshalUIMetaData unmarshals an instance of UIMetaData from the specified map of raw messages.
 func UnmarshalUIMetaData(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(UIMetaData)
-	err = core.UnmarshalModel(m, "strings", &obj.Strings, UnmarshalI18N)
+	err = core.UnmarshalModel(m, "strings", &obj.Strings, UnmarshalStrings)
 	if err != nil {
 		return
 	}
@@ -4127,7 +4025,7 @@ type UpdateCatalogEntryOptions struct {
 	Kind *string `json:"kind" validate:"required"`
 
 	// Overview is nested in the top level. The key value pair is `[_language_]overview_ui`.
-	OverviewUi *OverviewUI `json:"overview_ui" validate:"required"`
+	OverviewUi map[string]Overview `json:"overview_ui" validate:"required"`
 
 	// Image annotation for this catalog entry. The image is a URL.
 	Images *Image `json:"images" validate:"required"`
@@ -4179,7 +4077,7 @@ const (
 )
 
 // NewUpdateCatalogEntryOptions : Instantiate UpdateCatalogEntryOptions
-func (*GlobalCatalogV1) NewUpdateCatalogEntryOptions(id string, name string, kind string, overviewUi *OverviewUI, images *Image, disabled bool, tags []string, provider *Provider) *UpdateCatalogEntryOptions {
+func (*GlobalCatalogV1) NewUpdateCatalogEntryOptions(id string, name string, kind string, overviewUi map[string]Overview, images *Image, disabled bool, tags []string, provider *Provider) *UpdateCatalogEntryOptions {
 	return &UpdateCatalogEntryOptions{
 		ID: core.StringPtr(id),
 		Name: core.StringPtr(name),
@@ -4211,7 +4109,7 @@ func (options *UpdateCatalogEntryOptions) SetKind(kind string) *UpdateCatalogEnt
 }
 
 // SetOverviewUi : Allow user to set OverviewUi
-func (options *UpdateCatalogEntryOptions) SetOverviewUi(overviewUi *OverviewUI) *UpdateCatalogEntryOptions {
+func (options *UpdateCatalogEntryOptions) SetOverviewUi(overviewUi map[string]Overview) *UpdateCatalogEntryOptions {
 	options.OverviewUi = overviewUi
 	return options
 }
