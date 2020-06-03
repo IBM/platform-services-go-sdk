@@ -36,7 +36,7 @@ type ResourceControllerV2 struct {
 }
 
 // DefaultServiceURL is the default URL to make service requests to.
-const DefaultServiceURL = "https://resource-controller.cloud.ibm.com/v2"
+const DefaultServiceURL = "https://resource-controller.cloud.ibm.com"
 
 // DefaultServiceName is the default key used to find external configuration information.
 const DefaultServiceName = "resource_controller"
@@ -116,7 +116,7 @@ func (resourceController *ResourceControllerV2) ListResourceInstances(listResour
 		return
 	}
 
-	pathSegments := []string{"resource_instances"}
+	pathSegments := []string{"v2/resource_instances"}
 	pathParameters := []string{}
 
 	builder := core.NewRequestBuilder(core.GET)
@@ -197,7 +197,7 @@ func (resourceController *ResourceControllerV2) CreateResourceInstance(createRes
 		return
 	}
 
-	pathSegments := []string{"resource_instances"}
+	pathSegments := []string{"v2/resource_instances"}
 	pathParameters := []string{}
 
 	builder := core.NewRequestBuilder(core.POST)
@@ -278,7 +278,7 @@ func (resourceController *ResourceControllerV2) GetResourceInstance(getResourceI
 		return
 	}
 
-	pathSegments := []string{"resource_instances"}
+	pathSegments := []string{"v2/resource_instances"}
 	pathParameters := []string{*getResourceInstanceOptions.ID}
 
 	builder := core.NewRequestBuilder(core.GET)
@@ -318,7 +318,7 @@ func (resourceController *ResourceControllerV2) GetResourceInstance(getResourceI
 
 // DeleteResourceInstance : Delete a resource instance
 // Delete a resource instance by ID.
-func (resourceController *ResourceControllerV2) DeleteResourceInstance(deleteResourceInstanceOptions *DeleteResourceInstanceOptions) (result *ResourceInstance, response *core.DetailedResponse, err error) {
+func (resourceController *ResourceControllerV2) DeleteResourceInstance(deleteResourceInstanceOptions *DeleteResourceInstanceOptions) (response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(deleteResourceInstanceOptions, "deleteResourceInstanceOptions cannot be nil")
 	if err != nil {
 		return
@@ -328,7 +328,7 @@ func (resourceController *ResourceControllerV2) DeleteResourceInstance(deleteRes
 		return
 	}
 
-	pathSegments := []string{"resource_instances"}
+	pathSegments := []string{"v2/resource_instances"}
 	pathParameters := []string{*deleteResourceInstanceOptions.ID}
 
 	builder := core.NewRequestBuilder(core.DELETE)
@@ -345,23 +345,13 @@ func (resourceController *ResourceControllerV2) DeleteResourceInstance(deleteRes
 	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
-	builder.AddHeader("Accept", "application/json")
 
 	request, err := builder.Build()
 	if err != nil {
 		return
 	}
 
-	var rawResponse map[string]json.RawMessage
-	response, err = resourceController.Service.Request(request, &rawResponse)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalResourceInstance)
-	if err != nil {
-		return
-	}
-	response.Result = result
+	response, err = resourceController.Service.Request(request, nil)
 
 	return
 }
@@ -378,7 +368,7 @@ func (resourceController *ResourceControllerV2) UpdateResourceInstance(updateRes
 		return
 	}
 
-	pathSegments := []string{"resource_instances"}
+	pathSegments := []string{"v2/resource_instances"}
 	pathParameters := []string{*updateResourceInstanceOptions.ID}
 
 	builder := core.NewRequestBuilder(core.PATCH)
@@ -448,7 +438,7 @@ func (resourceController *ResourceControllerV2) LockResourceInstance(lockResourc
 		return
 	}
 
-	pathSegments := []string{"resource_instances", "lock"}
+	pathSegments := []string{"v2/resource_instances", "lock"}
 	pathParameters := []string{*lockResourceInstanceOptions.ID}
 
 	builder := core.NewRequestBuilder(core.POST)
@@ -498,7 +488,7 @@ func (resourceController *ResourceControllerV2) UnlockResourceInstance(unlockRes
 		return
 	}
 
-	pathSegments := []string{"resource_instances", "lock"}
+	pathSegments := []string{"v2/resource_instances", "lock"}
 	pathParameters := []string{*unlockResourceInstanceOptions.ID}
 
 	builder := core.NewRequestBuilder(core.DELETE)
@@ -544,7 +534,7 @@ func (resourceController *ResourceControllerV2) ListResourceKeys(listResourceKey
 		return
 	}
 
-	pathSegments := []string{"resource_keys"}
+	pathSegments := []string{"v2/resource_keys"}
 	pathParameters := []string{}
 
 	builder := core.NewRequestBuilder(core.GET)
@@ -616,7 +606,7 @@ func (resourceController *ResourceControllerV2) CreateResourceKey(createResource
 		return
 	}
 
-	pathSegments := []string{"resource_keys"}
+	pathSegments := []string{"v2/resource_keys"}
 	pathParameters := []string{}
 
 	builder := core.NewRequestBuilder(core.POST)
@@ -685,7 +675,7 @@ func (resourceController *ResourceControllerV2) GetResourceKey(getResourceKeyOpt
 		return
 	}
 
-	pathSegments := []string{"resource_keys"}
+	pathSegments := []string{"v2/resource_keys"}
 	pathParameters := []string{*getResourceKeyOptions.ID}
 
 	builder := core.NewRequestBuilder(core.GET)
@@ -735,7 +725,7 @@ func (resourceController *ResourceControllerV2) DeleteResourceKey(deleteResource
 		return
 	}
 
-	pathSegments := []string{"resource_keys"}
+	pathSegments := []string{"v2/resource_keys"}
 	pathParameters := []string{*deleteResourceKeyOptions.ID}
 
 	builder := core.NewRequestBuilder(core.DELETE)
@@ -775,7 +765,7 @@ func (resourceController *ResourceControllerV2) UpdateResourceKey(updateResource
 		return
 	}
 
-	pathSegments := []string{"resource_keys"}
+	pathSegments := []string{"v2/resource_keys"}
 	pathParameters := []string{*updateResourceKeyOptions.ID}
 
 	builder := core.NewRequestBuilder(core.PATCH)
@@ -831,7 +821,7 @@ func (resourceController *ResourceControllerV2) ListResourceBindings(listResourc
 		return
 	}
 
-	pathSegments := []string{"resource_bindings"}
+	pathSegments := []string{"v2/resource_bindings"}
 	pathParameters := []string{}
 
 	builder := core.NewRequestBuilder(core.GET)
@@ -906,7 +896,7 @@ func (resourceController *ResourceControllerV2) CreateResourceBinding(createReso
 		return
 	}
 
-	pathSegments := []string{"resource_bindings"}
+	pathSegments := []string{"v2/resource_bindings"}
 	pathParameters := []string{}
 
 	builder := core.NewRequestBuilder(core.POST)
@@ -978,7 +968,7 @@ func (resourceController *ResourceControllerV2) GetResourceBinding(getResourceBi
 		return
 	}
 
-	pathSegments := []string{"resource_bindings"}
+	pathSegments := []string{"v2/resource_bindings"}
 	pathParameters := []string{*getResourceBindingOptions.ID}
 
 	builder := core.NewRequestBuilder(core.GET)
@@ -1028,7 +1018,7 @@ func (resourceController *ResourceControllerV2) DeleteResourceBinding(deleteReso
 		return
 	}
 
-	pathSegments := []string{"resource_bindings"}
+	pathSegments := []string{"v2/resource_bindings"}
 	pathParameters := []string{*deleteResourceBindingOptions.ID}
 
 	builder := core.NewRequestBuilder(core.DELETE)
@@ -1068,7 +1058,7 @@ func (resourceController *ResourceControllerV2) UpdateResourceBinding(updateReso
 		return
 	}
 
-	pathSegments := []string{"resource_bindings"}
+	pathSegments := []string{"v2/resource_bindings"}
 	pathParameters := []string{*updateResourceBindingOptions.ID}
 
 	builder := core.NewRequestBuilder(core.PATCH)
@@ -1124,7 +1114,7 @@ func (resourceController *ResourceControllerV2) ListResourceAliases(listResource
 		return
 	}
 
-	pathSegments := []string{"resource_aliases"}
+	pathSegments := []string{"v2/resource_aliases"}
 	pathParameters := []string{}
 
 	builder := core.NewRequestBuilder(core.GET)
@@ -1202,7 +1192,7 @@ func (resourceController *ResourceControllerV2) CreateResourceAlias(createResour
 		return
 	}
 
-	pathSegments := []string{"resource_aliases"}
+	pathSegments := []string{"v2/resource_aliases"}
 	pathParameters := []string{}
 
 	builder := core.NewRequestBuilder(core.POST)
@@ -1268,7 +1258,7 @@ func (resourceController *ResourceControllerV2) GetResourceAlias(getResourceAlia
 		return
 	}
 
-	pathSegments := []string{"resource_aliases"}
+	pathSegments := []string{"v2/resource_aliases"}
 	pathParameters := []string{*getResourceAliasOptions.ID}
 
 	builder := core.NewRequestBuilder(core.GET)
@@ -1318,7 +1308,7 @@ func (resourceController *ResourceControllerV2) DeleteResourceAlias(deleteResour
 		return
 	}
 
-	pathSegments := []string{"resource_aliases"}
+	pathSegments := []string{"v2/resource_aliases"}
 	pathParameters := []string{*deleteResourceAliasOptions.ID}
 
 	builder := core.NewRequestBuilder(core.DELETE)
@@ -1358,7 +1348,7 @@ func (resourceController *ResourceControllerV2) UpdateResourceAlias(updateResour
 		return
 	}
 
-	pathSegments := []string{"resource_aliases"}
+	pathSegments := []string{"v2/resource_aliases"}
 	pathParameters := []string{*updateResourceAliasOptions.ID}
 
 	builder := core.NewRequestBuilder(core.PATCH)

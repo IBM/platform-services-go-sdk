@@ -135,7 +135,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 		})
 	})
 	Describe(`ListResourceInstances(listResourceInstancesOptions *ListResourceInstancesOptions) - Operation response error`, func() {
-		listResourceInstancesPath := "/resource_instances"
+		listResourceInstancesPath := "/v2/resource_instances"
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
@@ -203,7 +203,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 	})
 
 	Describe(`ListResourceInstances(listResourceInstancesOptions *ListResourceInstancesOptions)`, func() {
-		listResourceInstancesPath := "/resource_instances"
+		listResourceInstancesPath := "/v2/resource_instances"
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
@@ -307,7 +307,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 		})
 	})
 	Describe(`CreateResourceInstance(createResourceInstanceOptions *CreateResourceInstanceOptions) - Operation response error`, func() {
-		createResourceInstancePath := "/resource_instances"
+		createResourceInstancePath := "/v2/resource_instances"
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
@@ -355,7 +355,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 	})
 
 	Describe(`CreateResourceInstance(createResourceInstanceOptions *CreateResourceInstanceOptions)`, func() {
-		createResourceInstancePath := "/resource_instances"
+		createResourceInstancePath := "/v2/resource_instances"
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
@@ -444,7 +444,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 		})
 	})
 	Describe(`GetResourceInstance(getResourceInstanceOptions *GetResourceInstanceOptions) - Operation response error`, func() {
-		getResourceInstancePath := "/resource_instances/testString"
+		getResourceInstancePath := "/v2/resource_instances/testString"
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
@@ -483,7 +483,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 	})
 
 	Describe(`GetResourceInstance(getResourceInstanceOptions *GetResourceInstanceOptions)`, func() {
-		getResourceInstancePath := "/resource_instances/testString"
+		getResourceInstancePath := "/v2/resource_instances/testString"
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
@@ -555,47 +555,9 @@ var _ = Describe(`ResourceControllerV2`, func() {
 			})
 		})
 	})
-	Describe(`DeleteResourceInstance(deleteResourceInstanceOptions *DeleteResourceInstanceOptions) - Operation response error`, func() {
-		deleteResourceInstancePath := "/resource_instances/testString"
-		Context(`Using mock server endpoint`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.Path).To(Equal(deleteResourceInstancePath))
-					Expect(req.Method).To(Equal("DELETE"))
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(202)
-					fmt.Fprintf(res, `} this is not valid json {`)
-				}))
-			})
-			It(`Invoke DeleteResourceInstance with error: Operation response processing error`, func() {
-				testService, testServiceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(testServiceErr).To(BeNil())
-				Expect(testService).ToNot(BeNil())
-
-				// Construct an instance of the DeleteResourceInstanceOptions model
-				deleteResourceInstanceOptionsModel := new(resourcecontrollerv2.DeleteResourceInstanceOptions)
-				deleteResourceInstanceOptionsModel.ID = core.StringPtr("testString")
-				deleteResourceInstanceOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-				// Expect response parsing to fail since we are receiving a text/plain response
-				result, response, operationErr := testService.DeleteResourceInstance(deleteResourceInstanceOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-	})
 
 	Describe(`DeleteResourceInstance(deleteResourceInstanceOptions *DeleteResourceInstanceOptions)`, func() {
-		deleteResourceInstancePath := "/resource_instances/testString"
+		deleteResourceInstancePath := "/v2/resource_instances/testString"
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
@@ -604,9 +566,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 					// Verify the contents of the request
 					Expect(req.URL.Path).To(Equal(deleteResourceInstancePath))
 					Expect(req.Method).To(Equal("DELETE"))
-					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(202)
-					fmt.Fprintf(res, `{"id": "ID", "guid": "Guid", "crn": "Crn", "url": "URL", "name": "Name", "account_id": "AccountID", "resource_group_id": "ResourceGroupID", "resource_group_crn": "ResourceGroupCrn", "resource_id": "ResourceID", "resource_plan_id": "ResourcePlanID", "target_crn": "TargetCrn", "state": "State", "type": "Type", "sub_type": "SubType", "allow_cleanup": true, "locked": true, "last_operation": {"mapKey": "anyValue"}, "dashboard_url": "DashboardURL", "plan_history": [{"resource_plan_id": "ResourcePlanID", "start_date": "2019-01-01T12:00:00"}], "resource_aliases_url": "ResourceAliasesURL", "resource_bindings_url": "ResourceBindingsURL", "resource_keys_url": "ResourceKeysURL", "created_at": "2019-01-01T12:00:00", "updated_at": "2019-01-01T12:00:00", "deleted_at": "2019-01-01T12:00:00"}`)
 				}))
 			})
 			It(`Invoke DeleteResourceInstance successfully`, func() {
@@ -618,10 +578,9 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				Expect(testService).ToNot(BeNil())
 
 				// Invoke operation with nil options model (negative test)
-				result, response, operationErr := testService.DeleteResourceInstance(nil)
+				response, operationErr := testService.DeleteResourceInstance(nil)
 				Expect(operationErr).NotTo(BeNil())
 				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
 
 				// Construct an instance of the DeleteResourceInstanceOptions model
 				deleteResourceInstanceOptionsModel := new(resourcecontrollerv2.DeleteResourceInstanceOptions)
@@ -629,10 +588,9 @@ var _ = Describe(`ResourceControllerV2`, func() {
  				deleteResourceInstanceOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
-				result, response, operationErr = testService.DeleteResourceInstance(deleteResourceInstanceOptionsModel)
+				response, operationErr = testService.DeleteResourceInstance(deleteResourceInstanceOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
-				Expect(result).ToNot(BeNil())
 			})
 			It(`Invoke DeleteResourceInstance with error: Operation validation and request error`, func() {
 				testService, testServiceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
@@ -649,18 +607,16 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				// Invoke operation with empty URL (negative test)
 				err := testService.SetServiceURL("")
 				Expect(err).To(BeNil())
-				result, response, operationErr := testService.DeleteResourceInstance(deleteResourceInstanceOptionsModel)
+				response, operationErr := testService.DeleteResourceInstance(deleteResourceInstanceOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
 				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
 				// Construct a second instance of the DeleteResourceInstanceOptions model with no property values
 				deleteResourceInstanceOptionsModelNew := new(resourcecontrollerv2.DeleteResourceInstanceOptions)
 				// Invoke operation with invalid model (negative test)
-				result, response, operationErr = testService.DeleteResourceInstance(deleteResourceInstanceOptionsModelNew)
+				response, operationErr = testService.DeleteResourceInstance(deleteResourceInstanceOptionsModelNew)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
 			})
 			AfterEach(func() {
 				testServer.Close()
@@ -668,7 +624,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 		})
 	})
 	Describe(`UpdateResourceInstance(updateResourceInstanceOptions *UpdateResourceInstanceOptions) - Operation response error`, func() {
-		updateResourceInstancePath := "/resource_instances/testString"
+		updateResourceInstancePath := "/v2/resource_instances/testString"
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
@@ -711,7 +667,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 	})
 
 	Describe(`UpdateResourceInstance(updateResourceInstanceOptions *UpdateResourceInstanceOptions)`, func() {
-		updateResourceInstancePath := "/resource_instances/testString"
+		updateResourceInstancePath := "/v2/resource_instances/testString"
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
@@ -792,7 +748,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 		})
 	})
 	Describe(`LockResourceInstance(lockResourceInstanceOptions *LockResourceInstanceOptions) - Operation response error`, func() {
-		lockResourceInstancePath := "/resource_instances/testString/lock"
+		lockResourceInstancePath := "/v2/resource_instances/testString/lock"
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
@@ -831,7 +787,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 	})
 
 	Describe(`LockResourceInstance(lockResourceInstanceOptions *LockResourceInstanceOptions)`, func() {
-		lockResourceInstancePath := "/resource_instances/testString/lock"
+		lockResourceInstancePath := "/v2/resource_instances/testString/lock"
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
@@ -904,7 +860,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 		})
 	})
 	Describe(`UnlockResourceInstance(unlockResourceInstanceOptions *UnlockResourceInstanceOptions) - Operation response error`, func() {
-		unlockResourceInstancePath := "/resource_instances/testString/lock"
+		unlockResourceInstancePath := "/v2/resource_instances/testString/lock"
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
@@ -943,7 +899,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 	})
 
 	Describe(`UnlockResourceInstance(unlockResourceInstanceOptions *UnlockResourceInstanceOptions)`, func() {
-		unlockResourceInstancePath := "/resource_instances/testString/lock"
+		unlockResourceInstancePath := "/v2/resource_instances/testString/lock"
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
@@ -1116,7 +1072,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 		})
 	})
 	Describe(`ListResourceKeys(listResourceKeysOptions *ListResourceKeysOptions) - Operation response error`, func() {
-		listResourceKeysPath := "/resource_keys"
+		listResourceKeysPath := "/v2/resource_keys"
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
@@ -1175,7 +1131,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 	})
 
 	Describe(`ListResourceKeys(listResourceKeysOptions *ListResourceKeysOptions)`, func() {
-		listResourceKeysPath := "/resource_keys"
+		listResourceKeysPath := "/v2/resource_keys"
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
@@ -1267,7 +1223,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 		})
 	})
 	Describe(`CreateResourceKey(createResourceKeyOptions *CreateResourceKeyOptions) - Operation response error`, func() {
-		createResourceKeyPath := "/resource_keys"
+		createResourceKeyPath := "/v2/resource_keys"
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
@@ -1313,7 +1269,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 	})
 
 	Describe(`CreateResourceKey(createResourceKeyOptions *CreateResourceKeyOptions)`, func() {
-		createResourceKeyPath := "/resource_keys"
+		createResourceKeyPath := "/v2/resource_keys"
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
@@ -1400,7 +1356,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 		})
 	})
 	Describe(`GetResourceKey(getResourceKeyOptions *GetResourceKeyOptions) - Operation response error`, func() {
-		getResourceKeyPath := "/resource_keys/testString"
+		getResourceKeyPath := "/v2/resource_keys/testString"
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
@@ -1439,7 +1395,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 	})
 
 	Describe(`GetResourceKey(getResourceKeyOptions *GetResourceKeyOptions)`, func() {
-		getResourceKeyPath := "/resource_keys/testString"
+		getResourceKeyPath := "/v2/resource_keys/testString"
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
@@ -1513,7 +1469,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 	})
 
 	Describe(`DeleteResourceKey(deleteResourceKeyOptions *DeleteResourceKeyOptions)`, func() {
-		deleteResourceKeyPath := "/resource_keys/testString"
+		deleteResourceKeyPath := "/v2/resource_keys/testString"
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
@@ -1580,7 +1536,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 		})
 	})
 	Describe(`UpdateResourceKey(updateResourceKeyOptions *UpdateResourceKeyOptions) - Operation response error`, func() {
-		updateResourceKeyPath := "/resource_keys/testString"
+		updateResourceKeyPath := "/v2/resource_keys/testString"
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
@@ -1620,7 +1576,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 	})
 
 	Describe(`UpdateResourceKey(updateResourceKeyOptions *UpdateResourceKeyOptions)`, func() {
-		updateResourceKeyPath := "/resource_keys/testString"
+		updateResourceKeyPath := "/v2/resource_keys/testString"
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
@@ -1795,7 +1751,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 		})
 	})
 	Describe(`ListResourceBindings(listResourceBindingsOptions *ListResourceBindingsOptions) - Operation response error`, func() {
-		listResourceBindingsPath := "/resource_bindings"
+		listResourceBindingsPath := "/v2/resource_bindings"
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
@@ -1857,7 +1813,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 	})
 
 	Describe(`ListResourceBindings(listResourceBindingsOptions *ListResourceBindingsOptions)`, func() {
-		listResourceBindingsPath := "/resource_bindings"
+		listResourceBindingsPath := "/v2/resource_bindings"
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
@@ -1953,7 +1909,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 		})
 	})
 	Describe(`CreateResourceBinding(createResourceBindingOptions *CreateResourceBindingOptions) - Operation response error`, func() {
-		createResourceBindingPath := "/resource_bindings"
+		createResourceBindingPath := "/v2/resource_bindings"
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
@@ -2000,7 +1956,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 	})
 
 	Describe(`CreateResourceBinding(createResourceBindingOptions *CreateResourceBindingOptions)`, func() {
-		createResourceBindingPath := "/resource_bindings"
+		createResourceBindingPath := "/v2/resource_bindings"
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
@@ -2089,7 +2045,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 		})
 	})
 	Describe(`GetResourceBinding(getResourceBindingOptions *GetResourceBindingOptions) - Operation response error`, func() {
-		getResourceBindingPath := "/resource_bindings/testString"
+		getResourceBindingPath := "/v2/resource_bindings/testString"
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
@@ -2128,7 +2084,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 	})
 
 	Describe(`GetResourceBinding(getResourceBindingOptions *GetResourceBindingOptions)`, func() {
-		getResourceBindingPath := "/resource_bindings/testString"
+		getResourceBindingPath := "/v2/resource_bindings/testString"
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
@@ -2202,7 +2158,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 	})
 
 	Describe(`DeleteResourceBinding(deleteResourceBindingOptions *DeleteResourceBindingOptions)`, func() {
-		deleteResourceBindingPath := "/resource_bindings/testString"
+		deleteResourceBindingPath := "/v2/resource_bindings/testString"
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
@@ -2269,7 +2225,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 		})
 	})
 	Describe(`UpdateResourceBinding(updateResourceBindingOptions *UpdateResourceBindingOptions) - Operation response error`, func() {
-		updateResourceBindingPath := "/resource_bindings/testString"
+		updateResourceBindingPath := "/v2/resource_bindings/testString"
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
@@ -2309,7 +2265,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 	})
 
 	Describe(`UpdateResourceBinding(updateResourceBindingOptions *UpdateResourceBindingOptions)`, func() {
-		updateResourceBindingPath := "/resource_bindings/testString"
+		updateResourceBindingPath := "/v2/resource_bindings/testString"
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
@@ -2484,7 +2440,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 		})
 	})
 	Describe(`ListResourceAliases(listResourceAliasesOptions *ListResourceAliasesOptions) - Operation response error`, func() {
-		listResourceAliasesPath := "/resource_aliases"
+		listResourceAliasesPath := "/v2/resource_aliases"
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
@@ -2549,7 +2505,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 	})
 
 	Describe(`ListResourceAliases(listResourceAliasesOptions *ListResourceAliasesOptions)`, func() {
-		listResourceAliasesPath := "/resource_aliases"
+		listResourceAliasesPath := "/v2/resource_aliases"
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
@@ -2649,7 +2605,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 		})
 	})
 	Describe(`CreateResourceAlias(createResourceAliasOptions *CreateResourceAliasOptions) - Operation response error`, func() {
-		createResourceAliasPath := "/resource_aliases"
+		createResourceAliasPath := "/v2/resource_aliases"
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
@@ -2690,7 +2646,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 	})
 
 	Describe(`CreateResourceAlias(createResourceAliasOptions *CreateResourceAliasOptions)`, func() {
-		createResourceAliasPath := "/resource_aliases"
+		createResourceAliasPath := "/v2/resource_aliases"
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
@@ -2767,7 +2723,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 		})
 	})
 	Describe(`GetResourceAlias(getResourceAliasOptions *GetResourceAliasOptions) - Operation response error`, func() {
-		getResourceAliasPath := "/resource_aliases/testString"
+		getResourceAliasPath := "/v2/resource_aliases/testString"
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
@@ -2806,7 +2762,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 	})
 
 	Describe(`GetResourceAlias(getResourceAliasOptions *GetResourceAliasOptions)`, func() {
-		getResourceAliasPath := "/resource_aliases/testString"
+		getResourceAliasPath := "/v2/resource_aliases/testString"
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
@@ -2880,7 +2836,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 	})
 
 	Describe(`DeleteResourceAlias(deleteResourceAliasOptions *DeleteResourceAliasOptions)`, func() {
-		deleteResourceAliasPath := "/resource_aliases/testString"
+		deleteResourceAliasPath := "/v2/resource_aliases/testString"
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
@@ -2947,7 +2903,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 		})
 	})
 	Describe(`UpdateResourceAlias(updateResourceAliasOptions *UpdateResourceAliasOptions) - Operation response error`, func() {
-		updateResourceAliasPath := "/resource_aliases/testString"
+		updateResourceAliasPath := "/v2/resource_aliases/testString"
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
@@ -2987,7 +2943,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 	})
 
 	Describe(`UpdateResourceAlias(updateResourceAliasOptions *UpdateResourceAliasOptions)`, func() {
-		updateResourceAliasPath := "/resource_aliases/testString"
+		updateResourceAliasPath := "/v2/resource_aliases/testString"
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
