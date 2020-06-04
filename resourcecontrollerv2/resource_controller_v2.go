@@ -2617,7 +2617,7 @@ type Reclamation struct {
 	TargetTime *string `json:"target_time,omitempty"`
 
 	// The custom properties of the reclamation.
-	CustomProperties *string `json:"custom_properties,omitempty"`
+	CustomProperties map[string]interface{} `json:"custom_properties,omitempty"`
 
 	// The date when the reclamation was created.
 	CreatedAt *strfmt.DateTime `json:"created_at,omitempty"`
