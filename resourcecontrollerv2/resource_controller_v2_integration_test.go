@@ -883,7 +883,7 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 			Expect(result.LastOperation["state"]).To(Equal("succeeded"))
 
 			//wait for reclamation object to be created
-			time.Sleep(15 * time.Second)
+			time.Sleep(20 * time.Second)
 		})
 
 		It("List Reclamations For Account Id", func() {
