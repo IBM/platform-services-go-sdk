@@ -870,6 +870,8 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 		})
 
 		It("Verify The Resource Instance Is Pending Reclamation", func() {
+			shouldSkipTest()
+			
 			options := service.NewGetResourceInstanceOptions(testReclaimInstanceGuid)
 			result, resp, err := service.GetResourceInstance(options)
 
