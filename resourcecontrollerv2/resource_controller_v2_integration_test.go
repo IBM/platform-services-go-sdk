@@ -22,6 +22,7 @@ import (
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
 
+	"fmt"
 	"os"
 	"time"
 )
@@ -44,19 +45,22 @@ var (
 	testPlanId2           string = "2580b607-db64-4883-9793-445b694ed57b"
 
 	//result info
-	testInstanceCrn     string
-	testInstanceGuid    string
-	testAliasCrn        string
-	testAliasGuid       string
-	testBindingCrn      string
-	testBindingGuid     string
-	testInstanceKeyCrn  string
-	testInstanceKeyGuid string
-	testAliasKeyCrn     string
-	testAliasKeyGuid    string
-	aliasTargetCrn      string
-	bindTargetCrn       string
-	testReclamationId   string
+	testInstanceCrn         string
+	testInstanceGuid        string
+	testAliasCrn            string
+	testAliasGuid           string
+	testBindingCrn          string
+	testBindingGuid         string
+	testInstanceKeyCrn      string
+	testInstanceKeyGuid     string
+	testAliasKeyCrn         string
+	testAliasKeyGuid        string
+	aliasTargetCrn          string
+	bindTargetCrn           string
+	testReclaimInstanceCrn  string
+	testReclaimInstanceGuid string
+	testReclamationId1      string
+	testReclamationId2      string
 )
 
 func shouldSkipTest() {
@@ -851,34 +855,35 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 			Expect(result.LastOperation["async"]).Should(BeFalse())
 			Expect(result.LastOperation["state"]).To(Equal("succeeded"))
 
-			testInstanceCrn = *result.ID
-			testInstanceGuid = *result.Guid
+			testReclaimInstanceCrn = *result.ID
+			testReclaimInstanceGuid = *result.Guid
 		})
 
-		It("Schedule A Resource Instance For Reclamation", func() {
+		It("Schedule The Resource Instance For Reclamation", func() {
 			shouldSkipTest()
 
-			options := service.NewDeleteResourceInstanceOptions(testInstanceGuid)
+			options := service.NewDeleteResourceInstanceOptions(testReclaimInstanceGuid)
 			resp, err := service.DeleteResourceInstance(options)
 
 			Expect(resp.StatusCode).To(Equal(204))
 			Expect(err).To(BeNil())
+		})
 
-			//check that instance is pending reclamation
-			options2 := service.NewGetResourceInstanceOptions(testInstanceGuid)
-			result2, resp2, err2 := service.GetResourceInstance(options2)
+		It("Verify The Resource Instance Is Pending Reclamation", func() {
+			options := service.NewGetResourceInstanceOptions(testReclaimInstanceGuid)
+			result, resp, err := service.GetResourceInstance(options)
 
-			Expect(err2).To(BeNil())
-			Expect(resp2.StatusCode).To(Equal(200))
-			Expect(*result2.ID).To(Equal(testInstanceCrn))
-			Expect(*result2.State).To(Equal("pending_reclamation"))
-			Expect(result2.LastOperation["type"]).To(Equal("reclamation"))
-			Expect(result2.LastOperation["sub_type"]).To(Equal("pending"))
-			Expect(result2.LastOperation["async"]).Should(BeFalse())
-			Expect(result2.LastOperation["state"]).To(Equal("succeeded"))
+			Expect(err).To(BeNil())
+			Expect(resp.StatusCode).To(Equal(200))
+			Expect(*result.ID).To(Equal(testReclaimInstanceCrn))
+			Expect(*result.State).To(Equal("pending_reclamation"))
+			Expect(result.LastOperation["type"]).To(Equal("reclamation"))
+			Expect(result.LastOperation["sub_type"]).To(Equal("pending"))
+			Expect(result.LastOperation["async"]).Should(BeFalse())
+			Expect(result.LastOperation["state"]).To(Equal("succeeded"))
 
 			//wait for reclamation object to be created
-			time.Sleep(30 * time.Second)
+			time.Sleep(15 * time.Second)
 		})
 
 		It("List Reclamations For Account Id", func() {
@@ -893,15 +898,15 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 			Expect(err).To(BeNil())
 
 			foundReclamation := false
-			for _, res := range(result.Resources) {
-				if res.ResourceInstanceID.(string) == testInstanceGuid {
-					Expect(res.ResourceInstanceID).To(Equal(testInstanceGuid))
+			for _, res := range result.Resources {
+				if res.ResourceInstanceID.(string) == testReclaimInstanceGuid {
+					Expect(res.ResourceInstanceID).To(Equal(testReclaimInstanceGuid))
 					Expect(*res.AccountID).To(Equal(testAccountId))
 					Expect(*res.ResourceGroupID).To(Equal(testResourceGroupGuid))
 					Expect(*res.State).To(Equal("SCHEDULED"))
 
 					foundReclamation = true
-					testReclamationId = *res.ID
+					testReclamationId1 = *res.ID
 				}
 			}
 
@@ -911,12 +916,12 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 		It("Restore A Resource Instance", func() {
 			shouldSkipTest()
 
-			options := service.NewRunReclamationActionOptions(testReclamationId, "restore")
+			options := service.NewRunReclamationActionOptions(testReclamationId1, "restore")
 			result, resp, err := service.RunReclamationAction(options)
 
 			Expect(err).To(BeNil())
 			Expect(resp.StatusCode).To(Equal(200))
-			Expect(result.ResourceInstanceID).To(Equal(testInstanceGuid))
+			Expect(result.ResourceInstanceID).To(Equal(testReclaimInstanceGuid))
 			Expect(*result.AccountID).To(Equal(testAccountId))
 			Expect(*result.ResourceGroupID).To(Equal(testResourceGroupGuid))
 			Expect(*result.State).To(Equal("RESTORING"))
@@ -928,12 +933,12 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 		It("Verify The Resource Instance Is Restored", func() {
 			shouldSkipTest()
 
-			options := service.NewGetResourceInstanceOptions(testInstanceGuid)
+			options := service.NewGetResourceInstanceOptions(testReclaimInstanceGuid)
 			result, resp, err := service.GetResourceInstance(options)
 
 			Expect(err).To(BeNil())
 			Expect(resp.StatusCode).To(Equal(200))
-			Expect(*result.ID).To(Equal(testInstanceCrn))
+			Expect(*result.ID).To(Equal(testReclaimInstanceCrn))
 			Expect(*result.State).To(Equal("active"))
 			Expect(result.LastOperation["type"]).To(Equal("reclamation"))
 			Expect(result.LastOperation["sub_type"]).To(Equal("restore"))
@@ -941,17 +946,17 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 			Expect(result.LastOperation["state"]).To(Equal("succeeded"))
 		})
 
-		It("Schedule A Resource Instance For Reclamation 2", func() {
+		It("Schedule The Resource Instance For Reclamation 2", func() {
 			shouldSkipTest()
 
-			options := service.NewDeleteResourceInstanceOptions(testInstanceGuid)
+			options := service.NewDeleteResourceInstanceOptions(testReclaimInstanceGuid)
 			resp, err := service.DeleteResourceInstance(options)
 
 			Expect(resp.StatusCode).To(Equal(204))
 			Expect(err).To(BeNil())
 
 			//wait for reclamation object to be created
-			time.Sleep(30 * time.Second)
+			time.Sleep(20 * time.Second)
 		})
 
 		It("List Reclamations For Account and Resource Instance Id", func() {
@@ -959,29 +964,29 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 
 			options := service.NewListReclamationsOptions()
 			options = options.SetAccountID(testAccountId)
-			options = options.SetResourceInstanceID(testInstanceGuid)
+			options = options.SetResourceInstanceID(testReclaimInstanceGuid)
 			result, resp, err := service.ListReclamations(options)
 
 			Expect(err).To(BeNil())
 			Expect(resp.StatusCode).To(Equal(200))
 			Expect(result.Resources).Should(HaveLen(1))
-			Expect(result.Resources[0].ResourceInstanceID).To(Equal(testInstanceGuid))
+			Expect(result.Resources[0].ResourceInstanceID).To(Equal(testReclaimInstanceGuid))
 			Expect(*result.Resources[0].AccountID).To(Equal(testAccountId))
 			Expect(*result.Resources[0].ResourceGroupID).To(Equal(testResourceGroupGuid))
 			Expect(*result.Resources[0].State).To(Equal("SCHEDULED"))
 
-			testReclamationId = *result.Resources[0].ID
+			testReclamationId2 = *result.Resources[0].ID
 		})
 
 		It("Reclaim A Resource Instance", func() {
 			shouldSkipTest()
 
-			options := service.NewRunReclamationActionOptions(testReclamationId, "reclaim")
-			result, resp, err:= service.RunReclamationAction(options)
+			options := service.NewRunReclamationActionOptions(testReclamationId2, "reclaim")
+			result, resp, err := service.RunReclamationAction(options)
 
 			Expect(err).To(BeNil())
 			Expect(resp.StatusCode).To(Equal(200))
-			Expect(result.ResourceInstanceID).To(Equal(testInstanceGuid))
+			Expect(result.ResourceInstanceID).To(Equal(testReclaimInstanceGuid))
 			Expect(*result.AccountID).To(Equal(testAccountId))
 			Expect(*result.ResourceGroupID).To(Equal(testResourceGroupGuid))
 			Expect(*result.State).To(Equal("RECLAIMING"))
@@ -993,18 +998,179 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 		It("Verify The Resource Instance Is Reclaimed", func() {
 			shouldSkipTest()
 
-			options := service.NewGetResourceInstanceOptions(testInstanceGuid)
+			options := service.NewGetResourceInstanceOptions(testReclaimInstanceGuid)
 			result, resp, err := service.GetResourceInstance(options)
 
 			Expect(err).To(BeNil())
 			Expect(resp.StatusCode).To(Equal(200))
-			Expect(*result.ID).To(Equal(testInstanceCrn))
+			Expect(*result.ID).To(Equal(testReclaimInstanceCrn))
 			Expect(*result.State).To(Equal("removed"))
 			Expect(result.LastOperation["type"]).To(Equal("reclamation"))
 			Expect(result.LastOperation["sub_type"]).To(Equal("delete"))
 			Expect(result.LastOperation["async"]).Should(BeFalse())
 			Expect(result.LastOperation["state"]).To(Equal("succeeded"))
 		})
-
 	})
 })
+
+
+// clean up resources
+var _ = AfterSuite(func() {
+	if !configLoaded {
+		return
+	}
+
+	fmt.Printf("\n\nCleaning up test resources...\n")
+	cleanupResources()
+	if testReclaimInstanceGuid != "" {
+		cleanupReclamationInstance()
+	} else {
+		fmt.Printf("Reclamation instance was not created. No cleanup needed.")
+	}
+})
+
+func cleanupResources() {
+	if testInstanceKeyGuid != "" {
+		options := service.NewDeleteResourceKeyOptions(testInstanceKeyGuid)
+		resp, err := service.DeleteResourceKey(options)
+		if resp.StatusCode == 204 {
+			fmt.Printf("Successful cleanup of key %s.\n", testInstanceKeyGuid)
+		} else if resp.StatusCode == 410 {
+			fmt.Printf("Key %s was already deleted by the tests.\n", testInstanceKeyGuid)
+		} else {
+			fmt.Printf("Failed to cleanup key %s. Error: %s\n", testInstanceKeyGuid, err.Error())
+		}
+	} else {
+		fmt.Printf("Key for instance was not created. No cleanup needed.\n")
+	}
+
+	if testAliasKeyGuid != "" {
+		options := service.NewDeleteResourceKeyOptions(testAliasKeyGuid)
+		resp, err := service.DeleteResourceKey(options)
+		if resp.StatusCode == 204 {
+			fmt.Printf("Successful cleanup of key %s.\n", testAliasKeyGuid)
+		} else if resp.StatusCode == 410 {
+			fmt.Printf("Key %s was already deleted by the tests.\n", testAliasKeyGuid)
+		} else {
+			fmt.Printf("Failed to cleanup key %s. Error: %s\n", testAliasKeyGuid, err.Error())
+		}
+	} else {
+		fmt.Printf("Key for alias was not created. No cleanup needed.\n")
+	}
+
+	if testBindingGuid != "" {
+		options := service.NewDeleteResourceBindingOptions(testBindingGuid)
+		resp, err := service.DeleteResourceBinding(options)
+		if resp.StatusCode == 204 {
+			fmt.Printf("Successful cleanup of binding %s.\n", testBindingGuid)
+		} else if resp.StatusCode == 410 {
+			fmt.Printf("Binding %s was already deleted by the tests.\n", testBindingGuid)
+		} else {
+			fmt.Printf("Failed to cleanup binding %s. Error: %s\n", testBindingGuid, err.Error())
+		}
+	} else {
+		fmt.Printf("Binding was not created. No cleanup needed.\n")
+	}
+
+	if testAliasGuid != "" {
+		options := service.NewDeleteResourceAliasOptions(testAliasGuid)
+		resp, err := service.DeleteResourceAlias(options)
+		if resp.StatusCode == 204 {
+			fmt.Printf("Successful cleanup of alias %s.\n", testAliasGuid)
+		} else if resp.StatusCode == 410 {
+			fmt.Printf("Alias %s was already deleted by the tests.\n", testAliasGuid)
+		} else {
+			fmt.Printf("Failed to cleanup alias %s. Error: %s\n", testAliasGuid, err.Error())
+		}
+	} else {
+		fmt.Printf("Alias was not created. No cleanup needed.\n")
+	}
+
+	if testInstanceGuid != "" {
+		cleanupInstance()
+	} else {
+		fmt.Printf("Instance was not created. No cleanup needed.\n")
+	}
+}
+
+func cleanupInstance() {
+	options := service.NewGetResourceInstanceOptions(testInstanceGuid)
+	result, _, err := service.GetResourceInstance(options)
+	if err != nil {
+		fmt.Printf("Failed to retrieve instance %s for cleanup.\n", testInstanceGuid)
+		return
+	}
+
+	if *result.Locked {
+		options2 := service.NewUnlockResourceInstanceOptions(testInstanceGuid)
+		_, _, err2 := service.UnlockResourceInstance(options2)
+		if err2 != nil {
+			fmt.Printf("Failed to unlock instance %s for cleanup. Error: %s", testInstanceGuid, err2.Error())
+			return
+		} 
+	}
+
+	options3 := service.NewDeleteResourceInstanceOptions(testInstanceGuid)
+	resp3, err3 := service.DeleteResourceInstance(options3)
+	if resp3.StatusCode == 204 {
+		fmt.Printf("Successful cleanup of instance %s.\n", testInstanceGuid)
+	} else if resp3.StatusCode == 410 {
+		fmt.Printf("Instance %s was already deleted by the tests.\n", testInstanceGuid)
+	} else {
+		fmt.Printf("Failed to cleanup instance %s. Error: %s\n", testInstanceGuid, err3.Error())
+	}
+}
+
+func cleanupReclamationInstance() {
+	options1 := service.NewGetResourceInstanceOptions(testReclaimInstanceGuid)
+	result1, _, err1 := service.GetResourceInstance(options1)
+	if err1 != nil {
+		fmt.Printf("Failed to retrieve instance %s for cleanup.\n", testReclaimInstanceGuid)
+		return
+	}
+
+	if *result1.State == "removed" {
+		fmt.Printf("Instance %s was already reclaimed by the tests.\n", testReclaimInstanceGuid)
+	} else if *result1.State == "pending_reclamation" {
+		cleanupInstancePendingReclamation()
+	} else {
+		options2 := service.NewDeleteResourceInstanceOptions(testReclaimInstanceGuid)
+		resp2, err2 := service.DeleteResourceInstance(options2)
+		if resp2.StatusCode == 204 {
+			fmt.Printf("Successfully scheduled instance %s for reclamation.\n", testReclaimInstanceGuid)
+			time.Sleep(15 * time.Second)
+			cleanupInstancePendingReclamation()
+		} else {
+			fmt.Printf("Failed to schedule active instance %s for reclamation. Error: %s\n", testReclaimInstanceGuid, err2.Error())
+		}
+	}
+}
+
+func cleanupInstancePendingReclamation() {
+	options1 := service.NewListReclamationsOptions()
+	options1 = options1.SetAccountID(testAccountId)
+	options1 = options1.SetResourceInstanceID(testReclaimInstanceGuid)
+	result1, _, err1 := service.ListReclamations(options1)
+	if err1 != nil {
+		fmt.Printf("Failed to retrieve reclamation to process to reclaim instance %s. Error: %s\n", testReclaimInstanceGuid, err1.Error())
+		return
+	}
+
+	if len(result1.Resources) == 0 {
+		fmt.Printf("Failed to retrieve reclamation to process to reclaim instance %s.\n", testReclaimInstanceGuid)
+		return
+	}
+
+	reclamationId := *result1.Resources[0].ID
+	if *result1.Resources[0].State != "RECLAIMING" {
+		options2 := service.NewRunReclamationActionOptions(reclamationId, "reclaim")
+		_, _, err2 := service.RunReclamationAction(options2)
+		if err2 != nil {
+			fmt.Printf("Failed to process reclamation %s for instance %s. Error: %s\n", reclamationId, testReclaimInstanceGuid, err2.Error())
+		} else {
+			fmt.Printf("Successfully reclaimed instance %s.\n", testReclaimInstanceGuid)
+		}
+	} else {
+		fmt.Printf("Instance %s was already reclaimed by the tests.\n", testReclaimInstanceGuid)
+	}
+}
