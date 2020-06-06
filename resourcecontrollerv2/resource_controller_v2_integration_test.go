@@ -19,6 +19,7 @@ package resourcecontrollerv2_test
 
 import (
 	"github.com/IBM/platform-services-go-sdk/resourcecontrollerv2"
+	"github.com/satori/go.uuid"
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
 
@@ -105,6 +106,10 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 				testResourceGroupGuid,
 				testPlanId1,
 			)
+			headers := map[string]string{
+				"Transaction-Id": "rc-sdk-test-" + uuid.NewV4().String(),
+			}
+			options = options.SetHeaders(headers)
 			result, resp, err := service.CreateResourceInstance(options)
 
 			Expect(err).To(BeNil())
@@ -131,6 +136,10 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 			shouldSkipTest()
 
 			options := service.NewGetResourceInstanceOptions(testInstanceGuid)
+			headers := map[string]string{
+				"Transaction-Id": "rc-sdk-test-" + uuid.NewV4().String(),
+			}
+			options = options.SetHeaders(headers)
 			result, resp, err := service.GetResourceInstance(options)
 
 			Expect(err).To(BeNil())
@@ -157,6 +166,10 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 			params := make(map[string]interface{}, 0)
 			params["hello"] = "bye"
 			options = options.SetParameters(params)
+			headers := map[string]string{
+				"Transaction-Id": "rc-sdk-test-" + uuid.NewV4().String(),
+			}
+			options = options.SetHeaders(headers)
 			result, resp, err := service.UpdateResourceInstance(options)
 
 			Expect(err).To(BeNil())
@@ -175,6 +188,10 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 				shouldSkipTest()
 
 				options := service.NewListResourceInstancesOptions()
+				headers := map[string]string{
+					"Transaction-Id": "rc-sdk-test-" + uuid.NewV4().String(),
+				}
+				options = options.SetHeaders(headers)
 				result, resp, err := service.ListResourceInstances(options)
 
 				//should return one or more instances
@@ -189,6 +206,10 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 
 				options := service.NewListResourceInstancesOptions()
 				options = options.SetGuid(testInstanceGuid)
+				headers := map[string]string{
+					"Transaction-Id": "rc-sdk-test-" + uuid.NewV4().String(),
+				}
+				options = options.SetHeaders(headers)
 				result, resp, err := service.ListResourceInstances(options)
 
 				//should return list with only newly created instance
@@ -211,6 +232,10 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 
 				options := service.NewListResourceInstancesOptions()
 				options = options.SetName("RcSdkInstance1")
+				headers := map[string]string{
+					"Transaction-Id": "rc-sdk-test-" + uuid.NewV4().String(),
+				}
+				options = options.SetHeaders(headers)
 				result, resp, err := service.ListResourceInstances(options)
 
 				//name was updated so no instance with that name should exist
@@ -229,6 +254,10 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 			target := "crn:v1:bluemix:public:bluemix:us-south:o/" + testOrgGuid + "::cf-space:" + testSpaceGuid
 			aliasTargetCrn = "crn:v1:bluemix:public:cf:us-south:o/" + testOrgGuid + "::cf-space:" + testSpaceGuid
 			options := service.NewCreateResourceAliasOptions("RcSdkAlias1", testInstanceGuid, target)
+			headers := map[string]string{
+				"Transaction-Id": "rc-sdk-test-" + uuid.NewV4().String(),
+			}
+			options = options.SetHeaders(headers)
 			result, resp, err := service.CreateResourceAlias(options)
 
 			Expect(err).To(BeNil())
@@ -252,6 +281,10 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 			shouldSkipTest()
 
 			options := service.NewGetResourceAliasOptions(testAliasGuid)
+			headers := map[string]string{
+				"Transaction-Id": "rc-sdk-test-" + uuid.NewV4().String(),
+			}
+			options = options.SetHeaders(headers)
 			result, resp, err := service.GetResourceAlias(options)
 
 			Expect(err).To(BeNil())
@@ -271,6 +304,10 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 			shouldSkipTest()
 
 			options := service.NewUpdateResourceAliasOptions(testAliasGuid, "RcSdkAliasUpdate1")
+			headers := map[string]string{
+				"Transaction-Id": "rc-sdk-test-" + uuid.NewV4().String(),
+			}
+			options = options.SetHeaders(headers)
 			result, resp, err := service.UpdateResourceAlias(options)
 
 			Expect(err).To(BeNil())
@@ -285,6 +322,10 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 				shouldSkipTest()
 
 				options := service.NewListResourceAliasesOptions()
+				headers := map[string]string{
+					"Transaction-Id": "rc-sdk-test-" + uuid.NewV4().String(),
+				}
+				options = options.SetHeaders(headers)
 				result, resp, err := service.ListResourceAliases(options)
 
 				//should return one or more aliases
@@ -299,6 +340,10 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 
 				options := service.NewListResourceAliasesOptions()
 				options = options.SetGuid(testAliasGuid)
+				headers := map[string]string{
+					"Transaction-Id": "rc-sdk-test-" + uuid.NewV4().String(),
+				}
+				options = options.SetHeaders(headers)
 				result, resp, err := service.ListResourceAliases(options)
 
 				//should return list with only newly created alias
@@ -319,6 +364,10 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 
 				options := service.NewListResourceAliasesOptions()
 				options = options.SetName("RcSdkAlias1")
+				headers := map[string]string{
+					"Transaction-Id": "rc-sdk-test-" + uuid.NewV4().String(),
+				}
+				options = options.SetHeaders(headers)
 				result, resp, err := service.ListResourceAliases(options)
 
 				//name was updated so no alias with that name should exist
@@ -338,6 +387,10 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 			bindTargetCrn = "crn:v1:bluemix:public:cf:us-south:s/" + testSpaceGuid + "::cf-application:" + testAppGuid
 			options := service.NewCreateResourceBindingOptions(testAliasGuid, target)
 			options = options.SetName("RcSdkBinding1")
+			headers := map[string]string{
+				"Transaction-Id": "rc-sdk-test-" + uuid.NewV4().String(),
+			}
+			options = options.SetHeaders(headers)
 			result, resp, err := service.CreateResourceBinding(options)
 
 			Expect(err).To(BeNil())
@@ -361,6 +414,10 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 			shouldSkipTest()
 
 			options := service.NewGetResourceBindingOptions(testBindingGuid)
+			headers := map[string]string{
+				"Transaction-Id": "rc-sdk-test-" + uuid.NewV4().String(),
+			}
+			options = options.SetHeaders(headers)
 			result, resp, err := service.GetResourceBinding(options)
 
 			Expect(err).To(BeNil())
@@ -380,6 +437,10 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 			shouldSkipTest()
 
 			options := service.NewUpdateResourceBindingOptions(testBindingGuid, "RcSdkBindingUpdate1")
+			headers := map[string]string{
+				"Transaction-Id": "rc-sdk-test-" + uuid.NewV4().String(),
+			}
+			options = options.SetHeaders(headers)
 			result, resp, err := service.UpdateResourceBinding(options)
 
 			Expect(err).To(BeNil())
@@ -394,6 +455,10 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 				shouldSkipTest()
 
 				options := service.NewListResourceBindingsOptions()
+				headers := map[string]string{
+					"Transaction-Id": "rc-sdk-test-" + uuid.NewV4().String(),
+				}
+				options = options.SetHeaders(headers)
 				result, resp, err := service.ListResourceBindings(options)
 
 				//should return one or more bindings
@@ -408,6 +473,10 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 
 				options := service.NewListResourceBindingsOptions()
 				options = options.SetGuid(testBindingGuid)
+				headers := map[string]string{
+					"Transaction-Id": "rc-sdk-test-" + uuid.NewV4().String(),
+				}
+				options = options.SetHeaders(headers)
 				result, resp, err := service.ListResourceBindings(options)
 
 				//should return list with only newly created binding
@@ -428,6 +497,10 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 
 				options := service.NewListResourceAliasesOptions()
 				options = options.SetName("RcSdkBinding1")
+				headers := map[string]string{
+					"Transaction-Id": "rc-sdk-test-" + uuid.NewV4().String(),
+				}
+				options = options.SetHeaders(headers)
 				result, resp, err := service.ListResourceAliases(options)
 
 				//name was updated so no binding with that name should exist
@@ -444,6 +517,10 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 			shouldSkipTest()
 
 			options := service.NewCreateResourceKeyOptions("RcSdkKey1", testInstanceGuid)
+			headers := map[string]string{
+				"Transaction-Id": "rc-sdk-test-" + uuid.NewV4().String(),
+			}
+			options = options.SetHeaders(headers)
 			result, resp, err := service.CreateResourceKey(options)
 
 			Expect(err).To(BeNil())
@@ -466,6 +543,10 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 			shouldSkipTest()
 
 			options := service.NewGetResourceKeyOptions(testInstanceKeyGuid)
+			headers := map[string]string{
+				"Transaction-Id": "rc-sdk-test-" + uuid.NewV4().String(),
+			}
+			options = options.SetHeaders(headers)
 			result, resp, err := service.GetResourceKey(options)
 
 			Expect(err).To(BeNil())
@@ -484,6 +565,10 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 			shouldSkipTest()
 
 			options := service.NewUpdateResourceKeyOptions(testInstanceKeyGuid, "RcSdkKeyUpdate1")
+			headers := map[string]string{
+				"Transaction-Id": "rc-sdk-test-" + uuid.NewV4().String(),
+			}
+			options = options.SetHeaders(headers)
 			result, resp, err := service.UpdateResourceKey(options)
 
 			Expect(err).To(BeNil())
@@ -498,6 +583,10 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 				shouldSkipTest()
 
 				options := service.NewListResourceKeysOptions()
+				headers := map[string]string{
+					"Transaction-Id": "rc-sdk-test-" + uuid.NewV4().String(),
+				}
+				options = options.SetHeaders(headers)
 				result, resp, err := service.ListResourceKeys(options)
 
 				//should return one or more keys
@@ -512,6 +601,10 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 
 				options := service.NewListResourceKeysOptions()
 				options = options.SetGuid(testInstanceKeyGuid)
+				headers := map[string]string{
+					"Transaction-Id": "rc-sdk-test-" + uuid.NewV4().String(),
+				}
+				options = options.SetHeaders(headers)
 				result, resp, err := service.ListResourceKeys(options)
 
 				//should return list with only newly created key
@@ -531,6 +624,10 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 
 				options := service.NewListResourceKeysOptions()
 				options = options.SetName("RcSdkKey1")
+				headers := map[string]string{
+					"Transaction-Id": "rc-sdk-test-" + uuid.NewV4().String(),
+				}
+				options = options.SetHeaders(headers)
 				result, resp, err := service.ListResourceKeys(options)
 
 				//name was updated so no key with that name should exist
@@ -547,6 +644,10 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 			shouldSkipTest()
 
 			options := service.NewCreateResourceKeyOptions("RcSdkKey2", testAliasGuid)
+			headers := map[string]string{
+				"Transaction-Id": "rc-sdk-test-" + uuid.NewV4().String(),
+			}
+			options = options.SetHeaders(headers)
 			result, resp, err := service.CreateResourceKey(options)
 
 			Expect(err).To(BeNil())
@@ -569,6 +670,10 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 			shouldSkipTest()
 
 			options := service.NewGetResourceKeyOptions(testAliasKeyGuid)
+			headers := map[string]string{
+				"Transaction-Id": "rc-sdk-test-" + uuid.NewV4().String(),
+			}
+			options = options.SetHeaders(headers)
 			result, resp, err := service.GetResourceKey(options)
 
 			Expect(err).To(BeNil())
@@ -587,6 +692,10 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 			shouldSkipTest()
 
 			options := service.NewUpdateResourceKeyOptions(testAliasKeyGuid, "RcSdkKeyUpdate2")
+			headers := map[string]string{
+				"Transaction-Id": "rc-sdk-test-" + uuid.NewV4().String(),
+			}
+			options = options.SetHeaders(headers)
 			result, resp, err := service.UpdateResourceKey(options)
 
 			Expect(err).To(BeNil())
@@ -601,6 +710,10 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 				shouldSkipTest()
 
 				options := service.NewListResourceKeysOptions()
+				headers := map[string]string{
+					"Transaction-Id": "rc-sdk-test-" + uuid.NewV4().String(),
+				}
+				options = options.SetHeaders(headers)
 				result, resp, err := service.ListResourceKeys(options)
 
 				//should return two or more keys
@@ -615,6 +728,10 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 
 				options := service.NewListResourceKeysOptions()
 				options = options.SetGuid(testAliasKeyGuid)
+				headers := map[string]string{
+					"Transaction-Id": "rc-sdk-test-" + uuid.NewV4().String(),
+				}
+				options = options.SetHeaders(headers)
 				result, resp, err := service.ListResourceKeys(options)
 
 				//should return list with only newly created key
@@ -634,6 +751,10 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 
 				options := service.NewListResourceKeysOptions()
 				options = options.SetName("RcSdkKey2")
+				headers := map[string]string{
+					"Transaction-Id": "rc-sdk-test-" + uuid.NewV4().String(),
+				}
+				options = options.SetHeaders(headers)
 				result, resp, err := service.ListResourceKeys(options)
 
 				//name was updated so no key with that name should exist
@@ -650,6 +771,10 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 			shouldSkipTest()
 
 			options := service.NewDeleteResourceAliasOptions(testAliasGuid)
+			headers := map[string]string{
+				"Transaction-Id": "rc-sdk-test-" + uuid.NewV4().String(),
+			}
+			options = options.SetHeaders(headers)
 			resp, err := service.DeleteResourceAlias(options)
 
 			Expect(resp.StatusCode).To(Equal(400))
@@ -660,6 +785,10 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 			shouldSkipTest()
 
 			options := service.NewDeleteResourceInstanceOptions(testInstanceGuid)
+			headers := map[string]string{
+				"Transaction-Id": "rc-sdk-test-" + uuid.NewV4().String(),
+			}
+			options = options.SetHeaders(headers)
 			resp, err := service.DeleteResourceInstance(options)
 
 			Expect(resp.StatusCode).To(Equal(400))
@@ -670,6 +799,10 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 			shouldSkipTest()
 
 			options := service.NewDeleteResourceBindingOptions(testBindingGuid)
+			headers := map[string]string{
+				"Transaction-Id": "rc-sdk-test-" + uuid.NewV4().String(),
+			}
+			options = options.SetHeaders(headers)
 			resp, err := service.DeleteResourceBinding(options)
 
 			Expect(resp.StatusCode).To(Equal(204))
@@ -680,6 +813,10 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 			shouldSkipTest()
 
 			options := service.NewGetResourceBindingOptions(testBindingGuid)
+			headers := map[string]string{
+				"Transaction-Id": "rc-sdk-test-" + uuid.NewV4().String(),
+			}
+			options = options.SetHeaders(headers)
 			result, resp, err := service.GetResourceBinding(options)
 
 			Expect(err).To(BeNil())
@@ -692,12 +829,20 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 			shouldSkipTest()
 
 			options1 := service.NewDeleteResourceKeyOptions(testInstanceKeyGuid)
+			headers1 := map[string]string{
+				"Transaction-Id": "rc-sdk-test-" + uuid.NewV4().String(),
+			}
+			options1 = options1.SetHeaders(headers1)
 			resp1, err1 := service.DeleteResourceKey(options1)
 
 			Expect(resp1.StatusCode).To(Equal(204))
 			Expect(err1).To(BeNil())
 
 			options2 := service.NewDeleteResourceKeyOptions(testAliasKeyGuid)
+			headers2 := map[string]string{
+				"Transaction-Id": "rc-sdk-test-" + uuid.NewV4().String(),
+			}
+			options2 = options2.SetHeaders(headers2)
 			resp2, err2 := service.DeleteResourceKey(options2)
 
 			Expect(resp2.StatusCode).To(Equal(204))
@@ -708,6 +853,10 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 			shouldSkipTest()
 
 			options1 := service.NewGetResourceKeyOptions(testInstanceKeyGuid)
+			headers1 := map[string]string{
+				"Transaction-Id": "rc-sdk-test-" + uuid.NewV4().String(),
+			}
+			options1 = options1.SetHeaders(headers1)
 			result1, resp1, err1 := service.GetResourceKey(options1)
 
 			Expect(err1).To(BeNil())
@@ -716,6 +865,10 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 			Expect(*result1.State).To(Equal("removed"))
 
 			options2 := service.NewGetResourceKeyOptions(testAliasKeyGuid)
+			headers2 := map[string]string{
+				"Transaction-Id": "rc-sdk-test-" + uuid.NewV4().String(),
+			}
+			options2 = options2.SetHeaders(headers2)
 			result2, resp2, err2 := service.GetResourceKey(options2)
 
 			Expect(err2).To(BeNil())
@@ -728,6 +881,10 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 			shouldSkipTest()
 
 			options := service.NewDeleteResourceAliasOptions(testAliasGuid)
+			headers := map[string]string{
+				"Transaction-Id": "rc-sdk-test-" + uuid.NewV4().String(),
+			}
+			options = options.SetHeaders(headers)
 			resp, err := service.DeleteResourceAlias(options)
 
 			Expect(resp.StatusCode).To(Equal(204))
@@ -738,6 +895,10 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 			shouldSkipTest()
 
 			options := service.NewGetResourceAliasOptions(testAliasGuid)
+			headers := map[string]string{
+				"Transaction-Id": "rc-sdk-test-" + uuid.NewV4().String(),
+			}
+			options = options.SetHeaders(headers)
 			result, resp, err := service.GetResourceAlias(options)
 
 			Expect(err).To(BeNil())
@@ -752,6 +913,10 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 			shouldSkipTest()
 
 			options := service.NewLockResourceInstanceOptions(testInstanceGuid)
+			headers := map[string]string{
+				"Transaction-Id": "rc-sdk-test-" + uuid.NewV4().String(),
+			}
+			options = options.SetHeaders(headers)
 			result, resp, err := service.LockResourceInstance(options)
 
 			Expect(err).To(BeNil())
@@ -768,6 +933,10 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 
 			options := service.NewUpdateResourceInstanceOptions(testInstanceGuid)
 			options = options.SetName("RcSdkLockedInstanceUpdate1")
+			headers := map[string]string{
+				"Transaction-Id": "rc-sdk-test-" + uuid.NewV4().String(),
+			}
+			options = options.SetHeaders(headers)
 			_, resp, err := service.UpdateResourceInstance(options)
 
 			Expect(err).NotTo(BeNil())
@@ -778,6 +947,10 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 			shouldSkipTest()
 
 			options := service.NewDeleteResourceInstanceOptions(testInstanceGuid)
+			headers := map[string]string{
+				"Transaction-Id": "rc-sdk-test-" + uuid.NewV4().String(),
+			}
+			options = options.SetHeaders(headers)
 			resp, err := service.DeleteResourceInstance(options)
 
 			Expect(err).NotTo(BeNil())
@@ -788,6 +961,10 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 			shouldSkipTest()
 
 			options := service.NewUnlockResourceInstanceOptions(testInstanceGuid)
+			headers := map[string]string{
+				"Transaction-Id": "rc-sdk-test-" + uuid.NewV4().String(),
+			}
+			options = options.SetHeaders(headers)
 			result, resp, err := service.UnlockResourceInstance(options)
 
 			Expect(err).To(BeNil())
@@ -805,6 +982,10 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 			shouldSkipTest()
 
 			options := service.NewDeleteResourceInstanceOptions(testInstanceGuid)
+			headers := map[string]string{
+				"Transaction-Id": "rc-sdk-test-" + uuid.NewV4().String(),
+			}
+			options = options.SetHeaders(headers)
 			resp, err := service.DeleteResourceInstance(options)
 
 			Expect(resp.StatusCode).To(Equal(204))
@@ -815,6 +996,10 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 			shouldSkipTest()
 
 			options := service.NewGetResourceInstanceOptions(testInstanceGuid)
+			headers := map[string]string{
+				"Transaction-Id": "rc-sdk-test-" + uuid.NewV4().String(),
+			}
+			options = options.SetHeaders(headers)
 			result, resp, err := service.GetResourceInstance(options)
 
 			Expect(err).To(BeNil())
@@ -837,6 +1022,10 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 				testResourceGroupGuid,
 				testPlanId2,
 			)
+			headers := map[string]string{
+				"Transaction-Id": "rc-sdk-test-" + uuid.NewV4().String(),
+			}
+			options = options.SetHeaders(headers)
 			result, resp, err := service.CreateResourceInstance(options)
 
 			Expect(err).To(BeNil())
@@ -863,6 +1052,10 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 			shouldSkipTest()
 
 			options := service.NewDeleteResourceInstanceOptions(testReclaimInstanceGuid)
+			headers := map[string]string{
+				"Transaction-Id": "rc-sdk-test-" + uuid.NewV4().String(),
+			}
+			options = options.SetHeaders(headers)
 			resp, err := service.DeleteResourceInstance(options)
 
 			Expect(resp.StatusCode).To(Equal(204))
@@ -871,8 +1064,12 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 
 		It("Verify The Resource Instance Is Pending Reclamation", func() {
 			shouldSkipTest()
-			
+
 			options := service.NewGetResourceInstanceOptions(testReclaimInstanceGuid)
+			headers := map[string]string{
+				"Transaction-Id": "rc-sdk-test-" + uuid.NewV4().String(),
+			}
+			options = options.SetHeaders(headers)
 			result, resp, err := service.GetResourceInstance(options)
 
 			Expect(err).To(BeNil())
@@ -893,6 +1090,10 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 
 			options := service.NewListReclamationsOptions()
 			options = options.SetAccountID(testAccountId)
+			headers := map[string]string{
+				"Transaction-Id": "rc-sdk-test-" + uuid.NewV4().String(),
+			}
+			options = options.SetHeaders(headers)
 			result, resp, err := service.ListReclamations(options)
 
 			Expect(resp.StatusCode).To(Equal(200))
@@ -919,6 +1120,10 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 			shouldSkipTest()
 
 			options := service.NewRunReclamationActionOptions(testReclamationId1, "restore")
+			headers := map[string]string{
+				"Transaction-Id": "rc-sdk-test-" + uuid.NewV4().String(),
+			}
+			options = options.SetHeaders(headers)
 			result, resp, err := service.RunReclamationAction(options)
 
 			Expect(err).To(BeNil())
@@ -936,6 +1141,10 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 			shouldSkipTest()
 
 			options := service.NewGetResourceInstanceOptions(testReclaimInstanceGuid)
+			headers := map[string]string{
+				"Transaction-Id": "rc-sdk-test-" + uuid.NewV4().String(),
+			}
+			options = options.SetHeaders(headers)
 			result, resp, err := service.GetResourceInstance(options)
 
 			Expect(err).To(BeNil())
@@ -952,6 +1161,10 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 			shouldSkipTest()
 
 			options := service.NewDeleteResourceInstanceOptions(testReclaimInstanceGuid)
+			headers := map[string]string{
+				"Transaction-Id": "rc-sdk-test-" + uuid.NewV4().String(),
+			}
+			options = options.SetHeaders(headers)
 			resp, err := service.DeleteResourceInstance(options)
 
 			Expect(resp.StatusCode).To(Equal(204))
@@ -967,6 +1180,10 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 			options := service.NewListReclamationsOptions()
 			options = options.SetAccountID(testAccountId)
 			options = options.SetResourceInstanceID(testReclaimInstanceGuid)
+			headers := map[string]string{
+				"Transaction-Id": "rc-sdk-test-" + uuid.NewV4().String(),
+			}
+			options = options.SetHeaders(headers)
 			result, resp, err := service.ListReclamations(options)
 
 			Expect(err).To(BeNil())
@@ -984,6 +1201,10 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 			shouldSkipTest()
 
 			options := service.NewRunReclamationActionOptions(testReclamationId2, "reclaim")
+			headers := map[string]string{
+				"Transaction-Id": "rc-sdk-test-" + uuid.NewV4().String(),
+			}
+			options = options.SetHeaders(headers)
 			result, resp, err := service.RunReclamationAction(options)
 
 			Expect(err).To(BeNil())
@@ -1001,6 +1222,10 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 			shouldSkipTest()
 
 			options := service.NewGetResourceInstanceOptions(testReclaimInstanceGuid)
+			headers := map[string]string{
+				"Transaction-Id": "rc-sdk-test-" + uuid.NewV4().String(),
+			}
+			options = options.SetHeaders(headers)
 			result, resp, err := service.GetResourceInstance(options)
 
 			Expect(err).To(BeNil())
@@ -1034,6 +1259,10 @@ var _ = AfterSuite(func() {
 func cleanupResources() {
 	if testInstanceKeyGuid != "" {
 		options := service.NewDeleteResourceKeyOptions(testInstanceKeyGuid)
+		headers := map[string]string{
+			"Transaction-Id": "rc-sdk-cleanup-" + uuid.NewV4().String(),
+		}
+		options = options.SetHeaders(headers)
 		resp, err := service.DeleteResourceKey(options)
 		if resp.StatusCode == 204 {
 			fmt.Printf("Successful cleanup of key %s.\n", testInstanceKeyGuid)
@@ -1048,6 +1277,10 @@ func cleanupResources() {
 
 	if testAliasKeyGuid != "" {
 		options := service.NewDeleteResourceKeyOptions(testAliasKeyGuid)
+		headers := map[string]string{
+			"Transaction-Id": "rc-sdk-cleanup-" + uuid.NewV4().String(),
+		}
+		options = options.SetHeaders(headers)
 		resp, err := service.DeleteResourceKey(options)
 		if resp.StatusCode == 204 {
 			fmt.Printf("Successful cleanup of key %s.\n", testAliasKeyGuid)
@@ -1062,6 +1295,10 @@ func cleanupResources() {
 
 	if testBindingGuid != "" {
 		options := service.NewDeleteResourceBindingOptions(testBindingGuid)
+		headers := map[string]string{
+			"Transaction-Id": "rc-sdk-cleanup-" + uuid.NewV4().String(),
+		}
+		options = options.SetHeaders(headers)
 		resp, err := service.DeleteResourceBinding(options)
 		if resp.StatusCode == 204 {
 			fmt.Printf("Successful cleanup of binding %s.\n", testBindingGuid)
@@ -1076,6 +1313,10 @@ func cleanupResources() {
 
 	if testAliasGuid != "" {
 		options := service.NewDeleteResourceAliasOptions(testAliasGuid)
+		headers := map[string]string{
+			"Transaction-Id": "rc-sdk-cleanup-" + uuid.NewV4().String(),
+		}
+		options = options.SetHeaders(headers)
 		resp, err := service.DeleteResourceAlias(options)
 		if resp.StatusCode == 204 {
 			fmt.Printf("Successful cleanup of alias %s.\n", testAliasGuid)
@@ -1097,6 +1338,10 @@ func cleanupResources() {
 
 func cleanupInstance() {
 	options := service.NewGetResourceInstanceOptions(testInstanceGuid)
+	headers := map[string]string{
+		"Transaction-Id": "rc-sdk-cleanup-" + uuid.NewV4().String(),
+	}
+	options = options.SetHeaders(headers)
 	result, _, err := service.GetResourceInstance(options)
 	if err != nil {
 		fmt.Printf("Failed to retrieve instance %s for cleanup.\n", testInstanceGuid)
@@ -1105,6 +1350,10 @@ func cleanupInstance() {
 
 	if *result.Locked {
 		options2 := service.NewUnlockResourceInstanceOptions(testInstanceGuid)
+		headers2 := map[string]string{
+			"Transaction-Id": "rc-sdk-cleanup-" + uuid.NewV4().String(),
+		}
+		options2 = options2.SetHeaders(headers2)
 		_, _, err2 := service.UnlockResourceInstance(options2)
 		if err2 != nil {
 			fmt.Printf("Failed to unlock instance %s for cleanup. Error: %s", testInstanceGuid, err2.Error())
@@ -1113,6 +1362,10 @@ func cleanupInstance() {
 	}
 
 	options3 := service.NewDeleteResourceInstanceOptions(testInstanceGuid)
+	headers3 := map[string]string{
+		"Transaction-Id": "rc-sdk-cleanup-" + uuid.NewV4().String(),
+	}
+	options3 = options3.SetHeaders(headers3)
 	resp3, err3 := service.DeleteResourceInstance(options3)
 	if resp3.StatusCode == 204 {
 		fmt.Printf("Successful cleanup of instance %s.\n", testInstanceGuid)
@@ -1125,6 +1378,10 @@ func cleanupInstance() {
 
 func cleanupReclamationInstance() {
 	options1 := service.NewGetResourceInstanceOptions(testReclaimInstanceGuid)
+	headers1 := map[string]string{
+		"Transaction-Id": "rc-sdk-cleanup-" + uuid.NewV4().String(),
+	}
+	options1 = options1.SetHeaders(headers1)
 	result1, _, err1 := service.GetResourceInstance(options1)
 	if err1 != nil {
 		fmt.Printf("Failed to retrieve instance %s for cleanup.\n", testReclaimInstanceGuid)
@@ -1137,6 +1394,10 @@ func cleanupReclamationInstance() {
 		cleanupInstancePendingReclamation()
 	} else {
 		options2 := service.NewDeleteResourceInstanceOptions(testReclaimInstanceGuid)
+		headers2 := map[string]string{
+			"Transaction-Id": "rc-sdk-cleanup-" + uuid.NewV4().String(),
+		}
+		options2 = options2.SetHeaders(headers2)
 		resp2, err2 := service.DeleteResourceInstance(options2)
 		if resp2.StatusCode == 204 {
 			fmt.Printf("Successfully scheduled instance %s for reclamation.\n", testReclaimInstanceGuid)
@@ -1152,6 +1413,10 @@ func cleanupInstancePendingReclamation() {
 	options1 := service.NewListReclamationsOptions()
 	options1 = options1.SetAccountID(testAccountId)
 	options1 = options1.SetResourceInstanceID(testReclaimInstanceGuid)
+	headers1 := map[string]string{
+		"Transaction-Id": "rc-sdk-cleanup-" + uuid.NewV4().String(),
+	}
+	options1 = options1.SetHeaders(headers1)
 	result1, _, err1 := service.ListReclamations(options1)
 	if err1 != nil {
 		fmt.Printf("Failed to retrieve reclamation to process to reclaim instance %s. Error: %s\n", testReclaimInstanceGuid, err1.Error())
@@ -1166,6 +1431,10 @@ func cleanupInstancePendingReclamation() {
 	reclamationId := *result1.Resources[0].ID
 	if *result1.Resources[0].State != "RECLAIMING" {
 		options2 := service.NewRunReclamationActionOptions(reclamationId, "reclaim")
+		headers2 := map[string]string{
+			"Transaction-Id": "rc-sdk-cleanup-" + uuid.NewV4().String(),
+		}
+		options2 = options2.SetHeaders(headers2)
 		_, _, err2 := service.RunReclamationAction(options2)
 		if err2 != nil {
 			fmt.Printf("Failed to process reclamation %s for instance %s. Error: %s\n", reclamationId, testReclaimInstanceGuid, err2.Error())
