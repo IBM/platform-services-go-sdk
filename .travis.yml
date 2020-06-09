@@ -25,6 +25,7 @@ before_install:
       && openssl aes-256-cbc -K $encrypted_acd9ca9788e3_key -iv $encrypted_acd9ca9788e3_iv -in resource_manager.env.enc -out resource_manager.env -d
       && openssl aes-256-cbc -K $encrypted_dac53b985913_key -iv $encrypted_dac53b985913_iv -in case_management.env.enc -out case_management.env -d
       && openssl aes-256-cbc -K $encrypted_25d847003bcf_key -iv $encrypted_25d847003bcf_iv -in enterprise-management.env.enc -out enterprise-management.env -d
+      && openssl aes-256-cbc -K $encrypted_6eaa1fc94541_key -iv $encrypted_6eaa1fc94541_iv -in catalog_mgmt.env.enc -out catalog_mgmt.env -d
       || true
 
 install:
