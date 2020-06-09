@@ -35,11 +35,11 @@ var (
 	err          error
 	configLoaded bool = false
 
-	testAccountId         string = "ff2222f38a5a441587dfe61325796d77"
-	testResourceGroupGuid string = "11a36e8d55ac9e26864d4d80d2fbf5e3"
-	testOrgGuid           string = "f98541be-7d7f-4760-9c56-d6ecb38ec875"
-	testSpaceGuid         string = "941b12ac-19e8-4594-ad64-031513804219"
-	testAppGuid           string = "2c0bb6c3-3f13-4449-81d8-f23a505de988"
+	testAccountId         string = "bc2b2fca0af84354a916dc1de6eee42e"
+	testResourceGroupGuid string = "13aa3ee48c3b44ddb64c05c79f7ab8ef"
+	testOrgGuid           string = "d35d4f0e-5076-4c89-9361-2522894b6548"
+	testSpaceGuid         string = "336ba5f3-f185-488e-ac8d-02195eebb2f3"
+	testAppGuid           string = "bf692181-1f0e-46be-9faf-eb0857f4d1d5"
 	testRegionId1         string = "global"
 	testPlanId1           string = "a10e4820-3685-11e9-b210-d663bd873d93"
 	testRegionId2         string = "us-south"
@@ -383,8 +383,8 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 		It("Create Resource Binding", func() {
 			shouldSkipTest()
 
-			target := "crn:v1:bluemix:public:bluemix:us-south:s/" + testSpaceGuid + "::cf-application:" + testAppGuid
-			bindTargetCrn = "crn:v1:bluemix:public:cf:us-south:s/" + testSpaceGuid + "::cf-application:" + testAppGuid
+			target := "crn:v1:staging:public:bluemix:us-south:s/" + testSpaceGuid + "::cf-application:" + testAppGuid
+			bindTargetCrn = "crn:v1:staging:public:cf:us-south:s/" + testSpaceGuid + "::cf-application:" + testAppGuid
 			options := service.NewCreateResourceBindingOptions(testAliasGuid, target)
 			options = options.SetName("RcSdkBinding1")
 			headers := map[string]string{
