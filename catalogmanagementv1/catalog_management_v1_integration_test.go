@@ -244,7 +244,7 @@ var _ = Describe("Catalog Management - Integration Tests", func() {
 			id := *createResult.ID
 
 			replaceOptions := service.NewReplaceCatalogOptions(id)
-			replaceOptions.SetCatalogID(id)
+			replaceOptions.SetCatalogIdentifier(id)
 			replaceOptions.SetID(id)
 			replaceOptions.SetLabel(expectedLabelUpdated)
 			replaceOptions.SetShortDescription(expectedShortDescUpdated)
@@ -270,7 +270,7 @@ var _ = Describe("Catalog Management - Integration Tests", func() {
 
 			id := fakeName
 			replaceOptions := service.NewReplaceCatalogOptions(id)
-			replaceOptions.SetCatalogID(id)
+			replaceOptions.SetCatalogIdentifier(id)
 			replaceOptions.SetID(id)
 			_, replaceResponse, err := service.ReplaceCatalog(replaceOptions)
 
@@ -326,8 +326,8 @@ var _ = Describe("Catalog Management - Integration Tests", func() {
 			catalogID := *catalogResult.ID
 
 			offeringOptions := service.NewCreateOfferingOptions(catalogID)
-			offeringOptions.SetNewName(expectedName)
-			offeringOptions.SetNewLabel(expectedLabel)
+			offeringOptions.SetName(expectedName)
+			offeringOptions.SetLabel(expectedLabel)
 			offeringResult, offeringResponse, err := service.CreateOffering(offeringOptions)
 
 			service.DeleteCatalog(service.NewDeleteCatalogOptions(catalogID))
@@ -356,8 +356,8 @@ var _ = Describe("Catalog Management - Integration Tests", func() {
 			catalogID := *catalogResult.ID
 
 			offeringOptions := service.NewCreateOfferingOptions(catalogID)
-			offeringOptions.SetNewName(expectedName)
-			offeringOptions.SetNewLabel(expectedLabel)
+			offeringOptions.SetName(expectedName)
+			offeringOptions.SetLabel(expectedLabel)
 			offeringResult, _, _ := service.CreateOffering(offeringOptions)
 			offeringID := *offeringResult.ID
 
@@ -418,8 +418,8 @@ var _ = Describe("Catalog Management - Integration Tests", func() {
 			catalogID := *catalogResult.ID
 
 			offeringOptions := service.NewCreateOfferingOptions(catalogID)
-			offeringOptions.SetNewName(expectedName)
-			offeringOptions.SetNewLabel(expectedLabel)
+			offeringOptions.SetName(expectedName)
+			offeringOptions.SetLabel(expectedLabel)
 			offeringResult, _, _ := service.CreateOffering(offeringOptions)
 			offeringID := *offeringResult.ID
 
@@ -461,8 +461,8 @@ var _ = Describe("Catalog Management - Integration Tests", func() {
 			catalogID := *catalogResult.ID
 
 			offeringOptions := service.NewCreateOfferingOptions(catalogID)
-			offeringOptions.SetNewName(expectedName)
-			offeringOptions.SetNewLabel(expectedLabel)
+			offeringOptions.SetName(expectedName)
+			offeringOptions.SetLabel(expectedLabel)
 			offeringResult, _, _ := service.CreateOffering(offeringOptions)
 			offeringID := *offeringResult.ID
 
@@ -516,18 +516,18 @@ var _ = Describe("Catalog Management - Integration Tests", func() {
 			catalogID := *catalogResult.ID
 
 			offeringOptions := service.NewCreateOfferingOptions(catalogID)
-			offeringOptions.SetNewName(expectedName)
-			offeringOptions.SetNewLabel(expectedLabel)
-			offeringOptions.SetNewShortDescription(expectedShortDesc)
+			offeringOptions.SetName(expectedName)
+			offeringOptions.SetLabel(expectedLabel)
+			offeringOptions.SetShortDescription(expectedShortDesc)
 			offeringResult, _, _ := service.CreateOffering(offeringOptions)
 			offeringID := *offeringResult.ID
 			rev := *offeringResult.Rev
 
 			updateOptions := service.NewReplaceOfferingOptions(catalogID, offeringID)
-			updateOptions.SetNewID(offeringID)
-			updateOptions.SetNewLabel(expectedLabelUpdate)
-			updateOptions.SetNewShortDescription(expectedShortDescUpdate)
-			updateOptions.SetNewRev(rev)
+			updateOptions.SetID(offeringID)
+			updateOptions.SetLabel(expectedLabelUpdate)
+			updateOptions.SetShortDescription(expectedShortDescUpdate)
+			updateOptions.SetRev(rev)
 			updateResult, updateResponse, err := service.ReplaceOffering(updateOptions)
 
 			service.DeleteCatalog(service.NewDeleteCatalogOptions(catalogID))
@@ -550,8 +550,8 @@ var _ = Describe("Catalog Management - Integration Tests", func() {
 			rev := fakeName
 
 			updateOptions := service.NewReplaceOfferingOptions(catalogID, offeringID)
-			updateOptions.SetNewID(offeringID)
-			updateOptions.SetNewRev(rev)
+			updateOptions.SetID(offeringID)
+			updateOptions.SetRev(rev)
 			_, updateResponse, err := service.ReplaceOffering(updateOptions)
 
 			service.DeleteCatalog(service.NewDeleteCatalogOptions(catalogID))

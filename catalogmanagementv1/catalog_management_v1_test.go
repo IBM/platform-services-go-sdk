@@ -599,7 +599,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 					Expect(req.Method).To(Equal("GET"))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, `{"offset": 6, "limit": 5, "total_count": 10, "resource_count": 13, "first": "First", "last": "Last", "prev": "Prev", "next": "Next", "resources": [{"id": "ID", "label": "Label", "short_description": "ShortDescription", "catalog_icon_url": "CatalogIconURL", "tags": ["Tags"], "url": "URL", "crn": "Crn", "offerings_url": "OfferingsURL", "features": [{"title": "Title", "description": "Description"}], "disabled": true, "created": "2019-01-01T12:00:00", "updated": "2019-01-01T12:00:00", "resource_group_id": "ResourceGroupID", "owning_account": "OwningAccount", "catalog_filters": {"include_all": true, "category_filters": {"mapKey": {"include": false, "filter": {"filter_terms": ["FilterTerms"]}}}, "id_filters": {"include": {"filter_terms": ["FilterTerms"]}, "exclude": {"filter_terms": ["FilterTerms"]}}}, "syndication_settings": {"remove_related_components": false, "clusters": [{"region": "Region", "id": "ID", "name": "Name", "resource_group_name": "ResourceGroupName", "type": "Type", "namespaces": ["Namespaces"], "all_namespaces": false}], "history": {"namespaces": ["Namespaces"], "clusters": [{"region": "Region", "id": "ID", "name": "Name", "resource_group_name": "ResourceGroupName", "type": "Type", "namespaces": ["Namespaces"], "all_namespaces": false}], "last_run": "2019-01-01T12:00:00"}, "authorization": {"token": "Token", "last_run": "2019-01-01T12:00:00"}}}]}`)
+					fmt.Fprintf(res, `{"offset": 6, "limit": 5, "total_count": 10, "resource_count": 13, "first": "First", "last": "Last", "prev": "Prev", "next": "Next", "resources": [{"id": "ID", "_rev": "Rev", "label": "Label", "short_description": "ShortDescription", "catalog_icon_url": "CatalogIconURL", "tags": ["Tags"], "url": "URL", "crn": "Crn", "offerings_url": "OfferingsURL", "features": [{"title": "Title", "description": "Description"}], "disabled": true, "created": "2019-01-01T12:00:00", "updated": "2019-01-01T12:00:00", "resource_group_id": "ResourceGroupID", "owning_account": "OwningAccount", "catalog_filters": {"include_all": true, "category_filters": {"mapKey": {"include": false, "filter": {"filter_terms": ["FilterTerms"]}}}, "id_filters": {"include": {"filter_terms": ["FilterTerms"]}, "exclude": {"filter_terms": ["FilterTerms"]}}}, "syndication_settings": {"remove_related_components": false, "clusters": [{"region": "Region", "id": "ID", "name": "Name", "resource_group_name": "ResourceGroupName", "type": "Type", "namespaces": ["Namespaces"], "all_namespaces": false}], "history": {"namespaces": ["Namespaces"], "clusters": [{"region": "Region", "id": "ID", "name": "Name", "resource_group_name": "ResourceGroupName", "type": "Type", "namespaces": ["Namespaces"], "all_namespaces": false}], "last_run": "2019-01-01T12:00:00"}, "authorization": {"token": "Token", "last_run": "2019-01-01T12:00:00"}}}]}`)
 				}))
 			})
 			It(`Invoke ListCatalogs successfully`, func() {
@@ -730,6 +730,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				// Construct an instance of the CreateCatalogOptions model
 				createCatalogOptionsModel := new(catalogmanagementv1.CreateCatalogOptions)
 				createCatalogOptionsModel.ID = core.StringPtr("testString")
+				createCatalogOptionsModel.Rev = core.StringPtr("testString")
 				createCatalogOptionsModel.Label = core.StringPtr("testString")
 				createCatalogOptionsModel.ShortDescription = core.StringPtr("testString")
 				createCatalogOptionsModel.CatalogIconURL = core.StringPtr("testString")
@@ -770,7 +771,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 					Expect(req.Method).To(Equal("POST"))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, `{"id": "ID", "label": "Label", "short_description": "ShortDescription", "catalog_icon_url": "CatalogIconURL", "tags": ["Tags"], "url": "URL", "crn": "Crn", "offerings_url": "OfferingsURL", "features": [{"title": "Title", "description": "Description"}], "disabled": true, "created": "2019-01-01T12:00:00", "updated": "2019-01-01T12:00:00", "resource_group_id": "ResourceGroupID", "owning_account": "OwningAccount", "catalog_filters": {"include_all": true, "category_filters": {"mapKey": {"include": false, "filter": {"filter_terms": ["FilterTerms"]}}}, "id_filters": {"include": {"filter_terms": ["FilterTerms"]}, "exclude": {"filter_terms": ["FilterTerms"]}}}, "syndication_settings": {"remove_related_components": false, "clusters": [{"region": "Region", "id": "ID", "name": "Name", "resource_group_name": "ResourceGroupName", "type": "Type", "namespaces": ["Namespaces"], "all_namespaces": false}], "history": {"namespaces": ["Namespaces"], "clusters": [{"region": "Region", "id": "ID", "name": "Name", "resource_group_name": "ResourceGroupName", "type": "Type", "namespaces": ["Namespaces"], "all_namespaces": false}], "last_run": "2019-01-01T12:00:00"}, "authorization": {"token": "Token", "last_run": "2019-01-01T12:00:00"}}}`)
+					fmt.Fprintf(res, `{"id": "ID", "_rev": "Rev", "label": "Label", "short_description": "ShortDescription", "catalog_icon_url": "CatalogIconURL", "tags": ["Tags"], "url": "URL", "crn": "Crn", "offerings_url": "OfferingsURL", "features": [{"title": "Title", "description": "Description"}], "disabled": true, "created": "2019-01-01T12:00:00", "updated": "2019-01-01T12:00:00", "resource_group_id": "ResourceGroupID", "owning_account": "OwningAccount", "catalog_filters": {"include_all": true, "category_filters": {"mapKey": {"include": false, "filter": {"filter_terms": ["FilterTerms"]}}}, "id_filters": {"include": {"filter_terms": ["FilterTerms"]}, "exclude": {"filter_terms": ["FilterTerms"]}}}, "syndication_settings": {"remove_related_components": false, "clusters": [{"region": "Region", "id": "ID", "name": "Name", "resource_group_name": "ResourceGroupName", "type": "Type", "namespaces": ["Namespaces"], "all_namespaces": false}], "history": {"namespaces": ["Namespaces"], "clusters": [{"region": "Region", "id": "ID", "name": "Name", "resource_group_name": "ResourceGroupName", "type": "Type", "namespaces": ["Namespaces"], "all_namespaces": false}], "last_run": "2019-01-01T12:00:00"}, "authorization": {"token": "Token", "last_run": "2019-01-01T12:00:00"}}}`)
 				}))
 			})
 			It(`Invoke CreateCatalog successfully`, func() {
@@ -843,6 +844,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				// Construct an instance of the CreateCatalogOptions model
 				createCatalogOptionsModel := new(catalogmanagementv1.CreateCatalogOptions)
 				createCatalogOptionsModel.ID = core.StringPtr("testString")
+				createCatalogOptionsModel.Rev = core.StringPtr("testString")
 				createCatalogOptionsModel.Label = core.StringPtr("testString")
 				createCatalogOptionsModel.ShortDescription = core.StringPtr("testString")
 				createCatalogOptionsModel.CatalogIconURL = core.StringPtr("testString")
@@ -930,6 +932,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				// Construct an instance of the CreateCatalogOptions model
 				createCatalogOptionsModel := new(catalogmanagementv1.CreateCatalogOptions)
 				createCatalogOptionsModel.ID = core.StringPtr("testString")
+				createCatalogOptionsModel.Rev = core.StringPtr("testString")
 				createCatalogOptionsModel.Label = core.StringPtr("testString")
 				createCatalogOptionsModel.ShortDescription = core.StringPtr("testString")
 				createCatalogOptionsModel.CatalogIconURL = core.StringPtr("testString")
@@ -985,7 +988,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 
 				// Construct an instance of the GetCatalogOptions model
 				getCatalogOptionsModel := new(catalogmanagementv1.GetCatalogOptions)
-				getCatalogOptionsModel.CatalogID = core.StringPtr("testString")
+				getCatalogOptionsModel.CatalogIdentifier = core.StringPtr("testString")
 				getCatalogOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
 				result, response, operationErr := testService.GetCatalog(getCatalogOptionsModel)
@@ -1011,7 +1014,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 					Expect(req.Method).To(Equal("GET"))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, `{"id": "ID", "label": "Label", "short_description": "ShortDescription", "catalog_icon_url": "CatalogIconURL", "tags": ["Tags"], "url": "URL", "crn": "Crn", "offerings_url": "OfferingsURL", "features": [{"title": "Title", "description": "Description"}], "disabled": true, "created": "2019-01-01T12:00:00", "updated": "2019-01-01T12:00:00", "resource_group_id": "ResourceGroupID", "owning_account": "OwningAccount", "catalog_filters": {"include_all": true, "category_filters": {"mapKey": {"include": false, "filter": {"filter_terms": ["FilterTerms"]}}}, "id_filters": {"include": {"filter_terms": ["FilterTerms"]}, "exclude": {"filter_terms": ["FilterTerms"]}}}, "syndication_settings": {"remove_related_components": false, "clusters": [{"region": "Region", "id": "ID", "name": "Name", "resource_group_name": "ResourceGroupName", "type": "Type", "namespaces": ["Namespaces"], "all_namespaces": false}], "history": {"namespaces": ["Namespaces"], "clusters": [{"region": "Region", "id": "ID", "name": "Name", "resource_group_name": "ResourceGroupName", "type": "Type", "namespaces": ["Namespaces"], "all_namespaces": false}], "last_run": "2019-01-01T12:00:00"}, "authorization": {"token": "Token", "last_run": "2019-01-01T12:00:00"}}}`)
+					fmt.Fprintf(res, `{"id": "ID", "_rev": "Rev", "label": "Label", "short_description": "ShortDescription", "catalog_icon_url": "CatalogIconURL", "tags": ["Tags"], "url": "URL", "crn": "Crn", "offerings_url": "OfferingsURL", "features": [{"title": "Title", "description": "Description"}], "disabled": true, "created": "2019-01-01T12:00:00", "updated": "2019-01-01T12:00:00", "resource_group_id": "ResourceGroupID", "owning_account": "OwningAccount", "catalog_filters": {"include_all": true, "category_filters": {"mapKey": {"include": false, "filter": {"filter_terms": ["FilterTerms"]}}}, "id_filters": {"include": {"filter_terms": ["FilterTerms"]}, "exclude": {"filter_terms": ["FilterTerms"]}}}, "syndication_settings": {"remove_related_components": false, "clusters": [{"region": "Region", "id": "ID", "name": "Name", "resource_group_name": "ResourceGroupName", "type": "Type", "namespaces": ["Namespaces"], "all_namespaces": false}], "history": {"namespaces": ["Namespaces"], "clusters": [{"region": "Region", "id": "ID", "name": "Name", "resource_group_name": "ResourceGroupName", "type": "Type", "namespaces": ["Namespaces"], "all_namespaces": false}], "last_run": "2019-01-01T12:00:00"}, "authorization": {"token": "Token", "last_run": "2019-01-01T12:00:00"}}}`)
 				}))
 			})
 			It(`Invoke GetCatalog successfully`, func() {
@@ -1030,7 +1033,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 
 				// Construct an instance of the GetCatalogOptions model
 				getCatalogOptionsModel := new(catalogmanagementv1.GetCatalogOptions)
-				getCatalogOptionsModel.CatalogID = core.StringPtr("testString")
+				getCatalogOptionsModel.CatalogIdentifier = core.StringPtr("testString")
  				getCatalogOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
@@ -1049,7 +1052,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 
 				// Construct an instance of the GetCatalogOptions model
 				getCatalogOptionsModel := new(catalogmanagementv1.GetCatalogOptions)
-				getCatalogOptionsModel.CatalogID = core.StringPtr("testString")
+				getCatalogOptionsModel.CatalogIdentifier = core.StringPtr("testString")
 				getCatalogOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := testService.SetServiceURL("")
@@ -1150,8 +1153,9 @@ var _ = Describe(`CatalogManagementV1`, func() {
 
 				// Construct an instance of the ReplaceCatalogOptions model
 				replaceCatalogOptionsModel := new(catalogmanagementv1.ReplaceCatalogOptions)
-				replaceCatalogOptionsModel.CatalogID = core.StringPtr("testString")
+				replaceCatalogOptionsModel.CatalogIdentifier = core.StringPtr("testString")
 				replaceCatalogOptionsModel.ID = core.StringPtr("testString")
+				replaceCatalogOptionsModel.Rev = core.StringPtr("testString")
 				replaceCatalogOptionsModel.Label = core.StringPtr("testString")
 				replaceCatalogOptionsModel.ShortDescription = core.StringPtr("testString")
 				replaceCatalogOptionsModel.CatalogIconURL = core.StringPtr("testString")
@@ -1192,7 +1196,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 					Expect(req.Method).To(Equal("PUT"))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, `{"id": "ID", "label": "Label", "short_description": "ShortDescription", "catalog_icon_url": "CatalogIconURL", "tags": ["Tags"], "url": "URL", "crn": "Crn", "offerings_url": "OfferingsURL", "features": [{"title": "Title", "description": "Description"}], "disabled": true, "created": "2019-01-01T12:00:00", "updated": "2019-01-01T12:00:00", "resource_group_id": "ResourceGroupID", "owning_account": "OwningAccount", "catalog_filters": {"include_all": true, "category_filters": {"mapKey": {"include": false, "filter": {"filter_terms": ["FilterTerms"]}}}, "id_filters": {"include": {"filter_terms": ["FilterTerms"]}, "exclude": {"filter_terms": ["FilterTerms"]}}}, "syndication_settings": {"remove_related_components": false, "clusters": [{"region": "Region", "id": "ID", "name": "Name", "resource_group_name": "ResourceGroupName", "type": "Type", "namespaces": ["Namespaces"], "all_namespaces": false}], "history": {"namespaces": ["Namespaces"], "clusters": [{"region": "Region", "id": "ID", "name": "Name", "resource_group_name": "ResourceGroupName", "type": "Type", "namespaces": ["Namespaces"], "all_namespaces": false}], "last_run": "2019-01-01T12:00:00"}, "authorization": {"token": "Token", "last_run": "2019-01-01T12:00:00"}}}`)
+					fmt.Fprintf(res, `{"id": "ID", "_rev": "Rev", "label": "Label", "short_description": "ShortDescription", "catalog_icon_url": "CatalogIconURL", "tags": ["Tags"], "url": "URL", "crn": "Crn", "offerings_url": "OfferingsURL", "features": [{"title": "Title", "description": "Description"}], "disabled": true, "created": "2019-01-01T12:00:00", "updated": "2019-01-01T12:00:00", "resource_group_id": "ResourceGroupID", "owning_account": "OwningAccount", "catalog_filters": {"include_all": true, "category_filters": {"mapKey": {"include": false, "filter": {"filter_terms": ["FilterTerms"]}}}, "id_filters": {"include": {"filter_terms": ["FilterTerms"]}, "exclude": {"filter_terms": ["FilterTerms"]}}}, "syndication_settings": {"remove_related_components": false, "clusters": [{"region": "Region", "id": "ID", "name": "Name", "resource_group_name": "ResourceGroupName", "type": "Type", "namespaces": ["Namespaces"], "all_namespaces": false}], "history": {"namespaces": ["Namespaces"], "clusters": [{"region": "Region", "id": "ID", "name": "Name", "resource_group_name": "ResourceGroupName", "type": "Type", "namespaces": ["Namespaces"], "all_namespaces": false}], "last_run": "2019-01-01T12:00:00"}, "authorization": {"token": "Token", "last_run": "2019-01-01T12:00:00"}}}`)
 				}))
 			})
 			It(`Invoke ReplaceCatalog successfully`, func() {
@@ -1264,8 +1268,9 @@ var _ = Describe(`CatalogManagementV1`, func() {
 
 				// Construct an instance of the ReplaceCatalogOptions model
 				replaceCatalogOptionsModel := new(catalogmanagementv1.ReplaceCatalogOptions)
-				replaceCatalogOptionsModel.CatalogID = core.StringPtr("testString")
+				replaceCatalogOptionsModel.CatalogIdentifier = core.StringPtr("testString")
 				replaceCatalogOptionsModel.ID = core.StringPtr("testString")
+				replaceCatalogOptionsModel.Rev = core.StringPtr("testString")
 				replaceCatalogOptionsModel.Label = core.StringPtr("testString")
 				replaceCatalogOptionsModel.ShortDescription = core.StringPtr("testString")
 				replaceCatalogOptionsModel.CatalogIconURL = core.StringPtr("testString")
@@ -1352,8 +1357,9 @@ var _ = Describe(`CatalogManagementV1`, func() {
 
 				// Construct an instance of the ReplaceCatalogOptions model
 				replaceCatalogOptionsModel := new(catalogmanagementv1.ReplaceCatalogOptions)
-				replaceCatalogOptionsModel.CatalogID = core.StringPtr("testString")
+				replaceCatalogOptionsModel.CatalogIdentifier = core.StringPtr("testString")
 				replaceCatalogOptionsModel.ID = core.StringPtr("testString")
+				replaceCatalogOptionsModel.Rev = core.StringPtr("testString")
 				replaceCatalogOptionsModel.Label = core.StringPtr("testString")
 				replaceCatalogOptionsModel.ShortDescription = core.StringPtr("testString")
 				replaceCatalogOptionsModel.CatalogIconURL = core.StringPtr("testString")
@@ -1420,7 +1426,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 
 				// Construct an instance of the DeleteCatalogOptions model
 				deleteCatalogOptionsModel := new(catalogmanagementv1.DeleteCatalogOptions)
-				deleteCatalogOptionsModel.CatalogID = core.StringPtr("testString")
+				deleteCatalogOptionsModel.CatalogIdentifier = core.StringPtr("testString")
  				deleteCatalogOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
@@ -1438,7 +1444,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 
 				// Construct an instance of the DeleteCatalogOptions model
 				deleteCatalogOptionsModel := new(catalogmanagementv1.DeleteCatalogOptions)
-				deleteCatalogOptionsModel.CatalogID = core.StringPtr("testString")
+				deleteCatalogOptionsModel.CatalogIdentifier = core.StringPtr("testString")
 				deleteCatalogOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := testService.SetServiceURL("")
@@ -1610,7 +1616,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 					Expect(req.Method).To(Equal("GET"))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, `{"id": "ID", "account_filters": {"include_all": true, "category_filters": {"mapKey": {"include": false, "filter": {"filter_terms": ["FilterTerms"]}}}, "id_filters": {"include": {"filter_terms": ["FilterTerms"]}, "exclude": {"filter_terms": ["FilterTerms"]}}}, "account_groups": {"keys": {"id": "ID", "account_filters": {"include_all": true, "category_filters": {"mapKey": {"include": false, "filter": {"filter_terms": ["FilterTerms"]}}}, "id_filters": {"include": {"filter_terms": ["FilterTerms"]}, "exclude": {"filter_terms": ["FilterTerms"]}}}}}}`)
+					fmt.Fprintf(res, `{"id": "ID", "_rev": "Rev", "account_filters": {"include_all": true, "category_filters": {"mapKey": {"include": false, "filter": {"filter_terms": ["FilterTerms"]}}}, "id_filters": {"include": {"filter_terms": ["FilterTerms"]}, "exclude": {"filter_terms": ["FilterTerms"]}}}, "account_groups": {"keys": {"id": "ID", "account_filters": {"include_all": true, "category_filters": {"mapKey": {"include": false, "filter": {"filter_terms": ["FilterTerms"]}}}, "id_filters": {"include": {"filter_terms": ["FilterTerms"]}, "exclude": {"filter_terms": ["FilterTerms"]}}}}}}`)
 				}))
 			})
 			It(`Invoke GetEnterprise successfully`, func() {
@@ -1731,6 +1737,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				replaceEnterpriseOptionsModel := new(catalogmanagementv1.ReplaceEnterpriseOptions)
 				replaceEnterpriseOptionsModel.EnterpriseID = core.StringPtr("testString")
 				replaceEnterpriseOptionsModel.ID = core.StringPtr("testString")
+				replaceEnterpriseOptionsModel.Rev = core.StringPtr("testString")
 				replaceEnterpriseOptionsModel.AccountFilters = filtersModel
 				replaceEnterpriseOptionsModel.AccountGroups = enterpriseAccountGroupsModel
  				replaceEnterpriseOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
@@ -1781,6 +1788,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				replaceEnterpriseOptionsModel := new(catalogmanagementv1.ReplaceEnterpriseOptions)
 				replaceEnterpriseOptionsModel.EnterpriseID = core.StringPtr("testString")
 				replaceEnterpriseOptionsModel.ID = core.StringPtr("testString")
+				replaceEnterpriseOptionsModel.Rev = core.StringPtr("testString")
 				replaceEnterpriseOptionsModel.AccountFilters = filtersModel
 				replaceEnterpriseOptionsModel.AccountGroups = enterpriseAccountGroupsModel
 				replaceEnterpriseOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
@@ -1977,7 +1985,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, `{"offset": 6, "limit": 5, "total_count": 10, "resource_count": 13, "first": "First", "last": "Last", "prev": "Prev", "next": "Next", "resources": [{"id": "ID", "url": "URL", "crn": "Crn", "label": "Label", "name": "Name", "offering_icon_url": "OfferingIconURL", "offering_docs_url": "OfferingDocsURL", "offering_support_url": "OfferingSupportURL", "tags": ["Tags"], "rating": {"one_star_count": 12, "two_star_count": 12, "three_star_count": 14, "four_star_count": 13}, "created": "2019-01-01T12:00:00", "updated": "2019-01-01T12:00:00", "short_description": "ShortDescription", "long_description": "LongDescription", "features": [{"title": "Title", "description": "Description"}], "kinds": [{"id": "ID", "format_kind": "FormatKind", "target_kind": "TargetKind", "metadata": {"anyKey": "anyValue"}, "install_description": "InstallDescription", "tags": ["Tags"], "additional_features": [{"title": "Title", "description": "Description"}], "created": "2019-01-01T12:00:00", "updated": "2019-01-01T12:00:00", "versions": [{"id": "ID", "crn": "Crn", "version": "Version", "sha": "Sha", "created": "2019-01-01T12:00:00", "updated": "2019-01-01T12:00:00", "offering_id": "OfferingID", "catalog_id": "CatalogID", "kind_id": "KindID", "tags": ["Tags"], "repo_url": "RepoURL", "source_url": "SourceURL", "tgz_url": "TgzURL", "configuration": [{"key": "Key", "type": "Type", "default_value": "DefaultValue", "value_constraint": "ValueConstraint", "description": "Description", "required": true, "options": [{"anyKey": "anyValue"}], "hidden": true}], "metadata": {"anyKey": "anyValue"}, "validation": {"validated": "2019-01-01T12:00:00", "requested": "2019-01-01T12:00:00", "state": "State", "last_operation": "LastOperation", "target": {"anyKey": "anyValue"}}, "required_resources": {"type": "mem", "value": "Value"}, "single_instance": true, "install": {"instructions": "Instructions", "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}, "pre_install": [{"instructions": "Instructions", "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}], "entitlement": {"provider_name": "ProviderName", "provider_id": "ProviderID", "product_id": "ProductID", "part_numbers": ["PartNumbers"], "image_repo_name": "ImageRepoName"}, "licenses": [{"id": "ID", "name": "Name", "type": "Type", "url": "URL", "description": "Description"}], "image_manifest_url": "ImageManifestURL", "deprecated": true, "package_version": "PackageVersion", "state": {"current": "Current", "current_entered": "2019-01-01T12:00:00", "pending": "Pending", "pending_requested": "2019-01-01T12:00:00", "previous": "Previous"}, "version_locator": "VersionLocator", "console_url": "ConsoleURL", "long_description": "LongDescription", "whitelisted_accounts": ["WhitelistedAccounts"]}], "plans": [{"id": "ID", "label": "Label", "name": "Name", "short_description": "ShortDescription", "long_description": "LongDescription", "metadata": {"anyKey": "anyValue"}, "tags": ["Tags"], "additional_features": [{"title": "Title", "description": "Description"}], "created": "2019-01-01T12:00:00", "updated": "2019-01-01T12:00:00", "deployments": [{"id": "ID", "label": "Label", "name": "Name", "short_description": "ShortDescription", "long_description": "LongDescription", "metadata": {"anyKey": "anyValue"}, "tags": ["Tags"], "created": "2019-01-01T12:00:00", "updated": "2019-01-01T12:00:00"}]}]}], "permit_request_ibm_public_publish": false, "ibm_publish_approved": true, "public_publish_approved": false, "public_original_crn": "PublicOriginalCrn", "publish_public_crn": "PublishPublicCrn", "portal_approval_record": "PortalApprovalRecord", "portal_ui_url": "PortalUiURL", "catalog_id": "CatalogID", "catalog_name": "CatalogName", "metadata": {"anyKey": "anyValue"}, "disclaimer": "Disclaimer", "hidden": true, "provider": "Provider", "repo_info": {"token": "Token", "type": "Type"}}]}`)
+					fmt.Fprintf(res, `{"offset": 6, "limit": 5, "total_count": 10, "resource_count": 13, "first": "First", "last": "Last", "prev": "Prev", "next": "Next", "resources": [{"id": "ID", "_rev": "Rev", "url": "URL", "crn": "Crn", "label": "Label", "name": "Name", "offering_icon_url": "OfferingIconURL", "offering_docs_url": "OfferingDocsURL", "offering_support_url": "OfferingSupportURL", "tags": ["Tags"], "rating": {"one_star_count": 12, "two_star_count": 12, "three_star_count": 14, "four_star_count": 13}, "created": "2019-01-01T12:00:00", "updated": "2019-01-01T12:00:00", "short_description": "ShortDescription", "long_description": "LongDescription", "features": [{"title": "Title", "description": "Description"}], "kinds": [{"id": "ID", "format_kind": "FormatKind", "target_kind": "TargetKind", "metadata": {"anyKey": "anyValue"}, "install_description": "InstallDescription", "tags": ["Tags"], "additional_features": [{"title": "Title", "description": "Description"}], "created": "2019-01-01T12:00:00", "updated": "2019-01-01T12:00:00", "versions": [{"id": "ID", "_rev": "Rev", "crn": "Crn", "version": "Version", "sha": "Sha", "created": "2019-01-01T12:00:00", "updated": "2019-01-01T12:00:00", "offering_id": "OfferingID", "catalog_id": "CatalogID", "kind_id": "KindID", "tags": ["Tags"], "repo_url": "RepoURL", "source_url": "SourceURL", "tgz_url": "TgzURL", "configuration": [{"key": "Key", "type": "Type", "default_value": "anyValue", "value_constraint": "ValueConstraint", "description": "Description", "required": true, "options": [{"anyKey": "anyValue"}], "hidden": true}], "metadata": {"anyKey": "anyValue"}, "validation": {"validated": "2019-01-01T12:00:00", "requested": "2019-01-01T12:00:00", "state": "State", "last_operation": "LastOperation", "target": {"anyKey": "anyValue"}}, "required_resources": [{"type": "mem", "value": "anyValue"}], "single_instance": true, "install": {"instructions": "Instructions", "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}, "pre_install": [{"instructions": "Instructions", "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}], "entitlement": {"provider_name": "ProviderName", "provider_id": "ProviderID", "product_id": "ProductID", "part_numbers": ["PartNumbers"], "image_repo_name": "ImageRepoName"}, "licenses": [{"id": "ID", "name": "Name", "type": "Type", "url": "URL", "description": "Description"}], "image_manifest_url": "ImageManifestURL", "deprecated": true, "package_version": "PackageVersion", "state": {"current": "Current", "current_entered": "2019-01-01T12:00:00", "pending": "Pending", "pending_requested": "2019-01-01T12:00:00", "previous": "Previous"}, "version_locator": "VersionLocator", "console_url": "ConsoleURL", "long_description": "LongDescription", "whitelisted_accounts": ["WhitelistedAccounts"]}], "plans": [{"id": "ID", "label": "Label", "name": "Name", "short_description": "ShortDescription", "long_description": "LongDescription", "metadata": {"anyKey": "anyValue"}, "tags": ["Tags"], "additional_features": [{"title": "Title", "description": "Description"}], "created": "2019-01-01T12:00:00", "updated": "2019-01-01T12:00:00", "deployments": [{"id": "ID", "label": "Label", "name": "Name", "short_description": "ShortDescription", "long_description": "LongDescription", "metadata": {"anyKey": "anyValue"}, "tags": ["Tags"], "created": "2019-01-01T12:00:00", "updated": "2019-01-01T12:00:00"}]}]}], "permit_request_ibm_public_publish": false, "ibm_publish_approved": true, "public_publish_approved": false, "public_original_crn": "PublicOriginalCrn", "publish_public_crn": "PublishPublicCrn", "portal_approval_record": "PortalApprovalRecord", "portal_ui_url": "PortalUiURL", "catalog_id": "CatalogID", "catalog_name": "CatalogName", "metadata": {"anyKey": "anyValue"}, "disclaimer": "Disclaimer", "hidden": true, "provider": "Provider", "repo_info": {"token": "Token", "type": "Type"}}]}`)
 				}))
 			})
 			It(`Invoke GetConsumptionOfferings successfully`, func() {
@@ -2065,7 +2073,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 
 				// Construct an instance of the ListOfferingsOptions model
 				listOfferingsOptionsModel := new(catalogmanagementv1.ListOfferingsOptions)
-				listOfferingsOptionsModel.CatalogID = core.StringPtr("testString")
+				listOfferingsOptionsModel.CatalogIdentifier = core.StringPtr("testString")
 				listOfferingsOptionsModel.Digest = core.BoolPtr(true)
 				listOfferingsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
@@ -2095,7 +2103,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, `{"offset": 6, "limit": 5, "total_count": 10, "resource_count": 13, "first": "First", "last": "Last", "prev": "Prev", "next": "Next", "resources": [{"id": "ID", "url": "URL", "crn": "Crn", "label": "Label", "name": "Name", "offering_icon_url": "OfferingIconURL", "offering_docs_url": "OfferingDocsURL", "offering_support_url": "OfferingSupportURL", "tags": ["Tags"], "rating": {"one_star_count": 12, "two_star_count": 12, "three_star_count": 14, "four_star_count": 13}, "created": "2019-01-01T12:00:00", "updated": "2019-01-01T12:00:00", "short_description": "ShortDescription", "long_description": "LongDescription", "features": [{"title": "Title", "description": "Description"}], "kinds": [{"id": "ID", "format_kind": "FormatKind", "target_kind": "TargetKind", "metadata": {"anyKey": "anyValue"}, "install_description": "InstallDescription", "tags": ["Tags"], "additional_features": [{"title": "Title", "description": "Description"}], "created": "2019-01-01T12:00:00", "updated": "2019-01-01T12:00:00", "versions": [{"id": "ID", "crn": "Crn", "version": "Version", "sha": "Sha", "created": "2019-01-01T12:00:00", "updated": "2019-01-01T12:00:00", "offering_id": "OfferingID", "catalog_id": "CatalogID", "kind_id": "KindID", "tags": ["Tags"], "repo_url": "RepoURL", "source_url": "SourceURL", "tgz_url": "TgzURL", "configuration": [{"key": "Key", "type": "Type", "default_value": "DefaultValue", "value_constraint": "ValueConstraint", "description": "Description", "required": true, "options": [{"anyKey": "anyValue"}], "hidden": true}], "metadata": {"anyKey": "anyValue"}, "validation": {"validated": "2019-01-01T12:00:00", "requested": "2019-01-01T12:00:00", "state": "State", "last_operation": "LastOperation", "target": {"anyKey": "anyValue"}}, "required_resources": {"type": "mem", "value": "Value"}, "single_instance": true, "install": {"instructions": "Instructions", "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}, "pre_install": [{"instructions": "Instructions", "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}], "entitlement": {"provider_name": "ProviderName", "provider_id": "ProviderID", "product_id": "ProductID", "part_numbers": ["PartNumbers"], "image_repo_name": "ImageRepoName"}, "licenses": [{"id": "ID", "name": "Name", "type": "Type", "url": "URL", "description": "Description"}], "image_manifest_url": "ImageManifestURL", "deprecated": true, "package_version": "PackageVersion", "state": {"current": "Current", "current_entered": "2019-01-01T12:00:00", "pending": "Pending", "pending_requested": "2019-01-01T12:00:00", "previous": "Previous"}, "version_locator": "VersionLocator", "console_url": "ConsoleURL", "long_description": "LongDescription", "whitelisted_accounts": ["WhitelistedAccounts"]}], "plans": [{"id": "ID", "label": "Label", "name": "Name", "short_description": "ShortDescription", "long_description": "LongDescription", "metadata": {"anyKey": "anyValue"}, "tags": ["Tags"], "additional_features": [{"title": "Title", "description": "Description"}], "created": "2019-01-01T12:00:00", "updated": "2019-01-01T12:00:00", "deployments": [{"id": "ID", "label": "Label", "name": "Name", "short_description": "ShortDescription", "long_description": "LongDescription", "metadata": {"anyKey": "anyValue"}, "tags": ["Tags"], "created": "2019-01-01T12:00:00", "updated": "2019-01-01T12:00:00"}]}]}], "permit_request_ibm_public_publish": false, "ibm_publish_approved": true, "public_publish_approved": false, "public_original_crn": "PublicOriginalCrn", "publish_public_crn": "PublishPublicCrn", "portal_approval_record": "PortalApprovalRecord", "portal_ui_url": "PortalUiURL", "catalog_id": "CatalogID", "catalog_name": "CatalogName", "metadata": {"anyKey": "anyValue"}, "disclaimer": "Disclaimer", "hidden": true, "provider": "Provider", "repo_info": {"token": "Token", "type": "Type"}}]}`)
+					fmt.Fprintf(res, `{"offset": 6, "limit": 5, "total_count": 10, "resource_count": 13, "first": "First", "last": "Last", "prev": "Prev", "next": "Next", "resources": [{"id": "ID", "_rev": "Rev", "url": "URL", "crn": "Crn", "label": "Label", "name": "Name", "offering_icon_url": "OfferingIconURL", "offering_docs_url": "OfferingDocsURL", "offering_support_url": "OfferingSupportURL", "tags": ["Tags"], "rating": {"one_star_count": 12, "two_star_count": 12, "three_star_count": 14, "four_star_count": 13}, "created": "2019-01-01T12:00:00", "updated": "2019-01-01T12:00:00", "short_description": "ShortDescription", "long_description": "LongDescription", "features": [{"title": "Title", "description": "Description"}], "kinds": [{"id": "ID", "format_kind": "FormatKind", "target_kind": "TargetKind", "metadata": {"anyKey": "anyValue"}, "install_description": "InstallDescription", "tags": ["Tags"], "additional_features": [{"title": "Title", "description": "Description"}], "created": "2019-01-01T12:00:00", "updated": "2019-01-01T12:00:00", "versions": [{"id": "ID", "_rev": "Rev", "crn": "Crn", "version": "Version", "sha": "Sha", "created": "2019-01-01T12:00:00", "updated": "2019-01-01T12:00:00", "offering_id": "OfferingID", "catalog_id": "CatalogID", "kind_id": "KindID", "tags": ["Tags"], "repo_url": "RepoURL", "source_url": "SourceURL", "tgz_url": "TgzURL", "configuration": [{"key": "Key", "type": "Type", "default_value": "anyValue", "value_constraint": "ValueConstraint", "description": "Description", "required": true, "options": [{"anyKey": "anyValue"}], "hidden": true}], "metadata": {"anyKey": "anyValue"}, "validation": {"validated": "2019-01-01T12:00:00", "requested": "2019-01-01T12:00:00", "state": "State", "last_operation": "LastOperation", "target": {"anyKey": "anyValue"}}, "required_resources": [{"type": "mem", "value": "anyValue"}], "single_instance": true, "install": {"instructions": "Instructions", "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}, "pre_install": [{"instructions": "Instructions", "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}], "entitlement": {"provider_name": "ProviderName", "provider_id": "ProviderID", "product_id": "ProductID", "part_numbers": ["PartNumbers"], "image_repo_name": "ImageRepoName"}, "licenses": [{"id": "ID", "name": "Name", "type": "Type", "url": "URL", "description": "Description"}], "image_manifest_url": "ImageManifestURL", "deprecated": true, "package_version": "PackageVersion", "state": {"current": "Current", "current_entered": "2019-01-01T12:00:00", "pending": "Pending", "pending_requested": "2019-01-01T12:00:00", "previous": "Previous"}, "version_locator": "VersionLocator", "console_url": "ConsoleURL", "long_description": "LongDescription", "whitelisted_accounts": ["WhitelistedAccounts"]}], "plans": [{"id": "ID", "label": "Label", "name": "Name", "short_description": "ShortDescription", "long_description": "LongDescription", "metadata": {"anyKey": "anyValue"}, "tags": ["Tags"], "additional_features": [{"title": "Title", "description": "Description"}], "created": "2019-01-01T12:00:00", "updated": "2019-01-01T12:00:00", "deployments": [{"id": "ID", "label": "Label", "name": "Name", "short_description": "ShortDescription", "long_description": "LongDescription", "metadata": {"anyKey": "anyValue"}, "tags": ["Tags"], "created": "2019-01-01T12:00:00", "updated": "2019-01-01T12:00:00"}]}]}], "permit_request_ibm_public_publish": false, "ibm_publish_approved": true, "public_publish_approved": false, "public_original_crn": "PublicOriginalCrn", "publish_public_crn": "PublishPublicCrn", "portal_approval_record": "PortalApprovalRecord", "portal_ui_url": "PortalUiURL", "catalog_id": "CatalogID", "catalog_name": "CatalogName", "metadata": {"anyKey": "anyValue"}, "disclaimer": "Disclaimer", "hidden": true, "provider": "Provider", "repo_info": {"token": "Token", "type": "Type"}}]}`)
 				}))
 			})
 			It(`Invoke ListOfferings successfully`, func() {
@@ -2114,7 +2122,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 
 				// Construct an instance of the ListOfferingsOptions model
 				listOfferingsOptionsModel := new(catalogmanagementv1.ListOfferingsOptions)
-				listOfferingsOptionsModel.CatalogID = core.StringPtr("testString")
+				listOfferingsOptionsModel.CatalogIdentifier = core.StringPtr("testString")
 				listOfferingsOptionsModel.Digest = core.BoolPtr(true)
  				listOfferingsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
@@ -2134,7 +2142,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 
 				// Construct an instance of the ListOfferingsOptions model
 				listOfferingsOptionsModel := new(catalogmanagementv1.ListOfferingsOptions)
-				listOfferingsOptionsModel.CatalogID = core.StringPtr("testString")
+				listOfferingsOptionsModel.CatalogIdentifier = core.StringPtr("testString")
 				listOfferingsOptionsModel.Digest = core.BoolPtr(true)
 				listOfferingsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
@@ -2271,6 +2279,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				// Construct an instance of the Version model
 				versionModel := new(catalogmanagementv1.Version)
 				versionModel.ID = core.StringPtr("testString")
+				versionModel.Rev = core.StringPtr("testString")
 				versionModel.Crn = core.StringPtr("testString")
 				versionModel.Version = core.StringPtr("testString")
 				versionModel.Sha = core.StringPtr("testString")
@@ -2286,7 +2295,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				versionModel.Configuration = []catalogmanagementv1.Configuration{*configurationModel}
 				versionModel.Metadata = map[string]interface{}{"anyKey": "anyValue"}
 				versionModel.Validation = validationModel
-				versionModel.RequiredResources = resourceModel
+				versionModel.RequiredResources = []catalogmanagementv1.Resource{*resourceModel}
 				versionModel.SingleInstance = core.BoolPtr(true)
 				versionModel.Install = scriptModel
 				versionModel.PreInstall = []catalogmanagementv1.Script{*scriptModel}
@@ -2329,37 +2338,38 @@ var _ = Describe(`CatalogManagementV1`, func() {
 
 				// Construct an instance of the CreateOfferingOptions model
 				createOfferingOptionsModel := new(catalogmanagementv1.CreateOfferingOptions)
+				createOfferingOptionsModel.CatalogIdentifier = core.StringPtr("testString")
+				createOfferingOptionsModel.ID = core.StringPtr("testString")
+				createOfferingOptionsModel.Rev = core.StringPtr("testString")
+				createOfferingOptionsModel.URL = core.StringPtr("testString")
+				createOfferingOptionsModel.Crn = core.StringPtr("testString")
+				createOfferingOptionsModel.Label = core.StringPtr("testString")
+				createOfferingOptionsModel.Name = core.StringPtr("testString")
+				createOfferingOptionsModel.OfferingIconURL = core.StringPtr("testString")
+				createOfferingOptionsModel.OfferingDocsURL = core.StringPtr("testString")
+				createOfferingOptionsModel.OfferingSupportURL = core.StringPtr("testString")
+				createOfferingOptionsModel.Tags = []string{"testString"}
+				createOfferingOptionsModel.Rating = ratingModel
+				createOfferingOptionsModel.Created = CreateMockDateTime()
+				createOfferingOptionsModel.Updated = CreateMockDateTime()
+				createOfferingOptionsModel.ShortDescription = core.StringPtr("testString")
+				createOfferingOptionsModel.LongDescription = core.StringPtr("testString")
+				createOfferingOptionsModel.Features = []catalogmanagementv1.Feature{*featureModel}
+				createOfferingOptionsModel.Kinds = []catalogmanagementv1.Kind{*kindModel}
+				createOfferingOptionsModel.PermitRequestIbmPublicPublish = core.BoolPtr(true)
+				createOfferingOptionsModel.IbmPublishApproved = core.BoolPtr(true)
+				createOfferingOptionsModel.PublicPublishApproved = core.BoolPtr(true)
+				createOfferingOptionsModel.PublicOriginalCrn = core.StringPtr("testString")
+				createOfferingOptionsModel.PublishPublicCrn = core.StringPtr("testString")
+				createOfferingOptionsModel.PortalApprovalRecord = core.StringPtr("testString")
+				createOfferingOptionsModel.PortalUiURL = core.StringPtr("testString")
 				createOfferingOptionsModel.CatalogID = core.StringPtr("testString")
-				createOfferingOptionsModel.NewID = core.StringPtr("testString")
-				createOfferingOptionsModel.NewURL = core.StringPtr("testString")
-				createOfferingOptionsModel.NewCrn = core.StringPtr("testString")
-				createOfferingOptionsModel.NewLabel = core.StringPtr("testString")
-				createOfferingOptionsModel.NewName = core.StringPtr("testString")
-				createOfferingOptionsModel.NewOfferingIconURL = core.StringPtr("testString")
-				createOfferingOptionsModel.NewOfferingDocsURL = core.StringPtr("testString")
-				createOfferingOptionsModel.NewOfferingSupportURL = core.StringPtr("testString")
-				createOfferingOptionsModel.NewTags = []string{"testString"}
-				createOfferingOptionsModel.NewRating = ratingModel
-				createOfferingOptionsModel.NewCreated = CreateMockDateTime()
-				createOfferingOptionsModel.NewUpdated = CreateMockDateTime()
-				createOfferingOptionsModel.NewShortDescription = core.StringPtr("testString")
-				createOfferingOptionsModel.NewLongDescription = core.StringPtr("testString")
-				createOfferingOptionsModel.NewFeatures = []catalogmanagementv1.Feature{*featureModel}
-				createOfferingOptionsModel.NewKinds = []catalogmanagementv1.Kind{*kindModel}
-				createOfferingOptionsModel.NewPermitRequestIbmPublicPublish = core.BoolPtr(true)
-				createOfferingOptionsModel.NewIbmPublishApproved = core.BoolPtr(true)
-				createOfferingOptionsModel.NewPublicPublishApproved = core.BoolPtr(true)
-				createOfferingOptionsModel.NewPublicOriginalCrn = core.StringPtr("testString")
-				createOfferingOptionsModel.NewPublishPublicCrn = core.StringPtr("testString")
-				createOfferingOptionsModel.NewPortalApprovalRecord = core.StringPtr("testString")
-				createOfferingOptionsModel.NewPortalUiURL = core.StringPtr("testString")
-				createOfferingOptionsModel.NewCatalogID = core.StringPtr("testString")
-				createOfferingOptionsModel.NewCatalogName = core.StringPtr("testString")
-				createOfferingOptionsModel.NewMetadata = map[string]interface{}{"anyKey": "anyValue"}
-				createOfferingOptionsModel.NewDisclaimer = core.StringPtr("testString")
-				createOfferingOptionsModel.NewHidden = core.BoolPtr(true)
-				createOfferingOptionsModel.NewProvider = core.StringPtr("testString")
-				createOfferingOptionsModel.NewRepoInfo = repoInfoModel
+				createOfferingOptionsModel.CatalogName = core.StringPtr("testString")
+				createOfferingOptionsModel.Metadata = map[string]interface{}{"anyKey": "anyValue"}
+				createOfferingOptionsModel.Disclaimer = core.StringPtr("testString")
+				createOfferingOptionsModel.Hidden = core.BoolPtr(true)
+				createOfferingOptionsModel.Provider = core.StringPtr("testString")
+				createOfferingOptionsModel.RepoInfo = repoInfoModel
 				createOfferingOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
 				result, response, operationErr := testService.CreateOffering(createOfferingOptionsModel)
@@ -2385,7 +2395,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 					Expect(req.Method).To(Equal("POST"))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, `{"id": "ID", "url": "URL", "crn": "Crn", "label": "Label", "name": "Name", "offering_icon_url": "OfferingIconURL", "offering_docs_url": "OfferingDocsURL", "offering_support_url": "OfferingSupportURL", "tags": ["Tags"], "rating": {"one_star_count": 12, "two_star_count": 12, "three_star_count": 14, "four_star_count": 13}, "created": "2019-01-01T12:00:00", "updated": "2019-01-01T12:00:00", "short_description": "ShortDescription", "long_description": "LongDescription", "features": [{"title": "Title", "description": "Description"}], "kinds": [{"id": "ID", "format_kind": "FormatKind", "target_kind": "TargetKind", "metadata": {"anyKey": "anyValue"}, "install_description": "InstallDescription", "tags": ["Tags"], "additional_features": [{"title": "Title", "description": "Description"}], "created": "2019-01-01T12:00:00", "updated": "2019-01-01T12:00:00", "versions": [{"id": "ID", "crn": "Crn", "version": "Version", "sha": "Sha", "created": "2019-01-01T12:00:00", "updated": "2019-01-01T12:00:00", "offering_id": "OfferingID", "catalog_id": "CatalogID", "kind_id": "KindID", "tags": ["Tags"], "repo_url": "RepoURL", "source_url": "SourceURL", "tgz_url": "TgzURL", "configuration": [{"key": "Key", "type": "Type", "default_value": "DefaultValue", "value_constraint": "ValueConstraint", "description": "Description", "required": true, "options": [{"anyKey": "anyValue"}], "hidden": true}], "metadata": {"anyKey": "anyValue"}, "validation": {"validated": "2019-01-01T12:00:00", "requested": "2019-01-01T12:00:00", "state": "State", "last_operation": "LastOperation", "target": {"anyKey": "anyValue"}}, "required_resources": {"type": "mem", "value": "Value"}, "single_instance": true, "install": {"instructions": "Instructions", "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}, "pre_install": [{"instructions": "Instructions", "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}], "entitlement": {"provider_name": "ProviderName", "provider_id": "ProviderID", "product_id": "ProductID", "part_numbers": ["PartNumbers"], "image_repo_name": "ImageRepoName"}, "licenses": [{"id": "ID", "name": "Name", "type": "Type", "url": "URL", "description": "Description"}], "image_manifest_url": "ImageManifestURL", "deprecated": true, "package_version": "PackageVersion", "state": {"current": "Current", "current_entered": "2019-01-01T12:00:00", "pending": "Pending", "pending_requested": "2019-01-01T12:00:00", "previous": "Previous"}, "version_locator": "VersionLocator", "console_url": "ConsoleURL", "long_description": "LongDescription", "whitelisted_accounts": ["WhitelistedAccounts"]}], "plans": [{"id": "ID", "label": "Label", "name": "Name", "short_description": "ShortDescription", "long_description": "LongDescription", "metadata": {"anyKey": "anyValue"}, "tags": ["Tags"], "additional_features": [{"title": "Title", "description": "Description"}], "created": "2019-01-01T12:00:00", "updated": "2019-01-01T12:00:00", "deployments": [{"id": "ID", "label": "Label", "name": "Name", "short_description": "ShortDescription", "long_description": "LongDescription", "metadata": {"anyKey": "anyValue"}, "tags": ["Tags"], "created": "2019-01-01T12:00:00", "updated": "2019-01-01T12:00:00"}]}]}], "permit_request_ibm_public_publish": false, "ibm_publish_approved": true, "public_publish_approved": false, "public_original_crn": "PublicOriginalCrn", "publish_public_crn": "PublishPublicCrn", "portal_approval_record": "PortalApprovalRecord", "portal_ui_url": "PortalUiURL", "catalog_id": "CatalogID", "catalog_name": "CatalogName", "metadata": {"anyKey": "anyValue"}, "disclaimer": "Disclaimer", "hidden": true, "provider": "Provider", "repo_info": {"token": "Token", "type": "Type"}}`)
+					fmt.Fprintf(res, `{"id": "ID", "_rev": "Rev", "url": "URL", "crn": "Crn", "label": "Label", "name": "Name", "offering_icon_url": "OfferingIconURL", "offering_docs_url": "OfferingDocsURL", "offering_support_url": "OfferingSupportURL", "tags": ["Tags"], "rating": {"one_star_count": 12, "two_star_count": 12, "three_star_count": 14, "four_star_count": 13}, "created": "2019-01-01T12:00:00", "updated": "2019-01-01T12:00:00", "short_description": "ShortDescription", "long_description": "LongDescription", "features": [{"title": "Title", "description": "Description"}], "kinds": [{"id": "ID", "format_kind": "FormatKind", "target_kind": "TargetKind", "metadata": {"anyKey": "anyValue"}, "install_description": "InstallDescription", "tags": ["Tags"], "additional_features": [{"title": "Title", "description": "Description"}], "created": "2019-01-01T12:00:00", "updated": "2019-01-01T12:00:00", "versions": [{"id": "ID", "_rev": "Rev", "crn": "Crn", "version": "Version", "sha": "Sha", "created": "2019-01-01T12:00:00", "updated": "2019-01-01T12:00:00", "offering_id": "OfferingID", "catalog_id": "CatalogID", "kind_id": "KindID", "tags": ["Tags"], "repo_url": "RepoURL", "source_url": "SourceURL", "tgz_url": "TgzURL", "configuration": [{"key": "Key", "type": "Type", "default_value": "anyValue", "value_constraint": "ValueConstraint", "description": "Description", "required": true, "options": [{"anyKey": "anyValue"}], "hidden": true}], "metadata": {"anyKey": "anyValue"}, "validation": {"validated": "2019-01-01T12:00:00", "requested": "2019-01-01T12:00:00", "state": "State", "last_operation": "LastOperation", "target": {"anyKey": "anyValue"}}, "required_resources": [{"type": "mem", "value": "anyValue"}], "single_instance": true, "install": {"instructions": "Instructions", "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}, "pre_install": [{"instructions": "Instructions", "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}], "entitlement": {"provider_name": "ProviderName", "provider_id": "ProviderID", "product_id": "ProductID", "part_numbers": ["PartNumbers"], "image_repo_name": "ImageRepoName"}, "licenses": [{"id": "ID", "name": "Name", "type": "Type", "url": "URL", "description": "Description"}], "image_manifest_url": "ImageManifestURL", "deprecated": true, "package_version": "PackageVersion", "state": {"current": "Current", "current_entered": "2019-01-01T12:00:00", "pending": "Pending", "pending_requested": "2019-01-01T12:00:00", "previous": "Previous"}, "version_locator": "VersionLocator", "console_url": "ConsoleURL", "long_description": "LongDescription", "whitelisted_accounts": ["WhitelistedAccounts"]}], "plans": [{"id": "ID", "label": "Label", "name": "Name", "short_description": "ShortDescription", "long_description": "LongDescription", "metadata": {"anyKey": "anyValue"}, "tags": ["Tags"], "additional_features": [{"title": "Title", "description": "Description"}], "created": "2019-01-01T12:00:00", "updated": "2019-01-01T12:00:00", "deployments": [{"id": "ID", "label": "Label", "name": "Name", "short_description": "ShortDescription", "long_description": "LongDescription", "metadata": {"anyKey": "anyValue"}, "tags": ["Tags"], "created": "2019-01-01T12:00:00", "updated": "2019-01-01T12:00:00"}]}]}], "permit_request_ibm_public_publish": false, "ibm_publish_approved": true, "public_publish_approved": false, "public_original_crn": "PublicOriginalCrn", "publish_public_crn": "PublishPublicCrn", "portal_approval_record": "PortalApprovalRecord", "portal_ui_url": "PortalUiURL", "catalog_id": "CatalogID", "catalog_name": "CatalogName", "metadata": {"anyKey": "anyValue"}, "disclaimer": "Disclaimer", "hidden": true, "provider": "Provider", "repo_info": {"token": "Token", "type": "Type"}}`)
 				}))
 			})
 			It(`Invoke CreateOffering successfully`, func() {
@@ -2492,6 +2502,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				// Construct an instance of the Version model
 				versionModel := new(catalogmanagementv1.Version)
 				versionModel.ID = core.StringPtr("testString")
+				versionModel.Rev = core.StringPtr("testString")
 				versionModel.Crn = core.StringPtr("testString")
 				versionModel.Version = core.StringPtr("testString")
 				versionModel.Sha = core.StringPtr("testString")
@@ -2507,7 +2518,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				versionModel.Configuration = []catalogmanagementv1.Configuration{*configurationModel}
 				versionModel.Metadata = map[string]interface{}{"anyKey": "anyValue"}
 				versionModel.Validation = validationModel
-				versionModel.RequiredResources = resourceModel
+				versionModel.RequiredResources = []catalogmanagementv1.Resource{*resourceModel}
 				versionModel.SingleInstance = core.BoolPtr(true)
 				versionModel.Install = scriptModel
 				versionModel.PreInstall = []catalogmanagementv1.Script{*scriptModel}
@@ -2550,37 +2561,38 @@ var _ = Describe(`CatalogManagementV1`, func() {
 
 				// Construct an instance of the CreateOfferingOptions model
 				createOfferingOptionsModel := new(catalogmanagementv1.CreateOfferingOptions)
+				createOfferingOptionsModel.CatalogIdentifier = core.StringPtr("testString")
+				createOfferingOptionsModel.ID = core.StringPtr("testString")
+				createOfferingOptionsModel.Rev = core.StringPtr("testString")
+				createOfferingOptionsModel.URL = core.StringPtr("testString")
+				createOfferingOptionsModel.Crn = core.StringPtr("testString")
+				createOfferingOptionsModel.Label = core.StringPtr("testString")
+				createOfferingOptionsModel.Name = core.StringPtr("testString")
+				createOfferingOptionsModel.OfferingIconURL = core.StringPtr("testString")
+				createOfferingOptionsModel.OfferingDocsURL = core.StringPtr("testString")
+				createOfferingOptionsModel.OfferingSupportURL = core.StringPtr("testString")
+				createOfferingOptionsModel.Tags = []string{"testString"}
+				createOfferingOptionsModel.Rating = ratingModel
+				createOfferingOptionsModel.Created = CreateMockDateTime()
+				createOfferingOptionsModel.Updated = CreateMockDateTime()
+				createOfferingOptionsModel.ShortDescription = core.StringPtr("testString")
+				createOfferingOptionsModel.LongDescription = core.StringPtr("testString")
+				createOfferingOptionsModel.Features = []catalogmanagementv1.Feature{*featureModel}
+				createOfferingOptionsModel.Kinds = []catalogmanagementv1.Kind{*kindModel}
+				createOfferingOptionsModel.PermitRequestIbmPublicPublish = core.BoolPtr(true)
+				createOfferingOptionsModel.IbmPublishApproved = core.BoolPtr(true)
+				createOfferingOptionsModel.PublicPublishApproved = core.BoolPtr(true)
+				createOfferingOptionsModel.PublicOriginalCrn = core.StringPtr("testString")
+				createOfferingOptionsModel.PublishPublicCrn = core.StringPtr("testString")
+				createOfferingOptionsModel.PortalApprovalRecord = core.StringPtr("testString")
+				createOfferingOptionsModel.PortalUiURL = core.StringPtr("testString")
 				createOfferingOptionsModel.CatalogID = core.StringPtr("testString")
-				createOfferingOptionsModel.NewID = core.StringPtr("testString")
-				createOfferingOptionsModel.NewURL = core.StringPtr("testString")
-				createOfferingOptionsModel.NewCrn = core.StringPtr("testString")
-				createOfferingOptionsModel.NewLabel = core.StringPtr("testString")
-				createOfferingOptionsModel.NewName = core.StringPtr("testString")
-				createOfferingOptionsModel.NewOfferingIconURL = core.StringPtr("testString")
-				createOfferingOptionsModel.NewOfferingDocsURL = core.StringPtr("testString")
-				createOfferingOptionsModel.NewOfferingSupportURL = core.StringPtr("testString")
-				createOfferingOptionsModel.NewTags = []string{"testString"}
-				createOfferingOptionsModel.NewRating = ratingModel
-				createOfferingOptionsModel.NewCreated = CreateMockDateTime()
-				createOfferingOptionsModel.NewUpdated = CreateMockDateTime()
-				createOfferingOptionsModel.NewShortDescription = core.StringPtr("testString")
-				createOfferingOptionsModel.NewLongDescription = core.StringPtr("testString")
-				createOfferingOptionsModel.NewFeatures = []catalogmanagementv1.Feature{*featureModel}
-				createOfferingOptionsModel.NewKinds = []catalogmanagementv1.Kind{*kindModel}
-				createOfferingOptionsModel.NewPermitRequestIbmPublicPublish = core.BoolPtr(true)
-				createOfferingOptionsModel.NewIbmPublishApproved = core.BoolPtr(true)
-				createOfferingOptionsModel.NewPublicPublishApproved = core.BoolPtr(true)
-				createOfferingOptionsModel.NewPublicOriginalCrn = core.StringPtr("testString")
-				createOfferingOptionsModel.NewPublishPublicCrn = core.StringPtr("testString")
-				createOfferingOptionsModel.NewPortalApprovalRecord = core.StringPtr("testString")
-				createOfferingOptionsModel.NewPortalUiURL = core.StringPtr("testString")
-				createOfferingOptionsModel.NewCatalogID = core.StringPtr("testString")
-				createOfferingOptionsModel.NewCatalogName = core.StringPtr("testString")
-				createOfferingOptionsModel.NewMetadata = map[string]interface{}{"anyKey": "anyValue"}
-				createOfferingOptionsModel.NewDisclaimer = core.StringPtr("testString")
-				createOfferingOptionsModel.NewHidden = core.BoolPtr(true)
-				createOfferingOptionsModel.NewProvider = core.StringPtr("testString")
-				createOfferingOptionsModel.NewRepoInfo = repoInfoModel
+				createOfferingOptionsModel.CatalogName = core.StringPtr("testString")
+				createOfferingOptionsModel.Metadata = map[string]interface{}{"anyKey": "anyValue"}
+				createOfferingOptionsModel.Disclaimer = core.StringPtr("testString")
+				createOfferingOptionsModel.Hidden = core.BoolPtr(true)
+				createOfferingOptionsModel.Provider = core.StringPtr("testString")
+				createOfferingOptionsModel.RepoInfo = repoInfoModel
  				createOfferingOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
@@ -2687,6 +2699,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				// Construct an instance of the Version model
 				versionModel := new(catalogmanagementv1.Version)
 				versionModel.ID = core.StringPtr("testString")
+				versionModel.Rev = core.StringPtr("testString")
 				versionModel.Crn = core.StringPtr("testString")
 				versionModel.Version = core.StringPtr("testString")
 				versionModel.Sha = core.StringPtr("testString")
@@ -2702,7 +2715,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				versionModel.Configuration = []catalogmanagementv1.Configuration{*configurationModel}
 				versionModel.Metadata = map[string]interface{}{"anyKey": "anyValue"}
 				versionModel.Validation = validationModel
-				versionModel.RequiredResources = resourceModel
+				versionModel.RequiredResources = []catalogmanagementv1.Resource{*resourceModel}
 				versionModel.SingleInstance = core.BoolPtr(true)
 				versionModel.Install = scriptModel
 				versionModel.PreInstall = []catalogmanagementv1.Script{*scriptModel}
@@ -2745,37 +2758,38 @@ var _ = Describe(`CatalogManagementV1`, func() {
 
 				// Construct an instance of the CreateOfferingOptions model
 				createOfferingOptionsModel := new(catalogmanagementv1.CreateOfferingOptions)
+				createOfferingOptionsModel.CatalogIdentifier = core.StringPtr("testString")
+				createOfferingOptionsModel.ID = core.StringPtr("testString")
+				createOfferingOptionsModel.Rev = core.StringPtr("testString")
+				createOfferingOptionsModel.URL = core.StringPtr("testString")
+				createOfferingOptionsModel.Crn = core.StringPtr("testString")
+				createOfferingOptionsModel.Label = core.StringPtr("testString")
+				createOfferingOptionsModel.Name = core.StringPtr("testString")
+				createOfferingOptionsModel.OfferingIconURL = core.StringPtr("testString")
+				createOfferingOptionsModel.OfferingDocsURL = core.StringPtr("testString")
+				createOfferingOptionsModel.OfferingSupportURL = core.StringPtr("testString")
+				createOfferingOptionsModel.Tags = []string{"testString"}
+				createOfferingOptionsModel.Rating = ratingModel
+				createOfferingOptionsModel.Created = CreateMockDateTime()
+				createOfferingOptionsModel.Updated = CreateMockDateTime()
+				createOfferingOptionsModel.ShortDescription = core.StringPtr("testString")
+				createOfferingOptionsModel.LongDescription = core.StringPtr("testString")
+				createOfferingOptionsModel.Features = []catalogmanagementv1.Feature{*featureModel}
+				createOfferingOptionsModel.Kinds = []catalogmanagementv1.Kind{*kindModel}
+				createOfferingOptionsModel.PermitRequestIbmPublicPublish = core.BoolPtr(true)
+				createOfferingOptionsModel.IbmPublishApproved = core.BoolPtr(true)
+				createOfferingOptionsModel.PublicPublishApproved = core.BoolPtr(true)
+				createOfferingOptionsModel.PublicOriginalCrn = core.StringPtr("testString")
+				createOfferingOptionsModel.PublishPublicCrn = core.StringPtr("testString")
+				createOfferingOptionsModel.PortalApprovalRecord = core.StringPtr("testString")
+				createOfferingOptionsModel.PortalUiURL = core.StringPtr("testString")
 				createOfferingOptionsModel.CatalogID = core.StringPtr("testString")
-				createOfferingOptionsModel.NewID = core.StringPtr("testString")
-				createOfferingOptionsModel.NewURL = core.StringPtr("testString")
-				createOfferingOptionsModel.NewCrn = core.StringPtr("testString")
-				createOfferingOptionsModel.NewLabel = core.StringPtr("testString")
-				createOfferingOptionsModel.NewName = core.StringPtr("testString")
-				createOfferingOptionsModel.NewOfferingIconURL = core.StringPtr("testString")
-				createOfferingOptionsModel.NewOfferingDocsURL = core.StringPtr("testString")
-				createOfferingOptionsModel.NewOfferingSupportURL = core.StringPtr("testString")
-				createOfferingOptionsModel.NewTags = []string{"testString"}
-				createOfferingOptionsModel.NewRating = ratingModel
-				createOfferingOptionsModel.NewCreated = CreateMockDateTime()
-				createOfferingOptionsModel.NewUpdated = CreateMockDateTime()
-				createOfferingOptionsModel.NewShortDescription = core.StringPtr("testString")
-				createOfferingOptionsModel.NewLongDescription = core.StringPtr("testString")
-				createOfferingOptionsModel.NewFeatures = []catalogmanagementv1.Feature{*featureModel}
-				createOfferingOptionsModel.NewKinds = []catalogmanagementv1.Kind{*kindModel}
-				createOfferingOptionsModel.NewPermitRequestIbmPublicPublish = core.BoolPtr(true)
-				createOfferingOptionsModel.NewIbmPublishApproved = core.BoolPtr(true)
-				createOfferingOptionsModel.NewPublicPublishApproved = core.BoolPtr(true)
-				createOfferingOptionsModel.NewPublicOriginalCrn = core.StringPtr("testString")
-				createOfferingOptionsModel.NewPublishPublicCrn = core.StringPtr("testString")
-				createOfferingOptionsModel.NewPortalApprovalRecord = core.StringPtr("testString")
-				createOfferingOptionsModel.NewPortalUiURL = core.StringPtr("testString")
-				createOfferingOptionsModel.NewCatalogID = core.StringPtr("testString")
-				createOfferingOptionsModel.NewCatalogName = core.StringPtr("testString")
-				createOfferingOptionsModel.NewMetadata = map[string]interface{}{"anyKey": "anyValue"}
-				createOfferingOptionsModel.NewDisclaimer = core.StringPtr("testString")
-				createOfferingOptionsModel.NewHidden = core.BoolPtr(true)
-				createOfferingOptionsModel.NewProvider = core.StringPtr("testString")
-				createOfferingOptionsModel.NewRepoInfo = repoInfoModel
+				createOfferingOptionsModel.CatalogName = core.StringPtr("testString")
+				createOfferingOptionsModel.Metadata = map[string]interface{}{"anyKey": "anyValue"}
+				createOfferingOptionsModel.Disclaimer = core.StringPtr("testString")
+				createOfferingOptionsModel.Hidden = core.BoolPtr(true)
+				createOfferingOptionsModel.Provider = core.StringPtr("testString")
+				createOfferingOptionsModel.RepoInfo = repoInfoModel
 				createOfferingOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := testService.SetServiceURL("")
@@ -2808,12 +2822,16 @@ var _ = Describe(`CatalogManagementV1`, func() {
 					// Verify the contents of the request
 					Expect(req.URL.Path).To(Equal(importOfferingVersionPath))
 					Expect(req.Method).To(Equal("POST"))
+					Expect(req.Header["X-Auth-Token"]).ToNot(BeNil())
+					Expect(req.Header["X-Auth-Token"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					Expect(req.URL.Query()["zipurl"]).To(Equal([]string{"testString"}))
 
 					Expect(req.URL.Query()["targetVersion"]).To(Equal([]string{"testString"}))
 
 
 					// TODO: Add check for includeConfig query parameter
+
+					Expect(req.URL.Query()["repoType"]).To(Equal([]string{"testString"}))
 
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
@@ -2830,11 +2848,15 @@ var _ = Describe(`CatalogManagementV1`, func() {
 
 				// Construct an instance of the ImportOfferingVersionOptions model
 				importOfferingVersionOptionsModel := new(catalogmanagementv1.ImportOfferingVersionOptions)
-				importOfferingVersionOptionsModel.CatalogID = core.StringPtr("testString")
+				importOfferingVersionOptionsModel.CatalogIdentifier = core.StringPtr("testString")
 				importOfferingVersionOptionsModel.OfferingID = core.StringPtr("testString")
 				importOfferingVersionOptionsModel.Zipurl = core.StringPtr("testString")
+				importOfferingVersionOptionsModel.Tags = []string{"testString"}
+				importOfferingVersionOptionsModel.TargetKinds = []string{"testString"}
 				importOfferingVersionOptionsModel.TargetVersion = core.StringPtr("testString")
 				importOfferingVersionOptionsModel.IncludeConfig = core.BoolPtr(true)
+				importOfferingVersionOptionsModel.RepoType = core.StringPtr("testString")
+				importOfferingVersionOptionsModel.XAuthToken = core.StringPtr("testString")
 				importOfferingVersionOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
 				result, response, operationErr := testService.ImportOfferingVersion(importOfferingVersionOptionsModel)
@@ -2858,6 +2880,8 @@ var _ = Describe(`CatalogManagementV1`, func() {
 					// Verify the contents of the request
 					Expect(req.URL.Path).To(Equal(importOfferingVersionPath))
 					Expect(req.Method).To(Equal("POST"))
+					Expect(req.Header["X-Auth-Token"]).ToNot(BeNil())
+					Expect(req.Header["X-Auth-Token"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					Expect(req.URL.Query()["zipurl"]).To(Equal([]string{"testString"}))
 
 					Expect(req.URL.Query()["targetVersion"]).To(Equal([]string{"testString"}))
@@ -2865,9 +2889,11 @@ var _ = Describe(`CatalogManagementV1`, func() {
 
 					// TODO: Add check for includeConfig query parameter
 
+					Expect(req.URL.Query()["repoType"]).To(Equal([]string{"testString"}))
+
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, `{"id": "ID", "url": "URL", "crn": "Crn", "label": "Label", "name": "Name", "offering_icon_url": "OfferingIconURL", "offering_docs_url": "OfferingDocsURL", "offering_support_url": "OfferingSupportURL", "tags": ["Tags"], "rating": {"one_star_count": 12, "two_star_count": 12, "three_star_count": 14, "four_star_count": 13}, "created": "2019-01-01T12:00:00", "updated": "2019-01-01T12:00:00", "short_description": "ShortDescription", "long_description": "LongDescription", "features": [{"title": "Title", "description": "Description"}], "kinds": [{"id": "ID", "format_kind": "FormatKind", "target_kind": "TargetKind", "metadata": {"anyKey": "anyValue"}, "install_description": "InstallDescription", "tags": ["Tags"], "additional_features": [{"title": "Title", "description": "Description"}], "created": "2019-01-01T12:00:00", "updated": "2019-01-01T12:00:00", "versions": [{"id": "ID", "crn": "Crn", "version": "Version", "sha": "Sha", "created": "2019-01-01T12:00:00", "updated": "2019-01-01T12:00:00", "offering_id": "OfferingID", "catalog_id": "CatalogID", "kind_id": "KindID", "tags": ["Tags"], "repo_url": "RepoURL", "source_url": "SourceURL", "tgz_url": "TgzURL", "configuration": [{"key": "Key", "type": "Type", "default_value": "DefaultValue", "value_constraint": "ValueConstraint", "description": "Description", "required": true, "options": [{"anyKey": "anyValue"}], "hidden": true}], "metadata": {"anyKey": "anyValue"}, "validation": {"validated": "2019-01-01T12:00:00", "requested": "2019-01-01T12:00:00", "state": "State", "last_operation": "LastOperation", "target": {"anyKey": "anyValue"}}, "required_resources": {"type": "mem", "value": "Value"}, "single_instance": true, "install": {"instructions": "Instructions", "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}, "pre_install": [{"instructions": "Instructions", "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}], "entitlement": {"provider_name": "ProviderName", "provider_id": "ProviderID", "product_id": "ProductID", "part_numbers": ["PartNumbers"], "image_repo_name": "ImageRepoName"}, "licenses": [{"id": "ID", "name": "Name", "type": "Type", "url": "URL", "description": "Description"}], "image_manifest_url": "ImageManifestURL", "deprecated": true, "package_version": "PackageVersion", "state": {"current": "Current", "current_entered": "2019-01-01T12:00:00", "pending": "Pending", "pending_requested": "2019-01-01T12:00:00", "previous": "Previous"}, "version_locator": "VersionLocator", "console_url": "ConsoleURL", "long_description": "LongDescription", "whitelisted_accounts": ["WhitelistedAccounts"]}], "plans": [{"id": "ID", "label": "Label", "name": "Name", "short_description": "ShortDescription", "long_description": "LongDescription", "metadata": {"anyKey": "anyValue"}, "tags": ["Tags"], "additional_features": [{"title": "Title", "description": "Description"}], "created": "2019-01-01T12:00:00", "updated": "2019-01-01T12:00:00", "deployments": [{"id": "ID", "label": "Label", "name": "Name", "short_description": "ShortDescription", "long_description": "LongDescription", "metadata": {"anyKey": "anyValue"}, "tags": ["Tags"], "created": "2019-01-01T12:00:00", "updated": "2019-01-01T12:00:00"}]}]}], "permit_request_ibm_public_publish": false, "ibm_publish_approved": true, "public_publish_approved": false, "public_original_crn": "PublicOriginalCrn", "publish_public_crn": "PublishPublicCrn", "portal_approval_record": "PortalApprovalRecord", "portal_ui_url": "PortalUiURL", "catalog_id": "CatalogID", "catalog_name": "CatalogName", "metadata": {"anyKey": "anyValue"}, "disclaimer": "Disclaimer", "hidden": true, "provider": "Provider", "repo_info": {"token": "Token", "type": "Type"}}`)
+					fmt.Fprintf(res, `{"id": "ID", "_rev": "Rev", "url": "URL", "crn": "Crn", "label": "Label", "name": "Name", "offering_icon_url": "OfferingIconURL", "offering_docs_url": "OfferingDocsURL", "offering_support_url": "OfferingSupportURL", "tags": ["Tags"], "rating": {"one_star_count": 12, "two_star_count": 12, "three_star_count": 14, "four_star_count": 13}, "created": "2019-01-01T12:00:00", "updated": "2019-01-01T12:00:00", "short_description": "ShortDescription", "long_description": "LongDescription", "features": [{"title": "Title", "description": "Description"}], "kinds": [{"id": "ID", "format_kind": "FormatKind", "target_kind": "TargetKind", "metadata": {"anyKey": "anyValue"}, "install_description": "InstallDescription", "tags": ["Tags"], "additional_features": [{"title": "Title", "description": "Description"}], "created": "2019-01-01T12:00:00", "updated": "2019-01-01T12:00:00", "versions": [{"id": "ID", "_rev": "Rev", "crn": "Crn", "version": "Version", "sha": "Sha", "created": "2019-01-01T12:00:00", "updated": "2019-01-01T12:00:00", "offering_id": "OfferingID", "catalog_id": "CatalogID", "kind_id": "KindID", "tags": ["Tags"], "repo_url": "RepoURL", "source_url": "SourceURL", "tgz_url": "TgzURL", "configuration": [{"key": "Key", "type": "Type", "default_value": "anyValue", "value_constraint": "ValueConstraint", "description": "Description", "required": true, "options": [{"anyKey": "anyValue"}], "hidden": true}], "metadata": {"anyKey": "anyValue"}, "validation": {"validated": "2019-01-01T12:00:00", "requested": "2019-01-01T12:00:00", "state": "State", "last_operation": "LastOperation", "target": {"anyKey": "anyValue"}}, "required_resources": [{"type": "mem", "value": "anyValue"}], "single_instance": true, "install": {"instructions": "Instructions", "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}, "pre_install": [{"instructions": "Instructions", "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}], "entitlement": {"provider_name": "ProviderName", "provider_id": "ProviderID", "product_id": "ProductID", "part_numbers": ["PartNumbers"], "image_repo_name": "ImageRepoName"}, "licenses": [{"id": "ID", "name": "Name", "type": "Type", "url": "URL", "description": "Description"}], "image_manifest_url": "ImageManifestURL", "deprecated": true, "package_version": "PackageVersion", "state": {"current": "Current", "current_entered": "2019-01-01T12:00:00", "pending": "Pending", "pending_requested": "2019-01-01T12:00:00", "previous": "Previous"}, "version_locator": "VersionLocator", "console_url": "ConsoleURL", "long_description": "LongDescription", "whitelisted_accounts": ["WhitelistedAccounts"]}], "plans": [{"id": "ID", "label": "Label", "name": "Name", "short_description": "ShortDescription", "long_description": "LongDescription", "metadata": {"anyKey": "anyValue"}, "tags": ["Tags"], "additional_features": [{"title": "Title", "description": "Description"}], "created": "2019-01-01T12:00:00", "updated": "2019-01-01T12:00:00", "deployments": [{"id": "ID", "label": "Label", "name": "Name", "short_description": "ShortDescription", "long_description": "LongDescription", "metadata": {"anyKey": "anyValue"}, "tags": ["Tags"], "created": "2019-01-01T12:00:00", "updated": "2019-01-01T12:00:00"}]}]}], "permit_request_ibm_public_publish": false, "ibm_publish_approved": true, "public_publish_approved": false, "public_original_crn": "PublicOriginalCrn", "publish_public_crn": "PublishPublicCrn", "portal_approval_record": "PortalApprovalRecord", "portal_ui_url": "PortalUiURL", "catalog_id": "CatalogID", "catalog_name": "CatalogName", "metadata": {"anyKey": "anyValue"}, "disclaimer": "Disclaimer", "hidden": true, "provider": "Provider", "repo_info": {"token": "Token", "type": "Type"}}`)
 				}))
 			})
 			It(`Invoke ImportOfferingVersion successfully`, func() {
@@ -2886,11 +2912,15 @@ var _ = Describe(`CatalogManagementV1`, func() {
 
 				// Construct an instance of the ImportOfferingVersionOptions model
 				importOfferingVersionOptionsModel := new(catalogmanagementv1.ImportOfferingVersionOptions)
-				importOfferingVersionOptionsModel.CatalogID = core.StringPtr("testString")
+				importOfferingVersionOptionsModel.CatalogIdentifier = core.StringPtr("testString")
 				importOfferingVersionOptionsModel.OfferingID = core.StringPtr("testString")
 				importOfferingVersionOptionsModel.Zipurl = core.StringPtr("testString")
+				importOfferingVersionOptionsModel.Tags = []string{"testString"}
+				importOfferingVersionOptionsModel.TargetKinds = []string{"testString"}
 				importOfferingVersionOptionsModel.TargetVersion = core.StringPtr("testString")
 				importOfferingVersionOptionsModel.IncludeConfig = core.BoolPtr(true)
+				importOfferingVersionOptionsModel.RepoType = core.StringPtr("testString")
+				importOfferingVersionOptionsModel.XAuthToken = core.StringPtr("testString")
  				importOfferingVersionOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
@@ -2909,11 +2939,15 @@ var _ = Describe(`CatalogManagementV1`, func() {
 
 				// Construct an instance of the ImportOfferingVersionOptions model
 				importOfferingVersionOptionsModel := new(catalogmanagementv1.ImportOfferingVersionOptions)
-				importOfferingVersionOptionsModel.CatalogID = core.StringPtr("testString")
+				importOfferingVersionOptionsModel.CatalogIdentifier = core.StringPtr("testString")
 				importOfferingVersionOptionsModel.OfferingID = core.StringPtr("testString")
 				importOfferingVersionOptionsModel.Zipurl = core.StringPtr("testString")
+				importOfferingVersionOptionsModel.Tags = []string{"testString"}
+				importOfferingVersionOptionsModel.TargetKinds = []string{"testString"}
 				importOfferingVersionOptionsModel.TargetVersion = core.StringPtr("testString")
 				importOfferingVersionOptionsModel.IncludeConfig = core.BoolPtr(true)
+				importOfferingVersionOptionsModel.RepoType = core.StringPtr("testString")
+				importOfferingVersionOptionsModel.XAuthToken = core.StringPtr("testString")
 				importOfferingVersionOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := testService.SetServiceURL("")
@@ -2946,12 +2980,16 @@ var _ = Describe(`CatalogManagementV1`, func() {
 					// Verify the contents of the request
 					Expect(req.URL.Path).To(Equal(importOfferingPath))
 					Expect(req.Method).To(Equal("POST"))
+					Expect(req.Header["X-Auth-Token"]).ToNot(BeNil())
+					Expect(req.Header["X-Auth-Token"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					Expect(req.URL.Query()["zipurl"]).To(Equal([]string{"testString"}))
 
 					Expect(req.URL.Query()["offeringID"]).To(Equal([]string{"testString"}))
 
 
 					// TODO: Add check for includeConfig query parameter
+
+					Expect(req.URL.Query()["repoType"]).To(Equal([]string{"testString"}))
 
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
@@ -2968,10 +3006,14 @@ var _ = Describe(`CatalogManagementV1`, func() {
 
 				// Construct an instance of the ImportOfferingOptions model
 				importOfferingOptionsModel := new(catalogmanagementv1.ImportOfferingOptions)
-				importOfferingOptionsModel.CatalogID = core.StringPtr("testString")
+				importOfferingOptionsModel.CatalogIdentifier = core.StringPtr("testString")
 				importOfferingOptionsModel.Zipurl = core.StringPtr("testString")
+				importOfferingOptionsModel.Tags = []string{"testString"}
+				importOfferingOptionsModel.TargetKinds = []string{"testString"}
 				importOfferingOptionsModel.OfferingID = core.StringPtr("testString")
 				importOfferingOptionsModel.IncludeConfig = core.BoolPtr(true)
+				importOfferingOptionsModel.RepoType = core.StringPtr("testString")
+				importOfferingOptionsModel.XAuthToken = core.StringPtr("testString")
 				importOfferingOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
 				result, response, operationErr := testService.ImportOffering(importOfferingOptionsModel)
@@ -2995,6 +3037,8 @@ var _ = Describe(`CatalogManagementV1`, func() {
 					// Verify the contents of the request
 					Expect(req.URL.Path).To(Equal(importOfferingPath))
 					Expect(req.Method).To(Equal("POST"))
+					Expect(req.Header["X-Auth-Token"]).ToNot(BeNil())
+					Expect(req.Header["X-Auth-Token"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					Expect(req.URL.Query()["zipurl"]).To(Equal([]string{"testString"}))
 
 					Expect(req.URL.Query()["offeringID"]).To(Equal([]string{"testString"}))
@@ -3002,9 +3046,11 @@ var _ = Describe(`CatalogManagementV1`, func() {
 
 					// TODO: Add check for includeConfig query parameter
 
+					Expect(req.URL.Query()["repoType"]).To(Equal([]string{"testString"}))
+
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, `{"id": "ID", "url": "URL", "crn": "Crn", "label": "Label", "name": "Name", "offering_icon_url": "OfferingIconURL", "offering_docs_url": "OfferingDocsURL", "offering_support_url": "OfferingSupportURL", "tags": ["Tags"], "rating": {"one_star_count": 12, "two_star_count": 12, "three_star_count": 14, "four_star_count": 13}, "created": "2019-01-01T12:00:00", "updated": "2019-01-01T12:00:00", "short_description": "ShortDescription", "long_description": "LongDescription", "features": [{"title": "Title", "description": "Description"}], "kinds": [{"id": "ID", "format_kind": "FormatKind", "target_kind": "TargetKind", "metadata": {"anyKey": "anyValue"}, "install_description": "InstallDescription", "tags": ["Tags"], "additional_features": [{"title": "Title", "description": "Description"}], "created": "2019-01-01T12:00:00", "updated": "2019-01-01T12:00:00", "versions": [{"id": "ID", "crn": "Crn", "version": "Version", "sha": "Sha", "created": "2019-01-01T12:00:00", "updated": "2019-01-01T12:00:00", "offering_id": "OfferingID", "catalog_id": "CatalogID", "kind_id": "KindID", "tags": ["Tags"], "repo_url": "RepoURL", "source_url": "SourceURL", "tgz_url": "TgzURL", "configuration": [{"key": "Key", "type": "Type", "default_value": "DefaultValue", "value_constraint": "ValueConstraint", "description": "Description", "required": true, "options": [{"anyKey": "anyValue"}], "hidden": true}], "metadata": {"anyKey": "anyValue"}, "validation": {"validated": "2019-01-01T12:00:00", "requested": "2019-01-01T12:00:00", "state": "State", "last_operation": "LastOperation", "target": {"anyKey": "anyValue"}}, "required_resources": {"type": "mem", "value": "Value"}, "single_instance": true, "install": {"instructions": "Instructions", "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}, "pre_install": [{"instructions": "Instructions", "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}], "entitlement": {"provider_name": "ProviderName", "provider_id": "ProviderID", "product_id": "ProductID", "part_numbers": ["PartNumbers"], "image_repo_name": "ImageRepoName"}, "licenses": [{"id": "ID", "name": "Name", "type": "Type", "url": "URL", "description": "Description"}], "image_manifest_url": "ImageManifestURL", "deprecated": true, "package_version": "PackageVersion", "state": {"current": "Current", "current_entered": "2019-01-01T12:00:00", "pending": "Pending", "pending_requested": "2019-01-01T12:00:00", "previous": "Previous"}, "version_locator": "VersionLocator", "console_url": "ConsoleURL", "long_description": "LongDescription", "whitelisted_accounts": ["WhitelistedAccounts"]}], "plans": [{"id": "ID", "label": "Label", "name": "Name", "short_description": "ShortDescription", "long_description": "LongDescription", "metadata": {"anyKey": "anyValue"}, "tags": ["Tags"], "additional_features": [{"title": "Title", "description": "Description"}], "created": "2019-01-01T12:00:00", "updated": "2019-01-01T12:00:00", "deployments": [{"id": "ID", "label": "Label", "name": "Name", "short_description": "ShortDescription", "long_description": "LongDescription", "metadata": {"anyKey": "anyValue"}, "tags": ["Tags"], "created": "2019-01-01T12:00:00", "updated": "2019-01-01T12:00:00"}]}]}], "permit_request_ibm_public_publish": false, "ibm_publish_approved": true, "public_publish_approved": false, "public_original_crn": "PublicOriginalCrn", "publish_public_crn": "PublishPublicCrn", "portal_approval_record": "PortalApprovalRecord", "portal_ui_url": "PortalUiURL", "catalog_id": "CatalogID", "catalog_name": "CatalogName", "metadata": {"anyKey": "anyValue"}, "disclaimer": "Disclaimer", "hidden": true, "provider": "Provider", "repo_info": {"token": "Token", "type": "Type"}}`)
+					fmt.Fprintf(res, `{"id": "ID", "_rev": "Rev", "url": "URL", "crn": "Crn", "label": "Label", "name": "Name", "offering_icon_url": "OfferingIconURL", "offering_docs_url": "OfferingDocsURL", "offering_support_url": "OfferingSupportURL", "tags": ["Tags"], "rating": {"one_star_count": 12, "two_star_count": 12, "three_star_count": 14, "four_star_count": 13}, "created": "2019-01-01T12:00:00", "updated": "2019-01-01T12:00:00", "short_description": "ShortDescription", "long_description": "LongDescription", "features": [{"title": "Title", "description": "Description"}], "kinds": [{"id": "ID", "format_kind": "FormatKind", "target_kind": "TargetKind", "metadata": {"anyKey": "anyValue"}, "install_description": "InstallDescription", "tags": ["Tags"], "additional_features": [{"title": "Title", "description": "Description"}], "created": "2019-01-01T12:00:00", "updated": "2019-01-01T12:00:00", "versions": [{"id": "ID", "_rev": "Rev", "crn": "Crn", "version": "Version", "sha": "Sha", "created": "2019-01-01T12:00:00", "updated": "2019-01-01T12:00:00", "offering_id": "OfferingID", "catalog_id": "CatalogID", "kind_id": "KindID", "tags": ["Tags"], "repo_url": "RepoURL", "source_url": "SourceURL", "tgz_url": "TgzURL", "configuration": [{"key": "Key", "type": "Type", "default_value": "anyValue", "value_constraint": "ValueConstraint", "description": "Description", "required": true, "options": [{"anyKey": "anyValue"}], "hidden": true}], "metadata": {"anyKey": "anyValue"}, "validation": {"validated": "2019-01-01T12:00:00", "requested": "2019-01-01T12:00:00", "state": "State", "last_operation": "LastOperation", "target": {"anyKey": "anyValue"}}, "required_resources": [{"type": "mem", "value": "anyValue"}], "single_instance": true, "install": {"instructions": "Instructions", "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}, "pre_install": [{"instructions": "Instructions", "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}], "entitlement": {"provider_name": "ProviderName", "provider_id": "ProviderID", "product_id": "ProductID", "part_numbers": ["PartNumbers"], "image_repo_name": "ImageRepoName"}, "licenses": [{"id": "ID", "name": "Name", "type": "Type", "url": "URL", "description": "Description"}], "image_manifest_url": "ImageManifestURL", "deprecated": true, "package_version": "PackageVersion", "state": {"current": "Current", "current_entered": "2019-01-01T12:00:00", "pending": "Pending", "pending_requested": "2019-01-01T12:00:00", "previous": "Previous"}, "version_locator": "VersionLocator", "console_url": "ConsoleURL", "long_description": "LongDescription", "whitelisted_accounts": ["WhitelistedAccounts"]}], "plans": [{"id": "ID", "label": "Label", "name": "Name", "short_description": "ShortDescription", "long_description": "LongDescription", "metadata": {"anyKey": "anyValue"}, "tags": ["Tags"], "additional_features": [{"title": "Title", "description": "Description"}], "created": "2019-01-01T12:00:00", "updated": "2019-01-01T12:00:00", "deployments": [{"id": "ID", "label": "Label", "name": "Name", "short_description": "ShortDescription", "long_description": "LongDescription", "metadata": {"anyKey": "anyValue"}, "tags": ["Tags"], "created": "2019-01-01T12:00:00", "updated": "2019-01-01T12:00:00"}]}]}], "permit_request_ibm_public_publish": false, "ibm_publish_approved": true, "public_publish_approved": false, "public_original_crn": "PublicOriginalCrn", "publish_public_crn": "PublishPublicCrn", "portal_approval_record": "PortalApprovalRecord", "portal_ui_url": "PortalUiURL", "catalog_id": "CatalogID", "catalog_name": "CatalogName", "metadata": {"anyKey": "anyValue"}, "disclaimer": "Disclaimer", "hidden": true, "provider": "Provider", "repo_info": {"token": "Token", "type": "Type"}}`)
 				}))
 			})
 			It(`Invoke ImportOffering successfully`, func() {
@@ -3023,10 +3069,14 @@ var _ = Describe(`CatalogManagementV1`, func() {
 
 				// Construct an instance of the ImportOfferingOptions model
 				importOfferingOptionsModel := new(catalogmanagementv1.ImportOfferingOptions)
-				importOfferingOptionsModel.CatalogID = core.StringPtr("testString")
+				importOfferingOptionsModel.CatalogIdentifier = core.StringPtr("testString")
 				importOfferingOptionsModel.Zipurl = core.StringPtr("testString")
+				importOfferingOptionsModel.Tags = []string{"testString"}
+				importOfferingOptionsModel.TargetKinds = []string{"testString"}
 				importOfferingOptionsModel.OfferingID = core.StringPtr("testString")
 				importOfferingOptionsModel.IncludeConfig = core.BoolPtr(true)
+				importOfferingOptionsModel.RepoType = core.StringPtr("testString")
+				importOfferingOptionsModel.XAuthToken = core.StringPtr("testString")
  				importOfferingOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
@@ -3045,10 +3095,14 @@ var _ = Describe(`CatalogManagementV1`, func() {
 
 				// Construct an instance of the ImportOfferingOptions model
 				importOfferingOptionsModel := new(catalogmanagementv1.ImportOfferingOptions)
-				importOfferingOptionsModel.CatalogID = core.StringPtr("testString")
+				importOfferingOptionsModel.CatalogIdentifier = core.StringPtr("testString")
 				importOfferingOptionsModel.Zipurl = core.StringPtr("testString")
+				importOfferingOptionsModel.Tags = []string{"testString"}
+				importOfferingOptionsModel.TargetKinds = []string{"testString"}
 				importOfferingOptionsModel.OfferingID = core.StringPtr("testString")
 				importOfferingOptionsModel.IncludeConfig = core.BoolPtr(true)
+				importOfferingOptionsModel.RepoType = core.StringPtr("testString")
+				importOfferingOptionsModel.XAuthToken = core.StringPtr("testString")
 				importOfferingOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := testService.SetServiceURL("")
@@ -3081,9 +3135,13 @@ var _ = Describe(`CatalogManagementV1`, func() {
 					// Verify the contents of the request
 					Expect(req.URL.Path).To(Equal(reloadOfferingPath))
 					Expect(req.Method).To(Equal("PUT"))
+					Expect(req.Header["X-Auth-Token"]).ToNot(BeNil())
+					Expect(req.Header["X-Auth-Token"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					Expect(req.URL.Query()["zipurl"]).To(Equal([]string{"testString"}))
 
 					Expect(req.URL.Query()["targetVersion"]).To(Equal([]string{"testString"}))
+
+					Expect(req.URL.Query()["repoType"]).To(Equal([]string{"testString"}))
 
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
@@ -3100,10 +3158,14 @@ var _ = Describe(`CatalogManagementV1`, func() {
 
 				// Construct an instance of the ReloadOfferingOptions model
 				reloadOfferingOptionsModel := new(catalogmanagementv1.ReloadOfferingOptions)
-				reloadOfferingOptionsModel.CatalogID = core.StringPtr("testString")
+				reloadOfferingOptionsModel.CatalogIdentifier = core.StringPtr("testString")
 				reloadOfferingOptionsModel.OfferingID = core.StringPtr("testString")
 				reloadOfferingOptionsModel.Zipurl = core.StringPtr("testString")
 				reloadOfferingOptionsModel.TargetVersion = core.StringPtr("testString")
+				reloadOfferingOptionsModel.Tags = []string{"testString"}
+				reloadOfferingOptionsModel.TargetKinds = []string{"testString"}
+				reloadOfferingOptionsModel.RepoType = core.StringPtr("testString")
+				reloadOfferingOptionsModel.XAuthToken = core.StringPtr("testString")
 				reloadOfferingOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
 				result, response, operationErr := testService.ReloadOffering(reloadOfferingOptionsModel)
@@ -3127,13 +3189,17 @@ var _ = Describe(`CatalogManagementV1`, func() {
 					// Verify the contents of the request
 					Expect(req.URL.Path).To(Equal(reloadOfferingPath))
 					Expect(req.Method).To(Equal("PUT"))
+					Expect(req.Header["X-Auth-Token"]).ToNot(BeNil())
+					Expect(req.Header["X-Auth-Token"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					Expect(req.URL.Query()["zipurl"]).To(Equal([]string{"testString"}))
 
 					Expect(req.URL.Query()["targetVersion"]).To(Equal([]string{"testString"}))
 
+					Expect(req.URL.Query()["repoType"]).To(Equal([]string{"testString"}))
+
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, `{"id": "ID", "url": "URL", "crn": "Crn", "label": "Label", "name": "Name", "offering_icon_url": "OfferingIconURL", "offering_docs_url": "OfferingDocsURL", "offering_support_url": "OfferingSupportURL", "tags": ["Tags"], "rating": {"one_star_count": 12, "two_star_count": 12, "three_star_count": 14, "four_star_count": 13}, "created": "2019-01-01T12:00:00", "updated": "2019-01-01T12:00:00", "short_description": "ShortDescription", "long_description": "LongDescription", "features": [{"title": "Title", "description": "Description"}], "kinds": [{"id": "ID", "format_kind": "FormatKind", "target_kind": "TargetKind", "metadata": {"anyKey": "anyValue"}, "install_description": "InstallDescription", "tags": ["Tags"], "additional_features": [{"title": "Title", "description": "Description"}], "created": "2019-01-01T12:00:00", "updated": "2019-01-01T12:00:00", "versions": [{"id": "ID", "crn": "Crn", "version": "Version", "sha": "Sha", "created": "2019-01-01T12:00:00", "updated": "2019-01-01T12:00:00", "offering_id": "OfferingID", "catalog_id": "CatalogID", "kind_id": "KindID", "tags": ["Tags"], "repo_url": "RepoURL", "source_url": "SourceURL", "tgz_url": "TgzURL", "configuration": [{"key": "Key", "type": "Type", "default_value": "DefaultValue", "value_constraint": "ValueConstraint", "description": "Description", "required": true, "options": [{"anyKey": "anyValue"}], "hidden": true}], "metadata": {"anyKey": "anyValue"}, "validation": {"validated": "2019-01-01T12:00:00", "requested": "2019-01-01T12:00:00", "state": "State", "last_operation": "LastOperation", "target": {"anyKey": "anyValue"}}, "required_resources": {"type": "mem", "value": "Value"}, "single_instance": true, "install": {"instructions": "Instructions", "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}, "pre_install": [{"instructions": "Instructions", "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}], "entitlement": {"provider_name": "ProviderName", "provider_id": "ProviderID", "product_id": "ProductID", "part_numbers": ["PartNumbers"], "image_repo_name": "ImageRepoName"}, "licenses": [{"id": "ID", "name": "Name", "type": "Type", "url": "URL", "description": "Description"}], "image_manifest_url": "ImageManifestURL", "deprecated": true, "package_version": "PackageVersion", "state": {"current": "Current", "current_entered": "2019-01-01T12:00:00", "pending": "Pending", "pending_requested": "2019-01-01T12:00:00", "previous": "Previous"}, "version_locator": "VersionLocator", "console_url": "ConsoleURL", "long_description": "LongDescription", "whitelisted_accounts": ["WhitelistedAccounts"]}], "plans": [{"id": "ID", "label": "Label", "name": "Name", "short_description": "ShortDescription", "long_description": "LongDescription", "metadata": {"anyKey": "anyValue"}, "tags": ["Tags"], "additional_features": [{"title": "Title", "description": "Description"}], "created": "2019-01-01T12:00:00", "updated": "2019-01-01T12:00:00", "deployments": [{"id": "ID", "label": "Label", "name": "Name", "short_description": "ShortDescription", "long_description": "LongDescription", "metadata": {"anyKey": "anyValue"}, "tags": ["Tags"], "created": "2019-01-01T12:00:00", "updated": "2019-01-01T12:00:00"}]}]}], "permit_request_ibm_public_publish": false, "ibm_publish_approved": true, "public_publish_approved": false, "public_original_crn": "PublicOriginalCrn", "publish_public_crn": "PublishPublicCrn", "portal_approval_record": "PortalApprovalRecord", "portal_ui_url": "PortalUiURL", "catalog_id": "CatalogID", "catalog_name": "CatalogName", "metadata": {"anyKey": "anyValue"}, "disclaimer": "Disclaimer", "hidden": true, "provider": "Provider", "repo_info": {"token": "Token", "type": "Type"}}`)
+					fmt.Fprintf(res, `{"id": "ID", "_rev": "Rev", "url": "URL", "crn": "Crn", "label": "Label", "name": "Name", "offering_icon_url": "OfferingIconURL", "offering_docs_url": "OfferingDocsURL", "offering_support_url": "OfferingSupportURL", "tags": ["Tags"], "rating": {"one_star_count": 12, "two_star_count": 12, "three_star_count": 14, "four_star_count": 13}, "created": "2019-01-01T12:00:00", "updated": "2019-01-01T12:00:00", "short_description": "ShortDescription", "long_description": "LongDescription", "features": [{"title": "Title", "description": "Description"}], "kinds": [{"id": "ID", "format_kind": "FormatKind", "target_kind": "TargetKind", "metadata": {"anyKey": "anyValue"}, "install_description": "InstallDescription", "tags": ["Tags"], "additional_features": [{"title": "Title", "description": "Description"}], "created": "2019-01-01T12:00:00", "updated": "2019-01-01T12:00:00", "versions": [{"id": "ID", "_rev": "Rev", "crn": "Crn", "version": "Version", "sha": "Sha", "created": "2019-01-01T12:00:00", "updated": "2019-01-01T12:00:00", "offering_id": "OfferingID", "catalog_id": "CatalogID", "kind_id": "KindID", "tags": ["Tags"], "repo_url": "RepoURL", "source_url": "SourceURL", "tgz_url": "TgzURL", "configuration": [{"key": "Key", "type": "Type", "default_value": "anyValue", "value_constraint": "ValueConstraint", "description": "Description", "required": true, "options": [{"anyKey": "anyValue"}], "hidden": true}], "metadata": {"anyKey": "anyValue"}, "validation": {"validated": "2019-01-01T12:00:00", "requested": "2019-01-01T12:00:00", "state": "State", "last_operation": "LastOperation", "target": {"anyKey": "anyValue"}}, "required_resources": [{"type": "mem", "value": "anyValue"}], "single_instance": true, "install": {"instructions": "Instructions", "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}, "pre_install": [{"instructions": "Instructions", "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}], "entitlement": {"provider_name": "ProviderName", "provider_id": "ProviderID", "product_id": "ProductID", "part_numbers": ["PartNumbers"], "image_repo_name": "ImageRepoName"}, "licenses": [{"id": "ID", "name": "Name", "type": "Type", "url": "URL", "description": "Description"}], "image_manifest_url": "ImageManifestURL", "deprecated": true, "package_version": "PackageVersion", "state": {"current": "Current", "current_entered": "2019-01-01T12:00:00", "pending": "Pending", "pending_requested": "2019-01-01T12:00:00", "previous": "Previous"}, "version_locator": "VersionLocator", "console_url": "ConsoleURL", "long_description": "LongDescription", "whitelisted_accounts": ["WhitelistedAccounts"]}], "plans": [{"id": "ID", "label": "Label", "name": "Name", "short_description": "ShortDescription", "long_description": "LongDescription", "metadata": {"anyKey": "anyValue"}, "tags": ["Tags"], "additional_features": [{"title": "Title", "description": "Description"}], "created": "2019-01-01T12:00:00", "updated": "2019-01-01T12:00:00", "deployments": [{"id": "ID", "label": "Label", "name": "Name", "short_description": "ShortDescription", "long_description": "LongDescription", "metadata": {"anyKey": "anyValue"}, "tags": ["Tags"], "created": "2019-01-01T12:00:00", "updated": "2019-01-01T12:00:00"}]}]}], "permit_request_ibm_public_publish": false, "ibm_publish_approved": true, "public_publish_approved": false, "public_original_crn": "PublicOriginalCrn", "publish_public_crn": "PublishPublicCrn", "portal_approval_record": "PortalApprovalRecord", "portal_ui_url": "PortalUiURL", "catalog_id": "CatalogID", "catalog_name": "CatalogName", "metadata": {"anyKey": "anyValue"}, "disclaimer": "Disclaimer", "hidden": true, "provider": "Provider", "repo_info": {"token": "Token", "type": "Type"}}`)
 				}))
 			})
 			It(`Invoke ReloadOffering successfully`, func() {
@@ -3152,10 +3218,14 @@ var _ = Describe(`CatalogManagementV1`, func() {
 
 				// Construct an instance of the ReloadOfferingOptions model
 				reloadOfferingOptionsModel := new(catalogmanagementv1.ReloadOfferingOptions)
-				reloadOfferingOptionsModel.CatalogID = core.StringPtr("testString")
+				reloadOfferingOptionsModel.CatalogIdentifier = core.StringPtr("testString")
 				reloadOfferingOptionsModel.OfferingID = core.StringPtr("testString")
 				reloadOfferingOptionsModel.Zipurl = core.StringPtr("testString")
 				reloadOfferingOptionsModel.TargetVersion = core.StringPtr("testString")
+				reloadOfferingOptionsModel.Tags = []string{"testString"}
+				reloadOfferingOptionsModel.TargetKinds = []string{"testString"}
+				reloadOfferingOptionsModel.RepoType = core.StringPtr("testString")
+				reloadOfferingOptionsModel.XAuthToken = core.StringPtr("testString")
  				reloadOfferingOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
@@ -3174,10 +3244,14 @@ var _ = Describe(`CatalogManagementV1`, func() {
 
 				// Construct an instance of the ReloadOfferingOptions model
 				reloadOfferingOptionsModel := new(catalogmanagementv1.ReloadOfferingOptions)
-				reloadOfferingOptionsModel.CatalogID = core.StringPtr("testString")
+				reloadOfferingOptionsModel.CatalogIdentifier = core.StringPtr("testString")
 				reloadOfferingOptionsModel.OfferingID = core.StringPtr("testString")
 				reloadOfferingOptionsModel.Zipurl = core.StringPtr("testString")
 				reloadOfferingOptionsModel.TargetVersion = core.StringPtr("testString")
+				reloadOfferingOptionsModel.Tags = []string{"testString"}
+				reloadOfferingOptionsModel.TargetKinds = []string{"testString"}
+				reloadOfferingOptionsModel.RepoType = core.StringPtr("testString")
+				reloadOfferingOptionsModel.XAuthToken = core.StringPtr("testString")
 				reloadOfferingOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := testService.SetServiceURL("")
@@ -3225,7 +3299,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 
 				// Construct an instance of the GetOfferingOptions model
 				getOfferingOptionsModel := new(catalogmanagementv1.GetOfferingOptions)
-				getOfferingOptionsModel.CatalogID = core.StringPtr("testString")
+				getOfferingOptionsModel.CatalogIdentifier = core.StringPtr("testString")
 				getOfferingOptionsModel.OfferingID = core.StringPtr("testString")
 				getOfferingOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
@@ -3252,7 +3326,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 					Expect(req.Method).To(Equal("GET"))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, `{"id": "ID", "url": "URL", "crn": "Crn", "label": "Label", "name": "Name", "offering_icon_url": "OfferingIconURL", "offering_docs_url": "OfferingDocsURL", "offering_support_url": "OfferingSupportURL", "tags": ["Tags"], "rating": {"one_star_count": 12, "two_star_count": 12, "three_star_count": 14, "four_star_count": 13}, "created": "2019-01-01T12:00:00", "updated": "2019-01-01T12:00:00", "short_description": "ShortDescription", "long_description": "LongDescription", "features": [{"title": "Title", "description": "Description"}], "kinds": [{"id": "ID", "format_kind": "FormatKind", "target_kind": "TargetKind", "metadata": {"anyKey": "anyValue"}, "install_description": "InstallDescription", "tags": ["Tags"], "additional_features": [{"title": "Title", "description": "Description"}], "created": "2019-01-01T12:00:00", "updated": "2019-01-01T12:00:00", "versions": [{"id": "ID", "crn": "Crn", "version": "Version", "sha": "Sha", "created": "2019-01-01T12:00:00", "updated": "2019-01-01T12:00:00", "offering_id": "OfferingID", "catalog_id": "CatalogID", "kind_id": "KindID", "tags": ["Tags"], "repo_url": "RepoURL", "source_url": "SourceURL", "tgz_url": "TgzURL", "configuration": [{"key": "Key", "type": "Type", "default_value": "DefaultValue", "value_constraint": "ValueConstraint", "description": "Description", "required": true, "options": [{"anyKey": "anyValue"}], "hidden": true}], "metadata": {"anyKey": "anyValue"}, "validation": {"validated": "2019-01-01T12:00:00", "requested": "2019-01-01T12:00:00", "state": "State", "last_operation": "LastOperation", "target": {"anyKey": "anyValue"}}, "required_resources": {"type": "mem", "value": "Value"}, "single_instance": true, "install": {"instructions": "Instructions", "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}, "pre_install": [{"instructions": "Instructions", "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}], "entitlement": {"provider_name": "ProviderName", "provider_id": "ProviderID", "product_id": "ProductID", "part_numbers": ["PartNumbers"], "image_repo_name": "ImageRepoName"}, "licenses": [{"id": "ID", "name": "Name", "type": "Type", "url": "URL", "description": "Description"}], "image_manifest_url": "ImageManifestURL", "deprecated": true, "package_version": "PackageVersion", "state": {"current": "Current", "current_entered": "2019-01-01T12:00:00", "pending": "Pending", "pending_requested": "2019-01-01T12:00:00", "previous": "Previous"}, "version_locator": "VersionLocator", "console_url": "ConsoleURL", "long_description": "LongDescription", "whitelisted_accounts": ["WhitelistedAccounts"]}], "plans": [{"id": "ID", "label": "Label", "name": "Name", "short_description": "ShortDescription", "long_description": "LongDescription", "metadata": {"anyKey": "anyValue"}, "tags": ["Tags"], "additional_features": [{"title": "Title", "description": "Description"}], "created": "2019-01-01T12:00:00", "updated": "2019-01-01T12:00:00", "deployments": [{"id": "ID", "label": "Label", "name": "Name", "short_description": "ShortDescription", "long_description": "LongDescription", "metadata": {"anyKey": "anyValue"}, "tags": ["Tags"], "created": "2019-01-01T12:00:00", "updated": "2019-01-01T12:00:00"}]}]}], "permit_request_ibm_public_publish": false, "ibm_publish_approved": true, "public_publish_approved": false, "public_original_crn": "PublicOriginalCrn", "publish_public_crn": "PublishPublicCrn", "portal_approval_record": "PortalApprovalRecord", "portal_ui_url": "PortalUiURL", "catalog_id": "CatalogID", "catalog_name": "CatalogName", "metadata": {"anyKey": "anyValue"}, "disclaimer": "Disclaimer", "hidden": true, "provider": "Provider", "repo_info": {"token": "Token", "type": "Type"}}`)
+					fmt.Fprintf(res, `{"id": "ID", "_rev": "Rev", "url": "URL", "crn": "Crn", "label": "Label", "name": "Name", "offering_icon_url": "OfferingIconURL", "offering_docs_url": "OfferingDocsURL", "offering_support_url": "OfferingSupportURL", "tags": ["Tags"], "rating": {"one_star_count": 12, "two_star_count": 12, "three_star_count": 14, "four_star_count": 13}, "created": "2019-01-01T12:00:00", "updated": "2019-01-01T12:00:00", "short_description": "ShortDescription", "long_description": "LongDescription", "features": [{"title": "Title", "description": "Description"}], "kinds": [{"id": "ID", "format_kind": "FormatKind", "target_kind": "TargetKind", "metadata": {"anyKey": "anyValue"}, "install_description": "InstallDescription", "tags": ["Tags"], "additional_features": [{"title": "Title", "description": "Description"}], "created": "2019-01-01T12:00:00", "updated": "2019-01-01T12:00:00", "versions": [{"id": "ID", "_rev": "Rev", "crn": "Crn", "version": "Version", "sha": "Sha", "created": "2019-01-01T12:00:00", "updated": "2019-01-01T12:00:00", "offering_id": "OfferingID", "catalog_id": "CatalogID", "kind_id": "KindID", "tags": ["Tags"], "repo_url": "RepoURL", "source_url": "SourceURL", "tgz_url": "TgzURL", "configuration": [{"key": "Key", "type": "Type", "default_value": "anyValue", "value_constraint": "ValueConstraint", "description": "Description", "required": true, "options": [{"anyKey": "anyValue"}], "hidden": true}], "metadata": {"anyKey": "anyValue"}, "validation": {"validated": "2019-01-01T12:00:00", "requested": "2019-01-01T12:00:00", "state": "State", "last_operation": "LastOperation", "target": {"anyKey": "anyValue"}}, "required_resources": [{"type": "mem", "value": "anyValue"}], "single_instance": true, "install": {"instructions": "Instructions", "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}, "pre_install": [{"instructions": "Instructions", "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}], "entitlement": {"provider_name": "ProviderName", "provider_id": "ProviderID", "product_id": "ProductID", "part_numbers": ["PartNumbers"], "image_repo_name": "ImageRepoName"}, "licenses": [{"id": "ID", "name": "Name", "type": "Type", "url": "URL", "description": "Description"}], "image_manifest_url": "ImageManifestURL", "deprecated": true, "package_version": "PackageVersion", "state": {"current": "Current", "current_entered": "2019-01-01T12:00:00", "pending": "Pending", "pending_requested": "2019-01-01T12:00:00", "previous": "Previous"}, "version_locator": "VersionLocator", "console_url": "ConsoleURL", "long_description": "LongDescription", "whitelisted_accounts": ["WhitelistedAccounts"]}], "plans": [{"id": "ID", "label": "Label", "name": "Name", "short_description": "ShortDescription", "long_description": "LongDescription", "metadata": {"anyKey": "anyValue"}, "tags": ["Tags"], "additional_features": [{"title": "Title", "description": "Description"}], "created": "2019-01-01T12:00:00", "updated": "2019-01-01T12:00:00", "deployments": [{"id": "ID", "label": "Label", "name": "Name", "short_description": "ShortDescription", "long_description": "LongDescription", "metadata": {"anyKey": "anyValue"}, "tags": ["Tags"], "created": "2019-01-01T12:00:00", "updated": "2019-01-01T12:00:00"}]}]}], "permit_request_ibm_public_publish": false, "ibm_publish_approved": true, "public_publish_approved": false, "public_original_crn": "PublicOriginalCrn", "publish_public_crn": "PublishPublicCrn", "portal_approval_record": "PortalApprovalRecord", "portal_ui_url": "PortalUiURL", "catalog_id": "CatalogID", "catalog_name": "CatalogName", "metadata": {"anyKey": "anyValue"}, "disclaimer": "Disclaimer", "hidden": true, "provider": "Provider", "repo_info": {"token": "Token", "type": "Type"}}`)
 				}))
 			})
 			It(`Invoke GetOffering successfully`, func() {
@@ -3271,7 +3345,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 
 				// Construct an instance of the GetOfferingOptions model
 				getOfferingOptionsModel := new(catalogmanagementv1.GetOfferingOptions)
-				getOfferingOptionsModel.CatalogID = core.StringPtr("testString")
+				getOfferingOptionsModel.CatalogIdentifier = core.StringPtr("testString")
 				getOfferingOptionsModel.OfferingID = core.StringPtr("testString")
  				getOfferingOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
@@ -3291,7 +3365,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 
 				// Construct an instance of the GetOfferingOptions model
 				getOfferingOptionsModel := new(catalogmanagementv1.GetOfferingOptions)
-				getOfferingOptionsModel.CatalogID = core.StringPtr("testString")
+				getOfferingOptionsModel.CatalogIdentifier = core.StringPtr("testString")
 				getOfferingOptionsModel.OfferingID = core.StringPtr("testString")
 				getOfferingOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
@@ -3428,6 +3502,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				// Construct an instance of the Version model
 				versionModel := new(catalogmanagementv1.Version)
 				versionModel.ID = core.StringPtr("testString")
+				versionModel.Rev = core.StringPtr("testString")
 				versionModel.Crn = core.StringPtr("testString")
 				versionModel.Version = core.StringPtr("testString")
 				versionModel.Sha = core.StringPtr("testString")
@@ -3443,7 +3518,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				versionModel.Configuration = []catalogmanagementv1.Configuration{*configurationModel}
 				versionModel.Metadata = map[string]interface{}{"anyKey": "anyValue"}
 				versionModel.Validation = validationModel
-				versionModel.RequiredResources = resourceModel
+				versionModel.RequiredResources = []catalogmanagementv1.Resource{*resourceModel}
 				versionModel.SingleInstance = core.BoolPtr(true)
 				versionModel.Install = scriptModel
 				versionModel.PreInstall = []catalogmanagementv1.Script{*scriptModel}
@@ -3486,38 +3561,39 @@ var _ = Describe(`CatalogManagementV1`, func() {
 
 				// Construct an instance of the ReplaceOfferingOptions model
 				replaceOfferingOptionsModel := new(catalogmanagementv1.ReplaceOfferingOptions)
-				replaceOfferingOptionsModel.CatalogID = core.StringPtr("testString")
+				replaceOfferingOptionsModel.CatalogIdentifier = core.StringPtr("testString")
 				replaceOfferingOptionsModel.OfferingID = core.StringPtr("testString")
-				replaceOfferingOptionsModel.NewID = core.StringPtr("testString")
-				replaceOfferingOptionsModel.NewURL = core.StringPtr("testString")
-				replaceOfferingOptionsModel.NewCrn = core.StringPtr("testString")
-				replaceOfferingOptionsModel.NewLabel = core.StringPtr("testString")
-				replaceOfferingOptionsModel.NewName = core.StringPtr("testString")
-				replaceOfferingOptionsModel.NewOfferingIconURL = core.StringPtr("testString")
-				replaceOfferingOptionsModel.NewOfferingDocsURL = core.StringPtr("testString")
-				replaceOfferingOptionsModel.NewOfferingSupportURL = core.StringPtr("testString")
-				replaceOfferingOptionsModel.NewTags = []string{"testString"}
-				replaceOfferingOptionsModel.NewRating = ratingModel
-				replaceOfferingOptionsModel.NewCreated = CreateMockDateTime()
-				replaceOfferingOptionsModel.NewUpdated = CreateMockDateTime()
-				replaceOfferingOptionsModel.NewShortDescription = core.StringPtr("testString")
-				replaceOfferingOptionsModel.NewLongDescription = core.StringPtr("testString")
-				replaceOfferingOptionsModel.NewFeatures = []catalogmanagementv1.Feature{*featureModel}
-				replaceOfferingOptionsModel.NewKinds = []catalogmanagementv1.Kind{*kindModel}
-				replaceOfferingOptionsModel.NewPermitRequestIbmPublicPublish = core.BoolPtr(true)
-				replaceOfferingOptionsModel.NewIbmPublishApproved = core.BoolPtr(true)
-				replaceOfferingOptionsModel.NewPublicPublishApproved = core.BoolPtr(true)
-				replaceOfferingOptionsModel.NewPublicOriginalCrn = core.StringPtr("testString")
-				replaceOfferingOptionsModel.NewPublishPublicCrn = core.StringPtr("testString")
-				replaceOfferingOptionsModel.NewPortalApprovalRecord = core.StringPtr("testString")
-				replaceOfferingOptionsModel.NewPortalUiURL = core.StringPtr("testString")
-				replaceOfferingOptionsModel.NewCatalogID = core.StringPtr("testString")
-				replaceOfferingOptionsModel.NewCatalogName = core.StringPtr("testString")
-				replaceOfferingOptionsModel.NewMetadata = map[string]interface{}{"anyKey": "anyValue"}
-				replaceOfferingOptionsModel.NewDisclaimer = core.StringPtr("testString")
-				replaceOfferingOptionsModel.NewHidden = core.BoolPtr(true)
-				replaceOfferingOptionsModel.NewProvider = core.StringPtr("testString")
-				replaceOfferingOptionsModel.NewRepoInfo = repoInfoModel
+				replaceOfferingOptionsModel.ID = core.StringPtr("testString")
+				replaceOfferingOptionsModel.Rev = core.StringPtr("testString")
+				replaceOfferingOptionsModel.URL = core.StringPtr("testString")
+				replaceOfferingOptionsModel.Crn = core.StringPtr("testString")
+				replaceOfferingOptionsModel.Label = core.StringPtr("testString")
+				replaceOfferingOptionsModel.Name = core.StringPtr("testString")
+				replaceOfferingOptionsModel.OfferingIconURL = core.StringPtr("testString")
+				replaceOfferingOptionsModel.OfferingDocsURL = core.StringPtr("testString")
+				replaceOfferingOptionsModel.OfferingSupportURL = core.StringPtr("testString")
+				replaceOfferingOptionsModel.Tags = []string{"testString"}
+				replaceOfferingOptionsModel.Rating = ratingModel
+				replaceOfferingOptionsModel.Created = CreateMockDateTime()
+				replaceOfferingOptionsModel.Updated = CreateMockDateTime()
+				replaceOfferingOptionsModel.ShortDescription = core.StringPtr("testString")
+				replaceOfferingOptionsModel.LongDescription = core.StringPtr("testString")
+				replaceOfferingOptionsModel.Features = []catalogmanagementv1.Feature{*featureModel}
+				replaceOfferingOptionsModel.Kinds = []catalogmanagementv1.Kind{*kindModel}
+				replaceOfferingOptionsModel.PermitRequestIbmPublicPublish = core.BoolPtr(true)
+				replaceOfferingOptionsModel.IbmPublishApproved = core.BoolPtr(true)
+				replaceOfferingOptionsModel.PublicPublishApproved = core.BoolPtr(true)
+				replaceOfferingOptionsModel.PublicOriginalCrn = core.StringPtr("testString")
+				replaceOfferingOptionsModel.PublishPublicCrn = core.StringPtr("testString")
+				replaceOfferingOptionsModel.PortalApprovalRecord = core.StringPtr("testString")
+				replaceOfferingOptionsModel.PortalUiURL = core.StringPtr("testString")
+				replaceOfferingOptionsModel.CatalogID = core.StringPtr("testString")
+				replaceOfferingOptionsModel.CatalogName = core.StringPtr("testString")
+				replaceOfferingOptionsModel.Metadata = map[string]interface{}{"anyKey": "anyValue"}
+				replaceOfferingOptionsModel.Disclaimer = core.StringPtr("testString")
+				replaceOfferingOptionsModel.Hidden = core.BoolPtr(true)
+				replaceOfferingOptionsModel.Provider = core.StringPtr("testString")
+				replaceOfferingOptionsModel.RepoInfo = repoInfoModel
 				replaceOfferingOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
 				result, response, operationErr := testService.ReplaceOffering(replaceOfferingOptionsModel)
@@ -3543,7 +3619,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 					Expect(req.Method).To(Equal("PUT"))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, `{"id": "ID", "label": "Label", "short_description": "ShortDescription", "catalog_icon_url": "CatalogIconURL", "tags": ["Tags"], "url": "URL", "crn": "Crn", "offerings_url": "OfferingsURL", "features": [{"title": "Title", "description": "Description"}], "disabled": true, "created": "2019-01-01T12:00:00", "updated": "2019-01-01T12:00:00", "resource_group_id": "ResourceGroupID", "owning_account": "OwningAccount", "catalog_filters": {"include_all": true, "category_filters": {"mapKey": {"include": false, "filter": {"filter_terms": ["FilterTerms"]}}}, "id_filters": {"include": {"filter_terms": ["FilterTerms"]}, "exclude": {"filter_terms": ["FilterTerms"]}}}, "syndication_settings": {"remove_related_components": false, "clusters": [{"region": "Region", "id": "ID", "name": "Name", "resource_group_name": "ResourceGroupName", "type": "Type", "namespaces": ["Namespaces"], "all_namespaces": false}], "history": {"namespaces": ["Namespaces"], "clusters": [{"region": "Region", "id": "ID", "name": "Name", "resource_group_name": "ResourceGroupName", "type": "Type", "namespaces": ["Namespaces"], "all_namespaces": false}], "last_run": "2019-01-01T12:00:00"}, "authorization": {"token": "Token", "last_run": "2019-01-01T12:00:00"}}}`)
+					fmt.Fprintf(res, `{"id": "ID", "_rev": "Rev", "label": "Label", "short_description": "ShortDescription", "catalog_icon_url": "CatalogIconURL", "tags": ["Tags"], "url": "URL", "crn": "Crn", "offerings_url": "OfferingsURL", "features": [{"title": "Title", "description": "Description"}], "disabled": true, "created": "2019-01-01T12:00:00", "updated": "2019-01-01T12:00:00", "resource_group_id": "ResourceGroupID", "owning_account": "OwningAccount", "catalog_filters": {"include_all": true, "category_filters": {"mapKey": {"include": false, "filter": {"filter_terms": ["FilterTerms"]}}}, "id_filters": {"include": {"filter_terms": ["FilterTerms"]}, "exclude": {"filter_terms": ["FilterTerms"]}}}, "syndication_settings": {"remove_related_components": false, "clusters": [{"region": "Region", "id": "ID", "name": "Name", "resource_group_name": "ResourceGroupName", "type": "Type", "namespaces": ["Namespaces"], "all_namespaces": false}], "history": {"namespaces": ["Namespaces"], "clusters": [{"region": "Region", "id": "ID", "name": "Name", "resource_group_name": "ResourceGroupName", "type": "Type", "namespaces": ["Namespaces"], "all_namespaces": false}], "last_run": "2019-01-01T12:00:00"}, "authorization": {"token": "Token", "last_run": "2019-01-01T12:00:00"}}}`)
 				}))
 			})
 			It(`Invoke ReplaceOffering successfully`, func() {
@@ -3650,6 +3726,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				// Construct an instance of the Version model
 				versionModel := new(catalogmanagementv1.Version)
 				versionModel.ID = core.StringPtr("testString")
+				versionModel.Rev = core.StringPtr("testString")
 				versionModel.Crn = core.StringPtr("testString")
 				versionModel.Version = core.StringPtr("testString")
 				versionModel.Sha = core.StringPtr("testString")
@@ -3665,7 +3742,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				versionModel.Configuration = []catalogmanagementv1.Configuration{*configurationModel}
 				versionModel.Metadata = map[string]interface{}{"anyKey": "anyValue"}
 				versionModel.Validation = validationModel
-				versionModel.RequiredResources = resourceModel
+				versionModel.RequiredResources = []catalogmanagementv1.Resource{*resourceModel}
 				versionModel.SingleInstance = core.BoolPtr(true)
 				versionModel.Install = scriptModel
 				versionModel.PreInstall = []catalogmanagementv1.Script{*scriptModel}
@@ -3708,38 +3785,39 @@ var _ = Describe(`CatalogManagementV1`, func() {
 
 				// Construct an instance of the ReplaceOfferingOptions model
 				replaceOfferingOptionsModel := new(catalogmanagementv1.ReplaceOfferingOptions)
-				replaceOfferingOptionsModel.CatalogID = core.StringPtr("testString")
+				replaceOfferingOptionsModel.CatalogIdentifier = core.StringPtr("testString")
 				replaceOfferingOptionsModel.OfferingID = core.StringPtr("testString")
-				replaceOfferingOptionsModel.NewID = core.StringPtr("testString")
-				replaceOfferingOptionsModel.NewURL = core.StringPtr("testString")
-				replaceOfferingOptionsModel.NewCrn = core.StringPtr("testString")
-				replaceOfferingOptionsModel.NewLabel = core.StringPtr("testString")
-				replaceOfferingOptionsModel.NewName = core.StringPtr("testString")
-				replaceOfferingOptionsModel.NewOfferingIconURL = core.StringPtr("testString")
-				replaceOfferingOptionsModel.NewOfferingDocsURL = core.StringPtr("testString")
-				replaceOfferingOptionsModel.NewOfferingSupportURL = core.StringPtr("testString")
-				replaceOfferingOptionsModel.NewTags = []string{"testString"}
-				replaceOfferingOptionsModel.NewRating = ratingModel
-				replaceOfferingOptionsModel.NewCreated = CreateMockDateTime()
-				replaceOfferingOptionsModel.NewUpdated = CreateMockDateTime()
-				replaceOfferingOptionsModel.NewShortDescription = core.StringPtr("testString")
-				replaceOfferingOptionsModel.NewLongDescription = core.StringPtr("testString")
-				replaceOfferingOptionsModel.NewFeatures = []catalogmanagementv1.Feature{*featureModel}
-				replaceOfferingOptionsModel.NewKinds = []catalogmanagementv1.Kind{*kindModel}
-				replaceOfferingOptionsModel.NewPermitRequestIbmPublicPublish = core.BoolPtr(true)
-				replaceOfferingOptionsModel.NewIbmPublishApproved = core.BoolPtr(true)
-				replaceOfferingOptionsModel.NewPublicPublishApproved = core.BoolPtr(true)
-				replaceOfferingOptionsModel.NewPublicOriginalCrn = core.StringPtr("testString")
-				replaceOfferingOptionsModel.NewPublishPublicCrn = core.StringPtr("testString")
-				replaceOfferingOptionsModel.NewPortalApprovalRecord = core.StringPtr("testString")
-				replaceOfferingOptionsModel.NewPortalUiURL = core.StringPtr("testString")
-				replaceOfferingOptionsModel.NewCatalogID = core.StringPtr("testString")
-				replaceOfferingOptionsModel.NewCatalogName = core.StringPtr("testString")
-				replaceOfferingOptionsModel.NewMetadata = map[string]interface{}{"anyKey": "anyValue"}
-				replaceOfferingOptionsModel.NewDisclaimer = core.StringPtr("testString")
-				replaceOfferingOptionsModel.NewHidden = core.BoolPtr(true)
-				replaceOfferingOptionsModel.NewProvider = core.StringPtr("testString")
-				replaceOfferingOptionsModel.NewRepoInfo = repoInfoModel
+				replaceOfferingOptionsModel.ID = core.StringPtr("testString")
+				replaceOfferingOptionsModel.Rev = core.StringPtr("testString")
+				replaceOfferingOptionsModel.URL = core.StringPtr("testString")
+				replaceOfferingOptionsModel.Crn = core.StringPtr("testString")
+				replaceOfferingOptionsModel.Label = core.StringPtr("testString")
+				replaceOfferingOptionsModel.Name = core.StringPtr("testString")
+				replaceOfferingOptionsModel.OfferingIconURL = core.StringPtr("testString")
+				replaceOfferingOptionsModel.OfferingDocsURL = core.StringPtr("testString")
+				replaceOfferingOptionsModel.OfferingSupportURL = core.StringPtr("testString")
+				replaceOfferingOptionsModel.Tags = []string{"testString"}
+				replaceOfferingOptionsModel.Rating = ratingModel
+				replaceOfferingOptionsModel.Created = CreateMockDateTime()
+				replaceOfferingOptionsModel.Updated = CreateMockDateTime()
+				replaceOfferingOptionsModel.ShortDescription = core.StringPtr("testString")
+				replaceOfferingOptionsModel.LongDescription = core.StringPtr("testString")
+				replaceOfferingOptionsModel.Features = []catalogmanagementv1.Feature{*featureModel}
+				replaceOfferingOptionsModel.Kinds = []catalogmanagementv1.Kind{*kindModel}
+				replaceOfferingOptionsModel.PermitRequestIbmPublicPublish = core.BoolPtr(true)
+				replaceOfferingOptionsModel.IbmPublishApproved = core.BoolPtr(true)
+				replaceOfferingOptionsModel.PublicPublishApproved = core.BoolPtr(true)
+				replaceOfferingOptionsModel.PublicOriginalCrn = core.StringPtr("testString")
+				replaceOfferingOptionsModel.PublishPublicCrn = core.StringPtr("testString")
+				replaceOfferingOptionsModel.PortalApprovalRecord = core.StringPtr("testString")
+				replaceOfferingOptionsModel.PortalUiURL = core.StringPtr("testString")
+				replaceOfferingOptionsModel.CatalogID = core.StringPtr("testString")
+				replaceOfferingOptionsModel.CatalogName = core.StringPtr("testString")
+				replaceOfferingOptionsModel.Metadata = map[string]interface{}{"anyKey": "anyValue"}
+				replaceOfferingOptionsModel.Disclaimer = core.StringPtr("testString")
+				replaceOfferingOptionsModel.Hidden = core.BoolPtr(true)
+				replaceOfferingOptionsModel.Provider = core.StringPtr("testString")
+				replaceOfferingOptionsModel.RepoInfo = repoInfoModel
  				replaceOfferingOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
@@ -3846,6 +3924,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				// Construct an instance of the Version model
 				versionModel := new(catalogmanagementv1.Version)
 				versionModel.ID = core.StringPtr("testString")
+				versionModel.Rev = core.StringPtr("testString")
 				versionModel.Crn = core.StringPtr("testString")
 				versionModel.Version = core.StringPtr("testString")
 				versionModel.Sha = core.StringPtr("testString")
@@ -3861,7 +3940,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				versionModel.Configuration = []catalogmanagementv1.Configuration{*configurationModel}
 				versionModel.Metadata = map[string]interface{}{"anyKey": "anyValue"}
 				versionModel.Validation = validationModel
-				versionModel.RequiredResources = resourceModel
+				versionModel.RequiredResources = []catalogmanagementv1.Resource{*resourceModel}
 				versionModel.SingleInstance = core.BoolPtr(true)
 				versionModel.Install = scriptModel
 				versionModel.PreInstall = []catalogmanagementv1.Script{*scriptModel}
@@ -3904,38 +3983,39 @@ var _ = Describe(`CatalogManagementV1`, func() {
 
 				// Construct an instance of the ReplaceOfferingOptions model
 				replaceOfferingOptionsModel := new(catalogmanagementv1.ReplaceOfferingOptions)
-				replaceOfferingOptionsModel.CatalogID = core.StringPtr("testString")
+				replaceOfferingOptionsModel.CatalogIdentifier = core.StringPtr("testString")
 				replaceOfferingOptionsModel.OfferingID = core.StringPtr("testString")
-				replaceOfferingOptionsModel.NewID = core.StringPtr("testString")
-				replaceOfferingOptionsModel.NewURL = core.StringPtr("testString")
-				replaceOfferingOptionsModel.NewCrn = core.StringPtr("testString")
-				replaceOfferingOptionsModel.NewLabel = core.StringPtr("testString")
-				replaceOfferingOptionsModel.NewName = core.StringPtr("testString")
-				replaceOfferingOptionsModel.NewOfferingIconURL = core.StringPtr("testString")
-				replaceOfferingOptionsModel.NewOfferingDocsURL = core.StringPtr("testString")
-				replaceOfferingOptionsModel.NewOfferingSupportURL = core.StringPtr("testString")
-				replaceOfferingOptionsModel.NewTags = []string{"testString"}
-				replaceOfferingOptionsModel.NewRating = ratingModel
-				replaceOfferingOptionsModel.NewCreated = CreateMockDateTime()
-				replaceOfferingOptionsModel.NewUpdated = CreateMockDateTime()
-				replaceOfferingOptionsModel.NewShortDescription = core.StringPtr("testString")
-				replaceOfferingOptionsModel.NewLongDescription = core.StringPtr("testString")
-				replaceOfferingOptionsModel.NewFeatures = []catalogmanagementv1.Feature{*featureModel}
-				replaceOfferingOptionsModel.NewKinds = []catalogmanagementv1.Kind{*kindModel}
-				replaceOfferingOptionsModel.NewPermitRequestIbmPublicPublish = core.BoolPtr(true)
-				replaceOfferingOptionsModel.NewIbmPublishApproved = core.BoolPtr(true)
-				replaceOfferingOptionsModel.NewPublicPublishApproved = core.BoolPtr(true)
-				replaceOfferingOptionsModel.NewPublicOriginalCrn = core.StringPtr("testString")
-				replaceOfferingOptionsModel.NewPublishPublicCrn = core.StringPtr("testString")
-				replaceOfferingOptionsModel.NewPortalApprovalRecord = core.StringPtr("testString")
-				replaceOfferingOptionsModel.NewPortalUiURL = core.StringPtr("testString")
-				replaceOfferingOptionsModel.NewCatalogID = core.StringPtr("testString")
-				replaceOfferingOptionsModel.NewCatalogName = core.StringPtr("testString")
-				replaceOfferingOptionsModel.NewMetadata = map[string]interface{}{"anyKey": "anyValue"}
-				replaceOfferingOptionsModel.NewDisclaimer = core.StringPtr("testString")
-				replaceOfferingOptionsModel.NewHidden = core.BoolPtr(true)
-				replaceOfferingOptionsModel.NewProvider = core.StringPtr("testString")
-				replaceOfferingOptionsModel.NewRepoInfo = repoInfoModel
+				replaceOfferingOptionsModel.ID = core.StringPtr("testString")
+				replaceOfferingOptionsModel.Rev = core.StringPtr("testString")
+				replaceOfferingOptionsModel.URL = core.StringPtr("testString")
+				replaceOfferingOptionsModel.Crn = core.StringPtr("testString")
+				replaceOfferingOptionsModel.Label = core.StringPtr("testString")
+				replaceOfferingOptionsModel.Name = core.StringPtr("testString")
+				replaceOfferingOptionsModel.OfferingIconURL = core.StringPtr("testString")
+				replaceOfferingOptionsModel.OfferingDocsURL = core.StringPtr("testString")
+				replaceOfferingOptionsModel.OfferingSupportURL = core.StringPtr("testString")
+				replaceOfferingOptionsModel.Tags = []string{"testString"}
+				replaceOfferingOptionsModel.Rating = ratingModel
+				replaceOfferingOptionsModel.Created = CreateMockDateTime()
+				replaceOfferingOptionsModel.Updated = CreateMockDateTime()
+				replaceOfferingOptionsModel.ShortDescription = core.StringPtr("testString")
+				replaceOfferingOptionsModel.LongDescription = core.StringPtr("testString")
+				replaceOfferingOptionsModel.Features = []catalogmanagementv1.Feature{*featureModel}
+				replaceOfferingOptionsModel.Kinds = []catalogmanagementv1.Kind{*kindModel}
+				replaceOfferingOptionsModel.PermitRequestIbmPublicPublish = core.BoolPtr(true)
+				replaceOfferingOptionsModel.IbmPublishApproved = core.BoolPtr(true)
+				replaceOfferingOptionsModel.PublicPublishApproved = core.BoolPtr(true)
+				replaceOfferingOptionsModel.PublicOriginalCrn = core.StringPtr("testString")
+				replaceOfferingOptionsModel.PublishPublicCrn = core.StringPtr("testString")
+				replaceOfferingOptionsModel.PortalApprovalRecord = core.StringPtr("testString")
+				replaceOfferingOptionsModel.PortalUiURL = core.StringPtr("testString")
+				replaceOfferingOptionsModel.CatalogID = core.StringPtr("testString")
+				replaceOfferingOptionsModel.CatalogName = core.StringPtr("testString")
+				replaceOfferingOptionsModel.Metadata = map[string]interface{}{"anyKey": "anyValue"}
+				replaceOfferingOptionsModel.Disclaimer = core.StringPtr("testString")
+				replaceOfferingOptionsModel.Hidden = core.BoolPtr(true)
+				replaceOfferingOptionsModel.Provider = core.StringPtr("testString")
+				replaceOfferingOptionsModel.RepoInfo = repoInfoModel
 				replaceOfferingOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := testService.SetServiceURL("")
@@ -3987,7 +4067,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 
 				// Construct an instance of the DeleteOfferingOptions model
 				deleteOfferingOptionsModel := new(catalogmanagementv1.DeleteOfferingOptions)
-				deleteOfferingOptionsModel.CatalogID = core.StringPtr("testString")
+				deleteOfferingOptionsModel.CatalogIdentifier = core.StringPtr("testString")
 				deleteOfferingOptionsModel.OfferingID = core.StringPtr("testString")
  				deleteOfferingOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
@@ -4006,7 +4086,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 
 				// Construct an instance of the DeleteOfferingOptions model
 				deleteOfferingOptionsModel := new(catalogmanagementv1.DeleteOfferingOptions)
-				deleteOfferingOptionsModel.CatalogID = core.StringPtr("testString")
+				deleteOfferingOptionsModel.CatalogIdentifier = core.StringPtr("testString")
 				deleteOfferingOptionsModel.OfferingID = core.StringPtr("testString")
 				deleteOfferingOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
@@ -4053,7 +4133,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 
 				// Construct an instance of the ReplaceOfferingIconOptions model
 				replaceOfferingIconOptionsModel := new(catalogmanagementv1.ReplaceOfferingIconOptions)
-				replaceOfferingIconOptionsModel.CatalogID = core.StringPtr("testString")
+				replaceOfferingIconOptionsModel.CatalogIdentifier = core.StringPtr("testString")
 				replaceOfferingIconOptionsModel.OfferingID = core.StringPtr("testString")
 				replaceOfferingIconOptionsModel.FileName = core.StringPtr("testString")
 				replaceOfferingIconOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
@@ -4081,7 +4161,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 					Expect(req.Method).To(Equal("PUT"))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, `{"id": "ID", "url": "URL", "crn": "Crn", "label": "Label", "name": "Name", "offering_icon_url": "OfferingIconURL", "offering_docs_url": "OfferingDocsURL", "offering_support_url": "OfferingSupportURL", "tags": ["Tags"], "rating": {"one_star_count": 12, "two_star_count": 12, "three_star_count": 14, "four_star_count": 13}, "created": "2019-01-01T12:00:00", "updated": "2019-01-01T12:00:00", "short_description": "ShortDescription", "long_description": "LongDescription", "features": [{"title": "Title", "description": "Description"}], "kinds": [{"id": "ID", "format_kind": "FormatKind", "target_kind": "TargetKind", "metadata": {"anyKey": "anyValue"}, "install_description": "InstallDescription", "tags": ["Tags"], "additional_features": [{"title": "Title", "description": "Description"}], "created": "2019-01-01T12:00:00", "updated": "2019-01-01T12:00:00", "versions": [{"id": "ID", "crn": "Crn", "version": "Version", "sha": "Sha", "created": "2019-01-01T12:00:00", "updated": "2019-01-01T12:00:00", "offering_id": "OfferingID", "catalog_id": "CatalogID", "kind_id": "KindID", "tags": ["Tags"], "repo_url": "RepoURL", "source_url": "SourceURL", "tgz_url": "TgzURL", "configuration": [{"key": "Key", "type": "Type", "default_value": "DefaultValue", "value_constraint": "ValueConstraint", "description": "Description", "required": true, "options": [{"anyKey": "anyValue"}], "hidden": true}], "metadata": {"anyKey": "anyValue"}, "validation": {"validated": "2019-01-01T12:00:00", "requested": "2019-01-01T12:00:00", "state": "State", "last_operation": "LastOperation", "target": {"anyKey": "anyValue"}}, "required_resources": {"type": "mem", "value": "Value"}, "single_instance": true, "install": {"instructions": "Instructions", "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}, "pre_install": [{"instructions": "Instructions", "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}], "entitlement": {"provider_name": "ProviderName", "provider_id": "ProviderID", "product_id": "ProductID", "part_numbers": ["PartNumbers"], "image_repo_name": "ImageRepoName"}, "licenses": [{"id": "ID", "name": "Name", "type": "Type", "url": "URL", "description": "Description"}], "image_manifest_url": "ImageManifestURL", "deprecated": true, "package_version": "PackageVersion", "state": {"current": "Current", "current_entered": "2019-01-01T12:00:00", "pending": "Pending", "pending_requested": "2019-01-01T12:00:00", "previous": "Previous"}, "version_locator": "VersionLocator", "console_url": "ConsoleURL", "long_description": "LongDescription", "whitelisted_accounts": ["WhitelistedAccounts"]}], "plans": [{"id": "ID", "label": "Label", "name": "Name", "short_description": "ShortDescription", "long_description": "LongDescription", "metadata": {"anyKey": "anyValue"}, "tags": ["Tags"], "additional_features": [{"title": "Title", "description": "Description"}], "created": "2019-01-01T12:00:00", "updated": "2019-01-01T12:00:00", "deployments": [{"id": "ID", "label": "Label", "name": "Name", "short_description": "ShortDescription", "long_description": "LongDescription", "metadata": {"anyKey": "anyValue"}, "tags": ["Tags"], "created": "2019-01-01T12:00:00", "updated": "2019-01-01T12:00:00"}]}]}], "permit_request_ibm_public_publish": false, "ibm_publish_approved": true, "public_publish_approved": false, "public_original_crn": "PublicOriginalCrn", "publish_public_crn": "PublishPublicCrn", "portal_approval_record": "PortalApprovalRecord", "portal_ui_url": "PortalUiURL", "catalog_id": "CatalogID", "catalog_name": "CatalogName", "metadata": {"anyKey": "anyValue"}, "disclaimer": "Disclaimer", "hidden": true, "provider": "Provider", "repo_info": {"token": "Token", "type": "Type"}}`)
+					fmt.Fprintf(res, `{"id": "ID", "_rev": "Rev", "url": "URL", "crn": "Crn", "label": "Label", "name": "Name", "offering_icon_url": "OfferingIconURL", "offering_docs_url": "OfferingDocsURL", "offering_support_url": "OfferingSupportURL", "tags": ["Tags"], "rating": {"one_star_count": 12, "two_star_count": 12, "three_star_count": 14, "four_star_count": 13}, "created": "2019-01-01T12:00:00", "updated": "2019-01-01T12:00:00", "short_description": "ShortDescription", "long_description": "LongDescription", "features": [{"title": "Title", "description": "Description"}], "kinds": [{"id": "ID", "format_kind": "FormatKind", "target_kind": "TargetKind", "metadata": {"anyKey": "anyValue"}, "install_description": "InstallDescription", "tags": ["Tags"], "additional_features": [{"title": "Title", "description": "Description"}], "created": "2019-01-01T12:00:00", "updated": "2019-01-01T12:00:00", "versions": [{"id": "ID", "_rev": "Rev", "crn": "Crn", "version": "Version", "sha": "Sha", "created": "2019-01-01T12:00:00", "updated": "2019-01-01T12:00:00", "offering_id": "OfferingID", "catalog_id": "CatalogID", "kind_id": "KindID", "tags": ["Tags"], "repo_url": "RepoURL", "source_url": "SourceURL", "tgz_url": "TgzURL", "configuration": [{"key": "Key", "type": "Type", "default_value": "anyValue", "value_constraint": "ValueConstraint", "description": "Description", "required": true, "options": [{"anyKey": "anyValue"}], "hidden": true}], "metadata": {"anyKey": "anyValue"}, "validation": {"validated": "2019-01-01T12:00:00", "requested": "2019-01-01T12:00:00", "state": "State", "last_operation": "LastOperation", "target": {"anyKey": "anyValue"}}, "required_resources": [{"type": "mem", "value": "anyValue"}], "single_instance": true, "install": {"instructions": "Instructions", "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}, "pre_install": [{"instructions": "Instructions", "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}], "entitlement": {"provider_name": "ProviderName", "provider_id": "ProviderID", "product_id": "ProductID", "part_numbers": ["PartNumbers"], "image_repo_name": "ImageRepoName"}, "licenses": [{"id": "ID", "name": "Name", "type": "Type", "url": "URL", "description": "Description"}], "image_manifest_url": "ImageManifestURL", "deprecated": true, "package_version": "PackageVersion", "state": {"current": "Current", "current_entered": "2019-01-01T12:00:00", "pending": "Pending", "pending_requested": "2019-01-01T12:00:00", "previous": "Previous"}, "version_locator": "VersionLocator", "console_url": "ConsoleURL", "long_description": "LongDescription", "whitelisted_accounts": ["WhitelistedAccounts"]}], "plans": [{"id": "ID", "label": "Label", "name": "Name", "short_description": "ShortDescription", "long_description": "LongDescription", "metadata": {"anyKey": "anyValue"}, "tags": ["Tags"], "additional_features": [{"title": "Title", "description": "Description"}], "created": "2019-01-01T12:00:00", "updated": "2019-01-01T12:00:00", "deployments": [{"id": "ID", "label": "Label", "name": "Name", "short_description": "ShortDescription", "long_description": "LongDescription", "metadata": {"anyKey": "anyValue"}, "tags": ["Tags"], "created": "2019-01-01T12:00:00", "updated": "2019-01-01T12:00:00"}]}]}], "permit_request_ibm_public_publish": false, "ibm_publish_approved": true, "public_publish_approved": false, "public_original_crn": "PublicOriginalCrn", "publish_public_crn": "PublishPublicCrn", "portal_approval_record": "PortalApprovalRecord", "portal_ui_url": "PortalUiURL", "catalog_id": "CatalogID", "catalog_name": "CatalogName", "metadata": {"anyKey": "anyValue"}, "disclaimer": "Disclaimer", "hidden": true, "provider": "Provider", "repo_info": {"token": "Token", "type": "Type"}}`)
 				}))
 			})
 			It(`Invoke ReplaceOfferingIcon successfully`, func() {
@@ -4100,7 +4180,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 
 				// Construct an instance of the ReplaceOfferingIconOptions model
 				replaceOfferingIconOptionsModel := new(catalogmanagementv1.ReplaceOfferingIconOptions)
-				replaceOfferingIconOptionsModel.CatalogID = core.StringPtr("testString")
+				replaceOfferingIconOptionsModel.CatalogIdentifier = core.StringPtr("testString")
 				replaceOfferingIconOptionsModel.OfferingID = core.StringPtr("testString")
 				replaceOfferingIconOptionsModel.FileName = core.StringPtr("testString")
  				replaceOfferingIconOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
@@ -4121,7 +4201,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 
 				// Construct an instance of the ReplaceOfferingIconOptions model
 				replaceOfferingIconOptionsModel := new(catalogmanagementv1.ReplaceOfferingIconOptions)
-				replaceOfferingIconOptionsModel.CatalogID = core.StringPtr("testString")
+				replaceOfferingIconOptionsModel.CatalogIdentifier = core.StringPtr("testString")
 				replaceOfferingIconOptionsModel.OfferingID = core.StringPtr("testString")
 				replaceOfferingIconOptionsModel.FileName = core.StringPtr("testString")
 				replaceOfferingIconOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
@@ -4171,7 +4251,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 
 				// Construct an instance of the UpdateOfferingIbmOptions model
 				updateOfferingIbmOptionsModel := new(catalogmanagementv1.UpdateOfferingIbmOptions)
-				updateOfferingIbmOptionsModel.CatalogID = core.StringPtr("testString")
+				updateOfferingIbmOptionsModel.CatalogIdentifier = core.StringPtr("testString")
 				updateOfferingIbmOptionsModel.OfferingID = core.StringPtr("testString")
 				updateOfferingIbmOptionsModel.ApprovalType = core.StringPtr("ibm")
 				updateOfferingIbmOptionsModel.Approved = core.StringPtr("true")
@@ -4219,7 +4299,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 
 				// Construct an instance of the UpdateOfferingIbmOptions model
 				updateOfferingIbmOptionsModel := new(catalogmanagementv1.UpdateOfferingIbmOptions)
-				updateOfferingIbmOptionsModel.CatalogID = core.StringPtr("testString")
+				updateOfferingIbmOptionsModel.CatalogIdentifier = core.StringPtr("testString")
 				updateOfferingIbmOptionsModel.OfferingID = core.StringPtr("testString")
 				updateOfferingIbmOptionsModel.ApprovalType = core.StringPtr("ibm")
 				updateOfferingIbmOptionsModel.Approved = core.StringPtr("true")
@@ -4241,7 +4321,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 
 				// Construct an instance of the UpdateOfferingIbmOptions model
 				updateOfferingIbmOptionsModel := new(catalogmanagementv1.UpdateOfferingIbmOptions)
-				updateOfferingIbmOptionsModel.CatalogID = core.StringPtr("testString")
+				updateOfferingIbmOptionsModel.CatalogIdentifier = core.StringPtr("testString")
 				updateOfferingIbmOptionsModel.OfferingID = core.StringPtr("testString")
 				updateOfferingIbmOptionsModel.ApprovalType = core.StringPtr("ibm")
 				updateOfferingIbmOptionsModel.Approved = core.StringPtr("true")
@@ -4399,7 +4479,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 
 				// Construct an instance of the GetVersionAboutOptions model
 				getVersionAboutOptionsModel := new(catalogmanagementv1.GetVersionAboutOptions)
-				getVersionAboutOptionsModel.VersionLocatorID = core.StringPtr("testString")
+				getVersionAboutOptionsModel.VersionLocID = core.StringPtr("testString")
  				getVersionAboutOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
@@ -4418,7 +4498,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 
 				// Construct an instance of the GetVersionAboutOptions model
 				getVersionAboutOptionsModel := new(catalogmanagementv1.GetVersionAboutOptions)
-				getVersionAboutOptionsModel.VersionLocatorID = core.StringPtr("testString")
+				getVersionAboutOptionsModel.VersionLocID = core.StringPtr("testString")
 				getVersionAboutOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := testService.SetServiceURL("")
@@ -4470,7 +4550,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 
 				// Construct an instance of the GetVersionLicenseOptions model
 				getVersionLicenseOptionsModel := new(catalogmanagementv1.GetVersionLicenseOptions)
-				getVersionLicenseOptionsModel.VersionLocatorID = core.StringPtr("testString")
+				getVersionLicenseOptionsModel.VersionLocID = core.StringPtr("testString")
 				getVersionLicenseOptionsModel.LicenseID = core.StringPtr("testString")
  				getVersionLicenseOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
@@ -4489,7 +4569,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 
 				// Construct an instance of the GetVersionLicenseOptions model
 				getVersionLicenseOptionsModel := new(catalogmanagementv1.GetVersionLicenseOptions)
-				getVersionLicenseOptionsModel.VersionLocatorID = core.StringPtr("testString")
+				getVersionLicenseOptionsModel.VersionLocID = core.StringPtr("testString")
 				getVersionLicenseOptionsModel.LicenseID = core.StringPtr("testString")
 				getVersionLicenseOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
@@ -4536,7 +4616,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 
 				// Construct an instance of the GetVersionContainerImagesOptions model
 				getVersionContainerImagesOptionsModel := new(catalogmanagementv1.GetVersionContainerImagesOptions)
-				getVersionContainerImagesOptionsModel.VersionLocatorID = core.StringPtr("testString")
+				getVersionContainerImagesOptionsModel.VersionLocID = core.StringPtr("testString")
 				getVersionContainerImagesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
 				result, response, operationErr := testService.GetVersionContainerImages(getVersionContainerImagesOptionsModel)
@@ -4581,7 +4661,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 
 				// Construct an instance of the GetVersionContainerImagesOptions model
 				getVersionContainerImagesOptionsModel := new(catalogmanagementv1.GetVersionContainerImagesOptions)
-				getVersionContainerImagesOptionsModel.VersionLocatorID = core.StringPtr("testString")
+				getVersionContainerImagesOptionsModel.VersionLocID = core.StringPtr("testString")
  				getVersionContainerImagesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
@@ -4600,7 +4680,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 
 				// Construct an instance of the GetVersionContainerImagesOptions model
 				getVersionContainerImagesOptionsModel := new(catalogmanagementv1.GetVersionContainerImagesOptions)
-				getVersionContainerImagesOptionsModel.VersionLocatorID = core.StringPtr("testString")
+				getVersionContainerImagesOptionsModel.VersionLocID = core.StringPtr("testString")
 				getVersionContainerImagesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := testService.SetServiceURL("")
@@ -4652,7 +4732,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 
 				// Construct an instance of the DeprecateVersionOptions model
 				deprecateVersionOptionsModel := new(catalogmanagementv1.DeprecateVersionOptions)
-				deprecateVersionOptionsModel.VersionLocatorID = core.StringPtr("testString")
+				deprecateVersionOptionsModel.VersionLocID = core.StringPtr("testString")
  				deprecateVersionOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
@@ -4670,7 +4750,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 
 				// Construct an instance of the DeprecateVersionOptions model
 				deprecateVersionOptionsModel := new(catalogmanagementv1.DeprecateVersionOptions)
-				deprecateVersionOptionsModel.VersionLocatorID = core.StringPtr("testString")
+				deprecateVersionOptionsModel.VersionLocID = core.StringPtr("testString")
 				deprecateVersionOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := testService.SetServiceURL("")
@@ -4720,7 +4800,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 
 				// Construct an instance of the AccountPublishVersionOptions model
 				accountPublishVersionOptionsModel := new(catalogmanagementv1.AccountPublishVersionOptions)
-				accountPublishVersionOptionsModel.VersionLocatorID = core.StringPtr("testString")
+				accountPublishVersionOptionsModel.VersionLocID = core.StringPtr("testString")
  				accountPublishVersionOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
@@ -4738,7 +4818,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 
 				// Construct an instance of the AccountPublishVersionOptions model
 				accountPublishVersionOptionsModel := new(catalogmanagementv1.AccountPublishVersionOptions)
-				accountPublishVersionOptionsModel.VersionLocatorID = core.StringPtr("testString")
+				accountPublishVersionOptionsModel.VersionLocID = core.StringPtr("testString")
 				accountPublishVersionOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := testService.SetServiceURL("")
@@ -4788,7 +4868,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 
 				// Construct an instance of the IbmPublishVersionOptions model
 				ibmPublishVersionOptionsModel := new(catalogmanagementv1.IbmPublishVersionOptions)
-				ibmPublishVersionOptionsModel.VersionLocatorID = core.StringPtr("testString")
+				ibmPublishVersionOptionsModel.VersionLocID = core.StringPtr("testString")
  				ibmPublishVersionOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
@@ -4806,7 +4886,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 
 				// Construct an instance of the IbmPublishVersionOptions model
 				ibmPublishVersionOptionsModel := new(catalogmanagementv1.IbmPublishVersionOptions)
-				ibmPublishVersionOptionsModel.VersionLocatorID = core.StringPtr("testString")
+				ibmPublishVersionOptionsModel.VersionLocID = core.StringPtr("testString")
 				ibmPublishVersionOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := testService.SetServiceURL("")
@@ -4856,7 +4936,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 
 				// Construct an instance of the PublicPublishVersionOptions model
 				publicPublishVersionOptionsModel := new(catalogmanagementv1.PublicPublishVersionOptions)
-				publicPublishVersionOptionsModel.VersionLocatorID = core.StringPtr("testString")
+				publicPublishVersionOptionsModel.VersionLocID = core.StringPtr("testString")
  				publicPublishVersionOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
@@ -4874,7 +4954,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 
 				// Construct an instance of the PublicPublishVersionOptions model
 				publicPublishVersionOptionsModel := new(catalogmanagementv1.PublicPublishVersionOptions)
-				publicPublishVersionOptionsModel.VersionLocatorID = core.StringPtr("testString")
+				publicPublishVersionOptionsModel.VersionLocID = core.StringPtr("testString")
 				publicPublishVersionOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := testService.SetServiceURL("")
@@ -4924,7 +5004,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 
 				// Construct an instance of the CommitVersionOptions model
 				commitVersionOptionsModel := new(catalogmanagementv1.CommitVersionOptions)
-				commitVersionOptionsModel.VersionLocatorID = core.StringPtr("testString")
+				commitVersionOptionsModel.VersionLocID = core.StringPtr("testString")
  				commitVersionOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
@@ -4942,7 +5022,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 
 				// Construct an instance of the CommitVersionOptions model
 				commitVersionOptionsModel := new(catalogmanagementv1.CommitVersionOptions)
-				commitVersionOptionsModel.VersionLocatorID = core.StringPtr("testString")
+				commitVersionOptionsModel.VersionLocID = core.StringPtr("testString")
 				commitVersionOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := testService.SetServiceURL("")
@@ -4988,7 +5068,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 
 				// Construct an instance of the GetVersionWorkingCopyOptions model
 				getVersionWorkingCopyOptionsModel := new(catalogmanagementv1.GetVersionWorkingCopyOptions)
-				getVersionWorkingCopyOptionsModel.VersionLocatorID = core.StringPtr("testString")
+				getVersionWorkingCopyOptionsModel.VersionLocID = core.StringPtr("testString")
 				getVersionWorkingCopyOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
 				result, response, operationErr := testService.GetVersionWorkingCopy(getVersionWorkingCopyOptionsModel)
@@ -5014,7 +5094,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 					Expect(req.Method).To(Equal("POST"))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, `{"id": "ID", "crn": "Crn", "version": "Version", "sha": "Sha", "created": "2019-01-01T12:00:00", "updated": "2019-01-01T12:00:00", "offering_id": "OfferingID", "catalog_id": "CatalogID", "kind_id": "KindID", "tags": ["Tags"], "repo_url": "RepoURL", "source_url": "SourceURL", "tgz_url": "TgzURL", "configuration": [{"key": "Key", "type": "Type", "default_value": "DefaultValue", "value_constraint": "ValueConstraint", "description": "Description", "required": true, "options": [{"anyKey": "anyValue"}], "hidden": true}], "metadata": {"anyKey": "anyValue"}, "validation": {"validated": "2019-01-01T12:00:00", "requested": "2019-01-01T12:00:00", "state": "State", "last_operation": "LastOperation", "target": {"anyKey": "anyValue"}}, "required_resources": {"type": "mem", "value": "Value"}, "single_instance": true, "install": {"instructions": "Instructions", "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}, "pre_install": [{"instructions": "Instructions", "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}], "entitlement": {"provider_name": "ProviderName", "provider_id": "ProviderID", "product_id": "ProductID", "part_numbers": ["PartNumbers"], "image_repo_name": "ImageRepoName"}, "licenses": [{"id": "ID", "name": "Name", "type": "Type", "url": "URL", "description": "Description"}], "image_manifest_url": "ImageManifestURL", "deprecated": true, "package_version": "PackageVersion", "state": {"current": "Current", "current_entered": "2019-01-01T12:00:00", "pending": "Pending", "pending_requested": "2019-01-01T12:00:00", "previous": "Previous"}, "version_locator": "VersionLocator", "console_url": "ConsoleURL", "long_description": "LongDescription", "whitelisted_accounts": ["WhitelistedAccounts"]}`)
+					fmt.Fprintf(res, `{"id": "ID", "_rev": "Rev", "crn": "Crn", "version": "Version", "sha": "Sha", "created": "2019-01-01T12:00:00", "updated": "2019-01-01T12:00:00", "offering_id": "OfferingID", "catalog_id": "CatalogID", "kind_id": "KindID", "tags": ["Tags"], "repo_url": "RepoURL", "source_url": "SourceURL", "tgz_url": "TgzURL", "configuration": [{"key": "Key", "type": "Type", "default_value": "anyValue", "value_constraint": "ValueConstraint", "description": "Description", "required": true, "options": [{"anyKey": "anyValue"}], "hidden": true}], "metadata": {"anyKey": "anyValue"}, "validation": {"validated": "2019-01-01T12:00:00", "requested": "2019-01-01T12:00:00", "state": "State", "last_operation": "LastOperation", "target": {"anyKey": "anyValue"}}, "required_resources": [{"type": "mem", "value": "anyValue"}], "single_instance": true, "install": {"instructions": "Instructions", "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}, "pre_install": [{"instructions": "Instructions", "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}], "entitlement": {"provider_name": "ProviderName", "provider_id": "ProviderID", "product_id": "ProductID", "part_numbers": ["PartNumbers"], "image_repo_name": "ImageRepoName"}, "licenses": [{"id": "ID", "name": "Name", "type": "Type", "url": "URL", "description": "Description"}], "image_manifest_url": "ImageManifestURL", "deprecated": true, "package_version": "PackageVersion", "state": {"current": "Current", "current_entered": "2019-01-01T12:00:00", "pending": "Pending", "pending_requested": "2019-01-01T12:00:00", "previous": "Previous"}, "version_locator": "VersionLocator", "console_url": "ConsoleURL", "long_description": "LongDescription", "whitelisted_accounts": ["WhitelistedAccounts"]}`)
 				}))
 			})
 			It(`Invoke GetVersionWorkingCopy successfully`, func() {
@@ -5033,7 +5113,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 
 				// Construct an instance of the GetVersionWorkingCopyOptions model
 				getVersionWorkingCopyOptionsModel := new(catalogmanagementv1.GetVersionWorkingCopyOptions)
-				getVersionWorkingCopyOptionsModel.VersionLocatorID = core.StringPtr("testString")
+				getVersionWorkingCopyOptionsModel.VersionLocID = core.StringPtr("testString")
  				getVersionWorkingCopyOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
@@ -5052,7 +5132,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 
 				// Construct an instance of the GetVersionWorkingCopyOptions model
 				getVersionWorkingCopyOptionsModel := new(catalogmanagementv1.GetVersionWorkingCopyOptions)
-				getVersionWorkingCopyOptionsModel.VersionLocatorID = core.StringPtr("testString")
+				getVersionWorkingCopyOptionsModel.VersionLocID = core.StringPtr("testString")
 				getVersionWorkingCopyOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := testService.SetServiceURL("")
@@ -5108,7 +5188,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 
 				// Construct an instance of the GetVersionUpdatesOptions model
 				getVersionUpdatesOptionsModel := new(catalogmanagementv1.GetVersionUpdatesOptions)
-				getVersionUpdatesOptionsModel.VersionLocatorID = core.StringPtr("testString")
+				getVersionUpdatesOptionsModel.VersionLocID = core.StringPtr("testString")
 				getVersionUpdatesOptionsModel.ClusterID = core.StringPtr("testString")
 				getVersionUpdatesOptionsModel.Region = core.StringPtr("testString")
 				getVersionUpdatesOptionsModel.ResourceGroupID = core.StringPtr("testString")
@@ -5146,7 +5226,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, `[{"version_locator": {"catalog_id": "CatalogID", "resource_id": "ResourceID"}, "version": "Version", "state": {"current": "Current", "current_entered": "2019-01-01T12:00:00", "pending": "Pending", "pending_requested": "2019-01-01T12:00:00", "previous": "Previous"}, "required_resources": [{"type": "mem", "value": "Value"}], "package_version": "PackageVersion", "can_update": false, "messages": {"anyKey": "anyValue"}}]`)
+					fmt.Fprintf(res, `[{"version_locator": "VersionLocator", "version": "Version", "state": {"current": "Current", "current_entered": "2019-01-01T12:00:00", "pending": "Pending", "pending_requested": "2019-01-01T12:00:00", "previous": "Previous"}, "required_resources": [{"type": "mem", "value": "anyValue"}], "package_version": "PackageVersion", "can_update": false, "messages": {"anyKey": "anyValue"}}]`)
 				}))
 			})
 			It(`Invoke GetVersionUpdates successfully`, func() {
@@ -5165,7 +5245,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 
 				// Construct an instance of the GetVersionUpdatesOptions model
 				getVersionUpdatesOptionsModel := new(catalogmanagementv1.GetVersionUpdatesOptions)
-				getVersionUpdatesOptionsModel.VersionLocatorID = core.StringPtr("testString")
+				getVersionUpdatesOptionsModel.VersionLocID = core.StringPtr("testString")
 				getVersionUpdatesOptionsModel.ClusterID = core.StringPtr("testString")
 				getVersionUpdatesOptionsModel.Region = core.StringPtr("testString")
 				getVersionUpdatesOptionsModel.ResourceGroupID = core.StringPtr("testString")
@@ -5188,7 +5268,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 
 				// Construct an instance of the GetVersionUpdatesOptions model
 				getVersionUpdatesOptionsModel := new(catalogmanagementv1.GetVersionUpdatesOptions)
-				getVersionUpdatesOptionsModel.VersionLocatorID = core.StringPtr("testString")
+				getVersionUpdatesOptionsModel.VersionLocID = core.StringPtr("testString")
 				getVersionUpdatesOptionsModel.ClusterID = core.StringPtr("testString")
 				getVersionUpdatesOptionsModel.Region = core.StringPtr("testString")
 				getVersionUpdatesOptionsModel.ResourceGroupID = core.StringPtr("testString")
@@ -5240,7 +5320,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 
 				// Construct an instance of the GetVersionOptions model
 				getVersionOptionsModel := new(catalogmanagementv1.GetVersionOptions)
-				getVersionOptionsModel.VersionLocatorID = core.StringPtr("testString")
+				getVersionOptionsModel.VersionLocID = core.StringPtr("testString")
 				getVersionOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
 				result, response, operationErr := testService.GetVersion(getVersionOptionsModel)
@@ -5266,7 +5346,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 					Expect(req.Method).To(Equal("GET"))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, `{"id": "ID", "url": "URL", "crn": "Crn", "label": "Label", "name": "Name", "offering_icon_url": "OfferingIconURL", "offering_docs_url": "OfferingDocsURL", "offering_support_url": "OfferingSupportURL", "tags": ["Tags"], "rating": {"one_star_count": 12, "two_star_count": 12, "three_star_count": 14, "four_star_count": 13}, "created": "2019-01-01T12:00:00", "updated": "2019-01-01T12:00:00", "short_description": "ShortDescription", "long_description": "LongDescription", "features": [{"title": "Title", "description": "Description"}], "kinds": [{"id": "ID", "format_kind": "FormatKind", "target_kind": "TargetKind", "metadata": {"anyKey": "anyValue"}, "install_description": "InstallDescription", "tags": ["Tags"], "additional_features": [{"title": "Title", "description": "Description"}], "created": "2019-01-01T12:00:00", "updated": "2019-01-01T12:00:00", "versions": [{"id": "ID", "crn": "Crn", "version": "Version", "sha": "Sha", "created": "2019-01-01T12:00:00", "updated": "2019-01-01T12:00:00", "offering_id": "OfferingID", "catalog_id": "CatalogID", "kind_id": "KindID", "tags": ["Tags"], "repo_url": "RepoURL", "source_url": "SourceURL", "tgz_url": "TgzURL", "configuration": [{"key": "Key", "type": "Type", "default_value": "DefaultValue", "value_constraint": "ValueConstraint", "description": "Description", "required": true, "options": [{"anyKey": "anyValue"}], "hidden": true}], "metadata": {"anyKey": "anyValue"}, "validation": {"validated": "2019-01-01T12:00:00", "requested": "2019-01-01T12:00:00", "state": "State", "last_operation": "LastOperation", "target": {"anyKey": "anyValue"}}, "required_resources": {"type": "mem", "value": "Value"}, "single_instance": true, "install": {"instructions": "Instructions", "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}, "pre_install": [{"instructions": "Instructions", "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}], "entitlement": {"provider_name": "ProviderName", "provider_id": "ProviderID", "product_id": "ProductID", "part_numbers": ["PartNumbers"], "image_repo_name": "ImageRepoName"}, "licenses": [{"id": "ID", "name": "Name", "type": "Type", "url": "URL", "description": "Description"}], "image_manifest_url": "ImageManifestURL", "deprecated": true, "package_version": "PackageVersion", "state": {"current": "Current", "current_entered": "2019-01-01T12:00:00", "pending": "Pending", "pending_requested": "2019-01-01T12:00:00", "previous": "Previous"}, "version_locator": "VersionLocator", "console_url": "ConsoleURL", "long_description": "LongDescription", "whitelisted_accounts": ["WhitelistedAccounts"]}], "plans": [{"id": "ID", "label": "Label", "name": "Name", "short_description": "ShortDescription", "long_description": "LongDescription", "metadata": {"anyKey": "anyValue"}, "tags": ["Tags"], "additional_features": [{"title": "Title", "description": "Description"}], "created": "2019-01-01T12:00:00", "updated": "2019-01-01T12:00:00", "deployments": [{"id": "ID", "label": "Label", "name": "Name", "short_description": "ShortDescription", "long_description": "LongDescription", "metadata": {"anyKey": "anyValue"}, "tags": ["Tags"], "created": "2019-01-01T12:00:00", "updated": "2019-01-01T12:00:00"}]}]}], "permit_request_ibm_public_publish": false, "ibm_publish_approved": true, "public_publish_approved": false, "public_original_crn": "PublicOriginalCrn", "publish_public_crn": "PublishPublicCrn", "portal_approval_record": "PortalApprovalRecord", "portal_ui_url": "PortalUiURL", "catalog_id": "CatalogID", "catalog_name": "CatalogName", "metadata": {"anyKey": "anyValue"}, "disclaimer": "Disclaimer", "hidden": true, "provider": "Provider", "repo_info": {"token": "Token", "type": "Type"}}`)
+					fmt.Fprintf(res, `{"id": "ID", "_rev": "Rev", "url": "URL", "crn": "Crn", "label": "Label", "name": "Name", "offering_icon_url": "OfferingIconURL", "offering_docs_url": "OfferingDocsURL", "offering_support_url": "OfferingSupportURL", "tags": ["Tags"], "rating": {"one_star_count": 12, "two_star_count": 12, "three_star_count": 14, "four_star_count": 13}, "created": "2019-01-01T12:00:00", "updated": "2019-01-01T12:00:00", "short_description": "ShortDescription", "long_description": "LongDescription", "features": [{"title": "Title", "description": "Description"}], "kinds": [{"id": "ID", "format_kind": "FormatKind", "target_kind": "TargetKind", "metadata": {"anyKey": "anyValue"}, "install_description": "InstallDescription", "tags": ["Tags"], "additional_features": [{"title": "Title", "description": "Description"}], "created": "2019-01-01T12:00:00", "updated": "2019-01-01T12:00:00", "versions": [{"id": "ID", "_rev": "Rev", "crn": "Crn", "version": "Version", "sha": "Sha", "created": "2019-01-01T12:00:00", "updated": "2019-01-01T12:00:00", "offering_id": "OfferingID", "catalog_id": "CatalogID", "kind_id": "KindID", "tags": ["Tags"], "repo_url": "RepoURL", "source_url": "SourceURL", "tgz_url": "TgzURL", "configuration": [{"key": "Key", "type": "Type", "default_value": "anyValue", "value_constraint": "ValueConstraint", "description": "Description", "required": true, "options": [{"anyKey": "anyValue"}], "hidden": true}], "metadata": {"anyKey": "anyValue"}, "validation": {"validated": "2019-01-01T12:00:00", "requested": "2019-01-01T12:00:00", "state": "State", "last_operation": "LastOperation", "target": {"anyKey": "anyValue"}}, "required_resources": [{"type": "mem", "value": "anyValue"}], "single_instance": true, "install": {"instructions": "Instructions", "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}, "pre_install": [{"instructions": "Instructions", "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}], "entitlement": {"provider_name": "ProviderName", "provider_id": "ProviderID", "product_id": "ProductID", "part_numbers": ["PartNumbers"], "image_repo_name": "ImageRepoName"}, "licenses": [{"id": "ID", "name": "Name", "type": "Type", "url": "URL", "description": "Description"}], "image_manifest_url": "ImageManifestURL", "deprecated": true, "package_version": "PackageVersion", "state": {"current": "Current", "current_entered": "2019-01-01T12:00:00", "pending": "Pending", "pending_requested": "2019-01-01T12:00:00", "previous": "Previous"}, "version_locator": "VersionLocator", "console_url": "ConsoleURL", "long_description": "LongDescription", "whitelisted_accounts": ["WhitelistedAccounts"]}], "plans": [{"id": "ID", "label": "Label", "name": "Name", "short_description": "ShortDescription", "long_description": "LongDescription", "metadata": {"anyKey": "anyValue"}, "tags": ["Tags"], "additional_features": [{"title": "Title", "description": "Description"}], "created": "2019-01-01T12:00:00", "updated": "2019-01-01T12:00:00", "deployments": [{"id": "ID", "label": "Label", "name": "Name", "short_description": "ShortDescription", "long_description": "LongDescription", "metadata": {"anyKey": "anyValue"}, "tags": ["Tags"], "created": "2019-01-01T12:00:00", "updated": "2019-01-01T12:00:00"}]}]}], "permit_request_ibm_public_publish": false, "ibm_publish_approved": true, "public_publish_approved": false, "public_original_crn": "PublicOriginalCrn", "publish_public_crn": "PublishPublicCrn", "portal_approval_record": "PortalApprovalRecord", "portal_ui_url": "PortalUiURL", "catalog_id": "CatalogID", "catalog_name": "CatalogName", "metadata": {"anyKey": "anyValue"}, "disclaimer": "Disclaimer", "hidden": true, "provider": "Provider", "repo_info": {"token": "Token", "type": "Type"}}`)
 				}))
 			})
 			It(`Invoke GetVersion successfully`, func() {
@@ -5285,7 +5365,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 
 				// Construct an instance of the GetVersionOptions model
 				getVersionOptionsModel := new(catalogmanagementv1.GetVersionOptions)
-				getVersionOptionsModel.VersionLocatorID = core.StringPtr("testString")
+				getVersionOptionsModel.VersionLocID = core.StringPtr("testString")
  				getVersionOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
@@ -5304,7 +5384,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 
 				// Construct an instance of the GetVersionOptions model
 				getVersionOptionsModel := new(catalogmanagementv1.GetVersionOptions)
-				getVersionOptionsModel.VersionLocatorID = core.StringPtr("testString")
+				getVersionOptionsModel.VersionLocID = core.StringPtr("testString")
 				getVersionOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := testService.SetServiceURL("")
@@ -5356,7 +5436,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 
 				// Construct an instance of the DeleteVersionOptions model
 				deleteVersionOptionsModel := new(catalogmanagementv1.DeleteVersionOptions)
-				deleteVersionOptionsModel.VersionLocatorID = core.StringPtr("testString")
+				deleteVersionOptionsModel.VersionLocID = core.StringPtr("testString")
  				deleteVersionOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
@@ -5374,7 +5454,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 
 				// Construct an instance of the DeleteVersionOptions model
 				deleteVersionOptionsModel := new(catalogmanagementv1.DeleteVersionOptions)
-				deleteVersionOptionsModel.VersionLocatorID = core.StringPtr("testString")
+				deleteVersionOptionsModel.VersionLocID = core.StringPtr("testString")
 				deleteVersionOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := testService.SetServiceURL("")
@@ -6292,6 +6372,481 @@ var _ = Describe(`CatalogManagementV1`, func() {
 			})
 		})
 	})
+	Describe(`CreateOperator(createOperatorOptions *CreateOperatorOptions) - Operation response error`, func() {
+		createOperatorPath := "/deploy/kubernetes/olm/operator"
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.Path).To(Equal(createOperatorPath))
+					Expect(req.Method).To(Equal("POST"))
+					Expect(req.Header["X-Auth-Refresh-Token"]).ToNot(BeNil())
+					Expect(req.Header["X-Auth-Refresh-Token"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, `} this is not valid json {`)
+				}))
+			})
+			It(`Invoke CreateOperator with error: Operation response processing error`, func() {
+				testService, testServiceErr := catalogmanagementv1.NewCatalogManagementV1(&catalogmanagementv1.CatalogManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(testServiceErr).To(BeNil())
+				Expect(testService).ToNot(BeNil())
+
+				// Construct an instance of the CreateOperatorOptions model
+				createOperatorOptionsModel := new(catalogmanagementv1.CreateOperatorOptions)
+				createOperatorOptionsModel.XAuthRefreshToken = core.StringPtr("testString")
+				createOperatorOptionsModel.ClusterID = core.StringPtr("testString")
+				createOperatorOptionsModel.Region = core.StringPtr("testString")
+				createOperatorOptionsModel.Namespaces = []string{"testString"}
+				createOperatorOptionsModel.VersionLocatorID = core.StringPtr("testString")
+				createOperatorOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Expect response parsing to fail since we are receiving a text/plain response
+				result, response, operationErr := testService.CreateOperator(createOperatorOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+
+	Describe(`CreateOperator(createOperatorOptions *CreateOperatorOptions)`, func() {
+		createOperatorPath := "/deploy/kubernetes/olm/operator"
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.Path).To(Equal(createOperatorPath))
+					Expect(req.Method).To(Equal("POST"))
+					Expect(req.Header["X-Auth-Refresh-Token"]).ToNot(BeNil())
+					Expect(req.Header["X-Auth-Refresh-Token"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, `[{"phase": "Phase", "message": "Message", "link": "Link", "name": "Name", "version": "Version", "namespace": "Namespace", "package_name": "PackageName", "catalog_id": "CatalogID"}]`)
+				}))
+			})
+			It(`Invoke CreateOperator successfully`, func() {
+				testService, testServiceErr := catalogmanagementv1.NewCatalogManagementV1(&catalogmanagementv1.CatalogManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(testServiceErr).To(BeNil())
+				Expect(testService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				result, response, operationErr := testService.CreateOperator(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+
+				// Construct an instance of the CreateOperatorOptions model
+				createOperatorOptionsModel := new(catalogmanagementv1.CreateOperatorOptions)
+				createOperatorOptionsModel.XAuthRefreshToken = core.StringPtr("testString")
+				createOperatorOptionsModel.ClusterID = core.StringPtr("testString")
+				createOperatorOptionsModel.Region = core.StringPtr("testString")
+				createOperatorOptionsModel.Namespaces = []string{"testString"}
+				createOperatorOptionsModel.VersionLocatorID = core.StringPtr("testString")
+ 				createOperatorOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				result, response, operationErr = testService.CreateOperator(createOperatorOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+			})
+			It(`Invoke CreateOperator with error: Operation validation and request error`, func() {
+				testService, testServiceErr := catalogmanagementv1.NewCatalogManagementV1(&catalogmanagementv1.CatalogManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(testServiceErr).To(BeNil())
+				Expect(testService).ToNot(BeNil())
+
+				// Construct an instance of the CreateOperatorOptions model
+				createOperatorOptionsModel := new(catalogmanagementv1.CreateOperatorOptions)
+				createOperatorOptionsModel.XAuthRefreshToken = core.StringPtr("testString")
+				createOperatorOptionsModel.ClusterID = core.StringPtr("testString")
+				createOperatorOptionsModel.Region = core.StringPtr("testString")
+				createOperatorOptionsModel.Namespaces = []string{"testString"}
+				createOperatorOptionsModel.VersionLocatorID = core.StringPtr("testString")
+				createOperatorOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := testService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				result, response, operationErr := testService.CreateOperator(createOperatorOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+				// Construct a second instance of the CreateOperatorOptions model with no property values
+				createOperatorOptionsModelNew := new(catalogmanagementv1.CreateOperatorOptions)
+				// Invoke operation with invalid model (negative test)
+				result, response, operationErr = testService.CreateOperator(createOperatorOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`ListOperators(listOperatorsOptions *ListOperatorsOptions) - Operation response error`, func() {
+		listOperatorsPath := "/deploy/kubernetes/olm/operator"
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.Path).To(Equal(listOperatorsPath))
+					Expect(req.Method).To(Equal("GET"))
+					Expect(req.Header["X-Auth-Refresh-Token"]).ToNot(BeNil())
+					Expect(req.Header["X-Auth-Refresh-Token"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
+					Expect(req.URL.Query()["cluster_id"]).To(Equal([]string{"testString"}))
+
+					Expect(req.URL.Query()["region"]).To(Equal([]string{"testString"}))
+
+					Expect(req.URL.Query()["version_locator_id"]).To(Equal([]string{"testString"}))
+
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, `} this is not valid json {`)
+				}))
+			})
+			It(`Invoke ListOperators with error: Operation response processing error`, func() {
+				testService, testServiceErr := catalogmanagementv1.NewCatalogManagementV1(&catalogmanagementv1.CatalogManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(testServiceErr).To(BeNil())
+				Expect(testService).ToNot(BeNil())
+
+				// Construct an instance of the ListOperatorsOptions model
+				listOperatorsOptionsModel := new(catalogmanagementv1.ListOperatorsOptions)
+				listOperatorsOptionsModel.XAuthRefreshToken = core.StringPtr("testString")
+				listOperatorsOptionsModel.ClusterID = core.StringPtr("testString")
+				listOperatorsOptionsModel.Region = core.StringPtr("testString")
+				listOperatorsOptionsModel.VersionLocatorID = core.StringPtr("testString")
+				listOperatorsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Expect response parsing to fail since we are receiving a text/plain response
+				result, response, operationErr := testService.ListOperators(listOperatorsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+
+	Describe(`ListOperators(listOperatorsOptions *ListOperatorsOptions)`, func() {
+		listOperatorsPath := "/deploy/kubernetes/olm/operator"
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.Path).To(Equal(listOperatorsPath))
+					Expect(req.Method).To(Equal("GET"))
+					Expect(req.Header["X-Auth-Refresh-Token"]).ToNot(BeNil())
+					Expect(req.Header["X-Auth-Refresh-Token"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
+					Expect(req.URL.Query()["cluster_id"]).To(Equal([]string{"testString"}))
+
+					Expect(req.URL.Query()["region"]).To(Equal([]string{"testString"}))
+
+					Expect(req.URL.Query()["version_locator_id"]).To(Equal([]string{"testString"}))
+
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, `[{"phase": "Phase", "message": "Message", "link": "Link", "name": "Name", "version": "Version", "namespace": "Namespace", "package_name": "PackageName", "catalog_id": "CatalogID"}]`)
+				}))
+			})
+			It(`Invoke ListOperators successfully`, func() {
+				testService, testServiceErr := catalogmanagementv1.NewCatalogManagementV1(&catalogmanagementv1.CatalogManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(testServiceErr).To(BeNil())
+				Expect(testService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				result, response, operationErr := testService.ListOperators(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+
+				// Construct an instance of the ListOperatorsOptions model
+				listOperatorsOptionsModel := new(catalogmanagementv1.ListOperatorsOptions)
+				listOperatorsOptionsModel.XAuthRefreshToken = core.StringPtr("testString")
+				listOperatorsOptionsModel.ClusterID = core.StringPtr("testString")
+				listOperatorsOptionsModel.Region = core.StringPtr("testString")
+				listOperatorsOptionsModel.VersionLocatorID = core.StringPtr("testString")
+ 				listOperatorsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				result, response, operationErr = testService.ListOperators(listOperatorsOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+			})
+			It(`Invoke ListOperators with error: Operation validation and request error`, func() {
+				testService, testServiceErr := catalogmanagementv1.NewCatalogManagementV1(&catalogmanagementv1.CatalogManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(testServiceErr).To(BeNil())
+				Expect(testService).ToNot(BeNil())
+
+				// Construct an instance of the ListOperatorsOptions model
+				listOperatorsOptionsModel := new(catalogmanagementv1.ListOperatorsOptions)
+				listOperatorsOptionsModel.XAuthRefreshToken = core.StringPtr("testString")
+				listOperatorsOptionsModel.ClusterID = core.StringPtr("testString")
+				listOperatorsOptionsModel.Region = core.StringPtr("testString")
+				listOperatorsOptionsModel.VersionLocatorID = core.StringPtr("testString")
+				listOperatorsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := testService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				result, response, operationErr := testService.ListOperators(listOperatorsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+				// Construct a second instance of the ListOperatorsOptions model with no property values
+				listOperatorsOptionsModelNew := new(catalogmanagementv1.ListOperatorsOptions)
+				// Invoke operation with invalid model (negative test)
+				result, response, operationErr = testService.ListOperators(listOperatorsOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`ReplaceOperator(replaceOperatorOptions *ReplaceOperatorOptions) - Operation response error`, func() {
+		replaceOperatorPath := "/deploy/kubernetes/olm/operator"
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.Path).To(Equal(replaceOperatorPath))
+					Expect(req.Method).To(Equal("PUT"))
+					Expect(req.Header["X-Auth-Refresh-Token"]).ToNot(BeNil())
+					Expect(req.Header["X-Auth-Refresh-Token"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, `} this is not valid json {`)
+				}))
+			})
+			It(`Invoke ReplaceOperator with error: Operation response processing error`, func() {
+				testService, testServiceErr := catalogmanagementv1.NewCatalogManagementV1(&catalogmanagementv1.CatalogManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(testServiceErr).To(BeNil())
+				Expect(testService).ToNot(BeNil())
+
+				// Construct an instance of the ReplaceOperatorOptions model
+				replaceOperatorOptionsModel := new(catalogmanagementv1.ReplaceOperatorOptions)
+				replaceOperatorOptionsModel.XAuthRefreshToken = core.StringPtr("testString")
+				replaceOperatorOptionsModel.ClusterID = core.StringPtr("testString")
+				replaceOperatorOptionsModel.Region = core.StringPtr("testString")
+				replaceOperatorOptionsModel.Namespaces = []string{"testString"}
+				replaceOperatorOptionsModel.VersionLocatorID = core.StringPtr("testString")
+				replaceOperatorOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Expect response parsing to fail since we are receiving a text/plain response
+				result, response, operationErr := testService.ReplaceOperator(replaceOperatorOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+
+	Describe(`ReplaceOperator(replaceOperatorOptions *ReplaceOperatorOptions)`, func() {
+		replaceOperatorPath := "/deploy/kubernetes/olm/operator"
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.Path).To(Equal(replaceOperatorPath))
+					Expect(req.Method).To(Equal("PUT"))
+					Expect(req.Header["X-Auth-Refresh-Token"]).ToNot(BeNil())
+					Expect(req.Header["X-Auth-Refresh-Token"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, `[{"phase": "Phase", "message": "Message", "link": "Link", "name": "Name", "version": "Version", "namespace": "Namespace", "package_name": "PackageName", "catalog_id": "CatalogID"}]`)
+				}))
+			})
+			It(`Invoke ReplaceOperator successfully`, func() {
+				testService, testServiceErr := catalogmanagementv1.NewCatalogManagementV1(&catalogmanagementv1.CatalogManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(testServiceErr).To(BeNil())
+				Expect(testService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				result, response, operationErr := testService.ReplaceOperator(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+
+				// Construct an instance of the ReplaceOperatorOptions model
+				replaceOperatorOptionsModel := new(catalogmanagementv1.ReplaceOperatorOptions)
+				replaceOperatorOptionsModel.XAuthRefreshToken = core.StringPtr("testString")
+				replaceOperatorOptionsModel.ClusterID = core.StringPtr("testString")
+				replaceOperatorOptionsModel.Region = core.StringPtr("testString")
+				replaceOperatorOptionsModel.Namespaces = []string{"testString"}
+				replaceOperatorOptionsModel.VersionLocatorID = core.StringPtr("testString")
+ 				replaceOperatorOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				result, response, operationErr = testService.ReplaceOperator(replaceOperatorOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+			})
+			It(`Invoke ReplaceOperator with error: Operation validation and request error`, func() {
+				testService, testServiceErr := catalogmanagementv1.NewCatalogManagementV1(&catalogmanagementv1.CatalogManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(testServiceErr).To(BeNil())
+				Expect(testService).ToNot(BeNil())
+
+				// Construct an instance of the ReplaceOperatorOptions model
+				replaceOperatorOptionsModel := new(catalogmanagementv1.ReplaceOperatorOptions)
+				replaceOperatorOptionsModel.XAuthRefreshToken = core.StringPtr("testString")
+				replaceOperatorOptionsModel.ClusterID = core.StringPtr("testString")
+				replaceOperatorOptionsModel.Region = core.StringPtr("testString")
+				replaceOperatorOptionsModel.Namespaces = []string{"testString"}
+				replaceOperatorOptionsModel.VersionLocatorID = core.StringPtr("testString")
+				replaceOperatorOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := testService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				result, response, operationErr := testService.ReplaceOperator(replaceOperatorOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+				// Construct a second instance of the ReplaceOperatorOptions model with no property values
+				replaceOperatorOptionsModelNew := new(catalogmanagementv1.ReplaceOperatorOptions)
+				// Invoke operation with invalid model (negative test)
+				result, response, operationErr = testService.ReplaceOperator(replaceOperatorOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+
+	Describe(`DeleteOperator(deleteOperatorOptions *DeleteOperatorOptions)`, func() {
+		deleteOperatorPath := "/deploy/kubernetes/olm/operator"
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.Path).To(Equal(deleteOperatorPath))
+					Expect(req.Method).To(Equal("DELETE"))
+					Expect(req.Header["X-Auth-Refresh-Token"]).ToNot(BeNil())
+					Expect(req.Header["X-Auth-Refresh-Token"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
+					Expect(req.URL.Query()["cluster_id"]).To(Equal([]string{"testString"}))
+
+					Expect(req.URL.Query()["region"]).To(Equal([]string{"testString"}))
+
+					Expect(req.URL.Query()["version_locator_id"]).To(Equal([]string{"testString"}))
+
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke DeleteOperator successfully`, func() {
+				testService, testServiceErr := catalogmanagementv1.NewCatalogManagementV1(&catalogmanagementv1.CatalogManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(testServiceErr).To(BeNil())
+				Expect(testService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				response, operationErr := testService.DeleteOperator(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+
+				// Construct an instance of the DeleteOperatorOptions model
+				deleteOperatorOptionsModel := new(catalogmanagementv1.DeleteOperatorOptions)
+				deleteOperatorOptionsModel.XAuthRefreshToken = core.StringPtr("testString")
+				deleteOperatorOptionsModel.ClusterID = core.StringPtr("testString")
+				deleteOperatorOptionsModel.Region = core.StringPtr("testString")
+				deleteOperatorOptionsModel.VersionLocatorID = core.StringPtr("testString")
+ 				deleteOperatorOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				response, operationErr = testService.DeleteOperator(deleteOperatorOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+			})
+			It(`Invoke DeleteOperator with error: Operation validation and request error`, func() {
+				testService, testServiceErr := catalogmanagementv1.NewCatalogManagementV1(&catalogmanagementv1.CatalogManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(testServiceErr).To(BeNil())
+				Expect(testService).ToNot(BeNil())
+
+				// Construct an instance of the DeleteOperatorOptions model
+				deleteOperatorOptionsModel := new(catalogmanagementv1.DeleteOperatorOptions)
+				deleteOperatorOptionsModel.XAuthRefreshToken = core.StringPtr("testString")
+				deleteOperatorOptionsModel.ClusterID = core.StringPtr("testString")
+				deleteOperatorOptionsModel.Region = core.StringPtr("testString")
+				deleteOperatorOptionsModel.VersionLocatorID = core.StringPtr("testString")
+				deleteOperatorOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := testService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				response, operationErr := testService.DeleteOperator(deleteOperatorOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				// Construct a second instance of the DeleteOperatorOptions model with no property values
+				deleteOperatorOptionsModelNew := new(catalogmanagementv1.DeleteOperatorOptions)
+				// Invoke operation with invalid model (negative test)
+				response, operationErr = testService.DeleteOperator(deleteOperatorOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
 
 	Describe(`InstallVersion(installVersionOptions *InstallVersionOptions)`, func() {
 		installVersionPath := "/versions/testString/install"
@@ -6321,26 +6876,29 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				Expect(operationErr).NotTo(BeNil())
 				Expect(response).To(BeNil())
 
-				// Construct an instance of the ClusterRequestBodySchematics model
-				clusterRequestBodySchematicsModel := new(catalogmanagementv1.ClusterRequestBodySchematics)
-				clusterRequestBodySchematicsModel.Name = core.StringPtr("testString")
-				clusterRequestBodySchematicsModel.Description = core.StringPtr("testString")
-				clusterRequestBodySchematicsModel.Tags = []string{"testString"}
-				clusterRequestBodySchematicsModel.ResourceGroupID = core.StringPtr("testString")
+				// Construct an instance of the DeployRequestBodySchematics model
+				deployRequestBodySchematicsModel := new(catalogmanagementv1.DeployRequestBodySchematics)
+				deployRequestBodySchematicsModel.Name = core.StringPtr("testString")
+				deployRequestBodySchematicsModel.Description = core.StringPtr("testString")
+				deployRequestBodySchematicsModel.Tags = []string{"testString"}
+				deployRequestBodySchematicsModel.ResourceGroupID = core.StringPtr("testString")
 
 				// Construct an instance of the InstallVersionOptions model
 				installVersionOptionsModel := new(catalogmanagementv1.InstallVersionOptions)
-				installVersionOptionsModel.VersionLocatorID = core.StringPtr("testString")
+				installVersionOptionsModel.VersionLocID = core.StringPtr("testString")
 				installVersionOptionsModel.XAuthRefreshToken = core.StringPtr("testString")
-				installVersionOptionsModel.NewClusterID = core.StringPtr("testString")
-				installVersionOptionsModel.NewRegion = core.StringPtr("testString")
-				installVersionOptionsModel.NewNamespace = core.StringPtr("testString")
-				installVersionOptionsModel.NewOverrideValues = map[string]interface{}{"anyKey": "anyValue"}
-				installVersionOptionsModel.NewEntitlementApikey = core.StringPtr("testString")
-				installVersionOptionsModel.NewSchematics = clusterRequestBodySchematicsModel
-				installVersionOptionsModel.NewScript = core.StringPtr("testString")
-				installVersionOptionsModel.NewScriptID = core.StringPtr("testString")
-				installVersionOptionsModel.NewVersionLocatorID = core.StringPtr("testString")
+				installVersionOptionsModel.ClusterID = core.StringPtr("testString")
+				installVersionOptionsModel.Region = core.StringPtr("testString")
+				installVersionOptionsModel.Namespace = core.StringPtr("testString")
+				installVersionOptionsModel.OverrideValues = map[string]interface{}{"anyKey": "anyValue"}
+				installVersionOptionsModel.EntitlementApikey = core.StringPtr("testString")
+				installVersionOptionsModel.Schematics = deployRequestBodySchematicsModel
+				installVersionOptionsModel.Script = core.StringPtr("testString")
+				installVersionOptionsModel.ScriptID = core.StringPtr("testString")
+				installVersionOptionsModel.VersionLocatorID = core.StringPtr("testString")
+				installVersionOptionsModel.VcenterID = core.StringPtr("testString")
+				installVersionOptionsModel.VcenterPassword = core.StringPtr("testString")
+				installVersionOptionsModel.VcenterLocation = core.StringPtr("testString")
  				installVersionOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
@@ -6356,26 +6914,29 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				Expect(testServiceErr).To(BeNil())
 				Expect(testService).ToNot(BeNil())
 
-				// Construct an instance of the ClusterRequestBodySchematics model
-				clusterRequestBodySchematicsModel := new(catalogmanagementv1.ClusterRequestBodySchematics)
-				clusterRequestBodySchematicsModel.Name = core.StringPtr("testString")
-				clusterRequestBodySchematicsModel.Description = core.StringPtr("testString")
-				clusterRequestBodySchematicsModel.Tags = []string{"testString"}
-				clusterRequestBodySchematicsModel.ResourceGroupID = core.StringPtr("testString")
+				// Construct an instance of the DeployRequestBodySchematics model
+				deployRequestBodySchematicsModel := new(catalogmanagementv1.DeployRequestBodySchematics)
+				deployRequestBodySchematicsModel.Name = core.StringPtr("testString")
+				deployRequestBodySchematicsModel.Description = core.StringPtr("testString")
+				deployRequestBodySchematicsModel.Tags = []string{"testString"}
+				deployRequestBodySchematicsModel.ResourceGroupID = core.StringPtr("testString")
 
 				// Construct an instance of the InstallVersionOptions model
 				installVersionOptionsModel := new(catalogmanagementv1.InstallVersionOptions)
-				installVersionOptionsModel.VersionLocatorID = core.StringPtr("testString")
+				installVersionOptionsModel.VersionLocID = core.StringPtr("testString")
 				installVersionOptionsModel.XAuthRefreshToken = core.StringPtr("testString")
-				installVersionOptionsModel.NewClusterID = core.StringPtr("testString")
-				installVersionOptionsModel.NewRegion = core.StringPtr("testString")
-				installVersionOptionsModel.NewNamespace = core.StringPtr("testString")
-				installVersionOptionsModel.NewOverrideValues = map[string]interface{}{"anyKey": "anyValue"}
-				installVersionOptionsModel.NewEntitlementApikey = core.StringPtr("testString")
-				installVersionOptionsModel.NewSchematics = clusterRequestBodySchematicsModel
-				installVersionOptionsModel.NewScript = core.StringPtr("testString")
-				installVersionOptionsModel.NewScriptID = core.StringPtr("testString")
-				installVersionOptionsModel.NewVersionLocatorID = core.StringPtr("testString")
+				installVersionOptionsModel.ClusterID = core.StringPtr("testString")
+				installVersionOptionsModel.Region = core.StringPtr("testString")
+				installVersionOptionsModel.Namespace = core.StringPtr("testString")
+				installVersionOptionsModel.OverrideValues = map[string]interface{}{"anyKey": "anyValue"}
+				installVersionOptionsModel.EntitlementApikey = core.StringPtr("testString")
+				installVersionOptionsModel.Schematics = deployRequestBodySchematicsModel
+				installVersionOptionsModel.Script = core.StringPtr("testString")
+				installVersionOptionsModel.ScriptID = core.StringPtr("testString")
+				installVersionOptionsModel.VersionLocatorID = core.StringPtr("testString")
+				installVersionOptionsModel.VcenterID = core.StringPtr("testString")
+				installVersionOptionsModel.VcenterPassword = core.StringPtr("testString")
+				installVersionOptionsModel.VcenterLocation = core.StringPtr("testString")
 				installVersionOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := testService.SetServiceURL("")
@@ -6425,26 +6986,29 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				Expect(operationErr).NotTo(BeNil())
 				Expect(response).To(BeNil())
 
-				// Construct an instance of the ClusterRequestBodySchematics model
-				clusterRequestBodySchematicsModel := new(catalogmanagementv1.ClusterRequestBodySchematics)
-				clusterRequestBodySchematicsModel.Name = core.StringPtr("testString")
-				clusterRequestBodySchematicsModel.Description = core.StringPtr("testString")
-				clusterRequestBodySchematicsModel.Tags = []string{"testString"}
-				clusterRequestBodySchematicsModel.ResourceGroupID = core.StringPtr("testString")
+				// Construct an instance of the DeployRequestBodySchematics model
+				deployRequestBodySchematicsModel := new(catalogmanagementv1.DeployRequestBodySchematics)
+				deployRequestBodySchematicsModel.Name = core.StringPtr("testString")
+				deployRequestBodySchematicsModel.Description = core.StringPtr("testString")
+				deployRequestBodySchematicsModel.Tags = []string{"testString"}
+				deployRequestBodySchematicsModel.ResourceGroupID = core.StringPtr("testString")
 
 				// Construct an instance of the PreinstallVersionOptions model
 				preinstallVersionOptionsModel := new(catalogmanagementv1.PreinstallVersionOptions)
-				preinstallVersionOptionsModel.VersionLocatorID = core.StringPtr("testString")
+				preinstallVersionOptionsModel.VersionLocID = core.StringPtr("testString")
 				preinstallVersionOptionsModel.XAuthRefreshToken = core.StringPtr("testString")
-				preinstallVersionOptionsModel.NewClusterID = core.StringPtr("testString")
-				preinstallVersionOptionsModel.NewRegion = core.StringPtr("testString")
-				preinstallVersionOptionsModel.NewNamespace = core.StringPtr("testString")
-				preinstallVersionOptionsModel.NewOverrideValues = map[string]interface{}{"anyKey": "anyValue"}
-				preinstallVersionOptionsModel.NewEntitlementApikey = core.StringPtr("testString")
-				preinstallVersionOptionsModel.NewSchematics = clusterRequestBodySchematicsModel
-				preinstallVersionOptionsModel.NewScript = core.StringPtr("testString")
-				preinstallVersionOptionsModel.NewScriptID = core.StringPtr("testString")
-				preinstallVersionOptionsModel.NewVersionLocatorID = core.StringPtr("testString")
+				preinstallVersionOptionsModel.ClusterID = core.StringPtr("testString")
+				preinstallVersionOptionsModel.Region = core.StringPtr("testString")
+				preinstallVersionOptionsModel.Namespace = core.StringPtr("testString")
+				preinstallVersionOptionsModel.OverrideValues = map[string]interface{}{"anyKey": "anyValue"}
+				preinstallVersionOptionsModel.EntitlementApikey = core.StringPtr("testString")
+				preinstallVersionOptionsModel.Schematics = deployRequestBodySchematicsModel
+				preinstallVersionOptionsModel.Script = core.StringPtr("testString")
+				preinstallVersionOptionsModel.ScriptID = core.StringPtr("testString")
+				preinstallVersionOptionsModel.VersionLocatorID = core.StringPtr("testString")
+				preinstallVersionOptionsModel.VcenterID = core.StringPtr("testString")
+				preinstallVersionOptionsModel.VcenterPassword = core.StringPtr("testString")
+				preinstallVersionOptionsModel.VcenterLocation = core.StringPtr("testString")
  				preinstallVersionOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
@@ -6460,26 +7024,29 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				Expect(testServiceErr).To(BeNil())
 				Expect(testService).ToNot(BeNil())
 
-				// Construct an instance of the ClusterRequestBodySchematics model
-				clusterRequestBodySchematicsModel := new(catalogmanagementv1.ClusterRequestBodySchematics)
-				clusterRequestBodySchematicsModel.Name = core.StringPtr("testString")
-				clusterRequestBodySchematicsModel.Description = core.StringPtr("testString")
-				clusterRequestBodySchematicsModel.Tags = []string{"testString"}
-				clusterRequestBodySchematicsModel.ResourceGroupID = core.StringPtr("testString")
+				// Construct an instance of the DeployRequestBodySchematics model
+				deployRequestBodySchematicsModel := new(catalogmanagementv1.DeployRequestBodySchematics)
+				deployRequestBodySchematicsModel.Name = core.StringPtr("testString")
+				deployRequestBodySchematicsModel.Description = core.StringPtr("testString")
+				deployRequestBodySchematicsModel.Tags = []string{"testString"}
+				deployRequestBodySchematicsModel.ResourceGroupID = core.StringPtr("testString")
 
 				// Construct an instance of the PreinstallVersionOptions model
 				preinstallVersionOptionsModel := new(catalogmanagementv1.PreinstallVersionOptions)
-				preinstallVersionOptionsModel.VersionLocatorID = core.StringPtr("testString")
+				preinstallVersionOptionsModel.VersionLocID = core.StringPtr("testString")
 				preinstallVersionOptionsModel.XAuthRefreshToken = core.StringPtr("testString")
-				preinstallVersionOptionsModel.NewClusterID = core.StringPtr("testString")
-				preinstallVersionOptionsModel.NewRegion = core.StringPtr("testString")
-				preinstallVersionOptionsModel.NewNamespace = core.StringPtr("testString")
-				preinstallVersionOptionsModel.NewOverrideValues = map[string]interface{}{"anyKey": "anyValue"}
-				preinstallVersionOptionsModel.NewEntitlementApikey = core.StringPtr("testString")
-				preinstallVersionOptionsModel.NewSchematics = clusterRequestBodySchematicsModel
-				preinstallVersionOptionsModel.NewScript = core.StringPtr("testString")
-				preinstallVersionOptionsModel.NewScriptID = core.StringPtr("testString")
-				preinstallVersionOptionsModel.NewVersionLocatorID = core.StringPtr("testString")
+				preinstallVersionOptionsModel.ClusterID = core.StringPtr("testString")
+				preinstallVersionOptionsModel.Region = core.StringPtr("testString")
+				preinstallVersionOptionsModel.Namespace = core.StringPtr("testString")
+				preinstallVersionOptionsModel.OverrideValues = map[string]interface{}{"anyKey": "anyValue"}
+				preinstallVersionOptionsModel.EntitlementApikey = core.StringPtr("testString")
+				preinstallVersionOptionsModel.Schematics = deployRequestBodySchematicsModel
+				preinstallVersionOptionsModel.Script = core.StringPtr("testString")
+				preinstallVersionOptionsModel.ScriptID = core.StringPtr("testString")
+				preinstallVersionOptionsModel.VersionLocatorID = core.StringPtr("testString")
+				preinstallVersionOptionsModel.VcenterID = core.StringPtr("testString")
+				preinstallVersionOptionsModel.VcenterPassword = core.StringPtr("testString")
+				preinstallVersionOptionsModel.VcenterLocation = core.StringPtr("testString")
 				preinstallVersionOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := testService.SetServiceURL("")
@@ -6533,7 +7100,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 
 				// Construct an instance of the GetPreinstallOptions model
 				getPreinstallOptionsModel := new(catalogmanagementv1.GetPreinstallOptions)
-				getPreinstallOptionsModel.VersionLocatorID = core.StringPtr("testString")
+				getPreinstallOptionsModel.VersionLocID = core.StringPtr("testString")
 				getPreinstallOptionsModel.XAuthRefreshToken = core.StringPtr("testString")
 				getPreinstallOptionsModel.ClusterID = core.StringPtr("testString")
 				getPreinstallOptionsModel.Region = core.StringPtr("testString")
@@ -6590,7 +7157,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 
 				// Construct an instance of the GetPreinstallOptions model
 				getPreinstallOptionsModel := new(catalogmanagementv1.GetPreinstallOptions)
-				getPreinstallOptionsModel.VersionLocatorID = core.StringPtr("testString")
+				getPreinstallOptionsModel.VersionLocID = core.StringPtr("testString")
 				getPreinstallOptionsModel.XAuthRefreshToken = core.StringPtr("testString")
 				getPreinstallOptionsModel.ClusterID = core.StringPtr("testString")
 				getPreinstallOptionsModel.Region = core.StringPtr("testString")
@@ -6613,7 +7180,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 
 				// Construct an instance of the GetPreinstallOptions model
 				getPreinstallOptionsModel := new(catalogmanagementv1.GetPreinstallOptions)
-				getPreinstallOptionsModel.VersionLocatorID = core.StringPtr("testString")
+				getPreinstallOptionsModel.VersionLocID = core.StringPtr("testString")
 				getPreinstallOptionsModel.XAuthRefreshToken = core.StringPtr("testString")
 				getPreinstallOptionsModel.ClusterID = core.StringPtr("testString")
 				getPreinstallOptionsModel.Region = core.StringPtr("testString")
@@ -6669,26 +7236,29 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				Expect(operationErr).NotTo(BeNil())
 				Expect(response).To(BeNil())
 
-				// Construct an instance of the ClusterRequestBodySchematics model
-				clusterRequestBodySchematicsModel := new(catalogmanagementv1.ClusterRequestBodySchematics)
-				clusterRequestBodySchematicsModel.Name = core.StringPtr("testString")
-				clusterRequestBodySchematicsModel.Description = core.StringPtr("testString")
-				clusterRequestBodySchematicsModel.Tags = []string{"testString"}
-				clusterRequestBodySchematicsModel.ResourceGroupID = core.StringPtr("testString")
+				// Construct an instance of the DeployRequestBodySchematics model
+				deployRequestBodySchematicsModel := new(catalogmanagementv1.DeployRequestBodySchematics)
+				deployRequestBodySchematicsModel.Name = core.StringPtr("testString")
+				deployRequestBodySchematicsModel.Description = core.StringPtr("testString")
+				deployRequestBodySchematicsModel.Tags = []string{"testString"}
+				deployRequestBodySchematicsModel.ResourceGroupID = core.StringPtr("testString")
 
 				// Construct an instance of the ValidationInstallOptions model
 				validationInstallOptionsModel := new(catalogmanagementv1.ValidationInstallOptions)
-				validationInstallOptionsModel.VersionLocatorID = core.StringPtr("testString")
+				validationInstallOptionsModel.VersionLocID = core.StringPtr("testString")
 				validationInstallOptionsModel.XAuthRefreshToken = core.StringPtr("testString")
-				validationInstallOptionsModel.NewClusterID = core.StringPtr("testString")
-				validationInstallOptionsModel.NewRegion = core.StringPtr("testString")
-				validationInstallOptionsModel.NewNamespace = core.StringPtr("testString")
-				validationInstallOptionsModel.NewOverrideValues = map[string]interface{}{"anyKey": "anyValue"}
-				validationInstallOptionsModel.NewEntitlementApikey = core.StringPtr("testString")
-				validationInstallOptionsModel.NewSchematics = clusterRequestBodySchematicsModel
-				validationInstallOptionsModel.NewScript = core.StringPtr("testString")
-				validationInstallOptionsModel.NewScriptID = core.StringPtr("testString")
-				validationInstallOptionsModel.NewVersionLocatorID = core.StringPtr("testString")
+				validationInstallOptionsModel.ClusterID = core.StringPtr("testString")
+				validationInstallOptionsModel.Region = core.StringPtr("testString")
+				validationInstallOptionsModel.Namespace = core.StringPtr("testString")
+				validationInstallOptionsModel.OverrideValues = map[string]interface{}{"anyKey": "anyValue"}
+				validationInstallOptionsModel.EntitlementApikey = core.StringPtr("testString")
+				validationInstallOptionsModel.Schematics = deployRequestBodySchematicsModel
+				validationInstallOptionsModel.Script = core.StringPtr("testString")
+				validationInstallOptionsModel.ScriptID = core.StringPtr("testString")
+				validationInstallOptionsModel.VersionLocatorID = core.StringPtr("testString")
+				validationInstallOptionsModel.VcenterID = core.StringPtr("testString")
+				validationInstallOptionsModel.VcenterPassword = core.StringPtr("testString")
+				validationInstallOptionsModel.VcenterLocation = core.StringPtr("testString")
  				validationInstallOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
@@ -6704,26 +7274,29 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				Expect(testServiceErr).To(BeNil())
 				Expect(testService).ToNot(BeNil())
 
-				// Construct an instance of the ClusterRequestBodySchematics model
-				clusterRequestBodySchematicsModel := new(catalogmanagementv1.ClusterRequestBodySchematics)
-				clusterRequestBodySchematicsModel.Name = core.StringPtr("testString")
-				clusterRequestBodySchematicsModel.Description = core.StringPtr("testString")
-				clusterRequestBodySchematicsModel.Tags = []string{"testString"}
-				clusterRequestBodySchematicsModel.ResourceGroupID = core.StringPtr("testString")
+				// Construct an instance of the DeployRequestBodySchematics model
+				deployRequestBodySchematicsModel := new(catalogmanagementv1.DeployRequestBodySchematics)
+				deployRequestBodySchematicsModel.Name = core.StringPtr("testString")
+				deployRequestBodySchematicsModel.Description = core.StringPtr("testString")
+				deployRequestBodySchematicsModel.Tags = []string{"testString"}
+				deployRequestBodySchematicsModel.ResourceGroupID = core.StringPtr("testString")
 
 				// Construct an instance of the ValidationInstallOptions model
 				validationInstallOptionsModel := new(catalogmanagementv1.ValidationInstallOptions)
-				validationInstallOptionsModel.VersionLocatorID = core.StringPtr("testString")
+				validationInstallOptionsModel.VersionLocID = core.StringPtr("testString")
 				validationInstallOptionsModel.XAuthRefreshToken = core.StringPtr("testString")
-				validationInstallOptionsModel.NewClusterID = core.StringPtr("testString")
-				validationInstallOptionsModel.NewRegion = core.StringPtr("testString")
-				validationInstallOptionsModel.NewNamespace = core.StringPtr("testString")
-				validationInstallOptionsModel.NewOverrideValues = map[string]interface{}{"anyKey": "anyValue"}
-				validationInstallOptionsModel.NewEntitlementApikey = core.StringPtr("testString")
-				validationInstallOptionsModel.NewSchematics = clusterRequestBodySchematicsModel
-				validationInstallOptionsModel.NewScript = core.StringPtr("testString")
-				validationInstallOptionsModel.NewScriptID = core.StringPtr("testString")
-				validationInstallOptionsModel.NewVersionLocatorID = core.StringPtr("testString")
+				validationInstallOptionsModel.ClusterID = core.StringPtr("testString")
+				validationInstallOptionsModel.Region = core.StringPtr("testString")
+				validationInstallOptionsModel.Namespace = core.StringPtr("testString")
+				validationInstallOptionsModel.OverrideValues = map[string]interface{}{"anyKey": "anyValue"}
+				validationInstallOptionsModel.EntitlementApikey = core.StringPtr("testString")
+				validationInstallOptionsModel.Schematics = deployRequestBodySchematicsModel
+				validationInstallOptionsModel.Script = core.StringPtr("testString")
+				validationInstallOptionsModel.ScriptID = core.StringPtr("testString")
+				validationInstallOptionsModel.VersionLocatorID = core.StringPtr("testString")
+				validationInstallOptionsModel.VcenterID = core.StringPtr("testString")
+				validationInstallOptionsModel.VcenterPassword = core.StringPtr("testString")
+				validationInstallOptionsModel.VcenterLocation = core.StringPtr("testString")
 				validationInstallOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := testService.SetServiceURL("")
@@ -6771,7 +7344,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 
 				// Construct an instance of the GetValidationStatusOptions model
 				getValidationStatusOptionsModel := new(catalogmanagementv1.GetValidationStatusOptions)
-				getValidationStatusOptionsModel.VersionLocatorID = core.StringPtr("testString")
+				getValidationStatusOptionsModel.VersionLocID = core.StringPtr("testString")
 				getValidationStatusOptionsModel.XAuthRefreshToken = core.StringPtr("testString")
 				getValidationStatusOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
@@ -6819,7 +7392,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 
 				// Construct an instance of the GetValidationStatusOptions model
 				getValidationStatusOptionsModel := new(catalogmanagementv1.GetValidationStatusOptions)
-				getValidationStatusOptionsModel.VersionLocatorID = core.StringPtr("testString")
+				getValidationStatusOptionsModel.VersionLocID = core.StringPtr("testString")
 				getValidationStatusOptionsModel.XAuthRefreshToken = core.StringPtr("testString")
  				getValidationStatusOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
@@ -6839,7 +7412,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 
 				// Construct an instance of the GetValidationStatusOptions model
 				getValidationStatusOptionsModel := new(catalogmanagementv1.GetValidationStatusOptions)
-				getValidationStatusOptionsModel.VersionLocatorID = core.StringPtr("testString")
+				getValidationStatusOptionsModel.VersionLocID = core.StringPtr("testString")
 				getValidationStatusOptionsModel.XAuthRefreshToken = core.StringPtr("testString")
 				getValidationStatusOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
@@ -6895,7 +7468,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 
 				// Construct an instance of the GetOverrideValuesOptions model
 				getOverrideValuesOptionsModel := new(catalogmanagementv1.GetOverrideValuesOptions)
-				getOverrideValuesOptionsModel.VersionLocatorID = core.StringPtr("testString")
+				getOverrideValuesOptionsModel.VersionLocID = core.StringPtr("testString")
  				getOverrideValuesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
@@ -6914,7 +7487,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 
 				// Construct an instance of the GetOverrideValuesOptions model
 				getOverrideValuesOptionsModel := new(catalogmanagementv1.GetOverrideValuesOptions)
-				getOverrideValuesOptionsModel.VersionLocatorID = core.StringPtr("testString")
+				getOverrideValuesOptionsModel.VersionLocID = core.StringPtr("testString")
 				getOverrideValuesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := testService.SetServiceURL("")
@@ -6964,7 +7537,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 
 				// Construct an instance of the GetSchematicsWorkspacesOptions model
 				getSchematicsWorkspacesOptionsModel := new(catalogmanagementv1.GetSchematicsWorkspacesOptions)
-				getSchematicsWorkspacesOptionsModel.VersionLocatorID = core.StringPtr("testString")
+				getSchematicsWorkspacesOptionsModel.VersionLocID = core.StringPtr("testString")
 				getSchematicsWorkspacesOptionsModel.XAuthRefreshToken = core.StringPtr("testString")
 				getSchematicsWorkspacesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
@@ -7012,7 +7585,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 
 				// Construct an instance of the GetSchematicsWorkspacesOptions model
 				getSchematicsWorkspacesOptionsModel := new(catalogmanagementv1.GetSchematicsWorkspacesOptions)
-				getSchematicsWorkspacesOptionsModel.VersionLocatorID = core.StringPtr("testString")
+				getSchematicsWorkspacesOptionsModel.VersionLocID = core.StringPtr("testString")
 				getSchematicsWorkspacesOptionsModel.XAuthRefreshToken = core.StringPtr("testString")
  				getSchematicsWorkspacesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
@@ -7032,7 +7605,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 
 				// Construct an instance of the GetSchematicsWorkspacesOptions model
 				getSchematicsWorkspacesOptionsModel := new(catalogmanagementv1.GetSchematicsWorkspacesOptions)
-				getSchematicsWorkspacesOptionsModel.VersionLocatorID = core.StringPtr("testString")
+				getSchematicsWorkspacesOptionsModel.VersionLocID = core.StringPtr("testString")
 				getSchematicsWorkspacesOptionsModel.XAuthRefreshToken = core.StringPtr("testString")
 				getSchematicsWorkspacesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
@@ -7089,7 +7662,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 
 				// Construct an instance of the CanDeploySchematicsOptions model
 				canDeploySchematicsOptionsModel := new(catalogmanagementv1.CanDeploySchematicsOptions)
-				canDeploySchematicsOptionsModel.VersionLocatorID = core.StringPtr("testString")
+				canDeploySchematicsOptionsModel.VersionLocID = core.StringPtr("testString")
 				canDeploySchematicsOptionsModel.ClusterID = core.StringPtr("testString")
 				canDeploySchematicsOptionsModel.Region = core.StringPtr("testString")
 				canDeploySchematicsOptionsModel.Namespace = core.StringPtr("testString")
@@ -7146,7 +7719,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 
 				// Construct an instance of the CanDeploySchematicsOptions model
 				canDeploySchematicsOptionsModel := new(catalogmanagementv1.CanDeploySchematicsOptions)
-				canDeploySchematicsOptionsModel.VersionLocatorID = core.StringPtr("testString")
+				canDeploySchematicsOptionsModel.VersionLocID = core.StringPtr("testString")
 				canDeploySchematicsOptionsModel.ClusterID = core.StringPtr("testString")
 				canDeploySchematicsOptionsModel.Region = core.StringPtr("testString")
 				canDeploySchematicsOptionsModel.Namespace = core.StringPtr("testString")
@@ -7169,7 +7742,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 
 				// Construct an instance of the CanDeploySchematicsOptions model
 				canDeploySchematicsOptionsModel := new(catalogmanagementv1.CanDeploySchematicsOptions)
-				canDeploySchematicsOptionsModel.VersionLocatorID = core.StringPtr("testString")
+				canDeploySchematicsOptionsModel.VersionLocID = core.StringPtr("testString")
 				canDeploySchematicsOptionsModel.ClusterID = core.StringPtr("testString")
 				canDeploySchematicsOptionsModel.Region = core.StringPtr("testString")
 				canDeploySchematicsOptionsModel.Namespace = core.StringPtr("testString")
@@ -7292,492 +7865,6 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-	})
-	Describe(`CreateKubeDeploy(createKubeDeployOptions *CreateKubeDeployOptions) - Operation response error`, func() {
-		createKubeDeployPath := "/deploy/kubernetes"
-		Context(`Using mock server endpoint`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.Path).To(Equal(createKubeDeployPath))
-					Expect(req.Method).To(Equal("POST"))
-					Expect(req.Header["X-Auth-Refresh-Token"]).ToNot(BeNil())
-					Expect(req.Header["X-Auth-Refresh-Token"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(200)
-					fmt.Fprintf(res, `} this is not valid json {`)
-				}))
-			})
-			It(`Invoke CreateKubeDeploy with error: Operation response processing error`, func() {
-				testService, testServiceErr := catalogmanagementv1.NewCatalogManagementV1(&catalogmanagementv1.CatalogManagementV1Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(testServiceErr).To(BeNil())
-				Expect(testService).ToNot(BeNil())
-
-				// Construct an instance of the CreateKubeDeployOptions model
-				createKubeDeployOptionsModel := new(catalogmanagementv1.CreateKubeDeployOptions)
-				createKubeDeployOptionsModel.XAuthRefreshToken = core.StringPtr("testString")
-				createKubeDeployOptionsModel.ClusterID = core.StringPtr("testString")
-				createKubeDeployOptionsModel.Region = core.StringPtr("testString")
-				createKubeDeployOptionsModel.Namespace = core.StringPtr("testString")
-				createKubeDeployOptionsModel.VersionLocatorID = core.StringPtr("testString")
-				createKubeDeployOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-				// Expect response parsing to fail since we are receiving a text/plain response
-				result, response, operationErr := testService.CreateKubeDeploy(createKubeDeployOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-	})
-
-	Describe(`CreateKubeDeploy(createKubeDeployOptions *CreateKubeDeployOptions)`, func() {
-		createKubeDeployPath := "/deploy/kubernetes"
-		Context(`Using mock server endpoint`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.Path).To(Equal(createKubeDeployPath))
-					Expect(req.Method).To(Equal("POST"))
-					Expect(req.Header["X-Auth-Refresh-Token"]).ToNot(BeNil())
-					Expect(req.Header["X-Auth-Refresh-Token"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(200)
-					fmt.Fprintf(res, `{"phase": "Phase", "message": "Message", "link": "Link", "name": "Name", "version": "Version", "namespace": "Namespace", "package_name": "PackageName", "catalog_id": "CatalogID"}`)
-				}))
-			})
-			It(`Invoke CreateKubeDeploy successfully`, func() {
-				testService, testServiceErr := catalogmanagementv1.NewCatalogManagementV1(&catalogmanagementv1.CatalogManagementV1Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(testServiceErr).To(BeNil())
-				Expect(testService).ToNot(BeNil())
-
-				// Invoke operation with nil options model (negative test)
-				result, response, operationErr := testService.CreateKubeDeploy(nil)
-				Expect(operationErr).NotTo(BeNil())
-				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-
-				// Construct an instance of the CreateKubeDeployOptions model
-				createKubeDeployOptionsModel := new(catalogmanagementv1.CreateKubeDeployOptions)
-				createKubeDeployOptionsModel.XAuthRefreshToken = core.StringPtr("testString")
-				createKubeDeployOptionsModel.ClusterID = core.StringPtr("testString")
-				createKubeDeployOptionsModel.Region = core.StringPtr("testString")
-				createKubeDeployOptionsModel.Namespace = core.StringPtr("testString")
-				createKubeDeployOptionsModel.VersionLocatorID = core.StringPtr("testString")
- 				createKubeDeployOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation with valid options model (positive test)
-				result, response, operationErr = testService.CreateKubeDeploy(createKubeDeployOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).ToNot(BeNil())
-			})
-			It(`Invoke CreateKubeDeploy with error: Operation validation and request error`, func() {
-				testService, testServiceErr := catalogmanagementv1.NewCatalogManagementV1(&catalogmanagementv1.CatalogManagementV1Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(testServiceErr).To(BeNil())
-				Expect(testService).ToNot(BeNil())
-
-				// Construct an instance of the CreateKubeDeployOptions model
-				createKubeDeployOptionsModel := new(catalogmanagementv1.CreateKubeDeployOptions)
-				createKubeDeployOptionsModel.XAuthRefreshToken = core.StringPtr("testString")
-				createKubeDeployOptionsModel.ClusterID = core.StringPtr("testString")
-				createKubeDeployOptionsModel.Region = core.StringPtr("testString")
-				createKubeDeployOptionsModel.Namespace = core.StringPtr("testString")
-				createKubeDeployOptionsModel.VersionLocatorID = core.StringPtr("testString")
-				createKubeDeployOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-				// Invoke operation with empty URL (negative test)
-				err := testService.SetServiceURL("")
-				Expect(err).To(BeNil())
-				result, response, operationErr := testService.CreateKubeDeploy(createKubeDeployOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
-				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-				// Construct a second instance of the CreateKubeDeployOptions model with no property values
-				createKubeDeployOptionsModelNew := new(catalogmanagementv1.CreateKubeDeployOptions)
-				// Invoke operation with invalid model (negative test)
-				result, response, operationErr = testService.CreateKubeDeploy(createKubeDeployOptionsModelNew)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-	})
-	Describe(`ListKubeDeploy(listKubeDeployOptions *ListKubeDeployOptions) - Operation response error`, func() {
-		listKubeDeployPath := "/deploy/kubernetes"
-		Context(`Using mock server endpoint`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.Path).To(Equal(listKubeDeployPath))
-					Expect(req.Method).To(Equal("GET"))
-					Expect(req.Header["X-Auth-Refresh-Token"]).ToNot(BeNil())
-					Expect(req.Header["X-Auth-Refresh-Token"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
-					Expect(req.URL.Query()["cluster_id"]).To(Equal([]string{"testString"}))
-
-					Expect(req.URL.Query()["namespace"]).To(Equal([]string{"testString"}))
-
-					Expect(req.URL.Query()["region"]).To(Equal([]string{"testString"}))
-
-					Expect(req.URL.Query()["version_locator_id"]).To(Equal([]string{"testString"}))
-
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(200)
-					fmt.Fprintf(res, `} this is not valid json {`)
-				}))
-			})
-			It(`Invoke ListKubeDeploy with error: Operation response processing error`, func() {
-				testService, testServiceErr := catalogmanagementv1.NewCatalogManagementV1(&catalogmanagementv1.CatalogManagementV1Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(testServiceErr).To(BeNil())
-				Expect(testService).ToNot(BeNil())
-
-				// Construct an instance of the ListKubeDeployOptions model
-				listKubeDeployOptionsModel := new(catalogmanagementv1.ListKubeDeployOptions)
-				listKubeDeployOptionsModel.XAuthRefreshToken = core.StringPtr("testString")
-				listKubeDeployOptionsModel.ClusterID = core.StringPtr("testString")
-				listKubeDeployOptionsModel.Namespace = core.StringPtr("testString")
-				listKubeDeployOptionsModel.Region = core.StringPtr("testString")
-				listKubeDeployOptionsModel.VersionLocatorID = core.StringPtr("testString")
-				listKubeDeployOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-				// Expect response parsing to fail since we are receiving a text/plain response
-				result, response, operationErr := testService.ListKubeDeploy(listKubeDeployOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-	})
-
-	Describe(`ListKubeDeploy(listKubeDeployOptions *ListKubeDeployOptions)`, func() {
-		listKubeDeployPath := "/deploy/kubernetes"
-		Context(`Using mock server endpoint`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.Path).To(Equal(listKubeDeployPath))
-					Expect(req.Method).To(Equal("GET"))
-					Expect(req.Header["X-Auth-Refresh-Token"]).ToNot(BeNil())
-					Expect(req.Header["X-Auth-Refresh-Token"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
-					Expect(req.URL.Query()["cluster_id"]).To(Equal([]string{"testString"}))
-
-					Expect(req.URL.Query()["namespace"]).To(Equal([]string{"testString"}))
-
-					Expect(req.URL.Query()["region"]).To(Equal([]string{"testString"}))
-
-					Expect(req.URL.Query()["version_locator_id"]).To(Equal([]string{"testString"}))
-
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(200)
-					fmt.Fprintf(res, `{"phase": "Phase", "message": "Message", "link": "Link", "name": "Name", "version": "Version", "namespace": "Namespace", "package_name": "PackageName", "catalog_id": "CatalogID"}`)
-				}))
-			})
-			It(`Invoke ListKubeDeploy successfully`, func() {
-				testService, testServiceErr := catalogmanagementv1.NewCatalogManagementV1(&catalogmanagementv1.CatalogManagementV1Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(testServiceErr).To(BeNil())
-				Expect(testService).ToNot(BeNil())
-
-				// Invoke operation with nil options model (negative test)
-				result, response, operationErr := testService.ListKubeDeploy(nil)
-				Expect(operationErr).NotTo(BeNil())
-				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-
-				// Construct an instance of the ListKubeDeployOptions model
-				listKubeDeployOptionsModel := new(catalogmanagementv1.ListKubeDeployOptions)
-				listKubeDeployOptionsModel.XAuthRefreshToken = core.StringPtr("testString")
-				listKubeDeployOptionsModel.ClusterID = core.StringPtr("testString")
-				listKubeDeployOptionsModel.Namespace = core.StringPtr("testString")
-				listKubeDeployOptionsModel.Region = core.StringPtr("testString")
-				listKubeDeployOptionsModel.VersionLocatorID = core.StringPtr("testString")
- 				listKubeDeployOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation with valid options model (positive test)
-				result, response, operationErr = testService.ListKubeDeploy(listKubeDeployOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).ToNot(BeNil())
-			})
-			It(`Invoke ListKubeDeploy with error: Operation validation and request error`, func() {
-				testService, testServiceErr := catalogmanagementv1.NewCatalogManagementV1(&catalogmanagementv1.CatalogManagementV1Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(testServiceErr).To(BeNil())
-				Expect(testService).ToNot(BeNil())
-
-				// Construct an instance of the ListKubeDeployOptions model
-				listKubeDeployOptionsModel := new(catalogmanagementv1.ListKubeDeployOptions)
-				listKubeDeployOptionsModel.XAuthRefreshToken = core.StringPtr("testString")
-				listKubeDeployOptionsModel.ClusterID = core.StringPtr("testString")
-				listKubeDeployOptionsModel.Namespace = core.StringPtr("testString")
-				listKubeDeployOptionsModel.Region = core.StringPtr("testString")
-				listKubeDeployOptionsModel.VersionLocatorID = core.StringPtr("testString")
-				listKubeDeployOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-				// Invoke operation with empty URL (negative test)
-				err := testService.SetServiceURL("")
-				Expect(err).To(BeNil())
-				result, response, operationErr := testService.ListKubeDeploy(listKubeDeployOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
-				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-				// Construct a second instance of the ListKubeDeployOptions model with no property values
-				listKubeDeployOptionsModelNew := new(catalogmanagementv1.ListKubeDeployOptions)
-				// Invoke operation with invalid model (negative test)
-				result, response, operationErr = testService.ListKubeDeploy(listKubeDeployOptionsModelNew)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-	})
-	Describe(`ReplaceKubeDeploy(replaceKubeDeployOptions *ReplaceKubeDeployOptions) - Operation response error`, func() {
-		replaceKubeDeployPath := "/deploy/kubernetes"
-		Context(`Using mock server endpoint`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.Path).To(Equal(replaceKubeDeployPath))
-					Expect(req.Method).To(Equal("PUT"))
-					Expect(req.Header["X-Auth-Refresh-Token"]).ToNot(BeNil())
-					Expect(req.Header["X-Auth-Refresh-Token"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(200)
-					fmt.Fprintf(res, `} this is not valid json {`)
-				}))
-			})
-			It(`Invoke ReplaceKubeDeploy with error: Operation response processing error`, func() {
-				testService, testServiceErr := catalogmanagementv1.NewCatalogManagementV1(&catalogmanagementv1.CatalogManagementV1Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(testServiceErr).To(BeNil())
-				Expect(testService).ToNot(BeNil())
-
-				// Construct an instance of the ReplaceKubeDeployOptions model
-				replaceKubeDeployOptionsModel := new(catalogmanagementv1.ReplaceKubeDeployOptions)
-				replaceKubeDeployOptionsModel.XAuthRefreshToken = core.StringPtr("testString")
-				replaceKubeDeployOptionsModel.ClusterID = core.StringPtr("testString")
-				replaceKubeDeployOptionsModel.Region = core.StringPtr("testString")
-				replaceKubeDeployOptionsModel.Namespace = core.StringPtr("testString")
-				replaceKubeDeployOptionsModel.VersionLocatorID = core.StringPtr("testString")
-				replaceKubeDeployOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-				// Expect response parsing to fail since we are receiving a text/plain response
-				result, response, operationErr := testService.ReplaceKubeDeploy(replaceKubeDeployOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-	})
-
-	Describe(`ReplaceKubeDeploy(replaceKubeDeployOptions *ReplaceKubeDeployOptions)`, func() {
-		replaceKubeDeployPath := "/deploy/kubernetes"
-		Context(`Using mock server endpoint`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.Path).To(Equal(replaceKubeDeployPath))
-					Expect(req.Method).To(Equal("PUT"))
-					Expect(req.Header["X-Auth-Refresh-Token"]).ToNot(BeNil())
-					Expect(req.Header["X-Auth-Refresh-Token"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(200)
-					fmt.Fprintf(res, `{"phase": "Phase", "message": "Message", "link": "Link", "name": "Name", "version": "Version", "namespace": "Namespace", "package_name": "PackageName", "catalog_id": "CatalogID"}`)
-				}))
-			})
-			It(`Invoke ReplaceKubeDeploy successfully`, func() {
-				testService, testServiceErr := catalogmanagementv1.NewCatalogManagementV1(&catalogmanagementv1.CatalogManagementV1Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(testServiceErr).To(BeNil())
-				Expect(testService).ToNot(BeNil())
-
-				// Invoke operation with nil options model (negative test)
-				result, response, operationErr := testService.ReplaceKubeDeploy(nil)
-				Expect(operationErr).NotTo(BeNil())
-				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-
-				// Construct an instance of the ReplaceKubeDeployOptions model
-				replaceKubeDeployOptionsModel := new(catalogmanagementv1.ReplaceKubeDeployOptions)
-				replaceKubeDeployOptionsModel.XAuthRefreshToken = core.StringPtr("testString")
-				replaceKubeDeployOptionsModel.ClusterID = core.StringPtr("testString")
-				replaceKubeDeployOptionsModel.Region = core.StringPtr("testString")
-				replaceKubeDeployOptionsModel.Namespace = core.StringPtr("testString")
-				replaceKubeDeployOptionsModel.VersionLocatorID = core.StringPtr("testString")
- 				replaceKubeDeployOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation with valid options model (positive test)
-				result, response, operationErr = testService.ReplaceKubeDeploy(replaceKubeDeployOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).ToNot(BeNil())
-			})
-			It(`Invoke ReplaceKubeDeploy with error: Operation validation and request error`, func() {
-				testService, testServiceErr := catalogmanagementv1.NewCatalogManagementV1(&catalogmanagementv1.CatalogManagementV1Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(testServiceErr).To(BeNil())
-				Expect(testService).ToNot(BeNil())
-
-				// Construct an instance of the ReplaceKubeDeployOptions model
-				replaceKubeDeployOptionsModel := new(catalogmanagementv1.ReplaceKubeDeployOptions)
-				replaceKubeDeployOptionsModel.XAuthRefreshToken = core.StringPtr("testString")
-				replaceKubeDeployOptionsModel.ClusterID = core.StringPtr("testString")
-				replaceKubeDeployOptionsModel.Region = core.StringPtr("testString")
-				replaceKubeDeployOptionsModel.Namespace = core.StringPtr("testString")
-				replaceKubeDeployOptionsModel.VersionLocatorID = core.StringPtr("testString")
-				replaceKubeDeployOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-				// Invoke operation with empty URL (negative test)
-				err := testService.SetServiceURL("")
-				Expect(err).To(BeNil())
-				result, response, operationErr := testService.ReplaceKubeDeploy(replaceKubeDeployOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
-				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-				// Construct a second instance of the ReplaceKubeDeployOptions model with no property values
-				replaceKubeDeployOptionsModelNew := new(catalogmanagementv1.ReplaceKubeDeployOptions)
-				// Invoke operation with invalid model (negative test)
-				result, response, operationErr = testService.ReplaceKubeDeploy(replaceKubeDeployOptionsModelNew)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-	})
-
-	Describe(`DeleteKubeDeploy(deleteKubeDeployOptions *DeleteKubeDeployOptions)`, func() {
-		deleteKubeDeployPath := "/deploy/kubernetes"
-		Context(`Using mock server endpoint`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.Path).To(Equal(deleteKubeDeployPath))
-					Expect(req.Method).To(Equal("DELETE"))
-					Expect(req.Header["X-Auth-Refresh-Token"]).ToNot(BeNil())
-					Expect(req.Header["X-Auth-Refresh-Token"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
-					Expect(req.URL.Query()["cluster_id"]).To(Equal([]string{"testString"}))
-
-					Expect(req.URL.Query()["namespace"]).To(Equal([]string{"testString"}))
-
-					Expect(req.URL.Query()["region"]).To(Equal([]string{"testString"}))
-
-					Expect(req.URL.Query()["version_locator_id"]).To(Equal([]string{"testString"}))
-
-					res.WriteHeader(200)
-				}))
-			})
-			It(`Invoke DeleteKubeDeploy successfully`, func() {
-				testService, testServiceErr := catalogmanagementv1.NewCatalogManagementV1(&catalogmanagementv1.CatalogManagementV1Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(testServiceErr).To(BeNil())
-				Expect(testService).ToNot(BeNil())
-
-				// Invoke operation with nil options model (negative test)
-				response, operationErr := testService.DeleteKubeDeploy(nil)
-				Expect(operationErr).NotTo(BeNil())
-				Expect(response).To(BeNil())
-
-				// Construct an instance of the DeleteKubeDeployOptions model
-				deleteKubeDeployOptionsModel := new(catalogmanagementv1.DeleteKubeDeployOptions)
-				deleteKubeDeployOptionsModel.XAuthRefreshToken = core.StringPtr("testString")
-				deleteKubeDeployOptionsModel.ClusterID = core.StringPtr("testString")
-				deleteKubeDeployOptionsModel.Namespace = core.StringPtr("testString")
-				deleteKubeDeployOptionsModel.Region = core.StringPtr("testString")
-				deleteKubeDeployOptionsModel.VersionLocatorID = core.StringPtr("testString")
- 				deleteKubeDeployOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation with valid options model (positive test)
-				response, operationErr = testService.DeleteKubeDeploy(deleteKubeDeployOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-			})
-			It(`Invoke DeleteKubeDeploy with error: Operation validation and request error`, func() {
-				testService, testServiceErr := catalogmanagementv1.NewCatalogManagementV1(&catalogmanagementv1.CatalogManagementV1Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(testServiceErr).To(BeNil())
-				Expect(testService).ToNot(BeNil())
-
-				// Construct an instance of the DeleteKubeDeployOptions model
-				deleteKubeDeployOptionsModel := new(catalogmanagementv1.DeleteKubeDeployOptions)
-				deleteKubeDeployOptionsModel.XAuthRefreshToken = core.StringPtr("testString")
-				deleteKubeDeployOptionsModel.ClusterID = core.StringPtr("testString")
-				deleteKubeDeployOptionsModel.Namespace = core.StringPtr("testString")
-				deleteKubeDeployOptionsModel.Region = core.StringPtr("testString")
-				deleteKubeDeployOptionsModel.VersionLocatorID = core.StringPtr("testString")
-				deleteKubeDeployOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-				// Invoke operation with empty URL (negative test)
-				err := testService.SetServiceURL("")
-				Expect(err).To(BeNil())
-				response, operationErr := testService.DeleteKubeDeploy(deleteKubeDeployOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
-				Expect(response).To(BeNil())
-				// Construct a second instance of the DeleteKubeDeployOptions model with no property values
-				deleteKubeDeployOptionsModelNew := new(catalogmanagementv1.DeleteKubeDeployOptions)
-				// Invoke operation with invalid model (negative test)
-				response, operationErr = testService.DeleteKubeDeploy(deleteKubeDeployOptionsModelNew)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).To(BeNil())
 			})
 			AfterEach(func() {
 				testServer.Close()
@@ -8145,11 +8232,12 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				createLicenseEntitlementOptionsModel := new(catalogmanagementv1.CreateLicenseEntitlementOptions)
 				createLicenseEntitlementOptionsModel.Name = core.StringPtr("testString")
 				createLicenseEntitlementOptionsModel.EffectiveFrom = core.StringPtr("testString")
-				createLicenseEntitlementOptionsModel.EffectiveTo = core.StringPtr("testString")
+				createLicenseEntitlementOptionsModel.EffectiveUntil = core.StringPtr("testString")
 				createLicenseEntitlementOptionsModel.VersionID = core.StringPtr("testString")
 				createLicenseEntitlementOptionsModel.LicenseID = core.StringPtr("testString")
 				createLicenseEntitlementOptionsModel.LicenseOwnerID = core.StringPtr("testString")
-				createLicenseEntitlementOptionsModel.NamespaceRepository = core.StringPtr("testString")
+				createLicenseEntitlementOptionsModel.LicenseProviderID = core.StringPtr("testString")
+				createLicenseEntitlementOptionsModel.LicenseProductID = core.StringPtr("testString")
 				createLicenseEntitlementOptionsModel.AccountID = core.StringPtr("testString")
 				createLicenseEntitlementOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
@@ -8199,11 +8287,12 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				createLicenseEntitlementOptionsModel := new(catalogmanagementv1.CreateLicenseEntitlementOptions)
 				createLicenseEntitlementOptionsModel.Name = core.StringPtr("testString")
 				createLicenseEntitlementOptionsModel.EffectiveFrom = core.StringPtr("testString")
-				createLicenseEntitlementOptionsModel.EffectiveTo = core.StringPtr("testString")
+				createLicenseEntitlementOptionsModel.EffectiveUntil = core.StringPtr("testString")
 				createLicenseEntitlementOptionsModel.VersionID = core.StringPtr("testString")
 				createLicenseEntitlementOptionsModel.LicenseID = core.StringPtr("testString")
 				createLicenseEntitlementOptionsModel.LicenseOwnerID = core.StringPtr("testString")
-				createLicenseEntitlementOptionsModel.NamespaceRepository = core.StringPtr("testString")
+				createLicenseEntitlementOptionsModel.LicenseProviderID = core.StringPtr("testString")
+				createLicenseEntitlementOptionsModel.LicenseProductID = core.StringPtr("testString")
 				createLicenseEntitlementOptionsModel.AccountID = core.StringPtr("testString")
  				createLicenseEntitlementOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
@@ -8225,11 +8314,12 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				createLicenseEntitlementOptionsModel := new(catalogmanagementv1.CreateLicenseEntitlementOptions)
 				createLicenseEntitlementOptionsModel.Name = core.StringPtr("testString")
 				createLicenseEntitlementOptionsModel.EffectiveFrom = core.StringPtr("testString")
-				createLicenseEntitlementOptionsModel.EffectiveTo = core.StringPtr("testString")
+				createLicenseEntitlementOptionsModel.EffectiveUntil = core.StringPtr("testString")
 				createLicenseEntitlementOptionsModel.VersionID = core.StringPtr("testString")
 				createLicenseEntitlementOptionsModel.LicenseID = core.StringPtr("testString")
 				createLicenseEntitlementOptionsModel.LicenseOwnerID = core.StringPtr("testString")
-				createLicenseEntitlementOptionsModel.NamespaceRepository = core.StringPtr("testString")
+				createLicenseEntitlementOptionsModel.LicenseProviderID = core.StringPtr("testString")
+				createLicenseEntitlementOptionsModel.LicenseProductID = core.StringPtr("testString")
 				createLicenseEntitlementOptionsModel.AccountID = core.StringPtr("testString")
 				createLicenseEntitlementOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
@@ -8836,28 +8926,28 @@ var _ = Describe(`CatalogManagementV1`, func() {
 			})
 			It(`Invoke NewAccountPublishVersionOptions successfully`, func() {
 				// Construct an instance of the AccountPublishVersionOptions model
-				versionLocatorID := "testString"
-				accountPublishVersionOptionsModel := testService.NewAccountPublishVersionOptions(versionLocatorID)
-				accountPublishVersionOptionsModel.SetVersionLocatorID("testString")
+				versionLocID := "testString"
+				accountPublishVersionOptionsModel := testService.NewAccountPublishVersionOptions(versionLocID)
+				accountPublishVersionOptionsModel.SetVersionLocID("testString")
 				accountPublishVersionOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(accountPublishVersionOptionsModel).ToNot(BeNil())
-				Expect(accountPublishVersionOptionsModel.VersionLocatorID).To(Equal(core.StringPtr("testString")))
+				Expect(accountPublishVersionOptionsModel.VersionLocID).To(Equal(core.StringPtr("testString")))
 				Expect(accountPublishVersionOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewCanDeploySchematicsOptions successfully`, func() {
 				// Construct an instance of the CanDeploySchematicsOptions model
-				versionLocatorID := "testString"
+				versionLocID := "testString"
 				clusterID := "testString"
 				region := "testString"
-				canDeploySchematicsOptionsModel := testService.NewCanDeploySchematicsOptions(versionLocatorID, clusterID, region)
-				canDeploySchematicsOptionsModel.SetVersionLocatorID("testString")
+				canDeploySchematicsOptionsModel := testService.NewCanDeploySchematicsOptions(versionLocID, clusterID, region)
+				canDeploySchematicsOptionsModel.SetVersionLocID("testString")
 				canDeploySchematicsOptionsModel.SetClusterID("testString")
 				canDeploySchematicsOptionsModel.SetRegion("testString")
 				canDeploySchematicsOptionsModel.SetNamespace("testString")
 				canDeploySchematicsOptionsModel.SetResourceGroupID("testString")
 				canDeploySchematicsOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(canDeploySchematicsOptionsModel).ToNot(BeNil())
-				Expect(canDeploySchematicsOptionsModel.VersionLocatorID).To(Equal(core.StringPtr("testString")))
+				Expect(canDeploySchematicsOptionsModel.VersionLocID).To(Equal(core.StringPtr("testString")))
 				Expect(canDeploySchematicsOptionsModel.ClusterID).To(Equal(core.StringPtr("testString")))
 				Expect(canDeploySchematicsOptionsModel.Region).To(Equal(core.StringPtr("testString")))
 				Expect(canDeploySchematicsOptionsModel.Namespace).To(Equal(core.StringPtr("testString")))
@@ -8866,12 +8956,12 @@ var _ = Describe(`CatalogManagementV1`, func() {
 			})
 			It(`Invoke NewCommitVersionOptions successfully`, func() {
 				// Construct an instance of the CommitVersionOptions model
-				versionLocatorID := "testString"
-				commitVersionOptionsModel := testService.NewCommitVersionOptions(versionLocatorID)
-				commitVersionOptionsModel.SetVersionLocatorID("testString")
+				versionLocID := "testString"
+				commitVersionOptionsModel := testService.NewCommitVersionOptions(versionLocID)
+				commitVersionOptionsModel.SetVersionLocID("testString")
 				commitVersionOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(commitVersionOptionsModel).ToNot(BeNil())
-				Expect(commitVersionOptionsModel.VersionLocatorID).To(Equal(core.StringPtr("testString")))
+				Expect(commitVersionOptionsModel.VersionLocID).To(Equal(core.StringPtr("testString")))
 				Expect(commitVersionOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewCreateCatalogOptions successfully`, func() {
@@ -8966,6 +9056,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				// Construct an instance of the CreateCatalogOptions model
 				createCatalogOptionsModel := testService.NewCreateCatalogOptions()
 				createCatalogOptionsModel.SetID("testString")
+				createCatalogOptionsModel.SetRev("testString")
 				createCatalogOptionsModel.SetLabel("testString")
 				createCatalogOptionsModel.SetShortDescription("testString")
 				createCatalogOptionsModel.SetCatalogIconURL("testString")
@@ -8984,6 +9075,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				createCatalogOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(createCatalogOptionsModel).ToNot(BeNil())
 				Expect(createCatalogOptionsModel.ID).To(Equal(core.StringPtr("testString")))
+				Expect(createCatalogOptionsModel.Rev).To(Equal(core.StringPtr("testString")))
 				Expect(createCatalogOptionsModel.Label).To(Equal(core.StringPtr("testString")))
 				Expect(createCatalogOptionsModel.ShortDescription).To(Equal(core.StringPtr("testString")))
 				Expect(createCatalogOptionsModel.CatalogIconURL).To(Equal(core.StringPtr("testString")))
@@ -9001,44 +9093,28 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				Expect(createCatalogOptionsModel.SyndicationSettings).To(Equal(syndicationResourceModel))
 				Expect(createCatalogOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
-			It(`Invoke NewCreateKubeDeployOptions successfully`, func() {
-				// Construct an instance of the CreateKubeDeployOptions model
-				xAuthRefreshToken := "testString"
-				createKubeDeployOptionsModel := testService.NewCreateKubeDeployOptions(xAuthRefreshToken)
-				createKubeDeployOptionsModel.SetXAuthRefreshToken("testString")
-				createKubeDeployOptionsModel.SetClusterID("testString")
-				createKubeDeployOptionsModel.SetRegion("testString")
-				createKubeDeployOptionsModel.SetNamespace("testString")
-				createKubeDeployOptionsModel.SetVersionLocatorID("testString")
-				createKubeDeployOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
-				Expect(createKubeDeployOptionsModel).ToNot(BeNil())
-				Expect(createKubeDeployOptionsModel.XAuthRefreshToken).To(Equal(core.StringPtr("testString")))
-				Expect(createKubeDeployOptionsModel.ClusterID).To(Equal(core.StringPtr("testString")))
-				Expect(createKubeDeployOptionsModel.Region).To(Equal(core.StringPtr("testString")))
-				Expect(createKubeDeployOptionsModel.Namespace).To(Equal(core.StringPtr("testString")))
-				Expect(createKubeDeployOptionsModel.VersionLocatorID).To(Equal(core.StringPtr("testString")))
-				Expect(createKubeDeployOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
-			})
 			It(`Invoke NewCreateLicenseEntitlementOptions successfully`, func() {
 				// Construct an instance of the CreateLicenseEntitlementOptions model
 				createLicenseEntitlementOptionsModel := testService.NewCreateLicenseEntitlementOptions()
 				createLicenseEntitlementOptionsModel.SetName("testString")
 				createLicenseEntitlementOptionsModel.SetEffectiveFrom("testString")
-				createLicenseEntitlementOptionsModel.SetEffectiveTo("testString")
+				createLicenseEntitlementOptionsModel.SetEffectiveUntil("testString")
 				createLicenseEntitlementOptionsModel.SetVersionID("testString")
 				createLicenseEntitlementOptionsModel.SetLicenseID("testString")
 				createLicenseEntitlementOptionsModel.SetLicenseOwnerID("testString")
-				createLicenseEntitlementOptionsModel.SetNamespaceRepository("testString")
+				createLicenseEntitlementOptionsModel.SetLicenseProviderID("testString")
+				createLicenseEntitlementOptionsModel.SetLicenseProductID("testString")
 				createLicenseEntitlementOptionsModel.SetAccountID("testString")
 				createLicenseEntitlementOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(createLicenseEntitlementOptionsModel).ToNot(BeNil())
 				Expect(createLicenseEntitlementOptionsModel.Name).To(Equal(core.StringPtr("testString")))
 				Expect(createLicenseEntitlementOptionsModel.EffectiveFrom).To(Equal(core.StringPtr("testString")))
-				Expect(createLicenseEntitlementOptionsModel.EffectiveTo).To(Equal(core.StringPtr("testString")))
+				Expect(createLicenseEntitlementOptionsModel.EffectiveUntil).To(Equal(core.StringPtr("testString")))
 				Expect(createLicenseEntitlementOptionsModel.VersionID).To(Equal(core.StringPtr("testString")))
 				Expect(createLicenseEntitlementOptionsModel.LicenseID).To(Equal(core.StringPtr("testString")))
 				Expect(createLicenseEntitlementOptionsModel.LicenseOwnerID).To(Equal(core.StringPtr("testString")))
-				Expect(createLicenseEntitlementOptionsModel.NamespaceRepository).To(Equal(core.StringPtr("testString")))
+				Expect(createLicenseEntitlementOptionsModel.LicenseProviderID).To(Equal(core.StringPtr("testString")))
+				Expect(createLicenseEntitlementOptionsModel.LicenseProductID).To(Equal(core.StringPtr("testString")))
 				Expect(createLicenseEntitlementOptionsModel.AccountID).To(Equal(core.StringPtr("testString")))
 				Expect(createLicenseEntitlementOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
@@ -9201,6 +9277,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				versionModel := new(catalogmanagementv1.Version)
 				Expect(versionModel).ToNot(BeNil())
 				versionModel.ID = core.StringPtr("testString")
+				versionModel.Rev = core.StringPtr("testString")
 				versionModel.Crn = core.StringPtr("testString")
 				versionModel.Version = core.StringPtr("testString")
 				versionModel.Sha = core.StringPtr("testString")
@@ -9216,7 +9293,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				versionModel.Configuration = []catalogmanagementv1.Configuration{*configurationModel}
 				versionModel.Metadata = map[string]interface{}{"anyKey": "anyValue"}
 				versionModel.Validation = validationModel
-				versionModel.RequiredResources = resourceModel
+				versionModel.RequiredResources = []catalogmanagementv1.Resource{*resourceModel}
 				versionModel.SingleInstance = core.BoolPtr(true)
 				versionModel.Install = scriptModel
 				versionModel.PreInstall = []catalogmanagementv1.Script{*scriptModel}
@@ -9231,6 +9308,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				versionModel.LongDescription = core.StringPtr("testString")
 				versionModel.WhitelistedAccounts = []string{"testString"}
 				Expect(versionModel.ID).To(Equal(core.StringPtr("testString")))
+				Expect(versionModel.Rev).To(Equal(core.StringPtr("testString")))
 				Expect(versionModel.Crn).To(Equal(core.StringPtr("testString")))
 				Expect(versionModel.Version).To(Equal(core.StringPtr("testString")))
 				Expect(versionModel.Sha).To(Equal(core.StringPtr("testString")))
@@ -9246,7 +9324,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				Expect(versionModel.Configuration).To(Equal([]catalogmanagementv1.Configuration{*configurationModel}))
 				Expect(versionModel.Metadata).To(Equal(map[string]interface{}{"anyKey": "anyValue"}))
 				Expect(versionModel.Validation).To(Equal(validationModel))
-				Expect(versionModel.RequiredResources).To(Equal(resourceModel))
+				Expect(versionModel.RequiredResources).To(Equal([]catalogmanagementv1.Resource{*resourceModel}))
 				Expect(versionModel.SingleInstance).To(Equal(core.BoolPtr(true)))
 				Expect(versionModel.Install).To(Equal(scriptModel))
 				Expect(versionModel.PreInstall).To(Equal([]catalogmanagementv1.Script{*scriptModel}))
@@ -9308,105 +9386,103 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				Expect(repoInfoModel.Type).To(Equal(core.StringPtr("testString")))
 
 				// Construct an instance of the CreateOfferingOptions model
-				catalogID := "testString"
-				createOfferingOptionsModel := testService.NewCreateOfferingOptions(catalogID)
+				catalogIdentifier := "testString"
+				createOfferingOptionsModel := testService.NewCreateOfferingOptions(catalogIdentifier)
+				createOfferingOptionsModel.SetCatalogIdentifier("testString")
+				createOfferingOptionsModel.SetID("testString")
+				createOfferingOptionsModel.SetRev("testString")
+				createOfferingOptionsModel.SetURL("testString")
+				createOfferingOptionsModel.SetCrn("testString")
+				createOfferingOptionsModel.SetLabel("testString")
+				createOfferingOptionsModel.SetName("testString")
+				createOfferingOptionsModel.SetOfferingIconURL("testString")
+				createOfferingOptionsModel.SetOfferingDocsURL("testString")
+				createOfferingOptionsModel.SetOfferingSupportURL("testString")
+				createOfferingOptionsModel.SetTags([]string{"testString"})
+				createOfferingOptionsModel.SetRating(ratingModel)
+				createOfferingOptionsModel.SetCreated(CreateMockDateTime())
+				createOfferingOptionsModel.SetUpdated(CreateMockDateTime())
+				createOfferingOptionsModel.SetShortDescription("testString")
+				createOfferingOptionsModel.SetLongDescription("testString")
+				createOfferingOptionsModel.SetFeatures([]catalogmanagementv1.Feature{*featureModel})
+				createOfferingOptionsModel.SetKinds([]catalogmanagementv1.Kind{*kindModel})
+				createOfferingOptionsModel.SetPermitRequestIbmPublicPublish(true)
+				createOfferingOptionsModel.SetIbmPublishApproved(true)
+				createOfferingOptionsModel.SetPublicPublishApproved(true)
+				createOfferingOptionsModel.SetPublicOriginalCrn("testString")
+				createOfferingOptionsModel.SetPublishPublicCrn("testString")
+				createOfferingOptionsModel.SetPortalApprovalRecord("testString")
+				createOfferingOptionsModel.SetPortalUiURL("testString")
 				createOfferingOptionsModel.SetCatalogID("testString")
-				createOfferingOptionsModel.SetNewID("testString")
-				createOfferingOptionsModel.SetNewURL("testString")
-				createOfferingOptionsModel.SetNewCrn("testString")
-				createOfferingOptionsModel.SetNewLabel("testString")
-				createOfferingOptionsModel.SetNewName("testString")
-				createOfferingOptionsModel.SetNewOfferingIconURL("testString")
-				createOfferingOptionsModel.SetNewOfferingDocsURL("testString")
-				createOfferingOptionsModel.SetNewOfferingSupportURL("testString")
-				createOfferingOptionsModel.SetNewTags([]string{"testString"})
-				createOfferingOptionsModel.SetNewRating(ratingModel)
-				createOfferingOptionsModel.SetNewCreated(CreateMockDateTime())
-				createOfferingOptionsModel.SetNewUpdated(CreateMockDateTime())
-				createOfferingOptionsModel.SetNewShortDescription("testString")
-				createOfferingOptionsModel.SetNewLongDescription("testString")
-				createOfferingOptionsModel.SetNewFeatures([]catalogmanagementv1.Feature{*featureModel})
-				createOfferingOptionsModel.SetNewKinds([]catalogmanagementv1.Kind{*kindModel})
-				createOfferingOptionsModel.SetNewPermitRequestIbmPublicPublish(true)
-				createOfferingOptionsModel.SetNewIbmPublishApproved(true)
-				createOfferingOptionsModel.SetNewPublicPublishApproved(true)
-				createOfferingOptionsModel.SetNewPublicOriginalCrn("testString")
-				createOfferingOptionsModel.SetNewPublishPublicCrn("testString")
-				createOfferingOptionsModel.SetNewPortalApprovalRecord("testString")
-				createOfferingOptionsModel.SetNewPortalUiURL("testString")
-				createOfferingOptionsModel.SetNewCatalogID("testString")
-				createOfferingOptionsModel.SetNewCatalogName("testString")
-				createOfferingOptionsModel.SetNewMetadata(map[string]interface{}{"anyKey": "anyValue"})
-				createOfferingOptionsModel.SetNewDisclaimer("testString")
-				createOfferingOptionsModel.SetNewHidden(true)
-				createOfferingOptionsModel.SetNewProvider("testString")
-				createOfferingOptionsModel.SetNewRepoInfo(repoInfoModel)
+				createOfferingOptionsModel.SetCatalogName("testString")
+				createOfferingOptionsModel.SetMetadata(map[string]interface{}{"anyKey": "anyValue"})
+				createOfferingOptionsModel.SetDisclaimer("testString")
+				createOfferingOptionsModel.SetHidden(true)
+				createOfferingOptionsModel.SetProvider("testString")
+				createOfferingOptionsModel.SetRepoInfo(repoInfoModel)
 				createOfferingOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(createOfferingOptionsModel).ToNot(BeNil())
+				Expect(createOfferingOptionsModel.CatalogIdentifier).To(Equal(core.StringPtr("testString")))
+				Expect(createOfferingOptionsModel.ID).To(Equal(core.StringPtr("testString")))
+				Expect(createOfferingOptionsModel.Rev).To(Equal(core.StringPtr("testString")))
+				Expect(createOfferingOptionsModel.URL).To(Equal(core.StringPtr("testString")))
+				Expect(createOfferingOptionsModel.Crn).To(Equal(core.StringPtr("testString")))
+				Expect(createOfferingOptionsModel.Label).To(Equal(core.StringPtr("testString")))
+				Expect(createOfferingOptionsModel.Name).To(Equal(core.StringPtr("testString")))
+				Expect(createOfferingOptionsModel.OfferingIconURL).To(Equal(core.StringPtr("testString")))
+				Expect(createOfferingOptionsModel.OfferingDocsURL).To(Equal(core.StringPtr("testString")))
+				Expect(createOfferingOptionsModel.OfferingSupportURL).To(Equal(core.StringPtr("testString")))
+				Expect(createOfferingOptionsModel.Tags).To(Equal([]string{"testString"}))
+				Expect(createOfferingOptionsModel.Rating).To(Equal(ratingModel))
+				Expect(createOfferingOptionsModel.Created).To(Equal(CreateMockDateTime()))
+				Expect(createOfferingOptionsModel.Updated).To(Equal(CreateMockDateTime()))
+				Expect(createOfferingOptionsModel.ShortDescription).To(Equal(core.StringPtr("testString")))
+				Expect(createOfferingOptionsModel.LongDescription).To(Equal(core.StringPtr("testString")))
+				Expect(createOfferingOptionsModel.Features).To(Equal([]catalogmanagementv1.Feature{*featureModel}))
+				Expect(createOfferingOptionsModel.Kinds).To(Equal([]catalogmanagementv1.Kind{*kindModel}))
+				Expect(createOfferingOptionsModel.PermitRequestIbmPublicPublish).To(Equal(core.BoolPtr(true)))
+				Expect(createOfferingOptionsModel.IbmPublishApproved).To(Equal(core.BoolPtr(true)))
+				Expect(createOfferingOptionsModel.PublicPublishApproved).To(Equal(core.BoolPtr(true)))
+				Expect(createOfferingOptionsModel.PublicOriginalCrn).To(Equal(core.StringPtr("testString")))
+				Expect(createOfferingOptionsModel.PublishPublicCrn).To(Equal(core.StringPtr("testString")))
+				Expect(createOfferingOptionsModel.PortalApprovalRecord).To(Equal(core.StringPtr("testString")))
+				Expect(createOfferingOptionsModel.PortalUiURL).To(Equal(core.StringPtr("testString")))
 				Expect(createOfferingOptionsModel.CatalogID).To(Equal(core.StringPtr("testString")))
-				Expect(createOfferingOptionsModel.NewID).To(Equal(core.StringPtr("testString")))
-				Expect(createOfferingOptionsModel.NewURL).To(Equal(core.StringPtr("testString")))
-				Expect(createOfferingOptionsModel.NewCrn).To(Equal(core.StringPtr("testString")))
-				Expect(createOfferingOptionsModel.NewLabel).To(Equal(core.StringPtr("testString")))
-				Expect(createOfferingOptionsModel.NewName).To(Equal(core.StringPtr("testString")))
-				Expect(createOfferingOptionsModel.NewOfferingIconURL).To(Equal(core.StringPtr("testString")))
-				Expect(createOfferingOptionsModel.NewOfferingDocsURL).To(Equal(core.StringPtr("testString")))
-				Expect(createOfferingOptionsModel.NewOfferingSupportURL).To(Equal(core.StringPtr("testString")))
-				Expect(createOfferingOptionsModel.NewTags).To(Equal([]string{"testString"}))
-				Expect(createOfferingOptionsModel.NewRating).To(Equal(ratingModel))
-				Expect(createOfferingOptionsModel.NewCreated).To(Equal(CreateMockDateTime()))
-				Expect(createOfferingOptionsModel.NewUpdated).To(Equal(CreateMockDateTime()))
-				Expect(createOfferingOptionsModel.NewShortDescription).To(Equal(core.StringPtr("testString")))
-				Expect(createOfferingOptionsModel.NewLongDescription).To(Equal(core.StringPtr("testString")))
-				Expect(createOfferingOptionsModel.NewFeatures).To(Equal([]catalogmanagementv1.Feature{*featureModel}))
-				Expect(createOfferingOptionsModel.NewKinds).To(Equal([]catalogmanagementv1.Kind{*kindModel}))
-				Expect(createOfferingOptionsModel.NewPermitRequestIbmPublicPublish).To(Equal(core.BoolPtr(true)))
-				Expect(createOfferingOptionsModel.NewIbmPublishApproved).To(Equal(core.BoolPtr(true)))
-				Expect(createOfferingOptionsModel.NewPublicPublishApproved).To(Equal(core.BoolPtr(true)))
-				Expect(createOfferingOptionsModel.NewPublicOriginalCrn).To(Equal(core.StringPtr("testString")))
-				Expect(createOfferingOptionsModel.NewPublishPublicCrn).To(Equal(core.StringPtr("testString")))
-				Expect(createOfferingOptionsModel.NewPortalApprovalRecord).To(Equal(core.StringPtr("testString")))
-				Expect(createOfferingOptionsModel.NewPortalUiURL).To(Equal(core.StringPtr("testString")))
-				Expect(createOfferingOptionsModel.NewCatalogID).To(Equal(core.StringPtr("testString")))
-				Expect(createOfferingOptionsModel.NewCatalogName).To(Equal(core.StringPtr("testString")))
-				Expect(createOfferingOptionsModel.NewMetadata).To(Equal(map[string]interface{}{"anyKey": "anyValue"}))
-				Expect(createOfferingOptionsModel.NewDisclaimer).To(Equal(core.StringPtr("testString")))
-				Expect(createOfferingOptionsModel.NewHidden).To(Equal(core.BoolPtr(true)))
-				Expect(createOfferingOptionsModel.NewProvider).To(Equal(core.StringPtr("testString")))
-				Expect(createOfferingOptionsModel.NewRepoInfo).To(Equal(repoInfoModel))
+				Expect(createOfferingOptionsModel.CatalogName).To(Equal(core.StringPtr("testString")))
+				Expect(createOfferingOptionsModel.Metadata).To(Equal(map[string]interface{}{"anyKey": "anyValue"}))
+				Expect(createOfferingOptionsModel.Disclaimer).To(Equal(core.StringPtr("testString")))
+				Expect(createOfferingOptionsModel.Hidden).To(Equal(core.BoolPtr(true)))
+				Expect(createOfferingOptionsModel.Provider).To(Equal(core.StringPtr("testString")))
+				Expect(createOfferingOptionsModel.RepoInfo).To(Equal(repoInfoModel))
 				Expect(createOfferingOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
+			It(`Invoke NewCreateOperatorOptions successfully`, func() {
+				// Construct an instance of the CreateOperatorOptions model
+				xAuthRefreshToken := "testString"
+				createOperatorOptionsModel := testService.NewCreateOperatorOptions(xAuthRefreshToken)
+				createOperatorOptionsModel.SetXAuthRefreshToken("testString")
+				createOperatorOptionsModel.SetClusterID("testString")
+				createOperatorOptionsModel.SetRegion("testString")
+				createOperatorOptionsModel.SetNamespaces([]string{"testString"})
+				createOperatorOptionsModel.SetVersionLocatorID("testString")
+				createOperatorOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(createOperatorOptionsModel).ToNot(BeNil())
+				Expect(createOperatorOptionsModel.XAuthRefreshToken).To(Equal(core.StringPtr("testString")))
+				Expect(createOperatorOptionsModel.ClusterID).To(Equal(core.StringPtr("testString")))
+				Expect(createOperatorOptionsModel.Region).To(Equal(core.StringPtr("testString")))
+				Expect(createOperatorOptionsModel.Namespaces).To(Equal([]string{"testString"}))
+				Expect(createOperatorOptionsModel.VersionLocatorID).To(Equal(core.StringPtr("testString")))
+				Expect(createOperatorOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewDeleteCatalogOptions successfully`, func() {
 				// Construct an instance of the DeleteCatalogOptions model
-				catalogID := "testString"
-				deleteCatalogOptionsModel := testService.NewDeleteCatalogOptions(catalogID)
-				deleteCatalogOptionsModel.SetCatalogID("testString")
+				catalogIdentifier := "testString"
+				deleteCatalogOptionsModel := testService.NewDeleteCatalogOptions(catalogIdentifier)
+				deleteCatalogOptionsModel.SetCatalogIdentifier("testString")
 				deleteCatalogOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(deleteCatalogOptionsModel).ToNot(BeNil())
-				Expect(deleteCatalogOptionsModel.CatalogID).To(Equal(core.StringPtr("testString")))
+				Expect(deleteCatalogOptionsModel.CatalogIdentifier).To(Equal(core.StringPtr("testString")))
 				Expect(deleteCatalogOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
-			})
-			It(`Invoke NewDeleteKubeDeployOptions successfully`, func() {
-				// Construct an instance of the DeleteKubeDeployOptions model
-				xAuthRefreshToken := "testString"
-				clusterID := "testString"
-				namespace := "testString"
-				region := "testString"
-				versionLocatorID := "testString"
-				deleteKubeDeployOptionsModel := testService.NewDeleteKubeDeployOptions(xAuthRefreshToken, clusterID, namespace, region, versionLocatorID)
-				deleteKubeDeployOptionsModel.SetXAuthRefreshToken("testString")
-				deleteKubeDeployOptionsModel.SetClusterID("testString")
-				deleteKubeDeployOptionsModel.SetNamespace("testString")
-				deleteKubeDeployOptionsModel.SetRegion("testString")
-				deleteKubeDeployOptionsModel.SetVersionLocatorID("testString")
-				deleteKubeDeployOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
-				Expect(deleteKubeDeployOptionsModel).ToNot(BeNil())
-				Expect(deleteKubeDeployOptionsModel.XAuthRefreshToken).To(Equal(core.StringPtr("testString")))
-				Expect(deleteKubeDeployOptionsModel.ClusterID).To(Equal(core.StringPtr("testString")))
-				Expect(deleteKubeDeployOptionsModel.Namespace).To(Equal(core.StringPtr("testString")))
-				Expect(deleteKubeDeployOptionsModel.Region).To(Equal(core.StringPtr("testString")))
-				Expect(deleteKubeDeployOptionsModel.VersionLocatorID).To(Equal(core.StringPtr("testString")))
-				Expect(deleteKubeDeployOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewDeleteLicenseEntitlementOptions successfully`, func() {
 				// Construct an instance of the DeleteLicenseEntitlementOptions model
@@ -9422,35 +9498,54 @@ var _ = Describe(`CatalogManagementV1`, func() {
 			})
 			It(`Invoke NewDeleteOfferingOptions successfully`, func() {
 				// Construct an instance of the DeleteOfferingOptions model
-				catalogID := "testString"
+				catalogIdentifier := "testString"
 				offeringID := "testString"
-				deleteOfferingOptionsModel := testService.NewDeleteOfferingOptions(catalogID, offeringID)
-				deleteOfferingOptionsModel.SetCatalogID("testString")
+				deleteOfferingOptionsModel := testService.NewDeleteOfferingOptions(catalogIdentifier, offeringID)
+				deleteOfferingOptionsModel.SetCatalogIdentifier("testString")
 				deleteOfferingOptionsModel.SetOfferingID("testString")
 				deleteOfferingOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(deleteOfferingOptionsModel).ToNot(BeNil())
-				Expect(deleteOfferingOptionsModel.CatalogID).To(Equal(core.StringPtr("testString")))
+				Expect(deleteOfferingOptionsModel.CatalogIdentifier).To(Equal(core.StringPtr("testString")))
 				Expect(deleteOfferingOptionsModel.OfferingID).To(Equal(core.StringPtr("testString")))
 				Expect(deleteOfferingOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
+			It(`Invoke NewDeleteOperatorOptions successfully`, func() {
+				// Construct an instance of the DeleteOperatorOptions model
+				xAuthRefreshToken := "testString"
+				clusterID := "testString"
+				region := "testString"
+				versionLocatorID := "testString"
+				deleteOperatorOptionsModel := testService.NewDeleteOperatorOptions(xAuthRefreshToken, clusterID, region, versionLocatorID)
+				deleteOperatorOptionsModel.SetXAuthRefreshToken("testString")
+				deleteOperatorOptionsModel.SetClusterID("testString")
+				deleteOperatorOptionsModel.SetRegion("testString")
+				deleteOperatorOptionsModel.SetVersionLocatorID("testString")
+				deleteOperatorOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(deleteOperatorOptionsModel).ToNot(BeNil())
+				Expect(deleteOperatorOptionsModel.XAuthRefreshToken).To(Equal(core.StringPtr("testString")))
+				Expect(deleteOperatorOptionsModel.ClusterID).To(Equal(core.StringPtr("testString")))
+				Expect(deleteOperatorOptionsModel.Region).To(Equal(core.StringPtr("testString")))
+				Expect(deleteOperatorOptionsModel.VersionLocatorID).To(Equal(core.StringPtr("testString")))
+				Expect(deleteOperatorOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
 			It(`Invoke NewDeleteVersionOptions successfully`, func() {
 				// Construct an instance of the DeleteVersionOptions model
-				versionLocatorID := "testString"
-				deleteVersionOptionsModel := testService.NewDeleteVersionOptions(versionLocatorID)
-				deleteVersionOptionsModel.SetVersionLocatorID("testString")
+				versionLocID := "testString"
+				deleteVersionOptionsModel := testService.NewDeleteVersionOptions(versionLocID)
+				deleteVersionOptionsModel.SetVersionLocID("testString")
 				deleteVersionOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(deleteVersionOptionsModel).ToNot(BeNil())
-				Expect(deleteVersionOptionsModel.VersionLocatorID).To(Equal(core.StringPtr("testString")))
+				Expect(deleteVersionOptionsModel.VersionLocID).To(Equal(core.StringPtr("testString")))
 				Expect(deleteVersionOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewDeprecateVersionOptions successfully`, func() {
 				// Construct an instance of the DeprecateVersionOptions model
-				versionLocatorID := "testString"
-				deprecateVersionOptionsModel := testService.NewDeprecateVersionOptions(versionLocatorID)
-				deprecateVersionOptionsModel.SetVersionLocatorID("testString")
+				versionLocID := "testString"
+				deprecateVersionOptionsModel := testService.NewDeprecateVersionOptions(versionLocID)
+				deprecateVersionOptionsModel.SetVersionLocID("testString")
 				deprecateVersionOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(deprecateVersionOptionsModel).ToNot(BeNil())
-				Expect(deprecateVersionOptionsModel.VersionLocatorID).To(Equal(core.StringPtr("testString")))
+				Expect(deprecateVersionOptionsModel.VersionLocID).To(Equal(core.StringPtr("testString")))
 				Expect(deprecateVersionOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewGetCatalogAccountFiltersOptions successfully`, func() {
@@ -9471,12 +9566,12 @@ var _ = Describe(`CatalogManagementV1`, func() {
 			})
 			It(`Invoke NewGetCatalogOptions successfully`, func() {
 				// Construct an instance of the GetCatalogOptions model
-				catalogID := "testString"
-				getCatalogOptionsModel := testService.NewGetCatalogOptions(catalogID)
-				getCatalogOptionsModel.SetCatalogID("testString")
+				catalogIdentifier := "testString"
+				getCatalogOptionsModel := testService.NewGetCatalogOptions(catalogIdentifier)
+				getCatalogOptionsModel.SetCatalogIdentifier("testString")
 				getCatalogOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(getCatalogOptionsModel).ToNot(BeNil())
-				Expect(getCatalogOptionsModel.CatalogID).To(Equal(core.StringPtr("testString")))
+				Expect(getCatalogOptionsModel.CatalogIdentifier).To(Equal(core.StringPtr("testString")))
 				Expect(getCatalogOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewGetClusterOptions successfully`, func() {
@@ -9581,40 +9676,40 @@ var _ = Describe(`CatalogManagementV1`, func() {
 			})
 			It(`Invoke NewGetOfferingOptions successfully`, func() {
 				// Construct an instance of the GetOfferingOptions model
-				catalogID := "testString"
+				catalogIdentifier := "testString"
 				offeringID := "testString"
-				getOfferingOptionsModel := testService.NewGetOfferingOptions(catalogID, offeringID)
-				getOfferingOptionsModel.SetCatalogID("testString")
+				getOfferingOptionsModel := testService.NewGetOfferingOptions(catalogIdentifier, offeringID)
+				getOfferingOptionsModel.SetCatalogIdentifier("testString")
 				getOfferingOptionsModel.SetOfferingID("testString")
 				getOfferingOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(getOfferingOptionsModel).ToNot(BeNil())
-				Expect(getOfferingOptionsModel.CatalogID).To(Equal(core.StringPtr("testString")))
+				Expect(getOfferingOptionsModel.CatalogIdentifier).To(Equal(core.StringPtr("testString")))
 				Expect(getOfferingOptionsModel.OfferingID).To(Equal(core.StringPtr("testString")))
 				Expect(getOfferingOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewGetOverrideValuesOptions successfully`, func() {
 				// Construct an instance of the GetOverrideValuesOptions model
-				versionLocatorID := "testString"
-				getOverrideValuesOptionsModel := testService.NewGetOverrideValuesOptions(versionLocatorID)
-				getOverrideValuesOptionsModel.SetVersionLocatorID("testString")
+				versionLocID := "testString"
+				getOverrideValuesOptionsModel := testService.NewGetOverrideValuesOptions(versionLocID)
+				getOverrideValuesOptionsModel.SetVersionLocID("testString")
 				getOverrideValuesOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(getOverrideValuesOptionsModel).ToNot(BeNil())
-				Expect(getOverrideValuesOptionsModel.VersionLocatorID).To(Equal(core.StringPtr("testString")))
+				Expect(getOverrideValuesOptionsModel.VersionLocID).To(Equal(core.StringPtr("testString")))
 				Expect(getOverrideValuesOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewGetPreinstallOptions successfully`, func() {
 				// Construct an instance of the GetPreinstallOptions model
-				versionLocatorID := "testString"
+				versionLocID := "testString"
 				xAuthRefreshToken := "testString"
-				getPreinstallOptionsModel := testService.NewGetPreinstallOptions(versionLocatorID, xAuthRefreshToken)
-				getPreinstallOptionsModel.SetVersionLocatorID("testString")
+				getPreinstallOptionsModel := testService.NewGetPreinstallOptions(versionLocID, xAuthRefreshToken)
+				getPreinstallOptionsModel.SetVersionLocID("testString")
 				getPreinstallOptionsModel.SetXAuthRefreshToken("testString")
 				getPreinstallOptionsModel.SetClusterID("testString")
 				getPreinstallOptionsModel.SetRegion("testString")
 				getPreinstallOptionsModel.SetNamespace("testString")
 				getPreinstallOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(getPreinstallOptionsModel).ToNot(BeNil())
-				Expect(getPreinstallOptionsModel.VersionLocatorID).To(Equal(core.StringPtr("testString")))
+				Expect(getPreinstallOptionsModel.VersionLocID).To(Equal(core.StringPtr("testString")))
 				Expect(getPreinstallOptionsModel.XAuthRefreshToken).To(Equal(core.StringPtr("testString")))
 				Expect(getPreinstallOptionsModel.ClusterID).To(Equal(core.StringPtr("testString")))
 				Expect(getPreinstallOptionsModel.Region).To(Equal(core.StringPtr("testString")))
@@ -9656,85 +9751,85 @@ var _ = Describe(`CatalogManagementV1`, func() {
 			})
 			It(`Invoke NewGetSchematicsWorkspacesOptions successfully`, func() {
 				// Construct an instance of the GetSchematicsWorkspacesOptions model
-				versionLocatorID := "testString"
+				versionLocID := "testString"
 				xAuthRefreshToken := "testString"
-				getSchematicsWorkspacesOptionsModel := testService.NewGetSchematicsWorkspacesOptions(versionLocatorID, xAuthRefreshToken)
-				getSchematicsWorkspacesOptionsModel.SetVersionLocatorID("testString")
+				getSchematicsWorkspacesOptionsModel := testService.NewGetSchematicsWorkspacesOptions(versionLocID, xAuthRefreshToken)
+				getSchematicsWorkspacesOptionsModel.SetVersionLocID("testString")
 				getSchematicsWorkspacesOptionsModel.SetXAuthRefreshToken("testString")
 				getSchematicsWorkspacesOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(getSchematicsWorkspacesOptionsModel).ToNot(BeNil())
-				Expect(getSchematicsWorkspacesOptionsModel.VersionLocatorID).To(Equal(core.StringPtr("testString")))
+				Expect(getSchematicsWorkspacesOptionsModel.VersionLocID).To(Equal(core.StringPtr("testString")))
 				Expect(getSchematicsWorkspacesOptionsModel.XAuthRefreshToken).To(Equal(core.StringPtr("testString")))
 				Expect(getSchematicsWorkspacesOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewGetValidationStatusOptions successfully`, func() {
 				// Construct an instance of the GetValidationStatusOptions model
-				versionLocatorID := "testString"
+				versionLocID := "testString"
 				xAuthRefreshToken := "testString"
-				getValidationStatusOptionsModel := testService.NewGetValidationStatusOptions(versionLocatorID, xAuthRefreshToken)
-				getValidationStatusOptionsModel.SetVersionLocatorID("testString")
+				getValidationStatusOptionsModel := testService.NewGetValidationStatusOptions(versionLocID, xAuthRefreshToken)
+				getValidationStatusOptionsModel.SetVersionLocID("testString")
 				getValidationStatusOptionsModel.SetXAuthRefreshToken("testString")
 				getValidationStatusOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(getValidationStatusOptionsModel).ToNot(BeNil())
-				Expect(getValidationStatusOptionsModel.VersionLocatorID).To(Equal(core.StringPtr("testString")))
+				Expect(getValidationStatusOptionsModel.VersionLocID).To(Equal(core.StringPtr("testString")))
 				Expect(getValidationStatusOptionsModel.XAuthRefreshToken).To(Equal(core.StringPtr("testString")))
 				Expect(getValidationStatusOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewGetVersionAboutOptions successfully`, func() {
 				// Construct an instance of the GetVersionAboutOptions model
-				versionLocatorID := "testString"
-				getVersionAboutOptionsModel := testService.NewGetVersionAboutOptions(versionLocatorID)
-				getVersionAboutOptionsModel.SetVersionLocatorID("testString")
+				versionLocID := "testString"
+				getVersionAboutOptionsModel := testService.NewGetVersionAboutOptions(versionLocID)
+				getVersionAboutOptionsModel.SetVersionLocID("testString")
 				getVersionAboutOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(getVersionAboutOptionsModel).ToNot(BeNil())
-				Expect(getVersionAboutOptionsModel.VersionLocatorID).To(Equal(core.StringPtr("testString")))
+				Expect(getVersionAboutOptionsModel.VersionLocID).To(Equal(core.StringPtr("testString")))
 				Expect(getVersionAboutOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewGetVersionContainerImagesOptions successfully`, func() {
 				// Construct an instance of the GetVersionContainerImagesOptions model
-				versionLocatorID := "testString"
-				getVersionContainerImagesOptionsModel := testService.NewGetVersionContainerImagesOptions(versionLocatorID)
-				getVersionContainerImagesOptionsModel.SetVersionLocatorID("testString")
+				versionLocID := "testString"
+				getVersionContainerImagesOptionsModel := testService.NewGetVersionContainerImagesOptions(versionLocID)
+				getVersionContainerImagesOptionsModel.SetVersionLocID("testString")
 				getVersionContainerImagesOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(getVersionContainerImagesOptionsModel).ToNot(BeNil())
-				Expect(getVersionContainerImagesOptionsModel.VersionLocatorID).To(Equal(core.StringPtr("testString")))
+				Expect(getVersionContainerImagesOptionsModel.VersionLocID).To(Equal(core.StringPtr("testString")))
 				Expect(getVersionContainerImagesOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewGetVersionLicenseOptions successfully`, func() {
 				// Construct an instance of the GetVersionLicenseOptions model
-				versionLocatorID := "testString"
+				versionLocID := "testString"
 				licenseID := "testString"
-				getVersionLicenseOptionsModel := testService.NewGetVersionLicenseOptions(versionLocatorID, licenseID)
-				getVersionLicenseOptionsModel.SetVersionLocatorID("testString")
+				getVersionLicenseOptionsModel := testService.NewGetVersionLicenseOptions(versionLocID, licenseID)
+				getVersionLicenseOptionsModel.SetVersionLocID("testString")
 				getVersionLicenseOptionsModel.SetLicenseID("testString")
 				getVersionLicenseOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(getVersionLicenseOptionsModel).ToNot(BeNil())
-				Expect(getVersionLicenseOptionsModel.VersionLocatorID).To(Equal(core.StringPtr("testString")))
+				Expect(getVersionLicenseOptionsModel.VersionLocID).To(Equal(core.StringPtr("testString")))
 				Expect(getVersionLicenseOptionsModel.LicenseID).To(Equal(core.StringPtr("testString")))
 				Expect(getVersionLicenseOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewGetVersionOptions successfully`, func() {
 				// Construct an instance of the GetVersionOptions model
-				versionLocatorID := "testString"
-				getVersionOptionsModel := testService.NewGetVersionOptions(versionLocatorID)
-				getVersionOptionsModel.SetVersionLocatorID("testString")
+				versionLocID := "testString"
+				getVersionOptionsModel := testService.NewGetVersionOptions(versionLocID)
+				getVersionOptionsModel.SetVersionLocID("testString")
 				getVersionOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(getVersionOptionsModel).ToNot(BeNil())
-				Expect(getVersionOptionsModel.VersionLocatorID).To(Equal(core.StringPtr("testString")))
+				Expect(getVersionOptionsModel.VersionLocID).To(Equal(core.StringPtr("testString")))
 				Expect(getVersionOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewGetVersionUpdatesOptions successfully`, func() {
 				// Construct an instance of the GetVersionUpdatesOptions model
-				versionLocatorID := "testString"
-				getVersionUpdatesOptionsModel := testService.NewGetVersionUpdatesOptions(versionLocatorID)
-				getVersionUpdatesOptionsModel.SetVersionLocatorID("testString")
+				versionLocID := "testString"
+				getVersionUpdatesOptionsModel := testService.NewGetVersionUpdatesOptions(versionLocID)
+				getVersionUpdatesOptionsModel.SetVersionLocID("testString")
 				getVersionUpdatesOptionsModel.SetClusterID("testString")
 				getVersionUpdatesOptionsModel.SetRegion("testString")
 				getVersionUpdatesOptionsModel.SetResourceGroupID("testString")
 				getVersionUpdatesOptionsModel.SetNamespace("testString")
 				getVersionUpdatesOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(getVersionUpdatesOptionsModel).ToNot(BeNil())
-				Expect(getVersionUpdatesOptionsModel.VersionLocatorID).To(Equal(core.StringPtr("testString")))
+				Expect(getVersionUpdatesOptionsModel.VersionLocID).To(Equal(core.StringPtr("testString")))
 				Expect(getVersionUpdatesOptionsModel.ClusterID).To(Equal(core.StringPtr("testString")))
 				Expect(getVersionUpdatesOptionsModel.Region).To(Equal(core.StringPtr("testString")))
 				Expect(getVersionUpdatesOptionsModel.ResourceGroupID).To(Equal(core.StringPtr("testString")))
@@ -9743,102 +9838,124 @@ var _ = Describe(`CatalogManagementV1`, func() {
 			})
 			It(`Invoke NewGetVersionWorkingCopyOptions successfully`, func() {
 				// Construct an instance of the GetVersionWorkingCopyOptions model
-				versionLocatorID := "testString"
-				getVersionWorkingCopyOptionsModel := testService.NewGetVersionWorkingCopyOptions(versionLocatorID)
-				getVersionWorkingCopyOptionsModel.SetVersionLocatorID("testString")
+				versionLocID := "testString"
+				getVersionWorkingCopyOptionsModel := testService.NewGetVersionWorkingCopyOptions(versionLocID)
+				getVersionWorkingCopyOptionsModel.SetVersionLocID("testString")
 				getVersionWorkingCopyOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(getVersionWorkingCopyOptionsModel).ToNot(BeNil())
-				Expect(getVersionWorkingCopyOptionsModel.VersionLocatorID).To(Equal(core.StringPtr("testString")))
+				Expect(getVersionWorkingCopyOptionsModel.VersionLocID).To(Equal(core.StringPtr("testString")))
 				Expect(getVersionWorkingCopyOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewIbmPublishVersionOptions successfully`, func() {
 				// Construct an instance of the IbmPublishVersionOptions model
-				versionLocatorID := "testString"
-				ibmPublishVersionOptionsModel := testService.NewIbmPublishVersionOptions(versionLocatorID)
-				ibmPublishVersionOptionsModel.SetVersionLocatorID("testString")
+				versionLocID := "testString"
+				ibmPublishVersionOptionsModel := testService.NewIbmPublishVersionOptions(versionLocID)
+				ibmPublishVersionOptionsModel.SetVersionLocID("testString")
 				ibmPublishVersionOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(ibmPublishVersionOptionsModel).ToNot(BeNil())
-				Expect(ibmPublishVersionOptionsModel.VersionLocatorID).To(Equal(core.StringPtr("testString")))
+				Expect(ibmPublishVersionOptionsModel.VersionLocID).To(Equal(core.StringPtr("testString")))
 				Expect(ibmPublishVersionOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewImportOfferingOptions successfully`, func() {
 				// Construct an instance of the ImportOfferingOptions model
-				catalogID := "testString"
+				catalogIdentifier := "testString"
 				zipurl := "testString"
-				importOfferingOptionsModel := testService.NewImportOfferingOptions(catalogID, zipurl)
-				importOfferingOptionsModel.SetCatalogID("testString")
+				importOfferingOptionsModel := testService.NewImportOfferingOptions(catalogIdentifier, zipurl)
+				importOfferingOptionsModel.SetCatalogIdentifier("testString")
 				importOfferingOptionsModel.SetZipurl("testString")
+				importOfferingOptionsModel.SetTags([]string{"testString"})
+				importOfferingOptionsModel.SetTargetKinds([]string{"testString"})
 				importOfferingOptionsModel.SetOfferingID("testString")
 				importOfferingOptionsModel.SetIncludeConfig(true)
+				importOfferingOptionsModel.SetRepoType("testString")
+				importOfferingOptionsModel.SetXAuthToken("testString")
 				importOfferingOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(importOfferingOptionsModel).ToNot(BeNil())
-				Expect(importOfferingOptionsModel.CatalogID).To(Equal(core.StringPtr("testString")))
+				Expect(importOfferingOptionsModel.CatalogIdentifier).To(Equal(core.StringPtr("testString")))
 				Expect(importOfferingOptionsModel.Zipurl).To(Equal(core.StringPtr("testString")))
+				Expect(importOfferingOptionsModel.Tags).To(Equal([]string{"testString"}))
+				Expect(importOfferingOptionsModel.TargetKinds).To(Equal([]string{"testString"}))
 				Expect(importOfferingOptionsModel.OfferingID).To(Equal(core.StringPtr("testString")))
 				Expect(importOfferingOptionsModel.IncludeConfig).To(Equal(core.BoolPtr(true)))
+				Expect(importOfferingOptionsModel.RepoType).To(Equal(core.StringPtr("testString")))
+				Expect(importOfferingOptionsModel.XAuthToken).To(Equal(core.StringPtr("testString")))
 				Expect(importOfferingOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewImportOfferingVersionOptions successfully`, func() {
 				// Construct an instance of the ImportOfferingVersionOptions model
-				catalogID := "testString"
+				catalogIdentifier := "testString"
 				offeringID := "testString"
 				zipurl := "testString"
-				importOfferingVersionOptionsModel := testService.NewImportOfferingVersionOptions(catalogID, offeringID, zipurl)
-				importOfferingVersionOptionsModel.SetCatalogID("testString")
+				importOfferingVersionOptionsModel := testService.NewImportOfferingVersionOptions(catalogIdentifier, offeringID, zipurl)
+				importOfferingVersionOptionsModel.SetCatalogIdentifier("testString")
 				importOfferingVersionOptionsModel.SetOfferingID("testString")
 				importOfferingVersionOptionsModel.SetZipurl("testString")
+				importOfferingVersionOptionsModel.SetTags([]string{"testString"})
+				importOfferingVersionOptionsModel.SetTargetKinds([]string{"testString"})
 				importOfferingVersionOptionsModel.SetTargetVersion("testString")
 				importOfferingVersionOptionsModel.SetIncludeConfig(true)
+				importOfferingVersionOptionsModel.SetRepoType("testString")
+				importOfferingVersionOptionsModel.SetXAuthToken("testString")
 				importOfferingVersionOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(importOfferingVersionOptionsModel).ToNot(BeNil())
-				Expect(importOfferingVersionOptionsModel.CatalogID).To(Equal(core.StringPtr("testString")))
+				Expect(importOfferingVersionOptionsModel.CatalogIdentifier).To(Equal(core.StringPtr("testString")))
 				Expect(importOfferingVersionOptionsModel.OfferingID).To(Equal(core.StringPtr("testString")))
 				Expect(importOfferingVersionOptionsModel.Zipurl).To(Equal(core.StringPtr("testString")))
+				Expect(importOfferingVersionOptionsModel.Tags).To(Equal([]string{"testString"}))
+				Expect(importOfferingVersionOptionsModel.TargetKinds).To(Equal([]string{"testString"}))
 				Expect(importOfferingVersionOptionsModel.TargetVersion).To(Equal(core.StringPtr("testString")))
 				Expect(importOfferingVersionOptionsModel.IncludeConfig).To(Equal(core.BoolPtr(true)))
+				Expect(importOfferingVersionOptionsModel.RepoType).To(Equal(core.StringPtr("testString")))
+				Expect(importOfferingVersionOptionsModel.XAuthToken).To(Equal(core.StringPtr("testString")))
 				Expect(importOfferingVersionOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewInstallVersionOptions successfully`, func() {
-				// Construct an instance of the ClusterRequestBodySchematics model
-				clusterRequestBodySchematicsModel := new(catalogmanagementv1.ClusterRequestBodySchematics)
-				Expect(clusterRequestBodySchematicsModel).ToNot(BeNil())
-				clusterRequestBodySchematicsModel.Name = core.StringPtr("testString")
-				clusterRequestBodySchematicsModel.Description = core.StringPtr("testString")
-				clusterRequestBodySchematicsModel.Tags = []string{"testString"}
-				clusterRequestBodySchematicsModel.ResourceGroupID = core.StringPtr("testString")
-				Expect(clusterRequestBodySchematicsModel.Name).To(Equal(core.StringPtr("testString")))
-				Expect(clusterRequestBodySchematicsModel.Description).To(Equal(core.StringPtr("testString")))
-				Expect(clusterRequestBodySchematicsModel.Tags).To(Equal([]string{"testString"}))
-				Expect(clusterRequestBodySchematicsModel.ResourceGroupID).To(Equal(core.StringPtr("testString")))
+				// Construct an instance of the DeployRequestBodySchematics model
+				deployRequestBodySchematicsModel := new(catalogmanagementv1.DeployRequestBodySchematics)
+				Expect(deployRequestBodySchematicsModel).ToNot(BeNil())
+				deployRequestBodySchematicsModel.Name = core.StringPtr("testString")
+				deployRequestBodySchematicsModel.Description = core.StringPtr("testString")
+				deployRequestBodySchematicsModel.Tags = []string{"testString"}
+				deployRequestBodySchematicsModel.ResourceGroupID = core.StringPtr("testString")
+				Expect(deployRequestBodySchematicsModel.Name).To(Equal(core.StringPtr("testString")))
+				Expect(deployRequestBodySchematicsModel.Description).To(Equal(core.StringPtr("testString")))
+				Expect(deployRequestBodySchematicsModel.Tags).To(Equal([]string{"testString"}))
+				Expect(deployRequestBodySchematicsModel.ResourceGroupID).To(Equal(core.StringPtr("testString")))
 
 				// Construct an instance of the InstallVersionOptions model
-				versionLocatorID := "testString"
+				versionLocID := "testString"
 				xAuthRefreshToken := "testString"
-				installVersionOptionsModel := testService.NewInstallVersionOptions(versionLocatorID, xAuthRefreshToken)
-				installVersionOptionsModel.SetVersionLocatorID("testString")
+				installVersionOptionsModel := testService.NewInstallVersionOptions(versionLocID, xAuthRefreshToken)
+				installVersionOptionsModel.SetVersionLocID("testString")
 				installVersionOptionsModel.SetXAuthRefreshToken("testString")
-				installVersionOptionsModel.SetNewClusterID("testString")
-				installVersionOptionsModel.SetNewRegion("testString")
-				installVersionOptionsModel.SetNewNamespace("testString")
-				installVersionOptionsModel.SetNewOverrideValues(map[string]interface{}{"anyKey": "anyValue"})
-				installVersionOptionsModel.SetNewEntitlementApikey("testString")
-				installVersionOptionsModel.SetNewSchematics(clusterRequestBodySchematicsModel)
-				installVersionOptionsModel.SetNewScript("testString")
-				installVersionOptionsModel.SetNewScriptID("testString")
-				installVersionOptionsModel.SetNewVersionLocatorID("testString")
+				installVersionOptionsModel.SetClusterID("testString")
+				installVersionOptionsModel.SetRegion("testString")
+				installVersionOptionsModel.SetNamespace("testString")
+				installVersionOptionsModel.SetOverrideValues(map[string]interface{}{"anyKey": "anyValue"})
+				installVersionOptionsModel.SetEntitlementApikey("testString")
+				installVersionOptionsModel.SetSchematics(deployRequestBodySchematicsModel)
+				installVersionOptionsModel.SetScript("testString")
+				installVersionOptionsModel.SetScriptID("testString")
+				installVersionOptionsModel.SetVersionLocatorID("testString")
+				installVersionOptionsModel.SetVcenterID("testString")
+				installVersionOptionsModel.SetVcenterPassword("testString")
+				installVersionOptionsModel.SetVcenterLocation("testString")
 				installVersionOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(installVersionOptionsModel).ToNot(BeNil())
-				Expect(installVersionOptionsModel.VersionLocatorID).To(Equal(core.StringPtr("testString")))
+				Expect(installVersionOptionsModel.VersionLocID).To(Equal(core.StringPtr("testString")))
 				Expect(installVersionOptionsModel.XAuthRefreshToken).To(Equal(core.StringPtr("testString")))
-				Expect(installVersionOptionsModel.NewClusterID).To(Equal(core.StringPtr("testString")))
-				Expect(installVersionOptionsModel.NewRegion).To(Equal(core.StringPtr("testString")))
-				Expect(installVersionOptionsModel.NewNamespace).To(Equal(core.StringPtr("testString")))
-				Expect(installVersionOptionsModel.NewOverrideValues).To(Equal(map[string]interface{}{"anyKey": "anyValue"}))
-				Expect(installVersionOptionsModel.NewEntitlementApikey).To(Equal(core.StringPtr("testString")))
-				Expect(installVersionOptionsModel.NewSchematics).To(Equal(clusterRequestBodySchematicsModel))
-				Expect(installVersionOptionsModel.NewScript).To(Equal(core.StringPtr("testString")))
-				Expect(installVersionOptionsModel.NewScriptID).To(Equal(core.StringPtr("testString")))
-				Expect(installVersionOptionsModel.NewVersionLocatorID).To(Equal(core.StringPtr("testString")))
+				Expect(installVersionOptionsModel.ClusterID).To(Equal(core.StringPtr("testString")))
+				Expect(installVersionOptionsModel.Region).To(Equal(core.StringPtr("testString")))
+				Expect(installVersionOptionsModel.Namespace).To(Equal(core.StringPtr("testString")))
+				Expect(installVersionOptionsModel.OverrideValues).To(Equal(map[string]interface{}{"anyKey": "anyValue"}))
+				Expect(installVersionOptionsModel.EntitlementApikey).To(Equal(core.StringPtr("testString")))
+				Expect(installVersionOptionsModel.Schematics).To(Equal(deployRequestBodySchematicsModel))
+				Expect(installVersionOptionsModel.Script).To(Equal(core.StringPtr("testString")))
+				Expect(installVersionOptionsModel.ScriptID).To(Equal(core.StringPtr("testString")))
+				Expect(installVersionOptionsModel.VersionLocatorID).To(Equal(core.StringPtr("testString")))
+				Expect(installVersionOptionsModel.VcenterID).To(Equal(core.StringPtr("testString")))
+				Expect(installVersionOptionsModel.VcenterPassword).To(Equal(core.StringPtr("testString")))
+				Expect(installVersionOptionsModel.VcenterLocation).To(Equal(core.StringPtr("testString")))
 				Expect(installVersionOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewListCatalogsOptions successfully`, func() {
@@ -9861,28 +9978,6 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				Expect(listClustersOptionsModel.Type).To(Equal(core.StringPtr("testString")))
 				Expect(listClustersOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
-			It(`Invoke NewListKubeDeployOptions successfully`, func() {
-				// Construct an instance of the ListKubeDeployOptions model
-				xAuthRefreshToken := "testString"
-				clusterID := "testString"
-				namespace := "testString"
-				region := "testString"
-				versionLocatorID := "testString"
-				listKubeDeployOptionsModel := testService.NewListKubeDeployOptions(xAuthRefreshToken, clusterID, namespace, region, versionLocatorID)
-				listKubeDeployOptionsModel.SetXAuthRefreshToken("testString")
-				listKubeDeployOptionsModel.SetClusterID("testString")
-				listKubeDeployOptionsModel.SetNamespace("testString")
-				listKubeDeployOptionsModel.SetRegion("testString")
-				listKubeDeployOptionsModel.SetVersionLocatorID("testString")
-				listKubeDeployOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
-				Expect(listKubeDeployOptionsModel).ToNot(BeNil())
-				Expect(listKubeDeployOptionsModel.XAuthRefreshToken).To(Equal(core.StringPtr("testString")))
-				Expect(listKubeDeployOptionsModel.ClusterID).To(Equal(core.StringPtr("testString")))
-				Expect(listKubeDeployOptionsModel.Namespace).To(Equal(core.StringPtr("testString")))
-				Expect(listKubeDeployOptionsModel.Region).To(Equal(core.StringPtr("testString")))
-				Expect(listKubeDeployOptionsModel.VersionLocatorID).To(Equal(core.StringPtr("testString")))
-				Expect(listKubeDeployOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
-			})
 			It(`Invoke NewListLicenseEntitlementsOptions successfully`, func() {
 				// Construct an instance of the ListLicenseEntitlementsOptions model
 				listLicenseEntitlementsOptionsModel := testService.NewListLicenseEntitlementsOptions()
@@ -9900,15 +9995,34 @@ var _ = Describe(`CatalogManagementV1`, func() {
 			})
 			It(`Invoke NewListOfferingsOptions successfully`, func() {
 				// Construct an instance of the ListOfferingsOptions model
-				catalogID := "testString"
-				listOfferingsOptionsModel := testService.NewListOfferingsOptions(catalogID)
-				listOfferingsOptionsModel.SetCatalogID("testString")
+				catalogIdentifier := "testString"
+				listOfferingsOptionsModel := testService.NewListOfferingsOptions(catalogIdentifier)
+				listOfferingsOptionsModel.SetCatalogIdentifier("testString")
 				listOfferingsOptionsModel.SetDigest(true)
 				listOfferingsOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(listOfferingsOptionsModel).ToNot(BeNil())
-				Expect(listOfferingsOptionsModel.CatalogID).To(Equal(core.StringPtr("testString")))
+				Expect(listOfferingsOptionsModel.CatalogIdentifier).To(Equal(core.StringPtr("testString")))
 				Expect(listOfferingsOptionsModel.Digest).To(Equal(core.BoolPtr(true)))
 				Expect(listOfferingsOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
+			It(`Invoke NewListOperatorsOptions successfully`, func() {
+				// Construct an instance of the ListOperatorsOptions model
+				xAuthRefreshToken := "testString"
+				clusterID := "testString"
+				region := "testString"
+				versionLocatorID := "testString"
+				listOperatorsOptionsModel := testService.NewListOperatorsOptions(xAuthRefreshToken, clusterID, region, versionLocatorID)
+				listOperatorsOptionsModel.SetXAuthRefreshToken("testString")
+				listOperatorsOptionsModel.SetClusterID("testString")
+				listOperatorsOptionsModel.SetRegion("testString")
+				listOperatorsOptionsModel.SetVersionLocatorID("testString")
+				listOperatorsOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(listOperatorsOptionsModel).ToNot(BeNil())
+				Expect(listOperatorsOptionsModel.XAuthRefreshToken).To(Equal(core.StringPtr("testString")))
+				Expect(listOperatorsOptionsModel.ClusterID).To(Equal(core.StringPtr("testString")))
+				Expect(listOperatorsOptionsModel.Region).To(Equal(core.StringPtr("testString")))
+				Expect(listOperatorsOptionsModel.VersionLocatorID).To(Equal(core.StringPtr("testString")))
+				Expect(listOperatorsOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewListVersionsOptions successfully`, func() {
 				// Construct an instance of the ListVersionsOptions model
@@ -9921,75 +10035,89 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				Expect(listVersionsOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewPreinstallVersionOptions successfully`, func() {
-				// Construct an instance of the ClusterRequestBodySchematics model
-				clusterRequestBodySchematicsModel := new(catalogmanagementv1.ClusterRequestBodySchematics)
-				Expect(clusterRequestBodySchematicsModel).ToNot(BeNil())
-				clusterRequestBodySchematicsModel.Name = core.StringPtr("testString")
-				clusterRequestBodySchematicsModel.Description = core.StringPtr("testString")
-				clusterRequestBodySchematicsModel.Tags = []string{"testString"}
-				clusterRequestBodySchematicsModel.ResourceGroupID = core.StringPtr("testString")
-				Expect(clusterRequestBodySchematicsModel.Name).To(Equal(core.StringPtr("testString")))
-				Expect(clusterRequestBodySchematicsModel.Description).To(Equal(core.StringPtr("testString")))
-				Expect(clusterRequestBodySchematicsModel.Tags).To(Equal([]string{"testString"}))
-				Expect(clusterRequestBodySchematicsModel.ResourceGroupID).To(Equal(core.StringPtr("testString")))
+				// Construct an instance of the DeployRequestBodySchematics model
+				deployRequestBodySchematicsModel := new(catalogmanagementv1.DeployRequestBodySchematics)
+				Expect(deployRequestBodySchematicsModel).ToNot(BeNil())
+				deployRequestBodySchematicsModel.Name = core.StringPtr("testString")
+				deployRequestBodySchematicsModel.Description = core.StringPtr("testString")
+				deployRequestBodySchematicsModel.Tags = []string{"testString"}
+				deployRequestBodySchematicsModel.ResourceGroupID = core.StringPtr("testString")
+				Expect(deployRequestBodySchematicsModel.Name).To(Equal(core.StringPtr("testString")))
+				Expect(deployRequestBodySchematicsModel.Description).To(Equal(core.StringPtr("testString")))
+				Expect(deployRequestBodySchematicsModel.Tags).To(Equal([]string{"testString"}))
+				Expect(deployRequestBodySchematicsModel.ResourceGroupID).To(Equal(core.StringPtr("testString")))
 
 				// Construct an instance of the PreinstallVersionOptions model
-				versionLocatorID := "testString"
+				versionLocID := "testString"
 				xAuthRefreshToken := "testString"
-				preinstallVersionOptionsModel := testService.NewPreinstallVersionOptions(versionLocatorID, xAuthRefreshToken)
-				preinstallVersionOptionsModel.SetVersionLocatorID("testString")
+				preinstallVersionOptionsModel := testService.NewPreinstallVersionOptions(versionLocID, xAuthRefreshToken)
+				preinstallVersionOptionsModel.SetVersionLocID("testString")
 				preinstallVersionOptionsModel.SetXAuthRefreshToken("testString")
-				preinstallVersionOptionsModel.SetNewClusterID("testString")
-				preinstallVersionOptionsModel.SetNewRegion("testString")
-				preinstallVersionOptionsModel.SetNewNamespace("testString")
-				preinstallVersionOptionsModel.SetNewOverrideValues(map[string]interface{}{"anyKey": "anyValue"})
-				preinstallVersionOptionsModel.SetNewEntitlementApikey("testString")
-				preinstallVersionOptionsModel.SetNewSchematics(clusterRequestBodySchematicsModel)
-				preinstallVersionOptionsModel.SetNewScript("testString")
-				preinstallVersionOptionsModel.SetNewScriptID("testString")
-				preinstallVersionOptionsModel.SetNewVersionLocatorID("testString")
+				preinstallVersionOptionsModel.SetClusterID("testString")
+				preinstallVersionOptionsModel.SetRegion("testString")
+				preinstallVersionOptionsModel.SetNamespace("testString")
+				preinstallVersionOptionsModel.SetOverrideValues(map[string]interface{}{"anyKey": "anyValue"})
+				preinstallVersionOptionsModel.SetEntitlementApikey("testString")
+				preinstallVersionOptionsModel.SetSchematics(deployRequestBodySchematicsModel)
+				preinstallVersionOptionsModel.SetScript("testString")
+				preinstallVersionOptionsModel.SetScriptID("testString")
+				preinstallVersionOptionsModel.SetVersionLocatorID("testString")
+				preinstallVersionOptionsModel.SetVcenterID("testString")
+				preinstallVersionOptionsModel.SetVcenterPassword("testString")
+				preinstallVersionOptionsModel.SetVcenterLocation("testString")
 				preinstallVersionOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(preinstallVersionOptionsModel).ToNot(BeNil())
-				Expect(preinstallVersionOptionsModel.VersionLocatorID).To(Equal(core.StringPtr("testString")))
+				Expect(preinstallVersionOptionsModel.VersionLocID).To(Equal(core.StringPtr("testString")))
 				Expect(preinstallVersionOptionsModel.XAuthRefreshToken).To(Equal(core.StringPtr("testString")))
-				Expect(preinstallVersionOptionsModel.NewClusterID).To(Equal(core.StringPtr("testString")))
-				Expect(preinstallVersionOptionsModel.NewRegion).To(Equal(core.StringPtr("testString")))
-				Expect(preinstallVersionOptionsModel.NewNamespace).To(Equal(core.StringPtr("testString")))
-				Expect(preinstallVersionOptionsModel.NewOverrideValues).To(Equal(map[string]interface{}{"anyKey": "anyValue"}))
-				Expect(preinstallVersionOptionsModel.NewEntitlementApikey).To(Equal(core.StringPtr("testString")))
-				Expect(preinstallVersionOptionsModel.NewSchematics).To(Equal(clusterRequestBodySchematicsModel))
-				Expect(preinstallVersionOptionsModel.NewScript).To(Equal(core.StringPtr("testString")))
-				Expect(preinstallVersionOptionsModel.NewScriptID).To(Equal(core.StringPtr("testString")))
-				Expect(preinstallVersionOptionsModel.NewVersionLocatorID).To(Equal(core.StringPtr("testString")))
+				Expect(preinstallVersionOptionsModel.ClusterID).To(Equal(core.StringPtr("testString")))
+				Expect(preinstallVersionOptionsModel.Region).To(Equal(core.StringPtr("testString")))
+				Expect(preinstallVersionOptionsModel.Namespace).To(Equal(core.StringPtr("testString")))
+				Expect(preinstallVersionOptionsModel.OverrideValues).To(Equal(map[string]interface{}{"anyKey": "anyValue"}))
+				Expect(preinstallVersionOptionsModel.EntitlementApikey).To(Equal(core.StringPtr("testString")))
+				Expect(preinstallVersionOptionsModel.Schematics).To(Equal(deployRequestBodySchematicsModel))
+				Expect(preinstallVersionOptionsModel.Script).To(Equal(core.StringPtr("testString")))
+				Expect(preinstallVersionOptionsModel.ScriptID).To(Equal(core.StringPtr("testString")))
+				Expect(preinstallVersionOptionsModel.VersionLocatorID).To(Equal(core.StringPtr("testString")))
+				Expect(preinstallVersionOptionsModel.VcenterID).To(Equal(core.StringPtr("testString")))
+				Expect(preinstallVersionOptionsModel.VcenterPassword).To(Equal(core.StringPtr("testString")))
+				Expect(preinstallVersionOptionsModel.VcenterLocation).To(Equal(core.StringPtr("testString")))
 				Expect(preinstallVersionOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewPublicPublishVersionOptions successfully`, func() {
 				// Construct an instance of the PublicPublishVersionOptions model
-				versionLocatorID := "testString"
-				publicPublishVersionOptionsModel := testService.NewPublicPublishVersionOptions(versionLocatorID)
-				publicPublishVersionOptionsModel.SetVersionLocatorID("testString")
+				versionLocID := "testString"
+				publicPublishVersionOptionsModel := testService.NewPublicPublishVersionOptions(versionLocID)
+				publicPublishVersionOptionsModel.SetVersionLocID("testString")
 				publicPublishVersionOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(publicPublishVersionOptionsModel).ToNot(BeNil())
-				Expect(publicPublishVersionOptionsModel.VersionLocatorID).To(Equal(core.StringPtr("testString")))
+				Expect(publicPublishVersionOptionsModel.VersionLocID).To(Equal(core.StringPtr("testString")))
 				Expect(publicPublishVersionOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewReloadOfferingOptions successfully`, func() {
 				// Construct an instance of the ReloadOfferingOptions model
-				catalogID := "testString"
+				catalogIdentifier := "testString"
 				offeringID := "testString"
 				zipurl := "testString"
 				targetVersion := "testString"
-				reloadOfferingOptionsModel := testService.NewReloadOfferingOptions(catalogID, offeringID, zipurl, targetVersion)
-				reloadOfferingOptionsModel.SetCatalogID("testString")
+				reloadOfferingOptionsModel := testService.NewReloadOfferingOptions(catalogIdentifier, offeringID, zipurl, targetVersion)
+				reloadOfferingOptionsModel.SetCatalogIdentifier("testString")
 				reloadOfferingOptionsModel.SetOfferingID("testString")
 				reloadOfferingOptionsModel.SetZipurl("testString")
 				reloadOfferingOptionsModel.SetTargetVersion("testString")
+				reloadOfferingOptionsModel.SetTags([]string{"testString"})
+				reloadOfferingOptionsModel.SetTargetKinds([]string{"testString"})
+				reloadOfferingOptionsModel.SetRepoType("testString")
+				reloadOfferingOptionsModel.SetXAuthToken("testString")
 				reloadOfferingOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(reloadOfferingOptionsModel).ToNot(BeNil())
-				Expect(reloadOfferingOptionsModel.CatalogID).To(Equal(core.StringPtr("testString")))
+				Expect(reloadOfferingOptionsModel.CatalogIdentifier).To(Equal(core.StringPtr("testString")))
 				Expect(reloadOfferingOptionsModel.OfferingID).To(Equal(core.StringPtr("testString")))
 				Expect(reloadOfferingOptionsModel.Zipurl).To(Equal(core.StringPtr("testString")))
 				Expect(reloadOfferingOptionsModel.TargetVersion).To(Equal(core.StringPtr("testString")))
+				Expect(reloadOfferingOptionsModel.Tags).To(Equal([]string{"testString"}))
+				Expect(reloadOfferingOptionsModel.TargetKinds).To(Equal([]string{"testString"}))
+				Expect(reloadOfferingOptionsModel.RepoType).To(Equal(core.StringPtr("testString")))
+				Expect(reloadOfferingOptionsModel.XAuthToken).To(Equal(core.StringPtr("testString")))
 				Expect(reloadOfferingOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewReplaceCatalogOptions successfully`, func() {
@@ -10082,10 +10210,11 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				Expect(syndicationResourceModel.Authorization).To(Equal(syndicationAuthorizationModel))
 
 				// Construct an instance of the ReplaceCatalogOptions model
-				catalogID := "testString"
-				replaceCatalogOptionsModel := testService.NewReplaceCatalogOptions(catalogID)
-				replaceCatalogOptionsModel.SetCatalogID("testString")
+				catalogIdentifier := "testString"
+				replaceCatalogOptionsModel := testService.NewReplaceCatalogOptions(catalogIdentifier)
+				replaceCatalogOptionsModel.SetCatalogIdentifier("testString")
 				replaceCatalogOptionsModel.SetID("testString")
+				replaceCatalogOptionsModel.SetRev("testString")
 				replaceCatalogOptionsModel.SetLabel("testString")
 				replaceCatalogOptionsModel.SetShortDescription("testString")
 				replaceCatalogOptionsModel.SetCatalogIconURL("testString")
@@ -10103,8 +10232,9 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				replaceCatalogOptionsModel.SetSyndicationSettings(syndicationResourceModel)
 				replaceCatalogOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(replaceCatalogOptionsModel).ToNot(BeNil())
-				Expect(replaceCatalogOptionsModel.CatalogID).To(Equal(core.StringPtr("testString")))
+				Expect(replaceCatalogOptionsModel.CatalogIdentifier).To(Equal(core.StringPtr("testString")))
 				Expect(replaceCatalogOptionsModel.ID).To(Equal(core.StringPtr("testString")))
+				Expect(replaceCatalogOptionsModel.Rev).To(Equal(core.StringPtr("testString")))
 				Expect(replaceCatalogOptionsModel.Label).To(Equal(core.StringPtr("testString")))
 				Expect(replaceCatalogOptionsModel.ShortDescription).To(Equal(core.StringPtr("testString")))
 				Expect(replaceCatalogOptionsModel.CatalogIconURL).To(Equal(core.StringPtr("testString")))
@@ -10174,46 +10304,30 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				replaceEnterpriseOptionsModel := testService.NewReplaceEnterpriseOptions(enterpriseID)
 				replaceEnterpriseOptionsModel.SetEnterpriseID("testString")
 				replaceEnterpriseOptionsModel.SetID("testString")
+				replaceEnterpriseOptionsModel.SetRev("testString")
 				replaceEnterpriseOptionsModel.SetAccountFilters(filtersModel)
 				replaceEnterpriseOptionsModel.SetAccountGroups(enterpriseAccountGroupsModel)
 				replaceEnterpriseOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(replaceEnterpriseOptionsModel).ToNot(BeNil())
 				Expect(replaceEnterpriseOptionsModel.EnterpriseID).To(Equal(core.StringPtr("testString")))
 				Expect(replaceEnterpriseOptionsModel.ID).To(Equal(core.StringPtr("testString")))
+				Expect(replaceEnterpriseOptionsModel.Rev).To(Equal(core.StringPtr("testString")))
 				Expect(replaceEnterpriseOptionsModel.AccountFilters).To(Equal(filtersModel))
 				Expect(replaceEnterpriseOptionsModel.AccountGroups).To(Equal(enterpriseAccountGroupsModel))
 				Expect(replaceEnterpriseOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
-			It(`Invoke NewReplaceKubeDeployOptions successfully`, func() {
-				// Construct an instance of the ReplaceKubeDeployOptions model
-				xAuthRefreshToken := "testString"
-				replaceKubeDeployOptionsModel := testService.NewReplaceKubeDeployOptions(xAuthRefreshToken)
-				replaceKubeDeployOptionsModel.SetXAuthRefreshToken("testString")
-				replaceKubeDeployOptionsModel.SetClusterID("testString")
-				replaceKubeDeployOptionsModel.SetRegion("testString")
-				replaceKubeDeployOptionsModel.SetNamespace("testString")
-				replaceKubeDeployOptionsModel.SetVersionLocatorID("testString")
-				replaceKubeDeployOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
-				Expect(replaceKubeDeployOptionsModel).ToNot(BeNil())
-				Expect(replaceKubeDeployOptionsModel.XAuthRefreshToken).To(Equal(core.StringPtr("testString")))
-				Expect(replaceKubeDeployOptionsModel.ClusterID).To(Equal(core.StringPtr("testString")))
-				Expect(replaceKubeDeployOptionsModel.Region).To(Equal(core.StringPtr("testString")))
-				Expect(replaceKubeDeployOptionsModel.Namespace).To(Equal(core.StringPtr("testString")))
-				Expect(replaceKubeDeployOptionsModel.VersionLocatorID).To(Equal(core.StringPtr("testString")))
-				Expect(replaceKubeDeployOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
-			})
 			It(`Invoke NewReplaceOfferingIconOptions successfully`, func() {
 				// Construct an instance of the ReplaceOfferingIconOptions model
-				catalogID := "testString"
+				catalogIdentifier := "testString"
 				offeringID := "testString"
 				fileName := "testString"
-				replaceOfferingIconOptionsModel := testService.NewReplaceOfferingIconOptions(catalogID, offeringID, fileName)
-				replaceOfferingIconOptionsModel.SetCatalogID("testString")
+				replaceOfferingIconOptionsModel := testService.NewReplaceOfferingIconOptions(catalogIdentifier, offeringID, fileName)
+				replaceOfferingIconOptionsModel.SetCatalogIdentifier("testString")
 				replaceOfferingIconOptionsModel.SetOfferingID("testString")
 				replaceOfferingIconOptionsModel.SetFileName("testString")
 				replaceOfferingIconOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(replaceOfferingIconOptionsModel).ToNot(BeNil())
-				Expect(replaceOfferingIconOptionsModel.CatalogID).To(Equal(core.StringPtr("testString")))
+				Expect(replaceOfferingIconOptionsModel.CatalogIdentifier).To(Equal(core.StringPtr("testString")))
 				Expect(replaceOfferingIconOptionsModel.OfferingID).To(Equal(core.StringPtr("testString")))
 				Expect(replaceOfferingIconOptionsModel.FileName).To(Equal(core.StringPtr("testString")))
 				Expect(replaceOfferingIconOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
@@ -10377,6 +10491,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				versionModel := new(catalogmanagementv1.Version)
 				Expect(versionModel).ToNot(BeNil())
 				versionModel.ID = core.StringPtr("testString")
+				versionModel.Rev = core.StringPtr("testString")
 				versionModel.Crn = core.StringPtr("testString")
 				versionModel.Version = core.StringPtr("testString")
 				versionModel.Sha = core.StringPtr("testString")
@@ -10392,7 +10507,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				versionModel.Configuration = []catalogmanagementv1.Configuration{*configurationModel}
 				versionModel.Metadata = map[string]interface{}{"anyKey": "anyValue"}
 				versionModel.Validation = validationModel
-				versionModel.RequiredResources = resourceModel
+				versionModel.RequiredResources = []catalogmanagementv1.Resource{*resourceModel}
 				versionModel.SingleInstance = core.BoolPtr(true)
 				versionModel.Install = scriptModel
 				versionModel.PreInstall = []catalogmanagementv1.Script{*scriptModel}
@@ -10407,6 +10522,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				versionModel.LongDescription = core.StringPtr("testString")
 				versionModel.WhitelistedAccounts = []string{"testString"}
 				Expect(versionModel.ID).To(Equal(core.StringPtr("testString")))
+				Expect(versionModel.Rev).To(Equal(core.StringPtr("testString")))
 				Expect(versionModel.Crn).To(Equal(core.StringPtr("testString")))
 				Expect(versionModel.Version).To(Equal(core.StringPtr("testString")))
 				Expect(versionModel.Sha).To(Equal(core.StringPtr("testString")))
@@ -10422,7 +10538,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				Expect(versionModel.Configuration).To(Equal([]catalogmanagementv1.Configuration{*configurationModel}))
 				Expect(versionModel.Metadata).To(Equal(map[string]interface{}{"anyKey": "anyValue"}))
 				Expect(versionModel.Validation).To(Equal(validationModel))
-				Expect(versionModel.RequiredResources).To(Equal(resourceModel))
+				Expect(versionModel.RequiredResources).To(Equal([]catalogmanagementv1.Resource{*resourceModel}))
 				Expect(versionModel.SingleInstance).To(Equal(core.BoolPtr(true)))
 				Expect(versionModel.Install).To(Equal(scriptModel))
 				Expect(versionModel.PreInstall).To(Equal([]catalogmanagementv1.Script{*scriptModel}))
@@ -10484,76 +10600,96 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				Expect(repoInfoModel.Type).To(Equal(core.StringPtr("testString")))
 
 				// Construct an instance of the ReplaceOfferingOptions model
-				catalogID := "testString"
+				catalogIdentifier := "testString"
 				offeringID := "testString"
-				replaceOfferingOptionsModel := testService.NewReplaceOfferingOptions(catalogID, offeringID)
-				replaceOfferingOptionsModel.SetCatalogID("testString")
+				replaceOfferingOptionsModel := testService.NewReplaceOfferingOptions(catalogIdentifier, offeringID)
+				replaceOfferingOptionsModel.SetCatalogIdentifier("testString")
 				replaceOfferingOptionsModel.SetOfferingID("testString")
-				replaceOfferingOptionsModel.SetNewID("testString")
-				replaceOfferingOptionsModel.SetNewURL("testString")
-				replaceOfferingOptionsModel.SetNewCrn("testString")
-				replaceOfferingOptionsModel.SetNewLabel("testString")
-				replaceOfferingOptionsModel.SetNewName("testString")
-				replaceOfferingOptionsModel.SetNewOfferingIconURL("testString")
-				replaceOfferingOptionsModel.SetNewOfferingDocsURL("testString")
-				replaceOfferingOptionsModel.SetNewOfferingSupportURL("testString")
-				replaceOfferingOptionsModel.SetNewTags([]string{"testString"})
-				replaceOfferingOptionsModel.SetNewRating(ratingModel)
-				replaceOfferingOptionsModel.SetNewCreated(CreateMockDateTime())
-				replaceOfferingOptionsModel.SetNewUpdated(CreateMockDateTime())
-				replaceOfferingOptionsModel.SetNewShortDescription("testString")
-				replaceOfferingOptionsModel.SetNewLongDescription("testString")
-				replaceOfferingOptionsModel.SetNewFeatures([]catalogmanagementv1.Feature{*featureModel})
-				replaceOfferingOptionsModel.SetNewKinds([]catalogmanagementv1.Kind{*kindModel})
-				replaceOfferingOptionsModel.SetNewPermitRequestIbmPublicPublish(true)
-				replaceOfferingOptionsModel.SetNewIbmPublishApproved(true)
-				replaceOfferingOptionsModel.SetNewPublicPublishApproved(true)
-				replaceOfferingOptionsModel.SetNewPublicOriginalCrn("testString")
-				replaceOfferingOptionsModel.SetNewPublishPublicCrn("testString")
-				replaceOfferingOptionsModel.SetNewPortalApprovalRecord("testString")
-				replaceOfferingOptionsModel.SetNewPortalUiURL("testString")
-				replaceOfferingOptionsModel.SetNewCatalogID("testString")
-				replaceOfferingOptionsModel.SetNewCatalogName("testString")
-				replaceOfferingOptionsModel.SetNewMetadata(map[string]interface{}{"anyKey": "anyValue"})
-				replaceOfferingOptionsModel.SetNewDisclaimer("testString")
-				replaceOfferingOptionsModel.SetNewHidden(true)
-				replaceOfferingOptionsModel.SetNewProvider("testString")
-				replaceOfferingOptionsModel.SetNewRepoInfo(repoInfoModel)
+				replaceOfferingOptionsModel.SetID("testString")
+				replaceOfferingOptionsModel.SetRev("testString")
+				replaceOfferingOptionsModel.SetURL("testString")
+				replaceOfferingOptionsModel.SetCrn("testString")
+				replaceOfferingOptionsModel.SetLabel("testString")
+				replaceOfferingOptionsModel.SetName("testString")
+				replaceOfferingOptionsModel.SetOfferingIconURL("testString")
+				replaceOfferingOptionsModel.SetOfferingDocsURL("testString")
+				replaceOfferingOptionsModel.SetOfferingSupportURL("testString")
+				replaceOfferingOptionsModel.SetTags([]string{"testString"})
+				replaceOfferingOptionsModel.SetRating(ratingModel)
+				replaceOfferingOptionsModel.SetCreated(CreateMockDateTime())
+				replaceOfferingOptionsModel.SetUpdated(CreateMockDateTime())
+				replaceOfferingOptionsModel.SetShortDescription("testString")
+				replaceOfferingOptionsModel.SetLongDescription("testString")
+				replaceOfferingOptionsModel.SetFeatures([]catalogmanagementv1.Feature{*featureModel})
+				replaceOfferingOptionsModel.SetKinds([]catalogmanagementv1.Kind{*kindModel})
+				replaceOfferingOptionsModel.SetPermitRequestIbmPublicPublish(true)
+				replaceOfferingOptionsModel.SetIbmPublishApproved(true)
+				replaceOfferingOptionsModel.SetPublicPublishApproved(true)
+				replaceOfferingOptionsModel.SetPublicOriginalCrn("testString")
+				replaceOfferingOptionsModel.SetPublishPublicCrn("testString")
+				replaceOfferingOptionsModel.SetPortalApprovalRecord("testString")
+				replaceOfferingOptionsModel.SetPortalUiURL("testString")
+				replaceOfferingOptionsModel.SetCatalogID("testString")
+				replaceOfferingOptionsModel.SetCatalogName("testString")
+				replaceOfferingOptionsModel.SetMetadata(map[string]interface{}{"anyKey": "anyValue"})
+				replaceOfferingOptionsModel.SetDisclaimer("testString")
+				replaceOfferingOptionsModel.SetHidden(true)
+				replaceOfferingOptionsModel.SetProvider("testString")
+				replaceOfferingOptionsModel.SetRepoInfo(repoInfoModel)
 				replaceOfferingOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(replaceOfferingOptionsModel).ToNot(BeNil())
-				Expect(replaceOfferingOptionsModel.CatalogID).To(Equal(core.StringPtr("testString")))
+				Expect(replaceOfferingOptionsModel.CatalogIdentifier).To(Equal(core.StringPtr("testString")))
 				Expect(replaceOfferingOptionsModel.OfferingID).To(Equal(core.StringPtr("testString")))
-				Expect(replaceOfferingOptionsModel.NewID).To(Equal(core.StringPtr("testString")))
-				Expect(replaceOfferingOptionsModel.NewURL).To(Equal(core.StringPtr("testString")))
-				Expect(replaceOfferingOptionsModel.NewCrn).To(Equal(core.StringPtr("testString")))
-				Expect(replaceOfferingOptionsModel.NewLabel).To(Equal(core.StringPtr("testString")))
-				Expect(replaceOfferingOptionsModel.NewName).To(Equal(core.StringPtr("testString")))
-				Expect(replaceOfferingOptionsModel.NewOfferingIconURL).To(Equal(core.StringPtr("testString")))
-				Expect(replaceOfferingOptionsModel.NewOfferingDocsURL).To(Equal(core.StringPtr("testString")))
-				Expect(replaceOfferingOptionsModel.NewOfferingSupportURL).To(Equal(core.StringPtr("testString")))
-				Expect(replaceOfferingOptionsModel.NewTags).To(Equal([]string{"testString"}))
-				Expect(replaceOfferingOptionsModel.NewRating).To(Equal(ratingModel))
-				Expect(replaceOfferingOptionsModel.NewCreated).To(Equal(CreateMockDateTime()))
-				Expect(replaceOfferingOptionsModel.NewUpdated).To(Equal(CreateMockDateTime()))
-				Expect(replaceOfferingOptionsModel.NewShortDescription).To(Equal(core.StringPtr("testString")))
-				Expect(replaceOfferingOptionsModel.NewLongDescription).To(Equal(core.StringPtr("testString")))
-				Expect(replaceOfferingOptionsModel.NewFeatures).To(Equal([]catalogmanagementv1.Feature{*featureModel}))
-				Expect(replaceOfferingOptionsModel.NewKinds).To(Equal([]catalogmanagementv1.Kind{*kindModel}))
-				Expect(replaceOfferingOptionsModel.NewPermitRequestIbmPublicPublish).To(Equal(core.BoolPtr(true)))
-				Expect(replaceOfferingOptionsModel.NewIbmPublishApproved).To(Equal(core.BoolPtr(true)))
-				Expect(replaceOfferingOptionsModel.NewPublicPublishApproved).To(Equal(core.BoolPtr(true)))
-				Expect(replaceOfferingOptionsModel.NewPublicOriginalCrn).To(Equal(core.StringPtr("testString")))
-				Expect(replaceOfferingOptionsModel.NewPublishPublicCrn).To(Equal(core.StringPtr("testString")))
-				Expect(replaceOfferingOptionsModel.NewPortalApprovalRecord).To(Equal(core.StringPtr("testString")))
-				Expect(replaceOfferingOptionsModel.NewPortalUiURL).To(Equal(core.StringPtr("testString")))
-				Expect(replaceOfferingOptionsModel.NewCatalogID).To(Equal(core.StringPtr("testString")))
-				Expect(replaceOfferingOptionsModel.NewCatalogName).To(Equal(core.StringPtr("testString")))
-				Expect(replaceOfferingOptionsModel.NewMetadata).To(Equal(map[string]interface{}{"anyKey": "anyValue"}))
-				Expect(replaceOfferingOptionsModel.NewDisclaimer).To(Equal(core.StringPtr("testString")))
-				Expect(replaceOfferingOptionsModel.NewHidden).To(Equal(core.BoolPtr(true)))
-				Expect(replaceOfferingOptionsModel.NewProvider).To(Equal(core.StringPtr("testString")))
-				Expect(replaceOfferingOptionsModel.NewRepoInfo).To(Equal(repoInfoModel))
+				Expect(replaceOfferingOptionsModel.ID).To(Equal(core.StringPtr("testString")))
+				Expect(replaceOfferingOptionsModel.Rev).To(Equal(core.StringPtr("testString")))
+				Expect(replaceOfferingOptionsModel.URL).To(Equal(core.StringPtr("testString")))
+				Expect(replaceOfferingOptionsModel.Crn).To(Equal(core.StringPtr("testString")))
+				Expect(replaceOfferingOptionsModel.Label).To(Equal(core.StringPtr("testString")))
+				Expect(replaceOfferingOptionsModel.Name).To(Equal(core.StringPtr("testString")))
+				Expect(replaceOfferingOptionsModel.OfferingIconURL).To(Equal(core.StringPtr("testString")))
+				Expect(replaceOfferingOptionsModel.OfferingDocsURL).To(Equal(core.StringPtr("testString")))
+				Expect(replaceOfferingOptionsModel.OfferingSupportURL).To(Equal(core.StringPtr("testString")))
+				Expect(replaceOfferingOptionsModel.Tags).To(Equal([]string{"testString"}))
+				Expect(replaceOfferingOptionsModel.Rating).To(Equal(ratingModel))
+				Expect(replaceOfferingOptionsModel.Created).To(Equal(CreateMockDateTime()))
+				Expect(replaceOfferingOptionsModel.Updated).To(Equal(CreateMockDateTime()))
+				Expect(replaceOfferingOptionsModel.ShortDescription).To(Equal(core.StringPtr("testString")))
+				Expect(replaceOfferingOptionsModel.LongDescription).To(Equal(core.StringPtr("testString")))
+				Expect(replaceOfferingOptionsModel.Features).To(Equal([]catalogmanagementv1.Feature{*featureModel}))
+				Expect(replaceOfferingOptionsModel.Kinds).To(Equal([]catalogmanagementv1.Kind{*kindModel}))
+				Expect(replaceOfferingOptionsModel.PermitRequestIbmPublicPublish).To(Equal(core.BoolPtr(true)))
+				Expect(replaceOfferingOptionsModel.IbmPublishApproved).To(Equal(core.BoolPtr(true)))
+				Expect(replaceOfferingOptionsModel.PublicPublishApproved).To(Equal(core.BoolPtr(true)))
+				Expect(replaceOfferingOptionsModel.PublicOriginalCrn).To(Equal(core.StringPtr("testString")))
+				Expect(replaceOfferingOptionsModel.PublishPublicCrn).To(Equal(core.StringPtr("testString")))
+				Expect(replaceOfferingOptionsModel.PortalApprovalRecord).To(Equal(core.StringPtr("testString")))
+				Expect(replaceOfferingOptionsModel.PortalUiURL).To(Equal(core.StringPtr("testString")))
+				Expect(replaceOfferingOptionsModel.CatalogID).To(Equal(core.StringPtr("testString")))
+				Expect(replaceOfferingOptionsModel.CatalogName).To(Equal(core.StringPtr("testString")))
+				Expect(replaceOfferingOptionsModel.Metadata).To(Equal(map[string]interface{}{"anyKey": "anyValue"}))
+				Expect(replaceOfferingOptionsModel.Disclaimer).To(Equal(core.StringPtr("testString")))
+				Expect(replaceOfferingOptionsModel.Hidden).To(Equal(core.BoolPtr(true)))
+				Expect(replaceOfferingOptionsModel.Provider).To(Equal(core.StringPtr("testString")))
+				Expect(replaceOfferingOptionsModel.RepoInfo).To(Equal(repoInfoModel))
 				Expect(replaceOfferingOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
+			It(`Invoke NewReplaceOperatorOptions successfully`, func() {
+				// Construct an instance of the ReplaceOperatorOptions model
+				xAuthRefreshToken := "testString"
+				replaceOperatorOptionsModel := testService.NewReplaceOperatorOptions(xAuthRefreshToken)
+				replaceOperatorOptionsModel.SetXAuthRefreshToken("testString")
+				replaceOperatorOptionsModel.SetClusterID("testString")
+				replaceOperatorOptionsModel.SetRegion("testString")
+				replaceOperatorOptionsModel.SetNamespaces([]string{"testString"})
+				replaceOperatorOptionsModel.SetVersionLocatorID("testString")
+				replaceOperatorOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(replaceOperatorOptionsModel).ToNot(BeNil())
+				Expect(replaceOperatorOptionsModel.XAuthRefreshToken).To(Equal(core.StringPtr("testString")))
+				Expect(replaceOperatorOptionsModel.ClusterID).To(Equal(core.StringPtr("testString")))
+				Expect(replaceOperatorOptionsModel.Region).To(Equal(core.StringPtr("testString")))
+				Expect(replaceOperatorOptionsModel.Namespaces).To(Equal([]string{"testString"}))
+				Expect(replaceOperatorOptionsModel.VersionLocatorID).To(Equal(core.StringPtr("testString")))
+				Expect(replaceOperatorOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewSearchLicenseOfferingsOptions successfully`, func() {
 				// Construct an instance of the SearchLicenseOfferingsOptions model
@@ -10620,64 +10756,70 @@ var _ = Describe(`CatalogManagementV1`, func() {
 			})
 			It(`Invoke NewUpdateOfferingIbmOptions successfully`, func() {
 				// Construct an instance of the UpdateOfferingIbmOptions model
-				catalogID := "testString"
+				catalogIdentifier := "testString"
 				offeringID := "testString"
 				approvalType := "ibm"
 				approved := "true"
-				updateOfferingIbmOptionsModel := testService.NewUpdateOfferingIbmOptions(catalogID, offeringID, approvalType, approved)
-				updateOfferingIbmOptionsModel.SetCatalogID("testString")
+				updateOfferingIbmOptionsModel := testService.NewUpdateOfferingIbmOptions(catalogIdentifier, offeringID, approvalType, approved)
+				updateOfferingIbmOptionsModel.SetCatalogIdentifier("testString")
 				updateOfferingIbmOptionsModel.SetOfferingID("testString")
 				updateOfferingIbmOptionsModel.SetApprovalType("ibm")
 				updateOfferingIbmOptionsModel.SetApproved("true")
 				updateOfferingIbmOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(updateOfferingIbmOptionsModel).ToNot(BeNil())
-				Expect(updateOfferingIbmOptionsModel.CatalogID).To(Equal(core.StringPtr("testString")))
+				Expect(updateOfferingIbmOptionsModel.CatalogIdentifier).To(Equal(core.StringPtr("testString")))
 				Expect(updateOfferingIbmOptionsModel.OfferingID).To(Equal(core.StringPtr("testString")))
 				Expect(updateOfferingIbmOptionsModel.ApprovalType).To(Equal(core.StringPtr("ibm")))
 				Expect(updateOfferingIbmOptionsModel.Approved).To(Equal(core.StringPtr("true")))
 				Expect(updateOfferingIbmOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewValidationInstallOptions successfully`, func() {
-				// Construct an instance of the ClusterRequestBodySchematics model
-				clusterRequestBodySchematicsModel := new(catalogmanagementv1.ClusterRequestBodySchematics)
-				Expect(clusterRequestBodySchematicsModel).ToNot(BeNil())
-				clusterRequestBodySchematicsModel.Name = core.StringPtr("testString")
-				clusterRequestBodySchematicsModel.Description = core.StringPtr("testString")
-				clusterRequestBodySchematicsModel.Tags = []string{"testString"}
-				clusterRequestBodySchematicsModel.ResourceGroupID = core.StringPtr("testString")
-				Expect(clusterRequestBodySchematicsModel.Name).To(Equal(core.StringPtr("testString")))
-				Expect(clusterRequestBodySchematicsModel.Description).To(Equal(core.StringPtr("testString")))
-				Expect(clusterRequestBodySchematicsModel.Tags).To(Equal([]string{"testString"}))
-				Expect(clusterRequestBodySchematicsModel.ResourceGroupID).To(Equal(core.StringPtr("testString")))
+				// Construct an instance of the DeployRequestBodySchematics model
+				deployRequestBodySchematicsModel := new(catalogmanagementv1.DeployRequestBodySchematics)
+				Expect(deployRequestBodySchematicsModel).ToNot(BeNil())
+				deployRequestBodySchematicsModel.Name = core.StringPtr("testString")
+				deployRequestBodySchematicsModel.Description = core.StringPtr("testString")
+				deployRequestBodySchematicsModel.Tags = []string{"testString"}
+				deployRequestBodySchematicsModel.ResourceGroupID = core.StringPtr("testString")
+				Expect(deployRequestBodySchematicsModel.Name).To(Equal(core.StringPtr("testString")))
+				Expect(deployRequestBodySchematicsModel.Description).To(Equal(core.StringPtr("testString")))
+				Expect(deployRequestBodySchematicsModel.Tags).To(Equal([]string{"testString"}))
+				Expect(deployRequestBodySchematicsModel.ResourceGroupID).To(Equal(core.StringPtr("testString")))
 
 				// Construct an instance of the ValidationInstallOptions model
-				versionLocatorID := "testString"
+				versionLocID := "testString"
 				xAuthRefreshToken := "testString"
-				validationInstallOptionsModel := testService.NewValidationInstallOptions(versionLocatorID, xAuthRefreshToken)
-				validationInstallOptionsModel.SetVersionLocatorID("testString")
+				validationInstallOptionsModel := testService.NewValidationInstallOptions(versionLocID, xAuthRefreshToken)
+				validationInstallOptionsModel.SetVersionLocID("testString")
 				validationInstallOptionsModel.SetXAuthRefreshToken("testString")
-				validationInstallOptionsModel.SetNewClusterID("testString")
-				validationInstallOptionsModel.SetNewRegion("testString")
-				validationInstallOptionsModel.SetNewNamespace("testString")
-				validationInstallOptionsModel.SetNewOverrideValues(map[string]interface{}{"anyKey": "anyValue"})
-				validationInstallOptionsModel.SetNewEntitlementApikey("testString")
-				validationInstallOptionsModel.SetNewSchematics(clusterRequestBodySchematicsModel)
-				validationInstallOptionsModel.SetNewScript("testString")
-				validationInstallOptionsModel.SetNewScriptID("testString")
-				validationInstallOptionsModel.SetNewVersionLocatorID("testString")
+				validationInstallOptionsModel.SetClusterID("testString")
+				validationInstallOptionsModel.SetRegion("testString")
+				validationInstallOptionsModel.SetNamespace("testString")
+				validationInstallOptionsModel.SetOverrideValues(map[string]interface{}{"anyKey": "anyValue"})
+				validationInstallOptionsModel.SetEntitlementApikey("testString")
+				validationInstallOptionsModel.SetSchematics(deployRequestBodySchematicsModel)
+				validationInstallOptionsModel.SetScript("testString")
+				validationInstallOptionsModel.SetScriptID("testString")
+				validationInstallOptionsModel.SetVersionLocatorID("testString")
+				validationInstallOptionsModel.SetVcenterID("testString")
+				validationInstallOptionsModel.SetVcenterPassword("testString")
+				validationInstallOptionsModel.SetVcenterLocation("testString")
 				validationInstallOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(validationInstallOptionsModel).ToNot(BeNil())
-				Expect(validationInstallOptionsModel.VersionLocatorID).To(Equal(core.StringPtr("testString")))
+				Expect(validationInstallOptionsModel.VersionLocID).To(Equal(core.StringPtr("testString")))
 				Expect(validationInstallOptionsModel.XAuthRefreshToken).To(Equal(core.StringPtr("testString")))
-				Expect(validationInstallOptionsModel.NewClusterID).To(Equal(core.StringPtr("testString")))
-				Expect(validationInstallOptionsModel.NewRegion).To(Equal(core.StringPtr("testString")))
-				Expect(validationInstallOptionsModel.NewNamespace).To(Equal(core.StringPtr("testString")))
-				Expect(validationInstallOptionsModel.NewOverrideValues).To(Equal(map[string]interface{}{"anyKey": "anyValue"}))
-				Expect(validationInstallOptionsModel.NewEntitlementApikey).To(Equal(core.StringPtr("testString")))
-				Expect(validationInstallOptionsModel.NewSchematics).To(Equal(clusterRequestBodySchematicsModel))
-				Expect(validationInstallOptionsModel.NewScript).To(Equal(core.StringPtr("testString")))
-				Expect(validationInstallOptionsModel.NewScriptID).To(Equal(core.StringPtr("testString")))
-				Expect(validationInstallOptionsModel.NewVersionLocatorID).To(Equal(core.StringPtr("testString")))
+				Expect(validationInstallOptionsModel.ClusterID).To(Equal(core.StringPtr("testString")))
+				Expect(validationInstallOptionsModel.Region).To(Equal(core.StringPtr("testString")))
+				Expect(validationInstallOptionsModel.Namespace).To(Equal(core.StringPtr("testString")))
+				Expect(validationInstallOptionsModel.OverrideValues).To(Equal(map[string]interface{}{"anyKey": "anyValue"}))
+				Expect(validationInstallOptionsModel.EntitlementApikey).To(Equal(core.StringPtr("testString")))
+				Expect(validationInstallOptionsModel.Schematics).To(Equal(deployRequestBodySchematicsModel))
+				Expect(validationInstallOptionsModel.Script).To(Equal(core.StringPtr("testString")))
+				Expect(validationInstallOptionsModel.ScriptID).To(Equal(core.StringPtr("testString")))
+				Expect(validationInstallOptionsModel.VersionLocatorID).To(Equal(core.StringPtr("testString")))
+				Expect(validationInstallOptionsModel.VcenterID).To(Equal(core.StringPtr("testString")))
+				Expect(validationInstallOptionsModel.VcenterPassword).To(Equal(core.StringPtr("testString")))
+				Expect(validationInstallOptionsModel.VcenterLocation).To(Equal(core.StringPtr("testString")))
 				Expect(validationInstallOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 		})
