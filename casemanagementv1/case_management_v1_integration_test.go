@@ -23,6 +23,7 @@ import (
 	"io/ioutil"
 	"os"
 	"strings"
+	"time"
 
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
@@ -93,6 +94,8 @@ var _ = Describe("Case Management - Integration Tests", func() {
 
 		Expect(err).To(BeNil())
 		Expect(service).ToNot(BeNil())
+		
+		service.Service.Client.Timeout = 2 * time.Minute
 		
 		fmt.Printf("\nService URL: %s\n", service.Service.GetServiceURL())
 	})
