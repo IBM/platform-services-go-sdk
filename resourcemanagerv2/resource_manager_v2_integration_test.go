@@ -20,12 +20,15 @@ package resourcemanagerv2_test
 import (
 	"math/rand"
 	"strconv"
+	"net/http"
 
+	"github.com/IBM/go-sdk-core/v4/core"
 	"github.com/IBM/platform-services-go-sdk/resourcemanagerv2"
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
 
 	"os"
+	"time"
 )
 
 const externalConfigFile = "../resource_manager.env"
@@ -38,6 +41,7 @@ var (
 	testUserAccountID  string = "60ce10d1d94749bf8dceff12065db1b0"
 	newResourceGroupID string
 	configLoaded       bool = false
+	httpTimeout	time.Duration = 2 * time.Minute 
 )
 
 func shouldSkipTest() {
@@ -61,19 +65,46 @@ var _ = Describe("Resource Manager - Integration Tests", func() {
 	})
 	It(`Successfully created ResourceManagerV2 service instances`, func() {
 		shouldSkipTest()
-		options1 := &resourcemanagerv2.ResourceManagerV2Options{
-			ServiceName: "RMGR1",
+		
+		// Construct first service instance ("RMGR1").
+		config1, err := core.GetServiceProperties("RMGR1")
+		Expect(err).To(BeNil())
+		auth1 := &core.IamAuthenticator{
+			ApiKey: config1["APIKEY"],
+			URL: config1["AUTH_URL"],
+			Client: &http.Client{
+				Timeout: httpTimeout,
+			},
 		}
-		service1, err = resourcemanagerv2.NewResourceManagerV2UsingExternalConfig(options1)
+		options1 := &resourcemanagerv2.ResourceManagerV2Options{
+			URL: config1["URL"],
+			Authenticator: auth1,
+		}
+		service1, err = resourcemanagerv2.NewResourceManagerV2(options1)
 		Expect(err).To(BeNil())
 		Expect(service1).ToNot(BeNil())
-
-		options2 := &resourcemanagerv2.ResourceManagerV2Options{
-			ServiceName: "RMGR2",
+		
+		// Construct second service instance ("RMGR2").
+		config2, err := core.GetServiceProperties("RMGR2")
+		Expect(err).To(BeNil())
+		auth2 := &core.IamAuthenticator{
+			ApiKey: config2["APIKEY"],
+			URL: config2["AUTH_URL"],
+			Client: &http.Client{
+				Timeout: httpTimeout,
+			},
 		}
-		service2, err = resourcemanagerv2.NewResourceManagerV2UsingExternalConfig(options2)
+		options2 := &resourcemanagerv2.ResourceManagerV2Options{
+			URL: config2["URL"],
+			Authenticator: auth2,
+		}
+		service2, err = resourcemanagerv2.NewResourceManagerV2(options2)
 		Expect(err).To(BeNil())
 		Expect(service2).ToNot(BeNil())
+		
+		// Update http client timeout for each service instance.
+		service1.Service.Client.Timeout = httpTimeout
+		service2.Service.Client.Timeout = httpTimeout
 	})
 
 	It("Get list of all quota definition", func() {
