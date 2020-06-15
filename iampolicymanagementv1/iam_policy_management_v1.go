@@ -771,9 +771,9 @@ type CreatePolicyOptions struct {
 // NewCreatePolicyOptions : Instantiate CreatePolicyOptions
 func (*IamPolicyManagementV1) NewCreatePolicyOptions(typeVar string, subjects []PolicySubject, roles []PolicyRole, resources []PolicyResource) *CreatePolicyOptions {
 	return &CreatePolicyOptions{
-		Type: core.StringPtr(typeVar),
-		Subjects: subjects,
-		Roles: roles,
+		Type:      core.StringPtr(typeVar),
+		Subjects:  subjects,
+		Roles:     roles,
 		Resources: resources,
 	}
 }
@@ -845,9 +845,9 @@ type CreateRoleOptions struct {
 func (*IamPolicyManagementV1) NewCreateRoleOptions(displayName string, actions []string, name string, accountID string, serviceName string) *CreateRoleOptions {
 	return &CreateRoleOptions{
 		DisplayName: core.StringPtr(displayName),
-		Actions: actions,
-		Name: core.StringPtr(name),
-		AccountID: core.StringPtr(accountID),
+		Actions:     actions,
+		Name:        core.StringPtr(name),
+		AccountID:   core.StringPtr(accountID),
 		ServiceName: core.StringPtr(serviceName),
 	}
 }
@@ -1157,11 +1157,11 @@ type UpdatePolicyOptions struct {
 // NewUpdatePolicyOptions : Instantiate UpdatePolicyOptions
 func (*IamPolicyManagementV1) NewUpdatePolicyOptions(policyID string, ifMatch string, typeVar string, subjects []PolicySubject, roles []PolicyRole, resources []PolicyResource) *UpdatePolicyOptions {
 	return &UpdatePolicyOptions{
-		PolicyID: core.StringPtr(policyID),
-		IfMatch: core.StringPtr(ifMatch),
-		Type: core.StringPtr(typeVar),
-		Subjects: subjects,
-		Roles: roles,
+		PolicyID:  core.StringPtr(policyID),
+		IfMatch:   core.StringPtr(ifMatch),
+		Type:      core.StringPtr(typeVar),
+		Subjects:  subjects,
+		Roles:     roles,
 		Resources: resources,
 	}
 }
@@ -1233,7 +1233,7 @@ type UpdateRoleOptions struct {
 // NewUpdateRoleOptions : Instantiate UpdateRoleOptions
 func (*IamPolicyManagementV1) NewUpdateRoleOptions(roleID string, ifMatch string) *UpdateRoleOptions {
 	return &UpdateRoleOptions{
-		RoleID: core.StringPtr(roleID),
+		RoleID:  core.StringPtr(roleID),
 		IfMatch: core.StringPtr(ifMatch),
 	}
 }
@@ -1315,7 +1315,6 @@ type CustomRole struct {
 	// The href link back to the role.
 	Href *string `json:"href,omitempty"`
 }
-
 
 // UnmarshalCustomRole unmarshals an instance of CustomRole from the specified map of raw messages.
 func UnmarshalCustomRole(m map[string]json.RawMessage, result interface{}) (err error) {
@@ -1409,7 +1408,6 @@ type Policy struct {
 	LastModifiedByID *string `json:"last_modified_by_id,omitempty"`
 }
 
-
 // UnmarshalPolicy unmarshals an instance of Policy from the specified map of raw messages.
 func UnmarshalPolicy(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(Policy)
@@ -1463,7 +1461,6 @@ type PolicyList struct {
 	Policies []Policy `json:"policies,omitempty"`
 }
 
-
 // UnmarshalPolicyList unmarshals an instance of PolicyList from the specified map of raw messages.
 func UnmarshalPolicyList(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(PolicyList)
@@ -1480,7 +1477,6 @@ type PolicyResource struct {
 	// List of resource attributes.
 	Attributes []ResourceAttribute `json:"attributes,omitempty"`
 }
-
 
 // UnmarshalPolicyResource unmarshals an instance of PolicyResource from the specified map of raw messages.
 func UnmarshalPolicyResource(m map[string]json.RawMessage, result interface{}) (err error) {
@@ -1504,7 +1500,6 @@ type PolicyRole struct {
 	// The description of the role.
 	Description *string `json:"description,omitempty"`
 }
-
 
 // NewPolicyRole : Instantiate PolicyRole (Generic Model Constructor)
 func (*IamPolicyManagementV1) NewPolicyRole(roleID string) (model *PolicyRole, err error) {
@@ -1540,7 +1535,6 @@ type PolicySubject struct {
 	Attributes []SubjectAttribute `json:"attributes,omitempty"`
 }
 
-
 // UnmarshalPolicySubject unmarshals an instance of PolicySubject from the specified map of raw messages.
 func UnmarshalPolicySubject(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(PolicySubject)
@@ -1564,11 +1558,10 @@ type ResourceAttribute struct {
 	Operator *string `json:"operator,omitempty"`
 }
 
-
 // NewResourceAttribute : Instantiate ResourceAttribute (Generic Model Constructor)
 func (*IamPolicyManagementV1) NewResourceAttribute(name string, value string) (model *ResourceAttribute, err error) {
 	model = &ResourceAttribute{
-		Name: core.StringPtr(name),
+		Name:  core.StringPtr(name),
 		Value: core.StringPtr(value),
 	}
 	err = core.ValidateStruct(model, "required parameters")
@@ -1609,7 +1602,6 @@ type Role struct {
 	Crn *string `json:"crn,omitempty"`
 }
 
-
 // UnmarshalRole unmarshals an instance of Role from the specified map of raw messages.
 func UnmarshalRole(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(Role)
@@ -1645,7 +1637,6 @@ type RoleList struct {
 	SystemRoles []Role `json:"system_roles,omitempty"`
 }
 
-
 // UnmarshalRoleList unmarshals an instance of RoleList from the specified map of raw messages.
 func UnmarshalRoleList(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(RoleList)
@@ -1674,11 +1665,10 @@ type SubjectAttribute struct {
 	Value *string `json:"value" validate:"required"`
 }
 
-
 // NewSubjectAttribute : Instantiate SubjectAttribute (Generic Model Constructor)
 func (*IamPolicyManagementV1) NewSubjectAttribute(name string, value string) (model *SubjectAttribute, err error) {
 	model = &SubjectAttribute{
-		Name: core.StringPtr(name),
+		Name:  core.StringPtr(name),
 		Value: core.StringPtr(value),
 	}
 	err = core.ValidateStruct(model, "required parameters")
