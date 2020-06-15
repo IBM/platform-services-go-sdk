@@ -1,3 +1,10 @@
+## [0.5.1](https://github.com/IBM/platform-services-go-sdk/compare/v0.5.0...v0.5.1) (2020-06-15)
+
+
+### Bug Fixes
+
+* **Global Catalog:** regen code from new API definition ([9e2260f](https://github.com/IBM/platform-services-go-sdk/commit/9e2260f9cc4a940c1fd4e640e9ee500afe2bafcc))
+
 # [0.5.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.4.0...v0.5.0) (2020-05-21)
 
 
