@@ -11,7 +11,7 @@ unittest:
 	go test `go list ./... | grep -v samples`
 
 alltest:
-	go test `go list ./... | grep -v samples` -tags=integration
+	go test `go list ./... | grep -v samples` -v -tags=integration
 
 lint:
 	golangci-lint run
