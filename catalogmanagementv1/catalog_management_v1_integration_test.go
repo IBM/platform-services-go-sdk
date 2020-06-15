@@ -50,7 +50,7 @@ func shouldSkipTest() {
 
 var _ = Describe("Catalog Management - Integration Tests", func() {
 	It("Successfully load the configuration", func() {
-		err := godotenv.Load(externalConfigFile)
+		err := godotenv.Overload(externalConfigFile)
 		if err == nil {
 			configLoaded = true
 		} else {
