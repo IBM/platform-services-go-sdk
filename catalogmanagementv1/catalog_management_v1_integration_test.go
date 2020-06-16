@@ -21,7 +21,7 @@ package catalogmanagementv1_test
 import (
 	"fmt"
 	"github.com/IBM/platform-services-go-sdk/catalogmanagementv1"
-	"github.com/joho/godotenv"
+	"os"
 
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
@@ -51,10 +51,13 @@ func shouldSkipTest() {
 
 var _ = Describe("Catalog Management - Integration Tests", func() {
 	It("Successfully load the configuration", func() {
-		err := godotenv.Overload(externalConfigFile)
-		if err == nil {
-			configLoaded = true
-		} else {
+		if _, err := os.Stat(externalConfigFile); err == nil {
+			if err = os.Setenv("IBM_CREDENTIALS_FILE", externalConfigFile); err == nil {
+				configLoaded = true
+			}
+		}
+
+		if !configLoaded {
 			Skip("External configuration could not be loaded, skipping...")
 		}
 	})
