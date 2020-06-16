@@ -198,9 +198,12 @@ var _ = Describe("Catalog Management - Integration Tests", func() {
 			createOptions := service.NewCreateCatalogOptions()
 			createOptions.SetLabel(expectedLabel)
 			createOptions.SetShortDescription(expectedShortDesc)
-			createResult, _, _ := service.CreateCatalog(createOptions)
+			createResult, _, err := service.CreateCatalog(createOptions)
+
+			Expect(err).To(BeNil())
 
 			id := *createResult.ID
+
 			getOptions := service.NewGetCatalogOptions(id)
 			getResult, getResponse, err := service.GetCatalog(getOptions)
 
@@ -243,7 +246,9 @@ var _ = Describe("Catalog Management - Integration Tests", func() {
 			createOptions := service.NewCreateCatalogOptions()
 			createOptions.SetLabel(expectedLabel)
 			createOptions.SetShortDescription(expectedShortDesc)
-			createResult, _, _ := service.CreateCatalog(createOptions)
+			createResult, _, err := service.CreateCatalog(createOptions)
+
+			Expect(err).To(BeNil())
 
 			id := *createResult.ID
 
@@ -290,7 +295,9 @@ var _ = Describe("Catalog Management - Integration Tests", func() {
 			createOptions := service.NewCreateCatalogOptions()
 			createOptions.SetLabel(expectedLabel)
 			createOptions.SetShortDescription(expectedShortDesc)
-			createResult, _, _ := service.CreateCatalog(createOptions)
+			createResult, _, err := service.CreateCatalog(createOptions)
+
+			Expect(err).To(BeNil())
 
 			id := *createResult.ID
 
@@ -326,7 +333,10 @@ var _ = Describe("Catalog Management - Integration Tests", func() {
 
 			catalogOptions := service.NewCreateCatalogOptions()
 			catalogOptions.SetLabel(expectedLabel)
-			catalogResult, _, _ := service.CreateCatalog(catalogOptions)
+			catalogResult, _, err := service.CreateCatalog(catalogOptions)
+
+			Expect(err).To(BeNil())
+
 			catalogID := *catalogResult.ID
 
 			offeringOptions := service.NewCreateOfferingOptions(catalogID)
@@ -336,9 +346,10 @@ var _ = Describe("Catalog Management - Integration Tests", func() {
 
 			service.DeleteCatalog(service.NewDeleteCatalogOptions(catalogID))
 
+			Expect(err).To(BeNil())
+
 			offeringID := *offeringResult.ID
 
-			Expect(err).To(BeNil())
 			Expect(offeringResponse.StatusCode).To(Equal(201))
 			Expect(*offeringResult.Name).To(Equal(expectedName))
 			Expect(*offeringResult.URL).To(Equal(fmt.Sprintf(expectedURL, catalogID, offeringID)))
@@ -356,13 +367,19 @@ var _ = Describe("Catalog Management - Integration Tests", func() {
 
 			catalogOptions := service.NewCreateCatalogOptions()
 			catalogOptions.SetLabel(expectedLabel)
-			catalogResult, _, _ := service.CreateCatalog(catalogOptions)
+			catalogResult, _, err := service.CreateCatalog(catalogOptions)
+
+			Expect(err).To(BeNil())
+
 			catalogID := *catalogResult.ID
 
 			offeringOptions := service.NewCreateOfferingOptions(catalogID)
 			offeringOptions.SetName(expectedName)
 			offeringOptions.SetLabel(expectedLabel)
-			offeringResult, _, _ := service.CreateOffering(offeringOptions)
+			offeringResult, _, err := service.CreateOffering(offeringOptions)
+
+			Expect(err).To(BeNil())
+
 			offeringID := *offeringResult.ID
 
 			getOptions := service.NewGetOfferingOptions(catalogID, offeringID)
@@ -382,7 +399,10 @@ var _ = Describe("Catalog Management - Integration Tests", func() {
 
 			catalogOptions := service.NewCreateCatalogOptions()
 			catalogOptions.SetLabel(expectedLabel)
-			catalogResult, _, _ := service.CreateCatalog(catalogOptions)
+			catalogResult, _, err := service.CreateCatalog(catalogOptions)
+
+			Expect(err).To(BeNil())
+
 			catalogID := *catalogResult.ID
 			offeringID := fakeName
 
@@ -418,13 +438,19 @@ var _ = Describe("Catalog Management - Integration Tests", func() {
 
 			catalogOptions := service.NewCreateCatalogOptions()
 			catalogOptions.SetLabel(expectedLabel)
-			catalogResult, _, _ := service.CreateCatalog(catalogOptions)
+			catalogResult, _, err := service.CreateCatalog(catalogOptions)
+
+			Expect(err).To(BeNil())
+
 			catalogID := *catalogResult.ID
 
 			offeringOptions := service.NewCreateOfferingOptions(catalogID)
 			offeringOptions.SetName(expectedName)
 			offeringOptions.SetLabel(expectedLabel)
-			offeringResult, _, _ := service.CreateOffering(offeringOptions)
+			offeringResult, _, err := service.CreateOffering(offeringOptions)
+
+			Expect(err).To(BeNil())
+
 			offeringID := *offeringResult.ID
 
 			listOptions := service.NewListOfferingsOptions(catalogID)
@@ -461,13 +487,19 @@ var _ = Describe("Catalog Management - Integration Tests", func() {
 
 			catalogOptions := service.NewCreateCatalogOptions()
 			catalogOptions.SetLabel(expectedLabel)
-			catalogResult, _, _ := service.CreateCatalog(catalogOptions)
+			catalogResult, _, err := service.CreateCatalog(catalogOptions)
+
+			Expect(err).To(BeNil())
+
 			catalogID := *catalogResult.ID
 
 			offeringOptions := service.NewCreateOfferingOptions(catalogID)
 			offeringOptions.SetName(expectedName)
 			offeringOptions.SetLabel(expectedLabel)
-			offeringResult, _, _ := service.CreateOffering(offeringOptions)
+			offeringResult, _, err := service.CreateOffering(offeringOptions)
+
+			Expect(err).To(BeNil())
+
 			offeringID := *offeringResult.ID
 
 			deleteResponse, err := service.DeleteOffering(service.NewDeleteOfferingOptions(catalogID, offeringID))
@@ -487,7 +519,10 @@ var _ = Describe("Catalog Management - Integration Tests", func() {
 
 			catalogOptions := service.NewCreateCatalogOptions()
 			catalogOptions.SetLabel(expectedLabel)
-			catalogResult, _, _ := service.CreateCatalog(catalogOptions)
+			catalogResult, _, err := service.CreateCatalog(catalogOptions)
+
+			Expect(err).To(BeNil())
+
 			catalogID := *catalogResult.ID
 			offeringID := fakeName
 
@@ -516,14 +551,20 @@ var _ = Describe("Catalog Management - Integration Tests", func() {
 
 			catalogOptions := service.NewCreateCatalogOptions()
 			catalogOptions.SetLabel(expectedLabel)
-			catalogResult, _, _ := service.CreateCatalog(catalogOptions)
+			catalogResult, _, err := service.CreateCatalog(catalogOptions)
+
+			Expect(err).To(BeNil())
+
 			catalogID := *catalogResult.ID
 
 			offeringOptions := service.NewCreateOfferingOptions(catalogID)
 			offeringOptions.SetName(expectedName)
 			offeringOptions.SetLabel(expectedLabel)
 			offeringOptions.SetShortDescription(expectedShortDesc)
-			offeringResult, _, _ := service.CreateOffering(offeringOptions)
+			offeringResult, _, err := service.CreateOffering(offeringOptions)
+
+			Expect(err).To(BeNil())
+
 			offeringID := *offeringResult.ID
 			rev := *offeringResult.Rev
 
@@ -548,7 +589,10 @@ var _ = Describe("Catalog Management - Integration Tests", func() {
 
 			catalogOptions := service.NewCreateCatalogOptions()
 			catalogOptions.SetLabel(expectedLabel)
-			catalogResult, _, _ := service.CreateCatalog(catalogOptions)
+			catalogResult, _, err := service.CreateCatalog(catalogOptions)
+
+			Expect(err).To(BeNil())
+
 			catalogID := *catalogResult.ID
 			offeringID := fakeName
 			rev := fakeName
@@ -602,7 +646,10 @@ var _ = Describe("Catalog Management - Integration Tests", func() {
 
 			catalogOptions := service.NewCreateCatalogOptions()
 			catalogOptions.SetLabel(expectedLabel)
-			catalogResult, _, _ := service.CreateCatalog(catalogOptions)
+			catalogResult, _, err := service.CreateCatalog(catalogOptions)
+
+			Expect(err).To(BeNil())
+
 			catalogID := *catalogResult.ID
 
 			offeringOptions := service.NewImportOfferingOptions(catalogID, expectedOfferingZipURL)
@@ -610,9 +657,10 @@ var _ = Describe("Catalog Management - Integration Tests", func() {
 
 			service.DeleteCatalog(service.NewDeleteCatalogOptions(catalogID))
 
+			Expect(err).To(BeNil())
+
 			offeringID := *offeringResult.ID
 
-			Expect(err).To(BeNil())
 			Expect(offeringResponse.StatusCode).To(Equal(201))
 			Expect(*offeringResult.Name).To(Equal(expectedOfferingName))
 			Expect(*offeringResult.URL).To(Equal(fmt.Sprintf(expectedOfferingURL, catalogID, offeringID)))
@@ -646,11 +694,16 @@ var _ = Describe("Catalog Management - Integration Tests", func() {
 
 			catalogOptions := service.NewCreateCatalogOptions()
 			catalogOptions.SetLabel(expectedLabel)
-			catalogResult, _, _ := service.CreateCatalog(catalogOptions)
+			catalogResult, _, err := service.CreateCatalog(catalogOptions)
+
+			Expect(err).To(BeNil())
+
 			catalogID := *catalogResult.ID
 
 			offeringOptions := service.NewImportOfferingOptions(catalogID, expectedOfferingZipURL)
-			offeringResult, _, _ := service.ImportOffering(offeringOptions)
+			offeringResult, _, err := service.ImportOffering(offeringOptions)
+
+			Expect(err).To(BeNil())
 
 			offeringID := *offeringResult.ID
 
@@ -683,7 +736,10 @@ var _ = Describe("Catalog Management - Integration Tests", func() {
 
 			catalogOptions := service.NewCreateCatalogOptions()
 			catalogOptions.SetLabel(expectedLabel)
-			catalogResult, _, _ := service.CreateCatalog(catalogOptions)
+			catalogResult, _, err := service.CreateCatalog(catalogOptions)
+
+			Expect(err).To(BeNil())
+
 			catalogID := *catalogResult.ID
 
 			offeringID := fakeName
@@ -718,11 +774,17 @@ var _ = Describe("Catalog Management - Integration Tests", func() {
 
 			catalogOptions := service.NewCreateCatalogOptions()
 			catalogOptions.SetLabel(expectedLabel)
-			catalogResult, _, _ := service.CreateCatalog(catalogOptions)
+			catalogResult, _, err := service.CreateCatalog(catalogOptions)
+
+			Expect(err).To(BeNil())
+
 			catalogID := *catalogResult.ID
 
 			offeringOptions := service.NewImportOfferingOptions(catalogID, expectedOfferingZipURL)
-			offeringResult, _, _ := service.ImportOffering(offeringOptions)
+			offeringResult, _, err := service.ImportOffering(offeringOptions)
+
+			Expect(err).To(BeNil())
+
 			offeringID := *offeringResult.ID
 
 			reloadOptions := service.NewReloadOfferingOptions(catalogID, offeringID, expectedOfferingZipURL, expectedOfferingVersion)
@@ -755,7 +817,10 @@ var _ = Describe("Catalog Management - Integration Tests", func() {
 
 			catalogOptions := service.NewCreateCatalogOptions()
 			catalogOptions.SetLabel(expectedLabel)
-			catalogResult, _, _ := service.CreateCatalog(catalogOptions)
+			catalogResult, _, err := service.CreateCatalog(catalogOptions)
+
+			Expect(err).To(BeNil())
+
 			catalogID := *catalogResult.ID
 			offeringID := fakeName
 
@@ -789,11 +854,17 @@ var _ = Describe("Catalog Management - Integration Tests", func() {
 
 			catalogOptions := service.NewCreateCatalogOptions()
 			catalogOptions.SetLabel(expectedLabel)
-			catalogResult, _, _ := service.CreateCatalog(catalogOptions)
+			catalogResult, _, err := service.CreateCatalog(catalogOptions)
+
+			Expect(err).To(BeNil())
+
 			catalogID := *catalogResult.ID
 
 			offeringOptions := service.NewImportOfferingOptions(catalogID, expectedOfferingZipURL)
-			offeringResult, _, _ := service.ImportOffering(offeringOptions)
+			offeringResult, _, err := service.ImportOffering(offeringOptions)
+
+			Expect(err).To(BeNil())
+
 			offeringID := *offeringResult.ID
 			versionLocator := *offeringResult.Kinds[0].Versions[0].VersionLocator
 
@@ -834,11 +905,17 @@ var _ = Describe("Catalog Management - Integration Tests", func() {
 
 			catalogOptions := service.NewCreateCatalogOptions()
 			catalogOptions.SetLabel(expectedLabel)
-			catalogResult, _, _ := service.CreateCatalog(catalogOptions)
+			catalogResult, _, err := service.CreateCatalog(catalogOptions)
+
+			Expect(err).To(BeNil())
+
 			catalogID := *catalogResult.ID
 
 			offeringOptions := service.NewImportOfferingOptions(catalogID, expectedOfferingZipURL)
-			offeringResult, _, _ := service.ImportOffering(offeringOptions)
+			offeringResult, _, err := service.ImportOffering(offeringOptions)
+
+			Expect(err).To(BeNil())
+
 			versionLocator := *offeringResult.Kinds[0].Versions[0].VersionLocator
 
 			deleteOptions := service.NewDeleteVersionOptions(versionLocator)
@@ -867,11 +944,17 @@ var _ = Describe("Catalog Management - Integration Tests", func() {
 
 			catalogOptions := service.NewCreateCatalogOptions()
 			catalogOptions.SetLabel(expectedLabel)
-			catalogResult, _, _ := service.CreateCatalog(catalogOptions)
+			catalogResult, _, err := service.CreateCatalog(catalogOptions)
+
+			Expect(err).To(BeNil())
+
 			catalogID := *catalogResult.ID
 
 			offeringOptions := service.NewImportOfferingOptions(catalogID, expectedOfferingZipURL)
-			offeringResult, _, _ := service.ImportOffering(offeringOptions)
+			offeringResult, _, err := service.ImportOffering(offeringOptions)
+
+			Expect(err).To(BeNil())
+
 			versionLocator := *offeringResult.Kinds[0].Versions[0].VersionLocator
 
 			getOptions := service.NewGetVersionAboutOptions(versionLocator)
@@ -906,17 +989,25 @@ var _ = Describe("Catalog Management - Integration Tests", func() {
 
 			catalogOptions := service.NewCreateCatalogOptions()
 			catalogOptions.SetLabel(expectedLabel)
-			catalogResult, _, _ := service.CreateCatalog(catalogOptions)
+			catalogResult, _, err := service.CreateCatalog(catalogOptions)
+
+			Expect(err).To(BeNil())
+
 			catalogID := *catalogResult.ID
 
 			offeringOptions := service.NewImportOfferingOptions(catalogID, expectedOfferingZipURL)
-			offeringResult, _, _ := service.ImportOffering(offeringOptions)
+			offeringResult, _, err := service.ImportOffering(offeringOptions)
+
+			Expect(err).To(BeNil())
 
 			offeringID := *offeringResult.ID
 			versionLocator1 := *offeringResult.Kinds[0].Versions[0].VersionLocator
 
 			importOptions := service.NewImportOfferingVersionOptions(catalogID, offeringID, expectedOfferingZipURLUpdate)
-			importResult, _, _ := service.ImportOfferingVersion(importOptions)
+			importResult, _, err := service.ImportOfferingVersion(importOptions)
+
+			Expect(err).To(BeNil())
+
 			versionLocator2 := *importResult.Kinds[0].Versions[1].VersionLocator
 
 			getOptions := service.NewGetVersionUpdatesOptions(versionLocator1)
