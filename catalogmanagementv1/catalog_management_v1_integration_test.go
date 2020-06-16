@@ -35,6 +35,7 @@ const (
 	expectedURL          = "https://cm.globalcatalog.test.cloud.ibm.com/api/v1-beta/catalogs/%s"
 	expectedOfferingsURL = "https://cm.globalcatalog.test.cloud.ibm.com/api/v1-beta/catalogs/%s/offerings"
 	fakeName             = "bogus"
+	fakeVersionLocator   = "bogus.bogus"
 )
 
 var (
@@ -816,24 +817,11 @@ var _ = Describe("Catalog Management - Integration Tests", func() {
 		It("Fail to get a version that does not exist", func() {
 			shouldSkipTest()
 
-			catalogOptions := service.NewCreateCatalogOptions()
-			catalogOptions.SetLabel(expectedLabel)
-			catalogResult, _, _ := service.CreateCatalog(catalogOptions)
-			catalogID := *catalogResult.ID
-			versionLocator := fakeName
-
-			versionOptions := service.NewGetVersionOptions(versionLocator)
+			versionOptions := service.NewGetVersionOptions(fakeVersionLocator)
 			_, versionResponse, err := service.GetVersion(versionOptions)
 
-			service.DeleteCatalog(service.NewDeleteCatalogOptions(catalogID))
-
 			Expect(err).ToNot(BeNil())
-			Expect(versionResponse.StatusCode).To(Equal(400))
-
-			_, versionResponse, err = service.GetVersion(versionOptions)
-			Expect(err).ToNot(BeNil())
-			Expect(versionResponse.StatusCode).To(Equal(400))
-
+			Expect(versionResponse.StatusCode).To(Equal(404))
 		})
 
 		It("Delete a version", func() {
@@ -862,23 +850,11 @@ var _ = Describe("Catalog Management - Integration Tests", func() {
 		It("Failed to delete a version that does not exist", func() {
 			shouldSkipTest()
 
-			catalogOptions := service.NewCreateCatalogOptions()
-			catalogOptions.SetLabel(expectedLabel)
-			catalogResult, _, _ := service.CreateCatalog(catalogOptions)
-			catalogID := *catalogResult.ID
-			versionLocator := fakeName
-
-			deleteOptions := service.NewDeleteVersionOptions(versionLocator)
+			deleteOptions := service.NewDeleteVersionOptions(fakeVersionLocator)
 			deleteResponse, err := service.DeleteVersion(deleteOptions)
 
-			service.DeleteCatalog(service.NewDeleteCatalogOptions(catalogID))
-
 			Expect(err).ToNot(BeNil())
-			Expect(deleteResponse.StatusCode).To(Equal(400))
-
-			deleteResponse, err = service.DeleteVersion(deleteOptions)
-			Expect(err).ToNot(BeNil())
-			Expect(deleteResponse.StatusCode).To(Equal(400))
+			Expect(deleteResponse.StatusCode).To(Equal(404))
 		})
 
 		It("Get version about", func() {
@@ -908,24 +884,11 @@ var _ = Describe("Catalog Management - Integration Tests", func() {
 		It("Fail to get version about for a version that does not exist", func() {
 			shouldSkipTest()
 
-			catalogOptions := service.NewCreateCatalogOptions()
-			catalogOptions.SetLabel(expectedLabel)
-			catalogResult, _, _ := service.CreateCatalog(catalogOptions)
-			catalogID := *catalogResult.ID
-			versionLocator := fakeName
-
-			getOptions := service.NewGetVersionAboutOptions(versionLocator)
+			getOptions := service.NewGetVersionAboutOptions(fakeVersionLocator)
 			_, getResponse, err := service.GetVersionAbout(getOptions)
 
-			service.DeleteCatalog(service.NewDeleteCatalogOptions(catalogID))
-
 			Expect(err).ToNot(BeNil())
-			Expect(getResponse.StatusCode).To(Equal(400))
-
-			_, getResponse, err = service.GetVersionAbout(getOptions)
-
-			Expect(err).ToNot(BeNil())
-			Expect(getResponse.StatusCode).To(Equal(400))
+			Expect(getResponse.StatusCode).To(Equal(404))
 		})
 
 		It("Get version updates", func() {
@@ -970,24 +933,11 @@ var _ = Describe("Catalog Management - Integration Tests", func() {
 		It("Fail to get version updates for version that does not exist", func() {
 			shouldSkipTest()
 
-			catalogOptions := service.NewCreateCatalogOptions()
-			catalogOptions.SetLabel(expectedLabel)
-			catalogResult, _, _ := service.CreateCatalog(catalogOptions)
-			catalogID := *catalogResult.ID
-			versionLocator := fakeName
-
-			getOptions := service.NewGetVersionUpdatesOptions(versionLocator)
+			getOptions := service.NewGetVersionUpdatesOptions(fakeVersionLocator)
 			_, getResponse, err := service.GetVersionUpdates(getOptions)
 
-			service.DeleteCatalog(service.NewDeleteCatalogOptions(catalogID))
-
 			Expect(err).ToNot(BeNil())
-			Expect(getResponse.StatusCode).To(Equal(400))
-
-			_, getResponse, err = service.GetVersionUpdates(getOptions)
-
-			Expect(err).ToNot(BeNil())
-			Expect(getResponse.StatusCode).To(Equal(400))
+			Expect(getResponse.StatusCode).To(Equal(404))
 		})
 
 		It("Get license providers", func() {
@@ -1043,7 +993,7 @@ var _ = Describe("Catalog Management - Integration Tests", func() {
 		It("Fail to search license versions", func() {
 			shouldSkipTest()
 
-			searchOptions := service.NewSearchLicenseVersionsOptions("")
+			searchOptions := service.NewSearchLicenseVersionsOptions(fakeName)
 			searchResponse, err := service.SearchLicenseVersions(searchOptions)
 
 			Expect(err).ToNot(BeNil())
@@ -1053,7 +1003,7 @@ var _ = Describe("Catalog Management - Integration Tests", func() {
 		It("Fail to search license offerings", func() {
 			shouldSkipTest()
 
-			searchOptions := service.NewSearchLicenseOfferingsOptions("")
+			searchOptions := service.NewSearchLicenseOfferingsOptions(fakeName)
 			searchResponse, err := service.SearchLicenseOfferings(searchOptions)
 
 			Expect(err).ToNot(BeNil())
