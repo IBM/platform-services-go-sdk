@@ -53,6 +53,7 @@ Service Name | Package name
 [Global Search](https://cloud.ibm.com/apidocs/search) | globalsearchv2
 [Global Tagging](https://cloud.ibm.com/apidocs/tagging) | globaltaggingv1
 [IAM Access Groups](https://cloud.ibm.com/apidocs/iam-access-groups) | iamaccessgroupsv2
+[IAM Policy Managemenet](https://cloud.ibm.com/apidocs/iam-policy-management) | iampolicymanagementv1
 [Resource Manager](https://cloud.ibm.com/apidocs/resource-controller/resource-manager) | resourcemanagerv2
 
 ## Prerequisites
