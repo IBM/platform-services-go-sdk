@@ -1102,7 +1102,7 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 
 			foundReclamation := false
 			for _, res := range result.Resources {
-				if res.ResourceInstanceID.(string) == testReclaimInstanceGuid {
+				if *res.ResourceInstanceID == testReclaimInstanceGuid {
 					Expect(res.ResourceInstanceID).To(Equal(testReclaimInstanceGuid))
 					Expect(*res.AccountID).To(Equal(testAccountId))
 					Expect(*res.ResourceGroupID).To(Equal(testResourceGroupGuid))

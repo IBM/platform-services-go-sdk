@@ -2599,7 +2599,7 @@ type Reclamation struct {
 	EntityCrn *string `json:"entity_crn,omitempty"`
 
 	// The short ID of the resource instance.
-	ResourceInstanceID interface{} `json:"resource_instance_id,omitempty"`
+	ResourceInstanceID *string `json:"resource_instance_id,omitempty"`
 
 	// The short ID of the resource group.
 	ResourceGroupID *string `json:"resource_group_id,omitempty"`
