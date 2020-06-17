@@ -34,7 +34,7 @@ import (
 
 var _ = Describe(`IamPolicyManagementV1`, func() {
 	var testServer *httptest.Server
-	Describe(`Service constructor tests`, func() {
+    Describe(`Service constructor tests`, func() {
 		It(`Instantiate service client`, func() {
 			testService, testServiceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
 				Authenticator: &core.NoAuthAuthenticator{},
@@ -65,13 +65,14 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 		Context(`Using external config, construct service client instances`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"IAM_POLICY_MANAGEMENT_URL":       "https://iampolicymanagementv1/api",
+				"IAM_POLICY_MANAGEMENT_URL": "https://iampolicymanagementv1/api",
 				"IAM_POLICY_MANAGEMENT_AUTH_TYPE": "noauth",
 			}
 
 			It(`Create service client using external config successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				testService, testServiceErr := iampolicymanagementv1.NewIamPolicyManagementV1UsingExternalConfig(&iampolicymanagementv1.IamPolicyManagementV1Options{})
+				testService, testServiceErr := iampolicymanagementv1.NewIamPolicyManagementV1UsingExternalConfig(&iampolicymanagementv1.IamPolicyManagementV1Options{
+				})
 				Expect(testService).ToNot(BeNil())
 				Expect(testServiceErr).To(BeNil())
 				ClearTestEnvironment(testEnvironment)
@@ -88,7 +89,8 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 			})
 			It(`Create service client using external config and set url programatically successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				testService, testServiceErr := iampolicymanagementv1.NewIamPolicyManagementV1UsingExternalConfig(&iampolicymanagementv1.IamPolicyManagementV1Options{})
+				testService, testServiceErr := iampolicymanagementv1.NewIamPolicyManagementV1UsingExternalConfig(&iampolicymanagementv1.IamPolicyManagementV1Options{
+				})
 				err := testService.SetServiceURL("https://testService/api")
 				Expect(err).To(BeNil())
 				Expect(testService).ToNot(BeNil())
@@ -100,12 +102,13 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 		Context(`Using external config, construct service client instances with error: Invalid Auth`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"IAM_POLICY_MANAGEMENT_URL":       "https://iampolicymanagementv1/api",
+				"IAM_POLICY_MANAGEMENT_URL": "https://iampolicymanagementv1/api",
 				"IAM_POLICY_MANAGEMENT_AUTH_TYPE": "someOtherAuth",
 			}
 
 			SetTestEnvironment(testEnvironment)
-			testService, testServiceErr := iampolicymanagementv1.NewIamPolicyManagementV1UsingExternalConfig(&iampolicymanagementv1.IamPolicyManagementV1Options{})
+			testService, testServiceErr := iampolicymanagementv1.NewIamPolicyManagementV1UsingExternalConfig(&iampolicymanagementv1.IamPolicyManagementV1Options{
+			})
 
 			It(`Instantiate service client with error`, func() {
 				Expect(testService).To(BeNil())
@@ -116,7 +119,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 		Context(`Using external config, construct service client instances with error: Invalid URL`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"IAM_POLICY_MANAGEMENT_AUTH_TYPE": "NOAuth",
+				"IAM_POLICY_MANAGEMENT_AUTH_TYPE":   "NOAuth",
 			}
 
 			SetTestEnvironment(testEnvironment)
@@ -236,7 +239,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				listPoliciesOptionsModel.AccessGroupID = core.StringPtr("testString")
 				listPoliciesOptionsModel.Type = core.StringPtr("testString")
 				listPoliciesOptionsModel.ServiceType = core.StringPtr("testString")
-				listPoliciesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+ 				listPoliciesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
 				result, response, operationErr = testService.ListPolicies(listPoliciesOptionsModel)
@@ -411,7 +414,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				createPolicyOptionsModel.Roles = []iampolicymanagementv1.PolicyRole{*policyRoleModel}
 				createPolicyOptionsModel.Resources = []iampolicymanagementv1.PolicyResource{*policyResourceModel}
 				createPolicyOptionsModel.AcceptLanguage = core.StringPtr("testString")
-				createPolicyOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+ 				createPolicyOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
 				result, response, operationErr = testService.CreatePolicy(createPolicyOptionsModel)
@@ -610,7 +613,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				updatePolicyOptionsModel.Subjects = []iampolicymanagementv1.PolicySubject{*policySubjectModel}
 				updatePolicyOptionsModel.Roles = []iampolicymanagementv1.PolicyRole{*policyRoleModel}
 				updatePolicyOptionsModel.Resources = []iampolicymanagementv1.PolicyResource{*policyResourceModel}
-				updatePolicyOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+ 				updatePolicyOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
 				result, response, operationErr = testService.UpdatePolicy(updatePolicyOptionsModel)
@@ -750,7 +753,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				// Construct an instance of the GetPolicyOptions model
 				getPolicyOptionsModel := new(iampolicymanagementv1.GetPolicyOptions)
 				getPolicyOptionsModel.PolicyID = core.StringPtr("testString")
-				getPolicyOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+ 				getPolicyOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
 				result, response, operationErr = testService.GetPolicy(getPolicyOptionsModel)
@@ -821,7 +824,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				// Construct an instance of the DeletePolicyOptions model
 				deletePolicyOptionsModel := new(iampolicymanagementv1.DeletePolicyOptions)
 				deletePolicyOptionsModel.PolicyID = core.StringPtr("testString")
-				deletePolicyOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+ 				deletePolicyOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
 				response, operationErr = testService.DeletePolicy(deletePolicyOptionsModel)
@@ -859,7 +862,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 			})
 		})
 	})
-	Describe(`Service constructor tests`, func() {
+    Describe(`Service constructor tests`, func() {
 		It(`Instantiate service client`, func() {
 			testService, testServiceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
 				Authenticator: &core.NoAuthAuthenticator{},
@@ -890,13 +893,14 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 		Context(`Using external config, construct service client instances`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"IAM_POLICY_MANAGEMENT_URL":       "https://iampolicymanagementv1/api",
+				"IAM_POLICY_MANAGEMENT_URL": "https://iampolicymanagementv1/api",
 				"IAM_POLICY_MANAGEMENT_AUTH_TYPE": "noauth",
 			}
 
 			It(`Create service client using external config successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				testService, testServiceErr := iampolicymanagementv1.NewIamPolicyManagementV1UsingExternalConfig(&iampolicymanagementv1.IamPolicyManagementV1Options{})
+				testService, testServiceErr := iampolicymanagementv1.NewIamPolicyManagementV1UsingExternalConfig(&iampolicymanagementv1.IamPolicyManagementV1Options{
+				})
 				Expect(testService).ToNot(BeNil())
 				Expect(testServiceErr).To(BeNil())
 				ClearTestEnvironment(testEnvironment)
@@ -913,7 +917,8 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 			})
 			It(`Create service client using external config and set url programatically successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				testService, testServiceErr := iampolicymanagementv1.NewIamPolicyManagementV1UsingExternalConfig(&iampolicymanagementv1.IamPolicyManagementV1Options{})
+				testService, testServiceErr := iampolicymanagementv1.NewIamPolicyManagementV1UsingExternalConfig(&iampolicymanagementv1.IamPolicyManagementV1Options{
+				})
 				err := testService.SetServiceURL("https://testService/api")
 				Expect(err).To(BeNil())
 				Expect(testService).ToNot(BeNil())
@@ -925,12 +930,13 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 		Context(`Using external config, construct service client instances with error: Invalid Auth`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"IAM_POLICY_MANAGEMENT_URL":       "https://iampolicymanagementv1/api",
+				"IAM_POLICY_MANAGEMENT_URL": "https://iampolicymanagementv1/api",
 				"IAM_POLICY_MANAGEMENT_AUTH_TYPE": "someOtherAuth",
 			}
 
 			SetTestEnvironment(testEnvironment)
-			testService, testServiceErr := iampolicymanagementv1.NewIamPolicyManagementV1UsingExternalConfig(&iampolicymanagementv1.IamPolicyManagementV1Options{})
+			testService, testServiceErr := iampolicymanagementv1.NewIamPolicyManagementV1UsingExternalConfig(&iampolicymanagementv1.IamPolicyManagementV1Options{
+			})
 
 			It(`Instantiate service client with error`, func() {
 				Expect(testService).To(BeNil())
@@ -941,7 +947,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 		Context(`Using external config, construct service client instances with error: Invalid URL`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"IAM_POLICY_MANAGEMENT_AUTH_TYPE": "NOAuth",
+				"IAM_POLICY_MANAGEMENT_AUTH_TYPE":   "NOAuth",
 			}
 
 			SetTestEnvironment(testEnvironment)
@@ -1043,7 +1049,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				listRolesOptionsModel.AcceptLanguage = core.StringPtr("testString")
 				listRolesOptionsModel.AccountID = core.StringPtr("testString")
 				listRolesOptionsModel.ServiceName = core.StringPtr("testString")
-				listRolesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+ 				listRolesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
 				result, response, operationErr = testService.ListRoles(listRolesOptionsModel)
@@ -1166,7 +1172,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				createRoleOptionsModel.ServiceName = core.StringPtr("testString")
 				createRoleOptionsModel.Description = core.StringPtr("testString")
 				createRoleOptionsModel.AcceptLanguage = core.StringPtr("testString")
-				createRoleOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+ 				createRoleOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
 				result, response, operationErr = testService.CreateRole(createRoleOptionsModel)
@@ -1296,7 +1302,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				updateRoleOptionsModel.DisplayName = core.StringPtr("testString")
 				updateRoleOptionsModel.Description = core.StringPtr("testString")
 				updateRoleOptionsModel.Actions = []string{"testString"}
-				updateRoleOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+ 				updateRoleOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
 				result, response, operationErr = testService.UpdateRole(updateRoleOptionsModel)
@@ -1412,7 +1418,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				// Construct an instance of the GetRoleOptions model
 				getRoleOptionsModel := new(iampolicymanagementv1.GetRoleOptions)
 				getRoleOptionsModel.RoleID = core.StringPtr("testString")
-				getRoleOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+ 				getRoleOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
 				result, response, operationErr = testService.GetRole(getRoleOptionsModel)
@@ -1483,7 +1489,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				// Construct an instance of the DeleteRoleOptions model
 				deleteRoleOptionsModel := new(iampolicymanagementv1.DeleteRoleOptions)
 				deleteRoleOptionsModel.RoleID = core.StringPtr("testString")
-				deleteRoleOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+ 				deleteRoleOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
 				response, operationErr = testService.DeleteRole(deleteRoleOptionsModel)
