@@ -1,3 +1,10 @@
+# [0.7.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.6.0...v0.7.0) (2020-06-18)
+
+
+### Features
+
+* **Catalog Management:** add service to project ([#21](https://github.com/IBM/platform-services-go-sdk/issues/21)) ([e6ba3f8](https://github.com/IBM/platform-services-go-sdk/commit/e6ba3f863c7774efcf170e164f96dbf673e6b3ac))
+
 # [0.6.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.5.1...v0.6.0) (2020-06-17)
 
 
