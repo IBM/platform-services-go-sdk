@@ -36,6 +36,8 @@ const (
 	expectedOfferingsURL = "https://cm.globalcatalog.test.cloud.ibm.com/api/v1-beta/catalogs/%s/offerings"
 	fakeName             = "bogus"
 	fakeVersionLocator   = "bogus.bogus"
+	expectedOfferingName = "test-offering"
+	expectedOfferingURL  = "https://cm.globalcatalog.test.cloud.ibm.com/api/v1-beta/catalogs/%s/offerings/%s"
 )
 
 var (
@@ -99,7 +101,6 @@ var _ = Describe("Catalog Management - Integration Tests", func() {
 		})
 
 		It("Get catalog account", func() {
-			const expectedAccount = "67d27f28d43948b2b3bda9138f251a13"
 			shouldSkipTest()
 
 			options := service.NewGetCatalogAccountOptions()
@@ -229,8 +230,6 @@ var _ = Describe("Catalog Management - Integration Tests", func() {
 			getOptions := service.NewGetCatalogOptions(id)
 			_, getResponse, err := service.GetCatalog(getOptions)
 
-			service.DeleteCatalog(service.NewDeleteCatalogOptions(id))
-
 			Expect(err).ToNot(BeNil())
 			Expect(getResponse.StatusCode).To(Equal(404))
 		})
@@ -283,8 +282,6 @@ var _ = Describe("Catalog Management - Integration Tests", func() {
 			replaceOptions.SetID(id)
 			_, replaceResponse, err := service.ReplaceCatalog(replaceOptions)
 
-			service.DeleteCatalog(service.NewDeleteCatalogOptions(id))
-
 			Expect(err).ToNot(BeNil())
 			Expect(replaceResponse.StatusCode).To(Equal(404))
 		})
@@ -323,12 +320,6 @@ var _ = Describe("Catalog Management - Integration Tests", func() {
 		})
 
 		It("Create an offering", func() {
-			const (
-				expectedName  = "test-offering"
-				expectedLabel = "test"
-				expectedURL   = "https://cm.globalcatalog.test.cloud.ibm.com/api/v1-beta/catalogs/%s/offerings/%s"
-			)
-
 			shouldSkipTest()
 
 			catalogOptions := service.NewCreateCatalogOptions()
@@ -340,7 +331,7 @@ var _ = Describe("Catalog Management - Integration Tests", func() {
 			catalogID := *catalogResult.ID
 
 			offeringOptions := service.NewCreateOfferingOptions(catalogID)
-			offeringOptions.SetName(expectedName)
+			offeringOptions.SetName(expectedOfferingName)
 			offeringOptions.SetLabel(expectedLabel)
 			offeringResult, offeringResponse, err := service.CreateOffering(offeringOptions)
 
@@ -351,18 +342,12 @@ var _ = Describe("Catalog Management - Integration Tests", func() {
 			offeringID := *offeringResult.ID
 
 			Expect(offeringResponse.StatusCode).To(Equal(201))
-			Expect(*offeringResult.Name).To(Equal(expectedName))
-			Expect(*offeringResult.URL).To(Equal(fmt.Sprintf(expectedURL, catalogID, offeringID)))
+			Expect(*offeringResult.Name).To(Equal(expectedOfferingName))
+			Expect(*offeringResult.URL).To(Equal(fmt.Sprintf(expectedOfferingURL, catalogID, offeringID)))
 			Expect(*offeringResult.Label).To(Equal(expectedLabel))
 		})
 
 		It("Get an offering", func() {
-			const (
-				expectedName  = "test-offering"
-				expectedLabel = "test"
-				expectedURL   = "https://cm.globalcatalog.test.cloud.ibm.com/api/v1-beta/catalogs/%s/offerings/%s"
-			)
-
 			shouldSkipTest()
 
 			catalogOptions := service.NewCreateCatalogOptions()
@@ -374,7 +359,7 @@ var _ = Describe("Catalog Management - Integration Tests", func() {
 			catalogID := *catalogResult.ID
 
 			offeringOptions := service.NewCreateOfferingOptions(catalogID)
-			offeringOptions.SetName(expectedName)
+			offeringOptions.SetName(expectedOfferingName)
 			offeringOptions.SetLabel(expectedLabel)
 			offeringResult, _, err := service.CreateOffering(offeringOptions)
 
@@ -389,8 +374,8 @@ var _ = Describe("Catalog Management - Integration Tests", func() {
 
 			Expect(err).To(BeNil())
 			Expect(getResponse.StatusCode).To(Equal(200))
-			Expect(*getResult.Name).To(Equal(expectedName))
-			Expect(*getResult.URL).To(Equal(fmt.Sprintf(expectedURL, catalogID, offeringID)))
+			Expect(*getResult.Name).To(Equal(expectedOfferingName))
+			Expect(*getResult.URL).To(Equal(fmt.Sprintf(expectedOfferingURL, catalogID, offeringID)))
 			Expect(*getResult.Label).To(Equal(expectedLabel))
 		})
 
@@ -422,10 +407,6 @@ var _ = Describe("Catalog Management - Integration Tests", func() {
 
 		It("List offerings", func() {
 			const (
-				expectedName  = "test-offering"
-				expectedLabel = "test"
-				expectedURL   = "https://cm.globalcatalog.test.cloud.ibm.com/api/v1-beta/catalogs/%s/offerings/%s"
-
 				expectedLimit         int64 = 100
 				expectedTotalCount    int64 = 1
 				expectedResourceCount int64 = 1
@@ -445,7 +426,7 @@ var _ = Describe("Catalog Management - Integration Tests", func() {
 			catalogID := *catalogResult.ID
 
 			offeringOptions := service.NewCreateOfferingOptions(catalogID)
-			offeringOptions.SetName(expectedName)
+			offeringOptions.SetName(expectedOfferingName)
 			offeringOptions.SetLabel(expectedLabel)
 			offeringResult, _, err := service.CreateOffering(offeringOptions)
 
@@ -469,20 +450,15 @@ var _ = Describe("Catalog Management - Integration Tests", func() {
 			Expect(len(listResult.Resources)).To(Equal(expectedResouceLen))
 
 			Expect(*listResult.Resources[0].ID).To(Equal(offeringID))
-			Expect(*listResult.Resources[0].URL).To(Equal(fmt.Sprintf(expectedURL, catalogID, offeringID)))
+			Expect(*listResult.Resources[0].URL).To(Equal(fmt.Sprintf(expectedOfferingURL, catalogID, offeringID)))
 			Expect(*listResult.Resources[0].Label).To(Equal(expectedLabel))
-			Expect(*listResult.Resources[0].Name).To(Equal(expectedName))
+			Expect(*listResult.Resources[0].Name).To(Equal(expectedOfferingName))
 			Expect(*listResult.Resources[0].CatalogID).To(Equal(catalogID))
 			Expect(*listResult.Resources[0].CatalogName).To(Equal(expectedLabel))
 
 		})
 
 		It("Delete an offering", func() {
-			const (
-				expectedName  = "test-offering"
-				expectedLabel = "test"
-			)
-
 			shouldSkipTest()
 
 			catalogOptions := service.NewCreateCatalogOptions()
@@ -494,7 +470,7 @@ var _ = Describe("Catalog Management - Integration Tests", func() {
 			catalogID := *catalogResult.ID
 
 			offeringOptions := service.NewCreateOfferingOptions(catalogID)
-			offeringOptions.SetName(expectedName)
+			offeringOptions.SetName(expectedOfferingName)
 			offeringOptions.SetLabel(expectedLabel)
 			offeringResult, _, err := service.CreateOffering(offeringOptions)
 
@@ -539,12 +515,9 @@ var _ = Describe("Catalog Management - Integration Tests", func() {
 
 		It("Update an offering", func() {
 			const (
-				expectedName            = "test-offering"
-				expectedLabel           = "test"
 				expectedLabelUpdate     = "test-update"
 				expectedShortDesc       = "test-desc"
 				expectedShortDescUpdate = "test-desc-update"
-				expectedURL             = "https://cm.globalcatalog.test.cloud.ibm.com/api/v1-beta/catalogs/%s/offerings/%s"
 			)
 
 			shouldSkipTest()
@@ -558,7 +531,7 @@ var _ = Describe("Catalog Management - Integration Tests", func() {
 			catalogID := *catalogResult.ID
 
 			offeringOptions := service.NewCreateOfferingOptions(catalogID)
-			offeringOptions.SetName(expectedName)
+			offeringOptions.SetName(expectedOfferingName)
 			offeringOptions.SetLabel(expectedLabel)
 			offeringOptions.SetShortDescription(expectedShortDesc)
 			offeringResult, _, err := service.CreateOffering(offeringOptions)
@@ -580,7 +553,7 @@ var _ = Describe("Catalog Management - Integration Tests", func() {
 			Expect(err).To(BeNil())
 			Expect(updateResponse.StatusCode).To(Equal(200))
 			Expect(*updateResult.ShortDescription).To(Equal(expectedShortDescUpdate))
-			Expect(*updateResult.URL).To(Equal(fmt.Sprintf(expectedURL, catalogID, offeringID)))
+			Expect(*updateResult.URL).To(Equal(fmt.Sprintf(expectedOfferingURL, catalogID, offeringID)))
 			Expect(*updateResult.Label).To(Equal(expectedLabelUpdate))
 		})
 
