@@ -5,7 +5,7 @@
 [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
 
 
-# IBM Cloud Platform Services Go SDK Version 0.5.1
+# IBM Cloud Platform Services Go SDK Version 0.6.0
 
 Go client library to interact with various
 [IBM Cloud Platform Service APIs](https://cloud.ibm.com/docs?tab=api-docs&category=platform_services).
@@ -54,6 +54,7 @@ Service Name | Package name
 [Global Search](https://cloud.ibm.com/apidocs/search) | globalsearchv2
 [Global Tagging](https://cloud.ibm.com/apidocs/tagging) | globaltaggingv1
 [IAM Access Groups](https://cloud.ibm.com/apidocs/iam-access-groups) | iamaccessgroupsv2
+[IAM Policy Managemenet](https://cloud.ibm.com/apidocs/iam-policy-management) | iampolicymanagementv1
 [Resource Manager](https://cloud.ibm.com/apidocs/resource-controller/resource-manager) | resourcemanagerv2
 
 ## Prerequisites
@@ -66,7 +67,7 @@ Service Name | Package name
 * Go version 1.12 or above.
 
 ## Installation
-The current version of this SDK: 0.5.1
+The current version of this SDK: 0.6.0
 
 There are a few different ways to download and install the Platform Services Go SDK project for use by your
 Go application:
@@ -99,7 +100,7 @@ to your `Gopkg.toml` file.  Here is an example:
 ```
 [[constraint]]
   name = "github.com/IBM/platform-services-go-sdk/globalsearchv2"
-  version = "0.5.1"
+  version = "0.6.0"
 
 ```
 

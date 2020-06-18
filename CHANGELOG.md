@@ -1,3 +1,10 @@
+# [0.6.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.5.1...v0.6.0) (2020-06-17)
+
+
+### Features
+
+* **IAM Policy Management:** add service to project ([#13](https://github.com/IBM/platform-services-go-sdk/issues/13)) ([010918f](https://github.com/IBM/platform-services-go-sdk/commit/010918fcff6d4b0ee7ea308ad6829f2a8713997a))
+
 ## [0.5.1](https://github.com/IBM/platform-services-go-sdk/compare/v0.5.0...v0.5.1) (2020-06-15)
 
 
