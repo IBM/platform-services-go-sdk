@@ -14,7 +14,15 @@
  * limitations under the License.
  */
 
-package common
+package catalogmanagementv1_test
 
-// Version of the SDK
-const Version = "0.7.0"
+import (
+	. "github.com/onsi/ginkgo"
+	. "github.com/onsi/gomega"
+	"testing"
+)
+
+func TestCatalogManagementV1(t *testing.T) {
+	RegisterFailHandler(Fail)
+	RunSpecs(t, "CatalogManagementV1 Suite")
+}
