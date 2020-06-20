@@ -1060,6 +1060,9 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 
 			Expect(resp.StatusCode).To(Equal(204))
 			Expect(err).To(BeNil())
+
+			//wait for reclamation object to be created
+			time.Sleep(20 * time.Second)
 		})
 
 		It("46 - Verify The Resource Instance Is Pending Reclamation", func() {
@@ -1080,9 +1083,6 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 			Expect(result.LastOperation["sub_type"]).To(Equal("pending"))
 			Expect(result.LastOperation["async"]).Should(BeFalse())
 			Expect(result.LastOperation["state"]).To(Equal("succeeded"))
-
-			//wait for reclamation object to be created
-			time.Sleep(20 * time.Second)
 		})
 
 		It("47 - List Reclamations For Account Id", func() {
@@ -1103,7 +1103,7 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 			foundReclamation := false
 			for _, res := range result.Resources {
 				if *res.ResourceInstanceID == testReclaimInstanceGuid {
-					Expect(res.ResourceInstanceID).To(Equal(testReclaimInstanceGuid))
+					Expect(*res.ResourceInstanceID).To(Equal(testReclaimInstanceGuid))
 					Expect(*res.AccountID).To(Equal(testAccountId))
 					Expect(*res.ResourceGroupID).To(Equal(testResourceGroupGuid))
 					Expect(*res.State).To(Equal("SCHEDULED"))
@@ -1128,13 +1128,13 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 
 			Expect(err).To(BeNil())
 			Expect(resp.StatusCode).To(Equal(200))
-			Expect(result.ResourceInstanceID).To(Equal(testReclaimInstanceGuid))
+			Expect(*result.ResourceInstanceID).To(Equal(testReclaimInstanceGuid))
 			Expect(*result.AccountID).To(Equal(testAccountId))
 			Expect(*result.ResourceGroupID).To(Equal(testResourceGroupGuid))
 			Expect(*result.State).To(Equal("RESTORING"))
 
-			//wait for instance record to be updated
-			time.Sleep(10 * time.Second)
+			//wait for reclamation object to be created
+			time.Sleep(20 * time.Second)
 		})
 
 		It("49 - Verify The Resource Instance Is Restored", func() {
@@ -1189,7 +1189,7 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 			Expect(err).To(BeNil())
 			Expect(resp.StatusCode).To(Equal(200))
 			Expect(result.Resources).Should(HaveLen(1))
-			Expect(result.Resources[0].ResourceInstanceID).To(Equal(testReclaimInstanceGuid))
+			Expect(*result.Resources[0].ResourceInstanceID).To(Equal(testReclaimInstanceGuid))
 			Expect(*result.Resources[0].AccountID).To(Equal(testAccountId))
 			Expect(*result.Resources[0].ResourceGroupID).To(Equal(testResourceGroupGuid))
 			Expect(*result.Resources[0].State).To(Equal("SCHEDULED"))
@@ -1209,13 +1209,13 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 
 			Expect(err).To(BeNil())
 			Expect(resp.StatusCode).To(Equal(200))
-			Expect(result.ResourceInstanceID).To(Equal(testReclaimInstanceGuid))
+			Expect(*result.ResourceInstanceID).To(Equal(testReclaimInstanceGuid))
 			Expect(*result.AccountID).To(Equal(testAccountId))
 			Expect(*result.ResourceGroupID).To(Equal(testResourceGroupGuid))
 			Expect(*result.State).To(Equal("RECLAIMING"))
 
-			//wait for instance record to be updated
-			time.Sleep(10 * time.Second)
+			//wait for reclamation object to be created
+			time.Sleep(20 * time.Second)
 		})
 
 		It("53 - Verify The Resource Instance Is Reclaimed", func() {
@@ -1401,7 +1401,7 @@ func cleanupReclamationInstance() {
 		resp2, err2 := service.DeleteResourceInstance(options2)
 		if resp2.StatusCode == 204 {
 			fmt.Printf("Successfully scheduled instance %s for reclamation.\n", testReclaimInstanceGuid)
-			time.Sleep(15 * time.Second)
+			time.Sleep(20 * time.Second)
 			cleanupInstancePendingReclamation()
 		} else {
 			fmt.Printf("Failed to schedule active instance %s for reclamation. Error: %s\n", testReclaimInstanceGuid, err2.Error())
