@@ -123,7 +123,7 @@ var _ = Describe("Open Service Broker - Integration Tests", func() {
 
 		Expect(err).To(BeNil())
 		Expect(resp.StatusCode).To(Equal(200))
-		Expect(result).NotTo(BeZero())
+		Expect(result).NotTo(BeNil())
 	})
 
 	It("02 - Update Service Instance State", func() {
@@ -137,10 +137,11 @@ var _ = Describe("Open Service Broker - Integration Tests", func() {
 			"Transaction-Id": "osb-sdk-go-test02-" + transactionId,
 		}
 		options = options.SetHeaders(headers)
-		_, resp, err := service.ReplaceState(options)
+		result, resp, err := service.ReplaceState(options)
 
 		Expect(err).To(BeNil())
 		Expect(resp.StatusCode).To(Equal(200))
+		Expect(result).NotTo(BeNil())
 	})
 
 	It("03 - Bind Service Instance", func() {
@@ -200,10 +201,11 @@ var _ = Describe("Open Service Broker - Integration Tests", func() {
 			"Transaction-Id": "osb-sdk-go-test06-" + transactionId,
 		}
 		options = options.SetHeaders(headers)
-		_, resp, err := service.DeleteServiceBinding(options)
+		result, resp, err := service.DeleteServiceBinding(options)
 
 		Expect(err).To(BeNil())
 		Expect(resp.StatusCode).To(Equal(200))
+		Expect(result).NotTo(BeNil())
 	})
 
 	It("07 - Delete Service Instance", func() {
@@ -215,10 +217,11 @@ var _ = Describe("Open Service Broker - Integration Tests", func() {
 			"Transaction-Id": "osb-sdk-go-test07-" + transactionId,
 		}
 		options = options.SetHeaders(headers)
-		_, resp, err := service.DeleteServiceInstance(options)
+		result, resp, err := service.DeleteServiceInstance(options)
 
 		Expect(err).To(BeNil())
 		Expect(resp.StatusCode).To(Equal(200))
+		Expect(result).NotTo(BeNil())
 	})
 
 })
