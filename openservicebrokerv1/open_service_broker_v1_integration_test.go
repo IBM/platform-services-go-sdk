@@ -44,12 +44,12 @@ var (
 	testInstanceId        string = "crn:v1:staging:public:bss-monitor:global:a/bc2b2fca0af84354a916dc1de6eee42e:sdkTestInstance::"
 	testBindingId         string = "crn:v1:staging:public:bss-monitor:us-south:a/bc2b2fca0af84354a916dc1de6eee42e:sdkTestInstance:resource-binding:sdkTestBinding"
 	testInstanceIdEscaped string = "crn%3Av1%3Astaging%3Apublic%3Abss-monitor%3Aglobal%3Aa%2Fbc2b2fca0af84354a916dc1de6eee42e%3AsdkTestInstance%3A%3A"
-    testBindingIdEscaped string = "crn%3Av1%3Astaging%3Apublic%3Abss-monitor%3Aus-south%3Aa%2Fbc2b2fca0af84354a916dc1de6eee42e%3AsdkTestInstance%3Aresource-binding%3AsdkTestBinding"
-    testDashboardUrl string = "http://www.example.com/crn%3Av1%3Astaging%3Apublic%3Abss-monitor%3Aglobal%3Aa%2Fbc2b2fca0af84354a916dc1de6eee42e%3AsdkTestInstance%3A%3A"
+	testBindingIdEscaped  string = "crn%3Av1%3Astaging%3Apublic%3Abss-monitor%3Aus-south%3Aa%2Fbc2b2fca0af84354a916dc1de6eee42e%3AsdkTestInstance%3Aresource-binding%3AsdkTestBinding"
+	testDashboardUrl      string = "http://www.example.com/crn%3Av1%3Astaging%3Apublic%3Abss-monitor%3Aglobal%3Aa%2Fbc2b2fca0af84354a916dc1de6eee42e%3AsdkTestInstance%3A%3A"
 	testServiceId         string = "a10e46ae-3685-11e9-b210-d663bd873d93"
 	testReasonCode        string = "test_reason"
 	testInitiatorId       string = "test_initiator"
-	transactionId string = uuid.NewV4().String()
+	transactionId         string = uuid.NewV4().String()
 )
 
 func shouldSkipTest() {
@@ -92,8 +92,8 @@ var _ = Describe("Open Service Broker - Integration Tests", func() {
 		platform := "ibmcloud"
 		contextOpt := &openservicebrokerv1.Context{
 			AccountID: &testAccountId,
-			Crn: &testInstanceId,
-			Platform: &platform,
+			Crn:       &testInstanceId,
+			Platform:  &platform,
 		}
 
 		paramsOpt := make(map[string]string, 0)
@@ -126,8 +126,8 @@ var _ = Describe("Open Service Broker - Integration Tests", func() {
 		platform := "cf"
 		contextOpt := &openservicebrokerv1.Context{
 			AccountID: &testAccountId,
-			Crn: &testInstanceId,
-			Platform: &platform,
+			Crn:       &testInstanceId,
+			Platform:  &platform,
 		}
 
 		paramsOpt := make(map[string]string, 0)
@@ -197,7 +197,7 @@ var _ = Describe("Open Service Broker - Integration Tests", func() {
 		paramsOpt["hello"] = "bye"
 
 		bindResource := &openservicebrokerv1.BindResource{
-			AccountID: &testAccountId,
+			AccountID:    &testAccountId,
 			ServiceidCrn: &testAppGuid,
 		}
 
@@ -216,7 +216,7 @@ var _ = Describe("Open Service Broker - Integration Tests", func() {
 		Expect(err).To(BeNil())
 		Expect(resp.StatusCode).To(Equal(201))
 		Expect(result).NotTo(BeNil())
-		Expect(result.Credentials). NotTo(BeNil())
+		Expect(result.Credentials).NotTo(BeNil())
 	})
 
 	It("05 - Get Service Instance State", func() {
@@ -256,7 +256,7 @@ var _ = Describe("Open Service Broker - Integration Tests", func() {
 
 		foundPlan1 := false
 		foundPlan2 := false
-		for _, plan := range(result.Services[0].Plans) {
+		for _, plan := range result.Services[0].Plans {
 			if *plan.ID == testPlanId1 {
 				foundPlan1 = true
 			} else if *plan.ID == testPlanId2 {
