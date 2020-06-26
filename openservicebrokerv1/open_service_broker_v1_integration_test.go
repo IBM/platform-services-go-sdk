@@ -25,7 +25,6 @@ import (
 
 	"fmt"
 	"os"
-	"net/url"
 )
 
 const externalConfigFile = "../open_service_broker.env"
@@ -44,13 +43,12 @@ var (
 	testPlanId2           string = "a10e4410-3685-11e9-b210-d663bd873d933"
 	testInstanceId        string = "crn:v1:staging:public:bss-monitor:global:a/bc2b2fca0af84354a916dc1de6eee42e:sdkTestInstance::"
 	testBindingId         string = "crn:v1:staging:public:bss-monitor:us-south:a/bc2b2fca0af84354a916dc1de6eee42e:sdkTestInstance:resource-binding:sdkTestBinding"
+	testInstanceIdEscaped string = "crn%3Av1%3Astaging%3Apublic%3Abss-monitor%3Aglobal%3Aa%2Fbc2b2fca0af84354a916dc1de6eee42e%3AsdkTestInstance%3A%3A"
+    testBindingIdEscaped string = "crn%3Av1%3Astaging%3Apublic%3Abss-monitor%3Aus-south%3Aa%2Fbc2b2fca0af84354a916dc1de6eee42e%3AsdkTestInstance%3Aresource-binding%3AsdkTestBinding"
+    testDashboardUrl string = "http://www.example.com/crn%3Av1%3Astaging%3Apublic%3Abss-monitor%3Aglobal%3Aa%2Fbc2b2fca0af84354a916dc1de6eee42e%3AsdkTestInstance%3A%3A"
 	testServiceId         string = "a10e46ae-3685-11e9-b210-d663bd873d93"
-	testEnable            bool   = true
 	testReasonCode        string = "test_reason"
 	testInitiatorId       string = "test_initiator"
-
-	testEscapedInstanceId string = url.QueryEscape(testInstanceId)
-	testEscapedBindingId string = url.QueryEscape(testBindingId)
 	transactionId string = uuid.NewV4().String()
 )
 
@@ -91,9 +89,23 @@ var _ = Describe("Open Service Broker - Integration Tests", func() {
 	It("00 - Create Service Instance", func() {
 		shouldSkipTest()
 
-		options := service.NewReplaceServiceInstanceOptions(testEscapedInstanceId)
+		platform := "ibmcloud"
+		contextOpt := &openservicebrokerv1.Context{
+			AccountID: &testAccountId,
+			Crn: &testInstanceId,
+			Platform: &platform,
+		}
+
+		paramsOpt := make(map[string]string, 0)
+		paramsOpt["hello"] = "bye"
+
+		options := service.NewReplaceServiceInstanceOptions(testInstanceIdEscaped)
 		options = options.SetPlanID(testPlanId1)
 		options = options.SetServiceID(testServiceId)
+		options = options.SetOrganizationGuid(testOrgGuid)
+		options = options.SetSpaceGuid(testSpaceGuid)
+		options = options.SetContext(contextOpt)
+		options = options.SetParameters(paramsOpt)
 		options = options.SetAcceptsIncomplete(true)
 
 		headers := map[string]string{
@@ -105,15 +117,31 @@ var _ = Describe("Open Service Broker - Integration Tests", func() {
 		Expect(err).To(BeNil())
 		Expect(resp.StatusCode).To(Equal(201))
 		Expect(result).NotTo(BeNil())
-		Expect(result.DashboardURL).NotTo(BeNil())
+		Expect(*result.DashboardURL).To(Equal(testDashboardUrl))
 	})
 
 	It("01 - Update Service Instance", func() {
 		shouldSkipTest()
 
-		options := service.NewUpdateServiceInstanceOptions(testEscapedInstanceId)
-		options = options.SetPlanID(testPlanId1)
+		platform := "cf"
+		contextOpt := &openservicebrokerv1.Context{
+			AccountID: &testAccountId,
+			Crn: &testInstanceId,
+			Platform: &platform,
+		}
+
+		paramsOpt := make(map[string]string, 0)
+		paramsOpt["hello"] = "hi"
+
+		previousValues := make(map[string]string, 0)
+		previousValues["plan_id"] = testPlanId1
+
+		options := service.NewUpdateServiceInstanceOptions(testInstanceIdEscaped)
+		options = options.SetPlanID(testPlanId2)
 		options = options.SetServiceID(testServiceId)
+		options = options.SetContext(contextOpt)
+		options = options.SetParameters(paramsOpt)
+		options = options.SetAcceptsIncomplete(true)
 
 		headers := map[string]string{
 			"Transaction-Id": "osb-sdk-go-test01-" + transactionId,
@@ -126,47 +154,78 @@ var _ = Describe("Open Service Broker - Integration Tests", func() {
 		Expect(result).NotTo(BeNil())
 	})
 
-	It("02 - Update Service Instance State", func() {
+	It("02 - Disable Service Instance State", func() {
 		shouldSkipTest()
 
-		options := service.NewReplaceStateOptions(testEscapedInstanceId)
-		options = options.SetEnabled(testEnable)
+		options := service.NewReplaceServiceInstanceStateOptions(testInstanceIdEscaped)
+		options = options.SetEnabled(false)
 		options = options.SetInitiatorID(testInitiatorId)
 
 		headers := map[string]string{
 			"Transaction-Id": "osb-sdk-go-test02-" + transactionId,
 		}
 		options = options.SetHeaders(headers)
-		result, resp, err := service.ReplaceState(options)
+		result, resp, err := service.ReplaceServiceInstanceState(options)
 
 		Expect(err).To(BeNil())
 		Expect(resp.StatusCode).To(Equal(200))
 		Expect(result).NotTo(BeNil())
 	})
 
-	It("03 - Bind Service Instance", func() {
+	It("03 - Enable Service Instance State", func() {
 		shouldSkipTest()
 
-		options := service.NewReplaceServiceBindingOptions(testEscapedBindingId, testEscapedInstanceId)
+		options := service.NewReplaceServiceInstanceStateOptions(testInstanceIdEscaped)
+		options = options.SetEnabled(true)
+		options = options.SetInitiatorID(testInitiatorId)
 
 		headers := map[string]string{
 			"Transaction-Id": "osb-sdk-go-test03-" + transactionId,
+		}
+		options = options.SetHeaders(headers)
+		result, resp, err := service.ReplaceServiceInstanceState(options)
+
+		Expect(err).To(BeNil())
+		Expect(resp.StatusCode).To(Equal(200))
+		Expect(result).NotTo(BeNil())
+	})
+
+	It("04 - Bind Service Instance", func() {
+		shouldSkipTest()
+
+		paramsOpt := make(map[string]string, 0)
+		paramsOpt["hello"] = "bye"
+
+		bindResource := &openservicebrokerv1.BindResource{
+			AccountID: &testAccountId,
+			ServiceidCrn: &testAppGuid,
+		}
+
+		options := service.NewReplaceServiceBindingOptions(testBindingIdEscaped, testInstanceIdEscaped)
+		options = options.SetPlanID(testPlanId2)
+		options = options.SetServiceID(testServiceId)
+		options = options.SetParameters(paramsOpt)
+		options = options.SetBindResource(bindResource)
+
+		headers := map[string]string{
+			"Transaction-Id": "osb-sdk-go-test04-" + transactionId,
 		}
 		options = options.SetHeaders(headers)
 		result, resp, err := service.ReplaceServiceBinding(options)
 
 		Expect(err).To(BeNil())
 		Expect(resp.StatusCode).To(Equal(201))
-		Expect(result).NotTo(BeZero())
+		Expect(result).NotTo(BeNil())
+		Expect(result.Credentials). NotTo(BeNil())
 	})
 
-	It("04 - Get Service Instance State", func() {
+	It("05 - Get Service Instance State", func() {
 		shouldSkipTest()
 
-		options := service.NewGetServiceInstanceStateOptions(testEscapedInstanceId)
+		options := service.NewGetServiceInstanceStateOptions(testInstanceIdEscaped)
 
 		headers := map[string]string{
-			"Transaction-Id": "osb-sdk-go-test04-" + transactionId,
+			"Transaction-Id": "osb-sdk-go-test05-" + transactionId,
 		}
 		options = options.SetHeaders(headers)
 		result, resp, err := service.GetServiceInstanceState(options)
@@ -176,13 +235,13 @@ var _ = Describe("Open Service Broker - Integration Tests", func() {
 		Expect(result).NotTo(BeNil())
 	})
 
-	It("05 - Get Catalog Metadata", func() {
+	It("06 - Get Catalog Metadata", func() {
 		shouldSkipTest()
 
 		options := service.NewListCatalogOptions()
 
 		headers := map[string]string{
-			"Transaction-Id": "osb-sdk-go-test05-" + transactionId,
+			"Transaction-Id": "osb-sdk-go-test06-" + transactionId,
 		}
 		options = options.SetHeaders(headers)
 		result, resp, err := service.ListCatalog(options)
@@ -190,31 +249,45 @@ var _ = Describe("Open Service Broker - Integration Tests", func() {
 		Expect(err).To(BeNil())
 		Expect(resp.StatusCode).To(Equal(200))
 		Expect(result).NotTo(BeNil())
-	})
+		Expect(*result.Services[0].ID).To(Equal(testServiceId))
+		Expect(*result.Services[0].Name).To(Equal("bss-monitor"))
+		Expect(*result.Services[0].Bindable).Should(BeTrue())
+		Expect(*result.Services[0].PlanUpdateable).Should(BeTrue())
 
-	It("06 - Delete Service Binding", func() {
-		shouldSkipTest()
-
-		options := service.NewDeleteServiceBindingOptions(testEscapedBindingId, testEscapedInstanceId, testPlanId1, testServiceId)
-
-		headers := map[string]string{
-			"Transaction-Id": "osb-sdk-go-test06-" + transactionId,
+		foundPlan1 := false
+		foundPlan2 := false
+		for _, plan := range(result.Services[0].Plans) {
+			if *plan.ID == testPlanId1 {
+				foundPlan1 = true
+			} else if *plan.ID == testPlanId2 {
+				foundPlan2 = true
+			}
 		}
-		options = options.SetHeaders(headers)
-		result, resp, err := service.DeleteServiceBinding(options)
-
-		Expect(err).To(BeNil())
-		Expect(resp.StatusCode).To(Equal(200))
-		Expect(result).NotTo(BeNil())
+		Expect(foundPlan1 && foundPlan2).Should(BeTrue())
 	})
 
-	It("07 - Delete Service Instance", func() {
+	It("07 - Delete Service Binding", func() {
 		shouldSkipTest()
 
-		options := service.NewDeleteServiceInstanceOptions(testServiceId, testPlanId1, testEscapedInstanceId)
+		options := service.NewDeleteServiceBindingOptions(testBindingIdEscaped, testInstanceIdEscaped, testPlanId1, testServiceId)
 
 		headers := map[string]string{
 			"Transaction-Id": "osb-sdk-go-test07-" + transactionId,
+		}
+		options = options.SetHeaders(headers)
+		resp, err := service.DeleteServiceBinding(options)
+
+		Expect(err).To(BeNil())
+		Expect(resp.StatusCode).To(Equal(200))
+	})
+
+	It("08 - Delete Service Instance", func() {
+		shouldSkipTest()
+
+		options := service.NewDeleteServiceInstanceOptions(testServiceId, testPlanId1, testInstanceIdEscaped)
+
+		headers := map[string]string{
+			"Transaction-Id": "osb-sdk-go-test08-" + transactionId,
 		}
 		options = options.SetHeaders(headers)
 		result, resp, err := service.DeleteServiceInstance(options)
