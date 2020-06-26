@@ -217,6 +217,7 @@ var _ = Describe("Open Service Broker - Integration Tests", func() {
 		Expect(resp.StatusCode).To(Equal(201))
 		Expect(result).NotTo(BeNil())
 		Expect(result.Credentials).NotTo(BeNil())
+		Expect(result.Credentials.(map[string]interface{})["credField"]).To(Equal("credValue"))
 	})
 
 	It("05 - Get Service Instance State", func() {
