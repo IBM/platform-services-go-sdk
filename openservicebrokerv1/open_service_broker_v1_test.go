@@ -246,22 +246,22 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 			})
 		})
 	})
-	Describe(`ReplaceState(replaceStateOptions *ReplaceStateOptions) - Operation response error`, func() {
-		replaceStatePath := "/bluemix_v1/service_instances/testString"
+	Describe(`ChangeServiceInstanceState(changeServiceInstanceStateOptions *ChangeServiceInstanceStateOptions) - Operation response error`, func() {
+		changeServiceInstanceStatePath := "/bluemix_v1/service_instances/testString"
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.Path).To(Equal(replaceStatePath))
+					Expect(req.URL.Path).To(Equal(changeServiceInstanceStatePath))
 					Expect(req.Method).To(Equal("PUT"))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
 					fmt.Fprintf(res, `} this is not valid json {`)
 				}))
 			})
-			It(`Invoke ReplaceState with error: Operation response processing error`, func() {
+			It(`Invoke ChangeServiceInstanceState with error: Operation response processing error`, func() {
 				testService, testServiceErr := openservicebrokerv1.NewOpenServiceBrokerV1(&openservicebrokerv1.OpenServiceBrokerV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -269,15 +269,15 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 				Expect(testServiceErr).To(BeNil())
 				Expect(testService).ToNot(BeNil())
 
-				// Construct an instance of the ReplaceStateOptions model
-				replaceStateOptionsModel := new(openservicebrokerv1.ReplaceStateOptions)
-				replaceStateOptionsModel.InstanceID = core.StringPtr("testString")
-				replaceStateOptionsModel.Enabled = core.BoolPtr(false)
-				replaceStateOptionsModel.InitiatorID = core.StringPtr("null")
-				replaceStateOptionsModel.ReasonCode = core.StringPtr("null")
-				replaceStateOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the ChangeServiceInstanceStateOptions model
+				changeServiceInstanceStateOptionsModel := new(openservicebrokerv1.ChangeServiceInstanceStateOptions)
+				changeServiceInstanceStateOptionsModel.InstanceID = core.StringPtr("testString")
+				changeServiceInstanceStateOptionsModel.Enabled = core.BoolPtr(false)
+				changeServiceInstanceStateOptionsModel.InitiatorID = core.StringPtr("null")
+				changeServiceInstanceStateOptionsModel.ReasonCode = core.StringPtr("null")
+				changeServiceInstanceStateOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
-				result, response, operationErr := testService.ReplaceState(replaceStateOptionsModel)
+				result, response, operationErr := testService.ChangeServiceInstanceState(changeServiceInstanceStateOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
@@ -288,22 +288,22 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 		})
 	})
 
-	Describe(`ReplaceState(replaceStateOptions *ReplaceStateOptions)`, func() {
-		replaceStatePath := "/bluemix_v1/service_instances/testString"
+	Describe(`ChangeServiceInstanceState(changeServiceInstanceStateOptions *ChangeServiceInstanceStateOptions)`, func() {
+		changeServiceInstanceStatePath := "/bluemix_v1/service_instances/testString"
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.Path).To(Equal(replaceStatePath))
+					Expect(req.URL.Path).To(Equal(changeServiceInstanceStatePath))
 					Expect(req.Method).To(Equal("PUT"))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
 					fmt.Fprintf(res, `{"active": true, "enabled": false, "last_active": 10}`)
 				}))
 			})
-			It(`Invoke ReplaceState successfully`, func() {
+			It(`Invoke ChangeServiceInstanceState successfully`, func() {
 				testService, testServiceErr := openservicebrokerv1.NewOpenServiceBrokerV1(&openservicebrokerv1.OpenServiceBrokerV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -312,26 +312,26 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 				Expect(testService).ToNot(BeNil())
 
 				// Invoke operation with nil options model (negative test)
-				result, response, operationErr := testService.ReplaceState(nil)
+				result, response, operationErr := testService.ChangeServiceInstanceState(nil)
 				Expect(operationErr).NotTo(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
 
-				// Construct an instance of the ReplaceStateOptions model
-				replaceStateOptionsModel := new(openservicebrokerv1.ReplaceStateOptions)
-				replaceStateOptionsModel.InstanceID = core.StringPtr("testString")
-				replaceStateOptionsModel.Enabled = core.BoolPtr(false)
-				replaceStateOptionsModel.InitiatorID = core.StringPtr("null")
-				replaceStateOptionsModel.ReasonCode = core.StringPtr("null")
- 				replaceStateOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the ChangeServiceInstanceStateOptions model
+				changeServiceInstanceStateOptionsModel := new(openservicebrokerv1.ChangeServiceInstanceStateOptions)
+				changeServiceInstanceStateOptionsModel.InstanceID = core.StringPtr("testString")
+				changeServiceInstanceStateOptionsModel.Enabled = core.BoolPtr(false)
+				changeServiceInstanceStateOptionsModel.InitiatorID = core.StringPtr("null")
+				changeServiceInstanceStateOptionsModel.ReasonCode = core.StringPtr("null")
+ 				changeServiceInstanceStateOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
-				result, response, operationErr = testService.ReplaceState(replaceStateOptionsModel)
+				result, response, operationErr = testService.ChangeServiceInstanceState(changeServiceInstanceStateOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
 			})
-			It(`Invoke ReplaceState with error: Operation validation and request error`, func() {
+			It(`Invoke ChangeServiceInstanceState with error: Operation validation and request error`, func() {
 				testService, testServiceErr := openservicebrokerv1.NewOpenServiceBrokerV1(&openservicebrokerv1.OpenServiceBrokerV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -339,25 +339,25 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 				Expect(testServiceErr).To(BeNil())
 				Expect(testService).ToNot(BeNil())
 
-				// Construct an instance of the ReplaceStateOptions model
-				replaceStateOptionsModel := new(openservicebrokerv1.ReplaceStateOptions)
-				replaceStateOptionsModel.InstanceID = core.StringPtr("testString")
-				replaceStateOptionsModel.Enabled = core.BoolPtr(false)
-				replaceStateOptionsModel.InitiatorID = core.StringPtr("null")
-				replaceStateOptionsModel.ReasonCode = core.StringPtr("null")
-				replaceStateOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the ChangeServiceInstanceStateOptions model
+				changeServiceInstanceStateOptionsModel := new(openservicebrokerv1.ChangeServiceInstanceStateOptions)
+				changeServiceInstanceStateOptionsModel.InstanceID = core.StringPtr("testString")
+				changeServiceInstanceStateOptionsModel.Enabled = core.BoolPtr(false)
+				changeServiceInstanceStateOptionsModel.InitiatorID = core.StringPtr("null")
+				changeServiceInstanceStateOptionsModel.ReasonCode = core.StringPtr("null")
+				changeServiceInstanceStateOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := testService.SetServiceURL("")
 				Expect(err).To(BeNil())
-				result, response, operationErr := testService.ReplaceState(replaceStateOptionsModel)
+				result, response, operationErr := testService.ChangeServiceInstanceState(changeServiceInstanceStateOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
-				// Construct a second instance of the ReplaceStateOptions model with no property values
-				replaceStateOptionsModelNew := new(openservicebrokerv1.ReplaceStateOptions)
+				// Construct a second instance of the ChangeServiceInstanceStateOptions model with no property values
+				changeServiceInstanceStateOptionsModelNew := new(openservicebrokerv1.ChangeServiceInstanceStateOptions)
 				// Invoke operation with invalid model (negative test)
-				result, response, operationErr = testService.ReplaceState(replaceStateOptionsModelNew)
+				result, response, operationErr = testService.ChangeServiceInstanceState(changeServiceInstanceStateOptionsModelNew)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
@@ -467,15 +467,15 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 			})
 		})
 	})
-	Describe(`ReplaceServiceInstance(replaceServiceInstanceOptions *ReplaceServiceInstanceOptions) - Operation response error`, func() {
-		replaceServiceInstancePath := "/v2/service_instances/testString"
+	Describe(`CreateServiceInstance(createServiceInstanceOptions *CreateServiceInstanceOptions) - Operation response error`, func() {
+		createServiceInstancePath := "/v2/service_instances/testString"
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.Path).To(Equal(replaceServiceInstancePath))
+					Expect(req.URL.Path).To(Equal(createServiceInstancePath))
 					Expect(req.Method).To(Equal("PUT"))
 
 					// TODO: Add check for accepts_incomplete query parameter
@@ -485,7 +485,7 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 					fmt.Fprintf(res, `} this is not valid json {`)
 				}))
 			})
-			It(`Invoke ReplaceServiceInstance with error: Operation response processing error`, func() {
+			It(`Invoke CreateServiceInstance with error: Operation response processing error`, func() {
 				testService, testServiceErr := openservicebrokerv1.NewOpenServiceBrokerV1(&openservicebrokerv1.OpenServiceBrokerV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -499,24 +499,19 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 				contextModel.Crn = core.StringPtr("null")
 				contextModel.Platform = core.StringPtr("null")
 
-				// Construct an instance of the Parameters model
-				parametersModel := new(openservicebrokerv1.Parameters)
-				parametersModel.Parameter1 = core.Int64Ptr(int64(38))
-				parametersModel.Parameter2 = core.StringPtr("null")
-
-				// Construct an instance of the ReplaceServiceInstanceOptions model
-				replaceServiceInstanceOptionsModel := new(openservicebrokerv1.ReplaceServiceInstanceOptions)
-				replaceServiceInstanceOptionsModel.InstanceID = core.StringPtr("testString")
-				replaceServiceInstanceOptionsModel.Context = []openservicebrokerv1.Context{*contextModel}
-				replaceServiceInstanceOptionsModel.OrganizationGuid = core.StringPtr("null")
-				replaceServiceInstanceOptionsModel.Parameters = []openservicebrokerv1.Parameters{*parametersModel}
-				replaceServiceInstanceOptionsModel.PlanID = core.StringPtr("null")
-				replaceServiceInstanceOptionsModel.ServiceID = core.StringPtr("null")
-				replaceServiceInstanceOptionsModel.SpaceGuid = core.StringPtr("null")
-				replaceServiceInstanceOptionsModel.AcceptsIncomplete = core.BoolPtr(true)
-				replaceServiceInstanceOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the CreateServiceInstanceOptions model
+				createServiceInstanceOptionsModel := new(openservicebrokerv1.CreateServiceInstanceOptions)
+				createServiceInstanceOptionsModel.InstanceID = core.StringPtr("testString")
+				createServiceInstanceOptionsModel.Context = contextModel
+				createServiceInstanceOptionsModel.OrganizationGuid = core.StringPtr("null")
+				createServiceInstanceOptionsModel.Parameters = make(map[string]string)
+				createServiceInstanceOptionsModel.PlanID = core.StringPtr("null")
+				createServiceInstanceOptionsModel.ServiceID = core.StringPtr("null")
+				createServiceInstanceOptionsModel.SpaceGuid = core.StringPtr("null")
+				createServiceInstanceOptionsModel.AcceptsIncomplete = core.BoolPtr(true)
+				createServiceInstanceOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
-				result, response, operationErr := testService.ReplaceServiceInstance(replaceServiceInstanceOptionsModel)
+				result, response, operationErr := testService.CreateServiceInstance(createServiceInstanceOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
@@ -527,15 +522,15 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 		})
 	})
 
-	Describe(`ReplaceServiceInstance(replaceServiceInstanceOptions *ReplaceServiceInstanceOptions)`, func() {
-		replaceServiceInstancePath := "/v2/service_instances/testString"
+	Describe(`CreateServiceInstance(createServiceInstanceOptions *CreateServiceInstanceOptions)`, func() {
+		createServiceInstancePath := "/v2/service_instances/testString"
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.Path).To(Equal(replaceServiceInstancePath))
+					Expect(req.URL.Path).To(Equal(createServiceInstancePath))
 					Expect(req.Method).To(Equal("PUT"))
 
 					// TODO: Add check for accepts_incomplete query parameter
@@ -545,7 +540,7 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 					fmt.Fprintf(res, `{"dashboard_url": "DashboardURL", "operation": "Operation"}`)
 				}))
 			})
-			It(`Invoke ReplaceServiceInstance successfully`, func() {
+			It(`Invoke CreateServiceInstance successfully`, func() {
 				testService, testServiceErr := openservicebrokerv1.NewOpenServiceBrokerV1(&openservicebrokerv1.OpenServiceBrokerV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -554,7 +549,7 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 				Expect(testService).ToNot(BeNil())
 
 				// Invoke operation with nil options model (negative test)
-				result, response, operationErr := testService.ReplaceServiceInstance(nil)
+				result, response, operationErr := testService.CreateServiceInstance(nil)
 				Expect(operationErr).NotTo(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
@@ -565,30 +560,25 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 				contextModel.Crn = core.StringPtr("null")
 				contextModel.Platform = core.StringPtr("null")
 
-				// Construct an instance of the Parameters model
-				parametersModel := new(openservicebrokerv1.Parameters)
-				parametersModel.Parameter1 = core.Int64Ptr(int64(38))
-				parametersModel.Parameter2 = core.StringPtr("null")
-
-				// Construct an instance of the ReplaceServiceInstanceOptions model
-				replaceServiceInstanceOptionsModel := new(openservicebrokerv1.ReplaceServiceInstanceOptions)
-				replaceServiceInstanceOptionsModel.InstanceID = core.StringPtr("testString")
-				replaceServiceInstanceOptionsModel.Context = []openservicebrokerv1.Context{*contextModel}
-				replaceServiceInstanceOptionsModel.OrganizationGuid = core.StringPtr("null")
-				replaceServiceInstanceOptionsModel.Parameters = []openservicebrokerv1.Parameters{*parametersModel}
-				replaceServiceInstanceOptionsModel.PlanID = core.StringPtr("null")
-				replaceServiceInstanceOptionsModel.ServiceID = core.StringPtr("null")
-				replaceServiceInstanceOptionsModel.SpaceGuid = core.StringPtr("null")
-				replaceServiceInstanceOptionsModel.AcceptsIncomplete = core.BoolPtr(true)
- 				replaceServiceInstanceOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the CreateServiceInstanceOptions model
+				createServiceInstanceOptionsModel := new(openservicebrokerv1.CreateServiceInstanceOptions)
+				createServiceInstanceOptionsModel.InstanceID = core.StringPtr("testString")
+				createServiceInstanceOptionsModel.Context = contextModel
+				createServiceInstanceOptionsModel.OrganizationGuid = core.StringPtr("null")
+				createServiceInstanceOptionsModel.Parameters = make(map[string]string)
+				createServiceInstanceOptionsModel.PlanID = core.StringPtr("null")
+				createServiceInstanceOptionsModel.ServiceID = core.StringPtr("null")
+				createServiceInstanceOptionsModel.SpaceGuid = core.StringPtr("null")
+				createServiceInstanceOptionsModel.AcceptsIncomplete = core.BoolPtr(true)
+ 				createServiceInstanceOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
-				result, response, operationErr = testService.ReplaceServiceInstance(replaceServiceInstanceOptionsModel)
+				result, response, operationErr = testService.CreateServiceInstance(createServiceInstanceOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
 			})
-			It(`Invoke ReplaceServiceInstance with error: Operation validation and request error`, func() {
+			It(`Invoke CreateServiceInstance with error: Operation validation and request error`, func() {
 				testService, testServiceErr := openservicebrokerv1.NewOpenServiceBrokerV1(&openservicebrokerv1.OpenServiceBrokerV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -602,34 +592,29 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 				contextModel.Crn = core.StringPtr("null")
 				contextModel.Platform = core.StringPtr("null")
 
-				// Construct an instance of the Parameters model
-				parametersModel := new(openservicebrokerv1.Parameters)
-				parametersModel.Parameter1 = core.Int64Ptr(int64(38))
-				parametersModel.Parameter2 = core.StringPtr("null")
-
-				// Construct an instance of the ReplaceServiceInstanceOptions model
-				replaceServiceInstanceOptionsModel := new(openservicebrokerv1.ReplaceServiceInstanceOptions)
-				replaceServiceInstanceOptionsModel.InstanceID = core.StringPtr("testString")
-				replaceServiceInstanceOptionsModel.Context = []openservicebrokerv1.Context{*contextModel}
-				replaceServiceInstanceOptionsModel.OrganizationGuid = core.StringPtr("null")
-				replaceServiceInstanceOptionsModel.Parameters = []openservicebrokerv1.Parameters{*parametersModel}
-				replaceServiceInstanceOptionsModel.PlanID = core.StringPtr("null")
-				replaceServiceInstanceOptionsModel.ServiceID = core.StringPtr("null")
-				replaceServiceInstanceOptionsModel.SpaceGuid = core.StringPtr("null")
-				replaceServiceInstanceOptionsModel.AcceptsIncomplete = core.BoolPtr(true)
-				replaceServiceInstanceOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the CreateServiceInstanceOptions model
+				createServiceInstanceOptionsModel := new(openservicebrokerv1.CreateServiceInstanceOptions)
+				createServiceInstanceOptionsModel.InstanceID = core.StringPtr("testString")
+				createServiceInstanceOptionsModel.Context = contextModel
+				createServiceInstanceOptionsModel.OrganizationGuid = core.StringPtr("null")
+				createServiceInstanceOptionsModel.Parameters = make(map[string]string)
+				createServiceInstanceOptionsModel.PlanID = core.StringPtr("null")
+				createServiceInstanceOptionsModel.ServiceID = core.StringPtr("null")
+				createServiceInstanceOptionsModel.SpaceGuid = core.StringPtr("null")
+				createServiceInstanceOptionsModel.AcceptsIncomplete = core.BoolPtr(true)
+				createServiceInstanceOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := testService.SetServiceURL("")
 				Expect(err).To(BeNil())
-				result, response, operationErr := testService.ReplaceServiceInstance(replaceServiceInstanceOptionsModel)
+				result, response, operationErr := testService.CreateServiceInstance(createServiceInstanceOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
-				// Construct a second instance of the ReplaceServiceInstanceOptions model with no property values
-				replaceServiceInstanceOptionsModelNew := new(openservicebrokerv1.ReplaceServiceInstanceOptions)
+				// Construct a second instance of the CreateServiceInstanceOptions model with no property values
+				createServiceInstanceOptionsModelNew := new(openservicebrokerv1.CreateServiceInstanceOptions)
 				// Invoke operation with invalid model (negative test)
-				result, response, operationErr = testService.ReplaceServiceInstance(replaceServiceInstanceOptionsModelNew)
+				result, response, operationErr = testService.CreateServiceInstance(createServiceInstanceOptionsModelNew)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
@@ -650,11 +635,10 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 					// Verify the contents of the request
 					Expect(req.URL.Path).To(Equal(updateServiceInstancePath))
 					Expect(req.Method).To(Equal("PATCH"))
-					Expect(req.URL.Query()["accepts_incomplete"]).To(Equal([]string{"testString"}))
 
-					res.Header().Set("Content-type", "application/json")
+					// TODO: Add check for accepts_incomplete query parameter
+
 					res.WriteHeader(200)
-					fmt.Fprintf(res, `"OperationResponse"`)
 				}))
 			})
 			It(`Invoke UpdateServiceInstance successfully`, func() {
@@ -666,10 +650,9 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 				Expect(testService).ToNot(BeNil())
 
 				// Invoke operation with nil options model (negative test)
-				result, response, operationErr := testService.UpdateServiceInstance(nil)
+				response, operationErr := testService.UpdateServiceInstance(nil)
 				Expect(operationErr).NotTo(BeNil())
 				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
 
 				// Construct an instance of the Context model
 				contextModel := new(openservicebrokerv1.Context)
@@ -677,27 +660,21 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 				contextModel.Crn = core.StringPtr("null")
 				contextModel.Platform = core.StringPtr("null")
 
-				// Construct an instance of the Parameters model
-				parametersModel := new(openservicebrokerv1.Parameters)
-				parametersModel.Parameter1 = core.Int64Ptr(int64(38))
-				parametersModel.Parameter2 = core.StringPtr("null")
-
 				// Construct an instance of the UpdateServiceInstanceOptions model
 				updateServiceInstanceOptionsModel := new(openservicebrokerv1.UpdateServiceInstanceOptions)
 				updateServiceInstanceOptionsModel.InstanceID = core.StringPtr("testString")
-				updateServiceInstanceOptionsModel.Context = []openservicebrokerv1.Context{*contextModel}
-				updateServiceInstanceOptionsModel.Parameters = parametersModel
+				updateServiceInstanceOptionsModel.Context = contextModel
+				updateServiceInstanceOptionsModel.Parameters = make(map[string]string)
 				updateServiceInstanceOptionsModel.PlanID = core.StringPtr("null")
-				updateServiceInstanceOptionsModel.PreviousValues = []string{"testString"}
+				updateServiceInstanceOptionsModel.PreviousValues = make(map[string]string)
 				updateServiceInstanceOptionsModel.ServiceID = core.StringPtr("null")
-				updateServiceInstanceOptionsModel.AcceptsIncomplete = core.StringPtr("testString")
+				updateServiceInstanceOptionsModel.AcceptsIncomplete = core.BoolPtr(true)
  				updateServiceInstanceOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
-				result, response, operationErr = testService.UpdateServiceInstance(updateServiceInstanceOptionsModel)
+				response, operationErr = testService.UpdateServiceInstance(updateServiceInstanceOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
-				Expect(result).ToNot(BeNil())
 			})
 			It(`Invoke UpdateServiceInstance with error: Operation validation and request error`, func() {
 				testService, testServiceErr := openservicebrokerv1.NewOpenServiceBrokerV1(&openservicebrokerv1.OpenServiceBrokerV1Options{
@@ -713,36 +690,29 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 				contextModel.Crn = core.StringPtr("null")
 				contextModel.Platform = core.StringPtr("null")
 
-				// Construct an instance of the Parameters model
-				parametersModel := new(openservicebrokerv1.Parameters)
-				parametersModel.Parameter1 = core.Int64Ptr(int64(38))
-				parametersModel.Parameter2 = core.StringPtr("null")
-
 				// Construct an instance of the UpdateServiceInstanceOptions model
 				updateServiceInstanceOptionsModel := new(openservicebrokerv1.UpdateServiceInstanceOptions)
 				updateServiceInstanceOptionsModel.InstanceID = core.StringPtr("testString")
-				updateServiceInstanceOptionsModel.Context = []openservicebrokerv1.Context{*contextModel}
-				updateServiceInstanceOptionsModel.Parameters = parametersModel
+				updateServiceInstanceOptionsModel.Context = contextModel
+				updateServiceInstanceOptionsModel.Parameters = make(map[string]string)
 				updateServiceInstanceOptionsModel.PlanID = core.StringPtr("null")
-				updateServiceInstanceOptionsModel.PreviousValues = []string{"testString"}
+				updateServiceInstanceOptionsModel.PreviousValues = make(map[string]string)
 				updateServiceInstanceOptionsModel.ServiceID = core.StringPtr("null")
-				updateServiceInstanceOptionsModel.AcceptsIncomplete = core.StringPtr("testString")
+				updateServiceInstanceOptionsModel.AcceptsIncomplete = core.BoolPtr(true)
 				updateServiceInstanceOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := testService.SetServiceURL("")
 				Expect(err).To(BeNil())
-				result, response, operationErr := testService.UpdateServiceInstance(updateServiceInstanceOptionsModel)
+				response, operationErr := testService.UpdateServiceInstance(updateServiceInstanceOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
 				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
 				// Construct a second instance of the UpdateServiceInstanceOptions model with no property values
 				updateServiceInstanceOptionsModelNew := new(openservicebrokerv1.UpdateServiceInstanceOptions)
 				// Invoke operation with invalid model (negative test)
-				result, response, operationErr = testService.UpdateServiceInstance(updateServiceInstanceOptionsModelNew)
+				response, operationErr = testService.UpdateServiceInstance(updateServiceInstanceOptionsModelNew)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
 			})
 			AfterEach(func() {
 				testServer.Close()
@@ -767,9 +737,7 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 
 					// TODO: Add check for accepts_incomplete query parameter
 
-					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, `"OperationResponse"`)
 				}))
 			})
 			It(`Invoke DeleteServiceInstance successfully`, func() {
@@ -781,10 +749,9 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 				Expect(testService).ToNot(BeNil())
 
 				// Invoke operation with nil options model (negative test)
-				result, response, operationErr := testService.DeleteServiceInstance(nil)
+				response, operationErr := testService.DeleteServiceInstance(nil)
 				Expect(operationErr).NotTo(BeNil())
 				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
 
 				// Construct an instance of the DeleteServiceInstanceOptions model
 				deleteServiceInstanceOptionsModel := new(openservicebrokerv1.DeleteServiceInstanceOptions)
@@ -795,10 +762,9 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
  				deleteServiceInstanceOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
-				result, response, operationErr = testService.DeleteServiceInstance(deleteServiceInstanceOptionsModel)
+				response, operationErr = testService.DeleteServiceInstance(deleteServiceInstanceOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
-				Expect(result).ToNot(BeNil())
 			})
 			It(`Invoke DeleteServiceInstance with error: Operation validation and request error`, func() {
 				testService, testServiceErr := openservicebrokerv1.NewOpenServiceBrokerV1(&openservicebrokerv1.OpenServiceBrokerV1Options{
@@ -818,18 +784,16 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 				// Invoke operation with empty URL (negative test)
 				err := testService.SetServiceURL("")
 				Expect(err).To(BeNil())
-				result, response, operationErr := testService.DeleteServiceInstance(deleteServiceInstanceOptionsModel)
+				response, operationErr := testService.DeleteServiceInstance(deleteServiceInstanceOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
 				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
 				// Construct a second instance of the DeleteServiceInstanceOptions model with no property values
 				deleteServiceInstanceOptionsModelNew := new(openservicebrokerv1.DeleteServiceInstanceOptions)
 				// Invoke operation with invalid model (negative test)
-				result, response, operationErr = testService.DeleteServiceInstance(deleteServiceInstanceOptionsModelNew)
+				response, operationErr = testService.DeleteServiceInstance(deleteServiceInstanceOptionsModelNew)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
 			})
 			AfterEach(func() {
 				testServer.Close()
@@ -936,22 +900,22 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 			})
 		})
 	})
-	Describe(`ListCatalog(listCatalogOptions *ListCatalogOptions) - Operation response error`, func() {
-		listCatalogPath := "/v2/catalog"
+	Describe(`GetCatalog(getCatalogOptions *GetCatalogOptions) - Operation response error`, func() {
+		getCatalogPath := "/v2/catalog"
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.Path).To(Equal(listCatalogPath))
+					Expect(req.URL.Path).To(Equal(getCatalogPath))
 					Expect(req.Method).To(Equal("GET"))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
 					fmt.Fprintf(res, `} this is not valid json {`)
 				}))
 			})
-			It(`Invoke ListCatalog with error: Operation response processing error`, func() {
+			It(`Invoke GetCatalog with error: Operation response processing error`, func() {
 				testService, testServiceErr := openservicebrokerv1.NewOpenServiceBrokerV1(&openservicebrokerv1.OpenServiceBrokerV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -959,11 +923,11 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 				Expect(testServiceErr).To(BeNil())
 				Expect(testService).ToNot(BeNil())
 
-				// Construct an instance of the ListCatalogOptions model
-				listCatalogOptionsModel := new(openservicebrokerv1.ListCatalogOptions)
-				listCatalogOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the GetCatalogOptions model
+				getCatalogOptionsModel := new(openservicebrokerv1.GetCatalogOptions)
+				getCatalogOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
-				result, response, operationErr := testService.ListCatalog(listCatalogOptionsModel)
+				result, response, operationErr := testService.GetCatalog(getCatalogOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
@@ -974,22 +938,22 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 		})
 	})
 
-	Describe(`ListCatalog(listCatalogOptions *ListCatalogOptions)`, func() {
-		listCatalogPath := "/v2/catalog"
+	Describe(`GetCatalog(getCatalogOptions *GetCatalogOptions)`, func() {
+		getCatalogPath := "/v2/catalog"
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.Path).To(Equal(listCatalogPath))
+					Expect(req.URL.Path).To(Equal(getCatalogPath))
 					Expect(req.Method).To(Equal("GET"))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, `[{"bindable": true, "description": "Description", "id": "ID", "name": "Name", "plan_updateable": true, "plans": [{"description": "Description", "free": true, "id": "ID", "name": "Name"}]}]`)
+					fmt.Fprintf(res, `{"services": [{"bindable": true, "description": "Description", "id": "ID", "name": "Name", "plan_updateable": true, "plans": [{"description": "Description", "free": true, "id": "ID", "name": "Name"}]}]}`)
 				}))
 			})
-			It(`Invoke ListCatalog successfully`, func() {
+			It(`Invoke GetCatalog successfully`, func() {
 				testService, testServiceErr := openservicebrokerv1.NewOpenServiceBrokerV1(&openservicebrokerv1.OpenServiceBrokerV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -998,22 +962,22 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 				Expect(testService).ToNot(BeNil())
 
 				// Invoke operation with nil options model (negative test)
-				result, response, operationErr := testService.ListCatalog(nil)
+				result, response, operationErr := testService.GetCatalog(nil)
 				Expect(operationErr).NotTo(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
 
-				// Construct an instance of the ListCatalogOptions model
-				listCatalogOptionsModel := new(openservicebrokerv1.ListCatalogOptions)
- 				listCatalogOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the GetCatalogOptions model
+				getCatalogOptionsModel := new(openservicebrokerv1.GetCatalogOptions)
+ 				getCatalogOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
-				result, response, operationErr = testService.ListCatalog(listCatalogOptionsModel)
+				result, response, operationErr = testService.GetCatalog(getCatalogOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
 			})
-			It(`Invoke ListCatalog with error: Operation request error`, func() {
+			It(`Invoke GetCatalog with error: Operation request error`, func() {
 				testService, testServiceErr := openservicebrokerv1.NewOpenServiceBrokerV1(&openservicebrokerv1.OpenServiceBrokerV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -1021,13 +985,13 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 				Expect(testServiceErr).To(BeNil())
 				Expect(testService).ToNot(BeNil())
 
-				// Construct an instance of the ListCatalogOptions model
-				listCatalogOptionsModel := new(openservicebrokerv1.ListCatalogOptions)
-				listCatalogOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the GetCatalogOptions model
+				getCatalogOptionsModel := new(openservicebrokerv1.GetCatalogOptions)
+				getCatalogOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := testService.SetServiceURL("")
 				Expect(err).To(BeNil())
-				result, response, operationErr := testService.ListCatalog(listCatalogOptionsModel)
+				result, response, operationErr := testService.GetCatalog(getCatalogOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
 				Expect(response).To(BeNil())
@@ -1138,15 +1102,15 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 			})
 		})
 	})
-	Describe(`ListLastOperation(listLastOperationOptions *ListLastOperationOptions) - Operation response error`, func() {
-		listLastOperationPath := "/v2/service_instances/testString/last_operation"
+	Describe(`GetLastOperation(getLastOperationOptions *GetLastOperationOptions) - Operation response error`, func() {
+		getLastOperationPath := "/v2/service_instances/testString/last_operation"
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.Path).To(Equal(listLastOperationPath))
+					Expect(req.URL.Path).To(Equal(getLastOperationPath))
 					Expect(req.Method).To(Equal("GET"))
 					Expect(req.URL.Query()["operation"]).To(Equal([]string{"testString"}))
 
@@ -1159,7 +1123,7 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 					fmt.Fprintf(res, `} this is not valid json {`)
 				}))
 			})
-			It(`Invoke ListLastOperation with error: Operation response processing error`, func() {
+			It(`Invoke GetLastOperation with error: Operation response processing error`, func() {
 				testService, testServiceErr := openservicebrokerv1.NewOpenServiceBrokerV1(&openservicebrokerv1.OpenServiceBrokerV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -1167,15 +1131,15 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 				Expect(testServiceErr).To(BeNil())
 				Expect(testService).ToNot(BeNil())
 
-				// Construct an instance of the ListLastOperationOptions model
-				listLastOperationOptionsModel := new(openservicebrokerv1.ListLastOperationOptions)
-				listLastOperationOptionsModel.InstanceID = core.StringPtr("testString")
-				listLastOperationOptionsModel.Operation = core.StringPtr("testString")
-				listLastOperationOptionsModel.PlanID = core.StringPtr("testString")
-				listLastOperationOptionsModel.ServiceID = core.StringPtr("testString")
-				listLastOperationOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the GetLastOperationOptions model
+				getLastOperationOptionsModel := new(openservicebrokerv1.GetLastOperationOptions)
+				getLastOperationOptionsModel.InstanceID = core.StringPtr("testString")
+				getLastOperationOptionsModel.Operation = core.StringPtr("testString")
+				getLastOperationOptionsModel.PlanID = core.StringPtr("testString")
+				getLastOperationOptionsModel.ServiceID = core.StringPtr("testString")
+				getLastOperationOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
-				result, response, operationErr := testService.ListLastOperation(listLastOperationOptionsModel)
+				result, response, operationErr := testService.GetLastOperation(getLastOperationOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
@@ -1186,15 +1150,15 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 		})
 	})
 
-	Describe(`ListLastOperation(listLastOperationOptions *ListLastOperationOptions)`, func() {
-		listLastOperationPath := "/v2/service_instances/testString/last_operation"
+	Describe(`GetLastOperation(getLastOperationOptions *GetLastOperationOptions)`, func() {
+		getLastOperationPath := "/v2/service_instances/testString/last_operation"
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.Path).To(Equal(listLastOperationPath))
+					Expect(req.URL.Path).To(Equal(getLastOperationPath))
 					Expect(req.Method).To(Equal("GET"))
 					Expect(req.URL.Query()["operation"]).To(Equal([]string{"testString"}))
 
@@ -1207,7 +1171,7 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 					fmt.Fprintf(res, `{"description": "Description", "state": "State"}`)
 				}))
 			})
-			It(`Invoke ListLastOperation successfully`, func() {
+			It(`Invoke GetLastOperation successfully`, func() {
 				testService, testServiceErr := openservicebrokerv1.NewOpenServiceBrokerV1(&openservicebrokerv1.OpenServiceBrokerV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -1216,26 +1180,26 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 				Expect(testService).ToNot(BeNil())
 
 				// Invoke operation with nil options model (negative test)
-				result, response, operationErr := testService.ListLastOperation(nil)
+				result, response, operationErr := testService.GetLastOperation(nil)
 				Expect(operationErr).NotTo(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
 
-				// Construct an instance of the ListLastOperationOptions model
-				listLastOperationOptionsModel := new(openservicebrokerv1.ListLastOperationOptions)
-				listLastOperationOptionsModel.InstanceID = core.StringPtr("testString")
-				listLastOperationOptionsModel.Operation = core.StringPtr("testString")
-				listLastOperationOptionsModel.PlanID = core.StringPtr("testString")
-				listLastOperationOptionsModel.ServiceID = core.StringPtr("testString")
- 				listLastOperationOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the GetLastOperationOptions model
+				getLastOperationOptionsModel := new(openservicebrokerv1.GetLastOperationOptions)
+				getLastOperationOptionsModel.InstanceID = core.StringPtr("testString")
+				getLastOperationOptionsModel.Operation = core.StringPtr("testString")
+				getLastOperationOptionsModel.PlanID = core.StringPtr("testString")
+				getLastOperationOptionsModel.ServiceID = core.StringPtr("testString")
+ 				getLastOperationOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
-				result, response, operationErr = testService.ListLastOperation(listLastOperationOptionsModel)
+				result, response, operationErr = testService.GetLastOperation(getLastOperationOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
 			})
-			It(`Invoke ListLastOperation with error: Operation validation and request error`, func() {
+			It(`Invoke GetLastOperation with error: Operation validation and request error`, func() {
 				testService, testServiceErr := openservicebrokerv1.NewOpenServiceBrokerV1(&openservicebrokerv1.OpenServiceBrokerV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -1243,25 +1207,25 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 				Expect(testServiceErr).To(BeNil())
 				Expect(testService).ToNot(BeNil())
 
-				// Construct an instance of the ListLastOperationOptions model
-				listLastOperationOptionsModel := new(openservicebrokerv1.ListLastOperationOptions)
-				listLastOperationOptionsModel.InstanceID = core.StringPtr("testString")
-				listLastOperationOptionsModel.Operation = core.StringPtr("testString")
-				listLastOperationOptionsModel.PlanID = core.StringPtr("testString")
-				listLastOperationOptionsModel.ServiceID = core.StringPtr("testString")
-				listLastOperationOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the GetLastOperationOptions model
+				getLastOperationOptionsModel := new(openservicebrokerv1.GetLastOperationOptions)
+				getLastOperationOptionsModel.InstanceID = core.StringPtr("testString")
+				getLastOperationOptionsModel.Operation = core.StringPtr("testString")
+				getLastOperationOptionsModel.PlanID = core.StringPtr("testString")
+				getLastOperationOptionsModel.ServiceID = core.StringPtr("testString")
+				getLastOperationOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := testService.SetServiceURL("")
 				Expect(err).To(BeNil())
-				result, response, operationErr := testService.ListLastOperation(listLastOperationOptionsModel)
+				result, response, operationErr := testService.GetLastOperation(getLastOperationOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
-				// Construct a second instance of the ListLastOperationOptions model with no property values
-				listLastOperationOptionsModelNew := new(openservicebrokerv1.ListLastOperationOptions)
+				// Construct a second instance of the GetLastOperationOptions model with no property values
+				getLastOperationOptionsModelNew := new(openservicebrokerv1.GetLastOperationOptions)
 				// Invoke operation with invalid model (negative test)
-				result, response, operationErr = testService.ListLastOperation(listLastOperationOptionsModelNew)
+				result, response, operationErr = testService.GetLastOperation(getLastOperationOptionsModelNew)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
@@ -1371,23 +1335,74 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 			})
 		})
 	})
-
-	Describe(`ReplaceServiceBinding(replaceServiceBindingOptions *ReplaceServiceBindingOptions)`, func() {
-		replaceServiceBindingPath := "/v2/service_instances/testString/service_bindings/testString"
+	Describe(`CreateServiceBinding(createServiceBindingOptions *CreateServiceBindingOptions) - Operation response error`, func() {
+		createServiceBindingPath := "/v2/service_instances/testString/service_bindings/testString"
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.Path).To(Equal(replaceServiceBindingPath))
+					Expect(req.URL.Path).To(Equal(createServiceBindingPath))
 					Expect(req.Method).To(Equal("PUT"))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, `"OperationResponse"`)
+					fmt.Fprintf(res, `} this is not valid json {`)
 				}))
 			})
-			It(`Invoke ReplaceServiceBinding successfully`, func() {
+			It(`Invoke CreateServiceBinding with error: Operation response processing error`, func() {
+				testService, testServiceErr := openservicebrokerv1.NewOpenServiceBrokerV1(&openservicebrokerv1.OpenServiceBrokerV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(testServiceErr).To(BeNil())
+				Expect(testService).ToNot(BeNil())
+
+				// Construct an instance of the BindResource model
+				bindResourceModel := new(openservicebrokerv1.BindResource)
+				bindResourceModel.AccountID = core.StringPtr("null")
+				bindResourceModel.ServiceidCrn = core.StringPtr("null")
+				bindResourceModel.TargetCrn = core.StringPtr("null")
+				bindResourceModel.AppGuid = core.StringPtr("null")
+				bindResourceModel.Route = core.StringPtr("null")
+
+				// Construct an instance of the CreateServiceBindingOptions model
+				createServiceBindingOptionsModel := new(openservicebrokerv1.CreateServiceBindingOptions)
+				createServiceBindingOptionsModel.BindingID = core.StringPtr("testString")
+				createServiceBindingOptionsModel.InstanceID = core.StringPtr("testString")
+				createServiceBindingOptionsModel.BindResource = bindResourceModel
+				createServiceBindingOptionsModel.Parameters = make(map[string]string)
+				createServiceBindingOptionsModel.PlanID = core.StringPtr("null")
+				createServiceBindingOptionsModel.ServiceID = core.StringPtr("null")
+				createServiceBindingOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Expect response parsing to fail since we are receiving a text/plain response
+				result, response, operationErr := testService.CreateServiceBinding(createServiceBindingOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+
+	Describe(`CreateServiceBinding(createServiceBindingOptions *CreateServiceBindingOptions)`, func() {
+		createServiceBindingPath := "/v2/service_instances/testString/service_bindings/testString"
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.Path).To(Equal(createServiceBindingPath))
+					Expect(req.Method).To(Equal("PUT"))
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, `{"credentials": {"anyKey": "anyValue"}, "syslog_drain_url": "SyslogDrainURL", "route_service_url": "RouteServiceURL", "volume_mounts": [{"driver": "Driver", "container_dir": "ContainerDir", "mode": "Mode", "device_type": "DeviceType", "device": "Device"}]}`)
+				}))
+			})
+			It(`Invoke CreateServiceBinding successfully`, func() {
 				testService, testServiceErr := openservicebrokerv1.NewOpenServiceBrokerV1(&openservicebrokerv1.OpenServiceBrokerV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -1396,7 +1411,7 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 				Expect(testService).ToNot(BeNil())
 
 				// Invoke operation with nil options model (negative test)
-				result, response, operationErr := testService.ReplaceServiceBinding(nil)
+				result, response, operationErr := testService.CreateServiceBinding(nil)
 				Expect(operationErr).NotTo(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
@@ -1406,24 +1421,26 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 				bindResourceModel.AccountID = core.StringPtr("null")
 				bindResourceModel.ServiceidCrn = core.StringPtr("null")
 				bindResourceModel.TargetCrn = core.StringPtr("null")
+				bindResourceModel.AppGuid = core.StringPtr("null")
+				bindResourceModel.Route = core.StringPtr("null")
 
-				// Construct an instance of the ReplaceServiceBindingOptions model
-				replaceServiceBindingOptionsModel := new(openservicebrokerv1.ReplaceServiceBindingOptions)
-				replaceServiceBindingOptionsModel.BindingID = core.StringPtr("testString")
-				replaceServiceBindingOptionsModel.InstanceID = core.StringPtr("testString")
-				replaceServiceBindingOptionsModel.BindResource = []openservicebrokerv1.BindResource{*bindResourceModel}
-				replaceServiceBindingOptionsModel.Parameters = map[string]interface{}{"anyKey": "anyValue"}
-				replaceServiceBindingOptionsModel.PlanID = core.StringPtr("null")
-				replaceServiceBindingOptionsModel.ServiceID = core.StringPtr("null")
- 				replaceServiceBindingOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the CreateServiceBindingOptions model
+				createServiceBindingOptionsModel := new(openservicebrokerv1.CreateServiceBindingOptions)
+				createServiceBindingOptionsModel.BindingID = core.StringPtr("testString")
+				createServiceBindingOptionsModel.InstanceID = core.StringPtr("testString")
+				createServiceBindingOptionsModel.BindResource = bindResourceModel
+				createServiceBindingOptionsModel.Parameters = make(map[string]string)
+				createServiceBindingOptionsModel.PlanID = core.StringPtr("null")
+				createServiceBindingOptionsModel.ServiceID = core.StringPtr("null")
+ 				createServiceBindingOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
-				result, response, operationErr = testService.ReplaceServiceBinding(replaceServiceBindingOptionsModel)
+				result, response, operationErr = testService.CreateServiceBinding(createServiceBindingOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
 			})
-			It(`Invoke ReplaceServiceBinding with error: Operation validation and request error`, func() {
+			It(`Invoke CreateServiceBinding with error: Operation validation and request error`, func() {
 				testService, testServiceErr := openservicebrokerv1.NewOpenServiceBrokerV1(&openservicebrokerv1.OpenServiceBrokerV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -1436,28 +1453,30 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 				bindResourceModel.AccountID = core.StringPtr("null")
 				bindResourceModel.ServiceidCrn = core.StringPtr("null")
 				bindResourceModel.TargetCrn = core.StringPtr("null")
+				bindResourceModel.AppGuid = core.StringPtr("null")
+				bindResourceModel.Route = core.StringPtr("null")
 
-				// Construct an instance of the ReplaceServiceBindingOptions model
-				replaceServiceBindingOptionsModel := new(openservicebrokerv1.ReplaceServiceBindingOptions)
-				replaceServiceBindingOptionsModel.BindingID = core.StringPtr("testString")
-				replaceServiceBindingOptionsModel.InstanceID = core.StringPtr("testString")
-				replaceServiceBindingOptionsModel.BindResource = []openservicebrokerv1.BindResource{*bindResourceModel}
-				replaceServiceBindingOptionsModel.Parameters = map[string]interface{}{"anyKey": "anyValue"}
-				replaceServiceBindingOptionsModel.PlanID = core.StringPtr("null")
-				replaceServiceBindingOptionsModel.ServiceID = core.StringPtr("null")
-				replaceServiceBindingOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the CreateServiceBindingOptions model
+				createServiceBindingOptionsModel := new(openservicebrokerv1.CreateServiceBindingOptions)
+				createServiceBindingOptionsModel.BindingID = core.StringPtr("testString")
+				createServiceBindingOptionsModel.InstanceID = core.StringPtr("testString")
+				createServiceBindingOptionsModel.BindResource = bindResourceModel
+				createServiceBindingOptionsModel.Parameters = make(map[string]string)
+				createServiceBindingOptionsModel.PlanID = core.StringPtr("null")
+				createServiceBindingOptionsModel.ServiceID = core.StringPtr("null")
+				createServiceBindingOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := testService.SetServiceURL("")
 				Expect(err).To(BeNil())
-				result, response, operationErr := testService.ReplaceServiceBinding(replaceServiceBindingOptionsModel)
+				result, response, operationErr := testService.CreateServiceBinding(createServiceBindingOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
-				// Construct a second instance of the ReplaceServiceBindingOptions model with no property values
-				replaceServiceBindingOptionsModelNew := new(openservicebrokerv1.ReplaceServiceBindingOptions)
+				// Construct a second instance of the CreateServiceBindingOptions model with no property values
+				createServiceBindingOptionsModelNew := new(openservicebrokerv1.CreateServiceBindingOptions)
 				// Invoke operation with invalid model (negative test)
-				result, response, operationErr = testService.ReplaceServiceBinding(replaceServiceBindingOptionsModelNew)
+				result, response, operationErr = testService.CreateServiceBinding(createServiceBindingOptionsModelNew)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
@@ -1482,9 +1501,7 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 
 					Expect(req.URL.Query()["service_id"]).To(Equal([]string{"testString"}))
 
-					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, `"OperationResponse"`)
 				}))
 			})
 			It(`Invoke DeleteServiceBinding successfully`, func() {
@@ -1496,10 +1513,9 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 				Expect(testService).ToNot(BeNil())
 
 				// Invoke operation with nil options model (negative test)
-				result, response, operationErr := testService.DeleteServiceBinding(nil)
+				response, operationErr := testService.DeleteServiceBinding(nil)
 				Expect(operationErr).NotTo(BeNil())
 				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
 
 				// Construct an instance of the DeleteServiceBindingOptions model
 				deleteServiceBindingOptionsModel := new(openservicebrokerv1.DeleteServiceBindingOptions)
@@ -1510,10 +1526,9 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
  				deleteServiceBindingOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
-				result, response, operationErr = testService.DeleteServiceBinding(deleteServiceBindingOptionsModel)
+				response, operationErr = testService.DeleteServiceBinding(deleteServiceBindingOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
-				Expect(result).ToNot(BeNil())
 			})
 			It(`Invoke DeleteServiceBinding with error: Operation validation and request error`, func() {
 				testService, testServiceErr := openservicebrokerv1.NewOpenServiceBrokerV1(&openservicebrokerv1.OpenServiceBrokerV1Options{
@@ -1533,18 +1548,16 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 				// Invoke operation with empty URL (negative test)
 				err := testService.SetServiceURL("")
 				Expect(err).To(BeNil())
-				result, response, operationErr := testService.DeleteServiceBinding(deleteServiceBindingOptionsModel)
+				response, operationErr := testService.DeleteServiceBinding(deleteServiceBindingOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
 				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
 				// Construct a second instance of the DeleteServiceBindingOptions model with no property values
 				deleteServiceBindingOptionsModelNew := new(openservicebrokerv1.DeleteServiceBindingOptions)
 				// Invoke operation with invalid model (negative test)
-				result, response, operationErr = testService.DeleteServiceBinding(deleteServiceBindingOptionsModelNew)
+				response, operationErr = testService.DeleteServiceBinding(deleteServiceBindingOptionsModelNew)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
 			})
 			AfterEach(func() {
 				testServer.Close()
@@ -1556,6 +1569,91 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 			testService, _ := openservicebrokerv1.NewOpenServiceBrokerV1(&openservicebrokerv1.OpenServiceBrokerV1Options{
 				URL:           "http://openservicebrokerv1modelgenerator.com",
 				Authenticator: &core.NoAuthAuthenticator{},
+			})
+			It(`Invoke NewChangeServiceInstanceStateOptions successfully`, func() {
+				// Construct an instance of the ChangeServiceInstanceStateOptions model
+				instanceID := "testString"
+				changeServiceInstanceStateOptionsModel := testService.NewChangeServiceInstanceStateOptions(instanceID)
+				changeServiceInstanceStateOptionsModel.SetInstanceID("testString")
+				changeServiceInstanceStateOptionsModel.SetEnabled(false)
+				changeServiceInstanceStateOptionsModel.SetInitiatorID("null")
+				changeServiceInstanceStateOptionsModel.SetReasonCode("null")
+				changeServiceInstanceStateOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(changeServiceInstanceStateOptionsModel).ToNot(BeNil())
+				Expect(changeServiceInstanceStateOptionsModel.InstanceID).To(Equal(core.StringPtr("testString")))
+				Expect(changeServiceInstanceStateOptionsModel.Enabled).To(Equal(core.BoolPtr(false)))
+				Expect(changeServiceInstanceStateOptionsModel.InitiatorID).To(Equal(core.StringPtr("null")))
+				Expect(changeServiceInstanceStateOptionsModel.ReasonCode).To(Equal(core.StringPtr("null")))
+				Expect(changeServiceInstanceStateOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
+			It(`Invoke NewCreateServiceBindingOptions successfully`, func() {
+				// Construct an instance of the BindResource model
+				bindResourceModel := new(openservicebrokerv1.BindResource)
+				Expect(bindResourceModel).ToNot(BeNil())
+				bindResourceModel.AccountID = core.StringPtr("null")
+				bindResourceModel.ServiceidCrn = core.StringPtr("null")
+				bindResourceModel.TargetCrn = core.StringPtr("null")
+				bindResourceModel.AppGuid = core.StringPtr("null")
+				bindResourceModel.Route = core.StringPtr("null")
+				Expect(bindResourceModel.AccountID).To(Equal(core.StringPtr("null")))
+				Expect(bindResourceModel.ServiceidCrn).To(Equal(core.StringPtr("null")))
+				Expect(bindResourceModel.TargetCrn).To(Equal(core.StringPtr("null")))
+				Expect(bindResourceModel.AppGuid).To(Equal(core.StringPtr("null")))
+				Expect(bindResourceModel.Route).To(Equal(core.StringPtr("null")))
+
+				// Construct an instance of the CreateServiceBindingOptions model
+				bindingID := "testString"
+				instanceID := "testString"
+				createServiceBindingOptionsModel := testService.NewCreateServiceBindingOptions(bindingID, instanceID)
+				createServiceBindingOptionsModel.SetBindingID("testString")
+				createServiceBindingOptionsModel.SetInstanceID("testString")
+				createServiceBindingOptionsModel.SetBindResource(bindResourceModel)
+				createServiceBindingOptionsModel.SetParameters(make(map[string]string))
+				createServiceBindingOptionsModel.SetPlanID("null")
+				createServiceBindingOptionsModel.SetServiceID("null")
+				createServiceBindingOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(createServiceBindingOptionsModel).ToNot(BeNil())
+				Expect(createServiceBindingOptionsModel.BindingID).To(Equal(core.StringPtr("testString")))
+				Expect(createServiceBindingOptionsModel.InstanceID).To(Equal(core.StringPtr("testString")))
+				Expect(createServiceBindingOptionsModel.BindResource).To(Equal(bindResourceModel))
+				Expect(createServiceBindingOptionsModel.Parameters).To(Equal(make(map[string]string)))
+				Expect(createServiceBindingOptionsModel.PlanID).To(Equal(core.StringPtr("null")))
+				Expect(createServiceBindingOptionsModel.ServiceID).To(Equal(core.StringPtr("null")))
+				Expect(createServiceBindingOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
+			It(`Invoke NewCreateServiceInstanceOptions successfully`, func() {
+				// Construct an instance of the Context model
+				contextModel := new(openservicebrokerv1.Context)
+				Expect(contextModel).ToNot(BeNil())
+				contextModel.AccountID = core.StringPtr("null")
+				contextModel.Crn = core.StringPtr("null")
+				contextModel.Platform = core.StringPtr("null")
+				Expect(contextModel.AccountID).To(Equal(core.StringPtr("null")))
+				Expect(contextModel.Crn).To(Equal(core.StringPtr("null")))
+				Expect(contextModel.Platform).To(Equal(core.StringPtr("null")))
+
+				// Construct an instance of the CreateServiceInstanceOptions model
+				instanceID := "testString"
+				createServiceInstanceOptionsModel := testService.NewCreateServiceInstanceOptions(instanceID)
+				createServiceInstanceOptionsModel.SetInstanceID("testString")
+				createServiceInstanceOptionsModel.SetContext(contextModel)
+				createServiceInstanceOptionsModel.SetOrganizationGuid("null")
+				createServiceInstanceOptionsModel.SetParameters(make(map[string]string))
+				createServiceInstanceOptionsModel.SetPlanID("null")
+				createServiceInstanceOptionsModel.SetServiceID("null")
+				createServiceInstanceOptionsModel.SetSpaceGuid("null")
+				createServiceInstanceOptionsModel.SetAcceptsIncomplete(true)
+				createServiceInstanceOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(createServiceInstanceOptionsModel).ToNot(BeNil())
+				Expect(createServiceInstanceOptionsModel.InstanceID).To(Equal(core.StringPtr("testString")))
+				Expect(createServiceInstanceOptionsModel.Context).To(Equal(contextModel))
+				Expect(createServiceInstanceOptionsModel.OrganizationGuid).To(Equal(core.StringPtr("null")))
+				Expect(createServiceInstanceOptionsModel.Parameters).To(Equal(make(map[string]string)))
+				Expect(createServiceInstanceOptionsModel.PlanID).To(Equal(core.StringPtr("null")))
+				Expect(createServiceInstanceOptionsModel.ServiceID).To(Equal(core.StringPtr("null")))
+				Expect(createServiceInstanceOptionsModel.SpaceGuid).To(Equal(core.StringPtr("null")))
+				Expect(createServiceInstanceOptionsModel.AcceptsIncomplete).To(Equal(core.BoolPtr(true)))
+				Expect(createServiceInstanceOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewDeleteServiceBindingOptions successfully`, func() {
 				// Construct an instance of the DeleteServiceBindingOptions model
@@ -1594,6 +1692,29 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 				Expect(deleteServiceInstanceOptionsModel.AcceptsIncomplete).To(Equal(core.BoolPtr(true)))
 				Expect(deleteServiceInstanceOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
+			It(`Invoke NewGetCatalogOptions successfully`, func() {
+				// Construct an instance of the GetCatalogOptions model
+				getCatalogOptionsModel := testService.NewGetCatalogOptions()
+				getCatalogOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(getCatalogOptionsModel).ToNot(BeNil())
+				Expect(getCatalogOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
+			It(`Invoke NewGetLastOperationOptions successfully`, func() {
+				// Construct an instance of the GetLastOperationOptions model
+				instanceID := "testString"
+				getLastOperationOptionsModel := testService.NewGetLastOperationOptions(instanceID)
+				getLastOperationOptionsModel.SetInstanceID("testString")
+				getLastOperationOptionsModel.SetOperation("testString")
+				getLastOperationOptionsModel.SetPlanID("testString")
+				getLastOperationOptionsModel.SetServiceID("testString")
+				getLastOperationOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(getLastOperationOptionsModel).ToNot(BeNil())
+				Expect(getLastOperationOptionsModel.InstanceID).To(Equal(core.StringPtr("testString")))
+				Expect(getLastOperationOptionsModel.Operation).To(Equal(core.StringPtr("testString")))
+				Expect(getLastOperationOptionsModel.PlanID).To(Equal(core.StringPtr("testString")))
+				Expect(getLastOperationOptionsModel.ServiceID).To(Equal(core.StringPtr("testString")))
+				Expect(getLastOperationOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
 			It(`Invoke NewGetServiceInstanceStateOptions successfully`, func() {
 				// Construct an instance of the GetServiceInstanceStateOptions model
 				instanceID := "testString"
@@ -1603,118 +1724,6 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 				Expect(getServiceInstanceStateOptionsModel).ToNot(BeNil())
 				Expect(getServiceInstanceStateOptionsModel.InstanceID).To(Equal(core.StringPtr("testString")))
 				Expect(getServiceInstanceStateOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
-			})
-			It(`Invoke NewListCatalogOptions successfully`, func() {
-				// Construct an instance of the ListCatalogOptions model
-				listCatalogOptionsModel := testService.NewListCatalogOptions()
-				listCatalogOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
-				Expect(listCatalogOptionsModel).ToNot(BeNil())
-				Expect(listCatalogOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
-			})
-			It(`Invoke NewListLastOperationOptions successfully`, func() {
-				// Construct an instance of the ListLastOperationOptions model
-				instanceID := "testString"
-				listLastOperationOptionsModel := testService.NewListLastOperationOptions(instanceID)
-				listLastOperationOptionsModel.SetInstanceID("testString")
-				listLastOperationOptionsModel.SetOperation("testString")
-				listLastOperationOptionsModel.SetPlanID("testString")
-				listLastOperationOptionsModel.SetServiceID("testString")
-				listLastOperationOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
-				Expect(listLastOperationOptionsModel).ToNot(BeNil())
-				Expect(listLastOperationOptionsModel.InstanceID).To(Equal(core.StringPtr("testString")))
-				Expect(listLastOperationOptionsModel.Operation).To(Equal(core.StringPtr("testString")))
-				Expect(listLastOperationOptionsModel.PlanID).To(Equal(core.StringPtr("testString")))
-				Expect(listLastOperationOptionsModel.ServiceID).To(Equal(core.StringPtr("testString")))
-				Expect(listLastOperationOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
-			})
-			It(`Invoke NewReplaceServiceBindingOptions successfully`, func() {
-				// Construct an instance of the BindResource model
-				bindResourceModel := new(openservicebrokerv1.BindResource)
-				Expect(bindResourceModel).ToNot(BeNil())
-				bindResourceModel.AccountID = core.StringPtr("null")
-				bindResourceModel.ServiceidCrn = core.StringPtr("null")
-				bindResourceModel.TargetCrn = core.StringPtr("null")
-				Expect(bindResourceModel.AccountID).To(Equal(core.StringPtr("null")))
-				Expect(bindResourceModel.ServiceidCrn).To(Equal(core.StringPtr("null")))
-				Expect(bindResourceModel.TargetCrn).To(Equal(core.StringPtr("null")))
-
-				// Construct an instance of the ReplaceServiceBindingOptions model
-				bindingID := "testString"
-				instanceID := "testString"
-				replaceServiceBindingOptionsModel := testService.NewReplaceServiceBindingOptions(bindingID, instanceID)
-				replaceServiceBindingOptionsModel.SetBindingID("testString")
-				replaceServiceBindingOptionsModel.SetInstanceID("testString")
-				replaceServiceBindingOptionsModel.SetBindResource([]openservicebrokerv1.BindResource{*bindResourceModel})
-				replaceServiceBindingOptionsModel.SetParameters(map[string]interface{}{"anyKey": "anyValue"})
-				replaceServiceBindingOptionsModel.SetPlanID("null")
-				replaceServiceBindingOptionsModel.SetServiceID("null")
-				replaceServiceBindingOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
-				Expect(replaceServiceBindingOptionsModel).ToNot(BeNil())
-				Expect(replaceServiceBindingOptionsModel.BindingID).To(Equal(core.StringPtr("testString")))
-				Expect(replaceServiceBindingOptionsModel.InstanceID).To(Equal(core.StringPtr("testString")))
-				Expect(replaceServiceBindingOptionsModel.BindResource).To(Equal([]openservicebrokerv1.BindResource{*bindResourceModel}))
-				Expect(replaceServiceBindingOptionsModel.Parameters).To(Equal(map[string]interface{}{"anyKey": "anyValue"}))
-				Expect(replaceServiceBindingOptionsModel.PlanID).To(Equal(core.StringPtr("null")))
-				Expect(replaceServiceBindingOptionsModel.ServiceID).To(Equal(core.StringPtr("null")))
-				Expect(replaceServiceBindingOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
-			})
-			It(`Invoke NewReplaceServiceInstanceOptions successfully`, func() {
-				// Construct an instance of the Context model
-				contextModel := new(openservicebrokerv1.Context)
-				Expect(contextModel).ToNot(BeNil())
-				contextModel.AccountID = core.StringPtr("null")
-				contextModel.Crn = core.StringPtr("null")
-				contextModel.Platform = core.StringPtr("null")
-				Expect(contextModel.AccountID).To(Equal(core.StringPtr("null")))
-				Expect(contextModel.Crn).To(Equal(core.StringPtr("null")))
-				Expect(contextModel.Platform).To(Equal(core.StringPtr("null")))
-
-				// Construct an instance of the Parameters model
-				parametersModel := new(openservicebrokerv1.Parameters)
-				Expect(parametersModel).ToNot(BeNil())
-				parametersModel.Parameter1 = core.Int64Ptr(int64(38))
-				parametersModel.Parameter2 = core.StringPtr("null")
-				Expect(parametersModel.Parameter1).To(Equal(core.Int64Ptr(int64(38))))
-				Expect(parametersModel.Parameter2).To(Equal(core.StringPtr("null")))
-
-				// Construct an instance of the ReplaceServiceInstanceOptions model
-				instanceID := "testString"
-				replaceServiceInstanceOptionsModel := testService.NewReplaceServiceInstanceOptions(instanceID)
-				replaceServiceInstanceOptionsModel.SetInstanceID("testString")
-				replaceServiceInstanceOptionsModel.SetContext([]openservicebrokerv1.Context{*contextModel})
-				replaceServiceInstanceOptionsModel.SetOrganizationGuid("null")
-				replaceServiceInstanceOptionsModel.SetParameters([]openservicebrokerv1.Parameters{*parametersModel})
-				replaceServiceInstanceOptionsModel.SetPlanID("null")
-				replaceServiceInstanceOptionsModel.SetServiceID("null")
-				replaceServiceInstanceOptionsModel.SetSpaceGuid("null")
-				replaceServiceInstanceOptionsModel.SetAcceptsIncomplete(true)
-				replaceServiceInstanceOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
-				Expect(replaceServiceInstanceOptionsModel).ToNot(BeNil())
-				Expect(replaceServiceInstanceOptionsModel.InstanceID).To(Equal(core.StringPtr("testString")))
-				Expect(replaceServiceInstanceOptionsModel.Context).To(Equal([]openservicebrokerv1.Context{*contextModel}))
-				Expect(replaceServiceInstanceOptionsModel.OrganizationGuid).To(Equal(core.StringPtr("null")))
-				Expect(replaceServiceInstanceOptionsModel.Parameters).To(Equal([]openservicebrokerv1.Parameters{*parametersModel}))
-				Expect(replaceServiceInstanceOptionsModel.PlanID).To(Equal(core.StringPtr("null")))
-				Expect(replaceServiceInstanceOptionsModel.ServiceID).To(Equal(core.StringPtr("null")))
-				Expect(replaceServiceInstanceOptionsModel.SpaceGuid).To(Equal(core.StringPtr("null")))
-				Expect(replaceServiceInstanceOptionsModel.AcceptsIncomplete).To(Equal(core.BoolPtr(true)))
-				Expect(replaceServiceInstanceOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
-			})
-			It(`Invoke NewReplaceStateOptions successfully`, func() {
-				// Construct an instance of the ReplaceStateOptions model
-				instanceID := "testString"
-				replaceStateOptionsModel := testService.NewReplaceStateOptions(instanceID)
-				replaceStateOptionsModel.SetInstanceID("testString")
-				replaceStateOptionsModel.SetEnabled(false)
-				replaceStateOptionsModel.SetInitiatorID("null")
-				replaceStateOptionsModel.SetReasonCode("null")
-				replaceStateOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
-				Expect(replaceStateOptionsModel).ToNot(BeNil())
-				Expect(replaceStateOptionsModel.InstanceID).To(Equal(core.StringPtr("testString")))
-				Expect(replaceStateOptionsModel.Enabled).To(Equal(core.BoolPtr(false)))
-				Expect(replaceStateOptionsModel.InitiatorID).To(Equal(core.StringPtr("null")))
-				Expect(replaceStateOptionsModel.ReasonCode).To(Equal(core.StringPtr("null")))
-				Expect(replaceStateOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewUpdateServiceInstanceOptions successfully`, func() {
 				// Construct an instance of the Context model
@@ -1727,33 +1736,25 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 				Expect(contextModel.Crn).To(Equal(core.StringPtr("null")))
 				Expect(contextModel.Platform).To(Equal(core.StringPtr("null")))
 
-				// Construct an instance of the Parameters model
-				parametersModel := new(openservicebrokerv1.Parameters)
-				Expect(parametersModel).ToNot(BeNil())
-				parametersModel.Parameter1 = core.Int64Ptr(int64(38))
-				parametersModel.Parameter2 = core.StringPtr("null")
-				Expect(parametersModel.Parameter1).To(Equal(core.Int64Ptr(int64(38))))
-				Expect(parametersModel.Parameter2).To(Equal(core.StringPtr("null")))
-
 				// Construct an instance of the UpdateServiceInstanceOptions model
 				instanceID := "testString"
 				updateServiceInstanceOptionsModel := testService.NewUpdateServiceInstanceOptions(instanceID)
 				updateServiceInstanceOptionsModel.SetInstanceID("testString")
-				updateServiceInstanceOptionsModel.SetContext([]openservicebrokerv1.Context{*contextModel})
-				updateServiceInstanceOptionsModel.SetParameters(parametersModel)
+				updateServiceInstanceOptionsModel.SetContext(contextModel)
+				updateServiceInstanceOptionsModel.SetParameters(make(map[string]string))
 				updateServiceInstanceOptionsModel.SetPlanID("null")
-				updateServiceInstanceOptionsModel.SetPreviousValues([]string{"testString"})
+				updateServiceInstanceOptionsModel.SetPreviousValues(make(map[string]string))
 				updateServiceInstanceOptionsModel.SetServiceID("null")
-				updateServiceInstanceOptionsModel.SetAcceptsIncomplete("testString")
+				updateServiceInstanceOptionsModel.SetAcceptsIncomplete(true)
 				updateServiceInstanceOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(updateServiceInstanceOptionsModel).ToNot(BeNil())
 				Expect(updateServiceInstanceOptionsModel.InstanceID).To(Equal(core.StringPtr("testString")))
-				Expect(updateServiceInstanceOptionsModel.Context).To(Equal([]openservicebrokerv1.Context{*contextModel}))
-				Expect(updateServiceInstanceOptionsModel.Parameters).To(Equal(parametersModel))
+				Expect(updateServiceInstanceOptionsModel.Context).To(Equal(contextModel))
+				Expect(updateServiceInstanceOptionsModel.Parameters).To(Equal(make(map[string]string)))
 				Expect(updateServiceInstanceOptionsModel.PlanID).To(Equal(core.StringPtr("null")))
-				Expect(updateServiceInstanceOptionsModel.PreviousValues).To(Equal([]string{"testString"}))
+				Expect(updateServiceInstanceOptionsModel.PreviousValues).To(Equal(make(map[string]string)))
 				Expect(updateServiceInstanceOptionsModel.ServiceID).To(Equal(core.StringPtr("null")))
-				Expect(updateServiceInstanceOptionsModel.AcceptsIncomplete).To(Equal(core.StringPtr("testString")))
+				Expect(updateServiceInstanceOptionsModel.AcceptsIncomplete).To(Equal(core.BoolPtr(true)))
 				Expect(updateServiceInstanceOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 		})

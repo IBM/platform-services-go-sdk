@@ -161,7 +161,7 @@ func (openServiceBroker *OpenServiceBrokerV1) GetServiceInstanceState(getService
 	return
 }
 
-// ReplaceState : Update the state of a provisioned service instance
+// ChangeServiceInstanceState : Update the state of a provisioned service instance
 // Update (disable or enable) the state of a provisioned service instance. As a service provider you need a way to
 // manage provisioned service instances. If an account comes past due, you may need a to disable the service (without
 // deleting it), and when the account is settled re-enable the service. This endpoint allows the provider to enable or
@@ -171,18 +171,18 @@ func (openServiceBroker *OpenServiceBrokerV1) GetServiceInstanceState(getService
 // to enable / disable (respectively) the service.  Additionally, If a bind request comes in for a disabled service, the
 // broker should reject that request with any code other than `204`, and provide a user-facing message in the
 // description.
-func (openServiceBroker *OpenServiceBrokerV1) ReplaceState(replaceStateOptions *ReplaceStateOptions) (result *Resp2448145Root, response *core.DetailedResponse, err error) {
-	err = core.ValidateNotNil(replaceStateOptions, "replaceStateOptions cannot be nil")
+func (openServiceBroker *OpenServiceBrokerV1) ChangeServiceInstanceState(changeServiceInstanceStateOptions *ChangeServiceInstanceStateOptions) (result *Resp2448145Root, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(changeServiceInstanceStateOptions, "changeServiceInstanceStateOptions cannot be nil")
 	if err != nil {
 		return
 	}
-	err = core.ValidateStruct(replaceStateOptions, "replaceStateOptions")
+	err = core.ValidateStruct(changeServiceInstanceStateOptions, "changeServiceInstanceStateOptions")
 	if err != nil {
 		return
 	}
 
 	pathSegments := []string{"bluemix_v1/service_instances"}
-	pathParameters := []string{*replaceStateOptions.InstanceID}
+	pathParameters := []string{*changeServiceInstanceStateOptions.InstanceID}
 
 	builder := core.NewRequestBuilder(core.PUT)
 	_, err = builder.ConstructHTTPURL(openServiceBroker.Service.Options.URL, pathSegments, pathParameters)
@@ -190,11 +190,11 @@ func (openServiceBroker *OpenServiceBrokerV1) ReplaceState(replaceStateOptions *
 		return
 	}
 
-	for headerName, headerValue := range replaceStateOptions.Headers {
+	for headerName, headerValue := range changeServiceInstanceStateOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("open_service_broker", "V1", "ReplaceState")
+	sdkHeaders := common.GetSdkHeaders("open_service_broker", "V1", "ChangeServiceInstanceState")
 	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
@@ -202,14 +202,14 @@ func (openServiceBroker *OpenServiceBrokerV1) ReplaceState(replaceStateOptions *
 	builder.AddHeader("Content-Type", "application/json")
 
 	body := make(map[string]interface{})
-	if replaceStateOptions.Enabled != nil {
-		body["enabled"] = replaceStateOptions.Enabled
+	if changeServiceInstanceStateOptions.Enabled != nil {
+		body["enabled"] = changeServiceInstanceStateOptions.Enabled
 	}
-	if replaceStateOptions.InitiatorID != nil {
-		body["initiator_id"] = replaceStateOptions.InitiatorID
+	if changeServiceInstanceStateOptions.InitiatorID != nil {
+		body["initiator_id"] = changeServiceInstanceStateOptions.InitiatorID
 	}
-	if replaceStateOptions.ReasonCode != nil {
-		body["reason_code"] = replaceStateOptions.ReasonCode
+	if changeServiceInstanceStateOptions.ReasonCode != nil {
+		body["reason_code"] = changeServiceInstanceStateOptions.ReasonCode
 	}
 	_, err = builder.SetBodyContentJSON(body)
 	if err != nil {
@@ -235,7 +235,7 @@ func (openServiceBroker *OpenServiceBrokerV1) ReplaceState(replaceStateOptions *
 	return
 }
 
-// ReplaceServiceInstance : Create (provision) a service instance
+// CreateServiceInstance : Create (provision) a service instance
 // Create a service instance with GUID. When your service broker receives a provision request from the IBM Cloud
 // platform, it MUST take whatever action is necessary to create a new resource.
 //
@@ -247,18 +247,18 @@ func (openServiceBroker *OpenServiceBrokerV1) ReplaceState(replaceStateOptions *
 // - The IBM Cloud context is included in the context variable
 // - The X-Broker-API-Originating-Identity will have the IBM IAM ID of the user that initiated the request
 // - The parameters section will include the requested location (and additional parameters required by your service).
-func (openServiceBroker *OpenServiceBrokerV1) ReplaceServiceInstance(replaceServiceInstanceOptions *ReplaceServiceInstanceOptions) (result *Resp2079872Root, response *core.DetailedResponse, err error) {
-	err = core.ValidateNotNil(replaceServiceInstanceOptions, "replaceServiceInstanceOptions cannot be nil")
+func (openServiceBroker *OpenServiceBrokerV1) CreateServiceInstance(createServiceInstanceOptions *CreateServiceInstanceOptions) (result *Resp2079872Root, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(createServiceInstanceOptions, "createServiceInstanceOptions cannot be nil")
 	if err != nil {
 		return
 	}
-	err = core.ValidateStruct(replaceServiceInstanceOptions, "replaceServiceInstanceOptions")
+	err = core.ValidateStruct(createServiceInstanceOptions, "createServiceInstanceOptions")
 	if err != nil {
 		return
 	}
 
 	pathSegments := []string{"v2/service_instances"}
-	pathParameters := []string{*replaceServiceInstanceOptions.InstanceID}
+	pathParameters := []string{*createServiceInstanceOptions.InstanceID}
 
 	builder := core.NewRequestBuilder(core.PUT)
 	_, err = builder.ConstructHTTPURL(openServiceBroker.Service.Options.URL, pathSegments, pathParameters)
@@ -266,39 +266,39 @@ func (openServiceBroker *OpenServiceBrokerV1) ReplaceServiceInstance(replaceServ
 		return
 	}
 
-	for headerName, headerValue := range replaceServiceInstanceOptions.Headers {
+	for headerName, headerValue := range createServiceInstanceOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("open_service_broker", "V1", "ReplaceServiceInstance")
+	sdkHeaders := common.GetSdkHeaders("open_service_broker", "V1", "CreateServiceInstance")
 	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
 	builder.AddHeader("Content-Type", "application/json")
 
-	if replaceServiceInstanceOptions.AcceptsIncomplete != nil {
-		builder.AddQuery("accepts_incomplete", fmt.Sprint(*replaceServiceInstanceOptions.AcceptsIncomplete))
+	if createServiceInstanceOptions.AcceptsIncomplete != nil {
+		builder.AddQuery("accepts_incomplete", fmt.Sprint(*createServiceInstanceOptions.AcceptsIncomplete))
 	}
 
 	body := make(map[string]interface{})
-	if replaceServiceInstanceOptions.Context != nil {
-		body["context"] = replaceServiceInstanceOptions.Context
+	if createServiceInstanceOptions.Context != nil {
+		body["context"] = createServiceInstanceOptions.Context
 	}
-	if replaceServiceInstanceOptions.OrganizationGuid != nil {
-		body["organization_guid"] = replaceServiceInstanceOptions.OrganizationGuid
+	if createServiceInstanceOptions.OrganizationGuid != nil {
+		body["organization_guid"] = createServiceInstanceOptions.OrganizationGuid
 	}
-	if replaceServiceInstanceOptions.Parameters != nil {
-		body["parameters"] = replaceServiceInstanceOptions.Parameters
+	if createServiceInstanceOptions.Parameters != nil {
+		body["parameters"] = createServiceInstanceOptions.Parameters
 	}
-	if replaceServiceInstanceOptions.PlanID != nil {
-		body["plan_id"] = replaceServiceInstanceOptions.PlanID
+	if createServiceInstanceOptions.PlanID != nil {
+		body["plan_id"] = createServiceInstanceOptions.PlanID
 	}
-	if replaceServiceInstanceOptions.ServiceID != nil {
-		body["service_id"] = replaceServiceInstanceOptions.ServiceID
+	if createServiceInstanceOptions.ServiceID != nil {
+		body["service_id"] = createServiceInstanceOptions.ServiceID
 	}
-	if replaceServiceInstanceOptions.SpaceGuid != nil {
-		body["space_guid"] = replaceServiceInstanceOptions.SpaceGuid
+	if createServiceInstanceOptions.SpaceGuid != nil {
+		body["space_guid"] = createServiceInstanceOptions.SpaceGuid
 	}
 	_, err = builder.SetBodyContentJSON(body)
 	if err != nil {
@@ -331,7 +331,7 @@ func (openServiceBroker *OpenServiceBrokerV1) ReplaceServiceInstance(replaceServ
 //
 // To enable support for the update of the plan, a broker MUST declare support per service by specifying
 // `"plan_updateable": true` in your brokers' catalog.json.
-func (openServiceBroker *OpenServiceBrokerV1) UpdateServiceInstance(updateServiceInstanceOptions *UpdateServiceInstanceOptions) (result *string, response *core.DetailedResponse, err error) {
+func (openServiceBroker *OpenServiceBrokerV1) UpdateServiceInstance(updateServiceInstanceOptions *UpdateServiceInstanceOptions) (response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(updateServiceInstanceOptions, "updateServiceInstanceOptions cannot be nil")
 	if err != nil {
 		return
@@ -391,7 +391,7 @@ func (openServiceBroker *OpenServiceBrokerV1) UpdateServiceInstance(updateServic
 		return
 	}
 
-	response, err = openServiceBroker.Service.Request(request, &result)
+	response, err = openServiceBroker.Service.Request(request, nil)
 
 	return
 }
@@ -400,7 +400,7 @@ func (openServiceBroker *OpenServiceBrokerV1) UpdateServiceInstance(updateServic
 // Delete (deprovision) a service instance by GUID. When a service broker receives a deprovision request from the IBM
 // Cloud platform, it MUST delete any resources it created during the provision. Usually this means that all resources
 // are immediately reclaimed for future provisions.
-func (openServiceBroker *OpenServiceBrokerV1) DeleteServiceInstance(deleteServiceInstanceOptions *DeleteServiceInstanceOptions) (result *string, response *core.DetailedResponse, err error) {
+func (openServiceBroker *OpenServiceBrokerV1) DeleteServiceInstance(deleteServiceInstanceOptions *DeleteServiceInstanceOptions) (response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(deleteServiceInstanceOptions, "deleteServiceInstanceOptions cannot be nil")
 	if err != nil {
 		return
@@ -440,12 +440,12 @@ func (openServiceBroker *OpenServiceBrokerV1) DeleteServiceInstance(deleteServic
 		return
 	}
 
-	response, err = openServiceBroker.Service.Request(request, &result)
+	response, err = openServiceBroker.Service.Request(request, nil)
 
 	return
 }
 
-// ListCatalog : Get the catalog metadata stored within the broker
+// GetCatalog : Get the catalog metadata stored within the broker
 // This endpoints defines the contract between the broker and the IBM Cloud platform for the services and plans that the
 // broker supports. This endpoint returns the catalog metadata stored within your broker. These values define the
 // minimal provisioning contract between your service and the IBM Cloud platform. All additional catalog metadata that
@@ -454,8 +454,8 @@ func (openServiceBroker *OpenServiceBrokerV1) DeleteServiceInstance(deleteServic
 // Resource Management Console (RMC), and not housed in your broker. None of metadata stored in your broker is displayed
 // in the IBM Cloud console or the IBM Cloud CLI; the console and CLI will return what was set withn RMC and stored in
 // the IBM Cloud catalog.
-func (openServiceBroker *OpenServiceBrokerV1) ListCatalog(listCatalogOptions *ListCatalogOptions) (result []Services, response *core.DetailedResponse, err error) {
-	err = core.ValidateStruct(listCatalogOptions, "listCatalogOptions")
+func (openServiceBroker *OpenServiceBrokerV1) GetCatalog(getCatalogOptions *GetCatalogOptions) (result *Resp1874650Root, response *core.DetailedResponse, err error) {
+	err = core.ValidateStruct(getCatalogOptions, "getCatalogOptions")
 	if err != nil {
 		return
 	}
@@ -469,11 +469,11 @@ func (openServiceBroker *OpenServiceBrokerV1) ListCatalog(listCatalogOptions *Li
 		return
 	}
 
-	for headerName, headerValue := range listCatalogOptions.Headers {
+	for headerName, headerValue := range getCatalogOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("open_service_broker", "V1", "ListCatalog")
+	sdkHeaders := common.GetSdkHeaders("open_service_broker", "V1", "GetCatalog")
 	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
@@ -484,12 +484,12 @@ func (openServiceBroker *OpenServiceBrokerV1) ListCatalog(listCatalogOptions *Li
 		return
 	}
 
-	var rawResponse []json.RawMessage
+	var rawResponse map[string]json.RawMessage
 	response, err = openServiceBroker.Service.Request(request, &rawResponse)
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalServices)
+	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalResp1874650Root)
 	if err != nil {
 		return
 	}
@@ -498,7 +498,7 @@ func (openServiceBroker *OpenServiceBrokerV1) ListCatalog(listCatalogOptions *Li
 	return
 }
 
-// ListLastOperation : Get the current status of a provision in-progress for a service instance
+// GetLastOperation : Get the current status of a provision in-progress for a service instance
 // Get `last_operation` for instance by GUID (for asynchronous provision calls). When a broker returns status code `202
 // Accepted` during a provision, update, or deprovision call, the IBM Cloud platform will begin polling the
 // `last_operation` endpoint to obtain the state of the last requested operation. The broker response MUST contain the
@@ -508,18 +508,18 @@ func (openServiceBroker *OpenServiceBrokerV1) ListCatalog(listCatalogOptions *Li
 // `endpoint as long as the broker returns "state": "in progress". Returning "state": "succeeded" or "state": "failed"
 // will cause the platform to cease polling. The value provided for description will be passed through to the platform
 // API client and can be used to provide additional detail for users about the progress of the operation.
-func (openServiceBroker *OpenServiceBrokerV1) ListLastOperation(listLastOperationOptions *ListLastOperationOptions) (result *Resp2079894Root, response *core.DetailedResponse, err error) {
-	err = core.ValidateNotNil(listLastOperationOptions, "listLastOperationOptions cannot be nil")
+func (openServiceBroker *OpenServiceBrokerV1) GetLastOperation(getLastOperationOptions *GetLastOperationOptions) (result *Resp2079894Root, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(getLastOperationOptions, "getLastOperationOptions cannot be nil")
 	if err != nil {
 		return
 	}
-	err = core.ValidateStruct(listLastOperationOptions, "listLastOperationOptions")
+	err = core.ValidateStruct(getLastOperationOptions, "getLastOperationOptions")
 	if err != nil {
 		return
 	}
 
 	pathSegments := []string{"v2/service_instances", "last_operation"}
-	pathParameters := []string{*listLastOperationOptions.InstanceID}
+	pathParameters := []string{*getLastOperationOptions.InstanceID}
 
 	builder := core.NewRequestBuilder(core.GET)
 	_, err = builder.ConstructHTTPURL(openServiceBroker.Service.Options.URL, pathSegments, pathParameters)
@@ -527,24 +527,24 @@ func (openServiceBroker *OpenServiceBrokerV1) ListLastOperation(listLastOperatio
 		return
 	}
 
-	for headerName, headerValue := range listLastOperationOptions.Headers {
+	for headerName, headerValue := range getLastOperationOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("open_service_broker", "V1", "ListLastOperation")
+	sdkHeaders := common.GetSdkHeaders("open_service_broker", "V1", "GetLastOperation")
 	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
 
-	if listLastOperationOptions.Operation != nil {
-		builder.AddQuery("operation", fmt.Sprint(*listLastOperationOptions.Operation))
+	if getLastOperationOptions.Operation != nil {
+		builder.AddQuery("operation", fmt.Sprint(*getLastOperationOptions.Operation))
 	}
-	if listLastOperationOptions.PlanID != nil {
-		builder.AddQuery("plan_id", fmt.Sprint(*listLastOperationOptions.PlanID))
+	if getLastOperationOptions.PlanID != nil {
+		builder.AddQuery("plan_id", fmt.Sprint(*getLastOperationOptions.PlanID))
 	}
-	if listLastOperationOptions.ServiceID != nil {
-		builder.AddQuery("service_id", fmt.Sprint(*listLastOperationOptions.ServiceID))
+	if getLastOperationOptions.ServiceID != nil {
+		builder.AddQuery("service_id", fmt.Sprint(*getLastOperationOptions.ServiceID))
 	}
 
 	request, err := builder.Build()
@@ -566,7 +566,7 @@ func (openServiceBroker *OpenServiceBrokerV1) ListLastOperation(listLastOperatio
 	return
 }
 
-// ReplaceServiceBinding : Bind a service instance to another resource
+// CreateServiceBinding : Bind a service instance to another resource
 // Create binding by GUID on service instance.
 //
 // If your service can be bound to applications in IBM Cloud, `bindable:true` must be specified in the catalog.json of
@@ -576,18 +576,18 @@ func (openServiceBroker *OpenServiceBrokerV1) ListLastOperation(listLastOperatio
 //
 // See the OSB 2.12 spec for more details on
 // [binding](https://github.com/openservicebrokerapi/servicebroker/blob/v2.12/spec.md#binding).
-func (openServiceBroker *OpenServiceBrokerV1) ReplaceServiceBinding(replaceServiceBindingOptions *ReplaceServiceBindingOptions) (result *string, response *core.DetailedResponse, err error) {
-	err = core.ValidateNotNil(replaceServiceBindingOptions, "replaceServiceBindingOptions cannot be nil")
+func (openServiceBroker *OpenServiceBrokerV1) CreateServiceBinding(createServiceBindingOptions *CreateServiceBindingOptions) (result *Resp2079876Root, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(createServiceBindingOptions, "createServiceBindingOptions cannot be nil")
 	if err != nil {
 		return
 	}
-	err = core.ValidateStruct(replaceServiceBindingOptions, "replaceServiceBindingOptions")
+	err = core.ValidateStruct(createServiceBindingOptions, "createServiceBindingOptions")
 	if err != nil {
 		return
 	}
 
 	pathSegments := []string{"v2/service_instances", "service_bindings"}
-	pathParameters := []string{*replaceServiceBindingOptions.BindingID, *replaceServiceBindingOptions.InstanceID}
+	pathParameters := []string{*createServiceBindingOptions.BindingID, *createServiceBindingOptions.InstanceID}
 
 	builder := core.NewRequestBuilder(core.PUT)
 	_, err = builder.ConstructHTTPURL(openServiceBroker.Service.Options.URL, pathSegments, pathParameters)
@@ -595,11 +595,11 @@ func (openServiceBroker *OpenServiceBrokerV1) ReplaceServiceBinding(replaceServi
 		return
 	}
 
-	for headerName, headerValue := range replaceServiceBindingOptions.Headers {
+	for headerName, headerValue := range createServiceBindingOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("open_service_broker", "V1", "ReplaceServiceBinding")
+	sdkHeaders := common.GetSdkHeaders("open_service_broker", "V1", "CreateServiceBinding")
 	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
@@ -607,17 +607,17 @@ func (openServiceBroker *OpenServiceBrokerV1) ReplaceServiceBinding(replaceServi
 	builder.AddHeader("Content-Type", "application/json")
 
 	body := make(map[string]interface{})
-	if replaceServiceBindingOptions.BindResource != nil {
-		body["bind_resource"] = replaceServiceBindingOptions.BindResource
+	if createServiceBindingOptions.BindResource != nil {
+		body["bind_resource"] = createServiceBindingOptions.BindResource
 	}
-	if replaceServiceBindingOptions.Parameters != nil {
-		body["parameters"] = replaceServiceBindingOptions.Parameters
+	if createServiceBindingOptions.Parameters != nil {
+		body["parameters"] = createServiceBindingOptions.Parameters
 	}
-	if replaceServiceBindingOptions.PlanID != nil {
-		body["plan_id"] = replaceServiceBindingOptions.PlanID
+	if createServiceBindingOptions.PlanID != nil {
+		body["plan_id"] = createServiceBindingOptions.PlanID
 	}
-	if replaceServiceBindingOptions.ServiceID != nil {
-		body["service_id"] = replaceServiceBindingOptions.ServiceID
+	if createServiceBindingOptions.ServiceID != nil {
+		body["service_id"] = createServiceBindingOptions.ServiceID
 	}
 	_, err = builder.SetBodyContentJSON(body)
 	if err != nil {
@@ -629,7 +629,16 @@ func (openServiceBroker *OpenServiceBrokerV1) ReplaceServiceBinding(replaceServi
 		return
 	}
 
-	response, err = openServiceBroker.Service.Request(request, &result)
+	var rawResponse map[string]json.RawMessage
+	response, err = openServiceBroker.Service.Request(request, &rawResponse)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalResp2079876Root)
+	if err != nil {
+		return
+	}
+	response.Result = result
 
 	return
 }
@@ -642,7 +651,7 @@ func (openServiceBroker *OpenServiceBrokerV1) ReplaceServiceBinding(replaceServi
 // failing to authenticate.
 //
 // **Note**: Brokers that do not provide any bindable services or plans do not need to implement this endpoint.
-func (openServiceBroker *OpenServiceBrokerV1) DeleteServiceBinding(deleteServiceBindingOptions *DeleteServiceBindingOptions) (result *string, response *core.DetailedResponse, err error) {
+func (openServiceBroker *OpenServiceBrokerV1) DeleteServiceBinding(deleteServiceBindingOptions *DeleteServiceBindingOptions) (response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(deleteServiceBindingOptions, "deleteServiceBindingOptions cannot be nil")
 	if err != nil {
 		return
@@ -679,9 +688,250 @@ func (openServiceBroker *OpenServiceBrokerV1) DeleteServiceBinding(deleteService
 		return
 	}
 
-	response, err = openServiceBroker.Service.Request(request, &result)
+	response, err = openServiceBroker.Service.Request(request, nil)
 
 	return
+}
+
+// ChangeServiceInstanceStateOptions : The ChangeServiceInstanceState options.
+type ChangeServiceInstanceStateOptions struct {
+	// The `instance_id` of a service instance is provided by the IBM Cloud platform. This ID will be used for future
+	// requests to bind and deprovision, so the broker can use it to correlate the resource it creates.
+	InstanceID *string `json:"instance_id" validate:"required"`
+
+	// Indicates the current state of the service instance.
+	Enabled *bool `json:"enabled,omitempty"`
+
+	// Optional string that shows the user ID that is initiating the call.
+	InitiatorID *string `json:"initiator_id,omitempty"`
+
+	// Optional string that states the reason code for the service instance state change. Valid values are
+	// `IBMCLOUD_ACCT_ACTIVATE`, `IBMCLOUD_RECLAMATION_RESTORE`, or `IBMCLOUD_SERVICE_INSTANCE_BELOW_CAP` for enable calls;
+	// `IBMCLOUD_ACCT_SUSPEND`, `IBMCLOUD_RECLAMATION_SCHEDULE`, or `IBMCLOUD_SERVICE_INSTANCE_ABOVE_CAP` for disable
+	// calls; and `IBMCLOUD_ADMIN_REQUEST` for enable and disable calls.<br/><br/>Previously accepted values had a `BMX_`
+	// prefix, such as `BMX_ACCT_ACTIVATE`. These values are deprecated.
+	ReasonCode *string `json:"reason_code,omitempty"`
+
+	// Allows users to set headers on API requests
+	Headers map[string]string
+}
+
+// NewChangeServiceInstanceStateOptions : Instantiate ChangeServiceInstanceStateOptions
+func (*OpenServiceBrokerV1) NewChangeServiceInstanceStateOptions(instanceID string) *ChangeServiceInstanceStateOptions {
+	return &ChangeServiceInstanceStateOptions{
+		InstanceID: core.StringPtr(instanceID),
+	}
+}
+
+// SetInstanceID : Allow user to set InstanceID
+func (options *ChangeServiceInstanceStateOptions) SetInstanceID(instanceID string) *ChangeServiceInstanceStateOptions {
+	options.InstanceID = core.StringPtr(instanceID)
+	return options
+}
+
+// SetEnabled : Allow user to set Enabled
+func (options *ChangeServiceInstanceStateOptions) SetEnabled(enabled bool) *ChangeServiceInstanceStateOptions {
+	options.Enabled = core.BoolPtr(enabled)
+	return options
+}
+
+// SetInitiatorID : Allow user to set InitiatorID
+func (options *ChangeServiceInstanceStateOptions) SetInitiatorID(initiatorID string) *ChangeServiceInstanceStateOptions {
+	options.InitiatorID = core.StringPtr(initiatorID)
+	return options
+}
+
+// SetReasonCode : Allow user to set ReasonCode
+func (options *ChangeServiceInstanceStateOptions) SetReasonCode(reasonCode string) *ChangeServiceInstanceStateOptions {
+	options.ReasonCode = core.StringPtr(reasonCode)
+	return options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *ChangeServiceInstanceStateOptions) SetHeaders(param map[string]string) *ChangeServiceInstanceStateOptions {
+	options.Headers = param
+	return options
+}
+
+// CreateServiceBindingOptions : The CreateServiceBinding options.
+type CreateServiceBindingOptions struct {
+	// The `binding_id` is provided by the IBM Cloud platform. This ID will be used for future unbind requests, so the
+	// broker can use it to correlate the resource it creates.
+	BindingID *string `json:"binding_id" validate:"required"`
+
+	// The :`instance_id` is the ID of a previously provisioned service instance.
+	InstanceID *string `json:"instance_id" validate:"required"`
+
+	// A JSON object that contains data for platform resources associated with the binding to be created.
+	BindResource *BindResource `json:"bind_resource,omitempty"`
+
+	// Configuration options for the service instance. An opaque object, controller treats this as a blob. Brokers should
+	// ensure that the client has provided valid configuration parameters and values for the operation. If this field is
+	// not present in the request message, then the broker MUST NOT change the parameters of the instance as a result of
+	// this request.
+	Parameters map[string]string `json:"parameters,omitempty"`
+
+	// The ID of the plan from the catalog.json in your broker. If present, it MUST be a non-empty string.
+	PlanID *string `json:"plan_id,omitempty"`
+
+	// The ID of the service from the catalog.json in your broker. If present, it MUST be a non-empty string.
+	ServiceID *string `json:"service_id,omitempty"`
+
+	// Allows users to set headers on API requests
+	Headers map[string]string
+}
+
+// NewCreateServiceBindingOptions : Instantiate CreateServiceBindingOptions
+func (*OpenServiceBrokerV1) NewCreateServiceBindingOptions(bindingID string, instanceID string) *CreateServiceBindingOptions {
+	return &CreateServiceBindingOptions{
+		BindingID: core.StringPtr(bindingID),
+		InstanceID: core.StringPtr(instanceID),
+	}
+}
+
+// SetBindingID : Allow user to set BindingID
+func (options *CreateServiceBindingOptions) SetBindingID(bindingID string) *CreateServiceBindingOptions {
+	options.BindingID = core.StringPtr(bindingID)
+	return options
+}
+
+// SetInstanceID : Allow user to set InstanceID
+func (options *CreateServiceBindingOptions) SetInstanceID(instanceID string) *CreateServiceBindingOptions {
+	options.InstanceID = core.StringPtr(instanceID)
+	return options
+}
+
+// SetBindResource : Allow user to set BindResource
+func (options *CreateServiceBindingOptions) SetBindResource(bindResource *BindResource) *CreateServiceBindingOptions {
+	options.BindResource = bindResource
+	return options
+}
+
+// SetParameters : Allow user to set Parameters
+func (options *CreateServiceBindingOptions) SetParameters(parameters map[string]string) *CreateServiceBindingOptions {
+	options.Parameters = parameters
+	return options
+}
+
+// SetPlanID : Allow user to set PlanID
+func (options *CreateServiceBindingOptions) SetPlanID(planID string) *CreateServiceBindingOptions {
+	options.PlanID = core.StringPtr(planID)
+	return options
+}
+
+// SetServiceID : Allow user to set ServiceID
+func (options *CreateServiceBindingOptions) SetServiceID(serviceID string) *CreateServiceBindingOptions {
+	options.ServiceID = core.StringPtr(serviceID)
+	return options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *CreateServiceBindingOptions) SetHeaders(param map[string]string) *CreateServiceBindingOptions {
+	options.Headers = param
+	return options
+}
+
+// CreateServiceInstanceOptions : The CreateServiceInstance options.
+type CreateServiceInstanceOptions struct {
+	// The `instance_id` of a service instance is provided by the IBM Cloud platform. This ID will be used for future
+	// requests to bind and deprovision, so the broker can use it to correlate the resource it creates.
+	InstanceID *string `json:"instance_id" validate:"required"`
+
+	// Platform specific contextual information under which the service instance is to be provisioned.
+	Context *Context `json:"context,omitempty"`
+
+	// Deprecated in favor of `context`. The identifier for the project space within the IBM Cloud platform organization.
+	// Although most brokers will not use this field, it might be helpful for executing operations on a user's behalf. It
+	// MUST be a non-empty string.
+	OrganizationGuid *string `json:"organization_guid,omitempty"`
+
+	// Configuration options for the service instance. An opaque object, controller treats this as a blob. Brokers should
+	// ensure that the client has provided valid configuration parameters and values for the operation. If this field is
+	// not present in the request message, then the broker MUST NOT change the parameters of the instance as a result of
+	// this request.
+	Parameters map[string]string `json:"parameters,omitempty"`
+
+	// The ID of the plan for which the service instance has been requested, which is stored in the catalog.json of your
+	// broker. This value should be a GUID and it MUST be unique to a service.
+	PlanID *string `json:"plan_id,omitempty"`
+
+	// The ID of the service stored in the catalog.json of your broker. This value should be a GUID and it MUST be a
+	// non-empty string.
+	ServiceID *string `json:"service_id,omitempty"`
+
+	// Deprecated in favor of `context`. The IBM Cloud platform GUID for the organization under which the service instance
+	// is to be provisioned. Although most brokers will not use this field, it might be helpful for executing operations on
+	// a user's behalf. It MUST be a non-empty string.
+	SpaceGuid *string `json:"space_guid,omitempty"`
+
+	// A value of true indicates that both the IBM Cloud platform and the requesting client support asynchronous
+	// deprovisioning. If this parameter is not included in the request, and the broker can only deprovision a service
+	// instance of the requested plan asynchronously, the broker MUST reject the request with a `422` Unprocessable Entity.
+	AcceptsIncomplete *bool `json:"accepts_incomplete,omitempty"`
+
+	// Allows users to set headers on API requests
+	Headers map[string]string
+}
+
+// NewCreateServiceInstanceOptions : Instantiate CreateServiceInstanceOptions
+func (*OpenServiceBrokerV1) NewCreateServiceInstanceOptions(instanceID string) *CreateServiceInstanceOptions {
+	return &CreateServiceInstanceOptions{
+		InstanceID: core.StringPtr(instanceID),
+	}
+}
+
+// SetInstanceID : Allow user to set InstanceID
+func (options *CreateServiceInstanceOptions) SetInstanceID(instanceID string) *CreateServiceInstanceOptions {
+	options.InstanceID = core.StringPtr(instanceID)
+	return options
+}
+
+// SetContext : Allow user to set Context
+func (options *CreateServiceInstanceOptions) SetContext(context *Context) *CreateServiceInstanceOptions {
+	options.Context = context
+	return options
+}
+
+// SetOrganizationGuid : Allow user to set OrganizationGuid
+func (options *CreateServiceInstanceOptions) SetOrganizationGuid(organizationGuid string) *CreateServiceInstanceOptions {
+	options.OrganizationGuid = core.StringPtr(organizationGuid)
+	return options
+}
+
+// SetParameters : Allow user to set Parameters
+func (options *CreateServiceInstanceOptions) SetParameters(parameters map[string]string) *CreateServiceInstanceOptions {
+	options.Parameters = parameters
+	return options
+}
+
+// SetPlanID : Allow user to set PlanID
+func (options *CreateServiceInstanceOptions) SetPlanID(planID string) *CreateServiceInstanceOptions {
+	options.PlanID = core.StringPtr(planID)
+	return options
+}
+
+// SetServiceID : Allow user to set ServiceID
+func (options *CreateServiceInstanceOptions) SetServiceID(serviceID string) *CreateServiceInstanceOptions {
+	options.ServiceID = core.StringPtr(serviceID)
+	return options
+}
+
+// SetSpaceGuid : Allow user to set SpaceGuid
+func (options *CreateServiceInstanceOptions) SetSpaceGuid(spaceGuid string) *CreateServiceInstanceOptions {
+	options.SpaceGuid = core.StringPtr(spaceGuid)
+	return options
+}
+
+// SetAcceptsIncomplete : Allow user to set AcceptsIncomplete
+func (options *CreateServiceInstanceOptions) SetAcceptsIncomplete(acceptsIncomplete bool) *CreateServiceInstanceOptions {
+	options.AcceptsIncomplete = core.BoolPtr(acceptsIncomplete)
+	return options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *CreateServiceInstanceOptions) SetHeaders(param map[string]string) *CreateServiceInstanceOptions {
+	options.Headers = param
+	return options
 }
 
 // DeleteServiceBindingOptions : The DeleteServiceBinding options.
@@ -803,6 +1053,81 @@ func (options *DeleteServiceInstanceOptions) SetHeaders(param map[string]string)
 	return options
 }
 
+// GetCatalogOptions : The GetCatalog options.
+type GetCatalogOptions struct {
+
+	// Allows users to set headers on API requests
+	Headers map[string]string
+}
+
+// NewGetCatalogOptions : Instantiate GetCatalogOptions
+func (*OpenServiceBrokerV1) NewGetCatalogOptions() *GetCatalogOptions {
+	return &GetCatalogOptions{}
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *GetCatalogOptions) SetHeaders(param map[string]string) *GetCatalogOptions {
+	options.Headers = param
+	return options
+}
+
+// GetLastOperationOptions : The GetLastOperation options.
+type GetLastOperationOptions struct {
+	// The unique instance ID generated during provisioning by the IBM Cloud platform.
+	InstanceID *string `json:"instance_id" validate:"required"`
+
+	// A broker-provided identifier for the operation. When a value for operation is included with asynchronous responses
+	// for provision and update, and deprovision requests, the IBM Cloud platform will provide the same value using this
+	// query parameter as a URL-encoded string. If present, MUST be a non-empty string.
+	Operation *string `json:"operation,omitempty"`
+
+	// ID of the plan from the catalog.json in your broker. If present, MUST be a non-empty string.
+	PlanID *string `json:"plan_id,omitempty"`
+
+	// ID of the service from the catalog.json in your service broker. If present, MUST be a non-empty string.
+	ServiceID *string `json:"service_id,omitempty"`
+
+	// Allows users to set headers on API requests
+	Headers map[string]string
+}
+
+// NewGetLastOperationOptions : Instantiate GetLastOperationOptions
+func (*OpenServiceBrokerV1) NewGetLastOperationOptions(instanceID string) *GetLastOperationOptions {
+	return &GetLastOperationOptions{
+		InstanceID: core.StringPtr(instanceID),
+	}
+}
+
+// SetInstanceID : Allow user to set InstanceID
+func (options *GetLastOperationOptions) SetInstanceID(instanceID string) *GetLastOperationOptions {
+	options.InstanceID = core.StringPtr(instanceID)
+	return options
+}
+
+// SetOperation : Allow user to set Operation
+func (options *GetLastOperationOptions) SetOperation(operation string) *GetLastOperationOptions {
+	options.Operation = core.StringPtr(operation)
+	return options
+}
+
+// SetPlanID : Allow user to set PlanID
+func (options *GetLastOperationOptions) SetPlanID(planID string) *GetLastOperationOptions {
+	options.PlanID = core.StringPtr(planID)
+	return options
+}
+
+// SetServiceID : Allow user to set ServiceID
+func (options *GetLastOperationOptions) SetServiceID(serviceID string) *GetLastOperationOptions {
+	options.ServiceID = core.StringPtr(serviceID)
+	return options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *GetLastOperationOptions) SetHeaders(param map[string]string) *GetLastOperationOptions {
+	options.Headers = param
+	return options
+}
+
 // GetServiceInstanceStateOptions : The GetServiceInstanceState options.
 type GetServiceInstanceStateOptions struct {
 	// The `instance_id` of a service instance is provided by the IBM Cloud platform. This ID will be used for future
@@ -828,316 +1153,6 @@ func (options *GetServiceInstanceStateOptions) SetInstanceID(instanceID string) 
 
 // SetHeaders : Allow user to set Headers
 func (options *GetServiceInstanceStateOptions) SetHeaders(param map[string]string) *GetServiceInstanceStateOptions {
-	options.Headers = param
-	return options
-}
-
-// ListCatalogOptions : The ListCatalog options.
-type ListCatalogOptions struct {
-
-	// Allows users to set headers on API requests
-	Headers map[string]string
-}
-
-// NewListCatalogOptions : Instantiate ListCatalogOptions
-func (*OpenServiceBrokerV1) NewListCatalogOptions() *ListCatalogOptions {
-	return &ListCatalogOptions{}
-}
-
-// SetHeaders : Allow user to set Headers
-func (options *ListCatalogOptions) SetHeaders(param map[string]string) *ListCatalogOptions {
-	options.Headers = param
-	return options
-}
-
-// ListLastOperationOptions : The ListLastOperation options.
-type ListLastOperationOptions struct {
-	// The unique instance ID generated during provisioning by the IBM Cloud platform.
-	InstanceID *string `json:"instance_id" validate:"required"`
-
-	// A broker-provided identifier for the operation. When a value for operation is included with asynchronous responses
-	// for provision and update, and deprovision requests, the IBM Cloud platform will provide the same value using this
-	// query parameter as a URL-encoded string. If present, MUST be a non-empty string.
-	Operation *string `json:"operation,omitempty"`
-
-	// ID of the plan from the catalog.json in your broker. If present, MUST be a non-empty string.
-	PlanID *string `json:"plan_id,omitempty"`
-
-	// ID of the service from the catalog.json in your service broker. If present, MUST be a non-empty string.
-	ServiceID *string `json:"service_id,omitempty"`
-
-	// Allows users to set headers on API requests
-	Headers map[string]string
-}
-
-// NewListLastOperationOptions : Instantiate ListLastOperationOptions
-func (*OpenServiceBrokerV1) NewListLastOperationOptions(instanceID string) *ListLastOperationOptions {
-	return &ListLastOperationOptions{
-		InstanceID: core.StringPtr(instanceID),
-	}
-}
-
-// SetInstanceID : Allow user to set InstanceID
-func (options *ListLastOperationOptions) SetInstanceID(instanceID string) *ListLastOperationOptions {
-	options.InstanceID = core.StringPtr(instanceID)
-	return options
-}
-
-// SetOperation : Allow user to set Operation
-func (options *ListLastOperationOptions) SetOperation(operation string) *ListLastOperationOptions {
-	options.Operation = core.StringPtr(operation)
-	return options
-}
-
-// SetPlanID : Allow user to set PlanID
-func (options *ListLastOperationOptions) SetPlanID(planID string) *ListLastOperationOptions {
-	options.PlanID = core.StringPtr(planID)
-	return options
-}
-
-// SetServiceID : Allow user to set ServiceID
-func (options *ListLastOperationOptions) SetServiceID(serviceID string) *ListLastOperationOptions {
-	options.ServiceID = core.StringPtr(serviceID)
-	return options
-}
-
-// SetHeaders : Allow user to set Headers
-func (options *ListLastOperationOptions) SetHeaders(param map[string]string) *ListLastOperationOptions {
-	options.Headers = param
-	return options
-}
-
-// ReplaceServiceBindingOptions : The ReplaceServiceBinding options.
-type ReplaceServiceBindingOptions struct {
-	// The `binding_id` is provided by the IBM Cloud platform. This ID will be used for future unbind requests, so the
-	// broker can use it to correlate the resource it creates.
-	BindingID *string `json:"binding_id" validate:"required"`
-
-	// The :`instance_id` is the ID of a previously provisioned service instance.
-	InstanceID *string `json:"instance_id" validate:"required"`
-
-	// A JSON object that contains data for platform resources associated with the binding to be created.
-	BindResource []BindResource `json:"bind_resource,omitempty"`
-
-	// Configuration options for the service binding.
-	Parameters interface{} `json:"parameters,omitempty"`
-
-	// The ID of the plan from the catalog.json in your broker. If present, it MUST be a non-empty string.
-	PlanID *string `json:"plan_id,omitempty"`
-
-	// The ID of the service from the catalog.json in your broker. If present, it MUST be a non-empty string.
-	ServiceID *string `json:"service_id,omitempty"`
-
-	// Allows users to set headers on API requests
-	Headers map[string]string
-}
-
-// NewReplaceServiceBindingOptions : Instantiate ReplaceServiceBindingOptions
-func (*OpenServiceBrokerV1) NewReplaceServiceBindingOptions(bindingID string, instanceID string) *ReplaceServiceBindingOptions {
-	return &ReplaceServiceBindingOptions{
-		BindingID: core.StringPtr(bindingID),
-		InstanceID: core.StringPtr(instanceID),
-	}
-}
-
-// SetBindingID : Allow user to set BindingID
-func (options *ReplaceServiceBindingOptions) SetBindingID(bindingID string) *ReplaceServiceBindingOptions {
-	options.BindingID = core.StringPtr(bindingID)
-	return options
-}
-
-// SetInstanceID : Allow user to set InstanceID
-func (options *ReplaceServiceBindingOptions) SetInstanceID(instanceID string) *ReplaceServiceBindingOptions {
-	options.InstanceID = core.StringPtr(instanceID)
-	return options
-}
-
-// SetBindResource : Allow user to set BindResource
-func (options *ReplaceServiceBindingOptions) SetBindResource(bindResource []BindResource) *ReplaceServiceBindingOptions {
-	options.BindResource = bindResource
-	return options
-}
-
-// SetParameters : Allow user to set Parameters
-func (options *ReplaceServiceBindingOptions) SetParameters(parameters interface{}) *ReplaceServiceBindingOptions {
-	options.Parameters = parameters
-	return options
-}
-
-// SetPlanID : Allow user to set PlanID
-func (options *ReplaceServiceBindingOptions) SetPlanID(planID string) *ReplaceServiceBindingOptions {
-	options.PlanID = core.StringPtr(planID)
-	return options
-}
-
-// SetServiceID : Allow user to set ServiceID
-func (options *ReplaceServiceBindingOptions) SetServiceID(serviceID string) *ReplaceServiceBindingOptions {
-	options.ServiceID = core.StringPtr(serviceID)
-	return options
-}
-
-// SetHeaders : Allow user to set Headers
-func (options *ReplaceServiceBindingOptions) SetHeaders(param map[string]string) *ReplaceServiceBindingOptions {
-	options.Headers = param
-	return options
-}
-
-// ReplaceServiceInstanceOptions : The ReplaceServiceInstance options.
-type ReplaceServiceInstanceOptions struct {
-	// The `instance_id` of a service instance is provided by the IBM Cloud platform. This ID will be used for future
-	// requests to bind and deprovision, so the broker can use it to correlate the resource it creates.
-	InstanceID *string `json:"instance_id" validate:"required"`
-
-	// Platform specific contextual information under which the service instance is to be provisioned.
-	Context []Context `json:"context,omitempty"`
-
-	// Deprecated in favor of `context`. The identifier for the project space within the IBM Cloud platform organization.
-	// Although most brokers will not use this field, it might be helpful for executing operations on a user's behalf. It
-	// MUST be a non-empty string.
-	OrganizationGuid *string `json:"organization_guid,omitempty"`
-
-	// A list of plans for this service that must contain at least one plan.
-	Parameters []Parameters `json:"parameters,omitempty"`
-
-	// The ID of the plan for which the service instance has been requested, which is stored in the catalog.json of your
-	// broker. This value should be a GUID and it MUST be unique to a service.
-	PlanID *string `json:"plan_id,omitempty"`
-
-	// The ID of the service stored in the catalog.json of your broker. This value should be a GUID and it MUST be a
-	// non-empty string.
-	ServiceID *string `json:"service_id,omitempty"`
-
-	// Deprecated in favor of `context`. The IBM Cloud platform GUID for the organization under which the service instance
-	// is to be provisioned. Although most brokers will not use this field, it might be helpful for executing operations on
-	// a user's behalf. It MUST be a non-empty string.
-	SpaceGuid *string `json:"space_guid,omitempty"`
-
-	// A value of true indicates that both the IBM Cloud platform and the requesting client support asynchronous
-	// deprovisioning. If this parameter is not included in the request, and the broker can only deprovision a service
-	// instance of the requested plan asynchronously, the broker MUST reject the request with a `422` Unprocessable Entity.
-	AcceptsIncomplete *bool `json:"accepts_incomplete,omitempty"`
-
-	// Allows users to set headers on API requests
-	Headers map[string]string
-}
-
-// NewReplaceServiceInstanceOptions : Instantiate ReplaceServiceInstanceOptions
-func (*OpenServiceBrokerV1) NewReplaceServiceInstanceOptions(instanceID string) *ReplaceServiceInstanceOptions {
-	return &ReplaceServiceInstanceOptions{
-		InstanceID: core.StringPtr(instanceID),
-	}
-}
-
-// SetInstanceID : Allow user to set InstanceID
-func (options *ReplaceServiceInstanceOptions) SetInstanceID(instanceID string) *ReplaceServiceInstanceOptions {
-	options.InstanceID = core.StringPtr(instanceID)
-	return options
-}
-
-// SetContext : Allow user to set Context
-func (options *ReplaceServiceInstanceOptions) SetContext(context []Context) *ReplaceServiceInstanceOptions {
-	options.Context = context
-	return options
-}
-
-// SetOrganizationGuid : Allow user to set OrganizationGuid
-func (options *ReplaceServiceInstanceOptions) SetOrganizationGuid(organizationGuid string) *ReplaceServiceInstanceOptions {
-	options.OrganizationGuid = core.StringPtr(organizationGuid)
-	return options
-}
-
-// SetParameters : Allow user to set Parameters
-func (options *ReplaceServiceInstanceOptions) SetParameters(parameters []Parameters) *ReplaceServiceInstanceOptions {
-	options.Parameters = parameters
-	return options
-}
-
-// SetPlanID : Allow user to set PlanID
-func (options *ReplaceServiceInstanceOptions) SetPlanID(planID string) *ReplaceServiceInstanceOptions {
-	options.PlanID = core.StringPtr(planID)
-	return options
-}
-
-// SetServiceID : Allow user to set ServiceID
-func (options *ReplaceServiceInstanceOptions) SetServiceID(serviceID string) *ReplaceServiceInstanceOptions {
-	options.ServiceID = core.StringPtr(serviceID)
-	return options
-}
-
-// SetSpaceGuid : Allow user to set SpaceGuid
-func (options *ReplaceServiceInstanceOptions) SetSpaceGuid(spaceGuid string) *ReplaceServiceInstanceOptions {
-	options.SpaceGuid = core.StringPtr(spaceGuid)
-	return options
-}
-
-// SetAcceptsIncomplete : Allow user to set AcceptsIncomplete
-func (options *ReplaceServiceInstanceOptions) SetAcceptsIncomplete(acceptsIncomplete bool) *ReplaceServiceInstanceOptions {
-	options.AcceptsIncomplete = core.BoolPtr(acceptsIncomplete)
-	return options
-}
-
-// SetHeaders : Allow user to set Headers
-func (options *ReplaceServiceInstanceOptions) SetHeaders(param map[string]string) *ReplaceServiceInstanceOptions {
-	options.Headers = param
-	return options
-}
-
-// ReplaceStateOptions : The ReplaceState options.
-type ReplaceStateOptions struct {
-	// The `instance_id` of a service instance is provided by the IBM Cloud platform. This ID will be used for future
-	// requests to bind and deprovision, so the broker can use it to correlate the resource it creates.
-	InstanceID *string `json:"instance_id" validate:"required"`
-
-	// Indicates the current state of the service instance.
-	Enabled *bool `json:"enabled,omitempty"`
-
-	// Optional string that shows the user ID that is initiating the call.
-	InitiatorID *string `json:"initiator_id,omitempty"`
-
-	// Optional string that states the reason code for the service instance state change. Valid values are
-	// `IBMCLOUD_ACCT_ACTIVATE`, `IBMCLOUD_RECLAMATION_RESTORE`, or `IBMCLOUD_SERVICE_INSTANCE_BELOW_CAP` for enable calls;
-	// `IBMCLOUD_ACCT_SUSPEND`, `IBMCLOUD_RECLAMATION_SCHEDULE`, or `IBMCLOUD_SERVICE_INSTANCE_ABOVE_CAP` for disable
-	// calls; and `IBMCLOUD_ADMIN_REQUEST` for enable and disable calls.<br/><br/>Previously accepted values had a `BMX_`
-	// prefix, such as `BMX_ACCT_ACTIVATE`. These values are deprecated.
-	ReasonCode *string `json:"reason_code,omitempty"`
-
-	// Allows users to set headers on API requests
-	Headers map[string]string
-}
-
-// NewReplaceStateOptions : Instantiate ReplaceStateOptions
-func (*OpenServiceBrokerV1) NewReplaceStateOptions(instanceID string) *ReplaceStateOptions {
-	return &ReplaceStateOptions{
-		InstanceID: core.StringPtr(instanceID),
-	}
-}
-
-// SetInstanceID : Allow user to set InstanceID
-func (options *ReplaceStateOptions) SetInstanceID(instanceID string) *ReplaceStateOptions {
-	options.InstanceID = core.StringPtr(instanceID)
-	return options
-}
-
-// SetEnabled : Allow user to set Enabled
-func (options *ReplaceStateOptions) SetEnabled(enabled bool) *ReplaceStateOptions {
-	options.Enabled = core.BoolPtr(enabled)
-	return options
-}
-
-// SetInitiatorID : Allow user to set InitiatorID
-func (options *ReplaceStateOptions) SetInitiatorID(initiatorID string) *ReplaceStateOptions {
-	options.InitiatorID = core.StringPtr(initiatorID)
-	return options
-}
-
-// SetReasonCode : Allow user to set ReasonCode
-func (options *ReplaceStateOptions) SetReasonCode(reasonCode string) *ReplaceStateOptions {
-	options.ReasonCode = core.StringPtr(reasonCode)
-	return options
-}
-
-// SetHeaders : Allow user to set Headers
-func (options *ReplaceStateOptions) SetHeaders(param map[string]string) *ReplaceStateOptions {
 	options.Headers = param
 	return options
 }
@@ -1176,6 +1191,24 @@ func UnmarshalResp1874644Root(m map[string]json.RawMessage, result interface{}) 
 	return
 }
 
+// Resp1874650Root : Resp1874650Root struct
+type Resp1874650Root struct {
+	// List of services.
+	Services []Services `json:"services,omitempty"`
+}
+
+
+// UnmarshalResp1874650Root unmarshals an instance of Resp1874650Root from the specified map of raw messages.
+func UnmarshalResp1874650Root(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(Resp1874650Root)
+	err = core.UnmarshalModel(m, "services", &obj.Services, UnmarshalServices)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
 // Resp2079872Root : OK - MUST be returned if the service instance already exists, is fully provisioned, and the requested parameters are
 // identical to the existing service instance.
 type Resp2079872Root struct {
@@ -1200,6 +1233,50 @@ func UnmarshalResp2079872Root(m map[string]json.RawMessage, result interface{}) 
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "operation", &obj.Operation)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// Resp2079876Root : Resp2079876Root struct
+type Resp2079876Root struct {
+	// A free-form hash of credentials that can be used by applications or users to access the service.
+	Credentials interface{} `json:"credentials,omitempty"`
+
+	// A URL to which logs MUST be streamed. 'requires':['syslog_drain'] MUST be declared in the Catalog endpoint or the
+	// platform MUST consider the response invalid.
+	SyslogDrainURL *string `json:"syslog_drain_url,omitempty"`
+
+	// A URL to which the platform MUST proxy requests for the address sent with bind_resource.route in the request body.
+	// 'requires':['route_forwarding'] MUST be declared in the Catalog endpoint or the platform can consider the response
+	// invalid.
+	RouteServiceURL *string `json:"route_service_url,omitempty"`
+
+	// An array of configuration for remote storage devices to be mounted into an application container filesystem.
+	// 'requires':['volume_mount'] MUST be declared in the Catalog endpoint or the platform can consider the response
+	// invalid.
+	VolumeMounts []VolumeMount `json:"volume_mounts,omitempty"`
+}
+
+
+// UnmarshalResp2079876Root unmarshals an instance of Resp2079876Root from the specified map of raw messages.
+func UnmarshalResp2079876Root(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(Resp2079876Root)
+	err = core.UnmarshalPrimitive(m, "credentials", &obj.Credentials)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "syslog_drain_url", &obj.SyslogDrainURL)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "route_service_url", &obj.RouteServiceURL)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "volume_mounts", &obj.VolumeMounts, UnmarshalVolumeMount)
 	if err != nil {
 		return
 	}
@@ -1275,14 +1352,14 @@ type UpdateServiceInstanceOptions struct {
 	// The ID of a previously provisioned service instance.
 	InstanceID *string `json:"instance_id" validate:"required"`
 
-	// Contextual data under which the service instance is created.
-	Context []Context `json:"context,omitempty"`
+	// Platform specific contextual information under which the service instance is to be provisioned.
+	Context *Context `json:"context,omitempty"`
 
 	// Configuration options for the service instance. An opaque object, controller treats this as a blob. Brokers should
 	// ensure that the client has provided valid configuration parameters and values for the operation. If this field is
 	// not present in the request message, then the broker MUST NOT change the parameters of the instance as a result of
 	// this request.
-	Parameters *Parameters `json:"parameters,omitempty"`
+	Parameters map[string]string `json:"parameters,omitempty"`
 
 	// The ID of the plan for which the service instance has been requested, which is stored in the catalog.json of your
 	// broker. This value should be a GUID. MUST be unique to a service. If present, MUST be a non-empty string. If this
@@ -1291,7 +1368,7 @@ type UpdateServiceInstanceOptions struct {
 	PlanID *string `json:"plan_id,omitempty"`
 
 	// Information about the service instance prior to the update.
-	PreviousValues []string `json:"previous_values,omitempty"`
+	PreviousValues map[string]string `json:"previous_values,omitempty"`
 
 	// The ID of the service stored in the catalog.json of your broker. This value should be a GUID. It MUST be a non-empty
 	// string.
@@ -1300,7 +1377,7 @@ type UpdateServiceInstanceOptions struct {
 	// A value of true indicates that both the IBM Cloud platform and the requesting client support asynchronous
 	// deprovisioning. If this parameter is not included in the request, and the broker can only deprovision a service
 	// instance of the requested plan asynchronously, the broker MUST reject the request with a `422` Unprocessable Entity.
-	AcceptsIncomplete *string `json:"accepts_incomplete,omitempty"`
+	AcceptsIncomplete *bool `json:"accepts_incomplete,omitempty"`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -1320,13 +1397,13 @@ func (options *UpdateServiceInstanceOptions) SetInstanceID(instanceID string) *U
 }
 
 // SetContext : Allow user to set Context
-func (options *UpdateServiceInstanceOptions) SetContext(context []Context) *UpdateServiceInstanceOptions {
+func (options *UpdateServiceInstanceOptions) SetContext(context *Context) *UpdateServiceInstanceOptions {
 	options.Context = context
 	return options
 }
 
 // SetParameters : Allow user to set Parameters
-func (options *UpdateServiceInstanceOptions) SetParameters(parameters *Parameters) *UpdateServiceInstanceOptions {
+func (options *UpdateServiceInstanceOptions) SetParameters(parameters map[string]string) *UpdateServiceInstanceOptions {
 	options.Parameters = parameters
 	return options
 }
@@ -1338,7 +1415,7 @@ func (options *UpdateServiceInstanceOptions) SetPlanID(planID string) *UpdateSer
 }
 
 // SetPreviousValues : Allow user to set PreviousValues
-func (options *UpdateServiceInstanceOptions) SetPreviousValues(previousValues []string) *UpdateServiceInstanceOptions {
+func (options *UpdateServiceInstanceOptions) SetPreviousValues(previousValues map[string]string) *UpdateServiceInstanceOptions {
 	options.PreviousValues = previousValues
 	return options
 }
@@ -1350,8 +1427,8 @@ func (options *UpdateServiceInstanceOptions) SetServiceID(serviceID string) *Upd
 }
 
 // SetAcceptsIncomplete : Allow user to set AcceptsIncomplete
-func (options *UpdateServiceInstanceOptions) SetAcceptsIncomplete(acceptsIncomplete string) *UpdateServiceInstanceOptions {
-	options.AcceptsIncomplete = core.StringPtr(acceptsIncomplete)
+func (options *UpdateServiceInstanceOptions) SetAcceptsIncomplete(acceptsIncomplete bool) *UpdateServiceInstanceOptions {
+	options.AcceptsIncomplete = core.BoolPtr(acceptsIncomplete)
 	return options
 }
 
@@ -1361,7 +1438,7 @@ func (options *UpdateServiceInstanceOptions) SetHeaders(param map[string]string)
 	return options
 }
 
-// BindResource : Bind a resource.
+// BindResource : A JSON object that contains data for platform resources associated with the binding to be created.
 type BindResource struct {
 	// Account owner of resource to bind.
 	AccountID *string `json:"account_id,omitempty"`
@@ -1371,6 +1448,12 @@ type BindResource struct {
 
 	// Target ID of resource to bind.
 	TargetCrn *string `json:"target_crn,omitempty"`
+
+	// GUID of an application associated with the binding. For credentials bindings.
+	AppGuid *string `json:"app_guid,omitempty"`
+
+	// URL of the application to be intermediated. For route services bindings.
+	Route *string `json:"route,omitempty"`
 }
 
 
@@ -1389,11 +1472,19 @@ func UnmarshalBindResource(m map[string]json.RawMessage, result interface{}) (er
 	if err != nil {
 		return
 	}
+	err = core.UnmarshalPrimitive(m, "app_guid", &obj.AppGuid)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "route", &obj.Route)
+	if err != nil {
+		return
+	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
 	return
 }
 
-// Context : Contextual data under which the service instance is created.
+// Context : Platform specific contextual information under which the service instance is to be provisioned.
 type Context struct {
 	// Returns the ID of the account in IBM Cloud that is provisioning the service instance.
 	AccountID *string `json:"account_id,omitempty"`
@@ -1423,34 +1514,6 @@ func UnmarshalContext(m map[string]json.RawMessage, result interface{}) (err err
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "platform", &obj.Platform)
-	if err != nil {
-		return
-	}
-	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
-	return
-}
-
-// Parameters : Configuration options for the service instance. An opaque object, controller treats this as a blob. Brokers should
-// ensure that the client has provided valid configuration parameters and values for the operation. If this field is not
-// present in the request message, then the broker MUST NOT change the parameters of the instance as a result of this
-// request.
-type Parameters struct {
-	// a custom integer or string within the parameters JSON object.
-	Parameter1 *int64 `json:"parameter1,omitempty"`
-
-	// a custom integer or string within the parameters JSON object.
-	Parameter2 *string `json:"parameter2,omitempty"`
-}
-
-
-// UnmarshalParameters unmarshals an instance of Parameters from the specified map of raw messages.
-func UnmarshalParameters(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(Parameters)
-	err = core.UnmarshalPrimitive(m, "parameter1", &obj.Parameter1)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "parameter2", &obj.Parameter2)
 	if err != nil {
 		return
 	}
@@ -1567,6 +1630,53 @@ func UnmarshalServices(m map[string]json.RawMessage, result interface{}) (err er
 		return
 	}
 	err = core.UnmarshalModel(m, "plans", &obj.Plans, UnmarshalPlans)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// VolumeMount : VolumeMount struct
+type VolumeMount struct {
+	// A free-form hash of credentials that can be used by applications or users to access the service.
+	Driver *string `json:"driver" validate:"required"`
+
+	// The path in the application container onto which the volume will be mounted. This specification does not mandate
+	// what action the platform is to take if the path specified already exists in the container.
+	ContainerDir *string `json:"container_dir" validate:"required"`
+
+	// 'r' to mount the volume read-only or 'rw' to mount it read-write.
+	Mode *string `json:"mode" validate:"required"`
+
+	// A string specifying the type of device to mount. Currently the only supported value is 'shared'.
+	DeviceType *string `json:"device_type" validate:"required"`
+
+	// Device object containing device_type specific details. Currently only shared devices are supported.
+	Device *string `json:"device" validate:"required"`
+}
+
+
+// UnmarshalVolumeMount unmarshals an instance of VolumeMount from the specified map of raw messages.
+func UnmarshalVolumeMount(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(VolumeMount)
+	err = core.UnmarshalPrimitive(m, "driver", &obj.Driver)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "container_dir", &obj.ContainerDir)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "mode", &obj.Mode)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "device_type", &obj.DeviceType)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "device", &obj.Device)
 	if err != nil {
 		return
 	}
