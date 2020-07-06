@@ -20,8 +20,10 @@ package catalogmanagementv1_test
 
 import (
 	"fmt"
+	"github.com/IBM/go-sdk-core/v4/core"
 	"github.com/IBM/platform-services-go-sdk/catalogmanagementv1"
 	"os"
+	"time"
 
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
@@ -30,7 +32,6 @@ import (
 const (
 	externalConfigFile   = "../catalog_mgmt.env"
 	expectedAccount      = "67d27f28d43948b2b3bda9138f251a13"
-	expectedLabel        = "integration-test"
 	expectedShortDesc    = "test"
 	expectedURL          = "https://cm.globalcatalog.test.cloud.ibm.com/api/v1-beta/catalogs/%s"
 	expectedOfferingsURL = "https://cm.globalcatalog.test.cloud.ibm.com/api/v1-beta/catalogs/%s/offerings"
@@ -41,8 +42,10 @@ const (
 )
 
 var (
-	service      *catalogmanagementv1.CatalogManagementV1
-	configLoaded bool = false
+	service       *catalogmanagementv1.CatalogManagementV1
+	configLoaded  bool = false
+	gitToken      string
+	expectedLabel = fmt.Sprintf("integration-test-%d", time.Now().Unix())
 )
 
 func shouldSkipTest() {
@@ -66,6 +69,7 @@ var _ = Describe("Catalog Management - Integration Tests", func() {
 
 	It(`Successfully created CatalogManagementV1 service instance`, func() {
 		var err error
+		var config map[string]string
 
 		shouldSkipTest()
 
@@ -75,6 +79,15 @@ var _ = Describe("Catalog Management - Integration Tests", func() {
 
 		Expect(err).To(BeNil())
 		Expect(service).ToNot(BeNil())
+
+		config, err = core.GetServiceProperties(catalogmanagementv1.DefaultServiceName)
+
+		if err != nil {
+			configLoaded = false
+		}
+
+		Expect(err).To(BeNil())
+		gitToken = config["GIT_TOKEN"]
 	})
 
 	Describe("Run integration tests", func() {
@@ -84,7 +97,9 @@ var _ = Describe("Catalog Management - Integration Tests", func() {
 			listResult, _, _ := service.ListCatalogs(service.NewListCatalogsOptions())
 			if listResult != nil && listResult.Resources != nil {
 				for _, resource := range listResult.Resources {
-					service.DeleteCatalog(service.NewDeleteCatalogOptions(*resource.ID))
+					if *resource.Label == expectedLabel {
+						service.DeleteCatalog(service.NewDeleteCatalogOptions(*resource.ID))
+					}
 				}
 			}
 		})
@@ -95,7 +110,9 @@ var _ = Describe("Catalog Management - Integration Tests", func() {
 			listResult, _, _ := service.ListCatalogs(service.NewListCatalogsOptions())
 			if listResult != nil && listResult.Resources != nil {
 				for _, resource := range listResult.Resources {
-					service.DeleteCatalog(service.NewDeleteCatalogOptions(*resource.ID))
+					if *resource.Label == expectedLabel {
+						service.DeleteCatalog(service.NewDeleteCatalogOptions(*resource.ID))
+					}
 				}
 			}
 		})
@@ -123,19 +140,20 @@ var _ = Describe("Catalog Management - Integration Tests", func() {
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
-			Expect(len(result.AccountFilters)).To(Equal(1))
 			Expect(*result.AccountFilters[0].IncludeAll).To(BeTrue())
 			Expect(len(result.AccountFilters[0].CategoryFilters)).To(BeZero())
 			Expect(result.AccountFilters[0].IdFilters.Include).To(BeNil())
 			Expect(result.AccountFilters[0].IdFilters.Exclude).To(BeNil())
-			Expect(len(result.CatalogFilters)).To(BeZero())
 		})
 
 		It("Get list of catalogs", func() {
 			const (
-				expectedTotalCount    int64 = 1
-				expectedResourceCount       = 1
+				expectedTotalCount    = 1
+				expectedResourceCount = 1
 			)
+
+			catalogCount := 0
+			catalogIndex := -1
 
 			shouldSkipTest()
 
@@ -146,6 +164,14 @@ var _ = Describe("Catalog Management - Integration Tests", func() {
 
 			listOptions := service.NewListCatalogsOptions()
 			listResult, listResponse, err := service.ListCatalogs(listOptions)
+			if listResult != nil && listResult.Resources != nil {
+				for i, resource := range listResult.Resources {
+					if *resource.Label == expectedLabel {
+						catalogCount++
+						catalogIndex = i
+					}
+				}
+			}
 
 			service.DeleteCatalog(service.NewDeleteCatalogOptions(*createResult.ID))
 
@@ -153,21 +179,20 @@ var _ = Describe("Catalog Management - Integration Tests", func() {
 			Expect(listResponse.StatusCode).To(Equal(200))
 			Expect(*listResult.Offset).To(BeZero())
 			Expect(*listResult.Limit).To(BeZero())
-			Expect(*listResult.TotalCount).To(Equal(expectedTotalCount))
+			Expect(catalogCount).To(Equal(expectedTotalCount))
 			Expect(listResult.Last).To(BeNil())
 			Expect(listResult.Prev).To(BeNil())
 			Expect(listResult.Next).To(BeNil())
-			Expect(len(listResult.Resources)).To(Equal(expectedResourceCount))
 
-			Expect(*listResult.Resources[0].Label).To(Equal(expectedLabel))
-			Expect(*listResult.Resources[0].ShortDescription).To(Equal(expectedShortDesc))
-			Expect(*listResult.Resources[0].URL).To(Equal(fmt.Sprintf(expectedURL, *createResult.ID)))
-			Expect(*listResult.Resources[0].OfferingsURL).To(Equal(fmt.Sprintf(expectedOfferingsURL, *createResult.ID)))
-			Expect(*listResult.Resources[0].OwningAccount).To(Equal(expectedAccount))
-			Expect(*listResult.Resources[0].CatalogFilters.IncludeAll).To(BeFalse())
-			Expect(len(listResult.Resources[0].CatalogFilters.CategoryFilters)).To(BeZero())
-			Expect(listResult.Resources[0].CatalogFilters.IdFilters.Include).To(BeNil())
-			Expect(listResult.Resources[0].CatalogFilters.IdFilters.Exclude).To(BeNil())
+			Expect(*listResult.Resources[catalogIndex].Label).To(Equal(expectedLabel))
+			Expect(*listResult.Resources[catalogIndex].ShortDescription).To(Equal(expectedShortDesc))
+			Expect(*listResult.Resources[catalogIndex].URL).To(Equal(fmt.Sprintf(expectedURL, *createResult.ID)))
+			Expect(*listResult.Resources[catalogIndex].OfferingsURL).To(Equal(fmt.Sprintf(expectedOfferingsURL, *createResult.ID)))
+			Expect(*listResult.Resources[catalogIndex].OwningAccount).To(Equal(expectedAccount))
+			Expect(*listResult.Resources[catalogIndex].CatalogFilters.IncludeAll).To(BeFalse())
+			Expect(len(listResult.Resources[catalogIndex].CatalogFilters.CategoryFilters)).To(BeZero())
+			Expect(listResult.Resources[catalogIndex].CatalogFilters.IdFilters.Include).To(BeNil())
+			Expect(listResult.Resources[catalogIndex].CatalogFilters.IdFilters.Exclude).To(BeNil())
 		})
 
 		It("Create a catalog", func() {
@@ -626,6 +651,7 @@ var _ = Describe("Catalog Management - Integration Tests", func() {
 			catalogID := *catalogResult.ID
 
 			offeringOptions := service.NewImportOfferingOptions(catalogID, expectedOfferingZipURL)
+			offeringOptions.SetXAuthToken(gitToken)
 			offeringResult, offeringResponse, err := service.ImportOffering(offeringOptions)
 
 			service.DeleteCatalog(service.NewDeleteCatalogOptions(catalogID))
@@ -674,6 +700,7 @@ var _ = Describe("Catalog Management - Integration Tests", func() {
 			catalogID := *catalogResult.ID
 
 			offeringOptions := service.NewImportOfferingOptions(catalogID, expectedOfferingZipURL)
+			offeringOptions.SetXAuthToken(gitToken)
 			offeringResult, _, err := service.ImportOffering(offeringOptions)
 
 			Expect(err).To(BeNil())
@@ -681,6 +708,7 @@ var _ = Describe("Catalog Management - Integration Tests", func() {
 			offeringID := *offeringResult.ID
 
 			importOptions := service.NewImportOfferingVersionOptions(catalogID, offeringID, expectedOfferingZipURLUpdate)
+			importOptions.SetXAuthToken(gitToken)
 			importResult, importResponse, err := service.ImportOfferingVersion(importOptions)
 
 			service.DeleteCatalog(service.NewDeleteCatalogOptions(catalogID))
@@ -718,6 +746,7 @@ var _ = Describe("Catalog Management - Integration Tests", func() {
 			offeringID := fakeName
 
 			importOptions := service.NewImportOfferingVersionOptions(catalogID, offeringID, expectedOfferingZipURLUpdate)
+			importOptions.SetXAuthToken(gitToken)
 			_, importResponse, err := service.ImportOfferingVersion(importOptions)
 
 			service.DeleteCatalog(service.NewDeleteCatalogOptions(catalogID))
@@ -754,6 +783,7 @@ var _ = Describe("Catalog Management - Integration Tests", func() {
 			catalogID := *catalogResult.ID
 
 			offeringOptions := service.NewImportOfferingOptions(catalogID, expectedOfferingZipURL)
+			offeringOptions.SetXAuthToken(gitToken)
 			offeringResult, _, err := service.ImportOffering(offeringOptions)
 
 			Expect(err).To(BeNil())
@@ -761,6 +791,7 @@ var _ = Describe("Catalog Management - Integration Tests", func() {
 			offeringID := *offeringResult.ID
 
 			reloadOptions := service.NewReloadOfferingOptions(catalogID, offeringID, expectedOfferingZipURL, expectedOfferingVersion)
+			reloadOptions.SetXAuthToken(gitToken)
 			reloadResult, reloadResponse, err := service.ReloadOffering(reloadOptions)
 
 			service.DeleteCatalog(service.NewDeleteCatalogOptions(catalogID))
@@ -798,6 +829,7 @@ var _ = Describe("Catalog Management - Integration Tests", func() {
 			offeringID := fakeName
 
 			reloadOptions := service.NewReloadOfferingOptions(catalogID, offeringID, expectedOfferingZipURL, expectedOfferingVersion)
+			reloadOptions.SetXAuthToken(gitToken)
 			_, reloadResponse, err := service.ReloadOffering(reloadOptions)
 
 			service.DeleteCatalog(service.NewDeleteCatalogOptions(catalogID))
@@ -834,6 +866,7 @@ var _ = Describe("Catalog Management - Integration Tests", func() {
 			catalogID := *catalogResult.ID
 
 			offeringOptions := service.NewImportOfferingOptions(catalogID, expectedOfferingZipURL)
+			offeringOptions.SetXAuthToken(gitToken)
 			offeringResult, _, err := service.ImportOffering(offeringOptions)
 
 			Expect(err).To(BeNil())
@@ -885,6 +918,7 @@ var _ = Describe("Catalog Management - Integration Tests", func() {
 			catalogID := *catalogResult.ID
 
 			offeringOptions := service.NewImportOfferingOptions(catalogID, expectedOfferingZipURL)
+			offeringOptions.SetXAuthToken(gitToken)
 			offeringResult, _, err := service.ImportOffering(offeringOptions)
 
 			Expect(err).To(BeNil())
@@ -924,6 +958,7 @@ var _ = Describe("Catalog Management - Integration Tests", func() {
 			catalogID := *catalogResult.ID
 
 			offeringOptions := service.NewImportOfferingOptions(catalogID, expectedOfferingZipURL)
+			offeringOptions.SetXAuthToken(gitToken)
 			offeringResult, _, err := service.ImportOffering(offeringOptions)
 
 			Expect(err).To(BeNil())
@@ -969,6 +1004,7 @@ var _ = Describe("Catalog Management - Integration Tests", func() {
 			catalogID := *catalogResult.ID
 
 			offeringOptions := service.NewImportOfferingOptions(catalogID, expectedOfferingZipURL)
+			offeringOptions.SetXAuthToken(gitToken)
 			offeringResult, _, err := service.ImportOffering(offeringOptions)
 
 			Expect(err).To(BeNil())
@@ -977,6 +1013,7 @@ var _ = Describe("Catalog Management - Integration Tests", func() {
 			versionLocator1 := *offeringResult.Kinds[0].Versions[0].VersionLocator
 
 			importOptions := service.NewImportOfferingVersionOptions(catalogID, offeringID, expectedOfferingZipURLUpdate)
+			importOptions.SetXAuthToken(gitToken)
 			importResult, _, err := service.ImportOfferingVersion(importOptions)
 
 			Expect(err).To(BeNil())
