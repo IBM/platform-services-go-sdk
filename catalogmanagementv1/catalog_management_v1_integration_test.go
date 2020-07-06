@@ -183,7 +183,6 @@ var _ = Describe("Catalog Management - Integration Tests", func() {
 			Expect(listResult.Last).To(BeNil())
 			Expect(listResult.Prev).To(BeNil())
 			Expect(listResult.Next).To(BeNil())
-			Expect(len(listResult.Resources)).To(Equal(expectedResourceCount))
 
 			Expect(*listResult.Resources[catalogIndex].Label).To(Equal(expectedLabel))
 			Expect(*listResult.Resources[catalogIndex].ShortDescription).To(Equal(expectedShortDesc))
