@@ -1,3 +1,10 @@
+# [0.8.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.7.0...v0.8.0) (2020-07-06)
+
+
+### Features
+
+* **Open Service Broker:** add service to project ([#30](https://github.com/IBM/platform-services-go-sdk/issues/30)) ([b2984d0](https://github.com/IBM/platform-services-go-sdk/commit/b2984d0b8f64758140be78138f5ecefabc349762))
+
 # [0.7.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.6.0...v0.7.0) (2020-06-18)
 
 

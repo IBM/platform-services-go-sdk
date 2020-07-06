@@ -14,7 +14,15 @@
  * limitations under the License.
  */
 
-package common
+package openservicebrokerv1_test
 
-// Version of the SDK
-const Version = "0.8.0"
+import (
+	. "github.com/onsi/ginkgo"
+	. "github.com/onsi/gomega"
+	"testing"
+)
+
+func TestOpenServiceBrokerV1(t *testing.T) {
+	RegisterFailHandler(Fail)
+	RunSpecs(t, "OpenServiceBrokerV1 Suite")
+}
