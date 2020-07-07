@@ -320,7 +320,7 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				// Construct an instance of the Price model
 				priceModel := new(globalcatalogv1.Price)
 				priceModel.QuantityTier = core.Int64Ptr(int64(38))
-				priceModel.Price = core.Float64Ptr(72.5)
+				priceModel.Price = core.Float64Ptr(float64(72.5))
 
 				// Construct an instance of the Amount model
 				amountModel := new(globalcatalogv1.Amount)
@@ -594,7 +594,7 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				// Construct an instance of the Price model
 				priceModel := new(globalcatalogv1.Price)
 				priceModel.QuantityTier = core.Int64Ptr(int64(38))
-				priceModel.Price = core.Float64Ptr(72.5)
+				priceModel.Price = core.Float64Ptr(float64(72.5))
 
 				// Construct an instance of the Amount model
 				amountModel := new(globalcatalogv1.Amount)
@@ -840,7 +840,7 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				// Construct an instance of the Price model
 				priceModel := new(globalcatalogv1.Price)
 				priceModel.QuantityTier = core.Int64Ptr(int64(38))
-				priceModel.Price = core.Float64Ptr(72.5)
+				priceModel.Price = core.Float64Ptr(float64(72.5))
 
 				// Construct an instance of the Amount model
 				amountModel := new(globalcatalogv1.Amount)
@@ -1266,7 +1266,7 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				// Construct an instance of the Price model
 				priceModel := new(globalcatalogv1.Price)
 				priceModel.QuantityTier = core.Int64Ptr(int64(38))
-				priceModel.Price = core.Float64Ptr(72.5)
+				priceModel.Price = core.Float64Ptr(float64(72.5))
 
 				// Construct an instance of the Amount model
 				amountModel := new(globalcatalogv1.Amount)
@@ -1543,7 +1543,7 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				// Construct an instance of the Price model
 				priceModel := new(globalcatalogv1.Price)
 				priceModel.QuantityTier = core.Int64Ptr(int64(38))
-				priceModel.Price = core.Float64Ptr(72.5)
+				priceModel.Price = core.Float64Ptr(float64(72.5))
 
 				// Construct an instance of the Amount model
 				amountModel := new(globalcatalogv1.Amount)
@@ -1790,7 +1790,7 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				// Construct an instance of the Price model
 				priceModel := new(globalcatalogv1.Price)
 				priceModel.QuantityTier = core.Int64Ptr(int64(38))
-				priceModel.Price = core.Float64Ptr(72.5)
+				priceModel.Price = core.Float64Ptr(float64(72.5))
 
 				// Construct an instance of the Amount model
 				amountModel := new(globalcatalogv1.Amount)
@@ -2996,7 +2996,7 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 
 					Expect(req.URL.Query()["_offset"]).To(Equal([]string{fmt.Sprint(int64(38))}))
 
-					Expect(req.URL.Query()["_limit"]).To(Equal([]string{fmt.Sprint(int64(38))}))
+					Expect(req.URL.Query()["_limit"]).To(Equal([]string{fmt.Sprint(int64(200))}))
 
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
@@ -3018,7 +3018,7 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				getAuditLogsOptionsModel.Ascending = core.StringPtr("testString")
 				getAuditLogsOptionsModel.Startat = core.StringPtr("testString")
 				getAuditLogsOptionsModel.Offset = core.Int64Ptr(int64(38))
-				getAuditLogsOptionsModel.Limit = core.Int64Ptr(int64(38))
+				getAuditLogsOptionsModel.Limit = core.Int64Ptr(int64(200))
 				getAuditLogsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
 				result, response, operationErr := testService.GetAuditLogs(getAuditLogsOptionsModel)
@@ -3050,7 +3050,7 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 
 					Expect(req.URL.Query()["_offset"]).To(Equal([]string{fmt.Sprint(int64(38))}))
 
-					Expect(req.URL.Query()["_limit"]).To(Equal([]string{fmt.Sprint(int64(38))}))
+					Expect(req.URL.Query()["_limit"]).To(Equal([]string{fmt.Sprint(int64(200))}))
 
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
@@ -3078,7 +3078,7 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				getAuditLogsOptionsModel.Ascending = core.StringPtr("testString")
 				getAuditLogsOptionsModel.Startat = core.StringPtr("testString")
 				getAuditLogsOptionsModel.Offset = core.Int64Ptr(int64(38))
-				getAuditLogsOptionsModel.Limit = core.Int64Ptr(int64(38))
+				getAuditLogsOptionsModel.Limit = core.Int64Ptr(int64(200))
  				getAuditLogsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
@@ -3102,7 +3102,7 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				getAuditLogsOptionsModel.Ascending = core.StringPtr("testString")
 				getAuditLogsOptionsModel.Startat = core.StringPtr("testString")
 				getAuditLogsOptionsModel.Offset = core.Int64Ptr(int64(38))
-				getAuditLogsOptionsModel.Limit = core.Int64Ptr(int64(38))
+				getAuditLogsOptionsModel.Limit = core.Int64Ptr(int64(200))
 				getAuditLogsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := testService.SetServiceURL("")
@@ -3361,7 +3361,7 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 
 					res.Header().Set("Content-type", "*/*")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, `Contents of response byte-stream...`)
+					fmt.Fprintf(res, `This is a mock binary response.`)
 				}))
 			})
 			It(`Invoke GetArtifact successfully`, func() {
@@ -3605,9 +3605,9 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				priceModel := new(globalcatalogv1.Price)
 				Expect(priceModel).ToNot(BeNil())
 				priceModel.QuantityTier = core.Int64Ptr(int64(38))
-				priceModel.Price = core.Float64Ptr(72.5)
+				priceModel.Price = core.Float64Ptr(float64(72.5))
 				Expect(priceModel.QuantityTier).To(Equal(core.Int64Ptr(int64(38))))
-				Expect(priceModel.Price).To(Equal(core.Float64Ptr(72.5)))
+				Expect(priceModel.Price).To(Equal(core.Float64Ptr(float64(72.5))))
 
 				// Construct an instance of the Amount model
 				amountModel := new(globalcatalogv1.Amount)
@@ -4068,7 +4068,7 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				getAuditLogsOptionsModel.SetAscending("testString")
 				getAuditLogsOptionsModel.SetStartat("testString")
 				getAuditLogsOptionsModel.SetOffset(int64(38))
-				getAuditLogsOptionsModel.SetLimit(int64(38))
+				getAuditLogsOptionsModel.SetLimit(int64(200))
 				getAuditLogsOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(getAuditLogsOptionsModel).ToNot(BeNil())
 				Expect(getAuditLogsOptionsModel.ID).To(Equal(core.StringPtr("testString")))
@@ -4076,7 +4076,7 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				Expect(getAuditLogsOptionsModel.Ascending).To(Equal(core.StringPtr("testString")))
 				Expect(getAuditLogsOptionsModel.Startat).To(Equal(core.StringPtr("testString")))
 				Expect(getAuditLogsOptionsModel.Offset).To(Equal(core.Int64Ptr(int64(38))))
-				Expect(getAuditLogsOptionsModel.Limit).To(Equal(core.Int64Ptr(int64(38))))
+				Expect(getAuditLogsOptionsModel.Limit).To(Equal(core.Int64Ptr(int64(200))))
 				Expect(getAuditLogsOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewGetCatalogEntryOptions successfully`, func() {
@@ -4233,9 +4233,9 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				priceModel := new(globalcatalogv1.Price)
 				Expect(priceModel).ToNot(BeNil())
 				priceModel.QuantityTier = core.Int64Ptr(int64(38))
-				priceModel.Price = core.Float64Ptr(72.5)
+				priceModel.Price = core.Float64Ptr(float64(72.5))
 				Expect(priceModel.QuantityTier).To(Equal(core.Int64Ptr(int64(38))))
-				Expect(priceModel.Price).To(Equal(core.Float64Ptr(72.5)))
+				Expect(priceModel.Price).To(Equal(core.Float64Ptr(float64(72.5))))
 
 				// Construct an instance of the Amount model
 				amountModel := new(globalcatalogv1.Amount)
