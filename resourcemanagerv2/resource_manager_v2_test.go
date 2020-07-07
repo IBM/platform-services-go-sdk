@@ -139,7 +139,7 @@ var _ = Describe(`ResourceManagerV2`, func() {
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-			 		defer GinkgoRecover()
+					defer GinkgoRecover()
 
 					// Verify the contents of the request
 					Expect(req.URL.Path).To(Equal(listResourceGroupsPath))
@@ -255,7 +255,7 @@ var _ = Describe(`ResourceManagerV2`, func() {
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-			 		defer GinkgoRecover()
+					defer GinkgoRecover()
 
 					// Verify the contents of the request
 					Expect(req.URL.Path).To(Equal(createResourceGroupPath))
@@ -363,7 +363,7 @@ var _ = Describe(`ResourceManagerV2`, func() {
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-			 		defer GinkgoRecover()
+					defer GinkgoRecover()
 
 					// Verify the contents of the request
 					Expect(req.URL.Path).To(Equal(getResourceGroupPath))
@@ -475,7 +475,7 @@ var _ = Describe(`ResourceManagerV2`, func() {
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-			 		defer GinkgoRecover()
+					defer GinkgoRecover()
 
 					// Verify the contents of the request
 					Expect(req.URL.Path).To(Equal(updateResourceGroupPath))
@@ -761,7 +761,7 @@ var _ = Describe(`ResourceManagerV2`, func() {
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-			 		defer GinkgoRecover()
+					defer GinkgoRecover()
 
 					// Verify the contents of the request
 					Expect(req.URL.Path).To(Equal(listQuotaDefinitionsPath))
@@ -863,7 +863,7 @@ var _ = Describe(`ResourceManagerV2`, func() {
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-			 		defer GinkgoRecover()
+					defer GinkgoRecover()
 
 					// Verify the contents of the request
 					Expect(req.URL.Path).To(Equal(getQuotaDefinitionPath))
