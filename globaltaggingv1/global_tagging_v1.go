@@ -36,7 +36,7 @@ type GlobalTaggingV1 struct {
 }
 
 // DefaultServiceURL is the default URL to make service requests to.
-const DefaultServiceURL = "https://tags.global-search-tagging.cloud.ibm.com/"
+const DefaultServiceURL = "https://tags.global-search-tagging.cloud.ibm.com"
 
 // DefaultServiceName is the default key used to find external configuration information.
 const DefaultServiceName = "global_tagging"
