@@ -139,7 +139,7 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-			 		defer GinkgoRecover()
+					defer GinkgoRecover()
 
 					// Verify the contents of the request
 					Expect(req.URL.Path).To(Equal(createAccountGroupPath))
@@ -257,7 +257,7 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-			 		defer GinkgoRecover()
+					defer GinkgoRecover()
 
 					// Verify the contents of the request
 					Expect(req.URL.Path).To(Equal(listAccountGroupsPath))
@@ -387,7 +387,7 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-			 		defer GinkgoRecover()
+					defer GinkgoRecover()
 
 					// Verify the contents of the request
 					Expect(req.URL.Path).To(Equal(getAccountGroupPath))
@@ -745,7 +745,7 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-			 		defer GinkgoRecover()
+					defer GinkgoRecover()
 
 					// Verify the contents of the request
 					Expect(req.URL.Path).To(Equal(createAccountPath))
@@ -863,7 +863,7 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-			 		defer GinkgoRecover()
+					defer GinkgoRecover()
 
 					// Verify the contents of the request
 					Expect(req.URL.Path).To(Equal(listAccountsPath))
@@ -993,7 +993,7 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-			 		defer GinkgoRecover()
+					defer GinkgoRecover()
 
 					// Verify the contents of the request
 					Expect(req.URL.Path).To(Equal(getAccountPath))
@@ -1275,7 +1275,7 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-			 		defer GinkgoRecover()
+					defer GinkgoRecover()
 
 					// Verify the contents of the request
 					Expect(req.URL.Path).To(Equal(createEnterprisePath))
@@ -1396,7 +1396,7 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-			 		defer GinkgoRecover()
+					defer GinkgoRecover()
 
 					// Verify the contents of the request
 					Expect(req.URL.Path).To(Equal(listEnterprisesPath))
@@ -1526,7 +1526,7 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-			 		defer GinkgoRecover()
+					defer GinkgoRecover()
 
 					// Verify the contents of the request
 					Expect(req.URL.Path).To(Equal(getEnterprisePath))
