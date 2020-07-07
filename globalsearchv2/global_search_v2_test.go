@@ -139,7 +139,7 @@ var _ = Describe(`GlobalSearchV2`, func() {
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-			 		defer GinkgoRecover()
+					defer GinkgoRecover()
 
 					// Verify the contents of the request
 					Expect(req.URL.Path).To(Equal(searchPath))
@@ -148,9 +148,9 @@ var _ = Describe(`GlobalSearchV2`, func() {
 					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"testString"}))
 
-					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(38))}))
+					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(1))}))
 
-					Expect(req.URL.Query()["timeout"]).To(Equal([]string{fmt.Sprint(int64(38))}))
+					Expect(req.URL.Query()["timeout"]).To(Equal([]string{fmt.Sprint(int64(0))}))
 
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
@@ -172,8 +172,8 @@ var _ = Describe(`GlobalSearchV2`, func() {
 				searchOptionsModel.SearchCursor = core.StringPtr("testString")
 				searchOptionsModel.TransactionID = core.StringPtr("testString")
 				searchOptionsModel.AccountID = core.StringPtr("testString")
-				searchOptionsModel.Limit = core.Int64Ptr(int64(38))
-				searchOptionsModel.Timeout = core.Int64Ptr(int64(38))
+				searchOptionsModel.Limit = core.Int64Ptr(int64(1))
+				searchOptionsModel.Timeout = core.Int64Ptr(int64(0))
 				searchOptionsModel.Sort = []string{"testString"}
 				searchOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
@@ -202,9 +202,9 @@ var _ = Describe(`GlobalSearchV2`, func() {
 					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"testString"}))
 
-					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(38))}))
+					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(1))}))
 
-					Expect(req.URL.Query()["timeout"]).To(Equal([]string{fmt.Sprint(int64(38))}))
+					Expect(req.URL.Query()["timeout"]).To(Equal([]string{fmt.Sprint(int64(0))}))
 
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
@@ -232,8 +232,8 @@ var _ = Describe(`GlobalSearchV2`, func() {
 				searchOptionsModel.SearchCursor = core.StringPtr("testString")
 				searchOptionsModel.TransactionID = core.StringPtr("testString")
 				searchOptionsModel.AccountID = core.StringPtr("testString")
-				searchOptionsModel.Limit = core.Int64Ptr(int64(38))
-				searchOptionsModel.Timeout = core.Int64Ptr(int64(38))
+				searchOptionsModel.Limit = core.Int64Ptr(int64(1))
+				searchOptionsModel.Timeout = core.Int64Ptr(int64(0))
 				searchOptionsModel.Sort = []string{"testString"}
  				searchOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
@@ -258,8 +258,8 @@ var _ = Describe(`GlobalSearchV2`, func() {
 				searchOptionsModel.SearchCursor = core.StringPtr("testString")
 				searchOptionsModel.TransactionID = core.StringPtr("testString")
 				searchOptionsModel.AccountID = core.StringPtr("testString")
-				searchOptionsModel.Limit = core.Int64Ptr(int64(38))
-				searchOptionsModel.Timeout = core.Int64Ptr(int64(38))
+				searchOptionsModel.Limit = core.Int64Ptr(int64(1))
+				searchOptionsModel.Timeout = core.Int64Ptr(int64(0))
 				searchOptionsModel.Sort = []string{"testString"}
 				searchOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
@@ -381,7 +381,7 @@ var _ = Describe(`GlobalSearchV2`, func() {
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-			 		defer GinkgoRecover()
+					defer GinkgoRecover()
 
 					// Verify the contents of the request
 					Expect(req.URL.Path).To(Equal(getSupportedTypesPath))
@@ -499,8 +499,8 @@ var _ = Describe(`GlobalSearchV2`, func() {
 				searchOptionsModel.SetSearchCursor("testString")
 				searchOptionsModel.SetTransactionID("testString")
 				searchOptionsModel.SetAccountID("testString")
-				searchOptionsModel.SetLimit(int64(38))
-				searchOptionsModel.SetTimeout(int64(38))
+				searchOptionsModel.SetLimit(int64(1))
+				searchOptionsModel.SetTimeout(int64(0))
 				searchOptionsModel.SetSort([]string{"testString"})
 				searchOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(searchOptionsModel).ToNot(BeNil())
@@ -509,8 +509,8 @@ var _ = Describe(`GlobalSearchV2`, func() {
 				Expect(searchOptionsModel.SearchCursor).To(Equal(core.StringPtr("testString")))
 				Expect(searchOptionsModel.TransactionID).To(Equal(core.StringPtr("testString")))
 				Expect(searchOptionsModel.AccountID).To(Equal(core.StringPtr("testString")))
-				Expect(searchOptionsModel.Limit).To(Equal(core.Int64Ptr(int64(38))))
-				Expect(searchOptionsModel.Timeout).To(Equal(core.Int64Ptr(int64(38))))
+				Expect(searchOptionsModel.Limit).To(Equal(core.Int64Ptr(int64(1))))
+				Expect(searchOptionsModel.Timeout).To(Equal(core.Int64Ptr(int64(0))))
 				Expect(searchOptionsModel.Sort).To(Equal([]string{"testString"}))
 				Expect(searchOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})

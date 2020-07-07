@@ -139,7 +139,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-			 		defer GinkgoRecover()
+					defer GinkgoRecover()
 
 					// Verify the contents of the request
 					Expect(req.URL.Path).To(Equal(createAccessGroupPath))
@@ -268,7 +268,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-			 		defer GinkgoRecover()
+					defer GinkgoRecover()
 
 					// Verify the contents of the request
 					Expect(req.URL.Path).To(Equal(listAccessGroupsPath))
@@ -437,7 +437,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-			 		defer GinkgoRecover()
+					defer GinkgoRecover()
 
 					// Verify the contents of the request
 					Expect(req.URL.Path).To(Equal(getAccessGroupPath))
@@ -565,7 +565,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-			 		defer GinkgoRecover()
+					defer GinkgoRecover()
 
 					// Verify the contents of the request
 					Expect(req.URL.Path).To(Equal(updateAccessGroupPath))
@@ -874,7 +874,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-			 		defer GinkgoRecover()
+					defer GinkgoRecover()
 
 					// Verify the contents of the request
 					Expect(req.URL.Path).To(Equal(getAccountSettingsPath))
@@ -997,7 +997,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-			 		defer GinkgoRecover()
+					defer GinkgoRecover()
 
 					// Verify the contents of the request
 					Expect(req.URL.Path).To(Equal(updateAccountSettingsPath))
@@ -1297,7 +1297,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-			 		defer GinkgoRecover()
+					defer GinkgoRecover()
 
 					// Verify the contents of the request
 					Expect(req.URL.Path).To(Equal(addMembersToAccessGroupPath))
@@ -1434,7 +1434,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-			 		defer GinkgoRecover()
+					defer GinkgoRecover()
 
 					// Verify the contents of the request
 					Expect(req.URL.Path).To(Equal(listAccessGroupMembersPath))
@@ -1471,8 +1471,8 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				listAccessGroupMembersOptionsModel := new(iamaccessgroupsv2.ListAccessGroupMembersOptions)
 				listAccessGroupMembersOptionsModel.AccessGroupID = core.StringPtr("testString")
 				listAccessGroupMembersOptionsModel.TransactionID = core.StringPtr("testString")
-				listAccessGroupMembersOptionsModel.Limit = core.Float64Ptr(72.5)
-				listAccessGroupMembersOptionsModel.Offset = core.Float64Ptr(72.5)
+				listAccessGroupMembersOptionsModel.Limit = core.Float64Ptr(float64(72.5))
+				listAccessGroupMembersOptionsModel.Offset = core.Float64Ptr(float64(72.5))
 				listAccessGroupMembersOptionsModel.Type = core.StringPtr("testString")
 				listAccessGroupMembersOptionsModel.Verbose = core.BoolPtr(true)
 				listAccessGroupMembersOptionsModel.Sort = core.StringPtr("testString")
@@ -1537,8 +1537,8 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				listAccessGroupMembersOptionsModel := new(iamaccessgroupsv2.ListAccessGroupMembersOptions)
 				listAccessGroupMembersOptionsModel.AccessGroupID = core.StringPtr("testString")
 				listAccessGroupMembersOptionsModel.TransactionID = core.StringPtr("testString")
-				listAccessGroupMembersOptionsModel.Limit = core.Float64Ptr(72.5)
-				listAccessGroupMembersOptionsModel.Offset = core.Float64Ptr(72.5)
+				listAccessGroupMembersOptionsModel.Limit = core.Float64Ptr(float64(72.5))
+				listAccessGroupMembersOptionsModel.Offset = core.Float64Ptr(float64(72.5))
 				listAccessGroupMembersOptionsModel.Type = core.StringPtr("testString")
 				listAccessGroupMembersOptionsModel.Verbose = core.BoolPtr(true)
 				listAccessGroupMembersOptionsModel.Sort = core.StringPtr("testString")
@@ -1562,8 +1562,8 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				listAccessGroupMembersOptionsModel := new(iamaccessgroupsv2.ListAccessGroupMembersOptions)
 				listAccessGroupMembersOptionsModel.AccessGroupID = core.StringPtr("testString")
 				listAccessGroupMembersOptionsModel.TransactionID = core.StringPtr("testString")
-				listAccessGroupMembersOptionsModel.Limit = core.Float64Ptr(72.5)
-				listAccessGroupMembersOptionsModel.Offset = core.Float64Ptr(72.5)
+				listAccessGroupMembersOptionsModel.Limit = core.Float64Ptr(float64(72.5))
+				listAccessGroupMembersOptionsModel.Offset = core.Float64Ptr(float64(72.5))
 				listAccessGroupMembersOptionsModel.Type = core.StringPtr("testString")
 				listAccessGroupMembersOptionsModel.Verbose = core.BoolPtr(true)
 				listAccessGroupMembersOptionsModel.Sort = core.StringPtr("testString")
@@ -1668,7 +1668,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-			 		defer GinkgoRecover()
+					defer GinkgoRecover()
 
 					// Verify the contents of the request
 					Expect(req.URL.Path).To(Equal(removeMembersFromAccessGroupPath))
@@ -1790,7 +1790,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-			 		defer GinkgoRecover()
+					defer GinkgoRecover()
 
 					// Verify the contents of the request
 					Expect(req.URL.Path).To(Equal(removeMemberFromAllAccessGroupsPath))
@@ -1916,7 +1916,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-			 		defer GinkgoRecover()
+					defer GinkgoRecover()
 
 					// Verify the contents of the request
 					Expect(req.URL.Path).To(Equal(addMemberToMultipleAccessGroupsPath))
@@ -2148,7 +2148,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-			 		defer GinkgoRecover()
+					defer GinkgoRecover()
 
 					// Verify the contents of the request
 					Expect(req.URL.Path).To(Equal(addAccessGroupRulePath))
@@ -2297,7 +2297,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-			 		defer GinkgoRecover()
+					defer GinkgoRecover()
 
 					// Verify the contents of the request
 					Expect(req.URL.Path).To(Equal(listAccessGroupRulesPath))
@@ -2416,7 +2416,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-			 		defer GinkgoRecover()
+					defer GinkgoRecover()
 
 					// Verify the contents of the request
 					Expect(req.URL.Path).To(Equal(getAccessGroupRulePath))
@@ -2538,7 +2538,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-			 		defer GinkgoRecover()
+					defer GinkgoRecover()
 
 					// Verify the contents of the request
 					Expect(req.URL.Path).To(Equal(replaceAccessGroupRulePath))
@@ -2946,8 +2946,8 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				listAccessGroupMembersOptionsModel := testService.NewListAccessGroupMembersOptions(accessGroupID)
 				listAccessGroupMembersOptionsModel.SetAccessGroupID("testString")
 				listAccessGroupMembersOptionsModel.SetTransactionID("testString")
-				listAccessGroupMembersOptionsModel.SetLimit(72.5)
-				listAccessGroupMembersOptionsModel.SetOffset(72.5)
+				listAccessGroupMembersOptionsModel.SetLimit(float64(72.5))
+				listAccessGroupMembersOptionsModel.SetOffset(float64(72.5))
 				listAccessGroupMembersOptionsModel.SetType("testString")
 				listAccessGroupMembersOptionsModel.SetVerbose(true)
 				listAccessGroupMembersOptionsModel.SetSort("testString")
@@ -2955,8 +2955,8 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				Expect(listAccessGroupMembersOptionsModel).ToNot(BeNil())
 				Expect(listAccessGroupMembersOptionsModel.AccessGroupID).To(Equal(core.StringPtr("testString")))
 				Expect(listAccessGroupMembersOptionsModel.TransactionID).To(Equal(core.StringPtr("testString")))
-				Expect(listAccessGroupMembersOptionsModel.Limit).To(Equal(core.Float64Ptr(72.5)))
-				Expect(listAccessGroupMembersOptionsModel.Offset).To(Equal(core.Float64Ptr(72.5)))
+				Expect(listAccessGroupMembersOptionsModel.Limit).To(Equal(core.Float64Ptr(float64(72.5))))
+				Expect(listAccessGroupMembersOptionsModel.Offset).To(Equal(core.Float64Ptr(float64(72.5))))
 				Expect(listAccessGroupMembersOptionsModel.Type).To(Equal(core.StringPtr("testString")))
 				Expect(listAccessGroupMembersOptionsModel.Verbose).To(Equal(core.BoolPtr(true)))
 				Expect(listAccessGroupMembersOptionsModel.Sort).To(Equal(core.StringPtr("testString")))
