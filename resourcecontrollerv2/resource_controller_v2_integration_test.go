@@ -74,6 +74,8 @@ func shouldSkipTest() {
 
 var _ = Describe("Resource Controller - Integration Tests", func() {
 
+	fmt.Printf("\nTransaction ID for this test run: %s\n", transactionId)
+
 	It("Successfully load the configuration", func() {
 		_, err = os.Stat(externalConfigFile)
 		if err == nil {
@@ -1097,7 +1099,8 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 			shouldSkipTest()
 
 			options := service.NewListReclamationsOptions()
-			options = options.SetAccountID(testAccountId)
+			// options = options.SetAccountID(testAccountId)
+			options = options.SetResourceInstanceID(testReclaimInstanceGuid) //checking reclamations with instance guid to make it more reliable
 			headers := map[string]string{
 				"Transaction-Id": "rc-sdk-go-test47-" + transactionId,
 			}
