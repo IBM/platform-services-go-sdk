@@ -139,7 +139,7 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-			 		defer GinkgoRecover()
+					defer GinkgoRecover()
 
 					// Verify the contents of the request
 					Expect(req.URL.Path).To(Equal(listTagsPath))
@@ -149,9 +149,9 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 
 					// TODO: Add check for full_data query parameter
 
-					Expect(req.URL.Query()["offset"]).To(Equal([]string{fmt.Sprint(int64(38))}))
+					Expect(req.URL.Query()["offset"]).To(Equal([]string{fmt.Sprint(int64(0))}))
 
-					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(38))}))
+					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(1))}))
 
 					Expect(req.URL.Query()["order_by_name"]).To(Equal([]string{"asc"}))
 
@@ -178,8 +178,8 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 				listTagsOptionsModel.Providers = []string{"ghost"}
 				listTagsOptionsModel.AttachedTo = core.StringPtr("testString")
 				listTagsOptionsModel.FullData = core.BoolPtr(true)
-				listTagsOptionsModel.Offset = core.Int64Ptr(int64(38))
-				listTagsOptionsModel.Limit = core.Int64Ptr(int64(38))
+				listTagsOptionsModel.Offset = core.Int64Ptr(int64(0))
+				listTagsOptionsModel.Limit = core.Int64Ptr(int64(1))
 				listTagsOptionsModel.OrderByName = core.StringPtr("asc")
 				listTagsOptionsModel.Timeout = core.Int64Ptr(int64(38))
 				listTagsOptionsModel.AttachedOnly = core.BoolPtr(true)
@@ -211,9 +211,9 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 
 					// TODO: Add check for full_data query parameter
 
-					Expect(req.URL.Query()["offset"]).To(Equal([]string{fmt.Sprint(int64(38))}))
+					Expect(req.URL.Query()["offset"]).To(Equal([]string{fmt.Sprint(int64(0))}))
 
-					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(38))}))
+					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(1))}))
 
 					Expect(req.URL.Query()["order_by_name"]).To(Equal([]string{"asc"}))
 
@@ -246,8 +246,8 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 				listTagsOptionsModel.Providers = []string{"ghost"}
 				listTagsOptionsModel.AttachedTo = core.StringPtr("testString")
 				listTagsOptionsModel.FullData = core.BoolPtr(true)
-				listTagsOptionsModel.Offset = core.Int64Ptr(int64(38))
-				listTagsOptionsModel.Limit = core.Int64Ptr(int64(38))
+				listTagsOptionsModel.Offset = core.Int64Ptr(int64(0))
+				listTagsOptionsModel.Limit = core.Int64Ptr(int64(1))
 				listTagsOptionsModel.OrderByName = core.StringPtr("asc")
 				listTagsOptionsModel.Timeout = core.Int64Ptr(int64(38))
 				listTagsOptionsModel.AttachedOnly = core.BoolPtr(true)
@@ -272,8 +272,8 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 				listTagsOptionsModel.Providers = []string{"ghost"}
 				listTagsOptionsModel.AttachedTo = core.StringPtr("testString")
 				listTagsOptionsModel.FullData = core.BoolPtr(true)
-				listTagsOptionsModel.Offset = core.Int64Ptr(int64(38))
-				listTagsOptionsModel.Limit = core.Int64Ptr(int64(38))
+				listTagsOptionsModel.Offset = core.Int64Ptr(int64(0))
+				listTagsOptionsModel.Limit = core.Int64Ptr(int64(1))
 				listTagsOptionsModel.OrderByName = core.StringPtr("asc")
 				listTagsOptionsModel.Timeout = core.Int64Ptr(int64(38))
 				listTagsOptionsModel.AttachedOnly = core.BoolPtr(true)
@@ -297,7 +297,7 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-			 		defer GinkgoRecover()
+					defer GinkgoRecover()
 
 					// Verify the contents of the request
 					Expect(req.URL.Path).To(Equal(deleteTagAllPath))
@@ -406,7 +406,7 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-			 		defer GinkgoRecover()
+					defer GinkgoRecover()
 
 					// Verify the contents of the request
 					Expect(req.URL.Path).To(Equal(deleteTagPath))
@@ -521,7 +521,7 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-			 		defer GinkgoRecover()
+					defer GinkgoRecover()
 
 					// Verify the contents of the request
 					Expect(req.URL.Path).To(Equal(attachTagPath))
@@ -654,7 +654,7 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-			 		defer GinkgoRecover()
+					defer GinkgoRecover()
 
 					// Verify the contents of the request
 					Expect(req.URL.Path).To(Equal(detachTagPath))
@@ -859,8 +859,8 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 				listTagsOptionsModel.SetProviders([]string{"ghost"})
 				listTagsOptionsModel.SetAttachedTo("testString")
 				listTagsOptionsModel.SetFullData(true)
-				listTagsOptionsModel.SetOffset(int64(38))
-				listTagsOptionsModel.SetLimit(int64(38))
+				listTagsOptionsModel.SetOffset(int64(0))
+				listTagsOptionsModel.SetLimit(int64(1))
 				listTagsOptionsModel.SetOrderByName("asc")
 				listTagsOptionsModel.SetTimeout(int64(38))
 				listTagsOptionsModel.SetAttachedOnly(true)
@@ -869,8 +869,8 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 				Expect(listTagsOptionsModel.Providers).To(Equal([]string{"ghost"}))
 				Expect(listTagsOptionsModel.AttachedTo).To(Equal(core.StringPtr("testString")))
 				Expect(listTagsOptionsModel.FullData).To(Equal(core.BoolPtr(true)))
-				Expect(listTagsOptionsModel.Offset).To(Equal(core.Int64Ptr(int64(38))))
-				Expect(listTagsOptionsModel.Limit).To(Equal(core.Int64Ptr(int64(38))))
+				Expect(listTagsOptionsModel.Offset).To(Equal(core.Int64Ptr(int64(0))))
+				Expect(listTagsOptionsModel.Limit).To(Equal(core.Int64Ptr(int64(1))))
 				Expect(listTagsOptionsModel.OrderByName).To(Equal(core.StringPtr("asc")))
 				Expect(listTagsOptionsModel.Timeout).To(Equal(core.Int64Ptr(int64(38))))
 				Expect(listTagsOptionsModel.AttachedOnly).To(Equal(core.BoolPtr(true)))

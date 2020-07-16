@@ -139,7 +139,7 @@ var _ = Describe(`CaseManagementV1`, func() {
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-			 		defer GinkgoRecover()
+					defer GinkgoRecover()
 
 					// Verify the contents of the request
 					Expect(req.URL.Path).To(Equal(getCasesPath))
@@ -275,7 +275,7 @@ var _ = Describe(`CaseManagementV1`, func() {
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-			 		defer GinkgoRecover()
+					defer GinkgoRecover()
 
 					// Verify the contents of the request
 					Expect(req.URL.Path).To(Equal(createCasePath))
@@ -314,7 +314,7 @@ var _ = Describe(`CaseManagementV1`, func() {
 				resourcePayloadModel := new(casemanagementv1.ResourcePayload)
 				resourcePayloadModel.Crn = core.StringPtr("testString")
 				resourcePayloadModel.Type = core.StringPtr("testString")
-				resourcePayloadModel.ID = core.Float64Ptr(72.5)
+				resourcePayloadModel.ID = core.Float64Ptr(float64(72.5))
 				resourcePayloadModel.Note = core.StringPtr("testString")
 
 				// Construct an instance of the User model
@@ -397,7 +397,7 @@ var _ = Describe(`CaseManagementV1`, func() {
 				resourcePayloadModel := new(casemanagementv1.ResourcePayload)
 				resourcePayloadModel.Crn = core.StringPtr("testString")
 				resourcePayloadModel.Type = core.StringPtr("testString")
-				resourcePayloadModel.ID = core.Float64Ptr(72.5)
+				resourcePayloadModel.ID = core.Float64Ptr(float64(72.5))
 				resourcePayloadModel.Note = core.StringPtr("testString")
 
 				// Construct an instance of the User model
@@ -454,7 +454,7 @@ var _ = Describe(`CaseManagementV1`, func() {
 				resourcePayloadModel := new(casemanagementv1.ResourcePayload)
 				resourcePayloadModel.Crn = core.StringPtr("testString")
 				resourcePayloadModel.Type = core.StringPtr("testString")
-				resourcePayloadModel.ID = core.Float64Ptr(72.5)
+				resourcePayloadModel.ID = core.Float64Ptr(float64(72.5))
 				resourcePayloadModel.Note = core.StringPtr("testString")
 
 				// Construct an instance of the User model
@@ -501,7 +501,7 @@ var _ = Describe(`CaseManagementV1`, func() {
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-			 		defer GinkgoRecover()
+					defer GinkgoRecover()
 
 					// Verify the contents of the request
 					Expect(req.URL.Path).To(Equal(getCasePath))
@@ -616,7 +616,7 @@ var _ = Describe(`CaseManagementV1`, func() {
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-			 		defer GinkgoRecover()
+					defer GinkgoRecover()
 
 					// Verify the contents of the request
 					Expect(req.URL.Path).To(Equal(updateCaseStatusPath))
@@ -749,7 +749,7 @@ var _ = Describe(`CaseManagementV1`, func() {
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-			 		defer GinkgoRecover()
+					defer GinkgoRecover()
 
 					// Verify the contents of the request
 					Expect(req.URL.Path).To(Equal(addCommentPath))
@@ -770,7 +770,7 @@ var _ = Describe(`CaseManagementV1`, func() {
 				// Construct an instance of the AddCommentOptions model
 				addCommentOptionsModel := new(casemanagementv1.AddCommentOptions)
 				addCommentOptionsModel.CaseNumber = core.StringPtr("testString")
-				addCommentOptionsModel.Comment = core.StringPtr("testString")
+				addCommentOptionsModel.Comment = core.StringPtr("This is a test comment")
 				addCommentOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
 				result, response, operationErr := testService.AddComment(addCommentOptionsModel)
@@ -816,7 +816,7 @@ var _ = Describe(`CaseManagementV1`, func() {
 				// Construct an instance of the AddCommentOptions model
 				addCommentOptionsModel := new(casemanagementv1.AddCommentOptions)
 				addCommentOptionsModel.CaseNumber = core.StringPtr("testString")
-				addCommentOptionsModel.Comment = core.StringPtr("testString")
+				addCommentOptionsModel.Comment = core.StringPtr("This is a test comment")
  				addCommentOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
@@ -836,7 +836,7 @@ var _ = Describe(`CaseManagementV1`, func() {
 				// Construct an instance of the AddCommentOptions model
 				addCommentOptionsModel := new(casemanagementv1.AddCommentOptions)
 				addCommentOptionsModel.CaseNumber = core.StringPtr("testString")
-				addCommentOptionsModel.Comment = core.StringPtr("testString")
+				addCommentOptionsModel.Comment = core.StringPtr("This is a test comment")
 				addCommentOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := testService.SetServiceURL("")
@@ -864,7 +864,7 @@ var _ = Describe(`CaseManagementV1`, func() {
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-			 		defer GinkgoRecover()
+					defer GinkgoRecover()
 
 					// Verify the contents of the request
 					Expect(req.URL.Path).To(Equal(addWatchlistPath))
@@ -994,7 +994,7 @@ var _ = Describe(`CaseManagementV1`, func() {
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-			 		defer GinkgoRecover()
+					defer GinkgoRecover()
 
 					// Verify the contents of the request
 					Expect(req.URL.Path).To(Equal(removeWatchlistPath))
@@ -1124,7 +1124,7 @@ var _ = Describe(`CaseManagementV1`, func() {
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-			 		defer GinkgoRecover()
+					defer GinkgoRecover()
 
 					// Verify the contents of the request
 					Expect(req.URL.Path).To(Equal(addResourcePath))
@@ -1147,7 +1147,7 @@ var _ = Describe(`CaseManagementV1`, func() {
 				addResourceOptionsModel.CaseNumber = core.StringPtr("testString")
 				addResourceOptionsModel.Crn = core.StringPtr("testString")
 				addResourceOptionsModel.Type = core.StringPtr("testString")
-				addResourceOptionsModel.ID = core.Float64Ptr(72.5)
+				addResourceOptionsModel.ID = core.Float64Ptr(float64(72.5))
 				addResourceOptionsModel.Note = core.StringPtr("testString")
 				addResourceOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
@@ -1196,7 +1196,7 @@ var _ = Describe(`CaseManagementV1`, func() {
 				addResourceOptionsModel.CaseNumber = core.StringPtr("testString")
 				addResourceOptionsModel.Crn = core.StringPtr("testString")
 				addResourceOptionsModel.Type = core.StringPtr("testString")
-				addResourceOptionsModel.ID = core.Float64Ptr(72.5)
+				addResourceOptionsModel.ID = core.Float64Ptr(float64(72.5))
 				addResourceOptionsModel.Note = core.StringPtr("testString")
  				addResourceOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
@@ -1219,7 +1219,7 @@ var _ = Describe(`CaseManagementV1`, func() {
 				addResourceOptionsModel.CaseNumber = core.StringPtr("testString")
 				addResourceOptionsModel.Crn = core.StringPtr("testString")
 				addResourceOptionsModel.Type = core.StringPtr("testString")
-				addResourceOptionsModel.ID = core.Float64Ptr(72.5)
+				addResourceOptionsModel.ID = core.Float64Ptr(float64(72.5))
 				addResourceOptionsModel.Note = core.StringPtr("testString")
 				addResourceOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
@@ -1248,7 +1248,7 @@ var _ = Describe(`CaseManagementV1`, func() {
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-			 		defer GinkgoRecover()
+					defer GinkgoRecover()
 
 					// Verify the contents of the request
 					Expect(req.URL.Path).To(Equal(uploadFilePath))
@@ -1389,7 +1389,7 @@ var _ = Describe(`CaseManagementV1`, func() {
 					Expect(req.Method).To(Equal("GET"))
 					res.Header().Set("Content-type", "application/octet-stream")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, `Contents of response byte-stream...`)
+					fmt.Fprintf(res, `This is a mock binary response.`)
 				}))
 			})
 			It(`Invoke DownloadFile successfully`, func() {
@@ -1457,7 +1457,7 @@ var _ = Describe(`CaseManagementV1`, func() {
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-			 		defer GinkgoRecover()
+					defer GinkgoRecover()
 
 					// Verify the contents of the request
 					Expect(req.URL.Path).To(Equal(deleteFilePath))
@@ -1576,14 +1576,14 @@ var _ = Describe(`CaseManagementV1`, func() {
 			It(`Invoke NewAddCommentOptions successfully`, func() {
 				// Construct an instance of the AddCommentOptions model
 				caseNumber := "testString"
-				addCommentOptionsComment := "testString"
+				addCommentOptionsComment := "This is a test comment"
 				addCommentOptionsModel := testService.NewAddCommentOptions(caseNumber, addCommentOptionsComment)
 				addCommentOptionsModel.SetCaseNumber("testString")
-				addCommentOptionsModel.SetComment("testString")
+				addCommentOptionsModel.SetComment("This is a test comment")
 				addCommentOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(addCommentOptionsModel).ToNot(BeNil())
 				Expect(addCommentOptionsModel.CaseNumber).To(Equal(core.StringPtr("testString")))
-				Expect(addCommentOptionsModel.Comment).To(Equal(core.StringPtr("testString")))
+				Expect(addCommentOptionsModel.Comment).To(Equal(core.StringPtr("This is a test comment")))
 				Expect(addCommentOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewAddResourceOptions successfully`, func() {
@@ -1593,14 +1593,14 @@ var _ = Describe(`CaseManagementV1`, func() {
 				addResourceOptionsModel.SetCaseNumber("testString")
 				addResourceOptionsModel.SetCrn("testString")
 				addResourceOptionsModel.SetType("testString")
-				addResourceOptionsModel.SetID(72.5)
+				addResourceOptionsModel.SetID(float64(72.5))
 				addResourceOptionsModel.SetNote("testString")
 				addResourceOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(addResourceOptionsModel).ToNot(BeNil())
 				Expect(addResourceOptionsModel.CaseNumber).To(Equal(core.StringPtr("testString")))
 				Expect(addResourceOptionsModel.Crn).To(Equal(core.StringPtr("testString")))
 				Expect(addResourceOptionsModel.Type).To(Equal(core.StringPtr("testString")))
-				Expect(addResourceOptionsModel.ID).To(Equal(core.Float64Ptr(72.5)))
+				Expect(addResourceOptionsModel.ID).To(Equal(core.Float64Ptr(float64(72.5))))
 				Expect(addResourceOptionsModel.Note).To(Equal(core.StringPtr("testString")))
 				Expect(addResourceOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
@@ -1658,11 +1658,11 @@ var _ = Describe(`CaseManagementV1`, func() {
 				Expect(resourcePayloadModel).ToNot(BeNil())
 				resourcePayloadModel.Crn = core.StringPtr("testString")
 				resourcePayloadModel.Type = core.StringPtr("testString")
-				resourcePayloadModel.ID = core.Float64Ptr(72.5)
+				resourcePayloadModel.ID = core.Float64Ptr(float64(72.5))
 				resourcePayloadModel.Note = core.StringPtr("testString")
 				Expect(resourcePayloadModel.Crn).To(Equal(core.StringPtr("testString")))
 				Expect(resourcePayloadModel.Type).To(Equal(core.StringPtr("testString")))
-				Expect(resourcePayloadModel.ID).To(Equal(core.Float64Ptr(72.5)))
+				Expect(resourcePayloadModel.ID).To(Equal(core.Float64Ptr(float64(72.5))))
 				Expect(resourcePayloadModel.Note).To(Equal(core.StringPtr("testString")))
 
 				// Construct an instance of the User model
