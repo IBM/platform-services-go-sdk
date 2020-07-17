@@ -1,3 +1,10 @@
+# [0.9.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.8.0...v0.9.0) (2020-07-17)
+
+
+### Features
+
+* **Resource Controller:** add service to project ([#18](https://github.com/IBM/platform-services-go-sdk/issues/18)) ([b8739d8](https://github.com/IBM/platform-services-go-sdk/commit/b8739d8496edc863203ee906a88057a042524963))
+
 # [0.8.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.7.0...v0.8.0) (2020-07-06)
 
 
