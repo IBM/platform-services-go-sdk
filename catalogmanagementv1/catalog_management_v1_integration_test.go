@@ -289,14 +289,14 @@ var _ = Describe("Catalog Management - Integration Tests", func() {
 			Expect(replaceResponse.StatusCode).To(Equal(200))
 			Expect(*replaceResult.Label).To(Equal(expectedLabelUpdated))
 			Expect(*replaceResult.ShortDescription).To(Equal(expectedShortDescUpdated))
-			// Bypass the following checks to allow test to pass.
-			// Expect(*replaceResult.URL).To(Equal(fmt.Sprintf(expectedURL, id)))
-			// Expect(*replaceResult.OfferingsURL).To(Equal(fmt.Sprintf(expectedOfferingsURL, id)))
-			// Expect(*replaceResult.OwningAccount).To(Equal(expectedAccount))
-			// Expect(*replaceResult.CatalogFilters.IncludeAll).To(BeTrue())
-			// Expect(len(replaceResult.CatalogFilters.CategoryFilters)).To(BeZero())
-			// Expect(replaceResult.CatalogFilters.IdFilters.Include).To(BeNil())
-			// Expect(replaceResult.CatalogFilters.IdFilters.Exclude).To(BeNil())
+			Bypass the following checks to allow test to pass.
+			Expect(*replaceResult.URL).To(Equal(fmt.Sprintf(expectedURL, id)))
+			Expect(*replaceResult.OfferingsURL).To(Equal(fmt.Sprintf(expectedOfferingsURL, id)))
+			Expect(*replaceResult.OwningAccount).To(Equal(expectedAccount))
+			Expect(*replaceResult.CatalogFilters.IncludeAll).To(BeTrue())
+			Expect(len(replaceResult.CatalogFilters.CategoryFilters)).To(BeZero())
+			Expect(replaceResult.CatalogFilters.IdFilters.Include).To(BeNil())
+			Expect(replaceResult.CatalogFilters.IdFilters.Exclude).To(BeNil())
 		})
 
 		It("Fail to update a catalog that does not exist", func() {
