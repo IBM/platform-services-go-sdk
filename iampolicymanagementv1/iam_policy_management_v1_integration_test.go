@@ -240,7 +240,6 @@ var _ = Describe("IAM Policy Management - Integration Tests", func() {
 
 	Describe("Create custom role", func() {
 		It("Successfully created custom role", func() {
-			Skip("Temporarily skipping until test can be fixed")
 			shouldSkipTest()
 
 			actions := []string{"iam-groups.groups.read"}
@@ -261,7 +260,6 @@ var _ = Describe("IAM Policy Management - Integration Tests", func() {
 
 	Describe("Get a custom role", func() {
 		It("Successfully retrieved a custom role", func() {
-			Skip("Temporarily skipping until test can be fixed")
 			shouldSkipTest()
 			Expect(testCustomRoleId).To(Not(BeNil()))
 
@@ -277,7 +275,6 @@ var _ = Describe("IAM Policy Management - Integration Tests", func() {
 
 	Describe("Update custom roles", func() {
 		It("Successfully updated a custom role", func() {
-			Skip("Temporarily skipping until test can be fixed")
 			shouldSkipTest()
 			Expect(testCustomRoleId).To(Not(BeNil()))
 			Expect(testPolicyETag).To(Not(BeNil()))
@@ -297,7 +294,6 @@ var _ = Describe("IAM Policy Management - Integration Tests", func() {
 
 	Describe("List custom roles", func() {
 		It("Successfully listed the account's custom roles", func() {
-			Skip("Temporarily skipping until test can be fixed")
 			shouldSkipTest()
 			Expect(testCustomRoleId).To(Not(BeNil()))
 
