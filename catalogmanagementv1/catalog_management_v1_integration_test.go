@@ -20,10 +20,11 @@ package catalogmanagementv1_test
 
 import (
 	"fmt"
-	"github.com/IBM/go-sdk-core/v4/core"
-	"github.com/IBM/platform-services-go-sdk/catalogmanagementv1"
 	"os"
 	"time"
+
+	"github.com/IBM/go-sdk-core/v4/core"
+	"github.com/IBM/platform-services-go-sdk/catalogmanagementv1"
 
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
@@ -621,11 +622,11 @@ var _ = Describe("Catalog Management - Integration Tests", func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(*result.Offset).To(BeZero())
-			Expect(*result.Limit).To(BeZero())
+			Expect(*result.Limit).ToNot(BeZero())
 			Expect(*result.TotalCount).ToNot(BeZero())
-			Expect(result.Last).To(BeNil())
+			Expect(result.Last).ToNot(BeNil())
 			Expect(result.Prev).To(BeNil())
-			Expect(result.Next).To(BeNil())
+			Expect(result.Next).ToNot(BeNil())
 			Expect(len(result.Resources)).ToNot(BeZero())
 		})
 
