@@ -38,7 +38,7 @@ type UserManagementV1 struct {
 }
 
 // DefaultServiceURL is the default URL to make service requests to.
-const DefaultServiceURL = "https://user-management.cloud.ibm.com"
+const DefaultServiceURL = "https://user-management.test.cloud.ibm.com"
 
 // DefaultServiceName is the default key used to find external configuration information.
 const DefaultServiceName = "user_management"
@@ -1156,6 +1156,8 @@ func UnmarshalInviteUser(m map[string]json.RawMessage, result interface{}) (err 
 // InviteUserIamPolicy : Invite a user to an IAM policy.
 type InviteUserIamPolicy struct {
 	// A list of IAM roles.
+
+	Type *string `json:"type,omitempty"`
 	Roles []Role `json:"roles,omitempty"`
 
 	// A list of resources.
