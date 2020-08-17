@@ -17,12 +17,8 @@
 package usermanagementv1_test
 
 import (
-	"encoding/json"
 	"fmt"
-	"io/ioutil"
-	"net/http"
 	"os"
-
 	"github.com/IBM/go-sdk-core/v4/core"
 	"github.com/IBM/platform-services-go-sdk/usermanagementv1"
 	. "github.com/onsi/ginkgo"
@@ -47,7 +43,6 @@ var _ = Describe(`UserManagementV1 Integration Tests`, func() {
 		alternateService      *usermanagementv1.UserManagementV1
 		serviceURL            string
 		config                map[string]string
-		bearerToken           string
 		deleteUserId          string
 	)
 
@@ -63,7 +58,7 @@ var _ = Describe(`UserManagementV1 Integration Tests`, func() {
 			}
 
 			os.Setenv("IBM_CREDENTIALS_FILE", externalConfigFile)
-			config, err = core.GetServiceProperties(usermanagementv1.DefaultServiceName)
+			config, err = core.GetServiceProperties("USERMGMT1")
 			if err != nil {
 				Skip("Error loading service properties, skipping tests: " + err.Error())
 			}
@@ -81,68 +76,25 @@ var _ = Describe(`UserManagementV1 Integration Tests`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
 		})
-		It("Successfully construct the service client instance", func() {
-
-			userManagementServiceOptions := &usermanagementv1.UserManagementV1Options{}
-
-			userManagementService, err = usermanagementv1.NewUserManagementV1UsingExternalConfig(userManagementServiceOptions)
-
-			Expect(err).To(BeNil())
-			Expect(userManagementService).ToNot(BeNil())
-			Expect(userManagementService.Service.Options.URL).To(Equal(serviceURL))
-		})
-	})
-
-	Describe(`get token - List users`, func() {
-		BeforeEach(func() {
-			shouldSkipTest()
-		})
-		It(`get token(listUsersOptions *ListUsersOptions)`, func() {
-
-			url := "https://iam.test.cloud.ibm.com/identity/token?grant_type=password&username=aminttest%2Btemplate_test_owner@mail.test.ibm.com&password=Bluemix1234$&response_type=cloud_iam&bss_account=1aa434630b594b8a88b961a44c9eb2a9"
-			method := "POST"
-			client := &http.Client{}
-			req, err := http.NewRequest(method, url, nil)
-			if err != nil {
-				fmt.Println(err)
-			}
-
-			authz := config["IAM_BASIC_AUTH"]
-
-			req.Header.Add("Authorization", authz)
-			res, err := client.Do(req)
-			Expect(err).To(BeNil())
-
-			body, err := ioutil.ReadAll(res.Body)
-			Expect(err).To(BeNil())
-
-			var data map[string]interface{} // TopTracks
-			err = json.Unmarshal(body, &data)
-			Expect(err).To(BeNil())
-			bearerToken = data["access_token"].(string)
-		})
-	})
-
-	Describe(`Alternate Client initialization`, func() {
-		BeforeEach(func() {
-			shouldSkipTest()
-		})
-		It("Successfully construct the alternate service client instance", func() {
-			// Obtain IAM bearer token for use with "invite" operation.
-			//bearerToken := bearerToken // << fill this in...
-			bearerTokenAuthenticator := &core.BearerTokenAuthenticator{
-				BearerToken: bearerToken,
-			}
-			serviceOptions := &usermanagementv1.UserManagementV1Options{
-				URL:           serviceURL,
-				Authenticator: bearerTokenAuthenticator,
-			}
-			alternateService, err = usermanagementv1.NewUserManagementV1(serviceOptions)
-			Expect(err).To(BeNil())
-			Expect(alternateService).ToNot(BeNil())
-			Expect(alternateService.Service.Options.URL).To(Equal(serviceURL))
-		})
-	})
+        It("Successfully construct the service client main instance", func() {
+            userManagementServiceOptions := &usermanagementv1.UserManagementV1Options{
+                ServiceName: "USERMGMT1",
+            }
+            userManagementService, err = usermanagementv1.NewUserManagementV1UsingExternalConfig(userManagementServiceOptions)
+            Expect(err).To(BeNil())
+            Expect(userManagementService).ToNot(BeNil())
+            Expect(userManagementService.Service.Options.URL).To(Equal(serviceURL))
+        })
+        It("Successfully construct the service client alternate instance", func() {
+            userManagementServiceOptions := &usermanagementv1.UserManagementV1Options{
+                ServiceName: "USERMGMT2",
+            }
+            alternateService, err = usermanagementv1.NewUserManagementV1UsingExternalConfig(userManagementServiceOptions)
+            Expect(err).To(BeNil())
+            Expect(alternateService).ToNot(BeNil())
+            Expect(alternateService.Service.Options.URL).To(Equal(serviceURL))
+        })
+    })
 
 	Describe(`GetUserSettings - Get user settings`, func() {
 		BeforeEach(func() {
