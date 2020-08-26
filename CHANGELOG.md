@@ -1,3 +1,10 @@
+# [0.10.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.9.0...v0.10.0) (2020-08-26)
+
+
+### Features
+
+* **User Management:** add service to project ([#40](https://github.com/IBM/platform-services-go-sdk/issues/40)) ([58ecf2f](https://github.com/IBM/platform-services-go-sdk/commit/58ecf2fdf1cb9becaab688c9f2dd55412ee836df))
+
 # [0.9.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.8.0...v0.9.0) (2020-07-17)
 
 
