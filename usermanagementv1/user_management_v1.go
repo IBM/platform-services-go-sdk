@@ -17,7 +17,6 @@
 /*
  * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-79b061f4-20200806-065240
  */
- 
 
 // Package usermanagementv1 : Operations and models for the UserManagementV1 service
 package usermanagementv1
@@ -25,9 +24,10 @@ package usermanagementv1
 import (
 	"encoding/json"
 	"fmt"
+	"reflect"
+
 	"github.com/IBM/go-sdk-core/v4/core"
 	common "github.com/IBM/platform-services-go-sdk/common"
-	"reflect"
 )
 
 // UserManagementV1 : Manage the lifecycle of your users using User Management APIs.
@@ -38,7 +38,7 @@ type UserManagementV1 struct {
 }
 
 // DefaultServiceURL is the default URL to make service requests to.
-const DefaultServiceURL = "https://user-management.test.cloud.ibm.com"
+const DefaultServiceURL = "https://user-management.cloud.ibm.com"
 
 // DefaultServiceName is the default key used to find external configuration information.
 const DefaultServiceName = "user_management"
@@ -556,7 +556,7 @@ type GetUserProfileOptions struct {
 func (*UserManagementV1) NewGetUserProfileOptions(accountID string, iamID string) *GetUserProfileOptions {
 	return &GetUserProfileOptions{
 		AccountID: core.StringPtr(accountID),
-		IamID: core.StringPtr(iamID),
+		IamID:     core.StringPtr(iamID),
 	}
 }
 
@@ -594,7 +594,7 @@ type GetUserSettingsOptions struct {
 func (*UserManagementV1) NewGetUserSettingsOptions(accountID string, iamID string) *GetUserSettingsOptions {
 	return &GetUserSettingsOptions{
 		AccountID: core.StringPtr(accountID),
-		IamID: core.StringPtr(iamID),
+		IamID:     core.StringPtr(iamID),
 	}
 }
 
@@ -724,7 +724,7 @@ type RemoveUsersOptions struct {
 func (*UserManagementV1) NewRemoveUsersOptions(accountID string, iamID string) *RemoveUsersOptions {
 	return &RemoveUsersOptions{
 		AccountID: core.StringPtr(accountID),
-		IamID: core.StringPtr(iamID),
+		IamID:     core.StringPtr(iamID),
 	}
 }
 
@@ -784,7 +784,7 @@ type UpdateUserProfilesOptions struct {
 func (*UserManagementV1) NewUpdateUserProfilesOptions(accountID string, iamID string) *UpdateUserProfilesOptions {
 	return &UpdateUserProfilesOptions{
 		AccountID: core.StringPtr(accountID),
-		IamID: core.StringPtr(iamID),
+		IamID:     core.StringPtr(iamID),
 	}
 }
 
@@ -876,7 +876,7 @@ type UpdateUserSettingsOptions struct {
 func (*UserManagementV1) NewUpdateUserSettingsOptions(accountID string, iamID string) *UpdateUserSettingsOptions {
 	return &UpdateUserSettingsOptions{
 		AccountID: core.StringPtr(accountID),
-		IamID: core.StringPtr(iamID),
+		IamID:     core.StringPtr(iamID),
 	}
 }
 
@@ -939,7 +939,6 @@ type UserList struct {
 	// A list of users in the account.
 	Resources []UserProfile `json:"resources,omitempty"`
 }
-
 
 // UnmarshalUserList unmarshals an instance of UserList from the specified map of raw messages.
 func UnmarshalUserList(m map[string]json.RawMessage, result interface{}) (err error) {
@@ -1007,7 +1006,6 @@ type UserProfile struct {
 	// An alphanumeric value identifying the account ID.
 	AccountID *string `json:"account_id,omitempty"`
 }
-
 
 // UnmarshalUserProfile unmarshals an instance of UserProfile from the specified map of raw messages.
 func UnmarshalUserProfile(m map[string]json.RawMessage, result interface{}) (err error) {
@@ -1079,7 +1077,6 @@ type UserSettings struct {
 	SelfManage *bool `json:"self_manage,omitempty"`
 }
 
-
 // UnmarshalUserSettings unmarshals an instance of UserSettings from the specified map of raw messages.
 func UnmarshalUserSettings(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(UserSettings)
@@ -1112,7 +1109,6 @@ type Attribute struct {
 	Value *string `json:"value,omitempty"`
 }
 
-
 // UnmarshalAttribute unmarshals an instance of Attribute from the specified map of raw messages.
 func UnmarshalAttribute(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(Attribute)
@@ -1137,7 +1133,6 @@ type InviteUser struct {
 	AccountRole *string `json:"account_role,omitempty"`
 }
 
-
 // UnmarshalInviteUser unmarshals an instance of InviteUser from the specified map of raw messages.
 func UnmarshalInviteUser(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(InviteUser)
@@ -1157,13 +1152,12 @@ func UnmarshalInviteUser(m map[string]json.RawMessage, result interface{}) (err 
 type InviteUserIamPolicy struct {
 	// A list of IAM roles.
 
-	Type *string `json:"type,omitempty"`
-	Roles []Role `json:"roles,omitempty"`
+	Type  *string `json:"type,omitempty"`
+	Roles []Role  `json:"roles,omitempty"`
 
 	// A list of resources.
 	Resources []Resource `json:"resources,omitempty"`
 }
-
 
 // UnmarshalInviteUserIamPolicy unmarshals an instance of InviteUserIamPolicy from the specified map of raw messages.
 func UnmarshalInviteUserIamPolicy(m map[string]json.RawMessage, result interface{}) (err error) {
@@ -1186,7 +1180,6 @@ type Resource struct {
 	Attributes []Attribute `json:"attributes,omitempty"`
 }
 
-
 // UnmarshalResource unmarshals an instance of Resource from the specified map of raw messages.
 func UnmarshalResource(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(Resource)
@@ -1203,7 +1196,6 @@ type Role struct {
 	// An alphanumeric value identifying the origin.
 	RoleID *string `json:"role_id,omitempty"`
 }
-
 
 // UnmarshalRole unmarshals an instance of Role from the specified map of raw messages.
 func UnmarshalRole(m map[string]json.RawMessage, result interface{}) (err error) {
