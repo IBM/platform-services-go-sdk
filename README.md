@@ -49,6 +49,7 @@ Service Name | Package name
 --- | --- 
 [Case Management](https://cloud.ibm.com/apidocs/case-management) | casemanagementv1
 [Catalog Management](https://cloud.ibm.com/apidocs/resource-catalog/private-catalog) | catalogmanagementv1
+[Configuration Governance](https://cloud.ibm.com/apidocs/security-compliance/config) | configurationgovernancev1
 [Enterprise Management](https://cloud.ibm.com/apidocs/enterprise-apis/enterprise) | enterprisemanagementv1
 [Global Catalog](https://cloud.ibm.com/apidocs/resource-catalog/global-catalog) | globalcatalogv1
 [Global Search](https://cloud.ibm.com/apidocs/search) | globalsearchv2
