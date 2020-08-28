@@ -92,7 +92,7 @@ var _ = Describe(`ConfigurationGovernanceV1 Integration Tests`, func() {
 		})
 		It(`CreateRules(createRulesOptions *CreateRulesOptions)`, func() {
 
-			uiSupportModel := &configurationgovernancev1.UISupport{
+			uiSupportModel := &configurationgovernancev1.UiSupport{
 				DisplayName: core.StringPtr("testString"),
 				Description: core.StringPtr("testString"),
 			}
@@ -209,21 +209,21 @@ var _ = Describe(`ConfigurationGovernanceV1 Integration Tests`, func() {
 		It(`UpdateRule(updateRuleOptions *UpdateRuleOptions)`, func() {
 
 			ruleTargetAttributeModel := &configurationgovernancev1.RuleTargetAttribute{
-				Name: core.StringPtr("resource_id"),
+				Name: core.StringPtr("testString"),
 				Operator: core.StringPtr("string_equals"),
-				Value: core.StringPtr("f0f8f7994e754ff38f9d370201966561"),
+				Value: core.StringPtr("testString"),
 			}
 
 			targetResourceModel := &configurationgovernancev1.TargetResource{
 				ServiceName: core.StringPtr("iam-groups"),
-				ResourceKind: core.StringPtr("zone"),
+				ResourceKind: core.StringPtr("service"),
 				AdditionalTargetAttributes: []configurationgovernancev1.RuleTargetAttribute{*ruleTargetAttributeModel},
 			}
 
 			ruleRequiredConfigModel := &configurationgovernancev1.RuleRequiredConfigSingleProperty{
 				Description: core.StringPtr("testString"),
 				Property: core.StringPtr("public_access_enabled"),
-				Operator: core.StringPtr("is_true"),
+				Operator: core.StringPtr("is_false"),
 				Value: core.StringPtr("testString"),
 			}
 
@@ -231,7 +231,7 @@ var _ = Describe(`ConfigurationGovernanceV1 Integration Tests`, func() {
 				Action: core.StringPtr("audit_log"),
 			}
 
-			uiSupportModel := &configurationgovernancev1.UISupport{
+			uiSupportModel := &configurationgovernancev1.UiSupport{
 				DisplayName: core.StringPtr("testString"),
 				Description: core.StringPtr("testString"),
 			}
@@ -273,13 +273,13 @@ var _ = Describe(`ConfigurationGovernanceV1 Integration Tests`, func() {
 		It(`CreateAttachments(createAttachmentsOptions *CreateAttachmentsOptions)`, func() {
 
 			ruleScopeModel := &configurationgovernancev1.RuleScope{
-				Note: core.StringPtr("testString"),
-				ScopeID: core.StringPtr("testString"),
+				Note: core.StringPtr("My enterprise"),
+				ScopeID: core.StringPtr("282cf433ac91493ba860480d92519990"),
 				ScopeType: core.StringPtr("enterprise"),
 			}
 
 			attachmentRequestModel := &configurationgovernancev1.AttachmentRequest{
-				AccountID: core.StringPtr("testString"),
+				AccountID: core.StringPtr("531fc3e28bfc43c5a2cea07786d93f5c"),
 				IncludedScope: ruleScopeModel,
 				ExcludedScopes: []configurationgovernancev1.RuleScope{*ruleScopeModel},
 			}

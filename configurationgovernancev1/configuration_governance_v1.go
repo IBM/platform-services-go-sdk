@@ -15,7 +15,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-106e48e3-20200827-100723
+ * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-bed3db48-20200828-082303
  */
  
 
@@ -1199,8 +1199,8 @@ type EnforcementAction struct {
 // To block a request from completing, use `disallow`. To log the  request to Activity Tracker with LogDNA, use
 // `audit_log`.
 const (
-	EnforcementAction_Action_AuditLog = "audit_log"
-	EnforcementAction_Action_Disallow = "disallow"
+	EnforcementActionActionAuditLogConst = "audit_log"
+	EnforcementActionActionDisallowConst = "disallow"
 )
 
 
@@ -1556,8 +1556,8 @@ type Rule struct {
 // Constants associated with the Rule.RuleType property.
 // The type of rule. Rules that you create are `user_defined`. Rules that are created by IBM are `service_defined`.
 const (
-	Rule_RuleType_ServiceDefined = "service_defined"
-	Rule_RuleType_UserDefined = "user_defined"
+	RuleRuleTypeServiceDefinedConst = "service_defined"
+	RuleRuleTypeUserDefinedConst = "user_defined"
 )
 
 
@@ -1667,20 +1667,20 @@ type RuleCondition struct {
 //
 // There are three types of operators: string, numeric, and boolean.
 const (
-	RuleCondition_Operator_IsEmpty = "is_empty"
-	RuleCondition_Operator_IsFalse = "is_false"
-	RuleCondition_Operator_IsNotEmpty = "is_not_empty"
-	RuleCondition_Operator_IsTrue = "is_true"
-	RuleCondition_Operator_NumEquals = "num_equals"
-	RuleCondition_Operator_NumGreaterThan = "num_greater_than"
-	RuleCondition_Operator_NumGreaterThanEquals = "num_greater_than_equals"
-	RuleCondition_Operator_NumLessThan = "num_less_than"
-	RuleCondition_Operator_NumLessThanEquals = "num_less_than_equals"
-	RuleCondition_Operator_NumNotEquals = "num_not_equals"
-	RuleCondition_Operator_StringEquals = "string_equals"
-	RuleCondition_Operator_StringMatch = "string_match"
-	RuleCondition_Operator_StringNotEquals = "string_not_equals"
-	RuleCondition_Operator_StringNotMatch = "string_not_match"
+	RuleConditionOperatorIsEmptyConst = "is_empty"
+	RuleConditionOperatorIsFalseConst = "is_false"
+	RuleConditionOperatorIsNotEmptyConst = "is_not_empty"
+	RuleConditionOperatorIsTrueConst = "is_true"
+	RuleConditionOperatorNumEqualsConst = "num_equals"
+	RuleConditionOperatorNumGreaterThanConst = "num_greater_than"
+	RuleConditionOperatorNumGreaterThanEqualsConst = "num_greater_than_equals"
+	RuleConditionOperatorNumLessThanConst = "num_less_than"
+	RuleConditionOperatorNumLessThanEqualsConst = "num_less_than_equals"
+	RuleConditionOperatorNumNotEqualsConst = "num_not_equals"
+	RuleConditionOperatorStringEqualsConst = "string_equals"
+	RuleConditionOperatorStringMatchConst = "string_match"
+	RuleConditionOperatorStringNotEqualsConst = "string_not_equals"
+	RuleConditionOperatorStringNotMatchConst = "string_not_match"
 )
 
 func (*RuleCondition) isaRuleCondition() bool {
@@ -1728,7 +1728,7 @@ type RuleImport struct {
 	Name *string `json:"name" validate:"required"`
 
 	// Imported metadata that displays in the dashboard.
-	UiSupport *UISupport `json:"ui_support,omitempty"`
+	UiSupport *UiSupport `json:"ui_support,omitempty"`
 }
 
 
@@ -1748,7 +1748,7 @@ func UnmarshalRuleImport(m map[string]json.RawMessage, result interface{}) (err 
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(m, "ui_support", &obj.UiSupport, UnmarshalUISupport)
+	err = core.UnmarshalModel(m, "ui_support", &obj.UiSupport, UnmarshalUiSupport)
 	if err != nil {
 		return
 	}
@@ -1848,8 +1848,8 @@ type RuleRequest struct {
 // Constants associated with the RuleRequest.RuleType property.
 // The type of rule. Rules that you create are `user_defined`. Rules that are created by IBM are `service_defined`.
 const (
-	RuleRequest_RuleType_ServiceDefined = "service_defined"
-	RuleRequest_RuleType_UserDefined = "user_defined"
+	RuleRequestRuleTypeServiceDefinedConst = "service_defined"
+	RuleRequestRuleTypeUserDefinedConst = "user_defined"
 )
 
 
@@ -1947,20 +1947,20 @@ type RuleRequiredConfig struct {
 //
 // There are three types of operators: string, numeric, and boolean.
 const (
-	RuleRequiredConfig_Operator_IsEmpty = "is_empty"
-	RuleRequiredConfig_Operator_IsFalse = "is_false"
-	RuleRequiredConfig_Operator_IsNotEmpty = "is_not_empty"
-	RuleRequiredConfig_Operator_IsTrue = "is_true"
-	RuleRequiredConfig_Operator_NumEquals = "num_equals"
-	RuleRequiredConfig_Operator_NumGreaterThan = "num_greater_than"
-	RuleRequiredConfig_Operator_NumGreaterThanEquals = "num_greater_than_equals"
-	RuleRequiredConfig_Operator_NumLessThan = "num_less_than"
-	RuleRequiredConfig_Operator_NumLessThanEquals = "num_less_than_equals"
-	RuleRequiredConfig_Operator_NumNotEquals = "num_not_equals"
-	RuleRequiredConfig_Operator_StringEquals = "string_equals"
-	RuleRequiredConfig_Operator_StringMatch = "string_match"
-	RuleRequiredConfig_Operator_StringNotEquals = "string_not_equals"
-	RuleRequiredConfig_Operator_StringNotMatch = "string_not_match"
+	RuleRequiredConfigOperatorIsEmptyConst = "is_empty"
+	RuleRequiredConfigOperatorIsFalseConst = "is_false"
+	RuleRequiredConfigOperatorIsNotEmptyConst = "is_not_empty"
+	RuleRequiredConfigOperatorIsTrueConst = "is_true"
+	RuleRequiredConfigOperatorNumEqualsConst = "num_equals"
+	RuleRequiredConfigOperatorNumGreaterThanConst = "num_greater_than"
+	RuleRequiredConfigOperatorNumGreaterThanEqualsConst = "num_greater_than_equals"
+	RuleRequiredConfigOperatorNumLessThanConst = "num_less_than"
+	RuleRequiredConfigOperatorNumLessThanEqualsConst = "num_less_than_equals"
+	RuleRequiredConfigOperatorNumNotEqualsConst = "num_not_equals"
+	RuleRequiredConfigOperatorStringEqualsConst = "string_equals"
+	RuleRequiredConfigOperatorStringMatchConst = "string_match"
+	RuleRequiredConfigOperatorStringNotEqualsConst = "string_not_equals"
+	RuleRequiredConfigOperatorStringNotMatchConst = "string_not_match"
 )
 
 func (*RuleRequiredConfig) isaRuleRequiredConfig() bool {
@@ -2042,11 +2042,11 @@ type RuleScope struct {
 // Constants associated with the RuleScope.ScopeType property.
 // The type of scope that you want to evaluate.
 const (
-	RuleScope_ScopeType_Account = "account"
-	RuleScope_ScopeType_AccountResourceGroup = "account.resource_group"
-	RuleScope_ScopeType_Enterprise = "enterprise"
-	RuleScope_ScopeType_EnterpriseAccount = "enterprise.account"
-	RuleScope_ScopeType_EnterpriseAccountGroup = "enterprise.account_group"
+	RuleScopeScopeTypeAccountConst = "account"
+	RuleScopeScopeTypeAccountResourceGroupConst = "account.resource_group"
+	RuleScopeScopeTypeEnterpriseConst = "enterprise"
+	RuleScopeScopeTypeEnterpriseAccountConst = "enterprise.account"
+	RuleScopeScopeTypeEnterpriseAccountGroupConst = "enterprise.account_group"
 )
 
 
@@ -2109,20 +2109,20 @@ type RuleSingleProperty struct {
 //
 // There are three types of operators: string, numeric, and boolean.
 const (
-	RuleSingleProperty_Operator_IsEmpty = "is_empty"
-	RuleSingleProperty_Operator_IsFalse = "is_false"
-	RuleSingleProperty_Operator_IsNotEmpty = "is_not_empty"
-	RuleSingleProperty_Operator_IsTrue = "is_true"
-	RuleSingleProperty_Operator_NumEquals = "num_equals"
-	RuleSingleProperty_Operator_NumGreaterThan = "num_greater_than"
-	RuleSingleProperty_Operator_NumGreaterThanEquals = "num_greater_than_equals"
-	RuleSingleProperty_Operator_NumLessThan = "num_less_than"
-	RuleSingleProperty_Operator_NumLessThanEquals = "num_less_than_equals"
-	RuleSingleProperty_Operator_NumNotEquals = "num_not_equals"
-	RuleSingleProperty_Operator_StringEquals = "string_equals"
-	RuleSingleProperty_Operator_StringMatch = "string_match"
-	RuleSingleProperty_Operator_StringNotEquals = "string_not_equals"
-	RuleSingleProperty_Operator_StringNotMatch = "string_not_match"
+	RuleSinglePropertyOperatorIsEmptyConst = "is_empty"
+	RuleSinglePropertyOperatorIsFalseConst = "is_false"
+	RuleSinglePropertyOperatorIsNotEmptyConst = "is_not_empty"
+	RuleSinglePropertyOperatorIsTrueConst = "is_true"
+	RuleSinglePropertyOperatorNumEqualsConst = "num_equals"
+	RuleSinglePropertyOperatorNumGreaterThanConst = "num_greater_than"
+	RuleSinglePropertyOperatorNumGreaterThanEqualsConst = "num_greater_than_equals"
+	RuleSinglePropertyOperatorNumLessThanConst = "num_less_than"
+	RuleSinglePropertyOperatorNumLessThanEqualsConst = "num_less_than_equals"
+	RuleSinglePropertyOperatorNumNotEqualsConst = "num_not_equals"
+	RuleSinglePropertyOperatorStringEqualsConst = "string_equals"
+	RuleSinglePropertyOperatorStringMatchConst = "string_match"
+	RuleSinglePropertyOperatorStringNotEqualsConst = "string_not_equals"
+	RuleSinglePropertyOperatorStringNotMatchConst = "string_not_match"
 )
 
 
@@ -2180,20 +2180,20 @@ type RuleTargetAttribute struct {
 //
 // There are three types of operators: string, numeric, and boolean.
 const (
-	RuleTargetAttribute_Operator_IsEmpty = "is_empty"
-	RuleTargetAttribute_Operator_IsFalse = "is_false"
-	RuleTargetAttribute_Operator_IsNotEmpty = "is_not_empty"
-	RuleTargetAttribute_Operator_IsTrue = "is_true"
-	RuleTargetAttribute_Operator_NumEquals = "num_equals"
-	RuleTargetAttribute_Operator_NumGreaterThan = "num_greater_than"
-	RuleTargetAttribute_Operator_NumGreaterThanEquals = "num_greater_than_equals"
-	RuleTargetAttribute_Operator_NumLessThan = "num_less_than"
-	RuleTargetAttribute_Operator_NumLessThanEquals = "num_less_than_equals"
-	RuleTargetAttribute_Operator_NumNotEquals = "num_not_equals"
-	RuleTargetAttribute_Operator_StringEquals = "string_equals"
-	RuleTargetAttribute_Operator_StringMatch = "string_match"
-	RuleTargetAttribute_Operator_StringNotEquals = "string_not_equals"
-	RuleTargetAttribute_Operator_StringNotMatch = "string_not_match"
+	RuleTargetAttributeOperatorIsEmptyConst = "is_empty"
+	RuleTargetAttributeOperatorIsFalseConst = "is_false"
+	RuleTargetAttributeOperatorIsNotEmptyConst = "is_not_empty"
+	RuleTargetAttributeOperatorIsTrueConst = "is_true"
+	RuleTargetAttributeOperatorNumEqualsConst = "num_equals"
+	RuleTargetAttributeOperatorNumGreaterThanConst = "num_greater_than"
+	RuleTargetAttributeOperatorNumGreaterThanEqualsConst = "num_greater_than_equals"
+	RuleTargetAttributeOperatorNumLessThanConst = "num_less_than"
+	RuleTargetAttributeOperatorNumLessThanEqualsConst = "num_less_than_equals"
+	RuleTargetAttributeOperatorNumNotEqualsConst = "num_not_equals"
+	RuleTargetAttributeOperatorStringEqualsConst = "string_equals"
+	RuleTargetAttributeOperatorStringMatchConst = "string_match"
+	RuleTargetAttributeOperatorStringNotEqualsConst = "string_not_equals"
+	RuleTargetAttributeOperatorStringNotMatchConst = "string_not_match"
 )
 
 
@@ -2270,8 +2270,8 @@ func UnmarshalTargetResource(m map[string]json.RawMessage, result interface{}) (
 	return
 }
 
-// UISupport : Imported metadata that displays in the dashboard.
-type UISupport struct {
+// UiSupport : Imported metadata that displays in the dashboard.
+type UiSupport struct {
 	// The display name for a rule.
 	DisplayName *string `json:"display_name" validate:"required"`
 
@@ -2280,9 +2280,9 @@ type UISupport struct {
 }
 
 
-// NewUISupport : Instantiate UISupport (Generic Model Constructor)
-func (*ConfigurationGovernanceV1) NewUISupport(displayName string, description string) (model *UISupport, err error) {
-	model = &UISupport{
+// NewUiSupport : Instantiate UiSupport (Generic Model Constructor)
+func (*ConfigurationGovernanceV1) NewUiSupport(displayName string, description string) (model *UiSupport, err error) {
+	model = &UiSupport{
 		DisplayName: core.StringPtr(displayName),
 		Description: core.StringPtr(description),
 	}
@@ -2290,9 +2290,9 @@ func (*ConfigurationGovernanceV1) NewUISupport(displayName string, description s
 	return
 }
 
-// UnmarshalUISupport unmarshals an instance of UISupport from the specified map of raw messages.
-func UnmarshalUISupport(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(UISupport)
+// UnmarshalUiSupport unmarshals an instance of UiSupport from the specified map of raw messages.
+func UnmarshalUiSupport(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(UiSupport)
 	err = core.UnmarshalPrimitive(m, "display_name", &obj.DisplayName)
 	if err != nil {
 		return
@@ -2457,8 +2457,8 @@ type UpdateRuleOptions struct {
 // Constants associated with the UpdateRuleOptions.RuleType property.
 // The type of rule. Rules that you create are `user_defined`. Rules that are created by IBM are `service_defined`.
 const (
-	UpdateRuleOptions_RuleType_ServiceDefined = "service_defined"
-	UpdateRuleOptions_RuleType_UserDefined = "user_defined"
+	UpdateRuleOptionsRuleTypeServiceDefinedConst = "service_defined"
+	UpdateRuleOptionsRuleTypeUserDefinedConst = "user_defined"
 )
 
 // NewUpdateRuleOptions : Instantiate UpdateRuleOptions
@@ -2663,20 +2663,20 @@ type RuleConditionSingleProperty struct {
 //
 // There are three types of operators: string, numeric, and boolean.
 const (
-	RuleConditionSingleProperty_Operator_IsEmpty = "is_empty"
-	RuleConditionSingleProperty_Operator_IsFalse = "is_false"
-	RuleConditionSingleProperty_Operator_IsNotEmpty = "is_not_empty"
-	RuleConditionSingleProperty_Operator_IsTrue = "is_true"
-	RuleConditionSingleProperty_Operator_NumEquals = "num_equals"
-	RuleConditionSingleProperty_Operator_NumGreaterThan = "num_greater_than"
-	RuleConditionSingleProperty_Operator_NumGreaterThanEquals = "num_greater_than_equals"
-	RuleConditionSingleProperty_Operator_NumLessThan = "num_less_than"
-	RuleConditionSingleProperty_Operator_NumLessThanEquals = "num_less_than_equals"
-	RuleConditionSingleProperty_Operator_NumNotEquals = "num_not_equals"
-	RuleConditionSingleProperty_Operator_StringEquals = "string_equals"
-	RuleConditionSingleProperty_Operator_StringMatch = "string_match"
-	RuleConditionSingleProperty_Operator_StringNotEquals = "string_not_equals"
-	RuleConditionSingleProperty_Operator_StringNotMatch = "string_not_match"
+	RuleConditionSinglePropertyOperatorIsEmptyConst = "is_empty"
+	RuleConditionSinglePropertyOperatorIsFalseConst = "is_false"
+	RuleConditionSinglePropertyOperatorIsNotEmptyConst = "is_not_empty"
+	RuleConditionSinglePropertyOperatorIsTrueConst = "is_true"
+	RuleConditionSinglePropertyOperatorNumEqualsConst = "num_equals"
+	RuleConditionSinglePropertyOperatorNumGreaterThanConst = "num_greater_than"
+	RuleConditionSinglePropertyOperatorNumGreaterThanEqualsConst = "num_greater_than_equals"
+	RuleConditionSinglePropertyOperatorNumLessThanConst = "num_less_than"
+	RuleConditionSinglePropertyOperatorNumLessThanEqualsConst = "num_less_than_equals"
+	RuleConditionSinglePropertyOperatorNumNotEqualsConst = "num_not_equals"
+	RuleConditionSinglePropertyOperatorStringEqualsConst = "string_equals"
+	RuleConditionSinglePropertyOperatorStringMatchConst = "string_match"
+	RuleConditionSinglePropertyOperatorStringNotEqualsConst = "string_not_equals"
+	RuleConditionSinglePropertyOperatorStringNotMatchConst = "string_not_match"
 )
 
 
@@ -2796,20 +2796,20 @@ type RuleRequiredConfigSingleProperty struct {
 //
 // There are three types of operators: string, numeric, and boolean.
 const (
-	RuleRequiredConfigSingleProperty_Operator_IsEmpty = "is_empty"
-	RuleRequiredConfigSingleProperty_Operator_IsFalse = "is_false"
-	RuleRequiredConfigSingleProperty_Operator_IsNotEmpty = "is_not_empty"
-	RuleRequiredConfigSingleProperty_Operator_IsTrue = "is_true"
-	RuleRequiredConfigSingleProperty_Operator_NumEquals = "num_equals"
-	RuleRequiredConfigSingleProperty_Operator_NumGreaterThan = "num_greater_than"
-	RuleRequiredConfigSingleProperty_Operator_NumGreaterThanEquals = "num_greater_than_equals"
-	RuleRequiredConfigSingleProperty_Operator_NumLessThan = "num_less_than"
-	RuleRequiredConfigSingleProperty_Operator_NumLessThanEquals = "num_less_than_equals"
-	RuleRequiredConfigSingleProperty_Operator_NumNotEquals = "num_not_equals"
-	RuleRequiredConfigSingleProperty_Operator_StringEquals = "string_equals"
-	RuleRequiredConfigSingleProperty_Operator_StringMatch = "string_match"
-	RuleRequiredConfigSingleProperty_Operator_StringNotEquals = "string_not_equals"
-	RuleRequiredConfigSingleProperty_Operator_StringNotMatch = "string_not_match"
+	RuleRequiredConfigSinglePropertyOperatorIsEmptyConst = "is_empty"
+	RuleRequiredConfigSinglePropertyOperatorIsFalseConst = "is_false"
+	RuleRequiredConfigSinglePropertyOperatorIsNotEmptyConst = "is_not_empty"
+	RuleRequiredConfigSinglePropertyOperatorIsTrueConst = "is_true"
+	RuleRequiredConfigSinglePropertyOperatorNumEqualsConst = "num_equals"
+	RuleRequiredConfigSinglePropertyOperatorNumGreaterThanConst = "num_greater_than"
+	RuleRequiredConfigSinglePropertyOperatorNumGreaterThanEqualsConst = "num_greater_than_equals"
+	RuleRequiredConfigSinglePropertyOperatorNumLessThanConst = "num_less_than"
+	RuleRequiredConfigSinglePropertyOperatorNumLessThanEqualsConst = "num_less_than_equals"
+	RuleRequiredConfigSinglePropertyOperatorNumNotEqualsConst = "num_not_equals"
+	RuleRequiredConfigSinglePropertyOperatorStringEqualsConst = "string_equals"
+	RuleRequiredConfigSinglePropertyOperatorStringMatchConst = "string_match"
+	RuleRequiredConfigSinglePropertyOperatorStringNotEqualsConst = "string_not_equals"
+	RuleRequiredConfigSinglePropertyOperatorStringNotMatchConst = "string_not_match"
 )
 
 

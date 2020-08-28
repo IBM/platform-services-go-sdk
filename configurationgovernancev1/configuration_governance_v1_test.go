@@ -159,8 +159,8 @@ var _ = Describe(`ConfigurationGovernanceV1`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(configurationGovernanceService).ToNot(BeNil())
 
-				// Construct an instance of the UISupport model
-				uiSupportModel := new(configurationgovernancev1.UISupport)
+				// Construct an instance of the UiSupport model
+				uiSupportModel := new(configurationgovernancev1.UiSupport)
 				uiSupportModel.DisplayName = core.StringPtr("testString")
 				uiSupportModel.Description = core.StringPtr("testString")
 
@@ -258,8 +258,8 @@ var _ = Describe(`ConfigurationGovernanceV1`, func() {
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
 
-				// Construct an instance of the UISupport model
-				uiSupportModel := new(configurationgovernancev1.UISupport)
+				// Construct an instance of the UiSupport model
+				uiSupportModel := new(configurationgovernancev1.UiSupport)
 				uiSupportModel.DisplayName = core.StringPtr("testString")
 				uiSupportModel.Description = core.StringPtr("testString")
 
@@ -329,8 +329,8 @@ var _ = Describe(`ConfigurationGovernanceV1`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(configurationGovernanceService).ToNot(BeNil())
 
-				// Construct an instance of the UISupport model
-				uiSupportModel := new(configurationgovernancev1.UISupport)
+				// Construct an instance of the UiSupport model
+				uiSupportModel := new(configurationgovernancev1.UiSupport)
 				uiSupportModel.DisplayName = core.StringPtr("testString")
 				uiSupportModel.Description = core.StringPtr("testString")
 
@@ -714,29 +714,29 @@ var _ = Describe(`ConfigurationGovernanceV1`, func() {
 
 				// Construct an instance of the RuleTargetAttribute model
 				ruleTargetAttributeModel := new(configurationgovernancev1.RuleTargetAttribute)
-				ruleTargetAttributeModel.Name = core.StringPtr("resource_id")
+				ruleTargetAttributeModel.Name = core.StringPtr("testString")
 				ruleTargetAttributeModel.Operator = core.StringPtr("string_equals")
-				ruleTargetAttributeModel.Value = core.StringPtr("f0f8f7994e754ff38f9d370201966561")
+				ruleTargetAttributeModel.Value = core.StringPtr("testString")
 
 				// Construct an instance of the TargetResource model
 				targetResourceModel := new(configurationgovernancev1.TargetResource)
 				targetResourceModel.ServiceName = core.StringPtr("iam-groups")
-				targetResourceModel.ResourceKind = core.StringPtr("zone")
+				targetResourceModel.ResourceKind = core.StringPtr("service")
 				targetResourceModel.AdditionalTargetAttributes = []configurationgovernancev1.RuleTargetAttribute{*ruleTargetAttributeModel}
 
 				// Construct an instance of the RuleRequiredConfigSingleProperty model
 				ruleRequiredConfigModel := new(configurationgovernancev1.RuleRequiredConfigSingleProperty)
 				ruleRequiredConfigModel.Description = core.StringPtr("testString")
 				ruleRequiredConfigModel.Property = core.StringPtr("public_access_enabled")
-				ruleRequiredConfigModel.Operator = core.StringPtr("is_true")
+				ruleRequiredConfigModel.Operator = core.StringPtr("is_false")
 				ruleRequiredConfigModel.Value = core.StringPtr("testString")
 
 				// Construct an instance of the EnforcementAction model
 				enforcementActionModel := new(configurationgovernancev1.EnforcementAction)
 				enforcementActionModel.Action = core.StringPtr("audit_log")
 
-				// Construct an instance of the UISupport model
-				uiSupportModel := new(configurationgovernancev1.UISupport)
+				// Construct an instance of the UiSupport model
+				uiSupportModel := new(configurationgovernancev1.UiSupport)
 				uiSupportModel.DisplayName = core.StringPtr("testString")
 				uiSupportModel.Description = core.StringPtr("testString")
 
@@ -808,29 +808,29 @@ var _ = Describe(`ConfigurationGovernanceV1`, func() {
 
 				// Construct an instance of the RuleTargetAttribute model
 				ruleTargetAttributeModel := new(configurationgovernancev1.RuleTargetAttribute)
-				ruleTargetAttributeModel.Name = core.StringPtr("resource_id")
+				ruleTargetAttributeModel.Name = core.StringPtr("testString")
 				ruleTargetAttributeModel.Operator = core.StringPtr("string_equals")
-				ruleTargetAttributeModel.Value = core.StringPtr("f0f8f7994e754ff38f9d370201966561")
+				ruleTargetAttributeModel.Value = core.StringPtr("testString")
 
 				// Construct an instance of the TargetResource model
 				targetResourceModel := new(configurationgovernancev1.TargetResource)
 				targetResourceModel.ServiceName = core.StringPtr("iam-groups")
-				targetResourceModel.ResourceKind = core.StringPtr("zone")
+				targetResourceModel.ResourceKind = core.StringPtr("service")
 				targetResourceModel.AdditionalTargetAttributes = []configurationgovernancev1.RuleTargetAttribute{*ruleTargetAttributeModel}
 
 				// Construct an instance of the RuleRequiredConfigSingleProperty model
 				ruleRequiredConfigModel := new(configurationgovernancev1.RuleRequiredConfigSingleProperty)
 				ruleRequiredConfigModel.Description = core.StringPtr("testString")
 				ruleRequiredConfigModel.Property = core.StringPtr("public_access_enabled")
-				ruleRequiredConfigModel.Operator = core.StringPtr("is_true")
+				ruleRequiredConfigModel.Operator = core.StringPtr("is_false")
 				ruleRequiredConfigModel.Value = core.StringPtr("testString")
 
 				// Construct an instance of the EnforcementAction model
 				enforcementActionModel := new(configurationgovernancev1.EnforcementAction)
 				enforcementActionModel.Action = core.StringPtr("audit_log")
 
-				// Construct an instance of the UISupport model
-				uiSupportModel := new(configurationgovernancev1.UISupport)
+				// Construct an instance of the UiSupport model
+				uiSupportModel := new(configurationgovernancev1.UiSupport)
 				uiSupportModel.DisplayName = core.StringPtr("testString")
 				uiSupportModel.Description = core.StringPtr("testString")
 
@@ -872,29 +872,29 @@ var _ = Describe(`ConfigurationGovernanceV1`, func() {
 
 				// Construct an instance of the RuleTargetAttribute model
 				ruleTargetAttributeModel := new(configurationgovernancev1.RuleTargetAttribute)
-				ruleTargetAttributeModel.Name = core.StringPtr("resource_id")
+				ruleTargetAttributeModel.Name = core.StringPtr("testString")
 				ruleTargetAttributeModel.Operator = core.StringPtr("string_equals")
-				ruleTargetAttributeModel.Value = core.StringPtr("f0f8f7994e754ff38f9d370201966561")
+				ruleTargetAttributeModel.Value = core.StringPtr("testString")
 
 				// Construct an instance of the TargetResource model
 				targetResourceModel := new(configurationgovernancev1.TargetResource)
 				targetResourceModel.ServiceName = core.StringPtr("iam-groups")
-				targetResourceModel.ResourceKind = core.StringPtr("zone")
+				targetResourceModel.ResourceKind = core.StringPtr("service")
 				targetResourceModel.AdditionalTargetAttributes = []configurationgovernancev1.RuleTargetAttribute{*ruleTargetAttributeModel}
 
 				// Construct an instance of the RuleRequiredConfigSingleProperty model
 				ruleRequiredConfigModel := new(configurationgovernancev1.RuleRequiredConfigSingleProperty)
 				ruleRequiredConfigModel.Description = core.StringPtr("testString")
 				ruleRequiredConfigModel.Property = core.StringPtr("public_access_enabled")
-				ruleRequiredConfigModel.Operator = core.StringPtr("is_true")
+				ruleRequiredConfigModel.Operator = core.StringPtr("is_false")
 				ruleRequiredConfigModel.Value = core.StringPtr("testString")
 
 				// Construct an instance of the EnforcementAction model
 				enforcementActionModel := new(configurationgovernancev1.EnforcementAction)
 				enforcementActionModel.Action = core.StringPtr("audit_log")
 
-				// Construct an instance of the UISupport model
-				uiSupportModel := new(configurationgovernancev1.UISupport)
+				// Construct an instance of the UiSupport model
+				uiSupportModel := new(configurationgovernancev1.UiSupport)
 				uiSupportModel.DisplayName = core.StringPtr("testString")
 				uiSupportModel.Description = core.StringPtr("testString")
 
@@ -1039,13 +1039,13 @@ var _ = Describe(`ConfigurationGovernanceV1`, func() {
 
 				// Construct an instance of the RuleScope model
 				ruleScopeModel := new(configurationgovernancev1.RuleScope)
-				ruleScopeModel.Note = core.StringPtr("testString")
-				ruleScopeModel.ScopeID = core.StringPtr("testString")
+				ruleScopeModel.Note = core.StringPtr("My enterprise")
+				ruleScopeModel.ScopeID = core.StringPtr("282cf433ac91493ba860480d92519990")
 				ruleScopeModel.ScopeType = core.StringPtr("enterprise")
 
 				// Construct an instance of the AttachmentRequest model
 				attachmentRequestModel := new(configurationgovernancev1.AttachmentRequest)
-				attachmentRequestModel.AccountID = core.StringPtr("testString")
+				attachmentRequestModel.AccountID = core.StringPtr("531fc3e28bfc43c5a2cea07786d93f5c")
 				attachmentRequestModel.IncludedScope = ruleScopeModel
 				attachmentRequestModel.ExcludedScopes = []configurationgovernancev1.RuleScope{*ruleScopeModel}
 
@@ -1100,13 +1100,13 @@ var _ = Describe(`ConfigurationGovernanceV1`, func() {
 
 				// Construct an instance of the RuleScope model
 				ruleScopeModel := new(configurationgovernancev1.RuleScope)
-				ruleScopeModel.Note = core.StringPtr("testString")
-				ruleScopeModel.ScopeID = core.StringPtr("testString")
+				ruleScopeModel.Note = core.StringPtr("My enterprise")
+				ruleScopeModel.ScopeID = core.StringPtr("282cf433ac91493ba860480d92519990")
 				ruleScopeModel.ScopeType = core.StringPtr("enterprise")
 
 				// Construct an instance of the AttachmentRequest model
 				attachmentRequestModel := new(configurationgovernancev1.AttachmentRequest)
-				attachmentRequestModel.AccountID = core.StringPtr("testString")
+				attachmentRequestModel.AccountID = core.StringPtr("531fc3e28bfc43c5a2cea07786d93f5c")
 				attachmentRequestModel.IncludedScope = ruleScopeModel
 				attachmentRequestModel.ExcludedScopes = []configurationgovernancev1.RuleScope{*ruleScopeModel}
 
@@ -1133,13 +1133,13 @@ var _ = Describe(`ConfigurationGovernanceV1`, func() {
 
 				// Construct an instance of the RuleScope model
 				ruleScopeModel := new(configurationgovernancev1.RuleScope)
-				ruleScopeModel.Note = core.StringPtr("testString")
-				ruleScopeModel.ScopeID = core.StringPtr("testString")
+				ruleScopeModel.Note = core.StringPtr("My enterprise")
+				ruleScopeModel.ScopeID = core.StringPtr("282cf433ac91493ba860480d92519990")
 				ruleScopeModel.ScopeType = core.StringPtr("enterprise")
 
 				// Construct an instance of the AttachmentRequest model
 				attachmentRequestModel := new(configurationgovernancev1.AttachmentRequest)
-				attachmentRequestModel.AccountID = core.StringPtr("testString")
+				attachmentRequestModel.AccountID = core.StringPtr("531fc3e28bfc43c5a2cea07786d93f5c")
 				attachmentRequestModel.IncludedScope = ruleScopeModel
 				attachmentRequestModel.ExcludedScopes = []configurationgovernancev1.RuleScope{*ruleScopeModel}
 
@@ -1671,11 +1671,11 @@ var _ = Describe(`ConfigurationGovernanceV1`, func() {
 				// Construct an instance of the RuleScope model
 				ruleScopeModel := new(configurationgovernancev1.RuleScope)
 				Expect(ruleScopeModel).ToNot(BeNil())
-				ruleScopeModel.Note = core.StringPtr("testString")
-				ruleScopeModel.ScopeID = core.StringPtr("testString")
+				ruleScopeModel.Note = core.StringPtr("My enterprise")
+				ruleScopeModel.ScopeID = core.StringPtr("282cf433ac91493ba860480d92519990")
 				ruleScopeModel.ScopeType = core.StringPtr("enterprise")
-				Expect(ruleScopeModel.Note).To(Equal(core.StringPtr("testString")))
-				Expect(ruleScopeModel.ScopeID).To(Equal(core.StringPtr("testString")))
+				Expect(ruleScopeModel.Note).To(Equal(core.StringPtr("My enterprise")))
+				Expect(ruleScopeModel.ScopeID).To(Equal(core.StringPtr("282cf433ac91493ba860480d92519990")))
 				Expect(ruleScopeModel.ScopeType).To(Equal(core.StringPtr("enterprise")))
 
 				// Construct an instance of the AttachmentRequest model
@@ -1708,8 +1708,8 @@ var _ = Describe(`ConfigurationGovernanceV1`, func() {
 				Expect(err).ToNot(BeNil())
 			})
 			It(`Invoke NewCreateRulesOptions successfully`, func() {
-				// Construct an instance of the UISupport model
-				uiSupportModel := new(configurationgovernancev1.UISupport)
+				// Construct an instance of the UiSupport model
+				uiSupportModel := new(configurationgovernancev1.UiSupport)
 				Expect(uiSupportModel).ToNot(BeNil())
 				uiSupportModel.DisplayName = core.StringPtr("testString")
 				uiSupportModel.Description = core.StringPtr("testString")
@@ -1946,10 +1946,10 @@ var _ = Describe(`ConfigurationGovernanceV1`, func() {
 				Expect(model).ToNot(BeNil())
 				Expect(err).To(BeNil())
 			})
-			It(`Invoke NewUISupport successfully`, func() {
+			It(`Invoke NewUiSupport successfully`, func() {
 				displayName := "testString"
 				description := "testString"
-				model, err := configurationGovernanceService.NewUISupport(displayName, description)
+				model, err := configurationGovernanceService.NewUiSupport(displayName, description)
 				Expect(model).ToNot(BeNil())
 				Expect(err).To(BeNil())
 			})
@@ -1993,12 +1993,12 @@ var _ = Describe(`ConfigurationGovernanceV1`, func() {
 				// Construct an instance of the RuleTargetAttribute model
 				ruleTargetAttributeModel := new(configurationgovernancev1.RuleTargetAttribute)
 				Expect(ruleTargetAttributeModel).ToNot(BeNil())
-				ruleTargetAttributeModel.Name = core.StringPtr("resource_id")
+				ruleTargetAttributeModel.Name = core.StringPtr("testString")
 				ruleTargetAttributeModel.Operator = core.StringPtr("string_equals")
-				ruleTargetAttributeModel.Value = core.StringPtr("f0f8f7994e754ff38f9d370201966561")
-				Expect(ruleTargetAttributeModel.Name).To(Equal(core.StringPtr("resource_id")))
+				ruleTargetAttributeModel.Value = core.StringPtr("testString")
+				Expect(ruleTargetAttributeModel.Name).To(Equal(core.StringPtr("testString")))
 				Expect(ruleTargetAttributeModel.Operator).To(Equal(core.StringPtr("string_equals")))
-				Expect(ruleTargetAttributeModel.Value).To(Equal(core.StringPtr("f0f8f7994e754ff38f9d370201966561")))
+				Expect(ruleTargetAttributeModel.Value).To(Equal(core.StringPtr("testString")))
 
 				// Construct an instance of the TargetResource model
 				targetResourceModel := new(configurationgovernancev1.TargetResource)
@@ -2028,8 +2028,8 @@ var _ = Describe(`ConfigurationGovernanceV1`, func() {
 				enforcementActionModel.Action = core.StringPtr("audit_log")
 				Expect(enforcementActionModel.Action).To(Equal(core.StringPtr("audit_log")))
 
-				// Construct an instance of the UISupport model
-				uiSupportModel := new(configurationgovernancev1.UISupport)
+				// Construct an instance of the UiSupport model
+				uiSupportModel := new(configurationgovernancev1.UiSupport)
 				Expect(uiSupportModel).ToNot(BeNil())
 				uiSupportModel.DisplayName = core.StringPtr("testString")
 				uiSupportModel.Description = core.StringPtr("testString")
