@@ -32,30 +32,26 @@ import (
 
 const externalConfigFile = "../configuration_governance.env"
 
-const SampleLabel = "GoSampleRule"
-
 var (
 	configurationGovernanceService *configurationgovernancev1.ConfigurationGovernanceV1
 	config                         map[string]string
 	configLoaded                   bool = false
 
-	// Test-related config properties.
+	// Test-related configuration properties.
 	accountID         string
-	serviceName   string
+	serviceName       string
 	enterpriseScopeID string
 	subacctScopeID    string
-
-	transactionID string
 )
 
-// Globlal variables to hold link values
+// Global variables to hold various values shared between operations
 var (
-	ruleIDLink       string
+	ruleIDLink           string
 	ruleToUpdateLink     *configurationgovernancev1.Rule
 	ruleToUpdateEtagLink string
 
-	attachmentIDLink string
-	attachmentToUpdateLink *configurationgovernancev1.Attachment
+	attachmentIDLink           string
+	attachmentToUpdateLink     *configurationgovernancev1.Attachment
 	attachmentToUpdateEtagLink string
 )
 
@@ -83,15 +79,12 @@ var _ = Describe(`ConfigurationGovernanceV1 Examples Tests`, func() {
 			configLoaded = len(config) > 0
 
 			if configLoaded {
-				// Retrieve test-related config properties.
+				// Retrieve test-related properties from the external configuration.
 				accountID = config["ACCOUNT_ID"]
-				serviceName = config["TEST_SERVICE_NAME"]
+				serviceName = config["EXAMPLE_SERVICE_NAME"]
 				enterpriseScopeID = config["ENTERPRISE_SCOPE_ID"]
 				subacctScopeID = config["SUBACCT_SCOPE_ID"]
 			}
-
-			// Generate a transaction ID to use with the operations.
-			transactionID = uuid.New().String()
 		})
 	})
 
@@ -106,8 +99,10 @@ var _ = Describe(`ConfigurationGovernanceV1 Examples Tests`, func() {
 
 			configurationGovernanceServiceOptions := &configurationgovernancev1.ConfigurationGovernanceV1Options{}
 
-			configurationGovernanceService, err = configurationgovernancev1.NewConfigurationGovernanceV1UsingExternalConfig(configurationGovernanceServiceOptions)
-
+			configurationGovernanceService, err =
+				configurationgovernancev1.NewConfigurationGovernanceV1UsingExternalConfig(
+					configurationGovernanceServiceOptions,
+				)
 			if err != nil {
 				panic(err)
 			}
@@ -125,56 +120,38 @@ var _ = Describe(`ConfigurationGovernanceV1 Examples Tests`, func() {
 		It(`CreateRules request example`, func() {
 			// begin-create_rules
 
-			ruleTargetAttributeModel := &configurationgovernancev1.RuleTargetAttribute{
-				Name:     core.StringPtr("resource_id"),
-				Operator: core.StringPtr("is_not_empty"),
-			}
-
-			targetResourceModel := &configurationgovernancev1.TargetResource{
-				ServiceName:                &serviceName,
-				ResourceKind:               core.StringPtr("bucket"),
-				AdditionalTargetAttributes: []configurationgovernancev1.RuleTargetAttribute{*ruleTargetAttributeModel},
-			}
-
-			allowedGBConditionModel := &configurationgovernancev1.RuleConditionSingleProperty{
-				Property: core.StringPtr("allowed_gb"),
-				Operator: core.StringPtr("num_less_than_equals"),
-				Value:    core.StringPtr("20"),
-			}
-
-			locationConditionModel := &configurationgovernancev1.RuleConditionSingleProperty{
-				Property: core.StringPtr("location"),
-				Operator: core.StringPtr("string_equals"),
-				Value:    core.StringPtr("us-east"),
-			}
-
-			ruleRequiredConfigModel := &configurationgovernancev1.RuleRequiredConfigMultiplePropertiesConditionAnd{
-				Description: core.StringPtr("allowed_gb<=20 && location=='us-east'"),
-				And:         []configurationgovernancev1.RuleConditionIntf{allowedGBConditionModel, locationConditionModel},
-			}
-
-			enforcementActionModel := &configurationgovernancev1.EnforcementAction{
-				Action: core.StringPtr("disallow"),
-			}
-
 			ruleRequestModel := &configurationgovernancev1.RuleRequest{
-				AccountID:          &accountID,
-				Name:               core.StringPtr("SampleRule"),
-				Description:        core.StringPtr("This is a sample rule."),
-				Target:             targetResourceModel,
-				RequiredConfig:     ruleRequiredConfigModel,
-				EnforcementActions: []configurationgovernancev1.EnforcementAction{*enforcementActionModel},
-				Labels:             []string{SampleLabel},
-			}
-
-			createRuleRequestModel := &configurationgovernancev1.CreateRuleRequest{
-				Rule:      ruleRequestModel,
+				AccountID:   &accountID,
+				Name:        core.StringPtr("Disable public access"),
+				Description: core.StringPtr("Ensure that public access to account resources is disabled."),
+				Target: &configurationgovernancev1.TargetResource{
+					ServiceName:  &serviceName,
+					ResourceKind: core.StringPtr("service"),
+				},
+				RequiredConfig: &configurationgovernancev1.RuleRequiredConfigSingleProperty{
+					Description: core.StringPtr("Ensure public access is disabled."),
+					Property:    core.StringPtr("public_access_enabled"),
+					Operator:    core.StringPtr("is_false"),
+				},
+				EnforcementActions: []configurationgovernancev1.EnforcementAction{
+					configurationgovernancev1.EnforcementAction{
+						Action: core.StringPtr("audit_log"),
+					},
+					configurationgovernancev1.EnforcementAction{
+						Action: core.StringPtr("disallow"),
+					},
+				},
+				Labels: []string{"test_label"},
 			}
 
 			createRulesOptions := configurationGovernanceService.NewCreateRulesOptions(
-				[]configurationgovernancev1.CreateRuleRequest{*createRuleRequestModel},
+				[]configurationgovernancev1.CreateRuleRequest{
+					configurationgovernancev1.CreateRuleRequest{
+						Rule: ruleRequestModel,
+					},
+				},
 			)
-			createRulesOptions.SetTransactionID(transactionID)
+			createRulesOptions.SetTransactionID(uuid.New().String())
 
 			createRulesResponse, response, err := configurationGovernanceService.CreateRules(createRulesOptions)
 			if err != nil {
@@ -202,8 +179,8 @@ var _ = Describe(`ConfigurationGovernanceV1 Examples Tests`, func() {
 			listRulesOptions := configurationGovernanceService.NewListRulesOptions(
 				accountID,
 			)
-			listRulesOptions.SetLabels(SampleLabel)
-			listRulesOptions.SetTransactionID(transactionID)
+			listRulesOptions.SetLabels("test_label")
+			listRulesOptions.SetTransactionID(uuid.New().String())
 
 			ruleList, response, err := configurationGovernanceService.ListRules(listRulesOptions)
 			if err != nil {
@@ -227,7 +204,7 @@ var _ = Describe(`ConfigurationGovernanceV1 Examples Tests`, func() {
 			getRuleOptions := configurationGovernanceService.NewGetRuleOptions(
 				ruleIDLink,
 			)
-			getRuleOptions.SetTransactionID(transactionID)
+			getRuleOptions.SetTransactionID(uuid.New().String())
 
 			rule, response, err := configurationGovernanceService.GetRule(getRuleOptions)
 			if err != nil {
@@ -256,6 +233,7 @@ var _ = Describe(`ConfigurationGovernanceV1 Examples Tests`, func() {
 
 			// begin-update_rule
 
+			// Update the existing rule's description.
 			updateRuleOptions := configurationGovernanceService.NewUpdateRuleOptions(
 				ruleIDLink,
 				ruleToUpdateEtagLink,
@@ -269,7 +247,7 @@ var _ = Describe(`ConfigurationGovernanceV1 Examples Tests`, func() {
 			updateRuleOptions.SetRuleType(*ruleToUpdateLink.RuleType)
 			updateRuleOptions.SetImports(ruleToUpdateLink.Imports)
 			updateRuleOptions.SetLabels(ruleToUpdateLink.Labels)
-			updateRuleOptions.SetTransactionID(transactionID)
+			updateRuleOptions.SetTransactionID(uuid.New().String())
 
 			rule, response, err := configurationGovernanceService.UpdateRule(updateRuleOptions)
 			if err != nil {
@@ -290,22 +268,29 @@ var _ = Describe(`ConfigurationGovernanceV1 Examples Tests`, func() {
 
 			// begin-create_attachments
 
-			ruleScopeModel := &configurationgovernancev1.RuleScope{
-				Note:      core.StringPtr("My enterprise"),
-				ScopeID:   &enterpriseScopeID,
-				ScopeType: core.StringPtr("enterprise"),
-			}
-
-			attachmentRequestModel := &configurationgovernancev1.AttachmentRequest{
-				AccountID:      &accountID,
-				IncludedScope:  ruleScopeModel,
+			createAttachmentRequest := configurationgovernancev1.AttachmentRequest{
+				AccountID: &accountID,
+				IncludedScope: &configurationgovernancev1.RuleScope{
+					Note:      core.StringPtr("My enterprise"),
+					ScopeID:   &enterpriseScopeID,
+					ScopeType: core.StringPtr("enterprise"),
+				},
+				ExcludedScopes: []configurationgovernancev1.RuleScope{
+					configurationgovernancev1.RuleScope{
+						Note:      core.StringPtr("leaf account"),
+						ScopeID:   &subacctScopeID,
+						ScopeType: core.StringPtr("enterprise.account"),
+					},
+				},
 			}
 
 			createAttachmentsOptions := configurationGovernanceService.NewCreateAttachmentsOptions(
 				ruleIDLink,
-				[]configurationgovernancev1.AttachmentRequest{*attachmentRequestModel},
+				[]configurationgovernancev1.AttachmentRequest{
+					createAttachmentRequest,
+				},
 			)
-			createAttachmentsOptions.SetTransactionID(transactionID)
+			createAttachmentsOptions.SetTransactionID(uuid.New().String())
 
 			createAttachmentsResponse, response, err := configurationGovernanceService.CreateAttachments(createAttachmentsOptions)
 			if err != nil {
@@ -335,7 +320,7 @@ var _ = Describe(`ConfigurationGovernanceV1 Examples Tests`, func() {
 			listAttachmentsOptions := configurationGovernanceService.NewListAttachmentsOptions(
 				ruleIDLink,
 			)
-			listAttachmentsOptions.SetTransactionID(transactionID)
+			listAttachmentsOptions.SetTransactionID(uuid.New().String())
 
 			attachmentList, response, err := configurationGovernanceService.ListAttachments(listAttachmentsOptions)
 			if err != nil {
@@ -360,6 +345,7 @@ var _ = Describe(`ConfigurationGovernanceV1 Examples Tests`, func() {
 				ruleIDLink,
 				attachmentIDLink,
 			)
+			getAttachmentOptions.SetTransactionID(uuid.New().String())
 
 			attachment, response, err := configurationGovernanceService.GetAttachment(getAttachmentOptions)
 			if err != nil {
@@ -388,7 +374,8 @@ var _ = Describe(`ConfigurationGovernanceV1 Examples Tests`, func() {
 
 			// begin-update_attachment
 
-			updatedRuleScopeModel := &configurationgovernancev1.RuleScope{
+			// Update the Note field within the existing attachment's IncludedScope.
+			updatedIncludedScope := &configurationgovernancev1.RuleScope{
 				Note:      core.StringPtr("This is a new note."),
 				ScopeID:   attachmentToUpdateLink.IncludedScope.ScopeID,
 				ScopeType: attachmentToUpdateLink.IncludedScope.ScopeType,
@@ -399,9 +386,10 @@ var _ = Describe(`ConfigurationGovernanceV1 Examples Tests`, func() {
 				attachmentIDLink,
 				attachmentToUpdateEtagLink,
 				*attachmentToUpdateLink.AccountID,
-				updatedRuleScopeModel,
+				updatedIncludedScope,
 			)
 			updateAttachmentOptions.SetExcludedScopes(attachmentToUpdateLink.ExcludedScopes)
+			updateAttachmentOptions.SetTransactionID(uuid.New().String())
 
 			attachment, response, err := configurationGovernanceService.UpdateAttachment(updateAttachmentOptions)
 			if err != nil {
@@ -419,6 +407,7 @@ var _ = Describe(`ConfigurationGovernanceV1 Examples Tests`, func() {
 		It(`DeleteAttachment request example`, func() {
 			Expect(ruleIDLink).ToNot(BeEmpty())
 			Expect(attachmentIDLink).ToNot(BeEmpty())
+
 			// begin-delete_attachment
 
 			deleteAttachmentOptions := configurationGovernanceService.NewDeleteAttachmentOptions(
@@ -458,7 +447,6 @@ var _ = Describe(`ConfigurationGovernanceV1 Examples Tests`, func() {
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(204))
-
 		})
 	})
 })
