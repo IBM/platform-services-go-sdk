@@ -30,6 +30,19 @@ import (
 	. "github.com/onsi/gomega"
 )
 
+// This file provides an example of how to use the Configuration Governance service.
+//
+// The following configuration properties are assumed to be defined in the external configuration file:
+// CONFIGURATION_GOVERNANCE_URL=<service url>
+// CONFIGURATION_GOVERNANCE_AUTHTYPE=iam
+// CONFIGURATION_GOVERNANCE_APIKEY=<IAM api key of user with authority to create rules>
+// CONFIGURATION_GOVERNANCE_AUTH_URL=<IAM token service URL - omit this if using the production environment>
+// CONFIGURATION_GOVERNANCE_ACCOUNT_ID=<the id of the account under which rules/attachments should be created>
+// CONFIGURATION_GOVERNANCE_EXAMPLE_SERVICE_NAME=<the name of the service to be associated with rule>
+// CONFIGURATION_GOVERNANCE_ENTERPRISE_SCOPE_ID=<the id of the "enterprise" scope to be used in the examples>
+// CONFIGURATION_GOVERNANCE_SUBACCT_SCOPE_ID=<the id of the "leaf account" scope to be used in the examples>
+//
+
 const externalConfigFile = "../configuration_governance.env"
 
 var (
