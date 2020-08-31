@@ -95,7 +95,7 @@ var _ = Describe(`ConfigurationGovernanceV1 Integration Tests`, func() {
 			os.Setenv("IBM_CREDENTIALS_FILE", externalConfigFile)
 			config, err = core.GetServiceProperties(DefaultServiceName)
 			if err != nil {
-				Skip("Error loading service properties, skipping te0sts: " + err.Error())
+				Skip("Error loading service properties, skipping tests: " + err.Error())
 			}
 			serviceURL = config["URL"]
 			if serviceURL == "" {
