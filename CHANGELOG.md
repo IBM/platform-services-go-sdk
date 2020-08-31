@@ -1,3 +1,10 @@
+# [0.11.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.10.0...v0.11.0) (2020-08-31)
+
+
+### Features
+
+* **Configuration Governance:** add service to project ([#42](https://github.com/IBM/platform-services-go-sdk/issues/42)) ([fe0fc93](https://github.com/IBM/platform-services-go-sdk/commit/fe0fc9304bdbca8a19a7258ef7fb6e533955ba60))
+
 # [0.10.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.9.0...v0.10.0) (2020-08-26)
 
 
