@@ -15,7 +15,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-bed3db48-20200828-082303
+ * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-68ee7c8f-20200829-062726
  */
  
 
@@ -357,14 +357,8 @@ func (configurationGovernance *ConfigurationGovernanceV1) UpdateRule(updateRuleO
 	if updateRuleOptions.AccountID != nil {
 		body["account_id"] = updateRuleOptions.AccountID
 	}
-	if updateRuleOptions.Version != nil {
-		body["version"] = updateRuleOptions.Version
-	}
 	if updateRuleOptions.RuleType != nil {
 		body["rule_type"] = updateRuleOptions.RuleType
-	}
-	if updateRuleOptions.Imports != nil {
-		body["imports"] = updateRuleOptions.Imports
 	}
 	if updateRuleOptions.Labels != nil {
 		body["labels"] = updateRuleOptions.Labels
@@ -745,6 +739,7 @@ type Attachment struct {
 	// The extent at which the rule can be attached across your accounts.
 	IncludedScope *RuleScope `json:"included_scope" validate:"required"`
 
+	// The extent at which the rule can be excluded from the included scope.
 	ExcludedScopes []RuleScope `json:"excluded_scopes,omitempty"`
 }
 
@@ -836,6 +831,7 @@ type AttachmentRequest struct {
 	// The extent at which the rule can be attached across your accounts.
 	IncludedScope *RuleScope `json:"included_scope" validate:"required"`
 
+	// The extent at which the rule can be excluded from the included scope.
 	ExcludedScopes []RuleScope `json:"excluded_scopes,omitempty"`
 }
 
@@ -1510,15 +1506,8 @@ type Rule struct {
 	// An extended description of your rule.
 	Description *string `json:"description" validate:"required"`
 
-	// A field that you can use to store and manage a custom version for this rule.
-	Version *string `json:"version,omitempty"`
-
-	// The type of rule. Rules that you create are `user_defined`. Rules that are created by IBM are `service_defined`.
+	// The type of rule. Rules that you create are `user_defined`.
 	RuleType *string `json:"rule_type,omitempty"`
-
-	// Parameters that are imported by IBM as metadata to create
-	// `service_defined` rules.
-	Imports []RuleImport `json:"imports,omitempty"`
 
 	// The properties that describe the resource that you want to target
 	// with the rule.
@@ -1554,9 +1543,8 @@ type Rule struct {
 }
 
 // Constants associated with the Rule.RuleType property.
-// The type of rule. Rules that you create are `user_defined`. Rules that are created by IBM are `service_defined`.
+// The type of rule. Rules that you create are `user_defined`.
 const (
-	RuleRuleTypeServiceDefinedConst = "service_defined"
 	RuleRuleTypeUserDefinedConst = "user_defined"
 )
 
@@ -1576,15 +1564,7 @@ func UnmarshalRule(m map[string]json.RawMessage, result interface{}) (err error)
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalPrimitive(m, "version", &obj.Version)
-	if err != nil {
-		return
-	}
 	err = core.UnmarshalPrimitive(m, "rule_type", &obj.RuleType)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalModel(m, "imports", &obj.Imports, UnmarshalRuleImport)
 	if err != nil {
 		return
 	}
@@ -1722,40 +1702,6 @@ func UnmarshalRuleCondition(m map[string]json.RawMessage, result interface{}) (e
 	return
 }
 
-// RuleImport : RuleImport struct
-type RuleImport struct {
-	// The imported name for a rule.
-	Name *string `json:"name" validate:"required"`
-
-	// Imported metadata that displays in the dashboard.
-	UiSupport *UiSupport `json:"ui_support,omitempty"`
-}
-
-
-// NewRuleImport : Instantiate RuleImport (Generic Model Constructor)
-func (*ConfigurationGovernanceV1) NewRuleImport(name string) (model *RuleImport, err error) {
-	model = &RuleImport{
-		Name: core.StringPtr(name),
-	}
-	err = core.ValidateStruct(model, "required parameters")
-	return
-}
-
-// UnmarshalRuleImport unmarshals an instance of RuleImport from the specified map of raw messages.
-func UnmarshalRuleImport(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(RuleImport)
-	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalModel(m, "ui_support", &obj.UiSupport, UnmarshalUiSupport)
-	if err != nil {
-		return
-	}
-	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
-	return
-}
-
 // RuleList : A list of rules.
 type RuleList struct {
 	// The requested offset for the returned items.
@@ -1820,15 +1766,8 @@ type RuleRequest struct {
 	// An extended description of your rule.
 	Description *string `json:"description" validate:"required"`
 
-	// A field that you can use to store and manage a custom version for this rule.
-	Version *string `json:"version,omitempty"`
-
-	// The type of rule. Rules that you create are `user_defined`. Rules that are created by IBM are `service_defined`.
+	// The type of rule. Rules that you create are `user_defined`.
 	RuleType *string `json:"rule_type,omitempty"`
-
-	// Parameters that are imported by IBM as metadata to create
-	// `service_defined` rules.
-	Imports []RuleImport `json:"imports,omitempty"`
 
 	// The properties that describe the resource that you want to target
 	// with the rule.
@@ -1846,9 +1785,8 @@ type RuleRequest struct {
 }
 
 // Constants associated with the RuleRequest.RuleType property.
-// The type of rule. Rules that you create are `user_defined`. Rules that are created by IBM are `service_defined`.
+// The type of rule. Rules that you create are `user_defined`.
 const (
-	RuleRequestRuleTypeServiceDefinedConst = "service_defined"
 	RuleRequestRuleTypeUserDefinedConst = "user_defined"
 )
 
@@ -1881,15 +1819,7 @@ func UnmarshalRuleRequest(m map[string]json.RawMessage, result interface{}) (err
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalPrimitive(m, "version", &obj.Version)
-	if err != nil {
-		return
-	}
 	err = core.UnmarshalPrimitive(m, "rule_type", &obj.RuleType)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalModel(m, "imports", &obj.Imports, UnmarshalRuleImport)
 	if err != nil {
 		return
 	}
@@ -2270,41 +2200,6 @@ func UnmarshalTargetResource(m map[string]json.RawMessage, result interface{}) (
 	return
 }
 
-// UiSupport : Imported metadata that displays in the dashboard.
-type UiSupport struct {
-	// The display name for a rule.
-	DisplayName *string `json:"display_name" validate:"required"`
-
-	// An extended description of a rule.
-	Description *string `json:"description" validate:"required"`
-}
-
-
-// NewUiSupport : Instantiate UiSupport (Generic Model Constructor)
-func (*ConfigurationGovernanceV1) NewUiSupport(displayName string, description string) (model *UiSupport, err error) {
-	model = &UiSupport{
-		DisplayName: core.StringPtr(displayName),
-		Description: core.StringPtr(description),
-	}
-	err = core.ValidateStruct(model, "required parameters")
-	return
-}
-
-// UnmarshalUiSupport unmarshals an instance of UiSupport from the specified map of raw messages.
-func UnmarshalUiSupport(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(UiSupport)
-	err = core.UnmarshalPrimitive(m, "display_name", &obj.DisplayName)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "description", &obj.Description)
-	if err != nil {
-		return
-	}
-	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
-	return
-}
-
 // UpdateAttachmentOptions : The UpdateAttachment options.
 type UpdateAttachmentOptions struct {
 	// The UUID that uniquely identifies the rule.
@@ -2325,6 +2220,7 @@ type UpdateAttachmentOptions struct {
 	// The extent at which the rule can be attached across your accounts.
 	IncludedScope *RuleScope `json:"included_scope" validate:"required"`
 
+	// The extent at which the rule can be excluded from the included scope.
 	ExcludedScopes []RuleScope `json:"excluded_scopes,omitempty"`
 
 	// The unique identifier that is used to trace an entire request. If you omit this field, the service generates and
@@ -2428,15 +2324,8 @@ type UpdateRuleOptions struct {
 	// Your IBM Cloud account ID.
 	AccountID *string `json:"account_id,omitempty"`
 
-	// A field that you can use to store and manage a custom version for this rule.
-	Version *string `json:"version,omitempty"`
-
-	// The type of rule. Rules that you create are `user_defined`. Rules that are created by IBM are `service_defined`.
+	// The type of rule. Rules that you create are `user_defined`.
 	RuleType *string `json:"rule_type,omitempty"`
-
-	// Parameters that are imported by IBM as metadata to create
-	// `service_defined` rules.
-	Imports []RuleImport `json:"imports,omitempty"`
 
 	// Labels that you can use to group and search for similar rules, such as those that help you to meet a specific
 	// organization guideline.
@@ -2455,9 +2344,8 @@ type UpdateRuleOptions struct {
 }
 
 // Constants associated with the UpdateRuleOptions.RuleType property.
-// The type of rule. Rules that you create are `user_defined`. Rules that are created by IBM are `service_defined`.
+// The type of rule. Rules that you create are `user_defined`.
 const (
-	UpdateRuleOptionsRuleTypeServiceDefinedConst = "service_defined"
 	UpdateRuleOptionsRuleTypeUserDefinedConst = "user_defined"
 )
 
@@ -2522,21 +2410,9 @@ func (options *UpdateRuleOptions) SetAccountID(accountID string) *UpdateRuleOpti
 	return options
 }
 
-// SetVersion : Allow user to set Version
-func (options *UpdateRuleOptions) SetVersion(version string) *UpdateRuleOptions {
-	options.Version = core.StringPtr(version)
-	return options
-}
-
 // SetRuleType : Allow user to set RuleType
 func (options *UpdateRuleOptions) SetRuleType(ruleType string) *UpdateRuleOptions {
 	options.RuleType = core.StringPtr(ruleType)
-	return options
-}
-
-// SetImports : Allow user to set Imports
-func (options *UpdateRuleOptions) SetImports(imports []RuleImport) *UpdateRuleOptions {
-	options.Imports = imports
 	return options
 }
 

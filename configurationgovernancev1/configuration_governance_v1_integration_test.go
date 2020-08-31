@@ -129,14 +129,6 @@ var _ = Describe(`ConfigurationGovernanceV1 Integration Tests`, func() {
 		It("Successfully construct model instances", func() {
 			// Initialize some structs to serve as sample rules and attachments.
 
-			uiSupportModel := &UiSupport{
-				DisplayName: core.StringPtr("Bogus Rule"),
-				Description: core.StringPtr("Sample rule used for testing"),
-			}
-			ruleImportModel := &RuleImport{
-				Name:      core.StringPtr("sampleImport"),
-				UiSupport: uiSupportModel,
-			}
 			ruleTargetAttributeModel := &RuleTargetAttribute{
 				Name:     core.StringPtr("resource_id"),
 				Operator: core.StringPtr("is_not_empty"),
@@ -175,9 +167,7 @@ var _ = Describe(`ConfigurationGovernanceV1 Integration Tests`, func() {
 				AccountID:          &accountID,
 				Name:               core.StringPtr("Go Test Rule #1"),
 				Description:        core.StringPtr("This is the description for Go Test Rule #1."),
-				Version:            core.StringPtr("0.0.1"),
 				RuleType:           core.StringPtr("user_defined"),
-				Imports:            []RuleImport{*ruleImportModel},
 				Target:             targetResourceModel,
 				RequiredConfig:     ruleRequiredConfigModel1,
 				EnforcementActions: []EnforcementAction{*enforcementActionModel},
@@ -187,7 +177,6 @@ var _ = Describe(`ConfigurationGovernanceV1 Integration Tests`, func() {
 				AccountID:          &accountID,
 				Name:               core.StringPtr("Go Test Rule #2"),
 				Description:        core.StringPtr("This is the description for Go Test Rule #2."),
-				Version:            core.StringPtr("0.1.3"),
 				RuleType:           core.StringPtr("user_defined"),
 				Target:             targetResourceModel,
 				RequiredConfig:     ruleRequiredConfigModel2,
@@ -198,7 +187,6 @@ var _ = Describe(`ConfigurationGovernanceV1 Integration Tests`, func() {
 				AccountID:          &accountID,
 				Name:               core.StringPtr("Go Test Rule #3"),
 				Description:        core.StringPtr("This is the description for Go Test Rule #3."),
-				Version:            core.StringPtr("0.0.99"),
 				RuleType:           core.StringPtr("service_defined"),
 				Target:             targetResourceModel,
 				RequiredConfig:     ruleRequiredConfigModel2,
@@ -481,9 +469,7 @@ var _ = Describe(`ConfigurationGovernanceV1 Integration Tests`, func() {
 				RequiredConfig:     rule1.RequiredConfig,
 				EnforcementActions: rule1.EnforcementActions,
 				AccountID:          rule1.AccountID,
-				Version:            rule1.Version,
 				RuleType:           rule1.RuleType,
-				Imports:            rule1.Imports,
 				Labels:             rule1.Labels,
 				TransactionID:      &transactionID,
 			}
@@ -510,9 +496,7 @@ var _ = Describe(`ConfigurationGovernanceV1 Integration Tests`, func() {
 				RequiredConfig:     rule1.RequiredConfig,
 				EnforcementActions: rule1.EnforcementActions,
 				AccountID:          rule1.AccountID,
-				Version:            rule1.Version,
 				RuleType:           rule1.RuleType,
-				Imports:            rule1.Imports,
 				Labels:             rule1.Labels,
 				TransactionID:      &transactionID,
 			}

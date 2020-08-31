@@ -167,6 +167,14 @@ var _ = Describe(`ConfigurationGovernanceV1 Examples Tests`, func() {
 			createRulesOptions.SetTransactionID(uuid.New().String())
 
 			createRulesResponse, response, err := configurationGovernanceService.CreateRules(createRulesOptions)
+			// For a 207 status code, check the response entry for an error
+			if response.StatusCode == 207 {
+				for _, responseEntry := range createRulesResponse.Rules {
+					if *responseEntry.StatusCode > int64(299) {
+						err = fmt.Errorf("%s: %s", *responseEntry.Errors[0].Code, *responseEntry.Errors[0].Message)
+					}
+				}
+			}
 			if err != nil {
 				panic(err)
 			}
@@ -258,7 +266,6 @@ var _ = Describe(`ConfigurationGovernanceV1 Examples Tests`, func() {
 			)
 			updateRuleOptions.SetAccountID(*ruleToUpdateLink.AccountID)
 			updateRuleOptions.SetRuleType(*ruleToUpdateLink.RuleType)
-			updateRuleOptions.SetImports(ruleToUpdateLink.Imports)
 			updateRuleOptions.SetLabels(ruleToUpdateLink.Labels)
 			updateRuleOptions.SetTransactionID(uuid.New().String())
 

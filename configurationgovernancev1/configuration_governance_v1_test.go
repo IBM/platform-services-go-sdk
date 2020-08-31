@@ -159,47 +159,35 @@ var _ = Describe(`ConfigurationGovernanceV1`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(configurationGovernanceService).ToNot(BeNil())
 
-				// Construct an instance of the UiSupport model
-				uiSupportModel := new(configurationgovernancev1.UiSupport)
-				uiSupportModel.DisplayName = core.StringPtr("testString")
-				uiSupportModel.Description = core.StringPtr("testString")
-
-				// Construct an instance of the RuleImport model
-				ruleImportModel := new(configurationgovernancev1.RuleImport)
-				ruleImportModel.Name = core.StringPtr("testString")
-				ruleImportModel.UiSupport = uiSupportModel
-
 				// Construct an instance of the RuleTargetAttribute model
 				ruleTargetAttributeModel := new(configurationgovernancev1.RuleTargetAttribute)
-				ruleTargetAttributeModel.Name = core.StringPtr("resource_id")
+				ruleTargetAttributeModel.Name = core.StringPtr("testString")
 				ruleTargetAttributeModel.Operator = core.StringPtr("string_equals")
-				ruleTargetAttributeModel.Value = core.StringPtr("f0f8f7994e754ff38f9d370201966561")
+				ruleTargetAttributeModel.Value = core.StringPtr("testString")
 
 				// Construct an instance of the TargetResource model
 				targetResourceModel := new(configurationgovernancev1.TargetResource)
 				targetResourceModel.ServiceName = core.StringPtr("iam-groups")
-				targetResourceModel.ResourceKind = core.StringPtr("zone")
+				targetResourceModel.ResourceKind = core.StringPtr("service")
 				targetResourceModel.AdditionalTargetAttributes = []configurationgovernancev1.RuleTargetAttribute{*ruleTargetAttributeModel}
 
 				// Construct an instance of the RuleRequiredConfigSingleProperty model
 				ruleRequiredConfigModel := new(configurationgovernancev1.RuleRequiredConfigSingleProperty)
-				ruleRequiredConfigModel.Description = core.StringPtr("testString")
+				ruleRequiredConfigModel.Description = core.StringPtr("Public access check")
 				ruleRequiredConfigModel.Property = core.StringPtr("public_access_enabled")
 				ruleRequiredConfigModel.Operator = core.StringPtr("is_true")
 				ruleRequiredConfigModel.Value = core.StringPtr("testString")
 
 				// Construct an instance of the EnforcementAction model
 				enforcementActionModel := new(configurationgovernancev1.EnforcementAction)
-				enforcementActionModel.Action = core.StringPtr("disallow")
+				enforcementActionModel.Action = core.StringPtr("audit_log")
 
 				// Construct an instance of the RuleRequest model
 				ruleRequestModel := new(configurationgovernancev1.RuleRequest)
-				ruleRequestModel.AccountID = core.StringPtr("testString")
-				ruleRequestModel.Name = core.StringPtr("testString")
-				ruleRequestModel.Description = core.StringPtr("testString")
-				ruleRequestModel.Version = core.StringPtr("1.0.0")
+				ruleRequestModel.AccountID = core.StringPtr("531fc3e28bfc43c5a2cea07786d93f5c")
+				ruleRequestModel.Name = core.StringPtr("Disable public access")
+				ruleRequestModel.Description = core.StringPtr("Ensure that public access to account resources is disabled.")
 				ruleRequestModel.RuleType = core.StringPtr("user_defined")
-				ruleRequestModel.Imports = []configurationgovernancev1.RuleImport{*ruleImportModel}
 				ruleRequestModel.Target = targetResourceModel
 				ruleRequestModel.RequiredConfig = ruleRequiredConfigModel
 				ruleRequestModel.EnforcementActions = []configurationgovernancev1.EnforcementAction{*enforcementActionModel}
@@ -241,7 +229,7 @@ var _ = Describe(`ConfigurationGovernanceV1`, func() {
 					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"rules": [{"request_id": "3cebc877-58e7-44a5-a292-32114fa73558", "status_code": 201, "rule": {"account_id": "AccountID", "name": "Name", "description": "Description", "version": "1.0.0", "rule_type": "user_defined", "imports": [{"name": "Name", "ui_support": {"display_name": "DisplayName", "description": "Description"}}], "target": {"service_name": "iam-groups", "resource_kind": "zone", "additional_target_attributes": [{"name": "Name", "operator": "string_equals", "value": "Value"}]}, "required_config": {"description": "Description", "property": "public_access_enabled", "operator": "is_true", "value": "Value"}, "enforcement_actions": [{"action": "audit_log"}], "labels": ["Label"], "rule_id": "rule-81f3db5e-f9db-4c46-9de3-a4a76e66adbf", "creation_date": "2020-01-10T05:23:19+0000", "created_by": "CreatedBy", "modification_date": "ModificationDate", "modified_by": "ModifiedBy", "number_of_attachments": 3}, "errors": [{"code": "bad_request", "message": "The rule is missing an account ID"}], "trace": "861263b4-cee3-4514-8d8c-05d17308e6eb"}]}`)
+					fmt.Fprintf(res, "%s", `{"rules": [{"request_id": "3cebc877-58e7-44a5-a292-32114fa73558", "status_code": 201, "rule": {"account_id": "AccountID", "name": "Name", "description": "Description", "rule_type": "user_defined", "target": {"service_name": "iam-groups", "resource_kind": "zone", "additional_target_attributes": [{"name": "Name", "operator": "string_equals", "value": "Value"}]}, "required_config": {"description": "Description", "property": "public_access_enabled", "operator": "is_true", "value": "Value"}, "enforcement_actions": [{"action": "audit_log"}], "labels": ["Label"], "rule_id": "rule-81f3db5e-f9db-4c46-9de3-a4a76e66adbf", "creation_date": "2020-01-10T05:23:19+0000", "created_by": "CreatedBy", "modification_date": "ModificationDate", "modified_by": "ModifiedBy", "number_of_attachments": 3}, "errors": [{"code": "bad_request", "message": "The rule is missing an account ID"}], "trace": "861263b4-cee3-4514-8d8c-05d17308e6eb"}]}`)
 				}))
 			})
 			It(`Invoke CreateRules successfully`, func() {
@@ -258,47 +246,35 @@ var _ = Describe(`ConfigurationGovernanceV1`, func() {
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
 
-				// Construct an instance of the UiSupport model
-				uiSupportModel := new(configurationgovernancev1.UiSupport)
-				uiSupportModel.DisplayName = core.StringPtr("testString")
-				uiSupportModel.Description = core.StringPtr("testString")
-
-				// Construct an instance of the RuleImport model
-				ruleImportModel := new(configurationgovernancev1.RuleImport)
-				ruleImportModel.Name = core.StringPtr("testString")
-				ruleImportModel.UiSupport = uiSupportModel
-
 				// Construct an instance of the RuleTargetAttribute model
 				ruleTargetAttributeModel := new(configurationgovernancev1.RuleTargetAttribute)
-				ruleTargetAttributeModel.Name = core.StringPtr("resource_id")
+				ruleTargetAttributeModel.Name = core.StringPtr("testString")
 				ruleTargetAttributeModel.Operator = core.StringPtr("string_equals")
-				ruleTargetAttributeModel.Value = core.StringPtr("f0f8f7994e754ff38f9d370201966561")
+				ruleTargetAttributeModel.Value = core.StringPtr("testString")
 
 				// Construct an instance of the TargetResource model
 				targetResourceModel := new(configurationgovernancev1.TargetResource)
 				targetResourceModel.ServiceName = core.StringPtr("iam-groups")
-				targetResourceModel.ResourceKind = core.StringPtr("zone")
+				targetResourceModel.ResourceKind = core.StringPtr("service")
 				targetResourceModel.AdditionalTargetAttributes = []configurationgovernancev1.RuleTargetAttribute{*ruleTargetAttributeModel}
 
 				// Construct an instance of the RuleRequiredConfigSingleProperty model
 				ruleRequiredConfigModel := new(configurationgovernancev1.RuleRequiredConfigSingleProperty)
-				ruleRequiredConfigModel.Description = core.StringPtr("testString")
+				ruleRequiredConfigModel.Description = core.StringPtr("Public access check")
 				ruleRequiredConfigModel.Property = core.StringPtr("public_access_enabled")
 				ruleRequiredConfigModel.Operator = core.StringPtr("is_true")
 				ruleRequiredConfigModel.Value = core.StringPtr("testString")
 
 				// Construct an instance of the EnforcementAction model
 				enforcementActionModel := new(configurationgovernancev1.EnforcementAction)
-				enforcementActionModel.Action = core.StringPtr("disallow")
+				enforcementActionModel.Action = core.StringPtr("audit_log")
 
 				// Construct an instance of the RuleRequest model
 				ruleRequestModel := new(configurationgovernancev1.RuleRequest)
-				ruleRequestModel.AccountID = core.StringPtr("testString")
-				ruleRequestModel.Name = core.StringPtr("testString")
-				ruleRequestModel.Description = core.StringPtr("testString")
-				ruleRequestModel.Version = core.StringPtr("1.0.0")
+				ruleRequestModel.AccountID = core.StringPtr("531fc3e28bfc43c5a2cea07786d93f5c")
+				ruleRequestModel.Name = core.StringPtr("Disable public access")
+				ruleRequestModel.Description = core.StringPtr("Ensure that public access to account resources is disabled.")
 				ruleRequestModel.RuleType = core.StringPtr("user_defined")
-				ruleRequestModel.Imports = []configurationgovernancev1.RuleImport{*ruleImportModel}
 				ruleRequestModel.Target = targetResourceModel
 				ruleRequestModel.RequiredConfig = ruleRequiredConfigModel
 				ruleRequestModel.EnforcementActions = []configurationgovernancev1.EnforcementAction{*enforcementActionModel}
@@ -329,47 +305,35 @@ var _ = Describe(`ConfigurationGovernanceV1`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(configurationGovernanceService).ToNot(BeNil())
 
-				// Construct an instance of the UiSupport model
-				uiSupportModel := new(configurationgovernancev1.UiSupport)
-				uiSupportModel.DisplayName = core.StringPtr("testString")
-				uiSupportModel.Description = core.StringPtr("testString")
-
-				// Construct an instance of the RuleImport model
-				ruleImportModel := new(configurationgovernancev1.RuleImport)
-				ruleImportModel.Name = core.StringPtr("testString")
-				ruleImportModel.UiSupport = uiSupportModel
-
 				// Construct an instance of the RuleTargetAttribute model
 				ruleTargetAttributeModel := new(configurationgovernancev1.RuleTargetAttribute)
-				ruleTargetAttributeModel.Name = core.StringPtr("resource_id")
+				ruleTargetAttributeModel.Name = core.StringPtr("testString")
 				ruleTargetAttributeModel.Operator = core.StringPtr("string_equals")
-				ruleTargetAttributeModel.Value = core.StringPtr("f0f8f7994e754ff38f9d370201966561")
+				ruleTargetAttributeModel.Value = core.StringPtr("testString")
 
 				// Construct an instance of the TargetResource model
 				targetResourceModel := new(configurationgovernancev1.TargetResource)
 				targetResourceModel.ServiceName = core.StringPtr("iam-groups")
-				targetResourceModel.ResourceKind = core.StringPtr("zone")
+				targetResourceModel.ResourceKind = core.StringPtr("service")
 				targetResourceModel.AdditionalTargetAttributes = []configurationgovernancev1.RuleTargetAttribute{*ruleTargetAttributeModel}
 
 				// Construct an instance of the RuleRequiredConfigSingleProperty model
 				ruleRequiredConfigModel := new(configurationgovernancev1.RuleRequiredConfigSingleProperty)
-				ruleRequiredConfigModel.Description = core.StringPtr("testString")
+				ruleRequiredConfigModel.Description = core.StringPtr("Public access check")
 				ruleRequiredConfigModel.Property = core.StringPtr("public_access_enabled")
 				ruleRequiredConfigModel.Operator = core.StringPtr("is_true")
 				ruleRequiredConfigModel.Value = core.StringPtr("testString")
 
 				// Construct an instance of the EnforcementAction model
 				enforcementActionModel := new(configurationgovernancev1.EnforcementAction)
-				enforcementActionModel.Action = core.StringPtr("disallow")
+				enforcementActionModel.Action = core.StringPtr("audit_log")
 
 				// Construct an instance of the RuleRequest model
 				ruleRequestModel := new(configurationgovernancev1.RuleRequest)
-				ruleRequestModel.AccountID = core.StringPtr("testString")
-				ruleRequestModel.Name = core.StringPtr("testString")
-				ruleRequestModel.Description = core.StringPtr("testString")
-				ruleRequestModel.Version = core.StringPtr("1.0.0")
+				ruleRequestModel.AccountID = core.StringPtr("531fc3e28bfc43c5a2cea07786d93f5c")
+				ruleRequestModel.Name = core.StringPtr("Disable public access")
+				ruleRequestModel.Description = core.StringPtr("Ensure that public access to account resources is disabled.")
 				ruleRequestModel.RuleType = core.StringPtr("user_defined")
-				ruleRequestModel.Imports = []configurationgovernancev1.RuleImport{*ruleImportModel}
 				ruleRequestModel.Target = targetResourceModel
 				ruleRequestModel.RequiredConfig = ruleRequiredConfigModel
 				ruleRequestModel.EnforcementActions = []configurationgovernancev1.EnforcementAction{*enforcementActionModel}
@@ -418,7 +382,7 @@ var _ = Describe(`ConfigurationGovernanceV1`, func() {
 					Expect(req.Method).To(Equal("GET"))
 					Expect(req.Header["Transaction-Id"]).ToNot(BeNil())
 					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
-					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"531fc3e28bfc43c5a2cea07786d93f5c"}))
 
 
 					// TODO: Add check for attached query parameter
@@ -446,7 +410,7 @@ var _ = Describe(`ConfigurationGovernanceV1`, func() {
 
 				// Construct an instance of the ListRulesOptions model
 				listRulesOptionsModel := new(configurationgovernancev1.ListRulesOptions)
-				listRulesOptionsModel.AccountID = core.StringPtr("testString")
+				listRulesOptionsModel.AccountID = core.StringPtr("531fc3e28bfc43c5a2cea07786d93f5c")
 				listRulesOptionsModel.TransactionID = core.StringPtr("testString")
 				listRulesOptionsModel.Attached = core.BoolPtr(true)
 				listRulesOptionsModel.Labels = core.StringPtr("SOC2,ITCS300")
@@ -478,7 +442,7 @@ var _ = Describe(`ConfigurationGovernanceV1`, func() {
 					Expect(req.Method).To(Equal("GET"))
 					Expect(req.Header["Transaction-Id"]).ToNot(BeNil())
 					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
-					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"531fc3e28bfc43c5a2cea07786d93f5c"}))
 
 
 					// TODO: Add check for attached query parameter
@@ -493,7 +457,7 @@ var _ = Describe(`ConfigurationGovernanceV1`, func() {
 
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"offset": 6, "limit": 1000, "total_count": 10, "first": {"href": "Href"}, "last": {"href": "Href"}, "rules": [{"account_id": "AccountID", "name": "Name", "description": "Description", "version": "1.0.0", "rule_type": "user_defined", "imports": [{"name": "Name", "ui_support": {"display_name": "DisplayName", "description": "Description"}}], "target": {"service_name": "iam-groups", "resource_kind": "zone", "additional_target_attributes": [{"name": "Name", "operator": "string_equals", "value": "Value"}]}, "required_config": {"description": "Description", "property": "public_access_enabled", "operator": "is_true", "value": "Value"}, "enforcement_actions": [{"action": "audit_log"}], "labels": ["Label"], "rule_id": "rule-81f3db5e-f9db-4c46-9de3-a4a76e66adbf", "creation_date": "2020-01-10T05:23:19+0000", "created_by": "CreatedBy", "modification_date": "ModificationDate", "modified_by": "ModifiedBy", "number_of_attachments": 3}]}`)
+					fmt.Fprintf(res, "%s", `{"offset": 6, "limit": 1000, "total_count": 10, "first": {"href": "Href"}, "last": {"href": "Href"}, "rules": [{"account_id": "AccountID", "name": "Name", "description": "Description", "rule_type": "user_defined", "target": {"service_name": "iam-groups", "resource_kind": "zone", "additional_target_attributes": [{"name": "Name", "operator": "string_equals", "value": "Value"}]}, "required_config": {"description": "Description", "property": "public_access_enabled", "operator": "is_true", "value": "Value"}, "enforcement_actions": [{"action": "audit_log"}], "labels": ["Label"], "rule_id": "rule-81f3db5e-f9db-4c46-9de3-a4a76e66adbf", "creation_date": "2020-01-10T05:23:19+0000", "created_by": "CreatedBy", "modification_date": "ModificationDate", "modified_by": "ModifiedBy", "number_of_attachments": 3}]}`)
 				}))
 			})
 			It(`Invoke ListRules successfully`, func() {
@@ -512,7 +476,7 @@ var _ = Describe(`ConfigurationGovernanceV1`, func() {
 
 				// Construct an instance of the ListRulesOptions model
 				listRulesOptionsModel := new(configurationgovernancev1.ListRulesOptions)
-				listRulesOptionsModel.AccountID = core.StringPtr("testString")
+				listRulesOptionsModel.AccountID = core.StringPtr("531fc3e28bfc43c5a2cea07786d93f5c")
 				listRulesOptionsModel.TransactionID = core.StringPtr("testString")
 				listRulesOptionsModel.Attached = core.BoolPtr(true)
 				listRulesOptionsModel.Labels = core.StringPtr("SOC2,ITCS300")
@@ -537,7 +501,7 @@ var _ = Describe(`ConfigurationGovernanceV1`, func() {
 
 				// Construct an instance of the ListRulesOptions model
 				listRulesOptionsModel := new(configurationgovernancev1.ListRulesOptions)
-				listRulesOptionsModel.AccountID = core.StringPtr("testString")
+				listRulesOptionsModel.AccountID = core.StringPtr("531fc3e28bfc43c5a2cea07786d93f5c")
 				listRulesOptionsModel.TransactionID = core.StringPtr("testString")
 				listRulesOptionsModel.Attached = core.BoolPtr(true)
 				listRulesOptionsModel.Labels = core.StringPtr("SOC2,ITCS300")
@@ -622,7 +586,7 @@ var _ = Describe(`ConfigurationGovernanceV1`, func() {
 					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"account_id": "AccountID", "name": "Name", "description": "Description", "version": "1.0.0", "rule_type": "user_defined", "imports": [{"name": "Name", "ui_support": {"display_name": "DisplayName", "description": "Description"}}], "target": {"service_name": "iam-groups", "resource_kind": "zone", "additional_target_attributes": [{"name": "Name", "operator": "string_equals", "value": "Value"}]}, "required_config": {"description": "Description", "property": "public_access_enabled", "operator": "is_true", "value": "Value"}, "enforcement_actions": [{"action": "audit_log"}], "labels": ["Label"], "rule_id": "rule-81f3db5e-f9db-4c46-9de3-a4a76e66adbf", "creation_date": "2020-01-10T05:23:19+0000", "created_by": "CreatedBy", "modification_date": "ModificationDate", "modified_by": "ModifiedBy", "number_of_attachments": 3}`)
+					fmt.Fprintf(res, "%s", `{"account_id": "AccountID", "name": "Name", "description": "Description", "rule_type": "user_defined", "target": {"service_name": "iam-groups", "resource_kind": "zone", "additional_target_attributes": [{"name": "Name", "operator": "string_equals", "value": "Value"}]}, "required_config": {"description": "Description", "property": "public_access_enabled", "operator": "is_true", "value": "Value"}, "enforcement_actions": [{"action": "audit_log"}], "labels": ["Label"], "rule_id": "rule-81f3db5e-f9db-4c46-9de3-a4a76e66adbf", "creation_date": "2020-01-10T05:23:19+0000", "created_by": "CreatedBy", "modification_date": "ModificationDate", "modified_by": "ModifiedBy", "number_of_attachments": 3}`)
 				}))
 			})
 			It(`Invoke GetRule successfully`, func() {
@@ -735,16 +699,6 @@ var _ = Describe(`ConfigurationGovernanceV1`, func() {
 				enforcementActionModel := new(configurationgovernancev1.EnforcementAction)
 				enforcementActionModel.Action = core.StringPtr("audit_log")
 
-				// Construct an instance of the UiSupport model
-				uiSupportModel := new(configurationgovernancev1.UiSupport)
-				uiSupportModel.DisplayName = core.StringPtr("testString")
-				uiSupportModel.Description = core.StringPtr("testString")
-
-				// Construct an instance of the RuleImport model
-				ruleImportModel := new(configurationgovernancev1.RuleImport)
-				ruleImportModel.Name = core.StringPtr("testString")
-				ruleImportModel.UiSupport = uiSupportModel
-
 				// Construct an instance of the UpdateRuleOptions model
 				updateRuleOptionsModel := new(configurationgovernancev1.UpdateRuleOptions)
 				updateRuleOptionsModel.RuleID = core.StringPtr("testString")
@@ -755,9 +709,7 @@ var _ = Describe(`ConfigurationGovernanceV1`, func() {
 				updateRuleOptionsModel.RequiredConfig = ruleRequiredConfigModel
 				updateRuleOptionsModel.EnforcementActions = []configurationgovernancev1.EnforcementAction{*enforcementActionModel}
 				updateRuleOptionsModel.AccountID = core.StringPtr("531fc3e28bfc43c5a2cea07786d93f5c")
-				updateRuleOptionsModel.Version = core.StringPtr("1.0.0")
 				updateRuleOptionsModel.RuleType = core.StringPtr("user_defined")
-				updateRuleOptionsModel.Imports = []configurationgovernancev1.RuleImport{*ruleImportModel}
 				updateRuleOptionsModel.Labels = []string{"testString"}
 				updateRuleOptionsModel.TransactionID = core.StringPtr("testString")
 				updateRuleOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
@@ -789,7 +741,7 @@ var _ = Describe(`ConfigurationGovernanceV1`, func() {
 					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"account_id": "AccountID", "name": "Name", "description": "Description", "version": "1.0.0", "rule_type": "user_defined", "imports": [{"name": "Name", "ui_support": {"display_name": "DisplayName", "description": "Description"}}], "target": {"service_name": "iam-groups", "resource_kind": "zone", "additional_target_attributes": [{"name": "Name", "operator": "string_equals", "value": "Value"}]}, "required_config": {"description": "Description", "property": "public_access_enabled", "operator": "is_true", "value": "Value"}, "enforcement_actions": [{"action": "audit_log"}], "labels": ["Label"], "rule_id": "rule-81f3db5e-f9db-4c46-9de3-a4a76e66adbf", "creation_date": "2020-01-10T05:23:19+0000", "created_by": "CreatedBy", "modification_date": "ModificationDate", "modified_by": "ModifiedBy", "number_of_attachments": 3}`)
+					fmt.Fprintf(res, "%s", `{"account_id": "AccountID", "name": "Name", "description": "Description", "rule_type": "user_defined", "target": {"service_name": "iam-groups", "resource_kind": "zone", "additional_target_attributes": [{"name": "Name", "operator": "string_equals", "value": "Value"}]}, "required_config": {"description": "Description", "property": "public_access_enabled", "operator": "is_true", "value": "Value"}, "enforcement_actions": [{"action": "audit_log"}], "labels": ["Label"], "rule_id": "rule-81f3db5e-f9db-4c46-9de3-a4a76e66adbf", "creation_date": "2020-01-10T05:23:19+0000", "created_by": "CreatedBy", "modification_date": "ModificationDate", "modified_by": "ModifiedBy", "number_of_attachments": 3}`)
 				}))
 			})
 			It(`Invoke UpdateRule successfully`, func() {
@@ -829,16 +781,6 @@ var _ = Describe(`ConfigurationGovernanceV1`, func() {
 				enforcementActionModel := new(configurationgovernancev1.EnforcementAction)
 				enforcementActionModel.Action = core.StringPtr("audit_log")
 
-				// Construct an instance of the UiSupport model
-				uiSupportModel := new(configurationgovernancev1.UiSupport)
-				uiSupportModel.DisplayName = core.StringPtr("testString")
-				uiSupportModel.Description = core.StringPtr("testString")
-
-				// Construct an instance of the RuleImport model
-				ruleImportModel := new(configurationgovernancev1.RuleImport)
-				ruleImportModel.Name = core.StringPtr("testString")
-				ruleImportModel.UiSupport = uiSupportModel
-
 				// Construct an instance of the UpdateRuleOptions model
 				updateRuleOptionsModel := new(configurationgovernancev1.UpdateRuleOptions)
 				updateRuleOptionsModel.RuleID = core.StringPtr("testString")
@@ -849,9 +791,7 @@ var _ = Describe(`ConfigurationGovernanceV1`, func() {
 				updateRuleOptionsModel.RequiredConfig = ruleRequiredConfigModel
 				updateRuleOptionsModel.EnforcementActions = []configurationgovernancev1.EnforcementAction{*enforcementActionModel}
 				updateRuleOptionsModel.AccountID = core.StringPtr("531fc3e28bfc43c5a2cea07786d93f5c")
-				updateRuleOptionsModel.Version = core.StringPtr("1.0.0")
 				updateRuleOptionsModel.RuleType = core.StringPtr("user_defined")
-				updateRuleOptionsModel.Imports = []configurationgovernancev1.RuleImport{*ruleImportModel}
 				updateRuleOptionsModel.Labels = []string{"testString"}
 				updateRuleOptionsModel.TransactionID = core.StringPtr("testString")
 				updateRuleOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
@@ -893,16 +833,6 @@ var _ = Describe(`ConfigurationGovernanceV1`, func() {
 				enforcementActionModel := new(configurationgovernancev1.EnforcementAction)
 				enforcementActionModel.Action = core.StringPtr("audit_log")
 
-				// Construct an instance of the UiSupport model
-				uiSupportModel := new(configurationgovernancev1.UiSupport)
-				uiSupportModel.DisplayName = core.StringPtr("testString")
-				uiSupportModel.Description = core.StringPtr("testString")
-
-				// Construct an instance of the RuleImport model
-				ruleImportModel := new(configurationgovernancev1.RuleImport)
-				ruleImportModel.Name = core.StringPtr("testString")
-				ruleImportModel.UiSupport = uiSupportModel
-
 				// Construct an instance of the UpdateRuleOptions model
 				updateRuleOptionsModel := new(configurationgovernancev1.UpdateRuleOptions)
 				updateRuleOptionsModel.RuleID = core.StringPtr("testString")
@@ -913,9 +843,7 @@ var _ = Describe(`ConfigurationGovernanceV1`, func() {
 				updateRuleOptionsModel.RequiredConfig = ruleRequiredConfigModel
 				updateRuleOptionsModel.EnforcementActions = []configurationgovernancev1.EnforcementAction{*enforcementActionModel}
 				updateRuleOptionsModel.AccountID = core.StringPtr("531fc3e28bfc43c5a2cea07786d93f5c")
-				updateRuleOptionsModel.Version = core.StringPtr("1.0.0")
 				updateRuleOptionsModel.RuleType = core.StringPtr("user_defined")
-				updateRuleOptionsModel.Imports = []configurationgovernancev1.RuleImport{*ruleImportModel}
 				updateRuleOptionsModel.Labels = []string{"testString"}
 				updateRuleOptionsModel.TransactionID = core.StringPtr("testString")
 				updateRuleOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
@@ -1454,8 +1382,8 @@ var _ = Describe(`ConfigurationGovernanceV1`, func() {
 
 				// Construct an instance of the RuleScope model
 				ruleScopeModel := new(configurationgovernancev1.RuleScope)
-				ruleScopeModel.Note = core.StringPtr("testString")
-				ruleScopeModel.ScopeID = core.StringPtr("testString")
+				ruleScopeModel.Note = core.StringPtr("My enterprise")
+				ruleScopeModel.ScopeID = core.StringPtr("282cf433ac91493ba860480d92519990")
 				ruleScopeModel.ScopeType = core.StringPtr("enterprise")
 
 				// Construct an instance of the UpdateAttachmentOptions model
@@ -1463,7 +1391,7 @@ var _ = Describe(`ConfigurationGovernanceV1`, func() {
 				updateAttachmentOptionsModel.RuleID = core.StringPtr("testString")
 				updateAttachmentOptionsModel.AttachmentID = core.StringPtr("testString")
 				updateAttachmentOptionsModel.IfMatch = core.StringPtr("testString")
-				updateAttachmentOptionsModel.AccountID = core.StringPtr("testString")
+				updateAttachmentOptionsModel.AccountID = core.StringPtr("531fc3e28bfc43c5a2cea07786d93f5c")
 				updateAttachmentOptionsModel.IncludedScope = ruleScopeModel
 				updateAttachmentOptionsModel.ExcludedScopes = []configurationgovernancev1.RuleScope{*ruleScopeModel}
 				updateAttachmentOptionsModel.TransactionID = core.StringPtr("testString")
@@ -1515,8 +1443,8 @@ var _ = Describe(`ConfigurationGovernanceV1`, func() {
 
 				// Construct an instance of the RuleScope model
 				ruleScopeModel := new(configurationgovernancev1.RuleScope)
-				ruleScopeModel.Note = core.StringPtr("testString")
-				ruleScopeModel.ScopeID = core.StringPtr("testString")
+				ruleScopeModel.Note = core.StringPtr("My enterprise")
+				ruleScopeModel.ScopeID = core.StringPtr("282cf433ac91493ba860480d92519990")
 				ruleScopeModel.ScopeType = core.StringPtr("enterprise")
 
 				// Construct an instance of the UpdateAttachmentOptions model
@@ -1524,7 +1452,7 @@ var _ = Describe(`ConfigurationGovernanceV1`, func() {
 				updateAttachmentOptionsModel.RuleID = core.StringPtr("testString")
 				updateAttachmentOptionsModel.AttachmentID = core.StringPtr("testString")
 				updateAttachmentOptionsModel.IfMatch = core.StringPtr("testString")
-				updateAttachmentOptionsModel.AccountID = core.StringPtr("testString")
+				updateAttachmentOptionsModel.AccountID = core.StringPtr("531fc3e28bfc43c5a2cea07786d93f5c")
 				updateAttachmentOptionsModel.IncludedScope = ruleScopeModel
 				updateAttachmentOptionsModel.ExcludedScopes = []configurationgovernancev1.RuleScope{*ruleScopeModel}
 				updateAttachmentOptionsModel.TransactionID = core.StringPtr("testString")
@@ -1546,8 +1474,8 @@ var _ = Describe(`ConfigurationGovernanceV1`, func() {
 
 				// Construct an instance of the RuleScope model
 				ruleScopeModel := new(configurationgovernancev1.RuleScope)
-				ruleScopeModel.Note = core.StringPtr("testString")
-				ruleScopeModel.ScopeID = core.StringPtr("testString")
+				ruleScopeModel.Note = core.StringPtr("My enterprise")
+				ruleScopeModel.ScopeID = core.StringPtr("282cf433ac91493ba860480d92519990")
 				ruleScopeModel.ScopeType = core.StringPtr("enterprise")
 
 				// Construct an instance of the UpdateAttachmentOptions model
@@ -1555,7 +1483,7 @@ var _ = Describe(`ConfigurationGovernanceV1`, func() {
 				updateAttachmentOptionsModel.RuleID = core.StringPtr("testString")
 				updateAttachmentOptionsModel.AttachmentID = core.StringPtr("testString")
 				updateAttachmentOptionsModel.IfMatch = core.StringPtr("testString")
-				updateAttachmentOptionsModel.AccountID = core.StringPtr("testString")
+				updateAttachmentOptionsModel.AccountID = core.StringPtr("531fc3e28bfc43c5a2cea07786d93f5c")
 				updateAttachmentOptionsModel.IncludedScope = ruleScopeModel
 				updateAttachmentOptionsModel.ExcludedScopes = []configurationgovernancev1.RuleScope{*ruleScopeModel}
 				updateAttachmentOptionsModel.TransactionID = core.StringPtr("testString")
@@ -1708,50 +1636,34 @@ var _ = Describe(`ConfigurationGovernanceV1`, func() {
 				Expect(err).ToNot(BeNil())
 			})
 			It(`Invoke NewCreateRulesOptions successfully`, func() {
-				// Construct an instance of the UiSupport model
-				uiSupportModel := new(configurationgovernancev1.UiSupport)
-				Expect(uiSupportModel).ToNot(BeNil())
-				uiSupportModel.DisplayName = core.StringPtr("testString")
-				uiSupportModel.Description = core.StringPtr("testString")
-				Expect(uiSupportModel.DisplayName).To(Equal(core.StringPtr("testString")))
-				Expect(uiSupportModel.Description).To(Equal(core.StringPtr("testString")))
-
-				// Construct an instance of the RuleImport model
-				ruleImportModel := new(configurationgovernancev1.RuleImport)
-				Expect(ruleImportModel).ToNot(BeNil())
-				ruleImportModel.Name = core.StringPtr("testString")
-				ruleImportModel.UiSupport = uiSupportModel
-				Expect(ruleImportModel.Name).To(Equal(core.StringPtr("testString")))
-				Expect(ruleImportModel.UiSupport).To(Equal(uiSupportModel))
-
 				// Construct an instance of the RuleTargetAttribute model
 				ruleTargetAttributeModel := new(configurationgovernancev1.RuleTargetAttribute)
 				Expect(ruleTargetAttributeModel).ToNot(BeNil())
-				ruleTargetAttributeModel.Name = core.StringPtr("resource_id")
+				ruleTargetAttributeModel.Name = core.StringPtr("testString")
 				ruleTargetAttributeModel.Operator = core.StringPtr("string_equals")
-				ruleTargetAttributeModel.Value = core.StringPtr("f0f8f7994e754ff38f9d370201966561")
-				Expect(ruleTargetAttributeModel.Name).To(Equal(core.StringPtr("resource_id")))
+				ruleTargetAttributeModel.Value = core.StringPtr("testString")
+				Expect(ruleTargetAttributeModel.Name).To(Equal(core.StringPtr("testString")))
 				Expect(ruleTargetAttributeModel.Operator).To(Equal(core.StringPtr("string_equals")))
-				Expect(ruleTargetAttributeModel.Value).To(Equal(core.StringPtr("f0f8f7994e754ff38f9d370201966561")))
+				Expect(ruleTargetAttributeModel.Value).To(Equal(core.StringPtr("testString")))
 
 				// Construct an instance of the TargetResource model
 				targetResourceModel := new(configurationgovernancev1.TargetResource)
 				Expect(targetResourceModel).ToNot(BeNil())
 				targetResourceModel.ServiceName = core.StringPtr("iam-groups")
-				targetResourceModel.ResourceKind = core.StringPtr("zone")
+				targetResourceModel.ResourceKind = core.StringPtr("service")
 				targetResourceModel.AdditionalTargetAttributes = []configurationgovernancev1.RuleTargetAttribute{*ruleTargetAttributeModel}
 				Expect(targetResourceModel.ServiceName).To(Equal(core.StringPtr("iam-groups")))
-				Expect(targetResourceModel.ResourceKind).To(Equal(core.StringPtr("zone")))
+				Expect(targetResourceModel.ResourceKind).To(Equal(core.StringPtr("service")))
 				Expect(targetResourceModel.AdditionalTargetAttributes).To(Equal([]configurationgovernancev1.RuleTargetAttribute{*ruleTargetAttributeModel}))
 
 				// Construct an instance of the RuleRequiredConfigSingleProperty model
 				ruleRequiredConfigModel := new(configurationgovernancev1.RuleRequiredConfigSingleProperty)
 				Expect(ruleRequiredConfigModel).ToNot(BeNil())
-				ruleRequiredConfigModel.Description = core.StringPtr("testString")
+				ruleRequiredConfigModel.Description = core.StringPtr("Public access check")
 				ruleRequiredConfigModel.Property = core.StringPtr("public_access_enabled")
 				ruleRequiredConfigModel.Operator = core.StringPtr("is_true")
 				ruleRequiredConfigModel.Value = core.StringPtr("testString")
-				Expect(ruleRequiredConfigModel.Description).To(Equal(core.StringPtr("testString")))
+				Expect(ruleRequiredConfigModel.Description).To(Equal(core.StringPtr("Public access check")))
 				Expect(ruleRequiredConfigModel.Property).To(Equal(core.StringPtr("public_access_enabled")))
 				Expect(ruleRequiredConfigModel.Operator).To(Equal(core.StringPtr("is_true")))
 				Expect(ruleRequiredConfigModel.Value).To(Equal(core.StringPtr("testString")))
@@ -1759,28 +1671,24 @@ var _ = Describe(`ConfigurationGovernanceV1`, func() {
 				// Construct an instance of the EnforcementAction model
 				enforcementActionModel := new(configurationgovernancev1.EnforcementAction)
 				Expect(enforcementActionModel).ToNot(BeNil())
-				enforcementActionModel.Action = core.StringPtr("disallow")
-				Expect(enforcementActionModel.Action).To(Equal(core.StringPtr("disallow")))
+				enforcementActionModel.Action = core.StringPtr("audit_log")
+				Expect(enforcementActionModel.Action).To(Equal(core.StringPtr("audit_log")))
 
 				// Construct an instance of the RuleRequest model
 				ruleRequestModel := new(configurationgovernancev1.RuleRequest)
 				Expect(ruleRequestModel).ToNot(BeNil())
-				ruleRequestModel.AccountID = core.StringPtr("testString")
-				ruleRequestModel.Name = core.StringPtr("testString")
-				ruleRequestModel.Description = core.StringPtr("testString")
-				ruleRequestModel.Version = core.StringPtr("1.0.0")
+				ruleRequestModel.AccountID = core.StringPtr("531fc3e28bfc43c5a2cea07786d93f5c")
+				ruleRequestModel.Name = core.StringPtr("Disable public access")
+				ruleRequestModel.Description = core.StringPtr("Ensure that public access to account resources is disabled.")
 				ruleRequestModel.RuleType = core.StringPtr("user_defined")
-				ruleRequestModel.Imports = []configurationgovernancev1.RuleImport{*ruleImportModel}
 				ruleRequestModel.Target = targetResourceModel
 				ruleRequestModel.RequiredConfig = ruleRequiredConfigModel
 				ruleRequestModel.EnforcementActions = []configurationgovernancev1.EnforcementAction{*enforcementActionModel}
 				ruleRequestModel.Labels = []string{"testString"}
-				Expect(ruleRequestModel.AccountID).To(Equal(core.StringPtr("testString")))
-				Expect(ruleRequestModel.Name).To(Equal(core.StringPtr("testString")))
-				Expect(ruleRequestModel.Description).To(Equal(core.StringPtr("testString")))
-				Expect(ruleRequestModel.Version).To(Equal(core.StringPtr("1.0.0")))
+				Expect(ruleRequestModel.AccountID).To(Equal(core.StringPtr("531fc3e28bfc43c5a2cea07786d93f5c")))
+				Expect(ruleRequestModel.Name).To(Equal(core.StringPtr("Disable public access")))
+				Expect(ruleRequestModel.Description).To(Equal(core.StringPtr("Ensure that public access to account resources is disabled.")))
 				Expect(ruleRequestModel.RuleType).To(Equal(core.StringPtr("user_defined")))
-				Expect(ruleRequestModel.Imports).To(Equal([]configurationgovernancev1.RuleImport{*ruleImportModel}))
 				Expect(ruleRequestModel.Target).To(Equal(targetResourceModel))
 				Expect(ruleRequestModel.RequiredConfig).To(Equal(ruleRequiredConfigModel))
 				Expect(ruleRequestModel.EnforcementActions).To(Equal([]configurationgovernancev1.EnforcementAction{*enforcementActionModel}))
@@ -1883,9 +1791,9 @@ var _ = Describe(`ConfigurationGovernanceV1`, func() {
 			})
 			It(`Invoke NewListRulesOptions successfully`, func() {
 				// Construct an instance of the ListRulesOptions model
-				accountID := "testString"
+				accountID := "531fc3e28bfc43c5a2cea07786d93f5c"
 				listRulesOptionsModel := configurationGovernanceService.NewListRulesOptions(accountID)
-				listRulesOptionsModel.SetAccountID("testString")
+				listRulesOptionsModel.SetAccountID("531fc3e28bfc43c5a2cea07786d93f5c")
 				listRulesOptionsModel.SetTransactionID("testString")
 				listRulesOptionsModel.SetAttached(true)
 				listRulesOptionsModel.SetLabels("SOC2,ITCS300")
@@ -1894,7 +1802,7 @@ var _ = Describe(`ConfigurationGovernanceV1`, func() {
 				listRulesOptionsModel.SetOffset(int64(38))
 				listRulesOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(listRulesOptionsModel).ToNot(BeNil())
-				Expect(listRulesOptionsModel.AccountID).To(Equal(core.StringPtr("testString")))
+				Expect(listRulesOptionsModel.AccountID).To(Equal(core.StringPtr("531fc3e28bfc43c5a2cea07786d93f5c")))
 				Expect(listRulesOptionsModel.TransactionID).To(Equal(core.StringPtr("testString")))
 				Expect(listRulesOptionsModel.Attached).To(Equal(core.BoolPtr(true)))
 				Expect(listRulesOptionsModel.Labels).To(Equal(core.StringPtr("SOC2,ITCS300")))
@@ -1902,12 +1810,6 @@ var _ = Describe(`ConfigurationGovernanceV1`, func() {
 				Expect(listRulesOptionsModel.Limit).To(Equal(core.Int64Ptr(int64(1000))))
 				Expect(listRulesOptionsModel.Offset).To(Equal(core.Int64Ptr(int64(38))))
 				Expect(listRulesOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
-			})
-			It(`Invoke NewRuleImport successfully`, func() {
-				name := "testString"
-				model, err := configurationGovernanceService.NewRuleImport(name)
-				Expect(model).ToNot(BeNil())
-				Expect(err).To(BeNil())
 			})
 			It(`Invoke NewRuleRequest successfully`, func() {
 				name := "testString"
@@ -1946,35 +1848,28 @@ var _ = Describe(`ConfigurationGovernanceV1`, func() {
 				Expect(model).ToNot(BeNil())
 				Expect(err).To(BeNil())
 			})
-			It(`Invoke NewUiSupport successfully`, func() {
-				displayName := "testString"
-				description := "testString"
-				model, err := configurationGovernanceService.NewUiSupport(displayName, description)
-				Expect(model).ToNot(BeNil())
-				Expect(err).To(BeNil())
-			})
 			It(`Invoke NewUpdateAttachmentOptions successfully`, func() {
 				// Construct an instance of the RuleScope model
 				ruleScopeModel := new(configurationgovernancev1.RuleScope)
 				Expect(ruleScopeModel).ToNot(BeNil())
-				ruleScopeModel.Note = core.StringPtr("testString")
-				ruleScopeModel.ScopeID = core.StringPtr("testString")
+				ruleScopeModel.Note = core.StringPtr("My enterprise")
+				ruleScopeModel.ScopeID = core.StringPtr("282cf433ac91493ba860480d92519990")
 				ruleScopeModel.ScopeType = core.StringPtr("enterprise")
-				Expect(ruleScopeModel.Note).To(Equal(core.StringPtr("testString")))
-				Expect(ruleScopeModel.ScopeID).To(Equal(core.StringPtr("testString")))
+				Expect(ruleScopeModel.Note).To(Equal(core.StringPtr("My enterprise")))
+				Expect(ruleScopeModel.ScopeID).To(Equal(core.StringPtr("282cf433ac91493ba860480d92519990")))
 				Expect(ruleScopeModel.ScopeType).To(Equal(core.StringPtr("enterprise")))
 
 				// Construct an instance of the UpdateAttachmentOptions model
 				ruleID := "testString"
 				attachmentID := "testString"
 				ifMatch := "testString"
-				updateAttachmentOptionsAccountID := "testString"
+				updateAttachmentOptionsAccountID := "531fc3e28bfc43c5a2cea07786d93f5c"
 				var updateAttachmentOptionsIncludedScope *configurationgovernancev1.RuleScope = nil
 				updateAttachmentOptionsModel := configurationGovernanceService.NewUpdateAttachmentOptions(ruleID, attachmentID, ifMatch, updateAttachmentOptionsAccountID, updateAttachmentOptionsIncludedScope)
 				updateAttachmentOptionsModel.SetRuleID("testString")
 				updateAttachmentOptionsModel.SetAttachmentID("testString")
 				updateAttachmentOptionsModel.SetIfMatch("testString")
-				updateAttachmentOptionsModel.SetAccountID("testString")
+				updateAttachmentOptionsModel.SetAccountID("531fc3e28bfc43c5a2cea07786d93f5c")
 				updateAttachmentOptionsModel.SetIncludedScope(ruleScopeModel)
 				updateAttachmentOptionsModel.SetExcludedScopes([]configurationgovernancev1.RuleScope{*ruleScopeModel})
 				updateAttachmentOptionsModel.SetTransactionID("testString")
@@ -1983,7 +1878,7 @@ var _ = Describe(`ConfigurationGovernanceV1`, func() {
 				Expect(updateAttachmentOptionsModel.RuleID).To(Equal(core.StringPtr("testString")))
 				Expect(updateAttachmentOptionsModel.AttachmentID).To(Equal(core.StringPtr("testString")))
 				Expect(updateAttachmentOptionsModel.IfMatch).To(Equal(core.StringPtr("testString")))
-				Expect(updateAttachmentOptionsModel.AccountID).To(Equal(core.StringPtr("testString")))
+				Expect(updateAttachmentOptionsModel.AccountID).To(Equal(core.StringPtr("531fc3e28bfc43c5a2cea07786d93f5c")))
 				Expect(updateAttachmentOptionsModel.IncludedScope).To(Equal(ruleScopeModel))
 				Expect(updateAttachmentOptionsModel.ExcludedScopes).To(Equal([]configurationgovernancev1.RuleScope{*ruleScopeModel}))
 				Expect(updateAttachmentOptionsModel.TransactionID).To(Equal(core.StringPtr("testString")))
@@ -2028,22 +1923,6 @@ var _ = Describe(`ConfigurationGovernanceV1`, func() {
 				enforcementActionModel.Action = core.StringPtr("audit_log")
 				Expect(enforcementActionModel.Action).To(Equal(core.StringPtr("audit_log")))
 
-				// Construct an instance of the UiSupport model
-				uiSupportModel := new(configurationgovernancev1.UiSupport)
-				Expect(uiSupportModel).ToNot(BeNil())
-				uiSupportModel.DisplayName = core.StringPtr("testString")
-				uiSupportModel.Description = core.StringPtr("testString")
-				Expect(uiSupportModel.DisplayName).To(Equal(core.StringPtr("testString")))
-				Expect(uiSupportModel.Description).To(Equal(core.StringPtr("testString")))
-
-				// Construct an instance of the RuleImport model
-				ruleImportModel := new(configurationgovernancev1.RuleImport)
-				Expect(ruleImportModel).ToNot(BeNil())
-				ruleImportModel.Name = core.StringPtr("testString")
-				ruleImportModel.UiSupport = uiSupportModel
-				Expect(ruleImportModel.Name).To(Equal(core.StringPtr("testString")))
-				Expect(ruleImportModel.UiSupport).To(Equal(uiSupportModel))
-
 				// Construct an instance of the UpdateRuleOptions model
 				ruleID := "testString"
 				ifMatch := "testString"
@@ -2061,9 +1940,7 @@ var _ = Describe(`ConfigurationGovernanceV1`, func() {
 				updateRuleOptionsModel.SetRequiredConfig(ruleRequiredConfigModel)
 				updateRuleOptionsModel.SetEnforcementActions([]configurationgovernancev1.EnforcementAction{*enforcementActionModel})
 				updateRuleOptionsModel.SetAccountID("531fc3e28bfc43c5a2cea07786d93f5c")
-				updateRuleOptionsModel.SetVersion("1.0.0")
 				updateRuleOptionsModel.SetRuleType("user_defined")
-				updateRuleOptionsModel.SetImports([]configurationgovernancev1.RuleImport{*ruleImportModel})
 				updateRuleOptionsModel.SetLabels([]string{"testString"})
 				updateRuleOptionsModel.SetTransactionID("testString")
 				updateRuleOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
@@ -2076,9 +1953,7 @@ var _ = Describe(`ConfigurationGovernanceV1`, func() {
 				Expect(updateRuleOptionsModel.RequiredConfig).To(Equal(ruleRequiredConfigModel))
 				Expect(updateRuleOptionsModel.EnforcementActions).To(Equal([]configurationgovernancev1.EnforcementAction{*enforcementActionModel}))
 				Expect(updateRuleOptionsModel.AccountID).To(Equal(core.StringPtr("531fc3e28bfc43c5a2cea07786d93f5c")))
-				Expect(updateRuleOptionsModel.Version).To(Equal(core.StringPtr("1.0.0")))
 				Expect(updateRuleOptionsModel.RuleType).To(Equal(core.StringPtr("user_defined")))
-				Expect(updateRuleOptionsModel.Imports).To(Equal([]configurationgovernancev1.RuleImport{*ruleImportModel}))
 				Expect(updateRuleOptionsModel.Labels).To(Equal([]string{"testString"}))
 				Expect(updateRuleOptionsModel.TransactionID).To(Equal(core.StringPtr("testString")))
 				Expect(updateRuleOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
