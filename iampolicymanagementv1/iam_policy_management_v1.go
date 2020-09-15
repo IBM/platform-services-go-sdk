@@ -14,6 +14,11 @@
  * limitations under the License.
  */
 
+/*
+ * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-ef5e13c2-20200915-144510
+ */
+ 
+
 // Package iampolicymanagementv1 : Operations and models for the IamPolicyManagementV1 service
 package iampolicymanagementv1
 
@@ -122,11 +127,8 @@ func (iamPolicyManagement *IamPolicyManagementV1) ListPolicies(listPoliciesOptio
 		return
 	}
 
-	pathSegments := []string{"v1/policies"}
-	pathParameters := []string{}
-
 	builder := core.NewRequestBuilder(core.GET)
-	_, err = builder.ConstructHTTPURL(iamPolicyManagement.Service.Options.URL, pathSegments, pathParameters)
+	_, err = builder.ResolveRequestURL(iamPolicyManagement.Service.Options.URL, `/v1/policies`, nil)
 	if err != nil {
 		return
 	}
@@ -208,11 +210,8 @@ func (iamPolicyManagement *IamPolicyManagementV1) CreatePolicy(createPolicyOptio
 		return
 	}
 
-	pathSegments := []string{"v1/policies"}
-	pathParameters := []string{}
-
 	builder := core.NewRequestBuilder(core.POST)
-	_, err = builder.ConstructHTTPURL(iamPolicyManagement.Service.Options.URL, pathSegments, pathParameters)
+	_, err = builder.ResolveRequestURL(iamPolicyManagement.Service.Options.URL, `/v1/policies`, nil)
 	if err != nil {
 		return
 	}
@@ -296,11 +295,12 @@ func (iamPolicyManagement *IamPolicyManagementV1) UpdatePolicy(updatePolicyOptio
 		return
 	}
 
-	pathSegments := []string{"v1/policies"}
-	pathParameters := []string{*updatePolicyOptions.PolicyID}
+	pathParamsMap := map[string]string{
+		"policy_id": *updatePolicyOptions.PolicyID,
+	}
 
 	builder := core.NewRequestBuilder(core.PUT)
-	_, err = builder.ConstructHTTPURL(iamPolicyManagement.Service.Options.URL, pathSegments, pathParameters)
+	_, err = builder.ResolveRequestURL(iamPolicyManagement.Service.Options.URL, `/v1/policies/{policy_id}`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -368,11 +368,12 @@ func (iamPolicyManagement *IamPolicyManagementV1) GetPolicy(getPolicyOptions *Ge
 		return
 	}
 
-	pathSegments := []string{"v1/policies"}
-	pathParameters := []string{*getPolicyOptions.PolicyID}
+	pathParamsMap := map[string]string{
+		"policy_id": *getPolicyOptions.PolicyID,
+	}
 
 	builder := core.NewRequestBuilder(core.GET)
-	_, err = builder.ConstructHTTPURL(iamPolicyManagement.Service.Options.URL, pathSegments, pathParameters)
+	_, err = builder.ResolveRequestURL(iamPolicyManagement.Service.Options.URL, `/v1/policies/{policy_id}`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -419,11 +420,12 @@ func (iamPolicyManagement *IamPolicyManagementV1) DeletePolicy(deletePolicyOptio
 		return
 	}
 
-	pathSegments := []string{"v1/policies"}
-	pathParameters := []string{*deletePolicyOptions.PolicyID}
+	pathParamsMap := map[string]string{
+		"policy_id": *deletePolicyOptions.PolicyID,
+	}
 
 	builder := core.NewRequestBuilder(core.DELETE)
-	_, err = builder.ConstructHTTPURL(iamPolicyManagement.Service.Options.URL, pathSegments, pathParameters)
+	_, err = builder.ResolveRequestURL(iamPolicyManagement.Service.Options.URL, `/v1/policies/{policy_id}`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -458,11 +460,8 @@ func (iamPolicyManagement *IamPolicyManagementV1) ListRoles(listRolesOptions *Li
 		return
 	}
 
-	pathSegments := []string{"v2/roles"}
-	pathParameters := []string{}
-
 	builder := core.NewRequestBuilder(core.GET)
-	_, err = builder.ConstructHTTPURL(iamPolicyManagement.Service.Options.URL, pathSegments, pathParameters)
+	_, err = builder.ResolveRequestURL(iamPolicyManagement.Service.Options.URL, `/v2/roles`, nil)
 	if err != nil {
 		return
 	}
@@ -521,11 +520,8 @@ func (iamPolicyManagement *IamPolicyManagementV1) CreateRole(createRoleOptions *
 		return
 	}
 
-	pathSegments := []string{"v2/roles"}
-	pathParameters := []string{}
-
 	builder := core.NewRequestBuilder(core.POST)
-	_, err = builder.ConstructHTTPURL(iamPolicyManagement.Service.Options.URL, pathSegments, pathParameters)
+	_, err = builder.ResolveRequestURL(iamPolicyManagement.Service.Options.URL, `/v2/roles`, nil)
 	if err != nil {
 		return
 	}
@@ -600,11 +596,12 @@ func (iamPolicyManagement *IamPolicyManagementV1) UpdateRole(updateRoleOptions *
 		return
 	}
 
-	pathSegments := []string{"v2/roles"}
-	pathParameters := []string{*updateRoleOptions.RoleID}
+	pathParamsMap := map[string]string{
+		"role_id": *updateRoleOptions.RoleID,
+	}
 
 	builder := core.NewRequestBuilder(core.PUT)
-	_, err = builder.ConstructHTTPURL(iamPolicyManagement.Service.Options.URL, pathSegments, pathParameters)
+	_, err = builder.ResolveRequestURL(iamPolicyManagement.Service.Options.URL, `/v2/roles/{role_id}`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -669,11 +666,12 @@ func (iamPolicyManagement *IamPolicyManagementV1) GetRole(getRoleOptions *GetRol
 		return
 	}
 
-	pathSegments := []string{"v2/roles"}
-	pathParameters := []string{*getRoleOptions.RoleID}
+	pathParamsMap := map[string]string{
+		"role_id": *getRoleOptions.RoleID,
+	}
 
 	builder := core.NewRequestBuilder(core.GET)
-	_, err = builder.ConstructHTTPURL(iamPolicyManagement.Service.Options.URL, pathSegments, pathParameters)
+	_, err = builder.ResolveRequestURL(iamPolicyManagement.Service.Options.URL, `/v2/roles/{role_id}`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -719,11 +717,12 @@ func (iamPolicyManagement *IamPolicyManagementV1) DeleteRole(deleteRoleOptions *
 		return
 	}
 
-	pathSegments := []string{"v2/roles"}
-	pathParameters := []string{*deleteRoleOptions.RoleID}
+	pathParamsMap := map[string]string{
+		"role_id": *deleteRoleOptions.RoleID,
+	}
 
 	builder := core.NewRequestBuilder(core.DELETE)
-	_, err = builder.ConstructHTTPURL(iamPolicyManagement.Service.Options.URL, pathSegments, pathParameters)
+	_, err = builder.ResolveRequestURL(iamPolicyManagement.Service.Options.URL, `/v2/roles/{role_id}`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -903,7 +902,7 @@ func (options *CreateRoleOptions) SetHeaders(param map[string]string) *CreateRol
 // DeletePolicyOptions : The DeletePolicy options.
 type DeletePolicyOptions struct {
 	// The policy ID.
-	PolicyID *string `json:"policy_id" validate:"required"`
+	PolicyID *string `json:"policy_id" validate:"required,ne="`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -931,7 +930,7 @@ func (options *DeletePolicyOptions) SetHeaders(param map[string]string) *DeleteP
 // DeleteRoleOptions : The DeleteRole options.
 type DeleteRoleOptions struct {
 	// The role ID.
-	RoleID *string `json:"role_id" validate:"required"`
+	RoleID *string `json:"role_id" validate:"required,ne="`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -959,7 +958,7 @@ func (options *DeleteRoleOptions) SetHeaders(param map[string]string) *DeleteRol
 // GetPolicyOptions : The GetPolicy options.
 type GetPolicyOptions struct {
 	// The policy ID.
-	PolicyID *string `json:"policy_id" validate:"required"`
+	PolicyID *string `json:"policy_id" validate:"required,ne="`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -987,7 +986,7 @@ func (options *GetPolicyOptions) SetHeaders(param map[string]string) *GetPolicyO
 // GetRoleOptions : The GetRole options.
 type GetRoleOptions struct {
 	// The role ID.
-	RoleID *string `json:"role_id" validate:"required"`
+	RoleID *string `json:"role_id" validate:"required,ne="`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -1132,7 +1131,7 @@ func (options *ListRolesOptions) SetHeaders(param map[string]string) *ListRolesO
 // UpdatePolicyOptions : The UpdatePolicy options.
 type UpdatePolicyOptions struct {
 	// The policy ID.
-	PolicyID *string `json:"policy_id" validate:"required"`
+	PolicyID *string `json:"policy_id" validate:"required,ne="`
 
 	// The revision number for updating a policy and must match the ETag value of the existing policy. The Etag can be
 	// retrieved using the GET /v1/policies/{policy_id} API and looking at the ETag response header.
@@ -1211,7 +1210,7 @@ func (options *UpdatePolicyOptions) SetHeaders(param map[string]string) *UpdateP
 // UpdateRoleOptions : The UpdateRole options.
 type UpdateRoleOptions struct {
 	// The role ID.
-	RoleID *string `json:"role_id" validate:"required"`
+	RoleID *string `json:"role_id" validate:"required,ne="`
 
 	// The revision number for updating a role and must match the ETag value of the existing role. The Etag can be
 	// retrieved using the GET /v2/roles/{role_id} API and looking at the ETag response header.
