@@ -14,6 +14,11 @@
  * limitations under the License.
  */
 
+/*
+ * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-ef5e13c2-20200915-144510
+ */
+ 
+
 // Package globaltaggingv1 : Operations and models for the GlobalTaggingV1 service
 package globaltaggingv1
 
@@ -117,11 +122,8 @@ func (globalTagging *GlobalTaggingV1) ListTags(listTagsOptions *ListTagsOptions)
 		return
 	}
 
-	pathSegments := []string{"v3/tags"}
-	pathParameters := []string{}
-
 	builder := core.NewRequestBuilder(core.GET)
-	_, err = builder.ConstructHTTPURL(globalTagging.Service.Options.URL, pathSegments, pathParameters)
+	_, err = builder.ResolveRequestURL(globalTagging.Service.Options.URL, `/v3/tags`, nil)
 	if err != nil {
 		return
 	}
@@ -188,11 +190,8 @@ func (globalTagging *GlobalTaggingV1) DeleteTagAll(deleteTagAllOptions *DeleteTa
 		return
 	}
 
-	pathSegments := []string{"v3/tags"}
-	pathParameters := []string{}
-
 	builder := core.NewRequestBuilder(core.DELETE)
-	_, err = builder.ConstructHTTPURL(globalTagging.Service.Options.URL, pathSegments, pathParameters)
+	_, err = builder.ResolveRequestURL(globalTagging.Service.Options.URL, `/v3/tags`, nil)
 	if err != nil {
 		return
 	}
@@ -242,11 +241,12 @@ func (globalTagging *GlobalTaggingV1) DeleteTag(deleteTagOptions *DeleteTagOptio
 		return
 	}
 
-	pathSegments := []string{"v3/tags"}
-	pathParameters := []string{*deleteTagOptions.TagName}
+	pathParamsMap := map[string]string{
+		"tag_name": *deleteTagOptions.TagName,
+	}
 
 	builder := core.NewRequestBuilder(core.DELETE)
-	_, err = builder.ConstructHTTPURL(globalTagging.Service.Options.URL, pathSegments, pathParameters)
+	_, err = builder.ResolveRequestURL(globalTagging.Service.Options.URL, `/v3/tags/{tag_name}`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -299,11 +299,8 @@ func (globalTagging *GlobalTaggingV1) AttachTag(attachTagOptions *AttachTagOptio
 		return
 	}
 
-	pathSegments := []string{"v3/tags/attach"}
-	pathParameters := []string{}
-
 	builder := core.NewRequestBuilder(core.POST)
-	_, err = builder.ConstructHTTPURL(globalTagging.Service.Options.URL, pathSegments, pathParameters)
+	_, err = builder.ResolveRequestURL(globalTagging.Service.Options.URL, `/v3/tags/attach`, nil)
 	if err != nil {
 		return
 	}
@@ -368,11 +365,8 @@ func (globalTagging *GlobalTaggingV1) DetachTag(detachTagOptions *DetachTagOptio
 		return
 	}
 
-	pathSegments := []string{"v3/tags/detach"}
-	pathParameters := []string{}
-
 	builder := core.NewRequestBuilder(core.POST)
-	_, err = builder.ConstructHTTPURL(globalTagging.Service.Options.URL, pathSegments, pathParameters)
+	_, err = builder.ResolveRequestURL(globalTagging.Service.Options.URL, `/v3/tags/detach`, nil)
 	if err != nil {
 		return
 	}
@@ -504,7 +498,7 @@ func (options *DeleteTagAllOptions) SetHeaders(param map[string]string) *DeleteT
 // DeleteTagOptions : The DeleteTag options.
 type DeleteTagOptions struct {
 	// The name of tag to be deleted.
-	TagName *string `json:"tag_name" validate:"required"`
+	TagName *string `json:"tag_name" validate:"required,ne="`
 
 	// Select a provider. Supported values are `ghost` and `ims`. To delete tag both in GhoST in IMS, use `ghost,ims`.
 	Providers []string `json:"providers,omitempty"`
