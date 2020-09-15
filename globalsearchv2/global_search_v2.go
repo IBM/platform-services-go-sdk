@@ -14,6 +14,11 @@
  * limitations under the License.
  */
 
+/*
+ * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-ef5e13c2-20200915-144510
+ */
+ 
+
 // Package globalsearchv2 : Operations and models for the GlobalSearchV2 service
 package globalsearchv2
 
@@ -134,11 +139,8 @@ func (globalSearch *GlobalSearchV2) Search(searchOptions *SearchOptions) (result
 		return
 	}
 
-	pathSegments := []string{"v3/resources/search"}
-	pathParameters := []string{}
-
 	builder := core.NewRequestBuilder(core.POST)
-	_, err = builder.ConstructHTTPURL(globalSearch.Service.Options.URL, pathSegments, pathParameters)
+	_, err = builder.ResolveRequestURL(globalSearch.Service.Options.URL, `/v3/resources/search`, nil)
 	if err != nil {
 		return
 	}
@@ -212,11 +214,8 @@ func (globalSearch *GlobalSearchV2) GetSupportedTypes(getSupportedTypesOptions *
 		return
 	}
 
-	pathSegments := []string{"v2/resources/supported_types"}
-	pathParameters := []string{}
-
 	builder := core.NewRequestBuilder(core.GET)
-	_, err = builder.ConstructHTTPURL(globalSearch.Service.Options.URL, pathSegments, pathParameters)
+	_, err = builder.ResolveRequestURL(globalSearch.Service.Options.URL, `/v2/resources/supported_types`, nil)
 	if err != nil {
 		return
 	}
