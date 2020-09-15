@@ -14,6 +14,11 @@
  * limitations under the License.
  */
 
+/*
+ * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-ef5e13c2-20200915-144510
+ */
+ 
+
 // Package globalcatalogv1 : Operations and models for the GlobalCatalogV1 service
 package globalcatalogv1
 
@@ -120,11 +125,8 @@ func (globalCatalog *GlobalCatalogV1) ListCatalogEntries(listCatalogEntriesOptio
 		return
 	}
 
-	pathSegments := []string{""}
-	pathParameters := []string{}
-
 	builder := core.NewRequestBuilder(core.GET)
-	_, err = builder.ConstructHTTPURL(globalCatalog.Service.Options.URL, pathSegments, pathParameters)
+	_, err = builder.ResolveRequestURL(globalCatalog.Service.Options.URL, `/`, nil)
 	if err != nil {
 		return
 	}
@@ -194,11 +196,8 @@ func (globalCatalog *GlobalCatalogV1) CreateCatalogEntry(createCatalogEntryOptio
 		return
 	}
 
-	pathSegments := []string{""}
-	pathParameters := []string{}
-
 	builder := core.NewRequestBuilder(core.POST)
-	_, err = builder.ConstructHTTPURL(globalCatalog.Service.Options.URL, pathSegments, pathParameters)
+	_, err = builder.ResolveRequestURL(globalCatalog.Service.Options.URL, `/`, nil)
 	if err != nil {
 		return
 	}
@@ -292,11 +291,12 @@ func (globalCatalog *GlobalCatalogV1) GetCatalogEntry(getCatalogEntryOptions *Ge
 		return
 	}
 
-	pathSegments := []string{""}
-	pathParameters := []string{*getCatalogEntryOptions.ID}
+	pathParamsMap := map[string]string{
+		"id": *getCatalogEntryOptions.ID,
+	}
 
 	builder := core.NewRequestBuilder(core.GET)
-	_, err = builder.ConstructHTTPURL(globalCatalog.Service.Options.URL, pathSegments, pathParameters)
+	_, err = builder.ResolveRequestURL(globalCatalog.Service.Options.URL, `/{id}`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -359,11 +359,12 @@ func (globalCatalog *GlobalCatalogV1) UpdateCatalogEntry(updateCatalogEntryOptio
 		return
 	}
 
-	pathSegments := []string{""}
-	pathParameters := []string{*updateCatalogEntryOptions.ID}
+	pathParamsMap := map[string]string{
+		"id": *updateCatalogEntryOptions.ID,
+	}
 
 	builder := core.NewRequestBuilder(core.PUT)
-	_, err = builder.ConstructHTTPURL(globalCatalog.Service.Options.URL, pathSegments, pathParameters)
+	_, err = builder.ResolveRequestURL(globalCatalog.Service.Options.URL, `/{id}`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -458,11 +459,12 @@ func (globalCatalog *GlobalCatalogV1) DeleteCatalogEntry(deleteCatalogEntryOptio
 		return
 	}
 
-	pathSegments := []string{""}
-	pathParameters := []string{*deleteCatalogEntryOptions.ID}
+	pathParamsMap := map[string]string{
+		"id": *deleteCatalogEntryOptions.ID,
+	}
 
 	builder := core.NewRequestBuilder(core.DELETE)
-	_, err = builder.ConstructHTTPURL(globalCatalog.Service.Options.URL, pathSegments, pathParameters)
+	_, err = builder.ResolveRequestURL(globalCatalog.Service.Options.URL, `/{id}`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -505,11 +507,13 @@ func (globalCatalog *GlobalCatalogV1) GetChildObjects(getChildObjectsOptions *Ge
 		return
 	}
 
-	pathSegments := []string{"", ""}
-	pathParameters := []string{*getChildObjectsOptions.ID, *getChildObjectsOptions.Kind}
+	pathParamsMap := map[string]string{
+		"id": *getChildObjectsOptions.ID,
+		"kind": *getChildObjectsOptions.Kind,
+	}
 
 	builder := core.NewRequestBuilder(core.GET)
-	_, err = builder.ConstructHTTPURL(globalCatalog.Service.Options.URL, pathSegments, pathParameters)
+	_, err = builder.ResolveRequestURL(globalCatalog.Service.Options.URL, `/{id}/{kind}`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -577,11 +581,12 @@ func (globalCatalog *GlobalCatalogV1) RestoreCatalogEntry(restoreCatalogEntryOpt
 		return
 	}
 
-	pathSegments := []string{"", "restore"}
-	pathParameters := []string{*restoreCatalogEntryOptions.ID}
+	pathParamsMap := map[string]string{
+		"id": *restoreCatalogEntryOptions.ID,
+	}
 
 	builder := core.NewRequestBuilder(core.PUT)
-	_, err = builder.ConstructHTTPURL(globalCatalog.Service.Options.URL, pathSegments, pathParameters)
+	_, err = builder.ResolveRequestURL(globalCatalog.Service.Options.URL, `/{id}/restore`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -623,11 +628,12 @@ func (globalCatalog *GlobalCatalogV1) GetVisibility(getVisibilityOptions *GetVis
 		return
 	}
 
-	pathSegments := []string{"", "visibility"}
-	pathParameters := []string{*getVisibilityOptions.ID}
+	pathParamsMap := map[string]string{
+		"id": *getVisibilityOptions.ID,
+	}
 
 	builder := core.NewRequestBuilder(core.GET)
-	_, err = builder.ConstructHTTPURL(globalCatalog.Service.Options.URL, pathSegments, pathParameters)
+	_, err = builder.ResolveRequestURL(globalCatalog.Service.Options.URL, `/{id}/visibility`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -678,11 +684,12 @@ func (globalCatalog *GlobalCatalogV1) UpdateVisibility(updateVisibilityOptions *
 		return
 	}
 
-	pathSegments := []string{"", "visibility"}
-	pathParameters := []string{*updateVisibilityOptions.ID}
+	pathParamsMap := map[string]string{
+		"id": *updateVisibilityOptions.ID,
+	}
 
 	builder := core.NewRequestBuilder(core.PUT)
-	_, err = builder.ConstructHTTPURL(globalCatalog.Service.Options.URL, pathSegments, pathParameters)
+	_, err = builder.ResolveRequestURL(globalCatalog.Service.Options.URL, `/{id}/visibility`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -739,11 +746,12 @@ func (globalCatalog *GlobalCatalogV1) GetPricing(getPricingOptions *GetPricingOp
 		return
 	}
 
-	pathSegments := []string{"", "pricing"}
-	pathParameters := []string{*getPricingOptions.ID}
+	pathParamsMap := map[string]string{
+		"id": *getPricingOptions.ID,
+	}
 
 	builder := core.NewRequestBuilder(core.GET)
-	_, err = builder.ConstructHTTPURL(globalCatalog.Service.Options.URL, pathSegments, pathParameters)
+	_, err = builder.ResolveRequestURL(globalCatalog.Service.Options.URL, `/{id}/pricing`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -793,11 +801,12 @@ func (globalCatalog *GlobalCatalogV1) GetAuditLogs(getAuditLogsOptions *GetAudit
 		return
 	}
 
-	pathSegments := []string{"", "logs"}
-	pathParameters := []string{*getAuditLogsOptions.ID}
+	pathParamsMap := map[string]string{
+		"id": *getAuditLogsOptions.ID,
+	}
 
 	builder := core.NewRequestBuilder(core.GET)
-	_, err = builder.ConstructHTTPURL(globalCatalog.Service.Options.URL, pathSegments, pathParameters)
+	_, err = builder.ResolveRequestURL(globalCatalog.Service.Options.URL, `/{id}/logs`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -859,11 +868,12 @@ func (globalCatalog *GlobalCatalogV1) ListArtifacts(listArtifactsOptions *ListAr
 		return
 	}
 
-	pathSegments := []string{"", "artifacts"}
-	pathParameters := []string{*listArtifactsOptions.ObjectID}
+	pathParamsMap := map[string]string{
+		"object_id": *listArtifactsOptions.ObjectID,
+	}
 
 	builder := core.NewRequestBuilder(core.GET)
-	_, err = builder.ConstructHTTPURL(globalCatalog.Service.Options.URL, pathSegments, pathParameters)
+	_, err = builder.ResolveRequestURL(globalCatalog.Service.Options.URL, `/{object_id}/artifacts`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -913,11 +923,13 @@ func (globalCatalog *GlobalCatalogV1) GetArtifact(getArtifactOptions *GetArtifac
 		return
 	}
 
-	pathSegments := []string{"", "artifacts"}
-	pathParameters := []string{*getArtifactOptions.ObjectID, *getArtifactOptions.ArtifactID}
+	pathParamsMap := map[string]string{
+		"object_id": *getArtifactOptions.ObjectID,
+		"artifact_id": *getArtifactOptions.ArtifactID,
+	}
 
 	builder := core.NewRequestBuilder(core.GET)
-	_, err = builder.ConstructHTTPURL(globalCatalog.Service.Options.URL, pathSegments, pathParameters)
+	_, err = builder.ResolveRequestURL(globalCatalog.Service.Options.URL, `/{object_id}/artifacts/{artifact_id}`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -961,11 +973,13 @@ func (globalCatalog *GlobalCatalogV1) UploadArtifact(uploadArtifactOptions *Uplo
 		return
 	}
 
-	pathSegments := []string{"", "artifacts"}
-	pathParameters := []string{*uploadArtifactOptions.ObjectID, *uploadArtifactOptions.ArtifactID}
+	pathParamsMap := map[string]string{
+		"object_id": *uploadArtifactOptions.ObjectID,
+		"artifact_id": *uploadArtifactOptions.ArtifactID,
+	}
 
 	builder := core.NewRequestBuilder(core.PUT)
-	_, err = builder.ConstructHTTPURL(globalCatalog.Service.Options.URL, pathSegments, pathParameters)
+	_, err = builder.ResolveRequestURL(globalCatalog.Service.Options.URL, `/{object_id}/artifacts/{artifact_id}`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -1013,11 +1027,13 @@ func (globalCatalog *GlobalCatalogV1) DeleteArtifact(deleteArtifactOptions *Dele
 		return
 	}
 
-	pathSegments := []string{"", "artifacts"}
-	pathParameters := []string{*deleteArtifactOptions.ObjectID, *deleteArtifactOptions.ArtifactID}
+	pathParamsMap := map[string]string{
+		"object_id": *deleteArtifactOptions.ObjectID,
+		"artifact_id": *deleteArtifactOptions.ArtifactID,
+	}
 
 	builder := core.NewRequestBuilder(core.DELETE)
-	_, err = builder.ConstructHTTPURL(globalCatalog.Service.Options.URL, pathSegments, pathParameters)
+	_, err = builder.ResolveRequestURL(globalCatalog.Service.Options.URL, `/{object_id}/artifacts/{artifact_id}`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -2065,10 +2081,10 @@ func UnmarshalDRMetaData(m map[string]json.RawMessage, result interface{}) (err 
 // DeleteArtifactOptions : The DeleteArtifact options.
 type DeleteArtifactOptions struct {
 	// The object's unique ID.
-	ObjectID *string `json:"object_id" validate:"required"`
+	ObjectID *string `json:"object_id" validate:"required,ne="`
 
 	// The artifact's ID.
-	ArtifactID *string `json:"artifact_id" validate:"required"`
+	ArtifactID *string `json:"artifact_id" validate:"required,ne="`
 
 	// This changes the scope of the request regardless of the authorization header. Example scopes are `account` and
 	// `global`. `account=global` is reqired if operating with a service ID that has a global admin policy, for example
@@ -2114,7 +2130,7 @@ func (options *DeleteArtifactOptions) SetHeaders(param map[string]string) *Delet
 // DeleteCatalogEntryOptions : The DeleteCatalogEntry options.
 type DeleteCatalogEntryOptions struct {
 	// The object's unique ID.
-	ID *string `json:"id" validate:"required"`
+	ID *string `json:"id" validate:"required,ne="`
 
 	// This changes the scope of the request regardless of the authorization header. Example scopes are `account` and
 	// `global`. `account=global` is reqired if operating with a service ID that has a global admin policy, for example
@@ -2311,10 +2327,10 @@ func UnmarshalEntrySearchResult(m map[string]json.RawMessage, result interface{}
 // GetArtifactOptions : The GetArtifact options.
 type GetArtifactOptions struct {
 	// The object's unique ID.
-	ObjectID *string `json:"object_id" validate:"required"`
+	ObjectID *string `json:"object_id" validate:"required,ne="`
 
 	// The artifact's ID.
-	ArtifactID *string `json:"artifact_id" validate:"required"`
+	ArtifactID *string `json:"artifact_id" validate:"required,ne="`
 
 	// The type of the response:  or *_/_*.
 	Accept *string `json:"Accept,omitempty"`
@@ -2369,7 +2385,7 @@ func (options *GetArtifactOptions) SetHeaders(param map[string]string) *GetArtif
 // GetAuditLogsOptions : The GetAuditLogs options.
 type GetAuditLogsOptions struct {
 	// The object's unique ID.
-	ID *string `json:"id" validate:"required"`
+	ID *string `json:"id" validate:"required,ne="`
 
 	// This changes the scope of the request regardless of the authorization header. Example scopes are `account` and
 	// `global`. `account=global` is reqired if operating with a service ID that has a global admin policy, for example
@@ -2448,7 +2464,7 @@ func (options *GetAuditLogsOptions) SetHeaders(param map[string]string) *GetAudi
 // GetCatalogEntryOptions : The GetCatalogEntry options.
 type GetCatalogEntryOptions struct {
 	// The catalog entry's unqiue ID.
-	ID *string `json:"id" validate:"required"`
+	ID *string `json:"id" validate:"required,ne="`
 
 	// This changes the scope of the request regardless of the authorization header. Example scopes are `account` and
 	// `global`. `account=global` is reqired if operating with a service ID that has a global admin policy, for example
@@ -2530,11 +2546,11 @@ func (options *GetCatalogEntryOptions) SetHeaders(param map[string]string) *GetC
 // GetChildObjectsOptions : The GetChildObjects options.
 type GetChildObjectsOptions struct {
 	// The parent catalog entry's ID.
-	ID *string `json:"id" validate:"required"`
+	ID *string `json:"id" validate:"required,ne="`
 
 	// The **kind** of child catalog entries to search for. A wildcard (*) includes all child catalog entries for all
 	// kinds, for example `GET /service_name/_*`.
-	Kind *string `json:"kind" validate:"required"`
+	Kind *string `json:"kind" validate:"required,ne="`
 
 	// This changes the scope of the request regardless of the authorization header. Example scopes are `account` and
 	// `global`. `account=global` is reqired if operating with a service ID that has a global admin policy, for example
@@ -2639,7 +2655,7 @@ func (options *GetChildObjectsOptions) SetHeaders(param map[string]string) *GetC
 // GetPricingOptions : The GetPricing options.
 type GetPricingOptions struct {
 	// The object's unique ID.
-	ID *string `json:"id" validate:"required"`
+	ID *string `json:"id" validate:"required,ne="`
 
 	// This changes the scope of the request regardless of the authorization header. Example scopes are `account` and
 	// `global`. `account=global` is reqired if operating with a service ID that has a global admin policy, for example
@@ -2678,7 +2694,7 @@ func (options *GetPricingOptions) SetHeaders(param map[string]string) *GetPricin
 // GetVisibilityOptions : The GetVisibility options.
 type GetVisibilityOptions struct {
 	// The object's unique ID.
-	ID *string `json:"id" validate:"required"`
+	ID *string `json:"id" validate:"required,ne="`
 
 	// This changes the scope of the request regardless of the authorization header. Example scopes are `account` and
 	// `global`. `account=global` is reqired if operating with a service ID that has a global admin policy, for example
@@ -2765,7 +2781,7 @@ func UnmarshalImage(m map[string]json.RawMessage, result interface{}) (err error
 // ListArtifactsOptions : The ListArtifacts options.
 type ListArtifactsOptions struct {
 	// The object's unique ID.
-	ObjectID *string `json:"object_id" validate:"required"`
+	ObjectID *string `json:"object_id" validate:"required,ne="`
 
 	// This changes the scope of the request regardless of the authorization header. Example scopes are `account` and
 	// `global`. `account=global` is reqired if operating with a service ID that has a global admin policy, for example
@@ -3473,7 +3489,7 @@ func UnmarshalProvider(m map[string]json.RawMessage, result interface{}) (err er
 // RestoreCatalogEntryOptions : The RestoreCatalogEntry options.
 type RestoreCatalogEntryOptions struct {
 	// The catalog entry's unique ID.
-	ID *string `json:"id" validate:"required"`
+	ID *string `json:"id" validate:"required,ne="`
 
 	// This changes the scope of the request regardless of the authorization header. Example scopes are `account` and
 	// `global`. `account=global` is reqired if operating with a service ID that has a global admin policy, for example
@@ -4014,7 +4030,7 @@ func UnmarshalURLS(m map[string]json.RawMessage, result interface{}) (err error)
 // UpdateCatalogEntryOptions : The UpdateCatalogEntry options.
 type UpdateCatalogEntryOptions struct {
 	// The object's unique ID.
-	ID *string `json:"id" validate:"required"`
+	ID *string `json:"id" validate:"required,ne="`
 
 	// Programmatic name for this catalog entry, which must be formatted like a CRN segment. See the display name in
 	// OverviewUI for a user-readable name.
@@ -4183,7 +4199,7 @@ func (options *UpdateCatalogEntryOptions) SetHeaders(param map[string]string) *U
 // UpdateVisibilityOptions : The UpdateVisibility options.
 type UpdateVisibilityOptions struct {
 	// The object's unique ID.
-	ID *string `json:"id" validate:"required"`
+	ID *string `json:"id" validate:"required,ne="`
 
 	// Allows the visibility to be extenable.
 	Extendable *bool `json:"extendable,omitempty"`
@@ -4249,10 +4265,10 @@ func (options *UpdateVisibilityOptions) SetHeaders(param map[string]string) *Upd
 // UploadArtifactOptions : The UploadArtifact options.
 type UploadArtifactOptions struct {
 	// The object's unique ID.
-	ObjectID *string `json:"object_id" validate:"required"`
+	ObjectID *string `json:"object_id" validate:"required,ne="`
 
 	// The artifact's ID.
-	ArtifactID *string `json:"artifact_id" validate:"required"`
+	ArtifactID *string `json:"artifact_id" validate:"required,ne="`
 
 	Artifact io.ReadCloser `json:"artifact,omitempty"`
 
