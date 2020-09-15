@@ -14,6 +14,11 @@
  * limitations under the License.
  */
 
+/*
+ * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-ef5e13c2-20200915-144510
+ */
+ 
+
 // Package enterprisemanagementv1 : Operations and models for the EnterpriseManagementV1 service
 package enterprisemanagementv1
 
@@ -121,11 +126,8 @@ func (enterpriseManagement *EnterpriseManagementV1) CreateAccountGroup(createAcc
 		return
 	}
 
-	pathSegments := []string{"account-groups"}
-	pathParameters := []string{}
-
 	builder := core.NewRequestBuilder(core.POST)
-	_, err = builder.ConstructHTTPURL(enterpriseManagement.Service.Options.URL, pathSegments, pathParameters)
+	_, err = builder.ResolveRequestURL(enterpriseManagement.Service.Options.URL, `/account-groups`, nil)
 	if err != nil {
 		return
 	}
@@ -192,11 +194,8 @@ func (enterpriseManagement *EnterpriseManagementV1) ListAccountGroups(listAccoun
 		return
 	}
 
-	pathSegments := []string{"account-groups"}
-	pathParameters := []string{}
-
 	builder := core.NewRequestBuilder(core.GET)
-	_, err = builder.ConstructHTTPURL(enterpriseManagement.Service.Options.URL, pathSegments, pathParameters)
+	_, err = builder.ResolveRequestURL(enterpriseManagement.Service.Options.URL, `/account-groups`, nil)
 	if err != nil {
 		return
 	}
@@ -256,11 +255,12 @@ func (enterpriseManagement *EnterpriseManagementV1) GetAccountGroup(getAccountGr
 		return
 	}
 
-	pathSegments := []string{"account-groups"}
-	pathParameters := []string{*getAccountGroupOptions.AccountGroupID}
+	pathParamsMap := map[string]string{
+		"account_group_id": *getAccountGroupOptions.AccountGroupID,
+	}
 
 	builder := core.NewRequestBuilder(core.GET)
-	_, err = builder.ConstructHTTPURL(enterpriseManagement.Service.Options.URL, pathSegments, pathParameters)
+	_, err = builder.ResolveRequestURL(enterpriseManagement.Service.Options.URL, `/account-groups/{account_group_id}`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -307,11 +307,12 @@ func (enterpriseManagement *EnterpriseManagementV1) UpdateAccountGroup(updateAcc
 		return
 	}
 
-	pathSegments := []string{"account-groups"}
-	pathParameters := []string{*updateAccountGroupOptions.AccountGroupID}
+	pathParamsMap := map[string]string{
+		"account_group_id": *updateAccountGroupOptions.AccountGroupID,
+	}
 
 	builder := core.NewRequestBuilder(core.PATCH)
-	_, err = builder.ConstructHTTPURL(enterpriseManagement.Service.Options.URL, pathSegments, pathParameters)
+	_, err = builder.ResolveRequestURL(enterpriseManagement.Service.Options.URL, `/account-groups/{account_group_id}`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -366,11 +367,13 @@ func (enterpriseManagement *EnterpriseManagementV1) ImportAccountToEnterprise(im
 		return
 	}
 
-	pathSegments := []string{"enterprises", "import/accounts"}
-	pathParameters := []string{*importAccountToEnterpriseOptions.EnterpriseID, *importAccountToEnterpriseOptions.AccountID}
+	pathParamsMap := map[string]string{
+		"enterprise_id": *importAccountToEnterpriseOptions.EnterpriseID,
+		"account_id": *importAccountToEnterpriseOptions.AccountID,
+	}
 
 	builder := core.NewRequestBuilder(core.PUT)
-	_, err = builder.ConstructHTTPURL(enterpriseManagement.Service.Options.URL, pathSegments, pathParameters)
+	_, err = builder.ResolveRequestURL(enterpriseManagement.Service.Options.URL, `/enterprises/{enterprise_id}/import/accounts/{account_id}`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -422,11 +425,8 @@ func (enterpriseManagement *EnterpriseManagementV1) CreateAccount(createAccountO
 		return
 	}
 
-	pathSegments := []string{"accounts"}
-	pathParameters := []string{}
-
 	builder := core.NewRequestBuilder(core.POST)
-	_, err = builder.ConstructHTTPURL(enterpriseManagement.Service.Options.URL, pathSegments, pathParameters)
+	_, err = builder.ResolveRequestURL(enterpriseManagement.Service.Options.URL, `/accounts`, nil)
 	if err != nil {
 		return
 	}
@@ -492,11 +492,8 @@ func (enterpriseManagement *EnterpriseManagementV1) ListAccounts(listAccountsOpt
 		return
 	}
 
-	pathSegments := []string{"accounts"}
-	pathParameters := []string{}
-
 	builder := core.NewRequestBuilder(core.GET)
-	_, err = builder.ConstructHTTPURL(enterpriseManagement.Service.Options.URL, pathSegments, pathParameters)
+	_, err = builder.ResolveRequestURL(enterpriseManagement.Service.Options.URL, `/accounts`, nil)
 	if err != nil {
 		return
 	}
@@ -556,11 +553,12 @@ func (enterpriseManagement *EnterpriseManagementV1) GetAccount(getAccountOptions
 		return
 	}
 
-	pathSegments := []string{"accounts"}
-	pathParameters := []string{*getAccountOptions.AccountID}
+	pathParamsMap := map[string]string{
+		"account_id": *getAccountOptions.AccountID,
+	}
 
 	builder := core.NewRequestBuilder(core.GET)
-	_, err = builder.ConstructHTTPURL(enterpriseManagement.Service.Options.URL, pathSegments, pathParameters)
+	_, err = builder.ResolveRequestURL(enterpriseManagement.Service.Options.URL, `/accounts/{account_id}`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -606,11 +604,12 @@ func (enterpriseManagement *EnterpriseManagementV1) UpdateAccount(updateAccountO
 		return
 	}
 
-	pathSegments := []string{"accounts"}
-	pathParameters := []string{*updateAccountOptions.AccountID}
+	pathParamsMap := map[string]string{
+		"account_id": *updateAccountOptions.AccountID,
+	}
 
 	builder := core.NewRequestBuilder(core.PATCH)
-	_, err = builder.ConstructHTTPURL(enterpriseManagement.Service.Options.URL, pathSegments, pathParameters)
+	_, err = builder.ResolveRequestURL(enterpriseManagement.Service.Options.URL, `/accounts/{account_id}`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -661,11 +660,8 @@ func (enterpriseManagement *EnterpriseManagementV1) CreateEnterprise(createEnter
 		return
 	}
 
-	pathSegments := []string{"enterprises"}
-	pathParameters := []string{}
-
 	builder := core.NewRequestBuilder(core.POST)
-	_, err = builder.ConstructHTTPURL(enterpriseManagement.Service.Options.URL, pathSegments, pathParameters)
+	_, err = builder.ResolveRequestURL(enterpriseManagement.Service.Options.URL, `/enterprises`, nil)
 	if err != nil {
 		return
 	}
@@ -733,11 +729,8 @@ func (enterpriseManagement *EnterpriseManagementV1) ListEnterprises(listEnterpri
 		return
 	}
 
-	pathSegments := []string{"enterprises"}
-	pathParameters := []string{}
-
 	builder := core.NewRequestBuilder(core.GET)
-	_, err = builder.ConstructHTTPURL(enterpriseManagement.Service.Options.URL, pathSegments, pathParameters)
+	_, err = builder.ResolveRequestURL(enterpriseManagement.Service.Options.URL, `/enterprises`, nil)
 	if err != nil {
 		return
 	}
@@ -797,11 +790,12 @@ func (enterpriseManagement *EnterpriseManagementV1) GetEnterprise(getEnterpriseO
 		return
 	}
 
-	pathSegments := []string{"enterprises"}
-	pathParameters := []string{*getEnterpriseOptions.EnterpriseID}
+	pathParamsMap := map[string]string{
+		"enterprise_id": *getEnterpriseOptions.EnterpriseID,
+	}
 
 	builder := core.NewRequestBuilder(core.GET)
-	_, err = builder.ConstructHTTPURL(enterpriseManagement.Service.Options.URL, pathSegments, pathParameters)
+	_, err = builder.ResolveRequestURL(enterpriseManagement.Service.Options.URL, `/enterprises/{enterprise_id}`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -848,11 +842,12 @@ func (enterpriseManagement *EnterpriseManagementV1) UpdateEnterprise(updateEnter
 		return
 	}
 
-	pathSegments := []string{"enterprises"}
-	pathParameters := []string{*updateEnterpriseOptions.EnterpriseID}
+	pathParamsMap := map[string]string{
+		"enterprise_id": *updateEnterpriseOptions.EnterpriseID,
+	}
 
 	builder := core.NewRequestBuilder(core.PATCH)
-	_, err = builder.ConstructHTTPURL(enterpriseManagement.Service.Options.URL, pathSegments, pathParameters)
+	_, err = builder.ResolveRequestURL(enterpriseManagement.Service.Options.URL, `/enterprises/{enterprise_id}`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -1460,7 +1455,7 @@ func UnmarshalEnterprise(m map[string]json.RawMessage, result interface{}) (err 
 // GetAccountGroupOptions : The GetAccountGroup options.
 type GetAccountGroupOptions struct {
 	// The ID of the account group to retrieve.
-	AccountGroupID *string `json:"account_group_id" validate:"required"`
+	AccountGroupID *string `json:"account_group_id" validate:"required,ne="`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -1488,7 +1483,7 @@ func (options *GetAccountGroupOptions) SetHeaders(param map[string]string) *GetA
 // GetAccountOptions : The GetAccount options.
 type GetAccountOptions struct {
 	// The ID of the account to retrieve.
-	AccountID *string `json:"account_id" validate:"required"`
+	AccountID *string `json:"account_id" validate:"required,ne="`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -1516,7 +1511,7 @@ func (options *GetAccountOptions) SetHeaders(param map[string]string) *GetAccoun
 // GetEnterpriseOptions : The GetEnterprise options.
 type GetEnterpriseOptions struct {
 	// The ID of the enterprise to retrieve.
-	EnterpriseID *string `json:"enterprise_id" validate:"required"`
+	EnterpriseID *string `json:"enterprise_id" validate:"required,ne="`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -1544,10 +1539,10 @@ func (options *GetEnterpriseOptions) SetHeaders(param map[string]string) *GetEnt
 // ImportAccountToEnterpriseOptions : The ImportAccountToEnterprise options.
 type ImportAccountToEnterpriseOptions struct {
 	// The ID of the enterprise to import the stand-alone account into.
-	EnterpriseID *string `json:"enterprise_id" validate:"required"`
+	EnterpriseID *string `json:"enterprise_id" validate:"required,ne="`
 
 	// The ID of the existing stand-alone account to be imported.
-	AccountID *string `json:"account_id" validate:"required"`
+	AccountID *string `json:"account_id" validate:"required,ne="`
 
 	// The CRN of the expected parent of the imported account. The parent is the enterprise or account group that the
 	// account is added to.
@@ -1857,7 +1852,7 @@ func UnmarshalListEnterprisesResponse(m map[string]json.RawMessage, result inter
 // UpdateAccountGroupOptions : The UpdateAccountGroup options.
 type UpdateAccountGroupOptions struct {
 	// The ID of the account group to retrieve.
-	AccountGroupID *string `json:"account_group_id" validate:"required"`
+	AccountGroupID *string `json:"account_group_id" validate:"required,ne="`
 
 	// The new name of the account group. This field must have 3 - 60 characters.
 	Name *string `json:"name,omitempty"`
@@ -1903,7 +1898,7 @@ func (options *UpdateAccountGroupOptions) SetHeaders(param map[string]string) *U
 // UpdateAccountOptions : The UpdateAccount options.
 type UpdateAccountOptions struct {
 	// The ID of the account to retrieve.
-	AccountID *string `json:"account_id" validate:"required"`
+	AccountID *string `json:"account_id" validate:"required,ne="`
 
 	// The CRN of the new parent within the enterprise.
 	Parent *string `json:"parent" validate:"required"`
@@ -1941,7 +1936,7 @@ func (options *UpdateAccountOptions) SetHeaders(param map[string]string) *Update
 // UpdateEnterpriseOptions : The UpdateEnterprise options.
 type UpdateEnterpriseOptions struct {
 	// The ID of the enterprise to retrieve.
-	EnterpriseID *string `json:"enterprise_id" validate:"required"`
+	EnterpriseID *string `json:"enterprise_id" validate:"required,ne="`
 
 	// The new name of the enterprise. This field must have 3 - 60 characters.
 	Name *string `json:"name,omitempty"`
