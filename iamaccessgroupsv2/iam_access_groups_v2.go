@@ -14,6 +14,11 @@
  * limitations under the License.
  */
 
+/*
+ * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-ef5e13c2-20200915-144510
+ */
+ 
+
 // Package iamaccessgroupsv2 : Operations and models for the IamAccessGroupsV2 service
 package iamaccessgroupsv2
 
@@ -121,11 +126,8 @@ func (iamAccessGroups *IamAccessGroupsV2) CreateAccessGroup(createAccessGroupOpt
 		return
 	}
 
-	pathSegments := []string{"groups"}
-	pathParameters := []string{}
-
 	builder := core.NewRequestBuilder(core.POST)
-	_, err = builder.ConstructHTTPURL(iamAccessGroups.Service.Options.URL, pathSegments, pathParameters)
+	_, err = builder.ResolveRequestURL(iamAccessGroups.Service.Options.URL, `/groups`, nil)
 	if err != nil {
 		return
 	}
@@ -192,11 +194,8 @@ func (iamAccessGroups *IamAccessGroupsV2) ListAccessGroups(listAccessGroupsOptio
 		return
 	}
 
-	pathSegments := []string{"groups"}
-	pathParameters := []string{}
-
 	builder := core.NewRequestBuilder(core.GET)
-	_, err = builder.ConstructHTTPURL(iamAccessGroups.Service.Options.URL, pathSegments, pathParameters)
+	_, err = builder.ResolveRequestURL(iamAccessGroups.Service.Options.URL, `/groups`, nil)
 	if err != nil {
 		return
 	}
@@ -267,11 +266,12 @@ func (iamAccessGroups *IamAccessGroupsV2) GetAccessGroup(getAccessGroupOptions *
 		return
 	}
 
-	pathSegments := []string{"groups"}
-	pathParameters := []string{*getAccessGroupOptions.AccessGroupID}
+	pathParamsMap := map[string]string{
+		"access_group_id": *getAccessGroupOptions.AccessGroupID,
+	}
 
 	builder := core.NewRequestBuilder(core.GET)
-	_, err = builder.ConstructHTTPURL(iamAccessGroups.Service.Options.URL, pathSegments, pathParameters)
+	_, err = builder.ResolveRequestURL(iamAccessGroups.Service.Options.URL, `/groups/{access_group_id}`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -325,11 +325,12 @@ func (iamAccessGroups *IamAccessGroupsV2) UpdateAccessGroup(updateAccessGroupOpt
 		return
 	}
 
-	pathSegments := []string{"groups"}
-	pathParameters := []string{*updateAccessGroupOptions.AccessGroupID}
+	pathParamsMap := map[string]string{
+		"access_group_id": *updateAccessGroupOptions.AccessGroupID,
+	}
 
 	builder := core.NewRequestBuilder(core.PATCH)
-	_, err = builder.ConstructHTTPURL(iamAccessGroups.Service.Options.URL, pathSegments, pathParameters)
+	_, err = builder.ResolveRequestURL(iamAccessGroups.Service.Options.URL, `/groups/{access_group_id}`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -396,11 +397,12 @@ func (iamAccessGroups *IamAccessGroupsV2) DeleteAccessGroup(deleteAccessGroupOpt
 		return
 	}
 
-	pathSegments := []string{"groups"}
-	pathParameters := []string{*deleteAccessGroupOptions.AccessGroupID}
+	pathParamsMap := map[string]string{
+		"access_group_id": *deleteAccessGroupOptions.AccessGroupID,
+	}
 
 	builder := core.NewRequestBuilder(core.DELETE)
-	_, err = builder.ConstructHTTPURL(iamAccessGroups.Service.Options.URL, pathSegments, pathParameters)
+	_, err = builder.ResolveRequestURL(iamAccessGroups.Service.Options.URL, `/groups/{access_group_id}`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -443,11 +445,8 @@ func (iamAccessGroups *IamAccessGroupsV2) GetAccountSettings(getAccountSettingsO
 		return
 	}
 
-	pathSegments := []string{"groups/settings"}
-	pathParameters := []string{}
-
 	builder := core.NewRequestBuilder(core.GET)
-	_, err = builder.ConstructHTTPURL(iamAccessGroups.Service.Options.URL, pathSegments, pathParameters)
+	_, err = builder.ResolveRequestURL(iamAccessGroups.Service.Options.URL, `/groups/settings`, nil)
 	if err != nil {
 		return
 	}
@@ -500,11 +499,8 @@ func (iamAccessGroups *IamAccessGroupsV2) UpdateAccountSettings(updateAccountSet
 		return
 	}
 
-	pathSegments := []string{"groups/settings"}
-	pathParameters := []string{}
-
 	builder := core.NewRequestBuilder(core.PATCH)
-	_, err = builder.ConstructHTTPURL(iamAccessGroups.Service.Options.URL, pathSegments, pathParameters)
+	_, err = builder.ResolveRequestURL(iamAccessGroups.Service.Options.URL, `/groups/settings`, nil)
 	if err != nil {
 		return
 	}
@@ -567,11 +563,13 @@ func (iamAccessGroups *IamAccessGroupsV2) IsMemberOfAccessGroup(isMemberOfAccess
 		return
 	}
 
-	pathSegments := []string{"groups", "members"}
-	pathParameters := []string{*isMemberOfAccessGroupOptions.AccessGroupID, *isMemberOfAccessGroupOptions.IamID}
+	pathParamsMap := map[string]string{
+		"access_group_id": *isMemberOfAccessGroupOptions.AccessGroupID,
+		"iam_id": *isMemberOfAccessGroupOptions.IamID,
+	}
 
 	builder := core.NewRequestBuilder(core.HEAD)
-	_, err = builder.ConstructHTTPURL(iamAccessGroups.Service.Options.URL, pathSegments, pathParameters)
+	_, err = builder.ResolveRequestURL(iamAccessGroups.Service.Options.URL, `/groups/{access_group_id}/members/{iam_id}`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -613,11 +611,12 @@ func (iamAccessGroups *IamAccessGroupsV2) AddMembersToAccessGroup(addMembersToAc
 		return
 	}
 
-	pathSegments := []string{"groups", "members"}
-	pathParameters := []string{*addMembersToAccessGroupOptions.AccessGroupID}
+	pathParamsMap := map[string]string{
+		"access_group_id": *addMembersToAccessGroupOptions.AccessGroupID,
+	}
 
 	builder := core.NewRequestBuilder(core.PUT)
-	_, err = builder.ConstructHTTPURL(iamAccessGroups.Service.Options.URL, pathSegments, pathParameters)
+	_, err = builder.ResolveRequestURL(iamAccessGroups.Service.Options.URL, `/groups/{access_group_id}/members`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -679,11 +678,12 @@ func (iamAccessGroups *IamAccessGroupsV2) ListAccessGroupMembers(listAccessGroup
 		return
 	}
 
-	pathSegments := []string{"groups", "members"}
-	pathParameters := []string{*listAccessGroupMembersOptions.AccessGroupID}
+	pathParamsMap := map[string]string{
+		"access_group_id": *listAccessGroupMembersOptions.AccessGroupID,
+	}
 
 	builder := core.NewRequestBuilder(core.GET)
-	_, err = builder.ConstructHTTPURL(iamAccessGroups.Service.Options.URL, pathSegments, pathParameters)
+	_, err = builder.ResolveRequestURL(iamAccessGroups.Service.Options.URL, `/groups/{access_group_id}/members`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -749,11 +749,13 @@ func (iamAccessGroups *IamAccessGroupsV2) RemoveMemberFromAccessGroup(removeMemb
 		return
 	}
 
-	pathSegments := []string{"groups", "members"}
-	pathParameters := []string{*removeMemberFromAccessGroupOptions.AccessGroupID, *removeMemberFromAccessGroupOptions.IamID}
+	pathParamsMap := map[string]string{
+		"access_group_id": *removeMemberFromAccessGroupOptions.AccessGroupID,
+		"iam_id": *removeMemberFromAccessGroupOptions.IamID,
+	}
 
 	builder := core.NewRequestBuilder(core.DELETE)
-	_, err = builder.ConstructHTTPURL(iamAccessGroups.Service.Options.URL, pathSegments, pathParameters)
+	_, err = builder.ResolveRequestURL(iamAccessGroups.Service.Options.URL, `/groups/{access_group_id}/members/{iam_id}`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -794,11 +796,12 @@ func (iamAccessGroups *IamAccessGroupsV2) RemoveMembersFromAccessGroup(removeMem
 		return
 	}
 
-	pathSegments := []string{"groups", "members/delete"}
-	pathParameters := []string{*removeMembersFromAccessGroupOptions.AccessGroupID}
+	pathParamsMap := map[string]string{
+		"access_group_id": *removeMembersFromAccessGroupOptions.AccessGroupID,
+	}
 
 	builder := core.NewRequestBuilder(core.POST)
-	_, err = builder.ConstructHTTPURL(iamAccessGroups.Service.Options.URL, pathSegments, pathParameters)
+	_, err = builder.ResolveRequestURL(iamAccessGroups.Service.Options.URL, `/groups/{access_group_id}/members/delete`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -859,11 +862,12 @@ func (iamAccessGroups *IamAccessGroupsV2) RemoveMemberFromAllAccessGroups(remove
 		return
 	}
 
-	pathSegments := []string{"groups/_allgroups/members"}
-	pathParameters := []string{*removeMemberFromAllAccessGroupsOptions.IamID}
+	pathParamsMap := map[string]string{
+		"iam_id": *removeMemberFromAllAccessGroupsOptions.IamID,
+	}
 
 	builder := core.NewRequestBuilder(core.DELETE)
-	_, err = builder.ConstructHTTPURL(iamAccessGroups.Service.Options.URL, pathSegments, pathParameters)
+	_, err = builder.ResolveRequestURL(iamAccessGroups.Service.Options.URL, `/groups/_allgroups/members/{iam_id}`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -915,11 +919,12 @@ func (iamAccessGroups *IamAccessGroupsV2) AddMemberToMultipleAccessGroups(addMem
 		return
 	}
 
-	pathSegments := []string{"groups/_allgroups/members"}
-	pathParameters := []string{*addMemberToMultipleAccessGroupsOptions.IamID}
+	pathParamsMap := map[string]string{
+		"iam_id": *addMemberToMultipleAccessGroupsOptions.IamID,
+	}
 
 	builder := core.NewRequestBuilder(core.PUT)
-	_, err = builder.ConstructHTTPURL(iamAccessGroups.Service.Options.URL, pathSegments, pathParameters)
+	_, err = builder.ResolveRequestURL(iamAccessGroups.Service.Options.URL, `/groups/_allgroups/members/{iam_id}`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -987,11 +992,12 @@ func (iamAccessGroups *IamAccessGroupsV2) AddAccessGroupRule(addAccessGroupRuleO
 		return
 	}
 
-	pathSegments := []string{"groups", "rules"}
-	pathParameters := []string{*addAccessGroupRuleOptions.AccessGroupID}
+	pathParamsMap := map[string]string{
+		"access_group_id": *addAccessGroupRuleOptions.AccessGroupID,
+	}
 
 	builder := core.NewRequestBuilder(core.POST)
-	_, err = builder.ConstructHTTPURL(iamAccessGroups.Service.Options.URL, pathSegments, pathParameters)
+	_, err = builder.ResolveRequestURL(iamAccessGroups.Service.Options.URL, `/groups/{access_group_id}/rules`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -1060,11 +1066,12 @@ func (iamAccessGroups *IamAccessGroupsV2) ListAccessGroupRules(listAccessGroupRu
 		return
 	}
 
-	pathSegments := []string{"groups", "rules"}
-	pathParameters := []string{*listAccessGroupRulesOptions.AccessGroupID}
+	pathParamsMap := map[string]string{
+		"access_group_id": *listAccessGroupRulesOptions.AccessGroupID,
+	}
 
 	builder := core.NewRequestBuilder(core.GET)
-	_, err = builder.ConstructHTTPURL(iamAccessGroups.Service.Options.URL, pathSegments, pathParameters)
+	_, err = builder.ResolveRequestURL(iamAccessGroups.Service.Options.URL, `/groups/{access_group_id}/rules`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -1114,11 +1121,13 @@ func (iamAccessGroups *IamAccessGroupsV2) GetAccessGroupRule(getAccessGroupRuleO
 		return
 	}
 
-	pathSegments := []string{"groups", "rules"}
-	pathParameters := []string{*getAccessGroupRuleOptions.AccessGroupID, *getAccessGroupRuleOptions.RuleID}
+	pathParamsMap := map[string]string{
+		"access_group_id": *getAccessGroupRuleOptions.AccessGroupID,
+		"rule_id": *getAccessGroupRuleOptions.RuleID,
+	}
 
 	builder := core.NewRequestBuilder(core.GET)
-	_, err = builder.ConstructHTTPURL(iamAccessGroups.Service.Options.URL, pathSegments, pathParameters)
+	_, err = builder.ResolveRequestURL(iamAccessGroups.Service.Options.URL, `/groups/{access_group_id}/rules/{rule_id}`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -1168,11 +1177,13 @@ func (iamAccessGroups *IamAccessGroupsV2) ReplaceAccessGroupRule(replaceAccessGr
 		return
 	}
 
-	pathSegments := []string{"groups", "rules"}
-	pathParameters := []string{*replaceAccessGroupRuleOptions.AccessGroupID, *replaceAccessGroupRuleOptions.RuleID}
+	pathParamsMap := map[string]string{
+		"access_group_id": *replaceAccessGroupRuleOptions.AccessGroupID,
+		"rule_id": *replaceAccessGroupRuleOptions.RuleID,
+	}
 
 	builder := core.NewRequestBuilder(core.PUT)
-	_, err = builder.ConstructHTTPURL(iamAccessGroups.Service.Options.URL, pathSegments, pathParameters)
+	_, err = builder.ResolveRequestURL(iamAccessGroups.Service.Options.URL, `/groups/{access_group_id}/rules/{rule_id}`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -1244,11 +1255,13 @@ func (iamAccessGroups *IamAccessGroupsV2) RemoveAccessGroupRule(removeAccessGrou
 		return
 	}
 
-	pathSegments := []string{"groups", "rules"}
-	pathParameters := []string{*removeAccessGroupRuleOptions.AccessGroupID, *removeAccessGroupRuleOptions.RuleID}
+	pathParamsMap := map[string]string{
+		"access_group_id": *removeAccessGroupRuleOptions.AccessGroupID,
+		"rule_id": *removeAccessGroupRuleOptions.RuleID,
+	}
 
 	builder := core.NewRequestBuilder(core.DELETE)
-	_, err = builder.ConstructHTTPURL(iamAccessGroups.Service.Options.URL, pathSegments, pathParameters)
+	_, err = builder.ResolveRequestURL(iamAccessGroups.Service.Options.URL, `/groups/{access_group_id}/rules/{rule_id}`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -1318,7 +1331,7 @@ func UnmarshalAccountSettings(m map[string]json.RawMessage, result interface{}) 
 // AddAccessGroupRuleOptions : The AddAccessGroupRule options.
 type AddAccessGroupRuleOptions struct {
 	// The id of the group that the rule will be added to.
-	AccessGroupID *string `json:"access_group_id" validate:"required"`
+	AccessGroupID *string `json:"access_group_id" validate:"required,ne="`
 
 	// The number of hours that the rule lives for (Must be between 1 and 24).
 	Expiration *int64 `json:"expiration" validate:"required"`
@@ -1510,7 +1523,7 @@ type AddMemberToMultipleAccessGroupsOptions struct {
 	AccountID *string `json:"account_id" validate:"required"`
 
 	// The iam_id to be added to the groups.
-	IamID *string `json:"iam_id" validate:"required"`
+	IamID *string `json:"iam_id" validate:"required,ne="`
 
 	// The type of the member, must be either "user" or "service".
 	Type *string `json:"type,omitempty"`
@@ -1572,7 +1585,7 @@ func (options *AddMemberToMultipleAccessGroupsOptions) SetHeaders(param map[stri
 // AddMembersToAccessGroupOptions : The AddMembersToAccessGroup options.
 type AddMembersToAccessGroupOptions struct {
 	// The Access Group to add the members to.
-	AccessGroupID *string `json:"access_group_id" validate:"required"`
+	AccessGroupID *string `json:"access_group_id" validate:"required,ne="`
 
 	// An array of member objects to add to an access group.
 	Members []AddGroupMembersRequestMembersItem `json:"members,omitempty"`
@@ -1738,7 +1751,7 @@ func (options *CreateAccessGroupOptions) SetHeaders(param map[string]string) *Cr
 // DeleteAccessGroupOptions : The DeleteAccessGroup options.
 type DeleteAccessGroupOptions struct {
 	// The Access group to delete.
-	AccessGroupID *string `json:"access_group_id" validate:"required"`
+	AccessGroupID *string `json:"access_group_id" validate:"required,ne="`
 
 	// An optional transaction id for the request.
 	TransactionID *string `json:"Transaction-Id,omitempty"`
@@ -1939,7 +1952,7 @@ func UnmarshalError(m map[string]json.RawMessage, result interface{}) (err error
 // GetAccessGroupOptions : The GetAccessGroup options.
 type GetAccessGroupOptions struct {
 	// The Access Group to get.
-	AccessGroupID *string `json:"access_group_id" validate:"required"`
+	AccessGroupID *string `json:"access_group_id" validate:"required,ne="`
 
 	// An optional transaction id for the request.
 	TransactionID *string `json:"Transaction-Id,omitempty"`
@@ -1986,10 +1999,10 @@ func (options *GetAccessGroupOptions) SetHeaders(param map[string]string) *GetAc
 // GetAccessGroupRuleOptions : The GetAccessGroupRule options.
 type GetAccessGroupRuleOptions struct {
 	// The group id that the rule is bound to.
-	AccessGroupID *string `json:"access_group_id" validate:"required"`
+	AccessGroupID *string `json:"access_group_id" validate:"required,ne="`
 
 	// The rule to get.
-	RuleID *string `json:"rule_id" validate:"required"`
+	RuleID *string `json:"rule_id" validate:"required,ne="`
 
 	// An optional transaction id for the request.
 	TransactionID *string `json:"Transaction-Id,omitempty"`
@@ -2303,10 +2316,10 @@ func UnmarshalHrefStruct(m map[string]json.RawMessage, result interface{}) (err 
 // IsMemberOfAccessGroupOptions : The IsMemberOfAccessGroup options.
 type IsMemberOfAccessGroupOptions struct {
 	// The access_group_id to check for membership in.
-	AccessGroupID *string `json:"access_group_id" validate:"required"`
+	AccessGroupID *string `json:"access_group_id" validate:"required,ne="`
 
 	// The iam_id to look for within the group.
-	IamID *string `json:"iam_id" validate:"required"`
+	IamID *string `json:"iam_id" validate:"required,ne="`
 
 	// An optional transaction id for the request.
 	TransactionID *string `json:"Transaction-Id,omitempty"`
@@ -2350,7 +2363,7 @@ func (options *IsMemberOfAccessGroupOptions) SetHeaders(param map[string]string)
 // ListAccessGroupMembersOptions : The ListAccessGroupMembers options.
 type ListAccessGroupMembersOptions struct {
 	// The access_group_id to list members of.
-	AccessGroupID *string `json:"access_group_id" validate:"required"`
+	AccessGroupID *string `json:"access_group_id" validate:"required,ne="`
 
 	// An optional transaction id for the request.
 	TransactionID *string `json:"Transaction-Id,omitempty"`
@@ -2432,7 +2445,7 @@ func (options *ListAccessGroupMembersOptions) SetHeaders(param map[string]string
 // ListAccessGroupRulesOptions : The ListAccessGroupRules options.
 type ListAccessGroupRulesOptions struct {
 	// The group id that the rules are bound to.
-	AccessGroupID *string `json:"access_group_id" validate:"required"`
+	AccessGroupID *string `json:"access_group_id" validate:"required,ne="`
 
 	// An optional transaction id for the request.
 	TransactionID *string `json:"Transaction-Id,omitempty"`
@@ -2628,10 +2641,10 @@ func UnmarshalListGroupMembersResponseMember(m map[string]json.RawMessage, resul
 // RemoveAccessGroupRuleOptions : The RemoveAccessGroupRule options.
 type RemoveAccessGroupRuleOptions struct {
 	// The group id that the rule is bound to.
-	AccessGroupID *string `json:"access_group_id" validate:"required"`
+	AccessGroupID *string `json:"access_group_id" validate:"required,ne="`
 
 	// The rule to delete.
-	RuleID *string `json:"rule_id" validate:"required"`
+	RuleID *string `json:"rule_id" validate:"required,ne="`
 
 	// An optional transaction id for the request.
 	TransactionID *string `json:"Transaction-Id,omitempty"`
@@ -2675,10 +2688,10 @@ func (options *RemoveAccessGroupRuleOptions) SetHeaders(param map[string]string)
 // RemoveMemberFromAccessGroupOptions : The RemoveMemberFromAccessGroup options.
 type RemoveMemberFromAccessGroupOptions struct {
 	// The access_group_id to find the membership in.
-	AccessGroupID *string `json:"access_group_id" validate:"required"`
+	AccessGroupID *string `json:"access_group_id" validate:"required,ne="`
 
 	// The iam_id to remove from the group.
-	IamID *string `json:"iam_id" validate:"required"`
+	IamID *string `json:"iam_id" validate:"required,ne="`
 
 	// An optional transaction id for the request.
 	TransactionID *string `json:"Transaction-Id,omitempty"`
@@ -2725,7 +2738,7 @@ type RemoveMemberFromAllAccessGroupsOptions struct {
 	AccountID *string `json:"account_id" validate:"required"`
 
 	// The iam_id to remove from all groups.
-	IamID *string `json:"iam_id" validate:"required"`
+	IamID *string `json:"iam_id" validate:"required,ne="`
 
 	// An optional transaction id for the request.
 	TransactionID *string `json:"Transaction-Id,omitempty"`
@@ -2769,7 +2782,7 @@ func (options *RemoveMemberFromAllAccessGroupsOptions) SetHeaders(param map[stri
 // RemoveMembersFromAccessGroupOptions : The RemoveMembersFromAccessGroup options.
 type RemoveMembersFromAccessGroupOptions struct {
 	// The access_group_id to find the memberships in.
-	AccessGroupID *string `json:"access_group_id" validate:"required"`
+	AccessGroupID *string `json:"access_group_id" validate:"required,ne="`
 
 	// The `iam_id`s to remove from the access group. This field has a limit of 50 `iam_id`s.
 	Members []string `json:"members,omitempty"`
@@ -2815,10 +2828,10 @@ func (options *RemoveMembersFromAccessGroupOptions) SetHeaders(param map[string]
 // ReplaceAccessGroupRuleOptions : The ReplaceAccessGroupRule options.
 type ReplaceAccessGroupRuleOptions struct {
 	// The group id that the rule is bound to.
-	AccessGroupID *string `json:"access_group_id" validate:"required"`
+	AccessGroupID *string `json:"access_group_id" validate:"required,ne="`
 
 	// The rule to update.
-	RuleID *string `json:"rule_id" validate:"required"`
+	RuleID *string `json:"rule_id" validate:"required,ne="`
 
 	// The current revision number of the rule being updated. This can be found in the Get Rule response Etag header.
 	IfMatch *string `json:"If-Match" validate:"required"`
@@ -3061,7 +3074,7 @@ func UnmarshalRulesList(m map[string]json.RawMessage, result interface{}) (err e
 // UpdateAccessGroupOptions : The UpdateAccessGroup options.
 type UpdateAccessGroupOptions struct {
 	// The Access group to update.
-	AccessGroupID *string `json:"access_group_id" validate:"required"`
+	AccessGroupID *string `json:"access_group_id" validate:"required,ne="`
 
 	// The current revision number of the group being updated. This can be found in the Create/Get Access Group response
 	// Etag header.
