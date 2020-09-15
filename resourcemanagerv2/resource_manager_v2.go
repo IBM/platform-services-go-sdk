@@ -14,6 +14,11 @@
  * limitations under the License.
  */
 
+/*
+ * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-ef5e13c2-20200915-144510
+ */
+ 
+
 // Package resourcemanagerv2 : Operations and models for the ResourceManagerV2 service
 package resourcemanagerv2
 
@@ -114,11 +119,8 @@ func (resourceManager *ResourceManagerV2) ListResourceGroups(listResourceGroupsO
 		return
 	}
 
-	pathSegments := []string{"resource_groups"}
-	pathParameters := []string{}
-
 	builder := core.NewRequestBuilder(core.GET)
-	_, err = builder.ConstructHTTPURL(resourceManager.Service.Options.URL, pathSegments, pathParameters)
+	_, err = builder.ResolveRequestURL(resourceManager.Service.Options.URL, `/resource_groups`, nil)
 	if err != nil {
 		return
 	}
@@ -167,11 +169,8 @@ func (resourceManager *ResourceManagerV2) CreateResourceGroup(createResourceGrou
 		return
 	}
 
-	pathSegments := []string{"resource_groups"}
-	pathParameters := []string{}
-
 	builder := core.NewRequestBuilder(core.POST)
-	_, err = builder.ConstructHTTPURL(resourceManager.Service.Options.URL, pathSegments, pathParameters)
+	_, err = builder.ResolveRequestURL(resourceManager.Service.Options.URL, `/resource_groups`, nil)
 	if err != nil {
 		return
 	}
@@ -230,11 +229,12 @@ func (resourceManager *ResourceManagerV2) GetResourceGroup(getResourceGroupOptio
 		return
 	}
 
-	pathSegments := []string{"resource_groups"}
-	pathParameters := []string{*getResourceGroupOptions.ID}
+	pathParamsMap := map[string]string{
+		"id": *getResourceGroupOptions.ID,
+	}
 
 	builder := core.NewRequestBuilder(core.GET)
-	_, err = builder.ConstructHTTPURL(resourceManager.Service.Options.URL, pathSegments, pathParameters)
+	_, err = builder.ResolveRequestURL(resourceManager.Service.Options.URL, `/resource_groups/{id}`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -280,11 +280,12 @@ func (resourceManager *ResourceManagerV2) UpdateResourceGroup(updateResourceGrou
 		return
 	}
 
-	pathSegments := []string{"resource_groups"}
-	pathParameters := []string{*updateResourceGroupOptions.ID}
+	pathParamsMap := map[string]string{
+		"id": *updateResourceGroupOptions.ID,
+	}
 
 	builder := core.NewRequestBuilder(core.PATCH)
-	_, err = builder.ConstructHTTPURL(resourceManager.Service.Options.URL, pathSegments, pathParameters)
+	_, err = builder.ResolveRequestURL(resourceManager.Service.Options.URL, `/resource_groups/{id}`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -343,11 +344,12 @@ func (resourceManager *ResourceManagerV2) DeleteResourceGroup(deleteResourceGrou
 		return
 	}
 
-	pathSegments := []string{"resource_groups"}
-	pathParameters := []string{*deleteResourceGroupOptions.ID}
+	pathParamsMap := map[string]string{
+		"id": *deleteResourceGroupOptions.ID,
+	}
 
 	builder := core.NewRequestBuilder(core.DELETE)
-	_, err = builder.ConstructHTTPURL(resourceManager.Service.Options.URL, pathSegments, pathParameters)
+	_, err = builder.ResolveRequestURL(resourceManager.Service.Options.URL, `/resource_groups/{id}`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -379,11 +381,8 @@ func (resourceManager *ResourceManagerV2) ListQuotaDefinitions(listQuotaDefiniti
 		return
 	}
 
-	pathSegments := []string{"quota_definitions"}
-	pathParameters := []string{}
-
 	builder := core.NewRequestBuilder(core.GET)
-	_, err = builder.ConstructHTTPURL(resourceManager.Service.Options.URL, pathSegments, pathParameters)
+	_, err = builder.ResolveRequestURL(resourceManager.Service.Options.URL, `/quota_definitions`, nil)
 	if err != nil {
 		return
 	}
@@ -429,11 +428,12 @@ func (resourceManager *ResourceManagerV2) GetQuotaDefinition(getQuotaDefinitionO
 		return
 	}
 
-	pathSegments := []string{"quota_definitions"}
-	pathParameters := []string{*getQuotaDefinitionOptions.ID}
+	pathParamsMap := map[string]string{
+		"id": *getQuotaDefinitionOptions.ID,
+	}
 
 	builder := core.NewRequestBuilder(core.GET)
-	_, err = builder.ConstructHTTPURL(resourceManager.Service.Options.URL, pathSegments, pathParameters)
+	_, err = builder.ResolveRequestURL(resourceManager.Service.Options.URL, `/quota_definitions/{id}`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -505,7 +505,7 @@ func (options *CreateResourceGroupOptions) SetHeaders(param map[string]string) *
 // DeleteResourceGroupOptions : The DeleteResourceGroup options.
 type DeleteResourceGroupOptions struct {
 	// The short or long ID of the alias.
-	ID *string `json:"id" validate:"required"`
+	ID *string `json:"id" validate:"required,ne="`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -533,7 +533,7 @@ func (options *DeleteResourceGroupOptions) SetHeaders(param map[string]string) *
 // GetQuotaDefinitionOptions : The GetQuotaDefinition options.
 type GetQuotaDefinitionOptions struct {
 	// The id of the quota.
-	ID *string `json:"id" validate:"required"`
+	ID *string `json:"id" validate:"required,ne="`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -561,7 +561,7 @@ func (options *GetQuotaDefinitionOptions) SetHeaders(param map[string]string) *G
 // GetResourceGroupOptions : The GetResourceGroup options.
 type GetResourceGroupOptions struct {
 	// The short or long ID of the alias.
-	ID *string `json:"id" validate:"required"`
+	ID *string `json:"id" validate:"required,ne="`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -949,7 +949,7 @@ func UnmarshalResourceQuota(m map[string]json.RawMessage, result interface{}) (e
 // UpdateResourceGroupOptions : The UpdateResourceGroup options.
 type UpdateResourceGroupOptions struct {
 	// The short or long ID of the alias.
-	ID *string `json:"id" validate:"required"`
+	ID *string `json:"id" validate:"required,ne="`
 
 	// The new name of the resource group.
 	Name *string `json:"name,omitempty"`
