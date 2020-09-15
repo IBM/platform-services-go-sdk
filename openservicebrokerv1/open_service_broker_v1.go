@@ -14,6 +14,11 @@
  * limitations under the License.
  */
 
+/*
+ * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-ef5e13c2-20200915-144510
+ */
+ 
+
 // Package openservicebrokerv1 : Operations and models for the OpenServiceBrokerV1 service
 package openservicebrokerv1
 
@@ -123,11 +128,12 @@ func (openServiceBroker *OpenServiceBrokerV1) GetServiceInstanceState(getService
 		return
 	}
 
-	pathSegments := []string{"bluemix_v1/service_instances"}
-	pathParameters := []string{*getServiceInstanceStateOptions.InstanceID}
+	pathParamsMap := map[string]string{
+		"instance_id": *getServiceInstanceStateOptions.InstanceID,
+	}
 
 	builder := core.NewRequestBuilder(core.GET)
-	_, err = builder.ConstructHTTPURL(openServiceBroker.Service.Options.URL, pathSegments, pathParameters)
+	_, err = builder.ResolveRequestURL(openServiceBroker.Service.Options.URL, `/bluemix_v1/service_instances/{instance_id}`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -181,11 +187,12 @@ func (openServiceBroker *OpenServiceBrokerV1) ReplaceServiceInstanceState(replac
 		return
 	}
 
-	pathSegments := []string{"bluemix_v1/service_instances"}
-	pathParameters := []string{*replaceServiceInstanceStateOptions.InstanceID}
+	pathParamsMap := map[string]string{
+		"instance_id": *replaceServiceInstanceStateOptions.InstanceID,
+	}
 
 	builder := core.NewRequestBuilder(core.PUT)
-	_, err = builder.ConstructHTTPURL(openServiceBroker.Service.Options.URL, pathSegments, pathParameters)
+	_, err = builder.ResolveRequestURL(openServiceBroker.Service.Options.URL, `/bluemix_v1/service_instances/{instance_id}`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -257,11 +264,12 @@ func (openServiceBroker *OpenServiceBrokerV1) ReplaceServiceInstance(replaceServ
 		return
 	}
 
-	pathSegments := []string{"v2/service_instances"}
-	pathParameters := []string{*replaceServiceInstanceOptions.InstanceID}
+	pathParamsMap := map[string]string{
+		"instance_id": *replaceServiceInstanceOptions.InstanceID,
+	}
 
 	builder := core.NewRequestBuilder(core.PUT)
-	_, err = builder.ConstructHTTPURL(openServiceBroker.Service.Options.URL, pathSegments, pathParameters)
+	_, err = builder.ResolveRequestURL(openServiceBroker.Service.Options.URL, `/v2/service_instances/{instance_id}`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -341,11 +349,12 @@ func (openServiceBroker *OpenServiceBrokerV1) UpdateServiceInstance(updateServic
 		return
 	}
 
-	pathSegments := []string{"v2/service_instances"}
-	pathParameters := []string{*updateServiceInstanceOptions.InstanceID}
+	pathParamsMap := map[string]string{
+		"instance_id": *updateServiceInstanceOptions.InstanceID,
+	}
 
 	builder := core.NewRequestBuilder(core.PATCH)
-	_, err = builder.ConstructHTTPURL(openServiceBroker.Service.Options.URL, pathSegments, pathParameters)
+	_, err = builder.ResolveRequestURL(openServiceBroker.Service.Options.URL, `/v2/service_instances/{instance_id}`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -419,11 +428,12 @@ func (openServiceBroker *OpenServiceBrokerV1) DeleteServiceInstance(deleteServic
 		return
 	}
 
-	pathSegments := []string{"v2/service_instances"}
-	pathParameters := []string{*deleteServiceInstanceOptions.InstanceID}
+	pathParamsMap := map[string]string{
+		"instance_id": *deleteServiceInstanceOptions.InstanceID,
+	}
 
 	builder := core.NewRequestBuilder(core.DELETE)
-	_, err = builder.ConstructHTTPURL(openServiceBroker.Service.Options.URL, pathSegments, pathParameters)
+	_, err = builder.ResolveRequestURL(openServiceBroker.Service.Options.URL, `/v2/service_instances/{instance_id}`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -478,11 +488,8 @@ func (openServiceBroker *OpenServiceBrokerV1) ListCatalog(listCatalogOptions *Li
 		return
 	}
 
-	pathSegments := []string{"v2/catalog"}
-	pathParameters := []string{}
-
 	builder := core.NewRequestBuilder(core.GET)
-	_, err = builder.ConstructHTTPURL(openServiceBroker.Service.Options.URL, pathSegments, pathParameters)
+	_, err = builder.ResolveRequestURL(openServiceBroker.Service.Options.URL, `/v2/catalog`, nil)
 	if err != nil {
 		return
 	}
@@ -536,11 +543,12 @@ func (openServiceBroker *OpenServiceBrokerV1) GetLastOperation(getLastOperationO
 		return
 	}
 
-	pathSegments := []string{"v2/service_instances", "last_operation"}
-	pathParameters := []string{*getLastOperationOptions.InstanceID}
+	pathParamsMap := map[string]string{
+		"instance_id": *getLastOperationOptions.InstanceID,
+	}
 
 	builder := core.NewRequestBuilder(core.GET)
-	_, err = builder.ConstructHTTPURL(openServiceBroker.Service.Options.URL, pathSegments, pathParameters)
+	_, err = builder.ResolveRequestURL(openServiceBroker.Service.Options.URL, `/v2/service_instances/{instance_id}/last_operation`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -604,11 +612,13 @@ func (openServiceBroker *OpenServiceBrokerV1) ReplaceServiceBinding(replaceServi
 		return
 	}
 
-	pathSegments := []string{"v2/service_instances", "service_bindings"}
-	pathParameters := []string{*replaceServiceBindingOptions.BindingID, *replaceServiceBindingOptions.InstanceID}
+	pathParamsMap := map[string]string{
+		"binding_id": *replaceServiceBindingOptions.BindingID,
+		"instance_id": *replaceServiceBindingOptions.InstanceID,
+	}
 
 	builder := core.NewRequestBuilder(core.PUT)
-	_, err = builder.ConstructHTTPURL(openServiceBroker.Service.Options.URL, pathSegments, pathParameters)
+	_, err = builder.ResolveRequestURL(openServiceBroker.Service.Options.URL, `/v2/service_instances/{instance_id}/service_bindings/{binding_id}`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -679,11 +689,13 @@ func (openServiceBroker *OpenServiceBrokerV1) DeleteServiceBinding(deleteService
 		return
 	}
 
-	pathSegments := []string{"v2/service_instances", "service_bindings"}
-	pathParameters := []string{*deleteServiceBindingOptions.BindingID, *deleteServiceBindingOptions.InstanceID}
+	pathParamsMap := map[string]string{
+		"binding_id": *deleteServiceBindingOptions.BindingID,
+		"instance_id": *deleteServiceBindingOptions.InstanceID,
+	}
 
 	builder := core.NewRequestBuilder(core.DELETE)
-	_, err = builder.ConstructHTTPURL(openServiceBroker.Service.Options.URL, pathSegments, pathParameters)
+	_, err = builder.ResolveRequestURL(openServiceBroker.Service.Options.URL, `/v2/service_instances/{instance_id}/service_bindings/{binding_id}`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -714,10 +726,10 @@ func (openServiceBroker *OpenServiceBrokerV1) DeleteServiceBinding(deleteService
 // DeleteServiceBindingOptions : The DeleteServiceBinding options.
 type DeleteServiceBindingOptions struct {
 	// The `binding_id` is the ID of a previously provisioned binding for that service instance.
-	BindingID *string `json:"binding_id" validate:"required"`
+	BindingID *string `json:"binding_id" validate:"required,ne="`
 
 	// The `instance_id` is the ID of a previously provisioned service instance.
-	InstanceID *string `json:"instance_id" validate:"required"`
+	InstanceID *string `json:"instance_id" validate:"required,ne="`
 
 	// The ID of the plan from the catalog.json in the broker. It MUST be a non-empty string and should be a GUID.
 	PlanID *string `json:"plan_id" validate:"required"`
@@ -780,7 +792,7 @@ type DeleteServiceInstanceOptions struct {
 	PlanID *string `json:"plan_id" validate:"required"`
 
 	// The ID of a previously provisioned service instance.
-	InstanceID *string `json:"instance_id" validate:"required"`
+	InstanceID *string `json:"instance_id" validate:"required,ne="`
 
 	// A value of true indicates that both the IBM Cloud platform and the requesting client support asynchronous
 	// deprovisioning. If this parameter is not included in the request, and the broker can only deprovision a service
@@ -833,7 +845,7 @@ func (options *DeleteServiceInstanceOptions) SetHeaders(param map[string]string)
 // GetLastOperationOptions : The GetLastOperation options.
 type GetLastOperationOptions struct {
 	// The unique instance ID generated during provisioning by the IBM Cloud platform.
-	InstanceID *string `json:"instance_id" validate:"required"`
+	InstanceID *string `json:"instance_id" validate:"required,ne="`
 
 	// A broker-provided identifier for the operation. When a value for operation is included with asynchronous responses
 	// for provision and update, and deprovision requests, the IBM Cloud platform will provide the same value using this
@@ -891,7 +903,7 @@ func (options *GetLastOperationOptions) SetHeaders(param map[string]string) *Get
 type GetServiceInstanceStateOptions struct {
 	// The `instance_id` of a service instance is provided by the IBM Cloud platform. This ID will be used for future
 	// requests to bind and deprovision, so the broker can use it to correlate the resource it creates.
-	InstanceID *string `json:"instance_id" validate:"required"`
+	InstanceID *string `json:"instance_id" validate:"required,ne="`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -938,10 +950,10 @@ func (options *ListCatalogOptions) SetHeaders(param map[string]string) *ListCata
 type ReplaceServiceBindingOptions struct {
 	// The `binding_id` is provided by the IBM Cloud platform. This ID will be used for future unbind requests, so the
 	// broker can use it to correlate the resource it creates.
-	BindingID *string `json:"binding_id" validate:"required"`
+	BindingID *string `json:"binding_id" validate:"required,ne="`
 
 	// The :`instance_id` is the ID of a previously provisioned service instance.
-	InstanceID *string `json:"instance_id" validate:"required"`
+	InstanceID *string `json:"instance_id" validate:"required,ne="`
 
 	// A JSON object that contains data for platform resources associated with the binding to be created.
 	BindResource *BindResource `json:"bind_resource,omitempty"`
@@ -1016,7 +1028,7 @@ func (options *ReplaceServiceBindingOptions) SetHeaders(param map[string]string)
 type ReplaceServiceInstanceOptions struct {
 	// The `instance_id` of a service instance is provided by the IBM Cloud platform. This ID will be used for future
 	// requests to bind and deprovision, so the broker can use it to correlate the resource it creates.
-	InstanceID *string `json:"instance_id" validate:"required"`
+	InstanceID *string `json:"instance_id" validate:"required,ne="`
 
 	// Platform specific contextual information under which the service instance is to be provisioned.
 	Context *Context `json:"context,omitempty"`
@@ -1119,7 +1131,7 @@ func (options *ReplaceServiceInstanceOptions) SetHeaders(param map[string]string
 type ReplaceServiceInstanceStateOptions struct {
 	// The `instance_id` of a service instance is provided by the IBM Cloud platform. This ID will be used for future
 	// requests to bind and deprovision, so the broker can use it to correlate the resource it creates.
-	InstanceID *string `json:"instance_id" validate:"required"`
+	InstanceID *string `json:"instance_id" validate:"required,ne="`
 
 	// Indicates the current state of the service instance.
 	Enabled *bool `json:"enabled,omitempty"`
@@ -1390,7 +1402,7 @@ func UnmarshalResp2448145Root(m map[string]json.RawMessage, result interface{}) 
 // UpdateServiceInstanceOptions : The UpdateServiceInstance options.
 type UpdateServiceInstanceOptions struct {
 	// The ID of a previously provisioned service instance.
-	InstanceID *string `json:"instance_id" validate:"required"`
+	InstanceID *string `json:"instance_id" validate:"required,ne="`
 
 	// Platform specific contextual information under which the service instance is to be provisioned.
 	Context *Context `json:"context,omitempty"`
