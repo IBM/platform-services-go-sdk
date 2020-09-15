@@ -34,31 +34,31 @@ import (
 
 var _ = Describe(`GlobalTaggingV1`, func() {
 	var testServer *httptest.Server
-    Describe(`Service constructor tests`, func() {
+	Describe(`Service constructor tests`, func() {
 		It(`Instantiate service client`, func() {
-			testService, testServiceErr := globaltaggingv1.NewGlobalTaggingV1(&globaltaggingv1.GlobalTaggingV1Options{
+			globalTaggingService, serviceErr := globaltaggingv1.NewGlobalTaggingV1(&globaltaggingv1.GlobalTaggingV1Options{
 				Authenticator: &core.NoAuthAuthenticator{},
 			})
-			Expect(testService).ToNot(BeNil())
-			Expect(testServiceErr).To(BeNil())
+			Expect(globalTaggingService).ToNot(BeNil())
+			Expect(serviceErr).To(BeNil())
 		})
 		It(`Instantiate service client with error: Invalid URL`, func() {
-			testService, testServiceErr := globaltaggingv1.NewGlobalTaggingV1(&globaltaggingv1.GlobalTaggingV1Options{
+			globalTaggingService, serviceErr := globaltaggingv1.NewGlobalTaggingV1(&globaltaggingv1.GlobalTaggingV1Options{
 				URL: "{BAD_URL_STRING",
 			})
-			Expect(testService).To(BeNil())
-			Expect(testServiceErr).ToNot(BeNil())
+			Expect(globalTaggingService).To(BeNil())
+			Expect(serviceErr).ToNot(BeNil())
 		})
 		It(`Instantiate service client with error: Invalid Auth`, func() {
-			testService, testServiceErr := globaltaggingv1.NewGlobalTaggingV1(&globaltaggingv1.GlobalTaggingV1Options{
+			globalTaggingService, serviceErr := globaltaggingv1.NewGlobalTaggingV1(&globaltaggingv1.GlobalTaggingV1Options{
 				URL: "https://globaltaggingv1/api",
 				Authenticator: &core.BasicAuthenticator{
 					Username: "",
 					Password: "",
 				},
 			})
-			Expect(testService).To(BeNil())
-			Expect(testServiceErr).ToNot(BeNil())
+			Expect(globalTaggingService).To(BeNil())
+			Expect(serviceErr).ToNot(BeNil())
 		})
 	})
 	Describe(`Service constructor tests using external config`, func() {
@@ -71,31 +71,31 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 
 			It(`Create service client using external config successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				testService, testServiceErr := globaltaggingv1.NewGlobalTaggingV1UsingExternalConfig(&globaltaggingv1.GlobalTaggingV1Options{
+				globalTaggingService, serviceErr := globaltaggingv1.NewGlobalTaggingV1UsingExternalConfig(&globaltaggingv1.GlobalTaggingV1Options{
 				})
-				Expect(testService).ToNot(BeNil())
-				Expect(testServiceErr).To(BeNil())
+				Expect(globalTaggingService).ToNot(BeNil())
+				Expect(serviceErr).To(BeNil())
 				ClearTestEnvironment(testEnvironment)
 			})
 			It(`Create service client using external config and set url from constructor successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				testService, testServiceErr := globaltaggingv1.NewGlobalTaggingV1UsingExternalConfig(&globaltaggingv1.GlobalTaggingV1Options{
+				globalTaggingService, serviceErr := globaltaggingv1.NewGlobalTaggingV1UsingExternalConfig(&globaltaggingv1.GlobalTaggingV1Options{
 					URL: "https://testService/api",
 				})
-				Expect(testService).ToNot(BeNil())
-				Expect(testServiceErr).To(BeNil())
-				Expect(testService.Service.GetServiceURL()).To(Equal("https://testService/api"))
+				Expect(globalTaggingService).ToNot(BeNil())
+				Expect(serviceErr).To(BeNil())
+				Expect(globalTaggingService.Service.GetServiceURL()).To(Equal("https://testService/api"))
 				ClearTestEnvironment(testEnvironment)
 			})
 			It(`Create service client using external config and set url programatically successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				testService, testServiceErr := globaltaggingv1.NewGlobalTaggingV1UsingExternalConfig(&globaltaggingv1.GlobalTaggingV1Options{
+				globalTaggingService, serviceErr := globaltaggingv1.NewGlobalTaggingV1UsingExternalConfig(&globaltaggingv1.GlobalTaggingV1Options{
 				})
-				err := testService.SetServiceURL("https://testService/api")
+				err := globalTaggingService.SetServiceURL("https://testService/api")
 				Expect(err).To(BeNil())
-				Expect(testService).ToNot(BeNil())
-				Expect(testServiceErr).To(BeNil())
-				Expect(testService.Service.GetServiceURL()).To(Equal("https://testService/api"))
+				Expect(globalTaggingService).ToNot(BeNil())
+				Expect(serviceErr).To(BeNil())
+				Expect(globalTaggingService.Service.GetServiceURL()).To(Equal("https://testService/api"))
 				ClearTestEnvironment(testEnvironment)
 			})
 		})
@@ -107,12 +107,12 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 			}
 
 			SetTestEnvironment(testEnvironment)
-			testService, testServiceErr := globaltaggingv1.NewGlobalTaggingV1UsingExternalConfig(&globaltaggingv1.GlobalTaggingV1Options{
+			globalTaggingService, serviceErr := globaltaggingv1.NewGlobalTaggingV1UsingExternalConfig(&globaltaggingv1.GlobalTaggingV1Options{
 			})
 
 			It(`Instantiate service client with error`, func() {
-				Expect(testService).To(BeNil())
-				Expect(testServiceErr).ToNot(BeNil())
+				Expect(globalTaggingService).To(BeNil())
+				Expect(serviceErr).ToNot(BeNil())
 				ClearTestEnvironment(testEnvironment)
 			})
 		})
@@ -123,13 +123,13 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 			}
 
 			SetTestEnvironment(testEnvironment)
-			testService, testServiceErr := globaltaggingv1.NewGlobalTaggingV1UsingExternalConfig(&globaltaggingv1.GlobalTaggingV1Options{
+			globalTaggingService, serviceErr := globaltaggingv1.NewGlobalTaggingV1UsingExternalConfig(&globaltaggingv1.GlobalTaggingV1Options{
 				URL: "{BAD_URL_STRING",
 			})
 
 			It(`Instantiate service client with error`, func() {
-				Expect(testService).To(BeNil())
-				Expect(testServiceErr).ToNot(BeNil())
+				Expect(globalTaggingService).To(BeNil())
+				Expect(serviceErr).ToNot(BeNil())
 				ClearTestEnvironment(testEnvironment)
 			})
 		})
@@ -142,7 +142,7 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.Path).To(Equal(listTagsPath))
+					Expect(req.URL.EscapedPath()).To(Equal(listTagsPath))
 					Expect(req.Method).To(Equal("GET"))
 					Expect(req.URL.Query()["attached_to"]).To(Equal([]string{"testString"}))
 
@@ -166,12 +166,12 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 				}))
 			})
 			It(`Invoke ListTags with error: Operation response processing error`, func() {
-				testService, testServiceErr := globaltaggingv1.NewGlobalTaggingV1(&globaltaggingv1.GlobalTaggingV1Options{
+				globalTaggingService, serviceErr := globaltaggingv1.NewGlobalTaggingV1(&globaltaggingv1.GlobalTaggingV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
-				Expect(testServiceErr).To(BeNil())
-				Expect(testService).ToNot(BeNil())
+				Expect(serviceErr).To(BeNil())
+				Expect(globalTaggingService).ToNot(BeNil())
 
 				// Construct an instance of the ListTagsOptions model
 				listTagsOptionsModel := new(globaltaggingv1.ListTagsOptions)
@@ -185,7 +185,7 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 				listTagsOptionsModel.AttachedOnly = core.BoolPtr(true)
 				listTagsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
-				result, response, operationErr := testService.ListTags(listTagsOptionsModel)
+				result, response, operationErr := globalTaggingService.ListTags(listTagsOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
@@ -204,7 +204,7 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.Path).To(Equal(listTagsPath))
+					Expect(req.URL.EscapedPath()).To(Equal(listTagsPath))
 					Expect(req.Method).To(Equal("GET"))
 					Expect(req.URL.Query()["attached_to"]).To(Equal([]string{"testString"}))
 
@@ -224,19 +224,19 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, `{"total_count": 10, "offset": 6, "limit": 5, "items": [{"name": "Name"}]}`)
+					fmt.Fprintf(res, "%s", `{"total_count": 10, "offset": 6, "limit": 5, "items": [{"name": "Name"}]}`)
 				}))
 			})
 			It(`Invoke ListTags successfully`, func() {
-				testService, testServiceErr := globaltaggingv1.NewGlobalTaggingV1(&globaltaggingv1.GlobalTaggingV1Options{
+				globalTaggingService, serviceErr := globaltaggingv1.NewGlobalTaggingV1(&globaltaggingv1.GlobalTaggingV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
-				Expect(testServiceErr).To(BeNil())
-				Expect(testService).ToNot(BeNil())
+				Expect(serviceErr).To(BeNil())
+				Expect(globalTaggingService).ToNot(BeNil())
 
 				// Invoke operation with nil options model (negative test)
-				result, response, operationErr := testService.ListTags(nil)
+				result, response, operationErr := globalTaggingService.ListTags(nil)
 				Expect(operationErr).NotTo(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
@@ -251,21 +251,21 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 				listTagsOptionsModel.OrderByName = core.StringPtr("asc")
 				listTagsOptionsModel.Timeout = core.Int64Ptr(int64(38))
 				listTagsOptionsModel.AttachedOnly = core.BoolPtr(true)
- 				listTagsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				listTagsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
-				result, response, operationErr = testService.ListTags(listTagsOptionsModel)
+				result, response, operationErr = globalTaggingService.ListTags(listTagsOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
 			})
 			It(`Invoke ListTags with error: Operation request error`, func() {
-				testService, testServiceErr := globaltaggingv1.NewGlobalTaggingV1(&globaltaggingv1.GlobalTaggingV1Options{
+				globalTaggingService, serviceErr := globaltaggingv1.NewGlobalTaggingV1(&globaltaggingv1.GlobalTaggingV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
-				Expect(testServiceErr).To(BeNil())
-				Expect(testService).ToNot(BeNil())
+				Expect(serviceErr).To(BeNil())
+				Expect(globalTaggingService).ToNot(BeNil())
 
 				// Construct an instance of the ListTagsOptions model
 				listTagsOptionsModel := new(globaltaggingv1.ListTagsOptions)
@@ -279,9 +279,9 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 				listTagsOptionsModel.AttachedOnly = core.BoolPtr(true)
 				listTagsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
-				err := testService.SetServiceURL("")
+				err := globalTaggingService.SetServiceURL("")
 				Expect(err).To(BeNil())
-				result, response, operationErr := testService.ListTags(listTagsOptionsModel)
+				result, response, operationErr := globalTaggingService.ListTags(listTagsOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
 				Expect(response).To(BeNil())
@@ -300,7 +300,7 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.Path).To(Equal(deleteTagAllPath))
+					Expect(req.URL.EscapedPath()).To(Equal(deleteTagAllPath))
 					Expect(req.Method).To(Equal("DELETE"))
 					Expect(req.URL.Query()["providers"]).To(Equal([]string{"ghost"}))
 
@@ -310,19 +310,19 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 				}))
 			})
 			It(`Invoke DeleteTagAll with error: Operation response processing error`, func() {
-				testService, testServiceErr := globaltaggingv1.NewGlobalTaggingV1(&globaltaggingv1.GlobalTaggingV1Options{
+				globalTaggingService, serviceErr := globaltaggingv1.NewGlobalTaggingV1(&globaltaggingv1.GlobalTaggingV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
-				Expect(testServiceErr).To(BeNil())
-				Expect(testService).ToNot(BeNil())
+				Expect(serviceErr).To(BeNil())
+				Expect(globalTaggingService).ToNot(BeNil())
 
 				// Construct an instance of the DeleteTagAllOptions model
 				deleteTagAllOptionsModel := new(globaltaggingv1.DeleteTagAllOptions)
 				deleteTagAllOptionsModel.Providers = core.StringPtr("ghost")
 				deleteTagAllOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
-				result, response, operationErr := testService.DeleteTagAll(deleteTagAllOptionsModel)
+				result, response, operationErr := globalTaggingService.DeleteTagAll(deleteTagAllOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
@@ -341,25 +341,25 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.Path).To(Equal(deleteTagAllPath))
+					Expect(req.URL.EscapedPath()).To(Equal(deleteTagAllPath))
 					Expect(req.Method).To(Equal("DELETE"))
 					Expect(req.URL.Query()["providers"]).To(Equal([]string{"ghost"}))
 
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, `{"total_count": 10, "errors": true, "items": [{"tag_name": "TagName", "is_error": false}]}`)
+					fmt.Fprintf(res, "%s", `{"total_count": 10, "errors": true, "items": [{"tag_name": "TagName", "is_error": false}]}`)
 				}))
 			})
 			It(`Invoke DeleteTagAll successfully`, func() {
-				testService, testServiceErr := globaltaggingv1.NewGlobalTaggingV1(&globaltaggingv1.GlobalTaggingV1Options{
+				globalTaggingService, serviceErr := globaltaggingv1.NewGlobalTaggingV1(&globaltaggingv1.GlobalTaggingV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
-				Expect(testServiceErr).To(BeNil())
-				Expect(testService).ToNot(BeNil())
+				Expect(serviceErr).To(BeNil())
+				Expect(globalTaggingService).ToNot(BeNil())
 
 				// Invoke operation with nil options model (negative test)
-				result, response, operationErr := testService.DeleteTagAll(nil)
+				result, response, operationErr := globalTaggingService.DeleteTagAll(nil)
 				Expect(operationErr).NotTo(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
@@ -367,30 +367,30 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 				// Construct an instance of the DeleteTagAllOptions model
 				deleteTagAllOptionsModel := new(globaltaggingv1.DeleteTagAllOptions)
 				deleteTagAllOptionsModel.Providers = core.StringPtr("ghost")
- 				deleteTagAllOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				deleteTagAllOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
-				result, response, operationErr = testService.DeleteTagAll(deleteTagAllOptionsModel)
+				result, response, operationErr = globalTaggingService.DeleteTagAll(deleteTagAllOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
 			})
 			It(`Invoke DeleteTagAll with error: Operation request error`, func() {
-				testService, testServiceErr := globaltaggingv1.NewGlobalTaggingV1(&globaltaggingv1.GlobalTaggingV1Options{
+				globalTaggingService, serviceErr := globaltaggingv1.NewGlobalTaggingV1(&globaltaggingv1.GlobalTaggingV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
-				Expect(testServiceErr).To(BeNil())
-				Expect(testService).ToNot(BeNil())
+				Expect(serviceErr).To(BeNil())
+				Expect(globalTaggingService).ToNot(BeNil())
 
 				// Construct an instance of the DeleteTagAllOptions model
 				deleteTagAllOptionsModel := new(globaltaggingv1.DeleteTagAllOptions)
 				deleteTagAllOptionsModel.Providers = core.StringPtr("ghost")
 				deleteTagAllOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
-				err := testService.SetServiceURL("")
+				err := globalTaggingService.SetServiceURL("")
 				Expect(err).To(BeNil())
-				result, response, operationErr := testService.DeleteTagAll(deleteTagAllOptionsModel)
+				result, response, operationErr := globalTaggingService.DeleteTagAll(deleteTagAllOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
 				Expect(response).To(BeNil())
@@ -409,7 +409,7 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.Path).To(Equal(deleteTagPath))
+					Expect(req.URL.EscapedPath()).To(Equal(deleteTagPath))
 					Expect(req.Method).To(Equal("DELETE"))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
@@ -417,12 +417,12 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 				}))
 			})
 			It(`Invoke DeleteTag with error: Operation response processing error`, func() {
-				testService, testServiceErr := globaltaggingv1.NewGlobalTaggingV1(&globaltaggingv1.GlobalTaggingV1Options{
+				globalTaggingService, serviceErr := globaltaggingv1.NewGlobalTaggingV1(&globaltaggingv1.GlobalTaggingV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
-				Expect(testServiceErr).To(BeNil())
-				Expect(testService).ToNot(BeNil())
+				Expect(serviceErr).To(BeNil())
+				Expect(globalTaggingService).ToNot(BeNil())
 
 				// Construct an instance of the DeleteTagOptions model
 				deleteTagOptionsModel := new(globaltaggingv1.DeleteTagOptions)
@@ -430,7 +430,7 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 				deleteTagOptionsModel.Providers = []string{"ghost"}
 				deleteTagOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
-				result, response, operationErr := testService.DeleteTag(deleteTagOptionsModel)
+				result, response, operationErr := globalTaggingService.DeleteTag(deleteTagOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
@@ -449,23 +449,23 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.Path).To(Equal(deleteTagPath))
+					Expect(req.URL.EscapedPath()).To(Equal(deleteTagPath))
 					Expect(req.Method).To(Equal("DELETE"))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, `{"results": [{"provider": "ghost", "is_error": false}]}`)
+					fmt.Fprintf(res, "%s", `{"results": [{"provider": "ghost", "is_error": false}]}`)
 				}))
 			})
 			It(`Invoke DeleteTag successfully`, func() {
-				testService, testServiceErr := globaltaggingv1.NewGlobalTaggingV1(&globaltaggingv1.GlobalTaggingV1Options{
+				globalTaggingService, serviceErr := globaltaggingv1.NewGlobalTaggingV1(&globaltaggingv1.GlobalTaggingV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
-				Expect(testServiceErr).To(BeNil())
-				Expect(testService).ToNot(BeNil())
+				Expect(serviceErr).To(BeNil())
+				Expect(globalTaggingService).ToNot(BeNil())
 
 				// Invoke operation with nil options model (negative test)
-				result, response, operationErr := testService.DeleteTag(nil)
+				result, response, operationErr := globalTaggingService.DeleteTag(nil)
 				Expect(operationErr).NotTo(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
@@ -474,21 +474,21 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 				deleteTagOptionsModel := new(globaltaggingv1.DeleteTagOptions)
 				deleteTagOptionsModel.TagName = core.StringPtr("testString")
 				deleteTagOptionsModel.Providers = []string{"ghost"}
- 				deleteTagOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				deleteTagOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
-				result, response, operationErr = testService.DeleteTag(deleteTagOptionsModel)
+				result, response, operationErr = globalTaggingService.DeleteTag(deleteTagOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
 			})
 			It(`Invoke DeleteTag with error: Operation validation and request error`, func() {
-				testService, testServiceErr := globaltaggingv1.NewGlobalTaggingV1(&globaltaggingv1.GlobalTaggingV1Options{
+				globalTaggingService, serviceErr := globaltaggingv1.NewGlobalTaggingV1(&globaltaggingv1.GlobalTaggingV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
-				Expect(testServiceErr).To(BeNil())
-				Expect(testService).ToNot(BeNil())
+				Expect(serviceErr).To(BeNil())
+				Expect(globalTaggingService).ToNot(BeNil())
 
 				// Construct an instance of the DeleteTagOptions model
 				deleteTagOptionsModel := new(globaltaggingv1.DeleteTagOptions)
@@ -496,9 +496,9 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 				deleteTagOptionsModel.Providers = []string{"ghost"}
 				deleteTagOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
-				err := testService.SetServiceURL("")
+				err := globalTaggingService.SetServiceURL("")
 				Expect(err).To(BeNil())
-				result, response, operationErr := testService.DeleteTag(deleteTagOptionsModel)
+				result, response, operationErr := globalTaggingService.DeleteTag(deleteTagOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
 				Expect(response).To(BeNil())
@@ -506,7 +506,7 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 				// Construct a second instance of the DeleteTagOptions model with no property values
 				deleteTagOptionsModelNew := new(globaltaggingv1.DeleteTagOptions)
 				// Invoke operation with invalid model (negative test)
-				result, response, operationErr = testService.DeleteTag(deleteTagOptionsModelNew)
+				result, response, operationErr = globalTaggingService.DeleteTag(deleteTagOptionsModelNew)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
@@ -524,7 +524,7 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.Path).To(Equal(attachTagPath))
+					Expect(req.URL.EscapedPath()).To(Equal(attachTagPath))
 					Expect(req.Method).To(Equal("POST"))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
@@ -532,12 +532,12 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 				}))
 			})
 			It(`Invoke AttachTag with error: Operation response processing error`, func() {
-				testService, testServiceErr := globaltaggingv1.NewGlobalTaggingV1(&globaltaggingv1.GlobalTaggingV1Options{
+				globalTaggingService, serviceErr := globaltaggingv1.NewGlobalTaggingV1(&globaltaggingv1.GlobalTaggingV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
-				Expect(testServiceErr).To(BeNil())
-				Expect(testService).ToNot(BeNil())
+				Expect(serviceErr).To(BeNil())
+				Expect(globalTaggingService).ToNot(BeNil())
 
 				// Construct an instance of the Resource model
 				resourceModel := new(globaltaggingv1.Resource)
@@ -551,7 +551,7 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 				attachTagOptionsModel.TagNames = []string{"testString"}
 				attachTagOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
-				result, response, operationErr := testService.AttachTag(attachTagOptionsModel)
+				result, response, operationErr := globalTaggingService.AttachTag(attachTagOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
@@ -570,23 +570,23 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.Path).To(Equal(attachTagPath))
+					Expect(req.URL.EscapedPath()).To(Equal(attachTagPath))
 					Expect(req.Method).To(Equal("POST"))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, `{"results": [{"resource_id": "ResourceID", "is_error": false}]}`)
+					fmt.Fprintf(res, "%s", `{"results": [{"resource_id": "ResourceID", "is_error": false}]}`)
 				}))
 			})
 			It(`Invoke AttachTag successfully`, func() {
-				testService, testServiceErr := globaltaggingv1.NewGlobalTaggingV1(&globaltaggingv1.GlobalTaggingV1Options{
+				globalTaggingService, serviceErr := globaltaggingv1.NewGlobalTaggingV1(&globaltaggingv1.GlobalTaggingV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
-				Expect(testServiceErr).To(BeNil())
-				Expect(testService).ToNot(BeNil())
+				Expect(serviceErr).To(BeNil())
+				Expect(globalTaggingService).ToNot(BeNil())
 
 				// Invoke operation with nil options model (negative test)
-				result, response, operationErr := testService.AttachTag(nil)
+				result, response, operationErr := globalTaggingService.AttachTag(nil)
 				Expect(operationErr).NotTo(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
@@ -601,21 +601,21 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 				attachTagOptionsModel.Resources = []globaltaggingv1.Resource{*resourceModel}
 				attachTagOptionsModel.TagName = core.StringPtr("testString")
 				attachTagOptionsModel.TagNames = []string{"testString"}
- 				attachTagOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				attachTagOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
-				result, response, operationErr = testService.AttachTag(attachTagOptionsModel)
+				result, response, operationErr = globalTaggingService.AttachTag(attachTagOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
 			})
 			It(`Invoke AttachTag with error: Operation validation and request error`, func() {
-				testService, testServiceErr := globaltaggingv1.NewGlobalTaggingV1(&globaltaggingv1.GlobalTaggingV1Options{
+				globalTaggingService, serviceErr := globaltaggingv1.NewGlobalTaggingV1(&globaltaggingv1.GlobalTaggingV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
-				Expect(testServiceErr).To(BeNil())
-				Expect(testService).ToNot(BeNil())
+				Expect(serviceErr).To(BeNil())
+				Expect(globalTaggingService).ToNot(BeNil())
 
 				// Construct an instance of the Resource model
 				resourceModel := new(globaltaggingv1.Resource)
@@ -629,9 +629,9 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 				attachTagOptionsModel.TagNames = []string{"testString"}
 				attachTagOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
-				err := testService.SetServiceURL("")
+				err := globalTaggingService.SetServiceURL("")
 				Expect(err).To(BeNil())
-				result, response, operationErr := testService.AttachTag(attachTagOptionsModel)
+				result, response, operationErr := globalTaggingService.AttachTag(attachTagOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
 				Expect(response).To(BeNil())
@@ -639,7 +639,7 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 				// Construct a second instance of the AttachTagOptions model with no property values
 				attachTagOptionsModelNew := new(globaltaggingv1.AttachTagOptions)
 				// Invoke operation with invalid model (negative test)
-				result, response, operationErr = testService.AttachTag(attachTagOptionsModelNew)
+				result, response, operationErr = globalTaggingService.AttachTag(attachTagOptionsModelNew)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
@@ -657,7 +657,7 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.Path).To(Equal(detachTagPath))
+					Expect(req.URL.EscapedPath()).To(Equal(detachTagPath))
 					Expect(req.Method).To(Equal("POST"))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
@@ -665,12 +665,12 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 				}))
 			})
 			It(`Invoke DetachTag with error: Operation response processing error`, func() {
-				testService, testServiceErr := globaltaggingv1.NewGlobalTaggingV1(&globaltaggingv1.GlobalTaggingV1Options{
+				globalTaggingService, serviceErr := globaltaggingv1.NewGlobalTaggingV1(&globaltaggingv1.GlobalTaggingV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
-				Expect(testServiceErr).To(BeNil())
-				Expect(testService).ToNot(BeNil())
+				Expect(serviceErr).To(BeNil())
+				Expect(globalTaggingService).ToNot(BeNil())
 
 				// Construct an instance of the Resource model
 				resourceModel := new(globaltaggingv1.Resource)
@@ -684,7 +684,7 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 				detachTagOptionsModel.TagNames = []string{"testString"}
 				detachTagOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
-				result, response, operationErr := testService.DetachTag(detachTagOptionsModel)
+				result, response, operationErr := globalTaggingService.DetachTag(detachTagOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
@@ -703,23 +703,23 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.Path).To(Equal(detachTagPath))
+					Expect(req.URL.EscapedPath()).To(Equal(detachTagPath))
 					Expect(req.Method).To(Equal("POST"))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, `{"results": [{"resource_id": "ResourceID", "is_error": false}]}`)
+					fmt.Fprintf(res, "%s", `{"results": [{"resource_id": "ResourceID", "is_error": false}]}`)
 				}))
 			})
 			It(`Invoke DetachTag successfully`, func() {
-				testService, testServiceErr := globaltaggingv1.NewGlobalTaggingV1(&globaltaggingv1.GlobalTaggingV1Options{
+				globalTaggingService, serviceErr := globaltaggingv1.NewGlobalTaggingV1(&globaltaggingv1.GlobalTaggingV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
-				Expect(testServiceErr).To(BeNil())
-				Expect(testService).ToNot(BeNil())
+				Expect(serviceErr).To(BeNil())
+				Expect(globalTaggingService).ToNot(BeNil())
 
 				// Invoke operation with nil options model (negative test)
-				result, response, operationErr := testService.DetachTag(nil)
+				result, response, operationErr := globalTaggingService.DetachTag(nil)
 				Expect(operationErr).NotTo(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
@@ -734,21 +734,21 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 				detachTagOptionsModel.Resources = []globaltaggingv1.Resource{*resourceModel}
 				detachTagOptionsModel.TagName = core.StringPtr("testString")
 				detachTagOptionsModel.TagNames = []string{"testString"}
- 				detachTagOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				detachTagOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
-				result, response, operationErr = testService.DetachTag(detachTagOptionsModel)
+				result, response, operationErr = globalTaggingService.DetachTag(detachTagOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
 			})
 			It(`Invoke DetachTag with error: Operation validation and request error`, func() {
-				testService, testServiceErr := globaltaggingv1.NewGlobalTaggingV1(&globaltaggingv1.GlobalTaggingV1Options{
+				globalTaggingService, serviceErr := globaltaggingv1.NewGlobalTaggingV1(&globaltaggingv1.GlobalTaggingV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
-				Expect(testServiceErr).To(BeNil())
-				Expect(testService).ToNot(BeNil())
+				Expect(serviceErr).To(BeNil())
+				Expect(globalTaggingService).ToNot(BeNil())
 
 				// Construct an instance of the Resource model
 				resourceModel := new(globaltaggingv1.Resource)
@@ -762,9 +762,9 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 				detachTagOptionsModel.TagNames = []string{"testString"}
 				detachTagOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
-				err := testService.SetServiceURL("")
+				err := globalTaggingService.SetServiceURL("")
 				Expect(err).To(BeNil())
-				result, response, operationErr := testService.DetachTag(detachTagOptionsModel)
+				result, response, operationErr := globalTaggingService.DetachTag(detachTagOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
 				Expect(response).To(BeNil())
@@ -772,7 +772,7 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 				// Construct a second instance of the DetachTagOptions model with no property values
 				detachTagOptionsModelNew := new(globaltaggingv1.DetachTagOptions)
 				// Invoke operation with invalid model (negative test)
-				result, response, operationErr = testService.DetachTag(detachTagOptionsModelNew)
+				result, response, operationErr = globalTaggingService.DetachTag(detachTagOptionsModelNew)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
@@ -784,7 +784,7 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 	})
 	Describe(`Model constructor tests`, func() {
 		Context(`Using a service client instance`, func() {
-			testService, _ := globaltaggingv1.NewGlobalTaggingV1(&globaltaggingv1.GlobalTaggingV1Options{
+			globalTaggingService, _ := globaltaggingv1.NewGlobalTaggingV1(&globaltaggingv1.GlobalTaggingV1Options{
 				URL:           "http://globaltaggingv1modelgenerator.com",
 				Authenticator: &core.NoAuthAuthenticator{},
 			})
@@ -799,7 +799,7 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 
 				// Construct an instance of the AttachTagOptions model
 				attachTagOptionsResources := []globaltaggingv1.Resource{}
-				attachTagOptionsModel := testService.NewAttachTagOptions(attachTagOptionsResources)
+				attachTagOptionsModel := globalTaggingService.NewAttachTagOptions(attachTagOptionsResources)
 				attachTagOptionsModel.SetResources([]globaltaggingv1.Resource{*resourceModel})
 				attachTagOptionsModel.SetTagName("testString")
 				attachTagOptionsModel.SetTagNames([]string{"testString"})
@@ -812,7 +812,7 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 			})
 			It(`Invoke NewDeleteTagAllOptions successfully`, func() {
 				// Construct an instance of the DeleteTagAllOptions model
-				deleteTagAllOptionsModel := testService.NewDeleteTagAllOptions()
+				deleteTagAllOptionsModel := globalTaggingService.NewDeleteTagAllOptions()
 				deleteTagAllOptionsModel.SetProviders("ghost")
 				deleteTagAllOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(deleteTagAllOptionsModel).ToNot(BeNil())
@@ -822,7 +822,7 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 			It(`Invoke NewDeleteTagOptions successfully`, func() {
 				// Construct an instance of the DeleteTagOptions model
 				tagName := "testString"
-				deleteTagOptionsModel := testService.NewDeleteTagOptions(tagName)
+				deleteTagOptionsModel := globalTaggingService.NewDeleteTagOptions(tagName)
 				deleteTagOptionsModel.SetTagName("testString")
 				deleteTagOptionsModel.SetProviders([]string{"ghost"})
 				deleteTagOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
@@ -842,7 +842,7 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 
 				// Construct an instance of the DetachTagOptions model
 				detachTagOptionsResources := []globaltaggingv1.Resource{}
-				detachTagOptionsModel := testService.NewDetachTagOptions(detachTagOptionsResources)
+				detachTagOptionsModel := globalTaggingService.NewDetachTagOptions(detachTagOptionsResources)
 				detachTagOptionsModel.SetResources([]globaltaggingv1.Resource{*resourceModel})
 				detachTagOptionsModel.SetTagName("testString")
 				detachTagOptionsModel.SetTagNames([]string{"testString"})
@@ -855,7 +855,7 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 			})
 			It(`Invoke NewListTagsOptions successfully`, func() {
 				// Construct an instance of the ListTagsOptions model
-				listTagsOptionsModel := testService.NewListTagsOptions()
+				listTagsOptionsModel := globalTaggingService.NewListTagsOptions()
 				listTagsOptionsModel.SetProviders([]string{"ghost"})
 				listTagsOptionsModel.SetAttachedTo("testString")
 				listTagsOptionsModel.SetFullData(true)
@@ -878,7 +878,7 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 			})
 			It(`Invoke NewResource successfully`, func() {
 				resourceID := "testString"
-				model, err := testService.NewResource(resourceID)
+				model, err := globalTaggingService.NewResource(resourceID)
 				Expect(model).ToNot(BeNil())
 				Expect(err).To(BeNil())
 			})
