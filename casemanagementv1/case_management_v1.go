@@ -14,6 +14,11 @@
  * limitations under the License.
  */
 
+/*
+ * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-ef5e13c2-20200915-144510
+ */
+ 
+
 // Package casemanagementv1 : Operations and models for the CaseManagementV1 service
 package casemanagementv1
 
@@ -116,11 +121,8 @@ func (caseManagement *CaseManagementV1) GetCases(getCasesOptions *GetCasesOption
 		return
 	}
 
-	pathSegments := []string{"cases"}
-	pathParameters := []string{}
-
 	builder := core.NewRequestBuilder(core.GET)
-	_, err = builder.ConstructHTTPURL(caseManagement.Service.Options.URL, pathSegments, pathParameters)
+	_, err = builder.ResolveRequestURL(caseManagement.Service.Options.URL, `/cases`, nil)
 	if err != nil {
 		return
 	}
@@ -185,11 +187,8 @@ func (caseManagement *CaseManagementV1) CreateCase(createCaseOptions *CreateCase
 		return
 	}
 
-	pathSegments := []string{"cases"}
-	pathParameters := []string{}
-
 	builder := core.NewRequestBuilder(core.POST)
-	_, err = builder.ConstructHTTPURL(caseManagement.Service.Options.URL, pathSegments, pathParameters)
+	_, err = builder.ResolveRequestURL(caseManagement.Service.Options.URL, `/cases`, nil)
 	if err != nil {
 		return
 	}
@@ -272,11 +271,12 @@ func (caseManagement *CaseManagementV1) GetCase(getCaseOptions *GetCaseOptions) 
 		return
 	}
 
-	pathSegments := []string{"cases"}
-	pathParameters := []string{*getCaseOptions.CaseNumber}
+	pathParamsMap := map[string]string{
+		"case_number": *getCaseOptions.CaseNumber,
+	}
 
 	builder := core.NewRequestBuilder(core.GET)
-	_, err = builder.ConstructHTTPURL(caseManagement.Service.Options.URL, pathSegments, pathParameters)
+	_, err = builder.ResolveRequestURL(caseManagement.Service.Options.URL, `/cases/{case_number}`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -326,11 +326,12 @@ func (caseManagement *CaseManagementV1) UpdateCaseStatus(updateCaseStatusOptions
 		return
 	}
 
-	pathSegments := []string{"cases", "status"}
-	pathParameters := []string{*updateCaseStatusOptions.CaseNumber}
+	pathParamsMap := map[string]string{
+		"case_number": *updateCaseStatusOptions.CaseNumber,
+	}
 
 	builder := core.NewRequestBuilder(core.PUT)
-	_, err = builder.ConstructHTTPURL(caseManagement.Service.Options.URL, pathSegments, pathParameters)
+	_, err = builder.ResolveRequestURL(caseManagement.Service.Options.URL, `/cases/{case_number}/status`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -382,11 +383,12 @@ func (caseManagement *CaseManagementV1) AddComment(addCommentOptions *AddComment
 		return
 	}
 
-	pathSegments := []string{"cases", "comments"}
-	pathParameters := []string{*addCommentOptions.CaseNumber}
+	pathParamsMap := map[string]string{
+		"case_number": *addCommentOptions.CaseNumber,
+	}
 
 	builder := core.NewRequestBuilder(core.PUT)
-	_, err = builder.ConstructHTTPURL(caseManagement.Service.Options.URL, pathSegments, pathParameters)
+	_, err = builder.ResolveRequestURL(caseManagement.Service.Options.URL, `/cases/{case_number}/comments`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -444,11 +446,12 @@ func (caseManagement *CaseManagementV1) AddWatchlist(addWatchlistOptions *AddWat
 		return
 	}
 
-	pathSegments := []string{"cases", "watchlist"}
-	pathParameters := []string{*addWatchlistOptions.CaseNumber}
+	pathParamsMap := map[string]string{
+		"case_number": *addWatchlistOptions.CaseNumber,
+	}
 
 	builder := core.NewRequestBuilder(core.PUT)
-	_, err = builder.ConstructHTTPURL(caseManagement.Service.Options.URL, pathSegments, pathParameters)
+	_, err = builder.ResolveRequestURL(caseManagement.Service.Options.URL, `/cases/{case_number}/watchlist`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -504,11 +507,12 @@ func (caseManagement *CaseManagementV1) RemoveWatchlist(removeWatchlistOptions *
 		return
 	}
 
-	pathSegments := []string{"cases", "watchlist"}
-	pathParameters := []string{*removeWatchlistOptions.CaseNumber}
+	pathParamsMap := map[string]string{
+		"case_number": *removeWatchlistOptions.CaseNumber,
+	}
 
 	builder := core.NewRequestBuilder(core.DELETE)
-	_, err = builder.ConstructHTTPURL(caseManagement.Service.Options.URL, pathSegments, pathParameters)
+	_, err = builder.ResolveRequestURL(caseManagement.Service.Options.URL, `/cases/{case_number}/watchlist`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -565,11 +569,12 @@ func (caseManagement *CaseManagementV1) AddResource(addResourceOptions *AddResou
 		return
 	}
 
-	pathSegments := []string{"cases", "resources"}
-	pathParameters := []string{*addResourceOptions.CaseNumber}
+	pathParamsMap := map[string]string{
+		"case_number": *addResourceOptions.CaseNumber,
+	}
 
 	builder := core.NewRequestBuilder(core.PUT)
-	_, err = builder.ConstructHTTPURL(caseManagement.Service.Options.URL, pathSegments, pathParameters)
+	_, err = builder.ResolveRequestURL(caseManagement.Service.Options.URL, `/cases/{case_number}/resources`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -635,11 +640,12 @@ func (caseManagement *CaseManagementV1) UploadFile(uploadFileOptions *UploadFile
 		return
 	}
 
-	pathSegments := []string{"cases", "attachments"}
-	pathParameters := []string{*uploadFileOptions.CaseNumber}
+	pathParamsMap := map[string]string{
+		"case_number": *uploadFileOptions.CaseNumber,
+	}
 
 	builder := core.NewRequestBuilder(core.PUT)
-	_, err = builder.ConstructHTTPURL(caseManagement.Service.Options.URL, pathSegments, pathParameters)
+	_, err = builder.ResolveRequestURL(caseManagement.Service.Options.URL, `/cases/{case_number}/attachments`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -689,11 +695,13 @@ func (caseManagement *CaseManagementV1) DownloadFile(downloadFileOptions *Downlo
 		return
 	}
 
-	pathSegments := []string{"cases", "attachments"}
-	pathParameters := []string{*downloadFileOptions.CaseNumber, *downloadFileOptions.FileID}
+	pathParamsMap := map[string]string{
+		"case_number": *downloadFileOptions.CaseNumber,
+		"file_id": *downloadFileOptions.FileID,
+	}
 
 	builder := core.NewRequestBuilder(core.GET)
-	_, err = builder.ConstructHTTPURL(caseManagement.Service.Options.URL, pathSegments, pathParameters)
+	_, err = builder.ResolveRequestURL(caseManagement.Service.Options.URL, `/cases/{case_number}/attachments/{file_id}`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -730,11 +738,13 @@ func (caseManagement *CaseManagementV1) DeleteFile(deleteFileOptions *DeleteFile
 		return
 	}
 
-	pathSegments := []string{"cases", "attachments"}
-	pathParameters := []string{*deleteFileOptions.CaseNumber, *deleteFileOptions.FileID}
+	pathParamsMap := map[string]string{
+		"case_number": *deleteFileOptions.CaseNumber,
+		"file_id": *deleteFileOptions.FileID,
+	}
 
 	builder := core.NewRequestBuilder(core.DELETE)
-	_, err = builder.ConstructHTTPURL(caseManagement.Service.Options.URL, pathSegments, pathParameters)
+	_, err = builder.ResolveRequestURL(caseManagement.Service.Options.URL, `/cases/{case_number}/attachments/{file_id}`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -771,7 +781,7 @@ func (caseManagement *CaseManagementV1) DeleteFile(deleteFileOptions *DeleteFile
 // AddCommentOptions : The AddComment options.
 type AddCommentOptions struct {
 	// Unique identifier of a case.
-	CaseNumber *string `json:"case_number" validate:"required"`
+	CaseNumber *string `json:"case_number" validate:"required,ne="`
 
 	// Comment to add to the case.
 	Comment *string `json:"comment" validate:"required"`
@@ -809,7 +819,7 @@ func (options *AddCommentOptions) SetHeaders(param map[string]string) *AddCommen
 // AddResourceOptions : The AddResource options.
 type AddResourceOptions struct {
 	// Unique identifier of a case.
-	CaseNumber *string `json:"case_number" validate:"required"`
+	CaseNumber *string `json:"case_number" validate:"required,ne="`
 
 	// Cloud Resource Name of the resource.
 	Crn *string `json:"crn,omitempty"`
@@ -874,7 +884,7 @@ func (options *AddResourceOptions) SetHeaders(param map[string]string) *AddResou
 // AddWatchlistOptions : The AddWatchlist options.
 type AddWatchlistOptions struct {
 	// Unique identifier of a case.
-	CaseNumber *string `json:"case_number" validate:"required"`
+	CaseNumber *string `json:"case_number" validate:"required,ne="`
 
 	// Array of user ID objects.
 	Watchlist []User `json:"watchlist,omitempty"`
@@ -1401,10 +1411,10 @@ func (options *CreateCaseOptions) SetHeaders(param map[string]string) *CreateCas
 // DeleteFileOptions : The DeleteFile options.
 type DeleteFileOptions struct {
 	// Unique identifier of a case.
-	CaseNumber *string `json:"case_number" validate:"required"`
+	CaseNumber *string `json:"case_number" validate:"required,ne="`
 
 	// Unique identifier of a file.
-	FileID *string `json:"file_id" validate:"required"`
+	FileID *string `json:"file_id" validate:"required,ne="`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -1439,10 +1449,10 @@ func (options *DeleteFileOptions) SetHeaders(param map[string]string) *DeleteFil
 // DownloadFileOptions : The DownloadFile options.
 type DownloadFileOptions struct {
 	// Unique identifier of a case.
-	CaseNumber *string `json:"case_number" validate:"required"`
+	CaseNumber *string `json:"case_number" validate:"required,ne="`
 
 	// Unique identifier of a file.
-	FileID *string `json:"file_id" validate:"required"`
+	FileID *string `json:"file_id" validate:"required,ne="`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -1518,7 +1528,7 @@ func UnmarshalFileWithMetadata(m map[string]json.RawMessage, result interface{})
 // GetCaseOptions : The GetCase options.
 type GetCaseOptions struct {
 	// Unique identifier of a case.
-	CaseNumber *string `json:"case_number" validate:"required"`
+	CaseNumber *string `json:"case_number" validate:"required,ne="`
 
 	// Seleted fields of interest instead of the entire case information.
 	Fields []string `json:"fields,omitempty"`
@@ -1800,7 +1810,7 @@ func UnmarshalPaginationLink(m map[string]json.RawMessage, result interface{}) (
 // RemoveWatchlistOptions : The RemoveWatchlist options.
 type RemoveWatchlistOptions struct {
 	// Unique identifier of a case.
-	CaseNumber *string `json:"case_number" validate:"required"`
+	CaseNumber *string `json:"case_number" validate:"required,ne="`
 
 	// Array of user ID objects.
 	Watchlist []User `json:"watchlist,omitempty"`
@@ -1987,7 +1997,7 @@ func UnmarshalStatusPayload(m map[string]json.RawMessage, result interface{}) (e
 // UpdateCaseStatusOptions : The UpdateCaseStatus options.
 type UpdateCaseStatusOptions struct {
 	// Unique identifier of a case.
-	CaseNumber *string `json:"case_number" validate:"required"`
+	CaseNumber *string `json:"case_number" validate:"required,ne="`
 
 	// Payload to update status of the case.
 	StatusPayload StatusPayloadIntf `json:"StatusPayload" validate:"required"`
@@ -2025,7 +2035,7 @@ func (options *UpdateCaseStatusOptions) SetHeaders(param map[string]string) *Upd
 // UploadFileOptions : The UploadFile options.
 type UploadFileOptions struct {
 	// Unique identifier of a case.
-	CaseNumber *string `json:"case_number" validate:"required"`
+	CaseNumber *string `json:"case_number" validate:"required,ne="`
 
 	// file of supported types, 8MB in size limit.
 	File []FileWithMetadata `json:"file" validate:"required"`
