@@ -34,31 +34,31 @@ import (
 
 var _ = Describe(`EnterpriseManagementV1`, func() {
 	var testServer *httptest.Server
-    Describe(`Service constructor tests`, func() {
+	Describe(`Service constructor tests`, func() {
 		It(`Instantiate service client`, func() {
-			testService, testServiceErr := enterprisemanagementv1.NewEnterpriseManagementV1(&enterprisemanagementv1.EnterpriseManagementV1Options{
+			enterpriseManagementService, serviceErr := enterprisemanagementv1.NewEnterpriseManagementV1(&enterprisemanagementv1.EnterpriseManagementV1Options{
 				Authenticator: &core.NoAuthAuthenticator{},
 			})
-			Expect(testService).ToNot(BeNil())
-			Expect(testServiceErr).To(BeNil())
+			Expect(enterpriseManagementService).ToNot(BeNil())
+			Expect(serviceErr).To(BeNil())
 		})
 		It(`Instantiate service client with error: Invalid URL`, func() {
-			testService, testServiceErr := enterprisemanagementv1.NewEnterpriseManagementV1(&enterprisemanagementv1.EnterpriseManagementV1Options{
+			enterpriseManagementService, serviceErr := enterprisemanagementv1.NewEnterpriseManagementV1(&enterprisemanagementv1.EnterpriseManagementV1Options{
 				URL: "{BAD_URL_STRING",
 			})
-			Expect(testService).To(BeNil())
-			Expect(testServiceErr).ToNot(BeNil())
+			Expect(enterpriseManagementService).To(BeNil())
+			Expect(serviceErr).ToNot(BeNil())
 		})
 		It(`Instantiate service client with error: Invalid Auth`, func() {
-			testService, testServiceErr := enterprisemanagementv1.NewEnterpriseManagementV1(&enterprisemanagementv1.EnterpriseManagementV1Options{
+			enterpriseManagementService, serviceErr := enterprisemanagementv1.NewEnterpriseManagementV1(&enterprisemanagementv1.EnterpriseManagementV1Options{
 				URL: "https://enterprisemanagementv1/api",
 				Authenticator: &core.BasicAuthenticator{
 					Username: "",
 					Password: "",
 				},
 			})
-			Expect(testService).To(BeNil())
-			Expect(testServiceErr).ToNot(BeNil())
+			Expect(enterpriseManagementService).To(BeNil())
+			Expect(serviceErr).ToNot(BeNil())
 		})
 	})
 	Describe(`Service constructor tests using external config`, func() {
@@ -71,31 +71,31 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 
 			It(`Create service client using external config successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				testService, testServiceErr := enterprisemanagementv1.NewEnterpriseManagementV1UsingExternalConfig(&enterprisemanagementv1.EnterpriseManagementV1Options{
+				enterpriseManagementService, serviceErr := enterprisemanagementv1.NewEnterpriseManagementV1UsingExternalConfig(&enterprisemanagementv1.EnterpriseManagementV1Options{
 				})
-				Expect(testService).ToNot(BeNil())
-				Expect(testServiceErr).To(BeNil())
+				Expect(enterpriseManagementService).ToNot(BeNil())
+				Expect(serviceErr).To(BeNil())
 				ClearTestEnvironment(testEnvironment)
 			})
 			It(`Create service client using external config and set url from constructor successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				testService, testServiceErr := enterprisemanagementv1.NewEnterpriseManagementV1UsingExternalConfig(&enterprisemanagementv1.EnterpriseManagementV1Options{
+				enterpriseManagementService, serviceErr := enterprisemanagementv1.NewEnterpriseManagementV1UsingExternalConfig(&enterprisemanagementv1.EnterpriseManagementV1Options{
 					URL: "https://testService/api",
 				})
-				Expect(testService).ToNot(BeNil())
-				Expect(testServiceErr).To(BeNil())
-				Expect(testService.Service.GetServiceURL()).To(Equal("https://testService/api"))
+				Expect(enterpriseManagementService).ToNot(BeNil())
+				Expect(serviceErr).To(BeNil())
+				Expect(enterpriseManagementService.Service.GetServiceURL()).To(Equal("https://testService/api"))
 				ClearTestEnvironment(testEnvironment)
 			})
 			It(`Create service client using external config and set url programatically successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				testService, testServiceErr := enterprisemanagementv1.NewEnterpriseManagementV1UsingExternalConfig(&enterprisemanagementv1.EnterpriseManagementV1Options{
+				enterpriseManagementService, serviceErr := enterprisemanagementv1.NewEnterpriseManagementV1UsingExternalConfig(&enterprisemanagementv1.EnterpriseManagementV1Options{
 				})
-				err := testService.SetServiceURL("https://testService/api")
+				err := enterpriseManagementService.SetServiceURL("https://testService/api")
 				Expect(err).To(BeNil())
-				Expect(testService).ToNot(BeNil())
-				Expect(testServiceErr).To(BeNil())
-				Expect(testService.Service.GetServiceURL()).To(Equal("https://testService/api"))
+				Expect(enterpriseManagementService).ToNot(BeNil())
+				Expect(serviceErr).To(BeNil())
+				Expect(enterpriseManagementService.Service.GetServiceURL()).To(Equal("https://testService/api"))
 				ClearTestEnvironment(testEnvironment)
 			})
 		})
@@ -107,12 +107,12 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 			}
 
 			SetTestEnvironment(testEnvironment)
-			testService, testServiceErr := enterprisemanagementv1.NewEnterpriseManagementV1UsingExternalConfig(&enterprisemanagementv1.EnterpriseManagementV1Options{
+			enterpriseManagementService, serviceErr := enterprisemanagementv1.NewEnterpriseManagementV1UsingExternalConfig(&enterprisemanagementv1.EnterpriseManagementV1Options{
 			})
 
 			It(`Instantiate service client with error`, func() {
-				Expect(testService).To(BeNil())
-				Expect(testServiceErr).ToNot(BeNil())
+				Expect(enterpriseManagementService).To(BeNil())
+				Expect(serviceErr).ToNot(BeNil())
 				ClearTestEnvironment(testEnvironment)
 			})
 		})
@@ -123,13 +123,13 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 			}
 
 			SetTestEnvironment(testEnvironment)
-			testService, testServiceErr := enterprisemanagementv1.NewEnterpriseManagementV1UsingExternalConfig(&enterprisemanagementv1.EnterpriseManagementV1Options{
+			enterpriseManagementService, serviceErr := enterprisemanagementv1.NewEnterpriseManagementV1UsingExternalConfig(&enterprisemanagementv1.EnterpriseManagementV1Options{
 				URL: "{BAD_URL_STRING",
 			})
 
 			It(`Instantiate service client with error`, func() {
-				Expect(testService).To(BeNil())
-				Expect(testServiceErr).ToNot(BeNil())
+				Expect(enterpriseManagementService).To(BeNil())
+				Expect(serviceErr).ToNot(BeNil())
 				ClearTestEnvironment(testEnvironment)
 			})
 		})
@@ -142,7 +142,7 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.Path).To(Equal(createAccountGroupPath))
+					Expect(req.URL.EscapedPath()).To(Equal(createAccountGroupPath))
 					Expect(req.Method).To(Equal("POST"))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
@@ -150,12 +150,12 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 				}))
 			})
 			It(`Invoke CreateAccountGroup with error: Operation response processing error`, func() {
-				testService, testServiceErr := enterprisemanagementv1.NewEnterpriseManagementV1(&enterprisemanagementv1.EnterpriseManagementV1Options{
+				enterpriseManagementService, serviceErr := enterprisemanagementv1.NewEnterpriseManagementV1(&enterprisemanagementv1.EnterpriseManagementV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
-				Expect(testServiceErr).To(BeNil())
-				Expect(testService).ToNot(BeNil())
+				Expect(serviceErr).To(BeNil())
+				Expect(enterpriseManagementService).ToNot(BeNil())
 
 				// Construct an instance of the CreateAccountGroupOptions model
 				createAccountGroupOptionsModel := new(enterprisemanagementv1.CreateAccountGroupOptions)
@@ -164,7 +164,7 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 				createAccountGroupOptionsModel.PrimaryContactIamID = core.StringPtr("testString")
 				createAccountGroupOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
-				result, response, operationErr := testService.CreateAccountGroup(createAccountGroupOptionsModel)
+				result, response, operationErr := enterpriseManagementService.CreateAccountGroup(createAccountGroupOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
@@ -183,23 +183,23 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.Path).To(Equal(createAccountGroupPath))
+					Expect(req.URL.EscapedPath()).To(Equal(createAccountGroupPath))
 					Expect(req.Method).To(Equal("POST"))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, `{"account_group_id": "AccountGroupID"}`)
+					fmt.Fprintf(res, "%s", `{"account_group_id": "AccountGroupID"}`)
 				}))
 			})
 			It(`Invoke CreateAccountGroup successfully`, func() {
-				testService, testServiceErr := enterprisemanagementv1.NewEnterpriseManagementV1(&enterprisemanagementv1.EnterpriseManagementV1Options{
+				enterpriseManagementService, serviceErr := enterprisemanagementv1.NewEnterpriseManagementV1(&enterprisemanagementv1.EnterpriseManagementV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
-				Expect(testServiceErr).To(BeNil())
-				Expect(testService).ToNot(BeNil())
+				Expect(serviceErr).To(BeNil())
+				Expect(enterpriseManagementService).ToNot(BeNil())
 
 				// Invoke operation with nil options model (negative test)
-				result, response, operationErr := testService.CreateAccountGroup(nil)
+				result, response, operationErr := enterpriseManagementService.CreateAccountGroup(nil)
 				Expect(operationErr).NotTo(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
@@ -209,21 +209,21 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 				createAccountGroupOptionsModel.Parent = core.StringPtr("testString")
 				createAccountGroupOptionsModel.Name = core.StringPtr("testString")
 				createAccountGroupOptionsModel.PrimaryContactIamID = core.StringPtr("testString")
- 				createAccountGroupOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				createAccountGroupOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
-				result, response, operationErr = testService.CreateAccountGroup(createAccountGroupOptionsModel)
+				result, response, operationErr = enterpriseManagementService.CreateAccountGroup(createAccountGroupOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
 			})
 			It(`Invoke CreateAccountGroup with error: Operation validation and request error`, func() {
-				testService, testServiceErr := enterprisemanagementv1.NewEnterpriseManagementV1(&enterprisemanagementv1.EnterpriseManagementV1Options{
+				enterpriseManagementService, serviceErr := enterprisemanagementv1.NewEnterpriseManagementV1(&enterprisemanagementv1.EnterpriseManagementV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
-				Expect(testServiceErr).To(BeNil())
-				Expect(testService).ToNot(BeNil())
+				Expect(serviceErr).To(BeNil())
+				Expect(enterpriseManagementService).ToNot(BeNil())
 
 				// Construct an instance of the CreateAccountGroupOptions model
 				createAccountGroupOptionsModel := new(enterprisemanagementv1.CreateAccountGroupOptions)
@@ -232,9 +232,9 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 				createAccountGroupOptionsModel.PrimaryContactIamID = core.StringPtr("testString")
 				createAccountGroupOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
-				err := testService.SetServiceURL("")
+				err := enterpriseManagementService.SetServiceURL("")
 				Expect(err).To(BeNil())
-				result, response, operationErr := testService.CreateAccountGroup(createAccountGroupOptionsModel)
+				result, response, operationErr := enterpriseManagementService.CreateAccountGroup(createAccountGroupOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
 				Expect(response).To(BeNil())
@@ -242,7 +242,7 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 				// Construct a second instance of the CreateAccountGroupOptions model with no property values
 				createAccountGroupOptionsModelNew := new(enterprisemanagementv1.CreateAccountGroupOptions)
 				// Invoke operation with invalid model (negative test)
-				result, response, operationErr = testService.CreateAccountGroup(createAccountGroupOptionsModelNew)
+				result, response, operationErr = enterpriseManagementService.CreateAccountGroup(createAccountGroupOptionsModelNew)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
@@ -260,7 +260,7 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.Path).To(Equal(listAccountGroupsPath))
+					Expect(req.URL.EscapedPath()).To(Equal(listAccountGroupsPath))
 					Expect(req.Method).To(Equal("GET"))
 					Expect(req.URL.Query()["enterprise_id"]).To(Equal([]string{"testString"}))
 
@@ -276,12 +276,12 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 				}))
 			})
 			It(`Invoke ListAccountGroups with error: Operation response processing error`, func() {
-				testService, testServiceErr := enterprisemanagementv1.NewEnterpriseManagementV1(&enterprisemanagementv1.EnterpriseManagementV1Options{
+				enterpriseManagementService, serviceErr := enterprisemanagementv1.NewEnterpriseManagementV1(&enterprisemanagementv1.EnterpriseManagementV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
-				Expect(testServiceErr).To(BeNil())
-				Expect(testService).ToNot(BeNil())
+				Expect(serviceErr).To(BeNil())
+				Expect(enterpriseManagementService).ToNot(BeNil())
 
 				// Construct an instance of the ListAccountGroupsOptions model
 				listAccountGroupsOptionsModel := new(enterprisemanagementv1.ListAccountGroupsOptions)
@@ -291,7 +291,7 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 				listAccountGroupsOptionsModel.Limit = core.Int64Ptr(int64(38))
 				listAccountGroupsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
-				result, response, operationErr := testService.ListAccountGroups(listAccountGroupsOptionsModel)
+				result, response, operationErr := enterpriseManagementService.ListAccountGroups(listAccountGroupsOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
@@ -310,7 +310,7 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.Path).To(Equal(listAccountGroupsPath))
+					Expect(req.URL.EscapedPath()).To(Equal(listAccountGroupsPath))
 					Expect(req.Method).To(Equal("GET"))
 					Expect(req.URL.Query()["enterprise_id"]).To(Equal([]string{"testString"}))
 
@@ -322,19 +322,19 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, `{"rows_count": 9, "next_url": "NextURL", "resources": [{"url": "URL", "id": "ID", "crn": "Crn", "parent": "Parent", "enterprise_account_id": "EnterpriseAccountID", "enterprise_id": "EnterpriseID", "enterprise_path": "EnterprisePath", "name": "Name", "state": "State", "primary_contact_iam_id": "PrimaryContactIamID", "primary_contact_email": "PrimaryContactEmail", "created_at": "2019-01-01T12:00:00", "created_by": "CreatedBy", "updated_at": "2019-01-01T12:00:00", "updated_by": "UpdatedBy"}]}`)
+					fmt.Fprintf(res, "%s", `{"rows_count": 9, "next_url": "NextURL", "resources": [{"url": "URL", "id": "ID", "crn": "Crn", "parent": "Parent", "enterprise_account_id": "EnterpriseAccountID", "enterprise_id": "EnterpriseID", "enterprise_path": "EnterprisePath", "name": "Name", "state": "State", "primary_contact_iam_id": "PrimaryContactIamID", "primary_contact_email": "PrimaryContactEmail", "created_at": "2019-01-01T12:00:00", "created_by": "CreatedBy", "updated_at": "2019-01-01T12:00:00", "updated_by": "UpdatedBy"}]}`)
 				}))
 			})
 			It(`Invoke ListAccountGroups successfully`, func() {
-				testService, testServiceErr := enterprisemanagementv1.NewEnterpriseManagementV1(&enterprisemanagementv1.EnterpriseManagementV1Options{
+				enterpriseManagementService, serviceErr := enterprisemanagementv1.NewEnterpriseManagementV1(&enterprisemanagementv1.EnterpriseManagementV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
-				Expect(testServiceErr).To(BeNil())
-				Expect(testService).ToNot(BeNil())
+				Expect(serviceErr).To(BeNil())
+				Expect(enterpriseManagementService).ToNot(BeNil())
 
 				// Invoke operation with nil options model (negative test)
-				result, response, operationErr := testService.ListAccountGroups(nil)
+				result, response, operationErr := enterpriseManagementService.ListAccountGroups(nil)
 				Expect(operationErr).NotTo(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
@@ -345,21 +345,21 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 				listAccountGroupsOptionsModel.ParentAccountGroupID = core.StringPtr("testString")
 				listAccountGroupsOptionsModel.Parent = core.StringPtr("testString")
 				listAccountGroupsOptionsModel.Limit = core.Int64Ptr(int64(38))
- 				listAccountGroupsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				listAccountGroupsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
-				result, response, operationErr = testService.ListAccountGroups(listAccountGroupsOptionsModel)
+				result, response, operationErr = enterpriseManagementService.ListAccountGroups(listAccountGroupsOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
 			})
 			It(`Invoke ListAccountGroups with error: Operation request error`, func() {
-				testService, testServiceErr := enterprisemanagementv1.NewEnterpriseManagementV1(&enterprisemanagementv1.EnterpriseManagementV1Options{
+				enterpriseManagementService, serviceErr := enterprisemanagementv1.NewEnterpriseManagementV1(&enterprisemanagementv1.EnterpriseManagementV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
-				Expect(testServiceErr).To(BeNil())
-				Expect(testService).ToNot(BeNil())
+				Expect(serviceErr).To(BeNil())
+				Expect(enterpriseManagementService).ToNot(BeNil())
 
 				// Construct an instance of the ListAccountGroupsOptions model
 				listAccountGroupsOptionsModel := new(enterprisemanagementv1.ListAccountGroupsOptions)
@@ -369,9 +369,9 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 				listAccountGroupsOptionsModel.Limit = core.Int64Ptr(int64(38))
 				listAccountGroupsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
-				err := testService.SetServiceURL("")
+				err := enterpriseManagementService.SetServiceURL("")
 				Expect(err).To(BeNil())
-				result, response, operationErr := testService.ListAccountGroups(listAccountGroupsOptionsModel)
+				result, response, operationErr := enterpriseManagementService.ListAccountGroups(listAccountGroupsOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
 				Expect(response).To(BeNil())
@@ -390,7 +390,7 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.Path).To(Equal(getAccountGroupPath))
+					Expect(req.URL.EscapedPath()).To(Equal(getAccountGroupPath))
 					Expect(req.Method).To(Equal("GET"))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
@@ -398,19 +398,19 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 				}))
 			})
 			It(`Invoke GetAccountGroup with error: Operation response processing error`, func() {
-				testService, testServiceErr := enterprisemanagementv1.NewEnterpriseManagementV1(&enterprisemanagementv1.EnterpriseManagementV1Options{
+				enterpriseManagementService, serviceErr := enterprisemanagementv1.NewEnterpriseManagementV1(&enterprisemanagementv1.EnterpriseManagementV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
-				Expect(testServiceErr).To(BeNil())
-				Expect(testService).ToNot(BeNil())
+				Expect(serviceErr).To(BeNil())
+				Expect(enterpriseManagementService).ToNot(BeNil())
 
 				// Construct an instance of the GetAccountGroupOptions model
 				getAccountGroupOptionsModel := new(enterprisemanagementv1.GetAccountGroupOptions)
 				getAccountGroupOptionsModel.AccountGroupID = core.StringPtr("testString")
 				getAccountGroupOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
-				result, response, operationErr := testService.GetAccountGroup(getAccountGroupOptionsModel)
+				result, response, operationErr := enterpriseManagementService.GetAccountGroup(getAccountGroupOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
@@ -429,23 +429,23 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.Path).To(Equal(getAccountGroupPath))
+					Expect(req.URL.EscapedPath()).To(Equal(getAccountGroupPath))
 					Expect(req.Method).To(Equal("GET"))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, `{"url": "URL", "id": "ID", "crn": "Crn", "parent": "Parent", "enterprise_account_id": "EnterpriseAccountID", "enterprise_id": "EnterpriseID", "enterprise_path": "EnterprisePath", "name": "Name", "state": "State", "primary_contact_iam_id": "PrimaryContactIamID", "primary_contact_email": "PrimaryContactEmail", "created_at": "2019-01-01T12:00:00", "created_by": "CreatedBy", "updated_at": "2019-01-01T12:00:00", "updated_by": "UpdatedBy"}`)
+					fmt.Fprintf(res, "%s", `{"url": "URL", "id": "ID", "crn": "Crn", "parent": "Parent", "enterprise_account_id": "EnterpriseAccountID", "enterprise_id": "EnterpriseID", "enterprise_path": "EnterprisePath", "name": "Name", "state": "State", "primary_contact_iam_id": "PrimaryContactIamID", "primary_contact_email": "PrimaryContactEmail", "created_at": "2019-01-01T12:00:00", "created_by": "CreatedBy", "updated_at": "2019-01-01T12:00:00", "updated_by": "UpdatedBy"}`)
 				}))
 			})
 			It(`Invoke GetAccountGroup successfully`, func() {
-				testService, testServiceErr := enterprisemanagementv1.NewEnterpriseManagementV1(&enterprisemanagementv1.EnterpriseManagementV1Options{
+				enterpriseManagementService, serviceErr := enterprisemanagementv1.NewEnterpriseManagementV1(&enterprisemanagementv1.EnterpriseManagementV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
-				Expect(testServiceErr).To(BeNil())
-				Expect(testService).ToNot(BeNil())
+				Expect(serviceErr).To(BeNil())
+				Expect(enterpriseManagementService).ToNot(BeNil())
 
 				// Invoke operation with nil options model (negative test)
-				result, response, operationErr := testService.GetAccountGroup(nil)
+				result, response, operationErr := enterpriseManagementService.GetAccountGroup(nil)
 				Expect(operationErr).NotTo(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
@@ -453,30 +453,30 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 				// Construct an instance of the GetAccountGroupOptions model
 				getAccountGroupOptionsModel := new(enterprisemanagementv1.GetAccountGroupOptions)
 				getAccountGroupOptionsModel.AccountGroupID = core.StringPtr("testString")
- 				getAccountGroupOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				getAccountGroupOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
-				result, response, operationErr = testService.GetAccountGroup(getAccountGroupOptionsModel)
+				result, response, operationErr = enterpriseManagementService.GetAccountGroup(getAccountGroupOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
 			})
 			It(`Invoke GetAccountGroup with error: Operation validation and request error`, func() {
-				testService, testServiceErr := enterprisemanagementv1.NewEnterpriseManagementV1(&enterprisemanagementv1.EnterpriseManagementV1Options{
+				enterpriseManagementService, serviceErr := enterprisemanagementv1.NewEnterpriseManagementV1(&enterprisemanagementv1.EnterpriseManagementV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
-				Expect(testServiceErr).To(BeNil())
-				Expect(testService).ToNot(BeNil())
+				Expect(serviceErr).To(BeNil())
+				Expect(enterpriseManagementService).ToNot(BeNil())
 
 				// Construct an instance of the GetAccountGroupOptions model
 				getAccountGroupOptionsModel := new(enterprisemanagementv1.GetAccountGroupOptions)
 				getAccountGroupOptionsModel.AccountGroupID = core.StringPtr("testString")
 				getAccountGroupOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
-				err := testService.SetServiceURL("")
+				err := enterpriseManagementService.SetServiceURL("")
 				Expect(err).To(BeNil())
-				result, response, operationErr := testService.GetAccountGroup(getAccountGroupOptionsModel)
+				result, response, operationErr := enterpriseManagementService.GetAccountGroup(getAccountGroupOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
 				Expect(response).To(BeNil())
@@ -484,7 +484,7 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 				// Construct a second instance of the GetAccountGroupOptions model with no property values
 				getAccountGroupOptionsModelNew := new(enterprisemanagementv1.GetAccountGroupOptions)
 				// Invoke operation with invalid model (negative test)
-				result, response, operationErr = testService.GetAccountGroup(getAccountGroupOptionsModelNew)
+				result, response, operationErr = enterpriseManagementService.GetAccountGroup(getAccountGroupOptionsModelNew)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
@@ -503,21 +503,21 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.Path).To(Equal(updateAccountGroupPath))
+					Expect(req.URL.EscapedPath()).To(Equal(updateAccountGroupPath))
 					Expect(req.Method).To(Equal("PATCH"))
 					res.WriteHeader(204)
 				}))
 			})
 			It(`Invoke UpdateAccountGroup successfully`, func() {
-				testService, testServiceErr := enterprisemanagementv1.NewEnterpriseManagementV1(&enterprisemanagementv1.EnterpriseManagementV1Options{
+				enterpriseManagementService, serviceErr := enterprisemanagementv1.NewEnterpriseManagementV1(&enterprisemanagementv1.EnterpriseManagementV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
-				Expect(testServiceErr).To(BeNil())
-				Expect(testService).ToNot(BeNil())
+				Expect(serviceErr).To(BeNil())
+				Expect(enterpriseManagementService).ToNot(BeNil())
 
 				// Invoke operation with nil options model (negative test)
-				response, operationErr := testService.UpdateAccountGroup(nil)
+				response, operationErr := enterpriseManagementService.UpdateAccountGroup(nil)
 				Expect(operationErr).NotTo(BeNil())
 				Expect(response).To(BeNil())
 
@@ -526,20 +526,20 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 				updateAccountGroupOptionsModel.AccountGroupID = core.StringPtr("testString")
 				updateAccountGroupOptionsModel.Name = core.StringPtr("testString")
 				updateAccountGroupOptionsModel.PrimaryContactIamID = core.StringPtr("testString")
- 				updateAccountGroupOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				updateAccountGroupOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
-				response, operationErr = testService.UpdateAccountGroup(updateAccountGroupOptionsModel)
+				response, operationErr = enterpriseManagementService.UpdateAccountGroup(updateAccountGroupOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 			})
 			It(`Invoke UpdateAccountGroup with error: Operation validation and request error`, func() {
-				testService, testServiceErr := enterprisemanagementv1.NewEnterpriseManagementV1(&enterprisemanagementv1.EnterpriseManagementV1Options{
+				enterpriseManagementService, serviceErr := enterprisemanagementv1.NewEnterpriseManagementV1(&enterprisemanagementv1.EnterpriseManagementV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
-				Expect(testServiceErr).To(BeNil())
-				Expect(testService).ToNot(BeNil())
+				Expect(serviceErr).To(BeNil())
+				Expect(enterpriseManagementService).ToNot(BeNil())
 
 				// Construct an instance of the UpdateAccountGroupOptions model
 				updateAccountGroupOptionsModel := new(enterprisemanagementv1.UpdateAccountGroupOptions)
@@ -548,16 +548,16 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 				updateAccountGroupOptionsModel.PrimaryContactIamID = core.StringPtr("testString")
 				updateAccountGroupOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
-				err := testService.SetServiceURL("")
+				err := enterpriseManagementService.SetServiceURL("")
 				Expect(err).To(BeNil())
-				response, operationErr := testService.UpdateAccountGroup(updateAccountGroupOptionsModel)
+				response, operationErr := enterpriseManagementService.UpdateAccountGroup(updateAccountGroupOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
 				Expect(response).To(BeNil())
 				// Construct a second instance of the UpdateAccountGroupOptions model with no property values
 				updateAccountGroupOptionsModelNew := new(enterprisemanagementv1.UpdateAccountGroupOptions)
 				// Invoke operation with invalid model (negative test)
-				response, operationErr = testService.UpdateAccountGroup(updateAccountGroupOptionsModelNew)
+				response, operationErr = enterpriseManagementService.UpdateAccountGroup(updateAccountGroupOptionsModelNew)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).To(BeNil())
 			})
@@ -566,31 +566,31 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 			})
 		})
 	})
-    Describe(`Service constructor tests`, func() {
+	Describe(`Service constructor tests`, func() {
 		It(`Instantiate service client`, func() {
-			testService, testServiceErr := enterprisemanagementv1.NewEnterpriseManagementV1(&enterprisemanagementv1.EnterpriseManagementV1Options{
+			enterpriseManagementService, serviceErr := enterprisemanagementv1.NewEnterpriseManagementV1(&enterprisemanagementv1.EnterpriseManagementV1Options{
 				Authenticator: &core.NoAuthAuthenticator{},
 			})
-			Expect(testService).ToNot(BeNil())
-			Expect(testServiceErr).To(BeNil())
+			Expect(enterpriseManagementService).ToNot(BeNil())
+			Expect(serviceErr).To(BeNil())
 		})
 		It(`Instantiate service client with error: Invalid URL`, func() {
-			testService, testServiceErr := enterprisemanagementv1.NewEnterpriseManagementV1(&enterprisemanagementv1.EnterpriseManagementV1Options{
+			enterpriseManagementService, serviceErr := enterprisemanagementv1.NewEnterpriseManagementV1(&enterprisemanagementv1.EnterpriseManagementV1Options{
 				URL: "{BAD_URL_STRING",
 			})
-			Expect(testService).To(BeNil())
-			Expect(testServiceErr).ToNot(BeNil())
+			Expect(enterpriseManagementService).To(BeNil())
+			Expect(serviceErr).ToNot(BeNil())
 		})
 		It(`Instantiate service client with error: Invalid Auth`, func() {
-			testService, testServiceErr := enterprisemanagementv1.NewEnterpriseManagementV1(&enterprisemanagementv1.EnterpriseManagementV1Options{
+			enterpriseManagementService, serviceErr := enterprisemanagementv1.NewEnterpriseManagementV1(&enterprisemanagementv1.EnterpriseManagementV1Options{
 				URL: "https://enterprisemanagementv1/api",
 				Authenticator: &core.BasicAuthenticator{
 					Username: "",
 					Password: "",
 				},
 			})
-			Expect(testService).To(BeNil())
-			Expect(testServiceErr).ToNot(BeNil())
+			Expect(enterpriseManagementService).To(BeNil())
+			Expect(serviceErr).ToNot(BeNil())
 		})
 	})
 	Describe(`Service constructor tests using external config`, func() {
@@ -603,31 +603,31 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 
 			It(`Create service client using external config successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				testService, testServiceErr := enterprisemanagementv1.NewEnterpriseManagementV1UsingExternalConfig(&enterprisemanagementv1.EnterpriseManagementV1Options{
+				enterpriseManagementService, serviceErr := enterprisemanagementv1.NewEnterpriseManagementV1UsingExternalConfig(&enterprisemanagementv1.EnterpriseManagementV1Options{
 				})
-				Expect(testService).ToNot(BeNil())
-				Expect(testServiceErr).To(BeNil())
+				Expect(enterpriseManagementService).ToNot(BeNil())
+				Expect(serviceErr).To(BeNil())
 				ClearTestEnvironment(testEnvironment)
 			})
 			It(`Create service client using external config and set url from constructor successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				testService, testServiceErr := enterprisemanagementv1.NewEnterpriseManagementV1UsingExternalConfig(&enterprisemanagementv1.EnterpriseManagementV1Options{
+				enterpriseManagementService, serviceErr := enterprisemanagementv1.NewEnterpriseManagementV1UsingExternalConfig(&enterprisemanagementv1.EnterpriseManagementV1Options{
 					URL: "https://testService/api",
 				})
-				Expect(testService).ToNot(BeNil())
-				Expect(testServiceErr).To(BeNil())
-				Expect(testService.Service.GetServiceURL()).To(Equal("https://testService/api"))
+				Expect(enterpriseManagementService).ToNot(BeNil())
+				Expect(serviceErr).To(BeNil())
+				Expect(enterpriseManagementService.Service.GetServiceURL()).To(Equal("https://testService/api"))
 				ClearTestEnvironment(testEnvironment)
 			})
 			It(`Create service client using external config and set url programatically successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				testService, testServiceErr := enterprisemanagementv1.NewEnterpriseManagementV1UsingExternalConfig(&enterprisemanagementv1.EnterpriseManagementV1Options{
+				enterpriseManagementService, serviceErr := enterprisemanagementv1.NewEnterpriseManagementV1UsingExternalConfig(&enterprisemanagementv1.EnterpriseManagementV1Options{
 				})
-				err := testService.SetServiceURL("https://testService/api")
+				err := enterpriseManagementService.SetServiceURL("https://testService/api")
 				Expect(err).To(BeNil())
-				Expect(testService).ToNot(BeNil())
-				Expect(testServiceErr).To(BeNil())
-				Expect(testService.Service.GetServiceURL()).To(Equal("https://testService/api"))
+				Expect(enterpriseManagementService).ToNot(BeNil())
+				Expect(serviceErr).To(BeNil())
+				Expect(enterpriseManagementService.Service.GetServiceURL()).To(Equal("https://testService/api"))
 				ClearTestEnvironment(testEnvironment)
 			})
 		})
@@ -639,12 +639,12 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 			}
 
 			SetTestEnvironment(testEnvironment)
-			testService, testServiceErr := enterprisemanagementv1.NewEnterpriseManagementV1UsingExternalConfig(&enterprisemanagementv1.EnterpriseManagementV1Options{
+			enterpriseManagementService, serviceErr := enterprisemanagementv1.NewEnterpriseManagementV1UsingExternalConfig(&enterprisemanagementv1.EnterpriseManagementV1Options{
 			})
 
 			It(`Instantiate service client with error`, func() {
-				Expect(testService).To(BeNil())
-				Expect(testServiceErr).ToNot(BeNil())
+				Expect(enterpriseManagementService).To(BeNil())
+				Expect(serviceErr).ToNot(BeNil())
 				ClearTestEnvironment(testEnvironment)
 			})
 		})
@@ -655,13 +655,13 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 			}
 
 			SetTestEnvironment(testEnvironment)
-			testService, testServiceErr := enterprisemanagementv1.NewEnterpriseManagementV1UsingExternalConfig(&enterprisemanagementv1.EnterpriseManagementV1Options{
+			enterpriseManagementService, serviceErr := enterprisemanagementv1.NewEnterpriseManagementV1UsingExternalConfig(&enterprisemanagementv1.EnterpriseManagementV1Options{
 				URL: "{BAD_URL_STRING",
 			})
 
 			It(`Instantiate service client with error`, func() {
-				Expect(testService).To(BeNil())
-				Expect(testServiceErr).ToNot(BeNil())
+				Expect(enterpriseManagementService).To(BeNil())
+				Expect(serviceErr).ToNot(BeNil())
 				ClearTestEnvironment(testEnvironment)
 			})
 		})
@@ -675,21 +675,21 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.Path).To(Equal(importAccountToEnterprisePath))
+					Expect(req.URL.EscapedPath()).To(Equal(importAccountToEnterprisePath))
 					Expect(req.Method).To(Equal("PUT"))
 					res.WriteHeader(202)
 				}))
 			})
 			It(`Invoke ImportAccountToEnterprise successfully`, func() {
-				testService, testServiceErr := enterprisemanagementv1.NewEnterpriseManagementV1(&enterprisemanagementv1.EnterpriseManagementV1Options{
+				enterpriseManagementService, serviceErr := enterprisemanagementv1.NewEnterpriseManagementV1(&enterprisemanagementv1.EnterpriseManagementV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
-				Expect(testServiceErr).To(BeNil())
-				Expect(testService).ToNot(BeNil())
+				Expect(serviceErr).To(BeNil())
+				Expect(enterpriseManagementService).ToNot(BeNil())
 
 				// Invoke operation with nil options model (negative test)
-				response, operationErr := testService.ImportAccountToEnterprise(nil)
+				response, operationErr := enterpriseManagementService.ImportAccountToEnterprise(nil)
 				Expect(operationErr).NotTo(BeNil())
 				Expect(response).To(BeNil())
 
@@ -699,20 +699,20 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 				importAccountToEnterpriseOptionsModel.AccountID = core.StringPtr("testString")
 				importAccountToEnterpriseOptionsModel.Parent = core.StringPtr("testString")
 				importAccountToEnterpriseOptionsModel.BillingUnitID = core.StringPtr("testString")
- 				importAccountToEnterpriseOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				importAccountToEnterpriseOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
-				response, operationErr = testService.ImportAccountToEnterprise(importAccountToEnterpriseOptionsModel)
+				response, operationErr = enterpriseManagementService.ImportAccountToEnterprise(importAccountToEnterpriseOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 			})
 			It(`Invoke ImportAccountToEnterprise with error: Operation validation and request error`, func() {
-				testService, testServiceErr := enterprisemanagementv1.NewEnterpriseManagementV1(&enterprisemanagementv1.EnterpriseManagementV1Options{
+				enterpriseManagementService, serviceErr := enterprisemanagementv1.NewEnterpriseManagementV1(&enterprisemanagementv1.EnterpriseManagementV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
-				Expect(testServiceErr).To(BeNil())
-				Expect(testService).ToNot(BeNil())
+				Expect(serviceErr).To(BeNil())
+				Expect(enterpriseManagementService).ToNot(BeNil())
 
 				// Construct an instance of the ImportAccountToEnterpriseOptions model
 				importAccountToEnterpriseOptionsModel := new(enterprisemanagementv1.ImportAccountToEnterpriseOptions)
@@ -722,16 +722,16 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 				importAccountToEnterpriseOptionsModel.BillingUnitID = core.StringPtr("testString")
 				importAccountToEnterpriseOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
-				err := testService.SetServiceURL("")
+				err := enterpriseManagementService.SetServiceURL("")
 				Expect(err).To(BeNil())
-				response, operationErr := testService.ImportAccountToEnterprise(importAccountToEnterpriseOptionsModel)
+				response, operationErr := enterpriseManagementService.ImportAccountToEnterprise(importAccountToEnterpriseOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
 				Expect(response).To(BeNil())
 				// Construct a second instance of the ImportAccountToEnterpriseOptions model with no property values
 				importAccountToEnterpriseOptionsModelNew := new(enterprisemanagementv1.ImportAccountToEnterpriseOptions)
 				// Invoke operation with invalid model (negative test)
-				response, operationErr = testService.ImportAccountToEnterprise(importAccountToEnterpriseOptionsModelNew)
+				response, operationErr = enterpriseManagementService.ImportAccountToEnterprise(importAccountToEnterpriseOptionsModelNew)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).To(BeNil())
 			})
@@ -748,7 +748,7 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.Path).To(Equal(createAccountPath))
+					Expect(req.URL.EscapedPath()).To(Equal(createAccountPath))
 					Expect(req.Method).To(Equal("POST"))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
@@ -756,12 +756,12 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 				}))
 			})
 			It(`Invoke CreateAccount with error: Operation response processing error`, func() {
-				testService, testServiceErr := enterprisemanagementv1.NewEnterpriseManagementV1(&enterprisemanagementv1.EnterpriseManagementV1Options{
+				enterpriseManagementService, serviceErr := enterprisemanagementv1.NewEnterpriseManagementV1(&enterprisemanagementv1.EnterpriseManagementV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
-				Expect(testServiceErr).To(BeNil())
-				Expect(testService).ToNot(BeNil())
+				Expect(serviceErr).To(BeNil())
+				Expect(enterpriseManagementService).ToNot(BeNil())
 
 				// Construct an instance of the CreateAccountOptions model
 				createAccountOptionsModel := new(enterprisemanagementv1.CreateAccountOptions)
@@ -770,7 +770,7 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 				createAccountOptionsModel.OwnerIamID = core.StringPtr("testString")
 				createAccountOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
-				result, response, operationErr := testService.CreateAccount(createAccountOptionsModel)
+				result, response, operationErr := enterpriseManagementService.CreateAccount(createAccountOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
@@ -789,23 +789,23 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.Path).To(Equal(createAccountPath))
+					Expect(req.URL.EscapedPath()).To(Equal(createAccountPath))
 					Expect(req.Method).To(Equal("POST"))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, `{"account_id": "AccountID"}`)
+					fmt.Fprintf(res, "%s", `{"account_id": "AccountID"}`)
 				}))
 			})
 			It(`Invoke CreateAccount successfully`, func() {
-				testService, testServiceErr := enterprisemanagementv1.NewEnterpriseManagementV1(&enterprisemanagementv1.EnterpriseManagementV1Options{
+				enterpriseManagementService, serviceErr := enterprisemanagementv1.NewEnterpriseManagementV1(&enterprisemanagementv1.EnterpriseManagementV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
-				Expect(testServiceErr).To(BeNil())
-				Expect(testService).ToNot(BeNil())
+				Expect(serviceErr).To(BeNil())
+				Expect(enterpriseManagementService).ToNot(BeNil())
 
 				// Invoke operation with nil options model (negative test)
-				result, response, operationErr := testService.CreateAccount(nil)
+				result, response, operationErr := enterpriseManagementService.CreateAccount(nil)
 				Expect(operationErr).NotTo(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
@@ -815,21 +815,21 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 				createAccountOptionsModel.Parent = core.StringPtr("testString")
 				createAccountOptionsModel.Name = core.StringPtr("testString")
 				createAccountOptionsModel.OwnerIamID = core.StringPtr("testString")
- 				createAccountOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				createAccountOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
-				result, response, operationErr = testService.CreateAccount(createAccountOptionsModel)
+				result, response, operationErr = enterpriseManagementService.CreateAccount(createAccountOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
 			})
 			It(`Invoke CreateAccount with error: Operation validation and request error`, func() {
-				testService, testServiceErr := enterprisemanagementv1.NewEnterpriseManagementV1(&enterprisemanagementv1.EnterpriseManagementV1Options{
+				enterpriseManagementService, serviceErr := enterprisemanagementv1.NewEnterpriseManagementV1(&enterprisemanagementv1.EnterpriseManagementV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
-				Expect(testServiceErr).To(BeNil())
-				Expect(testService).ToNot(BeNil())
+				Expect(serviceErr).To(BeNil())
+				Expect(enterpriseManagementService).ToNot(BeNil())
 
 				// Construct an instance of the CreateAccountOptions model
 				createAccountOptionsModel := new(enterprisemanagementv1.CreateAccountOptions)
@@ -838,9 +838,9 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 				createAccountOptionsModel.OwnerIamID = core.StringPtr("testString")
 				createAccountOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
-				err := testService.SetServiceURL("")
+				err := enterpriseManagementService.SetServiceURL("")
 				Expect(err).To(BeNil())
-				result, response, operationErr := testService.CreateAccount(createAccountOptionsModel)
+				result, response, operationErr := enterpriseManagementService.CreateAccount(createAccountOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
 				Expect(response).To(BeNil())
@@ -848,7 +848,7 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 				// Construct a second instance of the CreateAccountOptions model with no property values
 				createAccountOptionsModelNew := new(enterprisemanagementv1.CreateAccountOptions)
 				// Invoke operation with invalid model (negative test)
-				result, response, operationErr = testService.CreateAccount(createAccountOptionsModelNew)
+				result, response, operationErr = enterpriseManagementService.CreateAccount(createAccountOptionsModelNew)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
@@ -866,7 +866,7 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.Path).To(Equal(listAccountsPath))
+					Expect(req.URL.EscapedPath()).To(Equal(listAccountsPath))
 					Expect(req.Method).To(Equal("GET"))
 					Expect(req.URL.Query()["enterprise_id"]).To(Equal([]string{"testString"}))
 
@@ -882,12 +882,12 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 				}))
 			})
 			It(`Invoke ListAccounts with error: Operation response processing error`, func() {
-				testService, testServiceErr := enterprisemanagementv1.NewEnterpriseManagementV1(&enterprisemanagementv1.EnterpriseManagementV1Options{
+				enterpriseManagementService, serviceErr := enterprisemanagementv1.NewEnterpriseManagementV1(&enterprisemanagementv1.EnterpriseManagementV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
-				Expect(testServiceErr).To(BeNil())
-				Expect(testService).ToNot(BeNil())
+				Expect(serviceErr).To(BeNil())
+				Expect(enterpriseManagementService).ToNot(BeNil())
 
 				// Construct an instance of the ListAccountsOptions model
 				listAccountsOptionsModel := new(enterprisemanagementv1.ListAccountsOptions)
@@ -897,7 +897,7 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 				listAccountsOptionsModel.Limit = core.Int64Ptr(int64(38))
 				listAccountsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
-				result, response, operationErr := testService.ListAccounts(listAccountsOptionsModel)
+				result, response, operationErr := enterpriseManagementService.ListAccounts(listAccountsOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
@@ -916,7 +916,7 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.Path).To(Equal(listAccountsPath))
+					Expect(req.URL.EscapedPath()).To(Equal(listAccountsPath))
 					Expect(req.Method).To(Equal("GET"))
 					Expect(req.URL.Query()["enterprise_id"]).To(Equal([]string{"testString"}))
 
@@ -928,19 +928,19 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, `{"rows_count": 9, "next_url": "NextURL", "resources": [{"url": "URL", "id": "ID", "crn": "Crn", "parent": "Parent", "enterprise_account_id": "EnterpriseAccountID", "enterprise_id": "EnterpriseID", "enterprise_path": "EnterprisePath", "name": "Name", "state": "State", "owner_iam_id": "OwnerIamID", "paid": true, "owner_email": "OwnerEmail", "is_enterprise_account": false, "created_at": "2019-01-01T12:00:00", "created_by": "CreatedBy", "updated_at": "2019-01-01T12:00:00", "updated_by": "UpdatedBy"}]}`)
+					fmt.Fprintf(res, "%s", `{"rows_count": 9, "next_url": "NextURL", "resources": [{"url": "URL", "id": "ID", "crn": "Crn", "parent": "Parent", "enterprise_account_id": "EnterpriseAccountID", "enterprise_id": "EnterpriseID", "enterprise_path": "EnterprisePath", "name": "Name", "state": "State", "owner_iam_id": "OwnerIamID", "paid": true, "owner_email": "OwnerEmail", "is_enterprise_account": false, "created_at": "2019-01-01T12:00:00", "created_by": "CreatedBy", "updated_at": "2019-01-01T12:00:00", "updated_by": "UpdatedBy"}]}`)
 				}))
 			})
 			It(`Invoke ListAccounts successfully`, func() {
-				testService, testServiceErr := enterprisemanagementv1.NewEnterpriseManagementV1(&enterprisemanagementv1.EnterpriseManagementV1Options{
+				enterpriseManagementService, serviceErr := enterprisemanagementv1.NewEnterpriseManagementV1(&enterprisemanagementv1.EnterpriseManagementV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
-				Expect(testServiceErr).To(BeNil())
-				Expect(testService).ToNot(BeNil())
+				Expect(serviceErr).To(BeNil())
+				Expect(enterpriseManagementService).ToNot(BeNil())
 
 				// Invoke operation with nil options model (negative test)
-				result, response, operationErr := testService.ListAccounts(nil)
+				result, response, operationErr := enterpriseManagementService.ListAccounts(nil)
 				Expect(operationErr).NotTo(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
@@ -951,21 +951,21 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 				listAccountsOptionsModel.AccountGroupID = core.StringPtr("testString")
 				listAccountsOptionsModel.Parent = core.StringPtr("testString")
 				listAccountsOptionsModel.Limit = core.Int64Ptr(int64(38))
- 				listAccountsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				listAccountsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
-				result, response, operationErr = testService.ListAccounts(listAccountsOptionsModel)
+				result, response, operationErr = enterpriseManagementService.ListAccounts(listAccountsOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
 			})
 			It(`Invoke ListAccounts with error: Operation request error`, func() {
-				testService, testServiceErr := enterprisemanagementv1.NewEnterpriseManagementV1(&enterprisemanagementv1.EnterpriseManagementV1Options{
+				enterpriseManagementService, serviceErr := enterprisemanagementv1.NewEnterpriseManagementV1(&enterprisemanagementv1.EnterpriseManagementV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
-				Expect(testServiceErr).To(BeNil())
-				Expect(testService).ToNot(BeNil())
+				Expect(serviceErr).To(BeNil())
+				Expect(enterpriseManagementService).ToNot(BeNil())
 
 				// Construct an instance of the ListAccountsOptions model
 				listAccountsOptionsModel := new(enterprisemanagementv1.ListAccountsOptions)
@@ -975,9 +975,9 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 				listAccountsOptionsModel.Limit = core.Int64Ptr(int64(38))
 				listAccountsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
-				err := testService.SetServiceURL("")
+				err := enterpriseManagementService.SetServiceURL("")
 				Expect(err).To(BeNil())
-				result, response, operationErr := testService.ListAccounts(listAccountsOptionsModel)
+				result, response, operationErr := enterpriseManagementService.ListAccounts(listAccountsOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
 				Expect(response).To(BeNil())
@@ -996,7 +996,7 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.Path).To(Equal(getAccountPath))
+					Expect(req.URL.EscapedPath()).To(Equal(getAccountPath))
 					Expect(req.Method).To(Equal("GET"))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
@@ -1004,19 +1004,19 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 				}))
 			})
 			It(`Invoke GetAccount with error: Operation response processing error`, func() {
-				testService, testServiceErr := enterprisemanagementv1.NewEnterpriseManagementV1(&enterprisemanagementv1.EnterpriseManagementV1Options{
+				enterpriseManagementService, serviceErr := enterprisemanagementv1.NewEnterpriseManagementV1(&enterprisemanagementv1.EnterpriseManagementV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
-				Expect(testServiceErr).To(BeNil())
-				Expect(testService).ToNot(BeNil())
+				Expect(serviceErr).To(BeNil())
+				Expect(enterpriseManagementService).ToNot(BeNil())
 
 				// Construct an instance of the GetAccountOptions model
 				getAccountOptionsModel := new(enterprisemanagementv1.GetAccountOptions)
 				getAccountOptionsModel.AccountID = core.StringPtr("testString")
 				getAccountOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
-				result, response, operationErr := testService.GetAccount(getAccountOptionsModel)
+				result, response, operationErr := enterpriseManagementService.GetAccount(getAccountOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
@@ -1035,23 +1035,23 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.Path).To(Equal(getAccountPath))
+					Expect(req.URL.EscapedPath()).To(Equal(getAccountPath))
 					Expect(req.Method).To(Equal("GET"))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, `{"url": "URL", "id": "ID", "crn": "Crn", "parent": "Parent", "enterprise_account_id": "EnterpriseAccountID", "enterprise_id": "EnterpriseID", "enterprise_path": "EnterprisePath", "name": "Name", "state": "State", "owner_iam_id": "OwnerIamID", "paid": true, "owner_email": "OwnerEmail", "is_enterprise_account": false, "created_at": "2019-01-01T12:00:00", "created_by": "CreatedBy", "updated_at": "2019-01-01T12:00:00", "updated_by": "UpdatedBy"}`)
+					fmt.Fprintf(res, "%s", `{"url": "URL", "id": "ID", "crn": "Crn", "parent": "Parent", "enterprise_account_id": "EnterpriseAccountID", "enterprise_id": "EnterpriseID", "enterprise_path": "EnterprisePath", "name": "Name", "state": "State", "owner_iam_id": "OwnerIamID", "paid": true, "owner_email": "OwnerEmail", "is_enterprise_account": false, "created_at": "2019-01-01T12:00:00", "created_by": "CreatedBy", "updated_at": "2019-01-01T12:00:00", "updated_by": "UpdatedBy"}`)
 				}))
 			})
 			It(`Invoke GetAccount successfully`, func() {
-				testService, testServiceErr := enterprisemanagementv1.NewEnterpriseManagementV1(&enterprisemanagementv1.EnterpriseManagementV1Options{
+				enterpriseManagementService, serviceErr := enterprisemanagementv1.NewEnterpriseManagementV1(&enterprisemanagementv1.EnterpriseManagementV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
-				Expect(testServiceErr).To(BeNil())
-				Expect(testService).ToNot(BeNil())
+				Expect(serviceErr).To(BeNil())
+				Expect(enterpriseManagementService).ToNot(BeNil())
 
 				// Invoke operation with nil options model (negative test)
-				result, response, operationErr := testService.GetAccount(nil)
+				result, response, operationErr := enterpriseManagementService.GetAccount(nil)
 				Expect(operationErr).NotTo(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
@@ -1059,30 +1059,30 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 				// Construct an instance of the GetAccountOptions model
 				getAccountOptionsModel := new(enterprisemanagementv1.GetAccountOptions)
 				getAccountOptionsModel.AccountID = core.StringPtr("testString")
- 				getAccountOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				getAccountOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
-				result, response, operationErr = testService.GetAccount(getAccountOptionsModel)
+				result, response, operationErr = enterpriseManagementService.GetAccount(getAccountOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
 			})
 			It(`Invoke GetAccount with error: Operation validation and request error`, func() {
-				testService, testServiceErr := enterprisemanagementv1.NewEnterpriseManagementV1(&enterprisemanagementv1.EnterpriseManagementV1Options{
+				enterpriseManagementService, serviceErr := enterprisemanagementv1.NewEnterpriseManagementV1(&enterprisemanagementv1.EnterpriseManagementV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
-				Expect(testServiceErr).To(BeNil())
-				Expect(testService).ToNot(BeNil())
+				Expect(serviceErr).To(BeNil())
+				Expect(enterpriseManagementService).ToNot(BeNil())
 
 				// Construct an instance of the GetAccountOptions model
 				getAccountOptionsModel := new(enterprisemanagementv1.GetAccountOptions)
 				getAccountOptionsModel.AccountID = core.StringPtr("testString")
 				getAccountOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
-				err := testService.SetServiceURL("")
+				err := enterpriseManagementService.SetServiceURL("")
 				Expect(err).To(BeNil())
-				result, response, operationErr := testService.GetAccount(getAccountOptionsModel)
+				result, response, operationErr := enterpriseManagementService.GetAccount(getAccountOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
 				Expect(response).To(BeNil())
@@ -1090,7 +1090,7 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 				// Construct a second instance of the GetAccountOptions model with no property values
 				getAccountOptionsModelNew := new(enterprisemanagementv1.GetAccountOptions)
 				// Invoke operation with invalid model (negative test)
-				result, response, operationErr = testService.GetAccount(getAccountOptionsModelNew)
+				result, response, operationErr = enterpriseManagementService.GetAccount(getAccountOptionsModelNew)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
@@ -1109,21 +1109,21 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.Path).To(Equal(updateAccountPath))
+					Expect(req.URL.EscapedPath()).To(Equal(updateAccountPath))
 					Expect(req.Method).To(Equal("PATCH"))
 					res.WriteHeader(204)
 				}))
 			})
 			It(`Invoke UpdateAccount successfully`, func() {
-				testService, testServiceErr := enterprisemanagementv1.NewEnterpriseManagementV1(&enterprisemanagementv1.EnterpriseManagementV1Options{
+				enterpriseManagementService, serviceErr := enterprisemanagementv1.NewEnterpriseManagementV1(&enterprisemanagementv1.EnterpriseManagementV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
-				Expect(testServiceErr).To(BeNil())
-				Expect(testService).ToNot(BeNil())
+				Expect(serviceErr).To(BeNil())
+				Expect(enterpriseManagementService).ToNot(BeNil())
 
 				// Invoke operation with nil options model (negative test)
-				response, operationErr := testService.UpdateAccount(nil)
+				response, operationErr := enterpriseManagementService.UpdateAccount(nil)
 				Expect(operationErr).NotTo(BeNil())
 				Expect(response).To(BeNil())
 
@@ -1131,20 +1131,20 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 				updateAccountOptionsModel := new(enterprisemanagementv1.UpdateAccountOptions)
 				updateAccountOptionsModel.AccountID = core.StringPtr("testString")
 				updateAccountOptionsModel.Parent = core.StringPtr("testString")
- 				updateAccountOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				updateAccountOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
-				response, operationErr = testService.UpdateAccount(updateAccountOptionsModel)
+				response, operationErr = enterpriseManagementService.UpdateAccount(updateAccountOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 			})
 			It(`Invoke UpdateAccount with error: Operation validation and request error`, func() {
-				testService, testServiceErr := enterprisemanagementv1.NewEnterpriseManagementV1(&enterprisemanagementv1.EnterpriseManagementV1Options{
+				enterpriseManagementService, serviceErr := enterprisemanagementv1.NewEnterpriseManagementV1(&enterprisemanagementv1.EnterpriseManagementV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
-				Expect(testServiceErr).To(BeNil())
-				Expect(testService).ToNot(BeNil())
+				Expect(serviceErr).To(BeNil())
+				Expect(enterpriseManagementService).ToNot(BeNil())
 
 				// Construct an instance of the UpdateAccountOptions model
 				updateAccountOptionsModel := new(enterprisemanagementv1.UpdateAccountOptions)
@@ -1152,16 +1152,16 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 				updateAccountOptionsModel.Parent = core.StringPtr("testString")
 				updateAccountOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
-				err := testService.SetServiceURL("")
+				err := enterpriseManagementService.SetServiceURL("")
 				Expect(err).To(BeNil())
-				response, operationErr := testService.UpdateAccount(updateAccountOptionsModel)
+				response, operationErr := enterpriseManagementService.UpdateAccount(updateAccountOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
 				Expect(response).To(BeNil())
 				// Construct a second instance of the UpdateAccountOptions model with no property values
 				updateAccountOptionsModelNew := new(enterprisemanagementv1.UpdateAccountOptions)
 				// Invoke operation with invalid model (negative test)
-				response, operationErr = testService.UpdateAccount(updateAccountOptionsModelNew)
+				response, operationErr = enterpriseManagementService.UpdateAccount(updateAccountOptionsModelNew)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).To(BeNil())
 			})
@@ -1170,31 +1170,31 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 			})
 		})
 	})
-    Describe(`Service constructor tests`, func() {
+	Describe(`Service constructor tests`, func() {
 		It(`Instantiate service client`, func() {
-			testService, testServiceErr := enterprisemanagementv1.NewEnterpriseManagementV1(&enterprisemanagementv1.EnterpriseManagementV1Options{
+			enterpriseManagementService, serviceErr := enterprisemanagementv1.NewEnterpriseManagementV1(&enterprisemanagementv1.EnterpriseManagementV1Options{
 				Authenticator: &core.NoAuthAuthenticator{},
 			})
-			Expect(testService).ToNot(BeNil())
-			Expect(testServiceErr).To(BeNil())
+			Expect(enterpriseManagementService).ToNot(BeNil())
+			Expect(serviceErr).To(BeNil())
 		})
 		It(`Instantiate service client with error: Invalid URL`, func() {
-			testService, testServiceErr := enterprisemanagementv1.NewEnterpriseManagementV1(&enterprisemanagementv1.EnterpriseManagementV1Options{
+			enterpriseManagementService, serviceErr := enterprisemanagementv1.NewEnterpriseManagementV1(&enterprisemanagementv1.EnterpriseManagementV1Options{
 				URL: "{BAD_URL_STRING",
 			})
-			Expect(testService).To(BeNil())
-			Expect(testServiceErr).ToNot(BeNil())
+			Expect(enterpriseManagementService).To(BeNil())
+			Expect(serviceErr).ToNot(BeNil())
 		})
 		It(`Instantiate service client with error: Invalid Auth`, func() {
-			testService, testServiceErr := enterprisemanagementv1.NewEnterpriseManagementV1(&enterprisemanagementv1.EnterpriseManagementV1Options{
+			enterpriseManagementService, serviceErr := enterprisemanagementv1.NewEnterpriseManagementV1(&enterprisemanagementv1.EnterpriseManagementV1Options{
 				URL: "https://enterprisemanagementv1/api",
 				Authenticator: &core.BasicAuthenticator{
 					Username: "",
 					Password: "",
 				},
 			})
-			Expect(testService).To(BeNil())
-			Expect(testServiceErr).ToNot(BeNil())
+			Expect(enterpriseManagementService).To(BeNil())
+			Expect(serviceErr).ToNot(BeNil())
 		})
 	})
 	Describe(`Service constructor tests using external config`, func() {
@@ -1207,31 +1207,31 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 
 			It(`Create service client using external config successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				testService, testServiceErr := enterprisemanagementv1.NewEnterpriseManagementV1UsingExternalConfig(&enterprisemanagementv1.EnterpriseManagementV1Options{
+				enterpriseManagementService, serviceErr := enterprisemanagementv1.NewEnterpriseManagementV1UsingExternalConfig(&enterprisemanagementv1.EnterpriseManagementV1Options{
 				})
-				Expect(testService).ToNot(BeNil())
-				Expect(testServiceErr).To(BeNil())
+				Expect(enterpriseManagementService).ToNot(BeNil())
+				Expect(serviceErr).To(BeNil())
 				ClearTestEnvironment(testEnvironment)
 			})
 			It(`Create service client using external config and set url from constructor successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				testService, testServiceErr := enterprisemanagementv1.NewEnterpriseManagementV1UsingExternalConfig(&enterprisemanagementv1.EnterpriseManagementV1Options{
+				enterpriseManagementService, serviceErr := enterprisemanagementv1.NewEnterpriseManagementV1UsingExternalConfig(&enterprisemanagementv1.EnterpriseManagementV1Options{
 					URL: "https://testService/api",
 				})
-				Expect(testService).ToNot(BeNil())
-				Expect(testServiceErr).To(BeNil())
-				Expect(testService.Service.GetServiceURL()).To(Equal("https://testService/api"))
+				Expect(enterpriseManagementService).ToNot(BeNil())
+				Expect(serviceErr).To(BeNil())
+				Expect(enterpriseManagementService.Service.GetServiceURL()).To(Equal("https://testService/api"))
 				ClearTestEnvironment(testEnvironment)
 			})
 			It(`Create service client using external config and set url programatically successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				testService, testServiceErr := enterprisemanagementv1.NewEnterpriseManagementV1UsingExternalConfig(&enterprisemanagementv1.EnterpriseManagementV1Options{
+				enterpriseManagementService, serviceErr := enterprisemanagementv1.NewEnterpriseManagementV1UsingExternalConfig(&enterprisemanagementv1.EnterpriseManagementV1Options{
 				})
-				err := testService.SetServiceURL("https://testService/api")
+				err := enterpriseManagementService.SetServiceURL("https://testService/api")
 				Expect(err).To(BeNil())
-				Expect(testService).ToNot(BeNil())
-				Expect(testServiceErr).To(BeNil())
-				Expect(testService.Service.GetServiceURL()).To(Equal("https://testService/api"))
+				Expect(enterpriseManagementService).ToNot(BeNil())
+				Expect(serviceErr).To(BeNil())
+				Expect(enterpriseManagementService.Service.GetServiceURL()).To(Equal("https://testService/api"))
 				ClearTestEnvironment(testEnvironment)
 			})
 		})
@@ -1243,12 +1243,12 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 			}
 
 			SetTestEnvironment(testEnvironment)
-			testService, testServiceErr := enterprisemanagementv1.NewEnterpriseManagementV1UsingExternalConfig(&enterprisemanagementv1.EnterpriseManagementV1Options{
+			enterpriseManagementService, serviceErr := enterprisemanagementv1.NewEnterpriseManagementV1UsingExternalConfig(&enterprisemanagementv1.EnterpriseManagementV1Options{
 			})
 
 			It(`Instantiate service client with error`, func() {
-				Expect(testService).To(BeNil())
-				Expect(testServiceErr).ToNot(BeNil())
+				Expect(enterpriseManagementService).To(BeNil())
+				Expect(serviceErr).ToNot(BeNil())
 				ClearTestEnvironment(testEnvironment)
 			})
 		})
@@ -1259,13 +1259,13 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 			}
 
 			SetTestEnvironment(testEnvironment)
-			testService, testServiceErr := enterprisemanagementv1.NewEnterpriseManagementV1UsingExternalConfig(&enterprisemanagementv1.EnterpriseManagementV1Options{
+			enterpriseManagementService, serviceErr := enterprisemanagementv1.NewEnterpriseManagementV1UsingExternalConfig(&enterprisemanagementv1.EnterpriseManagementV1Options{
 				URL: "{BAD_URL_STRING",
 			})
 
 			It(`Instantiate service client with error`, func() {
-				Expect(testService).To(BeNil())
-				Expect(testServiceErr).ToNot(BeNil())
+				Expect(enterpriseManagementService).To(BeNil())
+				Expect(serviceErr).ToNot(BeNil())
 				ClearTestEnvironment(testEnvironment)
 			})
 		})
@@ -1278,7 +1278,7 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.Path).To(Equal(createEnterprisePath))
+					Expect(req.URL.EscapedPath()).To(Equal(createEnterprisePath))
 					Expect(req.Method).To(Equal("POST"))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(202)
@@ -1286,12 +1286,12 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 				}))
 			})
 			It(`Invoke CreateEnterprise with error: Operation response processing error`, func() {
-				testService, testServiceErr := enterprisemanagementv1.NewEnterpriseManagementV1(&enterprisemanagementv1.EnterpriseManagementV1Options{
+				enterpriseManagementService, serviceErr := enterprisemanagementv1.NewEnterpriseManagementV1(&enterprisemanagementv1.EnterpriseManagementV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
-				Expect(testServiceErr).To(BeNil())
-				Expect(testService).ToNot(BeNil())
+				Expect(serviceErr).To(BeNil())
+				Expect(enterpriseManagementService).ToNot(BeNil())
 
 				// Construct an instance of the CreateEnterpriseOptions model
 				createEnterpriseOptionsModel := new(enterprisemanagementv1.CreateEnterpriseOptions)
@@ -1301,7 +1301,7 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 				createEnterpriseOptionsModel.Domain = core.StringPtr("testString")
 				createEnterpriseOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
-				result, response, operationErr := testService.CreateEnterprise(createEnterpriseOptionsModel)
+				result, response, operationErr := enterpriseManagementService.CreateEnterprise(createEnterpriseOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
@@ -1320,23 +1320,23 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.Path).To(Equal(createEnterprisePath))
+					Expect(req.URL.EscapedPath()).To(Equal(createEnterprisePath))
 					Expect(req.Method).To(Equal("POST"))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(202)
-					fmt.Fprintf(res, `{"enterprise_id": "EnterpriseID", "enterprise_account_id": "EnterpriseAccountID"}`)
+					fmt.Fprintf(res, "%s", `{"enterprise_id": "EnterpriseID", "enterprise_account_id": "EnterpriseAccountID"}`)
 				}))
 			})
 			It(`Invoke CreateEnterprise successfully`, func() {
-				testService, testServiceErr := enterprisemanagementv1.NewEnterpriseManagementV1(&enterprisemanagementv1.EnterpriseManagementV1Options{
+				enterpriseManagementService, serviceErr := enterprisemanagementv1.NewEnterpriseManagementV1(&enterprisemanagementv1.EnterpriseManagementV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
-				Expect(testServiceErr).To(BeNil())
-				Expect(testService).ToNot(BeNil())
+				Expect(serviceErr).To(BeNil())
+				Expect(enterpriseManagementService).ToNot(BeNil())
 
 				// Invoke operation with nil options model (negative test)
-				result, response, operationErr := testService.CreateEnterprise(nil)
+				result, response, operationErr := enterpriseManagementService.CreateEnterprise(nil)
 				Expect(operationErr).NotTo(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
@@ -1347,21 +1347,21 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 				createEnterpriseOptionsModel.Name = core.StringPtr("testString")
 				createEnterpriseOptionsModel.PrimaryContactIamID = core.StringPtr("testString")
 				createEnterpriseOptionsModel.Domain = core.StringPtr("testString")
- 				createEnterpriseOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				createEnterpriseOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
-				result, response, operationErr = testService.CreateEnterprise(createEnterpriseOptionsModel)
+				result, response, operationErr = enterpriseManagementService.CreateEnterprise(createEnterpriseOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
 			})
 			It(`Invoke CreateEnterprise with error: Operation validation and request error`, func() {
-				testService, testServiceErr := enterprisemanagementv1.NewEnterpriseManagementV1(&enterprisemanagementv1.EnterpriseManagementV1Options{
+				enterpriseManagementService, serviceErr := enterprisemanagementv1.NewEnterpriseManagementV1(&enterprisemanagementv1.EnterpriseManagementV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
-				Expect(testServiceErr).To(BeNil())
-				Expect(testService).ToNot(BeNil())
+				Expect(serviceErr).To(BeNil())
+				Expect(enterpriseManagementService).ToNot(BeNil())
 
 				// Construct an instance of the CreateEnterpriseOptions model
 				createEnterpriseOptionsModel := new(enterprisemanagementv1.CreateEnterpriseOptions)
@@ -1371,9 +1371,9 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 				createEnterpriseOptionsModel.Domain = core.StringPtr("testString")
 				createEnterpriseOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
-				err := testService.SetServiceURL("")
+				err := enterpriseManagementService.SetServiceURL("")
 				Expect(err).To(BeNil())
-				result, response, operationErr := testService.CreateEnterprise(createEnterpriseOptionsModel)
+				result, response, operationErr := enterpriseManagementService.CreateEnterprise(createEnterpriseOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
 				Expect(response).To(BeNil())
@@ -1381,7 +1381,7 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 				// Construct a second instance of the CreateEnterpriseOptions model with no property values
 				createEnterpriseOptionsModelNew := new(enterprisemanagementv1.CreateEnterpriseOptions)
 				// Invoke operation with invalid model (negative test)
-				result, response, operationErr = testService.CreateEnterprise(createEnterpriseOptionsModelNew)
+				result, response, operationErr = enterpriseManagementService.CreateEnterprise(createEnterpriseOptionsModelNew)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
@@ -1399,7 +1399,7 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.Path).To(Equal(listEnterprisesPath))
+					Expect(req.URL.EscapedPath()).To(Equal(listEnterprisesPath))
 					Expect(req.Method).To(Equal("GET"))
 					Expect(req.URL.Query()["enterprise_account_id"]).To(Equal([]string{"testString"}))
 
@@ -1415,12 +1415,12 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 				}))
 			})
 			It(`Invoke ListEnterprises with error: Operation response processing error`, func() {
-				testService, testServiceErr := enterprisemanagementv1.NewEnterpriseManagementV1(&enterprisemanagementv1.EnterpriseManagementV1Options{
+				enterpriseManagementService, serviceErr := enterprisemanagementv1.NewEnterpriseManagementV1(&enterprisemanagementv1.EnterpriseManagementV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
-				Expect(testServiceErr).To(BeNil())
-				Expect(testService).ToNot(BeNil())
+				Expect(serviceErr).To(BeNil())
+				Expect(enterpriseManagementService).ToNot(BeNil())
 
 				// Construct an instance of the ListEnterprisesOptions model
 				listEnterprisesOptionsModel := new(enterprisemanagementv1.ListEnterprisesOptions)
@@ -1430,7 +1430,7 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 				listEnterprisesOptionsModel.Limit = core.Int64Ptr(int64(38))
 				listEnterprisesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
-				result, response, operationErr := testService.ListEnterprises(listEnterprisesOptionsModel)
+				result, response, operationErr := enterpriseManagementService.ListEnterprises(listEnterprisesOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
@@ -1449,7 +1449,7 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.Path).To(Equal(listEnterprisesPath))
+					Expect(req.URL.EscapedPath()).To(Equal(listEnterprisesPath))
 					Expect(req.Method).To(Equal("GET"))
 					Expect(req.URL.Query()["enterprise_account_id"]).To(Equal([]string{"testString"}))
 
@@ -1461,19 +1461,19 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, `{"rows_count": 9, "next_url": "NextURL", "resources": [{"url": "URL", "id": "ID", "enterprise_account_id": "EnterpriseAccountID", "crn": "Crn", "name": "Name", "domain": "Domain", "state": "State", "primary_contact_iam_id": "PrimaryContactIamID", "primary_contact_email": "PrimaryContactEmail", "created_at": "2019-01-01T12:00:00", "created_by": "CreatedBy", "updated_at": "2019-01-01T12:00:00", "updated_by": "UpdatedBy"}]}`)
+					fmt.Fprintf(res, "%s", `{"rows_count": 9, "next_url": "NextURL", "resources": [{"url": "URL", "id": "ID", "enterprise_account_id": "EnterpriseAccountID", "crn": "Crn", "name": "Name", "domain": "Domain", "state": "State", "primary_contact_iam_id": "PrimaryContactIamID", "primary_contact_email": "PrimaryContactEmail", "created_at": "2019-01-01T12:00:00", "created_by": "CreatedBy", "updated_at": "2019-01-01T12:00:00", "updated_by": "UpdatedBy"}]}`)
 				}))
 			})
 			It(`Invoke ListEnterprises successfully`, func() {
-				testService, testServiceErr := enterprisemanagementv1.NewEnterpriseManagementV1(&enterprisemanagementv1.EnterpriseManagementV1Options{
+				enterpriseManagementService, serviceErr := enterprisemanagementv1.NewEnterpriseManagementV1(&enterprisemanagementv1.EnterpriseManagementV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
-				Expect(testServiceErr).To(BeNil())
-				Expect(testService).ToNot(BeNil())
+				Expect(serviceErr).To(BeNil())
+				Expect(enterpriseManagementService).ToNot(BeNil())
 
 				// Invoke operation with nil options model (negative test)
-				result, response, operationErr := testService.ListEnterprises(nil)
+				result, response, operationErr := enterpriseManagementService.ListEnterprises(nil)
 				Expect(operationErr).NotTo(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
@@ -1484,21 +1484,21 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 				listEnterprisesOptionsModel.AccountGroupID = core.StringPtr("testString")
 				listEnterprisesOptionsModel.AccountID = core.StringPtr("testString")
 				listEnterprisesOptionsModel.Limit = core.Int64Ptr(int64(38))
- 				listEnterprisesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				listEnterprisesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
-				result, response, operationErr = testService.ListEnterprises(listEnterprisesOptionsModel)
+				result, response, operationErr = enterpriseManagementService.ListEnterprises(listEnterprisesOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
 			})
 			It(`Invoke ListEnterprises with error: Operation request error`, func() {
-				testService, testServiceErr := enterprisemanagementv1.NewEnterpriseManagementV1(&enterprisemanagementv1.EnterpriseManagementV1Options{
+				enterpriseManagementService, serviceErr := enterprisemanagementv1.NewEnterpriseManagementV1(&enterprisemanagementv1.EnterpriseManagementV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
-				Expect(testServiceErr).To(BeNil())
-				Expect(testService).ToNot(BeNil())
+				Expect(serviceErr).To(BeNil())
+				Expect(enterpriseManagementService).ToNot(BeNil())
 
 				// Construct an instance of the ListEnterprisesOptions model
 				listEnterprisesOptionsModel := new(enterprisemanagementv1.ListEnterprisesOptions)
@@ -1508,9 +1508,9 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 				listEnterprisesOptionsModel.Limit = core.Int64Ptr(int64(38))
 				listEnterprisesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
-				err := testService.SetServiceURL("")
+				err := enterpriseManagementService.SetServiceURL("")
 				Expect(err).To(BeNil())
-				result, response, operationErr := testService.ListEnterprises(listEnterprisesOptionsModel)
+				result, response, operationErr := enterpriseManagementService.ListEnterprises(listEnterprisesOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
 				Expect(response).To(BeNil())
@@ -1529,7 +1529,7 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.Path).To(Equal(getEnterprisePath))
+					Expect(req.URL.EscapedPath()).To(Equal(getEnterprisePath))
 					Expect(req.Method).To(Equal("GET"))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
@@ -1537,19 +1537,19 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 				}))
 			})
 			It(`Invoke GetEnterprise with error: Operation response processing error`, func() {
-				testService, testServiceErr := enterprisemanagementv1.NewEnterpriseManagementV1(&enterprisemanagementv1.EnterpriseManagementV1Options{
+				enterpriseManagementService, serviceErr := enterprisemanagementv1.NewEnterpriseManagementV1(&enterprisemanagementv1.EnterpriseManagementV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
-				Expect(testServiceErr).To(BeNil())
-				Expect(testService).ToNot(BeNil())
+				Expect(serviceErr).To(BeNil())
+				Expect(enterpriseManagementService).ToNot(BeNil())
 
 				// Construct an instance of the GetEnterpriseOptions model
 				getEnterpriseOptionsModel := new(enterprisemanagementv1.GetEnterpriseOptions)
 				getEnterpriseOptionsModel.EnterpriseID = core.StringPtr("testString")
 				getEnterpriseOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
-				result, response, operationErr := testService.GetEnterprise(getEnterpriseOptionsModel)
+				result, response, operationErr := enterpriseManagementService.GetEnterprise(getEnterpriseOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
@@ -1568,23 +1568,23 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.Path).To(Equal(getEnterprisePath))
+					Expect(req.URL.EscapedPath()).To(Equal(getEnterprisePath))
 					Expect(req.Method).To(Equal("GET"))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, `{"url": "URL", "id": "ID", "enterprise_account_id": "EnterpriseAccountID", "crn": "Crn", "name": "Name", "domain": "Domain", "state": "State", "primary_contact_iam_id": "PrimaryContactIamID", "primary_contact_email": "PrimaryContactEmail", "created_at": "2019-01-01T12:00:00", "created_by": "CreatedBy", "updated_at": "2019-01-01T12:00:00", "updated_by": "UpdatedBy"}`)
+					fmt.Fprintf(res, "%s", `{"url": "URL", "id": "ID", "enterprise_account_id": "EnterpriseAccountID", "crn": "Crn", "name": "Name", "domain": "Domain", "state": "State", "primary_contact_iam_id": "PrimaryContactIamID", "primary_contact_email": "PrimaryContactEmail", "created_at": "2019-01-01T12:00:00", "created_by": "CreatedBy", "updated_at": "2019-01-01T12:00:00", "updated_by": "UpdatedBy"}`)
 				}))
 			})
 			It(`Invoke GetEnterprise successfully`, func() {
-				testService, testServiceErr := enterprisemanagementv1.NewEnterpriseManagementV1(&enterprisemanagementv1.EnterpriseManagementV1Options{
+				enterpriseManagementService, serviceErr := enterprisemanagementv1.NewEnterpriseManagementV1(&enterprisemanagementv1.EnterpriseManagementV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
-				Expect(testServiceErr).To(BeNil())
-				Expect(testService).ToNot(BeNil())
+				Expect(serviceErr).To(BeNil())
+				Expect(enterpriseManagementService).ToNot(BeNil())
 
 				// Invoke operation with nil options model (negative test)
-				result, response, operationErr := testService.GetEnterprise(nil)
+				result, response, operationErr := enterpriseManagementService.GetEnterprise(nil)
 				Expect(operationErr).NotTo(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
@@ -1592,30 +1592,30 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 				// Construct an instance of the GetEnterpriseOptions model
 				getEnterpriseOptionsModel := new(enterprisemanagementv1.GetEnterpriseOptions)
 				getEnterpriseOptionsModel.EnterpriseID = core.StringPtr("testString")
- 				getEnterpriseOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				getEnterpriseOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
-				result, response, operationErr = testService.GetEnterprise(getEnterpriseOptionsModel)
+				result, response, operationErr = enterpriseManagementService.GetEnterprise(getEnterpriseOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
 			})
 			It(`Invoke GetEnterprise with error: Operation validation and request error`, func() {
-				testService, testServiceErr := enterprisemanagementv1.NewEnterpriseManagementV1(&enterprisemanagementv1.EnterpriseManagementV1Options{
+				enterpriseManagementService, serviceErr := enterprisemanagementv1.NewEnterpriseManagementV1(&enterprisemanagementv1.EnterpriseManagementV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
-				Expect(testServiceErr).To(BeNil())
-				Expect(testService).ToNot(BeNil())
+				Expect(serviceErr).To(BeNil())
+				Expect(enterpriseManagementService).ToNot(BeNil())
 
 				// Construct an instance of the GetEnterpriseOptions model
 				getEnterpriseOptionsModel := new(enterprisemanagementv1.GetEnterpriseOptions)
 				getEnterpriseOptionsModel.EnterpriseID = core.StringPtr("testString")
 				getEnterpriseOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
-				err := testService.SetServiceURL("")
+				err := enterpriseManagementService.SetServiceURL("")
 				Expect(err).To(BeNil())
-				result, response, operationErr := testService.GetEnterprise(getEnterpriseOptionsModel)
+				result, response, operationErr := enterpriseManagementService.GetEnterprise(getEnterpriseOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
 				Expect(response).To(BeNil())
@@ -1623,7 +1623,7 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 				// Construct a second instance of the GetEnterpriseOptions model with no property values
 				getEnterpriseOptionsModelNew := new(enterprisemanagementv1.GetEnterpriseOptions)
 				// Invoke operation with invalid model (negative test)
-				result, response, operationErr = testService.GetEnterprise(getEnterpriseOptionsModelNew)
+				result, response, operationErr = enterpriseManagementService.GetEnterprise(getEnterpriseOptionsModelNew)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
@@ -1642,21 +1642,21 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.Path).To(Equal(updateEnterprisePath))
+					Expect(req.URL.EscapedPath()).To(Equal(updateEnterprisePath))
 					Expect(req.Method).To(Equal("PATCH"))
 					res.WriteHeader(204)
 				}))
 			})
 			It(`Invoke UpdateEnterprise successfully`, func() {
-				testService, testServiceErr := enterprisemanagementv1.NewEnterpriseManagementV1(&enterprisemanagementv1.EnterpriseManagementV1Options{
+				enterpriseManagementService, serviceErr := enterprisemanagementv1.NewEnterpriseManagementV1(&enterprisemanagementv1.EnterpriseManagementV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
-				Expect(testServiceErr).To(BeNil())
-				Expect(testService).ToNot(BeNil())
+				Expect(serviceErr).To(BeNil())
+				Expect(enterpriseManagementService).ToNot(BeNil())
 
 				// Invoke operation with nil options model (negative test)
-				response, operationErr := testService.UpdateEnterprise(nil)
+				response, operationErr := enterpriseManagementService.UpdateEnterprise(nil)
 				Expect(operationErr).NotTo(BeNil())
 				Expect(response).To(BeNil())
 
@@ -1666,20 +1666,20 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 				updateEnterpriseOptionsModel.Name = core.StringPtr("testString")
 				updateEnterpriseOptionsModel.Domain = core.StringPtr("testString")
 				updateEnterpriseOptionsModel.PrimaryContactIamID = core.StringPtr("testString")
- 				updateEnterpriseOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				updateEnterpriseOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
-				response, operationErr = testService.UpdateEnterprise(updateEnterpriseOptionsModel)
+				response, operationErr = enterpriseManagementService.UpdateEnterprise(updateEnterpriseOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 			})
 			It(`Invoke UpdateEnterprise with error: Operation validation and request error`, func() {
-				testService, testServiceErr := enterprisemanagementv1.NewEnterpriseManagementV1(&enterprisemanagementv1.EnterpriseManagementV1Options{
+				enterpriseManagementService, serviceErr := enterprisemanagementv1.NewEnterpriseManagementV1(&enterprisemanagementv1.EnterpriseManagementV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
-				Expect(testServiceErr).To(BeNil())
-				Expect(testService).ToNot(BeNil())
+				Expect(serviceErr).To(BeNil())
+				Expect(enterpriseManagementService).ToNot(BeNil())
 
 				// Construct an instance of the UpdateEnterpriseOptions model
 				updateEnterpriseOptionsModel := new(enterprisemanagementv1.UpdateEnterpriseOptions)
@@ -1689,16 +1689,16 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 				updateEnterpriseOptionsModel.PrimaryContactIamID = core.StringPtr("testString")
 				updateEnterpriseOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
-				err := testService.SetServiceURL("")
+				err := enterpriseManagementService.SetServiceURL("")
 				Expect(err).To(BeNil())
-				response, operationErr := testService.UpdateEnterprise(updateEnterpriseOptionsModel)
+				response, operationErr := enterpriseManagementService.UpdateEnterprise(updateEnterpriseOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
 				Expect(response).To(BeNil())
 				// Construct a second instance of the UpdateEnterpriseOptions model with no property values
 				updateEnterpriseOptionsModelNew := new(enterprisemanagementv1.UpdateEnterpriseOptions)
 				// Invoke operation with invalid model (negative test)
-				response, operationErr = testService.UpdateEnterprise(updateEnterpriseOptionsModelNew)
+				response, operationErr = enterpriseManagementService.UpdateEnterprise(updateEnterpriseOptionsModelNew)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).To(BeNil())
 			})
@@ -1709,7 +1709,7 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 	})
 	Describe(`Model constructor tests`, func() {
 		Context(`Using a service client instance`, func() {
-			testService, _ := enterprisemanagementv1.NewEnterpriseManagementV1(&enterprisemanagementv1.EnterpriseManagementV1Options{
+			enterpriseManagementService, _ := enterprisemanagementv1.NewEnterpriseManagementV1(&enterprisemanagementv1.EnterpriseManagementV1Options{
 				URL:           "http://enterprisemanagementv1modelgenerator.com",
 				Authenticator: &core.NoAuthAuthenticator{},
 			})
@@ -1718,7 +1718,7 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 				createAccountGroupOptionsParent := "testString"
 				createAccountGroupOptionsName := "testString"
 				createAccountGroupOptionsPrimaryContactIamID := "testString"
-				createAccountGroupOptionsModel := testService.NewCreateAccountGroupOptions(createAccountGroupOptionsParent, createAccountGroupOptionsName, createAccountGroupOptionsPrimaryContactIamID)
+				createAccountGroupOptionsModel := enterpriseManagementService.NewCreateAccountGroupOptions(createAccountGroupOptionsParent, createAccountGroupOptionsName, createAccountGroupOptionsPrimaryContactIamID)
 				createAccountGroupOptionsModel.SetParent("testString")
 				createAccountGroupOptionsModel.SetName("testString")
 				createAccountGroupOptionsModel.SetPrimaryContactIamID("testString")
@@ -1734,7 +1734,7 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 				createAccountOptionsParent := "testString"
 				createAccountOptionsName := "testString"
 				createAccountOptionsOwnerIamID := "testString"
-				createAccountOptionsModel := testService.NewCreateAccountOptions(createAccountOptionsParent, createAccountOptionsName, createAccountOptionsOwnerIamID)
+				createAccountOptionsModel := enterpriseManagementService.NewCreateAccountOptions(createAccountOptionsParent, createAccountOptionsName, createAccountOptionsOwnerIamID)
 				createAccountOptionsModel.SetParent("testString")
 				createAccountOptionsModel.SetName("testString")
 				createAccountOptionsModel.SetOwnerIamID("testString")
@@ -1750,7 +1750,7 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 				createEnterpriseOptionsSourceAccountID := "testString"
 				createEnterpriseOptionsName := "testString"
 				createEnterpriseOptionsPrimaryContactIamID := "testString"
-				createEnterpriseOptionsModel := testService.NewCreateEnterpriseOptions(createEnterpriseOptionsSourceAccountID, createEnterpriseOptionsName, createEnterpriseOptionsPrimaryContactIamID)
+				createEnterpriseOptionsModel := enterpriseManagementService.NewCreateEnterpriseOptions(createEnterpriseOptionsSourceAccountID, createEnterpriseOptionsName, createEnterpriseOptionsPrimaryContactIamID)
 				createEnterpriseOptionsModel.SetSourceAccountID("testString")
 				createEnterpriseOptionsModel.SetName("testString")
 				createEnterpriseOptionsModel.SetPrimaryContactIamID("testString")
@@ -1766,7 +1766,7 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 			It(`Invoke NewGetAccountGroupOptions successfully`, func() {
 				// Construct an instance of the GetAccountGroupOptions model
 				accountGroupID := "testString"
-				getAccountGroupOptionsModel := testService.NewGetAccountGroupOptions(accountGroupID)
+				getAccountGroupOptionsModel := enterpriseManagementService.NewGetAccountGroupOptions(accountGroupID)
 				getAccountGroupOptionsModel.SetAccountGroupID("testString")
 				getAccountGroupOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(getAccountGroupOptionsModel).ToNot(BeNil())
@@ -1776,7 +1776,7 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 			It(`Invoke NewGetAccountOptions successfully`, func() {
 				// Construct an instance of the GetAccountOptions model
 				accountID := "testString"
-				getAccountOptionsModel := testService.NewGetAccountOptions(accountID)
+				getAccountOptionsModel := enterpriseManagementService.NewGetAccountOptions(accountID)
 				getAccountOptionsModel.SetAccountID("testString")
 				getAccountOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(getAccountOptionsModel).ToNot(BeNil())
@@ -1786,7 +1786,7 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 			It(`Invoke NewGetEnterpriseOptions successfully`, func() {
 				// Construct an instance of the GetEnterpriseOptions model
 				enterpriseID := "testString"
-				getEnterpriseOptionsModel := testService.NewGetEnterpriseOptions(enterpriseID)
+				getEnterpriseOptionsModel := enterpriseManagementService.NewGetEnterpriseOptions(enterpriseID)
 				getEnterpriseOptionsModel.SetEnterpriseID("testString")
 				getEnterpriseOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(getEnterpriseOptionsModel).ToNot(BeNil())
@@ -1797,7 +1797,7 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 				// Construct an instance of the ImportAccountToEnterpriseOptions model
 				enterpriseID := "testString"
 				accountID := "testString"
-				importAccountToEnterpriseOptionsModel := testService.NewImportAccountToEnterpriseOptions(enterpriseID, accountID)
+				importAccountToEnterpriseOptionsModel := enterpriseManagementService.NewImportAccountToEnterpriseOptions(enterpriseID, accountID)
 				importAccountToEnterpriseOptionsModel.SetEnterpriseID("testString")
 				importAccountToEnterpriseOptionsModel.SetAccountID("testString")
 				importAccountToEnterpriseOptionsModel.SetParent("testString")
@@ -1812,7 +1812,7 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 			})
 			It(`Invoke NewListAccountGroupsOptions successfully`, func() {
 				// Construct an instance of the ListAccountGroupsOptions model
-				listAccountGroupsOptionsModel := testService.NewListAccountGroupsOptions()
+				listAccountGroupsOptionsModel := enterpriseManagementService.NewListAccountGroupsOptions()
 				listAccountGroupsOptionsModel.SetEnterpriseID("testString")
 				listAccountGroupsOptionsModel.SetParentAccountGroupID("testString")
 				listAccountGroupsOptionsModel.SetParent("testString")
@@ -1827,7 +1827,7 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 			})
 			It(`Invoke NewListAccountsOptions successfully`, func() {
 				// Construct an instance of the ListAccountsOptions model
-				listAccountsOptionsModel := testService.NewListAccountsOptions()
+				listAccountsOptionsModel := enterpriseManagementService.NewListAccountsOptions()
 				listAccountsOptionsModel.SetEnterpriseID("testString")
 				listAccountsOptionsModel.SetAccountGroupID("testString")
 				listAccountsOptionsModel.SetParent("testString")
@@ -1842,7 +1842,7 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 			})
 			It(`Invoke NewListEnterprisesOptions successfully`, func() {
 				// Construct an instance of the ListEnterprisesOptions model
-				listEnterprisesOptionsModel := testService.NewListEnterprisesOptions()
+				listEnterprisesOptionsModel := enterpriseManagementService.NewListEnterprisesOptions()
 				listEnterprisesOptionsModel.SetEnterpriseAccountID("testString")
 				listEnterprisesOptionsModel.SetAccountGroupID("testString")
 				listEnterprisesOptionsModel.SetAccountID("testString")
@@ -1858,7 +1858,7 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 			It(`Invoke NewUpdateAccountGroupOptions successfully`, func() {
 				// Construct an instance of the UpdateAccountGroupOptions model
 				accountGroupID := "testString"
-				updateAccountGroupOptionsModel := testService.NewUpdateAccountGroupOptions(accountGroupID)
+				updateAccountGroupOptionsModel := enterpriseManagementService.NewUpdateAccountGroupOptions(accountGroupID)
 				updateAccountGroupOptionsModel.SetAccountGroupID("testString")
 				updateAccountGroupOptionsModel.SetName("testString")
 				updateAccountGroupOptionsModel.SetPrimaryContactIamID("testString")
@@ -1873,7 +1873,7 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 				// Construct an instance of the UpdateAccountOptions model
 				accountID := "testString"
 				updateAccountOptionsParent := "testString"
-				updateAccountOptionsModel := testService.NewUpdateAccountOptions(accountID, updateAccountOptionsParent)
+				updateAccountOptionsModel := enterpriseManagementService.NewUpdateAccountOptions(accountID, updateAccountOptionsParent)
 				updateAccountOptionsModel.SetAccountID("testString")
 				updateAccountOptionsModel.SetParent("testString")
 				updateAccountOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
@@ -1885,7 +1885,7 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 			It(`Invoke NewUpdateEnterpriseOptions successfully`, func() {
 				// Construct an instance of the UpdateEnterpriseOptions model
 				enterpriseID := "testString"
-				updateEnterpriseOptionsModel := testService.NewUpdateEnterpriseOptions(enterpriseID)
+				updateEnterpriseOptionsModel := enterpriseManagementService.NewUpdateEnterpriseOptions(enterpriseID)
 				updateEnterpriseOptionsModel.SetEnterpriseID("testString")
 				updateEnterpriseOptionsModel.SetName("testString")
 				updateEnterpriseOptionsModel.SetDomain("testString")
