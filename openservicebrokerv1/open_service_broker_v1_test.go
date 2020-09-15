@@ -34,31 +34,31 @@ import (
 
 var _ = Describe(`OpenServiceBrokerV1`, func() {
 	var testServer *httptest.Server
-    Describe(`Service constructor tests`, func() {
+	Describe(`Service constructor tests`, func() {
 		It(`Instantiate service client`, func() {
-			testService, testServiceErr := openservicebrokerv1.NewOpenServiceBrokerV1(&openservicebrokerv1.OpenServiceBrokerV1Options{
+			openServiceBrokerService, serviceErr := openservicebrokerv1.NewOpenServiceBrokerV1(&openservicebrokerv1.OpenServiceBrokerV1Options{
 				Authenticator: &core.NoAuthAuthenticator{},
 			})
-			Expect(testService).ToNot(BeNil())
-			Expect(testServiceErr).To(BeNil())
+			Expect(openServiceBrokerService).ToNot(BeNil())
+			Expect(serviceErr).To(BeNil())
 		})
 		It(`Instantiate service client with error: Invalid URL`, func() {
-			testService, testServiceErr := openservicebrokerv1.NewOpenServiceBrokerV1(&openservicebrokerv1.OpenServiceBrokerV1Options{
+			openServiceBrokerService, serviceErr := openservicebrokerv1.NewOpenServiceBrokerV1(&openservicebrokerv1.OpenServiceBrokerV1Options{
 				URL: "{BAD_URL_STRING",
 			})
-			Expect(testService).To(BeNil())
-			Expect(testServiceErr).ToNot(BeNil())
+			Expect(openServiceBrokerService).To(BeNil())
+			Expect(serviceErr).ToNot(BeNil())
 		})
 		It(`Instantiate service client with error: Invalid Auth`, func() {
-			testService, testServiceErr := openservicebrokerv1.NewOpenServiceBrokerV1(&openservicebrokerv1.OpenServiceBrokerV1Options{
+			openServiceBrokerService, serviceErr := openservicebrokerv1.NewOpenServiceBrokerV1(&openservicebrokerv1.OpenServiceBrokerV1Options{
 				URL: "https://openservicebrokerv1/api",
 				Authenticator: &core.BasicAuthenticator{
 					Username: "",
 					Password: "",
 				},
 			})
-			Expect(testService).To(BeNil())
-			Expect(testServiceErr).ToNot(BeNil())
+			Expect(openServiceBrokerService).To(BeNil())
+			Expect(serviceErr).ToNot(BeNil())
 		})
 	})
 	Describe(`Service constructor tests using external config`, func() {
@@ -71,31 +71,31 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 
 			It(`Create service client using external config successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				testService, testServiceErr := openservicebrokerv1.NewOpenServiceBrokerV1UsingExternalConfig(&openservicebrokerv1.OpenServiceBrokerV1Options{
+				openServiceBrokerService, serviceErr := openservicebrokerv1.NewOpenServiceBrokerV1UsingExternalConfig(&openservicebrokerv1.OpenServiceBrokerV1Options{
 				})
-				Expect(testService).ToNot(BeNil())
-				Expect(testServiceErr).To(BeNil())
+				Expect(openServiceBrokerService).ToNot(BeNil())
+				Expect(serviceErr).To(BeNil())
 				ClearTestEnvironment(testEnvironment)
 			})
 			It(`Create service client using external config and set url from constructor successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				testService, testServiceErr := openservicebrokerv1.NewOpenServiceBrokerV1UsingExternalConfig(&openservicebrokerv1.OpenServiceBrokerV1Options{
+				openServiceBrokerService, serviceErr := openservicebrokerv1.NewOpenServiceBrokerV1UsingExternalConfig(&openservicebrokerv1.OpenServiceBrokerV1Options{
 					URL: "https://testService/api",
 				})
-				Expect(testService).ToNot(BeNil())
-				Expect(testServiceErr).To(BeNil())
-				Expect(testService.Service.GetServiceURL()).To(Equal("https://testService/api"))
+				Expect(openServiceBrokerService).ToNot(BeNil())
+				Expect(serviceErr).To(BeNil())
+				Expect(openServiceBrokerService.Service.GetServiceURL()).To(Equal("https://testService/api"))
 				ClearTestEnvironment(testEnvironment)
 			})
 			It(`Create service client using external config and set url programatically successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				testService, testServiceErr := openservicebrokerv1.NewOpenServiceBrokerV1UsingExternalConfig(&openservicebrokerv1.OpenServiceBrokerV1Options{
+				openServiceBrokerService, serviceErr := openservicebrokerv1.NewOpenServiceBrokerV1UsingExternalConfig(&openservicebrokerv1.OpenServiceBrokerV1Options{
 				})
-				err := testService.SetServiceURL("https://testService/api")
+				err := openServiceBrokerService.SetServiceURL("https://testService/api")
 				Expect(err).To(BeNil())
-				Expect(testService).ToNot(BeNil())
-				Expect(testServiceErr).To(BeNil())
-				Expect(testService.Service.GetServiceURL()).To(Equal("https://testService/api"))
+				Expect(openServiceBrokerService).ToNot(BeNil())
+				Expect(serviceErr).To(BeNil())
+				Expect(openServiceBrokerService.Service.GetServiceURL()).To(Equal("https://testService/api"))
 				ClearTestEnvironment(testEnvironment)
 			})
 		})
@@ -107,12 +107,12 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 			}
 
 			SetTestEnvironment(testEnvironment)
-			testService, testServiceErr := openservicebrokerv1.NewOpenServiceBrokerV1UsingExternalConfig(&openservicebrokerv1.OpenServiceBrokerV1Options{
+			openServiceBrokerService, serviceErr := openservicebrokerv1.NewOpenServiceBrokerV1UsingExternalConfig(&openservicebrokerv1.OpenServiceBrokerV1Options{
 			})
 
 			It(`Instantiate service client with error`, func() {
-				Expect(testService).To(BeNil())
-				Expect(testServiceErr).ToNot(BeNil())
+				Expect(openServiceBrokerService).To(BeNil())
+				Expect(serviceErr).ToNot(BeNil())
 				ClearTestEnvironment(testEnvironment)
 			})
 		})
@@ -123,13 +123,13 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 			}
 
 			SetTestEnvironment(testEnvironment)
-			testService, testServiceErr := openservicebrokerv1.NewOpenServiceBrokerV1UsingExternalConfig(&openservicebrokerv1.OpenServiceBrokerV1Options{
+			openServiceBrokerService, serviceErr := openservicebrokerv1.NewOpenServiceBrokerV1UsingExternalConfig(&openservicebrokerv1.OpenServiceBrokerV1Options{
 				URL: "{BAD_URL_STRING",
 			})
 
 			It(`Instantiate service client with error`, func() {
-				Expect(testService).To(BeNil())
-				Expect(testServiceErr).ToNot(BeNil())
+				Expect(openServiceBrokerService).To(BeNil())
+				Expect(serviceErr).ToNot(BeNil())
 				ClearTestEnvironment(testEnvironment)
 			})
 		})
@@ -142,7 +142,7 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.Path).To(Equal(getServiceInstanceStatePath))
+					Expect(req.URL.EscapedPath()).To(Equal(getServiceInstanceStatePath))
 					Expect(req.Method).To(Equal("GET"))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
@@ -150,19 +150,19 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 				}))
 			})
 			It(`Invoke GetServiceInstanceState with error: Operation response processing error`, func() {
-				testService, testServiceErr := openservicebrokerv1.NewOpenServiceBrokerV1(&openservicebrokerv1.OpenServiceBrokerV1Options{
+				openServiceBrokerService, serviceErr := openservicebrokerv1.NewOpenServiceBrokerV1(&openservicebrokerv1.OpenServiceBrokerV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
-				Expect(testServiceErr).To(BeNil())
-				Expect(testService).ToNot(BeNil())
+				Expect(serviceErr).To(BeNil())
+				Expect(openServiceBrokerService).ToNot(BeNil())
 
 				// Construct an instance of the GetServiceInstanceStateOptions model
 				getServiceInstanceStateOptionsModel := new(openservicebrokerv1.GetServiceInstanceStateOptions)
 				getServiceInstanceStateOptionsModel.InstanceID = core.StringPtr("testString")
 				getServiceInstanceStateOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
-				result, response, operationErr := testService.GetServiceInstanceState(getServiceInstanceStateOptionsModel)
+				result, response, operationErr := openServiceBrokerService.GetServiceInstanceState(getServiceInstanceStateOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
@@ -181,23 +181,23 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.Path).To(Equal(getServiceInstanceStatePath))
+					Expect(req.URL.EscapedPath()).To(Equal(getServiceInstanceStatePath))
 					Expect(req.Method).To(Equal("GET"))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, `{"active": true, "enabled": false, "last_active": 10}`)
+					fmt.Fprintf(res, "%s", `{"active": true, "enabled": false, "last_active": 10}`)
 				}))
 			})
 			It(`Invoke GetServiceInstanceState successfully`, func() {
-				testService, testServiceErr := openservicebrokerv1.NewOpenServiceBrokerV1(&openservicebrokerv1.OpenServiceBrokerV1Options{
+				openServiceBrokerService, serviceErr := openservicebrokerv1.NewOpenServiceBrokerV1(&openservicebrokerv1.OpenServiceBrokerV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
-				Expect(testServiceErr).To(BeNil())
-				Expect(testService).ToNot(BeNil())
+				Expect(serviceErr).To(BeNil())
+				Expect(openServiceBrokerService).ToNot(BeNil())
 
 				// Invoke operation with nil options model (negative test)
-				result, response, operationErr := testService.GetServiceInstanceState(nil)
+				result, response, operationErr := openServiceBrokerService.GetServiceInstanceState(nil)
 				Expect(operationErr).NotTo(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
@@ -205,30 +205,30 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 				// Construct an instance of the GetServiceInstanceStateOptions model
 				getServiceInstanceStateOptionsModel := new(openservicebrokerv1.GetServiceInstanceStateOptions)
 				getServiceInstanceStateOptionsModel.InstanceID = core.StringPtr("testString")
- 				getServiceInstanceStateOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				getServiceInstanceStateOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
-				result, response, operationErr = testService.GetServiceInstanceState(getServiceInstanceStateOptionsModel)
+				result, response, operationErr = openServiceBrokerService.GetServiceInstanceState(getServiceInstanceStateOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
 			})
 			It(`Invoke GetServiceInstanceState with error: Operation validation and request error`, func() {
-				testService, testServiceErr := openservicebrokerv1.NewOpenServiceBrokerV1(&openservicebrokerv1.OpenServiceBrokerV1Options{
+				openServiceBrokerService, serviceErr := openservicebrokerv1.NewOpenServiceBrokerV1(&openservicebrokerv1.OpenServiceBrokerV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
-				Expect(testServiceErr).To(BeNil())
-				Expect(testService).ToNot(BeNil())
+				Expect(serviceErr).To(BeNil())
+				Expect(openServiceBrokerService).ToNot(BeNil())
 
 				// Construct an instance of the GetServiceInstanceStateOptions model
 				getServiceInstanceStateOptionsModel := new(openservicebrokerv1.GetServiceInstanceStateOptions)
 				getServiceInstanceStateOptionsModel.InstanceID = core.StringPtr("testString")
 				getServiceInstanceStateOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
-				err := testService.SetServiceURL("")
+				err := openServiceBrokerService.SetServiceURL("")
 				Expect(err).To(BeNil())
-				result, response, operationErr := testService.GetServiceInstanceState(getServiceInstanceStateOptionsModel)
+				result, response, operationErr := openServiceBrokerService.GetServiceInstanceState(getServiceInstanceStateOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
 				Expect(response).To(BeNil())
@@ -236,7 +236,7 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 				// Construct a second instance of the GetServiceInstanceStateOptions model with no property values
 				getServiceInstanceStateOptionsModelNew := new(openservicebrokerv1.GetServiceInstanceStateOptions)
 				// Invoke operation with invalid model (negative test)
-				result, response, operationErr = testService.GetServiceInstanceState(getServiceInstanceStateOptionsModelNew)
+				result, response, operationErr = openServiceBrokerService.GetServiceInstanceState(getServiceInstanceStateOptionsModelNew)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
@@ -254,7 +254,7 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.Path).To(Equal(replaceServiceInstanceStatePath))
+					Expect(req.URL.EscapedPath()).To(Equal(replaceServiceInstanceStatePath))
 					Expect(req.Method).To(Equal("PUT"))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
@@ -262,12 +262,12 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 				}))
 			})
 			It(`Invoke ReplaceServiceInstanceState with error: Operation response processing error`, func() {
-				testService, testServiceErr := openservicebrokerv1.NewOpenServiceBrokerV1(&openservicebrokerv1.OpenServiceBrokerV1Options{
+				openServiceBrokerService, serviceErr := openservicebrokerv1.NewOpenServiceBrokerV1(&openservicebrokerv1.OpenServiceBrokerV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
-				Expect(testServiceErr).To(BeNil())
-				Expect(testService).ToNot(BeNil())
+				Expect(serviceErr).To(BeNil())
+				Expect(openServiceBrokerService).ToNot(BeNil())
 
 				// Construct an instance of the ReplaceServiceInstanceStateOptions model
 				replaceServiceInstanceStateOptionsModel := new(openservicebrokerv1.ReplaceServiceInstanceStateOptions)
@@ -277,7 +277,7 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 				replaceServiceInstanceStateOptionsModel.ReasonCode = core.StringPtr("null")
 				replaceServiceInstanceStateOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
-				result, response, operationErr := testService.ReplaceServiceInstanceState(replaceServiceInstanceStateOptionsModel)
+				result, response, operationErr := openServiceBrokerService.ReplaceServiceInstanceState(replaceServiceInstanceStateOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
@@ -296,23 +296,23 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.Path).To(Equal(replaceServiceInstanceStatePath))
+					Expect(req.URL.EscapedPath()).To(Equal(replaceServiceInstanceStatePath))
 					Expect(req.Method).To(Equal("PUT"))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, `{"active": true, "enabled": false, "last_active": 10}`)
+					fmt.Fprintf(res, "%s", `{"active": true, "enabled": false, "last_active": 10}`)
 				}))
 			})
 			It(`Invoke ReplaceServiceInstanceState successfully`, func() {
-				testService, testServiceErr := openservicebrokerv1.NewOpenServiceBrokerV1(&openservicebrokerv1.OpenServiceBrokerV1Options{
+				openServiceBrokerService, serviceErr := openservicebrokerv1.NewOpenServiceBrokerV1(&openservicebrokerv1.OpenServiceBrokerV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
-				Expect(testServiceErr).To(BeNil())
-				Expect(testService).ToNot(BeNil())
+				Expect(serviceErr).To(BeNil())
+				Expect(openServiceBrokerService).ToNot(BeNil())
 
 				// Invoke operation with nil options model (negative test)
-				result, response, operationErr := testService.ReplaceServiceInstanceState(nil)
+				result, response, operationErr := openServiceBrokerService.ReplaceServiceInstanceState(nil)
 				Expect(operationErr).NotTo(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
@@ -323,21 +323,21 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 				replaceServiceInstanceStateOptionsModel.Enabled = core.BoolPtr(false)
 				replaceServiceInstanceStateOptionsModel.InitiatorID = core.StringPtr("null")
 				replaceServiceInstanceStateOptionsModel.ReasonCode = core.StringPtr("null")
- 				replaceServiceInstanceStateOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				replaceServiceInstanceStateOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
-				result, response, operationErr = testService.ReplaceServiceInstanceState(replaceServiceInstanceStateOptionsModel)
+				result, response, operationErr = openServiceBrokerService.ReplaceServiceInstanceState(replaceServiceInstanceStateOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
 			})
 			It(`Invoke ReplaceServiceInstanceState with error: Operation validation and request error`, func() {
-				testService, testServiceErr := openservicebrokerv1.NewOpenServiceBrokerV1(&openservicebrokerv1.OpenServiceBrokerV1Options{
+				openServiceBrokerService, serviceErr := openservicebrokerv1.NewOpenServiceBrokerV1(&openservicebrokerv1.OpenServiceBrokerV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
-				Expect(testServiceErr).To(BeNil())
-				Expect(testService).ToNot(BeNil())
+				Expect(serviceErr).To(BeNil())
+				Expect(openServiceBrokerService).ToNot(BeNil())
 
 				// Construct an instance of the ReplaceServiceInstanceStateOptions model
 				replaceServiceInstanceStateOptionsModel := new(openservicebrokerv1.ReplaceServiceInstanceStateOptions)
@@ -347,9 +347,9 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 				replaceServiceInstanceStateOptionsModel.ReasonCode = core.StringPtr("null")
 				replaceServiceInstanceStateOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
-				err := testService.SetServiceURL("")
+				err := openServiceBrokerService.SetServiceURL("")
 				Expect(err).To(BeNil())
-				result, response, operationErr := testService.ReplaceServiceInstanceState(replaceServiceInstanceStateOptionsModel)
+				result, response, operationErr := openServiceBrokerService.ReplaceServiceInstanceState(replaceServiceInstanceStateOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
 				Expect(response).To(BeNil())
@@ -357,7 +357,7 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 				// Construct a second instance of the ReplaceServiceInstanceStateOptions model with no property values
 				replaceServiceInstanceStateOptionsModelNew := new(openservicebrokerv1.ReplaceServiceInstanceStateOptions)
 				// Invoke operation with invalid model (negative test)
-				result, response, operationErr = testService.ReplaceServiceInstanceState(replaceServiceInstanceStateOptionsModelNew)
+				result, response, operationErr = openServiceBrokerService.ReplaceServiceInstanceState(replaceServiceInstanceStateOptionsModelNew)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
@@ -367,31 +367,31 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 			})
 		})
 	})
-    Describe(`Service constructor tests`, func() {
+	Describe(`Service constructor tests`, func() {
 		It(`Instantiate service client`, func() {
-			testService, testServiceErr := openservicebrokerv1.NewOpenServiceBrokerV1(&openservicebrokerv1.OpenServiceBrokerV1Options{
+			openServiceBrokerService, serviceErr := openservicebrokerv1.NewOpenServiceBrokerV1(&openservicebrokerv1.OpenServiceBrokerV1Options{
 				Authenticator: &core.NoAuthAuthenticator{},
 			})
-			Expect(testService).ToNot(BeNil())
-			Expect(testServiceErr).To(BeNil())
+			Expect(openServiceBrokerService).ToNot(BeNil())
+			Expect(serviceErr).To(BeNil())
 		})
 		It(`Instantiate service client with error: Invalid URL`, func() {
-			testService, testServiceErr := openservicebrokerv1.NewOpenServiceBrokerV1(&openservicebrokerv1.OpenServiceBrokerV1Options{
+			openServiceBrokerService, serviceErr := openservicebrokerv1.NewOpenServiceBrokerV1(&openservicebrokerv1.OpenServiceBrokerV1Options{
 				URL: "{BAD_URL_STRING",
 			})
-			Expect(testService).To(BeNil())
-			Expect(testServiceErr).ToNot(BeNil())
+			Expect(openServiceBrokerService).To(BeNil())
+			Expect(serviceErr).ToNot(BeNil())
 		})
 		It(`Instantiate service client with error: Invalid Auth`, func() {
-			testService, testServiceErr := openservicebrokerv1.NewOpenServiceBrokerV1(&openservicebrokerv1.OpenServiceBrokerV1Options{
+			openServiceBrokerService, serviceErr := openservicebrokerv1.NewOpenServiceBrokerV1(&openservicebrokerv1.OpenServiceBrokerV1Options{
 				URL: "https://openservicebrokerv1/api",
 				Authenticator: &core.BasicAuthenticator{
 					Username: "",
 					Password: "",
 				},
 			})
-			Expect(testService).To(BeNil())
-			Expect(testServiceErr).ToNot(BeNil())
+			Expect(openServiceBrokerService).To(BeNil())
+			Expect(serviceErr).ToNot(BeNil())
 		})
 	})
 	Describe(`Service constructor tests using external config`, func() {
@@ -404,31 +404,31 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 
 			It(`Create service client using external config successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				testService, testServiceErr := openservicebrokerv1.NewOpenServiceBrokerV1UsingExternalConfig(&openservicebrokerv1.OpenServiceBrokerV1Options{
+				openServiceBrokerService, serviceErr := openservicebrokerv1.NewOpenServiceBrokerV1UsingExternalConfig(&openservicebrokerv1.OpenServiceBrokerV1Options{
 				})
-				Expect(testService).ToNot(BeNil())
-				Expect(testServiceErr).To(BeNil())
+				Expect(openServiceBrokerService).ToNot(BeNil())
+				Expect(serviceErr).To(BeNil())
 				ClearTestEnvironment(testEnvironment)
 			})
 			It(`Create service client using external config and set url from constructor successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				testService, testServiceErr := openservicebrokerv1.NewOpenServiceBrokerV1UsingExternalConfig(&openservicebrokerv1.OpenServiceBrokerV1Options{
+				openServiceBrokerService, serviceErr := openservicebrokerv1.NewOpenServiceBrokerV1UsingExternalConfig(&openservicebrokerv1.OpenServiceBrokerV1Options{
 					URL: "https://testService/api",
 				})
-				Expect(testService).ToNot(BeNil())
-				Expect(testServiceErr).To(BeNil())
-				Expect(testService.Service.GetServiceURL()).To(Equal("https://testService/api"))
+				Expect(openServiceBrokerService).ToNot(BeNil())
+				Expect(serviceErr).To(BeNil())
+				Expect(openServiceBrokerService.Service.GetServiceURL()).To(Equal("https://testService/api"))
 				ClearTestEnvironment(testEnvironment)
 			})
 			It(`Create service client using external config and set url programatically successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				testService, testServiceErr := openservicebrokerv1.NewOpenServiceBrokerV1UsingExternalConfig(&openservicebrokerv1.OpenServiceBrokerV1Options{
+				openServiceBrokerService, serviceErr := openservicebrokerv1.NewOpenServiceBrokerV1UsingExternalConfig(&openservicebrokerv1.OpenServiceBrokerV1Options{
 				})
-				err := testService.SetServiceURL("https://testService/api")
+				err := openServiceBrokerService.SetServiceURL("https://testService/api")
 				Expect(err).To(BeNil())
-				Expect(testService).ToNot(BeNil())
-				Expect(testServiceErr).To(BeNil())
-				Expect(testService.Service.GetServiceURL()).To(Equal("https://testService/api"))
+				Expect(openServiceBrokerService).ToNot(BeNil())
+				Expect(serviceErr).To(BeNil())
+				Expect(openServiceBrokerService.Service.GetServiceURL()).To(Equal("https://testService/api"))
 				ClearTestEnvironment(testEnvironment)
 			})
 		})
@@ -440,12 +440,12 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 			}
 
 			SetTestEnvironment(testEnvironment)
-			testService, testServiceErr := openservicebrokerv1.NewOpenServiceBrokerV1UsingExternalConfig(&openservicebrokerv1.OpenServiceBrokerV1Options{
+			openServiceBrokerService, serviceErr := openservicebrokerv1.NewOpenServiceBrokerV1UsingExternalConfig(&openservicebrokerv1.OpenServiceBrokerV1Options{
 			})
 
 			It(`Instantiate service client with error`, func() {
-				Expect(testService).To(BeNil())
-				Expect(testServiceErr).ToNot(BeNil())
+				Expect(openServiceBrokerService).To(BeNil())
+				Expect(serviceErr).ToNot(BeNil())
 				ClearTestEnvironment(testEnvironment)
 			})
 		})
@@ -456,13 +456,13 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 			}
 
 			SetTestEnvironment(testEnvironment)
-			testService, testServiceErr := openservicebrokerv1.NewOpenServiceBrokerV1UsingExternalConfig(&openservicebrokerv1.OpenServiceBrokerV1Options{
+			openServiceBrokerService, serviceErr := openservicebrokerv1.NewOpenServiceBrokerV1UsingExternalConfig(&openservicebrokerv1.OpenServiceBrokerV1Options{
 				URL: "{BAD_URL_STRING",
 			})
 
 			It(`Instantiate service client with error`, func() {
-				Expect(testService).To(BeNil())
-				Expect(testServiceErr).ToNot(BeNil())
+				Expect(openServiceBrokerService).To(BeNil())
+				Expect(serviceErr).ToNot(BeNil())
 				ClearTestEnvironment(testEnvironment)
 			})
 		})
@@ -475,7 +475,7 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.Path).To(Equal(replaceServiceInstancePath))
+					Expect(req.URL.EscapedPath()).To(Equal(replaceServiceInstancePath))
 					Expect(req.Method).To(Equal("PUT"))
 
 					// TODO: Add check for accepts_incomplete query parameter
@@ -486,12 +486,12 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 				}))
 			})
 			It(`Invoke ReplaceServiceInstance with error: Operation response processing error`, func() {
-				testService, testServiceErr := openservicebrokerv1.NewOpenServiceBrokerV1(&openservicebrokerv1.OpenServiceBrokerV1Options{
+				openServiceBrokerService, serviceErr := openservicebrokerv1.NewOpenServiceBrokerV1(&openservicebrokerv1.OpenServiceBrokerV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
-				Expect(testServiceErr).To(BeNil())
-				Expect(testService).ToNot(BeNil())
+				Expect(serviceErr).To(BeNil())
+				Expect(openServiceBrokerService).ToNot(BeNil())
 
 				// Construct an instance of the Context model
 				contextModel := new(openservicebrokerv1.Context)
@@ -511,7 +511,7 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 				replaceServiceInstanceOptionsModel.AcceptsIncomplete = core.BoolPtr(true)
 				replaceServiceInstanceOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
-				result, response, operationErr := testService.ReplaceServiceInstance(replaceServiceInstanceOptionsModel)
+				result, response, operationErr := openServiceBrokerService.ReplaceServiceInstance(replaceServiceInstanceOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
@@ -530,26 +530,26 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.Path).To(Equal(replaceServiceInstancePath))
+					Expect(req.URL.EscapedPath()).To(Equal(replaceServiceInstancePath))
 					Expect(req.Method).To(Equal("PUT"))
 
 					// TODO: Add check for accepts_incomplete query parameter
 
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, `{"dashboard_url": "DashboardURL", "operation": "Operation"}`)
+					fmt.Fprintf(res, "%s", `{"dashboard_url": "DashboardURL", "operation": "Operation"}`)
 				}))
 			})
 			It(`Invoke ReplaceServiceInstance successfully`, func() {
-				testService, testServiceErr := openservicebrokerv1.NewOpenServiceBrokerV1(&openservicebrokerv1.OpenServiceBrokerV1Options{
+				openServiceBrokerService, serviceErr := openservicebrokerv1.NewOpenServiceBrokerV1(&openservicebrokerv1.OpenServiceBrokerV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
-				Expect(testServiceErr).To(BeNil())
-				Expect(testService).ToNot(BeNil())
+				Expect(serviceErr).To(BeNil())
+				Expect(openServiceBrokerService).ToNot(BeNil())
 
 				// Invoke operation with nil options model (negative test)
-				result, response, operationErr := testService.ReplaceServiceInstance(nil)
+				result, response, operationErr := openServiceBrokerService.ReplaceServiceInstance(nil)
 				Expect(operationErr).NotTo(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
@@ -570,21 +570,21 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 				replaceServiceInstanceOptionsModel.ServiceID = core.StringPtr("null")
 				replaceServiceInstanceOptionsModel.SpaceGuid = core.StringPtr("null")
 				replaceServiceInstanceOptionsModel.AcceptsIncomplete = core.BoolPtr(true)
- 				replaceServiceInstanceOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				replaceServiceInstanceOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
-				result, response, operationErr = testService.ReplaceServiceInstance(replaceServiceInstanceOptionsModel)
+				result, response, operationErr = openServiceBrokerService.ReplaceServiceInstance(replaceServiceInstanceOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
 			})
 			It(`Invoke ReplaceServiceInstance with error: Operation validation and request error`, func() {
-				testService, testServiceErr := openservicebrokerv1.NewOpenServiceBrokerV1(&openservicebrokerv1.OpenServiceBrokerV1Options{
+				openServiceBrokerService, serviceErr := openservicebrokerv1.NewOpenServiceBrokerV1(&openservicebrokerv1.OpenServiceBrokerV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
-				Expect(testServiceErr).To(BeNil())
-				Expect(testService).ToNot(BeNil())
+				Expect(serviceErr).To(BeNil())
+				Expect(openServiceBrokerService).ToNot(BeNil())
 
 				// Construct an instance of the Context model
 				contextModel := new(openservicebrokerv1.Context)
@@ -604,9 +604,9 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 				replaceServiceInstanceOptionsModel.AcceptsIncomplete = core.BoolPtr(true)
 				replaceServiceInstanceOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
-				err := testService.SetServiceURL("")
+				err := openServiceBrokerService.SetServiceURL("")
 				Expect(err).To(BeNil())
-				result, response, operationErr := testService.ReplaceServiceInstance(replaceServiceInstanceOptionsModel)
+				result, response, operationErr := openServiceBrokerService.ReplaceServiceInstance(replaceServiceInstanceOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
 				Expect(response).To(BeNil())
@@ -614,7 +614,7 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 				// Construct a second instance of the ReplaceServiceInstanceOptions model with no property values
 				replaceServiceInstanceOptionsModelNew := new(openservicebrokerv1.ReplaceServiceInstanceOptions)
 				// Invoke operation with invalid model (negative test)
-				result, response, operationErr = testService.ReplaceServiceInstance(replaceServiceInstanceOptionsModelNew)
+				result, response, operationErr = openServiceBrokerService.ReplaceServiceInstance(replaceServiceInstanceOptionsModelNew)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
@@ -632,7 +632,7 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.Path).To(Equal(updateServiceInstancePath))
+					Expect(req.URL.EscapedPath()).To(Equal(updateServiceInstancePath))
 					Expect(req.Method).To(Equal("PATCH"))
 
 					// TODO: Add check for accepts_incomplete query parameter
@@ -643,12 +643,12 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 				}))
 			})
 			It(`Invoke UpdateServiceInstance with error: Operation response processing error`, func() {
-				testService, testServiceErr := openservicebrokerv1.NewOpenServiceBrokerV1(&openservicebrokerv1.OpenServiceBrokerV1Options{
+				openServiceBrokerService, serviceErr := openservicebrokerv1.NewOpenServiceBrokerV1(&openservicebrokerv1.OpenServiceBrokerV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
-				Expect(testServiceErr).To(BeNil())
-				Expect(testService).ToNot(BeNil())
+				Expect(serviceErr).To(BeNil())
+				Expect(openServiceBrokerService).ToNot(BeNil())
 
 				// Construct an instance of the Context model
 				contextModel := new(openservicebrokerv1.Context)
@@ -667,7 +667,7 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 				updateServiceInstanceOptionsModel.AcceptsIncomplete = core.BoolPtr(true)
 				updateServiceInstanceOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
-				result, response, operationErr := testService.UpdateServiceInstance(updateServiceInstanceOptionsModel)
+				result, response, operationErr := openServiceBrokerService.UpdateServiceInstance(updateServiceInstanceOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
@@ -686,26 +686,26 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.Path).To(Equal(updateServiceInstancePath))
+					Expect(req.URL.EscapedPath()).To(Equal(updateServiceInstancePath))
 					Expect(req.Method).To(Equal("PATCH"))
 
 					// TODO: Add check for accepts_incomplete query parameter
 
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, `{"operation": "Operation"}`)
+					fmt.Fprintf(res, "%s", `{"operation": "Operation"}`)
 				}))
 			})
 			It(`Invoke UpdateServiceInstance successfully`, func() {
-				testService, testServiceErr := openservicebrokerv1.NewOpenServiceBrokerV1(&openservicebrokerv1.OpenServiceBrokerV1Options{
+				openServiceBrokerService, serviceErr := openservicebrokerv1.NewOpenServiceBrokerV1(&openservicebrokerv1.OpenServiceBrokerV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
-				Expect(testServiceErr).To(BeNil())
-				Expect(testService).ToNot(BeNil())
+				Expect(serviceErr).To(BeNil())
+				Expect(openServiceBrokerService).ToNot(BeNil())
 
 				// Invoke operation with nil options model (negative test)
-				result, response, operationErr := testService.UpdateServiceInstance(nil)
+				result, response, operationErr := openServiceBrokerService.UpdateServiceInstance(nil)
 				Expect(operationErr).NotTo(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
@@ -725,21 +725,21 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 				updateServiceInstanceOptionsModel.PreviousValues = make(map[string]string)
 				updateServiceInstanceOptionsModel.ServiceID = core.StringPtr("null")
 				updateServiceInstanceOptionsModel.AcceptsIncomplete = core.BoolPtr(true)
- 				updateServiceInstanceOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				updateServiceInstanceOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
-				result, response, operationErr = testService.UpdateServiceInstance(updateServiceInstanceOptionsModel)
+				result, response, operationErr = openServiceBrokerService.UpdateServiceInstance(updateServiceInstanceOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
 			})
 			It(`Invoke UpdateServiceInstance with error: Operation validation and request error`, func() {
-				testService, testServiceErr := openservicebrokerv1.NewOpenServiceBrokerV1(&openservicebrokerv1.OpenServiceBrokerV1Options{
+				openServiceBrokerService, serviceErr := openservicebrokerv1.NewOpenServiceBrokerV1(&openservicebrokerv1.OpenServiceBrokerV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
-				Expect(testServiceErr).To(BeNil())
-				Expect(testService).ToNot(BeNil())
+				Expect(serviceErr).To(BeNil())
+				Expect(openServiceBrokerService).ToNot(BeNil())
 
 				// Construct an instance of the Context model
 				contextModel := new(openservicebrokerv1.Context)
@@ -758,9 +758,9 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 				updateServiceInstanceOptionsModel.AcceptsIncomplete = core.BoolPtr(true)
 				updateServiceInstanceOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
-				err := testService.SetServiceURL("")
+				err := openServiceBrokerService.SetServiceURL("")
 				Expect(err).To(BeNil())
-				result, response, operationErr := testService.UpdateServiceInstance(updateServiceInstanceOptionsModel)
+				result, response, operationErr := openServiceBrokerService.UpdateServiceInstance(updateServiceInstanceOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
 				Expect(response).To(BeNil())
@@ -768,7 +768,7 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 				// Construct a second instance of the UpdateServiceInstanceOptions model with no property values
 				updateServiceInstanceOptionsModelNew := new(openservicebrokerv1.UpdateServiceInstanceOptions)
 				// Invoke operation with invalid model (negative test)
-				result, response, operationErr = testService.UpdateServiceInstance(updateServiceInstanceOptionsModelNew)
+				result, response, operationErr = openServiceBrokerService.UpdateServiceInstance(updateServiceInstanceOptionsModelNew)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
@@ -786,7 +786,7 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.Path).To(Equal(deleteServiceInstancePath))
+					Expect(req.URL.EscapedPath()).To(Equal(deleteServiceInstancePath))
 					Expect(req.Method).To(Equal("DELETE"))
 					Expect(req.URL.Query()["service_id"]).To(Equal([]string{"testString"}))
 
@@ -801,12 +801,12 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 				}))
 			})
 			It(`Invoke DeleteServiceInstance with error: Operation response processing error`, func() {
-				testService, testServiceErr := openservicebrokerv1.NewOpenServiceBrokerV1(&openservicebrokerv1.OpenServiceBrokerV1Options{
+				openServiceBrokerService, serviceErr := openservicebrokerv1.NewOpenServiceBrokerV1(&openservicebrokerv1.OpenServiceBrokerV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
-				Expect(testServiceErr).To(BeNil())
-				Expect(testService).ToNot(BeNil())
+				Expect(serviceErr).To(BeNil())
+				Expect(openServiceBrokerService).ToNot(BeNil())
 
 				// Construct an instance of the DeleteServiceInstanceOptions model
 				deleteServiceInstanceOptionsModel := new(openservicebrokerv1.DeleteServiceInstanceOptions)
@@ -816,7 +816,7 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 				deleteServiceInstanceOptionsModel.AcceptsIncomplete = core.BoolPtr(true)
 				deleteServiceInstanceOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
-				result, response, operationErr := testService.DeleteServiceInstance(deleteServiceInstanceOptionsModel)
+				result, response, operationErr := openServiceBrokerService.DeleteServiceInstance(deleteServiceInstanceOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
@@ -835,7 +835,7 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.Path).To(Equal(deleteServiceInstancePath))
+					Expect(req.URL.EscapedPath()).To(Equal(deleteServiceInstancePath))
 					Expect(req.Method).To(Equal("DELETE"))
 					Expect(req.URL.Query()["service_id"]).To(Equal([]string{"testString"}))
 
@@ -846,19 +846,19 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, `{"operation": "Operation"}`)
+					fmt.Fprintf(res, "%s", `{"operation": "Operation"}`)
 				}))
 			})
 			It(`Invoke DeleteServiceInstance successfully`, func() {
-				testService, testServiceErr := openservicebrokerv1.NewOpenServiceBrokerV1(&openservicebrokerv1.OpenServiceBrokerV1Options{
+				openServiceBrokerService, serviceErr := openservicebrokerv1.NewOpenServiceBrokerV1(&openservicebrokerv1.OpenServiceBrokerV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
-				Expect(testServiceErr).To(BeNil())
-				Expect(testService).ToNot(BeNil())
+				Expect(serviceErr).To(BeNil())
+				Expect(openServiceBrokerService).ToNot(BeNil())
 
 				// Invoke operation with nil options model (negative test)
-				result, response, operationErr := testService.DeleteServiceInstance(nil)
+				result, response, operationErr := openServiceBrokerService.DeleteServiceInstance(nil)
 				Expect(operationErr).NotTo(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
@@ -869,21 +869,21 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 				deleteServiceInstanceOptionsModel.PlanID = core.StringPtr("testString")
 				deleteServiceInstanceOptionsModel.InstanceID = core.StringPtr("testString")
 				deleteServiceInstanceOptionsModel.AcceptsIncomplete = core.BoolPtr(true)
- 				deleteServiceInstanceOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				deleteServiceInstanceOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
-				result, response, operationErr = testService.DeleteServiceInstance(deleteServiceInstanceOptionsModel)
+				result, response, operationErr = openServiceBrokerService.DeleteServiceInstance(deleteServiceInstanceOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
 			})
 			It(`Invoke DeleteServiceInstance with error: Operation validation and request error`, func() {
-				testService, testServiceErr := openservicebrokerv1.NewOpenServiceBrokerV1(&openservicebrokerv1.OpenServiceBrokerV1Options{
+				openServiceBrokerService, serviceErr := openservicebrokerv1.NewOpenServiceBrokerV1(&openservicebrokerv1.OpenServiceBrokerV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
-				Expect(testServiceErr).To(BeNil())
-				Expect(testService).ToNot(BeNil())
+				Expect(serviceErr).To(BeNil())
+				Expect(openServiceBrokerService).ToNot(BeNil())
 
 				// Construct an instance of the DeleteServiceInstanceOptions model
 				deleteServiceInstanceOptionsModel := new(openservicebrokerv1.DeleteServiceInstanceOptions)
@@ -893,9 +893,9 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 				deleteServiceInstanceOptionsModel.AcceptsIncomplete = core.BoolPtr(true)
 				deleteServiceInstanceOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
-				err := testService.SetServiceURL("")
+				err := openServiceBrokerService.SetServiceURL("")
 				Expect(err).To(BeNil())
-				result, response, operationErr := testService.DeleteServiceInstance(deleteServiceInstanceOptionsModel)
+				result, response, operationErr := openServiceBrokerService.DeleteServiceInstance(deleteServiceInstanceOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
 				Expect(response).To(BeNil())
@@ -903,7 +903,7 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 				// Construct a second instance of the DeleteServiceInstanceOptions model with no property values
 				deleteServiceInstanceOptionsModelNew := new(openservicebrokerv1.DeleteServiceInstanceOptions)
 				// Invoke operation with invalid model (negative test)
-				result, response, operationErr = testService.DeleteServiceInstance(deleteServiceInstanceOptionsModelNew)
+				result, response, operationErr = openServiceBrokerService.DeleteServiceInstance(deleteServiceInstanceOptionsModelNew)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
@@ -913,31 +913,31 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 			})
 		})
 	})
-    Describe(`Service constructor tests`, func() {
+	Describe(`Service constructor tests`, func() {
 		It(`Instantiate service client`, func() {
-			testService, testServiceErr := openservicebrokerv1.NewOpenServiceBrokerV1(&openservicebrokerv1.OpenServiceBrokerV1Options{
+			openServiceBrokerService, serviceErr := openservicebrokerv1.NewOpenServiceBrokerV1(&openservicebrokerv1.OpenServiceBrokerV1Options{
 				Authenticator: &core.NoAuthAuthenticator{},
 			})
-			Expect(testService).ToNot(BeNil())
-			Expect(testServiceErr).To(BeNil())
+			Expect(openServiceBrokerService).ToNot(BeNil())
+			Expect(serviceErr).To(BeNil())
 		})
 		It(`Instantiate service client with error: Invalid URL`, func() {
-			testService, testServiceErr := openservicebrokerv1.NewOpenServiceBrokerV1(&openservicebrokerv1.OpenServiceBrokerV1Options{
+			openServiceBrokerService, serviceErr := openservicebrokerv1.NewOpenServiceBrokerV1(&openservicebrokerv1.OpenServiceBrokerV1Options{
 				URL: "{BAD_URL_STRING",
 			})
-			Expect(testService).To(BeNil())
-			Expect(testServiceErr).ToNot(BeNil())
+			Expect(openServiceBrokerService).To(BeNil())
+			Expect(serviceErr).ToNot(BeNil())
 		})
 		It(`Instantiate service client with error: Invalid Auth`, func() {
-			testService, testServiceErr := openservicebrokerv1.NewOpenServiceBrokerV1(&openservicebrokerv1.OpenServiceBrokerV1Options{
+			openServiceBrokerService, serviceErr := openservicebrokerv1.NewOpenServiceBrokerV1(&openservicebrokerv1.OpenServiceBrokerV1Options{
 				URL: "https://openservicebrokerv1/api",
 				Authenticator: &core.BasicAuthenticator{
 					Username: "",
 					Password: "",
 				},
 			})
-			Expect(testService).To(BeNil())
-			Expect(testServiceErr).ToNot(BeNil())
+			Expect(openServiceBrokerService).To(BeNil())
+			Expect(serviceErr).ToNot(BeNil())
 		})
 	})
 	Describe(`Service constructor tests using external config`, func() {
@@ -950,31 +950,31 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 
 			It(`Create service client using external config successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				testService, testServiceErr := openservicebrokerv1.NewOpenServiceBrokerV1UsingExternalConfig(&openservicebrokerv1.OpenServiceBrokerV1Options{
+				openServiceBrokerService, serviceErr := openservicebrokerv1.NewOpenServiceBrokerV1UsingExternalConfig(&openservicebrokerv1.OpenServiceBrokerV1Options{
 				})
-				Expect(testService).ToNot(BeNil())
-				Expect(testServiceErr).To(BeNil())
+				Expect(openServiceBrokerService).ToNot(BeNil())
+				Expect(serviceErr).To(BeNil())
 				ClearTestEnvironment(testEnvironment)
 			})
 			It(`Create service client using external config and set url from constructor successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				testService, testServiceErr := openservicebrokerv1.NewOpenServiceBrokerV1UsingExternalConfig(&openservicebrokerv1.OpenServiceBrokerV1Options{
+				openServiceBrokerService, serviceErr := openservicebrokerv1.NewOpenServiceBrokerV1UsingExternalConfig(&openservicebrokerv1.OpenServiceBrokerV1Options{
 					URL: "https://testService/api",
 				})
-				Expect(testService).ToNot(BeNil())
-				Expect(testServiceErr).To(BeNil())
-				Expect(testService.Service.GetServiceURL()).To(Equal("https://testService/api"))
+				Expect(openServiceBrokerService).ToNot(BeNil())
+				Expect(serviceErr).To(BeNil())
+				Expect(openServiceBrokerService.Service.GetServiceURL()).To(Equal("https://testService/api"))
 				ClearTestEnvironment(testEnvironment)
 			})
 			It(`Create service client using external config and set url programatically successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				testService, testServiceErr := openservicebrokerv1.NewOpenServiceBrokerV1UsingExternalConfig(&openservicebrokerv1.OpenServiceBrokerV1Options{
+				openServiceBrokerService, serviceErr := openservicebrokerv1.NewOpenServiceBrokerV1UsingExternalConfig(&openservicebrokerv1.OpenServiceBrokerV1Options{
 				})
-				err := testService.SetServiceURL("https://testService/api")
+				err := openServiceBrokerService.SetServiceURL("https://testService/api")
 				Expect(err).To(BeNil())
-				Expect(testService).ToNot(BeNil())
-				Expect(testServiceErr).To(BeNil())
-				Expect(testService.Service.GetServiceURL()).To(Equal("https://testService/api"))
+				Expect(openServiceBrokerService).ToNot(BeNil())
+				Expect(serviceErr).To(BeNil())
+				Expect(openServiceBrokerService.Service.GetServiceURL()).To(Equal("https://testService/api"))
 				ClearTestEnvironment(testEnvironment)
 			})
 		})
@@ -986,12 +986,12 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 			}
 
 			SetTestEnvironment(testEnvironment)
-			testService, testServiceErr := openservicebrokerv1.NewOpenServiceBrokerV1UsingExternalConfig(&openservicebrokerv1.OpenServiceBrokerV1Options{
+			openServiceBrokerService, serviceErr := openservicebrokerv1.NewOpenServiceBrokerV1UsingExternalConfig(&openservicebrokerv1.OpenServiceBrokerV1Options{
 			})
 
 			It(`Instantiate service client with error`, func() {
-				Expect(testService).To(BeNil())
-				Expect(testServiceErr).ToNot(BeNil())
+				Expect(openServiceBrokerService).To(BeNil())
+				Expect(serviceErr).ToNot(BeNil())
 				ClearTestEnvironment(testEnvironment)
 			})
 		})
@@ -1002,13 +1002,13 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 			}
 
 			SetTestEnvironment(testEnvironment)
-			testService, testServiceErr := openservicebrokerv1.NewOpenServiceBrokerV1UsingExternalConfig(&openservicebrokerv1.OpenServiceBrokerV1Options{
+			openServiceBrokerService, serviceErr := openservicebrokerv1.NewOpenServiceBrokerV1UsingExternalConfig(&openservicebrokerv1.OpenServiceBrokerV1Options{
 				URL: "{BAD_URL_STRING",
 			})
 
 			It(`Instantiate service client with error`, func() {
-				Expect(testService).To(BeNil())
-				Expect(testServiceErr).ToNot(BeNil())
+				Expect(openServiceBrokerService).To(BeNil())
+				Expect(serviceErr).ToNot(BeNil())
 				ClearTestEnvironment(testEnvironment)
 			})
 		})
@@ -1021,7 +1021,7 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.Path).To(Equal(listCatalogPath))
+					Expect(req.URL.EscapedPath()).To(Equal(listCatalogPath))
 					Expect(req.Method).To(Equal("GET"))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
@@ -1029,18 +1029,18 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 				}))
 			})
 			It(`Invoke ListCatalog with error: Operation response processing error`, func() {
-				testService, testServiceErr := openservicebrokerv1.NewOpenServiceBrokerV1(&openservicebrokerv1.OpenServiceBrokerV1Options{
+				openServiceBrokerService, serviceErr := openservicebrokerv1.NewOpenServiceBrokerV1(&openservicebrokerv1.OpenServiceBrokerV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
-				Expect(testServiceErr).To(BeNil())
-				Expect(testService).ToNot(BeNil())
+				Expect(serviceErr).To(BeNil())
+				Expect(openServiceBrokerService).ToNot(BeNil())
 
 				// Construct an instance of the ListCatalogOptions model
 				listCatalogOptionsModel := new(openservicebrokerv1.ListCatalogOptions)
 				listCatalogOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
-				result, response, operationErr := testService.ListCatalog(listCatalogOptionsModel)
+				result, response, operationErr := openServiceBrokerService.ListCatalog(listCatalogOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
@@ -1059,52 +1059,52 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.Path).To(Equal(listCatalogPath))
+					Expect(req.URL.EscapedPath()).To(Equal(listCatalogPath))
 					Expect(req.Method).To(Equal("GET"))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, `{"services": [{"bindable": true, "description": "Description", "id": "ID", "name": "Name", "plan_updateable": true, "plans": [{"description": "Description", "free": true, "id": "ID", "name": "Name"}]}]}`)
+					fmt.Fprintf(res, "%s", `{"services": [{"bindable": true, "description": "Description", "id": "ID", "name": "Name", "plan_updateable": true, "plans": [{"description": "Description", "free": true, "id": "ID", "name": "Name"}]}]}`)
 				}))
 			})
 			It(`Invoke ListCatalog successfully`, func() {
-				testService, testServiceErr := openservicebrokerv1.NewOpenServiceBrokerV1(&openservicebrokerv1.OpenServiceBrokerV1Options{
+				openServiceBrokerService, serviceErr := openservicebrokerv1.NewOpenServiceBrokerV1(&openservicebrokerv1.OpenServiceBrokerV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
-				Expect(testServiceErr).To(BeNil())
-				Expect(testService).ToNot(BeNil())
+				Expect(serviceErr).To(BeNil())
+				Expect(openServiceBrokerService).ToNot(BeNil())
 
 				// Invoke operation with nil options model (negative test)
-				result, response, operationErr := testService.ListCatalog(nil)
+				result, response, operationErr := openServiceBrokerService.ListCatalog(nil)
 				Expect(operationErr).NotTo(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
 
 				// Construct an instance of the ListCatalogOptions model
 				listCatalogOptionsModel := new(openservicebrokerv1.ListCatalogOptions)
- 				listCatalogOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				listCatalogOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
-				result, response, operationErr = testService.ListCatalog(listCatalogOptionsModel)
+				result, response, operationErr = openServiceBrokerService.ListCatalog(listCatalogOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
 			})
 			It(`Invoke ListCatalog with error: Operation request error`, func() {
-				testService, testServiceErr := openservicebrokerv1.NewOpenServiceBrokerV1(&openservicebrokerv1.OpenServiceBrokerV1Options{
+				openServiceBrokerService, serviceErr := openservicebrokerv1.NewOpenServiceBrokerV1(&openservicebrokerv1.OpenServiceBrokerV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
-				Expect(testServiceErr).To(BeNil())
-				Expect(testService).ToNot(BeNil())
+				Expect(serviceErr).To(BeNil())
+				Expect(openServiceBrokerService).ToNot(BeNil())
 
 				// Construct an instance of the ListCatalogOptions model
 				listCatalogOptionsModel := new(openservicebrokerv1.ListCatalogOptions)
 				listCatalogOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
-				err := testService.SetServiceURL("")
+				err := openServiceBrokerService.SetServiceURL("")
 				Expect(err).To(BeNil())
-				result, response, operationErr := testService.ListCatalog(listCatalogOptionsModel)
+				result, response, operationErr := openServiceBrokerService.ListCatalog(listCatalogOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
 				Expect(response).To(BeNil())
@@ -1115,31 +1115,31 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 			})
 		})
 	})
-    Describe(`Service constructor tests`, func() {
+	Describe(`Service constructor tests`, func() {
 		It(`Instantiate service client`, func() {
-			testService, testServiceErr := openservicebrokerv1.NewOpenServiceBrokerV1(&openservicebrokerv1.OpenServiceBrokerV1Options{
+			openServiceBrokerService, serviceErr := openservicebrokerv1.NewOpenServiceBrokerV1(&openservicebrokerv1.OpenServiceBrokerV1Options{
 				Authenticator: &core.NoAuthAuthenticator{},
 			})
-			Expect(testService).ToNot(BeNil())
-			Expect(testServiceErr).To(BeNil())
+			Expect(openServiceBrokerService).ToNot(BeNil())
+			Expect(serviceErr).To(BeNil())
 		})
 		It(`Instantiate service client with error: Invalid URL`, func() {
-			testService, testServiceErr := openservicebrokerv1.NewOpenServiceBrokerV1(&openservicebrokerv1.OpenServiceBrokerV1Options{
+			openServiceBrokerService, serviceErr := openservicebrokerv1.NewOpenServiceBrokerV1(&openservicebrokerv1.OpenServiceBrokerV1Options{
 				URL: "{BAD_URL_STRING",
 			})
-			Expect(testService).To(BeNil())
-			Expect(testServiceErr).ToNot(BeNil())
+			Expect(openServiceBrokerService).To(BeNil())
+			Expect(serviceErr).ToNot(BeNil())
 		})
 		It(`Instantiate service client with error: Invalid Auth`, func() {
-			testService, testServiceErr := openservicebrokerv1.NewOpenServiceBrokerV1(&openservicebrokerv1.OpenServiceBrokerV1Options{
+			openServiceBrokerService, serviceErr := openservicebrokerv1.NewOpenServiceBrokerV1(&openservicebrokerv1.OpenServiceBrokerV1Options{
 				URL: "https://openservicebrokerv1/api",
 				Authenticator: &core.BasicAuthenticator{
 					Username: "",
 					Password: "",
 				},
 			})
-			Expect(testService).To(BeNil())
-			Expect(testServiceErr).ToNot(BeNil())
+			Expect(openServiceBrokerService).To(BeNil())
+			Expect(serviceErr).ToNot(BeNil())
 		})
 	})
 	Describe(`Service constructor tests using external config`, func() {
@@ -1152,31 +1152,31 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 
 			It(`Create service client using external config successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				testService, testServiceErr := openservicebrokerv1.NewOpenServiceBrokerV1UsingExternalConfig(&openservicebrokerv1.OpenServiceBrokerV1Options{
+				openServiceBrokerService, serviceErr := openservicebrokerv1.NewOpenServiceBrokerV1UsingExternalConfig(&openservicebrokerv1.OpenServiceBrokerV1Options{
 				})
-				Expect(testService).ToNot(BeNil())
-				Expect(testServiceErr).To(BeNil())
+				Expect(openServiceBrokerService).ToNot(BeNil())
+				Expect(serviceErr).To(BeNil())
 				ClearTestEnvironment(testEnvironment)
 			})
 			It(`Create service client using external config and set url from constructor successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				testService, testServiceErr := openservicebrokerv1.NewOpenServiceBrokerV1UsingExternalConfig(&openservicebrokerv1.OpenServiceBrokerV1Options{
+				openServiceBrokerService, serviceErr := openservicebrokerv1.NewOpenServiceBrokerV1UsingExternalConfig(&openservicebrokerv1.OpenServiceBrokerV1Options{
 					URL: "https://testService/api",
 				})
-				Expect(testService).ToNot(BeNil())
-				Expect(testServiceErr).To(BeNil())
-				Expect(testService.Service.GetServiceURL()).To(Equal("https://testService/api"))
+				Expect(openServiceBrokerService).ToNot(BeNil())
+				Expect(serviceErr).To(BeNil())
+				Expect(openServiceBrokerService.Service.GetServiceURL()).To(Equal("https://testService/api"))
 				ClearTestEnvironment(testEnvironment)
 			})
 			It(`Create service client using external config and set url programatically successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				testService, testServiceErr := openservicebrokerv1.NewOpenServiceBrokerV1UsingExternalConfig(&openservicebrokerv1.OpenServiceBrokerV1Options{
+				openServiceBrokerService, serviceErr := openservicebrokerv1.NewOpenServiceBrokerV1UsingExternalConfig(&openservicebrokerv1.OpenServiceBrokerV1Options{
 				})
-				err := testService.SetServiceURL("https://testService/api")
+				err := openServiceBrokerService.SetServiceURL("https://testService/api")
 				Expect(err).To(BeNil())
-				Expect(testService).ToNot(BeNil())
-				Expect(testServiceErr).To(BeNil())
-				Expect(testService.Service.GetServiceURL()).To(Equal("https://testService/api"))
+				Expect(openServiceBrokerService).ToNot(BeNil())
+				Expect(serviceErr).To(BeNil())
+				Expect(openServiceBrokerService.Service.GetServiceURL()).To(Equal("https://testService/api"))
 				ClearTestEnvironment(testEnvironment)
 			})
 		})
@@ -1188,12 +1188,12 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 			}
 
 			SetTestEnvironment(testEnvironment)
-			testService, testServiceErr := openservicebrokerv1.NewOpenServiceBrokerV1UsingExternalConfig(&openservicebrokerv1.OpenServiceBrokerV1Options{
+			openServiceBrokerService, serviceErr := openservicebrokerv1.NewOpenServiceBrokerV1UsingExternalConfig(&openservicebrokerv1.OpenServiceBrokerV1Options{
 			})
 
 			It(`Instantiate service client with error`, func() {
-				Expect(testService).To(BeNil())
-				Expect(testServiceErr).ToNot(BeNil())
+				Expect(openServiceBrokerService).To(BeNil())
+				Expect(serviceErr).ToNot(BeNil())
 				ClearTestEnvironment(testEnvironment)
 			})
 		})
@@ -1204,13 +1204,13 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 			}
 
 			SetTestEnvironment(testEnvironment)
-			testService, testServiceErr := openservicebrokerv1.NewOpenServiceBrokerV1UsingExternalConfig(&openservicebrokerv1.OpenServiceBrokerV1Options{
+			openServiceBrokerService, serviceErr := openservicebrokerv1.NewOpenServiceBrokerV1UsingExternalConfig(&openservicebrokerv1.OpenServiceBrokerV1Options{
 				URL: "{BAD_URL_STRING",
 			})
 
 			It(`Instantiate service client with error`, func() {
-				Expect(testService).To(BeNil())
-				Expect(testServiceErr).ToNot(BeNil())
+				Expect(openServiceBrokerService).To(BeNil())
+				Expect(serviceErr).ToNot(BeNil())
 				ClearTestEnvironment(testEnvironment)
 			})
 		})
@@ -1223,7 +1223,7 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.Path).To(Equal(getLastOperationPath))
+					Expect(req.URL.EscapedPath()).To(Equal(getLastOperationPath))
 					Expect(req.Method).To(Equal("GET"))
 					Expect(req.URL.Query()["operation"]).To(Equal([]string{"testString"}))
 
@@ -1237,12 +1237,12 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 				}))
 			})
 			It(`Invoke GetLastOperation with error: Operation response processing error`, func() {
-				testService, testServiceErr := openservicebrokerv1.NewOpenServiceBrokerV1(&openservicebrokerv1.OpenServiceBrokerV1Options{
+				openServiceBrokerService, serviceErr := openservicebrokerv1.NewOpenServiceBrokerV1(&openservicebrokerv1.OpenServiceBrokerV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
-				Expect(testServiceErr).To(BeNil())
-				Expect(testService).ToNot(BeNil())
+				Expect(serviceErr).To(BeNil())
+				Expect(openServiceBrokerService).ToNot(BeNil())
 
 				// Construct an instance of the GetLastOperationOptions model
 				getLastOperationOptionsModel := new(openservicebrokerv1.GetLastOperationOptions)
@@ -1252,7 +1252,7 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 				getLastOperationOptionsModel.ServiceID = core.StringPtr("testString")
 				getLastOperationOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
-				result, response, operationErr := testService.GetLastOperation(getLastOperationOptionsModel)
+				result, response, operationErr := openServiceBrokerService.GetLastOperation(getLastOperationOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
@@ -1271,7 +1271,7 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.Path).To(Equal(getLastOperationPath))
+					Expect(req.URL.EscapedPath()).To(Equal(getLastOperationPath))
 					Expect(req.Method).To(Equal("GET"))
 					Expect(req.URL.Query()["operation"]).To(Equal([]string{"testString"}))
 
@@ -1281,19 +1281,19 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, `{"description": "Description", "state": "State"}`)
+					fmt.Fprintf(res, "%s", `{"description": "Description", "state": "State"}`)
 				}))
 			})
 			It(`Invoke GetLastOperation successfully`, func() {
-				testService, testServiceErr := openservicebrokerv1.NewOpenServiceBrokerV1(&openservicebrokerv1.OpenServiceBrokerV1Options{
+				openServiceBrokerService, serviceErr := openservicebrokerv1.NewOpenServiceBrokerV1(&openservicebrokerv1.OpenServiceBrokerV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
-				Expect(testServiceErr).To(BeNil())
-				Expect(testService).ToNot(BeNil())
+				Expect(serviceErr).To(BeNil())
+				Expect(openServiceBrokerService).ToNot(BeNil())
 
 				// Invoke operation with nil options model (negative test)
-				result, response, operationErr := testService.GetLastOperation(nil)
+				result, response, operationErr := openServiceBrokerService.GetLastOperation(nil)
 				Expect(operationErr).NotTo(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
@@ -1304,21 +1304,21 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 				getLastOperationOptionsModel.Operation = core.StringPtr("testString")
 				getLastOperationOptionsModel.PlanID = core.StringPtr("testString")
 				getLastOperationOptionsModel.ServiceID = core.StringPtr("testString")
- 				getLastOperationOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				getLastOperationOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
-				result, response, operationErr = testService.GetLastOperation(getLastOperationOptionsModel)
+				result, response, operationErr = openServiceBrokerService.GetLastOperation(getLastOperationOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
 			})
 			It(`Invoke GetLastOperation with error: Operation validation and request error`, func() {
-				testService, testServiceErr := openservicebrokerv1.NewOpenServiceBrokerV1(&openservicebrokerv1.OpenServiceBrokerV1Options{
+				openServiceBrokerService, serviceErr := openservicebrokerv1.NewOpenServiceBrokerV1(&openservicebrokerv1.OpenServiceBrokerV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
-				Expect(testServiceErr).To(BeNil())
-				Expect(testService).ToNot(BeNil())
+				Expect(serviceErr).To(BeNil())
+				Expect(openServiceBrokerService).ToNot(BeNil())
 
 				// Construct an instance of the GetLastOperationOptions model
 				getLastOperationOptionsModel := new(openservicebrokerv1.GetLastOperationOptions)
@@ -1328,9 +1328,9 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 				getLastOperationOptionsModel.ServiceID = core.StringPtr("testString")
 				getLastOperationOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
-				err := testService.SetServiceURL("")
+				err := openServiceBrokerService.SetServiceURL("")
 				Expect(err).To(BeNil())
-				result, response, operationErr := testService.GetLastOperation(getLastOperationOptionsModel)
+				result, response, operationErr := openServiceBrokerService.GetLastOperation(getLastOperationOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
 				Expect(response).To(BeNil())
@@ -1338,7 +1338,7 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 				// Construct a second instance of the GetLastOperationOptions model with no property values
 				getLastOperationOptionsModelNew := new(openservicebrokerv1.GetLastOperationOptions)
 				// Invoke operation with invalid model (negative test)
-				result, response, operationErr = testService.GetLastOperation(getLastOperationOptionsModelNew)
+				result, response, operationErr = openServiceBrokerService.GetLastOperation(getLastOperationOptionsModelNew)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
@@ -1348,31 +1348,31 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 			})
 		})
 	})
-    Describe(`Service constructor tests`, func() {
+	Describe(`Service constructor tests`, func() {
 		It(`Instantiate service client`, func() {
-			testService, testServiceErr := openservicebrokerv1.NewOpenServiceBrokerV1(&openservicebrokerv1.OpenServiceBrokerV1Options{
+			openServiceBrokerService, serviceErr := openservicebrokerv1.NewOpenServiceBrokerV1(&openservicebrokerv1.OpenServiceBrokerV1Options{
 				Authenticator: &core.NoAuthAuthenticator{},
 			})
-			Expect(testService).ToNot(BeNil())
-			Expect(testServiceErr).To(BeNil())
+			Expect(openServiceBrokerService).ToNot(BeNil())
+			Expect(serviceErr).To(BeNil())
 		})
 		It(`Instantiate service client with error: Invalid URL`, func() {
-			testService, testServiceErr := openservicebrokerv1.NewOpenServiceBrokerV1(&openservicebrokerv1.OpenServiceBrokerV1Options{
+			openServiceBrokerService, serviceErr := openservicebrokerv1.NewOpenServiceBrokerV1(&openservicebrokerv1.OpenServiceBrokerV1Options{
 				URL: "{BAD_URL_STRING",
 			})
-			Expect(testService).To(BeNil())
-			Expect(testServiceErr).ToNot(BeNil())
+			Expect(openServiceBrokerService).To(BeNil())
+			Expect(serviceErr).ToNot(BeNil())
 		})
 		It(`Instantiate service client with error: Invalid Auth`, func() {
-			testService, testServiceErr := openservicebrokerv1.NewOpenServiceBrokerV1(&openservicebrokerv1.OpenServiceBrokerV1Options{
+			openServiceBrokerService, serviceErr := openservicebrokerv1.NewOpenServiceBrokerV1(&openservicebrokerv1.OpenServiceBrokerV1Options{
 				URL: "https://openservicebrokerv1/api",
 				Authenticator: &core.BasicAuthenticator{
 					Username: "",
 					Password: "",
 				},
 			})
-			Expect(testService).To(BeNil())
-			Expect(testServiceErr).ToNot(BeNil())
+			Expect(openServiceBrokerService).To(BeNil())
+			Expect(serviceErr).ToNot(BeNil())
 		})
 	})
 	Describe(`Service constructor tests using external config`, func() {
@@ -1385,31 +1385,31 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 
 			It(`Create service client using external config successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				testService, testServiceErr := openservicebrokerv1.NewOpenServiceBrokerV1UsingExternalConfig(&openservicebrokerv1.OpenServiceBrokerV1Options{
+				openServiceBrokerService, serviceErr := openservicebrokerv1.NewOpenServiceBrokerV1UsingExternalConfig(&openservicebrokerv1.OpenServiceBrokerV1Options{
 				})
-				Expect(testService).ToNot(BeNil())
-				Expect(testServiceErr).To(BeNil())
+				Expect(openServiceBrokerService).ToNot(BeNil())
+				Expect(serviceErr).To(BeNil())
 				ClearTestEnvironment(testEnvironment)
 			})
 			It(`Create service client using external config and set url from constructor successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				testService, testServiceErr := openservicebrokerv1.NewOpenServiceBrokerV1UsingExternalConfig(&openservicebrokerv1.OpenServiceBrokerV1Options{
+				openServiceBrokerService, serviceErr := openservicebrokerv1.NewOpenServiceBrokerV1UsingExternalConfig(&openservicebrokerv1.OpenServiceBrokerV1Options{
 					URL: "https://testService/api",
 				})
-				Expect(testService).ToNot(BeNil())
-				Expect(testServiceErr).To(BeNil())
-				Expect(testService.Service.GetServiceURL()).To(Equal("https://testService/api"))
+				Expect(openServiceBrokerService).ToNot(BeNil())
+				Expect(serviceErr).To(BeNil())
+				Expect(openServiceBrokerService.Service.GetServiceURL()).To(Equal("https://testService/api"))
 				ClearTestEnvironment(testEnvironment)
 			})
 			It(`Create service client using external config and set url programatically successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				testService, testServiceErr := openservicebrokerv1.NewOpenServiceBrokerV1UsingExternalConfig(&openservicebrokerv1.OpenServiceBrokerV1Options{
+				openServiceBrokerService, serviceErr := openservicebrokerv1.NewOpenServiceBrokerV1UsingExternalConfig(&openservicebrokerv1.OpenServiceBrokerV1Options{
 				})
-				err := testService.SetServiceURL("https://testService/api")
+				err := openServiceBrokerService.SetServiceURL("https://testService/api")
 				Expect(err).To(BeNil())
-				Expect(testService).ToNot(BeNil())
-				Expect(testServiceErr).To(BeNil())
-				Expect(testService.Service.GetServiceURL()).To(Equal("https://testService/api"))
+				Expect(openServiceBrokerService).ToNot(BeNil())
+				Expect(serviceErr).To(BeNil())
+				Expect(openServiceBrokerService.Service.GetServiceURL()).To(Equal("https://testService/api"))
 				ClearTestEnvironment(testEnvironment)
 			})
 		})
@@ -1421,12 +1421,12 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 			}
 
 			SetTestEnvironment(testEnvironment)
-			testService, testServiceErr := openservicebrokerv1.NewOpenServiceBrokerV1UsingExternalConfig(&openservicebrokerv1.OpenServiceBrokerV1Options{
+			openServiceBrokerService, serviceErr := openservicebrokerv1.NewOpenServiceBrokerV1UsingExternalConfig(&openservicebrokerv1.OpenServiceBrokerV1Options{
 			})
 
 			It(`Instantiate service client with error`, func() {
-				Expect(testService).To(BeNil())
-				Expect(testServiceErr).ToNot(BeNil())
+				Expect(openServiceBrokerService).To(BeNil())
+				Expect(serviceErr).ToNot(BeNil())
 				ClearTestEnvironment(testEnvironment)
 			})
 		})
@@ -1437,13 +1437,13 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 			}
 
 			SetTestEnvironment(testEnvironment)
-			testService, testServiceErr := openservicebrokerv1.NewOpenServiceBrokerV1UsingExternalConfig(&openservicebrokerv1.OpenServiceBrokerV1Options{
+			openServiceBrokerService, serviceErr := openservicebrokerv1.NewOpenServiceBrokerV1UsingExternalConfig(&openservicebrokerv1.OpenServiceBrokerV1Options{
 				URL: "{BAD_URL_STRING",
 			})
 
 			It(`Instantiate service client with error`, func() {
-				Expect(testService).To(BeNil())
-				Expect(testServiceErr).ToNot(BeNil())
+				Expect(openServiceBrokerService).To(BeNil())
+				Expect(serviceErr).ToNot(BeNil())
 				ClearTestEnvironment(testEnvironment)
 			})
 		})
@@ -1456,7 +1456,7 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.Path).To(Equal(replaceServiceBindingPath))
+					Expect(req.URL.EscapedPath()).To(Equal(replaceServiceBindingPath))
 					Expect(req.Method).To(Equal("PUT"))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
@@ -1464,12 +1464,12 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 				}))
 			})
 			It(`Invoke ReplaceServiceBinding with error: Operation response processing error`, func() {
-				testService, testServiceErr := openservicebrokerv1.NewOpenServiceBrokerV1(&openservicebrokerv1.OpenServiceBrokerV1Options{
+				openServiceBrokerService, serviceErr := openservicebrokerv1.NewOpenServiceBrokerV1(&openservicebrokerv1.OpenServiceBrokerV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
-				Expect(testServiceErr).To(BeNil())
-				Expect(testService).ToNot(BeNil())
+				Expect(serviceErr).To(BeNil())
+				Expect(openServiceBrokerService).ToNot(BeNil())
 
 				// Construct an instance of the BindResource model
 				bindResourceModel := new(openservicebrokerv1.BindResource)
@@ -1489,7 +1489,7 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 				replaceServiceBindingOptionsModel.ServiceID = core.StringPtr("null")
 				replaceServiceBindingOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
-				result, response, operationErr := testService.ReplaceServiceBinding(replaceServiceBindingOptionsModel)
+				result, response, operationErr := openServiceBrokerService.ReplaceServiceBinding(replaceServiceBindingOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
@@ -1508,23 +1508,23 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.Path).To(Equal(replaceServiceBindingPath))
+					Expect(req.URL.EscapedPath()).To(Equal(replaceServiceBindingPath))
 					Expect(req.Method).To(Equal("PUT"))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, `{"credentials": {"anyKey": "anyValue"}, "syslog_drain_url": "SyslogDrainURL", "route_service_url": "RouteServiceURL", "volume_mounts": [{"driver": "Driver", "container_dir": "ContainerDir", "mode": "Mode", "device_type": "DeviceType", "device": "Device"}]}`)
+					fmt.Fprintf(res, "%s", `{"credentials": {"anyKey": "anyValue"}, "syslog_drain_url": "SyslogDrainURL", "route_service_url": "RouteServiceURL", "volume_mounts": [{"driver": "Driver", "container_dir": "ContainerDir", "mode": "Mode", "device_type": "DeviceType", "device": "Device"}]}`)
 				}))
 			})
 			It(`Invoke ReplaceServiceBinding successfully`, func() {
-				testService, testServiceErr := openservicebrokerv1.NewOpenServiceBrokerV1(&openservicebrokerv1.OpenServiceBrokerV1Options{
+				openServiceBrokerService, serviceErr := openservicebrokerv1.NewOpenServiceBrokerV1(&openservicebrokerv1.OpenServiceBrokerV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
-				Expect(testServiceErr).To(BeNil())
-				Expect(testService).ToNot(BeNil())
+				Expect(serviceErr).To(BeNil())
+				Expect(openServiceBrokerService).ToNot(BeNil())
 
 				// Invoke operation with nil options model (negative test)
-				result, response, operationErr := testService.ReplaceServiceBinding(nil)
+				result, response, operationErr := openServiceBrokerService.ReplaceServiceBinding(nil)
 				Expect(operationErr).NotTo(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
@@ -1545,21 +1545,21 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 				replaceServiceBindingOptionsModel.Parameters = make(map[string]string)
 				replaceServiceBindingOptionsModel.PlanID = core.StringPtr("null")
 				replaceServiceBindingOptionsModel.ServiceID = core.StringPtr("null")
- 				replaceServiceBindingOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				replaceServiceBindingOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
-				result, response, operationErr = testService.ReplaceServiceBinding(replaceServiceBindingOptionsModel)
+				result, response, operationErr = openServiceBrokerService.ReplaceServiceBinding(replaceServiceBindingOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
 			})
 			It(`Invoke ReplaceServiceBinding with error: Operation validation and request error`, func() {
-				testService, testServiceErr := openservicebrokerv1.NewOpenServiceBrokerV1(&openservicebrokerv1.OpenServiceBrokerV1Options{
+				openServiceBrokerService, serviceErr := openservicebrokerv1.NewOpenServiceBrokerV1(&openservicebrokerv1.OpenServiceBrokerV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
-				Expect(testServiceErr).To(BeNil())
-				Expect(testService).ToNot(BeNil())
+				Expect(serviceErr).To(BeNil())
+				Expect(openServiceBrokerService).ToNot(BeNil())
 
 				// Construct an instance of the BindResource model
 				bindResourceModel := new(openservicebrokerv1.BindResource)
@@ -1579,9 +1579,9 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 				replaceServiceBindingOptionsModel.ServiceID = core.StringPtr("null")
 				replaceServiceBindingOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
-				err := testService.SetServiceURL("")
+				err := openServiceBrokerService.SetServiceURL("")
 				Expect(err).To(BeNil())
-				result, response, operationErr := testService.ReplaceServiceBinding(replaceServiceBindingOptionsModel)
+				result, response, operationErr := openServiceBrokerService.ReplaceServiceBinding(replaceServiceBindingOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
 				Expect(response).To(BeNil())
@@ -1589,7 +1589,7 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 				// Construct a second instance of the ReplaceServiceBindingOptions model with no property values
 				replaceServiceBindingOptionsModelNew := new(openservicebrokerv1.ReplaceServiceBindingOptions)
 				// Invoke operation with invalid model (negative test)
-				result, response, operationErr = testService.ReplaceServiceBinding(replaceServiceBindingOptionsModelNew)
+				result, response, operationErr = openServiceBrokerService.ReplaceServiceBinding(replaceServiceBindingOptionsModelNew)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
@@ -1608,7 +1608,7 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.Path).To(Equal(deleteServiceBindingPath))
+					Expect(req.URL.EscapedPath()).To(Equal(deleteServiceBindingPath))
 					Expect(req.Method).To(Equal("DELETE"))
 					Expect(req.URL.Query()["plan_id"]).To(Equal([]string{"testString"}))
 
@@ -1618,15 +1618,15 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 				}))
 			})
 			It(`Invoke DeleteServiceBinding successfully`, func() {
-				testService, testServiceErr := openservicebrokerv1.NewOpenServiceBrokerV1(&openservicebrokerv1.OpenServiceBrokerV1Options{
+				openServiceBrokerService, serviceErr := openservicebrokerv1.NewOpenServiceBrokerV1(&openservicebrokerv1.OpenServiceBrokerV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
-				Expect(testServiceErr).To(BeNil())
-				Expect(testService).ToNot(BeNil())
+				Expect(serviceErr).To(BeNil())
+				Expect(openServiceBrokerService).ToNot(BeNil())
 
 				// Invoke operation with nil options model (negative test)
-				response, operationErr := testService.DeleteServiceBinding(nil)
+				response, operationErr := openServiceBrokerService.DeleteServiceBinding(nil)
 				Expect(operationErr).NotTo(BeNil())
 				Expect(response).To(BeNil())
 
@@ -1636,20 +1636,20 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 				deleteServiceBindingOptionsModel.InstanceID = core.StringPtr("testString")
 				deleteServiceBindingOptionsModel.PlanID = core.StringPtr("testString")
 				deleteServiceBindingOptionsModel.ServiceID = core.StringPtr("testString")
- 				deleteServiceBindingOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				deleteServiceBindingOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
-				response, operationErr = testService.DeleteServiceBinding(deleteServiceBindingOptionsModel)
+				response, operationErr = openServiceBrokerService.DeleteServiceBinding(deleteServiceBindingOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 			})
 			It(`Invoke DeleteServiceBinding with error: Operation validation and request error`, func() {
-				testService, testServiceErr := openservicebrokerv1.NewOpenServiceBrokerV1(&openservicebrokerv1.OpenServiceBrokerV1Options{
+				openServiceBrokerService, serviceErr := openservicebrokerv1.NewOpenServiceBrokerV1(&openservicebrokerv1.OpenServiceBrokerV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
-				Expect(testServiceErr).To(BeNil())
-				Expect(testService).ToNot(BeNil())
+				Expect(serviceErr).To(BeNil())
+				Expect(openServiceBrokerService).ToNot(BeNil())
 
 				// Construct an instance of the DeleteServiceBindingOptions model
 				deleteServiceBindingOptionsModel := new(openservicebrokerv1.DeleteServiceBindingOptions)
@@ -1659,16 +1659,16 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 				deleteServiceBindingOptionsModel.ServiceID = core.StringPtr("testString")
 				deleteServiceBindingOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
-				err := testService.SetServiceURL("")
+				err := openServiceBrokerService.SetServiceURL("")
 				Expect(err).To(BeNil())
-				response, operationErr := testService.DeleteServiceBinding(deleteServiceBindingOptionsModel)
+				response, operationErr := openServiceBrokerService.DeleteServiceBinding(deleteServiceBindingOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
 				Expect(response).To(BeNil())
 				// Construct a second instance of the DeleteServiceBindingOptions model with no property values
 				deleteServiceBindingOptionsModelNew := new(openservicebrokerv1.DeleteServiceBindingOptions)
 				// Invoke operation with invalid model (negative test)
-				response, operationErr = testService.DeleteServiceBinding(deleteServiceBindingOptionsModelNew)
+				response, operationErr = openServiceBrokerService.DeleteServiceBinding(deleteServiceBindingOptionsModelNew)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).To(BeNil())
 			})
@@ -1679,7 +1679,7 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 	})
 	Describe(`Model constructor tests`, func() {
 		Context(`Using a service client instance`, func() {
-			testService, _ := openservicebrokerv1.NewOpenServiceBrokerV1(&openservicebrokerv1.OpenServiceBrokerV1Options{
+			openServiceBrokerService, _ := openservicebrokerv1.NewOpenServiceBrokerV1(&openservicebrokerv1.OpenServiceBrokerV1Options{
 				URL:           "http://openservicebrokerv1modelgenerator.com",
 				Authenticator: &core.NoAuthAuthenticator{},
 			})
@@ -1689,7 +1689,7 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 				instanceID := "testString"
 				planID := "testString"
 				serviceID := "testString"
-				deleteServiceBindingOptionsModel := testService.NewDeleteServiceBindingOptions(bindingID, instanceID, planID, serviceID)
+				deleteServiceBindingOptionsModel := openServiceBrokerService.NewDeleteServiceBindingOptions(bindingID, instanceID, planID, serviceID)
 				deleteServiceBindingOptionsModel.SetBindingID("testString")
 				deleteServiceBindingOptionsModel.SetInstanceID("testString")
 				deleteServiceBindingOptionsModel.SetPlanID("testString")
@@ -1707,7 +1707,7 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 				serviceID := "testString"
 				planID := "testString"
 				instanceID := "testString"
-				deleteServiceInstanceOptionsModel := testService.NewDeleteServiceInstanceOptions(serviceID, planID, instanceID)
+				deleteServiceInstanceOptionsModel := openServiceBrokerService.NewDeleteServiceInstanceOptions(serviceID, planID, instanceID)
 				deleteServiceInstanceOptionsModel.SetServiceID("testString")
 				deleteServiceInstanceOptionsModel.SetPlanID("testString")
 				deleteServiceInstanceOptionsModel.SetInstanceID("testString")
@@ -1723,7 +1723,7 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 			It(`Invoke NewGetLastOperationOptions successfully`, func() {
 				// Construct an instance of the GetLastOperationOptions model
 				instanceID := "testString"
-				getLastOperationOptionsModel := testService.NewGetLastOperationOptions(instanceID)
+				getLastOperationOptionsModel := openServiceBrokerService.NewGetLastOperationOptions(instanceID)
 				getLastOperationOptionsModel.SetInstanceID("testString")
 				getLastOperationOptionsModel.SetOperation("testString")
 				getLastOperationOptionsModel.SetPlanID("testString")
@@ -1739,7 +1739,7 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 			It(`Invoke NewGetServiceInstanceStateOptions successfully`, func() {
 				// Construct an instance of the GetServiceInstanceStateOptions model
 				instanceID := "testString"
-				getServiceInstanceStateOptionsModel := testService.NewGetServiceInstanceStateOptions(instanceID)
+				getServiceInstanceStateOptionsModel := openServiceBrokerService.NewGetServiceInstanceStateOptions(instanceID)
 				getServiceInstanceStateOptionsModel.SetInstanceID("testString")
 				getServiceInstanceStateOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(getServiceInstanceStateOptionsModel).ToNot(BeNil())
@@ -1748,7 +1748,7 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 			})
 			It(`Invoke NewListCatalogOptions successfully`, func() {
 				// Construct an instance of the ListCatalogOptions model
-				listCatalogOptionsModel := testService.NewListCatalogOptions()
+				listCatalogOptionsModel := openServiceBrokerService.NewListCatalogOptions()
 				listCatalogOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(listCatalogOptionsModel).ToNot(BeNil())
 				Expect(listCatalogOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
@@ -1771,7 +1771,7 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 				// Construct an instance of the ReplaceServiceBindingOptions model
 				bindingID := "testString"
 				instanceID := "testString"
-				replaceServiceBindingOptionsModel := testService.NewReplaceServiceBindingOptions(bindingID, instanceID)
+				replaceServiceBindingOptionsModel := openServiceBrokerService.NewReplaceServiceBindingOptions(bindingID, instanceID)
 				replaceServiceBindingOptionsModel.SetBindingID("testString")
 				replaceServiceBindingOptionsModel.SetInstanceID("testString")
 				replaceServiceBindingOptionsModel.SetBindResource(bindResourceModel)
@@ -1801,7 +1801,7 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 
 				// Construct an instance of the ReplaceServiceInstanceOptions model
 				instanceID := "testString"
-				replaceServiceInstanceOptionsModel := testService.NewReplaceServiceInstanceOptions(instanceID)
+				replaceServiceInstanceOptionsModel := openServiceBrokerService.NewReplaceServiceInstanceOptions(instanceID)
 				replaceServiceInstanceOptionsModel.SetInstanceID("testString")
 				replaceServiceInstanceOptionsModel.SetContext(contextModel)
 				replaceServiceInstanceOptionsModel.SetOrganizationGuid("null")
@@ -1825,7 +1825,7 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 			It(`Invoke NewReplaceServiceInstanceStateOptions successfully`, func() {
 				// Construct an instance of the ReplaceServiceInstanceStateOptions model
 				instanceID := "testString"
-				replaceServiceInstanceStateOptionsModel := testService.NewReplaceServiceInstanceStateOptions(instanceID)
+				replaceServiceInstanceStateOptionsModel := openServiceBrokerService.NewReplaceServiceInstanceStateOptions(instanceID)
 				replaceServiceInstanceStateOptionsModel.SetInstanceID("testString")
 				replaceServiceInstanceStateOptionsModel.SetEnabled(false)
 				replaceServiceInstanceStateOptionsModel.SetInitiatorID("null")
@@ -1851,7 +1851,7 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 
 				// Construct an instance of the UpdateServiceInstanceOptions model
 				instanceID := "testString"
-				updateServiceInstanceOptionsModel := testService.NewUpdateServiceInstanceOptions(instanceID)
+				updateServiceInstanceOptionsModel := openServiceBrokerService.NewUpdateServiceInstanceOptions(instanceID)
 				updateServiceInstanceOptionsModel.SetInstanceID("testString")
 				updateServiceInstanceOptionsModel.SetContext(contextModel)
 				updateServiceInstanceOptionsModel.SetParameters(make(map[string]string))
