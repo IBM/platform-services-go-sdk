@@ -142,7 +142,7 @@ var _ = Describe(`ConfigurationGovernanceV1`, func() {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.Path).To(Equal(createRulesPath))
+					Expect(req.URL.EscapedPath()).To(Equal(createRulesPath))
 					Expect(req.Method).To(Equal("POST"))
 					Expect(req.Header["Transaction-Id"]).ToNot(BeNil())
 					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
@@ -161,9 +161,9 @@ var _ = Describe(`ConfigurationGovernanceV1`, func() {
 
 				// Construct an instance of the RuleTargetAttribute model
 				ruleTargetAttributeModel := new(configurationgovernancev1.RuleTargetAttribute)
-				ruleTargetAttributeModel.Name = core.StringPtr("testString")
+				ruleTargetAttributeModel.Name = core.StringPtr("resource_id")
 				ruleTargetAttributeModel.Operator = core.StringPtr("string_equals")
-				ruleTargetAttributeModel.Value = core.StringPtr("testString")
+				ruleTargetAttributeModel.Value = core.StringPtr("f0f8f7994e754ff38f9d370201966561")
 
 				// Construct an instance of the TargetResource model
 				targetResourceModel := new(configurationgovernancev1.TargetResource)
@@ -171,16 +171,21 @@ var _ = Describe(`ConfigurationGovernanceV1`, func() {
 				targetResourceModel.ResourceKind = core.StringPtr("service")
 				targetResourceModel.AdditionalTargetAttributes = []configurationgovernancev1.RuleTargetAttribute{*ruleTargetAttributeModel}
 
-				// Construct an instance of the RuleRequiredConfigSingleProperty model
-				ruleRequiredConfigModel := new(configurationgovernancev1.RuleRequiredConfigSingleProperty)
+				// Construct an instance of the RuleConditionSingleProperty model
+				ruleConditionModel := new(configurationgovernancev1.RuleConditionSingleProperty)
+				ruleConditionModel.Description = core.StringPtr("testString")
+				ruleConditionModel.Property = core.StringPtr("public_access_enabled")
+				ruleConditionModel.Operator = core.StringPtr("is_false")
+				ruleConditionModel.Value = core.StringPtr("testString")
+
+				// Construct an instance of the RuleRequiredConfigMultiplePropertiesConditionAnd model
+				ruleRequiredConfigModel := new(configurationgovernancev1.RuleRequiredConfigMultiplePropertiesConditionAnd)
 				ruleRequiredConfigModel.Description = core.StringPtr("Public access check")
-				ruleRequiredConfigModel.Property = core.StringPtr("public_access_enabled")
-				ruleRequiredConfigModel.Operator = core.StringPtr("is_true")
-				ruleRequiredConfigModel.Value = core.StringPtr("testString")
+				ruleRequiredConfigModel.And = []configurationgovernancev1.RuleConditionIntf{ruleConditionModel}
 
 				// Construct an instance of the EnforcementAction model
 				enforcementActionModel := new(configurationgovernancev1.EnforcementAction)
-				enforcementActionModel.Action = core.StringPtr("audit_log")
+				enforcementActionModel.Action = core.StringPtr("disallow")
 
 				// Construct an instance of the RuleRequest model
 				ruleRequestModel := new(configurationgovernancev1.RuleRequest)
@@ -223,7 +228,7 @@ var _ = Describe(`ConfigurationGovernanceV1`, func() {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.Path).To(Equal(createRulesPath))
+					Expect(req.URL.EscapedPath()).To(Equal(createRulesPath))
 					Expect(req.Method).To(Equal("POST"))
 					Expect(req.Header["Transaction-Id"]).ToNot(BeNil())
 					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
@@ -248,9 +253,9 @@ var _ = Describe(`ConfigurationGovernanceV1`, func() {
 
 				// Construct an instance of the RuleTargetAttribute model
 				ruleTargetAttributeModel := new(configurationgovernancev1.RuleTargetAttribute)
-				ruleTargetAttributeModel.Name = core.StringPtr("testString")
+				ruleTargetAttributeModel.Name = core.StringPtr("resource_id")
 				ruleTargetAttributeModel.Operator = core.StringPtr("string_equals")
-				ruleTargetAttributeModel.Value = core.StringPtr("testString")
+				ruleTargetAttributeModel.Value = core.StringPtr("f0f8f7994e754ff38f9d370201966561")
 
 				// Construct an instance of the TargetResource model
 				targetResourceModel := new(configurationgovernancev1.TargetResource)
@@ -258,16 +263,21 @@ var _ = Describe(`ConfigurationGovernanceV1`, func() {
 				targetResourceModel.ResourceKind = core.StringPtr("service")
 				targetResourceModel.AdditionalTargetAttributes = []configurationgovernancev1.RuleTargetAttribute{*ruleTargetAttributeModel}
 
-				// Construct an instance of the RuleRequiredConfigSingleProperty model
-				ruleRequiredConfigModel := new(configurationgovernancev1.RuleRequiredConfigSingleProperty)
+				// Construct an instance of the RuleConditionSingleProperty model
+				ruleConditionModel := new(configurationgovernancev1.RuleConditionSingleProperty)
+				ruleConditionModel.Description = core.StringPtr("testString")
+				ruleConditionModel.Property = core.StringPtr("public_access_enabled")
+				ruleConditionModel.Operator = core.StringPtr("is_false")
+				ruleConditionModel.Value = core.StringPtr("testString")
+
+				// Construct an instance of the RuleRequiredConfigMultiplePropertiesConditionAnd model
+				ruleRequiredConfigModel := new(configurationgovernancev1.RuleRequiredConfigMultiplePropertiesConditionAnd)
 				ruleRequiredConfigModel.Description = core.StringPtr("Public access check")
-				ruleRequiredConfigModel.Property = core.StringPtr("public_access_enabled")
-				ruleRequiredConfigModel.Operator = core.StringPtr("is_true")
-				ruleRequiredConfigModel.Value = core.StringPtr("testString")
+				ruleRequiredConfigModel.And = []configurationgovernancev1.RuleConditionIntf{ruleConditionModel}
 
 				// Construct an instance of the EnforcementAction model
 				enforcementActionModel := new(configurationgovernancev1.EnforcementAction)
-				enforcementActionModel.Action = core.StringPtr("audit_log")
+				enforcementActionModel.Action = core.StringPtr("disallow")
 
 				// Construct an instance of the RuleRequest model
 				ruleRequestModel := new(configurationgovernancev1.RuleRequest)
@@ -307,9 +317,9 @@ var _ = Describe(`ConfigurationGovernanceV1`, func() {
 
 				// Construct an instance of the RuleTargetAttribute model
 				ruleTargetAttributeModel := new(configurationgovernancev1.RuleTargetAttribute)
-				ruleTargetAttributeModel.Name = core.StringPtr("testString")
+				ruleTargetAttributeModel.Name = core.StringPtr("resource_id")
 				ruleTargetAttributeModel.Operator = core.StringPtr("string_equals")
-				ruleTargetAttributeModel.Value = core.StringPtr("testString")
+				ruleTargetAttributeModel.Value = core.StringPtr("f0f8f7994e754ff38f9d370201966561")
 
 				// Construct an instance of the TargetResource model
 				targetResourceModel := new(configurationgovernancev1.TargetResource)
@@ -317,16 +327,21 @@ var _ = Describe(`ConfigurationGovernanceV1`, func() {
 				targetResourceModel.ResourceKind = core.StringPtr("service")
 				targetResourceModel.AdditionalTargetAttributes = []configurationgovernancev1.RuleTargetAttribute{*ruleTargetAttributeModel}
 
-				// Construct an instance of the RuleRequiredConfigSingleProperty model
-				ruleRequiredConfigModel := new(configurationgovernancev1.RuleRequiredConfigSingleProperty)
+				// Construct an instance of the RuleConditionSingleProperty model
+				ruleConditionModel := new(configurationgovernancev1.RuleConditionSingleProperty)
+				ruleConditionModel.Description = core.StringPtr("testString")
+				ruleConditionModel.Property = core.StringPtr("public_access_enabled")
+				ruleConditionModel.Operator = core.StringPtr("is_false")
+				ruleConditionModel.Value = core.StringPtr("testString")
+
+				// Construct an instance of the RuleRequiredConfigMultiplePropertiesConditionAnd model
+				ruleRequiredConfigModel := new(configurationgovernancev1.RuleRequiredConfigMultiplePropertiesConditionAnd)
 				ruleRequiredConfigModel.Description = core.StringPtr("Public access check")
-				ruleRequiredConfigModel.Property = core.StringPtr("public_access_enabled")
-				ruleRequiredConfigModel.Operator = core.StringPtr("is_true")
-				ruleRequiredConfigModel.Value = core.StringPtr("testString")
+				ruleRequiredConfigModel.And = []configurationgovernancev1.RuleConditionIntf{ruleConditionModel}
 
 				// Construct an instance of the EnforcementAction model
 				enforcementActionModel := new(configurationgovernancev1.EnforcementAction)
-				enforcementActionModel.Action = core.StringPtr("audit_log")
+				enforcementActionModel.Action = core.StringPtr("disallow")
 
 				// Construct an instance of the RuleRequest model
 				ruleRequestModel := new(configurationgovernancev1.RuleRequest)
@@ -378,7 +393,7 @@ var _ = Describe(`ConfigurationGovernanceV1`, func() {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.Path).To(Equal(listRulesPath))
+					Expect(req.URL.EscapedPath()).To(Equal(listRulesPath))
 					Expect(req.Method).To(Equal("GET"))
 					Expect(req.Header["Transaction-Id"]).ToNot(BeNil())
 					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
@@ -438,7 +453,7 @@ var _ = Describe(`ConfigurationGovernanceV1`, func() {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.Path).To(Equal(listRulesPath))
+					Expect(req.URL.EscapedPath()).To(Equal(listRulesPath))
 					Expect(req.Method).To(Equal("GET"))
 					Expect(req.Header["Transaction-Id"]).ToNot(BeNil())
 					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
@@ -538,7 +553,7 @@ var _ = Describe(`ConfigurationGovernanceV1`, func() {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.Path).To(Equal(getRulePath))
+					Expect(req.URL.EscapedPath()).To(Equal(getRulePath))
 					Expect(req.Method).To(Equal("GET"))
 					Expect(req.Header["Transaction-Id"]).ToNot(BeNil())
 					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
@@ -580,7 +595,7 @@ var _ = Describe(`ConfigurationGovernanceV1`, func() {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.Path).To(Equal(getRulePath))
+					Expect(req.URL.EscapedPath()).To(Equal(getRulePath))
 					Expect(req.Method).To(Equal("GET"))
 					Expect(req.Header["Transaction-Id"]).ToNot(BeNil())
 					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
@@ -657,7 +672,7 @@ var _ = Describe(`ConfigurationGovernanceV1`, func() {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.Path).To(Equal(updateRulePath))
+					Expect(req.URL.EscapedPath()).To(Equal(updateRulePath))
 					Expect(req.Method).To(Equal("PUT"))
 					Expect(req.Header["If-Match"]).ToNot(BeNil())
 					Expect(req.Header["If-Match"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
@@ -733,7 +748,7 @@ var _ = Describe(`ConfigurationGovernanceV1`, func() {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.Path).To(Equal(updateRulePath))
+					Expect(req.URL.EscapedPath()).To(Equal(updateRulePath))
 					Expect(req.Method).To(Equal("PUT"))
 					Expect(req.Header["If-Match"]).ToNot(BeNil())
 					Expect(req.Header["If-Match"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
@@ -877,7 +892,7 @@ var _ = Describe(`ConfigurationGovernanceV1`, func() {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.Path).To(Equal(deleteRulePath))
+					Expect(req.URL.EscapedPath()).To(Equal(deleteRulePath))
 					Expect(req.Method).To(Equal("DELETE"))
 					Expect(req.Header["Transaction-Id"]).ToNot(BeNil())
 					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
@@ -948,7 +963,7 @@ var _ = Describe(`ConfigurationGovernanceV1`, func() {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.Path).To(Equal(createAttachmentsPath))
+					Expect(req.URL.EscapedPath()).To(Equal(createAttachmentsPath))
 					Expect(req.Method).To(Equal("POST"))
 					Expect(req.Header["Transaction-Id"]).ToNot(BeNil())
 					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
@@ -1003,7 +1018,7 @@ var _ = Describe(`ConfigurationGovernanceV1`, func() {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.Path).To(Equal(createAttachmentsPath))
+					Expect(req.URL.EscapedPath()).To(Equal(createAttachmentsPath))
 					Expect(req.Method).To(Equal("POST"))
 					Expect(req.Header["Transaction-Id"]).ToNot(BeNil())
 					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
@@ -1106,7 +1121,7 @@ var _ = Describe(`ConfigurationGovernanceV1`, func() {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.Path).To(Equal(listAttachmentsPath))
+					Expect(req.URL.EscapedPath()).To(Equal(listAttachmentsPath))
 					Expect(req.Method).To(Equal("GET"))
 					Expect(req.Header["Transaction-Id"]).ToNot(BeNil())
 					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
@@ -1154,7 +1169,7 @@ var _ = Describe(`ConfigurationGovernanceV1`, func() {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.Path).To(Equal(listAttachmentsPath))
+					Expect(req.URL.EscapedPath()).To(Equal(listAttachmentsPath))
 					Expect(req.Method).To(Equal("GET"))
 					Expect(req.Header["Transaction-Id"]).ToNot(BeNil())
 					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
@@ -1239,7 +1254,7 @@ var _ = Describe(`ConfigurationGovernanceV1`, func() {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.Path).To(Equal(getAttachmentPath))
+					Expect(req.URL.EscapedPath()).To(Equal(getAttachmentPath))
 					Expect(req.Method).To(Equal("GET"))
 					Expect(req.Header["Transaction-Id"]).ToNot(BeNil())
 					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
@@ -1282,7 +1297,7 @@ var _ = Describe(`ConfigurationGovernanceV1`, func() {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.Path).To(Equal(getAttachmentPath))
+					Expect(req.URL.EscapedPath()).To(Equal(getAttachmentPath))
 					Expect(req.Method).To(Equal("GET"))
 					Expect(req.Header["Transaction-Id"]).ToNot(BeNil())
 					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
@@ -1361,7 +1376,7 @@ var _ = Describe(`ConfigurationGovernanceV1`, func() {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.Path).To(Equal(updateAttachmentPath))
+					Expect(req.URL.EscapedPath()).To(Equal(updateAttachmentPath))
 					Expect(req.Method).To(Equal("PUT"))
 					Expect(req.Header["If-Match"]).ToNot(BeNil())
 					Expect(req.Header["If-Match"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
@@ -1416,7 +1431,7 @@ var _ = Describe(`ConfigurationGovernanceV1`, func() {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.Path).To(Equal(updateAttachmentPath))
+					Expect(req.URL.EscapedPath()).To(Equal(updateAttachmentPath))
 					Expect(req.Method).To(Equal("PUT"))
 					Expect(req.Header["If-Match"]).ToNot(BeNil())
 					Expect(req.Header["If-Match"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
@@ -1518,7 +1533,7 @@ var _ = Describe(`ConfigurationGovernanceV1`, func() {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.Path).To(Equal(deleteAttachmentPath))
+					Expect(req.URL.EscapedPath()).To(Equal(deleteAttachmentPath))
 					Expect(req.Method).To(Equal("DELETE"))
 					Expect(req.Header["Transaction-Id"]).ToNot(BeNil())
 					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
@@ -1639,12 +1654,12 @@ var _ = Describe(`ConfigurationGovernanceV1`, func() {
 				// Construct an instance of the RuleTargetAttribute model
 				ruleTargetAttributeModel := new(configurationgovernancev1.RuleTargetAttribute)
 				Expect(ruleTargetAttributeModel).ToNot(BeNil())
-				ruleTargetAttributeModel.Name = core.StringPtr("testString")
+				ruleTargetAttributeModel.Name = core.StringPtr("resource_id")
 				ruleTargetAttributeModel.Operator = core.StringPtr("string_equals")
-				ruleTargetAttributeModel.Value = core.StringPtr("testString")
-				Expect(ruleTargetAttributeModel.Name).To(Equal(core.StringPtr("testString")))
+				ruleTargetAttributeModel.Value = core.StringPtr("f0f8f7994e754ff38f9d370201966561")
+				Expect(ruleTargetAttributeModel.Name).To(Equal(core.StringPtr("resource_id")))
 				Expect(ruleTargetAttributeModel.Operator).To(Equal(core.StringPtr("string_equals")))
-				Expect(ruleTargetAttributeModel.Value).To(Equal(core.StringPtr("testString")))
+				Expect(ruleTargetAttributeModel.Value).To(Equal(core.StringPtr("f0f8f7994e754ff38f9d370201966561")))
 
 				// Construct an instance of the TargetResource model
 				targetResourceModel := new(configurationgovernancev1.TargetResource)
@@ -1656,23 +1671,31 @@ var _ = Describe(`ConfigurationGovernanceV1`, func() {
 				Expect(targetResourceModel.ResourceKind).To(Equal(core.StringPtr("service")))
 				Expect(targetResourceModel.AdditionalTargetAttributes).To(Equal([]configurationgovernancev1.RuleTargetAttribute{*ruleTargetAttributeModel}))
 
-				// Construct an instance of the RuleRequiredConfigSingleProperty model
-				ruleRequiredConfigModel := new(configurationgovernancev1.RuleRequiredConfigSingleProperty)
+				// Construct an instance of the RuleConditionSingleProperty model
+				ruleConditionModel := new(configurationgovernancev1.RuleConditionSingleProperty)
+				Expect(ruleConditionModel).ToNot(BeNil())
+				ruleConditionModel.Description = core.StringPtr("testString")
+				ruleConditionModel.Property = core.StringPtr("public_access_enabled")
+				ruleConditionModel.Operator = core.StringPtr("is_false")
+				ruleConditionModel.Value = core.StringPtr("testString")
+				Expect(ruleConditionModel.Description).To(Equal(core.StringPtr("testString")))
+				Expect(ruleConditionModel.Property).To(Equal(core.StringPtr("public_access_enabled")))
+				Expect(ruleConditionModel.Operator).To(Equal(core.StringPtr("is_false")))
+				Expect(ruleConditionModel.Value).To(Equal(core.StringPtr("testString")))
+
+				// Construct an instance of the RuleRequiredConfigMultiplePropertiesConditionAnd model
+				ruleRequiredConfigModel := new(configurationgovernancev1.RuleRequiredConfigMultiplePropertiesConditionAnd)
 				Expect(ruleRequiredConfigModel).ToNot(BeNil())
 				ruleRequiredConfigModel.Description = core.StringPtr("Public access check")
-				ruleRequiredConfigModel.Property = core.StringPtr("public_access_enabled")
-				ruleRequiredConfigModel.Operator = core.StringPtr("is_true")
-				ruleRequiredConfigModel.Value = core.StringPtr("testString")
+				ruleRequiredConfigModel.And = []configurationgovernancev1.RuleConditionIntf{ruleConditionModel}
 				Expect(ruleRequiredConfigModel.Description).To(Equal(core.StringPtr("Public access check")))
-				Expect(ruleRequiredConfigModel.Property).To(Equal(core.StringPtr("public_access_enabled")))
-				Expect(ruleRequiredConfigModel.Operator).To(Equal(core.StringPtr("is_true")))
-				Expect(ruleRequiredConfigModel.Value).To(Equal(core.StringPtr("testString")))
+				Expect(ruleRequiredConfigModel.And).To(Equal([]configurationgovernancev1.RuleConditionIntf{ruleConditionModel}))
 
 				// Construct an instance of the EnforcementAction model
 				enforcementActionModel := new(configurationgovernancev1.EnforcementAction)
 				Expect(enforcementActionModel).ToNot(BeNil())
-				enforcementActionModel.Action = core.StringPtr("audit_log")
-				Expect(enforcementActionModel.Action).To(Equal(core.StringPtr("audit_log")))
+				enforcementActionModel.Action = core.StringPtr("disallow")
+				Expect(enforcementActionModel.Action).To(Equal(core.StringPtr("disallow")))
 
 				// Construct an instance of the RuleRequest model
 				ruleRequestModel := new(configurationgovernancev1.RuleRequest)

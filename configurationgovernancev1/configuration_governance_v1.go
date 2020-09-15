@@ -15,7 +15,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-68ee7c8f-20200829-062726
+ * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-ef5e13c2-20200915-144510
  */
  
 
@@ -126,11 +126,8 @@ func (configurationGovernance *ConfigurationGovernanceV1) CreateRules(createRule
 		return
 	}
 
-	pathSegments := []string{"config/v1/rules"}
-	pathParameters := []string{}
-
 	builder := core.NewRequestBuilder(core.POST)
-	_, err = builder.ConstructHTTPURL(configurationGovernance.Service.Options.URL, pathSegments, pathParameters)
+	_, err = builder.ResolveRequestURL(configurationGovernance.Service.Options.URL, `/config/v1/rules`, nil)
 	if err != nil {
 		return
 	}
@@ -189,11 +186,8 @@ func (configurationGovernance *ConfigurationGovernanceV1) ListRules(listRulesOpt
 		return
 	}
 
-	pathSegments := []string{"config/v1/rules"}
-	pathParameters := []string{}
-
 	builder := core.NewRequestBuilder(core.GET)
-	_, err = builder.ConstructHTTPURL(configurationGovernance.Service.Options.URL, pathSegments, pathParameters)
+	_, err = builder.ResolveRequestURL(configurationGovernance.Service.Options.URL, `/config/v1/rules`, nil)
 	if err != nil {
 		return
 	}
@@ -259,11 +253,12 @@ func (configurationGovernance *ConfigurationGovernanceV1) GetRule(getRuleOptions
 		return
 	}
 
-	pathSegments := []string{"config/v1/rules"}
-	pathParameters := []string{*getRuleOptions.RuleID}
+	pathParamsMap := map[string]string{
+		"rule_id": *getRuleOptions.RuleID,
+	}
 
 	builder := core.NewRequestBuilder(core.GET)
-	_, err = builder.ConstructHTTPURL(configurationGovernance.Service.Options.URL, pathSegments, pathParameters)
+	_, err = builder.ResolveRequestURL(configurationGovernance.Service.Options.URL, `/config/v1/rules/{rule_id}`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -312,11 +307,12 @@ func (configurationGovernance *ConfigurationGovernanceV1) UpdateRule(updateRuleO
 		return
 	}
 
-	pathSegments := []string{"config/v1/rules"}
-	pathParameters := []string{*updateRuleOptions.RuleID}
+	pathParamsMap := map[string]string{
+		"rule_id": *updateRuleOptions.RuleID,
+	}
 
 	builder := core.NewRequestBuilder(core.PUT)
-	_, err = builder.ConstructHTTPURL(configurationGovernance.Service.Options.URL, pathSegments, pathParameters)
+	_, err = builder.ResolveRequestURL(configurationGovernance.Service.Options.URL, `/config/v1/rules/{rule_id}`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -399,11 +395,12 @@ func (configurationGovernance *ConfigurationGovernanceV1) DeleteRule(deleteRuleO
 		return
 	}
 
-	pathSegments := []string{"config/v1/rules"}
-	pathParameters := []string{*deleteRuleOptions.RuleID}
+	pathParamsMap := map[string]string{
+		"rule_id": *deleteRuleOptions.RuleID,
+	}
 
 	builder := core.NewRequestBuilder(core.DELETE)
-	_, err = builder.ConstructHTTPURL(configurationGovernance.Service.Options.URL, pathSegments, pathParameters)
+	_, err = builder.ResolveRequestURL(configurationGovernance.Service.Options.URL, `/config/v1/rules/{rule_id}`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -446,11 +443,12 @@ func (configurationGovernance *ConfigurationGovernanceV1) CreateAttachments(crea
 		return
 	}
 
-	pathSegments := []string{"config/v1/rules", "attachments"}
-	pathParameters := []string{*createAttachmentsOptions.RuleID}
+	pathParamsMap := map[string]string{
+		"rule_id": *createAttachmentsOptions.RuleID,
+	}
 
 	builder := core.NewRequestBuilder(core.POST)
-	_, err = builder.ConstructHTTPURL(configurationGovernance.Service.Options.URL, pathSegments, pathParameters)
+	_, err = builder.ResolveRequestURL(configurationGovernance.Service.Options.URL, `/config/v1/rules/{rule_id}/attachments`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -509,11 +507,12 @@ func (configurationGovernance *ConfigurationGovernanceV1) ListAttachments(listAt
 		return
 	}
 
-	pathSegments := []string{"config/v1/rules", "attachments"}
-	pathParameters := []string{*listAttachmentsOptions.RuleID}
+	pathParamsMap := map[string]string{
+		"rule_id": *listAttachmentsOptions.RuleID,
+	}
 
 	builder := core.NewRequestBuilder(core.GET)
-	_, err = builder.ConstructHTTPURL(configurationGovernance.Service.Options.URL, pathSegments, pathParameters)
+	_, err = builder.ResolveRequestURL(configurationGovernance.Service.Options.URL, `/config/v1/rules/{rule_id}/attachments`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -569,11 +568,13 @@ func (configurationGovernance *ConfigurationGovernanceV1) GetAttachment(getAttac
 		return
 	}
 
-	pathSegments := []string{"config/v1/rules", "attachments"}
-	pathParameters := []string{*getAttachmentOptions.RuleID, *getAttachmentOptions.AttachmentID}
+	pathParamsMap := map[string]string{
+		"rule_id": *getAttachmentOptions.RuleID,
+		"attachment_id": *getAttachmentOptions.AttachmentID,
+	}
 
 	builder := core.NewRequestBuilder(core.GET)
-	_, err = builder.ConstructHTTPURL(configurationGovernance.Service.Options.URL, pathSegments, pathParameters)
+	_, err = builder.ResolveRequestURL(configurationGovernance.Service.Options.URL, `/config/v1/rules/{rule_id}/attachments/{attachment_id}`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -622,11 +623,13 @@ func (configurationGovernance *ConfigurationGovernanceV1) UpdateAttachment(updat
 		return
 	}
 
-	pathSegments := []string{"config/v1/rules", "attachments"}
-	pathParameters := []string{*updateAttachmentOptions.RuleID, *updateAttachmentOptions.AttachmentID}
+	pathParamsMap := map[string]string{
+		"rule_id": *updateAttachmentOptions.RuleID,
+		"attachment_id": *updateAttachmentOptions.AttachmentID,
+	}
 
 	builder := core.NewRequestBuilder(core.PUT)
-	_, err = builder.ConstructHTTPURL(configurationGovernance.Service.Options.URL, pathSegments, pathParameters)
+	_, err = builder.ResolveRequestURL(configurationGovernance.Service.Options.URL, `/config/v1/rules/{rule_id}/attachments/{attachment_id}`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -694,11 +697,13 @@ func (configurationGovernance *ConfigurationGovernanceV1) DeleteAttachment(delet
 		return
 	}
 
-	pathSegments := []string{"config/v1/rules", "attachments"}
-	pathParameters := []string{*deleteAttachmentOptions.RuleID, *deleteAttachmentOptions.AttachmentID}
+	pathParamsMap := map[string]string{
+		"rule_id": *deleteAttachmentOptions.RuleID,
+		"attachment_id": *deleteAttachmentOptions.AttachmentID,
+	}
 
 	builder := core.NewRequestBuilder(core.DELETE)
-	_, err = builder.ConstructHTTPURL(configurationGovernance.Service.Options.URL, pathSegments, pathParameters)
+	_, err = builder.ResolveRequestURL(configurationGovernance.Service.Options.URL, `/config/v1/rules/{rule_id}/attachments/{attachment_id}`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -868,7 +873,7 @@ func UnmarshalAttachmentRequest(m map[string]json.RawMessage, result interface{}
 // CreateAttachmentsOptions : The CreateAttachments options.
 type CreateAttachmentsOptions struct {
 	// The UUID that uniquely identifies the rule.
-	RuleID *string `json:"rule_id" validate:"required"`
+	RuleID *string `json:"rule_id" validate:"required,ne="`
 
 	Attachments []AttachmentRequest `json:"attachments" validate:"required"`
 
@@ -1093,10 +1098,10 @@ func UnmarshalCreateRulesResponse(m map[string]json.RawMessage, result interface
 // DeleteAttachmentOptions : The DeleteAttachment options.
 type DeleteAttachmentOptions struct {
 	// The UUID that uniquely identifies the rule.
-	RuleID *string `json:"rule_id" validate:"required"`
+	RuleID *string `json:"rule_id" validate:"required,ne="`
 
 	// The UUID that uniquely identifies the attachment.
-	AttachmentID *string `json:"attachment_id" validate:"required"`
+	AttachmentID *string `json:"attachment_id" validate:"required,ne="`
 
 	// The unique identifier that is used to trace an entire request. If you omit this field, the service generates and
 	// sends a transaction ID in the
@@ -1145,7 +1150,7 @@ func (options *DeleteAttachmentOptions) SetHeaders(param map[string]string) *Del
 // DeleteRuleOptions : The DeleteRule options.
 type DeleteRuleOptions struct {
 	// The UUID that uniquely identifies the rule.
-	RuleID *string `json:"rule_id" validate:"required"`
+	RuleID *string `json:"rule_id" validate:"required,ne="`
 
 	// The unique identifier that is used to trace an entire request. If you omit this field, the service generates and
 	// sends a transaction ID in the
@@ -1223,10 +1228,10 @@ func UnmarshalEnforcementAction(m map[string]json.RawMessage, result interface{}
 // GetAttachmentOptions : The GetAttachment options.
 type GetAttachmentOptions struct {
 	// The UUID that uniquely identifies the rule.
-	RuleID *string `json:"rule_id" validate:"required"`
+	RuleID *string `json:"rule_id" validate:"required,ne="`
 
 	// The UUID that uniquely identifies the attachment.
-	AttachmentID *string `json:"attachment_id" validate:"required"`
+	AttachmentID *string `json:"attachment_id" validate:"required,ne="`
 
 	// The unique identifier that is used to trace an entire request. If you omit this field, the service generates and
 	// sends a transaction ID in the
@@ -1275,7 +1280,7 @@ func (options *GetAttachmentOptions) SetHeaders(param map[string]string) *GetAtt
 // GetRuleOptions : The GetRule options.
 type GetRuleOptions struct {
 	// The UUID that uniquely identifies the rule.
-	RuleID *string `json:"rule_id" validate:"required"`
+	RuleID *string `json:"rule_id" validate:"required,ne="`
 
 	// The unique identifier that is used to trace an entire request. If you omit this field, the service generates and
 	// sends a transaction ID in the
@@ -1335,7 +1340,7 @@ func UnmarshalLink(m map[string]json.RawMessage, result interface{}) (err error)
 // ListAttachmentsOptions : The ListAttachments options.
 type ListAttachmentsOptions struct {
 	// The UUID that uniquely identifies the rule.
-	RuleID *string `json:"rule_id" validate:"required"`
+	RuleID *string `json:"rule_id" validate:"required,ne="`
 
 	// The unique identifier that is used to trace an entire request. If you omit this field, the service generates and
 	// sends a transaction ID in the
@@ -2203,10 +2208,10 @@ func UnmarshalTargetResource(m map[string]json.RawMessage, result interface{}) (
 // UpdateAttachmentOptions : The UpdateAttachment options.
 type UpdateAttachmentOptions struct {
 	// The UUID that uniquely identifies the rule.
-	RuleID *string `json:"rule_id" validate:"required"`
+	RuleID *string `json:"rule_id" validate:"required,ne="`
 
 	// The UUID that uniquely identifies the attachment.
-	AttachmentID *string `json:"attachment_id" validate:"required"`
+	AttachmentID *string `json:"attachment_id" validate:"required,ne="`
 
 	// Compares a supplied `Etag` value with the version that is stored for the requested resource. If the values match,
 	// the server allows the request method to continue.
@@ -2297,7 +2302,7 @@ func (options *UpdateAttachmentOptions) SetHeaders(param map[string]string) *Upd
 // UpdateRuleOptions : The UpdateRule options.
 type UpdateRuleOptions struct {
 	// The UUID that uniquely identifies the rule.
-	RuleID *string `json:"rule_id" validate:"required"`
+	RuleID *string `json:"rule_id" validate:"required,ne="`
 
 	// Compares a supplied `Etag` value with the version that is stored for the requested resource. If the values match,
 	// the server allows the request method to continue.
