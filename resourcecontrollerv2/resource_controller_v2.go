@@ -14,6 +14,11 @@
  * limitations under the License.
  */
 
+/*
+ * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-ef5e13c2-20200915-144510
+ */
+ 
+
 // Package resourcecontrollerv2 : Operations and models for the ResourceControllerV2 service
 package resourcecontrollerv2
 
@@ -116,11 +121,8 @@ func (resourceController *ResourceControllerV2) ListResourceInstances(listResour
 		return
 	}
 
-	pathSegments := []string{"v2/resource_instances"}
-	pathParameters := []string{}
-
 	builder := core.NewRequestBuilder(core.GET)
-	_, err = builder.ConstructHTTPURL(resourceController.Service.Options.URL, pathSegments, pathParameters)
+	_, err = builder.ResolveRequestURL(resourceController.Service.Options.URL, `/v2/resource_instances`, nil)
 	if err != nil {
 		return
 	}
@@ -197,11 +199,8 @@ func (resourceController *ResourceControllerV2) CreateResourceInstance(createRes
 		return
 	}
 
-	pathSegments := []string{"v2/resource_instances"}
-	pathParameters := []string{}
-
 	builder := core.NewRequestBuilder(core.POST)
-	_, err = builder.ConstructHTTPURL(resourceController.Service.Options.URL, pathSegments, pathParameters)
+	_, err = builder.ResolveRequestURL(resourceController.Service.Options.URL, `/v2/resource_instances`, nil)
 	if err != nil {
 		return
 	}
@@ -278,11 +277,12 @@ func (resourceController *ResourceControllerV2) GetResourceInstance(getResourceI
 		return
 	}
 
-	pathSegments := []string{"v2/resource_instances"}
-	pathParameters := []string{*getResourceInstanceOptions.ID}
+	pathParamsMap := map[string]string{
+		"id": *getResourceInstanceOptions.ID,
+	}
 
 	builder := core.NewRequestBuilder(core.GET)
-	_, err = builder.ConstructHTTPURL(resourceController.Service.Options.URL, pathSegments, pathParameters)
+	_, err = builder.ResolveRequestURL(resourceController.Service.Options.URL, `/v2/resource_instances/{id}`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -328,11 +328,12 @@ func (resourceController *ResourceControllerV2) DeleteResourceInstance(deleteRes
 		return
 	}
 
-	pathSegments := []string{"v2/resource_instances"}
-	pathParameters := []string{*deleteResourceInstanceOptions.ID}
+	pathParamsMap := map[string]string{
+		"id": *deleteResourceInstanceOptions.ID,
+	}
 
 	builder := core.NewRequestBuilder(core.DELETE)
-	_, err = builder.ConstructHTTPURL(resourceController.Service.Options.URL, pathSegments, pathParameters)
+	_, err = builder.ResolveRequestURL(resourceController.Service.Options.URL, `/v2/resource_instances/{id}`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -368,11 +369,12 @@ func (resourceController *ResourceControllerV2) UpdateResourceInstance(updateRes
 		return
 	}
 
-	pathSegments := []string{"v2/resource_instances"}
-	pathParameters := []string{*updateResourceInstanceOptions.ID}
+	pathParamsMap := map[string]string{
+		"id": *updateResourceInstanceOptions.ID,
+	}
 
 	builder := core.NewRequestBuilder(core.PATCH)
-	_, err = builder.ConstructHTTPURL(resourceController.Service.Options.URL, pathSegments, pathParameters)
+	_, err = builder.ResolveRequestURL(resourceController.Service.Options.URL, `/v2/resource_instances/{id}`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -438,11 +440,12 @@ func (resourceController *ResourceControllerV2) LockResourceInstance(lockResourc
 		return
 	}
 
-	pathSegments := []string{"v2/resource_instances", "lock"}
-	pathParameters := []string{*lockResourceInstanceOptions.ID}
+	pathParamsMap := map[string]string{
+		"id": *lockResourceInstanceOptions.ID,
+	}
 
 	builder := core.NewRequestBuilder(core.POST)
-	_, err = builder.ConstructHTTPURL(resourceController.Service.Options.URL, pathSegments, pathParameters)
+	_, err = builder.ResolveRequestURL(resourceController.Service.Options.URL, `/v2/resource_instances/{id}/lock`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -488,11 +491,12 @@ func (resourceController *ResourceControllerV2) UnlockResourceInstance(unlockRes
 		return
 	}
 
-	pathSegments := []string{"v2/resource_instances", "lock"}
-	pathParameters := []string{*unlockResourceInstanceOptions.ID}
+	pathParamsMap := map[string]string{
+		"id": *unlockResourceInstanceOptions.ID,
+	}
 
 	builder := core.NewRequestBuilder(core.DELETE)
-	_, err = builder.ConstructHTTPURL(resourceController.Service.Options.URL, pathSegments, pathParameters)
+	_, err = builder.ResolveRequestURL(resourceController.Service.Options.URL, `/v2/resource_instances/{id}/lock`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -534,11 +538,8 @@ func (resourceController *ResourceControllerV2) ListResourceKeys(listResourceKey
 		return
 	}
 
-	pathSegments := []string{"v2/resource_keys"}
-	pathParameters := []string{}
-
 	builder := core.NewRequestBuilder(core.GET)
-	_, err = builder.ConstructHTTPURL(resourceController.Service.Options.URL, pathSegments, pathParameters)
+	_, err = builder.ResolveRequestURL(resourceController.Service.Options.URL, `/v2/resource_keys`, nil)
 	if err != nil {
 		return
 	}
@@ -606,11 +607,8 @@ func (resourceController *ResourceControllerV2) CreateResourceKey(createResource
 		return
 	}
 
-	pathSegments := []string{"v2/resource_keys"}
-	pathParameters := []string{}
-
 	builder := core.NewRequestBuilder(core.POST)
-	_, err = builder.ConstructHTTPURL(resourceController.Service.Options.URL, pathSegments, pathParameters)
+	_, err = builder.ResolveRequestURL(resourceController.Service.Options.URL, `/v2/resource_keys`, nil)
 	if err != nil {
 		return
 	}
@@ -675,11 +673,12 @@ func (resourceController *ResourceControllerV2) GetResourceKey(getResourceKeyOpt
 		return
 	}
 
-	pathSegments := []string{"v2/resource_keys"}
-	pathParameters := []string{*getResourceKeyOptions.ID}
+	pathParamsMap := map[string]string{
+		"id": *getResourceKeyOptions.ID,
+	}
 
 	builder := core.NewRequestBuilder(core.GET)
-	_, err = builder.ConstructHTTPURL(resourceController.Service.Options.URL, pathSegments, pathParameters)
+	_, err = builder.ResolveRequestURL(resourceController.Service.Options.URL, `/v2/resource_keys/{id}`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -725,11 +724,12 @@ func (resourceController *ResourceControllerV2) DeleteResourceKey(deleteResource
 		return
 	}
 
-	pathSegments := []string{"v2/resource_keys"}
-	pathParameters := []string{*deleteResourceKeyOptions.ID}
+	pathParamsMap := map[string]string{
+		"id": *deleteResourceKeyOptions.ID,
+	}
 
 	builder := core.NewRequestBuilder(core.DELETE)
-	_, err = builder.ConstructHTTPURL(resourceController.Service.Options.URL, pathSegments, pathParameters)
+	_, err = builder.ResolveRequestURL(resourceController.Service.Options.URL, `/v2/resource_keys/{id}`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -765,11 +765,12 @@ func (resourceController *ResourceControllerV2) UpdateResourceKey(updateResource
 		return
 	}
 
-	pathSegments := []string{"v2/resource_keys"}
-	pathParameters := []string{*updateResourceKeyOptions.ID}
+	pathParamsMap := map[string]string{
+		"id": *updateResourceKeyOptions.ID,
+	}
 
 	builder := core.NewRequestBuilder(core.PATCH)
-	_, err = builder.ConstructHTTPURL(resourceController.Service.Options.URL, pathSegments, pathParameters)
+	_, err = builder.ResolveRequestURL(resourceController.Service.Options.URL, `/v2/resource_keys/{id}`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -821,11 +822,8 @@ func (resourceController *ResourceControllerV2) ListResourceBindings(listResourc
 		return
 	}
 
-	pathSegments := []string{"v2/resource_bindings"}
-	pathParameters := []string{}
-
 	builder := core.NewRequestBuilder(core.GET)
-	_, err = builder.ConstructHTTPURL(resourceController.Service.Options.URL, pathSegments, pathParameters)
+	_, err = builder.ResolveRequestURL(resourceController.Service.Options.URL, `/v2/resource_bindings`, nil)
 	if err != nil {
 		return
 	}
@@ -896,11 +894,8 @@ func (resourceController *ResourceControllerV2) CreateResourceBinding(createReso
 		return
 	}
 
-	pathSegments := []string{"v2/resource_bindings"}
-	pathParameters := []string{}
-
 	builder := core.NewRequestBuilder(core.POST)
-	_, err = builder.ConstructHTTPURL(resourceController.Service.Options.URL, pathSegments, pathParameters)
+	_, err = builder.ResolveRequestURL(resourceController.Service.Options.URL, `/v2/resource_bindings`, nil)
 	if err != nil {
 		return
 	}
@@ -968,11 +963,12 @@ func (resourceController *ResourceControllerV2) GetResourceBinding(getResourceBi
 		return
 	}
 
-	pathSegments := []string{"v2/resource_bindings"}
-	pathParameters := []string{*getResourceBindingOptions.ID}
+	pathParamsMap := map[string]string{
+		"id": *getResourceBindingOptions.ID,
+	}
 
 	builder := core.NewRequestBuilder(core.GET)
-	_, err = builder.ConstructHTTPURL(resourceController.Service.Options.URL, pathSegments, pathParameters)
+	_, err = builder.ResolveRequestURL(resourceController.Service.Options.URL, `/v2/resource_bindings/{id}`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -1018,11 +1014,12 @@ func (resourceController *ResourceControllerV2) DeleteResourceBinding(deleteReso
 		return
 	}
 
-	pathSegments := []string{"v2/resource_bindings"}
-	pathParameters := []string{*deleteResourceBindingOptions.ID}
+	pathParamsMap := map[string]string{
+		"id": *deleteResourceBindingOptions.ID,
+	}
 
 	builder := core.NewRequestBuilder(core.DELETE)
-	_, err = builder.ConstructHTTPURL(resourceController.Service.Options.URL, pathSegments, pathParameters)
+	_, err = builder.ResolveRequestURL(resourceController.Service.Options.URL, `/v2/resource_bindings/{id}`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -1058,11 +1055,12 @@ func (resourceController *ResourceControllerV2) UpdateResourceBinding(updateReso
 		return
 	}
 
-	pathSegments := []string{"v2/resource_bindings"}
-	pathParameters := []string{*updateResourceBindingOptions.ID}
+	pathParamsMap := map[string]string{
+		"id": *updateResourceBindingOptions.ID,
+	}
 
 	builder := core.NewRequestBuilder(core.PATCH)
-	_, err = builder.ConstructHTTPURL(resourceController.Service.Options.URL, pathSegments, pathParameters)
+	_, err = builder.ResolveRequestURL(resourceController.Service.Options.URL, `/v2/resource_bindings/{id}`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -1114,11 +1112,8 @@ func (resourceController *ResourceControllerV2) ListResourceAliases(listResource
 		return
 	}
 
-	pathSegments := []string{"v2/resource_aliases"}
-	pathParameters := []string{}
-
 	builder := core.NewRequestBuilder(core.GET)
-	_, err = builder.ConstructHTTPURL(resourceController.Service.Options.URL, pathSegments, pathParameters)
+	_, err = builder.ResolveRequestURL(resourceController.Service.Options.URL, `/v2/resource_aliases`, nil)
 	if err != nil {
 		return
 	}
@@ -1192,11 +1187,8 @@ func (resourceController *ResourceControllerV2) CreateResourceAlias(createResour
 		return
 	}
 
-	pathSegments := []string{"v2/resource_aliases"}
-	pathParameters := []string{}
-
 	builder := core.NewRequestBuilder(core.POST)
-	_, err = builder.ConstructHTTPURL(resourceController.Service.Options.URL, pathSegments, pathParameters)
+	_, err = builder.ResolveRequestURL(resourceController.Service.Options.URL, `/v2/resource_aliases`, nil)
 	if err != nil {
 		return
 	}
@@ -1258,11 +1250,12 @@ func (resourceController *ResourceControllerV2) GetResourceAlias(getResourceAlia
 		return
 	}
 
-	pathSegments := []string{"v2/resource_aliases"}
-	pathParameters := []string{*getResourceAliasOptions.ID}
+	pathParamsMap := map[string]string{
+		"id": *getResourceAliasOptions.ID,
+	}
 
 	builder := core.NewRequestBuilder(core.GET)
-	_, err = builder.ConstructHTTPURL(resourceController.Service.Options.URL, pathSegments, pathParameters)
+	_, err = builder.ResolveRequestURL(resourceController.Service.Options.URL, `/v2/resource_aliases/{id}`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -1308,11 +1301,12 @@ func (resourceController *ResourceControllerV2) DeleteResourceAlias(deleteResour
 		return
 	}
 
-	pathSegments := []string{"v2/resource_aliases"}
-	pathParameters := []string{*deleteResourceAliasOptions.ID}
+	pathParamsMap := map[string]string{
+		"id": *deleteResourceAliasOptions.ID,
+	}
 
 	builder := core.NewRequestBuilder(core.DELETE)
-	_, err = builder.ConstructHTTPURL(resourceController.Service.Options.URL, pathSegments, pathParameters)
+	_, err = builder.ResolveRequestURL(resourceController.Service.Options.URL, `/v2/resource_aliases/{id}`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -1348,11 +1342,12 @@ func (resourceController *ResourceControllerV2) UpdateResourceAlias(updateResour
 		return
 	}
 
-	pathSegments := []string{"v2/resource_aliases"}
-	pathParameters := []string{*updateResourceAliasOptions.ID}
+	pathParamsMap := map[string]string{
+		"id": *updateResourceAliasOptions.ID,
+	}
 
 	builder := core.NewRequestBuilder(core.PATCH)
-	_, err = builder.ConstructHTTPURL(resourceController.Service.Options.URL, pathSegments, pathParameters)
+	_, err = builder.ResolveRequestURL(resourceController.Service.Options.URL, `/v2/resource_aliases/{id}`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -1404,11 +1399,8 @@ func (resourceController *ResourceControllerV2) ListReclamations(listReclamation
 		return
 	}
 
-	pathSegments := []string{"v1/reclamations"}
-	pathParameters := []string{}
-
 	builder := core.NewRequestBuilder(core.GET)
-	_, err = builder.ConstructHTTPURL(resourceController.Service.Options.URL, pathSegments, pathParameters)
+	_, err = builder.ResolveRequestURL(resourceController.Service.Options.URL, `/v1/reclamations`, nil)
 	if err != nil {
 		return
 	}
@@ -1462,11 +1454,13 @@ func (resourceController *ResourceControllerV2) RunReclamationAction(runReclamat
 		return
 	}
 
-	pathSegments := []string{"v1/reclamations", "actions"}
-	pathParameters := []string{*runReclamationActionOptions.ID, *runReclamationActionOptions.ActionName}
+	pathParamsMap := map[string]string{
+		"id": *runReclamationActionOptions.ID,
+		"action_name": *runReclamationActionOptions.ActionName,
+	}
 
 	builder := core.NewRequestBuilder(core.POST)
-	_, err = builder.ConstructHTTPURL(resourceController.Service.Options.URL, pathSegments, pathParameters)
+	_, err = builder.ResolveRequestURL(resourceController.Service.Options.URL, `/v1/reclamations/{id}/actions/{action_name}`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -1895,7 +1889,7 @@ func UnmarshalCredentials(m map[string]json.RawMessage, result interface{}) (err
 // DeleteResourceAliasOptions : The DeleteResourceAlias options.
 type DeleteResourceAliasOptions struct {
 	// The short or long ID of the alias.
-	ID *string `json:"id" validate:"required"`
+	ID *string `json:"id" validate:"required,ne="`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -1923,7 +1917,7 @@ func (options *DeleteResourceAliasOptions) SetHeaders(param map[string]string) *
 // DeleteResourceBindingOptions : The DeleteResourceBinding options.
 type DeleteResourceBindingOptions struct {
 	// The short or long ID of the binding.
-	ID *string `json:"id" validate:"required"`
+	ID *string `json:"id" validate:"required,ne="`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -1951,7 +1945,7 @@ func (options *DeleteResourceBindingOptions) SetHeaders(param map[string]string)
 // DeleteResourceInstanceOptions : The DeleteResourceInstance options.
 type DeleteResourceInstanceOptions struct {
 	// The short or long ID of the instance.
-	ID *string `json:"id" validate:"required"`
+	ID *string `json:"id" validate:"required,ne="`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -1979,7 +1973,7 @@ func (options *DeleteResourceInstanceOptions) SetHeaders(param map[string]string
 // DeleteResourceKeyOptions : The DeleteResourceKey options.
 type DeleteResourceKeyOptions struct {
 	// The short or long ID of the key.
-	ID *string `json:"id" validate:"required"`
+	ID *string `json:"id" validate:"required,ne="`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -2007,7 +2001,7 @@ func (options *DeleteResourceKeyOptions) SetHeaders(param map[string]string) *De
 // GetResourceAliasOptions : The GetResourceAlias options.
 type GetResourceAliasOptions struct {
 	// The short or long ID of the alias.
-	ID *string `json:"id" validate:"required"`
+	ID *string `json:"id" validate:"required,ne="`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -2035,7 +2029,7 @@ func (options *GetResourceAliasOptions) SetHeaders(param map[string]string) *Get
 // GetResourceBindingOptions : The GetResourceBinding options.
 type GetResourceBindingOptions struct {
 	// The short or long ID of the binding.
-	ID *string `json:"id" validate:"required"`
+	ID *string `json:"id" validate:"required,ne="`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -2063,7 +2057,7 @@ func (options *GetResourceBindingOptions) SetHeaders(param map[string]string) *G
 // GetResourceInstanceOptions : The GetResourceInstance options.
 type GetResourceInstanceOptions struct {
 	// The short or long ID of the instance.
-	ID *string `json:"id" validate:"required"`
+	ID *string `json:"id" validate:"required,ne="`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -2091,7 +2085,7 @@ func (options *GetResourceInstanceOptions) SetHeaders(param map[string]string) *
 // GetResourceKeyOptions : The GetResourceKey options.
 type GetResourceKeyOptions struct {
 	// The short or long ID of the key.
-	ID *string `json:"id" validate:"required"`
+	ID *string `json:"id" validate:"required,ne="`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -2533,7 +2527,7 @@ func (options *ListResourceKeysOptions) SetHeaders(param map[string]string) *Lis
 // LockResourceInstanceOptions : The LockResourceInstance options.
 type LockResourceInstanceOptions struct {
 	// The short or long ID of the instance.
-	ID *string `json:"id" validate:"required"`
+	ID *string `json:"id" validate:"required,ne="`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -3470,10 +3464,10 @@ func UnmarshalResourceKeysList(m map[string]json.RawMessage, result interface{})
 // RunReclamationActionOptions : The RunReclamationAction options.
 type RunReclamationActionOptions struct {
 	// The ID associated with the reclamation.
-	ID *string `json:"id" validate:"required"`
+	ID *string `json:"id" validate:"required,ne="`
 
 	// The reclamation action name. Specify `reclaim` to delete a resource, or `restore` to restore a resource.
-	ActionName *string `json:"action_name" validate:"required"`
+	ActionName *string `json:"action_name" validate:"required,ne="`
 
 	// The request initiator, if different from the request token.
 	RequestBy *string `json:"request_by,omitempty"`
@@ -3526,7 +3520,7 @@ func (options *RunReclamationActionOptions) SetHeaders(param map[string]string) 
 // UnlockResourceInstanceOptions : The UnlockResourceInstance options.
 type UnlockResourceInstanceOptions struct {
 	// The short or long ID of the instance.
-	ID *string `json:"id" validate:"required"`
+	ID *string `json:"id" validate:"required,ne="`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -3554,7 +3548,7 @@ func (options *UnlockResourceInstanceOptions) SetHeaders(param map[string]string
 // UpdateResourceAliasOptions : The UpdateResourceAlias options.
 type UpdateResourceAliasOptions struct {
 	// The short or long ID of the alias.
-	ID *string `json:"id" validate:"required"`
+	ID *string `json:"id" validate:"required,ne="`
 
 	// The new name of the alias. Must be 180 characters or less and cannot include any special characters other than
 	// `(space) - . _ :`.
@@ -3593,7 +3587,7 @@ func (options *UpdateResourceAliasOptions) SetHeaders(param map[string]string) *
 // UpdateResourceBindingOptions : The UpdateResourceBinding options.
 type UpdateResourceBindingOptions struct {
 	// The short or long ID of the binding.
-	ID *string `json:"id" validate:"required"`
+	ID *string `json:"id" validate:"required,ne="`
 
 	// The new name of the binding. Must be 180 characters or less and cannot include any special characters other than
 	// `(space) - . _ :`.
@@ -3632,7 +3626,7 @@ func (options *UpdateResourceBindingOptions) SetHeaders(param map[string]string)
 // UpdateResourceInstanceOptions : The UpdateResourceInstance options.
 type UpdateResourceInstanceOptions struct {
 	// The short or long ID of the instance.
-	ID *string `json:"id" validate:"required"`
+	ID *string `json:"id" validate:"required,ne="`
 
 	// The new name of the instance. Must be 180 characters or less and cannot include any special characters other than
 	// `(space) - . _ :`.
@@ -3698,7 +3692,7 @@ func (options *UpdateResourceInstanceOptions) SetHeaders(param map[string]string
 // UpdateResourceKeyOptions : The UpdateResourceKey options.
 type UpdateResourceKeyOptions struct {
 	// The short or long ID of the key.
-	ID *string `json:"id" validate:"required"`
+	ID *string `json:"id" validate:"required,ne="`
 
 	// The new name of the key. Must be 180 characters or less and cannot include any special characters other than
 	// `(space) - . _ :`.

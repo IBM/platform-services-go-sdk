@@ -34,31 +34,31 @@ import (
 
 var _ = Describe(`ResourceControllerV2`, func() {
 	var testServer *httptest.Server
-    Describe(`Service constructor tests`, func() {
+	Describe(`Service constructor tests`, func() {
 		It(`Instantiate service client`, func() {
-			testService, testServiceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
+			resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
 				Authenticator: &core.NoAuthAuthenticator{},
 			})
-			Expect(testService).ToNot(BeNil())
-			Expect(testServiceErr).To(BeNil())
+			Expect(resourceControllerService).ToNot(BeNil())
+			Expect(serviceErr).To(BeNil())
 		})
 		It(`Instantiate service client with error: Invalid URL`, func() {
-			testService, testServiceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
+			resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
 				URL: "{BAD_URL_STRING",
 			})
-			Expect(testService).To(BeNil())
-			Expect(testServiceErr).ToNot(BeNil())
+			Expect(resourceControllerService).To(BeNil())
+			Expect(serviceErr).ToNot(BeNil())
 		})
 		It(`Instantiate service client with error: Invalid Auth`, func() {
-			testService, testServiceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
+			resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
 				URL: "https://resourcecontrollerv2/api",
 				Authenticator: &core.BasicAuthenticator{
 					Username: "",
 					Password: "",
 				},
 			})
-			Expect(testService).To(BeNil())
-			Expect(testServiceErr).ToNot(BeNil())
+			Expect(resourceControllerService).To(BeNil())
+			Expect(serviceErr).ToNot(BeNil())
 		})
 	})
 	Describe(`Service constructor tests using external config`, func() {
@@ -71,31 +71,31 @@ var _ = Describe(`ResourceControllerV2`, func() {
 
 			It(`Create service client using external config successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				testService, testServiceErr := resourcecontrollerv2.NewResourceControllerV2UsingExternalConfig(&resourcecontrollerv2.ResourceControllerV2Options{
+				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2UsingExternalConfig(&resourcecontrollerv2.ResourceControllerV2Options{
 				})
-				Expect(testService).ToNot(BeNil())
-				Expect(testServiceErr).To(BeNil())
+				Expect(resourceControllerService).ToNot(BeNil())
+				Expect(serviceErr).To(BeNil())
 				ClearTestEnvironment(testEnvironment)
 			})
 			It(`Create service client using external config and set url from constructor successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				testService, testServiceErr := resourcecontrollerv2.NewResourceControllerV2UsingExternalConfig(&resourcecontrollerv2.ResourceControllerV2Options{
+				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2UsingExternalConfig(&resourcecontrollerv2.ResourceControllerV2Options{
 					URL: "https://testService/api",
 				})
-				Expect(testService).ToNot(BeNil())
-				Expect(testServiceErr).To(BeNil())
-				Expect(testService.Service.GetServiceURL()).To(Equal("https://testService/api"))
+				Expect(resourceControllerService).ToNot(BeNil())
+				Expect(serviceErr).To(BeNil())
+				Expect(resourceControllerService.Service.GetServiceURL()).To(Equal("https://testService/api"))
 				ClearTestEnvironment(testEnvironment)
 			})
 			It(`Create service client using external config and set url programatically successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				testService, testServiceErr := resourcecontrollerv2.NewResourceControllerV2UsingExternalConfig(&resourcecontrollerv2.ResourceControllerV2Options{
+				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2UsingExternalConfig(&resourcecontrollerv2.ResourceControllerV2Options{
 				})
-				err := testService.SetServiceURL("https://testService/api")
+				err := resourceControllerService.SetServiceURL("https://testService/api")
 				Expect(err).To(BeNil())
-				Expect(testService).ToNot(BeNil())
-				Expect(testServiceErr).To(BeNil())
-				Expect(testService.Service.GetServiceURL()).To(Equal("https://testService/api"))
+				Expect(resourceControllerService).ToNot(BeNil())
+				Expect(serviceErr).To(BeNil())
+				Expect(resourceControllerService.Service.GetServiceURL()).To(Equal("https://testService/api"))
 				ClearTestEnvironment(testEnvironment)
 			})
 		})
@@ -107,12 +107,12 @@ var _ = Describe(`ResourceControllerV2`, func() {
 			}
 
 			SetTestEnvironment(testEnvironment)
-			testService, testServiceErr := resourcecontrollerv2.NewResourceControllerV2UsingExternalConfig(&resourcecontrollerv2.ResourceControllerV2Options{
+			resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2UsingExternalConfig(&resourcecontrollerv2.ResourceControllerV2Options{
 			})
 
 			It(`Instantiate service client with error`, func() {
-				Expect(testService).To(BeNil())
-				Expect(testServiceErr).ToNot(BeNil())
+				Expect(resourceControllerService).To(BeNil())
+				Expect(serviceErr).ToNot(BeNil())
 				ClearTestEnvironment(testEnvironment)
 			})
 		})
@@ -123,13 +123,13 @@ var _ = Describe(`ResourceControllerV2`, func() {
 			}
 
 			SetTestEnvironment(testEnvironment)
-			testService, testServiceErr := resourcecontrollerv2.NewResourceControllerV2UsingExternalConfig(&resourcecontrollerv2.ResourceControllerV2Options{
+			resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2UsingExternalConfig(&resourcecontrollerv2.ResourceControllerV2Options{
 				URL: "{BAD_URL_STRING",
 			})
 
 			It(`Instantiate service client with error`, func() {
-				Expect(testService).To(BeNil())
-				Expect(testServiceErr).ToNot(BeNil())
+				Expect(resourceControllerService).To(BeNil())
+				Expect(serviceErr).ToNot(BeNil())
 				ClearTestEnvironment(testEnvironment)
 			})
 		})
@@ -142,7 +142,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.Path).To(Equal(listResourceInstancesPath))
+					Expect(req.URL.EscapedPath()).To(Equal(listResourceInstancesPath))
 					Expect(req.Method).To(Equal("GET"))
 					Expect(req.URL.Query()["guid"]).To(Equal([]string{"testString"}))
 
@@ -170,12 +170,12 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				}))
 			})
 			It(`Invoke ListResourceInstances with error: Operation response processing error`, func() {
-				testService, testServiceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
+				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
-				Expect(testServiceErr).To(BeNil())
-				Expect(testService).ToNot(BeNil())
+				Expect(serviceErr).To(BeNil())
+				Expect(resourceControllerService).ToNot(BeNil())
 
 				// Construct an instance of the ListResourceInstancesOptions model
 				listResourceInstancesOptionsModel := new(resourcecontrollerv2.ListResourceInstancesOptions)
@@ -191,7 +191,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				listResourceInstancesOptionsModel.UpdatedTo = core.StringPtr("2019-01-08T00:00:00.000Z")
 				listResourceInstancesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
-				result, response, operationErr := testService.ListResourceInstances(listResourceInstancesOptionsModel)
+				result, response, operationErr := resourceControllerService.ListResourceInstances(listResourceInstancesOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
@@ -210,7 +210,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.Path).To(Equal(listResourceInstancesPath))
+					Expect(req.URL.EscapedPath()).To(Equal(listResourceInstancesPath))
 					Expect(req.Method).To(Equal("GET"))
 					Expect(req.URL.Query()["guid"]).To(Equal([]string{"testString"}))
 
@@ -234,19 +234,19 @@ var _ = Describe(`ResourceControllerV2`, func() {
 
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, `{"next_url": "NextURL", "resources": [{"id": "ID", "guid": "Guid", "crn": "Crn", "url": "URL", "name": "Name", "account_id": "AccountID", "resource_group_id": "ResourceGroupID", "resource_group_crn": "ResourceGroupCrn", "resource_id": "ResourceID", "resource_plan_id": "ResourcePlanID", "target_crn": "TargetCrn", "state": "State", "type": "Type", "sub_type": "SubType", "allow_cleanup": true, "locked": true, "last_operation": {"mapKey": "anyValue"}, "dashboard_url": "DashboardURL", "plan_history": [{"resource_plan_id": "ResourcePlanID", "start_date": "2019-01-01T12:00:00"}], "resource_aliases_url": "ResourceAliasesURL", "resource_bindings_url": "ResourceBindingsURL", "resource_keys_url": "ResourceKeysURL", "created_at": "2019-01-01T12:00:00", "updated_at": "2019-01-01T12:00:00", "deleted_at": "2019-01-01T12:00:00"}], "rows_count": 9}`)
+					fmt.Fprintf(res, "%s", `{"next_url": "NextURL", "resources": [{"id": "ID", "guid": "Guid", "crn": "Crn", "url": "URL", "name": "Name", "account_id": "AccountID", "resource_group_id": "ResourceGroupID", "resource_group_crn": "ResourceGroupCrn", "resource_id": "ResourceID", "resource_plan_id": "ResourcePlanID", "target_crn": "TargetCrn", "state": "State", "type": "Type", "sub_type": "SubType", "allow_cleanup": true, "locked": true, "last_operation": {"mapKey": "anyValue"}, "dashboard_url": "DashboardURL", "plan_history": [{"resource_plan_id": "ResourcePlanID", "start_date": "2019-01-01T12:00:00"}], "resource_aliases_url": "ResourceAliasesURL", "resource_bindings_url": "ResourceBindingsURL", "resource_keys_url": "ResourceKeysURL", "created_at": "2019-01-01T12:00:00", "updated_at": "2019-01-01T12:00:00", "deleted_at": "2019-01-01T12:00:00"}], "rows_count": 9}`)
 				}))
 			})
 			It(`Invoke ListResourceInstances successfully`, func() {
-				testService, testServiceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
+				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
-				Expect(testServiceErr).To(BeNil())
-				Expect(testService).ToNot(BeNil())
+				Expect(serviceErr).To(BeNil())
+				Expect(resourceControllerService).ToNot(BeNil())
 
 				// Invoke operation with nil options model (negative test)
-				result, response, operationErr := testService.ListResourceInstances(nil)
+				result, response, operationErr := resourceControllerService.ListResourceInstances(nil)
 				Expect(operationErr).NotTo(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
@@ -263,21 +263,21 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				listResourceInstancesOptionsModel.Limit = core.StringPtr("testString")
 				listResourceInstancesOptionsModel.UpdatedFrom = core.StringPtr("2019-01-08T00:00:00.000Z")
 				listResourceInstancesOptionsModel.UpdatedTo = core.StringPtr("2019-01-08T00:00:00.000Z")
- 				listResourceInstancesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				listResourceInstancesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
-				result, response, operationErr = testService.ListResourceInstances(listResourceInstancesOptionsModel)
+				result, response, operationErr = resourceControllerService.ListResourceInstances(listResourceInstancesOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
 			})
 			It(`Invoke ListResourceInstances with error: Operation request error`, func() {
-				testService, testServiceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
+				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
-				Expect(testServiceErr).To(BeNil())
-				Expect(testService).ToNot(BeNil())
+				Expect(serviceErr).To(BeNil())
+				Expect(resourceControllerService).ToNot(BeNil())
 
 				// Construct an instance of the ListResourceInstancesOptions model
 				listResourceInstancesOptionsModel := new(resourcecontrollerv2.ListResourceInstancesOptions)
@@ -293,9 +293,9 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				listResourceInstancesOptionsModel.UpdatedTo = core.StringPtr("2019-01-08T00:00:00.000Z")
 				listResourceInstancesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
-				err := testService.SetServiceURL("")
+				err := resourceControllerService.SetServiceURL("")
 				Expect(err).To(BeNil())
-				result, response, operationErr := testService.ListResourceInstances(listResourceInstancesOptionsModel)
+				result, response, operationErr := resourceControllerService.ListResourceInstances(listResourceInstancesOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
 				Expect(response).To(BeNil())
@@ -314,7 +314,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.Path).To(Equal(createResourceInstancePath))
+					Expect(req.URL.EscapedPath()).To(Equal(createResourceInstancePath))
 					Expect(req.Method).To(Equal("POST"))
 					Expect(req.Header["Entity-Lock"]).ToNot(BeNil())
 					Expect(req.Header["Entity-Lock"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
@@ -324,12 +324,12 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				}))
 			})
 			It(`Invoke CreateResourceInstance with error: Operation response processing error`, func() {
-				testService, testServiceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
+				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
-				Expect(testServiceErr).To(BeNil())
-				Expect(testService).ToNot(BeNil())
+				Expect(serviceErr).To(BeNil())
+				Expect(resourceControllerService).ToNot(BeNil())
 
 				// Construct an instance of the CreateResourceInstanceOptions model
 				createResourceInstanceOptionsModel := new(resourcecontrollerv2.CreateResourceInstanceOptions)
@@ -343,7 +343,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				createResourceInstanceOptionsModel.EntityLock = core.StringPtr("testString")
 				createResourceInstanceOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
-				result, response, operationErr := testService.CreateResourceInstance(createResourceInstanceOptionsModel)
+				result, response, operationErr := resourceControllerService.CreateResourceInstance(createResourceInstanceOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
@@ -362,25 +362,25 @@ var _ = Describe(`ResourceControllerV2`, func() {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.Path).To(Equal(createResourceInstancePath))
+					Expect(req.URL.EscapedPath()).To(Equal(createResourceInstancePath))
 					Expect(req.Method).To(Equal("POST"))
 					Expect(req.Header["Entity-Lock"]).ToNot(BeNil())
 					Expect(req.Header["Entity-Lock"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, `{"id": "ID", "guid": "Guid", "crn": "Crn", "url": "URL", "name": "Name", "account_id": "AccountID", "resource_group_id": "ResourceGroupID", "resource_group_crn": "ResourceGroupCrn", "resource_id": "ResourceID", "resource_plan_id": "ResourcePlanID", "target_crn": "TargetCrn", "state": "State", "type": "Type", "sub_type": "SubType", "allow_cleanup": true, "locked": true, "last_operation": {"mapKey": "anyValue"}, "dashboard_url": "DashboardURL", "plan_history": [{"resource_plan_id": "ResourcePlanID", "start_date": "2019-01-01T12:00:00"}], "resource_aliases_url": "ResourceAliasesURL", "resource_bindings_url": "ResourceBindingsURL", "resource_keys_url": "ResourceKeysURL", "created_at": "2019-01-01T12:00:00", "updated_at": "2019-01-01T12:00:00", "deleted_at": "2019-01-01T12:00:00"}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "guid": "Guid", "crn": "Crn", "url": "URL", "name": "Name", "account_id": "AccountID", "resource_group_id": "ResourceGroupID", "resource_group_crn": "ResourceGroupCrn", "resource_id": "ResourceID", "resource_plan_id": "ResourcePlanID", "target_crn": "TargetCrn", "state": "State", "type": "Type", "sub_type": "SubType", "allow_cleanup": true, "locked": true, "last_operation": {"mapKey": "anyValue"}, "dashboard_url": "DashboardURL", "plan_history": [{"resource_plan_id": "ResourcePlanID", "start_date": "2019-01-01T12:00:00"}], "resource_aliases_url": "ResourceAliasesURL", "resource_bindings_url": "ResourceBindingsURL", "resource_keys_url": "ResourceKeysURL", "created_at": "2019-01-01T12:00:00", "updated_at": "2019-01-01T12:00:00", "deleted_at": "2019-01-01T12:00:00"}`)
 				}))
 			})
 			It(`Invoke CreateResourceInstance successfully`, func() {
-				testService, testServiceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
+				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
-				Expect(testServiceErr).To(BeNil())
-				Expect(testService).ToNot(BeNil())
+				Expect(serviceErr).To(BeNil())
+				Expect(resourceControllerService).ToNot(BeNil())
 
 				// Invoke operation with nil options model (negative test)
-				result, response, operationErr := testService.CreateResourceInstance(nil)
+				result, response, operationErr := resourceControllerService.CreateResourceInstance(nil)
 				Expect(operationErr).NotTo(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
@@ -395,21 +395,21 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				createResourceInstanceOptionsModel.AllowCleanup = core.BoolPtr(true)
 				createResourceInstanceOptionsModel.Parameters = make(map[string]interface{})
 				createResourceInstanceOptionsModel.EntityLock = core.StringPtr("testString")
- 				createResourceInstanceOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				createResourceInstanceOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
-				result, response, operationErr = testService.CreateResourceInstance(createResourceInstanceOptionsModel)
+				result, response, operationErr = resourceControllerService.CreateResourceInstance(createResourceInstanceOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
 			})
 			It(`Invoke CreateResourceInstance with error: Operation validation and request error`, func() {
-				testService, testServiceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
+				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
-				Expect(testServiceErr).To(BeNil())
-				Expect(testService).ToNot(BeNil())
+				Expect(serviceErr).To(BeNil())
+				Expect(resourceControllerService).ToNot(BeNil())
 
 				// Construct an instance of the CreateResourceInstanceOptions model
 				createResourceInstanceOptionsModel := new(resourcecontrollerv2.CreateResourceInstanceOptions)
@@ -423,9 +423,9 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				createResourceInstanceOptionsModel.EntityLock = core.StringPtr("testString")
 				createResourceInstanceOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
-				err := testService.SetServiceURL("")
+				err := resourceControllerService.SetServiceURL("")
 				Expect(err).To(BeNil())
-				result, response, operationErr := testService.CreateResourceInstance(createResourceInstanceOptionsModel)
+				result, response, operationErr := resourceControllerService.CreateResourceInstance(createResourceInstanceOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
 				Expect(response).To(BeNil())
@@ -433,7 +433,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				// Construct a second instance of the CreateResourceInstanceOptions model with no property values
 				createResourceInstanceOptionsModelNew := new(resourcecontrollerv2.CreateResourceInstanceOptions)
 				// Invoke operation with invalid model (negative test)
-				result, response, operationErr = testService.CreateResourceInstance(createResourceInstanceOptionsModelNew)
+				result, response, operationErr = resourceControllerService.CreateResourceInstance(createResourceInstanceOptionsModelNew)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
@@ -451,7 +451,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.Path).To(Equal(getResourceInstancePath))
+					Expect(req.URL.EscapedPath()).To(Equal(getResourceInstancePath))
 					Expect(req.Method).To(Equal("GET"))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
@@ -459,19 +459,19 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				}))
 			})
 			It(`Invoke GetResourceInstance with error: Operation response processing error`, func() {
-				testService, testServiceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
+				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
-				Expect(testServiceErr).To(BeNil())
-				Expect(testService).ToNot(BeNil())
+				Expect(serviceErr).To(BeNil())
+				Expect(resourceControllerService).ToNot(BeNil())
 
 				// Construct an instance of the GetResourceInstanceOptions model
 				getResourceInstanceOptionsModel := new(resourcecontrollerv2.GetResourceInstanceOptions)
 				getResourceInstanceOptionsModel.ID = core.StringPtr("testString")
 				getResourceInstanceOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
-				result, response, operationErr := testService.GetResourceInstance(getResourceInstanceOptionsModel)
+				result, response, operationErr := resourceControllerService.GetResourceInstance(getResourceInstanceOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
@@ -490,23 +490,23 @@ var _ = Describe(`ResourceControllerV2`, func() {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.Path).To(Equal(getResourceInstancePath))
+					Expect(req.URL.EscapedPath()).To(Equal(getResourceInstancePath))
 					Expect(req.Method).To(Equal("GET"))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, `{"id": "ID", "guid": "Guid", "crn": "Crn", "url": "URL", "name": "Name", "account_id": "AccountID", "resource_group_id": "ResourceGroupID", "resource_group_crn": "ResourceGroupCrn", "resource_id": "ResourceID", "resource_plan_id": "ResourcePlanID", "target_crn": "TargetCrn", "state": "State", "type": "Type", "sub_type": "SubType", "allow_cleanup": true, "locked": true, "last_operation": {"mapKey": "anyValue"}, "dashboard_url": "DashboardURL", "plan_history": [{"resource_plan_id": "ResourcePlanID", "start_date": "2019-01-01T12:00:00"}], "resource_aliases_url": "ResourceAliasesURL", "resource_bindings_url": "ResourceBindingsURL", "resource_keys_url": "ResourceKeysURL", "created_at": "2019-01-01T12:00:00", "updated_at": "2019-01-01T12:00:00", "deleted_at": "2019-01-01T12:00:00"}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "guid": "Guid", "crn": "Crn", "url": "URL", "name": "Name", "account_id": "AccountID", "resource_group_id": "ResourceGroupID", "resource_group_crn": "ResourceGroupCrn", "resource_id": "ResourceID", "resource_plan_id": "ResourcePlanID", "target_crn": "TargetCrn", "state": "State", "type": "Type", "sub_type": "SubType", "allow_cleanup": true, "locked": true, "last_operation": {"mapKey": "anyValue"}, "dashboard_url": "DashboardURL", "plan_history": [{"resource_plan_id": "ResourcePlanID", "start_date": "2019-01-01T12:00:00"}], "resource_aliases_url": "ResourceAliasesURL", "resource_bindings_url": "ResourceBindingsURL", "resource_keys_url": "ResourceKeysURL", "created_at": "2019-01-01T12:00:00", "updated_at": "2019-01-01T12:00:00", "deleted_at": "2019-01-01T12:00:00"}`)
 				}))
 			})
 			It(`Invoke GetResourceInstance successfully`, func() {
-				testService, testServiceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
+				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
-				Expect(testServiceErr).To(BeNil())
-				Expect(testService).ToNot(BeNil())
+				Expect(serviceErr).To(BeNil())
+				Expect(resourceControllerService).ToNot(BeNil())
 
 				// Invoke operation with nil options model (negative test)
-				result, response, operationErr := testService.GetResourceInstance(nil)
+				result, response, operationErr := resourceControllerService.GetResourceInstance(nil)
 				Expect(operationErr).NotTo(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
@@ -514,30 +514,30 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				// Construct an instance of the GetResourceInstanceOptions model
 				getResourceInstanceOptionsModel := new(resourcecontrollerv2.GetResourceInstanceOptions)
 				getResourceInstanceOptionsModel.ID = core.StringPtr("testString")
- 				getResourceInstanceOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				getResourceInstanceOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
-				result, response, operationErr = testService.GetResourceInstance(getResourceInstanceOptionsModel)
+				result, response, operationErr = resourceControllerService.GetResourceInstance(getResourceInstanceOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
 			})
 			It(`Invoke GetResourceInstance with error: Operation validation and request error`, func() {
-				testService, testServiceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
+				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
-				Expect(testServiceErr).To(BeNil())
-				Expect(testService).ToNot(BeNil())
+				Expect(serviceErr).To(BeNil())
+				Expect(resourceControllerService).ToNot(BeNil())
 
 				// Construct an instance of the GetResourceInstanceOptions model
 				getResourceInstanceOptionsModel := new(resourcecontrollerv2.GetResourceInstanceOptions)
 				getResourceInstanceOptionsModel.ID = core.StringPtr("testString")
 				getResourceInstanceOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
-				err := testService.SetServiceURL("")
+				err := resourceControllerService.SetServiceURL("")
 				Expect(err).To(BeNil())
-				result, response, operationErr := testService.GetResourceInstance(getResourceInstanceOptionsModel)
+				result, response, operationErr := resourceControllerService.GetResourceInstance(getResourceInstanceOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
 				Expect(response).To(BeNil())
@@ -545,7 +545,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				// Construct a second instance of the GetResourceInstanceOptions model with no property values
 				getResourceInstanceOptionsModelNew := new(resourcecontrollerv2.GetResourceInstanceOptions)
 				// Invoke operation with invalid model (negative test)
-				result, response, operationErr = testService.GetResourceInstance(getResourceInstanceOptionsModelNew)
+				result, response, operationErr = resourceControllerService.GetResourceInstance(getResourceInstanceOptionsModelNew)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
@@ -564,57 +564,57 @@ var _ = Describe(`ResourceControllerV2`, func() {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.Path).To(Equal(deleteResourceInstancePath))
+					Expect(req.URL.EscapedPath()).To(Equal(deleteResourceInstancePath))
 					Expect(req.Method).To(Equal("DELETE"))
 					res.WriteHeader(202)
 				}))
 			})
 			It(`Invoke DeleteResourceInstance successfully`, func() {
-				testService, testServiceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
+				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
-				Expect(testServiceErr).To(BeNil())
-				Expect(testService).ToNot(BeNil())
+				Expect(serviceErr).To(BeNil())
+				Expect(resourceControllerService).ToNot(BeNil())
 
 				// Invoke operation with nil options model (negative test)
-				response, operationErr := testService.DeleteResourceInstance(nil)
+				response, operationErr := resourceControllerService.DeleteResourceInstance(nil)
 				Expect(operationErr).NotTo(BeNil())
 				Expect(response).To(BeNil())
 
 				// Construct an instance of the DeleteResourceInstanceOptions model
 				deleteResourceInstanceOptionsModel := new(resourcecontrollerv2.DeleteResourceInstanceOptions)
 				deleteResourceInstanceOptionsModel.ID = core.StringPtr("testString")
- 				deleteResourceInstanceOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				deleteResourceInstanceOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
-				response, operationErr = testService.DeleteResourceInstance(deleteResourceInstanceOptionsModel)
+				response, operationErr = resourceControllerService.DeleteResourceInstance(deleteResourceInstanceOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 			})
 			It(`Invoke DeleteResourceInstance with error: Operation validation and request error`, func() {
-				testService, testServiceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
+				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
-				Expect(testServiceErr).To(BeNil())
-				Expect(testService).ToNot(BeNil())
+				Expect(serviceErr).To(BeNil())
+				Expect(resourceControllerService).ToNot(BeNil())
 
 				// Construct an instance of the DeleteResourceInstanceOptions model
 				deleteResourceInstanceOptionsModel := new(resourcecontrollerv2.DeleteResourceInstanceOptions)
 				deleteResourceInstanceOptionsModel.ID = core.StringPtr("testString")
 				deleteResourceInstanceOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
-				err := testService.SetServiceURL("")
+				err := resourceControllerService.SetServiceURL("")
 				Expect(err).To(BeNil())
-				response, operationErr := testService.DeleteResourceInstance(deleteResourceInstanceOptionsModel)
+				response, operationErr := resourceControllerService.DeleteResourceInstance(deleteResourceInstanceOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
 				Expect(response).To(BeNil())
 				// Construct a second instance of the DeleteResourceInstanceOptions model with no property values
 				deleteResourceInstanceOptionsModelNew := new(resourcecontrollerv2.DeleteResourceInstanceOptions)
 				// Invoke operation with invalid model (negative test)
-				response, operationErr = testService.DeleteResourceInstance(deleteResourceInstanceOptionsModelNew)
+				response, operationErr = resourceControllerService.DeleteResourceInstance(deleteResourceInstanceOptionsModelNew)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).To(BeNil())
 			})
@@ -631,7 +631,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.Path).To(Equal(updateResourceInstancePath))
+					Expect(req.URL.EscapedPath()).To(Equal(updateResourceInstancePath))
 					Expect(req.Method).To(Equal("PATCH"))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
@@ -639,12 +639,12 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				}))
 			})
 			It(`Invoke UpdateResourceInstance with error: Operation response processing error`, func() {
-				testService, testServiceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
+				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
-				Expect(testServiceErr).To(BeNil())
-				Expect(testService).ToNot(BeNil())
+				Expect(serviceErr).To(BeNil())
+				Expect(resourceControllerService).ToNot(BeNil())
 
 				// Construct an instance of the UpdateResourceInstanceOptions model
 				updateResourceInstanceOptionsModel := new(resourcecontrollerv2.UpdateResourceInstanceOptions)
@@ -655,7 +655,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				updateResourceInstanceOptionsModel.AllowCleanup = core.BoolPtr(true)
 				updateResourceInstanceOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
-				result, response, operationErr := testService.UpdateResourceInstance(updateResourceInstanceOptionsModel)
+				result, response, operationErr := resourceControllerService.UpdateResourceInstance(updateResourceInstanceOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
@@ -674,23 +674,23 @@ var _ = Describe(`ResourceControllerV2`, func() {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.Path).To(Equal(updateResourceInstancePath))
+					Expect(req.URL.EscapedPath()).To(Equal(updateResourceInstancePath))
 					Expect(req.Method).To(Equal("PATCH"))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, `{"id": "ID", "guid": "Guid", "crn": "Crn", "url": "URL", "name": "Name", "account_id": "AccountID", "resource_group_id": "ResourceGroupID", "resource_group_crn": "ResourceGroupCrn", "resource_id": "ResourceID", "resource_plan_id": "ResourcePlanID", "target_crn": "TargetCrn", "state": "State", "type": "Type", "sub_type": "SubType", "allow_cleanup": true, "locked": true, "last_operation": {"mapKey": "anyValue"}, "dashboard_url": "DashboardURL", "plan_history": [{"resource_plan_id": "ResourcePlanID", "start_date": "2019-01-01T12:00:00"}], "resource_aliases_url": "ResourceAliasesURL", "resource_bindings_url": "ResourceBindingsURL", "resource_keys_url": "ResourceKeysURL", "created_at": "2019-01-01T12:00:00", "updated_at": "2019-01-01T12:00:00", "deleted_at": "2019-01-01T12:00:00"}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "guid": "Guid", "crn": "Crn", "url": "URL", "name": "Name", "account_id": "AccountID", "resource_group_id": "ResourceGroupID", "resource_group_crn": "ResourceGroupCrn", "resource_id": "ResourceID", "resource_plan_id": "ResourcePlanID", "target_crn": "TargetCrn", "state": "State", "type": "Type", "sub_type": "SubType", "allow_cleanup": true, "locked": true, "last_operation": {"mapKey": "anyValue"}, "dashboard_url": "DashboardURL", "plan_history": [{"resource_plan_id": "ResourcePlanID", "start_date": "2019-01-01T12:00:00"}], "resource_aliases_url": "ResourceAliasesURL", "resource_bindings_url": "ResourceBindingsURL", "resource_keys_url": "ResourceKeysURL", "created_at": "2019-01-01T12:00:00", "updated_at": "2019-01-01T12:00:00", "deleted_at": "2019-01-01T12:00:00"}`)
 				}))
 			})
 			It(`Invoke UpdateResourceInstance successfully`, func() {
-				testService, testServiceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
+				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
-				Expect(testServiceErr).To(BeNil())
-				Expect(testService).ToNot(BeNil())
+				Expect(serviceErr).To(BeNil())
+				Expect(resourceControllerService).ToNot(BeNil())
 
 				// Invoke operation with nil options model (negative test)
-				result, response, operationErr := testService.UpdateResourceInstance(nil)
+				result, response, operationErr := resourceControllerService.UpdateResourceInstance(nil)
 				Expect(operationErr).NotTo(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
@@ -702,21 +702,21 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				updateResourceInstanceOptionsModel.Parameters = make(map[string]interface{})
 				updateResourceInstanceOptionsModel.ResourcePlanID = core.StringPtr("a8dff6d3-d287-4668-a81d-c87c55c2656d")
 				updateResourceInstanceOptionsModel.AllowCleanup = core.BoolPtr(true)
- 				updateResourceInstanceOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				updateResourceInstanceOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
-				result, response, operationErr = testService.UpdateResourceInstance(updateResourceInstanceOptionsModel)
+				result, response, operationErr = resourceControllerService.UpdateResourceInstance(updateResourceInstanceOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
 			})
 			It(`Invoke UpdateResourceInstance with error: Operation validation and request error`, func() {
-				testService, testServiceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
+				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
-				Expect(testServiceErr).To(BeNil())
-				Expect(testService).ToNot(BeNil())
+				Expect(serviceErr).To(BeNil())
+				Expect(resourceControllerService).ToNot(BeNil())
 
 				// Construct an instance of the UpdateResourceInstanceOptions model
 				updateResourceInstanceOptionsModel := new(resourcecontrollerv2.UpdateResourceInstanceOptions)
@@ -727,9 +727,9 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				updateResourceInstanceOptionsModel.AllowCleanup = core.BoolPtr(true)
 				updateResourceInstanceOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
-				err := testService.SetServiceURL("")
+				err := resourceControllerService.SetServiceURL("")
 				Expect(err).To(BeNil())
-				result, response, operationErr := testService.UpdateResourceInstance(updateResourceInstanceOptionsModel)
+				result, response, operationErr := resourceControllerService.UpdateResourceInstance(updateResourceInstanceOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
 				Expect(response).To(BeNil())
@@ -737,7 +737,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				// Construct a second instance of the UpdateResourceInstanceOptions model with no property values
 				updateResourceInstanceOptionsModelNew := new(resourcecontrollerv2.UpdateResourceInstanceOptions)
 				// Invoke operation with invalid model (negative test)
-				result, response, operationErr = testService.UpdateResourceInstance(updateResourceInstanceOptionsModelNew)
+				result, response, operationErr = resourceControllerService.UpdateResourceInstance(updateResourceInstanceOptionsModelNew)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
@@ -755,7 +755,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.Path).To(Equal(lockResourceInstancePath))
+					Expect(req.URL.EscapedPath()).To(Equal(lockResourceInstancePath))
 					Expect(req.Method).To(Equal("POST"))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
@@ -763,19 +763,19 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				}))
 			})
 			It(`Invoke LockResourceInstance with error: Operation response processing error`, func() {
-				testService, testServiceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
+				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
-				Expect(testServiceErr).To(BeNil())
-				Expect(testService).ToNot(BeNil())
+				Expect(serviceErr).To(BeNil())
+				Expect(resourceControllerService).ToNot(BeNil())
 
 				// Construct an instance of the LockResourceInstanceOptions model
 				lockResourceInstanceOptionsModel := new(resourcecontrollerv2.LockResourceInstanceOptions)
 				lockResourceInstanceOptionsModel.ID = core.StringPtr("testString")
 				lockResourceInstanceOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
-				result, response, operationErr := testService.LockResourceInstance(lockResourceInstanceOptionsModel)
+				result, response, operationErr := resourceControllerService.LockResourceInstance(lockResourceInstanceOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
@@ -794,23 +794,23 @@ var _ = Describe(`ResourceControllerV2`, func() {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.Path).To(Equal(lockResourceInstancePath))
+					Expect(req.URL.EscapedPath()).To(Equal(lockResourceInstancePath))
 					Expect(req.Method).To(Equal("POST"))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, `{"id": "ID", "guid": "Guid", "crn": "Crn", "url": "URL", "name": "Name", "account_id": "AccountID", "resource_group_id": "ResourceGroupID", "resource_group_crn": "ResourceGroupCrn", "resource_id": "ResourceID", "resource_plan_id": "ResourcePlanID", "target_crn": "TargetCrn", "state": "State", "type": "Type", "sub_type": "SubType", "allow_cleanup": true, "locked": true, "last_operation": {"mapKey": "anyValue"}, "dashboard_url": "DashboardURL", "plan_history": [{"resource_plan_id": "ResourcePlanID", "start_date": "2019-01-01T12:00:00"}], "resource_aliases_url": "ResourceAliasesURL", "resource_bindings_url": "ResourceBindingsURL", "resource_keys_url": "ResourceKeysURL", "created_at": "2019-01-01T12:00:00", "updated_at": "2019-01-01T12:00:00", "deleted_at": "2019-01-01T12:00:00"}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "guid": "Guid", "crn": "Crn", "url": "URL", "name": "Name", "account_id": "AccountID", "resource_group_id": "ResourceGroupID", "resource_group_crn": "ResourceGroupCrn", "resource_id": "ResourceID", "resource_plan_id": "ResourcePlanID", "target_crn": "TargetCrn", "state": "State", "type": "Type", "sub_type": "SubType", "allow_cleanup": true, "locked": true, "last_operation": {"mapKey": "anyValue"}, "dashboard_url": "DashboardURL", "plan_history": [{"resource_plan_id": "ResourcePlanID", "start_date": "2019-01-01T12:00:00"}], "resource_aliases_url": "ResourceAliasesURL", "resource_bindings_url": "ResourceBindingsURL", "resource_keys_url": "ResourceKeysURL", "created_at": "2019-01-01T12:00:00", "updated_at": "2019-01-01T12:00:00", "deleted_at": "2019-01-01T12:00:00"}`)
 				}))
 			})
 			It(`Invoke LockResourceInstance successfully`, func() {
-				testService, testServiceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
+				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
-				Expect(testServiceErr).To(BeNil())
-				Expect(testService).ToNot(BeNil())
+				Expect(serviceErr).To(BeNil())
+				Expect(resourceControllerService).ToNot(BeNil())
 
 				// Invoke operation with nil options model (negative test)
-				result, response, operationErr := testService.LockResourceInstance(nil)
+				result, response, operationErr := resourceControllerService.LockResourceInstance(nil)
 				Expect(operationErr).NotTo(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
@@ -818,30 +818,30 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				// Construct an instance of the LockResourceInstanceOptions model
 				lockResourceInstanceOptionsModel := new(resourcecontrollerv2.LockResourceInstanceOptions)
 				lockResourceInstanceOptionsModel.ID = core.StringPtr("testString")
- 				lockResourceInstanceOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				lockResourceInstanceOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
-				result, response, operationErr = testService.LockResourceInstance(lockResourceInstanceOptionsModel)
+				result, response, operationErr = resourceControllerService.LockResourceInstance(lockResourceInstanceOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
 			})
 			It(`Invoke LockResourceInstance with error: Operation validation and request error`, func() {
-				testService, testServiceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
+				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
-				Expect(testServiceErr).To(BeNil())
-				Expect(testService).ToNot(BeNil())
+				Expect(serviceErr).To(BeNil())
+				Expect(resourceControllerService).ToNot(BeNil())
 
 				// Construct an instance of the LockResourceInstanceOptions model
 				lockResourceInstanceOptionsModel := new(resourcecontrollerv2.LockResourceInstanceOptions)
 				lockResourceInstanceOptionsModel.ID = core.StringPtr("testString")
 				lockResourceInstanceOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
-				err := testService.SetServiceURL("")
+				err := resourceControllerService.SetServiceURL("")
 				Expect(err).To(BeNil())
-				result, response, operationErr := testService.LockResourceInstance(lockResourceInstanceOptionsModel)
+				result, response, operationErr := resourceControllerService.LockResourceInstance(lockResourceInstanceOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
 				Expect(response).To(BeNil())
@@ -849,7 +849,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				// Construct a second instance of the LockResourceInstanceOptions model with no property values
 				lockResourceInstanceOptionsModelNew := new(resourcecontrollerv2.LockResourceInstanceOptions)
 				// Invoke operation with invalid model (negative test)
-				result, response, operationErr = testService.LockResourceInstance(lockResourceInstanceOptionsModelNew)
+				result, response, operationErr = resourceControllerService.LockResourceInstance(lockResourceInstanceOptionsModelNew)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
@@ -867,7 +867,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.Path).To(Equal(unlockResourceInstancePath))
+					Expect(req.URL.EscapedPath()).To(Equal(unlockResourceInstancePath))
 					Expect(req.Method).To(Equal("DELETE"))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
@@ -875,19 +875,19 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				}))
 			})
 			It(`Invoke UnlockResourceInstance with error: Operation response processing error`, func() {
-				testService, testServiceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
+				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
-				Expect(testServiceErr).To(BeNil())
-				Expect(testService).ToNot(BeNil())
+				Expect(serviceErr).To(BeNil())
+				Expect(resourceControllerService).ToNot(BeNil())
 
 				// Construct an instance of the UnlockResourceInstanceOptions model
 				unlockResourceInstanceOptionsModel := new(resourcecontrollerv2.UnlockResourceInstanceOptions)
 				unlockResourceInstanceOptionsModel.ID = core.StringPtr("testString")
 				unlockResourceInstanceOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
-				result, response, operationErr := testService.UnlockResourceInstance(unlockResourceInstanceOptionsModel)
+				result, response, operationErr := resourceControllerService.UnlockResourceInstance(unlockResourceInstanceOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
@@ -906,23 +906,23 @@ var _ = Describe(`ResourceControllerV2`, func() {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.Path).To(Equal(unlockResourceInstancePath))
+					Expect(req.URL.EscapedPath()).To(Equal(unlockResourceInstancePath))
 					Expect(req.Method).To(Equal("DELETE"))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, `{"id": "ID", "guid": "Guid", "crn": "Crn", "url": "URL", "name": "Name", "account_id": "AccountID", "resource_group_id": "ResourceGroupID", "resource_group_crn": "ResourceGroupCrn", "resource_id": "ResourceID", "resource_plan_id": "ResourcePlanID", "target_crn": "TargetCrn", "state": "State", "type": "Type", "sub_type": "SubType", "allow_cleanup": true, "locked": true, "last_operation": {"mapKey": "anyValue"}, "dashboard_url": "DashboardURL", "plan_history": [{"resource_plan_id": "ResourcePlanID", "start_date": "2019-01-01T12:00:00"}], "resource_aliases_url": "ResourceAliasesURL", "resource_bindings_url": "ResourceBindingsURL", "resource_keys_url": "ResourceKeysURL", "created_at": "2019-01-01T12:00:00", "updated_at": "2019-01-01T12:00:00", "deleted_at": "2019-01-01T12:00:00"}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "guid": "Guid", "crn": "Crn", "url": "URL", "name": "Name", "account_id": "AccountID", "resource_group_id": "ResourceGroupID", "resource_group_crn": "ResourceGroupCrn", "resource_id": "ResourceID", "resource_plan_id": "ResourcePlanID", "target_crn": "TargetCrn", "state": "State", "type": "Type", "sub_type": "SubType", "allow_cleanup": true, "locked": true, "last_operation": {"mapKey": "anyValue"}, "dashboard_url": "DashboardURL", "plan_history": [{"resource_plan_id": "ResourcePlanID", "start_date": "2019-01-01T12:00:00"}], "resource_aliases_url": "ResourceAliasesURL", "resource_bindings_url": "ResourceBindingsURL", "resource_keys_url": "ResourceKeysURL", "created_at": "2019-01-01T12:00:00", "updated_at": "2019-01-01T12:00:00", "deleted_at": "2019-01-01T12:00:00"}`)
 				}))
 			})
 			It(`Invoke UnlockResourceInstance successfully`, func() {
-				testService, testServiceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
+				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
-				Expect(testServiceErr).To(BeNil())
-				Expect(testService).ToNot(BeNil())
+				Expect(serviceErr).To(BeNil())
+				Expect(resourceControllerService).ToNot(BeNil())
 
 				// Invoke operation with nil options model (negative test)
-				result, response, operationErr := testService.UnlockResourceInstance(nil)
+				result, response, operationErr := resourceControllerService.UnlockResourceInstance(nil)
 				Expect(operationErr).NotTo(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
@@ -930,30 +930,30 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				// Construct an instance of the UnlockResourceInstanceOptions model
 				unlockResourceInstanceOptionsModel := new(resourcecontrollerv2.UnlockResourceInstanceOptions)
 				unlockResourceInstanceOptionsModel.ID = core.StringPtr("testString")
- 				unlockResourceInstanceOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				unlockResourceInstanceOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
-				result, response, operationErr = testService.UnlockResourceInstance(unlockResourceInstanceOptionsModel)
+				result, response, operationErr = resourceControllerService.UnlockResourceInstance(unlockResourceInstanceOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
 			})
 			It(`Invoke UnlockResourceInstance with error: Operation validation and request error`, func() {
-				testService, testServiceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
+				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
-				Expect(testServiceErr).To(BeNil())
-				Expect(testService).ToNot(BeNil())
+				Expect(serviceErr).To(BeNil())
+				Expect(resourceControllerService).ToNot(BeNil())
 
 				// Construct an instance of the UnlockResourceInstanceOptions model
 				unlockResourceInstanceOptionsModel := new(resourcecontrollerv2.UnlockResourceInstanceOptions)
 				unlockResourceInstanceOptionsModel.ID = core.StringPtr("testString")
 				unlockResourceInstanceOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
-				err := testService.SetServiceURL("")
+				err := resourceControllerService.SetServiceURL("")
 				Expect(err).To(BeNil())
-				result, response, operationErr := testService.UnlockResourceInstance(unlockResourceInstanceOptionsModel)
+				result, response, operationErr := resourceControllerService.UnlockResourceInstance(unlockResourceInstanceOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
 				Expect(response).To(BeNil())
@@ -961,7 +961,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				// Construct a second instance of the UnlockResourceInstanceOptions model with no property values
 				unlockResourceInstanceOptionsModelNew := new(resourcecontrollerv2.UnlockResourceInstanceOptions)
 				// Invoke operation with invalid model (negative test)
-				result, response, operationErr = testService.UnlockResourceInstance(unlockResourceInstanceOptionsModelNew)
+				result, response, operationErr = resourceControllerService.UnlockResourceInstance(unlockResourceInstanceOptionsModelNew)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
@@ -971,31 +971,31 @@ var _ = Describe(`ResourceControllerV2`, func() {
 			})
 		})
 	})
-    Describe(`Service constructor tests`, func() {
+	Describe(`Service constructor tests`, func() {
 		It(`Instantiate service client`, func() {
-			testService, testServiceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
+			resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
 				Authenticator: &core.NoAuthAuthenticator{},
 			})
-			Expect(testService).ToNot(BeNil())
-			Expect(testServiceErr).To(BeNil())
+			Expect(resourceControllerService).ToNot(BeNil())
+			Expect(serviceErr).To(BeNil())
 		})
 		It(`Instantiate service client with error: Invalid URL`, func() {
-			testService, testServiceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
+			resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
 				URL: "{BAD_URL_STRING",
 			})
-			Expect(testService).To(BeNil())
-			Expect(testServiceErr).ToNot(BeNil())
+			Expect(resourceControllerService).To(BeNil())
+			Expect(serviceErr).ToNot(BeNil())
 		})
 		It(`Instantiate service client with error: Invalid Auth`, func() {
-			testService, testServiceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
+			resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
 				URL: "https://resourcecontrollerv2/api",
 				Authenticator: &core.BasicAuthenticator{
 					Username: "",
 					Password: "",
 				},
 			})
-			Expect(testService).To(BeNil())
-			Expect(testServiceErr).ToNot(BeNil())
+			Expect(resourceControllerService).To(BeNil())
+			Expect(serviceErr).ToNot(BeNil())
 		})
 	})
 	Describe(`Service constructor tests using external config`, func() {
@@ -1008,31 +1008,31 @@ var _ = Describe(`ResourceControllerV2`, func() {
 
 			It(`Create service client using external config successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				testService, testServiceErr := resourcecontrollerv2.NewResourceControllerV2UsingExternalConfig(&resourcecontrollerv2.ResourceControllerV2Options{
+				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2UsingExternalConfig(&resourcecontrollerv2.ResourceControllerV2Options{
 				})
-				Expect(testService).ToNot(BeNil())
-				Expect(testServiceErr).To(BeNil())
+				Expect(resourceControllerService).ToNot(BeNil())
+				Expect(serviceErr).To(BeNil())
 				ClearTestEnvironment(testEnvironment)
 			})
 			It(`Create service client using external config and set url from constructor successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				testService, testServiceErr := resourcecontrollerv2.NewResourceControllerV2UsingExternalConfig(&resourcecontrollerv2.ResourceControllerV2Options{
+				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2UsingExternalConfig(&resourcecontrollerv2.ResourceControllerV2Options{
 					URL: "https://testService/api",
 				})
-				Expect(testService).ToNot(BeNil())
-				Expect(testServiceErr).To(BeNil())
-				Expect(testService.Service.GetServiceURL()).To(Equal("https://testService/api"))
+				Expect(resourceControllerService).ToNot(BeNil())
+				Expect(serviceErr).To(BeNil())
+				Expect(resourceControllerService.Service.GetServiceURL()).To(Equal("https://testService/api"))
 				ClearTestEnvironment(testEnvironment)
 			})
 			It(`Create service client using external config and set url programatically successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				testService, testServiceErr := resourcecontrollerv2.NewResourceControllerV2UsingExternalConfig(&resourcecontrollerv2.ResourceControllerV2Options{
+				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2UsingExternalConfig(&resourcecontrollerv2.ResourceControllerV2Options{
 				})
-				err := testService.SetServiceURL("https://testService/api")
+				err := resourceControllerService.SetServiceURL("https://testService/api")
 				Expect(err).To(BeNil())
-				Expect(testService).ToNot(BeNil())
-				Expect(testServiceErr).To(BeNil())
-				Expect(testService.Service.GetServiceURL()).To(Equal("https://testService/api"))
+				Expect(resourceControllerService).ToNot(BeNil())
+				Expect(serviceErr).To(BeNil())
+				Expect(resourceControllerService.Service.GetServiceURL()).To(Equal("https://testService/api"))
 				ClearTestEnvironment(testEnvironment)
 			})
 		})
@@ -1044,12 +1044,12 @@ var _ = Describe(`ResourceControllerV2`, func() {
 			}
 
 			SetTestEnvironment(testEnvironment)
-			testService, testServiceErr := resourcecontrollerv2.NewResourceControllerV2UsingExternalConfig(&resourcecontrollerv2.ResourceControllerV2Options{
+			resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2UsingExternalConfig(&resourcecontrollerv2.ResourceControllerV2Options{
 			})
 
 			It(`Instantiate service client with error`, func() {
-				Expect(testService).To(BeNil())
-				Expect(testServiceErr).ToNot(BeNil())
+				Expect(resourceControllerService).To(BeNil())
+				Expect(serviceErr).ToNot(BeNil())
 				ClearTestEnvironment(testEnvironment)
 			})
 		})
@@ -1060,13 +1060,13 @@ var _ = Describe(`ResourceControllerV2`, func() {
 			}
 
 			SetTestEnvironment(testEnvironment)
-			testService, testServiceErr := resourcecontrollerv2.NewResourceControllerV2UsingExternalConfig(&resourcecontrollerv2.ResourceControllerV2Options{
+			resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2UsingExternalConfig(&resourcecontrollerv2.ResourceControllerV2Options{
 				URL: "{BAD_URL_STRING",
 			})
 
 			It(`Instantiate service client with error`, func() {
-				Expect(testService).To(BeNil())
-				Expect(testServiceErr).ToNot(BeNil())
+				Expect(resourceControllerService).To(BeNil())
+				Expect(serviceErr).ToNot(BeNil())
 				ClearTestEnvironment(testEnvironment)
 			})
 		})
@@ -1079,7 +1079,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.Path).To(Equal(listResourceKeysPath))
+					Expect(req.URL.EscapedPath()).To(Equal(listResourceKeysPath))
 					Expect(req.Method).To(Equal("GET"))
 					Expect(req.URL.Query()["guid"]).To(Equal([]string{"testString"}))
 
@@ -1101,12 +1101,12 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				}))
 			})
 			It(`Invoke ListResourceKeys with error: Operation response processing error`, func() {
-				testService, testServiceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
+				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
-				Expect(testServiceErr).To(BeNil())
-				Expect(testService).ToNot(BeNil())
+				Expect(serviceErr).To(BeNil())
+				Expect(resourceControllerService).ToNot(BeNil())
 
 				// Construct an instance of the ListResourceKeysOptions model
 				listResourceKeysOptionsModel := new(resourcecontrollerv2.ListResourceKeysOptions)
@@ -1119,7 +1119,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				listResourceKeysOptionsModel.UpdatedTo = core.StringPtr("2019-01-08T00:00:00.000Z")
 				listResourceKeysOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
-				result, response, operationErr := testService.ListResourceKeys(listResourceKeysOptionsModel)
+				result, response, operationErr := resourceControllerService.ListResourceKeys(listResourceKeysOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
@@ -1138,7 +1138,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.Path).To(Equal(listResourceKeysPath))
+					Expect(req.URL.EscapedPath()).To(Equal(listResourceKeysPath))
 					Expect(req.Method).To(Equal("GET"))
 					Expect(req.URL.Query()["guid"]).To(Equal([]string{"testString"}))
 
@@ -1156,19 +1156,19 @@ var _ = Describe(`ResourceControllerV2`, func() {
 
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, `{"next_url": "NextURL", "resources": [{"id": "ID", "guid": "Guid", "crn": "Crn", "url": "URL", "name": "Name", "account_id": "AccountID", "resource_group_id": "ResourceGroupID", "source_crn": "SourceCrn", "state": "State", "credentials": {"apikey": "Apikey", "iam_apikey_description": "IamApikeyDescription", "iam_apikey_name": "IamApikeyName", "iam_role_crn": "IamRoleCrn", "iam_serviceid_crn": "IamServiceidCrn"}, "iam_compatible": false, "resource_instance_url": "ResourceInstanceURL", "created_at": "2019-01-01T12:00:00", "updated_at": "2019-01-01T12:00:00", "deleted_at": "2019-01-01T12:00:00"}], "rows_count": 9}`)
+					fmt.Fprintf(res, "%s", `{"next_url": "NextURL", "resources": [{"id": "ID", "guid": "Guid", "crn": "Crn", "url": "URL", "name": "Name", "account_id": "AccountID", "resource_group_id": "ResourceGroupID", "source_crn": "SourceCrn", "state": "State", "credentials": {"apikey": "Apikey", "iam_apikey_description": "IamApikeyDescription", "iam_apikey_name": "IamApikeyName", "iam_role_crn": "IamRoleCrn", "iam_serviceid_crn": "IamServiceidCrn"}, "iam_compatible": false, "resource_instance_url": "ResourceInstanceURL", "created_at": "2019-01-01T12:00:00", "updated_at": "2019-01-01T12:00:00", "deleted_at": "2019-01-01T12:00:00"}], "rows_count": 9}`)
 				}))
 			})
 			It(`Invoke ListResourceKeys successfully`, func() {
-				testService, testServiceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
+				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
-				Expect(testServiceErr).To(BeNil())
-				Expect(testService).ToNot(BeNil())
+				Expect(serviceErr).To(BeNil())
+				Expect(resourceControllerService).ToNot(BeNil())
 
 				// Invoke operation with nil options model (negative test)
-				result, response, operationErr := testService.ListResourceKeys(nil)
+				result, response, operationErr := resourceControllerService.ListResourceKeys(nil)
 				Expect(operationErr).NotTo(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
@@ -1182,21 +1182,21 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				listResourceKeysOptionsModel.Limit = core.StringPtr("testString")
 				listResourceKeysOptionsModel.UpdatedFrom = core.StringPtr("2019-01-08T00:00:00.000Z")
 				listResourceKeysOptionsModel.UpdatedTo = core.StringPtr("2019-01-08T00:00:00.000Z")
- 				listResourceKeysOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				listResourceKeysOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
-				result, response, operationErr = testService.ListResourceKeys(listResourceKeysOptionsModel)
+				result, response, operationErr = resourceControllerService.ListResourceKeys(listResourceKeysOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
 			})
 			It(`Invoke ListResourceKeys with error: Operation request error`, func() {
-				testService, testServiceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
+				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
-				Expect(testServiceErr).To(BeNil())
-				Expect(testService).ToNot(BeNil())
+				Expect(serviceErr).To(BeNil())
+				Expect(resourceControllerService).ToNot(BeNil())
 
 				// Construct an instance of the ListResourceKeysOptions model
 				listResourceKeysOptionsModel := new(resourcecontrollerv2.ListResourceKeysOptions)
@@ -1209,9 +1209,9 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				listResourceKeysOptionsModel.UpdatedTo = core.StringPtr("2019-01-08T00:00:00.000Z")
 				listResourceKeysOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
-				err := testService.SetServiceURL("")
+				err := resourceControllerService.SetServiceURL("")
 				Expect(err).To(BeNil())
-				result, response, operationErr := testService.ListResourceKeys(listResourceKeysOptionsModel)
+				result, response, operationErr := resourceControllerService.ListResourceKeys(listResourceKeysOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
 				Expect(response).To(BeNil())
@@ -1230,7 +1230,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.Path).To(Equal(createResourceKeyPath))
+					Expect(req.URL.EscapedPath()).To(Equal(createResourceKeyPath))
 					Expect(req.Method).To(Equal("POST"))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
@@ -1238,12 +1238,12 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				}))
 			})
 			It(`Invoke CreateResourceKey with error: Operation response processing error`, func() {
-				testService, testServiceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
+				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
-				Expect(testServiceErr).To(BeNil())
-				Expect(testService).ToNot(BeNil())
+				Expect(serviceErr).To(BeNil())
+				Expect(resourceControllerService).ToNot(BeNil())
 
 				// Construct an instance of the ResourceKeyPostParameters model
 				resourceKeyPostParametersModel := new(resourcecontrollerv2.ResourceKeyPostParameters)
@@ -1257,7 +1257,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				createResourceKeyOptionsModel.Role = core.StringPtr("Writer")
 				createResourceKeyOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
-				result, response, operationErr := testService.CreateResourceKey(createResourceKeyOptionsModel)
+				result, response, operationErr := resourceControllerService.CreateResourceKey(createResourceKeyOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
@@ -1276,23 +1276,23 @@ var _ = Describe(`ResourceControllerV2`, func() {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.Path).To(Equal(createResourceKeyPath))
+					Expect(req.URL.EscapedPath()).To(Equal(createResourceKeyPath))
 					Expect(req.Method).To(Equal("POST"))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, `{"id": "ID", "guid": "Guid", "crn": "Crn", "url": "URL", "name": "Name", "account_id": "AccountID", "resource_group_id": "ResourceGroupID", "source_crn": "SourceCrn", "state": "State", "credentials": {"apikey": "Apikey", "iam_apikey_description": "IamApikeyDescription", "iam_apikey_name": "IamApikeyName", "iam_role_crn": "IamRoleCrn", "iam_serviceid_crn": "IamServiceidCrn"}, "iam_compatible": false, "resource_instance_url": "ResourceInstanceURL", "created_at": "2019-01-01T12:00:00", "updated_at": "2019-01-01T12:00:00", "deleted_at": "2019-01-01T12:00:00"}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "guid": "Guid", "crn": "Crn", "url": "URL", "name": "Name", "account_id": "AccountID", "resource_group_id": "ResourceGroupID", "source_crn": "SourceCrn", "state": "State", "credentials": {"apikey": "Apikey", "iam_apikey_description": "IamApikeyDescription", "iam_apikey_name": "IamApikeyName", "iam_role_crn": "IamRoleCrn", "iam_serviceid_crn": "IamServiceidCrn"}, "iam_compatible": false, "resource_instance_url": "ResourceInstanceURL", "created_at": "2019-01-01T12:00:00", "updated_at": "2019-01-01T12:00:00", "deleted_at": "2019-01-01T12:00:00"}`)
 				}))
 			})
 			It(`Invoke CreateResourceKey successfully`, func() {
-				testService, testServiceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
+				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
-				Expect(testServiceErr).To(BeNil())
-				Expect(testService).ToNot(BeNil())
+				Expect(serviceErr).To(BeNil())
+				Expect(resourceControllerService).ToNot(BeNil())
 
 				// Invoke operation with nil options model (negative test)
-				result, response, operationErr := testService.CreateResourceKey(nil)
+				result, response, operationErr := resourceControllerService.CreateResourceKey(nil)
 				Expect(operationErr).NotTo(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
@@ -1307,21 +1307,21 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				createResourceKeyOptionsModel.Source = core.StringPtr("25eba2a9-beef-450b-82cf-f5ad5e36c6dd")
 				createResourceKeyOptionsModel.Parameters = resourceKeyPostParametersModel
 				createResourceKeyOptionsModel.Role = core.StringPtr("Writer")
- 				createResourceKeyOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				createResourceKeyOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
-				result, response, operationErr = testService.CreateResourceKey(createResourceKeyOptionsModel)
+				result, response, operationErr = resourceControllerService.CreateResourceKey(createResourceKeyOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
 			})
 			It(`Invoke CreateResourceKey with error: Operation validation and request error`, func() {
-				testService, testServiceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
+				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
-				Expect(testServiceErr).To(BeNil())
-				Expect(testService).ToNot(BeNil())
+				Expect(serviceErr).To(BeNil())
+				Expect(resourceControllerService).ToNot(BeNil())
 
 				// Construct an instance of the ResourceKeyPostParameters model
 				resourceKeyPostParametersModel := new(resourcecontrollerv2.ResourceKeyPostParameters)
@@ -1335,9 +1335,9 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				createResourceKeyOptionsModel.Role = core.StringPtr("Writer")
 				createResourceKeyOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
-				err := testService.SetServiceURL("")
+				err := resourceControllerService.SetServiceURL("")
 				Expect(err).To(BeNil())
-				result, response, operationErr := testService.CreateResourceKey(createResourceKeyOptionsModel)
+				result, response, operationErr := resourceControllerService.CreateResourceKey(createResourceKeyOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
 				Expect(response).To(BeNil())
@@ -1345,7 +1345,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				// Construct a second instance of the CreateResourceKeyOptions model with no property values
 				createResourceKeyOptionsModelNew := new(resourcecontrollerv2.CreateResourceKeyOptions)
 				// Invoke operation with invalid model (negative test)
-				result, response, operationErr = testService.CreateResourceKey(createResourceKeyOptionsModelNew)
+				result, response, operationErr = resourceControllerService.CreateResourceKey(createResourceKeyOptionsModelNew)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
@@ -1363,7 +1363,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.Path).To(Equal(getResourceKeyPath))
+					Expect(req.URL.EscapedPath()).To(Equal(getResourceKeyPath))
 					Expect(req.Method).To(Equal("GET"))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
@@ -1371,19 +1371,19 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				}))
 			})
 			It(`Invoke GetResourceKey with error: Operation response processing error`, func() {
-				testService, testServiceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
+				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
-				Expect(testServiceErr).To(BeNil())
-				Expect(testService).ToNot(BeNil())
+				Expect(serviceErr).To(BeNil())
+				Expect(resourceControllerService).ToNot(BeNil())
 
 				// Construct an instance of the GetResourceKeyOptions model
 				getResourceKeyOptionsModel := new(resourcecontrollerv2.GetResourceKeyOptions)
 				getResourceKeyOptionsModel.ID = core.StringPtr("testString")
 				getResourceKeyOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
-				result, response, operationErr := testService.GetResourceKey(getResourceKeyOptionsModel)
+				result, response, operationErr := resourceControllerService.GetResourceKey(getResourceKeyOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
@@ -1402,23 +1402,23 @@ var _ = Describe(`ResourceControllerV2`, func() {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.Path).To(Equal(getResourceKeyPath))
+					Expect(req.URL.EscapedPath()).To(Equal(getResourceKeyPath))
 					Expect(req.Method).To(Equal("GET"))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, `{"id": "ID", "guid": "Guid", "crn": "Crn", "url": "URL", "name": "Name", "account_id": "AccountID", "resource_group_id": "ResourceGroupID", "source_crn": "SourceCrn", "state": "State", "credentials": {"apikey": "Apikey", "iam_apikey_description": "IamApikeyDescription", "iam_apikey_name": "IamApikeyName", "iam_role_crn": "IamRoleCrn", "iam_serviceid_crn": "IamServiceidCrn"}, "iam_compatible": false, "resource_instance_url": "ResourceInstanceURL", "created_at": "2019-01-01T12:00:00", "updated_at": "2019-01-01T12:00:00", "deleted_at": "2019-01-01T12:00:00"}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "guid": "Guid", "crn": "Crn", "url": "URL", "name": "Name", "account_id": "AccountID", "resource_group_id": "ResourceGroupID", "source_crn": "SourceCrn", "state": "State", "credentials": {"apikey": "Apikey", "iam_apikey_description": "IamApikeyDescription", "iam_apikey_name": "IamApikeyName", "iam_role_crn": "IamRoleCrn", "iam_serviceid_crn": "IamServiceidCrn"}, "iam_compatible": false, "resource_instance_url": "ResourceInstanceURL", "created_at": "2019-01-01T12:00:00", "updated_at": "2019-01-01T12:00:00", "deleted_at": "2019-01-01T12:00:00"}`)
 				}))
 			})
 			It(`Invoke GetResourceKey successfully`, func() {
-				testService, testServiceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
+				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
-				Expect(testServiceErr).To(BeNil())
-				Expect(testService).ToNot(BeNil())
+				Expect(serviceErr).To(BeNil())
+				Expect(resourceControllerService).ToNot(BeNil())
 
 				// Invoke operation with nil options model (negative test)
-				result, response, operationErr := testService.GetResourceKey(nil)
+				result, response, operationErr := resourceControllerService.GetResourceKey(nil)
 				Expect(operationErr).NotTo(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
@@ -1426,30 +1426,30 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				// Construct an instance of the GetResourceKeyOptions model
 				getResourceKeyOptionsModel := new(resourcecontrollerv2.GetResourceKeyOptions)
 				getResourceKeyOptionsModel.ID = core.StringPtr("testString")
- 				getResourceKeyOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				getResourceKeyOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
-				result, response, operationErr = testService.GetResourceKey(getResourceKeyOptionsModel)
+				result, response, operationErr = resourceControllerService.GetResourceKey(getResourceKeyOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
 			})
 			It(`Invoke GetResourceKey with error: Operation validation and request error`, func() {
-				testService, testServiceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
+				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
-				Expect(testServiceErr).To(BeNil())
-				Expect(testService).ToNot(BeNil())
+				Expect(serviceErr).To(BeNil())
+				Expect(resourceControllerService).ToNot(BeNil())
 
 				// Construct an instance of the GetResourceKeyOptions model
 				getResourceKeyOptionsModel := new(resourcecontrollerv2.GetResourceKeyOptions)
 				getResourceKeyOptionsModel.ID = core.StringPtr("testString")
 				getResourceKeyOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
-				err := testService.SetServiceURL("")
+				err := resourceControllerService.SetServiceURL("")
 				Expect(err).To(BeNil())
-				result, response, operationErr := testService.GetResourceKey(getResourceKeyOptionsModel)
+				result, response, operationErr := resourceControllerService.GetResourceKey(getResourceKeyOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
 				Expect(response).To(BeNil())
@@ -1457,7 +1457,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				// Construct a second instance of the GetResourceKeyOptions model with no property values
 				getResourceKeyOptionsModelNew := new(resourcecontrollerv2.GetResourceKeyOptions)
 				// Invoke operation with invalid model (negative test)
-				result, response, operationErr = testService.GetResourceKey(getResourceKeyOptionsModelNew)
+				result, response, operationErr = resourceControllerService.GetResourceKey(getResourceKeyOptionsModelNew)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
@@ -1476,57 +1476,57 @@ var _ = Describe(`ResourceControllerV2`, func() {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.Path).To(Equal(deleteResourceKeyPath))
+					Expect(req.URL.EscapedPath()).To(Equal(deleteResourceKeyPath))
 					Expect(req.Method).To(Equal("DELETE"))
 					res.WriteHeader(204)
 				}))
 			})
 			It(`Invoke DeleteResourceKey successfully`, func() {
-				testService, testServiceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
+				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
-				Expect(testServiceErr).To(BeNil())
-				Expect(testService).ToNot(BeNil())
+				Expect(serviceErr).To(BeNil())
+				Expect(resourceControllerService).ToNot(BeNil())
 
 				// Invoke operation with nil options model (negative test)
-				response, operationErr := testService.DeleteResourceKey(nil)
+				response, operationErr := resourceControllerService.DeleteResourceKey(nil)
 				Expect(operationErr).NotTo(BeNil())
 				Expect(response).To(BeNil())
 
 				// Construct an instance of the DeleteResourceKeyOptions model
 				deleteResourceKeyOptionsModel := new(resourcecontrollerv2.DeleteResourceKeyOptions)
 				deleteResourceKeyOptionsModel.ID = core.StringPtr("testString")
- 				deleteResourceKeyOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				deleteResourceKeyOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
-				response, operationErr = testService.DeleteResourceKey(deleteResourceKeyOptionsModel)
+				response, operationErr = resourceControllerService.DeleteResourceKey(deleteResourceKeyOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 			})
 			It(`Invoke DeleteResourceKey with error: Operation validation and request error`, func() {
-				testService, testServiceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
+				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
-				Expect(testServiceErr).To(BeNil())
-				Expect(testService).ToNot(BeNil())
+				Expect(serviceErr).To(BeNil())
+				Expect(resourceControllerService).ToNot(BeNil())
 
 				// Construct an instance of the DeleteResourceKeyOptions model
 				deleteResourceKeyOptionsModel := new(resourcecontrollerv2.DeleteResourceKeyOptions)
 				deleteResourceKeyOptionsModel.ID = core.StringPtr("testString")
 				deleteResourceKeyOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
-				err := testService.SetServiceURL("")
+				err := resourceControllerService.SetServiceURL("")
 				Expect(err).To(BeNil())
-				response, operationErr := testService.DeleteResourceKey(deleteResourceKeyOptionsModel)
+				response, operationErr := resourceControllerService.DeleteResourceKey(deleteResourceKeyOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
 				Expect(response).To(BeNil())
 				// Construct a second instance of the DeleteResourceKeyOptions model with no property values
 				deleteResourceKeyOptionsModelNew := new(resourcecontrollerv2.DeleteResourceKeyOptions)
 				// Invoke operation with invalid model (negative test)
-				response, operationErr = testService.DeleteResourceKey(deleteResourceKeyOptionsModelNew)
+				response, operationErr = resourceControllerService.DeleteResourceKey(deleteResourceKeyOptionsModelNew)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).To(BeNil())
 			})
@@ -1543,7 +1543,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.Path).To(Equal(updateResourceKeyPath))
+					Expect(req.URL.EscapedPath()).To(Equal(updateResourceKeyPath))
 					Expect(req.Method).To(Equal("PATCH"))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
@@ -1551,12 +1551,12 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				}))
 			})
 			It(`Invoke UpdateResourceKey with error: Operation response processing error`, func() {
-				testService, testServiceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
+				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
-				Expect(testServiceErr).To(BeNil())
-				Expect(testService).ToNot(BeNil())
+				Expect(serviceErr).To(BeNil())
+				Expect(resourceControllerService).ToNot(BeNil())
 
 				// Construct an instance of the UpdateResourceKeyOptions model
 				updateResourceKeyOptionsModel := new(resourcecontrollerv2.UpdateResourceKeyOptions)
@@ -1564,7 +1564,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				updateResourceKeyOptionsModel.Name = core.StringPtr("my-new-key-name")
 				updateResourceKeyOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
-				result, response, operationErr := testService.UpdateResourceKey(updateResourceKeyOptionsModel)
+				result, response, operationErr := resourceControllerService.UpdateResourceKey(updateResourceKeyOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
@@ -1583,23 +1583,23 @@ var _ = Describe(`ResourceControllerV2`, func() {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.Path).To(Equal(updateResourceKeyPath))
+					Expect(req.URL.EscapedPath()).To(Equal(updateResourceKeyPath))
 					Expect(req.Method).To(Equal("PATCH"))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, `{"id": "ID", "guid": "Guid", "crn": "Crn", "url": "URL", "name": "Name", "account_id": "AccountID", "resource_group_id": "ResourceGroupID", "source_crn": "SourceCrn", "state": "State", "credentials": {"apikey": "Apikey", "iam_apikey_description": "IamApikeyDescription", "iam_apikey_name": "IamApikeyName", "iam_role_crn": "IamRoleCrn", "iam_serviceid_crn": "IamServiceidCrn"}, "iam_compatible": false, "resource_instance_url": "ResourceInstanceURL", "created_at": "2019-01-01T12:00:00", "updated_at": "2019-01-01T12:00:00", "deleted_at": "2019-01-01T12:00:00"}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "guid": "Guid", "crn": "Crn", "url": "URL", "name": "Name", "account_id": "AccountID", "resource_group_id": "ResourceGroupID", "source_crn": "SourceCrn", "state": "State", "credentials": {"apikey": "Apikey", "iam_apikey_description": "IamApikeyDescription", "iam_apikey_name": "IamApikeyName", "iam_role_crn": "IamRoleCrn", "iam_serviceid_crn": "IamServiceidCrn"}, "iam_compatible": false, "resource_instance_url": "ResourceInstanceURL", "created_at": "2019-01-01T12:00:00", "updated_at": "2019-01-01T12:00:00", "deleted_at": "2019-01-01T12:00:00"}`)
 				}))
 			})
 			It(`Invoke UpdateResourceKey successfully`, func() {
-				testService, testServiceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
+				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
-				Expect(testServiceErr).To(BeNil())
-				Expect(testService).ToNot(BeNil())
+				Expect(serviceErr).To(BeNil())
+				Expect(resourceControllerService).ToNot(BeNil())
 
 				// Invoke operation with nil options model (negative test)
-				result, response, operationErr := testService.UpdateResourceKey(nil)
+				result, response, operationErr := resourceControllerService.UpdateResourceKey(nil)
 				Expect(operationErr).NotTo(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
@@ -1608,21 +1608,21 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				updateResourceKeyOptionsModel := new(resourcecontrollerv2.UpdateResourceKeyOptions)
 				updateResourceKeyOptionsModel.ID = core.StringPtr("testString")
 				updateResourceKeyOptionsModel.Name = core.StringPtr("my-new-key-name")
- 				updateResourceKeyOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				updateResourceKeyOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
-				result, response, operationErr = testService.UpdateResourceKey(updateResourceKeyOptionsModel)
+				result, response, operationErr = resourceControllerService.UpdateResourceKey(updateResourceKeyOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
 			})
 			It(`Invoke UpdateResourceKey with error: Operation validation and request error`, func() {
-				testService, testServiceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
+				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
-				Expect(testServiceErr).To(BeNil())
-				Expect(testService).ToNot(BeNil())
+				Expect(serviceErr).To(BeNil())
+				Expect(resourceControllerService).ToNot(BeNil())
 
 				// Construct an instance of the UpdateResourceKeyOptions model
 				updateResourceKeyOptionsModel := new(resourcecontrollerv2.UpdateResourceKeyOptions)
@@ -1630,9 +1630,9 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				updateResourceKeyOptionsModel.Name = core.StringPtr("my-new-key-name")
 				updateResourceKeyOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
-				err := testService.SetServiceURL("")
+				err := resourceControllerService.SetServiceURL("")
 				Expect(err).To(BeNil())
-				result, response, operationErr := testService.UpdateResourceKey(updateResourceKeyOptionsModel)
+				result, response, operationErr := resourceControllerService.UpdateResourceKey(updateResourceKeyOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
 				Expect(response).To(BeNil())
@@ -1640,7 +1640,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				// Construct a second instance of the UpdateResourceKeyOptions model with no property values
 				updateResourceKeyOptionsModelNew := new(resourcecontrollerv2.UpdateResourceKeyOptions)
 				// Invoke operation with invalid model (negative test)
-				result, response, operationErr = testService.UpdateResourceKey(updateResourceKeyOptionsModelNew)
+				result, response, operationErr = resourceControllerService.UpdateResourceKey(updateResourceKeyOptionsModelNew)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
@@ -1650,31 +1650,31 @@ var _ = Describe(`ResourceControllerV2`, func() {
 			})
 		})
 	})
-    Describe(`Service constructor tests`, func() {
+	Describe(`Service constructor tests`, func() {
 		It(`Instantiate service client`, func() {
-			testService, testServiceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
+			resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
 				Authenticator: &core.NoAuthAuthenticator{},
 			})
-			Expect(testService).ToNot(BeNil())
-			Expect(testServiceErr).To(BeNil())
+			Expect(resourceControllerService).ToNot(BeNil())
+			Expect(serviceErr).To(BeNil())
 		})
 		It(`Instantiate service client with error: Invalid URL`, func() {
-			testService, testServiceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
+			resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
 				URL: "{BAD_URL_STRING",
 			})
-			Expect(testService).To(BeNil())
-			Expect(testServiceErr).ToNot(BeNil())
+			Expect(resourceControllerService).To(BeNil())
+			Expect(serviceErr).ToNot(BeNil())
 		})
 		It(`Instantiate service client with error: Invalid Auth`, func() {
-			testService, testServiceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
+			resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
 				URL: "https://resourcecontrollerv2/api",
 				Authenticator: &core.BasicAuthenticator{
 					Username: "",
 					Password: "",
 				},
 			})
-			Expect(testService).To(BeNil())
-			Expect(testServiceErr).ToNot(BeNil())
+			Expect(resourceControllerService).To(BeNil())
+			Expect(serviceErr).ToNot(BeNil())
 		})
 	})
 	Describe(`Service constructor tests using external config`, func() {
@@ -1687,31 +1687,31 @@ var _ = Describe(`ResourceControllerV2`, func() {
 
 			It(`Create service client using external config successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				testService, testServiceErr := resourcecontrollerv2.NewResourceControllerV2UsingExternalConfig(&resourcecontrollerv2.ResourceControllerV2Options{
+				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2UsingExternalConfig(&resourcecontrollerv2.ResourceControllerV2Options{
 				})
-				Expect(testService).ToNot(BeNil())
-				Expect(testServiceErr).To(BeNil())
+				Expect(resourceControllerService).ToNot(BeNil())
+				Expect(serviceErr).To(BeNil())
 				ClearTestEnvironment(testEnvironment)
 			})
 			It(`Create service client using external config and set url from constructor successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				testService, testServiceErr := resourcecontrollerv2.NewResourceControllerV2UsingExternalConfig(&resourcecontrollerv2.ResourceControllerV2Options{
+				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2UsingExternalConfig(&resourcecontrollerv2.ResourceControllerV2Options{
 					URL: "https://testService/api",
 				})
-				Expect(testService).ToNot(BeNil())
-				Expect(testServiceErr).To(BeNil())
-				Expect(testService.Service.GetServiceURL()).To(Equal("https://testService/api"))
+				Expect(resourceControllerService).ToNot(BeNil())
+				Expect(serviceErr).To(BeNil())
+				Expect(resourceControllerService.Service.GetServiceURL()).To(Equal("https://testService/api"))
 				ClearTestEnvironment(testEnvironment)
 			})
 			It(`Create service client using external config and set url programatically successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				testService, testServiceErr := resourcecontrollerv2.NewResourceControllerV2UsingExternalConfig(&resourcecontrollerv2.ResourceControllerV2Options{
+				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2UsingExternalConfig(&resourcecontrollerv2.ResourceControllerV2Options{
 				})
-				err := testService.SetServiceURL("https://testService/api")
+				err := resourceControllerService.SetServiceURL("https://testService/api")
 				Expect(err).To(BeNil())
-				Expect(testService).ToNot(BeNil())
-				Expect(testServiceErr).To(BeNil())
-				Expect(testService.Service.GetServiceURL()).To(Equal("https://testService/api"))
+				Expect(resourceControllerService).ToNot(BeNil())
+				Expect(serviceErr).To(BeNil())
+				Expect(resourceControllerService.Service.GetServiceURL()).To(Equal("https://testService/api"))
 				ClearTestEnvironment(testEnvironment)
 			})
 		})
@@ -1723,12 +1723,12 @@ var _ = Describe(`ResourceControllerV2`, func() {
 			}
 
 			SetTestEnvironment(testEnvironment)
-			testService, testServiceErr := resourcecontrollerv2.NewResourceControllerV2UsingExternalConfig(&resourcecontrollerv2.ResourceControllerV2Options{
+			resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2UsingExternalConfig(&resourcecontrollerv2.ResourceControllerV2Options{
 			})
 
 			It(`Instantiate service client with error`, func() {
-				Expect(testService).To(BeNil())
-				Expect(testServiceErr).ToNot(BeNil())
+				Expect(resourceControllerService).To(BeNil())
+				Expect(serviceErr).ToNot(BeNil())
 				ClearTestEnvironment(testEnvironment)
 			})
 		})
@@ -1739,13 +1739,13 @@ var _ = Describe(`ResourceControllerV2`, func() {
 			}
 
 			SetTestEnvironment(testEnvironment)
-			testService, testServiceErr := resourcecontrollerv2.NewResourceControllerV2UsingExternalConfig(&resourcecontrollerv2.ResourceControllerV2Options{
+			resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2UsingExternalConfig(&resourcecontrollerv2.ResourceControllerV2Options{
 				URL: "{BAD_URL_STRING",
 			})
 
 			It(`Instantiate service client with error`, func() {
-				Expect(testService).To(BeNil())
-				Expect(testServiceErr).ToNot(BeNil())
+				Expect(resourceControllerService).To(BeNil())
+				Expect(serviceErr).ToNot(BeNil())
 				ClearTestEnvironment(testEnvironment)
 			})
 		})
@@ -1758,7 +1758,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.Path).To(Equal(listResourceBindingsPath))
+					Expect(req.URL.EscapedPath()).To(Equal(listResourceBindingsPath))
 					Expect(req.Method).To(Equal("GET"))
 					Expect(req.URL.Query()["guid"]).To(Equal([]string{"testString"}))
 
@@ -1782,12 +1782,12 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				}))
 			})
 			It(`Invoke ListResourceBindings with error: Operation response processing error`, func() {
-				testService, testServiceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
+				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
-				Expect(testServiceErr).To(BeNil())
-				Expect(testService).ToNot(BeNil())
+				Expect(serviceErr).To(BeNil())
+				Expect(resourceControllerService).ToNot(BeNil())
 
 				// Construct an instance of the ListResourceBindingsOptions model
 				listResourceBindingsOptionsModel := new(resourcecontrollerv2.ListResourceBindingsOptions)
@@ -1801,7 +1801,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				listResourceBindingsOptionsModel.UpdatedTo = core.StringPtr("2019-01-08T00:00:00.000Z")
 				listResourceBindingsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
-				result, response, operationErr := testService.ListResourceBindings(listResourceBindingsOptionsModel)
+				result, response, operationErr := resourceControllerService.ListResourceBindings(listResourceBindingsOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
@@ -1820,7 +1820,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.Path).To(Equal(listResourceBindingsPath))
+					Expect(req.URL.EscapedPath()).To(Equal(listResourceBindingsPath))
 					Expect(req.Method).To(Equal("GET"))
 					Expect(req.URL.Query()["guid"]).To(Equal([]string{"testString"}))
 
@@ -1840,19 +1840,19 @@ var _ = Describe(`ResourceControllerV2`, func() {
 
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, `{"next_url": "NextURL", "resources": [{"id": "ID", "guid": "Guid", "crn": "Crn", "url": "URL", "name": "Name", "account_id": "AccountID", "resource_group_id": "ResourceGroupID", "source_crn": "SourceCrn", "target_crn": "TargetCrn", "region_binding_id": "RegionBindingID", "state": "State", "credentials": {"apikey": "Apikey", "iam_apikey_description": "IamApikeyDescription", "iam_apikey_name": "IamApikeyName", "iam_role_crn": "IamRoleCrn", "iam_serviceid_crn": "IamServiceidCrn"}, "iam_compatible": false, "resource_alias_url": "ResourceAliasURL", "created_at": "2019-01-01T12:00:00", "updated_at": "2019-01-01T12:00:00", "deleted_at": "2019-01-01T12:00:00"}], "rows_count": 9}`)
+					fmt.Fprintf(res, "%s", `{"next_url": "NextURL", "resources": [{"id": "ID", "guid": "Guid", "crn": "Crn", "url": "URL", "name": "Name", "account_id": "AccountID", "resource_group_id": "ResourceGroupID", "source_crn": "SourceCrn", "target_crn": "TargetCrn", "region_binding_id": "RegionBindingID", "state": "State", "credentials": {"apikey": "Apikey", "iam_apikey_description": "IamApikeyDescription", "iam_apikey_name": "IamApikeyName", "iam_role_crn": "IamRoleCrn", "iam_serviceid_crn": "IamServiceidCrn"}, "iam_compatible": false, "resource_alias_url": "ResourceAliasURL", "created_at": "2019-01-01T12:00:00", "updated_at": "2019-01-01T12:00:00", "deleted_at": "2019-01-01T12:00:00"}], "rows_count": 9}`)
 				}))
 			})
 			It(`Invoke ListResourceBindings successfully`, func() {
-				testService, testServiceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
+				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
-				Expect(testServiceErr).To(BeNil())
-				Expect(testService).ToNot(BeNil())
+				Expect(serviceErr).To(BeNil())
+				Expect(resourceControllerService).ToNot(BeNil())
 
 				// Invoke operation with nil options model (negative test)
-				result, response, operationErr := testService.ListResourceBindings(nil)
+				result, response, operationErr := resourceControllerService.ListResourceBindings(nil)
 				Expect(operationErr).NotTo(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
@@ -1867,21 +1867,21 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				listResourceBindingsOptionsModel.Limit = core.StringPtr("testString")
 				listResourceBindingsOptionsModel.UpdatedFrom = core.StringPtr("2019-01-08T00:00:00.000Z")
 				listResourceBindingsOptionsModel.UpdatedTo = core.StringPtr("2019-01-08T00:00:00.000Z")
- 				listResourceBindingsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				listResourceBindingsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
-				result, response, operationErr = testService.ListResourceBindings(listResourceBindingsOptionsModel)
+				result, response, operationErr = resourceControllerService.ListResourceBindings(listResourceBindingsOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
 			})
 			It(`Invoke ListResourceBindings with error: Operation request error`, func() {
-				testService, testServiceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
+				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
-				Expect(testServiceErr).To(BeNil())
-				Expect(testService).ToNot(BeNil())
+				Expect(serviceErr).To(BeNil())
+				Expect(resourceControllerService).ToNot(BeNil())
 
 				// Construct an instance of the ListResourceBindingsOptions model
 				listResourceBindingsOptionsModel := new(resourcecontrollerv2.ListResourceBindingsOptions)
@@ -1895,9 +1895,9 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				listResourceBindingsOptionsModel.UpdatedTo = core.StringPtr("2019-01-08T00:00:00.000Z")
 				listResourceBindingsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
-				err := testService.SetServiceURL("")
+				err := resourceControllerService.SetServiceURL("")
 				Expect(err).To(BeNil())
-				result, response, operationErr := testService.ListResourceBindings(listResourceBindingsOptionsModel)
+				result, response, operationErr := resourceControllerService.ListResourceBindings(listResourceBindingsOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
 				Expect(response).To(BeNil())
@@ -1916,7 +1916,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.Path).To(Equal(createResourceBindingPath))
+					Expect(req.URL.EscapedPath()).To(Equal(createResourceBindingPath))
 					Expect(req.Method).To(Equal("POST"))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
@@ -1924,12 +1924,12 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				}))
 			})
 			It(`Invoke CreateResourceBinding with error: Operation response processing error`, func() {
-				testService, testServiceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
+				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
-				Expect(testServiceErr).To(BeNil())
-				Expect(testService).ToNot(BeNil())
+				Expect(serviceErr).To(BeNil())
+				Expect(resourceControllerService).ToNot(BeNil())
 
 				// Construct an instance of the ResourceBindingPostParameters model
 				resourceBindingPostParametersModel := new(resourcecontrollerv2.ResourceBindingPostParameters)
@@ -1944,7 +1944,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				createResourceBindingOptionsModel.Role = core.StringPtr("Writer")
 				createResourceBindingOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
-				result, response, operationErr := testService.CreateResourceBinding(createResourceBindingOptionsModel)
+				result, response, operationErr := resourceControllerService.CreateResourceBinding(createResourceBindingOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
@@ -1963,23 +1963,23 @@ var _ = Describe(`ResourceControllerV2`, func() {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.Path).To(Equal(createResourceBindingPath))
+					Expect(req.URL.EscapedPath()).To(Equal(createResourceBindingPath))
 					Expect(req.Method).To(Equal("POST"))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, `{"id": "ID", "guid": "Guid", "crn": "Crn", "url": "URL", "name": "Name", "account_id": "AccountID", "resource_group_id": "ResourceGroupID", "source_crn": "SourceCrn", "target_crn": "TargetCrn", "region_binding_id": "RegionBindingID", "state": "State", "credentials": {"apikey": "Apikey", "iam_apikey_description": "IamApikeyDescription", "iam_apikey_name": "IamApikeyName", "iam_role_crn": "IamRoleCrn", "iam_serviceid_crn": "IamServiceidCrn"}, "iam_compatible": false, "resource_alias_url": "ResourceAliasURL", "created_at": "2019-01-01T12:00:00", "updated_at": "2019-01-01T12:00:00", "deleted_at": "2019-01-01T12:00:00"}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "guid": "Guid", "crn": "Crn", "url": "URL", "name": "Name", "account_id": "AccountID", "resource_group_id": "ResourceGroupID", "source_crn": "SourceCrn", "target_crn": "TargetCrn", "region_binding_id": "RegionBindingID", "state": "State", "credentials": {"apikey": "Apikey", "iam_apikey_description": "IamApikeyDescription", "iam_apikey_name": "IamApikeyName", "iam_role_crn": "IamRoleCrn", "iam_serviceid_crn": "IamServiceidCrn"}, "iam_compatible": false, "resource_alias_url": "ResourceAliasURL", "created_at": "2019-01-01T12:00:00", "updated_at": "2019-01-01T12:00:00", "deleted_at": "2019-01-01T12:00:00"}`)
 				}))
 			})
 			It(`Invoke CreateResourceBinding successfully`, func() {
-				testService, testServiceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
+				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
-				Expect(testServiceErr).To(BeNil())
-				Expect(testService).ToNot(BeNil())
+				Expect(serviceErr).To(BeNil())
+				Expect(resourceControllerService).ToNot(BeNil())
 
 				// Invoke operation with nil options model (negative test)
-				result, response, operationErr := testService.CreateResourceBinding(nil)
+				result, response, operationErr := resourceControllerService.CreateResourceBinding(nil)
 				Expect(operationErr).NotTo(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
@@ -1995,21 +1995,21 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				createResourceBindingOptionsModel.Name = core.StringPtr("my-binding")
 				createResourceBindingOptionsModel.Parameters = resourceBindingPostParametersModel
 				createResourceBindingOptionsModel.Role = core.StringPtr("Writer")
- 				createResourceBindingOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				createResourceBindingOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
-				result, response, operationErr = testService.CreateResourceBinding(createResourceBindingOptionsModel)
+				result, response, operationErr = resourceControllerService.CreateResourceBinding(createResourceBindingOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
 			})
 			It(`Invoke CreateResourceBinding with error: Operation validation and request error`, func() {
-				testService, testServiceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
+				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
-				Expect(testServiceErr).To(BeNil())
-				Expect(testService).ToNot(BeNil())
+				Expect(serviceErr).To(BeNil())
+				Expect(resourceControllerService).ToNot(BeNil())
 
 				// Construct an instance of the ResourceBindingPostParameters model
 				resourceBindingPostParametersModel := new(resourcecontrollerv2.ResourceBindingPostParameters)
@@ -2024,9 +2024,9 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				createResourceBindingOptionsModel.Role = core.StringPtr("Writer")
 				createResourceBindingOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
-				err := testService.SetServiceURL("")
+				err := resourceControllerService.SetServiceURL("")
 				Expect(err).To(BeNil())
-				result, response, operationErr := testService.CreateResourceBinding(createResourceBindingOptionsModel)
+				result, response, operationErr := resourceControllerService.CreateResourceBinding(createResourceBindingOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
 				Expect(response).To(BeNil())
@@ -2034,7 +2034,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				// Construct a second instance of the CreateResourceBindingOptions model with no property values
 				createResourceBindingOptionsModelNew := new(resourcecontrollerv2.CreateResourceBindingOptions)
 				// Invoke operation with invalid model (negative test)
-				result, response, operationErr = testService.CreateResourceBinding(createResourceBindingOptionsModelNew)
+				result, response, operationErr = resourceControllerService.CreateResourceBinding(createResourceBindingOptionsModelNew)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
@@ -2052,7 +2052,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.Path).To(Equal(getResourceBindingPath))
+					Expect(req.URL.EscapedPath()).To(Equal(getResourceBindingPath))
 					Expect(req.Method).To(Equal("GET"))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
@@ -2060,19 +2060,19 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				}))
 			})
 			It(`Invoke GetResourceBinding with error: Operation response processing error`, func() {
-				testService, testServiceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
+				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
-				Expect(testServiceErr).To(BeNil())
-				Expect(testService).ToNot(BeNil())
+				Expect(serviceErr).To(BeNil())
+				Expect(resourceControllerService).ToNot(BeNil())
 
 				// Construct an instance of the GetResourceBindingOptions model
 				getResourceBindingOptionsModel := new(resourcecontrollerv2.GetResourceBindingOptions)
 				getResourceBindingOptionsModel.ID = core.StringPtr("testString")
 				getResourceBindingOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
-				result, response, operationErr := testService.GetResourceBinding(getResourceBindingOptionsModel)
+				result, response, operationErr := resourceControllerService.GetResourceBinding(getResourceBindingOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
@@ -2091,23 +2091,23 @@ var _ = Describe(`ResourceControllerV2`, func() {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.Path).To(Equal(getResourceBindingPath))
+					Expect(req.URL.EscapedPath()).To(Equal(getResourceBindingPath))
 					Expect(req.Method).To(Equal("GET"))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, `{"id": "ID", "guid": "Guid", "crn": "Crn", "url": "URL", "name": "Name", "account_id": "AccountID", "resource_group_id": "ResourceGroupID", "source_crn": "SourceCrn", "target_crn": "TargetCrn", "region_binding_id": "RegionBindingID", "state": "State", "credentials": {"apikey": "Apikey", "iam_apikey_description": "IamApikeyDescription", "iam_apikey_name": "IamApikeyName", "iam_role_crn": "IamRoleCrn", "iam_serviceid_crn": "IamServiceidCrn"}, "iam_compatible": false, "resource_alias_url": "ResourceAliasURL", "created_at": "2019-01-01T12:00:00", "updated_at": "2019-01-01T12:00:00", "deleted_at": "2019-01-01T12:00:00"}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "guid": "Guid", "crn": "Crn", "url": "URL", "name": "Name", "account_id": "AccountID", "resource_group_id": "ResourceGroupID", "source_crn": "SourceCrn", "target_crn": "TargetCrn", "region_binding_id": "RegionBindingID", "state": "State", "credentials": {"apikey": "Apikey", "iam_apikey_description": "IamApikeyDescription", "iam_apikey_name": "IamApikeyName", "iam_role_crn": "IamRoleCrn", "iam_serviceid_crn": "IamServiceidCrn"}, "iam_compatible": false, "resource_alias_url": "ResourceAliasURL", "created_at": "2019-01-01T12:00:00", "updated_at": "2019-01-01T12:00:00", "deleted_at": "2019-01-01T12:00:00"}`)
 				}))
 			})
 			It(`Invoke GetResourceBinding successfully`, func() {
-				testService, testServiceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
+				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
-				Expect(testServiceErr).To(BeNil())
-				Expect(testService).ToNot(BeNil())
+				Expect(serviceErr).To(BeNil())
+				Expect(resourceControllerService).ToNot(BeNil())
 
 				// Invoke operation with nil options model (negative test)
-				result, response, operationErr := testService.GetResourceBinding(nil)
+				result, response, operationErr := resourceControllerService.GetResourceBinding(nil)
 				Expect(operationErr).NotTo(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
@@ -2115,30 +2115,30 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				// Construct an instance of the GetResourceBindingOptions model
 				getResourceBindingOptionsModel := new(resourcecontrollerv2.GetResourceBindingOptions)
 				getResourceBindingOptionsModel.ID = core.StringPtr("testString")
- 				getResourceBindingOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				getResourceBindingOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
-				result, response, operationErr = testService.GetResourceBinding(getResourceBindingOptionsModel)
+				result, response, operationErr = resourceControllerService.GetResourceBinding(getResourceBindingOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
 			})
 			It(`Invoke GetResourceBinding with error: Operation validation and request error`, func() {
-				testService, testServiceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
+				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
-				Expect(testServiceErr).To(BeNil())
-				Expect(testService).ToNot(BeNil())
+				Expect(serviceErr).To(BeNil())
+				Expect(resourceControllerService).ToNot(BeNil())
 
 				// Construct an instance of the GetResourceBindingOptions model
 				getResourceBindingOptionsModel := new(resourcecontrollerv2.GetResourceBindingOptions)
 				getResourceBindingOptionsModel.ID = core.StringPtr("testString")
 				getResourceBindingOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
-				err := testService.SetServiceURL("")
+				err := resourceControllerService.SetServiceURL("")
 				Expect(err).To(BeNil())
-				result, response, operationErr := testService.GetResourceBinding(getResourceBindingOptionsModel)
+				result, response, operationErr := resourceControllerService.GetResourceBinding(getResourceBindingOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
 				Expect(response).To(BeNil())
@@ -2146,7 +2146,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				// Construct a second instance of the GetResourceBindingOptions model with no property values
 				getResourceBindingOptionsModelNew := new(resourcecontrollerv2.GetResourceBindingOptions)
 				// Invoke operation with invalid model (negative test)
-				result, response, operationErr = testService.GetResourceBinding(getResourceBindingOptionsModelNew)
+				result, response, operationErr = resourceControllerService.GetResourceBinding(getResourceBindingOptionsModelNew)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
@@ -2165,57 +2165,57 @@ var _ = Describe(`ResourceControllerV2`, func() {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.Path).To(Equal(deleteResourceBindingPath))
+					Expect(req.URL.EscapedPath()).To(Equal(deleteResourceBindingPath))
 					Expect(req.Method).To(Equal("DELETE"))
 					res.WriteHeader(204)
 				}))
 			})
 			It(`Invoke DeleteResourceBinding successfully`, func() {
-				testService, testServiceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
+				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
-				Expect(testServiceErr).To(BeNil())
-				Expect(testService).ToNot(BeNil())
+				Expect(serviceErr).To(BeNil())
+				Expect(resourceControllerService).ToNot(BeNil())
 
 				// Invoke operation with nil options model (negative test)
-				response, operationErr := testService.DeleteResourceBinding(nil)
+				response, operationErr := resourceControllerService.DeleteResourceBinding(nil)
 				Expect(operationErr).NotTo(BeNil())
 				Expect(response).To(BeNil())
 
 				// Construct an instance of the DeleteResourceBindingOptions model
 				deleteResourceBindingOptionsModel := new(resourcecontrollerv2.DeleteResourceBindingOptions)
 				deleteResourceBindingOptionsModel.ID = core.StringPtr("testString")
- 				deleteResourceBindingOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				deleteResourceBindingOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
-				response, operationErr = testService.DeleteResourceBinding(deleteResourceBindingOptionsModel)
+				response, operationErr = resourceControllerService.DeleteResourceBinding(deleteResourceBindingOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 			})
 			It(`Invoke DeleteResourceBinding with error: Operation validation and request error`, func() {
-				testService, testServiceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
+				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
-				Expect(testServiceErr).To(BeNil())
-				Expect(testService).ToNot(BeNil())
+				Expect(serviceErr).To(BeNil())
+				Expect(resourceControllerService).ToNot(BeNil())
 
 				// Construct an instance of the DeleteResourceBindingOptions model
 				deleteResourceBindingOptionsModel := new(resourcecontrollerv2.DeleteResourceBindingOptions)
 				deleteResourceBindingOptionsModel.ID = core.StringPtr("testString")
 				deleteResourceBindingOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
-				err := testService.SetServiceURL("")
+				err := resourceControllerService.SetServiceURL("")
 				Expect(err).To(BeNil())
-				response, operationErr := testService.DeleteResourceBinding(deleteResourceBindingOptionsModel)
+				response, operationErr := resourceControllerService.DeleteResourceBinding(deleteResourceBindingOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
 				Expect(response).To(BeNil())
 				// Construct a second instance of the DeleteResourceBindingOptions model with no property values
 				deleteResourceBindingOptionsModelNew := new(resourcecontrollerv2.DeleteResourceBindingOptions)
 				// Invoke operation with invalid model (negative test)
-				response, operationErr = testService.DeleteResourceBinding(deleteResourceBindingOptionsModelNew)
+				response, operationErr = resourceControllerService.DeleteResourceBinding(deleteResourceBindingOptionsModelNew)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).To(BeNil())
 			})
@@ -2232,7 +2232,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.Path).To(Equal(updateResourceBindingPath))
+					Expect(req.URL.EscapedPath()).To(Equal(updateResourceBindingPath))
 					Expect(req.Method).To(Equal("PATCH"))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
@@ -2240,12 +2240,12 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				}))
 			})
 			It(`Invoke UpdateResourceBinding with error: Operation response processing error`, func() {
-				testService, testServiceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
+				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
-				Expect(testServiceErr).To(BeNil())
-				Expect(testService).ToNot(BeNil())
+				Expect(serviceErr).To(BeNil())
+				Expect(resourceControllerService).ToNot(BeNil())
 
 				// Construct an instance of the UpdateResourceBindingOptions model
 				updateResourceBindingOptionsModel := new(resourcecontrollerv2.UpdateResourceBindingOptions)
@@ -2253,7 +2253,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				updateResourceBindingOptionsModel.Name = core.StringPtr("my-new-binding-name")
 				updateResourceBindingOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
-				result, response, operationErr := testService.UpdateResourceBinding(updateResourceBindingOptionsModel)
+				result, response, operationErr := resourceControllerService.UpdateResourceBinding(updateResourceBindingOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
@@ -2272,23 +2272,23 @@ var _ = Describe(`ResourceControllerV2`, func() {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.Path).To(Equal(updateResourceBindingPath))
+					Expect(req.URL.EscapedPath()).To(Equal(updateResourceBindingPath))
 					Expect(req.Method).To(Equal("PATCH"))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, `{"id": "ID", "guid": "Guid", "crn": "Crn", "url": "URL", "name": "Name", "account_id": "AccountID", "resource_group_id": "ResourceGroupID", "source_crn": "SourceCrn", "target_crn": "TargetCrn", "region_binding_id": "RegionBindingID", "state": "State", "credentials": {"apikey": "Apikey", "iam_apikey_description": "IamApikeyDescription", "iam_apikey_name": "IamApikeyName", "iam_role_crn": "IamRoleCrn", "iam_serviceid_crn": "IamServiceidCrn"}, "iam_compatible": false, "resource_alias_url": "ResourceAliasURL", "created_at": "2019-01-01T12:00:00", "updated_at": "2019-01-01T12:00:00", "deleted_at": "2019-01-01T12:00:00"}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "guid": "Guid", "crn": "Crn", "url": "URL", "name": "Name", "account_id": "AccountID", "resource_group_id": "ResourceGroupID", "source_crn": "SourceCrn", "target_crn": "TargetCrn", "region_binding_id": "RegionBindingID", "state": "State", "credentials": {"apikey": "Apikey", "iam_apikey_description": "IamApikeyDescription", "iam_apikey_name": "IamApikeyName", "iam_role_crn": "IamRoleCrn", "iam_serviceid_crn": "IamServiceidCrn"}, "iam_compatible": false, "resource_alias_url": "ResourceAliasURL", "created_at": "2019-01-01T12:00:00", "updated_at": "2019-01-01T12:00:00", "deleted_at": "2019-01-01T12:00:00"}`)
 				}))
 			})
 			It(`Invoke UpdateResourceBinding successfully`, func() {
-				testService, testServiceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
+				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
-				Expect(testServiceErr).To(BeNil())
-				Expect(testService).ToNot(BeNil())
+				Expect(serviceErr).To(BeNil())
+				Expect(resourceControllerService).ToNot(BeNil())
 
 				// Invoke operation with nil options model (negative test)
-				result, response, operationErr := testService.UpdateResourceBinding(nil)
+				result, response, operationErr := resourceControllerService.UpdateResourceBinding(nil)
 				Expect(operationErr).NotTo(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
@@ -2297,21 +2297,21 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				updateResourceBindingOptionsModel := new(resourcecontrollerv2.UpdateResourceBindingOptions)
 				updateResourceBindingOptionsModel.ID = core.StringPtr("testString")
 				updateResourceBindingOptionsModel.Name = core.StringPtr("my-new-binding-name")
- 				updateResourceBindingOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				updateResourceBindingOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
-				result, response, operationErr = testService.UpdateResourceBinding(updateResourceBindingOptionsModel)
+				result, response, operationErr = resourceControllerService.UpdateResourceBinding(updateResourceBindingOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
 			})
 			It(`Invoke UpdateResourceBinding with error: Operation validation and request error`, func() {
-				testService, testServiceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
+				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
-				Expect(testServiceErr).To(BeNil())
-				Expect(testService).ToNot(BeNil())
+				Expect(serviceErr).To(BeNil())
+				Expect(resourceControllerService).ToNot(BeNil())
 
 				// Construct an instance of the UpdateResourceBindingOptions model
 				updateResourceBindingOptionsModel := new(resourcecontrollerv2.UpdateResourceBindingOptions)
@@ -2319,9 +2319,9 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				updateResourceBindingOptionsModel.Name = core.StringPtr("my-new-binding-name")
 				updateResourceBindingOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
-				err := testService.SetServiceURL("")
+				err := resourceControllerService.SetServiceURL("")
 				Expect(err).To(BeNil())
-				result, response, operationErr := testService.UpdateResourceBinding(updateResourceBindingOptionsModel)
+				result, response, operationErr := resourceControllerService.UpdateResourceBinding(updateResourceBindingOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
 				Expect(response).To(BeNil())
@@ -2329,7 +2329,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				// Construct a second instance of the UpdateResourceBindingOptions model with no property values
 				updateResourceBindingOptionsModelNew := new(resourcecontrollerv2.UpdateResourceBindingOptions)
 				// Invoke operation with invalid model (negative test)
-				result, response, operationErr = testService.UpdateResourceBinding(updateResourceBindingOptionsModelNew)
+				result, response, operationErr = resourceControllerService.UpdateResourceBinding(updateResourceBindingOptionsModelNew)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
@@ -2339,31 +2339,31 @@ var _ = Describe(`ResourceControllerV2`, func() {
 			})
 		})
 	})
-    Describe(`Service constructor tests`, func() {
+	Describe(`Service constructor tests`, func() {
 		It(`Instantiate service client`, func() {
-			testService, testServiceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
+			resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
 				Authenticator: &core.NoAuthAuthenticator{},
 			})
-			Expect(testService).ToNot(BeNil())
-			Expect(testServiceErr).To(BeNil())
+			Expect(resourceControllerService).ToNot(BeNil())
+			Expect(serviceErr).To(BeNil())
 		})
 		It(`Instantiate service client with error: Invalid URL`, func() {
-			testService, testServiceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
+			resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
 				URL: "{BAD_URL_STRING",
 			})
-			Expect(testService).To(BeNil())
-			Expect(testServiceErr).ToNot(BeNil())
+			Expect(resourceControllerService).To(BeNil())
+			Expect(serviceErr).ToNot(BeNil())
 		})
 		It(`Instantiate service client with error: Invalid Auth`, func() {
-			testService, testServiceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
+			resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
 				URL: "https://resourcecontrollerv2/api",
 				Authenticator: &core.BasicAuthenticator{
 					Username: "",
 					Password: "",
 				},
 			})
-			Expect(testService).To(BeNil())
-			Expect(testServiceErr).ToNot(BeNil())
+			Expect(resourceControllerService).To(BeNil())
+			Expect(serviceErr).ToNot(BeNil())
 		})
 	})
 	Describe(`Service constructor tests using external config`, func() {
@@ -2376,31 +2376,31 @@ var _ = Describe(`ResourceControllerV2`, func() {
 
 			It(`Create service client using external config successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				testService, testServiceErr := resourcecontrollerv2.NewResourceControllerV2UsingExternalConfig(&resourcecontrollerv2.ResourceControllerV2Options{
+				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2UsingExternalConfig(&resourcecontrollerv2.ResourceControllerV2Options{
 				})
-				Expect(testService).ToNot(BeNil())
-				Expect(testServiceErr).To(BeNil())
+				Expect(resourceControllerService).ToNot(BeNil())
+				Expect(serviceErr).To(BeNil())
 				ClearTestEnvironment(testEnvironment)
 			})
 			It(`Create service client using external config and set url from constructor successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				testService, testServiceErr := resourcecontrollerv2.NewResourceControllerV2UsingExternalConfig(&resourcecontrollerv2.ResourceControllerV2Options{
+				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2UsingExternalConfig(&resourcecontrollerv2.ResourceControllerV2Options{
 					URL: "https://testService/api",
 				})
-				Expect(testService).ToNot(BeNil())
-				Expect(testServiceErr).To(BeNil())
-				Expect(testService.Service.GetServiceURL()).To(Equal("https://testService/api"))
+				Expect(resourceControllerService).ToNot(BeNil())
+				Expect(serviceErr).To(BeNil())
+				Expect(resourceControllerService.Service.GetServiceURL()).To(Equal("https://testService/api"))
 				ClearTestEnvironment(testEnvironment)
 			})
 			It(`Create service client using external config and set url programatically successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				testService, testServiceErr := resourcecontrollerv2.NewResourceControllerV2UsingExternalConfig(&resourcecontrollerv2.ResourceControllerV2Options{
+				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2UsingExternalConfig(&resourcecontrollerv2.ResourceControllerV2Options{
 				})
-				err := testService.SetServiceURL("https://testService/api")
+				err := resourceControllerService.SetServiceURL("https://testService/api")
 				Expect(err).To(BeNil())
-				Expect(testService).ToNot(BeNil())
-				Expect(testServiceErr).To(BeNil())
-				Expect(testService.Service.GetServiceURL()).To(Equal("https://testService/api"))
+				Expect(resourceControllerService).ToNot(BeNil())
+				Expect(serviceErr).To(BeNil())
+				Expect(resourceControllerService.Service.GetServiceURL()).To(Equal("https://testService/api"))
 				ClearTestEnvironment(testEnvironment)
 			})
 		})
@@ -2412,12 +2412,12 @@ var _ = Describe(`ResourceControllerV2`, func() {
 			}
 
 			SetTestEnvironment(testEnvironment)
-			testService, testServiceErr := resourcecontrollerv2.NewResourceControllerV2UsingExternalConfig(&resourcecontrollerv2.ResourceControllerV2Options{
+			resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2UsingExternalConfig(&resourcecontrollerv2.ResourceControllerV2Options{
 			})
 
 			It(`Instantiate service client with error`, func() {
-				Expect(testService).To(BeNil())
-				Expect(testServiceErr).ToNot(BeNil())
+				Expect(resourceControllerService).To(BeNil())
+				Expect(serviceErr).ToNot(BeNil())
 				ClearTestEnvironment(testEnvironment)
 			})
 		})
@@ -2428,13 +2428,13 @@ var _ = Describe(`ResourceControllerV2`, func() {
 			}
 
 			SetTestEnvironment(testEnvironment)
-			testService, testServiceErr := resourcecontrollerv2.NewResourceControllerV2UsingExternalConfig(&resourcecontrollerv2.ResourceControllerV2Options{
+			resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2UsingExternalConfig(&resourcecontrollerv2.ResourceControllerV2Options{
 				URL: "{BAD_URL_STRING",
 			})
 
 			It(`Instantiate service client with error`, func() {
-				Expect(testService).To(BeNil())
-				Expect(testServiceErr).ToNot(BeNil())
+				Expect(resourceControllerService).To(BeNil())
+				Expect(serviceErr).ToNot(BeNil())
 				ClearTestEnvironment(testEnvironment)
 			})
 		})
@@ -2447,7 +2447,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.Path).To(Equal(listResourceAliasesPath))
+					Expect(req.URL.EscapedPath()).To(Equal(listResourceAliasesPath))
 					Expect(req.Method).To(Equal("GET"))
 					Expect(req.URL.Query()["guid"]).To(Equal([]string{"testString"}))
 
@@ -2473,12 +2473,12 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				}))
 			})
 			It(`Invoke ListResourceAliases with error: Operation response processing error`, func() {
-				testService, testServiceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
+				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
-				Expect(testServiceErr).To(BeNil())
-				Expect(testService).ToNot(BeNil())
+				Expect(serviceErr).To(BeNil())
+				Expect(resourceControllerService).ToNot(BeNil())
 
 				// Construct an instance of the ListResourceAliasesOptions model
 				listResourceAliasesOptionsModel := new(resourcecontrollerv2.ListResourceAliasesOptions)
@@ -2493,7 +2493,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				listResourceAliasesOptionsModel.UpdatedTo = core.StringPtr("2019-01-08T00:00:00.000Z")
 				listResourceAliasesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
-				result, response, operationErr := testService.ListResourceAliases(listResourceAliasesOptionsModel)
+				result, response, operationErr := resourceControllerService.ListResourceAliases(listResourceAliasesOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
@@ -2512,7 +2512,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.Path).To(Equal(listResourceAliasesPath))
+					Expect(req.URL.EscapedPath()).To(Equal(listResourceAliasesPath))
 					Expect(req.Method).To(Equal("GET"))
 					Expect(req.URL.Query()["guid"]).To(Equal([]string{"testString"}))
 
@@ -2534,19 +2534,19 @@ var _ = Describe(`ResourceControllerV2`, func() {
 
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, `{"next_url": "NextURL", "resources": [{"id": "ID", "guid": "Guid", "crn": "Crn", "url": "URL", "name": "Name", "account_id": "AccountID", "resource_group_id": "ResourceGroupID", "resource_group_crn": "ResourceGroupCrn", "target_crn": "TargetCrn", "state": "State", "resource_instance_id": "ResourceInstanceID", "region_instance_id": "RegionInstanceID", "resource_instance_url": "ResourceInstanceURL", "resource_bindings_url": "ResourceBindingsURL", "resource_keys_url": "ResourceKeysURL", "created_at": "2019-01-01T12:00:00", "updated_at": "2019-01-01T12:00:00", "deleted_at": "2019-01-01T12:00:00"}], "rows_count": 9}`)
+					fmt.Fprintf(res, "%s", `{"next_url": "NextURL", "resources": [{"id": "ID", "guid": "Guid", "crn": "Crn", "url": "URL", "name": "Name", "account_id": "AccountID", "resource_group_id": "ResourceGroupID", "resource_group_crn": "ResourceGroupCrn", "target_crn": "TargetCrn", "state": "State", "resource_instance_id": "ResourceInstanceID", "region_instance_id": "RegionInstanceID", "resource_instance_url": "ResourceInstanceURL", "resource_bindings_url": "ResourceBindingsURL", "resource_keys_url": "ResourceKeysURL", "created_at": "2019-01-01T12:00:00", "updated_at": "2019-01-01T12:00:00", "deleted_at": "2019-01-01T12:00:00"}], "rows_count": 9}`)
 				}))
 			})
 			It(`Invoke ListResourceAliases successfully`, func() {
-				testService, testServiceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
+				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
-				Expect(testServiceErr).To(BeNil())
-				Expect(testService).ToNot(BeNil())
+				Expect(serviceErr).To(BeNil())
+				Expect(resourceControllerService).ToNot(BeNil())
 
 				// Invoke operation with nil options model (negative test)
-				result, response, operationErr := testService.ListResourceAliases(nil)
+				result, response, operationErr := resourceControllerService.ListResourceAliases(nil)
 				Expect(operationErr).NotTo(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
@@ -2562,21 +2562,21 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				listResourceAliasesOptionsModel.Limit = core.StringPtr("testString")
 				listResourceAliasesOptionsModel.UpdatedFrom = core.StringPtr("2019-01-08T00:00:00.000Z")
 				listResourceAliasesOptionsModel.UpdatedTo = core.StringPtr("2019-01-08T00:00:00.000Z")
- 				listResourceAliasesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				listResourceAliasesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
-				result, response, operationErr = testService.ListResourceAliases(listResourceAliasesOptionsModel)
+				result, response, operationErr = resourceControllerService.ListResourceAliases(listResourceAliasesOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
 			})
 			It(`Invoke ListResourceAliases with error: Operation request error`, func() {
-				testService, testServiceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
+				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
-				Expect(testServiceErr).To(BeNil())
-				Expect(testService).ToNot(BeNil())
+				Expect(serviceErr).To(BeNil())
+				Expect(resourceControllerService).ToNot(BeNil())
 
 				// Construct an instance of the ListResourceAliasesOptions model
 				listResourceAliasesOptionsModel := new(resourcecontrollerv2.ListResourceAliasesOptions)
@@ -2591,9 +2591,9 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				listResourceAliasesOptionsModel.UpdatedTo = core.StringPtr("2019-01-08T00:00:00.000Z")
 				listResourceAliasesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
-				err := testService.SetServiceURL("")
+				err := resourceControllerService.SetServiceURL("")
 				Expect(err).To(BeNil())
-				result, response, operationErr := testService.ListResourceAliases(listResourceAliasesOptionsModel)
+				result, response, operationErr := resourceControllerService.ListResourceAliases(listResourceAliasesOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
 				Expect(response).To(BeNil())
@@ -2612,7 +2612,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.Path).To(Equal(createResourceAliasPath))
+					Expect(req.URL.EscapedPath()).To(Equal(createResourceAliasPath))
 					Expect(req.Method).To(Equal("POST"))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
@@ -2620,12 +2620,12 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				}))
 			})
 			It(`Invoke CreateResourceAlias with error: Operation response processing error`, func() {
-				testService, testServiceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
+				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
-				Expect(testServiceErr).To(BeNil())
-				Expect(testService).ToNot(BeNil())
+				Expect(serviceErr).To(BeNil())
+				Expect(resourceControllerService).ToNot(BeNil())
 
 				// Construct an instance of the CreateResourceAliasOptions model
 				createResourceAliasOptionsModel := new(resourcecontrollerv2.CreateResourceAliasOptions)
@@ -2634,7 +2634,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				createResourceAliasOptionsModel.Target = core.StringPtr("crn:v1:cf:public:cf:us-south:o/5e939cd5-6377-4383-b9e0-9db22cd11753::cf-space:66c8b915-101a-406c-a784-e6636676e4f5")
 				createResourceAliasOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
-				result, response, operationErr := testService.CreateResourceAlias(createResourceAliasOptionsModel)
+				result, response, operationErr := resourceControllerService.CreateResourceAlias(createResourceAliasOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
@@ -2653,23 +2653,23 @@ var _ = Describe(`ResourceControllerV2`, func() {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.Path).To(Equal(createResourceAliasPath))
+					Expect(req.URL.EscapedPath()).To(Equal(createResourceAliasPath))
 					Expect(req.Method).To(Equal("POST"))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, `{"id": "ID", "guid": "Guid", "crn": "Crn", "url": "URL", "name": "Name", "account_id": "AccountID", "resource_group_id": "ResourceGroupID", "resource_group_crn": "ResourceGroupCrn", "target_crn": "TargetCrn", "state": "State", "resource_instance_id": "ResourceInstanceID", "region_instance_id": "RegionInstanceID", "resource_instance_url": "ResourceInstanceURL", "resource_bindings_url": "ResourceBindingsURL", "resource_keys_url": "ResourceKeysURL", "created_at": "2019-01-01T12:00:00", "updated_at": "2019-01-01T12:00:00", "deleted_at": "2019-01-01T12:00:00"}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "guid": "Guid", "crn": "Crn", "url": "URL", "name": "Name", "account_id": "AccountID", "resource_group_id": "ResourceGroupID", "resource_group_crn": "ResourceGroupCrn", "target_crn": "TargetCrn", "state": "State", "resource_instance_id": "ResourceInstanceID", "region_instance_id": "RegionInstanceID", "resource_instance_url": "ResourceInstanceURL", "resource_bindings_url": "ResourceBindingsURL", "resource_keys_url": "ResourceKeysURL", "created_at": "2019-01-01T12:00:00", "updated_at": "2019-01-01T12:00:00", "deleted_at": "2019-01-01T12:00:00"}`)
 				}))
 			})
 			It(`Invoke CreateResourceAlias successfully`, func() {
-				testService, testServiceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
+				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
-				Expect(testServiceErr).To(BeNil())
-				Expect(testService).ToNot(BeNil())
+				Expect(serviceErr).To(BeNil())
+				Expect(resourceControllerService).ToNot(BeNil())
 
 				// Invoke operation with nil options model (negative test)
-				result, response, operationErr := testService.CreateResourceAlias(nil)
+				result, response, operationErr := resourceControllerService.CreateResourceAlias(nil)
 				Expect(operationErr).NotTo(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
@@ -2679,21 +2679,21 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				createResourceAliasOptionsModel.Name = core.StringPtr("my-alias")
 				createResourceAliasOptionsModel.Source = core.StringPtr("a8dff6d3-d287-4668-a81d-c87c55c2656d")
 				createResourceAliasOptionsModel.Target = core.StringPtr("crn:v1:cf:public:cf:us-south:o/5e939cd5-6377-4383-b9e0-9db22cd11753::cf-space:66c8b915-101a-406c-a784-e6636676e4f5")
- 				createResourceAliasOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				createResourceAliasOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
-				result, response, operationErr = testService.CreateResourceAlias(createResourceAliasOptionsModel)
+				result, response, operationErr = resourceControllerService.CreateResourceAlias(createResourceAliasOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
 			})
 			It(`Invoke CreateResourceAlias with error: Operation validation and request error`, func() {
-				testService, testServiceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
+				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
-				Expect(testServiceErr).To(BeNil())
-				Expect(testService).ToNot(BeNil())
+				Expect(serviceErr).To(BeNil())
+				Expect(resourceControllerService).ToNot(BeNil())
 
 				// Construct an instance of the CreateResourceAliasOptions model
 				createResourceAliasOptionsModel := new(resourcecontrollerv2.CreateResourceAliasOptions)
@@ -2702,9 +2702,9 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				createResourceAliasOptionsModel.Target = core.StringPtr("crn:v1:cf:public:cf:us-south:o/5e939cd5-6377-4383-b9e0-9db22cd11753::cf-space:66c8b915-101a-406c-a784-e6636676e4f5")
 				createResourceAliasOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
-				err := testService.SetServiceURL("")
+				err := resourceControllerService.SetServiceURL("")
 				Expect(err).To(BeNil())
-				result, response, operationErr := testService.CreateResourceAlias(createResourceAliasOptionsModel)
+				result, response, operationErr := resourceControllerService.CreateResourceAlias(createResourceAliasOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
 				Expect(response).To(BeNil())
@@ -2712,7 +2712,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				// Construct a second instance of the CreateResourceAliasOptions model with no property values
 				createResourceAliasOptionsModelNew := new(resourcecontrollerv2.CreateResourceAliasOptions)
 				// Invoke operation with invalid model (negative test)
-				result, response, operationErr = testService.CreateResourceAlias(createResourceAliasOptionsModelNew)
+				result, response, operationErr = resourceControllerService.CreateResourceAlias(createResourceAliasOptionsModelNew)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
@@ -2730,7 +2730,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.Path).To(Equal(getResourceAliasPath))
+					Expect(req.URL.EscapedPath()).To(Equal(getResourceAliasPath))
 					Expect(req.Method).To(Equal("GET"))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
@@ -2738,19 +2738,19 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				}))
 			})
 			It(`Invoke GetResourceAlias with error: Operation response processing error`, func() {
-				testService, testServiceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
+				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
-				Expect(testServiceErr).To(BeNil())
-				Expect(testService).ToNot(BeNil())
+				Expect(serviceErr).To(BeNil())
+				Expect(resourceControllerService).ToNot(BeNil())
 
 				// Construct an instance of the GetResourceAliasOptions model
 				getResourceAliasOptionsModel := new(resourcecontrollerv2.GetResourceAliasOptions)
 				getResourceAliasOptionsModel.ID = core.StringPtr("testString")
 				getResourceAliasOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
-				result, response, operationErr := testService.GetResourceAlias(getResourceAliasOptionsModel)
+				result, response, operationErr := resourceControllerService.GetResourceAlias(getResourceAliasOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
@@ -2769,23 +2769,23 @@ var _ = Describe(`ResourceControllerV2`, func() {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.Path).To(Equal(getResourceAliasPath))
+					Expect(req.URL.EscapedPath()).To(Equal(getResourceAliasPath))
 					Expect(req.Method).To(Equal("GET"))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, `{"id": "ID", "guid": "Guid", "crn": "Crn", "url": "URL", "name": "Name", "account_id": "AccountID", "resource_group_id": "ResourceGroupID", "resource_group_crn": "ResourceGroupCrn", "target_crn": "TargetCrn", "state": "State", "resource_instance_id": "ResourceInstanceID", "region_instance_id": "RegionInstanceID", "resource_instance_url": "ResourceInstanceURL", "resource_bindings_url": "ResourceBindingsURL", "resource_keys_url": "ResourceKeysURL", "created_at": "2019-01-01T12:00:00", "updated_at": "2019-01-01T12:00:00", "deleted_at": "2019-01-01T12:00:00"}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "guid": "Guid", "crn": "Crn", "url": "URL", "name": "Name", "account_id": "AccountID", "resource_group_id": "ResourceGroupID", "resource_group_crn": "ResourceGroupCrn", "target_crn": "TargetCrn", "state": "State", "resource_instance_id": "ResourceInstanceID", "region_instance_id": "RegionInstanceID", "resource_instance_url": "ResourceInstanceURL", "resource_bindings_url": "ResourceBindingsURL", "resource_keys_url": "ResourceKeysURL", "created_at": "2019-01-01T12:00:00", "updated_at": "2019-01-01T12:00:00", "deleted_at": "2019-01-01T12:00:00"}`)
 				}))
 			})
 			It(`Invoke GetResourceAlias successfully`, func() {
-				testService, testServiceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
+				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
-				Expect(testServiceErr).To(BeNil())
-				Expect(testService).ToNot(BeNil())
+				Expect(serviceErr).To(BeNil())
+				Expect(resourceControllerService).ToNot(BeNil())
 
 				// Invoke operation with nil options model (negative test)
-				result, response, operationErr := testService.GetResourceAlias(nil)
+				result, response, operationErr := resourceControllerService.GetResourceAlias(nil)
 				Expect(operationErr).NotTo(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
@@ -2793,30 +2793,30 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				// Construct an instance of the GetResourceAliasOptions model
 				getResourceAliasOptionsModel := new(resourcecontrollerv2.GetResourceAliasOptions)
 				getResourceAliasOptionsModel.ID = core.StringPtr("testString")
- 				getResourceAliasOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				getResourceAliasOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
-				result, response, operationErr = testService.GetResourceAlias(getResourceAliasOptionsModel)
+				result, response, operationErr = resourceControllerService.GetResourceAlias(getResourceAliasOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
 			})
 			It(`Invoke GetResourceAlias with error: Operation validation and request error`, func() {
-				testService, testServiceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
+				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
-				Expect(testServiceErr).To(BeNil())
-				Expect(testService).ToNot(BeNil())
+				Expect(serviceErr).To(BeNil())
+				Expect(resourceControllerService).ToNot(BeNil())
 
 				// Construct an instance of the GetResourceAliasOptions model
 				getResourceAliasOptionsModel := new(resourcecontrollerv2.GetResourceAliasOptions)
 				getResourceAliasOptionsModel.ID = core.StringPtr("testString")
 				getResourceAliasOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
-				err := testService.SetServiceURL("")
+				err := resourceControllerService.SetServiceURL("")
 				Expect(err).To(BeNil())
-				result, response, operationErr := testService.GetResourceAlias(getResourceAliasOptionsModel)
+				result, response, operationErr := resourceControllerService.GetResourceAlias(getResourceAliasOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
 				Expect(response).To(BeNil())
@@ -2824,7 +2824,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				// Construct a second instance of the GetResourceAliasOptions model with no property values
 				getResourceAliasOptionsModelNew := new(resourcecontrollerv2.GetResourceAliasOptions)
 				// Invoke operation with invalid model (negative test)
-				result, response, operationErr = testService.GetResourceAlias(getResourceAliasOptionsModelNew)
+				result, response, operationErr = resourceControllerService.GetResourceAlias(getResourceAliasOptionsModelNew)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
@@ -2843,57 +2843,57 @@ var _ = Describe(`ResourceControllerV2`, func() {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.Path).To(Equal(deleteResourceAliasPath))
+					Expect(req.URL.EscapedPath()).To(Equal(deleteResourceAliasPath))
 					Expect(req.Method).To(Equal("DELETE"))
 					res.WriteHeader(204)
 				}))
 			})
 			It(`Invoke DeleteResourceAlias successfully`, func() {
-				testService, testServiceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
+				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
-				Expect(testServiceErr).To(BeNil())
-				Expect(testService).ToNot(BeNil())
+				Expect(serviceErr).To(BeNil())
+				Expect(resourceControllerService).ToNot(BeNil())
 
 				// Invoke operation with nil options model (negative test)
-				response, operationErr := testService.DeleteResourceAlias(nil)
+				response, operationErr := resourceControllerService.DeleteResourceAlias(nil)
 				Expect(operationErr).NotTo(BeNil())
 				Expect(response).To(BeNil())
 
 				// Construct an instance of the DeleteResourceAliasOptions model
 				deleteResourceAliasOptionsModel := new(resourcecontrollerv2.DeleteResourceAliasOptions)
 				deleteResourceAliasOptionsModel.ID = core.StringPtr("testString")
- 				deleteResourceAliasOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				deleteResourceAliasOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
-				response, operationErr = testService.DeleteResourceAlias(deleteResourceAliasOptionsModel)
+				response, operationErr = resourceControllerService.DeleteResourceAlias(deleteResourceAliasOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 			})
 			It(`Invoke DeleteResourceAlias with error: Operation validation and request error`, func() {
-				testService, testServiceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
+				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
-				Expect(testServiceErr).To(BeNil())
-				Expect(testService).ToNot(BeNil())
+				Expect(serviceErr).To(BeNil())
+				Expect(resourceControllerService).ToNot(BeNil())
 
 				// Construct an instance of the DeleteResourceAliasOptions model
 				deleteResourceAliasOptionsModel := new(resourcecontrollerv2.DeleteResourceAliasOptions)
 				deleteResourceAliasOptionsModel.ID = core.StringPtr("testString")
 				deleteResourceAliasOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
-				err := testService.SetServiceURL("")
+				err := resourceControllerService.SetServiceURL("")
 				Expect(err).To(BeNil())
-				response, operationErr := testService.DeleteResourceAlias(deleteResourceAliasOptionsModel)
+				response, operationErr := resourceControllerService.DeleteResourceAlias(deleteResourceAliasOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
 				Expect(response).To(BeNil())
 				// Construct a second instance of the DeleteResourceAliasOptions model with no property values
 				deleteResourceAliasOptionsModelNew := new(resourcecontrollerv2.DeleteResourceAliasOptions)
 				// Invoke operation with invalid model (negative test)
-				response, operationErr = testService.DeleteResourceAlias(deleteResourceAliasOptionsModelNew)
+				response, operationErr = resourceControllerService.DeleteResourceAlias(deleteResourceAliasOptionsModelNew)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).To(BeNil())
 			})
@@ -2910,7 +2910,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.Path).To(Equal(updateResourceAliasPath))
+					Expect(req.URL.EscapedPath()).To(Equal(updateResourceAliasPath))
 					Expect(req.Method).To(Equal("PATCH"))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
@@ -2918,12 +2918,12 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				}))
 			})
 			It(`Invoke UpdateResourceAlias with error: Operation response processing error`, func() {
-				testService, testServiceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
+				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
-				Expect(testServiceErr).To(BeNil())
-				Expect(testService).ToNot(BeNil())
+				Expect(serviceErr).To(BeNil())
+				Expect(resourceControllerService).ToNot(BeNil())
 
 				// Construct an instance of the UpdateResourceAliasOptions model
 				updateResourceAliasOptionsModel := new(resourcecontrollerv2.UpdateResourceAliasOptions)
@@ -2931,7 +2931,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				updateResourceAliasOptionsModel.Name = core.StringPtr("my-new-alias-name")
 				updateResourceAliasOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
-				result, response, operationErr := testService.UpdateResourceAlias(updateResourceAliasOptionsModel)
+				result, response, operationErr := resourceControllerService.UpdateResourceAlias(updateResourceAliasOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
@@ -2950,23 +2950,23 @@ var _ = Describe(`ResourceControllerV2`, func() {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.Path).To(Equal(updateResourceAliasPath))
+					Expect(req.URL.EscapedPath()).To(Equal(updateResourceAliasPath))
 					Expect(req.Method).To(Equal("PATCH"))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, `{"id": "ID", "guid": "Guid", "crn": "Crn", "url": "URL", "name": "Name", "account_id": "AccountID", "resource_group_id": "ResourceGroupID", "resource_group_crn": "ResourceGroupCrn", "target_crn": "TargetCrn", "state": "State", "resource_instance_id": "ResourceInstanceID", "region_instance_id": "RegionInstanceID", "resource_instance_url": "ResourceInstanceURL", "resource_bindings_url": "ResourceBindingsURL", "resource_keys_url": "ResourceKeysURL", "created_at": "2019-01-01T12:00:00", "updated_at": "2019-01-01T12:00:00", "deleted_at": "2019-01-01T12:00:00"}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "guid": "Guid", "crn": "Crn", "url": "URL", "name": "Name", "account_id": "AccountID", "resource_group_id": "ResourceGroupID", "resource_group_crn": "ResourceGroupCrn", "target_crn": "TargetCrn", "state": "State", "resource_instance_id": "ResourceInstanceID", "region_instance_id": "RegionInstanceID", "resource_instance_url": "ResourceInstanceURL", "resource_bindings_url": "ResourceBindingsURL", "resource_keys_url": "ResourceKeysURL", "created_at": "2019-01-01T12:00:00", "updated_at": "2019-01-01T12:00:00", "deleted_at": "2019-01-01T12:00:00"}`)
 				}))
 			})
 			It(`Invoke UpdateResourceAlias successfully`, func() {
-				testService, testServiceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
+				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
-				Expect(testServiceErr).To(BeNil())
-				Expect(testService).ToNot(BeNil())
+				Expect(serviceErr).To(BeNil())
+				Expect(resourceControllerService).ToNot(BeNil())
 
 				// Invoke operation with nil options model (negative test)
-				result, response, operationErr := testService.UpdateResourceAlias(nil)
+				result, response, operationErr := resourceControllerService.UpdateResourceAlias(nil)
 				Expect(operationErr).NotTo(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
@@ -2975,21 +2975,21 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				updateResourceAliasOptionsModel := new(resourcecontrollerv2.UpdateResourceAliasOptions)
 				updateResourceAliasOptionsModel.ID = core.StringPtr("testString")
 				updateResourceAliasOptionsModel.Name = core.StringPtr("my-new-alias-name")
- 				updateResourceAliasOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				updateResourceAliasOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
-				result, response, operationErr = testService.UpdateResourceAlias(updateResourceAliasOptionsModel)
+				result, response, operationErr = resourceControllerService.UpdateResourceAlias(updateResourceAliasOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
 			})
 			It(`Invoke UpdateResourceAlias with error: Operation validation and request error`, func() {
-				testService, testServiceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
+				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
-				Expect(testServiceErr).To(BeNil())
-				Expect(testService).ToNot(BeNil())
+				Expect(serviceErr).To(BeNil())
+				Expect(resourceControllerService).ToNot(BeNil())
 
 				// Construct an instance of the UpdateResourceAliasOptions model
 				updateResourceAliasOptionsModel := new(resourcecontrollerv2.UpdateResourceAliasOptions)
@@ -2997,9 +2997,9 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				updateResourceAliasOptionsModel.Name = core.StringPtr("my-new-alias-name")
 				updateResourceAliasOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
-				err := testService.SetServiceURL("")
+				err := resourceControllerService.SetServiceURL("")
 				Expect(err).To(BeNil())
-				result, response, operationErr := testService.UpdateResourceAlias(updateResourceAliasOptionsModel)
+				result, response, operationErr := resourceControllerService.UpdateResourceAlias(updateResourceAliasOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
 				Expect(response).To(BeNil())
@@ -3007,7 +3007,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				// Construct a second instance of the UpdateResourceAliasOptions model with no property values
 				updateResourceAliasOptionsModelNew := new(resourcecontrollerv2.UpdateResourceAliasOptions)
 				// Invoke operation with invalid model (negative test)
-				result, response, operationErr = testService.UpdateResourceAlias(updateResourceAliasOptionsModelNew)
+				result, response, operationErr = resourceControllerService.UpdateResourceAlias(updateResourceAliasOptionsModelNew)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
@@ -3017,31 +3017,31 @@ var _ = Describe(`ResourceControllerV2`, func() {
 			})
 		})
 	})
-    Describe(`Service constructor tests`, func() {
+	Describe(`Service constructor tests`, func() {
 		It(`Instantiate service client`, func() {
-			testService, testServiceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
+			resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
 				Authenticator: &core.NoAuthAuthenticator{},
 			})
-			Expect(testService).ToNot(BeNil())
-			Expect(testServiceErr).To(BeNil())
+			Expect(resourceControllerService).ToNot(BeNil())
+			Expect(serviceErr).To(BeNil())
 		})
 		It(`Instantiate service client with error: Invalid URL`, func() {
-			testService, testServiceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
+			resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
 				URL: "{BAD_URL_STRING",
 			})
-			Expect(testService).To(BeNil())
-			Expect(testServiceErr).ToNot(BeNil())
+			Expect(resourceControllerService).To(BeNil())
+			Expect(serviceErr).ToNot(BeNil())
 		})
 		It(`Instantiate service client with error: Invalid Auth`, func() {
-			testService, testServiceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
+			resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
 				URL: "https://resourcecontrollerv2/api",
 				Authenticator: &core.BasicAuthenticator{
 					Username: "",
 					Password: "",
 				},
 			})
-			Expect(testService).To(BeNil())
-			Expect(testServiceErr).ToNot(BeNil())
+			Expect(resourceControllerService).To(BeNil())
+			Expect(serviceErr).ToNot(BeNil())
 		})
 	})
 	Describe(`Service constructor tests using external config`, func() {
@@ -3054,31 +3054,31 @@ var _ = Describe(`ResourceControllerV2`, func() {
 
 			It(`Create service client using external config successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				testService, testServiceErr := resourcecontrollerv2.NewResourceControllerV2UsingExternalConfig(&resourcecontrollerv2.ResourceControllerV2Options{
+				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2UsingExternalConfig(&resourcecontrollerv2.ResourceControllerV2Options{
 				})
-				Expect(testService).ToNot(BeNil())
-				Expect(testServiceErr).To(BeNil())
+				Expect(resourceControllerService).ToNot(BeNil())
+				Expect(serviceErr).To(BeNil())
 				ClearTestEnvironment(testEnvironment)
 			})
 			It(`Create service client using external config and set url from constructor successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				testService, testServiceErr := resourcecontrollerv2.NewResourceControllerV2UsingExternalConfig(&resourcecontrollerv2.ResourceControllerV2Options{
+				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2UsingExternalConfig(&resourcecontrollerv2.ResourceControllerV2Options{
 					URL: "https://testService/api",
 				})
-				Expect(testService).ToNot(BeNil())
-				Expect(testServiceErr).To(BeNil())
-				Expect(testService.Service.GetServiceURL()).To(Equal("https://testService/api"))
+				Expect(resourceControllerService).ToNot(BeNil())
+				Expect(serviceErr).To(BeNil())
+				Expect(resourceControllerService.Service.GetServiceURL()).To(Equal("https://testService/api"))
 				ClearTestEnvironment(testEnvironment)
 			})
 			It(`Create service client using external config and set url programatically successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				testService, testServiceErr := resourcecontrollerv2.NewResourceControllerV2UsingExternalConfig(&resourcecontrollerv2.ResourceControllerV2Options{
+				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2UsingExternalConfig(&resourcecontrollerv2.ResourceControllerV2Options{
 				})
-				err := testService.SetServiceURL("https://testService/api")
+				err := resourceControllerService.SetServiceURL("https://testService/api")
 				Expect(err).To(BeNil())
-				Expect(testService).ToNot(BeNil())
-				Expect(testServiceErr).To(BeNil())
-				Expect(testService.Service.GetServiceURL()).To(Equal("https://testService/api"))
+				Expect(resourceControllerService).ToNot(BeNil())
+				Expect(serviceErr).To(BeNil())
+				Expect(resourceControllerService.Service.GetServiceURL()).To(Equal("https://testService/api"))
 				ClearTestEnvironment(testEnvironment)
 			})
 		})
@@ -3090,12 +3090,12 @@ var _ = Describe(`ResourceControllerV2`, func() {
 			}
 
 			SetTestEnvironment(testEnvironment)
-			testService, testServiceErr := resourcecontrollerv2.NewResourceControllerV2UsingExternalConfig(&resourcecontrollerv2.ResourceControllerV2Options{
+			resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2UsingExternalConfig(&resourcecontrollerv2.ResourceControllerV2Options{
 			})
 
 			It(`Instantiate service client with error`, func() {
-				Expect(testService).To(BeNil())
-				Expect(testServiceErr).ToNot(BeNil())
+				Expect(resourceControllerService).To(BeNil())
+				Expect(serviceErr).ToNot(BeNil())
 				ClearTestEnvironment(testEnvironment)
 			})
 		})
@@ -3106,13 +3106,13 @@ var _ = Describe(`ResourceControllerV2`, func() {
 			}
 
 			SetTestEnvironment(testEnvironment)
-			testService, testServiceErr := resourcecontrollerv2.NewResourceControllerV2UsingExternalConfig(&resourcecontrollerv2.ResourceControllerV2Options{
+			resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2UsingExternalConfig(&resourcecontrollerv2.ResourceControllerV2Options{
 				URL: "{BAD_URL_STRING",
 			})
 
 			It(`Instantiate service client with error`, func() {
-				Expect(testService).To(BeNil())
-				Expect(testServiceErr).ToNot(BeNil())
+				Expect(resourceControllerService).To(BeNil())
+				Expect(serviceErr).ToNot(BeNil())
 				ClearTestEnvironment(testEnvironment)
 			})
 		})
@@ -3125,7 +3125,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.Path).To(Equal(listReclamationsPath))
+					Expect(req.URL.EscapedPath()).To(Equal(listReclamationsPath))
 					Expect(req.Method).To(Equal("GET"))
 					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"testString"}))
 
@@ -3137,12 +3137,12 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				}))
 			})
 			It(`Invoke ListReclamations with error: Operation response processing error`, func() {
-				testService, testServiceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
+				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
-				Expect(testServiceErr).To(BeNil())
-				Expect(testService).ToNot(BeNil())
+				Expect(serviceErr).To(BeNil())
+				Expect(resourceControllerService).ToNot(BeNil())
 
 				// Construct an instance of the ListReclamationsOptions model
 				listReclamationsOptionsModel := new(resourcecontrollerv2.ListReclamationsOptions)
@@ -3150,7 +3150,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				listReclamationsOptionsModel.ResourceInstanceID = core.StringPtr("testString")
 				listReclamationsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
-				result, response, operationErr := testService.ListReclamations(listReclamationsOptionsModel)
+				result, response, operationErr := resourceControllerService.ListReclamations(listReclamationsOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
@@ -3169,7 +3169,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.Path).To(Equal(listReclamationsPath))
+					Expect(req.URL.EscapedPath()).To(Equal(listReclamationsPath))
 					Expect(req.Method).To(Equal("GET"))
 					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"testString"}))
 
@@ -3177,19 +3177,19 @@ var _ = Describe(`ResourceControllerV2`, func() {
 
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, `{"resources": [{"id": "ID", "entity_id": "EntityID", "entity_type_id": "EntityTypeID", "entity_crn": "EntityCrn", "resource_instance_id": "ResourceInstanceID", "resource_group_id": "ResourceGroupID", "account_id": "AccountID", "policy_id": "PolicyID", "state": "State", "target_time": "TargetTime", "custom_properties": {"mapKey": "anyValue"}, "created_at": "2019-01-01T12:00:00", "created_by": "CreatedBy", "updated_at": "2019-01-01T12:00:00", "updated_by": "UpdatedBy"}]}`)
+					fmt.Fprintf(res, "%s", `{"resources": [{"id": "ID", "entity_id": "EntityID", "entity_type_id": "EntityTypeID", "entity_crn": "EntityCrn", "resource_instance_id": "ResourceInstanceID", "resource_group_id": "ResourceGroupID", "account_id": "AccountID", "policy_id": "PolicyID", "state": "State", "target_time": "TargetTime", "custom_properties": {"mapKey": "anyValue"}, "created_at": "2019-01-01T12:00:00", "created_by": "CreatedBy", "updated_at": "2019-01-01T12:00:00", "updated_by": "UpdatedBy"}]}`)
 				}))
 			})
 			It(`Invoke ListReclamations successfully`, func() {
-				testService, testServiceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
+				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
-				Expect(testServiceErr).To(BeNil())
-				Expect(testService).ToNot(BeNil())
+				Expect(serviceErr).To(BeNil())
+				Expect(resourceControllerService).ToNot(BeNil())
 
 				// Invoke operation with nil options model (negative test)
-				result, response, operationErr := testService.ListReclamations(nil)
+				result, response, operationErr := resourceControllerService.ListReclamations(nil)
 				Expect(operationErr).NotTo(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
@@ -3198,21 +3198,21 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				listReclamationsOptionsModel := new(resourcecontrollerv2.ListReclamationsOptions)
 				listReclamationsOptionsModel.AccountID = core.StringPtr("testString")
 				listReclamationsOptionsModel.ResourceInstanceID = core.StringPtr("testString")
- 				listReclamationsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				listReclamationsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
-				result, response, operationErr = testService.ListReclamations(listReclamationsOptionsModel)
+				result, response, operationErr = resourceControllerService.ListReclamations(listReclamationsOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
 			})
 			It(`Invoke ListReclamations with error: Operation request error`, func() {
-				testService, testServiceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
+				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
-				Expect(testServiceErr).To(BeNil())
-				Expect(testService).ToNot(BeNil())
+				Expect(serviceErr).To(BeNil())
+				Expect(resourceControllerService).ToNot(BeNil())
 
 				// Construct an instance of the ListReclamationsOptions model
 				listReclamationsOptionsModel := new(resourcecontrollerv2.ListReclamationsOptions)
@@ -3220,9 +3220,9 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				listReclamationsOptionsModel.ResourceInstanceID = core.StringPtr("testString")
 				listReclamationsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
-				err := testService.SetServiceURL("")
+				err := resourceControllerService.SetServiceURL("")
 				Expect(err).To(BeNil())
-				result, response, operationErr := testService.ListReclamations(listReclamationsOptionsModel)
+				result, response, operationErr := resourceControllerService.ListReclamations(listReclamationsOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
 				Expect(response).To(BeNil())
@@ -3241,7 +3241,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.Path).To(Equal(runReclamationActionPath))
+					Expect(req.URL.EscapedPath()).To(Equal(runReclamationActionPath))
 					Expect(req.Method).To(Equal("POST"))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
@@ -3249,12 +3249,12 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				}))
 			})
 			It(`Invoke RunReclamationAction with error: Operation response processing error`, func() {
-				testService, testServiceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
+				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
-				Expect(testServiceErr).To(BeNil())
-				Expect(testService).ToNot(BeNil())
+				Expect(serviceErr).To(BeNil())
+				Expect(resourceControllerService).ToNot(BeNil())
 
 				// Construct an instance of the RunReclamationActionOptions model
 				runReclamationActionOptionsModel := new(resourcecontrollerv2.RunReclamationActionOptions)
@@ -3264,7 +3264,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				runReclamationActionOptionsModel.Comment = core.StringPtr("testString")
 				runReclamationActionOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
-				result, response, operationErr := testService.RunReclamationAction(runReclamationActionOptionsModel)
+				result, response, operationErr := resourceControllerService.RunReclamationAction(runReclamationActionOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
@@ -3283,23 +3283,23 @@ var _ = Describe(`ResourceControllerV2`, func() {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.Path).To(Equal(runReclamationActionPath))
+					Expect(req.URL.EscapedPath()).To(Equal(runReclamationActionPath))
 					Expect(req.Method).To(Equal("POST"))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, `{"id": "ID", "entity_id": "EntityID", "entity_type_id": "EntityTypeID", "entity_crn": "EntityCrn", "resource_instance_id": "ResourceInstanceID", "resource_group_id": "ResourceGroupID", "account_id": "AccountID", "policy_id": "PolicyID", "state": "State", "target_time": "TargetTime", "custom_properties": {"mapKey": "anyValue"}, "created_at": "2019-01-01T12:00:00", "created_by": "CreatedBy", "updated_at": "2019-01-01T12:00:00", "updated_by": "UpdatedBy"}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "entity_id": "EntityID", "entity_type_id": "EntityTypeID", "entity_crn": "EntityCrn", "resource_instance_id": "ResourceInstanceID", "resource_group_id": "ResourceGroupID", "account_id": "AccountID", "policy_id": "PolicyID", "state": "State", "target_time": "TargetTime", "custom_properties": {"mapKey": "anyValue"}, "created_at": "2019-01-01T12:00:00", "created_by": "CreatedBy", "updated_at": "2019-01-01T12:00:00", "updated_by": "UpdatedBy"}`)
 				}))
 			})
 			It(`Invoke RunReclamationAction successfully`, func() {
-				testService, testServiceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
+				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
-				Expect(testServiceErr).To(BeNil())
-				Expect(testService).ToNot(BeNil())
+				Expect(serviceErr).To(BeNil())
+				Expect(resourceControllerService).ToNot(BeNil())
 
 				// Invoke operation with nil options model (negative test)
-				result, response, operationErr := testService.RunReclamationAction(nil)
+				result, response, operationErr := resourceControllerService.RunReclamationAction(nil)
 				Expect(operationErr).NotTo(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
@@ -3310,21 +3310,21 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				runReclamationActionOptionsModel.ActionName = core.StringPtr("testString")
 				runReclamationActionOptionsModel.RequestBy = core.StringPtr("testString")
 				runReclamationActionOptionsModel.Comment = core.StringPtr("testString")
- 				runReclamationActionOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				runReclamationActionOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
-				result, response, operationErr = testService.RunReclamationAction(runReclamationActionOptionsModel)
+				result, response, operationErr = resourceControllerService.RunReclamationAction(runReclamationActionOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
 			})
 			It(`Invoke RunReclamationAction with error: Operation validation and request error`, func() {
-				testService, testServiceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
+				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
-				Expect(testServiceErr).To(BeNil())
-				Expect(testService).ToNot(BeNil())
+				Expect(serviceErr).To(BeNil())
+				Expect(resourceControllerService).ToNot(BeNil())
 
 				// Construct an instance of the RunReclamationActionOptions model
 				runReclamationActionOptionsModel := new(resourcecontrollerv2.RunReclamationActionOptions)
@@ -3334,9 +3334,9 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				runReclamationActionOptionsModel.Comment = core.StringPtr("testString")
 				runReclamationActionOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
-				err := testService.SetServiceURL("")
+				err := resourceControllerService.SetServiceURL("")
 				Expect(err).To(BeNil())
-				result, response, operationErr := testService.RunReclamationAction(runReclamationActionOptionsModel)
+				result, response, operationErr := resourceControllerService.RunReclamationAction(runReclamationActionOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
 				Expect(response).To(BeNil())
@@ -3344,7 +3344,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				// Construct a second instance of the RunReclamationActionOptions model with no property values
 				runReclamationActionOptionsModelNew := new(resourcecontrollerv2.RunReclamationActionOptions)
 				// Invoke operation with invalid model (negative test)
-				result, response, operationErr = testService.RunReclamationAction(runReclamationActionOptionsModelNew)
+				result, response, operationErr = resourceControllerService.RunReclamationAction(runReclamationActionOptionsModelNew)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
@@ -3356,7 +3356,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 	})
 	Describe(`Model constructor tests`, func() {
 		Context(`Using a service client instance`, func() {
-			testService, _ := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
+			resourceControllerService, _ := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
 				URL:           "http://resourcecontrollerv2modelgenerator.com",
 				Authenticator: &core.NoAuthAuthenticator{},
 			})
@@ -3365,7 +3365,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				createResourceAliasOptionsName := "my-alias"
 				createResourceAliasOptionsSource := "a8dff6d3-d287-4668-a81d-c87c55c2656d"
 				createResourceAliasOptionsTarget := "crn:v1:cf:public:cf:us-south:o/5e939cd5-6377-4383-b9e0-9db22cd11753::cf-space:66c8b915-101a-406c-a784-e6636676e4f5"
-				createResourceAliasOptionsModel := testService.NewCreateResourceAliasOptions(createResourceAliasOptionsName, createResourceAliasOptionsSource, createResourceAliasOptionsTarget)
+				createResourceAliasOptionsModel := resourceControllerService.NewCreateResourceAliasOptions(createResourceAliasOptionsName, createResourceAliasOptionsSource, createResourceAliasOptionsTarget)
 				createResourceAliasOptionsModel.SetName("my-alias")
 				createResourceAliasOptionsModel.SetSource("a8dff6d3-d287-4668-a81d-c87c55c2656d")
 				createResourceAliasOptionsModel.SetTarget("crn:v1:cf:public:cf:us-south:o/5e939cd5-6377-4383-b9e0-9db22cd11753::cf-space:66c8b915-101a-406c-a784-e6636676e4f5")
@@ -3386,7 +3386,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				// Construct an instance of the CreateResourceBindingOptions model
 				createResourceBindingOptionsSource := "25eba2a9-beef-450b-82cf-f5ad5e36c6dd"
 				createResourceBindingOptionsTarget := "crn:v1:cf:public:cf:us-south:s/0ba4dba0-a120-4a1e-a124-5a249a904b76::cf-application:a1caa40b-2c24-4da8-8267-ac2c1a42ad0c"
-				createResourceBindingOptionsModel := testService.NewCreateResourceBindingOptions(createResourceBindingOptionsSource, createResourceBindingOptionsTarget)
+				createResourceBindingOptionsModel := resourceControllerService.NewCreateResourceBindingOptions(createResourceBindingOptionsSource, createResourceBindingOptionsTarget)
 				createResourceBindingOptionsModel.SetSource("25eba2a9-beef-450b-82cf-f5ad5e36c6dd")
 				createResourceBindingOptionsModel.SetTarget("crn:v1:cf:public:cf:us-south:s/0ba4dba0-a120-4a1e-a124-5a249a904b76::cf-application:a1caa40b-2c24-4da8-8267-ac2c1a42ad0c")
 				createResourceBindingOptionsModel.SetName("my-binding")
@@ -3407,7 +3407,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				createResourceInstanceOptionsTarget := "bluemix-us-south"
 				createResourceInstanceOptionsResourceGroup := "5c49eabc-f5e8-5881-a37e-2d100a33b3df"
 				createResourceInstanceOptionsResourcePlanID := "cloudant-standard"
-				createResourceInstanceOptionsModel := testService.NewCreateResourceInstanceOptions(createResourceInstanceOptionsName, createResourceInstanceOptionsTarget, createResourceInstanceOptionsResourceGroup, createResourceInstanceOptionsResourcePlanID)
+				createResourceInstanceOptionsModel := resourceControllerService.NewCreateResourceInstanceOptions(createResourceInstanceOptionsName, createResourceInstanceOptionsTarget, createResourceInstanceOptionsResourceGroup, createResourceInstanceOptionsResourcePlanID)
 				createResourceInstanceOptionsModel.SetName("my-instance")
 				createResourceInstanceOptionsModel.SetTarget("bluemix-us-south")
 				createResourceInstanceOptionsModel.SetResourceGroup("5c49eabc-f5e8-5881-a37e-2d100a33b3df")
@@ -3438,7 +3438,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				// Construct an instance of the CreateResourceKeyOptions model
 				createResourceKeyOptionsName := "my-key"
 				createResourceKeyOptionsSource := "25eba2a9-beef-450b-82cf-f5ad5e36c6dd"
-				createResourceKeyOptionsModel := testService.NewCreateResourceKeyOptions(createResourceKeyOptionsName, createResourceKeyOptionsSource)
+				createResourceKeyOptionsModel := resourceControllerService.NewCreateResourceKeyOptions(createResourceKeyOptionsName, createResourceKeyOptionsSource)
 				createResourceKeyOptionsModel.SetName("my-key")
 				createResourceKeyOptionsModel.SetSource("25eba2a9-beef-450b-82cf-f5ad5e36c6dd")
 				createResourceKeyOptionsModel.SetParameters(resourceKeyPostParametersModel)
@@ -3454,7 +3454,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 			It(`Invoke NewDeleteResourceAliasOptions successfully`, func() {
 				// Construct an instance of the DeleteResourceAliasOptions model
 				id := "testString"
-				deleteResourceAliasOptionsModel := testService.NewDeleteResourceAliasOptions(id)
+				deleteResourceAliasOptionsModel := resourceControllerService.NewDeleteResourceAliasOptions(id)
 				deleteResourceAliasOptionsModel.SetID("testString")
 				deleteResourceAliasOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(deleteResourceAliasOptionsModel).ToNot(BeNil())
@@ -3464,7 +3464,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 			It(`Invoke NewDeleteResourceBindingOptions successfully`, func() {
 				// Construct an instance of the DeleteResourceBindingOptions model
 				id := "testString"
-				deleteResourceBindingOptionsModel := testService.NewDeleteResourceBindingOptions(id)
+				deleteResourceBindingOptionsModel := resourceControllerService.NewDeleteResourceBindingOptions(id)
 				deleteResourceBindingOptionsModel.SetID("testString")
 				deleteResourceBindingOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(deleteResourceBindingOptionsModel).ToNot(BeNil())
@@ -3474,7 +3474,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 			It(`Invoke NewDeleteResourceInstanceOptions successfully`, func() {
 				// Construct an instance of the DeleteResourceInstanceOptions model
 				id := "testString"
-				deleteResourceInstanceOptionsModel := testService.NewDeleteResourceInstanceOptions(id)
+				deleteResourceInstanceOptionsModel := resourceControllerService.NewDeleteResourceInstanceOptions(id)
 				deleteResourceInstanceOptionsModel.SetID("testString")
 				deleteResourceInstanceOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(deleteResourceInstanceOptionsModel).ToNot(BeNil())
@@ -3484,7 +3484,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 			It(`Invoke NewDeleteResourceKeyOptions successfully`, func() {
 				// Construct an instance of the DeleteResourceKeyOptions model
 				id := "testString"
-				deleteResourceKeyOptionsModel := testService.NewDeleteResourceKeyOptions(id)
+				deleteResourceKeyOptionsModel := resourceControllerService.NewDeleteResourceKeyOptions(id)
 				deleteResourceKeyOptionsModel.SetID("testString")
 				deleteResourceKeyOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(deleteResourceKeyOptionsModel).ToNot(BeNil())
@@ -3494,7 +3494,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 			It(`Invoke NewGetResourceAliasOptions successfully`, func() {
 				// Construct an instance of the GetResourceAliasOptions model
 				id := "testString"
-				getResourceAliasOptionsModel := testService.NewGetResourceAliasOptions(id)
+				getResourceAliasOptionsModel := resourceControllerService.NewGetResourceAliasOptions(id)
 				getResourceAliasOptionsModel.SetID("testString")
 				getResourceAliasOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(getResourceAliasOptionsModel).ToNot(BeNil())
@@ -3504,7 +3504,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 			It(`Invoke NewGetResourceBindingOptions successfully`, func() {
 				// Construct an instance of the GetResourceBindingOptions model
 				id := "testString"
-				getResourceBindingOptionsModel := testService.NewGetResourceBindingOptions(id)
+				getResourceBindingOptionsModel := resourceControllerService.NewGetResourceBindingOptions(id)
 				getResourceBindingOptionsModel.SetID("testString")
 				getResourceBindingOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(getResourceBindingOptionsModel).ToNot(BeNil())
@@ -3514,7 +3514,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 			It(`Invoke NewGetResourceInstanceOptions successfully`, func() {
 				// Construct an instance of the GetResourceInstanceOptions model
 				id := "testString"
-				getResourceInstanceOptionsModel := testService.NewGetResourceInstanceOptions(id)
+				getResourceInstanceOptionsModel := resourceControllerService.NewGetResourceInstanceOptions(id)
 				getResourceInstanceOptionsModel.SetID("testString")
 				getResourceInstanceOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(getResourceInstanceOptionsModel).ToNot(BeNil())
@@ -3524,7 +3524,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 			It(`Invoke NewGetResourceKeyOptions successfully`, func() {
 				// Construct an instance of the GetResourceKeyOptions model
 				id := "testString"
-				getResourceKeyOptionsModel := testService.NewGetResourceKeyOptions(id)
+				getResourceKeyOptionsModel := resourceControllerService.NewGetResourceKeyOptions(id)
 				getResourceKeyOptionsModel.SetID("testString")
 				getResourceKeyOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(getResourceKeyOptionsModel).ToNot(BeNil())
@@ -3533,7 +3533,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 			})
 			It(`Invoke NewListReclamationsOptions successfully`, func() {
 				// Construct an instance of the ListReclamationsOptions model
-				listReclamationsOptionsModel := testService.NewListReclamationsOptions()
+				listReclamationsOptionsModel := resourceControllerService.NewListReclamationsOptions()
 				listReclamationsOptionsModel.SetAccountID("testString")
 				listReclamationsOptionsModel.SetResourceInstanceID("testString")
 				listReclamationsOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
@@ -3544,7 +3544,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 			})
 			It(`Invoke NewListResourceAliasesOptions successfully`, func() {
 				// Construct an instance of the ListResourceAliasesOptions model
-				listResourceAliasesOptionsModel := testService.NewListResourceAliasesOptions()
+				listResourceAliasesOptionsModel := resourceControllerService.NewListResourceAliasesOptions()
 				listResourceAliasesOptionsModel.SetGuid("testString")
 				listResourceAliasesOptionsModel.SetName("testString")
 				listResourceAliasesOptionsModel.SetResourceInstanceID("testString")
@@ -3569,7 +3569,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 			})
 			It(`Invoke NewListResourceBindingsOptions successfully`, func() {
 				// Construct an instance of the ListResourceBindingsOptions model
-				listResourceBindingsOptionsModel := testService.NewListResourceBindingsOptions()
+				listResourceBindingsOptionsModel := resourceControllerService.NewListResourceBindingsOptions()
 				listResourceBindingsOptionsModel.SetGuid("testString")
 				listResourceBindingsOptionsModel.SetName("testString")
 				listResourceBindingsOptionsModel.SetResourceGroupID("testString")
@@ -3592,7 +3592,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 			})
 			It(`Invoke NewListResourceInstancesOptions successfully`, func() {
 				// Construct an instance of the ListResourceInstancesOptions model
-				listResourceInstancesOptionsModel := testService.NewListResourceInstancesOptions()
+				listResourceInstancesOptionsModel := resourceControllerService.NewListResourceInstancesOptions()
 				listResourceInstancesOptionsModel.SetGuid("testString")
 				listResourceInstancesOptionsModel.SetName("testString")
 				listResourceInstancesOptionsModel.SetResourceGroupID("testString")
@@ -3619,7 +3619,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 			})
 			It(`Invoke NewListResourceKeysOptions successfully`, func() {
 				// Construct an instance of the ListResourceKeysOptions model
-				listResourceKeysOptionsModel := testService.NewListResourceKeysOptions()
+				listResourceKeysOptionsModel := resourceControllerService.NewListResourceKeysOptions()
 				listResourceKeysOptionsModel.SetGuid("testString")
 				listResourceKeysOptionsModel.SetName("testString")
 				listResourceKeysOptionsModel.SetResourceGroupID("testString")
@@ -3641,7 +3641,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 			It(`Invoke NewLockResourceInstanceOptions successfully`, func() {
 				// Construct an instance of the LockResourceInstanceOptions model
 				id := "testString"
-				lockResourceInstanceOptionsModel := testService.NewLockResourceInstanceOptions(id)
+				lockResourceInstanceOptionsModel := resourceControllerService.NewLockResourceInstanceOptions(id)
 				lockResourceInstanceOptionsModel.SetID("testString")
 				lockResourceInstanceOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(lockResourceInstanceOptionsModel).ToNot(BeNil())
@@ -3652,7 +3652,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				// Construct an instance of the RunReclamationActionOptions model
 				id := "testString"
 				actionName := "testString"
-				runReclamationActionOptionsModel := testService.NewRunReclamationActionOptions(id, actionName)
+				runReclamationActionOptionsModel := resourceControllerService.NewRunReclamationActionOptions(id, actionName)
 				runReclamationActionOptionsModel.SetID("testString")
 				runReclamationActionOptionsModel.SetActionName("testString")
 				runReclamationActionOptionsModel.SetRequestBy("testString")
@@ -3668,7 +3668,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 			It(`Invoke NewUnlockResourceInstanceOptions successfully`, func() {
 				// Construct an instance of the UnlockResourceInstanceOptions model
 				id := "testString"
-				unlockResourceInstanceOptionsModel := testService.NewUnlockResourceInstanceOptions(id)
+				unlockResourceInstanceOptionsModel := resourceControllerService.NewUnlockResourceInstanceOptions(id)
 				unlockResourceInstanceOptionsModel.SetID("testString")
 				unlockResourceInstanceOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(unlockResourceInstanceOptionsModel).ToNot(BeNil())
@@ -3679,7 +3679,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				// Construct an instance of the UpdateResourceAliasOptions model
 				id := "testString"
 				updateResourceAliasOptionsName := "my-new-alias-name"
-				updateResourceAliasOptionsModel := testService.NewUpdateResourceAliasOptions(id, updateResourceAliasOptionsName)
+				updateResourceAliasOptionsModel := resourceControllerService.NewUpdateResourceAliasOptions(id, updateResourceAliasOptionsName)
 				updateResourceAliasOptionsModel.SetID("testString")
 				updateResourceAliasOptionsModel.SetName("my-new-alias-name")
 				updateResourceAliasOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
@@ -3692,7 +3692,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				// Construct an instance of the UpdateResourceBindingOptions model
 				id := "testString"
 				updateResourceBindingOptionsName := "my-new-binding-name"
-				updateResourceBindingOptionsModel := testService.NewUpdateResourceBindingOptions(id, updateResourceBindingOptionsName)
+				updateResourceBindingOptionsModel := resourceControllerService.NewUpdateResourceBindingOptions(id, updateResourceBindingOptionsName)
 				updateResourceBindingOptionsModel.SetID("testString")
 				updateResourceBindingOptionsModel.SetName("my-new-binding-name")
 				updateResourceBindingOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
@@ -3704,7 +3704,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 			It(`Invoke NewUpdateResourceInstanceOptions successfully`, func() {
 				// Construct an instance of the UpdateResourceInstanceOptions model
 				id := "testString"
-				updateResourceInstanceOptionsModel := testService.NewUpdateResourceInstanceOptions(id)
+				updateResourceInstanceOptionsModel := resourceControllerService.NewUpdateResourceInstanceOptions(id)
 				updateResourceInstanceOptionsModel.SetID("testString")
 				updateResourceInstanceOptionsModel.SetName("my-new-instance-name")
 				updateResourceInstanceOptionsModel.SetParameters(make(map[string]interface{}))
@@ -3723,7 +3723,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				// Construct an instance of the UpdateResourceKeyOptions model
 				id := "testString"
 				updateResourceKeyOptionsName := "my-new-key-name"
-				updateResourceKeyOptionsModel := testService.NewUpdateResourceKeyOptions(id, updateResourceKeyOptionsName)
+				updateResourceKeyOptionsModel := resourceControllerService.NewUpdateResourceKeyOptions(id, updateResourceKeyOptionsName)
 				updateResourceKeyOptionsModel.SetID("testString")
 				updateResourceKeyOptionsModel.SetName("my-new-key-name")
 				updateResourceKeyOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
