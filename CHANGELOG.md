@@ -1,3 +1,10 @@
+## [0.11.1](https://github.com/IBM/platform-services-go-sdk/compare/v0.11.0...v0.11.1) (2020-09-16)
+
+
+### Bug Fixes
+
+* **User Management:** re-gen user-mgmt service ([0bfc7b9](https://github.com/IBM/platform-services-go-sdk/commit/0bfc7b9ee89f9a17be0e7a55dec179feecea8d41))
+
 # [0.11.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.10.0...v0.11.0) (2020-08-31)
 
 
