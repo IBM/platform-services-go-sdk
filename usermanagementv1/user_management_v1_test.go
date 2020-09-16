@@ -142,7 +142,7 @@ var _ = Describe(`UserManagementV1`, func() {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.Path).To(Equal(getUserSettingsPath))
+					Expect(req.URL.EscapedPath()).To(Equal(getUserSettingsPath))
 					Expect(req.Method).To(Equal("GET"))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
@@ -182,7 +182,7 @@ var _ = Describe(`UserManagementV1`, func() {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.Path).To(Equal(getUserSettingsPath))
+					Expect(req.URL.EscapedPath()).To(Equal(getUserSettingsPath))
 					Expect(req.Method).To(Equal("GET"))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
@@ -257,7 +257,7 @@ var _ = Describe(`UserManagementV1`, func() {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.Path).To(Equal(updateUserSettingsPath))
+					Expect(req.URL.EscapedPath()).To(Equal(updateUserSettingsPath))
 					Expect(req.Method).To(Equal("PATCH"))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
@@ -301,7 +301,7 @@ var _ = Describe(`UserManagementV1`, func() {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.Path).To(Equal(updateUserSettingsPath))
+					Expect(req.URL.EscapedPath()).To(Equal(updateUserSettingsPath))
 					Expect(req.Method).To(Equal("PATCH"))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
@@ -484,7 +484,7 @@ var _ = Describe(`UserManagementV1`, func() {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.Path).To(Equal(listUsersPath))
+					Expect(req.URL.EscapedPath()).To(Equal(listUsersPath))
 					Expect(req.Method).To(Equal("GET"))
 					Expect(req.URL.Query()["state"]).To(Equal([]string{"testString"}))
 
@@ -526,7 +526,7 @@ var _ = Describe(`UserManagementV1`, func() {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.Path).To(Equal(listUsersPath))
+					Expect(req.URL.EscapedPath()).To(Equal(listUsersPath))
 					Expect(req.Method).To(Equal("GET"))
 					Expect(req.URL.Query()["state"]).To(Equal([]string{"testString"}))
 
@@ -603,7 +603,7 @@ var _ = Describe(`UserManagementV1`, func() {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.Path).To(Equal(inviteUsersPath))
+					Expect(req.URL.EscapedPath()).To(Equal(inviteUsersPath))
 					Expect(req.Method).To(Equal("POST"))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(202)
@@ -638,6 +638,7 @@ var _ = Describe(`UserManagementV1`, func() {
 
 				// Construct an instance of the InviteUserIamPolicy model
 				inviteUserIamPolicyModel := new(usermanagementv1.InviteUserIamPolicy)
+				inviteUserIamPolicyModel.Type = core.StringPtr("testString")
 				inviteUserIamPolicyModel.Roles = []usermanagementv1.Role{*roleModel}
 				inviteUserIamPolicyModel.Resources = []usermanagementv1.Resource{*resourceModel}
 
@@ -668,7 +669,7 @@ var _ = Describe(`UserManagementV1`, func() {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.Path).To(Equal(inviteUsersPath))
+					Expect(req.URL.EscapedPath()).To(Equal(inviteUsersPath))
 					Expect(req.Method).To(Equal("POST"))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(202)
@@ -709,6 +710,7 @@ var _ = Describe(`UserManagementV1`, func() {
 
 				// Construct an instance of the InviteUserIamPolicy model
 				inviteUserIamPolicyModel := new(usermanagementv1.InviteUserIamPolicy)
+				inviteUserIamPolicyModel.Type = core.StringPtr("testString")
 				inviteUserIamPolicyModel.Roles = []usermanagementv1.Role{*roleModel}
 				inviteUserIamPolicyModel.Resources = []usermanagementv1.Resource{*resourceModel}
 
@@ -754,6 +756,7 @@ var _ = Describe(`UserManagementV1`, func() {
 
 				// Construct an instance of the InviteUserIamPolicy model
 				inviteUserIamPolicyModel := new(usermanagementv1.InviteUserIamPolicy)
+				inviteUserIamPolicyModel.Type = core.StringPtr("testString")
 				inviteUserIamPolicyModel.Roles = []usermanagementv1.Role{*roleModel}
 				inviteUserIamPolicyModel.Resources = []usermanagementv1.Resource{*resourceModel}
 
@@ -793,7 +796,7 @@ var _ = Describe(`UserManagementV1`, func() {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.Path).To(Equal(getUserProfilePath))
+					Expect(req.URL.EscapedPath()).To(Equal(getUserProfilePath))
 					Expect(req.Method).To(Equal("GET"))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
@@ -833,7 +836,7 @@ var _ = Describe(`UserManagementV1`, func() {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.Path).To(Equal(getUserProfilePath))
+					Expect(req.URL.EscapedPath()).To(Equal(getUserProfilePath))
 					Expect(req.Method).To(Equal("GET"))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
@@ -909,7 +912,7 @@ var _ = Describe(`UserManagementV1`, func() {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.Path).To(Equal(updateUserProfilesPath))
+					Expect(req.URL.EscapedPath()).To(Equal(updateUserProfilesPath))
 					Expect(req.Method).To(Equal("PATCH"))
 					res.WriteHeader(204)
 				}))
@@ -993,7 +996,7 @@ var _ = Describe(`UserManagementV1`, func() {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.Path).To(Equal(removeUsersPath))
+					Expect(req.URL.EscapedPath()).To(Equal(removeUsersPath))
 					Expect(req.Method).To(Equal("DELETE"))
 					res.WriteHeader(204)
 				}))
@@ -1087,6 +1090,20 @@ var _ = Describe(`UserManagementV1`, func() {
 				Expect(getUserSettingsOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewInviteUsersOptions successfully`, func() {
+				// Construct an instance of the InviteUser model
+				inviteUserModel := new(usermanagementv1.InviteUser)
+				Expect(inviteUserModel).ToNot(BeNil())
+				inviteUserModel.Email = core.StringPtr("testString")
+				inviteUserModel.AccountRole = core.StringPtr("testString")
+				Expect(inviteUserModel.Email).To(Equal(core.StringPtr("testString")))
+				Expect(inviteUserModel.AccountRole).To(Equal(core.StringPtr("testString")))
+
+				// Construct an instance of the Role model
+				roleModel := new(usermanagementv1.Role)
+				Expect(roleModel).ToNot(BeNil())
+				roleModel.RoleID = core.StringPtr("testString")
+				Expect(roleModel.RoleID).To(Equal(core.StringPtr("testString")))
+
 				// Construct an instance of the Attribute model
 				attributeModel := new(usermanagementv1.Attribute)
 				Expect(attributeModel).ToNot(BeNil())
@@ -1101,25 +1118,13 @@ var _ = Describe(`UserManagementV1`, func() {
 				resourceModel.Attributes = []usermanagementv1.Attribute{*attributeModel}
 				Expect(resourceModel.Attributes).To(Equal([]usermanagementv1.Attribute{*attributeModel}))
 
-				// Construct an instance of the Role model
-				roleModel := new(usermanagementv1.Role)
-				Expect(roleModel).ToNot(BeNil())
-				roleModel.RoleID = core.StringPtr("testString")
-				Expect(roleModel.RoleID).To(Equal(core.StringPtr("testString")))
-
-				// Construct an instance of the InviteUser model
-				inviteUserModel := new(usermanagementv1.InviteUser)
-				Expect(inviteUserModel).ToNot(BeNil())
-				inviteUserModel.Email = core.StringPtr("testString")
-				inviteUserModel.AccountRole = core.StringPtr("testString")
-				Expect(inviteUserModel.Email).To(Equal(core.StringPtr("testString")))
-				Expect(inviteUserModel.AccountRole).To(Equal(core.StringPtr("testString")))
-
 				// Construct an instance of the InviteUserIamPolicy model
 				inviteUserIamPolicyModel := new(usermanagementv1.InviteUserIamPolicy)
 				Expect(inviteUserIamPolicyModel).ToNot(BeNil())
+				inviteUserIamPolicyModel.Type = core.StringPtr("testString")
 				inviteUserIamPolicyModel.Roles = []usermanagementv1.Role{*roleModel}
 				inviteUserIamPolicyModel.Resources = []usermanagementv1.Resource{*resourceModel}
+				Expect(inviteUserIamPolicyModel.Type).To(Equal(core.StringPtr("testString")))
 				Expect(inviteUserIamPolicyModel.Roles).To(Equal([]usermanagementv1.Role{*roleModel}))
 				Expect(inviteUserIamPolicyModel.Resources).To(Equal([]usermanagementv1.Resource{*resourceModel}))
 
@@ -1210,6 +1215,12 @@ var _ = Describe(`UserManagementV1`, func() {
 				Expect(updateUserSettingsOptionsModel.AllowedIpAddresses).To(Equal(core.StringPtr("32.96.110.50,172.16.254.1")))
 				Expect(updateUserSettingsOptionsModel.SelfManage).To(Equal(core.BoolPtr(true)))
 				Expect(updateUserSettingsOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
+			It(`Invoke NewInviteUserIamPolicy successfully`, func() {
+				typeVar := "testString"
+				model, err := userManagementService.NewInviteUserIamPolicy(typeVar)
+				Expect(model).ToNot(BeNil())
+				Expect(err).To(BeNil())
 			})
 		})
 	})
