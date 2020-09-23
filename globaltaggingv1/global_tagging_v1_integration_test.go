@@ -1,7 +1,5 @@
 // +build integration
 
-package globaltaggingv1_test
-
 /**
  * (C) Copyright IBM Corp. 2020.
  *
@@ -18,167 +16,279 @@ package globaltaggingv1_test
  * limitations under the License.
  */
 
+package globaltaggingv1_test
+
 import (
+	"encoding/json"
 	"fmt"
 	"os"
 	"time"
-	
-	"github.com/joho/godotenv"
-	. "github.com/onsi/ginkgo"
-	. "github.com/onsi/gomega"
-	
+
 	"github.com/IBM/go-sdk-core/v4/core"
 	"github.com/IBM/platform-services-go-sdk/globaltaggingv1"
+	. "github.com/onsi/ginkgo"
+	. "github.com/onsi/gomega"
 )
 
-type Resource = globaltaggingv1.Resource
-type Tag = globaltaggingv1.Tag
+/**
+ * This file contains an integration test for the globaltaggingv1 package.
+ *
+ * Notes:
+ *
+ * The integration test will automatically skip tests if the required config file is not available.
+ */
 
-var service *globaltaggingv1.GlobalTaggingV1
-var configLoaded = false
+var _ = Describe(`GlobalTaggingV1 Integration Tests`, func() {
 
-var crn string
+	const externalConfigFile = "../global_tagging.env"
 
-var tagName string = fmt.Sprint("go-sdk-", time.Now().Unix())
+	var (
+		err                  error
+		globalTaggingService *globaltaggingv1.GlobalTaggingV1
+		serviceURL           string
+		config               map[string]string
 
-var tagElem = Tag{
-	Name: core.StringPtr(tagName),
-}
+		crn     string
+		tagName string = fmt.Sprint("go-sdk-", time.Now().Unix())
+	)
 
-const externalConfigFile = "../ghost.env"
-
-func shouldSkipTest() {
-	if !configLoaded {
-		Skip("External configuration is not available, skipping...")
+	var shouldSkipTest = func() {
+		Skip("External configuration is not available, skipping tests...")
 	}
+
+	Describe(`External configuration`, func() {
+		It("Successfully load the configuration", func() {
+			_, err = os.Stat(externalConfigFile)
+			if err != nil {
+				Skip("External configuration file not found, skipping tests: " + err.Error())
+			}
+
+			os.Setenv("IBM_CREDENTIALS_FILE", externalConfigFile)
+			config, err = core.GetServiceProperties(globaltaggingv1.DefaultServiceName)
+			if err != nil {
+				Skip("Error loading service properties, skipping tests: " + err.Error())
+			}
+			serviceURL = config["URL"]
+			if serviceURL == "" {
+				Skip("Unable to load service URL configuration property, skipping tests")
+			}
+
+			crn = config["RESOURCE_CRN"]
+			if crn == "" {
+				Skip("Unable to load RESOURCE_CRN configuration property, skipping tests")
+			}
+
+			fmt.Printf("\nService URL: %s\n", serviceURL)
+			shouldSkipTest = func() {}
+		})
+	})
+
+	Describe(`Client initialization`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It("Successfully construct the service client instance", func() {
+
+			globalTaggingServiceOptions := &globaltaggingv1.GlobalTaggingV1Options{}
+
+			globalTaggingService, err = globaltaggingv1.NewGlobalTaggingV1UsingExternalConfig(globalTaggingServiceOptions)
+
+			Expect(err).To(BeNil())
+			Expect(globalTaggingService).ToNot(BeNil())
+			Expect(globalTaggingService.Service.Options.URL).To(Equal(serviceURL))
+		})
+	})
+
+	Describe(`ListTags - Get all tags`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`ListTags(listTagsOptions *ListTagsOptions)`, func() {
+
+			listTagsOptions := &globaltaggingv1.ListTagsOptions{
+				Offset: core.Int64Ptr(0),
+				Limit:  core.Int64Ptr(1000),
+			}
+
+			tagList, response, err := globalTaggingService.ListTags(listTagsOptions)
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(tagList).ToNot(BeNil())
+			// fmt.Printf("\nListTags(all) response:\n%s", toJson(tagList))
+
+			Expect(tagList.Items).ToNot(BeEmpty())
+		})
+	})
+
+	Describe(`AttachTag - Attach tags`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`AttachTag(attachTagOptions *AttachTagOptions)`, func() {
+
+			resourceModel := &globaltaggingv1.Resource{
+				ResourceID: &crn,
+			}
+
+			attachTagOptions := &globaltaggingv1.AttachTagOptions{
+				Resources: []globaltaggingv1.Resource{*resourceModel},
+				TagNames:  []string{tagName},
+			}
+
+			tagResults, response, err := globalTaggingService.AttachTag(attachTagOptions)
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(tagResults).ToNot(BeNil())
+			// fmt.Printf("\nAttachTag() response:\n%s", toJson(tagResults))
+
+			Expect(tagResults.Results).ToNot(BeEmpty())
+			for _, elem := range tagResults.Results {
+				Expect(*elem.IsError).To(Equal(false))
+			}
+
+			// Make sure the tag was in fact attached.
+			tagNames := getTagNamesForResource(globalTaggingService, crn)
+			// fmt.Print("\nResource now has these tags: ", tagNames)
+			Expect(tagNames).ToNot(BeEmpty())
+			Expect(tagNames).To(ContainElement(tagName))
+		})
+	})
+
+	Describe(`DetachTag - Detach tags`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`DetachTag(detachTagOptions *DetachTagOptions)`, func() {
+
+			resourceModel := &globaltaggingv1.Resource{
+				ResourceID: &crn,
+			}
+
+			detachTagOptions := &globaltaggingv1.DetachTagOptions{
+				Resources: []globaltaggingv1.Resource{*resourceModel},
+				TagNames:  []string{tagName},
+			}
+
+			tagResults, response, err := globalTaggingService.DetachTag(detachTagOptions)
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(tagResults).ToNot(BeNil())
+			// fmt.Printf("\nDetachTag() response:\n%s", toJson(tagResults))
+
+			Expect(tagResults.Results).ToNot(BeEmpty())
+			for _, elem := range tagResults.Results {
+				Expect(*elem.IsError).To(Equal(false))
+			}
+
+			// Make sure the tag was in fact detached.
+			tagNames := getTagNamesForResource(globalTaggingService, crn)
+			// fmt.Print("\nResource now has these tags: ", tagNames)
+			Expect(tagNames).ToNot(ContainElement(tagName))
+		})
+	})
+
+	Describe(`DeleteTag - Delete an unused tag`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`DeleteTag(deleteTagOptions *DeleteTagOptions)`, func() {
+
+			deleteTagOptions := &globaltaggingv1.DeleteTagOptions{
+				TagName: &tagName,
+			}
+
+			deleteTagResults, response, err := globalTaggingService.DeleteTag(deleteTagOptions)
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(deleteTagResults).ToNot(BeNil())
+			for _, elem := range deleteTagResults.Results {
+				Expect(*elem.IsError).To(Equal(false))
+			}
+		})
+	})
+
+	// Describe(`SetTags - Set tags for a resource`, func() {
+	// 	BeforeEach(func() {
+	// 		shouldSkipTest()
+	// 	})
+	// 	It(`SetTags(setTagsOptions *SetTagsOptions)`, func() {
+
+	// 		resourceModel := &globaltaggingv1.Resource{
+	// 			ResourceID: &crn,
+	// 		}
+
+	// 		setTagsOptions := &globaltaggingv1.SetTagsOptions{
+	// 			TagNames:  []string{tagName},
+	// 			Resources: []globaltaggingv1.Resource{*resourceModel},
+	// 		}
+
+	// 		setTagsResults, response, err := globalTaggingService.SetTags(setTagsOptions)
+
+	// 		Expect(err).To(BeNil())
+	// 		Expect(response.StatusCode).To(Equal(200))
+	// 		Expect(setTagsResults).ToNot(BeNil())
+	// 		fmt.Printf("\nSetTags() response:\n%s", toJson(setTagsResults))
+	// 		Expect(setTagsResults.Results).ToNot(BeEmpty())
+	// 		for _, elem := range setTagsResults.Results {
+	// 			Expect(*elem.IsError).To(Equal(false))
+	// 		}
+
+	// 		// Make sure we end up with only the one tag set on the resource.
+	// 		tagNames := getTagNamesForResource(globalTaggingService, crn)
+	// 		fmt.Print("\nResource now has these tags: ", tagNames)
+	// 		Expect(tagNames).ToNot(BeEmpty())
+	// 		Expect(len(tagNames)).To(Equal(1))
+	// 		Expect(tagNames).To(ContainElement(tagName))
+	// 	})
+	// })
+
+	// Describe(`DeleteTagAll - Delete all unused tags`, func() {
+	// 	BeforeEach(func() {
+	// 		shouldSkipTest()
+	// 	})
+	// 	It(`DeleteTagAll(deleteTagAllOptions *DeleteTagAllOptions)`, func() {
+
+	// 		deleteTagAllOptions := &globaltaggingv1.DeleteTagAllOptions{
+	// 			Providers: core.StringPtr("ghost"),
+	// 			AccountID: core.StringPtr("testString"),
+	// 			TagType:   core.StringPtr("user"),
+	// 		}
+
+	// 		deleteTagsResult, response, err := globalTaggingService.DeleteTagAll(deleteTagAllOptions)
+
+	// 		Expect(err).To(BeNil())
+	// 		Expect(response.StatusCode).To(Equal(200))
+	// 		Expect(deleteTagsResult).ToNot(BeNil())
+
+	// 	})
+	// })
+})
+
+func getTagNamesForResource(service *globaltaggingv1.GlobalTaggingV1, resourceID string) []string {
+	listTagsOptions := &globaltaggingv1.ListTagsOptions{
+		AttachedTo: &resourceID,
+	}
+	tagList, response, err := service.ListTags(listTagsOptions)
+	Expect(err).To(BeNil())
+	Expect(response.StatusCode).To(Equal(200))
+
+	tagNames := []string{}
+	for _, tag := range tagList.Items {
+		tagNames = append(tagNames, *tag.Name)
+	}
+
+	return tagNames
 }
 
-var _ = Describe("Global Search and Tagging - Tagging integration test", func() {
-	It("Successfully load the configuration", func() {
-		err := godotenv.Overload(externalConfigFile)
-		if err == nil {
-			crn = os.Getenv("GST_RESOURCE_CRN")
-			if crn != "" {
-				configLoaded = true
-			}
-		}
-		if !configLoaded {
-			Skip("External configuration could not be loaded, skipping...")
-		}
-	})
+func toJson(obj interface{}) string {
+	b, err := json.MarshalIndent(obj, "", "  ")
+	if err != nil {
+		panic(err)
+	}
+	return string(b)
 
-	It("Successfully construct service", func() {
-		shouldSkipTest()
-
-		// Create the authenticator.
-		authenticator := &core.IamAuthenticator{
-			ApiKey: os.Getenv("GST_IINTERNA_APIKEY"),
-			URL:    os.Getenv("GST_IAM_URL"),
-		}
-
-		options := &globaltaggingv1.GlobalTaggingV1Options{
-			Authenticator: authenticator,
-			URL:           os.Getenv("GST_TAGS_URL"),
-		}
-		var err error
-		service, err = globaltaggingv1.NewGlobalTaggingV1(options)
-		Expect(err).To(BeNil())
-		Expect(service).ToNot(BeNil())
-	})
-
-	Describe("Call GetAllTags", func() {
-
-		It("Successfully get all tags", func() {
-			shouldSkipTest()
-
-			// Construct an instance of the ListTags model
-			listTagsModel := service.NewListTagsOptions()
-
-			var err error
-			result, detailedResponse, err := service.ListTags(listTagsModel)
-			Expect(err).To(BeNil())
-			Expect(detailedResponse.StatusCode).To(Equal(200))
-			Expect(result.Items).NotTo(BeEmpty())
-		})
-	})
-
-	Describe("Attach a tag", func() {
-
-		It("Successfully attach a tag", func() {
-			shouldSkipTest()
-
-			// Construct an instance of the Resource model
-			resource, _ := service.NewResource(crn)
-			array := []Resource{*resource}
-			attachTagOptions := service.NewAttachTagOptions(array)
-			attachTagOptions.SetTagNames([]string{tagName})
-
-			var err error
-			result, detailedResponse, err := service.AttachTag(attachTagOptions)
-
-			//fmt.Println("attach tag response", detailedResponse)
-
-			Expect(err).To(BeNil())
-			Expect(detailedResponse.StatusCode).To(Equal(200))
-			for _, elem := range result.Results {
-				Expect(*elem.IsError).To(Equal(false))
-			}
-
-			// checking that tag is attached
-			listTagsModel := service.NewListTagsOptions()
-			listTagsModel.SetAttachedTo(crn)
-			resultCheck, detailedResponseCheck, errCheck := service.ListTags(listTagsModel)
-			Expect(errCheck).To(BeNil())
-			Expect(detailedResponseCheck.StatusCode).To(Equal(200))
-			Expect(resultCheck.Items).NotTo(BeEmpty())
-			Expect(resultCheck.Items).To(ContainElement(tagElem))
-		})
-	})
-
-	Describe("Detach a tag", func() {
-
-		It("Successfully detached a tag", func() {
-			shouldSkipTest()
-
-			// Construct an instance of the DetachTag model
-			resource, _ := service.NewResource(crn)
-			array := []Resource{*resource}
-			detachTagOptions := service.NewDetachTagOptions(array)
-			detachTagOptions.SetTagNames([]string{tagName})
-
-			var err error
-			result, detailedResponse, err := service.DetachTag(detachTagOptions)
-			Expect(err).To(BeNil())
-			Expect(detailedResponse.StatusCode).To(Equal(200))
-			for _, elem := range result.Results {
-				Expect(*elem.IsError).To(Equal(false))
-			}
-
-			// checking that tag is detached
-			listTagsModel := service.NewListTagsOptions()
-			listTagsModel.SetAttachedTo(crn)
-			resultCheck, detailedResponseCheck, errCheck := service.ListTags(listTagsModel)
-			Expect(errCheck).To(BeNil())
-			Expect(detailedResponseCheck.StatusCode).To(Equal(200))
-			Expect(resultCheck.Items).NotTo(ContainElement(tagElem))
-		})
-	})
-
-	Describe("Delete a tag", func() {
-
-		It("Successfully delete a tag", func() {
-			shouldSkipTest()
-
-			// Construct an instance of the DeleteTag model
-			deleteTagOptions := service.NewDeleteTagOptions(tagName)
-
-			var err error
-			result, detailedResponse, err := service.DeleteTag(deleteTagOptions)
-			Expect(err).To(BeNil())
-			Expect(detailedResponse.StatusCode).To(Equal(200))
-			for _, elem := range result.Results {
-				Expect(*elem.IsError).To(Equal(false))
-			}
-		})
-	})
-})
+}
