@@ -211,61 +211,23 @@ var _ = Describe(`GlobalTaggingV1 Integration Tests`, func() {
 		})
 	})
 
-	// Describe(`SetTags - Set tags for a resource`, func() {
-	// 	BeforeEach(func() {
-	// 		shouldSkipTest()
-	// 	})
-	// 	It(`SetTags(setTagsOptions *SetTagsOptions)`, func() {
+	Describe(`DeleteTagAll - Delete all unused tags`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`DeleteTagAll(deleteTagAllOptions *DeleteTagAllOptions)`, func() {
 
-	// 		resourceModel := &globaltaggingv1.Resource{
-	// 			ResourceID: &crn,
-	// 		}
+			deleteTagAllOptions := &globaltaggingv1.DeleteTagAllOptions{}
 
-	// 		setTagsOptions := &globaltaggingv1.SetTagsOptions{
-	// 			TagNames:  []string{tagName},
-	// 			Resources: []globaltaggingv1.Resource{*resourceModel},
-	// 		}
+			deleteTagsResult, response, err := globalTaggingService.DeleteTagAll(deleteTagAllOptions)
 
-	// 		setTagsResults, response, err := globalTaggingService.SetTags(setTagsOptions)
-
-	// 		Expect(err).To(BeNil())
-	// 		Expect(response.StatusCode).To(Equal(200))
-	// 		Expect(setTagsResults).ToNot(BeNil())
-	// 		fmt.Printf("\nSetTags() response:\n%s", toJson(setTagsResults))
-	// 		Expect(setTagsResults.Results).ToNot(BeEmpty())
-	// 		for _, elem := range setTagsResults.Results {
-	// 			Expect(*elem.IsError).To(Equal(false))
-	// 		}
-
-	// 		// Make sure we end up with only the one tag set on the resource.
-	// 		tagNames := getTagNamesForResource(globalTaggingService, crn)
-	// 		fmt.Print("\nResource now has these tags: ", tagNames)
-	// 		Expect(tagNames).ToNot(BeEmpty())
-	// 		Expect(len(tagNames)).To(Equal(1))
-	// 		Expect(tagNames).To(ContainElement(tagName))
-	// 	})
-	// })
-
-	// Describe(`DeleteTagAll - Delete all unused tags`, func() {
-	// 	BeforeEach(func() {
-	// 		shouldSkipTest()
-	// 	})
-	// 	It(`DeleteTagAll(deleteTagAllOptions *DeleteTagAllOptions)`, func() {
-
-	// 		deleteTagAllOptions := &globaltaggingv1.DeleteTagAllOptions{
-	// 			Providers: core.StringPtr("ghost"),
-	// 			AccountID: core.StringPtr("testString"),
-	// 			TagType:   core.StringPtr("user"),
-	// 		}
-
-	// 		deleteTagsResult, response, err := globalTaggingService.DeleteTagAll(deleteTagAllOptions)
-
-	// 		Expect(err).To(BeNil())
-	// 		Expect(response.StatusCode).To(Equal(200))
-	// 		Expect(deleteTagsResult).ToNot(BeNil())
-
-	// 	})
-	// })
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(deleteTagsResult).ToNot(BeNil())
+			// fmt.Printf("\nDetachTagAll() response:\n%s", toJson(deleteTagsResult))
+			// fmt.Printf("\nDeleteTagAll deleted %d unused tags.\n", *deleteTagsResult.TotalCount)
+		})
+	})
 })
 
 func getTagNamesForResource(service *globaltaggingv1.GlobalTaggingV1, resourceID string) []string {

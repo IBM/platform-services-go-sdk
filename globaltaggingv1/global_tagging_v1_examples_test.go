@@ -109,6 +109,7 @@ var _ = Describe(`GlobalTaggingV1 Examples Tests`, func() {
 			// begin-list_tags
 
 			listTagsOptions := globalTaggingService.NewListTagsOptions()
+			listTagsOptions.SetAttachedOnly(true)
 
 			tagList, response, err := globalTaggingService.ListTags(listTagsOptions)
 			if err != nil {
@@ -174,32 +175,6 @@ var _ = Describe(`GlobalTaggingV1 Examples Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(tagResults).ToNot(BeNil())
-
-		})
-		It(`SetTags request example`, func() {
-			// begin-set_tags
-
-			resourceModel := &globaltaggingv1.Resource{
-				ResourceID: &resourceCRN,
-			}
-
-			setTagsOptions := globalTaggingService.NewSetTagsOptions(
-				[]string{"tag_test_1", "tag_test_2"},
-				[]globaltaggingv1.Resource{*resourceModel},
-			)
-
-			setTagsResults, response, err := globalTaggingService.SetTags(setTagsOptions)
-			if err != nil {
-				panic(err)
-			}
-			b, _ := json.MarshalIndent(setTagsResults, "", "  ")
-			fmt.Printf("\nSetTags() result:\n%s\n", string(b))
-
-			// end-set_tags
-
-			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(200))
-			Expect(setTagsResults).ToNot(BeNil())
 
 		})
 		It(`DeleteTagAll request example`, func() {
