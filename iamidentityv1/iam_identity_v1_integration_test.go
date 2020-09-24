@@ -19,7 +19,7 @@
 package iamidentityv1_test
 
 import (
-	"container/list"
+	"encoding/json"
 	"fmt"
 	"net/url"
 	"os"
@@ -37,26 +37,25 @@ import (
  *
  * The integration test will automatically skip tests if the required config file is not available.
  */
-const verbose bool = true
+
+var (
+	apikeyName    string = "Go-SDK-IT-ApiKey"
+	serviceIDName string = "Go-SDK-IT-ServiceId"
+	accountID     string
+	iamID         string
+	iamApiKey     string
+
+	iamIdentityService *iamidentityv1.IamIdentityV1
+)
 
 var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 
 	const externalConfigFile = "../iam_identity.env"
 
 	var (
-		err                error
-		iamIdentityService *iamidentityv1.IamIdentityV1
-		serviceURL         string
-		config             map[string]string
-
-		apikeyName    string = "Go-SDK-IT-ApiKey"
-		serviceIDName string = "Go-SDK-IT-ServiceId"
-		accountID     string
-		iamID         string
-		iamApiKey     string
-
-		//iamIDInvalid     string = "IAM-InvalidId"
-		//accountIDInvalid string = "Account-InvalidId"
+		err        error
+		serviceURL string
+		config     map[string]string
 
 		apikeyId1   string
 		apikeyId2   string
@@ -64,7 +63,6 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 
 		serviceId1     string
 		serviceIdEtag1 string
-		//pageToken      string
 		newDescription string = "This is an updated description"
 	)
 
@@ -98,7 +96,7 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 			iamApiKey = config["APIKEY"]
 			Expect(iamApiKey).ToNot(BeEmpty())
 
-			fmt.Printf("Service URL: %s\n", serviceURL)
+			fmt.Printf("\nService URL: %s\n", serviceURL)
 			shouldSkipTest = func() {}
 		})
 	})
@@ -117,17 +115,21 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 			Expect(iamIdentityService).ToNot(BeNil())
 			Expect(iamIdentityService.Service.Options.URL).To(Equal(serviceURL))
 		})
-
+		It("Successfully setup the environment for tests", func() {
+			fmt.Println("\nSetup...")
+			cleanupResources(iamIdentityService)
+			fmt.Println("Finished setup.")
+		})
 	})
 
-	Describe(`CreateApiKey1 - Create an API key1`, func() {
+	Describe(`CreateApiKey1 - Create API key #1`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
 		})
 		It(`CreateApiKey(createApiKeyOptions *CreateApiKeyOptions)`, func() {
 
 			createApiKeyOptions := &iamidentityv1.CreateApiKeyOptions{
-				Name:        core.StringPtr(apikeyName),
+				Name:        &apikeyName,
 				IamID:       &iamID,
 				Description: core.StringPtr("GoSDK test apikey #1"),
 				AccountID:   &accountID,
@@ -138,21 +140,21 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(201))
 			Expect(apiKey).ToNot(BeNil())
+			// fmt.Printf("\nCreateApiKey #1 response:\n%s", toJson(apiKey))
 
 			apikeyId1 = *apiKey.ID
 			Expect(apikeyId1).ToNot(BeNil())
-
 		})
 	})
 
-	Describe(`CreateApiKey2 - Create an API key2`, func() {
+	Describe(`CreateApiKey2 - Create API key #2`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
 		})
 		It(`CreateApiKey(createApiKeyOptions *CreateApiKeyOptions)`, func() {
 
 			createApiKeyOptions := &iamidentityv1.CreateApiKeyOptions{
-				Name:        core.StringPtr(apikeyName),
+				Name:        &apikeyName,
 				IamID:       &iamID,
 				Description: core.StringPtr("GoSDK test apikey #2"),
 				AccountID:   &accountID,
@@ -163,10 +165,10 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(201))
 			Expect(apiKey).ToNot(BeNil())
+			// fmt.Printf("\nCreateApiKey #2 response:\n%s", toJson(apiKey))
 
 			apikeyId2 = *apiKey.ID
 			Expect(apikeyId2).ToNot(BeNil())
-
 		})
 	})
 
@@ -175,9 +177,10 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 			shouldSkipTest()
 		})
 		It(`GetApiKey(getApiKeyOptions *GetApiKeyOptions)`, func() {
+			Expect(apikeyId1).ToNot(BeNil())
 
 			getApiKeyOptions := &iamidentityv1.GetApiKeyOptions{
-				ID:             core.StringPtr(apikeyId1),
+				ID:             &apikeyId1,
 				IncludeHistory: core.BoolPtr(true),
 			}
 
@@ -186,6 +189,7 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(apiKey).ToNot(BeNil())
+			// fmt.Printf("\nGetApiKey response:\n%s", toJson(apiKey))
 
 			Expect(*apiKey.ID).To(Equal(apikeyId1))
 			Expect(*apiKey.Name).To(Equal(apikeyName))
@@ -193,9 +197,13 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 			Expect(*apiKey.AccountID).To(Equal(accountID))
 			Expect(*apiKey.CreatedBy).To(Equal(iamID))
 			Expect(*apiKey.CreatedAt).ToNot(BeNil())
+			Expect(*apiKey.Locked).To(BeFalse())
 			Expect(*apiKey.Crn).ToNot(BeNil())
+			Expect(apiKey.History).ToNot(BeEmpty())
 
-			apikeyEtag1 = *apiKey.EntityTag
+			// Grab the Etag value from the response for use in the update operation.
+			apikeyEtag1 = response.GetHeaders().Get("Etag")
+			Expect(apikeyEtag1).ToNot(BeEmpty())
 		})
 	})
 
@@ -206,7 +214,7 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 		It(`GetApiKeysDetails(getApiKeysDetailsOptions *GetApiKeysDetailsOptions)`, func() {
 
 			getApiKeysDetailsOptions := &iamidentityv1.GetApiKeysDetailsOptions{
-				IAMApiKey:      core.StringPtr(iamApiKey),
+				IAMApiKey:      &iamApiKey,
 				IncludeHistory: core.BoolPtr(true),
 			}
 
@@ -215,9 +223,12 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(apiKey).ToNot(BeNil())
+			// fmt.Printf("\nGetApiKeyDetails response:\n%s", toJson(apiKey))
 
 			Expect(*apiKey.AccountID).To(Equal(accountID))
 			Expect(*apiKey.IamID).To(Equal(iamID))
+			Expect(*apiKey.Locked).To(BeFalse())
+			Expect(apiKey.History).ToNot(BeEmpty())
 		})
 	})
 
@@ -226,33 +237,39 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 			shouldSkipTest()
 		})
 		It(`ListApiKeys(listApiKeysOptions *ListApiKeysOptions)`, func() {
-			//pageToken = " "
-			//for ok := true; ok; ok = (pageToken != nil) {
+
+			apikeys := []iamidentityv1.ApiKey{}
+
+			// var pageToken *string = nil
+
+			// for ok := true; ok; ok = (pageToken != nil) {
+
 			listApiKeysOptions := &iamidentityv1.ListApiKeysOptions{
 				AccountID: &accountID,
 				IamID:     &iamID,
 				//Pagetoken:		core.StringPtr(pageToken),
-				Pagesize:       core.Int64Ptr(int64(1)),
+				Pagesize:       core.Int64Ptr(int64(100)),
 				IncludeHistory: core.BoolPtr(false),
 			}
 
 			apiKeyList, response, err := iamIdentityService.ListApiKeys(listApiKeysOptions)
-
-			apikeysListNew := list.New()
-
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(apiKeyList).ToNot(BeNil())
+			// fmt.Printf("\nListApiKeys response:\n%s", toJson(apiKeyList))
 
-			for i := 0; i < len(apiKeyList.Apikeys); i++ {
-				if Expect(*apiKeyList.Apikeys[i].Name).To(Equal(apikeyName)) {
-					apikeysListNew.PushBack(apikeyName)
+			// Walk through the returned results and save off the apikeys that we created earlier.
+			for _, apikey := range apiKeyList.Apikeys {
+				if apikeyName == *apikey.Name {
+					apikeys = append(apikeys, apikey)
 				}
 			}
 
-			Expect(apikeysListNew.Len).To(Equal(2))
-			//pageToken = getPageToken(apiKeyList.Next)
-			//}
+			// pageToken = getPageToken(apiKeyList.Next)
+			// }
+
+			// Make sure we got back two apikeys.
+			Expect(len(apikeys)).To(Equal(2))
 		})
 	})
 
@@ -261,12 +278,13 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 			shouldSkipTest()
 		})
 		It(`UpdateApiKey(updateApiKeyOptions *UpdateApiKeyOptions)`, func() {
-			Expect(apikeyId1).To(BeNil())
-			Expect(apikeyEtag1).To(BeNil())
+			Expect(apikeyId1).ToNot(BeEmpty())
+			Expect(apikeyEtag1).ToNot(BeEmpty())
+
 			updateApiKeyOptions := &iamidentityv1.UpdateApiKeyOptions{
-				ID:          core.StringPtr(apikeyId1),
-				IfMatch:     core.StringPtr(apikeyEtag1),
-				Description: core.StringPtr(newDescription),
+				ID:          &apikeyId1,
+				IfMatch:     &apikeyEtag1,
+				Description: &newDescription,
 			}
 
 			apiKey, response, err := iamIdentityService.UpdateApiKey(updateApiKeyOptions)
@@ -274,6 +292,7 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(apiKey).ToNot(BeNil())
+			// fmt.Printf("\nUpdateApiKey response:\n%s", toJson(apiKey))
 
 			Expect(*apiKey.ID).To(Equal(apikeyId1))
 			Expect(*apiKey.Description).To(Equal(newDescription))
@@ -285,9 +304,10 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 			shouldSkipTest()
 		})
 		It(`LockApiKey(lockApiKeyOptions *LockApiKeyOptions)`, func() {
-			Expect(apikeyId2).ToNot(BeNil())
+			Expect(apikeyId2).ToNot(BeEmpty())
+
 			lockApiKeyOptions := &iamidentityv1.LockApiKeyOptions{
-				ID: core.StringPtr(apikeyId2),
+				ID: &apikeyId2,
 			}
 
 			response, err := iamIdentityService.LockApiKey(lockApiKeyOptions)
@@ -295,10 +315,9 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 
-			//apiKey = getApikey(iamIdentityService, apikeyId2)
-			//Expect(apiKey).ToNot(BeNil())
-			//Expect(*apiKey.Lock).To(Equal(true))
-
+			apiKey := getApikey(iamIdentityService, apikeyId2)
+			Expect(apiKey).ToNot(BeNil())
+			Expect(*apiKey.Locked).To(BeTrue())
 		})
 	})
 
@@ -307,9 +326,10 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 			shouldSkipTest()
 		})
 		It(`UnlockApiKey(unlockApiKeyOptions *UnlockApiKeyOptions)`, func() {
+			Expect(apikeyId2).ToNot(BeEmpty())
 
 			unlockApiKeyOptions := &iamidentityv1.UnlockApiKeyOptions{
-				ID: core.StringPtr(apikeyId2),
+				ID: &apikeyId2,
 			}
 
 			response, err := iamIdentityService.UnlockApiKey(unlockApiKeyOptions)
@@ -317,9 +337,9 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 
-			//apiKey = getApikey(iamIdentityService, apikeyId2)
-			//Expect(apiKey).ToNot(BeNil())
-			//Expect(*apiKey.Lock).To(Equal(false))
+			apiKey := getApikey(iamIdentityService, apikeyId2)
+			Expect(apiKey).ToNot(BeNil())
+			Expect(*apiKey.Locked).To(BeFalse())
 		})
 	})
 
@@ -328,9 +348,10 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 			shouldSkipTest()
 		})
 		It(`DeleteApiKey(deleteApiKeyOptions *DeleteApiKeyOptions)`, func() {
+			Expect(apikeyId1).ToNot(BeEmpty())
 
 			deleteApiKeyOptions := &iamidentityv1.DeleteApiKeyOptions{
-				ID: core.StringPtr(apikeyId1),
+				ID: &apikeyId1,
 			}
 
 			response, err := iamIdentityService.DeleteApiKey(deleteApiKeyOptions)
@@ -338,9 +359,8 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(204))
 
-			//apiKey = getApikey(iamIdentityService, apikeyId1)
-			//Expect(apiKey).To(BeNil())
-
+			apiKey := getApikey(iamIdentityService, apikeyId1)
+			Expect(apiKey).To(BeNil())
 		})
 	})
 
@@ -349,9 +369,10 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 			shouldSkipTest()
 		})
 		It(`DeleteApiKey(deleteApiKeyOptions *DeleteApiKeyOptions)`, func() {
+			Expect(apikeyId2).ToNot(BeEmpty())
 
 			deleteApiKeyOptions := &iamidentityv1.DeleteApiKeyOptions{
-				ID: core.StringPtr(apikeyId2),
+				ID: &apikeyId2,
 			}
 
 			response, err := iamIdentityService.DeleteApiKey(deleteApiKeyOptions)
@@ -359,9 +380,8 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(204))
 
-			//apiKey = getApikey(iamIdentityService, apikeyId2)
-			//Expect(apiKey).To(BeNil())
-
+			apiKey := getApikey(iamIdentityService, apikeyId2)
+			Expect(apiKey).To(BeNil())
 		})
 	})
 
@@ -382,10 +402,10 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(201))
 			Expect(serviceID).ToNot(BeNil())
+			// fmt.Printf("\nCreateServiceID response:\n%s", toJson(serviceID))
 
 			serviceId1 = *serviceID.ID
 			Expect(serviceId1).ToNot(BeNil())
-
 		})
 	})
 
@@ -394,9 +414,9 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 			shouldSkipTest()
 		})
 		It(`GetServiceID(getServiceIdOptions *GetServiceIdOptions)`, func() {
-			Expect(serviceId1).ToNot(BeNil())
+			Expect(serviceId1).ToNot(BeEmpty())
 			getServiceIdOptions := &iamidentityv1.GetServiceIdOptions{
-				ID:             core.StringPtr(serviceId1),
+				ID:             &serviceId1,
 				IncludeHistory: core.BoolPtr(true),
 			}
 
@@ -405,14 +425,15 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(serviceID).ToNot(BeNil())
+			// fmt.Printf("\nGetServiceID response:\n%s", toJson(serviceID))
 
-			Expect(serviceID.Name).To(Equal(serviceIDName))
-			Expect(serviceID.Description).To(Equal("GoSDK test serviceId"))
-			Expect(serviceID.History).ToNot(BeNil())
-			Expect(len(serviceID.History)).ToNot(Equal(0))
+			Expect(*serviceID.Name).To(Equal(serviceIDName))
+			Expect(*serviceID.Description).To(Equal("GoSDK test serviceId"))
+			Expect(serviceID.History).ToNot(BeEmpty())
 
-			serviceIdEtag1 = *serviceID.EntityTag
-
+			// Grab the Etag value from the response for use in the update operation.
+			serviceIdEtag1 = response.GetHeaders().Get("Etag")
+			Expect(serviceIdEtag1).ToNot(BeEmpty())
 		})
 	})
 
@@ -423,8 +444,8 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 		It(`ListServiceIds(listServiceIdsOptions *ListServiceIdsOptions)`, func() {
 
 			listServiceIdsOptions := &iamidentityv1.ListServiceIdsOptions{
-				AccountID: core.StringPtr(accountID),
-				Name:      core.StringPtr(serviceIDName),
+				AccountID: &accountID,
+				Name:      &serviceIDName,
 				Pagesize:  core.Int64Ptr(int64(100)),
 			}
 
@@ -433,12 +454,12 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(serviceIdList).ToNot(BeNil())
+			// fmt.Printf("\nListServiceIds response:\n%s", toJson(serviceIdList))
 
-			Expect(serviceIdList.Serviceids).ToNot(BeNil())
 			Expect(len(serviceIdList.Serviceids)).To(Equal(1))
 			Expect(serviceIdList.Offset).ToNot(BeNil())
-			Expect(serviceIdList.Next).ToNot(BeNil())
-			Expect(serviceIdList.Serviceids[0].Name).To(Equal(serviceIDName))
+			Expect(serviceIdList.Next).To(BeNil())
+			Expect(*serviceIdList.Serviceids[0].Name).To(Equal(serviceIDName))
 		})
 	})
 
@@ -447,21 +468,22 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 			shouldSkipTest()
 		})
 		It(`UpdateServiceID(updateServiceIdOptions *UpdateServiceIdOptions)`, func() {
+			Expect(serviceId1).ToNot(BeEmpty())
+			Expect(serviceIdEtag1).ToNot(BeEmpty())
 
 			updateServiceIdOptions := &iamidentityv1.UpdateServiceIdOptions{
-				ID:          core.StringPtr(serviceId1),
-				IfMatch:     core.StringPtr(serviceIdEtag1),
-				Description: core.StringPtr(newDescription),
+				ID:          &serviceId1,
+				IfMatch:     &serviceIdEtag1,
+				Description: &newDescription,
 			}
 
 			serviceID, response, err := iamIdentityService.UpdateServiceID(updateServiceIdOptions)
-
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(serviceID).ToNot(BeNil())
+			// fmt.Printf("\nUpdateServiceID response:\n%s", toJson(serviceID))
 
-			Expect(serviceID.Description).To(Equal(newDescription))
-
+			Expect(*serviceID.Description).To(Equal(newDescription))
 		})
 	})
 
@@ -470,19 +492,19 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 			shouldSkipTest()
 		})
 		It(`LockServiceID(lockServiceIdOptions *LockServiceIdOptions)`, func() {
+			Expect(serviceId1).ToNot(BeEmpty())
 
 			lockServiceIdOptions := &iamidentityv1.LockServiceIdOptions{
-				ID: core.StringPtr(serviceId1),
+				ID: &serviceId1,
 			}
 
 			serviceID, response, err := iamIdentityService.LockServiceID(lockServiceIdOptions)
-
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(serviceID).ToNot(BeNil())
+			// fmt.Printf("\nLockServiceID response:\n%s", toJson(serviceID))
 
-			Expect(serviceID.Locked).To(Equal(true))
-
+			Expect(*serviceID.Locked).To(BeTrue())
 		})
 	})
 
@@ -491,9 +513,10 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 			shouldSkipTest()
 		})
 		It(`UnlockServiceID(unlockServiceIdOptions *UnlockServiceIdOptions)`, func() {
+			Expect(serviceId1).ToNot(BeEmpty())
 
 			unlockServiceIdOptions := &iamidentityv1.UnlockServiceIdOptions{
-				ID: core.StringPtr(serviceId1),
+				ID: &serviceId1,
 			}
 
 			serviceID, response, err := iamIdentityService.UnlockServiceID(unlockServiceIdOptions)
@@ -501,9 +524,9 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(serviceID).ToNot(BeNil())
+			// fmt.Printf("\nUnlockServiceID response:\n%s", toJson(serviceID))
 
-			Expect(serviceID.Locked).To(Equal(false))
-
+			Expect(*serviceID.Locked).To(BeFalse())
 		})
 	})
 
@@ -512,129 +535,128 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 			shouldSkipTest()
 		})
 		It(`DeleteServiceID(deleteServiceIdOptions *DeleteServiceIdOptions)`, func() {
+			Expect(serviceId1).ToNot(BeEmpty())
 
 			deleteServiceIdOptions := &iamidentityv1.DeleteServiceIdOptions{
-				ID: core.StringPtr(serviceId1),
+				ID: &serviceId1,
 			}
 
 			response, err := iamIdentityService.DeleteServiceID(deleteServiceIdOptions)
-
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(204))
 
-			//serviceID = getServiceID(iamIdentityService, serviceId1)
-			//Expect(serviceID).To(BeNil())
-
+			serviceID := getServiceID(iamIdentityService, serviceId1)
+			Expect(serviceID).To(BeNil())
 		})
-	})
-
-	Describe(`Teardown - clean up test data`, func() {
-		BeforeEach(func() {
-			shouldSkipTest()
-		})
-		tearDown(iamIdentityService, accountID, iamID, serviceIDName)
-		log("Finished teardown.")
-
 	})
 })
 
-func getApikey(iamIdentityService *iamidentityv1.IamIdentityV1, apikeyId string) {
+var _ = AfterSuite(func() {
+	fmt.Println("\nBeginning teardown.")
+	cleanupResources(iamIdentityService)
+	fmt.Println("Finished teardown.")
+})
 
+func getApikey(service *iamidentityv1.IamIdentityV1, apikeyId string) *iamidentityv1.ApiKey {
 	getApiKeyOptions := &iamidentityv1.GetApiKeyOptions{
-		ID:             core.StringPtr(apikeyId),
-		IncludeHistory: core.BoolPtr(true),
+		ID: &apikeyId,
 	}
-
-	apiKey, response, err := iamIdentityService.GetApiKey(getApiKeyOptions)
-
-	Expect(err).To(BeNil())
-	Expect(response.StatusCode).To(Equal(200))
-	if Expect(apiKey).ToNot(BeNil()) {
-		return
-	}
+	apiKey, _, _ := service.GetApiKey(getApiKeyOptions)
+	return apiKey
 }
 
-func getServiceID(iamIdentityService *iamidentityv1.IamIdentityV1, serviceID string) {
-
+func getServiceID(iamIdentityService *iamidentityv1.IamIdentityV1, serviceID string) *iamidentityv1.ServiceID {
 	getServiceIdOptions := &iamidentityv1.GetServiceIdOptions{
-		ID:             core.StringPtr(serviceID),
-		IncludeHistory: core.BoolPtr(true),
+		ID: &serviceID,
 	}
-
-	serviceIDres, response, err := iamIdentityService.GetServiceID(getServiceIdOptions)
-
-	Expect(err).To(BeNil())
-	Expect(response.StatusCode).To(Equal(200))
-
-	if Expect(serviceIDres).ToNot(BeNil()) {
-		return
-	}
-
+	result, _, _ := iamIdentityService.GetServiceID(getServiceIdOptions)
+	return result
 }
 
-func getPageToken(s string) {
-
-	Expect(s).ToNot(BeNil())
-
-	u, e := url.Parse(s)
-	Expect(e).To(BeNil())
-	q := u.Query()
-	Expect(q).ToNot(BeNil())
-	//return string(q.Get("pagetoken"))
-	if Expect(q.Get("pagetoken")).ToNot(BeNil()) {
-		return
+func getPageTokenFromURL(s string) string {
+	if s == "" {
+		return ""
 	}
+
+	u, err := url.Parse(s)
+	if err != nil {
+		return ""
+	}
+
+	if u.RawQuery == "" {
+		return ""
+	}
+
+	q, err := url.ParseQuery(u.RawQuery)
+	if err != nil {
+		return ""
+	}
+
+	return q.Get("pagetoken")
 }
 
-func log(msg string) {
-	if verbose {
-		fmt.Printf("%s\n", msg)
+func toJson(obj interface{}) string {
+	b, err := json.MarshalIndent(obj, "", "  ")
+	if err != nil {
+		panic(err)
 	}
+	return string(b)
 }
 
-func tearDown(iamIdentityService *iamidentityv1.IamIdentityV1, accountID string, iamID string, serviceIDName string) {
-
-	//Expect(getServiceID(serviceId1)).To(BeNil()
+func cleanupResources(service *iamidentityv1.IamIdentityV1) {
+	if service == nil {
+		panic("'service' cannot be nil!")
+	}
 
 	listApiKeysOptions := &iamidentityv1.ListApiKeysOptions{
-		AccountID: core.StringPtr(accountID),
-		IamID:     core.StringPtr(iamID),
+		AccountID: &accountID,
+		IamID:     &iamID,
+		Pagesize:  core.Int64Ptr(int64(100)),
 	}
 
-	apiKeyList, response, err := iamIdentityService.ListApiKeys(listApiKeysOptions)
-
+	apiKeyList, response, err := service.ListApiKeys(listApiKeysOptions)
 	Expect(err).To(BeNil())
 	Expect(response.StatusCode).To(Equal(200))
 
-	if len(apiKeyList.Apikeys) > 0 {
+	numApiKeys := len(apiKeyList.Apikeys)
+	fmt.Printf(">>> Cleanup found %d apikeys.\n", numApiKeys)
+
+	if numApiKeys > 0 {
 		for _, element := range apiKeyList.Apikeys {
-			//fetchedApikeyID string = apiKeyList.Apikeys[i].ID
-			deleteApiKeyOptions := &iamidentityv1.DeleteApiKeyOptions{
-				ID: core.StringPtr(*element.ID),
+			if *element.Name == apikeyName {
+				fmt.Printf(">>> Deleting apikey: %s\n", *element.ID)
+				deleteApiKeyOptions := &iamidentityv1.DeleteApiKeyOptions{
+					ID: element.ID,
+				}
+				response, err := service.DeleteApiKey(deleteApiKeyOptions)
+				Expect(response).ToNot(BeNil())
+				Expect(err).To(BeNil())
 			}
-			response, err := iamIdentityService.DeleteApiKey(deleteApiKeyOptions)
-			Expect(response).ToNot(BeNil())
-			Expect(err).To(BeNil())
 		}
 	}
 
 	listServiceIdsOptions := &iamidentityv1.ListServiceIdsOptions{
-		AccountID: core.StringPtr(accountID),
-		Name:      core.StringPtr(serviceIDName),
+		AccountID: &accountID,
+		Name:      &serviceIDName,
 		Pagesize:  core.Int64Ptr(int64(100)),
 	}
 
-	serviceIdList, response, err := iamIdentityService.ListServiceIds(listServiceIdsOptions)
+	serviceIdList, response, err := service.ListServiceIds(listServiceIdsOptions)
 
-	if len(serviceIdList.Serviceids) > 0 {
+	numServiceIds := len(serviceIdList.Serviceids)
+	fmt.Printf(">>> Cleanup found %d serviceIDs.\n", numServiceIds)
+
+	if numServiceIds > 0 {
 		for _, element := range serviceIdList.Serviceids {
-			deleteServiceIdOptions := &iamidentityv1.DeleteServiceIdOptions{
-				ID: core.StringPtr(*element.ID),
+			if *element.Name == serviceIDName {
 			}
-			response, err := iamIdentityService.DeleteServiceID(deleteServiceIdOptions)
+			fmt.Printf(">>> Deleting serviceId: %s\n", *element.ID)
+			deleteServiceIdOptions := &iamidentityv1.DeleteServiceIdOptions{
+				ID: element.ID,
+			}
+			response, err := service.DeleteServiceID(deleteServiceIdOptions)
 			Expect(response).ToNot(BeNil())
 			Expect(err).To(BeNil())
 		}
 	}
-
 }
