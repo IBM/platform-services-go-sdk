@@ -177,6 +177,25 @@ var _ = Describe(`GlobalTaggingV1 Examples Tests`, func() {
 			Expect(tagResults).ToNot(BeNil())
 
 		})
+		It(`DeleteTag request example`, func() {
+			// begin-delete_tag
+
+			deleteTagOptions := globalTaggingService.NewDeleteTagOptions("tag_test_1")
+
+			deleteTagResults, response, err := globalTaggingService.DeleteTag(deleteTagOptions)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(deleteTagResults, "", "  ")
+			fmt.Printf("\nDeleteTag() result:\n%s\n", string(b))
+
+			// end-delete_tag
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(deleteTagResults).ToNot(BeNil())
+
+		})
 		It(`DeleteTagAll request example`, func() {
 			// begin-delete_tag_all
 
@@ -194,27 +213,6 @@ var _ = Describe(`GlobalTaggingV1 Examples Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(deleteTagsResult).ToNot(BeNil())
-
-		})
-		It(`DeleteTag request example`, func() {
-			// begin-delete_tag
-
-			deleteTagOptions := globalTaggingService.NewDeleteTagOptions(
-				"tag_test_1",
-			)
-
-			deleteTagResults, response, err := globalTaggingService.DeleteTag(deleteTagOptions)
-			if err != nil {
-				panic(err)
-			}
-			b, _ := json.MarshalIndent(deleteTagResults, "", "  ")
-			fmt.Printf("\nDeleteTag() result:\n%s\n", string(b))
-
-			// end-delete_tag
-
-			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(200))
-			Expect(deleteTagResults).ToNot(BeNil())
 
 		})
 	})
