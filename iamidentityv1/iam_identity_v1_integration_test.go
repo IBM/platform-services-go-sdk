@@ -648,8 +648,6 @@ func cleanupResources(service *iamidentityv1.IamIdentityV1) {
 
 	if numServiceIds > 0 {
 		for _, element := range serviceIdList.Serviceids {
-			if *element.Name == serviceIDName {
-			}
 			fmt.Printf(">>> Deleting serviceId: %s\n", *element.ID)
 			deleteServiceIdOptions := &iamidentityv1.DeleteServiceIdOptions{
 				ID: element.ID,
