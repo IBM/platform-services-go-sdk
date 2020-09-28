@@ -132,7 +132,6 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 				Name:        &apikeyName,
 				IamID:       &iamID,
 				Description: core.StringPtr("GoSDK test apikey #1"),
-				AccountID:   &accountID,
 			}
 
 			apiKey, response, err := iamIdentityService.CreateApiKey(createApiKeyOptions)
@@ -157,7 +156,6 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 				Name:        &apikeyName,
 				IamID:       &iamID,
 				Description: core.StringPtr("GoSDK test apikey #2"),
-				AccountID:   &accountID,
 			}
 
 			apiKey, response, err := iamIdentityService.CreateApiKey(createApiKeyOptions)

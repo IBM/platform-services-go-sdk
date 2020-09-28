@@ -39,8 +39,8 @@ var (
 	err        error
 	serviceURL string
 
-	apikeyName    string = "Go-SDK-IT-ApiKey"
-	serviceIDName string = "Go-SDK-IT-ServiceId"
+	apikeyName    string = "Go-SDK-Example-ApiKey"
+	serviceIDName string = "Go-SDK-Example-ServiceId"
 	accountID     string
 	iamID         string
 	iamApiKey     string
@@ -126,8 +126,7 @@ var _ = Describe(`IamIdentityV1 Examples Tests`, func() {
 			// begin-create_api_key
 
 			createApiKeyOptions := iamIdentityService.NewCreateApiKeyOptions(apikeyName, iamID)
-			createApiKeyOptions.SetDescription("GoSDK test apikey #1")
-			createApiKeyOptions.SetAccountID(accountID)
+			createApiKeyOptions.SetDescription("Go Example ApiKey")
 
 			apiKey, response, err := iamIdentityService.CreateApiKey(createApiKeyOptions)
 			if err != nil {
@@ -275,6 +274,7 @@ var _ = Describe(`IamIdentityV1 Examples Tests`, func() {
 			// begin-create_service_id
 
 			createServiceIdOptions := iamIdentityService.NewCreateServiceIdOptions(accountID, serviceIDName)
+			createServiceIdOptions.SetDescription("Go Example ServiceId")
 
 			serviceID, response, err := iamIdentityService.CreateServiceID(createServiceIdOptions)
 			if err != nil {
