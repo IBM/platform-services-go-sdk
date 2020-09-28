@@ -15,7 +15,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-c934890e-20200918-141729
+ * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-6748b103-20200928-080640
  */
  
 
@@ -38,7 +38,7 @@ type IamIdentityV1 struct {
 }
 
 // DefaultServiceURL is the default URL to make service requests to.
-const DefaultServiceURL = "https://iam.test.cloud.ibm.com"
+const DefaultServiceURL = "https://iam.cloud.ibm.com"
 
 // DefaultServiceName is the default key used to find external configuration information.
 const DefaultServiceName = "iam_identity"
