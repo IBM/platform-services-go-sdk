@@ -29,6 +29,23 @@ import (
 	. "github.com/onsi/gomega"
 )
 
+//
+// This file provides an example of how to use the IAM-IDENTITY service.
+//
+// The following configuration properties are assumed to be defined:
+//
+// IAM_IDENTITY_URL=<service url>
+// IAM_IDENTITY_AUTHTYPE=iam
+// IAM_IDENTITY_AUTH_URL=<IAM Token Service url>
+// IAM_IDENTITY_APIKEY=<IAM APIKEY for the User>
+// IAM_IDENTITY_ACCOUNT_ID=<AccountID which is unique to the User>
+// IAM_IDENTITY_IAM_ID=<IAM ID which is unique to the User account>
+//
+// These configuration properties can be exported as environment variables, or stored
+// in a "credentials" file and then:
+// export IBM_CREDENTIALS_FILE=<name of credentials file>
+//
+
 const externalConfigFile = "../iam_identity.env"
 
 var (
@@ -39,17 +56,17 @@ var (
 	err        error
 	serviceURL string
 
-	apikeyName    string = "Go-SDK-Example-ApiKey"
-	serviceIDName string = "Go-SDK-Example-ServiceId"
+	apikeyName    string = "Example-ApiKey"
+	serviceIDName string = "Example-ServiceId"
 	accountID     string
 	iamID         string
 	iamApiKey     string
 
-	apikeyId1   string
-	apikeyEtag1 string
+	apikeyID   string
+	apikeyEtag string
 
-	serviceId1     string
-	serviceIdEtag1 string
+	svcID     string
+	svcIDEtag string
 )
 
 func shouldSkipTest() {
@@ -126,37 +143,57 @@ var _ = Describe(`IamIdentityV1 Examples Tests`, func() {
 			// begin-create_api_key
 
 			createApiKeyOptions := iamIdentityService.NewCreateApiKeyOptions(apikeyName, iamID)
-			createApiKeyOptions.SetDescription("Go Example ApiKey")
+			createApiKeyOptions.SetDescription("Example ApiKey")
 
 			apiKey, response, err := iamIdentityService.CreateApiKey(createApiKeyOptions)
 			if err != nil {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(apiKey, "", "  ")
-			fmt.Printf("\nCreateApiKey() result:\n%s\n", string(b))
+			fmt.Println(string(b))
+			apikeyID = *apiKey.ID
 
 			// end-create_api_key
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(201))
 			Expect(apiKey).ToNot(BeNil())
+			Expect(apikeyID).ToNot(BeNil())
+		})
+		It(`ListApiKeys request example`, func() {
+			// begin-list_api_keys
 
-			apikeyId1 = *apiKey.ID
-			Expect(apikeyId1).ToNot(BeNil())
+			listApiKeysOptions := iamIdentityService.NewListApiKeysOptions()
+			listApiKeysOptions.SetAccountID(accountID)
+			listApiKeysOptions.SetIamID(iamID)
+			listApiKeysOptions.SetIncludeHistory(true)
+
+			apiKeyList, response, err := iamIdentityService.ListApiKeys(listApiKeysOptions)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(apiKeyList, "", "  ")
+			fmt.Println(string(b))
+
+			// end-list_api_keys
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(apiKeyList).ToNot(BeNil())
 		})
 		It(`GetApiKeysDetails request example`, func() {
 			// begin-get_api_keys_details
 
 			getApiKeysDetailsOptions := iamIdentityService.NewGetApiKeysDetailsOptions()
 			getApiKeysDetailsOptions.SetIAMApiKey(iamApiKey)
-			getApiKeysDetailsOptions.SetIncludeHistory(true)
+			getApiKeysDetailsOptions.SetIncludeHistory(false)
 
 			apiKey, response, err := iamIdentityService.GetApiKeysDetails(getApiKeysDetailsOptions)
 			if err != nil {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(apiKey, "", "  ")
-			fmt.Printf("\nGetApiKeyDetails() result:\n%s\n", string(b))
+			fmt.Println(string(b))
 
 			// end-get_api_keys_details
 
@@ -167,49 +204,27 @@ var _ = Describe(`IamIdentityV1 Examples Tests`, func() {
 		It(`GetApiKey request example`, func() {
 			// begin-get_api_key
 
-			getApiKeyOptions := iamIdentityService.NewGetApiKeyOptions(apikeyId1)
-			getApiKeyOptions.SetIncludeHistory(true)
+			getApiKeyOptions := iamIdentityService.NewGetApiKeyOptions(apikeyID)
 
 			apiKey, response, err := iamIdentityService.GetApiKey(getApiKeyOptions)
 			if err != nil {
 				panic(err)
 			}
+			apikeyEtag = response.GetHeaders().Get("Etag")
 			b, _ := json.MarshalIndent(apiKey, "", "  ")
-			fmt.Printf("\nGetApiKey() result:\n%s\n", string(b))
+			fmt.Println(string(b))
 
 			// end-get_api_key
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(apiKey).ToNot(BeNil())
-
-			apikeyEtag1 = response.GetHeaders().Get("Etag")
-			Expect(apikeyEtag1).ToNot(BeEmpty())
-		})
-		It(`ListApiKeys request example`, func() {
-			// begin-list_api_keys
-
-			listApiKeysOptions := iamIdentityService.NewListApiKeysOptions()
-			listApiKeysOptions.SetAccountID(accountID)
-			listApiKeysOptions.SetIamID(iamID)
-
-			apiKeyList, response, err := iamIdentityService.ListApiKeys(listApiKeysOptions)
-			if err != nil {
-				panic(err)
-			}
-			b, _ := json.MarshalIndent(apiKeyList, "", "  ")
-			fmt.Printf("\nListApiKeys() result:\n%s\n", string(b))
-
-			// end-list_api_keys
-
-			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(200))
-			Expect(apiKeyList).ToNot(BeNil())
+			Expect(apikeyEtag).ToNot(BeEmpty())
 		})
 		It(`UpdateApiKey request example`, func() {
 			// begin-update_api_key
 
-			updateApiKeyOptions := iamIdentityService.NewUpdateApiKeyOptions(apikeyId1, apikeyEtag1)
+			updateApiKeyOptions := iamIdentityService.NewUpdateApiKeyOptions(apikeyID, apikeyEtag)
 			updateApiKeyOptions.SetDescription("This is an updated description")
 
 			apiKey, response, err := iamIdentityService.UpdateApiKey(updateApiKeyOptions)
@@ -217,7 +232,7 @@ var _ = Describe(`IamIdentityV1 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(apiKey, "", "  ")
-			fmt.Printf("\nUpdateApiKey() result:\n%s\n", string(b))
+			fmt.Println(string(b))
 
 			// end-update_api_key
 
@@ -228,7 +243,7 @@ var _ = Describe(`IamIdentityV1 Examples Tests`, func() {
 		It(`LockApiKey request example`, func() {
 			// begin-lock_api_key
 
-			lockApiKeyOptions := iamIdentityService.NewLockApiKeyOptions(apikeyId1)
+			lockApiKeyOptions := iamIdentityService.NewLockApiKeyOptions(apikeyID)
 
 			response, err := iamIdentityService.LockApiKey(lockApiKeyOptions)
 			if err != nil {
@@ -243,7 +258,7 @@ var _ = Describe(`IamIdentityV1 Examples Tests`, func() {
 		It(`UnlockApiKey request example`, func() {
 			// begin-unlock_api_key
 
-			unlockApiKeyOptions := iamIdentityService.NewUnlockApiKeyOptions(apikeyId1)
+			unlockApiKeyOptions := iamIdentityService.NewUnlockApiKeyOptions(apikeyID)
 
 			response, err := iamIdentityService.UnlockApiKey(unlockApiKeyOptions)
 			if err != nil {
@@ -258,7 +273,7 @@ var _ = Describe(`IamIdentityV1 Examples Tests`, func() {
 		It(`DeleteApiKey request example`, func() {
 			// begin-delete_api_key
 
-			deleteApiKeyOptions := iamIdentityService.NewDeleteApiKeyOptions(apikeyId1)
+			deleteApiKeyOptions := iamIdentityService.NewDeleteApiKeyOptions(apikeyID)
 
 			response, err := iamIdentityService.DeleteApiKey(deleteApiKeyOptions)
 			if err != nil {
@@ -274,44 +289,42 @@ var _ = Describe(`IamIdentityV1 Examples Tests`, func() {
 			// begin-create_service_id
 
 			createServiceIdOptions := iamIdentityService.NewCreateServiceIdOptions(accountID, serviceIDName)
-			createServiceIdOptions.SetDescription("Go Example ServiceId")
+			createServiceIdOptions.SetDescription("Example ServiceId")
 
 			serviceID, response, err := iamIdentityService.CreateServiceID(createServiceIdOptions)
 			if err != nil {
 				panic(err)
 			}
+			svcID = *serviceID.ID
 			b, _ := json.MarshalIndent(serviceID, "", "  ")
-			fmt.Printf("\nCreateServiceID() result:\n%s\n", string(b))
+			fmt.Println(string(b))
 
 			// end-create_service_id
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(201))
 			Expect(serviceID).ToNot(BeNil())
-
-			serviceId1 = *serviceID.ID
-			Expect(serviceId1).ToNot(BeNil())
+			Expect(svcID).ToNot(BeEmpty())
 		})
 		It(`GetServiceID request example`, func() {
 			// begin-get_service_id
 
-			getServiceIdOptions := iamIdentityService.NewGetServiceIdOptions(serviceId1)
+			getServiceIdOptions := iamIdentityService.NewGetServiceIdOptions(svcID)
 
 			serviceID, response, err := iamIdentityService.GetServiceID(getServiceIdOptions)
 			if err != nil {
 				panic(err)
 			}
+			svcIDEtag = response.GetHeaders().Get("Etag")
 			b, _ := json.MarshalIndent(serviceID, "", "  ")
-			fmt.Printf("\nGetServiceID() result:\n%s\n", string(b))
+			fmt.Println(string(b))
 
 			// end-get_service_id
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(serviceID).ToNot(BeNil())
-
-			serviceIdEtag1 = response.GetHeaders().Get("Etag")
-			Expect(serviceIdEtag1).ToNot(BeEmpty())
+			Expect(svcIDEtag).ToNot(BeEmpty())
 		})
 		It(`ListServiceIds request example`, func() {
 			// begin-list_service_ids
@@ -325,7 +338,7 @@ var _ = Describe(`IamIdentityV1 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(serviceIdList, "", "  ")
-			fmt.Printf("\nListServiceIds() result:\n%s\n", string(b))
+			fmt.Println(string(b))
 
 			// end-list_service_ids
 
@@ -336,7 +349,7 @@ var _ = Describe(`IamIdentityV1 Examples Tests`, func() {
 		It(`UpdateServiceID request example`, func() {
 			// begin-update_service_id
 
-			updateServiceIdOptions := iamIdentityService.NewUpdateServiceIdOptions(serviceId1, serviceIdEtag1)
+			updateServiceIdOptions := iamIdentityService.NewUpdateServiceIdOptions(svcID, svcIDEtag)
 			updateServiceIdOptions.SetDescription("This is an updated description")
 
 			serviceID, response, err := iamIdentityService.UpdateServiceID(updateServiceIdOptions)
@@ -344,7 +357,7 @@ var _ = Describe(`IamIdentityV1 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(serviceID, "", "  ")
-			fmt.Printf("\nUpdateServiceID() result:\n%s\n", string(b))
+			fmt.Println(string(b))
 
 			// end-update_service_id
 
@@ -355,14 +368,14 @@ var _ = Describe(`IamIdentityV1 Examples Tests`, func() {
 		It(`LockServiceID request example`, func() {
 			// begin-lock_service_id
 
-			lockServiceIdOptions := iamIdentityService.NewLockServiceIdOptions(serviceId1)
+			lockServiceIdOptions := iamIdentityService.NewLockServiceIdOptions(svcID)
 
 			serviceID, response, err := iamIdentityService.LockServiceID(lockServiceIdOptions)
 			if err != nil {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(serviceID, "", "  ")
-			fmt.Printf("\nLockServiceID() result:\n%s\n", string(b))
+			fmt.Println(string(b))
 
 			// end-lock_service_id
 
@@ -373,14 +386,14 @@ var _ = Describe(`IamIdentityV1 Examples Tests`, func() {
 		It(`UnlockServiceID request example`, func() {
 			// begin-unlock_service_id
 
-			unlockServiceIdOptions := iamIdentityService.NewUnlockServiceIdOptions(serviceId1)
+			unlockServiceIdOptions := iamIdentityService.NewUnlockServiceIdOptions(svcID)
 
 			serviceID, response, err := iamIdentityService.UnlockServiceID(unlockServiceIdOptions)
 			if err != nil {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(serviceID, "", "  ")
-			fmt.Printf("\nUnlockServiceID() result:\n%s\n", string(b))
+			fmt.Println(string(b))
 
 			// end-unlock_service_id
 
@@ -391,7 +404,7 @@ var _ = Describe(`IamIdentityV1 Examples Tests`, func() {
 		It(`DeleteServiceID request example`, func() {
 			// begin-delete_service_id
 
-			deleteServiceIdOptions := iamIdentityService.NewDeleteServiceIdOptions(serviceId1)
+			deleteServiceIdOptions := iamIdentityService.NewDeleteServiceIdOptions(svcID)
 
 			response, err := iamIdentityService.DeleteServiceID(deleteServiceIdOptions)
 			if err != nil {
