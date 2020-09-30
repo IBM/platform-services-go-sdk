@@ -1,3 +1,10 @@
+# [0.12.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.11.2...v0.12.0) (2020-09-30)
+
+
+### Features
+
+* **IAM Identity:** add service to project ([#46](https://github.com/IBM/platform-services-go-sdk/issues/46)) ([afa5d3b](https://github.com/IBM/platform-services-go-sdk/commit/afa5d3b86aba35c82808143c605b37dfdaf8bbf8))
+
 ## [0.11.2](https://github.com/IBM/platform-services-go-sdk/compare/v0.11.1...v0.11.2) (2020-09-30)
 
 
