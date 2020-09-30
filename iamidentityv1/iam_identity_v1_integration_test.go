@@ -239,32 +239,34 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 			apikeys := []iamidentityv1.ApiKey{}
 
 			// var pageToken *string = nil
+			var pageTokenPresent bool = true
+			var pageToken *string = nil
 
 			// for ok := true; ok; ok = (pageToken != nil) {
-
-			listApiKeysOptions := &iamidentityv1.ListApiKeysOptions{
-				AccountID: &accountID,
-				IamID:     &iamID,
-				//Pagetoken:		core.StringPtr(pageToken),
-				Pagesize:       core.Int64Ptr(int64(100)),
-				IncludeHistory: core.BoolPtr(false),
-			}
-
-			apiKeyList, response, err := iamIdentityService.ListApiKeys(listApiKeysOptions)
-			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(200))
-			Expect(apiKeyList).ToNot(BeNil())
-			// fmt.Printf("\nListApiKeys response:\n%s", toJson(apiKeyList))
-
-			// Walk through the returned results and save off the apikeys that we created earlier.
-			for _, apikey := range apiKeyList.Apikeys {
-				if apikeyName == *apikey.Name {
-					apikeys = append(apikeys, apikey)
+			for pageTokenPresent {
+				listApiKeysOptions := &iamidentityv1.ListApiKeysOptions{
+					AccountID: &accountID,
+					IamID:     &iamID,
+					Pagetoken: pageToken,
+					Pagesize:  core.Int64Ptr(int64(1)),
 				}
-			}
 
-			// pageToken = getPageToken(apiKeyList.Next)
-			// }
+				apiKeyList, response, err := iamIdentityService.ListApiKeys(listApiKeysOptions)
+				Expect(err).To(BeNil())
+				Expect(response.StatusCode).To(Equal(200))
+				Expect(apiKeyList).ToNot(BeNil())
+				// fmt.Printf("\nListApiKeys response:\n%s", toJson(apiKeyList))
+
+				// Walk through the returned results and save off the apikeys that we created earlier.
+				for _, apikey := range apiKeyList.Apikeys {
+					if apikeyName == *apikey.Name {
+						apikeys = append(apikeys, apikey)
+					}
+				}
+
+				pageToken = getPageTokenFromURL(apiKeyList.Next)
+				pageTokenPresent = (pageToken != nil)
+			}
 
 			// Make sure we got back two apikeys.
 			Expect(len(apikeys)).To(Equal(2))
@@ -571,26 +573,35 @@ func getServiceID(iamIdentityService *iamidentityv1.IamIdentityV1, serviceID str
 	return result
 }
 
-func getPageTokenFromURL(s string) string {
+func getPageTokenFromURL(sptr *string) *string {
+	if sptr == nil {
+		return nil
+	}
+
+	s := *sptr
 	if s == "" {
-		return ""
+		return nil
 	}
 
 	u, err := url.Parse(s)
 	if err != nil {
-		return ""
+		return nil
 	}
 
 	if u.RawQuery == "" {
-		return ""
+		return nil
 	}
 
 	q, err := url.ParseQuery(u.RawQuery)
 	if err != nil {
-		return ""
+		return nil
 	}
 
-	return q.Get("pagetoken")
+	token := q.Get("pagetoken")
+	if token == "" {
+		return nil
+	}
+	return &token
 }
 
 func toJson(obj interface{}) string {
