@@ -144,18 +144,22 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 					// Verify the contents of the request
 					Expect(req.URL.EscapedPath()).To(Equal(listTagsPath))
 					Expect(req.Method).To(Equal("GET"))
-					Expect(req.URL.Query()["attached_to"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"testString"}))
+
+					Expect(req.URL.Query()["tag_type"]).To(Equal([]string{"user"}))
 
 
 					// TODO: Add check for full_data query parameter
+
+					Expect(req.URL.Query()["attached_to"]).To(Equal([]string{"testString"}))
 
 					Expect(req.URL.Query()["offset"]).To(Equal([]string{fmt.Sprint(int64(0))}))
 
 					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(1))}))
 
-					Expect(req.URL.Query()["order_by_name"]).To(Equal([]string{"asc"}))
+					Expect(req.URL.Query()["timeout"]).To(Equal([]string{fmt.Sprint(int64(0))}))
 
-					Expect(req.URL.Query()["timeout"]).To(Equal([]string{fmt.Sprint(int64(38))}))
+					Expect(req.URL.Query()["order_by_name"]).To(Equal([]string{"asc"}))
 
 
 					// TODO: Add check for attached_only query parameter
@@ -175,13 +179,15 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 
 				// Construct an instance of the ListTagsOptions model
 				listTagsOptionsModel := new(globaltaggingv1.ListTagsOptions)
+				listTagsOptionsModel.AccountID = core.StringPtr("testString")
+				listTagsOptionsModel.TagType = core.StringPtr("user")
+				listTagsOptionsModel.FullData = core.BoolPtr(true)
 				listTagsOptionsModel.Providers = []string{"ghost"}
 				listTagsOptionsModel.AttachedTo = core.StringPtr("testString")
-				listTagsOptionsModel.FullData = core.BoolPtr(true)
 				listTagsOptionsModel.Offset = core.Int64Ptr(int64(0))
 				listTagsOptionsModel.Limit = core.Int64Ptr(int64(1))
+				listTagsOptionsModel.Timeout = core.Int64Ptr(int64(0))
 				listTagsOptionsModel.OrderByName = core.StringPtr("asc")
-				listTagsOptionsModel.Timeout = core.Int64Ptr(int64(38))
 				listTagsOptionsModel.AttachedOnly = core.BoolPtr(true)
 				listTagsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
@@ -206,25 +212,29 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 					// Verify the contents of the request
 					Expect(req.URL.EscapedPath()).To(Equal(listTagsPath))
 					Expect(req.Method).To(Equal("GET"))
-					Expect(req.URL.Query()["attached_to"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"testString"}))
+
+					Expect(req.URL.Query()["tag_type"]).To(Equal([]string{"user"}))
 
 
 					// TODO: Add check for full_data query parameter
+
+					Expect(req.URL.Query()["attached_to"]).To(Equal([]string{"testString"}))
 
 					Expect(req.URL.Query()["offset"]).To(Equal([]string{fmt.Sprint(int64(0))}))
 
 					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(1))}))
 
-					Expect(req.URL.Query()["order_by_name"]).To(Equal([]string{"asc"}))
+					Expect(req.URL.Query()["timeout"]).To(Equal([]string{fmt.Sprint(int64(0))}))
 
-					Expect(req.URL.Query()["timeout"]).To(Equal([]string{fmt.Sprint(int64(38))}))
+					Expect(req.URL.Query()["order_by_name"]).To(Equal([]string{"asc"}))
 
 
 					// TODO: Add check for attached_only query parameter
 
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"total_count": 10, "offset": 6, "limit": 5, "items": [{"name": "Name"}]}`)
+					fmt.Fprintf(res, "%s", `{"total_count": 0, "offset": 0, "limit": 1, "items": [{"name": "Name"}]}`)
 				}))
 			})
 			It(`Invoke ListTags successfully`, func() {
@@ -243,13 +253,15 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 
 				// Construct an instance of the ListTagsOptions model
 				listTagsOptionsModel := new(globaltaggingv1.ListTagsOptions)
+				listTagsOptionsModel.AccountID = core.StringPtr("testString")
+				listTagsOptionsModel.TagType = core.StringPtr("user")
+				listTagsOptionsModel.FullData = core.BoolPtr(true)
 				listTagsOptionsModel.Providers = []string{"ghost"}
 				listTagsOptionsModel.AttachedTo = core.StringPtr("testString")
-				listTagsOptionsModel.FullData = core.BoolPtr(true)
 				listTagsOptionsModel.Offset = core.Int64Ptr(int64(0))
 				listTagsOptionsModel.Limit = core.Int64Ptr(int64(1))
+				listTagsOptionsModel.Timeout = core.Int64Ptr(int64(0))
 				listTagsOptionsModel.OrderByName = core.StringPtr("asc")
-				listTagsOptionsModel.Timeout = core.Int64Ptr(int64(38))
 				listTagsOptionsModel.AttachedOnly = core.BoolPtr(true)
 				listTagsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
@@ -269,13 +281,15 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 
 				// Construct an instance of the ListTagsOptions model
 				listTagsOptionsModel := new(globaltaggingv1.ListTagsOptions)
+				listTagsOptionsModel.AccountID = core.StringPtr("testString")
+				listTagsOptionsModel.TagType = core.StringPtr("user")
+				listTagsOptionsModel.FullData = core.BoolPtr(true)
 				listTagsOptionsModel.Providers = []string{"ghost"}
 				listTagsOptionsModel.AttachedTo = core.StringPtr("testString")
-				listTagsOptionsModel.FullData = core.BoolPtr(true)
 				listTagsOptionsModel.Offset = core.Int64Ptr(int64(0))
 				listTagsOptionsModel.Limit = core.Int64Ptr(int64(1))
+				listTagsOptionsModel.Timeout = core.Int64Ptr(int64(0))
 				listTagsOptionsModel.OrderByName = core.StringPtr("asc")
-				listTagsOptionsModel.Timeout = core.Int64Ptr(int64(38))
 				listTagsOptionsModel.AttachedOnly = core.BoolPtr(true)
 				listTagsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
@@ -304,6 +318,10 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 					Expect(req.Method).To(Equal("DELETE"))
 					Expect(req.URL.Query()["providers"]).To(Equal([]string{"ghost"}))
 
+					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"testString"}))
+
+					Expect(req.URL.Query()["tag_type"]).To(Equal([]string{"user"}))
+
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
 					fmt.Fprintf(res, `} this is not valid json {`)
@@ -320,6 +338,8 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 				// Construct an instance of the DeleteTagAllOptions model
 				deleteTagAllOptionsModel := new(globaltaggingv1.DeleteTagAllOptions)
 				deleteTagAllOptionsModel.Providers = core.StringPtr("ghost")
+				deleteTagAllOptionsModel.AccountID = core.StringPtr("testString")
+				deleteTagAllOptionsModel.TagType = core.StringPtr("user")
 				deleteTagAllOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
 				result, response, operationErr := globalTaggingService.DeleteTagAll(deleteTagAllOptionsModel)
@@ -345,6 +365,10 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 					Expect(req.Method).To(Equal("DELETE"))
 					Expect(req.URL.Query()["providers"]).To(Equal([]string{"ghost"}))
 
+					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"testString"}))
+
+					Expect(req.URL.Query()["tag_type"]).To(Equal([]string{"user"}))
+
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
 					fmt.Fprintf(res, "%s", `{"total_count": 10, "errors": true, "items": [{"tag_name": "TagName", "is_error": false}]}`)
@@ -367,6 +391,8 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 				// Construct an instance of the DeleteTagAllOptions model
 				deleteTagAllOptionsModel := new(globaltaggingv1.DeleteTagAllOptions)
 				deleteTagAllOptionsModel.Providers = core.StringPtr("ghost")
+				deleteTagAllOptionsModel.AccountID = core.StringPtr("testString")
+				deleteTagAllOptionsModel.TagType = core.StringPtr("user")
 				deleteTagAllOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
@@ -386,6 +412,8 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 				// Construct an instance of the DeleteTagAllOptions model
 				deleteTagAllOptionsModel := new(globaltaggingv1.DeleteTagAllOptions)
 				deleteTagAllOptionsModel.Providers = core.StringPtr("ghost")
+				deleteTagAllOptionsModel.AccountID = core.StringPtr("testString")
+				deleteTagAllOptionsModel.TagType = core.StringPtr("user")
 				deleteTagAllOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := globalTaggingService.SetServiceURL("")
@@ -411,6 +439,10 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 					// Verify the contents of the request
 					Expect(req.URL.EscapedPath()).To(Equal(deleteTagPath))
 					Expect(req.Method).To(Equal("DELETE"))
+					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"testString"}))
+
+					Expect(req.URL.Query()["tag_type"]).To(Equal([]string{"user"}))
+
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
 					fmt.Fprintf(res, `} this is not valid json {`)
@@ -428,6 +460,8 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 				deleteTagOptionsModel := new(globaltaggingv1.DeleteTagOptions)
 				deleteTagOptionsModel.TagName = core.StringPtr("testString")
 				deleteTagOptionsModel.Providers = []string{"ghost"}
+				deleteTagOptionsModel.AccountID = core.StringPtr("testString")
+				deleteTagOptionsModel.TagType = core.StringPtr("user")
 				deleteTagOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
 				result, response, operationErr := globalTaggingService.DeleteTag(deleteTagOptionsModel)
@@ -451,6 +485,10 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 					// Verify the contents of the request
 					Expect(req.URL.EscapedPath()).To(Equal(deleteTagPath))
 					Expect(req.Method).To(Equal("DELETE"))
+					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"testString"}))
+
+					Expect(req.URL.Query()["tag_type"]).To(Equal([]string{"user"}))
+
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
 					fmt.Fprintf(res, "%s", `{"results": [{"provider": "ghost", "is_error": false}]}`)
@@ -474,6 +512,8 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 				deleteTagOptionsModel := new(globaltaggingv1.DeleteTagOptions)
 				deleteTagOptionsModel.TagName = core.StringPtr("testString")
 				deleteTagOptionsModel.Providers = []string{"ghost"}
+				deleteTagOptionsModel.AccountID = core.StringPtr("testString")
+				deleteTagOptionsModel.TagType = core.StringPtr("user")
 				deleteTagOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
@@ -494,6 +534,8 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 				deleteTagOptionsModel := new(globaltaggingv1.DeleteTagOptions)
 				deleteTagOptionsModel.TagName = core.StringPtr("testString")
 				deleteTagOptionsModel.Providers = []string{"ghost"}
+				deleteTagOptionsModel.AccountID = core.StringPtr("testString")
+				deleteTagOptionsModel.TagType = core.StringPtr("user")
 				deleteTagOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := globalTaggingService.SetServiceURL("")
@@ -526,6 +568,10 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 					// Verify the contents of the request
 					Expect(req.URL.EscapedPath()).To(Equal(attachTagPath))
 					Expect(req.Method).To(Equal("POST"))
+					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"testString"}))
+
+					Expect(req.URL.Query()["tag_type"]).To(Equal([]string{"user"}))
+
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
 					fmt.Fprintf(res, `} this is not valid json {`)
@@ -549,6 +595,8 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 				attachTagOptionsModel.Resources = []globaltaggingv1.Resource{*resourceModel}
 				attachTagOptionsModel.TagName = core.StringPtr("testString")
 				attachTagOptionsModel.TagNames = []string{"testString"}
+				attachTagOptionsModel.AccountID = core.StringPtr("testString")
+				attachTagOptionsModel.TagType = core.StringPtr("user")
 				attachTagOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
 				result, response, operationErr := globalTaggingService.AttachTag(attachTagOptionsModel)
@@ -572,6 +620,10 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 					// Verify the contents of the request
 					Expect(req.URL.EscapedPath()).To(Equal(attachTagPath))
 					Expect(req.Method).To(Equal("POST"))
+					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"testString"}))
+
+					Expect(req.URL.Query()["tag_type"]).To(Equal([]string{"user"}))
+
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
 					fmt.Fprintf(res, "%s", `{"results": [{"resource_id": "ResourceID", "is_error": false}]}`)
@@ -601,6 +653,8 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 				attachTagOptionsModel.Resources = []globaltaggingv1.Resource{*resourceModel}
 				attachTagOptionsModel.TagName = core.StringPtr("testString")
 				attachTagOptionsModel.TagNames = []string{"testString"}
+				attachTagOptionsModel.AccountID = core.StringPtr("testString")
+				attachTagOptionsModel.TagType = core.StringPtr("user")
 				attachTagOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
@@ -627,6 +681,8 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 				attachTagOptionsModel.Resources = []globaltaggingv1.Resource{*resourceModel}
 				attachTagOptionsModel.TagName = core.StringPtr("testString")
 				attachTagOptionsModel.TagNames = []string{"testString"}
+				attachTagOptionsModel.AccountID = core.StringPtr("testString")
+				attachTagOptionsModel.TagType = core.StringPtr("user")
 				attachTagOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := globalTaggingService.SetServiceURL("")
@@ -659,6 +715,10 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 					// Verify the contents of the request
 					Expect(req.URL.EscapedPath()).To(Equal(detachTagPath))
 					Expect(req.Method).To(Equal("POST"))
+					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"testString"}))
+
+					Expect(req.URL.Query()["tag_type"]).To(Equal([]string{"user"}))
+
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
 					fmt.Fprintf(res, `} this is not valid json {`)
@@ -682,6 +742,8 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 				detachTagOptionsModel.Resources = []globaltaggingv1.Resource{*resourceModel}
 				detachTagOptionsModel.TagName = core.StringPtr("testString")
 				detachTagOptionsModel.TagNames = []string{"testString"}
+				detachTagOptionsModel.AccountID = core.StringPtr("testString")
+				detachTagOptionsModel.TagType = core.StringPtr("user")
 				detachTagOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
 				result, response, operationErr := globalTaggingService.DetachTag(detachTagOptionsModel)
@@ -705,6 +767,10 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 					// Verify the contents of the request
 					Expect(req.URL.EscapedPath()).To(Equal(detachTagPath))
 					Expect(req.Method).To(Equal("POST"))
+					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"testString"}))
+
+					Expect(req.URL.Query()["tag_type"]).To(Equal([]string{"user"}))
+
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
 					fmt.Fprintf(res, "%s", `{"results": [{"resource_id": "ResourceID", "is_error": false}]}`)
@@ -734,6 +800,8 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 				detachTagOptionsModel.Resources = []globaltaggingv1.Resource{*resourceModel}
 				detachTagOptionsModel.TagName = core.StringPtr("testString")
 				detachTagOptionsModel.TagNames = []string{"testString"}
+				detachTagOptionsModel.AccountID = core.StringPtr("testString")
+				detachTagOptionsModel.TagType = core.StringPtr("user")
 				detachTagOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
@@ -760,6 +828,8 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 				detachTagOptionsModel.Resources = []globaltaggingv1.Resource{*resourceModel}
 				detachTagOptionsModel.TagName = core.StringPtr("testString")
 				detachTagOptionsModel.TagNames = []string{"testString"}
+				detachTagOptionsModel.AccountID = core.StringPtr("testString")
+				detachTagOptionsModel.TagType = core.StringPtr("user")
 				detachTagOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := globalTaggingService.SetServiceURL("")
@@ -803,20 +873,28 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 				attachTagOptionsModel.SetResources([]globaltaggingv1.Resource{*resourceModel})
 				attachTagOptionsModel.SetTagName("testString")
 				attachTagOptionsModel.SetTagNames([]string{"testString"})
+				attachTagOptionsModel.SetAccountID("testString")
+				attachTagOptionsModel.SetTagType("user")
 				attachTagOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(attachTagOptionsModel).ToNot(BeNil())
 				Expect(attachTagOptionsModel.Resources).To(Equal([]globaltaggingv1.Resource{*resourceModel}))
 				Expect(attachTagOptionsModel.TagName).To(Equal(core.StringPtr("testString")))
 				Expect(attachTagOptionsModel.TagNames).To(Equal([]string{"testString"}))
+				Expect(attachTagOptionsModel.AccountID).To(Equal(core.StringPtr("testString")))
+				Expect(attachTagOptionsModel.TagType).To(Equal(core.StringPtr("user")))
 				Expect(attachTagOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewDeleteTagAllOptions successfully`, func() {
 				// Construct an instance of the DeleteTagAllOptions model
 				deleteTagAllOptionsModel := globalTaggingService.NewDeleteTagAllOptions()
 				deleteTagAllOptionsModel.SetProviders("ghost")
+				deleteTagAllOptionsModel.SetAccountID("testString")
+				deleteTagAllOptionsModel.SetTagType("user")
 				deleteTagAllOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(deleteTagAllOptionsModel).ToNot(BeNil())
 				Expect(deleteTagAllOptionsModel.Providers).To(Equal(core.StringPtr("ghost")))
+				Expect(deleteTagAllOptionsModel.AccountID).To(Equal(core.StringPtr("testString")))
+				Expect(deleteTagAllOptionsModel.TagType).To(Equal(core.StringPtr("user")))
 				Expect(deleteTagAllOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewDeleteTagOptions successfully`, func() {
@@ -825,10 +903,14 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 				deleteTagOptionsModel := globalTaggingService.NewDeleteTagOptions(tagName)
 				deleteTagOptionsModel.SetTagName("testString")
 				deleteTagOptionsModel.SetProviders([]string{"ghost"})
+				deleteTagOptionsModel.SetAccountID("testString")
+				deleteTagOptionsModel.SetTagType("user")
 				deleteTagOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(deleteTagOptionsModel).ToNot(BeNil())
 				Expect(deleteTagOptionsModel.TagName).To(Equal(core.StringPtr("testString")))
 				Expect(deleteTagOptionsModel.Providers).To(Equal([]string{"ghost"}))
+				Expect(deleteTagOptionsModel.AccountID).To(Equal(core.StringPtr("testString")))
+				Expect(deleteTagOptionsModel.TagType).To(Equal(core.StringPtr("user")))
 				Expect(deleteTagOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewDetachTagOptions successfully`, func() {
@@ -846,33 +928,41 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 				detachTagOptionsModel.SetResources([]globaltaggingv1.Resource{*resourceModel})
 				detachTagOptionsModel.SetTagName("testString")
 				detachTagOptionsModel.SetTagNames([]string{"testString"})
+				detachTagOptionsModel.SetAccountID("testString")
+				detachTagOptionsModel.SetTagType("user")
 				detachTagOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(detachTagOptionsModel).ToNot(BeNil())
 				Expect(detachTagOptionsModel.Resources).To(Equal([]globaltaggingv1.Resource{*resourceModel}))
 				Expect(detachTagOptionsModel.TagName).To(Equal(core.StringPtr("testString")))
 				Expect(detachTagOptionsModel.TagNames).To(Equal([]string{"testString"}))
+				Expect(detachTagOptionsModel.AccountID).To(Equal(core.StringPtr("testString")))
+				Expect(detachTagOptionsModel.TagType).To(Equal(core.StringPtr("user")))
 				Expect(detachTagOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewListTagsOptions successfully`, func() {
 				// Construct an instance of the ListTagsOptions model
 				listTagsOptionsModel := globalTaggingService.NewListTagsOptions()
+				listTagsOptionsModel.SetAccountID("testString")
+				listTagsOptionsModel.SetTagType("user")
+				listTagsOptionsModel.SetFullData(true)
 				listTagsOptionsModel.SetProviders([]string{"ghost"})
 				listTagsOptionsModel.SetAttachedTo("testString")
-				listTagsOptionsModel.SetFullData(true)
 				listTagsOptionsModel.SetOffset(int64(0))
 				listTagsOptionsModel.SetLimit(int64(1))
+				listTagsOptionsModel.SetTimeout(int64(0))
 				listTagsOptionsModel.SetOrderByName("asc")
-				listTagsOptionsModel.SetTimeout(int64(38))
 				listTagsOptionsModel.SetAttachedOnly(true)
 				listTagsOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(listTagsOptionsModel).ToNot(BeNil())
+				Expect(listTagsOptionsModel.AccountID).To(Equal(core.StringPtr("testString")))
+				Expect(listTagsOptionsModel.TagType).To(Equal(core.StringPtr("user")))
+				Expect(listTagsOptionsModel.FullData).To(Equal(core.BoolPtr(true)))
 				Expect(listTagsOptionsModel.Providers).To(Equal([]string{"ghost"}))
 				Expect(listTagsOptionsModel.AttachedTo).To(Equal(core.StringPtr("testString")))
-				Expect(listTagsOptionsModel.FullData).To(Equal(core.BoolPtr(true)))
 				Expect(listTagsOptionsModel.Offset).To(Equal(core.Int64Ptr(int64(0))))
 				Expect(listTagsOptionsModel.Limit).To(Equal(core.Int64Ptr(int64(1))))
+				Expect(listTagsOptionsModel.Timeout).To(Equal(core.Int64Ptr(int64(0))))
 				Expect(listTagsOptionsModel.OrderByName).To(Equal(core.StringPtr("asc")))
-				Expect(listTagsOptionsModel.Timeout).To(Equal(core.Int64Ptr(int64(38))))
 				Expect(listTagsOptionsModel.AttachedOnly).To(Equal(core.BoolPtr(true)))
 				Expect(listTagsOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
