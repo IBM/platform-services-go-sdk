@@ -1,3 +1,10 @@
+## [0.11.2](https://github.com/IBM/platform-services-go-sdk/compare/v0.11.1...v0.11.2) (2020-09-30)
+
+
+### Bug Fixes
+
+* **Global Tagging:** re-gen service with latest API definition ([#47](https://github.com/IBM/platform-services-go-sdk/issues/47)) ([356c4e1](https://github.com/IBM/platform-services-go-sdk/commit/356c4e190d8f63a916390998e003f13db45f4d58))
+
 ## [0.11.1](https://github.com/IBM/platform-services-go-sdk/compare/v0.11.0...v0.11.1) (2020-09-16)
 
 
