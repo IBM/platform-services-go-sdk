@@ -313,7 +313,7 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 			response, err := iamIdentityService.LockApiKey(lockApiKeyOptions)
 
 			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(200))
+			Expect(response.StatusCode).To(Equal(204))
 
 			apiKey := getApikey(iamIdentityService, apikeyId2)
 			Expect(apiKey).ToNot(BeNil())
@@ -335,7 +335,7 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 			response, err := iamIdentityService.UnlockApiKey(unlockApiKeyOptions)
 
 			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(200))
+			Expect(response.StatusCode).To(Equal(204))
 
 			apiKey := getApikey(iamIdentityService, apikeyId2)
 			Expect(apiKey).ToNot(BeNil())
@@ -498,12 +498,13 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 				ID: &serviceId1,
 			}
 
-			serviceID, response, err := iamIdentityService.LockServiceID(lockServiceIdOptions)
+			response, err := iamIdentityService.LockServiceID(lockServiceIdOptions)
 			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(200))
-			Expect(serviceID).ToNot(BeNil())
+			Expect(response.StatusCode).To(Equal(204))
 			// fmt.Printf("\nLockServiceID response:\n%s", toJson(serviceID))
 
+			serviceID := getServiceID(iamIdentityService, serviceId1)
+			Expect(serviceID).ToNot(BeNil())
 			Expect(*serviceID.Locked).To(BeTrue())
 		})
 	})
@@ -519,13 +520,14 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 				ID: &serviceId1,
 			}
 
-			serviceID, response, err := iamIdentityService.UnlockServiceID(unlockServiceIdOptions)
+			response, err := iamIdentityService.UnlockServiceID(unlockServiceIdOptions)
 
 			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(200))
-			Expect(serviceID).ToNot(BeNil())
+			Expect(response.StatusCode).To(Equal(204))
 			// fmt.Printf("\nUnlockServiceID response:\n%s", toJson(serviceID))
 
+			serviceID := getServiceID(iamIdentityService, serviceId1)
+			Expect(serviceID).ToNot(BeNil())
 			Expect(*serviceID.Locked).To(BeFalse())
 		})
 	})

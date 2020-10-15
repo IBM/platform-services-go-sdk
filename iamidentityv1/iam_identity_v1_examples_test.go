@@ -253,7 +253,7 @@ var _ = Describe(`IamIdentityV1 Examples Tests`, func() {
 			// end-lock_api_key
 
 			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(200))
+			Expect(response.StatusCode).To(Equal(204))
 		})
 		It(`UnlockApiKey request example`, func() {
 			// begin-unlock_api_key
@@ -268,7 +268,7 @@ var _ = Describe(`IamIdentityV1 Examples Tests`, func() {
 			// end-unlock_api_key
 
 			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(200))
+			Expect(response.StatusCode).To(Equal(204))
 		})
 		It(`DeleteApiKey request example`, func() {
 			// begin-delete_api_key
@@ -370,36 +370,30 @@ var _ = Describe(`IamIdentityV1 Examples Tests`, func() {
 
 			lockServiceIdOptions := iamIdentityService.NewLockServiceIdOptions(svcID)
 
-			serviceID, response, err := iamIdentityService.LockServiceID(lockServiceIdOptions)
+			response, err := iamIdentityService.LockServiceID(lockServiceIdOptions)
 			if err != nil {
 				panic(err)
 			}
-			b, _ := json.MarshalIndent(serviceID, "", "  ")
-			fmt.Println(string(b))
 
 			// end-lock_service_id
 
 			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(200))
-			Expect(serviceID).ToNot(BeNil())
+			Expect(response.StatusCode).To(Equal(204))
 		})
 		It(`UnlockServiceID request example`, func() {
 			// begin-unlock_service_id
 
 			unlockServiceIdOptions := iamIdentityService.NewUnlockServiceIdOptions(svcID)
 
-			serviceID, response, err := iamIdentityService.UnlockServiceID(unlockServiceIdOptions)
+			response, err := iamIdentityService.UnlockServiceID(unlockServiceIdOptions)
 			if err != nil {
 				panic(err)
 			}
-			b, _ := json.MarshalIndent(serviceID, "", "  ")
-			fmt.Println(string(b))
 
 			// end-unlock_service_id
 
 			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(200))
-			Expect(serviceID).ToNot(BeNil())
+			Expect(response.StatusCode).To(Equal(204))
 		})
 		It(`DeleteServiceID request example`, func() {
 			// begin-delete_service_id
