@@ -15,7 +15,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-6748b103-20200928-080640
+ * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-fc98139c-20201015-143541
  */
  
 
@@ -23,6 +23,7 @@
 package iamidentityv1
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"github.com/IBM/go-sdk-core/v4/core"
@@ -110,18 +111,40 @@ func (iamIdentity *IamIdentityV1) SetServiceURL(url string) error {
 	return iamIdentity.Service.SetServiceURL(url)
 }
 
+// GetServiceURL returns the service URL
+func (iamIdentity *IamIdentityV1) GetServiceURL() string {
+	return iamIdentity.Service.GetServiceURL()
+}
+
+// SetEnableGzipCompression sets the service's EnableGzipCompression field
+func (iamIdentity *IamIdentityV1) SetEnableGzipCompression(enableGzip bool) {
+	iamIdentity.Service.SetEnableGzipCompression(enableGzip)
+}
+
+// GetEnableGzipCompression returns the service's EnableGzipCompression field
+func (iamIdentity *IamIdentityV1) GetEnableGzipCompression() bool {
+	return iamIdentity.Service.GetEnableGzipCompression()
+}
+
 // ListApiKeys : Get API keys for a given service or user IAM ID and account ID
 // Returns the list of API key details for a given service or user IAM ID and account ID. Users can manage user API keys
 // for themself, or service ID API keys for  service IDs that are bound to an entity they have access to. In case of
 // service IDs and their API keys, a user must be either an account owner,  a IBM Cloud org manager or IBM Cloud space
 // developer in order to manage  service IDs of the entity.
 func (iamIdentity *IamIdentityV1) ListApiKeys(listApiKeysOptions *ListApiKeysOptions) (result *ApiKeyList, response *core.DetailedResponse, err error) {
+	return iamIdentity.ListApiKeysWithContext(context.Background(), listApiKeysOptions)
+}
+
+// ListApiKeysWithContext is an alternate form of the ListApiKeys method which supports a Context parameter
+func (iamIdentity *IamIdentityV1) ListApiKeysWithContext(ctx context.Context, listApiKeysOptions *ListApiKeysOptions) (result *ApiKeyList, response *core.DetailedResponse, err error) {
 	err = core.ValidateStruct(listApiKeysOptions, "listApiKeysOptions")
 	if err != nil {
 		return
 	}
 
 	builder := core.NewRequestBuilder(core.GET)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = iamIdentity.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(iamIdentity.Service.Options.URL, `/v1/apikeys`, nil)
 	if err != nil {
 		return
@@ -188,6 +211,11 @@ func (iamIdentity *IamIdentityV1) ListApiKeys(listApiKeysOptions *ListApiKeysOpt
 // Creates an API key for a UserID or service ID. Users can manage user API keys for themself, or service ID API keys
 // for  service IDs that are bound to an entity they have access to.
 func (iamIdentity *IamIdentityV1) CreateApiKey(createApiKeyOptions *CreateApiKeyOptions) (result *ApiKey, response *core.DetailedResponse, err error) {
+	return iamIdentity.CreateApiKeyWithContext(context.Background(), createApiKeyOptions)
+}
+
+// CreateApiKeyWithContext is an alternate form of the CreateApiKey method which supports a Context parameter
+func (iamIdentity *IamIdentityV1) CreateApiKeyWithContext(ctx context.Context, createApiKeyOptions *CreateApiKeyOptions) (result *ApiKey, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(createApiKeyOptions, "createApiKeyOptions cannot be nil")
 	if err != nil {
 		return
@@ -198,6 +226,8 @@ func (iamIdentity *IamIdentityV1) CreateApiKey(createApiKeyOptions *CreateApiKey
 	}
 
 	builder := core.NewRequestBuilder(core.POST)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = iamIdentity.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(iamIdentity.Service.Options.URL, `/v1/apikeys`, nil)
 	if err != nil {
 		return
@@ -264,12 +294,19 @@ func (iamIdentity *IamIdentityV1) CreateApiKey(createApiKeyOptions *CreateApiKey
 // Returns the details of an API key by its value. Users can manage user API keys for themself, or service ID API keys
 // for service IDs that are bound to an entity they have access to.
 func (iamIdentity *IamIdentityV1) GetApiKeysDetails(getApiKeysDetailsOptions *GetApiKeysDetailsOptions) (result *ApiKey, response *core.DetailedResponse, err error) {
+	return iamIdentity.GetApiKeysDetailsWithContext(context.Background(), getApiKeysDetailsOptions)
+}
+
+// GetApiKeysDetailsWithContext is an alternate form of the GetApiKeysDetails method which supports a Context parameter
+func (iamIdentity *IamIdentityV1) GetApiKeysDetailsWithContext(ctx context.Context, getApiKeysDetailsOptions *GetApiKeysDetailsOptions) (result *ApiKey, response *core.DetailedResponse, err error) {
 	err = core.ValidateStruct(getApiKeysDetailsOptions, "getApiKeysDetailsOptions")
 	if err != nil {
 		return
 	}
 
 	builder := core.NewRequestBuilder(core.GET)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = iamIdentity.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(iamIdentity.Service.Options.URL, `/v1/apikeys/details`, nil)
 	if err != nil {
 		return
@@ -317,6 +354,11 @@ func (iamIdentity *IamIdentityV1) GetApiKeysDetails(getApiKeysDetailsOptions *Ge
 // either an account owner,  a IBM Cloud org manager or IBM Cloud space developer in order to manage  service IDs of the
 // entity.
 func (iamIdentity *IamIdentityV1) GetApiKey(getApiKeyOptions *GetApiKeyOptions) (result *ApiKey, response *core.DetailedResponse, err error) {
+	return iamIdentity.GetApiKeyWithContext(context.Background(), getApiKeyOptions)
+}
+
+// GetApiKeyWithContext is an alternate form of the GetApiKey method which supports a Context parameter
+func (iamIdentity *IamIdentityV1) GetApiKeyWithContext(ctx context.Context, getApiKeyOptions *GetApiKeyOptions) (result *ApiKey, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(getApiKeyOptions, "getApiKeyOptions cannot be nil")
 	if err != nil {
 		return
@@ -331,6 +373,8 @@ func (iamIdentity *IamIdentityV1) GetApiKey(getApiKeyOptions *GetApiKeyOptions) 
 	}
 
 	builder := core.NewRequestBuilder(core.GET)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = iamIdentity.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(iamIdentity.Service.Options.URL, `/v1/apikeys/{id}`, pathParamsMap)
 	if err != nil {
 		return
@@ -375,6 +419,11 @@ func (iamIdentity *IamIdentityV1) GetApiKey(getApiKeyOptions *GetApiKeyOptions) 
 // property's value, pass the property with an empty value "".Users can manage user API keys for themself, or service ID
 // API keys for service IDs that are bound to an entity they have access to.
 func (iamIdentity *IamIdentityV1) UpdateApiKey(updateApiKeyOptions *UpdateApiKeyOptions) (result *ApiKey, response *core.DetailedResponse, err error) {
+	return iamIdentity.UpdateApiKeyWithContext(context.Background(), updateApiKeyOptions)
+}
+
+// UpdateApiKeyWithContext is an alternate form of the UpdateApiKey method which supports a Context parameter
+func (iamIdentity *IamIdentityV1) UpdateApiKeyWithContext(ctx context.Context, updateApiKeyOptions *UpdateApiKeyOptions) (result *ApiKey, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(updateApiKeyOptions, "updateApiKeyOptions cannot be nil")
 	if err != nil {
 		return
@@ -389,6 +438,8 @@ func (iamIdentity *IamIdentityV1) UpdateApiKey(updateApiKeyOptions *UpdateApiKey
 	}
 
 	builder := core.NewRequestBuilder(core.PUT)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = iamIdentity.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(iamIdentity.Service.Options.URL, `/v1/apikeys/{id}`, pathParamsMap)
 	if err != nil {
 		return
@@ -444,6 +495,11 @@ func (iamIdentity *IamIdentityV1) UpdateApiKey(updateApiKeyOptions *UpdateApiKey
 // API key. Users can manage user API keys for themself, or service ID API  keys for service IDs that are bound to an
 // entity they have access  to.
 func (iamIdentity *IamIdentityV1) DeleteApiKey(deleteApiKeyOptions *DeleteApiKeyOptions) (response *core.DetailedResponse, err error) {
+	return iamIdentity.DeleteApiKeyWithContext(context.Background(), deleteApiKeyOptions)
+}
+
+// DeleteApiKeyWithContext is an alternate form of the DeleteApiKey method which supports a Context parameter
+func (iamIdentity *IamIdentityV1) DeleteApiKeyWithContext(ctx context.Context, deleteApiKeyOptions *DeleteApiKeyOptions) (response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(deleteApiKeyOptions, "deleteApiKeyOptions cannot be nil")
 	if err != nil {
 		return
@@ -458,6 +514,8 @@ func (iamIdentity *IamIdentityV1) DeleteApiKey(deleteApiKeyOptions *DeleteApiKey
 	}
 
 	builder := core.NewRequestBuilder(core.DELETE)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = iamIdentity.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(iamIdentity.Service.Options.URL, `/v1/apikeys/{id}`, pathParamsMap)
 	if err != nil {
 		return
@@ -487,6 +545,11 @@ func (iamIdentity *IamIdentityV1) DeleteApiKey(deleteApiKeyOptions *DeleteApiKey
 // bound to an entity they have access to. In case of service IDs and their API keys, a user must be either an account
 // owner, a IBM Cloud org manager or IBM Cloud space developer in order to manage service IDs of the entity.
 func (iamIdentity *IamIdentityV1) LockApiKey(lockApiKeyOptions *LockApiKeyOptions) (response *core.DetailedResponse, err error) {
+	return iamIdentity.LockApiKeyWithContext(context.Background(), lockApiKeyOptions)
+}
+
+// LockApiKeyWithContext is an alternate form of the LockApiKey method which supports a Context parameter
+func (iamIdentity *IamIdentityV1) LockApiKeyWithContext(ctx context.Context, lockApiKeyOptions *LockApiKeyOptions) (response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(lockApiKeyOptions, "lockApiKeyOptions cannot be nil")
 	if err != nil {
 		return
@@ -501,6 +564,8 @@ func (iamIdentity *IamIdentityV1) LockApiKey(lockApiKeyOptions *LockApiKeyOption
 	}
 
 	builder := core.NewRequestBuilder(core.POST)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = iamIdentity.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(iamIdentity.Service.Options.URL, `/v1/apikeys/{id}/lock`, pathParamsMap)
 	if err != nil {
 		return
@@ -530,6 +595,11 @@ func (iamIdentity *IamIdentityV1) LockApiKey(lockApiKeyOptions *LockApiKeyOption
 // are bound to an entity they have access to. In case of service IDs and their API keys, a user must be either an
 // account owner, a IBM Cloud org manager or IBM Cloud space developer in order to manage service IDs of the entity.
 func (iamIdentity *IamIdentityV1) UnlockApiKey(unlockApiKeyOptions *UnlockApiKeyOptions) (response *core.DetailedResponse, err error) {
+	return iamIdentity.UnlockApiKeyWithContext(context.Background(), unlockApiKeyOptions)
+}
+
+// UnlockApiKeyWithContext is an alternate form of the UnlockApiKey method which supports a Context parameter
+func (iamIdentity *IamIdentityV1) UnlockApiKeyWithContext(ctx context.Context, unlockApiKeyOptions *UnlockApiKeyOptions) (response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(unlockApiKeyOptions, "unlockApiKeyOptions cannot be nil")
 	if err != nil {
 		return
@@ -544,6 +614,8 @@ func (iamIdentity *IamIdentityV1) UnlockApiKey(unlockApiKeyOptions *UnlockApiKey
 	}
 
 	builder := core.NewRequestBuilder(core.DELETE)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = iamIdentity.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(iamIdentity.Service.Options.URL, `/v1/apikeys/{id}/lock`, pathParamsMap)
 	if err != nil {
 		return
@@ -572,12 +644,19 @@ func (iamIdentity *IamIdentityV1) UnlockApiKey(unlockApiKeyOptions *UnlockApiKey
 // Returns a list of service IDs. Users can manage user API keys for themself, or service ID API keys for service IDs
 // that are bound to an entity they have access to.
 func (iamIdentity *IamIdentityV1) ListServiceIds(listServiceIdsOptions *ListServiceIdsOptions) (result *ServiceIdList, response *core.DetailedResponse, err error) {
+	return iamIdentity.ListServiceIdsWithContext(context.Background(), listServiceIdsOptions)
+}
+
+// ListServiceIdsWithContext is an alternate form of the ListServiceIds method which supports a Context parameter
+func (iamIdentity *IamIdentityV1) ListServiceIdsWithContext(ctx context.Context, listServiceIdsOptions *ListServiceIdsOptions) (result *ServiceIdList, response *core.DetailedResponse, err error) {
 	err = core.ValidateStruct(listServiceIdsOptions, "listServiceIdsOptions")
 	if err != nil {
 		return
 	}
 
 	builder := core.NewRequestBuilder(core.GET)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = iamIdentity.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(iamIdentity.Service.Options.URL, `/v1/serviceids/`, nil)
 	if err != nil {
 		return
@@ -638,6 +717,11 @@ func (iamIdentity *IamIdentityV1) ListServiceIds(listServiceIdsOptions *ListServ
 // Creates a service ID for an IBM Cloud account. Users can manage user API keys for themself, or service ID API keys
 // for service IDs that are bound to an entity they have access to.
 func (iamIdentity *IamIdentityV1) CreateServiceID(createServiceIdOptions *CreateServiceIdOptions) (result *ServiceID, response *core.DetailedResponse, err error) {
+	return iamIdentity.CreateServiceIDWithContext(context.Background(), createServiceIdOptions)
+}
+
+// CreateServiceIDWithContext is an alternate form of the CreateServiceID method which supports a Context parameter
+func (iamIdentity *IamIdentityV1) CreateServiceIDWithContext(ctx context.Context, createServiceIdOptions *CreateServiceIdOptions) (result *ServiceID, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(createServiceIdOptions, "createServiceIdOptions cannot be nil")
 	if err != nil {
 		return
@@ -648,6 +732,8 @@ func (iamIdentity *IamIdentityV1) CreateServiceID(createServiceIdOptions *Create
 	}
 
 	builder := core.NewRequestBuilder(core.POST)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = iamIdentity.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(iamIdentity.Service.Options.URL, `/v1/serviceids/`, nil)
 	if err != nil {
 		return
@@ -711,6 +797,11 @@ func (iamIdentity *IamIdentityV1) CreateServiceID(createServiceIdOptions *Create
 // Returns the details of a service ID. Users can manage user API keys for themself, or service ID API keys for service
 // IDs that are bound to an entity they have access to.
 func (iamIdentity *IamIdentityV1) GetServiceID(getServiceIdOptions *GetServiceIdOptions) (result *ServiceID, response *core.DetailedResponse, err error) {
+	return iamIdentity.GetServiceIDWithContext(context.Background(), getServiceIdOptions)
+}
+
+// GetServiceIDWithContext is an alternate form of the GetServiceID method which supports a Context parameter
+func (iamIdentity *IamIdentityV1) GetServiceIDWithContext(ctx context.Context, getServiceIdOptions *GetServiceIdOptions) (result *ServiceID, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(getServiceIdOptions, "getServiceIdOptions cannot be nil")
 	if err != nil {
 		return
@@ -725,6 +816,8 @@ func (iamIdentity *IamIdentityV1) GetServiceID(getServiceIdOptions *GetServiceId
 	}
 
 	builder := core.NewRequestBuilder(core.GET)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = iamIdentity.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(iamIdentity.Service.Options.URL, `/v1/serviceids/{id}`, pathParamsMap)
 	if err != nil {
 		return
@@ -769,6 +862,11 @@ func (iamIdentity *IamIdentityV1) GetServiceID(getServiceIdOptions *GetServiceId
 // one property's value, pass the property with an empty value "".Users can manage user API keys for themself, or
 // service ID API keys for service IDs that are bound to an entity they have access to.
 func (iamIdentity *IamIdentityV1) UpdateServiceID(updateServiceIdOptions *UpdateServiceIdOptions) (result *ServiceID, response *core.DetailedResponse, err error) {
+	return iamIdentity.UpdateServiceIDWithContext(context.Background(), updateServiceIdOptions)
+}
+
+// UpdateServiceIDWithContext is an alternate form of the UpdateServiceID method which supports a Context parameter
+func (iamIdentity *IamIdentityV1) UpdateServiceIDWithContext(ctx context.Context, updateServiceIdOptions *UpdateServiceIdOptions) (result *ServiceID, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(updateServiceIdOptions, "updateServiceIdOptions cannot be nil")
 	if err != nil {
 		return
@@ -783,6 +881,8 @@ func (iamIdentity *IamIdentityV1) UpdateServiceID(updateServiceIdOptions *Update
 	}
 
 	builder := core.NewRequestBuilder(core.PUT)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = iamIdentity.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(iamIdentity.Service.Options.URL, `/v1/serviceids/{id}`, pathParamsMap)
 	if err != nil {
 		return
@@ -842,6 +942,11 @@ func (iamIdentity *IamIdentityV1) UpdateServiceID(updateServiceIdOptions *Update
 // deleted if the associated API keys were successfully deleted before. Users can manage user API keys for themself, or
 // service ID API keys for service IDs that are bound to an entity they have access to.
 func (iamIdentity *IamIdentityV1) DeleteServiceID(deleteServiceIdOptions *DeleteServiceIdOptions) (response *core.DetailedResponse, err error) {
+	return iamIdentity.DeleteServiceIDWithContext(context.Background(), deleteServiceIdOptions)
+}
+
+// DeleteServiceIDWithContext is an alternate form of the DeleteServiceID method which supports a Context parameter
+func (iamIdentity *IamIdentityV1) DeleteServiceIDWithContext(ctx context.Context, deleteServiceIdOptions *DeleteServiceIdOptions) (response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(deleteServiceIdOptions, "deleteServiceIdOptions cannot be nil")
 	if err != nil {
 		return
@@ -856,6 +961,8 @@ func (iamIdentity *IamIdentityV1) DeleteServiceID(deleteServiceIdOptions *Delete
 	}
 
 	builder := core.NewRequestBuilder(core.DELETE)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = iamIdentity.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(iamIdentity.Service.Options.URL, `/v1/serviceids/{id}`, pathParamsMap)
 	if err != nil {
 		return
@@ -884,7 +991,12 @@ func (iamIdentity *IamIdentityV1) DeleteServiceID(deleteServiceIdOptions *Delete
 // Locks a service ID by ID. Users can manage user API keys for themself, or service ID API keys for service IDs that
 // are bound to an entity they have access to. In case of service IDs and their API keys, a user must be either an
 // account owner, a IBM Cloud org manager or IBM Cloud space developer in order to manage service IDs of the entity.
-func (iamIdentity *IamIdentityV1) LockServiceID(lockServiceIdOptions *LockServiceIdOptions) (result *ServiceID, response *core.DetailedResponse, err error) {
+func (iamIdentity *IamIdentityV1) LockServiceID(lockServiceIdOptions *LockServiceIdOptions) (response *core.DetailedResponse, err error) {
+	return iamIdentity.LockServiceIDWithContext(context.Background(), lockServiceIdOptions)
+}
+
+// LockServiceIDWithContext is an alternate form of the LockServiceID method which supports a Context parameter
+func (iamIdentity *IamIdentityV1) LockServiceIDWithContext(ctx context.Context, lockServiceIdOptions *LockServiceIdOptions) (response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(lockServiceIdOptions, "lockServiceIdOptions cannot be nil")
 	if err != nil {
 		return
@@ -899,6 +1011,8 @@ func (iamIdentity *IamIdentityV1) LockServiceID(lockServiceIdOptions *LockServic
 	}
 
 	builder := core.NewRequestBuilder(core.POST)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = iamIdentity.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(iamIdentity.Service.Options.URL, `/v1/serviceids/{id}/lock`, pathParamsMap)
 	if err != nil {
 		return
@@ -912,23 +1026,13 @@ func (iamIdentity *IamIdentityV1) LockServiceID(lockServiceIdOptions *LockServic
 	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
-	builder.AddHeader("Accept", "application/json")
 
 	request, err := builder.Build()
 	if err != nil {
 		return
 	}
 
-	var rawResponse map[string]json.RawMessage
-	response, err = iamIdentity.Service.Request(request, &rawResponse)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalServiceID)
-	if err != nil {
-		return
-	}
-	response.Result = result
+	response, err = iamIdentity.Service.Request(request, nil)
 
 	return
 }
@@ -937,7 +1041,12 @@ func (iamIdentity *IamIdentityV1) LockServiceID(lockServiceIdOptions *LockServic
 // Unlocks a service ID by ID. Users can manage user API keys for themself, or service ID API keys for service IDs that
 // are bound to an entity they have access to. In case of service IDs and their API keys, a user must be either an
 // account owner, a IBM Cloud org manager or IBM Cloud space developer in order to manage service IDs of the entity.
-func (iamIdentity *IamIdentityV1) UnlockServiceID(unlockServiceIdOptions *UnlockServiceIdOptions) (result *ServiceID, response *core.DetailedResponse, err error) {
+func (iamIdentity *IamIdentityV1) UnlockServiceID(unlockServiceIdOptions *UnlockServiceIdOptions) (response *core.DetailedResponse, err error) {
+	return iamIdentity.UnlockServiceIDWithContext(context.Background(), unlockServiceIdOptions)
+}
+
+// UnlockServiceIDWithContext is an alternate form of the UnlockServiceID method which supports a Context parameter
+func (iamIdentity *IamIdentityV1) UnlockServiceIDWithContext(ctx context.Context, unlockServiceIdOptions *UnlockServiceIdOptions) (response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(unlockServiceIdOptions, "unlockServiceIdOptions cannot be nil")
 	if err != nil {
 		return
@@ -952,6 +1061,8 @@ func (iamIdentity *IamIdentityV1) UnlockServiceID(unlockServiceIdOptions *Unlock
 	}
 
 	builder := core.NewRequestBuilder(core.DELETE)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = iamIdentity.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(iamIdentity.Service.Options.URL, `/v1/serviceids/{id}/lock`, pathParamsMap)
 	if err != nil {
 		return
@@ -965,23 +1076,13 @@ func (iamIdentity *IamIdentityV1) UnlockServiceID(unlockServiceIdOptions *Unlock
 	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
-	builder.AddHeader("Accept", "application/json")
 
 	request, err := builder.Build()
 	if err != nil {
 		return
 	}
 
-	var rawResponse map[string]json.RawMessage
-	response, err = iamIdentity.Service.Request(request, &rawResponse)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalServiceID)
-	if err != nil {
-		return
-	}
-	response.Result = result
+	response, err = iamIdentity.Service.Request(request, nil)
 
 	return
 }
