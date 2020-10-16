@@ -1130,6 +1130,8 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 		It("48 - Restore A Resource Instance", func() {
 			shouldSkipTest()
 
+			Expect(testReclamationId1).ToNot(BeEmpty())
+
 			options := service.NewRunReclamationActionOptions(testReclamationId1, "restore")
 			headers := map[string]string{
 				"Transaction-Id": "rc-sdk-go-test48-" + transactionId,
@@ -1190,6 +1192,9 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 		It("51 - List Reclamations For Account and Resource Instance Id", func() {
 			shouldSkipTest()
 
+			Expect(testAccountId).ToNot(BeEmpty())
+			Expect(testReclaimInstanceGuid).ToNot(BeEmpty())
+
 			options := service.NewListReclamationsOptions()
 			options = options.SetAccountID(testAccountId)
 			options = options.SetResourceInstanceID(testReclaimInstanceGuid)
@@ -1212,6 +1217,8 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 
 		It("52 - Reclaim A Resource Instance", func() {
 			shouldSkipTest()
+
+			Expect(testReclamationId2).ToNot(BeEmpty())
 
 			options := service.NewRunReclamationActionOptions(testReclamationId2, "reclaim")
 			headers := map[string]string{
