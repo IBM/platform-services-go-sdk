@@ -15,7 +15,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-fc98139c-20201015-143541
+ * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-8d569e8f-20201030-111043
  */
  
 
@@ -28,7 +28,9 @@ import (
 	"fmt"
 	"github.com/IBM/go-sdk-core/v4/core"
 	common "github.com/IBM/platform-services-go-sdk/common"
+	"net/http"
 	"reflect"
+	"time"
 )
 
 // IamIdentityV1 : The IAM Identity Service API allows for the management of Identities (Service IDs, ApiKeys).
@@ -116,6 +118,11 @@ func (iamIdentity *IamIdentityV1) GetServiceURL() string {
 	return iamIdentity.Service.GetServiceURL()
 }
 
+// SetDefaultHeaders sets HTTP headers to be sent in every request
+func (iamIdentity *IamIdentityV1) SetDefaultHeaders(headers http.Header) {
+	iamIdentity.Service.SetDefaultHeaders(headers)
+}
+
 // SetEnableGzipCompression sets the service's EnableGzipCompression field
 func (iamIdentity *IamIdentityV1) SetEnableGzipCompression(enableGzip bool) {
 	iamIdentity.Service.SetEnableGzipCompression(enableGzip)
@@ -124,6 +131,17 @@ func (iamIdentity *IamIdentityV1) SetEnableGzipCompression(enableGzip bool) {
 // GetEnableGzipCompression returns the service's EnableGzipCompression field
 func (iamIdentity *IamIdentityV1) GetEnableGzipCompression() bool {
 	return iamIdentity.Service.GetEnableGzipCompression()
+}
+
+// EnableRetries enables automatic retries for requests invoked for this service instance.
+// If either parameter is specified as 0, then a default value is used instead.
+func (iamIdentity *IamIdentityV1) EnableRetries(maxRetries int, maxRetryInterval time.Duration) {
+	iamIdentity.Service.EnableRetries(maxRetries, maxRetryInterval)
+}
+
+// DisableRetries disables automatic retries for requests invoked for this service instance.
+func (iamIdentity *IamIdentityV1) DisableRetries() {
+	iamIdentity.Service.DisableRetries()
 }
 
 // ListApiKeys : Get API keys for a given service or user IAM ID and account ID

@@ -14,16 +14,24 @@
  * limitations under the License.
  */
 
+/*
+ * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-8d569e8f-20201030-111043
+ */
+ 
+
 // Package catalogmanagementv1 : Operations and models for the CatalogManagementV1 service
 package catalogmanagementv1
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"github.com/IBM/go-sdk-core/v4/core"
 	common "github.com/IBM/platform-services-go-sdk/common"
 	"github.com/go-openapi/strfmt"
+	"net/http"
 	"reflect"
+	"time"
 )
 
 // CatalogManagementV1 : This is the API to use for managing private catalogs for IBM Cloud. Private catalogs provide a
@@ -107,19 +115,54 @@ func (catalogManagement *CatalogManagementV1) SetServiceURL(url string) error {
 	return catalogManagement.Service.SetServiceURL(url)
 }
 
+// GetServiceURL returns the service URL
+func (catalogManagement *CatalogManagementV1) GetServiceURL() string {
+	return catalogManagement.Service.GetServiceURL()
+}
+
+// SetDefaultHeaders sets HTTP headers to be sent in every request
+func (catalogManagement *CatalogManagementV1) SetDefaultHeaders(headers http.Header) {
+	catalogManagement.Service.SetDefaultHeaders(headers)
+}
+
+// SetEnableGzipCompression sets the service's EnableGzipCompression field
+func (catalogManagement *CatalogManagementV1) SetEnableGzipCompression(enableGzip bool) {
+	catalogManagement.Service.SetEnableGzipCompression(enableGzip)
+}
+
+// GetEnableGzipCompression returns the service's EnableGzipCompression field
+func (catalogManagement *CatalogManagementV1) GetEnableGzipCompression() bool {
+	return catalogManagement.Service.GetEnableGzipCompression()
+}
+
+// EnableRetries enables automatic retries for requests invoked for this service instance.
+// If either parameter is specified as 0, then a default value is used instead.
+func (catalogManagement *CatalogManagementV1) EnableRetries(maxRetries int, maxRetryInterval time.Duration) {
+	catalogManagement.Service.EnableRetries(maxRetries, maxRetryInterval)
+}
+
+// DisableRetries disables automatic retries for requests invoked for this service instance.
+func (catalogManagement *CatalogManagementV1) DisableRetries() {
+	catalogManagement.Service.DisableRetries()
+}
+
 // GetCatalogAccount : Get the account settings
 // Get the account level settings for the account for private catalog.
 func (catalogManagement *CatalogManagementV1) GetCatalogAccount(getCatalogAccountOptions *GetCatalogAccountOptions) (result *Account, response *core.DetailedResponse, err error) {
+	return catalogManagement.GetCatalogAccountWithContext(context.Background(), getCatalogAccountOptions)
+}
+
+// GetCatalogAccountWithContext is an alternate form of the GetCatalogAccount method which supports a Context parameter
+func (catalogManagement *CatalogManagementV1) GetCatalogAccountWithContext(ctx context.Context, getCatalogAccountOptions *GetCatalogAccountOptions) (result *Account, response *core.DetailedResponse, err error) {
 	err = core.ValidateStruct(getCatalogAccountOptions, "getCatalogAccountOptions")
 	if err != nil {
 		return
 	}
 
-	pathSegments := []string{"catalogaccount"}
-	pathParameters := []string{}
-
 	builder := core.NewRequestBuilder(core.GET)
-	_, err = builder.ConstructHTTPURL(catalogManagement.Service.Options.URL, pathSegments, pathParameters)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = catalogManagement.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(catalogManagement.Service.Options.URL, `/catalogaccount`, nil)
 	if err != nil {
 		return
 	}
@@ -155,16 +198,20 @@ func (catalogManagement *CatalogManagementV1) GetCatalogAccount(getCatalogAccoun
 
 // UpdateCatalogAccount : Set the account settings
 func (catalogManagement *CatalogManagementV1) UpdateCatalogAccount(updateCatalogAccountOptions *UpdateCatalogAccountOptions) (response *core.DetailedResponse, err error) {
+	return catalogManagement.UpdateCatalogAccountWithContext(context.Background(), updateCatalogAccountOptions)
+}
+
+// UpdateCatalogAccountWithContext is an alternate form of the UpdateCatalogAccount method which supports a Context parameter
+func (catalogManagement *CatalogManagementV1) UpdateCatalogAccountWithContext(ctx context.Context, updateCatalogAccountOptions *UpdateCatalogAccountOptions) (response *core.DetailedResponse, err error) {
 	err = core.ValidateStruct(updateCatalogAccountOptions, "updateCatalogAccountOptions")
 	if err != nil {
 		return
 	}
 
-	pathSegments := []string{"catalogaccount"}
-	pathParameters := []string{}
-
 	builder := core.NewRequestBuilder(core.PUT)
-	_, err = builder.ConstructHTTPURL(catalogManagement.Service.Options.URL, pathSegments, pathParameters)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = catalogManagement.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(catalogManagement.Service.Options.URL, `/catalogaccount`, nil)
 	if err != nil {
 		return
 	}
@@ -201,19 +248,67 @@ func (catalogManagement *CatalogManagementV1) UpdateCatalogAccount(updateCatalog
 	return
 }
 
+// GetCatalogAccountAudit : Get the audit log(s) for catalog account
+// Get the audit log(s) for catalog account.
+func (catalogManagement *CatalogManagementV1) GetCatalogAccountAudit(getCatalogAccountAuditOptions *GetCatalogAccountAuditOptions) (response *core.DetailedResponse, err error) {
+	return catalogManagement.GetCatalogAccountAuditWithContext(context.Background(), getCatalogAccountAuditOptions)
+}
+
+// GetCatalogAccountAuditWithContext is an alternate form of the GetCatalogAccountAudit method which supports a Context parameter
+func (catalogManagement *CatalogManagementV1) GetCatalogAccountAuditWithContext(ctx context.Context, getCatalogAccountAuditOptions *GetCatalogAccountAuditOptions) (response *core.DetailedResponse, err error) {
+	err = core.ValidateStruct(getCatalogAccountAuditOptions, "getCatalogAccountAuditOptions")
+	if err != nil {
+		return
+	}
+
+	builder := core.NewRequestBuilder(core.GET)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = catalogManagement.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(catalogManagement.Service.Options.URL, `/catalogaccount/audit`, nil)
+	if err != nil {
+		return
+	}
+
+	for headerName, headerValue := range getCatalogAccountAuditOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "GetCatalogAccountAudit")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	if getCatalogAccountAuditOptions.ID != nil {
+		builder.AddQuery("id", fmt.Sprint(*getCatalogAccountAuditOptions.ID))
+	}
+
+	request, err := builder.Build()
+	if err != nil {
+		return
+	}
+
+	response, err = catalogManagement.Service.Request(request, nil)
+
+	return
+}
+
 // GetCatalogAccountFilters : Get the accumulated filters of the account and of the catalogs you have access to
 // Get the accumulated filters of the account and of the catalogs you have access to.
 func (catalogManagement *CatalogManagementV1) GetCatalogAccountFilters(getCatalogAccountFiltersOptions *GetCatalogAccountFiltersOptions) (result *AccumulatedFilters, response *core.DetailedResponse, err error) {
+	return catalogManagement.GetCatalogAccountFiltersWithContext(context.Background(), getCatalogAccountFiltersOptions)
+}
+
+// GetCatalogAccountFiltersWithContext is an alternate form of the GetCatalogAccountFilters method which supports a Context parameter
+func (catalogManagement *CatalogManagementV1) GetCatalogAccountFiltersWithContext(ctx context.Context, getCatalogAccountFiltersOptions *GetCatalogAccountFiltersOptions) (result *AccumulatedFilters, response *core.DetailedResponse, err error) {
 	err = core.ValidateStruct(getCatalogAccountFiltersOptions, "getCatalogAccountFiltersOptions")
 	if err != nil {
 		return
 	}
 
-	pathSegments := []string{"catalogaccount/filters"}
-	pathParameters := []string{}
-
 	builder := core.NewRequestBuilder(core.GET)
-	_, err = builder.ConstructHTTPURL(catalogManagement.Service.Options.URL, pathSegments, pathParameters)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = catalogManagement.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(catalogManagement.Service.Options.URL, `/catalogaccount/filters`, nil)
 	if err != nil {
 		return
 	}
@@ -254,16 +349,20 @@ func (catalogManagement *CatalogManagementV1) GetCatalogAccountFilters(getCatalo
 // ListCatalogs : Get list of catalogs
 // List the available catalogs for a given account.
 func (catalogManagement *CatalogManagementV1) ListCatalogs(listCatalogsOptions *ListCatalogsOptions) (result *CatalogSearchResult, response *core.DetailedResponse, err error) {
+	return catalogManagement.ListCatalogsWithContext(context.Background(), listCatalogsOptions)
+}
+
+// ListCatalogsWithContext is an alternate form of the ListCatalogs method which supports a Context parameter
+func (catalogManagement *CatalogManagementV1) ListCatalogsWithContext(ctx context.Context, listCatalogsOptions *ListCatalogsOptions) (result *CatalogSearchResult, response *core.DetailedResponse, err error) {
 	err = core.ValidateStruct(listCatalogsOptions, "listCatalogsOptions")
 	if err != nil {
 		return
 	}
 
-	pathSegments := []string{"catalogs"}
-	pathParameters := []string{}
-
 	builder := core.NewRequestBuilder(core.GET)
-	_, err = builder.ConstructHTTPURL(catalogManagement.Service.Options.URL, pathSegments, pathParameters)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = catalogManagement.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(catalogManagement.Service.Options.URL, `/catalogs`, nil)
 	if err != nil {
 		return
 	}
@@ -300,16 +399,20 @@ func (catalogManagement *CatalogManagementV1) ListCatalogs(listCatalogsOptions *
 // CreateCatalog : Create a catalog
 // Create a catalog for a given account.
 func (catalogManagement *CatalogManagementV1) CreateCatalog(createCatalogOptions *CreateCatalogOptions) (result *Catalog, response *core.DetailedResponse, err error) {
+	return catalogManagement.CreateCatalogWithContext(context.Background(), createCatalogOptions)
+}
+
+// CreateCatalogWithContext is an alternate form of the CreateCatalog method which supports a Context parameter
+func (catalogManagement *CatalogManagementV1) CreateCatalogWithContext(ctx context.Context, createCatalogOptions *CreateCatalogOptions) (result *Catalog, response *core.DetailedResponse, err error) {
 	err = core.ValidateStruct(createCatalogOptions, "createCatalogOptions")
 	if err != nil {
 		return
 	}
 
-	pathSegments := []string{"catalogs"}
-	pathParameters := []string{}
-
 	builder := core.NewRequestBuilder(core.POST)
-	_, err = builder.ConstructHTTPURL(catalogManagement.Service.Options.URL, pathSegments, pathParameters)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = catalogManagement.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(catalogManagement.Service.Options.URL, `/catalogs`, nil)
 	if err != nil {
 		return
 	}
@@ -404,6 +507,11 @@ func (catalogManagement *CatalogManagementV1) CreateCatalog(createCatalogOptions
 // GetCatalog : Get a catalog
 // Get a catalog.
 func (catalogManagement *CatalogManagementV1) GetCatalog(getCatalogOptions *GetCatalogOptions) (result *Catalog, response *core.DetailedResponse, err error) {
+	return catalogManagement.GetCatalogWithContext(context.Background(), getCatalogOptions)
+}
+
+// GetCatalogWithContext is an alternate form of the GetCatalog method which supports a Context parameter
+func (catalogManagement *CatalogManagementV1) GetCatalogWithContext(ctx context.Context, getCatalogOptions *GetCatalogOptions) (result *Catalog, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(getCatalogOptions, "getCatalogOptions cannot be nil")
 	if err != nil {
 		return
@@ -413,11 +521,14 @@ func (catalogManagement *CatalogManagementV1) GetCatalog(getCatalogOptions *GetC
 		return
 	}
 
-	pathSegments := []string{"catalogs"}
-	pathParameters := []string{*getCatalogOptions.CatalogIdentifier}
+	pathParamsMap := map[string]string{
+		"catalog_identifier": *getCatalogOptions.CatalogIdentifier,
+	}
 
 	builder := core.NewRequestBuilder(core.GET)
-	_, err = builder.ConstructHTTPURL(catalogManagement.Service.Options.URL, pathSegments, pathParameters)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = catalogManagement.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(catalogManagement.Service.Options.URL, `/catalogs/{catalog_identifier}`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -454,6 +565,11 @@ func (catalogManagement *CatalogManagementV1) GetCatalog(getCatalogOptions *GetC
 // ReplaceCatalog : Update a catalog
 // Update a catalog.
 func (catalogManagement *CatalogManagementV1) ReplaceCatalog(replaceCatalogOptions *ReplaceCatalogOptions) (result *Catalog, response *core.DetailedResponse, err error) {
+	return catalogManagement.ReplaceCatalogWithContext(context.Background(), replaceCatalogOptions)
+}
+
+// ReplaceCatalogWithContext is an alternate form of the ReplaceCatalog method which supports a Context parameter
+func (catalogManagement *CatalogManagementV1) ReplaceCatalogWithContext(ctx context.Context, replaceCatalogOptions *ReplaceCatalogOptions) (result *Catalog, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(replaceCatalogOptions, "replaceCatalogOptions cannot be nil")
 	if err != nil {
 		return
@@ -463,11 +579,14 @@ func (catalogManagement *CatalogManagementV1) ReplaceCatalog(replaceCatalogOptio
 		return
 	}
 
-	pathSegments := []string{"catalogs"}
-	pathParameters := []string{*replaceCatalogOptions.CatalogIdentifier}
+	pathParamsMap := map[string]string{
+		"catalog_identifier": *replaceCatalogOptions.CatalogIdentifier,
+	}
 
 	builder := core.NewRequestBuilder(core.PUT)
-	_, err = builder.ConstructHTTPURL(catalogManagement.Service.Options.URL, pathSegments, pathParameters)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = catalogManagement.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(catalogManagement.Service.Options.URL, `/catalogs/{catalog_identifier}`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -562,6 +681,11 @@ func (catalogManagement *CatalogManagementV1) ReplaceCatalog(replaceCatalogOptio
 // DeleteCatalog : Delete a catalog
 // Delete a catalog.
 func (catalogManagement *CatalogManagementV1) DeleteCatalog(deleteCatalogOptions *DeleteCatalogOptions) (response *core.DetailedResponse, err error) {
+	return catalogManagement.DeleteCatalogWithContext(context.Background(), deleteCatalogOptions)
+}
+
+// DeleteCatalogWithContext is an alternate form of the DeleteCatalog method which supports a Context parameter
+func (catalogManagement *CatalogManagementV1) DeleteCatalogWithContext(ctx context.Context, deleteCatalogOptions *DeleteCatalogOptions) (response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(deleteCatalogOptions, "deleteCatalogOptions cannot be nil")
 	if err != nil {
 		return
@@ -571,11 +695,14 @@ func (catalogManagement *CatalogManagementV1) DeleteCatalog(deleteCatalogOptions
 		return
 	}
 
-	pathSegments := []string{"catalogs"}
-	pathParameters := []string{*deleteCatalogOptions.CatalogIdentifier}
+	pathParamsMap := map[string]string{
+		"catalog_identifier": *deleteCatalogOptions.CatalogIdentifier,
+	}
 
 	builder := core.NewRequestBuilder(core.DELETE)
-	_, err = builder.ConstructHTTPURL(catalogManagement.Service.Options.URL, pathSegments, pathParameters)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = catalogManagement.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(catalogManagement.Service.Options.URL, `/catalogs/{catalog_identifier}`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -599,9 +726,66 @@ func (catalogManagement *CatalogManagementV1) DeleteCatalog(deleteCatalogOptions
 	return
 }
 
+// GetCatalogAudit : Get the audit log(s) for catalog
+// Get the audit log(s) for catalog.
+func (catalogManagement *CatalogManagementV1) GetCatalogAudit(getCatalogAuditOptions *GetCatalogAuditOptions) (response *core.DetailedResponse, err error) {
+	return catalogManagement.GetCatalogAuditWithContext(context.Background(), getCatalogAuditOptions)
+}
+
+// GetCatalogAuditWithContext is an alternate form of the GetCatalogAudit method which supports a Context parameter
+func (catalogManagement *CatalogManagementV1) GetCatalogAuditWithContext(ctx context.Context, getCatalogAuditOptions *GetCatalogAuditOptions) (response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(getCatalogAuditOptions, "getCatalogAuditOptions cannot be nil")
+	if err != nil {
+		return
+	}
+	err = core.ValidateStruct(getCatalogAuditOptions, "getCatalogAuditOptions")
+	if err != nil {
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"catalog_identifier": *getCatalogAuditOptions.CatalogIdentifier,
+	}
+
+	builder := core.NewRequestBuilder(core.GET)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = catalogManagement.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(catalogManagement.Service.Options.URL, `/catalogs/{catalog_identifier}/audit`, pathParamsMap)
+	if err != nil {
+		return
+	}
+
+	for headerName, headerValue := range getCatalogAuditOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "GetCatalogAudit")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	if getCatalogAuditOptions.ID != nil {
+		builder.AddQuery("id", fmt.Sprint(*getCatalogAuditOptions.ID))
+	}
+
+	request, err := builder.Build()
+	if err != nil {
+		return
+	}
+
+	response, err = catalogManagement.Service.Request(request, nil)
+
+	return
+}
+
 // GetEnterprise : Get the enterprise settings for the specified enterprise ID
 // Get the enterprise settings for the specified enterprise ID.
 func (catalogManagement *CatalogManagementV1) GetEnterprise(getEnterpriseOptions *GetEnterpriseOptions) (result *Enterprise, response *core.DetailedResponse, err error) {
+	return catalogManagement.GetEnterpriseWithContext(context.Background(), getEnterpriseOptions)
+}
+
+// GetEnterpriseWithContext is an alternate form of the GetEnterprise method which supports a Context parameter
+func (catalogManagement *CatalogManagementV1) GetEnterpriseWithContext(ctx context.Context, getEnterpriseOptions *GetEnterpriseOptions) (result *Enterprise, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(getEnterpriseOptions, "getEnterpriseOptions cannot be nil")
 	if err != nil {
 		return
@@ -611,11 +795,14 @@ func (catalogManagement *CatalogManagementV1) GetEnterprise(getEnterpriseOptions
 		return
 	}
 
-	pathSegments := []string{"enterprises"}
-	pathParameters := []string{*getEnterpriseOptions.EnterpriseID}
+	pathParamsMap := map[string]string{
+		"enterprise_id": *getEnterpriseOptions.EnterpriseID,
+	}
 
 	builder := core.NewRequestBuilder(core.GET)
-	_, err = builder.ConstructHTTPURL(catalogManagement.Service.Options.URL, pathSegments, pathParameters)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = catalogManagement.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(catalogManagement.Service.Options.URL, `/enterprises/{enterprise_id}`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -651,6 +838,11 @@ func (catalogManagement *CatalogManagementV1) GetEnterprise(getEnterpriseOptions
 
 // ReplaceEnterprise : Set the enterprise settings
 func (catalogManagement *CatalogManagementV1) ReplaceEnterprise(replaceEnterpriseOptions *ReplaceEnterpriseOptions) (response *core.DetailedResponse, err error) {
+	return catalogManagement.ReplaceEnterpriseWithContext(context.Background(), replaceEnterpriseOptions)
+}
+
+// ReplaceEnterpriseWithContext is an alternate form of the ReplaceEnterprise method which supports a Context parameter
+func (catalogManagement *CatalogManagementV1) ReplaceEnterpriseWithContext(ctx context.Context, replaceEnterpriseOptions *ReplaceEnterpriseOptions) (response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(replaceEnterpriseOptions, "replaceEnterpriseOptions cannot be nil")
 	if err != nil {
 		return
@@ -660,11 +852,14 @@ func (catalogManagement *CatalogManagementV1) ReplaceEnterprise(replaceEnterpris
 		return
 	}
 
-	pathSegments := []string{"enterprises"}
-	pathParameters := []string{*replaceEnterpriseOptions.EnterpriseID}
+	pathParamsMap := map[string]string{
+		"enterprise_id": *replaceEnterpriseOptions.EnterpriseID,
+	}
 
 	builder := core.NewRequestBuilder(core.PUT)
-	_, err = builder.ConstructHTTPURL(catalogManagement.Service.Options.URL, pathSegments, pathParameters)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = catalogManagement.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(catalogManagement.Service.Options.URL, `/enterprises/{enterprise_id}`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -707,20 +902,76 @@ func (catalogManagement *CatalogManagementV1) ReplaceEnterprise(replaceEnterpris
 	return
 }
 
+// GetEnterprisesAudit : Get the audit log(s) for enterprises
+// Get the audit log(s) for enterprises.
+func (catalogManagement *CatalogManagementV1) GetEnterprisesAudit(getEnterprisesAuditOptions *GetEnterprisesAuditOptions) (response *core.DetailedResponse, err error) {
+	return catalogManagement.GetEnterprisesAuditWithContext(context.Background(), getEnterprisesAuditOptions)
+}
+
+// GetEnterprisesAuditWithContext is an alternate form of the GetEnterprisesAudit method which supports a Context parameter
+func (catalogManagement *CatalogManagementV1) GetEnterprisesAuditWithContext(ctx context.Context, getEnterprisesAuditOptions *GetEnterprisesAuditOptions) (response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(getEnterprisesAuditOptions, "getEnterprisesAuditOptions cannot be nil")
+	if err != nil {
+		return
+	}
+	err = core.ValidateStruct(getEnterprisesAuditOptions, "getEnterprisesAuditOptions")
+	if err != nil {
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"enterprise_id": *getEnterprisesAuditOptions.EnterpriseID,
+	}
+
+	builder := core.NewRequestBuilder(core.GET)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = catalogManagement.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(catalogManagement.Service.Options.URL, `/enterprises/{enterprise_id}/audit`, pathParamsMap)
+	if err != nil {
+		return
+	}
+
+	for headerName, headerValue := range getEnterprisesAuditOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "GetEnterprisesAudit")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	if getEnterprisesAuditOptions.ID != nil {
+		builder.AddQuery("id", fmt.Sprint(*getEnterprisesAuditOptions.ID))
+	}
+
+	request, err := builder.Build()
+	if err != nil {
+		return
+	}
+
+	response, err = catalogManagement.Service.Request(request, nil)
+
+	return
+}
+
 // GetConsumptionOfferings : Get list of offerings for consumption
 // List the available offerings from both public and from the account that currently scoped for consumption. These
 // copies cannot be used updating. They are not complete and only return what is visible to the caller.
 func (catalogManagement *CatalogManagementV1) GetConsumptionOfferings(getConsumptionOfferingsOptions *GetConsumptionOfferingsOptions) (result *OfferingSearchResult, response *core.DetailedResponse, err error) {
+	return catalogManagement.GetConsumptionOfferingsWithContext(context.Background(), getConsumptionOfferingsOptions)
+}
+
+// GetConsumptionOfferingsWithContext is an alternate form of the GetConsumptionOfferings method which supports a Context parameter
+func (catalogManagement *CatalogManagementV1) GetConsumptionOfferingsWithContext(ctx context.Context, getConsumptionOfferingsOptions *GetConsumptionOfferingsOptions) (result *OfferingSearchResult, response *core.DetailedResponse, err error) {
 	err = core.ValidateStruct(getConsumptionOfferingsOptions, "getConsumptionOfferingsOptions")
 	if err != nil {
 		return
 	}
 
-	pathSegments := []string{"offerings"}
-	pathParameters := []string{}
-
 	builder := core.NewRequestBuilder(core.GET)
-	_, err = builder.ConstructHTTPURL(catalogManagement.Service.Options.URL, pathSegments, pathParameters)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = catalogManagement.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(catalogManagement.Service.Options.URL, `/offerings`, nil)
 	if err != nil {
 		return
 	}
@@ -747,6 +998,12 @@ func (catalogManagement *CatalogManagementV1) GetConsumptionOfferings(getConsump
 	if getConsumptionOfferingsOptions.IncludeHidden != nil {
 		builder.AddQuery("includeHidden", fmt.Sprint(*getConsumptionOfferingsOptions.IncludeHidden))
 	}
+	if getConsumptionOfferingsOptions.Limit != nil {
+		builder.AddQuery("limit", fmt.Sprint(*getConsumptionOfferingsOptions.Limit))
+	}
+	if getConsumptionOfferingsOptions.Offset != nil {
+		builder.AddQuery("offset", fmt.Sprint(*getConsumptionOfferingsOptions.Offset))
+	}
 
 	request, err := builder.Build()
 	if err != nil {
@@ -770,6 +1027,11 @@ func (catalogManagement *CatalogManagementV1) GetConsumptionOfferings(getConsump
 // ListOfferings : Get list of offerings
 // List the available offerings in the specified catalog.
 func (catalogManagement *CatalogManagementV1) ListOfferings(listOfferingsOptions *ListOfferingsOptions) (result *OfferingSearchResult, response *core.DetailedResponse, err error) {
+	return catalogManagement.ListOfferingsWithContext(context.Background(), listOfferingsOptions)
+}
+
+// ListOfferingsWithContext is an alternate form of the ListOfferings method which supports a Context parameter
+func (catalogManagement *CatalogManagementV1) ListOfferingsWithContext(ctx context.Context, listOfferingsOptions *ListOfferingsOptions) (result *OfferingSearchResult, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(listOfferingsOptions, "listOfferingsOptions cannot be nil")
 	if err != nil {
 		return
@@ -779,11 +1041,14 @@ func (catalogManagement *CatalogManagementV1) ListOfferings(listOfferingsOptions
 		return
 	}
 
-	pathSegments := []string{"catalogs", "offerings"}
-	pathParameters := []string{*listOfferingsOptions.CatalogIdentifier}
+	pathParamsMap := map[string]string{
+		"catalog_identifier": *listOfferingsOptions.CatalogIdentifier,
+	}
 
 	builder := core.NewRequestBuilder(core.GET)
-	_, err = builder.ConstructHTTPURL(catalogManagement.Service.Options.URL, pathSegments, pathParameters)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = catalogManagement.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(catalogManagement.Service.Options.URL, `/catalogs/{catalog_identifier}/offerings`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -800,6 +1065,18 @@ func (catalogManagement *CatalogManagementV1) ListOfferings(listOfferingsOptions
 
 	if listOfferingsOptions.Digest != nil {
 		builder.AddQuery("digest", fmt.Sprint(*listOfferingsOptions.Digest))
+	}
+	if listOfferingsOptions.Limit != nil {
+		builder.AddQuery("limit", fmt.Sprint(*listOfferingsOptions.Limit))
+	}
+	if listOfferingsOptions.Offset != nil {
+		builder.AddQuery("offset", fmt.Sprint(*listOfferingsOptions.Offset))
+	}
+	if listOfferingsOptions.Name != nil {
+		builder.AddQuery("name", fmt.Sprint(*listOfferingsOptions.Name))
+	}
+	if listOfferingsOptions.Sort != nil {
+		builder.AddQuery("sort", fmt.Sprint(*listOfferingsOptions.Sort))
 	}
 
 	request, err := builder.Build()
@@ -824,6 +1101,11 @@ func (catalogManagement *CatalogManagementV1) ListOfferings(listOfferingsOptions
 // CreateOffering : Create an offering
 // Create an offering.
 func (catalogManagement *CatalogManagementV1) CreateOffering(createOfferingOptions *CreateOfferingOptions) (result *Offering, response *core.DetailedResponse, err error) {
+	return catalogManagement.CreateOfferingWithContext(context.Background(), createOfferingOptions)
+}
+
+// CreateOfferingWithContext is an alternate form of the CreateOffering method which supports a Context parameter
+func (catalogManagement *CatalogManagementV1) CreateOfferingWithContext(ctx context.Context, createOfferingOptions *CreateOfferingOptions) (result *Offering, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(createOfferingOptions, "createOfferingOptions cannot be nil")
 	if err != nil {
 		return
@@ -833,11 +1115,14 @@ func (catalogManagement *CatalogManagementV1) CreateOffering(createOfferingOptio
 		return
 	}
 
-	pathSegments := []string{"catalogs", "offerings"}
-	pathParameters := []string{*createOfferingOptions.CatalogIdentifier}
+	pathParamsMap := map[string]string{
+		"catalog_identifier": *createOfferingOptions.CatalogIdentifier,
+	}
 
 	builder := core.NewRequestBuilder(core.POST)
-	_, err = builder.ConstructHTTPURL(catalogManagement.Service.Options.URL, pathSegments, pathParameters)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = catalogManagement.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(catalogManagement.Service.Options.URL, `/catalogs/{catalog_identifier}/offerings`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -974,6 +1259,11 @@ func (catalogManagement *CatalogManagementV1) CreateOffering(createOfferingOptio
 // ImportOfferingVersion : Import new version to offering from a tgz
 // Import new version to offering from a tgz.
 func (catalogManagement *CatalogManagementV1) ImportOfferingVersion(importOfferingVersionOptions *ImportOfferingVersionOptions) (result *Offering, response *core.DetailedResponse, err error) {
+	return catalogManagement.ImportOfferingVersionWithContext(context.Background(), importOfferingVersionOptions)
+}
+
+// ImportOfferingVersionWithContext is an alternate form of the ImportOfferingVersion method which supports a Context parameter
+func (catalogManagement *CatalogManagementV1) ImportOfferingVersionWithContext(ctx context.Context, importOfferingVersionOptions *ImportOfferingVersionOptions) (result *Offering, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(importOfferingVersionOptions, "importOfferingVersionOptions cannot be nil")
 	if err != nil {
 		return
@@ -983,11 +1273,15 @@ func (catalogManagement *CatalogManagementV1) ImportOfferingVersion(importOfferi
 		return
 	}
 
-	pathSegments := []string{"catalogs", "offerings", "version"}
-	pathParameters := []string{*importOfferingVersionOptions.CatalogIdentifier, *importOfferingVersionOptions.OfferingID}
+	pathParamsMap := map[string]string{
+		"catalog_identifier": *importOfferingVersionOptions.CatalogIdentifier,
+		"offering_id": *importOfferingVersionOptions.OfferingID,
+	}
 
 	builder := core.NewRequestBuilder(core.POST)
-	_, err = builder.ConstructHTTPURL(catalogManagement.Service.Options.URL, pathSegments, pathParameters)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = catalogManagement.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(catalogManagement.Service.Options.URL, `/catalogs/{catalog_identifier}/offerings/{offering_id}/version`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -1002,11 +1296,10 @@ func (catalogManagement *CatalogManagementV1) ImportOfferingVersion(importOfferi
 	}
 	builder.AddHeader("Accept", "application/json")
 	builder.AddHeader("Content-Type", "application/json")
-	if importOfferingVersionOptions.XAuthToken != nil {
-		builder.AddHeader("X-Auth-Token", fmt.Sprint(*importOfferingVersionOptions.XAuthToken))
-	}
 
-	builder.AddQuery("zipurl", fmt.Sprint(*importOfferingVersionOptions.Zipurl))
+	if importOfferingVersionOptions.Zipurl != nil {
+		builder.AddQuery("zipurl", fmt.Sprint(*importOfferingVersionOptions.Zipurl))
+	}
 	if importOfferingVersionOptions.TargetVersion != nil {
 		builder.AddQuery("targetVersion", fmt.Sprint(*importOfferingVersionOptions.TargetVersion))
 	}
@@ -1023,6 +1316,9 @@ func (catalogManagement *CatalogManagementV1) ImportOfferingVersion(importOfferi
 	}
 	if importOfferingVersionOptions.TargetKinds != nil {
 		body["target_kinds"] = importOfferingVersionOptions.TargetKinds
+	}
+	if importOfferingVersionOptions.Content != nil {
+		body["content"] = importOfferingVersionOptions.Content
 	}
 	_, err = builder.SetBodyContentJSON(body)
 	if err != nil {
@@ -1051,6 +1347,11 @@ func (catalogManagement *CatalogManagementV1) ImportOfferingVersion(importOfferi
 // ImportOffering : Import a new offering from a tgz
 // Import a new offering from a tgz.
 func (catalogManagement *CatalogManagementV1) ImportOffering(importOfferingOptions *ImportOfferingOptions) (result *Offering, response *core.DetailedResponse, err error) {
+	return catalogManagement.ImportOfferingWithContext(context.Background(), importOfferingOptions)
+}
+
+// ImportOfferingWithContext is an alternate form of the ImportOffering method which supports a Context parameter
+func (catalogManagement *CatalogManagementV1) ImportOfferingWithContext(ctx context.Context, importOfferingOptions *ImportOfferingOptions) (result *Offering, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(importOfferingOptions, "importOfferingOptions cannot be nil")
 	if err != nil {
 		return
@@ -1060,11 +1361,14 @@ func (catalogManagement *CatalogManagementV1) ImportOffering(importOfferingOptio
 		return
 	}
 
-	pathSegments := []string{"catalogs", "import/offerings"}
-	pathParameters := []string{*importOfferingOptions.CatalogIdentifier}
+	pathParamsMap := map[string]string{
+		"catalog_identifier": *importOfferingOptions.CatalogIdentifier,
+	}
 
 	builder := core.NewRequestBuilder(core.POST)
-	_, err = builder.ConstructHTTPURL(catalogManagement.Service.Options.URL, pathSegments, pathParameters)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = catalogManagement.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(catalogManagement.Service.Options.URL, `/catalogs/{catalog_identifier}/import/offerings`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -1083,9 +1387,14 @@ func (catalogManagement *CatalogManagementV1) ImportOffering(importOfferingOptio
 		builder.AddHeader("X-Auth-Token", fmt.Sprint(*importOfferingOptions.XAuthToken))
 	}
 
-	builder.AddQuery("zipurl", fmt.Sprint(*importOfferingOptions.Zipurl))
+	if importOfferingOptions.Zipurl != nil {
+		builder.AddQuery("zipurl", fmt.Sprint(*importOfferingOptions.Zipurl))
+	}
 	if importOfferingOptions.OfferingID != nil {
 		builder.AddQuery("offeringID", fmt.Sprint(*importOfferingOptions.OfferingID))
+	}
+	if importOfferingOptions.TargetVersion != nil {
+		builder.AddQuery("targetVersion", fmt.Sprint(*importOfferingOptions.TargetVersion))
 	}
 	if importOfferingOptions.IncludeConfig != nil {
 		builder.AddQuery("includeConfig", fmt.Sprint(*importOfferingOptions.IncludeConfig))
@@ -1100,6 +1409,9 @@ func (catalogManagement *CatalogManagementV1) ImportOffering(importOfferingOptio
 	}
 	if importOfferingOptions.TargetKinds != nil {
 		body["target_kinds"] = importOfferingOptions.TargetKinds
+	}
+	if importOfferingOptions.Content != nil {
+		body["content"] = importOfferingOptions.Content
 	}
 	_, err = builder.SetBodyContentJSON(body)
 	if err != nil {
@@ -1128,6 +1440,11 @@ func (catalogManagement *CatalogManagementV1) ImportOffering(importOfferingOptio
 // ReloadOffering : Reload existing version in offering from a tgz
 // Reload existing version in offering from a tgz.
 func (catalogManagement *CatalogManagementV1) ReloadOffering(reloadOfferingOptions *ReloadOfferingOptions) (result *Offering, response *core.DetailedResponse, err error) {
+	return catalogManagement.ReloadOfferingWithContext(context.Background(), reloadOfferingOptions)
+}
+
+// ReloadOfferingWithContext is an alternate form of the ReloadOffering method which supports a Context parameter
+func (catalogManagement *CatalogManagementV1) ReloadOfferingWithContext(ctx context.Context, reloadOfferingOptions *ReloadOfferingOptions) (result *Offering, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(reloadOfferingOptions, "reloadOfferingOptions cannot be nil")
 	if err != nil {
 		return
@@ -1137,11 +1454,15 @@ func (catalogManagement *CatalogManagementV1) ReloadOffering(reloadOfferingOptio
 		return
 	}
 
-	pathSegments := []string{"catalogs", "offerings", "reload"}
-	pathParameters := []string{*reloadOfferingOptions.CatalogIdentifier, *reloadOfferingOptions.OfferingID}
+	pathParamsMap := map[string]string{
+		"catalog_identifier": *reloadOfferingOptions.CatalogIdentifier,
+		"offering_id": *reloadOfferingOptions.OfferingID,
+	}
 
 	builder := core.NewRequestBuilder(core.PUT)
-	_, err = builder.ConstructHTTPURL(catalogManagement.Service.Options.URL, pathSegments, pathParameters)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = catalogManagement.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(catalogManagement.Service.Options.URL, `/catalogs/{catalog_identifier}/offerings/{offering_id}/reload`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -1156,12 +1477,11 @@ func (catalogManagement *CatalogManagementV1) ReloadOffering(reloadOfferingOptio
 	}
 	builder.AddHeader("Accept", "application/json")
 	builder.AddHeader("Content-Type", "application/json")
-	if reloadOfferingOptions.XAuthToken != nil {
-		builder.AddHeader("X-Auth-Token", fmt.Sprint(*reloadOfferingOptions.XAuthToken))
-	}
 
-	builder.AddQuery("zipurl", fmt.Sprint(*reloadOfferingOptions.Zipurl))
 	builder.AddQuery("targetVersion", fmt.Sprint(*reloadOfferingOptions.TargetVersion))
+	if reloadOfferingOptions.Zipurl != nil {
+		builder.AddQuery("zipurl", fmt.Sprint(*reloadOfferingOptions.Zipurl))
+	}
 	if reloadOfferingOptions.RepoType != nil {
 		builder.AddQuery("repoType", fmt.Sprint(*reloadOfferingOptions.RepoType))
 	}
@@ -1172,6 +1492,9 @@ func (catalogManagement *CatalogManagementV1) ReloadOffering(reloadOfferingOptio
 	}
 	if reloadOfferingOptions.TargetKinds != nil {
 		body["target_kinds"] = reloadOfferingOptions.TargetKinds
+	}
+	if reloadOfferingOptions.Content != nil {
+		body["content"] = reloadOfferingOptions.Content
 	}
 	_, err = builder.SetBodyContentJSON(body)
 	if err != nil {
@@ -1200,6 +1523,11 @@ func (catalogManagement *CatalogManagementV1) ReloadOffering(reloadOfferingOptio
 // GetOffering : Get an offering
 // Get an offering.
 func (catalogManagement *CatalogManagementV1) GetOffering(getOfferingOptions *GetOfferingOptions) (result *Offering, response *core.DetailedResponse, err error) {
+	return catalogManagement.GetOfferingWithContext(context.Background(), getOfferingOptions)
+}
+
+// GetOfferingWithContext is an alternate form of the GetOffering method which supports a Context parameter
+func (catalogManagement *CatalogManagementV1) GetOfferingWithContext(ctx context.Context, getOfferingOptions *GetOfferingOptions) (result *Offering, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(getOfferingOptions, "getOfferingOptions cannot be nil")
 	if err != nil {
 		return
@@ -1209,11 +1537,15 @@ func (catalogManagement *CatalogManagementV1) GetOffering(getOfferingOptions *Ge
 		return
 	}
 
-	pathSegments := []string{"catalogs", "offerings"}
-	pathParameters := []string{*getOfferingOptions.CatalogIdentifier, *getOfferingOptions.OfferingID}
+	pathParamsMap := map[string]string{
+		"catalog_identifier": *getOfferingOptions.CatalogIdentifier,
+		"offering_id": *getOfferingOptions.OfferingID,
+	}
 
 	builder := core.NewRequestBuilder(core.GET)
-	_, err = builder.ConstructHTTPURL(catalogManagement.Service.Options.URL, pathSegments, pathParameters)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = catalogManagement.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(catalogManagement.Service.Options.URL, `/catalogs/{catalog_identifier}/offerings/{offering_id}`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -1250,6 +1582,11 @@ func (catalogManagement *CatalogManagementV1) GetOffering(getOfferingOptions *Ge
 // ReplaceOffering : Update an offering
 // Update an offering.
 func (catalogManagement *CatalogManagementV1) ReplaceOffering(replaceOfferingOptions *ReplaceOfferingOptions) (result *Catalog, response *core.DetailedResponse, err error) {
+	return catalogManagement.ReplaceOfferingWithContext(context.Background(), replaceOfferingOptions)
+}
+
+// ReplaceOfferingWithContext is an alternate form of the ReplaceOffering method which supports a Context parameter
+func (catalogManagement *CatalogManagementV1) ReplaceOfferingWithContext(ctx context.Context, replaceOfferingOptions *ReplaceOfferingOptions) (result *Catalog, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(replaceOfferingOptions, "replaceOfferingOptions cannot be nil")
 	if err != nil {
 		return
@@ -1259,11 +1596,15 @@ func (catalogManagement *CatalogManagementV1) ReplaceOffering(replaceOfferingOpt
 		return
 	}
 
-	pathSegments := []string{"catalogs", "offerings"}
-	pathParameters := []string{*replaceOfferingOptions.CatalogIdentifier, *replaceOfferingOptions.OfferingID}
+	pathParamsMap := map[string]string{
+		"catalog_identifier": *replaceOfferingOptions.CatalogIdentifier,
+		"offering_id": *replaceOfferingOptions.OfferingID,
+	}
 
 	builder := core.NewRequestBuilder(core.PUT)
-	_, err = builder.ConstructHTTPURL(catalogManagement.Service.Options.URL, pathSegments, pathParameters)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = catalogManagement.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(catalogManagement.Service.Options.URL, `/catalogs/{catalog_identifier}/offerings/{offering_id}`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -1400,6 +1741,11 @@ func (catalogManagement *CatalogManagementV1) ReplaceOffering(replaceOfferingOpt
 // DeleteOffering : Delete an offering
 // Delete an offering.
 func (catalogManagement *CatalogManagementV1) DeleteOffering(deleteOfferingOptions *DeleteOfferingOptions) (response *core.DetailedResponse, err error) {
+	return catalogManagement.DeleteOfferingWithContext(context.Background(), deleteOfferingOptions)
+}
+
+// DeleteOfferingWithContext is an alternate form of the DeleteOffering method which supports a Context parameter
+func (catalogManagement *CatalogManagementV1) DeleteOfferingWithContext(ctx context.Context, deleteOfferingOptions *DeleteOfferingOptions) (response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(deleteOfferingOptions, "deleteOfferingOptions cannot be nil")
 	if err != nil {
 		return
@@ -1409,11 +1755,15 @@ func (catalogManagement *CatalogManagementV1) DeleteOffering(deleteOfferingOptio
 		return
 	}
 
-	pathSegments := []string{"catalogs", "offerings"}
-	pathParameters := []string{*deleteOfferingOptions.CatalogIdentifier, *deleteOfferingOptions.OfferingID}
+	pathParamsMap := map[string]string{
+		"catalog_identifier": *deleteOfferingOptions.CatalogIdentifier,
+		"offering_id": *deleteOfferingOptions.OfferingID,
+	}
 
 	builder := core.NewRequestBuilder(core.DELETE)
-	_, err = builder.ConstructHTTPURL(catalogManagement.Service.Options.URL, pathSegments, pathParameters)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = catalogManagement.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(catalogManagement.Service.Options.URL, `/catalogs/{catalog_identifier}/offerings/{offering_id}`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -1437,9 +1787,67 @@ func (catalogManagement *CatalogManagementV1) DeleteOffering(deleteOfferingOptio
 	return
 }
 
+// GetOfferingAudit : Get the audit log(s) for offering
+// Get the audit log(s) for offering.
+func (catalogManagement *CatalogManagementV1) GetOfferingAudit(getOfferingAuditOptions *GetOfferingAuditOptions) (response *core.DetailedResponse, err error) {
+	return catalogManagement.GetOfferingAuditWithContext(context.Background(), getOfferingAuditOptions)
+}
+
+// GetOfferingAuditWithContext is an alternate form of the GetOfferingAudit method which supports a Context parameter
+func (catalogManagement *CatalogManagementV1) GetOfferingAuditWithContext(ctx context.Context, getOfferingAuditOptions *GetOfferingAuditOptions) (response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(getOfferingAuditOptions, "getOfferingAuditOptions cannot be nil")
+	if err != nil {
+		return
+	}
+	err = core.ValidateStruct(getOfferingAuditOptions, "getOfferingAuditOptions")
+	if err != nil {
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"catalog_identifier": *getOfferingAuditOptions.CatalogIdentifier,
+		"offering_id": *getOfferingAuditOptions.OfferingID,
+	}
+
+	builder := core.NewRequestBuilder(core.GET)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = catalogManagement.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(catalogManagement.Service.Options.URL, `/catalogs/{catalog_identifier}/offerings/{offering_id}/audit`, pathParamsMap)
+	if err != nil {
+		return
+	}
+
+	for headerName, headerValue := range getOfferingAuditOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "GetOfferingAudit")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	if getOfferingAuditOptions.ID != nil {
+		builder.AddQuery("id", fmt.Sprint(*getOfferingAuditOptions.ID))
+	}
+
+	request, err := builder.Build()
+	if err != nil {
+		return
+	}
+
+	response, err = catalogManagement.Service.Request(request, nil)
+
+	return
+}
+
 // ReplaceOfferingIcon : upload an icon for the offering
 // upload an icon file to be stored in GC. File is uploaded as a binary payload - not as a form.
 func (catalogManagement *CatalogManagementV1) ReplaceOfferingIcon(replaceOfferingIconOptions *ReplaceOfferingIconOptions) (result *Offering, response *core.DetailedResponse, err error) {
+	return catalogManagement.ReplaceOfferingIconWithContext(context.Background(), replaceOfferingIconOptions)
+}
+
+// ReplaceOfferingIconWithContext is an alternate form of the ReplaceOfferingIcon method which supports a Context parameter
+func (catalogManagement *CatalogManagementV1) ReplaceOfferingIconWithContext(ctx context.Context, replaceOfferingIconOptions *ReplaceOfferingIconOptions) (result *Offering, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(replaceOfferingIconOptions, "replaceOfferingIconOptions cannot be nil")
 	if err != nil {
 		return
@@ -1449,11 +1857,16 @@ func (catalogManagement *CatalogManagementV1) ReplaceOfferingIcon(replaceOfferin
 		return
 	}
 
-	pathSegments := []string{"catalogs", "offerings", "icon"}
-	pathParameters := []string{*replaceOfferingIconOptions.CatalogIdentifier, *replaceOfferingIconOptions.OfferingID, *replaceOfferingIconOptions.FileName}
+	pathParamsMap := map[string]string{
+		"catalog_identifier": *replaceOfferingIconOptions.CatalogIdentifier,
+		"offering_id": *replaceOfferingIconOptions.OfferingID,
+		"file_name": *replaceOfferingIconOptions.FileName,
+	}
 
 	builder := core.NewRequestBuilder(core.PUT)
-	_, err = builder.ConstructHTTPURL(catalogManagement.Service.Options.URL, pathSegments, pathParameters)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = catalogManagement.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(catalogManagement.Service.Options.URL, `/catalogs/{catalog_identifier}/offerings/{offering_id}/icon/{file_name}`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -1487,14 +1900,23 @@ func (catalogManagement *CatalogManagementV1) ReplaceOfferingIcon(replaceOfferin
 	return
 }
 
-// UpdateOfferingIbm : Approve offering to be permitted to publish to IBM Public Catalog (IBMers only or Everyone)
-// Approve or disapprove the offering to be allowed to publish to the IBM Public Catalog in `ibm` (visible to IBM only)
-// or `public` (visible to everyone). Can approve to only `ibm`, or it can be extended to `public`. If extended to
-// `public` then `ibm` is automatically approved too. If disapprove `public`, then `ibm` approval will not  be changed.
-// If disapprove `ibm` then `public` will automatically be disapproved. This is because the process steps always go
-// first through `ibm` and then to `public`. `ibm` cannot be skipped. Only users with Approval IAM authority can use
-// this.
+// UpdateOfferingIbm : Approve offering to be permitted to publish or to request to be published to IBM Public Catalog (IBMers only or Everyone)
+// Approve or disapprove the offering to be allowed to publish to the IBM Public Catalog. Options:
+// * `allow_request` - (Allow requesting to publish to IBM)
+// * `ibm` - (Allow publishing to be visible to IBM only)
+// * `public` - (Allow publishing to be visible to everyone, including IBM)
+//
+// If disapprove `public`, then `ibm` approval will not  be changed. If disapprove `ibm` then `public` will
+// automatically be disapproved. if disapprove `allow_request` then all rights to publish will be removed. This is
+// because the process steps always go first through `allow` to `ibm` and then to `public`. `ibm` cannot be skipped.
+// Only users with Approval IAM authority can use this. Approvers should use the catalog and offering id from the public
+// catalog since they wouldn't have access to the private offering.'.
 func (catalogManagement *CatalogManagementV1) UpdateOfferingIbm(updateOfferingIbmOptions *UpdateOfferingIbmOptions) (result *ApprovalResult, response *core.DetailedResponse, err error) {
+	return catalogManagement.UpdateOfferingIbmWithContext(context.Background(), updateOfferingIbmOptions)
+}
+
+// UpdateOfferingIbmWithContext is an alternate form of the UpdateOfferingIbm method which supports a Context parameter
+func (catalogManagement *CatalogManagementV1) UpdateOfferingIbmWithContext(ctx context.Context, updateOfferingIbmOptions *UpdateOfferingIbmOptions) (result *ApprovalResult, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(updateOfferingIbmOptions, "updateOfferingIbmOptions cannot be nil")
 	if err != nil {
 		return
@@ -1504,11 +1926,17 @@ func (catalogManagement *CatalogManagementV1) UpdateOfferingIbm(updateOfferingIb
 		return
 	}
 
-	pathSegments := []string{"catalogs", "offerings", "publish", ""}
-	pathParameters := []string{*updateOfferingIbmOptions.CatalogIdentifier, *updateOfferingIbmOptions.OfferingID, *updateOfferingIbmOptions.ApprovalType, *updateOfferingIbmOptions.Approved}
+	pathParamsMap := map[string]string{
+		"catalog_identifier": *updateOfferingIbmOptions.CatalogIdentifier,
+		"offering_id": *updateOfferingIbmOptions.OfferingID,
+		"approval_type": *updateOfferingIbmOptions.ApprovalType,
+		"approved": *updateOfferingIbmOptions.Approved,
+	}
 
 	builder := core.NewRequestBuilder(core.POST)
-	_, err = builder.ConstructHTTPURL(catalogManagement.Service.Options.URL, pathSegments, pathParameters)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = catalogManagement.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(catalogManagement.Service.Options.URL, `/catalogs/{catalog_identifier}/offerings/{offering_id}/publish/{approval_type}/{approved}`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -1545,6 +1973,11 @@ func (catalogManagement *CatalogManagementV1) UpdateOfferingIbm(updateOfferingIb
 // GetVersionAbout : Get the about information, in markdown, for the current version
 // Get the about information, in markdown, for the current version.
 func (catalogManagement *CatalogManagementV1) GetVersionAbout(getVersionAboutOptions *GetVersionAboutOptions) (result *string, response *core.DetailedResponse, err error) {
+	return catalogManagement.GetVersionAboutWithContext(context.Background(), getVersionAboutOptions)
+}
+
+// GetVersionAboutWithContext is an alternate form of the GetVersionAbout method which supports a Context parameter
+func (catalogManagement *CatalogManagementV1) GetVersionAboutWithContext(ctx context.Context, getVersionAboutOptions *GetVersionAboutOptions) (result *string, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(getVersionAboutOptions, "getVersionAboutOptions cannot be nil")
 	if err != nil {
 		return
@@ -1554,11 +1987,14 @@ func (catalogManagement *CatalogManagementV1) GetVersionAbout(getVersionAboutOpt
 		return
 	}
 
-	pathSegments := []string{"versions", "about"}
-	pathParameters := []string{*getVersionAboutOptions.VersionLocID}
+	pathParamsMap := map[string]string{
+		"version_loc_id": *getVersionAboutOptions.VersionLocID,
+	}
 
 	builder := core.NewRequestBuilder(core.GET)
-	_, err = builder.ConstructHTTPURL(catalogManagement.Service.Options.URL, pathSegments, pathParameters)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = catalogManagement.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(catalogManagement.Service.Options.URL, `/versions/{version_loc_id}/about`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -1586,6 +2022,11 @@ func (catalogManagement *CatalogManagementV1) GetVersionAbout(getVersionAboutOpt
 // GetVersionLicense : Get the license content for the specified license ID in the specified version
 // Get the license content for the specified license ID in the specified version.
 func (catalogManagement *CatalogManagementV1) GetVersionLicense(getVersionLicenseOptions *GetVersionLicenseOptions) (response *core.DetailedResponse, err error) {
+	return catalogManagement.GetVersionLicenseWithContext(context.Background(), getVersionLicenseOptions)
+}
+
+// GetVersionLicenseWithContext is an alternate form of the GetVersionLicense method which supports a Context parameter
+func (catalogManagement *CatalogManagementV1) GetVersionLicenseWithContext(ctx context.Context, getVersionLicenseOptions *GetVersionLicenseOptions) (response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(getVersionLicenseOptions, "getVersionLicenseOptions cannot be nil")
 	if err != nil {
 		return
@@ -1595,11 +2036,15 @@ func (catalogManagement *CatalogManagementV1) GetVersionLicense(getVersionLicens
 		return
 	}
 
-	pathSegments := []string{"versions", "licenses"}
-	pathParameters := []string{*getVersionLicenseOptions.VersionLocID, *getVersionLicenseOptions.LicenseID}
+	pathParamsMap := map[string]string{
+		"version_loc_id": *getVersionLicenseOptions.VersionLocID,
+		"license_id": *getVersionLicenseOptions.LicenseID,
+	}
 
 	builder := core.NewRequestBuilder(core.GET)
-	_, err = builder.ConstructHTTPURL(catalogManagement.Service.Options.URL, pathSegments, pathParameters)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = catalogManagement.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(catalogManagement.Service.Options.URL, `/versions/{version_loc_id}/licenses/{license_id}`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -1627,6 +2072,11 @@ func (catalogManagement *CatalogManagementV1) GetVersionLicense(getVersionLicens
 // The "image_manifest_url" property of the version should be pointing the a URL for the image manifest, this api
 // reflects that content.
 func (catalogManagement *CatalogManagementV1) GetVersionContainerImages(getVersionContainerImagesOptions *GetVersionContainerImagesOptions) (result *ImageManifest, response *core.DetailedResponse, err error) {
+	return catalogManagement.GetVersionContainerImagesWithContext(context.Background(), getVersionContainerImagesOptions)
+}
+
+// GetVersionContainerImagesWithContext is an alternate form of the GetVersionContainerImages method which supports a Context parameter
+func (catalogManagement *CatalogManagementV1) GetVersionContainerImagesWithContext(ctx context.Context, getVersionContainerImagesOptions *GetVersionContainerImagesOptions) (result *ImageManifest, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(getVersionContainerImagesOptions, "getVersionContainerImagesOptions cannot be nil")
 	if err != nil {
 		return
@@ -1636,11 +2086,14 @@ func (catalogManagement *CatalogManagementV1) GetVersionContainerImages(getVersi
 		return
 	}
 
-	pathSegments := []string{"versions", "containerImages"}
-	pathParameters := []string{*getVersionContainerImagesOptions.VersionLocID}
+	pathParamsMap := map[string]string{
+		"version_loc_id": *getVersionContainerImagesOptions.VersionLocID,
+	}
 
 	builder := core.NewRequestBuilder(core.GET)
-	_, err = builder.ConstructHTTPURL(catalogManagement.Service.Options.URL, pathSegments, pathParameters)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = catalogManagement.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(catalogManagement.Service.Options.URL, `/versions/{version_loc_id}/containerImages`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -1677,6 +2130,11 @@ func (catalogManagement *CatalogManagementV1) GetVersionContainerImages(getVersi
 // DeprecateVersion : Deprecate the specified version
 // Deprecate the specified version.
 func (catalogManagement *CatalogManagementV1) DeprecateVersion(deprecateVersionOptions *DeprecateVersionOptions) (response *core.DetailedResponse, err error) {
+	return catalogManagement.DeprecateVersionWithContext(context.Background(), deprecateVersionOptions)
+}
+
+// DeprecateVersionWithContext is an alternate form of the DeprecateVersion method which supports a Context parameter
+func (catalogManagement *CatalogManagementV1) DeprecateVersionWithContext(ctx context.Context, deprecateVersionOptions *DeprecateVersionOptions) (response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(deprecateVersionOptions, "deprecateVersionOptions cannot be nil")
 	if err != nil {
 		return
@@ -1686,11 +2144,14 @@ func (catalogManagement *CatalogManagementV1) DeprecateVersion(deprecateVersionO
 		return
 	}
 
-	pathSegments := []string{"versions", "deprecate"}
-	pathParameters := []string{*deprecateVersionOptions.VersionLocID}
+	pathParamsMap := map[string]string{
+		"version_loc_id": *deprecateVersionOptions.VersionLocID,
+	}
 
 	builder := core.NewRequestBuilder(core.POST)
-	_, err = builder.ConstructHTTPURL(catalogManagement.Service.Options.URL, pathSegments, pathParameters)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = catalogManagement.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(catalogManagement.Service.Options.URL, `/versions/{version_loc_id}/deprecate`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -1717,6 +2178,11 @@ func (catalogManagement *CatalogManagementV1) DeprecateVersion(deprecateVersionO
 // AccountPublishVersion : Publish the specified version so it is viewable by account members
 // Publish the specified version so it is viewable by account members.
 func (catalogManagement *CatalogManagementV1) AccountPublishVersion(accountPublishVersionOptions *AccountPublishVersionOptions) (response *core.DetailedResponse, err error) {
+	return catalogManagement.AccountPublishVersionWithContext(context.Background(), accountPublishVersionOptions)
+}
+
+// AccountPublishVersionWithContext is an alternate form of the AccountPublishVersion method which supports a Context parameter
+func (catalogManagement *CatalogManagementV1) AccountPublishVersionWithContext(ctx context.Context, accountPublishVersionOptions *AccountPublishVersionOptions) (response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(accountPublishVersionOptions, "accountPublishVersionOptions cannot be nil")
 	if err != nil {
 		return
@@ -1726,11 +2192,14 @@ func (catalogManagement *CatalogManagementV1) AccountPublishVersion(accountPubli
 		return
 	}
 
-	pathSegments := []string{"versions", "account-publish"}
-	pathParameters := []string{*accountPublishVersionOptions.VersionLocID}
+	pathParamsMap := map[string]string{
+		"version_loc_id": *accountPublishVersionOptions.VersionLocID,
+	}
 
 	builder := core.NewRequestBuilder(core.POST)
-	_, err = builder.ConstructHTTPURL(catalogManagement.Service.Options.URL, pathSegments, pathParameters)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = catalogManagement.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(catalogManagement.Service.Options.URL, `/versions/{version_loc_id}/account-publish`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -1757,6 +2226,11 @@ func (catalogManagement *CatalogManagementV1) AccountPublishVersion(accountPubli
 // IbmPublishVersion : Publish the specified version so that it is visible to IBMers in the public catalog
 // Publish the specified version so that it is visible to IBMers in the public catalog.
 func (catalogManagement *CatalogManagementV1) IbmPublishVersion(ibmPublishVersionOptions *IbmPublishVersionOptions) (response *core.DetailedResponse, err error) {
+	return catalogManagement.IbmPublishVersionWithContext(context.Background(), ibmPublishVersionOptions)
+}
+
+// IbmPublishVersionWithContext is an alternate form of the IbmPublishVersion method which supports a Context parameter
+func (catalogManagement *CatalogManagementV1) IbmPublishVersionWithContext(ctx context.Context, ibmPublishVersionOptions *IbmPublishVersionOptions) (response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(ibmPublishVersionOptions, "ibmPublishVersionOptions cannot be nil")
 	if err != nil {
 		return
@@ -1766,11 +2240,14 @@ func (catalogManagement *CatalogManagementV1) IbmPublishVersion(ibmPublishVersio
 		return
 	}
 
-	pathSegments := []string{"versions", "ibm-publish"}
-	pathParameters := []string{*ibmPublishVersionOptions.VersionLocID}
+	pathParamsMap := map[string]string{
+		"version_loc_id": *ibmPublishVersionOptions.VersionLocID,
+	}
 
 	builder := core.NewRequestBuilder(core.POST)
-	_, err = builder.ConstructHTTPURL(catalogManagement.Service.Options.URL, pathSegments, pathParameters)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = catalogManagement.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(catalogManagement.Service.Options.URL, `/versions/{version_loc_id}/ibm-publish`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -1797,6 +2274,11 @@ func (catalogManagement *CatalogManagementV1) IbmPublishVersion(ibmPublishVersio
 // PublicPublishVersion : Publish the specified version so it is visible to all users in the public catalog
 // Publish the specified version so it is visible to all users in the public catalog.
 func (catalogManagement *CatalogManagementV1) PublicPublishVersion(publicPublishVersionOptions *PublicPublishVersionOptions) (response *core.DetailedResponse, err error) {
+	return catalogManagement.PublicPublishVersionWithContext(context.Background(), publicPublishVersionOptions)
+}
+
+// PublicPublishVersionWithContext is an alternate form of the PublicPublishVersion method which supports a Context parameter
+func (catalogManagement *CatalogManagementV1) PublicPublishVersionWithContext(ctx context.Context, publicPublishVersionOptions *PublicPublishVersionOptions) (response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(publicPublishVersionOptions, "publicPublishVersionOptions cannot be nil")
 	if err != nil {
 		return
@@ -1806,11 +2288,14 @@ func (catalogManagement *CatalogManagementV1) PublicPublishVersion(publicPublish
 		return
 	}
 
-	pathSegments := []string{"versions", "public-publish"}
-	pathParameters := []string{*publicPublishVersionOptions.VersionLocID}
+	pathParamsMap := map[string]string{
+		"version_loc_id": *publicPublishVersionOptions.VersionLocID,
+	}
 
 	builder := core.NewRequestBuilder(core.POST)
-	_, err = builder.ConstructHTTPURL(catalogManagement.Service.Options.URL, pathSegments, pathParameters)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = catalogManagement.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(catalogManagement.Service.Options.URL, `/versions/{version_loc_id}/public-publish`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -1837,6 +2322,11 @@ func (catalogManagement *CatalogManagementV1) PublicPublishVersion(publicPublish
 // CommitVersion : Commit a working copy of the specified version
 // Commit a working copy of the specified version.
 func (catalogManagement *CatalogManagementV1) CommitVersion(commitVersionOptions *CommitVersionOptions) (response *core.DetailedResponse, err error) {
+	return catalogManagement.CommitVersionWithContext(context.Background(), commitVersionOptions)
+}
+
+// CommitVersionWithContext is an alternate form of the CommitVersion method which supports a Context parameter
+func (catalogManagement *CatalogManagementV1) CommitVersionWithContext(ctx context.Context, commitVersionOptions *CommitVersionOptions) (response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(commitVersionOptions, "commitVersionOptions cannot be nil")
 	if err != nil {
 		return
@@ -1846,11 +2336,14 @@ func (catalogManagement *CatalogManagementV1) CommitVersion(commitVersionOptions
 		return
 	}
 
-	pathSegments := []string{"versions", "commit"}
-	pathParameters := []string{*commitVersionOptions.VersionLocID}
+	pathParamsMap := map[string]string{
+		"version_loc_id": *commitVersionOptions.VersionLocID,
+	}
 
 	builder := core.NewRequestBuilder(core.POST)
-	_, err = builder.ConstructHTTPURL(catalogManagement.Service.Options.URL, pathSegments, pathParameters)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = catalogManagement.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(catalogManagement.Service.Options.URL, `/versions/{version_loc_id}/commit`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -1874,9 +2367,78 @@ func (catalogManagement *CatalogManagementV1) CommitVersion(commitVersionOptions
 	return
 }
 
+// CopyVersion : Copy the specified version to a new target kind within the same offering
+// Copy the specified version to a new target kind within the same offering.
+func (catalogManagement *CatalogManagementV1) CopyVersion(copyVersionOptions *CopyVersionOptions) (response *core.DetailedResponse, err error) {
+	return catalogManagement.CopyVersionWithContext(context.Background(), copyVersionOptions)
+}
+
+// CopyVersionWithContext is an alternate form of the CopyVersion method which supports a Context parameter
+func (catalogManagement *CatalogManagementV1) CopyVersionWithContext(ctx context.Context, copyVersionOptions *CopyVersionOptions) (response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(copyVersionOptions, "copyVersionOptions cannot be nil")
+	if err != nil {
+		return
+	}
+	err = core.ValidateStruct(copyVersionOptions, "copyVersionOptions")
+	if err != nil {
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"version_loc_id": *copyVersionOptions.VersionLocID,
+	}
+
+	builder := core.NewRequestBuilder(core.POST)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = catalogManagement.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(catalogManagement.Service.Options.URL, `/versions/{version_loc_id}/copy`, pathParamsMap)
+	if err != nil {
+		return
+	}
+
+	for headerName, headerValue := range copyVersionOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "CopyVersion")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Content-Type", "application/json")
+
+	body := make(map[string]interface{})
+	if copyVersionOptions.Tags != nil {
+		body["tags"] = copyVersionOptions.Tags
+	}
+	if copyVersionOptions.TargetKinds != nil {
+		body["target_kinds"] = copyVersionOptions.TargetKinds
+	}
+	if copyVersionOptions.Content != nil {
+		body["content"] = copyVersionOptions.Content
+	}
+	_, err = builder.SetBodyContentJSON(body)
+	if err != nil {
+		return
+	}
+
+	request, err := builder.Build()
+	if err != nil {
+		return
+	}
+
+	response, err = catalogManagement.Service.Request(request, nil)
+
+	return
+}
+
 // GetVersionWorkingCopy : Create a working copy of the specified version
 // Create a working copy of the specified version.
 func (catalogManagement *CatalogManagementV1) GetVersionWorkingCopy(getVersionWorkingCopyOptions *GetVersionWorkingCopyOptions) (result *Version, response *core.DetailedResponse, err error) {
+	return catalogManagement.GetVersionWorkingCopyWithContext(context.Background(), getVersionWorkingCopyOptions)
+}
+
+// GetVersionWorkingCopyWithContext is an alternate form of the GetVersionWorkingCopy method which supports a Context parameter
+func (catalogManagement *CatalogManagementV1) GetVersionWorkingCopyWithContext(ctx context.Context, getVersionWorkingCopyOptions *GetVersionWorkingCopyOptions) (result *Version, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(getVersionWorkingCopyOptions, "getVersionWorkingCopyOptions cannot be nil")
 	if err != nil {
 		return
@@ -1886,11 +2448,14 @@ func (catalogManagement *CatalogManagementV1) GetVersionWorkingCopy(getVersionWo
 		return
 	}
 
-	pathSegments := []string{"versions", "workingcopy"}
-	pathParameters := []string{*getVersionWorkingCopyOptions.VersionLocID}
+	pathParamsMap := map[string]string{
+		"version_loc_id": *getVersionWorkingCopyOptions.VersionLocID,
+	}
 
 	builder := core.NewRequestBuilder(core.POST)
-	_, err = builder.ConstructHTTPURL(catalogManagement.Service.Options.URL, pathSegments, pathParameters)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = catalogManagement.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(catalogManagement.Service.Options.URL, `/versions/{version_loc_id}/workingcopy`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -1927,6 +2492,11 @@ func (catalogManagement *CatalogManagementV1) GetVersionWorkingCopy(getVersionWo
 // GetVersionUpdates : Get available updates for the specified version
 // Get available updates for the specified version.
 func (catalogManagement *CatalogManagementV1) GetVersionUpdates(getVersionUpdatesOptions *GetVersionUpdatesOptions) (result []VersionUpdateDescriptor, response *core.DetailedResponse, err error) {
+	return catalogManagement.GetVersionUpdatesWithContext(context.Background(), getVersionUpdatesOptions)
+}
+
+// GetVersionUpdatesWithContext is an alternate form of the GetVersionUpdates method which supports a Context parameter
+func (catalogManagement *CatalogManagementV1) GetVersionUpdatesWithContext(ctx context.Context, getVersionUpdatesOptions *GetVersionUpdatesOptions) (result []VersionUpdateDescriptor, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(getVersionUpdatesOptions, "getVersionUpdatesOptions cannot be nil")
 	if err != nil {
 		return
@@ -1936,11 +2506,14 @@ func (catalogManagement *CatalogManagementV1) GetVersionUpdates(getVersionUpdate
 		return
 	}
 
-	pathSegments := []string{"versions", "updates"}
-	pathParameters := []string{*getVersionUpdatesOptions.VersionLocID}
+	pathParamsMap := map[string]string{
+		"version_loc_id": *getVersionUpdatesOptions.VersionLocID,
+	}
 
 	builder := core.NewRequestBuilder(core.GET)
-	_, err = builder.ConstructHTTPURL(catalogManagement.Service.Options.URL, pathSegments, pathParameters)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = catalogManagement.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(catalogManagement.Service.Options.URL, `/versions/{version_loc_id}/updates`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -1990,6 +2563,11 @@ func (catalogManagement *CatalogManagementV1) GetVersionUpdates(getVersionUpdate
 // GetVersion : Get the Offering/Kind/Version 'branch' for the specified locator ID
 // Get the Offering/Kind/Version 'branch' for the specified locator ID.
 func (catalogManagement *CatalogManagementV1) GetVersion(getVersionOptions *GetVersionOptions) (result *Offering, response *core.DetailedResponse, err error) {
+	return catalogManagement.GetVersionWithContext(context.Background(), getVersionOptions)
+}
+
+// GetVersionWithContext is an alternate form of the GetVersion method which supports a Context parameter
+func (catalogManagement *CatalogManagementV1) GetVersionWithContext(ctx context.Context, getVersionOptions *GetVersionOptions) (result *Offering, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(getVersionOptions, "getVersionOptions cannot be nil")
 	if err != nil {
 		return
@@ -1999,11 +2577,14 @@ func (catalogManagement *CatalogManagementV1) GetVersion(getVersionOptions *GetV
 		return
 	}
 
-	pathSegments := []string{"versions"}
-	pathParameters := []string{*getVersionOptions.VersionLocID}
+	pathParamsMap := map[string]string{
+		"version_loc_id": *getVersionOptions.VersionLocID,
+	}
 
 	builder := core.NewRequestBuilder(core.GET)
-	_, err = builder.ConstructHTTPURL(catalogManagement.Service.Options.URL, pathSegments, pathParameters)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = catalogManagement.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(catalogManagement.Service.Options.URL, `/versions/{version_loc_id}`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -2041,6 +2622,11 @@ func (catalogManagement *CatalogManagementV1) GetVersion(getVersionOptions *GetV
 // Delete a the specified version.  If the version is an active version with a working copy, the working copy will be
 // deleted as well.
 func (catalogManagement *CatalogManagementV1) DeleteVersion(deleteVersionOptions *DeleteVersionOptions) (response *core.DetailedResponse, err error) {
+	return catalogManagement.DeleteVersionWithContext(context.Background(), deleteVersionOptions)
+}
+
+// DeleteVersionWithContext is an alternate form of the DeleteVersion method which supports a Context parameter
+func (catalogManagement *CatalogManagementV1) DeleteVersionWithContext(ctx context.Context, deleteVersionOptions *DeleteVersionOptions) (response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(deleteVersionOptions, "deleteVersionOptions cannot be nil")
 	if err != nil {
 		return
@@ -2050,11 +2636,14 @@ func (catalogManagement *CatalogManagementV1) DeleteVersion(deleteVersionOptions
 		return
 	}
 
-	pathSegments := []string{"versions"}
-	pathParameters := []string{*deleteVersionOptions.VersionLocID}
+	pathParamsMap := map[string]string{
+		"version_loc_id": *deleteVersionOptions.VersionLocID,
+	}
 
 	builder := core.NewRequestBuilder(core.DELETE)
-	_, err = builder.ConstructHTTPURL(catalogManagement.Service.Options.URL, pathSegments, pathParameters)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = catalogManagement.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(catalogManagement.Service.Options.URL, `/versions/{version_loc_id}`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -2082,6 +2671,11 @@ func (catalogManagement *CatalogManagementV1) DeleteVersion(deleteVersionOptions
 // [deprecated] use /search/license/versions api instead.   Search across all accounts for versions, requires global
 // admin permission.
 func (catalogManagement *CatalogManagementV1) ListVersions(listVersionsOptions *ListVersionsOptions) (response *core.DetailedResponse, err error) {
+	return catalogManagement.ListVersionsWithContext(context.Background(), listVersionsOptions)
+}
+
+// ListVersionsWithContext is an alternate form of the ListVersions method which supports a Context parameter
+func (catalogManagement *CatalogManagementV1) ListVersionsWithContext(ctx context.Context, listVersionsOptions *ListVersionsOptions) (response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(listVersionsOptions, "listVersionsOptions cannot be nil")
 	if err != nil {
 		return
@@ -2091,11 +2685,10 @@ func (catalogManagement *CatalogManagementV1) ListVersions(listVersionsOptions *
 		return
 	}
 
-	pathSegments := []string{"versions"}
-	pathParameters := []string{}
-
 	builder := core.NewRequestBuilder(core.GET)
-	_, err = builder.ConstructHTTPURL(catalogManagement.Service.Options.URL, pathSegments, pathParameters)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = catalogManagement.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(catalogManagement.Service.Options.URL, `/versions`, nil)
 	if err != nil {
 		return
 	}
@@ -2124,6 +2717,11 @@ func (catalogManagement *CatalogManagementV1) ListVersions(listVersionsOptions *
 // GetRepos : List a repo's entries
 // List the available entries from a given repo.
 func (catalogManagement *CatalogManagementV1) GetRepos(getReposOptions *GetReposOptions) (result *HelmRepoList, response *core.DetailedResponse, err error) {
+	return catalogManagement.GetReposWithContext(context.Background(), getReposOptions)
+}
+
+// GetReposWithContext is an alternate form of the GetRepos method which supports a Context parameter
+func (catalogManagement *CatalogManagementV1) GetReposWithContext(ctx context.Context, getReposOptions *GetReposOptions) (result *HelmRepoList, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(getReposOptions, "getReposOptions cannot be nil")
 	if err != nil {
 		return
@@ -2133,11 +2731,14 @@ func (catalogManagement *CatalogManagementV1) GetRepos(getReposOptions *GetRepos
 		return
 	}
 
-	pathSegments := []string{"repo", "entries"}
-	pathParameters := []string{*getReposOptions.Type}
+	pathParamsMap := map[string]string{
+		"type": *getReposOptions.Type,
+	}
 
 	builder := core.NewRequestBuilder(core.GET)
-	_, err = builder.ConstructHTTPURL(catalogManagement.Service.Options.URL, pathSegments, pathParameters)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = catalogManagement.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(catalogManagement.Service.Options.URL, `/repo/{type}/entries`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -2176,6 +2777,11 @@ func (catalogManagement *CatalogManagementV1) GetRepos(getReposOptions *GetRepos
 // GetRepo : Get contents of a repo
 // Get the contents of a given repo.
 func (catalogManagement *CatalogManagementV1) GetRepo(getRepoOptions *GetRepoOptions) (result *HelmPackage, response *core.DetailedResponse, err error) {
+	return catalogManagement.GetRepoWithContext(context.Background(), getRepoOptions)
+}
+
+// GetRepoWithContext is an alternate form of the GetRepo method which supports a Context parameter
+func (catalogManagement *CatalogManagementV1) GetRepoWithContext(ctx context.Context, getRepoOptions *GetRepoOptions) (result *HelmPackage, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(getRepoOptions, "getRepoOptions cannot be nil")
 	if err != nil {
 		return
@@ -2185,11 +2791,14 @@ func (catalogManagement *CatalogManagementV1) GetRepo(getRepoOptions *GetRepoOpt
 		return
 	}
 
-	pathSegments := []string{"repo"}
-	pathParameters := []string{*getRepoOptions.Type}
+	pathParamsMap := map[string]string{
+		"type": *getRepoOptions.Type,
+	}
 
 	builder := core.NewRequestBuilder(core.GET)
-	_, err = builder.ConstructHTTPURL(catalogManagement.Service.Options.URL, pathSegments, pathParameters)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = catalogManagement.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(catalogManagement.Service.Options.URL, `/repo/{type}`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -2228,16 +2837,20 @@ func (catalogManagement *CatalogManagementV1) GetRepo(getRepoOptions *GetRepoOpt
 // ListClusters : List Kube clusters
 // List Kube clusters.
 func (catalogManagement *CatalogManagementV1) ListClusters(listClustersOptions *ListClustersOptions) (result *ClusterSearchResult, response *core.DetailedResponse, err error) {
+	return catalogManagement.ListClustersWithContext(context.Background(), listClustersOptions)
+}
+
+// ListClustersWithContext is an alternate form of the ListClusters method which supports a Context parameter
+func (catalogManagement *CatalogManagementV1) ListClustersWithContext(ctx context.Context, listClustersOptions *ListClustersOptions) (result *ClusterSearchResult, response *core.DetailedResponse, err error) {
 	err = core.ValidateStruct(listClustersOptions, "listClustersOptions")
 	if err != nil {
 		return
 	}
 
-	pathSegments := []string{"deploy/kubernetes/clusters"}
-	pathParameters := []string{}
-
 	builder := core.NewRequestBuilder(core.GET)
-	_, err = builder.ConstructHTTPURL(catalogManagement.Service.Options.URL, pathSegments, pathParameters)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = catalogManagement.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(catalogManagement.Service.Options.URL, `/deploy/kubernetes/clusters`, nil)
 	if err != nil {
 		return
 	}
@@ -2284,6 +2897,11 @@ func (catalogManagement *CatalogManagementV1) ListClusters(listClustersOptions *
 // GetCluster : Get Kube cluster
 // Get Kube cluster.
 func (catalogManagement *CatalogManagementV1) GetCluster(getClusterOptions *GetClusterOptions) (result *ClusterInfo, response *core.DetailedResponse, err error) {
+	return catalogManagement.GetClusterWithContext(context.Background(), getClusterOptions)
+}
+
+// GetClusterWithContext is an alternate form of the GetCluster method which supports a Context parameter
+func (catalogManagement *CatalogManagementV1) GetClusterWithContext(ctx context.Context, getClusterOptions *GetClusterOptions) (result *ClusterInfo, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(getClusterOptions, "getClusterOptions cannot be nil")
 	if err != nil {
 		return
@@ -2293,11 +2911,14 @@ func (catalogManagement *CatalogManagementV1) GetCluster(getClusterOptions *GetC
 		return
 	}
 
-	pathSegments := []string{"deploy/kubernetes/clusters"}
-	pathParameters := []string{*getClusterOptions.ClusterID}
+	pathParamsMap := map[string]string{
+		"cluster_id": *getClusterOptions.ClusterID,
+	}
 
 	builder := core.NewRequestBuilder(core.GET)
-	_, err = builder.ConstructHTTPURL(catalogManagement.Service.Options.URL, pathSegments, pathParameters)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = catalogManagement.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(catalogManagement.Service.Options.URL, `/deploy/kubernetes/clusters/{cluster_id}`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -2339,6 +2960,11 @@ func (catalogManagement *CatalogManagementV1) GetCluster(getClusterOptions *GetC
 // GetNamespaces : Get cluster namespaces
 // Get cluster namespaces.
 func (catalogManagement *CatalogManagementV1) GetNamespaces(getNamespacesOptions *GetNamespacesOptions) (result *NamespaceSearchResult, response *core.DetailedResponse, err error) {
+	return catalogManagement.GetNamespacesWithContext(context.Background(), getNamespacesOptions)
+}
+
+// GetNamespacesWithContext is an alternate form of the GetNamespaces method which supports a Context parameter
+func (catalogManagement *CatalogManagementV1) GetNamespacesWithContext(ctx context.Context, getNamespacesOptions *GetNamespacesOptions) (result *NamespaceSearchResult, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(getNamespacesOptions, "getNamespacesOptions cannot be nil")
 	if err != nil {
 		return
@@ -2348,11 +2974,14 @@ func (catalogManagement *CatalogManagementV1) GetNamespaces(getNamespacesOptions
 		return
 	}
 
-	pathSegments := []string{"deploy/kubernetes/clusters", "namespaces"}
-	pathParameters := []string{*getNamespacesOptions.ClusterID}
+	pathParamsMap := map[string]string{
+		"cluster_id": *getNamespacesOptions.ClusterID,
+	}
 
 	builder := core.NewRequestBuilder(core.GET)
-	_, err = builder.ConstructHTTPURL(catalogManagement.Service.Options.URL, pathSegments, pathParameters)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = catalogManagement.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(catalogManagement.Service.Options.URL, `/deploy/kubernetes/clusters/{cluster_id}/namespaces`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -2400,6 +3029,11 @@ func (catalogManagement *CatalogManagementV1) GetNamespaces(getNamespacesOptions
 // CreateOperator : Deploy Operator(s) on a Kube cluster
 // Deploy Operator(s) on a Kube cluster.
 func (catalogManagement *CatalogManagementV1) CreateOperator(createOperatorOptions *CreateOperatorOptions) (result []OperatorDeployResult, response *core.DetailedResponse, err error) {
+	return catalogManagement.CreateOperatorWithContext(context.Background(), createOperatorOptions)
+}
+
+// CreateOperatorWithContext is an alternate form of the CreateOperator method which supports a Context parameter
+func (catalogManagement *CatalogManagementV1) CreateOperatorWithContext(ctx context.Context, createOperatorOptions *CreateOperatorOptions) (result []OperatorDeployResult, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(createOperatorOptions, "createOperatorOptions cannot be nil")
 	if err != nil {
 		return
@@ -2409,11 +3043,10 @@ func (catalogManagement *CatalogManagementV1) CreateOperator(createOperatorOptio
 		return
 	}
 
-	pathSegments := []string{"deploy/kubernetes/olm/operator"}
-	pathParameters := []string{}
-
 	builder := core.NewRequestBuilder(core.POST)
-	_, err = builder.ConstructHTTPURL(catalogManagement.Service.Options.URL, pathSegments, pathParameters)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = catalogManagement.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(catalogManagement.Service.Options.URL, `/deploy/kubernetes/olm/operator`, nil)
 	if err != nil {
 		return
 	}
@@ -2441,6 +3074,9 @@ func (catalogManagement *CatalogManagementV1) CreateOperator(createOperatorOptio
 	}
 	if createOperatorOptions.Namespaces != nil {
 		body["namespaces"] = createOperatorOptions.Namespaces
+	}
+	if createOperatorOptions.AllNamespaces != nil {
+		body["all_namespaces"] = createOperatorOptions.AllNamespaces
 	}
 	if createOperatorOptions.VersionLocatorID != nil {
 		body["version_locator_id"] = createOperatorOptions.VersionLocatorID
@@ -2472,6 +3108,11 @@ func (catalogManagement *CatalogManagementV1) CreateOperator(createOperatorOptio
 // ListOperators : Get Operator(s) from a Kube cluster
 // Get Operator(s) from a Kube cluster.
 func (catalogManagement *CatalogManagementV1) ListOperators(listOperatorsOptions *ListOperatorsOptions) (result []OperatorDeployResult, response *core.DetailedResponse, err error) {
+	return catalogManagement.ListOperatorsWithContext(context.Background(), listOperatorsOptions)
+}
+
+// ListOperatorsWithContext is an alternate form of the ListOperators method which supports a Context parameter
+func (catalogManagement *CatalogManagementV1) ListOperatorsWithContext(ctx context.Context, listOperatorsOptions *ListOperatorsOptions) (result []OperatorDeployResult, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(listOperatorsOptions, "listOperatorsOptions cannot be nil")
 	if err != nil {
 		return
@@ -2481,11 +3122,10 @@ func (catalogManagement *CatalogManagementV1) ListOperators(listOperatorsOptions
 		return
 	}
 
-	pathSegments := []string{"deploy/kubernetes/olm/operator"}
-	pathParameters := []string{}
-
 	builder := core.NewRequestBuilder(core.GET)
-	_, err = builder.ConstructHTTPURL(catalogManagement.Service.Options.URL, pathSegments, pathParameters)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = catalogManagement.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(catalogManagement.Service.Options.URL, `/deploy/kubernetes/olm/operator`, nil)
 	if err != nil {
 		return
 	}
@@ -2529,6 +3169,11 @@ func (catalogManagement *CatalogManagementV1) ListOperators(listOperatorsOptions
 // ReplaceOperator : Update Operator(s) on a Kube cluster
 // Update Operator(s) on a Kube cluster.
 func (catalogManagement *CatalogManagementV1) ReplaceOperator(replaceOperatorOptions *ReplaceOperatorOptions) (result []OperatorDeployResult, response *core.DetailedResponse, err error) {
+	return catalogManagement.ReplaceOperatorWithContext(context.Background(), replaceOperatorOptions)
+}
+
+// ReplaceOperatorWithContext is an alternate form of the ReplaceOperator method which supports a Context parameter
+func (catalogManagement *CatalogManagementV1) ReplaceOperatorWithContext(ctx context.Context, replaceOperatorOptions *ReplaceOperatorOptions) (result []OperatorDeployResult, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(replaceOperatorOptions, "replaceOperatorOptions cannot be nil")
 	if err != nil {
 		return
@@ -2538,11 +3183,10 @@ func (catalogManagement *CatalogManagementV1) ReplaceOperator(replaceOperatorOpt
 		return
 	}
 
-	pathSegments := []string{"deploy/kubernetes/olm/operator"}
-	pathParameters := []string{}
-
 	builder := core.NewRequestBuilder(core.PUT)
-	_, err = builder.ConstructHTTPURL(catalogManagement.Service.Options.URL, pathSegments, pathParameters)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = catalogManagement.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(catalogManagement.Service.Options.URL, `/deploy/kubernetes/olm/operator`, nil)
 	if err != nil {
 		return
 	}
@@ -2570,6 +3214,9 @@ func (catalogManagement *CatalogManagementV1) ReplaceOperator(replaceOperatorOpt
 	}
 	if replaceOperatorOptions.Namespaces != nil {
 		body["namespaces"] = replaceOperatorOptions.Namespaces
+	}
+	if replaceOperatorOptions.AllNamespaces != nil {
+		body["all_namespaces"] = replaceOperatorOptions.AllNamespaces
 	}
 	if replaceOperatorOptions.VersionLocatorID != nil {
 		body["version_locator_id"] = replaceOperatorOptions.VersionLocatorID
@@ -2601,6 +3248,11 @@ func (catalogManagement *CatalogManagementV1) ReplaceOperator(replaceOperatorOpt
 // DeleteOperator : Delete Operator(s) from a Kube cluster
 // Delete Operator(s) from a Kube cluster.
 func (catalogManagement *CatalogManagementV1) DeleteOperator(deleteOperatorOptions *DeleteOperatorOptions) (response *core.DetailedResponse, err error) {
+	return catalogManagement.DeleteOperatorWithContext(context.Background(), deleteOperatorOptions)
+}
+
+// DeleteOperatorWithContext is an alternate form of the DeleteOperator method which supports a Context parameter
+func (catalogManagement *CatalogManagementV1) DeleteOperatorWithContext(ctx context.Context, deleteOperatorOptions *DeleteOperatorOptions) (response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(deleteOperatorOptions, "deleteOperatorOptions cannot be nil")
 	if err != nil {
 		return
@@ -2610,11 +3262,10 @@ func (catalogManagement *CatalogManagementV1) DeleteOperator(deleteOperatorOptio
 		return
 	}
 
-	pathSegments := []string{"deploy/kubernetes/olm/operator"}
-	pathParameters := []string{}
-
 	builder := core.NewRequestBuilder(core.DELETE)
-	_, err = builder.ConstructHTTPURL(catalogManagement.Service.Options.URL, pathSegments, pathParameters)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = catalogManagement.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(catalogManagement.Service.Options.URL, `/deploy/kubernetes/olm/operator`, nil)
 	if err != nil {
 		return
 	}
@@ -2648,6 +3299,11 @@ func (catalogManagement *CatalogManagementV1) DeleteOperator(deleteOperatorOptio
 // InstallVersion : Create an install
 // Create an install.
 func (catalogManagement *CatalogManagementV1) InstallVersion(installVersionOptions *InstallVersionOptions) (response *core.DetailedResponse, err error) {
+	return catalogManagement.InstallVersionWithContext(context.Background(), installVersionOptions)
+}
+
+// InstallVersionWithContext is an alternate form of the InstallVersion method which supports a Context parameter
+func (catalogManagement *CatalogManagementV1) InstallVersionWithContext(ctx context.Context, installVersionOptions *InstallVersionOptions) (response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(installVersionOptions, "installVersionOptions cannot be nil")
 	if err != nil {
 		return
@@ -2657,11 +3313,14 @@ func (catalogManagement *CatalogManagementV1) InstallVersion(installVersionOptio
 		return
 	}
 
-	pathSegments := []string{"versions", "install"}
-	pathParameters := []string{*installVersionOptions.VersionLocID}
+	pathParamsMap := map[string]string{
+		"version_loc_id": *installVersionOptions.VersionLocID,
+	}
 
 	builder := core.NewRequestBuilder(core.POST)
-	_, err = builder.ConstructHTTPURL(catalogManagement.Service.Options.URL, pathSegments, pathParameters)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = catalogManagement.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(catalogManagement.Service.Options.URL, `/versions/{version_loc_id}/install`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -2710,11 +3369,17 @@ func (catalogManagement *CatalogManagementV1) InstallVersion(installVersionOptio
 	if installVersionOptions.VcenterID != nil {
 		body["vcenter_id"] = installVersionOptions.VcenterID
 	}
+	if installVersionOptions.VcenterUser != nil {
+		body["vcenter_user"] = installVersionOptions.VcenterUser
+	}
 	if installVersionOptions.VcenterPassword != nil {
 		body["vcenter_password"] = installVersionOptions.VcenterPassword
 	}
 	if installVersionOptions.VcenterLocation != nil {
 		body["vcenter_location"] = installVersionOptions.VcenterLocation
+	}
+	if installVersionOptions.VcenterDatastore != nil {
+		body["vcenter_datastore"] = installVersionOptions.VcenterDatastore
 	}
 	_, err = builder.SetBodyContentJSON(body)
 	if err != nil {
@@ -2734,6 +3399,11 @@ func (catalogManagement *CatalogManagementV1) InstallVersion(installVersionOptio
 // PreinstallVersion : Create a preinstall
 // Create a preinstall.
 func (catalogManagement *CatalogManagementV1) PreinstallVersion(preinstallVersionOptions *PreinstallVersionOptions) (response *core.DetailedResponse, err error) {
+	return catalogManagement.PreinstallVersionWithContext(context.Background(), preinstallVersionOptions)
+}
+
+// PreinstallVersionWithContext is an alternate form of the PreinstallVersion method which supports a Context parameter
+func (catalogManagement *CatalogManagementV1) PreinstallVersionWithContext(ctx context.Context, preinstallVersionOptions *PreinstallVersionOptions) (response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(preinstallVersionOptions, "preinstallVersionOptions cannot be nil")
 	if err != nil {
 		return
@@ -2743,11 +3413,14 @@ func (catalogManagement *CatalogManagementV1) PreinstallVersion(preinstallVersio
 		return
 	}
 
-	pathSegments := []string{"versions", "preinstall"}
-	pathParameters := []string{*preinstallVersionOptions.VersionLocID}
+	pathParamsMap := map[string]string{
+		"version_loc_id": *preinstallVersionOptions.VersionLocID,
+	}
 
 	builder := core.NewRequestBuilder(core.POST)
-	_, err = builder.ConstructHTTPURL(catalogManagement.Service.Options.URL, pathSegments, pathParameters)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = catalogManagement.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(catalogManagement.Service.Options.URL, `/versions/{version_loc_id}/preinstall`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -2796,11 +3469,17 @@ func (catalogManagement *CatalogManagementV1) PreinstallVersion(preinstallVersio
 	if preinstallVersionOptions.VcenterID != nil {
 		body["vcenter_id"] = preinstallVersionOptions.VcenterID
 	}
+	if preinstallVersionOptions.VcenterUser != nil {
+		body["vcenter_user"] = preinstallVersionOptions.VcenterUser
+	}
 	if preinstallVersionOptions.VcenterPassword != nil {
 		body["vcenter_password"] = preinstallVersionOptions.VcenterPassword
 	}
 	if preinstallVersionOptions.VcenterLocation != nil {
 		body["vcenter_location"] = preinstallVersionOptions.VcenterLocation
+	}
+	if preinstallVersionOptions.VcenterDatastore != nil {
+		body["vcenter_datastore"] = preinstallVersionOptions.VcenterDatastore
 	}
 	_, err = builder.SetBodyContentJSON(body)
 	if err != nil {
@@ -2820,6 +3499,11 @@ func (catalogManagement *CatalogManagementV1) PreinstallVersion(preinstallVersio
 // GetPreinstall : Get a preinstall
 // Get a preinstall.
 func (catalogManagement *CatalogManagementV1) GetPreinstall(getPreinstallOptions *GetPreinstallOptions) (result *InstallStatus, response *core.DetailedResponse, err error) {
+	return catalogManagement.GetPreinstallWithContext(context.Background(), getPreinstallOptions)
+}
+
+// GetPreinstallWithContext is an alternate form of the GetPreinstall method which supports a Context parameter
+func (catalogManagement *CatalogManagementV1) GetPreinstallWithContext(ctx context.Context, getPreinstallOptions *GetPreinstallOptions) (result *InstallStatus, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(getPreinstallOptions, "getPreinstallOptions cannot be nil")
 	if err != nil {
 		return
@@ -2829,11 +3513,14 @@ func (catalogManagement *CatalogManagementV1) GetPreinstall(getPreinstallOptions
 		return
 	}
 
-	pathSegments := []string{"versions", "preinstall"}
-	pathParameters := []string{*getPreinstallOptions.VersionLocID}
+	pathParamsMap := map[string]string{
+		"version_loc_id": *getPreinstallOptions.VersionLocID,
+	}
 
 	builder := core.NewRequestBuilder(core.GET)
-	_, err = builder.ConstructHTTPURL(catalogManagement.Service.Options.URL, pathSegments, pathParameters)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = catalogManagement.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(catalogManagement.Service.Options.URL, `/versions/{version_loc_id}/preinstall`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -2883,6 +3570,11 @@ func (catalogManagement *CatalogManagementV1) GetPreinstall(getPreinstallOptions
 // ValidationInstall : Validate a offering
 // Validate a offering.
 func (catalogManagement *CatalogManagementV1) ValidationInstall(validationInstallOptions *ValidationInstallOptions) (response *core.DetailedResponse, err error) {
+	return catalogManagement.ValidationInstallWithContext(context.Background(), validationInstallOptions)
+}
+
+// ValidationInstallWithContext is an alternate form of the ValidationInstall method which supports a Context parameter
+func (catalogManagement *CatalogManagementV1) ValidationInstallWithContext(ctx context.Context, validationInstallOptions *ValidationInstallOptions) (response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(validationInstallOptions, "validationInstallOptions cannot be nil")
 	if err != nil {
 		return
@@ -2892,11 +3584,14 @@ func (catalogManagement *CatalogManagementV1) ValidationInstall(validationInstal
 		return
 	}
 
-	pathSegments := []string{"versions", "validation/install"}
-	pathParameters := []string{*validationInstallOptions.VersionLocID}
+	pathParamsMap := map[string]string{
+		"version_loc_id": *validationInstallOptions.VersionLocID,
+	}
 
 	builder := core.NewRequestBuilder(core.POST)
-	_, err = builder.ConstructHTTPURL(catalogManagement.Service.Options.URL, pathSegments, pathParameters)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = catalogManagement.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(catalogManagement.Service.Options.URL, `/versions/{version_loc_id}/validation/install`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -2945,11 +3640,17 @@ func (catalogManagement *CatalogManagementV1) ValidationInstall(validationInstal
 	if validationInstallOptions.VcenterID != nil {
 		body["vcenter_id"] = validationInstallOptions.VcenterID
 	}
+	if validationInstallOptions.VcenterUser != nil {
+		body["vcenter_user"] = validationInstallOptions.VcenterUser
+	}
 	if validationInstallOptions.VcenterPassword != nil {
 		body["vcenter_password"] = validationInstallOptions.VcenterPassword
 	}
 	if validationInstallOptions.VcenterLocation != nil {
 		body["vcenter_location"] = validationInstallOptions.VcenterLocation
+	}
+	if validationInstallOptions.VcenterDatastore != nil {
+		body["vcenter_datastore"] = validationInstallOptions.VcenterDatastore
 	}
 	_, err = builder.SetBodyContentJSON(body)
 	if err != nil {
@@ -2969,6 +3670,11 @@ func (catalogManagement *CatalogManagementV1) ValidationInstall(validationInstal
 // GetValidationStatus : Returns the install status for the specified offering version
 // Returns the install status for the specified offering version.
 func (catalogManagement *CatalogManagementV1) GetValidationStatus(getValidationStatusOptions *GetValidationStatusOptions) (result *Validation, response *core.DetailedResponse, err error) {
+	return catalogManagement.GetValidationStatusWithContext(context.Background(), getValidationStatusOptions)
+}
+
+// GetValidationStatusWithContext is an alternate form of the GetValidationStatus method which supports a Context parameter
+func (catalogManagement *CatalogManagementV1) GetValidationStatusWithContext(ctx context.Context, getValidationStatusOptions *GetValidationStatusOptions) (result *Validation, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(getValidationStatusOptions, "getValidationStatusOptions cannot be nil")
 	if err != nil {
 		return
@@ -2978,11 +3684,14 @@ func (catalogManagement *CatalogManagementV1) GetValidationStatus(getValidationS
 		return
 	}
 
-	pathSegments := []string{"versions", "validation/install"}
-	pathParameters := []string{*getValidationStatusOptions.VersionLocID}
+	pathParamsMap := map[string]string{
+		"version_loc_id": *getValidationStatusOptions.VersionLocID,
+	}
 
 	builder := core.NewRequestBuilder(core.GET)
-	_, err = builder.ConstructHTTPURL(catalogManagement.Service.Options.URL, pathSegments, pathParameters)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = catalogManagement.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(catalogManagement.Service.Options.URL, `/versions/{version_loc_id}/validation/install`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -3022,6 +3731,11 @@ func (catalogManagement *CatalogManagementV1) GetValidationStatus(getValidationS
 // GetOverrideValues : Returns the override values that were used to validate the specified offering version
 // Returns the override values that were used to validate the specified offering version.
 func (catalogManagement *CatalogManagementV1) GetOverrideValues(getOverrideValuesOptions *GetOverrideValuesOptions) (result map[string]interface{}, response *core.DetailedResponse, err error) {
+	return catalogManagement.GetOverrideValuesWithContext(context.Background(), getOverrideValuesOptions)
+}
+
+// GetOverrideValuesWithContext is an alternate form of the GetOverrideValues method which supports a Context parameter
+func (catalogManagement *CatalogManagementV1) GetOverrideValuesWithContext(ctx context.Context, getOverrideValuesOptions *GetOverrideValuesOptions) (result map[string]interface{}, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(getOverrideValuesOptions, "getOverrideValuesOptions cannot be nil")
 	if err != nil {
 		return
@@ -3031,11 +3745,14 @@ func (catalogManagement *CatalogManagementV1) GetOverrideValues(getOverrideValue
 		return
 	}
 
-	pathSegments := []string{"versions", "validation/overridevalues"}
-	pathParameters := []string{*getOverrideValuesOptions.VersionLocID}
+	pathParamsMap := map[string]string{
+		"version_loc_id": *getOverrideValuesOptions.VersionLocID,
+	}
 
 	builder := core.NewRequestBuilder(core.GET)
-	_, err = builder.ConstructHTTPURL(catalogManagement.Service.Options.URL, pathSegments, pathParameters)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = catalogManagement.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(catalogManagement.Service.Options.URL, `/versions/{version_loc_id}/validation/overridevalues`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -3063,6 +3780,11 @@ func (catalogManagement *CatalogManagementV1) GetOverrideValues(getOverrideValue
 // GetSchematicsWorkspaces : Returns the schematics workspaces for the specified offering version
 // Returns the schematics workspaces for the specified offering version.
 func (catalogManagement *CatalogManagementV1) GetSchematicsWorkspaces(getSchematicsWorkspacesOptions *GetSchematicsWorkspacesOptions) (result *SchematicsWorkspaceSearchResult, response *core.DetailedResponse, err error) {
+	return catalogManagement.GetSchematicsWorkspacesWithContext(context.Background(), getSchematicsWorkspacesOptions)
+}
+
+// GetSchematicsWorkspacesWithContext is an alternate form of the GetSchematicsWorkspaces method which supports a Context parameter
+func (catalogManagement *CatalogManagementV1) GetSchematicsWorkspacesWithContext(ctx context.Context, getSchematicsWorkspacesOptions *GetSchematicsWorkspacesOptions) (result *SchematicsWorkspaceSearchResult, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(getSchematicsWorkspacesOptions, "getSchematicsWorkspacesOptions cannot be nil")
 	if err != nil {
 		return
@@ -3072,11 +3794,14 @@ func (catalogManagement *CatalogManagementV1) GetSchematicsWorkspaces(getSchemat
 		return
 	}
 
-	pathSegments := []string{"versions", "workspaces"}
-	pathParameters := []string{*getSchematicsWorkspacesOptions.VersionLocID}
+	pathParamsMap := map[string]string{
+		"version_loc_id": *getSchematicsWorkspacesOptions.VersionLocID,
+	}
 
 	builder := core.NewRequestBuilder(core.GET)
-	_, err = builder.ConstructHTTPURL(catalogManagement.Service.Options.URL, pathSegments, pathParameters)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = catalogManagement.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(catalogManagement.Service.Options.URL, `/versions/{version_loc_id}/workspaces`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -3116,6 +3841,11 @@ func (catalogManagement *CatalogManagementV1) GetSchematicsWorkspaces(getSchemat
 // CanDeploySchematics : Returns the schematics permissions for the specified user
 // Returns the schematics permissions for the specified user.
 func (catalogManagement *CatalogManagementV1) CanDeploySchematics(canDeploySchematicsOptions *CanDeploySchematicsOptions) (result *DeployRequirementsCheck, response *core.DetailedResponse, err error) {
+	return catalogManagement.CanDeploySchematicsWithContext(context.Background(), canDeploySchematicsOptions)
+}
+
+// CanDeploySchematicsWithContext is an alternate form of the CanDeploySchematics method which supports a Context parameter
+func (catalogManagement *CatalogManagementV1) CanDeploySchematicsWithContext(ctx context.Context, canDeploySchematicsOptions *CanDeploySchematicsOptions) (result *DeployRequirementsCheck, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(canDeploySchematicsOptions, "canDeploySchematicsOptions cannot be nil")
 	if err != nil {
 		return
@@ -3125,11 +3855,14 @@ func (catalogManagement *CatalogManagementV1) CanDeploySchematics(canDeploySchem
 		return
 	}
 
-	pathSegments := []string{"versions", "candeploy"}
-	pathParameters := []string{*canDeploySchematicsOptions.VersionLocID}
+	pathParamsMap := map[string]string{
+		"version_loc_id": *canDeploySchematicsOptions.VersionLocID,
+	}
 
 	builder := core.NewRequestBuilder(core.GET)
-	_, err = builder.ConstructHTTPURL(catalogManagement.Service.Options.URL, pathSegments, pathParameters)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = catalogManagement.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(catalogManagement.Service.Options.URL, `/versions/{version_loc_id}/candeploy`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -3176,16 +3909,20 @@ func (catalogManagement *CatalogManagementV1) CanDeploySchematics(canDeploySchem
 // Returns all active resource groups in the current account, where the current user has permission to create schematics
 // workspaces.
 func (catalogManagement *CatalogManagementV1) GetResourceGroups(getResourceGroupsOptions *GetResourceGroupsOptions) (result *ResourceGroups, response *core.DetailedResponse, err error) {
+	return catalogManagement.GetResourceGroupsWithContext(context.Background(), getResourceGroupsOptions)
+}
+
+// GetResourceGroupsWithContext is an alternate form of the GetResourceGroups method which supports a Context parameter
+func (catalogManagement *CatalogManagementV1) GetResourceGroupsWithContext(ctx context.Context, getResourceGroupsOptions *GetResourceGroupsOptions) (result *ResourceGroups, response *core.DetailedResponse, err error) {
 	err = core.ValidateStruct(getResourceGroupsOptions, "getResourceGroupsOptions")
 	if err != nil {
 		return
 	}
 
-	pathSegments := []string{"deploy/schematics/resourcegroups"}
-	pathParameters := []string{}
-
 	builder := core.NewRequestBuilder(core.GET)
-	_, err = builder.ConstructHTTPURL(catalogManagement.Service.Options.URL, pathSegments, pathParameters)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = catalogManagement.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(catalogManagement.Service.Options.URL, `/deploy/schematics/resourcegroups`, nil)
 	if err != nil {
 		return
 	}
@@ -3222,16 +3959,20 @@ func (catalogManagement *CatalogManagementV1) GetResourceGroups(getResourceGroup
 // GetLicenseProviders : Get license providers
 // Get license providers.
 func (catalogManagement *CatalogManagementV1) GetLicenseProviders(getLicenseProvidersOptions *GetLicenseProvidersOptions) (result *LicenseProviders, response *core.DetailedResponse, err error) {
+	return catalogManagement.GetLicenseProvidersWithContext(context.Background(), getLicenseProvidersOptions)
+}
+
+// GetLicenseProvidersWithContext is an alternate form of the GetLicenseProviders method which supports a Context parameter
+func (catalogManagement *CatalogManagementV1) GetLicenseProvidersWithContext(ctx context.Context, getLicenseProvidersOptions *GetLicenseProvidersOptions) (result *LicenseProviders, response *core.DetailedResponse, err error) {
 	err = core.ValidateStruct(getLicenseProvidersOptions, "getLicenseProvidersOptions")
 	if err != nil {
 		return
 	}
 
-	pathSegments := []string{"license/license_providers"}
-	pathParameters := []string{}
-
 	builder := core.NewRequestBuilder(core.GET)
-	_, err = builder.ConstructHTTPURL(catalogManagement.Service.Options.URL, pathSegments, pathParameters)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = catalogManagement.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(catalogManagement.Service.Options.URL, `/license/license_providers`, nil)
 	if err != nil {
 		return
 	}
@@ -3268,16 +4009,20 @@ func (catalogManagement *CatalogManagementV1) GetLicenseProviders(getLicenseProv
 // ListLicenseEntitlements : Get license entitlements
 // Get license entitlements bound to an account.
 func (catalogManagement *CatalogManagementV1) ListLicenseEntitlements(listLicenseEntitlementsOptions *ListLicenseEntitlementsOptions) (result *LicenseEntitlements, response *core.DetailedResponse, err error) {
+	return catalogManagement.ListLicenseEntitlementsWithContext(context.Background(), listLicenseEntitlementsOptions)
+}
+
+// ListLicenseEntitlementsWithContext is an alternate form of the ListLicenseEntitlements method which supports a Context parameter
+func (catalogManagement *CatalogManagementV1) ListLicenseEntitlementsWithContext(ctx context.Context, listLicenseEntitlementsOptions *ListLicenseEntitlementsOptions) (result *LicenseEntitlements, response *core.DetailedResponse, err error) {
 	err = core.ValidateStruct(listLicenseEntitlementsOptions, "listLicenseEntitlementsOptions")
 	if err != nil {
 		return
 	}
 
-	pathSegments := []string{"license/entitlements"}
-	pathParameters := []string{}
-
 	builder := core.NewRequestBuilder(core.GET)
-	_, err = builder.ConstructHTTPURL(catalogManagement.Service.Options.URL, pathSegments, pathParameters)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = catalogManagement.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(catalogManagement.Service.Options.URL, `/license/entitlements`, nil)
 	if err != nil {
 		return
 	}
@@ -3327,16 +4072,20 @@ func (catalogManagement *CatalogManagementV1) ListLicenseEntitlements(listLicens
 // CreateLicenseEntitlement : Create a license entitlement
 // Create an entitlement for a Cloud account.  This is used to give an account an entitlement to a license.
 func (catalogManagement *CatalogManagementV1) CreateLicenseEntitlement(createLicenseEntitlementOptions *CreateLicenseEntitlementOptions) (result *LicenseEntitlement, response *core.DetailedResponse, err error) {
+	return catalogManagement.CreateLicenseEntitlementWithContext(context.Background(), createLicenseEntitlementOptions)
+}
+
+// CreateLicenseEntitlementWithContext is an alternate form of the CreateLicenseEntitlement method which supports a Context parameter
+func (catalogManagement *CatalogManagementV1) CreateLicenseEntitlementWithContext(ctx context.Context, createLicenseEntitlementOptions *CreateLicenseEntitlementOptions) (result *LicenseEntitlement, response *core.DetailedResponse, err error) {
 	err = core.ValidateStruct(createLicenseEntitlementOptions, "createLicenseEntitlementOptions")
 	if err != nil {
 		return
 	}
 
-	pathSegments := []string{"license/entitlements"}
-	pathParameters := []string{}
-
 	builder := core.NewRequestBuilder(core.POST)
-	_, err = builder.ConstructHTTPURL(catalogManagement.Service.Options.URL, pathSegments, pathParameters)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = catalogManagement.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(catalogManagement.Service.Options.URL, `/license/entitlements`, nil)
 	if err != nil {
 		return
 	}
@@ -3408,6 +4157,11 @@ func (catalogManagement *CatalogManagementV1) CreateLicenseEntitlement(createLic
 // GetLicenseEntitlements : Get entitlements for a specific license product ID
 // Get an entitlements for a specific license product ID bound to an account.
 func (catalogManagement *CatalogManagementV1) GetLicenseEntitlements(getLicenseEntitlementsOptions *GetLicenseEntitlementsOptions) (result *LicenseEntitlements, response *core.DetailedResponse, err error) {
+	return catalogManagement.GetLicenseEntitlementsWithContext(context.Background(), getLicenseEntitlementsOptions)
+}
+
+// GetLicenseEntitlementsWithContext is an alternate form of the GetLicenseEntitlements method which supports a Context parameter
+func (catalogManagement *CatalogManagementV1) GetLicenseEntitlementsWithContext(ctx context.Context, getLicenseEntitlementsOptions *GetLicenseEntitlementsOptions) (result *LicenseEntitlements, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(getLicenseEntitlementsOptions, "getLicenseEntitlementsOptions cannot be nil")
 	if err != nil {
 		return
@@ -3417,11 +4171,14 @@ func (catalogManagement *CatalogManagementV1) GetLicenseEntitlements(getLicenseE
 		return
 	}
 
-	pathSegments := []string{"license/entitlements/productID"}
-	pathParameters := []string{*getLicenseEntitlementsOptions.LicenseProductID}
+	pathParamsMap := map[string]string{
+		"license_product_id": *getLicenseEntitlementsOptions.LicenseProductID,
+	}
 
 	builder := core.NewRequestBuilder(core.GET)
-	_, err = builder.ConstructHTTPURL(catalogManagement.Service.Options.URL, pathSegments, pathParameters)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = catalogManagement.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(catalogManagement.Service.Options.URL, `/license/entitlements/productID/{license_product_id}`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -3466,6 +4223,11 @@ func (catalogManagement *CatalogManagementV1) GetLicenseEntitlements(getLicenseE
 // Delete a license entitlement that is bound to an account. Note that BSS will mark the entitlement field "state":
 // "removed".
 func (catalogManagement *CatalogManagementV1) DeleteLicenseEntitlement(deleteLicenseEntitlementOptions *DeleteLicenseEntitlementOptions) (response *core.DetailedResponse, err error) {
+	return catalogManagement.DeleteLicenseEntitlementWithContext(context.Background(), deleteLicenseEntitlementOptions)
+}
+
+// DeleteLicenseEntitlementWithContext is an alternate form of the DeleteLicenseEntitlement method which supports a Context parameter
+func (catalogManagement *CatalogManagementV1) DeleteLicenseEntitlementWithContext(ctx context.Context, deleteLicenseEntitlementOptions *DeleteLicenseEntitlementOptions) (response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(deleteLicenseEntitlementOptions, "deleteLicenseEntitlementOptions cannot be nil")
 	if err != nil {
 		return
@@ -3475,11 +4237,14 @@ func (catalogManagement *CatalogManagementV1) DeleteLicenseEntitlement(deleteLic
 		return
 	}
 
-	pathSegments := []string{"license/entitlements"}
-	pathParameters := []string{*deleteLicenseEntitlementOptions.EntitlementID}
+	pathParamsMap := map[string]string{
+		"entitlement_id": *deleteLicenseEntitlementOptions.EntitlementID,
+	}
 
 	builder := core.NewRequestBuilder(core.DELETE)
-	_, err = builder.ConstructHTTPURL(catalogManagement.Service.Options.URL, pathSegments, pathParameters)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = catalogManagement.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(catalogManagement.Service.Options.URL, `/license/entitlements/{entitlement_id}`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -3511,6 +4276,11 @@ func (catalogManagement *CatalogManagementV1) DeleteLicenseEntitlement(deleteLic
 // Retrieve available licenses from supported license subsystems.  This is used to get the list of available licenses
 // that the user has.
 func (catalogManagement *CatalogManagementV1) GetLicenses(getLicensesOptions *GetLicensesOptions) (result *Licenses, response *core.DetailedResponse, err error) {
+	return catalogManagement.GetLicensesWithContext(context.Background(), getLicensesOptions)
+}
+
+// GetLicensesWithContext is an alternate form of the GetLicenses method which supports a Context parameter
+func (catalogManagement *CatalogManagementV1) GetLicensesWithContext(ctx context.Context, getLicensesOptions *GetLicensesOptions) (result *Licenses, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(getLicensesOptions, "getLicensesOptions cannot be nil")
 	if err != nil {
 		return
@@ -3520,11 +4290,10 @@ func (catalogManagement *CatalogManagementV1) GetLicenses(getLicensesOptions *Ge
 		return
 	}
 
-	pathSegments := []string{"license/licenses"}
-	pathParameters := []string{}
-
 	builder := core.NewRequestBuilder(core.GET)
-	_, err = builder.ConstructHTTPURL(catalogManagement.Service.Options.URL, pathSegments, pathParameters)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = catalogManagement.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(catalogManagement.Service.Options.URL, `/license/licenses`, nil)
 	if err != nil {
 		return
 	}
@@ -3575,6 +4344,11 @@ func (catalogManagement *CatalogManagementV1) GetLicenses(getLicensesOptions *Ge
 // SearchLicenseVersions : Search for versions
 // Search across accounts for all versions usig a particular license, requires global admin permission.
 func (catalogManagement *CatalogManagementV1) SearchLicenseVersions(searchLicenseVersionsOptions *SearchLicenseVersionsOptions) (response *core.DetailedResponse, err error) {
+	return catalogManagement.SearchLicenseVersionsWithContext(context.Background(), searchLicenseVersionsOptions)
+}
+
+// SearchLicenseVersionsWithContext is an alternate form of the SearchLicenseVersions method which supports a Context parameter
+func (catalogManagement *CatalogManagementV1) SearchLicenseVersionsWithContext(ctx context.Context, searchLicenseVersionsOptions *SearchLicenseVersionsOptions) (response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(searchLicenseVersionsOptions, "searchLicenseVersionsOptions cannot be nil")
 	if err != nil {
 		return
@@ -3584,11 +4358,10 @@ func (catalogManagement *CatalogManagementV1) SearchLicenseVersions(searchLicens
 		return
 	}
 
-	pathSegments := []string{"search/license/versions"}
-	pathParameters := []string{}
-
 	builder := core.NewRequestBuilder(core.GET)
-	_, err = builder.ConstructHTTPURL(catalogManagement.Service.Options.URL, pathSegments, pathParameters)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = catalogManagement.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(catalogManagement.Service.Options.URL, `/search/license/versions`, nil)
 	if err != nil {
 		return
 	}
@@ -3617,6 +4390,11 @@ func (catalogManagement *CatalogManagementV1) SearchLicenseVersions(searchLicens
 // SearchLicenseOfferings : Search for Offerings
 // Search across accounts for all offerings using a particular license, requires global admin permission.
 func (catalogManagement *CatalogManagementV1) SearchLicenseOfferings(searchLicenseOfferingsOptions *SearchLicenseOfferingsOptions) (response *core.DetailedResponse, err error) {
+	return catalogManagement.SearchLicenseOfferingsWithContext(context.Background(), searchLicenseOfferingsOptions)
+}
+
+// SearchLicenseOfferingsWithContext is an alternate form of the SearchLicenseOfferings method which supports a Context parameter
+func (catalogManagement *CatalogManagementV1) SearchLicenseOfferingsWithContext(ctx context.Context, searchLicenseOfferingsOptions *SearchLicenseOfferingsOptions) (response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(searchLicenseOfferingsOptions, "searchLicenseOfferingsOptions cannot be nil")
 	if err != nil {
 		return
@@ -3626,11 +4404,10 @@ func (catalogManagement *CatalogManagementV1) SearchLicenseOfferings(searchLicen
 		return
 	}
 
-	pathSegments := []string{"search/license/offerings"}
-	pathParameters := []string{}
-
 	builder := core.NewRequestBuilder(core.GET)
-	_, err = builder.ConstructHTTPURL(catalogManagement.Service.Options.URL, pathSegments, pathParameters)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = catalogManagement.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(catalogManagement.Service.Options.URL, `/search/license/offerings`, nil)
 	if err != nil {
 		return
 	}
@@ -3645,6 +4422,555 @@ func (catalogManagement *CatalogManagementV1) SearchLicenseOfferings(searchLicen
 	}
 
 	builder.AddQuery("q", fmt.Sprint(*searchLicenseOfferingsOptions.Q))
+
+	request, err := builder.Build()
+	if err != nil {
+		return
+	}
+
+	response, err = catalogManagement.Service.Request(request, nil)
+
+	return
+}
+
+// SearchObjects : Search for objects across catalogs
+// List the available objects from both public and private. These copies cannot be used for updating. They are not
+// complete and only return what is visible to the caller.
+func (catalogManagement *CatalogManagementV1) SearchObjects(searchObjectsOptions *SearchObjectsOptions) (result *ObjectSearchResult, response *core.DetailedResponse, err error) {
+	return catalogManagement.SearchObjectsWithContext(context.Background(), searchObjectsOptions)
+}
+
+// SearchObjectsWithContext is an alternate form of the SearchObjects method which supports a Context parameter
+func (catalogManagement *CatalogManagementV1) SearchObjectsWithContext(ctx context.Context, searchObjectsOptions *SearchObjectsOptions) (result *ObjectSearchResult, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(searchObjectsOptions, "searchObjectsOptions cannot be nil")
+	if err != nil {
+		return
+	}
+	err = core.ValidateStruct(searchObjectsOptions, "searchObjectsOptions")
+	if err != nil {
+		return
+	}
+
+	builder := core.NewRequestBuilder(core.GET)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = catalogManagement.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(catalogManagement.Service.Options.URL, `/objects`, nil)
+	if err != nil {
+		return
+	}
+
+	for headerName, headerValue := range searchObjectsOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "SearchObjects")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Accept", "application/json")
+
+	builder.AddQuery("query", fmt.Sprint(*searchObjectsOptions.Query))
+	if searchObjectsOptions.Limit != nil {
+		builder.AddQuery("limit", fmt.Sprint(*searchObjectsOptions.Limit))
+	}
+	if searchObjectsOptions.Offset != nil {
+		builder.AddQuery("offset", fmt.Sprint(*searchObjectsOptions.Offset))
+	}
+	if searchObjectsOptions.Collapse != nil {
+		builder.AddQuery("collapse", fmt.Sprint(*searchObjectsOptions.Collapse))
+	}
+
+	request, err := builder.Build()
+	if err != nil {
+		return
+	}
+
+	var rawResponse map[string]json.RawMessage
+	response, err = catalogManagement.Service.Request(request, &rawResponse)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalObjectSearchResult)
+	if err != nil {
+		return
+	}
+	response.Result = result
+
+	return
+}
+
+// ListObjects : Get list of objects
+// List the available objects in the specified catalog.
+func (catalogManagement *CatalogManagementV1) ListObjects(listObjectsOptions *ListObjectsOptions) (result *ObjectListResult, response *core.DetailedResponse, err error) {
+	return catalogManagement.ListObjectsWithContext(context.Background(), listObjectsOptions)
+}
+
+// ListObjectsWithContext is an alternate form of the ListObjects method which supports a Context parameter
+func (catalogManagement *CatalogManagementV1) ListObjectsWithContext(ctx context.Context, listObjectsOptions *ListObjectsOptions) (result *ObjectListResult, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(listObjectsOptions, "listObjectsOptions cannot be nil")
+	if err != nil {
+		return
+	}
+	err = core.ValidateStruct(listObjectsOptions, "listObjectsOptions")
+	if err != nil {
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"catalog_identifier": *listObjectsOptions.CatalogIdentifier,
+	}
+
+	builder := core.NewRequestBuilder(core.GET)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = catalogManagement.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(catalogManagement.Service.Options.URL, `/catalogs/{catalog_identifier}/objects`, pathParamsMap)
+	if err != nil {
+		return
+	}
+
+	for headerName, headerValue := range listObjectsOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "ListObjects")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Accept", "application/json")
+
+	if listObjectsOptions.Limit != nil {
+		builder.AddQuery("limit", fmt.Sprint(*listObjectsOptions.Limit))
+	}
+	if listObjectsOptions.Offset != nil {
+		builder.AddQuery("offset", fmt.Sprint(*listObjectsOptions.Offset))
+	}
+	if listObjectsOptions.Name != nil {
+		builder.AddQuery("name", fmt.Sprint(*listObjectsOptions.Name))
+	}
+	if listObjectsOptions.Sort != nil {
+		builder.AddQuery("sort", fmt.Sprint(*listObjectsOptions.Sort))
+	}
+
+	request, err := builder.Build()
+	if err != nil {
+		return
+	}
+
+	var rawResponse map[string]json.RawMessage
+	response, err = catalogManagement.Service.Request(request, &rawResponse)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalObjectListResult)
+	if err != nil {
+		return
+	}
+	response.Result = result
+
+	return
+}
+
+// CreateObject : Create an object
+// Create an object.
+func (catalogManagement *CatalogManagementV1) CreateObject(createObjectOptions *CreateObjectOptions) (result *Object, response *core.DetailedResponse, err error) {
+	return catalogManagement.CreateObjectWithContext(context.Background(), createObjectOptions)
+}
+
+// CreateObjectWithContext is an alternate form of the CreateObject method which supports a Context parameter
+func (catalogManagement *CatalogManagementV1) CreateObjectWithContext(ctx context.Context, createObjectOptions *CreateObjectOptions) (result *Object, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(createObjectOptions, "createObjectOptions cannot be nil")
+	if err != nil {
+		return
+	}
+	err = core.ValidateStruct(createObjectOptions, "createObjectOptions")
+	if err != nil {
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"catalog_identifier": *createObjectOptions.CatalogIdentifier,
+	}
+
+	builder := core.NewRequestBuilder(core.POST)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = catalogManagement.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(catalogManagement.Service.Options.URL, `/catalogs/{catalog_identifier}/objects`, pathParamsMap)
+	if err != nil {
+		return
+	}
+
+	for headerName, headerValue := range createObjectOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "CreateObject")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Accept", "application/json")
+	builder.AddHeader("Content-Type", "application/json")
+
+	body := make(map[string]interface{})
+	if createObjectOptions.ID != nil {
+		body["id"] = createObjectOptions.ID
+	}
+	if createObjectOptions.Name != nil {
+		body["name"] = createObjectOptions.Name
+	}
+	if createObjectOptions.Rev != nil {
+		body["_rev"] = createObjectOptions.Rev
+	}
+	if createObjectOptions.Crn != nil {
+		body["crn"] = createObjectOptions.Crn
+	}
+	if createObjectOptions.URL != nil {
+		body["url"] = createObjectOptions.URL
+	}
+	if createObjectOptions.ParentID != nil {
+		body["parent_id"] = createObjectOptions.ParentID
+	}
+	if createObjectOptions.AllowList != nil {
+		body["allow_list"] = createObjectOptions.AllowList
+	}
+	if createObjectOptions.LabelI18n != nil {
+		body["label_i18n"] = createObjectOptions.LabelI18n
+	}
+	if createObjectOptions.Label != nil {
+		body["label"] = createObjectOptions.Label
+	}
+	if createObjectOptions.Tags != nil {
+		body["tags"] = createObjectOptions.Tags
+	}
+	if createObjectOptions.Created != nil {
+		body["created"] = createObjectOptions.Created
+	}
+	if createObjectOptions.Updated != nil {
+		body["updated"] = createObjectOptions.Updated
+	}
+	if createObjectOptions.ShortDescription != nil {
+		body["short_description"] = createObjectOptions.ShortDescription
+	}
+	if createObjectOptions.ShortDescriptionI18n != nil {
+		body["short_description_i18n"] = createObjectOptions.ShortDescriptionI18n
+	}
+	if createObjectOptions.Kind != nil {
+		body["kind"] = createObjectOptions.Kind
+	}
+	if createObjectOptions.Publish != nil {
+		body["publish"] = createObjectOptions.Publish
+	}
+	if createObjectOptions.State != nil {
+		body["state"] = createObjectOptions.State
+	}
+	if createObjectOptions.CatalogID != nil {
+		body["catalog_id"] = createObjectOptions.CatalogID
+	}
+	if createObjectOptions.CatalogName != nil {
+		body["catalog_name"] = createObjectOptions.CatalogName
+	}
+	if createObjectOptions.Data != nil {
+		body["data"] = createObjectOptions.Data
+	}
+	_, err = builder.SetBodyContentJSON(body)
+	if err != nil {
+		return
+	}
+
+	request, err := builder.Build()
+	if err != nil {
+		return
+	}
+
+	var rawResponse map[string]json.RawMessage
+	response, err = catalogManagement.Service.Request(request, &rawResponse)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalObject)
+	if err != nil {
+		return
+	}
+	response.Result = result
+
+	return
+}
+
+// GetObject : Get an object
+// Get an object.
+func (catalogManagement *CatalogManagementV1) GetObject(getObjectOptions *GetObjectOptions) (result *Object, response *core.DetailedResponse, err error) {
+	return catalogManagement.GetObjectWithContext(context.Background(), getObjectOptions)
+}
+
+// GetObjectWithContext is an alternate form of the GetObject method which supports a Context parameter
+func (catalogManagement *CatalogManagementV1) GetObjectWithContext(ctx context.Context, getObjectOptions *GetObjectOptions) (result *Object, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(getObjectOptions, "getObjectOptions cannot be nil")
+	if err != nil {
+		return
+	}
+	err = core.ValidateStruct(getObjectOptions, "getObjectOptions")
+	if err != nil {
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"catalog_identifier": *getObjectOptions.CatalogIdentifier,
+		"object_identifier": *getObjectOptions.ObjectIdentifier,
+	}
+
+	builder := core.NewRequestBuilder(core.GET)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = catalogManagement.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(catalogManagement.Service.Options.URL, `/catalogs/{catalog_identifier}/objects/{object_identifier}`, pathParamsMap)
+	if err != nil {
+		return
+	}
+
+	for headerName, headerValue := range getObjectOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "GetObject")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Accept", "application/json")
+
+	request, err := builder.Build()
+	if err != nil {
+		return
+	}
+
+	var rawResponse map[string]json.RawMessage
+	response, err = catalogManagement.Service.Request(request, &rawResponse)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalObject)
+	if err != nil {
+		return
+	}
+	response.Result = result
+
+	return
+}
+
+// ReplaceObject : Update an object
+// Update an object.
+func (catalogManagement *CatalogManagementV1) ReplaceObject(replaceObjectOptions *ReplaceObjectOptions) (result *Object, response *core.DetailedResponse, err error) {
+	return catalogManagement.ReplaceObjectWithContext(context.Background(), replaceObjectOptions)
+}
+
+// ReplaceObjectWithContext is an alternate form of the ReplaceObject method which supports a Context parameter
+func (catalogManagement *CatalogManagementV1) ReplaceObjectWithContext(ctx context.Context, replaceObjectOptions *ReplaceObjectOptions) (result *Object, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(replaceObjectOptions, "replaceObjectOptions cannot be nil")
+	if err != nil {
+		return
+	}
+	err = core.ValidateStruct(replaceObjectOptions, "replaceObjectOptions")
+	if err != nil {
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"catalog_identifier": *replaceObjectOptions.CatalogIdentifier,
+		"object_identifier": *replaceObjectOptions.ObjectIdentifier,
+	}
+
+	builder := core.NewRequestBuilder(core.PUT)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = catalogManagement.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(catalogManagement.Service.Options.URL, `/catalogs/{catalog_identifier}/objects/{object_identifier}`, pathParamsMap)
+	if err != nil {
+		return
+	}
+
+	for headerName, headerValue := range replaceObjectOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "ReplaceObject")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Accept", "application/json")
+	builder.AddHeader("Content-Type", "application/json")
+
+	body := make(map[string]interface{})
+	if replaceObjectOptions.ID != nil {
+		body["id"] = replaceObjectOptions.ID
+	}
+	if replaceObjectOptions.Name != nil {
+		body["name"] = replaceObjectOptions.Name
+	}
+	if replaceObjectOptions.Rev != nil {
+		body["_rev"] = replaceObjectOptions.Rev
+	}
+	if replaceObjectOptions.Crn != nil {
+		body["crn"] = replaceObjectOptions.Crn
+	}
+	if replaceObjectOptions.URL != nil {
+		body["url"] = replaceObjectOptions.URL
+	}
+	if replaceObjectOptions.ParentID != nil {
+		body["parent_id"] = replaceObjectOptions.ParentID
+	}
+	if replaceObjectOptions.AllowList != nil {
+		body["allow_list"] = replaceObjectOptions.AllowList
+	}
+	if replaceObjectOptions.LabelI18n != nil {
+		body["label_i18n"] = replaceObjectOptions.LabelI18n
+	}
+	if replaceObjectOptions.Label != nil {
+		body["label"] = replaceObjectOptions.Label
+	}
+	if replaceObjectOptions.Tags != nil {
+		body["tags"] = replaceObjectOptions.Tags
+	}
+	if replaceObjectOptions.Created != nil {
+		body["created"] = replaceObjectOptions.Created
+	}
+	if replaceObjectOptions.Updated != nil {
+		body["updated"] = replaceObjectOptions.Updated
+	}
+	if replaceObjectOptions.ShortDescription != nil {
+		body["short_description"] = replaceObjectOptions.ShortDescription
+	}
+	if replaceObjectOptions.ShortDescriptionI18n != nil {
+		body["short_description_i18n"] = replaceObjectOptions.ShortDescriptionI18n
+	}
+	if replaceObjectOptions.Kind != nil {
+		body["kind"] = replaceObjectOptions.Kind
+	}
+	if replaceObjectOptions.Publish != nil {
+		body["publish"] = replaceObjectOptions.Publish
+	}
+	if replaceObjectOptions.State != nil {
+		body["state"] = replaceObjectOptions.State
+	}
+	if replaceObjectOptions.CatalogID != nil {
+		body["catalog_id"] = replaceObjectOptions.CatalogID
+	}
+	if replaceObjectOptions.CatalogName != nil {
+		body["catalog_name"] = replaceObjectOptions.CatalogName
+	}
+	if replaceObjectOptions.Data != nil {
+		body["data"] = replaceObjectOptions.Data
+	}
+	_, err = builder.SetBodyContentJSON(body)
+	if err != nil {
+		return
+	}
+
+	request, err := builder.Build()
+	if err != nil {
+		return
+	}
+
+	var rawResponse map[string]json.RawMessage
+	response, err = catalogManagement.Service.Request(request, &rawResponse)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalObject)
+	if err != nil {
+		return
+	}
+	response.Result = result
+
+	return
+}
+
+// DeleteObject : Delete an object
+// Delete an object.
+func (catalogManagement *CatalogManagementV1) DeleteObject(deleteObjectOptions *DeleteObjectOptions) (response *core.DetailedResponse, err error) {
+	return catalogManagement.DeleteObjectWithContext(context.Background(), deleteObjectOptions)
+}
+
+// DeleteObjectWithContext is an alternate form of the DeleteObject method which supports a Context parameter
+func (catalogManagement *CatalogManagementV1) DeleteObjectWithContext(ctx context.Context, deleteObjectOptions *DeleteObjectOptions) (response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(deleteObjectOptions, "deleteObjectOptions cannot be nil")
+	if err != nil {
+		return
+	}
+	err = core.ValidateStruct(deleteObjectOptions, "deleteObjectOptions")
+	if err != nil {
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"catalog_identifier": *deleteObjectOptions.CatalogIdentifier,
+		"object_identifier": *deleteObjectOptions.ObjectIdentifier,
+	}
+
+	builder := core.NewRequestBuilder(core.DELETE)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = catalogManagement.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(catalogManagement.Service.Options.URL, `/catalogs/{catalog_identifier}/objects/{object_identifier}`, pathParamsMap)
+	if err != nil {
+		return
+	}
+
+	for headerName, headerValue := range deleteObjectOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "DeleteObject")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	request, err := builder.Build()
+	if err != nil {
+		return
+	}
+
+	response, err = catalogManagement.Service.Request(request, nil)
+
+	return
+}
+
+// GetObjectAudit : Get the audit log(s) for object
+// Get the audit log(s) for object.
+func (catalogManagement *CatalogManagementV1) GetObjectAudit(getObjectAuditOptions *GetObjectAuditOptions) (response *core.DetailedResponse, err error) {
+	return catalogManagement.GetObjectAuditWithContext(context.Background(), getObjectAuditOptions)
+}
+
+// GetObjectAuditWithContext is an alternate form of the GetObjectAudit method which supports a Context parameter
+func (catalogManagement *CatalogManagementV1) GetObjectAuditWithContext(ctx context.Context, getObjectAuditOptions *GetObjectAuditOptions) (response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(getObjectAuditOptions, "getObjectAuditOptions cannot be nil")
+	if err != nil {
+		return
+	}
+	err = core.ValidateStruct(getObjectAuditOptions, "getObjectAuditOptions")
+	if err != nil {
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"catalog_identifier": *getObjectAuditOptions.CatalogIdentifier,
+		"object_identifier": *getObjectAuditOptions.ObjectIdentifier,
+	}
+
+	builder := core.NewRequestBuilder(core.GET)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = catalogManagement.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(catalogManagement.Service.Options.URL, `/catalogs/{catalog_identifier}/offerings/{object_identifier}/audit`, pathParamsMap)
+	if err != nil {
+		return
+	}
+
+	for headerName, headerValue := range getObjectAuditOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "GetObjectAudit")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	if getObjectAuditOptions.ID != nil {
+		builder.AddQuery("id", fmt.Sprint(*getObjectAuditOptions.ID))
+	}
 
 	request, err := builder.Build()
 	if err != nil {
@@ -3709,7 +5035,7 @@ func UnmarshalAccountGroup(m map[string]json.RawMessage, result interface{}) (er
 // AccountPublishVersionOptions : The AccountPublishVersion options.
 type AccountPublishVersionOptions struct {
 	// A dotted value of `catalogID`.`versionID`.
-	VersionLocID *string `json:"version_loc_id" validate:"required"`
+	VersionLocID *string `json:"version_loc_id" validate:"required,ne="`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -3812,6 +5138,9 @@ func UnmarshalAccumulatedFiltersCatalogFiltersItemCatalog(m map[string]json.RawM
 
 // ApprovalResult : Result of approval.
 type ApprovalResult struct {
+	// Allowed to request to publish.
+	AllowRequest *bool `json:"allow_request,omitempty"`
+
 	// Visible to IBM.
 	Ibm *bool `json:"ibm,omitempty"`
 
@@ -3826,6 +5155,10 @@ type ApprovalResult struct {
 // UnmarshalApprovalResult unmarshals an instance of ApprovalResult from the specified map of raw messages.
 func UnmarshalApprovalResult(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(ApprovalResult)
+	err = core.UnmarshalPrimitive(m, "allow_request", &obj.AllowRequest)
+	if err != nil {
+		return
+	}
 	err = core.UnmarshalPrimitive(m, "ibm", &obj.Ibm)
 	if err != nil {
 		return
@@ -3845,7 +5178,7 @@ func UnmarshalApprovalResult(m map[string]json.RawMessage, result interface{}) (
 // CanDeploySchematicsOptions : The CanDeploySchematics options.
 type CanDeploySchematicsOptions struct {
 	// A dotted value of `catalogID`.`versionID`.
-	VersionLocID *string `json:"version_loc_id" validate:"required"`
+	VersionLocID *string `json:"version_loc_id" validate:"required,ne="`
 
 	// ID of the cluster.
 	ClusterID *string `json:"cluster_id" validate:"required"`
@@ -4260,7 +5593,7 @@ func UnmarshalClusterSearchResult(m map[string]json.RawMessage, result interface
 // CommitVersionOptions : The CommitVersion options.
 type CommitVersionOptions struct {
 	// A dotted value of `catalogID`.`versionID`.
-	VersionLocID *string `json:"version_loc_id" validate:"required"`
+	VersionLocID *string `json:"version_loc_id" validate:"required,ne="`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -4350,6 +5683,61 @@ func UnmarshalConfiguration(m map[string]json.RawMessage, result interface{}) (e
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
 	return
+}
+
+// CopyVersionOptions : The CopyVersion options.
+type CopyVersionOptions struct {
+	// A dotted value of `catalogID`.`versionID`.
+	VersionLocID *string `json:"version_loc_id" validate:"required,ne="`
+
+	// Tags array.
+	Tags []string `json:"tags,omitempty"`
+
+	// Target kinds.  Current valid values are 'iks', 'roks', 'vcenter', and 'terraform'.
+	TargetKinds []string `json:"target_kinds,omitempty"`
+
+	// byte array representing the content to be imported.  Only supported for OVA images at this time.
+	Content []int64 `json:"content,omitempty"`
+
+	// Allows users to set headers on API requests
+	Headers map[string]string
+}
+
+// NewCopyVersionOptions : Instantiate CopyVersionOptions
+func (*CatalogManagementV1) NewCopyVersionOptions(versionLocID string) *CopyVersionOptions {
+	return &CopyVersionOptions{
+		VersionLocID: core.StringPtr(versionLocID),
+	}
+}
+
+// SetVersionLocID : Allow user to set VersionLocID
+func (options *CopyVersionOptions) SetVersionLocID(versionLocID string) *CopyVersionOptions {
+	options.VersionLocID = core.StringPtr(versionLocID)
+	return options
+}
+
+// SetTags : Allow user to set Tags
+func (options *CopyVersionOptions) SetTags(tags []string) *CopyVersionOptions {
+	options.Tags = tags
+	return options
+}
+
+// SetTargetKinds : Allow user to set TargetKinds
+func (options *CopyVersionOptions) SetTargetKinds(targetKinds []string) *CopyVersionOptions {
+	options.TargetKinds = targetKinds
+	return options
+}
+
+// SetContent : Allow user to set Content
+func (options *CopyVersionOptions) SetContent(content []int64) *CopyVersionOptions {
+	options.Content = content
+	return options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *CopyVersionOptions) SetHeaders(param map[string]string) *CopyVersionOptions {
+	options.Headers = param
+	return options
 }
 
 // CreateCatalogOptions : The CreateCatalog options.
@@ -4620,10 +6008,218 @@ func (options *CreateLicenseEntitlementOptions) SetHeaders(param map[string]stri
 	return options
 }
 
+// CreateObjectOptions : The CreateObject options.
+type CreateObjectOptions struct {
+	// Catalog identifier.
+	CatalogIdentifier *string `json:"catalog_identifier" validate:"required,ne="`
+
+	// unique id.
+	ID *string `json:"id,omitempty"`
+
+	// The programmatic name of this offering.
+	Name *string `json:"name,omitempty"`
+
+	// Cloudant revision.
+	Rev *string `json:"_rev,omitempty"`
+
+	// The crn for this specific object.
+	Crn *string `json:"crn,omitempty"`
+
+	// The url for this specific object.
+	URL *string `json:"url,omitempty"`
+
+	// The parent for this specific object.
+	ParentID *string `json:"parent_id,omitempty"`
+
+	// List of allowed accounts for this specific object.
+	AllowList []string `json:"allow_list,omitempty"`
+
+	// Translated display name in the requested language.
+	LabelI18n *string `json:"label_i18n,omitempty"`
+
+	// Display name in the requested language.
+	Label *string `json:"label,omitempty"`
+
+	// List of tags associated with this catalog.
+	Tags []string `json:"tags,omitempty"`
+
+	// The date and time this catalog was created.
+	Created *strfmt.DateTime `json:"created,omitempty"`
+
+	// The date and time this catalog was last updated.
+	Updated *strfmt.DateTime `json:"updated,omitempty"`
+
+	// Short description in the requested language.
+	ShortDescription *string `json:"short_description,omitempty"`
+
+	// Short description translation.
+	ShortDescriptionI18n *string `json:"short_description_i18n,omitempty"`
+
+	// Kind of object.
+	Kind *string `json:"kind,omitempty"`
+
+	// Publish information.
+	Publish *PublishObject `json:"publish,omitempty"`
+
+	// Offering state.
+	State *State `json:"state,omitempty"`
+
+	// The id of the catalog containing this offering.
+	CatalogID *string `json:"catalog_id,omitempty"`
+
+	// The name of the catalog.
+	CatalogName *string `json:"catalog_name,omitempty"`
+
+	// Map of data values for this object.
+	Data interface{} `json:"data,omitempty"`
+
+	// Allows users to set headers on API requests
+	Headers map[string]string
+}
+
+// NewCreateObjectOptions : Instantiate CreateObjectOptions
+func (*CatalogManagementV1) NewCreateObjectOptions(catalogIdentifier string) *CreateObjectOptions {
+	return &CreateObjectOptions{
+		CatalogIdentifier: core.StringPtr(catalogIdentifier),
+	}
+}
+
+// SetCatalogIdentifier : Allow user to set CatalogIdentifier
+func (options *CreateObjectOptions) SetCatalogIdentifier(catalogIdentifier string) *CreateObjectOptions {
+	options.CatalogIdentifier = core.StringPtr(catalogIdentifier)
+	return options
+}
+
+// SetID : Allow user to set ID
+func (options *CreateObjectOptions) SetID(id string) *CreateObjectOptions {
+	options.ID = core.StringPtr(id)
+	return options
+}
+
+// SetName : Allow user to set Name
+func (options *CreateObjectOptions) SetName(name string) *CreateObjectOptions {
+	options.Name = core.StringPtr(name)
+	return options
+}
+
+// SetRev : Allow user to set Rev
+func (options *CreateObjectOptions) SetRev(rev string) *CreateObjectOptions {
+	options.Rev = core.StringPtr(rev)
+	return options
+}
+
+// SetCrn : Allow user to set Crn
+func (options *CreateObjectOptions) SetCrn(crn string) *CreateObjectOptions {
+	options.Crn = core.StringPtr(crn)
+	return options
+}
+
+// SetURL : Allow user to set URL
+func (options *CreateObjectOptions) SetURL(url string) *CreateObjectOptions {
+	options.URL = core.StringPtr(url)
+	return options
+}
+
+// SetParentID : Allow user to set ParentID
+func (options *CreateObjectOptions) SetParentID(parentID string) *CreateObjectOptions {
+	options.ParentID = core.StringPtr(parentID)
+	return options
+}
+
+// SetAllowList : Allow user to set AllowList
+func (options *CreateObjectOptions) SetAllowList(allowList []string) *CreateObjectOptions {
+	options.AllowList = allowList
+	return options
+}
+
+// SetLabelI18n : Allow user to set LabelI18n
+func (options *CreateObjectOptions) SetLabelI18n(labelI18n string) *CreateObjectOptions {
+	options.LabelI18n = core.StringPtr(labelI18n)
+	return options
+}
+
+// SetLabel : Allow user to set Label
+func (options *CreateObjectOptions) SetLabel(label string) *CreateObjectOptions {
+	options.Label = core.StringPtr(label)
+	return options
+}
+
+// SetTags : Allow user to set Tags
+func (options *CreateObjectOptions) SetTags(tags []string) *CreateObjectOptions {
+	options.Tags = tags
+	return options
+}
+
+// SetCreated : Allow user to set Created
+func (options *CreateObjectOptions) SetCreated(created *strfmt.DateTime) *CreateObjectOptions {
+	options.Created = created
+	return options
+}
+
+// SetUpdated : Allow user to set Updated
+func (options *CreateObjectOptions) SetUpdated(updated *strfmt.DateTime) *CreateObjectOptions {
+	options.Updated = updated
+	return options
+}
+
+// SetShortDescription : Allow user to set ShortDescription
+func (options *CreateObjectOptions) SetShortDescription(shortDescription string) *CreateObjectOptions {
+	options.ShortDescription = core.StringPtr(shortDescription)
+	return options
+}
+
+// SetShortDescriptionI18n : Allow user to set ShortDescriptionI18n
+func (options *CreateObjectOptions) SetShortDescriptionI18n(shortDescriptionI18n string) *CreateObjectOptions {
+	options.ShortDescriptionI18n = core.StringPtr(shortDescriptionI18n)
+	return options
+}
+
+// SetKind : Allow user to set Kind
+func (options *CreateObjectOptions) SetKind(kind string) *CreateObjectOptions {
+	options.Kind = core.StringPtr(kind)
+	return options
+}
+
+// SetPublish : Allow user to set Publish
+func (options *CreateObjectOptions) SetPublish(publish *PublishObject) *CreateObjectOptions {
+	options.Publish = publish
+	return options
+}
+
+// SetState : Allow user to set State
+func (options *CreateObjectOptions) SetState(state *State) *CreateObjectOptions {
+	options.State = state
+	return options
+}
+
+// SetCatalogID : Allow user to set CatalogID
+func (options *CreateObjectOptions) SetCatalogID(catalogID string) *CreateObjectOptions {
+	options.CatalogID = core.StringPtr(catalogID)
+	return options
+}
+
+// SetCatalogName : Allow user to set CatalogName
+func (options *CreateObjectOptions) SetCatalogName(catalogName string) *CreateObjectOptions {
+	options.CatalogName = core.StringPtr(catalogName)
+	return options
+}
+
+// SetData : Allow user to set Data
+func (options *CreateObjectOptions) SetData(data interface{}) *CreateObjectOptions {
+	options.Data = data
+	return options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *CreateObjectOptions) SetHeaders(param map[string]string) *CreateObjectOptions {
+	options.Headers = param
+	return options
+}
+
 // CreateOfferingOptions : The CreateOffering options.
 type CreateOfferingOptions struct {
 	// Catalog identifier.
-	CatalogIdentifier *string `json:"catalog_identifier" validate:"required"`
+	CatalogIdentifier *string `json:"catalog_identifier" validate:"required,ne="`
 
 	// unique id.
 	ID *string `json:"id,omitempty"`
@@ -4941,6 +6537,9 @@ type CreateOperatorOptions struct {
 	// Kube namespaces to deploy Operator(s) to.
 	Namespaces []string `json:"namespaces,omitempty"`
 
+	// Denotes whether to install Operator(s) globally.
+	AllNamespaces *bool `json:"all_namespaces,omitempty"`
+
 	// A dotted value of `catalogID`.`versionID`.
 	VersionLocatorID *string `json:"version_locator_id,omitempty"`
 
@@ -4979,6 +6578,12 @@ func (options *CreateOperatorOptions) SetNamespaces(namespaces []string) *Create
 	return options
 }
 
+// SetAllNamespaces : Allow user to set AllNamespaces
+func (options *CreateOperatorOptions) SetAllNamespaces(allNamespaces bool) *CreateOperatorOptions {
+	options.AllNamespaces = core.BoolPtr(allNamespaces)
+	return options
+}
+
 // SetVersionLocatorID : Allow user to set VersionLocatorID
 func (options *CreateOperatorOptions) SetVersionLocatorID(versionLocatorID string) *CreateOperatorOptions {
 	options.VersionLocatorID = core.StringPtr(versionLocatorID)
@@ -4994,7 +6599,7 @@ func (options *CreateOperatorOptions) SetHeaders(param map[string]string) *Creat
 // DeleteCatalogOptions : The DeleteCatalog options.
 type DeleteCatalogOptions struct {
 	// Catalog identifier.
-	CatalogIdentifier *string `json:"catalog_identifier" validate:"required"`
+	CatalogIdentifier *string `json:"catalog_identifier" validate:"required,ne="`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -5022,7 +6627,7 @@ func (options *DeleteCatalogOptions) SetHeaders(param map[string]string) *Delete
 // DeleteLicenseEntitlementOptions : The DeleteLicenseEntitlement options.
 type DeleteLicenseEntitlementOptions struct {
 	// The specific entitlement ID (can be obtained from one of the license entitlement queries).
-	EntitlementID *string `json:"entitlement_id" validate:"required"`
+	EntitlementID *string `json:"entitlement_id" validate:"required,ne="`
 
 	// The account ID to query for the entitlement. Default is the account from the user's token.
 	AccountID *string `json:"account_id,omitempty"`
@@ -5056,13 +6661,51 @@ func (options *DeleteLicenseEntitlementOptions) SetHeaders(param map[string]stri
 	return options
 }
 
+// DeleteObjectOptions : The DeleteObject options.
+type DeleteObjectOptions struct {
+	// Catalog identifier.
+	CatalogIdentifier *string `json:"catalog_identifier" validate:"required,ne="`
+
+	// Object identifier.
+	ObjectIdentifier *string `json:"object_identifier" validate:"required,ne="`
+
+	// Allows users to set headers on API requests
+	Headers map[string]string
+}
+
+// NewDeleteObjectOptions : Instantiate DeleteObjectOptions
+func (*CatalogManagementV1) NewDeleteObjectOptions(catalogIdentifier string, objectIdentifier string) *DeleteObjectOptions {
+	return &DeleteObjectOptions{
+		CatalogIdentifier: core.StringPtr(catalogIdentifier),
+		ObjectIdentifier: core.StringPtr(objectIdentifier),
+	}
+}
+
+// SetCatalogIdentifier : Allow user to set CatalogIdentifier
+func (options *DeleteObjectOptions) SetCatalogIdentifier(catalogIdentifier string) *DeleteObjectOptions {
+	options.CatalogIdentifier = core.StringPtr(catalogIdentifier)
+	return options
+}
+
+// SetObjectIdentifier : Allow user to set ObjectIdentifier
+func (options *DeleteObjectOptions) SetObjectIdentifier(objectIdentifier string) *DeleteObjectOptions {
+	options.ObjectIdentifier = core.StringPtr(objectIdentifier)
+	return options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *DeleteObjectOptions) SetHeaders(param map[string]string) *DeleteObjectOptions {
+	options.Headers = param
+	return options
+}
+
 // DeleteOfferingOptions : The DeleteOffering options.
 type DeleteOfferingOptions struct {
 	// Catalog identifier.
-	CatalogIdentifier *string `json:"catalog_identifier" validate:"required"`
+	CatalogIdentifier *string `json:"catalog_identifier" validate:"required,ne="`
 
 	// Offering identification.
-	OfferingID *string `json:"offering_id" validate:"required"`
+	OfferingID *string `json:"offering_id" validate:"required,ne="`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -5155,7 +6798,7 @@ func (options *DeleteOperatorOptions) SetHeaders(param map[string]string) *Delet
 // DeleteVersionOptions : The DeleteVersion options.
 type DeleteVersionOptions struct {
 	// A dotted value of `catalogID`.`versionID`.
-	VersionLocID *string `json:"version_loc_id" validate:"required"`
+	VersionLocID *string `json:"version_loc_id" validate:"required,ne="`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -5321,7 +6964,7 @@ func UnmarshalDeployment(m map[string]json.RawMessage, result interface{}) (err 
 // DeprecateVersionOptions : The DeprecateVersion options.
 type DeprecateVersionOptions struct {
 	// A dotted value of `catalogID`.`versionID`.
-	VersionLocID *string `json:"version_loc_id" validate:"required"`
+	VersionLocID *string `json:"version_loc_id" validate:"required,ne="`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -5481,6 +7124,32 @@ func UnmarshalFilters(m map[string]json.RawMessage, result interface{}) (err err
 	return
 }
 
+// GetCatalogAccountAuditOptions : The GetCatalogAccountAudit options.
+type GetCatalogAccountAuditOptions struct {
+	// Log identification.
+	ID *string `json:"id,omitempty"`
+
+	// Allows users to set headers on API requests
+	Headers map[string]string
+}
+
+// NewGetCatalogAccountAuditOptions : Instantiate GetCatalogAccountAuditOptions
+func (*CatalogManagementV1) NewGetCatalogAccountAuditOptions() *GetCatalogAccountAuditOptions {
+	return &GetCatalogAccountAuditOptions{}
+}
+
+// SetID : Allow user to set ID
+func (options *GetCatalogAccountAuditOptions) SetID(id string) *GetCatalogAccountAuditOptions {
+	options.ID = core.StringPtr(id)
+	return options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *GetCatalogAccountAuditOptions) SetHeaders(param map[string]string) *GetCatalogAccountAuditOptions {
+	options.Headers = param
+	return options
+}
+
 // GetCatalogAccountFiltersOptions : The GetCatalogAccountFilters options.
 type GetCatalogAccountFiltersOptions struct {
 	// catalog id. Narrow down filters to the account and just the one catalog.
@@ -5525,10 +7194,47 @@ func (options *GetCatalogAccountOptions) SetHeaders(param map[string]string) *Ge
 	return options
 }
 
+// GetCatalogAuditOptions : The GetCatalogAudit options.
+type GetCatalogAuditOptions struct {
+	// Catalog identifier.
+	CatalogIdentifier *string `json:"catalog_identifier" validate:"required,ne="`
+
+	// Log identification.
+	ID *string `json:"id,omitempty"`
+
+	// Allows users to set headers on API requests
+	Headers map[string]string
+}
+
+// NewGetCatalogAuditOptions : Instantiate GetCatalogAuditOptions
+func (*CatalogManagementV1) NewGetCatalogAuditOptions(catalogIdentifier string) *GetCatalogAuditOptions {
+	return &GetCatalogAuditOptions{
+		CatalogIdentifier: core.StringPtr(catalogIdentifier),
+	}
+}
+
+// SetCatalogIdentifier : Allow user to set CatalogIdentifier
+func (options *GetCatalogAuditOptions) SetCatalogIdentifier(catalogIdentifier string) *GetCatalogAuditOptions {
+	options.CatalogIdentifier = core.StringPtr(catalogIdentifier)
+	return options
+}
+
+// SetID : Allow user to set ID
+func (options *GetCatalogAuditOptions) SetID(id string) *GetCatalogAuditOptions {
+	options.ID = core.StringPtr(id)
+	return options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *GetCatalogAuditOptions) SetHeaders(param map[string]string) *GetCatalogAuditOptions {
+	options.Headers = param
+	return options
+}
+
 // GetCatalogOptions : The GetCatalog options.
 type GetCatalogOptions struct {
 	// Catalog identifier.
-	CatalogIdentifier *string `json:"catalog_identifier" validate:"required"`
+	CatalogIdentifier *string `json:"catalog_identifier" validate:"required,ne="`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -5556,7 +7262,7 @@ func (options *GetCatalogOptions) SetHeaders(param map[string]string) *GetCatalo
 // GetClusterOptions : The GetCluster options.
 type GetClusterOptions struct {
 	// ID of the cluster.
-	ClusterID *string `json:"cluster_id" validate:"required"`
+	ClusterID *string `json:"cluster_id" validate:"required,ne="`
 
 	// Region of the cluster.
 	Region *string `json:"region" validate:"required"`
@@ -5619,6 +7325,12 @@ type GetConsumptionOfferingsOptions struct {
 	// returned.
 	IncludeHidden *bool `json:"includeHidden,omitempty"`
 
+	// number or results to return.
+	Limit *int64 `json:"limit,omitempty"`
+
+	// number of results to skip before returning values.
+	Offset *int64 `json:"offset,omitempty"`
+
 	// Allows users to set headers on API requests
 	Headers map[string]string
 }
@@ -5661,6 +7373,18 @@ func (options *GetConsumptionOfferingsOptions) SetIncludeHidden(includeHidden bo
 	return options
 }
 
+// SetLimit : Allow user to set Limit
+func (options *GetConsumptionOfferingsOptions) SetLimit(limit int64) *GetConsumptionOfferingsOptions {
+	options.Limit = core.Int64Ptr(limit)
+	return options
+}
+
+// SetOffset : Allow user to set Offset
+func (options *GetConsumptionOfferingsOptions) SetOffset(offset int64) *GetConsumptionOfferingsOptions {
+	options.Offset = core.Int64Ptr(offset)
+	return options
+}
+
 // SetHeaders : Allow user to set Headers
 func (options *GetConsumptionOfferingsOptions) SetHeaders(param map[string]string) *GetConsumptionOfferingsOptions {
 	options.Headers = param
@@ -5670,7 +7394,7 @@ func (options *GetConsumptionOfferingsOptions) SetHeaders(param map[string]strin
 // GetEnterpriseOptions : The GetEnterprise options.
 type GetEnterpriseOptions struct {
 	// Enterprise identification.
-	EnterpriseID *string `json:"enterprise_id" validate:"required"`
+	EnterpriseID *string `json:"enterprise_id" validate:"required,ne="`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -5695,10 +7419,47 @@ func (options *GetEnterpriseOptions) SetHeaders(param map[string]string) *GetEnt
 	return options
 }
 
+// GetEnterprisesAuditOptions : The GetEnterprisesAudit options.
+type GetEnterprisesAuditOptions struct {
+	// Enterprise identification.
+	EnterpriseID *string `json:"enterprise_id" validate:"required,ne="`
+
+	// Log identification.
+	ID *string `json:"id,omitempty"`
+
+	// Allows users to set headers on API requests
+	Headers map[string]string
+}
+
+// NewGetEnterprisesAuditOptions : Instantiate GetEnterprisesAuditOptions
+func (*CatalogManagementV1) NewGetEnterprisesAuditOptions(enterpriseID string) *GetEnterprisesAuditOptions {
+	return &GetEnterprisesAuditOptions{
+		EnterpriseID: core.StringPtr(enterpriseID),
+	}
+}
+
+// SetEnterpriseID : Allow user to set EnterpriseID
+func (options *GetEnterprisesAuditOptions) SetEnterpriseID(enterpriseID string) *GetEnterprisesAuditOptions {
+	options.EnterpriseID = core.StringPtr(enterpriseID)
+	return options
+}
+
+// SetID : Allow user to set ID
+func (options *GetEnterprisesAuditOptions) SetID(id string) *GetEnterprisesAuditOptions {
+	options.ID = core.StringPtr(id)
+	return options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *GetEnterprisesAuditOptions) SetHeaders(param map[string]string) *GetEnterprisesAuditOptions {
+	options.Headers = param
+	return options
+}
+
 // GetLicenseEntitlementsOptions : The GetLicenseEntitlements options.
 type GetLicenseEntitlementsOptions struct {
 	// The license product ID. If from PPA (Passport Advantage) this is a specific product Part number, eg. D1YGZLL.
-	LicenseProductID *string `json:"license_product_id" validate:"required"`
+	LicenseProductID *string `json:"license_product_id" validate:"required,ne="`
 
 	// The account ID to query for the entitlement. Default is the account from the user's token.
 	AccountID *string `json:"account_id,omitempty"`
@@ -5826,7 +7587,7 @@ func (options *GetLicensesOptions) SetHeaders(param map[string]string) *GetLicen
 // GetNamespacesOptions : The GetNamespaces options.
 type GetNamespacesOptions struct {
 	// ID of the cluster.
-	ClusterID *string `json:"cluster_id" validate:"required"`
+	ClusterID *string `json:"cluster_id" validate:"required,ne="`
 
 	// Cluster region.
 	Region *string `json:"region" validate:"required"`
@@ -5889,13 +7650,145 @@ func (options *GetNamespacesOptions) SetHeaders(param map[string]string) *GetNam
 	return options
 }
 
+// GetObjectAuditOptions : The GetObjectAudit options.
+type GetObjectAuditOptions struct {
+	// Catalog identifier.
+	CatalogIdentifier *string `json:"catalog_identifier" validate:"required,ne="`
+
+	// Object identifier.
+	ObjectIdentifier *string `json:"object_identifier" validate:"required,ne="`
+
+	// Log identification.
+	ID *string `json:"id,omitempty"`
+
+	// Allows users to set headers on API requests
+	Headers map[string]string
+}
+
+// NewGetObjectAuditOptions : Instantiate GetObjectAuditOptions
+func (*CatalogManagementV1) NewGetObjectAuditOptions(catalogIdentifier string, objectIdentifier string) *GetObjectAuditOptions {
+	return &GetObjectAuditOptions{
+		CatalogIdentifier: core.StringPtr(catalogIdentifier),
+		ObjectIdentifier: core.StringPtr(objectIdentifier),
+	}
+}
+
+// SetCatalogIdentifier : Allow user to set CatalogIdentifier
+func (options *GetObjectAuditOptions) SetCatalogIdentifier(catalogIdentifier string) *GetObjectAuditOptions {
+	options.CatalogIdentifier = core.StringPtr(catalogIdentifier)
+	return options
+}
+
+// SetObjectIdentifier : Allow user to set ObjectIdentifier
+func (options *GetObjectAuditOptions) SetObjectIdentifier(objectIdentifier string) *GetObjectAuditOptions {
+	options.ObjectIdentifier = core.StringPtr(objectIdentifier)
+	return options
+}
+
+// SetID : Allow user to set ID
+func (options *GetObjectAuditOptions) SetID(id string) *GetObjectAuditOptions {
+	options.ID = core.StringPtr(id)
+	return options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *GetObjectAuditOptions) SetHeaders(param map[string]string) *GetObjectAuditOptions {
+	options.Headers = param
+	return options
+}
+
+// GetObjectOptions : The GetObject options.
+type GetObjectOptions struct {
+	// Catalog identifier.
+	CatalogIdentifier *string `json:"catalog_identifier" validate:"required,ne="`
+
+	// Object identifier.
+	ObjectIdentifier *string `json:"object_identifier" validate:"required,ne="`
+
+	// Allows users to set headers on API requests
+	Headers map[string]string
+}
+
+// NewGetObjectOptions : Instantiate GetObjectOptions
+func (*CatalogManagementV1) NewGetObjectOptions(catalogIdentifier string, objectIdentifier string) *GetObjectOptions {
+	return &GetObjectOptions{
+		CatalogIdentifier: core.StringPtr(catalogIdentifier),
+		ObjectIdentifier: core.StringPtr(objectIdentifier),
+	}
+}
+
+// SetCatalogIdentifier : Allow user to set CatalogIdentifier
+func (options *GetObjectOptions) SetCatalogIdentifier(catalogIdentifier string) *GetObjectOptions {
+	options.CatalogIdentifier = core.StringPtr(catalogIdentifier)
+	return options
+}
+
+// SetObjectIdentifier : Allow user to set ObjectIdentifier
+func (options *GetObjectOptions) SetObjectIdentifier(objectIdentifier string) *GetObjectOptions {
+	options.ObjectIdentifier = core.StringPtr(objectIdentifier)
+	return options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *GetObjectOptions) SetHeaders(param map[string]string) *GetObjectOptions {
+	options.Headers = param
+	return options
+}
+
+// GetOfferingAuditOptions : The GetOfferingAudit options.
+type GetOfferingAuditOptions struct {
+	// Catalog identifier.
+	CatalogIdentifier *string `json:"catalog_identifier" validate:"required,ne="`
+
+	// Offering identifier.
+	OfferingID *string `json:"offering_id" validate:"required,ne="`
+
+	// Log identification.
+	ID *string `json:"id,omitempty"`
+
+	// Allows users to set headers on API requests
+	Headers map[string]string
+}
+
+// NewGetOfferingAuditOptions : Instantiate GetOfferingAuditOptions
+func (*CatalogManagementV1) NewGetOfferingAuditOptions(catalogIdentifier string, offeringID string) *GetOfferingAuditOptions {
+	return &GetOfferingAuditOptions{
+		CatalogIdentifier: core.StringPtr(catalogIdentifier),
+		OfferingID: core.StringPtr(offeringID),
+	}
+}
+
+// SetCatalogIdentifier : Allow user to set CatalogIdentifier
+func (options *GetOfferingAuditOptions) SetCatalogIdentifier(catalogIdentifier string) *GetOfferingAuditOptions {
+	options.CatalogIdentifier = core.StringPtr(catalogIdentifier)
+	return options
+}
+
+// SetOfferingID : Allow user to set OfferingID
+func (options *GetOfferingAuditOptions) SetOfferingID(offeringID string) *GetOfferingAuditOptions {
+	options.OfferingID = core.StringPtr(offeringID)
+	return options
+}
+
+// SetID : Allow user to set ID
+func (options *GetOfferingAuditOptions) SetID(id string) *GetOfferingAuditOptions {
+	options.ID = core.StringPtr(id)
+	return options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *GetOfferingAuditOptions) SetHeaders(param map[string]string) *GetOfferingAuditOptions {
+	options.Headers = param
+	return options
+}
+
 // GetOfferingOptions : The GetOffering options.
 type GetOfferingOptions struct {
 	// Catalog identifier.
-	CatalogIdentifier *string `json:"catalog_identifier" validate:"required"`
+	CatalogIdentifier *string `json:"catalog_identifier" validate:"required,ne="`
 
 	// Offering identification.
-	OfferingID *string `json:"offering_id" validate:"required"`
+	OfferingID *string `json:"offering_id" validate:"required,ne="`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -5930,7 +7823,7 @@ func (options *GetOfferingOptions) SetHeaders(param map[string]string) *GetOffer
 // GetOverrideValuesOptions : The GetOverrideValues options.
 type GetOverrideValuesOptions struct {
 	// A dotted value of `catalogID`.`versionID`.
-	VersionLocID *string `json:"version_loc_id" validate:"required"`
+	VersionLocID *string `json:"version_loc_id" validate:"required,ne="`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -5958,7 +7851,7 @@ func (options *GetOverrideValuesOptions) SetHeaders(param map[string]string) *Ge
 // GetPreinstallOptions : The GetPreinstall options.
 type GetPreinstallOptions struct {
 	// A dotted value of `catalogID`.`versionID`.
-	VersionLocID *string `json:"version_loc_id" validate:"required"`
+	VersionLocID *string `json:"version_loc_id" validate:"required,ne="`
 
 	// IAM Refresh token.
 	XAuthRefreshToken *string `json:"X-Auth-Refresh-Token" validate:"required"`
@@ -6023,7 +7916,7 @@ func (options *GetPreinstallOptions) SetHeaders(param map[string]string) *GetPre
 // GetRepoOptions : The GetRepo options.
 type GetRepoOptions struct {
 	// The type of repo (valid repo types: helm).
-	Type *string `json:"type" validate:"required"`
+	Type *string `json:"type" validate:"required,ne="`
 
 	// The URL for the repo's chart zip file (e.g
 	// https://registry.bluemix.net/helm/ibm-charts/charts/ibm-redis-ha-dev-1.0.0.tgz).
@@ -6062,7 +7955,7 @@ func (options *GetRepoOptions) SetHeaders(param map[string]string) *GetRepoOptio
 // GetReposOptions : The GetRepos options.
 type GetReposOptions struct {
 	// The type of repo (valid repo types: helm).
-	Type *string `json:"type" validate:"required"`
+	Type *string `json:"type" validate:"required,ne="`
 
 	// The URL for the repo's root (e.g https://kubernetes-charts-incubator.storage.googleapis.com).
 	Repourl *string `json:"repourl" validate:"required"`
@@ -6118,7 +8011,7 @@ func (options *GetResourceGroupsOptions) SetHeaders(param map[string]string) *Ge
 // GetSchematicsWorkspacesOptions : The GetSchematicsWorkspaces options.
 type GetSchematicsWorkspacesOptions struct {
 	// A dotted value of `catalogID`.`versionID`.
-	VersionLocID *string `json:"version_loc_id" validate:"required"`
+	VersionLocID *string `json:"version_loc_id" validate:"required,ne="`
 
 	// IAM Refresh token.
 	XAuthRefreshToken *string `json:"X-Auth-Refresh-Token" validate:"required"`
@@ -6156,7 +8049,7 @@ func (options *GetSchematicsWorkspacesOptions) SetHeaders(param map[string]strin
 // GetValidationStatusOptions : The GetValidationStatus options.
 type GetValidationStatusOptions struct {
 	// A dotted value of `catalogID`.`versionID`.
-	VersionLocID *string `json:"version_loc_id" validate:"required"`
+	VersionLocID *string `json:"version_loc_id" validate:"required,ne="`
 
 	// IAM Refresh token.
 	XAuthRefreshToken *string `json:"X-Auth-Refresh-Token" validate:"required"`
@@ -6194,7 +8087,7 @@ func (options *GetValidationStatusOptions) SetHeaders(param map[string]string) *
 // GetVersionAboutOptions : The GetVersionAbout options.
 type GetVersionAboutOptions struct {
 	// A dotted value of `catalogID`.`versionID`.
-	VersionLocID *string `json:"version_loc_id" validate:"required"`
+	VersionLocID *string `json:"version_loc_id" validate:"required,ne="`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -6222,7 +8115,7 @@ func (options *GetVersionAboutOptions) SetHeaders(param map[string]string) *GetV
 // GetVersionContainerImagesOptions : The GetVersionContainerImages options.
 type GetVersionContainerImagesOptions struct {
 	// A dotted value of `catalogID`.`versionID`.
-	VersionLocID *string `json:"version_loc_id" validate:"required"`
+	VersionLocID *string `json:"version_loc_id" validate:"required,ne="`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -6250,10 +8143,10 @@ func (options *GetVersionContainerImagesOptions) SetHeaders(param map[string]str
 // GetVersionLicenseOptions : The GetVersionLicense options.
 type GetVersionLicenseOptions struct {
 	// A dotted value of `catalogID`.`versionID`.
-	VersionLocID *string `json:"version_loc_id" validate:"required"`
+	VersionLocID *string `json:"version_loc_id" validate:"required,ne="`
 
 	// The ID of the license, which maps to the file name in the 'licenses' directory of this verions tgz file.
-	LicenseID *string `json:"license_id" validate:"required"`
+	LicenseID *string `json:"license_id" validate:"required,ne="`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -6288,7 +8181,7 @@ func (options *GetVersionLicenseOptions) SetHeaders(param map[string]string) *Ge
 // GetVersionOptions : The GetVersion options.
 type GetVersionOptions struct {
 	// A dotted value of `catalogID`.`versionID`.
-	VersionLocID *string `json:"version_loc_id" validate:"required"`
+	VersionLocID *string `json:"version_loc_id" validate:"required,ne="`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -6316,7 +8209,7 @@ func (options *GetVersionOptions) SetHeaders(param map[string]string) *GetVersio
 // GetVersionUpdatesOptions : The GetVersionUpdates options.
 type GetVersionUpdatesOptions struct {
 	// A dotted value of `catalogID`.`versionID`.
-	VersionLocID *string `json:"version_loc_id" validate:"required"`
+	VersionLocID *string `json:"version_loc_id" validate:"required,ne="`
 
 	// The id of the cluster where this version was installed.
 	ClusterID *string `json:"cluster_id,omitempty"`
@@ -6380,7 +8273,7 @@ func (options *GetVersionUpdatesOptions) SetHeaders(param map[string]string) *Ge
 // GetVersionWorkingCopyOptions : The GetVersionWorkingCopy options.
 type GetVersionWorkingCopyOptions struct {
 	// A dotted value of `catalogID`.`versionID`.
-	VersionLocID *string `json:"version_loc_id" validate:"required"`
+	VersionLocID *string `json:"version_loc_id" validate:"required,ne="`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -6677,7 +8570,7 @@ func UnmarshalIDFilter(m map[string]json.RawMessage, result interface{}) (err er
 // IbmPublishVersionOptions : The IbmPublishVersion options.
 type IbmPublishVersionOptions struct {
 	// A dotted value of `catalogID`.`versionID`.
-	VersionLocID *string `json:"version_loc_id" validate:"required"`
+	VersionLocID *string `json:"version_loc_id" validate:"required,ne="`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -6748,10 +8641,7 @@ func UnmarshalImageManifest(m map[string]json.RawMessage, result interface{}) (e
 // ImportOfferingOptions : The ImportOffering options.
 type ImportOfferingOptions struct {
 	// Catalog identifier.
-	CatalogIdentifier *string `json:"catalog_identifier" validate:"required"`
-
-	// URL path to zip location.
-	Zipurl *string `json:"zipurl" validate:"required"`
+	CatalogIdentifier *string `json:"catalog_identifier" validate:"required,ne="`
 
 	// Tags array.
 	Tags []string `json:"tags,omitempty"`
@@ -6759,8 +8649,17 @@ type ImportOfferingOptions struct {
 	// Target kinds.  Current valid values are 'iks', 'roks', 'vcenter', and 'terraform'.
 	TargetKinds []string `json:"target_kinds,omitempty"`
 
+	// byte array representing the content to be imported.  Only supported for OVA images at this time.
+	Content []int64 `json:"content,omitempty"`
+
+	// URL path to zip location.  If not specified, must provide content in this post body.
+	Zipurl *string `json:"zipurl,omitempty"`
+
 	// Re-use the specified offeringID during import.
 	OfferingID *string `json:"offeringID,omitempty"`
+
+	// The semver value for this new version.
+	TargetVersion *string `json:"targetVersion,omitempty"`
 
 	// Add all possible configuration items when creating this version.
 	IncludeConfig *bool `json:"includeConfig,omitempty"`
@@ -6776,22 +8675,15 @@ type ImportOfferingOptions struct {
 }
 
 // NewImportOfferingOptions : Instantiate ImportOfferingOptions
-func (*CatalogManagementV1) NewImportOfferingOptions(catalogIdentifier string, zipurl string) *ImportOfferingOptions {
+func (*CatalogManagementV1) NewImportOfferingOptions(catalogIdentifier string) *ImportOfferingOptions {
 	return &ImportOfferingOptions{
 		CatalogIdentifier: core.StringPtr(catalogIdentifier),
-		Zipurl: core.StringPtr(zipurl),
 	}
 }
 
 // SetCatalogIdentifier : Allow user to set CatalogIdentifier
 func (options *ImportOfferingOptions) SetCatalogIdentifier(catalogIdentifier string) *ImportOfferingOptions {
 	options.CatalogIdentifier = core.StringPtr(catalogIdentifier)
-	return options
-}
-
-// SetZipurl : Allow user to set Zipurl
-func (options *ImportOfferingOptions) SetZipurl(zipurl string) *ImportOfferingOptions {
-	options.Zipurl = core.StringPtr(zipurl)
 	return options
 }
 
@@ -6807,9 +8699,27 @@ func (options *ImportOfferingOptions) SetTargetKinds(targetKinds []string) *Impo
 	return options
 }
 
+// SetContent : Allow user to set Content
+func (options *ImportOfferingOptions) SetContent(content []int64) *ImportOfferingOptions {
+	options.Content = content
+	return options
+}
+
+// SetZipurl : Allow user to set Zipurl
+func (options *ImportOfferingOptions) SetZipurl(zipurl string) *ImportOfferingOptions {
+	options.Zipurl = core.StringPtr(zipurl)
+	return options
+}
+
 // SetOfferingID : Allow user to set OfferingID
 func (options *ImportOfferingOptions) SetOfferingID(offeringID string) *ImportOfferingOptions {
 	options.OfferingID = core.StringPtr(offeringID)
+	return options
+}
+
+// SetTargetVersion : Allow user to set TargetVersion
+func (options *ImportOfferingOptions) SetTargetVersion(targetVersion string) *ImportOfferingOptions {
+	options.TargetVersion = core.StringPtr(targetVersion)
 	return options
 }
 
@@ -6840,19 +8750,22 @@ func (options *ImportOfferingOptions) SetHeaders(param map[string]string) *Impor
 // ImportOfferingVersionOptions : The ImportOfferingVersion options.
 type ImportOfferingVersionOptions struct {
 	// Catalog identifier.
-	CatalogIdentifier *string `json:"catalog_identifier" validate:"required"`
+	CatalogIdentifier *string `json:"catalog_identifier" validate:"required,ne="`
 
 	// Offering identification.
-	OfferingID *string `json:"offering_id" validate:"required"`
-
-	// URL path to zip location.
-	Zipurl *string `json:"zipurl" validate:"required"`
+	OfferingID *string `json:"offering_id" validate:"required,ne="`
 
 	// Tags array.
 	Tags []string `json:"tags,omitempty"`
 
 	// Target kinds.  Current valid values are 'iks', 'roks', 'vcenter', and 'terraform'.
 	TargetKinds []string `json:"target_kinds,omitempty"`
+
+	// byte array representing the content to be imported.  Only supported for OVA images at this time.
+	Content []int64 `json:"content,omitempty"`
+
+	// URL path to zip location.  If not specified, must provide content in the body of this call.
+	Zipurl *string `json:"zipurl,omitempty"`
 
 	// The semver value for this new version, if not found in the zip url package content.
 	TargetVersion *string `json:"targetVersion,omitempty"`
@@ -6863,19 +8776,15 @@ type ImportOfferingVersionOptions struct {
 	// The type of repository containing this version.  Valid values are 'public_git' or 'enterprise_git'.
 	RepoType *string `json:"repoType,omitempty"`
 
-	// Authentication token used to access the specified zip file.
-	XAuthToken *string `json:"X-Auth-Token,omitempty"`
-
 	// Allows users to set headers on API requests
 	Headers map[string]string
 }
 
 // NewImportOfferingVersionOptions : Instantiate ImportOfferingVersionOptions
-func (*CatalogManagementV1) NewImportOfferingVersionOptions(catalogIdentifier string, offeringID string, zipurl string) *ImportOfferingVersionOptions {
+func (*CatalogManagementV1) NewImportOfferingVersionOptions(catalogIdentifier string, offeringID string) *ImportOfferingVersionOptions {
 	return &ImportOfferingVersionOptions{
 		CatalogIdentifier: core.StringPtr(catalogIdentifier),
 		OfferingID: core.StringPtr(offeringID),
-		Zipurl: core.StringPtr(zipurl),
 	}
 }
 
@@ -6891,12 +8800,6 @@ func (options *ImportOfferingVersionOptions) SetOfferingID(offeringID string) *I
 	return options
 }
 
-// SetZipurl : Allow user to set Zipurl
-func (options *ImportOfferingVersionOptions) SetZipurl(zipurl string) *ImportOfferingVersionOptions {
-	options.Zipurl = core.StringPtr(zipurl)
-	return options
-}
-
 // SetTags : Allow user to set Tags
 func (options *ImportOfferingVersionOptions) SetTags(tags []string) *ImportOfferingVersionOptions {
 	options.Tags = tags
@@ -6906,6 +8809,18 @@ func (options *ImportOfferingVersionOptions) SetTags(tags []string) *ImportOffer
 // SetTargetKinds : Allow user to set TargetKinds
 func (options *ImportOfferingVersionOptions) SetTargetKinds(targetKinds []string) *ImportOfferingVersionOptions {
 	options.TargetKinds = targetKinds
+	return options
+}
+
+// SetContent : Allow user to set Content
+func (options *ImportOfferingVersionOptions) SetContent(content []int64) *ImportOfferingVersionOptions {
+	options.Content = content
+	return options
+}
+
+// SetZipurl : Allow user to set Zipurl
+func (options *ImportOfferingVersionOptions) SetZipurl(zipurl string) *ImportOfferingVersionOptions {
+	options.Zipurl = core.StringPtr(zipurl)
 	return options
 }
 
@@ -6924,12 +8839,6 @@ func (options *ImportOfferingVersionOptions) SetIncludeConfig(includeConfig bool
 // SetRepoType : Allow user to set RepoType
 func (options *ImportOfferingVersionOptions) SetRepoType(repoType string) *ImportOfferingVersionOptions {
 	options.RepoType = core.StringPtr(repoType)
-	return options
-}
-
-// SetXAuthToken : Allow user to set XAuthToken
-func (options *ImportOfferingVersionOptions) SetXAuthToken(xAuthToken string) *ImportOfferingVersionOptions {
-	options.XAuthToken = core.StringPtr(xAuthToken)
 	return options
 }
 
@@ -7091,7 +9000,7 @@ func UnmarshalInstallStatusRelease(m map[string]json.RawMessage, result interfac
 // InstallVersionOptions : The InstallVersion options.
 type InstallVersionOptions struct {
 	// A dotted value of `catalogID`.`versionID`.
-	VersionLocID *string `json:"version_loc_id" validate:"required"`
+	VersionLocID *string `json:"version_loc_id" validate:"required,ne="`
 
 	// IAM Refresh token.
 	XAuthRefreshToken *string `json:"X-Auth-Refresh-Token" validate:"required"`
@@ -7126,11 +9035,17 @@ type InstallVersionOptions struct {
 	// VCenter ID.
 	VcenterID *string `json:"vcenter_id,omitempty"`
 
+	// VCenter User.
+	VcenterUser *string `json:"vcenter_user,omitempty"`
+
 	// VCenter Password.
 	VcenterPassword *string `json:"vcenter_password,omitempty"`
 
 	// VCenter Location.
 	VcenterLocation *string `json:"vcenter_location,omitempty"`
+
+	// VCenter Datastore.
+	VcenterDatastore *string `json:"vcenter_datastore,omitempty"`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -7216,6 +9131,12 @@ func (options *InstallVersionOptions) SetVcenterID(vcenterID string) *InstallVer
 	return options
 }
 
+// SetVcenterUser : Allow user to set VcenterUser
+func (options *InstallVersionOptions) SetVcenterUser(vcenterUser string) *InstallVersionOptions {
+	options.VcenterUser = core.StringPtr(vcenterUser)
+	return options
+}
+
 // SetVcenterPassword : Allow user to set VcenterPassword
 func (options *InstallVersionOptions) SetVcenterPassword(vcenterPassword string) *InstallVersionOptions {
 	options.VcenterPassword = core.StringPtr(vcenterPassword)
@@ -7225,6 +9146,12 @@ func (options *InstallVersionOptions) SetVcenterPassword(vcenterPassword string)
 // SetVcenterLocation : Allow user to set VcenterLocation
 func (options *InstallVersionOptions) SetVcenterLocation(vcenterLocation string) *InstallVersionOptions {
 	options.VcenterLocation = core.StringPtr(vcenterLocation)
+	return options
+}
+
+// SetVcenterDatastore : Allow user to set VcenterDatastore
+func (options *InstallVersionOptions) SetVcenterDatastore(vcenterDatastore string) *InstallVersionOptions {
+	options.VcenterDatastore = core.StringPtr(vcenterDatastore)
 	return options
 }
 
@@ -8105,14 +10032,94 @@ func (options *ListLicenseEntitlementsOptions) SetHeaders(param map[string]strin
 	return options
 }
 
+// ListObjectsOptions : The ListObjects options.
+type ListObjectsOptions struct {
+	// Catalog identifier.
+	CatalogIdentifier *string `json:"catalog_identifier" validate:"required,ne="`
+
+	// number or results to return.
+	Limit *int64 `json:"limit,omitempty"`
+
+	// number of results to skip before returning values.
+	Offset *int64 `json:"offset,omitempty"`
+
+	// only return results that contain the specified string.
+	Name *string `json:"name,omitempty"`
+
+	// The field on which the output is sorted. Sorts by default by **label** property. Available fields are **name**,
+	// **label**, **created**, and **updated**. By adding **-** (i.e. **-label**) in front of the query string, you can
+	// specify descending order. Default is ascending order.
+	Sort *string `json:"sort,omitempty"`
+
+	// Allows users to set headers on API requests
+	Headers map[string]string
+}
+
+// NewListObjectsOptions : Instantiate ListObjectsOptions
+func (*CatalogManagementV1) NewListObjectsOptions(catalogIdentifier string) *ListObjectsOptions {
+	return &ListObjectsOptions{
+		CatalogIdentifier: core.StringPtr(catalogIdentifier),
+	}
+}
+
+// SetCatalogIdentifier : Allow user to set CatalogIdentifier
+func (options *ListObjectsOptions) SetCatalogIdentifier(catalogIdentifier string) *ListObjectsOptions {
+	options.CatalogIdentifier = core.StringPtr(catalogIdentifier)
+	return options
+}
+
+// SetLimit : Allow user to set Limit
+func (options *ListObjectsOptions) SetLimit(limit int64) *ListObjectsOptions {
+	options.Limit = core.Int64Ptr(limit)
+	return options
+}
+
+// SetOffset : Allow user to set Offset
+func (options *ListObjectsOptions) SetOffset(offset int64) *ListObjectsOptions {
+	options.Offset = core.Int64Ptr(offset)
+	return options
+}
+
+// SetName : Allow user to set Name
+func (options *ListObjectsOptions) SetName(name string) *ListObjectsOptions {
+	options.Name = core.StringPtr(name)
+	return options
+}
+
+// SetSort : Allow user to set Sort
+func (options *ListObjectsOptions) SetSort(sort string) *ListObjectsOptions {
+	options.Sort = core.StringPtr(sort)
+	return options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *ListObjectsOptions) SetHeaders(param map[string]string) *ListObjectsOptions {
+	options.Headers = param
+	return options
+}
+
 // ListOfferingsOptions : The ListOfferings options.
 type ListOfferingsOptions struct {
 	// Catalog identifier.
-	CatalogIdentifier *string `json:"catalog_identifier" validate:"required"`
+	CatalogIdentifier *string `json:"catalog_identifier" validate:"required,ne="`
 
 	// true - Strip down the content of what is returned. For example don't return the readme. Makes the result much
 	// smaller. Defaults to false.
 	Digest *bool `json:"digest,omitempty"`
+
+	// number or results to return.
+	Limit *int64 `json:"limit,omitempty"`
+
+	// number of results to skip before returning values.
+	Offset *int64 `json:"offset,omitempty"`
+
+	// only return results that contain the specified string.
+	Name *string `json:"name,omitempty"`
+
+	// The field on which the output is sorted. Sorts by default by **label** property. Available fields are **name**,
+	// **label**, **created**, and **updated**. By adding **-** (i.e. **-label**) in front of the query string, you can
+	// specify descending order. Default is ascending order.
+	Sort *string `json:"sort,omitempty"`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -8134,6 +10141,30 @@ func (options *ListOfferingsOptions) SetCatalogIdentifier(catalogIdentifier stri
 // SetDigest : Allow user to set Digest
 func (options *ListOfferingsOptions) SetDigest(digest bool) *ListOfferingsOptions {
 	options.Digest = core.BoolPtr(digest)
+	return options
+}
+
+// SetLimit : Allow user to set Limit
+func (options *ListOfferingsOptions) SetLimit(limit int64) *ListOfferingsOptions {
+	options.Limit = core.Int64Ptr(limit)
+	return options
+}
+
+// SetOffset : Allow user to set Offset
+func (options *ListOfferingsOptions) SetOffset(offset int64) *ListOfferingsOptions {
+	options.Offset = core.Int64Ptr(offset)
+	return options
+}
+
+// SetName : Allow user to set Name
+func (options *ListOfferingsOptions) SetName(name string) *ListOfferingsOptions {
+	options.Name = core.StringPtr(name)
+	return options
+}
+
+// SetSort : Allow user to set Sort
+func (options *ListOfferingsOptions) SetSort(sort string) *ListOfferingsOptions {
+	options.Sort = core.StringPtr(sort)
 	return options
 }
 
@@ -8321,6 +10352,397 @@ func UnmarshalNamespaceSearchResult(m map[string]json.RawMessage, result interfa
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "resources", &obj.Resources)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// Object : object information.
+type Object struct {
+	// unique id.
+	ID *string `json:"id,omitempty"`
+
+	// The programmatic name of this offering.
+	Name *string `json:"name,omitempty"`
+
+	// Cloudant revision.
+	Rev *string `json:"_rev,omitempty"`
+
+	// The crn for this specific object.
+	Crn *string `json:"crn,omitempty"`
+
+	// The url for this specific object.
+	URL *string `json:"url,omitempty"`
+
+	// The parent for this specific object.
+	ParentID *string `json:"parent_id,omitempty"`
+
+	// List of allowed accounts for this specific object.
+	AllowList []string `json:"allow_list,omitempty"`
+
+	// Translated display name in the requested language.
+	LabelI18n *string `json:"label_i18n,omitempty"`
+
+	// Display name in the requested language.
+	Label *string `json:"label,omitempty"`
+
+	// List of tags associated with this catalog.
+	Tags []string `json:"tags,omitempty"`
+
+	// The date and time this catalog was created.
+	Created *strfmt.DateTime `json:"created,omitempty"`
+
+	// The date and time this catalog was last updated.
+	Updated *strfmt.DateTime `json:"updated,omitempty"`
+
+	// Short description in the requested language.
+	ShortDescription *string `json:"short_description,omitempty"`
+
+	// Short description translation.
+	ShortDescriptionI18n *string `json:"short_description_i18n,omitempty"`
+
+	// Kind of object.
+	Kind *string `json:"kind,omitempty"`
+
+	// Publish information.
+	Publish *PublishObject `json:"publish,omitempty"`
+
+	// Offering state.
+	State *State `json:"state,omitempty"`
+
+	// The id of the catalog containing this offering.
+	CatalogID *string `json:"catalog_id,omitempty"`
+
+	// The name of the catalog.
+	CatalogName *string `json:"catalog_name,omitempty"`
+
+	// Map of data values for this object.
+	Data interface{} `json:"data,omitempty"`
+}
+
+
+// UnmarshalObject unmarshals an instance of Object from the specified map of raw messages.
+func UnmarshalObject(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(Object)
+	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "_rev", &obj.Rev)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "crn", &obj.Crn)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "url", &obj.URL)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "parent_id", &obj.ParentID)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "allow_list", &obj.AllowList)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "label_i18n", &obj.LabelI18n)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "label", &obj.Label)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "tags", &obj.Tags)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "created", &obj.Created)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "updated", &obj.Updated)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "short_description", &obj.ShortDescription)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "short_description_i18n", &obj.ShortDescriptionI18n)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "kind", &obj.Kind)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "publish", &obj.Publish, UnmarshalPublishObject)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "state", &obj.State, UnmarshalState)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "catalog_id", &obj.CatalogID)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "catalog_name", &obj.CatalogName)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "data", &obj.Data)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// ObjectDigest : object information.
+type ObjectDigest struct {
+	// unique id.
+	ID *string `json:"id,omitempty"`
+
+	// Lucene match order.
+	Order []float64 `json:"order,omitempty"`
+
+	// Object digest.
+	Fields *ObjectDigestFields `json:"fields,omitempty"`
+}
+
+
+// UnmarshalObjectDigest unmarshals an instance of ObjectDigest from the specified map of raw messages.
+func UnmarshalObjectDigest(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(ObjectDigest)
+	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "order", &obj.Order)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "fields", &obj.Fields, UnmarshalObjectDigestFields)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// ObjectDigestFields : Object digest.
+type ObjectDigestFields struct {
+	// The id of the catalog containing this offering.
+	CatalogID *string `json:"catalog_id,omitempty"`
+
+	// The programmatic name of this offering.
+	Name *string `json:"name,omitempty"`
+
+	// The parent for this specific object.
+	ParentID *string `json:"parent_id,omitempty"`
+
+	// Display name in the requested language.
+	Label *string `json:"label,omitempty"`
+
+	// The date and time this catalog was last updated.
+	Updated *strfmt.DateTime `json:"updated,omitempty"`
+
+	// Kind of object.
+	Kind *string `json:"kind,omitempty"`
+
+	// The name of the object's parent.
+	ParentName *string `json:"parent_name,omitempty"`
+}
+
+
+// UnmarshalObjectDigestFields unmarshals an instance of ObjectDigestFields from the specified map of raw messages.
+func UnmarshalObjectDigestFields(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(ObjectDigestFields)
+	err = core.UnmarshalPrimitive(m, "catalog_id", &obj.CatalogID)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "parent_id", &obj.ParentID)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "label", &obj.Label)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "updated", &obj.Updated)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "kind", &obj.Kind)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "parent_name", &obj.ParentName)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// ObjectListResult : Paginated object search result.
+type ObjectListResult struct {
+	// The offset (origin 0) of the first resource in this page of search results.
+	Offset *int64 `json:"offset,omitempty"`
+
+	// The maximum number of resources returned in each page of search results.
+	Limit *int64 `json:"limit,omitempty"`
+
+	// The overall total number of resources in the search result set.
+	TotalCount *int64 `json:"total_count,omitempty"`
+
+	// The number of resources returned in this page of search results.
+	ResourceCount *int64 `json:"resource_count,omitempty"`
+
+	// A URL for retrieving the first page of search results.
+	First *string `json:"first,omitempty"`
+
+	// A URL for retrieving the last page of search results.
+	Last *string `json:"last,omitempty"`
+
+	// A URL for retrieving the previous page of search results.
+	Prev *string `json:"prev,omitempty"`
+
+	// A URL for retrieving the next page of search results.
+	Next *string `json:"next,omitempty"`
+
+	// Resulting objects.
+	Resources []Object `json:"resources,omitempty"`
+}
+
+
+// UnmarshalObjectListResult unmarshals an instance of ObjectListResult from the specified map of raw messages.
+func UnmarshalObjectListResult(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(ObjectListResult)
+	err = core.UnmarshalPrimitive(m, "offset", &obj.Offset)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "limit", &obj.Limit)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "total_count", &obj.TotalCount)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "resource_count", &obj.ResourceCount)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "first", &obj.First)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "last", &obj.Last)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "prev", &obj.Prev)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "next", &obj.Next)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "resources", &obj.Resources, UnmarshalObject)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// ObjectSearchResult : Paginated object search result.
+type ObjectSearchResult struct {
+	// The offset (origin 0) of the first resource in this page of search results.
+	Offset *int64 `json:"offset,omitempty"`
+
+	// The maximum number of resources returned in each page of search results.
+	Limit *int64 `json:"limit,omitempty"`
+
+	// The overall total number of resources in the search result set.
+	TotalCount *int64 `json:"total_count,omitempty"`
+
+	// The number of resources returned in this page of search results.
+	ResourceCount *int64 `json:"resource_count,omitempty"`
+
+	// A URL for retrieving the first page of search results.
+	First *string `json:"first,omitempty"`
+
+	// A URL for retrieving the last page of search results.
+	Last *string `json:"last,omitempty"`
+
+	// A URL for retrieving the previous page of search results.
+	Prev *string `json:"prev,omitempty"`
+
+	// A URL for retrieving the next page of search results.
+	Next *string `json:"next,omitempty"`
+
+	// Resulting objects.
+	Resources []ObjectDigest `json:"resources,omitempty"`
+}
+
+
+// UnmarshalObjectSearchResult unmarshals an instance of ObjectSearchResult from the specified map of raw messages.
+func UnmarshalObjectSearchResult(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(ObjectSearchResult)
+	err = core.UnmarshalPrimitive(m, "offset", &obj.Offset)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "limit", &obj.Limit)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "total_count", &obj.TotalCount)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "resource_count", &obj.ResourceCount)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "first", &obj.First)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "last", &obj.Last)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "prev", &obj.Prev)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "next", &obj.Next)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "resources", &obj.Resources, UnmarshalObjectDigest)
 	if err != nil {
 		return
 	}
@@ -8788,7 +11210,7 @@ func UnmarshalPlan(m map[string]json.RawMessage, result interface{}) (err error)
 // PreinstallVersionOptions : The PreinstallVersion options.
 type PreinstallVersionOptions struct {
 	// A dotted value of `catalogID`.`versionID`.
-	VersionLocID *string `json:"version_loc_id" validate:"required"`
+	VersionLocID *string `json:"version_loc_id" validate:"required,ne="`
 
 	// IAM Refresh token.
 	XAuthRefreshToken *string `json:"X-Auth-Refresh-Token" validate:"required"`
@@ -8823,11 +11245,17 @@ type PreinstallVersionOptions struct {
 	// VCenter ID.
 	VcenterID *string `json:"vcenter_id,omitempty"`
 
+	// VCenter User.
+	VcenterUser *string `json:"vcenter_user,omitempty"`
+
 	// VCenter Password.
 	VcenterPassword *string `json:"vcenter_password,omitempty"`
 
 	// VCenter Location.
 	VcenterLocation *string `json:"vcenter_location,omitempty"`
+
+	// VCenter Datastore.
+	VcenterDatastore *string `json:"vcenter_datastore,omitempty"`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -8913,6 +11341,12 @@ func (options *PreinstallVersionOptions) SetVcenterID(vcenterID string) *Preinst
 	return options
 }
 
+// SetVcenterUser : Allow user to set VcenterUser
+func (options *PreinstallVersionOptions) SetVcenterUser(vcenterUser string) *PreinstallVersionOptions {
+	options.VcenterUser = core.StringPtr(vcenterUser)
+	return options
+}
+
 // SetVcenterPassword : Allow user to set VcenterPassword
 func (options *PreinstallVersionOptions) SetVcenterPassword(vcenterPassword string) *PreinstallVersionOptions {
 	options.VcenterPassword = core.StringPtr(vcenterPassword)
@@ -8925,6 +11359,12 @@ func (options *PreinstallVersionOptions) SetVcenterLocation(vcenterLocation stri
 	return options
 }
 
+// SetVcenterDatastore : Allow user to set VcenterDatastore
+func (options *PreinstallVersionOptions) SetVcenterDatastore(vcenterDatastore string) *PreinstallVersionOptions {
+	options.VcenterDatastore = core.StringPtr(vcenterDatastore)
+	return options
+}
+
 // SetHeaders : Allow user to set Headers
 func (options *PreinstallVersionOptions) SetHeaders(param map[string]string) *PreinstallVersionOptions {
 	options.Headers = param
@@ -8934,7 +11374,7 @@ func (options *PreinstallVersionOptions) SetHeaders(param map[string]string) *Pr
 // PublicPublishVersionOptions : The PublicPublishVersion options.
 type PublicPublishVersionOptions struct {
 	// A dotted value of `catalogID`.`versionID`.
-	VersionLocID *string `json:"version_loc_id" validate:"required"`
+	VersionLocID *string `json:"version_loc_id" validate:"required,ne="`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -8957,6 +11397,52 @@ func (options *PublicPublishVersionOptions) SetVersionLocID(versionLocID string)
 func (options *PublicPublishVersionOptions) SetHeaders(param map[string]string) *PublicPublishVersionOptions {
 	options.Headers = param
 	return options
+}
+
+// PublishObject : Publish information.
+type PublishObject struct {
+	// Is it permitted to request publishing to IBM or Public.
+	PermitIbmPublicPublish *bool `json:"permit_ibm_public_publish,omitempty"`
+
+	// Indicates if this offering has been approved for use by all IBMers.
+	IbmApproved *bool `json:"ibm_approved,omitempty"`
+
+	// Indicates if this offering has been approved for use by all IBM Cloud users.
+	PublicApproved *bool `json:"public_approved,omitempty"`
+
+	// The portal's approval record ID.
+	PortalApprovalRecord *string `json:"portal_approval_record,omitempty"`
+
+	// The portal UI URL.
+	PortalURL *string `json:"portal_url,omitempty"`
+}
+
+
+// UnmarshalPublishObject unmarshals an instance of PublishObject from the specified map of raw messages.
+func UnmarshalPublishObject(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(PublishObject)
+	err = core.UnmarshalPrimitive(m, "permit_ibm_public_publish", &obj.PermitIbmPublicPublish)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "ibm_approved", &obj.IbmApproved)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "public_approved", &obj.PublicApproved)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "portal_approval_record", &obj.PortalApprovalRecord)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "portal_url", &obj.PortalURL)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
 }
 
 // Rating : Repository info for offerings.
@@ -9001,13 +11487,10 @@ func UnmarshalRating(m map[string]json.RawMessage, result interface{}) (err erro
 // ReloadOfferingOptions : The ReloadOffering options.
 type ReloadOfferingOptions struct {
 	// Catalog identifier.
-	CatalogIdentifier *string `json:"catalog_identifier" validate:"required"`
+	CatalogIdentifier *string `json:"catalog_identifier" validate:"required,ne="`
 
 	// Offering identification.
-	OfferingID *string `json:"offering_id" validate:"required"`
-
-	// URL path to zip location.
-	Zipurl *string `json:"zipurl" validate:"required"`
+	OfferingID *string `json:"offering_id" validate:"required,ne="`
 
 	// The semver value for this new version.
 	TargetVersion *string `json:"targetVersion" validate:"required"`
@@ -9018,22 +11501,24 @@ type ReloadOfferingOptions struct {
 	// Target kinds.  Current valid values are 'iks', 'roks', 'vcenter', and 'terraform'.
 	TargetKinds []string `json:"target_kinds,omitempty"`
 
+	// byte array representing the content to be imported.  Only supported for OVA images at this time.
+	Content []int64 `json:"content,omitempty"`
+
+	// URL path to zip location.  If not specified, must provide content in this post body.
+	Zipurl *string `json:"zipurl,omitempty"`
+
 	// The type of repository containing this version.  Valid values are 'public_git' or 'enterprise_git'.
 	RepoType *string `json:"repoType,omitempty"`
-
-	// Authentication token used to access the specified zip file.
-	XAuthToken *string `json:"X-Auth-Token,omitempty"`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
 }
 
 // NewReloadOfferingOptions : Instantiate ReloadOfferingOptions
-func (*CatalogManagementV1) NewReloadOfferingOptions(catalogIdentifier string, offeringID string, zipurl string, targetVersion string) *ReloadOfferingOptions {
+func (*CatalogManagementV1) NewReloadOfferingOptions(catalogIdentifier string, offeringID string, targetVersion string) *ReloadOfferingOptions {
 	return &ReloadOfferingOptions{
 		CatalogIdentifier: core.StringPtr(catalogIdentifier),
 		OfferingID: core.StringPtr(offeringID),
-		Zipurl: core.StringPtr(zipurl),
 		TargetVersion: core.StringPtr(targetVersion),
 	}
 }
@@ -9047,12 +11532,6 @@ func (options *ReloadOfferingOptions) SetCatalogIdentifier(catalogIdentifier str
 // SetOfferingID : Allow user to set OfferingID
 func (options *ReloadOfferingOptions) SetOfferingID(offeringID string) *ReloadOfferingOptions {
 	options.OfferingID = core.StringPtr(offeringID)
-	return options
-}
-
-// SetZipurl : Allow user to set Zipurl
-func (options *ReloadOfferingOptions) SetZipurl(zipurl string) *ReloadOfferingOptions {
-	options.Zipurl = core.StringPtr(zipurl)
 	return options
 }
 
@@ -9074,15 +11553,21 @@ func (options *ReloadOfferingOptions) SetTargetKinds(targetKinds []string) *Relo
 	return options
 }
 
-// SetRepoType : Allow user to set RepoType
-func (options *ReloadOfferingOptions) SetRepoType(repoType string) *ReloadOfferingOptions {
-	options.RepoType = core.StringPtr(repoType)
+// SetContent : Allow user to set Content
+func (options *ReloadOfferingOptions) SetContent(content []int64) *ReloadOfferingOptions {
+	options.Content = content
 	return options
 }
 
-// SetXAuthToken : Allow user to set XAuthToken
-func (options *ReloadOfferingOptions) SetXAuthToken(xAuthToken string) *ReloadOfferingOptions {
-	options.XAuthToken = core.StringPtr(xAuthToken)
+// SetZipurl : Allow user to set Zipurl
+func (options *ReloadOfferingOptions) SetZipurl(zipurl string) *ReloadOfferingOptions {
+	options.Zipurl = core.StringPtr(zipurl)
+	return options
+}
+
+// SetRepoType : Allow user to set RepoType
+func (options *ReloadOfferingOptions) SetRepoType(repoType string) *ReloadOfferingOptions {
+	options.RepoType = core.StringPtr(repoType)
 	return options
 }
 
@@ -9095,7 +11580,7 @@ func (options *ReloadOfferingOptions) SetHeaders(param map[string]string) *Reloa
 // ReplaceCatalogOptions : The ReplaceCatalog options.
 type ReplaceCatalogOptions struct {
 	// Catalog identifier.
-	CatalogIdentifier *string `json:"catalog_identifier" validate:"required"`
+	CatalogIdentifier *string `json:"catalog_identifier" validate:"required,ne="`
 
 	// Unique ID.
 	ID *string `json:"id,omitempty"`
@@ -9276,7 +11761,7 @@ func (options *ReplaceCatalogOptions) SetHeaders(param map[string]string) *Repla
 // ReplaceEnterpriseOptions : The ReplaceEnterprise options.
 type ReplaceEnterpriseOptions struct {
 	// Enterprise identification.
-	EnterpriseID *string `json:"enterprise_id" validate:"required"`
+	EnterpriseID *string `json:"enterprise_id" validate:"required,ne="`
 
 	// Enterprise identification.
 	ID *string `json:"id,omitempty"`
@@ -9337,16 +11822,234 @@ func (options *ReplaceEnterpriseOptions) SetHeaders(param map[string]string) *Re
 	return options
 }
 
+// ReplaceObjectOptions : The ReplaceObject options.
+type ReplaceObjectOptions struct {
+	// Catalog identifier.
+	CatalogIdentifier *string `json:"catalog_identifier" validate:"required,ne="`
+
+	// Object identifier.
+	ObjectIdentifier *string `json:"object_identifier" validate:"required,ne="`
+
+	// unique id.
+	ID *string `json:"id,omitempty"`
+
+	// The programmatic name of this offering.
+	Name *string `json:"name,omitempty"`
+
+	// Cloudant revision.
+	Rev *string `json:"_rev,omitempty"`
+
+	// The crn for this specific object.
+	Crn *string `json:"crn,omitempty"`
+
+	// The url for this specific object.
+	URL *string `json:"url,omitempty"`
+
+	// The parent for this specific object.
+	ParentID *string `json:"parent_id,omitempty"`
+
+	// List of allowed accounts for this specific object.
+	AllowList []string `json:"allow_list,omitempty"`
+
+	// Translated display name in the requested language.
+	LabelI18n *string `json:"label_i18n,omitempty"`
+
+	// Display name in the requested language.
+	Label *string `json:"label,omitempty"`
+
+	// List of tags associated with this catalog.
+	Tags []string `json:"tags,omitempty"`
+
+	// The date and time this catalog was created.
+	Created *strfmt.DateTime `json:"created,omitempty"`
+
+	// The date and time this catalog was last updated.
+	Updated *strfmt.DateTime `json:"updated,omitempty"`
+
+	// Short description in the requested language.
+	ShortDescription *string `json:"short_description,omitempty"`
+
+	// Short description translation.
+	ShortDescriptionI18n *string `json:"short_description_i18n,omitempty"`
+
+	// Kind of object.
+	Kind *string `json:"kind,omitempty"`
+
+	// Publish information.
+	Publish *PublishObject `json:"publish,omitempty"`
+
+	// Offering state.
+	State *State `json:"state,omitempty"`
+
+	// The id of the catalog containing this offering.
+	CatalogID *string `json:"catalog_id,omitempty"`
+
+	// The name of the catalog.
+	CatalogName *string `json:"catalog_name,omitempty"`
+
+	// Map of data values for this object.
+	Data interface{} `json:"data,omitempty"`
+
+	// Allows users to set headers on API requests
+	Headers map[string]string
+}
+
+// NewReplaceObjectOptions : Instantiate ReplaceObjectOptions
+func (*CatalogManagementV1) NewReplaceObjectOptions(catalogIdentifier string, objectIdentifier string) *ReplaceObjectOptions {
+	return &ReplaceObjectOptions{
+		CatalogIdentifier: core.StringPtr(catalogIdentifier),
+		ObjectIdentifier: core.StringPtr(objectIdentifier),
+	}
+}
+
+// SetCatalogIdentifier : Allow user to set CatalogIdentifier
+func (options *ReplaceObjectOptions) SetCatalogIdentifier(catalogIdentifier string) *ReplaceObjectOptions {
+	options.CatalogIdentifier = core.StringPtr(catalogIdentifier)
+	return options
+}
+
+// SetObjectIdentifier : Allow user to set ObjectIdentifier
+func (options *ReplaceObjectOptions) SetObjectIdentifier(objectIdentifier string) *ReplaceObjectOptions {
+	options.ObjectIdentifier = core.StringPtr(objectIdentifier)
+	return options
+}
+
+// SetID : Allow user to set ID
+func (options *ReplaceObjectOptions) SetID(id string) *ReplaceObjectOptions {
+	options.ID = core.StringPtr(id)
+	return options
+}
+
+// SetName : Allow user to set Name
+func (options *ReplaceObjectOptions) SetName(name string) *ReplaceObjectOptions {
+	options.Name = core.StringPtr(name)
+	return options
+}
+
+// SetRev : Allow user to set Rev
+func (options *ReplaceObjectOptions) SetRev(rev string) *ReplaceObjectOptions {
+	options.Rev = core.StringPtr(rev)
+	return options
+}
+
+// SetCrn : Allow user to set Crn
+func (options *ReplaceObjectOptions) SetCrn(crn string) *ReplaceObjectOptions {
+	options.Crn = core.StringPtr(crn)
+	return options
+}
+
+// SetURL : Allow user to set URL
+func (options *ReplaceObjectOptions) SetURL(url string) *ReplaceObjectOptions {
+	options.URL = core.StringPtr(url)
+	return options
+}
+
+// SetParentID : Allow user to set ParentID
+func (options *ReplaceObjectOptions) SetParentID(parentID string) *ReplaceObjectOptions {
+	options.ParentID = core.StringPtr(parentID)
+	return options
+}
+
+// SetAllowList : Allow user to set AllowList
+func (options *ReplaceObjectOptions) SetAllowList(allowList []string) *ReplaceObjectOptions {
+	options.AllowList = allowList
+	return options
+}
+
+// SetLabelI18n : Allow user to set LabelI18n
+func (options *ReplaceObjectOptions) SetLabelI18n(labelI18n string) *ReplaceObjectOptions {
+	options.LabelI18n = core.StringPtr(labelI18n)
+	return options
+}
+
+// SetLabel : Allow user to set Label
+func (options *ReplaceObjectOptions) SetLabel(label string) *ReplaceObjectOptions {
+	options.Label = core.StringPtr(label)
+	return options
+}
+
+// SetTags : Allow user to set Tags
+func (options *ReplaceObjectOptions) SetTags(tags []string) *ReplaceObjectOptions {
+	options.Tags = tags
+	return options
+}
+
+// SetCreated : Allow user to set Created
+func (options *ReplaceObjectOptions) SetCreated(created *strfmt.DateTime) *ReplaceObjectOptions {
+	options.Created = created
+	return options
+}
+
+// SetUpdated : Allow user to set Updated
+func (options *ReplaceObjectOptions) SetUpdated(updated *strfmt.DateTime) *ReplaceObjectOptions {
+	options.Updated = updated
+	return options
+}
+
+// SetShortDescription : Allow user to set ShortDescription
+func (options *ReplaceObjectOptions) SetShortDescription(shortDescription string) *ReplaceObjectOptions {
+	options.ShortDescription = core.StringPtr(shortDescription)
+	return options
+}
+
+// SetShortDescriptionI18n : Allow user to set ShortDescriptionI18n
+func (options *ReplaceObjectOptions) SetShortDescriptionI18n(shortDescriptionI18n string) *ReplaceObjectOptions {
+	options.ShortDescriptionI18n = core.StringPtr(shortDescriptionI18n)
+	return options
+}
+
+// SetKind : Allow user to set Kind
+func (options *ReplaceObjectOptions) SetKind(kind string) *ReplaceObjectOptions {
+	options.Kind = core.StringPtr(kind)
+	return options
+}
+
+// SetPublish : Allow user to set Publish
+func (options *ReplaceObjectOptions) SetPublish(publish *PublishObject) *ReplaceObjectOptions {
+	options.Publish = publish
+	return options
+}
+
+// SetState : Allow user to set State
+func (options *ReplaceObjectOptions) SetState(state *State) *ReplaceObjectOptions {
+	options.State = state
+	return options
+}
+
+// SetCatalogID : Allow user to set CatalogID
+func (options *ReplaceObjectOptions) SetCatalogID(catalogID string) *ReplaceObjectOptions {
+	options.CatalogID = core.StringPtr(catalogID)
+	return options
+}
+
+// SetCatalogName : Allow user to set CatalogName
+func (options *ReplaceObjectOptions) SetCatalogName(catalogName string) *ReplaceObjectOptions {
+	options.CatalogName = core.StringPtr(catalogName)
+	return options
+}
+
+// SetData : Allow user to set Data
+func (options *ReplaceObjectOptions) SetData(data interface{}) *ReplaceObjectOptions {
+	options.Data = data
+	return options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *ReplaceObjectOptions) SetHeaders(param map[string]string) *ReplaceObjectOptions {
+	options.Headers = param
+	return options
+}
+
 // ReplaceOfferingIconOptions : The ReplaceOfferingIcon options.
 type ReplaceOfferingIconOptions struct {
 	// Catalog identifier.
-	CatalogIdentifier *string `json:"catalog_identifier" validate:"required"`
+	CatalogIdentifier *string `json:"catalog_identifier" validate:"required,ne="`
 
 	// Offering identification.
-	OfferingID *string `json:"offering_id" validate:"required"`
+	OfferingID *string `json:"offering_id" validate:"required,ne="`
 
 	// Name of the file name that is being uploaded.
-	FileName *string `json:"file_name" validate:"required"`
+	FileName *string `json:"file_name" validate:"required,ne="`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -9388,10 +12091,10 @@ func (options *ReplaceOfferingIconOptions) SetHeaders(param map[string]string) *
 // ReplaceOfferingOptions : The ReplaceOffering options.
 type ReplaceOfferingOptions struct {
 	// Catalog identifier.
-	CatalogIdentifier *string `json:"catalog_identifier" validate:"required"`
+	CatalogIdentifier *string `json:"catalog_identifier" validate:"required,ne="`
 
 	// Offering identification.
-	OfferingID *string `json:"offering_id" validate:"required"`
+	OfferingID *string `json:"offering_id" validate:"required,ne="`
 
 	// unique id.
 	ID *string `json:"id,omitempty"`
@@ -9716,6 +12419,9 @@ type ReplaceOperatorOptions struct {
 	// Kube namespaces to deploy Operator(s) to.
 	Namespaces []string `json:"namespaces,omitempty"`
 
+	// Denotes whether to install Operator(s) globally.
+	AllNamespaces *bool `json:"all_namespaces,omitempty"`
+
 	// A dotted value of `catalogID`.`versionID`.
 	VersionLocatorID *string `json:"version_locator_id,omitempty"`
 
@@ -9751,6 +12457,12 @@ func (options *ReplaceOperatorOptions) SetRegion(region string) *ReplaceOperator
 // SetNamespaces : Allow user to set Namespaces
 func (options *ReplaceOperatorOptions) SetNamespaces(namespaces []string) *ReplaceOperatorOptions {
 	options.Namespaces = namespaces
+	return options
+}
+
+// SetAllNamespaces : Allow user to set AllNamespaces
+func (options *ReplaceOperatorOptions) SetAllNamespaces(allNamespaces bool) *ReplaceOperatorOptions {
+	options.AllNamespaces = core.BoolPtr(allNamespaces)
 	return options
 }
 
@@ -10402,6 +13114,61 @@ func (options *SearchLicenseVersionsOptions) SetHeaders(param map[string]string)
 	return options
 }
 
+// SearchObjectsOptions : The SearchObjects options.
+type SearchObjectsOptions struct {
+	// Lucene query string.
+	Query *string `json:"query" validate:"required"`
+
+	// number or results to return.
+	Limit *int64 `json:"limit,omitempty"`
+
+	// number of results to skip before returning values.
+	Offset *int64 `json:"offset,omitempty"`
+
+	// when true, hide private objects that correspond to public or IBM published objects.
+	Collapse *bool `json:"collapse,omitempty"`
+
+	// Allows users to set headers on API requests
+	Headers map[string]string
+}
+
+// NewSearchObjectsOptions : Instantiate SearchObjectsOptions
+func (*CatalogManagementV1) NewSearchObjectsOptions(query string) *SearchObjectsOptions {
+	return &SearchObjectsOptions{
+		Query: core.StringPtr(query),
+	}
+}
+
+// SetQuery : Allow user to set Query
+func (options *SearchObjectsOptions) SetQuery(query string) *SearchObjectsOptions {
+	options.Query = core.StringPtr(query)
+	return options
+}
+
+// SetLimit : Allow user to set Limit
+func (options *SearchObjectsOptions) SetLimit(limit int64) *SearchObjectsOptions {
+	options.Limit = core.Int64Ptr(limit)
+	return options
+}
+
+// SetOffset : Allow user to set Offset
+func (options *SearchObjectsOptions) SetOffset(offset int64) *SearchObjectsOptions {
+	options.Offset = core.Int64Ptr(offset)
+	return options
+}
+
+// SetCollapse : Allow user to set Collapse
+func (options *SearchObjectsOptions) SetCollapse(collapse bool) *SearchObjectsOptions {
+	options.Collapse = core.BoolPtr(collapse)
+	return options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *SearchObjectsOptions) SetHeaders(param map[string]string) *SearchObjectsOptions {
+	options.Headers = param
+	return options
+}
+
 // State : Offering state.
 type State struct {
 	// one of: new, validated, account-published, ibm-published, public-published.
@@ -10642,16 +13409,16 @@ func (options *UpdateCatalogAccountOptions) SetHeaders(param map[string]string) 
 // UpdateOfferingIbmOptions : The UpdateOfferingIbm options.
 type UpdateOfferingIbmOptions struct {
 	// Catalog identifier.
-	CatalogIdentifier *string `json:"catalog_identifier" validate:"required"`
+	CatalogIdentifier *string `json:"catalog_identifier" validate:"required,ne="`
 
 	// Offering identification.
-	OfferingID *string `json:"offering_id" validate:"required"`
+	OfferingID *string `json:"offering_id" validate:"required,ne="`
 
 	// Type of approval, ibm or public.
-	ApprovalType *string `json:"approval_type" validate:"required"`
+	ApprovalType *string `json:"approval_type" validate:"required,ne="`
 
 	// Approve (true) or disapprove (false).
-	Approved *string `json:"approved" validate:"required"`
+	Approved *string `json:"approved" validate:"required,ne="`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -10660,6 +13427,7 @@ type UpdateOfferingIbmOptions struct {
 // Constants associated with the UpdateOfferingIbmOptions.ApprovalType property.
 // Type of approval, ibm or public.
 const (
+	UpdateOfferingIbmOptions_ApprovalType_AllowRequest = "allow_request"
 	UpdateOfferingIbmOptions_ApprovalType_Ibm = "ibm"
 	UpdateOfferingIbmOptions_ApprovalType_Public = "public"
 )
@@ -10760,7 +13528,7 @@ func UnmarshalValidation(m map[string]json.RawMessage, result interface{}) (err 
 // ValidationInstallOptions : The ValidationInstall options.
 type ValidationInstallOptions struct {
 	// A dotted value of `catalogID`.`versionID`.
-	VersionLocID *string `json:"version_loc_id" validate:"required"`
+	VersionLocID *string `json:"version_loc_id" validate:"required,ne="`
 
 	// IAM Refresh token.
 	XAuthRefreshToken *string `json:"X-Auth-Refresh-Token" validate:"required"`
@@ -10795,11 +13563,17 @@ type ValidationInstallOptions struct {
 	// VCenter ID.
 	VcenterID *string `json:"vcenter_id,omitempty"`
 
+	// VCenter User.
+	VcenterUser *string `json:"vcenter_user,omitempty"`
+
 	// VCenter Password.
 	VcenterPassword *string `json:"vcenter_password,omitempty"`
 
 	// VCenter Location.
 	VcenterLocation *string `json:"vcenter_location,omitempty"`
+
+	// VCenter Datastore.
+	VcenterDatastore *string `json:"vcenter_datastore,omitempty"`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -10885,6 +13659,12 @@ func (options *ValidationInstallOptions) SetVcenterID(vcenterID string) *Validat
 	return options
 }
 
+// SetVcenterUser : Allow user to set VcenterUser
+func (options *ValidationInstallOptions) SetVcenterUser(vcenterUser string) *ValidationInstallOptions {
+	options.VcenterUser = core.StringPtr(vcenterUser)
+	return options
+}
+
 // SetVcenterPassword : Allow user to set VcenterPassword
 func (options *ValidationInstallOptions) SetVcenterPassword(vcenterPassword string) *ValidationInstallOptions {
 	options.VcenterPassword = core.StringPtr(vcenterPassword)
@@ -10894,6 +13674,12 @@ func (options *ValidationInstallOptions) SetVcenterPassword(vcenterPassword stri
 // SetVcenterLocation : Allow user to set VcenterLocation
 func (options *ValidationInstallOptions) SetVcenterLocation(vcenterLocation string) *ValidationInstallOptions {
 	options.VcenterLocation = core.StringPtr(vcenterLocation)
+	return options
+}
+
+// SetVcenterDatastore : Allow user to set VcenterDatastore
+func (options *ValidationInstallOptions) SetVcenterDatastore(vcenterDatastore string) *ValidationInstallOptions {
+	options.VcenterDatastore = core.StringPtr(vcenterDatastore)
 	return options
 }
 

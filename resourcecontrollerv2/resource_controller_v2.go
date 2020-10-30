@@ -15,7 +15,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-ef5e13c2-20200915-144510
+ * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-8d569e8f-20201030-111043
  */
  
 
@@ -23,12 +23,15 @@
 package resourcecontrollerv2
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"github.com/IBM/go-sdk-core/v4/core"
 	common "github.com/IBM/platform-services-go-sdk/common"
 	"github.com/go-openapi/strfmt"
+	"net/http"
 	"reflect"
+	"time"
 )
 
 // ResourceControllerV2 : Manage lifecycle of your Cloud resources using Resource Controller APIs. Resources are
@@ -113,15 +116,53 @@ func (resourceController *ResourceControllerV2) SetServiceURL(url string) error 
 	return resourceController.Service.SetServiceURL(url)
 }
 
+// GetServiceURL returns the service URL
+func (resourceController *ResourceControllerV2) GetServiceURL() string {
+	return resourceController.Service.GetServiceURL()
+}
+
+// SetDefaultHeaders sets HTTP headers to be sent in every request
+func (resourceController *ResourceControllerV2) SetDefaultHeaders(headers http.Header) {
+	resourceController.Service.SetDefaultHeaders(headers)
+}
+
+// SetEnableGzipCompression sets the service's EnableGzipCompression field
+func (resourceController *ResourceControllerV2) SetEnableGzipCompression(enableGzip bool) {
+	resourceController.Service.SetEnableGzipCompression(enableGzip)
+}
+
+// GetEnableGzipCompression returns the service's EnableGzipCompression field
+func (resourceController *ResourceControllerV2) GetEnableGzipCompression() bool {
+	return resourceController.Service.GetEnableGzipCompression()
+}
+
+// EnableRetries enables automatic retries for requests invoked for this service instance.
+// If either parameter is specified as 0, then a default value is used instead.
+func (resourceController *ResourceControllerV2) EnableRetries(maxRetries int, maxRetryInterval time.Duration) {
+	resourceController.Service.EnableRetries(maxRetries, maxRetryInterval)
+}
+
+// DisableRetries disables automatic retries for requests invoked for this service instance.
+func (resourceController *ResourceControllerV2) DisableRetries() {
+	resourceController.Service.DisableRetries()
+}
+
 // ListResourceInstances : Get a list of all resource instances
 // Get a list of all resource instances.
 func (resourceController *ResourceControllerV2) ListResourceInstances(listResourceInstancesOptions *ListResourceInstancesOptions) (result *ResourceInstancesList, response *core.DetailedResponse, err error) {
+	return resourceController.ListResourceInstancesWithContext(context.Background(), listResourceInstancesOptions)
+}
+
+// ListResourceInstancesWithContext is an alternate form of the ListResourceInstances method which supports a Context parameter
+func (resourceController *ResourceControllerV2) ListResourceInstancesWithContext(ctx context.Context, listResourceInstancesOptions *ListResourceInstancesOptions) (result *ResourceInstancesList, response *core.DetailedResponse, err error) {
 	err = core.ValidateStruct(listResourceInstancesOptions, "listResourceInstancesOptions")
 	if err != nil {
 		return
 	}
 
 	builder := core.NewRequestBuilder(core.GET)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = resourceController.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(resourceController.Service.Options.URL, `/v2/resource_instances`, nil)
 	if err != nil {
 		return
@@ -190,6 +231,11 @@ func (resourceController *ResourceControllerV2) ListResourceInstances(listResour
 // CreateResourceInstance : Create (provision) a new resource instance
 // Provision a new resource in the specified location for the selected plan.
 func (resourceController *ResourceControllerV2) CreateResourceInstance(createResourceInstanceOptions *CreateResourceInstanceOptions) (result *ResourceInstance, response *core.DetailedResponse, err error) {
+	return resourceController.CreateResourceInstanceWithContext(context.Background(), createResourceInstanceOptions)
+}
+
+// CreateResourceInstanceWithContext is an alternate form of the CreateResourceInstance method which supports a Context parameter
+func (resourceController *ResourceControllerV2) CreateResourceInstanceWithContext(ctx context.Context, createResourceInstanceOptions *CreateResourceInstanceOptions) (result *ResourceInstance, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(createResourceInstanceOptions, "createResourceInstanceOptions cannot be nil")
 	if err != nil {
 		return
@@ -200,6 +246,8 @@ func (resourceController *ResourceControllerV2) CreateResourceInstance(createRes
 	}
 
 	builder := core.NewRequestBuilder(core.POST)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = resourceController.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(resourceController.Service.Options.URL, `/v2/resource_instances`, nil)
 	if err != nil {
 		return
@@ -268,6 +316,11 @@ func (resourceController *ResourceControllerV2) CreateResourceInstance(createRes
 // GetResourceInstance : Get a resource instance
 // Retrieve a resource instance by ID.
 func (resourceController *ResourceControllerV2) GetResourceInstance(getResourceInstanceOptions *GetResourceInstanceOptions) (result *ResourceInstance, response *core.DetailedResponse, err error) {
+	return resourceController.GetResourceInstanceWithContext(context.Background(), getResourceInstanceOptions)
+}
+
+// GetResourceInstanceWithContext is an alternate form of the GetResourceInstance method which supports a Context parameter
+func (resourceController *ResourceControllerV2) GetResourceInstanceWithContext(ctx context.Context, getResourceInstanceOptions *GetResourceInstanceOptions) (result *ResourceInstance, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(getResourceInstanceOptions, "getResourceInstanceOptions cannot be nil")
 	if err != nil {
 		return
@@ -282,6 +335,8 @@ func (resourceController *ResourceControllerV2) GetResourceInstance(getResourceI
 	}
 
 	builder := core.NewRequestBuilder(core.GET)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = resourceController.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(resourceController.Service.Options.URL, `/v2/resource_instances/{id}`, pathParamsMap)
 	if err != nil {
 		return
@@ -319,6 +374,11 @@ func (resourceController *ResourceControllerV2) GetResourceInstance(getResourceI
 // DeleteResourceInstance : Delete a resource instance
 // Delete a resource instance by ID.
 func (resourceController *ResourceControllerV2) DeleteResourceInstance(deleteResourceInstanceOptions *DeleteResourceInstanceOptions) (response *core.DetailedResponse, err error) {
+	return resourceController.DeleteResourceInstanceWithContext(context.Background(), deleteResourceInstanceOptions)
+}
+
+// DeleteResourceInstanceWithContext is an alternate form of the DeleteResourceInstance method which supports a Context parameter
+func (resourceController *ResourceControllerV2) DeleteResourceInstanceWithContext(ctx context.Context, deleteResourceInstanceOptions *DeleteResourceInstanceOptions) (response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(deleteResourceInstanceOptions, "deleteResourceInstanceOptions cannot be nil")
 	if err != nil {
 		return
@@ -333,6 +393,8 @@ func (resourceController *ResourceControllerV2) DeleteResourceInstance(deleteRes
 	}
 
 	builder := core.NewRequestBuilder(core.DELETE)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = resourceController.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(resourceController.Service.Options.URL, `/v2/resource_instances/{id}`, pathParamsMap)
 	if err != nil {
 		return
@@ -360,6 +422,11 @@ func (resourceController *ResourceControllerV2) DeleteResourceInstance(deleteRes
 // UpdateResourceInstance : Update a resource instance
 // Update a resource instance by ID.
 func (resourceController *ResourceControllerV2) UpdateResourceInstance(updateResourceInstanceOptions *UpdateResourceInstanceOptions) (result *ResourceInstance, response *core.DetailedResponse, err error) {
+	return resourceController.UpdateResourceInstanceWithContext(context.Background(), updateResourceInstanceOptions)
+}
+
+// UpdateResourceInstanceWithContext is an alternate form of the UpdateResourceInstance method which supports a Context parameter
+func (resourceController *ResourceControllerV2) UpdateResourceInstanceWithContext(ctx context.Context, updateResourceInstanceOptions *UpdateResourceInstanceOptions) (result *ResourceInstance, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(updateResourceInstanceOptions, "updateResourceInstanceOptions cannot be nil")
 	if err != nil {
 		return
@@ -374,6 +441,8 @@ func (resourceController *ResourceControllerV2) UpdateResourceInstance(updateRes
 	}
 
 	builder := core.NewRequestBuilder(core.PATCH)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = resourceController.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(resourceController.Service.Options.URL, `/v2/resource_instances/{id}`, pathParamsMap)
 	if err != nil {
 		return
@@ -431,6 +500,11 @@ func (resourceController *ResourceControllerV2) UpdateResourceInstance(updateRes
 // Locks a resource instance by ID. A locked instance can not be updated or deleted. It does not affect actions
 // performed on child resources like aliases, bindings or keys.
 func (resourceController *ResourceControllerV2) LockResourceInstance(lockResourceInstanceOptions *LockResourceInstanceOptions) (result *ResourceInstance, response *core.DetailedResponse, err error) {
+	return resourceController.LockResourceInstanceWithContext(context.Background(), lockResourceInstanceOptions)
+}
+
+// LockResourceInstanceWithContext is an alternate form of the LockResourceInstance method which supports a Context parameter
+func (resourceController *ResourceControllerV2) LockResourceInstanceWithContext(ctx context.Context, lockResourceInstanceOptions *LockResourceInstanceOptions) (result *ResourceInstance, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(lockResourceInstanceOptions, "lockResourceInstanceOptions cannot be nil")
 	if err != nil {
 		return
@@ -445,6 +519,8 @@ func (resourceController *ResourceControllerV2) LockResourceInstance(lockResourc
 	}
 
 	builder := core.NewRequestBuilder(core.POST)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = resourceController.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(resourceController.Service.Options.URL, `/v2/resource_instances/{id}/lock`, pathParamsMap)
 	if err != nil {
 		return
@@ -482,6 +558,11 @@ func (resourceController *ResourceControllerV2) LockResourceInstance(lockResourc
 // UnlockResourceInstance : Unlock a resource instance
 // Unlocks a resource instance by ID.
 func (resourceController *ResourceControllerV2) UnlockResourceInstance(unlockResourceInstanceOptions *UnlockResourceInstanceOptions) (result *ResourceInstance, response *core.DetailedResponse, err error) {
+	return resourceController.UnlockResourceInstanceWithContext(context.Background(), unlockResourceInstanceOptions)
+}
+
+// UnlockResourceInstanceWithContext is an alternate form of the UnlockResourceInstance method which supports a Context parameter
+func (resourceController *ResourceControllerV2) UnlockResourceInstanceWithContext(ctx context.Context, unlockResourceInstanceOptions *UnlockResourceInstanceOptions) (result *ResourceInstance, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(unlockResourceInstanceOptions, "unlockResourceInstanceOptions cannot be nil")
 	if err != nil {
 		return
@@ -496,6 +577,8 @@ func (resourceController *ResourceControllerV2) UnlockResourceInstance(unlockRes
 	}
 
 	builder := core.NewRequestBuilder(core.DELETE)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = resourceController.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(resourceController.Service.Options.URL, `/v2/resource_instances/{id}/lock`, pathParamsMap)
 	if err != nil {
 		return
@@ -533,12 +616,19 @@ func (resourceController *ResourceControllerV2) UnlockResourceInstance(unlockRes
 // ListResourceKeys : Get a list of all of the resource keys
 // List all resource keys.
 func (resourceController *ResourceControllerV2) ListResourceKeys(listResourceKeysOptions *ListResourceKeysOptions) (result *ResourceKeysList, response *core.DetailedResponse, err error) {
+	return resourceController.ListResourceKeysWithContext(context.Background(), listResourceKeysOptions)
+}
+
+// ListResourceKeysWithContext is an alternate form of the ListResourceKeys method which supports a Context parameter
+func (resourceController *ResourceControllerV2) ListResourceKeysWithContext(ctx context.Context, listResourceKeysOptions *ListResourceKeysOptions) (result *ResourceKeysList, response *core.DetailedResponse, err error) {
 	err = core.ValidateStruct(listResourceKeysOptions, "listResourceKeysOptions")
 	if err != nil {
 		return
 	}
 
 	builder := core.NewRequestBuilder(core.GET)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = resourceController.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(resourceController.Service.Options.URL, `/v2/resource_keys`, nil)
 	if err != nil {
 		return
@@ -598,6 +688,11 @@ func (resourceController *ResourceControllerV2) ListResourceKeys(listResourceKey
 // CreateResourceKey : Create a new resource key
 // Create a new resource key.
 func (resourceController *ResourceControllerV2) CreateResourceKey(createResourceKeyOptions *CreateResourceKeyOptions) (result *ResourceKey, response *core.DetailedResponse, err error) {
+	return resourceController.CreateResourceKeyWithContext(context.Background(), createResourceKeyOptions)
+}
+
+// CreateResourceKeyWithContext is an alternate form of the CreateResourceKey method which supports a Context parameter
+func (resourceController *ResourceControllerV2) CreateResourceKeyWithContext(ctx context.Context, createResourceKeyOptions *CreateResourceKeyOptions) (result *ResourceKey, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(createResourceKeyOptions, "createResourceKeyOptions cannot be nil")
 	if err != nil {
 		return
@@ -608,6 +703,8 @@ func (resourceController *ResourceControllerV2) CreateResourceKey(createResource
 	}
 
 	builder := core.NewRequestBuilder(core.POST)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = resourceController.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(resourceController.Service.Options.URL, `/v2/resource_keys`, nil)
 	if err != nil {
 		return
@@ -664,6 +761,11 @@ func (resourceController *ResourceControllerV2) CreateResourceKey(createResource
 // GetResourceKey : Get resource key by ID
 // Get resource key by ID.
 func (resourceController *ResourceControllerV2) GetResourceKey(getResourceKeyOptions *GetResourceKeyOptions) (result *ResourceKey, response *core.DetailedResponse, err error) {
+	return resourceController.GetResourceKeyWithContext(context.Background(), getResourceKeyOptions)
+}
+
+// GetResourceKeyWithContext is an alternate form of the GetResourceKey method which supports a Context parameter
+func (resourceController *ResourceControllerV2) GetResourceKeyWithContext(ctx context.Context, getResourceKeyOptions *GetResourceKeyOptions) (result *ResourceKey, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(getResourceKeyOptions, "getResourceKeyOptions cannot be nil")
 	if err != nil {
 		return
@@ -678,6 +780,8 @@ func (resourceController *ResourceControllerV2) GetResourceKey(getResourceKeyOpt
 	}
 
 	builder := core.NewRequestBuilder(core.GET)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = resourceController.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(resourceController.Service.Options.URL, `/v2/resource_keys/{id}`, pathParamsMap)
 	if err != nil {
 		return
@@ -715,6 +819,11 @@ func (resourceController *ResourceControllerV2) GetResourceKey(getResourceKeyOpt
 // DeleteResourceKey : Delete a resource key by ID
 // Delete a resource key by ID.
 func (resourceController *ResourceControllerV2) DeleteResourceKey(deleteResourceKeyOptions *DeleteResourceKeyOptions) (response *core.DetailedResponse, err error) {
+	return resourceController.DeleteResourceKeyWithContext(context.Background(), deleteResourceKeyOptions)
+}
+
+// DeleteResourceKeyWithContext is an alternate form of the DeleteResourceKey method which supports a Context parameter
+func (resourceController *ResourceControllerV2) DeleteResourceKeyWithContext(ctx context.Context, deleteResourceKeyOptions *DeleteResourceKeyOptions) (response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(deleteResourceKeyOptions, "deleteResourceKeyOptions cannot be nil")
 	if err != nil {
 		return
@@ -729,6 +838,8 @@ func (resourceController *ResourceControllerV2) DeleteResourceKey(deleteResource
 	}
 
 	builder := core.NewRequestBuilder(core.DELETE)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = resourceController.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(resourceController.Service.Options.URL, `/v2/resource_keys/{id}`, pathParamsMap)
 	if err != nil {
 		return
@@ -756,6 +867,11 @@ func (resourceController *ResourceControllerV2) DeleteResourceKey(deleteResource
 // UpdateResourceKey : Update a resource key
 // Update a resource key by ID.
 func (resourceController *ResourceControllerV2) UpdateResourceKey(updateResourceKeyOptions *UpdateResourceKeyOptions) (result *ResourceKey, response *core.DetailedResponse, err error) {
+	return resourceController.UpdateResourceKeyWithContext(context.Background(), updateResourceKeyOptions)
+}
+
+// UpdateResourceKeyWithContext is an alternate form of the UpdateResourceKey method which supports a Context parameter
+func (resourceController *ResourceControllerV2) UpdateResourceKeyWithContext(ctx context.Context, updateResourceKeyOptions *UpdateResourceKeyOptions) (result *ResourceKey, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(updateResourceKeyOptions, "updateResourceKeyOptions cannot be nil")
 	if err != nil {
 		return
@@ -770,6 +886,8 @@ func (resourceController *ResourceControllerV2) UpdateResourceKey(updateResource
 	}
 
 	builder := core.NewRequestBuilder(core.PATCH)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = resourceController.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(resourceController.Service.Options.URL, `/v2/resource_keys/{id}`, pathParamsMap)
 	if err != nil {
 		return
@@ -817,12 +935,19 @@ func (resourceController *ResourceControllerV2) UpdateResourceKey(updateResource
 // ListResourceBindings : Get a list of all resource bindings
 // Get a list of all resource bindings.
 func (resourceController *ResourceControllerV2) ListResourceBindings(listResourceBindingsOptions *ListResourceBindingsOptions) (result *ResourceBindingsList, response *core.DetailedResponse, err error) {
+	return resourceController.ListResourceBindingsWithContext(context.Background(), listResourceBindingsOptions)
+}
+
+// ListResourceBindingsWithContext is an alternate form of the ListResourceBindings method which supports a Context parameter
+func (resourceController *ResourceControllerV2) ListResourceBindingsWithContext(ctx context.Context, listResourceBindingsOptions *ListResourceBindingsOptions) (result *ResourceBindingsList, response *core.DetailedResponse, err error) {
 	err = core.ValidateStruct(listResourceBindingsOptions, "listResourceBindingsOptions")
 	if err != nil {
 		return
 	}
 
 	builder := core.NewRequestBuilder(core.GET)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = resourceController.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(resourceController.Service.Options.URL, `/v2/resource_bindings`, nil)
 	if err != nil {
 		return
@@ -885,6 +1010,11 @@ func (resourceController *ResourceControllerV2) ListResourceBindings(listResourc
 // CreateResourceBinding : Create a new resource binding
 // Create a new resource binding.
 func (resourceController *ResourceControllerV2) CreateResourceBinding(createResourceBindingOptions *CreateResourceBindingOptions) (result *ResourceBinding, response *core.DetailedResponse, err error) {
+	return resourceController.CreateResourceBindingWithContext(context.Background(), createResourceBindingOptions)
+}
+
+// CreateResourceBindingWithContext is an alternate form of the CreateResourceBinding method which supports a Context parameter
+func (resourceController *ResourceControllerV2) CreateResourceBindingWithContext(ctx context.Context, createResourceBindingOptions *CreateResourceBindingOptions) (result *ResourceBinding, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(createResourceBindingOptions, "createResourceBindingOptions cannot be nil")
 	if err != nil {
 		return
@@ -895,6 +1025,8 @@ func (resourceController *ResourceControllerV2) CreateResourceBinding(createReso
 	}
 
 	builder := core.NewRequestBuilder(core.POST)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = resourceController.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(resourceController.Service.Options.URL, `/v2/resource_bindings`, nil)
 	if err != nil {
 		return
@@ -954,6 +1086,11 @@ func (resourceController *ResourceControllerV2) CreateResourceBinding(createReso
 // GetResourceBinding : Get a resource binding
 // Retrieve a resource binding by ID.
 func (resourceController *ResourceControllerV2) GetResourceBinding(getResourceBindingOptions *GetResourceBindingOptions) (result *ResourceBinding, response *core.DetailedResponse, err error) {
+	return resourceController.GetResourceBindingWithContext(context.Background(), getResourceBindingOptions)
+}
+
+// GetResourceBindingWithContext is an alternate form of the GetResourceBinding method which supports a Context parameter
+func (resourceController *ResourceControllerV2) GetResourceBindingWithContext(ctx context.Context, getResourceBindingOptions *GetResourceBindingOptions) (result *ResourceBinding, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(getResourceBindingOptions, "getResourceBindingOptions cannot be nil")
 	if err != nil {
 		return
@@ -968,6 +1105,8 @@ func (resourceController *ResourceControllerV2) GetResourceBinding(getResourceBi
 	}
 
 	builder := core.NewRequestBuilder(core.GET)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = resourceController.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(resourceController.Service.Options.URL, `/v2/resource_bindings/{id}`, pathParamsMap)
 	if err != nil {
 		return
@@ -1005,6 +1144,11 @@ func (resourceController *ResourceControllerV2) GetResourceBinding(getResourceBi
 // DeleteResourceBinding : Delete a resource binding
 // Delete a resource binding by ID.
 func (resourceController *ResourceControllerV2) DeleteResourceBinding(deleteResourceBindingOptions *DeleteResourceBindingOptions) (response *core.DetailedResponse, err error) {
+	return resourceController.DeleteResourceBindingWithContext(context.Background(), deleteResourceBindingOptions)
+}
+
+// DeleteResourceBindingWithContext is an alternate form of the DeleteResourceBinding method which supports a Context parameter
+func (resourceController *ResourceControllerV2) DeleteResourceBindingWithContext(ctx context.Context, deleteResourceBindingOptions *DeleteResourceBindingOptions) (response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(deleteResourceBindingOptions, "deleteResourceBindingOptions cannot be nil")
 	if err != nil {
 		return
@@ -1019,6 +1163,8 @@ func (resourceController *ResourceControllerV2) DeleteResourceBinding(deleteReso
 	}
 
 	builder := core.NewRequestBuilder(core.DELETE)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = resourceController.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(resourceController.Service.Options.URL, `/v2/resource_bindings/{id}`, pathParamsMap)
 	if err != nil {
 		return
@@ -1046,6 +1192,11 @@ func (resourceController *ResourceControllerV2) DeleteResourceBinding(deleteReso
 // UpdateResourceBinding : Update a resource binding
 // Update a resource binding by ID.
 func (resourceController *ResourceControllerV2) UpdateResourceBinding(updateResourceBindingOptions *UpdateResourceBindingOptions) (result *ResourceBinding, response *core.DetailedResponse, err error) {
+	return resourceController.UpdateResourceBindingWithContext(context.Background(), updateResourceBindingOptions)
+}
+
+// UpdateResourceBindingWithContext is an alternate form of the UpdateResourceBinding method which supports a Context parameter
+func (resourceController *ResourceControllerV2) UpdateResourceBindingWithContext(ctx context.Context, updateResourceBindingOptions *UpdateResourceBindingOptions) (result *ResourceBinding, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(updateResourceBindingOptions, "updateResourceBindingOptions cannot be nil")
 	if err != nil {
 		return
@@ -1060,6 +1211,8 @@ func (resourceController *ResourceControllerV2) UpdateResourceBinding(updateReso
 	}
 
 	builder := core.NewRequestBuilder(core.PATCH)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = resourceController.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(resourceController.Service.Options.URL, `/v2/resource_bindings/{id}`, pathParamsMap)
 	if err != nil {
 		return
@@ -1107,12 +1260,19 @@ func (resourceController *ResourceControllerV2) UpdateResourceBinding(updateReso
 // ListResourceAliases : Get a list of all resource aliases
 // Get a list of all resource aliases.
 func (resourceController *ResourceControllerV2) ListResourceAliases(listResourceAliasesOptions *ListResourceAliasesOptions) (result *ResourceAliasesList, response *core.DetailedResponse, err error) {
+	return resourceController.ListResourceAliasesWithContext(context.Background(), listResourceAliasesOptions)
+}
+
+// ListResourceAliasesWithContext is an alternate form of the ListResourceAliases method which supports a Context parameter
+func (resourceController *ResourceControllerV2) ListResourceAliasesWithContext(ctx context.Context, listResourceAliasesOptions *ListResourceAliasesOptions) (result *ResourceAliasesList, response *core.DetailedResponse, err error) {
 	err = core.ValidateStruct(listResourceAliasesOptions, "listResourceAliasesOptions")
 	if err != nil {
 		return
 	}
 
 	builder := core.NewRequestBuilder(core.GET)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = resourceController.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(resourceController.Service.Options.URL, `/v2/resource_aliases`, nil)
 	if err != nil {
 		return
@@ -1178,6 +1338,11 @@ func (resourceController *ResourceControllerV2) ListResourceAliases(listResource
 // CreateResourceAlias : Create a new resource alias
 // Alias a resource instance into a targeted environment's (name)space.
 func (resourceController *ResourceControllerV2) CreateResourceAlias(createResourceAliasOptions *CreateResourceAliasOptions) (result *ResourceAlias, response *core.DetailedResponse, err error) {
+	return resourceController.CreateResourceAliasWithContext(context.Background(), createResourceAliasOptions)
+}
+
+// CreateResourceAliasWithContext is an alternate form of the CreateResourceAlias method which supports a Context parameter
+func (resourceController *ResourceControllerV2) CreateResourceAliasWithContext(ctx context.Context, createResourceAliasOptions *CreateResourceAliasOptions) (result *ResourceAlias, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(createResourceAliasOptions, "createResourceAliasOptions cannot be nil")
 	if err != nil {
 		return
@@ -1188,6 +1353,8 @@ func (resourceController *ResourceControllerV2) CreateResourceAlias(createResour
 	}
 
 	builder := core.NewRequestBuilder(core.POST)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = resourceController.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(resourceController.Service.Options.URL, `/v2/resource_aliases`, nil)
 	if err != nil {
 		return
@@ -1241,6 +1408,11 @@ func (resourceController *ResourceControllerV2) CreateResourceAlias(createResour
 // GetResourceAlias : Get a resource alias
 // Retrieve a resource alias by ID.
 func (resourceController *ResourceControllerV2) GetResourceAlias(getResourceAliasOptions *GetResourceAliasOptions) (result *ResourceAlias, response *core.DetailedResponse, err error) {
+	return resourceController.GetResourceAliasWithContext(context.Background(), getResourceAliasOptions)
+}
+
+// GetResourceAliasWithContext is an alternate form of the GetResourceAlias method which supports a Context parameter
+func (resourceController *ResourceControllerV2) GetResourceAliasWithContext(ctx context.Context, getResourceAliasOptions *GetResourceAliasOptions) (result *ResourceAlias, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(getResourceAliasOptions, "getResourceAliasOptions cannot be nil")
 	if err != nil {
 		return
@@ -1255,6 +1427,8 @@ func (resourceController *ResourceControllerV2) GetResourceAlias(getResourceAlia
 	}
 
 	builder := core.NewRequestBuilder(core.GET)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = resourceController.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(resourceController.Service.Options.URL, `/v2/resource_aliases/{id}`, pathParamsMap)
 	if err != nil {
 		return
@@ -1292,6 +1466,11 @@ func (resourceController *ResourceControllerV2) GetResourceAlias(getResourceAlia
 // DeleteResourceAlias : Delete a resource alias
 // Delete a resource alias by ID.
 func (resourceController *ResourceControllerV2) DeleteResourceAlias(deleteResourceAliasOptions *DeleteResourceAliasOptions) (response *core.DetailedResponse, err error) {
+	return resourceController.DeleteResourceAliasWithContext(context.Background(), deleteResourceAliasOptions)
+}
+
+// DeleteResourceAliasWithContext is an alternate form of the DeleteResourceAlias method which supports a Context parameter
+func (resourceController *ResourceControllerV2) DeleteResourceAliasWithContext(ctx context.Context, deleteResourceAliasOptions *DeleteResourceAliasOptions) (response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(deleteResourceAliasOptions, "deleteResourceAliasOptions cannot be nil")
 	if err != nil {
 		return
@@ -1306,6 +1485,8 @@ func (resourceController *ResourceControllerV2) DeleteResourceAlias(deleteResour
 	}
 
 	builder := core.NewRequestBuilder(core.DELETE)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = resourceController.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(resourceController.Service.Options.URL, `/v2/resource_aliases/{id}`, pathParamsMap)
 	if err != nil {
 		return
@@ -1333,6 +1514,11 @@ func (resourceController *ResourceControllerV2) DeleteResourceAlias(deleteResour
 // UpdateResourceAlias : Update a resource alias
 // Update a resource alias by ID.
 func (resourceController *ResourceControllerV2) UpdateResourceAlias(updateResourceAliasOptions *UpdateResourceAliasOptions) (result *ResourceAlias, response *core.DetailedResponse, err error) {
+	return resourceController.UpdateResourceAliasWithContext(context.Background(), updateResourceAliasOptions)
+}
+
+// UpdateResourceAliasWithContext is an alternate form of the UpdateResourceAlias method which supports a Context parameter
+func (resourceController *ResourceControllerV2) UpdateResourceAliasWithContext(ctx context.Context, updateResourceAliasOptions *UpdateResourceAliasOptions) (result *ResourceAlias, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(updateResourceAliasOptions, "updateResourceAliasOptions cannot be nil")
 	if err != nil {
 		return
@@ -1347,6 +1533,8 @@ func (resourceController *ResourceControllerV2) UpdateResourceAlias(updateResour
 	}
 
 	builder := core.NewRequestBuilder(core.PATCH)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = resourceController.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(resourceController.Service.Options.URL, `/v2/resource_aliases/{id}`, pathParamsMap)
 	if err != nil {
 		return
@@ -1394,12 +1582,19 @@ func (resourceController *ResourceControllerV2) UpdateResourceAlias(updateResour
 // ListReclamations : Get a list of all reclamations
 // Get a list of all reclamations.
 func (resourceController *ResourceControllerV2) ListReclamations(listReclamationsOptions *ListReclamationsOptions) (result *ReclamationsList, response *core.DetailedResponse, err error) {
+	return resourceController.ListReclamationsWithContext(context.Background(), listReclamationsOptions)
+}
+
+// ListReclamationsWithContext is an alternate form of the ListReclamations method which supports a Context parameter
+func (resourceController *ResourceControllerV2) ListReclamationsWithContext(ctx context.Context, listReclamationsOptions *ListReclamationsOptions) (result *ReclamationsList, response *core.DetailedResponse, err error) {
 	err = core.ValidateStruct(listReclamationsOptions, "listReclamationsOptions")
 	if err != nil {
 		return
 	}
 
 	builder := core.NewRequestBuilder(core.GET)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = resourceController.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(resourceController.Service.Options.URL, `/v1/reclamations`, nil)
 	if err != nil {
 		return
@@ -1445,6 +1640,11 @@ func (resourceController *ResourceControllerV2) ListReclamations(listReclamation
 // Reclaim (provisionally delete) a resource so that it can no longer be used, or restore a resource so that it's usable
 // again.
 func (resourceController *ResourceControllerV2) RunReclamationAction(runReclamationActionOptions *RunReclamationActionOptions) (result *Reclamation, response *core.DetailedResponse, err error) {
+	return resourceController.RunReclamationActionWithContext(context.Background(), runReclamationActionOptions)
+}
+
+// RunReclamationActionWithContext is an alternate form of the RunReclamationAction method which supports a Context parameter
+func (resourceController *ResourceControllerV2) RunReclamationActionWithContext(ctx context.Context, runReclamationActionOptions *RunReclamationActionOptions) (result *Reclamation, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(runReclamationActionOptions, "runReclamationActionOptions cannot be nil")
 	if err != nil {
 		return
@@ -1460,6 +1660,8 @@ func (resourceController *ResourceControllerV2) RunReclamationAction(runReclamat
 	}
 
 	builder := core.NewRequestBuilder(core.POST)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = resourceController.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(resourceController.Service.Options.URL, `/v1/reclamations/{id}/actions/{action_name}`, pathParamsMap)
 	if err != nil {
 		return
@@ -2770,6 +2972,15 @@ type ResourceAlias struct {
 
 	// The date when the alias was deleted.
 	DeletedAt *strfmt.DateTime `json:"deleted_at,omitempty"`
+
+	// The subject who created the alias.
+	CreatedBy *string `json:"created_by,omitempty"`
+
+	// The subject who updated the alias.
+	UpdatedBy *string `json:"updated_by,omitempty"`
+
+	// The subject who deleted the alias.
+	DeletedBy *string `json:"deleted_by,omitempty"`
 }
 
 
@@ -2848,6 +3059,18 @@ func UnmarshalResourceAlias(m map[string]json.RawMessage, result interface{}) (e
 	if err != nil {
 		return
 	}
+	err = core.UnmarshalPrimitive(m, "created_by", &obj.CreatedBy)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "updated_by", &obj.UpdatedBy)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "deleted_by", &obj.DeletedBy)
+	if err != nil {
+		return
+	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
 	return
 }
@@ -2915,6 +3138,9 @@ type ResourceBinding struct {
 	// The CRN of target resource, e.g. application, in a specific environment.
 	TargetCrn *string `json:"target_crn,omitempty"`
 
+	// The role CRN.
+	Role *string `json:"role,omitempty"`
+
 	// The short ID of the binding in specific targeted environment, e.g. `service_binding_id` in a given IBM Cloud
 	// environment.
 	RegionBindingID *string `json:"region_binding_id,omitempty"`
@@ -2940,6 +3166,15 @@ type ResourceBinding struct {
 
 	// The date when the binding was deleted.
 	DeletedAt *strfmt.DateTime `json:"deleted_at,omitempty"`
+
+	// The subject who created the binding.
+	CreatedBy *string `json:"created_by,omitempty"`
+
+	// The subject who updated the binding.
+	UpdatedBy *string `json:"updated_by,omitempty"`
+
+	// The subject who deleted the binding.
+	DeletedBy *string `json:"deleted_by,omitempty"`
 }
 
 
@@ -2982,6 +3217,10 @@ func UnmarshalResourceBinding(m map[string]json.RawMessage, result interface{}) 
 	if err != nil {
 		return
 	}
+	err = core.UnmarshalPrimitive(m, "role", &obj.Role)
+	if err != nil {
+		return
+	}
 	err = core.UnmarshalPrimitive(m, "region_binding_id", &obj.RegionBindingID)
 	if err != nil {
 		return
@@ -3011,6 +3250,18 @@ func UnmarshalResourceBinding(m map[string]json.RawMessage, result interface{}) 
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "deleted_at", &obj.DeletedAt)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "created_by", &obj.CreatedBy)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "updated_by", &obj.UpdatedBy)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "deleted_by", &obj.DeletedBy)
 	if err != nil {
 		return
 	}
@@ -3107,6 +3358,9 @@ type ResourceInstance struct {
 	// where the instance is provisioned.
 	TargetCrn *string `json:"target_crn,omitempty"`
 
+	// The current configuration parameters of the instance.
+	Parameters map[string]interface{} `json:"parameters,omitempty"`
+
 	// The current state of the instance. For example, if the instance is deleted, it will return removed.
 	State *string `json:"state,omitempty"`
 
@@ -3144,11 +3398,32 @@ type ResourceInstance struct {
 	// The date when the instance was created.
 	CreatedAt *strfmt.DateTime `json:"created_at,omitempty"`
 
+	// The subject who created the instance.
+	CreatedBy *string `json:"created_by,omitempty"`
+
 	// The date when the instance was last updated.
 	UpdatedAt *strfmt.DateTime `json:"updated_at,omitempty"`
 
+	// The subject who updated the instance.
+	UpdatedBy *string `json:"updated_by,omitempty"`
+
 	// The date when the instance was deleted.
 	DeletedAt *strfmt.DateTime `json:"deleted_at,omitempty"`
+
+	// The subject who deleted the instance.
+	DeletedBy *string `json:"deleted_by,omitempty"`
+
+	// The date when the instance was scheduled for reclamation.
+	ScheduledReclaimAt *strfmt.DateTime `json:"scheduled_reclaim_at,omitempty"`
+
+	// The subject who initiated the instance reclamation.
+	ScheduledReclaimBy *string `json:"scheduled_reclaim_by,omitempty"`
+
+	// The date when the instance under reclamation was restored.
+	RestoredAt *strfmt.DateTime `json:"restored_at,omitempty"`
+
+	// The subject who restored the instance back from reclamation.
+	RestoredBy *string `json:"restored_by,omitempty"`
 }
 
 
@@ -3196,6 +3471,10 @@ func UnmarshalResourceInstance(m map[string]json.RawMessage, result interface{})
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "target_crn", &obj.TargetCrn)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "parameters", &obj.Parameters)
 	if err != nil {
 		return
 	}
@@ -3247,11 +3526,39 @@ func UnmarshalResourceInstance(m map[string]json.RawMessage, result interface{})
 	if err != nil {
 		return
 	}
+	err = core.UnmarshalPrimitive(m, "created_by", &obj.CreatedBy)
+	if err != nil {
+		return
+	}
 	err = core.UnmarshalPrimitive(m, "updated_at", &obj.UpdatedAt)
 	if err != nil {
 		return
 	}
+	err = core.UnmarshalPrimitive(m, "updated_by", &obj.UpdatedBy)
+	if err != nil {
+		return
+	}
 	err = core.UnmarshalPrimitive(m, "deleted_at", &obj.DeletedAt)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "deleted_by", &obj.DeletedBy)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "scheduled_reclaim_at", &obj.ScheduledReclaimAt)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "scheduled_reclaim_by", &obj.ScheduledReclaimBy)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "restored_at", &obj.RestoredAt)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "restored_by", &obj.RestoredBy)
 	if err != nil {
 		return
 	}
@@ -3319,6 +3626,9 @@ type ResourceKey struct {
 	// The CRN of resource instance or alias associated to the key.
 	SourceCrn *string `json:"source_crn,omitempty"`
 
+	// The role CRN.
+	Role *string `json:"role,omitempty"`
+
 	// The state of the key.
 	State *string `json:"state,omitempty"`
 
@@ -3340,6 +3650,15 @@ type ResourceKey struct {
 
 	// The date when the key was deleted.
 	DeletedAt *strfmt.DateTime `json:"deleted_at,omitempty"`
+
+	// The subject who created the key.
+	CreatedBy *string `json:"created_by,omitempty"`
+
+	// The subject who updated the key.
+	UpdatedBy *string `json:"updated_by,omitempty"`
+
+	// The subject who deleted the key.
+	DeletedBy *string `json:"deleted_by,omitempty"`
 }
 
 
@@ -3378,6 +3697,10 @@ func UnmarshalResourceKey(m map[string]json.RawMessage, result interface{}) (err
 	if err != nil {
 		return
 	}
+	err = core.UnmarshalPrimitive(m, "role", &obj.Role)
+	if err != nil {
+		return
+	}
 	err = core.UnmarshalPrimitive(m, "state", &obj.State)
 	if err != nil {
 		return
@@ -3403,6 +3726,18 @@ func UnmarshalResourceKey(m map[string]json.RawMessage, result interface{}) (err
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "deleted_at", &obj.DeletedAt)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "created_by", &obj.CreatedBy)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "updated_by", &obj.UpdatedBy)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "deleted_by", &obj.DeletedBy)
 	if err != nil {
 		return
 	}

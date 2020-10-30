@@ -15,7 +15,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-ef5e13c2-20200915-144510
+ * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-8d569e8f-20201030-111043
  */
  
 
@@ -23,12 +23,15 @@
 package iampolicymanagementv1
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"github.com/IBM/go-sdk-core/v4/core"
 	common "github.com/IBM/platform-services-go-sdk/common"
 	"github.com/go-openapi/strfmt"
+	"net/http"
 	"reflect"
+	"time"
 )
 
 // IamPolicyManagementV1 : IAM Policy Management API
@@ -111,6 +114,37 @@ func (iamPolicyManagement *IamPolicyManagementV1) SetServiceURL(url string) erro
 	return iamPolicyManagement.Service.SetServiceURL(url)
 }
 
+// GetServiceURL returns the service URL
+func (iamPolicyManagement *IamPolicyManagementV1) GetServiceURL() string {
+	return iamPolicyManagement.Service.GetServiceURL()
+}
+
+// SetDefaultHeaders sets HTTP headers to be sent in every request
+func (iamPolicyManagement *IamPolicyManagementV1) SetDefaultHeaders(headers http.Header) {
+	iamPolicyManagement.Service.SetDefaultHeaders(headers)
+}
+
+// SetEnableGzipCompression sets the service's EnableGzipCompression field
+func (iamPolicyManagement *IamPolicyManagementV1) SetEnableGzipCompression(enableGzip bool) {
+	iamPolicyManagement.Service.SetEnableGzipCompression(enableGzip)
+}
+
+// GetEnableGzipCompression returns the service's EnableGzipCompression field
+func (iamPolicyManagement *IamPolicyManagementV1) GetEnableGzipCompression() bool {
+	return iamPolicyManagement.Service.GetEnableGzipCompression()
+}
+
+// EnableRetries enables automatic retries for requests invoked for this service instance.
+// If either parameter is specified as 0, then a default value is used instead.
+func (iamPolicyManagement *IamPolicyManagementV1) EnableRetries(maxRetries int, maxRetryInterval time.Duration) {
+	iamPolicyManagement.Service.EnableRetries(maxRetries, maxRetryInterval)
+}
+
+// DisableRetries disables automatic retries for requests invoked for this service instance.
+func (iamPolicyManagement *IamPolicyManagementV1) DisableRetries() {
+	iamPolicyManagement.Service.DisableRetries()
+}
+
 // ListPolicies : Get policies by attributes
 // Get policies and filter by attributes. While managing policies, you may want to retrieve policies in the account and
 // filter by attribute values. This can be done through query parameters. Currently, we only support the following
@@ -118,6 +152,11 @@ func (iamPolicyManagement *IamPolicyManagementV1) SetServiceURL(url string) erro
 // Only policies that have the specified attributes and that the caller has read access to are returned. If the caller
 // does not have read access to any policies an empty array is returned.
 func (iamPolicyManagement *IamPolicyManagementV1) ListPolicies(listPoliciesOptions *ListPoliciesOptions) (result *PolicyList, response *core.DetailedResponse, err error) {
+	return iamPolicyManagement.ListPoliciesWithContext(context.Background(), listPoliciesOptions)
+}
+
+// ListPoliciesWithContext is an alternate form of the ListPolicies method which supports a Context parameter
+func (iamPolicyManagement *IamPolicyManagementV1) ListPoliciesWithContext(ctx context.Context, listPoliciesOptions *ListPoliciesOptions) (result *PolicyList, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(listPoliciesOptions, "listPoliciesOptions cannot be nil")
 	if err != nil {
 		return
@@ -128,6 +167,8 @@ func (iamPolicyManagement *IamPolicyManagementV1) ListPolicies(listPoliciesOptio
 	}
 
 	builder := core.NewRequestBuilder(core.GET)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = iamPolicyManagement.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(iamPolicyManagement.Service.Options.URL, `/v1/policies`, nil)
 	if err != nil {
 		return
@@ -201,6 +242,11 @@ func (iamPolicyManagement *IamPolicyManagementV1) ListPolicies(listPoliciesOptio
 // the platform's supported attributes. Both the policy subject and the policy resource must include the
 // **`serviceName`** and **`accountId`** attributes.
 func (iamPolicyManagement *IamPolicyManagementV1) CreatePolicy(createPolicyOptions *CreatePolicyOptions) (result *Policy, response *core.DetailedResponse, err error) {
+	return iamPolicyManagement.CreatePolicyWithContext(context.Background(), createPolicyOptions)
+}
+
+// CreatePolicyWithContext is an alternate form of the CreatePolicy method which supports a Context parameter
+func (iamPolicyManagement *IamPolicyManagementV1) CreatePolicyWithContext(ctx context.Context, createPolicyOptions *CreatePolicyOptions) (result *Policy, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(createPolicyOptions, "createPolicyOptions cannot be nil")
 	if err != nil {
 		return
@@ -211,6 +257,8 @@ func (iamPolicyManagement *IamPolicyManagementV1) CreatePolicy(createPolicyOptio
 	}
 
 	builder := core.NewRequestBuilder(core.POST)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = iamPolicyManagement.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(iamPolicyManagement.Service.Options.URL, `/v1/policies`, nil)
 	if err != nil {
 		return
@@ -286,6 +334,11 @@ func (iamPolicyManagement *IamPolicyManagementV1) CreatePolicy(createPolicyOptio
 // the platform's supported attributes. Both the policy subject and the policy resource must include the
 // **`serviceName`** and **`accountId`** attributes.
 func (iamPolicyManagement *IamPolicyManagementV1) UpdatePolicy(updatePolicyOptions *UpdatePolicyOptions) (result *Policy, response *core.DetailedResponse, err error) {
+	return iamPolicyManagement.UpdatePolicyWithContext(context.Background(), updatePolicyOptions)
+}
+
+// UpdatePolicyWithContext is an alternate form of the UpdatePolicy method which supports a Context parameter
+func (iamPolicyManagement *IamPolicyManagementV1) UpdatePolicyWithContext(ctx context.Context, updatePolicyOptions *UpdatePolicyOptions) (result *Policy, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(updatePolicyOptions, "updatePolicyOptions cannot be nil")
 	if err != nil {
 		return
@@ -300,6 +353,8 @@ func (iamPolicyManagement *IamPolicyManagementV1) UpdatePolicy(updatePolicyOptio
 	}
 
 	builder := core.NewRequestBuilder(core.PUT)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = iamPolicyManagement.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(iamPolicyManagement.Service.Options.URL, `/v1/policies/{policy_id}`, pathParamsMap)
 	if err != nil {
 		return
@@ -359,6 +414,11 @@ func (iamPolicyManagement *IamPolicyManagementV1) UpdatePolicy(updatePolicyOptio
 // GetPolicy : Retrieve a policy by ID
 // Retrieve a policy by providing a policy ID.
 func (iamPolicyManagement *IamPolicyManagementV1) GetPolicy(getPolicyOptions *GetPolicyOptions) (result *Policy, response *core.DetailedResponse, err error) {
+	return iamPolicyManagement.GetPolicyWithContext(context.Background(), getPolicyOptions)
+}
+
+// GetPolicyWithContext is an alternate form of the GetPolicy method which supports a Context parameter
+func (iamPolicyManagement *IamPolicyManagementV1) GetPolicyWithContext(ctx context.Context, getPolicyOptions *GetPolicyOptions) (result *Policy, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(getPolicyOptions, "getPolicyOptions cannot be nil")
 	if err != nil {
 		return
@@ -373,6 +433,8 @@ func (iamPolicyManagement *IamPolicyManagementV1) GetPolicy(getPolicyOptions *Ge
 	}
 
 	builder := core.NewRequestBuilder(core.GET)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = iamPolicyManagement.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(iamPolicyManagement.Service.Options.URL, `/v1/policies/{policy_id}`, pathParamsMap)
 	if err != nil {
 		return
@@ -411,6 +473,11 @@ func (iamPolicyManagement *IamPolicyManagementV1) GetPolicy(getPolicyOptions *Ge
 // Delete a policy by providing a policy ID. A policy cannot be deleted if the subject ID contains a locked service ID.
 // If the subject of the policy is a locked service-id, the request will fail.
 func (iamPolicyManagement *IamPolicyManagementV1) DeletePolicy(deletePolicyOptions *DeletePolicyOptions) (response *core.DetailedResponse, err error) {
+	return iamPolicyManagement.DeletePolicyWithContext(context.Background(), deletePolicyOptions)
+}
+
+// DeletePolicyWithContext is an alternate form of the DeletePolicy method which supports a Context parameter
+func (iamPolicyManagement *IamPolicyManagementV1) DeletePolicyWithContext(ctx context.Context, deletePolicyOptions *DeletePolicyOptions) (response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(deletePolicyOptions, "deletePolicyOptions cannot be nil")
 	if err != nil {
 		return
@@ -425,6 +492,8 @@ func (iamPolicyManagement *IamPolicyManagementV1) DeletePolicy(deletePolicyOptio
 	}
 
 	builder := core.NewRequestBuilder(core.DELETE)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = iamPolicyManagement.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(iamPolicyManagement.Service.Options.URL, `/v1/policies/{policy_id}`, pathParamsMap)
 	if err != nil {
 		return
@@ -455,12 +524,19 @@ func (iamPolicyManagement *IamPolicyManagementV1) DeletePolicy(deletePolicyOptio
 // Only roles that match the filter and that the caller has read access to are returned. If the caller does not have
 // read access to any roles an empty array is returned.
 func (iamPolicyManagement *IamPolicyManagementV1) ListRoles(listRolesOptions *ListRolesOptions) (result *RoleList, response *core.DetailedResponse, err error) {
+	return iamPolicyManagement.ListRolesWithContext(context.Background(), listRolesOptions)
+}
+
+// ListRolesWithContext is an alternate form of the ListRoles method which supports a Context parameter
+func (iamPolicyManagement *IamPolicyManagementV1) ListRolesWithContext(ctx context.Context, listRolesOptions *ListRolesOptions) (result *RoleList, response *core.DetailedResponse, err error) {
 	err = core.ValidateStruct(listRolesOptions, "listRolesOptions")
 	if err != nil {
 		return
 	}
 
 	builder := core.NewRequestBuilder(core.GET)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = iamPolicyManagement.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(iamPolicyManagement.Service.Options.URL, `/v2/roles`, nil)
 	if err != nil {
 		return
@@ -511,6 +587,11 @@ func (iamPolicyManagement *IamPolicyManagementV1) ListRoles(listRolesOptions *Li
 // service can be mapped to the new role, but there must be at least one service-defined action to successfully create
 // the new role.
 func (iamPolicyManagement *IamPolicyManagementV1) CreateRole(createRoleOptions *CreateRoleOptions) (result *CustomRole, response *core.DetailedResponse, err error) {
+	return iamPolicyManagement.CreateRoleWithContext(context.Background(), createRoleOptions)
+}
+
+// CreateRoleWithContext is an alternate form of the CreateRole method which supports a Context parameter
+func (iamPolicyManagement *IamPolicyManagementV1) CreateRoleWithContext(ctx context.Context, createRoleOptions *CreateRoleOptions) (result *CustomRole, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(createRoleOptions, "createRoleOptions cannot be nil")
 	if err != nil {
 		return
@@ -521,6 +602,8 @@ func (iamPolicyManagement *IamPolicyManagementV1) CreateRole(createRoleOptions *
 	}
 
 	builder := core.NewRequestBuilder(core.POST)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = iamPolicyManagement.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(iamPolicyManagement.Service.Options.URL, `/v2/roles`, nil)
 	if err != nil {
 		return
@@ -587,6 +670,11 @@ func (iamPolicyManagement *IamPolicyManagementV1) CreateRole(createRoleOptions *
 // Update a custom role. A role administrator might want to update an existing role by updating the display name,
 // description, or the actions that are mapped to the role. The name, account_id, and service_name can't be changed.
 func (iamPolicyManagement *IamPolicyManagementV1) UpdateRole(updateRoleOptions *UpdateRoleOptions) (result *CustomRole, response *core.DetailedResponse, err error) {
+	return iamPolicyManagement.UpdateRoleWithContext(context.Background(), updateRoleOptions)
+}
+
+// UpdateRoleWithContext is an alternate form of the UpdateRole method which supports a Context parameter
+func (iamPolicyManagement *IamPolicyManagementV1) UpdateRoleWithContext(ctx context.Context, updateRoleOptions *UpdateRoleOptions) (result *CustomRole, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(updateRoleOptions, "updateRoleOptions cannot be nil")
 	if err != nil {
 		return
@@ -601,6 +689,8 @@ func (iamPolicyManagement *IamPolicyManagementV1) UpdateRole(updateRoleOptions *
 	}
 
 	builder := core.NewRequestBuilder(core.PUT)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = iamPolicyManagement.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(iamPolicyManagement.Service.Options.URL, `/v2/roles/{role_id}`, pathParamsMap)
 	if err != nil {
 		return
@@ -657,6 +747,11 @@ func (iamPolicyManagement *IamPolicyManagementV1) UpdateRole(updateRoleOptions *
 // GetRole : Retrieve a role by ID
 // Retrieve a role by providing a role ID.
 func (iamPolicyManagement *IamPolicyManagementV1) GetRole(getRoleOptions *GetRoleOptions) (result *CustomRole, response *core.DetailedResponse, err error) {
+	return iamPolicyManagement.GetRoleWithContext(context.Background(), getRoleOptions)
+}
+
+// GetRoleWithContext is an alternate form of the GetRole method which supports a Context parameter
+func (iamPolicyManagement *IamPolicyManagementV1) GetRoleWithContext(ctx context.Context, getRoleOptions *GetRoleOptions) (result *CustomRole, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(getRoleOptions, "getRoleOptions cannot be nil")
 	if err != nil {
 		return
@@ -671,6 +766,8 @@ func (iamPolicyManagement *IamPolicyManagementV1) GetRole(getRoleOptions *GetRol
 	}
 
 	builder := core.NewRequestBuilder(core.GET)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = iamPolicyManagement.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(iamPolicyManagement.Service.Options.URL, `/v2/roles/{role_id}`, pathParamsMap)
 	if err != nil {
 		return
@@ -708,6 +805,11 @@ func (iamPolicyManagement *IamPolicyManagementV1) GetRole(getRoleOptions *GetRol
 // DeleteRole : Delete a role by ID
 // Delete a role by providing a role ID.
 func (iamPolicyManagement *IamPolicyManagementV1) DeleteRole(deleteRoleOptions *DeleteRoleOptions) (response *core.DetailedResponse, err error) {
+	return iamPolicyManagement.DeleteRoleWithContext(context.Background(), deleteRoleOptions)
+}
+
+// DeleteRoleWithContext is an alternate form of the DeleteRole method which supports a Context parameter
+func (iamPolicyManagement *IamPolicyManagementV1) DeleteRoleWithContext(ctx context.Context, deleteRoleOptions *DeleteRoleOptions) (response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(deleteRoleOptions, "deleteRoleOptions cannot be nil")
 	if err != nil {
 		return
@@ -722,6 +824,8 @@ func (iamPolicyManagement *IamPolicyManagementV1) DeleteRole(deleteRoleOptions *
 	}
 
 	builder := core.NewRequestBuilder(core.DELETE)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = iamPolicyManagement.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(iamPolicyManagement.Service.Options.URL, `/v2/roles/{role_id}`, pathParamsMap)
 	if err != nil {
 		return

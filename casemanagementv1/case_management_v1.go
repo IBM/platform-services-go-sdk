@@ -15,7 +15,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-ef5e13c2-20200915-144510
+ * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-8d569e8f-20201030-111043
  */
  
 
@@ -23,13 +23,16 @@
 package casemanagementv1
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"github.com/IBM/go-sdk-core/v4/core"
 	common "github.com/IBM/platform-services-go-sdk/common"
 	"io"
+	"net/http"
 	"reflect"
 	"strings"
+	"time"
 )
 
 // CaseManagementV1 : Case management API for creating cases, getting case statuses, adding comments to a case, adding
@@ -113,15 +116,53 @@ func (caseManagement *CaseManagementV1) SetServiceURL(url string) error {
 	return caseManagement.Service.SetServiceURL(url)
 }
 
+// GetServiceURL returns the service URL
+func (caseManagement *CaseManagementV1) GetServiceURL() string {
+	return caseManagement.Service.GetServiceURL()
+}
+
+// SetDefaultHeaders sets HTTP headers to be sent in every request
+func (caseManagement *CaseManagementV1) SetDefaultHeaders(headers http.Header) {
+	caseManagement.Service.SetDefaultHeaders(headers)
+}
+
+// SetEnableGzipCompression sets the service's EnableGzipCompression field
+func (caseManagement *CaseManagementV1) SetEnableGzipCompression(enableGzip bool) {
+	caseManagement.Service.SetEnableGzipCompression(enableGzip)
+}
+
+// GetEnableGzipCompression returns the service's EnableGzipCompression field
+func (caseManagement *CaseManagementV1) GetEnableGzipCompression() bool {
+	return caseManagement.Service.GetEnableGzipCompression()
+}
+
+// EnableRetries enables automatic retries for requests invoked for this service instance.
+// If either parameter is specified as 0, then a default value is used instead.
+func (caseManagement *CaseManagementV1) EnableRetries(maxRetries int, maxRetryInterval time.Duration) {
+	caseManagement.Service.EnableRetries(maxRetries, maxRetryInterval)
+}
+
+// DisableRetries disables automatic retries for requests invoked for this service instance.
+func (caseManagement *CaseManagementV1) DisableRetries() {
+	caseManagement.Service.DisableRetries()
+}
+
 // GetCases : Get cases in account
 // Get cases in the account which is specified by the content of the IAM token.
 func (caseManagement *CaseManagementV1) GetCases(getCasesOptions *GetCasesOptions) (result *CaseList, response *core.DetailedResponse, err error) {
+	return caseManagement.GetCasesWithContext(context.Background(), getCasesOptions)
+}
+
+// GetCasesWithContext is an alternate form of the GetCases method which supports a Context parameter
+func (caseManagement *CaseManagementV1) GetCasesWithContext(ctx context.Context, getCasesOptions *GetCasesOptions) (result *CaseList, response *core.DetailedResponse, err error) {
 	err = core.ValidateStruct(getCasesOptions, "getCasesOptions")
 	if err != nil {
 		return
 	}
 
 	builder := core.NewRequestBuilder(core.GET)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = caseManagement.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(caseManagement.Service.Options.URL, `/cases`, nil)
 	if err != nil {
 		return
@@ -178,6 +219,11 @@ func (caseManagement *CaseManagementV1) GetCases(getCasesOptions *GetCasesOption
 // CreateCase : Create a case
 // Create a case in the account.
 func (caseManagement *CaseManagementV1) CreateCase(createCaseOptions *CreateCaseOptions) (result *Case, response *core.DetailedResponse, err error) {
+	return caseManagement.CreateCaseWithContext(context.Background(), createCaseOptions)
+}
+
+// CreateCaseWithContext is an alternate form of the CreateCase method which supports a Context parameter
+func (caseManagement *CaseManagementV1) CreateCaseWithContext(ctx context.Context, createCaseOptions *CreateCaseOptions) (result *Case, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(createCaseOptions, "createCaseOptions cannot be nil")
 	if err != nil {
 		return
@@ -188,6 +234,8 @@ func (caseManagement *CaseManagementV1) CreateCase(createCaseOptions *CreateCase
 	}
 
 	builder := core.NewRequestBuilder(core.POST)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = caseManagement.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(caseManagement.Service.Options.URL, `/cases`, nil)
 	if err != nil {
 		return
@@ -262,6 +310,11 @@ func (caseManagement *CaseManagementV1) CreateCase(createCaseOptions *CreateCase
 // GetCase : Get a case in account
 // Get a case in the account that is specified by the case number.
 func (caseManagement *CaseManagementV1) GetCase(getCaseOptions *GetCaseOptions) (result *Case, response *core.DetailedResponse, err error) {
+	return caseManagement.GetCaseWithContext(context.Background(), getCaseOptions)
+}
+
+// GetCaseWithContext is an alternate form of the GetCase method which supports a Context parameter
+func (caseManagement *CaseManagementV1) GetCaseWithContext(ctx context.Context, getCaseOptions *GetCaseOptions) (result *Case, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(getCaseOptions, "getCaseOptions cannot be nil")
 	if err != nil {
 		return
@@ -276,6 +329,8 @@ func (caseManagement *CaseManagementV1) GetCase(getCaseOptions *GetCaseOptions) 
 	}
 
 	builder := core.NewRequestBuilder(core.GET)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = caseManagement.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(caseManagement.Service.Options.URL, `/cases/{case_number}`, pathParamsMap)
 	if err != nil {
 		return
@@ -317,6 +372,11 @@ func (caseManagement *CaseManagementV1) GetCase(getCaseOptions *GetCaseOptions) 
 // UpdateCaseStatus : Update case status
 // Mark the case as resolved or unresolved, or accept the provided resolution.
 func (caseManagement *CaseManagementV1) UpdateCaseStatus(updateCaseStatusOptions *UpdateCaseStatusOptions) (result *Case, response *core.DetailedResponse, err error) {
+	return caseManagement.UpdateCaseStatusWithContext(context.Background(), updateCaseStatusOptions)
+}
+
+// UpdateCaseStatusWithContext is an alternate form of the UpdateCaseStatus method which supports a Context parameter
+func (caseManagement *CaseManagementV1) UpdateCaseStatusWithContext(ctx context.Context, updateCaseStatusOptions *UpdateCaseStatusOptions) (result *Case, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(updateCaseStatusOptions, "updateCaseStatusOptions cannot be nil")
 	if err != nil {
 		return
@@ -331,6 +391,8 @@ func (caseManagement *CaseManagementV1) UpdateCaseStatus(updateCaseStatusOptions
 	}
 
 	builder := core.NewRequestBuilder(core.PUT)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = caseManagement.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(caseManagement.Service.Options.URL, `/cases/{case_number}/status`, pathParamsMap)
 	if err != nil {
 		return
@@ -374,6 +436,11 @@ func (caseManagement *CaseManagementV1) UpdateCaseStatus(updateCaseStatusOptions
 // AddComment : Add comment to case
 // Add a comment to a case.
 func (caseManagement *CaseManagementV1) AddComment(addCommentOptions *AddCommentOptions) (result *Comment, response *core.DetailedResponse, err error) {
+	return caseManagement.AddCommentWithContext(context.Background(), addCommentOptions)
+}
+
+// AddCommentWithContext is an alternate form of the AddComment method which supports a Context parameter
+func (caseManagement *CaseManagementV1) AddCommentWithContext(ctx context.Context, addCommentOptions *AddCommentOptions) (result *Comment, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(addCommentOptions, "addCommentOptions cannot be nil")
 	if err != nil {
 		return
@@ -388,6 +455,8 @@ func (caseManagement *CaseManagementV1) AddComment(addCommentOptions *AddComment
 	}
 
 	builder := core.NewRequestBuilder(core.PUT)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = caseManagement.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(caseManagement.Service.Options.URL, `/cases/{case_number}/comments`, pathParamsMap)
 	if err != nil {
 		return
@@ -437,6 +506,11 @@ func (caseManagement *CaseManagementV1) AddComment(addCommentOptions *AddComment
 // write permissions, so the user can view the case, receive updates, and make updates to the case. Note that the user
 // must be in the account to be added to the watchlist.
 func (caseManagement *CaseManagementV1) AddWatchlist(addWatchlistOptions *AddWatchlistOptions) (result *WatchlistAddResponse, response *core.DetailedResponse, err error) {
+	return caseManagement.AddWatchlistWithContext(context.Background(), addWatchlistOptions)
+}
+
+// AddWatchlistWithContext is an alternate form of the AddWatchlist method which supports a Context parameter
+func (caseManagement *CaseManagementV1) AddWatchlistWithContext(ctx context.Context, addWatchlistOptions *AddWatchlistOptions) (result *WatchlistAddResponse, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(addWatchlistOptions, "addWatchlistOptions cannot be nil")
 	if err != nil {
 		return
@@ -451,6 +525,8 @@ func (caseManagement *CaseManagementV1) AddWatchlist(addWatchlistOptions *AddWat
 	}
 
 	builder := core.NewRequestBuilder(core.PUT)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = caseManagement.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(caseManagement.Service.Options.URL, `/cases/{case_number}/watchlist`, pathParamsMap)
 	if err != nil {
 		return
@@ -498,6 +574,11 @@ func (caseManagement *CaseManagementV1) AddWatchlist(addWatchlistOptions *AddWat
 // RemoveWatchlist : Remove users from watchlist of case
 // Remove users from the watchlist of a case.
 func (caseManagement *CaseManagementV1) RemoveWatchlist(removeWatchlistOptions *RemoveWatchlistOptions) (result *Watchlist, response *core.DetailedResponse, err error) {
+	return caseManagement.RemoveWatchlistWithContext(context.Background(), removeWatchlistOptions)
+}
+
+// RemoveWatchlistWithContext is an alternate form of the RemoveWatchlist method which supports a Context parameter
+func (caseManagement *CaseManagementV1) RemoveWatchlistWithContext(ctx context.Context, removeWatchlistOptions *RemoveWatchlistOptions) (result *Watchlist, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(removeWatchlistOptions, "removeWatchlistOptions cannot be nil")
 	if err != nil {
 		return
@@ -512,6 +593,8 @@ func (caseManagement *CaseManagementV1) RemoveWatchlist(removeWatchlistOptions *
 	}
 
 	builder := core.NewRequestBuilder(core.DELETE)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = caseManagement.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(caseManagement.Service.Options.URL, `/cases/{case_number}/watchlist`, pathParamsMap)
 	if err != nil {
 		return
@@ -560,6 +643,11 @@ func (caseManagement *CaseManagementV1) RemoveWatchlist(removeWatchlistOptions *
 // Add a resource to case by specifying the Cloud Resource Name (CRN), or id and type if attaching a class iaaS
 // resource.
 func (caseManagement *CaseManagementV1) AddResource(addResourceOptions *AddResourceOptions) (result *Resource, response *core.DetailedResponse, err error) {
+	return caseManagement.AddResourceWithContext(context.Background(), addResourceOptions)
+}
+
+// AddResourceWithContext is an alternate form of the AddResource method which supports a Context parameter
+func (caseManagement *CaseManagementV1) AddResourceWithContext(ctx context.Context, addResourceOptions *AddResourceOptions) (result *Resource, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(addResourceOptions, "addResourceOptions cannot be nil")
 	if err != nil {
 		return
@@ -574,6 +662,8 @@ func (caseManagement *CaseManagementV1) AddResource(addResourceOptions *AddResou
 	}
 
 	builder := core.NewRequestBuilder(core.PUT)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = caseManagement.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(caseManagement.Service.Options.URL, `/cases/{case_number}/resources`, pathParamsMap)
 	if err != nil {
 		return
@@ -631,6 +721,11 @@ func (caseManagement *CaseManagementV1) AddResource(addResourceOptions *AddResou
 // You can add attachments to a case to provide more information for the support team about the issue that you're
 // experiencing.
 func (caseManagement *CaseManagementV1) UploadFile(uploadFileOptions *UploadFileOptions) (result *Attachment, response *core.DetailedResponse, err error) {
+	return caseManagement.UploadFileWithContext(context.Background(), uploadFileOptions)
+}
+
+// UploadFileWithContext is an alternate form of the UploadFile method which supports a Context parameter
+func (caseManagement *CaseManagementV1) UploadFileWithContext(ctx context.Context, uploadFileOptions *UploadFileOptions) (result *Attachment, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(uploadFileOptions, "uploadFileOptions cannot be nil")
 	if err != nil {
 		return
@@ -645,6 +740,8 @@ func (caseManagement *CaseManagementV1) UploadFile(uploadFileOptions *UploadFile
 	}
 
 	builder := core.NewRequestBuilder(core.PUT)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = caseManagement.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(caseManagement.Service.Options.URL, `/cases/{case_number}/attachments`, pathParamsMap)
 	if err != nil {
 		return
@@ -686,6 +783,11 @@ func (caseManagement *CaseManagementV1) UploadFile(uploadFileOptions *UploadFile
 // DownloadFile : Download an attachment
 // Download an attachment from a case.
 func (caseManagement *CaseManagementV1) DownloadFile(downloadFileOptions *DownloadFileOptions) (result io.ReadCloser, response *core.DetailedResponse, err error) {
+	return caseManagement.DownloadFileWithContext(context.Background(), downloadFileOptions)
+}
+
+// DownloadFileWithContext is an alternate form of the DownloadFile method which supports a Context parameter
+func (caseManagement *CaseManagementV1) DownloadFileWithContext(ctx context.Context, downloadFileOptions *DownloadFileOptions) (result io.ReadCloser, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(downloadFileOptions, "downloadFileOptions cannot be nil")
 	if err != nil {
 		return
@@ -701,6 +803,8 @@ func (caseManagement *CaseManagementV1) DownloadFile(downloadFileOptions *Downlo
 	}
 
 	builder := core.NewRequestBuilder(core.GET)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = caseManagement.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(caseManagement.Service.Options.URL, `/cases/{case_number}/attachments/{file_id}`, pathParamsMap)
 	if err != nil {
 		return
@@ -729,6 +833,11 @@ func (caseManagement *CaseManagementV1) DownloadFile(downloadFileOptions *Downlo
 // DeleteFile : Remove attachment from case
 // Remove an attachment from a case.
 func (caseManagement *CaseManagementV1) DeleteFile(deleteFileOptions *DeleteFileOptions) (result *AttachmentList, response *core.DetailedResponse, err error) {
+	return caseManagement.DeleteFileWithContext(context.Background(), deleteFileOptions)
+}
+
+// DeleteFileWithContext is an alternate form of the DeleteFile method which supports a Context parameter
+func (caseManagement *CaseManagementV1) DeleteFileWithContext(ctx context.Context, deleteFileOptions *DeleteFileOptions) (result *AttachmentList, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(deleteFileOptions, "deleteFileOptions cannot be nil")
 	if err != nil {
 		return
@@ -744,6 +853,8 @@ func (caseManagement *CaseManagementV1) DeleteFile(deleteFileOptions *DeleteFile
 	}
 
 	builder := core.NewRequestBuilder(core.DELETE)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = caseManagement.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(caseManagement.Service.Options.URL, `/cases/{case_number}/attachments/{file_id}`, pathParamsMap)
 	if err != nil {
 		return
@@ -2181,15 +2292,6 @@ const (
 	AcceptPayload_Action_Unresolve = "unresolve"
 )
 
-
-// NewAcceptPayload : Instantiate AcceptPayload (Generic Model Constructor)
-func (*CaseManagementV1) NewAcceptPayload(action string) (model *AcceptPayload, err error) {
-	model = &AcceptPayload{
-		Action: core.StringPtr(action),
-	}
-	err = core.ValidateStruct(model, "required parameters")
-	return
-}
 
 func (*AcceptPayload) isaStatusPayload() bool {
 	return true
