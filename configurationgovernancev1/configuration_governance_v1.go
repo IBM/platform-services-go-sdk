@@ -15,7 +15,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-ef5e13c2-20200915-144510
+ * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-8d569e8f-20201030-111043
  */
  
 
@@ -23,11 +23,14 @@
 package configurationgovernancev1
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"github.com/IBM/go-sdk-core/v4/core"
 	common "github.com/IBM/platform-services-go-sdk/common"
+	"net/http"
 	"reflect"
+	"time"
 )
 
 // ConfigurationGovernanceV1 : API specification for the Configuration Governance service.
@@ -110,6 +113,37 @@ func (configurationGovernance *ConfigurationGovernanceV1) SetServiceURL(url stri
 	return configurationGovernance.Service.SetServiceURL(url)
 }
 
+// GetServiceURL returns the service URL
+func (configurationGovernance *ConfigurationGovernanceV1) GetServiceURL() string {
+	return configurationGovernance.Service.GetServiceURL()
+}
+
+// SetDefaultHeaders sets HTTP headers to be sent in every request
+func (configurationGovernance *ConfigurationGovernanceV1) SetDefaultHeaders(headers http.Header) {
+	configurationGovernance.Service.SetDefaultHeaders(headers)
+}
+
+// SetEnableGzipCompression sets the service's EnableGzipCompression field
+func (configurationGovernance *ConfigurationGovernanceV1) SetEnableGzipCompression(enableGzip bool) {
+	configurationGovernance.Service.SetEnableGzipCompression(enableGzip)
+}
+
+// GetEnableGzipCompression returns the service's EnableGzipCompression field
+func (configurationGovernance *ConfigurationGovernanceV1) GetEnableGzipCompression() bool {
+	return configurationGovernance.Service.GetEnableGzipCompression()
+}
+
+// EnableRetries enables automatic retries for requests invoked for this service instance.
+// If either parameter is specified as 0, then a default value is used instead.
+func (configurationGovernance *ConfigurationGovernanceV1) EnableRetries(maxRetries int, maxRetryInterval time.Duration) {
+	configurationGovernance.Service.EnableRetries(maxRetries, maxRetryInterval)
+}
+
+// DisableRetries disables automatic retries for requests invoked for this service instance.
+func (configurationGovernance *ConfigurationGovernanceV1) DisableRetries() {
+	configurationGovernance.Service.DisableRetries()
+}
+
 // CreateRules : Create rules
 // Creates one or more rules that you can use to govern the way that IBM Cloud resources can be provisioned and
 // configured.
@@ -117,6 +151,11 @@ func (configurationGovernance *ConfigurationGovernanceV1) SetServiceURL(url stri
 // A successful `POST /config/rules` request defines a rule based on the target, conditions, and enforcement actions
 // that you specify. The response returns the ID value for your rule, along with other metadata.
 func (configurationGovernance *ConfigurationGovernanceV1) CreateRules(createRulesOptions *CreateRulesOptions) (result *CreateRulesResponse, response *core.DetailedResponse, err error) {
+	return configurationGovernance.CreateRulesWithContext(context.Background(), createRulesOptions)
+}
+
+// CreateRulesWithContext is an alternate form of the CreateRules method which supports a Context parameter
+func (configurationGovernance *ConfigurationGovernanceV1) CreateRulesWithContext(ctx context.Context, createRulesOptions *CreateRulesOptions) (result *CreateRulesResponse, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(createRulesOptions, "createRulesOptions cannot be nil")
 	if err != nil {
 		return
@@ -127,6 +166,8 @@ func (configurationGovernance *ConfigurationGovernanceV1) CreateRules(createRule
 	}
 
 	builder := core.NewRequestBuilder(core.POST)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = configurationGovernance.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(configurationGovernance.Service.Options.URL, `/config/v1/rules`, nil)
 	if err != nil {
 		return
@@ -177,6 +218,11 @@ func (configurationGovernance *ConfigurationGovernanceV1) CreateRules(createRule
 // ListRules : List rules
 // Retrieves a list of the rules that are available in your account.
 func (configurationGovernance *ConfigurationGovernanceV1) ListRules(listRulesOptions *ListRulesOptions) (result *RuleList, response *core.DetailedResponse, err error) {
+	return configurationGovernance.ListRulesWithContext(context.Background(), listRulesOptions)
+}
+
+// ListRulesWithContext is an alternate form of the ListRules method which supports a Context parameter
+func (configurationGovernance *ConfigurationGovernanceV1) ListRulesWithContext(ctx context.Context, listRulesOptions *ListRulesOptions) (result *RuleList, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(listRulesOptions, "listRulesOptions cannot be nil")
 	if err != nil {
 		return
@@ -187,6 +233,8 @@ func (configurationGovernance *ConfigurationGovernanceV1) ListRules(listRulesOpt
 	}
 
 	builder := core.NewRequestBuilder(core.GET)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = configurationGovernance.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(configurationGovernance.Service.Options.URL, `/config/v1/rules`, nil)
 	if err != nil {
 		return
@@ -244,6 +292,11 @@ func (configurationGovernance *ConfigurationGovernanceV1) ListRules(listRulesOpt
 // GetRule : Get a rule
 // Retrieves an existing rule and its details.
 func (configurationGovernance *ConfigurationGovernanceV1) GetRule(getRuleOptions *GetRuleOptions) (result *Rule, response *core.DetailedResponse, err error) {
+	return configurationGovernance.GetRuleWithContext(context.Background(), getRuleOptions)
+}
+
+// GetRuleWithContext is an alternate form of the GetRule method which supports a Context parameter
+func (configurationGovernance *ConfigurationGovernanceV1) GetRuleWithContext(ctx context.Context, getRuleOptions *GetRuleOptions) (result *Rule, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(getRuleOptions, "getRuleOptions cannot be nil")
 	if err != nil {
 		return
@@ -258,6 +311,8 @@ func (configurationGovernance *ConfigurationGovernanceV1) GetRule(getRuleOptions
 	}
 
 	builder := core.NewRequestBuilder(core.GET)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = configurationGovernance.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(configurationGovernance.Service.Options.URL, `/config/v1/rules/{rule_id}`, pathParamsMap)
 	if err != nil {
 		return
@@ -298,6 +353,11 @@ func (configurationGovernance *ConfigurationGovernanceV1) GetRule(getRuleOptions
 // UpdateRule : Update a rule
 // Updates an existing rule based on the properties that you specify.
 func (configurationGovernance *ConfigurationGovernanceV1) UpdateRule(updateRuleOptions *UpdateRuleOptions) (result *Rule, response *core.DetailedResponse, err error) {
+	return configurationGovernance.UpdateRuleWithContext(context.Background(), updateRuleOptions)
+}
+
+// UpdateRuleWithContext is an alternate form of the UpdateRule method which supports a Context parameter
+func (configurationGovernance *ConfigurationGovernanceV1) UpdateRuleWithContext(ctx context.Context, updateRuleOptions *UpdateRuleOptions) (result *Rule, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(updateRuleOptions, "updateRuleOptions cannot be nil")
 	if err != nil {
 		return
@@ -312,6 +372,8 @@ func (configurationGovernance *ConfigurationGovernanceV1) UpdateRule(updateRuleO
 	}
 
 	builder := core.NewRequestBuilder(core.PUT)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = configurationGovernance.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(configurationGovernance.Service.Options.URL, `/config/v1/rules/{rule_id}`, pathParamsMap)
 	if err != nil {
 		return
@@ -386,6 +448,11 @@ func (configurationGovernance *ConfigurationGovernanceV1) UpdateRule(updateRuleO
 // DeleteRule : Delete a rule
 // Deletes an existing rule.
 func (configurationGovernance *ConfigurationGovernanceV1) DeleteRule(deleteRuleOptions *DeleteRuleOptions) (response *core.DetailedResponse, err error) {
+	return configurationGovernance.DeleteRuleWithContext(context.Background(), deleteRuleOptions)
+}
+
+// DeleteRuleWithContext is an alternate form of the DeleteRule method which supports a Context parameter
+func (configurationGovernance *ConfigurationGovernanceV1) DeleteRuleWithContext(ctx context.Context, deleteRuleOptions *DeleteRuleOptions) (response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(deleteRuleOptions, "deleteRuleOptions cannot be nil")
 	if err != nil {
 		return
@@ -400,6 +467,8 @@ func (configurationGovernance *ConfigurationGovernanceV1) DeleteRule(deleteRuleO
 	}
 
 	builder := core.NewRequestBuilder(core.DELETE)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = configurationGovernance.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(configurationGovernance.Service.Options.URL, `/config/v1/rules/{rule_id}`, pathParamsMap)
 	if err != nil {
 		return
@@ -434,6 +503,11 @@ func (configurationGovernance *ConfigurationGovernanceV1) DeleteRule(deleteRuleO
 // compliance. A successful
 // `POST /config/v1/rules/{rule_id}/attachments` returns the ID value for the attachment, along with other metadata.
 func (configurationGovernance *ConfigurationGovernanceV1) CreateAttachments(createAttachmentsOptions *CreateAttachmentsOptions) (result *CreateAttachmentsResponse, response *core.DetailedResponse, err error) {
+	return configurationGovernance.CreateAttachmentsWithContext(context.Background(), createAttachmentsOptions)
+}
+
+// CreateAttachmentsWithContext is an alternate form of the CreateAttachments method which supports a Context parameter
+func (configurationGovernance *ConfigurationGovernanceV1) CreateAttachmentsWithContext(ctx context.Context, createAttachmentsOptions *CreateAttachmentsOptions) (result *CreateAttachmentsResponse, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(createAttachmentsOptions, "createAttachmentsOptions cannot be nil")
 	if err != nil {
 		return
@@ -448,6 +522,8 @@ func (configurationGovernance *ConfigurationGovernanceV1) CreateAttachments(crea
 	}
 
 	builder := core.NewRequestBuilder(core.POST)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = configurationGovernance.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(configurationGovernance.Service.Options.URL, `/config/v1/rules/{rule_id}/attachments`, pathParamsMap)
 	if err != nil {
 		return
@@ -498,6 +574,11 @@ func (configurationGovernance *ConfigurationGovernanceV1) CreateAttachments(crea
 // ListAttachments : List attachments
 // Retrieves a list of scope attachments that are associated with the specified rule.
 func (configurationGovernance *ConfigurationGovernanceV1) ListAttachments(listAttachmentsOptions *ListAttachmentsOptions) (result *AttachmentList, response *core.DetailedResponse, err error) {
+	return configurationGovernance.ListAttachmentsWithContext(context.Background(), listAttachmentsOptions)
+}
+
+// ListAttachmentsWithContext is an alternate form of the ListAttachments method which supports a Context parameter
+func (configurationGovernance *ConfigurationGovernanceV1) ListAttachmentsWithContext(ctx context.Context, listAttachmentsOptions *ListAttachmentsOptions) (result *AttachmentList, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(listAttachmentsOptions, "listAttachmentsOptions cannot be nil")
 	if err != nil {
 		return
@@ -512,6 +593,8 @@ func (configurationGovernance *ConfigurationGovernanceV1) ListAttachments(listAt
 	}
 
 	builder := core.NewRequestBuilder(core.GET)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = configurationGovernance.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(configurationGovernance.Service.Options.URL, `/config/v1/rules/{rule_id}/attachments`, pathParamsMap)
 	if err != nil {
 		return
@@ -559,6 +642,11 @@ func (configurationGovernance *ConfigurationGovernanceV1) ListAttachments(listAt
 // GetAttachment : Get an attachment
 // Retrieves an existing scope attachment for a rule.
 func (configurationGovernance *ConfigurationGovernanceV1) GetAttachment(getAttachmentOptions *GetAttachmentOptions) (result *Attachment, response *core.DetailedResponse, err error) {
+	return configurationGovernance.GetAttachmentWithContext(context.Background(), getAttachmentOptions)
+}
+
+// GetAttachmentWithContext is an alternate form of the GetAttachment method which supports a Context parameter
+func (configurationGovernance *ConfigurationGovernanceV1) GetAttachmentWithContext(ctx context.Context, getAttachmentOptions *GetAttachmentOptions) (result *Attachment, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(getAttachmentOptions, "getAttachmentOptions cannot be nil")
 	if err != nil {
 		return
@@ -574,6 +662,8 @@ func (configurationGovernance *ConfigurationGovernanceV1) GetAttachment(getAttac
 	}
 
 	builder := core.NewRequestBuilder(core.GET)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = configurationGovernance.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(configurationGovernance.Service.Options.URL, `/config/v1/rules/{rule_id}/attachments/{attachment_id}`, pathParamsMap)
 	if err != nil {
 		return
@@ -614,6 +704,11 @@ func (configurationGovernance *ConfigurationGovernanceV1) GetAttachment(getAttac
 // UpdateAttachment : Update an attachment
 // Updates an existing scope attachment based on the properties that you specify.
 func (configurationGovernance *ConfigurationGovernanceV1) UpdateAttachment(updateAttachmentOptions *UpdateAttachmentOptions) (result *Attachment, response *core.DetailedResponse, err error) {
+	return configurationGovernance.UpdateAttachmentWithContext(context.Background(), updateAttachmentOptions)
+}
+
+// UpdateAttachmentWithContext is an alternate form of the UpdateAttachment method which supports a Context parameter
+func (configurationGovernance *ConfigurationGovernanceV1) UpdateAttachmentWithContext(ctx context.Context, updateAttachmentOptions *UpdateAttachmentOptions) (result *Attachment, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(updateAttachmentOptions, "updateAttachmentOptions cannot be nil")
 	if err != nil {
 		return
@@ -629,6 +724,8 @@ func (configurationGovernance *ConfigurationGovernanceV1) UpdateAttachment(updat
 	}
 
 	builder := core.NewRequestBuilder(core.PUT)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = configurationGovernance.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(configurationGovernance.Service.Options.URL, `/config/v1/rules/{rule_id}/attachments/{attachment_id}`, pathParamsMap)
 	if err != nil {
 		return
@@ -688,6 +785,11 @@ func (configurationGovernance *ConfigurationGovernanceV1) UpdateAttachment(updat
 // DeleteAttachment : Delete an attachment
 // Deletes an existing scope attachment.
 func (configurationGovernance *ConfigurationGovernanceV1) DeleteAttachment(deleteAttachmentOptions *DeleteAttachmentOptions) (response *core.DetailedResponse, err error) {
+	return configurationGovernance.DeleteAttachmentWithContext(context.Background(), deleteAttachmentOptions)
+}
+
+// DeleteAttachmentWithContext is an alternate form of the DeleteAttachment method which supports a Context parameter
+func (configurationGovernance *ConfigurationGovernanceV1) DeleteAttachmentWithContext(ctx context.Context, deleteAttachmentOptions *DeleteAttachmentOptions) (response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(deleteAttachmentOptions, "deleteAttachmentOptions cannot be nil")
 	if err != nil {
 		return
@@ -703,6 +805,8 @@ func (configurationGovernance *ConfigurationGovernanceV1) DeleteAttachment(delet
 	}
 
 	builder := core.NewRequestBuilder(core.DELETE)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = configurationGovernance.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(configurationGovernance.Service.Options.URL, `/config/v1/rules/{rule_id}/attachments/{attachment_id}`, pathParamsMap)
 	if err != nil {
 		return

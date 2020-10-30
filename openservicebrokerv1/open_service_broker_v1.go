@@ -15,7 +15,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-ef5e13c2-20200915-144510
+ * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-8d569e8f-20201030-111043
  */
  
 
@@ -23,11 +23,14 @@
 package openservicebrokerv1
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"github.com/IBM/go-sdk-core/v4/core"
 	common "github.com/IBM/platform-services-go-sdk/common"
+	"net/http"
 	"reflect"
+	"time"
 )
 
 // OpenServiceBrokerV1 : Contribute resources to the IBM Cloud catalog by implementing a `service broker` that conforms
@@ -109,6 +112,37 @@ func (openServiceBroker *OpenServiceBrokerV1) SetServiceURL(url string) error {
 	return openServiceBroker.Service.SetServiceURL(url)
 }
 
+// GetServiceURL returns the service URL
+func (openServiceBroker *OpenServiceBrokerV1) GetServiceURL() string {
+	return openServiceBroker.Service.GetServiceURL()
+}
+
+// SetDefaultHeaders sets HTTP headers to be sent in every request
+func (openServiceBroker *OpenServiceBrokerV1) SetDefaultHeaders(headers http.Header) {
+	openServiceBroker.Service.SetDefaultHeaders(headers)
+}
+
+// SetEnableGzipCompression sets the service's EnableGzipCompression field
+func (openServiceBroker *OpenServiceBrokerV1) SetEnableGzipCompression(enableGzip bool) {
+	openServiceBroker.Service.SetEnableGzipCompression(enableGzip)
+}
+
+// GetEnableGzipCompression returns the service's EnableGzipCompression field
+func (openServiceBroker *OpenServiceBrokerV1) GetEnableGzipCompression() bool {
+	return openServiceBroker.Service.GetEnableGzipCompression()
+}
+
+// EnableRetries enables automatic retries for requests invoked for this service instance.
+// If either parameter is specified as 0, then a default value is used instead.
+func (openServiceBroker *OpenServiceBrokerV1) EnableRetries(maxRetries int, maxRetryInterval time.Duration) {
+	openServiceBroker.Service.EnableRetries(maxRetries, maxRetryInterval)
+}
+
+// DisableRetries disables automatic retries for requests invoked for this service instance.
+func (openServiceBroker *OpenServiceBrokerV1) DisableRetries() {
+	openServiceBroker.Service.DisableRetries()
+}
+
 // GetServiceInstanceState : Get the current state of the service instance
 // Get the current state information associated with the service instance.
 //
@@ -119,6 +153,11 @@ func (openServiceBroker *OpenServiceBrokerV1) SetServiceURL(url string) error {
 // example, IBM Cloud may query the provider to figure out if a given service is disabled or not and present that state
 // to the user.
 func (openServiceBroker *OpenServiceBrokerV1) GetServiceInstanceState(getServiceInstanceStateOptions *GetServiceInstanceStateOptions) (result *Resp1874644Root, response *core.DetailedResponse, err error) {
+	return openServiceBroker.GetServiceInstanceStateWithContext(context.Background(), getServiceInstanceStateOptions)
+}
+
+// GetServiceInstanceStateWithContext is an alternate form of the GetServiceInstanceState method which supports a Context parameter
+func (openServiceBroker *OpenServiceBrokerV1) GetServiceInstanceStateWithContext(ctx context.Context, getServiceInstanceStateOptions *GetServiceInstanceStateOptions) (result *Resp1874644Root, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(getServiceInstanceStateOptions, "getServiceInstanceStateOptions cannot be nil")
 	if err != nil {
 		return
@@ -133,6 +172,8 @@ func (openServiceBroker *OpenServiceBrokerV1) GetServiceInstanceState(getService
 	}
 
 	builder := core.NewRequestBuilder(core.GET)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = openServiceBroker.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(openServiceBroker.Service.Options.URL, `/bluemix_v1/service_instances/{instance_id}`, pathParamsMap)
 	if err != nil {
 		return
@@ -178,6 +219,11 @@ func (openServiceBroker *OpenServiceBrokerV1) GetServiceInstanceState(getService
 // broker should reject that request with any code other than `204`, and provide a user-facing message in the
 // description.
 func (openServiceBroker *OpenServiceBrokerV1) ReplaceServiceInstanceState(replaceServiceInstanceStateOptions *ReplaceServiceInstanceStateOptions) (result *Resp2448145Root, response *core.DetailedResponse, err error) {
+	return openServiceBroker.ReplaceServiceInstanceStateWithContext(context.Background(), replaceServiceInstanceStateOptions)
+}
+
+// ReplaceServiceInstanceStateWithContext is an alternate form of the ReplaceServiceInstanceState method which supports a Context parameter
+func (openServiceBroker *OpenServiceBrokerV1) ReplaceServiceInstanceStateWithContext(ctx context.Context, replaceServiceInstanceStateOptions *ReplaceServiceInstanceStateOptions) (result *Resp2448145Root, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(replaceServiceInstanceStateOptions, "replaceServiceInstanceStateOptions cannot be nil")
 	if err != nil {
 		return
@@ -192,6 +238,8 @@ func (openServiceBroker *OpenServiceBrokerV1) ReplaceServiceInstanceState(replac
 	}
 
 	builder := core.NewRequestBuilder(core.PUT)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = openServiceBroker.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(openServiceBroker.Service.Options.URL, `/bluemix_v1/service_instances/{instance_id}`, pathParamsMap)
 	if err != nil {
 		return
@@ -255,6 +303,11 @@ func (openServiceBroker *OpenServiceBrokerV1) ReplaceServiceInstanceState(replac
 // - The X-Broker-API-Originating-Identity will have the IBM IAM ID of the user that initiated the request
 // - The parameters section will include the requested location (and additional parameters required by your service).
 func (openServiceBroker *OpenServiceBrokerV1) ReplaceServiceInstance(replaceServiceInstanceOptions *ReplaceServiceInstanceOptions) (result *Resp2079872Root, response *core.DetailedResponse, err error) {
+	return openServiceBroker.ReplaceServiceInstanceWithContext(context.Background(), replaceServiceInstanceOptions)
+}
+
+// ReplaceServiceInstanceWithContext is an alternate form of the ReplaceServiceInstance method which supports a Context parameter
+func (openServiceBroker *OpenServiceBrokerV1) ReplaceServiceInstanceWithContext(ctx context.Context, replaceServiceInstanceOptions *ReplaceServiceInstanceOptions) (result *Resp2079872Root, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(replaceServiceInstanceOptions, "replaceServiceInstanceOptions cannot be nil")
 	if err != nil {
 		return
@@ -269,6 +322,8 @@ func (openServiceBroker *OpenServiceBrokerV1) ReplaceServiceInstance(replaceServ
 	}
 
 	builder := core.NewRequestBuilder(core.PUT)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = openServiceBroker.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(openServiceBroker.Service.Options.URL, `/v2/service_instances/{instance_id}`, pathParamsMap)
 	if err != nil {
 		return
@@ -340,6 +395,11 @@ func (openServiceBroker *OpenServiceBrokerV1) ReplaceServiceInstance(replaceServ
 // To enable support for the update of the plan, a broker MUST declare support per service by specifying
 // `"plan_updateable": true` in your brokers' catalog.json.
 func (openServiceBroker *OpenServiceBrokerV1) UpdateServiceInstance(updateServiceInstanceOptions *UpdateServiceInstanceOptions) (result *Resp2079874Root, response *core.DetailedResponse, err error) {
+	return openServiceBroker.UpdateServiceInstanceWithContext(context.Background(), updateServiceInstanceOptions)
+}
+
+// UpdateServiceInstanceWithContext is an alternate form of the UpdateServiceInstance method which supports a Context parameter
+func (openServiceBroker *OpenServiceBrokerV1) UpdateServiceInstanceWithContext(ctx context.Context, updateServiceInstanceOptions *UpdateServiceInstanceOptions) (result *Resp2079874Root, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(updateServiceInstanceOptions, "updateServiceInstanceOptions cannot be nil")
 	if err != nil {
 		return
@@ -354,6 +414,8 @@ func (openServiceBroker *OpenServiceBrokerV1) UpdateServiceInstance(updateServic
 	}
 
 	builder := core.NewRequestBuilder(core.PATCH)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = openServiceBroker.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(openServiceBroker.Service.Options.URL, `/v2/service_instances/{instance_id}`, pathParamsMap)
 	if err != nil {
 		return
@@ -419,6 +481,11 @@ func (openServiceBroker *OpenServiceBrokerV1) UpdateServiceInstance(updateServic
 // Cloud platform, it MUST delete any resources it created during the provision. Usually this means that all resources
 // are immediately reclaimed for future provisions.
 func (openServiceBroker *OpenServiceBrokerV1) DeleteServiceInstance(deleteServiceInstanceOptions *DeleteServiceInstanceOptions) (result *Resp2079874Root, response *core.DetailedResponse, err error) {
+	return openServiceBroker.DeleteServiceInstanceWithContext(context.Background(), deleteServiceInstanceOptions)
+}
+
+// DeleteServiceInstanceWithContext is an alternate form of the DeleteServiceInstance method which supports a Context parameter
+func (openServiceBroker *OpenServiceBrokerV1) DeleteServiceInstanceWithContext(ctx context.Context, deleteServiceInstanceOptions *DeleteServiceInstanceOptions) (result *Resp2079874Root, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(deleteServiceInstanceOptions, "deleteServiceInstanceOptions cannot be nil")
 	if err != nil {
 		return
@@ -433,6 +500,8 @@ func (openServiceBroker *OpenServiceBrokerV1) DeleteServiceInstance(deleteServic
 	}
 
 	builder := core.NewRequestBuilder(core.DELETE)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = openServiceBroker.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(openServiceBroker.Service.Options.URL, `/v2/service_instances/{instance_id}`, pathParamsMap)
 	if err != nil {
 		return
@@ -483,12 +552,19 @@ func (openServiceBroker *OpenServiceBrokerV1) DeleteServiceInstance(deleteServic
 // in the IBM Cloud console or the IBM Cloud CLI; the console and CLI will return what was set withn RMC and stored in
 // the IBM Cloud catalog.
 func (openServiceBroker *OpenServiceBrokerV1) ListCatalog(listCatalogOptions *ListCatalogOptions) (result *Resp1874650Root, response *core.DetailedResponse, err error) {
+	return openServiceBroker.ListCatalogWithContext(context.Background(), listCatalogOptions)
+}
+
+// ListCatalogWithContext is an alternate form of the ListCatalog method which supports a Context parameter
+func (openServiceBroker *OpenServiceBrokerV1) ListCatalogWithContext(ctx context.Context, listCatalogOptions *ListCatalogOptions) (result *Resp1874650Root, response *core.DetailedResponse, err error) {
 	err = core.ValidateStruct(listCatalogOptions, "listCatalogOptions")
 	if err != nil {
 		return
 	}
 
 	builder := core.NewRequestBuilder(core.GET)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = openServiceBroker.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(openServiceBroker.Service.Options.URL, `/v2/catalog`, nil)
 	if err != nil {
 		return
@@ -534,6 +610,11 @@ func (openServiceBroker *OpenServiceBrokerV1) ListCatalog(listCatalogOptions *Li
 // will cause the platform to cease polling. The value provided for description will be passed through to the platform
 // API client and can be used to provide additional detail for users about the progress of the operation.
 func (openServiceBroker *OpenServiceBrokerV1) GetLastOperation(getLastOperationOptions *GetLastOperationOptions) (result *Resp2079894Root, response *core.DetailedResponse, err error) {
+	return openServiceBroker.GetLastOperationWithContext(context.Background(), getLastOperationOptions)
+}
+
+// GetLastOperationWithContext is an alternate form of the GetLastOperation method which supports a Context parameter
+func (openServiceBroker *OpenServiceBrokerV1) GetLastOperationWithContext(ctx context.Context, getLastOperationOptions *GetLastOperationOptions) (result *Resp2079894Root, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(getLastOperationOptions, "getLastOperationOptions cannot be nil")
 	if err != nil {
 		return
@@ -548,6 +629,8 @@ func (openServiceBroker *OpenServiceBrokerV1) GetLastOperation(getLastOperationO
 	}
 
 	builder := core.NewRequestBuilder(core.GET)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = openServiceBroker.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(openServiceBroker.Service.Options.URL, `/v2/service_instances/{instance_id}/last_operation`, pathParamsMap)
 	if err != nil {
 		return
@@ -603,6 +686,11 @@ func (openServiceBroker *OpenServiceBrokerV1) GetLastOperation(getLastOperationO
 // See the OSB 2.12 spec for more details on
 // [binding](https://github.com/openservicebrokerapi/servicebroker/blob/v2.12/spec.md#binding).
 func (openServiceBroker *OpenServiceBrokerV1) ReplaceServiceBinding(replaceServiceBindingOptions *ReplaceServiceBindingOptions) (result *Resp2079876Root, response *core.DetailedResponse, err error) {
+	return openServiceBroker.ReplaceServiceBindingWithContext(context.Background(), replaceServiceBindingOptions)
+}
+
+// ReplaceServiceBindingWithContext is an alternate form of the ReplaceServiceBinding method which supports a Context parameter
+func (openServiceBroker *OpenServiceBrokerV1) ReplaceServiceBindingWithContext(ctx context.Context, replaceServiceBindingOptions *ReplaceServiceBindingOptions) (result *Resp2079876Root, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(replaceServiceBindingOptions, "replaceServiceBindingOptions cannot be nil")
 	if err != nil {
 		return
@@ -618,6 +706,8 @@ func (openServiceBroker *OpenServiceBrokerV1) ReplaceServiceBinding(replaceServi
 	}
 
 	builder := core.NewRequestBuilder(core.PUT)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = openServiceBroker.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(openServiceBroker.Service.Options.URL, `/v2/service_instances/{instance_id}/service_bindings/{binding_id}`, pathParamsMap)
 	if err != nil {
 		return
@@ -680,6 +770,11 @@ func (openServiceBroker *OpenServiceBrokerV1) ReplaceServiceBinding(replaceServi
 //
 // **Note**: Brokers that do not provide any bindable services or plans do not need to implement this endpoint.
 func (openServiceBroker *OpenServiceBrokerV1) DeleteServiceBinding(deleteServiceBindingOptions *DeleteServiceBindingOptions) (response *core.DetailedResponse, err error) {
+	return openServiceBroker.DeleteServiceBindingWithContext(context.Background(), deleteServiceBindingOptions)
+}
+
+// DeleteServiceBindingWithContext is an alternate form of the DeleteServiceBinding method which supports a Context parameter
+func (openServiceBroker *OpenServiceBrokerV1) DeleteServiceBindingWithContext(ctx context.Context, deleteServiceBindingOptions *DeleteServiceBindingOptions) (response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(deleteServiceBindingOptions, "deleteServiceBindingOptions cannot be nil")
 	if err != nil {
 		return
@@ -695,6 +790,8 @@ func (openServiceBroker *OpenServiceBrokerV1) DeleteServiceBinding(deleteService
 	}
 
 	builder := core.NewRequestBuilder(core.DELETE)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = openServiceBroker.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(openServiceBroker.Service.Options.URL, `/v2/service_instances/{instance_id}/service_bindings/{binding_id}`, pathParamsMap)
 	if err != nil {
 		return

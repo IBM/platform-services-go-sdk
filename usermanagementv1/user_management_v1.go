@@ -15,7 +15,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-ef5e13c2-20200915-144510
+ * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-8d569e8f-20201030-111043
  */
  
 
@@ -23,11 +23,14 @@
 package usermanagementv1
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"github.com/IBM/go-sdk-core/v4/core"
 	common "github.com/IBM/platform-services-go-sdk/common"
+	"net/http"
 	"reflect"
+	"time"
 )
 
 // UserManagementV1 : Manage the lifecycle of your users using User Management APIs.
@@ -110,6 +113,37 @@ func (userManagement *UserManagementV1) SetServiceURL(url string) error {
 	return userManagement.Service.SetServiceURL(url)
 }
 
+// GetServiceURL returns the service URL
+func (userManagement *UserManagementV1) GetServiceURL() string {
+	return userManagement.Service.GetServiceURL()
+}
+
+// SetDefaultHeaders sets HTTP headers to be sent in every request
+func (userManagement *UserManagementV1) SetDefaultHeaders(headers http.Header) {
+	userManagement.Service.SetDefaultHeaders(headers)
+}
+
+// SetEnableGzipCompression sets the service's EnableGzipCompression field
+func (userManagement *UserManagementV1) SetEnableGzipCompression(enableGzip bool) {
+	userManagement.Service.SetEnableGzipCompression(enableGzip)
+}
+
+// GetEnableGzipCompression returns the service's EnableGzipCompression field
+func (userManagement *UserManagementV1) GetEnableGzipCompression() bool {
+	return userManagement.Service.GetEnableGzipCompression()
+}
+
+// EnableRetries enables automatic retries for requests invoked for this service instance.
+// If either parameter is specified as 0, then a default value is used instead.
+func (userManagement *UserManagementV1) EnableRetries(maxRetries int, maxRetryInterval time.Duration) {
+	userManagement.Service.EnableRetries(maxRetries, maxRetryInterval)
+}
+
+// DisableRetries disables automatic retries for requests invoked for this service instance.
+func (userManagement *UserManagementV1) DisableRetries() {
+	userManagement.Service.DisableRetries()
+}
+
 // GetUserSettings : Get user settings
 // Retrieve a user's settings by the user's IAM ID. You can use the IAM service token or a user token for authorization.
 // To use this method, the requesting user or service ID must have the viewer, editor, or administrator role on the User
@@ -120,6 +154,11 @@ func (userManagement *UserManagementV1) SetServiceURL(url string) error {
 // information about the `self_manage` field, review information about the [user-managed login
 // setting](/docs/account?topic=account-types).
 func (userManagement *UserManagementV1) GetUserSettings(getUserSettingsOptions *GetUserSettingsOptions) (result *UserSettings, response *core.DetailedResponse, err error) {
+	return userManagement.GetUserSettingsWithContext(context.Background(), getUserSettingsOptions)
+}
+
+// GetUserSettingsWithContext is an alternate form of the GetUserSettings method which supports a Context parameter
+func (userManagement *UserManagementV1) GetUserSettingsWithContext(ctx context.Context, getUserSettingsOptions *GetUserSettingsOptions) (result *UserSettings, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(getUserSettingsOptions, "getUserSettingsOptions cannot be nil")
 	if err != nil {
 		return
@@ -135,6 +174,8 @@ func (userManagement *UserManagementV1) GetUserSettings(getUserSettingsOptions *
 	}
 
 	builder := core.NewRequestBuilder(core.GET)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = userManagement.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(userManagement.Service.Options.URL, `/v2/accounts/{account_id}/users/{iam_id}/settings`, pathParamsMap)
 	if err != nil {
 		return
@@ -175,6 +216,11 @@ func (userManagement *UserManagementV1) GetUserSettings(getUserSettingsOptions *
 // service. Without these roles, a user can update only their own `language` or `notification_language` fields. If
 // `self_manage` is `true`, the user can also update the `allowed_ip_addresses` field.
 func (userManagement *UserManagementV1) UpdateUserSettings(updateUserSettingsOptions *UpdateUserSettingsOptions) (result *UserSettings, response *core.DetailedResponse, err error) {
+	return userManagement.UpdateUserSettingsWithContext(context.Background(), updateUserSettingsOptions)
+}
+
+// UpdateUserSettingsWithContext is an alternate form of the UpdateUserSettings method which supports a Context parameter
+func (userManagement *UserManagementV1) UpdateUserSettingsWithContext(ctx context.Context, updateUserSettingsOptions *UpdateUserSettingsOptions) (result *UserSettings, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(updateUserSettingsOptions, "updateUserSettingsOptions cannot be nil")
 	if err != nil {
 		return
@@ -190,6 +236,8 @@ func (userManagement *UserManagementV1) UpdateUserSettings(updateUserSettingsOpt
 	}
 
 	builder := core.NewRequestBuilder(core.PATCH)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = userManagement.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(userManagement.Service.Options.URL, `/v2/accounts/{account_id}/users/{iam_id}/settings`, pathParamsMap)
 	if err != nil {
 		return
@@ -252,6 +300,11 @@ func (userManagement *UserManagementV1) UpdateUserSettings(updateUserSettingsOpt
 // roles, the API returns only the current user. Users are returned in a paginated list with a default limit of 100
 // users. You can iterate through all users by following the `next_url` field.
 func (userManagement *UserManagementV1) ListUsers(listUsersOptions *ListUsersOptions) (result *UserList, response *core.DetailedResponse, err error) {
+	return userManagement.ListUsersWithContext(context.Background(), listUsersOptions)
+}
+
+// ListUsersWithContext is an alternate form of the ListUsers method which supports a Context parameter
+func (userManagement *UserManagementV1) ListUsersWithContext(ctx context.Context, listUsersOptions *ListUsersOptions) (result *UserList, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(listUsersOptions, "listUsersOptions cannot be nil")
 	if err != nil {
 		return
@@ -266,6 +319,8 @@ func (userManagement *UserManagementV1) ListUsers(listUsersOptions *ListUsersOpt
 	}
 
 	builder := core.NewRequestBuilder(core.GET)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = userManagement.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(userManagement.Service.Options.URL, `/v2/accounts/{account_id}/users`, pathParamsMap)
 	if err != nil {
 		return
@@ -315,6 +370,11 @@ func (userManagement *UserManagementV1) ListUsers(listUsersOptions *ListUsersOpt
 // IBM Cloud account, the user is transitioned to `ACTIVE` state. If the user email is already verified, no email is
 // generated.
 func (userManagement *UserManagementV1) InviteUsers(inviteUsersOptions *InviteUsersOptions) (result *UserList, response *core.DetailedResponse, err error) {
+	return userManagement.InviteUsersWithContext(context.Background(), inviteUsersOptions)
+}
+
+// InviteUsersWithContext is an alternate form of the InviteUsers method which supports a Context parameter
+func (userManagement *UserManagementV1) InviteUsersWithContext(ctx context.Context, inviteUsersOptions *InviteUsersOptions) (result *UserList, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(inviteUsersOptions, "inviteUsersOptions cannot be nil")
 	if err != nil {
 		return
@@ -329,6 +389,8 @@ func (userManagement *UserManagementV1) InviteUsers(inviteUsersOptions *InviteUs
 	}
 
 	builder := core.NewRequestBuilder(core.POST)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = userManagement.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(userManagement.Service.Options.URL, `/v2/accounts/{account_id}/users`, pathParamsMap)
 	if err != nil {
 		return
@@ -384,6 +446,11 @@ func (userManagement *UserManagementV1) InviteUsers(inviteUsersOptions *InviteUs
 // authorization. To use this method, the requesting user or service ID must have at least the viewer, editor, or
 // administrator role on the User Management service.
 func (userManagement *UserManagementV1) GetUserProfile(getUserProfileOptions *GetUserProfileOptions) (result *UserProfile, response *core.DetailedResponse, err error) {
+	return userManagement.GetUserProfileWithContext(context.Background(), getUserProfileOptions)
+}
+
+// GetUserProfileWithContext is an alternate form of the GetUserProfile method which supports a Context parameter
+func (userManagement *UserManagementV1) GetUserProfileWithContext(ctx context.Context, getUserProfileOptions *GetUserProfileOptions) (result *UserProfile, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(getUserProfileOptions, "getUserProfileOptions cannot be nil")
 	if err != nil {
 		return
@@ -399,6 +466,8 @@ func (userManagement *UserManagementV1) GetUserProfile(getUserProfileOptions *Ge
 	}
 
 	builder := core.NewRequestBuilder(core.GET)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = userManagement.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(userManagement.Service.Options.URL, `/v2/accounts/{account_id}/users/{iam_id}`, pathParamsMap)
 	if err != nil {
 		return
@@ -441,6 +510,11 @@ func (userManagement *UserManagementV1) GetUserProfile(getUserProfileOptions *Ge
 // `PENDING` because these are system states. For other request body fields, a user can update their own profile without
 // having User Management service permissions.
 func (userManagement *UserManagementV1) UpdateUserProfiles(updateUserProfilesOptions *UpdateUserProfilesOptions) (response *core.DetailedResponse, err error) {
+	return userManagement.UpdateUserProfilesWithContext(context.Background(), updateUserProfilesOptions)
+}
+
+// UpdateUserProfilesWithContext is an alternate form of the UpdateUserProfiles method which supports a Context parameter
+func (userManagement *UserManagementV1) UpdateUserProfilesWithContext(ctx context.Context, updateUserProfilesOptions *UpdateUserProfilesOptions) (response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(updateUserProfilesOptions, "updateUserProfilesOptions cannot be nil")
 	if err != nil {
 		return
@@ -456,6 +530,8 @@ func (userManagement *UserManagementV1) UpdateUserProfiles(updateUserProfilesOpt
 	}
 
 	builder := core.NewRequestBuilder(core.PATCH)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = userManagement.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(userManagement.Service.Options.URL, `/v2/accounts/{account_id}/users/{iam_id}`, pathParamsMap)
 	if err != nil {
 		return
@@ -513,6 +589,11 @@ func (userManagement *UserManagementV1) UpdateUserProfiles(updateUserProfilesOpt
 // users from an account. To use this method, the requesting user must have the editor or administrator role on the User
 // Management service. For more information, see the [Removing users](/docs/account?topic=account-remove) documentation.
 func (userManagement *UserManagementV1) RemoveUsers(removeUsersOptions *RemoveUsersOptions) (response *core.DetailedResponse, err error) {
+	return userManagement.RemoveUsersWithContext(context.Background(), removeUsersOptions)
+}
+
+// RemoveUsersWithContext is an alternate form of the RemoveUsers method which supports a Context parameter
+func (userManagement *UserManagementV1) RemoveUsersWithContext(ctx context.Context, removeUsersOptions *RemoveUsersOptions) (response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(removeUsersOptions, "removeUsersOptions cannot be nil")
 	if err != nil {
 		return
@@ -528,6 +609,8 @@ func (userManagement *UserManagementV1) RemoveUsers(removeUsersOptions *RemoveUs
 	}
 
 	builder := core.NewRequestBuilder(core.DELETE)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = userManagement.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(userManagement.Service.Options.URL, `/v2/accounts/{account_id}/users/{iam_id}`, pathParamsMap)
 	if err != nil {
 		return

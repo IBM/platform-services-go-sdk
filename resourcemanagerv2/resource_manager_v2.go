@@ -15,7 +15,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-ef5e13c2-20200915-144510
+ * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-8d569e8f-20201030-111043
  */
  
 
@@ -23,12 +23,15 @@
 package resourcemanagerv2
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"github.com/IBM/go-sdk-core/v4/core"
 	common "github.com/IBM/platform-services-go-sdk/common"
 	"github.com/go-openapi/strfmt"
+	"net/http"
 	"reflect"
+	"time"
 )
 
 // ResourceManagerV2 : Manage lifecycle of your Cloud resource groups using Resource Manager APIs.
@@ -111,15 +114,53 @@ func (resourceManager *ResourceManagerV2) SetServiceURL(url string) error {
 	return resourceManager.Service.SetServiceURL(url)
 }
 
+// GetServiceURL returns the service URL
+func (resourceManager *ResourceManagerV2) GetServiceURL() string {
+	return resourceManager.Service.GetServiceURL()
+}
+
+// SetDefaultHeaders sets HTTP headers to be sent in every request
+func (resourceManager *ResourceManagerV2) SetDefaultHeaders(headers http.Header) {
+	resourceManager.Service.SetDefaultHeaders(headers)
+}
+
+// SetEnableGzipCompression sets the service's EnableGzipCompression field
+func (resourceManager *ResourceManagerV2) SetEnableGzipCompression(enableGzip bool) {
+	resourceManager.Service.SetEnableGzipCompression(enableGzip)
+}
+
+// GetEnableGzipCompression returns the service's EnableGzipCompression field
+func (resourceManager *ResourceManagerV2) GetEnableGzipCompression() bool {
+	return resourceManager.Service.GetEnableGzipCompression()
+}
+
+// EnableRetries enables automatic retries for requests invoked for this service instance.
+// If either parameter is specified as 0, then a default value is used instead.
+func (resourceManager *ResourceManagerV2) EnableRetries(maxRetries int, maxRetryInterval time.Duration) {
+	resourceManager.Service.EnableRetries(maxRetries, maxRetryInterval)
+}
+
+// DisableRetries disables automatic retries for requests invoked for this service instance.
+func (resourceManager *ResourceManagerV2) DisableRetries() {
+	resourceManager.Service.DisableRetries()
+}
+
 // ListResourceGroups : Get a list of all resource groups
 // Get a list of all resource groups in an account.
 func (resourceManager *ResourceManagerV2) ListResourceGroups(listResourceGroupsOptions *ListResourceGroupsOptions) (result *ResourceGroupList, response *core.DetailedResponse, err error) {
+	return resourceManager.ListResourceGroupsWithContext(context.Background(), listResourceGroupsOptions)
+}
+
+// ListResourceGroupsWithContext is an alternate form of the ListResourceGroups method which supports a Context parameter
+func (resourceManager *ResourceManagerV2) ListResourceGroupsWithContext(ctx context.Context, listResourceGroupsOptions *ListResourceGroupsOptions) (result *ResourceGroupList, response *core.DetailedResponse, err error) {
 	err = core.ValidateStruct(listResourceGroupsOptions, "listResourceGroupsOptions")
 	if err != nil {
 		return
 	}
 
 	builder := core.NewRequestBuilder(core.GET)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = resourceManager.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(resourceManager.Service.Options.URL, `/resource_groups`, nil)
 	if err != nil {
 		return
@@ -164,12 +205,19 @@ func (resourceManager *ResourceManagerV2) ListResourceGroups(listResourceGroupsO
 // CreateResourceGroup : Create a new resource group
 // Create a new resource group in an account.
 func (resourceManager *ResourceManagerV2) CreateResourceGroup(createResourceGroupOptions *CreateResourceGroupOptions) (result *ResCreateResourceGroup, response *core.DetailedResponse, err error) {
+	return resourceManager.CreateResourceGroupWithContext(context.Background(), createResourceGroupOptions)
+}
+
+// CreateResourceGroupWithContext is an alternate form of the CreateResourceGroup method which supports a Context parameter
+func (resourceManager *ResourceManagerV2) CreateResourceGroupWithContext(ctx context.Context, createResourceGroupOptions *CreateResourceGroupOptions) (result *ResCreateResourceGroup, response *core.DetailedResponse, err error) {
 	err = core.ValidateStruct(createResourceGroupOptions, "createResourceGroupOptions")
 	if err != nil {
 		return
 	}
 
 	builder := core.NewRequestBuilder(core.POST)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = resourceManager.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(resourceManager.Service.Options.URL, `/resource_groups`, nil)
 	if err != nil {
 		return
@@ -220,6 +268,11 @@ func (resourceManager *ResourceManagerV2) CreateResourceGroup(createResourceGrou
 // GetResourceGroup : Get a resource group
 // Retrieve a resource group by ID.
 func (resourceManager *ResourceManagerV2) GetResourceGroup(getResourceGroupOptions *GetResourceGroupOptions) (result *ResourceGroup, response *core.DetailedResponse, err error) {
+	return resourceManager.GetResourceGroupWithContext(context.Background(), getResourceGroupOptions)
+}
+
+// GetResourceGroupWithContext is an alternate form of the GetResourceGroup method which supports a Context parameter
+func (resourceManager *ResourceManagerV2) GetResourceGroupWithContext(ctx context.Context, getResourceGroupOptions *GetResourceGroupOptions) (result *ResourceGroup, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(getResourceGroupOptions, "getResourceGroupOptions cannot be nil")
 	if err != nil {
 		return
@@ -234,6 +287,8 @@ func (resourceManager *ResourceManagerV2) GetResourceGroup(getResourceGroupOptio
 	}
 
 	builder := core.NewRequestBuilder(core.GET)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = resourceManager.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(resourceManager.Service.Options.URL, `/resource_groups/{id}`, pathParamsMap)
 	if err != nil {
 		return
@@ -271,6 +326,11 @@ func (resourceManager *ResourceManagerV2) GetResourceGroup(getResourceGroupOptio
 // UpdateResourceGroup : Update a resource group
 // Update a resource group by ID.
 func (resourceManager *ResourceManagerV2) UpdateResourceGroup(updateResourceGroupOptions *UpdateResourceGroupOptions) (result *ResourceGroup, response *core.DetailedResponse, err error) {
+	return resourceManager.UpdateResourceGroupWithContext(context.Background(), updateResourceGroupOptions)
+}
+
+// UpdateResourceGroupWithContext is an alternate form of the UpdateResourceGroup method which supports a Context parameter
+func (resourceManager *ResourceManagerV2) UpdateResourceGroupWithContext(ctx context.Context, updateResourceGroupOptions *UpdateResourceGroupOptions) (result *ResourceGroup, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(updateResourceGroupOptions, "updateResourceGroupOptions cannot be nil")
 	if err != nil {
 		return
@@ -285,6 +345,8 @@ func (resourceManager *ResourceManagerV2) UpdateResourceGroup(updateResourceGrou
 	}
 
 	builder := core.NewRequestBuilder(core.PATCH)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = resourceManager.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(resourceManager.Service.Options.URL, `/resource_groups/{id}`, pathParamsMap)
 	if err != nil {
 		return
@@ -335,6 +397,11 @@ func (resourceManager *ResourceManagerV2) UpdateResourceGroup(updateResourceGrou
 // DeleteResourceGroup : Delete a resource group
 // Delete a resource group by ID.
 func (resourceManager *ResourceManagerV2) DeleteResourceGroup(deleteResourceGroupOptions *DeleteResourceGroupOptions) (response *core.DetailedResponse, err error) {
+	return resourceManager.DeleteResourceGroupWithContext(context.Background(), deleteResourceGroupOptions)
+}
+
+// DeleteResourceGroupWithContext is an alternate form of the DeleteResourceGroup method which supports a Context parameter
+func (resourceManager *ResourceManagerV2) DeleteResourceGroupWithContext(ctx context.Context, deleteResourceGroupOptions *DeleteResourceGroupOptions) (response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(deleteResourceGroupOptions, "deleteResourceGroupOptions cannot be nil")
 	if err != nil {
 		return
@@ -349,6 +416,8 @@ func (resourceManager *ResourceManagerV2) DeleteResourceGroup(deleteResourceGrou
 	}
 
 	builder := core.NewRequestBuilder(core.DELETE)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = resourceManager.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(resourceManager.Service.Options.URL, `/resource_groups/{id}`, pathParamsMap)
 	if err != nil {
 		return
@@ -376,12 +445,19 @@ func (resourceManager *ResourceManagerV2) DeleteResourceGroup(deleteResourceGrou
 // ListQuotaDefinitions : List quota definitions
 // Get a list of all quota definitions.
 func (resourceManager *ResourceManagerV2) ListQuotaDefinitions(listQuotaDefinitionsOptions *ListQuotaDefinitionsOptions) (result *QuotaDefinitionList, response *core.DetailedResponse, err error) {
+	return resourceManager.ListQuotaDefinitionsWithContext(context.Background(), listQuotaDefinitionsOptions)
+}
+
+// ListQuotaDefinitionsWithContext is an alternate form of the ListQuotaDefinitions method which supports a Context parameter
+func (resourceManager *ResourceManagerV2) ListQuotaDefinitionsWithContext(ctx context.Context, listQuotaDefinitionsOptions *ListQuotaDefinitionsOptions) (result *QuotaDefinitionList, response *core.DetailedResponse, err error) {
 	err = core.ValidateStruct(listQuotaDefinitionsOptions, "listQuotaDefinitionsOptions")
 	if err != nil {
 		return
 	}
 
 	builder := core.NewRequestBuilder(core.GET)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = resourceManager.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(resourceManager.Service.Options.URL, `/quota_definitions`, nil)
 	if err != nil {
 		return
@@ -419,6 +495,11 @@ func (resourceManager *ResourceManagerV2) ListQuotaDefinitions(listQuotaDefiniti
 // GetQuotaDefinition : Get a quota definition
 // Get a a quota definition.
 func (resourceManager *ResourceManagerV2) GetQuotaDefinition(getQuotaDefinitionOptions *GetQuotaDefinitionOptions) (result *QuotaDefinition, response *core.DetailedResponse, err error) {
+	return resourceManager.GetQuotaDefinitionWithContext(context.Background(), getQuotaDefinitionOptions)
+}
+
+// GetQuotaDefinitionWithContext is an alternate form of the GetQuotaDefinition method which supports a Context parameter
+func (resourceManager *ResourceManagerV2) GetQuotaDefinitionWithContext(ctx context.Context, getQuotaDefinitionOptions *GetQuotaDefinitionOptions) (result *QuotaDefinition, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(getQuotaDefinitionOptions, "getQuotaDefinitionOptions cannot be nil")
 	if err != nil {
 		return
@@ -433,6 +514,8 @@ func (resourceManager *ResourceManagerV2) GetQuotaDefinition(getQuotaDefinitionO
 	}
 
 	builder := core.NewRequestBuilder(core.GET)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = resourceManager.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(resourceManager.Service.Options.URL, `/quota_definitions/{id}`, pathParamsMap)
 	if err != nil {
 		return

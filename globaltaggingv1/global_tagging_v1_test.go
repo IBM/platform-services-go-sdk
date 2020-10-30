@@ -18,6 +18,7 @@ package globaltaggingv1_test
 
 import (
 	"bytes"
+	"context"
 	"fmt"
 	"github.com/IBM/go-sdk-core/v4/core"
 	"github.com/IBM/platform-services-go-sdk/globaltaggingv1"
@@ -195,6 +196,13 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				globalTaggingService.EnableRetries(0, 0)
+				result, response, operationErr = globalTaggingService.ListTags(listTagsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
 			})
 			AfterEach(func() {
 				testServer.Close()
@@ -204,14 +212,17 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 
 	Describe(`ListTags(listTagsOptions *ListTagsOptions)`, func() {
 		listTagsPath := "/v3/tags"
+		var serverSleepTime time.Duration
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
+				serverSleepTime = 0
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
 					Expect(req.URL.EscapedPath()).To(Equal(listTagsPath))
 					Expect(req.Method).To(Equal("GET"))
+
 					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"testString"}))
 
 					Expect(req.URL.Query()["tag_type"]).To(Equal([]string{"user"}))
@@ -232,6 +243,10 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 
 					// TODO: Add check for attached_only query parameter
 
+					// Sleep a short time to support a timeout test
+					time.Sleep(serverSleepTime)
+
+					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
 					fmt.Fprintf(res, "%s", `{"total_count": 0, "offset": 0, "limit": 1, "items": [{"name": "Name"}]}`)
@@ -244,6 +259,7 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 				})
 				Expect(serviceErr).To(BeNil())
 				Expect(globalTaggingService).ToNot(BeNil())
+				globalTaggingService.EnableRetries(0, 0)
 
 				// Invoke operation with nil options model (negative test)
 				result, response, operationErr := globalTaggingService.ListTags(nil)
@@ -270,6 +286,31 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				serverSleepTime = 100 * time.Millisecond
+				_, _, operationErr = globalTaggingService.ListTagsWithContext(ctx, listTagsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+				serverSleepTime = time.Duration(0)
+
+				// Disable retries and test again
+				globalTaggingService.DisableRetries()
+				result, response, operationErr = globalTaggingService.ListTags(listTagsOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				serverSleepTime = 100 * time.Millisecond
+				_, _, operationErr = globalTaggingService.ListTagsWithContext(ctx, listTagsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+				serverSleepTime = time.Duration(0)
 			})
 			It(`Invoke ListTags with error: Operation request error`, func() {
 				globalTaggingService, serviceErr := globaltaggingv1.NewGlobalTaggingV1(&globaltaggingv1.GlobalTaggingV1Options{
@@ -346,6 +387,13 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				globalTaggingService.EnableRetries(0, 0)
+				result, response, operationErr = globalTaggingService.DeleteTagAll(deleteTagAllOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
 			})
 			AfterEach(func() {
 				testServer.Close()
@@ -355,20 +403,27 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 
 	Describe(`DeleteTagAll(deleteTagAllOptions *DeleteTagAllOptions)`, func() {
 		deleteTagAllPath := "/v3/tags"
+		var serverSleepTime time.Duration
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
+				serverSleepTime = 0
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
 					Expect(req.URL.EscapedPath()).To(Equal(deleteTagAllPath))
 					Expect(req.Method).To(Equal("DELETE"))
+
 					Expect(req.URL.Query()["providers"]).To(Equal([]string{"ghost"}))
 
 					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"testString"}))
 
 					Expect(req.URL.Query()["tag_type"]).To(Equal([]string{"user"}))
 
+					// Sleep a short time to support a timeout test
+					time.Sleep(serverSleepTime)
+
+					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
 					fmt.Fprintf(res, "%s", `{"total_count": 10, "errors": true, "items": [{"tag_name": "TagName", "is_error": false}]}`)
@@ -381,6 +436,7 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 				})
 				Expect(serviceErr).To(BeNil())
 				Expect(globalTaggingService).ToNot(BeNil())
+				globalTaggingService.EnableRetries(0, 0)
 
 				// Invoke operation with nil options model (negative test)
 				result, response, operationErr := globalTaggingService.DeleteTagAll(nil)
@@ -400,6 +456,31 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				serverSleepTime = 100 * time.Millisecond
+				_, _, operationErr = globalTaggingService.DeleteTagAllWithContext(ctx, deleteTagAllOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+				serverSleepTime = time.Duration(0)
+
+				// Disable retries and test again
+				globalTaggingService.DisableRetries()
+				result, response, operationErr = globalTaggingService.DeleteTagAll(deleteTagAllOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				serverSleepTime = 100 * time.Millisecond
+				_, _, operationErr = globalTaggingService.DeleteTagAllWithContext(ctx, deleteTagAllOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+				serverSleepTime = time.Duration(0)
 			})
 			It(`Invoke DeleteTagAll with error: Operation request error`, func() {
 				globalTaggingService, serviceErr := globaltaggingv1.NewGlobalTaggingV1(&globaltaggingv1.GlobalTaggingV1Options{
@@ -468,6 +549,13 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				globalTaggingService.EnableRetries(0, 0)
+				result, response, operationErr = globalTaggingService.DeleteTag(deleteTagOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
 			})
 			AfterEach(func() {
 				testServer.Close()
@@ -477,18 +565,25 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 
 	Describe(`DeleteTag(deleteTagOptions *DeleteTagOptions)`, func() {
 		deleteTagPath := "/v3/tags/testString"
+		var serverSleepTime time.Duration
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
+				serverSleepTime = 0
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
 					Expect(req.URL.EscapedPath()).To(Equal(deleteTagPath))
 					Expect(req.Method).To(Equal("DELETE"))
+
 					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"testString"}))
 
 					Expect(req.URL.Query()["tag_type"]).To(Equal([]string{"user"}))
 
+					// Sleep a short time to support a timeout test
+					time.Sleep(serverSleepTime)
+
+					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
 					fmt.Fprintf(res, "%s", `{"results": [{"provider": "ghost", "is_error": false}]}`)
@@ -501,6 +596,7 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 				})
 				Expect(serviceErr).To(BeNil())
 				Expect(globalTaggingService).ToNot(BeNil())
+				globalTaggingService.EnableRetries(0, 0)
 
 				// Invoke operation with nil options model (negative test)
 				result, response, operationErr := globalTaggingService.DeleteTag(nil)
@@ -521,6 +617,31 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				serverSleepTime = 100 * time.Millisecond
+				_, _, operationErr = globalTaggingService.DeleteTagWithContext(ctx, deleteTagOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+				serverSleepTime = time.Duration(0)
+
+				// Disable retries and test again
+				globalTaggingService.DisableRetries()
+				result, response, operationErr = globalTaggingService.DeleteTag(deleteTagOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				serverSleepTime = 100 * time.Millisecond
+				_, _, operationErr = globalTaggingService.DeleteTagWithContext(ctx, deleteTagOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+				serverSleepTime = time.Duration(0)
 			})
 			It(`Invoke DeleteTag with error: Operation validation and request error`, func() {
 				globalTaggingService, serviceErr := globaltaggingv1.NewGlobalTaggingV1(&globaltaggingv1.GlobalTaggingV1Options{
@@ -603,6 +724,13 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				globalTaggingService.EnableRetries(0, 0)
+				result, response, operationErr = globalTaggingService.AttachTag(attachTagOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
 			})
 			AfterEach(func() {
 				testServer.Close()
@@ -612,18 +740,41 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 
 	Describe(`AttachTag(attachTagOptions *AttachTagOptions)`, func() {
 		attachTagPath := "/v3/tags/attach"
+		var serverSleepTime time.Duration
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
+				serverSleepTime = 0
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
 					Expect(req.URL.EscapedPath()).To(Equal(attachTagPath))
 					Expect(req.Method).To(Equal("POST"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
 					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"testString"}))
 
 					Expect(req.URL.Query()["tag_type"]).To(Equal([]string{"user"}))
 
+					// Sleep a short time to support a timeout test
+					time.Sleep(serverSleepTime)
+
+					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
 					fmt.Fprintf(res, "%s", `{"results": [{"resource_id": "ResourceID", "is_error": false}]}`)
@@ -636,6 +787,7 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 				})
 				Expect(serviceErr).To(BeNil())
 				Expect(globalTaggingService).ToNot(BeNil())
+				globalTaggingService.EnableRetries(0, 0)
 
 				// Invoke operation with nil options model (negative test)
 				result, response, operationErr := globalTaggingService.AttachTag(nil)
@@ -662,6 +814,31 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				serverSleepTime = 100 * time.Millisecond
+				_, _, operationErr = globalTaggingService.AttachTagWithContext(ctx, attachTagOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+				serverSleepTime = time.Duration(0)
+
+				// Disable retries and test again
+				globalTaggingService.DisableRetries()
+				result, response, operationErr = globalTaggingService.AttachTag(attachTagOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				serverSleepTime = 100 * time.Millisecond
+				_, _, operationErr = globalTaggingService.AttachTagWithContext(ctx, attachTagOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+				serverSleepTime = time.Duration(0)
 			})
 			It(`Invoke AttachTag with error: Operation validation and request error`, func() {
 				globalTaggingService, serviceErr := globaltaggingv1.NewGlobalTaggingV1(&globaltaggingv1.GlobalTaggingV1Options{
@@ -750,6 +927,13 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				globalTaggingService.EnableRetries(0, 0)
+				result, response, operationErr = globalTaggingService.DetachTag(detachTagOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
 			})
 			AfterEach(func() {
 				testServer.Close()
@@ -759,18 +943,41 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 
 	Describe(`DetachTag(detachTagOptions *DetachTagOptions)`, func() {
 		detachTagPath := "/v3/tags/detach"
+		var serverSleepTime time.Duration
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
+				serverSleepTime = 0
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
 					Expect(req.URL.EscapedPath()).To(Equal(detachTagPath))
 					Expect(req.Method).To(Equal("POST"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
 					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"testString"}))
 
 					Expect(req.URL.Query()["tag_type"]).To(Equal([]string{"user"}))
 
+					// Sleep a short time to support a timeout test
+					time.Sleep(serverSleepTime)
+
+					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
 					fmt.Fprintf(res, "%s", `{"results": [{"resource_id": "ResourceID", "is_error": false}]}`)
@@ -783,6 +990,7 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 				})
 				Expect(serviceErr).To(BeNil())
 				Expect(globalTaggingService).ToNot(BeNil())
+				globalTaggingService.EnableRetries(0, 0)
 
 				// Invoke operation with nil options model (negative test)
 				result, response, operationErr := globalTaggingService.DetachTag(nil)
@@ -809,6 +1017,31 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				serverSleepTime = 100 * time.Millisecond
+				_, _, operationErr = globalTaggingService.DetachTagWithContext(ctx, detachTagOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+				serverSleepTime = time.Duration(0)
+
+				// Disable retries and test again
+				globalTaggingService.DisableRetries()
+				result, response, operationErr = globalTaggingService.DetachTag(detachTagOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				serverSleepTime = 100 * time.Millisecond
+				_, _, operationErr = globalTaggingService.DetachTagWithContext(ctx, detachTagOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+				serverSleepTime = time.Duration(0)
 			})
 			It(`Invoke DetachTag with error: Operation validation and request error`, func() {
 				globalTaggingService, serviceErr := globaltaggingv1.NewGlobalTaggingV1(&globaltaggingv1.GlobalTaggingV1Options{

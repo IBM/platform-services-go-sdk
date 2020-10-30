@@ -18,6 +18,7 @@ package iamaccessgroupsv2_test
 
 import (
 	"bytes"
+	"context"
 	"fmt"
 	"github.com/IBM/go-sdk-core/v4/core"
 	"github.com/IBM/platform-services-go-sdk/iamaccessgroupsv2"
@@ -173,6 +174,13 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				iamAccessGroupsService.EnableRetries(0, 0)
+				result, response, operationErr = iamAccessGroupsService.CreateAccessGroup(createAccessGroupOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
 			})
 			AfterEach(func() {
 				testServer.Close()
@@ -182,18 +190,41 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 
 	Describe(`CreateAccessGroup(createAccessGroupOptions *CreateAccessGroupOptions)`, func() {
 		createAccessGroupPath := "/groups"
+		var serverSleepTime time.Duration
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
+				serverSleepTime = 0
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
 					Expect(req.URL.EscapedPath()).To(Equal(createAccessGroupPath))
 					Expect(req.Method).To(Equal("POST"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
 					Expect(req.Header["Transaction-Id"]).ToNot(BeNil())
 					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"testString"}))
 
+					// Sleep a short time to support a timeout test
+					time.Sleep(serverSleepTime)
+
+					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
 					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "description": "Description", "account_id": "AccountID", "created_at": "CreatedAt", "created_by_id": "CreatedByID", "last_modified_at": "LastModifiedAt", "last_modified_by_id": "LastModifiedByID", "href": "Href", "is_federated": false}`)
@@ -206,6 +237,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				})
 				Expect(serviceErr).To(BeNil())
 				Expect(iamAccessGroupsService).ToNot(BeNil())
+				iamAccessGroupsService.EnableRetries(0, 0)
 
 				// Invoke operation with nil options model (negative test)
 				result, response, operationErr := iamAccessGroupsService.CreateAccessGroup(nil)
@@ -226,6 +258,31 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				serverSleepTime = 100 * time.Millisecond
+				_, _, operationErr = iamAccessGroupsService.CreateAccessGroupWithContext(ctx, createAccessGroupOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+				serverSleepTime = time.Duration(0)
+
+				// Disable retries and test again
+				iamAccessGroupsService.DisableRetries()
+				result, response, operationErr = iamAccessGroupsService.CreateAccessGroup(createAccessGroupOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				serverSleepTime = 100 * time.Millisecond
+				_, _, operationErr = iamAccessGroupsService.CreateAccessGroupWithContext(ctx, createAccessGroupOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+				serverSleepTime = time.Duration(0)
 			})
 			It(`Invoke CreateAccessGroup with error: Operation validation and request error`, func() {
 				iamAccessGroupsService, serviceErr := iamaccessgroupsv2.NewIamAccessGroupsV2(&iamaccessgroupsv2.IamAccessGroupsV2Options{
@@ -320,6 +377,13 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				iamAccessGroupsService.EnableRetries(0, 0)
+				result, response, operationErr = iamAccessGroupsService.ListAccessGroups(listAccessGroupsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
 			})
 			AfterEach(func() {
 				testServer.Close()
@@ -329,14 +393,17 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 
 	Describe(`ListAccessGroups(listAccessGroupsOptions *ListAccessGroupsOptions)`, func() {
 		listAccessGroupsPath := "/groups"
+		var serverSleepTime time.Duration
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
+				serverSleepTime = 0
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
 					Expect(req.URL.EscapedPath()).To(Equal(listAccessGroupsPath))
 					Expect(req.Method).To(Equal("GET"))
+
 					Expect(req.Header["Transaction-Id"]).ToNot(BeNil())
 					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"testString"}))
@@ -355,6 +422,10 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 
 					// TODO: Add check for hide_public_access query parameter
 
+					// Sleep a short time to support a timeout test
+					time.Sleep(serverSleepTime)
+
+					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
 					fmt.Fprintf(res, "%s", `{"limit": 5, "offset": 6, "total_count": 10, "first": {"href": "Href"}, "previous": {"href": "Href"}, "next": {"href": "Href"}, "last": {"href": "Href"}, "groups": [{"id": "ID", "name": "Name", "description": "Description", "account_id": "AccountID", "created_at": "CreatedAt", "created_by_id": "CreatedByID", "last_modified_at": "LastModifiedAt", "last_modified_by_id": "LastModifiedByID", "href": "Href", "is_federated": false}]}`)
@@ -367,6 +438,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				})
 				Expect(serviceErr).To(BeNil())
 				Expect(iamAccessGroupsService).ToNot(BeNil())
+				iamAccessGroupsService.EnableRetries(0, 0)
 
 				// Invoke operation with nil options model (negative test)
 				result, response, operationErr := iamAccessGroupsService.ListAccessGroups(nil)
@@ -391,6 +463,31 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				serverSleepTime = 100 * time.Millisecond
+				_, _, operationErr = iamAccessGroupsService.ListAccessGroupsWithContext(ctx, listAccessGroupsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+				serverSleepTime = time.Duration(0)
+
+				// Disable retries and test again
+				iamAccessGroupsService.DisableRetries()
+				result, response, operationErr = iamAccessGroupsService.ListAccessGroups(listAccessGroupsOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				serverSleepTime = 100 * time.Millisecond
+				_, _, operationErr = iamAccessGroupsService.ListAccessGroupsWithContext(ctx, listAccessGroupsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+				serverSleepTime = time.Duration(0)
 			})
 			It(`Invoke ListAccessGroups with error: Operation validation and request error`, func() {
 				iamAccessGroupsService, serviceErr := iamaccessgroupsv2.NewIamAccessGroupsV2(&iamaccessgroupsv2.IamAccessGroupsV2Options{
@@ -471,6 +568,13 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				iamAccessGroupsService.EnableRetries(0, 0)
+				result, response, operationErr = iamAccessGroupsService.GetAccessGroup(getAccessGroupOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
 			})
 			AfterEach(func() {
 				testServer.Close()
@@ -480,19 +584,26 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 
 	Describe(`GetAccessGroup(getAccessGroupOptions *GetAccessGroupOptions)`, func() {
 		getAccessGroupPath := "/groups/testString"
+		var serverSleepTime time.Duration
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
+				serverSleepTime = 0
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
 					Expect(req.URL.EscapedPath()).To(Equal(getAccessGroupPath))
 					Expect(req.Method).To(Equal("GET"))
+
 					Expect(req.Header["Transaction-Id"]).ToNot(BeNil())
 					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 
 					// TODO: Add check for show_federated query parameter
 
+					// Sleep a short time to support a timeout test
+					time.Sleep(serverSleepTime)
+
+					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
 					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "description": "Description", "account_id": "AccountID", "created_at": "CreatedAt", "created_by_id": "CreatedByID", "last_modified_at": "LastModifiedAt", "last_modified_by_id": "LastModifiedByID", "href": "Href", "is_federated": false}`)
@@ -505,6 +616,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				})
 				Expect(serviceErr).To(BeNil())
 				Expect(iamAccessGroupsService).ToNot(BeNil())
+				iamAccessGroupsService.EnableRetries(0, 0)
 
 				// Invoke operation with nil options model (negative test)
 				result, response, operationErr := iamAccessGroupsService.GetAccessGroup(nil)
@@ -524,6 +636,31 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				serverSleepTime = 100 * time.Millisecond
+				_, _, operationErr = iamAccessGroupsService.GetAccessGroupWithContext(ctx, getAccessGroupOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+				serverSleepTime = time.Duration(0)
+
+				// Disable retries and test again
+				iamAccessGroupsService.DisableRetries()
+				result, response, operationErr = iamAccessGroupsService.GetAccessGroup(getAccessGroupOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				serverSleepTime = 100 * time.Millisecond
+				_, _, operationErr = iamAccessGroupsService.GetAccessGroupWithContext(ctx, getAccessGroupOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+				serverSleepTime = time.Duration(0)
 			})
 			It(`Invoke GetAccessGroup with error: Operation validation and request error`, func() {
 				iamAccessGroupsService, serviceErr := iamaccessgroupsv2.NewIamAccessGroupsV2(&iamaccessgroupsv2.IamAccessGroupsV2Options{
@@ -600,6 +737,13 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				iamAccessGroupsService.EnableRetries(0, 0)
+				result, response, operationErr = iamAccessGroupsService.UpdateAccessGroup(updateAccessGroupOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
 			})
 			AfterEach(func() {
 				testServer.Close()
@@ -609,18 +753,41 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 
 	Describe(`UpdateAccessGroup(updateAccessGroupOptions *UpdateAccessGroupOptions)`, func() {
 		updateAccessGroupPath := "/groups/testString"
+		var serverSleepTime time.Duration
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
+				serverSleepTime = 0
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
 					Expect(req.URL.EscapedPath()).To(Equal(updateAccessGroupPath))
 					Expect(req.Method).To(Equal("PATCH"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
 					Expect(req.Header["If-Match"]).ToNot(BeNil())
 					Expect(req.Header["If-Match"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					Expect(req.Header["Transaction-Id"]).ToNot(BeNil())
 					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
+					// Sleep a short time to support a timeout test
+					time.Sleep(serverSleepTime)
+
+					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
 					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "description": "Description", "account_id": "AccountID", "created_at": "CreatedAt", "created_by_id": "CreatedByID", "last_modified_at": "LastModifiedAt", "last_modified_by_id": "LastModifiedByID", "href": "Href", "is_federated": false}`)
@@ -633,6 +800,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				})
 				Expect(serviceErr).To(BeNil())
 				Expect(iamAccessGroupsService).ToNot(BeNil())
+				iamAccessGroupsService.EnableRetries(0, 0)
 
 				// Invoke operation with nil options model (negative test)
 				result, response, operationErr := iamAccessGroupsService.UpdateAccessGroup(nil)
@@ -654,6 +822,31 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				serverSleepTime = 100 * time.Millisecond
+				_, _, operationErr = iamAccessGroupsService.UpdateAccessGroupWithContext(ctx, updateAccessGroupOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+				serverSleepTime = time.Duration(0)
+
+				// Disable retries and test again
+				iamAccessGroupsService.DisableRetries()
+				result, response, operationErr = iamAccessGroupsService.UpdateAccessGroup(updateAccessGroupOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				serverSleepTime = 100 * time.Millisecond
+				_, _, operationErr = iamAccessGroupsService.UpdateAccessGroupWithContext(ctx, updateAccessGroupOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+				serverSleepTime = time.Duration(0)
 			})
 			It(`Invoke UpdateAccessGroup with error: Operation validation and request error`, func() {
 				iamAccessGroupsService, serviceErr := iamaccessgroupsv2.NewIamAccessGroupsV2(&iamaccessgroupsv2.IamAccessGroupsV2Options{
@@ -703,6 +896,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 					// Verify the contents of the request
 					Expect(req.URL.EscapedPath()).To(Equal(deleteAccessGroupPath))
 					Expect(req.Method).To(Equal("DELETE"))
+
 					Expect(req.Header["Transaction-Id"]).ToNot(BeNil())
 					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 
@@ -718,6 +912,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				})
 				Expect(serviceErr).To(BeNil())
 				Expect(iamAccessGroupsService).ToNot(BeNil())
+				iamAccessGroupsService.EnableRetries(0, 0)
 
 				// Invoke operation with nil options model (negative test)
 				response, operationErr := iamAccessGroupsService.DeleteAccessGroup(nil)
@@ -732,6 +927,12 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				deleteAccessGroupOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
+				response, operationErr = iamAccessGroupsService.DeleteAccessGroup(deleteAccessGroupOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Disable retries and test again
+				iamAccessGroupsService.DisableRetries()
 				response, operationErr = iamAccessGroupsService.DeleteAccessGroup(deleteAccessGroupOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
@@ -906,6 +1107,13 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				iamAccessGroupsService.EnableRetries(0, 0)
+				result, response, operationErr = iamAccessGroupsService.GetAccountSettings(getAccountSettingsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
 			})
 			AfterEach(func() {
 				testServer.Close()
@@ -915,18 +1123,25 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 
 	Describe(`GetAccountSettings(getAccountSettingsOptions *GetAccountSettingsOptions)`, func() {
 		getAccountSettingsPath := "/groups/settings"
+		var serverSleepTime time.Duration
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
+				serverSleepTime = 0
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
 					Expect(req.URL.EscapedPath()).To(Equal(getAccountSettingsPath))
 					Expect(req.Method).To(Equal("GET"))
+
 					Expect(req.Header["Transaction-Id"]).ToNot(BeNil())
 					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"testString"}))
 
+					// Sleep a short time to support a timeout test
+					time.Sleep(serverSleepTime)
+
+					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
 					fmt.Fprintf(res, "%s", `{"account_id": "AccountID", "last_modified_at": "LastModifiedAt", "last_modified_by_id": "LastModifiedByID", "public_access_enabled": false}`)
@@ -939,6 +1154,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				})
 				Expect(serviceErr).To(BeNil())
 				Expect(iamAccessGroupsService).ToNot(BeNil())
+				iamAccessGroupsService.EnableRetries(0, 0)
 
 				// Invoke operation with nil options model (negative test)
 				result, response, operationErr := iamAccessGroupsService.GetAccountSettings(nil)
@@ -957,6 +1173,31 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				serverSleepTime = 100 * time.Millisecond
+				_, _, operationErr = iamAccessGroupsService.GetAccountSettingsWithContext(ctx, getAccountSettingsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+				serverSleepTime = time.Duration(0)
+
+				// Disable retries and test again
+				iamAccessGroupsService.DisableRetries()
+				result, response, operationErr = iamAccessGroupsService.GetAccountSettings(getAccountSettingsOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				serverSleepTime = 100 * time.Millisecond
+				_, _, operationErr = iamAccessGroupsService.GetAccountSettingsWithContext(ctx, getAccountSettingsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+				serverSleepTime = time.Duration(0)
 			})
 			It(`Invoke GetAccountSettings with error: Operation validation and request error`, func() {
 				iamAccessGroupsService, serviceErr := iamaccessgroupsv2.NewIamAccessGroupsV2(&iamaccessgroupsv2.IamAccessGroupsV2Options{
@@ -1030,6 +1271,13 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				iamAccessGroupsService.EnableRetries(0, 0)
+				result, response, operationErr = iamAccessGroupsService.UpdateAccountSettings(updateAccountSettingsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
 			})
 			AfterEach(func() {
 				testServer.Close()
@@ -1039,18 +1287,41 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 
 	Describe(`UpdateAccountSettings(updateAccountSettingsOptions *UpdateAccountSettingsOptions)`, func() {
 		updateAccountSettingsPath := "/groups/settings"
+		var serverSleepTime time.Duration
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
+				serverSleepTime = 0
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
 					Expect(req.URL.EscapedPath()).To(Equal(updateAccountSettingsPath))
 					Expect(req.Method).To(Equal("PATCH"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
 					Expect(req.Header["Transaction-Id"]).ToNot(BeNil())
 					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"testString"}))
 
+					// Sleep a short time to support a timeout test
+					time.Sleep(serverSleepTime)
+
+					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
 					fmt.Fprintf(res, "%s", `{"account_id": "AccountID", "last_modified_at": "LastModifiedAt", "last_modified_by_id": "LastModifiedByID", "public_access_enabled": false}`)
@@ -1063,6 +1334,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				})
 				Expect(serviceErr).To(BeNil())
 				Expect(iamAccessGroupsService).ToNot(BeNil())
+				iamAccessGroupsService.EnableRetries(0, 0)
 
 				// Invoke operation with nil options model (negative test)
 				result, response, operationErr := iamAccessGroupsService.UpdateAccountSettings(nil)
@@ -1082,6 +1354,31 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				serverSleepTime = 100 * time.Millisecond
+				_, _, operationErr = iamAccessGroupsService.UpdateAccountSettingsWithContext(ctx, updateAccountSettingsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+				serverSleepTime = time.Duration(0)
+
+				// Disable retries and test again
+				iamAccessGroupsService.DisableRetries()
+				result, response, operationErr = iamAccessGroupsService.UpdateAccountSettings(updateAccountSettingsOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				serverSleepTime = 100 * time.Millisecond
+				_, _, operationErr = iamAccessGroupsService.UpdateAccountSettingsWithContext(ctx, updateAccountSettingsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+				serverSleepTime = time.Duration(0)
 			})
 			It(`Invoke UpdateAccountSettings with error: Operation validation and request error`, func() {
 				iamAccessGroupsService, serviceErr := iamaccessgroupsv2.NewIamAccessGroupsV2(&iamaccessgroupsv2.IamAccessGroupsV2Options{
@@ -1229,6 +1526,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 					// Verify the contents of the request
 					Expect(req.URL.EscapedPath()).To(Equal(isMemberOfAccessGroupPath))
 					Expect(req.Method).To(Equal("HEAD"))
+
 					Expect(req.Header["Transaction-Id"]).ToNot(BeNil())
 					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					res.WriteHeader(204)
@@ -1241,6 +1539,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				})
 				Expect(serviceErr).To(BeNil())
 				Expect(iamAccessGroupsService).ToNot(BeNil())
+				iamAccessGroupsService.EnableRetries(0, 0)
 
 				// Invoke operation with nil options model (negative test)
 				response, operationErr := iamAccessGroupsService.IsMemberOfAccessGroup(nil)
@@ -1255,6 +1554,12 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				isMemberOfAccessGroupOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
+				response, operationErr = iamAccessGroupsService.IsMemberOfAccessGroup(isMemberOfAccessGroupOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Disable retries and test again
+				iamAccessGroupsService.DisableRetries()
 				response, operationErr = iamAccessGroupsService.IsMemberOfAccessGroup(isMemberOfAccessGroupOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
@@ -1333,6 +1638,13 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				iamAccessGroupsService.EnableRetries(0, 0)
+				result, response, operationErr = iamAccessGroupsService.AddMembersToAccessGroup(addMembersToAccessGroupOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
 			})
 			AfterEach(func() {
 				testServer.Close()
@@ -1342,16 +1654,39 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 
 	Describe(`AddMembersToAccessGroup(addMembersToAccessGroupOptions *AddMembersToAccessGroupOptions)`, func() {
 		addMembersToAccessGroupPath := "/groups/testString/members"
+		var serverSleepTime time.Duration
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
+				serverSleepTime = 0
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
 					Expect(req.URL.EscapedPath()).To(Equal(addMembersToAccessGroupPath))
 					Expect(req.Method).To(Equal("PUT"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
 					Expect(req.Header["Transaction-Id"]).ToNot(BeNil())
 					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
+					// Sleep a short time to support a timeout test
+					time.Sleep(serverSleepTime)
+
+					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(207)
 					fmt.Fprintf(res, "%s", `{"members": [{"iam_id": "IamID", "type": "Type", "created_at": "CreatedAt", "created_by_id": "CreatedByID", "status_code": 10, "trace": "Trace", "errors": [{"code": "Code", "message": "Message"}]}]}`)
@@ -1364,6 +1699,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				})
 				Expect(serviceErr).To(BeNil())
 				Expect(iamAccessGroupsService).ToNot(BeNil())
+				iamAccessGroupsService.EnableRetries(0, 0)
 
 				// Invoke operation with nil options model (negative test)
 				result, response, operationErr := iamAccessGroupsService.AddMembersToAccessGroup(nil)
@@ -1388,6 +1724,31 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				serverSleepTime = 100 * time.Millisecond
+				_, _, operationErr = iamAccessGroupsService.AddMembersToAccessGroupWithContext(ctx, addMembersToAccessGroupOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+				serverSleepTime = time.Duration(0)
+
+				// Disable retries and test again
+				iamAccessGroupsService.DisableRetries()
+				result, response, operationErr = iamAccessGroupsService.AddMembersToAccessGroup(addMembersToAccessGroupOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				serverSleepTime = 100 * time.Millisecond
+				_, _, operationErr = iamAccessGroupsService.AddMembersToAccessGroupWithContext(ctx, addMembersToAccessGroupOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+				serverSleepTime = time.Duration(0)
 			})
 			It(`Invoke AddMembersToAccessGroup with error: Operation validation and request error`, func() {
 				iamAccessGroupsService, serviceErr := iamaccessgroupsv2.NewIamAccessGroupsV2(&iamaccessgroupsv2.IamAccessGroupsV2Options{
@@ -1482,6 +1843,13 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				iamAccessGroupsService.EnableRetries(0, 0)
+				result, response, operationErr = iamAccessGroupsService.ListAccessGroupMembers(listAccessGroupMembersOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
 			})
 			AfterEach(func() {
 				testServer.Close()
@@ -1491,14 +1859,17 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 
 	Describe(`ListAccessGroupMembers(listAccessGroupMembersOptions *ListAccessGroupMembersOptions)`, func() {
 		listAccessGroupMembersPath := "/groups/testString/members"
+		var serverSleepTime time.Duration
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
+				serverSleepTime = 0
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
 					Expect(req.URL.EscapedPath()).To(Equal(listAccessGroupMembersPath))
 					Expect(req.Method).To(Equal("GET"))
+
 					Expect(req.Header["Transaction-Id"]).ToNot(BeNil())
 					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 
@@ -1514,6 +1885,10 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 
 					Expect(req.URL.Query()["sort"]).To(Equal([]string{"testString"}))
 
+					// Sleep a short time to support a timeout test
+					time.Sleep(serverSleepTime)
+
+					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
 					fmt.Fprintf(res, "%s", `{"limit": 5, "offset": 6, "total_count": 10, "first": {"href": "Href"}, "previous": {"href": "Href"}, "next": {"href": "Href"}, "last": {"href": "Href"}, "members": [{"iam_id": "IamID", "type": "Type", "name": "Name", "email": "Email", "description": "Description", "href": "Href", "created_at": "CreatedAt", "created_by_id": "CreatedByID"}]}`)
@@ -1526,6 +1901,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				})
 				Expect(serviceErr).To(BeNil())
 				Expect(iamAccessGroupsService).ToNot(BeNil())
+				iamAccessGroupsService.EnableRetries(0, 0)
 
 				// Invoke operation with nil options model (negative test)
 				result, response, operationErr := iamAccessGroupsService.ListAccessGroupMembers(nil)
@@ -1549,6 +1925,31 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				serverSleepTime = 100 * time.Millisecond
+				_, _, operationErr = iamAccessGroupsService.ListAccessGroupMembersWithContext(ctx, listAccessGroupMembersOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+				serverSleepTime = time.Duration(0)
+
+				// Disable retries and test again
+				iamAccessGroupsService.DisableRetries()
+				result, response, operationErr = iamAccessGroupsService.ListAccessGroupMembers(listAccessGroupMembersOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				serverSleepTime = 100 * time.Millisecond
+				_, _, operationErr = iamAccessGroupsService.ListAccessGroupMembersWithContext(ctx, listAccessGroupMembersOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+				serverSleepTime = time.Duration(0)
 			})
 			It(`Invoke ListAccessGroupMembers with error: Operation validation and request error`, func() {
 				iamAccessGroupsService, serviceErr := iamaccessgroupsv2.NewIamAccessGroupsV2(&iamaccessgroupsv2.IamAccessGroupsV2Options{
@@ -1600,6 +2001,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 					// Verify the contents of the request
 					Expect(req.URL.EscapedPath()).To(Equal(removeMemberFromAccessGroupPath))
 					Expect(req.Method).To(Equal("DELETE"))
+
 					Expect(req.Header["Transaction-Id"]).ToNot(BeNil())
 					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					res.WriteHeader(204)
@@ -1612,6 +2014,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				})
 				Expect(serviceErr).To(BeNil())
 				Expect(iamAccessGroupsService).ToNot(BeNil())
+				iamAccessGroupsService.EnableRetries(0, 0)
 
 				// Invoke operation with nil options model (negative test)
 				response, operationErr := iamAccessGroupsService.RemoveMemberFromAccessGroup(nil)
@@ -1626,6 +2029,12 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				removeMemberFromAccessGroupOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
+				response, operationErr = iamAccessGroupsService.RemoveMemberFromAccessGroup(removeMemberFromAccessGroupOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Disable retries and test again
+				iamAccessGroupsService.DisableRetries()
 				response, operationErr = iamAccessGroupsService.RemoveMemberFromAccessGroup(removeMemberFromAccessGroupOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
@@ -1699,6 +2108,13 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				iamAccessGroupsService.EnableRetries(0, 0)
+				result, response, operationErr = iamAccessGroupsService.RemoveMembersFromAccessGroup(removeMembersFromAccessGroupOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
 			})
 			AfterEach(func() {
 				testServer.Close()
@@ -1708,16 +2124,39 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 
 	Describe(`RemoveMembersFromAccessGroup(removeMembersFromAccessGroupOptions *RemoveMembersFromAccessGroupOptions)`, func() {
 		removeMembersFromAccessGroupPath := "/groups/testString/members/delete"
+		var serverSleepTime time.Duration
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
+				serverSleepTime = 0
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
 					Expect(req.URL.EscapedPath()).To(Equal(removeMembersFromAccessGroupPath))
 					Expect(req.Method).To(Equal("POST"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
 					Expect(req.Header["Transaction-Id"]).ToNot(BeNil())
 					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
+					// Sleep a short time to support a timeout test
+					time.Sleep(serverSleepTime)
+
+					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(207)
 					fmt.Fprintf(res, "%s", `{"access_group_id": "AccessGroupID", "members": [{"iam_id": "IamID", "trace": "Trace", "status_code": 10, "errors": [{"code": "Code", "message": "Message"}]}]}`)
@@ -1730,6 +2169,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				})
 				Expect(serviceErr).To(BeNil())
 				Expect(iamAccessGroupsService).ToNot(BeNil())
+				iamAccessGroupsService.EnableRetries(0, 0)
 
 				// Invoke operation with nil options model (negative test)
 				result, response, operationErr := iamAccessGroupsService.RemoveMembersFromAccessGroup(nil)
@@ -1749,6 +2189,31 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				serverSleepTime = 100 * time.Millisecond
+				_, _, operationErr = iamAccessGroupsService.RemoveMembersFromAccessGroupWithContext(ctx, removeMembersFromAccessGroupOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+				serverSleepTime = time.Duration(0)
+
+				// Disable retries and test again
+				iamAccessGroupsService.DisableRetries()
+				result, response, operationErr = iamAccessGroupsService.RemoveMembersFromAccessGroup(removeMembersFromAccessGroupOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				serverSleepTime = 100 * time.Millisecond
+				_, _, operationErr = iamAccessGroupsService.RemoveMembersFromAccessGroupWithContext(ctx, removeMembersFromAccessGroupOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+				serverSleepTime = time.Duration(0)
 			})
 			It(`Invoke RemoveMembersFromAccessGroup with error: Operation validation and request error`, func() {
 				iamAccessGroupsService, serviceErr := iamaccessgroupsv2.NewIamAccessGroupsV2(&iamaccessgroupsv2.IamAccessGroupsV2Options{
@@ -1823,6 +2288,13 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				iamAccessGroupsService.EnableRetries(0, 0)
+				result, response, operationErr = iamAccessGroupsService.RemoveMemberFromAllAccessGroups(removeMemberFromAllAccessGroupsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
 			})
 			AfterEach(func() {
 				testServer.Close()
@@ -1832,18 +2304,25 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 
 	Describe(`RemoveMemberFromAllAccessGroups(removeMemberFromAllAccessGroupsOptions *RemoveMemberFromAllAccessGroupsOptions)`, func() {
 		removeMemberFromAllAccessGroupsPath := "/groups/_allgroups/members/testString"
+		var serverSleepTime time.Duration
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
+				serverSleepTime = 0
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
 					Expect(req.URL.EscapedPath()).To(Equal(removeMemberFromAllAccessGroupsPath))
 					Expect(req.Method).To(Equal("DELETE"))
+
 					Expect(req.Header["Transaction-Id"]).ToNot(BeNil())
 					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"testString"}))
 
+					// Sleep a short time to support a timeout test
+					time.Sleep(serverSleepTime)
+
+					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(207)
 					fmt.Fprintf(res, "%s", `{"iam_id": "IamID", "groups": [{"access_group_id": "AccessGroupID", "status_code": 10, "trace": "Trace", "errors": [{"code": "Code", "message": "Message"}]}]}`)
@@ -1856,6 +2335,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				})
 				Expect(serviceErr).To(BeNil())
 				Expect(iamAccessGroupsService).ToNot(BeNil())
+				iamAccessGroupsService.EnableRetries(0, 0)
 
 				// Invoke operation with nil options model (negative test)
 				result, response, operationErr := iamAccessGroupsService.RemoveMemberFromAllAccessGroups(nil)
@@ -1875,6 +2355,31 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				serverSleepTime = 100 * time.Millisecond
+				_, _, operationErr = iamAccessGroupsService.RemoveMemberFromAllAccessGroupsWithContext(ctx, removeMemberFromAllAccessGroupsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+				serverSleepTime = time.Duration(0)
+
+				// Disable retries and test again
+				iamAccessGroupsService.DisableRetries()
+				result, response, operationErr = iamAccessGroupsService.RemoveMemberFromAllAccessGroups(removeMemberFromAllAccessGroupsOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				serverSleepTime = 100 * time.Millisecond
+				_, _, operationErr = iamAccessGroupsService.RemoveMemberFromAllAccessGroupsWithContext(ctx, removeMemberFromAllAccessGroupsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+				serverSleepTime = time.Duration(0)
 			})
 			It(`Invoke RemoveMemberFromAllAccessGroups with error: Operation validation and request error`, func() {
 				iamAccessGroupsService, serviceErr := iamaccessgroupsv2.NewIamAccessGroupsV2(&iamaccessgroupsv2.IamAccessGroupsV2Options{
@@ -1951,6 +2456,13 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				iamAccessGroupsService.EnableRetries(0, 0)
+				result, response, operationErr = iamAccessGroupsService.AddMemberToMultipleAccessGroups(addMemberToMultipleAccessGroupsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
 			})
 			AfterEach(func() {
 				testServer.Close()
@@ -1960,18 +2472,41 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 
 	Describe(`AddMemberToMultipleAccessGroups(addMemberToMultipleAccessGroupsOptions *AddMemberToMultipleAccessGroupsOptions)`, func() {
 		addMemberToMultipleAccessGroupsPath := "/groups/_allgroups/members/testString"
+		var serverSleepTime time.Duration
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
+				serverSleepTime = 0
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
 					Expect(req.URL.EscapedPath()).To(Equal(addMemberToMultipleAccessGroupsPath))
 					Expect(req.Method).To(Equal("PUT"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
 					Expect(req.Header["Transaction-Id"]).ToNot(BeNil())
 					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"testString"}))
 
+					// Sleep a short time to support a timeout test
+					time.Sleep(serverSleepTime)
+
+					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(207)
 					fmt.Fprintf(res, "%s", `{"iam_id": "IamID", "groups": [{"access_group_id": "AccessGroupID", "status_code": 10, "trace": "Trace", "errors": [{"code": "Code", "message": "Message"}]}]}`)
@@ -1984,6 +2519,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				})
 				Expect(serviceErr).To(BeNil())
 				Expect(iamAccessGroupsService).ToNot(BeNil())
+				iamAccessGroupsService.EnableRetries(0, 0)
 
 				// Invoke operation with nil options model (negative test)
 				result, response, operationErr := iamAccessGroupsService.AddMemberToMultipleAccessGroups(nil)
@@ -2005,6 +2541,31 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				serverSleepTime = 100 * time.Millisecond
+				_, _, operationErr = iamAccessGroupsService.AddMemberToMultipleAccessGroupsWithContext(ctx, addMemberToMultipleAccessGroupsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+				serverSleepTime = time.Duration(0)
+
+				// Disable retries and test again
+				iamAccessGroupsService.DisableRetries()
+				result, response, operationErr = iamAccessGroupsService.AddMemberToMultipleAccessGroups(addMemberToMultipleAccessGroupsOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				serverSleepTime = 100 * time.Millisecond
+				_, _, operationErr = iamAccessGroupsService.AddMemberToMultipleAccessGroupsWithContext(ctx, addMemberToMultipleAccessGroupsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+				serverSleepTime = time.Duration(0)
 			})
 			It(`Invoke AddMemberToMultipleAccessGroups with error: Operation validation and request error`, func() {
 				iamAccessGroupsService, serviceErr := iamaccessgroupsv2.NewIamAccessGroupsV2(&iamaccessgroupsv2.IamAccessGroupsV2Options{
@@ -2188,6 +2749,13 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				iamAccessGroupsService.EnableRetries(0, 0)
+				result, response, operationErr = iamAccessGroupsService.AddAccessGroupRule(addAccessGroupRuleOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
 			})
 			AfterEach(func() {
 				testServer.Close()
@@ -2197,16 +2765,39 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 
 	Describe(`AddAccessGroupRule(addAccessGroupRuleOptions *AddAccessGroupRuleOptions)`, func() {
 		addAccessGroupRulePath := "/groups/testString/rules"
+		var serverSleepTime time.Duration
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
+				serverSleepTime = 0
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
 					Expect(req.URL.EscapedPath()).To(Equal(addAccessGroupRulePath))
 					Expect(req.Method).To(Equal("POST"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
 					Expect(req.Header["Transaction-Id"]).ToNot(BeNil())
 					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
+					// Sleep a short time to support a timeout test
+					time.Sleep(serverSleepTime)
+
+					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
 					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "expiration": 10, "realm_name": "RealmName", "access_group_id": "AccessGroupID", "account_id": "AccountID", "conditions": [{"claim": "Claim", "operator": "Operator", "value": "Value"}], "created_at": "CreatedAt", "created_by_id": "CreatedByID", "last_modified_at": "LastModifiedAt", "last_modified_by_id": "LastModifiedByID"}`)
@@ -2219,6 +2810,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				})
 				Expect(serviceErr).To(BeNil())
 				Expect(iamAccessGroupsService).ToNot(BeNil())
+				iamAccessGroupsService.EnableRetries(0, 0)
 
 				// Invoke operation with nil options model (negative test)
 				result, response, operationErr := iamAccessGroupsService.AddAccessGroupRule(nil)
@@ -2247,6 +2839,31 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				serverSleepTime = 100 * time.Millisecond
+				_, _, operationErr = iamAccessGroupsService.AddAccessGroupRuleWithContext(ctx, addAccessGroupRuleOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+				serverSleepTime = time.Duration(0)
+
+				// Disable retries and test again
+				iamAccessGroupsService.DisableRetries()
+				result, response, operationErr = iamAccessGroupsService.AddAccessGroupRule(addAccessGroupRuleOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				serverSleepTime = 100 * time.Millisecond
+				_, _, operationErr = iamAccessGroupsService.AddAccessGroupRuleWithContext(ctx, addAccessGroupRuleOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+				serverSleepTime = time.Duration(0)
 			})
 			It(`Invoke AddAccessGroupRule with error: Operation validation and request error`, func() {
 				iamAccessGroupsService, serviceErr := iamaccessgroupsv2.NewIamAccessGroupsV2(&iamaccessgroupsv2.IamAccessGroupsV2Options{
@@ -2327,6 +2944,13 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				iamAccessGroupsService.EnableRetries(0, 0)
+				result, response, operationErr = iamAccessGroupsService.ListAccessGroupRules(listAccessGroupRulesOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
 			})
 			AfterEach(func() {
 				testServer.Close()
@@ -2336,16 +2960,23 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 
 	Describe(`ListAccessGroupRules(listAccessGroupRulesOptions *ListAccessGroupRulesOptions)`, func() {
 		listAccessGroupRulesPath := "/groups/testString/rules"
+		var serverSleepTime time.Duration
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
+				serverSleepTime = 0
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
 					Expect(req.URL.EscapedPath()).To(Equal(listAccessGroupRulesPath))
 					Expect(req.Method).To(Equal("GET"))
+
 					Expect(req.Header["Transaction-Id"]).ToNot(BeNil())
 					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
+					// Sleep a short time to support a timeout test
+					time.Sleep(serverSleepTime)
+
+					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
 					fmt.Fprintf(res, "%s", `{"rules": [{"id": "ID", "name": "Name", "expiration": 10, "realm_name": "RealmName", "access_group_id": "AccessGroupID", "account_id": "AccountID", "conditions": [{"claim": "Claim", "operator": "Operator", "value": "Value"}], "created_at": "CreatedAt", "created_by_id": "CreatedByID", "last_modified_at": "LastModifiedAt", "last_modified_by_id": "LastModifiedByID"}]}`)
@@ -2358,6 +2989,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				})
 				Expect(serviceErr).To(BeNil())
 				Expect(iamAccessGroupsService).ToNot(BeNil())
+				iamAccessGroupsService.EnableRetries(0, 0)
 
 				// Invoke operation with nil options model (negative test)
 				result, response, operationErr := iamAccessGroupsService.ListAccessGroupRules(nil)
@@ -2376,6 +3008,31 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				serverSleepTime = 100 * time.Millisecond
+				_, _, operationErr = iamAccessGroupsService.ListAccessGroupRulesWithContext(ctx, listAccessGroupRulesOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+				serverSleepTime = time.Duration(0)
+
+				// Disable retries and test again
+				iamAccessGroupsService.DisableRetries()
+				result, response, operationErr = iamAccessGroupsService.ListAccessGroupRules(listAccessGroupRulesOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				serverSleepTime = 100 * time.Millisecond
+				_, _, operationErr = iamAccessGroupsService.ListAccessGroupRulesWithContext(ctx, listAccessGroupRulesOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+				serverSleepTime = time.Duration(0)
 			})
 			It(`Invoke ListAccessGroupRules with error: Operation validation and request error`, func() {
 				iamAccessGroupsService, serviceErr := iamaccessgroupsv2.NewIamAccessGroupsV2(&iamaccessgroupsv2.IamAccessGroupsV2Options{
@@ -2447,6 +3104,13 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				iamAccessGroupsService.EnableRetries(0, 0)
+				result, response, operationErr = iamAccessGroupsService.GetAccessGroupRule(getAccessGroupRuleOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
 			})
 			AfterEach(func() {
 				testServer.Close()
@@ -2456,16 +3120,23 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 
 	Describe(`GetAccessGroupRule(getAccessGroupRuleOptions *GetAccessGroupRuleOptions)`, func() {
 		getAccessGroupRulePath := "/groups/testString/rules/testString"
+		var serverSleepTime time.Duration
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
+				serverSleepTime = 0
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
 					Expect(req.URL.EscapedPath()).To(Equal(getAccessGroupRulePath))
 					Expect(req.Method).To(Equal("GET"))
+
 					Expect(req.Header["Transaction-Id"]).ToNot(BeNil())
 					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
+					// Sleep a short time to support a timeout test
+					time.Sleep(serverSleepTime)
+
+					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
 					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "expiration": 10, "realm_name": "RealmName", "access_group_id": "AccessGroupID", "account_id": "AccountID", "conditions": [{"claim": "Claim", "operator": "Operator", "value": "Value"}], "created_at": "CreatedAt", "created_by_id": "CreatedByID", "last_modified_at": "LastModifiedAt", "last_modified_by_id": "LastModifiedByID"}`)
@@ -2478,6 +3149,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				})
 				Expect(serviceErr).To(BeNil())
 				Expect(iamAccessGroupsService).ToNot(BeNil())
+				iamAccessGroupsService.EnableRetries(0, 0)
 
 				// Invoke operation with nil options model (negative test)
 				result, response, operationErr := iamAccessGroupsService.GetAccessGroupRule(nil)
@@ -2497,6 +3169,31 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				serverSleepTime = 100 * time.Millisecond
+				_, _, operationErr = iamAccessGroupsService.GetAccessGroupRuleWithContext(ctx, getAccessGroupRuleOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+				serverSleepTime = time.Duration(0)
+
+				// Disable retries and test again
+				iamAccessGroupsService.DisableRetries()
+				result, response, operationErr = iamAccessGroupsService.GetAccessGroupRule(getAccessGroupRuleOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				serverSleepTime = 100 * time.Millisecond
+				_, _, operationErr = iamAccessGroupsService.GetAccessGroupRuleWithContext(ctx, getAccessGroupRuleOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+				serverSleepTime = time.Duration(0)
 			})
 			It(`Invoke GetAccessGroupRule with error: Operation validation and request error`, func() {
 				iamAccessGroupsService, serviceErr := iamaccessgroupsv2.NewIamAccessGroupsV2(&iamaccessgroupsv2.IamAccessGroupsV2Options{
@@ -2582,6 +3279,13 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				iamAccessGroupsService.EnableRetries(0, 0)
+				result, response, operationErr = iamAccessGroupsService.ReplaceAccessGroupRule(replaceAccessGroupRuleOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
 			})
 			AfterEach(func() {
 				testServer.Close()
@@ -2591,18 +3295,41 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 
 	Describe(`ReplaceAccessGroupRule(replaceAccessGroupRuleOptions *ReplaceAccessGroupRuleOptions)`, func() {
 		replaceAccessGroupRulePath := "/groups/testString/rules/testString"
+		var serverSleepTime time.Duration
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
+				serverSleepTime = 0
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
 					Expect(req.URL.EscapedPath()).To(Equal(replaceAccessGroupRulePath))
 					Expect(req.Method).To(Equal("PUT"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
 					Expect(req.Header["If-Match"]).ToNot(BeNil())
 					Expect(req.Header["If-Match"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					Expect(req.Header["Transaction-Id"]).ToNot(BeNil())
 					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
+					// Sleep a short time to support a timeout test
+					time.Sleep(serverSleepTime)
+
+					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
 					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "expiration": 10, "realm_name": "RealmName", "access_group_id": "AccessGroupID", "account_id": "AccountID", "conditions": [{"claim": "Claim", "operator": "Operator", "value": "Value"}], "created_at": "CreatedAt", "created_by_id": "CreatedByID", "last_modified_at": "LastModifiedAt", "last_modified_by_id": "LastModifiedByID"}`)
@@ -2615,6 +3342,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				})
 				Expect(serviceErr).To(BeNil())
 				Expect(iamAccessGroupsService).ToNot(BeNil())
+				iamAccessGroupsService.EnableRetries(0, 0)
 
 				// Invoke operation with nil options model (negative test)
 				result, response, operationErr := iamAccessGroupsService.ReplaceAccessGroupRule(nil)
@@ -2645,6 +3373,31 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				serverSleepTime = 100 * time.Millisecond
+				_, _, operationErr = iamAccessGroupsService.ReplaceAccessGroupRuleWithContext(ctx, replaceAccessGroupRuleOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+				serverSleepTime = time.Duration(0)
+
+				// Disable retries and test again
+				iamAccessGroupsService.DisableRetries()
+				result, response, operationErr = iamAccessGroupsService.ReplaceAccessGroupRule(replaceAccessGroupRuleOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				serverSleepTime = 100 * time.Millisecond
+				_, _, operationErr = iamAccessGroupsService.ReplaceAccessGroupRuleWithContext(ctx, replaceAccessGroupRuleOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+				serverSleepTime = time.Duration(0)
 			})
 			It(`Invoke ReplaceAccessGroupRule with error: Operation validation and request error`, func() {
 				iamAccessGroupsService, serviceErr := iamaccessgroupsv2.NewIamAccessGroupsV2(&iamaccessgroupsv2.IamAccessGroupsV2Options{
@@ -2703,6 +3456,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 					// Verify the contents of the request
 					Expect(req.URL.EscapedPath()).To(Equal(removeAccessGroupRulePath))
 					Expect(req.Method).To(Equal("DELETE"))
+
 					Expect(req.Header["Transaction-Id"]).ToNot(BeNil())
 					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					res.WriteHeader(204)
@@ -2715,6 +3469,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				})
 				Expect(serviceErr).To(BeNil())
 				Expect(iamAccessGroupsService).ToNot(BeNil())
+				iamAccessGroupsService.EnableRetries(0, 0)
 
 				// Invoke operation with nil options model (negative test)
 				response, operationErr := iamAccessGroupsService.RemoveAccessGroupRule(nil)
@@ -2729,6 +3484,12 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				removeAccessGroupRuleOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
+				response, operationErr = iamAccessGroupsService.RemoveAccessGroupRule(removeAccessGroupRuleOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Disable retries and test again
+				iamAccessGroupsService.DisableRetries()
 				response, operationErr = iamAccessGroupsService.RemoveAccessGroupRule(removeAccessGroupRuleOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())

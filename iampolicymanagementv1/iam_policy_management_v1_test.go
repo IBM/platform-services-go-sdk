@@ -18,6 +18,7 @@ package iampolicymanagementv1_test
 
 import (
 	"bytes"
+	"context"
 	"fmt"
 	"github.com/IBM/go-sdk-core/v4/core"
 	"github.com/IBM/platform-services-go-sdk/iampolicymanagementv1"
@@ -183,6 +184,13 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				iamPolicyManagementService.EnableRetries(0, 0)
+				result, response, operationErr = iamPolicyManagementService.ListPolicies(listPoliciesOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
 			})
 			AfterEach(func() {
 				testServer.Close()
@@ -192,14 +200,17 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 
 	Describe(`ListPolicies(listPoliciesOptions *ListPoliciesOptions)`, func() {
 		listPoliciesPath := "/v1/policies"
+		var serverSleepTime time.Duration
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
+				serverSleepTime = 0
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
 					Expect(req.URL.EscapedPath()).To(Equal(listPoliciesPath))
 					Expect(req.Method).To(Equal("GET"))
+
 					Expect(req.Header["Accept-Language"]).ToNot(BeNil())
 					Expect(req.Header["Accept-Language"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"testString"}))
@@ -212,6 +223,10 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 
 					Expect(req.URL.Query()["service_type"]).To(Equal([]string{"testString"}))
 
+					// Sleep a short time to support a timeout test
+					time.Sleep(serverSleepTime)
+
+					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
 					fmt.Fprintf(res, "%s", `{"policies": [{"id": "ID", "type": "Type", "subjects": [{"attributes": [{"name": "Name", "value": "Value"}]}], "roles": [{"role_id": "RoleID", "display_name": "DisplayName", "description": "Description"}], "resources": [{"attributes": [{"name": "Name", "value": "Value", "operator": "Operator"}]}], "href": "Href", "created_at": "2019-01-01T12:00:00", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00", "last_modified_by_id": "LastModifiedByID"}]}`)
@@ -224,6 +239,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				})
 				Expect(serviceErr).To(BeNil())
 				Expect(iamPolicyManagementService).ToNot(BeNil())
+				iamPolicyManagementService.EnableRetries(0, 0)
 
 				// Invoke operation with nil options model (negative test)
 				result, response, operationErr := iamPolicyManagementService.ListPolicies(nil)
@@ -246,6 +262,31 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				serverSleepTime = 100 * time.Millisecond
+				_, _, operationErr = iamPolicyManagementService.ListPoliciesWithContext(ctx, listPoliciesOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+				serverSleepTime = time.Duration(0)
+
+				// Disable retries and test again
+				iamPolicyManagementService.DisableRetries()
+				result, response, operationErr = iamPolicyManagementService.ListPolicies(listPoliciesOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				serverSleepTime = 100 * time.Millisecond
+				_, _, operationErr = iamPolicyManagementService.ListPoliciesWithContext(ctx, listPoliciesOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+				serverSleepTime = time.Duration(0)
 			})
 			It(`Invoke ListPolicies with error: Operation validation and request error`, func() {
 				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
@@ -346,6 +387,13 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				iamPolicyManagementService.EnableRetries(0, 0)
+				result, response, operationErr = iamPolicyManagementService.CreatePolicy(createPolicyOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
 			})
 			AfterEach(func() {
 				testServer.Close()
@@ -355,16 +403,39 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 
 	Describe(`CreatePolicy(createPolicyOptions *CreatePolicyOptions)`, func() {
 		createPolicyPath := "/v1/policies"
+		var serverSleepTime time.Duration
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
+				serverSleepTime = 0
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
 					Expect(req.URL.EscapedPath()).To(Equal(createPolicyPath))
 					Expect(req.Method).To(Equal("POST"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
 					Expect(req.Header["Accept-Language"]).ToNot(BeNil())
 					Expect(req.Header["Accept-Language"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
+					// Sleep a short time to support a timeout test
+					time.Sleep(serverSleepTime)
+
+					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
 					fmt.Fprintf(res, "%s", `{"id": "ID", "type": "Type", "subjects": [{"attributes": [{"name": "Name", "value": "Value"}]}], "roles": [{"role_id": "RoleID", "display_name": "DisplayName", "description": "Description"}], "resources": [{"attributes": [{"name": "Name", "value": "Value", "operator": "Operator"}]}], "href": "Href", "created_at": "2019-01-01T12:00:00", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00", "last_modified_by_id": "LastModifiedByID"}`)
@@ -377,6 +448,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				})
 				Expect(serviceErr).To(BeNil())
 				Expect(iamPolicyManagementService).ToNot(BeNil())
+				iamPolicyManagementService.EnableRetries(0, 0)
 
 				// Invoke operation with nil options model (negative test)
 				result, response, operationErr := iamPolicyManagementService.CreatePolicy(nil)
@@ -421,6 +493,31 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				serverSleepTime = 100 * time.Millisecond
+				_, _, operationErr = iamPolicyManagementService.CreatePolicyWithContext(ctx, createPolicyOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+				serverSleepTime = time.Duration(0)
+
+				// Disable retries and test again
+				iamPolicyManagementService.DisableRetries()
+				result, response, operationErr = iamPolicyManagementService.CreatePolicy(createPolicyOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				serverSleepTime = 100 * time.Millisecond
+				_, _, operationErr = iamPolicyManagementService.CreatePolicyWithContext(ctx, createPolicyOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+				serverSleepTime = time.Duration(0)
 			})
 			It(`Invoke CreatePolicy with error: Operation validation and request error`, func() {
 				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
@@ -544,6 +641,13 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				iamPolicyManagementService.EnableRetries(0, 0)
+				result, response, operationErr = iamPolicyManagementService.UpdatePolicy(updatePolicyOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
 			})
 			AfterEach(func() {
 				testServer.Close()
@@ -553,16 +657,39 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 
 	Describe(`UpdatePolicy(updatePolicyOptions *UpdatePolicyOptions)`, func() {
 		updatePolicyPath := "/v1/policies/testString"
+		var serverSleepTime time.Duration
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
+				serverSleepTime = 0
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
 					Expect(req.URL.EscapedPath()).To(Equal(updatePolicyPath))
 					Expect(req.Method).To(Equal("PUT"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
 					Expect(req.Header["If-Match"]).ToNot(BeNil())
 					Expect(req.Header["If-Match"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
+					// Sleep a short time to support a timeout test
+					time.Sleep(serverSleepTime)
+
+					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
 					fmt.Fprintf(res, "%s", `{"id": "ID", "type": "Type", "subjects": [{"attributes": [{"name": "Name", "value": "Value"}]}], "roles": [{"role_id": "RoleID", "display_name": "DisplayName", "description": "Description"}], "resources": [{"attributes": [{"name": "Name", "value": "Value", "operator": "Operator"}]}], "href": "Href", "created_at": "2019-01-01T12:00:00", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00", "last_modified_by_id": "LastModifiedByID"}`)
@@ -575,6 +702,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				})
 				Expect(serviceErr).To(BeNil())
 				Expect(iamPolicyManagementService).ToNot(BeNil())
+				iamPolicyManagementService.EnableRetries(0, 0)
 
 				// Invoke operation with nil options model (negative test)
 				result, response, operationErr := iamPolicyManagementService.UpdatePolicy(nil)
@@ -620,6 +748,31 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				serverSleepTime = 100 * time.Millisecond
+				_, _, operationErr = iamPolicyManagementService.UpdatePolicyWithContext(ctx, updatePolicyOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+				serverSleepTime = time.Duration(0)
+
+				// Disable retries and test again
+				iamPolicyManagementService.DisableRetries()
+				result, response, operationErr = iamPolicyManagementService.UpdatePolicy(updatePolicyOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				serverSleepTime = 100 * time.Millisecond
+				_, _, operationErr = iamPolicyManagementService.UpdatePolicyWithContext(ctx, updatePolicyOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+				serverSleepTime = time.Duration(0)
 			})
 			It(`Invoke UpdatePolicy with error: Operation validation and request error`, func() {
 				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
@@ -714,6 +867,13 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				iamPolicyManagementService.EnableRetries(0, 0)
+				result, response, operationErr = iamPolicyManagementService.GetPolicy(getPolicyOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
 			})
 			AfterEach(func() {
 				testServer.Close()
@@ -723,14 +883,21 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 
 	Describe(`GetPolicy(getPolicyOptions *GetPolicyOptions)`, func() {
 		getPolicyPath := "/v1/policies/testString"
+		var serverSleepTime time.Duration
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
+				serverSleepTime = 0
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
 					Expect(req.URL.EscapedPath()).To(Equal(getPolicyPath))
 					Expect(req.Method).To(Equal("GET"))
+
+					// Sleep a short time to support a timeout test
+					time.Sleep(serverSleepTime)
+
+					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
 					fmt.Fprintf(res, "%s", `{"id": "ID", "type": "Type", "subjects": [{"attributes": [{"name": "Name", "value": "Value"}]}], "roles": [{"role_id": "RoleID", "display_name": "DisplayName", "description": "Description"}], "resources": [{"attributes": [{"name": "Name", "value": "Value", "operator": "Operator"}]}], "href": "Href", "created_at": "2019-01-01T12:00:00", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00", "last_modified_by_id": "LastModifiedByID"}`)
@@ -743,6 +910,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				})
 				Expect(serviceErr).To(BeNil())
 				Expect(iamPolicyManagementService).ToNot(BeNil())
+				iamPolicyManagementService.EnableRetries(0, 0)
 
 				// Invoke operation with nil options model (negative test)
 				result, response, operationErr := iamPolicyManagementService.GetPolicy(nil)
@@ -760,6 +928,31 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				serverSleepTime = 100 * time.Millisecond
+				_, _, operationErr = iamPolicyManagementService.GetPolicyWithContext(ctx, getPolicyOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+				serverSleepTime = time.Duration(0)
+
+				// Disable retries and test again
+				iamPolicyManagementService.DisableRetries()
+				result, response, operationErr = iamPolicyManagementService.GetPolicy(getPolicyOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				serverSleepTime = 100 * time.Millisecond
+				_, _, operationErr = iamPolicyManagementService.GetPolicyWithContext(ctx, getPolicyOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+				serverSleepTime = time.Duration(0)
 			})
 			It(`Invoke GetPolicy with error: Operation validation and request error`, func() {
 				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
@@ -805,6 +998,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 					// Verify the contents of the request
 					Expect(req.URL.EscapedPath()).To(Equal(deletePolicyPath))
 					Expect(req.Method).To(Equal("DELETE"))
+
 					res.WriteHeader(204)
 				}))
 			})
@@ -815,6 +1009,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				})
 				Expect(serviceErr).To(BeNil())
 				Expect(iamPolicyManagementService).ToNot(BeNil())
+				iamPolicyManagementService.EnableRetries(0, 0)
 
 				// Invoke operation with nil options model (negative test)
 				response, operationErr := iamPolicyManagementService.DeletePolicy(nil)
@@ -827,6 +1022,12 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				deletePolicyOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
+				response, operationErr = iamPolicyManagementService.DeletePolicy(deletePolicyOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Disable retries and test again
+				iamPolicyManagementService.DisableRetries()
 				response, operationErr = iamPolicyManagementService.DeletePolicy(deletePolicyOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
@@ -1002,6 +1203,13 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				iamPolicyManagementService.EnableRetries(0, 0)
+				result, response, operationErr = iamPolicyManagementService.ListRoles(listRolesOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
 			})
 			AfterEach(func() {
 				testServer.Close()
@@ -1011,20 +1219,27 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 
 	Describe(`ListRoles(listRolesOptions *ListRolesOptions)`, func() {
 		listRolesPath := "/v2/roles"
+		var serverSleepTime time.Duration
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
+				serverSleepTime = 0
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
 					Expect(req.URL.EscapedPath()).To(Equal(listRolesPath))
 					Expect(req.Method).To(Equal("GET"))
+
 					Expect(req.Header["Accept-Language"]).ToNot(BeNil())
 					Expect(req.Header["Accept-Language"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"testString"}))
 
 					Expect(req.URL.Query()["service_name"]).To(Equal([]string{"testString"}))
 
+					// Sleep a short time to support a timeout test
+					time.Sleep(serverSleepTime)
+
+					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
 					fmt.Fprintf(res, "%s", `{"custom_roles": [{"id": "ID", "display_name": "DisplayName", "description": "Description", "actions": ["Actions"], "crn": "Crn", "name": "Name", "account_id": "AccountID", "service_name": "ServiceName", "created_at": "2019-01-01T12:00:00", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00", "last_modified_by_id": "LastModifiedByID", "href": "Href"}], "service_roles": [{"display_name": "DisplayName", "description": "Description", "actions": ["Actions"], "crn": "Crn"}], "system_roles": [{"display_name": "DisplayName", "description": "Description", "actions": ["Actions"], "crn": "Crn"}]}`)
@@ -1037,6 +1252,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				})
 				Expect(serviceErr).To(BeNil())
 				Expect(iamPolicyManagementService).ToNot(BeNil())
+				iamPolicyManagementService.EnableRetries(0, 0)
 
 				// Invoke operation with nil options model (negative test)
 				result, response, operationErr := iamPolicyManagementService.ListRoles(nil)
@@ -1056,6 +1272,31 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				serverSleepTime = 100 * time.Millisecond
+				_, _, operationErr = iamPolicyManagementService.ListRolesWithContext(ctx, listRolesOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+				serverSleepTime = time.Duration(0)
+
+				// Disable retries and test again
+				iamPolicyManagementService.DisableRetries()
+				result, response, operationErr = iamPolicyManagementService.ListRoles(listRolesOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				serverSleepTime = 100 * time.Millisecond
+				_, _, operationErr = iamPolicyManagementService.ListRolesWithContext(ctx, listRolesOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+				serverSleepTime = time.Duration(0)
 			})
 			It(`Invoke ListRoles with error: Operation request error`, func() {
 				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
@@ -1125,6 +1366,13 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				iamPolicyManagementService.EnableRetries(0, 0)
+				result, response, operationErr = iamPolicyManagementService.CreateRole(createRoleOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
 			})
 			AfterEach(func() {
 				testServer.Close()
@@ -1134,16 +1382,39 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 
 	Describe(`CreateRole(createRoleOptions *CreateRoleOptions)`, func() {
 		createRolePath := "/v2/roles"
+		var serverSleepTime time.Duration
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
+				serverSleepTime = 0
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
 					Expect(req.URL.EscapedPath()).To(Equal(createRolePath))
 					Expect(req.Method).To(Equal("POST"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
 					Expect(req.Header["Accept-Language"]).ToNot(BeNil())
 					Expect(req.Header["Accept-Language"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
+					// Sleep a short time to support a timeout test
+					time.Sleep(serverSleepTime)
+
+					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
 					fmt.Fprintf(res, "%s", `{"id": "ID", "display_name": "DisplayName", "description": "Description", "actions": ["Actions"], "crn": "Crn", "name": "Name", "account_id": "AccountID", "service_name": "ServiceName", "created_at": "2019-01-01T12:00:00", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00", "last_modified_by_id": "LastModifiedByID", "href": "Href"}`)
@@ -1156,6 +1427,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				})
 				Expect(serviceErr).To(BeNil())
 				Expect(iamPolicyManagementService).ToNot(BeNil())
+				iamPolicyManagementService.EnableRetries(0, 0)
 
 				// Invoke operation with nil options model (negative test)
 				result, response, operationErr := iamPolicyManagementService.CreateRole(nil)
@@ -1179,6 +1451,31 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				serverSleepTime = 100 * time.Millisecond
+				_, _, operationErr = iamPolicyManagementService.CreateRoleWithContext(ctx, createRoleOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+				serverSleepTime = time.Duration(0)
+
+				// Disable retries and test again
+				iamPolicyManagementService.DisableRetries()
+				result, response, operationErr = iamPolicyManagementService.CreateRole(createRoleOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				serverSleepTime = 100 * time.Millisecond
+				_, _, operationErr = iamPolicyManagementService.CreateRoleWithContext(ctx, createRoleOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+				serverSleepTime = time.Duration(0)
 			})
 			It(`Invoke CreateRole with error: Operation validation and request error`, func() {
 				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
@@ -1257,6 +1554,13 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				iamPolicyManagementService.EnableRetries(0, 0)
+				result, response, operationErr = iamPolicyManagementService.UpdateRole(updateRoleOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
 			})
 			AfterEach(func() {
 				testServer.Close()
@@ -1266,16 +1570,39 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 
 	Describe(`UpdateRole(updateRoleOptions *UpdateRoleOptions)`, func() {
 		updateRolePath := "/v2/roles/testString"
+		var serverSleepTime time.Duration
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
+				serverSleepTime = 0
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
 					Expect(req.URL.EscapedPath()).To(Equal(updateRolePath))
 					Expect(req.Method).To(Equal("PUT"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
 					Expect(req.Header["If-Match"]).ToNot(BeNil())
 					Expect(req.Header["If-Match"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
+					// Sleep a short time to support a timeout test
+					time.Sleep(serverSleepTime)
+
+					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
 					fmt.Fprintf(res, "%s", `{"id": "ID", "display_name": "DisplayName", "description": "Description", "actions": ["Actions"], "crn": "Crn", "name": "Name", "account_id": "AccountID", "service_name": "ServiceName", "created_at": "2019-01-01T12:00:00", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00", "last_modified_by_id": "LastModifiedByID", "href": "Href"}`)
@@ -1288,6 +1615,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				})
 				Expect(serviceErr).To(BeNil())
 				Expect(iamPolicyManagementService).ToNot(BeNil())
+				iamPolicyManagementService.EnableRetries(0, 0)
 
 				// Invoke operation with nil options model (negative test)
 				result, response, operationErr := iamPolicyManagementService.UpdateRole(nil)
@@ -1309,6 +1637,31 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				serverSleepTime = 100 * time.Millisecond
+				_, _, operationErr = iamPolicyManagementService.UpdateRoleWithContext(ctx, updateRoleOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+				serverSleepTime = time.Duration(0)
+
+				// Disable retries and test again
+				iamPolicyManagementService.DisableRetries()
+				result, response, operationErr = iamPolicyManagementService.UpdateRole(updateRoleOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				serverSleepTime = 100 * time.Millisecond
+				_, _, operationErr = iamPolicyManagementService.UpdateRoleWithContext(ctx, updateRoleOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+				serverSleepTime = time.Duration(0)
 			})
 			It(`Invoke UpdateRole with error: Operation validation and request error`, func() {
 				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
@@ -1379,6 +1732,13 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				iamPolicyManagementService.EnableRetries(0, 0)
+				result, response, operationErr = iamPolicyManagementService.GetRole(getRoleOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
 			})
 			AfterEach(func() {
 				testServer.Close()
@@ -1388,14 +1748,21 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 
 	Describe(`GetRole(getRoleOptions *GetRoleOptions)`, func() {
 		getRolePath := "/v2/roles/testString"
+		var serverSleepTime time.Duration
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
+				serverSleepTime = 0
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
 					Expect(req.URL.EscapedPath()).To(Equal(getRolePath))
 					Expect(req.Method).To(Equal("GET"))
+
+					// Sleep a short time to support a timeout test
+					time.Sleep(serverSleepTime)
+
+					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
 					fmt.Fprintf(res, "%s", `{"id": "ID", "display_name": "DisplayName", "description": "Description", "actions": ["Actions"], "crn": "Crn", "name": "Name", "account_id": "AccountID", "service_name": "ServiceName", "created_at": "2019-01-01T12:00:00", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00", "last_modified_by_id": "LastModifiedByID", "href": "Href"}`)
@@ -1408,6 +1775,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				})
 				Expect(serviceErr).To(BeNil())
 				Expect(iamPolicyManagementService).ToNot(BeNil())
+				iamPolicyManagementService.EnableRetries(0, 0)
 
 				// Invoke operation with nil options model (negative test)
 				result, response, operationErr := iamPolicyManagementService.GetRole(nil)
@@ -1425,6 +1793,31 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				serverSleepTime = 100 * time.Millisecond
+				_, _, operationErr = iamPolicyManagementService.GetRoleWithContext(ctx, getRoleOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+				serverSleepTime = time.Duration(0)
+
+				// Disable retries and test again
+				iamPolicyManagementService.DisableRetries()
+				result, response, operationErr = iamPolicyManagementService.GetRole(getRoleOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				serverSleepTime = 100 * time.Millisecond
+				_, _, operationErr = iamPolicyManagementService.GetRoleWithContext(ctx, getRoleOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+				serverSleepTime = time.Duration(0)
 			})
 			It(`Invoke GetRole with error: Operation validation and request error`, func() {
 				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
@@ -1470,6 +1863,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 					// Verify the contents of the request
 					Expect(req.URL.EscapedPath()).To(Equal(deleteRolePath))
 					Expect(req.Method).To(Equal("DELETE"))
+
 					res.WriteHeader(204)
 				}))
 			})
@@ -1480,6 +1874,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				})
 				Expect(serviceErr).To(BeNil())
 				Expect(iamPolicyManagementService).ToNot(BeNil())
+				iamPolicyManagementService.EnableRetries(0, 0)
 
 				// Invoke operation with nil options model (negative test)
 				response, operationErr := iamPolicyManagementService.DeleteRole(nil)
@@ -1492,6 +1887,12 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				deleteRoleOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
+				response, operationErr = iamPolicyManagementService.DeleteRole(deleteRoleOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Disable retries and test again
+				iamPolicyManagementService.DisableRetries()
 				response, operationErr = iamPolicyManagementService.DeleteRole(deleteRoleOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
