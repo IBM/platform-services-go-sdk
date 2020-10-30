@@ -15,7 +15,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-ef5e13c2-20200915-144510
+ * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-8d569e8f-20201030-111043
  */
  
 
@@ -23,13 +23,16 @@
 package globalcatalogv1
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"github.com/IBM/go-sdk-core/v4/core"
 	common "github.com/IBM/platform-services-go-sdk/common"
 	"github.com/go-openapi/strfmt"
 	"io"
+	"net/http"
 	"reflect"
+	"time"
 )
 
 // GlobalCatalogV1 : The catalog service manages offerings across geographies as the system of record. The catalog
@@ -117,15 +120,53 @@ func (globalCatalog *GlobalCatalogV1) SetServiceURL(url string) error {
 	return globalCatalog.Service.SetServiceURL(url)
 }
 
+// GetServiceURL returns the service URL
+func (globalCatalog *GlobalCatalogV1) GetServiceURL() string {
+	return globalCatalog.Service.GetServiceURL()
+}
+
+// SetDefaultHeaders sets HTTP headers to be sent in every request
+func (globalCatalog *GlobalCatalogV1) SetDefaultHeaders(headers http.Header) {
+	globalCatalog.Service.SetDefaultHeaders(headers)
+}
+
+// SetEnableGzipCompression sets the service's EnableGzipCompression field
+func (globalCatalog *GlobalCatalogV1) SetEnableGzipCompression(enableGzip bool) {
+	globalCatalog.Service.SetEnableGzipCompression(enableGzip)
+}
+
+// GetEnableGzipCompression returns the service's EnableGzipCompression field
+func (globalCatalog *GlobalCatalogV1) GetEnableGzipCompression() bool {
+	return globalCatalog.Service.GetEnableGzipCompression()
+}
+
+// EnableRetries enables automatic retries for requests invoked for this service instance.
+// If either parameter is specified as 0, then a default value is used instead.
+func (globalCatalog *GlobalCatalogV1) EnableRetries(maxRetries int, maxRetryInterval time.Duration) {
+	globalCatalog.Service.EnableRetries(maxRetries, maxRetryInterval)
+}
+
+// DisableRetries disables automatic retries for requests invoked for this service instance.
+func (globalCatalog *GlobalCatalogV1) DisableRetries() {
+	globalCatalog.Service.DisableRetries()
+}
+
 // ListCatalogEntries : Returns parent catalog entries
 // Includes key information, such as ID, name, kind, CRN, tags, and provider. This endpoint is ETag enabled.
 func (globalCatalog *GlobalCatalogV1) ListCatalogEntries(listCatalogEntriesOptions *ListCatalogEntriesOptions) (result *EntrySearchResult, response *core.DetailedResponse, err error) {
+	return globalCatalog.ListCatalogEntriesWithContext(context.Background(), listCatalogEntriesOptions)
+}
+
+// ListCatalogEntriesWithContext is an alternate form of the ListCatalogEntries method which supports a Context parameter
+func (globalCatalog *GlobalCatalogV1) ListCatalogEntriesWithContext(ctx context.Context, listCatalogEntriesOptions *ListCatalogEntriesOptions) (result *EntrySearchResult, response *core.DetailedResponse, err error) {
 	err = core.ValidateStruct(listCatalogEntriesOptions, "listCatalogEntriesOptions")
 	if err != nil {
 		return
 	}
 
 	builder := core.NewRequestBuilder(core.GET)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = globalCatalog.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(globalCatalog.Service.Options.URL, `/`, nil)
 	if err != nil {
 		return
@@ -187,6 +228,11 @@ func (globalCatalog *GlobalCatalogV1) ListCatalogEntries(listCatalogEntriesOptio
 // provided token. This API will return an ETag that can be used for standard ETag processing, except when depth query
 // is used.
 func (globalCatalog *GlobalCatalogV1) CreateCatalogEntry(createCatalogEntryOptions *CreateCatalogEntryOptions) (result *CatalogEntry, response *core.DetailedResponse, err error) {
+	return globalCatalog.CreateCatalogEntryWithContext(context.Background(), createCatalogEntryOptions)
+}
+
+// CreateCatalogEntryWithContext is an alternate form of the CreateCatalogEntry method which supports a Context parameter
+func (globalCatalog *GlobalCatalogV1) CreateCatalogEntryWithContext(ctx context.Context, createCatalogEntryOptions *CreateCatalogEntryOptions) (result *CatalogEntry, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(createCatalogEntryOptions, "createCatalogEntryOptions cannot be nil")
 	if err != nil {
 		return
@@ -197,6 +243,8 @@ func (globalCatalog *GlobalCatalogV1) CreateCatalogEntry(createCatalogEntryOptio
 	}
 
 	builder := core.NewRequestBuilder(core.POST)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = globalCatalog.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(globalCatalog.Service.Options.URL, `/`, nil)
 	if err != nil {
 		return
@@ -282,6 +330,11 @@ func (globalCatalog *GlobalCatalogV1) CreateCatalogEntry(createCatalogEntryOptio
 // This endpoint returns a specific catalog entry using the object's unique identifier, for example
 // `/_*service_name*?complete=true`. This endpoint is ETag enabled.
 func (globalCatalog *GlobalCatalogV1) GetCatalogEntry(getCatalogEntryOptions *GetCatalogEntryOptions) (result *CatalogEntry, response *core.DetailedResponse, err error) {
+	return globalCatalog.GetCatalogEntryWithContext(context.Background(), getCatalogEntryOptions)
+}
+
+// GetCatalogEntryWithContext is an alternate form of the GetCatalogEntry method which supports a Context parameter
+func (globalCatalog *GlobalCatalogV1) GetCatalogEntryWithContext(ctx context.Context, getCatalogEntryOptions *GetCatalogEntryOptions) (result *CatalogEntry, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(getCatalogEntryOptions, "getCatalogEntryOptions cannot be nil")
 	if err != nil {
 		return
@@ -296,6 +349,8 @@ func (globalCatalog *GlobalCatalogV1) GetCatalogEntry(getCatalogEntryOptions *Ge
 	}
 
 	builder := core.NewRequestBuilder(core.GET)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = globalCatalog.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(globalCatalog.Service.Options.URL, `/{id}`, pathParamsMap)
 	if err != nil {
 		return
@@ -350,6 +405,11 @@ func (globalCatalog *GlobalCatalogV1) GetCatalogEntry(getCatalogEntryOptions *Ge
 // Update a catalog entry. The visibility of the catalog entry cannot be modified with this endpoint. You must be an
 // administrator or editor in the scope of the provided token. This endpoint is ETag enabled.
 func (globalCatalog *GlobalCatalogV1) UpdateCatalogEntry(updateCatalogEntryOptions *UpdateCatalogEntryOptions) (result *CatalogEntry, response *core.DetailedResponse, err error) {
+	return globalCatalog.UpdateCatalogEntryWithContext(context.Background(), updateCatalogEntryOptions)
+}
+
+// UpdateCatalogEntryWithContext is an alternate form of the UpdateCatalogEntry method which supports a Context parameter
+func (globalCatalog *GlobalCatalogV1) UpdateCatalogEntryWithContext(ctx context.Context, updateCatalogEntryOptions *UpdateCatalogEntryOptions) (result *CatalogEntry, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(updateCatalogEntryOptions, "updateCatalogEntryOptions cannot be nil")
 	if err != nil {
 		return
@@ -364,6 +424,8 @@ func (globalCatalog *GlobalCatalogV1) UpdateCatalogEntry(updateCatalogEntryOptio
 	}
 
 	builder := core.NewRequestBuilder(core.PUT)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = globalCatalog.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(globalCatalog.Service.Options.URL, `/{id}`, pathParamsMap)
 	if err != nil {
 		return
@@ -450,6 +512,11 @@ func (globalCatalog *GlobalCatalogV1) UpdateCatalogEntry(updateCatalogEntryOptio
 // restored using the PUT restore API. After two weeks, it will be deleted and cannot be restored. You must have
 // administrator role in the scope of the provided token to modify it. This endpoint is ETag enabled.
 func (globalCatalog *GlobalCatalogV1) DeleteCatalogEntry(deleteCatalogEntryOptions *DeleteCatalogEntryOptions) (response *core.DetailedResponse, err error) {
+	return globalCatalog.DeleteCatalogEntryWithContext(context.Background(), deleteCatalogEntryOptions)
+}
+
+// DeleteCatalogEntryWithContext is an alternate form of the DeleteCatalogEntry method which supports a Context parameter
+func (globalCatalog *GlobalCatalogV1) DeleteCatalogEntryWithContext(ctx context.Context, deleteCatalogEntryOptions *DeleteCatalogEntryOptions) (response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(deleteCatalogEntryOptions, "deleteCatalogEntryOptions cannot be nil")
 	if err != nil {
 		return
@@ -464,6 +531,8 @@ func (globalCatalog *GlobalCatalogV1) DeleteCatalogEntry(deleteCatalogEntryOptio
 	}
 
 	builder := core.NewRequestBuilder(core.DELETE)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = globalCatalog.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(globalCatalog.Service.Options.URL, `/{id}`, pathParamsMap)
 	if err != nil {
 		return
@@ -498,6 +567,11 @@ func (globalCatalog *GlobalCatalogV1) DeleteCatalogEntry(deleteCatalogEntryOptio
 // GetChildObjects : Get child catalog entries of a specific kind
 // Fetch child catalog entries for a catalog entry with a specific id. This endpoint is ETag enabled.
 func (globalCatalog *GlobalCatalogV1) GetChildObjects(getChildObjectsOptions *GetChildObjectsOptions) (result *EntrySearchResult, response *core.DetailedResponse, err error) {
+	return globalCatalog.GetChildObjectsWithContext(context.Background(), getChildObjectsOptions)
+}
+
+// GetChildObjectsWithContext is an alternate form of the GetChildObjects method which supports a Context parameter
+func (globalCatalog *GlobalCatalogV1) GetChildObjectsWithContext(ctx context.Context, getChildObjectsOptions *GetChildObjectsOptions) (result *EntrySearchResult, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(getChildObjectsOptions, "getChildObjectsOptions cannot be nil")
 	if err != nil {
 		return
@@ -513,6 +587,8 @@ func (globalCatalog *GlobalCatalogV1) GetChildObjects(getChildObjectsOptions *Ge
 	}
 
 	builder := core.NewRequestBuilder(core.GET)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = globalCatalog.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(globalCatalog.Service.Options.URL, `/{id}/{kind}`, pathParamsMap)
 	if err != nil {
 		return
@@ -572,6 +648,11 @@ func (globalCatalog *GlobalCatalogV1) GetChildObjects(getChildObjectsOptions *Ge
 // RestoreCatalogEntry : Restore archived catalog entry
 // Restore an archived catalog entry. You must have an administrator role in the scope of the provided token.
 func (globalCatalog *GlobalCatalogV1) RestoreCatalogEntry(restoreCatalogEntryOptions *RestoreCatalogEntryOptions) (response *core.DetailedResponse, err error) {
+	return globalCatalog.RestoreCatalogEntryWithContext(context.Background(), restoreCatalogEntryOptions)
+}
+
+// RestoreCatalogEntryWithContext is an alternate form of the RestoreCatalogEntry method which supports a Context parameter
+func (globalCatalog *GlobalCatalogV1) RestoreCatalogEntryWithContext(ctx context.Context, restoreCatalogEntryOptions *RestoreCatalogEntryOptions) (response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(restoreCatalogEntryOptions, "restoreCatalogEntryOptions cannot be nil")
 	if err != nil {
 		return
@@ -586,6 +667,8 @@ func (globalCatalog *GlobalCatalogV1) RestoreCatalogEntry(restoreCatalogEntryOpt
 	}
 
 	builder := core.NewRequestBuilder(core.PUT)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = globalCatalog.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(globalCatalog.Service.Options.URL, `/{id}/restore`, pathParamsMap)
 	if err != nil {
 		return
@@ -619,6 +702,11 @@ func (globalCatalog *GlobalCatalogV1) RestoreCatalogEntry(restoreCatalogEntryOpt
 // and any further restrictions on this object. You must have an administrator role in the scope of the provided token.
 // This endpoint is ETag enabled.
 func (globalCatalog *GlobalCatalogV1) GetVisibility(getVisibilityOptions *GetVisibilityOptions) (result *Visibility, response *core.DetailedResponse, err error) {
+	return globalCatalog.GetVisibilityWithContext(context.Background(), getVisibilityOptions)
+}
+
+// GetVisibilityWithContext is an alternate form of the GetVisibility method which supports a Context parameter
+func (globalCatalog *GlobalCatalogV1) GetVisibilityWithContext(ctx context.Context, getVisibilityOptions *GetVisibilityOptions) (result *Visibility, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(getVisibilityOptions, "getVisibilityOptions cannot be nil")
 	if err != nil {
 		return
@@ -633,6 +721,8 @@ func (globalCatalog *GlobalCatalogV1) GetVisibility(getVisibilityOptions *GetVis
 	}
 
 	builder := core.NewRequestBuilder(core.GET)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = globalCatalog.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(globalCatalog.Service.Options.URL, `/{id}/visibility`, pathParamsMap)
 	if err != nil {
 		return
@@ -675,6 +765,11 @@ func (globalCatalog *GlobalCatalogV1) GetVisibility(getVisibilityOptions *GetVis
 // Update an Object's Visibility. You must have an administrator role in the scope of the provided token. This endpoint
 // is ETag enabled.
 func (globalCatalog *GlobalCatalogV1) UpdateVisibility(updateVisibilityOptions *UpdateVisibilityOptions) (response *core.DetailedResponse, err error) {
+	return globalCatalog.UpdateVisibilityWithContext(context.Background(), updateVisibilityOptions)
+}
+
+// UpdateVisibilityWithContext is an alternate form of the UpdateVisibility method which supports a Context parameter
+func (globalCatalog *GlobalCatalogV1) UpdateVisibilityWithContext(ctx context.Context, updateVisibilityOptions *UpdateVisibilityOptions) (response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(updateVisibilityOptions, "updateVisibilityOptions cannot be nil")
 	if err != nil {
 		return
@@ -689,6 +784,8 @@ func (globalCatalog *GlobalCatalogV1) UpdateVisibility(updateVisibilityOptions *
 	}
 
 	builder := core.NewRequestBuilder(core.PUT)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = globalCatalog.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(globalCatalog.Service.Options.URL, `/{id}/visibility`, pathParamsMap)
 	if err != nil {
 		return
@@ -737,6 +834,11 @@ func (globalCatalog *GlobalCatalogV1) UpdateVisibility(updateVisibilityOptions *
 // This endpoint returns the pricing for an object. Static pricing is defined in the catalog. Dynamic pricing is stored
 // in Bluemix Pricing Catalog.
 func (globalCatalog *GlobalCatalogV1) GetPricing(getPricingOptions *GetPricingOptions) (result *PricingGet, response *core.DetailedResponse, err error) {
+	return globalCatalog.GetPricingWithContext(context.Background(), getPricingOptions)
+}
+
+// GetPricingWithContext is an alternate form of the GetPricing method which supports a Context parameter
+func (globalCatalog *GlobalCatalogV1) GetPricingWithContext(ctx context.Context, getPricingOptions *GetPricingOptions) (result *PricingGet, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(getPricingOptions, "getPricingOptions cannot be nil")
 	if err != nil {
 		return
@@ -751,6 +853,8 @@ func (globalCatalog *GlobalCatalogV1) GetPricing(getPricingOptions *GetPricingOp
 	}
 
 	builder := core.NewRequestBuilder(core.GET)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = globalCatalog.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(globalCatalog.Service.Options.URL, `/{id}/pricing`, pathParamsMap)
 	if err != nil {
 		return
@@ -792,6 +896,11 @@ func (globalCatalog *GlobalCatalogV1) GetPricing(getPricingOptions *GetPricingOp
 // GetAuditLogs : Get the audit logs for an object
 // This endpoint returns the audit logs for an object. Only administrators and editors can get logs.
 func (globalCatalog *GlobalCatalogV1) GetAuditLogs(getAuditLogsOptions *GetAuditLogsOptions) (result *AuditSearchResult, response *core.DetailedResponse, err error) {
+	return globalCatalog.GetAuditLogsWithContext(context.Background(), getAuditLogsOptions)
+}
+
+// GetAuditLogsWithContext is an alternate form of the GetAuditLogs method which supports a Context parameter
+func (globalCatalog *GlobalCatalogV1) GetAuditLogsWithContext(ctx context.Context, getAuditLogsOptions *GetAuditLogsOptions) (result *AuditSearchResult, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(getAuditLogsOptions, "getAuditLogsOptions cannot be nil")
 	if err != nil {
 		return
@@ -806,6 +915,8 @@ func (globalCatalog *GlobalCatalogV1) GetAuditLogs(getAuditLogsOptions *GetAudit
 	}
 
 	builder := core.NewRequestBuilder(core.GET)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = globalCatalog.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(globalCatalog.Service.Options.URL, `/{id}/logs`, pathParamsMap)
 	if err != nil {
 		return
@@ -859,6 +970,11 @@ func (globalCatalog *GlobalCatalogV1) GetAuditLogs(getAuditLogsOptions *GetAudit
 // ListArtifacts : Get artifacts
 // This endpoint returns a list of artifacts for an object.
 func (globalCatalog *GlobalCatalogV1) ListArtifacts(listArtifactsOptions *ListArtifactsOptions) (result *Artifacts, response *core.DetailedResponse, err error) {
+	return globalCatalog.ListArtifactsWithContext(context.Background(), listArtifactsOptions)
+}
+
+// ListArtifactsWithContext is an alternate form of the ListArtifacts method which supports a Context parameter
+func (globalCatalog *GlobalCatalogV1) ListArtifactsWithContext(ctx context.Context, listArtifactsOptions *ListArtifactsOptions) (result *Artifacts, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(listArtifactsOptions, "listArtifactsOptions cannot be nil")
 	if err != nil {
 		return
@@ -873,6 +989,8 @@ func (globalCatalog *GlobalCatalogV1) ListArtifacts(listArtifactsOptions *ListAr
 	}
 
 	builder := core.NewRequestBuilder(core.GET)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = globalCatalog.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(globalCatalog.Service.Options.URL, `/{object_id}/artifacts`, pathParamsMap)
 	if err != nil {
 		return
@@ -914,6 +1032,11 @@ func (globalCatalog *GlobalCatalogV1) ListArtifacts(listArtifactsOptions *ListAr
 // GetArtifact : Get artifact
 // This endpoint returns the binary of an artifact.
 func (globalCatalog *GlobalCatalogV1) GetArtifact(getArtifactOptions *GetArtifactOptions) (result io.ReadCloser, response *core.DetailedResponse, err error) {
+	return globalCatalog.GetArtifactWithContext(context.Background(), getArtifactOptions)
+}
+
+// GetArtifactWithContext is an alternate form of the GetArtifact method which supports a Context parameter
+func (globalCatalog *GlobalCatalogV1) GetArtifactWithContext(ctx context.Context, getArtifactOptions *GetArtifactOptions) (result io.ReadCloser, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(getArtifactOptions, "getArtifactOptions cannot be nil")
 	if err != nil {
 		return
@@ -929,6 +1052,8 @@ func (globalCatalog *GlobalCatalogV1) GetArtifact(getArtifactOptions *GetArtifac
 	}
 
 	builder := core.NewRequestBuilder(core.GET)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = globalCatalog.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(globalCatalog.Service.Options.URL, `/{object_id}/artifacts/{artifact_id}`, pathParamsMap)
 	if err != nil {
 		return
@@ -964,6 +1089,11 @@ func (globalCatalog *GlobalCatalogV1) GetArtifact(getArtifactOptions *GetArtifac
 // UploadArtifact : Upload artifact
 // This endpoint uploads the binary for an artifact. Only administrators and editors can upload artifacts.
 func (globalCatalog *GlobalCatalogV1) UploadArtifact(uploadArtifactOptions *UploadArtifactOptions) (response *core.DetailedResponse, err error) {
+	return globalCatalog.UploadArtifactWithContext(context.Background(), uploadArtifactOptions)
+}
+
+// UploadArtifactWithContext is an alternate form of the UploadArtifact method which supports a Context parameter
+func (globalCatalog *GlobalCatalogV1) UploadArtifactWithContext(ctx context.Context, uploadArtifactOptions *UploadArtifactOptions) (response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(uploadArtifactOptions, "uploadArtifactOptions cannot be nil")
 	if err != nil {
 		return
@@ -979,6 +1109,8 @@ func (globalCatalog *GlobalCatalogV1) UploadArtifact(uploadArtifactOptions *Uplo
 	}
 
 	builder := core.NewRequestBuilder(core.PUT)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = globalCatalog.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(globalCatalog.Service.Options.URL, `/{object_id}/artifacts/{artifact_id}`, pathParamsMap)
 	if err != nil {
 		return
@@ -1018,6 +1150,11 @@ func (globalCatalog *GlobalCatalogV1) UploadArtifact(uploadArtifactOptions *Uplo
 // DeleteArtifact : Delete artifact
 // This endpoint deletes an artifact. Only administrators and editors can delete artifacts.
 func (globalCatalog *GlobalCatalogV1) DeleteArtifact(deleteArtifactOptions *DeleteArtifactOptions) (response *core.DetailedResponse, err error) {
+	return globalCatalog.DeleteArtifactWithContext(context.Background(), deleteArtifactOptions)
+}
+
+// DeleteArtifactWithContext is an alternate form of the DeleteArtifact method which supports a Context parameter
+func (globalCatalog *GlobalCatalogV1) DeleteArtifactWithContext(ctx context.Context, deleteArtifactOptions *DeleteArtifactOptions) (response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(deleteArtifactOptions, "deleteArtifactOptions cannot be nil")
 	if err != nil {
 		return
@@ -1033,6 +1170,8 @@ func (globalCatalog *GlobalCatalogV1) DeleteArtifact(deleteArtifactOptions *Dele
 	}
 
 	builder := core.NewRequestBuilder(core.DELETE)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = globalCatalog.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(globalCatalog.Service.Options.URL, `/{object_id}/artifacts/{artifact_id}`, pathParamsMap)
 	if err != nil {
 		return

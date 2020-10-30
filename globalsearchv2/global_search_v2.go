@@ -15,7 +15,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-ef5e13c2-20200915-144510
+ * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-8d569e8f-20201030-111043
  */
  
 
@@ -23,12 +23,15 @@
 package globalsearchv2
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"github.com/IBM/go-sdk-core/v4/core"
 	common "github.com/IBM/platform-services-go-sdk/common"
+	"net/http"
 	"reflect"
 	"strings"
+	"time"
 )
 
 // GlobalSearchV2 : Search for resources with the global and shared resource properties repository integrated in the IBM
@@ -117,6 +120,37 @@ func (globalSearch *GlobalSearchV2) SetServiceURL(url string) error {
 	return globalSearch.Service.SetServiceURL(url)
 }
 
+// GetServiceURL returns the service URL
+func (globalSearch *GlobalSearchV2) GetServiceURL() string {
+	return globalSearch.Service.GetServiceURL()
+}
+
+// SetDefaultHeaders sets HTTP headers to be sent in every request
+func (globalSearch *GlobalSearchV2) SetDefaultHeaders(headers http.Header) {
+	globalSearch.Service.SetDefaultHeaders(headers)
+}
+
+// SetEnableGzipCompression sets the service's EnableGzipCompression field
+func (globalSearch *GlobalSearchV2) SetEnableGzipCompression(enableGzip bool) {
+	globalSearch.Service.SetEnableGzipCompression(enableGzip)
+}
+
+// GetEnableGzipCompression returns the service's EnableGzipCompression field
+func (globalSearch *GlobalSearchV2) GetEnableGzipCompression() bool {
+	return globalSearch.Service.GetEnableGzipCompression()
+}
+
+// EnableRetries enables automatic retries for requests invoked for this service instance.
+// If either parameter is specified as 0, then a default value is used instead.
+func (globalSearch *GlobalSearchV2) EnableRetries(maxRetries int, maxRetryInterval time.Duration) {
+	globalSearch.Service.EnableRetries(maxRetries, maxRetryInterval)
+}
+
+// DisableRetries disables automatic retries for requests invoked for this service instance.
+func (globalSearch *GlobalSearchV2) DisableRetries() {
+	globalSearch.Service.DisableRetries()
+}
+
 // Search : Find instances of resources
 // 'Find cloud foundry resources, resource controlled enabled resources, or storage and network resources running on
 // classic infrastructure in a specific account ID. You can apply query strings if necessary. To filter results, you can
@@ -130,6 +164,11 @@ func (globalSearch *GlobalSearchV2) SetServiceURL(url string) error {
 // returned for every resources are: "crn", "name", "family", "type", "account_id". You can specify the subset of the
 // fields you want in your request.''.
 func (globalSearch *GlobalSearchV2) Search(searchOptions *SearchOptions) (result *ScanResult, response *core.DetailedResponse, err error) {
+	return globalSearch.SearchWithContext(context.Background(), searchOptions)
+}
+
+// SearchWithContext is an alternate form of the Search method which supports a Context parameter
+func (globalSearch *GlobalSearchV2) SearchWithContext(ctx context.Context, searchOptions *SearchOptions) (result *ScanResult, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(searchOptions, "searchOptions cannot be nil")
 	if err != nil {
 		return
@@ -140,6 +179,8 @@ func (globalSearch *GlobalSearchV2) Search(searchOptions *SearchOptions) (result
 	}
 
 	builder := core.NewRequestBuilder(core.POST)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = globalSearch.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(globalSearch.Service.Options.URL, `/v3/resources/search`, nil)
 	if err != nil {
 		return
@@ -209,12 +250,19 @@ func (globalSearch *GlobalSearchV2) Search(searchOptions *SearchOptions) (result
 // GetSupportedTypes : Get all supported resource types
 // Retrieves a list of all the resource types supported by GhoST.
 func (globalSearch *GlobalSearchV2) GetSupportedTypes(getSupportedTypesOptions *GetSupportedTypesOptions) (result *SupportedTypesList, response *core.DetailedResponse, err error) {
+	return globalSearch.GetSupportedTypesWithContext(context.Background(), getSupportedTypesOptions)
+}
+
+// GetSupportedTypesWithContext is an alternate form of the GetSupportedTypes method which supports a Context parameter
+func (globalSearch *GlobalSearchV2) GetSupportedTypesWithContext(ctx context.Context, getSupportedTypesOptions *GetSupportedTypesOptions) (result *SupportedTypesList, response *core.DetailedResponse, err error) {
 	err = core.ValidateStruct(getSupportedTypesOptions, "getSupportedTypesOptions")
 	if err != nil {
 		return
 	}
 
 	builder := core.NewRequestBuilder(core.GET)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = globalSearch.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(globalSearch.Service.Options.URL, `/v2/resources/supported_types`, nil)
 	if err != nil {
 		return

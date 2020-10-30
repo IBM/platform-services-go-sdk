@@ -15,7 +15,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-ef5e13c2-20200915-144510
+ * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-8d569e8f-20201030-111043
  */
  
 
@@ -23,12 +23,15 @@
 package enterprisemanagementv1
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"github.com/IBM/go-sdk-core/v4/core"
 	common "github.com/IBM/platform-services-go-sdk/common"
 	"github.com/go-openapi/strfmt"
+	"net/http"
 	"reflect"
+	"time"
 )
 
 // EnterpriseManagementV1 : The Enterprise Management API enables you to create and manage an enterprise, account
@@ -112,11 +115,47 @@ func (enterpriseManagement *EnterpriseManagementV1) SetServiceURL(url string) er
 	return enterpriseManagement.Service.SetServiceURL(url)
 }
 
+// GetServiceURL returns the service URL
+func (enterpriseManagement *EnterpriseManagementV1) GetServiceURL() string {
+	return enterpriseManagement.Service.GetServiceURL()
+}
+
+// SetDefaultHeaders sets HTTP headers to be sent in every request
+func (enterpriseManagement *EnterpriseManagementV1) SetDefaultHeaders(headers http.Header) {
+	enterpriseManagement.Service.SetDefaultHeaders(headers)
+}
+
+// SetEnableGzipCompression sets the service's EnableGzipCompression field
+func (enterpriseManagement *EnterpriseManagementV1) SetEnableGzipCompression(enableGzip bool) {
+	enterpriseManagement.Service.SetEnableGzipCompression(enableGzip)
+}
+
+// GetEnableGzipCompression returns the service's EnableGzipCompression field
+func (enterpriseManagement *EnterpriseManagementV1) GetEnableGzipCompression() bool {
+	return enterpriseManagement.Service.GetEnableGzipCompression()
+}
+
+// EnableRetries enables automatic retries for requests invoked for this service instance.
+// If either parameter is specified as 0, then a default value is used instead.
+func (enterpriseManagement *EnterpriseManagementV1) EnableRetries(maxRetries int, maxRetryInterval time.Duration) {
+	enterpriseManagement.Service.EnableRetries(maxRetries, maxRetryInterval)
+}
+
+// DisableRetries disables automatic retries for requests invoked for this service instance.
+func (enterpriseManagement *EnterpriseManagementV1) DisableRetries() {
+	enterpriseManagement.Service.DisableRetries()
+}
+
 // CreateAccountGroup : Create an account group
 // Create a new account group, which can be used to group together multiple accounts. To create an account group, you
 // must have an existing enterprise. The API creates an account group entity under the parent that is specified in the
 // payload of the request. The request also takes in the name and the primary contact of this new account group.
 func (enterpriseManagement *EnterpriseManagementV1) CreateAccountGroup(createAccountGroupOptions *CreateAccountGroupOptions) (result *CreateAccountGroupResponse, response *core.DetailedResponse, err error) {
+	return enterpriseManagement.CreateAccountGroupWithContext(context.Background(), createAccountGroupOptions)
+}
+
+// CreateAccountGroupWithContext is an alternate form of the CreateAccountGroup method which supports a Context parameter
+func (enterpriseManagement *EnterpriseManagementV1) CreateAccountGroupWithContext(ctx context.Context, createAccountGroupOptions *CreateAccountGroupOptions) (result *CreateAccountGroupResponse, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(createAccountGroupOptions, "createAccountGroupOptions cannot be nil")
 	if err != nil {
 		return
@@ -127,6 +166,8 @@ func (enterpriseManagement *EnterpriseManagementV1) CreateAccountGroup(createAcc
 	}
 
 	builder := core.NewRequestBuilder(core.POST)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = enterpriseManagement.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(enterpriseManagement.Service.Options.URL, `/account-groups`, nil)
 	if err != nil {
 		return
@@ -189,12 +230,19 @@ func (enterpriseManagement *EnterpriseManagementV1) CreateAccountGroup(createAcc
 // they are returned to the user to ensure that only those account groups are returned to which the calling identity has
 // access.
 func (enterpriseManagement *EnterpriseManagementV1) ListAccountGroups(listAccountGroupsOptions *ListAccountGroupsOptions) (result *ListAccountGroupsResponse, response *core.DetailedResponse, err error) {
+	return enterpriseManagement.ListAccountGroupsWithContext(context.Background(), listAccountGroupsOptions)
+}
+
+// ListAccountGroupsWithContext is an alternate form of the ListAccountGroups method which supports a Context parameter
+func (enterpriseManagement *EnterpriseManagementV1) ListAccountGroupsWithContext(ctx context.Context, listAccountGroupsOptions *ListAccountGroupsOptions) (result *ListAccountGroupsResponse, response *core.DetailedResponse, err error) {
 	err = core.ValidateStruct(listAccountGroupsOptions, "listAccountGroupsOptions")
 	if err != nil {
 		return
 	}
 
 	builder := core.NewRequestBuilder(core.GET)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = enterpriseManagement.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(enterpriseManagement.Service.Options.URL, `/account-groups`, nil)
 	if err != nil {
 		return
@@ -246,6 +294,11 @@ func (enterpriseManagement *EnterpriseManagementV1) ListAccountGroups(listAccoun
 // Retrieve an account by the `account_group_id` parameter. All data related to the account group is returned only if
 // the caller has access to retrieve the account group.
 func (enterpriseManagement *EnterpriseManagementV1) GetAccountGroup(getAccountGroupOptions *GetAccountGroupOptions) (result *AccountGroup, response *core.DetailedResponse, err error) {
+	return enterpriseManagement.GetAccountGroupWithContext(context.Background(), getAccountGroupOptions)
+}
+
+// GetAccountGroupWithContext is an alternate form of the GetAccountGroup method which supports a Context parameter
+func (enterpriseManagement *EnterpriseManagementV1) GetAccountGroupWithContext(ctx context.Context, getAccountGroupOptions *GetAccountGroupOptions) (result *AccountGroup, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(getAccountGroupOptions, "getAccountGroupOptions cannot be nil")
 	if err != nil {
 		return
@@ -260,6 +313,8 @@ func (enterpriseManagement *EnterpriseManagementV1) GetAccountGroup(getAccountGr
 	}
 
 	builder := core.NewRequestBuilder(core.GET)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = enterpriseManagement.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(enterpriseManagement.Service.Options.URL, `/account-groups/{account_group_id}`, pathParamsMap)
 	if err != nil {
 		return
@@ -298,6 +353,11 @@ func (enterpriseManagement *EnterpriseManagementV1) GetAccountGroup(getAccountGr
 // Update the name or IAM ID of the primary contact for an existing account group. The new primary contact must already
 // be a user in the enterprise account.
 func (enterpriseManagement *EnterpriseManagementV1) UpdateAccountGroup(updateAccountGroupOptions *UpdateAccountGroupOptions) (response *core.DetailedResponse, err error) {
+	return enterpriseManagement.UpdateAccountGroupWithContext(context.Background(), updateAccountGroupOptions)
+}
+
+// UpdateAccountGroupWithContext is an alternate form of the UpdateAccountGroup method which supports a Context parameter
+func (enterpriseManagement *EnterpriseManagementV1) UpdateAccountGroupWithContext(ctx context.Context, updateAccountGroupOptions *UpdateAccountGroupOptions) (response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(updateAccountGroupOptions, "updateAccountGroupOptions cannot be nil")
 	if err != nil {
 		return
@@ -312,6 +372,8 @@ func (enterpriseManagement *EnterpriseManagementV1) UpdateAccountGroup(updateAcc
 	}
 
 	builder := core.NewRequestBuilder(core.PATCH)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = enterpriseManagement.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(enterpriseManagement.Service.Options.URL, `/account-groups/{account_group_id}`, pathParamsMap)
 	if err != nil {
 		return
@@ -358,6 +420,11 @@ func (enterpriseManagement *EnterpriseManagementV1) UpdateAccountGroup(updateAcc
 // into the enterprise. <br/></br>For more information about impacts to the account, see [Adding accounts to an
 // enterprise](https://{DomainName}/docs/account?topic=account-enterprise-add).
 func (enterpriseManagement *EnterpriseManagementV1) ImportAccountToEnterprise(importAccountToEnterpriseOptions *ImportAccountToEnterpriseOptions) (response *core.DetailedResponse, err error) {
+	return enterpriseManagement.ImportAccountToEnterpriseWithContext(context.Background(), importAccountToEnterpriseOptions)
+}
+
+// ImportAccountToEnterpriseWithContext is an alternate form of the ImportAccountToEnterprise method which supports a Context parameter
+func (enterpriseManagement *EnterpriseManagementV1) ImportAccountToEnterpriseWithContext(ctx context.Context, importAccountToEnterpriseOptions *ImportAccountToEnterpriseOptions) (response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(importAccountToEnterpriseOptions, "importAccountToEnterpriseOptions cannot be nil")
 	if err != nil {
 		return
@@ -373,6 +440,8 @@ func (enterpriseManagement *EnterpriseManagementV1) ImportAccountToEnterprise(im
 	}
 
 	builder := core.NewRequestBuilder(core.PUT)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = enterpriseManagement.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(enterpriseManagement.Service.Options.URL, `/enterprises/{enterprise_id}/import/accounts/{account_id}`, pathParamsMap)
 	if err != nil {
 		return
@@ -416,6 +485,11 @@ func (enterpriseManagement *EnterpriseManagementV1) ImportAccountToEnterprise(im
 // owner must have a valid IBMid that's registered with {{site.data.keyword.cloud_notm}}, but they don't need to be a
 // user in the enterprise account.
 func (enterpriseManagement *EnterpriseManagementV1) CreateAccount(createAccountOptions *CreateAccountOptions) (result *CreateAccountResponse, response *core.DetailedResponse, err error) {
+	return enterpriseManagement.CreateAccountWithContext(context.Background(), createAccountOptions)
+}
+
+// CreateAccountWithContext is an alternate form of the CreateAccount method which supports a Context parameter
+func (enterpriseManagement *EnterpriseManagementV1) CreateAccountWithContext(ctx context.Context, createAccountOptions *CreateAccountOptions) (result *CreateAccountResponse, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(createAccountOptions, "createAccountOptions cannot be nil")
 	if err != nil {
 		return
@@ -426,6 +500,8 @@ func (enterpriseManagement *EnterpriseManagementV1) CreateAccount(createAccountO
 	}
 
 	builder := core.NewRequestBuilder(core.POST)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = enterpriseManagement.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(enterpriseManagement.Service.Options.URL, `/accounts`, nil)
 	if err != nil {
 		return
@@ -487,12 +563,19 @@ func (enterpriseManagement *EnterpriseManagementV1) CreateAccount(createAccountO
 // returned. Authentication is performed on all the accounts before they are returned to the user to ensure that only
 // those accounts are returned to which the calling identity has access to.
 func (enterpriseManagement *EnterpriseManagementV1) ListAccounts(listAccountsOptions *ListAccountsOptions) (result *ListAccountsResponse, response *core.DetailedResponse, err error) {
+	return enterpriseManagement.ListAccountsWithContext(context.Background(), listAccountsOptions)
+}
+
+// ListAccountsWithContext is an alternate form of the ListAccounts method which supports a Context parameter
+func (enterpriseManagement *EnterpriseManagementV1) ListAccountsWithContext(ctx context.Context, listAccountsOptions *ListAccountsOptions) (result *ListAccountsResponse, response *core.DetailedResponse, err error) {
 	err = core.ValidateStruct(listAccountsOptions, "listAccountsOptions")
 	if err != nil {
 		return
 	}
 
 	builder := core.NewRequestBuilder(core.GET)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = enterpriseManagement.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(enterpriseManagement.Service.Options.URL, `/accounts`, nil)
 	if err != nil {
 		return
@@ -544,6 +627,11 @@ func (enterpriseManagement *EnterpriseManagementV1) ListAccounts(listAccountsOpt
 // Retrieve an account by the `account_id` parameter. All data related to the account is returned only if the caller has
 // access to retrieve the account.
 func (enterpriseManagement *EnterpriseManagementV1) GetAccount(getAccountOptions *GetAccountOptions) (result *Account, response *core.DetailedResponse, err error) {
+	return enterpriseManagement.GetAccountWithContext(context.Background(), getAccountOptions)
+}
+
+// GetAccountWithContext is an alternate form of the GetAccount method which supports a Context parameter
+func (enterpriseManagement *EnterpriseManagementV1) GetAccountWithContext(ctx context.Context, getAccountOptions *GetAccountOptions) (result *Account, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(getAccountOptions, "getAccountOptions cannot be nil")
 	if err != nil {
 		return
@@ -558,6 +646,8 @@ func (enterpriseManagement *EnterpriseManagementV1) GetAccount(getAccountOptions
 	}
 
 	builder := core.NewRequestBuilder(core.GET)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = enterpriseManagement.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(enterpriseManagement.Service.Options.URL, `/accounts/{account_id}`, pathParamsMap)
 	if err != nil {
 		return
@@ -595,6 +685,11 @@ func (enterpriseManagement *EnterpriseManagementV1) GetAccount(getAccountOptions
 // UpdateAccount : Move an account within the enterprise
 // Move an account to a different parent within the same enterprise.
 func (enterpriseManagement *EnterpriseManagementV1) UpdateAccount(updateAccountOptions *UpdateAccountOptions) (response *core.DetailedResponse, err error) {
+	return enterpriseManagement.UpdateAccountWithContext(context.Background(), updateAccountOptions)
+}
+
+// UpdateAccountWithContext is an alternate form of the UpdateAccount method which supports a Context parameter
+func (enterpriseManagement *EnterpriseManagementV1) UpdateAccountWithContext(ctx context.Context, updateAccountOptions *UpdateAccountOptions) (response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(updateAccountOptions, "updateAccountOptions cannot be nil")
 	if err != nil {
 		return
@@ -609,6 +704,8 @@ func (enterpriseManagement *EnterpriseManagementV1) UpdateAccount(updateAccountO
 	}
 
 	builder := core.NewRequestBuilder(core.PATCH)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = enterpriseManagement.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(enterpriseManagement.Service.Options.URL, `/accounts/{account_id}`, pathParamsMap)
 	if err != nil {
 		return
@@ -651,6 +748,11 @@ func (enterpriseManagement *EnterpriseManagementV1) UpdateAccount(updateAccountO
 // enterprise account, and the source account becomes a child account in the hierarchy. The user that you assign as the
 // enterprise primary contact is also assigned as the owner of the enterprise account.
 func (enterpriseManagement *EnterpriseManagementV1) CreateEnterprise(createEnterpriseOptions *CreateEnterpriseOptions) (result *CreateEnterpriseResponse, response *core.DetailedResponse, err error) {
+	return enterpriseManagement.CreateEnterpriseWithContext(context.Background(), createEnterpriseOptions)
+}
+
+// CreateEnterpriseWithContext is an alternate form of the CreateEnterprise method which supports a Context parameter
+func (enterpriseManagement *EnterpriseManagementV1) CreateEnterpriseWithContext(ctx context.Context, createEnterpriseOptions *CreateEnterpriseOptions) (result *CreateEnterpriseResponse, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(createEnterpriseOptions, "createEnterpriseOptions cannot be nil")
 	if err != nil {
 		return
@@ -661,6 +763,8 @@ func (enterpriseManagement *EnterpriseManagementV1) CreateEnterprise(createEnter
 	}
 
 	builder := core.NewRequestBuilder(core.POST)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = enterpriseManagement.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(enterpriseManagement.Service.Options.URL, `/enterprises`, nil)
 	if err != nil {
 		return
@@ -724,12 +828,19 @@ func (enterpriseManagement *EnterpriseManagementV1) CreateEnterprise(createEnter
 // account IDs match, authentication isn't performed and the enterprise information is returned. If the account IDs
 // don't match, authentication is performed and only then is the enterprise information returned in the response.
 func (enterpriseManagement *EnterpriseManagementV1) ListEnterprises(listEnterprisesOptions *ListEnterprisesOptions) (result *ListEnterprisesResponse, response *core.DetailedResponse, err error) {
+	return enterpriseManagement.ListEnterprisesWithContext(context.Background(), listEnterprisesOptions)
+}
+
+// ListEnterprisesWithContext is an alternate form of the ListEnterprises method which supports a Context parameter
+func (enterpriseManagement *EnterpriseManagementV1) ListEnterprisesWithContext(ctx context.Context, listEnterprisesOptions *ListEnterprisesOptions) (result *ListEnterprisesResponse, response *core.DetailedResponse, err error) {
 	err = core.ValidateStruct(listEnterprisesOptions, "listEnterprisesOptions")
 	if err != nil {
 		return
 	}
 
 	builder := core.NewRequestBuilder(core.GET)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = enterpriseManagement.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(enterpriseManagement.Service.Options.URL, `/enterprises`, nil)
 	if err != nil {
 		return
@@ -781,6 +892,11 @@ func (enterpriseManagement *EnterpriseManagementV1) ListEnterprises(listEnterpri
 // Retrieve an enterprise by the `enterprise_id` parameter. All data related to the enterprise is returned only if the
 // caller has access to retrieve the enterprise.
 func (enterpriseManagement *EnterpriseManagementV1) GetEnterprise(getEnterpriseOptions *GetEnterpriseOptions) (result *Enterprise, response *core.DetailedResponse, err error) {
+	return enterpriseManagement.GetEnterpriseWithContext(context.Background(), getEnterpriseOptions)
+}
+
+// GetEnterpriseWithContext is an alternate form of the GetEnterprise method which supports a Context parameter
+func (enterpriseManagement *EnterpriseManagementV1) GetEnterpriseWithContext(ctx context.Context, getEnterpriseOptions *GetEnterpriseOptions) (result *Enterprise, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(getEnterpriseOptions, "getEnterpriseOptions cannot be nil")
 	if err != nil {
 		return
@@ -795,6 +911,8 @@ func (enterpriseManagement *EnterpriseManagementV1) GetEnterprise(getEnterpriseO
 	}
 
 	builder := core.NewRequestBuilder(core.GET)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = enterpriseManagement.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(enterpriseManagement.Service.Options.URL, `/enterprises/{enterprise_id}`, pathParamsMap)
 	if err != nil {
 		return
@@ -833,6 +951,11 @@ func (enterpriseManagement *EnterpriseManagementV1) GetEnterprise(getEnterpriseO
 // Update the name, domain, or IAM ID of the primary contact for an existing enterprise. The new primary contact must
 // already be a user in the enterprise account.
 func (enterpriseManagement *EnterpriseManagementV1) UpdateEnterprise(updateEnterpriseOptions *UpdateEnterpriseOptions) (response *core.DetailedResponse, err error) {
+	return enterpriseManagement.UpdateEnterpriseWithContext(context.Background(), updateEnterpriseOptions)
+}
+
+// UpdateEnterpriseWithContext is an alternate form of the UpdateEnterprise method which supports a Context parameter
+func (enterpriseManagement *EnterpriseManagementV1) UpdateEnterpriseWithContext(ctx context.Context, updateEnterpriseOptions *UpdateEnterpriseOptions) (response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(updateEnterpriseOptions, "updateEnterpriseOptions cannot be nil")
 	if err != nil {
 		return
@@ -847,6 +970,8 @@ func (enterpriseManagement *EnterpriseManagementV1) UpdateEnterprise(updateEnter
 	}
 
 	builder := core.NewRequestBuilder(core.PATCH)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = enterpriseManagement.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(enterpriseManagement.Service.Options.URL, `/enterprises/{enterprise_id}`, pathParamsMap)
 	if err != nil {
 		return

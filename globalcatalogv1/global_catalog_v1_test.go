@@ -18,6 +18,7 @@ package globalcatalogv1_test
 
 import (
 	"bytes"
+	"context"
 	"fmt"
 	"github.com/IBM/go-sdk-core/v4/core"
 	"github.com/IBM/platform-services-go-sdk/globalcatalogv1"
@@ -186,6 +187,13 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				globalCatalogService.EnableRetries(0, 0)
+				result, response, operationErr = globalCatalogService.ListCatalogEntries(listCatalogEntriesOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
 			})
 			AfterEach(func() {
 				testServer.Close()
@@ -195,14 +203,17 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 
 	Describe(`ListCatalogEntries(listCatalogEntriesOptions *ListCatalogEntriesOptions)`, func() {
 		listCatalogEntriesPath := "/"
+		var serverSleepTime time.Duration
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
+				serverSleepTime = 0
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
 					Expect(req.URL.EscapedPath()).To(Equal(listCatalogEntriesPath))
 					Expect(req.Method).To(Equal("GET"))
+
 					Expect(req.URL.Query()["account"]).To(Equal([]string{"testString"}))
 
 					Expect(req.URL.Query()["include"]).To(Equal([]string{"testString"}))
@@ -217,6 +228,10 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 
 					Expect(req.URL.Query()["complete"]).To(Equal([]string{"testString"}))
 
+					// Sleep a short time to support a timeout test
+					time.Sleep(serverSleepTime)
+
+					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
 					fmt.Fprintf(res, "%s", `{"offset": 6, "limit": 5, "count": 5, "resource_count": 13, "first": "First", "last": "Last", "prev": "Prev", "next": "Next", "resources": [{"name": "Name", "kind": "service", "overview_ui": {"mapKey": {"display_name": "DisplayName", "long_description": "LongDescription", "description": "Description", "featured_description": "FeaturedDescription"}}, "images": {"image": "Image", "small_image": "SmallImage", "medium_image": "MediumImage", "feature_image": "FeatureImage"}, "parent_id": "ParentID", "disabled": true, "tags": ["Tags"], "group": false, "provider": {"email": "Email", "name": "Name", "contact": "Contact", "support_email": "SupportEmail", "phone": "Phone"}, "active": true, "metadata": {"rc_compatible": true, "service": {"type": "Type", "iam_compatible": false, "unique_api_key": true, "provisionable": false, "bindable": true, "async_provisioning_supported": true, "async_unprovisioning_supported": true, "requires": ["Requires"], "plan_updateable": true, "state": "State", "service_check_enabled": false, "test_check_interval": 17, "service_key_supported": false, "cf_guid": {"mapKey": "Inner"}}, "plan": {"bindable": true, "reservable": true, "allow_internal_users": true, "async_provisioning_supported": true, "async_unprovisioning_supported": true, "test_check_interval": 17, "single_scope_instance": "SingleScopeInstance", "service_check_enabled": false, "cf_guid": {"mapKey": "Inner"}}, "alias": {"type": "Type", "plan_id": "PlanID"}, "template": {"services": ["Services"], "default_memory": 13, "start_cmd": "StartCmd", "source": {"path": "Path", "type": "Type", "url": "URL"}, "runtime_catalog_id": "RuntimeCatalogID", "cf_runtime_id": "CfRuntimeID", "template_id": "TemplateID", "executable_file": "ExecutableFile", "buildpack": "Buildpack", "environment_variables": {"mapKey": "Inner"}}, "ui": {"strings": {"mapKey": {"bullets": [{"title": "Title", "description": "Description", "icon": "Icon", "quantity": 8}], "media": [{"caption": "Caption", "thumbnail_url": "ThumbnailURL", "type": "Type", "URL": "URL", "source": {"title": "Title", "description": "Description", "icon": "Icon", "quantity": 8}}], "not_creatable_msg": "NotCreatableMsg", "not_creatable__robot_msg": "NotCreatableRobotMsg", "deprecation_warning": "DeprecationWarning", "popup_warning_message": "PopupWarningMessage", "instruction": "Instruction"}}, "urls": {"doc_url": "DocURL", "instructions_url": "InstructionsURL", "api_url": "ApiURL", "create_url": "CreateURL", "sdk_download_url": "SdkDownloadURL", "terms_url": "TermsURL", "custom_create_page_url": "CustomCreatePageURL", "catalog_details_url": "CatalogDetailsURL", "deprecation_doc_url": "DeprecationDocURL", "dashboard_url": "DashboardURL", "registration_url": "RegistrationURL", "apidocsurl": "Apidocsurl"}, "embeddable_dashboard": "EmbeddableDashboard", "embeddable_dashboard_full_width": true, "navigation_order": ["NavigationOrder"], "not_creatable": true, "primary_offering_id": "PrimaryOfferingID", "accessible_during_provision": false, "side_by_side_index": 15, "end_of_service_time": "2019-01-01T12:00:00", "hidden": true, "hide_lite_metering": true, "no_upgrade_next_step": false}, "compliance": ["Compliance"], "sla": {"terms": "Terms", "tenancy": "Tenancy", "provisioning": "Provisioning", "responsiveness": "Responsiveness", "dr": {"dr": true, "description": "Description"}}, "callbacks": {"controller_url": "ControllerURL", "broker_url": "BrokerURL", "broker_proxy_url": "BrokerProxyURL", "dashboard_url": "DashboardURL", "dashboard_data_url": "DashboardDataURL", "dashboard_detail_tab_url": "DashboardDetailTabURL", "dashboard_detail_tab_ext_url": "DashboardDetailTabExtURL", "service_monitor_api": "ServiceMonitorApi", "service_monitor_app": "ServiceMonitorApp", "api_endpoint": {"mapKey": "Inner"}}, "original_name": "OriginalName", "version": "Version", "other": {"mapKey": {"anyKey": "anyValue"}}, "pricing": {"type": "Type", "origin": "Origin", "starting_price": {"plan_id": "PlanID", "deployment_id": "DeploymentID", "unit": "Unit", "amount": [{"country": "Country", "currency": "Currency", "prices": [{"quantity_tier": 12, "Price": 5}]}]}, "metrics": [{"part_ref": "PartRef", "metric_id": "MetricID", "tier_model": "TierModel", "charge_unit": "ChargeUnit", "charge_unit_name": "ChargeUnitName", "charge_unit_quantity": "ChargeUnitQuantity", "resource_display_name": "ResourceDisplayName", "charge_unit_display_name": "ChargeUnitDisplayName", "usage_cap_qty": 11, "display_cap": 10, "effective_from": "2019-01-01T12:00:00", "effective_until": "2019-01-01T12:00:00", "amounts": [{"country": "Country", "currency": "Currency", "prices": [{"quantity_tier": 12, "Price": 5}]}]}]}, "deployment": {"location": "Location", "location_url": "LocationURL", "original_location": "OriginalLocation", "target_crn": "TargetCrn", "service_crn": "ServiceCrn", "mccp_id": "MccpID", "broker": {"name": "Name", "guid": "Guid"}, "supports_rc_migration": false, "target_network": "TargetNetwork"}}, "id": "ID", "catalog_crn": "anyValue", "url": "anyValue", "children_url": "anyValue", "geo_tags": "anyValue", "pricing_tags": "anyValue", "created": "anyValue", "updated": "anyValue"}]}`)
@@ -229,6 +244,7 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				})
 				Expect(serviceErr).To(BeNil())
 				Expect(globalCatalogService).ToNot(BeNil())
+				globalCatalogService.EnableRetries(0, 0)
 
 				// Invoke operation with nil options model (negative test)
 				result, response, operationErr := globalCatalogService.ListCatalogEntries(nil)
@@ -252,6 +268,31 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				serverSleepTime = 100 * time.Millisecond
+				_, _, operationErr = globalCatalogService.ListCatalogEntriesWithContext(ctx, listCatalogEntriesOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+				serverSleepTime = time.Duration(0)
+
+				// Disable retries and test again
+				globalCatalogService.DisableRetries()
+				result, response, operationErr = globalCatalogService.ListCatalogEntries(listCatalogEntriesOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				serverSleepTime = 100 * time.Millisecond
+				_, _, operationErr = globalCatalogService.ListCatalogEntriesWithContext(ctx, listCatalogEntriesOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+				serverSleepTime = time.Duration(0)
 			})
 			It(`Invoke ListCatalogEntries with error: Operation request error`, func() {
 				globalCatalogService, serviceErr := globalcatalogv1.NewGlobalCatalogV1(&globalcatalogv1.GlobalCatalogV1Options{
@@ -548,6 +589,13 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				globalCatalogService.EnableRetries(0, 0)
+				result, response, operationErr = globalCatalogService.CreateCatalogEntry(createCatalogEntryOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
 			})
 			AfterEach(func() {
 				testServer.Close()
@@ -557,16 +605,39 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 
 	Describe(`CreateCatalogEntry(createCatalogEntryOptions *CreateCatalogEntryOptions)`, func() {
 		createCatalogEntryPath := "/"
+		var serverSleepTime time.Duration
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
+				serverSleepTime = 0
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
 					Expect(req.URL.EscapedPath()).To(Equal(createCatalogEntryPath))
 					Expect(req.Method).To(Equal("POST"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
 					Expect(req.URL.Query()["account"]).To(Equal([]string{"testString"}))
 
+					// Sleep a short time to support a timeout test
+					time.Sleep(serverSleepTime)
+
+					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
 					fmt.Fprintf(res, "%s", `{"name": "Name", "kind": "service", "overview_ui": {"mapKey": {"display_name": "DisplayName", "long_description": "LongDescription", "description": "Description", "featured_description": "FeaturedDescription"}}, "images": {"image": "Image", "small_image": "SmallImage", "medium_image": "MediumImage", "feature_image": "FeatureImage"}, "parent_id": "ParentID", "disabled": true, "tags": ["Tags"], "group": false, "provider": {"email": "Email", "name": "Name", "contact": "Contact", "support_email": "SupportEmail", "phone": "Phone"}, "active": true, "metadata": {"rc_compatible": true, "service": {"type": "Type", "iam_compatible": false, "unique_api_key": true, "provisionable": false, "bindable": true, "async_provisioning_supported": true, "async_unprovisioning_supported": true, "requires": ["Requires"], "plan_updateable": true, "state": "State", "service_check_enabled": false, "test_check_interval": 17, "service_key_supported": false, "cf_guid": {"mapKey": "Inner"}}, "plan": {"bindable": true, "reservable": true, "allow_internal_users": true, "async_provisioning_supported": true, "async_unprovisioning_supported": true, "test_check_interval": 17, "single_scope_instance": "SingleScopeInstance", "service_check_enabled": false, "cf_guid": {"mapKey": "Inner"}}, "alias": {"type": "Type", "plan_id": "PlanID"}, "template": {"services": ["Services"], "default_memory": 13, "start_cmd": "StartCmd", "source": {"path": "Path", "type": "Type", "url": "URL"}, "runtime_catalog_id": "RuntimeCatalogID", "cf_runtime_id": "CfRuntimeID", "template_id": "TemplateID", "executable_file": "ExecutableFile", "buildpack": "Buildpack", "environment_variables": {"mapKey": "Inner"}}, "ui": {"strings": {"mapKey": {"bullets": [{"title": "Title", "description": "Description", "icon": "Icon", "quantity": 8}], "media": [{"caption": "Caption", "thumbnail_url": "ThumbnailURL", "type": "Type", "URL": "URL", "source": {"title": "Title", "description": "Description", "icon": "Icon", "quantity": 8}}], "not_creatable_msg": "NotCreatableMsg", "not_creatable__robot_msg": "NotCreatableRobotMsg", "deprecation_warning": "DeprecationWarning", "popup_warning_message": "PopupWarningMessage", "instruction": "Instruction"}}, "urls": {"doc_url": "DocURL", "instructions_url": "InstructionsURL", "api_url": "ApiURL", "create_url": "CreateURL", "sdk_download_url": "SdkDownloadURL", "terms_url": "TermsURL", "custom_create_page_url": "CustomCreatePageURL", "catalog_details_url": "CatalogDetailsURL", "deprecation_doc_url": "DeprecationDocURL", "dashboard_url": "DashboardURL", "registration_url": "RegistrationURL", "apidocsurl": "Apidocsurl"}, "embeddable_dashboard": "EmbeddableDashboard", "embeddable_dashboard_full_width": true, "navigation_order": ["NavigationOrder"], "not_creatable": true, "primary_offering_id": "PrimaryOfferingID", "accessible_during_provision": false, "side_by_side_index": 15, "end_of_service_time": "2019-01-01T12:00:00", "hidden": true, "hide_lite_metering": true, "no_upgrade_next_step": false}, "compliance": ["Compliance"], "sla": {"terms": "Terms", "tenancy": "Tenancy", "provisioning": "Provisioning", "responsiveness": "Responsiveness", "dr": {"dr": true, "description": "Description"}}, "callbacks": {"controller_url": "ControllerURL", "broker_url": "BrokerURL", "broker_proxy_url": "BrokerProxyURL", "dashboard_url": "DashboardURL", "dashboard_data_url": "DashboardDataURL", "dashboard_detail_tab_url": "DashboardDetailTabURL", "dashboard_detail_tab_ext_url": "DashboardDetailTabExtURL", "service_monitor_api": "ServiceMonitorApi", "service_monitor_app": "ServiceMonitorApp", "api_endpoint": {"mapKey": "Inner"}}, "original_name": "OriginalName", "version": "Version", "other": {"mapKey": {"anyKey": "anyValue"}}, "pricing": {"type": "Type", "origin": "Origin", "starting_price": {"plan_id": "PlanID", "deployment_id": "DeploymentID", "unit": "Unit", "amount": [{"country": "Country", "currency": "Currency", "prices": [{"quantity_tier": 12, "Price": 5}]}]}, "metrics": [{"part_ref": "PartRef", "metric_id": "MetricID", "tier_model": "TierModel", "charge_unit": "ChargeUnit", "charge_unit_name": "ChargeUnitName", "charge_unit_quantity": "ChargeUnitQuantity", "resource_display_name": "ResourceDisplayName", "charge_unit_display_name": "ChargeUnitDisplayName", "usage_cap_qty": 11, "display_cap": 10, "effective_from": "2019-01-01T12:00:00", "effective_until": "2019-01-01T12:00:00", "amounts": [{"country": "Country", "currency": "Currency", "prices": [{"quantity_tier": 12, "Price": 5}]}]}]}, "deployment": {"location": "Location", "location_url": "LocationURL", "original_location": "OriginalLocation", "target_crn": "TargetCrn", "service_crn": "ServiceCrn", "mccp_id": "MccpID", "broker": {"name": "Name", "guid": "Guid"}, "supports_rc_migration": false, "target_network": "TargetNetwork"}}, "id": "ID", "catalog_crn": "anyValue", "url": "anyValue", "children_url": "anyValue", "geo_tags": "anyValue", "pricing_tags": "anyValue", "created": "anyValue", "updated": "anyValue"}`)
@@ -579,6 +650,7 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				})
 				Expect(serviceErr).To(BeNil())
 				Expect(globalCatalogService).ToNot(BeNil())
+				globalCatalogService.EnableRetries(0, 0)
 
 				// Invoke operation with nil options model (negative test)
 				result, response, operationErr := globalCatalogService.CreateCatalogEntry(nil)
@@ -825,6 +897,31 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				serverSleepTime = 100 * time.Millisecond
+				_, _, operationErr = globalCatalogService.CreateCatalogEntryWithContext(ctx, createCatalogEntryOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+				serverSleepTime = time.Duration(0)
+
+				// Disable retries and test again
+				globalCatalogService.DisableRetries()
+				result, response, operationErr = globalCatalogService.CreateCatalogEntry(createCatalogEntryOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				serverSleepTime = 100 * time.Millisecond
+				_, _, operationErr = globalCatalogService.CreateCatalogEntryWithContext(ctx, createCatalogEntryOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+				serverSleepTime = time.Duration(0)
 			})
 			It(`Invoke CreateCatalogEntry with error: Operation validation and request error`, func() {
 				globalCatalogService, serviceErr := globalcatalogv1.NewGlobalCatalogV1(&globalcatalogv1.GlobalCatalogV1Options{
@@ -1135,6 +1232,13 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				globalCatalogService.EnableRetries(0, 0)
+				result, response, operationErr = globalCatalogService.GetCatalogEntry(getCatalogEntryOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
 			})
 			AfterEach(func() {
 				testServer.Close()
@@ -1144,14 +1248,17 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 
 	Describe(`GetCatalogEntry(getCatalogEntryOptions *GetCatalogEntryOptions)`, func() {
 		getCatalogEntryPath := "/testString"
+		var serverSleepTime time.Duration
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
+				serverSleepTime = 0
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
 					Expect(req.URL.EscapedPath()).To(Equal(getCatalogEntryPath))
 					Expect(req.Method).To(Equal("GET"))
+
 					Expect(req.URL.Query()["account"]).To(Equal([]string{"testString"}))
 
 					Expect(req.URL.Query()["include"]).To(Equal([]string{"testString"}))
@@ -1162,6 +1269,10 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 
 					Expect(req.URL.Query()["depth"]).To(Equal([]string{fmt.Sprint(int64(38))}))
 
+					// Sleep a short time to support a timeout test
+					time.Sleep(serverSleepTime)
+
+					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
 					fmt.Fprintf(res, "%s", `{"name": "Name", "kind": "service", "overview_ui": {"mapKey": {"display_name": "DisplayName", "long_description": "LongDescription", "description": "Description", "featured_description": "FeaturedDescription"}}, "images": {"image": "Image", "small_image": "SmallImage", "medium_image": "MediumImage", "feature_image": "FeatureImage"}, "parent_id": "ParentID", "disabled": true, "tags": ["Tags"], "group": false, "provider": {"email": "Email", "name": "Name", "contact": "Contact", "support_email": "SupportEmail", "phone": "Phone"}, "active": true, "metadata": {"rc_compatible": true, "service": {"type": "Type", "iam_compatible": false, "unique_api_key": true, "provisionable": false, "bindable": true, "async_provisioning_supported": true, "async_unprovisioning_supported": true, "requires": ["Requires"], "plan_updateable": true, "state": "State", "service_check_enabled": false, "test_check_interval": 17, "service_key_supported": false, "cf_guid": {"mapKey": "Inner"}}, "plan": {"bindable": true, "reservable": true, "allow_internal_users": true, "async_provisioning_supported": true, "async_unprovisioning_supported": true, "test_check_interval": 17, "single_scope_instance": "SingleScopeInstance", "service_check_enabled": false, "cf_guid": {"mapKey": "Inner"}}, "alias": {"type": "Type", "plan_id": "PlanID"}, "template": {"services": ["Services"], "default_memory": 13, "start_cmd": "StartCmd", "source": {"path": "Path", "type": "Type", "url": "URL"}, "runtime_catalog_id": "RuntimeCatalogID", "cf_runtime_id": "CfRuntimeID", "template_id": "TemplateID", "executable_file": "ExecutableFile", "buildpack": "Buildpack", "environment_variables": {"mapKey": "Inner"}}, "ui": {"strings": {"mapKey": {"bullets": [{"title": "Title", "description": "Description", "icon": "Icon", "quantity": 8}], "media": [{"caption": "Caption", "thumbnail_url": "ThumbnailURL", "type": "Type", "URL": "URL", "source": {"title": "Title", "description": "Description", "icon": "Icon", "quantity": 8}}], "not_creatable_msg": "NotCreatableMsg", "not_creatable__robot_msg": "NotCreatableRobotMsg", "deprecation_warning": "DeprecationWarning", "popup_warning_message": "PopupWarningMessage", "instruction": "Instruction"}}, "urls": {"doc_url": "DocURL", "instructions_url": "InstructionsURL", "api_url": "ApiURL", "create_url": "CreateURL", "sdk_download_url": "SdkDownloadURL", "terms_url": "TermsURL", "custom_create_page_url": "CustomCreatePageURL", "catalog_details_url": "CatalogDetailsURL", "deprecation_doc_url": "DeprecationDocURL", "dashboard_url": "DashboardURL", "registration_url": "RegistrationURL", "apidocsurl": "Apidocsurl"}, "embeddable_dashboard": "EmbeddableDashboard", "embeddable_dashboard_full_width": true, "navigation_order": ["NavigationOrder"], "not_creatable": true, "primary_offering_id": "PrimaryOfferingID", "accessible_during_provision": false, "side_by_side_index": 15, "end_of_service_time": "2019-01-01T12:00:00", "hidden": true, "hide_lite_metering": true, "no_upgrade_next_step": false}, "compliance": ["Compliance"], "sla": {"terms": "Terms", "tenancy": "Tenancy", "provisioning": "Provisioning", "responsiveness": "Responsiveness", "dr": {"dr": true, "description": "Description"}}, "callbacks": {"controller_url": "ControllerURL", "broker_url": "BrokerURL", "broker_proxy_url": "BrokerProxyURL", "dashboard_url": "DashboardURL", "dashboard_data_url": "DashboardDataURL", "dashboard_detail_tab_url": "DashboardDetailTabURL", "dashboard_detail_tab_ext_url": "DashboardDetailTabExtURL", "service_monitor_api": "ServiceMonitorApi", "service_monitor_app": "ServiceMonitorApp", "api_endpoint": {"mapKey": "Inner"}}, "original_name": "OriginalName", "version": "Version", "other": {"mapKey": {"anyKey": "anyValue"}}, "pricing": {"type": "Type", "origin": "Origin", "starting_price": {"plan_id": "PlanID", "deployment_id": "DeploymentID", "unit": "Unit", "amount": [{"country": "Country", "currency": "Currency", "prices": [{"quantity_tier": 12, "Price": 5}]}]}, "metrics": [{"part_ref": "PartRef", "metric_id": "MetricID", "tier_model": "TierModel", "charge_unit": "ChargeUnit", "charge_unit_name": "ChargeUnitName", "charge_unit_quantity": "ChargeUnitQuantity", "resource_display_name": "ResourceDisplayName", "charge_unit_display_name": "ChargeUnitDisplayName", "usage_cap_qty": 11, "display_cap": 10, "effective_from": "2019-01-01T12:00:00", "effective_until": "2019-01-01T12:00:00", "amounts": [{"country": "Country", "currency": "Currency", "prices": [{"quantity_tier": 12, "Price": 5}]}]}]}, "deployment": {"location": "Location", "location_url": "LocationURL", "original_location": "OriginalLocation", "target_crn": "TargetCrn", "service_crn": "ServiceCrn", "mccp_id": "MccpID", "broker": {"name": "Name", "guid": "Guid"}, "supports_rc_migration": false, "target_network": "TargetNetwork"}}, "id": "ID", "catalog_crn": "anyValue", "url": "anyValue", "children_url": "anyValue", "geo_tags": "anyValue", "pricing_tags": "anyValue", "created": "anyValue", "updated": "anyValue"}`)
@@ -1174,6 +1285,7 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				})
 				Expect(serviceErr).To(BeNil())
 				Expect(globalCatalogService).ToNot(BeNil())
+				globalCatalogService.EnableRetries(0, 0)
 
 				// Invoke operation with nil options model (negative test)
 				result, response, operationErr := globalCatalogService.GetCatalogEntry(nil)
@@ -1196,6 +1308,31 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				serverSleepTime = 100 * time.Millisecond
+				_, _, operationErr = globalCatalogService.GetCatalogEntryWithContext(ctx, getCatalogEntryOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+				serverSleepTime = time.Duration(0)
+
+				// Disable retries and test again
+				globalCatalogService.DisableRetries()
+				result, response, operationErr = globalCatalogService.GetCatalogEntry(getCatalogEntryOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				serverSleepTime = 100 * time.Millisecond
+				_, _, operationErr = globalCatalogService.GetCatalogEntryWithContext(ctx, getCatalogEntryOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+				serverSleepTime = time.Duration(0)
 			})
 			It(`Invoke GetCatalogEntry with error: Operation validation and request error`, func() {
 				globalCatalogService, serviceErr := globalcatalogv1.NewGlobalCatalogV1(&globalcatalogv1.GlobalCatalogV1Options{
@@ -1501,6 +1638,13 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				globalCatalogService.EnableRetries(0, 0)
+				result, response, operationErr = globalCatalogService.UpdateCatalogEntry(updateCatalogEntryOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
 			})
 			AfterEach(func() {
 				testServer.Close()
@@ -1510,18 +1654,41 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 
 	Describe(`UpdateCatalogEntry(updateCatalogEntryOptions *UpdateCatalogEntryOptions)`, func() {
 		updateCatalogEntryPath := "/testString"
+		var serverSleepTime time.Duration
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
+				serverSleepTime = 0
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
 					Expect(req.URL.EscapedPath()).To(Equal(updateCatalogEntryPath))
 					Expect(req.Method).To(Equal("PUT"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
 					Expect(req.URL.Query()["account"]).To(Equal([]string{"testString"}))
 
 					Expect(req.URL.Query()["move"]).To(Equal([]string{"testString"}))
 
+					// Sleep a short time to support a timeout test
+					time.Sleep(serverSleepTime)
+
+					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
 					fmt.Fprintf(res, "%s", `{"name": "Name", "kind": "service", "overview_ui": {"mapKey": {"display_name": "DisplayName", "long_description": "LongDescription", "description": "Description", "featured_description": "FeaturedDescription"}}, "images": {"image": "Image", "small_image": "SmallImage", "medium_image": "MediumImage", "feature_image": "FeatureImage"}, "parent_id": "ParentID", "disabled": true, "tags": ["Tags"], "group": false, "provider": {"email": "Email", "name": "Name", "contact": "Contact", "support_email": "SupportEmail", "phone": "Phone"}, "active": true, "metadata": {"rc_compatible": true, "service": {"type": "Type", "iam_compatible": false, "unique_api_key": true, "provisionable": false, "bindable": true, "async_provisioning_supported": true, "async_unprovisioning_supported": true, "requires": ["Requires"], "plan_updateable": true, "state": "State", "service_check_enabled": false, "test_check_interval": 17, "service_key_supported": false, "cf_guid": {"mapKey": "Inner"}}, "plan": {"bindable": true, "reservable": true, "allow_internal_users": true, "async_provisioning_supported": true, "async_unprovisioning_supported": true, "test_check_interval": 17, "single_scope_instance": "SingleScopeInstance", "service_check_enabled": false, "cf_guid": {"mapKey": "Inner"}}, "alias": {"type": "Type", "plan_id": "PlanID"}, "template": {"services": ["Services"], "default_memory": 13, "start_cmd": "StartCmd", "source": {"path": "Path", "type": "Type", "url": "URL"}, "runtime_catalog_id": "RuntimeCatalogID", "cf_runtime_id": "CfRuntimeID", "template_id": "TemplateID", "executable_file": "ExecutableFile", "buildpack": "Buildpack", "environment_variables": {"mapKey": "Inner"}}, "ui": {"strings": {"mapKey": {"bullets": [{"title": "Title", "description": "Description", "icon": "Icon", "quantity": 8}], "media": [{"caption": "Caption", "thumbnail_url": "ThumbnailURL", "type": "Type", "URL": "URL", "source": {"title": "Title", "description": "Description", "icon": "Icon", "quantity": 8}}], "not_creatable_msg": "NotCreatableMsg", "not_creatable__robot_msg": "NotCreatableRobotMsg", "deprecation_warning": "DeprecationWarning", "popup_warning_message": "PopupWarningMessage", "instruction": "Instruction"}}, "urls": {"doc_url": "DocURL", "instructions_url": "InstructionsURL", "api_url": "ApiURL", "create_url": "CreateURL", "sdk_download_url": "SdkDownloadURL", "terms_url": "TermsURL", "custom_create_page_url": "CustomCreatePageURL", "catalog_details_url": "CatalogDetailsURL", "deprecation_doc_url": "DeprecationDocURL", "dashboard_url": "DashboardURL", "registration_url": "RegistrationURL", "apidocsurl": "Apidocsurl"}, "embeddable_dashboard": "EmbeddableDashboard", "embeddable_dashboard_full_width": true, "navigation_order": ["NavigationOrder"], "not_creatable": true, "primary_offering_id": "PrimaryOfferingID", "accessible_during_provision": false, "side_by_side_index": 15, "end_of_service_time": "2019-01-01T12:00:00", "hidden": true, "hide_lite_metering": true, "no_upgrade_next_step": false}, "compliance": ["Compliance"], "sla": {"terms": "Terms", "tenancy": "Tenancy", "provisioning": "Provisioning", "responsiveness": "Responsiveness", "dr": {"dr": true, "description": "Description"}}, "callbacks": {"controller_url": "ControllerURL", "broker_url": "BrokerURL", "broker_proxy_url": "BrokerProxyURL", "dashboard_url": "DashboardURL", "dashboard_data_url": "DashboardDataURL", "dashboard_detail_tab_url": "DashboardDetailTabURL", "dashboard_detail_tab_ext_url": "DashboardDetailTabExtURL", "service_monitor_api": "ServiceMonitorApi", "service_monitor_app": "ServiceMonitorApp", "api_endpoint": {"mapKey": "Inner"}}, "original_name": "OriginalName", "version": "Version", "other": {"mapKey": {"anyKey": "anyValue"}}, "pricing": {"type": "Type", "origin": "Origin", "starting_price": {"plan_id": "PlanID", "deployment_id": "DeploymentID", "unit": "Unit", "amount": [{"country": "Country", "currency": "Currency", "prices": [{"quantity_tier": 12, "Price": 5}]}]}, "metrics": [{"part_ref": "PartRef", "metric_id": "MetricID", "tier_model": "TierModel", "charge_unit": "ChargeUnit", "charge_unit_name": "ChargeUnitName", "charge_unit_quantity": "ChargeUnitQuantity", "resource_display_name": "ResourceDisplayName", "charge_unit_display_name": "ChargeUnitDisplayName", "usage_cap_qty": 11, "display_cap": 10, "effective_from": "2019-01-01T12:00:00", "effective_until": "2019-01-01T12:00:00", "amounts": [{"country": "Country", "currency": "Currency", "prices": [{"quantity_tier": 12, "Price": 5}]}]}]}, "deployment": {"location": "Location", "location_url": "LocationURL", "original_location": "OriginalLocation", "target_crn": "TargetCrn", "service_crn": "ServiceCrn", "mccp_id": "MccpID", "broker": {"name": "Name", "guid": "Guid"}, "supports_rc_migration": false, "target_network": "TargetNetwork"}}, "id": "ID", "catalog_crn": "anyValue", "url": "anyValue", "children_url": "anyValue", "geo_tags": "anyValue", "pricing_tags": "anyValue", "created": "anyValue", "updated": "anyValue"}`)
@@ -1534,6 +1701,7 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				})
 				Expect(serviceErr).To(BeNil())
 				Expect(globalCatalogService).ToNot(BeNil())
+				globalCatalogService.EnableRetries(0, 0)
 
 				// Invoke operation with nil options model (negative test)
 				result, response, operationErr := globalCatalogService.UpdateCatalogEntry(nil)
@@ -1781,6 +1949,31 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				serverSleepTime = 100 * time.Millisecond
+				_, _, operationErr = globalCatalogService.UpdateCatalogEntryWithContext(ctx, updateCatalogEntryOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+				serverSleepTime = time.Duration(0)
+
+				// Disable retries and test again
+				globalCatalogService.DisableRetries()
+				result, response, operationErr = globalCatalogService.UpdateCatalogEntry(updateCatalogEntryOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				serverSleepTime = 100 * time.Millisecond
+				_, _, operationErr = globalCatalogService.UpdateCatalogEntryWithContext(ctx, updateCatalogEntryOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+				serverSleepTime = time.Duration(0)
 			})
 			It(`Invoke UpdateCatalogEntry with error: Operation validation and request error`, func() {
 				globalCatalogService, serviceErr := globalcatalogv1.NewGlobalCatalogV1(&globalcatalogv1.GlobalCatalogV1Options{
@@ -2056,6 +2249,7 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 					// Verify the contents of the request
 					Expect(req.URL.EscapedPath()).To(Equal(deleteCatalogEntryPath))
 					Expect(req.Method).To(Equal("DELETE"))
+
 					Expect(req.URL.Query()["account"]).To(Equal([]string{"testString"}))
 
 
@@ -2071,6 +2265,7 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				})
 				Expect(serviceErr).To(BeNil())
 				Expect(globalCatalogService).ToNot(BeNil())
+				globalCatalogService.EnableRetries(0, 0)
 
 				// Invoke operation with nil options model (negative test)
 				response, operationErr := globalCatalogService.DeleteCatalogEntry(nil)
@@ -2085,6 +2280,12 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				deleteCatalogEntryOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
+				response, operationErr = globalCatalogService.DeleteCatalogEntry(deleteCatalogEntryOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Disable retries and test again
+				globalCatalogService.DisableRetries()
 				response, operationErr = globalCatalogService.DeleteCatalogEntry(deleteCatalogEntryOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
@@ -2176,6 +2377,13 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				globalCatalogService.EnableRetries(0, 0)
+				result, response, operationErr = globalCatalogService.GetChildObjects(getChildObjectsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
 			})
 			AfterEach(func() {
 				testServer.Close()
@@ -2185,14 +2393,17 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 
 	Describe(`GetChildObjects(getChildObjectsOptions *GetChildObjectsOptions)`, func() {
 		getChildObjectsPath := "/testString/testString"
+		var serverSleepTime time.Duration
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
+				serverSleepTime = 0
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
 					Expect(req.URL.EscapedPath()).To(Equal(getChildObjectsPath))
 					Expect(req.Method).To(Equal("GET"))
+
 					Expect(req.URL.Query()["account"]).To(Equal([]string{"testString"}))
 
 					Expect(req.URL.Query()["include"]).To(Equal([]string{"testString"}))
@@ -2207,6 +2418,10 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 
 					Expect(req.URL.Query()["complete"]).To(Equal([]string{"testString"}))
 
+					// Sleep a short time to support a timeout test
+					time.Sleep(serverSleepTime)
+
+					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
 					fmt.Fprintf(res, "%s", `{"offset": 6, "limit": 5, "count": 5, "resource_count": 13, "first": "First", "last": "Last", "prev": "Prev", "next": "Next", "resources": [{"name": "Name", "kind": "service", "overview_ui": {"mapKey": {"display_name": "DisplayName", "long_description": "LongDescription", "description": "Description", "featured_description": "FeaturedDescription"}}, "images": {"image": "Image", "small_image": "SmallImage", "medium_image": "MediumImage", "feature_image": "FeatureImage"}, "parent_id": "ParentID", "disabled": true, "tags": ["Tags"], "group": false, "provider": {"email": "Email", "name": "Name", "contact": "Contact", "support_email": "SupportEmail", "phone": "Phone"}, "active": true, "metadata": {"rc_compatible": true, "service": {"type": "Type", "iam_compatible": false, "unique_api_key": true, "provisionable": false, "bindable": true, "async_provisioning_supported": true, "async_unprovisioning_supported": true, "requires": ["Requires"], "plan_updateable": true, "state": "State", "service_check_enabled": false, "test_check_interval": 17, "service_key_supported": false, "cf_guid": {"mapKey": "Inner"}}, "plan": {"bindable": true, "reservable": true, "allow_internal_users": true, "async_provisioning_supported": true, "async_unprovisioning_supported": true, "test_check_interval": 17, "single_scope_instance": "SingleScopeInstance", "service_check_enabled": false, "cf_guid": {"mapKey": "Inner"}}, "alias": {"type": "Type", "plan_id": "PlanID"}, "template": {"services": ["Services"], "default_memory": 13, "start_cmd": "StartCmd", "source": {"path": "Path", "type": "Type", "url": "URL"}, "runtime_catalog_id": "RuntimeCatalogID", "cf_runtime_id": "CfRuntimeID", "template_id": "TemplateID", "executable_file": "ExecutableFile", "buildpack": "Buildpack", "environment_variables": {"mapKey": "Inner"}}, "ui": {"strings": {"mapKey": {"bullets": [{"title": "Title", "description": "Description", "icon": "Icon", "quantity": 8}], "media": [{"caption": "Caption", "thumbnail_url": "ThumbnailURL", "type": "Type", "URL": "URL", "source": {"title": "Title", "description": "Description", "icon": "Icon", "quantity": 8}}], "not_creatable_msg": "NotCreatableMsg", "not_creatable__robot_msg": "NotCreatableRobotMsg", "deprecation_warning": "DeprecationWarning", "popup_warning_message": "PopupWarningMessage", "instruction": "Instruction"}}, "urls": {"doc_url": "DocURL", "instructions_url": "InstructionsURL", "api_url": "ApiURL", "create_url": "CreateURL", "sdk_download_url": "SdkDownloadURL", "terms_url": "TermsURL", "custom_create_page_url": "CustomCreatePageURL", "catalog_details_url": "CatalogDetailsURL", "deprecation_doc_url": "DeprecationDocURL", "dashboard_url": "DashboardURL", "registration_url": "RegistrationURL", "apidocsurl": "Apidocsurl"}, "embeddable_dashboard": "EmbeddableDashboard", "embeddable_dashboard_full_width": true, "navigation_order": ["NavigationOrder"], "not_creatable": true, "primary_offering_id": "PrimaryOfferingID", "accessible_during_provision": false, "side_by_side_index": 15, "end_of_service_time": "2019-01-01T12:00:00", "hidden": true, "hide_lite_metering": true, "no_upgrade_next_step": false}, "compliance": ["Compliance"], "sla": {"terms": "Terms", "tenancy": "Tenancy", "provisioning": "Provisioning", "responsiveness": "Responsiveness", "dr": {"dr": true, "description": "Description"}}, "callbacks": {"controller_url": "ControllerURL", "broker_url": "BrokerURL", "broker_proxy_url": "BrokerProxyURL", "dashboard_url": "DashboardURL", "dashboard_data_url": "DashboardDataURL", "dashboard_detail_tab_url": "DashboardDetailTabURL", "dashboard_detail_tab_ext_url": "DashboardDetailTabExtURL", "service_monitor_api": "ServiceMonitorApi", "service_monitor_app": "ServiceMonitorApp", "api_endpoint": {"mapKey": "Inner"}}, "original_name": "OriginalName", "version": "Version", "other": {"mapKey": {"anyKey": "anyValue"}}, "pricing": {"type": "Type", "origin": "Origin", "starting_price": {"plan_id": "PlanID", "deployment_id": "DeploymentID", "unit": "Unit", "amount": [{"country": "Country", "currency": "Currency", "prices": [{"quantity_tier": 12, "Price": 5}]}]}, "metrics": [{"part_ref": "PartRef", "metric_id": "MetricID", "tier_model": "TierModel", "charge_unit": "ChargeUnit", "charge_unit_name": "ChargeUnitName", "charge_unit_quantity": "ChargeUnitQuantity", "resource_display_name": "ResourceDisplayName", "charge_unit_display_name": "ChargeUnitDisplayName", "usage_cap_qty": 11, "display_cap": 10, "effective_from": "2019-01-01T12:00:00", "effective_until": "2019-01-01T12:00:00", "amounts": [{"country": "Country", "currency": "Currency", "prices": [{"quantity_tier": 12, "Price": 5}]}]}]}, "deployment": {"location": "Location", "location_url": "LocationURL", "original_location": "OriginalLocation", "target_crn": "TargetCrn", "service_crn": "ServiceCrn", "mccp_id": "MccpID", "broker": {"name": "Name", "guid": "Guid"}, "supports_rc_migration": false, "target_network": "TargetNetwork"}}, "id": "ID", "catalog_crn": "anyValue", "url": "anyValue", "children_url": "anyValue", "geo_tags": "anyValue", "pricing_tags": "anyValue", "created": "anyValue", "updated": "anyValue"}]}`)
@@ -2219,6 +2434,7 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				})
 				Expect(serviceErr).To(BeNil())
 				Expect(globalCatalogService).ToNot(BeNil())
+				globalCatalogService.EnableRetries(0, 0)
 
 				// Invoke operation with nil options model (negative test)
 				result, response, operationErr := globalCatalogService.GetChildObjects(nil)
@@ -2244,6 +2460,31 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				serverSleepTime = 100 * time.Millisecond
+				_, _, operationErr = globalCatalogService.GetChildObjectsWithContext(ctx, getChildObjectsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+				serverSleepTime = time.Duration(0)
+
+				// Disable retries and test again
+				globalCatalogService.DisableRetries()
+				result, response, operationErr = globalCatalogService.GetChildObjects(getChildObjectsOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				serverSleepTime = 100 * time.Millisecond
+				_, _, operationErr = globalCatalogService.GetChildObjectsWithContext(ctx, getChildObjectsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+				serverSleepTime = time.Duration(0)
 			})
 			It(`Invoke GetChildObjects with error: Operation validation and request error`, func() {
 				globalCatalogService, serviceErr := globalcatalogv1.NewGlobalCatalogV1(&globalcatalogv1.GlobalCatalogV1Options{
@@ -2297,6 +2538,7 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 					// Verify the contents of the request
 					Expect(req.URL.EscapedPath()).To(Equal(restoreCatalogEntryPath))
 					Expect(req.Method).To(Equal("PUT"))
+
 					Expect(req.URL.Query()["account"]).To(Equal([]string{"testString"}))
 
 					res.WriteHeader(204)
@@ -2309,6 +2551,7 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				})
 				Expect(serviceErr).To(BeNil())
 				Expect(globalCatalogService).ToNot(BeNil())
+				globalCatalogService.EnableRetries(0, 0)
 
 				// Invoke operation with nil options model (negative test)
 				response, operationErr := globalCatalogService.RestoreCatalogEntry(nil)
@@ -2322,6 +2565,12 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				restoreCatalogEntryOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
+				response, operationErr = globalCatalogService.RestoreCatalogEntry(restoreCatalogEntryOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Disable retries and test again
+				globalCatalogService.DisableRetries()
 				response, operationErr = globalCatalogService.RestoreCatalogEntry(restoreCatalogEntryOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
@@ -2493,6 +2742,13 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				globalCatalogService.EnableRetries(0, 0)
+				result, response, operationErr = globalCatalogService.GetVisibility(getVisibilityOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
 			})
 			AfterEach(func() {
 				testServer.Close()
@@ -2502,16 +2758,23 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 
 	Describe(`GetVisibility(getVisibilityOptions *GetVisibilityOptions)`, func() {
 		getVisibilityPath := "/testString/visibility"
+		var serverSleepTime time.Duration
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
+				serverSleepTime = 0
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
 					Expect(req.URL.EscapedPath()).To(Equal(getVisibilityPath))
 					Expect(req.Method).To(Equal("GET"))
+
 					Expect(req.URL.Query()["account"]).To(Equal([]string{"testString"}))
 
+					// Sleep a short time to support a timeout test
+					time.Sleep(serverSleepTime)
+
+					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
 					fmt.Fprintf(res, "%s", `{"restrictions": "Restrictions", "owner": "Owner", "extendable": true, "include": {"accounts": {"_accountid_": "Accountid"}}, "exclude": {"accounts": {"_accountid_": "Accountid"}}, "approved": true}`)
@@ -2524,6 +2787,7 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				})
 				Expect(serviceErr).To(BeNil())
 				Expect(globalCatalogService).ToNot(BeNil())
+				globalCatalogService.EnableRetries(0, 0)
 
 				// Invoke operation with nil options model (negative test)
 				result, response, operationErr := globalCatalogService.GetVisibility(nil)
@@ -2542,6 +2806,31 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				serverSleepTime = 100 * time.Millisecond
+				_, _, operationErr = globalCatalogService.GetVisibilityWithContext(ctx, getVisibilityOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+				serverSleepTime = time.Duration(0)
+
+				// Disable retries and test again
+				globalCatalogService.DisableRetries()
+				result, response, operationErr = globalCatalogService.GetVisibility(getVisibilityOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				serverSleepTime = 100 * time.Millisecond
+				_, _, operationErr = globalCatalogService.GetVisibilityWithContext(ctx, getVisibilityOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+				serverSleepTime = time.Duration(0)
 			})
 			It(`Invoke GetVisibility with error: Operation validation and request error`, func() {
 				globalCatalogService, serviceErr := globalcatalogv1.NewGlobalCatalogV1(&globalcatalogv1.GlobalCatalogV1Options{
@@ -2588,6 +2877,23 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 					// Verify the contents of the request
 					Expect(req.URL.EscapedPath()).To(Equal(updateVisibilityPath))
 					Expect(req.Method).To(Equal("PUT"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
 					Expect(req.URL.Query()["account"]).To(Equal([]string{"testString"}))
 
 					res.WriteHeader(200)
@@ -2600,6 +2906,7 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				})
 				Expect(serviceErr).To(BeNil())
 				Expect(globalCatalogService).ToNot(BeNil())
+				globalCatalogService.EnableRetries(0, 0)
 
 				// Invoke operation with nil options model (negative test)
 				response, operationErr := globalCatalogService.UpdateVisibility(nil)
@@ -2624,6 +2931,12 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				updateVisibilityOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
+				response, operationErr = globalCatalogService.UpdateVisibility(updateVisibilityOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Disable retries and test again
+				globalCatalogService.DisableRetries()
 				response, operationErr = globalCatalogService.UpdateVisibility(updateVisibilityOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
@@ -2806,6 +3119,13 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				globalCatalogService.EnableRetries(0, 0)
+				result, response, operationErr = globalCatalogService.GetPricing(getPricingOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
 			})
 			AfterEach(func() {
 				testServer.Close()
@@ -2815,16 +3135,23 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 
 	Describe(`GetPricing(getPricingOptions *GetPricingOptions)`, func() {
 		getPricingPath := "/testString/pricing"
+		var serverSleepTime time.Duration
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
+				serverSleepTime = 0
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
 					Expect(req.URL.EscapedPath()).To(Equal(getPricingPath))
 					Expect(req.Method).To(Equal("GET"))
+
 					Expect(req.URL.Query()["account"]).To(Equal([]string{"testString"}))
 
+					// Sleep a short time to support a timeout test
+					time.Sleep(serverSleepTime)
+
+					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
 					fmt.Fprintf(res, "%s", `{"type": "Type", "origin": "Origin", "starting_price": {"plan_id": "PlanID", "deployment_id": "DeploymentID", "unit": "Unit", "amount": [{"country": "Country", "currency": "Currency", "prices": [{"quantity_tier": 12, "Price": 5}]}]}, "metrics": [{"part_ref": "PartRef", "metric_id": "MetricID", "tier_model": "TierModel", "charge_unit": "ChargeUnit", "charge_unit_name": "ChargeUnitName", "charge_unit_quantity": "ChargeUnitQuantity", "resource_display_name": "ResourceDisplayName", "charge_unit_display_name": "ChargeUnitDisplayName", "usage_cap_qty": 11, "display_cap": 10, "effective_from": "2019-01-01T12:00:00", "effective_until": "2019-01-01T12:00:00", "amounts": [{"country": "Country", "currency": "Currency", "prices": [{"quantity_tier": 12, "Price": 5}]}]}]}`)
@@ -2837,6 +3164,7 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				})
 				Expect(serviceErr).To(BeNil())
 				Expect(globalCatalogService).ToNot(BeNil())
+				globalCatalogService.EnableRetries(0, 0)
 
 				// Invoke operation with nil options model (negative test)
 				result, response, operationErr := globalCatalogService.GetPricing(nil)
@@ -2855,6 +3183,31 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				serverSleepTime = 100 * time.Millisecond
+				_, _, operationErr = globalCatalogService.GetPricingWithContext(ctx, getPricingOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+				serverSleepTime = time.Duration(0)
+
+				// Disable retries and test again
+				globalCatalogService.DisableRetries()
+				result, response, operationErr = globalCatalogService.GetPricing(getPricingOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				serverSleepTime = 100 * time.Millisecond
+				_, _, operationErr = globalCatalogService.GetPricingWithContext(ctx, getPricingOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+				serverSleepTime = time.Duration(0)
 			})
 			It(`Invoke GetPricing with error: Operation validation and request error`, func() {
 				globalCatalogService, serviceErr := globalcatalogv1.NewGlobalCatalogV1(&globalcatalogv1.GlobalCatalogV1Options{
@@ -3037,6 +3390,13 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				globalCatalogService.EnableRetries(0, 0)
+				result, response, operationErr = globalCatalogService.GetAuditLogs(getAuditLogsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
 			})
 			AfterEach(func() {
 				testServer.Close()
@@ -3046,14 +3406,17 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 
 	Describe(`GetAuditLogs(getAuditLogsOptions *GetAuditLogsOptions)`, func() {
 		getAuditLogsPath := "/testString/logs"
+		var serverSleepTime time.Duration
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
+				serverSleepTime = 0
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
 					Expect(req.URL.EscapedPath()).To(Equal(getAuditLogsPath))
 					Expect(req.Method).To(Equal("GET"))
+
 					Expect(req.URL.Query()["account"]).To(Equal([]string{"testString"}))
 
 					Expect(req.URL.Query()["ascending"]).To(Equal([]string{"testString"}))
@@ -3064,6 +3427,10 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 
 					Expect(req.URL.Query()["_limit"]).To(Equal([]string{fmt.Sprint(int64(200))}))
 
+					// Sleep a short time to support a timeout test
+					time.Sleep(serverSleepTime)
+
+					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
 					fmt.Fprintf(res, "%s", `{"offset": 6, "limit": 5, "count": 5, "resource_count": 13, "first": "First", "last": "Last", "prev": "Prev", "next": "Next", "resources": [{"id": "ID", "effective": {"restrictions": "Restrictions", "owner": "Owner", "extendable": true, "include": {"accounts": {"_accountid_": "Accountid"}}, "exclude": {"accounts": {"_accountid_": "Accountid"}}, "approved": true}, "time": "2019-01-01T12:00:00", "who_id": "WhoID", "who_name": "WhoName", "who_email": "WhoEmail", "instance": "Instance", "gid": "Gid", "type": "Type", "message": "Message", "data": {"anyKey": "anyValue"}}]}`)
@@ -3076,6 +3443,7 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				})
 				Expect(serviceErr).To(BeNil())
 				Expect(globalCatalogService).ToNot(BeNil())
+				globalCatalogService.EnableRetries(0, 0)
 
 				// Invoke operation with nil options model (negative test)
 				result, response, operationErr := globalCatalogService.GetAuditLogs(nil)
@@ -3098,6 +3466,31 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				serverSleepTime = 100 * time.Millisecond
+				_, _, operationErr = globalCatalogService.GetAuditLogsWithContext(ctx, getAuditLogsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+				serverSleepTime = time.Duration(0)
+
+				// Disable retries and test again
+				globalCatalogService.DisableRetries()
+				result, response, operationErr = globalCatalogService.GetAuditLogs(getAuditLogsOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				serverSleepTime = 100 * time.Millisecond
+				_, _, operationErr = globalCatalogService.GetAuditLogsWithContext(ctx, getAuditLogsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+				serverSleepTime = time.Duration(0)
 			})
 			It(`Invoke GetAuditLogs with error: Operation validation and request error`, func() {
 				globalCatalogService, serviceErr := globalcatalogv1.NewGlobalCatalogV1(&globalcatalogv1.GlobalCatalogV1Options{
@@ -3272,6 +3665,13 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				globalCatalogService.EnableRetries(0, 0)
+				result, response, operationErr = globalCatalogService.ListArtifacts(listArtifactsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
 			})
 			AfterEach(func() {
 				testServer.Close()
@@ -3281,16 +3681,23 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 
 	Describe(`ListArtifacts(listArtifactsOptions *ListArtifactsOptions)`, func() {
 		listArtifactsPath := "/testString/artifacts"
+		var serverSleepTime time.Duration
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
+				serverSleepTime = 0
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
 					Expect(req.URL.EscapedPath()).To(Equal(listArtifactsPath))
 					Expect(req.Method).To(Equal("GET"))
+
 					Expect(req.URL.Query()["account"]).To(Equal([]string{"testString"}))
 
+					// Sleep a short time to support a timeout test
+					time.Sleep(serverSleepTime)
+
+					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
 					fmt.Fprintf(res, "%s", `{"count": 5, "resources": [{"name": "Name", "updated": "2019-01-01T12:00:00", "url": "URL", "etag": "Etag", "size": 4}]}`)
@@ -3303,6 +3710,7 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				})
 				Expect(serviceErr).To(BeNil())
 				Expect(globalCatalogService).ToNot(BeNil())
+				globalCatalogService.EnableRetries(0, 0)
 
 				// Invoke operation with nil options model (negative test)
 				result, response, operationErr := globalCatalogService.ListArtifacts(nil)
@@ -3321,6 +3729,31 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				serverSleepTime = 100 * time.Millisecond
+				_, _, operationErr = globalCatalogService.ListArtifactsWithContext(ctx, listArtifactsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+				serverSleepTime = time.Duration(0)
+
+				// Disable retries and test again
+				globalCatalogService.DisableRetries()
+				result, response, operationErr = globalCatalogService.ListArtifacts(listArtifactsOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				serverSleepTime = 100 * time.Millisecond
+				_, _, operationErr = globalCatalogService.ListArtifactsWithContext(ctx, listArtifactsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+				serverSleepTime = time.Duration(0)
 			})
 			It(`Invoke ListArtifacts with error: Operation validation and request error`, func() {
 				globalCatalogService, serviceErr := globalcatalogv1.NewGlobalCatalogV1(&globalcatalogv1.GlobalCatalogV1Options{
@@ -3359,18 +3792,25 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 
 	Describe(`GetArtifact(getArtifactOptions *GetArtifactOptions)`, func() {
 		getArtifactPath := "/testString/artifacts/testString"
+		var serverSleepTime time.Duration
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
+				serverSleepTime = 0
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
 					Expect(req.URL.EscapedPath()).To(Equal(getArtifactPath))
 					Expect(req.Method).To(Equal("GET"))
+
 					Expect(req.Header["Accept"]).ToNot(BeNil())
 					Expect(req.Header["Accept"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					Expect(req.URL.Query()["account"]).To(Equal([]string{"testString"}))
 
+					// Sleep a short time to support a timeout test
+					time.Sleep(serverSleepTime)
+
+					// Set mock response
 					res.Header().Set("Content-type", "*/*")
 					res.WriteHeader(200)
 					fmt.Fprintf(res, "%s", `This is a mock binary response.`)
@@ -3383,6 +3823,7 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				})
 				Expect(serviceErr).To(BeNil())
 				Expect(globalCatalogService).ToNot(BeNil())
+				globalCatalogService.EnableRetries(0, 0)
 
 				// Invoke operation with nil options model (negative test)
 				result, response, operationErr := globalCatalogService.GetArtifact(nil)
@@ -3403,6 +3844,31 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				serverSleepTime = 100 * time.Millisecond
+				_, _, operationErr = globalCatalogService.GetArtifactWithContext(ctx, getArtifactOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+				serverSleepTime = time.Duration(0)
+
+				// Disable retries and test again
+				globalCatalogService.DisableRetries()
+				result, response, operationErr = globalCatalogService.GetArtifact(getArtifactOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				serverSleepTime = 100 * time.Millisecond
+				_, _, operationErr = globalCatalogService.GetArtifactWithContext(ctx, getArtifactOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+				serverSleepTime = time.Duration(0)
 			})
 			It(`Invoke GetArtifact with error: Operation validation and request error`, func() {
 				globalCatalogService, serviceErr := globalcatalogv1.NewGlobalCatalogV1(&globalcatalogv1.GlobalCatalogV1Options{
@@ -3451,6 +3917,23 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 					// Verify the contents of the request
 					Expect(req.URL.EscapedPath()).To(Equal(uploadArtifactPath))
 					Expect(req.Method).To(Equal("PUT"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
 					Expect(req.Header["Content-Type"]).ToNot(BeNil())
 					Expect(req.Header["Content-Type"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					Expect(req.URL.Query()["account"]).To(Equal([]string{"testString"}))
@@ -3465,6 +3948,7 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				})
 				Expect(serviceErr).To(BeNil())
 				Expect(globalCatalogService).ToNot(BeNil())
+				globalCatalogService.EnableRetries(0, 0)
 
 				// Invoke operation with nil options model (negative test)
 				response, operationErr := globalCatalogService.UploadArtifact(nil)
@@ -3481,6 +3965,12 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				uploadArtifactOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
+				response, operationErr = globalCatalogService.UploadArtifact(uploadArtifactOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Disable retries and test again
+				globalCatalogService.DisableRetries()
 				response, operationErr = globalCatalogService.UploadArtifact(uploadArtifactOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
@@ -3531,6 +4021,7 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 					// Verify the contents of the request
 					Expect(req.URL.EscapedPath()).To(Equal(deleteArtifactPath))
 					Expect(req.Method).To(Equal("DELETE"))
+
 					Expect(req.URL.Query()["account"]).To(Equal([]string{"testString"}))
 
 					res.WriteHeader(200)
@@ -3543,6 +4034,7 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				})
 				Expect(serviceErr).To(BeNil())
 				Expect(globalCatalogService).ToNot(BeNil())
+				globalCatalogService.EnableRetries(0, 0)
 
 				// Invoke operation with nil options model (negative test)
 				response, operationErr := globalCatalogService.DeleteArtifact(nil)
@@ -3557,6 +4049,12 @@ var _ = Describe(`GlobalCatalogV1`, func() {
 				deleteArtifactOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
+				response, operationErr = globalCatalogService.DeleteArtifact(deleteArtifactOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Disable retries and test again
+				globalCatalogService.DisableRetries()
 				response, operationErr = globalCatalogService.DeleteArtifact(deleteArtifactOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())

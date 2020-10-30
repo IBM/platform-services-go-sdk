@@ -15,7 +15,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-9b0d887a-20200923-132457
+ * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-8d569e8f-20201030-111043
  */
  
 
@@ -23,12 +23,15 @@
 package globaltaggingv1
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"github.com/IBM/go-sdk-core/v4/core"
 	common "github.com/IBM/platform-services-go-sdk/common"
+	"net/http"
 	"reflect"
 	"strings"
+	"time"
 )
 
 // GlobalTaggingV1 : Manage your tags with the Tagging API in IBM Cloud. You can attach, detach, delete a tag or list
@@ -115,16 +118,54 @@ func (globalTagging *GlobalTaggingV1) SetServiceURL(url string) error {
 	return globalTagging.Service.SetServiceURL(url)
 }
 
+// GetServiceURL returns the service URL
+func (globalTagging *GlobalTaggingV1) GetServiceURL() string {
+	return globalTagging.Service.GetServiceURL()
+}
+
+// SetDefaultHeaders sets HTTP headers to be sent in every request
+func (globalTagging *GlobalTaggingV1) SetDefaultHeaders(headers http.Header) {
+	globalTagging.Service.SetDefaultHeaders(headers)
+}
+
+// SetEnableGzipCompression sets the service's EnableGzipCompression field
+func (globalTagging *GlobalTaggingV1) SetEnableGzipCompression(enableGzip bool) {
+	globalTagging.Service.SetEnableGzipCompression(enableGzip)
+}
+
+// GetEnableGzipCompression returns the service's EnableGzipCompression field
+func (globalTagging *GlobalTaggingV1) GetEnableGzipCompression() bool {
+	return globalTagging.Service.GetEnableGzipCompression()
+}
+
+// EnableRetries enables automatic retries for requests invoked for this service instance.
+// If either parameter is specified as 0, then a default value is used instead.
+func (globalTagging *GlobalTaggingV1) EnableRetries(maxRetries int, maxRetryInterval time.Duration) {
+	globalTagging.Service.EnableRetries(maxRetries, maxRetryInterval)
+}
+
+// DisableRetries disables automatic retries for requests invoked for this service instance.
+func (globalTagging *GlobalTaggingV1) DisableRetries() {
+	globalTagging.Service.DisableRetries()
+}
+
 // ListTags : Get all tags
 // Lists all tags in a billing account. Use the `attached_to` parameter to return the list of tags attached to the
 // specified resource.
 func (globalTagging *GlobalTaggingV1) ListTags(listTagsOptions *ListTagsOptions) (result *TagList, response *core.DetailedResponse, err error) {
+	return globalTagging.ListTagsWithContext(context.Background(), listTagsOptions)
+}
+
+// ListTagsWithContext is an alternate form of the ListTags method which supports a Context parameter
+func (globalTagging *GlobalTaggingV1) ListTagsWithContext(ctx context.Context, listTagsOptions *ListTagsOptions) (result *TagList, response *core.DetailedResponse, err error) {
 	err = core.ValidateStruct(listTagsOptions, "listTagsOptions")
 	if err != nil {
 		return
 	}
 
 	builder := core.NewRequestBuilder(core.GET)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = globalTagging.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(globalTagging.Service.Options.URL, `/v3/tags`, nil)
 	if err != nil {
 		return
@@ -193,12 +234,19 @@ func (globalTagging *GlobalTaggingV1) ListTags(listTagsOptions *ListTagsOptions)
 // DeleteTagAll : Delete all unused tags
 // Delete the tags that are not attached to any resource.
 func (globalTagging *GlobalTaggingV1) DeleteTagAll(deleteTagAllOptions *DeleteTagAllOptions) (result *DeleteTagsResult, response *core.DetailedResponse, err error) {
+	return globalTagging.DeleteTagAllWithContext(context.Background(), deleteTagAllOptions)
+}
+
+// DeleteTagAllWithContext is an alternate form of the DeleteTagAll method which supports a Context parameter
+func (globalTagging *GlobalTaggingV1) DeleteTagAllWithContext(ctx context.Context, deleteTagAllOptions *DeleteTagAllOptions) (result *DeleteTagsResult, response *core.DetailedResponse, err error) {
 	err = core.ValidateStruct(deleteTagAllOptions, "deleteTagAllOptions")
 	if err != nil {
 		return
 	}
 
 	builder := core.NewRequestBuilder(core.DELETE)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = globalTagging.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(globalTagging.Service.Options.URL, `/v3/tags`, nil)
 	if err != nil {
 		return
@@ -246,6 +294,11 @@ func (globalTagging *GlobalTaggingV1) DeleteTagAll(deleteTagAllOptions *DeleteTa
 // DeleteTag : Delete an unused tag
 // Delete an existing tag. A tag can be deleted only if it is not attached to any resource.
 func (globalTagging *GlobalTaggingV1) DeleteTag(deleteTagOptions *DeleteTagOptions) (result *DeleteTagResults, response *core.DetailedResponse, err error) {
+	return globalTagging.DeleteTagWithContext(context.Background(), deleteTagOptions)
+}
+
+// DeleteTagWithContext is an alternate form of the DeleteTag method which supports a Context parameter
+func (globalTagging *GlobalTaggingV1) DeleteTagWithContext(ctx context.Context, deleteTagOptions *DeleteTagOptions) (result *DeleteTagResults, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(deleteTagOptions, "deleteTagOptions cannot be nil")
 	if err != nil {
 		return
@@ -260,6 +313,8 @@ func (globalTagging *GlobalTaggingV1) DeleteTag(deleteTagOptions *DeleteTagOptio
 	}
 
 	builder := core.NewRequestBuilder(core.DELETE)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = globalTagging.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(globalTagging.Service.Options.URL, `/v3/tags/{tag_name}`, pathParamsMap)
 	if err != nil {
 		return
@@ -311,6 +366,11 @@ func (globalTagging *GlobalTaggingV1) DeleteTag(deleteTagOptions *DeleteTagOptio
 // a `service` tag with your registered `prefix` to any resource in any account. The account ID must be set through the
 // `account_id` query parameter.
 func (globalTagging *GlobalTaggingV1) AttachTag(attachTagOptions *AttachTagOptions) (result *TagResults, response *core.DetailedResponse, err error) {
+	return globalTagging.AttachTagWithContext(context.Background(), attachTagOptions)
+}
+
+// AttachTagWithContext is an alternate form of the AttachTag method which supports a Context parameter
+func (globalTagging *GlobalTaggingV1) AttachTagWithContext(ctx context.Context, attachTagOptions *AttachTagOptions) (result *TagResults, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(attachTagOptions, "attachTagOptions cannot be nil")
 	if err != nil {
 		return
@@ -321,6 +381,8 @@ func (globalTagging *GlobalTaggingV1) AttachTag(attachTagOptions *AttachTagOptio
 	}
 
 	builder := core.NewRequestBuilder(core.POST)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = globalTagging.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(globalTagging.Service.Options.URL, `/v3/tags/attach`, nil)
 	if err != nil {
 		return
@@ -385,6 +447,11 @@ func (globalTagging *GlobalTaggingV1) AttachTag(attachTagOptions *AttachTagOptio
 // be an authorized Service. If that is the case, then you can detach a `service` tag with your registered `prefix` from
 // any resource in any account. The account ID must be set through the `account_id` query parameter.
 func (globalTagging *GlobalTaggingV1) DetachTag(detachTagOptions *DetachTagOptions) (result *TagResults, response *core.DetailedResponse, err error) {
+	return globalTagging.DetachTagWithContext(context.Background(), detachTagOptions)
+}
+
+// DetachTagWithContext is an alternate form of the DetachTag method which supports a Context parameter
+func (globalTagging *GlobalTaggingV1) DetachTagWithContext(ctx context.Context, detachTagOptions *DetachTagOptions) (result *TagResults, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(detachTagOptions, "detachTagOptions cannot be nil")
 	if err != nil {
 		return
@@ -395,6 +462,8 @@ func (globalTagging *GlobalTaggingV1) DetachTag(detachTagOptions *DetachTagOptio
 	}
 
 	builder := core.NewRequestBuilder(core.POST)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = globalTagging.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(globalTagging.Service.Options.URL, `/v3/tags/detach`, nil)
 	if err != nil {
 		return

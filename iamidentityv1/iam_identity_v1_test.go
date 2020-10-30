@@ -194,6 +194,13 @@ var _ = Describe(`IamIdentityV1`, func() {
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				iamIdentityService.EnableRetries(0, 0)
+				result, response, operationErr = iamIdentityService.ListApiKeys(listApiKeysOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
 			})
 			AfterEach(func() {
 				testServer.Close()
@@ -203,8 +210,10 @@ var _ = Describe(`IamIdentityV1`, func() {
 
 	Describe(`ListApiKeys(listApiKeysOptions *ListApiKeysOptions)`, func() {
 		listApiKeysPath := "/v1/apikeys"
+		var serverSleepTime time.Duration
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
+				serverSleepTime = 0
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
@@ -232,7 +241,7 @@ var _ = Describe(`IamIdentityV1`, func() {
 					// TODO: Add check for include_history query parameter
 
 					// Sleep a short time to support a timeout test
-					time.Sleep(100 * time.Millisecond)
+					time.Sleep(serverSleepTime)
 
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
@@ -247,6 +256,7 @@ var _ = Describe(`IamIdentityV1`, func() {
 				})
 				Expect(serviceErr).To(BeNil())
 				Expect(iamIdentityService).ToNot(BeNil())
+				iamIdentityService.EnableRetries(0, 0)
 
 				// Invoke operation with nil options model (negative test)
 				result, response, operationErr := iamIdentityService.ListApiKeys(nil)
@@ -276,9 +286,27 @@ var _ = Describe(`IamIdentityV1`, func() {
 				// Invoke operation with a Context to test a timeout error
 				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
 				defer cancelFunc()
+				serverSleepTime = 100 * time.Millisecond
 				_, _, operationErr = iamIdentityService.ListApiKeysWithContext(ctx, listApiKeysOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+				serverSleepTime = time.Duration(0)
+
+				// Disable retries and test again
+				iamIdentityService.DisableRetries()
+				result, response, operationErr = iamIdentityService.ListApiKeys(listApiKeysOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				serverSleepTime = 100 * time.Millisecond
+				_, _, operationErr = iamIdentityService.ListApiKeysWithContext(ctx, listApiKeysOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+				serverSleepTime = time.Duration(0)
 			})
 			It(`Invoke ListApiKeys with error: Operation request error`, func() {
 				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
@@ -354,6 +382,13 @@ var _ = Describe(`IamIdentityV1`, func() {
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				iamIdentityService.EnableRetries(0, 0)
+				result, response, operationErr = iamIdentityService.CreateApiKey(createApiKeyOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
 			})
 			AfterEach(func() {
 				testServer.Close()
@@ -363,8 +398,10 @@ var _ = Describe(`IamIdentityV1`, func() {
 
 	Describe(`CreateApiKey(createApiKeyOptions *CreateApiKeyOptions)`, func() {
 		createApiKeyPath := "/v1/apikeys"
+		var serverSleepTime time.Duration
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
+				serverSleepTime = 0
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
@@ -391,7 +428,7 @@ var _ = Describe(`IamIdentityV1`, func() {
 					Expect(req.Header["Entity-Lock"]).ToNot(BeNil())
 					Expect(req.Header["Entity-Lock"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					// Sleep a short time to support a timeout test
-					time.Sleep(100 * time.Millisecond)
+					time.Sleep(serverSleepTime)
 
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
@@ -406,6 +443,7 @@ var _ = Describe(`IamIdentityV1`, func() {
 				})
 				Expect(serviceErr).To(BeNil())
 				Expect(iamIdentityService).ToNot(BeNil())
+				iamIdentityService.EnableRetries(0, 0)
 
 				// Invoke operation with nil options model (negative test)
 				result, response, operationErr := iamIdentityService.CreateApiKey(nil)
@@ -433,9 +471,27 @@ var _ = Describe(`IamIdentityV1`, func() {
 				// Invoke operation with a Context to test a timeout error
 				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
 				defer cancelFunc()
+				serverSleepTime = 100 * time.Millisecond
 				_, _, operationErr = iamIdentityService.CreateApiKeyWithContext(ctx, createApiKeyOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+				serverSleepTime = time.Duration(0)
+
+				// Disable retries and test again
+				iamIdentityService.DisableRetries()
+				result, response, operationErr = iamIdentityService.CreateApiKey(createApiKeyOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				serverSleepTime = 100 * time.Millisecond
+				_, _, operationErr = iamIdentityService.CreateApiKeyWithContext(ctx, createApiKeyOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+				serverSleepTime = time.Duration(0)
 			})
 			It(`Invoke CreateApiKey with error: Operation validation and request error`, func() {
 				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
@@ -514,6 +570,13 @@ var _ = Describe(`IamIdentityV1`, func() {
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				iamIdentityService.EnableRetries(0, 0)
+				result, response, operationErr = iamIdentityService.GetApiKeysDetails(getApiKeysDetailsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
 			})
 			AfterEach(func() {
 				testServer.Close()
@@ -523,8 +586,10 @@ var _ = Describe(`IamIdentityV1`, func() {
 
 	Describe(`GetApiKeysDetails(getApiKeysDetailsOptions *GetApiKeysDetailsOptions)`, func() {
 		getApiKeysDetailsPath := "/v1/apikeys/details"
+		var serverSleepTime time.Duration
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
+				serverSleepTime = 0
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
@@ -538,7 +603,7 @@ var _ = Describe(`IamIdentityV1`, func() {
 					// TODO: Add check for include_history query parameter
 
 					// Sleep a short time to support a timeout test
-					time.Sleep(100 * time.Millisecond)
+					time.Sleep(serverSleepTime)
 
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
@@ -553,6 +618,7 @@ var _ = Describe(`IamIdentityV1`, func() {
 				})
 				Expect(serviceErr).To(BeNil())
 				Expect(iamIdentityService).ToNot(BeNil())
+				iamIdentityService.EnableRetries(0, 0)
 
 				// Invoke operation with nil options model (negative test)
 				result, response, operationErr := iamIdentityService.GetApiKeysDetails(nil)
@@ -575,9 +641,27 @@ var _ = Describe(`IamIdentityV1`, func() {
 				// Invoke operation with a Context to test a timeout error
 				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
 				defer cancelFunc()
+				serverSleepTime = 100 * time.Millisecond
 				_, _, operationErr = iamIdentityService.GetApiKeysDetailsWithContext(ctx, getApiKeysDetailsOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+				serverSleepTime = time.Duration(0)
+
+				// Disable retries and test again
+				iamIdentityService.DisableRetries()
+				result, response, operationErr = iamIdentityService.GetApiKeysDetails(getApiKeysDetailsOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				serverSleepTime = 100 * time.Millisecond
+				_, _, operationErr = iamIdentityService.GetApiKeysDetailsWithContext(ctx, getApiKeysDetailsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+				serverSleepTime = time.Duration(0)
 			})
 			It(`Invoke GetApiKeysDetails with error: Operation request error`, func() {
 				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
@@ -642,6 +726,13 @@ var _ = Describe(`IamIdentityV1`, func() {
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				iamIdentityService.EnableRetries(0, 0)
+				result, response, operationErr = iamIdentityService.GetApiKey(getApiKeyOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
 			})
 			AfterEach(func() {
 				testServer.Close()
@@ -651,8 +742,10 @@ var _ = Describe(`IamIdentityV1`, func() {
 
 	Describe(`GetApiKey(getApiKeyOptions *GetApiKeyOptions)`, func() {
 		getApiKeyPath := "/v1/apikeys/testString"
+		var serverSleepTime time.Duration
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
+				serverSleepTime = 0
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
@@ -664,7 +757,7 @@ var _ = Describe(`IamIdentityV1`, func() {
 					// TODO: Add check for include_history query parameter
 
 					// Sleep a short time to support a timeout test
-					time.Sleep(100 * time.Millisecond)
+					time.Sleep(serverSleepTime)
 
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
@@ -679,6 +772,7 @@ var _ = Describe(`IamIdentityV1`, func() {
 				})
 				Expect(serviceErr).To(BeNil())
 				Expect(iamIdentityService).ToNot(BeNil())
+				iamIdentityService.EnableRetries(0, 0)
 
 				// Invoke operation with nil options model (negative test)
 				result, response, operationErr := iamIdentityService.GetApiKey(nil)
@@ -701,9 +795,27 @@ var _ = Describe(`IamIdentityV1`, func() {
 				// Invoke operation with a Context to test a timeout error
 				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
 				defer cancelFunc()
+				serverSleepTime = 100 * time.Millisecond
 				_, _, operationErr = iamIdentityService.GetApiKeyWithContext(ctx, getApiKeyOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+				serverSleepTime = time.Duration(0)
+
+				// Disable retries and test again
+				iamIdentityService.DisableRetries()
+				result, response, operationErr = iamIdentityService.GetApiKey(getApiKeyOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				serverSleepTime = 100 * time.Millisecond
+				_, _, operationErr = iamIdentityService.GetApiKeyWithContext(ctx, getApiKeyOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+				serverSleepTime = time.Duration(0)
 			})
 			It(`Invoke GetApiKey with error: Operation validation and request error`, func() {
 				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
@@ -776,6 +888,13 @@ var _ = Describe(`IamIdentityV1`, func() {
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				iamIdentityService.EnableRetries(0, 0)
+				result, response, operationErr = iamIdentityService.UpdateApiKey(updateApiKeyOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
 			})
 			AfterEach(func() {
 				testServer.Close()
@@ -785,8 +904,10 @@ var _ = Describe(`IamIdentityV1`, func() {
 
 	Describe(`UpdateApiKey(updateApiKeyOptions *UpdateApiKeyOptions)`, func() {
 		updateApiKeyPath := "/v1/apikeys/testString"
+		var serverSleepTime time.Duration
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
+				serverSleepTime = 0
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
@@ -813,7 +934,7 @@ var _ = Describe(`IamIdentityV1`, func() {
 					Expect(req.Header["If-Match"]).ToNot(BeNil())
 					Expect(req.Header["If-Match"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					// Sleep a short time to support a timeout test
-					time.Sleep(100 * time.Millisecond)
+					time.Sleep(serverSleepTime)
 
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
@@ -828,6 +949,7 @@ var _ = Describe(`IamIdentityV1`, func() {
 				})
 				Expect(serviceErr).To(BeNil())
 				Expect(iamIdentityService).ToNot(BeNil())
+				iamIdentityService.EnableRetries(0, 0)
 
 				// Invoke operation with nil options model (negative test)
 				result, response, operationErr := iamIdentityService.UpdateApiKey(nil)
@@ -852,9 +974,27 @@ var _ = Describe(`IamIdentityV1`, func() {
 				// Invoke operation with a Context to test a timeout error
 				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
 				defer cancelFunc()
+				serverSleepTime = 100 * time.Millisecond
 				_, _, operationErr = iamIdentityService.UpdateApiKeyWithContext(ctx, updateApiKeyOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+				serverSleepTime = time.Duration(0)
+
+				// Disable retries and test again
+				iamIdentityService.DisableRetries()
+				result, response, operationErr = iamIdentityService.UpdateApiKey(updateApiKeyOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				serverSleepTime = 100 * time.Millisecond
+				_, _, operationErr = iamIdentityService.UpdateApiKeyWithContext(ctx, updateApiKeyOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+				serverSleepTime = time.Duration(0)
 			})
 			It(`Invoke UpdateApiKey with error: Operation validation and request error`, func() {
 				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
@@ -914,6 +1054,7 @@ var _ = Describe(`IamIdentityV1`, func() {
 				})
 				Expect(serviceErr).To(BeNil())
 				Expect(iamIdentityService).ToNot(BeNil())
+				iamIdentityService.EnableRetries(0, 0)
 
 				// Invoke operation with nil options model (negative test)
 				response, operationErr := iamIdentityService.DeleteApiKey(nil)
@@ -926,6 +1067,12 @@ var _ = Describe(`IamIdentityV1`, func() {
 				deleteApiKeyOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
+				response, operationErr = iamIdentityService.DeleteApiKey(deleteApiKeyOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Disable retries and test again
+				iamIdentityService.DisableRetries()
 				response, operationErr = iamIdentityService.DeleteApiKey(deleteApiKeyOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
@@ -983,6 +1130,7 @@ var _ = Describe(`IamIdentityV1`, func() {
 				})
 				Expect(serviceErr).To(BeNil())
 				Expect(iamIdentityService).ToNot(BeNil())
+				iamIdentityService.EnableRetries(0, 0)
 
 				// Invoke operation with nil options model (negative test)
 				response, operationErr := iamIdentityService.LockApiKey(nil)
@@ -995,6 +1143,12 @@ var _ = Describe(`IamIdentityV1`, func() {
 				lockApiKeyOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
+				response, operationErr = iamIdentityService.LockApiKey(lockApiKeyOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Disable retries and test again
+				iamIdentityService.DisableRetries()
 				response, operationErr = iamIdentityService.LockApiKey(lockApiKeyOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
@@ -1052,6 +1206,7 @@ var _ = Describe(`IamIdentityV1`, func() {
 				})
 				Expect(serviceErr).To(BeNil())
 				Expect(iamIdentityService).ToNot(BeNil())
+				iamIdentityService.EnableRetries(0, 0)
 
 				// Invoke operation with nil options model (negative test)
 				response, operationErr := iamIdentityService.UnlockApiKey(nil)
@@ -1064,6 +1219,12 @@ var _ = Describe(`IamIdentityV1`, func() {
 				unlockApiKeyOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
+				response, operationErr = iamIdentityService.UnlockApiKey(unlockApiKeyOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Disable retries and test again
+				iamIdentityService.DisableRetries()
 				response, operationErr = iamIdentityService.UnlockApiKey(unlockApiKeyOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
@@ -1152,6 +1313,13 @@ var _ = Describe(`IamIdentityV1`, func() {
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				iamIdentityService.EnableRetries(0, 0)
+				result, response, operationErr = iamIdentityService.ListServiceIds(listServiceIdsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
 			})
 			AfterEach(func() {
 				testServer.Close()
@@ -1161,8 +1329,10 @@ var _ = Describe(`IamIdentityV1`, func() {
 
 	Describe(`ListServiceIds(listServiceIdsOptions *ListServiceIdsOptions)`, func() {
 		listServiceIdsPath := "/v1/serviceids/"
+		var serverSleepTime time.Duration
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
+				serverSleepTime = 0
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
@@ -1186,7 +1356,7 @@ var _ = Describe(`IamIdentityV1`, func() {
 					// TODO: Add check for include_history query parameter
 
 					// Sleep a short time to support a timeout test
-					time.Sleep(100 * time.Millisecond)
+					time.Sleep(serverSleepTime)
 
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
@@ -1201,6 +1371,7 @@ var _ = Describe(`IamIdentityV1`, func() {
 				})
 				Expect(serviceErr).To(BeNil())
 				Expect(iamIdentityService).ToNot(BeNil())
+				iamIdentityService.EnableRetries(0, 0)
 
 				// Invoke operation with nil options model (negative test)
 				result, response, operationErr := iamIdentityService.ListServiceIds(nil)
@@ -1228,9 +1399,27 @@ var _ = Describe(`IamIdentityV1`, func() {
 				// Invoke operation with a Context to test a timeout error
 				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
 				defer cancelFunc()
+				serverSleepTime = 100 * time.Millisecond
 				_, _, operationErr = iamIdentityService.ListServiceIdsWithContext(ctx, listServiceIdsOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+				serverSleepTime = time.Duration(0)
+
+				// Disable retries and test again
+				iamIdentityService.DisableRetries()
+				result, response, operationErr = iamIdentityService.ListServiceIds(listServiceIdsOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				serverSleepTime = 100 * time.Millisecond
+				_, _, operationErr = iamIdentityService.ListServiceIdsWithContext(ctx, listServiceIdsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+				serverSleepTime = time.Duration(0)
 			})
 			It(`Invoke ListServiceIds with error: Operation request error`, func() {
 				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
@@ -1312,6 +1501,13 @@ var _ = Describe(`IamIdentityV1`, func() {
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				iamIdentityService.EnableRetries(0, 0)
+				result, response, operationErr = iamIdentityService.CreateServiceID(createServiceIdOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
 			})
 			AfterEach(func() {
 				testServer.Close()
@@ -1321,8 +1517,10 @@ var _ = Describe(`IamIdentityV1`, func() {
 
 	Describe(`CreateServiceID(createServiceIdOptions *CreateServiceIdOptions)`, func() {
 		createServiceIDPath := "/v1/serviceids/"
+		var serverSleepTime time.Duration
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
+				serverSleepTime = 0
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
@@ -1349,7 +1547,7 @@ var _ = Describe(`IamIdentityV1`, func() {
 					Expect(req.Header["Entity-Lock"]).ToNot(BeNil())
 					Expect(req.Header["Entity-Lock"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					// Sleep a short time to support a timeout test
-					time.Sleep(100 * time.Millisecond)
+					time.Sleep(serverSleepTime)
 
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
@@ -1364,6 +1562,7 @@ var _ = Describe(`IamIdentityV1`, func() {
 				})
 				Expect(serviceErr).To(BeNil())
 				Expect(iamIdentityService).ToNot(BeNil())
+				iamIdentityService.EnableRetries(0, 0)
 
 				// Invoke operation with nil options model (negative test)
 				result, response, operationErr := iamIdentityService.CreateServiceID(nil)
@@ -1399,9 +1598,27 @@ var _ = Describe(`IamIdentityV1`, func() {
 				// Invoke operation with a Context to test a timeout error
 				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
 				defer cancelFunc()
+				serverSleepTime = 100 * time.Millisecond
 				_, _, operationErr = iamIdentityService.CreateServiceIDWithContext(ctx, createServiceIdOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+				serverSleepTime = time.Duration(0)
+
+				// Disable retries and test again
+				iamIdentityService.DisableRetries()
+				result, response, operationErr = iamIdentityService.CreateServiceID(createServiceIdOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				serverSleepTime = 100 * time.Millisecond
+				_, _, operationErr = iamIdentityService.CreateServiceIDWithContext(ctx, createServiceIdOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+				serverSleepTime = time.Duration(0)
 			})
 			It(`Invoke CreateServiceID with error: Operation validation and request error`, func() {
 				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
@@ -1486,6 +1703,13 @@ var _ = Describe(`IamIdentityV1`, func() {
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				iamIdentityService.EnableRetries(0, 0)
+				result, response, operationErr = iamIdentityService.GetServiceID(getServiceIdOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
 			})
 			AfterEach(func() {
 				testServer.Close()
@@ -1495,8 +1719,10 @@ var _ = Describe(`IamIdentityV1`, func() {
 
 	Describe(`GetServiceID(getServiceIdOptions *GetServiceIdOptions)`, func() {
 		getServiceIDPath := "/v1/serviceids/testString"
+		var serverSleepTime time.Duration
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
+				serverSleepTime = 0
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
@@ -1508,7 +1734,7 @@ var _ = Describe(`IamIdentityV1`, func() {
 					// TODO: Add check for include_history query parameter
 
 					// Sleep a short time to support a timeout test
-					time.Sleep(100 * time.Millisecond)
+					time.Sleep(serverSleepTime)
 
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
@@ -1523,6 +1749,7 @@ var _ = Describe(`IamIdentityV1`, func() {
 				})
 				Expect(serviceErr).To(BeNil())
 				Expect(iamIdentityService).ToNot(BeNil())
+				iamIdentityService.EnableRetries(0, 0)
 
 				// Invoke operation with nil options model (negative test)
 				result, response, operationErr := iamIdentityService.GetServiceID(nil)
@@ -1545,9 +1772,27 @@ var _ = Describe(`IamIdentityV1`, func() {
 				// Invoke operation with a Context to test a timeout error
 				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
 				defer cancelFunc()
+				serverSleepTime = 100 * time.Millisecond
 				_, _, operationErr = iamIdentityService.GetServiceIDWithContext(ctx, getServiceIdOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+				serverSleepTime = time.Duration(0)
+
+				// Disable retries and test again
+				iamIdentityService.DisableRetries()
+				result, response, operationErr = iamIdentityService.GetServiceID(getServiceIdOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				serverSleepTime = 100 * time.Millisecond
+				_, _, operationErr = iamIdentityService.GetServiceIDWithContext(ctx, getServiceIdOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+				serverSleepTime = time.Duration(0)
 			})
 			It(`Invoke GetServiceID with error: Operation validation and request error`, func() {
 				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
@@ -1621,6 +1866,13 @@ var _ = Describe(`IamIdentityV1`, func() {
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				iamIdentityService.EnableRetries(0, 0)
+				result, response, operationErr = iamIdentityService.UpdateServiceID(updateServiceIdOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
 			})
 			AfterEach(func() {
 				testServer.Close()
@@ -1630,8 +1882,10 @@ var _ = Describe(`IamIdentityV1`, func() {
 
 	Describe(`UpdateServiceID(updateServiceIdOptions *UpdateServiceIdOptions)`, func() {
 		updateServiceIDPath := "/v1/serviceids/testString"
+		var serverSleepTime time.Duration
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
+				serverSleepTime = 0
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
@@ -1658,7 +1912,7 @@ var _ = Describe(`IamIdentityV1`, func() {
 					Expect(req.Header["If-Match"]).ToNot(BeNil())
 					Expect(req.Header["If-Match"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					// Sleep a short time to support a timeout test
-					time.Sleep(100 * time.Millisecond)
+					time.Sleep(serverSleepTime)
 
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
@@ -1673,6 +1927,7 @@ var _ = Describe(`IamIdentityV1`, func() {
 				})
 				Expect(serviceErr).To(BeNil())
 				Expect(iamIdentityService).ToNot(BeNil())
+				iamIdentityService.EnableRetries(0, 0)
 
 				// Invoke operation with nil options model (negative test)
 				result, response, operationErr := iamIdentityService.UpdateServiceID(nil)
@@ -1698,9 +1953,27 @@ var _ = Describe(`IamIdentityV1`, func() {
 				// Invoke operation with a Context to test a timeout error
 				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
 				defer cancelFunc()
+				serverSleepTime = 100 * time.Millisecond
 				_, _, operationErr = iamIdentityService.UpdateServiceIDWithContext(ctx, updateServiceIdOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+				serverSleepTime = time.Duration(0)
+
+				// Disable retries and test again
+				iamIdentityService.DisableRetries()
+				result, response, operationErr = iamIdentityService.UpdateServiceID(updateServiceIdOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				serverSleepTime = 100 * time.Millisecond
+				_, _, operationErr = iamIdentityService.UpdateServiceIDWithContext(ctx, updateServiceIdOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+				serverSleepTime = time.Duration(0)
 			})
 			It(`Invoke UpdateServiceID with error: Operation validation and request error`, func() {
 				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
@@ -1761,6 +2034,7 @@ var _ = Describe(`IamIdentityV1`, func() {
 				})
 				Expect(serviceErr).To(BeNil())
 				Expect(iamIdentityService).ToNot(BeNil())
+				iamIdentityService.EnableRetries(0, 0)
 
 				// Invoke operation with nil options model (negative test)
 				response, operationErr := iamIdentityService.DeleteServiceID(nil)
@@ -1773,6 +2047,12 @@ var _ = Describe(`IamIdentityV1`, func() {
 				deleteServiceIdOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
+				response, operationErr = iamIdentityService.DeleteServiceID(deleteServiceIdOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Disable retries and test again
+				iamIdentityService.DisableRetries()
 				response, operationErr = iamIdentityService.DeleteServiceID(deleteServiceIdOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
@@ -1830,6 +2110,7 @@ var _ = Describe(`IamIdentityV1`, func() {
 				})
 				Expect(serviceErr).To(BeNil())
 				Expect(iamIdentityService).ToNot(BeNil())
+				iamIdentityService.EnableRetries(0, 0)
 
 				// Invoke operation with nil options model (negative test)
 				response, operationErr := iamIdentityService.LockServiceID(nil)
@@ -1842,6 +2123,12 @@ var _ = Describe(`IamIdentityV1`, func() {
 				lockServiceIdOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
+				response, operationErr = iamIdentityService.LockServiceID(lockServiceIdOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Disable retries and test again
+				iamIdentityService.DisableRetries()
 				response, operationErr = iamIdentityService.LockServiceID(lockServiceIdOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
@@ -1899,6 +2186,7 @@ var _ = Describe(`IamIdentityV1`, func() {
 				})
 				Expect(serviceErr).To(BeNil())
 				Expect(iamIdentityService).ToNot(BeNil())
+				iamIdentityService.EnableRetries(0, 0)
 
 				// Invoke operation with nil options model (negative test)
 				response, operationErr := iamIdentityService.UnlockServiceID(nil)
@@ -1911,6 +2199,12 @@ var _ = Describe(`IamIdentityV1`, func() {
 				unlockServiceIdOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
+				response, operationErr = iamIdentityService.UnlockServiceID(unlockServiceIdOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Disable retries and test again
+				iamIdentityService.DisableRetries()
 				response, operationErr = iamIdentityService.UnlockServiceID(unlockServiceIdOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())

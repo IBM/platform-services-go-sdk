@@ -18,6 +18,7 @@ package openservicebrokerv1_test
 
 import (
 	"bytes"
+	"context"
 	"fmt"
 	"github.com/IBM/go-sdk-core/v4/core"
 	"github.com/IBM/platform-services-go-sdk/openservicebrokerv1"
@@ -166,6 +167,13 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				openServiceBrokerService.EnableRetries(0, 0)
+				result, response, operationErr = openServiceBrokerService.GetServiceInstanceState(getServiceInstanceStateOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
 			})
 			AfterEach(func() {
 				testServer.Close()
@@ -175,14 +183,21 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 
 	Describe(`GetServiceInstanceState(getServiceInstanceStateOptions *GetServiceInstanceStateOptions)`, func() {
 		getServiceInstanceStatePath := "/bluemix_v1/service_instances/testString"
+		var serverSleepTime time.Duration
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
+				serverSleepTime = 0
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
 					Expect(req.URL.EscapedPath()).To(Equal(getServiceInstanceStatePath))
 					Expect(req.Method).To(Equal("GET"))
+
+					// Sleep a short time to support a timeout test
+					time.Sleep(serverSleepTime)
+
+					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
 					fmt.Fprintf(res, "%s", `{"active": true, "enabled": false, "last_active": 10}`)
@@ -195,6 +210,7 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 				})
 				Expect(serviceErr).To(BeNil())
 				Expect(openServiceBrokerService).ToNot(BeNil())
+				openServiceBrokerService.EnableRetries(0, 0)
 
 				// Invoke operation with nil options model (negative test)
 				result, response, operationErr := openServiceBrokerService.GetServiceInstanceState(nil)
@@ -212,6 +228,31 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				serverSleepTime = 100 * time.Millisecond
+				_, _, operationErr = openServiceBrokerService.GetServiceInstanceStateWithContext(ctx, getServiceInstanceStateOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+				serverSleepTime = time.Duration(0)
+
+				// Disable retries and test again
+				openServiceBrokerService.DisableRetries()
+				result, response, operationErr = openServiceBrokerService.GetServiceInstanceState(getServiceInstanceStateOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				serverSleepTime = 100 * time.Millisecond
+				_, _, operationErr = openServiceBrokerService.GetServiceInstanceStateWithContext(ctx, getServiceInstanceStateOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+				serverSleepTime = time.Duration(0)
 			})
 			It(`Invoke GetServiceInstanceState with error: Operation validation and request error`, func() {
 				openServiceBrokerService, serviceErr := openservicebrokerv1.NewOpenServiceBrokerV1(&openservicebrokerv1.OpenServiceBrokerV1Options{
@@ -281,6 +322,13 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				openServiceBrokerService.EnableRetries(0, 0)
+				result, response, operationErr = openServiceBrokerService.ReplaceServiceInstanceState(replaceServiceInstanceStateOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
 			})
 			AfterEach(func() {
 				testServer.Close()
@@ -290,14 +338,37 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 
 	Describe(`ReplaceServiceInstanceState(replaceServiceInstanceStateOptions *ReplaceServiceInstanceStateOptions)`, func() {
 		replaceServiceInstanceStatePath := "/bluemix_v1/service_instances/testString"
+		var serverSleepTime time.Duration
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
+				serverSleepTime = 0
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
 					Expect(req.URL.EscapedPath()).To(Equal(replaceServiceInstanceStatePath))
 					Expect(req.Method).To(Equal("PUT"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
+					// Sleep a short time to support a timeout test
+					time.Sleep(serverSleepTime)
+
+					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
 					fmt.Fprintf(res, "%s", `{"active": true, "enabled": false, "last_active": 10}`)
@@ -310,6 +381,7 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 				})
 				Expect(serviceErr).To(BeNil())
 				Expect(openServiceBrokerService).ToNot(BeNil())
+				openServiceBrokerService.EnableRetries(0, 0)
 
 				// Invoke operation with nil options model (negative test)
 				result, response, operationErr := openServiceBrokerService.ReplaceServiceInstanceState(nil)
@@ -330,6 +402,31 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				serverSleepTime = 100 * time.Millisecond
+				_, _, operationErr = openServiceBrokerService.ReplaceServiceInstanceStateWithContext(ctx, replaceServiceInstanceStateOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+				serverSleepTime = time.Duration(0)
+
+				// Disable retries and test again
+				openServiceBrokerService.DisableRetries()
+				result, response, operationErr = openServiceBrokerService.ReplaceServiceInstanceState(replaceServiceInstanceStateOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				serverSleepTime = 100 * time.Millisecond
+				_, _, operationErr = openServiceBrokerService.ReplaceServiceInstanceStateWithContext(ctx, replaceServiceInstanceStateOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+				serverSleepTime = time.Duration(0)
 			})
 			It(`Invoke ReplaceServiceInstanceState with error: Operation validation and request error`, func() {
 				openServiceBrokerService, serviceErr := openservicebrokerv1.NewOpenServiceBrokerV1(&openservicebrokerv1.OpenServiceBrokerV1Options{
@@ -515,6 +612,13 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				openServiceBrokerService.EnableRetries(0, 0)
+				result, response, operationErr = openServiceBrokerService.ReplaceServiceInstance(replaceServiceInstanceOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
 			})
 			AfterEach(func() {
 				testServer.Close()
@@ -524,8 +628,10 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 
 	Describe(`ReplaceServiceInstance(replaceServiceInstanceOptions *ReplaceServiceInstanceOptions)`, func() {
 		replaceServiceInstancePath := "/v2/service_instances/testString"
+		var serverSleepTime time.Duration
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
+				serverSleepTime = 0
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
@@ -533,8 +639,29 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 					Expect(req.URL.EscapedPath()).To(Equal(replaceServiceInstancePath))
 					Expect(req.Method).To(Equal("PUT"))
 
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
+
 					// TODO: Add check for accepts_incomplete query parameter
 
+					// Sleep a short time to support a timeout test
+					time.Sleep(serverSleepTime)
+
+					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
 					fmt.Fprintf(res, "%s", `{"dashboard_url": "DashboardURL", "operation": "Operation"}`)
@@ -547,6 +674,7 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 				})
 				Expect(serviceErr).To(BeNil())
 				Expect(openServiceBrokerService).ToNot(BeNil())
+				openServiceBrokerService.EnableRetries(0, 0)
 
 				// Invoke operation with nil options model (negative test)
 				result, response, operationErr := openServiceBrokerService.ReplaceServiceInstance(nil)
@@ -577,6 +705,31 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				serverSleepTime = 100 * time.Millisecond
+				_, _, operationErr = openServiceBrokerService.ReplaceServiceInstanceWithContext(ctx, replaceServiceInstanceOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+				serverSleepTime = time.Duration(0)
+
+				// Disable retries and test again
+				openServiceBrokerService.DisableRetries()
+				result, response, operationErr = openServiceBrokerService.ReplaceServiceInstance(replaceServiceInstanceOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				serverSleepTime = 100 * time.Millisecond
+				_, _, operationErr = openServiceBrokerService.ReplaceServiceInstanceWithContext(ctx, replaceServiceInstanceOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+				serverSleepTime = time.Duration(0)
 			})
 			It(`Invoke ReplaceServiceInstance with error: Operation validation and request error`, func() {
 				openServiceBrokerService, serviceErr := openservicebrokerv1.NewOpenServiceBrokerV1(&openservicebrokerv1.OpenServiceBrokerV1Options{
@@ -671,6 +824,13 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				openServiceBrokerService.EnableRetries(0, 0)
+				result, response, operationErr = openServiceBrokerService.UpdateServiceInstance(updateServiceInstanceOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
 			})
 			AfterEach(func() {
 				testServer.Close()
@@ -680,8 +840,10 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 
 	Describe(`UpdateServiceInstance(updateServiceInstanceOptions *UpdateServiceInstanceOptions)`, func() {
 		updateServiceInstancePath := "/v2/service_instances/testString"
+		var serverSleepTime time.Duration
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
+				serverSleepTime = 0
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
@@ -689,8 +851,29 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 					Expect(req.URL.EscapedPath()).To(Equal(updateServiceInstancePath))
 					Expect(req.Method).To(Equal("PATCH"))
 
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
+
 					// TODO: Add check for accepts_incomplete query parameter
 
+					// Sleep a short time to support a timeout test
+					time.Sleep(serverSleepTime)
+
+					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
 					fmt.Fprintf(res, "%s", `{"operation": "Operation"}`)
@@ -703,6 +886,7 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 				})
 				Expect(serviceErr).To(BeNil())
 				Expect(openServiceBrokerService).ToNot(BeNil())
+				openServiceBrokerService.EnableRetries(0, 0)
 
 				// Invoke operation with nil options model (negative test)
 				result, response, operationErr := openServiceBrokerService.UpdateServiceInstance(nil)
@@ -732,6 +916,31 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				serverSleepTime = 100 * time.Millisecond
+				_, _, operationErr = openServiceBrokerService.UpdateServiceInstanceWithContext(ctx, updateServiceInstanceOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+				serverSleepTime = time.Duration(0)
+
+				// Disable retries and test again
+				openServiceBrokerService.DisableRetries()
+				result, response, operationErr = openServiceBrokerService.UpdateServiceInstance(updateServiceInstanceOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				serverSleepTime = 100 * time.Millisecond
+				_, _, operationErr = openServiceBrokerService.UpdateServiceInstanceWithContext(ctx, updateServiceInstanceOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+				serverSleepTime = time.Duration(0)
 			})
 			It(`Invoke UpdateServiceInstance with error: Operation validation and request error`, func() {
 				openServiceBrokerService, serviceErr := openservicebrokerv1.NewOpenServiceBrokerV1(&openservicebrokerv1.OpenServiceBrokerV1Options{
@@ -820,6 +1029,13 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				openServiceBrokerService.EnableRetries(0, 0)
+				result, response, operationErr = openServiceBrokerService.DeleteServiceInstance(deleteServiceInstanceOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
 			})
 			AfterEach(func() {
 				testServer.Close()
@@ -829,14 +1045,17 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 
 	Describe(`DeleteServiceInstance(deleteServiceInstanceOptions *DeleteServiceInstanceOptions)`, func() {
 		deleteServiceInstancePath := "/v2/service_instances/testString"
+		var serverSleepTime time.Duration
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
+				serverSleepTime = 0
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
 					Expect(req.URL.EscapedPath()).To(Equal(deleteServiceInstancePath))
 					Expect(req.Method).To(Equal("DELETE"))
+
 					Expect(req.URL.Query()["service_id"]).To(Equal([]string{"testString"}))
 
 					Expect(req.URL.Query()["plan_id"]).To(Equal([]string{"testString"}))
@@ -844,6 +1063,10 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 
 					// TODO: Add check for accepts_incomplete query parameter
 
+					// Sleep a short time to support a timeout test
+					time.Sleep(serverSleepTime)
+
+					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
 					fmt.Fprintf(res, "%s", `{"operation": "Operation"}`)
@@ -856,6 +1079,7 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 				})
 				Expect(serviceErr).To(BeNil())
 				Expect(openServiceBrokerService).ToNot(BeNil())
+				openServiceBrokerService.EnableRetries(0, 0)
 
 				// Invoke operation with nil options model (negative test)
 				result, response, operationErr := openServiceBrokerService.DeleteServiceInstance(nil)
@@ -876,6 +1100,31 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				serverSleepTime = 100 * time.Millisecond
+				_, _, operationErr = openServiceBrokerService.DeleteServiceInstanceWithContext(ctx, deleteServiceInstanceOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+				serverSleepTime = time.Duration(0)
+
+				// Disable retries and test again
+				openServiceBrokerService.DisableRetries()
+				result, response, operationErr = openServiceBrokerService.DeleteServiceInstance(deleteServiceInstanceOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				serverSleepTime = 100 * time.Millisecond
+				_, _, operationErr = openServiceBrokerService.DeleteServiceInstanceWithContext(ctx, deleteServiceInstanceOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+				serverSleepTime = time.Duration(0)
 			})
 			It(`Invoke DeleteServiceInstance with error: Operation validation and request error`, func() {
 				openServiceBrokerService, serviceErr := openservicebrokerv1.NewOpenServiceBrokerV1(&openservicebrokerv1.OpenServiceBrokerV1Options{
@@ -1044,6 +1293,13 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				openServiceBrokerService.EnableRetries(0, 0)
+				result, response, operationErr = openServiceBrokerService.ListCatalog(listCatalogOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
 			})
 			AfterEach(func() {
 				testServer.Close()
@@ -1053,14 +1309,21 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 
 	Describe(`ListCatalog(listCatalogOptions *ListCatalogOptions)`, func() {
 		listCatalogPath := "/v2/catalog"
+		var serverSleepTime time.Duration
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
+				serverSleepTime = 0
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
 					Expect(req.URL.EscapedPath()).To(Equal(listCatalogPath))
 					Expect(req.Method).To(Equal("GET"))
+
+					// Sleep a short time to support a timeout test
+					time.Sleep(serverSleepTime)
+
+					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
 					fmt.Fprintf(res, "%s", `{"services": [{"bindable": true, "description": "Description", "id": "ID", "name": "Name", "plan_updateable": true, "plans": [{"description": "Description", "free": true, "id": "ID", "name": "Name"}]}]}`)
@@ -1073,6 +1336,7 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 				})
 				Expect(serviceErr).To(BeNil())
 				Expect(openServiceBrokerService).ToNot(BeNil())
+				openServiceBrokerService.EnableRetries(0, 0)
 
 				// Invoke operation with nil options model (negative test)
 				result, response, operationErr := openServiceBrokerService.ListCatalog(nil)
@@ -1089,6 +1353,31 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				serverSleepTime = 100 * time.Millisecond
+				_, _, operationErr = openServiceBrokerService.ListCatalogWithContext(ctx, listCatalogOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+				serverSleepTime = time.Duration(0)
+
+				// Disable retries and test again
+				openServiceBrokerService.DisableRetries()
+				result, response, operationErr = openServiceBrokerService.ListCatalog(listCatalogOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				serverSleepTime = 100 * time.Millisecond
+				_, _, operationErr = openServiceBrokerService.ListCatalogWithContext(ctx, listCatalogOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+				serverSleepTime = time.Duration(0)
 			})
 			It(`Invoke ListCatalog with error: Operation request error`, func() {
 				openServiceBrokerService, serviceErr := openservicebrokerv1.NewOpenServiceBrokerV1(&openservicebrokerv1.OpenServiceBrokerV1Options{
@@ -1256,6 +1545,13 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				openServiceBrokerService.EnableRetries(0, 0)
+				result, response, operationErr = openServiceBrokerService.GetLastOperation(getLastOperationOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
 			})
 			AfterEach(func() {
 				testServer.Close()
@@ -1265,20 +1561,27 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 
 	Describe(`GetLastOperation(getLastOperationOptions *GetLastOperationOptions)`, func() {
 		getLastOperationPath := "/v2/service_instances/testString/last_operation"
+		var serverSleepTime time.Duration
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
+				serverSleepTime = 0
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
 					Expect(req.URL.EscapedPath()).To(Equal(getLastOperationPath))
 					Expect(req.Method).To(Equal("GET"))
+
 					Expect(req.URL.Query()["operation"]).To(Equal([]string{"testString"}))
 
 					Expect(req.URL.Query()["plan_id"]).To(Equal([]string{"testString"}))
 
 					Expect(req.URL.Query()["service_id"]).To(Equal([]string{"testString"}))
 
+					// Sleep a short time to support a timeout test
+					time.Sleep(serverSleepTime)
+
+					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
 					fmt.Fprintf(res, "%s", `{"description": "Description", "state": "State"}`)
@@ -1291,6 +1594,7 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 				})
 				Expect(serviceErr).To(BeNil())
 				Expect(openServiceBrokerService).ToNot(BeNil())
+				openServiceBrokerService.EnableRetries(0, 0)
 
 				// Invoke operation with nil options model (negative test)
 				result, response, operationErr := openServiceBrokerService.GetLastOperation(nil)
@@ -1311,6 +1615,31 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				serverSleepTime = 100 * time.Millisecond
+				_, _, operationErr = openServiceBrokerService.GetLastOperationWithContext(ctx, getLastOperationOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+				serverSleepTime = time.Duration(0)
+
+				// Disable retries and test again
+				openServiceBrokerService.DisableRetries()
+				result, response, operationErr = openServiceBrokerService.GetLastOperation(getLastOperationOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				serverSleepTime = 100 * time.Millisecond
+				_, _, operationErr = openServiceBrokerService.GetLastOperationWithContext(ctx, getLastOperationOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+				serverSleepTime = time.Duration(0)
 			})
 			It(`Invoke GetLastOperation with error: Operation validation and request error`, func() {
 				openServiceBrokerService, serviceErr := openservicebrokerv1.NewOpenServiceBrokerV1(&openservicebrokerv1.OpenServiceBrokerV1Options{
@@ -1493,6 +1822,13 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				openServiceBrokerService.EnableRetries(0, 0)
+				result, response, operationErr = openServiceBrokerService.ReplaceServiceBinding(replaceServiceBindingOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
 			})
 			AfterEach(func() {
 				testServer.Close()
@@ -1502,14 +1838,37 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 
 	Describe(`ReplaceServiceBinding(replaceServiceBindingOptions *ReplaceServiceBindingOptions)`, func() {
 		replaceServiceBindingPath := "/v2/service_instances/testString/service_bindings/testString"
+		var serverSleepTime time.Duration
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
+				serverSleepTime = 0
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
 					Expect(req.URL.EscapedPath()).To(Equal(replaceServiceBindingPath))
 					Expect(req.Method).To(Equal("PUT"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
+					// Sleep a short time to support a timeout test
+					time.Sleep(serverSleepTime)
+
+					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
 					fmt.Fprintf(res, "%s", `{"credentials": {"anyKey": "anyValue"}, "syslog_drain_url": "SyslogDrainURL", "route_service_url": "RouteServiceURL", "volume_mounts": [{"driver": "Driver", "container_dir": "ContainerDir", "mode": "Mode", "device_type": "DeviceType", "device": "Device"}]}`)
@@ -1522,6 +1881,7 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 				})
 				Expect(serviceErr).To(BeNil())
 				Expect(openServiceBrokerService).ToNot(BeNil())
+				openServiceBrokerService.EnableRetries(0, 0)
 
 				// Invoke operation with nil options model (negative test)
 				result, response, operationErr := openServiceBrokerService.ReplaceServiceBinding(nil)
@@ -1552,6 +1912,31 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				serverSleepTime = 100 * time.Millisecond
+				_, _, operationErr = openServiceBrokerService.ReplaceServiceBindingWithContext(ctx, replaceServiceBindingOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+				serverSleepTime = time.Duration(0)
+
+				// Disable retries and test again
+				openServiceBrokerService.DisableRetries()
+				result, response, operationErr = openServiceBrokerService.ReplaceServiceBinding(replaceServiceBindingOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				serverSleepTime = 100 * time.Millisecond
+				_, _, operationErr = openServiceBrokerService.ReplaceServiceBindingWithContext(ctx, replaceServiceBindingOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+				serverSleepTime = time.Duration(0)
 			})
 			It(`Invoke ReplaceServiceBinding with error: Operation validation and request error`, func() {
 				openServiceBrokerService, serviceErr := openservicebrokerv1.NewOpenServiceBrokerV1(&openservicebrokerv1.OpenServiceBrokerV1Options{
@@ -1610,6 +1995,7 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 					// Verify the contents of the request
 					Expect(req.URL.EscapedPath()).To(Equal(deleteServiceBindingPath))
 					Expect(req.Method).To(Equal("DELETE"))
+
 					Expect(req.URL.Query()["plan_id"]).To(Equal([]string{"testString"}))
 
 					Expect(req.URL.Query()["service_id"]).To(Equal([]string{"testString"}))
@@ -1624,6 +2010,7 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 				})
 				Expect(serviceErr).To(BeNil())
 				Expect(openServiceBrokerService).ToNot(BeNil())
+				openServiceBrokerService.EnableRetries(0, 0)
 
 				// Invoke operation with nil options model (negative test)
 				response, operationErr := openServiceBrokerService.DeleteServiceBinding(nil)
@@ -1639,6 +2026,12 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 				deleteServiceBindingOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
+				response, operationErr = openServiceBrokerService.DeleteServiceBinding(deleteServiceBindingOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Disable retries and test again
+				openServiceBrokerService.DisableRetries()
 				response, operationErr = openServiceBrokerService.DeleteServiceBinding(deleteServiceBindingOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())

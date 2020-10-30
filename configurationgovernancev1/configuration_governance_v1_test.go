@@ -18,6 +18,7 @@ package configurationgovernancev1_test
 
 import (
 	"bytes"
+	"context"
 	"fmt"
 	"github.com/IBM/go-sdk-core/v4/core"
 	"github.com/IBM/platform-services-go-sdk/configurationgovernancev1"
@@ -213,6 +214,13 @@ var _ = Describe(`ConfigurationGovernanceV1`, func() {
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				configurationGovernanceService.EnableRetries(0, 0)
+				result, response, operationErr = configurationGovernanceService.CreateRules(createRulesOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
 			})
 			AfterEach(func() {
 				testServer.Close()
@@ -222,16 +230,39 @@ var _ = Describe(`ConfigurationGovernanceV1`, func() {
 
 	Describe(`CreateRules(createRulesOptions *CreateRulesOptions)`, func() {
 		createRulesPath := "/config/v1/rules"
+		var serverSleepTime time.Duration
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
+				serverSleepTime = 0
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
 					Expect(req.URL.EscapedPath()).To(Equal(createRulesPath))
 					Expect(req.Method).To(Equal("POST"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
 					Expect(req.Header["Transaction-Id"]).ToNot(BeNil())
 					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
+					// Sleep a short time to support a timeout test
+					time.Sleep(serverSleepTime)
+
+					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
 					fmt.Fprintf(res, "%s", `{"rules": [{"request_id": "3cebc877-58e7-44a5-a292-32114fa73558", "status_code": 201, "rule": {"account_id": "AccountID", "name": "Name", "description": "Description", "rule_type": "user_defined", "target": {"service_name": "iam-groups", "resource_kind": "zone", "additional_target_attributes": [{"name": "Name", "operator": "string_equals", "value": "Value"}]}, "required_config": {"description": "Description", "property": "public_access_enabled", "operator": "is_true", "value": "Value"}, "enforcement_actions": [{"action": "audit_log"}], "labels": ["Label"], "rule_id": "rule-81f3db5e-f9db-4c46-9de3-a4a76e66adbf", "creation_date": "2020-01-10T05:23:19+0000", "created_by": "CreatedBy", "modification_date": "ModificationDate", "modified_by": "ModifiedBy", "number_of_attachments": 3}, "errors": [{"code": "bad_request", "message": "The rule is missing an account ID"}], "trace": "861263b4-cee3-4514-8d8c-05d17308e6eb"}]}`)
@@ -244,6 +275,7 @@ var _ = Describe(`ConfigurationGovernanceV1`, func() {
 				})
 				Expect(serviceErr).To(BeNil())
 				Expect(configurationGovernanceService).ToNot(BeNil())
+				configurationGovernanceService.EnableRetries(0, 0)
 
 				// Invoke operation with nil options model (negative test)
 				result, response, operationErr := configurationGovernanceService.CreateRules(nil)
@@ -306,6 +338,31 @@ var _ = Describe(`ConfigurationGovernanceV1`, func() {
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				serverSleepTime = 100 * time.Millisecond
+				_, _, operationErr = configurationGovernanceService.CreateRulesWithContext(ctx, createRulesOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+				serverSleepTime = time.Duration(0)
+
+				// Disable retries and test again
+				configurationGovernanceService.DisableRetries()
+				result, response, operationErr = configurationGovernanceService.CreateRules(createRulesOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				serverSleepTime = 100 * time.Millisecond
+				_, _, operationErr = configurationGovernanceService.CreateRulesWithContext(ctx, createRulesOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+				serverSleepTime = time.Duration(0)
 			})
 			It(`Invoke CreateRules with error: Operation validation and request error`, func() {
 				configurationGovernanceService, serviceErr := configurationgovernancev1.NewConfigurationGovernanceV1(&configurationgovernancev1.ConfigurationGovernanceV1Options{
@@ -438,6 +495,13 @@ var _ = Describe(`ConfigurationGovernanceV1`, func() {
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				configurationGovernanceService.EnableRetries(0, 0)
+				result, response, operationErr = configurationGovernanceService.ListRules(listRulesOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
 			})
 			AfterEach(func() {
 				testServer.Close()
@@ -447,14 +511,17 @@ var _ = Describe(`ConfigurationGovernanceV1`, func() {
 
 	Describe(`ListRules(listRulesOptions *ListRulesOptions)`, func() {
 		listRulesPath := "/config/v1/rules"
+		var serverSleepTime time.Duration
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
+				serverSleepTime = 0
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
 					Expect(req.URL.EscapedPath()).To(Equal(listRulesPath))
 					Expect(req.Method).To(Equal("GET"))
+
 					Expect(req.Header["Transaction-Id"]).ToNot(BeNil())
 					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"531fc3e28bfc43c5a2cea07786d93f5c"}))
@@ -470,6 +537,10 @@ var _ = Describe(`ConfigurationGovernanceV1`, func() {
 
 					Expect(req.URL.Query()["offset"]).To(Equal([]string{fmt.Sprint(int64(38))}))
 
+					// Sleep a short time to support a timeout test
+					time.Sleep(serverSleepTime)
+
+					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
 					fmt.Fprintf(res, "%s", `{"offset": 6, "limit": 1000, "total_count": 10, "first": {"href": "Href"}, "last": {"href": "Href"}, "rules": [{"account_id": "AccountID", "name": "Name", "description": "Description", "rule_type": "user_defined", "target": {"service_name": "iam-groups", "resource_kind": "zone", "additional_target_attributes": [{"name": "Name", "operator": "string_equals", "value": "Value"}]}, "required_config": {"description": "Description", "property": "public_access_enabled", "operator": "is_true", "value": "Value"}, "enforcement_actions": [{"action": "audit_log"}], "labels": ["Label"], "rule_id": "rule-81f3db5e-f9db-4c46-9de3-a4a76e66adbf", "creation_date": "2020-01-10T05:23:19+0000", "created_by": "CreatedBy", "modification_date": "ModificationDate", "modified_by": "ModifiedBy", "number_of_attachments": 3}]}`)
@@ -482,6 +553,7 @@ var _ = Describe(`ConfigurationGovernanceV1`, func() {
 				})
 				Expect(serviceErr).To(BeNil())
 				Expect(configurationGovernanceService).ToNot(BeNil())
+				configurationGovernanceService.EnableRetries(0, 0)
 
 				// Invoke operation with nil options model (negative test)
 				result, response, operationErr := configurationGovernanceService.ListRules(nil)
@@ -505,6 +577,31 @@ var _ = Describe(`ConfigurationGovernanceV1`, func() {
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				serverSleepTime = 100 * time.Millisecond
+				_, _, operationErr = configurationGovernanceService.ListRulesWithContext(ctx, listRulesOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+				serverSleepTime = time.Duration(0)
+
+				// Disable retries and test again
+				configurationGovernanceService.DisableRetries()
+				result, response, operationErr = configurationGovernanceService.ListRules(listRulesOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				serverSleepTime = 100 * time.Millisecond
+				_, _, operationErr = configurationGovernanceService.ListRulesWithContext(ctx, listRulesOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+				serverSleepTime = time.Duration(0)
 			})
 			It(`Invoke ListRules with error: Operation validation and request error`, func() {
 				configurationGovernanceService, serviceErr := configurationgovernancev1.NewConfigurationGovernanceV1(&configurationgovernancev1.ConfigurationGovernanceV1Options{
@@ -580,6 +677,13 @@ var _ = Describe(`ConfigurationGovernanceV1`, func() {
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				configurationGovernanceService.EnableRetries(0, 0)
+				result, response, operationErr = configurationGovernanceService.GetRule(getRuleOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
 			})
 			AfterEach(func() {
 				testServer.Close()
@@ -589,16 +693,23 @@ var _ = Describe(`ConfigurationGovernanceV1`, func() {
 
 	Describe(`GetRule(getRuleOptions *GetRuleOptions)`, func() {
 		getRulePath := "/config/v1/rules/testString"
+		var serverSleepTime time.Duration
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
+				serverSleepTime = 0
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
 					Expect(req.URL.EscapedPath()).To(Equal(getRulePath))
 					Expect(req.Method).To(Equal("GET"))
+
 					Expect(req.Header["Transaction-Id"]).ToNot(BeNil())
 					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
+					// Sleep a short time to support a timeout test
+					time.Sleep(serverSleepTime)
+
+					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
 					fmt.Fprintf(res, "%s", `{"account_id": "AccountID", "name": "Name", "description": "Description", "rule_type": "user_defined", "target": {"service_name": "iam-groups", "resource_kind": "zone", "additional_target_attributes": [{"name": "Name", "operator": "string_equals", "value": "Value"}]}, "required_config": {"description": "Description", "property": "public_access_enabled", "operator": "is_true", "value": "Value"}, "enforcement_actions": [{"action": "audit_log"}], "labels": ["Label"], "rule_id": "rule-81f3db5e-f9db-4c46-9de3-a4a76e66adbf", "creation_date": "2020-01-10T05:23:19+0000", "created_by": "CreatedBy", "modification_date": "ModificationDate", "modified_by": "ModifiedBy", "number_of_attachments": 3}`)
@@ -611,6 +722,7 @@ var _ = Describe(`ConfigurationGovernanceV1`, func() {
 				})
 				Expect(serviceErr).To(BeNil())
 				Expect(configurationGovernanceService).ToNot(BeNil())
+				configurationGovernanceService.EnableRetries(0, 0)
 
 				// Invoke operation with nil options model (negative test)
 				result, response, operationErr := configurationGovernanceService.GetRule(nil)
@@ -629,6 +741,31 @@ var _ = Describe(`ConfigurationGovernanceV1`, func() {
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				serverSleepTime = 100 * time.Millisecond
+				_, _, operationErr = configurationGovernanceService.GetRuleWithContext(ctx, getRuleOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+				serverSleepTime = time.Duration(0)
+
+				// Disable retries and test again
+				configurationGovernanceService.DisableRetries()
+				result, response, operationErr = configurationGovernanceService.GetRule(getRuleOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				serverSleepTime = 100 * time.Millisecond
+				_, _, operationErr = configurationGovernanceService.GetRuleWithContext(ctx, getRuleOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+				serverSleepTime = time.Duration(0)
 			})
 			It(`Invoke GetRule with error: Operation validation and request error`, func() {
 				configurationGovernanceService, serviceErr := configurationgovernancev1.NewConfigurationGovernanceV1(&configurationgovernancev1.ConfigurationGovernanceV1Options{
@@ -733,6 +870,13 @@ var _ = Describe(`ConfigurationGovernanceV1`, func() {
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				configurationGovernanceService.EnableRetries(0, 0)
+				result, response, operationErr = configurationGovernanceService.UpdateRule(updateRuleOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
 			})
 			AfterEach(func() {
 				testServer.Close()
@@ -742,18 +886,41 @@ var _ = Describe(`ConfigurationGovernanceV1`, func() {
 
 	Describe(`UpdateRule(updateRuleOptions *UpdateRuleOptions)`, func() {
 		updateRulePath := "/config/v1/rules/testString"
+		var serverSleepTime time.Duration
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
+				serverSleepTime = 0
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
 					Expect(req.URL.EscapedPath()).To(Equal(updateRulePath))
 					Expect(req.Method).To(Equal("PUT"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
 					Expect(req.Header["If-Match"]).ToNot(BeNil())
 					Expect(req.Header["If-Match"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					Expect(req.Header["Transaction-Id"]).ToNot(BeNil())
 					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
+					// Sleep a short time to support a timeout test
+					time.Sleep(serverSleepTime)
+
+					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
 					fmt.Fprintf(res, "%s", `{"account_id": "AccountID", "name": "Name", "description": "Description", "rule_type": "user_defined", "target": {"service_name": "iam-groups", "resource_kind": "zone", "additional_target_attributes": [{"name": "Name", "operator": "string_equals", "value": "Value"}]}, "required_config": {"description": "Description", "property": "public_access_enabled", "operator": "is_true", "value": "Value"}, "enforcement_actions": [{"action": "audit_log"}], "labels": ["Label"], "rule_id": "rule-81f3db5e-f9db-4c46-9de3-a4a76e66adbf", "creation_date": "2020-01-10T05:23:19+0000", "created_by": "CreatedBy", "modification_date": "ModificationDate", "modified_by": "ModifiedBy", "number_of_attachments": 3}`)
@@ -766,6 +933,7 @@ var _ = Describe(`ConfigurationGovernanceV1`, func() {
 				})
 				Expect(serviceErr).To(BeNil())
 				Expect(configurationGovernanceService).ToNot(BeNil())
+				configurationGovernanceService.EnableRetries(0, 0)
 
 				// Invoke operation with nil options model (negative test)
 				result, response, operationErr := configurationGovernanceService.UpdateRule(nil)
@@ -816,6 +984,31 @@ var _ = Describe(`ConfigurationGovernanceV1`, func() {
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				serverSleepTime = 100 * time.Millisecond
+				_, _, operationErr = configurationGovernanceService.UpdateRuleWithContext(ctx, updateRuleOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+				serverSleepTime = time.Duration(0)
+
+				// Disable retries and test again
+				configurationGovernanceService.DisableRetries()
+				result, response, operationErr = configurationGovernanceService.UpdateRule(updateRuleOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				serverSleepTime = 100 * time.Millisecond
+				_, _, operationErr = configurationGovernanceService.UpdateRuleWithContext(ctx, updateRuleOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+				serverSleepTime = time.Duration(0)
 			})
 			It(`Invoke UpdateRule with error: Operation validation and request error`, func() {
 				configurationGovernanceService, serviceErr := configurationgovernancev1.NewConfigurationGovernanceV1(&configurationgovernancev1.ConfigurationGovernanceV1Options{
@@ -894,6 +1087,7 @@ var _ = Describe(`ConfigurationGovernanceV1`, func() {
 					// Verify the contents of the request
 					Expect(req.URL.EscapedPath()).To(Equal(deleteRulePath))
 					Expect(req.Method).To(Equal("DELETE"))
+
 					Expect(req.Header["Transaction-Id"]).ToNot(BeNil())
 					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					res.WriteHeader(204)
@@ -906,6 +1100,7 @@ var _ = Describe(`ConfigurationGovernanceV1`, func() {
 				})
 				Expect(serviceErr).To(BeNil())
 				Expect(configurationGovernanceService).ToNot(BeNil())
+				configurationGovernanceService.EnableRetries(0, 0)
 
 				// Invoke operation with nil options model (negative test)
 				response, operationErr := configurationGovernanceService.DeleteRule(nil)
@@ -919,6 +1114,12 @@ var _ = Describe(`ConfigurationGovernanceV1`, func() {
 				deleteRuleOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
+				response, operationErr = configurationGovernanceService.DeleteRule(deleteRuleOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Disable retries and test again
+				configurationGovernanceService.DisableRetries()
 				response, operationErr = configurationGovernanceService.DeleteRule(deleteRuleOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
@@ -1003,6 +1204,13 @@ var _ = Describe(`ConfigurationGovernanceV1`, func() {
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				configurationGovernanceService.EnableRetries(0, 0)
+				result, response, operationErr = configurationGovernanceService.CreateAttachments(createAttachmentsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
 			})
 			AfterEach(func() {
 				testServer.Close()
@@ -1012,16 +1220,39 @@ var _ = Describe(`ConfigurationGovernanceV1`, func() {
 
 	Describe(`CreateAttachments(createAttachmentsOptions *CreateAttachmentsOptions)`, func() {
 		createAttachmentsPath := "/config/v1/rules/testString/attachments"
+		var serverSleepTime time.Duration
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
+				serverSleepTime = 0
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
 					Expect(req.URL.EscapedPath()).To(Equal(createAttachmentsPath))
 					Expect(req.Method).To(Equal("POST"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
 					Expect(req.Header["Transaction-Id"]).ToNot(BeNil())
 					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
+					// Sleep a short time to support a timeout test
+					time.Sleep(serverSleepTime)
+
+					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
 					fmt.Fprintf(res, "%s", `{"attachments": [{"attachment_id": "attachment-fc7b9a77-1c85-406c-b346-f3f5bb9aa7e2", "rule_id": "rule-81f3db5e-f9db-4c46-9de3-a4a76e66adbf", "account_id": "AccountID", "included_scope": {"note": "Note", "scope_id": "ScopeID", "scope_type": "enterprise"}, "excluded_scopes": [{"note": "Note", "scope_id": "ScopeID", "scope_type": "enterprise"}]}]}`)
@@ -1034,6 +1265,7 @@ var _ = Describe(`ConfigurationGovernanceV1`, func() {
 				})
 				Expect(serviceErr).To(BeNil())
 				Expect(configurationGovernanceService).ToNot(BeNil())
+				configurationGovernanceService.EnableRetries(0, 0)
 
 				// Invoke operation with nil options model (negative test)
 				result, response, operationErr := configurationGovernanceService.CreateAttachments(nil)
@@ -1065,6 +1297,31 @@ var _ = Describe(`ConfigurationGovernanceV1`, func() {
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				serverSleepTime = 100 * time.Millisecond
+				_, _, operationErr = configurationGovernanceService.CreateAttachmentsWithContext(ctx, createAttachmentsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+				serverSleepTime = time.Duration(0)
+
+				// Disable retries and test again
+				configurationGovernanceService.DisableRetries()
+				result, response, operationErr = configurationGovernanceService.CreateAttachments(createAttachmentsOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				serverSleepTime = 100 * time.Millisecond
+				_, _, operationErr = configurationGovernanceService.CreateAttachmentsWithContext(ctx, createAttachmentsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+				serverSleepTime = time.Duration(0)
 			})
 			It(`Invoke CreateAttachments with error: Operation validation and request error`, func() {
 				configurationGovernanceService, serviceErr := configurationgovernancev1.NewConfigurationGovernanceV1(&configurationgovernancev1.ConfigurationGovernanceV1Options{
@@ -1154,6 +1411,13 @@ var _ = Describe(`ConfigurationGovernanceV1`, func() {
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				configurationGovernanceService.EnableRetries(0, 0)
+				result, response, operationErr = configurationGovernanceService.ListAttachments(listAttachmentsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
 			})
 			AfterEach(func() {
 				testServer.Close()
@@ -1163,20 +1427,27 @@ var _ = Describe(`ConfigurationGovernanceV1`, func() {
 
 	Describe(`ListAttachments(listAttachmentsOptions *ListAttachmentsOptions)`, func() {
 		listAttachmentsPath := "/config/v1/rules/testString/attachments"
+		var serverSleepTime time.Duration
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
+				serverSleepTime = 0
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
 					Expect(req.URL.EscapedPath()).To(Equal(listAttachmentsPath))
 					Expect(req.Method).To(Equal("GET"))
+
 					Expect(req.Header["Transaction-Id"]).ToNot(BeNil())
 					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(1000))}))
 
 					Expect(req.URL.Query()["offset"]).To(Equal([]string{fmt.Sprint(int64(38))}))
 
+					// Sleep a short time to support a timeout test
+					time.Sleep(serverSleepTime)
+
+					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
 					fmt.Fprintf(res, "%s", `{"offset": 6, "limit": 1000, "total_count": 10, "first": {"href": "Href"}, "last": {"href": "Href"}, "attachments": [{"attachment_id": "attachment-fc7b9a77-1c85-406c-b346-f3f5bb9aa7e2", "rule_id": "rule-81f3db5e-f9db-4c46-9de3-a4a76e66adbf", "account_id": "AccountID", "included_scope": {"note": "Note", "scope_id": "ScopeID", "scope_type": "enterprise"}, "excluded_scopes": [{"note": "Note", "scope_id": "ScopeID", "scope_type": "enterprise"}]}]}`)
@@ -1189,6 +1460,7 @@ var _ = Describe(`ConfigurationGovernanceV1`, func() {
 				})
 				Expect(serviceErr).To(BeNil())
 				Expect(configurationGovernanceService).ToNot(BeNil())
+				configurationGovernanceService.EnableRetries(0, 0)
 
 				// Invoke operation with nil options model (negative test)
 				result, response, operationErr := configurationGovernanceService.ListAttachments(nil)
@@ -1209,6 +1481,31 @@ var _ = Describe(`ConfigurationGovernanceV1`, func() {
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				serverSleepTime = 100 * time.Millisecond
+				_, _, operationErr = configurationGovernanceService.ListAttachmentsWithContext(ctx, listAttachmentsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+				serverSleepTime = time.Duration(0)
+
+				// Disable retries and test again
+				configurationGovernanceService.DisableRetries()
+				result, response, operationErr = configurationGovernanceService.ListAttachments(listAttachmentsOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				serverSleepTime = 100 * time.Millisecond
+				_, _, operationErr = configurationGovernanceService.ListAttachmentsWithContext(ctx, listAttachmentsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+				serverSleepTime = time.Duration(0)
 			})
 			It(`Invoke ListAttachments with error: Operation validation and request error`, func() {
 				configurationGovernanceService, serviceErr := configurationgovernancev1.NewConfigurationGovernanceV1(&configurationgovernancev1.ConfigurationGovernanceV1Options{
@@ -1282,6 +1579,13 @@ var _ = Describe(`ConfigurationGovernanceV1`, func() {
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				configurationGovernanceService.EnableRetries(0, 0)
+				result, response, operationErr = configurationGovernanceService.GetAttachment(getAttachmentOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
 			})
 			AfterEach(func() {
 				testServer.Close()
@@ -1291,16 +1595,23 @@ var _ = Describe(`ConfigurationGovernanceV1`, func() {
 
 	Describe(`GetAttachment(getAttachmentOptions *GetAttachmentOptions)`, func() {
 		getAttachmentPath := "/config/v1/rules/testString/attachments/testString"
+		var serverSleepTime time.Duration
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
+				serverSleepTime = 0
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
 					Expect(req.URL.EscapedPath()).To(Equal(getAttachmentPath))
 					Expect(req.Method).To(Equal("GET"))
+
 					Expect(req.Header["Transaction-Id"]).ToNot(BeNil())
 					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
+					// Sleep a short time to support a timeout test
+					time.Sleep(serverSleepTime)
+
+					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
 					fmt.Fprintf(res, "%s", `{"attachment_id": "attachment-fc7b9a77-1c85-406c-b346-f3f5bb9aa7e2", "rule_id": "rule-81f3db5e-f9db-4c46-9de3-a4a76e66adbf", "account_id": "AccountID", "included_scope": {"note": "Note", "scope_id": "ScopeID", "scope_type": "enterprise"}, "excluded_scopes": [{"note": "Note", "scope_id": "ScopeID", "scope_type": "enterprise"}]}`)
@@ -1313,6 +1624,7 @@ var _ = Describe(`ConfigurationGovernanceV1`, func() {
 				})
 				Expect(serviceErr).To(BeNil())
 				Expect(configurationGovernanceService).ToNot(BeNil())
+				configurationGovernanceService.EnableRetries(0, 0)
 
 				// Invoke operation with nil options model (negative test)
 				result, response, operationErr := configurationGovernanceService.GetAttachment(nil)
@@ -1332,6 +1644,31 @@ var _ = Describe(`ConfigurationGovernanceV1`, func() {
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				serverSleepTime = 100 * time.Millisecond
+				_, _, operationErr = configurationGovernanceService.GetAttachmentWithContext(ctx, getAttachmentOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+				serverSleepTime = time.Duration(0)
+
+				// Disable retries and test again
+				configurationGovernanceService.DisableRetries()
+				result, response, operationErr = configurationGovernanceService.GetAttachment(getAttachmentOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				serverSleepTime = 100 * time.Millisecond
+				_, _, operationErr = configurationGovernanceService.GetAttachmentWithContext(ctx, getAttachmentOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+				serverSleepTime = time.Duration(0)
 			})
 			It(`Invoke GetAttachment with error: Operation validation and request error`, func() {
 				configurationGovernanceService, serviceErr := configurationgovernancev1.NewConfigurationGovernanceV1(&configurationgovernancev1.ConfigurationGovernanceV1Options{
@@ -1416,6 +1753,13 @@ var _ = Describe(`ConfigurationGovernanceV1`, func() {
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				configurationGovernanceService.EnableRetries(0, 0)
+				result, response, operationErr = configurationGovernanceService.UpdateAttachment(updateAttachmentOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
 			})
 			AfterEach(func() {
 				testServer.Close()
@@ -1425,18 +1769,41 @@ var _ = Describe(`ConfigurationGovernanceV1`, func() {
 
 	Describe(`UpdateAttachment(updateAttachmentOptions *UpdateAttachmentOptions)`, func() {
 		updateAttachmentPath := "/config/v1/rules/testString/attachments/testString"
+		var serverSleepTime time.Duration
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
+				serverSleepTime = 0
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
 					Expect(req.URL.EscapedPath()).To(Equal(updateAttachmentPath))
 					Expect(req.Method).To(Equal("PUT"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
 					Expect(req.Header["If-Match"]).ToNot(BeNil())
 					Expect(req.Header["If-Match"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					Expect(req.Header["Transaction-Id"]).ToNot(BeNil())
 					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
+					// Sleep a short time to support a timeout test
+					time.Sleep(serverSleepTime)
+
+					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
 					fmt.Fprintf(res, "%s", `{"attachment_id": "attachment-fc7b9a77-1c85-406c-b346-f3f5bb9aa7e2", "rule_id": "rule-81f3db5e-f9db-4c46-9de3-a4a76e66adbf", "account_id": "AccountID", "included_scope": {"note": "Note", "scope_id": "ScopeID", "scope_type": "enterprise"}, "excluded_scopes": [{"note": "Note", "scope_id": "ScopeID", "scope_type": "enterprise"}]}`)
@@ -1449,6 +1816,7 @@ var _ = Describe(`ConfigurationGovernanceV1`, func() {
 				})
 				Expect(serviceErr).To(BeNil())
 				Expect(configurationGovernanceService).ToNot(BeNil())
+				configurationGovernanceService.EnableRetries(0, 0)
 
 				// Invoke operation with nil options model (negative test)
 				result, response, operationErr := configurationGovernanceService.UpdateAttachment(nil)
@@ -1478,6 +1846,31 @@ var _ = Describe(`ConfigurationGovernanceV1`, func() {
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				serverSleepTime = 100 * time.Millisecond
+				_, _, operationErr = configurationGovernanceService.UpdateAttachmentWithContext(ctx, updateAttachmentOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+				serverSleepTime = time.Duration(0)
+
+				// Disable retries and test again
+				configurationGovernanceService.DisableRetries()
+				result, response, operationErr = configurationGovernanceService.UpdateAttachment(updateAttachmentOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				serverSleepTime = 100 * time.Millisecond
+				_, _, operationErr = configurationGovernanceService.UpdateAttachmentWithContext(ctx, updateAttachmentOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+				serverSleepTime = time.Duration(0)
 			})
 			It(`Invoke UpdateAttachment with error: Operation validation and request error`, func() {
 				configurationGovernanceService, serviceErr := configurationgovernancev1.NewConfigurationGovernanceV1(&configurationgovernancev1.ConfigurationGovernanceV1Options{
@@ -1535,6 +1928,7 @@ var _ = Describe(`ConfigurationGovernanceV1`, func() {
 					// Verify the contents of the request
 					Expect(req.URL.EscapedPath()).To(Equal(deleteAttachmentPath))
 					Expect(req.Method).To(Equal("DELETE"))
+
 					Expect(req.Header["Transaction-Id"]).ToNot(BeNil())
 					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					res.WriteHeader(204)
@@ -1547,6 +1941,7 @@ var _ = Describe(`ConfigurationGovernanceV1`, func() {
 				})
 				Expect(serviceErr).To(BeNil())
 				Expect(configurationGovernanceService).ToNot(BeNil())
+				configurationGovernanceService.EnableRetries(0, 0)
 
 				// Invoke operation with nil options model (negative test)
 				response, operationErr := configurationGovernanceService.DeleteAttachment(nil)
@@ -1561,6 +1956,12 @@ var _ = Describe(`ConfigurationGovernanceV1`, func() {
 				deleteAttachmentOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
+				response, operationErr = configurationGovernanceService.DeleteAttachment(deleteAttachmentOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Disable retries and test again
+				configurationGovernanceService.DisableRetries()
 				response, operationErr = configurationGovernanceService.DeleteAttachment(deleteAttachmentOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())

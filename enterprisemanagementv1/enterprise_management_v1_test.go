@@ -18,6 +18,7 @@ package enterprisemanagementv1_test
 
 import (
 	"bytes"
+	"context"
 	"fmt"
 	"github.com/IBM/go-sdk-core/v4/core"
 	"github.com/IBM/platform-services-go-sdk/enterprisemanagementv1"
@@ -168,6 +169,13 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				enterpriseManagementService.EnableRetries(0, 0)
+				result, response, operationErr = enterpriseManagementService.CreateAccountGroup(createAccountGroupOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
 			})
 			AfterEach(func() {
 				testServer.Close()
@@ -177,14 +185,37 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 
 	Describe(`CreateAccountGroup(createAccountGroupOptions *CreateAccountGroupOptions)`, func() {
 		createAccountGroupPath := "/account-groups"
+		var serverSleepTime time.Duration
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
+				serverSleepTime = 0
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
 					Expect(req.URL.EscapedPath()).To(Equal(createAccountGroupPath))
 					Expect(req.Method).To(Equal("POST"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
+					// Sleep a short time to support a timeout test
+					time.Sleep(serverSleepTime)
+
+					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
 					fmt.Fprintf(res, "%s", `{"account_group_id": "AccountGroupID"}`)
@@ -197,6 +228,7 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 				})
 				Expect(serviceErr).To(BeNil())
 				Expect(enterpriseManagementService).ToNot(BeNil())
+				enterpriseManagementService.EnableRetries(0, 0)
 
 				// Invoke operation with nil options model (negative test)
 				result, response, operationErr := enterpriseManagementService.CreateAccountGroup(nil)
@@ -216,6 +248,31 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				serverSleepTime = 100 * time.Millisecond
+				_, _, operationErr = enterpriseManagementService.CreateAccountGroupWithContext(ctx, createAccountGroupOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+				serverSleepTime = time.Duration(0)
+
+				// Disable retries and test again
+				enterpriseManagementService.DisableRetries()
+				result, response, operationErr = enterpriseManagementService.CreateAccountGroup(createAccountGroupOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				serverSleepTime = 100 * time.Millisecond
+				_, _, operationErr = enterpriseManagementService.CreateAccountGroupWithContext(ctx, createAccountGroupOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+				serverSleepTime = time.Duration(0)
 			})
 			It(`Invoke CreateAccountGroup with error: Operation validation and request error`, func() {
 				enterpriseManagementService, serviceErr := enterprisemanagementv1.NewEnterpriseManagementV1(&enterprisemanagementv1.EnterpriseManagementV1Options{
@@ -295,6 +352,13 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				enterpriseManagementService.EnableRetries(0, 0)
+				result, response, operationErr = enterpriseManagementService.ListAccountGroups(listAccountGroupsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
 			})
 			AfterEach(func() {
 				testServer.Close()
@@ -304,14 +368,17 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 
 	Describe(`ListAccountGroups(listAccountGroupsOptions *ListAccountGroupsOptions)`, func() {
 		listAccountGroupsPath := "/account-groups"
+		var serverSleepTime time.Duration
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
+				serverSleepTime = 0
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
 					Expect(req.URL.EscapedPath()).To(Equal(listAccountGroupsPath))
 					Expect(req.Method).To(Equal("GET"))
+
 					Expect(req.URL.Query()["enterprise_id"]).To(Equal([]string{"testString"}))
 
 					Expect(req.URL.Query()["parent_account_group_id"]).To(Equal([]string{"testString"}))
@@ -320,6 +387,10 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 
 					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(38))}))
 
+					// Sleep a short time to support a timeout test
+					time.Sleep(serverSleepTime)
+
+					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
 					fmt.Fprintf(res, "%s", `{"rows_count": 9, "next_url": "NextURL", "resources": [{"url": "URL", "id": "ID", "crn": "Crn", "parent": "Parent", "enterprise_account_id": "EnterpriseAccountID", "enterprise_id": "EnterpriseID", "enterprise_path": "EnterprisePath", "name": "Name", "state": "State", "primary_contact_iam_id": "PrimaryContactIamID", "primary_contact_email": "PrimaryContactEmail", "created_at": "2019-01-01T12:00:00", "created_by": "CreatedBy", "updated_at": "2019-01-01T12:00:00", "updated_by": "UpdatedBy"}]}`)
@@ -332,6 +403,7 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 				})
 				Expect(serviceErr).To(BeNil())
 				Expect(enterpriseManagementService).ToNot(BeNil())
+				enterpriseManagementService.EnableRetries(0, 0)
 
 				// Invoke operation with nil options model (negative test)
 				result, response, operationErr := enterpriseManagementService.ListAccountGroups(nil)
@@ -352,6 +424,31 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				serverSleepTime = 100 * time.Millisecond
+				_, _, operationErr = enterpriseManagementService.ListAccountGroupsWithContext(ctx, listAccountGroupsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+				serverSleepTime = time.Duration(0)
+
+				// Disable retries and test again
+				enterpriseManagementService.DisableRetries()
+				result, response, operationErr = enterpriseManagementService.ListAccountGroups(listAccountGroupsOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				serverSleepTime = 100 * time.Millisecond
+				_, _, operationErr = enterpriseManagementService.ListAccountGroupsWithContext(ctx, listAccountGroupsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+				serverSleepTime = time.Duration(0)
 			})
 			It(`Invoke ListAccountGroups with error: Operation request error`, func() {
 				enterpriseManagementService, serviceErr := enterprisemanagementv1.NewEnterpriseManagementV1(&enterprisemanagementv1.EnterpriseManagementV1Options{
@@ -414,6 +511,13 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				enterpriseManagementService.EnableRetries(0, 0)
+				result, response, operationErr = enterpriseManagementService.GetAccountGroup(getAccountGroupOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
 			})
 			AfterEach(func() {
 				testServer.Close()
@@ -423,14 +527,21 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 
 	Describe(`GetAccountGroup(getAccountGroupOptions *GetAccountGroupOptions)`, func() {
 		getAccountGroupPath := "/account-groups/testString"
+		var serverSleepTime time.Duration
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
+				serverSleepTime = 0
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
 					Expect(req.URL.EscapedPath()).To(Equal(getAccountGroupPath))
 					Expect(req.Method).To(Equal("GET"))
+
+					// Sleep a short time to support a timeout test
+					time.Sleep(serverSleepTime)
+
+					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
 					fmt.Fprintf(res, "%s", `{"url": "URL", "id": "ID", "crn": "Crn", "parent": "Parent", "enterprise_account_id": "EnterpriseAccountID", "enterprise_id": "EnterpriseID", "enterprise_path": "EnterprisePath", "name": "Name", "state": "State", "primary_contact_iam_id": "PrimaryContactIamID", "primary_contact_email": "PrimaryContactEmail", "created_at": "2019-01-01T12:00:00", "created_by": "CreatedBy", "updated_at": "2019-01-01T12:00:00", "updated_by": "UpdatedBy"}`)
@@ -443,6 +554,7 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 				})
 				Expect(serviceErr).To(BeNil())
 				Expect(enterpriseManagementService).ToNot(BeNil())
+				enterpriseManagementService.EnableRetries(0, 0)
 
 				// Invoke operation with nil options model (negative test)
 				result, response, operationErr := enterpriseManagementService.GetAccountGroup(nil)
@@ -460,6 +572,31 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				serverSleepTime = 100 * time.Millisecond
+				_, _, operationErr = enterpriseManagementService.GetAccountGroupWithContext(ctx, getAccountGroupOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+				serverSleepTime = time.Duration(0)
+
+				// Disable retries and test again
+				enterpriseManagementService.DisableRetries()
+				result, response, operationErr = enterpriseManagementService.GetAccountGroup(getAccountGroupOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				serverSleepTime = 100 * time.Millisecond
+				_, _, operationErr = enterpriseManagementService.GetAccountGroupWithContext(ctx, getAccountGroupOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+				serverSleepTime = time.Duration(0)
 			})
 			It(`Invoke GetAccountGroup with error: Operation validation and request error`, func() {
 				enterpriseManagementService, serviceErr := enterprisemanagementv1.NewEnterpriseManagementV1(&enterprisemanagementv1.EnterpriseManagementV1Options{
@@ -505,6 +642,23 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 					// Verify the contents of the request
 					Expect(req.URL.EscapedPath()).To(Equal(updateAccountGroupPath))
 					Expect(req.Method).To(Equal("PATCH"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
 					res.WriteHeader(204)
 				}))
 			})
@@ -515,6 +669,7 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 				})
 				Expect(serviceErr).To(BeNil())
 				Expect(enterpriseManagementService).ToNot(BeNil())
+				enterpriseManagementService.EnableRetries(0, 0)
 
 				// Invoke operation with nil options model (negative test)
 				response, operationErr := enterpriseManagementService.UpdateAccountGroup(nil)
@@ -529,6 +684,12 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 				updateAccountGroupOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
+				response, operationErr = enterpriseManagementService.UpdateAccountGroup(updateAccountGroupOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Disable retries and test again
+				enterpriseManagementService.DisableRetries()
 				response, operationErr = enterpriseManagementService.UpdateAccountGroup(updateAccountGroupOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
@@ -677,6 +838,23 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 					// Verify the contents of the request
 					Expect(req.URL.EscapedPath()).To(Equal(importAccountToEnterprisePath))
 					Expect(req.Method).To(Equal("PUT"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
 					res.WriteHeader(202)
 				}))
 			})
@@ -687,6 +865,7 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 				})
 				Expect(serviceErr).To(BeNil())
 				Expect(enterpriseManagementService).ToNot(BeNil())
+				enterpriseManagementService.EnableRetries(0, 0)
 
 				// Invoke operation with nil options model (negative test)
 				response, operationErr := enterpriseManagementService.ImportAccountToEnterprise(nil)
@@ -702,6 +881,12 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 				importAccountToEnterpriseOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
+				response, operationErr = enterpriseManagementService.ImportAccountToEnterprise(importAccountToEnterpriseOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Disable retries and test again
+				enterpriseManagementService.DisableRetries()
 				response, operationErr = enterpriseManagementService.ImportAccountToEnterprise(importAccountToEnterpriseOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
@@ -774,6 +959,13 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				enterpriseManagementService.EnableRetries(0, 0)
+				result, response, operationErr = enterpriseManagementService.CreateAccount(createAccountOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
 			})
 			AfterEach(func() {
 				testServer.Close()
@@ -783,14 +975,37 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 
 	Describe(`CreateAccount(createAccountOptions *CreateAccountOptions)`, func() {
 		createAccountPath := "/accounts"
+		var serverSleepTime time.Duration
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
+				serverSleepTime = 0
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
 					Expect(req.URL.EscapedPath()).To(Equal(createAccountPath))
 					Expect(req.Method).To(Equal("POST"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
+					// Sleep a short time to support a timeout test
+					time.Sleep(serverSleepTime)
+
+					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
 					fmt.Fprintf(res, "%s", `{"account_id": "AccountID"}`)
@@ -803,6 +1018,7 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 				})
 				Expect(serviceErr).To(BeNil())
 				Expect(enterpriseManagementService).ToNot(BeNil())
+				enterpriseManagementService.EnableRetries(0, 0)
 
 				// Invoke operation with nil options model (negative test)
 				result, response, operationErr := enterpriseManagementService.CreateAccount(nil)
@@ -822,6 +1038,31 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				serverSleepTime = 100 * time.Millisecond
+				_, _, operationErr = enterpriseManagementService.CreateAccountWithContext(ctx, createAccountOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+				serverSleepTime = time.Duration(0)
+
+				// Disable retries and test again
+				enterpriseManagementService.DisableRetries()
+				result, response, operationErr = enterpriseManagementService.CreateAccount(createAccountOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				serverSleepTime = 100 * time.Millisecond
+				_, _, operationErr = enterpriseManagementService.CreateAccountWithContext(ctx, createAccountOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+				serverSleepTime = time.Duration(0)
 			})
 			It(`Invoke CreateAccount with error: Operation validation and request error`, func() {
 				enterpriseManagementService, serviceErr := enterprisemanagementv1.NewEnterpriseManagementV1(&enterprisemanagementv1.EnterpriseManagementV1Options{
@@ -901,6 +1142,13 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				enterpriseManagementService.EnableRetries(0, 0)
+				result, response, operationErr = enterpriseManagementService.ListAccounts(listAccountsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
 			})
 			AfterEach(func() {
 				testServer.Close()
@@ -910,14 +1158,17 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 
 	Describe(`ListAccounts(listAccountsOptions *ListAccountsOptions)`, func() {
 		listAccountsPath := "/accounts"
+		var serverSleepTime time.Duration
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
+				serverSleepTime = 0
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
 					Expect(req.URL.EscapedPath()).To(Equal(listAccountsPath))
 					Expect(req.Method).To(Equal("GET"))
+
 					Expect(req.URL.Query()["enterprise_id"]).To(Equal([]string{"testString"}))
 
 					Expect(req.URL.Query()["account_group_id"]).To(Equal([]string{"testString"}))
@@ -926,6 +1177,10 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 
 					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(38))}))
 
+					// Sleep a short time to support a timeout test
+					time.Sleep(serverSleepTime)
+
+					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
 					fmt.Fprintf(res, "%s", `{"rows_count": 9, "next_url": "NextURL", "resources": [{"url": "URL", "id": "ID", "crn": "Crn", "parent": "Parent", "enterprise_account_id": "EnterpriseAccountID", "enterprise_id": "EnterpriseID", "enterprise_path": "EnterprisePath", "name": "Name", "state": "State", "owner_iam_id": "OwnerIamID", "paid": true, "owner_email": "OwnerEmail", "is_enterprise_account": false, "created_at": "2019-01-01T12:00:00", "created_by": "CreatedBy", "updated_at": "2019-01-01T12:00:00", "updated_by": "UpdatedBy"}]}`)
@@ -938,6 +1193,7 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 				})
 				Expect(serviceErr).To(BeNil())
 				Expect(enterpriseManagementService).ToNot(BeNil())
+				enterpriseManagementService.EnableRetries(0, 0)
 
 				// Invoke operation with nil options model (negative test)
 				result, response, operationErr := enterpriseManagementService.ListAccounts(nil)
@@ -958,6 +1214,31 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				serverSleepTime = 100 * time.Millisecond
+				_, _, operationErr = enterpriseManagementService.ListAccountsWithContext(ctx, listAccountsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+				serverSleepTime = time.Duration(0)
+
+				// Disable retries and test again
+				enterpriseManagementService.DisableRetries()
+				result, response, operationErr = enterpriseManagementService.ListAccounts(listAccountsOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				serverSleepTime = 100 * time.Millisecond
+				_, _, operationErr = enterpriseManagementService.ListAccountsWithContext(ctx, listAccountsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+				serverSleepTime = time.Duration(0)
 			})
 			It(`Invoke ListAccounts with error: Operation request error`, func() {
 				enterpriseManagementService, serviceErr := enterprisemanagementv1.NewEnterpriseManagementV1(&enterprisemanagementv1.EnterpriseManagementV1Options{
@@ -1020,6 +1301,13 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				enterpriseManagementService.EnableRetries(0, 0)
+				result, response, operationErr = enterpriseManagementService.GetAccount(getAccountOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
 			})
 			AfterEach(func() {
 				testServer.Close()
@@ -1029,14 +1317,21 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 
 	Describe(`GetAccount(getAccountOptions *GetAccountOptions)`, func() {
 		getAccountPath := "/accounts/testString"
+		var serverSleepTime time.Duration
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
+				serverSleepTime = 0
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
 					Expect(req.URL.EscapedPath()).To(Equal(getAccountPath))
 					Expect(req.Method).To(Equal("GET"))
+
+					// Sleep a short time to support a timeout test
+					time.Sleep(serverSleepTime)
+
+					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
 					fmt.Fprintf(res, "%s", `{"url": "URL", "id": "ID", "crn": "Crn", "parent": "Parent", "enterprise_account_id": "EnterpriseAccountID", "enterprise_id": "EnterpriseID", "enterprise_path": "EnterprisePath", "name": "Name", "state": "State", "owner_iam_id": "OwnerIamID", "paid": true, "owner_email": "OwnerEmail", "is_enterprise_account": false, "created_at": "2019-01-01T12:00:00", "created_by": "CreatedBy", "updated_at": "2019-01-01T12:00:00", "updated_by": "UpdatedBy"}`)
@@ -1049,6 +1344,7 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 				})
 				Expect(serviceErr).To(BeNil())
 				Expect(enterpriseManagementService).ToNot(BeNil())
+				enterpriseManagementService.EnableRetries(0, 0)
 
 				// Invoke operation with nil options model (negative test)
 				result, response, operationErr := enterpriseManagementService.GetAccount(nil)
@@ -1066,6 +1362,31 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				serverSleepTime = 100 * time.Millisecond
+				_, _, operationErr = enterpriseManagementService.GetAccountWithContext(ctx, getAccountOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+				serverSleepTime = time.Duration(0)
+
+				// Disable retries and test again
+				enterpriseManagementService.DisableRetries()
+				result, response, operationErr = enterpriseManagementService.GetAccount(getAccountOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				serverSleepTime = 100 * time.Millisecond
+				_, _, operationErr = enterpriseManagementService.GetAccountWithContext(ctx, getAccountOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+				serverSleepTime = time.Duration(0)
 			})
 			It(`Invoke GetAccount with error: Operation validation and request error`, func() {
 				enterpriseManagementService, serviceErr := enterprisemanagementv1.NewEnterpriseManagementV1(&enterprisemanagementv1.EnterpriseManagementV1Options{
@@ -1111,6 +1432,23 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 					// Verify the contents of the request
 					Expect(req.URL.EscapedPath()).To(Equal(updateAccountPath))
 					Expect(req.Method).To(Equal("PATCH"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
 					res.WriteHeader(204)
 				}))
 			})
@@ -1121,6 +1459,7 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 				})
 				Expect(serviceErr).To(BeNil())
 				Expect(enterpriseManagementService).ToNot(BeNil())
+				enterpriseManagementService.EnableRetries(0, 0)
 
 				// Invoke operation with nil options model (negative test)
 				response, operationErr := enterpriseManagementService.UpdateAccount(nil)
@@ -1134,6 +1473,12 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 				updateAccountOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
+				response, operationErr = enterpriseManagementService.UpdateAccount(updateAccountOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Disable retries and test again
+				enterpriseManagementService.DisableRetries()
 				response, operationErr = enterpriseManagementService.UpdateAccount(updateAccountOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
@@ -1305,6 +1650,13 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				enterpriseManagementService.EnableRetries(0, 0)
+				result, response, operationErr = enterpriseManagementService.CreateEnterprise(createEnterpriseOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
 			})
 			AfterEach(func() {
 				testServer.Close()
@@ -1314,14 +1666,37 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 
 	Describe(`CreateEnterprise(createEnterpriseOptions *CreateEnterpriseOptions)`, func() {
 		createEnterprisePath := "/enterprises"
+		var serverSleepTime time.Duration
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
+				serverSleepTime = 0
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
 					Expect(req.URL.EscapedPath()).To(Equal(createEnterprisePath))
 					Expect(req.Method).To(Equal("POST"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
+					// Sleep a short time to support a timeout test
+					time.Sleep(serverSleepTime)
+
+					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(202)
 					fmt.Fprintf(res, "%s", `{"enterprise_id": "EnterpriseID", "enterprise_account_id": "EnterpriseAccountID"}`)
@@ -1334,6 +1709,7 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 				})
 				Expect(serviceErr).To(BeNil())
 				Expect(enterpriseManagementService).ToNot(BeNil())
+				enterpriseManagementService.EnableRetries(0, 0)
 
 				// Invoke operation with nil options model (negative test)
 				result, response, operationErr := enterpriseManagementService.CreateEnterprise(nil)
@@ -1354,6 +1730,31 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				serverSleepTime = 100 * time.Millisecond
+				_, _, operationErr = enterpriseManagementService.CreateEnterpriseWithContext(ctx, createEnterpriseOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+				serverSleepTime = time.Duration(0)
+
+				// Disable retries and test again
+				enterpriseManagementService.DisableRetries()
+				result, response, operationErr = enterpriseManagementService.CreateEnterprise(createEnterpriseOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				serverSleepTime = 100 * time.Millisecond
+				_, _, operationErr = enterpriseManagementService.CreateEnterpriseWithContext(ctx, createEnterpriseOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+				serverSleepTime = time.Duration(0)
 			})
 			It(`Invoke CreateEnterprise with error: Operation validation and request error`, func() {
 				enterpriseManagementService, serviceErr := enterprisemanagementv1.NewEnterpriseManagementV1(&enterprisemanagementv1.EnterpriseManagementV1Options{
@@ -1434,6 +1835,13 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				enterpriseManagementService.EnableRetries(0, 0)
+				result, response, operationErr = enterpriseManagementService.ListEnterprises(listEnterprisesOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
 			})
 			AfterEach(func() {
 				testServer.Close()
@@ -1443,14 +1851,17 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 
 	Describe(`ListEnterprises(listEnterprisesOptions *ListEnterprisesOptions)`, func() {
 		listEnterprisesPath := "/enterprises"
+		var serverSleepTime time.Duration
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
+				serverSleepTime = 0
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
 					Expect(req.URL.EscapedPath()).To(Equal(listEnterprisesPath))
 					Expect(req.Method).To(Equal("GET"))
+
 					Expect(req.URL.Query()["enterprise_account_id"]).To(Equal([]string{"testString"}))
 
 					Expect(req.URL.Query()["account_group_id"]).To(Equal([]string{"testString"}))
@@ -1459,6 +1870,10 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 
 					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(38))}))
 
+					// Sleep a short time to support a timeout test
+					time.Sleep(serverSleepTime)
+
+					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
 					fmt.Fprintf(res, "%s", `{"rows_count": 9, "next_url": "NextURL", "resources": [{"url": "URL", "id": "ID", "enterprise_account_id": "EnterpriseAccountID", "crn": "Crn", "name": "Name", "domain": "Domain", "state": "State", "primary_contact_iam_id": "PrimaryContactIamID", "primary_contact_email": "PrimaryContactEmail", "created_at": "2019-01-01T12:00:00", "created_by": "CreatedBy", "updated_at": "2019-01-01T12:00:00", "updated_by": "UpdatedBy"}]}`)
@@ -1471,6 +1886,7 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 				})
 				Expect(serviceErr).To(BeNil())
 				Expect(enterpriseManagementService).ToNot(BeNil())
+				enterpriseManagementService.EnableRetries(0, 0)
 
 				// Invoke operation with nil options model (negative test)
 				result, response, operationErr := enterpriseManagementService.ListEnterprises(nil)
@@ -1491,6 +1907,31 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				serverSleepTime = 100 * time.Millisecond
+				_, _, operationErr = enterpriseManagementService.ListEnterprisesWithContext(ctx, listEnterprisesOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+				serverSleepTime = time.Duration(0)
+
+				// Disable retries and test again
+				enterpriseManagementService.DisableRetries()
+				result, response, operationErr = enterpriseManagementService.ListEnterprises(listEnterprisesOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				serverSleepTime = 100 * time.Millisecond
+				_, _, operationErr = enterpriseManagementService.ListEnterprisesWithContext(ctx, listEnterprisesOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+				serverSleepTime = time.Duration(0)
 			})
 			It(`Invoke ListEnterprises with error: Operation request error`, func() {
 				enterpriseManagementService, serviceErr := enterprisemanagementv1.NewEnterpriseManagementV1(&enterprisemanagementv1.EnterpriseManagementV1Options{
@@ -1553,6 +1994,13 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				enterpriseManagementService.EnableRetries(0, 0)
+				result, response, operationErr = enterpriseManagementService.GetEnterprise(getEnterpriseOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
 			})
 			AfterEach(func() {
 				testServer.Close()
@@ -1562,14 +2010,21 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 
 	Describe(`GetEnterprise(getEnterpriseOptions *GetEnterpriseOptions)`, func() {
 		getEnterprisePath := "/enterprises/testString"
+		var serverSleepTime time.Duration
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
+				serverSleepTime = 0
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
 					Expect(req.URL.EscapedPath()).To(Equal(getEnterprisePath))
 					Expect(req.Method).To(Equal("GET"))
+
+					// Sleep a short time to support a timeout test
+					time.Sleep(serverSleepTime)
+
+					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
 					fmt.Fprintf(res, "%s", `{"url": "URL", "id": "ID", "enterprise_account_id": "EnterpriseAccountID", "crn": "Crn", "name": "Name", "domain": "Domain", "state": "State", "primary_contact_iam_id": "PrimaryContactIamID", "primary_contact_email": "PrimaryContactEmail", "created_at": "2019-01-01T12:00:00", "created_by": "CreatedBy", "updated_at": "2019-01-01T12:00:00", "updated_by": "UpdatedBy"}`)
@@ -1582,6 +2037,7 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 				})
 				Expect(serviceErr).To(BeNil())
 				Expect(enterpriseManagementService).ToNot(BeNil())
+				enterpriseManagementService.EnableRetries(0, 0)
 
 				// Invoke operation with nil options model (negative test)
 				result, response, operationErr := enterpriseManagementService.GetEnterprise(nil)
@@ -1599,6 +2055,31 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				serverSleepTime = 100 * time.Millisecond
+				_, _, operationErr = enterpriseManagementService.GetEnterpriseWithContext(ctx, getEnterpriseOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+				serverSleepTime = time.Duration(0)
+
+				// Disable retries and test again
+				enterpriseManagementService.DisableRetries()
+				result, response, operationErr = enterpriseManagementService.GetEnterprise(getEnterpriseOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				serverSleepTime = 100 * time.Millisecond
+				_, _, operationErr = enterpriseManagementService.GetEnterpriseWithContext(ctx, getEnterpriseOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+				serverSleepTime = time.Duration(0)
 			})
 			It(`Invoke GetEnterprise with error: Operation validation and request error`, func() {
 				enterpriseManagementService, serviceErr := enterprisemanagementv1.NewEnterpriseManagementV1(&enterprisemanagementv1.EnterpriseManagementV1Options{
@@ -1644,6 +2125,23 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 					// Verify the contents of the request
 					Expect(req.URL.EscapedPath()).To(Equal(updateEnterprisePath))
 					Expect(req.Method).To(Equal("PATCH"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
 					res.WriteHeader(204)
 				}))
 			})
@@ -1654,6 +2152,7 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 				})
 				Expect(serviceErr).To(BeNil())
 				Expect(enterpriseManagementService).ToNot(BeNil())
+				enterpriseManagementService.EnableRetries(0, 0)
 
 				// Invoke operation with nil options model (negative test)
 				response, operationErr := enterpriseManagementService.UpdateEnterprise(nil)
@@ -1669,6 +2168,12 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 				updateEnterpriseOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
+				response, operationErr = enterpriseManagementService.UpdateEnterprise(updateEnterpriseOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Disable retries and test again
+				enterpriseManagementService.DisableRetries()
 				response, operationErr = enterpriseManagementService.UpdateEnterprise(updateEnterpriseOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())

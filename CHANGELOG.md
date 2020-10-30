@@ -1,3 +1,10 @@
+## [0.12.2](https://github.com/IBM/platform-services-go-sdk/compare/v0.12.1...v0.12.2) (2020-10-30)
+
+
+### Bug Fixes
+
+* regen services with latest SDK generator ([5f02911](https://github.com/IBM/platform-services-go-sdk/commit/5f0291111dd9a4f29e477c63bf4a24eab32750dc))
+
 ## [0.12.1](https://github.com/IBM/platform-services-go-sdk/compare/v0.12.0...v0.12.1) (2020-10-16)
 
 

@@ -15,7 +15,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-ef5e13c2-20200915-144510
+ * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-8d569e8f-20201030-111043
  */
  
 
@@ -23,11 +23,14 @@
 package iamaccessgroupsv2
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"github.com/IBM/go-sdk-core/v4/core"
 	common "github.com/IBM/platform-services-go-sdk/common"
+	"net/http"
 	"reflect"
+	"time"
 )
 
 // IamAccessGroupsV2 : The IAM Access Groups API allows for the management of Access Groups (Create, Read, Update,
@@ -111,12 +114,48 @@ func (iamAccessGroups *IamAccessGroupsV2) SetServiceURL(url string) error {
 	return iamAccessGroups.Service.SetServiceURL(url)
 }
 
+// GetServiceURL returns the service URL
+func (iamAccessGroups *IamAccessGroupsV2) GetServiceURL() string {
+	return iamAccessGroups.Service.GetServiceURL()
+}
+
+// SetDefaultHeaders sets HTTP headers to be sent in every request
+func (iamAccessGroups *IamAccessGroupsV2) SetDefaultHeaders(headers http.Header) {
+	iamAccessGroups.Service.SetDefaultHeaders(headers)
+}
+
+// SetEnableGzipCompression sets the service's EnableGzipCompression field
+func (iamAccessGroups *IamAccessGroupsV2) SetEnableGzipCompression(enableGzip bool) {
+	iamAccessGroups.Service.SetEnableGzipCompression(enableGzip)
+}
+
+// GetEnableGzipCompression returns the service's EnableGzipCompression field
+func (iamAccessGroups *IamAccessGroupsV2) GetEnableGzipCompression() bool {
+	return iamAccessGroups.Service.GetEnableGzipCompression()
+}
+
+// EnableRetries enables automatic retries for requests invoked for this service instance.
+// If either parameter is specified as 0, then a default value is used instead.
+func (iamAccessGroups *IamAccessGroupsV2) EnableRetries(maxRetries int, maxRetryInterval time.Duration) {
+	iamAccessGroups.Service.EnableRetries(maxRetries, maxRetryInterval)
+}
+
+// DisableRetries disables automatic retries for requests invoked for this service instance.
+func (iamAccessGroups *IamAccessGroupsV2) DisableRetries() {
+	iamAccessGroups.Service.DisableRetries()
+}
+
 // CreateAccessGroup : Create an Access Group
 // Create a new Access Group to assign multiple users and service ids to multiple policies. The group will be created in
 // the account specified by the `account_id` parameter. The group name is a required field, but a description is
 // optional. Because the group's name does not have to be unique, it is possible to create multiple groups with the same
 // name.
 func (iamAccessGroups *IamAccessGroupsV2) CreateAccessGroup(createAccessGroupOptions *CreateAccessGroupOptions) (result *Group, response *core.DetailedResponse, err error) {
+	return iamAccessGroups.CreateAccessGroupWithContext(context.Background(), createAccessGroupOptions)
+}
+
+// CreateAccessGroupWithContext is an alternate form of the CreateAccessGroup method which supports a Context parameter
+func (iamAccessGroups *IamAccessGroupsV2) CreateAccessGroupWithContext(ctx context.Context, createAccessGroupOptions *CreateAccessGroupOptions) (result *Group, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(createAccessGroupOptions, "createAccessGroupOptions cannot be nil")
 	if err != nil {
 		return
@@ -127,6 +166,8 @@ func (iamAccessGroups *IamAccessGroupsV2) CreateAccessGroup(createAccessGroupOpt
 	}
 
 	builder := core.NewRequestBuilder(core.POST)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = iamAccessGroups.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(iamAccessGroups.Service.Options.URL, `/groups`, nil)
 	if err != nil {
 		return
@@ -185,6 +226,11 @@ func (iamAccessGroups *IamAccessGroupsV2) CreateAccessGroup(createAccessGroupOpt
 // access to are returned (either because of a policy on a specific group or account level access (admin, editor, or
 // viewer)). There may be more groups in the account that aren't shown if you lack the aforementioned permissions.
 func (iamAccessGroups *IamAccessGroupsV2) ListAccessGroups(listAccessGroupsOptions *ListAccessGroupsOptions) (result *GroupsList, response *core.DetailedResponse, err error) {
+	return iamAccessGroups.ListAccessGroupsWithContext(context.Background(), listAccessGroupsOptions)
+}
+
+// ListAccessGroupsWithContext is an alternate form of the ListAccessGroups method which supports a Context parameter
+func (iamAccessGroups *IamAccessGroupsV2) ListAccessGroupsWithContext(ctx context.Context, listAccessGroupsOptions *ListAccessGroupsOptions) (result *GroupsList, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(listAccessGroupsOptions, "listAccessGroupsOptions cannot be nil")
 	if err != nil {
 		return
@@ -195,6 +241,8 @@ func (iamAccessGroups *IamAccessGroupsV2) ListAccessGroups(listAccessGroupsOptio
 	}
 
 	builder := core.NewRequestBuilder(core.GET)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = iamAccessGroups.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(iamAccessGroups.Service.Options.URL, `/groups`, nil)
 	if err != nil {
 		return
@@ -257,6 +305,11 @@ func (iamAccessGroups *IamAccessGroupsV2) ListAccessGroups(listAccessGroupsOptio
 // account_id, ...), not membership or rule information. A revision number is returned in the `Etag` header, which is
 // needed when updating the Access Group.
 func (iamAccessGroups *IamAccessGroupsV2) GetAccessGroup(getAccessGroupOptions *GetAccessGroupOptions) (result *Group, response *core.DetailedResponse, err error) {
+	return iamAccessGroups.GetAccessGroupWithContext(context.Background(), getAccessGroupOptions)
+}
+
+// GetAccessGroupWithContext is an alternate form of the GetAccessGroup method which supports a Context parameter
+func (iamAccessGroups *IamAccessGroupsV2) GetAccessGroupWithContext(ctx context.Context, getAccessGroupOptions *GetAccessGroupOptions) (result *Group, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(getAccessGroupOptions, "getAccessGroupOptions cannot be nil")
 	if err != nil {
 		return
@@ -271,6 +324,8 @@ func (iamAccessGroups *IamAccessGroupsV2) GetAccessGroup(getAccessGroupOptions *
 	}
 
 	builder := core.NewRequestBuilder(core.GET)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = iamAccessGroups.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(iamAccessGroups.Service.Options.URL, `/groups/{access_group_id}`, pathParamsMap)
 	if err != nil {
 		return
@@ -316,6 +371,11 @@ func (iamAccessGroups *IamAccessGroupsV2) GetAccessGroup(getAccessGroupOptions *
 // Update the group name or description of an existing Access Group using this API. An `If-Match` header must be
 // populated with the group's most recent revision number (which can be acquired in the `Get an Access Group` API).
 func (iamAccessGroups *IamAccessGroupsV2) UpdateAccessGroup(updateAccessGroupOptions *UpdateAccessGroupOptions) (result *Group, response *core.DetailedResponse, err error) {
+	return iamAccessGroups.UpdateAccessGroupWithContext(context.Background(), updateAccessGroupOptions)
+}
+
+// UpdateAccessGroupWithContext is an alternate form of the UpdateAccessGroup method which supports a Context parameter
+func (iamAccessGroups *IamAccessGroupsV2) UpdateAccessGroupWithContext(ctx context.Context, updateAccessGroupOptions *UpdateAccessGroupOptions) (result *Group, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(updateAccessGroupOptions, "updateAccessGroupOptions cannot be nil")
 	if err != nil {
 		return
@@ -330,6 +390,8 @@ func (iamAccessGroups *IamAccessGroupsV2) UpdateAccessGroup(updateAccessGroupOpt
 	}
 
 	builder := core.NewRequestBuilder(core.PATCH)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = iamAccessGroups.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(iamAccessGroups.Service.Options.URL, `/groups/{access_group_id}`, pathParamsMap)
 	if err != nil {
 		return
@@ -388,6 +450,11 @@ func (iamAccessGroups *IamAccessGroupsV2) UpdateAccessGroup(updateAccessGroupOpt
 // group and its policies will be deleted. However, if rules or members do exist, set the `force` parameter to true to
 // delete the group as well as its associated members, rules, and policies.
 func (iamAccessGroups *IamAccessGroupsV2) DeleteAccessGroup(deleteAccessGroupOptions *DeleteAccessGroupOptions) (response *core.DetailedResponse, err error) {
+	return iamAccessGroups.DeleteAccessGroupWithContext(context.Background(), deleteAccessGroupOptions)
+}
+
+// DeleteAccessGroupWithContext is an alternate form of the DeleteAccessGroup method which supports a Context parameter
+func (iamAccessGroups *IamAccessGroupsV2) DeleteAccessGroupWithContext(ctx context.Context, deleteAccessGroupOptions *DeleteAccessGroupOptions) (response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(deleteAccessGroupOptions, "deleteAccessGroupOptions cannot be nil")
 	if err != nil {
 		return
@@ -402,6 +469,8 @@ func (iamAccessGroups *IamAccessGroupsV2) DeleteAccessGroup(deleteAccessGroupOpt
 	}
 
 	builder := core.NewRequestBuilder(core.DELETE)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = iamAccessGroups.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(iamAccessGroups.Service.Options.URL, `/groups/{access_group_id}`, pathParamsMap)
 	if err != nil {
 		return
@@ -436,6 +505,11 @@ func (iamAccessGroups *IamAccessGroupsV2) DeleteAccessGroup(deleteAccessGroupOpt
 // GetAccountSettings : Get Account Settings
 // Retrieve the Access Groups settings for a specific account.
 func (iamAccessGroups *IamAccessGroupsV2) GetAccountSettings(getAccountSettingsOptions *GetAccountSettingsOptions) (result *AccountSettings, response *core.DetailedResponse, err error) {
+	return iamAccessGroups.GetAccountSettingsWithContext(context.Background(), getAccountSettingsOptions)
+}
+
+// GetAccountSettingsWithContext is an alternate form of the GetAccountSettings method which supports a Context parameter
+func (iamAccessGroups *IamAccessGroupsV2) GetAccountSettingsWithContext(ctx context.Context, getAccountSettingsOptions *GetAccountSettingsOptions) (result *AccountSettings, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(getAccountSettingsOptions, "getAccountSettingsOptions cannot be nil")
 	if err != nil {
 		return
@@ -446,6 +520,8 @@ func (iamAccessGroups *IamAccessGroupsV2) GetAccountSettings(getAccountSettingsO
 	}
 
 	builder := core.NewRequestBuilder(core.GET)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = iamAccessGroups.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(iamAccessGroups.Service.Options.URL, `/groups/settings`, nil)
 	if err != nil {
 		return
@@ -490,6 +566,11 @@ func (iamAccessGroups *IamAccessGroupsV2) GetAccountSettings(getAccountSettingsO
 // false, all policies within the account attached to the Public Access group will be deleted. Only set
 // `public_access_enabled` to false if you are sure that you want those policies to be removed.
 func (iamAccessGroups *IamAccessGroupsV2) UpdateAccountSettings(updateAccountSettingsOptions *UpdateAccountSettingsOptions) (result *AccountSettings, response *core.DetailedResponse, err error) {
+	return iamAccessGroups.UpdateAccountSettingsWithContext(context.Background(), updateAccountSettingsOptions)
+}
+
+// UpdateAccountSettingsWithContext is an alternate form of the UpdateAccountSettings method which supports a Context parameter
+func (iamAccessGroups *IamAccessGroupsV2) UpdateAccountSettingsWithContext(ctx context.Context, updateAccountSettingsOptions *UpdateAccountSettingsOptions) (result *AccountSettings, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(updateAccountSettingsOptions, "updateAccountSettingsOptions cannot be nil")
 	if err != nil {
 		return
@@ -500,6 +581,8 @@ func (iamAccessGroups *IamAccessGroupsV2) UpdateAccountSettings(updateAccountSet
 	}
 
 	builder := core.NewRequestBuilder(core.PATCH)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = iamAccessGroups.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(iamAccessGroups.Service.Options.URL, `/groups/settings`, nil)
 	if err != nil {
 		return
@@ -554,6 +637,11 @@ func (iamAccessGroups *IamAccessGroupsV2) UpdateAccountSettings(updateAccountSet
 // request. If the membership exists, a `204 - No Content` status code is returned. If the membership or the group does
 // not exist, a `404 - Not Found` status code is returned.
 func (iamAccessGroups *IamAccessGroupsV2) IsMemberOfAccessGroup(isMemberOfAccessGroupOptions *IsMemberOfAccessGroupOptions) (response *core.DetailedResponse, err error) {
+	return iamAccessGroups.IsMemberOfAccessGroupWithContext(context.Background(), isMemberOfAccessGroupOptions)
+}
+
+// IsMemberOfAccessGroupWithContext is an alternate form of the IsMemberOfAccessGroup method which supports a Context parameter
+func (iamAccessGroups *IamAccessGroupsV2) IsMemberOfAccessGroupWithContext(ctx context.Context, isMemberOfAccessGroupOptions *IsMemberOfAccessGroupOptions) (response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(isMemberOfAccessGroupOptions, "isMemberOfAccessGroupOptions cannot be nil")
 	if err != nil {
 		return
@@ -569,6 +657,8 @@ func (iamAccessGroups *IamAccessGroupsV2) IsMemberOfAccessGroup(isMemberOfAccess
 	}
 
 	builder := core.NewRequestBuilder(core.HEAD)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = iamAccessGroups.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(iamAccessGroups.Service.Options.URL, `/groups/{access_group_id}/members/{iam_id}`, pathParamsMap)
 	if err != nil {
 		return
@@ -602,6 +692,11 @@ func (iamAccessGroups *IamAccessGroupsV2) IsMemberOfAccessGroup(isMemberOfAccess
 // the group. There is no limit to the number of members one group can have, but each `iam_id` can only be added to 50
 // groups. Additionally, this API request payload can add up to 50 members per call.
 func (iamAccessGroups *IamAccessGroupsV2) AddMembersToAccessGroup(addMembersToAccessGroupOptions *AddMembersToAccessGroupOptions) (result *AddGroupMembersResponse, response *core.DetailedResponse, err error) {
+	return iamAccessGroups.AddMembersToAccessGroupWithContext(context.Background(), addMembersToAccessGroupOptions)
+}
+
+// AddMembersToAccessGroupWithContext is an alternate form of the AddMembersToAccessGroup method which supports a Context parameter
+func (iamAccessGroups *IamAccessGroupsV2) AddMembersToAccessGroupWithContext(ctx context.Context, addMembersToAccessGroupOptions *AddMembersToAccessGroupOptions) (result *AddGroupMembersResponse, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(addMembersToAccessGroupOptions, "addMembersToAccessGroupOptions cannot be nil")
 	if err != nil {
 		return
@@ -616,6 +711,8 @@ func (iamAccessGroups *IamAccessGroupsV2) AddMembersToAccessGroup(addMembersToAc
 	}
 
 	builder := core.NewRequestBuilder(core.PUT)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = iamAccessGroups.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(iamAccessGroups.Service.Options.URL, `/groups/{access_group_id}/members`, pathParamsMap)
 	if err != nil {
 		return
@@ -669,6 +766,11 @@ func (iamAccessGroups *IamAccessGroupsV2) AddMembersToAccessGroup(addMembersToAc
 // be retrieved for each `iam_id`. If performance is a concern, leave the `verbose` parameter off so that name
 // information does not get retrieved.
 func (iamAccessGroups *IamAccessGroupsV2) ListAccessGroupMembers(listAccessGroupMembersOptions *ListAccessGroupMembersOptions) (result *GroupMembersList, response *core.DetailedResponse, err error) {
+	return iamAccessGroups.ListAccessGroupMembersWithContext(context.Background(), listAccessGroupMembersOptions)
+}
+
+// ListAccessGroupMembersWithContext is an alternate form of the ListAccessGroupMembers method which supports a Context parameter
+func (iamAccessGroups *IamAccessGroupsV2) ListAccessGroupMembersWithContext(ctx context.Context, listAccessGroupMembersOptions *ListAccessGroupMembersOptions) (result *GroupMembersList, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(listAccessGroupMembersOptions, "listAccessGroupMembersOptions cannot be nil")
 	if err != nil {
 		return
@@ -683,6 +785,8 @@ func (iamAccessGroups *IamAccessGroupsV2) ListAccessGroupMembers(listAccessGroup
 	}
 
 	builder := core.NewRequestBuilder(core.GET)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = iamAccessGroups.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(iamAccessGroups.Service.Options.URL, `/groups/{access_group_id}/members`, pathParamsMap)
 	if err != nil {
 		return
@@ -740,6 +844,11 @@ func (iamAccessGroups *IamAccessGroupsV2) ListAccessGroupMembers(listAccessGroup
 // Remove one member from a group using this API. If the operation is successful, only a `204 - No Content` response
 // with no body is returned. However, if any error occurs, the standard error format will be returned.
 func (iamAccessGroups *IamAccessGroupsV2) RemoveMemberFromAccessGroup(removeMemberFromAccessGroupOptions *RemoveMemberFromAccessGroupOptions) (response *core.DetailedResponse, err error) {
+	return iamAccessGroups.RemoveMemberFromAccessGroupWithContext(context.Background(), removeMemberFromAccessGroupOptions)
+}
+
+// RemoveMemberFromAccessGroupWithContext is an alternate form of the RemoveMemberFromAccessGroup method which supports a Context parameter
+func (iamAccessGroups *IamAccessGroupsV2) RemoveMemberFromAccessGroupWithContext(ctx context.Context, removeMemberFromAccessGroupOptions *RemoveMemberFromAccessGroupOptions) (response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(removeMemberFromAccessGroupOptions, "removeMemberFromAccessGroupOptions cannot be nil")
 	if err != nil {
 		return
@@ -755,6 +864,8 @@ func (iamAccessGroups *IamAccessGroupsV2) RemoveMemberFromAccessGroup(removeMemb
 	}
 
 	builder := core.NewRequestBuilder(core.DELETE)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = iamAccessGroups.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(iamAccessGroups.Service.Options.URL, `/groups/{access_group_id}/members/{iam_id}`, pathParamsMap)
 	if err != nil {
 		return
@@ -787,6 +898,11 @@ func (iamAccessGroups *IamAccessGroupsV2) RemoveMemberFromAccessGroup(removeMemb
 // caller's responsibility to iterate across the body to determine successful deletion of each member. This API request
 // payload can delete up to 50 members per call.
 func (iamAccessGroups *IamAccessGroupsV2) RemoveMembersFromAccessGroup(removeMembersFromAccessGroupOptions *RemoveMembersFromAccessGroupOptions) (result *DeleteGroupBulkMembersResponse, response *core.DetailedResponse, err error) {
+	return iamAccessGroups.RemoveMembersFromAccessGroupWithContext(context.Background(), removeMembersFromAccessGroupOptions)
+}
+
+// RemoveMembersFromAccessGroupWithContext is an alternate form of the RemoveMembersFromAccessGroup method which supports a Context parameter
+func (iamAccessGroups *IamAccessGroupsV2) RemoveMembersFromAccessGroupWithContext(ctx context.Context, removeMembersFromAccessGroupOptions *RemoveMembersFromAccessGroupOptions) (result *DeleteGroupBulkMembersResponse, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(removeMembersFromAccessGroupOptions, "removeMembersFromAccessGroupOptions cannot be nil")
 	if err != nil {
 		return
@@ -801,6 +917,8 @@ func (iamAccessGroups *IamAccessGroupsV2) RemoveMembersFromAccessGroup(removeMem
 	}
 
 	builder := core.NewRequestBuilder(core.POST)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = iamAccessGroups.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(iamAccessGroups.Service.Options.URL, `/groups/{access_group_id}/members/delete`, pathParamsMap)
 	if err != nil {
 		return
@@ -853,6 +971,11 @@ func (iamAccessGroups *IamAccessGroupsV2) RemoveMembersFromAccessGroup(removeMem
 // operation, you can revoke one member's access to all Access Groups in the account. If a partial failure occurs on
 // deletion, the response will be shown in the body.
 func (iamAccessGroups *IamAccessGroupsV2) RemoveMemberFromAllAccessGroups(removeMemberFromAllAccessGroupsOptions *RemoveMemberFromAllAccessGroupsOptions) (result *DeleteFromAllGroupsResponse, response *core.DetailedResponse, err error) {
+	return iamAccessGroups.RemoveMemberFromAllAccessGroupsWithContext(context.Background(), removeMemberFromAllAccessGroupsOptions)
+}
+
+// RemoveMemberFromAllAccessGroupsWithContext is an alternate form of the RemoveMemberFromAllAccessGroups method which supports a Context parameter
+func (iamAccessGroups *IamAccessGroupsV2) RemoveMemberFromAllAccessGroupsWithContext(ctx context.Context, removeMemberFromAllAccessGroupsOptions *RemoveMemberFromAllAccessGroupsOptions) (result *DeleteFromAllGroupsResponse, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(removeMemberFromAllAccessGroupsOptions, "removeMemberFromAllAccessGroupsOptions cannot be nil")
 	if err != nil {
 		return
@@ -867,6 +990,8 @@ func (iamAccessGroups *IamAccessGroupsV2) RemoveMemberFromAllAccessGroups(remove
 	}
 
 	builder := core.NewRequestBuilder(core.DELETE)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = iamAccessGroups.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(iamAccessGroups.Service.Options.URL, `/groups/_allgroups/members/{iam_id}`, pathParamsMap)
 	if err != nil {
 		return
@@ -910,6 +1035,11 @@ func (iamAccessGroups *IamAccessGroupsV2) RemoveMemberFromAllAccessGroups(remove
 // This API will add a member to multiple Access Groups in an account. The limit of how many groups that can be in the
 // request is 50. The response is a list of results that show if adding the member to each group was successful or not.
 func (iamAccessGroups *IamAccessGroupsV2) AddMemberToMultipleAccessGroups(addMemberToMultipleAccessGroupsOptions *AddMemberToMultipleAccessGroupsOptions) (result *AddMembershipMultipleGroupsResponse, response *core.DetailedResponse, err error) {
+	return iamAccessGroups.AddMemberToMultipleAccessGroupsWithContext(context.Background(), addMemberToMultipleAccessGroupsOptions)
+}
+
+// AddMemberToMultipleAccessGroupsWithContext is an alternate form of the AddMemberToMultipleAccessGroups method which supports a Context parameter
+func (iamAccessGroups *IamAccessGroupsV2) AddMemberToMultipleAccessGroupsWithContext(ctx context.Context, addMemberToMultipleAccessGroupsOptions *AddMemberToMultipleAccessGroupsOptions) (result *AddMembershipMultipleGroupsResponse, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(addMemberToMultipleAccessGroupsOptions, "addMemberToMultipleAccessGroupsOptions cannot be nil")
 	if err != nil {
 		return
@@ -924,6 +1054,8 @@ func (iamAccessGroups *IamAccessGroupsV2) AddMemberToMultipleAccessGroups(addMem
 	}
 
 	builder := core.NewRequestBuilder(core.PUT)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = iamAccessGroups.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(iamAccessGroups.Service.Options.URL, `/groups/_allgroups/members/{iam_id}`, pathParamsMap)
 	if err != nil {
 		return
@@ -983,6 +1115,11 @@ func (iamAccessGroups *IamAccessGroupsV2) AddMemberToMultipleAccessGroups(addMem
 // access. Note that the condition's value field must be a stringified JSON value. [Consult this documentation for
 // further explanation of dynamic rules.](/docs/iam/accessgroup_rules.html#rules).
 func (iamAccessGroups *IamAccessGroupsV2) AddAccessGroupRule(addAccessGroupRuleOptions *AddAccessGroupRuleOptions) (result *Rule, response *core.DetailedResponse, err error) {
+	return iamAccessGroups.AddAccessGroupRuleWithContext(context.Background(), addAccessGroupRuleOptions)
+}
+
+// AddAccessGroupRuleWithContext is an alternate form of the AddAccessGroupRule method which supports a Context parameter
+func (iamAccessGroups *IamAccessGroupsV2) AddAccessGroupRuleWithContext(ctx context.Context, addAccessGroupRuleOptions *AddAccessGroupRuleOptions) (result *Rule, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(addAccessGroupRuleOptions, "addAccessGroupRuleOptions cannot be nil")
 	if err != nil {
 		return
@@ -997,6 +1134,8 @@ func (iamAccessGroups *IamAccessGroupsV2) AddAccessGroupRule(addAccessGroupRuleO
 	}
 
 	builder := core.NewRequestBuilder(core.POST)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = iamAccessGroups.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(iamAccessGroups.Service.Options.URL, `/groups/{access_group_id}/rules`, pathParamsMap)
 	if err != nil {
 		return
@@ -1057,6 +1196,11 @@ func (iamAccessGroups *IamAccessGroupsV2) AddAccessGroupRule(addAccessGroupRuleO
 // This API lists all rules in a given Access Group. Because only a few rules are created on each group, there is no
 // pagination or sorting support on this API.
 func (iamAccessGroups *IamAccessGroupsV2) ListAccessGroupRules(listAccessGroupRulesOptions *ListAccessGroupRulesOptions) (result *RulesList, response *core.DetailedResponse, err error) {
+	return iamAccessGroups.ListAccessGroupRulesWithContext(context.Background(), listAccessGroupRulesOptions)
+}
+
+// ListAccessGroupRulesWithContext is an alternate form of the ListAccessGroupRules method which supports a Context parameter
+func (iamAccessGroups *IamAccessGroupsV2) ListAccessGroupRulesWithContext(ctx context.Context, listAccessGroupRulesOptions *ListAccessGroupRulesOptions) (result *RulesList, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(listAccessGroupRulesOptions, "listAccessGroupRulesOptions cannot be nil")
 	if err != nil {
 		return
@@ -1071,6 +1215,8 @@ func (iamAccessGroups *IamAccessGroupsV2) ListAccessGroupRules(listAccessGroupRu
 	}
 
 	builder := core.NewRequestBuilder(core.GET)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = iamAccessGroups.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(iamAccessGroups.Service.Options.URL, `/groups/{access_group_id}/rules`, pathParamsMap)
 	if err != nil {
 		return
@@ -1112,6 +1258,11 @@ func (iamAccessGroups *IamAccessGroupsV2) ListAccessGroupRules(listAccessGroupRu
 // Retrieve a rule from an Access Group. A revision number is returned in the `Etag` header, which is needed when
 // updating the rule.
 func (iamAccessGroups *IamAccessGroupsV2) GetAccessGroupRule(getAccessGroupRuleOptions *GetAccessGroupRuleOptions) (result *Rule, response *core.DetailedResponse, err error) {
+	return iamAccessGroups.GetAccessGroupRuleWithContext(context.Background(), getAccessGroupRuleOptions)
+}
+
+// GetAccessGroupRuleWithContext is an alternate form of the GetAccessGroupRule method which supports a Context parameter
+func (iamAccessGroups *IamAccessGroupsV2) GetAccessGroupRuleWithContext(ctx context.Context, getAccessGroupRuleOptions *GetAccessGroupRuleOptions) (result *Rule, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(getAccessGroupRuleOptions, "getAccessGroupRuleOptions cannot be nil")
 	if err != nil {
 		return
@@ -1127,6 +1278,8 @@ func (iamAccessGroups *IamAccessGroupsV2) GetAccessGroupRule(getAccessGroupRuleO
 	}
 
 	builder := core.NewRequestBuilder(core.GET)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = iamAccessGroups.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(iamAccessGroups.Service.Options.URL, `/groups/{access_group_id}/rules/{rule_id}`, pathParamsMap)
 	if err != nil {
 		return
@@ -1168,6 +1321,11 @@ func (iamAccessGroups *IamAccessGroupsV2) GetAccessGroupRule(getAccessGroupRuleO
 // Update the body of an existing rule using this API. An `If-Match` header must be populated with the rule's most
 // recent revision number (which can be acquired in the `Get an Access Group rule` API).
 func (iamAccessGroups *IamAccessGroupsV2) ReplaceAccessGroupRule(replaceAccessGroupRuleOptions *ReplaceAccessGroupRuleOptions) (result *Rule, response *core.DetailedResponse, err error) {
+	return iamAccessGroups.ReplaceAccessGroupRuleWithContext(context.Background(), replaceAccessGroupRuleOptions)
+}
+
+// ReplaceAccessGroupRuleWithContext is an alternate form of the ReplaceAccessGroupRule method which supports a Context parameter
+func (iamAccessGroups *IamAccessGroupsV2) ReplaceAccessGroupRuleWithContext(ctx context.Context, replaceAccessGroupRuleOptions *ReplaceAccessGroupRuleOptions) (result *Rule, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(replaceAccessGroupRuleOptions, "replaceAccessGroupRuleOptions cannot be nil")
 	if err != nil {
 		return
@@ -1183,6 +1341,8 @@ func (iamAccessGroups *IamAccessGroupsV2) ReplaceAccessGroupRule(replaceAccessGr
 	}
 
 	builder := core.NewRequestBuilder(core.PUT)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = iamAccessGroups.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(iamAccessGroups.Service.Options.URL, `/groups/{access_group_id}/rules/{rule_id}`, pathParamsMap)
 	if err != nil {
 		return
@@ -1246,6 +1406,11 @@ func (iamAccessGroups *IamAccessGroupsV2) ReplaceAccessGroupRule(replaceAccessGr
 // Remove one rule from a group using this API. If the operation is successful, only a `204 - No Content` response with
 // no body is returned. However, if any error occurs, the standard error format will be returned.
 func (iamAccessGroups *IamAccessGroupsV2) RemoveAccessGroupRule(removeAccessGroupRuleOptions *RemoveAccessGroupRuleOptions) (response *core.DetailedResponse, err error) {
+	return iamAccessGroups.RemoveAccessGroupRuleWithContext(context.Background(), removeAccessGroupRuleOptions)
+}
+
+// RemoveAccessGroupRuleWithContext is an alternate form of the RemoveAccessGroupRule method which supports a Context parameter
+func (iamAccessGroups *IamAccessGroupsV2) RemoveAccessGroupRuleWithContext(ctx context.Context, removeAccessGroupRuleOptions *RemoveAccessGroupRuleOptions) (response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(removeAccessGroupRuleOptions, "removeAccessGroupRuleOptions cannot be nil")
 	if err != nil {
 		return
@@ -1261,6 +1426,8 @@ func (iamAccessGroups *IamAccessGroupsV2) RemoveAccessGroupRule(removeAccessGrou
 	}
 
 	builder := core.NewRequestBuilder(core.DELETE)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = iamAccessGroups.GetEnableGzipCompression()
 	_, err = builder.ResolveRequestURL(iamAccessGroups.Service.Options.URL, `/groups/{access_group_id}/rules/{rule_id}`, pathParamsMap)
 	if err != nil {
 		return
