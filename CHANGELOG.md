@@ -1,3 +1,10 @@
+# [0.13.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.12.2...v0.13.0) (2020-10-31)
+
+
+### Features
+
+* **Usage Reports:** add service to project ([e4c3645](https://github.com/IBM/platform-services-go-sdk/commit/e4c364590e317724ea833c866ef62b16e3c66e5b))
+
 ## [0.12.2](https://github.com/IBM/platform-services-go-sdk/compare/v0.12.1...v0.12.2) (2020-10-30)
 
 
