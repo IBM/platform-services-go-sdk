@@ -51,6 +51,7 @@ Service Name | Package name
 [Catalog Management](https://cloud.ibm.com/apidocs/resource-catalog/private-catalog) | catalogmanagementv1
 [Configuration Governance](https://cloud.ibm.com/apidocs/security-compliance/config) | configurationgovernancev1
 [Enterprise Management](https://cloud.ibm.com/apidocs/enterprise-apis/enterprise) | enterprisemanagementv1
+[Enterprise Usage Reports](https://cloud.ibm.com/apidocs/enterprise-apis/resource-usage-reports) | enterpriseusagereportsv1
 [Global Catalog](https://cloud.ibm.com/apidocs/resource-catalog/global-catalog) | globalcatalogv1
 [Global Search](https://cloud.ibm.com/apidocs/search) | globalsearchv2
 [Global Tagging](https://cloud.ibm.com/apidocs/tagging) | globaltaggingv1
