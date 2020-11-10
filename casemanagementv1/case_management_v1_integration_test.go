@@ -19,6 +19,7 @@
 package casemanagementv1_test
 
 import (
+	"encoding/json"
 	"fmt"
 	"io/ioutil"
 	"os"
@@ -34,18 +35,18 @@ import (
 const externalConfigFile = "../case_management.env"
 
 var (
-	service           *casemanagementv1.CaseManagementV1
-	err               error
-	
-	configLoaded      bool = false
-	
-	caseNumber         string
-	commentValue       = "Test comment"
+	service *casemanagementv1.CaseManagementV1
+	err     error
 
-	offeringType, _ = service.NewOfferingType(casemanagementv1.OfferingType_Group_CrnServiceName, "cloud-object-storage")	
+	configLoaded bool = false
+
+	caseNumber   string
+	commentValue = "Test comment"
+
+	offeringType, _    = service.NewOfferingType(casemanagementv1.OfferingType_Group_CrnServiceName, "cloud-object-storage")
 	offeringPayload, _ = service.NewOffering("Cloud Object Storage", offeringType)
 
-	resourcePayload    = []casemanagementv1.ResourcePayload{casemanagementv1.ResourcePayload{
+	resourcePayload = []casemanagementv1.ResourcePayload{casemanagementv1.ResourcePayload{
 		Crn: core.StringPtr("crn:v1:staging:public:cloud-object-storage:global:a/19c52e57800c4d8bb9aefc66b3e49755:61848e72-6ba6-415e-84e2-91f3915e194d::"),
 	}}
 
@@ -72,13 +73,13 @@ func shouldSkipTest() {
 var _ = Describe("Case Management - Integration Tests", func() {
 	It("Successfully load the configuration", func() {
 		if _, fileErr := os.Stat(externalConfigFile); fileErr == nil {
-			os.Setenv("IBM_CREDENTIALS_FILE", externalConfigFile)		
+			os.Setenv("IBM_CREDENTIALS_FILE", externalConfigFile)
 			config, _ := core.GetServiceProperties(casemanagementv1.DefaultServiceName)
 			if len(config) > 0 {
 				configLoaded = true
 			}
 		}
-		
+
 		if !configLoaded {
 			Skip("External configuration could not be loaded, skipping...")
 		}
@@ -93,7 +94,7 @@ var _ = Describe("Case Management - Integration Tests", func() {
 
 		Expect(err).To(BeNil())
 		Expect(service).ToNot(BeNil())
-		
+
 		fmt.Printf("\nService URL: %s\n", service.Service.GetServiceURL())
 	})
 
@@ -270,6 +271,8 @@ var _ = Describe("Case Management - Integration Tests", func() {
 
 			Expect(err).To((BeNil()))
 			Expect(detailedResponse.StatusCode).To(Equal(200))
+			Expect(result).ToNot(BeNil())
+			fmt.Fprintf(GinkgoWriter, "AddWatchlist() result:\n%s\n", toJSON(result))
 			Expect(len(result.Added)).To(Equal(len(watchlistPayload.Watchlist)))
 		})
 	})
@@ -371,3 +374,12 @@ var _ = Describe("Case Management - Integration Tests", func() {
 		})
 	})
 })
+
+func toJSON(obj interface{}) string {
+	b, err := json.MarshalIndent(obj, "", "  ")
+	if err != nil {
+		panic(err)
+	}
+	return string(b)
+
+}
