@@ -1,3 +1,10 @@
+## [0.14.1](https://github.com/IBM/platform-services-go-sdk/compare/v0.14.0...v0.14.1) (2020-11-11)
+
+
+### Bug Fixes
+
+* **Configuration Governance:** update service with recent API changes ([5406978](https://github.com/IBM/platform-services-go-sdk/commit/54069784890c496b7a3e4a928b6f8edf5b718051))
+
 # [0.14.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.13.0...v0.14.0) (2020-11-04)
 
 
