@@ -206,8 +206,8 @@ var _ = Describe(`ConfigurationGovernanceV1`, func() {
 
 				// Construct an instance of the CreateRulesOptions model
 				createRulesOptionsModel := new(configurationgovernancev1.CreateRulesOptions)
-				createRulesOptionsModel.Rules = []configurationgovernancev1.CreateRuleRequest{*createRuleRequestModel}
 				createRulesOptionsModel.TransactionID = core.StringPtr("testString")
+				createRulesOptionsModel.Rules = []configurationgovernancev1.CreateRuleRequest{*createRuleRequestModel}
 				createRulesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
 				result, response, operationErr := configurationGovernanceService.CreateRules(createRulesOptionsModel)
@@ -265,7 +265,7 @@ var _ = Describe(`ConfigurationGovernanceV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"rules": [{"request_id": "3cebc877-58e7-44a5-a292-32114fa73558", "status_code": 201, "rule": {"account_id": "AccountID", "name": "Name", "description": "Description", "rule_type": "user_defined", "target": {"service_name": "iam-groups", "resource_kind": "zone", "additional_target_attributes": [{"name": "Name", "operator": "string_equals", "value": "Value"}]}, "required_config": {"description": "Description", "property": "public_access_enabled", "operator": "is_true", "value": "Value"}, "enforcement_actions": [{"action": "audit_log"}], "labels": ["Label"], "rule_id": "rule-81f3db5e-f9db-4c46-9de3-a4a76e66adbf", "creation_date": "2020-01-10T05:23:19+0000", "created_by": "CreatedBy", "modification_date": "ModificationDate", "modified_by": "ModifiedBy", "number_of_attachments": 3}, "errors": [{"code": "bad_request", "message": "The rule is missing an account ID"}], "trace": "861263b4-cee3-4514-8d8c-05d17308e6eb"}]}`)
+					fmt.Fprintf(res, "%s", `{"rules": [{"request_id": "3cebc877-58e7-44a5-a292-32114fa73558", "status_code": 201, "rule": {"account_id": "AccountID", "name": "Name", "description": "Description", "rule_type": "user_defined", "target": {"service_name": "iam-groups", "resource_kind": "zone", "additional_target_attributes": [{"name": "Name", "operator": "string_equals", "value": "Value"}]}, "required_config": {"description": "Description", "property": "public_access_enabled", "operator": "is_true", "value": "Value"}, "enforcement_actions": [{"action": "audit_log"}], "labels": ["Label"], "rule_id": "rule-81f3db5e-f9db-4c46-9de3-a4a76e66adbf", "creation_date": "2019-01-01T12:00:00", "created_by": "CreatedBy", "modification_date": "2019-01-01T12:00:00", "modified_by": "ModifiedBy", "number_of_attachments": 3}, "errors": [{"code": "bad_request", "message": "The rule is missing an account ID"}], "trace": "861263b4-cee3-4514-8d8c-05d17308e6eb"}]}`)
 				}))
 			})
 			It(`Invoke CreateRules successfully`, func() {
@@ -329,8 +329,8 @@ var _ = Describe(`ConfigurationGovernanceV1`, func() {
 
 				// Construct an instance of the CreateRulesOptions model
 				createRulesOptionsModel := new(configurationgovernancev1.CreateRulesOptions)
-				createRulesOptionsModel.Rules = []configurationgovernancev1.CreateRuleRequest{*createRuleRequestModel}
 				createRulesOptionsModel.TransactionID = core.StringPtr("testString")
+				createRulesOptionsModel.Rules = []configurationgovernancev1.CreateRuleRequest{*createRuleRequestModel}
 				createRulesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
@@ -418,8 +418,8 @@ var _ = Describe(`ConfigurationGovernanceV1`, func() {
 
 				// Construct an instance of the CreateRulesOptions model
 				createRulesOptionsModel := new(configurationgovernancev1.CreateRulesOptions)
-				createRulesOptionsModel.Rules = []configurationgovernancev1.CreateRuleRequest{*createRuleRequestModel}
 				createRulesOptionsModel.TransactionID = core.StringPtr("testString")
+				createRulesOptionsModel.Rules = []configurationgovernancev1.CreateRuleRequest{*createRuleRequestModel}
 				createRulesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := configurationGovernanceService.SetServiceURL("")
@@ -482,8 +482,8 @@ var _ = Describe(`ConfigurationGovernanceV1`, func() {
 
 				// Construct an instance of the ListRulesOptions model
 				listRulesOptionsModel := new(configurationgovernancev1.ListRulesOptions)
-				listRulesOptionsModel.AccountID = core.StringPtr("531fc3e28bfc43c5a2cea07786d93f5c")
 				listRulesOptionsModel.TransactionID = core.StringPtr("testString")
+				listRulesOptionsModel.AccountID = core.StringPtr("531fc3e28bfc43c5a2cea07786d93f5c")
 				listRulesOptionsModel.Attached = core.BoolPtr(true)
 				listRulesOptionsModel.Labels = core.StringPtr("SOC2,ITCS300")
 				listRulesOptionsModel.Scopes = core.StringPtr("scope_id")
@@ -543,7 +543,7 @@ var _ = Describe(`ConfigurationGovernanceV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"offset": 6, "limit": 1000, "total_count": 10, "first": {"href": "Href"}, "last": {"href": "Href"}, "rules": [{"account_id": "AccountID", "name": "Name", "description": "Description", "rule_type": "user_defined", "target": {"service_name": "iam-groups", "resource_kind": "zone", "additional_target_attributes": [{"name": "Name", "operator": "string_equals", "value": "Value"}]}, "required_config": {"description": "Description", "property": "public_access_enabled", "operator": "is_true", "value": "Value"}, "enforcement_actions": [{"action": "audit_log"}], "labels": ["Label"], "rule_id": "rule-81f3db5e-f9db-4c46-9de3-a4a76e66adbf", "creation_date": "2020-01-10T05:23:19+0000", "created_by": "CreatedBy", "modification_date": "ModificationDate", "modified_by": "ModifiedBy", "number_of_attachments": 3}]}`)
+					fmt.Fprintf(res, "%s", `{"offset": 6, "limit": 1000, "total_count": 10, "first": {"href": "Href"}, "last": {"href": "Href"}, "rules": [{"account_id": "AccountID", "name": "Name", "description": "Description", "rule_type": "user_defined", "target": {"service_name": "iam-groups", "resource_kind": "zone", "additional_target_attributes": [{"name": "Name", "operator": "string_equals", "value": "Value"}]}, "required_config": {"description": "Description", "property": "public_access_enabled", "operator": "is_true", "value": "Value"}, "enforcement_actions": [{"action": "audit_log"}], "labels": ["Label"], "rule_id": "rule-81f3db5e-f9db-4c46-9de3-a4a76e66adbf", "creation_date": "2019-01-01T12:00:00", "created_by": "CreatedBy", "modification_date": "2019-01-01T12:00:00", "modified_by": "ModifiedBy", "number_of_attachments": 3}]}`)
 				}))
 			})
 			It(`Invoke ListRules successfully`, func() {
@@ -563,8 +563,8 @@ var _ = Describe(`ConfigurationGovernanceV1`, func() {
 
 				// Construct an instance of the ListRulesOptions model
 				listRulesOptionsModel := new(configurationgovernancev1.ListRulesOptions)
-				listRulesOptionsModel.AccountID = core.StringPtr("531fc3e28bfc43c5a2cea07786d93f5c")
 				listRulesOptionsModel.TransactionID = core.StringPtr("testString")
+				listRulesOptionsModel.AccountID = core.StringPtr("531fc3e28bfc43c5a2cea07786d93f5c")
 				listRulesOptionsModel.Attached = core.BoolPtr(true)
 				listRulesOptionsModel.Labels = core.StringPtr("SOC2,ITCS300")
 				listRulesOptionsModel.Scopes = core.StringPtr("scope_id")
@@ -613,8 +613,8 @@ var _ = Describe(`ConfigurationGovernanceV1`, func() {
 
 				// Construct an instance of the ListRulesOptions model
 				listRulesOptionsModel := new(configurationgovernancev1.ListRulesOptions)
-				listRulesOptionsModel.AccountID = core.StringPtr("531fc3e28bfc43c5a2cea07786d93f5c")
 				listRulesOptionsModel.TransactionID = core.StringPtr("testString")
+				listRulesOptionsModel.AccountID = core.StringPtr("531fc3e28bfc43c5a2cea07786d93f5c")
 				listRulesOptionsModel.Attached = core.BoolPtr(true)
 				listRulesOptionsModel.Labels = core.StringPtr("SOC2,ITCS300")
 				listRulesOptionsModel.Scopes = core.StringPtr("scope_id")
@@ -712,7 +712,7 @@ var _ = Describe(`ConfigurationGovernanceV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"account_id": "AccountID", "name": "Name", "description": "Description", "rule_type": "user_defined", "target": {"service_name": "iam-groups", "resource_kind": "zone", "additional_target_attributes": [{"name": "Name", "operator": "string_equals", "value": "Value"}]}, "required_config": {"description": "Description", "property": "public_access_enabled", "operator": "is_true", "value": "Value"}, "enforcement_actions": [{"action": "audit_log"}], "labels": ["Label"], "rule_id": "rule-81f3db5e-f9db-4c46-9de3-a4a76e66adbf", "creation_date": "2020-01-10T05:23:19+0000", "created_by": "CreatedBy", "modification_date": "ModificationDate", "modified_by": "ModifiedBy", "number_of_attachments": 3}`)
+					fmt.Fprintf(res, "%s", `{"account_id": "AccountID", "name": "Name", "description": "Description", "rule_type": "user_defined", "target": {"service_name": "iam-groups", "resource_kind": "zone", "additional_target_attributes": [{"name": "Name", "operator": "string_equals", "value": "Value"}]}, "required_config": {"description": "Description", "property": "public_access_enabled", "operator": "is_true", "value": "Value"}, "enforcement_actions": [{"action": "audit_log"}], "labels": ["Label"], "rule_id": "rule-81f3db5e-f9db-4c46-9de3-a4a76e66adbf", "creation_date": "2019-01-01T12:00:00", "created_by": "CreatedBy", "modification_date": "2019-01-01T12:00:00", "modified_by": "ModifiedBy", "number_of_attachments": 3}`)
 				}))
 			})
 			It(`Invoke GetRule successfully`, func() {
@@ -811,10 +811,10 @@ var _ = Describe(`ConfigurationGovernanceV1`, func() {
 					// Verify the contents of the request
 					Expect(req.URL.EscapedPath()).To(Equal(updateRulePath))
 					Expect(req.Method).To(Equal("PUT"))
-					Expect(req.Header["If-Match"]).ToNot(BeNil())
-					Expect(req.Header["If-Match"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					Expect(req.Header["Transaction-Id"]).ToNot(BeNil())
 					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
+					Expect(req.Header["If-Match"]).ToNot(BeNil())
+					Expect(req.Header["If-Match"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
 					fmt.Fprintf(res, `} this is not valid json {`)
@@ -854,6 +854,7 @@ var _ = Describe(`ConfigurationGovernanceV1`, func() {
 				// Construct an instance of the UpdateRuleOptions model
 				updateRuleOptionsModel := new(configurationgovernancev1.UpdateRuleOptions)
 				updateRuleOptionsModel.RuleID = core.StringPtr("testString")
+				updateRuleOptionsModel.TransactionID = core.StringPtr("testString")
 				updateRuleOptionsModel.IfMatch = core.StringPtr("testString")
 				updateRuleOptionsModel.Name = core.StringPtr("Disable public access")
 				updateRuleOptionsModel.Description = core.StringPtr("Ensure that public access to account resources is disabled.")
@@ -863,7 +864,6 @@ var _ = Describe(`ConfigurationGovernanceV1`, func() {
 				updateRuleOptionsModel.AccountID = core.StringPtr("531fc3e28bfc43c5a2cea07786d93f5c")
 				updateRuleOptionsModel.RuleType = core.StringPtr("user_defined")
 				updateRuleOptionsModel.Labels = []string{"testString"}
-				updateRuleOptionsModel.TransactionID = core.StringPtr("testString")
 				updateRuleOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
 				result, response, operationErr := configurationGovernanceService.UpdateRule(updateRuleOptionsModel)
@@ -913,17 +913,17 @@ var _ = Describe(`ConfigurationGovernanceV1`, func() {
 					}
 					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
 
-					Expect(req.Header["If-Match"]).ToNot(BeNil())
-					Expect(req.Header["If-Match"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					Expect(req.Header["Transaction-Id"]).ToNot(BeNil())
 					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
+					Expect(req.Header["If-Match"]).ToNot(BeNil())
+					Expect(req.Header["If-Match"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					// Sleep a short time to support a timeout test
 					time.Sleep(serverSleepTime)
 
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"account_id": "AccountID", "name": "Name", "description": "Description", "rule_type": "user_defined", "target": {"service_name": "iam-groups", "resource_kind": "zone", "additional_target_attributes": [{"name": "Name", "operator": "string_equals", "value": "Value"}]}, "required_config": {"description": "Description", "property": "public_access_enabled", "operator": "is_true", "value": "Value"}, "enforcement_actions": [{"action": "audit_log"}], "labels": ["Label"], "rule_id": "rule-81f3db5e-f9db-4c46-9de3-a4a76e66adbf", "creation_date": "2020-01-10T05:23:19+0000", "created_by": "CreatedBy", "modification_date": "ModificationDate", "modified_by": "ModifiedBy", "number_of_attachments": 3}`)
+					fmt.Fprintf(res, "%s", `{"account_id": "AccountID", "name": "Name", "description": "Description", "rule_type": "user_defined", "target": {"service_name": "iam-groups", "resource_kind": "zone", "additional_target_attributes": [{"name": "Name", "operator": "string_equals", "value": "Value"}]}, "required_config": {"description": "Description", "property": "public_access_enabled", "operator": "is_true", "value": "Value"}, "enforcement_actions": [{"action": "audit_log"}], "labels": ["Label"], "rule_id": "rule-81f3db5e-f9db-4c46-9de3-a4a76e66adbf", "creation_date": "2019-01-01T12:00:00", "created_by": "CreatedBy", "modification_date": "2019-01-01T12:00:00", "modified_by": "ModifiedBy", "number_of_attachments": 3}`)
 				}))
 			})
 			It(`Invoke UpdateRule successfully`, func() {
@@ -967,6 +967,7 @@ var _ = Describe(`ConfigurationGovernanceV1`, func() {
 				// Construct an instance of the UpdateRuleOptions model
 				updateRuleOptionsModel := new(configurationgovernancev1.UpdateRuleOptions)
 				updateRuleOptionsModel.RuleID = core.StringPtr("testString")
+				updateRuleOptionsModel.TransactionID = core.StringPtr("testString")
 				updateRuleOptionsModel.IfMatch = core.StringPtr("testString")
 				updateRuleOptionsModel.Name = core.StringPtr("Disable public access")
 				updateRuleOptionsModel.Description = core.StringPtr("Ensure that public access to account resources is disabled.")
@@ -976,7 +977,6 @@ var _ = Describe(`ConfigurationGovernanceV1`, func() {
 				updateRuleOptionsModel.AccountID = core.StringPtr("531fc3e28bfc43c5a2cea07786d93f5c")
 				updateRuleOptionsModel.RuleType = core.StringPtr("user_defined")
 				updateRuleOptionsModel.Labels = []string{"testString"}
-				updateRuleOptionsModel.TransactionID = core.StringPtr("testString")
 				updateRuleOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
@@ -1044,6 +1044,7 @@ var _ = Describe(`ConfigurationGovernanceV1`, func() {
 				// Construct an instance of the UpdateRuleOptions model
 				updateRuleOptionsModel := new(configurationgovernancev1.UpdateRuleOptions)
 				updateRuleOptionsModel.RuleID = core.StringPtr("testString")
+				updateRuleOptionsModel.TransactionID = core.StringPtr("testString")
 				updateRuleOptionsModel.IfMatch = core.StringPtr("testString")
 				updateRuleOptionsModel.Name = core.StringPtr("Disable public access")
 				updateRuleOptionsModel.Description = core.StringPtr("Ensure that public access to account resources is disabled.")
@@ -1053,7 +1054,6 @@ var _ = Describe(`ConfigurationGovernanceV1`, func() {
 				updateRuleOptionsModel.AccountID = core.StringPtr("531fc3e28bfc43c5a2cea07786d93f5c")
 				updateRuleOptionsModel.RuleType = core.StringPtr("user_defined")
 				updateRuleOptionsModel.Labels = []string{"testString"}
-				updateRuleOptionsModel.TransactionID = core.StringPtr("testString")
 				updateRuleOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := configurationGovernanceService.SetServiceURL("")
@@ -1196,8 +1196,8 @@ var _ = Describe(`ConfigurationGovernanceV1`, func() {
 				// Construct an instance of the CreateAttachmentsOptions model
 				createAttachmentsOptionsModel := new(configurationgovernancev1.CreateAttachmentsOptions)
 				createAttachmentsOptionsModel.RuleID = core.StringPtr("testString")
-				createAttachmentsOptionsModel.Attachments = []configurationgovernancev1.AttachmentRequest{*attachmentRequestModel}
 				createAttachmentsOptionsModel.TransactionID = core.StringPtr("testString")
+				createAttachmentsOptionsModel.Attachments = []configurationgovernancev1.AttachmentRequest{*attachmentRequestModel}
 				createAttachmentsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
 				result, response, operationErr := configurationGovernanceService.CreateAttachments(createAttachmentsOptionsModel)
@@ -1288,8 +1288,8 @@ var _ = Describe(`ConfigurationGovernanceV1`, func() {
 				// Construct an instance of the CreateAttachmentsOptions model
 				createAttachmentsOptionsModel := new(configurationgovernancev1.CreateAttachmentsOptions)
 				createAttachmentsOptionsModel.RuleID = core.StringPtr("testString")
-				createAttachmentsOptionsModel.Attachments = []configurationgovernancev1.AttachmentRequest{*attachmentRequestModel}
 				createAttachmentsOptionsModel.TransactionID = core.StringPtr("testString")
+				createAttachmentsOptionsModel.Attachments = []configurationgovernancev1.AttachmentRequest{*attachmentRequestModel}
 				createAttachmentsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
@@ -1346,8 +1346,8 @@ var _ = Describe(`ConfigurationGovernanceV1`, func() {
 				// Construct an instance of the CreateAttachmentsOptions model
 				createAttachmentsOptionsModel := new(configurationgovernancev1.CreateAttachmentsOptions)
 				createAttachmentsOptionsModel.RuleID = core.StringPtr("testString")
-				createAttachmentsOptionsModel.Attachments = []configurationgovernancev1.AttachmentRequest{*attachmentRequestModel}
 				createAttachmentsOptionsModel.TransactionID = core.StringPtr("testString")
+				createAttachmentsOptionsModel.Attachments = []configurationgovernancev1.AttachmentRequest{*attachmentRequestModel}
 				createAttachmentsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := configurationGovernanceService.SetServiceURL("")
@@ -1715,10 +1715,10 @@ var _ = Describe(`ConfigurationGovernanceV1`, func() {
 					// Verify the contents of the request
 					Expect(req.URL.EscapedPath()).To(Equal(updateAttachmentPath))
 					Expect(req.Method).To(Equal("PUT"))
-					Expect(req.Header["If-Match"]).ToNot(BeNil())
-					Expect(req.Header["If-Match"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					Expect(req.Header["Transaction-Id"]).ToNot(BeNil())
 					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
+					Expect(req.Header["If-Match"]).ToNot(BeNil())
+					Expect(req.Header["If-Match"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
 					fmt.Fprintf(res, `} this is not valid json {`)
@@ -1742,11 +1742,11 @@ var _ = Describe(`ConfigurationGovernanceV1`, func() {
 				updateAttachmentOptionsModel := new(configurationgovernancev1.UpdateAttachmentOptions)
 				updateAttachmentOptionsModel.RuleID = core.StringPtr("testString")
 				updateAttachmentOptionsModel.AttachmentID = core.StringPtr("testString")
+				updateAttachmentOptionsModel.TransactionID = core.StringPtr("testString")
 				updateAttachmentOptionsModel.IfMatch = core.StringPtr("testString")
 				updateAttachmentOptionsModel.AccountID = core.StringPtr("531fc3e28bfc43c5a2cea07786d93f5c")
 				updateAttachmentOptionsModel.IncludedScope = ruleScopeModel
 				updateAttachmentOptionsModel.ExcludedScopes = []configurationgovernancev1.RuleScope{*ruleScopeModel}
-				updateAttachmentOptionsModel.TransactionID = core.StringPtr("testString")
 				updateAttachmentOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
 				result, response, operationErr := configurationGovernanceService.UpdateAttachment(updateAttachmentOptionsModel)
@@ -1796,10 +1796,10 @@ var _ = Describe(`ConfigurationGovernanceV1`, func() {
 					}
 					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
 
-					Expect(req.Header["If-Match"]).ToNot(BeNil())
-					Expect(req.Header["If-Match"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					Expect(req.Header["Transaction-Id"]).ToNot(BeNil())
 					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
+					Expect(req.Header["If-Match"]).ToNot(BeNil())
+					Expect(req.Header["If-Match"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					// Sleep a short time to support a timeout test
 					time.Sleep(serverSleepTime)
 
@@ -1834,11 +1834,11 @@ var _ = Describe(`ConfigurationGovernanceV1`, func() {
 				updateAttachmentOptionsModel := new(configurationgovernancev1.UpdateAttachmentOptions)
 				updateAttachmentOptionsModel.RuleID = core.StringPtr("testString")
 				updateAttachmentOptionsModel.AttachmentID = core.StringPtr("testString")
+				updateAttachmentOptionsModel.TransactionID = core.StringPtr("testString")
 				updateAttachmentOptionsModel.IfMatch = core.StringPtr("testString")
 				updateAttachmentOptionsModel.AccountID = core.StringPtr("531fc3e28bfc43c5a2cea07786d93f5c")
 				updateAttachmentOptionsModel.IncludedScope = ruleScopeModel
 				updateAttachmentOptionsModel.ExcludedScopes = []configurationgovernancev1.RuleScope{*ruleScopeModel}
-				updateAttachmentOptionsModel.TransactionID = core.StringPtr("testString")
 				updateAttachmentOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
@@ -1890,11 +1890,11 @@ var _ = Describe(`ConfigurationGovernanceV1`, func() {
 				updateAttachmentOptionsModel := new(configurationgovernancev1.UpdateAttachmentOptions)
 				updateAttachmentOptionsModel.RuleID = core.StringPtr("testString")
 				updateAttachmentOptionsModel.AttachmentID = core.StringPtr("testString")
+				updateAttachmentOptionsModel.TransactionID = core.StringPtr("testString")
 				updateAttachmentOptionsModel.IfMatch = core.StringPtr("testString")
 				updateAttachmentOptionsModel.AccountID = core.StringPtr("531fc3e28bfc43c5a2cea07786d93f5c")
 				updateAttachmentOptionsModel.IncludedScope = ruleScopeModel
 				updateAttachmentOptionsModel.ExcludedScopes = []configurationgovernancev1.RuleScope{*ruleScopeModel}
-				updateAttachmentOptionsModel.TransactionID = core.StringPtr("testString")
 				updateAttachmentOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := configurationGovernanceService.SetServiceURL("")
@@ -2034,16 +2034,17 @@ var _ = Describe(`ConfigurationGovernanceV1`, func() {
 
 				// Construct an instance of the CreateAttachmentsOptions model
 				ruleID := "testString"
+				transactionID := "testString"
 				createAttachmentsOptionsAttachments := []configurationgovernancev1.AttachmentRequest{}
-				createAttachmentsOptionsModel := configurationGovernanceService.NewCreateAttachmentsOptions(ruleID, createAttachmentsOptionsAttachments)
+				createAttachmentsOptionsModel := configurationGovernanceService.NewCreateAttachmentsOptions(ruleID, transactionID, createAttachmentsOptionsAttachments)
 				createAttachmentsOptionsModel.SetRuleID("testString")
-				createAttachmentsOptionsModel.SetAttachments([]configurationgovernancev1.AttachmentRequest{*attachmentRequestModel})
 				createAttachmentsOptionsModel.SetTransactionID("testString")
+				createAttachmentsOptionsModel.SetAttachments([]configurationgovernancev1.AttachmentRequest{*attachmentRequestModel})
 				createAttachmentsOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(createAttachmentsOptionsModel).ToNot(BeNil())
 				Expect(createAttachmentsOptionsModel.RuleID).To(Equal(core.StringPtr("testString")))
-				Expect(createAttachmentsOptionsModel.Attachments).To(Equal([]configurationgovernancev1.AttachmentRequest{*attachmentRequestModel}))
 				Expect(createAttachmentsOptionsModel.TransactionID).To(Equal(core.StringPtr("testString")))
+				Expect(createAttachmentsOptionsModel.Attachments).To(Equal([]configurationgovernancev1.AttachmentRequest{*attachmentRequestModel}))
 				Expect(createAttachmentsOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewCreateRuleRequest successfully`, func() {
@@ -2127,21 +2128,23 @@ var _ = Describe(`ConfigurationGovernanceV1`, func() {
 				Expect(createRuleRequestModel.Rule).To(Equal(ruleRequestModel))
 
 				// Construct an instance of the CreateRulesOptions model
+				transactionID := "testString"
 				createRulesOptionsRules := []configurationgovernancev1.CreateRuleRequest{}
-				createRulesOptionsModel := configurationGovernanceService.NewCreateRulesOptions(createRulesOptionsRules)
-				createRulesOptionsModel.SetRules([]configurationgovernancev1.CreateRuleRequest{*createRuleRequestModel})
+				createRulesOptionsModel := configurationGovernanceService.NewCreateRulesOptions(transactionID, createRulesOptionsRules)
 				createRulesOptionsModel.SetTransactionID("testString")
+				createRulesOptionsModel.SetRules([]configurationgovernancev1.CreateRuleRequest{*createRuleRequestModel})
 				createRulesOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(createRulesOptionsModel).ToNot(BeNil())
-				Expect(createRulesOptionsModel.Rules).To(Equal([]configurationgovernancev1.CreateRuleRequest{*createRuleRequestModel}))
 				Expect(createRulesOptionsModel.TransactionID).To(Equal(core.StringPtr("testString")))
+				Expect(createRulesOptionsModel.Rules).To(Equal([]configurationgovernancev1.CreateRuleRequest{*createRuleRequestModel}))
 				Expect(createRulesOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewDeleteAttachmentOptions successfully`, func() {
 				// Construct an instance of the DeleteAttachmentOptions model
 				ruleID := "testString"
 				attachmentID := "testString"
-				deleteAttachmentOptionsModel := configurationGovernanceService.NewDeleteAttachmentOptions(ruleID, attachmentID)
+				transactionID := "testString"
+				deleteAttachmentOptionsModel := configurationGovernanceService.NewDeleteAttachmentOptions(ruleID, attachmentID, transactionID)
 				deleteAttachmentOptionsModel.SetRuleID("testString")
 				deleteAttachmentOptionsModel.SetAttachmentID("testString")
 				deleteAttachmentOptionsModel.SetTransactionID("testString")
@@ -2155,7 +2158,8 @@ var _ = Describe(`ConfigurationGovernanceV1`, func() {
 			It(`Invoke NewDeleteRuleOptions successfully`, func() {
 				// Construct an instance of the DeleteRuleOptions model
 				ruleID := "testString"
-				deleteRuleOptionsModel := configurationGovernanceService.NewDeleteRuleOptions(ruleID)
+				transactionID := "testString"
+				deleteRuleOptionsModel := configurationGovernanceService.NewDeleteRuleOptions(ruleID, transactionID)
 				deleteRuleOptionsModel.SetRuleID("testString")
 				deleteRuleOptionsModel.SetTransactionID("testString")
 				deleteRuleOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
@@ -2174,7 +2178,8 @@ var _ = Describe(`ConfigurationGovernanceV1`, func() {
 				// Construct an instance of the GetAttachmentOptions model
 				ruleID := "testString"
 				attachmentID := "testString"
-				getAttachmentOptionsModel := configurationGovernanceService.NewGetAttachmentOptions(ruleID, attachmentID)
+				transactionID := "testString"
+				getAttachmentOptionsModel := configurationGovernanceService.NewGetAttachmentOptions(ruleID, attachmentID, transactionID)
 				getAttachmentOptionsModel.SetRuleID("testString")
 				getAttachmentOptionsModel.SetAttachmentID("testString")
 				getAttachmentOptionsModel.SetTransactionID("testString")
@@ -2188,7 +2193,8 @@ var _ = Describe(`ConfigurationGovernanceV1`, func() {
 			It(`Invoke NewGetRuleOptions successfully`, func() {
 				// Construct an instance of the GetRuleOptions model
 				ruleID := "testString"
-				getRuleOptionsModel := configurationGovernanceService.NewGetRuleOptions(ruleID)
+				transactionID := "testString"
+				getRuleOptionsModel := configurationGovernanceService.NewGetRuleOptions(ruleID, transactionID)
 				getRuleOptionsModel.SetRuleID("testString")
 				getRuleOptionsModel.SetTransactionID("testString")
 				getRuleOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
@@ -2200,7 +2206,8 @@ var _ = Describe(`ConfigurationGovernanceV1`, func() {
 			It(`Invoke NewListAttachmentsOptions successfully`, func() {
 				// Construct an instance of the ListAttachmentsOptions model
 				ruleID := "testString"
-				listAttachmentsOptionsModel := configurationGovernanceService.NewListAttachmentsOptions(ruleID)
+				transactionID := "testString"
+				listAttachmentsOptionsModel := configurationGovernanceService.NewListAttachmentsOptions(ruleID, transactionID)
 				listAttachmentsOptionsModel.SetRuleID("testString")
 				listAttachmentsOptionsModel.SetTransactionID("testString")
 				listAttachmentsOptionsModel.SetLimit(int64(1000))
@@ -2215,10 +2222,11 @@ var _ = Describe(`ConfigurationGovernanceV1`, func() {
 			})
 			It(`Invoke NewListRulesOptions successfully`, func() {
 				// Construct an instance of the ListRulesOptions model
+				transactionID := "testString"
 				accountID := "531fc3e28bfc43c5a2cea07786d93f5c"
-				listRulesOptionsModel := configurationGovernanceService.NewListRulesOptions(accountID)
-				listRulesOptionsModel.SetAccountID("531fc3e28bfc43c5a2cea07786d93f5c")
+				listRulesOptionsModel := configurationGovernanceService.NewListRulesOptions(transactionID, accountID)
 				listRulesOptionsModel.SetTransactionID("testString")
+				listRulesOptionsModel.SetAccountID("531fc3e28bfc43c5a2cea07786d93f5c")
 				listRulesOptionsModel.SetAttached(true)
 				listRulesOptionsModel.SetLabels("SOC2,ITCS300")
 				listRulesOptionsModel.SetScopes("scope_id")
@@ -2226,8 +2234,8 @@ var _ = Describe(`ConfigurationGovernanceV1`, func() {
 				listRulesOptionsModel.SetOffset(int64(38))
 				listRulesOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(listRulesOptionsModel).ToNot(BeNil())
-				Expect(listRulesOptionsModel.AccountID).To(Equal(core.StringPtr("531fc3e28bfc43c5a2cea07786d93f5c")))
 				Expect(listRulesOptionsModel.TransactionID).To(Equal(core.StringPtr("testString")))
+				Expect(listRulesOptionsModel.AccountID).To(Equal(core.StringPtr("531fc3e28bfc43c5a2cea07786d93f5c")))
 				Expect(listRulesOptionsModel.Attached).To(Equal(core.BoolPtr(true)))
 				Expect(listRulesOptionsModel.Labels).To(Equal(core.StringPtr("SOC2,ITCS300")))
 				Expect(listRulesOptionsModel.Scopes).To(Equal(core.StringPtr("scope_id")))
@@ -2286,26 +2294,27 @@ var _ = Describe(`ConfigurationGovernanceV1`, func() {
 				// Construct an instance of the UpdateAttachmentOptions model
 				ruleID := "testString"
 				attachmentID := "testString"
+				transactionID := "testString"
 				ifMatch := "testString"
 				updateAttachmentOptionsAccountID := "531fc3e28bfc43c5a2cea07786d93f5c"
 				var updateAttachmentOptionsIncludedScope *configurationgovernancev1.RuleScope = nil
-				updateAttachmentOptionsModel := configurationGovernanceService.NewUpdateAttachmentOptions(ruleID, attachmentID, ifMatch, updateAttachmentOptionsAccountID, updateAttachmentOptionsIncludedScope)
+				updateAttachmentOptionsModel := configurationGovernanceService.NewUpdateAttachmentOptions(ruleID, attachmentID, transactionID, ifMatch, updateAttachmentOptionsAccountID, updateAttachmentOptionsIncludedScope)
 				updateAttachmentOptionsModel.SetRuleID("testString")
 				updateAttachmentOptionsModel.SetAttachmentID("testString")
+				updateAttachmentOptionsModel.SetTransactionID("testString")
 				updateAttachmentOptionsModel.SetIfMatch("testString")
 				updateAttachmentOptionsModel.SetAccountID("531fc3e28bfc43c5a2cea07786d93f5c")
 				updateAttachmentOptionsModel.SetIncludedScope(ruleScopeModel)
 				updateAttachmentOptionsModel.SetExcludedScopes([]configurationgovernancev1.RuleScope{*ruleScopeModel})
-				updateAttachmentOptionsModel.SetTransactionID("testString")
 				updateAttachmentOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(updateAttachmentOptionsModel).ToNot(BeNil())
 				Expect(updateAttachmentOptionsModel.RuleID).To(Equal(core.StringPtr("testString")))
 				Expect(updateAttachmentOptionsModel.AttachmentID).To(Equal(core.StringPtr("testString")))
+				Expect(updateAttachmentOptionsModel.TransactionID).To(Equal(core.StringPtr("testString")))
 				Expect(updateAttachmentOptionsModel.IfMatch).To(Equal(core.StringPtr("testString")))
 				Expect(updateAttachmentOptionsModel.AccountID).To(Equal(core.StringPtr("531fc3e28bfc43c5a2cea07786d93f5c")))
 				Expect(updateAttachmentOptionsModel.IncludedScope).To(Equal(ruleScopeModel))
 				Expect(updateAttachmentOptionsModel.ExcludedScopes).To(Equal([]configurationgovernancev1.RuleScope{*ruleScopeModel}))
-				Expect(updateAttachmentOptionsModel.TransactionID).To(Equal(core.StringPtr("testString")))
 				Expect(updateAttachmentOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewUpdateRuleOptions successfully`, func() {
@@ -2349,14 +2358,16 @@ var _ = Describe(`ConfigurationGovernanceV1`, func() {
 
 				// Construct an instance of the UpdateRuleOptions model
 				ruleID := "testString"
+				transactionID := "testString"
 				ifMatch := "testString"
 				updateRuleOptionsName := "Disable public access"
 				updateRuleOptionsDescription := "Ensure that public access to account resources is disabled."
 				var updateRuleOptionsTarget *configurationgovernancev1.TargetResource = nil
 				var updateRuleOptionsRequiredConfig configurationgovernancev1.RuleRequiredConfigIntf = nil
 				updateRuleOptionsEnforcementActions := []configurationgovernancev1.EnforcementAction{}
-				updateRuleOptionsModel := configurationGovernanceService.NewUpdateRuleOptions(ruleID, ifMatch, updateRuleOptionsName, updateRuleOptionsDescription, updateRuleOptionsTarget, updateRuleOptionsRequiredConfig, updateRuleOptionsEnforcementActions)
+				updateRuleOptionsModel := configurationGovernanceService.NewUpdateRuleOptions(ruleID, transactionID, ifMatch, updateRuleOptionsName, updateRuleOptionsDescription, updateRuleOptionsTarget, updateRuleOptionsRequiredConfig, updateRuleOptionsEnforcementActions)
 				updateRuleOptionsModel.SetRuleID("testString")
+				updateRuleOptionsModel.SetTransactionID("testString")
 				updateRuleOptionsModel.SetIfMatch("testString")
 				updateRuleOptionsModel.SetName("Disable public access")
 				updateRuleOptionsModel.SetDescription("Ensure that public access to account resources is disabled.")
@@ -2366,10 +2377,10 @@ var _ = Describe(`ConfigurationGovernanceV1`, func() {
 				updateRuleOptionsModel.SetAccountID("531fc3e28bfc43c5a2cea07786d93f5c")
 				updateRuleOptionsModel.SetRuleType("user_defined")
 				updateRuleOptionsModel.SetLabels([]string{"testString"})
-				updateRuleOptionsModel.SetTransactionID("testString")
 				updateRuleOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(updateRuleOptionsModel).ToNot(BeNil())
 				Expect(updateRuleOptionsModel.RuleID).To(Equal(core.StringPtr("testString")))
+				Expect(updateRuleOptionsModel.TransactionID).To(Equal(core.StringPtr("testString")))
 				Expect(updateRuleOptionsModel.IfMatch).To(Equal(core.StringPtr("testString")))
 				Expect(updateRuleOptionsModel.Name).To(Equal(core.StringPtr("Disable public access")))
 				Expect(updateRuleOptionsModel.Description).To(Equal(core.StringPtr("Ensure that public access to account resources is disabled.")))
@@ -2379,7 +2390,6 @@ var _ = Describe(`ConfigurationGovernanceV1`, func() {
 				Expect(updateRuleOptionsModel.AccountID).To(Equal(core.StringPtr("531fc3e28bfc43c5a2cea07786d93f5c")))
 				Expect(updateRuleOptionsModel.RuleType).To(Equal(core.StringPtr("user_defined")))
 				Expect(updateRuleOptionsModel.Labels).To(Equal([]string{"testString"}))
-				Expect(updateRuleOptionsModel.TransactionID).To(Equal(core.StringPtr("testString")))
 				Expect(updateRuleOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewRuleConditionAndLvl2 successfully`, func() {

@@ -40,6 +40,8 @@ import (
 
 const verbose bool = true
 
+var transactionID string
+
 var _ = Describe(`ConfigurationGovernanceV1 Integration Tests`, func() {
 
 	const externalConfigFile = "../configuration_governance.env"
@@ -57,8 +59,6 @@ var _ = Describe(`ConfigurationGovernanceV1 Integration Tests`, func() {
 		testServiceName   string
 		enterpriseScopeID string
 		subacctScopeID    string
-
-		transactionID string
 
 		// Sample rules and attachments.
 		sampleRule1   *RuleRequest
@@ -269,7 +269,7 @@ var _ = Describe(`ConfigurationGovernanceV1 Integration Tests`, func() {
 			Expect(response.StatusCode).To(Equal(201))
 			Expect(createRulesResponse).ToNot(BeNil())
 
-			// log(fmt.Sprintf("\nReceived response:\n%s", toJson(createRulesResponse)))
+			log(fmt.Sprintf("\nReceived response:\n%s", toJson(createRulesResponse)))
 			Expect(len(createRulesResponse.Rules)).To(Equal(1))
 			ruleResponse1 := createRulesResponse.Rules[0]
 			Expect(ruleResponse1).ToNot(BeNil())
@@ -297,7 +297,7 @@ var _ = Describe(`ConfigurationGovernanceV1 Integration Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(201))
 			Expect(createRulesResponse).ToNot(BeNil())
-			// log(fmt.Sprintf("\nReceived response:\n%s", toJson(createRulesResponse)))
+			log(fmt.Sprintf("\nReceived response:\n%s", toJson(createRulesResponse)))
 
 			Expect(len(createRulesResponse.Rules)).To(Equal(1))
 			ruleResponse1 := createRulesResponse.Rules[0]
@@ -328,7 +328,7 @@ var _ = Describe(`ConfigurationGovernanceV1 Integration Tests`, func() {
 			Expect(response.StatusCode).To(Equal(207))
 			Expect(createRulesResponse).ToNot(BeNil())
 
-			// log(fmt.Sprintf("\nReceived response:\n%s", toJson(createRulesResponse)))
+			log(fmt.Sprintf("\nReceived response:\n%s", toJson(createRulesResponse)))
 			Expect(len(createRulesResponse.Rules)).To(Equal(1))
 			ruleResponse1 := createRulesResponse.Rules[0]
 			Expect(ruleResponse1).ToNot(BeNil())
@@ -354,7 +354,7 @@ var _ = Describe(`ConfigurationGovernanceV1 Integration Tests`, func() {
 
 			Expect(err).ToNot(BeNil())
 			Expect(response.StatusCode).To(Equal(403))
-			// log(fmt.Sprintf("\nExpected error: %s", err.Error()))
+			log(fmt.Sprintf("\nExpected error: %s", err.Error()))
 		})
 	})
 
@@ -377,7 +377,7 @@ var _ = Describe(`ConfigurationGovernanceV1 Integration Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(ruleList).ToNot(BeNil())
-			// log(fmt.Sprintf("\nReceived response:\n%s", toJson(ruleList)))
+			log(fmt.Sprintf("\nReceived response:\n%s", toJson(ruleList)))
 
 			Expect(*ruleList.TotalCount).To(Equal(int64(2)))
 			Expect(*ruleList.Offset).To(Equal(int64(0)))
@@ -399,7 +399,7 @@ var _ = Describe(`ConfigurationGovernanceV1 Integration Tests`, func() {
 
 			Expect(err).ToNot(BeNil())
 			Expect(response.StatusCode).To(Equal(403))
-			// log(fmt.Sprintf("\nExpected error: %s", err.Error()))
+			log(fmt.Sprintf("\nExpected error: %s", err.Error()))
 		})
 	})
 
@@ -416,7 +416,7 @@ var _ = Describe(`ConfigurationGovernanceV1 Integration Tests`, func() {
 			}
 
 			rule, response, err := service.GetRule(getRuleOptions)
-			// log(fmt.Sprintf("\nReceived detailed response:\n%s", toJson(response)))
+			log(fmt.Sprintf("\nReceived detailed response:\n%s", toJson(response)))
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
@@ -441,7 +441,7 @@ var _ = Describe(`ConfigurationGovernanceV1 Integration Tests`, func() {
 			Expect(response.Result).ToNot(BeNil())
 			Expect(rule).To(BeNil())
 
-			// log(fmt.Sprintf("\nReceived detailed response:\n%s", toJson(response)))
+			log(fmt.Sprintf("\nReceived detailed response:\n%s", toJson(response)))
 
 			errorResponse, ok := response.Result.(map[string]interface{})
 			Expect(ok).To(BeTrue())
@@ -475,7 +475,7 @@ var _ = Describe(`ConfigurationGovernanceV1 Integration Tests`, func() {
 			}
 
 			rule, response, err := service.UpdateRule(updateRuleOptions)
-			// log(fmt.Sprintf("\nReceived detailed response:\n%s", toJson(response)))
+			log(fmt.Sprintf("\nReceived detailed response:\n%s", toJson(response)))
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
@@ -502,7 +502,7 @@ var _ = Describe(`ConfigurationGovernanceV1 Integration Tests`, func() {
 			}
 
 			rule, response, err := service.UpdateRule(updateRuleOptions)
-			// log(fmt.Sprintf("\nReceived detailed response:\n%s", toJson(response)))
+			log(fmt.Sprintf("\nReceived detailed response:\n%s", toJson(response)))
 
 			Expect(err).ToNot(BeNil())
 			Expect(response.StatusCode).To(Equal(400))
@@ -583,7 +583,7 @@ var _ = Describe(`ConfigurationGovernanceV1 Integration Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(201))
 			Expect(createAttachmentsResponse).ToNot(BeNil())
-			// log(fmt.Sprintf("\nReceived response:\n%s", toJson(createAttachmentsResponse)))
+			log(fmt.Sprintf("\nReceived response:\n%s", toJson(createAttachmentsResponse)))
 
 			Expect(len(createAttachmentsResponse.Attachments)).To(Equal(1))
 			attachment := createAttachmentsResponse.Attachments[0]
@@ -617,7 +617,7 @@ var _ = Describe(`ConfigurationGovernanceV1 Integration Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(201))
 			Expect(createAttachmentsResponse).ToNot(BeNil())
-			// log(fmt.Sprintf("\nReceived response:\n%s", toJson(createAttachmentsResponse)))
+			log(fmt.Sprintf("\nReceived response:\n%s", toJson(createAttachmentsResponse)))
 
 			Expect(len(createAttachmentsResponse.Attachments)).To(Equal(1))
 			attachment := createAttachmentsResponse.Attachments[0]
@@ -671,7 +671,7 @@ var _ = Describe(`ConfigurationGovernanceV1 Integration Tests`, func() {
 			}
 
 			attachment, response, err := service.GetAttachment(getAttachmentOptions)
-			// log(fmt.Sprintf("\nReceived detailed response:\n%s", toJson(response)))
+			log(fmt.Sprintf("\nReceived detailed response:\n%s", toJson(response)))
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
@@ -722,7 +722,7 @@ var _ = Describe(`ConfigurationGovernanceV1 Integration Tests`, func() {
 			}
 
 			attachmentsList, response, err := service.ListAttachments(listAttachmentsOptions)
-			// log(fmt.Sprintf("\nReceived detailed response:\n%s", toJson(response)))
+			log(fmt.Sprintf("\nReceived detailed response:\n%s", toJson(response)))
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
@@ -775,7 +775,7 @@ var _ = Describe(`ConfigurationGovernanceV1 Integration Tests`, func() {
 			}
 
 			attachment, response, err := service.UpdateAttachment(updateAttachmentOptions)
-			// log(fmt.Sprintf("\nReceived detailed response:\n%s", toJson(response)))
+			log(fmt.Sprintf("\nReceived detailed response:\n%s", toJson(response)))
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
@@ -805,7 +805,7 @@ var _ = Describe(`ConfigurationGovernanceV1 Integration Tests`, func() {
 			}
 
 			attachment, response, err := service.UpdateAttachment(updateAttachmentOptions)
-			// log(fmt.Sprintf("\nReceived detailed response:\n%s", toJson(response)))
+			log(fmt.Sprintf("\nReceived detailed response:\n%s", toJson(response)))
 
 			Expect(err).ToNot(BeNil())
 			Expect(response.StatusCode).To(Equal(400))
@@ -869,10 +869,11 @@ func cleanRules(service *ConfigurationGovernanceV1, accountID string, label stri
 	log("Cleaning rules...")
 
 	listRulesOptions := &ListRulesOptions{
-		AccountID: &accountID,
-		Labels:    core.StringPtr(label),
-		Offset:    core.Int64Ptr(int64(0)),
-		Limit:     core.Int64Ptr(int64(1000)),
+		AccountID:     &accountID,
+		Labels:        core.StringPtr(label),
+		Offset:        core.Int64Ptr(int64(0)),
+		Limit:         core.Int64Ptr(int64(1000)),
+		TransactionID: &transactionID,
 	}
 
 	ruleList, response, err := service.ListRules(listRulesOptions)
@@ -891,7 +892,8 @@ func cleanRules(service *ConfigurationGovernanceV1, accountID string, label stri
 
 			response, err := service.DeleteRule(
 				&DeleteRuleOptions{
-					RuleID: rule.RuleID,
+					RuleID:        rule.RuleID,
+					TransactionID: &transactionID,
 				})
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(204))
@@ -903,15 +905,14 @@ func cleanRules(service *ConfigurationGovernanceV1, accountID string, label stri
 
 func getRule(service *ConfigurationGovernanceV1, ruleID string) (rule *Rule) {
 	rule, _, _ = service.GetRule(&GetRuleOptions{
-		RuleID: core.StringPtr(ruleID),
+		RuleID:        core.StringPtr(ruleID),
+		TransactionID: &transactionID,
 	})
 	return
 }
 
 func log(msg string) {
-	if verbose {
-		fmt.Printf("%s\n", msg)
-	}
+	fmt.Fprintf(GinkgoWriter, "%s\n", msg)
 }
 
 func toJson(obj interface{}) string {

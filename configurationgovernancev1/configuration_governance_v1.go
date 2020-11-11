@@ -15,9 +15,8 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-8d569e8f-20201030-111043
+ * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-af92e433-20201110-100619
  */
- 
 
 // Package configurationgovernancev1 : Operations and models for the ConfigurationGovernanceV1 service
 package configurationgovernancev1
@@ -26,11 +25,13 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"github.com/IBM/go-sdk-core/v4/core"
-	common "github.com/IBM/platform-services-go-sdk/common"
 	"net/http"
 	"reflect"
 	"time"
+
+	"github.com/IBM/go-sdk-core/v4/core"
+	common "github.com/IBM/platform-services-go-sdk/common"
+	"github.com/go-openapi/strfmt"
 )
 
 // ConfigurationGovernanceV1 : API specification for the Configuration Governance service.
@@ -389,11 +390,11 @@ func (configurationGovernance *ConfigurationGovernanceV1) UpdateRuleWithContext(
 	}
 	builder.AddHeader("Accept", "application/json")
 	builder.AddHeader("Content-Type", "application/json")
-	if updateRuleOptions.IfMatch != nil {
-		builder.AddHeader("If-Match", fmt.Sprint(*updateRuleOptions.IfMatch))
-	}
 	if updateRuleOptions.TransactionID != nil {
 		builder.AddHeader("Transaction-Id", fmt.Sprint(*updateRuleOptions.TransactionID))
+	}
+	if updateRuleOptions.IfMatch != nil {
+		builder.AddHeader("If-Match", fmt.Sprint(*updateRuleOptions.IfMatch))
 	}
 
 	body := make(map[string]interface{})
@@ -657,7 +658,7 @@ func (configurationGovernance *ConfigurationGovernanceV1) GetAttachmentWithConte
 	}
 
 	pathParamsMap := map[string]string{
-		"rule_id": *getAttachmentOptions.RuleID,
+		"rule_id":       *getAttachmentOptions.RuleID,
 		"attachment_id": *getAttachmentOptions.AttachmentID,
 	}
 
@@ -719,7 +720,7 @@ func (configurationGovernance *ConfigurationGovernanceV1) UpdateAttachmentWithCo
 	}
 
 	pathParamsMap := map[string]string{
-		"rule_id": *updateAttachmentOptions.RuleID,
+		"rule_id":       *updateAttachmentOptions.RuleID,
 		"attachment_id": *updateAttachmentOptions.AttachmentID,
 	}
 
@@ -741,11 +742,11 @@ func (configurationGovernance *ConfigurationGovernanceV1) UpdateAttachmentWithCo
 	}
 	builder.AddHeader("Accept", "application/json")
 	builder.AddHeader("Content-Type", "application/json")
-	if updateAttachmentOptions.IfMatch != nil {
-		builder.AddHeader("If-Match", fmt.Sprint(*updateAttachmentOptions.IfMatch))
-	}
 	if updateAttachmentOptions.TransactionID != nil {
 		builder.AddHeader("Transaction-Id", fmt.Sprint(*updateAttachmentOptions.TransactionID))
+	}
+	if updateAttachmentOptions.IfMatch != nil {
+		builder.AddHeader("If-Match", fmt.Sprint(*updateAttachmentOptions.IfMatch))
 	}
 
 	body := make(map[string]interface{})
@@ -800,7 +801,7 @@ func (configurationGovernance *ConfigurationGovernanceV1) DeleteAttachmentWithCo
 	}
 
 	pathParamsMap := map[string]string{
-		"rule_id": *deleteAttachmentOptions.RuleID,
+		"rule_id":       *deleteAttachmentOptions.RuleID,
 		"attachment_id": *deleteAttachmentOptions.AttachmentID,
 	}
 
@@ -852,7 +853,6 @@ type Attachment struct {
 	ExcludedScopes []RuleScope `json:"excluded_scopes,omitempty"`
 }
 
-
 // UnmarshalAttachment unmarshals an instance of Attachment from the specified map of raw messages.
 func UnmarshalAttachment(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(Attachment)
@@ -900,7 +900,6 @@ type AttachmentList struct {
 	Attachments []Attachment `json:"attachments" validate:"required"`
 }
 
-
 // UnmarshalAttachmentList unmarshals an instance of AttachmentList from the specified map of raw messages.
 func UnmarshalAttachmentList(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(AttachmentList)
@@ -944,11 +943,10 @@ type AttachmentRequest struct {
 	ExcludedScopes []RuleScope `json:"excluded_scopes,omitempty"`
 }
 
-
 // NewAttachmentRequest : Instantiate AttachmentRequest (Generic Model Constructor)
 func (*ConfigurationGovernanceV1) NewAttachmentRequest(accountID string, includedScope *RuleScope) (model *AttachmentRequest, err error) {
 	model = &AttachmentRequest{
-		AccountID: core.StringPtr(accountID),
+		AccountID:     core.StringPtr(accountID),
 		IncludedScope: includedScope,
 	}
 	err = core.ValidateStruct(model, "required parameters")
@@ -979,25 +977,26 @@ type CreateAttachmentsOptions struct {
 	// The UUID that uniquely identifies the rule.
 	RuleID *string `json:"rule_id" validate:"required,ne="`
 
-	Attachments []AttachmentRequest `json:"attachments" validate:"required"`
-
 	// The unique identifier that is used to trace an entire request. If you omit this field, the service generates and
 	// sends a transaction ID in the
 	// `trace` field of the response body.
 	//
 	// **Note:** To help with debugging logs, it is strongly recommended that you generate and supply a `Transaction-Id`
 	// with each request.
-	TransactionID *string `json:"Transaction-Id,omitempty"`
+	TransactionID *string `json:"Transaction-Id" validate:"required"`
+
+	Attachments []AttachmentRequest `json:"attachments" validate:"required"`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
 }
 
 // NewCreateAttachmentsOptions : Instantiate CreateAttachmentsOptions
-func (*ConfigurationGovernanceV1) NewCreateAttachmentsOptions(ruleID string, attachments []AttachmentRequest) *CreateAttachmentsOptions {
+func (*ConfigurationGovernanceV1) NewCreateAttachmentsOptions(ruleID string, transactionID string, attachments []AttachmentRequest) *CreateAttachmentsOptions {
 	return &CreateAttachmentsOptions{
-		RuleID: core.StringPtr(ruleID),
-		Attachments: attachments,
+		RuleID:        core.StringPtr(ruleID),
+		TransactionID: core.StringPtr(transactionID),
+		Attachments:   attachments,
 	}
 }
 
@@ -1007,15 +1006,15 @@ func (options *CreateAttachmentsOptions) SetRuleID(ruleID string) *CreateAttachm
 	return options
 }
 
-// SetAttachments : Allow user to set Attachments
-func (options *CreateAttachmentsOptions) SetAttachments(attachments []AttachmentRequest) *CreateAttachmentsOptions {
-	options.Attachments = attachments
-	return options
-}
-
 // SetTransactionID : Allow user to set TransactionID
 func (options *CreateAttachmentsOptions) SetTransactionID(transactionID string) *CreateAttachmentsOptions {
 	options.TransactionID = core.StringPtr(transactionID)
+	return options
+}
+
+// SetAttachments : Allow user to set Attachments
+func (options *CreateAttachmentsOptions) SetAttachments(attachments []AttachmentRequest) *CreateAttachmentsOptions {
+	options.Attachments = attachments
 	return options
 }
 
@@ -1029,7 +1028,6 @@ func (options *CreateAttachmentsOptions) SetHeaders(param map[string]string) *Cr
 type CreateAttachmentsResponse struct {
 	Attachments []Attachment `json:"attachments" validate:"required"`
 }
-
 
 // UnmarshalCreateAttachmentsResponse unmarshals an instance of CreateAttachmentsResponse from the specified map of raw messages.
 func UnmarshalCreateAttachmentsResponse(m map[string]json.RawMessage, result interface{}) (err error) {
@@ -1055,7 +1053,6 @@ type CreateRuleRequest struct {
 	// User-settable properties associated with a rule to be created or updated.
 	Rule *RuleRequest `json:"rule" validate:"required"`
 }
-
 
 // NewCreateRuleRequest : Instantiate CreateRuleRequest (Generic Model Constructor)
 func (*ConfigurationGovernanceV1) NewCreateRuleRequest(rule *RuleRequest) (model *CreateRuleRequest, err error) {
@@ -1111,7 +1108,6 @@ type CreateRuleResponse struct {
 	Trace *string `json:"trace,omitempty"`
 }
 
-
 // UnmarshalCreateRuleResponse unmarshals an instance of CreateRuleResponse from the specified map of raw messages.
 func UnmarshalCreateRuleResponse(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(CreateRuleResponse)
@@ -1141,37 +1137,38 @@ func UnmarshalCreateRuleResponse(m map[string]json.RawMessage, result interface{
 
 // CreateRulesOptions : The CreateRules options.
 type CreateRulesOptions struct {
-	// A list of rules to be created.
-	Rules []CreateRuleRequest `json:"rules" validate:"required"`
-
 	// The unique identifier that is used to trace an entire request. If you omit this field, the service generates and
 	// sends a transaction ID in the
 	// `trace` field of the response body.
 	//
 	// **Note:** To help with debugging logs, it is strongly recommended that you generate and supply a `Transaction-Id`
 	// with each request.
-	TransactionID *string `json:"Transaction-Id,omitempty"`
+	TransactionID *string `json:"Transaction-Id" validate:"required"`
+
+	// A list of rules to be created.
+	Rules []CreateRuleRequest `json:"rules" validate:"required"`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
 }
 
 // NewCreateRulesOptions : Instantiate CreateRulesOptions
-func (*ConfigurationGovernanceV1) NewCreateRulesOptions(rules []CreateRuleRequest) *CreateRulesOptions {
+func (*ConfigurationGovernanceV1) NewCreateRulesOptions(transactionID string, rules []CreateRuleRequest) *CreateRulesOptions {
 	return &CreateRulesOptions{
-		Rules: rules,
+		TransactionID: core.StringPtr(transactionID),
+		Rules:         rules,
 	}
-}
-
-// SetRules : Allow user to set Rules
-func (options *CreateRulesOptions) SetRules(rules []CreateRuleRequest) *CreateRulesOptions {
-	options.Rules = rules
-	return options
 }
 
 // SetTransactionID : Allow user to set TransactionID
 func (options *CreateRulesOptions) SetTransactionID(transactionID string) *CreateRulesOptions {
 	options.TransactionID = core.StringPtr(transactionID)
+	return options
+}
+
+// SetRules : Allow user to set Rules
+func (options *CreateRulesOptions) SetRules(rules []CreateRuleRequest) *CreateRulesOptions {
+	options.Rules = rules
 	return options
 }
 
@@ -1186,7 +1183,6 @@ type CreateRulesResponse struct {
 	// An array of rule responses.
 	Rules []CreateRuleResponse `json:"rules" validate:"required"`
 }
-
 
 // UnmarshalCreateRulesResponse unmarshals an instance of CreateRulesResponse from the specified map of raw messages.
 func UnmarshalCreateRulesResponse(m map[string]json.RawMessage, result interface{}) (err error) {
@@ -1213,17 +1209,18 @@ type DeleteAttachmentOptions struct {
 	//
 	// **Note:** To help with debugging logs, it is strongly recommended that you generate and supply a `Transaction-Id`
 	// with each request.
-	TransactionID *string `json:"Transaction-Id,omitempty"`
+	TransactionID *string `json:"Transaction-Id" validate:"required"`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
 }
 
 // NewDeleteAttachmentOptions : Instantiate DeleteAttachmentOptions
-func (*ConfigurationGovernanceV1) NewDeleteAttachmentOptions(ruleID string, attachmentID string) *DeleteAttachmentOptions {
+func (*ConfigurationGovernanceV1) NewDeleteAttachmentOptions(ruleID string, attachmentID string, transactionID string) *DeleteAttachmentOptions {
 	return &DeleteAttachmentOptions{
-		RuleID: core.StringPtr(ruleID),
-		AttachmentID: core.StringPtr(attachmentID),
+		RuleID:        core.StringPtr(ruleID),
+		AttachmentID:  core.StringPtr(attachmentID),
+		TransactionID: core.StringPtr(transactionID),
 	}
 }
 
@@ -1262,16 +1259,17 @@ type DeleteRuleOptions struct {
 	//
 	// **Note:** To help with debugging logs, it is strongly recommended that you generate and supply a `Transaction-Id`
 	// with each request.
-	TransactionID *string `json:"Transaction-Id,omitempty"`
+	TransactionID *string `json:"Transaction-Id" validate:"required"`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
 }
 
 // NewDeleteRuleOptions : Instantiate DeleteRuleOptions
-func (*ConfigurationGovernanceV1) NewDeleteRuleOptions(ruleID string) *DeleteRuleOptions {
+func (*ConfigurationGovernanceV1) NewDeleteRuleOptions(ruleID string, transactionID string) *DeleteRuleOptions {
 	return &DeleteRuleOptions{
-		RuleID: core.StringPtr(ruleID),
+		RuleID:        core.StringPtr(ruleID),
+		TransactionID: core.StringPtr(transactionID),
 	}
 }
 
@@ -1295,19 +1293,18 @@ func (options *DeleteRuleOptions) SetHeaders(param map[string]string) *DeleteRul
 
 // EnforcementAction : EnforcementAction struct
 type EnforcementAction struct {
-	// To block a request from completing, use `disallow`. To log the  request to Activity Tracker with LogDNA, use
+	// To block a request from completing, use `disallow`. To log the request to Activity Tracker with LogDNA, use
 	// `audit_log`.
 	Action *string `json:"action" validate:"required"`
 }
 
 // Constants associated with the EnforcementAction.Action property.
-// To block a request from completing, use `disallow`. To log the  request to Activity Tracker with LogDNA, use
+// To block a request from completing, use `disallow`. To log the request to Activity Tracker with LogDNA, use
 // `audit_log`.
 const (
 	EnforcementActionActionAuditLogConst = "audit_log"
 	EnforcementActionActionDisallowConst = "disallow"
 )
-
 
 // NewEnforcementAction : Instantiate EnforcementAction (Generic Model Constructor)
 func (*ConfigurationGovernanceV1) NewEnforcementAction(action string) (model *EnforcementAction, err error) {
@@ -1343,17 +1340,18 @@ type GetAttachmentOptions struct {
 	//
 	// **Note:** To help with debugging logs, it is strongly recommended that you generate and supply a `Transaction-Id`
 	// with each request.
-	TransactionID *string `json:"Transaction-Id,omitempty"`
+	TransactionID *string `json:"Transaction-Id" validate:"required"`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
 }
 
 // NewGetAttachmentOptions : Instantiate GetAttachmentOptions
-func (*ConfigurationGovernanceV1) NewGetAttachmentOptions(ruleID string, attachmentID string) *GetAttachmentOptions {
+func (*ConfigurationGovernanceV1) NewGetAttachmentOptions(ruleID string, attachmentID string, transactionID string) *GetAttachmentOptions {
 	return &GetAttachmentOptions{
-		RuleID: core.StringPtr(ruleID),
-		AttachmentID: core.StringPtr(attachmentID),
+		RuleID:        core.StringPtr(ruleID),
+		AttachmentID:  core.StringPtr(attachmentID),
+		TransactionID: core.StringPtr(transactionID),
 	}
 }
 
@@ -1392,16 +1390,17 @@ type GetRuleOptions struct {
 	//
 	// **Note:** To help with debugging logs, it is strongly recommended that you generate and supply a `Transaction-Id`
 	// with each request.
-	TransactionID *string `json:"Transaction-Id,omitempty"`
+	TransactionID *string `json:"Transaction-Id" validate:"required"`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
 }
 
 // NewGetRuleOptions : Instantiate GetRuleOptions
-func (*ConfigurationGovernanceV1) NewGetRuleOptions(ruleID string) *GetRuleOptions {
+func (*ConfigurationGovernanceV1) NewGetRuleOptions(ruleID string, transactionID string) *GetRuleOptions {
 	return &GetRuleOptions{
-		RuleID: core.StringPtr(ruleID),
+		RuleID:        core.StringPtr(ruleID),
+		TransactionID: core.StringPtr(transactionID),
 	}
 }
 
@@ -1429,7 +1428,6 @@ type Link struct {
 	Href *string `json:"href" validate:"required"`
 }
 
-
 // UnmarshalLink unmarshals an instance of Link from the specified map of raw messages.
 func UnmarshalLink(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(Link)
@@ -1452,7 +1450,7 @@ type ListAttachmentsOptions struct {
 	//
 	// **Note:** To help with debugging logs, it is strongly recommended that you generate and supply a `Transaction-Id`
 	// with each request.
-	TransactionID *string `json:"Transaction-Id,omitempty"`
+	TransactionID *string `json:"Transaction-Id" validate:"required"`
 
 	// The number of resources to retrieve. By default, list operations return the first 100 items. To retrieve a different
 	// set of items, use `limit` with `offset` to page through your available resources.
@@ -1473,9 +1471,10 @@ type ListAttachmentsOptions struct {
 }
 
 // NewListAttachmentsOptions : Instantiate ListAttachmentsOptions
-func (*ConfigurationGovernanceV1) NewListAttachmentsOptions(ruleID string) *ListAttachmentsOptions {
+func (*ConfigurationGovernanceV1) NewListAttachmentsOptions(ruleID string, transactionID string) *ListAttachmentsOptions {
 	return &ListAttachmentsOptions{
-		RuleID: core.StringPtr(ruleID),
+		RuleID:        core.StringPtr(ruleID),
+		TransactionID: core.StringPtr(transactionID),
 	}
 }
 
@@ -1511,16 +1510,16 @@ func (options *ListAttachmentsOptions) SetHeaders(param map[string]string) *List
 
 // ListRulesOptions : The ListRules options.
 type ListRulesOptions struct {
-	// Your IBM Cloud account ID.
-	AccountID *string `json:"account_id" validate:"required"`
-
 	// The unique identifier that is used to trace an entire request. If you omit this field, the service generates and
 	// sends a transaction ID in the
 	// `trace` field of the response body.
 	//
 	// **Note:** To help with debugging logs, it is strongly recommended that you generate and supply a `Transaction-Id`
 	// with each request.
-	TransactionID *string `json:"Transaction-Id,omitempty"`
+	TransactionID *string `json:"Transaction-Id" validate:"required"`
+
+	// Your IBM Cloud account ID.
+	AccountID *string `json:"account_id" validate:"required"`
 
 	// Retrieves a list of rules that have scope attachments.
 	Attached *bool `json:"attached,omitempty"`
@@ -1550,21 +1549,22 @@ type ListRulesOptions struct {
 }
 
 // NewListRulesOptions : Instantiate ListRulesOptions
-func (*ConfigurationGovernanceV1) NewListRulesOptions(accountID string) *ListRulesOptions {
+func (*ConfigurationGovernanceV1) NewListRulesOptions(transactionID string, accountID string) *ListRulesOptions {
 	return &ListRulesOptions{
-		AccountID: core.StringPtr(accountID),
+		TransactionID: core.StringPtr(transactionID),
+		AccountID:     core.StringPtr(accountID),
 	}
-}
-
-// SetAccountID : Allow user to set AccountID
-func (options *ListRulesOptions) SetAccountID(accountID string) *ListRulesOptions {
-	options.AccountID = core.StringPtr(accountID)
-	return options
 }
 
 // SetTransactionID : Allow user to set TransactionID
 func (options *ListRulesOptions) SetTransactionID(transactionID string) *ListRulesOptions {
 	options.TransactionID = core.StringPtr(transactionID)
+	return options
+}
+
+// SetAccountID : Allow user to set AccountID
+func (options *ListRulesOptions) SetAccountID(accountID string) *ListRulesOptions {
+	options.AccountID = core.StringPtr(accountID)
 	return options
 }
 
@@ -1636,13 +1636,13 @@ type Rule struct {
 	RuleID *string `json:"rule_id,omitempty"`
 
 	// The date the resource was created.
-	CreationDate *string `json:"creation_date,omitempty"`
+	CreationDate *strfmt.DateTime `json:"creation_date,omitempty"`
 
 	// The unique identifier for the user or application that created the resource.
 	CreatedBy *string `json:"created_by,omitempty"`
 
 	// The date the resource was last modified.
-	ModificationDate *string `json:"modification_date,omitempty"`
+	ModificationDate *strfmt.DateTime `json:"modification_date,omitempty"`
 
 	// The unique identifier for the user or application that last modified the resource.
 	ModifiedBy *string `json:"modified_by,omitempty"`
@@ -1656,7 +1656,6 @@ type Rule struct {
 const (
 	RuleRuleTypeUserDefinedConst = "user_defined"
 )
-
 
 // UnmarshalRule unmarshals an instance of Rule from the specified map of raw messages.
 func UnmarshalRule(m map[string]json.RawMessage, result interface{}) (err error) {
@@ -1731,8 +1730,7 @@ type RuleCondition struct {
 
 	// A resource configuration variable that describes the property that you want to apply to the target resource.
 	//
-	// Available options depend on the target service and resource. Currently,
-	// `public_access_enabled` is supported.
+	// Available options depend on the target service and resource.
 	Property *string `json:"property,omitempty"`
 
 	// The way in which the `property` field is compared to its value.
@@ -1756,20 +1754,22 @@ type RuleCondition struct {
 //
 // There are three types of operators: string, numeric, and boolean.
 const (
-	RuleConditionOperatorIsEmptyConst = "is_empty"
-	RuleConditionOperatorIsFalseConst = "is_false"
-	RuleConditionOperatorIsNotEmptyConst = "is_not_empty"
-	RuleConditionOperatorIsTrueConst = "is_true"
-	RuleConditionOperatorNumEqualsConst = "num_equals"
-	RuleConditionOperatorNumGreaterThanConst = "num_greater_than"
+	RuleConditionOperatorIpsInRangeConst           = "ips_in_range"
+	RuleConditionOperatorIsEmptyConst              = "is_empty"
+	RuleConditionOperatorIsFalseConst              = "is_false"
+	RuleConditionOperatorIsNotEmptyConst           = "is_not_empty"
+	RuleConditionOperatorIsTrueConst               = "is_true"
+	RuleConditionOperatorNumEqualsConst            = "num_equals"
+	RuleConditionOperatorNumGreaterThanConst       = "num_greater_than"
 	RuleConditionOperatorNumGreaterThanEqualsConst = "num_greater_than_equals"
-	RuleConditionOperatorNumLessThanConst = "num_less_than"
-	RuleConditionOperatorNumLessThanEqualsConst = "num_less_than_equals"
-	RuleConditionOperatorNumNotEqualsConst = "num_not_equals"
-	RuleConditionOperatorStringEqualsConst = "string_equals"
-	RuleConditionOperatorStringMatchConst = "string_match"
-	RuleConditionOperatorStringNotEqualsConst = "string_not_equals"
-	RuleConditionOperatorStringNotMatchConst = "string_not_match"
+	RuleConditionOperatorNumLessThanConst          = "num_less_than"
+	RuleConditionOperatorNumLessThanEqualsConst    = "num_less_than_equals"
+	RuleConditionOperatorNumNotEqualsConst         = "num_not_equals"
+	RuleConditionOperatorStringEqualsConst         = "string_equals"
+	RuleConditionOperatorStringMatchConst          = "string_match"
+	RuleConditionOperatorStringNotEqualsConst      = "string_not_equals"
+	RuleConditionOperatorStringNotMatchConst       = "string_not_match"
+	RuleConditionOperatorStringsInListConst        = "strings_in_list"
 )
 
 func (*RuleCondition) isaRuleCondition() bool {
@@ -1831,7 +1831,6 @@ type RuleList struct {
 	// An array of rules.
 	Rules []Rule `json:"rules" validate:"required"`
 }
-
 
 // UnmarshalRuleList unmarshals an instance of RuleList from the specified map of raw messages.
 func UnmarshalRuleList(m map[string]json.RawMessage, result interface{}) (err error) {
@@ -1899,14 +1898,13 @@ const (
 	RuleRequestRuleTypeUserDefinedConst = "user_defined"
 )
 
-
 // NewRuleRequest : Instantiate RuleRequest (Generic Model Constructor)
 func (*ConfigurationGovernanceV1) NewRuleRequest(name string, description string, target *TargetResource, requiredConfig RuleRequiredConfigIntf, enforcementActions []EnforcementAction) (model *RuleRequest, err error) {
 	model = &RuleRequest{
-		Name: core.StringPtr(name),
-		Description: core.StringPtr(description),
-		Target: target,
-		RequiredConfig: requiredConfig,
+		Name:               core.StringPtr(name),
+		Description:        core.StringPtr(description),
+		Target:             target,
+		RequiredConfig:     requiredConfig,
 		EnforcementActions: enforcementActions,
 	}
 	err = core.ValidateStruct(model, "required parameters")
@@ -1961,8 +1959,7 @@ type RuleRequiredConfig struct {
 
 	// A resource configuration variable that describes the property that you want to apply to the target resource.
 	//
-	// Available options depend on the target service and resource. Currently,
-	// `public_access_enabled` is supported.
+	// Available options depend on the target service and resource.
 	Property *string `json:"property,omitempty"`
 
 	// The way in which the `property` field is compared to its value.
@@ -1986,20 +1983,22 @@ type RuleRequiredConfig struct {
 //
 // There are three types of operators: string, numeric, and boolean.
 const (
-	RuleRequiredConfigOperatorIsEmptyConst = "is_empty"
-	RuleRequiredConfigOperatorIsFalseConst = "is_false"
-	RuleRequiredConfigOperatorIsNotEmptyConst = "is_not_empty"
-	RuleRequiredConfigOperatorIsTrueConst = "is_true"
-	RuleRequiredConfigOperatorNumEqualsConst = "num_equals"
-	RuleRequiredConfigOperatorNumGreaterThanConst = "num_greater_than"
+	RuleRequiredConfigOperatorIpsInRangeConst           = "ips_in_range"
+	RuleRequiredConfigOperatorIsEmptyConst              = "is_empty"
+	RuleRequiredConfigOperatorIsFalseConst              = "is_false"
+	RuleRequiredConfigOperatorIsNotEmptyConst           = "is_not_empty"
+	RuleRequiredConfigOperatorIsTrueConst               = "is_true"
+	RuleRequiredConfigOperatorNumEqualsConst            = "num_equals"
+	RuleRequiredConfigOperatorNumGreaterThanConst       = "num_greater_than"
 	RuleRequiredConfigOperatorNumGreaterThanEqualsConst = "num_greater_than_equals"
-	RuleRequiredConfigOperatorNumLessThanConst = "num_less_than"
-	RuleRequiredConfigOperatorNumLessThanEqualsConst = "num_less_than_equals"
-	RuleRequiredConfigOperatorNumNotEqualsConst = "num_not_equals"
-	RuleRequiredConfigOperatorStringEqualsConst = "string_equals"
-	RuleRequiredConfigOperatorStringMatchConst = "string_match"
-	RuleRequiredConfigOperatorStringNotEqualsConst = "string_not_equals"
-	RuleRequiredConfigOperatorStringNotMatchConst = "string_not_match"
+	RuleRequiredConfigOperatorNumLessThanConst          = "num_less_than"
+	RuleRequiredConfigOperatorNumLessThanEqualsConst    = "num_less_than_equals"
+	RuleRequiredConfigOperatorNumNotEqualsConst         = "num_not_equals"
+	RuleRequiredConfigOperatorStringEqualsConst         = "string_equals"
+	RuleRequiredConfigOperatorStringMatchConst          = "string_match"
+	RuleRequiredConfigOperatorStringNotEqualsConst      = "string_not_equals"
+	RuleRequiredConfigOperatorStringNotMatchConst       = "string_not_match"
+	RuleRequiredConfigOperatorStringsInListConst        = "strings_in_list"
 )
 
 func (*RuleRequiredConfig) isaRuleRequiredConfig() bool {
@@ -2050,7 +2049,6 @@ type RuleResponseError struct {
 	Message *string `json:"message" validate:"required"`
 }
 
-
 // UnmarshalRuleResponseError unmarshals an instance of RuleResponseError from the specified map of raw messages.
 func UnmarshalRuleResponseError(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(RuleResponseError)
@@ -2081,18 +2079,17 @@ type RuleScope struct {
 // Constants associated with the RuleScope.ScopeType property.
 // The type of scope that you want to evaluate.
 const (
-	RuleScopeScopeTypeAccountConst = "account"
-	RuleScopeScopeTypeAccountResourceGroupConst = "account.resource_group"
-	RuleScopeScopeTypeEnterpriseConst = "enterprise"
-	RuleScopeScopeTypeEnterpriseAccountConst = "enterprise.account"
+	RuleScopeScopeTypeAccountConst                = "account"
+	RuleScopeScopeTypeAccountResourceGroupConst   = "account.resource_group"
+	RuleScopeScopeTypeEnterpriseConst             = "enterprise"
+	RuleScopeScopeTypeEnterpriseAccountConst      = "enterprise.account"
 	RuleScopeScopeTypeEnterpriseAccountGroupConst = "enterprise.account_group"
 )
-
 
 // NewRuleScope : Instantiate RuleScope (Generic Model Constructor)
 func (*ConfigurationGovernanceV1) NewRuleScope(scopeID string, scopeType string) (model *RuleScope, err error) {
 	model = &RuleScope{
-		ScopeID: core.StringPtr(scopeID),
+		ScopeID:   core.StringPtr(scopeID),
 		ScopeType: core.StringPtr(scopeType),
 	}
 	err = core.ValidateStruct(model, "required parameters")
@@ -2127,8 +2124,7 @@ type RuleSingleProperty struct {
 
 	// A resource configuration variable that describes the property that you want to apply to the target resource.
 	//
-	// Available options depend on the target service and resource. Currently,
-	// `public_access_enabled` is supported.
+	// Available options depend on the target service and resource.
 	Property *string `json:"property" validate:"required"`
 
 	// The way in which the `property` field is compared to its value.
@@ -2148,22 +2144,23 @@ type RuleSingleProperty struct {
 //
 // There are three types of operators: string, numeric, and boolean.
 const (
-	RuleSinglePropertyOperatorIsEmptyConst = "is_empty"
-	RuleSinglePropertyOperatorIsFalseConst = "is_false"
-	RuleSinglePropertyOperatorIsNotEmptyConst = "is_not_empty"
-	RuleSinglePropertyOperatorIsTrueConst = "is_true"
-	RuleSinglePropertyOperatorNumEqualsConst = "num_equals"
-	RuleSinglePropertyOperatorNumGreaterThanConst = "num_greater_than"
+	RuleSinglePropertyOperatorIpsInRangeConst           = "ips_in_range"
+	RuleSinglePropertyOperatorIsEmptyConst              = "is_empty"
+	RuleSinglePropertyOperatorIsFalseConst              = "is_false"
+	RuleSinglePropertyOperatorIsNotEmptyConst           = "is_not_empty"
+	RuleSinglePropertyOperatorIsTrueConst               = "is_true"
+	RuleSinglePropertyOperatorNumEqualsConst            = "num_equals"
+	RuleSinglePropertyOperatorNumGreaterThanConst       = "num_greater_than"
 	RuleSinglePropertyOperatorNumGreaterThanEqualsConst = "num_greater_than_equals"
-	RuleSinglePropertyOperatorNumLessThanConst = "num_less_than"
-	RuleSinglePropertyOperatorNumLessThanEqualsConst = "num_less_than_equals"
-	RuleSinglePropertyOperatorNumNotEqualsConst = "num_not_equals"
-	RuleSinglePropertyOperatorStringEqualsConst = "string_equals"
-	RuleSinglePropertyOperatorStringMatchConst = "string_match"
-	RuleSinglePropertyOperatorStringNotEqualsConst = "string_not_equals"
-	RuleSinglePropertyOperatorStringNotMatchConst = "string_not_match"
+	RuleSinglePropertyOperatorNumLessThanConst          = "num_less_than"
+	RuleSinglePropertyOperatorNumLessThanEqualsConst    = "num_less_than_equals"
+	RuleSinglePropertyOperatorNumNotEqualsConst         = "num_not_equals"
+	RuleSinglePropertyOperatorStringEqualsConst         = "string_equals"
+	RuleSinglePropertyOperatorStringMatchConst          = "string_match"
+	RuleSinglePropertyOperatorStringNotEqualsConst      = "string_not_equals"
+	RuleSinglePropertyOperatorStringNotMatchConst       = "string_not_match"
+	RuleSinglePropertyOperatorStringsInListConst        = "strings_in_list"
 )
-
 
 // NewRuleSingleProperty : Instantiate RuleSingleProperty (Generic Model Constructor)
 func (*ConfigurationGovernanceV1) NewRuleSingleProperty(property string, operator string) (model *RuleSingleProperty, err error) {
@@ -2219,27 +2216,28 @@ type RuleTargetAttribute struct {
 //
 // There are three types of operators: string, numeric, and boolean.
 const (
-	RuleTargetAttributeOperatorIsEmptyConst = "is_empty"
-	RuleTargetAttributeOperatorIsFalseConst = "is_false"
-	RuleTargetAttributeOperatorIsNotEmptyConst = "is_not_empty"
-	RuleTargetAttributeOperatorIsTrueConst = "is_true"
-	RuleTargetAttributeOperatorNumEqualsConst = "num_equals"
-	RuleTargetAttributeOperatorNumGreaterThanConst = "num_greater_than"
+	RuleTargetAttributeOperatorIpsInRangeConst           = "ips_in_range"
+	RuleTargetAttributeOperatorIsEmptyConst              = "is_empty"
+	RuleTargetAttributeOperatorIsFalseConst              = "is_false"
+	RuleTargetAttributeOperatorIsNotEmptyConst           = "is_not_empty"
+	RuleTargetAttributeOperatorIsTrueConst               = "is_true"
+	RuleTargetAttributeOperatorNumEqualsConst            = "num_equals"
+	RuleTargetAttributeOperatorNumGreaterThanConst       = "num_greater_than"
 	RuleTargetAttributeOperatorNumGreaterThanEqualsConst = "num_greater_than_equals"
-	RuleTargetAttributeOperatorNumLessThanConst = "num_less_than"
-	RuleTargetAttributeOperatorNumLessThanEqualsConst = "num_less_than_equals"
-	RuleTargetAttributeOperatorNumNotEqualsConst = "num_not_equals"
-	RuleTargetAttributeOperatorStringEqualsConst = "string_equals"
-	RuleTargetAttributeOperatorStringMatchConst = "string_match"
-	RuleTargetAttributeOperatorStringNotEqualsConst = "string_not_equals"
-	RuleTargetAttributeOperatorStringNotMatchConst = "string_not_match"
+	RuleTargetAttributeOperatorNumLessThanConst          = "num_less_than"
+	RuleTargetAttributeOperatorNumLessThanEqualsConst    = "num_less_than_equals"
+	RuleTargetAttributeOperatorNumNotEqualsConst         = "num_not_equals"
+	RuleTargetAttributeOperatorStringEqualsConst         = "string_equals"
+	RuleTargetAttributeOperatorStringMatchConst          = "string_match"
+	RuleTargetAttributeOperatorStringNotEqualsConst      = "string_not_equals"
+	RuleTargetAttributeOperatorStringNotMatchConst       = "string_not_match"
+	RuleTargetAttributeOperatorStringsInListConst        = "strings_in_list"
 )
-
 
 // NewRuleTargetAttribute : Instantiate RuleTargetAttribute (Generic Model Constructor)
 func (*ConfigurationGovernanceV1) NewRuleTargetAttribute(name string, operator string) (model *RuleTargetAttribute, err error) {
 	model = &RuleTargetAttribute{
-		Name: core.StringPtr(name),
+		Name:     core.StringPtr(name),
 		Operator: core.StringPtr(operator),
 	}
 	err = core.ValidateStruct(model, "required parameters")
@@ -2265,25 +2263,23 @@ func UnmarshalRuleTargetAttribute(m map[string]json.RawMessage, result interface
 	return
 }
 
-// TargetResource : The properties that describe the resource that you want to target  with the rule.
+// TargetResource : The properties that describe the resource that you want to target with the rule.
 type TargetResource struct {
-	// The programmatic name of the IBM Cloud service that you want to  target with the rule. Currently, `iam-groups` is
-	// supported.
+	// The programmatic name of the IBM Cloud service that you want to target with the rule.
 	ServiceName *string `json:"service_name" validate:"required"`
 
 	// The type of resource that you want to target.
 	ResourceKind *string `json:"resource_kind" validate:"required"`
 
-	// An extra qualifier for the resource kind. When you include  additional attributes, only the resources that match the
-	//             definition are included in the rule.
+	// An extra qualifier for the resource kind. When you include additional attributes, only the resources that match the
+	// definition are included in the rule.
 	AdditionalTargetAttributes []RuleTargetAttribute `json:"additional_target_attributes,omitempty"`
 }
-
 
 // NewTargetResource : Instantiate TargetResource (Generic Model Constructor)
 func (*ConfigurationGovernanceV1) NewTargetResource(serviceName string, resourceKind string) (model *TargetResource, err error) {
 	model = &TargetResource{
-		ServiceName: core.StringPtr(serviceName),
+		ServiceName:  core.StringPtr(serviceName),
 		ResourceKind: core.StringPtr(resourceKind),
 	}
 	err = core.ValidateStruct(model, "required parameters")
@@ -2317,6 +2313,14 @@ type UpdateAttachmentOptions struct {
 	// The UUID that uniquely identifies the attachment.
 	AttachmentID *string `json:"attachment_id" validate:"required,ne="`
 
+	// The unique identifier that is used to trace an entire request. If you omit this field, the service generates and
+	// sends a transaction ID in the
+	// `trace` field of the response body.
+	//
+	// **Note:** To help with debugging logs, it is strongly recommended that you generate and supply a `Transaction-Id`
+	// with each request.
+	TransactionID *string `json:"Transaction-Id" validate:"required"`
+
 	// Compares a supplied `Etag` value with the version that is stored for the requested resource. If the values match,
 	// the server allows the request method to continue.
 	//
@@ -2332,25 +2336,18 @@ type UpdateAttachmentOptions struct {
 	// The extent at which the rule can be excluded from the included scope.
 	ExcludedScopes []RuleScope `json:"excluded_scopes,omitempty"`
 
-	// The unique identifier that is used to trace an entire request. If you omit this field, the service generates and
-	// sends a transaction ID in the
-	// `trace` field of the response body.
-	//
-	// **Note:** To help with debugging logs, it is strongly recommended that you generate and supply a `Transaction-Id`
-	// with each request.
-	TransactionID *string `json:"Transaction-Id,omitempty"`
-
 	// Allows users to set headers on API requests
 	Headers map[string]string
 }
 
 // NewUpdateAttachmentOptions : Instantiate UpdateAttachmentOptions
-func (*ConfigurationGovernanceV1) NewUpdateAttachmentOptions(ruleID string, attachmentID string, ifMatch string, accountID string, includedScope *RuleScope) *UpdateAttachmentOptions {
+func (*ConfigurationGovernanceV1) NewUpdateAttachmentOptions(ruleID string, attachmentID string, transactionID string, ifMatch string, accountID string, includedScope *RuleScope) *UpdateAttachmentOptions {
 	return &UpdateAttachmentOptions{
-		RuleID: core.StringPtr(ruleID),
-		AttachmentID: core.StringPtr(attachmentID),
-		IfMatch: core.StringPtr(ifMatch),
-		AccountID: core.StringPtr(accountID),
+		RuleID:        core.StringPtr(ruleID),
+		AttachmentID:  core.StringPtr(attachmentID),
+		TransactionID: core.StringPtr(transactionID),
+		IfMatch:       core.StringPtr(ifMatch),
+		AccountID:     core.StringPtr(accountID),
 		IncludedScope: includedScope,
 	}
 }
@@ -2364,6 +2361,12 @@ func (options *UpdateAttachmentOptions) SetRuleID(ruleID string) *UpdateAttachme
 // SetAttachmentID : Allow user to set AttachmentID
 func (options *UpdateAttachmentOptions) SetAttachmentID(attachmentID string) *UpdateAttachmentOptions {
 	options.AttachmentID = core.StringPtr(attachmentID)
+	return options
+}
+
+// SetTransactionID : Allow user to set TransactionID
+func (options *UpdateAttachmentOptions) SetTransactionID(transactionID string) *UpdateAttachmentOptions {
+	options.TransactionID = core.StringPtr(transactionID)
 	return options
 }
 
@@ -2391,12 +2394,6 @@ func (options *UpdateAttachmentOptions) SetExcludedScopes(excludedScopes []RuleS
 	return options
 }
 
-// SetTransactionID : Allow user to set TransactionID
-func (options *UpdateAttachmentOptions) SetTransactionID(transactionID string) *UpdateAttachmentOptions {
-	options.TransactionID = core.StringPtr(transactionID)
-	return options
-}
-
 // SetHeaders : Allow user to set Headers
 func (options *UpdateAttachmentOptions) SetHeaders(param map[string]string) *UpdateAttachmentOptions {
 	options.Headers = param
@@ -2407,6 +2404,14 @@ func (options *UpdateAttachmentOptions) SetHeaders(param map[string]string) *Upd
 type UpdateRuleOptions struct {
 	// The UUID that uniquely identifies the rule.
 	RuleID *string `json:"rule_id" validate:"required,ne="`
+
+	// The unique identifier that is used to trace an entire request. If you omit this field, the service generates and
+	// sends a transaction ID in the
+	// `trace` field of the response body.
+	//
+	// **Note:** To help with debugging logs, it is strongly recommended that you generate and supply a `Transaction-Id`
+	// with each request.
+	TransactionID *string `json:"Transaction-Id" validate:"required"`
 
 	// Compares a supplied `Etag` value with the version that is stored for the requested resource. If the values match,
 	// the server allows the request method to continue.
@@ -2440,14 +2445,6 @@ type UpdateRuleOptions struct {
 	// organization guideline.
 	Labels []string `json:"labels,omitempty"`
 
-	// The unique identifier that is used to trace an entire request. If you omit this field, the service generates and
-	// sends a transaction ID in the
-	// `trace` field of the response body.
-	//
-	// **Note:** To help with debugging logs, it is strongly recommended that you generate and supply a `Transaction-Id`
-	// with each request.
-	TransactionID *string `json:"Transaction-Id,omitempty"`
-
 	// Allows users to set headers on API requests
 	Headers map[string]string
 }
@@ -2459,14 +2456,15 @@ const (
 )
 
 // NewUpdateRuleOptions : Instantiate UpdateRuleOptions
-func (*ConfigurationGovernanceV1) NewUpdateRuleOptions(ruleID string, ifMatch string, name string, description string, target *TargetResource, requiredConfig RuleRequiredConfigIntf, enforcementActions []EnforcementAction) *UpdateRuleOptions {
+func (*ConfigurationGovernanceV1) NewUpdateRuleOptions(ruleID string, transactionID string, ifMatch string, name string, description string, target *TargetResource, requiredConfig RuleRequiredConfigIntf, enforcementActions []EnforcementAction) *UpdateRuleOptions {
 	return &UpdateRuleOptions{
-		RuleID: core.StringPtr(ruleID),
-		IfMatch: core.StringPtr(ifMatch),
-		Name: core.StringPtr(name),
-		Description: core.StringPtr(description),
-		Target: target,
-		RequiredConfig: requiredConfig,
+		RuleID:             core.StringPtr(ruleID),
+		TransactionID:      core.StringPtr(transactionID),
+		IfMatch:            core.StringPtr(ifMatch),
+		Name:               core.StringPtr(name),
+		Description:        core.StringPtr(description),
+		Target:             target,
+		RequiredConfig:     requiredConfig,
 		EnforcementActions: enforcementActions,
 	}
 }
@@ -2474,6 +2472,12 @@ func (*ConfigurationGovernanceV1) NewUpdateRuleOptions(ruleID string, ifMatch st
 // SetRuleID : Allow user to set RuleID
 func (options *UpdateRuleOptions) SetRuleID(ruleID string) *UpdateRuleOptions {
 	options.RuleID = core.StringPtr(ruleID)
+	return options
+}
+
+// SetTransactionID : Allow user to set TransactionID
+func (options *UpdateRuleOptions) SetTransactionID(transactionID string) *UpdateRuleOptions {
+	options.TransactionID = core.StringPtr(transactionID)
 	return options
 }
 
@@ -2531,12 +2535,6 @@ func (options *UpdateRuleOptions) SetLabels(labels []string) *UpdateRuleOptions 
 	return options
 }
 
-// SetTransactionID : Allow user to set TransactionID
-func (options *UpdateRuleOptions) SetTransactionID(transactionID string) *UpdateRuleOptions {
-	options.TransactionID = core.StringPtr(transactionID)
-	return options
-}
-
 // SetHeaders : Allow user to set Headers
 func (options *UpdateRuleOptions) SetHeaders(param map[string]string) *UpdateRuleOptions {
 	options.Headers = param
@@ -2550,7 +2548,6 @@ type RuleConditionAndLvl2 struct {
 
 	And []RuleSingleProperty `json:"and" validate:"required"`
 }
-
 
 // NewRuleConditionAndLvl2 : Instantiate RuleConditionAndLvl2 (Generic Model Constructor)
 func (*ConfigurationGovernanceV1) NewRuleConditionAndLvl2(and []RuleSingleProperty) (model *RuleConditionAndLvl2, err error) {
@@ -2587,7 +2584,6 @@ type RuleConditionOrLvl2 struct {
 
 	Or []RuleSingleProperty `json:"or" validate:"required"`
 }
-
 
 // NewRuleConditionOrLvl2 : Instantiate RuleConditionOrLvl2 (Generic Model Constructor)
 func (*ConfigurationGovernanceV1) NewRuleConditionOrLvl2(or []RuleSingleProperty) (model *RuleConditionOrLvl2, err error) {
@@ -2627,8 +2623,7 @@ type RuleConditionSingleProperty struct {
 
 	// A resource configuration variable that describes the property that you want to apply to the target resource.
 	//
-	// Available options depend on the target service and resource. Currently,
-	// `public_access_enabled` is supported.
+	// Available options depend on the target service and resource.
 	Property *string `json:"property" validate:"required"`
 
 	// The way in which the `property` field is compared to its value.
@@ -2648,22 +2643,23 @@ type RuleConditionSingleProperty struct {
 //
 // There are three types of operators: string, numeric, and boolean.
 const (
-	RuleConditionSinglePropertyOperatorIsEmptyConst = "is_empty"
-	RuleConditionSinglePropertyOperatorIsFalseConst = "is_false"
-	RuleConditionSinglePropertyOperatorIsNotEmptyConst = "is_not_empty"
-	RuleConditionSinglePropertyOperatorIsTrueConst = "is_true"
-	RuleConditionSinglePropertyOperatorNumEqualsConst = "num_equals"
-	RuleConditionSinglePropertyOperatorNumGreaterThanConst = "num_greater_than"
+	RuleConditionSinglePropertyOperatorIpsInRangeConst           = "ips_in_range"
+	RuleConditionSinglePropertyOperatorIsEmptyConst              = "is_empty"
+	RuleConditionSinglePropertyOperatorIsFalseConst              = "is_false"
+	RuleConditionSinglePropertyOperatorIsNotEmptyConst           = "is_not_empty"
+	RuleConditionSinglePropertyOperatorIsTrueConst               = "is_true"
+	RuleConditionSinglePropertyOperatorNumEqualsConst            = "num_equals"
+	RuleConditionSinglePropertyOperatorNumGreaterThanConst       = "num_greater_than"
 	RuleConditionSinglePropertyOperatorNumGreaterThanEqualsConst = "num_greater_than_equals"
-	RuleConditionSinglePropertyOperatorNumLessThanConst = "num_less_than"
-	RuleConditionSinglePropertyOperatorNumLessThanEqualsConst = "num_less_than_equals"
-	RuleConditionSinglePropertyOperatorNumNotEqualsConst = "num_not_equals"
-	RuleConditionSinglePropertyOperatorStringEqualsConst = "string_equals"
-	RuleConditionSinglePropertyOperatorStringMatchConst = "string_match"
-	RuleConditionSinglePropertyOperatorStringNotEqualsConst = "string_not_equals"
-	RuleConditionSinglePropertyOperatorStringNotMatchConst = "string_not_match"
+	RuleConditionSinglePropertyOperatorNumLessThanConst          = "num_less_than"
+	RuleConditionSinglePropertyOperatorNumLessThanEqualsConst    = "num_less_than_equals"
+	RuleConditionSinglePropertyOperatorNumNotEqualsConst         = "num_not_equals"
+	RuleConditionSinglePropertyOperatorStringEqualsConst         = "string_equals"
+	RuleConditionSinglePropertyOperatorStringMatchConst          = "string_match"
+	RuleConditionSinglePropertyOperatorStringNotEqualsConst      = "string_not_equals"
+	RuleConditionSinglePropertyOperatorStringNotMatchConst       = "string_not_match"
+	RuleConditionSinglePropertyOperatorStringsInListConst        = "strings_in_list"
 )
-
 
 // NewRuleConditionSingleProperty : Instantiate RuleConditionSingleProperty (Generic Model Constructor)
 func (*ConfigurationGovernanceV1) NewRuleConditionSingleProperty(property string, operator string) (model *RuleConditionSingleProperty, err error) {
@@ -2760,8 +2756,7 @@ type RuleRequiredConfigSingleProperty struct {
 
 	// A resource configuration variable that describes the property that you want to apply to the target resource.
 	//
-	// Available options depend on the target service and resource. Currently,
-	// `public_access_enabled` is supported.
+	// Available options depend on the target service and resource.
 	Property *string `json:"property" validate:"required"`
 
 	// The way in which the `property` field is compared to its value.
@@ -2781,22 +2776,23 @@ type RuleRequiredConfigSingleProperty struct {
 //
 // There are three types of operators: string, numeric, and boolean.
 const (
-	RuleRequiredConfigSinglePropertyOperatorIsEmptyConst = "is_empty"
-	RuleRequiredConfigSinglePropertyOperatorIsFalseConst = "is_false"
-	RuleRequiredConfigSinglePropertyOperatorIsNotEmptyConst = "is_not_empty"
-	RuleRequiredConfigSinglePropertyOperatorIsTrueConst = "is_true"
-	RuleRequiredConfigSinglePropertyOperatorNumEqualsConst = "num_equals"
-	RuleRequiredConfigSinglePropertyOperatorNumGreaterThanConst = "num_greater_than"
+	RuleRequiredConfigSinglePropertyOperatorIpsInRangeConst           = "ips_in_range"
+	RuleRequiredConfigSinglePropertyOperatorIsEmptyConst              = "is_empty"
+	RuleRequiredConfigSinglePropertyOperatorIsFalseConst              = "is_false"
+	RuleRequiredConfigSinglePropertyOperatorIsNotEmptyConst           = "is_not_empty"
+	RuleRequiredConfigSinglePropertyOperatorIsTrueConst               = "is_true"
+	RuleRequiredConfigSinglePropertyOperatorNumEqualsConst            = "num_equals"
+	RuleRequiredConfigSinglePropertyOperatorNumGreaterThanConst       = "num_greater_than"
 	RuleRequiredConfigSinglePropertyOperatorNumGreaterThanEqualsConst = "num_greater_than_equals"
-	RuleRequiredConfigSinglePropertyOperatorNumLessThanConst = "num_less_than"
-	RuleRequiredConfigSinglePropertyOperatorNumLessThanEqualsConst = "num_less_than_equals"
-	RuleRequiredConfigSinglePropertyOperatorNumNotEqualsConst = "num_not_equals"
-	RuleRequiredConfigSinglePropertyOperatorStringEqualsConst = "string_equals"
-	RuleRequiredConfigSinglePropertyOperatorStringMatchConst = "string_match"
-	RuleRequiredConfigSinglePropertyOperatorStringNotEqualsConst = "string_not_equals"
-	RuleRequiredConfigSinglePropertyOperatorStringNotMatchConst = "string_not_match"
+	RuleRequiredConfigSinglePropertyOperatorNumLessThanConst          = "num_less_than"
+	RuleRequiredConfigSinglePropertyOperatorNumLessThanEqualsConst    = "num_less_than_equals"
+	RuleRequiredConfigSinglePropertyOperatorNumNotEqualsConst         = "num_not_equals"
+	RuleRequiredConfigSinglePropertyOperatorStringEqualsConst         = "string_equals"
+	RuleRequiredConfigSinglePropertyOperatorStringMatchConst          = "string_match"
+	RuleRequiredConfigSinglePropertyOperatorStringNotEqualsConst      = "string_not_equals"
+	RuleRequiredConfigSinglePropertyOperatorStringNotMatchConst       = "string_not_match"
+	RuleRequiredConfigSinglePropertyOperatorStringsInListConst        = "strings_in_list"
 )
-
 
 // NewRuleRequiredConfigSingleProperty : Instantiate RuleRequiredConfigSingleProperty (Generic Model Constructor)
 func (*ConfigurationGovernanceV1) NewRuleRequiredConfigSingleProperty(property string, operator string) (model *RuleRequiredConfigSingleProperty, err error) {
@@ -2843,7 +2839,6 @@ type RuleRequiredConfigMultiplePropertiesConditionAnd struct {
 	And []RuleConditionIntf `json:"and" validate:"required"`
 }
 
-
 // NewRuleRequiredConfigMultiplePropertiesConditionAnd : Instantiate RuleRequiredConfigMultiplePropertiesConditionAnd (Generic Model Constructor)
 func (*ConfigurationGovernanceV1) NewRuleRequiredConfigMultiplePropertiesConditionAnd(and []RuleConditionIntf) (model *RuleRequiredConfigMultiplePropertiesConditionAnd, err error) {
 	model = &RuleRequiredConfigMultiplePropertiesConditionAnd{
@@ -2883,7 +2878,6 @@ type RuleRequiredConfigMultiplePropertiesConditionOr struct {
 
 	Or []RuleConditionIntf `json:"or" validate:"required"`
 }
-
 
 // NewRuleRequiredConfigMultiplePropertiesConditionOr : Instantiate RuleRequiredConfigMultiplePropertiesConditionOr (Generic Model Constructor)
 func (*ConfigurationGovernanceV1) NewRuleRequiredConfigMultiplePropertiesConditionOr(or []RuleConditionIntf) (model *RuleRequiredConfigMultiplePropertiesConditionOr, err error) {
