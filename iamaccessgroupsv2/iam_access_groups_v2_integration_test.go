@@ -19,7 +19,6 @@
 package iamaccessgroupsv2_test
 
 import (
-	"fmt"
 	"math/rand"
 	"os"
 	"strconv"
@@ -35,10 +34,10 @@ import (
 const externalConfigFile = "../iam_access_groups.env"
 
 var (
-	service *iamaccessgroupsv2.IamAccessGroupsV2
-	err     error
-	config  map[string]string
-	configLoaded bool   = false
+	service      *iamaccessgroupsv2.IamAccessGroupsV2
+	err          error
+	config       map[string]string
+	configLoaded bool = false
 
 	testAccountID        string
 	testGroupName        string = "SDK Test Group - Golang"
@@ -50,8 +49,8 @@ var (
 	testClaimRuleEtag    string
 	testAccountSettings  *iamaccessgroupsv2.AccountSettings
 
-	userType     string = "user"
-	etagHeader   string = "Etag"
+	userType   string = "user"
+	etagHeader string = "Etag"
 )
 
 func shouldSkipTest() {
@@ -66,7 +65,7 @@ var _ = Describe("IAM Access Groups - Integration Tests", func() {
 		if err != nil {
 			Skip("Could not set IBM_CREDENTIALS_FILE environment variable: " + err.Error())
 		}
-		
+
 		config, err = core.GetServiceProperties(iamaccessgroupsv2.DefaultServiceName)
 		if err == nil {
 			testAccountID = config["TEST_ACCOUNT_ID"]
@@ -428,12 +427,7 @@ var _ = AfterSuite(func() {
 		// force delete the test group (or any test groups older than 5 minutes)
 		if *group.Name == testGroupName {
 
-			createdAt, err := time.Parse(time.RFC3339, *group.CreatedAt)
-			if err != nil {
-				fmt.Printf("time.Parse error occurred: %v", err)
-				fmt.Printf("Cleanup of group (%v) failed", *group.ID)
-				continue
-			}
+			createdAt := time.Time(*group.CreatedAt)
 			fiveMinutesAgo := time.Now().Add(-(time.Duration(5) * time.Minute))
 
 			if *group.ID == testGroupID || createdAt.Before(fiveMinutesAgo) {

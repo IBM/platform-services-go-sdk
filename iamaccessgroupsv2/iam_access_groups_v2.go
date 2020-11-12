@@ -15,7 +15,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-8d569e8f-20201030-111043
+ * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-af92e433-20201110-100619
  */
  
 
@@ -28,6 +28,7 @@ import (
 	"fmt"
 	"github.com/IBM/go-sdk-core/v4/core"
 	common "github.com/IBM/platform-services-go-sdk/common"
+	"github.com/go-openapi/strfmt"
 	"net/http"
 	"reflect"
 	"time"
@@ -1461,7 +1462,7 @@ type AccountSettings struct {
 	AccountID *string `json:"account_id,omitempty"`
 
 	// The timestamp the settings were last edited at.
-	LastModifiedAt *string `json:"last_modified_at,omitempty"`
+	LastModifiedAt *strfmt.DateTime `json:"last_modified_at,omitempty"`
 
 	// The `iam_id` of the entity that last modified the settings.
 	LastModifiedByID *string `json:"last_modified_by_id,omitempty"`
@@ -1633,7 +1634,7 @@ type AddGroupMembersResponseMembersItem struct {
 	Type *string `json:"type,omitempty"`
 
 	// The timestamp the membership was created at.
-	CreatedAt *string `json:"created_at,omitempty"`
+	CreatedAt *strfmt.DateTime `json:"created_at,omitempty"`
 
 	// The `iam_id` of the entity that created the membership.
 	CreatedByID *string `json:"created_by_id,omitempty"`
@@ -2262,13 +2263,13 @@ type Group struct {
 	AccountID *string `json:"account_id,omitempty"`
 
 	// The timestamp the group was created at.
-	CreatedAt *string `json:"created_at,omitempty"`
+	CreatedAt *strfmt.DateTime `json:"created_at,omitempty"`
 
 	// The `iam_id` of the entity that created the group.
 	CreatedByID *string `json:"created_by_id,omitempty"`
 
 	// The timestamp the group was last edited at.
-	LastModifiedAt *string `json:"last_modified_at,omitempty"`
+	LastModifiedAt *strfmt.DateTime `json:"last_modified_at,omitempty"`
 
 	// The `iam_id` of the entity that last modified the group name or description.
 	LastModifiedByID *string `json:"last_modified_by_id,omitempty"`
@@ -2759,7 +2760,7 @@ type ListGroupMembersResponseMember struct {
 	Href *string `json:"href,omitempty"`
 
 	// The timestamp the membership was created at.
-	CreatedAt *string `json:"created_at,omitempty"`
+	CreatedAt *strfmt.DateTime `json:"created_at,omitempty"`
 
 	// The `iam_id` of the entity that created the membership.
 	CreatedByID *string `json:"created_by_id,omitempty"`
@@ -3112,13 +3113,13 @@ type Rule struct {
 	Conditions []RuleConditions `json:"conditions,omitempty"`
 
 	// The timestamp the rule was created at.
-	CreatedAt *string `json:"created_at,omitempty"`
+	CreatedAt *strfmt.DateTime `json:"created_at,omitempty"`
 
 	// The `iam_id` of the entity that created the rule.
 	CreatedByID *string `json:"created_by_id,omitempty"`
 
 	// The timestamp the rule was last edited at.
-	LastModifiedAt *string `json:"last_modified_at,omitempty"`
+	LastModifiedAt *strfmt.DateTime `json:"last_modified_at,omitempty"`
 
 	// The IAM id that last modified the rule.
 	LastModifiedByID *string `json:"last_modified_by_id,omitempty"`
