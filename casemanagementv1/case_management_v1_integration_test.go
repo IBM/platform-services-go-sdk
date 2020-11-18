@@ -19,17 +19,20 @@
 package casemanagementv1_test
 
 import (
-	"encoding/json"
+	"context"
 	"fmt"
 	"io/ioutil"
+	"log"
 	"os"
 	"strings"
+	"time"
 
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
 
 	"github.com/IBM/go-sdk-core/v4/core"
 	"github.com/IBM/platform-services-go-sdk/casemanagementv1"
+	common "github.com/IBM/platform-services-go-sdk/common"
 )
 
 const externalConfigFile = "../case_management.env"
@@ -95,7 +98,13 @@ var _ = Describe("Case Management - Integration Tests", func() {
 		Expect(err).To(BeNil())
 		Expect(service).ToNot(BeNil())
 
-		fmt.Printf("\nService URL: %s\n", service.Service.GetServiceURL())
+		core.SetLogger(core.NewLogger(core.LevelDebug, log.New(GinkgoWriter, "", log.LstdFlags)))
+		service.EnableRetries(4, 30*time.Second)
+
+		// Set client timeout.
+		service.Service.Client.Timeout = 2 * time.Minute
+
+		fmt.Fprintf(GinkgoWriter, "\nService URL: %s\n", service.Service.GetServiceURL())
 	})
 
 	Describe("Create a case", func() {
@@ -109,7 +118,10 @@ var _ = Describe("Case Management - Integration Tests", func() {
 		It("Successfully created a technical case", func() {
 			shouldSkipTest()
 
-			result, detailedResponse, err := service.CreateCase(options)
+			ctx, cancelFunc := context.WithTimeout(context.Background(), 30*time.Second)
+			defer cancelFunc()
+
+			result, detailedResponse, err := service.CreateCaseWithContext(ctx, options)
 			Expect(err).To(BeNil())
 			Expect(detailedResponse.StatusCode).To(Equal(200))
 			Expect(*result.Number).To(Not(BeNil()))
@@ -119,7 +131,7 @@ var _ = Describe("Case Management - Integration Tests", func() {
 
 			caseNumber = *result.Number
 
-			fmt.Printf("\nCase number: %s\n", caseNumber)
+			fmt.Fprintf(GinkgoWriter, "\nCase number: %s\n", caseNumber)
 		})
 
 		It("Bad payload used to create a case", func() {
@@ -127,7 +139,11 @@ var _ = Describe("Case Management - Integration Tests", func() {
 			options.SetType("invalid_type")
 			options.Severity = nil
 			options.Offering = nil
-			_, detailedResponse, err := service.CreateCase(options)
+
+			ctx, cancelFunc := context.WithTimeout(context.Background(), 30*time.Second)
+			defer cancelFunc()
+
+			_, detailedResponse, err := service.CreateCaseWithContext(ctx, options)
 			Expect(err).To(Not(BeNil()))
 			Expect(detailedResponse.StatusCode).To(Not(Equal(200)))
 		})
@@ -158,7 +174,6 @@ var _ = Describe("Case Management - Integration Tests", func() {
 
 			options.SetOffset(10)
 			options.SetLimit(20)
-			// options.SetSort()
 			options.SetFields([]string{
 				casemanagementv1.GetCasesOptions_Fields_Number,
 				casemanagementv1.GetCasesOptions_Fields_Comments,
@@ -243,8 +258,6 @@ var _ = Describe("Case Management - Integration Tests", func() {
 			options = service.NewAddCommentOptions(caseNumber, commentValue)
 		})
 
-		// BeforeEach(func() {
-		// })
 		It("Successfully added a comment to a case", func() {
 			shouldSkipTest()
 			result, detailedResponse, err := service.AddComment(options)
@@ -272,7 +285,7 @@ var _ = Describe("Case Management - Integration Tests", func() {
 			Expect(err).To((BeNil()))
 			Expect(detailedResponse.StatusCode).To(Equal(200))
 			Expect(result).ToNot(BeNil())
-			fmt.Fprintf(GinkgoWriter, "AddWatchlist() result:\n%s\n", toJSON(result))
+			fmt.Fprintf(GinkgoWriter, "AddWatchlist() result:\n%s\n", common.ToJSON(result))
 			Expect(len(result.Added)).To(Equal(len(watchlistPayload.Watchlist)))
 		})
 	})
@@ -374,12 +387,3 @@ var _ = Describe("Case Management - Integration Tests", func() {
 		})
 	})
 })
-
-func toJSON(obj interface{}) string {
-	b, err := json.MarshalIndent(obj, "", "  ")
-	if err != nil {
-		panic(err)
-	}
-	return string(b)
-
-}

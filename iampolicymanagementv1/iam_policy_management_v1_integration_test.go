@@ -20,6 +20,7 @@ package iampolicymanagementv1_test
 
 import (
 	"fmt"
+	"log"
 	"math/rand"
 	"os"
 	"strconv"
@@ -29,6 +30,7 @@ import (
 	. "github.com/onsi/gomega"
 
 	"github.com/IBM/go-sdk-core/v4/core"
+	common "github.com/IBM/platform-services-go-sdk/common"
 	"github.com/IBM/platform-services-go-sdk/iampolicymanagementv1"
 )
 
@@ -88,6 +90,9 @@ var _ = Describe("IAM Policy Management - Integration Tests", func() {
 
 		Expect(err).To(BeNil())
 		Expect(service).ToNot(BeNil())
+
+		core.SetLogger(core.NewLogger(core.LevelDebug, log.New(GinkgoWriter, "", log.LstdFlags)))
+		service.EnableRetries(4, 30*time.Second)
 	})
 
 	Describe("Create an access policy", func() {
@@ -134,6 +139,8 @@ var _ = Describe("IAM Policy Management - Integration Tests", func() {
 			policy, detailedResponse, err := service.CreatePolicy(options)
 			Expect(err).To(BeNil())
 			Expect(detailedResponse.StatusCode).To(Equal(201))
+			Expect(policy).ToNot(BeNil())
+			fmt.Fprintf(GinkgoWriter, "CreatePolicy() result:\n%s\n", common.ToJSON(policy))
 			Expect(policy.Type).To(Equal(options.Type))
 			Expect(policy.Subjects).To(Equal(options.Subjects))
 			Expect(policy.Roles[0].RoleID).To(Equal(options.Roles[0].RoleID))
@@ -150,10 +157,12 @@ var _ = Describe("IAM Policy Management - Integration Tests", func() {
 			Expect(testPolicyId).To(Not(BeNil()))
 
 			options := service.NewGetPolicyOptions(testPolicyId)
-			result, detailedResponse, err := service.GetPolicy(options)
+			policy, detailedResponse, err := service.GetPolicy(options)
 			Expect(err).To(BeNil())
 			Expect(detailedResponse.StatusCode).To(Equal(200))
-			Expect(*result.ID).To(Equal(testPolicyId))
+			Expect(policy).ToNot(BeNil())
+			fmt.Fprintf(GinkgoWriter, "GetPolicy() result:\n%s\n", common.ToJSON(policy))
+			Expect(*policy.ID).To(Equal(testPolicyId))
 
 			testPolicyETag = detailedResponse.GetHeaders().Get(etagHeader)
 		})
@@ -206,6 +215,8 @@ var _ = Describe("IAM Policy Management - Integration Tests", func() {
 			policy, detailedResponse, err := service.UpdatePolicy(options)
 			Expect(err).To(BeNil())
 			Expect(detailedResponse.StatusCode).To(Equal(200))
+			Expect(policy).ToNot(BeNil())
+			fmt.Fprintf(GinkgoWriter, "UpdatePolicy() result:\n%s\n", common.ToJSON(policy))
 			Expect(*policy.ID).To(Equal(testPolicyId))
 			Expect(policy.Type).To(Equal(options.Type))
 			Expect(policy.Subjects).To(Equal(options.Subjects))
@@ -226,6 +237,8 @@ var _ = Describe("IAM Policy Management - Integration Tests", func() {
 			result, detailedResponse, err := service.ListPolicies(options)
 			Expect(err).To(BeNil())
 			Expect(detailedResponse.StatusCode).To(Equal(200))
+			Expect(result).ToNot(BeNil())
+			fmt.Fprintf(GinkgoWriter, "ListPolicies() result:\n%s\n", common.ToJSON(result))
 
 			// confirm the test policy is present
 			testPolicyPresent := false
@@ -253,6 +266,8 @@ var _ = Describe("IAM Policy Management - Integration Tests", func() {
 			result, detailedResponse, err := service.CreateRole(options)
 			Expect(err).To(BeNil())
 			Expect(detailedResponse.StatusCode).To(Equal(201))
+			Expect(result).ToNot(BeNil())
+			fmt.Fprintf(GinkgoWriter, "CreateRole() result:\n%s\n", common.ToJSON(result))
 
 			testCustomRoleId = *result.ID
 		})
@@ -267,6 +282,8 @@ var _ = Describe("IAM Policy Management - Integration Tests", func() {
 			result, detailedResponse, err := service.GetRole(options)
 			Expect(err).To(BeNil())
 			Expect(detailedResponse.StatusCode).To(Equal(200))
+			Expect(result).ToNot(BeNil())
+			fmt.Fprintf(GinkgoWriter, "GetRole() result:\n%s\n", common.ToJSON(result))
 			Expect(*result.ID).To(Equal(testCustomRoleId))
 
 			testCustomRoleETag = detailedResponse.GetHeaders().Get(etagHeader)
@@ -286,6 +303,8 @@ var _ = Describe("IAM Policy Management - Integration Tests", func() {
 			options.SetDisplayName("GO SDK test role udpated")
 			result, detailedResponse, err := service.UpdateRole(options)
 			Expect(err).To(BeNil())
+			Expect(result).ToNot(BeNil())
+			fmt.Fprintf(GinkgoWriter, "UpdateRole() result:\n%s\n", common.ToJSON(result))
 			Expect(detailedResponse.StatusCode).To(Equal(200))
 			Expect(*result.ID).To(Equal(testCustomRoleId))
 
@@ -302,6 +321,8 @@ var _ = Describe("IAM Policy Management - Integration Tests", func() {
 			result, detailedResponse, err := service.ListRoles(options)
 			Expect(err).To(BeNil())
 			Expect(detailedResponse.StatusCode).To(Equal(200))
+			Expect(result).ToNot(BeNil())
+			fmt.Fprintf(GinkgoWriter, "ListRoles() result:\n%s\n", common.ToJSON(result))
 
 			// confirm the test policy is present
 			testRolePresent := false
@@ -322,6 +343,8 @@ var _ = AfterSuite(func() {
 		return
 	}
 
+	fmt.Fprintf(GinkgoWriter, "Cleaning up test groups...\n")
+
 	// list all policies in the account
 	policyOptions := service.NewListPoliciesOptions(testAccountID)
 	policyOptions.SetIamID(testUserId)
@@ -334,8 +357,8 @@ var _ = AfterSuite(func() {
 		// delete the test policy (or any test policy older than 5 minutes)
 		createdAt, err := time.Parse(time.RFC3339, policy.CreatedAt.String())
 		if err != nil {
-			fmt.Printf("time.Parse error occurred: %v", err)
-			fmt.Printf("Cleanup of policy (%v) failed", *policy.ID)
+			fmt.Fprintf(GinkgoWriter, "time.Parse error occurred: %v\n", err)
+			fmt.Fprintf(GinkgoWriter, "Cleanup of policy (%v) failed\n", *policy.ID)
 			continue
 		}
 		fiveMinutesAgo := time.Now().Add(-(time.Duration(5) * time.Minute))
@@ -360,8 +383,8 @@ var _ = AfterSuite(func() {
 		// delete the role (or any test role older than 5 minutes)
 		createdAt, err := time.Parse(time.RFC3339, role.CreatedAt.String())
 		if err != nil {
-			fmt.Printf("time.Parse error occurred: %v", err)
-			fmt.Printf("Cleanup of role (%v) failed", *role.ID)
+			fmt.Fprintf(GinkgoWriter, "time.Parse error occurred: %v\n", err)
+			fmt.Fprintf(GinkgoWriter, "Cleanup of role (%v) failed\n", *role.ID)
 			continue
 		}
 		fiveMinutesAgo := time.Now().Add(-(time.Duration(5) * time.Minute))
@@ -374,4 +397,5 @@ var _ = AfterSuite(func() {
 		}
 	}
 
+	fmt.Fprintf(GinkgoWriter, "Cleanup finished!\n")
 })

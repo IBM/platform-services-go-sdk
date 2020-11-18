@@ -18,6 +18,11 @@
 package openservicebrokerv1_test
 
 import (
+	"log"
+	"time"
+
+	"github.com/IBM/go-sdk-core/v4/core"
+	common "github.com/IBM/platform-services-go-sdk/common"
 	"github.com/IBM/platform-services-go-sdk/openservicebrokerv1"
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
@@ -83,7 +88,10 @@ var _ = Describe("Open Service Broker - Integration Tests", func() {
 		Expect(err).To(BeNil())
 		Expect(service).ToNot(BeNil())
 
-		fmt.Printf("\nTransaction Id for Test Run: %s\n", transactionId)
+		core.SetLogger(core.NewLogger(core.LevelDebug, log.New(GinkgoWriter, "", log.LstdFlags)))
+		service.EnableRetries(4, 30*time.Second)
+
+		fmt.Fprintf(GinkgoWriter, "Transaction Id for Test Run: %s\n", transactionId)
 	})
 
 	It("00 - Create Service Instance", func() {
@@ -117,6 +125,7 @@ var _ = Describe("Open Service Broker - Integration Tests", func() {
 		Expect(err).To(BeNil())
 		Expect(resp.StatusCode).To(Equal(201))
 		Expect(result).NotTo(BeNil())
+		fmt.Fprintf(GinkgoWriter, "ReplaceServiceInstance() result:\n%s\n", common.ToJSON(result))
 		Expect(*result.DashboardURL).NotTo(BeNil())
 	})
 
@@ -152,6 +161,7 @@ var _ = Describe("Open Service Broker - Integration Tests", func() {
 		Expect(err).To(BeNil())
 		Expect(resp.StatusCode).To(Equal(200))
 		Expect(result).NotTo(BeNil())
+		fmt.Fprintf(GinkgoWriter, "UpdateServiceInstance() result:\n%s\n", common.ToJSON(result))
 	})
 
 	It("02 - Disable Service Instance State", func() {
@@ -170,6 +180,7 @@ var _ = Describe("Open Service Broker - Integration Tests", func() {
 		Expect(err).To(BeNil())
 		Expect(resp.StatusCode).To(Equal(200))
 		Expect(result).NotTo(BeNil())
+		fmt.Fprintf(GinkgoWriter, "ReplaceServiceInstanceState() result:\n%s\n", common.ToJSON(result))
 	})
 
 	It("03 - Enable Service Instance State", func() {
@@ -188,6 +199,7 @@ var _ = Describe("Open Service Broker - Integration Tests", func() {
 		Expect(err).To(BeNil())
 		Expect(resp.StatusCode).To(Equal(200))
 		Expect(result).NotTo(BeNil())
+		fmt.Fprintf(GinkgoWriter, "ReplaceServiceInstanceState() result:\n%s\n", common.ToJSON(result))
 	})
 
 	It("04 - Bind Service Instance", func() {
@@ -216,6 +228,7 @@ var _ = Describe("Open Service Broker - Integration Tests", func() {
 		Expect(err).To(BeNil())
 		Expect(resp.StatusCode).To(Equal(201))
 		Expect(result).NotTo(BeNil())
+		fmt.Fprintf(GinkgoWriter, "ReplaceServiceInstanceBinding() result:\n%s\n", common.ToJSON(result))
 		Expect(result.Credentials).NotTo(BeNil())
 	})
 
@@ -233,6 +246,7 @@ var _ = Describe("Open Service Broker - Integration Tests", func() {
 		Expect(err).To(BeNil())
 		Expect(resp.StatusCode).To(Equal(200))
 		Expect(result).NotTo(BeNil())
+		fmt.Fprintf(GinkgoWriter, "GetServiceInstanceState() result:\n%s\n", common.ToJSON(result))
 	})
 
 	It("06 - Get Catalog Metadata", func() {
@@ -249,6 +263,7 @@ var _ = Describe("Open Service Broker - Integration Tests", func() {
 		Expect(err).To(BeNil())
 		Expect(resp.StatusCode).To(Equal(200))
 		Expect(result).NotTo(BeNil())
+		fmt.Fprintf(GinkgoWriter, "ListCatalog() result:\n%s\n", common.ToJSON(result))
 		Expect(*result.Services[0].ID).NotTo(BeNil())
 		Expect(*result.Services[0].Name).NotTo(BeNil())
 		Expect(*result.Services[0].Bindable).NotTo(BeNil())

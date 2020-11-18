@@ -20,6 +20,7 @@ package iamaccessgroupsv2_test
 
 import (
 	"fmt"
+	"log"
 	"math/rand"
 	"os"
 	"strconv"
@@ -35,10 +36,10 @@ import (
 const externalConfigFile = "../iam_access_groups.env"
 
 var (
-	service *iamaccessgroupsv2.IamAccessGroupsV2
-	err     error
-	config  map[string]string
-	configLoaded bool   = false
+	service      *iamaccessgroupsv2.IamAccessGroupsV2
+	err          error
+	config       map[string]string
+	configLoaded bool = false
 
 	testAccountID        string
 	testGroupName        string = "SDK Test Group - Golang"
@@ -50,8 +51,8 @@ var (
 	testClaimRuleEtag    string
 	testAccountSettings  *iamaccessgroupsv2.AccountSettings
 
-	userType     string = "user"
-	etagHeader   string = "Etag"
+	userType   string = "user"
+	etagHeader string = "Etag"
 )
 
 func shouldSkipTest() {
@@ -66,7 +67,7 @@ var _ = Describe("IAM Access Groups - Integration Tests", func() {
 		if err != nil {
 			Skip("Could not set IBM_CREDENTIALS_FILE environment variable: " + err.Error())
 		}
-		
+
 		config, err = core.GetServiceProperties(iamaccessgroupsv2.DefaultServiceName)
 		if err == nil {
 			testAccountID = config["TEST_ACCOUNT_ID"]
@@ -88,6 +89,9 @@ var _ = Describe("IAM Access Groups - Integration Tests", func() {
 
 		Expect(err).To(BeNil())
 		Expect(service).ToNot(BeNil())
+
+		core.SetLogger(core.NewLogger(core.LevelDebug, log.New(GinkgoWriter, "", log.LstdFlags)))
+		service.EnableRetries(4, 30*time.Second)
 	})
 
 	Describe("Create an access group", func() {

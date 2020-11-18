@@ -76,7 +76,7 @@ var _ = Describe(`EnterpriseUsageReportsV1 Integration Tests`, func() {
 				Skip("Unable to load service URL configuration property, skipping tests")
 			}
 
-			fmt.Printf("Service URL: %s\n", serviceURL)
+			fmt.Fprintf(GinkgoWriter, "Service URL: %s\n", serviceURL)
 
 			accountID = config["ACCOUNT_ID"]
 			Expect(accountID).ToNot(BeEmpty())
