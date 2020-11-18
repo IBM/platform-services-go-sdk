@@ -1,3 +1,10 @@
+## [0.14.2](https://github.com/IBM/platform-services-go-sdk/compare/v0.14.1...v0.14.2) (2020-11-18)
+
+
+### Bug Fixes
+
+* **IAM Access Groups:** regen service, add examples ([#59](https://github.com/IBM/platform-services-go-sdk/issues/59)) ([a5c533a](https://github.com/IBM/platform-services-go-sdk/commit/a5c533afe40a1e97930703deee298e1a8579783d))
+
 ## [0.14.1](https://github.com/IBM/platform-services-go-sdk/compare/v0.14.0...v0.14.1) (2020-11-11)
 
 
