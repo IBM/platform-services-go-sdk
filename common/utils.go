@@ -16,5 +16,16 @@
 
 package common
 
-// Version of the SDK
-const Version = "0.14.2"
+import (
+	"encoding/json"
+)
+
+// ToJSON marshals the specified object and returns the resulting JSON string
+func ToJSON(obj interface{}) string {
+	b, err := json.MarshalIndent(obj, "", "  ")
+	if err != nil {
+		panic(err)
+	}
+	return string(b)
+
+}

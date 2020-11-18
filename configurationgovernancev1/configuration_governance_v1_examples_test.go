@@ -55,6 +55,8 @@ var (
 	serviceName       string
 	enterpriseScopeID string
 	subacctScopeID    string
+
+	transactionID string = uuid.New().String()
 )
 
 // Global variables to hold various values shared between operations
@@ -158,6 +160,7 @@ var _ = Describe(`ConfigurationGovernanceV1 Examples Tests`, func() {
 			}
 
 			createRulesOptions := configurationGovernanceService.NewCreateRulesOptions(
+				transactionID,
 				[]configurationgovernancev1.CreateRuleRequest{
 					configurationgovernancev1.CreateRuleRequest{
 						Rule: ruleRequestModel,
@@ -198,6 +201,7 @@ var _ = Describe(`ConfigurationGovernanceV1 Examples Tests`, func() {
 			// begin-list_rules
 
 			listRulesOptions := configurationGovernanceService.NewListRulesOptions(
+				transactionID,
 				accountID,
 			)
 			listRulesOptions.SetLabels("test_label")
@@ -224,6 +228,7 @@ var _ = Describe(`ConfigurationGovernanceV1 Examples Tests`, func() {
 
 			getRuleOptions := configurationGovernanceService.NewGetRuleOptions(
 				ruleIDLink,
+				transactionID,
 			)
 			getRuleOptions.SetTransactionID(uuid.New().String())
 
@@ -257,6 +262,7 @@ var _ = Describe(`ConfigurationGovernanceV1 Examples Tests`, func() {
 			// Update the existing rule's description.
 			updateRuleOptions := configurationGovernanceService.NewUpdateRuleOptions(
 				ruleIDLink,
+				transactionID,
 				ruleToUpdateEtagLink,
 				*ruleToUpdateLink.Name,
 				"This is an updated description.",
@@ -306,6 +312,7 @@ var _ = Describe(`ConfigurationGovernanceV1 Examples Tests`, func() {
 
 			createAttachmentsOptions := configurationGovernanceService.NewCreateAttachmentsOptions(
 				ruleIDLink,
+				transactionID,
 				[]configurationgovernancev1.AttachmentRequest{
 					createAttachmentRequest,
 				},
@@ -339,6 +346,7 @@ var _ = Describe(`ConfigurationGovernanceV1 Examples Tests`, func() {
 
 			listAttachmentsOptions := configurationGovernanceService.NewListAttachmentsOptions(
 				ruleIDLink,
+				transactionID,
 			)
 			listAttachmentsOptions.SetTransactionID(uuid.New().String())
 
@@ -364,6 +372,7 @@ var _ = Describe(`ConfigurationGovernanceV1 Examples Tests`, func() {
 			getAttachmentOptions := configurationGovernanceService.NewGetAttachmentOptions(
 				ruleIDLink,
 				attachmentIDLink,
+				transactionID,
 			)
 			getAttachmentOptions.SetTransactionID(uuid.New().String())
 
@@ -404,6 +413,7 @@ var _ = Describe(`ConfigurationGovernanceV1 Examples Tests`, func() {
 			updateAttachmentOptions := configurationGovernanceService.NewUpdateAttachmentOptions(
 				ruleIDLink,
 				attachmentIDLink,
+				transactionID,
 				attachmentToUpdateEtagLink,
 				*attachmentToUpdateLink.AccountID,
 				updatedIncludedScope,
@@ -433,6 +443,7 @@ var _ = Describe(`ConfigurationGovernanceV1 Examples Tests`, func() {
 			deleteAttachmentOptions := configurationGovernanceService.NewDeleteAttachmentOptions(
 				ruleIDLink,
 				attachmentIDLink,
+				transactionID,
 			)
 
 			response, err := configurationGovernanceService.DeleteAttachment(deleteAttachmentOptions)
@@ -454,6 +465,7 @@ var _ = Describe(`ConfigurationGovernanceV1 Examples Tests`, func() {
 
 			deleteRuleOptions := configurationGovernanceService.NewDeleteRuleOptions(
 				ruleIDLink,
+				transactionID,
 			)
 
 			response, err := configurationGovernanceService.DeleteRule(deleteRuleOptions)

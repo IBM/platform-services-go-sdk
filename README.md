@@ -5,7 +5,7 @@
 [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
 
 
-# IBM Cloud Platform Services Go SDK Version 0.12.2
+# IBM Cloud Platform Services Go SDK Version 0.14.2
 
 Go client library to interact with various
 [IBM Cloud Platform Service APIs](https://cloud.ibm.com/docs?tab=api-docs&category=platform_services).
@@ -51,6 +51,7 @@ Service Name | Package name
 [Catalog Management](https://cloud.ibm.com/apidocs/resource-catalog/private-catalog) | catalogmanagementv1
 [Configuration Governance](https://cloud.ibm.com/apidocs/security-compliance/config) | configurationgovernancev1
 [Enterprise Management](https://cloud.ibm.com/apidocs/enterprise-apis/enterprise) | enterprisemanagementv1
+[Enterprise Usage Reports](https://cloud.ibm.com/apidocs/enterprise-apis/resource-usage-reports) | enterpriseusagereportsv1
 [Global Catalog](https://cloud.ibm.com/apidocs/resource-catalog/global-catalog) | globalcatalogv1
 [Global Search](https://cloud.ibm.com/apidocs/search) | globalsearchv2
 [Global Tagging](https://cloud.ibm.com/apidocs/tagging) | globaltaggingv1
@@ -60,6 +61,7 @@ Service Name | Package name
 [Open Service Broker](https://cloud.ibm.com/apidocs/resource-controller/ibm-cloud-osb-api) | openservicebrokerv1
 [Resource Controller](https://cloud.ibm.com/apidocs/resource-controller/resource-controller) | resourcecontrollerv2
 [Resource Manager](https://cloud.ibm.com/apidocs/resource-controller/resource-manager) | resourcemanagerv2
+[Usage Reports](https://cloud.ibm.com/apidocs/metering-reporting) | usagereportsv4
 [User Management](https://cloud.ibm.com/apidocs/user-management) | usermanagementv1
 
 ## Prerequisites
@@ -72,7 +74,7 @@ Service Name | Package name
 * Go version 1.12 or above.
 
 ## Installation
-The current version of this SDK: 0.12.2
+The current version of this SDK: 0.14.2
 
 There are a few different ways to download and install the Platform Services Go SDK project for use by your
 Go application:
@@ -105,7 +107,7 @@ to your `Gopkg.toml` file.  Here is an example:
 ```
 [[constraint]]
   name = "github.com/IBM/platform-services-go-sdk/globalsearchv2"
-  version = "0.12.2"
+  version = "0.14.2"
 
 ```
 

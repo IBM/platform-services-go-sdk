@@ -15,7 +15,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-8d569e8f-20201030-111043
+ * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-af92e433-20201110-100619
  */
  
 
@@ -1040,7 +1040,7 @@ type Attachment struct {
 	// Size of the attachment in bytes.
 	SizeInBytes *int64 `json:"size_in_bytes,omitempty"`
 
-	// Date time of uploading.
+	// Date time of uploading in UTC.
 	CreatedAt *string `json:"created_at,omitempty"`
 
 	// URL of the attachment used to download.
@@ -1369,7 +1369,7 @@ type Comment struct {
 	// The comment.
 	Value *string `json:"value,omitempty"`
 
-	// Timestamp of when comment is added.
+	// Date time when comment was added in UTC.
 	AddedAt *string `json:"added_at,omitempty"`
 
 	// User info in a case.

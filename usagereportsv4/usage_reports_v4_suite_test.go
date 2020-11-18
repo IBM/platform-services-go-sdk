@@ -14,7 +14,15 @@
  * limitations under the License.
  */
 
-package common
+package usagereportsv4_test
 
-// Version of the SDK
-const Version = "0.14.2"
+import (
+	. "github.com/onsi/ginkgo"
+	. "github.com/onsi/gomega"
+	"testing"
+)
+
+func TestUsageReportsV4(t *testing.T) {
+	RegisterFailHandler(Fail)
+	RunSpecs(t, "UsageReportsV4 Suite")
+}
