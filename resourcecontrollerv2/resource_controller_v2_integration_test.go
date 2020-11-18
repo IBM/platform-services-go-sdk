@@ -18,6 +18,10 @@
 package resourcecontrollerv2_test
 
 import (
+	"log"
+
+	"github.com/IBM/go-sdk-core/v4/core"
+	common "github.com/IBM/platform-services-go-sdk/common"
 	"github.com/IBM/platform-services-go-sdk/resourcecontrollerv2"
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
@@ -99,6 +103,9 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 		Expect(err).To(BeNil())
 		Expect(service).ToNot(BeNil())
 
+		core.SetLogger(core.NewLogger(core.LevelDebug, log.New(GinkgoWriter, "", log.LstdFlags)))
+		service.EnableRetries(4, 30*time.Second)
+
 		//setting timeout to 1 minute
 		service.Service.Client.Timeout = 1 * time.Minute
 		fmt.Printf("\nTimeout set to: %d\n", service.Service.Client.Timeout)
@@ -122,6 +129,8 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 
 			Expect(err).To(BeNil())
 			Expect(resp.StatusCode).To(Equal(201))
+			Expect(result).ToNot(BeNil())
+			fmt.Fprintf(GinkgoWriter, "CreateResourceInstance() result:\n%s\n", common.ToJSON(result))
 			Expect(result.ID).NotTo(BeNil())
 			Expect(result.Guid).NotTo(BeNil())
 			Expect(result.Crn).NotTo(BeNil())
@@ -152,6 +161,8 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 
 			Expect(err).To(BeNil())
 			Expect(resp.StatusCode).To(Equal(200))
+			Expect(result).ToNot(BeNil())
+			fmt.Fprintf(GinkgoWriter, "GetResourceInstance() result:\n%s\n", common.ToJSON(result))
 			Expect(*result.ID).To(Equal(testInstanceCrn))
 			Expect(*result.Guid).To(Equal(testInstanceGuid))
 			Expect(*result.Crn).To(Equal(testInstanceCrn))
@@ -182,6 +193,8 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 
 			Expect(err).To(BeNil())
 			Expect(resp.StatusCode).To(Equal(200))
+			Expect(result).ToNot(BeNil())
+			fmt.Fprintf(GinkgoWriter, "UpdateResourceInstance() result:\n%s\n", common.ToJSON(result))
 			Expect(*result.ID).To(Equal(testInstanceCrn))
 			Expect(*result.Name).To(Equal("RcSdkInstanceUpdate1"))
 			Expect(*result.State).To(Equal("active"))
@@ -205,6 +218,8 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 				//should return one or more instances
 				Expect(err).To(BeNil())
 				Expect(resp.StatusCode).To(Equal(200))
+				Expect(result).ToNot(BeNil())
+				// fmt.Fprintf(GinkgoWriter, "ListResourceInstances() result:\n%s\n", common.ToJSON(result))
 				Expect(*result.RowsCount).Should(BeNumerically(">=", int64(1)))
 				Expect(len(result.Resources)).Should(BeNumerically(">=", 1))
 			})
@@ -223,6 +238,8 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 				//should return list with only newly created instance
 				Expect(err).To(BeNil())
 				Expect(resp.StatusCode).To(Equal(200))
+				Expect(result).ToNot(BeNil())
+				// fmt.Fprintf(GinkgoWriter, "ListResourceInstances() result:\n%s\n", common.ToJSON(result))
 				Expect(*result.RowsCount).To(Equal(int64(1)))
 				Expect(result.Resources).Should(HaveLen(1))
 				Expect(*result.Resources[0].ID).To(Equal(testInstanceCrn))
@@ -249,6 +266,8 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 				//name was updated so no instance with that name should exist
 				Expect(err).To(BeNil())
 				Expect(resp.StatusCode).To(Equal(200))
+				Expect(result).ToNot(BeNil())
+				// fmt.Fprintf(GinkgoWriter, "ListResourceInstances() result:\n%s\n", common.ToJSON(result))
 				Expect(*result.RowsCount).To(Equal(int64(0)))
 				Expect(result.Resources).Should(HaveLen(0))
 			})
@@ -270,6 +289,8 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 
 			Expect(err).To(BeNil())
 			Expect(resp.StatusCode).To(Equal(201))
+			Expect(result).ToNot(BeNil())
+			fmt.Fprintf(GinkgoWriter, "CreateResourceAlias() result:\n%s\n", common.ToJSON(result))
 			Expect(result.ID).NotTo(BeNil())
 			Expect(result.Guid).NotTo(BeNil())
 			Expect(result.Crn).NotTo(BeNil())
@@ -288,6 +309,8 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 		It("07 - Get A Resource Alias", func() {
 			shouldSkipTest()
 
+			Expect(testAliasGuid).ToNot(BeEmpty())
+
 			options := service.NewGetResourceAliasOptions(testAliasGuid)
 			headers := map[string]string{
 				"Transaction-Id": "rc-sdk-go-test07-" + transactionId,
@@ -297,6 +320,8 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 
 			Expect(err).To(BeNil())
 			Expect(resp.StatusCode).To(Equal(200))
+			Expect(result).ToNot(BeNil())
+			fmt.Fprintf(GinkgoWriter, "GetResourceAlias() result:\n%s\n", common.ToJSON(result))
 			Expect(*result.ID).To(Equal(testAliasCrn))
 			Expect(*result.Guid).To(Equal(testAliasGuid))
 			Expect(*result.Crn).To(Equal(testAliasCrn))
@@ -311,6 +336,8 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 		It("08 - Update A Resource Alias", func() {
 			shouldSkipTest()
 
+			Expect(testAliasGuid).ToNot(BeEmpty())
+
 			options := service.NewUpdateResourceAliasOptions(testAliasGuid, "RcSdkAliasUpdate1")
 			headers := map[string]string{
 				"Transaction-Id": "rc-sdk-go-test08-" + transactionId,
@@ -320,6 +347,8 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 
 			Expect(err).To(BeNil())
 			Expect(resp.StatusCode).To(Equal(200))
+			Expect(result).ToNot(BeNil())
+			fmt.Fprintf(GinkgoWriter, "UpdateResourceAlias() result:\n%s\n", common.ToJSON(result))
 			Expect(*result.ID).To(Equal(testAliasCrn))
 			Expect(*result.Name).To(Equal("RcSdkAliasUpdate1"))
 			Expect(*result.State).To(Equal("active"))
@@ -339,12 +368,16 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 				//should return one or more aliases
 				Expect(err).To(BeNil())
 				Expect(resp.StatusCode).To(Equal(200))
+				Expect(result).ToNot(BeNil())
+				// fmt.Fprintf(GinkgoWriter, "ListResourceAliases() result:\n%s\n", common.ToJSON(result))
 				Expect(*result.RowsCount).Should(BeNumerically(">=", int64(1)))
 				Expect(len(result.Resources)).Should(BeNumerically(">=", 1))
 			})
 
 			It("10 - List Resource Aliases With Guid Filter", func() {
 				shouldSkipTest()
+
+				Expect(testAliasGuid).ToNot(BeEmpty())
 
 				options := service.NewListResourceAliasesOptions()
 				options = options.SetGuid(testAliasGuid)
@@ -357,6 +390,8 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 				//should return list with only newly created alias
 				Expect(err).To(BeNil())
 				Expect(resp.StatusCode).To(Equal(200))
+				Expect(result).ToNot(BeNil())
+				// fmt.Fprintf(GinkgoWriter, "ListResourceAliases() result:\n%s\n", common.ToJSON(result))
 				Expect(*result.RowsCount).To(Equal(int64(1)))
 				Expect(result.Resources).Should(HaveLen(1))
 				Expect(*result.Resources[0].ID).To(Equal(testAliasCrn))
@@ -381,6 +416,8 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 				//name was updated so no alias with that name should exist
 				Expect(err).To(BeNil())
 				Expect(resp.StatusCode).To(Equal(200))
+				Expect(result).ToNot(BeNil())
+				// fmt.Fprintf(GinkgoWriter, "ListResourceAliases() result:\n%s\n", common.ToJSON(result))
 				Expect(*result.RowsCount).To(Equal(int64(0)))
 				Expect(result.Resources).Should(HaveLen(0))
 			})
@@ -390,6 +427,8 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 	Describe("Create, Retrieve, and Update Resource Binding", func() {
 		It("12 - Create Resource Binding", func() {
 			shouldSkipTest()
+
+			Expect(testAliasGuid).ToNot(BeEmpty())
 
 			target := "crn:v1:staging:public:bluemix:us-south:s/" + testSpaceGuid + "::cf-application:" + testAppGuid
 			bindTargetCrn = "crn:v1:staging:public:cf:us-south:s/" + testSpaceGuid + "::cf-application:" + testAppGuid
@@ -403,6 +442,8 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 
 			Expect(err).To(BeNil())
 			Expect(resp.StatusCode).To(Equal(201))
+			Expect(result).ToNot(BeNil())
+			fmt.Fprintf(GinkgoWriter, "CreateResourceBinding() result:\n%s\n", common.ToJSON(result))
 			Expect(result.ID).NotTo(BeNil())
 			Expect(result.Guid).NotTo(BeNil())
 			Expect(result.Crn).NotTo(BeNil())
@@ -421,6 +462,8 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 		It("13 - Get A Resource Binding", func() {
 			shouldSkipTest()
 
+			Expect(testBindingGuid).ToNot(BeEmpty())
+
 			options := service.NewGetResourceBindingOptions(testBindingGuid)
 			headers := map[string]string{
 				"Transaction-Id": "rc-sdk-go-test13-" + transactionId,
@@ -430,6 +473,8 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 
 			Expect(err).To(BeNil())
 			Expect(resp.StatusCode).To(Equal(200))
+			Expect(result).ToNot(BeNil())
+			fmt.Fprintf(GinkgoWriter, "GetResourceBinding() result:\n%s\n", common.ToJSON(result))
 			Expect(*result.ID).To(Equal(testBindingCrn))
 			Expect(*result.Guid).To(Equal(testBindingGuid))
 			Expect(*result.Crn).To(Equal(testBindingCrn))
@@ -444,6 +489,8 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 		It("14 - Update A Resource Binding", func() {
 			shouldSkipTest()
 
+			Expect(testBindingGuid).ToNot(BeEmpty())
+
 			options := service.NewUpdateResourceBindingOptions(testBindingGuid, "RcSdkBindingUpdate1")
 			headers := map[string]string{
 				"Transaction-Id": "rc-sdk-go-test14-" + transactionId,
@@ -453,6 +500,8 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 
 			Expect(err).To(BeNil())
 			Expect(resp.StatusCode).To(Equal(200))
+			Expect(result).ToNot(BeNil())
+			fmt.Fprintf(GinkgoWriter, "UpdateResourceBinding() result:\n%s\n", common.ToJSON(result))
 			Expect(*result.ID).To(Equal(testBindingCrn))
 			Expect(*result.Name).To(Equal("RcSdkBindingUpdate1"))
 			Expect(*result.State).To(Equal("active"))
@@ -472,12 +521,16 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 				//should return one or more bindings
 				Expect(err).To(BeNil())
 				Expect(resp.StatusCode).To(Equal(200))
+				Expect(result).ToNot(BeNil())
+				// fmt.Fprintf(GinkgoWriter, "ListResourceBindings() result:\n%s\n", common.ToJSON(result))
 				Expect(*result.RowsCount).Should(BeNumerically(">=", int64(1)))
 				Expect(len(result.Resources)).Should(BeNumerically(">=", 1))
 			})
 
 			It("16 - List Resource Bindings With Guid Filter", func() {
 				shouldSkipTest()
+
+				Expect(testBindingGuid).ToNot(BeEmpty())
 
 				options := service.NewListResourceBindingsOptions()
 				options = options.SetGuid(testBindingGuid)
@@ -490,6 +543,8 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 				//should return list with only newly created binding
 				Expect(err).To(BeNil())
 				Expect(resp.StatusCode).To(Equal(200))
+				Expect(result).ToNot(BeNil())
+				// fmt.Fprintf(GinkgoWriter, "ListResourceBindings() result:\n%s\n", common.ToJSON(result))
 				Expect(*result.RowsCount).To(Equal(int64(1)))
 				Expect(result.Resources).Should(HaveLen(1))
 				Expect(*result.Resources[0].ID).To(Equal(testBindingCrn))
@@ -503,17 +558,19 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 			It("17 - List Resource Bindings With Name Filter", func() {
 				shouldSkipTest()
 
-				options := service.NewListResourceAliasesOptions()
+				options := service.NewListResourceBindingsOptions()
 				options = options.SetName("RcSdkBinding1")
 				headers := map[string]string{
 					"Transaction-Id": "rc-sdk-go-test17-" + transactionId,
 				}
 				options = options.SetHeaders(headers)
-				result, resp, err := service.ListResourceAliases(options)
+				result, resp, err := service.ListResourceBindings(options)
 
 				//name was updated so no binding with that name should exist
 				Expect(err).To(BeNil())
 				Expect(resp.StatusCode).To(Equal(200))
+				Expect(result).ToNot(BeNil())
+				// fmt.Fprintf(GinkgoWriter, "ListResourceBindings() result:\n%s\n", common.ToJSON(result))
 				Expect(*result.RowsCount).To(Equal(int64(0)))
 				Expect(result.Resources).Should(HaveLen(0))
 			})
@@ -533,6 +590,8 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 
 			Expect(err).To(BeNil())
 			Expect(resp.StatusCode).To(Equal(201))
+			Expect(result).ToNot(BeNil())
+			fmt.Fprintf(GinkgoWriter, "CreateResourceKey() result:\n%s\n", common.ToJSON(result))
 			Expect(result.ID).NotTo(BeNil())
 			Expect(result.Guid).NotTo(BeNil())
 			Expect(result.Crn).NotTo(BeNil())
@@ -559,6 +618,8 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 
 			Expect(err).To(BeNil())
 			Expect(resp.StatusCode).To(Equal(200))
+			Expect(result).ToNot(BeNil())
+			fmt.Fprintf(GinkgoWriter, "GetResourceKey() result:\n%s\n", common.ToJSON(result))
 			Expect(*result.ID).To(Equal(testInstanceKeyCrn))
 			Expect(*result.Guid).To(Equal(testInstanceKeyGuid))
 			Expect(*result.Crn).To(Equal(testInstanceKeyCrn))
@@ -581,6 +642,8 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 
 			Expect(err).To(BeNil())
 			Expect(resp.StatusCode).To(Equal(200))
+			Expect(result).ToNot(BeNil())
+			fmt.Fprintf(GinkgoWriter, "UpdateResourceKey() result:\n%s\n", common.ToJSON(result))
 			Expect(*result.ID).To(Equal(testInstanceKeyCrn))
 			Expect(*result.Name).To(Equal("RcSdkKeyUpdate1"))
 			Expect(*result.State).To(Equal("active"))
@@ -600,6 +663,8 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 				//should return one or more keys
 				Expect(err).To(BeNil())
 				Expect(resp.StatusCode).To(Equal(200))
+				Expect(result).ToNot(BeNil())
+				// fmt.Fprintf(GinkgoWriter, "ListResourceKeys() result:\n%s\n", common.ToJSON(result))
 				Expect(*result.RowsCount).Should(BeNumerically(">=", int64(1)))
 				Expect(len(result.Resources)).Should(BeNumerically(">=", 1))
 			})
@@ -618,6 +683,8 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 				//should return list with only newly created key
 				Expect(err).To(BeNil())
 				Expect(resp.StatusCode).To(Equal(200))
+				Expect(result).ToNot(BeNil())
+				// fmt.Fprintf(GinkgoWriter, "ListResourceKeys() result:\n%s\n", common.ToJSON(result))
 				Expect(*result.RowsCount).To(Equal(int64(1)))
 				Expect(result.Resources).Should(HaveLen(1))
 				Expect(*result.Resources[0].ID).To(Equal(testInstanceKeyCrn))
@@ -641,6 +708,8 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 				//name was updated so no key with that name should exist
 				Expect(err).To(BeNil())
 				Expect(resp.StatusCode).To(Equal(200))
+				Expect(result).ToNot(BeNil())
+				// fmt.Fprintf(GinkgoWriter, "ListResourceKeys() result:\n%s\n", common.ToJSON(result))
 				Expect(*result.RowsCount).To(Equal(int64(0)))
 				Expect(result.Resources).Should(HaveLen(0))
 			})
@@ -660,6 +729,8 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 
 			Expect(err).To(BeNil())
 			Expect(resp.StatusCode).To(Equal(201))
+			Expect(result).ToNot(BeNil())
+			fmt.Fprintf(GinkgoWriter, "CreateResourceKey() result:\n%s\n", common.ToJSON(result))
 			Expect(result.ID).NotTo(BeNil())
 			Expect(result.Guid).NotTo(BeNil())
 			Expect(result.Crn).NotTo(BeNil())
@@ -677,6 +748,8 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 		It("25 - Get A Resource Key", func() {
 			shouldSkipTest()
 
+			Expect(testAliasKeyGuid).ToNot(BeEmpty())
+
 			options := service.NewGetResourceKeyOptions(testAliasKeyGuid)
 			headers := map[string]string{
 				"Transaction-Id": "rc-sdk-go-test25-" + transactionId,
@@ -686,6 +759,8 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 
 			Expect(err).To(BeNil())
 			Expect(resp.StatusCode).To(Equal(200))
+			Expect(result).ToNot(BeNil())
+			fmt.Fprintf(GinkgoWriter, "GetResourceKey() result:\n%s\n", common.ToJSON(result))
 			Expect(*result.ID).To(Equal(testAliasKeyCrn))
 			Expect(*result.Guid).To(Equal(testAliasKeyGuid))
 			Expect(*result.Crn).To(Equal(testAliasKeyCrn))
@@ -699,6 +774,8 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 		It("26 - Update A Resource Key", func() {
 			shouldSkipTest()
 
+			Expect(testAliasKeyGuid).ToNot(BeEmpty())
+
 			options := service.NewUpdateResourceKeyOptions(testAliasKeyGuid, "RcSdkKeyUpdate2")
 			headers := map[string]string{
 				"Transaction-Id": "rc-sdk-go-test26-" + transactionId,
@@ -708,6 +785,8 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 
 			Expect(err).To(BeNil())
 			Expect(resp.StatusCode).To(Equal(200))
+			Expect(result).ToNot(BeNil())
+			fmt.Fprintf(GinkgoWriter, "UpdateResourceKey() result:\n%s\n", common.ToJSON(result))
 			Expect(*result.ID).To(Equal(testAliasKeyCrn))
 			Expect(*result.Name).To(Equal("RcSdkKeyUpdate2"))
 			Expect(*result.State).To(Equal("active"))
@@ -727,12 +806,16 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 				//should return two or more keys
 				Expect(err).To(BeNil())
 				Expect(resp.StatusCode).To(Equal(200))
+				Expect(result).ToNot(BeNil())
+				// fmt.Fprintf(GinkgoWriter, "ListResourceKeys() result:\n%s\n", common.ToJSON(result))
 				Expect(*result.RowsCount).Should(BeNumerically(">=", int64(2)))
 				Expect(len(result.Resources)).Should(BeNumerically(">=", 2))
 			})
 
 			It("28 - List Resource Keys With Guid Filter", func() {
 				shouldSkipTest()
+
+				Expect(testAliasKeyGuid).ToNot(BeEmpty())
 
 				options := service.NewListResourceKeysOptions()
 				options = options.SetGuid(testAliasKeyGuid)
@@ -745,6 +828,8 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 				//should return list with only newly created key
 				Expect(err).To(BeNil())
 				Expect(resp.StatusCode).To(Equal(200))
+				Expect(result).ToNot(BeNil())
+				// fmt.Fprintf(GinkgoWriter, "ListResourceKeys() result:\n%s\n", common.ToJSON(result))
 				Expect(*result.RowsCount).To(Equal(int64(1)))
 				Expect(result.Resources).Should(HaveLen(1))
 				Expect(*result.Resources[0].ID).To(Equal(testAliasKeyCrn))
@@ -768,6 +853,8 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 				//name was updated so no key with that name should exist
 				Expect(err).To(BeNil())
 				Expect(resp.StatusCode).To(Equal(200))
+				Expect(result).ToNot(BeNil())
+				// fmt.Fprintf(GinkgoWriter, "ListResourceKeys() result:\n%s\n", common.ToJSON(result))
 				Expect(*result.RowsCount).To(Equal(int64(0)))
 				Expect(result.Resources).Should(HaveLen(0))
 			})
@@ -806,6 +893,8 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 		It("32 - Delete A Resource Binding", func() {
 			shouldSkipTest()
 
+			Expect(testBindingGuid).ToNot(BeEmpty())
+
 			options := service.NewDeleteResourceBindingOptions(testBindingGuid)
 			headers := map[string]string{
 				"Transaction-Id": "rc-sdk-go-test32-" + transactionId,
@@ -819,6 +908,8 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 
 		It("33 - Verify Resource Binding Was Deleted", func() {
 			shouldSkipTest()
+
+			Expect(testBindingGuid).ToNot(BeEmpty())
 
 			options := service.NewGetResourceBindingOptions(testBindingGuid)
 			headers := map[string]string{
@@ -835,6 +926,8 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 
 		It("34 - Delete Resource Keys", func() {
 			shouldSkipTest()
+
+			Expect(testInstanceKeyGuid).ToNot(BeEmpty())
 
 			options1 := service.NewDeleteResourceKeyOptions(testInstanceKeyGuid)
 			headers1 := map[string]string{
@@ -860,6 +953,8 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 		It("35 - Verify Resource Keys Were Deleted", func() {
 			shouldSkipTest()
 
+			Expect(testInstanceKeyGuid).ToNot(BeEmpty())
+
 			options1 := service.NewGetResourceKeyOptions(testInstanceKeyGuid)
 			headers1 := map[string]string{
 				"Transaction-Id": "rc-sdk-go-test35-" + transactionId,
@@ -871,6 +966,8 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 			Expect(resp1.StatusCode).To(Equal(200))
 			Expect(*result1.ID).To(Equal(testInstanceKeyCrn))
 			Expect(*result1.State).To(Equal("removed"))
+
+			Expect(testAliasKeyGuid).ToNot(BeEmpty())
 
 			options2 := service.NewGetResourceKeyOptions(testAliasKeyGuid)
 			headers2 := map[string]string{
@@ -888,6 +985,8 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 		It("36 - Delete A Resource Alias", func() {
 			shouldSkipTest()
 
+			Expect(testAliasGuid).ToNot(BeEmpty())
+
 			options := service.NewDeleteResourceAliasOptions(testAliasGuid)
 			headers := map[string]string{
 				"Transaction-Id": "rc-sdk-go-test36-" + transactionId,
@@ -902,6 +1001,8 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 		It("37 - Verify Resource Alias Was Deleted", func() {
 			shouldSkipTest()
 
+			Expect(testAliasGuid).ToNot(BeEmpty())
+
 			options := service.NewGetResourceAliasOptions(testAliasGuid)
 			headers := map[string]string{
 				"Transaction-Id": "rc-sdk-go-test37-" + transactionId,
@@ -911,6 +1012,8 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 
 			Expect(err).To(BeNil())
 			Expect(resp.StatusCode).To(Equal(200))
+			Expect(result).ToNot(BeNil())
+			fmt.Fprintf(GinkgoWriter, "GetResourceAlias() result:\n%s\n", common.ToJSON(result))
 			Expect(*result.ID).To(Equal(testAliasCrn))
 			Expect(*result.State).To(Equal("removed"))
 		})
@@ -919,6 +1022,8 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 	Describe("Locking and Unlocking Resource Instance", func() {
 		It("38 - Lock A Resource Instance", func() {
 			shouldSkipTest()
+
+			Expect(testInstanceGuid).ToNot(BeEmpty())
 
 			options := service.NewLockResourceInstanceOptions(testInstanceGuid)
 			headers := map[string]string{
@@ -929,6 +1034,8 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 
 			Expect(err).To(BeNil())
 			Expect(resp.StatusCode).To(Equal(200))
+			Expect(result).ToNot(BeNil())
+			fmt.Fprintf(GinkgoWriter, "LockResourceInstance() result:\n%s\n", common.ToJSON(result))
 			Expect(*result.ID).To(Equal(testInstanceCrn))
 			Expect(*result.Locked).To(BeTrue())
 			Expect(result.LastOperation["type"]).To(Equal("lock"))
@@ -938,6 +1045,8 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 
 		It("39 - Update A Locked Resource Instance - Fail", func() {
 			shouldSkipTest()
+
+			Expect(testInstanceGuid).ToNot(BeEmpty())
 
 			options := service.NewUpdateResourceInstanceOptions(testInstanceGuid)
 			options = options.SetName("RcSdkLockedInstanceUpdate1")
@@ -954,6 +1063,8 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 		It("40 - Delete A Locked Resource Instance - Fail", func() {
 			shouldSkipTest()
 
+			Expect(testInstanceGuid).ToNot(BeEmpty())
+
 			options := service.NewDeleteResourceInstanceOptions(testInstanceGuid)
 			headers := map[string]string{
 				"Transaction-Id": "rc-sdk-go-test40-" + transactionId,
@@ -968,6 +1079,8 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 		It("41 - Unlock A Resource Instance", func() {
 			shouldSkipTest()
 
+			Expect(testInstanceGuid).ToNot(BeEmpty())
+
 			options := service.NewUnlockResourceInstanceOptions(testInstanceGuid)
 			headers := map[string]string{
 				"Transaction-Id": "rc-sdk-go-test41-" + transactionId,
@@ -977,6 +1090,8 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 
 			Expect(err).To(BeNil())
 			Expect(resp.StatusCode).To(Equal(200))
+			Expect(result).ToNot(BeNil())
+			fmt.Fprintf(GinkgoWriter, "UnlockResourceInstance() result:\n%s\n", common.ToJSON(result))
 			Expect(*result.ID).To(Equal(testInstanceCrn))
 			Expect(*result.Locked).To(BeFalse())
 			Expect(result.LastOperation["type"]).To(Equal("unlock"))
@@ -988,6 +1103,8 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 	Describe("Delete Resource Instance", func() {
 		It("42 - Delete A Resource Instance", func() {
 			shouldSkipTest()
+
+			Expect(testInstanceGuid).ToNot(BeEmpty())
 
 			options := service.NewDeleteResourceInstanceOptions(testInstanceGuid)
 			headers := map[string]string{
@@ -1003,6 +1120,8 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 		It("43 - Verify Resource Instance Was Deleted", func() {
 			shouldSkipTest()
 
+			Expect(testInstanceGuid).ToNot(BeEmpty())
+
 			options := service.NewGetResourceInstanceOptions(testInstanceGuid)
 			headers := map[string]string{
 				"Transaction-Id": "rc-sdk-go-test43-" + transactionId,
@@ -1012,6 +1131,8 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 
 			Expect(err).To(BeNil())
 			Expect(resp.StatusCode).To(Equal(200))
+			Expect(result).ToNot(BeNil())
+			fmt.Fprintf(GinkgoWriter, "GetResourceInstance() result:\n%s\n", common.ToJSON(result))
 			Expect(*result.ID).To(Equal(testInstanceCrn))
 			Expect(*result.State).To(Equal("removed"))
 			Expect(result.LastOperation["type"]).To(Equal("delete"))
@@ -1038,6 +1159,8 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 
 			Expect(err).To(BeNil())
 			Expect(resp.StatusCode).To(Equal(201))
+			Expect(result).ToNot(BeNil())
+			fmt.Fprintf(GinkgoWriter, "CreateResourceInstance() result:\n%s\n", common.ToJSON(result))
 			Expect(result.ID).NotTo(BeNil())
 			Expect(result.Guid).NotTo(BeNil())
 			Expect(result.Crn).NotTo(BeNil())
@@ -1058,6 +1181,8 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 
 		It("45 - Schedule The Resource Instance For Reclamation", func() {
 			shouldSkipTest()
+
+			Expect(testReclaimInstanceGuid).ToNot(BeEmpty())
 
 			options := service.NewDeleteResourceInstanceOptions(testReclaimInstanceGuid)
 			headers := map[string]string{
@@ -1098,6 +1223,8 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 		It("47 - List Reclamations For Account Id", func() {
 			shouldSkipTest()
 
+			Expect(testReclaimInstanceGuid).ToNot(BeEmpty())
+
 			options := service.NewListReclamationsOptions()
 			// options = options.SetAccountID(testAccountId)
 			options = options.SetResourceInstanceID(testReclaimInstanceGuid) //checking reclamations with instance guid to make it more reliable
@@ -1108,6 +1235,8 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 			result, resp, err := service.ListReclamations(options)
 
 			Expect(resp.StatusCode).To(Equal(200))
+			Expect(result).ToNot(BeNil())
+			// fmt.Fprintf(GinkgoWriter, "ListReclamations() result:\n%s\n", common.ToJSON(result))
 			Expect(len(result.Resources)).Should(BeNumerically(">=", 1))
 			Expect(err).To(BeNil())
 
@@ -1141,6 +1270,8 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 
 			Expect(err).To(BeNil())
 			Expect(resp.StatusCode).To(Equal(200))
+			Expect(result).ToNot(BeNil())
+			fmt.Fprintf(GinkgoWriter, "RunReclamationAction() result:\n%s\n", common.ToJSON(result))
 			Expect(*result.ResourceInstanceID).To(Equal(testReclaimInstanceGuid))
 			Expect(*result.AccountID).To(Equal(testAccountId))
 			Expect(*result.ResourceGroupID).To(Equal(testResourceGroupGuid))
@@ -1175,6 +1306,8 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 		It("50 - Schedule The Resource Instance For Reclamation 2", func() {
 			shouldSkipTest()
 
+			Expect(testReclaimInstanceGuid).ToNot(BeEmpty())
+
 			options := service.NewDeleteResourceInstanceOptions(testReclaimInstanceGuid)
 			headers := map[string]string{
 				"Transaction-Id": "rc-sdk-go-test50-" + transactionId,
@@ -1206,6 +1339,8 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 
 			Expect(err).To(BeNil())
 			Expect(resp.StatusCode).To(Equal(200))
+			Expect(result).ToNot(BeNil())
+			// fmt.Fprintf(GinkgoWriter, "ListReclamations() result:\n%s\n", common.ToJSON(result))
 			Expect(result.Resources).Should(HaveLen(1))
 			Expect(*result.Resources[0].ResourceInstanceID).To(Equal(testReclaimInstanceGuid))
 			Expect(*result.Resources[0].AccountID).To(Equal(testAccountId))
@@ -1229,6 +1364,8 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 
 			Expect(err).To(BeNil())
 			Expect(resp.StatusCode).To(Equal(200))
+			Expect(result).ToNot(BeNil())
+			fmt.Fprintf(GinkgoWriter, "RunReclamationAction() result:\n%s\n", common.ToJSON(result))
 			Expect(*result.ResourceInstanceID).To(Equal(testReclaimInstanceGuid))
 			Expect(*result.AccountID).To(Equal(testAccountId))
 			Expect(*result.ResourceGroupID).To(Equal(testResourceGroupGuid))
@@ -1272,12 +1409,12 @@ var _ = AfterSuite(func() {
 		return
 	}
 
-	fmt.Printf("\n\nCleaning up test resources...\n")
+	fmt.Fprintln(GinkgoWriter, "Cleaning up test resources...")
 	cleanupResources()
 	if testReclaimInstanceGuid != "" {
 		cleanupReclamationInstance()
 	} else {
-		fmt.Printf("Reclamation instance was not created. No cleanup needed.")
+		fmt.Fprintln(GinkgoWriter, "Reclamation instance was not created. No cleanup needed.")
 	}
 })
 
@@ -1290,14 +1427,14 @@ func cleanupResources() {
 		options = options.SetHeaders(headers)
 		resp, err := service.DeleteResourceKey(options)
 		if resp.StatusCode == 204 {
-			fmt.Printf("Successful cleanup of key %s.\n", testInstanceKeyGuid)
+			fmt.Fprintf(GinkgoWriter, "Successful cleanup of key %s.\n", testInstanceKeyGuid)
 		} else if resp.StatusCode == 410 {
-			fmt.Printf("Key %s was already deleted by the tests.\n", testInstanceKeyGuid)
+			fmt.Fprintf(GinkgoWriter, "Key %s was already deleted by the tests.\n", testInstanceKeyGuid)
 		} else {
-			fmt.Printf("Failed to cleanup key %s. Error: %s\n", testInstanceKeyGuid, err.Error())
+			fmt.Fprintf(GinkgoWriter, "Failed to cleanup key %s. Error: %s\n", testInstanceKeyGuid, err.Error())
 		}
 	} else {
-		fmt.Printf("Key for instance was not created. No cleanup needed.\n")
+		fmt.Fprintln(GinkgoWriter, "Key for instance was not created. No cleanup needed.")
 	}
 
 	if testAliasKeyGuid != "" {
@@ -1308,14 +1445,14 @@ func cleanupResources() {
 		options = options.SetHeaders(headers)
 		resp, err := service.DeleteResourceKey(options)
 		if resp.StatusCode == 204 {
-			fmt.Printf("Successful cleanup of key %s.\n", testAliasKeyGuid)
+			fmt.Fprintf(GinkgoWriter, "Successful cleanup of key %s.\n", testAliasKeyGuid)
 		} else if resp.StatusCode == 410 {
-			fmt.Printf("Key %s was already deleted by the tests.\n", testAliasKeyGuid)
+			fmt.Fprintf(GinkgoWriter, "Key %s was already deleted by the tests.\n", testAliasKeyGuid)
 		} else {
-			fmt.Printf("Failed to cleanup key %s. Error: %s\n", testAliasKeyGuid, err.Error())
+			fmt.Fprintf(GinkgoWriter, "Failed to cleanup key %s. Error: %s\n", testAliasKeyGuid, err.Error())
 		}
 	} else {
-		fmt.Printf("Key for alias was not created. No cleanup needed.\n")
+		fmt.Fprintln(GinkgoWriter, "Key for alias was not created. No cleanup needed.")
 	}
 
 	if testBindingGuid != "" {
@@ -1326,14 +1463,14 @@ func cleanupResources() {
 		options = options.SetHeaders(headers)
 		resp, err := service.DeleteResourceBinding(options)
 		if resp.StatusCode == 204 {
-			fmt.Printf("Successful cleanup of binding %s.\n", testBindingGuid)
+			fmt.Fprintf(GinkgoWriter, "Successful cleanup of binding %s.\n", testBindingGuid)
 		} else if resp.StatusCode == 410 {
-			fmt.Printf("Binding %s was already deleted by the tests.\n", testBindingGuid)
+			fmt.Fprintf(GinkgoWriter, "Binding %s was already deleted by the tests.\n", testBindingGuid)
 		} else {
-			fmt.Printf("Failed to cleanup binding %s. Error: %s\n", testBindingGuid, err.Error())
+			fmt.Fprintf(GinkgoWriter, "Failed to cleanup binding %s. Error: %s\n", testBindingGuid, err.Error())
 		}
 	} else {
-		fmt.Printf("Binding was not created. No cleanup needed.\n")
+		fmt.Fprintln(GinkgoWriter, "Binding was not created. No cleanup needed.")
 	}
 
 	if testAliasGuid != "" {
@@ -1344,20 +1481,20 @@ func cleanupResources() {
 		options = options.SetHeaders(headers)
 		resp, err := service.DeleteResourceAlias(options)
 		if resp.StatusCode == 204 {
-			fmt.Printf("Successful cleanup of alias %s.\n", testAliasGuid)
+			fmt.Fprintf(GinkgoWriter, "Successful cleanup of alias %s.\n", testAliasGuid)
 		} else if resp.StatusCode == 410 {
-			fmt.Printf("Alias %s was already deleted by the tests.\n", testAliasGuid)
+			fmt.Fprintf(GinkgoWriter, "Alias %s was already deleted by the tests.\n", testAliasGuid)
 		} else {
-			fmt.Printf("Failed to cleanup alias %s. Error: %s\n", testAliasGuid, err.Error())
+			fmt.Fprintf(GinkgoWriter, "Failed to cleanup alias %s. Error: %s\n", testAliasGuid, err.Error())
 		}
 	} else {
-		fmt.Printf("Alias was not created. No cleanup needed.\n")
+		fmt.Fprintln(GinkgoWriter, "Alias was not created. No cleanup needed.")
 	}
 
 	if testInstanceGuid != "" {
 		cleanupInstance()
 	} else {
-		fmt.Printf("Instance was not created. No cleanup needed.\n")
+		fmt.Fprintln(GinkgoWriter, "Instance was not created. No cleanup needed.")
 	}
 }
 
@@ -1369,7 +1506,7 @@ func cleanupInstance() {
 	options = options.SetHeaders(headers)
 	result, _, err := service.GetResourceInstance(options)
 	if err != nil {
-		fmt.Printf("Failed to retrieve instance %s for cleanup.\n", testInstanceGuid)
+		fmt.Fprintf(GinkgoWriter, "Failed to retrieve instance %s for cleanup.\n", testInstanceGuid)
 		return
 	}
 
@@ -1381,7 +1518,7 @@ func cleanupInstance() {
 		options2 = options2.SetHeaders(headers2)
 		_, _, err2 := service.UnlockResourceInstance(options2)
 		if err2 != nil {
-			fmt.Printf("Failed to unlock instance %s for cleanup. Error: %s\n", testInstanceGuid, err2.Error())
+			fmt.Fprintf(GinkgoWriter, "Failed to unlock instance %s for cleanup. Error: %s\n", testInstanceGuid, err2.Error())
 			return
 		}
 	}
@@ -1393,11 +1530,11 @@ func cleanupInstance() {
 	options3 = options3.SetHeaders(headers3)
 	resp3, err3 := service.DeleteResourceInstance(options3)
 	if resp3.StatusCode == 204 {
-		fmt.Printf("Successful cleanup of instance %s.\n", testInstanceGuid)
+		fmt.Fprintf(GinkgoWriter, "Successful cleanup of instance %s.\n", testInstanceGuid)
 	} else if resp3.StatusCode == 410 {
-		fmt.Printf("Instance %s was already deleted by the tests.\n", testInstanceGuid)
+		fmt.Fprintf(GinkgoWriter, "Instance %s was already deleted by the tests.\n", testInstanceGuid)
 	} else {
-		fmt.Printf("Failed to cleanup instance %s. Error: %s\n", testInstanceGuid, err3.Error())
+		fmt.Fprintf(GinkgoWriter, "Failed to cleanup instance %s. Error: %s\n", testInstanceGuid, err3.Error())
 	}
 }
 
@@ -1409,12 +1546,12 @@ func cleanupReclamationInstance() {
 	options1 = options1.SetHeaders(headers1)
 	result1, _, err1 := service.GetResourceInstance(options1)
 	if err1 != nil {
-		fmt.Printf("Failed to retrieve instance %s for cleanup.\n", testReclaimInstanceGuid)
+		fmt.Fprintf(GinkgoWriter, "Failed to retrieve instance %s for cleanup.\n", testReclaimInstanceGuid)
 		return
 	}
 
 	if *result1.State == "removed" {
-		fmt.Printf("Instance %s was already reclaimed by the tests.\n", testReclaimInstanceGuid)
+		fmt.Fprintf(GinkgoWriter, "Instance %s was already reclaimed by the tests.\n", testReclaimInstanceGuid)
 	} else if *result1.State == "pending_reclamation" {
 		cleanupInstancePendingReclamation()
 	} else {
@@ -1425,11 +1562,11 @@ func cleanupReclamationInstance() {
 		options2 = options2.SetHeaders(headers2)
 		resp2, err2 := service.DeleteResourceInstance(options2)
 		if resp2.StatusCode == 204 {
-			fmt.Printf("Successfully scheduled instance %s for reclamation.\n", testReclaimInstanceGuid)
+			fmt.Fprintf(GinkgoWriter, "Successfully scheduled instance %s for reclamation.\n", testReclaimInstanceGuid)
 			time.Sleep(20 * time.Second)
 			cleanupInstancePendingReclamation()
 		} else {
-			fmt.Printf("Failed to schedule active instance %s for reclamation. Error: %s\n", testReclaimInstanceGuid, err2.Error())
+			fmt.Fprintf(GinkgoWriter, "Failed to schedule active instance %s for reclamation. Error: %s\n", testReclaimInstanceGuid, err2.Error())
 		}
 	}
 }
@@ -1444,12 +1581,12 @@ func cleanupInstancePendingReclamation() {
 	options1 = options1.SetHeaders(headers1)
 	result1, _, err1 := service.ListReclamations(options1)
 	if err1 != nil {
-		fmt.Printf("Failed to retrieve reclamation to process to reclaim instance %s. Error: %s\n", testReclaimInstanceGuid, err1.Error())
+		fmt.Fprintf(GinkgoWriter, "Failed to retrieve reclamation to process to reclaim instance %s. Error: %s\n", testReclaimInstanceGuid, err1.Error())
 		return
 	}
 
 	if len(result1.Resources) == 0 {
-		fmt.Printf("Failed to retrieve reclamation to process to reclaim instance %s.\n", testReclaimInstanceGuid)
+		fmt.Fprintf(GinkgoWriter, "Failed to retrieve reclamation to process to reclaim instance %s.\n", testReclaimInstanceGuid)
 		return
 	}
 
@@ -1462,11 +1599,11 @@ func cleanupInstancePendingReclamation() {
 		options2 = options2.SetHeaders(headers2)
 		_, _, err2 := service.RunReclamationAction(options2)
 		if err2 != nil {
-			fmt.Printf("Failed to process reclamation %s for instance %s. Error: %s\n", reclamationId, testReclaimInstanceGuid, err2.Error())
+			fmt.Fprintf(GinkgoWriter, "Failed to process reclamation %s for instance %s. Error: %s\n", reclamationId, testReclaimInstanceGuid, err2.Error())
 		} else {
-			fmt.Printf("Successfully reclaimed instance %s.\n", testReclaimInstanceGuid)
+			fmt.Fprintf(GinkgoWriter, "Successfully reclaimed instance %s.\n", testReclaimInstanceGuid)
 		}
 	} else {
-		fmt.Printf("Instance %s was already reclaimed by the tests.\n", testReclaimInstanceGuid)
+		fmt.Fprintf(GinkgoWriter, "Instance %s was already reclaimed by the tests.\n", testReclaimInstanceGuid)
 	}
 }

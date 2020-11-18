@@ -19,11 +19,13 @@
 package configurationgovernancev1_test
 
 import (
-	"encoding/json"
 	"fmt"
+	"log"
 	"os"
+	"time"
 
 	"github.com/IBM/go-sdk-core/v4/core"
+	common "github.com/IBM/platform-services-go-sdk/common"
 	. "github.com/IBM/platform-services-go-sdk/configurationgovernancev1"
 	"github.com/google/uuid"
 	. "github.com/onsi/ginkgo"
@@ -117,8 +119,8 @@ var _ = Describe(`ConfigurationGovernanceV1 Integration Tests`, func() {
 
 			transactionID = uuid.New().String()
 
-			log(fmt.Sprintf("\nService URL: %s", serviceURL))
-			log(fmt.Sprintf("TransactionID: %s", transactionID))
+			fmt.Fprintf(GinkgoWriter, "\nService URL: %s", serviceURL)
+			fmt.Fprintf(GinkgoWriter, "TransactionID: %s", transactionID)
 
 			shouldSkipTest = func() {}
 
@@ -226,6 +228,9 @@ var _ = Describe(`ConfigurationGovernanceV1 Integration Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(service).ToNot(BeNil())
 			Expect(service.Service.Options.URL).To(Equal(serviceURL))
+
+			core.SetLogger(core.NewLogger(core.LevelDebug, log.New(GinkgoWriter, "", log.LstdFlags)))
+			service.EnableRetries(4, 30*time.Second)
 		})
 		It("Successfully construct addition 'no-access' service client instance", func() {
 
@@ -241,9 +246,9 @@ var _ = Describe(`ConfigurationGovernanceV1 Integration Tests`, func() {
 		})
 
 		It("Successfully setup the environment for tests", func() {
-			log("\nSetup...")
+			fmt.Fprintln(GinkgoWriter, "Setup...")
 			cleanRules(service, accountID, TestLabel)
-			log("Finished setup.")
+			fmt.Fprintln(GinkgoWriter, "Finished setup.")
 		})
 	})
 
@@ -269,7 +274,7 @@ var _ = Describe(`ConfigurationGovernanceV1 Integration Tests`, func() {
 			Expect(response.StatusCode).To(Equal(201))
 			Expect(createRulesResponse).ToNot(BeNil())
 
-			log(fmt.Sprintf("\nReceived response:\n%s", toJson(createRulesResponse)))
+			fmt.Fprintf(GinkgoWriter, "\nReceived response:\n%s", common.ToJSON(createRulesResponse))
 			Expect(len(createRulesResponse.Rules)).To(Equal(1))
 			ruleResponse1 := createRulesResponse.Rules[0]
 			Expect(ruleResponse1).ToNot(BeNil())
@@ -297,7 +302,7 @@ var _ = Describe(`ConfigurationGovernanceV1 Integration Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(201))
 			Expect(createRulesResponse).ToNot(BeNil())
-			log(fmt.Sprintf("\nReceived response:\n%s", toJson(createRulesResponse)))
+			fmt.Fprintf(GinkgoWriter, "\nReceived response:\n%s", common.ToJSON(createRulesResponse))
 
 			Expect(len(createRulesResponse.Rules)).To(Equal(1))
 			ruleResponse1 := createRulesResponse.Rules[0]
@@ -328,7 +333,7 @@ var _ = Describe(`ConfigurationGovernanceV1 Integration Tests`, func() {
 			Expect(response.StatusCode).To(Equal(207))
 			Expect(createRulesResponse).ToNot(BeNil())
 
-			log(fmt.Sprintf("\nReceived response:\n%s", toJson(createRulesResponse)))
+			fmt.Fprintf(GinkgoWriter, "\nReceived response:\n%s", common.ToJSON(createRulesResponse))
 			Expect(len(createRulesResponse.Rules)).To(Equal(1))
 			ruleResponse1 := createRulesResponse.Rules[0]
 			Expect(ruleResponse1).ToNot(BeNil())
@@ -354,7 +359,7 @@ var _ = Describe(`ConfigurationGovernanceV1 Integration Tests`, func() {
 
 			Expect(err).ToNot(BeNil())
 			Expect(response.StatusCode).To(Equal(403))
-			log(fmt.Sprintf("\nExpected error: %s", err.Error()))
+			fmt.Fprintf(GinkgoWriter, "\nExpected error: %s", err.Error())
 		})
 	})
 
@@ -377,7 +382,7 @@ var _ = Describe(`ConfigurationGovernanceV1 Integration Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(ruleList).ToNot(BeNil())
-			log(fmt.Sprintf("\nReceived response:\n%s", toJson(ruleList)))
+			fmt.Fprintf(GinkgoWriter, "\nReceived response:\n%s", common.ToJSON(ruleList))
 
 			Expect(*ruleList.TotalCount).To(Equal(int64(2)))
 			Expect(*ruleList.Offset).To(Equal(int64(0)))
@@ -399,7 +404,7 @@ var _ = Describe(`ConfigurationGovernanceV1 Integration Tests`, func() {
 
 			Expect(err).ToNot(BeNil())
 			Expect(response.StatusCode).To(Equal(403))
-			log(fmt.Sprintf("\nExpected error: %s", err.Error()))
+			fmt.Fprintf(GinkgoWriter, "\nExpected error: %s", err.Error())
 		})
 	})
 
@@ -416,7 +421,7 @@ var _ = Describe(`ConfigurationGovernanceV1 Integration Tests`, func() {
 			}
 
 			rule, response, err := service.GetRule(getRuleOptions)
-			log(fmt.Sprintf("\nReceived detailed response:\n%s", toJson(response)))
+			fmt.Fprintf(GinkgoWriter, "\nReceived detailed response:\n%s", common.ToJSON(response))
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
@@ -441,7 +446,7 @@ var _ = Describe(`ConfigurationGovernanceV1 Integration Tests`, func() {
 			Expect(response.Result).ToNot(BeNil())
 			Expect(rule).To(BeNil())
 
-			log(fmt.Sprintf("\nReceived detailed response:\n%s", toJson(response)))
+			fmt.Fprintf(GinkgoWriter, "\nReceived detailed response:\n%s", common.ToJSON(response))
 
 			errorResponse, ok := response.Result.(map[string]interface{})
 			Expect(ok).To(BeTrue())
@@ -475,7 +480,7 @@ var _ = Describe(`ConfigurationGovernanceV1 Integration Tests`, func() {
 			}
 
 			rule, response, err := service.UpdateRule(updateRuleOptions)
-			log(fmt.Sprintf("\nReceived detailed response:\n%s", toJson(response)))
+			fmt.Fprintf(GinkgoWriter, "\nReceived detailed response:\n%s", common.ToJSON(response))
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
@@ -502,7 +507,7 @@ var _ = Describe(`ConfigurationGovernanceV1 Integration Tests`, func() {
 			}
 
 			rule, response, err := service.UpdateRule(updateRuleOptions)
-			log(fmt.Sprintf("\nReceived detailed response:\n%s", toJson(response)))
+			fmt.Fprintf(GinkgoWriter, "\nReceived detailed response:\n%s", common.ToJSON(response))
 
 			Expect(err).ToNot(BeNil())
 			Expect(response.StatusCode).To(Equal(400))
@@ -583,7 +588,7 @@ var _ = Describe(`ConfigurationGovernanceV1 Integration Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(201))
 			Expect(createAttachmentsResponse).ToNot(BeNil())
-			log(fmt.Sprintf("\nReceived response:\n%s", toJson(createAttachmentsResponse)))
+			fmt.Fprintf(GinkgoWriter, "\nReceived response:\n%s", common.ToJSON(createAttachmentsResponse))
 
 			Expect(len(createAttachmentsResponse.Attachments)).To(Equal(1))
 			attachment := createAttachmentsResponse.Attachments[0]
@@ -617,7 +622,7 @@ var _ = Describe(`ConfigurationGovernanceV1 Integration Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(201))
 			Expect(createAttachmentsResponse).ToNot(BeNil())
-			log(fmt.Sprintf("\nReceived response:\n%s", toJson(createAttachmentsResponse)))
+			fmt.Fprintf(GinkgoWriter, "\nReceived response:\n%s", common.ToJSON(createAttachmentsResponse))
 
 			Expect(len(createAttachmentsResponse.Attachments)).To(Equal(1))
 			attachment := createAttachmentsResponse.Attachments[0]
@@ -671,7 +676,7 @@ var _ = Describe(`ConfigurationGovernanceV1 Integration Tests`, func() {
 			}
 
 			attachment, response, err := service.GetAttachment(getAttachmentOptions)
-			log(fmt.Sprintf("\nReceived detailed response:\n%s", toJson(response)))
+			fmt.Fprintf(GinkgoWriter, "\nReceived detailed response:\n%s", common.ToJSON(response))
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
@@ -698,7 +703,6 @@ var _ = Describe(`ConfigurationGovernanceV1 Integration Tests`, func() {
 			}
 
 			attachment, response, err := service.GetAttachment(getAttachmentOptions)
-			//log(fmt.Sprintf("\nReceived detailed response:\n%s", toJson(response)))
 
 			Expect(err).ToNot(BeNil())
 			Expect(response.StatusCode).To(Equal(404))
@@ -722,7 +726,7 @@ var _ = Describe(`ConfigurationGovernanceV1 Integration Tests`, func() {
 			}
 
 			attachmentsList, response, err := service.ListAttachments(listAttachmentsOptions)
-			log(fmt.Sprintf("\nReceived detailed response:\n%s", toJson(response)))
+			fmt.Fprintf(GinkgoWriter, "\nReceived detailed response:\n%s", common.ToJSON(response))
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
@@ -775,7 +779,7 @@ var _ = Describe(`ConfigurationGovernanceV1 Integration Tests`, func() {
 			}
 
 			attachment, response, err := service.UpdateAttachment(updateAttachmentOptions)
-			log(fmt.Sprintf("\nReceived detailed response:\n%s", toJson(response)))
+			fmt.Fprintf(GinkgoWriter, "\nReceived detailed response:\n%s", common.ToJSON(response))
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
@@ -805,7 +809,7 @@ var _ = Describe(`ConfigurationGovernanceV1 Integration Tests`, func() {
 			}
 
 			attachment, response, err := service.UpdateAttachment(updateAttachmentOptions)
-			log(fmt.Sprintf("\nReceived detailed response:\n%s", toJson(response)))
+			fmt.Fprintf(GinkgoWriter, "\nReceived detailed response:\n%s", common.ToJSON(response))
 
 			Expect(err).ToNot(BeNil())
 			Expect(response.StatusCode).To(Equal(400))
@@ -829,7 +833,6 @@ var _ = Describe(`ConfigurationGovernanceV1 Integration Tests`, func() {
 			}
 
 			response, err := service.DeleteAttachment(deleteAttachmentOptions)
-			// log(fmt.Sprintf("\nReceived detailed response:\n%s", toJson(response)))
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(204))
@@ -845,7 +848,6 @@ var _ = Describe(`ConfigurationGovernanceV1 Integration Tests`, func() {
 			}
 
 			response, err := service.DeleteAttachment(deleteAttachmentOptions)
-			// log(fmt.Sprintf("\nReceived detailed response:\n%s", toJson(response)))
 
 			Expect(err).ToNot(BeNil())
 			Expect(response.StatusCode).To(Equal(404))
@@ -858,15 +860,15 @@ var _ = Describe(`ConfigurationGovernanceV1 Integration Tests`, func() {
 			shouldSkipTest()
 		})
 		It(`Clean rules`, func() {
-			log("\nTeardown...")
+			fmt.Fprintln(GinkgoWriter, "Teardown...")
 			cleanRules(service, accountID, TestLabel)
-			log("Finished teardown.")
+			fmt.Fprintln(GinkgoWriter, "Finished teardown.")
 		})
 	})
 })
 
 func cleanRules(service *ConfigurationGovernanceV1, accountID string, label string) {
-	log("Cleaning rules...")
+	fmt.Fprintln(GinkgoWriter, "Cleaning rules...")
 
 	listRulesOptions := &ListRulesOptions{
 		AccountID:     &accountID,
@@ -883,12 +885,12 @@ func cleanRules(service *ConfigurationGovernanceV1, accountID string, label stri
 	Expect(ruleList).ToNot(BeNil())
 	Expect(ruleList.TotalCount).ToNot(BeNil())
 
-	log(fmt.Sprintf("Found %d rule(s) to be cleaned", *ruleList.TotalCount))
+	fmt.Fprintf(GinkgoWriter, "Found %d rule(s) to be cleaned", *ruleList.TotalCount)
 
 	if *ruleList.TotalCount > 0 {
 		for _, rule := range ruleList.Rules {
 
-			log(fmt.Sprintf("Deleting rule: name='%s' id='%s'", *rule.Name, *rule.RuleID))
+			fmt.Fprintf(GinkgoWriter, "Deleting rule: name='%s' id='%s'", *rule.Name, *rule.RuleID)
 
 			response, err := service.DeleteRule(
 				&DeleteRuleOptions{
@@ -900,7 +902,7 @@ func cleanRules(service *ConfigurationGovernanceV1, accountID string, label stri
 		}
 	}
 
-	log("Finished cleaning rules...")
+	fmt.Fprintln(GinkgoWriter, "Finished cleaning rules...")
 }
 
 func getRule(service *ConfigurationGovernanceV1, ruleID string) (rule *Rule) {
@@ -909,17 +911,4 @@ func getRule(service *ConfigurationGovernanceV1, ruleID string) (rule *Rule) {
 		TransactionID: &transactionID,
 	})
 	return
-}
-
-func log(msg string) {
-	fmt.Fprintf(GinkgoWriter, "%s\n", msg)
-}
-
-func toJson(obj interface{}) string {
-	b, err := json.MarshalIndent(obj, "", "  ")
-	if err != nil {
-		panic(err)
-	}
-	return string(b)
-
 }
