@@ -19,6 +19,7 @@
 package iamaccessgroupsv2_test
 
 import (
+	"log"
 	"math/rand"
 	"os"
 	"strconv"
@@ -87,6 +88,9 @@ var _ = Describe("IAM Access Groups - Integration Tests", func() {
 
 		Expect(err).To(BeNil())
 		Expect(service).ToNot(BeNil())
+
+		core.SetLogger(core.NewLogger(core.LevelDebug, log.New(GinkgoWriter, "", log.LstdFlags)))
+		service.EnableRetries(4, 30*time.Second)
 	})
 
 	Describe("Create an access group", func() {

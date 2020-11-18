@@ -19,13 +19,13 @@
 package usagereportsv4_test
 
 import (
-	"encoding/json"
 	"fmt"
 	"log"
 	"os"
 	"time"
 
 	"github.com/IBM/go-sdk-core/v4/core"
+	common "github.com/IBM/platform-services-go-sdk/common"
 	"github.com/IBM/platform-services-go-sdk/usagereportsv4"
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
@@ -76,7 +76,7 @@ var _ = Describe(`UsageReportsV4 Integration Tests`, func() {
 				Skip("Unable to load service URL configuration property, skipping tests")
 			}
 
-			fmt.Printf("Service URL: %s\n", serviceURL)
+			fmt.Fprintf(GinkgoWriter, "Service URL: %s\n", serviceURL)
 
 			accountID = config["ACCOUNT_ID"]
 			Expect(accountID).ToNot(BeEmpty())
@@ -129,7 +129,7 @@ var _ = Describe(`UsageReportsV4 Integration Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(accountSummary).ToNot(BeNil())
-			fmt.Fprintf(GinkgoWriter, "\nGetAccountSummary response:\n%s", toJSON(accountSummary))
+			fmt.Fprintf(GinkgoWriter, "\nGetAccountSummary response:\n%s", common.ToJSON(accountSummary))
 
 			Expect(*accountSummary.AccountID).To(Equal(accountID))
 			Expect(accountSummary.Offers).ToNot(BeEmpty())
@@ -155,7 +155,7 @@ var _ = Describe(`UsageReportsV4 Integration Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(accountUsage).ToNot(BeNil())
-			fmt.Fprintf(GinkgoWriter, "\nGetAccountUsage response:\n%s", toJSON(accountUsage))
+			fmt.Fprintf(GinkgoWriter, "\nGetAccountUsage response:\n%s", common.ToJSON(accountUsage))
 
 			Expect(*accountUsage.AccountID).To(Equal(accountID))
 			Expect(*accountUsage.Month).To(Equal(billingMonth))
@@ -181,7 +181,7 @@ var _ = Describe(`UsageReportsV4 Integration Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(resourceGroupUsage).ToNot(BeNil())
-			fmt.Fprintf(GinkgoWriter, "\nGetResourceGroupUsage response:\n%s", toJSON(resourceGroupUsage))
+			fmt.Fprintf(GinkgoWriter, "\nGetResourceGroupUsage response:\n%s", common.ToJSON(resourceGroupUsage))
 
 			Expect(*resourceGroupUsage.AccountID).To(Equal(accountID))
 			Expect(*resourceGroupUsage.Month).To(Equal(billingMonth))
@@ -207,7 +207,7 @@ var _ = Describe(`UsageReportsV4 Integration Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(orgUsage).ToNot(BeNil())
-			fmt.Fprintf(GinkgoWriter, "\nGetOrgUsage response:\n%s", toJSON(orgUsage))
+			fmt.Fprintf(GinkgoWriter, "\nGetOrgUsage response:\n%s", common.ToJSON(orgUsage))
 
 			Expect(*orgUsage.AccountID).To(Equal(accountID))
 			Expect(*orgUsage.Month).To(Equal(billingMonth))
@@ -351,16 +351,8 @@ var _ = Describe(`UsageReportsV4 Integration Tests`, func() {
 			}
 
 			fmt.Fprintf(GinkgoWriter, "\nGetResourceUsageOrg response contained %d total resources.", len(results))
-			fmt.Fprintf(GinkgoWriter, "\nGetResourceUsageOrg response: %s\n", toJSON(results))
+			fmt.Fprintf(GinkgoWriter, "\nGetResourceUsageOrg response: %s\n", common.ToJSON(results))
 			Expect(results).ToNot(BeEmpty())
 		})
 	})
 })
-
-func toJSON(obj interface{}) string {
-	b, err := json.MarshalIndent(obj, "", "  ")
-	if err != nil {
-		panic(err)
-	}
-	return string(b)
-}

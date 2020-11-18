@@ -19,9 +19,13 @@ package globalsearchv2_test
  */
 
 import (
+	"fmt"
+	"log"
 	"os"
+	"time"
 
 	"github.com/IBM/go-sdk-core/v4/core"
+	common "github.com/IBM/platform-services-go-sdk/common"
 	"github.com/IBM/platform-services-go-sdk/globalsearchv2"
 	"github.com/joho/godotenv"
 	. "github.com/onsi/ginkgo"
@@ -71,6 +75,9 @@ var _ = Describe("Global Search and Tagging - Search integration test", func() {
 		service, err = globalsearchv2.NewGlobalSearchV2(options)
 		Expect(err).To(BeNil())
 		Expect(service).ToNot(BeNil())
+
+		core.SetLogger(core.NewLogger(core.LevelDebug, log.New(GinkgoWriter, "", log.LstdFlags)))
+		service.EnableRetries(4, 30*time.Second)
 	})
 
 	Describe("Call Search v3 api with query 'name:gst-sdk*' all fields", func() {
@@ -87,6 +94,10 @@ var _ = Describe("Global Search and Tagging - Search integration test", func() {
 			result, detailedResponse, err := service.Search(searchOptionsModel)
 			Expect(err).To(BeNil())
 			Expect(detailedResponse.StatusCode).To(Equal(200))
+			Expect(result).ToNot(BeNil())
+
+			fmt.Fprintf(GinkgoWriter, "Search all result: %s\n", common.ToJSON(result))
+
 			Expect(result.Items).To(HaveLen(2))
 			for _, elem := range result.Items {
 				Expect(elem.GetProperty("doc")).NotTo(BeNil())
@@ -112,6 +123,10 @@ var _ = Describe("Global Search and Tagging - Search integration test", func() {
 			result, detailedResponse, err := service.Search(searchOptionsModel)
 			Expect(err).To(BeNil())
 			Expect(detailedResponse.StatusCode).To(Equal(200))
+			Expect(result).ToNot(BeNil())
+
+			fmt.Fprintf(GinkgoWriter, "Search w/cursor result 1: %s\n", common.ToJSON(result))
+
 			Expect(result.Items).To(HaveLen(1))
 			for _, elem := range result.Items {
 				Expect(elem.GetProperty("doc")).To(BeNil())
@@ -121,16 +136,20 @@ var _ = Describe("Global Search and Tagging - Search integration test", func() {
 			}
 			firstCrn := *result.Items[0].Crn
 
-			search_cursor := *result.SearchCursor
+			searchCursor := *result.SearchCursor
 			searchOptionsModelCursor := service.NewSearchOptions()
 			searchOptionsModelCursor.SetQuery(gstQuery)
 			searchOptionsModelCursor.SetLimit(1)
 			searchOptionsModelCursor.SetFields([]string{"crn", "name"})
-			searchOptionsModelCursor.SetSearchCursor(search_cursor)
+			searchOptionsModelCursor.SetSearchCursor(searchCursor)
 
 			resultCursor, detailedResponseCursor, errCursor := service.Search(searchOptionsModelCursor)
 			Expect(errCursor).To(BeNil())
 			Expect(detailedResponseCursor.StatusCode).To(Equal(200))
+			Expect(resultCursor).ToNot(BeNil())
+
+			fmt.Fprintf(GinkgoWriter, "Search w/cursor result 2: %s\n", common.ToJSON(resultCursor))
+
 			Expect(resultCursor.Items).To(HaveLen(1))
 			for _, elem := range resultCursor.Items {
 				Expect(elem.GetProperty("doc")).To(BeNil())
@@ -156,6 +175,10 @@ var _ = Describe("Global Search and Tagging - Search integration test", func() {
 			result, detailedResponse, err := service.GetSupportedTypes(supportedTypessModel)
 			Expect(err).To(BeNil())
 			Expect(detailedResponse.StatusCode).To(Equal(200))
+			Expect(result).ToNot(BeNil())
+
+			fmt.Fprintf(GinkgoWriter, "GetSupportedTypes result: %s\n", common.ToJSON(result))
+
 			Expect(result.SupportedTypes).To(ContainElement("cf-space"))
 			Expect(result.SupportedTypes).NotTo(ContainElement("fake-resource!"))
 		})
