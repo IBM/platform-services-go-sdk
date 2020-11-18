@@ -19,12 +19,13 @@
 package globaltaggingv1_test
 
 import (
-	"encoding/json"
 	"fmt"
+	"log"
 	"os"
 	"time"
 
 	"github.com/IBM/go-sdk-core/v4/core"
+	common "github.com/IBM/platform-services-go-sdk/common"
 	"github.com/IBM/platform-services-go-sdk/globaltaggingv1"
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
@@ -78,7 +79,7 @@ var _ = Describe(`GlobalTaggingV1 Integration Tests`, func() {
 				Skip("Unable to load RESOURCE_CRN configuration property, skipping tests")
 			}
 
-			fmt.Printf("\nService URL: %s\n", serviceURL)
+			fmt.Fprintf(GinkgoWriter, "\nService URL: %s\n", serviceURL)
 			shouldSkipTest = func() {}
 		})
 	})
@@ -96,6 +97,9 @@ var _ = Describe(`GlobalTaggingV1 Integration Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(globalTaggingService).ToNot(BeNil())
 			Expect(globalTaggingService.Service.Options.URL).To(Equal(serviceURL))
+
+			core.SetLogger(core.NewLogger(core.LevelDebug, log.New(GinkgoWriter, "", log.LstdFlags)))
+			globalTaggingService.EnableRetries(4, 30*time.Second)
 		})
 	})
 
@@ -115,7 +119,7 @@ var _ = Describe(`GlobalTaggingV1 Integration Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(tagList).ToNot(BeNil())
-			// fmt.Printf("\nListTags(all) response:\n%s", toJson(tagList))
+			fmt.Fprintf(GinkgoWriter, "\nListTags(all) response:\n%s", common.ToJSON(tagList))
 
 			Expect(tagList.Items).ToNot(BeEmpty())
 		})
@@ -141,7 +145,7 @@ var _ = Describe(`GlobalTaggingV1 Integration Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(tagResults).ToNot(BeNil())
-			// fmt.Printf("\nAttachTag() response:\n%s", toJson(tagResults))
+			fmt.Fprintf(GinkgoWriter, "\nAttachTag() response:\n%s", common.ToJSON(tagResults))
 
 			Expect(tagResults.Results).ToNot(BeEmpty())
 			for _, elem := range tagResults.Results {
@@ -150,7 +154,7 @@ var _ = Describe(`GlobalTaggingV1 Integration Tests`, func() {
 
 			// Make sure the tag was in fact attached.
 			tagNames := getTagNamesForResource(globalTaggingService, crn)
-			// fmt.Print("\nResource now has these tags: ", tagNames)
+			fmt.Fprint(GinkgoWriter, "\nResource now has these tags: ", tagNames)
 			Expect(tagNames).ToNot(BeEmpty())
 			Expect(tagNames).To(ContainElement(tagName))
 		})
@@ -176,7 +180,7 @@ var _ = Describe(`GlobalTaggingV1 Integration Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(tagResults).ToNot(BeNil())
-			// fmt.Printf("\nDetachTag() response:\n%s", toJson(tagResults))
+			fmt.Fprintf(GinkgoWriter, "\nDetachTag() response:\n%s", common.ToJSON(tagResults))
 
 			Expect(tagResults.Results).ToNot(BeEmpty())
 			for _, elem := range tagResults.Results {
@@ -185,7 +189,7 @@ var _ = Describe(`GlobalTaggingV1 Integration Tests`, func() {
 
 			// Make sure the tag was in fact detached.
 			tagNames := getTagNamesForResource(globalTaggingService, crn)
-			// fmt.Print("\nResource now has these tags: ", tagNames)
+			fmt.Fprint(GinkgoWriter, "\nResource now has these tags: ", tagNames)
 			Expect(tagNames).ToNot(ContainElement(tagName))
 		})
 	})
@@ -224,8 +228,8 @@ var _ = Describe(`GlobalTaggingV1 Integration Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(deleteTagsResult).ToNot(BeNil())
-			// fmt.Printf("\nDetachTagAll() response:\n%s", toJson(deleteTagsResult))
-			// fmt.Printf("\nDeleteTagAll deleted %d unused tags.\n", *deleteTagsResult.TotalCount)
+
+			fmt.Fprintf(GinkgoWriter, "\nDeleteTagAll() response:\n%s", common.ToJSON(deleteTagsResult))
 		})
 	})
 })
@@ -244,13 +248,4 @@ func getTagNamesForResource(service *globaltaggingv1.GlobalTaggingV1, resourceID
 	}
 
 	return tagNames
-}
-
-func toJson(obj interface{}) string {
-	b, err := json.MarshalIndent(obj, "", "  ")
-	if err != nil {
-		panic(err)
-	}
-	return string(b)
-
 }
