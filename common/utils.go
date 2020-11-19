@@ -27,5 +27,4 @@ func ToJSON(obj interface{}) string {
 		panic(err)
 	}
 	return string(b)
-
 }
