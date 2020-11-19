@@ -1,3 +1,10 @@
+## [0.14.3](https://github.com/IBM/platform-services-go-sdk/compare/v0.14.2...v0.14.3) (2020-11-19)
+
+
+### Bug Fixes
+
+* **IAM Identity Service:** update service to use strfmt.DateTime ([d9ec36f](https://github.com/IBM/platform-services-go-sdk/commit/d9ec36ff7721dc404220ed90568150dcf575cd42))
+
 ## [0.14.2](https://github.com/IBM/platform-services-go-sdk/compare/v0.14.1...v0.14.2) (2020-11-18)
 
 
