@@ -32,18 +32,25 @@ import (
 
 const externalConfigFile = "../resource_controller.env"
 
-///////////////////////////////////////////////////////
-///////////// Example config file fields //////////////
-// RESOURCE_CONTROLLER_URL=https://resource-controller.cloud.ibm.com
+//
+// This file provides an example of how to use the Resource Controller service.
+//
+// The following configuration properties are assumed to be defined:
+//
+// RESOURCE_CONTROLLER_URL=<service url>
 // RESOURCE_CONTROLLER_AUTH_TYPE=iam
-// RESOURCE_CONTROLLER_AUTH_URL=https://iam.cloud.ibm.com/identity/token
+// RESOURCE_CONTROLLER_AUTH_URL=<IAM Token Service url>
 // RESOURCE_CONTROLLER_APIKEY=<User's IAM API Key>
-// RESOURCE_CONTROLLER_RESOURCE_GROUP=5g9f447903254bb58972a2f3f5a4c711
-// RESOURCE_CONTROLLER_RECLAMATION_PLAN_ID=0be5ad401ae913d8ff665d92680664ed
-// RESOURCE_CONTROLLER_ACCOUNT_ID=b80a8b513ae24e178438b7a18bd8d609
-// RESOURCE_CONTROLLER_ALIAS_TARGET_CRN=crn:v1:cf:public:cf:eu-gb:o/e242c7f0-9eb7-4541-ad3e-b5f5a45a1498::cf-space:f5038ca8-9d28-42a1-9e57-9b9fdd66bf8e
-// RESOURCE_CONTROLLER_BINDING_TARGET_CRN=crn:v1:cf:public:cf:eu-gb:s/f5038ca8-9d28-42a1-9e57-9b9fdd66bf8e::cf-application:b04ddee1-2838-449a-96d3-02a03179e991
-///////////////////////////////////////////////////////
+// RESOURCE_CONTROLLER_RESOURCE_GROUP=<Short ID of the user's resource group>
+// RESOURCE_CONTROLLER_PLAN_ID=<Unique ID of the plan associated with the offering>
+// RESOURCE_CONTROLLER_ACCOUNT_ID=<User's account ID>
+// RESOURCE_CONTROLLER_ALIAS_TARGET_CRN=<The CRN of target name(space) in a specific environment>
+// RESOURCE_CONTROLLER_BINDING_TARGET_CRN=<The CRN of application to bind to in a specific environment>
+//
+// These configuration properties can be exported as environment variables, or stored
+// in a "credentials" file and then:
+// export IBM_CREDENTIALS_FILE=<name of credentials file>
+//
 
 var (
 	resourceControllerService *resourcecontrollerv2.ResourceControllerV2

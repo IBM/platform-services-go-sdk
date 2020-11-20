@@ -31,21 +31,28 @@ import (
 
 const externalConfigFile = "../open_service_broker.env"
 
-///////////////////////////////////////////////////////
-///////////// Example config file fields //////////////
-// OPEN_SERVICE_BROKER_URL=<Service Broker's URL>
+//
+// This file provides an example of how to use the Open Service broker service.
+//
+// The following configuration properties are assumed to be defined:
+//
+// OPEN_SERVICE_BROKER_URL=<Service broker's URL>
 // OPEN_SERVICE_BROKER_AUTH_TYPE=basic
 // OPEN_SERVICE_BROKER_USERNAME=<username>
 // OPEN_SERVICE_BROKER_PASSWORD=<password>
-// OPEN_SERVICE_BROKER_PLAN_ID=ecc19311-aba2-49f7-8198-1e450c8460d4
-// OPEN_SERVICE_BROKER_RESOURCE_INSTANCE_ID=crn:v1:bluemix:public:compose-redis:us-south:a/003e9bc3993aec710d30a5a719e57a80:416d769b-682d-4833-8bd7-5ef8778e5b52
-// OPEN_SERVICE_BROKER_SERVICE_ID=0bc9d744-6f8c-4821-9648-2278bf6925bb
-// OPEN_SERVICE_BROKER_ACCOUNT_ID=003e9bc3993aec710d30a5a719e57a80
-// OPEN_SERVICE_BROKER_BINDING_ID=crn:v1:staging:public:compose-redis:global:a/bc2b2fca0af84354a916dc1de6eee42e:osb-sdk-example::
-// OPEN_SERVICE_BROKER_SPACE_GUID=336ba5f3-f185-488e-ac8d-02195ee3f2cc
-// OPEN_SERVICE_BROKER_APPLICATION_GUID=d3f16a48-8bd1-4aab-a7de-e2a22ad38292
-// OPEN_SERVICE_BROKER_ORGANIZATION_GUID=d35d4f0e-5076-4c89-9361-2522894b4856
-///////////////////////////////////////////////////////
+// OPEN_SERVICE_BROKER_PLAN_ID=<The ID of the plan associated with the service offering>
+// OPEN_SERVICE_BROKER_RESOURCE_INSTANCE_ID=<The ID of a previously provisioned service instance>
+// OPEN_SERVICE_BROKER_SERVICE_ID=<The ID of the service being offered>
+// OPEN_SERVICE_BROKER_ACCOUNT_ID=<User's account ID>
+// OPEN_SERVICE_BROKER_BINDING_ID=<The ID of a previously provisioned binding for that service instance>
+// OPEN_SERVICE_BROKER_SPACE_GUID=<The identifier for the project space within the IBM Cloud platform organization>
+// OPEN_SERVICE_BROKER_APPLICATION_GUID=<GUID of an application associated with the binding>
+// OPEN_SERVICE_BROKER_ORGANIZATION_GUID=<The IBM Cloud platform GUID for the organization under which the service instance is to be provisioned>
+//
+// These configuration properties can be exported as environment variables, or stored
+// in a "credentials" file and then:
+// export IBM_CREDENTIALS_FILE=<name of credentials file>
+//
 
 var (
 	openServiceBrokerService *openservicebrokerv1.OpenServiceBrokerV1
@@ -188,11 +195,10 @@ var _ = Describe(`OpenServiceBrokerV1 Examples Tests`, func() {
 		It(`ReplaceServiceInstance request example`, func() {
 			// begin-replace_service_instance
 
-			platform := "ibmcloud"
 			contextOpt := &openservicebrokerv1.Context{
 				AccountID: &accountId,
 				Crn:       &instanceId,
-				Platform:  &platform,
+				Platform:  core.StringPtr("ibmcloud"),
 			}
 			paramsOpt := make(map[string]string, 0)
 			paramsOpt["example"] = "property"
@@ -225,11 +231,10 @@ var _ = Describe(`OpenServiceBrokerV1 Examples Tests`, func() {
 		It(`UpdateServiceInstance request example`, func() {
 			// begin-update_service_instance
 
-			platform := "ibmcloud"
 			contextOpt := &openservicebrokerv1.Context{
 				AccountID: &accountId,
 				Crn:       &instanceId,
-				Platform:  &platform,
+				Platform:  core.StringPtr("ibmcloud"),
 			}
 
 			paramsOpt := make(map[string]string, 0)
