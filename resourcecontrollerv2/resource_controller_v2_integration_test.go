@@ -18,13 +18,15 @@
 package resourcecontrollerv2_test
 
 import (
+	"os"
+
+	"github.com/IBM/go-sdk-core/v4/core"
 	"github.com/IBM/platform-services-go-sdk/resourcecontrollerv2"
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
 	uuid "github.com/satori/go.uuid"
 
 	"fmt"
-	"os"
 	"time"
 )
 
@@ -34,16 +36,24 @@ var (
 	service      *resourcecontrollerv2.ResourceControllerV2
 	err          error
 	configLoaded bool = false
+	config       map[string]string
 
-	testAccountId         string = "bc2b2fca0af84354a916dc1de6eee42e"
-	testResourceGroupGuid string = "13aa3ee48c3b44ddb64c05c79f7ab8ef"
-	testOrgGuid           string = "d35d4f0e-5076-4c89-9361-2522894b6548"
-	testSpaceGuid         string = "336ba5f3-f185-488e-ac8d-02195eebb2f3"
-	testAppGuid           string = "bf692181-1f0e-46be-9faf-eb0857f4d1d5"
-	testRegionId1         string = "global"
-	testPlanId1           string = "a10e4820-3685-11e9-b210-d663bd873d93"
-	testRegionId2         string = "global"
-	testPlanId2           string = "a10e4960-3685-11e9-b210-d663bd873d93"
+	instanceNames map[string]string
+	aliasNames    map[string]string
+	bindingNames  map[string]string
+	keyNames      map[string]string
+
+	testAccountId                string
+	testResourceGroupGuid        string
+	testOrgGuid                  string
+	testSpaceGuid                string
+	testAppGuid                  string
+	testRegionId1                string
+	testPlanId1                  string
+	testRegionId2                string
+	testPlanId2                  string
+	testReclaimInstanceName      string
+	testLockedInstanceNameUpdate string
 
 	//result info
 	testInstanceCrn         string
@@ -77,15 +87,63 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 	fmt.Printf("\nTransaction ID for this test run: %s\n", transactionId)
 
 	It("Successfully load the configuration", func() {
+		var err error
 		_, err = os.Stat(externalConfigFile)
-		if err == nil {
-			err = os.Setenv("IBM_CREDENTIALS_FILE", externalConfigFile)
-			if err == nil {
-				configLoaded = true
-			}
+		if err != nil {
+			Skip("External configuration file not found, skipping tests: " + err.Error())
 		}
-		if !configLoaded {
-			Skip("External configuration could not be loaded, skipping...")
+
+		os.Setenv("IBM_CREDENTIALS_FILE", externalConfigFile)
+		config, err = core.GetServiceProperties(resourcecontrollerv2.DefaultServiceName)
+		if err != nil {
+			Skip("Error loading service properties, skipping tests: " + err.Error())
+		}
+
+		configLoaded = len(config) > 0
+
+		testResourceGroupGuid = config["RESOURCE_GROUP"]
+		Expect(testResourceGroupGuid).ToNot(BeEmpty())
+
+		testPlanId2 = config["RECLAMATION_PLAN_ID"]
+		Expect(testPlanId2).ToNot(BeEmpty())
+
+		testAccountId = config["ACCOUNT_ID"]
+		Expect(testAccountId).ToNot(BeEmpty())
+
+		testOrgGuid = config["ORGANIZATION_GUID"]
+		Expect(testOrgGuid).ToNot(BeEmpty())
+
+		testSpaceGuid = config["SPACE_GUID"]
+		Expect(testSpaceGuid).ToNot(BeEmpty())
+
+		testAppGuid = config["APPLICATION_GUID"]
+		Expect(testAppGuid).ToNot(BeEmpty())
+
+		testPlanId1 = config["PLAN_ID"]
+		Expect(testPlanId1).ToNot(BeEmpty())
+
+		testRegionId1 = "global"
+		testRegionId2 = "global"
+		testReclaimInstanceName = "RcSdkReclaimInstance1"
+		testLockedInstanceNameUpdate = "RcSdkLockedInstanceUpdate1"
+
+		instanceNames = map[string]string{
+			"name":   "RcSdkInstance1Go",
+			"update": "RcSdkUpdateInstance1Go",
+		}
+		aliasNames = map[string]string{
+			"name":   "RcSdkAlias1Go",
+			"update": "RcSdkAliasUpdate1Go",
+		}
+		bindingNames = map[string]string{
+			"name":   "RcSdkBinding1Go",
+			"update": "RcSdkBindingUpdate1Go",
+		}
+		keyNames = map[string]string{
+			"name":    "RcSdkKey1Go",
+			"update":  "RcSdkKeyUpdate1Go",
+			"name2":   "RcSdkKey2Go",
+			"update2": "RcSdkKeyUpdate2Go",
 		}
 	})
 
@@ -109,7 +167,7 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 			shouldSkipTest()
 
 			options := service.NewCreateResourceInstanceOptions(
-				"RcSdkInstance1",
+				instanceNames["name"],
 				testRegionId1,
 				testResourceGroupGuid,
 				testPlanId1,
@@ -126,7 +184,7 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 			Expect(result.Guid).NotTo(BeNil())
 			Expect(result.Crn).NotTo(BeNil())
 			Expect(*result.ID).To(Equal(*result.Crn))
-			Expect(*result.Name).To(Equal("RcSdkInstance1"))
+			Expect(*result.Name).To(Equal(instanceNames["name"]))
 			Expect(*result.AccountID).To(Equal(testAccountId))
 			Expect(*result.ResourceGroupID).To(Equal(testResourceGroupGuid))
 			Expect(*result.ResourcePlanID).To(Equal(testPlanId1))
@@ -155,7 +213,7 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 			Expect(*result.ID).To(Equal(testInstanceCrn))
 			Expect(*result.Guid).To(Equal(testInstanceGuid))
 			Expect(*result.Crn).To(Equal(testInstanceCrn))
-			Expect(*result.Name).To(Equal("RcSdkInstance1"))
+			Expect(*result.Name).To(Equal(instanceNames["name"]))
 			Expect(*result.AccountID).To(Equal(testAccountId))
 			Expect(*result.ResourceGroupID).To(Equal(testResourceGroupGuid))
 			Expect(*result.ResourcePlanID).To(Equal(testPlanId1))
@@ -170,7 +228,7 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 			shouldSkipTest()
 
 			options := service.NewUpdateResourceInstanceOptions(testInstanceGuid)
-			options = options.SetName("RcSdkInstanceUpdate1")
+			options = options.SetName(instanceNames["update"])
 			params := make(map[string]interface{}, 0)
 			params["hello"] = "bye"
 			options = options.SetParameters(params)
@@ -183,7 +241,7 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 			Expect(err).To(BeNil())
 			Expect(resp.StatusCode).To(Equal(200))
 			Expect(*result.ID).To(Equal(testInstanceCrn))
-			Expect(*result.Name).To(Equal("RcSdkInstanceUpdate1"))
+			Expect(*result.Name).To(Equal(instanceNames["update"]))
 			Expect(*result.State).To(Equal("active"))
 			Expect(result.LastOperation["type"]).To(Equal("update"))
 			Expect(result.LastOperation["sub_type"]).To(Equal("config"))
@@ -227,7 +285,7 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 				Expect(result.Resources).Should(HaveLen(1))
 				Expect(*result.Resources[0].ID).To(Equal(testInstanceCrn))
 				Expect(*result.Resources[0].Guid).To(Equal(testInstanceGuid))
-				Expect(*result.Resources[0].Name).To(Equal("RcSdkInstanceUpdate1"))
+				Expect(*result.Resources[0].Name).To(Equal(instanceNames["update"]))
 				Expect(*result.Resources[0].State).To(Equal("active"))
 				Expect(result.Resources[0].LastOperation["type"]).To(Equal("update"))
 				Expect(result.Resources[0].LastOperation["sub_type"]).To(Equal("config"))
@@ -239,7 +297,7 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 				shouldSkipTest()
 
 				options := service.NewListResourceInstancesOptions()
-				options = options.SetName("RcSdkInstance1")
+				options = options.SetName(instanceNames["name"])
 				headers := map[string]string{
 					"Transaction-Id": "rc-sdk-go-test05-" + transactionId,
 				}
@@ -261,7 +319,7 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 
 			target := "crn:v1:bluemix:public:bluemix:us-south:o/" + testOrgGuid + "::cf-space:" + testSpaceGuid
 			aliasTargetCrn = "crn:v1:bluemix:public:cf:us-south:o/" + testOrgGuid + "::cf-space:" + testSpaceGuid
-			options := service.NewCreateResourceAliasOptions("RcSdkAlias1", testInstanceGuid, target)
+			options := service.NewCreateResourceAliasOptions(aliasNames["name"], testInstanceGuid, target)
 			headers := map[string]string{
 				"Transaction-Id": "rc-sdk-go-test06-" + transactionId,
 			}
@@ -274,7 +332,7 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 			Expect(result.Guid).NotTo(BeNil())
 			Expect(result.Crn).NotTo(BeNil())
 			Expect(*result.ID).To(Equal(*result.Crn))
-			Expect(*result.Name).To(Equal("RcSdkAlias1"))
+			Expect(*result.Name).To(Equal(aliasNames["name"]))
 			Expect(*result.AccountID).To(Equal(testAccountId))
 			Expect(*result.ResourceGroupID).To(Equal(testResourceGroupGuid))
 			Expect(*result.TargetCrn).To(Equal(aliasTargetCrn))
@@ -300,7 +358,7 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 			Expect(*result.ID).To(Equal(testAliasCrn))
 			Expect(*result.Guid).To(Equal(testAliasGuid))
 			Expect(*result.Crn).To(Equal(testAliasCrn))
-			Expect(*result.Name).To(Equal("RcSdkAlias1"))
+			Expect(*result.Name).To(Equal(aliasNames["name"]))
 			Expect(*result.AccountID).To(Equal(testAccountId))
 			Expect(*result.ResourceGroupID).To(Equal(testResourceGroupGuid))
 			Expect(*result.TargetCrn).To(Equal(aliasTargetCrn))
@@ -311,7 +369,7 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 		It("08 - Update A Resource Alias", func() {
 			shouldSkipTest()
 
-			options := service.NewUpdateResourceAliasOptions(testAliasGuid, "RcSdkAliasUpdate1")
+			options := service.NewUpdateResourceAliasOptions(testAliasGuid, aliasNames["update"])
 			headers := map[string]string{
 				"Transaction-Id": "rc-sdk-go-test08-" + transactionId,
 			}
@@ -321,7 +379,7 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 			Expect(err).To(BeNil())
 			Expect(resp.StatusCode).To(Equal(200))
 			Expect(*result.ID).To(Equal(testAliasCrn))
-			Expect(*result.Name).To(Equal("RcSdkAliasUpdate1"))
+			Expect(*result.Name).To(Equal(aliasNames["update"]))
 			Expect(*result.State).To(Equal("active"))
 		})
 
@@ -360,7 +418,7 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 				Expect(*result.RowsCount).To(Equal(int64(1)))
 				Expect(result.Resources).Should(HaveLen(1))
 				Expect(*result.Resources[0].ID).To(Equal(testAliasCrn))
-				Expect(*result.Resources[0].Name).To(Equal("RcSdkAliasUpdate1"))
+				Expect(*result.Resources[0].Name).To(Equal(aliasNames["update"]))
 				Expect(*result.Resources[0].ResourceGroupID).To(Equal(testResourceGroupGuid))
 				Expect(*result.Resources[0].TargetCrn).To(Equal(aliasTargetCrn))
 				Expect(*result.Resources[0].State).To(Equal("active"))
@@ -371,7 +429,7 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 				shouldSkipTest()
 
 				options := service.NewListResourceAliasesOptions()
-				options = options.SetName("RcSdkAlias1")
+				options = options.SetName(aliasNames["name"])
 				headers := map[string]string{
 					"Transaction-Id": "rc-sdk-go-test11-" + transactionId,
 				}
@@ -394,7 +452,7 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 			target := "crn:v1:staging:public:bluemix:us-south:s/" + testSpaceGuid + "::cf-application:" + testAppGuid
 			bindTargetCrn = "crn:v1:staging:public:cf:us-south:s/" + testSpaceGuid + "::cf-application:" + testAppGuid
 			options := service.NewCreateResourceBindingOptions(testAliasGuid, target)
-			options = options.SetName("RcSdkBinding1")
+			options = options.SetName(bindingNames["name"])
 			headers := map[string]string{
 				"Transaction-Id": "rc-sdk-go-test12-" + transactionId,
 			}
@@ -407,7 +465,7 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 			Expect(result.Guid).NotTo(BeNil())
 			Expect(result.Crn).NotTo(BeNil())
 			Expect(*result.ID).To(Equal(*result.Crn))
-			Expect(*result.Name).To(Equal("RcSdkBinding1"))
+			Expect(*result.Name).To(Equal(bindingNames["name"]))
 			Expect(*result.AccountID).To(Equal(testAccountId))
 			Expect(*result.ResourceGroupID).To(Equal(testResourceGroupGuid))
 			Expect(*result.SourceCrn).To(Equal(testAliasCrn))
@@ -433,7 +491,7 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 			Expect(*result.ID).To(Equal(testBindingCrn))
 			Expect(*result.Guid).To(Equal(testBindingGuid))
 			Expect(*result.Crn).To(Equal(testBindingCrn))
-			Expect(*result.Name).To(Equal("RcSdkBinding1"))
+			Expect(*result.Name).To(Equal(bindingNames["name"]))
 			Expect(*result.AccountID).To(Equal(testAccountId))
 			Expect(*result.ResourceGroupID).To(Equal(testResourceGroupGuid))
 			Expect(*result.SourceCrn).To(Equal(testAliasCrn))
@@ -444,7 +502,7 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 		It("14 - Update A Resource Binding", func() {
 			shouldSkipTest()
 
-			options := service.NewUpdateResourceBindingOptions(testBindingGuid, "RcSdkBindingUpdate1")
+			options := service.NewUpdateResourceBindingOptions(testBindingGuid, bindingNames["update"])
 			headers := map[string]string{
 				"Transaction-Id": "rc-sdk-go-test14-" + transactionId,
 			}
@@ -454,7 +512,7 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 			Expect(err).To(BeNil())
 			Expect(resp.StatusCode).To(Equal(200))
 			Expect(*result.ID).To(Equal(testBindingCrn))
-			Expect(*result.Name).To(Equal("RcSdkBindingUpdate1"))
+			Expect(*result.Name).To(Equal(bindingNames["update"]))
 			Expect(*result.State).To(Equal("active"))
 		})
 
@@ -493,7 +551,7 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 				Expect(*result.RowsCount).To(Equal(int64(1)))
 				Expect(result.Resources).Should(HaveLen(1))
 				Expect(*result.Resources[0].ID).To(Equal(testBindingCrn))
-				Expect(*result.Resources[0].Name).To(Equal("RcSdkBindingUpdate1"))
+				Expect(*result.Resources[0].Name).To(Equal(bindingNames["update"]))
 				Expect(*result.Resources[0].ResourceGroupID).To(Equal(testResourceGroupGuid))
 				Expect(*result.Resources[0].SourceCrn).To(Equal(testAliasCrn))
 				Expect(*result.Resources[0].TargetCrn).To(Equal(bindTargetCrn))
@@ -504,7 +562,7 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 				shouldSkipTest()
 
 				options := service.NewListResourceAliasesOptions()
-				options = options.SetName("RcSdkBinding1")
+				options = options.SetName(bindingNames["name"])
 				headers := map[string]string{
 					"Transaction-Id": "rc-sdk-go-test17-" + transactionId,
 				}
@@ -524,7 +582,7 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 		It("18 - Create Resource Key For Instance", func() {
 			shouldSkipTest()
 
-			options := service.NewCreateResourceKeyOptions("RcSdkKey1", testInstanceGuid)
+			options := service.NewCreateResourceKeyOptions(keyNames["name"], testInstanceGuid)
 			headers := map[string]string{
 				"Transaction-Id": "rc-sdk-go-test18-" + transactionId,
 			}
@@ -537,7 +595,7 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 			Expect(result.Guid).NotTo(BeNil())
 			Expect(result.Crn).NotTo(BeNil())
 			Expect(*result.ID).To(Equal(*result.Crn))
-			Expect(*result.Name).To(Equal("RcSdkKey1"))
+			Expect(*result.Name).To(Equal(keyNames["name"]))
 			Expect(*result.AccountID).To(Equal(testAccountId))
 			Expect(*result.ResourceGroupID).To(Equal(testResourceGroupGuid))
 			Expect(*result.SourceCrn).To(Equal(testInstanceCrn))
@@ -562,7 +620,7 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 			Expect(*result.ID).To(Equal(testInstanceKeyCrn))
 			Expect(*result.Guid).To(Equal(testInstanceKeyGuid))
 			Expect(*result.Crn).To(Equal(testInstanceKeyCrn))
-			Expect(*result.Name).To(Equal("RcSdkKey1"))
+			Expect(*result.Name).To(Equal(keyNames["name"]))
 			Expect(*result.AccountID).To(Equal(testAccountId))
 			Expect(*result.ResourceGroupID).To(Equal(testResourceGroupGuid))
 			Expect(*result.SourceCrn).To(Equal(testInstanceCrn))
@@ -572,7 +630,7 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 		It("20 - Update A Resource Key", func() {
 			shouldSkipTest()
 
-			options := service.NewUpdateResourceKeyOptions(testInstanceKeyGuid, "RcSdkKeyUpdate1")
+			options := service.NewUpdateResourceKeyOptions(testInstanceKeyGuid, keyNames["update"])
 			headers := map[string]string{
 				"Transaction-Id": "rc-sdk-go-test20-" + transactionId,
 			}
@@ -582,7 +640,7 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 			Expect(err).To(BeNil())
 			Expect(resp.StatusCode).To(Equal(200))
 			Expect(*result.ID).To(Equal(testInstanceKeyCrn))
-			Expect(*result.Name).To(Equal("RcSdkKeyUpdate1"))
+			Expect(*result.Name).To(Equal(keyNames["update"]))
 			Expect(*result.State).To(Equal("active"))
 		})
 
@@ -621,7 +679,7 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 				Expect(*result.RowsCount).To(Equal(int64(1)))
 				Expect(result.Resources).Should(HaveLen(1))
 				Expect(*result.Resources[0].ID).To(Equal(testInstanceKeyCrn))
-				Expect(*result.Resources[0].Name).To(Equal("RcSdkKeyUpdate1"))
+				Expect(*result.Resources[0].Name).To(Equal(keyNames["update"]))
 				Expect(*result.Resources[0].ResourceGroupID).To(Equal(testResourceGroupGuid))
 				Expect(*result.Resources[0].SourceCrn).To(Equal(testInstanceCrn))
 				Expect(*result.Resources[0].State).To(Equal("active"))
@@ -631,7 +689,7 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 				shouldSkipTest()
 
 				options := service.NewListResourceKeysOptions()
-				options = options.SetName("RcSdkKey1")
+				options = options.SetName(keyNames["name"])
 				headers := map[string]string{
 					"Transaction-Id": "rc-sdk-go-test23-" + transactionId,
 				}
@@ -651,7 +709,7 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 		It("24 - Create Resource Key For Alias", func() {
 			shouldSkipTest()
 
-			options := service.NewCreateResourceKeyOptions("RcSdkKey2", testAliasGuid)
+			options := service.NewCreateResourceKeyOptions(keyNames["name2"], testAliasGuid)
 			headers := map[string]string{
 				"Transaction-Id": "rc-sdk-go-test24-" + transactionId,
 			}
@@ -664,7 +722,7 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 			Expect(result.Guid).NotTo(BeNil())
 			Expect(result.Crn).NotTo(BeNil())
 			Expect(*result.ID).To(Equal(*result.Crn))
-			Expect(*result.Name).To(Equal("RcSdkKey2"))
+			Expect(*result.Name).To(Equal(keyNames["name2"]))
 			Expect(*result.AccountID).To(Equal(testAccountId))
 			Expect(*result.ResourceGroupID).To(Equal(testResourceGroupGuid))
 			Expect(*result.SourceCrn).To(Equal(testAliasCrn))
@@ -689,7 +747,7 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 			Expect(*result.ID).To(Equal(testAliasKeyCrn))
 			Expect(*result.Guid).To(Equal(testAliasKeyGuid))
 			Expect(*result.Crn).To(Equal(testAliasKeyCrn))
-			Expect(*result.Name).To(Equal("RcSdkKey2"))
+			Expect(*result.Name).To(Equal(keyNames["name2"]))
 			Expect(*result.AccountID).To(Equal(testAccountId))
 			Expect(*result.ResourceGroupID).To(Equal(testResourceGroupGuid))
 			Expect(*result.SourceCrn).To(Equal(testAliasCrn))
@@ -699,7 +757,7 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 		It("26 - Update A Resource Key", func() {
 			shouldSkipTest()
 
-			options := service.NewUpdateResourceKeyOptions(testAliasKeyGuid, "RcSdkKeyUpdate2")
+			options := service.NewUpdateResourceKeyOptions(testAliasKeyGuid, keyNames["update2"])
 			headers := map[string]string{
 				"Transaction-Id": "rc-sdk-go-test26-" + transactionId,
 			}
@@ -709,7 +767,7 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 			Expect(err).To(BeNil())
 			Expect(resp.StatusCode).To(Equal(200))
 			Expect(*result.ID).To(Equal(testAliasKeyCrn))
-			Expect(*result.Name).To(Equal("RcSdkKeyUpdate2"))
+			Expect(*result.Name).To(Equal(keyNames["update2"]))
 			Expect(*result.State).To(Equal("active"))
 		})
 
@@ -748,7 +806,7 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 				Expect(*result.RowsCount).To(Equal(int64(1)))
 				Expect(result.Resources).Should(HaveLen(1))
 				Expect(*result.Resources[0].ID).To(Equal(testAliasKeyCrn))
-				Expect(*result.Resources[0].Name).To(Equal("RcSdkKeyUpdate2"))
+				Expect(*result.Resources[0].Name).To(Equal(keyNames["update2"]))
 				Expect(*result.Resources[0].ResourceGroupID).To(Equal(testResourceGroupGuid))
 				Expect(*result.Resources[0].SourceCrn).To(Equal(testAliasCrn))
 				Expect(*result.Resources[0].State).To(Equal("active"))
@@ -758,7 +816,7 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 				shouldSkipTest()
 
 				options := service.NewListResourceKeysOptions()
-				options = options.SetName("RcSdkKey2")
+				options = options.SetName(keyNames["name2"])
 				headers := map[string]string{
 					"Transaction-Id": "rc-sdk-go-test29-" + transactionId,
 				}
@@ -940,7 +998,7 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 			shouldSkipTest()
 
 			options := service.NewUpdateResourceInstanceOptions(testInstanceGuid)
-			options = options.SetName("RcSdkLockedInstanceUpdate1")
+			options = options.SetName(testLockedInstanceNameUpdate)
 			headers := map[string]string{
 				"Transaction-Id": "rc-sdk-go-test39-" + transactionId,
 			}
@@ -1025,7 +1083,7 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 			shouldSkipTest()
 
 			options := service.NewCreateResourceInstanceOptions(
-				"RcSdkReclaimInstance1",
+				testReclaimInstanceName,
 				testRegionId2,
 				testResourceGroupGuid,
 				testPlanId2,
@@ -1042,7 +1100,7 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 			Expect(result.Guid).NotTo(BeNil())
 			Expect(result.Crn).NotTo(BeNil())
 			Expect(*result.ID).To(Equal(*result.Crn))
-			Expect(*result.Name).To(Equal("RcSdkReclaimInstance1"))
+			Expect(*result.Name).To(Equal(testReclaimInstanceName))
 			Expect(*result.AccountID).To(Equal(testAccountId))
 			Expect(*result.ResourceGroupID).To(Equal(testResourceGroupGuid))
 			Expect(*result.ResourcePlanID).To(Equal(testPlanId2))
@@ -1267,19 +1325,202 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 })
 
 // clean up resources
+var _ = BeforeSuite(func() {
+	if !configLoaded {
+		return
+	}
+
+	fmt.Printf("\n\nBefore tests: cleaning up test resources...\n")
+	cleanupByName()
+})
+
 var _ = AfterSuite(func() {
 	if !configLoaded {
 		return
 	}
 
-	fmt.Printf("\n\nCleaning up test resources...\n")
+	fmt.Printf("\n\nAfter tests: cleaning up test resources...\n")
 	cleanupResources()
 	if testReclaimInstanceGuid != "" {
 		cleanupReclamationInstance()
 	} else {
 		fmt.Printf("Reclamation instance was not created. No cleanup needed.")
 	}
+	cleanupByName()
 })
+
+func cleanupByName() {
+	fmt.Printf("\nBegin cleanup by name\n")
+
+	//Resource Key
+	for _, name := range keyNames {
+		listKeyOptions := service.NewListResourceKeysOptions()
+		listKeyOptions = listKeyOptions.SetName(name)
+		listKeyHeaders := map[string]string{
+			"Transaction-Id": "rc-sdk-cleanup-" + transactionId,
+		}
+		listKeyOptions = listKeyOptions.SetHeaders(listKeyHeaders)
+		keyResult, _, keyListErr := service.ListResourceKeys(listKeyOptions)
+
+		if keyListErr != nil {
+			fmt.Printf("Failed to retrieve key with name %s for cleanup.\n", name)
+			return
+		}
+
+		if len(keyResult.Resources) > 0 {
+			keyResources := &keyResult.Resources
+			for _, res := range *keyResources {
+				keyGuid := *res.Guid
+
+				deleteKeyOptions := service.NewDeleteResourceKeyOptions(keyGuid)
+				deleteKeyHeaders := map[string]string{
+					"Transaction-Id": "rc-sdk-cleanup-" + transactionId,
+				}
+				deleteKeyOptions = deleteKeyOptions.SetHeaders(deleteKeyHeaders)
+				keyDelResp, keyDelErr := service.DeleteResourceKey(deleteKeyOptions)
+				if keyDelResp.StatusCode == 204 {
+					fmt.Printf("Successful cleanup of key %s.\n", keyGuid)
+				} else if keyDelResp.StatusCode == 410 {
+					fmt.Printf("Key %s was already deleted by the tests.\n", keyGuid)
+				} else {
+					fmt.Printf("Failed to cleanup key %s. Error: %s\n", keyGuid, keyDelErr.Error())
+				}
+			}
+		} else {
+			fmt.Printf("No keys found with name %s for cleanup.\n", name)
+		}
+	}
+
+	//Resource Instance
+	for _, name := range instanceNames {
+		listInstanceOptions := service.NewListResourceInstancesOptions()
+		listInstanceOptions = listInstanceOptions.SetName(name)
+		listInstanceHeaders := map[string]string{
+			"Transaction-Id": "rc-sdk-cleanup-" + transactionId,
+		}
+		listInstanceOptions = listInstanceOptions.SetHeaders(listInstanceHeaders)
+		instanceResult, _, instanceListErr := service.ListResourceInstances(listInstanceOptions)
+
+		if instanceListErr != nil {
+			fmt.Printf("Failed to retrieve instance with name %s for cleanup.\n", name)
+			return
+		}
+
+		if len(instanceResult.Resources) > 0 {
+			instanceResources := &instanceResult.Resources
+			for _, res := range *instanceResources {
+				instanceGuid := *res.Guid
+
+				if *res.State == "active" && *res.Locked {
+					instanceUnlockOptions := service.NewUnlockResourceInstanceOptions(instanceGuid)
+					instanceUnlockHeaders := map[string]string{
+						"Transaction-Id": "rc-sdk-cleanup-" + transactionId,
+					}
+					instanceUnlockOptions = instanceUnlockOptions.SetHeaders(instanceUnlockHeaders)
+					_, _, instanceUnlockErr := service.UnlockResourceInstance(instanceUnlockOptions)
+					if instanceUnlockErr != nil {
+						fmt.Printf("Failed to unlock instance %s for cleanup. Error: %s\n", instanceGuid, instanceUnlockErr.Error())
+						return
+					}
+				}
+
+				deleteInstanceOptions := service.NewDeleteResourceInstanceOptions(instanceGuid)
+				deleteInstanceHeaders := map[string]string{
+					"Transaction-Id": "rc-sdk-cleanup-" + transactionId,
+				}
+				deleteInstanceOptions = deleteInstanceOptions.SetHeaders(deleteInstanceHeaders)
+				instanceDelResp, instanceDelErr := service.DeleteResourceInstance(deleteInstanceOptions)
+				if instanceDelResp.StatusCode == 204 {
+					fmt.Printf("Successful cleanup of instance %s.\n", instanceGuid)
+				} else if instanceDelResp.StatusCode == 410 {
+					fmt.Printf("Instance %s was already deleted by the tests.\n", instanceGuid)
+				} else {
+					fmt.Printf("Failed to cleanup instance %s. Error: %s\n", instanceGuid, instanceDelErr.Error())
+				}
+			}
+		} else {
+			fmt.Printf("No instances found with name %s for cleanup.\n", name)
+		}
+	}
+
+	//Resource Binding
+	for _, name := range bindingNames {
+		listBindingOptions := service.NewListResourceBindingsOptions()
+		listBindingOptions = listBindingOptions.SetName(name)
+		listBindingHeaders := map[string]string{
+			"Transaction-Id": "rc-sdk-cleanup-" + transactionId,
+		}
+		listBindingOptions = listBindingOptions.SetHeaders(listBindingHeaders)
+		bindingResult, _, bindingListErr := service.ListResourceBindings(listBindingOptions)
+
+		if bindingListErr != nil {
+			fmt.Printf("Failed to retrieve binding with name %s for cleanup.\n", name)
+			return
+		}
+
+		if len(bindingResult.Resources) > 0 {
+			bindingResources := &bindingResult.Resources
+			for _, res := range *bindingResources {
+				bindingGuid := *res.Guid
+
+				deleteBindingOptions := service.NewDeleteResourceBindingOptions(bindingGuid)
+				deleteBindingHeaders := map[string]string{
+					"Transaction-Id": "rc-sdk-cleanup-" + transactionId,
+				}
+				deleteBindingOptions = deleteBindingOptions.SetHeaders(deleteBindingHeaders)
+				bindingDelResp, bindingDelErr := service.DeleteResourceBinding(deleteBindingOptions)
+				if bindingDelResp.StatusCode == 204 {
+					fmt.Printf("Successful cleanup of binding %s.\n", bindingGuid)
+				} else if bindingDelResp.StatusCode == 410 {
+					fmt.Printf("Binding %s was already deleted by the tests.\n", bindingGuid)
+				} else {
+					fmt.Printf("Failed to cleanup binding %s. Error: %s\n", bindingGuid, bindingDelErr.Error())
+				}
+			}
+		} else {
+			fmt.Printf("No bindings found with name %s for cleanup.\n", name)
+		}
+	}
+
+	//Resource Alias
+	for _, name := range aliasNames {
+		listAliasOptions := service.NewListResourceAliasesOptions()
+		listAliasOptions = listAliasOptions.SetName(name)
+		listAliasHeaders := map[string]string{
+			"Transaction-Id": "rc-sdk-cleanup-" + transactionId,
+		}
+		listAliasOptions = listAliasOptions.SetHeaders(listAliasHeaders)
+		aliasResult, _, aliasListErr := service.ListResourceAliases(listAliasOptions)
+
+		if aliasListErr != nil {
+			fmt.Printf("Failed to retrieve alias with name %s for cleanup.\n", name)
+			return
+		}
+
+		if len(aliasResult.Resources) > 0 {
+			aliasResources := &aliasResult.Resources
+			for _, res := range *aliasResources {
+				aliasGuid := *res.Guid
+
+				deleteAliasOptions := service.NewDeleteResourceAliasOptions(aliasGuid)
+				deleteAliasHeaders := map[string]string{
+					"Transaction-Id": "rc-sdk-cleanup-" + transactionId,
+				}
+				deleteAliasOptions = deleteAliasOptions.SetHeaders(deleteAliasHeaders)
+				aliasDelResp, aliasDelErr := service.DeleteResourceAlias(deleteAliasOptions)
+				if aliasDelResp.StatusCode == 204 {
+					fmt.Printf("Successful cleanup of alias %s.\n", aliasGuid)
+				} else if aliasDelResp.StatusCode == 410 {
+					fmt.Printf("Alias %s was already deleted by the tests.\n", aliasGuid)
+				} else {
+					fmt.Printf("Failed to cleanup alias %s. Error: %s\n", aliasGuid, aliasDelErr.Error())
+				}
+			}
+		} else {
+			fmt.Printf("No aliases found with name %s for cleanup.\n", name)
+		}
+	}
+}
 
 func cleanupResources() {
 	if testInstanceKeyGuid != "" {
