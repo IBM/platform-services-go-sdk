@@ -246,7 +246,7 @@ var _ = Describe(`IamIdentityV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"context": {"transaction_id": "TransactionID", "operation": "Operation", "user_agent": "UserAgent", "url": "URL", "instance_id": "InstanceID", "thread_id": "ThreadID", "host": "Host", "start_time": "StartTime", "end_time": "EndTime", "elapsed_time": "ElapsedTime", "cluster_name": "ClusterName"}, "offset": 6, "limit": 5, "first": "First", "previous": "Previous", "next": "Next", "apikeys": [{"context": {"transaction_id": "TransactionID", "operation": "Operation", "user_agent": "UserAgent", "url": "URL", "instance_id": "InstanceID", "thread_id": "ThreadID", "host": "Host", "start_time": "StartTime", "end_time": "EndTime", "elapsed_time": "ElapsedTime", "cluster_name": "ClusterName"}, "id": "ID", "entity_tag": "EntityTag", "crn": "Crn", "locked": true, "created_at": "CreatedAt", "created_by": "CreatedBy", "modified_at": "ModifiedAt", "name": "Name", "description": "Description", "iam_id": "IamID", "account_id": "AccountID", "apikey": "Apikey", "history": [{"timestamp": "Timestamp", "iam_id": "IamID", "iam_id_account": "IamIdAccount", "action": "Action", "params": ["Params"], "message": "Message"}]}]}`)
+					fmt.Fprintf(res, "%s", `{"context": {"transaction_id": "TransactionID", "operation": "Operation", "user_agent": "UserAgent", "url": "URL", "instance_id": "InstanceID", "thread_id": "ThreadID", "host": "Host", "start_time": "StartTime", "end_time": "EndTime", "elapsed_time": "ElapsedTime", "cluster_name": "ClusterName"}, "offset": 6, "limit": 5, "first": "First", "previous": "Previous", "next": "Next", "apikeys": [{"context": {"transaction_id": "TransactionID", "operation": "Operation", "user_agent": "UserAgent", "url": "URL", "instance_id": "InstanceID", "thread_id": "ThreadID", "host": "Host", "start_time": "StartTime", "end_time": "EndTime", "elapsed_time": "ElapsedTime", "cluster_name": "ClusterName"}, "id": "ID", "entity_tag": "EntityTag", "crn": "Crn", "locked": true, "created_at": "2019-01-01T12:00:00", "created_by": "CreatedBy", "modified_at": "2019-01-01T12:00:00", "name": "Name", "description": "Description", "iam_id": "IamID", "account_id": "AccountID", "apikey": "Apikey", "history": [{"timestamp": "Timestamp", "iam_id": "IamID", "iam_id_account": "IamIdAccount", "action": "Action", "params": ["Params"], "message": "Message"}]}]}`)
 				}))
 			})
 			It(`Invoke ListApiKeys successfully`, func() {
@@ -433,7 +433,7 @@ var _ = Describe(`IamIdentityV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"context": {"transaction_id": "TransactionID", "operation": "Operation", "user_agent": "UserAgent", "url": "URL", "instance_id": "InstanceID", "thread_id": "ThreadID", "host": "Host", "start_time": "StartTime", "end_time": "EndTime", "elapsed_time": "ElapsedTime", "cluster_name": "ClusterName"}, "id": "ID", "entity_tag": "EntityTag", "crn": "Crn", "locked": true, "created_at": "CreatedAt", "created_by": "CreatedBy", "modified_at": "ModifiedAt", "name": "Name", "description": "Description", "iam_id": "IamID", "account_id": "AccountID", "apikey": "Apikey", "history": [{"timestamp": "Timestamp", "iam_id": "IamID", "iam_id_account": "IamIdAccount", "action": "Action", "params": ["Params"], "message": "Message"}]}`)
+					fmt.Fprintf(res, "%s", `{"context": {"transaction_id": "TransactionID", "operation": "Operation", "user_agent": "UserAgent", "url": "URL", "instance_id": "InstanceID", "thread_id": "ThreadID", "host": "Host", "start_time": "StartTime", "end_time": "EndTime", "elapsed_time": "ElapsedTime", "cluster_name": "ClusterName"}, "id": "ID", "entity_tag": "EntityTag", "crn": "Crn", "locked": true, "created_at": "2019-01-01T12:00:00", "created_by": "CreatedBy", "modified_at": "2019-01-01T12:00:00", "name": "Name", "description": "Description", "iam_id": "IamID", "account_id": "AccountID", "apikey": "Apikey", "history": [{"timestamp": "Timestamp", "iam_id": "IamID", "iam_id_account": "IamIdAccount", "action": "Action", "params": ["Params"], "message": "Message"}]}`)
 				}))
 			})
 			It(`Invoke CreateApiKey successfully`, func() {
@@ -608,7 +608,7 @@ var _ = Describe(`IamIdentityV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"context": {"transaction_id": "TransactionID", "operation": "Operation", "user_agent": "UserAgent", "url": "URL", "instance_id": "InstanceID", "thread_id": "ThreadID", "host": "Host", "start_time": "StartTime", "end_time": "EndTime", "elapsed_time": "ElapsedTime", "cluster_name": "ClusterName"}, "id": "ID", "entity_tag": "EntityTag", "crn": "Crn", "locked": true, "created_at": "CreatedAt", "created_by": "CreatedBy", "modified_at": "ModifiedAt", "name": "Name", "description": "Description", "iam_id": "IamID", "account_id": "AccountID", "apikey": "Apikey", "history": [{"timestamp": "Timestamp", "iam_id": "IamID", "iam_id_account": "IamIdAccount", "action": "Action", "params": ["Params"], "message": "Message"}]}`)
+					fmt.Fprintf(res, "%s", `{"context": {"transaction_id": "TransactionID", "operation": "Operation", "user_agent": "UserAgent", "url": "URL", "instance_id": "InstanceID", "thread_id": "ThreadID", "host": "Host", "start_time": "StartTime", "end_time": "EndTime", "elapsed_time": "ElapsedTime", "cluster_name": "ClusterName"}, "id": "ID", "entity_tag": "EntityTag", "crn": "Crn", "locked": true, "created_at": "2019-01-01T12:00:00", "created_by": "CreatedBy", "modified_at": "2019-01-01T12:00:00", "name": "Name", "description": "Description", "iam_id": "IamID", "account_id": "AccountID", "apikey": "Apikey", "history": [{"timestamp": "Timestamp", "iam_id": "IamID", "iam_id_account": "IamIdAccount", "action": "Action", "params": ["Params"], "message": "Message"}]}`)
 				}))
 			})
 			It(`Invoke GetApiKeysDetails successfully`, func() {
@@ -762,7 +762,7 @@ var _ = Describe(`IamIdentityV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"context": {"transaction_id": "TransactionID", "operation": "Operation", "user_agent": "UserAgent", "url": "URL", "instance_id": "InstanceID", "thread_id": "ThreadID", "host": "Host", "start_time": "StartTime", "end_time": "EndTime", "elapsed_time": "ElapsedTime", "cluster_name": "ClusterName"}, "id": "ID", "entity_tag": "EntityTag", "crn": "Crn", "locked": true, "created_at": "CreatedAt", "created_by": "CreatedBy", "modified_at": "ModifiedAt", "name": "Name", "description": "Description", "iam_id": "IamID", "account_id": "AccountID", "apikey": "Apikey", "history": [{"timestamp": "Timestamp", "iam_id": "IamID", "iam_id_account": "IamIdAccount", "action": "Action", "params": ["Params"], "message": "Message"}]}`)
+					fmt.Fprintf(res, "%s", `{"context": {"transaction_id": "TransactionID", "operation": "Operation", "user_agent": "UserAgent", "url": "URL", "instance_id": "InstanceID", "thread_id": "ThreadID", "host": "Host", "start_time": "StartTime", "end_time": "EndTime", "elapsed_time": "ElapsedTime", "cluster_name": "ClusterName"}, "id": "ID", "entity_tag": "EntityTag", "crn": "Crn", "locked": true, "created_at": "2019-01-01T12:00:00", "created_by": "CreatedBy", "modified_at": "2019-01-01T12:00:00", "name": "Name", "description": "Description", "iam_id": "IamID", "account_id": "AccountID", "apikey": "Apikey", "history": [{"timestamp": "Timestamp", "iam_id": "IamID", "iam_id_account": "IamIdAccount", "action": "Action", "params": ["Params"], "message": "Message"}]}`)
 				}))
 			})
 			It(`Invoke GetApiKey successfully`, func() {
@@ -939,7 +939,7 @@ var _ = Describe(`IamIdentityV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"context": {"transaction_id": "TransactionID", "operation": "Operation", "user_agent": "UserAgent", "url": "URL", "instance_id": "InstanceID", "thread_id": "ThreadID", "host": "Host", "start_time": "StartTime", "end_time": "EndTime", "elapsed_time": "ElapsedTime", "cluster_name": "ClusterName"}, "id": "ID", "entity_tag": "EntityTag", "crn": "Crn", "locked": true, "created_at": "CreatedAt", "created_by": "CreatedBy", "modified_at": "ModifiedAt", "name": "Name", "description": "Description", "iam_id": "IamID", "account_id": "AccountID", "apikey": "Apikey", "history": [{"timestamp": "Timestamp", "iam_id": "IamID", "iam_id_account": "IamIdAccount", "action": "Action", "params": ["Params"], "message": "Message"}]}`)
+					fmt.Fprintf(res, "%s", `{"context": {"transaction_id": "TransactionID", "operation": "Operation", "user_agent": "UserAgent", "url": "URL", "instance_id": "InstanceID", "thread_id": "ThreadID", "host": "Host", "start_time": "StartTime", "end_time": "EndTime", "elapsed_time": "ElapsedTime", "cluster_name": "ClusterName"}, "id": "ID", "entity_tag": "EntityTag", "crn": "Crn", "locked": true, "created_at": "2019-01-01T12:00:00", "created_by": "CreatedBy", "modified_at": "2019-01-01T12:00:00", "name": "Name", "description": "Description", "iam_id": "IamID", "account_id": "AccountID", "apikey": "Apikey", "history": [{"timestamp": "Timestamp", "iam_id": "IamID", "iam_id_account": "IamIdAccount", "action": "Action", "params": ["Params"], "message": "Message"}]}`)
 				}))
 			})
 			It(`Invoke UpdateApiKey successfully`, func() {
@@ -1361,7 +1361,7 @@ var _ = Describe(`IamIdentityV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"context": {"transaction_id": "TransactionID", "operation": "Operation", "user_agent": "UserAgent", "url": "URL", "instance_id": "InstanceID", "thread_id": "ThreadID", "host": "Host", "start_time": "StartTime", "end_time": "EndTime", "elapsed_time": "ElapsedTime", "cluster_name": "ClusterName"}, "offset": 6, "limit": 5, "first": "First", "previous": "Previous", "next": "Next", "serviceids": [{"context": {"transaction_id": "TransactionID", "operation": "Operation", "user_agent": "UserAgent", "url": "URL", "instance_id": "InstanceID", "thread_id": "ThreadID", "host": "Host", "start_time": "StartTime", "end_time": "EndTime", "elapsed_time": "ElapsedTime", "cluster_name": "ClusterName"}, "id": "ID", "iam_id": "IamID", "entity_tag": "EntityTag", "crn": "Crn", "locked": true, "created_at": "CreatedAt", "modified_at": "ModifiedAt", "account_id": "AccountID", "name": "Name", "description": "Description", "unique_instance_crns": ["UniqueInstanceCrns"], "history": [{"timestamp": "Timestamp", "iam_id": "IamID", "iam_id_account": "IamIdAccount", "action": "Action", "params": ["Params"], "message": "Message"}], "apikey": {"context": {"transaction_id": "TransactionID", "operation": "Operation", "user_agent": "UserAgent", "url": "URL", "instance_id": "InstanceID", "thread_id": "ThreadID", "host": "Host", "start_time": "StartTime", "end_time": "EndTime", "elapsed_time": "ElapsedTime", "cluster_name": "ClusterName"}, "id": "ID", "entity_tag": "EntityTag", "crn": "Crn", "locked": true, "created_at": "CreatedAt", "created_by": "CreatedBy", "modified_at": "ModifiedAt", "name": "Name", "description": "Description", "iam_id": "IamID", "account_id": "AccountID", "apikey": "Apikey", "history": [{"timestamp": "Timestamp", "iam_id": "IamID", "iam_id_account": "IamIdAccount", "action": "Action", "params": ["Params"], "message": "Message"}]}}]}`)
+					fmt.Fprintf(res, "%s", `{"context": {"transaction_id": "TransactionID", "operation": "Operation", "user_agent": "UserAgent", "url": "URL", "instance_id": "InstanceID", "thread_id": "ThreadID", "host": "Host", "start_time": "StartTime", "end_time": "EndTime", "elapsed_time": "ElapsedTime", "cluster_name": "ClusterName"}, "offset": 6, "limit": 5, "first": "First", "previous": "Previous", "next": "Next", "serviceids": [{"context": {"transaction_id": "TransactionID", "operation": "Operation", "user_agent": "UserAgent", "url": "URL", "instance_id": "InstanceID", "thread_id": "ThreadID", "host": "Host", "start_time": "StartTime", "end_time": "EndTime", "elapsed_time": "ElapsedTime", "cluster_name": "ClusterName"}, "id": "ID", "iam_id": "IamID", "entity_tag": "EntityTag", "crn": "Crn", "locked": true, "created_at": "2019-01-01T12:00:00", "modified_at": "2019-01-01T12:00:00", "account_id": "AccountID", "name": "Name", "description": "Description", "unique_instance_crns": ["UniqueInstanceCrns"], "history": [{"timestamp": "Timestamp", "iam_id": "IamID", "iam_id_account": "IamIdAccount", "action": "Action", "params": ["Params"], "message": "Message"}], "apikey": {"context": {"transaction_id": "TransactionID", "operation": "Operation", "user_agent": "UserAgent", "url": "URL", "instance_id": "InstanceID", "thread_id": "ThreadID", "host": "Host", "start_time": "StartTime", "end_time": "EndTime", "elapsed_time": "ElapsedTime", "cluster_name": "ClusterName"}, "id": "ID", "entity_tag": "EntityTag", "crn": "Crn", "locked": true, "created_at": "2019-01-01T12:00:00", "created_by": "CreatedBy", "modified_at": "2019-01-01T12:00:00", "name": "Name", "description": "Description", "iam_id": "IamID", "account_id": "AccountID", "apikey": "Apikey", "history": [{"timestamp": "Timestamp", "iam_id": "IamID", "iam_id_account": "IamIdAccount", "action": "Action", "params": ["Params"], "message": "Message"}]}}]}`)
 				}))
 			})
 			It(`Invoke ListServiceIds successfully`, func() {
@@ -1478,14 +1478,12 @@ var _ = Describe(`IamIdentityV1`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(iamIdentityService).ToNot(BeNil())
 
-				// Construct an instance of the CreateApiKeyRequest model
-				createApiKeyRequestModel := new(iamidentityv1.CreateApiKeyRequest)
-				createApiKeyRequestModel.Name = core.StringPtr("testString")
-				createApiKeyRequestModel.Description = core.StringPtr("testString")
-				createApiKeyRequestModel.IamID = core.StringPtr("testString")
-				createApiKeyRequestModel.AccountID = core.StringPtr("testString")
-				createApiKeyRequestModel.Apikey = core.StringPtr("testString")
-				createApiKeyRequestModel.StoreValue = core.BoolPtr(true)
+				// Construct an instance of the ApiKeyInsideCreateServiceIdRequest model
+				apiKeyInsideCreateServiceIdRequestModel := new(iamidentityv1.ApiKeyInsideCreateServiceIdRequest)
+				apiKeyInsideCreateServiceIdRequestModel.Name = core.StringPtr("testString")
+				apiKeyInsideCreateServiceIdRequestModel.Description = core.StringPtr("testString")
+				apiKeyInsideCreateServiceIdRequestModel.Apikey = core.StringPtr("testString")
+				apiKeyInsideCreateServiceIdRequestModel.StoreValue = core.BoolPtr(true)
 
 				// Construct an instance of the CreateServiceIdOptions model
 				createServiceIdOptionsModel := new(iamidentityv1.CreateServiceIdOptions)
@@ -1493,7 +1491,7 @@ var _ = Describe(`IamIdentityV1`, func() {
 				createServiceIdOptionsModel.Name = core.StringPtr("testString")
 				createServiceIdOptionsModel.Description = core.StringPtr("testString")
 				createServiceIdOptionsModel.UniqueInstanceCrns = []string{"testString"}
-				createServiceIdOptionsModel.Apikey = createApiKeyRequestModel
+				createServiceIdOptionsModel.Apikey = apiKeyInsideCreateServiceIdRequestModel
 				createServiceIdOptionsModel.EntityLock = core.StringPtr("testString")
 				createServiceIdOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
@@ -1552,7 +1550,7 @@ var _ = Describe(`IamIdentityV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"context": {"transaction_id": "TransactionID", "operation": "Operation", "user_agent": "UserAgent", "url": "URL", "instance_id": "InstanceID", "thread_id": "ThreadID", "host": "Host", "start_time": "StartTime", "end_time": "EndTime", "elapsed_time": "ElapsedTime", "cluster_name": "ClusterName"}, "id": "ID", "iam_id": "IamID", "entity_tag": "EntityTag", "crn": "Crn", "locked": true, "created_at": "CreatedAt", "modified_at": "ModifiedAt", "account_id": "AccountID", "name": "Name", "description": "Description", "unique_instance_crns": ["UniqueInstanceCrns"], "history": [{"timestamp": "Timestamp", "iam_id": "IamID", "iam_id_account": "IamIdAccount", "action": "Action", "params": ["Params"], "message": "Message"}], "apikey": {"context": {"transaction_id": "TransactionID", "operation": "Operation", "user_agent": "UserAgent", "url": "URL", "instance_id": "InstanceID", "thread_id": "ThreadID", "host": "Host", "start_time": "StartTime", "end_time": "EndTime", "elapsed_time": "ElapsedTime", "cluster_name": "ClusterName"}, "id": "ID", "entity_tag": "EntityTag", "crn": "Crn", "locked": true, "created_at": "CreatedAt", "created_by": "CreatedBy", "modified_at": "ModifiedAt", "name": "Name", "description": "Description", "iam_id": "IamID", "account_id": "AccountID", "apikey": "Apikey", "history": [{"timestamp": "Timestamp", "iam_id": "IamID", "iam_id_account": "IamIdAccount", "action": "Action", "params": ["Params"], "message": "Message"}]}}`)
+					fmt.Fprintf(res, "%s", `{"context": {"transaction_id": "TransactionID", "operation": "Operation", "user_agent": "UserAgent", "url": "URL", "instance_id": "InstanceID", "thread_id": "ThreadID", "host": "Host", "start_time": "StartTime", "end_time": "EndTime", "elapsed_time": "ElapsedTime", "cluster_name": "ClusterName"}, "id": "ID", "iam_id": "IamID", "entity_tag": "EntityTag", "crn": "Crn", "locked": true, "created_at": "2019-01-01T12:00:00", "modified_at": "2019-01-01T12:00:00", "account_id": "AccountID", "name": "Name", "description": "Description", "unique_instance_crns": ["UniqueInstanceCrns"], "history": [{"timestamp": "Timestamp", "iam_id": "IamID", "iam_id_account": "IamIdAccount", "action": "Action", "params": ["Params"], "message": "Message"}], "apikey": {"context": {"transaction_id": "TransactionID", "operation": "Operation", "user_agent": "UserAgent", "url": "URL", "instance_id": "InstanceID", "thread_id": "ThreadID", "host": "Host", "start_time": "StartTime", "end_time": "EndTime", "elapsed_time": "ElapsedTime", "cluster_name": "ClusterName"}, "id": "ID", "entity_tag": "EntityTag", "crn": "Crn", "locked": true, "created_at": "2019-01-01T12:00:00", "created_by": "CreatedBy", "modified_at": "2019-01-01T12:00:00", "name": "Name", "description": "Description", "iam_id": "IamID", "account_id": "AccountID", "apikey": "Apikey", "history": [{"timestamp": "Timestamp", "iam_id": "IamID", "iam_id_account": "IamIdAccount", "action": "Action", "params": ["Params"], "message": "Message"}]}}`)
 				}))
 			})
 			It(`Invoke CreateServiceID successfully`, func() {
@@ -1570,14 +1568,12 @@ var _ = Describe(`IamIdentityV1`, func() {
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
 
-				// Construct an instance of the CreateApiKeyRequest model
-				createApiKeyRequestModel := new(iamidentityv1.CreateApiKeyRequest)
-				createApiKeyRequestModel.Name = core.StringPtr("testString")
-				createApiKeyRequestModel.Description = core.StringPtr("testString")
-				createApiKeyRequestModel.IamID = core.StringPtr("testString")
-				createApiKeyRequestModel.AccountID = core.StringPtr("testString")
-				createApiKeyRequestModel.Apikey = core.StringPtr("testString")
-				createApiKeyRequestModel.StoreValue = core.BoolPtr(true)
+				// Construct an instance of the ApiKeyInsideCreateServiceIdRequest model
+				apiKeyInsideCreateServiceIdRequestModel := new(iamidentityv1.ApiKeyInsideCreateServiceIdRequest)
+				apiKeyInsideCreateServiceIdRequestModel.Name = core.StringPtr("testString")
+				apiKeyInsideCreateServiceIdRequestModel.Description = core.StringPtr("testString")
+				apiKeyInsideCreateServiceIdRequestModel.Apikey = core.StringPtr("testString")
+				apiKeyInsideCreateServiceIdRequestModel.StoreValue = core.BoolPtr(true)
 
 				// Construct an instance of the CreateServiceIdOptions model
 				createServiceIdOptionsModel := new(iamidentityv1.CreateServiceIdOptions)
@@ -1585,7 +1581,7 @@ var _ = Describe(`IamIdentityV1`, func() {
 				createServiceIdOptionsModel.Name = core.StringPtr("testString")
 				createServiceIdOptionsModel.Description = core.StringPtr("testString")
 				createServiceIdOptionsModel.UniqueInstanceCrns = []string{"testString"}
-				createServiceIdOptionsModel.Apikey = createApiKeyRequestModel
+				createServiceIdOptionsModel.Apikey = apiKeyInsideCreateServiceIdRequestModel
 				createServiceIdOptionsModel.EntityLock = core.StringPtr("testString")
 				createServiceIdOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
@@ -1628,14 +1624,12 @@ var _ = Describe(`IamIdentityV1`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(iamIdentityService).ToNot(BeNil())
 
-				// Construct an instance of the CreateApiKeyRequest model
-				createApiKeyRequestModel := new(iamidentityv1.CreateApiKeyRequest)
-				createApiKeyRequestModel.Name = core.StringPtr("testString")
-				createApiKeyRequestModel.Description = core.StringPtr("testString")
-				createApiKeyRequestModel.IamID = core.StringPtr("testString")
-				createApiKeyRequestModel.AccountID = core.StringPtr("testString")
-				createApiKeyRequestModel.Apikey = core.StringPtr("testString")
-				createApiKeyRequestModel.StoreValue = core.BoolPtr(true)
+				// Construct an instance of the ApiKeyInsideCreateServiceIdRequest model
+				apiKeyInsideCreateServiceIdRequestModel := new(iamidentityv1.ApiKeyInsideCreateServiceIdRequest)
+				apiKeyInsideCreateServiceIdRequestModel.Name = core.StringPtr("testString")
+				apiKeyInsideCreateServiceIdRequestModel.Description = core.StringPtr("testString")
+				apiKeyInsideCreateServiceIdRequestModel.Apikey = core.StringPtr("testString")
+				apiKeyInsideCreateServiceIdRequestModel.StoreValue = core.BoolPtr(true)
 
 				// Construct an instance of the CreateServiceIdOptions model
 				createServiceIdOptionsModel := new(iamidentityv1.CreateServiceIdOptions)
@@ -1643,7 +1637,7 @@ var _ = Describe(`IamIdentityV1`, func() {
 				createServiceIdOptionsModel.Name = core.StringPtr("testString")
 				createServiceIdOptionsModel.Description = core.StringPtr("testString")
 				createServiceIdOptionsModel.UniqueInstanceCrns = []string{"testString"}
-				createServiceIdOptionsModel.Apikey = createApiKeyRequestModel
+				createServiceIdOptionsModel.Apikey = apiKeyInsideCreateServiceIdRequestModel
 				createServiceIdOptionsModel.EntityLock = core.StringPtr("testString")
 				createServiceIdOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
@@ -1739,7 +1733,7 @@ var _ = Describe(`IamIdentityV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"context": {"transaction_id": "TransactionID", "operation": "Operation", "user_agent": "UserAgent", "url": "URL", "instance_id": "InstanceID", "thread_id": "ThreadID", "host": "Host", "start_time": "StartTime", "end_time": "EndTime", "elapsed_time": "ElapsedTime", "cluster_name": "ClusterName"}, "id": "ID", "iam_id": "IamID", "entity_tag": "EntityTag", "crn": "Crn", "locked": true, "created_at": "CreatedAt", "modified_at": "ModifiedAt", "account_id": "AccountID", "name": "Name", "description": "Description", "unique_instance_crns": ["UniqueInstanceCrns"], "history": [{"timestamp": "Timestamp", "iam_id": "IamID", "iam_id_account": "IamIdAccount", "action": "Action", "params": ["Params"], "message": "Message"}], "apikey": {"context": {"transaction_id": "TransactionID", "operation": "Operation", "user_agent": "UserAgent", "url": "URL", "instance_id": "InstanceID", "thread_id": "ThreadID", "host": "Host", "start_time": "StartTime", "end_time": "EndTime", "elapsed_time": "ElapsedTime", "cluster_name": "ClusterName"}, "id": "ID", "entity_tag": "EntityTag", "crn": "Crn", "locked": true, "created_at": "CreatedAt", "created_by": "CreatedBy", "modified_at": "ModifiedAt", "name": "Name", "description": "Description", "iam_id": "IamID", "account_id": "AccountID", "apikey": "Apikey", "history": [{"timestamp": "Timestamp", "iam_id": "IamID", "iam_id_account": "IamIdAccount", "action": "Action", "params": ["Params"], "message": "Message"}]}}`)
+					fmt.Fprintf(res, "%s", `{"context": {"transaction_id": "TransactionID", "operation": "Operation", "user_agent": "UserAgent", "url": "URL", "instance_id": "InstanceID", "thread_id": "ThreadID", "host": "Host", "start_time": "StartTime", "end_time": "EndTime", "elapsed_time": "ElapsedTime", "cluster_name": "ClusterName"}, "id": "ID", "iam_id": "IamID", "entity_tag": "EntityTag", "crn": "Crn", "locked": true, "created_at": "2019-01-01T12:00:00", "modified_at": "2019-01-01T12:00:00", "account_id": "AccountID", "name": "Name", "description": "Description", "unique_instance_crns": ["UniqueInstanceCrns"], "history": [{"timestamp": "Timestamp", "iam_id": "IamID", "iam_id_account": "IamIdAccount", "action": "Action", "params": ["Params"], "message": "Message"}], "apikey": {"context": {"transaction_id": "TransactionID", "operation": "Operation", "user_agent": "UserAgent", "url": "URL", "instance_id": "InstanceID", "thread_id": "ThreadID", "host": "Host", "start_time": "StartTime", "end_time": "EndTime", "elapsed_time": "ElapsedTime", "cluster_name": "ClusterName"}, "id": "ID", "entity_tag": "EntityTag", "crn": "Crn", "locked": true, "created_at": "2019-01-01T12:00:00", "created_by": "CreatedBy", "modified_at": "2019-01-01T12:00:00", "name": "Name", "description": "Description", "iam_id": "IamID", "account_id": "AccountID", "apikey": "Apikey", "history": [{"timestamp": "Timestamp", "iam_id": "IamID", "iam_id_account": "IamIdAccount", "action": "Action", "params": ["Params"], "message": "Message"}]}}`)
 				}))
 			})
 			It(`Invoke GetServiceID successfully`, func() {
@@ -1917,7 +1911,7 @@ var _ = Describe(`IamIdentityV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"context": {"transaction_id": "TransactionID", "operation": "Operation", "user_agent": "UserAgent", "url": "URL", "instance_id": "InstanceID", "thread_id": "ThreadID", "host": "Host", "start_time": "StartTime", "end_time": "EndTime", "elapsed_time": "ElapsedTime", "cluster_name": "ClusterName"}, "id": "ID", "iam_id": "IamID", "entity_tag": "EntityTag", "crn": "Crn", "locked": true, "created_at": "CreatedAt", "modified_at": "ModifiedAt", "account_id": "AccountID", "name": "Name", "description": "Description", "unique_instance_crns": ["UniqueInstanceCrns"], "history": [{"timestamp": "Timestamp", "iam_id": "IamID", "iam_id_account": "IamIdAccount", "action": "Action", "params": ["Params"], "message": "Message"}], "apikey": {"context": {"transaction_id": "TransactionID", "operation": "Operation", "user_agent": "UserAgent", "url": "URL", "instance_id": "InstanceID", "thread_id": "ThreadID", "host": "Host", "start_time": "StartTime", "end_time": "EndTime", "elapsed_time": "ElapsedTime", "cluster_name": "ClusterName"}, "id": "ID", "entity_tag": "EntityTag", "crn": "Crn", "locked": true, "created_at": "CreatedAt", "created_by": "CreatedBy", "modified_at": "ModifiedAt", "name": "Name", "description": "Description", "iam_id": "IamID", "account_id": "AccountID", "apikey": "Apikey", "history": [{"timestamp": "Timestamp", "iam_id": "IamID", "iam_id_account": "IamIdAccount", "action": "Action", "params": ["Params"], "message": "Message"}]}}`)
+					fmt.Fprintf(res, "%s", `{"context": {"transaction_id": "TransactionID", "operation": "Operation", "user_agent": "UserAgent", "url": "URL", "instance_id": "InstanceID", "thread_id": "ThreadID", "host": "Host", "start_time": "StartTime", "end_time": "EndTime", "elapsed_time": "ElapsedTime", "cluster_name": "ClusterName"}, "id": "ID", "iam_id": "IamID", "entity_tag": "EntityTag", "crn": "Crn", "locked": true, "created_at": "2019-01-01T12:00:00", "modified_at": "2019-01-01T12:00:00", "account_id": "AccountID", "name": "Name", "description": "Description", "unique_instance_crns": ["UniqueInstanceCrns"], "history": [{"timestamp": "Timestamp", "iam_id": "IamID", "iam_id_account": "IamIdAccount", "action": "Action", "params": ["Params"], "message": "Message"}], "apikey": {"context": {"transaction_id": "TransactionID", "operation": "Operation", "user_agent": "UserAgent", "url": "URL", "instance_id": "InstanceID", "thread_id": "ThreadID", "host": "Host", "start_time": "StartTime", "end_time": "EndTime", "elapsed_time": "ElapsedTime", "cluster_name": "ClusterName"}, "id": "ID", "entity_tag": "EntityTag", "crn": "Crn", "locked": true, "created_at": "2019-01-01T12:00:00", "created_by": "CreatedBy", "modified_at": "2019-01-01T12:00:00", "name": "Name", "description": "Description", "iam_id": "IamID", "account_id": "AccountID", "apikey": "Apikey", "history": [{"timestamp": "Timestamp", "iam_id": "IamID", "iam_id_account": "IamIdAccount", "action": "Action", "params": ["Params"], "message": "Message"}]}}`)
 				}))
 			})
 			It(`Invoke UpdateServiceID successfully`, func() {
@@ -2246,6 +2240,12 @@ var _ = Describe(`IamIdentityV1`, func() {
 				URL:           "http://iamidentityv1modelgenerator.com",
 				Authenticator: &core.NoAuthAuthenticator{},
 			})
+			It(`Invoke NewApiKeyInsideCreateServiceIdRequest successfully`, func() {
+				name := "testString"
+				model, err := iamIdentityService.NewApiKeyInsideCreateServiceIdRequest(name)
+				Expect(model).ToNot(BeNil())
+				Expect(err).To(BeNil())
+			})
 			It(`Invoke NewCreateApiKeyOptions successfully`, func() {
 				// Construct an instance of the CreateApiKeyOptions model
 				createApiKeyOptionsName := "testString"
@@ -2269,29 +2269,18 @@ var _ = Describe(`IamIdentityV1`, func() {
 				Expect(createApiKeyOptionsModel.EntityLock).To(Equal(core.StringPtr("testString")))
 				Expect(createApiKeyOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
-			It(`Invoke NewCreateApiKeyRequest successfully`, func() {
-				name := "testString"
-				iamID := "testString"
-				model, err := iamIdentityService.NewCreateApiKeyRequest(name, iamID)
-				Expect(model).ToNot(BeNil())
-				Expect(err).To(BeNil())
-			})
 			It(`Invoke NewCreateServiceIdOptions successfully`, func() {
-				// Construct an instance of the CreateApiKeyRequest model
-				createApiKeyRequestModel := new(iamidentityv1.CreateApiKeyRequest)
-				Expect(createApiKeyRequestModel).ToNot(BeNil())
-				createApiKeyRequestModel.Name = core.StringPtr("testString")
-				createApiKeyRequestModel.Description = core.StringPtr("testString")
-				createApiKeyRequestModel.IamID = core.StringPtr("testString")
-				createApiKeyRequestModel.AccountID = core.StringPtr("testString")
-				createApiKeyRequestModel.Apikey = core.StringPtr("testString")
-				createApiKeyRequestModel.StoreValue = core.BoolPtr(true)
-				Expect(createApiKeyRequestModel.Name).To(Equal(core.StringPtr("testString")))
-				Expect(createApiKeyRequestModel.Description).To(Equal(core.StringPtr("testString")))
-				Expect(createApiKeyRequestModel.IamID).To(Equal(core.StringPtr("testString")))
-				Expect(createApiKeyRequestModel.AccountID).To(Equal(core.StringPtr("testString")))
-				Expect(createApiKeyRequestModel.Apikey).To(Equal(core.StringPtr("testString")))
-				Expect(createApiKeyRequestModel.StoreValue).To(Equal(core.BoolPtr(true)))
+				// Construct an instance of the ApiKeyInsideCreateServiceIdRequest model
+				apiKeyInsideCreateServiceIdRequestModel := new(iamidentityv1.ApiKeyInsideCreateServiceIdRequest)
+				Expect(apiKeyInsideCreateServiceIdRequestModel).ToNot(BeNil())
+				apiKeyInsideCreateServiceIdRequestModel.Name = core.StringPtr("testString")
+				apiKeyInsideCreateServiceIdRequestModel.Description = core.StringPtr("testString")
+				apiKeyInsideCreateServiceIdRequestModel.Apikey = core.StringPtr("testString")
+				apiKeyInsideCreateServiceIdRequestModel.StoreValue = core.BoolPtr(true)
+				Expect(apiKeyInsideCreateServiceIdRequestModel.Name).To(Equal(core.StringPtr("testString")))
+				Expect(apiKeyInsideCreateServiceIdRequestModel.Description).To(Equal(core.StringPtr("testString")))
+				Expect(apiKeyInsideCreateServiceIdRequestModel.Apikey).To(Equal(core.StringPtr("testString")))
+				Expect(apiKeyInsideCreateServiceIdRequestModel.StoreValue).To(Equal(core.BoolPtr(true)))
 
 				// Construct an instance of the CreateServiceIdOptions model
 				createServiceIdOptionsAccountID := "testString"
@@ -2301,7 +2290,7 @@ var _ = Describe(`IamIdentityV1`, func() {
 				createServiceIdOptionsModel.SetName("testString")
 				createServiceIdOptionsModel.SetDescription("testString")
 				createServiceIdOptionsModel.SetUniqueInstanceCrns([]string{"testString"})
-				createServiceIdOptionsModel.SetApikey(createApiKeyRequestModel)
+				createServiceIdOptionsModel.SetApikey(apiKeyInsideCreateServiceIdRequestModel)
 				createServiceIdOptionsModel.SetEntityLock("testString")
 				createServiceIdOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(createServiceIdOptionsModel).ToNot(BeNil())
@@ -2309,7 +2298,7 @@ var _ = Describe(`IamIdentityV1`, func() {
 				Expect(createServiceIdOptionsModel.Name).To(Equal(core.StringPtr("testString")))
 				Expect(createServiceIdOptionsModel.Description).To(Equal(core.StringPtr("testString")))
 				Expect(createServiceIdOptionsModel.UniqueInstanceCrns).To(Equal([]string{"testString"}))
-				Expect(createServiceIdOptionsModel.Apikey).To(Equal(createApiKeyRequestModel))
+				Expect(createServiceIdOptionsModel.Apikey).To(Equal(apiKeyInsideCreateServiceIdRequestModel))
 				Expect(createServiceIdOptionsModel.EntityLock).To(Equal(core.StringPtr("testString")))
 				Expect(createServiceIdOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})

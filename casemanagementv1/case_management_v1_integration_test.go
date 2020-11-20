@@ -124,6 +124,8 @@ var _ = Describe("Case Management - Integration Tests", func() {
 			result, detailedResponse, err := service.CreateCaseWithContext(ctx, options)
 			Expect(err).To(BeNil())
 			Expect(detailedResponse.StatusCode).To(Equal(200))
+			Expect(result).ToNot(BeNil())
+			fmt.Fprintf(GinkgoWriter, "CreateCase() result:\n%s\n", common.ToJSON(result))
 			Expect(*result.Number).To(Not(BeNil()))
 			Expect(*result.ShortDescription).To(Equal(*options.Subject))
 			Expect(*result.Description).To(Equal(*options.Description))
@@ -131,7 +133,6 @@ var _ = Describe("Case Management - Integration Tests", func() {
 
 			caseNumber = *result.Number
 
-			fmt.Fprintf(GinkgoWriter, "\nCase number: %s\n", caseNumber)
 		})
 
 		It("Bad payload used to create a case", func() {
@@ -162,6 +163,8 @@ var _ = Describe("Case Management - Integration Tests", func() {
 			result, detailedResponse, err := service.GetCases(options)
 			Expect(err).To(BeNil())
 			Expect(detailedResponse.StatusCode).To(Equal(200))
+			Expect(result).ToNot(BeNil())
+			fmt.Fprintf(GinkgoWriter, "GetCases(default params) result:\n%s\n", common.ToJSON(result))
 			Expect(*result.TotalCount).To(Not(BeNil()))
 			Expect(*result.First).To(Not(BeNil()))
 			Expect(*result.Next).To(Not(BeNil()))
@@ -183,6 +186,8 @@ var _ = Describe("Case Management - Integration Tests", func() {
 			result, detailedResponse, err := service.GetCases(options)
 			Expect(err).To(BeNil())
 			Expect(detailedResponse.StatusCode).To(Equal(200))
+			Expect(result).ToNot(BeNil())
+			fmt.Fprintf(GinkgoWriter, "GetCases(non-default params) result:\n%s\n", common.ToJSON(result))
 			Expect(*result.TotalCount).To(Not(BeNil()))
 			Expect(*result.First).To(Not(BeNil()))
 			Expect(*result.Next).To(Not(BeNil()))
@@ -225,6 +230,8 @@ var _ = Describe("Case Management - Integration Tests", func() {
 
 			Expect(err).To(BeNil())
 			Expect(detailedResponse.StatusCode).To(Equal(200))
+			Expect(result).ToNot(BeNil())
+			fmt.Fprintf(GinkgoWriter, "GetCase(default) result:\n%s\n", common.ToJSON(result))
 			Expect(*result.Number).To(Equal(caseNumber))
 		})
 
@@ -236,6 +243,8 @@ var _ = Describe("Case Management - Integration Tests", func() {
 
 			Expect(err).To(BeNil())
 			Expect(detailedResponse.StatusCode).To(Equal(200))
+			Expect(result).ToNot(BeNil())
+			fmt.Fprintf(GinkgoWriter, "GetCase(field filtering) result:\n%s\n", common.ToJSON(result))
 			Expect(*result.Number).To(Equal(caseNumber))
 			Expect(result.Severity).To(Not(BeNil()))
 			Expect(result.Contact).To(BeNil())
@@ -264,6 +273,8 @@ var _ = Describe("Case Management - Integration Tests", func() {
 
 			Expect(err).To(BeNil())
 			Expect(detailedResponse.StatusCode).To(Equal(200))
+			Expect(result).ToNot(BeNil())
+			fmt.Fprintf(GinkgoWriter, "AddComment() result:\n%s\n", common.ToJSON(result))
 			Expect(*result.Value).To(Equal(commentValue))
 			Expect(result.AddedAt).To(Not(BeNil()))
 			Expect(result.AddedBy).To(Not(BeNil()))
@@ -317,6 +328,8 @@ var _ = Describe("Case Management - Integration Tests", func() {
 
 			Expect(err).To(BeNil())
 			Expect(detailedResponse.StatusCode).To(Equal(200))
+			Expect(result).ToNot(BeNil())
+			fmt.Fprintf(GinkgoWriter, "UpdateCaseStatus(resolve) result:\n%s\n", common.ToJSON(result))
 			Expect(*result.Status).To(Equal("Resolved"))
 		})
 
@@ -329,6 +342,8 @@ var _ = Describe("Case Management - Integration Tests", func() {
 
 			Expect(err).To(BeNil())
 			Expect(detailedResponse.StatusCode).To(Equal(200))
+			Expect(result).ToNot(BeNil())
+			fmt.Fprintf(GinkgoWriter, "UpdateCaseStatus(unresolve) result:\n%s\n", common.ToJSON(result))
 			Expect(*result.Status).To(Equal("In Progress"))
 		})
 	})
@@ -349,6 +364,8 @@ var _ = Describe("Case Management - Integration Tests", func() {
 
 			Expect(err).To(BeNil())
 			Expect(detailedResponse.StatusCode).To(Equal(200))
+			Expect(result).ToNot(BeNil())
+			fmt.Fprintf(GinkgoWriter, "UploadFile() result:\n%s\n", common.ToJSON(result))
 			Expect(*result.ID).To(Not(BeNil()))
 			Expect(*result.Filename).To(Equal(*fileInput.Filename))
 
@@ -383,6 +400,8 @@ var _ = Describe("Case Management - Integration Tests", func() {
 
 			Expect(err).To(BeNil())
 			Expect(detailedResponse.StatusCode).To((Equal(200)))
+			Expect(result).ToNot(BeNil())
+			fmt.Fprintf(GinkgoWriter, "AddResource() result:\n%s\n", common.ToJSON(result))
 			Expect(*result.Crn).To(Equal(crn))
 		})
 	})
