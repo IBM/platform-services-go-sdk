@@ -31,10 +31,38 @@ import (
 
 const externalConfigFile = "../open_service_broker.env"
 
+///////////////////////////////////////////////////////
+///////////// Example config file fields //////////////
+// OPEN_SERVICE_BROKER_URL=<Service Broker's URL>
+// OPEN_SERVICE_BROKER_AUTH_TYPE=basic
+// OPEN_SERVICE_BROKER_USERNAME=<username>
+// OPEN_SERVICE_BROKER_PASSWORD=<password>
+// OPEN_SERVICE_BROKER_PLAN_ID=ecc19311-aba2-49f7-8198-1e450c8460d4
+// OPEN_SERVICE_BROKER_RESOURCE_INSTANCE_ID=crn:v1:bluemix:public:compose-redis:us-south:a/003e9bc3993aec710d30a5a719e57a80:416d769b-682d-4833-8bd7-5ef8778e5b52
+// OPEN_SERVICE_BROKER_SERVICE_ID=0bc9d744-6f8c-4821-9648-2278bf6925bb
+// OPEN_SERVICE_BROKER_ACCOUNT_ID=003e9bc3993aec710d30a5a719e57a80
+// OPEN_SERVICE_BROKER_BINDING_ID=crn:v1:staging:public:compose-redis:global:a/bc2b2fca0af84354a916dc1de6eee42e:osb-sdk-example::
+// OPEN_SERVICE_BROKER_SPACE_GUID=336ba5f3-f185-488e-ac8d-02195ee3f2cc
+// OPEN_SERVICE_BROKER_APPLICATION_GUID=d3f16a48-8bd1-4aab-a7de-e2a22ad38292
+// OPEN_SERVICE_BROKER_ORGANIZATION_GUID=d35d4f0e-5076-4c89-9361-2522894b4856
+///////////////////////////////////////////////////////
+
 var (
 	openServiceBrokerService *openservicebrokerv1.OpenServiceBrokerV1
 	config                   map[string]string
 	configLoaded             bool = false
+
+	instanceId  string
+	orgGuid     string
+	planId      string
+	serviceId   string
+	spaceGuid   string
+	accountId   string
+	bindingId   string
+	appGuid     string
+	initiatorId string = "null"
+	reasonCode  string = "IBMCLOUD_ACCT_SUSPEND"
+	operation   string = "Privision_45"
 )
 
 func shouldSkipTest() {
@@ -59,6 +87,30 @@ var _ = Describe(`OpenServiceBrokerV1 Examples Tests`, func() {
 			}
 
 			configLoaded = len(config) > 0
+
+			instanceId = config["RESOURCE_INSTANCE_ID"]
+			Expect(instanceId).ToNot(BeEmpty())
+
+			orgGuid = config["ORGANIZATION_GUID"]
+			Expect(orgGuid).ToNot(BeEmpty())
+
+			planId = config["PLAN_ID"]
+			Expect(planId).ToNot(BeEmpty())
+
+			serviceId = config["SERVICE_ID"]
+			Expect(serviceId).ToNot(BeEmpty())
+
+			spaceGuid = config["SPACE_GUID"]
+			Expect(spaceGuid).ToNot(BeEmpty())
+
+			accountId = config["ACCOUNT_ID"]
+			Expect(accountId).ToNot(BeEmpty())
+
+			bindingId = config["BINDING_ID"]
+			Expect(bindingId).ToNot(BeEmpty())
+
+			appGuid = config["APPLICATION_GUID"]
+			Expect(appGuid).ToNot(BeEmpty())
 		})
 	})
 
@@ -71,9 +123,9 @@ var _ = Describe(`OpenServiceBrokerV1 Examples Tests`, func() {
 
 			// begin-common
 
-			openServiceBrokerServiceOptions := &openservicebrokerv1.OpenServiceBrokerV1Options{}
+			options := &openservicebrokerv1.OpenServiceBrokerV1Options{}
 
-			openServiceBrokerService, err = openservicebrokerv1.NewOpenServiceBrokerV1UsingExternalConfig(openServiceBrokerServiceOptions)
+			openServiceBrokerService, err = openservicebrokerv1.NewOpenServiceBrokerV1UsingExternalConfig(options)
 
 			if err != nil {
 				panic(err)
@@ -92,180 +144,231 @@ var _ = Describe(`OpenServiceBrokerV1 Examples Tests`, func() {
 		It(`GetServiceInstanceState request example`, func() {
 			// begin-get_service_instance_state
 
-			getServiceInstanceStateOptions := openServiceBrokerService.NewGetServiceInstanceStateOptions(
-				"testString",
+			options := openServiceBrokerService.NewGetServiceInstanceStateOptions(
+				instanceId,
 			)
 
-			resp1874644Root, response, err := openServiceBrokerService.GetServiceInstanceState(getServiceInstanceStateOptions)
+			result, response, err := openServiceBrokerService.GetServiceInstanceState(options)
 			if err != nil {
 				panic(err)
 			}
-			b, _ := json.MarshalIndent(resp1874644Root, "", "  ")
+			b, _ := json.MarshalIndent(result, "", "  ")
 			fmt.Println(string(b))
 
 			// end-get_service_instance_state
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
-			Expect(resp1874644Root).ToNot(BeNil())
+			Expect(result).ToNot(BeNil())
 
 		})
 		It(`ReplaceServiceInstanceState request example`, func() {
 			// begin-replace_service_instance_state
 
-			replaceServiceInstanceStateOptions := openServiceBrokerService.NewReplaceServiceInstanceStateOptions(
-				"testString",
+			options := openServiceBrokerService.NewReplaceServiceInstanceStateOptions(
+				instanceId,
 			)
+			options = options.SetEnabled(false)
+			options = options.SetInitiatorID(initiatorId)
 
-			resp2448145Root, response, err := openServiceBrokerService.ReplaceServiceInstanceState(replaceServiceInstanceStateOptions)
+			result, response, err := openServiceBrokerService.ReplaceServiceInstanceState(options)
 			if err != nil {
 				panic(err)
 			}
-			b, _ := json.MarshalIndent(resp2448145Root, "", "  ")
+			b, _ := json.MarshalIndent(result, "", "  ")
 			fmt.Println(string(b))
 
 			// end-replace_service_instance_state
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
-			Expect(resp2448145Root).ToNot(BeNil())
+			Expect(result).ToNot(BeNil())
 
 		})
 		It(`ReplaceServiceInstance request example`, func() {
 			// begin-replace_service_instance
 
-			replaceServiceInstanceOptions := openServiceBrokerService.NewReplaceServiceInstanceOptions(
-				"testString",
-			)
+			platform := "ibmcloud"
+			contextOpt := &openservicebrokerv1.Context{
+				AccountID: &accountId,
+				Crn:       &instanceId,
+				Platform:  &platform,
+			}
+			paramsOpt := make(map[string]string, 0)
+			paramsOpt["example"] = "property"
 
-			resp2079872Root, response, err := openServiceBrokerService.ReplaceServiceInstance(replaceServiceInstanceOptions)
+			options := openServiceBrokerService.NewReplaceServiceInstanceOptions(
+				instanceId,
+			)
+			options = options.SetPlanID(planId)
+			options = options.SetServiceID(serviceId)
+			options = options.SetOrganizationGuid(orgGuid)
+			options = options.SetSpaceGuid(spaceGuid)
+			options = options.SetContext(contextOpt)
+			options = options.SetParameters(paramsOpt)
+			options = options.SetAcceptsIncomplete(true)
+
+			result, response, err := openServiceBrokerService.ReplaceServiceInstance(options)
 			if err != nil {
 				panic(err)
 			}
-			b, _ := json.MarshalIndent(resp2079872Root, "", "  ")
+			b, _ := json.MarshalIndent(result, "", "  ")
 			fmt.Println(string(b))
 
 			// end-replace_service_instance
 
 			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(200))
-			Expect(resp2079872Root).ToNot(BeNil())
+			Expect(response.StatusCode).To(Equal(201))
+			Expect(result).ToNot(BeNil())
 
 		})
 		It(`UpdateServiceInstance request example`, func() {
 			// begin-update_service_instance
 
-			updateServiceInstanceOptions := openServiceBrokerService.NewUpdateServiceInstanceOptions(
-				"testString",
-			)
+			platform := "ibmcloud"
+			contextOpt := &openservicebrokerv1.Context{
+				AccountID: &accountId,
+				Crn:       &instanceId,
+				Platform:  &platform,
+			}
 
-			resp2079874Root, response, err := openServiceBrokerService.UpdateServiceInstance(updateServiceInstanceOptions)
+			paramsOpt := make(map[string]string, 0)
+			paramsOpt["example"] = "property"
+
+			previousValues := make(map[string]string, 0)
+			previousValues["plan_id"] = planId
+
+			options := openServiceBrokerService.NewUpdateServiceInstanceOptions(
+				instanceId,
+			)
+			options = options.SetPlanID(planId)
+			options = options.SetServiceID(serviceId)
+			options = options.SetContext(contextOpt)
+			options = options.SetParameters(paramsOpt)
+			options = options.SetAcceptsIncomplete(true)
+
+			result, response, err := openServiceBrokerService.UpdateServiceInstance(options)
 			if err != nil {
 				panic(err)
 			}
-			b, _ := json.MarshalIndent(resp2079874Root, "", "  ")
+			b, _ := json.MarshalIndent(result, "", "  ")
 			fmt.Println(string(b))
 
 			// end-update_service_instance
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
-			Expect(resp2079874Root).ToNot(BeNil())
+			Expect(result).ToNot(BeNil())
 
 		})
 		It(`ListCatalog request example`, func() {
 			// begin-list_catalog
 
-			listCatalogOptions := openServiceBrokerService.NewListCatalogOptions()
+			options := openServiceBrokerService.NewListCatalogOptions()
 
-			resp1874650Root, response, err := openServiceBrokerService.ListCatalog(listCatalogOptions)
+			result, response, err := openServiceBrokerService.ListCatalog(options)
 			if err != nil {
 				panic(err)
 			}
-			b, _ := json.MarshalIndent(resp1874650Root, "", "  ")
+			b, _ := json.MarshalIndent(result, "", "  ")
 			fmt.Println(string(b))
 
 			// end-list_catalog
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
-			Expect(resp1874650Root).ToNot(BeNil())
+			Expect(result).ToNot(BeNil())
 
 		})
 		It(`GetLastOperation request example`, func() {
 			// begin-get_last_operation
 
-			getLastOperationOptions := openServiceBrokerService.NewGetLastOperationOptions(
-				"testString",
+			options := openServiceBrokerService.NewGetLastOperationOptions(
+				instanceId,
 			)
+			options = options.SetOperation(operation)
+			options = options.SetPlanID(planId)
+			options = options.SetServiceID(serviceId)
 
-			resp2079894Root, response, err := openServiceBrokerService.GetLastOperation(getLastOperationOptions)
+			result, response, err := openServiceBrokerService.GetLastOperation(options)
 			if err != nil {
 				panic(err)
 			}
-			b, _ := json.MarshalIndent(resp2079894Root, "", "  ")
+			b, _ := json.MarshalIndent(result, "", "  ")
 			fmt.Println(string(b))
 
 			// end-get_last_operation
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
-			Expect(resp2079894Root).ToNot(BeNil())
+			Expect(result).ToNot(BeNil())
 
 		})
 		It(`ReplaceServiceBinding request example`, func() {
 			// begin-replace_service_binding
 
-			replaceServiceBindingOptions := openServiceBrokerService.NewReplaceServiceBindingOptions(
-				"testString",
-				"testString",
-			)
+			paramsOpt := make(map[string]string, 0)
+			paramsOpt["example"] = "property"
 
-			resp2079876Root, response, err := openServiceBrokerService.ReplaceServiceBinding(replaceServiceBindingOptions)
+			bindResource := &openservicebrokerv1.BindResource{
+				AccountID:    &accountId,
+				ServiceidCrn: &appGuid,
+			}
+
+			options := openServiceBrokerService.NewReplaceServiceBindingOptions(
+				bindingId,
+				instanceId,
+			)
+			options = options.SetPlanID(planId)
+			options = options.SetServiceID(serviceId)
+			options = options.SetParameters(paramsOpt)
+			options = options.SetBindResource(bindResource)
+
+			result, response, err := openServiceBrokerService.ReplaceServiceBinding(options)
 			if err != nil {
 				panic(err)
 			}
-			b, _ := json.MarshalIndent(resp2079876Root, "", "  ")
+			b, _ := json.MarshalIndent(result, "", "  ")
 			fmt.Println(string(b))
 
 			// end-replace_service_binding
 
 			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(200))
-			Expect(resp2079876Root).ToNot(BeNil())
+			Expect(response.StatusCode).To(Equal(201))
+			Expect(result).ToNot(BeNil())
 
 		})
 		It(`DeleteServiceInstance request example`, func() {
 			// begin-delete_service_instance
 
-			deleteServiceInstanceOptions := openServiceBrokerService.NewDeleteServiceInstanceOptions(
-				"testString",
-				"testString",
-				"testString",
+			options := openServiceBrokerService.NewDeleteServiceInstanceOptions(
+				serviceId,
+				planId,
+				instanceId,
 			)
 
-			resp2079874Root, response, err := openServiceBrokerService.DeleteServiceInstance(deleteServiceInstanceOptions)
+			result, response, err := openServiceBrokerService.DeleteServiceInstance(options)
 			if err != nil {
 				panic(err)
 			}
-			b, _ := json.MarshalIndent(resp2079874Root, "", "  ")
+			b, _ := json.MarshalIndent(result, "", "  ")
 			fmt.Println(string(b))
 
 			// end-delete_service_instance
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
-			Expect(resp2079874Root).ToNot(BeNil())
+			Expect(result).ToNot(BeNil())
 
 		})
 		It(`DeleteServiceBinding request example`, func() {
 			// begin-delete_service_binding
 
 			deleteServiceBindingOptions := openServiceBrokerService.NewDeleteServiceBindingOptions(
-				"testString",
-				"testString",
-				"testString",
-				"testString",
+				bindingId,
+				instanceId,
+				planId,
+				serviceId,
 			)
 
 			response, err := openServiceBrokerService.DeleteServiceBinding(deleteServiceBindingOptions)
