@@ -1,3 +1,45 @@
+## [0.14.4](https://github.com/IBM/platform-services-go-sdk/compare/v0.14.3...v0.14.4) (2020-11-19)
+
+
+### Bug Fixes
+
+* **Global Catalog:** re-gen service after recent API changes ([aeb899f](https://github.com/IBM/platform-services-go-sdk/commit/aeb899f5c6f030a6bb8a8a86b142d565a679a3ad))
+
+## [0.14.3](https://github.com/IBM/platform-services-go-sdk/compare/v0.14.2...v0.14.3) (2020-11-19)
+
+
+### Bug Fixes
+
+* **IAM Identity Service:** update service to use strfmt.DateTime ([d9ec36f](https://github.com/IBM/platform-services-go-sdk/commit/d9ec36ff7721dc404220ed90568150dcf575cd42))
+
+## [0.14.2](https://github.com/IBM/platform-services-go-sdk/compare/v0.14.1...v0.14.2) (2020-11-18)
+
+
+### Bug Fixes
+
+* **IAM Access Groups:** regen service, add examples ([#59](https://github.com/IBM/platform-services-go-sdk/issues/59)) ([a5c533a](https://github.com/IBM/platform-services-go-sdk/commit/a5c533afe40a1e97930703deee298e1a8579783d))
+
+## [0.14.1](https://github.com/IBM/platform-services-go-sdk/compare/v0.14.0...v0.14.1) (2020-11-11)
+
+
+### Bug Fixes
+
+* **Configuration Governance:** update service with recent API changes ([5406978](https://github.com/IBM/platform-services-go-sdk/commit/54069784890c496b7a3e4a928b6f8edf5b718051))
+
+# [0.14.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.13.0...v0.14.0) (2020-11-04)
+
+
+### Features
+
+* **Enterprise Usage Reports:** add service to project ([0f1fbaa](https://github.com/IBM/platform-services-go-sdk/commit/0f1fbaad711b168bc8d4821487247f2b3ce08be6))
+
+# [0.13.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.12.2...v0.13.0) (2020-10-31)
+
+
+### Features
+
+* **Usage Reports:** add service to project ([e4c3645](https://github.com/IBM/platform-services-go-sdk/commit/e4c364590e317724ea833c866ef62b16e3c66e5b))
+
 ## [0.12.2](https://github.com/IBM/platform-services-go-sdk/compare/v0.12.1...v0.12.2) (2020-10-30)
 
 

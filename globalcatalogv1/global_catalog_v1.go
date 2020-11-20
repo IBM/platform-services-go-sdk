@@ -15,7 +15,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-8d569e8f-20201030-111043
+ * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-ef9b3113-20201118-074613
  */
  
 
@@ -832,7 +832,7 @@ func (globalCatalog *GlobalCatalogV1) UpdateVisibilityWithContext(ctx context.Co
 
 // GetPricing : Get the pricing for an object
 // This endpoint returns the pricing for an object. Static pricing is defined in the catalog. Dynamic pricing is stored
-// in Bluemix Pricing Catalog.
+// in IBM Cloud Pricing Catalog.
 func (globalCatalog *GlobalCatalogV1) GetPricing(getPricingOptions *GetPricingOptions) (result *PricingGet, response *core.DetailedResponse, err error) {
 	return globalCatalog.GetPricingWithContext(context.Background(), getPricingOptions)
 }
@@ -1699,25 +1699,26 @@ type CatalogEntry struct {
 	// Catalog entry's unique ID. It's the same across all catalog instances.
 	ID *string `json:"id,omitempty"`
 
-	CatalogCrn interface{} `json:"catalog_crn,omitempty"`
+	// The CRN associated with the catalog entry.
+	CatalogCrn *string `json:"catalog_crn,omitempty"`
 
 	// URL to get details about this object.
-	URL interface{} `json:"url,omitempty"`
+	URL *string `json:"url,omitempty"`
 
 	// URL to get details about children of this object.
-	ChildrenURL interface{} `json:"children_url,omitempty"`
+	ChildrenURL *string `json:"children_url,omitempty"`
 
 	// tags to indicate the locations this service is deployable to.
-	GeoTags interface{} `json:"geo_tags,omitempty"`
+	GeoTags []string `json:"geo_tags,omitempty"`
 
 	// tags to indicate the type of pricing plans this service supports.
-	PricingTags interface{} `json:"pricing_tags,omitempty"`
+	PricingTags []string `json:"pricing_tags,omitempty"`
 
 	// Date created.
-	Created interface{} `json:"created,omitempty"`
+	Created *strfmt.DateTime `json:"created,omitempty"`
 
 	// Date last updated.
-	Updated interface{} `json:"updated,omitempty"`
+	Updated *strfmt.DateTime `json:"updated,omitempty"`
 }
 
 // Constants associated with the CatalogEntry.Kind property.
@@ -3081,8 +3082,8 @@ type Message struct {
 	// message describing action.
 	Message *string `json:"message,omitempty"`
 
-	// JSON object containing details on changes made to object data.
-	Data interface{} `json:"data,omitempty"`
+	// An object containing details on changes made to object data.
+	Data map[string]interface{} `json:"data,omitempty"`
 }
 
 

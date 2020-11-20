@@ -19,33 +19,37 @@
 package casemanagementv1_test
 
 import (
+	"context"
 	"fmt"
 	"io/ioutil"
+	"log"
 	"os"
 	"strings"
+	"time"
 
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
 
 	"github.com/IBM/go-sdk-core/v4/core"
 	"github.com/IBM/platform-services-go-sdk/casemanagementv1"
+	common "github.com/IBM/platform-services-go-sdk/common"
 )
 
 const externalConfigFile = "../case_management.env"
 
 var (
-	service           *casemanagementv1.CaseManagementV1
-	err               error
-	
-	configLoaded      bool = false
-	
-	caseNumber         string
-	commentValue       = "Test comment"
+	service *casemanagementv1.CaseManagementV1
+	err     error
 
-	offeringType, _ = service.NewOfferingType(casemanagementv1.OfferingType_Group_CrnServiceName, "cloud-object-storage")	
+	configLoaded bool = false
+
+	caseNumber   string
+	commentValue = "Test comment"
+
+	offeringType, _    = service.NewOfferingType(casemanagementv1.OfferingType_Group_CrnServiceName, "cloud-object-storage")
 	offeringPayload, _ = service.NewOffering("Cloud Object Storage", offeringType)
 
-	resourcePayload    = []casemanagementv1.ResourcePayload{casemanagementv1.ResourcePayload{
+	resourcePayload = []casemanagementv1.ResourcePayload{casemanagementv1.ResourcePayload{
 		Crn: core.StringPtr("crn:v1:staging:public:cloud-object-storage:global:a/19c52e57800c4d8bb9aefc66b3e49755:61848e72-6ba6-415e-84e2-91f3915e194d::"),
 	}}
 
@@ -72,13 +76,13 @@ func shouldSkipTest() {
 var _ = Describe("Case Management - Integration Tests", func() {
 	It("Successfully load the configuration", func() {
 		if _, fileErr := os.Stat(externalConfigFile); fileErr == nil {
-			os.Setenv("IBM_CREDENTIALS_FILE", externalConfigFile)		
+			os.Setenv("IBM_CREDENTIALS_FILE", externalConfigFile)
 			config, _ := core.GetServiceProperties(casemanagementv1.DefaultServiceName)
 			if len(config) > 0 {
 				configLoaded = true
 			}
 		}
-		
+
 		if !configLoaded {
 			Skip("External configuration could not be loaded, skipping...")
 		}
@@ -93,8 +97,14 @@ var _ = Describe("Case Management - Integration Tests", func() {
 
 		Expect(err).To(BeNil())
 		Expect(service).ToNot(BeNil())
-		
-		fmt.Printf("\nService URL: %s\n", service.Service.GetServiceURL())
+
+		core.SetLogger(core.NewLogger(core.LevelDebug, log.New(GinkgoWriter, "", log.LstdFlags)))
+		service.EnableRetries(4, 30*time.Second)
+
+		// Set client timeout.
+		service.Service.Client.Timeout = 2 * time.Minute
+
+		fmt.Fprintf(GinkgoWriter, "\nService URL: %s\n", service.Service.GetServiceURL())
 	})
 
 	Describe("Create a case", func() {
@@ -108,9 +118,14 @@ var _ = Describe("Case Management - Integration Tests", func() {
 		It("Successfully created a technical case", func() {
 			shouldSkipTest()
 
-			result, detailedResponse, err := service.CreateCase(options)
+			ctx, cancelFunc := context.WithTimeout(context.Background(), 30*time.Second)
+			defer cancelFunc()
+
+			result, detailedResponse, err := service.CreateCaseWithContext(ctx, options)
 			Expect(err).To(BeNil())
 			Expect(detailedResponse.StatusCode).To(Equal(200))
+			Expect(result).ToNot(BeNil())
+			fmt.Fprintf(GinkgoWriter, "CreateCase() result:\n%s\n", common.ToJSON(result))
 			Expect(*result.Number).To(Not(BeNil()))
 			Expect(*result.ShortDescription).To(Equal(*options.Subject))
 			Expect(*result.Description).To(Equal(*options.Description))
@@ -118,7 +133,6 @@ var _ = Describe("Case Management - Integration Tests", func() {
 
 			caseNumber = *result.Number
 
-			fmt.Printf("\nCase number: %s\n", caseNumber)
 		})
 
 		It("Bad payload used to create a case", func() {
@@ -126,7 +140,11 @@ var _ = Describe("Case Management - Integration Tests", func() {
 			options.SetType("invalid_type")
 			options.Severity = nil
 			options.Offering = nil
-			_, detailedResponse, err := service.CreateCase(options)
+
+			ctx, cancelFunc := context.WithTimeout(context.Background(), 30*time.Second)
+			defer cancelFunc()
+
+			_, detailedResponse, err := service.CreateCaseWithContext(ctx, options)
 			Expect(err).To(Not(BeNil()))
 			Expect(detailedResponse.StatusCode).To(Not(Equal(200)))
 		})
@@ -145,6 +163,8 @@ var _ = Describe("Case Management - Integration Tests", func() {
 			result, detailedResponse, err := service.GetCases(options)
 			Expect(err).To(BeNil())
 			Expect(detailedResponse.StatusCode).To(Equal(200))
+			Expect(result).ToNot(BeNil())
+			fmt.Fprintf(GinkgoWriter, "GetCases(default params) result:\n%s\n", common.ToJSON(result))
 			Expect(*result.TotalCount).To(Not(BeNil()))
 			Expect(*result.First).To(Not(BeNil()))
 			Expect(*result.Next).To(Not(BeNil()))
@@ -157,7 +177,6 @@ var _ = Describe("Case Management - Integration Tests", func() {
 
 			options.SetOffset(10)
 			options.SetLimit(20)
-			// options.SetSort()
 			options.SetFields([]string{
 				casemanagementv1.GetCasesOptions_Fields_Number,
 				casemanagementv1.GetCasesOptions_Fields_Comments,
@@ -167,6 +186,8 @@ var _ = Describe("Case Management - Integration Tests", func() {
 			result, detailedResponse, err := service.GetCases(options)
 			Expect(err).To(BeNil())
 			Expect(detailedResponse.StatusCode).To(Equal(200))
+			Expect(result).ToNot(BeNil())
+			fmt.Fprintf(GinkgoWriter, "GetCases(non-default params) result:\n%s\n", common.ToJSON(result))
 			Expect(*result.TotalCount).To(Not(BeNil()))
 			Expect(*result.First).To(Not(BeNil()))
 			Expect(*result.Next).To(Not(BeNil()))
@@ -209,6 +230,8 @@ var _ = Describe("Case Management - Integration Tests", func() {
 
 			Expect(err).To(BeNil())
 			Expect(detailedResponse.StatusCode).To(Equal(200))
+			Expect(result).ToNot(BeNil())
+			fmt.Fprintf(GinkgoWriter, "GetCase(default) result:\n%s\n", common.ToJSON(result))
 			Expect(*result.Number).To(Equal(caseNumber))
 		})
 
@@ -220,6 +243,8 @@ var _ = Describe("Case Management - Integration Tests", func() {
 
 			Expect(err).To(BeNil())
 			Expect(detailedResponse.StatusCode).To(Equal(200))
+			Expect(result).ToNot(BeNil())
+			fmt.Fprintf(GinkgoWriter, "GetCase(field filtering) result:\n%s\n", common.ToJSON(result))
 			Expect(*result.Number).To(Equal(caseNumber))
 			Expect(result.Severity).To(Not(BeNil()))
 			Expect(result.Contact).To(BeNil())
@@ -242,14 +267,14 @@ var _ = Describe("Case Management - Integration Tests", func() {
 			options = service.NewAddCommentOptions(caseNumber, commentValue)
 		})
 
-		// BeforeEach(func() {
-		// })
 		It("Successfully added a comment to a case", func() {
 			shouldSkipTest()
 			result, detailedResponse, err := service.AddComment(options)
 
 			Expect(err).To(BeNil())
 			Expect(detailedResponse.StatusCode).To(Equal(200))
+			Expect(result).ToNot(BeNil())
+			fmt.Fprintf(GinkgoWriter, "AddComment() result:\n%s\n", common.ToJSON(result))
 			Expect(*result.Value).To(Equal(commentValue))
 			Expect(result.AddedAt).To(Not(BeNil()))
 			Expect(result.AddedBy).To(Not(BeNil()))
@@ -270,6 +295,8 @@ var _ = Describe("Case Management - Integration Tests", func() {
 
 			Expect(err).To((BeNil()))
 			Expect(detailedResponse.StatusCode).To(Equal(200))
+			Expect(result).ToNot(BeNil())
+			fmt.Fprintf(GinkgoWriter, "AddWatchlist() result:\n%s\n", common.ToJSON(result))
 			Expect(len(result.Added)).To(Equal(len(watchlistPayload.Watchlist)))
 		})
 	})
@@ -301,6 +328,8 @@ var _ = Describe("Case Management - Integration Tests", func() {
 
 			Expect(err).To(BeNil())
 			Expect(detailedResponse.StatusCode).To(Equal(200))
+			Expect(result).ToNot(BeNil())
+			fmt.Fprintf(GinkgoWriter, "UpdateCaseStatus(resolve) result:\n%s\n", common.ToJSON(result))
 			Expect(*result.Status).To(Equal("Resolved"))
 		})
 
@@ -313,6 +342,8 @@ var _ = Describe("Case Management - Integration Tests", func() {
 
 			Expect(err).To(BeNil())
 			Expect(detailedResponse.StatusCode).To(Equal(200))
+			Expect(result).ToNot(BeNil())
+			fmt.Fprintf(GinkgoWriter, "UpdateCaseStatus(unresolve) result:\n%s\n", common.ToJSON(result))
 			Expect(*result.Status).To(Equal("In Progress"))
 		})
 	})
@@ -333,6 +364,8 @@ var _ = Describe("Case Management - Integration Tests", func() {
 
 			Expect(err).To(BeNil())
 			Expect(detailedResponse.StatusCode).To(Equal(200))
+			Expect(result).ToNot(BeNil())
+			fmt.Fprintf(GinkgoWriter, "UploadFile() result:\n%s\n", common.ToJSON(result))
 			Expect(*result.ID).To(Not(BeNil()))
 			Expect(*result.Filename).To(Equal(*fileInput.Filename))
 
@@ -367,6 +400,8 @@ var _ = Describe("Case Management - Integration Tests", func() {
 
 			Expect(err).To(BeNil())
 			Expect(detailedResponse.StatusCode).To((Equal(200)))
+			Expect(result).ToNot(BeNil())
+			fmt.Fprintf(GinkgoWriter, "AddResource() result:\n%s\n", common.ToJSON(result))
 			Expect(*result.Crn).To(Equal(crn))
 		})
 	})

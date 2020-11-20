@@ -21,15 +21,17 @@ package enterprisemanagementv1_test
 import (
 	"bytes"
 	"encoding/json"
-	. "github.com/onsi/ginkgo"
-	. "github.com/onsi/gomega"
 	"io/ioutil"
+	"log"
 	"math/rand"
 	"net/http"
 	"net/url"
 	"os"
 	"strconv"
 	"time"
+
+	. "github.com/onsi/ginkgo"
+	. "github.com/onsi/gomega"
 
 	"github.com/IBM/go-sdk-core/v4/core"
 	"github.com/IBM/platform-services-go-sdk/enterprisemanagementv1"
@@ -84,6 +86,9 @@ var _ = Describe("Enterprise Management - Integration Tests", func() {
 		service, err = enterprisemanagementv1.NewEnterpriseManagementV1UsingExternalConfig(options)
 		Expect(err).To(BeNil())
 		Expect(service).ToNot(BeNil())
+
+		core.SetLogger(core.NewLogger(core.LevelDebug, log.New(GinkgoWriter, "", log.LstdFlags)))
+		service.EnableRetries(4, 30*time.Second)
 
 		var svcConfig map[string]string
 		svcConfig, err = core.GetServiceProperties(enterprisemanagementv1.DefaultServiceName)

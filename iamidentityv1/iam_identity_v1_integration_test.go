@@ -19,12 +19,14 @@
 package iamidentityv1_test
 
 import (
-	"encoding/json"
 	"fmt"
+	"log"
 	"net/url"
 	"os"
+	"time"
 
 	"github.com/IBM/go-sdk-core/v4/core"
+	common "github.com/IBM/platform-services-go-sdk/common"
 	"github.com/IBM/platform-services-go-sdk/iamidentityv1"
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
@@ -39,7 +41,7 @@ import (
  */
 
 var (
-	apikeyName    string = "Go-SDK-IT-ApiKey"
+	apikeyName    string = "Go-SDK-IT-APIKey"
 	serviceIDName string = "Go-SDK-IT-ServiceId"
 	accountID     string
 	iamID         string
@@ -96,7 +98,7 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 			iamApiKey = config["APIKEY"]
 			Expect(iamApiKey).ToNot(BeEmpty())
 
-			fmt.Printf("\nService URL: %s\n", serviceURL)
+			fmt.Fprintf(GinkgoWriter, "Service URL: %s\n", serviceURL)
 			shouldSkipTest = func() {}
 		})
 	})
@@ -114,11 +116,14 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(iamIdentityService).ToNot(BeNil())
 			Expect(iamIdentityService.Service.Options.URL).To(Equal(serviceURL))
+
+			core.SetLogger(core.NewLogger(core.LevelDebug, log.New(GinkgoWriter, "", log.LstdFlags)))
+			iamIdentityService.EnableRetries(4, 30*time.Second)
 		})
 		It("Successfully setup the environment for tests", func() {
-			fmt.Println("\nSetup...")
+			fmt.Fprintln(GinkgoWriter, "Setup...")
 			cleanupResources(iamIdentityService)
-			fmt.Println("Finished setup.")
+			fmt.Fprintln(GinkgoWriter, "Finished setup.")
 		})
 	})
 
@@ -139,7 +144,7 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(201))
 			Expect(apiKey).ToNot(BeNil())
-			// fmt.Printf("\nCreateApiKey #1 response:\n%s", toJson(apiKey))
+			fmt.Fprintf(GinkgoWriter, "CreateApiKey #1 response:\n%s\n", common.ToJSON(apiKey))
 
 			apikeyId1 = *apiKey.ID
 			Expect(apikeyId1).ToNot(BeNil())
@@ -163,7 +168,7 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(201))
 			Expect(apiKey).ToNot(BeNil())
-			// fmt.Printf("\nCreateApiKey #2 response:\n%s", toJson(apiKey))
+			fmt.Fprintf(GinkgoWriter, "CreateApiKey #2 response:\n%s\n", common.ToJSON(apiKey))
 
 			apikeyId2 = *apiKey.ID
 			Expect(apikeyId2).ToNot(BeNil())
@@ -187,7 +192,7 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(apiKey).ToNot(BeNil())
-			// fmt.Printf("\nGetApiKey response:\n%s", toJson(apiKey))
+			fmt.Fprintf(GinkgoWriter, "GetApiKey response:\n%s\n", common.ToJSON(apiKey))
 
 			Expect(*apiKey.ID).To(Equal(apikeyId1))
 			Expect(*apiKey.Name).To(Equal(apikeyName))
@@ -221,7 +226,7 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(apiKey).ToNot(BeNil())
-			// fmt.Printf("\nGetApiKeyDetails response:\n%s", toJson(apiKey))
+			fmt.Fprintf(GinkgoWriter, "GetApiKeyDetails response:\n%s\n", common.ToJSON(apiKey))
 
 			Expect(*apiKey.AccountID).To(Equal(accountID))
 			Expect(*apiKey.IamID).To(Equal(iamID))
@@ -255,7 +260,7 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 				Expect(err).To(BeNil())
 				Expect(response.StatusCode).To(Equal(200))
 				Expect(apiKeyList).ToNot(BeNil())
-				// fmt.Printf("\nListApiKeys response:\n%s", toJson(apiKeyList))
+				fmt.Fprintf(GinkgoWriter, "ListApiKeys response:\n%s\n", common.ToJSON(apiKeyList))
 
 				// Walk through the returned results and save off the apikeys that we created earlier.
 				for _, apikey := range apiKeyList.Apikeys {
@@ -292,7 +297,7 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(apiKey).ToNot(BeNil())
-			// fmt.Printf("\nUpdateApiKey response:\n%s", toJson(apiKey))
+			fmt.Fprintf(GinkgoWriter, "UpdateApiKey response:\n%s\n", common.ToJSON(apiKey))
 
 			Expect(*apiKey.ID).To(Equal(apikeyId1))
 			Expect(*apiKey.Description).To(Equal(newDescription))
@@ -402,7 +407,7 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(201))
 			Expect(serviceID).ToNot(BeNil())
-			// fmt.Printf("\nCreateServiceID response:\n%s", toJson(serviceID))
+			fmt.Fprintf(GinkgoWriter, "CreateServiceID response:\n%s\n", common.ToJSON(serviceID))
 
 			serviceId1 = *serviceID.ID
 			Expect(serviceId1).ToNot(BeNil())
@@ -425,7 +430,7 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(serviceID).ToNot(BeNil())
-			// fmt.Printf("\nGetServiceID response:\n%s", toJson(serviceID))
+			fmt.Fprintf(GinkgoWriter, "GetServiceID response:\n%s\n", common.ToJSON(serviceID))
 
 			Expect(*serviceID.Name).To(Equal(serviceIDName))
 			Expect(*serviceID.Description).To(Equal("GoSDK test serviceId"))
@@ -454,7 +459,7 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(serviceIdList).ToNot(BeNil())
-			// fmt.Printf("\nListServiceIds response:\n%s", toJson(serviceIdList))
+			fmt.Fprintf(GinkgoWriter, "ListServiceIds response:\n%s\n", common.ToJSON(serviceIdList))
 
 			Expect(len(serviceIdList.Serviceids)).To(Equal(1))
 			Expect(serviceIdList.Offset).ToNot(BeNil())
@@ -481,7 +486,7 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(serviceID).ToNot(BeNil())
-			// fmt.Printf("\nUpdateServiceID response:\n%s", toJson(serviceID))
+			fmt.Fprintf(GinkgoWriter, "UpdateServiceID response:\n%s\n", common.ToJSON(serviceID))
 
 			Expect(*serviceID.Description).To(Equal(newDescription))
 		})
@@ -501,7 +506,7 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 			response, err := iamIdentityService.LockServiceID(lockServiceIdOptions)
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(204))
-			// fmt.Printf("\nLockServiceID response:\n%s", toJson(serviceID))
+			fmt.Fprintf(GinkgoWriter, "LockServiceID response:\n%v\n", response)
 
 			serviceID := getServiceID(iamIdentityService, serviceId1)
 			Expect(serviceID).ToNot(BeNil())
@@ -524,7 +529,7 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(204))
-			// fmt.Printf("\nUnlockServiceID response:\n%s", toJson(serviceID))
+			fmt.Fprintf(GinkgoWriter, "UnlockServiceID response:\n%v\n", response)
 
 			serviceID := getServiceID(iamIdentityService, serviceId1)
 			Expect(serviceID).ToNot(BeNil())
@@ -606,14 +611,6 @@ func getPageTokenFromURL(sptr *string) *string {
 	return &token
 }
 
-func toJson(obj interface{}) string {
-	b, err := json.MarshalIndent(obj, "", "  ")
-	if err != nil {
-		panic(err)
-	}
-	return string(b)
-}
-
 func cleanupResources(service *iamidentityv1.IamIdentityV1) {
 	if service == nil {
 		panic("'service' cannot be nil!")
@@ -630,12 +627,12 @@ func cleanupResources(service *iamidentityv1.IamIdentityV1) {
 	Expect(response.StatusCode).To(Equal(200))
 
 	numApiKeys := len(apiKeyList.Apikeys)
-	fmt.Printf(">>> Cleanup found %d apikeys.\n", numApiKeys)
+	fmt.Fprintf(GinkgoWriter, ">>> Cleanup found %d apikeys.\n", numApiKeys)
 
 	if numApiKeys > 0 {
 		for _, element := range apiKeyList.Apikeys {
 			if *element.Name == apikeyName {
-				fmt.Printf(">>> Deleting apikey: %s\n", *element.ID)
+				fmt.Fprintf(GinkgoWriter, ">>> Deleting apikey: %s\n", *element.ID)
 				deleteApiKeyOptions := &iamidentityv1.DeleteApiKeyOptions{
 					ID: element.ID,
 				}
@@ -655,11 +652,11 @@ func cleanupResources(service *iamidentityv1.IamIdentityV1) {
 	serviceIdList, response, err := service.ListServiceIds(listServiceIdsOptions)
 
 	numServiceIds := len(serviceIdList.Serviceids)
-	fmt.Printf(">>> Cleanup found %d serviceIDs.\n", numServiceIds)
+	fmt.Fprintf(GinkgoWriter, ">>> Cleanup found %d serviceIDs.\n", numServiceIds)
 
 	if numServiceIds > 0 {
 		for _, element := range serviceIdList.Serviceids {
-			fmt.Printf(">>> Deleting serviceId: %s\n", *element.ID)
+			fmt.Fprintf(GinkgoWriter, ">>> Deleting serviceId: %s\n", *element.ID)
 			deleteServiceIdOptions := &iamidentityv1.DeleteServiceIdOptions{
 				ID: element.ID,
 			}

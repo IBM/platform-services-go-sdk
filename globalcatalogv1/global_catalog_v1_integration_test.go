@@ -22,10 +22,14 @@ import (
 	"bytes"
 	"fmt"
 	"io/ioutil"
+	"log"
 	"strings"
 	"time"
 
+	"github.com/IBM/go-sdk-core/v4/core"
+	common "github.com/IBM/platform-services-go-sdk/common"
 	"github.com/IBM/platform-services-go-sdk/globalcatalogv1"
+
 	"github.com/joho/godotenv"
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
@@ -142,6 +146,9 @@ var _ = Describe("Global Catalog - Integration Tests", func() {
 		Expect(err).To(BeNil())
 		Expect(service).ToNot(BeNil())
 
+		core.SetLogger(core.NewLogger(core.LevelDebug, log.New(GinkgoWriter, "", log.LstdFlags)))
+		service.EnableRetries(4, 30*time.Second)
+
 		overviewUi[en] = *overview
 		overviewUiUpdated[en] = *overviewUpdated
 
@@ -223,6 +230,8 @@ var _ = Describe("Global Catalog - Integration Tests", func() {
 			Expect(result.Images).To(Equal(defaultCreate.Images))
 			Expect(result.Tags).To(Equal(defaultCreate.Tags))
 			Expect(result.Provider).To(Equal(defaultCreate.Provider))
+
+			fmt.Fprintf(GinkgoWriter, "CreateCatalogEntry() result:\n%s", common.ToJSON(result))
 		})
 
 		It("Get a catalog entry", func() {
@@ -238,6 +247,8 @@ var _ = Describe("Global Catalog - Integration Tests", func() {
 			Expect(result.Images).To(Equal(defaultCreate.Images))
 			Expect(result.Tags).To(Equal(defaultCreate.Tags))
 			Expect(result.Provider).To(Equal(defaultCreate.Provider))
+
+			fmt.Fprintf(GinkgoWriter, "GetCatalogEntry() result:\n%s", common.ToJSON(result))
 		})
 
 		It("Update a catalog entry", func() {
@@ -253,6 +264,8 @@ var _ = Describe("Global Catalog - Integration Tests", func() {
 			Expect(result.Images).To(Equal(defaultUpdate.Images))
 			Expect(result.Tags).To(Equal(defaultUpdate.Tags))
 			Expect(result.Provider).To(Equal(defaultUpdate.Provider))
+
+			fmt.Fprintf(GinkgoWriter, "UpdateCatalogEntry() result:\n%s", common.ToJSON(result))
 		})
 
 		It("Delete a catalog entry", func() {
@@ -333,6 +346,7 @@ var _ = Describe("Global Catalog - Integration Tests", func() {
 			Expect(err).To(BeNil())
 			Expect(detailedResponse.StatusCode).To(Equal(200))
 			Expect(result).ToNot(BeNil())
+			fmt.Fprintf(GinkgoWriter, "GetChildObjects() result:\n%s", common.ToJSON(result))
 			Expect(*result.Offset).To(Equal(expectedOffset))
 			Expect(*result.Count).To(Equal(expectedCount))
 			Expect(*result.ResourceCount).To(Equal(expectedResourceCount))
@@ -388,6 +402,8 @@ var _ = Describe("Global Catalog - Integration Tests", func() {
 			result, detailedResponse, err := service.GetVisibility(getVisibility)
 			Expect(err).To(BeNil())
 			Expect(detailedResponse.StatusCode).To(Equal(200))
+			Expect(result).ToNot(BeNil())
+			fmt.Fprintf(GinkgoWriter, "GetVisibility() result:\n%s", common.ToJSON(result))
 			Expect(*result.Restrictions).To(Equal(visibilityRestriction))
 		})
 
@@ -445,6 +461,8 @@ var _ = Describe("Global Catalog - Integration Tests", func() {
 			result, detailedResponse, err := service.ListArtifacts(listArtifacts)
 			Expect(err).To(BeNil())
 			Expect(detailedResponse.StatusCode).To(Equal(200))
+			Expect(result).ToNot(BeNil())
+			fmt.Fprintf(GinkgoWriter, "ListArtifacts() result:\n%s", common.ToJSON(result))
 			Expect(*result.Count).To(Equal(expectedCount))
 			Expect(len(result.Resources)).To(Equal(1))
 			Expect(result.Resources[0].Name).To(Equal(uploadArtifactList.ArtifactID))
@@ -530,7 +548,5 @@ var _ = Describe("Global Catalog - Integration Tests", func() {
 			Expect(err).NotTo(BeNil())
 			Expect(detailedResponse.StatusCode).To(Equal(404))
 		})
-
 	})
-
 })

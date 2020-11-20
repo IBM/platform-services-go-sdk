@@ -15,7 +15,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-8d569e8f-20201030-111043
+ * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-ef9b3113-20201118-074613
  */
  
 
@@ -28,6 +28,7 @@ import (
 	"fmt"
 	"github.com/IBM/go-sdk-core/v4/core"
 	common "github.com/IBM/platform-services-go-sdk/common"
+	"github.com/go-openapi/strfmt"
 	"net/http"
 	"reflect"
 	"time"
@@ -1125,13 +1126,13 @@ type ApiKey struct {
 	Locked *bool `json:"locked" validate:"required"`
 
 	// If set contains a date time string of the creation date in ISO format.
-	CreatedAt *string `json:"created_at,omitempty"`
+	CreatedAt *strfmt.DateTime `json:"created_at,omitempty"`
 
 	// IAM ID of the user or service which created the API key.
 	CreatedBy *string `json:"created_by" validate:"required"`
 
 	// If set contains a date time string of the last modification date in ISO format.
-	ModifiedAt *string `json:"modified_at,omitempty"`
+	ModifiedAt *strfmt.DateTime `json:"modified_at,omitempty"`
 
 	// Name of the API key. The name is not checked for uniqueness. Therefore multiple names with the same value can exist.
 	// Access is done via the UUID of the API key.
@@ -1214,6 +1215,61 @@ func UnmarshalApiKey(m map[string]json.RawMessage, result interface{}) (err erro
 		return
 	}
 	err = core.UnmarshalModel(m, "history", &obj.History, UnmarshalEnityHistoryRecord)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// ApiKeyInsideCreateServiceIdRequest : Parameters for the API key in the Create service Id V1 REST request.
+type ApiKeyInsideCreateServiceIdRequest struct {
+	// Name of the API key. The name is not checked for uniqueness. Therefore multiple names with the same value can exist.
+	// Access is done via the UUID of the API key.
+	Name *string `json:"name" validate:"required"`
+
+	// The optional description of the API key. The 'description' property is only available if a description was provided
+	// during a create of an API key.
+	Description *string `json:"description,omitempty"`
+
+	// You can optionally passthrough the API key value for this API key. If passed, NO validation of that apiKey value is
+	// done, i.e. the value can be non-URL safe. If omitted, the API key management will create an URL safe opaque API key
+	// value. The value of the API key is checked for uniqueness. Please ensure enough variations when passing in this
+	// value.
+	Apikey *string `json:"apikey,omitempty"`
+
+	// Send true or false to set whether the API key value is retrievable in the future by using the Get details of an API
+	// key request. If you create an API key for a user, you must specify `false` or omit the value. We don't allow storing
+	// of API keys for users.
+	StoreValue *bool `json:"store_value,omitempty"`
+}
+
+
+// NewApiKeyInsideCreateServiceIdRequest : Instantiate ApiKeyInsideCreateServiceIdRequest (Generic Model Constructor)
+func (*IamIdentityV1) NewApiKeyInsideCreateServiceIdRequest(name string) (model *ApiKeyInsideCreateServiceIdRequest, err error) {
+	model = &ApiKeyInsideCreateServiceIdRequest{
+		Name: core.StringPtr(name),
+	}
+	err = core.ValidateStruct(model, "required parameters")
+	return
+}
+
+// UnmarshalApiKeyInsideCreateServiceIdRequest unmarshals an instance of ApiKeyInsideCreateServiceIdRequest from the specified map of raw messages.
+func UnmarshalApiKeyInsideCreateServiceIdRequest(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(ApiKeyInsideCreateServiceIdRequest)
+	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "description", &obj.Description)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "apikey", &obj.Apikey)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "store_value", &obj.StoreValue)
 	if err != nil {
 		return
 	}
@@ -1373,76 +1429,6 @@ func (options *CreateApiKeyOptions) SetHeaders(param map[string]string) *CreateA
 	return options
 }
 
-// CreateApiKeyRequest : Input body parameters for the Create API key V1 REST request.
-type CreateApiKeyRequest struct {
-	// Name of the API key. The name is not checked for uniqueness. Therefore multiple names with the same value can exist.
-	// Access is done via the UUID of the API key.
-	Name *string `json:"name" validate:"required"`
-
-	// The optional description of the API key. The 'description' property is only available if a description was provided
-	// during a create of an API key.
-	Description *string `json:"description,omitempty"`
-
-	// The iam_id that this API key authenticates.
-	IamID *string `json:"iam_id" validate:"required"`
-
-	// The account ID of the API key.
-	AccountID *string `json:"account_id,omitempty"`
-
-	// You can optionally passthrough the API key value for this API key. If passed, NO validation of that apiKey value is
-	// done, i.e. the value can be non-URL safe. If omitted, the API key management will create an URL safe opaque API key
-	// value. The value of the API key is checked for uniqueness. Please ensure enough variations when passing in this
-	// value.
-	Apikey *string `json:"apikey,omitempty"`
-
-	// Send true or false to set whether the API key value is retrievable in the future by using the Get details of an API
-	// key request. If you create an API key for a user, you must specify `false` or omit the value. We don't allow storing
-	// of API keys for users.
-	StoreValue *bool `json:"store_value,omitempty"`
-}
-
-
-// NewCreateApiKeyRequest : Instantiate CreateApiKeyRequest (Generic Model Constructor)
-func (*IamIdentityV1) NewCreateApiKeyRequest(name string, iamID string) (model *CreateApiKeyRequest, err error) {
-	model = &CreateApiKeyRequest{
-		Name: core.StringPtr(name),
-		IamID: core.StringPtr(iamID),
-	}
-	err = core.ValidateStruct(model, "required parameters")
-	return
-}
-
-// UnmarshalCreateApiKeyRequest unmarshals an instance of CreateApiKeyRequest from the specified map of raw messages.
-func UnmarshalCreateApiKeyRequest(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(CreateApiKeyRequest)
-	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "description", &obj.Description)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "iam_id", &obj.IamID)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "account_id", &obj.AccountID)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "apikey", &obj.Apikey)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "store_value", &obj.StoreValue)
-	if err != nil {
-		return
-	}
-	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
-	return
-}
-
 // CreateServiceIdOptions : The CreateServiceID options.
 type CreateServiceIdOptions struct {
 	// ID of the account the service ID belongs to.
@@ -1459,8 +1445,8 @@ type CreateServiceIdOptions struct {
 	// Optional list of CRNs (string array) which point to the services connected to the service ID.
 	UniqueInstanceCrns []string `json:"unique_instance_crns,omitempty"`
 
-	// Input body parameters for the Create API key V1 REST request.
-	Apikey *CreateApiKeyRequest `json:"apikey,omitempty"`
+	// Parameters for the API key in the Create service Id V1 REST request.
+	Apikey *ApiKeyInsideCreateServiceIdRequest `json:"apikey,omitempty"`
 
 	// Indicates if the service ID is locked for further write operations. False by default.
 	EntityLock *string `json:"Entity-Lock,omitempty"`
@@ -1502,7 +1488,7 @@ func (options *CreateServiceIdOptions) SetUniqueInstanceCrns(uniqueInstanceCrns 
 }
 
 // SetApikey : Allow user to set Apikey
-func (options *CreateServiceIdOptions) SetApikey(apikey *CreateApiKeyRequest) *CreateServiceIdOptions {
+func (options *CreateServiceIdOptions) SetApikey(apikey *ApiKeyInsideCreateServiceIdRequest) *CreateServiceIdOptions {
 	options.Apikey = apikey
 	return options
 }
@@ -2115,10 +2101,10 @@ type ServiceID struct {
 	Locked *bool `json:"locked" validate:"required"`
 
 	// If set contains a date time string of the creation date in ISO format.
-	CreatedAt *string `json:"created_at,omitempty"`
+	CreatedAt *strfmt.DateTime `json:"created_at,omitempty"`
 
 	// If set contains a date time string of the last modification date in ISO format.
-	ModifiedAt *string `json:"modified_at,omitempty"`
+	ModifiedAt *strfmt.DateTime `json:"modified_at,omitempty"`
 
 	// ID of the account the service ID belongs to.
 	AccountID *string `json:"account_id" validate:"required"`

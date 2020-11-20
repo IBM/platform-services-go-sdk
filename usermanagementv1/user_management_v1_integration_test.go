@@ -18,8 +18,12 @@ package usermanagementv1_test
 
 import (
 	"fmt"
+	"log"
 	"os"
+	"time"
+
 	"github.com/IBM/go-sdk-core/v4/core"
+	common "github.com/IBM/platform-services-go-sdk/common"
 	"github.com/IBM/platform-services-go-sdk/usermanagementv1"
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
@@ -67,7 +71,7 @@ var _ = Describe(`UserManagementV1 Integration Tests`, func() {
 				Skip("Unable to load service URL configuration property, skipping tests")
 			}
 
-			fmt.Printf("Service URL: %s\n", serviceURL)
+			fmt.Fprintf(GinkgoWriter, "Service URL: %s\n", serviceURL)
 			shouldSkipTest = func() {}
 		})
 	})
@@ -76,25 +80,28 @@ var _ = Describe(`UserManagementV1 Integration Tests`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
 		})
-        It("Successfully construct the service client main instance", func() {
-            userManagementServiceOptions := &usermanagementv1.UserManagementV1Options{
-                ServiceName: "USERMGMT1",
-            }
-            userManagementService, err = usermanagementv1.NewUserManagementV1UsingExternalConfig(userManagementServiceOptions)
-            Expect(err).To(BeNil())
-            Expect(userManagementService).ToNot(BeNil())
-            Expect(userManagementService.Service.Options.URL).To(Equal(serviceURL))
-        })
-        It("Successfully construct the service client alternate instance", func() {
-            userManagementServiceOptions := &usermanagementv1.UserManagementV1Options{
-                ServiceName: "USERMGMT2",
-            }
-            alternateService, err = usermanagementv1.NewUserManagementV1UsingExternalConfig(userManagementServiceOptions)
-            Expect(err).To(BeNil())
-            Expect(alternateService).ToNot(BeNil())
-            Expect(alternateService.Service.Options.URL).To(Equal(serviceURL))
-        })
-    })
+		It("Successfully construct the service client main instance", func() {
+			userManagementServiceOptions := &usermanagementv1.UserManagementV1Options{
+				ServiceName: "USERMGMT1",
+			}
+			userManagementService, err = usermanagementv1.NewUserManagementV1UsingExternalConfig(userManagementServiceOptions)
+			Expect(err).To(BeNil())
+			Expect(userManagementService).ToNot(BeNil())
+			Expect(userManagementService.Service.Options.URL).To(Equal(serviceURL))
+			core.SetLogger(core.NewLogger(core.LevelDebug, log.New(GinkgoWriter, "", log.LstdFlags)))
+			userManagementService.EnableRetries(4, 30*time.Second)
+		})
+		It("Successfully construct the service client alternate instance", func() {
+			userManagementServiceOptions := &usermanagementv1.UserManagementV1Options{
+				ServiceName: "USERMGMT2",
+			}
+			alternateService, err = usermanagementv1.NewUserManagementV1UsingExternalConfig(userManagementServiceOptions)
+			Expect(err).To(BeNil())
+			Expect(alternateService).ToNot(BeNil())
+			Expect(alternateService.Service.Options.URL).To(Equal(serviceURL))
+			alternateService.EnableRetries(4, 30*time.Second)
+		})
+	})
 
 	Describe(`GetUserSettings - Get user settings`, func() {
 		BeforeEach(func() {
@@ -107,12 +114,12 @@ var _ = Describe(`UserManagementV1 Integration Tests`, func() {
 				IamID:     core.StringPtr("IBMid-5500089E4W"),
 			}
 
-			userSettings, response, err := userManagementService.GetUserSettings(getUserSettingsOptions)
+			result, response, err := userManagementService.GetUserSettings(getUserSettingsOptions)
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
-			Expect(userSettings).ToNot(BeNil())
-
+			Expect(result).ToNot(BeNil())
+			fmt.Fprintf(GinkgoWriter, "GetUserSettings() result:\n%s\n", common.ToJSON(result))
 		})
 	})
 
@@ -123,18 +130,17 @@ var _ = Describe(`UserManagementV1 Integration Tests`, func() {
 		It(`UpdateUserSettings(updateUserSettingsOptions *UpdateUserSettingsOptions)`, func() {
 
 			updateUserSettingsOptions := &usermanagementv1.UpdateUserSettingsOptions{
-				AccountID:            core.StringPtr("1aa434630b594b8a88b961a44c9eb2a9"),
-				IamID:                core.StringPtr("IBMid-5500089E4W"),
-				Language:             core.StringPtr("testString"),
-				NotificationLanguage: core.StringPtr("testString"),
-				AllowedIpAddresses:   core.StringPtr("32.96.110.50,172.16.254.1"),
-				SelfManage:           core.BoolPtr(true),
+				AccountID:          core.StringPtr("1aa434630b594b8a88b961a44c9eb2a9"),
+				IamID:              core.StringPtr("IBMid-5500089E4W"),
+				AllowedIpAddresses: core.StringPtr("32.96.110.50,172.16.254.1"),
+				SelfManage:         core.BoolPtr(true),
 			}
 
-			userSettings, response, err := userManagementService.UpdateUserSettings(updateUserSettingsOptions)
+			result, response, err := userManagementService.UpdateUserSettings(updateUserSettingsOptions)
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(204))
-			Expect(userSettings).To(BeNil())
+			Expect(result).To(BeNil())
+			fmt.Fprintf(GinkgoWriter, "UpdateUserSettings() result:\n%s\n", common.ToJSON(result))
 		})
 	})
 
@@ -148,10 +154,11 @@ var _ = Describe(`UserManagementV1 Integration Tests`, func() {
 				AccountID: core.StringPtr("1aa434630b594b8a88b961a44c9eb2a9"),
 				State:     core.StringPtr("testString"),
 			}
-			userList, response, err := userManagementService.ListUsers(listUsersOptions)
+			result, response, err := userManagementService.ListUsers(listUsersOptions)
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
-			Expect(userList).ToNot(BeNil())
+			Expect(result).ToNot(BeNil())
+			fmt.Fprintf(GinkgoWriter, "ListUsersOptions() result:\n%s\n", common.ToJSON(result))
 		})
 	})
 
@@ -198,13 +205,13 @@ var _ = Describe(`UserManagementV1 Integration Tests`, func() {
 				AccessGroups: []string{"AccessGroupId-51675919-2bd7-4ce3-86e4-5faff8065574"},
 			}
 
-			userList, response, err := alternateService.InviteUsers(inviteUsersOptions)
-
+			result, response, err := alternateService.InviteUsers(inviteUsersOptions)
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(202))
-			Expect(userList).ToNot(BeNil())
+			Expect(result).ToNot(BeNil())
+			fmt.Fprintf(GinkgoWriter, "InviteUsers() result:\n%s\n", common.ToJSON(result))
 
-			for _, res := range userList.Resources {
+			for _, res := range result.Resources {
 				deleteUserId = *res.ID
 			}
 		})
@@ -221,10 +228,11 @@ var _ = Describe(`UserManagementV1 Integration Tests`, func() {
 				IamID:     core.StringPtr("IBMid-5500089E4W"),
 			}
 
-			userProfile, response, err := userManagementService.GetUserProfile(getUserProfileOptions)
+			result, response, err := userManagementService.GetUserProfile(getUserProfileOptions)
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
-			Expect(userProfile).ToNot(BeNil())
+			Expect(result).ToNot(BeNil())
+			fmt.Fprintf(GinkgoWriter, "GetUserProfile() result:\n%s\n", common.ToJSON(result))
 		})
 	})
 
