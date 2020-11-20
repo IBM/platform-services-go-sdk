@@ -135,444 +135,6 @@ var _ = Describe(`UserManagementV1`, func() {
 			})
 		})
 	})
-	Describe(`GetUserSettings(getUserSettingsOptions *GetUserSettingsOptions) - Operation response error`, func() {
-		getUserSettingsPath := "/v2/accounts/testString/users/testString/settings"
-		Context(`Using mock server endpoint`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(getUserSettingsPath))
-					Expect(req.Method).To(Equal("GET"))
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(200)
-					fmt.Fprintf(res, `} this is not valid json {`)
-				}))
-			})
-			It(`Invoke GetUserSettings with error: Operation response processing error`, func() {
-				userManagementService, serviceErr := usermanagementv1.NewUserManagementV1(&usermanagementv1.UserManagementV1Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(userManagementService).ToNot(BeNil())
-
-				// Construct an instance of the GetUserSettingsOptions model
-				getUserSettingsOptionsModel := new(usermanagementv1.GetUserSettingsOptions)
-				getUserSettingsOptionsModel.AccountID = core.StringPtr("testString")
-				getUserSettingsOptionsModel.IamID = core.StringPtr("testString")
-				getUserSettingsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-				// Expect response parsing to fail since we are receiving a text/plain response
-				result, response, operationErr := userManagementService.GetUserSettings(getUserSettingsOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).To(BeNil())
-
-				// Enable retries and test again
-				userManagementService.EnableRetries(0, 0)
-				result, response, operationErr = userManagementService.GetUserSettings(getUserSettingsOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-	})
-
-	Describe(`GetUserSettings(getUserSettingsOptions *GetUserSettingsOptions)`, func() {
-		getUserSettingsPath := "/v2/accounts/testString/users/testString/settings"
-		var serverSleepTime time.Duration
-		Context(`Using mock server endpoint`, func() {
-			BeforeEach(func() {
-				serverSleepTime = 0
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(getUserSettingsPath))
-					Expect(req.Method).To(Equal("GET"))
-
-					// Sleep a short time to support a timeout test
-					time.Sleep(serverSleepTime)
-
-					// Set mock response
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"language": "Language", "notification_language": "NotificationLanguage", "allowed_ip_addresses": "32.96.110.50,172.16.254.1", "self_manage": true}`)
-				}))
-			})
-			It(`Invoke GetUserSettings successfully`, func() {
-				userManagementService, serviceErr := usermanagementv1.NewUserManagementV1(&usermanagementv1.UserManagementV1Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(userManagementService).ToNot(BeNil())
-				userManagementService.EnableRetries(0, 0)
-
-				// Invoke operation with nil options model (negative test)
-				result, response, operationErr := userManagementService.GetUserSettings(nil)
-				Expect(operationErr).NotTo(BeNil())
-				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-
-				// Construct an instance of the GetUserSettingsOptions model
-				getUserSettingsOptionsModel := new(usermanagementv1.GetUserSettingsOptions)
-				getUserSettingsOptionsModel.AccountID = core.StringPtr("testString")
-				getUserSettingsOptionsModel.IamID = core.StringPtr("testString")
-				getUserSettingsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation with valid options model (positive test)
-				result, response, operationErr = userManagementService.GetUserSettings(getUserSettingsOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).ToNot(BeNil())
-
-				// Invoke operation with a Context to test a timeout error
-				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc()
-				serverSleepTime = 100 * time.Millisecond
-				_, _, operationErr = userManagementService.GetUserSettingsWithContext(ctx, getUserSettingsOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-				serverSleepTime = time.Duration(0)
-
-				// Disable retries and test again
-				userManagementService.DisableRetries()
-				result, response, operationErr = userManagementService.GetUserSettings(getUserSettingsOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).ToNot(BeNil())
-
-				// Re-test the timeout error with retries disabled
-				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc2()
-				serverSleepTime = 100 * time.Millisecond
-				_, _, operationErr = userManagementService.GetUserSettingsWithContext(ctx, getUserSettingsOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-				serverSleepTime = time.Duration(0)
-			})
-			It(`Invoke GetUserSettings with error: Operation validation and request error`, func() {
-				userManagementService, serviceErr := usermanagementv1.NewUserManagementV1(&usermanagementv1.UserManagementV1Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(userManagementService).ToNot(BeNil())
-
-				// Construct an instance of the GetUserSettingsOptions model
-				getUserSettingsOptionsModel := new(usermanagementv1.GetUserSettingsOptions)
-				getUserSettingsOptionsModel.AccountID = core.StringPtr("testString")
-				getUserSettingsOptionsModel.IamID = core.StringPtr("testString")
-				getUserSettingsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-				// Invoke operation with empty URL (negative test)
-				err := userManagementService.SetServiceURL("")
-				Expect(err).To(BeNil())
-				result, response, operationErr := userManagementService.GetUserSettings(getUserSettingsOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
-				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-				// Construct a second instance of the GetUserSettingsOptions model with no property values
-				getUserSettingsOptionsModelNew := new(usermanagementv1.GetUserSettingsOptions)
-				// Invoke operation with invalid model (negative test)
-				result, response, operationErr = userManagementService.GetUserSettings(getUserSettingsOptionsModelNew)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-	})
-	Describe(`UpdateUserSettings(updateUserSettingsOptions *UpdateUserSettingsOptions) - Operation response error`, func() {
-		updateUserSettingsPath := "/v2/accounts/testString/users/testString/settings"
-		Context(`Using mock server endpoint`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(updateUserSettingsPath))
-					Expect(req.Method).To(Equal("PATCH"))
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(200)
-					fmt.Fprintf(res, `} this is not valid json {`)
-				}))
-			})
-			It(`Invoke UpdateUserSettings with error: Operation response processing error`, func() {
-				userManagementService, serviceErr := usermanagementv1.NewUserManagementV1(&usermanagementv1.UserManagementV1Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(userManagementService).ToNot(BeNil())
-
-				// Construct an instance of the UpdateUserSettingsOptions model
-				updateUserSettingsOptionsModel := new(usermanagementv1.UpdateUserSettingsOptions)
-				updateUserSettingsOptionsModel.AccountID = core.StringPtr("testString")
-				updateUserSettingsOptionsModel.IamID = core.StringPtr("testString")
-				updateUserSettingsOptionsModel.Language = core.StringPtr("testString")
-				updateUserSettingsOptionsModel.NotificationLanguage = core.StringPtr("testString")
-				updateUserSettingsOptionsModel.AllowedIpAddresses = core.StringPtr("32.96.110.50,172.16.254.1")
-				updateUserSettingsOptionsModel.SelfManage = core.BoolPtr(true)
-				updateUserSettingsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-				// Expect response parsing to fail since we are receiving a text/plain response
-				result, response, operationErr := userManagementService.UpdateUserSettings(updateUserSettingsOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).To(BeNil())
-
-				// Enable retries and test again
-				userManagementService.EnableRetries(0, 0)
-				result, response, operationErr = userManagementService.UpdateUserSettings(updateUserSettingsOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-	})
-
-	Describe(`UpdateUserSettings(updateUserSettingsOptions *UpdateUserSettingsOptions)`, func() {
-		updateUserSettingsPath := "/v2/accounts/testString/users/testString/settings"
-		var serverSleepTime time.Duration
-		Context(`Using mock server endpoint`, func() {
-			BeforeEach(func() {
-				serverSleepTime = 0
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(updateUserSettingsPath))
-					Expect(req.Method).To(Equal("PATCH"))
-
-					// For gzip-disabled operation, verify Content-Encoding is not set.
-					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
-
-					// If there is a body, then make sure we can read it
-					bodyBuf := new(bytes.Buffer)
-					if req.Header.Get("Content-Encoding") == "gzip" {
-						body, err := core.NewGzipDecompressionReader(req.Body)
-						Expect(err).To(BeNil())
-						_, err = bodyBuf.ReadFrom(body)
-						Expect(err).To(BeNil())
-					} else {
-						_, err := bodyBuf.ReadFrom(req.Body)
-						Expect(err).To(BeNil())
-					}
-					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
-
-					// Sleep a short time to support a timeout test
-					time.Sleep(serverSleepTime)
-
-					// Set mock response
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"language": "Language", "notification_language": "NotificationLanguage", "allowed_ip_addresses": "32.96.110.50,172.16.254.1", "self_manage": true}`)
-				}))
-			})
-			It(`Invoke UpdateUserSettings successfully`, func() {
-				userManagementService, serviceErr := usermanagementv1.NewUserManagementV1(&usermanagementv1.UserManagementV1Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(userManagementService).ToNot(BeNil())
-				userManagementService.EnableRetries(0, 0)
-
-				// Invoke operation with nil options model (negative test)
-				result, response, operationErr := userManagementService.UpdateUserSettings(nil)
-				Expect(operationErr).NotTo(BeNil())
-				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-
-				// Construct an instance of the UpdateUserSettingsOptions model
-				updateUserSettingsOptionsModel := new(usermanagementv1.UpdateUserSettingsOptions)
-				updateUserSettingsOptionsModel.AccountID = core.StringPtr("testString")
-				updateUserSettingsOptionsModel.IamID = core.StringPtr("testString")
-				updateUserSettingsOptionsModel.Language = core.StringPtr("testString")
-				updateUserSettingsOptionsModel.NotificationLanguage = core.StringPtr("testString")
-				updateUserSettingsOptionsModel.AllowedIpAddresses = core.StringPtr("32.96.110.50,172.16.254.1")
-				updateUserSettingsOptionsModel.SelfManage = core.BoolPtr(true)
-				updateUserSettingsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation with valid options model (positive test)
-				result, response, operationErr = userManagementService.UpdateUserSettings(updateUserSettingsOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).ToNot(BeNil())
-
-				// Invoke operation with a Context to test a timeout error
-				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc()
-				serverSleepTime = 100 * time.Millisecond
-				_, _, operationErr = userManagementService.UpdateUserSettingsWithContext(ctx, updateUserSettingsOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-				serverSleepTime = time.Duration(0)
-
-				// Disable retries and test again
-				userManagementService.DisableRetries()
-				result, response, operationErr = userManagementService.UpdateUserSettings(updateUserSettingsOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).ToNot(BeNil())
-
-				// Re-test the timeout error with retries disabled
-				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc2()
-				serverSleepTime = 100 * time.Millisecond
-				_, _, operationErr = userManagementService.UpdateUserSettingsWithContext(ctx, updateUserSettingsOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-				serverSleepTime = time.Duration(0)
-			})
-			It(`Invoke UpdateUserSettings with error: Operation validation and request error`, func() {
-				userManagementService, serviceErr := usermanagementv1.NewUserManagementV1(&usermanagementv1.UserManagementV1Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(userManagementService).ToNot(BeNil())
-
-				// Construct an instance of the UpdateUserSettingsOptions model
-				updateUserSettingsOptionsModel := new(usermanagementv1.UpdateUserSettingsOptions)
-				updateUserSettingsOptionsModel.AccountID = core.StringPtr("testString")
-				updateUserSettingsOptionsModel.IamID = core.StringPtr("testString")
-				updateUserSettingsOptionsModel.Language = core.StringPtr("testString")
-				updateUserSettingsOptionsModel.NotificationLanguage = core.StringPtr("testString")
-				updateUserSettingsOptionsModel.AllowedIpAddresses = core.StringPtr("32.96.110.50,172.16.254.1")
-				updateUserSettingsOptionsModel.SelfManage = core.BoolPtr(true)
-				updateUserSettingsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-				// Invoke operation with empty URL (negative test)
-				err := userManagementService.SetServiceURL("")
-				Expect(err).To(BeNil())
-				result, response, operationErr := userManagementService.UpdateUserSettings(updateUserSettingsOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
-				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-				// Construct a second instance of the UpdateUserSettingsOptions model with no property values
-				updateUserSettingsOptionsModelNew := new(usermanagementv1.UpdateUserSettingsOptions)
-				// Invoke operation with invalid model (negative test)
-				result, response, operationErr = userManagementService.UpdateUserSettings(updateUserSettingsOptionsModelNew)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-	})
-	Describe(`Service constructor tests`, func() {
-		It(`Instantiate service client`, func() {
-			userManagementService, serviceErr := usermanagementv1.NewUserManagementV1(&usermanagementv1.UserManagementV1Options{
-				Authenticator: &core.NoAuthAuthenticator{},
-			})
-			Expect(userManagementService).ToNot(BeNil())
-			Expect(serviceErr).To(BeNil())
-		})
-		It(`Instantiate service client with error: Invalid URL`, func() {
-			userManagementService, serviceErr := usermanagementv1.NewUserManagementV1(&usermanagementv1.UserManagementV1Options{
-				URL: "{BAD_URL_STRING",
-			})
-			Expect(userManagementService).To(BeNil())
-			Expect(serviceErr).ToNot(BeNil())
-		})
-		It(`Instantiate service client with error: Invalid Auth`, func() {
-			userManagementService, serviceErr := usermanagementv1.NewUserManagementV1(&usermanagementv1.UserManagementV1Options{
-				URL: "https://usermanagementv1/api",
-				Authenticator: &core.BasicAuthenticator{
-					Username: "",
-					Password: "",
-				},
-			})
-			Expect(userManagementService).To(BeNil())
-			Expect(serviceErr).ToNot(BeNil())
-		})
-	})
-	Describe(`Service constructor tests using external config`, func() {
-		Context(`Using external config, construct service client instances`, func() {
-			// Map containing environment variables used in testing.
-			var testEnvironment = map[string]string{
-				"USER_MANAGEMENT_URL": "https://usermanagementv1/api",
-				"USER_MANAGEMENT_AUTH_TYPE": "noauth",
-			}
-
-			It(`Create service client using external config successfully`, func() {
-				SetTestEnvironment(testEnvironment)
-				userManagementService, serviceErr := usermanagementv1.NewUserManagementV1UsingExternalConfig(&usermanagementv1.UserManagementV1Options{
-				})
-				Expect(userManagementService).ToNot(BeNil())
-				Expect(serviceErr).To(BeNil())
-				ClearTestEnvironment(testEnvironment)
-			})
-			It(`Create service client using external config and set url from constructor successfully`, func() {
-				SetTestEnvironment(testEnvironment)
-				userManagementService, serviceErr := usermanagementv1.NewUserManagementV1UsingExternalConfig(&usermanagementv1.UserManagementV1Options{
-					URL: "https://testService/api",
-				})
-				Expect(userManagementService).ToNot(BeNil())
-				Expect(serviceErr).To(BeNil())
-				Expect(userManagementService.Service.GetServiceURL()).To(Equal("https://testService/api"))
-				ClearTestEnvironment(testEnvironment)
-			})
-			It(`Create service client using external config and set url programatically successfully`, func() {
-				SetTestEnvironment(testEnvironment)
-				userManagementService, serviceErr := usermanagementv1.NewUserManagementV1UsingExternalConfig(&usermanagementv1.UserManagementV1Options{
-				})
-				err := userManagementService.SetServiceURL("https://testService/api")
-				Expect(err).To(BeNil())
-				Expect(userManagementService).ToNot(BeNil())
-				Expect(serviceErr).To(BeNil())
-				Expect(userManagementService.Service.GetServiceURL()).To(Equal("https://testService/api"))
-				ClearTestEnvironment(testEnvironment)
-			})
-		})
-		Context(`Using external config, construct service client instances with error: Invalid Auth`, func() {
-			// Map containing environment variables used in testing.
-			var testEnvironment = map[string]string{
-				"USER_MANAGEMENT_URL": "https://usermanagementv1/api",
-				"USER_MANAGEMENT_AUTH_TYPE": "someOtherAuth",
-			}
-
-			SetTestEnvironment(testEnvironment)
-			userManagementService, serviceErr := usermanagementv1.NewUserManagementV1UsingExternalConfig(&usermanagementv1.UserManagementV1Options{
-			})
-
-			It(`Instantiate service client with error`, func() {
-				Expect(userManagementService).To(BeNil())
-				Expect(serviceErr).ToNot(BeNil())
-				ClearTestEnvironment(testEnvironment)
-			})
-		})
-		Context(`Using external config, construct service client instances with error: Invalid URL`, func() {
-			// Map containing environment variables used in testing.
-			var testEnvironment = map[string]string{
-				"USER_MANAGEMENT_AUTH_TYPE":   "NOAuth",
-			}
-
-			SetTestEnvironment(testEnvironment)
-			userManagementService, serviceErr := usermanagementv1.NewUserManagementV1UsingExternalConfig(&usermanagementv1.UserManagementV1Options{
-				URL: "{BAD_URL_STRING",
-			})
-
-			It(`Instantiate service client with error`, func() {
-				Expect(userManagementService).To(BeNil())
-				Expect(serviceErr).ToNot(BeNil())
-				ClearTestEnvironment(testEnvironment)
-			})
-		})
-	})
 	Describe(`ListUsers(listUsersOptions *ListUsersOptions) - Operation response error`, func() {
 		listUsersPath := "/v2/accounts/testString/users"
 		Context(`Using mock server endpoint`, func() {
@@ -584,6 +146,10 @@ var _ = Describe(`UserManagementV1`, func() {
 					Expect(req.URL.EscapedPath()).To(Equal(listUsersPath))
 					Expect(req.Method).To(Equal("GET"))
 					Expect(req.URL.Query()["state"]).To(Equal([]string{"testString"}))
+
+					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(100))}))
+
+					Expect(req.URL.Query()["_start"]).To(Equal([]string{"testString"}))
 
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
@@ -602,6 +168,8 @@ var _ = Describe(`UserManagementV1`, func() {
 				listUsersOptionsModel := new(usermanagementv1.ListUsersOptions)
 				listUsersOptionsModel.AccountID = core.StringPtr("testString")
 				listUsersOptionsModel.State = core.StringPtr("testString")
+				listUsersOptionsModel.Limit = core.Int64Ptr(int64(100))
+				listUsersOptionsModel.Start = core.StringPtr("testString")
 				listUsersOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
 				result, response, operationErr := userManagementService.ListUsers(listUsersOptionsModel)
@@ -637,6 +205,10 @@ var _ = Describe(`UserManagementV1`, func() {
 
 					Expect(req.URL.Query()["state"]).To(Equal([]string{"testString"}))
 
+					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(100))}))
+
+					Expect(req.URL.Query()["_start"]).To(Equal([]string{"testString"}))
+
 					// Sleep a short time to support a timeout test
 					time.Sleep(serverSleepTime)
 
@@ -665,6 +237,8 @@ var _ = Describe(`UserManagementV1`, func() {
 				listUsersOptionsModel := new(usermanagementv1.ListUsersOptions)
 				listUsersOptionsModel.AccountID = core.StringPtr("testString")
 				listUsersOptionsModel.State = core.StringPtr("testString")
+				listUsersOptionsModel.Limit = core.Int64Ptr(int64(100))
+				listUsersOptionsModel.Start = core.StringPtr("testString")
 				listUsersOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
@@ -710,6 +284,8 @@ var _ = Describe(`UserManagementV1`, func() {
 				listUsersOptionsModel := new(usermanagementv1.ListUsersOptions)
 				listUsersOptionsModel.AccountID = core.StringPtr("testString")
 				listUsersOptionsModel.State = core.StringPtr("testString")
+				listUsersOptionsModel.Limit = core.Int64Ptr(int64(100))
+				listUsersOptionsModel.Start = core.StringPtr("testString")
 				listUsersOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := userManagementService.SetServiceURL("")
@@ -840,7 +416,7 @@ var _ = Describe(`UserManagementV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(202)
-					fmt.Fprintf(res, "%s", `{"total_results": 12, "limit": 5, "first_url": "FirstURL", "next_url": "NextURL", "resources": [{"id": "ID", "iam_id": "IamID", "realm": "Realm", "user_id": "UserID", "firstname": "Firstname", "lastname": "Lastname", "state": "State", "email": "Email", "phonenumber": "Phonenumber", "altphonenumber": "Altphonenumber", "photo": "Photo", "account_id": "AccountID"}]}`)
+					fmt.Fprintf(res, "%s", `{"resources": [{"email": "Email", "id": "ID", "state": "State"}]}`)
 				}))
 			})
 			It(`Invoke InviteUsers successfully`, func() {
@@ -1137,15 +713,15 @@ var _ = Describe(`UserManagementV1`, func() {
 		})
 	})
 
-	Describe(`UpdateUserProfiles(updateUserProfilesOptions *UpdateUserProfilesOptions)`, func() {
-		updateUserProfilesPath := "/v2/accounts/testString/users/testString"
+	Describe(`UpdateUserProfile(updateUserProfileOptions *UpdateUserProfileOptions)`, func() {
+		updateUserProfilePath := "/v2/accounts/testString/users/testString"
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(updateUserProfilesPath))
+					Expect(req.URL.EscapedPath()).To(Equal(updateUserProfilePath))
 					Expect(req.Method).To(Equal("PATCH"))
 
 					// For gzip-disabled operation, verify Content-Encoding is not set.
@@ -1167,7 +743,7 @@ var _ = Describe(`UserManagementV1`, func() {
 					res.WriteHeader(204)
 				}))
 			})
-			It(`Invoke UpdateUserProfiles successfully`, func() {
+			It(`Invoke UpdateUserProfile successfully`, func() {
 				userManagementService, serviceErr := usermanagementv1.NewUserManagementV1(&usermanagementv1.UserManagementV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -1177,35 +753,35 @@ var _ = Describe(`UserManagementV1`, func() {
 				userManagementService.EnableRetries(0, 0)
 
 				// Invoke operation with nil options model (negative test)
-				response, operationErr := userManagementService.UpdateUserProfiles(nil)
+				response, operationErr := userManagementService.UpdateUserProfile(nil)
 				Expect(operationErr).NotTo(BeNil())
 				Expect(response).To(BeNil())
 
-				// Construct an instance of the UpdateUserProfilesOptions model
-				updateUserProfilesOptionsModel := new(usermanagementv1.UpdateUserProfilesOptions)
-				updateUserProfilesOptionsModel.AccountID = core.StringPtr("testString")
-				updateUserProfilesOptionsModel.IamID = core.StringPtr("testString")
-				updateUserProfilesOptionsModel.Firstname = core.StringPtr("testString")
-				updateUserProfilesOptionsModel.Lastname = core.StringPtr("testString")
-				updateUserProfilesOptionsModel.State = core.StringPtr("testString")
-				updateUserProfilesOptionsModel.Email = core.StringPtr("testString")
-				updateUserProfilesOptionsModel.Phonenumber = core.StringPtr("testString")
-				updateUserProfilesOptionsModel.Altphonenumber = core.StringPtr("testString")
-				updateUserProfilesOptionsModel.Photo = core.StringPtr("testString")
-				updateUserProfilesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the UpdateUserProfileOptions model
+				updateUserProfileOptionsModel := new(usermanagementv1.UpdateUserProfileOptions)
+				updateUserProfileOptionsModel.AccountID = core.StringPtr("testString")
+				updateUserProfileOptionsModel.IamID = core.StringPtr("testString")
+				updateUserProfileOptionsModel.Firstname = core.StringPtr("testString")
+				updateUserProfileOptionsModel.Lastname = core.StringPtr("testString")
+				updateUserProfileOptionsModel.State = core.StringPtr("testString")
+				updateUserProfileOptionsModel.Email = core.StringPtr("testString")
+				updateUserProfileOptionsModel.Phonenumber = core.StringPtr("testString")
+				updateUserProfileOptionsModel.Altphonenumber = core.StringPtr("testString")
+				updateUserProfileOptionsModel.Photo = core.StringPtr("testString")
+				updateUserProfileOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
-				response, operationErr = userManagementService.UpdateUserProfiles(updateUserProfilesOptionsModel)
+				response, operationErr = userManagementService.UpdateUserProfile(updateUserProfileOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 
 				// Disable retries and test again
 				userManagementService.DisableRetries()
-				response, operationErr = userManagementService.UpdateUserProfiles(updateUserProfilesOptionsModel)
+				response, operationErr = userManagementService.UpdateUserProfile(updateUserProfileOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 			})
-			It(`Invoke UpdateUserProfiles with error: Operation validation and request error`, func() {
+			It(`Invoke UpdateUserProfile with error: Operation validation and request error`, func() {
 				userManagementService, serviceErr := usermanagementv1.NewUserManagementV1(&usermanagementv1.UserManagementV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -1213,29 +789,29 @@ var _ = Describe(`UserManagementV1`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(userManagementService).ToNot(BeNil())
 
-				// Construct an instance of the UpdateUserProfilesOptions model
-				updateUserProfilesOptionsModel := new(usermanagementv1.UpdateUserProfilesOptions)
-				updateUserProfilesOptionsModel.AccountID = core.StringPtr("testString")
-				updateUserProfilesOptionsModel.IamID = core.StringPtr("testString")
-				updateUserProfilesOptionsModel.Firstname = core.StringPtr("testString")
-				updateUserProfilesOptionsModel.Lastname = core.StringPtr("testString")
-				updateUserProfilesOptionsModel.State = core.StringPtr("testString")
-				updateUserProfilesOptionsModel.Email = core.StringPtr("testString")
-				updateUserProfilesOptionsModel.Phonenumber = core.StringPtr("testString")
-				updateUserProfilesOptionsModel.Altphonenumber = core.StringPtr("testString")
-				updateUserProfilesOptionsModel.Photo = core.StringPtr("testString")
-				updateUserProfilesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the UpdateUserProfileOptions model
+				updateUserProfileOptionsModel := new(usermanagementv1.UpdateUserProfileOptions)
+				updateUserProfileOptionsModel.AccountID = core.StringPtr("testString")
+				updateUserProfileOptionsModel.IamID = core.StringPtr("testString")
+				updateUserProfileOptionsModel.Firstname = core.StringPtr("testString")
+				updateUserProfileOptionsModel.Lastname = core.StringPtr("testString")
+				updateUserProfileOptionsModel.State = core.StringPtr("testString")
+				updateUserProfileOptionsModel.Email = core.StringPtr("testString")
+				updateUserProfileOptionsModel.Phonenumber = core.StringPtr("testString")
+				updateUserProfileOptionsModel.Altphonenumber = core.StringPtr("testString")
+				updateUserProfileOptionsModel.Photo = core.StringPtr("testString")
+				updateUserProfileOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := userManagementService.SetServiceURL("")
 				Expect(err).To(BeNil())
-				response, operationErr := userManagementService.UpdateUserProfiles(updateUserProfilesOptionsModel)
+				response, operationErr := userManagementService.UpdateUserProfile(updateUserProfileOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
 				Expect(response).To(BeNil())
-				// Construct a second instance of the UpdateUserProfilesOptions model with no property values
-				updateUserProfilesOptionsModelNew := new(usermanagementv1.UpdateUserProfilesOptions)
+				// Construct a second instance of the UpdateUserProfileOptions model with no property values
+				updateUserProfileOptionsModelNew := new(usermanagementv1.UpdateUserProfileOptions)
 				// Invoke operation with invalid model (negative test)
-				response, operationErr = userManagementService.UpdateUserProfiles(updateUserProfilesOptionsModelNew)
+				response, operationErr = userManagementService.UpdateUserProfile(updateUserProfileOptionsModelNew)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).To(BeNil())
 			})
@@ -1245,21 +821,21 @@ var _ = Describe(`UserManagementV1`, func() {
 		})
 	})
 
-	Describe(`RemoveUsers(removeUsersOptions *RemoveUsersOptions)`, func() {
-		removeUsersPath := "/v2/accounts/testString/users/testString"
+	Describe(`RemoveUser(removeUserOptions *RemoveUserOptions)`, func() {
+		removeUserPath := "/v2/accounts/testString/users/testString"
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(removeUsersPath))
+					Expect(req.URL.EscapedPath()).To(Equal(removeUserPath))
 					Expect(req.Method).To(Equal("DELETE"))
 
 					res.WriteHeader(204)
 				}))
 			})
-			It(`Invoke RemoveUsers successfully`, func() {
+			It(`Invoke RemoveUser successfully`, func() {
 				userManagementService, serviceErr := usermanagementv1.NewUserManagementV1(&usermanagementv1.UserManagementV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -1269,28 +845,28 @@ var _ = Describe(`UserManagementV1`, func() {
 				userManagementService.EnableRetries(0, 0)
 
 				// Invoke operation with nil options model (negative test)
-				response, operationErr := userManagementService.RemoveUsers(nil)
+				response, operationErr := userManagementService.RemoveUser(nil)
 				Expect(operationErr).NotTo(BeNil())
 				Expect(response).To(BeNil())
 
-				// Construct an instance of the RemoveUsersOptions model
-				removeUsersOptionsModel := new(usermanagementv1.RemoveUsersOptions)
-				removeUsersOptionsModel.AccountID = core.StringPtr("testString")
-				removeUsersOptionsModel.IamID = core.StringPtr("testString")
-				removeUsersOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the RemoveUserOptions model
+				removeUserOptionsModel := new(usermanagementv1.RemoveUserOptions)
+				removeUserOptionsModel.AccountID = core.StringPtr("testString")
+				removeUserOptionsModel.IamID = core.StringPtr("testString")
+				removeUserOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
-				response, operationErr = userManagementService.RemoveUsers(removeUsersOptionsModel)
+				response, operationErr = userManagementService.RemoveUser(removeUserOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 
 				// Disable retries and test again
 				userManagementService.DisableRetries()
-				response, operationErr = userManagementService.RemoveUsers(removeUsersOptionsModel)
+				response, operationErr = userManagementService.RemoveUser(removeUserOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 			})
-			It(`Invoke RemoveUsers with error: Operation validation and request error`, func() {
+			It(`Invoke RemoveUser with error: Operation validation and request error`, func() {
 				userManagementService, serviceErr := usermanagementv1.NewUserManagementV1(&usermanagementv1.UserManagementV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -1298,22 +874,379 @@ var _ = Describe(`UserManagementV1`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(userManagementService).ToNot(BeNil())
 
-				// Construct an instance of the RemoveUsersOptions model
-				removeUsersOptionsModel := new(usermanagementv1.RemoveUsersOptions)
-				removeUsersOptionsModel.AccountID = core.StringPtr("testString")
-				removeUsersOptionsModel.IamID = core.StringPtr("testString")
-				removeUsersOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the RemoveUserOptions model
+				removeUserOptionsModel := new(usermanagementv1.RemoveUserOptions)
+				removeUserOptionsModel.AccountID = core.StringPtr("testString")
+				removeUserOptionsModel.IamID = core.StringPtr("testString")
+				removeUserOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := userManagementService.SetServiceURL("")
 				Expect(err).To(BeNil())
-				response, operationErr := userManagementService.RemoveUsers(removeUsersOptionsModel)
+				response, operationErr := userManagementService.RemoveUser(removeUserOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
 				Expect(response).To(BeNil())
-				// Construct a second instance of the RemoveUsersOptions model with no property values
-				removeUsersOptionsModelNew := new(usermanagementv1.RemoveUsersOptions)
+				// Construct a second instance of the RemoveUserOptions model with no property values
+				removeUserOptionsModelNew := new(usermanagementv1.RemoveUserOptions)
 				// Invoke operation with invalid model (negative test)
-				response, operationErr = userManagementService.RemoveUsers(removeUsersOptionsModelNew)
+				response, operationErr = userManagementService.RemoveUser(removeUserOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`Service constructor tests`, func() {
+		It(`Instantiate service client`, func() {
+			userManagementService, serviceErr := usermanagementv1.NewUserManagementV1(&usermanagementv1.UserManagementV1Options{
+				Authenticator: &core.NoAuthAuthenticator{},
+			})
+			Expect(userManagementService).ToNot(BeNil())
+			Expect(serviceErr).To(BeNil())
+		})
+		It(`Instantiate service client with error: Invalid URL`, func() {
+			userManagementService, serviceErr := usermanagementv1.NewUserManagementV1(&usermanagementv1.UserManagementV1Options{
+				URL: "{BAD_URL_STRING",
+			})
+			Expect(userManagementService).To(BeNil())
+			Expect(serviceErr).ToNot(BeNil())
+		})
+		It(`Instantiate service client with error: Invalid Auth`, func() {
+			userManagementService, serviceErr := usermanagementv1.NewUserManagementV1(&usermanagementv1.UserManagementV1Options{
+				URL: "https://usermanagementv1/api",
+				Authenticator: &core.BasicAuthenticator{
+					Username: "",
+					Password: "",
+				},
+			})
+			Expect(userManagementService).To(BeNil())
+			Expect(serviceErr).ToNot(BeNil())
+		})
+	})
+	Describe(`Service constructor tests using external config`, func() {
+		Context(`Using external config, construct service client instances`, func() {
+			// Map containing environment variables used in testing.
+			var testEnvironment = map[string]string{
+				"USER_MANAGEMENT_URL": "https://usermanagementv1/api",
+				"USER_MANAGEMENT_AUTH_TYPE": "noauth",
+			}
+
+			It(`Create service client using external config successfully`, func() {
+				SetTestEnvironment(testEnvironment)
+				userManagementService, serviceErr := usermanagementv1.NewUserManagementV1UsingExternalConfig(&usermanagementv1.UserManagementV1Options{
+				})
+				Expect(userManagementService).ToNot(BeNil())
+				Expect(serviceErr).To(BeNil())
+				ClearTestEnvironment(testEnvironment)
+			})
+			It(`Create service client using external config and set url from constructor successfully`, func() {
+				SetTestEnvironment(testEnvironment)
+				userManagementService, serviceErr := usermanagementv1.NewUserManagementV1UsingExternalConfig(&usermanagementv1.UserManagementV1Options{
+					URL: "https://testService/api",
+				})
+				Expect(userManagementService).ToNot(BeNil())
+				Expect(serviceErr).To(BeNil())
+				Expect(userManagementService.Service.GetServiceURL()).To(Equal("https://testService/api"))
+				ClearTestEnvironment(testEnvironment)
+			})
+			It(`Create service client using external config and set url programatically successfully`, func() {
+				SetTestEnvironment(testEnvironment)
+				userManagementService, serviceErr := usermanagementv1.NewUserManagementV1UsingExternalConfig(&usermanagementv1.UserManagementV1Options{
+				})
+				err := userManagementService.SetServiceURL("https://testService/api")
+				Expect(err).To(BeNil())
+				Expect(userManagementService).ToNot(BeNil())
+				Expect(serviceErr).To(BeNil())
+				Expect(userManagementService.Service.GetServiceURL()).To(Equal("https://testService/api"))
+				ClearTestEnvironment(testEnvironment)
+			})
+		})
+		Context(`Using external config, construct service client instances with error: Invalid Auth`, func() {
+			// Map containing environment variables used in testing.
+			var testEnvironment = map[string]string{
+				"USER_MANAGEMENT_URL": "https://usermanagementv1/api",
+				"USER_MANAGEMENT_AUTH_TYPE": "someOtherAuth",
+			}
+
+			SetTestEnvironment(testEnvironment)
+			userManagementService, serviceErr := usermanagementv1.NewUserManagementV1UsingExternalConfig(&usermanagementv1.UserManagementV1Options{
+			})
+
+			It(`Instantiate service client with error`, func() {
+				Expect(userManagementService).To(BeNil())
+				Expect(serviceErr).ToNot(BeNil())
+				ClearTestEnvironment(testEnvironment)
+			})
+		})
+		Context(`Using external config, construct service client instances with error: Invalid URL`, func() {
+			// Map containing environment variables used in testing.
+			var testEnvironment = map[string]string{
+				"USER_MANAGEMENT_AUTH_TYPE":   "NOAuth",
+			}
+
+			SetTestEnvironment(testEnvironment)
+			userManagementService, serviceErr := usermanagementv1.NewUserManagementV1UsingExternalConfig(&usermanagementv1.UserManagementV1Options{
+				URL: "{BAD_URL_STRING",
+			})
+
+			It(`Instantiate service client with error`, func() {
+				Expect(userManagementService).To(BeNil())
+				Expect(serviceErr).ToNot(BeNil())
+				ClearTestEnvironment(testEnvironment)
+			})
+		})
+	})
+	Describe(`GetUserSettings(getUserSettingsOptions *GetUserSettingsOptions) - Operation response error`, func() {
+		getUserSettingsPath := "/v2/accounts/testString/users/testString/settings"
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getUserSettingsPath))
+					Expect(req.Method).To(Equal("GET"))
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, `} this is not valid json {`)
+				}))
+			})
+			It(`Invoke GetUserSettings with error: Operation response processing error`, func() {
+				userManagementService, serviceErr := usermanagementv1.NewUserManagementV1(&usermanagementv1.UserManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(userManagementService).ToNot(BeNil())
+
+				// Construct an instance of the GetUserSettingsOptions model
+				getUserSettingsOptionsModel := new(usermanagementv1.GetUserSettingsOptions)
+				getUserSettingsOptionsModel.AccountID = core.StringPtr("testString")
+				getUserSettingsOptionsModel.IamID = core.StringPtr("testString")
+				getUserSettingsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Expect response parsing to fail since we are receiving a text/plain response
+				result, response, operationErr := userManagementService.GetUserSettings(getUserSettingsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				userManagementService.EnableRetries(0, 0)
+				result, response, operationErr = userManagementService.GetUserSettings(getUserSettingsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+
+	Describe(`GetUserSettings(getUserSettingsOptions *GetUserSettingsOptions)`, func() {
+		getUserSettingsPath := "/v2/accounts/testString/users/testString/settings"
+		var serverSleepTime time.Duration
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				serverSleepTime = 0
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getUserSettingsPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					// Sleep a short time to support a timeout test
+					time.Sleep(serverSleepTime)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"language": "Language", "notification_language": "NotificationLanguage", "allowed_ip_addresses": "32.96.110.50,172.16.254.1", "self_manage": true}`)
+				}))
+			})
+			It(`Invoke GetUserSettings successfully`, func() {
+				userManagementService, serviceErr := usermanagementv1.NewUserManagementV1(&usermanagementv1.UserManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(userManagementService).ToNot(BeNil())
+				userManagementService.EnableRetries(0, 0)
+
+				// Invoke operation with nil options model (negative test)
+				result, response, operationErr := userManagementService.GetUserSettings(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+
+				// Construct an instance of the GetUserSettingsOptions model
+				getUserSettingsOptionsModel := new(usermanagementv1.GetUserSettingsOptions)
+				getUserSettingsOptionsModel.AccountID = core.StringPtr("testString")
+				getUserSettingsOptionsModel.IamID = core.StringPtr("testString")
+				getUserSettingsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				result, response, operationErr = userManagementService.GetUserSettings(getUserSettingsOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				serverSleepTime = 100 * time.Millisecond
+				_, _, operationErr = userManagementService.GetUserSettingsWithContext(ctx, getUserSettingsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+				serverSleepTime = time.Duration(0)
+
+				// Disable retries and test again
+				userManagementService.DisableRetries()
+				result, response, operationErr = userManagementService.GetUserSettings(getUserSettingsOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				serverSleepTime = 100 * time.Millisecond
+				_, _, operationErr = userManagementService.GetUserSettingsWithContext(ctx, getUserSettingsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+				serverSleepTime = time.Duration(0)
+			})
+			It(`Invoke GetUserSettings with error: Operation validation and request error`, func() {
+				userManagementService, serviceErr := usermanagementv1.NewUserManagementV1(&usermanagementv1.UserManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(userManagementService).ToNot(BeNil())
+
+				// Construct an instance of the GetUserSettingsOptions model
+				getUserSettingsOptionsModel := new(usermanagementv1.GetUserSettingsOptions)
+				getUserSettingsOptionsModel.AccountID = core.StringPtr("testString")
+				getUserSettingsOptionsModel.IamID = core.StringPtr("testString")
+				getUserSettingsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := userManagementService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				result, response, operationErr := userManagementService.GetUserSettings(getUserSettingsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+				// Construct a second instance of the GetUserSettingsOptions model with no property values
+				getUserSettingsOptionsModelNew := new(usermanagementv1.GetUserSettingsOptions)
+				// Invoke operation with invalid model (negative test)
+				result, response, operationErr = userManagementService.GetUserSettings(getUserSettingsOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+
+	Describe(`UpdateUserSettings(updateUserSettingsOptions *UpdateUserSettingsOptions)`, func() {
+		updateUserSettingsPath := "/v2/accounts/testString/users/testString/settings"
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(updateUserSettingsPath))
+					Expect(req.Method).To(Equal("PATCH"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
+					res.WriteHeader(204)
+				}))
+			})
+			It(`Invoke UpdateUserSettings successfully`, func() {
+				userManagementService, serviceErr := usermanagementv1.NewUserManagementV1(&usermanagementv1.UserManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(userManagementService).ToNot(BeNil())
+				userManagementService.EnableRetries(0, 0)
+
+				// Invoke operation with nil options model (negative test)
+				response, operationErr := userManagementService.UpdateUserSettings(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+
+				// Construct an instance of the UpdateUserSettingsOptions model
+				updateUserSettingsOptionsModel := new(usermanagementv1.UpdateUserSettingsOptions)
+				updateUserSettingsOptionsModel.AccountID = core.StringPtr("testString")
+				updateUserSettingsOptionsModel.IamID = core.StringPtr("testString")
+				updateUserSettingsOptionsModel.Language = core.StringPtr("testString")
+				updateUserSettingsOptionsModel.NotificationLanguage = core.StringPtr("testString")
+				updateUserSettingsOptionsModel.AllowedIpAddresses = core.StringPtr("32.96.110.50,172.16.254.1")
+				updateUserSettingsOptionsModel.SelfManage = core.BoolPtr(true)
+				updateUserSettingsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				response, operationErr = userManagementService.UpdateUserSettings(updateUserSettingsOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Disable retries and test again
+				userManagementService.DisableRetries()
+				response, operationErr = userManagementService.UpdateUserSettings(updateUserSettingsOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+			})
+			It(`Invoke UpdateUserSettings with error: Operation validation and request error`, func() {
+				userManagementService, serviceErr := usermanagementv1.NewUserManagementV1(&usermanagementv1.UserManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(userManagementService).ToNot(BeNil())
+
+				// Construct an instance of the UpdateUserSettingsOptions model
+				updateUserSettingsOptionsModel := new(usermanagementv1.UpdateUserSettingsOptions)
+				updateUserSettingsOptionsModel.AccountID = core.StringPtr("testString")
+				updateUserSettingsOptionsModel.IamID = core.StringPtr("testString")
+				updateUserSettingsOptionsModel.Language = core.StringPtr("testString")
+				updateUserSettingsOptionsModel.NotificationLanguage = core.StringPtr("testString")
+				updateUserSettingsOptionsModel.AllowedIpAddresses = core.StringPtr("32.96.110.50,172.16.254.1")
+				updateUserSettingsOptionsModel.SelfManage = core.BoolPtr(true)
+				updateUserSettingsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := userManagementService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				response, operationErr := userManagementService.UpdateUserSettings(updateUserSettingsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				// Construct a second instance of the UpdateUserSettingsOptions model with no property values
+				updateUserSettingsOptionsModelNew := new(usermanagementv1.UpdateUserSettingsOptions)
+				// Invoke operation with invalid model (negative test)
+				response, operationErr = userManagementService.UpdateUserSettings(updateUserSettingsOptionsModelNew)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).To(BeNil())
 			})
@@ -1414,51 +1347,55 @@ var _ = Describe(`UserManagementV1`, func() {
 				listUsersOptionsModel := userManagementService.NewListUsersOptions(accountID)
 				listUsersOptionsModel.SetAccountID("testString")
 				listUsersOptionsModel.SetState("testString")
+				listUsersOptionsModel.SetLimit(int64(100))
+				listUsersOptionsModel.SetStart("testString")
 				listUsersOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(listUsersOptionsModel).ToNot(BeNil())
 				Expect(listUsersOptionsModel.AccountID).To(Equal(core.StringPtr("testString")))
 				Expect(listUsersOptionsModel.State).To(Equal(core.StringPtr("testString")))
+				Expect(listUsersOptionsModel.Limit).To(Equal(core.Int64Ptr(int64(100))))
+				Expect(listUsersOptionsModel.Start).To(Equal(core.StringPtr("testString")))
 				Expect(listUsersOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
-			It(`Invoke NewRemoveUsersOptions successfully`, func() {
-				// Construct an instance of the RemoveUsersOptions model
+			It(`Invoke NewRemoveUserOptions successfully`, func() {
+				// Construct an instance of the RemoveUserOptions model
 				accountID := "testString"
 				iamID := "testString"
-				removeUsersOptionsModel := userManagementService.NewRemoveUsersOptions(accountID, iamID)
-				removeUsersOptionsModel.SetAccountID("testString")
-				removeUsersOptionsModel.SetIamID("testString")
-				removeUsersOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
-				Expect(removeUsersOptionsModel).ToNot(BeNil())
-				Expect(removeUsersOptionsModel.AccountID).To(Equal(core.StringPtr("testString")))
-				Expect(removeUsersOptionsModel.IamID).To(Equal(core.StringPtr("testString")))
-				Expect(removeUsersOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+				removeUserOptionsModel := userManagementService.NewRemoveUserOptions(accountID, iamID)
+				removeUserOptionsModel.SetAccountID("testString")
+				removeUserOptionsModel.SetIamID("testString")
+				removeUserOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(removeUserOptionsModel).ToNot(BeNil())
+				Expect(removeUserOptionsModel.AccountID).To(Equal(core.StringPtr("testString")))
+				Expect(removeUserOptionsModel.IamID).To(Equal(core.StringPtr("testString")))
+				Expect(removeUserOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
-			It(`Invoke NewUpdateUserProfilesOptions successfully`, func() {
-				// Construct an instance of the UpdateUserProfilesOptions model
+			It(`Invoke NewUpdateUserProfileOptions successfully`, func() {
+				// Construct an instance of the UpdateUserProfileOptions model
 				accountID := "testString"
 				iamID := "testString"
-				updateUserProfilesOptionsModel := userManagementService.NewUpdateUserProfilesOptions(accountID, iamID)
-				updateUserProfilesOptionsModel.SetAccountID("testString")
-				updateUserProfilesOptionsModel.SetIamID("testString")
-				updateUserProfilesOptionsModel.SetFirstname("testString")
-				updateUserProfilesOptionsModel.SetLastname("testString")
-				updateUserProfilesOptionsModel.SetState("testString")
-				updateUserProfilesOptionsModel.SetEmail("testString")
-				updateUserProfilesOptionsModel.SetPhonenumber("testString")
-				updateUserProfilesOptionsModel.SetAltphonenumber("testString")
-				updateUserProfilesOptionsModel.SetPhoto("testString")
-				updateUserProfilesOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
-				Expect(updateUserProfilesOptionsModel).ToNot(BeNil())
-				Expect(updateUserProfilesOptionsModel.AccountID).To(Equal(core.StringPtr("testString")))
-				Expect(updateUserProfilesOptionsModel.IamID).To(Equal(core.StringPtr("testString")))
-				Expect(updateUserProfilesOptionsModel.Firstname).To(Equal(core.StringPtr("testString")))
-				Expect(updateUserProfilesOptionsModel.Lastname).To(Equal(core.StringPtr("testString")))
-				Expect(updateUserProfilesOptionsModel.State).To(Equal(core.StringPtr("testString")))
-				Expect(updateUserProfilesOptionsModel.Email).To(Equal(core.StringPtr("testString")))
-				Expect(updateUserProfilesOptionsModel.Phonenumber).To(Equal(core.StringPtr("testString")))
-				Expect(updateUserProfilesOptionsModel.Altphonenumber).To(Equal(core.StringPtr("testString")))
-				Expect(updateUserProfilesOptionsModel.Photo).To(Equal(core.StringPtr("testString")))
-				Expect(updateUserProfilesOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+				updateUserProfileOptionsModel := userManagementService.NewUpdateUserProfileOptions(accountID, iamID)
+				updateUserProfileOptionsModel.SetAccountID("testString")
+				updateUserProfileOptionsModel.SetIamID("testString")
+				updateUserProfileOptionsModel.SetFirstname("testString")
+				updateUserProfileOptionsModel.SetLastname("testString")
+				updateUserProfileOptionsModel.SetState("testString")
+				updateUserProfileOptionsModel.SetEmail("testString")
+				updateUserProfileOptionsModel.SetPhonenumber("testString")
+				updateUserProfileOptionsModel.SetAltphonenumber("testString")
+				updateUserProfileOptionsModel.SetPhoto("testString")
+				updateUserProfileOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(updateUserProfileOptionsModel).ToNot(BeNil())
+				Expect(updateUserProfileOptionsModel.AccountID).To(Equal(core.StringPtr("testString")))
+				Expect(updateUserProfileOptionsModel.IamID).To(Equal(core.StringPtr("testString")))
+				Expect(updateUserProfileOptionsModel.Firstname).To(Equal(core.StringPtr("testString")))
+				Expect(updateUserProfileOptionsModel.Lastname).To(Equal(core.StringPtr("testString")))
+				Expect(updateUserProfileOptionsModel.State).To(Equal(core.StringPtr("testString")))
+				Expect(updateUserProfileOptionsModel.Email).To(Equal(core.StringPtr("testString")))
+				Expect(updateUserProfileOptionsModel.Phonenumber).To(Equal(core.StringPtr("testString")))
+				Expect(updateUserProfileOptionsModel.Altphonenumber).To(Equal(core.StringPtr("testString")))
+				Expect(updateUserProfileOptionsModel.Photo).To(Equal(core.StringPtr("testString")))
+				Expect(updateUserProfileOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewUpdateUserSettingsOptions successfully`, func() {
 				// Construct an instance of the UpdateUserSettingsOptions model
