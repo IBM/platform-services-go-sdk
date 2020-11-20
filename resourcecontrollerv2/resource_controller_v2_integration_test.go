@@ -86,7 +86,7 @@ func shouldSkipTest() {
 
 var _ = Describe("Resource Controller - Integration Tests", func() {
 
-	fmt.Fprintln(GinkgoWriter, "\nTransaction ID for this test run: %s\n", transactionId)
+	fmt.Fprintln(GinkgoWriter, "Transaction ID for this test run: ", transactionId)
 
 	It("Successfully load the configuration", func() {
 		var err error
@@ -164,7 +164,7 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 
 		//setting timeout to 1 minute
 		service.Service.Client.Timeout = 1 * time.Minute
-		fmt.Fprintln(GinkgoWriter, "\nTimeout set to: %d\n", service.Service.Client.Timeout)
+		fmt.Fprintln(GinkgoWriter, "Timeout set to: ", service.Service.Client.Timeout)
 	})
 
 	Describe("Create, Retrieve, and Update Resource Instance", func() {
@@ -1528,7 +1528,7 @@ func cleanupByName() {
 		instanceResult, _, instanceListErr := service.ListResourceInstances(listInstanceOptions)
 
 		if instanceListErr != nil {
-			fmt.Fprintln(GinkgoWriter, "Failed to retrieve instance with name %s for cleanup.\n", name)
+			fmt.Fprintln(GinkgoWriter, "Failed to retrieve instance with name ", name, " for cleanup.")
 			return
 		}
 
@@ -1545,7 +1545,7 @@ func cleanupByName() {
 					instanceUnlockOptions = instanceUnlockOptions.SetHeaders(instanceUnlockHeaders)
 					_, _, instanceUnlockErr := service.UnlockResourceInstance(instanceUnlockOptions)
 					if instanceUnlockErr != nil {
-						fmt.Fprintln(GinkgoWriter, "Failed to unlock instance %s for cleanup. Error: %s\n", instanceGuid, instanceUnlockErr.Error())
+						fmt.Fprintln(GinkgoWriter, "Failed to unlock instance ", instanceGuid, " for cleanup. Error: ", instanceUnlockErr.Error())
 						return
 					}
 				}
@@ -1557,15 +1557,15 @@ func cleanupByName() {
 				deleteInstanceOptions = deleteInstanceOptions.SetHeaders(deleteInstanceHeaders)
 				instanceDelResp, instanceDelErr := service.DeleteResourceInstance(deleteInstanceOptions)
 				if instanceDelResp.StatusCode == 204 {
-					fmt.Fprintln(GinkgoWriter, "Successful cleanup of instance %s.\n", instanceGuid)
+					fmt.Fprintln(GinkgoWriter, "Successful cleanup of instance ", instanceGuid)
 				} else if instanceDelResp.StatusCode == 410 {
-					fmt.Fprintln(GinkgoWriter, "Instance %s was already deleted by the tests.\n", instanceGuid)
+					fmt.Fprintln(GinkgoWriter, "Instance ", instanceGuid, " was already deleted by the tests.")
 				} else {
-					fmt.Fprintln(GinkgoWriter, "Failed to cleanup instance %s. Error: %s\n", instanceGuid, instanceDelErr.Error())
+					fmt.Fprintln(GinkgoWriter, "Failed to cleanup instance ", instanceGuid, ". Error: ", instanceDelErr.Error())
 				}
 			}
 		} else {
-			fmt.Fprintln(GinkgoWriter, "No instances found with name %s for cleanup.\n", name)
+			fmt.Fprintln(GinkgoWriter, "No instances found with name ", name, " for cleanup.")
 		}
 	}
 
@@ -1580,7 +1580,7 @@ func cleanupByName() {
 		bindingResult, _, bindingListErr := service.ListResourceBindings(listBindingOptions)
 
 		if bindingListErr != nil {
-			fmt.Fprintln(GinkgoWriter, "Failed to retrieve binding with name %s for cleanup.\n", name)
+			fmt.Fprintln(GinkgoWriter, "Failed to retrieve binding with name ", name, " for cleanup.")
 			return
 		}
 
@@ -1596,15 +1596,15 @@ func cleanupByName() {
 				deleteBindingOptions = deleteBindingOptions.SetHeaders(deleteBindingHeaders)
 				bindingDelResp, bindingDelErr := service.DeleteResourceBinding(deleteBindingOptions)
 				if bindingDelResp.StatusCode == 204 {
-					fmt.Fprintln(GinkgoWriter, "Successful cleanup of binding %s.\n", bindingGuid)
+					fmt.Fprintln(GinkgoWriter, "Successful cleanup of binding ", bindingGuid)
 				} else if bindingDelResp.StatusCode == 410 {
-					fmt.Fprintln(GinkgoWriter, "Binding %s was already deleted by the tests.\n", bindingGuid)
+					fmt.Fprintln(GinkgoWriter, "Binding ", bindingGuid, " was already deleted by the tests.")
 				} else {
-					fmt.Fprintln(GinkgoWriter, "Failed to cleanup binding %s. Error: %s\n", bindingGuid, bindingDelErr.Error())
+					fmt.Fprintln(GinkgoWriter, "Failed to cleanup binding ", bindingGuid, ". Error: ", bindingDelErr.Error())
 				}
 			}
 		} else {
-			fmt.Fprintln(GinkgoWriter, "No bindings found with name %s for cleanup.\n", name)
+			fmt.Fprintln(GinkgoWriter, "No bindings found with name ", name, " for cleanup.")
 		}
 	}
 
@@ -1619,7 +1619,7 @@ func cleanupByName() {
 		aliasResult, _, aliasListErr := service.ListResourceAliases(listAliasOptions)
 
 		if aliasListErr != nil {
-			fmt.Fprintln(GinkgoWriter, "Failed to retrieve alias with name %s for cleanup.\n", name)
+			fmt.Fprintln(GinkgoWriter, "Failed to retrieve alias with name ", name, " for cleanup.")
 			return
 		}
 
@@ -1635,15 +1635,15 @@ func cleanupByName() {
 				deleteAliasOptions = deleteAliasOptions.SetHeaders(deleteAliasHeaders)
 				aliasDelResp, aliasDelErr := service.DeleteResourceAlias(deleteAliasOptions)
 				if aliasDelResp.StatusCode == 204 {
-					fmt.Fprintln(GinkgoWriter, "Successful cleanup of alias %s.\n", aliasGuid)
+					fmt.Fprintln(GinkgoWriter, "Successful cleanup of alias ", aliasGuid)
 				} else if aliasDelResp.StatusCode == 410 {
-					fmt.Fprintln(GinkgoWriter, "Alias %s was already deleted by the tests.\n", aliasGuid)
+					fmt.Fprintln(GinkgoWriter, "Alias ", aliasGuid, " was already deleted by the tests.")
 				} else {
-					fmt.Fprintln(GinkgoWriter, "Failed to cleanup alias %s. Error: %s\n", aliasGuid, aliasDelErr.Error())
+					fmt.Fprintln(GinkgoWriter, "Failed to cleanup alias ", aliasGuid, ". Error: ", aliasDelErr.Error())
 				}
 			}
 		} else {
-			fmt.Fprintln(GinkgoWriter, "No aliases found with name %s for cleanup.\n", name)
+			fmt.Fprintln(GinkgoWriter, "No aliases found with name ", name, " for cleanup.")
 		}
 	}
 }
