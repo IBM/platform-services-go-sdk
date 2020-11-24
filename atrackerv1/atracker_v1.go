@@ -15,7 +15,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-818b4742-20201113-111146
+ * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-ef9b3113-20201118-074613
  */
  
 
@@ -32,9 +32,9 @@ import (
 	"time"
 )
 
-// AtrackerV1 : IBM Cloud Activity Tracker Service (ATracker Service for short) is an activity tracker service for your
-// application events as well as events from IBM services under your account. It is designed to enable you to route
-// activity tracker events to your designated Cloud Object Storage location in different regions.
+// AtrackerV1 : IBM Cloud Activity Tracking Service (ATracker Service for short) is an activity tracker configuration
+// service for your application events as well as events from IBM services under your account. It is designed to enable
+// you to route  activity tracker events to your designated Cloud Object Storage location in different regions.
 //
 // Version: 1.0.0
 type AtrackerV1 struct {
