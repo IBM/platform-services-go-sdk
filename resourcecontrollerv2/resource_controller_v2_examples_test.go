@@ -611,6 +611,8 @@ var _ = Describe(`ResourceControllerV2 Examples Tests`, func() {
 
 			// end-delete_resource_instance
 
+			time.Sleep(20 * time.Second)
+
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(204))
 
