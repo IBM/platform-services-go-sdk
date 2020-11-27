@@ -51,6 +51,7 @@ Service Name | Package name
 [Case Management](https://cloud.ibm.com/apidocs/case-management) | casemanagementv1
 [Catalog Management](https://cloud.ibm.com/apidocs/resource-catalog/private-catalog) | catalogmanagementv1
 [Configuration Governance](https://cloud.ibm.com/apidocs/security-compliance/config) | configurationgovernancev1
+[Enterprise Billing Units](https://cloud.ibm.com/apidocs/enterprise-apis/billing-unit) | enterprisebillingunitsv1
 [Enterprise Management](https://cloud.ibm.com/apidocs/enterprise-apis/enterprise) | enterprisemanagementv1
 [Enterprise Usage Reports](https://cloud.ibm.com/apidocs/enterprise-apis/resource-usage-reports) | enterpriseusagereportsv1
 [Global Catalog](https://cloud.ibm.com/apidocs/resource-catalog/global-catalog) | globalcatalogv1
