@@ -1,3 +1,10 @@
+## [0.15.2](https://github.com/IBM/platform-services-go-sdk/compare/v0.15.1...v0.15.2) (2020-11-30)
+
+
+### Bug Fixes
+
+* **User Management:** re-gen service and update tests after API changes ([#63](https://github.com/IBM/platform-services-go-sdk/issues/63)) ([f86f048](https://github.com/IBM/platform-services-go-sdk/commit/f86f048383db446486a1ed6d0e642e090d23b41e))
+
 ## [0.15.1](https://github.com/IBM/platform-services-go-sdk/compare/v0.15.0...v0.15.1) (2020-11-30)
 
 
