@@ -1,3 +1,5 @@
+// +build integration
+
 /**
  * (C) Copyright IBM Corp. 2020.
  *
@@ -19,6 +21,7 @@ package usermanagementv1_test
 import (
 	"fmt"
 	"log"
+	"net/url"
 	"os"
 	"time"
 
@@ -47,7 +50,12 @@ var _ = Describe(`UserManagementV1 Integration Tests`, func() {
 		alternateService      *usermanagementv1.UserManagementV1
 		serviceURL            string
 		config                map[string]string
-		deleteUserId          string
+		deleteUserID          string
+		accountID             = "1aa434630b594b8a88b961a44c9eb2a9"
+		userID                = "IBMid-550009SDCP"
+		memberEmail           = "aminttest+linked_account_owner_11@mail.test.ibm.com"
+		viewerRoleID          = "crn:v1:bluemix:public:iam::::role:Viewer"
+		accessGroupID         = "AccessGroupId-51675919-2bd7-4ce3-86e4-5faff8065574"
 	)
 
 	var shouldSkipTest = func() {
@@ -66,7 +74,7 @@ var _ = Describe(`UserManagementV1 Integration Tests`, func() {
 			if err != nil {
 				Skip("Error loading service properties, skipping tests: " + err.Error())
 			}
-			serviceURL = config["AM_HOST"]
+			serviceURL = config["URL"]
 			if serviceURL == "" {
 				Skip("Unable to load service URL configuration property, skipping tests")
 			}
@@ -110,8 +118,8 @@ var _ = Describe(`UserManagementV1 Integration Tests`, func() {
 		It(`GetUserSettings(getUserSettingsOptions *GetUserSettingsOptions)`, func() {
 
 			getUserSettingsOptions := &usermanagementv1.GetUserSettingsOptions{
-				AccountID: core.StringPtr("1aa434630b594b8a88b961a44c9eb2a9"),
-				IamID:     core.StringPtr("IBMid-5500089E4W"),
+				AccountID: &accountID,
+				IamID:     &userID,
 			}
 
 			result, response, err := userManagementService.GetUserSettings(getUserSettingsOptions)
@@ -130,17 +138,15 @@ var _ = Describe(`UserManagementV1 Integration Tests`, func() {
 		It(`UpdateUserSettings(updateUserSettingsOptions *UpdateUserSettingsOptions)`, func() {
 
 			updateUserSettingsOptions := &usermanagementv1.UpdateUserSettingsOptions{
-				AccountID:          core.StringPtr("1aa434630b594b8a88b961a44c9eb2a9"),
-				IamID:              core.StringPtr("IBMid-5500089E4W"),
+				AccountID:          &accountID,
+				IamID:              &userID,
 				AllowedIpAddresses: core.StringPtr("32.96.110.50,172.16.254.1"),
 				SelfManage:         core.BoolPtr(true),
 			}
 
-			result, response, err := userManagementService.UpdateUserSettings(updateUserSettingsOptions)
+			response, err := userManagementService.UpdateUserSettings(updateUserSettingsOptions)
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(204))
-			Expect(result).To(BeNil())
-			fmt.Fprintf(GinkgoWriter, "UpdateUserSettings() result:\n%s\n", common.ToJSON(result))
 		})
 	})
 
@@ -150,15 +156,34 @@ var _ = Describe(`UserManagementV1 Integration Tests`, func() {
 		})
 		It(`ListUsers(listUsersOptions *ListUsersOptions)`, func() {
 
-			listUsersOptions := &usermanagementv1.ListUsersOptions{
-				AccountID: core.StringPtr("1aa434630b594b8a88b961a44c9eb2a9"),
-				State:     core.StringPtr("testString"),
+			results := []usermanagementv1.UserProfile{}
+			var moreResults bool = true
+			var pageStart *string = nil
+
+			for moreResults {
+				listUsersOptions := &usermanagementv1.ListUsersOptions{
+					AccountID: &accountID,
+					Limit:     core.Int64Ptr(10),
+					Start:     pageStart,
+				}
+				result, response, err := userManagementService.ListUsers(listUsersOptions)
+				Expect(err).To(BeNil())
+				Expect(response.StatusCode).To(Equal(200))
+				Expect(result).ToNot(BeNil())
+				// fmt.Fprintf(GinkgoWriter, "ListUsers() result:\n%s\n", common.ToJSON(result))
+
+				for _, userProfile := range result.Resources {
+					results = append(results, userProfile)
+				}
+
+				if result.NextURL != nil {
+					pageStart = getStartTokenFromURL(result.NextURL)
+				} else {
+					moreResults = false
+				}
 			}
-			result, response, err := userManagementService.ListUsers(listUsersOptions)
-			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(200))
-			Expect(result).ToNot(BeNil())
-			fmt.Fprintf(GinkgoWriter, "ListUsersOptions() result:\n%s\n", common.ToJSON(result))
+
+			fmt.Fprintf(GinkgoWriter, "Received a total of %d user profiles.\n", len(results))
 		})
 	})
 
@@ -170,17 +195,17 @@ var _ = Describe(`UserManagementV1 Integration Tests`, func() {
 		It(`InviteUsers(inviteUsersOptions *InviteUsersOptions)`, func() {
 
 			inviteUserModel := &usermanagementv1.InviteUser{
-				Email:       core.StringPtr("aminttest+linked_account_owner_11@mail.test.ibm.com"),
+				Email:       &memberEmail,
 				AccountRole: core.StringPtr("Member"),
 			}
 
 			roleModel := &usermanagementv1.Role{
-				RoleID: core.StringPtr("crn:v1:bluemix:public:iam::::role:Viewer"),
+				RoleID: &viewerRoleID,
 			}
 
 			attributeModel := &usermanagementv1.Attribute{
 				Name:  core.StringPtr("accountId"),
-				Value: core.StringPtr("1aa434630b594b8a88b961a44c9eb2a9"),
+				Value: &accountID,
 			}
 
 			attributeModel2 := &usermanagementv1.Attribute{
@@ -199,10 +224,10 @@ var _ = Describe(`UserManagementV1 Integration Tests`, func() {
 			}
 
 			inviteUsersOptions := &usermanagementv1.InviteUsersOptions{
-				AccountID:    core.StringPtr("1aa434630b594b8a88b961a44c9eb2a9"),
+				AccountID:    &accountID,
 				Users:        []usermanagementv1.InviteUser{*inviteUserModel},
 				IamPolicy:    []usermanagementv1.InviteUserIamPolicy{*inviteUserIamPolicyModel},
-				AccessGroups: []string{"AccessGroupId-51675919-2bd7-4ce3-86e4-5faff8065574"},
+				AccessGroups: []string{accessGroupID},
 			}
 
 			result, response, err := alternateService.InviteUsers(inviteUsersOptions)
@@ -212,7 +237,7 @@ var _ = Describe(`UserManagementV1 Integration Tests`, func() {
 			fmt.Fprintf(GinkgoWriter, "InviteUsers() result:\n%s\n", common.ToJSON(result))
 
 			for _, res := range result.Resources {
-				deleteUserId = *res.ID
+				deleteUserID = *res.ID
 			}
 		})
 	})
@@ -224,8 +249,8 @@ var _ = Describe(`UserManagementV1 Integration Tests`, func() {
 		It(`GetUserProfile(getUserProfileOptions *GetUserProfileOptions)`, func() {
 
 			getUserProfileOptions := &usermanagementv1.GetUserProfileOptions{
-				AccountID: core.StringPtr("1aa434630b594b8a88b961a44c9eb2a9"),
-				IamID:     core.StringPtr("IBMid-5500089E4W"),
+				AccountID: &accountID,
+				IamID:     &userID,
 			}
 
 			result, response, err := userManagementService.GetUserProfile(getUserProfileOptions)
@@ -236,45 +261,40 @@ var _ = Describe(`UserManagementV1 Integration Tests`, func() {
 		})
 	})
 
-	Describe(`UpdateUserProfiles - Partially update user profiles`, func() {
+	Describe(`UpdateUserProfile - Partially update user profile`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
 		})
-		It(`UpdateUserProfiles(updateUserProfilesOptions *UpdateUserProfilesOptions)`, func() {
+		It(`UpdateUserProfile(updateUserProfileOptions *UpdateUserProfileOptions)`, func() {
 
-			updateUserProfilesOptions := &usermanagementv1.UpdateUserProfilesOptions{
-				AccountID:      core.StringPtr("1aa434630b594b8a88b961a44c9eb2a9"),
-				IamID:          core.StringPtr("IBMid-5500089E4W"),
-				Firstname:      core.StringPtr("testString"),
-				Lastname:       core.StringPtr("testString"),
-				State:          core.StringPtr("ACTIVE"),
-				Email:          core.StringPtr("testString"),
-				Phonenumber:    core.StringPtr("testString"),
-				Altphonenumber: core.StringPtr("testString"),
-				Photo:          core.StringPtr("testString"),
+			updateUserProfilesOptions := &usermanagementv1.UpdateUserProfileOptions{
+				AccountID: &accountID,
+				IamID:     &userID,
+				State:     core.StringPtr("ACTIVE"),
 			}
 
-			response, err := userManagementService.UpdateUserProfiles(updateUserProfilesOptions)
+			response, err := userManagementService.UpdateUserProfile(updateUserProfilesOptions)
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(204))
 		})
 	})
 
-	Describe(`RemoveUsers - Remove users`, func() {
+	Describe(`RemoveUser - Remove user from account`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
 		})
-		It(`RemoveUsers(removeUsersOptions *RemoveUsersOptions)`, func() {
+		It(`RemoveUser(removeUserOptions *RemoveUserOptions)`, func() {
+			Expect(deleteUserID).ToNot(BeEmpty())
 
-			removeUsersOptions := &usermanagementv1.RemoveUsersOptions{
-				AccountID: core.StringPtr("1aa434630b594b8a88b961a44c9eb2a9"),
-				IamID:     core.StringPtr(deleteUserId),
+			removeUserOptions := &usermanagementv1.RemoveUserOptions{
+				AccountID: &accountID,
+				IamID:     &deleteUserID,
 			}
 
-			fmt.Println(*removeUsersOptions)
+			// fmt.Println(*removeUserOptions)
 
-			response, err := userManagementService.RemoveUsers(removeUsersOptions)
+			response, err := userManagementService.RemoveUser(removeUserOptions)
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(204))
@@ -283,6 +303,33 @@ var _ = Describe(`UserManagementV1 Integration Tests`, func() {
 	})
 })
 
-//
-// Utility functions are declared in the unit test file
-//
+func getStartTokenFromURL(sptr *string) *string {
+	if sptr == nil {
+		return nil
+	}
+
+	s := *sptr
+	if s == "" {
+		return nil
+	}
+
+	u, err := url.Parse(s)
+	if err != nil {
+		return nil
+	}
+
+	if u.RawQuery == "" {
+		return nil
+	}
+
+	q, err := url.ParseQuery(u.RawQuery)
+	if err != nil {
+		return nil
+	}
+
+	token := q.Get("_start")
+	if token == "" {
+		return nil
+	}
+	return &token
+}
