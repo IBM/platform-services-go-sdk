@@ -1,3 +1,17 @@
+## [0.15.1](https://github.com/IBM/platform-services-go-sdk/compare/v0.15.0...v0.15.1) (2020-11-30)
+
+
+### Bug Fixes
+
+* **Activity Tracker:** re-gen after recent API changes ([efc8062](https://github.com/IBM/platform-services-go-sdk/commit/efc8062f62298fda5430e46d44be5b8ddc33132f))
+
+# [0.15.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.14.4...v0.15.0) (2020-11-30)
+
+
+### Features
+
+* **Activity Tracker:** add service to project ([#56](https://github.com/IBM/platform-services-go-sdk/issues/56)) ([66e728c](https://github.com/IBM/platform-services-go-sdk/commit/66e728cdcca6b5dfcdd74c03929fa9f53f980e22))
+
 ## [0.14.4](https://github.com/IBM/platform-services-go-sdk/compare/v0.14.3...v0.14.4) (2020-11-19)
 
 
