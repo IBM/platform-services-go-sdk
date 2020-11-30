@@ -15,7 +15,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-ef9b3113-20201118-074613
+ * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-60fd6b3d-20201128-071551
  */
  
 
@@ -817,7 +817,7 @@ type CreateTargetOptions struct {
 // Constants associated with the CreateTargetOptions.TargetType property.
 // The type of the target.
 const (
-	CreateTargetOptions_TargetType_Cos = "cos"
+	CreateTargetOptions_TargetType_CloudObjectStorage = "cloud-object-storage"
 )
 
 // NewCreateTargetOptions : Instantiate CreateTargetOptions
@@ -1081,7 +1081,7 @@ type ReplaceTargetOptions struct {
 // Constants associated with the ReplaceTargetOptions.TargetType property.
 // The type of the target.
 const (
-	ReplaceTargetOptions_TargetType_Cos = "cos"
+	ReplaceTargetOptions_TargetType_CloudObjectStorage = "cloud-object-storage"
 )
 
 // NewReplaceTargetOptions : Instantiate ReplaceTargetOptions
@@ -1127,25 +1127,25 @@ func (options *ReplaceTargetOptions) SetHeaders(param map[string]string) *Replac
 // Route : The route resource.
 type Route struct {
 	// The uuid of this route resource.
-	ID *string `json:"id,omitempty"`
+	ID *string `json:"id" validate:"required"`
 
 	// The name of this route.
-	Name *string `json:"name,omitempty"`
+	Name *string `json:"name" validate:"required"`
 
 	// The uuid of ATracker services in this region.
-	InstanceID *string `json:"instance_id,omitempty"`
+	InstanceID *string `json:"instance_id" validate:"required"`
 
 	// The crn of this route type resource.
-	Crn *string `json:"crn,omitempty"`
+	Crn *string `json:"crn" validate:"required"`
 
 	// The version of this route.
 	Version *int64 `json:"version,omitempty"`
 
 	// Whether or not all global events should be forwarded to this region.
-	ReceiveGlobalEvents *bool `json:"receive_global_events,omitempty"`
+	ReceiveGlobalEvents *bool `json:"receive_global_events" validate:"required"`
 
 	// The routing rules that will be evaluated in their order of the array.
-	Rules []Rule `json:"rules,omitempty"`
+	Rules []Rule `json:"rules" validate:"required"`
 }
 
 
@@ -1234,19 +1234,19 @@ func UnmarshalRule(m map[string]json.RawMessage, result interface{}) (err error)
 // in the response.
 type Target struct {
 	// The uuid of this target resource.
-	ID *string `json:"id,omitempty"`
+	ID *string `json:"id" validate:"required"`
 
 	// The name of this target resource.
-	Name *string `json:"name,omitempty"`
+	Name *string `json:"name" validate:"required"`
 
 	// The uuid of ATracker services in this region.
-	InstanceID *string `json:"instance_id,omitempty"`
+	InstanceID *string `json:"instance_id" validate:"required"`
 
 	// The crn of this target type resource.
-	Crn *string `json:"crn,omitempty"`
+	Crn *string `json:"crn" validate:"required"`
 
 	// The type of this target.
-	TargetType *string `json:"target_type,omitempty"`
+	TargetType *string `json:"target_type" validate:"required"`
 
 	// The encryption key used to encrypt events before ATracker services buffer them on storage. This credential will be
 	// masked in the response.
@@ -1259,7 +1259,7 @@ type Target struct {
 // Constants associated with the Target.TargetType property.
 // The type of this target.
 const (
-	Target_TargetType_Cos = "cos"
+	Target_TargetType_CloudObjectStorage = "cloud-object-storage"
 )
 
 

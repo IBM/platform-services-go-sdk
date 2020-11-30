@@ -168,7 +168,7 @@ var _ = Describe(`AtrackerV1`, func() {
 				// Construct an instance of the CreateTargetOptions model
 				createTargetOptionsModel := new(atrackerv1.CreateTargetOptions)
 				createTargetOptionsModel.Name = core.StringPtr("my-cos-target")
-				createTargetOptionsModel.TargetType = core.StringPtr("cos")
+				createTargetOptionsModel.TargetType = core.StringPtr("cloud-object-storage")
 				createTargetOptionsModel.CosEndpoint = cosEndpointModel
 				createTargetOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
@@ -225,7 +225,7 @@ var _ = Describe(`AtrackerV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"id": "f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "name": "a-cos-target-us-south", "instance_id": "b6eec08b-5201-08ca-451b-cd71523e3626", "crn": "crn:v1:bluemix:public:atracker:us-south:a/11111111111111111111111111111111:b6eec08b-5201-08ca-451b-cd71523e3626:target:f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "target_type": "cos", "encrypt_key": "REDACTED", "cos_endpoint": {"endpoint": "s3.private.us-east.cloud-object-storage.appdomain.cloud", "target_crn": "crn:v1:bluemix:public:cloud-object-storage:global:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::", "bucket": "my-atracker-bucket", "api_key": "REDACTED"}}`)
+					fmt.Fprintf(res, "%s", `{"id": "f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "name": "a-cos-target-us-south", "instance_id": "b6eec08b-5201-08ca-451b-cd71523e3626", "crn": "crn:v1:bluemix:public:atracker:us-south:a/11111111111111111111111111111111:b6eec08b-5201-08ca-451b-cd71523e3626:target:f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "target_type": "cloud-object-storage", "encrypt_key": "REDACTED", "cos_endpoint": {"endpoint": "s3.private.us-east.cloud-object-storage.appdomain.cloud", "target_crn": "crn:v1:bluemix:public:cloud-object-storage:global:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::", "bucket": "my-atracker-bucket", "api_key": "REDACTED"}}`)
 				}))
 			})
 			It(`Invoke CreateTarget successfully`, func() {
@@ -253,7 +253,7 @@ var _ = Describe(`AtrackerV1`, func() {
 				// Construct an instance of the CreateTargetOptions model
 				createTargetOptionsModel := new(atrackerv1.CreateTargetOptions)
 				createTargetOptionsModel.Name = core.StringPtr("my-cos-target")
-				createTargetOptionsModel.TargetType = core.StringPtr("cos")
+				createTargetOptionsModel.TargetType = core.StringPtr("cloud-object-storage")
 				createTargetOptionsModel.CosEndpoint = cosEndpointModel
 				createTargetOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
@@ -306,7 +306,7 @@ var _ = Describe(`AtrackerV1`, func() {
 				// Construct an instance of the CreateTargetOptions model
 				createTargetOptionsModel := new(atrackerv1.CreateTargetOptions)
 				createTargetOptionsModel.Name = core.StringPtr("my-cos-target")
-				createTargetOptionsModel.TargetType = core.StringPtr("cos")
+				createTargetOptionsModel.TargetType = core.StringPtr("cloud-object-storage")
 				createTargetOptionsModel.CosEndpoint = cosEndpointModel
 				createTargetOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
@@ -394,7 +394,7 @@ var _ = Describe(`AtrackerV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"targets": [{"id": "f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "name": "a-cos-target-us-south", "instance_id": "b6eec08b-5201-08ca-451b-cd71523e3626", "crn": "crn:v1:bluemix:public:atracker:us-south:a/11111111111111111111111111111111:b6eec08b-5201-08ca-451b-cd71523e3626:target:f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "target_type": "cos", "encrypt_key": "REDACTED", "cos_endpoint": {"endpoint": "s3.private.us-east.cloud-object-storage.appdomain.cloud", "target_crn": "crn:v1:bluemix:public:cloud-object-storage:global:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::", "bucket": "my-atracker-bucket", "api_key": "REDACTED"}}]}`)
+					fmt.Fprintf(res, "%s", `{"targets": [{"id": "f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "name": "a-cos-target-us-south", "instance_id": "b6eec08b-5201-08ca-451b-cd71523e3626", "crn": "crn:v1:bluemix:public:atracker:us-south:a/11111111111111111111111111111111:b6eec08b-5201-08ca-451b-cd71523e3626:target:f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "target_type": "cloud-object-storage", "encrypt_key": "REDACTED", "cos_endpoint": {"endpoint": "s3.private.us-east.cloud-object-storage.appdomain.cloud", "target_crn": "crn:v1:bluemix:public:cloud-object-storage:global:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::", "bucket": "my-atracker-bucket", "api_key": "REDACTED"}}]}`)
 				}))
 			})
 			It(`Invoke ListTargets successfully`, func() {
@@ -537,7 +537,7 @@ var _ = Describe(`AtrackerV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "name": "a-cos-target-us-south", "instance_id": "b6eec08b-5201-08ca-451b-cd71523e3626", "crn": "crn:v1:bluemix:public:atracker:us-south:a/11111111111111111111111111111111:b6eec08b-5201-08ca-451b-cd71523e3626:target:f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "target_type": "cos", "encrypt_key": "REDACTED", "cos_endpoint": {"endpoint": "s3.private.us-east.cloud-object-storage.appdomain.cloud", "target_crn": "crn:v1:bluemix:public:cloud-object-storage:global:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::", "bucket": "my-atracker-bucket", "api_key": "REDACTED"}}`)
+					fmt.Fprintf(res, "%s", `{"id": "f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "name": "a-cos-target-us-south", "instance_id": "b6eec08b-5201-08ca-451b-cd71523e3626", "crn": "crn:v1:bluemix:public:atracker:us-south:a/11111111111111111111111111111111:b6eec08b-5201-08ca-451b-cd71523e3626:target:f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "target_type": "cloud-object-storage", "encrypt_key": "REDACTED", "cos_endpoint": {"endpoint": "s3.private.us-east.cloud-object-storage.appdomain.cloud", "target_crn": "crn:v1:bluemix:public:cloud-object-storage:global:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::", "bucket": "my-atracker-bucket", "api_key": "REDACTED"}}`)
 				}))
 			})
 			It(`Invoke GetTarget successfully`, func() {
@@ -658,7 +658,7 @@ var _ = Describe(`AtrackerV1`, func() {
 				replaceTargetOptionsModel := new(atrackerv1.ReplaceTargetOptions)
 				replaceTargetOptionsModel.ID = core.StringPtr("testString")
 				replaceTargetOptionsModel.Name = core.StringPtr("my-cos-target")
-				replaceTargetOptionsModel.TargetType = core.StringPtr("cos")
+				replaceTargetOptionsModel.TargetType = core.StringPtr("cloud-object-storage")
 				replaceTargetOptionsModel.CosEndpoint = cosEndpointModel
 				replaceTargetOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
@@ -715,7 +715,7 @@ var _ = Describe(`AtrackerV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "name": "a-cos-target-us-south", "instance_id": "b6eec08b-5201-08ca-451b-cd71523e3626", "crn": "crn:v1:bluemix:public:atracker:us-south:a/11111111111111111111111111111111:b6eec08b-5201-08ca-451b-cd71523e3626:target:f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "target_type": "cos", "encrypt_key": "REDACTED", "cos_endpoint": {"endpoint": "s3.private.us-east.cloud-object-storage.appdomain.cloud", "target_crn": "crn:v1:bluemix:public:cloud-object-storage:global:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::", "bucket": "my-atracker-bucket", "api_key": "REDACTED"}}`)
+					fmt.Fprintf(res, "%s", `{"id": "f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "name": "a-cos-target-us-south", "instance_id": "b6eec08b-5201-08ca-451b-cd71523e3626", "crn": "crn:v1:bluemix:public:atracker:us-south:a/11111111111111111111111111111111:b6eec08b-5201-08ca-451b-cd71523e3626:target:f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "target_type": "cloud-object-storage", "encrypt_key": "REDACTED", "cos_endpoint": {"endpoint": "s3.private.us-east.cloud-object-storage.appdomain.cloud", "target_crn": "crn:v1:bluemix:public:cloud-object-storage:global:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::", "bucket": "my-atracker-bucket", "api_key": "REDACTED"}}`)
 				}))
 			})
 			It(`Invoke ReplaceTarget successfully`, func() {
@@ -744,7 +744,7 @@ var _ = Describe(`AtrackerV1`, func() {
 				replaceTargetOptionsModel := new(atrackerv1.ReplaceTargetOptions)
 				replaceTargetOptionsModel.ID = core.StringPtr("testString")
 				replaceTargetOptionsModel.Name = core.StringPtr("my-cos-target")
-				replaceTargetOptionsModel.TargetType = core.StringPtr("cos")
+				replaceTargetOptionsModel.TargetType = core.StringPtr("cloud-object-storage")
 				replaceTargetOptionsModel.CosEndpoint = cosEndpointModel
 				replaceTargetOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
@@ -798,7 +798,7 @@ var _ = Describe(`AtrackerV1`, func() {
 				replaceTargetOptionsModel := new(atrackerv1.ReplaceTargetOptions)
 				replaceTargetOptionsModel.ID = core.StringPtr("testString")
 				replaceTargetOptionsModel.Name = core.StringPtr("my-cos-target")
-				replaceTargetOptionsModel.TargetType = core.StringPtr("cos")
+				replaceTargetOptionsModel.TargetType = core.StringPtr("cloud-object-storage")
 				replaceTargetOptionsModel.CosEndpoint = cosEndpointModel
 				replaceTargetOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
@@ -1786,16 +1786,16 @@ var _ = Describe(`AtrackerV1`, func() {
 
 				// Construct an instance of the CreateTargetOptions model
 				createTargetOptionsName := "my-cos-target"
-				createTargetOptionsTargetType := "cos"
+				createTargetOptionsTargetType := "cloud-object-storage"
 				var createTargetOptionsCosEndpoint *atrackerv1.CosEndpoint = nil
 				createTargetOptionsModel := atrackerService.NewCreateTargetOptions(createTargetOptionsName, createTargetOptionsTargetType, createTargetOptionsCosEndpoint)
 				createTargetOptionsModel.SetName("my-cos-target")
-				createTargetOptionsModel.SetTargetType("cos")
+				createTargetOptionsModel.SetTargetType("cloud-object-storage")
 				createTargetOptionsModel.SetCosEndpoint(cosEndpointModel)
 				createTargetOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(createTargetOptionsModel).ToNot(BeNil())
 				Expect(createTargetOptionsModel.Name).To(Equal(core.StringPtr("my-cos-target")))
-				Expect(createTargetOptionsModel.TargetType).To(Equal(core.StringPtr("cos")))
+				Expect(createTargetOptionsModel.TargetType).To(Equal(core.StringPtr("cloud-object-storage")))
 				Expect(createTargetOptionsModel.CosEndpoint).To(Equal(cosEndpointModel))
 				Expect(createTargetOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
@@ -1894,18 +1894,18 @@ var _ = Describe(`AtrackerV1`, func() {
 				// Construct an instance of the ReplaceTargetOptions model
 				id := "testString"
 				replaceTargetOptionsName := "my-cos-target"
-				replaceTargetOptionsTargetType := "cos"
+				replaceTargetOptionsTargetType := "cloud-object-storage"
 				var replaceTargetOptionsCosEndpoint *atrackerv1.CosEndpoint = nil
 				replaceTargetOptionsModel := atrackerService.NewReplaceTargetOptions(id, replaceTargetOptionsName, replaceTargetOptionsTargetType, replaceTargetOptionsCosEndpoint)
 				replaceTargetOptionsModel.SetID("testString")
 				replaceTargetOptionsModel.SetName("my-cos-target")
-				replaceTargetOptionsModel.SetTargetType("cos")
+				replaceTargetOptionsModel.SetTargetType("cloud-object-storage")
 				replaceTargetOptionsModel.SetCosEndpoint(cosEndpointModel)
 				replaceTargetOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(replaceTargetOptionsModel).ToNot(BeNil())
 				Expect(replaceTargetOptionsModel.ID).To(Equal(core.StringPtr("testString")))
 				Expect(replaceTargetOptionsModel.Name).To(Equal(core.StringPtr("my-cos-target")))
-				Expect(replaceTargetOptionsModel.TargetType).To(Equal(core.StringPtr("cos")))
+				Expect(replaceTargetOptionsModel.TargetType).To(Equal(core.StringPtr("cloud-object-storage")))
 				Expect(replaceTargetOptionsModel.CosEndpoint).To(Equal(cosEndpointModel))
 				Expect(replaceTargetOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
