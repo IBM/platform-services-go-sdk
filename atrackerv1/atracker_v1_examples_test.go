@@ -107,7 +107,7 @@ var _ = Describe(`AtrackerV1 Examples Tests`, func() {
 
 			createTargetOptions := atrackerService.NewCreateTargetOptions(
 				"my-cos-target",
-				"cos",
+				atrackerv1.CreateTargetOptions_TargetType_CloudObjectStorage,
 				cosEndpointModel,
 			)
 
@@ -179,7 +179,7 @@ var _ = Describe(`AtrackerV1 Examples Tests`, func() {
 			replaceTargetOptions := atrackerService.NewReplaceTargetOptions(
 				targetID,
 				"my-cos-target-modified",
-				"cos",
+				atrackerv1.CreateTargetOptions_TargetType_CloudObjectStorage,
 				cosEndpointModel,
 			)
 

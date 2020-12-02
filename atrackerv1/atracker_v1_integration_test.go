@@ -109,7 +109,7 @@ var _ = Describe(`AtrackerV1 Integration Tests`, func() {
 
 			createTargetOptions := &atrackerv1.CreateTargetOptions{
 				Name:        core.StringPtr("my-cos-target"),
-				TargetType:  core.StringPtr("cos"),
+				TargetType:  core.StringPtr(atrackerv1.CreateTargetOptions_TargetType_CloudObjectStorage),
 				CosEndpoint: cosEndpointModel,
 			}
 

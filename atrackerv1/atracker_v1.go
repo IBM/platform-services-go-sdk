@@ -15,7 +15,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-60fd6b3d-20201128-071551
+ * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-31463474-20201202-095800
  */
  
 
@@ -25,6 +25,7 @@ package atrackerv1
 import (
 	"context"
 	"encoding/json"
+	"fmt"
 	"github.com/IBM/go-sdk-core/v4/core"
 	common "github.com/IBM/platform-services-go-sdk/common"
 	"net/http"
@@ -107,6 +108,25 @@ func NewAtrackerV1(options *AtrackerV1Options) (service *AtrackerV1, err error) 
 	}
 
 	return
+}
+
+// GetServiceURLForRegion returns the service URL to be used for the specified region
+func GetServiceURLForRegion(region string) (string, error) {
+	var endpoints = map[string]string{
+		"private.us-south": "https://private.us-south.atracker.cloud.ibm.com", // The server for IBM Cloud Activity Tracking Service in the us-south region.
+		"private.us-east": "https://private.us-east.atracker.cloud.ibm.com", // The server for IBM Cloud Activity Tracking Service in the us-east region.
+		"private.au-syd": "https://private.au-syd.atracker.cloud.ibm.com", // The server for IBM Cloud Activity Tracking Service in the au-syd region.
+		"private.eu-de": "https://private.eu-de.atracker.cloud.ibm.com", // The server for IBM Cloud Activity Tracking Service in the eu-de region.
+		"private.eu-gb": "https://private.eu-gb.atracker.cloud.ibm.com", // The server for IBM Cloud Activity Tracking Service in the eu-gb region.
+		"private.in-che": "https://private.in-che.atracker.cloud.ibm.com", // The server for IBM Cloud Activity Tracking Service in the in-che region.
+		"private.jp-tok": "https://private.jp-tok.atracker.cloud.ibm.com", // The server for IBM Cloud Activity Tracking Service in the jp-tok region.
+		"private.kr-seo": "https://private.kr-seo.atracker.cloud.ibm.com", // The server for IBM Cloud Activity Tracking Service in the kr-seo region.
+	}
+
+	if url, ok := endpoints[region]; ok {
+		return url, nil
+	}
+	return "", fmt.Errorf("service URL for region '%s' not found", region)
 }
 
 // SetServiceURL sets the service URL
@@ -817,7 +837,7 @@ type CreateTargetOptions struct {
 // Constants associated with the CreateTargetOptions.TargetType property.
 // The type of the target.
 const (
-	CreateTargetOptions_TargetType_CloudObjectStorage = "cloud-object-storage"
+	CreateTargetOptions_TargetType_CloudObjectStorage = "cloud_object_storage"
 )
 
 // NewCreateTargetOptions : Instantiate CreateTargetOptions
@@ -1081,7 +1101,7 @@ type ReplaceTargetOptions struct {
 // Constants associated with the ReplaceTargetOptions.TargetType property.
 // The type of the target.
 const (
-	ReplaceTargetOptions_TargetType_CloudObjectStorage = "cloud-object-storage"
+	ReplaceTargetOptions_TargetType_CloudObjectStorage = "cloud_object_storage"
 )
 
 // NewReplaceTargetOptions : Instantiate ReplaceTargetOptions
@@ -1259,7 +1279,7 @@ type Target struct {
 // Constants associated with the Target.TargetType property.
 // The type of this target.
 const (
-	Target_TargetType_CloudObjectStorage = "cloud-object-storage"
+	Target_TargetType_CloudObjectStorage = "cloud_object_storage"
 )
 
 
