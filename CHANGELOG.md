@@ -1,3 +1,10 @@
+# [0.16.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.15.3...v0.16.0) (2020-12-04)
+
+
+### Features
+
+* **Enterprise Billing Units:** add service to project ([6db733e](https://github.com/IBM/platform-services-go-sdk/commit/6db733e81aee3ed6d31a7446b27bffa704409c3f))
+
 ## [0.15.3](https://github.com/IBM/platform-services-go-sdk/compare/v0.15.2...v0.15.3) (2020-12-02)
 
 
