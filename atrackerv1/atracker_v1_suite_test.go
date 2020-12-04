@@ -14,7 +14,15 @@
  * limitations under the License.
  */
 
-package common
+package atrackerv1_test
 
-// Version of the SDK
-const Version = "0.15.3"
+import (
+	. "github.com/onsi/ginkgo"
+	. "github.com/onsi/gomega"
+	"testing"
+)
+
+func TestAtrackerV1(t *testing.T) {
+	RegisterFailHandler(Fail)
+	RunSpecs(t, "AtrackerV1 Suite")
+}

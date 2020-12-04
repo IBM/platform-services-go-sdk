@@ -5,7 +5,7 @@
 [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
 
 
-# IBM Cloud Platform Services Go SDK Version 0.14.4
+# IBM Cloud Platform Services Go SDK Version 0.15.3
 
 Go client library to interact with various
 [IBM Cloud Platform Service APIs](https://cloud.ibm.com/docs?tab=api-docs&category=platform_services).
@@ -47,6 +47,7 @@ The IBM Cloud Platform Services Go SDK allows developers to programmatically int
 
 Service Name | Package name 
 --- | --- 
+[Activity Tracker](https://test.cloud.ibm.com/apidocs/atracker) | atrackerv1
 [Case Management](https://cloud.ibm.com/apidocs/case-management) | casemanagementv1
 [Catalog Management](https://cloud.ibm.com/apidocs/resource-catalog/private-catalog) | catalogmanagementv1
 [Configuration Governance](https://cloud.ibm.com/apidocs/security-compliance/config) | configurationgovernancev1
@@ -75,7 +76,7 @@ Service Name | Package name
 * Go version 1.12 or above.
 
 ## Installation
-The current version of this SDK: 0.14.4
+The current version of this SDK: 0.15.3
 
 There are a few different ways to download and install the Platform Services Go SDK project for use by your
 Go application:
@@ -108,7 +109,7 @@ to your `Gopkg.toml` file.  Here is an example:
 ```
 [[constraint]]
   name = "github.com/IBM/platform-services-go-sdk/globalsearchv2"
-  version = "0.14.4"
+  version = "0.15.3"
 
 ```
 
