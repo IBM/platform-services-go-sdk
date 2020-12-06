@@ -3,7 +3,7 @@ module github.com/IBM/platform-services-go-sdk
 go 1.12
 
 require (
-	github.com/IBM/go-sdk-core/v4 v4.8.2
+	github.com/IBM/go-sdk-core/v4 v4.9.0
 	github.com/go-openapi/strfmt v0.19.10
 	github.com/google/uuid v1.1.1
 	github.com/joho/godotenv v1.3.0
