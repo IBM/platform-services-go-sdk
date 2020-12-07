@@ -15,7 +15,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-31463474-20201202-095800
+ * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-629bbb97-20201207-171303
  */
  
 
@@ -127,6 +127,16 @@ func GetServiceURLForRegion(region string) (string, error) {
 		return url, nil
 	}
 	return "", fmt.Errorf("service URL for region '%s' not found", region)
+}
+
+// Clone makes a copy of "atracker" suitable for processing requests.
+func (atracker *AtrackerV1) Clone() *AtrackerV1 {
+	if core.IsNil(atracker) {
+		return nil
+	}
+	clone := *atracker
+	clone.Service = atracker.Service.Clone()
+	return &clone
 }
 
 // SetServiceURL sets the service URL
@@ -837,7 +847,7 @@ type CreateTargetOptions struct {
 // Constants associated with the CreateTargetOptions.TargetType property.
 // The type of the target.
 const (
-	CreateTargetOptions_TargetType_CloudObjectStorage = "cloud_object_storage"
+	CreateTargetOptionsTargetTypeCloudObjectStorageConst = "cloud_object_storage"
 )
 
 // NewCreateTargetOptions : Instantiate CreateTargetOptions
@@ -1101,7 +1111,7 @@ type ReplaceTargetOptions struct {
 // Constants associated with the ReplaceTargetOptions.TargetType property.
 // The type of the target.
 const (
-	ReplaceTargetOptions_TargetType_CloudObjectStorage = "cloud_object_storage"
+	ReplaceTargetOptionsTargetTypeCloudObjectStorageConst = "cloud_object_storage"
 )
 
 // NewReplaceTargetOptions : Instantiate ReplaceTargetOptions
@@ -1156,7 +1166,7 @@ type Route struct {
 	InstanceID *string `json:"instance_id" validate:"required"`
 
 	// The crn of this route type resource.
-	Crn *string `json:"crn" validate:"required"`
+	CRN *string `json:"crn" validate:"required"`
 
 	// The version of this route.
 	Version *int64 `json:"version,omitempty"`
@@ -1184,7 +1194,7 @@ func UnmarshalRoute(m map[string]json.RawMessage, result interface{}) (err error
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalPrimitive(m, "crn", &obj.Crn)
+	err = core.UnmarshalPrimitive(m, "crn", &obj.CRN)
 	if err != nil {
 		return
 	}
@@ -1263,7 +1273,7 @@ type Target struct {
 	InstanceID *string `json:"instance_id" validate:"required"`
 
 	// The crn of this target type resource.
-	Crn *string `json:"crn" validate:"required"`
+	CRN *string `json:"crn" validate:"required"`
 
 	// The type of this target.
 	TargetType *string `json:"target_type" validate:"required"`
@@ -1272,14 +1282,14 @@ type Target struct {
 	// masked in the response.
 	EncryptKey *string `json:"encrypt_key,omitempty"`
 
-	// The COS endpoint information.
-	CosEndpoint *TargetCosEndpoint `json:"cos_endpoint,omitempty"`
+	// Property values for a Cloud Object Storage Endpoint.
+	CosEndpoint *CosEndpoint `json:"cos_endpoint,omitempty"`
 }
 
 // Constants associated with the Target.TargetType property.
 // The type of this target.
 const (
-	Target_TargetType_CloudObjectStorage = "cloud_object_storage"
+	TargetTargetTypeCloudObjectStorageConst = "cloud_object_storage"
 )
 
 
@@ -1298,7 +1308,7 @@ func UnmarshalTarget(m map[string]json.RawMessage, result interface{}) (err erro
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalPrimitive(m, "crn", &obj.Crn)
+	err = core.UnmarshalPrimitive(m, "crn", &obj.CRN)
 	if err != nil {
 		return
 	}
@@ -1310,46 +1320,7 @@ func UnmarshalTarget(m map[string]json.RawMessage, result interface{}) (err erro
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(m, "cos_endpoint", &obj.CosEndpoint, UnmarshalTargetCosEndpoint)
-	if err != nil {
-		return
-	}
-	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
-	return
-}
-
-// TargetCosEndpoint : The COS endpoint information.
-type TargetCosEndpoint struct {
-	// The host name of this COS endpoint.
-	Endpoint *string `json:"endpoint,omitempty"`
-
-	// The CRN of this COS instance.
-	TargetCrn *string `json:"target_crn,omitempty"`
-
-	// The bucket name under this COS instance.
-	Bucket *string `json:"bucket,omitempty"`
-
-	// The IAM Api key that have writer access to this cos instance. This credential will be masked in the response.
-	ApiKey *string `json:"api_key,omitempty"`
-}
-
-
-// UnmarshalTargetCosEndpoint unmarshals an instance of TargetCosEndpoint from the specified map of raw messages.
-func UnmarshalTargetCosEndpoint(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(TargetCosEndpoint)
-	err = core.UnmarshalPrimitive(m, "endpoint", &obj.Endpoint)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "target_crn", &obj.TargetCrn)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "bucket", &obj.Bucket)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "api_key", &obj.ApiKey)
+	err = core.UnmarshalModel(m, "cos_endpoint", &obj.CosEndpoint, UnmarshalCosEndpoint)
 	if err != nil {
 		return
 	}
@@ -1381,21 +1352,21 @@ type CosEndpoint struct {
 	Endpoint *string `json:"endpoint" validate:"required"`
 
 	// The CRN of this COS instance.
-	TargetCrn *string `json:"target_crn" validate:"required"`
+	TargetCRN *string `json:"target_crn" validate:"required"`
 
 	// The bucket name under this COS instance.
 	Bucket *string `json:"bucket" validate:"required"`
 
-	// The IAM Api key that have writer access to this cos instance.
+	// The IAM Api key that have writer access to this cos instance. This credential will be masked in the response.
 	ApiKey *string `json:"api_key" validate:"required"`
 }
 
 
 // NewCosEndpoint : Instantiate CosEndpoint (Generic Model Constructor)
-func (*AtrackerV1) NewCosEndpoint(endpoint string, targetCrn string, bucket string, apiKey string) (model *CosEndpoint, err error) {
+func (*AtrackerV1) NewCosEndpoint(endpoint string, targetCRN string, bucket string, apiKey string) (model *CosEndpoint, err error) {
 	model = &CosEndpoint{
 		Endpoint: core.StringPtr(endpoint),
-		TargetCrn: core.StringPtr(targetCrn),
+		TargetCRN: core.StringPtr(targetCRN),
 		Bucket: core.StringPtr(bucket),
 		ApiKey: core.StringPtr(apiKey),
 	}
@@ -1410,7 +1381,7 @@ func UnmarshalCosEndpoint(m map[string]json.RawMessage, result interface{}) (err
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalPrimitive(m, "target_crn", &obj.TargetCrn)
+	err = core.UnmarshalPrimitive(m, "target_crn", &obj.TargetCRN)
 	if err != nil {
 		return
 	}

@@ -77,6 +77,12 @@ var _ = Describe(`AtrackerV1`, func() {
 				Expect(atrackerService).ToNot(BeNil())
 				Expect(serviceErr).To(BeNil())
 				ClearTestEnvironment(testEnvironment)
+
+				clone := atrackerService.Clone()
+				Expect(clone).ToNot(BeNil())
+				Expect(clone.Service != atrackerService.Service).To(BeTrue())
+				Expect(clone.GetServiceURL()).To(Equal(atrackerService.GetServiceURL()))
+				Expect(clone.Service.Options.Authenticator).To(Equal(atrackerService.Service.Options.Authenticator))
 			})
 			It(`Create service client using external config and set url from constructor successfully`, func() {
 				SetTestEnvironment(testEnvironment)
@@ -87,6 +93,12 @@ var _ = Describe(`AtrackerV1`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(atrackerService.Service.GetServiceURL()).To(Equal("https://testService/api"))
 				ClearTestEnvironment(testEnvironment)
+
+				clone := atrackerService.Clone()
+				Expect(clone).ToNot(BeNil())
+				Expect(clone.Service != atrackerService.Service).To(BeTrue())
+				Expect(clone.GetServiceURL()).To(Equal(atrackerService.GetServiceURL()))
+				Expect(clone.Service.Options.Authenticator).To(Equal(atrackerService.Service.Options.Authenticator))
 			})
 			It(`Create service client using external config and set url programatically successfully`, func() {
 				SetTestEnvironment(testEnvironment)
@@ -98,6 +110,12 @@ var _ = Describe(`AtrackerV1`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(atrackerService.Service.GetServiceURL()).To(Equal("https://testService/api"))
 				ClearTestEnvironment(testEnvironment)
+
+				clone := atrackerService.Clone()
+				Expect(clone).ToNot(BeNil())
+				Expect(clone.Service != atrackerService.Service).To(BeTrue())
+				Expect(clone.GetServiceURL()).To(Equal(atrackerService.GetServiceURL()))
+				Expect(clone.Service.Options.Authenticator).To(Equal(atrackerService.Service.Options.Authenticator))
 			})
 		})
 		Context(`Using external config, construct service client instances with error: Invalid Auth`, func() {
@@ -203,7 +221,7 @@ var _ = Describe(`AtrackerV1`, func() {
 				// Construct an instance of the CosEndpoint model
 				cosEndpointModel := new(atrackerv1.CosEndpoint)
 				cosEndpointModel.Endpoint = core.StringPtr("s3.private.us-east.cloud-object-storage.appdomain.cloud")
-				cosEndpointModel.TargetCrn = core.StringPtr("crn:v1:bluemix:public:cloud-object-storage:global:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::")
+				cosEndpointModel.TargetCRN = core.StringPtr("crn:v1:bluemix:public:cloud-object-storage:global:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::")
 				cosEndpointModel.Bucket = core.StringPtr("my-atracker-bucket")
 				cosEndpointModel.ApiKey = core.StringPtr("xxxxxxxxxxxxxx")
 
@@ -267,7 +285,7 @@ var _ = Describe(`AtrackerV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"id": "f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "name": "a-cos-target-us-south", "instance_id": "b6eec08b-5201-08ca-451b-cd71523e3626", "crn": "crn:v1:bluemix:public:atracker:us-south:a/11111111111111111111111111111111:b6eec08b-5201-08ca-451b-cd71523e3626:target:f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "target_type": "cloud_object_storage", "encrypt_key": "REDACTED", "cos_endpoint": {"endpoint": "s3.private.us-east.cloud-object-storage.appdomain.cloud", "target_crn": "crn:v1:bluemix:public:cloud-object-storage:global:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::", "bucket": "my-atracker-bucket", "api_key": "REDACTED"}}`)
+					fmt.Fprintf(res, "%s", `{"id": "f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "name": "a-cos-target-us-south", "instance_id": "b6eec08b-5201-08ca-451b-cd71523e3626", "crn": "crn:v1:bluemix:public:atracker:us-south:a/11111111111111111111111111111111:b6eec08b-5201-08ca-451b-cd71523e3626:target:f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "target_type": "cloud_object_storage", "encrypt_key": "REDACTED", "cos_endpoint": {"endpoint": "s3.private.us-east.cloud-object-storage.appdomain.cloud", "target_crn": "crn:v1:bluemix:public:cloud-object-storage:global:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::", "bucket": "my-atracker-bucket", "api_key": "xxxxxxxxxxxxxx"}}`)
 				}))
 			})
 			It(`Invoke CreateTarget successfully`, func() {
@@ -288,7 +306,7 @@ var _ = Describe(`AtrackerV1`, func() {
 				// Construct an instance of the CosEndpoint model
 				cosEndpointModel := new(atrackerv1.CosEndpoint)
 				cosEndpointModel.Endpoint = core.StringPtr("s3.private.us-east.cloud-object-storage.appdomain.cloud")
-				cosEndpointModel.TargetCrn = core.StringPtr("crn:v1:bluemix:public:cloud-object-storage:global:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::")
+				cosEndpointModel.TargetCRN = core.StringPtr("crn:v1:bluemix:public:cloud-object-storage:global:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::")
 				cosEndpointModel.Bucket = core.StringPtr("my-atracker-bucket")
 				cosEndpointModel.ApiKey = core.StringPtr("xxxxxxxxxxxxxx")
 
@@ -341,7 +359,7 @@ var _ = Describe(`AtrackerV1`, func() {
 				// Construct an instance of the CosEndpoint model
 				cosEndpointModel := new(atrackerv1.CosEndpoint)
 				cosEndpointModel.Endpoint = core.StringPtr("s3.private.us-east.cloud-object-storage.appdomain.cloud")
-				cosEndpointModel.TargetCrn = core.StringPtr("crn:v1:bluemix:public:cloud-object-storage:global:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::")
+				cosEndpointModel.TargetCRN = core.StringPtr("crn:v1:bluemix:public:cloud-object-storage:global:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::")
 				cosEndpointModel.Bucket = core.StringPtr("my-atracker-bucket")
 				cosEndpointModel.ApiKey = core.StringPtr("xxxxxxxxxxxxxx")
 
@@ -436,7 +454,7 @@ var _ = Describe(`AtrackerV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"targets": [{"id": "f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "name": "a-cos-target-us-south", "instance_id": "b6eec08b-5201-08ca-451b-cd71523e3626", "crn": "crn:v1:bluemix:public:atracker:us-south:a/11111111111111111111111111111111:b6eec08b-5201-08ca-451b-cd71523e3626:target:f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "target_type": "cloud_object_storage", "encrypt_key": "REDACTED", "cos_endpoint": {"endpoint": "s3.private.us-east.cloud-object-storage.appdomain.cloud", "target_crn": "crn:v1:bluemix:public:cloud-object-storage:global:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::", "bucket": "my-atracker-bucket", "api_key": "REDACTED"}}]}`)
+					fmt.Fprintf(res, "%s", `{"targets": [{"id": "f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "name": "a-cos-target-us-south", "instance_id": "b6eec08b-5201-08ca-451b-cd71523e3626", "crn": "crn:v1:bluemix:public:atracker:us-south:a/11111111111111111111111111111111:b6eec08b-5201-08ca-451b-cd71523e3626:target:f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "target_type": "cloud_object_storage", "encrypt_key": "REDACTED", "cos_endpoint": {"endpoint": "s3.private.us-east.cloud-object-storage.appdomain.cloud", "target_crn": "crn:v1:bluemix:public:cloud-object-storage:global:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::", "bucket": "my-atracker-bucket", "api_key": "xxxxxxxxxxxxxx"}}]}`)
 				}))
 			})
 			It(`Invoke ListTargets successfully`, func() {
@@ -579,7 +597,7 @@ var _ = Describe(`AtrackerV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "name": "a-cos-target-us-south", "instance_id": "b6eec08b-5201-08ca-451b-cd71523e3626", "crn": "crn:v1:bluemix:public:atracker:us-south:a/11111111111111111111111111111111:b6eec08b-5201-08ca-451b-cd71523e3626:target:f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "target_type": "cloud_object_storage", "encrypt_key": "REDACTED", "cos_endpoint": {"endpoint": "s3.private.us-east.cloud-object-storage.appdomain.cloud", "target_crn": "crn:v1:bluemix:public:cloud-object-storage:global:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::", "bucket": "my-atracker-bucket", "api_key": "REDACTED"}}`)
+					fmt.Fprintf(res, "%s", `{"id": "f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "name": "a-cos-target-us-south", "instance_id": "b6eec08b-5201-08ca-451b-cd71523e3626", "crn": "crn:v1:bluemix:public:atracker:us-south:a/11111111111111111111111111111111:b6eec08b-5201-08ca-451b-cd71523e3626:target:f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "target_type": "cloud_object_storage", "encrypt_key": "REDACTED", "cos_endpoint": {"endpoint": "s3.private.us-east.cloud-object-storage.appdomain.cloud", "target_crn": "crn:v1:bluemix:public:cloud-object-storage:global:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::", "bucket": "my-atracker-bucket", "api_key": "xxxxxxxxxxxxxx"}}`)
 				}))
 			})
 			It(`Invoke GetTarget successfully`, func() {
@@ -692,7 +710,7 @@ var _ = Describe(`AtrackerV1`, func() {
 				// Construct an instance of the CosEndpoint model
 				cosEndpointModel := new(atrackerv1.CosEndpoint)
 				cosEndpointModel.Endpoint = core.StringPtr("s3.private.us-east.cloud-object-storage.appdomain.cloud")
-				cosEndpointModel.TargetCrn = core.StringPtr("crn:v1:bluemix:public:cloud-object-storage:global:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::")
+				cosEndpointModel.TargetCRN = core.StringPtr("crn:v1:bluemix:public:cloud-object-storage:global:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::")
 				cosEndpointModel.Bucket = core.StringPtr("my-atracker-bucket")
 				cosEndpointModel.ApiKey = core.StringPtr("xxxxxxxxxxxxxx")
 
@@ -757,7 +775,7 @@ var _ = Describe(`AtrackerV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "name": "a-cos-target-us-south", "instance_id": "b6eec08b-5201-08ca-451b-cd71523e3626", "crn": "crn:v1:bluemix:public:atracker:us-south:a/11111111111111111111111111111111:b6eec08b-5201-08ca-451b-cd71523e3626:target:f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "target_type": "cloud_object_storage", "encrypt_key": "REDACTED", "cos_endpoint": {"endpoint": "s3.private.us-east.cloud-object-storage.appdomain.cloud", "target_crn": "crn:v1:bluemix:public:cloud-object-storage:global:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::", "bucket": "my-atracker-bucket", "api_key": "REDACTED"}}`)
+					fmt.Fprintf(res, "%s", `{"id": "f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "name": "a-cos-target-us-south", "instance_id": "b6eec08b-5201-08ca-451b-cd71523e3626", "crn": "crn:v1:bluemix:public:atracker:us-south:a/11111111111111111111111111111111:b6eec08b-5201-08ca-451b-cd71523e3626:target:f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "target_type": "cloud_object_storage", "encrypt_key": "REDACTED", "cos_endpoint": {"endpoint": "s3.private.us-east.cloud-object-storage.appdomain.cloud", "target_crn": "crn:v1:bluemix:public:cloud-object-storage:global:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::", "bucket": "my-atracker-bucket", "api_key": "xxxxxxxxxxxxxx"}}`)
 				}))
 			})
 			It(`Invoke ReplaceTarget successfully`, func() {
@@ -778,7 +796,7 @@ var _ = Describe(`AtrackerV1`, func() {
 				// Construct an instance of the CosEndpoint model
 				cosEndpointModel := new(atrackerv1.CosEndpoint)
 				cosEndpointModel.Endpoint = core.StringPtr("s3.private.us-east.cloud-object-storage.appdomain.cloud")
-				cosEndpointModel.TargetCrn = core.StringPtr("crn:v1:bluemix:public:cloud-object-storage:global:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::")
+				cosEndpointModel.TargetCRN = core.StringPtr("crn:v1:bluemix:public:cloud-object-storage:global:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::")
 				cosEndpointModel.Bucket = core.StringPtr("my-atracker-bucket")
 				cosEndpointModel.ApiKey = core.StringPtr("xxxxxxxxxxxxxx")
 
@@ -832,7 +850,7 @@ var _ = Describe(`AtrackerV1`, func() {
 				// Construct an instance of the CosEndpoint model
 				cosEndpointModel := new(atrackerv1.CosEndpoint)
 				cosEndpointModel.Endpoint = core.StringPtr("s3.private.us-east.cloud-object-storage.appdomain.cloud")
-				cosEndpointModel.TargetCrn = core.StringPtr("crn:v1:bluemix:public:cloud-object-storage:global:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::")
+				cosEndpointModel.TargetCRN = core.StringPtr("crn:v1:bluemix:public:cloud-object-storage:global:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::")
 				cosEndpointModel.Bucket = core.StringPtr("my-atracker-bucket")
 				cosEndpointModel.ApiKey = core.StringPtr("xxxxxxxxxxxxxx")
 
@@ -982,6 +1000,12 @@ var _ = Describe(`AtrackerV1`, func() {
 				Expect(atrackerService).ToNot(BeNil())
 				Expect(serviceErr).To(BeNil())
 				ClearTestEnvironment(testEnvironment)
+
+				clone := atrackerService.Clone()
+				Expect(clone).ToNot(BeNil())
+				Expect(clone.Service != atrackerService.Service).To(BeTrue())
+				Expect(clone.GetServiceURL()).To(Equal(atrackerService.GetServiceURL()))
+				Expect(clone.Service.Options.Authenticator).To(Equal(atrackerService.Service.Options.Authenticator))
 			})
 			It(`Create service client using external config and set url from constructor successfully`, func() {
 				SetTestEnvironment(testEnvironment)
@@ -992,6 +1016,12 @@ var _ = Describe(`AtrackerV1`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(atrackerService.Service.GetServiceURL()).To(Equal("https://testService/api"))
 				ClearTestEnvironment(testEnvironment)
+
+				clone := atrackerService.Clone()
+				Expect(clone).ToNot(BeNil())
+				Expect(clone.Service != atrackerService.Service).To(BeTrue())
+				Expect(clone.GetServiceURL()).To(Equal(atrackerService.GetServiceURL()))
+				Expect(clone.Service.Options.Authenticator).To(Equal(atrackerService.Service.Options.Authenticator))
 			})
 			It(`Create service client using external config and set url programatically successfully`, func() {
 				SetTestEnvironment(testEnvironment)
@@ -1003,6 +1033,12 @@ var _ = Describe(`AtrackerV1`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(atrackerService.Service.GetServiceURL()).To(Equal("https://testService/api"))
 				ClearTestEnvironment(testEnvironment)
+
+				clone := atrackerService.Clone()
+				Expect(clone).ToNot(BeNil())
+				Expect(clone.Service != atrackerService.Service).To(BeTrue())
+				Expect(clone.GetServiceURL()).To(Equal(atrackerService.GetServiceURL()))
+				Expect(clone.Service.Options.Authenticator).To(Equal(atrackerService.Service.Options.Authenticator))
 			})
 		})
 		Context(`Using external config, construct service client instances with error: Invalid Auth`, func() {
@@ -1860,11 +1896,11 @@ var _ = Describe(`AtrackerV1`, func() {
 				cosEndpointModel := new(atrackerv1.CosEndpoint)
 				Expect(cosEndpointModel).ToNot(BeNil())
 				cosEndpointModel.Endpoint = core.StringPtr("s3.private.us-east.cloud-object-storage.appdomain.cloud")
-				cosEndpointModel.TargetCrn = core.StringPtr("crn:v1:bluemix:public:cloud-object-storage:global:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::")
+				cosEndpointModel.TargetCRN = core.StringPtr("crn:v1:bluemix:public:cloud-object-storage:global:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::")
 				cosEndpointModel.Bucket = core.StringPtr("my-atracker-bucket")
 				cosEndpointModel.ApiKey = core.StringPtr("xxxxxxxxxxxxxx")
 				Expect(cosEndpointModel.Endpoint).To(Equal(core.StringPtr("s3.private.us-east.cloud-object-storage.appdomain.cloud")))
-				Expect(cosEndpointModel.TargetCrn).To(Equal(core.StringPtr("crn:v1:bluemix:public:cloud-object-storage:global:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::")))
+				Expect(cosEndpointModel.TargetCRN).To(Equal(core.StringPtr("crn:v1:bluemix:public:cloud-object-storage:global:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::")))
 				Expect(cosEndpointModel.Bucket).To(Equal(core.StringPtr("my-atracker-bucket")))
 				Expect(cosEndpointModel.ApiKey).To(Equal(core.StringPtr("xxxxxxxxxxxxxx")))
 
@@ -1967,11 +2003,11 @@ var _ = Describe(`AtrackerV1`, func() {
 				cosEndpointModel := new(atrackerv1.CosEndpoint)
 				Expect(cosEndpointModel).ToNot(BeNil())
 				cosEndpointModel.Endpoint = core.StringPtr("s3.private.us-east.cloud-object-storage.appdomain.cloud")
-				cosEndpointModel.TargetCrn = core.StringPtr("crn:v1:bluemix:public:cloud-object-storage:global:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::")
+				cosEndpointModel.TargetCRN = core.StringPtr("crn:v1:bluemix:public:cloud-object-storage:global:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::")
 				cosEndpointModel.Bucket = core.StringPtr("my-atracker-bucket")
 				cosEndpointModel.ApiKey = core.StringPtr("xxxxxxxxxxxxxx")
 				Expect(cosEndpointModel.Endpoint).To(Equal(core.StringPtr("s3.private.us-east.cloud-object-storage.appdomain.cloud")))
-				Expect(cosEndpointModel.TargetCrn).To(Equal(core.StringPtr("crn:v1:bluemix:public:cloud-object-storage:global:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::")))
+				Expect(cosEndpointModel.TargetCRN).To(Equal(core.StringPtr("crn:v1:bluemix:public:cloud-object-storage:global:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::")))
 				Expect(cosEndpointModel.Bucket).To(Equal(core.StringPtr("my-atracker-bucket")))
 				Expect(cosEndpointModel.ApiKey).To(Equal(core.StringPtr("xxxxxxxxxxxxxx")))
 
@@ -2001,10 +2037,10 @@ var _ = Describe(`AtrackerV1`, func() {
 			})
 			It(`Invoke NewCosEndpoint successfully`, func() {
 				endpoint := "s3.private.us-east.cloud-object-storage.appdomain.cloud"
-				targetCrn := "crn:v1:bluemix:public:cloud-object-storage:global:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::"
+				targetCRN := "crn:v1:bluemix:public:cloud-object-storage:global:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::"
 				bucket := "my-atracker-bucket"
 				apiKey := "xxxxxxxxxxxxxx"
-				model, err := atrackerService.NewCosEndpoint(endpoint, targetCrn, bucket, apiKey)
+				model, err := atrackerService.NewCosEndpoint(endpoint, targetCRN, bucket, apiKey)
 				Expect(model).ToNot(BeNil())
 				Expect(err).To(BeNil())
 			})
