@@ -1,3 +1,10 @@
+# [0.17.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.16.0...v0.17.0) (2020-12-07)
+
+
+### Features
+
+* **Usage Metering:** add service to project ([647ec86](https://github.com/IBM/platform-services-go-sdk/commit/647ec8683f54438e7be69d45db3cf73523fffa12))
+
 # [0.16.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.15.3...v0.16.0) (2020-12-04)
 
 
