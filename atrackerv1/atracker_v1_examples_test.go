@@ -100,14 +100,14 @@ var _ = Describe(`AtrackerV1 Examples Tests`, func() {
 
 			cosEndpointModel := &atrackerv1.CosEndpoint{
 				Endpoint:  core.StringPtr("s3.private.us-east.cloud-object-storage.appdomain.cloud"),
-				TargetCrn: core.StringPtr("crn:v1:bluemix:public:cloud-object-storage:global:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::"),
+				TargetCRN: core.StringPtr("crn:v1:bluemix:public:cloud-object-storage:global:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::"),
 				Bucket:    core.StringPtr("my-atracker-bucket"),
 				ApiKey:    core.StringPtr("xxxxxxxxxxxxxx"),
 			}
 
 			createTargetOptions := atrackerService.NewCreateTargetOptions(
 				"my-cos-target",
-				atrackerv1.CreateTargetOptions_TargetType_CloudObjectStorage,
+				atrackerv1.CreateTargetOptionsTargetTypeCloudObjectStorageConst,
 				cosEndpointModel,
 			)
 
@@ -171,7 +171,7 @@ var _ = Describe(`AtrackerV1 Examples Tests`, func() {
 
 			cosEndpointModel := &atrackerv1.CosEndpoint{
 				Endpoint:  core.StringPtr("s3.private.us-east.cloud-object-storage.appdomain.cloud"),
-				TargetCrn: core.StringPtr("crn:v1:bluemix:public:cloud-object-storage:global:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::"),
+				TargetCRN: core.StringPtr("crn:v1:bluemix:public:cloud-object-storage:global:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::"),
 				Bucket:    core.StringPtr("my-atracker-bucket"),
 				ApiKey:    core.StringPtr("xxxxxxxxxxxxxx"),
 			}
@@ -179,7 +179,7 @@ var _ = Describe(`AtrackerV1 Examples Tests`, func() {
 			replaceTargetOptions := atrackerService.NewReplaceTargetOptions(
 				targetID,
 				"my-cos-target-modified",
-				atrackerv1.CreateTargetOptions_TargetType_CloudObjectStorage,
+				atrackerv1.CreateTargetOptionsTargetTypeCloudObjectStorageConst,
 				cosEndpointModel,
 			)
 
