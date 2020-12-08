@@ -15,7 +15,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-af92e433-20201110-100619
+ * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-629bbb97-20201207-171303
  */
  
 
@@ -109,6 +109,21 @@ func NewCaseManagementV1(options *CaseManagementV1Options) (service *CaseManagem
 	}
 
 	return
+}
+
+// GetServiceURLForRegion returns the service URL to be used for the specified region
+func GetServiceURLForRegion(region string) (string, error) {
+	return "", fmt.Errorf("service does not support regional URLs")
+}
+
+// Clone makes a copy of "caseManagement" suitable for processing requests.
+func (caseManagement *CaseManagementV1) Clone() *CaseManagementV1 {
+	if core.IsNil(caseManagement) {
+		return nil
+	}
+	clone := *caseManagement
+	clone.Service = caseManagement.Service.Clone()
+	return &clone
 }
 
 // SetServiceURL sets the service URL
@@ -681,8 +696,8 @@ func (caseManagement *CaseManagementV1) AddResourceWithContext(ctx context.Conte
 	builder.AddHeader("Content-Type", "application/json")
 
 	body := make(map[string]interface{})
-	if addResourceOptions.Crn != nil {
-		body["crn"] = addResourceOptions.Crn
+	if addResourceOptions.CRN != nil {
+		body["crn"] = addResourceOptions.CRN
 	}
 	if addResourceOptions.Type != nil {
 		body["type"] = addResourceOptions.Type
@@ -933,7 +948,7 @@ type AddResourceOptions struct {
 	CaseNumber *string `json:"case_number" validate:"required,ne="`
 
 	// Cloud Resource Name of the resource.
-	Crn *string `json:"crn,omitempty"`
+	CRN *string `json:"crn,omitempty"`
 
 	// Only used to attach Classic IaaS devices which have no CRN.
 	Type *string `json:"type,omitempty"`
@@ -962,9 +977,9 @@ func (options *AddResourceOptions) SetCaseNumber(caseNumber string) *AddResource
 	return options
 }
 
-// SetCrn : Allow user to set Crn
-func (options *AddResourceOptions) SetCrn(crn string) *AddResourceOptions {
-	options.Crn = core.StringPtr(crn)
+// SetCRN : Allow user to set CRN
+func (options *AddResourceOptions) SetCRN(crn string) *AddResourceOptions {
+	options.CRN = core.StringPtr(crn)
 	return options
 }
 
@@ -1159,17 +1174,17 @@ type Case struct {
 // Constants associated with the Case.ContactType property.
 // Name of the console to interact with the contact.
 const (
-	Case_ContactType_CloudSupportCenter = "Cloud Support Center"
-	Case_ContactType_ImsConsole = "IMS Console"
+	CaseContactTypeCloudSupportCenterConst = "Cloud Support Center"
+	CaseContactTypeImsConsoleConst = "IMS Console"
 )
 
 // Constants associated with the Case.SupportTier property.
 // Support tier of the account.
 const (
-	Case_SupportTier_Basic = "Basic"
-	Case_SupportTier_Free = "Free"
-	Case_SupportTier_Premium = "Premium"
-	Case_SupportTier_Standard = "Standard"
+	CaseSupportTierBasicConst = "Basic"
+	CaseSupportTierFreeConst = "Free"
+	CaseSupportTierPremiumConst = "Premium"
+	CaseSupportTierStandardConst = "Standard"
 )
 
 
@@ -1438,10 +1453,10 @@ type CreateCaseOptions struct {
 // Constants associated with the CreateCaseOptions.Type property.
 // Case type.
 const (
-	CreateCaseOptions_Type_AccountAndAccess = "account_and_access"
-	CreateCaseOptions_Type_BillingAndInvoice = "billing_and_invoice"
-	CreateCaseOptions_Type_Sales = "sales"
-	CreateCaseOptions_Type_Technical = "technical"
+	CreateCaseOptionsTypeAccountAndAccessConst = "account_and_access"
+	CreateCaseOptionsTypeBillingAndInvoiceConst = "billing_and_invoice"
+	CreateCaseOptionsTypeSalesConst = "sales"
+	CreateCaseOptionsTypeTechnicalConst = "technical"
 )
 
 // NewCreateCaseOptions : Instantiate CreateCaseOptions
@@ -1650,28 +1665,28 @@ type GetCaseOptions struct {
 
 // Constants associated with the GetCaseOptions.Fields property.
 const (
-	GetCaseOptions_Fields_AgentCloseOnly = "agent_close_only"
-	GetCaseOptions_Fields_Attachments = "attachments"
-	GetCaseOptions_Fields_CloseNotes = "close_notes"
-	GetCaseOptions_Fields_Comments = "comments"
-	GetCaseOptions_Fields_Contact = "contact"
-	GetCaseOptions_Fields_ContactType = "contact_type"
-	GetCaseOptions_Fields_CreatedAt = "created_at"
-	GetCaseOptions_Fields_CreatedBy = "created_by"
-	GetCaseOptions_Fields_Description = "description"
-	GetCaseOptions_Fields_Eu = "eu"
-	GetCaseOptions_Fields_InvoiceNumber = "invoice_number"
-	GetCaseOptions_Fields_Number = "number"
-	GetCaseOptions_Fields_Offering = "offering"
-	GetCaseOptions_Fields_Resolution = "resolution"
-	GetCaseOptions_Fields_Resources = "resources"
-	GetCaseOptions_Fields_Severity = "severity"
-	GetCaseOptions_Fields_ShortDescription = "short_description"
-	GetCaseOptions_Fields_Status = "status"
-	GetCaseOptions_Fields_SupportTier = "support_tier"
-	GetCaseOptions_Fields_UpdatedAt = "updated_at"
-	GetCaseOptions_Fields_UpdatedBy = "updated_by"
-	GetCaseOptions_Fields_Watchlist = "watchlist"
+	GetCaseOptionsFieldsAgentCloseOnlyConst = "agent_close_only"
+	GetCaseOptionsFieldsAttachmentsConst = "attachments"
+	GetCaseOptionsFieldsCloseNotesConst = "close_notes"
+	GetCaseOptionsFieldsCommentsConst = "comments"
+	GetCaseOptionsFieldsContactConst = "contact"
+	GetCaseOptionsFieldsContactTypeConst = "contact_type"
+	GetCaseOptionsFieldsCreatedAtConst = "created_at"
+	GetCaseOptionsFieldsCreatedByConst = "created_by"
+	GetCaseOptionsFieldsDescriptionConst = "description"
+	GetCaseOptionsFieldsEuConst = "eu"
+	GetCaseOptionsFieldsInvoiceNumberConst = "invoice_number"
+	GetCaseOptionsFieldsNumberConst = "number"
+	GetCaseOptionsFieldsOfferingConst = "offering"
+	GetCaseOptionsFieldsResolutionConst = "resolution"
+	GetCaseOptionsFieldsResourcesConst = "resources"
+	GetCaseOptionsFieldsSeverityConst = "severity"
+	GetCaseOptionsFieldsShortDescriptionConst = "short_description"
+	GetCaseOptionsFieldsStatusConst = "status"
+	GetCaseOptionsFieldsSupportTierConst = "support_tier"
+	GetCaseOptionsFieldsUpdatedAtConst = "updated_at"
+	GetCaseOptionsFieldsUpdatedByConst = "updated_by"
+	GetCaseOptionsFieldsWatchlistConst = "watchlist"
 )
 
 // NewGetCaseOptions : Instantiate GetCaseOptions
@@ -1726,38 +1741,38 @@ type GetCasesOptions struct {
 
 // Constants associated with the GetCasesOptions.Status property.
 const (
-	GetCasesOptions_Status_Closed = "closed"
-	GetCasesOptions_Status_InProgress = "in_progress"
-	GetCasesOptions_Status_New = "new"
-	GetCasesOptions_Status_ResolutionProvided = "resolution_provided"
-	GetCasesOptions_Status_Resolved = "resolved"
-	GetCasesOptions_Status_WaitingOnClient = "waiting_on_client"
+	GetCasesOptionsStatusClosedConst = "closed"
+	GetCasesOptionsStatusInProgressConst = "in_progress"
+	GetCasesOptionsStatusNewConst = "new"
+	GetCasesOptionsStatusResolutionProvidedConst = "resolution_provided"
+	GetCasesOptionsStatusResolvedConst = "resolved"
+	GetCasesOptionsStatusWaitingOnClientConst = "waiting_on_client"
 )
 
 // Constants associated with the GetCasesOptions.Fields property.
 const (
-	GetCasesOptions_Fields_AgentCloseOnly = "agent_close_only"
-	GetCasesOptions_Fields_Attachments = "attachments"
-	GetCasesOptions_Fields_CloseNotes = "close_notes"
-	GetCasesOptions_Fields_Comments = "comments"
-	GetCasesOptions_Fields_Contact = "contact"
-	GetCasesOptions_Fields_ContactType = "contact_type"
-	GetCasesOptions_Fields_CreatedAt = "created_at"
-	GetCasesOptions_Fields_CreatedBy = "created_by"
-	GetCasesOptions_Fields_Description = "description"
-	GetCasesOptions_Fields_Eu = "eu"
-	GetCasesOptions_Fields_InvoiceNumber = "invoice_number"
-	GetCasesOptions_Fields_Number = "number"
-	GetCasesOptions_Fields_Offering = "offering"
-	GetCasesOptions_Fields_Resolution = "resolution"
-	GetCasesOptions_Fields_Resources = "resources"
-	GetCasesOptions_Fields_Severity = "severity"
-	GetCasesOptions_Fields_ShortDescription = "short_description"
-	GetCasesOptions_Fields_Status = "status"
-	GetCasesOptions_Fields_SupportTier = "support_tier"
-	GetCasesOptions_Fields_UpdatedAt = "updated_at"
-	GetCasesOptions_Fields_UpdatedBy = "updated_by"
-	GetCasesOptions_Fields_Watchlist = "watchlist"
+	GetCasesOptionsFieldsAgentCloseOnlyConst = "agent_close_only"
+	GetCasesOptionsFieldsAttachmentsConst = "attachments"
+	GetCasesOptionsFieldsCloseNotesConst = "close_notes"
+	GetCasesOptionsFieldsCommentsConst = "comments"
+	GetCasesOptionsFieldsContactConst = "contact"
+	GetCasesOptionsFieldsContactTypeConst = "contact_type"
+	GetCasesOptionsFieldsCreatedAtConst = "created_at"
+	GetCasesOptionsFieldsCreatedByConst = "created_by"
+	GetCasesOptionsFieldsDescriptionConst = "description"
+	GetCasesOptionsFieldsEuConst = "eu"
+	GetCasesOptionsFieldsInvoiceNumberConst = "invoice_number"
+	GetCasesOptionsFieldsNumberConst = "number"
+	GetCasesOptionsFieldsOfferingConst = "offering"
+	GetCasesOptionsFieldsResolutionConst = "resolution"
+	GetCasesOptionsFieldsResourcesConst = "resources"
+	GetCasesOptionsFieldsSeverityConst = "severity"
+	GetCasesOptionsFieldsShortDescriptionConst = "short_description"
+	GetCasesOptionsFieldsStatusConst = "status"
+	GetCasesOptionsFieldsSupportTierConst = "support_tier"
+	GetCasesOptionsFieldsUpdatedAtConst = "updated_at"
+	GetCasesOptionsFieldsUpdatedByConst = "updated_by"
+	GetCasesOptionsFieldsWatchlistConst = "watchlist"
 )
 
 // NewGetCasesOptions : Instantiate GetCasesOptions
@@ -1862,8 +1877,8 @@ type OfferingType struct {
 // Offering type group. "crn_service_name" is strongly prefered over "category" as the latter is legacy and will be
 // deprecated in the future.
 const (
-	OfferingType_Group_Category = "category"
-	OfferingType_Group_CrnServiceName = "crn_service_name"
+	OfferingTypeGroupCRNServiceNameConst = "crn_service_name"
+	OfferingTypeGroupCategoryConst = "category"
 )
 
 
@@ -1958,7 +1973,7 @@ func (options *RemoveWatchlistOptions) SetHeaders(param map[string]string) *Remo
 // Resource : A resource record of a case.
 type Resource struct {
 	// ID of the resource.
-	Crn *string `json:"crn,omitempty"`
+	CRN *string `json:"crn,omitempty"`
 
 	// Name of the resource.
 	Name *string `json:"name,omitempty"`
@@ -1977,7 +1992,7 @@ type Resource struct {
 // UnmarshalResource unmarshals an instance of Resource from the specified map of raw messages.
 func UnmarshalResource(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(Resource)
-	err = core.UnmarshalPrimitive(m, "crn", &obj.Crn)
+	err = core.UnmarshalPrimitive(m, "crn", &obj.CRN)
 	if err != nil {
 		return
 	}
@@ -2004,7 +2019,7 @@ func UnmarshalResource(m map[string]json.RawMessage, result interface{}) (err er
 // ResourcePayload : Payload to add a resource to a case.
 type ResourcePayload struct {
 	// Cloud Resource Name of the resource.
-	Crn *string `json:"crn,omitempty"`
+	CRN *string `json:"crn,omitempty"`
 
 	// Only used to attach Classic IaaS devices which have no CRN.
 	Type *string `json:"type,omitempty"`
@@ -2021,7 +2036,7 @@ type ResourcePayload struct {
 // UnmarshalResourcePayload unmarshals an instance of ResourcePayload from the specified map of raw messages.
 func UnmarshalResourcePayload(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(ResourcePayload)
-	err = core.UnmarshalPrimitive(m, "crn", &obj.Crn)
+	err = core.UnmarshalPrimitive(m, "crn", &obj.CRN)
 	if err != nil {
 		return
 	}
@@ -2067,9 +2082,9 @@ type StatusPayload struct {
 // Constants associated with the StatusPayload.Action property.
 // action to perform on the case.
 const (
-	StatusPayload_Action_Accept = "accept"
-	StatusPayload_Action_Resolve = "resolve"
-	StatusPayload_Action_Unresolve = "unresolve"
+	StatusPayloadActionAcceptConst = "accept"
+	StatusPayloadActionResolveConst = "resolve"
+	StatusPayloadActionUnresolveConst = "unresolve"
 )
 
 func (*StatusPayload) isaStatusPayload() bool {
@@ -2196,9 +2211,9 @@ type User struct {
 // Constants associated with the User.Realm property.
 // the ID realm.
 const (
-	User_Realm_Bss = "BSS"
-	User_Realm_Ibmid = "IBMid"
-	User_Realm_Sl = "SL"
+	UserRealmBssConst = "BSS"
+	UserRealmIbmidConst = "IBMid"
+	UserRealmSlConst = "SL"
 )
 
 
@@ -2287,9 +2302,9 @@ type AcceptPayload struct {
 // Constants associated with the AcceptPayload.Action property.
 // action to perform on the case.
 const (
-	AcceptPayload_Action_Accept = "accept"
-	AcceptPayload_Action_Resolve = "resolve"
-	AcceptPayload_Action_Unresolve = "unresolve"
+	AcceptPayloadActionAcceptConst = "accept"
+	AcceptPayloadActionResolveConst = "resolve"
+	AcceptPayloadActionUnresolveConst = "unresolve"
 )
 
 
@@ -2335,9 +2350,9 @@ type ResolvePayload struct {
 // Constants associated with the ResolvePayload.Action property.
 // action to perform on the case.
 const (
-	ResolvePayload_Action_Accept = "accept"
-	ResolvePayload_Action_Resolve = "resolve"
-	ResolvePayload_Action_Unresolve = "unresolve"
+	ResolvePayloadActionAcceptConst = "accept"
+	ResolvePayloadActionResolveConst = "resolve"
+	ResolvePayloadActionUnresolveConst = "unresolve"
 )
 
 
@@ -2387,9 +2402,9 @@ type UnresolvePayload struct {
 // Constants associated with the UnresolvePayload.Action property.
 // action to perform on the case.
 const (
-	UnresolvePayload_Action_Accept = "accept"
-	UnresolvePayload_Action_Resolve = "resolve"
-	UnresolvePayload_Action_Unresolve = "unresolve"
+	UnresolvePayloadActionAcceptConst = "accept"
+	UnresolvePayloadActionResolveConst = "resolve"
+	UnresolvePayloadActionUnresolveConst = "unresolve"
 )
 
 

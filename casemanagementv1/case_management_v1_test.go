@@ -77,6 +77,12 @@ var _ = Describe(`CaseManagementV1`, func() {
 				Expect(caseManagementService).ToNot(BeNil())
 				Expect(serviceErr).To(BeNil())
 				ClearTestEnvironment(testEnvironment)
+
+				clone := caseManagementService.Clone()
+				Expect(clone).ToNot(BeNil())
+				Expect(clone.Service != caseManagementService.Service).To(BeTrue())
+				Expect(clone.GetServiceURL()).To(Equal(caseManagementService.GetServiceURL()))
+				Expect(clone.Service.Options.Authenticator).To(Equal(caseManagementService.Service.Options.Authenticator))
 			})
 			It(`Create service client using external config and set url from constructor successfully`, func() {
 				SetTestEnvironment(testEnvironment)
@@ -87,6 +93,12 @@ var _ = Describe(`CaseManagementV1`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(caseManagementService.Service.GetServiceURL()).To(Equal("https://testService/api"))
 				ClearTestEnvironment(testEnvironment)
+
+				clone := caseManagementService.Clone()
+				Expect(clone).ToNot(BeNil())
+				Expect(clone.Service != caseManagementService.Service).To(BeTrue())
+				Expect(clone.GetServiceURL()).To(Equal(caseManagementService.GetServiceURL()))
+				Expect(clone.Service.Options.Authenticator).To(Equal(caseManagementService.Service.Options.Authenticator))
 			})
 			It(`Create service client using external config and set url programatically successfully`, func() {
 				SetTestEnvironment(testEnvironment)
@@ -98,6 +110,12 @@ var _ = Describe(`CaseManagementV1`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(caseManagementService.Service.GetServiceURL()).To(Equal("https://testService/api"))
 				ClearTestEnvironment(testEnvironment)
+
+				clone := caseManagementService.Clone()
+				Expect(clone).ToNot(BeNil())
+				Expect(clone.Service != caseManagementService.Service).To(BeTrue())
+				Expect(clone.GetServiceURL()).To(Equal(caseManagementService.GetServiceURL()))
+				Expect(clone.Service.Options.Authenticator).To(Equal(caseManagementService.Service.Options.Authenticator))
 			})
 		})
 		Context(`Using external config, construct service client instances with error: Invalid Auth`, func() {
@@ -133,6 +151,16 @@ var _ = Describe(`CaseManagementV1`, func() {
 				Expect(serviceErr).ToNot(BeNil())
 				ClearTestEnvironment(testEnvironment)
 			})
+		})
+	})
+	Describe(`Regional endpoint tests`, func() {
+		It(`GetServiceURLForRegion(region string)`, func() {
+			var url string
+			var err error
+			url, err = casemanagementv1.GetServiceURLForRegion("INVALID_REGION")
+			Expect(url).To(BeEmpty())
+			Expect(err).ToNot(BeNil())
+			fmt.Fprintf(GinkgoWriter, "Expected error: %s\n", err.Error())
 		})
 	})
 	Describe(`GetCases(getCasesOptions *GetCasesOptions) - Operation response error`, func() {
@@ -221,7 +249,7 @@ var _ = Describe(`CaseManagementV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"total_count": 10, "first": {"href": "Href"}, "next": {"href": "Href"}, "previous": {"href": "Href"}, "last": {"href": "Href"}, "cases": [{"number": "Number", "short_description": "ShortDescription", "description": "Description", "created_at": "CreatedAt", "created_by": {"name": "Name", "realm": "IBMid", "user_id": "abc@ibm.com"}, "updated_at": "UpdatedAt", "updated_by": {"name": "Name", "realm": "IBMid", "user_id": "abc@ibm.com"}, "contact_type": "Cloud Support Center", "contact": {"name": "Name", "realm": "IBMid", "user_id": "abc@ibm.com"}, "status": "Status", "severity": 8, "support_tier": "Free", "resolution": "Resolution", "close_notes": "CloseNotes", "eu": {"support": false, "data_center": "DataCenter"}, "watchlist": [{"name": "Name", "realm": "IBMid", "user_id": "abc@ibm.com"}], "attachments": [{"id": "ID", "filename": "Filename", "size_in_bytes": 11, "created_at": "CreatedAt", "url": "URL"}], "offering": {"name": "Name", "type": {"group": "crn_service_name", "key": "Key", "kind": "Kind", "id": "ID"}}, "resources": [{"crn": "Crn", "name": "Name", "type": "Type", "url": "URL", "note": "Note"}], "comments": [{"value": "Value", "added_at": "AddedAt", "added_by": {"name": "Name", "realm": "IBMid", "user_id": "abc@ibm.com"}}]}]}`)
+					fmt.Fprintf(res, "%s", `{"total_count": 10, "first": {"href": "Href"}, "next": {"href": "Href"}, "previous": {"href": "Href"}, "last": {"href": "Href"}, "cases": [{"number": "Number", "short_description": "ShortDescription", "description": "Description", "created_at": "CreatedAt", "created_by": {"name": "Name", "realm": "IBMid", "user_id": "abc@ibm.com"}, "updated_at": "UpdatedAt", "updated_by": {"name": "Name", "realm": "IBMid", "user_id": "abc@ibm.com"}, "contact_type": "Cloud Support Center", "contact": {"name": "Name", "realm": "IBMid", "user_id": "abc@ibm.com"}, "status": "Status", "severity": 8, "support_tier": "Free", "resolution": "Resolution", "close_notes": "CloseNotes", "eu": {"support": false, "data_center": "DataCenter"}, "watchlist": [{"name": "Name", "realm": "IBMid", "user_id": "abc@ibm.com"}], "attachments": [{"id": "ID", "filename": "Filename", "size_in_bytes": 11, "created_at": "CreatedAt", "url": "URL"}], "offering": {"name": "Name", "type": {"group": "crn_service_name", "key": "Key", "kind": "Kind", "id": "ID"}}, "resources": [{"crn": "CRN", "name": "Name", "type": "Type", "url": "URL", "note": "Note"}], "comments": [{"value": "Value", "added_at": "AddedAt", "added_by": {"name": "Name", "realm": "IBMid", "user_id": "abc@ibm.com"}}]}]}`)
 				}))
 			})
 			It(`Invoke GetCases successfully`, func() {
@@ -353,7 +381,7 @@ var _ = Describe(`CaseManagementV1`, func() {
 
 				// Construct an instance of the ResourcePayload model
 				resourcePayloadModel := new(casemanagementv1.ResourcePayload)
-				resourcePayloadModel.Crn = core.StringPtr("testString")
+				resourcePayloadModel.CRN = core.StringPtr("testString")
 				resourcePayloadModel.Type = core.StringPtr("testString")
 				resourcePayloadModel.ID = core.Float64Ptr(float64(72.5))
 				resourcePayloadModel.Note = core.StringPtr("testString")
@@ -430,7 +458,7 @@ var _ = Describe(`CaseManagementV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"number": "Number", "short_description": "ShortDescription", "description": "Description", "created_at": "CreatedAt", "created_by": {"name": "Name", "realm": "IBMid", "user_id": "abc@ibm.com"}, "updated_at": "UpdatedAt", "updated_by": {"name": "Name", "realm": "IBMid", "user_id": "abc@ibm.com"}, "contact_type": "Cloud Support Center", "contact": {"name": "Name", "realm": "IBMid", "user_id": "abc@ibm.com"}, "status": "Status", "severity": 8, "support_tier": "Free", "resolution": "Resolution", "close_notes": "CloseNotes", "eu": {"support": false, "data_center": "DataCenter"}, "watchlist": [{"name": "Name", "realm": "IBMid", "user_id": "abc@ibm.com"}], "attachments": [{"id": "ID", "filename": "Filename", "size_in_bytes": 11, "created_at": "CreatedAt", "url": "URL"}], "offering": {"name": "Name", "type": {"group": "crn_service_name", "key": "Key", "kind": "Kind", "id": "ID"}}, "resources": [{"crn": "Crn", "name": "Name", "type": "Type", "url": "URL", "note": "Note"}], "comments": [{"value": "Value", "added_at": "AddedAt", "added_by": {"name": "Name", "realm": "IBMid", "user_id": "abc@ibm.com"}}]}`)
+					fmt.Fprintf(res, "%s", `{"number": "Number", "short_description": "ShortDescription", "description": "Description", "created_at": "CreatedAt", "created_by": {"name": "Name", "realm": "IBMid", "user_id": "abc@ibm.com"}, "updated_at": "UpdatedAt", "updated_by": {"name": "Name", "realm": "IBMid", "user_id": "abc@ibm.com"}, "contact_type": "Cloud Support Center", "contact": {"name": "Name", "realm": "IBMid", "user_id": "abc@ibm.com"}, "status": "Status", "severity": 8, "support_tier": "Free", "resolution": "Resolution", "close_notes": "CloseNotes", "eu": {"support": false, "data_center": "DataCenter"}, "watchlist": [{"name": "Name", "realm": "IBMid", "user_id": "abc@ibm.com"}], "attachments": [{"id": "ID", "filename": "Filename", "size_in_bytes": 11, "created_at": "CreatedAt", "url": "URL"}], "offering": {"name": "Name", "type": {"group": "crn_service_name", "key": "Key", "kind": "Kind", "id": "ID"}}, "resources": [{"crn": "CRN", "name": "Name", "type": "Type", "url": "URL", "note": "Note"}], "comments": [{"value": "Value", "added_at": "AddedAt", "added_by": {"name": "Name", "realm": "IBMid", "user_id": "abc@ibm.com"}}]}`)
 				}))
 			})
 			It(`Invoke CreateCase successfully`, func() {
@@ -467,7 +495,7 @@ var _ = Describe(`CaseManagementV1`, func() {
 
 				// Construct an instance of the ResourcePayload model
 				resourcePayloadModel := new(casemanagementv1.ResourcePayload)
-				resourcePayloadModel.Crn = core.StringPtr("testString")
+				resourcePayloadModel.CRN = core.StringPtr("testString")
 				resourcePayloadModel.Type = core.StringPtr("testString")
 				resourcePayloadModel.ID = core.Float64Ptr(float64(72.5))
 				resourcePayloadModel.Note = core.StringPtr("testString")
@@ -549,7 +577,7 @@ var _ = Describe(`CaseManagementV1`, func() {
 
 				// Construct an instance of the ResourcePayload model
 				resourcePayloadModel := new(casemanagementv1.ResourcePayload)
-				resourcePayloadModel.Crn = core.StringPtr("testString")
+				resourcePayloadModel.CRN = core.StringPtr("testString")
 				resourcePayloadModel.Type = core.StringPtr("testString")
 				resourcePayloadModel.ID = core.Float64Ptr(float64(72.5))
 				resourcePayloadModel.Note = core.StringPtr("testString")
@@ -659,7 +687,7 @@ var _ = Describe(`CaseManagementV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"number": "Number", "short_description": "ShortDescription", "description": "Description", "created_at": "CreatedAt", "created_by": {"name": "Name", "realm": "IBMid", "user_id": "abc@ibm.com"}, "updated_at": "UpdatedAt", "updated_by": {"name": "Name", "realm": "IBMid", "user_id": "abc@ibm.com"}, "contact_type": "Cloud Support Center", "contact": {"name": "Name", "realm": "IBMid", "user_id": "abc@ibm.com"}, "status": "Status", "severity": 8, "support_tier": "Free", "resolution": "Resolution", "close_notes": "CloseNotes", "eu": {"support": false, "data_center": "DataCenter"}, "watchlist": [{"name": "Name", "realm": "IBMid", "user_id": "abc@ibm.com"}], "attachments": [{"id": "ID", "filename": "Filename", "size_in_bytes": 11, "created_at": "CreatedAt", "url": "URL"}], "offering": {"name": "Name", "type": {"group": "crn_service_name", "key": "Key", "kind": "Kind", "id": "ID"}}, "resources": [{"crn": "Crn", "name": "Name", "type": "Type", "url": "URL", "note": "Note"}], "comments": [{"value": "Value", "added_at": "AddedAt", "added_by": {"name": "Name", "realm": "IBMid", "user_id": "abc@ibm.com"}}]}`)
+					fmt.Fprintf(res, "%s", `{"number": "Number", "short_description": "ShortDescription", "description": "Description", "created_at": "CreatedAt", "created_by": {"name": "Name", "realm": "IBMid", "user_id": "abc@ibm.com"}, "updated_at": "UpdatedAt", "updated_by": {"name": "Name", "realm": "IBMid", "user_id": "abc@ibm.com"}, "contact_type": "Cloud Support Center", "contact": {"name": "Name", "realm": "IBMid", "user_id": "abc@ibm.com"}, "status": "Status", "severity": 8, "support_tier": "Free", "resolution": "Resolution", "close_notes": "CloseNotes", "eu": {"support": false, "data_center": "DataCenter"}, "watchlist": [{"name": "Name", "realm": "IBMid", "user_id": "abc@ibm.com"}], "attachments": [{"id": "ID", "filename": "Filename", "size_in_bytes": 11, "created_at": "CreatedAt", "url": "URL"}], "offering": {"name": "Name", "type": {"group": "crn_service_name", "key": "Key", "kind": "Kind", "id": "ID"}}, "resources": [{"crn": "CRN", "name": "Name", "type": "Type", "url": "URL", "note": "Note"}], "comments": [{"value": "Value", "added_at": "AddedAt", "added_by": {"name": "Name", "realm": "IBMid", "user_id": "abc@ibm.com"}}]}`)
 				}))
 			})
 			It(`Invoke GetCase successfully`, func() {
@@ -836,7 +864,7 @@ var _ = Describe(`CaseManagementV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"number": "Number", "short_description": "ShortDescription", "description": "Description", "created_at": "CreatedAt", "created_by": {"name": "Name", "realm": "IBMid", "user_id": "abc@ibm.com"}, "updated_at": "UpdatedAt", "updated_by": {"name": "Name", "realm": "IBMid", "user_id": "abc@ibm.com"}, "contact_type": "Cloud Support Center", "contact": {"name": "Name", "realm": "IBMid", "user_id": "abc@ibm.com"}, "status": "Status", "severity": 8, "support_tier": "Free", "resolution": "Resolution", "close_notes": "CloseNotes", "eu": {"support": false, "data_center": "DataCenter"}, "watchlist": [{"name": "Name", "realm": "IBMid", "user_id": "abc@ibm.com"}], "attachments": [{"id": "ID", "filename": "Filename", "size_in_bytes": 11, "created_at": "CreatedAt", "url": "URL"}], "offering": {"name": "Name", "type": {"group": "crn_service_name", "key": "Key", "kind": "Kind", "id": "ID"}}, "resources": [{"crn": "Crn", "name": "Name", "type": "Type", "url": "URL", "note": "Note"}], "comments": [{"value": "Value", "added_at": "AddedAt", "added_by": {"name": "Name", "realm": "IBMid", "user_id": "abc@ibm.com"}}]}`)
+					fmt.Fprintf(res, "%s", `{"number": "Number", "short_description": "ShortDescription", "description": "Description", "created_at": "CreatedAt", "created_by": {"name": "Name", "realm": "IBMid", "user_id": "abc@ibm.com"}, "updated_at": "UpdatedAt", "updated_by": {"name": "Name", "realm": "IBMid", "user_id": "abc@ibm.com"}, "contact_type": "Cloud Support Center", "contact": {"name": "Name", "realm": "IBMid", "user_id": "abc@ibm.com"}, "status": "Status", "severity": 8, "support_tier": "Free", "resolution": "Resolution", "close_notes": "CloseNotes", "eu": {"support": false, "data_center": "DataCenter"}, "watchlist": [{"name": "Name", "realm": "IBMid", "user_id": "abc@ibm.com"}], "attachments": [{"id": "ID", "filename": "Filename", "size_in_bytes": 11, "created_at": "CreatedAt", "url": "URL"}], "offering": {"name": "Name", "type": {"group": "crn_service_name", "key": "Key", "kind": "Kind", "id": "ID"}}, "resources": [{"crn": "CRN", "name": "Name", "type": "Type", "url": "URL", "note": "Note"}], "comments": [{"value": "Value", "added_at": "AddedAt", "added_by": {"name": "Name", "realm": "IBMid", "user_id": "abc@ibm.com"}}]}`)
 				}))
 			})
 			It(`Invoke UpdateCaseStatus successfully`, func() {
@@ -1506,7 +1534,7 @@ var _ = Describe(`CaseManagementV1`, func() {
 				// Construct an instance of the AddResourceOptions model
 				addResourceOptionsModel := new(casemanagementv1.AddResourceOptions)
 				addResourceOptionsModel.CaseNumber = core.StringPtr("testString")
-				addResourceOptionsModel.Crn = core.StringPtr("testString")
+				addResourceOptionsModel.CRN = core.StringPtr("testString")
 				addResourceOptionsModel.Type = core.StringPtr("testString")
 				addResourceOptionsModel.ID = core.Float64Ptr(float64(72.5))
 				addResourceOptionsModel.Note = core.StringPtr("testString")
@@ -1565,7 +1593,7 @@ var _ = Describe(`CaseManagementV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"crn": "Crn", "name": "Name", "type": "Type", "url": "URL", "note": "Note"}`)
+					fmt.Fprintf(res, "%s", `{"crn": "CRN", "name": "Name", "type": "Type", "url": "URL", "note": "Note"}`)
 				}))
 			})
 			It(`Invoke AddResource successfully`, func() {
@@ -1586,7 +1614,7 @@ var _ = Describe(`CaseManagementV1`, func() {
 				// Construct an instance of the AddResourceOptions model
 				addResourceOptionsModel := new(casemanagementv1.AddResourceOptions)
 				addResourceOptionsModel.CaseNumber = core.StringPtr("testString")
-				addResourceOptionsModel.Crn = core.StringPtr("testString")
+				addResourceOptionsModel.CRN = core.StringPtr("testString")
 				addResourceOptionsModel.Type = core.StringPtr("testString")
 				addResourceOptionsModel.ID = core.Float64Ptr(float64(72.5))
 				addResourceOptionsModel.Note = core.StringPtr("testString")
@@ -1634,7 +1662,7 @@ var _ = Describe(`CaseManagementV1`, func() {
 				// Construct an instance of the AddResourceOptions model
 				addResourceOptionsModel := new(casemanagementv1.AddResourceOptions)
 				addResourceOptionsModel.CaseNumber = core.StringPtr("testString")
-				addResourceOptionsModel.Crn = core.StringPtr("testString")
+				addResourceOptionsModel.CRN = core.StringPtr("testString")
 				addResourceOptionsModel.Type = core.StringPtr("testString")
 				addResourceOptionsModel.ID = core.Float64Ptr(float64(72.5))
 				addResourceOptionsModel.Note = core.StringPtr("testString")
@@ -2103,14 +2131,14 @@ var _ = Describe(`CaseManagementV1`, func() {
 				caseNumber := "testString"
 				addResourceOptionsModel := caseManagementService.NewAddResourceOptions(caseNumber)
 				addResourceOptionsModel.SetCaseNumber("testString")
-				addResourceOptionsModel.SetCrn("testString")
+				addResourceOptionsModel.SetCRN("testString")
 				addResourceOptionsModel.SetType("testString")
 				addResourceOptionsModel.SetID(float64(72.5))
 				addResourceOptionsModel.SetNote("testString")
 				addResourceOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(addResourceOptionsModel).ToNot(BeNil())
 				Expect(addResourceOptionsModel.CaseNumber).To(Equal(core.StringPtr("testString")))
-				Expect(addResourceOptionsModel.Crn).To(Equal(core.StringPtr("testString")))
+				Expect(addResourceOptionsModel.CRN).To(Equal(core.StringPtr("testString")))
 				Expect(addResourceOptionsModel.Type).To(Equal(core.StringPtr("testString")))
 				Expect(addResourceOptionsModel.ID).To(Equal(core.Float64Ptr(float64(72.5))))
 				Expect(addResourceOptionsModel.Note).To(Equal(core.StringPtr("testString")))
@@ -2168,11 +2196,11 @@ var _ = Describe(`CaseManagementV1`, func() {
 				// Construct an instance of the ResourcePayload model
 				resourcePayloadModel := new(casemanagementv1.ResourcePayload)
 				Expect(resourcePayloadModel).ToNot(BeNil())
-				resourcePayloadModel.Crn = core.StringPtr("testString")
+				resourcePayloadModel.CRN = core.StringPtr("testString")
 				resourcePayloadModel.Type = core.StringPtr("testString")
 				resourcePayloadModel.ID = core.Float64Ptr(float64(72.5))
 				resourcePayloadModel.Note = core.StringPtr("testString")
-				Expect(resourcePayloadModel.Crn).To(Equal(core.StringPtr("testString")))
+				Expect(resourcePayloadModel.CRN).To(Equal(core.StringPtr("testString")))
 				Expect(resourcePayloadModel.Type).To(Equal(core.StringPtr("testString")))
 				Expect(resourcePayloadModel.ID).To(Equal(core.Float64Ptr(float64(72.5))))
 				Expect(resourcePayloadModel.Note).To(Equal(core.StringPtr("testString")))

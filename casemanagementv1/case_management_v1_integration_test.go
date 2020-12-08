@@ -46,11 +46,11 @@ var (
 	caseNumber   string
 	commentValue = "Test comment"
 
-	offeringType, _    = service.NewOfferingType(casemanagementv1.OfferingType_Group_CrnServiceName, "cloud-object-storage")
+	offeringType, _    = service.NewOfferingType(casemanagementv1.OfferingTypeGroupCRNServiceNameConst, "cloud-object-storage")
 	offeringPayload, _ = service.NewOffering("Cloud Object Storage", offeringType)
 
 	resourcePayload = []casemanagementv1.ResourcePayload{casemanagementv1.ResourcePayload{
-		Crn: core.StringPtr("crn:v1:staging:public:cloud-object-storage:global:a/19c52e57800c4d8bb9aefc66b3e49755:61848e72-6ba6-415e-84e2-91f3915e194d::"),
+		CRN: core.StringPtr("crn:v1:staging:public:cloud-object-storage:global:a/19c52e57800c4d8bb9aefc66b3e49755:61848e72-6ba6-415e-84e2-91f3915e194d::"),
 	}}
 
 	watchlistPayload = casemanagementv1.Watchlist{
@@ -178,9 +178,9 @@ var _ = Describe("Case Management - Integration Tests", func() {
 			options.SetOffset(10)
 			options.SetLimit(20)
 			options.SetFields([]string{
-				casemanagementv1.GetCasesOptions_Fields_Number,
-				casemanagementv1.GetCasesOptions_Fields_Comments,
-				casemanagementv1.GetCasesOptions_Fields_CreatedAt,
+				casemanagementv1.GetCasesOptionsFieldsNumberConst,
+				casemanagementv1.GetCasesOptionsFieldsCommentsConst,
+				casemanagementv1.GetCasesOptionsFieldsCreatedAtConst,
 			})
 
 			result, detailedResponse, err := service.GetCases(options)
@@ -321,7 +321,7 @@ var _ = Describe("Case Management - Integration Tests", func() {
 
 		It("Succefully resolve a case", func() {
 			shouldSkipTest()
-			resolvePayload, _ := service.NewResolvePayload(casemanagementv1.ResolvePayload_Action_Resolve, 1)
+			resolvePayload, _ := service.NewResolvePayload(casemanagementv1.ResolvePayloadActionResolveConst, 1)
 			options := service.NewUpdateCaseStatusOptions(caseNumber, resolvePayload)
 
 			result, detailedResponse, err := service.UpdateCaseStatus(options)
@@ -335,7 +335,7 @@ var _ = Describe("Case Management - Integration Tests", func() {
 
 		It("Succefully unresolve a case", func() {
 			shouldSkipTest()
-			unresolvePayload, _ := service.NewUnresolvePayload(casemanagementv1.UnresolvePayload_Action_Unresolve, "Test unresolve")
+			unresolvePayload, _ := service.NewUnresolvePayload(casemanagementv1.UnresolvePayloadActionUnresolveConst, "Test unresolve")
 			options := service.NewUpdateCaseStatusOptions(caseNumber, unresolvePayload)
 
 			result, detailedResponse, err := service.UpdateCaseStatus(options)
@@ -392,9 +392,9 @@ var _ = Describe("Case Management - Integration Tests", func() {
 	Describe("Add Resource", func() {
 		It("Successfully added a resource", func() {
 			shouldSkipTest()
-			crn := *resourcePayload[0].Crn
+			crn := *resourcePayload[0].CRN
 			options := service.NewAddResourceOptions(caseNumber)
-			options.SetCrn(crn)
+			options.SetCRN(crn)
 
 			result, detailedResponse, err := service.AddResource(options)
 
@@ -402,7 +402,7 @@ var _ = Describe("Case Management - Integration Tests", func() {
 			Expect(detailedResponse.StatusCode).To((Equal(200)))
 			Expect(result).ToNot(BeNil())
 			fmt.Fprintf(GinkgoWriter, "AddResource() result:\n%s\n", common.ToJSON(result))
-			Expect(*result.Crn).To(Equal(crn))
+			Expect(*result.CRN).To(Equal(crn))
 		})
 	})
 })
