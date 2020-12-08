@@ -15,7 +15,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-ef9b3113-20201118-074613
+ * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-629bbb97-20201207-171303
  */
  
 
@@ -107,6 +107,21 @@ func NewEnterpriseBillingUnitsV1(options *EnterpriseBillingUnitsV1Options) (serv
 	}
 
 	return
+}
+
+// GetServiceURLForRegion returns the service URL to be used for the specified region
+func GetServiceURLForRegion(region string) (string, error) {
+	return "", fmt.Errorf("service does not support regional URLs")
+}
+
+// Clone makes a copy of "enterpriseBillingUnits" suitable for processing requests.
+func (enterpriseBillingUnits *EnterpriseBillingUnitsV1) Clone() *EnterpriseBillingUnitsV1 {
+	if core.IsNil(enterpriseBillingUnits) {
+		return nil
+	}
+	clone := *enterpriseBillingUnits
+	clone.Service = enterpriseBillingUnits.Service.Clone()
+	return &clone
 }
 
 // SetServiceURL sets the service URL
@@ -431,24 +446,24 @@ type BillingOption struct {
 // Constants associated with the BillingOption.State property.
 // The state of the billing option. The valid values include `ACTIVE, `SUSPENDED`, and `CANCELED`.
 const (
-	BillingOption_State_Active = "ACTIVE"
-	BillingOption_State_Canceled = "CANCELED"
-	BillingOption_State_Suspended = "SUSPENDED"
+	BillingOptionStateActiveConst = "ACTIVE"
+	BillingOptionStateCanceledConst = "CANCELED"
+	BillingOptionStateSuspendedConst = "SUSPENDED"
 )
 
 // Constants associated with the BillingOption.Type property.
 // The type of billing option. The valid values are `SUBSCRIPTION` and `OFFER`.
 const (
-	BillingOption_Type_Offer = "OFFER"
-	BillingOption_Type_Subscription = "SUBSCRIPTION"
+	BillingOptionTypeOfferConst = "OFFER"
+	BillingOptionTypeSubscriptionConst = "SUBSCRIPTION"
 )
 
 // Constants associated with the BillingOption.Category property.
 // The category of the billing option. The valid values are `PLATFORM`, `SERVICE`, and `SUPPORT`.
 const (
-	BillingOption_Category_Platform = "PLATFORM"
-	BillingOption_Category_Service = "SERVICE"
-	BillingOption_Category_Support = "SUPPORT"
+	BillingOptionCategoryPlatformConst = "PLATFORM"
+	BillingOptionCategoryServiceConst = "SERVICE"
+	BillingOptionCategorySupportConst = "SUPPORT"
 )
 
 
@@ -549,7 +564,7 @@ type BillingUnit struct {
 	ID *string `json:"id,omitempty"`
 
 	// The Cloud Resource Name (CRN) of the billing unit, scoped to the enterprise account ID.
-	Crn *string `json:"crn,omitempty"`
+	CRN *string `json:"crn,omitempty"`
 
 	// The name of the billing unit.
 	Name *string `json:"name,omitempty"`
@@ -578,7 +593,7 @@ func UnmarshalBillingUnit(m map[string]json.RawMessage, result interface{}) (err
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalPrimitive(m, "crn", &obj.Crn)
+	err = core.UnmarshalPrimitive(m, "crn", &obj.CRN)
 	if err != nil {
 		return
 	}
@@ -664,8 +679,8 @@ type CreditPool struct {
 // Constants associated with the CreditPool.Type property.
 // The type of credit, either `PLATFORM` or `SUPPORT`.
 const (
-	CreditPool_Type_Platform = "PLATFORM"
-	CreditPool_Type_Support = "SUPPORT"
+	CreditPoolTypePlatformConst = "PLATFORM"
+	CreditPoolTypeSupportConst = "SUPPORT"
 )
 
 
@@ -935,10 +950,10 @@ type TermCredits struct {
 // The category of the credit pool. The valid values are `PLATFORM`, `OFFER`, or `SERVICE` for platform credit and
 // `SUPPORT` for support credit.
 const (
-	TermCredits_Category_Offer = "OFFER"
-	TermCredits_Category_Platform = "PLATFORM"
-	TermCredits_Category_Service = "SERVICE"
-	TermCredits_Category_Support = "SUPPORT"
+	TermCreditsCategoryOfferConst = "OFFER"
+	TermCreditsCategoryPlatformConst = "PLATFORM"
+	TermCreditsCategoryServiceConst = "SERVICE"
+	TermCreditsCategorySupportConst = "SUPPORT"
 )
 
 
