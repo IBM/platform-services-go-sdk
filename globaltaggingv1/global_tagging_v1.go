@@ -15,7 +15,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-8d569e8f-20201030-111043
+ * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-629bbb97-20201207-171303
  */
  
 
@@ -111,6 +111,21 @@ func NewGlobalTaggingV1(options *GlobalTaggingV1Options) (service *GlobalTagging
 	}
 
 	return
+}
+
+// GetServiceURLForRegion returns the service URL to be used for the specified region
+func GetServiceURLForRegion(region string) (string, error) {
+	return "", fmt.Errorf("service does not support regional URLs")
+}
+
+// Clone makes a copy of "globalTagging" suitable for processing requests.
+func (globalTagging *GlobalTaggingV1) Clone() *GlobalTaggingV1 {
+	if core.IsNil(globalTagging) {
+		return nil
+	}
+	clone := *globalTagging
+	clone.Service = globalTagging.Service.Clone()
+	return &clone
 }
 
 // SetServiceURL sets the service URL
@@ -548,8 +563,8 @@ type AttachTagOptions struct {
 // The type of the tag. Supported values are `user` and `service`. `service` is not supported if `providers` is set to
 // `ims`.
 const (
-	AttachTagOptions_TagType_Service = "service"
-	AttachTagOptions_TagType_User = "user"
+	AttachTagOptionsTagTypeServiceConst = "service"
+	AttachTagOptionsTagTypeUserConst = "user"
 )
 
 // NewAttachTagOptions : Instantiate AttachTagOptions
@@ -615,16 +630,16 @@ type DeleteTagAllOptions struct {
 // Constants associated with the DeleteTagAllOptions.Providers property.
 // Select a provider. Supported values are `ghost` and `ims`.
 const (
-	DeleteTagAllOptions_Providers_Ghost = "ghost"
-	DeleteTagAllOptions_Providers_Ims = "ims"
+	DeleteTagAllOptionsProvidersGhostConst = "ghost"
+	DeleteTagAllOptionsProvidersImsConst = "ims"
 )
 
 // Constants associated with the DeleteTagAllOptions.TagType property.
 // The type of the tag. Supported values are `user` and `service`. `service` is not supported if the `providers`
 // parameter is set to `ims`.
 const (
-	DeleteTagAllOptions_TagType_Service = "service"
-	DeleteTagAllOptions_TagType_User = "user"
+	DeleteTagAllOptionsTagTypeServiceConst = "service"
+	DeleteTagAllOptionsTagTypeUserConst = "user"
 )
 
 // NewDeleteTagAllOptions : Instantiate DeleteTagAllOptions
@@ -677,15 +692,15 @@ type DeleteTagOptions struct {
 
 // Constants associated with the DeleteTagOptions.Providers property.
 const (
-	DeleteTagOptions_Providers_Ghost = "ghost"
-	DeleteTagOptions_Providers_Ims = "ims"
+	DeleteTagOptionsProvidersGhostConst = "ghost"
+	DeleteTagOptionsProvidersImsConst = "ims"
 )
 
 // Constants associated with the DeleteTagOptions.TagType property.
 // The type of the tag. Supported values are `user` and `service`. `service` is not supported for `providers=ims`.
 const (
-	DeleteTagOptions_TagType_Service = "service"
-	DeleteTagOptions_TagType_User = "user"
+	DeleteTagOptionsTagTypeServiceConst = "service"
+	DeleteTagOptionsTagTypeUserConst = "user"
 )
 
 // NewDeleteTagOptions : Instantiate DeleteTagOptions
@@ -758,8 +773,8 @@ type DeleteTagResultsItem struct {
 // Constants associated with the DeleteTagResultsItem.Provider property.
 // The provider of the tag.
 const (
-	DeleteTagResultsItem_Provider_Ghost = "ghost"
-	DeleteTagResultsItem_Provider_Ims = "ims"
+	DeleteTagResultsItemProviderGhostConst = "ghost"
+	DeleteTagResultsItemProviderImsConst = "ims"
 )
 
 
@@ -907,8 +922,8 @@ type DetachTagOptions struct {
 // Constants associated with the DetachTagOptions.TagType property.
 // The type of the tag. Supported values are `user` and `service`. `service` is not supported for `providers=ims`.
 const (
-	DetachTagOptions_TagType_Service = "service"
-	DetachTagOptions_TagType_User = "user"
+	DetachTagOptionsTagTypeServiceConst = "service"
+	DetachTagOptionsTagTypeUserConst = "user"
 )
 
 // NewDetachTagOptions : Instantiate DetachTagOptions
@@ -1001,21 +1016,21 @@ type ListTagsOptions struct {
 // Constants associated with the ListTagsOptions.TagType property.
 // The type of the tag you want to list. Supported values are `user` and `service`.
 const (
-	ListTagsOptions_TagType_Service = "service"
-	ListTagsOptions_TagType_User = "user"
+	ListTagsOptionsTagTypeServiceConst = "service"
+	ListTagsOptionsTagTypeUserConst = "user"
 )
 
 // Constants associated with the ListTagsOptions.Providers property.
 const (
-	ListTagsOptions_Providers_Ghost = "ghost"
-	ListTagsOptions_Providers_Ims = "ims"
+	ListTagsOptionsProvidersGhostConst = "ghost"
+	ListTagsOptionsProvidersImsConst = "ims"
 )
 
 // Constants associated with the ListTagsOptions.OrderByName property.
 // Order the output by tag name.
 const (
-	ListTagsOptions_OrderByName_Asc = "asc"
-	ListTagsOptions_OrderByName_Desc = "desc"
+	ListTagsOptionsOrderByNameAscConst = "asc"
+	ListTagsOptionsOrderByNameDescConst = "desc"
 )
 
 // NewListTagsOptions : Instantiate ListTagsOptions
