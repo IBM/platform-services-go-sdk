@@ -1,7 +1,5 @@
 // +build integration
 
-package globalsearchv2_test
-
 /**
  * (C) Copyright IBM Corp. 2020.
  *
@@ -18,169 +16,140 @@ package globalsearchv2_test
  * limitations under the License.
  */
 
+package globalsearchv2_test
+
 import (
 	"fmt"
-	"log"
 	"os"
-	"time"
 
 	"github.com/IBM/go-sdk-core/v4/core"
 	common "github.com/IBM/platform-services-go-sdk/common"
 	"github.com/IBM/platform-services-go-sdk/globalsearchv2"
-	"github.com/joho/godotenv"
+	"github.com/google/uuid"
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
 )
 
-var service *globalsearchv2.GlobalSearchV2
-var configLoaded = false
-var gstQuery string
+/**
+ * This file contains an integration test for the globalsearchv2 package.
+ *
+ * Notes:
+ *
+ * The integration test will automatically skip tests if the required config file is not available.
+ */
 
-const externalConfigFile = "../ghost.env"
+var _ = Describe(`GlobalSearchV2 Integration Tests`, func() {
 
-func shouldSkipTest() {
-	if !configLoaded {
-		Skip("External configuration is not available, skipping...")
+	const externalConfigFile = "../global_search.env"
+
+	var (
+		err                 error
+		globalSearchService *globalsearchv2.GlobalSearchV2
+		serviceURL          string
+		config              map[string]string
+
+		transactionID = uuid.New().String()
+		gstQuery      = "GST-sdk*"
+	)
+
+	var shouldSkipTest = func() {
+		Skip("External configuration is not available, skipping tests...")
 	}
-}
 
-var _ = Describe("Global Search and Tagging - Search integration test", func() {
-	It("Successfully load the configuration", func() {
-		err := godotenv.Overload(externalConfigFile)
-		if err == nil {
-			gstQuery = os.Getenv("GST_QUERY")
-			if gstQuery != "" {
-				configLoaded = true
+	Describe(`External configuration`, func() {
+		It("Successfully load the configuration", func() {
+			_, err = os.Stat(externalConfigFile)
+			if err != nil {
+				Skip("External configuration file not found, skipping tests: " + err.Error())
 			}
-		}
-		if !configLoaded {
-			Skip("External configuration could not be loaded, skipping...")
-		}
-	})
 
-	It("Successfully construct service", func() {
-		shouldSkipTest()
-
-		// Create the authenticator.
-		authenticator := &core.IamAuthenticator{
-			ApiKey: os.Getenv("GST_IINTERNA_APIKEY"),
-			URL:    os.Getenv("GST_IAM_URL"),
-		}
-
-		options := &globalsearchv2.GlobalSearchV2Options{
-			Authenticator: authenticator,
-			URL:           os.Getenv("GST_API_URL"),
-		}
-		var err error
-		service, err = globalsearchv2.NewGlobalSearchV2(options)
-		Expect(err).To(BeNil())
-		Expect(service).ToNot(BeNil())
-
-		core.SetLogger(core.NewLogger(core.LevelDebug, log.New(GinkgoWriter, "", log.LstdFlags)))
-		service.EnableRetries(4, 30*time.Second)
-	})
-
-	Describe("Call Search v3 api with query 'name:gst-sdk*' all fields", func() {
-
-		It("Successfully list all resources", func() {
-			shouldSkipTest()
-
-			// Construct an instance of the SearchOptions model
-			searchOptionsModel := service.NewSearchOptions()
-			searchOptionsModel.SetQuery(gstQuery)
-			searchOptionsModel.SetFields([]string{"*"})
-
-			var err error
-			result, detailedResponse, err := service.Search(searchOptionsModel)
-			Expect(err).To(BeNil())
-			Expect(detailedResponse.StatusCode).To(Equal(200))
-			Expect(result).ToNot(BeNil())
-
-			fmt.Fprintf(GinkgoWriter, "Search all result: %s\n", common.ToJSON(result))
-
-			Expect(result.Items).To(HaveLen(2))
-			for _, elem := range result.Items {
-				Expect(elem.GetProperty("doc")).NotTo(BeNil())
-				Expect(elem.GetProperty("family")).NotTo(BeNil())
-				Expect(elem.GetProperty("type")).NotTo(BeNil())
-				Expect(*elem.Crn).NotTo(BeNil())
+			os.Setenv("IBM_CREDENTIALS_FILE", externalConfigFile)
+			config, err = core.GetServiceProperties(globalsearchv2.DefaultServiceName)
+			if err != nil {
+				Skip("Error loading service properties, skipping tests: " + err.Error())
 			}
+			serviceURL = config["URL"]
+			if serviceURL == "" {
+				Skip("Unable to load service URL configuration property, skipping tests")
+			}
+
+			fmt.Fprintf(GinkgoWriter, "Service URL: %s\n", serviceURL)
+			shouldSkipTest = func() {}
 		})
 	})
 
-	Describe("Call Search v3 api with query 'name:gst-sdk*' retrieving only the attributes crn and name", func() {
-
-		It("Successfully list resource using cursor", func() {
+	Describe(`Client initialization`, func() {
+		BeforeEach(func() {
 			shouldSkipTest()
+		})
+		It("Successfully construct the service client instance", func() {
 
-			// Construct an instance of the SearchOptions model
-			searchOptionsModel := service.NewSearchOptions()
-			searchOptionsModel.SetQuery(gstQuery)
-			searchOptionsModel.SetLimit(1)
-			searchOptionsModel.SetFields([]string{"crn", "name"})
+			globalSearchServiceOptions := &globalsearchv2.GlobalSearchV2Options{}
 
-			var err error
-			result, detailedResponse, err := service.Search(searchOptionsModel)
+			globalSearchService, err = globalsearchv2.NewGlobalSearchV2UsingExternalConfig(globalSearchServiceOptions)
+
 			Expect(err).To(BeNil())
-			Expect(detailedResponse.StatusCode).To(Equal(200))
-			Expect(result).ToNot(BeNil())
-
-			fmt.Fprintf(GinkgoWriter, "Search w/cursor result 1: %s\n", common.ToJSON(result))
-
-			Expect(result.Items).To(HaveLen(1))
-			for _, elem := range result.Items {
-				Expect(elem.GetProperty("doc")).To(BeNil())
-				Expect(elem.GetProperty("family")).To(BeNil())
-				Expect(elem.GetProperty("name")).NotTo(BeNil())
-				Expect(*elem.Crn).NotTo(BeNil())
-			}
-			firstCrn := *result.Items[0].Crn
-
-			searchCursor := *result.SearchCursor
-			searchOptionsModelCursor := service.NewSearchOptions()
-			searchOptionsModelCursor.SetQuery(gstQuery)
-			searchOptionsModelCursor.SetLimit(1)
-			searchOptionsModelCursor.SetFields([]string{"crn", "name"})
-			searchOptionsModelCursor.SetSearchCursor(searchCursor)
-
-			resultCursor, detailedResponseCursor, errCursor := service.Search(searchOptionsModelCursor)
-			Expect(errCursor).To(BeNil())
-			Expect(detailedResponseCursor.StatusCode).To(Equal(200))
-			Expect(resultCursor).ToNot(BeNil())
-
-			fmt.Fprintf(GinkgoWriter, "Search w/cursor result 2: %s\n", common.ToJSON(resultCursor))
-
-			Expect(resultCursor.Items).To(HaveLen(1))
-			for _, elem := range resultCursor.Items {
-				Expect(elem.GetProperty("doc")).To(BeNil())
-				Expect(elem.GetProperty("family")).To(BeNil())
-				Expect(elem.GetProperty("name")).NotTo(BeNil())
-				Expect(*elem.Crn).NotTo(BeNil())
-			}
-			secondCrn := *resultCursor.Items[0].Crn
-
-			Expect(firstCrn).NotTo(BeIdenticalTo(secondCrn))
+			Expect(globalSearchService).ToNot(BeNil())
+			Expect(globalSearchService.Service.Options.URL).To(Equal(serviceURL))
 		})
 	})
 
-	Describe("Call GetSupportedTypes", func() {
-
-		It("Successfully list all resources", func() {
+	Describe(`Search - Find instances of resources`, func() {
+		BeforeEach(func() {
 			shouldSkipTest()
+		})
+		It(`Search(searchOptions *SearchOptions)`, func() {
 
-			// Construct an instance of the SearchOptions model
-			supportedTypessModel := service.NewGetSupportedTypesOptions()
+			searchResults := []globalsearchv2.ResultItem{}
 
-			var err error
-			result, detailedResponse, err := service.GetSupportedTypes(supportedTypessModel)
+			// Search for resources 1 item at a time to exercise pagination.
+			var searchCursor *string = nil
+			var limit int64 = 1
+			var moreResults bool = true
+
+			for moreResults {
+				searchOptions := &globalsearchv2.SearchOptions{
+					Query:         &gstQuery,
+					Fields:        []string{"*"},
+					SearchCursor:  searchCursor,
+					TransactionID: &transactionID,
+					Limit:         &limit,
+				}
+
+				scanResult, response, err := globalSearchService.Search(searchOptions)
+				Expect(err).To(BeNil())
+				Expect(response.StatusCode).To(Equal(200))
+				Expect(scanResult).ToNot(BeNil())
+				fmt.Fprintf(GinkgoWriter, "Search() result:\n%s\n", common.ToJSON(scanResult))
+
+				if len(scanResult.Items) > 0 {
+					moreResults = true
+					searchCursor = scanResult.SearchCursor
+					searchResults = append(searchResults, scanResult.Items...)
+				} else {
+					moreResults = false
+				}
+			}
+
+			fmt.Fprintf(GinkgoWriter, "Total results returned by Search(): %d\n", len(searchResults))
+		})
+	})
+
+	Describe(`GetSupportedTypes - Get all supported resource types`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`GetSupportedTypes(getSupportedTypesOptions *GetSupportedTypesOptions)`, func() {
+
+			getSupportedTypesOptions := &globalsearchv2.GetSupportedTypesOptions{}
+
+			supportedTypesList, response, err := globalSearchService.GetSupportedTypes(getSupportedTypesOptions)
+
 			Expect(err).To(BeNil())
-			Expect(detailedResponse.StatusCode).To(Equal(200))
-			Expect(result).ToNot(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(supportedTypesList).ToNot(BeNil())
 
-			fmt.Fprintf(GinkgoWriter, "GetSupportedTypes result: %s\n", common.ToJSON(result))
-
-			Expect(result.SupportedTypes).To(ContainElement("cf-space"))
-			Expect(result.SupportedTypes).NotTo(ContainElement("fake-resource!"))
+			fmt.Fprintf(GinkgoWriter, "GetSupportedTypes() result:\n%s\n", common.ToJSON(supportedTypesList))
 		})
 	})
 })
