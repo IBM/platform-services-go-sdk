@@ -77,6 +77,12 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 				Expect(globalTaggingService).ToNot(BeNil())
 				Expect(serviceErr).To(BeNil())
 				ClearTestEnvironment(testEnvironment)
+
+				clone := globalTaggingService.Clone()
+				Expect(clone).ToNot(BeNil())
+				Expect(clone.Service != globalTaggingService.Service).To(BeTrue())
+				Expect(clone.GetServiceURL()).To(Equal(globalTaggingService.GetServiceURL()))
+				Expect(clone.Service.Options.Authenticator).To(Equal(globalTaggingService.Service.Options.Authenticator))
 			})
 			It(`Create service client using external config and set url from constructor successfully`, func() {
 				SetTestEnvironment(testEnvironment)
@@ -87,6 +93,12 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(globalTaggingService.Service.GetServiceURL()).To(Equal("https://testService/api"))
 				ClearTestEnvironment(testEnvironment)
+
+				clone := globalTaggingService.Clone()
+				Expect(clone).ToNot(BeNil())
+				Expect(clone.Service != globalTaggingService.Service).To(BeTrue())
+				Expect(clone.GetServiceURL()).To(Equal(globalTaggingService.GetServiceURL()))
+				Expect(clone.Service.Options.Authenticator).To(Equal(globalTaggingService.Service.Options.Authenticator))
 			})
 			It(`Create service client using external config and set url programatically successfully`, func() {
 				SetTestEnvironment(testEnvironment)
@@ -98,6 +110,12 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(globalTaggingService.Service.GetServiceURL()).To(Equal("https://testService/api"))
 				ClearTestEnvironment(testEnvironment)
+
+				clone := globalTaggingService.Clone()
+				Expect(clone).ToNot(BeNil())
+				Expect(clone.Service != globalTaggingService.Service).To(BeTrue())
+				Expect(clone.GetServiceURL()).To(Equal(globalTaggingService.GetServiceURL()))
+				Expect(clone.Service.Options.Authenticator).To(Equal(globalTaggingService.Service.Options.Authenticator))
 			})
 		})
 		Context(`Using external config, construct service client instances with error: Invalid Auth`, func() {
@@ -133,6 +151,16 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 				Expect(serviceErr).ToNot(BeNil())
 				ClearTestEnvironment(testEnvironment)
 			})
+		})
+	})
+	Describe(`Regional endpoint tests`, func() {
+		It(`GetServiceURLForRegion(region string)`, func() {
+			var url string
+			var err error
+			url, err = globaltaggingv1.GetServiceURLForRegion("INVALID_REGION")
+			Expect(url).To(BeEmpty())
+			Expect(err).ToNot(BeNil())
+			fmt.Fprintf(GinkgoWriter, "Expected error: %s\n", err.Error())
 		})
 	})
 	Describe(`ListTags(listTagsOptions *ListTagsOptions) - Operation response error`, func() {
