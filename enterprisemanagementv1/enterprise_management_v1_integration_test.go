@@ -494,7 +494,7 @@ var _ = Describe("Enterprise Management - Integration Tests", func() {
 		Expect(err).To(BeNil())
 		Expect(detailedResponse.StatusCode).To(Equal(200))
 
-		crn = *result.Crn
+		crn = *result.CRN
 	})
 
 	It("Successfully Update Account group", func() {

@@ -15,7 +15,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-8d569e8f-20201030-111043
+ * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-629bbb97-20201207-171303
  */
  
 
@@ -108,6 +108,21 @@ func NewEnterpriseManagementV1(options *EnterpriseManagementV1Options) (service 
 	}
 
 	return
+}
+
+// GetServiceURLForRegion returns the service URL to be used for the specified region
+func GetServiceURLForRegion(region string) (string, error) {
+	return "", fmt.Errorf("service does not support regional URLs")
+}
+
+// Clone makes a copy of "enterpriseManagement" suitable for processing requests.
+func (enterpriseManagement *EnterpriseManagementV1) Clone() *EnterpriseManagementV1 {
+	if core.IsNil(enterpriseManagement) {
+		return nil
+	}
+	clone := *enterpriseManagement
+	clone.Service = enterpriseManagement.Service.Clone()
+	return &clone
 }
 
 // SetServiceURL sets the service URL
@@ -482,8 +497,8 @@ func (enterpriseManagement *EnterpriseManagementV1) ImportAccountToEnterpriseWit
 // CreateAccount : Create a new account in an enterprise
 // Create a new account as a part of an existing enterprise. The API creates an account entity under the parent that is
 // specified in the payload of the request. The request also takes in the name and the owner of this new account. The
-// owner must have a valid IBMid that's registered with {{site.data.keyword.cloud_notm}}, but they don't need to be a
-// user in the enterprise account.
+// owner must have a valid IBMid that's registered with IBM Cloud, but they don't need to be a user in the enterprise
+// account.
 func (enterpriseManagement *EnterpriseManagementV1) CreateAccount(createAccountOptions *CreateAccountOptions) (result *CreateAccountResponse, response *core.DetailedResponse, err error) {
 	return enterpriseManagement.CreateAccountWithContext(context.Background(), createAccountOptions)
 }
@@ -1021,7 +1036,7 @@ type Account struct {
 	ID *string `json:"id,omitempty"`
 
 	// The Cloud Resource Name (CRN) of the account.
-	Crn *string `json:"crn,omitempty"`
+	CRN *string `json:"crn,omitempty"`
 
 	// The CRN of the parent of the account.
 	Parent *string `json:"parent,omitempty"`
@@ -1078,7 +1093,7 @@ func UnmarshalAccount(m map[string]json.RawMessage, result interface{}) (err err
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalPrimitive(m, "crn", &obj.Crn)
+	err = core.UnmarshalPrimitive(m, "crn", &obj.CRN)
 	if err != nil {
 		return
 	}
@@ -1151,7 +1166,7 @@ type AccountGroup struct {
 	ID *string `json:"id,omitempty"`
 
 	// The Cloud Resource Name (CRN) of the account group.
-	Crn *string `json:"crn,omitempty"`
+	CRN *string `json:"crn,omitempty"`
 
 	// The CRN of the parent of the account group.
 	Parent *string `json:"parent,omitempty"`
@@ -1202,7 +1217,7 @@ func UnmarshalAccountGroup(m map[string]json.RawMessage, result interface{}) (er
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalPrimitive(m, "crn", &obj.Crn)
+	err = core.UnmarshalPrimitive(m, "crn", &obj.CRN)
 	if err != nil {
 		return
 	}
@@ -1487,7 +1502,7 @@ type Enterprise struct {
 	EnterpriseAccountID *string `json:"enterprise_account_id,omitempty"`
 
 	// The Cloud Resource Name (CRN) of the enterprise.
-	Crn *string `json:"crn,omitempty"`
+	CRN *string `json:"crn,omitempty"`
 
 	// The name of the enterprise.
 	Name *string `json:"name,omitempty"`
@@ -1533,7 +1548,7 @@ func UnmarshalEnterprise(m map[string]json.RawMessage, result interface{}) (err 
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalPrimitive(m, "crn", &obj.Crn)
+	err = core.UnmarshalPrimitive(m, "crn", &obj.CRN)
 	if err != nil {
 		return
 	}
