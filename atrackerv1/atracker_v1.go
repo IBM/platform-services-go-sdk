@@ -15,7 +15,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-629bbb97-20201207-171303
+ * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-d753183b-20201209-145823
  */
  
 
@@ -35,7 +35,7 @@ import (
 
 // AtrackerV1 : IBM Cloud Activity Tracking Service (ATracker Service for short) is an activity tracker configuration
 // service for your application events as well as events from IBM services under your account. It is designed to enable
-// you to route  activity tracker events to your designated Cloud Object Storage location in different regions.
+// you to route activity tracker events to your designated Cloud Object Storage location in different regions.
 //
 // Version: 1.0.0
 type AtrackerV1 struct {
@@ -176,10 +176,10 @@ func (atracker *AtrackerV1) DisableRetries() {
 }
 
 // CreateTarget : Create a Cloud Object Storage target for a region
-// Creates a new Cloud Object Storage (COS) target with specified COS endpoint information and credentials.  Commonly
-// the COS endpoint should be on the same region as ATracker Services where this API is invoked. The  Target definition
-// could only be referenced by the routing rules defined in the same region through the same  API endpoint. If a COS
-// endpoint to be used across multiple regions, you must define a target for each region's API endpoint.
+// Creates a new Cloud Object Storage (COS) target with specified COS endpoint information and credentials. Commonly the
+// COS endpoint should be on the same region as ATracker Services where this API is invoked. The Target definition could
+// only be referenced by the routing rules defined in the same region through the same API endpoint. If a COS endpoint
+// to be used across multiple regions, you must define a target for each region's API endpoint.
 func (atracker *AtrackerV1) CreateTarget(createTargetOptions *CreateTargetOptions) (result *Target, response *core.DetailedResponse, err error) {
 	return atracker.CreateTargetWithContext(context.Background(), createTargetOptions)
 }
@@ -479,7 +479,7 @@ func (atracker *AtrackerV1) DeleteTargetWithContext(ctx context.Context, deleteT
 }
 
 // CreateRoute : Create a Route for the region
-// Creates a route with rules defined how to route AT events to targets for a region.  For each account and region, only
+// Creates a route with rules defined how to route AT events to targets for a region. For each account and region, only
 // one route could be defined. A route could contain multiple rules which enable atracker service to match incoming AT
 // events based on the source crn and forward the events to customer configured targets.
 func (atracker *AtrackerV1) CreateRoute(createRouteOptions *CreateRouteOptions) (result *Route, response *core.DetailedResponse, err error) {
@@ -1358,7 +1358,7 @@ type CosEndpoint struct {
 	Bucket *string `json:"bucket" validate:"required"`
 
 	// The IAM Api key that have writer access to this cos instance. This credential will be masked in the response.
-	ApiKey *string `json:"api_key" validate:"required"`
+	APIKey *string `json:"api_key" validate:"required"`
 }
 
 
@@ -1368,7 +1368,7 @@ func (*AtrackerV1) NewCosEndpoint(endpoint string, targetCRN string, bucket stri
 		Endpoint: core.StringPtr(endpoint),
 		TargetCRN: core.StringPtr(targetCRN),
 		Bucket: core.StringPtr(bucket),
-		ApiKey: core.StringPtr(apiKey),
+		APIKey: core.StringPtr(apiKey),
 	}
 	err = core.ValidateStruct(model, "required parameters")
 	return
@@ -1389,7 +1389,7 @@ func UnmarshalCosEndpoint(m map[string]json.RawMessage, result interface{}) (err
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalPrimitive(m, "api_key", &obj.ApiKey)
+	err = core.UnmarshalPrimitive(m, "api_key", &obj.APIKey)
 	if err != nil {
 		return
 	}

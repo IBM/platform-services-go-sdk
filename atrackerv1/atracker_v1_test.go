@@ -223,7 +223,7 @@ var _ = Describe(`AtrackerV1`, func() {
 				cosEndpointModel.Endpoint = core.StringPtr("s3.private.us-east.cloud-object-storage.appdomain.cloud")
 				cosEndpointModel.TargetCRN = core.StringPtr("crn:v1:bluemix:public:cloud-object-storage:global:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::")
 				cosEndpointModel.Bucket = core.StringPtr("my-atracker-bucket")
-				cosEndpointModel.ApiKey = core.StringPtr("xxxxxxxxxxxxxx")
+				cosEndpointModel.APIKey = core.StringPtr("xxxxxxxxxxxxxx")
 
 				// Construct an instance of the CreateTargetOptions model
 				createTargetOptionsModel := new(atrackerv1.CreateTargetOptions)
@@ -308,7 +308,7 @@ var _ = Describe(`AtrackerV1`, func() {
 				cosEndpointModel.Endpoint = core.StringPtr("s3.private.us-east.cloud-object-storage.appdomain.cloud")
 				cosEndpointModel.TargetCRN = core.StringPtr("crn:v1:bluemix:public:cloud-object-storage:global:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::")
 				cosEndpointModel.Bucket = core.StringPtr("my-atracker-bucket")
-				cosEndpointModel.ApiKey = core.StringPtr("xxxxxxxxxxxxxx")
+				cosEndpointModel.APIKey = core.StringPtr("xxxxxxxxxxxxxx")
 
 				// Construct an instance of the CreateTargetOptions model
 				createTargetOptionsModel := new(atrackerv1.CreateTargetOptions)
@@ -361,7 +361,7 @@ var _ = Describe(`AtrackerV1`, func() {
 				cosEndpointModel.Endpoint = core.StringPtr("s3.private.us-east.cloud-object-storage.appdomain.cloud")
 				cosEndpointModel.TargetCRN = core.StringPtr("crn:v1:bluemix:public:cloud-object-storage:global:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::")
 				cosEndpointModel.Bucket = core.StringPtr("my-atracker-bucket")
-				cosEndpointModel.ApiKey = core.StringPtr("xxxxxxxxxxxxxx")
+				cosEndpointModel.APIKey = core.StringPtr("xxxxxxxxxxxxxx")
 
 				// Construct an instance of the CreateTargetOptions model
 				createTargetOptionsModel := new(atrackerv1.CreateTargetOptions)
@@ -712,7 +712,7 @@ var _ = Describe(`AtrackerV1`, func() {
 				cosEndpointModel.Endpoint = core.StringPtr("s3.private.us-east.cloud-object-storage.appdomain.cloud")
 				cosEndpointModel.TargetCRN = core.StringPtr("crn:v1:bluemix:public:cloud-object-storage:global:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::")
 				cosEndpointModel.Bucket = core.StringPtr("my-atracker-bucket")
-				cosEndpointModel.ApiKey = core.StringPtr("xxxxxxxxxxxxxx")
+				cosEndpointModel.APIKey = core.StringPtr("xxxxxxxxxxxxxx")
 
 				// Construct an instance of the ReplaceTargetOptions model
 				replaceTargetOptionsModel := new(atrackerv1.ReplaceTargetOptions)
@@ -798,7 +798,7 @@ var _ = Describe(`AtrackerV1`, func() {
 				cosEndpointModel.Endpoint = core.StringPtr("s3.private.us-east.cloud-object-storage.appdomain.cloud")
 				cosEndpointModel.TargetCRN = core.StringPtr("crn:v1:bluemix:public:cloud-object-storage:global:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::")
 				cosEndpointModel.Bucket = core.StringPtr("my-atracker-bucket")
-				cosEndpointModel.ApiKey = core.StringPtr("xxxxxxxxxxxxxx")
+				cosEndpointModel.APIKey = core.StringPtr("xxxxxxxxxxxxxx")
 
 				// Construct an instance of the ReplaceTargetOptions model
 				replaceTargetOptionsModel := new(atrackerv1.ReplaceTargetOptions)
@@ -852,7 +852,7 @@ var _ = Describe(`AtrackerV1`, func() {
 				cosEndpointModel.Endpoint = core.StringPtr("s3.private.us-east.cloud-object-storage.appdomain.cloud")
 				cosEndpointModel.TargetCRN = core.StringPtr("crn:v1:bluemix:public:cloud-object-storage:global:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::")
 				cosEndpointModel.Bucket = core.StringPtr("my-atracker-bucket")
-				cosEndpointModel.ApiKey = core.StringPtr("xxxxxxxxxxxxxx")
+				cosEndpointModel.APIKey = core.StringPtr("xxxxxxxxxxxxxx")
 
 				// Construct an instance of the ReplaceTargetOptions model
 				replaceTargetOptionsModel := new(atrackerv1.ReplaceTargetOptions)
@@ -1898,11 +1898,11 @@ var _ = Describe(`AtrackerV1`, func() {
 				cosEndpointModel.Endpoint = core.StringPtr("s3.private.us-east.cloud-object-storage.appdomain.cloud")
 				cosEndpointModel.TargetCRN = core.StringPtr("crn:v1:bluemix:public:cloud-object-storage:global:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::")
 				cosEndpointModel.Bucket = core.StringPtr("my-atracker-bucket")
-				cosEndpointModel.ApiKey = core.StringPtr("xxxxxxxxxxxxxx")
+				cosEndpointModel.APIKey = core.StringPtr("xxxxxxxxxxxxxx")
 				Expect(cosEndpointModel.Endpoint).To(Equal(core.StringPtr("s3.private.us-east.cloud-object-storage.appdomain.cloud")))
 				Expect(cosEndpointModel.TargetCRN).To(Equal(core.StringPtr("crn:v1:bluemix:public:cloud-object-storage:global:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::")))
 				Expect(cosEndpointModel.Bucket).To(Equal(core.StringPtr("my-atracker-bucket")))
-				Expect(cosEndpointModel.ApiKey).To(Equal(core.StringPtr("xxxxxxxxxxxxxx")))
+				Expect(cosEndpointModel.APIKey).To(Equal(core.StringPtr("xxxxxxxxxxxxxx")))
 
 				// Construct an instance of the CreateTargetOptions model
 				createTargetOptionsName := "my-cos-target"
@@ -2005,11 +2005,11 @@ var _ = Describe(`AtrackerV1`, func() {
 				cosEndpointModel.Endpoint = core.StringPtr("s3.private.us-east.cloud-object-storage.appdomain.cloud")
 				cosEndpointModel.TargetCRN = core.StringPtr("crn:v1:bluemix:public:cloud-object-storage:global:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::")
 				cosEndpointModel.Bucket = core.StringPtr("my-atracker-bucket")
-				cosEndpointModel.ApiKey = core.StringPtr("xxxxxxxxxxxxxx")
+				cosEndpointModel.APIKey = core.StringPtr("xxxxxxxxxxxxxx")
 				Expect(cosEndpointModel.Endpoint).To(Equal(core.StringPtr("s3.private.us-east.cloud-object-storage.appdomain.cloud")))
 				Expect(cosEndpointModel.TargetCRN).To(Equal(core.StringPtr("crn:v1:bluemix:public:cloud-object-storage:global:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::")))
 				Expect(cosEndpointModel.Bucket).To(Equal(core.StringPtr("my-atracker-bucket")))
-				Expect(cosEndpointModel.ApiKey).To(Equal(core.StringPtr("xxxxxxxxxxxxxx")))
+				Expect(cosEndpointModel.APIKey).To(Equal(core.StringPtr("xxxxxxxxxxxxxx")))
 
 				// Construct an instance of the ReplaceTargetOptions model
 				id := "testString"
