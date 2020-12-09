@@ -77,6 +77,12 @@ var _ = Describe(`GlobalSearchV2`, func() {
 				Expect(globalSearchService).ToNot(BeNil())
 				Expect(serviceErr).To(BeNil())
 				ClearTestEnvironment(testEnvironment)
+
+				clone := globalSearchService.Clone()
+				Expect(clone).ToNot(BeNil())
+				Expect(clone.Service != globalSearchService.Service).To(BeTrue())
+				Expect(clone.GetServiceURL()).To(Equal(globalSearchService.GetServiceURL()))
+				Expect(clone.Service.Options.Authenticator).To(Equal(globalSearchService.Service.Options.Authenticator))
 			})
 			It(`Create service client using external config and set url from constructor successfully`, func() {
 				SetTestEnvironment(testEnvironment)
@@ -87,6 +93,12 @@ var _ = Describe(`GlobalSearchV2`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(globalSearchService.Service.GetServiceURL()).To(Equal("https://testService/api"))
 				ClearTestEnvironment(testEnvironment)
+
+				clone := globalSearchService.Clone()
+				Expect(clone).ToNot(BeNil())
+				Expect(clone.Service != globalSearchService.Service).To(BeTrue())
+				Expect(clone.GetServiceURL()).To(Equal(globalSearchService.GetServiceURL()))
+				Expect(clone.Service.Options.Authenticator).To(Equal(globalSearchService.Service.Options.Authenticator))
 			})
 			It(`Create service client using external config and set url programatically successfully`, func() {
 				SetTestEnvironment(testEnvironment)
@@ -98,6 +110,12 @@ var _ = Describe(`GlobalSearchV2`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(globalSearchService.Service.GetServiceURL()).To(Equal("https://testService/api"))
 				ClearTestEnvironment(testEnvironment)
+
+				clone := globalSearchService.Clone()
+				Expect(clone).ToNot(BeNil())
+				Expect(clone.Service != globalSearchService.Service).To(BeTrue())
+				Expect(clone.GetServiceURL()).To(Equal(globalSearchService.GetServiceURL()))
+				Expect(clone.Service.Options.Authenticator).To(Equal(globalSearchService.Service.Options.Authenticator))
 			})
 		})
 		Context(`Using external config, construct service client instances with error: Invalid Auth`, func() {
@@ -133,6 +151,16 @@ var _ = Describe(`GlobalSearchV2`, func() {
 				Expect(serviceErr).ToNot(BeNil())
 				ClearTestEnvironment(testEnvironment)
 			})
+		})
+	})
+	Describe(`Regional endpoint tests`, func() {
+		It(`GetServiceURLForRegion(region string)`, func() {
+			var url string
+			var err error
+			url, err = globalsearchv2.GetServiceURLForRegion("INVALID_REGION")
+			Expect(url).To(BeEmpty())
+			Expect(err).ToNot(BeNil())
+			fmt.Fprintf(GinkgoWriter, "Expected error: %s\n", err.Error())
 		})
 	})
 	Describe(`Search(searchOptions *SearchOptions) - Operation response error`, func() {
@@ -239,7 +267,7 @@ var _ = Describe(`GlobalSearchV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"search_cursor": "SearchCursor", "limit": 5, "items": [{"crn": "Crn"}]}`)
+					fmt.Fprintf(res, "%s", `{"search_cursor": "SearchCursor", "limit": 5, "items": [{"crn": "CRN"}]}`)
 				}))
 			})
 			It(`Invoke Search successfully`, func() {
@@ -375,6 +403,12 @@ var _ = Describe(`GlobalSearchV2`, func() {
 				Expect(globalSearchService).ToNot(BeNil())
 				Expect(serviceErr).To(BeNil())
 				ClearTestEnvironment(testEnvironment)
+
+				clone := globalSearchService.Clone()
+				Expect(clone).ToNot(BeNil())
+				Expect(clone.Service != globalSearchService.Service).To(BeTrue())
+				Expect(clone.GetServiceURL()).To(Equal(globalSearchService.GetServiceURL()))
+				Expect(clone.Service.Options.Authenticator).To(Equal(globalSearchService.Service.Options.Authenticator))
 			})
 			It(`Create service client using external config and set url from constructor successfully`, func() {
 				SetTestEnvironment(testEnvironment)
@@ -385,6 +419,12 @@ var _ = Describe(`GlobalSearchV2`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(globalSearchService.Service.GetServiceURL()).To(Equal("https://testService/api"))
 				ClearTestEnvironment(testEnvironment)
+
+				clone := globalSearchService.Clone()
+				Expect(clone).ToNot(BeNil())
+				Expect(clone.Service != globalSearchService.Service).To(BeTrue())
+				Expect(clone.GetServiceURL()).To(Equal(globalSearchService.GetServiceURL()))
+				Expect(clone.Service.Options.Authenticator).To(Equal(globalSearchService.Service.Options.Authenticator))
 			})
 			It(`Create service client using external config and set url programatically successfully`, func() {
 				SetTestEnvironment(testEnvironment)
@@ -396,6 +436,12 @@ var _ = Describe(`GlobalSearchV2`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(globalSearchService.Service.GetServiceURL()).To(Equal("https://testService/api"))
 				ClearTestEnvironment(testEnvironment)
+
+				clone := globalSearchService.Clone()
+				Expect(clone).ToNot(BeNil())
+				Expect(clone.Service != globalSearchService.Service).To(BeTrue())
+				Expect(clone.GetServiceURL()).To(Equal(globalSearchService.GetServiceURL()))
+				Expect(clone.Service.Options.Authenticator).To(Equal(globalSearchService.Service.Options.Authenticator))
 			})
 		})
 		Context(`Using external config, construct service client instances with error: Invalid Auth`, func() {
@@ -431,6 +477,16 @@ var _ = Describe(`GlobalSearchV2`, func() {
 				Expect(serviceErr).ToNot(BeNil())
 				ClearTestEnvironment(testEnvironment)
 			})
+		})
+	})
+	Describe(`Regional endpoint tests`, func() {
+		It(`GetServiceURLForRegion(region string)`, func() {
+			var url string
+			var err error
+			url, err = globalsearchv2.GetServiceURLForRegion("INVALID_REGION")
+			Expect(url).To(BeEmpty())
+			Expect(err).ToNot(BeNil())
+			fmt.Fprintf(GinkgoWriter, "Expected error: %s\n", err.Error())
 		})
 	})
 	Describe(`GetSupportedTypes(getSupportedTypesOptions *GetSupportedTypesOptions) - Operation response error`, func() {

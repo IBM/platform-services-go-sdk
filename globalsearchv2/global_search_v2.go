@@ -15,7 +15,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-8d569e8f-20201030-111043
+ * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-d753183b-20201209-163011
  */
  
 
@@ -115,6 +115,21 @@ func NewGlobalSearchV2(options *GlobalSearchV2Options) (service *GlobalSearchV2,
 	return
 }
 
+// GetServiceURLForRegion returns the service URL to be used for the specified region
+func GetServiceURLForRegion(region string) (string, error) {
+	return "", fmt.Errorf("service does not support regional URLs")
+}
+
+// Clone makes a copy of "globalSearch" suitable for processing requests.
+func (globalSearch *GlobalSearchV2) Clone() *GlobalSearchV2 {
+	if core.IsNil(globalSearch) {
+		return nil
+	}
+	clone := *globalSearch
+	clone.Service = globalSearch.Service.Clone()
+	return &clone
+}
+
 // SetServiceURL sets the service URL
 func (globalSearch *GlobalSearchV2) SetServiceURL(url string) error {
 	return globalSearch.Service.SetServiceURL(url)
@@ -152,7 +167,7 @@ func (globalSearch *GlobalSearchV2) DisableRetries() {
 }
 
 // Search : Find instances of resources
-// 'Find cloud foundry resources, resource controlled enabled resources, or storage and network resources running on
+// Find cloud foundry resources, resource controller-enabled resources, or storage and network resources running on
 // classic infrastructure in a specific account ID. You can apply query strings if necessary. To filter results, you can
 // insert a string using the Lucene syntax and the query string is parsed into a series of terms and operators. A term
 // can be a single word or a phrase, in which case the search is performed for all the words, in the same order. To
@@ -162,7 +177,7 @@ func (globalSearch *GlobalSearchV2) DisableRetries() {
 // through such a big number. On the first call, the operation returns a live cursor on the data that you must use on
 // all the subsequent calls to get the next batch of results until you get the empty result set. By default, the fields
 // returned for every resources are: "crn", "name", "family", "type", "account_id". You can specify the subset of the
-// fields you want in your request.''.
+// fields you want in your request.
 func (globalSearch *GlobalSearchV2) Search(searchOptions *SearchOptions) (result *ScanResult, response *core.DetailedResponse, err error) {
 	return globalSearch.SearchWithContext(context.Background(), searchOptions)
 }
@@ -318,7 +333,7 @@ func (options *GetSupportedTypesOptions) SetHeaders(param map[string]string) *Ge
 // ResultItem : A resource returned in a search result.
 type ResultItem struct {
 	// Resource identifier in CRN format.
-	Crn *string `json:"crn,omitempty"`
+	CRN *string `json:"crn,omitempty"`
 
 	// Allows users to set arbitrary properties
 	additionalProperties map[string]interface{}
@@ -351,8 +366,8 @@ func (o *ResultItem) MarshalJSON() (buffer []byte, err error) {
 			m[k] = v
 		}
 	}
-	if o.Crn != nil {
-		m["crn"] = o.Crn
+	if o.CRN != nil {
+		m["crn"] = o.CRN
 	}
 	buffer, err = json.Marshal(m)
 	return
@@ -361,7 +376,7 @@ func (o *ResultItem) MarshalJSON() (buffer []byte, err error) {
 // UnmarshalResultItem unmarshals an instance of ResultItem from the specified map of raw messages.
 func UnmarshalResultItem(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(ResultItem)
-	err = core.UnmarshalPrimitive(m, "crn", &obj.Crn)
+	err = core.UnmarshalPrimitive(m, "crn", &obj.CRN)
 	if err != nil {
 		return
 	}
@@ -385,7 +400,7 @@ type ScanResult struct {
 	SearchCursor *string `json:"search_cursor" validate:"required"`
 
 	// Value of the limit parameter specified by the user.
-	Limit *float64 `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 
 	// The array of results. Each item represents a resource. An empty array signals the end of the result set, there are
 	// no more hits to fetch.
