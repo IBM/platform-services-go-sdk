@@ -15,7 +15,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-8d569e8f-20201101-090040
+ * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-629bbb97-20201207-171303
  */
  
 
@@ -106,6 +106,21 @@ func NewEnterpriseUsageReportsV1(options *EnterpriseUsageReportsV1Options) (serv
 	}
 
 	return
+}
+
+// GetServiceURLForRegion returns the service URL to be used for the specified region
+func GetServiceURLForRegion(region string) (string, error) {
+	return "", fmt.Errorf("service does not support regional URLs")
+}
+
+// Clone makes a copy of "enterpriseUsageReports" suitable for processing requests.
+func (enterpriseUsageReports *EnterpriseUsageReportsV1) Clone() *EnterpriseUsageReportsV1 {
+	if core.IsNil(enterpriseUsageReports) {
+		return nil
+	}
+	clone := *enterpriseUsageReports
+	clone.Service = enterpriseUsageReports.Service.Clone()
+	return &clone
 }
 
 // SetServiceURL sets the service URL
@@ -555,7 +570,7 @@ type ResourceUsageReport struct {
 	EntityType *string `json:"entity_type" validate:"required"`
 
 	// The Cloud Resource Name (CRN) of the entity towards which the resource usages were rolled up.
-	EntityCrn *string `json:"entity_crn" validate:"required"`
+	EntityCRN *string `json:"entity_crn" validate:"required"`
 
 	// A user-defined name for the entity, such as the enterprise name or account group name.
 	EntityName *string `json:"entity_name" validate:"required"`
@@ -564,7 +579,7 @@ type ResourceUsageReport struct {
 	BillingUnitID *string `json:"billing_unit_id" validate:"required"`
 
 	// The CRN of the billing unit.
-	BillingUnitCrn *string `json:"billing_unit_crn" validate:"required"`
+	BillingUnitCRN *string `json:"billing_unit_crn" validate:"required"`
 
 	// The name of the billing unit.
 	BillingUnitName *string `json:"billing_unit_name" validate:"required"`
@@ -597,9 +612,9 @@ type ResourceUsageReport struct {
 // Constants associated with the ResourceUsageReport.EntityType property.
 // The entity type.
 const (
-	ResourceUsageReport_EntityType_Account = "account"
-	ResourceUsageReport_EntityType_AccountGroup = "account-group"
-	ResourceUsageReport_EntityType_Enterprise = "enterprise"
+	ResourceUsageReportEntityTypeAccountConst = "account"
+	ResourceUsageReportEntityTypeAccountGroupConst = "account-group"
+	ResourceUsageReportEntityTypeEnterpriseConst = "enterprise"
 )
 
 
@@ -614,7 +629,7 @@ func UnmarshalResourceUsageReport(m map[string]json.RawMessage, result interface
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalPrimitive(m, "entity_crn", &obj.EntityCrn)
+	err = core.UnmarshalPrimitive(m, "entity_crn", &obj.EntityCRN)
 	if err != nil {
 		return
 	}
@@ -626,7 +641,7 @@ func UnmarshalResourceUsageReport(m map[string]json.RawMessage, result interface
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalPrimitive(m, "billing_unit_crn", &obj.BillingUnitCrn)
+	err = core.UnmarshalPrimitive(m, "billing_unit_crn", &obj.BillingUnitCRN)
 	if err != nil {
 		return
 	}

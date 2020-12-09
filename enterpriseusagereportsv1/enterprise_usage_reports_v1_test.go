@@ -77,6 +77,12 @@ var _ = Describe(`EnterpriseUsageReportsV1`, func() {
 				Expect(enterpriseUsageReportsService).ToNot(BeNil())
 				Expect(serviceErr).To(BeNil())
 				ClearTestEnvironment(testEnvironment)
+
+				clone := enterpriseUsageReportsService.Clone()
+				Expect(clone).ToNot(BeNil())
+				Expect(clone.Service != enterpriseUsageReportsService.Service).To(BeTrue())
+				Expect(clone.GetServiceURL()).To(Equal(enterpriseUsageReportsService.GetServiceURL()))
+				Expect(clone.Service.Options.Authenticator).To(Equal(enterpriseUsageReportsService.Service.Options.Authenticator))
 			})
 			It(`Create service client using external config and set url from constructor successfully`, func() {
 				SetTestEnvironment(testEnvironment)
@@ -87,6 +93,12 @@ var _ = Describe(`EnterpriseUsageReportsV1`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(enterpriseUsageReportsService.Service.GetServiceURL()).To(Equal("https://testService/api"))
 				ClearTestEnvironment(testEnvironment)
+
+				clone := enterpriseUsageReportsService.Clone()
+				Expect(clone).ToNot(BeNil())
+				Expect(clone.Service != enterpriseUsageReportsService.Service).To(BeTrue())
+				Expect(clone.GetServiceURL()).To(Equal(enterpriseUsageReportsService.GetServiceURL()))
+				Expect(clone.Service.Options.Authenticator).To(Equal(enterpriseUsageReportsService.Service.Options.Authenticator))
 			})
 			It(`Create service client using external config and set url programatically successfully`, func() {
 				SetTestEnvironment(testEnvironment)
@@ -98,6 +110,12 @@ var _ = Describe(`EnterpriseUsageReportsV1`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(enterpriseUsageReportsService.Service.GetServiceURL()).To(Equal("https://testService/api"))
 				ClearTestEnvironment(testEnvironment)
+
+				clone := enterpriseUsageReportsService.Clone()
+				Expect(clone).ToNot(BeNil())
+				Expect(clone.Service != enterpriseUsageReportsService.Service).To(BeTrue())
+				Expect(clone.GetServiceURL()).To(Equal(enterpriseUsageReportsService.GetServiceURL()))
+				Expect(clone.Service.Options.Authenticator).To(Equal(enterpriseUsageReportsService.Service.Options.Authenticator))
 			})
 		})
 		Context(`Using external config, construct service client instances with error: Invalid Auth`, func() {
@@ -133,6 +151,16 @@ var _ = Describe(`EnterpriseUsageReportsV1`, func() {
 				Expect(serviceErr).ToNot(BeNil())
 				ClearTestEnvironment(testEnvironment)
 			})
+		})
+	})
+	Describe(`Regional endpoint tests`, func() {
+		It(`GetServiceURLForRegion(region string)`, func() {
+			var url string
+			var err error
+			url, err = enterpriseusagereportsv1.GetServiceURLForRegion("INVALID_REGION")
+			Expect(url).To(BeEmpty())
+			Expect(err).ToNot(BeNil())
+			fmt.Fprintf(GinkgoWriter, "Expected error: %s\n", err.Error())
 		})
 	})
 	Describe(`GetResourceUsageReport(getResourceUsageReportOptions *GetResourceUsageReportOptions) - Operation response error`, func() {
