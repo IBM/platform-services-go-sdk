@@ -77,6 +77,12 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 				Expect(enterpriseManagementService).ToNot(BeNil())
 				Expect(serviceErr).To(BeNil())
 				ClearTestEnvironment(testEnvironment)
+
+				clone := enterpriseManagementService.Clone()
+				Expect(clone).ToNot(BeNil())
+				Expect(clone.Service != enterpriseManagementService.Service).To(BeTrue())
+				Expect(clone.GetServiceURL()).To(Equal(enterpriseManagementService.GetServiceURL()))
+				Expect(clone.Service.Options.Authenticator).To(Equal(enterpriseManagementService.Service.Options.Authenticator))
 			})
 			It(`Create service client using external config and set url from constructor successfully`, func() {
 				SetTestEnvironment(testEnvironment)
@@ -87,6 +93,12 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(enterpriseManagementService.Service.GetServiceURL()).To(Equal("https://testService/api"))
 				ClearTestEnvironment(testEnvironment)
+
+				clone := enterpriseManagementService.Clone()
+				Expect(clone).ToNot(BeNil())
+				Expect(clone.Service != enterpriseManagementService.Service).To(BeTrue())
+				Expect(clone.GetServiceURL()).To(Equal(enterpriseManagementService.GetServiceURL()))
+				Expect(clone.Service.Options.Authenticator).To(Equal(enterpriseManagementService.Service.Options.Authenticator))
 			})
 			It(`Create service client using external config and set url programatically successfully`, func() {
 				SetTestEnvironment(testEnvironment)
@@ -98,6 +110,12 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(enterpriseManagementService.Service.GetServiceURL()).To(Equal("https://testService/api"))
 				ClearTestEnvironment(testEnvironment)
+
+				clone := enterpriseManagementService.Clone()
+				Expect(clone).ToNot(BeNil())
+				Expect(clone.Service != enterpriseManagementService.Service).To(BeTrue())
+				Expect(clone.GetServiceURL()).To(Equal(enterpriseManagementService.GetServiceURL()))
+				Expect(clone.Service.Options.Authenticator).To(Equal(enterpriseManagementService.Service.Options.Authenticator))
 			})
 		})
 		Context(`Using external config, construct service client instances with error: Invalid Auth`, func() {
@@ -133,6 +151,16 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 				Expect(serviceErr).ToNot(BeNil())
 				ClearTestEnvironment(testEnvironment)
 			})
+		})
+	})
+	Describe(`Regional endpoint tests`, func() {
+		It(`GetServiceURLForRegion(region string)`, func() {
+			var url string
+			var err error
+			url, err = enterprisemanagementv1.GetServiceURLForRegion("INVALID_REGION")
+			Expect(url).To(BeEmpty())
+			Expect(err).ToNot(BeNil())
+			fmt.Fprintf(GinkgoWriter, "Expected error: %s\n", err.Error())
 		})
 	})
 	Describe(`CreateAccountGroup(createAccountGroupOptions *CreateAccountGroupOptions) - Operation response error`, func() {
@@ -393,7 +421,7 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"rows_count": 9, "next_url": "NextURL", "resources": [{"url": "URL", "id": "ID", "crn": "Crn", "parent": "Parent", "enterprise_account_id": "EnterpriseAccountID", "enterprise_id": "EnterpriseID", "enterprise_path": "EnterprisePath", "name": "Name", "state": "State", "primary_contact_iam_id": "PrimaryContactIamID", "primary_contact_email": "PrimaryContactEmail", "created_at": "2019-01-01T12:00:00", "created_by": "CreatedBy", "updated_at": "2019-01-01T12:00:00", "updated_by": "UpdatedBy"}]}`)
+					fmt.Fprintf(res, "%s", `{"rows_count": 9, "next_url": "NextURL", "resources": [{"url": "URL", "id": "ID", "crn": "CRN", "parent": "Parent", "enterprise_account_id": "EnterpriseAccountID", "enterprise_id": "EnterpriseID", "enterprise_path": "EnterprisePath", "name": "Name", "state": "State", "primary_contact_iam_id": "PrimaryContactIamID", "primary_contact_email": "PrimaryContactEmail", "created_at": "2019-01-01T12:00:00", "created_by": "CreatedBy", "updated_at": "2019-01-01T12:00:00", "updated_by": "UpdatedBy"}]}`)
 				}))
 			})
 			It(`Invoke ListAccountGroups successfully`, func() {
@@ -544,7 +572,7 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"url": "URL", "id": "ID", "crn": "Crn", "parent": "Parent", "enterprise_account_id": "EnterpriseAccountID", "enterprise_id": "EnterpriseID", "enterprise_path": "EnterprisePath", "name": "Name", "state": "State", "primary_contact_iam_id": "PrimaryContactIamID", "primary_contact_email": "PrimaryContactEmail", "created_at": "2019-01-01T12:00:00", "created_by": "CreatedBy", "updated_at": "2019-01-01T12:00:00", "updated_by": "UpdatedBy"}`)
+					fmt.Fprintf(res, "%s", `{"url": "URL", "id": "ID", "crn": "CRN", "parent": "Parent", "enterprise_account_id": "EnterpriseAccountID", "enterprise_id": "EnterpriseID", "enterprise_path": "EnterprisePath", "name": "Name", "state": "State", "primary_contact_iam_id": "PrimaryContactIamID", "primary_contact_email": "PrimaryContactEmail", "created_at": "2019-01-01T12:00:00", "created_by": "CreatedBy", "updated_at": "2019-01-01T12:00:00", "updated_by": "UpdatedBy"}`)
 				}))
 			})
 			It(`Invoke GetAccountGroup successfully`, func() {
@@ -769,6 +797,12 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 				Expect(enterpriseManagementService).ToNot(BeNil())
 				Expect(serviceErr).To(BeNil())
 				ClearTestEnvironment(testEnvironment)
+
+				clone := enterpriseManagementService.Clone()
+				Expect(clone).ToNot(BeNil())
+				Expect(clone.Service != enterpriseManagementService.Service).To(BeTrue())
+				Expect(clone.GetServiceURL()).To(Equal(enterpriseManagementService.GetServiceURL()))
+				Expect(clone.Service.Options.Authenticator).To(Equal(enterpriseManagementService.Service.Options.Authenticator))
 			})
 			It(`Create service client using external config and set url from constructor successfully`, func() {
 				SetTestEnvironment(testEnvironment)
@@ -779,6 +813,12 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(enterpriseManagementService.Service.GetServiceURL()).To(Equal("https://testService/api"))
 				ClearTestEnvironment(testEnvironment)
+
+				clone := enterpriseManagementService.Clone()
+				Expect(clone).ToNot(BeNil())
+				Expect(clone.Service != enterpriseManagementService.Service).To(BeTrue())
+				Expect(clone.GetServiceURL()).To(Equal(enterpriseManagementService.GetServiceURL()))
+				Expect(clone.Service.Options.Authenticator).To(Equal(enterpriseManagementService.Service.Options.Authenticator))
 			})
 			It(`Create service client using external config and set url programatically successfully`, func() {
 				SetTestEnvironment(testEnvironment)
@@ -790,6 +830,12 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(enterpriseManagementService.Service.GetServiceURL()).To(Equal("https://testService/api"))
 				ClearTestEnvironment(testEnvironment)
+
+				clone := enterpriseManagementService.Clone()
+				Expect(clone).ToNot(BeNil())
+				Expect(clone.Service != enterpriseManagementService.Service).To(BeTrue())
+				Expect(clone.GetServiceURL()).To(Equal(enterpriseManagementService.GetServiceURL()))
+				Expect(clone.Service.Options.Authenticator).To(Equal(enterpriseManagementService.Service.Options.Authenticator))
 			})
 		})
 		Context(`Using external config, construct service client instances with error: Invalid Auth`, func() {
@@ -825,6 +871,16 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 				Expect(serviceErr).ToNot(BeNil())
 				ClearTestEnvironment(testEnvironment)
 			})
+		})
+	})
+	Describe(`Regional endpoint tests`, func() {
+		It(`GetServiceURLForRegion(region string)`, func() {
+			var url string
+			var err error
+			url, err = enterprisemanagementv1.GetServiceURLForRegion("INVALID_REGION")
+			Expect(url).To(BeEmpty())
+			Expect(err).ToNot(BeNil())
+			fmt.Fprintf(GinkgoWriter, "Expected error: %s\n", err.Error())
 		})
 	})
 
@@ -1183,7 +1239,7 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"rows_count": 9, "next_url": "NextURL", "resources": [{"url": "URL", "id": "ID", "crn": "Crn", "parent": "Parent", "enterprise_account_id": "EnterpriseAccountID", "enterprise_id": "EnterpriseID", "enterprise_path": "EnterprisePath", "name": "Name", "state": "State", "owner_iam_id": "OwnerIamID", "paid": true, "owner_email": "OwnerEmail", "is_enterprise_account": false, "created_at": "2019-01-01T12:00:00", "created_by": "CreatedBy", "updated_at": "2019-01-01T12:00:00", "updated_by": "UpdatedBy"}]}`)
+					fmt.Fprintf(res, "%s", `{"rows_count": 9, "next_url": "NextURL", "resources": [{"url": "URL", "id": "ID", "crn": "CRN", "parent": "Parent", "enterprise_account_id": "EnterpriseAccountID", "enterprise_id": "EnterpriseID", "enterprise_path": "EnterprisePath", "name": "Name", "state": "State", "owner_iam_id": "OwnerIamID", "paid": true, "owner_email": "OwnerEmail", "is_enterprise_account": false, "created_at": "2019-01-01T12:00:00", "created_by": "CreatedBy", "updated_at": "2019-01-01T12:00:00", "updated_by": "UpdatedBy"}]}`)
 				}))
 			})
 			It(`Invoke ListAccounts successfully`, func() {
@@ -1334,7 +1390,7 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"url": "URL", "id": "ID", "crn": "Crn", "parent": "Parent", "enterprise_account_id": "EnterpriseAccountID", "enterprise_id": "EnterpriseID", "enterprise_path": "EnterprisePath", "name": "Name", "state": "State", "owner_iam_id": "OwnerIamID", "paid": true, "owner_email": "OwnerEmail", "is_enterprise_account": false, "created_at": "2019-01-01T12:00:00", "created_by": "CreatedBy", "updated_at": "2019-01-01T12:00:00", "updated_by": "UpdatedBy"}`)
+					fmt.Fprintf(res, "%s", `{"url": "URL", "id": "ID", "crn": "CRN", "parent": "Parent", "enterprise_account_id": "EnterpriseAccountID", "enterprise_id": "EnterpriseID", "enterprise_path": "EnterprisePath", "name": "Name", "state": "State", "owner_iam_id": "OwnerIamID", "paid": true, "owner_email": "OwnerEmail", "is_enterprise_account": false, "created_at": "2019-01-01T12:00:00", "created_by": "CreatedBy", "updated_at": "2019-01-01T12:00:00", "updated_by": "UpdatedBy"}`)
 				}))
 			})
 			It(`Invoke GetAccount successfully`, func() {
@@ -1557,6 +1613,12 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 				Expect(enterpriseManagementService).ToNot(BeNil())
 				Expect(serviceErr).To(BeNil())
 				ClearTestEnvironment(testEnvironment)
+
+				clone := enterpriseManagementService.Clone()
+				Expect(clone).ToNot(BeNil())
+				Expect(clone.Service != enterpriseManagementService.Service).To(BeTrue())
+				Expect(clone.GetServiceURL()).To(Equal(enterpriseManagementService.GetServiceURL()))
+				Expect(clone.Service.Options.Authenticator).To(Equal(enterpriseManagementService.Service.Options.Authenticator))
 			})
 			It(`Create service client using external config and set url from constructor successfully`, func() {
 				SetTestEnvironment(testEnvironment)
@@ -1567,6 +1629,12 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(enterpriseManagementService.Service.GetServiceURL()).To(Equal("https://testService/api"))
 				ClearTestEnvironment(testEnvironment)
+
+				clone := enterpriseManagementService.Clone()
+				Expect(clone).ToNot(BeNil())
+				Expect(clone.Service != enterpriseManagementService.Service).To(BeTrue())
+				Expect(clone.GetServiceURL()).To(Equal(enterpriseManagementService.GetServiceURL()))
+				Expect(clone.Service.Options.Authenticator).To(Equal(enterpriseManagementService.Service.Options.Authenticator))
 			})
 			It(`Create service client using external config and set url programatically successfully`, func() {
 				SetTestEnvironment(testEnvironment)
@@ -1578,6 +1646,12 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(enterpriseManagementService.Service.GetServiceURL()).To(Equal("https://testService/api"))
 				ClearTestEnvironment(testEnvironment)
+
+				clone := enterpriseManagementService.Clone()
+				Expect(clone).ToNot(BeNil())
+				Expect(clone.Service != enterpriseManagementService.Service).To(BeTrue())
+				Expect(clone.GetServiceURL()).To(Equal(enterpriseManagementService.GetServiceURL()))
+				Expect(clone.Service.Options.Authenticator).To(Equal(enterpriseManagementService.Service.Options.Authenticator))
 			})
 		})
 		Context(`Using external config, construct service client instances with error: Invalid Auth`, func() {
@@ -1613,6 +1687,16 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 				Expect(serviceErr).ToNot(BeNil())
 				ClearTestEnvironment(testEnvironment)
 			})
+		})
+	})
+	Describe(`Regional endpoint tests`, func() {
+		It(`GetServiceURLForRegion(region string)`, func() {
+			var url string
+			var err error
+			url, err = enterprisemanagementv1.GetServiceURLForRegion("INVALID_REGION")
+			Expect(url).To(BeEmpty())
+			Expect(err).ToNot(BeNil())
+			fmt.Fprintf(GinkgoWriter, "Expected error: %s\n", err.Error())
 		})
 	})
 	Describe(`CreateEnterprise(createEnterpriseOptions *CreateEnterpriseOptions) - Operation response error`, func() {
@@ -1876,7 +1960,7 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"rows_count": 9, "next_url": "NextURL", "resources": [{"url": "URL", "id": "ID", "enterprise_account_id": "EnterpriseAccountID", "crn": "Crn", "name": "Name", "domain": "Domain", "state": "State", "primary_contact_iam_id": "PrimaryContactIamID", "primary_contact_email": "PrimaryContactEmail", "created_at": "2019-01-01T12:00:00", "created_by": "CreatedBy", "updated_at": "2019-01-01T12:00:00", "updated_by": "UpdatedBy"}]}`)
+					fmt.Fprintf(res, "%s", `{"rows_count": 9, "next_url": "NextURL", "resources": [{"url": "URL", "id": "ID", "enterprise_account_id": "EnterpriseAccountID", "crn": "CRN", "name": "Name", "domain": "Domain", "state": "State", "primary_contact_iam_id": "PrimaryContactIamID", "primary_contact_email": "PrimaryContactEmail", "created_at": "2019-01-01T12:00:00", "created_by": "CreatedBy", "updated_at": "2019-01-01T12:00:00", "updated_by": "UpdatedBy"}]}`)
 				}))
 			})
 			It(`Invoke ListEnterprises successfully`, func() {
@@ -2027,7 +2111,7 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"url": "URL", "id": "ID", "enterprise_account_id": "EnterpriseAccountID", "crn": "Crn", "name": "Name", "domain": "Domain", "state": "State", "primary_contact_iam_id": "PrimaryContactIamID", "primary_contact_email": "PrimaryContactEmail", "created_at": "2019-01-01T12:00:00", "created_by": "CreatedBy", "updated_at": "2019-01-01T12:00:00", "updated_by": "UpdatedBy"}`)
+					fmt.Fprintf(res, "%s", `{"url": "URL", "id": "ID", "enterprise_account_id": "EnterpriseAccountID", "crn": "CRN", "name": "Name", "domain": "Domain", "state": "State", "primary_contact_iam_id": "PrimaryContactIamID", "primary_contact_email": "PrimaryContactEmail", "created_at": "2019-01-01T12:00:00", "created_by": "CreatedBy", "updated_at": "2019-01-01T12:00:00", "updated_by": "UpdatedBy"}`)
 				}))
 			})
 			It(`Invoke GetEnterprise successfully`, func() {
