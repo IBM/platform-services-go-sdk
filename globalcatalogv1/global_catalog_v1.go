@@ -15,7 +15,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-ef9b3113-20201118-074613
+ * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-629bbb97-20201207-171303
  */
  
 
@@ -113,6 +113,21 @@ func NewGlobalCatalogV1(options *GlobalCatalogV1Options) (service *GlobalCatalog
 	}
 
 	return
+}
+
+// GetServiceURLForRegion returns the service URL to be used for the specified region
+func GetServiceURLForRegion(region string) (string, error) {
+	return "", fmt.Errorf("service does not support regional URLs")
+}
+
+// Clone makes a copy of "globalCatalog" suitable for processing requests.
+func (globalCatalog *GlobalCatalogV1) Clone() *GlobalCatalogV1 {
+	if core.IsNil(globalCatalog) {
+		return nil
+	}
+	clone := *globalCatalog
+	clone.Service = globalCatalog.Service.Clone()
+	return &clone
 }
 
 // SetServiceURL sets the service URL
@@ -328,7 +343,8 @@ func (globalCatalog *GlobalCatalogV1) CreateCatalogEntryWithContext(ctx context.
 
 // GetCatalogEntry : Get a specific catalog object
 // This endpoint returns a specific catalog entry using the object's unique identifier, for example
-// `/_*service_name*?complete=true`. This endpoint is ETag enabled.
+// `/_*service_name*?complete=true`. This endpoint is ETag enabled. This can be used by an unauthenticated user for
+// publicly available services.
 func (globalCatalog *GlobalCatalogV1) GetCatalogEntry(getCatalogEntryOptions *GetCatalogEntryOptions) (result *CatalogEntry, response *core.DetailedResponse, err error) {
 	return globalCatalog.GetCatalogEntryWithContext(context.Background(), getCatalogEntryOptions)
 }
@@ -565,7 +581,8 @@ func (globalCatalog *GlobalCatalogV1) DeleteCatalogEntryWithContext(ctx context.
 }
 
 // GetChildObjects : Get child catalog entries of a specific kind
-// Fetch child catalog entries for a catalog entry with a specific id. This endpoint is ETag enabled.
+// Fetch child catalog entries for a catalog entry with a specific id. This endpoint is ETag enabled. This can be used
+// by an unauthenticated user for publicly available services.
 func (globalCatalog *GlobalCatalogV1) GetChildObjects(getChildObjectsOptions *GetChildObjectsOptions) (result *EntrySearchResult, response *core.DetailedResponse, err error) {
 	return globalCatalog.GetChildObjectsWithContext(context.Background(), getChildObjectsOptions)
 }
@@ -832,7 +849,7 @@ func (globalCatalog *GlobalCatalogV1) UpdateVisibilityWithContext(ctx context.Co
 
 // GetPricing : Get the pricing for an object
 // This endpoint returns the pricing for an object. Static pricing is defined in the catalog. Dynamic pricing is stored
-// in IBM Cloud Pricing Catalog.
+// in IBM Cloud Pricing Catalog. This can be used by an unauthenticated user for publicly available services.
 func (globalCatalog *GlobalCatalogV1) GetPricing(getPricingOptions *GetPricingOptions) (result *PricingGet, response *core.DetailedResponse, err error) {
 	return globalCatalog.GetPricingWithContext(context.Background(), getPricingOptions)
 }
@@ -1466,8 +1483,8 @@ func UnmarshalBullets(m map[string]json.RawMessage, result interface{}) (err err
 	return
 }
 
-// CFMetaData : Service-related metadata.
-type CFMetaData struct {
+// CfMetaData : Service-related metadata.
+type CfMetaData struct {
 	// Type of service.
 	Type *string `json:"type,omitempty"`
 
@@ -1514,9 +1531,9 @@ type CFMetaData struct {
 }
 
 
-// UnmarshalCFMetaData unmarshals an instance of CFMetaData from the specified map of raw messages.
-func UnmarshalCFMetaData(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(CFMetaData)
+// UnmarshalCfMetaData unmarshals an instance of CfMetaData from the specified map of raw messages.
+func UnmarshalCfMetaData(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(CfMetaData)
 	err = core.UnmarshalPrimitive(m, "type", &obj.Type)
 	if err != nil {
 		return
@@ -1700,7 +1717,7 @@ type CatalogEntry struct {
 	ID *string `json:"id,omitempty"`
 
 	// The CRN associated with the catalog entry.
-	CatalogCrn *string `json:"catalog_crn,omitempty"`
+	CatalogCRN *string `json:"catalog_crn,omitempty"`
 
 	// URL to get details about this object.
 	URL *string `json:"url,omitempty"`
@@ -1725,9 +1742,9 @@ type CatalogEntry struct {
 // The type of catalog entry, **service**, **template**, **dashboard**, which determines the type and shape of the
 // object.
 const (
-	CatalogEntry_Kind_Dashboard = "dashboard"
-	CatalogEntry_Kind_Service = "service"
-	CatalogEntry_Kind_Template = "template"
+	CatalogEntryKindDashboardConst = "dashboard"
+	CatalogEntryKindServiceConst = "service"
+	CatalogEntryKindTemplateConst = "template"
 )
 
 
@@ -1782,7 +1799,7 @@ func UnmarshalCatalogEntry(m map[string]json.RawMessage, result interface{}) (er
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalPrimitive(m, "catalog_crn", &obj.CatalogCrn)
+	err = core.UnmarshalPrimitive(m, "catalog_crn", &obj.CatalogCRN)
 	if err != nil {
 		return
 	}
@@ -1820,7 +1837,7 @@ type CatalogEntryMetadata struct {
 	RcCompatible *bool `json:"rc_compatible,omitempty"`
 
 	// Service-related metadata.
-	Service *CFMetaData `json:"service,omitempty"`
+	Service *CfMetaData `json:"service,omitempty"`
 
 	// Plan-related metadata.
 	Plan *PlanMetaData `json:"plan,omitempty"`
@@ -1832,13 +1849,13 @@ type CatalogEntryMetadata struct {
 	Template *TemplateMetaData `json:"template,omitempty"`
 
 	// Information related to the UI presentation associated with a catalog entry.
-	Ui *UIMetaData `json:"ui,omitempty"`
+	Ui *UiMetaData `json:"ui,omitempty"`
 
 	// Compliance information for HIPAA and PCI.
 	Compliance []string `json:"compliance,omitempty"`
 
 	// Service Level Agreement related metadata.
-	Sla *SLAMetaData `json:"sla,omitempty"`
+	Sla *SlaMetaData `json:"sla,omitempty"`
 
 	// Callback-related information associated with a catalog entry.
 	Callbacks *Callbacks `json:"callbacks,omitempty"`
@@ -1867,7 +1884,7 @@ func UnmarshalCatalogEntryMetadata(m map[string]json.RawMessage, result interfac
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(m, "service", &obj.Service, UnmarshalCFMetaData)
+	err = core.UnmarshalModel(m, "service", &obj.Service, UnmarshalCfMetaData)
 	if err != nil {
 		return
 	}
@@ -1883,7 +1900,7 @@ func UnmarshalCatalogEntryMetadata(m map[string]json.RawMessage, result interfac
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(m, "ui", &obj.Ui, UnmarshalUIMetaData)
+	err = core.UnmarshalModel(m, "ui", &obj.Ui, UnmarshalUiMetaData)
 	if err != nil {
 		return
 	}
@@ -1891,7 +1908,7 @@ func UnmarshalCatalogEntryMetadata(m map[string]json.RawMessage, result interfac
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(m, "sla", &obj.Sla, UnmarshalSLAMetaData)
+	err = core.UnmarshalModel(m, "sla", &obj.Sla, UnmarshalSlaMetaData)
 	if err != nil {
 		return
 	}
@@ -1935,10 +1952,10 @@ type CatalogEntryMetadataDeployment struct {
 	OriginalLocation *string `json:"original_location,omitempty"`
 
 	// A CRN that describes the deployment. crn:v1:[cname]:[ctype]:[location]:[scope]::[resource-type]:[resource].
-	TargetCrn *string `json:"target_crn,omitempty"`
+	TargetCRN *string `json:"target_crn,omitempty"`
 
 	// CRN for the service.
-	ServiceCrn *string `json:"service_crn,omitempty"`
+	ServiceCRN *string `json:"service_crn,omitempty"`
 
 	// ID for MCCP.
 	MccpID *string `json:"mccp_id,omitempty"`
@@ -1969,11 +1986,11 @@ func UnmarshalCatalogEntryMetadataDeployment(m map[string]json.RawMessage, resul
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalPrimitive(m, "target_crn", &obj.TargetCrn)
+	err = core.UnmarshalPrimitive(m, "target_crn", &obj.TargetCRN)
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalPrimitive(m, "service_crn", &obj.ServiceCrn)
+	err = core.UnmarshalPrimitive(m, "service_crn", &obj.ServiceCRN)
 	if err != nil {
 		return
 	}
@@ -2090,9 +2107,9 @@ type CreateCatalogEntryOptions struct {
 // The type of catalog entry, **service**, **template**, **dashboard**, which determines the type and shape of the
 // object.
 const (
-	CreateCatalogEntryOptions_Kind_Dashboard = "dashboard"
-	CreateCatalogEntryOptions_Kind_Service = "service"
-	CreateCatalogEntryOptions_Kind_Template = "template"
+	CreateCatalogEntryOptionsKindDashboardConst = "dashboard"
+	CreateCatalogEntryOptionsKindServiceConst = "service"
+	CreateCatalogEntryOptionsKindTemplateConst = "template"
 )
 
 // NewCreateCatalogEntryOptions : Instantiate CreateCatalogEntryOptions
@@ -2193,8 +2210,8 @@ func (options *CreateCatalogEntryOptions) SetHeaders(param map[string]string) *C
 	return options
 }
 
-// DRMetaData : SLA Disaster Recovery-related metadata.
-type DRMetaData struct {
+// DrMetaData : SLA Disaster Recovery-related metadata.
+type DrMetaData struct {
 	// Required boolean value that describes whether disaster recovery is on.
 	Dr *bool `json:"dr,omitempty"`
 
@@ -2203,9 +2220,9 @@ type DRMetaData struct {
 }
 
 
-// UnmarshalDRMetaData unmarshals an instance of DRMetaData from the specified map of raw messages.
-func UnmarshalDRMetaData(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(DRMetaData)
+// UnmarshalDrMetaData unmarshals an instance of DrMetaData from the specified map of raw messages.
+func UnmarshalDrMetaData(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(DrMetaData)
 	err = core.UnmarshalPrimitive(m, "dr", &obj.Dr)
 	if err != nil {
 		return
@@ -2328,10 +2345,10 @@ type DeploymentBase struct {
 	OriginalLocation *string `json:"original_location,omitempty"`
 
 	// A CRN that describes the deployment. crn:v1:[cname]:[ctype]:[location]:[scope]::[resource-type]:[resource].
-	TargetCrn *string `json:"target_crn,omitempty"`
+	TargetCRN *string `json:"target_crn,omitempty"`
 
 	// CRN for the service.
-	ServiceCrn *string `json:"service_crn,omitempty"`
+	ServiceCRN *string `json:"service_crn,omitempty"`
 
 	// ID for MCCP.
 	MccpID *string `json:"mccp_id,omitempty"`
@@ -2362,11 +2379,11 @@ func UnmarshalDeploymentBase(m map[string]json.RawMessage, result interface{}) (
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalPrimitive(m, "target_crn", &obj.TargetCrn)
+	err = core.UnmarshalPrimitive(m, "target_crn", &obj.TargetCRN)
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalPrimitive(m, "service_crn", &obj.ServiceCrn)
+	err = core.UnmarshalPrimitive(m, "service_crn", &obj.ServiceCRN)
 	if err != nil {
 		return
 	}
@@ -3246,7 +3263,7 @@ type ObjectMetadataSet struct {
 	RcCompatible *bool `json:"rc_compatible,omitempty"`
 
 	// Service-related metadata.
-	Service *CFMetaData `json:"service,omitempty"`
+	Service *CfMetaData `json:"service,omitempty"`
 
 	// Plan-related metadata.
 	Plan *PlanMetaData `json:"plan,omitempty"`
@@ -3258,13 +3275,13 @@ type ObjectMetadataSet struct {
 	Template *TemplateMetaData `json:"template,omitempty"`
 
 	// Information related to the UI presentation associated with a catalog entry.
-	Ui *UIMetaData `json:"ui,omitempty"`
+	Ui *UiMetaData `json:"ui,omitempty"`
 
 	// Compliance information for HIPAA and PCI.
 	Compliance []string `json:"compliance,omitempty"`
 
 	// Service Level Agreement related metadata.
-	Sla *SLAMetaData `json:"sla,omitempty"`
+	Sla *SlaMetaData `json:"sla,omitempty"`
 
 	// Callback-related information associated with a catalog entry.
 	Callbacks *Callbacks `json:"callbacks,omitempty"`
@@ -3293,7 +3310,7 @@ func UnmarshalObjectMetadataSet(m map[string]json.RawMessage, result interface{}
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(m, "service", &obj.Service, UnmarshalCFMetaData)
+	err = core.UnmarshalModel(m, "service", &obj.Service, UnmarshalCfMetaData)
 	if err != nil {
 		return
 	}
@@ -3309,7 +3326,7 @@ func UnmarshalObjectMetadataSet(m map[string]json.RawMessage, result interface{}
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(m, "ui", &obj.Ui, UnmarshalUIMetaData)
+	err = core.UnmarshalModel(m, "ui", &obj.Ui, UnmarshalUiMetaData)
 	if err != nil {
 		return
 	}
@@ -3317,7 +3334,7 @@ func UnmarshalObjectMetadataSet(m map[string]json.RawMessage, result interface{}
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(m, "sla", &obj.Sla, UnmarshalSLAMetaData)
+	err = core.UnmarshalModel(m, "sla", &obj.Sla, UnmarshalSlaMetaData)
 	if err != nil {
 		return
 	}
@@ -3665,8 +3682,8 @@ func (options *RestoreCatalogEntryOptions) SetHeaders(param map[string]string) *
 	return options
 }
 
-// SLAMetaData : Service Level Agreement related metadata.
-type SLAMetaData struct {
+// SlaMetaData : Service Level Agreement related metadata.
+type SlaMetaData struct {
 	// Required Service License Agreement Terms of Use.
 	Terms *string `json:"terms,omitempty"`
 
@@ -3681,13 +3698,13 @@ type SLAMetaData struct {
 	Responsiveness *string `json:"responsiveness,omitempty"`
 
 	// SLA Disaster Recovery-related metadata.
-	Dr *DRMetaData `json:"dr,omitempty"`
+	Dr *DrMetaData `json:"dr,omitempty"`
 }
 
 
-// UnmarshalSLAMetaData unmarshals an instance of SLAMetaData from the specified map of raw messages.
-func UnmarshalSLAMetaData(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(SLAMetaData)
+// UnmarshalSlaMetaData unmarshals an instance of SlaMetaData from the specified map of raw messages.
+func UnmarshalSlaMetaData(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(SlaMetaData)
 	err = core.UnmarshalPrimitive(m, "terms", &obj.Terms)
 	if err != nil {
 		return
@@ -3704,7 +3721,7 @@ func UnmarshalSLAMetaData(m map[string]json.RawMessage, result interface{}) (err
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(m, "dr", &obj.Dr, UnmarshalDRMetaData)
+	err = core.UnmarshalModel(m, "dr", &obj.Dr, UnmarshalDrMetaData)
 	if err != nil {
 		return
 	}
@@ -3789,7 +3806,7 @@ type Strings struct {
 	Bullets []Bullets `json:"bullets,omitempty"`
 
 	// Media-related metadata.
-	Media []UIMetaMedia `json:"media,omitempty"`
+	Media []UiMetaMedia `json:"media,omitempty"`
 
 	// Warning that a message is not creatable.
 	NotCreatableMsg *string `json:"not_creatable_msg,omitempty"`
@@ -3815,7 +3832,7 @@ func UnmarshalStrings(m map[string]json.RawMessage, result interface{}) (err err
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(m, "media", &obj.Media, UnmarshalUIMetaMedia)
+	err = core.UnmarshalModel(m, "media", &obj.Media, UnmarshalUiMetaMedia)
 	if err != nil {
 		return
 	}
@@ -3924,13 +3941,13 @@ func UnmarshalTemplateMetaData(m map[string]json.RawMessage, result interface{})
 	return
 }
 
-// UIMetaData : Information related to the UI presentation associated with a catalog entry.
-type UIMetaData struct {
+// UiMetaData : Information related to the UI presentation associated with a catalog entry.
+type UiMetaData struct {
 	// Language specific translation of translation properties, like label and description.
 	Strings map[string]Strings `json:"strings,omitempty"`
 
 	// UI based URLs.
-	Urls *URLS `json:"urls,omitempty"`
+	Urls *Urls `json:"urls,omitempty"`
 
 	// Describes how the embeddable dashboard is rendered.
 	EmbeddableDashboard *string `json:"embeddable_dashboard,omitempty"`
@@ -3967,14 +3984,14 @@ type UIMetaData struct {
 }
 
 
-// UnmarshalUIMetaData unmarshals an instance of UIMetaData from the specified map of raw messages.
-func UnmarshalUIMetaData(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(UIMetaData)
+// UnmarshalUiMetaData unmarshals an instance of UiMetaData from the specified map of raw messages.
+func UnmarshalUiMetaData(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(UiMetaData)
 	err = core.UnmarshalModel(m, "strings", &obj.Strings, UnmarshalStrings)
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(m, "urls", &obj.Urls, UnmarshalURLS)
+	err = core.UnmarshalModel(m, "urls", &obj.Urls, UnmarshalUrls)
 	if err != nil {
 		return
 	}
@@ -4026,8 +4043,8 @@ func UnmarshalUIMetaData(m map[string]json.RawMessage, result interface{}) (err 
 	return
 }
 
-// UIMetaMedia : Media-related metadata.
-type UIMetaMedia struct {
+// UiMetaMedia : Media-related metadata.
+type UiMetaMedia struct {
 	// Caption for an image.
 	Caption *string `json:"caption,omitempty"`
 
@@ -4045,9 +4062,9 @@ type UIMetaMedia struct {
 }
 
 
-// UnmarshalUIMetaMedia unmarshals an instance of UIMetaMedia from the specified map of raw messages.
-func UnmarshalUIMetaMedia(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(UIMetaMedia)
+// UnmarshalUiMetaMedia unmarshals an instance of UiMetaMedia from the specified map of raw messages.
+func UnmarshalUiMetaMedia(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(UiMetaMedia)
 	err = core.UnmarshalPrimitive(m, "caption", &obj.Caption)
 	if err != nil {
 		return
@@ -4072,8 +4089,8 @@ func UnmarshalUIMetaMedia(m map[string]json.RawMessage, result interface{}) (err
 	return
 }
 
-// URLS : UI based URLs.
-type URLS struct {
+// Urls : UI based URLs.
+type Urls struct {
 	// URL for documentation.
 	DocURL *string `json:"doc_url,omitempty"`
 
@@ -4112,9 +4129,9 @@ type URLS struct {
 }
 
 
-// UnmarshalURLS unmarshals an instance of URLS from the specified map of raw messages.
-func UnmarshalURLS(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(URLS)
+// UnmarshalUrls unmarshals an instance of Urls from the specified map of raw messages.
+func UnmarshalUrls(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(Urls)
 	err = core.UnmarshalPrimitive(m, "doc_url", &obj.DocURL)
 	if err != nil {
 		return
@@ -4227,9 +4244,9 @@ type UpdateCatalogEntryOptions struct {
 // The type of catalog entry, **service**, **template**, **dashboard**, which determines the type and shape of the
 // object.
 const (
-	UpdateCatalogEntryOptions_Kind_Dashboard = "dashboard"
-	UpdateCatalogEntryOptions_Kind_Service = "service"
-	UpdateCatalogEntryOptions_Kind_Template = "template"
+	UpdateCatalogEntryOptionsKindDashboardConst = "dashboard"
+	UpdateCatalogEntryOptionsKindServiceConst = "service"
+	UpdateCatalogEntryOptionsKindTemplateConst = "template"
 )
 
 // NewUpdateCatalogEntryOptions : Instantiate UpdateCatalogEntryOptions
