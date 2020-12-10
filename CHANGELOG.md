@@ -1,3 +1,19 @@
+## [0.17.1](https://github.com/IBM/platform-services-go-sdk/compare/v0.17.0...v0.17.1) (2020-12-10)
+
+
+### Bug Fixes
+
+* **Activity Tracking:** use improved name formatting ([28401c2](https://github.com/IBM/platform-services-go-sdk/commit/28401c275c6eb5ab8c5584fc4361ca4fd8e871fb))
+* **Case Management:** use improved name formatting ([9f98280](https://github.com/IBM/platform-services-go-sdk/commit/9f98280d6eb25ca1649880f1e8e22ef4926de770))
+* **Configuration Governance:** re-gen service with latest API ([c7b2866](https://github.com/IBM/platform-services-go-sdk/commit/c7b28660f4c5e8db2b41af2eb9343032190ef433))
+* **Enterprise Billing Units:** re-gen service with latest API ([20b712c](https://github.com/IBM/platform-services-go-sdk/commit/20b712c3eaf01e4f781b2712f14a1318ccc5bd3f))
+* **Enterprise Management:** re-gen service with latest API ([14639de](https://github.com/IBM/platform-services-go-sdk/commit/14639de65144c858d3b60d4789eea9e2fc577e32))
+* **Enterprise Usage Reports:** re-gen service with latest API ([8174e10](https://github.com/IBM/platform-services-go-sdk/commit/8174e10a5a9747120accf1264babc65769f7d9c3))
+* **Global Catalog:** re-gen service with latest API ([62d27db](https://github.com/IBM/platform-services-go-sdk/commit/62d27dbf43257c362d74a78b0d2584e7f80a7e3e))
+* **Global Search:** re-gen service and add examples ([0aa0e9b](https://github.com/IBM/platform-services-go-sdk/commit/0aa0e9b91c5686e4ee67e88dcec146f718b19839))
+* **Global Tagging:** one more re-gen because one is not enough ([7c315e3](https://github.com/IBM/platform-services-go-sdk/commit/7c315e30798b8cdad9918aed2dd2275dc66b585a))
+* **Global Tagging:** re-gen service with latest API ([e37563e](https://github.com/IBM/platform-services-go-sdk/commit/e37563e456c79b94db56b78895eccc2ed75a5ee5))
+
 # [0.17.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.16.0...v0.17.0) (2020-12-07)
 
 
