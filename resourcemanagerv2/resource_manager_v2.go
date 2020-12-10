@@ -15,7 +15,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-8d569e8f-20201030-111043
+ * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-d753183b-20201209-163011
  */
  
 
@@ -107,6 +107,21 @@ func NewResourceManagerV2(options *ResourceManagerV2Options) (service *ResourceM
 	}
 
 	return
+}
+
+// GetServiceURLForRegion returns the service URL to be used for the specified region
+func GetServiceURLForRegion(region string) (string, error) {
+	return "", fmt.Errorf("service does not support regional URLs")
+}
+
+// Clone makes a copy of "resourceManager" suitable for processing requests.
+func (resourceManager *ResourceManagerV2) Clone() *ResourceManagerV2 {
+	if core.IsNil(resourceManager) {
+		return nil
+	}
+	clone := *resourceManager
+	clone.Service = resourceManager.Service.Clone()
+	return &clone
 }
 
 // SetServiceURL sets the service URL
@@ -849,7 +864,7 @@ type ResCreateResourceGroup struct {
 
 	// The full CRN (cloud resource name) associated with the resource group. For more on this format, see [Cloud Resource
 	// Names](https://cloud.ibm.com/docs/resources?topic=resources-crn).
-	Crn *string `json:"crn,omitempty"`
+	CRN *string `json:"crn,omitempty"`
 }
 
 
@@ -860,7 +875,7 @@ func UnmarshalResCreateResourceGroup(m map[string]json.RawMessage, result interf
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalPrimitive(m, "crn", &obj.Crn)
+	err = core.UnmarshalPrimitive(m, "crn", &obj.CRN)
 	if err != nil {
 		return
 	}
@@ -875,7 +890,7 @@ type ResourceGroup struct {
 
 	// The full CRN (cloud resource name) associated with the resource group. For more on this format, see [Cloud Resource
 	// Names](https://cloud.ibm.com/docs/resources?topic=resources-crn).
-	Crn *string `json:"crn,omitempty"`
+	CRN *string `json:"crn,omitempty"`
 
 	// An alpha-numeric value identifying the account ID.
 	AccountID *string `json:"account_id,omitempty"`
@@ -919,7 +934,7 @@ func UnmarshalResourceGroup(m map[string]json.RawMessage, result interface{}) (e
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalPrimitive(m, "crn", &obj.Crn)
+	err = core.UnmarshalPrimitive(m, "crn", &obj.CRN)
 	if err != nil {
 		return
 	}
@@ -999,7 +1014,7 @@ type ResourceQuota struct {
 
 	// The full CRN (cloud resource name) associated with the quota. For more on this format, see
 	// https://cloud.ibm.com/docs/resources?topic=resources-crn#crn.
-	Crn *string `json:"crn,omitempty"`
+	CRN *string `json:"crn,omitempty"`
 
 	// The limit number of this resource.
 	Limit *float64 `json:"limit,omitempty"`
@@ -1017,7 +1032,7 @@ func UnmarshalResourceQuota(m map[string]json.RawMessage, result interface{}) (e
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalPrimitive(m, "crn", &obj.Crn)
+	err = core.UnmarshalPrimitive(m, "crn", &obj.CRN)
 	if err != nil {
 		return
 	}

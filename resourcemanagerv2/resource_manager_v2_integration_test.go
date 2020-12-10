@@ -113,7 +113,7 @@ var _ = Describe("Resource Manager - Integration Tests", func() {
 			Expect(result.Resources[0]).NotTo(BeNil())
 			Expect(result.Resources[0].ID).NotTo(BeNil())
 			Expect(result.Resources[0].Name).NotTo(BeNil())
-			Expect(result.Resources[0].Crn).NotTo(BeNil())
+			Expect(result.Resources[0].CRN).NotTo(BeNil())
 			Expect(result.Resources[0].AccountID).NotTo(BeNil())
 			Expect(result.Resources[0].QuotaID).NotTo(BeNil())
 			Expect(result.Resources[0].QuotaURL).NotTo(BeNil())
