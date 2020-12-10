@@ -402,7 +402,7 @@ var _ = Describe(`CaseManagementV1`, func() {
 				createCaseOptionsModel.Resources = []casemanagementv1.ResourcePayload{*resourcePayloadModel}
 				createCaseOptionsModel.Watchlist = []casemanagementv1.User{*userModel}
 				createCaseOptionsModel.InvoiceNumber = core.StringPtr("testString")
-				createCaseOptionsModel.SlaCreditRequest = core.BoolPtr(true)
+				createCaseOptionsModel.SLACreditRequest = core.BoolPtr(true)
 				createCaseOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
 				result, response, operationErr := caseManagementService.CreateCase(createCaseOptionsModel)
@@ -516,7 +516,7 @@ var _ = Describe(`CaseManagementV1`, func() {
 				createCaseOptionsModel.Resources = []casemanagementv1.ResourcePayload{*resourcePayloadModel}
 				createCaseOptionsModel.Watchlist = []casemanagementv1.User{*userModel}
 				createCaseOptionsModel.InvoiceNumber = core.StringPtr("testString")
-				createCaseOptionsModel.SlaCreditRequest = core.BoolPtr(true)
+				createCaseOptionsModel.SLACreditRequest = core.BoolPtr(true)
 				createCaseOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
@@ -598,7 +598,7 @@ var _ = Describe(`CaseManagementV1`, func() {
 				createCaseOptionsModel.Resources = []casemanagementv1.ResourcePayload{*resourcePayloadModel}
 				createCaseOptionsModel.Watchlist = []casemanagementv1.User{*userModel}
 				createCaseOptionsModel.InvoiceNumber = core.StringPtr("testString")
-				createCaseOptionsModel.SlaCreditRequest = core.BoolPtr(true)
+				createCaseOptionsModel.SLACreditRequest = core.BoolPtr(true)
 				createCaseOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := caseManagementService.SetServiceURL("")
@@ -2227,7 +2227,7 @@ var _ = Describe(`CaseManagementV1`, func() {
 				createCaseOptionsModel.SetResources([]casemanagementv1.ResourcePayload{*resourcePayloadModel})
 				createCaseOptionsModel.SetWatchlist([]casemanagementv1.User{*userModel})
 				createCaseOptionsModel.SetInvoiceNumber("testString")
-				createCaseOptionsModel.SetSlaCreditRequest(true)
+				createCaseOptionsModel.SetSLACreditRequest(true)
 				createCaseOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(createCaseOptionsModel).ToNot(BeNil())
 				Expect(createCaseOptionsModel.Type).To(Equal(core.StringPtr("technical")))
@@ -2239,7 +2239,7 @@ var _ = Describe(`CaseManagementV1`, func() {
 				Expect(createCaseOptionsModel.Resources).To(Equal([]casemanagementv1.ResourcePayload{*resourcePayloadModel}))
 				Expect(createCaseOptionsModel.Watchlist).To(Equal([]casemanagementv1.User{*userModel}))
 				Expect(createCaseOptionsModel.InvoiceNumber).To(Equal(core.StringPtr("testString")))
-				Expect(createCaseOptionsModel.SlaCreditRequest).To(Equal(core.BoolPtr(true)))
+				Expect(createCaseOptionsModel.SLACreditRequest).To(Equal(core.BoolPtr(true)))
 				Expect(createCaseOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewDeleteFileOptions successfully`, func() {

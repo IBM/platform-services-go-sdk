@@ -15,7 +15,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-629bbb97-20201207-171303
+ * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-d753183b-20201209-163011
  */
  
 
@@ -295,8 +295,8 @@ func (caseManagement *CaseManagementV1) CreateCaseWithContext(ctx context.Contex
 	if createCaseOptions.InvoiceNumber != nil {
 		body["invoice_number"] = createCaseOptions.InvoiceNumber
 	}
-	if createCaseOptions.SlaCreditRequest != nil {
-		body["sla_credit_request"] = createCaseOptions.SlaCreditRequest
+	if createCaseOptions.SLACreditRequest != nil {
+		body["sla_credit_request"] = createCaseOptions.SLACreditRequest
 	}
 	_, err = builder.SetBodyContentJSON(body)
 	if err != nil {
@@ -1444,7 +1444,7 @@ type CreateCaseOptions struct {
 	InvoiceNumber *string `json:"invoice_number,omitempty"`
 
 	// Flag to indicate if case is for an Service Level Agreement (SLA) credit request.
-	SlaCreditRequest *bool `json:"sla_credit_request,omitempty"`
+	SLACreditRequest *bool `json:"sla_credit_request,omitempty"`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -1522,9 +1522,9 @@ func (options *CreateCaseOptions) SetInvoiceNumber(invoiceNumber string) *Create
 	return options
 }
 
-// SetSlaCreditRequest : Allow user to set SlaCreditRequest
-func (options *CreateCaseOptions) SetSlaCreditRequest(slaCreditRequest bool) *CreateCaseOptions {
-	options.SlaCreditRequest = core.BoolPtr(slaCreditRequest)
+// SetSLACreditRequest : Allow user to set SLACreditRequest
+func (options *CreateCaseOptions) SetSLACreditRequest(slaCreditRequest bool) *CreateCaseOptions {
+	options.SLACreditRequest = core.BoolPtr(slaCreditRequest)
 	return options
 }
 
