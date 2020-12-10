@@ -15,7 +15,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-60fd6b3d-20201128-071551
+ * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-d753183b-20201209-163011
  */
  
 
@@ -106,6 +106,21 @@ func NewUserManagementV1(options *UserManagementV1Options) (service *UserManagem
 	}
 
 	return
+}
+
+// GetServiceURLForRegion returns the service URL to be used for the specified region
+func GetServiceURLForRegion(region string) (string, error) {
+	return "", fmt.Errorf("service does not support regional URLs")
+}
+
+// Clone makes a copy of "userManagement" suitable for processing requests.
+func (userManagement *UserManagementV1) Clone() *UserManagementV1 {
+	if core.IsNil(userManagement) {
+		return nil
+	}
+	clone := *userManagement
+	clone.Service = userManagement.Service.Clone()
+	return &clone
 }
 
 // SetServiceURL sets the service URL
@@ -611,8 +626,8 @@ func (userManagement *UserManagementV1) UpdateUserSettingsWithContext(ctx contex
 	if updateUserSettingsOptions.NotificationLanguage != nil {
 		body["notification_language"] = updateUserSettingsOptions.NotificationLanguage
 	}
-	if updateUserSettingsOptions.AllowedIpAddresses != nil {
-		body["allowed_ip_addresses"] = updateUserSettingsOptions.AllowedIpAddresses
+	if updateUserSettingsOptions.AllowedIPAddresses != nil {
+		body["allowed_ip_addresses"] = updateUserSettingsOptions.AllowedIPAddresses
 	}
 	if updateUserSettingsOptions.SelfManage != nil {
 		body["self_manage"] = updateUserSettingsOptions.SelfManage
@@ -1024,7 +1039,7 @@ type UpdateUserSettingsOptions struct {
 	NotificationLanguage *string `json:"notification_language,omitempty"`
 
 	// A comma-separated list of IP addresses.
-	AllowedIpAddresses *string `json:"allowed_ip_addresses,omitempty"`
+	AllowedIPAddresses *string `json:"allowed_ip_addresses,omitempty"`
 
 	// Whether user managed login is enabled. The default value is `false`.
 	SelfManage *bool `json:"self_manage,omitempty"`
@@ -1065,9 +1080,9 @@ func (options *UpdateUserSettingsOptions) SetNotificationLanguage(notificationLa
 	return options
 }
 
-// SetAllowedIpAddresses : Allow user to set AllowedIpAddresses
-func (options *UpdateUserSettingsOptions) SetAllowedIpAddresses(allowedIpAddresses string) *UpdateUserSettingsOptions {
-	options.AllowedIpAddresses = core.StringPtr(allowedIpAddresses)
+// SetAllowedIPAddresses : Allow user to set AllowedIPAddresses
+func (options *UpdateUserSettingsOptions) SetAllowedIPAddresses(allowedIPAddresses string) *UpdateUserSettingsOptions {
+	options.AllowedIPAddresses = core.StringPtr(allowedIPAddresses)
 	return options
 }
 
@@ -1234,7 +1249,7 @@ type UserSettings struct {
 	NotificationLanguage *string `json:"notification_language,omitempty"`
 
 	// A comma-separated list of IP addresses.
-	AllowedIpAddresses *string `json:"allowed_ip_addresses,omitempty"`
+	AllowedIPAddresses *string `json:"allowed_ip_addresses,omitempty"`
 
 	// Whether user managed login is enabled. The default value is `false`.
 	SelfManage *bool `json:"self_manage,omitempty"`
@@ -1252,7 +1267,7 @@ func UnmarshalUserSettings(m map[string]json.RawMessage, result interface{}) (er
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalPrimitive(m, "allowed_ip_addresses", &obj.AllowedIpAddresses)
+	err = core.UnmarshalPrimitive(m, "allowed_ip_addresses", &obj.AllowedIPAddresses)
 	if err != nil {
 		return
 	}
