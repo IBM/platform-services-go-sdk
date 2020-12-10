@@ -57,16 +57,16 @@ var (
 	config                    map[string]string
 	configLoaded              bool = false
 
-	instanceGuid               string
-	aliasGuid                  string
-	bindingGuid                string
-	instanceKeyGuid            string
+	instanceGUID               string
+	aliasGUID                  string
+	bindingGUID                string
+	instanceKeyGUID            string
 	resourceGroup              string
-	resourcePlanId             string
-	accountId                  string
+	resourcePlanID             string
+	accountID                  string
 	aliasTargetCRN             string
 	bindingTargetCRN           string
-	reclamationId              string
+	reclamationID              string
 	resourceInstanceName       string = "RcSdkInstance1Go"
 	resourceInstanceUpdateName string = "RcSdkInstanceUpdate1Go"
 	aliasName                  string = "RcSdkAlias1Go"
@@ -105,11 +105,11 @@ var _ = Describe(`ResourceControllerV2 Examples Tests`, func() {
 			resourceGroup = config["RESOURCE_GROUP"]
 			Expect(resourceGroup).ToNot(BeEmpty())
 
-			resourcePlanId = config["RECLAMATION_PLAN_ID"]
-			Expect(resourcePlanId).ToNot(BeEmpty())
+			resourcePlanID = config["RECLAMATION_PLAN_ID"]
+			Expect(resourcePlanID).ToNot(BeEmpty())
 
-			accountId = config["ACCOUNT_ID"]
-			Expect(accountId).ToNot(BeEmpty())
+			accountID = config["ACCOUNT_ID"]
+			Expect(accountID).ToNot(BeEmpty())
 
 			aliasTargetCRN = config["ALIAS_TARGET_CRN"]
 			Expect(aliasTargetCRN).ToNot(BeEmpty())
@@ -153,14 +153,14 @@ var _ = Describe(`ResourceControllerV2 Examples Tests`, func() {
 				resourceInstanceName,
 				targetRegion,
 				resourceGroup,
-				resourcePlanId,
+				resourcePlanID,
 			)
 
 			resourceInstance, response, err := resourceControllerService.CreateResourceInstance(createResourceInstanceOptions)
 			if err != nil {
 				panic(err)
 			}
-			instanceGuid = *resourceInstance.Guid
+			instanceGUID = *resourceInstance.GUID
 
 			b, _ := json.MarshalIndent(resourceInstance, "", "  ")
 			fmt.Println(string(b))
@@ -176,7 +176,7 @@ var _ = Describe(`ResourceControllerV2 Examples Tests`, func() {
 			// begin-get_resource_instance
 
 			getResourceInstanceOptions := resourceControllerService.NewGetResourceInstanceOptions(
-				instanceGuid,
+				instanceGUID,
 			)
 
 			resourceInstance, response, err := resourceControllerService.GetResourceInstance(getResourceInstanceOptions)
@@ -199,7 +199,7 @@ var _ = Describe(`ResourceControllerV2 Examples Tests`, func() {
 			params := make(map[string]interface{}, 0)
 			params["example"] = "property"
 			updateResourceInstanceOptions := resourceControllerService.NewUpdateResourceInstanceOptions(
-				instanceGuid,
+				instanceGUID,
 			)
 			updateResourceInstanceOptions = updateResourceInstanceOptions.SetName(resourceInstanceUpdateName)
 			updateResourceInstanceOptions = updateResourceInstanceOptions.SetParameters(params)
@@ -243,7 +243,7 @@ var _ = Describe(`ResourceControllerV2 Examples Tests`, func() {
 
 			createResourceAliasOptions := resourceControllerService.NewCreateResourceAliasOptions(
 				aliasName,
-				instanceGuid,
+				instanceGUID,
 				aliasTargetCRN,
 			)
 
@@ -251,7 +251,7 @@ var _ = Describe(`ResourceControllerV2 Examples Tests`, func() {
 			if err != nil {
 				panic(err)
 			}
-			aliasGuid = *resourceAlias.Guid
+			aliasGUID = *resourceAlias.GUID
 
 			b, _ := json.MarshalIndent(resourceAlias, "", "  ")
 			fmt.Println(string(b))
@@ -267,7 +267,7 @@ var _ = Describe(`ResourceControllerV2 Examples Tests`, func() {
 			// begin-get_resource_alias
 
 			getResourceAliasOptions := resourceControllerService.NewGetResourceAliasOptions(
-				aliasGuid,
+				aliasGUID,
 			)
 
 			resourceAlias, response, err := resourceControllerService.GetResourceAlias(getResourceAliasOptions)
@@ -288,7 +288,7 @@ var _ = Describe(`ResourceControllerV2 Examples Tests`, func() {
 			// begin-update_resource_alias
 
 			updateResourceAliasOptions := resourceControllerService.NewUpdateResourceAliasOptions(
-				aliasGuid,
+				aliasGUID,
 				aliasUpdateName,
 			)
 
@@ -330,7 +330,7 @@ var _ = Describe(`ResourceControllerV2 Examples Tests`, func() {
 			// begin-create_resource_binding
 
 			createResourceBindingOptions := resourceControllerService.NewCreateResourceBindingOptions(
-				aliasGuid,
+				aliasGUID,
 				bindingTargetCRN,
 			)
 			createResourceBindingOptions = createResourceBindingOptions.SetName(bindingName)
@@ -339,7 +339,7 @@ var _ = Describe(`ResourceControllerV2 Examples Tests`, func() {
 			if err != nil {
 				panic(err)
 			}
-			bindingGuid = *resourceBinding.Guid
+			bindingGUID = *resourceBinding.GUID
 
 			b, _ := json.MarshalIndent(resourceBinding, "", "  ")
 			fmt.Println(string(b))
@@ -355,7 +355,7 @@ var _ = Describe(`ResourceControllerV2 Examples Tests`, func() {
 			// begin-get_resource_binding
 
 			getResourceBindingOptions := resourceControllerService.NewGetResourceBindingOptions(
-				bindingGuid,
+				bindingGUID,
 			)
 
 			resourceBinding, response, err := resourceControllerService.GetResourceBinding(getResourceBindingOptions)
@@ -376,7 +376,7 @@ var _ = Describe(`ResourceControllerV2 Examples Tests`, func() {
 			// begin-update_resource_binding
 
 			updateResourceBindingOptions := resourceControllerService.NewUpdateResourceBindingOptions(
-				bindingGuid,
+				bindingGUID,
 				bindingUpdateName,
 			)
 
@@ -419,14 +419,14 @@ var _ = Describe(`ResourceControllerV2 Examples Tests`, func() {
 
 			createResourceKeyOptions := resourceControllerService.NewCreateResourceKeyOptions(
 				keyName,
-				instanceGuid,
+				instanceGUID,
 			)
 
 			resourceKey, response, err := resourceControllerService.CreateResourceKey(createResourceKeyOptions)
 			if err != nil {
 				panic(err)
 			}
-			instanceKeyGuid = *resourceKey.Guid
+			instanceKeyGUID = *resourceKey.GUID
 
 			b, _ := json.MarshalIndent(resourceKey, "", "  ")
 			fmt.Println(string(b))
@@ -442,7 +442,7 @@ var _ = Describe(`ResourceControllerV2 Examples Tests`, func() {
 			// begin-get_resource_key
 
 			getResourceKeyOptions := resourceControllerService.NewGetResourceKeyOptions(
-				instanceKeyGuid,
+				instanceKeyGUID,
 			)
 
 			resourceKey, response, err := resourceControllerService.GetResourceKey(getResourceKeyOptions)
@@ -463,7 +463,7 @@ var _ = Describe(`ResourceControllerV2 Examples Tests`, func() {
 			// begin-update_resource_key
 
 			updateResourceKeyOptions := resourceControllerService.NewUpdateResourceKeyOptions(
-				instanceKeyGuid,
+				instanceKeyGUID,
 				keyUpdateName,
 			)
 
@@ -505,7 +505,7 @@ var _ = Describe(`ResourceControllerV2 Examples Tests`, func() {
 			// begin-delete_resource_binding
 
 			deleteResourceBindingOptions := resourceControllerService.NewDeleteResourceBindingOptions(
-				bindingGuid,
+				bindingGUID,
 			)
 
 			response, err := resourceControllerService.DeleteResourceBinding(deleteResourceBindingOptions)
@@ -523,7 +523,7 @@ var _ = Describe(`ResourceControllerV2 Examples Tests`, func() {
 			// begin-delete_resource_key
 
 			deleteResourceKeyOptions := resourceControllerService.NewDeleteResourceKeyOptions(
-				instanceKeyGuid,
+				instanceKeyGUID,
 			)
 
 			response, err := resourceControllerService.DeleteResourceKey(deleteResourceKeyOptions)
@@ -541,7 +541,7 @@ var _ = Describe(`ResourceControllerV2 Examples Tests`, func() {
 			// begin-delete_resource_alias
 
 			deleteResourceAliasOptions := resourceControllerService.NewDeleteResourceAliasOptions(
-				aliasGuid,
+				aliasGUID,
 			)
 
 			response, err := resourceControllerService.DeleteResourceAlias(deleteResourceAliasOptions)
@@ -559,7 +559,7 @@ var _ = Describe(`ResourceControllerV2 Examples Tests`, func() {
 			// begin-lock_resource_instance
 
 			lockResourceInstanceOptions := resourceControllerService.NewLockResourceInstanceOptions(
-				instanceGuid,
+				instanceGUID,
 			)
 
 			resourceInstance, response, err := resourceControllerService.LockResourceInstance(lockResourceInstanceOptions)
@@ -580,7 +580,7 @@ var _ = Describe(`ResourceControllerV2 Examples Tests`, func() {
 			// begin-unlock_resource_instance
 
 			unlockResourceInstanceOptions := resourceControllerService.NewUnlockResourceInstanceOptions(
-				instanceGuid,
+				instanceGUID,
 			)
 
 			resourceInstance, response, err := resourceControllerService.UnlockResourceInstance(unlockResourceInstanceOptions)
@@ -601,7 +601,7 @@ var _ = Describe(`ResourceControllerV2 Examples Tests`, func() {
 			// begin-delete_resource_instance
 
 			deleteResourceInstanceOptions := resourceControllerService.NewDeleteResourceInstanceOptions(
-				instanceGuid,
+				instanceGUID,
 			)
 
 			response, err := resourceControllerService.DeleteResourceInstance(deleteResourceInstanceOptions)
@@ -621,7 +621,7 @@ var _ = Describe(`ResourceControllerV2 Examples Tests`, func() {
 			// begin-list_reclamations
 
 			listReclamationsOptions := resourceControllerService.NewListReclamationsOptions()
-			listReclamationsOptions = listReclamationsOptions.SetAccountID(accountId)
+			listReclamationsOptions = listReclamationsOptions.SetAccountID(accountID)
 			reclamationsList, response, err := resourceControllerService.ListReclamations(listReclamationsOptions)
 			if err != nil {
 				panic(err)
@@ -630,8 +630,8 @@ var _ = Describe(`ResourceControllerV2 Examples Tests`, func() {
 			fmt.Println(string(b))
 
 			for _, res := range reclamationsList.Resources {
-				if *res.ResourceInstanceID == instanceGuid {
-					reclamationId = *res.ID
+				if *res.ResourceInstanceID == instanceGUID {
+					reclamationID = *res.ID
 				}
 			}
 
@@ -646,7 +646,7 @@ var _ = Describe(`ResourceControllerV2 Examples Tests`, func() {
 			// begin-run_reclamation_action
 
 			runReclamationActionOptions := resourceControllerService.NewRunReclamationActionOptions(
-				reclamationId,
+				reclamationID,
 				reclaimAction,
 			)
 

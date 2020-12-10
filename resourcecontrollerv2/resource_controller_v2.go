@@ -15,7 +15,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-8d569e8f-20201030-111043
+ * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-d753183b-20201209-163011
  */
  
 
@@ -111,6 +111,21 @@ func NewResourceControllerV2(options *ResourceControllerV2Options) (service *Res
 	return
 }
 
+// GetServiceURLForRegion returns the service URL to be used for the specified region
+func GetServiceURLForRegion(region string) (string, error) {
+	return "", fmt.Errorf("service does not support regional URLs")
+}
+
+// Clone makes a copy of "resourceController" suitable for processing requests.
+func (resourceController *ResourceControllerV2) Clone() *ResourceControllerV2 {
+	if core.IsNil(resourceController) {
+		return nil
+	}
+	clone := *resourceController
+	clone.Service = resourceController.Service.Clone()
+	return &clone
+}
+
 // SetServiceURL sets the service URL
 func (resourceController *ResourceControllerV2) SetServiceURL(url string) error {
 	return resourceController.Service.SetServiceURL(url)
@@ -178,8 +193,8 @@ func (resourceController *ResourceControllerV2) ListResourceInstancesWithContext
 	}
 	builder.AddHeader("Accept", "application/json")
 
-	if listResourceInstancesOptions.Guid != nil {
-		builder.AddQuery("guid", fmt.Sprint(*listResourceInstancesOptions.Guid))
+	if listResourceInstancesOptions.GUID != nil {
+		builder.AddQuery("guid", fmt.Sprint(*listResourceInstancesOptions.GUID))
 	}
 	if listResourceInstancesOptions.Name != nil {
 		builder.AddQuery("name", fmt.Sprint(*listResourceInstancesOptions.Name))
@@ -644,8 +659,8 @@ func (resourceController *ResourceControllerV2) ListResourceKeysWithContext(ctx 
 	}
 	builder.AddHeader("Accept", "application/json")
 
-	if listResourceKeysOptions.Guid != nil {
-		builder.AddQuery("guid", fmt.Sprint(*listResourceKeysOptions.Guid))
+	if listResourceKeysOptions.GUID != nil {
+		builder.AddQuery("guid", fmt.Sprint(*listResourceKeysOptions.GUID))
 	}
 	if listResourceKeysOptions.Name != nil {
 		builder.AddQuery("name", fmt.Sprint(*listResourceKeysOptions.Name))
@@ -963,8 +978,8 @@ func (resourceController *ResourceControllerV2) ListResourceBindingsWithContext(
 	}
 	builder.AddHeader("Accept", "application/json")
 
-	if listResourceBindingsOptions.Guid != nil {
-		builder.AddQuery("guid", fmt.Sprint(*listResourceBindingsOptions.Guid))
+	if listResourceBindingsOptions.GUID != nil {
+		builder.AddQuery("guid", fmt.Sprint(*listResourceBindingsOptions.GUID))
 	}
 	if listResourceBindingsOptions.Name != nil {
 		builder.AddQuery("name", fmt.Sprint(*listResourceBindingsOptions.Name))
@@ -1288,8 +1303,8 @@ func (resourceController *ResourceControllerV2) ListResourceAliasesWithContext(c
 	}
 	builder.AddHeader("Accept", "application/json")
 
-	if listResourceAliasesOptions.Guid != nil {
-		builder.AddQuery("guid", fmt.Sprint(*listResourceAliasesOptions.Guid))
+	if listResourceAliasesOptions.GUID != nil {
+		builder.AddQuery("guid", fmt.Sprint(*listResourceAliasesOptions.GUID))
 	}
 	if listResourceAliasesOptions.Name != nil {
 		builder.AddQuery("name", fmt.Sprint(*listResourceAliasesOptions.Name))
@@ -1853,7 +1868,7 @@ type CreateResourceInstanceOptions struct {
 
 	// Indicates if the resource instance is locked for further update or delete operations. It does not affect actions
 	// performed on child resources like aliases, bindings or keys. False by default.
-	EntityLock *string `json:"Entity-Lock,omitempty"`
+	EntityLock *bool `json:"Entity-Lock,omitempty"`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -1912,8 +1927,8 @@ func (options *CreateResourceInstanceOptions) SetParameters(parameters map[strin
 }
 
 // SetEntityLock : Allow user to set EntityLock
-func (options *CreateResourceInstanceOptions) SetEntityLock(entityLock string) *CreateResourceInstanceOptions {
-	options.EntityLock = core.StringPtr(entityLock)
+func (options *CreateResourceInstanceOptions) SetEntityLock(entityLock bool) *CreateResourceInstanceOptions {
+	options.EntityLock = core.BoolPtr(entityLock)
 	return options
 }
 
@@ -1992,10 +2007,10 @@ type Credentials struct {
 	IamApikeyName *string `json:"iam_apikey_name,omitempty"`
 
 	// The Cloud Resource Name for the role of the credentials.
-	IamRoleCrn *string `json:"iam_role_crn,omitempty"`
+	IamRoleCRN *string `json:"iam_role_crn,omitempty"`
 
 	// The Cloud Resource Name for the service ID of the credentials.
-	IamServiceidCrn *string `json:"iam_serviceid_crn,omitempty"`
+	IamServiceidCRN *string `json:"iam_serviceid_crn,omitempty"`
 
 	// Allows users to set arbitrary properties
 	additionalProperties map[string]interface{}
@@ -2037,11 +2052,11 @@ func (o *Credentials) MarshalJSON() (buffer []byte, err error) {
 	if o.IamApikeyName != nil {
 		m["iam_apikey_name"] = o.IamApikeyName
 	}
-	if o.IamRoleCrn != nil {
-		m["iam_role_crn"] = o.IamRoleCrn
+	if o.IamRoleCRN != nil {
+		m["iam_role_crn"] = o.IamRoleCRN
 	}
-	if o.IamServiceidCrn != nil {
-		m["iam_serviceid_crn"] = o.IamServiceidCrn
+	if o.IamServiceidCRN != nil {
+		m["iam_serviceid_crn"] = o.IamServiceidCRN
 	}
 	buffer, err = json.Marshal(m)
 	return
@@ -2065,12 +2080,12 @@ func UnmarshalCredentials(m map[string]json.RawMessage, result interface{}) (err
 		return
 	}
 	delete(m, "iam_apikey_name")
-	err = core.UnmarshalPrimitive(m, "iam_role_crn", &obj.IamRoleCrn)
+	err = core.UnmarshalPrimitive(m, "iam_role_crn", &obj.IamRoleCRN)
 	if err != nil {
 		return
 	}
 	delete(m, "iam_role_crn")
-	err = core.UnmarshalPrimitive(m, "iam_serviceid_crn", &obj.IamServiceidCrn)
+	err = core.UnmarshalPrimitive(m, "iam_serviceid_crn", &obj.IamServiceidCRN)
 	if err != nil {
 		return
 	}
@@ -2350,7 +2365,7 @@ func (options *ListReclamationsOptions) SetHeaders(param map[string]string) *Lis
 // ListResourceAliasesOptions : The ListResourceAliases options.
 type ListResourceAliasesOptions struct {
 	// Short ID of the alias.
-	Guid *string `json:"guid,omitempty"`
+	GUID *string `json:"guid,omitempty"`
 
 	// The human-readable name of the alias.
 	Name *string `json:"name,omitempty"`
@@ -2386,9 +2401,9 @@ func (*ResourceControllerV2) NewListResourceAliasesOptions() *ListResourceAliase
 	return &ListResourceAliasesOptions{}
 }
 
-// SetGuid : Allow user to set Guid
-func (options *ListResourceAliasesOptions) SetGuid(guid string) *ListResourceAliasesOptions {
-	options.Guid = core.StringPtr(guid)
+// SetGUID : Allow user to set GUID
+func (options *ListResourceAliasesOptions) SetGUID(guid string) *ListResourceAliasesOptions {
+	options.GUID = core.StringPtr(guid)
 	return options
 }
 
@@ -2449,7 +2464,7 @@ func (options *ListResourceAliasesOptions) SetHeaders(param map[string]string) *
 // ListResourceBindingsOptions : The ListResourceBindings options.
 type ListResourceBindingsOptions struct {
 	// The short ID of the binding.
-	Guid *string `json:"guid,omitempty"`
+	GUID *string `json:"guid,omitempty"`
 
 	// The human-readable name of the binding.
 	Name *string `json:"name,omitempty"`
@@ -2482,9 +2497,9 @@ func (*ResourceControllerV2) NewListResourceBindingsOptions() *ListResourceBindi
 	return &ListResourceBindingsOptions{}
 }
 
-// SetGuid : Allow user to set Guid
-func (options *ListResourceBindingsOptions) SetGuid(guid string) *ListResourceBindingsOptions {
-	options.Guid = core.StringPtr(guid)
+// SetGUID : Allow user to set GUID
+func (options *ListResourceBindingsOptions) SetGUID(guid string) *ListResourceBindingsOptions {
+	options.GUID = core.StringPtr(guid)
 	return options
 }
 
@@ -2541,7 +2556,7 @@ type ListResourceInstancesOptions struct {
 	// When you provision a new resource in the specified location for the selected plan, a GUID (globally unique
 	// identifier) is created. This is a unique internal GUID managed by Resource controller that corresponds to the
 	// instance.
-	Guid *string `json:"guid,omitempty"`
+	GUID *string `json:"guid,omitempty"`
 
 	// The human-readable name of the instance.
 	Name *string `json:"name,omitempty"`
@@ -2579,9 +2594,9 @@ func (*ResourceControllerV2) NewListResourceInstancesOptions() *ListResourceInst
 	return &ListResourceInstancesOptions{}
 }
 
-// SetGuid : Allow user to set Guid
-func (options *ListResourceInstancesOptions) SetGuid(guid string) *ListResourceInstancesOptions {
-	options.Guid = core.StringPtr(guid)
+// SetGUID : Allow user to set GUID
+func (options *ListResourceInstancesOptions) SetGUID(guid string) *ListResourceInstancesOptions {
+	options.GUID = core.StringPtr(guid)
 	return options
 }
 
@@ -2649,7 +2664,7 @@ func (options *ListResourceInstancesOptions) SetHeaders(param map[string]string)
 type ListResourceKeysOptions struct {
 	// When you create a new key, a GUID (globally unique identifier) is assigned. This is a unique internal GUID managed
 	// by Resource controller that corresponds to the key.
-	Guid *string `json:"guid,omitempty"`
+	GUID *string `json:"guid,omitempty"`
 
 	// The human-readable name of the key.
 	Name *string `json:"name,omitempty"`
@@ -2678,9 +2693,9 @@ func (*ResourceControllerV2) NewListResourceKeysOptions() *ListResourceKeysOptio
 	return &ListResourceKeysOptions{}
 }
 
-// SetGuid : Allow user to set Guid
-func (options *ListResourceKeysOptions) SetGuid(guid string) *ListResourceKeysOptions {
-	options.Guid = core.StringPtr(guid)
+// SetGUID : Allow user to set GUID
+func (options *ListResourceKeysOptions) SetGUID(guid string) *ListResourceKeysOptions {
+	options.GUID = core.StringPtr(guid)
 	return options
 }
 
@@ -2792,7 +2807,7 @@ type Reclamation struct {
 
 	// The full Cloud Resource Name (CRN) associated with the binding. For more information about this format, see [Cloud
 	// Resource Names](https://cloud.ibm.com/docs/overview?topic=overview-crn).
-	EntityCrn *string `json:"entity_crn,omitempty"`
+	EntityCRN *string `json:"entity_crn,omitempty"`
 
 	// The short ID of the resource instance.
 	ResourceInstanceID *string `json:"resource_instance_id,omitempty"`
@@ -2844,7 +2859,7 @@ func UnmarshalReclamation(m map[string]json.RawMessage, result interface{}) (err
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalPrimitive(m, "entity_crn", &obj.EntityCrn)
+	err = core.UnmarshalPrimitive(m, "entity_crn", &obj.EntityCRN)
 	if err != nil {
 		return
 	}
@@ -2921,11 +2936,11 @@ type ResourceAlias struct {
 
 	// When you create a new alias, a globally unique identifier (GUID) is assigned. This GUID is a unique internal
 	// indentifier managed by the resource controller that corresponds to the alias.
-	Guid *string `json:"guid,omitempty"`
+	GUID *string `json:"guid,omitempty"`
 
 	// The full Cloud Resource Name (CRN) associated with the alias. For more information about this format, see [Cloud
 	// Resource Names](https://cloud.ibm.com/docs/overview?topic=overview-crn).
-	Crn *string `json:"crn,omitempty"`
+	CRN *string `json:"crn,omitempty"`
 
 	// When you created a new alias, a relative URL path is created identifying the location of the alias.
 	URL *string `json:"url,omitempty"`
@@ -2940,10 +2955,10 @@ type ResourceAlias struct {
 	ResourceGroupID *string `json:"resource_group_id,omitempty"`
 
 	// The long ID (full CRN) of the resource group.
-	ResourceGroupCrn *string `json:"resource_group_crn,omitempty"`
+	ResourceGroupCRN *string `json:"resource_group_crn,omitempty"`
 
 	// The CRN of the target namespace in the specific environment.
-	TargetCrn *string `json:"target_crn,omitempty"`
+	TargetCRN *string `json:"target_crn,omitempty"`
 
 	// The state of the alias.
 	State *string `json:"state,omitempty"`
@@ -2991,11 +3006,11 @@ func UnmarshalResourceAlias(m map[string]json.RawMessage, result interface{}) (e
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalPrimitive(m, "guid", &obj.Guid)
+	err = core.UnmarshalPrimitive(m, "guid", &obj.GUID)
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalPrimitive(m, "crn", &obj.Crn)
+	err = core.UnmarshalPrimitive(m, "crn", &obj.CRN)
 	if err != nil {
 		return
 	}
@@ -3015,11 +3030,11 @@ func UnmarshalResourceAlias(m map[string]json.RawMessage, result interface{}) (e
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalPrimitive(m, "resource_group_crn", &obj.ResourceGroupCrn)
+	err = core.UnmarshalPrimitive(m, "resource_group_crn", &obj.ResourceGroupCRN)
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalPrimitive(m, "target_crn", &obj.TargetCrn)
+	err = core.UnmarshalPrimitive(m, "target_crn", &obj.TargetCRN)
 	if err != nil {
 		return
 	}
@@ -3114,11 +3129,11 @@ type ResourceBinding struct {
 
 	// When you create a new binding, a globally unique identifier (GUID) is assigned. This GUID is a unique internal
 	// identifier managed by the resource controller that corresponds to the binding.
-	Guid *string `json:"guid,omitempty"`
+	GUID *string `json:"guid,omitempty"`
 
 	// The full Cloud Resource Name (CRN) associated with the binding. For more information about this format, see [Cloud
 	// Resource Names](https://cloud.ibm.com/docs/overview?topic=overview-crn).
-	Crn *string `json:"crn,omitempty"`
+	CRN *string `json:"crn,omitempty"`
 
 	// When you provision a new binding, a relative URL path is created identifying the location of the binding.
 	URL *string `json:"url,omitempty"`
@@ -3133,10 +3148,10 @@ type ResourceBinding struct {
 	ResourceGroupID *string `json:"resource_group_id,omitempty"`
 
 	// The CRN of resource alias associated to the binding.
-	SourceCrn *string `json:"source_crn,omitempty"`
+	SourceCRN *string `json:"source_crn,omitempty"`
 
 	// The CRN of target resource, e.g. application, in a specific environment.
-	TargetCrn *string `json:"target_crn,omitempty"`
+	TargetCRN *string `json:"target_crn,omitempty"`
 
 	// The role CRN.
 	Role *string `json:"role,omitempty"`
@@ -3185,11 +3200,11 @@ func UnmarshalResourceBinding(m map[string]json.RawMessage, result interface{}) 
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalPrimitive(m, "guid", &obj.Guid)
+	err = core.UnmarshalPrimitive(m, "guid", &obj.GUID)
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalPrimitive(m, "crn", &obj.Crn)
+	err = core.UnmarshalPrimitive(m, "crn", &obj.CRN)
 	if err != nil {
 		return
 	}
@@ -3209,11 +3224,11 @@ func UnmarshalResourceBinding(m map[string]json.RawMessage, result interface{}) 
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalPrimitive(m, "source_crn", &obj.SourceCrn)
+	err = core.UnmarshalPrimitive(m, "source_crn", &obj.SourceCRN)
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalPrimitive(m, "target_crn", &obj.TargetCrn)
+	err = core.UnmarshalPrimitive(m, "target_crn", &obj.TargetCRN)
 	if err != nil {
 		return
 	}
@@ -3273,14 +3288,14 @@ func UnmarshalResourceBinding(m map[string]json.RawMessage, result interface{}) 
 // resource brokers, whereas platform defined options are not.
 type ResourceBindingPostParameters struct {
 	// An optional platform defined option to reuse an existing IAM serviceId for the role assignment.
-	ServiceidCrn *string `json:"serviceid_crn,omitempty"`
+	ServiceidCRN *string `json:"serviceid_crn,omitempty"`
 }
 
 
 // UnmarshalResourceBindingPostParameters unmarshals an instance of ResourceBindingPostParameters from the specified map of raw messages.
 func UnmarshalResourceBindingPostParameters(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(ResourceBindingPostParameters)
-	err = core.UnmarshalPrimitive(m, "serviceid_crn", &obj.ServiceidCrn)
+	err = core.UnmarshalPrimitive(m, "serviceid_crn", &obj.ServiceidCRN)
 	if err != nil {
 		return
 	}
@@ -3327,11 +3342,11 @@ type ResourceInstance struct {
 
 	// When you create a new resource, a globally unique identifier (GUID) is assigned. This GUID is a unique internal
 	// identifier managed by the resource controller that corresponds to the instance.
-	Guid *string `json:"guid,omitempty"`
+	GUID *string `json:"guid,omitempty"`
 
 	// The full Cloud Resource Name (CRN) associated with the instance. For more information about this format, see [Cloud
 	// Resource Names](https://cloud.ibm.com/docs/overview?topic=overview-crn).
-	Crn *string `json:"crn,omitempty"`
+	CRN *string `json:"crn,omitempty"`
 
 	// When you provision a new resource, a relative URL path is created identifying the location of the instance.
 	URL *string `json:"url,omitempty"`
@@ -3346,7 +3361,7 @@ type ResourceInstance struct {
 	ResourceGroupID *string `json:"resource_group_id,omitempty"`
 
 	// The long ID (full CRN) of the resource group.
-	ResourceGroupCrn *string `json:"resource_group_crn,omitempty"`
+	ResourceGroupCRN *string `json:"resource_group_crn,omitempty"`
 
 	// The unique ID of the offering. This value is provided by and stored in the global catalog.
 	ResourceID *string `json:"resource_id,omitempty"`
@@ -3356,7 +3371,7 @@ type ResourceInstance struct {
 
 	// The full deployment CRN as defined in the global catalog. The Cloud Resource Name (CRN) of the deployment location
 	// where the instance is provisioned.
-	TargetCrn *string `json:"target_crn,omitempty"`
+	TargetCRN *string `json:"target_crn,omitempty"`
 
 	// The current configuration parameters of the instance.
 	Parameters map[string]interface{} `json:"parameters,omitempty"`
@@ -3434,11 +3449,11 @@ func UnmarshalResourceInstance(m map[string]json.RawMessage, result interface{})
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalPrimitive(m, "guid", &obj.Guid)
+	err = core.UnmarshalPrimitive(m, "guid", &obj.GUID)
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalPrimitive(m, "crn", &obj.Crn)
+	err = core.UnmarshalPrimitive(m, "crn", &obj.CRN)
 	if err != nil {
 		return
 	}
@@ -3458,7 +3473,7 @@ func UnmarshalResourceInstance(m map[string]json.RawMessage, result interface{})
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalPrimitive(m, "resource_group_crn", &obj.ResourceGroupCrn)
+	err = core.UnmarshalPrimitive(m, "resource_group_crn", &obj.ResourceGroupCRN)
 	if err != nil {
 		return
 	}
@@ -3470,7 +3485,7 @@ func UnmarshalResourceInstance(m map[string]json.RawMessage, result interface{})
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalPrimitive(m, "target_crn", &obj.TargetCrn)
+	err = core.UnmarshalPrimitive(m, "target_crn", &obj.TargetCRN)
 	if err != nil {
 		return
 	}
@@ -3605,11 +3620,11 @@ type ResourceKey struct {
 
 	// When you create a new key, a globally unique identifier (GUID) is assigned. This GUID is a unique internal
 	// identifier managed by the resource controller that corresponds to the key.
-	Guid *string `json:"guid,omitempty"`
+	GUID *string `json:"guid,omitempty"`
 
 	// The full Cloud Resource Name (CRN) associated with the key. For more information about this format, see [Cloud
 	// Resource Names](https://cloud.ibm.com/docs/overview?topic=overview-crn).
-	Crn *string `json:"crn,omitempty"`
+	CRN *string `json:"crn,omitempty"`
 
 	// When you created a new key, a relative URL path is created identifying the location of the key.
 	URL *string `json:"url,omitempty"`
@@ -3624,7 +3639,7 @@ type ResourceKey struct {
 	ResourceGroupID *string `json:"resource_group_id,omitempty"`
 
 	// The CRN of resource instance or alias associated to the key.
-	SourceCrn *string `json:"source_crn,omitempty"`
+	SourceCRN *string `json:"source_crn,omitempty"`
 
 	// The role CRN.
 	Role *string `json:"role,omitempty"`
@@ -3669,11 +3684,11 @@ func UnmarshalResourceKey(m map[string]json.RawMessage, result interface{}) (err
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalPrimitive(m, "guid", &obj.Guid)
+	err = core.UnmarshalPrimitive(m, "guid", &obj.GUID)
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalPrimitive(m, "crn", &obj.Crn)
+	err = core.UnmarshalPrimitive(m, "crn", &obj.CRN)
 	if err != nil {
 		return
 	}
@@ -3693,7 +3708,7 @@ func UnmarshalResourceKey(m map[string]json.RawMessage, result interface{}) (err
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalPrimitive(m, "source_crn", &obj.SourceCrn)
+	err = core.UnmarshalPrimitive(m, "source_crn", &obj.SourceCRN)
 	if err != nil {
 		return
 	}
@@ -3749,14 +3764,14 @@ func UnmarshalResourceKey(m map[string]json.RawMessage, result interface{}) (err
 // resource brokers, whereas platform defined options are not.
 type ResourceKeyPostParameters struct {
 	// An optional platform defined option to reuse an existing IAM serviceId for the role assignment.
-	ServiceidCrn *string `json:"serviceid_crn,omitempty"`
+	ServiceidCRN *string `json:"serviceid_crn,omitempty"`
 }
 
 
 // UnmarshalResourceKeyPostParameters unmarshals an instance of ResourceKeyPostParameters from the specified map of raw messages.
 func UnmarshalResourceKeyPostParameters(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(ResourceKeyPostParameters)
-	err = core.UnmarshalPrimitive(m, "serviceid_crn", &obj.ServiceidCrn)
+	err = core.UnmarshalPrimitive(m, "serviceid_crn", &obj.ServiceidCRN)
 	if err != nil {
 		return
 	}
