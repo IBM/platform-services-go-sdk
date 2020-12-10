@@ -77,6 +77,12 @@ var _ = Describe(`ResourceManagerV2`, func() {
 				Expect(resourceManagerService).ToNot(BeNil())
 				Expect(serviceErr).To(BeNil())
 				ClearTestEnvironment(testEnvironment)
+
+				clone := resourceManagerService.Clone()
+				Expect(clone).ToNot(BeNil())
+				Expect(clone.Service != resourceManagerService.Service).To(BeTrue())
+				Expect(clone.GetServiceURL()).To(Equal(resourceManagerService.GetServiceURL()))
+				Expect(clone.Service.Options.Authenticator).To(Equal(resourceManagerService.Service.Options.Authenticator))
 			})
 			It(`Create service client using external config and set url from constructor successfully`, func() {
 				SetTestEnvironment(testEnvironment)
@@ -87,6 +93,12 @@ var _ = Describe(`ResourceManagerV2`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(resourceManagerService.Service.GetServiceURL()).To(Equal("https://testService/api"))
 				ClearTestEnvironment(testEnvironment)
+
+				clone := resourceManagerService.Clone()
+				Expect(clone).ToNot(BeNil())
+				Expect(clone.Service != resourceManagerService.Service).To(BeTrue())
+				Expect(clone.GetServiceURL()).To(Equal(resourceManagerService.GetServiceURL()))
+				Expect(clone.Service.Options.Authenticator).To(Equal(resourceManagerService.Service.Options.Authenticator))
 			})
 			It(`Create service client using external config and set url programatically successfully`, func() {
 				SetTestEnvironment(testEnvironment)
@@ -98,6 +110,12 @@ var _ = Describe(`ResourceManagerV2`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(resourceManagerService.Service.GetServiceURL()).To(Equal("https://testService/api"))
 				ClearTestEnvironment(testEnvironment)
+
+				clone := resourceManagerService.Clone()
+				Expect(clone).ToNot(BeNil())
+				Expect(clone.Service != resourceManagerService.Service).To(BeTrue())
+				Expect(clone.GetServiceURL()).To(Equal(resourceManagerService.GetServiceURL()))
+				Expect(clone.Service.Options.Authenticator).To(Equal(resourceManagerService.Service.Options.Authenticator))
 			})
 		})
 		Context(`Using external config, construct service client instances with error: Invalid Auth`, func() {
@@ -133,6 +151,16 @@ var _ = Describe(`ResourceManagerV2`, func() {
 				Expect(serviceErr).ToNot(BeNil())
 				ClearTestEnvironment(testEnvironment)
 			})
+		})
+	})
+	Describe(`Regional endpoint tests`, func() {
+		It(`GetServiceURLForRegion(region string)`, func() {
+			var url string
+			var err error
+			url, err = resourcemanagerv2.GetServiceURLForRegion("INVALID_REGION")
+			Expect(url).To(BeEmpty())
+			Expect(err).ToNot(BeNil())
+			fmt.Fprintf(GinkgoWriter, "Expected error: %s\n", err.Error())
 		})
 	})
 	Describe(`ListResourceGroups(listResourceGroupsOptions *ListResourceGroupsOptions) - Operation response error`, func() {
@@ -209,7 +237,7 @@ var _ = Describe(`ResourceManagerV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"resources": [{"id": "ID", "crn": "Crn", "account_id": "AccountID", "name": "Name", "state": "State", "default": false, "quota_id": "QuotaID", "quota_url": "QuotaURL", "payment_methods_url": "PaymentMethodsURL", "resource_linkages": [{"anyKey": "anyValue"}], "teams_url": "TeamsURL", "created_at": "2019-01-01T12:00:00", "updated_at": "2019-01-01T12:00:00"}]}`)
+					fmt.Fprintf(res, "%s", `{"resources": [{"id": "ID", "crn": "CRN", "account_id": "AccountID", "name": "Name", "state": "State", "default": false, "quota_id": "QuotaID", "quota_url": "QuotaURL", "payment_methods_url": "PaymentMethodsURL", "resource_linkages": [{"anyKey": "anyValue"}], "teams_url": "TeamsURL", "created_at": "2019-01-01T12:00:00", "updated_at": "2019-01-01T12:00:00"}]}`)
 				}))
 			})
 			It(`Invoke ListResourceGroups successfully`, func() {
@@ -373,7 +401,7 @@ var _ = Describe(`ResourceManagerV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "crn": "Crn"}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "crn": "CRN"}`)
 				}))
 			})
 			It(`Invoke CreateResourceGroup successfully`, func() {
@@ -520,7 +548,7 @@ var _ = Describe(`ResourceManagerV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "crn": "Crn", "account_id": "AccountID", "name": "Name", "state": "State", "default": false, "quota_id": "QuotaID", "quota_url": "QuotaURL", "payment_methods_url": "PaymentMethodsURL", "resource_linkages": [{"anyKey": "anyValue"}], "teams_url": "TeamsURL", "created_at": "2019-01-01T12:00:00", "updated_at": "2019-01-01T12:00:00"}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "crn": "CRN", "account_id": "AccountID", "name": "Name", "state": "State", "default": false, "quota_id": "QuotaID", "quota_url": "QuotaURL", "payment_methods_url": "PaymentMethodsURL", "resource_linkages": [{"anyKey": "anyValue"}], "teams_url": "TeamsURL", "created_at": "2019-01-01T12:00:00", "updated_at": "2019-01-01T12:00:00"}`)
 				}))
 			})
 			It(`Invoke GetResourceGroup successfully`, func() {
@@ -690,7 +718,7 @@ var _ = Describe(`ResourceManagerV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "crn": "Crn", "account_id": "AccountID", "name": "Name", "state": "State", "default": false, "quota_id": "QuotaID", "quota_url": "QuotaURL", "payment_methods_url": "PaymentMethodsURL", "resource_linkages": [{"anyKey": "anyValue"}], "teams_url": "TeamsURL", "created_at": "2019-01-01T12:00:00", "updated_at": "2019-01-01T12:00:00"}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "crn": "CRN", "account_id": "AccountID", "name": "Name", "state": "State", "default": false, "quota_id": "QuotaID", "quota_url": "QuotaURL", "payment_methods_url": "PaymentMethodsURL", "resource_linkages": [{"anyKey": "anyValue"}], "teams_url": "TeamsURL", "created_at": "2019-01-01T12:00:00", "updated_at": "2019-01-01T12:00:00"}`)
 				}))
 			})
 			It(`Invoke UpdateResourceGroup successfully`, func() {
@@ -899,6 +927,12 @@ var _ = Describe(`ResourceManagerV2`, func() {
 				Expect(resourceManagerService).ToNot(BeNil())
 				Expect(serviceErr).To(BeNil())
 				ClearTestEnvironment(testEnvironment)
+
+				clone := resourceManagerService.Clone()
+				Expect(clone).ToNot(BeNil())
+				Expect(clone.Service != resourceManagerService.Service).To(BeTrue())
+				Expect(clone.GetServiceURL()).To(Equal(resourceManagerService.GetServiceURL()))
+				Expect(clone.Service.Options.Authenticator).To(Equal(resourceManagerService.Service.Options.Authenticator))
 			})
 			It(`Create service client using external config and set url from constructor successfully`, func() {
 				SetTestEnvironment(testEnvironment)
@@ -909,6 +943,12 @@ var _ = Describe(`ResourceManagerV2`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(resourceManagerService.Service.GetServiceURL()).To(Equal("https://testService/api"))
 				ClearTestEnvironment(testEnvironment)
+
+				clone := resourceManagerService.Clone()
+				Expect(clone).ToNot(BeNil())
+				Expect(clone.Service != resourceManagerService.Service).To(BeTrue())
+				Expect(clone.GetServiceURL()).To(Equal(resourceManagerService.GetServiceURL()))
+				Expect(clone.Service.Options.Authenticator).To(Equal(resourceManagerService.Service.Options.Authenticator))
 			})
 			It(`Create service client using external config and set url programatically successfully`, func() {
 				SetTestEnvironment(testEnvironment)
@@ -920,6 +960,12 @@ var _ = Describe(`ResourceManagerV2`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(resourceManagerService.Service.GetServiceURL()).To(Equal("https://testService/api"))
 				ClearTestEnvironment(testEnvironment)
+
+				clone := resourceManagerService.Clone()
+				Expect(clone).ToNot(BeNil())
+				Expect(clone.Service != resourceManagerService.Service).To(BeTrue())
+				Expect(clone.GetServiceURL()).To(Equal(resourceManagerService.GetServiceURL()))
+				Expect(clone.Service.Options.Authenticator).To(Equal(resourceManagerService.Service.Options.Authenticator))
 			})
 		})
 		Context(`Using external config, construct service client instances with error: Invalid Auth`, func() {
@@ -955,6 +1001,16 @@ var _ = Describe(`ResourceManagerV2`, func() {
 				Expect(serviceErr).ToNot(BeNil())
 				ClearTestEnvironment(testEnvironment)
 			})
+		})
+	})
+	Describe(`Regional endpoint tests`, func() {
+		It(`GetServiceURLForRegion(region string)`, func() {
+			var url string
+			var err error
+			url, err = resourcemanagerv2.GetServiceURLForRegion("INVALID_REGION")
+			Expect(url).To(BeEmpty())
+			Expect(err).ToNot(BeNil())
+			fmt.Fprintf(GinkgoWriter, "Expected error: %s\n", err.Error())
 		})
 	})
 	Describe(`ListQuotaDefinitions(listQuotaDefinitionsOptions *ListQuotaDefinitionsOptions) - Operation response error`, func() {
@@ -1021,7 +1077,7 @@ var _ = Describe(`ResourceManagerV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"resources": [{"id": "ID", "name": "Name", "type": "Type", "number_of_apps": 12, "number_of_service_instances": 24, "default_number_of_instances_per_lite_plan": 35, "instances_per_app": 15, "instance_memory": "InstanceMemory", "total_app_memory": "TotalAppMemory", "vsi_limit": 8, "resource_quotas": [{"_id": "ID", "resource_id": "ResourceID", "crn": "Crn", "limit": 5}], "created_at": "2019-01-01T12:00:00", "updated_at": "2019-01-01T12:00:00"}]}`)
+					fmt.Fprintf(res, "%s", `{"resources": [{"id": "ID", "name": "Name", "type": "Type", "number_of_apps": 12, "number_of_service_instances": 24, "default_number_of_instances_per_lite_plan": 35, "instances_per_app": 15, "instance_memory": "InstanceMemory", "total_app_memory": "TotalAppMemory", "vsi_limit": 8, "resource_quotas": [{"_id": "ID", "resource_id": "ResourceID", "crn": "CRN", "limit": 5}], "created_at": "2019-01-01T12:00:00", "updated_at": "2019-01-01T12:00:00"}]}`)
 				}))
 			})
 			It(`Invoke ListQuotaDefinitions successfully`, func() {
@@ -1164,7 +1220,7 @@ var _ = Describe(`ResourceManagerV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "type": "Type", "number_of_apps": 12, "number_of_service_instances": 24, "default_number_of_instances_per_lite_plan": 35, "instances_per_app": 15, "instance_memory": "InstanceMemory", "total_app_memory": "TotalAppMemory", "vsi_limit": 8, "resource_quotas": [{"_id": "ID", "resource_id": "ResourceID", "crn": "Crn", "limit": 5}], "created_at": "2019-01-01T12:00:00", "updated_at": "2019-01-01T12:00:00"}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "type": "Type", "number_of_apps": 12, "number_of_service_instances": 24, "default_number_of_instances_per_lite_plan": 35, "instances_per_app": 15, "instance_memory": "InstanceMemory", "total_app_memory": "TotalAppMemory", "vsi_limit": 8, "resource_quotas": [{"_id": "ID", "resource_id": "ResourceID", "crn": "CRN", "limit": 5}], "created_at": "2019-01-01T12:00:00", "updated_at": "2019-01-01T12:00:00"}`)
 				}))
 			})
 			It(`Invoke GetQuotaDefinition successfully`, func() {
