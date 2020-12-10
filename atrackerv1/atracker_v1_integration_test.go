@@ -94,33 +94,6 @@ var _ = Describe(`AtrackerV1 Integration Tests`, func() {
 		})
 	})
 
-	Describe(`CreateRoute - Create a Route for the region`, func() {
-		BeforeEach(func() {
-			shouldSkipTest()
-		})
-		It(`CreateRoute(createRouteOptions *CreateRouteOptions)`, func() {
-
-			ruleModel := &atrackerv1.Rule{
-				TargetIds: []string{"c3af557f-fb0e-4476-85c3-0889e7fe7bc4"},
-			}
-
-			createRouteOptions := &atrackerv1.CreateRouteOptions{
-				Name: core.StringPtr("my-route"),
-				ReceiveGlobalEvents: core.BoolPtr(false),
-				Rules: []atrackerv1.Rule{*ruleModel},
-			}
-
-			route, response, err := atrackerService.CreateRoute(createRouteOptions)
-
-			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(201))
-			Expect(route).ToNot(BeNil())
-
-			routeIDLink = *route.ID;
-
-		})
-	})
-
 	Describe(`CreateTarget - Create a Cloud Object Storage target for a region`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
@@ -165,6 +138,7 @@ var _ = Describe(`AtrackerV1 Integration Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(targetList).ToNot(BeNil())
+			Expect(len(targetList.Targets)).To(BeNumerically(">", 0))
 
 		})
 	})
@@ -184,6 +158,7 @@ var _ = Describe(`AtrackerV1 Integration Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(target).ToNot(BeNil())
+			Expect(*target.Name).To(Equal("my-cos-target"))
 
 		})
 	})
@@ -203,7 +178,7 @@ var _ = Describe(`AtrackerV1 Integration Tests`, func() {
 
 			replaceTargetOptions := &atrackerv1.ReplaceTargetOptions{
 				ID: core.StringPtr(targetIDLink),
-				Name: core.StringPtr("my-cos-target"),
+				Name: core.StringPtr("my-cos-target-modified"),
 				TargetType: core.StringPtr("cloud_object_storage"),
 				CosEndpoint: cosEndpointModel,
 			}
@@ -213,6 +188,34 @@ var _ = Describe(`AtrackerV1 Integration Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(target).ToNot(BeNil())
+			Expect(*target.Name).To(Equal("my-cos-target-modified"))
+
+		})
+	})
+
+	Describe(`CreateRoute - Create a Route for the region`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`CreateRoute(createRouteOptions *CreateRouteOptions)`, func() {
+
+			ruleModel := &atrackerv1.Rule{
+				TargetIds: []string{targetIDLink},
+			}
+
+			createRouteOptions := &atrackerv1.CreateRouteOptions{
+				Name: core.StringPtr("my-route"),
+				ReceiveGlobalEvents: core.BoolPtr(false),
+				Rules: []atrackerv1.Rule{*ruleModel},
+			}
+
+			route, response, err := atrackerService.CreateRoute(createRouteOptions)
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(201))
+			Expect(route).ToNot(BeNil())
+
+			routeIDLink = *route.ID;
 
 		})
 	})
@@ -231,6 +234,7 @@ var _ = Describe(`AtrackerV1 Integration Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(routeList).ToNot(BeNil())
+			Expect(len(routeList.Routes)).To(BeNumerically(">", 0))
 
 		})
 	})
@@ -250,6 +254,7 @@ var _ = Describe(`AtrackerV1 Integration Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(route).ToNot(BeNil())
+			Expect(*route.Name).To(Equal("my-route"))
 
 		})
 	})
@@ -261,12 +266,12 @@ var _ = Describe(`AtrackerV1 Integration Tests`, func() {
 		It(`ReplaceRoute(replaceRouteOptions *ReplaceRouteOptions)`, func() {
 
 			ruleModel := &atrackerv1.Rule{
-				TargetIds: []string{"c3af557f-fb0e-4476-85c3-0889e7fe7bc4"},
+				TargetIds: []string{targetIDLink},
 			}
 
 			replaceRouteOptions := &atrackerv1.ReplaceRouteOptions{
 				ID: core.StringPtr(routeIDLink),
-				Name: core.StringPtr("my-route"),
+				Name: core.StringPtr("my-route-modified"),
 				ReceiveGlobalEvents: core.BoolPtr(false),
 				Rules: []atrackerv1.Rule{*ruleModel},
 			}
@@ -276,24 +281,7 @@ var _ = Describe(`AtrackerV1 Integration Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(route).ToNot(BeNil())
-
-		})
-	})
-
-	Describe(`DeleteTarget - Delete a target`, func() {
-		BeforeEach(func() {
-			shouldSkipTest()
-		})
-		It(`DeleteTarget(deleteTargetOptions *DeleteTargetOptions)`, func() {
-
-			deleteTargetOptions := &atrackerv1.DeleteTargetOptions{
-				ID: core.StringPtr(targetIDLink),
-			}
-
-			response, err := atrackerService.DeleteTarget(deleteTargetOptions)
-
-			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(204))
+			Expect(*route.Name).To(Equal("my-route-modified"))
 
 		})
 	})
@@ -309,6 +297,24 @@ var _ = Describe(`AtrackerV1 Integration Tests`, func() {
 			}
 
 			response, err := atrackerService.DeleteRoute(deleteRouteOptions)
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(204))
+
+		})
+	})
+
+	Describe(`DeleteTarget - Delete a target`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`DeleteTarget(deleteTargetOptions *DeleteTargetOptions)`, func() {
+
+			deleteTargetOptions := &atrackerv1.DeleteTargetOptions{
+				ID: core.StringPtr(targetIDLink),
+			}
+
+			response, err := atrackerService.DeleteTarget(deleteTargetOptions)
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(204))
