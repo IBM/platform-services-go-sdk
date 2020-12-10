@@ -60,13 +60,13 @@ var (
 	configLoaded             bool = false
 
 	instanceId  string
-	orgGuid     string
+	orgGUID     string
 	planId      string
 	serviceId   string
-	spaceGuid   string
+	spaceGUID   string
 	accountId   string
 	bindingId   string
-	appGuid     string
+	appGUID     string
 	initiatorId string = "null"
 	reasonCode  string = "IBMCLOUD_ACCT_SUSPEND"
 	operation   string = "Privision_45"
@@ -98,8 +98,8 @@ var _ = Describe(`OpenServiceBrokerV1 Examples Tests`, func() {
 			instanceId = config["RESOURCE_INSTANCE_ID"]
 			Expect(instanceId).ToNot(BeEmpty())
 
-			orgGuid = config["ORGANIZATION_GUID"]
-			Expect(orgGuid).ToNot(BeEmpty())
+			orgGUID = config["ORGANIZATION_GUID"]
+			Expect(orgGUID).ToNot(BeEmpty())
 
 			planId = config["PLAN_ID"]
 			Expect(planId).ToNot(BeEmpty())
@@ -107,8 +107,8 @@ var _ = Describe(`OpenServiceBrokerV1 Examples Tests`, func() {
 			serviceId = config["SERVICE_ID"]
 			Expect(serviceId).ToNot(BeEmpty())
 
-			spaceGuid = config["SPACE_GUID"]
-			Expect(spaceGuid).ToNot(BeEmpty())
+			spaceGUID = config["SPACE_GUID"]
+			Expect(spaceGUID).ToNot(BeEmpty())
 
 			accountId = config["ACCOUNT_ID"]
 			Expect(accountId).ToNot(BeEmpty())
@@ -116,8 +116,8 @@ var _ = Describe(`OpenServiceBrokerV1 Examples Tests`, func() {
 			bindingId = config["BINDING_ID"]
 			Expect(bindingId).ToNot(BeEmpty())
 
-			appGuid = config["APPLICATION_GUID"]
-			Expect(appGuid).ToNot(BeEmpty())
+			appGUID = config["APPLICATION_GUID"]
+			Expect(appGUID).ToNot(BeEmpty())
 		})
 	})
 
@@ -197,7 +197,7 @@ var _ = Describe(`OpenServiceBrokerV1 Examples Tests`, func() {
 
 			contextOpt := &openservicebrokerv1.Context{
 				AccountID: &accountId,
-				Crn:       &instanceId,
+				CRN:       &instanceId,
 				Platform:  core.StringPtr("ibmcloud"),
 			}
 			paramsOpt := make(map[string]string, 0)
@@ -208,8 +208,8 @@ var _ = Describe(`OpenServiceBrokerV1 Examples Tests`, func() {
 			)
 			options = options.SetPlanID(planId)
 			options = options.SetServiceID(serviceId)
-			options = options.SetOrganizationGuid(orgGuid)
-			options = options.SetSpaceGuid(spaceGuid)
+			options = options.SetOrganizationGUID(orgGUID)
+			options = options.SetSpaceGUID(spaceGUID)
 			options = options.SetContext(contextOpt)
 			options = options.SetParameters(paramsOpt)
 			options = options.SetAcceptsIncomplete(true)
@@ -233,7 +233,7 @@ var _ = Describe(`OpenServiceBrokerV1 Examples Tests`, func() {
 
 			contextOpt := &openservicebrokerv1.Context{
 				AccountID: &accountId,
-				Crn:       &instanceId,
+				CRN:       &instanceId,
 				Platform:  core.StringPtr("ibmcloud"),
 			}
 
@@ -317,7 +317,7 @@ var _ = Describe(`OpenServiceBrokerV1 Examples Tests`, func() {
 
 			bindResource := &openservicebrokerv1.BindResource{
 				AccountID:    &accountId,
-				ServiceidCrn: &appGuid,
+				ServiceidCRN: &appGUID,
 			}
 
 			options := openServiceBrokerService.NewReplaceServiceBindingOptions(

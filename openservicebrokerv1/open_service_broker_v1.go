@@ -15,7 +15,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-8d569e8f-20201030-111043
+ * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-d753183b-20201209-163011
  */
  
 
@@ -105,6 +105,21 @@ func NewOpenServiceBrokerV1(options *OpenServiceBrokerV1Options) (service *OpenS
 	}
 
 	return
+}
+
+// GetServiceURLForRegion returns the service URL to be used for the specified region
+func GetServiceURLForRegion(region string) (string, error) {
+	return "", fmt.Errorf("service does not support regional URLs")
+}
+
+// Clone makes a copy of "openServiceBroker" suitable for processing requests.
+func (openServiceBroker *OpenServiceBrokerV1) Clone() *OpenServiceBrokerV1 {
+	if core.IsNil(openServiceBroker) {
+		return nil
+	}
+	clone := *openServiceBroker
+	clone.Service = openServiceBroker.Service.Clone()
+	return &clone
 }
 
 // SetServiceURL sets the service URL
@@ -348,8 +363,8 @@ func (openServiceBroker *OpenServiceBrokerV1) ReplaceServiceInstanceWithContext(
 	if replaceServiceInstanceOptions.Context != nil {
 		body["context"] = replaceServiceInstanceOptions.Context
 	}
-	if replaceServiceInstanceOptions.OrganizationGuid != nil {
-		body["organization_guid"] = replaceServiceInstanceOptions.OrganizationGuid
+	if replaceServiceInstanceOptions.OrganizationGUID != nil {
+		body["organization_guid"] = replaceServiceInstanceOptions.OrganizationGUID
 	}
 	if replaceServiceInstanceOptions.Parameters != nil {
 		body["parameters"] = replaceServiceInstanceOptions.Parameters
@@ -360,8 +375,8 @@ func (openServiceBroker *OpenServiceBrokerV1) ReplaceServiceInstanceWithContext(
 	if replaceServiceInstanceOptions.ServiceID != nil {
 		body["service_id"] = replaceServiceInstanceOptions.ServiceID
 	}
-	if replaceServiceInstanceOptions.SpaceGuid != nil {
-		body["space_guid"] = replaceServiceInstanceOptions.SpaceGuid
+	if replaceServiceInstanceOptions.SpaceGUID != nil {
+		body["space_guid"] = replaceServiceInstanceOptions.SpaceGUID
 	}
 	_, err = builder.SetBodyContentJSON(body)
 	if err != nil {
@@ -1130,10 +1145,10 @@ type ReplaceServiceInstanceOptions struct {
 	// Platform specific contextual information under which the service instance is to be provisioned.
 	Context *Context `json:"context,omitempty"`
 
-	// Deprecated in favor of `context`. The identifier for the project space within the IBM Cloud platform organization.
-	// Although most brokers will not use this field, it might be helpful for executing operations on a user's behalf. It
-	// MUST be a non-empty string.
-	OrganizationGuid *string `json:"organization_guid,omitempty"`
+	// Deprecated in favor of `context`. The IBM Cloud platform GUID for the organization under which the service instance
+	// is to be provisioned. Although most brokers will not use this field, it might be helpful for executing operations on
+	// a user's behalf. It MUST be a non-empty string.
+	OrganizationGUID *string `json:"organization_guid,omitempty"`
 
 	// Configuration options for the service instance. An opaque object, controller treats this as a blob. Brokers should
 	// ensure that the client has provided valid configuration parameters and values for the operation. If this field is
@@ -1149,10 +1164,10 @@ type ReplaceServiceInstanceOptions struct {
 	// non-empty string.
 	ServiceID *string `json:"service_id,omitempty"`
 
-	// Deprecated in favor of `context`. The IBM Cloud platform GUID for the organization under which the service instance
-	// is to be provisioned. Although most brokers will not use this field, it might be helpful for executing operations on
-	// a user's behalf. It MUST be a non-empty string.
-	SpaceGuid *string `json:"space_guid,omitempty"`
+	// Deprecated in favor of `context`. The identifier for the project space within the IBM Cloud platform organization.
+	// Although most brokers will not use this field, it might be helpful for executing operations on a user's behalf. It
+	// MUST be a non-empty string.
+	SpaceGUID *string `json:"space_guid,omitempty"`
 
 	// A value of true indicates that both the IBM Cloud platform and the requesting client support asynchronous
 	// deprovisioning. If this parameter is not included in the request, and the broker can only deprovision a service
@@ -1182,9 +1197,9 @@ func (options *ReplaceServiceInstanceOptions) SetContext(context *Context) *Repl
 	return options
 }
 
-// SetOrganizationGuid : Allow user to set OrganizationGuid
-func (options *ReplaceServiceInstanceOptions) SetOrganizationGuid(organizationGuid string) *ReplaceServiceInstanceOptions {
-	options.OrganizationGuid = core.StringPtr(organizationGuid)
+// SetOrganizationGUID : Allow user to set OrganizationGUID
+func (options *ReplaceServiceInstanceOptions) SetOrganizationGUID(organizationGUID string) *ReplaceServiceInstanceOptions {
+	options.OrganizationGUID = core.StringPtr(organizationGUID)
 	return options
 }
 
@@ -1206,9 +1221,9 @@ func (options *ReplaceServiceInstanceOptions) SetServiceID(serviceID string) *Re
 	return options
 }
 
-// SetSpaceGuid : Allow user to set SpaceGuid
-func (options *ReplaceServiceInstanceOptions) SetSpaceGuid(spaceGuid string) *ReplaceServiceInstanceOptions {
-	options.SpaceGuid = core.StringPtr(spaceGuid)
+// SetSpaceGUID : Allow user to set SpaceGUID
+func (options *ReplaceServiceInstanceOptions) SetSpaceGUID(spaceGUID string) *ReplaceServiceInstanceOptions {
+	options.SpaceGUID = core.StringPtr(spaceGUID)
 	return options
 }
 
@@ -1593,13 +1608,13 @@ type BindResource struct {
 	AccountID *string `json:"account_id,omitempty"`
 
 	// Service ID of resource to bind.
-	ServiceidCrn *string `json:"serviceid_crn,omitempty"`
+	ServiceidCRN *string `json:"serviceid_crn,omitempty"`
 
 	// Target ID of resource to bind.
-	TargetCrn *string `json:"target_crn,omitempty"`
+	TargetCRN *string `json:"target_crn,omitempty"`
 
 	// GUID of an application associated with the binding. For credentials bindings.
-	AppGuid *string `json:"app_guid,omitempty"`
+	AppGUID *string `json:"app_guid,omitempty"`
 
 	// URL of the application to be intermediated. For route services bindings.
 	Route *string `json:"route,omitempty"`
@@ -1613,15 +1628,15 @@ func UnmarshalBindResource(m map[string]json.RawMessage, result interface{}) (er
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalPrimitive(m, "serviceid_crn", &obj.ServiceidCrn)
+	err = core.UnmarshalPrimitive(m, "serviceid_crn", &obj.ServiceidCRN)
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalPrimitive(m, "target_crn", &obj.TargetCrn)
+	err = core.UnmarshalPrimitive(m, "target_crn", &obj.TargetCRN)
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalPrimitive(m, "app_guid", &obj.AppGuid)
+	err = core.UnmarshalPrimitive(m, "app_guid", &obj.AppGUID)
 	if err != nil {
 		return
 	}
@@ -1644,7 +1659,7 @@ type Context struct {
 	// service provider perspective, the CRN can largely be treated as an opaque string to be utilized with the IBM Cloud
 	// APIs, but it can also be decomposed via the following structure:
 	// `crn:version:cname:ctype:service-name:location:scope:service-instance:resource-type:resource`.
-	Crn *string `json:"crn,omitempty"`
+	CRN *string `json:"crn,omitempty"`
 
 	// Identifies the platform as "ibmcloud".
 	Platform *string `json:"platform,omitempty"`
@@ -1658,7 +1673,7 @@ func UnmarshalContext(m map[string]json.RawMessage, result interface{}) (err err
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalPrimitive(m, "crn", &obj.Crn)
+	err = core.UnmarshalPrimitive(m, "crn", &obj.CRN)
 	if err != nil {
 		return
 	}

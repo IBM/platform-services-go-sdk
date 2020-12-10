@@ -40,10 +40,10 @@ var (
 	configLoaded bool = false
 
 	testAccountId         string = "bc2b2fca0af84354a916dc1de6eee42e"
-	testResourceGroupGuid string = "13aa3ee48c3b44ddb64c05c79f7ab8ef"
-	testOrgGuid           string = "d35d4f0e-5076-4c89-9361-2522894b6548"
-	testSpaceGuid         string = "336ba5f3-f185-488e-ac8d-02195eebb2f3"
-	testAppGuid           string = "bf692181-1f0e-46be-9faf-eb0857f4d1d5"
+	testResourceGroupGUID string = "13aa3ee48c3b44ddb64c05c79f7ab8ef"
+	testOrgGUID           string = "d35d4f0e-5076-4c89-9361-2522894b6548"
+	testSpaceGUID         string = "336ba5f3-f185-488e-ac8d-02195eebb2f3"
+	testAppGUID           string = "bf692181-1f0e-46be-9faf-eb0857f4d1d5"
 	testPlanId1           string = "a10e4820-3685-11e9-b210-d663bd873d93"
 	testPlanId2           string = "a10e4410-3685-11e9-b210-d663bd873d933"
 	testInstanceId        string = "crn:v1:staging:public:bss-monitor:global:a/bc2b2fca0af84354a916dc1de6eee42e:sdkTestInstance::"
@@ -100,7 +100,7 @@ var _ = Describe("Open Service Broker - Integration Tests", func() {
 		platform := "ibmcloud"
 		contextOpt := &openservicebrokerv1.Context{
 			AccountID: &testAccountId,
-			Crn:       &testInstanceId,
+			CRN:       &testInstanceId,
 			Platform:  &platform,
 		}
 
@@ -110,8 +110,8 @@ var _ = Describe("Open Service Broker - Integration Tests", func() {
 		options := service.NewReplaceServiceInstanceOptions(testInstanceIdEscaped)
 		options = options.SetPlanID(testPlanId1)
 		options = options.SetServiceID(testServiceId)
-		options = options.SetOrganizationGuid(testOrgGuid)
-		options = options.SetSpaceGuid(testSpaceGuid)
+		options = options.SetOrganizationGUID(testOrgGUID)
+		options = options.SetSpaceGUID(testSpaceGUID)
 		options = options.SetContext(contextOpt)
 		options = options.SetParameters(paramsOpt)
 		options = options.SetAcceptsIncomplete(true)
@@ -135,7 +135,7 @@ var _ = Describe("Open Service Broker - Integration Tests", func() {
 		platform := "cf"
 		contextOpt := &openservicebrokerv1.Context{
 			AccountID: &testAccountId,
-			Crn:       &testInstanceId,
+			CRN:       &testInstanceId,
 			Platform:  &platform,
 		}
 
@@ -210,7 +210,7 @@ var _ = Describe("Open Service Broker - Integration Tests", func() {
 
 		bindResource := &openservicebrokerv1.BindResource{
 			AccountID:    &testAccountId,
-			ServiceidCrn: &testAppGuid,
+			ServiceidCRN: &testAppGUID,
 		}
 
 		options := service.NewReplaceServiceBindingOptions(testBindingIdEscaped, testInstanceIdEscaped)

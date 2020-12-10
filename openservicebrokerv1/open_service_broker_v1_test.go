@@ -77,6 +77,12 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 				Expect(openServiceBrokerService).ToNot(BeNil())
 				Expect(serviceErr).To(BeNil())
 				ClearTestEnvironment(testEnvironment)
+
+				clone := openServiceBrokerService.Clone()
+				Expect(clone).ToNot(BeNil())
+				Expect(clone.Service != openServiceBrokerService.Service).To(BeTrue())
+				Expect(clone.GetServiceURL()).To(Equal(openServiceBrokerService.GetServiceURL()))
+				Expect(clone.Service.Options.Authenticator).To(Equal(openServiceBrokerService.Service.Options.Authenticator))
 			})
 			It(`Create service client using external config and set url from constructor successfully`, func() {
 				SetTestEnvironment(testEnvironment)
@@ -87,6 +93,12 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(openServiceBrokerService.Service.GetServiceURL()).To(Equal("https://testService/api"))
 				ClearTestEnvironment(testEnvironment)
+
+				clone := openServiceBrokerService.Clone()
+				Expect(clone).ToNot(BeNil())
+				Expect(clone.Service != openServiceBrokerService.Service).To(BeTrue())
+				Expect(clone.GetServiceURL()).To(Equal(openServiceBrokerService.GetServiceURL()))
+				Expect(clone.Service.Options.Authenticator).To(Equal(openServiceBrokerService.Service.Options.Authenticator))
 			})
 			It(`Create service client using external config and set url programatically successfully`, func() {
 				SetTestEnvironment(testEnvironment)
@@ -98,6 +110,12 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(openServiceBrokerService.Service.GetServiceURL()).To(Equal("https://testService/api"))
 				ClearTestEnvironment(testEnvironment)
+
+				clone := openServiceBrokerService.Clone()
+				Expect(clone).ToNot(BeNil())
+				Expect(clone.Service != openServiceBrokerService.Service).To(BeTrue())
+				Expect(clone.GetServiceURL()).To(Equal(openServiceBrokerService.GetServiceURL()))
+				Expect(clone.Service.Options.Authenticator).To(Equal(openServiceBrokerService.Service.Options.Authenticator))
 			})
 		})
 		Context(`Using external config, construct service client instances with error: Invalid Auth`, func() {
@@ -133,6 +151,16 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 				Expect(serviceErr).ToNot(BeNil())
 				ClearTestEnvironment(testEnvironment)
 			})
+		})
+	})
+	Describe(`Regional endpoint tests`, func() {
+		It(`GetServiceURLForRegion(region string)`, func() {
+			var url string
+			var err error
+			url, err = openservicebrokerv1.GetServiceURLForRegion("INVALID_REGION")
+			Expect(url).To(BeEmpty())
+			Expect(err).ToNot(BeNil())
+			fmt.Fprintf(GinkgoWriter, "Expected error: %s\n", err.Error())
 		})
 	})
 	Describe(`GetServiceInstanceState(getServiceInstanceStateOptions *GetServiceInstanceStateOptions) - Operation response error`, func() {
@@ -506,6 +534,12 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 				Expect(openServiceBrokerService).ToNot(BeNil())
 				Expect(serviceErr).To(BeNil())
 				ClearTestEnvironment(testEnvironment)
+
+				clone := openServiceBrokerService.Clone()
+				Expect(clone).ToNot(BeNil())
+				Expect(clone.Service != openServiceBrokerService.Service).To(BeTrue())
+				Expect(clone.GetServiceURL()).To(Equal(openServiceBrokerService.GetServiceURL()))
+				Expect(clone.Service.Options.Authenticator).To(Equal(openServiceBrokerService.Service.Options.Authenticator))
 			})
 			It(`Create service client using external config and set url from constructor successfully`, func() {
 				SetTestEnvironment(testEnvironment)
@@ -516,6 +550,12 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(openServiceBrokerService.Service.GetServiceURL()).To(Equal("https://testService/api"))
 				ClearTestEnvironment(testEnvironment)
+
+				clone := openServiceBrokerService.Clone()
+				Expect(clone).ToNot(BeNil())
+				Expect(clone.Service != openServiceBrokerService.Service).To(BeTrue())
+				Expect(clone.GetServiceURL()).To(Equal(openServiceBrokerService.GetServiceURL()))
+				Expect(clone.Service.Options.Authenticator).To(Equal(openServiceBrokerService.Service.Options.Authenticator))
 			})
 			It(`Create service client using external config and set url programatically successfully`, func() {
 				SetTestEnvironment(testEnvironment)
@@ -527,6 +567,12 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(openServiceBrokerService.Service.GetServiceURL()).To(Equal("https://testService/api"))
 				ClearTestEnvironment(testEnvironment)
+
+				clone := openServiceBrokerService.Clone()
+				Expect(clone).ToNot(BeNil())
+				Expect(clone.Service != openServiceBrokerService.Service).To(BeTrue())
+				Expect(clone.GetServiceURL()).To(Equal(openServiceBrokerService.GetServiceURL()))
+				Expect(clone.Service.Options.Authenticator).To(Equal(openServiceBrokerService.Service.Options.Authenticator))
 			})
 		})
 		Context(`Using external config, construct service client instances with error: Invalid Auth`, func() {
@@ -564,6 +610,16 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 			})
 		})
 	})
+	Describe(`Regional endpoint tests`, func() {
+		It(`GetServiceURLForRegion(region string)`, func() {
+			var url string
+			var err error
+			url, err = openservicebrokerv1.GetServiceURLForRegion("INVALID_REGION")
+			Expect(url).To(BeEmpty())
+			Expect(err).ToNot(BeNil())
+			fmt.Fprintf(GinkgoWriter, "Expected error: %s\n", err.Error())
+		})
+	})
 	Describe(`ReplaceServiceInstance(replaceServiceInstanceOptions *ReplaceServiceInstanceOptions) - Operation response error`, func() {
 		replaceServiceInstancePath := "/v2/service_instances/testString"
 		Context(`Using mock server endpoint`, func() {
@@ -593,18 +649,18 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 				// Construct an instance of the Context model
 				contextModel := new(openservicebrokerv1.Context)
 				contextModel.AccountID = core.StringPtr("null")
-				contextModel.Crn = core.StringPtr("null")
+				contextModel.CRN = core.StringPtr("null")
 				contextModel.Platform = core.StringPtr("null")
 
 				// Construct an instance of the ReplaceServiceInstanceOptions model
 				replaceServiceInstanceOptionsModel := new(openservicebrokerv1.ReplaceServiceInstanceOptions)
 				replaceServiceInstanceOptionsModel.InstanceID = core.StringPtr("testString")
 				replaceServiceInstanceOptionsModel.Context = contextModel
-				replaceServiceInstanceOptionsModel.OrganizationGuid = core.StringPtr("null")
+				replaceServiceInstanceOptionsModel.OrganizationGUID = core.StringPtr("null")
 				replaceServiceInstanceOptionsModel.Parameters = make(map[string]string)
 				replaceServiceInstanceOptionsModel.PlanID = core.StringPtr("null")
 				replaceServiceInstanceOptionsModel.ServiceID = core.StringPtr("null")
-				replaceServiceInstanceOptionsModel.SpaceGuid = core.StringPtr("null")
+				replaceServiceInstanceOptionsModel.SpaceGUID = core.StringPtr("null")
 				replaceServiceInstanceOptionsModel.AcceptsIncomplete = core.BoolPtr(true)
 				replaceServiceInstanceOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
@@ -685,18 +741,18 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 				// Construct an instance of the Context model
 				contextModel := new(openservicebrokerv1.Context)
 				contextModel.AccountID = core.StringPtr("null")
-				contextModel.Crn = core.StringPtr("null")
+				contextModel.CRN = core.StringPtr("null")
 				contextModel.Platform = core.StringPtr("null")
 
 				// Construct an instance of the ReplaceServiceInstanceOptions model
 				replaceServiceInstanceOptionsModel := new(openservicebrokerv1.ReplaceServiceInstanceOptions)
 				replaceServiceInstanceOptionsModel.InstanceID = core.StringPtr("testString")
 				replaceServiceInstanceOptionsModel.Context = contextModel
-				replaceServiceInstanceOptionsModel.OrganizationGuid = core.StringPtr("null")
+				replaceServiceInstanceOptionsModel.OrganizationGUID = core.StringPtr("null")
 				replaceServiceInstanceOptionsModel.Parameters = make(map[string]string)
 				replaceServiceInstanceOptionsModel.PlanID = core.StringPtr("null")
 				replaceServiceInstanceOptionsModel.ServiceID = core.StringPtr("null")
-				replaceServiceInstanceOptionsModel.SpaceGuid = core.StringPtr("null")
+				replaceServiceInstanceOptionsModel.SpaceGUID = core.StringPtr("null")
 				replaceServiceInstanceOptionsModel.AcceptsIncomplete = core.BoolPtr(true)
 				replaceServiceInstanceOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
@@ -742,18 +798,18 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 				// Construct an instance of the Context model
 				contextModel := new(openservicebrokerv1.Context)
 				contextModel.AccountID = core.StringPtr("null")
-				contextModel.Crn = core.StringPtr("null")
+				contextModel.CRN = core.StringPtr("null")
 				contextModel.Platform = core.StringPtr("null")
 
 				// Construct an instance of the ReplaceServiceInstanceOptions model
 				replaceServiceInstanceOptionsModel := new(openservicebrokerv1.ReplaceServiceInstanceOptions)
 				replaceServiceInstanceOptionsModel.InstanceID = core.StringPtr("testString")
 				replaceServiceInstanceOptionsModel.Context = contextModel
-				replaceServiceInstanceOptionsModel.OrganizationGuid = core.StringPtr("null")
+				replaceServiceInstanceOptionsModel.OrganizationGUID = core.StringPtr("null")
 				replaceServiceInstanceOptionsModel.Parameters = make(map[string]string)
 				replaceServiceInstanceOptionsModel.PlanID = core.StringPtr("null")
 				replaceServiceInstanceOptionsModel.ServiceID = core.StringPtr("null")
-				replaceServiceInstanceOptionsModel.SpaceGuid = core.StringPtr("null")
+				replaceServiceInstanceOptionsModel.SpaceGUID = core.StringPtr("null")
 				replaceServiceInstanceOptionsModel.AcceptsIncomplete = core.BoolPtr(true)
 				replaceServiceInstanceOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
@@ -806,7 +862,7 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 				// Construct an instance of the Context model
 				contextModel := new(openservicebrokerv1.Context)
 				contextModel.AccountID = core.StringPtr("null")
-				contextModel.Crn = core.StringPtr("null")
+				contextModel.CRN = core.StringPtr("null")
 				contextModel.Platform = core.StringPtr("null")
 
 				// Construct an instance of the UpdateServiceInstanceOptions model
@@ -897,7 +953,7 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 				// Construct an instance of the Context model
 				contextModel := new(openservicebrokerv1.Context)
 				contextModel.AccountID = core.StringPtr("null")
-				contextModel.Crn = core.StringPtr("null")
+				contextModel.CRN = core.StringPtr("null")
 				contextModel.Platform = core.StringPtr("null")
 
 				// Construct an instance of the UpdateServiceInstanceOptions model
@@ -953,7 +1009,7 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 				// Construct an instance of the Context model
 				contextModel := new(openservicebrokerv1.Context)
 				contextModel.AccountID = core.StringPtr("null")
-				contextModel.Crn = core.StringPtr("null")
+				contextModel.CRN = core.StringPtr("null")
 				contextModel.Platform = core.StringPtr("null")
 
 				// Construct an instance of the UpdateServiceInstanceOptions model
@@ -1204,6 +1260,12 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 				Expect(openServiceBrokerService).ToNot(BeNil())
 				Expect(serviceErr).To(BeNil())
 				ClearTestEnvironment(testEnvironment)
+
+				clone := openServiceBrokerService.Clone()
+				Expect(clone).ToNot(BeNil())
+				Expect(clone.Service != openServiceBrokerService.Service).To(BeTrue())
+				Expect(clone.GetServiceURL()).To(Equal(openServiceBrokerService.GetServiceURL()))
+				Expect(clone.Service.Options.Authenticator).To(Equal(openServiceBrokerService.Service.Options.Authenticator))
 			})
 			It(`Create service client using external config and set url from constructor successfully`, func() {
 				SetTestEnvironment(testEnvironment)
@@ -1214,6 +1276,12 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(openServiceBrokerService.Service.GetServiceURL()).To(Equal("https://testService/api"))
 				ClearTestEnvironment(testEnvironment)
+
+				clone := openServiceBrokerService.Clone()
+				Expect(clone).ToNot(BeNil())
+				Expect(clone.Service != openServiceBrokerService.Service).To(BeTrue())
+				Expect(clone.GetServiceURL()).To(Equal(openServiceBrokerService.GetServiceURL()))
+				Expect(clone.Service.Options.Authenticator).To(Equal(openServiceBrokerService.Service.Options.Authenticator))
 			})
 			It(`Create service client using external config and set url programatically successfully`, func() {
 				SetTestEnvironment(testEnvironment)
@@ -1225,6 +1293,12 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(openServiceBrokerService.Service.GetServiceURL()).To(Equal("https://testService/api"))
 				ClearTestEnvironment(testEnvironment)
+
+				clone := openServiceBrokerService.Clone()
+				Expect(clone).ToNot(BeNil())
+				Expect(clone.Service != openServiceBrokerService.Service).To(BeTrue())
+				Expect(clone.GetServiceURL()).To(Equal(openServiceBrokerService.GetServiceURL()))
+				Expect(clone.Service.Options.Authenticator).To(Equal(openServiceBrokerService.Service.Options.Authenticator))
 			})
 		})
 		Context(`Using external config, construct service client instances with error: Invalid Auth`, func() {
@@ -1260,6 +1334,16 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 				Expect(serviceErr).ToNot(BeNil())
 				ClearTestEnvironment(testEnvironment)
 			})
+		})
+	})
+	Describe(`Regional endpoint tests`, func() {
+		It(`GetServiceURLForRegion(region string)`, func() {
+			var url string
+			var err error
+			url, err = openservicebrokerv1.GetServiceURLForRegion("INVALID_REGION")
+			Expect(url).To(BeEmpty())
+			Expect(err).ToNot(BeNil())
+			fmt.Fprintf(GinkgoWriter, "Expected error: %s\n", err.Error())
 		})
 	})
 	Describe(`ListCatalog(listCatalogOptions *ListCatalogOptions) - Operation response error`, func() {
@@ -1446,6 +1530,12 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 				Expect(openServiceBrokerService).ToNot(BeNil())
 				Expect(serviceErr).To(BeNil())
 				ClearTestEnvironment(testEnvironment)
+
+				clone := openServiceBrokerService.Clone()
+				Expect(clone).ToNot(BeNil())
+				Expect(clone.Service != openServiceBrokerService.Service).To(BeTrue())
+				Expect(clone.GetServiceURL()).To(Equal(openServiceBrokerService.GetServiceURL()))
+				Expect(clone.Service.Options.Authenticator).To(Equal(openServiceBrokerService.Service.Options.Authenticator))
 			})
 			It(`Create service client using external config and set url from constructor successfully`, func() {
 				SetTestEnvironment(testEnvironment)
@@ -1456,6 +1546,12 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(openServiceBrokerService.Service.GetServiceURL()).To(Equal("https://testService/api"))
 				ClearTestEnvironment(testEnvironment)
+
+				clone := openServiceBrokerService.Clone()
+				Expect(clone).ToNot(BeNil())
+				Expect(clone.Service != openServiceBrokerService.Service).To(BeTrue())
+				Expect(clone.GetServiceURL()).To(Equal(openServiceBrokerService.GetServiceURL()))
+				Expect(clone.Service.Options.Authenticator).To(Equal(openServiceBrokerService.Service.Options.Authenticator))
 			})
 			It(`Create service client using external config and set url programatically successfully`, func() {
 				SetTestEnvironment(testEnvironment)
@@ -1467,6 +1563,12 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(openServiceBrokerService.Service.GetServiceURL()).To(Equal("https://testService/api"))
 				ClearTestEnvironment(testEnvironment)
+
+				clone := openServiceBrokerService.Clone()
+				Expect(clone).ToNot(BeNil())
+				Expect(clone.Service != openServiceBrokerService.Service).To(BeTrue())
+				Expect(clone.GetServiceURL()).To(Equal(openServiceBrokerService.GetServiceURL()))
+				Expect(clone.Service.Options.Authenticator).To(Equal(openServiceBrokerService.Service.Options.Authenticator))
 			})
 		})
 		Context(`Using external config, construct service client instances with error: Invalid Auth`, func() {
@@ -1502,6 +1604,16 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 				Expect(serviceErr).ToNot(BeNil())
 				ClearTestEnvironment(testEnvironment)
 			})
+		})
+	})
+	Describe(`Regional endpoint tests`, func() {
+		It(`GetServiceURLForRegion(region string)`, func() {
+			var url string
+			var err error
+			url, err = openservicebrokerv1.GetServiceURLForRegion("INVALID_REGION")
+			Expect(url).To(BeEmpty())
+			Expect(err).ToNot(BeNil())
+			fmt.Fprintf(GinkgoWriter, "Expected error: %s\n", err.Error())
 		})
 	})
 	Describe(`GetLastOperation(getLastOperationOptions *GetLastOperationOptions) - Operation response error`, func() {
@@ -1719,6 +1831,12 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 				Expect(openServiceBrokerService).ToNot(BeNil())
 				Expect(serviceErr).To(BeNil())
 				ClearTestEnvironment(testEnvironment)
+
+				clone := openServiceBrokerService.Clone()
+				Expect(clone).ToNot(BeNil())
+				Expect(clone.Service != openServiceBrokerService.Service).To(BeTrue())
+				Expect(clone.GetServiceURL()).To(Equal(openServiceBrokerService.GetServiceURL()))
+				Expect(clone.Service.Options.Authenticator).To(Equal(openServiceBrokerService.Service.Options.Authenticator))
 			})
 			It(`Create service client using external config and set url from constructor successfully`, func() {
 				SetTestEnvironment(testEnvironment)
@@ -1729,6 +1847,12 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(openServiceBrokerService.Service.GetServiceURL()).To(Equal("https://testService/api"))
 				ClearTestEnvironment(testEnvironment)
+
+				clone := openServiceBrokerService.Clone()
+				Expect(clone).ToNot(BeNil())
+				Expect(clone.Service != openServiceBrokerService.Service).To(BeTrue())
+				Expect(clone.GetServiceURL()).To(Equal(openServiceBrokerService.GetServiceURL()))
+				Expect(clone.Service.Options.Authenticator).To(Equal(openServiceBrokerService.Service.Options.Authenticator))
 			})
 			It(`Create service client using external config and set url programatically successfully`, func() {
 				SetTestEnvironment(testEnvironment)
@@ -1740,6 +1864,12 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(openServiceBrokerService.Service.GetServiceURL()).To(Equal("https://testService/api"))
 				ClearTestEnvironment(testEnvironment)
+
+				clone := openServiceBrokerService.Clone()
+				Expect(clone).ToNot(BeNil())
+				Expect(clone.Service != openServiceBrokerService.Service).To(BeTrue())
+				Expect(clone.GetServiceURL()).To(Equal(openServiceBrokerService.GetServiceURL()))
+				Expect(clone.Service.Options.Authenticator).To(Equal(openServiceBrokerService.Service.Options.Authenticator))
 			})
 		})
 		Context(`Using external config, construct service client instances with error: Invalid Auth`, func() {
@@ -1777,6 +1907,16 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 			})
 		})
 	})
+	Describe(`Regional endpoint tests`, func() {
+		It(`GetServiceURLForRegion(region string)`, func() {
+			var url string
+			var err error
+			url, err = openservicebrokerv1.GetServiceURLForRegion("INVALID_REGION")
+			Expect(url).To(BeEmpty())
+			Expect(err).ToNot(BeNil())
+			fmt.Fprintf(GinkgoWriter, "Expected error: %s\n", err.Error())
+		})
+	})
 	Describe(`ReplaceServiceBinding(replaceServiceBindingOptions *ReplaceServiceBindingOptions) - Operation response error`, func() {
 		replaceServiceBindingPath := "/v2/service_instances/testString/service_bindings/testString"
 		Context(`Using mock server endpoint`, func() {
@@ -1803,9 +1943,9 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 				// Construct an instance of the BindResource model
 				bindResourceModel := new(openservicebrokerv1.BindResource)
 				bindResourceModel.AccountID = core.StringPtr("null")
-				bindResourceModel.ServiceidCrn = core.StringPtr("null")
-				bindResourceModel.TargetCrn = core.StringPtr("null")
-				bindResourceModel.AppGuid = core.StringPtr("null")
+				bindResourceModel.ServiceidCRN = core.StringPtr("null")
+				bindResourceModel.TargetCRN = core.StringPtr("null")
+				bindResourceModel.AppGUID = core.StringPtr("null")
 				bindResourceModel.Route = core.StringPtr("null")
 
 				// Construct an instance of the ReplaceServiceBindingOptions model
@@ -1892,9 +2032,9 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 				// Construct an instance of the BindResource model
 				bindResourceModel := new(openservicebrokerv1.BindResource)
 				bindResourceModel.AccountID = core.StringPtr("null")
-				bindResourceModel.ServiceidCrn = core.StringPtr("null")
-				bindResourceModel.TargetCrn = core.StringPtr("null")
-				bindResourceModel.AppGuid = core.StringPtr("null")
+				bindResourceModel.ServiceidCRN = core.StringPtr("null")
+				bindResourceModel.TargetCRN = core.StringPtr("null")
+				bindResourceModel.AppGUID = core.StringPtr("null")
 				bindResourceModel.Route = core.StringPtr("null")
 
 				// Construct an instance of the ReplaceServiceBindingOptions model
@@ -1949,9 +2089,9 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 				// Construct an instance of the BindResource model
 				bindResourceModel := new(openservicebrokerv1.BindResource)
 				bindResourceModel.AccountID = core.StringPtr("null")
-				bindResourceModel.ServiceidCrn = core.StringPtr("null")
-				bindResourceModel.TargetCrn = core.StringPtr("null")
-				bindResourceModel.AppGuid = core.StringPtr("null")
+				bindResourceModel.ServiceidCRN = core.StringPtr("null")
+				bindResourceModel.TargetCRN = core.StringPtr("null")
+				bindResourceModel.AppGUID = core.StringPtr("null")
 				bindResourceModel.Route = core.StringPtr("null")
 
 				// Construct an instance of the ReplaceServiceBindingOptions model
@@ -2151,14 +2291,14 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 				bindResourceModel := new(openservicebrokerv1.BindResource)
 				Expect(bindResourceModel).ToNot(BeNil())
 				bindResourceModel.AccountID = core.StringPtr("null")
-				bindResourceModel.ServiceidCrn = core.StringPtr("null")
-				bindResourceModel.TargetCrn = core.StringPtr("null")
-				bindResourceModel.AppGuid = core.StringPtr("null")
+				bindResourceModel.ServiceidCRN = core.StringPtr("null")
+				bindResourceModel.TargetCRN = core.StringPtr("null")
+				bindResourceModel.AppGUID = core.StringPtr("null")
 				bindResourceModel.Route = core.StringPtr("null")
 				Expect(bindResourceModel.AccountID).To(Equal(core.StringPtr("null")))
-				Expect(bindResourceModel.ServiceidCrn).To(Equal(core.StringPtr("null")))
-				Expect(bindResourceModel.TargetCrn).To(Equal(core.StringPtr("null")))
-				Expect(bindResourceModel.AppGuid).To(Equal(core.StringPtr("null")))
+				Expect(bindResourceModel.ServiceidCRN).To(Equal(core.StringPtr("null")))
+				Expect(bindResourceModel.TargetCRN).To(Equal(core.StringPtr("null")))
+				Expect(bindResourceModel.AppGUID).To(Equal(core.StringPtr("null")))
 				Expect(bindResourceModel.Route).To(Equal(core.StringPtr("null")))
 
 				// Construct an instance of the ReplaceServiceBindingOptions model
@@ -2186,10 +2326,10 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 				contextModel := new(openservicebrokerv1.Context)
 				Expect(contextModel).ToNot(BeNil())
 				contextModel.AccountID = core.StringPtr("null")
-				contextModel.Crn = core.StringPtr("null")
+				contextModel.CRN = core.StringPtr("null")
 				contextModel.Platform = core.StringPtr("null")
 				Expect(contextModel.AccountID).To(Equal(core.StringPtr("null")))
-				Expect(contextModel.Crn).To(Equal(core.StringPtr("null")))
+				Expect(contextModel.CRN).To(Equal(core.StringPtr("null")))
 				Expect(contextModel.Platform).To(Equal(core.StringPtr("null")))
 
 				// Construct an instance of the ReplaceServiceInstanceOptions model
@@ -2197,21 +2337,21 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 				replaceServiceInstanceOptionsModel := openServiceBrokerService.NewReplaceServiceInstanceOptions(instanceID)
 				replaceServiceInstanceOptionsModel.SetInstanceID("testString")
 				replaceServiceInstanceOptionsModel.SetContext(contextModel)
-				replaceServiceInstanceOptionsModel.SetOrganizationGuid("null")
+				replaceServiceInstanceOptionsModel.SetOrganizationGUID("null")
 				replaceServiceInstanceOptionsModel.SetParameters(make(map[string]string))
 				replaceServiceInstanceOptionsModel.SetPlanID("null")
 				replaceServiceInstanceOptionsModel.SetServiceID("null")
-				replaceServiceInstanceOptionsModel.SetSpaceGuid("null")
+				replaceServiceInstanceOptionsModel.SetSpaceGUID("null")
 				replaceServiceInstanceOptionsModel.SetAcceptsIncomplete(true)
 				replaceServiceInstanceOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(replaceServiceInstanceOptionsModel).ToNot(BeNil())
 				Expect(replaceServiceInstanceOptionsModel.InstanceID).To(Equal(core.StringPtr("testString")))
 				Expect(replaceServiceInstanceOptionsModel.Context).To(Equal(contextModel))
-				Expect(replaceServiceInstanceOptionsModel.OrganizationGuid).To(Equal(core.StringPtr("null")))
+				Expect(replaceServiceInstanceOptionsModel.OrganizationGUID).To(Equal(core.StringPtr("null")))
 				Expect(replaceServiceInstanceOptionsModel.Parameters).To(Equal(make(map[string]string)))
 				Expect(replaceServiceInstanceOptionsModel.PlanID).To(Equal(core.StringPtr("null")))
 				Expect(replaceServiceInstanceOptionsModel.ServiceID).To(Equal(core.StringPtr("null")))
-				Expect(replaceServiceInstanceOptionsModel.SpaceGuid).To(Equal(core.StringPtr("null")))
+				Expect(replaceServiceInstanceOptionsModel.SpaceGUID).To(Equal(core.StringPtr("null")))
 				Expect(replaceServiceInstanceOptionsModel.AcceptsIncomplete).To(Equal(core.BoolPtr(true)))
 				Expect(replaceServiceInstanceOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
@@ -2236,10 +2376,10 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 				contextModel := new(openservicebrokerv1.Context)
 				Expect(contextModel).ToNot(BeNil())
 				contextModel.AccountID = core.StringPtr("null")
-				contextModel.Crn = core.StringPtr("null")
+				contextModel.CRN = core.StringPtr("null")
 				contextModel.Platform = core.StringPtr("null")
 				Expect(contextModel.AccountID).To(Equal(core.StringPtr("null")))
-				Expect(contextModel.Crn).To(Equal(core.StringPtr("null")))
+				Expect(contextModel.CRN).To(Equal(core.StringPtr("null")))
 				Expect(contextModel.Platform).To(Equal(core.StringPtr("null")))
 
 				// Construct an instance of the UpdateServiceInstanceOptions model
