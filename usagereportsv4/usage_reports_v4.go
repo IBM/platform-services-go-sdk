@@ -15,7 +15,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-8d569e8f-20201030-111043
+ * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-d753183b-20201209-163011
  */
  
 
@@ -107,6 +107,21 @@ func NewUsageReportsV4(options *UsageReportsV4Options) (service *UsageReportsV4,
 	}
 
 	return
+}
+
+// GetServiceURLForRegion returns the service URL to be used for the specified region
+func GetServiceURLForRegion(region string) (string, error) {
+	return "", fmt.Errorf("service does not support regional URLs")
+}
+
+// Clone makes a copy of "usageReports" suitable for processing requests.
+func (usageReports *UsageReportsV4) Clone() *UsageReportsV4 {
+	if core.IsNil(usageReports) {
+		return nil
+	}
+	clone := *usageReports
+	clone.Service = usageReports.Service.Clone()
+	return &clone
 }
 
 // SetServiceURL sets the service URL
