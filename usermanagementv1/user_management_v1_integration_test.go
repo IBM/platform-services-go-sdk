@@ -140,7 +140,7 @@ var _ = Describe(`UserManagementV1 Integration Tests`, func() {
 			updateUserSettingsOptions := &usermanagementv1.UpdateUserSettingsOptions{
 				AccountID:          &accountID,
 				IamID:              &userID,
-				AllowedIpAddresses: core.StringPtr("32.96.110.50,172.16.254.1"),
+				AllowedIPAddresses: core.StringPtr("32.96.110.50,172.16.254.1"),
 				SelfManage:         core.BoolPtr(true),
 			}
 

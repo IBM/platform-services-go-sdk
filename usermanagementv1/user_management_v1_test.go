@@ -77,6 +77,12 @@ var _ = Describe(`UserManagementV1`, func() {
 				Expect(userManagementService).ToNot(BeNil())
 				Expect(serviceErr).To(BeNil())
 				ClearTestEnvironment(testEnvironment)
+
+				clone := userManagementService.Clone()
+				Expect(clone).ToNot(BeNil())
+				Expect(clone.Service != userManagementService.Service).To(BeTrue())
+				Expect(clone.GetServiceURL()).To(Equal(userManagementService.GetServiceURL()))
+				Expect(clone.Service.Options.Authenticator).To(Equal(userManagementService.Service.Options.Authenticator))
 			})
 			It(`Create service client using external config and set url from constructor successfully`, func() {
 				SetTestEnvironment(testEnvironment)
@@ -87,6 +93,12 @@ var _ = Describe(`UserManagementV1`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(userManagementService.Service.GetServiceURL()).To(Equal("https://testService/api"))
 				ClearTestEnvironment(testEnvironment)
+
+				clone := userManagementService.Clone()
+				Expect(clone).ToNot(BeNil())
+				Expect(clone.Service != userManagementService.Service).To(BeTrue())
+				Expect(clone.GetServiceURL()).To(Equal(userManagementService.GetServiceURL()))
+				Expect(clone.Service.Options.Authenticator).To(Equal(userManagementService.Service.Options.Authenticator))
 			})
 			It(`Create service client using external config and set url programatically successfully`, func() {
 				SetTestEnvironment(testEnvironment)
@@ -98,6 +110,12 @@ var _ = Describe(`UserManagementV1`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(userManagementService.Service.GetServiceURL()).To(Equal("https://testService/api"))
 				ClearTestEnvironment(testEnvironment)
+
+				clone := userManagementService.Clone()
+				Expect(clone).ToNot(BeNil())
+				Expect(clone.Service != userManagementService.Service).To(BeTrue())
+				Expect(clone.GetServiceURL()).To(Equal(userManagementService.GetServiceURL()))
+				Expect(clone.Service.Options.Authenticator).To(Equal(userManagementService.Service.Options.Authenticator))
 			})
 		})
 		Context(`Using external config, construct service client instances with error: Invalid Auth`, func() {
@@ -133,6 +151,16 @@ var _ = Describe(`UserManagementV1`, func() {
 				Expect(serviceErr).ToNot(BeNil())
 				ClearTestEnvironment(testEnvironment)
 			})
+		})
+	})
+	Describe(`Regional endpoint tests`, func() {
+		It(`GetServiceURLForRegion(region string)`, func() {
+			var url string
+			var err error
+			url, err = usermanagementv1.GetServiceURLForRegion("INVALID_REGION")
+			Expect(url).To(BeEmpty())
+			Expect(err).ToNot(BeNil())
+			fmt.Fprintf(GinkgoWriter, "Expected error: %s\n", err.Error())
 		})
 	})
 	Describe(`ListUsers(listUsersOptions *ListUsersOptions) - Operation response error`, func() {
@@ -940,6 +968,12 @@ var _ = Describe(`UserManagementV1`, func() {
 				Expect(userManagementService).ToNot(BeNil())
 				Expect(serviceErr).To(BeNil())
 				ClearTestEnvironment(testEnvironment)
+
+				clone := userManagementService.Clone()
+				Expect(clone).ToNot(BeNil())
+				Expect(clone.Service != userManagementService.Service).To(BeTrue())
+				Expect(clone.GetServiceURL()).To(Equal(userManagementService.GetServiceURL()))
+				Expect(clone.Service.Options.Authenticator).To(Equal(userManagementService.Service.Options.Authenticator))
 			})
 			It(`Create service client using external config and set url from constructor successfully`, func() {
 				SetTestEnvironment(testEnvironment)
@@ -950,6 +984,12 @@ var _ = Describe(`UserManagementV1`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(userManagementService.Service.GetServiceURL()).To(Equal("https://testService/api"))
 				ClearTestEnvironment(testEnvironment)
+
+				clone := userManagementService.Clone()
+				Expect(clone).ToNot(BeNil())
+				Expect(clone.Service != userManagementService.Service).To(BeTrue())
+				Expect(clone.GetServiceURL()).To(Equal(userManagementService.GetServiceURL()))
+				Expect(clone.Service.Options.Authenticator).To(Equal(userManagementService.Service.Options.Authenticator))
 			})
 			It(`Create service client using external config and set url programatically successfully`, func() {
 				SetTestEnvironment(testEnvironment)
@@ -961,6 +1001,12 @@ var _ = Describe(`UserManagementV1`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(userManagementService.Service.GetServiceURL()).To(Equal("https://testService/api"))
 				ClearTestEnvironment(testEnvironment)
+
+				clone := userManagementService.Clone()
+				Expect(clone).ToNot(BeNil())
+				Expect(clone.Service != userManagementService.Service).To(BeTrue())
+				Expect(clone.GetServiceURL()).To(Equal(userManagementService.GetServiceURL()))
+				Expect(clone.Service.Options.Authenticator).To(Equal(userManagementService.Service.Options.Authenticator))
 			})
 		})
 		Context(`Using external config, construct service client instances with error: Invalid Auth`, func() {
@@ -996,6 +1042,16 @@ var _ = Describe(`UserManagementV1`, func() {
 				Expect(serviceErr).ToNot(BeNil())
 				ClearTestEnvironment(testEnvironment)
 			})
+		})
+	})
+	Describe(`Regional endpoint tests`, func() {
+		It(`GetServiceURLForRegion(region string)`, func() {
+			var url string
+			var err error
+			url, err = usermanagementv1.GetServiceURLForRegion("INVALID_REGION")
+			Expect(url).To(BeEmpty())
+			Expect(err).ToNot(BeNil())
+			fmt.Fprintf(GinkgoWriter, "Expected error: %s\n", err.Error())
 		})
 	})
 	Describe(`GetUserSettings(getUserSettingsOptions *GetUserSettingsOptions) - Operation response error`, func() {
@@ -1204,7 +1260,7 @@ var _ = Describe(`UserManagementV1`, func() {
 				updateUserSettingsOptionsModel.IamID = core.StringPtr("testString")
 				updateUserSettingsOptionsModel.Language = core.StringPtr("testString")
 				updateUserSettingsOptionsModel.NotificationLanguage = core.StringPtr("testString")
-				updateUserSettingsOptionsModel.AllowedIpAddresses = core.StringPtr("32.96.110.50,172.16.254.1")
+				updateUserSettingsOptionsModel.AllowedIPAddresses = core.StringPtr("32.96.110.50,172.16.254.1")
 				updateUserSettingsOptionsModel.SelfManage = core.BoolPtr(true)
 				updateUserSettingsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
@@ -1233,7 +1289,7 @@ var _ = Describe(`UserManagementV1`, func() {
 				updateUserSettingsOptionsModel.IamID = core.StringPtr("testString")
 				updateUserSettingsOptionsModel.Language = core.StringPtr("testString")
 				updateUserSettingsOptionsModel.NotificationLanguage = core.StringPtr("testString")
-				updateUserSettingsOptionsModel.AllowedIpAddresses = core.StringPtr("32.96.110.50,172.16.254.1")
+				updateUserSettingsOptionsModel.AllowedIPAddresses = core.StringPtr("32.96.110.50,172.16.254.1")
 				updateUserSettingsOptionsModel.SelfManage = core.BoolPtr(true)
 				updateUserSettingsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
@@ -1406,7 +1462,7 @@ var _ = Describe(`UserManagementV1`, func() {
 				updateUserSettingsOptionsModel.SetIamID("testString")
 				updateUserSettingsOptionsModel.SetLanguage("testString")
 				updateUserSettingsOptionsModel.SetNotificationLanguage("testString")
-				updateUserSettingsOptionsModel.SetAllowedIpAddresses("32.96.110.50,172.16.254.1")
+				updateUserSettingsOptionsModel.SetAllowedIPAddresses("32.96.110.50,172.16.254.1")
 				updateUserSettingsOptionsModel.SetSelfManage(true)
 				updateUserSettingsOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(updateUserSettingsOptionsModel).ToNot(BeNil())
@@ -1414,7 +1470,7 @@ var _ = Describe(`UserManagementV1`, func() {
 				Expect(updateUserSettingsOptionsModel.IamID).To(Equal(core.StringPtr("testString")))
 				Expect(updateUserSettingsOptionsModel.Language).To(Equal(core.StringPtr("testString")))
 				Expect(updateUserSettingsOptionsModel.NotificationLanguage).To(Equal(core.StringPtr("testString")))
-				Expect(updateUserSettingsOptionsModel.AllowedIpAddresses).To(Equal(core.StringPtr("32.96.110.50,172.16.254.1")))
+				Expect(updateUserSettingsOptionsModel.AllowedIPAddresses).To(Equal(core.StringPtr("32.96.110.50,172.16.254.1")))
 				Expect(updateUserSettingsOptionsModel.SelfManage).To(Equal(core.BoolPtr(true)))
 				Expect(updateUserSettingsOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
