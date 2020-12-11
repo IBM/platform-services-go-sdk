@@ -15,7 +15,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-af92e433-20201110-100619
+ * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-d753183b-20201209-163011
  */
  
 
@@ -108,6 +108,21 @@ func NewIamAccessGroupsV2(options *IamAccessGroupsV2Options) (service *IamAccess
 	}
 
 	return
+}
+
+// GetServiceURLForRegion returns the service URL to be used for the specified region
+func GetServiceURLForRegion(region string) (string, error) {
+	return "", fmt.Errorf("service does not support regional URLs")
+}
+
+// Clone makes a copy of "iamAccessGroups" suitable for processing requests.
+func (iamAccessGroups *IamAccessGroupsV2) Clone() *IamAccessGroupsV2 {
+	if core.IsNil(iamAccessGroups) {
+		return nil
+	}
+	clone := *iamAccessGroups
+	clone.Service = iamAccessGroups.Service.Clone()
+	return &clone
 }
 
 // SetServiceURL sets the service URL
@@ -499,136 +514,6 @@ func (iamAccessGroups *IamAccessGroupsV2) DeleteAccessGroupWithContext(ctx conte
 	}
 
 	response, err = iamAccessGroups.Service.Request(request, nil)
-
-	return
-}
-
-// GetAccountSettings : Get Account Settings
-// Retrieve the Access Groups settings for a specific account.
-func (iamAccessGroups *IamAccessGroupsV2) GetAccountSettings(getAccountSettingsOptions *GetAccountSettingsOptions) (result *AccountSettings, response *core.DetailedResponse, err error) {
-	return iamAccessGroups.GetAccountSettingsWithContext(context.Background(), getAccountSettingsOptions)
-}
-
-// GetAccountSettingsWithContext is an alternate form of the GetAccountSettings method which supports a Context parameter
-func (iamAccessGroups *IamAccessGroupsV2) GetAccountSettingsWithContext(ctx context.Context, getAccountSettingsOptions *GetAccountSettingsOptions) (result *AccountSettings, response *core.DetailedResponse, err error) {
-	err = core.ValidateNotNil(getAccountSettingsOptions, "getAccountSettingsOptions cannot be nil")
-	if err != nil {
-		return
-	}
-	err = core.ValidateStruct(getAccountSettingsOptions, "getAccountSettingsOptions")
-	if err != nil {
-		return
-	}
-
-	builder := core.NewRequestBuilder(core.GET)
-	builder = builder.WithContext(ctx)
-	builder.EnableGzipCompression = iamAccessGroups.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(iamAccessGroups.Service.Options.URL, `/groups/settings`, nil)
-	if err != nil {
-		return
-	}
-
-	for headerName, headerValue := range getAccountSettingsOptions.Headers {
-		builder.AddHeader(headerName, headerValue)
-	}
-
-	sdkHeaders := common.GetSdkHeaders("iam_access_groups", "V2", "GetAccountSettings")
-	for headerName, headerValue := range sdkHeaders {
-		builder.AddHeader(headerName, headerValue)
-	}
-	builder.AddHeader("Accept", "application/json")
-	if getAccountSettingsOptions.TransactionID != nil {
-		builder.AddHeader("Transaction-Id", fmt.Sprint(*getAccountSettingsOptions.TransactionID))
-	}
-
-	builder.AddQuery("account_id", fmt.Sprint(*getAccountSettingsOptions.AccountID))
-
-	request, err := builder.Build()
-	if err != nil {
-		return
-	}
-
-	var rawResponse map[string]json.RawMessage
-	response, err = iamAccessGroups.Service.Request(request, &rawResponse)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalAccountSettings)
-	if err != nil {
-		return
-	}
-	response.Result = result
-
-	return
-}
-
-// UpdateAccountSettings : Update Account Settings
-// Update the Access Groups settings for a specific account. Note: When the `public_access_enabled` setting is set to
-// false, all policies within the account attached to the Public Access group will be deleted. Only set
-// `public_access_enabled` to false if you are sure that you want those policies to be removed.
-func (iamAccessGroups *IamAccessGroupsV2) UpdateAccountSettings(updateAccountSettingsOptions *UpdateAccountSettingsOptions) (result *AccountSettings, response *core.DetailedResponse, err error) {
-	return iamAccessGroups.UpdateAccountSettingsWithContext(context.Background(), updateAccountSettingsOptions)
-}
-
-// UpdateAccountSettingsWithContext is an alternate form of the UpdateAccountSettings method which supports a Context parameter
-func (iamAccessGroups *IamAccessGroupsV2) UpdateAccountSettingsWithContext(ctx context.Context, updateAccountSettingsOptions *UpdateAccountSettingsOptions) (result *AccountSettings, response *core.DetailedResponse, err error) {
-	err = core.ValidateNotNil(updateAccountSettingsOptions, "updateAccountSettingsOptions cannot be nil")
-	if err != nil {
-		return
-	}
-	err = core.ValidateStruct(updateAccountSettingsOptions, "updateAccountSettingsOptions")
-	if err != nil {
-		return
-	}
-
-	builder := core.NewRequestBuilder(core.PATCH)
-	builder = builder.WithContext(ctx)
-	builder.EnableGzipCompression = iamAccessGroups.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(iamAccessGroups.Service.Options.URL, `/groups/settings`, nil)
-	if err != nil {
-		return
-	}
-
-	for headerName, headerValue := range updateAccountSettingsOptions.Headers {
-		builder.AddHeader(headerName, headerValue)
-	}
-
-	sdkHeaders := common.GetSdkHeaders("iam_access_groups", "V2", "UpdateAccountSettings")
-	for headerName, headerValue := range sdkHeaders {
-		builder.AddHeader(headerName, headerValue)
-	}
-	builder.AddHeader("Accept", "application/json")
-	builder.AddHeader("Content-Type", "application/json")
-	if updateAccountSettingsOptions.TransactionID != nil {
-		builder.AddHeader("Transaction-Id", fmt.Sprint(*updateAccountSettingsOptions.TransactionID))
-	}
-
-	builder.AddQuery("account_id", fmt.Sprint(*updateAccountSettingsOptions.AccountID))
-
-	body := make(map[string]interface{})
-	if updateAccountSettingsOptions.PublicAccessEnabled != nil {
-		body["public_access_enabled"] = updateAccountSettingsOptions.PublicAccessEnabled
-	}
-	_, err = builder.SetBodyContentJSON(body)
-	if err != nil {
-		return
-	}
-
-	request, err := builder.Build()
-	if err != nil {
-		return
-	}
-
-	var rawResponse map[string]json.RawMessage
-	response, err = iamAccessGroups.Service.Request(request, &rawResponse)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalAccountSettings)
-	if err != nil {
-		return
-	}
-	response.Result = result
 
 	return
 }
@@ -1456,6 +1341,136 @@ func (iamAccessGroups *IamAccessGroupsV2) RemoveAccessGroupRuleWithContext(ctx c
 	return
 }
 
+// GetAccountSettings : Get Account Settings
+// Retrieve the Access Groups settings for a specific account.
+func (iamAccessGroups *IamAccessGroupsV2) GetAccountSettings(getAccountSettingsOptions *GetAccountSettingsOptions) (result *AccountSettings, response *core.DetailedResponse, err error) {
+	return iamAccessGroups.GetAccountSettingsWithContext(context.Background(), getAccountSettingsOptions)
+}
+
+// GetAccountSettingsWithContext is an alternate form of the GetAccountSettings method which supports a Context parameter
+func (iamAccessGroups *IamAccessGroupsV2) GetAccountSettingsWithContext(ctx context.Context, getAccountSettingsOptions *GetAccountSettingsOptions) (result *AccountSettings, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(getAccountSettingsOptions, "getAccountSettingsOptions cannot be nil")
+	if err != nil {
+		return
+	}
+	err = core.ValidateStruct(getAccountSettingsOptions, "getAccountSettingsOptions")
+	if err != nil {
+		return
+	}
+
+	builder := core.NewRequestBuilder(core.GET)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = iamAccessGroups.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(iamAccessGroups.Service.Options.URL, `/groups/settings`, nil)
+	if err != nil {
+		return
+	}
+
+	for headerName, headerValue := range getAccountSettingsOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("iam_access_groups", "V2", "GetAccountSettings")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Accept", "application/json")
+	if getAccountSettingsOptions.TransactionID != nil {
+		builder.AddHeader("Transaction-Id", fmt.Sprint(*getAccountSettingsOptions.TransactionID))
+	}
+
+	builder.AddQuery("account_id", fmt.Sprint(*getAccountSettingsOptions.AccountID))
+
+	request, err := builder.Build()
+	if err != nil {
+		return
+	}
+
+	var rawResponse map[string]json.RawMessage
+	response, err = iamAccessGroups.Service.Request(request, &rawResponse)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalAccountSettings)
+	if err != nil {
+		return
+	}
+	response.Result = result
+
+	return
+}
+
+// UpdateAccountSettings : Update Account Settings
+// Update the Access Groups settings for a specific account. Note: When the `public_access_enabled` setting is set to
+// false, all policies within the account attached to the Public Access group will be deleted. Only set
+// `public_access_enabled` to false if you are sure that you want those policies to be removed.
+func (iamAccessGroups *IamAccessGroupsV2) UpdateAccountSettings(updateAccountSettingsOptions *UpdateAccountSettingsOptions) (result *AccountSettings, response *core.DetailedResponse, err error) {
+	return iamAccessGroups.UpdateAccountSettingsWithContext(context.Background(), updateAccountSettingsOptions)
+}
+
+// UpdateAccountSettingsWithContext is an alternate form of the UpdateAccountSettings method which supports a Context parameter
+func (iamAccessGroups *IamAccessGroupsV2) UpdateAccountSettingsWithContext(ctx context.Context, updateAccountSettingsOptions *UpdateAccountSettingsOptions) (result *AccountSettings, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(updateAccountSettingsOptions, "updateAccountSettingsOptions cannot be nil")
+	if err != nil {
+		return
+	}
+	err = core.ValidateStruct(updateAccountSettingsOptions, "updateAccountSettingsOptions")
+	if err != nil {
+		return
+	}
+
+	builder := core.NewRequestBuilder(core.PATCH)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = iamAccessGroups.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(iamAccessGroups.Service.Options.URL, `/groups/settings`, nil)
+	if err != nil {
+		return
+	}
+
+	for headerName, headerValue := range updateAccountSettingsOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("iam_access_groups", "V2", "UpdateAccountSettings")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Accept", "application/json")
+	builder.AddHeader("Content-Type", "application/json")
+	if updateAccountSettingsOptions.TransactionID != nil {
+		builder.AddHeader("Transaction-Id", fmt.Sprint(*updateAccountSettingsOptions.TransactionID))
+	}
+
+	builder.AddQuery("account_id", fmt.Sprint(*updateAccountSettingsOptions.AccountID))
+
+	body := make(map[string]interface{})
+	if updateAccountSettingsOptions.PublicAccessEnabled != nil {
+		body["public_access_enabled"] = updateAccountSettingsOptions.PublicAccessEnabled
+	}
+	_, err = builder.SetBodyContentJSON(body)
+	if err != nil {
+		return
+	}
+
+	request, err := builder.Build()
+	if err != nil {
+		return
+	}
+
+	var rawResponse map[string]json.RawMessage
+	response, err = iamAccessGroups.Service.Request(request, &rawResponse)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalAccountSettings)
+	if err != nil {
+		return
+	}
+	response.Result = result
+
+	return
+}
+
 // AccountSettings : The Access Groups settings for a specific account.
 type AccountSettings struct {
 	// The account id of the settings being shown.
@@ -1498,7 +1513,7 @@ func UnmarshalAccountSettings(m map[string]json.RawMessage, result interface{}) 
 
 // AddAccessGroupRuleOptions : The AddAccessGroupRule options.
 type AddAccessGroupRuleOptions struct {
-	// The id of the group that the rule will be added to.
+	// The Access Group identifier.
 	AccessGroupID *string `json:"access_group_id" validate:"required,ne="`
 
 	// The number of hours that the rule lives for (Must be between 1 and 24).
@@ -1687,10 +1702,10 @@ func UnmarshalAddGroupMembersResponseMembersItem(m map[string]json.RawMessage, r
 
 // AddMemberToMultipleAccessGroupsOptions : The AddMemberToMultipleAccessGroups options.
 type AddMemberToMultipleAccessGroupsOptions struct {
-	// IBM Cloud account id of the groups that the member will be added to.
+	// IBM Cloud account identifier.
 	AccountID *string `json:"account_id" validate:"required"`
 
-	// The iam_id to be added to the groups.
+	// The IAM identifier.
 	IamID *string `json:"iam_id" validate:"required,ne="`
 
 	// The type of the member, must be either "user" or "service".
@@ -1752,7 +1767,7 @@ func (options *AddMemberToMultipleAccessGroupsOptions) SetHeaders(param map[stri
 
 // AddMembersToAccessGroupOptions : The AddMembersToAccessGroup options.
 type AddMembersToAccessGroupOptions struct {
-	// The Access Group to add the members to.
+	// The Access Group identifier.
 	AccessGroupID *string `json:"access_group_id" validate:"required,ne="`
 
 	// An array of member objects to add to an access group.
@@ -1862,7 +1877,7 @@ func UnmarshalAddMembershipMultipleGroupsResponseGroupsItem(m map[string]json.Ra
 
 // CreateAccessGroupOptions : The CreateAccessGroup options.
 type CreateAccessGroupOptions struct {
-	// IBM Cloud account id under which the group is created.
+	// IBM Cloud account identifier.
 	AccountID *string `json:"account_id" validate:"required"`
 
 	// Assign the specified name to the Access Group. This field has a limit of 100 characters.
@@ -1918,7 +1933,7 @@ func (options *CreateAccessGroupOptions) SetHeaders(param map[string]string) *Cr
 
 // DeleteAccessGroupOptions : The DeleteAccessGroup options.
 type DeleteAccessGroupOptions struct {
-	// The Access group to delete.
+	// The Access Group identifier.
 	AccessGroupID *string `json:"access_group_id" validate:"required,ne="`
 
 	// An optional transaction id for the request.
@@ -2119,7 +2134,7 @@ func UnmarshalError(m map[string]json.RawMessage, result interface{}) (err error
 
 // GetAccessGroupOptions : The GetAccessGroup options.
 type GetAccessGroupOptions struct {
-	// The Access Group to get.
+	// The Access Group identifier.
 	AccessGroupID *string `json:"access_group_id" validate:"required,ne="`
 
 	// An optional transaction id for the request.
@@ -2166,7 +2181,7 @@ func (options *GetAccessGroupOptions) SetHeaders(param map[string]string) *GetAc
 
 // GetAccessGroupRuleOptions : The GetAccessGroupRule options.
 type GetAccessGroupRuleOptions struct {
-	// The group id that the rule is bound to.
+	// The Access Group identifier.
 	AccessGroupID *string `json:"access_group_id" validate:"required,ne="`
 
 	// The rule to get.
@@ -2213,7 +2228,7 @@ func (options *GetAccessGroupRuleOptions) SetHeaders(param map[string]string) *G
 
 // GetAccountSettingsOptions : The GetAccountSettings options.
 type GetAccountSettingsOptions struct {
-	// The account id of the settings being retrieved.
+	// IBM Cloud account identifier.
 	AccountID *string `json:"account_id" validate:"required"`
 
 	// An optional transaction id for the request.
@@ -2334,7 +2349,7 @@ type GroupMembersList struct {
 	// Limit on how many items can be returned.
 	Limit *int64 `json:"limit,omitempty"`
 
-	// The number of items to skip over in the result set.
+	// The offset of the first item returned in the result set.
 	Offset *int64 `json:"offset,omitempty"`
 
 	// The total number of items that match the query.
@@ -2401,7 +2416,7 @@ type GroupsList struct {
 	// Limit on how many items can be returned.
 	Limit *int64 `json:"limit,omitempty"`
 
-	// The number of items to skip over in the result set.
+	// The offset of the first item returned in the result set.
 	Offset *int64 `json:"offset,omitempty"`
 
 	// The total number of items that match the query.
@@ -2483,10 +2498,10 @@ func UnmarshalHrefStruct(m map[string]json.RawMessage, result interface{}) (err 
 
 // IsMemberOfAccessGroupOptions : The IsMemberOfAccessGroup options.
 type IsMemberOfAccessGroupOptions struct {
-	// The access_group_id to check for membership in.
+	// The Access Group identifier.
 	AccessGroupID *string `json:"access_group_id" validate:"required,ne="`
 
-	// The iam_id to look for within the group.
+	// The IAM identifier.
 	IamID *string `json:"iam_id" validate:"required,ne="`
 
 	// An optional transaction id for the request.
@@ -2530,17 +2545,17 @@ func (options *IsMemberOfAccessGroupOptions) SetHeaders(param map[string]string)
 
 // ListAccessGroupMembersOptions : The ListAccessGroupMembers options.
 type ListAccessGroupMembersOptions struct {
-	// The access_group_id to list members of.
+	// The Access Group identifier.
 	AccessGroupID *string `json:"access_group_id" validate:"required,ne="`
 
 	// An optional transaction id for the request.
 	TransactionID *string `json:"Transaction-Id,omitempty"`
 
 	// Return up to this limit of results where limit is between 0 and 100.
-	Limit *float64 `json:"limit,omitempty"`
+	Limit *int64 `json:"limit,omitempty"`
 
-	// Offset the results using this query parameter.
-	Offset *float64 `json:"offset,omitempty"`
+	// The offset of the first result item to be returned.
+	Offset *int64 `json:"offset,omitempty"`
 
 	// Filter the results by member type.
 	Type *string `json:"type,omitempty"`
@@ -2575,14 +2590,14 @@ func (options *ListAccessGroupMembersOptions) SetTransactionID(transactionID str
 }
 
 // SetLimit : Allow user to set Limit
-func (options *ListAccessGroupMembersOptions) SetLimit(limit float64) *ListAccessGroupMembersOptions {
-	options.Limit = core.Float64Ptr(limit)
+func (options *ListAccessGroupMembersOptions) SetLimit(limit int64) *ListAccessGroupMembersOptions {
+	options.Limit = core.Int64Ptr(limit)
 	return options
 }
 
 // SetOffset : Allow user to set Offset
-func (options *ListAccessGroupMembersOptions) SetOffset(offset float64) *ListAccessGroupMembersOptions {
-	options.Offset = core.Float64Ptr(offset)
+func (options *ListAccessGroupMembersOptions) SetOffset(offset int64) *ListAccessGroupMembersOptions {
+	options.Offset = core.Int64Ptr(offset)
 	return options
 }
 
@@ -2612,7 +2627,7 @@ func (options *ListAccessGroupMembersOptions) SetHeaders(param map[string]string
 
 // ListAccessGroupRulesOptions : The ListAccessGroupRules options.
 type ListAccessGroupRulesOptions struct {
-	// The group id that the rules are bound to.
+	// The Access Group identifier.
 	AccessGroupID *string `json:"access_group_id" validate:"required,ne="`
 
 	// An optional transaction id for the request.
@@ -2649,7 +2664,7 @@ func (options *ListAccessGroupRulesOptions) SetHeaders(param map[string]string) 
 
 // ListAccessGroupsOptions : The ListAccessGroups options.
 type ListAccessGroupsOptions struct {
-	// IBM Cloud account id under which the groups are listed.
+	// IBM Cloud account identifier.
 	AccountID *string `json:"account_id" validate:"required"`
 
 	// An optional transaction id for the request.
@@ -2661,7 +2676,7 @@ type ListAccessGroupsOptions struct {
 	// Return up to this limit of results where limit is between 0 and 100.
 	Limit *int64 `json:"limit,omitempty"`
 
-	// Offset the results using this query parameter.
+	// The offset of the first result item to be returned.
 	Offset *int64 `json:"offset,omitempty"`
 
 	// Sort the results by id, name, description, or is_federated flag.
@@ -2808,10 +2823,10 @@ func UnmarshalListGroupMembersResponseMember(m map[string]json.RawMessage, resul
 
 // RemoveAccessGroupRuleOptions : The RemoveAccessGroupRule options.
 type RemoveAccessGroupRuleOptions struct {
-	// The group id that the rule is bound to.
+	// The Access Group identifier.
 	AccessGroupID *string `json:"access_group_id" validate:"required,ne="`
 
-	// The rule to delete.
+	// The rule to get.
 	RuleID *string `json:"rule_id" validate:"required,ne="`
 
 	// An optional transaction id for the request.
@@ -2855,10 +2870,10 @@ func (options *RemoveAccessGroupRuleOptions) SetHeaders(param map[string]string)
 
 // RemoveMemberFromAccessGroupOptions : The RemoveMemberFromAccessGroup options.
 type RemoveMemberFromAccessGroupOptions struct {
-	// The access_group_id to find the membership in.
+	// The Access Group identifier.
 	AccessGroupID *string `json:"access_group_id" validate:"required,ne="`
 
-	// The iam_id to remove from the group.
+	// The IAM identifier.
 	IamID *string `json:"iam_id" validate:"required,ne="`
 
 	// An optional transaction id for the request.
@@ -2902,10 +2917,10 @@ func (options *RemoveMemberFromAccessGroupOptions) SetHeaders(param map[string]s
 
 // RemoveMemberFromAllAccessGroupsOptions : The RemoveMemberFromAllAccessGroups options.
 type RemoveMemberFromAllAccessGroupsOptions struct {
-	// IBM Cloud account id for the group membership deletion.
+	// IBM Cloud account identifier.
 	AccountID *string `json:"account_id" validate:"required"`
 
-	// The iam_id to remove from all groups.
+	// The IAM identifier.
 	IamID *string `json:"iam_id" validate:"required,ne="`
 
 	// An optional transaction id for the request.
@@ -2949,7 +2964,7 @@ func (options *RemoveMemberFromAllAccessGroupsOptions) SetHeaders(param map[stri
 
 // RemoveMembersFromAccessGroupOptions : The RemoveMembersFromAccessGroup options.
 type RemoveMembersFromAccessGroupOptions struct {
-	// The access_group_id to find the memberships in.
+	// The Access Group identifier.
 	AccessGroupID *string `json:"access_group_id" validate:"required,ne="`
 
 	// The `iam_id`s to remove from the access group. This field has a limit of 50 `iam_id`s.
@@ -2995,10 +3010,10 @@ func (options *RemoveMembersFromAccessGroupOptions) SetHeaders(param map[string]
 
 // ReplaceAccessGroupRuleOptions : The ReplaceAccessGroupRule options.
 type ReplaceAccessGroupRuleOptions struct {
-	// The group id that the rule is bound to.
+	// The Access Group identifier.
 	AccessGroupID *string `json:"access_group_id" validate:"required,ne="`
 
-	// The rule to update.
+	// The rule to get.
 	RuleID *string `json:"rule_id" validate:"required,ne="`
 
 	// The current revision number of the rule being updated. This can be found in the Get Rule response Etag header.
@@ -3241,7 +3256,7 @@ func UnmarshalRulesList(m map[string]json.RawMessage, result interface{}) (err e
 
 // UpdateAccessGroupOptions : The UpdateAccessGroup options.
 type UpdateAccessGroupOptions struct {
-	// The Access group to update.
+	// The Access Group identifier.
 	AccessGroupID *string `json:"access_group_id" validate:"required,ne="`
 
 	// The current revision number of the group being updated. This can be found in the Create/Get Access Group response
@@ -3307,7 +3322,7 @@ func (options *UpdateAccessGroupOptions) SetHeaders(param map[string]string) *Up
 
 // UpdateAccountSettingsOptions : The UpdateAccountSettings options.
 type UpdateAccountSettingsOptions struct {
-	// The account id of the settings being updated.
+	// IBM Cloud account identifier.
 	AccountID *string `json:"account_id" validate:"required"`
 
 	// This flag controls the public access feature within the account. It is set to true by default. Note: When this flag
