@@ -45,7 +45,7 @@ var (
 	serviceIDName string = "Go-SDK-IT-ServiceId"
 	accountID     string
 	iamID         string
-	iamApiKey     string
+	iamAPIKey     string
 
 	iamIdentityService *iamidentityv1.IamIdentityV1
 )
@@ -95,8 +95,8 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 			iamID = config["IAM_ID"]
 			Expect(iamID).ToNot(BeEmpty())
 
-			iamApiKey = config["APIKEY"]
-			Expect(iamApiKey).ToNot(BeEmpty())
+			iamAPIKey = config["APIKEY"]
+			Expect(iamAPIKey).ToNot(BeEmpty())
 
 			fmt.Fprintf(GinkgoWriter, "Service URL: %s\n", serviceURL)
 			shouldSkipTest = func() {}
@@ -127,72 +127,72 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 		})
 	})
 
-	Describe(`CreateApiKey1 - Create API key #1`, func() {
+	Describe(`CreateAPIKey1 - Create API key #1`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
 		})
-		It(`CreateApiKey(createApiKeyOptions *CreateApiKeyOptions)`, func() {
+		It(`CreateAPIKey(createAPIKeyOptions *CreateAPIKeyOptions)`, func() {
 
-			createApiKeyOptions := &iamidentityv1.CreateApiKeyOptions{
+			createAPIKeyOptions := &iamidentityv1.CreateAPIKeyOptions{
 				Name:        &apikeyName,
 				IamID:       &iamID,
 				Description: core.StringPtr("GoSDK test apikey #1"),
 			}
 
-			apiKey, response, err := iamIdentityService.CreateApiKey(createApiKeyOptions)
+			apiKey, response, err := iamIdentityService.CreateAPIKey(createAPIKeyOptions)
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(201))
 			Expect(apiKey).ToNot(BeNil())
-			fmt.Fprintf(GinkgoWriter, "CreateApiKey #1 response:\n%s\n", common.ToJSON(apiKey))
+			fmt.Fprintf(GinkgoWriter, "CreateAPIKey #1 response:\n%s\n", common.ToJSON(apiKey))
 
 			apikeyId1 = *apiKey.ID
 			Expect(apikeyId1).ToNot(BeNil())
 		})
 	})
 
-	Describe(`CreateApiKey2 - Create API key #2`, func() {
+	Describe(`CreateAPIKey2 - Create API key #2`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
 		})
-		It(`CreateApiKey(createApiKeyOptions *CreateApiKeyOptions)`, func() {
+		It(`CreateAPIKey(createAPIKeyOptions *CreateAPIKeyOptions)`, func() {
 
-			createApiKeyOptions := &iamidentityv1.CreateApiKeyOptions{
+			createAPIKeyOptions := &iamidentityv1.CreateAPIKeyOptions{
 				Name:        &apikeyName,
 				IamID:       &iamID,
 				Description: core.StringPtr("GoSDK test apikey #2"),
 			}
 
-			apiKey, response, err := iamIdentityService.CreateApiKey(createApiKeyOptions)
+			apiKey, response, err := iamIdentityService.CreateAPIKey(createAPIKeyOptions)
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(201))
 			Expect(apiKey).ToNot(BeNil())
-			fmt.Fprintf(GinkgoWriter, "CreateApiKey #2 response:\n%s\n", common.ToJSON(apiKey))
+			fmt.Fprintf(GinkgoWriter, "CreateAPIKey #2 response:\n%s\n", common.ToJSON(apiKey))
 
 			apikeyId2 = *apiKey.ID
 			Expect(apikeyId2).ToNot(BeNil())
 		})
 	})
 
-	Describe(`GetApiKey - Get details of an API key`, func() {
+	Describe(`GetAPIKey - Get details of an API key`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
 		})
-		It(`GetApiKey(getApiKeyOptions *GetApiKeyOptions)`, func() {
+		It(`GetAPIKey(getAPIKeyOptions *GetAPIKeyOptions)`, func() {
 			Expect(apikeyId1).ToNot(BeNil())
 
-			getApiKeyOptions := &iamidentityv1.GetApiKeyOptions{
+			getAPIKeyOptions := &iamidentityv1.GetAPIKeyOptions{
 				ID:             &apikeyId1,
 				IncludeHistory: core.BoolPtr(true),
 			}
 
-			apiKey, response, err := iamIdentityService.GetApiKey(getApiKeyOptions)
+			apiKey, response, err := iamIdentityService.GetAPIKey(getAPIKeyOptions)
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(apiKey).ToNot(BeNil())
-			fmt.Fprintf(GinkgoWriter, "GetApiKey response:\n%s\n", common.ToJSON(apiKey))
+			fmt.Fprintf(GinkgoWriter, "GetAPIKey response:\n%s\n", common.ToJSON(apiKey))
 
 			Expect(*apiKey.ID).To(Equal(apikeyId1))
 			Expect(*apiKey.Name).To(Equal(apikeyName))
@@ -201,7 +201,7 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 			Expect(*apiKey.CreatedBy).To(Equal(iamID))
 			Expect(*apiKey.CreatedAt).ToNot(BeNil())
 			Expect(*apiKey.Locked).To(BeFalse())
-			Expect(*apiKey.Crn).ToNot(BeNil())
+			Expect(*apiKey.CRN).ToNot(BeNil())
 			Expect(apiKey.History).ToNot(BeEmpty())
 
 			// Grab the Etag value from the response for use in the update operation.
@@ -210,23 +210,23 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 		})
 	})
 
-	Describe(`GetApiKeysDetails - Get details of an API key by its value`, func() {
+	Describe(`GetAPIKeysDetails - Get details of an API key by its value`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
 		})
-		It(`GetApiKeysDetails(getApiKeysDetailsOptions *GetApiKeysDetailsOptions)`, func() {
+		It(`GetAPIKeysDetails(getAPIKeysDetailsOptions *GetAPIKeysDetailsOptions)`, func() {
 
-			getApiKeysDetailsOptions := &iamidentityv1.GetApiKeysDetailsOptions{
-				IAMApiKey:      &iamApiKey,
+			getAPIKeysDetailsOptions := &iamidentityv1.GetAPIKeysDetailsOptions{
+				IamAPIKey:      &iamAPIKey,
 				IncludeHistory: core.BoolPtr(true),
 			}
 
-			apiKey, response, err := iamIdentityService.GetApiKeysDetails(getApiKeysDetailsOptions)
+			apiKey, response, err := iamIdentityService.GetAPIKeysDetails(getAPIKeysDetailsOptions)
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(apiKey).ToNot(BeNil())
-			fmt.Fprintf(GinkgoWriter, "GetApiKeyDetails response:\n%s\n", common.ToJSON(apiKey))
+			fmt.Fprintf(GinkgoWriter, "GetAPIKeyDetails response:\n%s\n", common.ToJSON(apiKey))
 
 			Expect(*apiKey.AccountID).To(Equal(accountID))
 			Expect(*apiKey.IamID).To(Equal(iamID))
@@ -235,13 +235,13 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 		})
 	})
 
-	Describe(`ListApiKeys - Get API keys for a given service or user IAM ID and account ID`, func() {
+	Describe(`ListAPIKeys - Get API keys for a given service or user IAM ID and account ID`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
 		})
-		It(`ListApiKeys(listApiKeysOptions *ListApiKeysOptions)`, func() {
+		It(`ListAPIKeys(listAPIKeysOptions *ListAPIKeysOptions)`, func() {
 
-			apikeys := []iamidentityv1.ApiKey{}
+			apikeys := []iamidentityv1.APIKey{}
 
 			// var pageToken *string = nil
 			var pageTokenPresent bool = true
@@ -249,18 +249,18 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 
 			// for ok := true; ok; ok = (pageToken != nil) {
 			for pageTokenPresent {
-				listApiKeysOptions := &iamidentityv1.ListApiKeysOptions{
+				listAPIKeysOptions := &iamidentityv1.ListAPIKeysOptions{
 					AccountID: &accountID,
 					IamID:     &iamID,
 					Pagetoken: pageToken,
 					Pagesize:  core.Int64Ptr(int64(1)),
 				}
 
-				apiKeyList, response, err := iamIdentityService.ListApiKeys(listApiKeysOptions)
+				apiKeyList, response, err := iamIdentityService.ListAPIKeys(listAPIKeysOptions)
 				Expect(err).To(BeNil())
 				Expect(response.StatusCode).To(Equal(200))
 				Expect(apiKeyList).ToNot(BeNil())
-				fmt.Fprintf(GinkgoWriter, "ListApiKeys response:\n%s\n", common.ToJSON(apiKeyList))
+				fmt.Fprintf(GinkgoWriter, "ListAPIKeys response:\n%s\n", common.ToJSON(apiKeyList))
 
 				// Walk through the returned results and save off the apikeys that we created earlier.
 				for _, apikey := range apiKeyList.Apikeys {
@@ -278,114 +278,114 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 		})
 	})
 
-	Describe(`UpdateApiKey - Updates an API key`, func() {
+	Describe(`UpdateAPIKey - Updates an API key`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
 		})
-		It(`UpdateApiKey(updateApiKeyOptions *UpdateApiKeyOptions)`, func() {
+		It(`UpdateAPIKey(updateAPIKeyOptions *UpdateAPIKeyOptions)`, func() {
 			Expect(apikeyId1).ToNot(BeEmpty())
 			Expect(apikeyEtag1).ToNot(BeEmpty())
 
-			updateApiKeyOptions := &iamidentityv1.UpdateApiKeyOptions{
+			updateAPIKeyOptions := &iamidentityv1.UpdateAPIKeyOptions{
 				ID:          &apikeyId1,
 				IfMatch:     &apikeyEtag1,
 				Description: &newDescription,
 			}
 
-			apiKey, response, err := iamIdentityService.UpdateApiKey(updateApiKeyOptions)
+			apiKey, response, err := iamIdentityService.UpdateAPIKey(updateAPIKeyOptions)
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(apiKey).ToNot(BeNil())
-			fmt.Fprintf(GinkgoWriter, "UpdateApiKey response:\n%s\n", common.ToJSON(apiKey))
+			fmt.Fprintf(GinkgoWriter, "UpdateAPIKey response:\n%s\n", common.ToJSON(apiKey))
 
 			Expect(*apiKey.ID).To(Equal(apikeyId1))
 			Expect(*apiKey.Description).To(Equal(newDescription))
 		})
 	})
 
-	Describe(`LockApiKey - Lock the API key`, func() {
+	Describe(`LockAPIKey - Lock the API key`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
 		})
-		It(`LockApiKey(lockApiKeyOptions *LockApiKeyOptions)`, func() {
+		It(`LockAPIKey(lockAPIKeyOptions *LockAPIKeyOptions)`, func() {
 			Expect(apikeyId2).ToNot(BeEmpty())
 
-			lockApiKeyOptions := &iamidentityv1.LockApiKeyOptions{
+			lockAPIKeyOptions := &iamidentityv1.LockAPIKeyOptions{
 				ID: &apikeyId2,
 			}
 
-			response, err := iamIdentityService.LockApiKey(lockApiKeyOptions)
+			response, err := iamIdentityService.LockAPIKey(lockAPIKeyOptions)
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(204))
 
-			apiKey := getApikey(iamIdentityService, apikeyId2)
+			apiKey := getAPIkey(iamIdentityService, apikeyId2)
 			Expect(apiKey).ToNot(BeNil())
 			Expect(*apiKey.Locked).To(BeTrue())
 		})
 	})
 
-	Describe(`UnlockApiKey - Unlock the API key`, func() {
+	Describe(`UnlockAPIKey - Unlock the API key`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
 		})
-		It(`UnlockApiKey(unlockApiKeyOptions *UnlockApiKeyOptions)`, func() {
+		It(`UnlockAPIKey(unlockAPIKeyOptions *UnlockAPIKeyOptions)`, func() {
 			Expect(apikeyId2).ToNot(BeEmpty())
 
-			unlockApiKeyOptions := &iamidentityv1.UnlockApiKeyOptions{
+			unlockAPIKeyOptions := &iamidentityv1.UnlockAPIKeyOptions{
 				ID: &apikeyId2,
 			}
 
-			response, err := iamIdentityService.UnlockApiKey(unlockApiKeyOptions)
+			response, err := iamIdentityService.UnlockAPIKey(unlockAPIKeyOptions)
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(204))
 
-			apiKey := getApikey(iamIdentityService, apikeyId2)
+			apiKey := getAPIkey(iamIdentityService, apikeyId2)
 			Expect(apiKey).ToNot(BeNil())
 			Expect(*apiKey.Locked).To(BeFalse())
 		})
 	})
 
-	Describe(`DeleteApiKey1 - Deletes an API key1`, func() {
+	Describe(`DeleteAPIKey1 - Deletes an API key1`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
 		})
-		It(`DeleteApiKey(deleteApiKeyOptions *DeleteApiKeyOptions)`, func() {
+		It(`DeleteAPIKey(deleteAPIKeyOptions *DeleteAPIKeyOptions)`, func() {
 			Expect(apikeyId1).ToNot(BeEmpty())
 
-			deleteApiKeyOptions := &iamidentityv1.DeleteApiKeyOptions{
+			deleteAPIKeyOptions := &iamidentityv1.DeleteAPIKeyOptions{
 				ID: &apikeyId1,
 			}
 
-			response, err := iamIdentityService.DeleteApiKey(deleteApiKeyOptions)
+			response, err := iamIdentityService.DeleteAPIKey(deleteAPIKeyOptions)
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(204))
 
-			apiKey := getApikey(iamIdentityService, apikeyId1)
+			apiKey := getAPIkey(iamIdentityService, apikeyId1)
 			Expect(apiKey).To(BeNil())
 		})
 	})
 
-	Describe(`DeleteApiKey2 - Deletes an API key2`, func() {
+	Describe(`DeleteAPIKey2 - Deletes an API key2`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
 		})
-		It(`DeleteApiKey(deleteApiKeyOptions *DeleteApiKeyOptions)`, func() {
+		It(`DeleteAPIKey(deleteAPIKeyOptions *DeleteAPIKeyOptions)`, func() {
 			Expect(apikeyId2).ToNot(BeEmpty())
 
-			deleteApiKeyOptions := &iamidentityv1.DeleteApiKeyOptions{
+			deleteAPIKeyOptions := &iamidentityv1.DeleteAPIKeyOptions{
 				ID: &apikeyId2,
 			}
 
-			response, err := iamIdentityService.DeleteApiKey(deleteApiKeyOptions)
+			response, err := iamIdentityService.DeleteAPIKey(deleteAPIKeyOptions)
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(204))
 
-			apiKey := getApikey(iamIdentityService, apikeyId2)
+			apiKey := getAPIkey(iamIdentityService, apikeyId2)
 			Expect(apiKey).To(BeNil())
 		})
 	})
@@ -396,13 +396,13 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 		})
 		It(`CreateServiceID(createServiceIdOptions *CreateServiceIdOptions)`, func() {
 
-			createServiceIdOptions := &iamidentityv1.CreateServiceIdOptions{
+			createServiceIDOptions := &iamidentityv1.CreateServiceIDOptions{
 				AccountID:   &accountID,
 				Name:        &serviceIDName,
 				Description: core.StringPtr("GoSDK test serviceId"),
 			}
 
-			serviceID, response, err := iamIdentityService.CreateServiceID(createServiceIdOptions)
+			serviceID, response, err := iamIdentityService.CreateServiceID(createServiceIDOptions)
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(201))
@@ -420,12 +420,12 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 		})
 		It(`GetServiceID(getServiceIdOptions *GetServiceIdOptions)`, func() {
 			Expect(serviceId1).ToNot(BeEmpty())
-			getServiceIdOptions := &iamidentityv1.GetServiceIdOptions{
+			getServiceIDOptions := &iamidentityv1.GetServiceIDOptions{
 				ID:             &serviceId1,
 				IncludeHistory: core.BoolPtr(true),
 			}
 
-			serviceID, response, err := iamIdentityService.GetServiceID(getServiceIdOptions)
+			serviceID, response, err := iamIdentityService.GetServiceID(getServiceIDOptions)
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
@@ -476,13 +476,13 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 			Expect(serviceId1).ToNot(BeEmpty())
 			Expect(serviceIdEtag1).ToNot(BeEmpty())
 
-			updateServiceIdOptions := &iamidentityv1.UpdateServiceIdOptions{
+			updateServiceIDOptions := &iamidentityv1.UpdateServiceIDOptions{
 				ID:          &serviceId1,
 				IfMatch:     &serviceIdEtag1,
 				Description: &newDescription,
 			}
 
-			serviceID, response, err := iamIdentityService.UpdateServiceID(updateServiceIdOptions)
+			serviceID, response, err := iamIdentityService.UpdateServiceID(updateServiceIDOptions)
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(serviceID).ToNot(BeNil())
@@ -499,11 +499,11 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 		It(`LockServiceID(lockServiceIdOptions *LockServiceIdOptions)`, func() {
 			Expect(serviceId1).ToNot(BeEmpty())
 
-			lockServiceIdOptions := &iamidentityv1.LockServiceIdOptions{
+			lockServiceIDOptions := &iamidentityv1.LockServiceIDOptions{
 				ID: &serviceId1,
 			}
 
-			response, err := iamIdentityService.LockServiceID(lockServiceIdOptions)
+			response, err := iamIdentityService.LockServiceID(lockServiceIDOptions)
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(204))
 			fmt.Fprintf(GinkgoWriter, "LockServiceID response:\n%v\n", response)
@@ -521,11 +521,11 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 		It(`UnlockServiceID(unlockServiceIdOptions *UnlockServiceIdOptions)`, func() {
 			Expect(serviceId1).ToNot(BeEmpty())
 
-			unlockServiceIdOptions := &iamidentityv1.UnlockServiceIdOptions{
+			unlockServiceIDOptions := &iamidentityv1.UnlockServiceIDOptions{
 				ID: &serviceId1,
 			}
 
-			response, err := iamIdentityService.UnlockServiceID(unlockServiceIdOptions)
+			response, err := iamIdentityService.UnlockServiceID(unlockServiceIDOptions)
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(204))
@@ -544,11 +544,11 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 		It(`DeleteServiceID(deleteServiceIdOptions *DeleteServiceIdOptions)`, func() {
 			Expect(serviceId1).ToNot(BeEmpty())
 
-			deleteServiceIdOptions := &iamidentityv1.DeleteServiceIdOptions{
+			deleteServiceIDOptions := &iamidentityv1.DeleteServiceIDOptions{
 				ID: &serviceId1,
 			}
 
-			response, err := iamIdentityService.DeleteServiceID(deleteServiceIdOptions)
+			response, err := iamIdentityService.DeleteServiceID(deleteServiceIDOptions)
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(204))
 
@@ -564,19 +564,19 @@ var _ = AfterSuite(func() {
 	fmt.Println("Finished teardown.")
 })
 
-func getApikey(service *iamidentityv1.IamIdentityV1, apikeyId string) *iamidentityv1.ApiKey {
-	getApiKeyOptions := &iamidentityv1.GetApiKeyOptions{
-		ID: &apikeyId,
+func getAPIkey(service *iamidentityv1.IamIdentityV1, apikeyID string) *iamidentityv1.APIKey {
+	getAPIKeyOptions := &iamidentityv1.GetAPIKeyOptions{
+		ID: &apikeyID,
 	}
-	apiKey, _, _ := service.GetApiKey(getApiKeyOptions)
+	apiKey, _, _ := service.GetAPIKey(getAPIKeyOptions)
 	return apiKey
 }
 
 func getServiceID(iamIdentityService *iamidentityv1.IamIdentityV1, serviceID string) *iamidentityv1.ServiceID {
-	getServiceIdOptions := &iamidentityv1.GetServiceIdOptions{
+	getServiceIDOptions := &iamidentityv1.GetServiceIDOptions{
 		ID: &serviceID,
 	}
-	result, _, _ := iamIdentityService.GetServiceID(getServiceIdOptions)
+	result, _, _ := iamIdentityService.GetServiceID(getServiceIDOptions)
 	return result
 }
 
@@ -616,27 +616,27 @@ func cleanupResources(service *iamidentityv1.IamIdentityV1) {
 		panic("'service' cannot be nil!")
 	}
 
-	listApiKeysOptions := &iamidentityv1.ListApiKeysOptions{
+	listAPIKeysOptions := &iamidentityv1.ListAPIKeysOptions{
 		AccountID: &accountID,
 		IamID:     &iamID,
 		Pagesize:  core.Int64Ptr(int64(100)),
 	}
 
-	apiKeyList, response, err := service.ListApiKeys(listApiKeysOptions)
+	apiKeyList, response, err := service.ListAPIKeys(listAPIKeysOptions)
 	Expect(err).To(BeNil())
 	Expect(response.StatusCode).To(Equal(200))
 
-	numApiKeys := len(apiKeyList.Apikeys)
-	fmt.Fprintf(GinkgoWriter, ">>> Cleanup found %d apikeys.\n", numApiKeys)
+	numAPIKeys := len(apiKeyList.Apikeys)
+	fmt.Fprintf(GinkgoWriter, ">>> Cleanup found %d apikeys.\n", numAPIKeys)
 
-	if numApiKeys > 0 {
+	if numAPIKeys > 0 {
 		for _, element := range apiKeyList.Apikeys {
 			if *element.Name == apikeyName {
 				fmt.Fprintf(GinkgoWriter, ">>> Deleting apikey: %s\n", *element.ID)
-				deleteApiKeyOptions := &iamidentityv1.DeleteApiKeyOptions{
+				deleteAPIKeyOptions := &iamidentityv1.DeleteAPIKeyOptions{
 					ID: element.ID,
 				}
-				response, err := service.DeleteApiKey(deleteApiKeyOptions)
+				response, err := service.DeleteAPIKey(deleteAPIKeyOptions)
 				Expect(response).ToNot(BeNil())
 				Expect(err).To(BeNil())
 			}
@@ -649,18 +649,18 @@ func cleanupResources(service *iamidentityv1.IamIdentityV1) {
 		Pagesize:  core.Int64Ptr(int64(100)),
 	}
 
-	serviceIdList, response, err := service.ListServiceIds(listServiceIdsOptions)
+	serviceIDList, response, err := service.ListServiceIds(listServiceIdsOptions)
 
-	numServiceIds := len(serviceIdList.Serviceids)
+	numServiceIds := len(serviceIDList.Serviceids)
 	fmt.Fprintf(GinkgoWriter, ">>> Cleanup found %d serviceIDs.\n", numServiceIds)
 
 	if numServiceIds > 0 {
-		for _, element := range serviceIdList.Serviceids {
+		for _, element := range serviceIDList.Serviceids {
 			fmt.Fprintf(GinkgoWriter, ">>> Deleting serviceId: %s\n", *element.ID)
-			deleteServiceIdOptions := &iamidentityv1.DeleteServiceIdOptions{
+			deleteServiceIDOptions := &iamidentityv1.DeleteServiceIDOptions{
 				ID: element.ID,
 			}
-			response, err := service.DeleteServiceID(deleteServiceIdOptions)
+			response, err := service.DeleteServiceID(deleteServiceIDOptions)
 			Expect(response).ToNot(BeNil())
 			Expect(err).To(BeNil())
 		}
