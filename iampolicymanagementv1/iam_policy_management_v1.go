@@ -15,7 +15,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-8d569e8f-20201030-111043
+ * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-d753183b-20201209-163011
  */
  
 
@@ -109,6 +109,21 @@ func NewIamPolicyManagementV1(options *IamPolicyManagementV1Options) (service *I
 	return
 }
 
+// GetServiceURLForRegion returns the service URL to be used for the specified region
+func GetServiceURLForRegion(region string) (string, error) {
+	return "", fmt.Errorf("service does not support regional URLs")
+}
+
+// Clone makes a copy of "iamPolicyManagement" suitable for processing requests.
+func (iamPolicyManagement *IamPolicyManagementV1) Clone() *IamPolicyManagementV1 {
+	if core.IsNil(iamPolicyManagement) {
+		return nil
+	}
+	clone := *iamPolicyManagement
+	clone.Service = iamPolicyManagement.Service.Clone()
+	return &clone
+}
+
 // SetServiceURL sets the service URL
 func (iamPolicyManagement *IamPolicyManagementV1) SetServiceURL(url string) error {
 	return iamPolicyManagement.Service.SetServiceURL(url)
@@ -200,6 +215,12 @@ func (iamPolicyManagement *IamPolicyManagementV1) ListPoliciesWithContext(ctx co
 	if listPoliciesOptions.ServiceType != nil {
 		builder.AddQuery("service_type", fmt.Sprint(*listPoliciesOptions.ServiceType))
 	}
+	if listPoliciesOptions.Sort != nil {
+		builder.AddQuery("sort", fmt.Sprint(*listPoliciesOptions.Sort))
+	}
+	if listPoliciesOptions.Format != nil {
+		builder.AddQuery("format", fmt.Sprint(*listPoliciesOptions.Format))
+	}
 
 	request, err := builder.Build()
 	if err != nil {
@@ -290,6 +311,9 @@ func (iamPolicyManagement *IamPolicyManagementV1) CreatePolicyWithContext(ctx co
 	}
 	if createPolicyOptions.Resources != nil {
 		body["resources"] = createPolicyOptions.Resources
+	}
+	if createPolicyOptions.Description != nil {
+		body["description"] = createPolicyOptions.Description
 	}
 	_, err = builder.SetBodyContentJSON(body)
 	if err != nil {
@@ -386,6 +410,9 @@ func (iamPolicyManagement *IamPolicyManagementV1) UpdatePolicyWithContext(ctx co
 	}
 	if updatePolicyOptions.Resources != nil {
 		body["resources"] = updatePolicyOptions.Resources
+	}
+	if updatePolicyOptions.Description != nil {
+		body["description"] = updatePolicyOptions.Description
 	}
 	_, err = builder.SetBodyContentJSON(body)
 	if err != nil {
@@ -864,6 +891,9 @@ type CreatePolicyOptions struct {
 	// The resources associated with a policy.
 	Resources []PolicyResource `json:"resources" validate:"required"`
 
+	// Customer-defined description.
+	Description *string `json:"description,omitempty"`
+
 	// Translation language code.
 	AcceptLanguage *string `json:"Accept-Language,omitempty"`
 
@@ -902,6 +932,12 @@ func (options *CreatePolicyOptions) SetRoles(roles []PolicyRole) *CreatePolicyOp
 // SetResources : Allow user to set Resources
 func (options *CreatePolicyOptions) SetResources(resources []PolicyResource) *CreatePolicyOptions {
 	options.Resources = resources
+	return options
+}
+
+// SetDescription : Allow user to set Description
+func (options *CreatePolicyOptions) SetDescription(description string) *CreatePolicyOptions {
+	options.Description = core.StringPtr(description)
 	return options
 }
 
@@ -1135,6 +1171,12 @@ type ListPoliciesOptions struct {
 	// The type of service.
 	ServiceType *string `json:"service_type,omitempty"`
 
+	// Sort the results by any of the top level policy fields (id, created_at, created_by_id, last_modified_at, etc).
+	Sort *string `json:"sort,omitempty"`
+
+	// Include additional data per policy returned [include_last_permit, display].
+	Format *string `json:"format,omitempty"`
+
 	// Allows users to set headers on API requests
 	Headers map[string]string
 }
@@ -1179,6 +1221,18 @@ func (options *ListPoliciesOptions) SetType(typeVar string) *ListPoliciesOptions
 // SetServiceType : Allow user to set ServiceType
 func (options *ListPoliciesOptions) SetServiceType(serviceType string) *ListPoliciesOptions {
 	options.ServiceType = core.StringPtr(serviceType)
+	return options
+}
+
+// SetSort : Allow user to set Sort
+func (options *ListPoliciesOptions) SetSort(sort string) *ListPoliciesOptions {
+	options.Sort = core.StringPtr(sort)
+	return options
+}
+
+// SetFormat : Allow user to set Format
+func (options *ListPoliciesOptions) SetFormat(format string) *ListPoliciesOptions {
+	options.Format = core.StringPtr(format)
 	return options
 }
 
@@ -1253,6 +1307,9 @@ type UpdatePolicyOptions struct {
 	// The resources associated with a policy.
 	Resources []PolicyResource `json:"resources" validate:"required"`
 
+	// Customer-defined description.
+	Description *string `json:"description,omitempty"`
+
 	// Allows users to set headers on API requests
 	Headers map[string]string
 }
@@ -1302,6 +1359,12 @@ func (options *UpdatePolicyOptions) SetRoles(roles []PolicyRole) *UpdatePolicyOp
 // SetResources : Allow user to set Resources
 func (options *UpdatePolicyOptions) SetResources(resources []PolicyResource) *UpdatePolicyOptions {
 	options.Resources = resources
+	return options
+}
+
+// SetDescription : Allow user to set Description
+func (options *UpdatePolicyOptions) SetDescription(description string) *UpdatePolicyOptions {
+	options.Description = core.StringPtr(description)
 	return options
 }
 
@@ -1392,7 +1455,7 @@ type CustomRole struct {
 	Actions []string `json:"actions,omitempty"`
 
 	// The role CRN.
-	Crn *string `json:"crn,omitempty"`
+	CRN *string `json:"crn,omitempty"`
 
 	// The name of the role that is used in the CRN. Can only be alphanumeric and has to be capitalized.
 	Name *string `json:"name,omitempty"`
@@ -1439,7 +1502,7 @@ func UnmarshalCustomRole(m map[string]json.RawMessage, result interface{}) (err 
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalPrimitive(m, "crn", &obj.Crn)
+	err = core.UnmarshalPrimitive(m, "crn", &obj.CRN)
 	if err != nil {
 		return
 	}
@@ -1487,6 +1550,9 @@ type Policy struct {
 	// The policy type; either 'access' or 'authorization'.
 	Type *string `json:"type,omitempty"`
 
+	// Customer-defined description.
+	Description *string `json:"description,omitempty"`
+
 	// The subjects associated with a policy.
 	Subjects []PolicySubject `json:"subjects,omitempty"`
 
@@ -1521,6 +1587,10 @@ func UnmarshalPolicy(m map[string]json.RawMessage, result interface{}) (err erro
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "type", &obj.Type)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "description", &obj.Description)
 	if err != nil {
 		return
 	}
@@ -1709,7 +1779,7 @@ type Role struct {
 	Actions []string `json:"actions,omitempty"`
 
 	// The role CRN.
-	Crn *string `json:"crn,omitempty"`
+	CRN *string `json:"crn,omitempty"`
 }
 
 
@@ -1728,7 +1798,7 @@ func UnmarshalRole(m map[string]json.RawMessage, result interface{}) (err error)
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalPrimitive(m, "crn", &obj.Crn)
+	err = core.UnmarshalPrimitive(m, "crn", &obj.CRN)
 	if err != nil {
 		return
 	}
