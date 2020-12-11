@@ -15,7 +15,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-ef9b3113-20201118-074613
+ * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-d753183b-20201209-163011
  */
  
 
@@ -109,6 +109,21 @@ func NewIamIdentityV1(options *IamIdentityV1Options) (service *IamIdentityV1, er
 	return
 }
 
+// GetServiceURLForRegion returns the service URL to be used for the specified region
+func GetServiceURLForRegion(region string) (string, error) {
+	return "", fmt.Errorf("service does not support regional URLs")
+}
+
+// Clone makes a copy of "iamIdentity" suitable for processing requests.
+func (iamIdentity *IamIdentityV1) Clone() *IamIdentityV1 {
+	if core.IsNil(iamIdentity) {
+		return nil
+	}
+	clone := *iamIdentity
+	clone.Service = iamIdentity.Service.Clone()
+	return &clone
+}
+
 // SetServiceURL sets the service URL
 func (iamIdentity *IamIdentityV1) SetServiceURL(url string) error {
 	return iamIdentity.Service.SetServiceURL(url)
@@ -145,18 +160,18 @@ func (iamIdentity *IamIdentityV1) DisableRetries() {
 	iamIdentity.Service.DisableRetries()
 }
 
-// ListApiKeys : Get API keys for a given service or user IAM ID and account ID
+// ListAPIKeys : Get API keys for a given service or user IAM ID and account ID
 // Returns the list of API key details for a given service or user IAM ID and account ID. Users can manage user API keys
 // for themself, or service ID API keys for  service IDs that are bound to an entity they have access to. In case of
 // service IDs and their API keys, a user must be either an account owner,  a IBM Cloud org manager or IBM Cloud space
 // developer in order to manage  service IDs of the entity.
-func (iamIdentity *IamIdentityV1) ListApiKeys(listApiKeysOptions *ListApiKeysOptions) (result *ApiKeyList, response *core.DetailedResponse, err error) {
-	return iamIdentity.ListApiKeysWithContext(context.Background(), listApiKeysOptions)
+func (iamIdentity *IamIdentityV1) ListAPIKeys(listAPIKeysOptions *ListAPIKeysOptions) (result *APIKeyList, response *core.DetailedResponse, err error) {
+	return iamIdentity.ListAPIKeysWithContext(context.Background(), listAPIKeysOptions)
 }
 
-// ListApiKeysWithContext is an alternate form of the ListApiKeys method which supports a Context parameter
-func (iamIdentity *IamIdentityV1) ListApiKeysWithContext(ctx context.Context, listApiKeysOptions *ListApiKeysOptions) (result *ApiKeyList, response *core.DetailedResponse, err error) {
-	err = core.ValidateStruct(listApiKeysOptions, "listApiKeysOptions")
+// ListAPIKeysWithContext is an alternate form of the ListAPIKeys method which supports a Context parameter
+func (iamIdentity *IamIdentityV1) ListAPIKeysWithContext(ctx context.Context, listAPIKeysOptions *ListAPIKeysOptions) (result *APIKeyList, response *core.DetailedResponse, err error) {
+	err = core.ValidateStruct(listAPIKeysOptions, "listAPIKeysOptions")
 	if err != nil {
 		return
 	}
@@ -169,42 +184,42 @@ func (iamIdentity *IamIdentityV1) ListApiKeysWithContext(ctx context.Context, li
 		return
 	}
 
-	for headerName, headerValue := range listApiKeysOptions.Headers {
+	for headerName, headerValue := range listAPIKeysOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("iam_identity", "V1", "ListApiKeys")
+	sdkHeaders := common.GetSdkHeaders("iam_identity", "V1", "ListAPIKeys")
 	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
 
-	if listApiKeysOptions.AccountID != nil {
-		builder.AddQuery("account_id", fmt.Sprint(*listApiKeysOptions.AccountID))
+	if listAPIKeysOptions.AccountID != nil {
+		builder.AddQuery("account_id", fmt.Sprint(*listAPIKeysOptions.AccountID))
 	}
-	if listApiKeysOptions.IamID != nil {
-		builder.AddQuery("iam_id", fmt.Sprint(*listApiKeysOptions.IamID))
+	if listAPIKeysOptions.IamID != nil {
+		builder.AddQuery("iam_id", fmt.Sprint(*listAPIKeysOptions.IamID))
 	}
-	if listApiKeysOptions.Pagesize != nil {
-		builder.AddQuery("pagesize", fmt.Sprint(*listApiKeysOptions.Pagesize))
+	if listAPIKeysOptions.Pagesize != nil {
+		builder.AddQuery("pagesize", fmt.Sprint(*listAPIKeysOptions.Pagesize))
 	}
-	if listApiKeysOptions.Pagetoken != nil {
-		builder.AddQuery("pagetoken", fmt.Sprint(*listApiKeysOptions.Pagetoken))
+	if listAPIKeysOptions.Pagetoken != nil {
+		builder.AddQuery("pagetoken", fmt.Sprint(*listAPIKeysOptions.Pagetoken))
 	}
-	if listApiKeysOptions.Scope != nil {
-		builder.AddQuery("scope", fmt.Sprint(*listApiKeysOptions.Scope))
+	if listAPIKeysOptions.Scope != nil {
+		builder.AddQuery("scope", fmt.Sprint(*listAPIKeysOptions.Scope))
 	}
-	if listApiKeysOptions.Type != nil {
-		builder.AddQuery("type", fmt.Sprint(*listApiKeysOptions.Type))
+	if listAPIKeysOptions.Type != nil {
+		builder.AddQuery("type", fmt.Sprint(*listAPIKeysOptions.Type))
 	}
-	if listApiKeysOptions.Sort != nil {
-		builder.AddQuery("sort", fmt.Sprint(*listApiKeysOptions.Sort))
+	if listAPIKeysOptions.Sort != nil {
+		builder.AddQuery("sort", fmt.Sprint(*listAPIKeysOptions.Sort))
 	}
-	if listApiKeysOptions.Order != nil {
-		builder.AddQuery("order", fmt.Sprint(*listApiKeysOptions.Order))
+	if listAPIKeysOptions.Order != nil {
+		builder.AddQuery("order", fmt.Sprint(*listAPIKeysOptions.Order))
 	}
-	if listApiKeysOptions.IncludeHistory != nil {
-		builder.AddQuery("include_history", fmt.Sprint(*listApiKeysOptions.IncludeHistory))
+	if listAPIKeysOptions.IncludeHistory != nil {
+		builder.AddQuery("include_history", fmt.Sprint(*listAPIKeysOptions.IncludeHistory))
 	}
 
 	request, err := builder.Build()
@@ -217,7 +232,7 @@ func (iamIdentity *IamIdentityV1) ListApiKeysWithContext(ctx context.Context, li
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalApiKeyList)
+	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalAPIKeyList)
 	if err != nil {
 		return
 	}
@@ -226,20 +241,20 @@ func (iamIdentity *IamIdentityV1) ListApiKeysWithContext(ctx context.Context, li
 	return
 }
 
-// CreateApiKey : Create an API key
+// CreateAPIKey : Create an API key
 // Creates an API key for a UserID or service ID. Users can manage user API keys for themself, or service ID API keys
 // for  service IDs that are bound to an entity they have access to.
-func (iamIdentity *IamIdentityV1) CreateApiKey(createApiKeyOptions *CreateApiKeyOptions) (result *ApiKey, response *core.DetailedResponse, err error) {
-	return iamIdentity.CreateApiKeyWithContext(context.Background(), createApiKeyOptions)
+func (iamIdentity *IamIdentityV1) CreateAPIKey(createAPIKeyOptions *CreateAPIKeyOptions) (result *APIKey, response *core.DetailedResponse, err error) {
+	return iamIdentity.CreateAPIKeyWithContext(context.Background(), createAPIKeyOptions)
 }
 
-// CreateApiKeyWithContext is an alternate form of the CreateApiKey method which supports a Context parameter
-func (iamIdentity *IamIdentityV1) CreateApiKeyWithContext(ctx context.Context, createApiKeyOptions *CreateApiKeyOptions) (result *ApiKey, response *core.DetailedResponse, err error) {
-	err = core.ValidateNotNil(createApiKeyOptions, "createApiKeyOptions cannot be nil")
+// CreateAPIKeyWithContext is an alternate form of the CreateAPIKey method which supports a Context parameter
+func (iamIdentity *IamIdentityV1) CreateAPIKeyWithContext(ctx context.Context, createAPIKeyOptions *CreateAPIKeyOptions) (result *APIKey, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(createAPIKeyOptions, "createAPIKeyOptions cannot be nil")
 	if err != nil {
 		return
 	}
-	err = core.ValidateStruct(createApiKeyOptions, "createApiKeyOptions")
+	err = core.ValidateStruct(createAPIKeyOptions, "createAPIKeyOptions")
 	if err != nil {
 		return
 	}
@@ -252,38 +267,38 @@ func (iamIdentity *IamIdentityV1) CreateApiKeyWithContext(ctx context.Context, c
 		return
 	}
 
-	for headerName, headerValue := range createApiKeyOptions.Headers {
+	for headerName, headerValue := range createAPIKeyOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("iam_identity", "V1", "CreateApiKey")
+	sdkHeaders := common.GetSdkHeaders("iam_identity", "V1", "CreateAPIKey")
 	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
 	builder.AddHeader("Content-Type", "application/json")
-	if createApiKeyOptions.EntityLock != nil {
-		builder.AddHeader("Entity-Lock", fmt.Sprint(*createApiKeyOptions.EntityLock))
+	if createAPIKeyOptions.EntityLock != nil {
+		builder.AddHeader("Entity-Lock", fmt.Sprint(*createAPIKeyOptions.EntityLock))
 	}
 
 	body := make(map[string]interface{})
-	if createApiKeyOptions.Name != nil {
-		body["name"] = createApiKeyOptions.Name
+	if createAPIKeyOptions.Name != nil {
+		body["name"] = createAPIKeyOptions.Name
 	}
-	if createApiKeyOptions.IamID != nil {
-		body["iam_id"] = createApiKeyOptions.IamID
+	if createAPIKeyOptions.IamID != nil {
+		body["iam_id"] = createAPIKeyOptions.IamID
 	}
-	if createApiKeyOptions.Description != nil {
-		body["description"] = createApiKeyOptions.Description
+	if createAPIKeyOptions.Description != nil {
+		body["description"] = createAPIKeyOptions.Description
 	}
-	if createApiKeyOptions.AccountID != nil {
-		body["account_id"] = createApiKeyOptions.AccountID
+	if createAPIKeyOptions.AccountID != nil {
+		body["account_id"] = createAPIKeyOptions.AccountID
 	}
-	if createApiKeyOptions.Apikey != nil {
-		body["apikey"] = createApiKeyOptions.Apikey
+	if createAPIKeyOptions.Apikey != nil {
+		body["apikey"] = createAPIKeyOptions.Apikey
 	}
-	if createApiKeyOptions.StoreValue != nil {
-		body["store_value"] = createApiKeyOptions.StoreValue
+	if createAPIKeyOptions.StoreValue != nil {
+		body["store_value"] = createAPIKeyOptions.StoreValue
 	}
 	_, err = builder.SetBodyContentJSON(body)
 	if err != nil {
@@ -300,7 +315,7 @@ func (iamIdentity *IamIdentityV1) CreateApiKeyWithContext(ctx context.Context, c
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalApiKey)
+	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalAPIKey)
 	if err != nil {
 		return
 	}
@@ -309,16 +324,16 @@ func (iamIdentity *IamIdentityV1) CreateApiKeyWithContext(ctx context.Context, c
 	return
 }
 
-// GetApiKeysDetails : Get details of an API key by its value
+// GetAPIKeysDetails : Get details of an API key by its value
 // Returns the details of an API key by its value. Users can manage user API keys for themself, or service ID API keys
 // for service IDs that are bound to an entity they have access to.
-func (iamIdentity *IamIdentityV1) GetApiKeysDetails(getApiKeysDetailsOptions *GetApiKeysDetailsOptions) (result *ApiKey, response *core.DetailedResponse, err error) {
-	return iamIdentity.GetApiKeysDetailsWithContext(context.Background(), getApiKeysDetailsOptions)
+func (iamIdentity *IamIdentityV1) GetAPIKeysDetails(getAPIKeysDetailsOptions *GetAPIKeysDetailsOptions) (result *APIKey, response *core.DetailedResponse, err error) {
+	return iamIdentity.GetAPIKeysDetailsWithContext(context.Background(), getAPIKeysDetailsOptions)
 }
 
-// GetApiKeysDetailsWithContext is an alternate form of the GetApiKeysDetails method which supports a Context parameter
-func (iamIdentity *IamIdentityV1) GetApiKeysDetailsWithContext(ctx context.Context, getApiKeysDetailsOptions *GetApiKeysDetailsOptions) (result *ApiKey, response *core.DetailedResponse, err error) {
-	err = core.ValidateStruct(getApiKeysDetailsOptions, "getApiKeysDetailsOptions")
+// GetAPIKeysDetailsWithContext is an alternate form of the GetAPIKeysDetails method which supports a Context parameter
+func (iamIdentity *IamIdentityV1) GetAPIKeysDetailsWithContext(ctx context.Context, getAPIKeysDetailsOptions *GetAPIKeysDetailsOptions) (result *APIKey, response *core.DetailedResponse, err error) {
+	err = core.ValidateStruct(getAPIKeysDetailsOptions, "getAPIKeysDetailsOptions")
 	if err != nil {
 		return
 	}
@@ -331,21 +346,21 @@ func (iamIdentity *IamIdentityV1) GetApiKeysDetailsWithContext(ctx context.Conte
 		return
 	}
 
-	for headerName, headerValue := range getApiKeysDetailsOptions.Headers {
+	for headerName, headerValue := range getAPIKeysDetailsOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("iam_identity", "V1", "GetApiKeysDetails")
+	sdkHeaders := common.GetSdkHeaders("iam_identity", "V1", "GetAPIKeysDetails")
 	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
-	if getApiKeysDetailsOptions.IAMApiKey != nil {
-		builder.AddHeader("IAM-ApiKey", fmt.Sprint(*getApiKeysDetailsOptions.IAMApiKey))
+	if getAPIKeysDetailsOptions.IamAPIKey != nil {
+		builder.AddHeader("IAM-ApiKey", fmt.Sprint(*getAPIKeysDetailsOptions.IamAPIKey))
 	}
 
-	if getApiKeysDetailsOptions.IncludeHistory != nil {
-		builder.AddQuery("include_history", fmt.Sprint(*getApiKeysDetailsOptions.IncludeHistory))
+	if getAPIKeysDetailsOptions.IncludeHistory != nil {
+		builder.AddQuery("include_history", fmt.Sprint(*getAPIKeysDetailsOptions.IncludeHistory))
 	}
 
 	request, err := builder.Build()
@@ -358,7 +373,7 @@ func (iamIdentity *IamIdentityV1) GetApiKeysDetailsWithContext(ctx context.Conte
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalApiKey)
+	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalAPIKey)
 	if err != nil {
 		return
 	}
@@ -367,28 +382,28 @@ func (iamIdentity *IamIdentityV1) GetApiKeysDetailsWithContext(ctx context.Conte
 	return
 }
 
-// GetApiKey : Get details of an API key
+// GetAPIKey : Get details of an API key
 // Returns the details of an API key. Users can manage user API keys for themself, or service ID API keys for  service
 // IDs that are bound to an entity they have access to. In case of  service IDs and their API keys, a user must be
 // either an account owner,  a IBM Cloud org manager or IBM Cloud space developer in order to manage  service IDs of the
 // entity.
-func (iamIdentity *IamIdentityV1) GetApiKey(getApiKeyOptions *GetApiKeyOptions) (result *ApiKey, response *core.DetailedResponse, err error) {
-	return iamIdentity.GetApiKeyWithContext(context.Background(), getApiKeyOptions)
+func (iamIdentity *IamIdentityV1) GetAPIKey(getAPIKeyOptions *GetAPIKeyOptions) (result *APIKey, response *core.DetailedResponse, err error) {
+	return iamIdentity.GetAPIKeyWithContext(context.Background(), getAPIKeyOptions)
 }
 
-// GetApiKeyWithContext is an alternate form of the GetApiKey method which supports a Context parameter
-func (iamIdentity *IamIdentityV1) GetApiKeyWithContext(ctx context.Context, getApiKeyOptions *GetApiKeyOptions) (result *ApiKey, response *core.DetailedResponse, err error) {
-	err = core.ValidateNotNil(getApiKeyOptions, "getApiKeyOptions cannot be nil")
+// GetAPIKeyWithContext is an alternate form of the GetAPIKey method which supports a Context parameter
+func (iamIdentity *IamIdentityV1) GetAPIKeyWithContext(ctx context.Context, getAPIKeyOptions *GetAPIKeyOptions) (result *APIKey, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(getAPIKeyOptions, "getAPIKeyOptions cannot be nil")
 	if err != nil {
 		return
 	}
-	err = core.ValidateStruct(getApiKeyOptions, "getApiKeyOptions")
+	err = core.ValidateStruct(getAPIKeyOptions, "getAPIKeyOptions")
 	if err != nil {
 		return
 	}
 
 	pathParamsMap := map[string]string{
-		"id": *getApiKeyOptions.ID,
+		"id": *getAPIKeyOptions.ID,
 	}
 
 	builder := core.NewRequestBuilder(core.GET)
@@ -399,18 +414,18 @@ func (iamIdentity *IamIdentityV1) GetApiKeyWithContext(ctx context.Context, getA
 		return
 	}
 
-	for headerName, headerValue := range getApiKeyOptions.Headers {
+	for headerName, headerValue := range getAPIKeyOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("iam_identity", "V1", "GetApiKey")
+	sdkHeaders := common.GetSdkHeaders("iam_identity", "V1", "GetAPIKey")
 	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
 
-	if getApiKeyOptions.IncludeHistory != nil {
-		builder.AddQuery("include_history", fmt.Sprint(*getApiKeyOptions.IncludeHistory))
+	if getAPIKeyOptions.IncludeHistory != nil {
+		builder.AddQuery("include_history", fmt.Sprint(*getAPIKeyOptions.IncludeHistory))
 	}
 
 	request, err := builder.Build()
@@ -423,7 +438,7 @@ func (iamIdentity *IamIdentityV1) GetApiKeyWithContext(ctx context.Context, getA
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalApiKey)
+	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalAPIKey)
 	if err != nil {
 		return
 	}
@@ -432,28 +447,28 @@ func (iamIdentity *IamIdentityV1) GetApiKeyWithContext(ctx context.Context, getA
 	return
 }
 
-// UpdateApiKey : Updates an API key
+// UpdateAPIKey : Updates an API key
 // Updates properties of an API key. This does NOT affect existing access tokens. Their token content will stay
 // unchanged until the access token is refreshed. To update an API key, pass the property to be modified. To delete one
 // property's value, pass the property with an empty value "".Users can manage user API keys for themself, or service ID
 // API keys for service IDs that are bound to an entity they have access to.
-func (iamIdentity *IamIdentityV1) UpdateApiKey(updateApiKeyOptions *UpdateApiKeyOptions) (result *ApiKey, response *core.DetailedResponse, err error) {
-	return iamIdentity.UpdateApiKeyWithContext(context.Background(), updateApiKeyOptions)
+func (iamIdentity *IamIdentityV1) UpdateAPIKey(updateAPIKeyOptions *UpdateAPIKeyOptions) (result *APIKey, response *core.DetailedResponse, err error) {
+	return iamIdentity.UpdateAPIKeyWithContext(context.Background(), updateAPIKeyOptions)
 }
 
-// UpdateApiKeyWithContext is an alternate form of the UpdateApiKey method which supports a Context parameter
-func (iamIdentity *IamIdentityV1) UpdateApiKeyWithContext(ctx context.Context, updateApiKeyOptions *UpdateApiKeyOptions) (result *ApiKey, response *core.DetailedResponse, err error) {
-	err = core.ValidateNotNil(updateApiKeyOptions, "updateApiKeyOptions cannot be nil")
+// UpdateAPIKeyWithContext is an alternate form of the UpdateAPIKey method which supports a Context parameter
+func (iamIdentity *IamIdentityV1) UpdateAPIKeyWithContext(ctx context.Context, updateAPIKeyOptions *UpdateAPIKeyOptions) (result *APIKey, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(updateAPIKeyOptions, "updateAPIKeyOptions cannot be nil")
 	if err != nil {
 		return
 	}
-	err = core.ValidateStruct(updateApiKeyOptions, "updateApiKeyOptions")
+	err = core.ValidateStruct(updateAPIKeyOptions, "updateAPIKeyOptions")
 	if err != nil {
 		return
 	}
 
 	pathParamsMap := map[string]string{
-		"id": *updateApiKeyOptions.ID,
+		"id": *updateAPIKeyOptions.ID,
 	}
 
 	builder := core.NewRequestBuilder(core.PUT)
@@ -464,26 +479,26 @@ func (iamIdentity *IamIdentityV1) UpdateApiKeyWithContext(ctx context.Context, u
 		return
 	}
 
-	for headerName, headerValue := range updateApiKeyOptions.Headers {
+	for headerName, headerValue := range updateAPIKeyOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("iam_identity", "V1", "UpdateApiKey")
+	sdkHeaders := common.GetSdkHeaders("iam_identity", "V1", "UpdateAPIKey")
 	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
 	builder.AddHeader("Content-Type", "application/json")
-	if updateApiKeyOptions.IfMatch != nil {
-		builder.AddHeader("If-Match", fmt.Sprint(*updateApiKeyOptions.IfMatch))
+	if updateAPIKeyOptions.IfMatch != nil {
+		builder.AddHeader("If-Match", fmt.Sprint(*updateAPIKeyOptions.IfMatch))
 	}
 
 	body := make(map[string]interface{})
-	if updateApiKeyOptions.Name != nil {
-		body["name"] = updateApiKeyOptions.Name
+	if updateAPIKeyOptions.Name != nil {
+		body["name"] = updateAPIKeyOptions.Name
 	}
-	if updateApiKeyOptions.Description != nil {
-		body["description"] = updateApiKeyOptions.Description
+	if updateAPIKeyOptions.Description != nil {
+		body["description"] = updateAPIKeyOptions.Description
 	}
 	_, err = builder.SetBodyContentJSON(body)
 	if err != nil {
@@ -500,7 +515,7 @@ func (iamIdentity *IamIdentityV1) UpdateApiKeyWithContext(ctx context.Context, u
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalApiKey)
+	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalAPIKey)
 	if err != nil {
 		return
 	}
@@ -509,27 +524,27 @@ func (iamIdentity *IamIdentityV1) UpdateApiKeyWithContext(ctx context.Context, u
 	return
 }
 
-// DeleteApiKey : Deletes an API key
+// DeleteAPIKey : Deletes an API key
 // Deletes an API key. Existing tokens will remain valid until expired. Refresh tokens  will not work any more for this
 // API key. Users can manage user API keys for themself, or service ID API  keys for service IDs that are bound to an
 // entity they have access  to.
-func (iamIdentity *IamIdentityV1) DeleteApiKey(deleteApiKeyOptions *DeleteApiKeyOptions) (response *core.DetailedResponse, err error) {
-	return iamIdentity.DeleteApiKeyWithContext(context.Background(), deleteApiKeyOptions)
+func (iamIdentity *IamIdentityV1) DeleteAPIKey(deleteAPIKeyOptions *DeleteAPIKeyOptions) (response *core.DetailedResponse, err error) {
+	return iamIdentity.DeleteAPIKeyWithContext(context.Background(), deleteAPIKeyOptions)
 }
 
-// DeleteApiKeyWithContext is an alternate form of the DeleteApiKey method which supports a Context parameter
-func (iamIdentity *IamIdentityV1) DeleteApiKeyWithContext(ctx context.Context, deleteApiKeyOptions *DeleteApiKeyOptions) (response *core.DetailedResponse, err error) {
-	err = core.ValidateNotNil(deleteApiKeyOptions, "deleteApiKeyOptions cannot be nil")
+// DeleteAPIKeyWithContext is an alternate form of the DeleteAPIKey method which supports a Context parameter
+func (iamIdentity *IamIdentityV1) DeleteAPIKeyWithContext(ctx context.Context, deleteAPIKeyOptions *DeleteAPIKeyOptions) (response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(deleteAPIKeyOptions, "deleteAPIKeyOptions cannot be nil")
 	if err != nil {
 		return
 	}
-	err = core.ValidateStruct(deleteApiKeyOptions, "deleteApiKeyOptions")
+	err = core.ValidateStruct(deleteAPIKeyOptions, "deleteAPIKeyOptions")
 	if err != nil {
 		return
 	}
 
 	pathParamsMap := map[string]string{
-		"id": *deleteApiKeyOptions.ID,
+		"id": *deleteAPIKeyOptions.ID,
 	}
 
 	builder := core.NewRequestBuilder(core.DELETE)
@@ -540,11 +555,11 @@ func (iamIdentity *IamIdentityV1) DeleteApiKeyWithContext(ctx context.Context, d
 		return
 	}
 
-	for headerName, headerValue := range deleteApiKeyOptions.Headers {
+	for headerName, headerValue := range deleteAPIKeyOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("iam_identity", "V1", "DeleteApiKey")
+	sdkHeaders := common.GetSdkHeaders("iam_identity", "V1", "DeleteAPIKey")
 	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
@@ -559,27 +574,27 @@ func (iamIdentity *IamIdentityV1) DeleteApiKeyWithContext(ctx context.Context, d
 	return
 }
 
-// LockApiKey : Lock the API key
+// LockAPIKey : Lock the API key
 // Locks an API key by ID. Users can manage user API keys for themself, or service ID API keys for service IDs that are
 // bound to an entity they have access to. In case of service IDs and their API keys, a user must be either an account
 // owner, a IBM Cloud org manager or IBM Cloud space developer in order to manage service IDs of the entity.
-func (iamIdentity *IamIdentityV1) LockApiKey(lockApiKeyOptions *LockApiKeyOptions) (response *core.DetailedResponse, err error) {
-	return iamIdentity.LockApiKeyWithContext(context.Background(), lockApiKeyOptions)
+func (iamIdentity *IamIdentityV1) LockAPIKey(lockAPIKeyOptions *LockAPIKeyOptions) (response *core.DetailedResponse, err error) {
+	return iamIdentity.LockAPIKeyWithContext(context.Background(), lockAPIKeyOptions)
 }
 
-// LockApiKeyWithContext is an alternate form of the LockApiKey method which supports a Context parameter
-func (iamIdentity *IamIdentityV1) LockApiKeyWithContext(ctx context.Context, lockApiKeyOptions *LockApiKeyOptions) (response *core.DetailedResponse, err error) {
-	err = core.ValidateNotNil(lockApiKeyOptions, "lockApiKeyOptions cannot be nil")
+// LockAPIKeyWithContext is an alternate form of the LockAPIKey method which supports a Context parameter
+func (iamIdentity *IamIdentityV1) LockAPIKeyWithContext(ctx context.Context, lockAPIKeyOptions *LockAPIKeyOptions) (response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(lockAPIKeyOptions, "lockAPIKeyOptions cannot be nil")
 	if err != nil {
 		return
 	}
-	err = core.ValidateStruct(lockApiKeyOptions, "lockApiKeyOptions")
+	err = core.ValidateStruct(lockAPIKeyOptions, "lockAPIKeyOptions")
 	if err != nil {
 		return
 	}
 
 	pathParamsMap := map[string]string{
-		"id": *lockApiKeyOptions.ID,
+		"id": *lockAPIKeyOptions.ID,
 	}
 
 	builder := core.NewRequestBuilder(core.POST)
@@ -590,11 +605,11 @@ func (iamIdentity *IamIdentityV1) LockApiKeyWithContext(ctx context.Context, loc
 		return
 	}
 
-	for headerName, headerValue := range lockApiKeyOptions.Headers {
+	for headerName, headerValue := range lockAPIKeyOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("iam_identity", "V1", "LockApiKey")
+	sdkHeaders := common.GetSdkHeaders("iam_identity", "V1", "LockAPIKey")
 	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
@@ -609,27 +624,27 @@ func (iamIdentity *IamIdentityV1) LockApiKeyWithContext(ctx context.Context, loc
 	return
 }
 
-// UnlockApiKey : Unlock the API key
+// UnlockAPIKey : Unlock the API key
 // Unlocks an API key by ID. Users can manage user API keys for themself, or service ID API keys for service IDs that
 // are bound to an entity they have access to. In case of service IDs and their API keys, a user must be either an
 // account owner, a IBM Cloud org manager or IBM Cloud space developer in order to manage service IDs of the entity.
-func (iamIdentity *IamIdentityV1) UnlockApiKey(unlockApiKeyOptions *UnlockApiKeyOptions) (response *core.DetailedResponse, err error) {
-	return iamIdentity.UnlockApiKeyWithContext(context.Background(), unlockApiKeyOptions)
+func (iamIdentity *IamIdentityV1) UnlockAPIKey(unlockAPIKeyOptions *UnlockAPIKeyOptions) (response *core.DetailedResponse, err error) {
+	return iamIdentity.UnlockAPIKeyWithContext(context.Background(), unlockAPIKeyOptions)
 }
 
-// UnlockApiKeyWithContext is an alternate form of the UnlockApiKey method which supports a Context parameter
-func (iamIdentity *IamIdentityV1) UnlockApiKeyWithContext(ctx context.Context, unlockApiKeyOptions *UnlockApiKeyOptions) (response *core.DetailedResponse, err error) {
-	err = core.ValidateNotNil(unlockApiKeyOptions, "unlockApiKeyOptions cannot be nil")
+// UnlockAPIKeyWithContext is an alternate form of the UnlockAPIKey method which supports a Context parameter
+func (iamIdentity *IamIdentityV1) UnlockAPIKeyWithContext(ctx context.Context, unlockAPIKeyOptions *UnlockAPIKeyOptions) (response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(unlockAPIKeyOptions, "unlockAPIKeyOptions cannot be nil")
 	if err != nil {
 		return
 	}
-	err = core.ValidateStruct(unlockApiKeyOptions, "unlockApiKeyOptions")
+	err = core.ValidateStruct(unlockAPIKeyOptions, "unlockAPIKeyOptions")
 	if err != nil {
 		return
 	}
 
 	pathParamsMap := map[string]string{
-		"id": *unlockApiKeyOptions.ID,
+		"id": *unlockAPIKeyOptions.ID,
 	}
 
 	builder := core.NewRequestBuilder(core.DELETE)
@@ -640,11 +655,11 @@ func (iamIdentity *IamIdentityV1) UnlockApiKeyWithContext(ctx context.Context, u
 		return
 	}
 
-	for headerName, headerValue := range unlockApiKeyOptions.Headers {
+	for headerName, headerValue := range unlockAPIKeyOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("iam_identity", "V1", "UnlockApiKey")
+	sdkHeaders := common.GetSdkHeaders("iam_identity", "V1", "UnlockAPIKey")
 	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
@@ -662,12 +677,12 @@ func (iamIdentity *IamIdentityV1) UnlockApiKeyWithContext(ctx context.Context, u
 // ListServiceIds : List service IDs
 // Returns a list of service IDs. Users can manage user API keys for themself, or service ID API keys for service IDs
 // that are bound to an entity they have access to.
-func (iamIdentity *IamIdentityV1) ListServiceIds(listServiceIdsOptions *ListServiceIdsOptions) (result *ServiceIdList, response *core.DetailedResponse, err error) {
+func (iamIdentity *IamIdentityV1) ListServiceIds(listServiceIdsOptions *ListServiceIdsOptions) (result *ServiceIDList, response *core.DetailedResponse, err error) {
 	return iamIdentity.ListServiceIdsWithContext(context.Background(), listServiceIdsOptions)
 }
 
 // ListServiceIdsWithContext is an alternate form of the ListServiceIds method which supports a Context parameter
-func (iamIdentity *IamIdentityV1) ListServiceIdsWithContext(ctx context.Context, listServiceIdsOptions *ListServiceIdsOptions) (result *ServiceIdList, response *core.DetailedResponse, err error) {
+func (iamIdentity *IamIdentityV1) ListServiceIdsWithContext(ctx context.Context, listServiceIdsOptions *ListServiceIdsOptions) (result *ServiceIDList, response *core.DetailedResponse, err error) {
 	err = core.ValidateStruct(listServiceIdsOptions, "listServiceIdsOptions")
 	if err != nil {
 		return
@@ -723,7 +738,7 @@ func (iamIdentity *IamIdentityV1) ListServiceIdsWithContext(ctx context.Context,
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalServiceIdList)
+	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalServiceIDList)
 	if err != nil {
 		return
 	}
@@ -735,17 +750,17 @@ func (iamIdentity *IamIdentityV1) ListServiceIdsWithContext(ctx context.Context,
 // CreateServiceID : Create a service ID
 // Creates a service ID for an IBM Cloud account. Users can manage user API keys for themself, or service ID API keys
 // for service IDs that are bound to an entity they have access to.
-func (iamIdentity *IamIdentityV1) CreateServiceID(createServiceIdOptions *CreateServiceIdOptions) (result *ServiceID, response *core.DetailedResponse, err error) {
-	return iamIdentity.CreateServiceIDWithContext(context.Background(), createServiceIdOptions)
+func (iamIdentity *IamIdentityV1) CreateServiceID(createServiceIDOptions *CreateServiceIDOptions) (result *ServiceID, response *core.DetailedResponse, err error) {
+	return iamIdentity.CreateServiceIDWithContext(context.Background(), createServiceIDOptions)
 }
 
 // CreateServiceIDWithContext is an alternate form of the CreateServiceID method which supports a Context parameter
-func (iamIdentity *IamIdentityV1) CreateServiceIDWithContext(ctx context.Context, createServiceIdOptions *CreateServiceIdOptions) (result *ServiceID, response *core.DetailedResponse, err error) {
-	err = core.ValidateNotNil(createServiceIdOptions, "createServiceIdOptions cannot be nil")
+func (iamIdentity *IamIdentityV1) CreateServiceIDWithContext(ctx context.Context, createServiceIDOptions *CreateServiceIDOptions) (result *ServiceID, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(createServiceIDOptions, "createServiceIDOptions cannot be nil")
 	if err != nil {
 		return
 	}
-	err = core.ValidateStruct(createServiceIdOptions, "createServiceIdOptions")
+	err = core.ValidateStruct(createServiceIDOptions, "createServiceIDOptions")
 	if err != nil {
 		return
 	}
@@ -758,7 +773,7 @@ func (iamIdentity *IamIdentityV1) CreateServiceIDWithContext(ctx context.Context
 		return
 	}
 
-	for headerName, headerValue := range createServiceIdOptions.Headers {
+	for headerName, headerValue := range createServiceIDOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 
@@ -768,25 +783,25 @@ func (iamIdentity *IamIdentityV1) CreateServiceIDWithContext(ctx context.Context
 	}
 	builder.AddHeader("Accept", "application/json")
 	builder.AddHeader("Content-Type", "application/json")
-	if createServiceIdOptions.EntityLock != nil {
-		builder.AddHeader("Entity-Lock", fmt.Sprint(*createServiceIdOptions.EntityLock))
+	if createServiceIDOptions.EntityLock != nil {
+		builder.AddHeader("Entity-Lock", fmt.Sprint(*createServiceIDOptions.EntityLock))
 	}
 
 	body := make(map[string]interface{})
-	if createServiceIdOptions.AccountID != nil {
-		body["account_id"] = createServiceIdOptions.AccountID
+	if createServiceIDOptions.AccountID != nil {
+		body["account_id"] = createServiceIDOptions.AccountID
 	}
-	if createServiceIdOptions.Name != nil {
-		body["name"] = createServiceIdOptions.Name
+	if createServiceIDOptions.Name != nil {
+		body["name"] = createServiceIDOptions.Name
 	}
-	if createServiceIdOptions.Description != nil {
-		body["description"] = createServiceIdOptions.Description
+	if createServiceIDOptions.Description != nil {
+		body["description"] = createServiceIDOptions.Description
 	}
-	if createServiceIdOptions.UniqueInstanceCrns != nil {
-		body["unique_instance_crns"] = createServiceIdOptions.UniqueInstanceCrns
+	if createServiceIDOptions.UniqueInstanceCrns != nil {
+		body["unique_instance_crns"] = createServiceIDOptions.UniqueInstanceCrns
 	}
-	if createServiceIdOptions.Apikey != nil {
-		body["apikey"] = createServiceIdOptions.Apikey
+	if createServiceIDOptions.Apikey != nil {
+		body["apikey"] = createServiceIDOptions.Apikey
 	}
 	_, err = builder.SetBodyContentJSON(body)
 	if err != nil {
@@ -815,23 +830,23 @@ func (iamIdentity *IamIdentityV1) CreateServiceIDWithContext(ctx context.Context
 // GetServiceID : Get details of a service ID
 // Returns the details of a service ID. Users can manage user API keys for themself, or service ID API keys for service
 // IDs that are bound to an entity they have access to.
-func (iamIdentity *IamIdentityV1) GetServiceID(getServiceIdOptions *GetServiceIdOptions) (result *ServiceID, response *core.DetailedResponse, err error) {
-	return iamIdentity.GetServiceIDWithContext(context.Background(), getServiceIdOptions)
+func (iamIdentity *IamIdentityV1) GetServiceID(getServiceIDOptions *GetServiceIDOptions) (result *ServiceID, response *core.DetailedResponse, err error) {
+	return iamIdentity.GetServiceIDWithContext(context.Background(), getServiceIDOptions)
 }
 
 // GetServiceIDWithContext is an alternate form of the GetServiceID method which supports a Context parameter
-func (iamIdentity *IamIdentityV1) GetServiceIDWithContext(ctx context.Context, getServiceIdOptions *GetServiceIdOptions) (result *ServiceID, response *core.DetailedResponse, err error) {
-	err = core.ValidateNotNil(getServiceIdOptions, "getServiceIdOptions cannot be nil")
+func (iamIdentity *IamIdentityV1) GetServiceIDWithContext(ctx context.Context, getServiceIDOptions *GetServiceIDOptions) (result *ServiceID, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(getServiceIDOptions, "getServiceIDOptions cannot be nil")
 	if err != nil {
 		return
 	}
-	err = core.ValidateStruct(getServiceIdOptions, "getServiceIdOptions")
+	err = core.ValidateStruct(getServiceIDOptions, "getServiceIDOptions")
 	if err != nil {
 		return
 	}
 
 	pathParamsMap := map[string]string{
-		"id": *getServiceIdOptions.ID,
+		"id": *getServiceIDOptions.ID,
 	}
 
 	builder := core.NewRequestBuilder(core.GET)
@@ -842,7 +857,7 @@ func (iamIdentity *IamIdentityV1) GetServiceIDWithContext(ctx context.Context, g
 		return
 	}
 
-	for headerName, headerValue := range getServiceIdOptions.Headers {
+	for headerName, headerValue := range getServiceIDOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 
@@ -852,8 +867,8 @@ func (iamIdentity *IamIdentityV1) GetServiceIDWithContext(ctx context.Context, g
 	}
 	builder.AddHeader("Accept", "application/json")
 
-	if getServiceIdOptions.IncludeHistory != nil {
-		builder.AddQuery("include_history", fmt.Sprint(*getServiceIdOptions.IncludeHistory))
+	if getServiceIDOptions.IncludeHistory != nil {
+		builder.AddQuery("include_history", fmt.Sprint(*getServiceIDOptions.IncludeHistory))
 	}
 
 	request, err := builder.Build()
@@ -880,23 +895,23 @@ func (iamIdentity *IamIdentityV1) GetServiceIDWithContext(ctx context.Context, g
 // unchanged until the access token is refreshed. To update a service ID, pass the property to be modified. To delete
 // one property's value, pass the property with an empty value "".Users can manage user API keys for themself, or
 // service ID API keys for service IDs that are bound to an entity they have access to.
-func (iamIdentity *IamIdentityV1) UpdateServiceID(updateServiceIdOptions *UpdateServiceIdOptions) (result *ServiceID, response *core.DetailedResponse, err error) {
-	return iamIdentity.UpdateServiceIDWithContext(context.Background(), updateServiceIdOptions)
+func (iamIdentity *IamIdentityV1) UpdateServiceID(updateServiceIDOptions *UpdateServiceIDOptions) (result *ServiceID, response *core.DetailedResponse, err error) {
+	return iamIdentity.UpdateServiceIDWithContext(context.Background(), updateServiceIDOptions)
 }
 
 // UpdateServiceIDWithContext is an alternate form of the UpdateServiceID method which supports a Context parameter
-func (iamIdentity *IamIdentityV1) UpdateServiceIDWithContext(ctx context.Context, updateServiceIdOptions *UpdateServiceIdOptions) (result *ServiceID, response *core.DetailedResponse, err error) {
-	err = core.ValidateNotNil(updateServiceIdOptions, "updateServiceIdOptions cannot be nil")
+func (iamIdentity *IamIdentityV1) UpdateServiceIDWithContext(ctx context.Context, updateServiceIDOptions *UpdateServiceIDOptions) (result *ServiceID, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(updateServiceIDOptions, "updateServiceIDOptions cannot be nil")
 	if err != nil {
 		return
 	}
-	err = core.ValidateStruct(updateServiceIdOptions, "updateServiceIdOptions")
+	err = core.ValidateStruct(updateServiceIDOptions, "updateServiceIDOptions")
 	if err != nil {
 		return
 	}
 
 	pathParamsMap := map[string]string{
-		"id": *updateServiceIdOptions.ID,
+		"id": *updateServiceIDOptions.ID,
 	}
 
 	builder := core.NewRequestBuilder(core.PUT)
@@ -907,7 +922,7 @@ func (iamIdentity *IamIdentityV1) UpdateServiceIDWithContext(ctx context.Context
 		return
 	}
 
-	for headerName, headerValue := range updateServiceIdOptions.Headers {
+	for headerName, headerValue := range updateServiceIDOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 
@@ -917,19 +932,19 @@ func (iamIdentity *IamIdentityV1) UpdateServiceIDWithContext(ctx context.Context
 	}
 	builder.AddHeader("Accept", "application/json")
 	builder.AddHeader("Content-Type", "application/json")
-	if updateServiceIdOptions.IfMatch != nil {
-		builder.AddHeader("If-Match", fmt.Sprint(*updateServiceIdOptions.IfMatch))
+	if updateServiceIDOptions.IfMatch != nil {
+		builder.AddHeader("If-Match", fmt.Sprint(*updateServiceIDOptions.IfMatch))
 	}
 
 	body := make(map[string]interface{})
-	if updateServiceIdOptions.Name != nil {
-		body["name"] = updateServiceIdOptions.Name
+	if updateServiceIDOptions.Name != nil {
+		body["name"] = updateServiceIDOptions.Name
 	}
-	if updateServiceIdOptions.Description != nil {
-		body["description"] = updateServiceIdOptions.Description
+	if updateServiceIDOptions.Description != nil {
+		body["description"] = updateServiceIDOptions.Description
 	}
-	if updateServiceIdOptions.UniqueInstanceCrns != nil {
-		body["unique_instance_crns"] = updateServiceIdOptions.UniqueInstanceCrns
+	if updateServiceIDOptions.UniqueInstanceCrns != nil {
+		body["unique_instance_crns"] = updateServiceIDOptions.UniqueInstanceCrns
 	}
 	_, err = builder.SetBodyContentJSON(body)
 	if err != nil {
@@ -960,23 +975,23 @@ func (iamIdentity *IamIdentityV1) UpdateServiceIDWithContext(ctx context.Context
 // deleted. In case a Delete Conflict (status code 409) a retry of the request may help as the service ID is only
 // deleted if the associated API keys were successfully deleted before. Users can manage user API keys for themself, or
 // service ID API keys for service IDs that are bound to an entity they have access to.
-func (iamIdentity *IamIdentityV1) DeleteServiceID(deleteServiceIdOptions *DeleteServiceIdOptions) (response *core.DetailedResponse, err error) {
-	return iamIdentity.DeleteServiceIDWithContext(context.Background(), deleteServiceIdOptions)
+func (iamIdentity *IamIdentityV1) DeleteServiceID(deleteServiceIDOptions *DeleteServiceIDOptions) (response *core.DetailedResponse, err error) {
+	return iamIdentity.DeleteServiceIDWithContext(context.Background(), deleteServiceIDOptions)
 }
 
 // DeleteServiceIDWithContext is an alternate form of the DeleteServiceID method which supports a Context parameter
-func (iamIdentity *IamIdentityV1) DeleteServiceIDWithContext(ctx context.Context, deleteServiceIdOptions *DeleteServiceIdOptions) (response *core.DetailedResponse, err error) {
-	err = core.ValidateNotNil(deleteServiceIdOptions, "deleteServiceIdOptions cannot be nil")
+func (iamIdentity *IamIdentityV1) DeleteServiceIDWithContext(ctx context.Context, deleteServiceIDOptions *DeleteServiceIDOptions) (response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(deleteServiceIDOptions, "deleteServiceIDOptions cannot be nil")
 	if err != nil {
 		return
 	}
-	err = core.ValidateStruct(deleteServiceIdOptions, "deleteServiceIdOptions")
+	err = core.ValidateStruct(deleteServiceIDOptions, "deleteServiceIDOptions")
 	if err != nil {
 		return
 	}
 
 	pathParamsMap := map[string]string{
-		"id": *deleteServiceIdOptions.ID,
+		"id": *deleteServiceIDOptions.ID,
 	}
 
 	builder := core.NewRequestBuilder(core.DELETE)
@@ -987,7 +1002,7 @@ func (iamIdentity *IamIdentityV1) DeleteServiceIDWithContext(ctx context.Context
 		return
 	}
 
-	for headerName, headerValue := range deleteServiceIdOptions.Headers {
+	for headerName, headerValue := range deleteServiceIDOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 
@@ -1010,23 +1025,23 @@ func (iamIdentity *IamIdentityV1) DeleteServiceIDWithContext(ctx context.Context
 // Locks a service ID by ID. Users can manage user API keys for themself, or service ID API keys for service IDs that
 // are bound to an entity they have access to. In case of service IDs and their API keys, a user must be either an
 // account owner, a IBM Cloud org manager or IBM Cloud space developer in order to manage service IDs of the entity.
-func (iamIdentity *IamIdentityV1) LockServiceID(lockServiceIdOptions *LockServiceIdOptions) (response *core.DetailedResponse, err error) {
-	return iamIdentity.LockServiceIDWithContext(context.Background(), lockServiceIdOptions)
+func (iamIdentity *IamIdentityV1) LockServiceID(lockServiceIDOptions *LockServiceIDOptions) (response *core.DetailedResponse, err error) {
+	return iamIdentity.LockServiceIDWithContext(context.Background(), lockServiceIDOptions)
 }
 
 // LockServiceIDWithContext is an alternate form of the LockServiceID method which supports a Context parameter
-func (iamIdentity *IamIdentityV1) LockServiceIDWithContext(ctx context.Context, lockServiceIdOptions *LockServiceIdOptions) (response *core.DetailedResponse, err error) {
-	err = core.ValidateNotNil(lockServiceIdOptions, "lockServiceIdOptions cannot be nil")
+func (iamIdentity *IamIdentityV1) LockServiceIDWithContext(ctx context.Context, lockServiceIDOptions *LockServiceIDOptions) (response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(lockServiceIDOptions, "lockServiceIDOptions cannot be nil")
 	if err != nil {
 		return
 	}
-	err = core.ValidateStruct(lockServiceIdOptions, "lockServiceIdOptions")
+	err = core.ValidateStruct(lockServiceIDOptions, "lockServiceIDOptions")
 	if err != nil {
 		return
 	}
 
 	pathParamsMap := map[string]string{
-		"id": *lockServiceIdOptions.ID,
+		"id": *lockServiceIDOptions.ID,
 	}
 
 	builder := core.NewRequestBuilder(core.POST)
@@ -1037,7 +1052,7 @@ func (iamIdentity *IamIdentityV1) LockServiceIDWithContext(ctx context.Context, 
 		return
 	}
 
-	for headerName, headerValue := range lockServiceIdOptions.Headers {
+	for headerName, headerValue := range lockServiceIDOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 
@@ -1060,23 +1075,23 @@ func (iamIdentity *IamIdentityV1) LockServiceIDWithContext(ctx context.Context, 
 // Unlocks a service ID by ID. Users can manage user API keys for themself, or service ID API keys for service IDs that
 // are bound to an entity they have access to. In case of service IDs and their API keys, a user must be either an
 // account owner, a IBM Cloud org manager or IBM Cloud space developer in order to manage service IDs of the entity.
-func (iamIdentity *IamIdentityV1) UnlockServiceID(unlockServiceIdOptions *UnlockServiceIdOptions) (response *core.DetailedResponse, err error) {
-	return iamIdentity.UnlockServiceIDWithContext(context.Background(), unlockServiceIdOptions)
+func (iamIdentity *IamIdentityV1) UnlockServiceID(unlockServiceIDOptions *UnlockServiceIDOptions) (response *core.DetailedResponse, err error) {
+	return iamIdentity.UnlockServiceIDWithContext(context.Background(), unlockServiceIDOptions)
 }
 
 // UnlockServiceIDWithContext is an alternate form of the UnlockServiceID method which supports a Context parameter
-func (iamIdentity *IamIdentityV1) UnlockServiceIDWithContext(ctx context.Context, unlockServiceIdOptions *UnlockServiceIdOptions) (response *core.DetailedResponse, err error) {
-	err = core.ValidateNotNil(unlockServiceIdOptions, "unlockServiceIdOptions cannot be nil")
+func (iamIdentity *IamIdentityV1) UnlockServiceIDWithContext(ctx context.Context, unlockServiceIDOptions *UnlockServiceIDOptions) (response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(unlockServiceIDOptions, "unlockServiceIDOptions cannot be nil")
 	if err != nil {
 		return
 	}
-	err = core.ValidateStruct(unlockServiceIdOptions, "unlockServiceIdOptions")
+	err = core.ValidateStruct(unlockServiceIDOptions, "unlockServiceIDOptions")
 	if err != nil {
 		return
 	}
 
 	pathParamsMap := map[string]string{
-		"id": *unlockServiceIdOptions.ID,
+		"id": *unlockServiceIDOptions.ID,
 	}
 
 	builder := core.NewRequestBuilder(core.DELETE)
@@ -1087,7 +1102,7 @@ func (iamIdentity *IamIdentityV1) UnlockServiceIDWithContext(ctx context.Context
 		return
 	}
 
-	for headerName, headerValue := range unlockServiceIdOptions.Headers {
+	for headerName, headerValue := range unlockServiceIDOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 
@@ -1106,8 +1121,8 @@ func (iamIdentity *IamIdentityV1) UnlockServiceIDWithContext(ctx context.Context
 	return
 }
 
-// ApiKey : Response body format for API key V1 REST requests.
-type ApiKey struct {
+// APIKey : Response body format for API key V1 REST requests.
+type APIKey struct {
 	// Context with key properties for problem determination.
 	Context *ResponseContext `json:"context,omitempty"`
 
@@ -1120,7 +1135,7 @@ type ApiKey struct {
 
 	// Cloud Resource Name of the item. Example Cloud Resource Name:
 	// 'crn:v1:bluemix:public:iam-identity:us-south:a/myaccount::apikey:1234-9012-5678'.
-	Crn *string `json:"crn" validate:"required"`
+	CRN *string `json:"crn" validate:"required"`
 
 	// The API key cannot be changed if set to true.
 	Locked *bool `json:"locked" validate:"required"`
@@ -1159,9 +1174,9 @@ type ApiKey struct {
 }
 
 
-// UnmarshalApiKey unmarshals an instance of ApiKey from the specified map of raw messages.
-func UnmarshalApiKey(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(ApiKey)
+// UnmarshalAPIKey unmarshals an instance of APIKey from the specified map of raw messages.
+func UnmarshalAPIKey(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(APIKey)
 	err = core.UnmarshalModel(m, "context", &obj.Context, UnmarshalResponseContext)
 	if err != nil {
 		return
@@ -1174,7 +1189,7 @@ func UnmarshalApiKey(m map[string]json.RawMessage, result interface{}) (err erro
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalPrimitive(m, "crn", &obj.Crn)
+	err = core.UnmarshalPrimitive(m, "crn", &obj.CRN)
 	if err != nil {
 		return
 	}
@@ -1222,8 +1237,8 @@ func UnmarshalApiKey(m map[string]json.RawMessage, result interface{}) (err erro
 	return
 }
 
-// ApiKeyInsideCreateServiceIdRequest : Parameters for the API key in the Create service Id V1 REST request.
-type ApiKeyInsideCreateServiceIdRequest struct {
+// APIKeyInsideCreateServiceIDRequest : Parameters for the API key in the Create service Id V1 REST request.
+type APIKeyInsideCreateServiceIDRequest struct {
 	// Name of the API key. The name is not checked for uniqueness. Therefore multiple names with the same value can exist.
 	// Access is done via the UUID of the API key.
 	Name *string `json:"name" validate:"required"`
@@ -1245,18 +1260,18 @@ type ApiKeyInsideCreateServiceIdRequest struct {
 }
 
 
-// NewApiKeyInsideCreateServiceIdRequest : Instantiate ApiKeyInsideCreateServiceIdRequest (Generic Model Constructor)
-func (*IamIdentityV1) NewApiKeyInsideCreateServiceIdRequest(name string) (model *ApiKeyInsideCreateServiceIdRequest, err error) {
-	model = &ApiKeyInsideCreateServiceIdRequest{
+// NewAPIKeyInsideCreateServiceIDRequest : Instantiate APIKeyInsideCreateServiceIDRequest (Generic Model Constructor)
+func (*IamIdentityV1) NewAPIKeyInsideCreateServiceIDRequest(name string) (model *APIKeyInsideCreateServiceIDRequest, err error) {
+	model = &APIKeyInsideCreateServiceIDRequest{
 		Name: core.StringPtr(name),
 	}
 	err = core.ValidateStruct(model, "required parameters")
 	return
 }
 
-// UnmarshalApiKeyInsideCreateServiceIdRequest unmarshals an instance of ApiKeyInsideCreateServiceIdRequest from the specified map of raw messages.
-func UnmarshalApiKeyInsideCreateServiceIdRequest(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(ApiKeyInsideCreateServiceIdRequest)
+// UnmarshalAPIKeyInsideCreateServiceIDRequest unmarshals an instance of APIKeyInsideCreateServiceIDRequest from the specified map of raw messages.
+func UnmarshalAPIKeyInsideCreateServiceIDRequest(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(APIKeyInsideCreateServiceIDRequest)
 	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
 	if err != nil {
 		return
@@ -1277,8 +1292,8 @@ func UnmarshalApiKeyInsideCreateServiceIdRequest(m map[string]json.RawMessage, r
 	return
 }
 
-// ApiKeyList : Response body format for the List API keys V1 REST request.
-type ApiKeyList struct {
+// APIKeyList : Response body format for the List API keys V1 REST request.
+type APIKeyList struct {
 	// Context with key properties for problem determination.
 	Context *ResponseContext `json:"context,omitempty"`
 
@@ -1300,13 +1315,13 @@ type ApiKeyList struct {
 
 	// List of API keys based on the query paramters and the page size. The apikeys array is always part of the response
 	// but might be empty depending on the query parameters values provided.
-	Apikeys []ApiKey `json:"apikeys" validate:"required"`
+	Apikeys []APIKey `json:"apikeys" validate:"required"`
 }
 
 
-// UnmarshalApiKeyList unmarshals an instance of ApiKeyList from the specified map of raw messages.
-func UnmarshalApiKeyList(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(ApiKeyList)
+// UnmarshalAPIKeyList unmarshals an instance of APIKeyList from the specified map of raw messages.
+func UnmarshalAPIKeyList(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(APIKeyList)
 	err = core.UnmarshalModel(m, "context", &obj.Context, UnmarshalResponseContext)
 	if err != nil {
 		return
@@ -1331,7 +1346,7 @@ func UnmarshalApiKeyList(m map[string]json.RawMessage, result interface{}) (err 
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(m, "apikeys", &obj.Apikeys, UnmarshalApiKey)
+	err = core.UnmarshalModel(m, "apikeys", &obj.Apikeys, UnmarshalAPIKey)
 	if err != nil {
 		return
 	}
@@ -1339,8 +1354,8 @@ func UnmarshalApiKeyList(m map[string]json.RawMessage, result interface{}) (err 
 	return
 }
 
-// CreateApiKeyOptions : The CreateApiKey options.
-type CreateApiKeyOptions struct {
+// CreateAPIKeyOptions : The CreateAPIKey options.
+type CreateAPIKeyOptions struct {
 	// Name of the API key. The name is not checked for uniqueness. Therefore multiple names with the same value can exist.
 	// Access is done via the UUID of the API key.
 	Name *string `json:"name" validate:"required"`
@@ -1373,64 +1388,64 @@ type CreateApiKeyOptions struct {
 	Headers map[string]string
 }
 
-// NewCreateApiKeyOptions : Instantiate CreateApiKeyOptions
-func (*IamIdentityV1) NewCreateApiKeyOptions(name string, iamID string) *CreateApiKeyOptions {
-	return &CreateApiKeyOptions{
+// NewCreateAPIKeyOptions : Instantiate CreateAPIKeyOptions
+func (*IamIdentityV1) NewCreateAPIKeyOptions(name string, iamID string) *CreateAPIKeyOptions {
+	return &CreateAPIKeyOptions{
 		Name: core.StringPtr(name),
 		IamID: core.StringPtr(iamID),
 	}
 }
 
 // SetName : Allow user to set Name
-func (options *CreateApiKeyOptions) SetName(name string) *CreateApiKeyOptions {
+func (options *CreateAPIKeyOptions) SetName(name string) *CreateAPIKeyOptions {
 	options.Name = core.StringPtr(name)
 	return options
 }
 
 // SetIamID : Allow user to set IamID
-func (options *CreateApiKeyOptions) SetIamID(iamID string) *CreateApiKeyOptions {
+func (options *CreateAPIKeyOptions) SetIamID(iamID string) *CreateAPIKeyOptions {
 	options.IamID = core.StringPtr(iamID)
 	return options
 }
 
 // SetDescription : Allow user to set Description
-func (options *CreateApiKeyOptions) SetDescription(description string) *CreateApiKeyOptions {
+func (options *CreateAPIKeyOptions) SetDescription(description string) *CreateAPIKeyOptions {
 	options.Description = core.StringPtr(description)
 	return options
 }
 
 // SetAccountID : Allow user to set AccountID
-func (options *CreateApiKeyOptions) SetAccountID(accountID string) *CreateApiKeyOptions {
+func (options *CreateAPIKeyOptions) SetAccountID(accountID string) *CreateAPIKeyOptions {
 	options.AccountID = core.StringPtr(accountID)
 	return options
 }
 
 // SetApikey : Allow user to set Apikey
-func (options *CreateApiKeyOptions) SetApikey(apikey string) *CreateApiKeyOptions {
+func (options *CreateAPIKeyOptions) SetApikey(apikey string) *CreateAPIKeyOptions {
 	options.Apikey = core.StringPtr(apikey)
 	return options
 }
 
 // SetStoreValue : Allow user to set StoreValue
-func (options *CreateApiKeyOptions) SetStoreValue(storeValue bool) *CreateApiKeyOptions {
+func (options *CreateAPIKeyOptions) SetStoreValue(storeValue bool) *CreateAPIKeyOptions {
 	options.StoreValue = core.BoolPtr(storeValue)
 	return options
 }
 
 // SetEntityLock : Allow user to set EntityLock
-func (options *CreateApiKeyOptions) SetEntityLock(entityLock string) *CreateApiKeyOptions {
+func (options *CreateAPIKeyOptions) SetEntityLock(entityLock string) *CreateAPIKeyOptions {
 	options.EntityLock = core.StringPtr(entityLock)
 	return options
 }
 
 // SetHeaders : Allow user to set Headers
-func (options *CreateApiKeyOptions) SetHeaders(param map[string]string) *CreateApiKeyOptions {
+func (options *CreateAPIKeyOptions) SetHeaders(param map[string]string) *CreateAPIKeyOptions {
 	options.Headers = param
 	return options
 }
 
-// CreateServiceIdOptions : The CreateServiceID options.
-type CreateServiceIdOptions struct {
+// CreateServiceIDOptions : The CreateServiceID options.
+type CreateServiceIDOptions struct {
 	// ID of the account the service ID belongs to.
 	AccountID *string `json:"account_id" validate:"required"`
 
@@ -1446,7 +1461,7 @@ type CreateServiceIdOptions struct {
 	UniqueInstanceCrns []string `json:"unique_instance_crns,omitempty"`
 
 	// Parameters for the API key in the Create service Id V1 REST request.
-	Apikey *ApiKeyInsideCreateServiceIdRequest `json:"apikey,omitempty"`
+	Apikey *APIKeyInsideCreateServiceIDRequest `json:"apikey,omitempty"`
 
 	// Indicates if the service ID is locked for further write operations. False by default.
 	EntityLock *string `json:"Entity-Lock,omitempty"`
@@ -1455,58 +1470,58 @@ type CreateServiceIdOptions struct {
 	Headers map[string]string
 }
 
-// NewCreateServiceIdOptions : Instantiate CreateServiceIdOptions
-func (*IamIdentityV1) NewCreateServiceIdOptions(accountID string, name string) *CreateServiceIdOptions {
-	return &CreateServiceIdOptions{
+// NewCreateServiceIDOptions : Instantiate CreateServiceIDOptions
+func (*IamIdentityV1) NewCreateServiceIDOptions(accountID string, name string) *CreateServiceIDOptions {
+	return &CreateServiceIDOptions{
 		AccountID: core.StringPtr(accountID),
 		Name: core.StringPtr(name),
 	}
 }
 
 // SetAccountID : Allow user to set AccountID
-func (options *CreateServiceIdOptions) SetAccountID(accountID string) *CreateServiceIdOptions {
+func (options *CreateServiceIDOptions) SetAccountID(accountID string) *CreateServiceIDOptions {
 	options.AccountID = core.StringPtr(accountID)
 	return options
 }
 
 // SetName : Allow user to set Name
-func (options *CreateServiceIdOptions) SetName(name string) *CreateServiceIdOptions {
+func (options *CreateServiceIDOptions) SetName(name string) *CreateServiceIDOptions {
 	options.Name = core.StringPtr(name)
 	return options
 }
 
 // SetDescription : Allow user to set Description
-func (options *CreateServiceIdOptions) SetDescription(description string) *CreateServiceIdOptions {
+func (options *CreateServiceIDOptions) SetDescription(description string) *CreateServiceIDOptions {
 	options.Description = core.StringPtr(description)
 	return options
 }
 
 // SetUniqueInstanceCrns : Allow user to set UniqueInstanceCrns
-func (options *CreateServiceIdOptions) SetUniqueInstanceCrns(uniqueInstanceCrns []string) *CreateServiceIdOptions {
+func (options *CreateServiceIDOptions) SetUniqueInstanceCrns(uniqueInstanceCrns []string) *CreateServiceIDOptions {
 	options.UniqueInstanceCrns = uniqueInstanceCrns
 	return options
 }
 
 // SetApikey : Allow user to set Apikey
-func (options *CreateServiceIdOptions) SetApikey(apikey *ApiKeyInsideCreateServiceIdRequest) *CreateServiceIdOptions {
+func (options *CreateServiceIDOptions) SetApikey(apikey *APIKeyInsideCreateServiceIDRequest) *CreateServiceIDOptions {
 	options.Apikey = apikey
 	return options
 }
 
 // SetEntityLock : Allow user to set EntityLock
-func (options *CreateServiceIdOptions) SetEntityLock(entityLock string) *CreateServiceIdOptions {
+func (options *CreateServiceIDOptions) SetEntityLock(entityLock string) *CreateServiceIDOptions {
 	options.EntityLock = core.StringPtr(entityLock)
 	return options
 }
 
 // SetHeaders : Allow user to set Headers
-func (options *CreateServiceIdOptions) SetHeaders(param map[string]string) *CreateServiceIdOptions {
+func (options *CreateServiceIDOptions) SetHeaders(param map[string]string) *CreateServiceIDOptions {
 	options.Headers = param
 	return options
 }
 
-// DeleteApiKeyOptions : The DeleteApiKey options.
-type DeleteApiKeyOptions struct {
+// DeleteAPIKeyOptions : The DeleteAPIKey options.
+type DeleteAPIKeyOptions struct {
 	// Unique ID of the API key.
 	ID *string `json:"id" validate:"required,ne="`
 
@@ -1514,27 +1529,27 @@ type DeleteApiKeyOptions struct {
 	Headers map[string]string
 }
 
-// NewDeleteApiKeyOptions : Instantiate DeleteApiKeyOptions
-func (*IamIdentityV1) NewDeleteApiKeyOptions(id string) *DeleteApiKeyOptions {
-	return &DeleteApiKeyOptions{
+// NewDeleteAPIKeyOptions : Instantiate DeleteAPIKeyOptions
+func (*IamIdentityV1) NewDeleteAPIKeyOptions(id string) *DeleteAPIKeyOptions {
+	return &DeleteAPIKeyOptions{
 		ID: core.StringPtr(id),
 	}
 }
 
 // SetID : Allow user to set ID
-func (options *DeleteApiKeyOptions) SetID(id string) *DeleteApiKeyOptions {
+func (options *DeleteAPIKeyOptions) SetID(id string) *DeleteAPIKeyOptions {
 	options.ID = core.StringPtr(id)
 	return options
 }
 
 // SetHeaders : Allow user to set Headers
-func (options *DeleteApiKeyOptions) SetHeaders(param map[string]string) *DeleteApiKeyOptions {
+func (options *DeleteAPIKeyOptions) SetHeaders(param map[string]string) *DeleteAPIKeyOptions {
 	options.Headers = param
 	return options
 }
 
-// DeleteServiceIdOptions : The DeleteServiceID options.
-type DeleteServiceIdOptions struct {
+// DeleteServiceIDOptions : The DeleteServiceID options.
+type DeleteServiceIDOptions struct {
 	// Unique ID of the service ID.
 	ID *string `json:"id" validate:"required,ne="`
 
@@ -1542,21 +1557,21 @@ type DeleteServiceIdOptions struct {
 	Headers map[string]string
 }
 
-// NewDeleteServiceIdOptions : Instantiate DeleteServiceIdOptions
-func (*IamIdentityV1) NewDeleteServiceIdOptions(id string) *DeleteServiceIdOptions {
-	return &DeleteServiceIdOptions{
+// NewDeleteServiceIDOptions : Instantiate DeleteServiceIDOptions
+func (*IamIdentityV1) NewDeleteServiceIDOptions(id string) *DeleteServiceIDOptions {
+	return &DeleteServiceIDOptions{
 		ID: core.StringPtr(id),
 	}
 }
 
 // SetID : Allow user to set ID
-func (options *DeleteServiceIdOptions) SetID(id string) *DeleteServiceIdOptions {
+func (options *DeleteServiceIDOptions) SetID(id string) *DeleteServiceIDOptions {
 	options.ID = core.StringPtr(id)
 	return options
 }
 
 // SetHeaders : Allow user to set Headers
-func (options *DeleteServiceIdOptions) SetHeaders(param map[string]string) *DeleteServiceIdOptions {
+func (options *DeleteServiceIDOptions) SetHeaders(param map[string]string) *DeleteServiceIDOptions {
 	options.Headers = param
 	return options
 }
@@ -1570,7 +1585,7 @@ type EnityHistoryRecord struct {
 	IamID *string `json:"iam_id" validate:"required"`
 
 	// Account of the identity which triggered the action.
-	IamIdAccount *string `json:"iam_id_account" validate:"required"`
+	IamIDAccount *string `json:"iam_id_account" validate:"required"`
 
 	// Action of the history entry.
 	Action *string `json:"action" validate:"required"`
@@ -1594,7 +1609,7 @@ func UnmarshalEnityHistoryRecord(m map[string]json.RawMessage, result interface{
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalPrimitive(m, "iam_id_account", &obj.IamIdAccount)
+	err = core.UnmarshalPrimitive(m, "iam_id_account", &obj.IamIDAccount)
 	if err != nil {
 		return
 	}
@@ -1614,8 +1629,8 @@ func UnmarshalEnityHistoryRecord(m map[string]json.RawMessage, result interface{
 	return
 }
 
-// GetApiKeyOptions : The GetApiKey options.
-type GetApiKeyOptions struct {
+// GetAPIKeyOptions : The GetAPIKey options.
+type GetAPIKeyOptions struct {
 	// Unique ID of the API key.
 	ID *string `json:"id" validate:"required,ne="`
 
@@ -1626,35 +1641,35 @@ type GetApiKeyOptions struct {
 	Headers map[string]string
 }
 
-// NewGetApiKeyOptions : Instantiate GetApiKeyOptions
-func (*IamIdentityV1) NewGetApiKeyOptions(id string) *GetApiKeyOptions {
-	return &GetApiKeyOptions{
+// NewGetAPIKeyOptions : Instantiate GetAPIKeyOptions
+func (*IamIdentityV1) NewGetAPIKeyOptions(id string) *GetAPIKeyOptions {
+	return &GetAPIKeyOptions{
 		ID: core.StringPtr(id),
 	}
 }
 
 // SetID : Allow user to set ID
-func (options *GetApiKeyOptions) SetID(id string) *GetApiKeyOptions {
+func (options *GetAPIKeyOptions) SetID(id string) *GetAPIKeyOptions {
 	options.ID = core.StringPtr(id)
 	return options
 }
 
 // SetIncludeHistory : Allow user to set IncludeHistory
-func (options *GetApiKeyOptions) SetIncludeHistory(includeHistory bool) *GetApiKeyOptions {
+func (options *GetAPIKeyOptions) SetIncludeHistory(includeHistory bool) *GetAPIKeyOptions {
 	options.IncludeHistory = core.BoolPtr(includeHistory)
 	return options
 }
 
 // SetHeaders : Allow user to set Headers
-func (options *GetApiKeyOptions) SetHeaders(param map[string]string) *GetApiKeyOptions {
+func (options *GetAPIKeyOptions) SetHeaders(param map[string]string) *GetAPIKeyOptions {
 	options.Headers = param
 	return options
 }
 
-// GetApiKeysDetailsOptions : The GetApiKeysDetails options.
-type GetApiKeysDetailsOptions struct {
+// GetAPIKeysDetailsOptions : The GetAPIKeysDetails options.
+type GetAPIKeysDetailsOptions struct {
 	// API key value.
-	IAMApiKey *string `json:"IAM-ApiKey,omitempty"`
+	IamAPIKey *string `json:"IAM-ApiKey,omitempty"`
 
 	// Defines if the entity history is included in the response.
 	IncludeHistory *bool `json:"include_history,omitempty"`
@@ -1663,31 +1678,31 @@ type GetApiKeysDetailsOptions struct {
 	Headers map[string]string
 }
 
-// NewGetApiKeysDetailsOptions : Instantiate GetApiKeysDetailsOptions
-func (*IamIdentityV1) NewGetApiKeysDetailsOptions() *GetApiKeysDetailsOptions {
-	return &GetApiKeysDetailsOptions{}
+// NewGetAPIKeysDetailsOptions : Instantiate GetAPIKeysDetailsOptions
+func (*IamIdentityV1) NewGetAPIKeysDetailsOptions() *GetAPIKeysDetailsOptions {
+	return &GetAPIKeysDetailsOptions{}
 }
 
-// SetIAMApiKey : Allow user to set IAMApiKey
-func (options *GetApiKeysDetailsOptions) SetIAMApiKey(iAMApiKey string) *GetApiKeysDetailsOptions {
-	options.IAMApiKey = core.StringPtr(iAMApiKey)
+// SetIamAPIKey : Allow user to set IamAPIKey
+func (options *GetAPIKeysDetailsOptions) SetIamAPIKey(iamAPIKey string) *GetAPIKeysDetailsOptions {
+	options.IamAPIKey = core.StringPtr(iamAPIKey)
 	return options
 }
 
 // SetIncludeHistory : Allow user to set IncludeHistory
-func (options *GetApiKeysDetailsOptions) SetIncludeHistory(includeHistory bool) *GetApiKeysDetailsOptions {
+func (options *GetAPIKeysDetailsOptions) SetIncludeHistory(includeHistory bool) *GetAPIKeysDetailsOptions {
 	options.IncludeHistory = core.BoolPtr(includeHistory)
 	return options
 }
 
 // SetHeaders : Allow user to set Headers
-func (options *GetApiKeysDetailsOptions) SetHeaders(param map[string]string) *GetApiKeysDetailsOptions {
+func (options *GetAPIKeysDetailsOptions) SetHeaders(param map[string]string) *GetAPIKeysDetailsOptions {
 	options.Headers = param
 	return options
 }
 
-// GetServiceIdOptions : The GetServiceID options.
-type GetServiceIdOptions struct {
+// GetServiceIDOptions : The GetServiceID options.
+type GetServiceIDOptions struct {
 	// Unique ID of the service ID.
 	ID *string `json:"id" validate:"required,ne="`
 
@@ -1698,33 +1713,33 @@ type GetServiceIdOptions struct {
 	Headers map[string]string
 }
 
-// NewGetServiceIdOptions : Instantiate GetServiceIdOptions
-func (*IamIdentityV1) NewGetServiceIdOptions(id string) *GetServiceIdOptions {
-	return &GetServiceIdOptions{
+// NewGetServiceIDOptions : Instantiate GetServiceIDOptions
+func (*IamIdentityV1) NewGetServiceIDOptions(id string) *GetServiceIDOptions {
+	return &GetServiceIDOptions{
 		ID: core.StringPtr(id),
 	}
 }
 
 // SetID : Allow user to set ID
-func (options *GetServiceIdOptions) SetID(id string) *GetServiceIdOptions {
+func (options *GetServiceIDOptions) SetID(id string) *GetServiceIDOptions {
 	options.ID = core.StringPtr(id)
 	return options
 }
 
 // SetIncludeHistory : Allow user to set IncludeHistory
-func (options *GetServiceIdOptions) SetIncludeHistory(includeHistory bool) *GetServiceIdOptions {
+func (options *GetServiceIDOptions) SetIncludeHistory(includeHistory bool) *GetServiceIDOptions {
 	options.IncludeHistory = core.BoolPtr(includeHistory)
 	return options
 }
 
 // SetHeaders : Allow user to set Headers
-func (options *GetServiceIdOptions) SetHeaders(param map[string]string) *GetServiceIdOptions {
+func (options *GetServiceIDOptions) SetHeaders(param map[string]string) *GetServiceIDOptions {
 	options.Headers = param
 	return options
 }
 
-// ListApiKeysOptions : The ListApiKeys options.
-type ListApiKeysOptions struct {
+// ListAPIKeysOptions : The ListAPIKeys options.
+type ListAPIKeysOptions struct {
 	// Account ID of the API keys(s) to query. If a service IAM ID is specified in iam_id then account_id must match the
 	// account of the IAM ID. If a user IAM ID is specified in iam_id then then account_id must match the account of the
 	// Authorization token.
@@ -1760,88 +1775,88 @@ type ListApiKeysOptions struct {
 	Headers map[string]string
 }
 
-// Constants associated with the ListApiKeysOptions.Scope property.
+// Constants associated with the ListAPIKeysOptions.Scope property.
 // Optional parameter to define the scope of the queried API Keys. Can be 'entity' (default) or 'account'.
 const (
-	ListApiKeysOptions_Scope_Account = "account"
-	ListApiKeysOptions_Scope_Entity = "entity"
+	ListAPIKeysOptionsScopeAccountConst = "account"
+	ListAPIKeysOptionsScopeEntityConst = "entity"
 )
 
-// Constants associated with the ListApiKeysOptions.Type property.
+// Constants associated with the ListAPIKeysOptions.Type property.
 // Optional parameter to filter the type of the queried API Keys. Can be 'user' or 'serviceid'.
 const (
-	ListApiKeysOptions_Type_Serviceid = "serviceid"
-	ListApiKeysOptions_Type_User = "user"
+	ListAPIKeysOptionsTypeServiceidConst = "serviceid"
+	ListAPIKeysOptionsTypeUserConst = "user"
 )
 
-// Constants associated with the ListApiKeysOptions.Order property.
+// Constants associated with the ListAPIKeysOptions.Order property.
 // Optional sort order, valid values are asc and desc. Default: asc.
 const (
-	ListApiKeysOptions_Order_Asc = "asc"
-	ListApiKeysOptions_Order_Desc = "desc"
+	ListAPIKeysOptionsOrderAscConst = "asc"
+	ListAPIKeysOptionsOrderDescConst = "desc"
 )
 
-// NewListApiKeysOptions : Instantiate ListApiKeysOptions
-func (*IamIdentityV1) NewListApiKeysOptions() *ListApiKeysOptions {
-	return &ListApiKeysOptions{}
+// NewListAPIKeysOptions : Instantiate ListAPIKeysOptions
+func (*IamIdentityV1) NewListAPIKeysOptions() *ListAPIKeysOptions {
+	return &ListAPIKeysOptions{}
 }
 
 // SetAccountID : Allow user to set AccountID
-func (options *ListApiKeysOptions) SetAccountID(accountID string) *ListApiKeysOptions {
+func (options *ListAPIKeysOptions) SetAccountID(accountID string) *ListAPIKeysOptions {
 	options.AccountID = core.StringPtr(accountID)
 	return options
 }
 
 // SetIamID : Allow user to set IamID
-func (options *ListApiKeysOptions) SetIamID(iamID string) *ListApiKeysOptions {
+func (options *ListAPIKeysOptions) SetIamID(iamID string) *ListAPIKeysOptions {
 	options.IamID = core.StringPtr(iamID)
 	return options
 }
 
 // SetPagesize : Allow user to set Pagesize
-func (options *ListApiKeysOptions) SetPagesize(pagesize int64) *ListApiKeysOptions {
+func (options *ListAPIKeysOptions) SetPagesize(pagesize int64) *ListAPIKeysOptions {
 	options.Pagesize = core.Int64Ptr(pagesize)
 	return options
 }
 
 // SetPagetoken : Allow user to set Pagetoken
-func (options *ListApiKeysOptions) SetPagetoken(pagetoken string) *ListApiKeysOptions {
+func (options *ListAPIKeysOptions) SetPagetoken(pagetoken string) *ListAPIKeysOptions {
 	options.Pagetoken = core.StringPtr(pagetoken)
 	return options
 }
 
 // SetScope : Allow user to set Scope
-func (options *ListApiKeysOptions) SetScope(scope string) *ListApiKeysOptions {
+func (options *ListAPIKeysOptions) SetScope(scope string) *ListAPIKeysOptions {
 	options.Scope = core.StringPtr(scope)
 	return options
 }
 
 // SetType : Allow user to set Type
-func (options *ListApiKeysOptions) SetType(typeVar string) *ListApiKeysOptions {
+func (options *ListAPIKeysOptions) SetType(typeVar string) *ListAPIKeysOptions {
 	options.Type = core.StringPtr(typeVar)
 	return options
 }
 
 // SetSort : Allow user to set Sort
-func (options *ListApiKeysOptions) SetSort(sort string) *ListApiKeysOptions {
+func (options *ListAPIKeysOptions) SetSort(sort string) *ListAPIKeysOptions {
 	options.Sort = core.StringPtr(sort)
 	return options
 }
 
 // SetOrder : Allow user to set Order
-func (options *ListApiKeysOptions) SetOrder(order string) *ListApiKeysOptions {
+func (options *ListAPIKeysOptions) SetOrder(order string) *ListAPIKeysOptions {
 	options.Order = core.StringPtr(order)
 	return options
 }
 
 // SetIncludeHistory : Allow user to set IncludeHistory
-func (options *ListApiKeysOptions) SetIncludeHistory(includeHistory bool) *ListApiKeysOptions {
+func (options *ListAPIKeysOptions) SetIncludeHistory(includeHistory bool) *ListAPIKeysOptions {
 	options.IncludeHistory = core.BoolPtr(includeHistory)
 	return options
 }
 
 // SetHeaders : Allow user to set Headers
-func (options *ListApiKeysOptions) SetHeaders(param map[string]string) *ListApiKeysOptions {
+func (options *ListAPIKeysOptions) SetHeaders(param map[string]string) *ListAPIKeysOptions {
 	options.Headers = param
 	return options
 }
@@ -1877,8 +1892,8 @@ type ListServiceIdsOptions struct {
 // Constants associated with the ListServiceIdsOptions.Order property.
 // Optional sort order, valid values are asc and desc. Default: asc.
 const (
-	ListServiceIdsOptions_Order_Asc = "asc"
-	ListServiceIdsOptions_Order_Desc = "desc"
+	ListServiceIdsOptionsOrderAscConst = "asc"
+	ListServiceIdsOptionsOrderDescConst = "desc"
 )
 
 // NewListServiceIdsOptions : Instantiate ListServiceIdsOptions
@@ -1934,8 +1949,8 @@ func (options *ListServiceIdsOptions) SetHeaders(param map[string]string) *ListS
 	return options
 }
 
-// LockApiKeyOptions : The LockApiKey options.
-type LockApiKeyOptions struct {
+// LockAPIKeyOptions : The LockAPIKey options.
+type LockAPIKeyOptions struct {
 	// Unique ID of the API key.
 	ID *string `json:"id" validate:"required,ne="`
 
@@ -1943,27 +1958,27 @@ type LockApiKeyOptions struct {
 	Headers map[string]string
 }
 
-// NewLockApiKeyOptions : Instantiate LockApiKeyOptions
-func (*IamIdentityV1) NewLockApiKeyOptions(id string) *LockApiKeyOptions {
-	return &LockApiKeyOptions{
+// NewLockAPIKeyOptions : Instantiate LockAPIKeyOptions
+func (*IamIdentityV1) NewLockAPIKeyOptions(id string) *LockAPIKeyOptions {
+	return &LockAPIKeyOptions{
 		ID: core.StringPtr(id),
 	}
 }
 
 // SetID : Allow user to set ID
-func (options *LockApiKeyOptions) SetID(id string) *LockApiKeyOptions {
+func (options *LockAPIKeyOptions) SetID(id string) *LockAPIKeyOptions {
 	options.ID = core.StringPtr(id)
 	return options
 }
 
 // SetHeaders : Allow user to set Headers
-func (options *LockApiKeyOptions) SetHeaders(param map[string]string) *LockApiKeyOptions {
+func (options *LockAPIKeyOptions) SetHeaders(param map[string]string) *LockAPIKeyOptions {
 	options.Headers = param
 	return options
 }
 
-// LockServiceIdOptions : The LockServiceID options.
-type LockServiceIdOptions struct {
+// LockServiceIDOptions : The LockServiceID options.
+type LockServiceIDOptions struct {
 	// Unique ID of the service ID.
 	ID *string `json:"id" validate:"required,ne="`
 
@@ -1971,21 +1986,21 @@ type LockServiceIdOptions struct {
 	Headers map[string]string
 }
 
-// NewLockServiceIdOptions : Instantiate LockServiceIdOptions
-func (*IamIdentityV1) NewLockServiceIdOptions(id string) *LockServiceIdOptions {
-	return &LockServiceIdOptions{
+// NewLockServiceIDOptions : Instantiate LockServiceIDOptions
+func (*IamIdentityV1) NewLockServiceIDOptions(id string) *LockServiceIDOptions {
+	return &LockServiceIDOptions{
 		ID: core.StringPtr(id),
 	}
 }
 
 // SetID : Allow user to set ID
-func (options *LockServiceIdOptions) SetID(id string) *LockServiceIdOptions {
+func (options *LockServiceIDOptions) SetID(id string) *LockServiceIDOptions {
 	options.ID = core.StringPtr(id)
 	return options
 }
 
 // SetHeaders : Allow user to set Headers
-func (options *LockServiceIdOptions) SetHeaders(param map[string]string) *LockServiceIdOptions {
+func (options *LockServiceIDOptions) SetHeaders(param map[string]string) *LockServiceIDOptions {
 	options.Headers = param
 	return options
 }
@@ -2095,7 +2110,7 @@ type ServiceID struct {
 
 	// Cloud Resource Name of the item. Example Cloud Resource Name:
 	// 'crn:v1:bluemix:public:iam-identity:us-south:a/myaccount::serviceid:1234-5678-9012'.
-	Crn *string `json:"crn" validate:"required"`
+	CRN *string `json:"crn" validate:"required"`
 
 	// The service ID cannot be changed if set to true.
 	Locked *bool `json:"locked" validate:"required"`
@@ -2124,7 +2139,7 @@ type ServiceID struct {
 	History []EnityHistoryRecord `json:"history,omitempty"`
 
 	// Response body format for API key V1 REST requests.
-	Apikey *ApiKey `json:"apikey" validate:"required"`
+	Apikey *APIKey `json:"apikey" validate:"required"`
 }
 
 
@@ -2147,7 +2162,7 @@ func UnmarshalServiceID(m map[string]json.RawMessage, result interface{}) (err e
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalPrimitive(m, "crn", &obj.Crn)
+	err = core.UnmarshalPrimitive(m, "crn", &obj.CRN)
 	if err != nil {
 		return
 	}
@@ -2183,7 +2198,7 @@ func UnmarshalServiceID(m map[string]json.RawMessage, result interface{}) (err e
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(m, "apikey", &obj.Apikey, UnmarshalApiKey)
+	err = core.UnmarshalModel(m, "apikey", &obj.Apikey, UnmarshalAPIKey)
 	if err != nil {
 		return
 	}
@@ -2191,8 +2206,8 @@ func UnmarshalServiceID(m map[string]json.RawMessage, result interface{}) (err e
 	return
 }
 
-// ServiceIdList : Response body format for the list service ID V1 REST request.
-type ServiceIdList struct {
+// ServiceIDList : Response body format for the list service ID V1 REST request.
+type ServiceIDList struct {
 	// Context with key properties for problem determination.
 	Context *ResponseContext `json:"context,omitempty"`
 
@@ -2218,9 +2233,9 @@ type ServiceIdList struct {
 }
 
 
-// UnmarshalServiceIdList unmarshals an instance of ServiceIdList from the specified map of raw messages.
-func UnmarshalServiceIdList(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(ServiceIdList)
+// UnmarshalServiceIDList unmarshals an instance of ServiceIDList from the specified map of raw messages.
+func UnmarshalServiceIDList(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(ServiceIDList)
 	err = core.UnmarshalModel(m, "context", &obj.Context, UnmarshalResponseContext)
 	if err != nil {
 		return
@@ -2253,8 +2268,8 @@ func UnmarshalServiceIdList(m map[string]json.RawMessage, result interface{}) (e
 	return
 }
 
-// UnlockApiKeyOptions : The UnlockApiKey options.
-type UnlockApiKeyOptions struct {
+// UnlockAPIKeyOptions : The UnlockAPIKey options.
+type UnlockAPIKeyOptions struct {
 	// Unique ID of the API key.
 	ID *string `json:"id" validate:"required,ne="`
 
@@ -2262,27 +2277,27 @@ type UnlockApiKeyOptions struct {
 	Headers map[string]string
 }
 
-// NewUnlockApiKeyOptions : Instantiate UnlockApiKeyOptions
-func (*IamIdentityV1) NewUnlockApiKeyOptions(id string) *UnlockApiKeyOptions {
-	return &UnlockApiKeyOptions{
+// NewUnlockAPIKeyOptions : Instantiate UnlockAPIKeyOptions
+func (*IamIdentityV1) NewUnlockAPIKeyOptions(id string) *UnlockAPIKeyOptions {
+	return &UnlockAPIKeyOptions{
 		ID: core.StringPtr(id),
 	}
 }
 
 // SetID : Allow user to set ID
-func (options *UnlockApiKeyOptions) SetID(id string) *UnlockApiKeyOptions {
+func (options *UnlockAPIKeyOptions) SetID(id string) *UnlockAPIKeyOptions {
 	options.ID = core.StringPtr(id)
 	return options
 }
 
 // SetHeaders : Allow user to set Headers
-func (options *UnlockApiKeyOptions) SetHeaders(param map[string]string) *UnlockApiKeyOptions {
+func (options *UnlockAPIKeyOptions) SetHeaders(param map[string]string) *UnlockAPIKeyOptions {
 	options.Headers = param
 	return options
 }
 
-// UnlockServiceIdOptions : The UnlockServiceID options.
-type UnlockServiceIdOptions struct {
+// UnlockServiceIDOptions : The UnlockServiceID options.
+type UnlockServiceIDOptions struct {
 	// Unique ID of the service ID.
 	ID *string `json:"id" validate:"required,ne="`
 
@@ -2290,27 +2305,27 @@ type UnlockServiceIdOptions struct {
 	Headers map[string]string
 }
 
-// NewUnlockServiceIdOptions : Instantiate UnlockServiceIdOptions
-func (*IamIdentityV1) NewUnlockServiceIdOptions(id string) *UnlockServiceIdOptions {
-	return &UnlockServiceIdOptions{
+// NewUnlockServiceIDOptions : Instantiate UnlockServiceIDOptions
+func (*IamIdentityV1) NewUnlockServiceIDOptions(id string) *UnlockServiceIDOptions {
+	return &UnlockServiceIDOptions{
 		ID: core.StringPtr(id),
 	}
 }
 
 // SetID : Allow user to set ID
-func (options *UnlockServiceIdOptions) SetID(id string) *UnlockServiceIdOptions {
+func (options *UnlockServiceIDOptions) SetID(id string) *UnlockServiceIDOptions {
 	options.ID = core.StringPtr(id)
 	return options
 }
 
 // SetHeaders : Allow user to set Headers
-func (options *UnlockServiceIdOptions) SetHeaders(param map[string]string) *UnlockServiceIdOptions {
+func (options *UnlockServiceIDOptions) SetHeaders(param map[string]string) *UnlockServiceIDOptions {
 	options.Headers = param
 	return options
 }
 
-// UpdateApiKeyOptions : The UpdateApiKey options.
-type UpdateApiKeyOptions struct {
+// UpdateAPIKeyOptions : The UpdateAPIKey options.
+type UpdateAPIKeyOptions struct {
 	// Unique ID of the API key to be updated.
 	ID *string `json:"id" validate:"required,ne="`
 
@@ -2331,46 +2346,46 @@ type UpdateApiKeyOptions struct {
 	Headers map[string]string
 }
 
-// NewUpdateApiKeyOptions : Instantiate UpdateApiKeyOptions
-func (*IamIdentityV1) NewUpdateApiKeyOptions(id string, ifMatch string) *UpdateApiKeyOptions {
-	return &UpdateApiKeyOptions{
+// NewUpdateAPIKeyOptions : Instantiate UpdateAPIKeyOptions
+func (*IamIdentityV1) NewUpdateAPIKeyOptions(id string, ifMatch string) *UpdateAPIKeyOptions {
+	return &UpdateAPIKeyOptions{
 		ID: core.StringPtr(id),
 		IfMatch: core.StringPtr(ifMatch),
 	}
 }
 
 // SetID : Allow user to set ID
-func (options *UpdateApiKeyOptions) SetID(id string) *UpdateApiKeyOptions {
+func (options *UpdateAPIKeyOptions) SetID(id string) *UpdateAPIKeyOptions {
 	options.ID = core.StringPtr(id)
 	return options
 }
 
 // SetIfMatch : Allow user to set IfMatch
-func (options *UpdateApiKeyOptions) SetIfMatch(ifMatch string) *UpdateApiKeyOptions {
+func (options *UpdateAPIKeyOptions) SetIfMatch(ifMatch string) *UpdateAPIKeyOptions {
 	options.IfMatch = core.StringPtr(ifMatch)
 	return options
 }
 
 // SetName : Allow user to set Name
-func (options *UpdateApiKeyOptions) SetName(name string) *UpdateApiKeyOptions {
+func (options *UpdateAPIKeyOptions) SetName(name string) *UpdateAPIKeyOptions {
 	options.Name = core.StringPtr(name)
 	return options
 }
 
 // SetDescription : Allow user to set Description
-func (options *UpdateApiKeyOptions) SetDescription(description string) *UpdateApiKeyOptions {
+func (options *UpdateAPIKeyOptions) SetDescription(description string) *UpdateAPIKeyOptions {
 	options.Description = core.StringPtr(description)
 	return options
 }
 
 // SetHeaders : Allow user to set Headers
-func (options *UpdateApiKeyOptions) SetHeaders(param map[string]string) *UpdateApiKeyOptions {
+func (options *UpdateAPIKeyOptions) SetHeaders(param map[string]string) *UpdateAPIKeyOptions {
 	options.Headers = param
 	return options
 }
 
-// UpdateServiceIdOptions : The UpdateServiceID options.
-type UpdateServiceIdOptions struct {
+// UpdateServiceIDOptions : The UpdateServiceID options.
+type UpdateServiceIDOptions struct {
 	// Unique ID of the service ID to be updated.
 	ID *string `json:"id" validate:"required,ne="`
 
@@ -2395,46 +2410,46 @@ type UpdateServiceIdOptions struct {
 	Headers map[string]string
 }
 
-// NewUpdateServiceIdOptions : Instantiate UpdateServiceIdOptions
-func (*IamIdentityV1) NewUpdateServiceIdOptions(id string, ifMatch string) *UpdateServiceIdOptions {
-	return &UpdateServiceIdOptions{
+// NewUpdateServiceIDOptions : Instantiate UpdateServiceIDOptions
+func (*IamIdentityV1) NewUpdateServiceIDOptions(id string, ifMatch string) *UpdateServiceIDOptions {
+	return &UpdateServiceIDOptions{
 		ID: core.StringPtr(id),
 		IfMatch: core.StringPtr(ifMatch),
 	}
 }
 
 // SetID : Allow user to set ID
-func (options *UpdateServiceIdOptions) SetID(id string) *UpdateServiceIdOptions {
+func (options *UpdateServiceIDOptions) SetID(id string) *UpdateServiceIDOptions {
 	options.ID = core.StringPtr(id)
 	return options
 }
 
 // SetIfMatch : Allow user to set IfMatch
-func (options *UpdateServiceIdOptions) SetIfMatch(ifMatch string) *UpdateServiceIdOptions {
+func (options *UpdateServiceIDOptions) SetIfMatch(ifMatch string) *UpdateServiceIDOptions {
 	options.IfMatch = core.StringPtr(ifMatch)
 	return options
 }
 
 // SetName : Allow user to set Name
-func (options *UpdateServiceIdOptions) SetName(name string) *UpdateServiceIdOptions {
+func (options *UpdateServiceIDOptions) SetName(name string) *UpdateServiceIDOptions {
 	options.Name = core.StringPtr(name)
 	return options
 }
 
 // SetDescription : Allow user to set Description
-func (options *UpdateServiceIdOptions) SetDescription(description string) *UpdateServiceIdOptions {
+func (options *UpdateServiceIDOptions) SetDescription(description string) *UpdateServiceIDOptions {
 	options.Description = core.StringPtr(description)
 	return options
 }
 
 // SetUniqueInstanceCrns : Allow user to set UniqueInstanceCrns
-func (options *UpdateServiceIdOptions) SetUniqueInstanceCrns(uniqueInstanceCrns []string) *UpdateServiceIdOptions {
+func (options *UpdateServiceIDOptions) SetUniqueInstanceCrns(uniqueInstanceCrns []string) *UpdateServiceIDOptions {
 	options.UniqueInstanceCrns = uniqueInstanceCrns
 	return options
 }
 
 // SetHeaders : Allow user to set Headers
-func (options *UpdateServiceIdOptions) SetHeaders(param map[string]string) *UpdateServiceIdOptions {
+func (options *UpdateServiceIDOptions) SetHeaders(param map[string]string) *UpdateServiceIDOptions {
 	options.Headers = param
 	return options
 }
