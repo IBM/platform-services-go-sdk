@@ -1,3 +1,21 @@
+## [0.17.2](https://github.com/IBM/platform-services-go-sdk/compare/v0.17.1...v0.17.2) (2020-12-11)
+
+
+### Bug Fixes
+
+* **Case Management:** re-gen service with latest API ([defee94](https://github.com/IBM/platform-services-go-sdk/commit/defee94adfca01cb8aabeab134c726e9742b6578))
+* **Configuration Governance:** re-gen service with latest API ([da40a6f](https://github.com/IBM/platform-services-go-sdk/commit/da40a6f7ca00730be704c562c7046bf9af1e165f))
+* **Global Catalog:** re-gen service with latest API ([1eb450b](https://github.com/IBM/platform-services-go-sdk/commit/1eb450bba3237e72388c184d3fdfde900758a0bb))
+* **IAM Access Groups:** re-gen service with latest API ([aac8454](https://github.com/IBM/platform-services-go-sdk/commit/aac84549402154f543202df01ba4d112c4a7e0ec))
+* **IAM Identity Service:** re-gen service with latest API ([42cb0be](https://github.com/IBM/platform-services-go-sdk/commit/42cb0befe3108837e2a1a9ce0a528a38b5a9a001))
+* **IAM Policy Management:** re-gen service with latest API ([cd74762](https://github.com/IBM/platform-services-go-sdk/commit/cd74762aed8ca1097d9ba8009fd36c961c6d4cca))
+* **Open Service Broker:** re-gen service with latest API ([c6401b1](https://github.com/IBM/platform-services-go-sdk/commit/c6401b10e8f4ea04bdb573197c0667ded05515bb))
+* **Resource Controller:** re-gen service with latest API ([b871759](https://github.com/IBM/platform-services-go-sdk/commit/b871759d4d5fc3690b09daef46e733e49637468e))
+* **Resource Manager:** re-gen service with latest API ([2de3306](https://github.com/IBM/platform-services-go-sdk/commit/2de33066ea615f874e38d7f919b8ca7927c4709e))
+* **Usage Metering:** re-gen service with latest API ([ebeaea8](https://github.com/IBM/platform-services-go-sdk/commit/ebeaea8669e2d4d64123e1f4c26c9ffa05ebb8bc))
+* **Usage Reports:** re-gen service with latest API ([548ddbd](https://github.com/IBM/platform-services-go-sdk/commit/548ddbd2a7bf39d3bb01ea80fa5462d78736be57))
+* **User Management:** re-gen service with latest API ([eeda08a](https://github.com/IBM/platform-services-go-sdk/commit/eeda08ab092c8e53aef27a86edeafb408cd4e929))
+
 ## [0.17.1](https://github.com/IBM/platform-services-go-sdk/compare/v0.17.0...v0.17.1) (2020-12-10)
 
 
