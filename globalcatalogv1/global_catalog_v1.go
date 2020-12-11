@@ -15,7 +15,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-629bbb97-20201207-171303
+ * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-d753183b-20201209-163011
  */
  
 
@@ -287,8 +287,8 @@ func (globalCatalog *GlobalCatalogV1) CreateCatalogEntryWithContext(ctx context.
 	if createCatalogEntryOptions.Kind != nil {
 		body["kind"] = createCatalogEntryOptions.Kind
 	}
-	if createCatalogEntryOptions.OverviewUi != nil {
-		body["overview_ui"] = createCatalogEntryOptions.OverviewUi
+	if createCatalogEntryOptions.OverviewUI != nil {
+		body["overview_ui"] = createCatalogEntryOptions.OverviewUI
 	}
 	if createCatalogEntryOptions.Images != nil {
 		body["images"] = createCatalogEntryOptions.Images
@@ -472,8 +472,8 @@ func (globalCatalog *GlobalCatalogV1) UpdateCatalogEntryWithContext(ctx context.
 	if updateCatalogEntryOptions.Kind != nil {
 		body["kind"] = updateCatalogEntryOptions.Kind
 	}
-	if updateCatalogEntryOptions.OverviewUi != nil {
-		body["overview_ui"] = updateCatalogEntryOptions.OverviewUi
+	if updateCatalogEntryOptions.OverviewUI != nil {
+		body["overview_ui"] = updateCatalogEntryOptions.OverviewUI
 	}
 	if updateCatalogEntryOptions.Images != nil {
 		body["images"] = updateCatalogEntryOptions.Images
@@ -1425,7 +1425,7 @@ type Broker struct {
 	Name *string `json:"name,omitempty"`
 
 	// Broker guid.
-	Guid *string `json:"guid,omitempty"`
+	GUID *string `json:"guid,omitempty"`
 }
 
 
@@ -1436,7 +1436,7 @@ func UnmarshalBroker(m map[string]json.RawMessage, result interface{}) (err erro
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalPrimitive(m, "guid", &obj.Guid)
+	err = core.UnmarshalPrimitive(m, "guid", &obj.GUID)
 	if err != nil {
 		return
 	}
@@ -1492,7 +1492,7 @@ type CfMetaData struct {
 	IamCompatible *bool `json:"iam_compatible,omitempty"`
 
 	// Boolean value that describes whether the service has a unique API key.
-	UniqueApiKey *bool `json:"unique_api_key,omitempty"`
+	UniqueAPIKey *bool `json:"unique_api_key,omitempty"`
 
 	// Boolean value that describes whether the service is provisionable or not. You may need sales or support to create
 	// this service.
@@ -1527,7 +1527,7 @@ type CfMetaData struct {
 
 	// If the field is imported from Cloud Foundry, the Cloud Foundry region's GUID. This is a required field. For example,
 	// `us-south=123`.
-	CfGuid map[string]string `json:"cf_guid,omitempty"`
+	CfGUID map[string]string `json:"cf_guid,omitempty"`
 }
 
 
@@ -1542,7 +1542,7 @@ func UnmarshalCfMetaData(m map[string]json.RawMessage, result interface{}) (err 
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalPrimitive(m, "unique_api_key", &obj.UniqueApiKey)
+	err = core.UnmarshalPrimitive(m, "unique_api_key", &obj.UniqueAPIKey)
 	if err != nil {
 		return
 	}
@@ -1586,7 +1586,7 @@ func UnmarshalCfMetaData(m map[string]json.RawMessage, result interface{}) (err 
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalPrimitive(m, "cf_guid", &obj.CfGuid)
+	err = core.UnmarshalPrimitive(m, "cf_guid", &obj.CfGUID)
 	if err != nil {
 		return
 	}
@@ -1618,13 +1618,13 @@ type Callbacks struct {
 	DashboardDetailTabExtURL *string `json:"dashboard_detail_tab_ext_url,omitempty"`
 
 	// Service monitor API URL.
-	ServiceMonitorApi *string `json:"service_monitor_api,omitempty"`
+	ServiceMonitorAPI *string `json:"service_monitor_api,omitempty"`
 
 	// Service monitor app URL.
 	ServiceMonitorApp *string `json:"service_monitor_app,omitempty"`
 
 	// API endpoint.
-	ApiEndpoint map[string]string `json:"api_endpoint,omitempty"`
+	APIEndpoint map[string]string `json:"api_endpoint,omitempty"`
 }
 
 
@@ -1659,7 +1659,7 @@ func UnmarshalCallbacks(m map[string]json.RawMessage, result interface{}) (err e
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalPrimitive(m, "service_monitor_api", &obj.ServiceMonitorApi)
+	err = core.UnmarshalPrimitive(m, "service_monitor_api", &obj.ServiceMonitorAPI)
 	if err != nil {
 		return
 	}
@@ -1667,7 +1667,7 @@ func UnmarshalCallbacks(m map[string]json.RawMessage, result interface{}) (err e
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalPrimitive(m, "api_endpoint", &obj.ApiEndpoint)
+	err = core.UnmarshalPrimitive(m, "api_endpoint", &obj.APIEndpoint)
 	if err != nil {
 		return
 	}
@@ -1686,7 +1686,7 @@ type CatalogEntry struct {
 	Kind *string `json:"kind" validate:"required"`
 
 	// Overview is nested in the top level. The key value pair is `[_language_]overview_ui`.
-	OverviewUi map[string]Overview `json:"overview_ui" validate:"required"`
+	OverviewUI map[string]Overview `json:"overview_ui" validate:"required"`
 
 	// Image annotation for this catalog entry. The image is a URL.
 	Images *Image `json:"images" validate:"required"`
@@ -1759,7 +1759,7 @@ func UnmarshalCatalogEntry(m map[string]json.RawMessage, result interface{}) (er
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(m, "overview_ui", &obj.OverviewUi, UnmarshalOverview)
+	err = core.UnmarshalModel(m, "overview_ui", &obj.OverviewUI, UnmarshalOverview)
 	if err != nil {
 		return
 	}
@@ -1849,13 +1849,13 @@ type CatalogEntryMetadata struct {
 	Template *TemplateMetaData `json:"template,omitempty"`
 
 	// Information related to the UI presentation associated with a catalog entry.
-	Ui *UiMetaData `json:"ui,omitempty"`
+	UI *UIMetaData `json:"ui,omitempty"`
 
 	// Compliance information for HIPAA and PCI.
 	Compliance []string `json:"compliance,omitempty"`
 
 	// Service Level Agreement related metadata.
-	Sla *SlaMetaData `json:"sla,omitempty"`
+	SLA *SLAMetaData `json:"sla,omitempty"`
 
 	// Callback-related information associated with a catalog entry.
 	Callbacks *Callbacks `json:"callbacks,omitempty"`
@@ -1900,7 +1900,7 @@ func UnmarshalCatalogEntryMetadata(m map[string]json.RawMessage, result interfac
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(m, "ui", &obj.Ui, UnmarshalUiMetaData)
+	err = core.UnmarshalModel(m, "ui", &obj.UI, UnmarshalUIMetaData)
 	if err != nil {
 		return
 	}
@@ -1908,7 +1908,7 @@ func UnmarshalCatalogEntryMetadata(m map[string]json.RawMessage, result interfac
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(m, "sla", &obj.Sla, UnmarshalSlaMetaData)
+	err = core.UnmarshalModel(m, "sla", &obj.SLA, UnmarshalSLAMetaData)
 	if err != nil {
 		return
 	}
@@ -2064,7 +2064,7 @@ type CreateCatalogEntryOptions struct {
 	Kind *string `json:"kind" validate:"required"`
 
 	// Overview is nested in the top level. The key value pair is `[_language_]overview_ui`.
-	OverviewUi map[string]Overview `json:"overview_ui" validate:"required"`
+	OverviewUI map[string]Overview `json:"overview_ui" validate:"required"`
 
 	// Image annotation for this catalog entry. The image is a URL.
 	Images *Image `json:"images" validate:"required"`
@@ -2113,11 +2113,11 @@ const (
 )
 
 // NewCreateCatalogEntryOptions : Instantiate CreateCatalogEntryOptions
-func (*GlobalCatalogV1) NewCreateCatalogEntryOptions(name string, kind string, overviewUi map[string]Overview, images *Image, disabled bool, tags []string, provider *Provider, id string) *CreateCatalogEntryOptions {
+func (*GlobalCatalogV1) NewCreateCatalogEntryOptions(name string, kind string, overviewUI map[string]Overview, images *Image, disabled bool, tags []string, provider *Provider, id string) *CreateCatalogEntryOptions {
 	return &CreateCatalogEntryOptions{
 		Name: core.StringPtr(name),
 		Kind: core.StringPtr(kind),
-		OverviewUi: overviewUi,
+		OverviewUI: overviewUI,
 		Images: images,
 		Disabled: core.BoolPtr(disabled),
 		Tags: tags,
@@ -2138,9 +2138,9 @@ func (options *CreateCatalogEntryOptions) SetKind(kind string) *CreateCatalogEnt
 	return options
 }
 
-// SetOverviewUi : Allow user to set OverviewUi
-func (options *CreateCatalogEntryOptions) SetOverviewUi(overviewUi map[string]Overview) *CreateCatalogEntryOptions {
-	options.OverviewUi = overviewUi
+// SetOverviewUI : Allow user to set OverviewUI
+func (options *CreateCatalogEntryOptions) SetOverviewUI(overviewUI map[string]Overview) *CreateCatalogEntryOptions {
+	options.OverviewUI = overviewUI
 	return options
 }
 
@@ -3275,13 +3275,13 @@ type ObjectMetadataSet struct {
 	Template *TemplateMetaData `json:"template,omitempty"`
 
 	// Information related to the UI presentation associated with a catalog entry.
-	Ui *UiMetaData `json:"ui,omitempty"`
+	UI *UIMetaData `json:"ui,omitempty"`
 
 	// Compliance information for HIPAA and PCI.
 	Compliance []string `json:"compliance,omitempty"`
 
 	// Service Level Agreement related metadata.
-	Sla *SlaMetaData `json:"sla,omitempty"`
+	SLA *SLAMetaData `json:"sla,omitempty"`
 
 	// Callback-related information associated with a catalog entry.
 	Callbacks *Callbacks `json:"callbacks,omitempty"`
@@ -3326,7 +3326,7 @@ func UnmarshalObjectMetadataSet(m map[string]json.RawMessage, result interface{}
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(m, "ui", &obj.Ui, UnmarshalUiMetaData)
+	err = core.UnmarshalModel(m, "ui", &obj.UI, UnmarshalUIMetaData)
 	if err != nil {
 		return
 	}
@@ -3334,7 +3334,7 @@ func UnmarshalObjectMetadataSet(m map[string]json.RawMessage, result interface{}
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(m, "sla", &obj.Sla, UnmarshalSlaMetaData)
+	err = core.UnmarshalModel(m, "sla", &obj.SLA, UnmarshalSLAMetaData)
 	if err != nil {
 		return
 	}
@@ -3444,7 +3444,7 @@ type PlanMetaData struct {
 
 	// If the field is imported from Cloud Foundry, the Cloud Foundry region's GUID. This is a required field. For example,
 	// `us-south=123`.
-	CfGuid map[string]string `json:"cf_guid,omitempty"`
+	CfGUID map[string]string `json:"cf_guid,omitempty"`
 }
 
 
@@ -3483,7 +3483,7 @@ func UnmarshalPlanMetaData(m map[string]json.RawMessage, result interface{}) (er
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalPrimitive(m, "cf_guid", &obj.CfGuid)
+	err = core.UnmarshalPrimitive(m, "cf_guid", &obj.CfGUID)
 	if err != nil {
 		return
 	}
@@ -3682,8 +3682,8 @@ func (options *RestoreCatalogEntryOptions) SetHeaders(param map[string]string) *
 	return options
 }
 
-// SlaMetaData : Service Level Agreement related metadata.
-type SlaMetaData struct {
+// SLAMetaData : Service Level Agreement related metadata.
+type SLAMetaData struct {
 	// Required Service License Agreement Terms of Use.
 	Terms *string `json:"terms,omitempty"`
 
@@ -3702,9 +3702,9 @@ type SlaMetaData struct {
 }
 
 
-// UnmarshalSlaMetaData unmarshals an instance of SlaMetaData from the specified map of raw messages.
-func UnmarshalSlaMetaData(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(SlaMetaData)
+// UnmarshalSLAMetaData unmarshals an instance of SLAMetaData from the specified map of raw messages.
+func UnmarshalSLAMetaData(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(SLAMetaData)
 	err = core.UnmarshalPrimitive(m, "terms", &obj.Terms)
 	if err != nil {
 		return
@@ -3806,7 +3806,7 @@ type Strings struct {
 	Bullets []Bullets `json:"bullets,omitempty"`
 
 	// Media-related metadata.
-	Media []UiMetaMedia `json:"media,omitempty"`
+	Media []UIMetaMedia `json:"media,omitempty"`
 
 	// Warning that a message is not creatable.
 	NotCreatableMsg *string `json:"not_creatable_msg,omitempty"`
@@ -3832,7 +3832,7 @@ func UnmarshalStrings(m map[string]json.RawMessage, result interface{}) (err err
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(m, "media", &obj.Media, UnmarshalUiMetaMedia)
+	err = core.UnmarshalModel(m, "media", &obj.Media, UnmarshalUIMetaMedia)
 	if err != nil {
 		return
 	}
@@ -3941,8 +3941,8 @@ func UnmarshalTemplateMetaData(m map[string]json.RawMessage, result interface{})
 	return
 }
 
-// UiMetaData : Information related to the UI presentation associated with a catalog entry.
-type UiMetaData struct {
+// UIMetaData : Information related to the UI presentation associated with a catalog entry.
+type UIMetaData struct {
 	// Language specific translation of translation properties, like label and description.
 	Strings map[string]Strings `json:"strings,omitempty"`
 
@@ -3984,9 +3984,9 @@ type UiMetaData struct {
 }
 
 
-// UnmarshalUiMetaData unmarshals an instance of UiMetaData from the specified map of raw messages.
-func UnmarshalUiMetaData(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(UiMetaData)
+// UnmarshalUIMetaData unmarshals an instance of UIMetaData from the specified map of raw messages.
+func UnmarshalUIMetaData(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(UIMetaData)
 	err = core.UnmarshalModel(m, "strings", &obj.Strings, UnmarshalStrings)
 	if err != nil {
 		return
@@ -4043,8 +4043,8 @@ func UnmarshalUiMetaData(m map[string]json.RawMessage, result interface{}) (err 
 	return
 }
 
-// UiMetaMedia : Media-related metadata.
-type UiMetaMedia struct {
+// UIMetaMedia : Media-related metadata.
+type UIMetaMedia struct {
 	// Caption for an image.
 	Caption *string `json:"caption,omitempty"`
 
@@ -4062,9 +4062,9 @@ type UiMetaMedia struct {
 }
 
 
-// UnmarshalUiMetaMedia unmarshals an instance of UiMetaMedia from the specified map of raw messages.
-func UnmarshalUiMetaMedia(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(UiMetaMedia)
+// UnmarshalUIMetaMedia unmarshals an instance of UIMetaMedia from the specified map of raw messages.
+func UnmarshalUIMetaMedia(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(UIMetaMedia)
 	err = core.UnmarshalPrimitive(m, "caption", &obj.Caption)
 	if err != nil {
 		return
@@ -4098,7 +4098,7 @@ type Urls struct {
 	InstructionsURL *string `json:"instructions_url,omitempty"`
 
 	// API URL.
-	ApiURL *string `json:"api_url,omitempty"`
+	APIURL *string `json:"api_url,omitempty"`
 
 	// URL Creation UI / API.
 	CreateURL *string `json:"create_url,omitempty"`
@@ -4140,7 +4140,7 @@ func UnmarshalUrls(m map[string]json.RawMessage, result interface{}) (err error)
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalPrimitive(m, "api_url", &obj.ApiURL)
+	err = core.UnmarshalPrimitive(m, "api_url", &obj.APIURL)
 	if err != nil {
 		return
 	}
@@ -4198,7 +4198,7 @@ type UpdateCatalogEntryOptions struct {
 	Kind *string `json:"kind" validate:"required"`
 
 	// Overview is nested in the top level. The key value pair is `[_language_]overview_ui`.
-	OverviewUi map[string]Overview `json:"overview_ui" validate:"required"`
+	OverviewUI map[string]Overview `json:"overview_ui" validate:"required"`
 
 	// Image annotation for this catalog entry. The image is a URL.
 	Images *Image `json:"images" validate:"required"`
@@ -4250,12 +4250,12 @@ const (
 )
 
 // NewUpdateCatalogEntryOptions : Instantiate UpdateCatalogEntryOptions
-func (*GlobalCatalogV1) NewUpdateCatalogEntryOptions(id string, name string, kind string, overviewUi map[string]Overview, images *Image, disabled bool, tags []string, provider *Provider) *UpdateCatalogEntryOptions {
+func (*GlobalCatalogV1) NewUpdateCatalogEntryOptions(id string, name string, kind string, overviewUI map[string]Overview, images *Image, disabled bool, tags []string, provider *Provider) *UpdateCatalogEntryOptions {
 	return &UpdateCatalogEntryOptions{
 		ID: core.StringPtr(id),
 		Name: core.StringPtr(name),
 		Kind: core.StringPtr(kind),
-		OverviewUi: overviewUi,
+		OverviewUI: overviewUI,
 		Images: images,
 		Disabled: core.BoolPtr(disabled),
 		Tags: tags,
@@ -4281,9 +4281,9 @@ func (options *UpdateCatalogEntryOptions) SetKind(kind string) *UpdateCatalogEnt
 	return options
 }
 
-// SetOverviewUi : Allow user to set OverviewUi
-func (options *UpdateCatalogEntryOptions) SetOverviewUi(overviewUi map[string]Overview) *UpdateCatalogEntryOptions {
-	options.OverviewUi = overviewUi
+// SetOverviewUI : Allow user to set OverviewUI
+func (options *UpdateCatalogEntryOptions) SetOverviewUI(overviewUI map[string]Overview) *UpdateCatalogEntryOptions {
+	options.OverviewUI = overviewUI
 	return options
 }
 
