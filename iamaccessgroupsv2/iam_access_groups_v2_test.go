@@ -77,6 +77,12 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				Expect(iamAccessGroupsService).ToNot(BeNil())
 				Expect(serviceErr).To(BeNil())
 				ClearTestEnvironment(testEnvironment)
+
+				clone := iamAccessGroupsService.Clone()
+				Expect(clone).ToNot(BeNil())
+				Expect(clone.Service != iamAccessGroupsService.Service).To(BeTrue())
+				Expect(clone.GetServiceURL()).To(Equal(iamAccessGroupsService.GetServiceURL()))
+				Expect(clone.Service.Options.Authenticator).To(Equal(iamAccessGroupsService.Service.Options.Authenticator))
 			})
 			It(`Create service client using external config and set url from constructor successfully`, func() {
 				SetTestEnvironment(testEnvironment)
@@ -87,6 +93,12 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(iamAccessGroupsService.Service.GetServiceURL()).To(Equal("https://testService/api"))
 				ClearTestEnvironment(testEnvironment)
+
+				clone := iamAccessGroupsService.Clone()
+				Expect(clone).ToNot(BeNil())
+				Expect(clone.Service != iamAccessGroupsService.Service).To(BeTrue())
+				Expect(clone.GetServiceURL()).To(Equal(iamAccessGroupsService.GetServiceURL()))
+				Expect(clone.Service.Options.Authenticator).To(Equal(iamAccessGroupsService.Service.Options.Authenticator))
 			})
 			It(`Create service client using external config and set url programatically successfully`, func() {
 				SetTestEnvironment(testEnvironment)
@@ -98,6 +110,12 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(iamAccessGroupsService.Service.GetServiceURL()).To(Equal("https://testService/api"))
 				ClearTestEnvironment(testEnvironment)
+
+				clone := iamAccessGroupsService.Clone()
+				Expect(clone).ToNot(BeNil())
+				Expect(clone.Service != iamAccessGroupsService.Service).To(BeTrue())
+				Expect(clone.GetServiceURL()).To(Equal(iamAccessGroupsService.GetServiceURL()))
+				Expect(clone.Service.Options.Authenticator).To(Equal(iamAccessGroupsService.Service.Options.Authenticator))
 			})
 		})
 		Context(`Using external config, construct service client instances with error: Invalid Auth`, func() {
@@ -133,6 +151,16 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				Expect(serviceErr).ToNot(BeNil())
 				ClearTestEnvironment(testEnvironment)
 			})
+		})
+	})
+	Describe(`Regional endpoint tests`, func() {
+		It(`GetServiceURLForRegion(region string)`, func() {
+			var url string
+			var err error
+			url, err = iamaccessgroupsv2.GetServiceURLForRegion("INVALID_REGION")
+			Expect(url).To(BeEmpty())
+			Expect(err).ToNot(BeNil())
+			fmt.Fprintf(GinkgoWriter, "Expected error: %s\n", err.Error())
 		})
 	})
 	Describe(`CreateAccessGroup(createAccessGroupOptions *CreateAccessGroupOptions) - Operation response error`, func() {
@@ -1012,6 +1040,12 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				Expect(iamAccessGroupsService).ToNot(BeNil())
 				Expect(serviceErr).To(BeNil())
 				ClearTestEnvironment(testEnvironment)
+
+				clone := iamAccessGroupsService.Clone()
+				Expect(clone).ToNot(BeNil())
+				Expect(clone.Service != iamAccessGroupsService.Service).To(BeTrue())
+				Expect(clone.GetServiceURL()).To(Equal(iamAccessGroupsService.GetServiceURL()))
+				Expect(clone.Service.Options.Authenticator).To(Equal(iamAccessGroupsService.Service.Options.Authenticator))
 			})
 			It(`Create service client using external config and set url from constructor successfully`, func() {
 				SetTestEnvironment(testEnvironment)
@@ -1022,6 +1056,12 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(iamAccessGroupsService.Service.GetServiceURL()).To(Equal("https://testService/api"))
 				ClearTestEnvironment(testEnvironment)
+
+				clone := iamAccessGroupsService.Clone()
+				Expect(clone).ToNot(BeNil())
+				Expect(clone.Service != iamAccessGroupsService.Service).To(BeTrue())
+				Expect(clone.GetServiceURL()).To(Equal(iamAccessGroupsService.GetServiceURL()))
+				Expect(clone.Service.Options.Authenticator).To(Equal(iamAccessGroupsService.Service.Options.Authenticator))
 			})
 			It(`Create service client using external config and set url programatically successfully`, func() {
 				SetTestEnvironment(testEnvironment)
@@ -1033,6 +1073,12 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(iamAccessGroupsService.Service.GetServiceURL()).To(Equal("https://testService/api"))
 				ClearTestEnvironment(testEnvironment)
+
+				clone := iamAccessGroupsService.Clone()
+				Expect(clone).ToNot(BeNil())
+				Expect(clone.Service != iamAccessGroupsService.Service).To(BeTrue())
+				Expect(clone.GetServiceURL()).To(Equal(iamAccessGroupsService.GetServiceURL()))
+				Expect(clone.Service.Options.Authenticator).To(Equal(iamAccessGroupsService.Service.Options.Authenticator))
 			})
 		})
 		Context(`Using external config, construct service client instances with error: Invalid Auth`, func() {
@@ -1070,449 +1116,14 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 			})
 		})
 	})
-	Describe(`GetAccountSettings(getAccountSettingsOptions *GetAccountSettingsOptions) - Operation response error`, func() {
-		getAccountSettingsPath := "/groups/settings"
-		Context(`Using mock server endpoint`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(getAccountSettingsPath))
-					Expect(req.Method).To(Equal("GET"))
-					Expect(req.Header["Transaction-Id"]).ToNot(BeNil())
-					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
-					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"testString"}))
-
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(200)
-					fmt.Fprintf(res, `} this is not valid json {`)
-				}))
-			})
-			It(`Invoke GetAccountSettings with error: Operation response processing error`, func() {
-				iamAccessGroupsService, serviceErr := iamaccessgroupsv2.NewIamAccessGroupsV2(&iamaccessgroupsv2.IamAccessGroupsV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(iamAccessGroupsService).ToNot(BeNil())
-
-				// Construct an instance of the GetAccountSettingsOptions model
-				getAccountSettingsOptionsModel := new(iamaccessgroupsv2.GetAccountSettingsOptions)
-				getAccountSettingsOptionsModel.AccountID = core.StringPtr("testString")
-				getAccountSettingsOptionsModel.TransactionID = core.StringPtr("testString")
-				getAccountSettingsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-				// Expect response parsing to fail since we are receiving a text/plain response
-				result, response, operationErr := iamAccessGroupsService.GetAccountSettings(getAccountSettingsOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).To(BeNil())
-
-				// Enable retries and test again
-				iamAccessGroupsService.EnableRetries(0, 0)
-				result, response, operationErr = iamAccessGroupsService.GetAccountSettings(getAccountSettingsOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-	})
-
-	Describe(`GetAccountSettings(getAccountSettingsOptions *GetAccountSettingsOptions)`, func() {
-		getAccountSettingsPath := "/groups/settings"
-		var serverSleepTime time.Duration
-		Context(`Using mock server endpoint`, func() {
-			BeforeEach(func() {
-				serverSleepTime = 0
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(getAccountSettingsPath))
-					Expect(req.Method).To(Equal("GET"))
-
-					Expect(req.Header["Transaction-Id"]).ToNot(BeNil())
-					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
-					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"testString"}))
-
-					// Sleep a short time to support a timeout test
-					time.Sleep(serverSleepTime)
-
-					// Set mock response
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"account_id": "AccountID", "last_modified_at": "2019-01-01T12:00:00", "last_modified_by_id": "LastModifiedByID", "public_access_enabled": false}`)
-				}))
-			})
-			It(`Invoke GetAccountSettings successfully`, func() {
-				iamAccessGroupsService, serviceErr := iamaccessgroupsv2.NewIamAccessGroupsV2(&iamaccessgroupsv2.IamAccessGroupsV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(iamAccessGroupsService).ToNot(BeNil())
-				iamAccessGroupsService.EnableRetries(0, 0)
-
-				// Invoke operation with nil options model (negative test)
-				result, response, operationErr := iamAccessGroupsService.GetAccountSettings(nil)
-				Expect(operationErr).NotTo(BeNil())
-				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-
-				// Construct an instance of the GetAccountSettingsOptions model
-				getAccountSettingsOptionsModel := new(iamaccessgroupsv2.GetAccountSettingsOptions)
-				getAccountSettingsOptionsModel.AccountID = core.StringPtr("testString")
-				getAccountSettingsOptionsModel.TransactionID = core.StringPtr("testString")
-				getAccountSettingsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation with valid options model (positive test)
-				result, response, operationErr = iamAccessGroupsService.GetAccountSettings(getAccountSettingsOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).ToNot(BeNil())
-
-				// Invoke operation with a Context to test a timeout error
-				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc()
-				serverSleepTime = 100 * time.Millisecond
-				_, _, operationErr = iamAccessGroupsService.GetAccountSettingsWithContext(ctx, getAccountSettingsOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-				serverSleepTime = time.Duration(0)
-
-				// Disable retries and test again
-				iamAccessGroupsService.DisableRetries()
-				result, response, operationErr = iamAccessGroupsService.GetAccountSettings(getAccountSettingsOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).ToNot(BeNil())
-
-				// Re-test the timeout error with retries disabled
-				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc2()
-				serverSleepTime = 100 * time.Millisecond
-				_, _, operationErr = iamAccessGroupsService.GetAccountSettingsWithContext(ctx, getAccountSettingsOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-				serverSleepTime = time.Duration(0)
-			})
-			It(`Invoke GetAccountSettings with error: Operation validation and request error`, func() {
-				iamAccessGroupsService, serviceErr := iamaccessgroupsv2.NewIamAccessGroupsV2(&iamaccessgroupsv2.IamAccessGroupsV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(iamAccessGroupsService).ToNot(BeNil())
-
-				// Construct an instance of the GetAccountSettingsOptions model
-				getAccountSettingsOptionsModel := new(iamaccessgroupsv2.GetAccountSettingsOptions)
-				getAccountSettingsOptionsModel.AccountID = core.StringPtr("testString")
-				getAccountSettingsOptionsModel.TransactionID = core.StringPtr("testString")
-				getAccountSettingsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-				// Invoke operation with empty URL (negative test)
-				err := iamAccessGroupsService.SetServiceURL("")
-				Expect(err).To(BeNil())
-				result, response, operationErr := iamAccessGroupsService.GetAccountSettings(getAccountSettingsOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
-				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-				// Construct a second instance of the GetAccountSettingsOptions model with no property values
-				getAccountSettingsOptionsModelNew := new(iamaccessgroupsv2.GetAccountSettingsOptions)
-				// Invoke operation with invalid model (negative test)
-				result, response, operationErr = iamAccessGroupsService.GetAccountSettings(getAccountSettingsOptionsModelNew)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-	})
-	Describe(`UpdateAccountSettings(updateAccountSettingsOptions *UpdateAccountSettingsOptions) - Operation response error`, func() {
-		updateAccountSettingsPath := "/groups/settings"
-		Context(`Using mock server endpoint`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(updateAccountSettingsPath))
-					Expect(req.Method).To(Equal("PATCH"))
-					Expect(req.Header["Transaction-Id"]).ToNot(BeNil())
-					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
-					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"testString"}))
-
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(200)
-					fmt.Fprintf(res, `} this is not valid json {`)
-				}))
-			})
-			It(`Invoke UpdateAccountSettings with error: Operation response processing error`, func() {
-				iamAccessGroupsService, serviceErr := iamaccessgroupsv2.NewIamAccessGroupsV2(&iamaccessgroupsv2.IamAccessGroupsV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(iamAccessGroupsService).ToNot(BeNil())
-
-				// Construct an instance of the UpdateAccountSettingsOptions model
-				updateAccountSettingsOptionsModel := new(iamaccessgroupsv2.UpdateAccountSettingsOptions)
-				updateAccountSettingsOptionsModel.AccountID = core.StringPtr("testString")
-				updateAccountSettingsOptionsModel.PublicAccessEnabled = core.BoolPtr(true)
-				updateAccountSettingsOptionsModel.TransactionID = core.StringPtr("testString")
-				updateAccountSettingsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-				// Expect response parsing to fail since we are receiving a text/plain response
-				result, response, operationErr := iamAccessGroupsService.UpdateAccountSettings(updateAccountSettingsOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).To(BeNil())
-
-				// Enable retries and test again
-				iamAccessGroupsService.EnableRetries(0, 0)
-				result, response, operationErr = iamAccessGroupsService.UpdateAccountSettings(updateAccountSettingsOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-	})
-
-	Describe(`UpdateAccountSettings(updateAccountSettingsOptions *UpdateAccountSettingsOptions)`, func() {
-		updateAccountSettingsPath := "/groups/settings"
-		var serverSleepTime time.Duration
-		Context(`Using mock server endpoint`, func() {
-			BeforeEach(func() {
-				serverSleepTime = 0
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(updateAccountSettingsPath))
-					Expect(req.Method).To(Equal("PATCH"))
-
-					// For gzip-disabled operation, verify Content-Encoding is not set.
-					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
-
-					// If there is a body, then make sure we can read it
-					bodyBuf := new(bytes.Buffer)
-					if req.Header.Get("Content-Encoding") == "gzip" {
-						body, err := core.NewGzipDecompressionReader(req.Body)
-						Expect(err).To(BeNil())
-						_, err = bodyBuf.ReadFrom(body)
-						Expect(err).To(BeNil())
-					} else {
-						_, err := bodyBuf.ReadFrom(req.Body)
-						Expect(err).To(BeNil())
-					}
-					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
-
-					Expect(req.Header["Transaction-Id"]).ToNot(BeNil())
-					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
-					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"testString"}))
-
-					// Sleep a short time to support a timeout test
-					time.Sleep(serverSleepTime)
-
-					// Set mock response
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"account_id": "AccountID", "last_modified_at": "2019-01-01T12:00:00", "last_modified_by_id": "LastModifiedByID", "public_access_enabled": false}`)
-				}))
-			})
-			It(`Invoke UpdateAccountSettings successfully`, func() {
-				iamAccessGroupsService, serviceErr := iamaccessgroupsv2.NewIamAccessGroupsV2(&iamaccessgroupsv2.IamAccessGroupsV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(iamAccessGroupsService).ToNot(BeNil())
-				iamAccessGroupsService.EnableRetries(0, 0)
-
-				// Invoke operation with nil options model (negative test)
-				result, response, operationErr := iamAccessGroupsService.UpdateAccountSettings(nil)
-				Expect(operationErr).NotTo(BeNil())
-				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-
-				// Construct an instance of the UpdateAccountSettingsOptions model
-				updateAccountSettingsOptionsModel := new(iamaccessgroupsv2.UpdateAccountSettingsOptions)
-				updateAccountSettingsOptionsModel.AccountID = core.StringPtr("testString")
-				updateAccountSettingsOptionsModel.PublicAccessEnabled = core.BoolPtr(true)
-				updateAccountSettingsOptionsModel.TransactionID = core.StringPtr("testString")
-				updateAccountSettingsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation with valid options model (positive test)
-				result, response, operationErr = iamAccessGroupsService.UpdateAccountSettings(updateAccountSettingsOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).ToNot(BeNil())
-
-				// Invoke operation with a Context to test a timeout error
-				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc()
-				serverSleepTime = 100 * time.Millisecond
-				_, _, operationErr = iamAccessGroupsService.UpdateAccountSettingsWithContext(ctx, updateAccountSettingsOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-				serverSleepTime = time.Duration(0)
-
-				// Disable retries and test again
-				iamAccessGroupsService.DisableRetries()
-				result, response, operationErr = iamAccessGroupsService.UpdateAccountSettings(updateAccountSettingsOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).ToNot(BeNil())
-
-				// Re-test the timeout error with retries disabled
-				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc2()
-				serverSleepTime = 100 * time.Millisecond
-				_, _, operationErr = iamAccessGroupsService.UpdateAccountSettingsWithContext(ctx, updateAccountSettingsOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-				serverSleepTime = time.Duration(0)
-			})
-			It(`Invoke UpdateAccountSettings with error: Operation validation and request error`, func() {
-				iamAccessGroupsService, serviceErr := iamaccessgroupsv2.NewIamAccessGroupsV2(&iamaccessgroupsv2.IamAccessGroupsV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(iamAccessGroupsService).ToNot(BeNil())
-
-				// Construct an instance of the UpdateAccountSettingsOptions model
-				updateAccountSettingsOptionsModel := new(iamaccessgroupsv2.UpdateAccountSettingsOptions)
-				updateAccountSettingsOptionsModel.AccountID = core.StringPtr("testString")
-				updateAccountSettingsOptionsModel.PublicAccessEnabled = core.BoolPtr(true)
-				updateAccountSettingsOptionsModel.TransactionID = core.StringPtr("testString")
-				updateAccountSettingsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-				// Invoke operation with empty URL (negative test)
-				err := iamAccessGroupsService.SetServiceURL("")
-				Expect(err).To(BeNil())
-				result, response, operationErr := iamAccessGroupsService.UpdateAccountSettings(updateAccountSettingsOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
-				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-				// Construct a second instance of the UpdateAccountSettingsOptions model with no property values
-				updateAccountSettingsOptionsModelNew := new(iamaccessgroupsv2.UpdateAccountSettingsOptions)
-				// Invoke operation with invalid model (negative test)
-				result, response, operationErr = iamAccessGroupsService.UpdateAccountSettings(updateAccountSettingsOptionsModelNew)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-	})
-	Describe(`Service constructor tests`, func() {
-		It(`Instantiate service client`, func() {
-			iamAccessGroupsService, serviceErr := iamaccessgroupsv2.NewIamAccessGroupsV2(&iamaccessgroupsv2.IamAccessGroupsV2Options{
-				Authenticator: &core.NoAuthAuthenticator{},
-			})
-			Expect(iamAccessGroupsService).ToNot(BeNil())
-			Expect(serviceErr).To(BeNil())
-		})
-		It(`Instantiate service client with error: Invalid URL`, func() {
-			iamAccessGroupsService, serviceErr := iamaccessgroupsv2.NewIamAccessGroupsV2(&iamaccessgroupsv2.IamAccessGroupsV2Options{
-				URL: "{BAD_URL_STRING",
-			})
-			Expect(iamAccessGroupsService).To(BeNil())
-			Expect(serviceErr).ToNot(BeNil())
-		})
-		It(`Instantiate service client with error: Invalid Auth`, func() {
-			iamAccessGroupsService, serviceErr := iamaccessgroupsv2.NewIamAccessGroupsV2(&iamaccessgroupsv2.IamAccessGroupsV2Options{
-				URL: "https://iamaccessgroupsv2/api",
-				Authenticator: &core.BasicAuthenticator{
-					Username: "",
-					Password: "",
-				},
-			})
-			Expect(iamAccessGroupsService).To(BeNil())
-			Expect(serviceErr).ToNot(BeNil())
-		})
-	})
-	Describe(`Service constructor tests using external config`, func() {
-		Context(`Using external config, construct service client instances`, func() {
-			// Map containing environment variables used in testing.
-			var testEnvironment = map[string]string{
-				"IAM_ACCESS_GROUPS_URL": "https://iamaccessgroupsv2/api",
-				"IAM_ACCESS_GROUPS_AUTH_TYPE": "noauth",
-			}
-
-			It(`Create service client using external config successfully`, func() {
-				SetTestEnvironment(testEnvironment)
-				iamAccessGroupsService, serviceErr := iamaccessgroupsv2.NewIamAccessGroupsV2UsingExternalConfig(&iamaccessgroupsv2.IamAccessGroupsV2Options{
-				})
-				Expect(iamAccessGroupsService).ToNot(BeNil())
-				Expect(serviceErr).To(BeNil())
-				ClearTestEnvironment(testEnvironment)
-			})
-			It(`Create service client using external config and set url from constructor successfully`, func() {
-				SetTestEnvironment(testEnvironment)
-				iamAccessGroupsService, serviceErr := iamaccessgroupsv2.NewIamAccessGroupsV2UsingExternalConfig(&iamaccessgroupsv2.IamAccessGroupsV2Options{
-					URL: "https://testService/api",
-				})
-				Expect(iamAccessGroupsService).ToNot(BeNil())
-				Expect(serviceErr).To(BeNil())
-				Expect(iamAccessGroupsService.Service.GetServiceURL()).To(Equal("https://testService/api"))
-				ClearTestEnvironment(testEnvironment)
-			})
-			It(`Create service client using external config and set url programatically successfully`, func() {
-				SetTestEnvironment(testEnvironment)
-				iamAccessGroupsService, serviceErr := iamaccessgroupsv2.NewIamAccessGroupsV2UsingExternalConfig(&iamaccessgroupsv2.IamAccessGroupsV2Options{
-				})
-				err := iamAccessGroupsService.SetServiceURL("https://testService/api")
-				Expect(err).To(BeNil())
-				Expect(iamAccessGroupsService).ToNot(BeNil())
-				Expect(serviceErr).To(BeNil())
-				Expect(iamAccessGroupsService.Service.GetServiceURL()).To(Equal("https://testService/api"))
-				ClearTestEnvironment(testEnvironment)
-			})
-		})
-		Context(`Using external config, construct service client instances with error: Invalid Auth`, func() {
-			// Map containing environment variables used in testing.
-			var testEnvironment = map[string]string{
-				"IAM_ACCESS_GROUPS_URL": "https://iamaccessgroupsv2/api",
-				"IAM_ACCESS_GROUPS_AUTH_TYPE": "someOtherAuth",
-			}
-
-			SetTestEnvironment(testEnvironment)
-			iamAccessGroupsService, serviceErr := iamaccessgroupsv2.NewIamAccessGroupsV2UsingExternalConfig(&iamaccessgroupsv2.IamAccessGroupsV2Options{
-			})
-
-			It(`Instantiate service client with error`, func() {
-				Expect(iamAccessGroupsService).To(BeNil())
-				Expect(serviceErr).ToNot(BeNil())
-				ClearTestEnvironment(testEnvironment)
-			})
-		})
-		Context(`Using external config, construct service client instances with error: Invalid URL`, func() {
-			// Map containing environment variables used in testing.
-			var testEnvironment = map[string]string{
-				"IAM_ACCESS_GROUPS_AUTH_TYPE":   "NOAuth",
-			}
-
-			SetTestEnvironment(testEnvironment)
-			iamAccessGroupsService, serviceErr := iamaccessgroupsv2.NewIamAccessGroupsV2UsingExternalConfig(&iamaccessgroupsv2.IamAccessGroupsV2Options{
-				URL: "{BAD_URL_STRING",
-			})
-
-			It(`Instantiate service client with error`, func() {
-				Expect(iamAccessGroupsService).To(BeNil())
-				Expect(serviceErr).ToNot(BeNil())
-				ClearTestEnvironment(testEnvironment)
-			})
+	Describe(`Regional endpoint tests`, func() {
+		It(`GetServiceURLForRegion(region string)`, func() {
+			var url string
+			var err error
+			url, err = iamaccessgroupsv2.GetServiceURLForRegion("INVALID_REGION")
+			Expect(url).To(BeEmpty())
+			Expect(err).ToNot(BeNil())
+			fmt.Fprintf(GinkgoWriter, "Expected error: %s\n", err.Error())
 		})
 	})
 
@@ -1802,11 +1413,9 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 					Expect(req.Method).To(Equal("GET"))
 					Expect(req.Header["Transaction-Id"]).ToNot(BeNil())
 					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
+					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(38))}))
 
-					// TODO: Add check for limit query parameter
-
-
-					// TODO: Add check for offset query parameter
+					Expect(req.URL.Query()["offset"]).To(Equal([]string{fmt.Sprint(int64(38))}))
 
 					Expect(req.URL.Query()["type"]).To(Equal([]string{"testString"}))
 
@@ -1832,8 +1441,8 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				listAccessGroupMembersOptionsModel := new(iamaccessgroupsv2.ListAccessGroupMembersOptions)
 				listAccessGroupMembersOptionsModel.AccessGroupID = core.StringPtr("testString")
 				listAccessGroupMembersOptionsModel.TransactionID = core.StringPtr("testString")
-				listAccessGroupMembersOptionsModel.Limit = core.Float64Ptr(float64(72.5))
-				listAccessGroupMembersOptionsModel.Offset = core.Float64Ptr(float64(72.5))
+				listAccessGroupMembersOptionsModel.Limit = core.Int64Ptr(int64(38))
+				listAccessGroupMembersOptionsModel.Offset = core.Int64Ptr(int64(38))
 				listAccessGroupMembersOptionsModel.Type = core.StringPtr("testString")
 				listAccessGroupMembersOptionsModel.Verbose = core.BoolPtr(true)
 				listAccessGroupMembersOptionsModel.Sort = core.StringPtr("testString")
@@ -1872,11 +1481,9 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 
 					Expect(req.Header["Transaction-Id"]).ToNot(BeNil())
 					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
+					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(38))}))
 
-					// TODO: Add check for limit query parameter
-
-
-					// TODO: Add check for offset query parameter
+					Expect(req.URL.Query()["offset"]).To(Equal([]string{fmt.Sprint(int64(38))}))
 
 					Expect(req.URL.Query()["type"]).To(Equal([]string{"testString"}))
 
@@ -1913,8 +1520,8 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				listAccessGroupMembersOptionsModel := new(iamaccessgroupsv2.ListAccessGroupMembersOptions)
 				listAccessGroupMembersOptionsModel.AccessGroupID = core.StringPtr("testString")
 				listAccessGroupMembersOptionsModel.TransactionID = core.StringPtr("testString")
-				listAccessGroupMembersOptionsModel.Limit = core.Float64Ptr(float64(72.5))
-				listAccessGroupMembersOptionsModel.Offset = core.Float64Ptr(float64(72.5))
+				listAccessGroupMembersOptionsModel.Limit = core.Int64Ptr(int64(38))
+				listAccessGroupMembersOptionsModel.Offset = core.Int64Ptr(int64(38))
 				listAccessGroupMembersOptionsModel.Type = core.StringPtr("testString")
 				listAccessGroupMembersOptionsModel.Verbose = core.BoolPtr(true)
 				listAccessGroupMembersOptionsModel.Sort = core.StringPtr("testString")
@@ -1963,8 +1570,8 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				listAccessGroupMembersOptionsModel := new(iamaccessgroupsv2.ListAccessGroupMembersOptions)
 				listAccessGroupMembersOptionsModel.AccessGroupID = core.StringPtr("testString")
 				listAccessGroupMembersOptionsModel.TransactionID = core.StringPtr("testString")
-				listAccessGroupMembersOptionsModel.Limit = core.Float64Ptr(float64(72.5))
-				listAccessGroupMembersOptionsModel.Offset = core.Float64Ptr(float64(72.5))
+				listAccessGroupMembersOptionsModel.Limit = core.Int64Ptr(int64(38))
+				listAccessGroupMembersOptionsModel.Offset = core.Int64Ptr(int64(38))
 				listAccessGroupMembersOptionsModel.Type = core.StringPtr("testString")
 				listAccessGroupMembersOptionsModel.Verbose = core.BoolPtr(true)
 				listAccessGroupMembersOptionsModel.Sort = core.StringPtr("testString")
@@ -2646,6 +2253,12 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				Expect(iamAccessGroupsService).ToNot(BeNil())
 				Expect(serviceErr).To(BeNil())
 				ClearTestEnvironment(testEnvironment)
+
+				clone := iamAccessGroupsService.Clone()
+				Expect(clone).ToNot(BeNil())
+				Expect(clone.Service != iamAccessGroupsService.Service).To(BeTrue())
+				Expect(clone.GetServiceURL()).To(Equal(iamAccessGroupsService.GetServiceURL()))
+				Expect(clone.Service.Options.Authenticator).To(Equal(iamAccessGroupsService.Service.Options.Authenticator))
 			})
 			It(`Create service client using external config and set url from constructor successfully`, func() {
 				SetTestEnvironment(testEnvironment)
@@ -2656,6 +2269,12 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(iamAccessGroupsService.Service.GetServiceURL()).To(Equal("https://testService/api"))
 				ClearTestEnvironment(testEnvironment)
+
+				clone := iamAccessGroupsService.Clone()
+				Expect(clone).ToNot(BeNil())
+				Expect(clone.Service != iamAccessGroupsService.Service).To(BeTrue())
+				Expect(clone.GetServiceURL()).To(Equal(iamAccessGroupsService.GetServiceURL()))
+				Expect(clone.Service.Options.Authenticator).To(Equal(iamAccessGroupsService.Service.Options.Authenticator))
 			})
 			It(`Create service client using external config and set url programatically successfully`, func() {
 				SetTestEnvironment(testEnvironment)
@@ -2667,6 +2286,12 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(iamAccessGroupsService.Service.GetServiceURL()).To(Equal("https://testService/api"))
 				ClearTestEnvironment(testEnvironment)
+
+				clone := iamAccessGroupsService.Clone()
+				Expect(clone).ToNot(BeNil())
+				Expect(clone.Service != iamAccessGroupsService.Service).To(BeTrue())
+				Expect(clone.GetServiceURL()).To(Equal(iamAccessGroupsService.GetServiceURL()))
+				Expect(clone.Service.Options.Authenticator).To(Equal(iamAccessGroupsService.Service.Options.Authenticator))
 			})
 		})
 		Context(`Using external config, construct service client instances with error: Invalid Auth`, func() {
@@ -2702,6 +2327,16 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				Expect(serviceErr).ToNot(BeNil())
 				ClearTestEnvironment(testEnvironment)
 			})
+		})
+	})
+	Describe(`Regional endpoint tests`, func() {
+		It(`GetServiceURLForRegion(region string)`, func() {
+			var url string
+			var err error
+			url, err = iamaccessgroupsv2.GetServiceURLForRegion("INVALID_REGION")
+			Expect(url).To(BeEmpty())
+			Expect(err).ToNot(BeNil())
+			fmt.Fprintf(GinkgoWriter, "Expected error: %s\n", err.Error())
 		})
 	})
 	Describe(`AddAccessGroupRule(addAccessGroupRuleOptions *AddAccessGroupRuleOptions) - Operation response error`, func() {
@@ -3527,6 +3162,479 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 			})
 		})
 	})
+	Describe(`Service constructor tests`, func() {
+		It(`Instantiate service client`, func() {
+			iamAccessGroupsService, serviceErr := iamaccessgroupsv2.NewIamAccessGroupsV2(&iamaccessgroupsv2.IamAccessGroupsV2Options{
+				Authenticator: &core.NoAuthAuthenticator{},
+			})
+			Expect(iamAccessGroupsService).ToNot(BeNil())
+			Expect(serviceErr).To(BeNil())
+		})
+		It(`Instantiate service client with error: Invalid URL`, func() {
+			iamAccessGroupsService, serviceErr := iamaccessgroupsv2.NewIamAccessGroupsV2(&iamaccessgroupsv2.IamAccessGroupsV2Options{
+				URL: "{BAD_URL_STRING",
+			})
+			Expect(iamAccessGroupsService).To(BeNil())
+			Expect(serviceErr).ToNot(BeNil())
+		})
+		It(`Instantiate service client with error: Invalid Auth`, func() {
+			iamAccessGroupsService, serviceErr := iamaccessgroupsv2.NewIamAccessGroupsV2(&iamaccessgroupsv2.IamAccessGroupsV2Options{
+				URL: "https://iamaccessgroupsv2/api",
+				Authenticator: &core.BasicAuthenticator{
+					Username: "",
+					Password: "",
+				},
+			})
+			Expect(iamAccessGroupsService).To(BeNil())
+			Expect(serviceErr).ToNot(BeNil())
+		})
+	})
+	Describe(`Service constructor tests using external config`, func() {
+		Context(`Using external config, construct service client instances`, func() {
+			// Map containing environment variables used in testing.
+			var testEnvironment = map[string]string{
+				"IAM_ACCESS_GROUPS_URL": "https://iamaccessgroupsv2/api",
+				"IAM_ACCESS_GROUPS_AUTH_TYPE": "noauth",
+			}
+
+			It(`Create service client using external config successfully`, func() {
+				SetTestEnvironment(testEnvironment)
+				iamAccessGroupsService, serviceErr := iamaccessgroupsv2.NewIamAccessGroupsV2UsingExternalConfig(&iamaccessgroupsv2.IamAccessGroupsV2Options{
+				})
+				Expect(iamAccessGroupsService).ToNot(BeNil())
+				Expect(serviceErr).To(BeNil())
+				ClearTestEnvironment(testEnvironment)
+
+				clone := iamAccessGroupsService.Clone()
+				Expect(clone).ToNot(BeNil())
+				Expect(clone.Service != iamAccessGroupsService.Service).To(BeTrue())
+				Expect(clone.GetServiceURL()).To(Equal(iamAccessGroupsService.GetServiceURL()))
+				Expect(clone.Service.Options.Authenticator).To(Equal(iamAccessGroupsService.Service.Options.Authenticator))
+			})
+			It(`Create service client using external config and set url from constructor successfully`, func() {
+				SetTestEnvironment(testEnvironment)
+				iamAccessGroupsService, serviceErr := iamaccessgroupsv2.NewIamAccessGroupsV2UsingExternalConfig(&iamaccessgroupsv2.IamAccessGroupsV2Options{
+					URL: "https://testService/api",
+				})
+				Expect(iamAccessGroupsService).ToNot(BeNil())
+				Expect(serviceErr).To(BeNil())
+				Expect(iamAccessGroupsService.Service.GetServiceURL()).To(Equal("https://testService/api"))
+				ClearTestEnvironment(testEnvironment)
+
+				clone := iamAccessGroupsService.Clone()
+				Expect(clone).ToNot(BeNil())
+				Expect(clone.Service != iamAccessGroupsService.Service).To(BeTrue())
+				Expect(clone.GetServiceURL()).To(Equal(iamAccessGroupsService.GetServiceURL()))
+				Expect(clone.Service.Options.Authenticator).To(Equal(iamAccessGroupsService.Service.Options.Authenticator))
+			})
+			It(`Create service client using external config and set url programatically successfully`, func() {
+				SetTestEnvironment(testEnvironment)
+				iamAccessGroupsService, serviceErr := iamaccessgroupsv2.NewIamAccessGroupsV2UsingExternalConfig(&iamaccessgroupsv2.IamAccessGroupsV2Options{
+				})
+				err := iamAccessGroupsService.SetServiceURL("https://testService/api")
+				Expect(err).To(BeNil())
+				Expect(iamAccessGroupsService).ToNot(BeNil())
+				Expect(serviceErr).To(BeNil())
+				Expect(iamAccessGroupsService.Service.GetServiceURL()).To(Equal("https://testService/api"))
+				ClearTestEnvironment(testEnvironment)
+
+				clone := iamAccessGroupsService.Clone()
+				Expect(clone).ToNot(BeNil())
+				Expect(clone.Service != iamAccessGroupsService.Service).To(BeTrue())
+				Expect(clone.GetServiceURL()).To(Equal(iamAccessGroupsService.GetServiceURL()))
+				Expect(clone.Service.Options.Authenticator).To(Equal(iamAccessGroupsService.Service.Options.Authenticator))
+			})
+		})
+		Context(`Using external config, construct service client instances with error: Invalid Auth`, func() {
+			// Map containing environment variables used in testing.
+			var testEnvironment = map[string]string{
+				"IAM_ACCESS_GROUPS_URL": "https://iamaccessgroupsv2/api",
+				"IAM_ACCESS_GROUPS_AUTH_TYPE": "someOtherAuth",
+			}
+
+			SetTestEnvironment(testEnvironment)
+			iamAccessGroupsService, serviceErr := iamaccessgroupsv2.NewIamAccessGroupsV2UsingExternalConfig(&iamaccessgroupsv2.IamAccessGroupsV2Options{
+			})
+
+			It(`Instantiate service client with error`, func() {
+				Expect(iamAccessGroupsService).To(BeNil())
+				Expect(serviceErr).ToNot(BeNil())
+				ClearTestEnvironment(testEnvironment)
+			})
+		})
+		Context(`Using external config, construct service client instances with error: Invalid URL`, func() {
+			// Map containing environment variables used in testing.
+			var testEnvironment = map[string]string{
+				"IAM_ACCESS_GROUPS_AUTH_TYPE":   "NOAuth",
+			}
+
+			SetTestEnvironment(testEnvironment)
+			iamAccessGroupsService, serviceErr := iamaccessgroupsv2.NewIamAccessGroupsV2UsingExternalConfig(&iamaccessgroupsv2.IamAccessGroupsV2Options{
+				URL: "{BAD_URL_STRING",
+			})
+
+			It(`Instantiate service client with error`, func() {
+				Expect(iamAccessGroupsService).To(BeNil())
+				Expect(serviceErr).ToNot(BeNil())
+				ClearTestEnvironment(testEnvironment)
+			})
+		})
+	})
+	Describe(`Regional endpoint tests`, func() {
+		It(`GetServiceURLForRegion(region string)`, func() {
+			var url string
+			var err error
+			url, err = iamaccessgroupsv2.GetServiceURLForRegion("INVALID_REGION")
+			Expect(url).To(BeEmpty())
+			Expect(err).ToNot(BeNil())
+			fmt.Fprintf(GinkgoWriter, "Expected error: %s\n", err.Error())
+		})
+	})
+	Describe(`GetAccountSettings(getAccountSettingsOptions *GetAccountSettingsOptions) - Operation response error`, func() {
+		getAccountSettingsPath := "/groups/settings"
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getAccountSettingsPath))
+					Expect(req.Method).To(Equal("GET"))
+					Expect(req.Header["Transaction-Id"]).ToNot(BeNil())
+					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
+					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"testString"}))
+
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, `} this is not valid json {`)
+				}))
+			})
+			It(`Invoke GetAccountSettings with error: Operation response processing error`, func() {
+				iamAccessGroupsService, serviceErr := iamaccessgroupsv2.NewIamAccessGroupsV2(&iamaccessgroupsv2.IamAccessGroupsV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamAccessGroupsService).ToNot(BeNil())
+
+				// Construct an instance of the GetAccountSettingsOptions model
+				getAccountSettingsOptionsModel := new(iamaccessgroupsv2.GetAccountSettingsOptions)
+				getAccountSettingsOptionsModel.AccountID = core.StringPtr("testString")
+				getAccountSettingsOptionsModel.TransactionID = core.StringPtr("testString")
+				getAccountSettingsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Expect response parsing to fail since we are receiving a text/plain response
+				result, response, operationErr := iamAccessGroupsService.GetAccountSettings(getAccountSettingsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				iamAccessGroupsService.EnableRetries(0, 0)
+				result, response, operationErr = iamAccessGroupsService.GetAccountSettings(getAccountSettingsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+
+	Describe(`GetAccountSettings(getAccountSettingsOptions *GetAccountSettingsOptions)`, func() {
+		getAccountSettingsPath := "/groups/settings"
+		var serverSleepTime time.Duration
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				serverSleepTime = 0
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getAccountSettingsPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					Expect(req.Header["Transaction-Id"]).ToNot(BeNil())
+					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
+					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"testString"}))
+
+					// Sleep a short time to support a timeout test
+					time.Sleep(serverSleepTime)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"account_id": "AccountID", "last_modified_at": "2019-01-01T12:00:00", "last_modified_by_id": "LastModifiedByID", "public_access_enabled": false}`)
+				}))
+			})
+			It(`Invoke GetAccountSettings successfully`, func() {
+				iamAccessGroupsService, serviceErr := iamaccessgroupsv2.NewIamAccessGroupsV2(&iamaccessgroupsv2.IamAccessGroupsV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamAccessGroupsService).ToNot(BeNil())
+				iamAccessGroupsService.EnableRetries(0, 0)
+
+				// Invoke operation with nil options model (negative test)
+				result, response, operationErr := iamAccessGroupsService.GetAccountSettings(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+
+				// Construct an instance of the GetAccountSettingsOptions model
+				getAccountSettingsOptionsModel := new(iamaccessgroupsv2.GetAccountSettingsOptions)
+				getAccountSettingsOptionsModel.AccountID = core.StringPtr("testString")
+				getAccountSettingsOptionsModel.TransactionID = core.StringPtr("testString")
+				getAccountSettingsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				result, response, operationErr = iamAccessGroupsService.GetAccountSettings(getAccountSettingsOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				serverSleepTime = 100 * time.Millisecond
+				_, _, operationErr = iamAccessGroupsService.GetAccountSettingsWithContext(ctx, getAccountSettingsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+				serverSleepTime = time.Duration(0)
+
+				// Disable retries and test again
+				iamAccessGroupsService.DisableRetries()
+				result, response, operationErr = iamAccessGroupsService.GetAccountSettings(getAccountSettingsOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				serverSleepTime = 100 * time.Millisecond
+				_, _, operationErr = iamAccessGroupsService.GetAccountSettingsWithContext(ctx, getAccountSettingsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+				serverSleepTime = time.Duration(0)
+			})
+			It(`Invoke GetAccountSettings with error: Operation validation and request error`, func() {
+				iamAccessGroupsService, serviceErr := iamaccessgroupsv2.NewIamAccessGroupsV2(&iamaccessgroupsv2.IamAccessGroupsV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamAccessGroupsService).ToNot(BeNil())
+
+				// Construct an instance of the GetAccountSettingsOptions model
+				getAccountSettingsOptionsModel := new(iamaccessgroupsv2.GetAccountSettingsOptions)
+				getAccountSettingsOptionsModel.AccountID = core.StringPtr("testString")
+				getAccountSettingsOptionsModel.TransactionID = core.StringPtr("testString")
+				getAccountSettingsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := iamAccessGroupsService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				result, response, operationErr := iamAccessGroupsService.GetAccountSettings(getAccountSettingsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+				// Construct a second instance of the GetAccountSettingsOptions model with no property values
+				getAccountSettingsOptionsModelNew := new(iamaccessgroupsv2.GetAccountSettingsOptions)
+				// Invoke operation with invalid model (negative test)
+				result, response, operationErr = iamAccessGroupsService.GetAccountSettings(getAccountSettingsOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`UpdateAccountSettings(updateAccountSettingsOptions *UpdateAccountSettingsOptions) - Operation response error`, func() {
+		updateAccountSettingsPath := "/groups/settings"
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(updateAccountSettingsPath))
+					Expect(req.Method).To(Equal("PATCH"))
+					Expect(req.Header["Transaction-Id"]).ToNot(BeNil())
+					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
+					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"testString"}))
+
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, `} this is not valid json {`)
+				}))
+			})
+			It(`Invoke UpdateAccountSettings with error: Operation response processing error`, func() {
+				iamAccessGroupsService, serviceErr := iamaccessgroupsv2.NewIamAccessGroupsV2(&iamaccessgroupsv2.IamAccessGroupsV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamAccessGroupsService).ToNot(BeNil())
+
+				// Construct an instance of the UpdateAccountSettingsOptions model
+				updateAccountSettingsOptionsModel := new(iamaccessgroupsv2.UpdateAccountSettingsOptions)
+				updateAccountSettingsOptionsModel.AccountID = core.StringPtr("testString")
+				updateAccountSettingsOptionsModel.PublicAccessEnabled = core.BoolPtr(true)
+				updateAccountSettingsOptionsModel.TransactionID = core.StringPtr("testString")
+				updateAccountSettingsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Expect response parsing to fail since we are receiving a text/plain response
+				result, response, operationErr := iamAccessGroupsService.UpdateAccountSettings(updateAccountSettingsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				iamAccessGroupsService.EnableRetries(0, 0)
+				result, response, operationErr = iamAccessGroupsService.UpdateAccountSettings(updateAccountSettingsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+
+	Describe(`UpdateAccountSettings(updateAccountSettingsOptions *UpdateAccountSettingsOptions)`, func() {
+		updateAccountSettingsPath := "/groups/settings"
+		var serverSleepTime time.Duration
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				serverSleepTime = 0
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(updateAccountSettingsPath))
+					Expect(req.Method).To(Equal("PATCH"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
+					Expect(req.Header["Transaction-Id"]).ToNot(BeNil())
+					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
+					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"testString"}))
+
+					// Sleep a short time to support a timeout test
+					time.Sleep(serverSleepTime)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"account_id": "AccountID", "last_modified_at": "2019-01-01T12:00:00", "last_modified_by_id": "LastModifiedByID", "public_access_enabled": false}`)
+				}))
+			})
+			It(`Invoke UpdateAccountSettings successfully`, func() {
+				iamAccessGroupsService, serviceErr := iamaccessgroupsv2.NewIamAccessGroupsV2(&iamaccessgroupsv2.IamAccessGroupsV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamAccessGroupsService).ToNot(BeNil())
+				iamAccessGroupsService.EnableRetries(0, 0)
+
+				// Invoke operation with nil options model (negative test)
+				result, response, operationErr := iamAccessGroupsService.UpdateAccountSettings(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+
+				// Construct an instance of the UpdateAccountSettingsOptions model
+				updateAccountSettingsOptionsModel := new(iamaccessgroupsv2.UpdateAccountSettingsOptions)
+				updateAccountSettingsOptionsModel.AccountID = core.StringPtr("testString")
+				updateAccountSettingsOptionsModel.PublicAccessEnabled = core.BoolPtr(true)
+				updateAccountSettingsOptionsModel.TransactionID = core.StringPtr("testString")
+				updateAccountSettingsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				result, response, operationErr = iamAccessGroupsService.UpdateAccountSettings(updateAccountSettingsOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				serverSleepTime = 100 * time.Millisecond
+				_, _, operationErr = iamAccessGroupsService.UpdateAccountSettingsWithContext(ctx, updateAccountSettingsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+				serverSleepTime = time.Duration(0)
+
+				// Disable retries and test again
+				iamAccessGroupsService.DisableRetries()
+				result, response, operationErr = iamAccessGroupsService.UpdateAccountSettings(updateAccountSettingsOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				serverSleepTime = 100 * time.Millisecond
+				_, _, operationErr = iamAccessGroupsService.UpdateAccountSettingsWithContext(ctx, updateAccountSettingsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+				serverSleepTime = time.Duration(0)
+			})
+			It(`Invoke UpdateAccountSettings with error: Operation validation and request error`, func() {
+				iamAccessGroupsService, serviceErr := iamaccessgroupsv2.NewIamAccessGroupsV2(&iamaccessgroupsv2.IamAccessGroupsV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamAccessGroupsService).ToNot(BeNil())
+
+				// Construct an instance of the UpdateAccountSettingsOptions model
+				updateAccountSettingsOptionsModel := new(iamaccessgroupsv2.UpdateAccountSettingsOptions)
+				updateAccountSettingsOptionsModel.AccountID = core.StringPtr("testString")
+				updateAccountSettingsOptionsModel.PublicAccessEnabled = core.BoolPtr(true)
+				updateAccountSettingsOptionsModel.TransactionID = core.StringPtr("testString")
+				updateAccountSettingsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := iamAccessGroupsService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				result, response, operationErr := iamAccessGroupsService.UpdateAccountSettings(updateAccountSettingsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+				// Construct a second instance of the UpdateAccountSettingsOptions model with no property values
+				updateAccountSettingsOptionsModelNew := new(iamaccessgroupsv2.UpdateAccountSettingsOptions)
+				// Invoke operation with invalid model (negative test)
+				result, response, operationErr = iamAccessGroupsService.UpdateAccountSettings(updateAccountSettingsOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
 	Describe(`Model constructor tests`, func() {
 		Context(`Using a service client instance`, func() {
 			iamAccessGroupsService, _ := iamaccessgroupsv2.NewIamAccessGroupsV2(&iamaccessgroupsv2.IamAccessGroupsV2Options{
@@ -3707,8 +3815,8 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				listAccessGroupMembersOptionsModel := iamAccessGroupsService.NewListAccessGroupMembersOptions(accessGroupID)
 				listAccessGroupMembersOptionsModel.SetAccessGroupID("testString")
 				listAccessGroupMembersOptionsModel.SetTransactionID("testString")
-				listAccessGroupMembersOptionsModel.SetLimit(float64(72.5))
-				listAccessGroupMembersOptionsModel.SetOffset(float64(72.5))
+				listAccessGroupMembersOptionsModel.SetLimit(int64(38))
+				listAccessGroupMembersOptionsModel.SetOffset(int64(38))
 				listAccessGroupMembersOptionsModel.SetType("testString")
 				listAccessGroupMembersOptionsModel.SetVerbose(true)
 				listAccessGroupMembersOptionsModel.SetSort("testString")
@@ -3716,8 +3824,8 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				Expect(listAccessGroupMembersOptionsModel).ToNot(BeNil())
 				Expect(listAccessGroupMembersOptionsModel.AccessGroupID).To(Equal(core.StringPtr("testString")))
 				Expect(listAccessGroupMembersOptionsModel.TransactionID).To(Equal(core.StringPtr("testString")))
-				Expect(listAccessGroupMembersOptionsModel.Limit).To(Equal(core.Float64Ptr(float64(72.5))))
-				Expect(listAccessGroupMembersOptionsModel.Offset).To(Equal(core.Float64Ptr(float64(72.5))))
+				Expect(listAccessGroupMembersOptionsModel.Limit).To(Equal(core.Int64Ptr(int64(38))))
+				Expect(listAccessGroupMembersOptionsModel.Offset).To(Equal(core.Int64Ptr(int64(38))))
 				Expect(listAccessGroupMembersOptionsModel.Type).To(Equal(core.StringPtr("testString")))
 				Expect(listAccessGroupMembersOptionsModel.Verbose).To(Equal(core.BoolPtr(true)))
 				Expect(listAccessGroupMembersOptionsModel.Sort).To(Equal(core.StringPtr("testString")))
