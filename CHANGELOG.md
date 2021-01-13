@@ -1,3 +1,10 @@
+## [0.17.4](https://github.com/IBM/platform-services-go-sdk/compare/v0.17.3...v0.17.4) (2021-01-13)
+
+
+### Bug Fixes
+
+* **IAM Access Groups:** minor code re-gen after recent API changes ([bf1e1c3](https://github.com/IBM/platform-services-go-sdk/commit/bf1e1c360ecc66380d65d2d302c73444237b1df1))
+
 ## [0.17.3](https://github.com/IBM/platform-services-go-sdk/compare/v0.17.2...v0.17.3) (2020-12-15)
 
 
