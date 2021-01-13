@@ -1,5 +1,5 @@
 /**
- * (C) Copyright IBM Corp. 2020.
+ * (C) Copyright IBM Corp. 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,7 +15,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-d753183b-20201209-163011
+ * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-1eae594e-20210113-143533
  */
  
 
@@ -1514,22 +1514,22 @@ func UnmarshalAccountSettings(m map[string]json.RawMessage, result interface{}) 
 // AddAccessGroupRuleOptions : The AddAccessGroupRule options.
 type AddAccessGroupRuleOptions struct {
 	// The Access Group identifier.
-	AccessGroupID *string `json:"access_group_id" validate:"required,ne="`
+	AccessGroupID *string `validate:"required,ne="`
 
 	// The number of hours that the rule lives for (Must be between 1 and 24).
-	Expiration *int64 `json:"expiration" validate:"required"`
+	Expiration *int64 `validate:"required"`
 
 	// The url of the identity provider.
-	RealmName *string `json:"realm_name" validate:"required"`
+	RealmName *string `validate:"required"`
 
 	// A list of conditions the rule must satisfy.
-	Conditions []RuleConditions `json:"conditions" validate:"required"`
+	Conditions []RuleConditions `validate:"required"`
 
 	// The name of the rule.
-	Name *string `json:"name,omitempty"`
+	Name *string
 
 	// An optional transaction id for the request.
-	TransactionID *string `json:"Transaction-Id,omitempty"`
+	TransactionID *string
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -1703,19 +1703,19 @@ func UnmarshalAddGroupMembersResponseMembersItem(m map[string]json.RawMessage, r
 // AddMemberToMultipleAccessGroupsOptions : The AddMemberToMultipleAccessGroups options.
 type AddMemberToMultipleAccessGroupsOptions struct {
 	// IBM Cloud account identifier.
-	AccountID *string `json:"account_id" validate:"required"`
+	AccountID *string `validate:"required"`
 
 	// The IAM identifier.
-	IamID *string `json:"iam_id" validate:"required,ne="`
+	IamID *string `validate:"required,ne="`
 
 	// The type of the member, must be either "user" or "service".
-	Type *string `json:"type,omitempty"`
+	Type *string
 
 	// The ids of the access groups a given member is to be added to.
-	Groups []string `json:"groups,omitempty"`
+	Groups []string
 
 	// An optional transaction id for the request.
-	TransactionID *string `json:"Transaction-Id,omitempty"`
+	TransactionID *string
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -1768,13 +1768,13 @@ func (options *AddMemberToMultipleAccessGroupsOptions) SetHeaders(param map[stri
 // AddMembersToAccessGroupOptions : The AddMembersToAccessGroup options.
 type AddMembersToAccessGroupOptions struct {
 	// The Access Group identifier.
-	AccessGroupID *string `json:"access_group_id" validate:"required,ne="`
+	AccessGroupID *string `validate:"required,ne="`
 
 	// An array of member objects to add to an access group.
-	Members []AddGroupMembersRequestMembersItem `json:"members,omitempty"`
+	Members []AddGroupMembersRequestMembersItem
 
 	// An optional transaction id for the request.
-	TransactionID *string `json:"Transaction-Id,omitempty"`
+	TransactionID *string
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -1878,16 +1878,16 @@ func UnmarshalAddMembershipMultipleGroupsResponseGroupsItem(m map[string]json.Ra
 // CreateAccessGroupOptions : The CreateAccessGroup options.
 type CreateAccessGroupOptions struct {
 	// IBM Cloud account identifier.
-	AccountID *string `json:"account_id" validate:"required"`
+	AccountID *string `validate:"required"`
 
 	// Assign the specified name to the Access Group. This field has a limit of 100 characters.
-	Name *string `json:"name" validate:"required"`
+	Name *string `validate:"required"`
 
 	// Assign a description for the Access Group. This field has a limit of 250 characters.
-	Description *string `json:"description,omitempty"`
+	Description *string
 
 	// An optional transaction id for the request.
-	TransactionID *string `json:"Transaction-Id,omitempty"`
+	TransactionID *string
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -1934,13 +1934,13 @@ func (options *CreateAccessGroupOptions) SetHeaders(param map[string]string) *Cr
 // DeleteAccessGroupOptions : The DeleteAccessGroup options.
 type DeleteAccessGroupOptions struct {
 	// The Access Group identifier.
-	AccessGroupID *string `json:"access_group_id" validate:"required,ne="`
+	AccessGroupID *string `validate:"required,ne="`
 
 	// An optional transaction id for the request.
-	TransactionID *string `json:"Transaction-Id,omitempty"`
+	TransactionID *string
 
 	// If force is true, delete the group as well as its associated members and rules.
-	Force *bool `json:"force,omitempty"`
+	Force *bool
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -2135,14 +2135,14 @@ func UnmarshalError(m map[string]json.RawMessage, result interface{}) (err error
 // GetAccessGroupOptions : The GetAccessGroup options.
 type GetAccessGroupOptions struct {
 	// The Access Group identifier.
-	AccessGroupID *string `json:"access_group_id" validate:"required,ne="`
+	AccessGroupID *string `validate:"required,ne="`
 
 	// An optional transaction id for the request.
-	TransactionID *string `json:"Transaction-Id,omitempty"`
+	TransactionID *string
 
 	// If show_federated is true, the group will return an is_federated value that is set to true if rules exist for the
 	// group.
-	ShowFederated *bool `json:"show_federated,omitempty"`
+	ShowFederated *bool
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -2182,13 +2182,13 @@ func (options *GetAccessGroupOptions) SetHeaders(param map[string]string) *GetAc
 // GetAccessGroupRuleOptions : The GetAccessGroupRule options.
 type GetAccessGroupRuleOptions struct {
 	// The Access Group identifier.
-	AccessGroupID *string `json:"access_group_id" validate:"required,ne="`
+	AccessGroupID *string `validate:"required,ne="`
 
 	// The rule to get.
-	RuleID *string `json:"rule_id" validate:"required,ne="`
+	RuleID *string `validate:"required,ne="`
 
 	// An optional transaction id for the request.
-	TransactionID *string `json:"Transaction-Id,omitempty"`
+	TransactionID *string
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -2229,10 +2229,10 @@ func (options *GetAccessGroupRuleOptions) SetHeaders(param map[string]string) *G
 // GetAccountSettingsOptions : The GetAccountSettings options.
 type GetAccountSettingsOptions struct {
 	// IBM Cloud account identifier.
-	AccountID *string `json:"account_id" validate:"required"`
+	AccountID *string `validate:"required"`
 
 	// An optional transaction id for the request.
-	TransactionID *string `json:"Transaction-Id,omitempty"`
+	TransactionID *string
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -2499,13 +2499,13 @@ func UnmarshalHrefStruct(m map[string]json.RawMessage, result interface{}) (err 
 // IsMemberOfAccessGroupOptions : The IsMemberOfAccessGroup options.
 type IsMemberOfAccessGroupOptions struct {
 	// The Access Group identifier.
-	AccessGroupID *string `json:"access_group_id" validate:"required,ne="`
+	AccessGroupID *string `validate:"required,ne="`
 
 	// The IAM identifier.
-	IamID *string `json:"iam_id" validate:"required,ne="`
+	IamID *string `validate:"required,ne="`
 
 	// An optional transaction id for the request.
-	TransactionID *string `json:"Transaction-Id,omitempty"`
+	TransactionID *string
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -2546,25 +2546,25 @@ func (options *IsMemberOfAccessGroupOptions) SetHeaders(param map[string]string)
 // ListAccessGroupMembersOptions : The ListAccessGroupMembers options.
 type ListAccessGroupMembersOptions struct {
 	// The Access Group identifier.
-	AccessGroupID *string `json:"access_group_id" validate:"required,ne="`
+	AccessGroupID *string `validate:"required,ne="`
 
 	// An optional transaction id for the request.
-	TransactionID *string `json:"Transaction-Id,omitempty"`
+	TransactionID *string
 
 	// Return up to this limit of results where limit is between 0 and 100.
-	Limit *int64 `json:"limit,omitempty"`
+	Limit *int64
 
 	// The offset of the first result item to be returned.
-	Offset *int64 `json:"offset,omitempty"`
+	Offset *int64
 
 	// Filter the results by member type.
-	Type *string `json:"type,omitempty"`
+	Type *string
 
 	// Return user's email and name for each user id or the name for each service id.
-	Verbose *bool `json:"verbose,omitempty"`
+	Verbose *bool
 
 	// If verbose is true, sort the results by id, name, or email.
-	Sort *string `json:"sort,omitempty"`
+	Sort *string
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -2628,10 +2628,10 @@ func (options *ListAccessGroupMembersOptions) SetHeaders(param map[string]string
 // ListAccessGroupRulesOptions : The ListAccessGroupRules options.
 type ListAccessGroupRulesOptions struct {
 	// The Access Group identifier.
-	AccessGroupID *string `json:"access_group_id" validate:"required,ne="`
+	AccessGroupID *string `validate:"required,ne="`
 
 	// An optional transaction id for the request.
-	TransactionID *string `json:"Transaction-Id,omitempty"`
+	TransactionID *string
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -2665,29 +2665,29 @@ func (options *ListAccessGroupRulesOptions) SetHeaders(param map[string]string) 
 // ListAccessGroupsOptions : The ListAccessGroups options.
 type ListAccessGroupsOptions struct {
 	// IBM Cloud account identifier.
-	AccountID *string `json:"account_id" validate:"required"`
+	AccountID *string `validate:"required"`
 
 	// An optional transaction id for the request.
-	TransactionID *string `json:"Transaction-Id,omitempty"`
+	TransactionID *string
 
 	// Return groups for member id (IBMid or Service Id).
-	IamID *string `json:"iam_id,omitempty"`
+	IamID *string
 
 	// Return up to this limit of results where limit is between 0 and 100.
-	Limit *int64 `json:"limit,omitempty"`
+	Limit *int64
 
 	// The offset of the first result item to be returned.
-	Offset *int64 `json:"offset,omitempty"`
+	Offset *int64
 
 	// Sort the results by id, name, description, or is_federated flag.
-	Sort *string `json:"sort,omitempty"`
+	Sort *string
 
 	// If show_federated is true, each group listed will return an is_federated value that is set to true if rules exist
 	// for the group.
-	ShowFederated *bool `json:"show_federated,omitempty"`
+	ShowFederated *bool
 
 	// If hide_public_access is true, do not include the Public Access Group in the results.
-	HidePublicAccess *bool `json:"hide_public_access,omitempty"`
+	HidePublicAccess *bool
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -2824,13 +2824,13 @@ func UnmarshalListGroupMembersResponseMember(m map[string]json.RawMessage, resul
 // RemoveAccessGroupRuleOptions : The RemoveAccessGroupRule options.
 type RemoveAccessGroupRuleOptions struct {
 	// The Access Group identifier.
-	AccessGroupID *string `json:"access_group_id" validate:"required,ne="`
+	AccessGroupID *string `validate:"required,ne="`
 
 	// The rule to get.
-	RuleID *string `json:"rule_id" validate:"required,ne="`
+	RuleID *string `validate:"required,ne="`
 
 	// An optional transaction id for the request.
-	TransactionID *string `json:"Transaction-Id,omitempty"`
+	TransactionID *string
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -2871,13 +2871,13 @@ func (options *RemoveAccessGroupRuleOptions) SetHeaders(param map[string]string)
 // RemoveMemberFromAccessGroupOptions : The RemoveMemberFromAccessGroup options.
 type RemoveMemberFromAccessGroupOptions struct {
 	// The Access Group identifier.
-	AccessGroupID *string `json:"access_group_id" validate:"required,ne="`
+	AccessGroupID *string `validate:"required,ne="`
 
 	// The IAM identifier.
-	IamID *string `json:"iam_id" validate:"required,ne="`
+	IamID *string `validate:"required,ne="`
 
 	// An optional transaction id for the request.
-	TransactionID *string `json:"Transaction-Id,omitempty"`
+	TransactionID *string
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -2918,13 +2918,13 @@ func (options *RemoveMemberFromAccessGroupOptions) SetHeaders(param map[string]s
 // RemoveMemberFromAllAccessGroupsOptions : The RemoveMemberFromAllAccessGroups options.
 type RemoveMemberFromAllAccessGroupsOptions struct {
 	// IBM Cloud account identifier.
-	AccountID *string `json:"account_id" validate:"required"`
+	AccountID *string `validate:"required"`
 
 	// The IAM identifier.
-	IamID *string `json:"iam_id" validate:"required,ne="`
+	IamID *string `validate:"required,ne="`
 
 	// An optional transaction id for the request.
-	TransactionID *string `json:"Transaction-Id,omitempty"`
+	TransactionID *string
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -2965,13 +2965,13 @@ func (options *RemoveMemberFromAllAccessGroupsOptions) SetHeaders(param map[stri
 // RemoveMembersFromAccessGroupOptions : The RemoveMembersFromAccessGroup options.
 type RemoveMembersFromAccessGroupOptions struct {
 	// The Access Group identifier.
-	AccessGroupID *string `json:"access_group_id" validate:"required,ne="`
+	AccessGroupID *string `validate:"required,ne="`
 
 	// The `iam_id`s to remove from the access group. This field has a limit of 50 `iam_id`s.
-	Members []string `json:"members,omitempty"`
+	Members []string
 
 	// An optional transaction id for the request.
-	TransactionID *string `json:"Transaction-Id,omitempty"`
+	TransactionID *string
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -3011,28 +3011,28 @@ func (options *RemoveMembersFromAccessGroupOptions) SetHeaders(param map[string]
 // ReplaceAccessGroupRuleOptions : The ReplaceAccessGroupRule options.
 type ReplaceAccessGroupRuleOptions struct {
 	// The Access Group identifier.
-	AccessGroupID *string `json:"access_group_id" validate:"required,ne="`
+	AccessGroupID *string `validate:"required,ne="`
 
 	// The rule to get.
-	RuleID *string `json:"rule_id" validate:"required,ne="`
+	RuleID *string `validate:"required,ne="`
 
 	// The current revision number of the rule being updated. This can be found in the Get Rule response Etag header.
-	IfMatch *string `json:"If-Match" validate:"required"`
+	IfMatch *string `validate:"required"`
 
 	// The number of hours that the rule lives for (Must be between 1 and 24).
-	Expiration *int64 `json:"expiration" validate:"required"`
+	Expiration *int64 `validate:"required"`
 
 	// The url of the identity provider.
-	RealmName *string `json:"realm_name" validate:"required"`
+	RealmName *string `validate:"required"`
 
 	// A list of conditions the rule must satisfy.
-	Conditions []RuleConditions `json:"conditions" validate:"required"`
+	Conditions []RuleConditions `validate:"required"`
 
 	// The name of the rule.
-	Name *string `json:"name,omitempty"`
+	Name *string
 
 	// An optional transaction id for the request.
-	TransactionID *string `json:"Transaction-Id,omitempty"`
+	TransactionID *string
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -3257,20 +3257,20 @@ func UnmarshalRulesList(m map[string]json.RawMessage, result interface{}) (err e
 // UpdateAccessGroupOptions : The UpdateAccessGroup options.
 type UpdateAccessGroupOptions struct {
 	// The Access Group identifier.
-	AccessGroupID *string `json:"access_group_id" validate:"required,ne="`
+	AccessGroupID *string `validate:"required,ne="`
 
 	// The current revision number of the group being updated. This can be found in the Create/Get Access Group response
 	// Etag header.
-	IfMatch *string `json:"If-Match" validate:"required"`
+	IfMatch *string `validate:"required"`
 
 	// Assign the specified name to the Access Group. This field has a limit of 100 characters.
-	Name *string `json:"name,omitempty"`
+	Name *string
 
 	// Assign a description for the Access Group. This field has a limit of 250 characters.
-	Description *string `json:"description,omitempty"`
+	Description *string
 
 	// An optional transaction id for the request.
-	TransactionID *string `json:"Transaction-Id,omitempty"`
+	TransactionID *string
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -3323,14 +3323,14 @@ func (options *UpdateAccessGroupOptions) SetHeaders(param map[string]string) *Up
 // UpdateAccountSettingsOptions : The UpdateAccountSettings options.
 type UpdateAccountSettingsOptions struct {
 	// IBM Cloud account identifier.
-	AccountID *string `json:"account_id" validate:"required"`
+	AccountID *string `validate:"required"`
 
 	// This flag controls the public access feature within the account. It is set to true by default. Note: When this flag
 	// is set to false, all policies within the account attached to the Public Access group will be deleted.
-	PublicAccessEnabled *bool `json:"public_access_enabled,omitempty"`
+	PublicAccessEnabled *bool
 
 	// An optional transaction id for the request.
-	TransactionID *string `json:"Transaction-Id,omitempty"`
+	TransactionID *string
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
