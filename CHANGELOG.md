@@ -1,3 +1,10 @@
+## [0.17.5](https://github.com/IBM/platform-services-go-sdk/compare/v0.17.4...v0.17.5) (2021-01-14)
+
+
+### Bug Fixes
+
+* **Configuration Governance:** re-gen service after recent API changes ([a6e52ce](https://github.com/IBM/platform-services-go-sdk/commit/a6e52ce1c9a72d87a959135b8fbd9b0062764960))
+
 ## [0.17.4](https://github.com/IBM/platform-services-go-sdk/compare/v0.17.3...v0.17.4) (2021-01-13)
 
 
