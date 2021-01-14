@@ -1,5 +1,5 @@
 /**
- * (C) Copyright IBM Corp. 2020.
+ * (C) Copyright IBM Corp. 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,7 +15,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-d753183b-20201209-163011
+ * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-c6db7f4a-20210114-141015
  */
  
 
@@ -405,11 +405,11 @@ func (configurationGovernance *ConfigurationGovernanceV1) UpdateRuleWithContext(
 	}
 	builder.AddHeader("Accept", "application/json")
 	builder.AddHeader("Content-Type", "application/json")
-	if updateRuleOptions.TransactionID != nil {
-		builder.AddHeader("Transaction-Id", fmt.Sprint(*updateRuleOptions.TransactionID))
-	}
 	if updateRuleOptions.IfMatch != nil {
 		builder.AddHeader("If-Match", fmt.Sprint(*updateRuleOptions.IfMatch))
+	}
+	if updateRuleOptions.TransactionID != nil {
+		builder.AddHeader("Transaction-Id", fmt.Sprint(*updateRuleOptions.TransactionID))
 	}
 
 	body := make(map[string]interface{})
@@ -757,11 +757,11 @@ func (configurationGovernance *ConfigurationGovernanceV1) UpdateAttachmentWithCo
 	}
 	builder.AddHeader("Accept", "application/json")
 	builder.AddHeader("Content-Type", "application/json")
-	if updateAttachmentOptions.TransactionID != nil {
-		builder.AddHeader("Transaction-Id", fmt.Sprint(*updateAttachmentOptions.TransactionID))
-	}
 	if updateAttachmentOptions.IfMatch != nil {
 		builder.AddHeader("If-Match", fmt.Sprint(*updateAttachmentOptions.IfMatch))
+	}
+	if updateAttachmentOptions.TransactionID != nil {
+		builder.AddHeader("Transaction-Id", fmt.Sprint(*updateAttachmentOptions.TransactionID))
 	}
 
 	body := make(map[string]interface{})
@@ -993,27 +993,26 @@ func UnmarshalAttachmentRequest(m map[string]json.RawMessage, result interface{}
 // CreateAttachmentsOptions : The CreateAttachments options.
 type CreateAttachmentsOptions struct {
 	// The UUID that uniquely identifies the rule.
-	RuleID *string `json:"rule_id" validate:"required,ne="`
+	RuleID *string `validate:"required,ne="`
+
+	Attachments []AttachmentRequest `validate:"required"`
 
 	// The unique identifier that is used to trace an entire request. If you omit this field, the service generates and
-	// sends a transaction ID in the
-	// `trace` field of the response body.
+	// sends a transaction ID as a response header of the request. In the case of an error, the transaction ID is set in
+	// the `trace` field of the response body.
 	//
 	// **Note:** To help with debugging logs, it is strongly recommended that you generate and supply a `Transaction-Id`
 	// with each request.
-	TransactionID *string `json:"Transaction-Id" validate:"required"`
-
-	Attachments []AttachmentRequest `json:"attachments" validate:"required"`
+	TransactionID *string
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
 }
 
 // NewCreateAttachmentsOptions : Instantiate CreateAttachmentsOptions
-func (*ConfigurationGovernanceV1) NewCreateAttachmentsOptions(ruleID string, transactionID string, attachments []AttachmentRequest) *CreateAttachmentsOptions {
+func (*ConfigurationGovernanceV1) NewCreateAttachmentsOptions(ruleID string, attachments []AttachmentRequest) *CreateAttachmentsOptions {
 	return &CreateAttachmentsOptions{
 		RuleID: core.StringPtr(ruleID),
-		TransactionID: core.StringPtr(transactionID),
 		Attachments: attachments,
 	}
 }
@@ -1024,15 +1023,15 @@ func (options *CreateAttachmentsOptions) SetRuleID(ruleID string) *CreateAttachm
 	return options
 }
 
-// SetTransactionID : Allow user to set TransactionID
-func (options *CreateAttachmentsOptions) SetTransactionID(transactionID string) *CreateAttachmentsOptions {
-	options.TransactionID = core.StringPtr(transactionID)
-	return options
-}
-
 // SetAttachments : Allow user to set Attachments
 func (options *CreateAttachmentsOptions) SetAttachments(attachments []AttachmentRequest) *CreateAttachmentsOptions {
 	options.Attachments = attachments
+	return options
+}
+
+// SetTransactionID : Allow user to set TransactionID
+func (options *CreateAttachmentsOptions) SetTransactionID(transactionID string) *CreateAttachmentsOptions {
+	options.TransactionID = core.StringPtr(transactionID)
 	return options
 }
 
@@ -1158,38 +1157,37 @@ func UnmarshalCreateRuleResponse(m map[string]json.RawMessage, result interface{
 
 // CreateRulesOptions : The CreateRules options.
 type CreateRulesOptions struct {
+	// A list of rules to be created.
+	Rules []CreateRuleRequest `validate:"required"`
+
 	// The unique identifier that is used to trace an entire request. If you omit this field, the service generates and
-	// sends a transaction ID in the
-	// `trace` field of the response body.
+	// sends a transaction ID as a response header of the request. In the case of an error, the transaction ID is set in
+	// the `trace` field of the response body.
 	//
 	// **Note:** To help with debugging logs, it is strongly recommended that you generate and supply a `Transaction-Id`
 	// with each request.
-	TransactionID *string `json:"Transaction-Id" validate:"required"`
-
-	// A list of rules to be created.
-	Rules []CreateRuleRequest `json:"rules" validate:"required"`
+	TransactionID *string
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
 }
 
 // NewCreateRulesOptions : Instantiate CreateRulesOptions
-func (*ConfigurationGovernanceV1) NewCreateRulesOptions(transactionID string, rules []CreateRuleRequest) *CreateRulesOptions {
+func (*ConfigurationGovernanceV1) NewCreateRulesOptions(rules []CreateRuleRequest) *CreateRulesOptions {
 	return &CreateRulesOptions{
-		TransactionID: core.StringPtr(transactionID),
 		Rules: rules,
 	}
-}
-
-// SetTransactionID : Allow user to set TransactionID
-func (options *CreateRulesOptions) SetTransactionID(transactionID string) *CreateRulesOptions {
-	options.TransactionID = core.StringPtr(transactionID)
-	return options
 }
 
 // SetRules : Allow user to set Rules
 func (options *CreateRulesOptions) SetRules(rules []CreateRuleRequest) *CreateRulesOptions {
 	options.Rules = rules
+	return options
+}
+
+// SetTransactionID : Allow user to set TransactionID
+func (options *CreateRulesOptions) SetTransactionID(transactionID string) *CreateRulesOptions {
+	options.TransactionID = core.StringPtr(transactionID)
 	return options
 }
 
@@ -1220,29 +1218,28 @@ func UnmarshalCreateRulesResponse(m map[string]json.RawMessage, result interface
 // DeleteAttachmentOptions : The DeleteAttachment options.
 type DeleteAttachmentOptions struct {
 	// The UUID that uniquely identifies the rule.
-	RuleID *string `json:"rule_id" validate:"required,ne="`
+	RuleID *string `validate:"required,ne="`
 
 	// The UUID that uniquely identifies the attachment.
-	AttachmentID *string `json:"attachment_id" validate:"required,ne="`
+	AttachmentID *string `validate:"required,ne="`
 
 	// The unique identifier that is used to trace an entire request. If you omit this field, the service generates and
-	// sends a transaction ID in the
-	// `trace` field of the response body.
+	// sends a transaction ID as a response header of the request. In the case of an error, the transaction ID is set in
+	// the `trace` field of the response body.
 	//
 	// **Note:** To help with debugging logs, it is strongly recommended that you generate and supply a `Transaction-Id`
 	// with each request.
-	TransactionID *string `json:"Transaction-Id" validate:"required"`
+	TransactionID *string
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
 }
 
 // NewDeleteAttachmentOptions : Instantiate DeleteAttachmentOptions
-func (*ConfigurationGovernanceV1) NewDeleteAttachmentOptions(ruleID string, attachmentID string, transactionID string) *DeleteAttachmentOptions {
+func (*ConfigurationGovernanceV1) NewDeleteAttachmentOptions(ruleID string, attachmentID string) *DeleteAttachmentOptions {
 	return &DeleteAttachmentOptions{
 		RuleID: core.StringPtr(ruleID),
 		AttachmentID: core.StringPtr(attachmentID),
-		TransactionID: core.StringPtr(transactionID),
 	}
 }
 
@@ -1273,25 +1270,24 @@ func (options *DeleteAttachmentOptions) SetHeaders(param map[string]string) *Del
 // DeleteRuleOptions : The DeleteRule options.
 type DeleteRuleOptions struct {
 	// The UUID that uniquely identifies the rule.
-	RuleID *string `json:"rule_id" validate:"required,ne="`
+	RuleID *string `validate:"required,ne="`
 
 	// The unique identifier that is used to trace an entire request. If you omit this field, the service generates and
-	// sends a transaction ID in the
-	// `trace` field of the response body.
+	// sends a transaction ID as a response header of the request. In the case of an error, the transaction ID is set in
+	// the `trace` field of the response body.
 	//
 	// **Note:** To help with debugging logs, it is strongly recommended that you generate and supply a `Transaction-Id`
 	// with each request.
-	TransactionID *string `json:"Transaction-Id" validate:"required"`
+	TransactionID *string
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
 }
 
 // NewDeleteRuleOptions : Instantiate DeleteRuleOptions
-func (*ConfigurationGovernanceV1) NewDeleteRuleOptions(ruleID string, transactionID string) *DeleteRuleOptions {
+func (*ConfigurationGovernanceV1) NewDeleteRuleOptions(ruleID string) *DeleteRuleOptions {
 	return &DeleteRuleOptions{
 		RuleID: core.StringPtr(ruleID),
-		TransactionID: core.StringPtr(transactionID),
 	}
 }
 
@@ -1352,29 +1348,28 @@ func UnmarshalEnforcementAction(m map[string]json.RawMessage, result interface{}
 // GetAttachmentOptions : The GetAttachment options.
 type GetAttachmentOptions struct {
 	// The UUID that uniquely identifies the rule.
-	RuleID *string `json:"rule_id" validate:"required,ne="`
+	RuleID *string `validate:"required,ne="`
 
 	// The UUID that uniquely identifies the attachment.
-	AttachmentID *string `json:"attachment_id" validate:"required,ne="`
+	AttachmentID *string `validate:"required,ne="`
 
 	// The unique identifier that is used to trace an entire request. If you omit this field, the service generates and
-	// sends a transaction ID in the
-	// `trace` field of the response body.
+	// sends a transaction ID as a response header of the request. In the case of an error, the transaction ID is set in
+	// the `trace` field of the response body.
 	//
 	// **Note:** To help with debugging logs, it is strongly recommended that you generate and supply a `Transaction-Id`
 	// with each request.
-	TransactionID *string `json:"Transaction-Id" validate:"required"`
+	TransactionID *string
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
 }
 
 // NewGetAttachmentOptions : Instantiate GetAttachmentOptions
-func (*ConfigurationGovernanceV1) NewGetAttachmentOptions(ruleID string, attachmentID string, transactionID string) *GetAttachmentOptions {
+func (*ConfigurationGovernanceV1) NewGetAttachmentOptions(ruleID string, attachmentID string) *GetAttachmentOptions {
 	return &GetAttachmentOptions{
 		RuleID: core.StringPtr(ruleID),
 		AttachmentID: core.StringPtr(attachmentID),
-		TransactionID: core.StringPtr(transactionID),
 	}
 }
 
@@ -1405,25 +1400,24 @@ func (options *GetAttachmentOptions) SetHeaders(param map[string]string) *GetAtt
 // GetRuleOptions : The GetRule options.
 type GetRuleOptions struct {
 	// The UUID that uniquely identifies the rule.
-	RuleID *string `json:"rule_id" validate:"required,ne="`
+	RuleID *string `validate:"required,ne="`
 
 	// The unique identifier that is used to trace an entire request. If you omit this field, the service generates and
-	// sends a transaction ID in the
-	// `trace` field of the response body.
+	// sends a transaction ID as a response header of the request. In the case of an error, the transaction ID is set in
+	// the `trace` field of the response body.
 	//
 	// **Note:** To help with debugging logs, it is strongly recommended that you generate and supply a `Transaction-Id`
 	// with each request.
-	TransactionID *string `json:"Transaction-Id" validate:"required"`
+	TransactionID *string
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
 }
 
 // NewGetRuleOptions : Instantiate GetRuleOptions
-func (*ConfigurationGovernanceV1) NewGetRuleOptions(ruleID string, transactionID string) *GetRuleOptions {
+func (*ConfigurationGovernanceV1) NewGetRuleOptions(ruleID string) *GetRuleOptions {
 	return &GetRuleOptions{
 		RuleID: core.StringPtr(ruleID),
-		TransactionID: core.StringPtr(transactionID),
 	}
 }
 
@@ -1466,39 +1460,38 @@ func UnmarshalLink(m map[string]json.RawMessage, result interface{}) (err error)
 // ListAttachmentsOptions : The ListAttachments options.
 type ListAttachmentsOptions struct {
 	// The UUID that uniquely identifies the rule.
-	RuleID *string `json:"rule_id" validate:"required,ne="`
+	RuleID *string `validate:"required,ne="`
 
 	// The unique identifier that is used to trace an entire request. If you omit this field, the service generates and
-	// sends a transaction ID in the
-	// `trace` field of the response body.
+	// sends a transaction ID as a response header of the request. In the case of an error, the transaction ID is set in
+	// the `trace` field of the response body.
 	//
 	// **Note:** To help with debugging logs, it is strongly recommended that you generate and supply a `Transaction-Id`
 	// with each request.
-	TransactionID *string `json:"Transaction-Id" validate:"required"`
+	TransactionID *string
 
 	// The number of resources to retrieve. By default, list operations return the first 100 items. To retrieve a different
 	// set of items, use `limit` with `offset` to page through your available resources.
 	//
 	// **Usage:** If you have 20 rules, and you want to retrieve only the first 5 rules, use
 	// `../rules?account_id={account_id}&limit=5`.
-	Limit *int64 `json:"limit,omitempty"`
+	Limit *int64
 
 	// The number of resources to skip. By specifying `offset`, you retrieve a subset of resources that starts with the
 	// `offset` value. Use `offset` with `limit` to page through your available resources.
 	//
 	// **Usage:** If you have 100 rules, and you want to retrieve rules 26 through 50, use
 	// `../rules?account_id={account_id}&offset=25&limit=5`.
-	Offset *int64 `json:"offset,omitempty"`
+	Offset *int64
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
 }
 
 // NewListAttachmentsOptions : Instantiate ListAttachmentsOptions
-func (*ConfigurationGovernanceV1) NewListAttachmentsOptions(ruleID string, transactionID string) *ListAttachmentsOptions {
+func (*ConfigurationGovernanceV1) NewListAttachmentsOptions(ruleID string) *ListAttachmentsOptions {
 	return &ListAttachmentsOptions{
 		RuleID: core.StringPtr(ruleID),
-		TransactionID: core.StringPtr(transactionID),
 	}
 }
 
@@ -1534,61 +1527,60 @@ func (options *ListAttachmentsOptions) SetHeaders(param map[string]string) *List
 
 // ListRulesOptions : The ListRules options.
 type ListRulesOptions struct {
+	// Your IBM Cloud account ID.
+	AccountID *string `validate:"required"`
+
 	// The unique identifier that is used to trace an entire request. If you omit this field, the service generates and
-	// sends a transaction ID in the
-	// `trace` field of the response body.
+	// sends a transaction ID as a response header of the request. In the case of an error, the transaction ID is set in
+	// the `trace` field of the response body.
 	//
 	// **Note:** To help with debugging logs, it is strongly recommended that you generate and supply a `Transaction-Id`
 	// with each request.
-	TransactionID *string `json:"Transaction-Id" validate:"required"`
-
-	// Your IBM Cloud account ID.
-	AccountID *string `json:"account_id" validate:"required"`
+	TransactionID *string
 
 	// Retrieves a list of rules that have scope attachments.
-	Attached *bool `json:"attached,omitempty"`
+	Attached *bool
 
 	// Retrieves a list of rules that match the labels that you specify.
-	Labels *string `json:"labels,omitempty"`
+	Labels *string
 
 	// Retrieves a list of rules that match the scope ID that you specify.
-	Scopes *string `json:"scopes,omitempty"`
+	Scopes *string
 
 	// The number of resources to retrieve. By default, list operations return the first 100 items. To retrieve a different
 	// set of items, use `limit` with `offset` to page through your available resources.
 	//
 	// **Usage:** If you have 20 rules, and you want to retrieve only the first 5 rules, use
 	// `../rules?account_id={account_id}&limit=5`.
-	Limit *int64 `json:"limit,omitempty"`
+	Limit *int64
 
 	// The number of resources to skip. By specifying `offset`, you retrieve a subset of resources that starts with the
 	// `offset` value. Use `offset` with `limit` to page through your available resources.
 	//
 	// **Usage:** If you have 100 rules, and you want to retrieve rules 26 through 50, use
 	// `../rules?account_id={account_id}&offset=25&limit=5`.
-	Offset *int64 `json:"offset,omitempty"`
+	Offset *int64
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
 }
 
 // NewListRulesOptions : Instantiate ListRulesOptions
-func (*ConfigurationGovernanceV1) NewListRulesOptions(transactionID string, accountID string) *ListRulesOptions {
+func (*ConfigurationGovernanceV1) NewListRulesOptions(accountID string) *ListRulesOptions {
 	return &ListRulesOptions{
-		TransactionID: core.StringPtr(transactionID),
 		AccountID: core.StringPtr(accountID),
 	}
-}
-
-// SetTransactionID : Allow user to set TransactionID
-func (options *ListRulesOptions) SetTransactionID(transactionID string) *ListRulesOptions {
-	options.TransactionID = core.StringPtr(transactionID)
-	return options
 }
 
 // SetAccountID : Allow user to set AccountID
 func (options *ListRulesOptions) SetAccountID(accountID string) *ListRulesOptions {
 	options.AccountID = core.StringPtr(accountID)
+	return options
+}
+
+// SetTransactionID : Allow user to set TransactionID
+func (options *ListRulesOptions) SetTransactionID(transactionID string) *ListRulesOptions {
+	options.TransactionID = core.StringPtr(transactionID)
 	return options
 }
 
@@ -2340,44 +2332,43 @@ func UnmarshalTargetResource(m map[string]json.RawMessage, result interface{}) (
 // UpdateAttachmentOptions : The UpdateAttachment options.
 type UpdateAttachmentOptions struct {
 	// The UUID that uniquely identifies the rule.
-	RuleID *string `json:"rule_id" validate:"required,ne="`
+	RuleID *string `validate:"required,ne="`
 
 	// The UUID that uniquely identifies the attachment.
-	AttachmentID *string `json:"attachment_id" validate:"required,ne="`
-
-	// The unique identifier that is used to trace an entire request. If you omit this field, the service generates and
-	// sends a transaction ID in the
-	// `trace` field of the response body.
-	//
-	// **Note:** To help with debugging logs, it is strongly recommended that you generate and supply a `Transaction-Id`
-	// with each request.
-	TransactionID *string `json:"Transaction-Id" validate:"required"`
+	AttachmentID *string `validate:"required,ne="`
 
 	// Compares a supplied `Etag` value with the version that is stored for the requested resource. If the values match,
 	// the server allows the request method to continue.
 	//
 	// To find the `Etag` value, run a GET request on the resource that you want to modify, and check the response headers.
-	IfMatch *string `json:"If-Match" validate:"required"`
+	IfMatch *string `validate:"required"`
 
 	// Your IBM Cloud account ID.
-	AccountID *string `json:"account_id" validate:"required"`
+	AccountID *string `validate:"required"`
 
 	// The extent at which the rule can be attached across your accounts.
-	IncludedScope *RuleScope `json:"included_scope" validate:"required"`
+	IncludedScope *RuleScope `validate:"required"`
 
 	// The extent at which the rule can be excluded from the included scope.
-	ExcludedScopes []RuleScope `json:"excluded_scopes,omitempty"`
+	ExcludedScopes []RuleScope
+
+	// The unique identifier that is used to trace an entire request. If you omit this field, the service generates and
+	// sends a transaction ID as a response header of the request. In the case of an error, the transaction ID is set in
+	// the `trace` field of the response body.
+	//
+	// **Note:** To help with debugging logs, it is strongly recommended that you generate and supply a `Transaction-Id`
+	// with each request.
+	TransactionID *string
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
 }
 
 // NewUpdateAttachmentOptions : Instantiate UpdateAttachmentOptions
-func (*ConfigurationGovernanceV1) NewUpdateAttachmentOptions(ruleID string, attachmentID string, transactionID string, ifMatch string, accountID string, includedScope *RuleScope) *UpdateAttachmentOptions {
+func (*ConfigurationGovernanceV1) NewUpdateAttachmentOptions(ruleID string, attachmentID string, ifMatch string, accountID string, includedScope *RuleScope) *UpdateAttachmentOptions {
 	return &UpdateAttachmentOptions{
 		RuleID: core.StringPtr(ruleID),
 		AttachmentID: core.StringPtr(attachmentID),
-		TransactionID: core.StringPtr(transactionID),
 		IfMatch: core.StringPtr(ifMatch),
 		AccountID: core.StringPtr(accountID),
 		IncludedScope: includedScope,
@@ -2393,12 +2384,6 @@ func (options *UpdateAttachmentOptions) SetRuleID(ruleID string) *UpdateAttachme
 // SetAttachmentID : Allow user to set AttachmentID
 func (options *UpdateAttachmentOptions) SetAttachmentID(attachmentID string) *UpdateAttachmentOptions {
 	options.AttachmentID = core.StringPtr(attachmentID)
-	return options
-}
-
-// SetTransactionID : Allow user to set TransactionID
-func (options *UpdateAttachmentOptions) SetTransactionID(transactionID string) *UpdateAttachmentOptions {
-	options.TransactionID = core.StringPtr(transactionID)
 	return options
 }
 
@@ -2426,6 +2411,12 @@ func (options *UpdateAttachmentOptions) SetExcludedScopes(excludedScopes []RuleS
 	return options
 }
 
+// SetTransactionID : Allow user to set TransactionID
+func (options *UpdateAttachmentOptions) SetTransactionID(transactionID string) *UpdateAttachmentOptions {
+	options.TransactionID = core.StringPtr(transactionID)
+	return options
+}
+
 // SetHeaders : Allow user to set Headers
 func (options *UpdateAttachmentOptions) SetHeaders(param map[string]string) *UpdateAttachmentOptions {
 	options.Headers = param
@@ -2435,47 +2426,47 @@ func (options *UpdateAttachmentOptions) SetHeaders(param map[string]string) *Upd
 // UpdateRuleOptions : The UpdateRule options.
 type UpdateRuleOptions struct {
 	// The UUID that uniquely identifies the rule.
-	RuleID *string `json:"rule_id" validate:"required,ne="`
-
-	// The unique identifier that is used to trace an entire request. If you omit this field, the service generates and
-	// sends a transaction ID in the
-	// `trace` field of the response body.
-	//
-	// **Note:** To help with debugging logs, it is strongly recommended that you generate and supply a `Transaction-Id`
-	// with each request.
-	TransactionID *string `json:"Transaction-Id" validate:"required"`
+	RuleID *string `validate:"required,ne="`
 
 	// Compares a supplied `Etag` value with the version that is stored for the requested resource. If the values match,
 	// the server allows the request method to continue.
 	//
 	// To find the `Etag` value, run a GET request on the resource that you want to modify, and check the response headers.
-	IfMatch *string `json:"If-Match" validate:"required"`
+	IfMatch *string `validate:"required"`
 
 	// A human-readable alias to assign to your rule.
-	Name *string `json:"name" validate:"required"`
+	Name *string `validate:"required"`
 
 	// An extended description of your rule.
-	Description *string `json:"description" validate:"required"`
+	Description *string `validate:"required"`
 
 	// The properties that describe the resource that you want to target
 	// with the rule.
-	Target *TargetResource `json:"target" validate:"required"`
+	Target *TargetResource `validate:"required"`
 
-	RequiredConfig RuleRequiredConfigIntf `json:"required_config" validate:"required"`
+	RequiredConfig RuleRequiredConfigIntf `validate:"required"`
 
 	// The actions that the service must run on your behalf when a request to create or modify the target resource does not
 	// comply with your conditions.
-	EnforcementActions []EnforcementAction `json:"enforcement_actions" validate:"required"`
+	EnforcementActions []EnforcementAction `validate:"required"`
 
 	// Your IBM Cloud account ID.
-	AccountID *string `json:"account_id,omitempty"`
+	AccountID *string
 
 	// The type of rule. Rules that you create are `user_defined`.
-	RuleType *string `json:"rule_type,omitempty"`
+	RuleType *string
 
 	// Labels that you can use to group and search for similar rules, such as those that help you to meet a specific
 	// organization guideline.
-	Labels []string `json:"labels,omitempty"`
+	Labels []string
+
+	// The unique identifier that is used to trace an entire request. If you omit this field, the service generates and
+	// sends a transaction ID as a response header of the request. In the case of an error, the transaction ID is set in
+	// the `trace` field of the response body.
+	//
+	// **Note:** To help with debugging logs, it is strongly recommended that you generate and supply a `Transaction-Id`
+	// with each request.
+	TransactionID *string
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -2488,10 +2479,9 @@ const (
 )
 
 // NewUpdateRuleOptions : Instantiate UpdateRuleOptions
-func (*ConfigurationGovernanceV1) NewUpdateRuleOptions(ruleID string, transactionID string, ifMatch string, name string, description string, target *TargetResource, requiredConfig RuleRequiredConfigIntf, enforcementActions []EnforcementAction) *UpdateRuleOptions {
+func (*ConfigurationGovernanceV1) NewUpdateRuleOptions(ruleID string, ifMatch string, name string, description string, target *TargetResource, requiredConfig RuleRequiredConfigIntf, enforcementActions []EnforcementAction) *UpdateRuleOptions {
 	return &UpdateRuleOptions{
 		RuleID: core.StringPtr(ruleID),
-		TransactionID: core.StringPtr(transactionID),
 		IfMatch: core.StringPtr(ifMatch),
 		Name: core.StringPtr(name),
 		Description: core.StringPtr(description),
@@ -2504,12 +2494,6 @@ func (*ConfigurationGovernanceV1) NewUpdateRuleOptions(ruleID string, transactio
 // SetRuleID : Allow user to set RuleID
 func (options *UpdateRuleOptions) SetRuleID(ruleID string) *UpdateRuleOptions {
 	options.RuleID = core.StringPtr(ruleID)
-	return options
-}
-
-// SetTransactionID : Allow user to set TransactionID
-func (options *UpdateRuleOptions) SetTransactionID(transactionID string) *UpdateRuleOptions {
-	options.TransactionID = core.StringPtr(transactionID)
 	return options
 }
 
@@ -2564,6 +2548,12 @@ func (options *UpdateRuleOptions) SetRuleType(ruleType string) *UpdateRuleOption
 // SetLabels : Allow user to set Labels
 func (options *UpdateRuleOptions) SetLabels(labels []string) *UpdateRuleOptions {
 	options.Labels = labels
+	return options
+}
+
+// SetTransactionID : Allow user to set TransactionID
+func (options *UpdateRuleOptions) SetTransactionID(transactionID string) *UpdateRuleOptions {
+	options.TransactionID = core.StringPtr(transactionID)
 	return options
 }
 

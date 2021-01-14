@@ -1,7 +1,7 @@
 // +build examples
 
 /**
- * (C) Copyright IBM Corp. 2020.
+ * (C) Copyright IBM Corp. 2020, 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -160,7 +160,6 @@ var _ = Describe(`ConfigurationGovernanceV1 Examples Tests`, func() {
 			}
 
 			createRulesOptions := configurationGovernanceService.NewCreateRulesOptions(
-				transactionID,
 				[]configurationgovernancev1.CreateRuleRequest{
 					configurationgovernancev1.CreateRuleRequest{
 						Rule: ruleRequestModel,
@@ -200,10 +199,7 @@ var _ = Describe(`ConfigurationGovernanceV1 Examples Tests`, func() {
 		It(`ListRules request example`, func() {
 			// begin-list_rules
 
-			listRulesOptions := configurationGovernanceService.NewListRulesOptions(
-				transactionID,
-				accountID,
-			)
+			listRulesOptions := configurationGovernanceService.NewListRulesOptions(accountID)
 			listRulesOptions.SetLabels("test_label")
 			listRulesOptions.SetTransactionID(uuid.New().String())
 
@@ -226,10 +222,7 @@ var _ = Describe(`ConfigurationGovernanceV1 Examples Tests`, func() {
 
 			// begin-get_rule
 
-			getRuleOptions := configurationGovernanceService.NewGetRuleOptions(
-				ruleIDLink,
-				transactionID,
-			)
+			getRuleOptions := configurationGovernanceService.NewGetRuleOptions(ruleIDLink)
 			getRuleOptions.SetTransactionID(uuid.New().String())
 
 			rule, response, err := configurationGovernanceService.GetRule(getRuleOptions)
@@ -262,7 +255,6 @@ var _ = Describe(`ConfigurationGovernanceV1 Examples Tests`, func() {
 			// Update the existing rule's description.
 			updateRuleOptions := configurationGovernanceService.NewUpdateRuleOptions(
 				ruleIDLink,
-				transactionID,
 				ruleToUpdateEtagLink,
 				*ruleToUpdateLink.Name,
 				"This is an updated description.",
@@ -312,7 +304,6 @@ var _ = Describe(`ConfigurationGovernanceV1 Examples Tests`, func() {
 
 			createAttachmentsOptions := configurationGovernanceService.NewCreateAttachmentsOptions(
 				ruleIDLink,
-				transactionID,
 				[]configurationgovernancev1.AttachmentRequest{
 					createAttachmentRequest,
 				},
@@ -344,10 +335,7 @@ var _ = Describe(`ConfigurationGovernanceV1 Examples Tests`, func() {
 
 			// begin-list_attachments
 
-			listAttachmentsOptions := configurationGovernanceService.NewListAttachmentsOptions(
-				ruleIDLink,
-				transactionID,
-			)
+			listAttachmentsOptions := configurationGovernanceService.NewListAttachmentsOptions(ruleIDLink)
 			listAttachmentsOptions.SetTransactionID(uuid.New().String())
 
 			attachmentList, response, err := configurationGovernanceService.ListAttachments(listAttachmentsOptions)
@@ -372,7 +360,6 @@ var _ = Describe(`ConfigurationGovernanceV1 Examples Tests`, func() {
 			getAttachmentOptions := configurationGovernanceService.NewGetAttachmentOptions(
 				ruleIDLink,
 				attachmentIDLink,
-				transactionID,
 			)
 			getAttachmentOptions.SetTransactionID(uuid.New().String())
 
@@ -413,7 +400,6 @@ var _ = Describe(`ConfigurationGovernanceV1 Examples Tests`, func() {
 			updateAttachmentOptions := configurationGovernanceService.NewUpdateAttachmentOptions(
 				ruleIDLink,
 				attachmentIDLink,
-				transactionID,
 				attachmentToUpdateEtagLink,
 				*attachmentToUpdateLink.AccountID,
 				updatedIncludedScope,
@@ -443,7 +429,6 @@ var _ = Describe(`ConfigurationGovernanceV1 Examples Tests`, func() {
 			deleteAttachmentOptions := configurationGovernanceService.NewDeleteAttachmentOptions(
 				ruleIDLink,
 				attachmentIDLink,
-				transactionID,
 			)
 
 			response, err := configurationGovernanceService.DeleteAttachment(deleteAttachmentOptions)
@@ -463,10 +448,7 @@ var _ = Describe(`ConfigurationGovernanceV1 Examples Tests`, func() {
 
 			// begin-delete_rule
 
-			deleteRuleOptions := configurationGovernanceService.NewDeleteRuleOptions(
-				ruleIDLink,
-				transactionID,
-			)
+			deleteRuleOptions := configurationGovernanceService.NewDeleteRuleOptions(ruleIDLink)
 
 			response, err := configurationGovernanceService.DeleteRule(deleteRuleOptions)
 			if err != nil {
