@@ -1,5 +1,5 @@
 /**
- * (C) Copyright IBM Corp. 2020.
+ * (C) Copyright IBM Corp. 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,9 +15,8 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-d753183b-20201209-163011
+ * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-a8493a65-20210115-083246
  */
- 
 
 // Package globaltaggingv1 : Operations and models for the GlobalTaggingV1 service
 package globaltaggingv1
@@ -26,21 +25,23 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"github.com/IBM/go-sdk-core/v4/core"
-	common "github.com/IBM/platform-services-go-sdk/common"
 	"net/http"
 	"reflect"
 	"strings"
 	"time"
+
+	"github.com/IBM/go-sdk-core/v4/core"
+	common "github.com/IBM/platform-services-go-sdk/common"
 )
 
 // GlobalTaggingV1 : Manage your tags with the Tagging API in IBM Cloud. You can attach, detach, delete a tag or list
 // all tags in your billing account with the Tagging API. The tag name must be unique within a billing account. You can
-// create tags in two formats: `key:value` or `label`. The tagging API supports two types of tag: `user` and `service`.
-// `service` tags cannot be attached to IMS resources (see `providers=ims` query parameter). `service` tags must be in
-// the form `service_prefix:tag_label` where `service_prefix` identifies the Service owning the tag.
+// create tags in two formats: `key:value` or `label`. The tagging API supports three types of tag: `user` `service`,
+// and `access` tags. `service` tags cannot be attached to IMS resources. `service` tags must be in the form
+// `service_prefix:tag_label` where `service_prefix` identifies the Service owning the tag. `access` tags cannot be
+// attached to IMS and Cloud Foundry resources. They must be in the form `key:value`.
 //
-// Version: 1.1.0
+// Version: 1.2.0
 type GlobalTaggingV1 struct {
 	Service *core.BaseService
 }
@@ -196,6 +197,9 @@ func (globalTagging *GlobalTaggingV1) ListTagsWithContext(ctx context.Context, l
 	}
 	builder.AddHeader("Accept", "application/json")
 
+	if listTagsOptions.ImpersonateUser != nil {
+		builder.AddQuery("impersonate_user", fmt.Sprint(*listTagsOptions.ImpersonateUser))
+	}
 	if listTagsOptions.AccountID != nil {
 		builder.AddQuery("account_id", fmt.Sprint(*listTagsOptions.AccountID))
 	}
@@ -246,6 +250,82 @@ func (globalTagging *GlobalTaggingV1) ListTagsWithContext(ctx context.Context, l
 	return
 }
 
+// CreateTag : Create an access tag
+// Create an access tag. To create an `access` tag, you must have the access listed in the [Granting users access to tag
+// resources](https://cloud.ibm.com/docs/account?topic=account-access) documentation. `service` and `user` tags cannot
+// be created upfront. They are created when they are attached for the first time to a resource.
+func (globalTagging *GlobalTaggingV1) CreateTag(createTagOptions *CreateTagOptions) (result *CreateTagResults, response *core.DetailedResponse, err error) {
+	return globalTagging.CreateTagWithContext(context.Background(), createTagOptions)
+}
+
+// CreateTagWithContext is an alternate form of the CreateTag method which supports a Context parameter
+func (globalTagging *GlobalTaggingV1) CreateTagWithContext(ctx context.Context, createTagOptions *CreateTagOptions) (result *CreateTagResults, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(createTagOptions, "createTagOptions cannot be nil")
+	if err != nil {
+		return
+	}
+	err = core.ValidateStruct(createTagOptions, "createTagOptions")
+	if err != nil {
+		return
+	}
+
+	builder := core.NewRequestBuilder(core.POST)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = globalTagging.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(globalTagging.Service.Options.URL, `/v3/tags`, nil)
+	if err != nil {
+		return
+	}
+
+	for headerName, headerValue := range createTagOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("global_tagging", "V1", "CreateTag")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Accept", "application/json")
+	builder.AddHeader("Content-Type", "application/json")
+
+	if createTagOptions.ImpersonateUser != nil {
+		builder.AddQuery("impersonate_user", fmt.Sprint(*createTagOptions.ImpersonateUser))
+	}
+	if createTagOptions.AccountID != nil {
+		builder.AddQuery("account_id", fmt.Sprint(*createTagOptions.AccountID))
+	}
+	if createTagOptions.TagType != nil {
+		builder.AddQuery("tag_type", fmt.Sprint(*createTagOptions.TagType))
+	}
+
+	body := make(map[string]interface{})
+	if createTagOptions.TagNames != nil {
+		body["tag_names"] = createTagOptions.TagNames
+	}
+	_, err = builder.SetBodyContentJSON(body)
+	if err != nil {
+		return
+	}
+
+	request, err := builder.Build()
+	if err != nil {
+		return
+	}
+
+	var rawResponse map[string]json.RawMessage
+	response, err = globalTagging.Service.Request(request, &rawResponse)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalCreateTagResults)
+	if err != nil {
+		return
+	}
+	response.Result = result
+
+	return
+}
+
 // DeleteTagAll : Delete all unused tags
 // Delete the tags that are not attached to any resource.
 func (globalTagging *GlobalTaggingV1) DeleteTagAll(deleteTagAllOptions *DeleteTagAllOptions) (result *DeleteTagsResult, response *core.DetailedResponse, err error) {
@@ -279,6 +359,9 @@ func (globalTagging *GlobalTaggingV1) DeleteTagAllWithContext(ctx context.Contex
 
 	if deleteTagAllOptions.Providers != nil {
 		builder.AddQuery("providers", fmt.Sprint(*deleteTagAllOptions.Providers))
+	}
+	if deleteTagAllOptions.ImpersonateUser != nil {
+		builder.AddQuery("impersonate_user", fmt.Sprint(*deleteTagAllOptions.ImpersonateUser))
 	}
 	if deleteTagAllOptions.AccountID != nil {
 		builder.AddQuery("account_id", fmt.Sprint(*deleteTagAllOptions.AccountID))
@@ -348,6 +431,9 @@ func (globalTagging *GlobalTaggingV1) DeleteTagWithContext(ctx context.Context, 
 	if deleteTagOptions.Providers != nil {
 		builder.AddQuery("providers", strings.Join(deleteTagOptions.Providers, ","))
 	}
+	if deleteTagOptions.ImpersonateUser != nil {
+		builder.AddQuery("impersonate_user", fmt.Sprint(*deleteTagOptions.ImpersonateUser))
+	}
 	if deleteTagOptions.AccountID != nil {
 		builder.AddQuery("account_id", fmt.Sprint(*deleteTagOptions.AccountID))
 	}
@@ -379,7 +465,8 @@ func (globalTagging *GlobalTaggingV1) DeleteTagWithContext(ctx context.Context, 
 // listed in the [Granting users access to tag resources](https://cloud.ibm.com/docs/account?topic=account-access)
 // documentation. To attach a `service` tag, you must be an authorized service. If that is the case, then you can attach
 // a `service` tag with your registered `prefix` to any resource in any account. The account ID must be set through the
-// `account_id` query parameter.
+// `account_id` query parameter. To attach an `access` tag, you must be the resource administrator within the account.
+// You can attach only `access` tags already existing.
 func (globalTagging *GlobalTaggingV1) AttachTag(attachTagOptions *AttachTagOptions) (result *TagResults, response *core.DetailedResponse, err error) {
 	return globalTagging.AttachTagWithContext(context.Background(), attachTagOptions)
 }
@@ -414,6 +501,9 @@ func (globalTagging *GlobalTaggingV1) AttachTagWithContext(ctx context.Context, 
 	builder.AddHeader("Accept", "application/json")
 	builder.AddHeader("Content-Type", "application/json")
 
+	if attachTagOptions.ImpersonateUser != nil {
+		builder.AddQuery("impersonate_user", fmt.Sprint(*attachTagOptions.ImpersonateUser))
+	}
 	if attachTagOptions.AccountID != nil {
 		builder.AddQuery("account_id", fmt.Sprint(*attachTagOptions.AccountID))
 	}
@@ -460,7 +550,8 @@ func (globalTagging *GlobalTaggingV1) AttachTagWithContext(ctx context.Context, 
 // permissions listed in the [Granting users access to tag
 // resources](https://cloud.ibm.com/docs/account?topic=account-access) documentation. To detach a `service` tag you must
 // be an authorized Service. If that is the case, then you can detach a `service` tag with your registered `prefix` from
-// any resource in any account. The account ID must be set through the `account_id` query parameter.
+// any resource in any account. The account ID must be set through the `account_id` query parameter. To detach an
+// `access` tag, you must be the resource administrator within the account.
 func (globalTagging *GlobalTaggingV1) DetachTag(detachTagOptions *DetachTagOptions) (result *TagResults, response *core.DetailedResponse, err error) {
 	return globalTagging.DetachTagWithContext(context.Background(), detachTagOptions)
 }
@@ -495,6 +586,9 @@ func (globalTagging *GlobalTaggingV1) DetachTagWithContext(ctx context.Context, 
 	builder.AddHeader("Accept", "application/json")
 	builder.AddHeader("Content-Type", "application/json")
 
+	if detachTagOptions.ImpersonateUser != nil {
+		builder.AddQuery("impersonate_user", fmt.Sprint(*detachTagOptions.ImpersonateUser))
+	}
 	if detachTagOptions.AccountID != nil {
 		builder.AddQuery("account_id", fmt.Sprint(*detachTagOptions.AccountID))
 	}
@@ -539,32 +633,36 @@ func (globalTagging *GlobalTaggingV1) DetachTagWithContext(ctx context.Context, 
 // AttachTagOptions : The AttachTag options.
 type AttachTagOptions struct {
 	// List of resources on which the tag or tags should be attached.
-	Resources []Resource `json:"resources" validate:"required"`
+	Resources []Resource `validate:"required"`
 
 	// The name of the tag to attach.
-	TagName *string `json:"tag_name,omitempty"`
+	TagName *string
 
 	// An array of tag names to attach.
-	TagNames []string `json:"tag_names,omitempty"`
+	TagNames []string
+
+	// The user on whose behalf the attach operation must be performed (_for administrators only_).
+	ImpersonateUser *string
 
 	// The ID of the billing account where the resources to be tagged lives. It is a required parameter if `tag_type` is
 	// set to `service`. Otherwise, it is inferred from the authorization IAM token.
-	AccountID *string `json:"account_id,omitempty"`
+	AccountID *string
 
-	// The type of the tag. Supported values are `user` and `service`. `service` is not supported if `providers` is set to
-	// `ims`.
-	TagType *string `json:"tag_type,omitempty"`
+	// The type of the tag. Supported values are `user`, `service` and `access`. `service` and `access` are not supported
+	// for IMS resources.
+	TagType *string
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
 }
 
 // Constants associated with the AttachTagOptions.TagType property.
-// The type of the tag. Supported values are `user` and `service`. `service` is not supported if `providers` is set to
-// `ims`.
+// The type of the tag. Supported values are `user`, `service` and `access`. `service` and `access` are not supported
+// for IMS resources.
 const (
+	AttachTagOptionsTagTypeAccessConst  = "access"
 	AttachTagOptionsTagTypeServiceConst = "service"
-	AttachTagOptionsTagTypeUserConst = "user"
+	AttachTagOptionsTagTypeUserConst    = "user"
 )
 
 // NewAttachTagOptions : Instantiate AttachTagOptions
@@ -592,6 +690,12 @@ func (options *AttachTagOptions) SetTagNames(tagNames []string) *AttachTagOption
 	return options
 }
 
+// SetImpersonateUser : Allow user to set ImpersonateUser
+func (options *AttachTagOptions) SetImpersonateUser(impersonateUser string) *AttachTagOptions {
+	options.ImpersonateUser = core.StringPtr(impersonateUser)
+	return options
+}
+
 // SetAccountID : Allow user to set AccountID
 func (options *AttachTagOptions) SetAccountID(accountID string) *AttachTagOptions {
 	options.AccountID = core.StringPtr(accountID)
@@ -610,18 +714,124 @@ func (options *AttachTagOptions) SetHeaders(param map[string]string) *AttachTagO
 	return options
 }
 
+// CreateTagOptions : The CreateTag options.
+type CreateTagOptions struct {
+	// An array of tag names to create.
+	TagNames []string `validate:"required"`
+
+	// The user on whose behalf the create operation must be performed (_for administrators only_).
+	ImpersonateUser *string
+
+	// The ID of the billing account where the tag must be created. It is a required parameter if `impersonate_user` is
+	// set.
+	AccountID *string
+
+	// The type of the tags you want to create. The only allowed value is `access`.
+	TagType *string
+
+	// Allows users to set headers on API requests
+	Headers map[string]string
+}
+
+// Constants associated with the CreateTagOptions.TagType property.
+// The type of the tags you want to create. The only allowed value is `access`.
+const (
+	CreateTagOptionsTagTypeAccessConst = "access"
+)
+
+// NewCreateTagOptions : Instantiate CreateTagOptions
+func (*GlobalTaggingV1) NewCreateTagOptions(tagNames []string) *CreateTagOptions {
+	return &CreateTagOptions{
+		TagNames: tagNames,
+	}
+}
+
+// SetTagNames : Allow user to set TagNames
+func (options *CreateTagOptions) SetTagNames(tagNames []string) *CreateTagOptions {
+	options.TagNames = tagNames
+	return options
+}
+
+// SetImpersonateUser : Allow user to set ImpersonateUser
+func (options *CreateTagOptions) SetImpersonateUser(impersonateUser string) *CreateTagOptions {
+	options.ImpersonateUser = core.StringPtr(impersonateUser)
+	return options
+}
+
+// SetAccountID : Allow user to set AccountID
+func (options *CreateTagOptions) SetAccountID(accountID string) *CreateTagOptions {
+	options.AccountID = core.StringPtr(accountID)
+	return options
+}
+
+// SetTagType : Allow user to set TagType
+func (options *CreateTagOptions) SetTagType(tagType string) *CreateTagOptions {
+	options.TagType = core.StringPtr(tagType)
+	return options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *CreateTagOptions) SetHeaders(param map[string]string) *CreateTagOptions {
+	options.Headers = param
+	return options
+}
+
+// CreateTagResults : Results of a create tag(s) request.
+type CreateTagResults struct {
+	// Array of results of an set_tags request.
+	Results []CreateTagResultsResultsItem `json:"results,omitempty"`
+}
+
+// UnmarshalCreateTagResults unmarshals an instance of CreateTagResults from the specified map of raw messages.
+func UnmarshalCreateTagResults(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(CreateTagResults)
+	err = core.UnmarshalModel(m, "results", &obj.Results, UnmarshalCreateTagResultsResultsItem)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// CreateTagResultsResultsItem : CreateTagResultsResultsItem struct
+type CreateTagResultsResultsItem struct {
+	// The name of the tag created.
+	TagName *string `json:"tag_name,omitempty"`
+
+	// true if the tag was not created.
+	IsError *bool `json:"is_error,omitempty"`
+}
+
+// UnmarshalCreateTagResultsResultsItem unmarshals an instance of CreateTagResultsResultsItem from the specified map of raw messages.
+func UnmarshalCreateTagResultsResultsItem(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(CreateTagResultsResultsItem)
+	err = core.UnmarshalPrimitive(m, "tag_name", &obj.TagName)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "is_error", &obj.IsError)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
 // DeleteTagAllOptions : The DeleteTagAll options.
 type DeleteTagAllOptions struct {
 	// Select a provider. Supported values are `ghost` and `ims`.
-	Providers *string `json:"providers,omitempty"`
+	Providers *string
+
+	// The user on whose behalf the delete all operation must be performed (_for administrators only_).
+	ImpersonateUser *string
 
 	// The ID of the billing account to delete the tags for. If it is not set, then it is taken from the authorization
 	// token. It is a required parameter if `tag_type` is set to `service`.
-	AccountID *string `json:"account_id,omitempty"`
+	AccountID *string
 
-	// The type of the tag. Supported values are `user` and `service`. `service` is not supported if the `providers`
-	// parameter is set to `ims`.
-	TagType *string `json:"tag_type,omitempty"`
+	// The type of the tag. Supported values are `user`, `service` and `access`. `service` and `access` are not supported
+	// for IMS resources (`providers` parameter set to `ims`).
+	TagType *string
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -631,15 +841,16 @@ type DeleteTagAllOptions struct {
 // Select a provider. Supported values are `ghost` and `ims`.
 const (
 	DeleteTagAllOptionsProvidersGhostConst = "ghost"
-	DeleteTagAllOptionsProvidersImsConst = "ims"
+	DeleteTagAllOptionsProvidersImsConst   = "ims"
 )
 
 // Constants associated with the DeleteTagAllOptions.TagType property.
-// The type of the tag. Supported values are `user` and `service`. `service` is not supported if the `providers`
-// parameter is set to `ims`.
+// The type of the tag. Supported values are `user`, `service` and `access`. `service` and `access` are not supported
+// for IMS resources (`providers` parameter set to `ims`).
 const (
+	DeleteTagAllOptionsTagTypeAccessConst  = "access"
 	DeleteTagAllOptionsTagTypeServiceConst = "service"
-	DeleteTagAllOptionsTagTypeUserConst = "user"
+	DeleteTagAllOptionsTagTypeUserConst    = "user"
 )
 
 // NewDeleteTagAllOptions : Instantiate DeleteTagAllOptions
@@ -650,6 +861,12 @@ func (*GlobalTaggingV1) NewDeleteTagAllOptions() *DeleteTagAllOptions {
 // SetProviders : Allow user to set Providers
 func (options *DeleteTagAllOptions) SetProviders(providers string) *DeleteTagAllOptions {
 	options.Providers = core.StringPtr(providers)
+	return options
+}
+
+// SetImpersonateUser : Allow user to set ImpersonateUser
+func (options *DeleteTagAllOptions) SetImpersonateUser(impersonateUser string) *DeleteTagAllOptions {
+	options.ImpersonateUser = core.StringPtr(impersonateUser)
 	return options
 }
 
@@ -674,17 +891,21 @@ func (options *DeleteTagAllOptions) SetHeaders(param map[string]string) *DeleteT
 // DeleteTagOptions : The DeleteTag options.
 type DeleteTagOptions struct {
 	// The name of tag to be deleted.
-	TagName *string `json:"tag_name" validate:"required,ne="`
+	TagName *string `validate:"required,ne="`
 
 	// Select a provider. Supported values are `ghost` and `ims`. To delete tag both in GhoST in IMS, use `ghost,ims`.
-	Providers []string `json:"providers,omitempty"`
+	Providers []string
+
+	// The user on whose behalf the delete operation must be performed (_for administrators only_).
+	ImpersonateUser *string
 
 	// The ID of the billing account to delete the tag for. It is a required parameter if `tag_type` is set to `service`,
 	// otherwise it is inferred from the authorization IAM token.
-	AccountID *string `json:"account_id,omitempty"`
+	AccountID *string
 
-	// The type of the tag. Supported values are `user` and `service`. `service` is not supported for `providers=ims`.
-	TagType *string `json:"tag_type,omitempty"`
+	// The type of the tag. Supported values are `user`, `service` and `access`. `service` and `access` are not supported
+	// for IMS resources (`providers` parameter set to `ims`).
+	TagType *string
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -693,14 +914,16 @@ type DeleteTagOptions struct {
 // Constants associated with the DeleteTagOptions.Providers property.
 const (
 	DeleteTagOptionsProvidersGhostConst = "ghost"
-	DeleteTagOptionsProvidersImsConst = "ims"
+	DeleteTagOptionsProvidersImsConst   = "ims"
 )
 
 // Constants associated with the DeleteTagOptions.TagType property.
-// The type of the tag. Supported values are `user` and `service`. `service` is not supported for `providers=ims`.
+// The type of the tag. Supported values are `user`, `service` and `access`. `service` and `access` are not supported
+// for IMS resources (`providers` parameter set to `ims`).
 const (
+	DeleteTagOptionsTagTypeAccessConst  = "access"
 	DeleteTagOptionsTagTypeServiceConst = "service"
-	DeleteTagOptionsTagTypeUserConst = "user"
+	DeleteTagOptionsTagTypeUserConst    = "user"
 )
 
 // NewDeleteTagOptions : Instantiate DeleteTagOptions
@@ -719,6 +942,12 @@ func (options *DeleteTagOptions) SetTagName(tagName string) *DeleteTagOptions {
 // SetProviders : Allow user to set Providers
 func (options *DeleteTagOptions) SetProviders(providers []string) *DeleteTagOptions {
 	options.Providers = providers
+	return options
+}
+
+// SetImpersonateUser : Allow user to set ImpersonateUser
+func (options *DeleteTagOptions) SetImpersonateUser(impersonateUser string) *DeleteTagOptions {
+	options.ImpersonateUser = core.StringPtr(impersonateUser)
 	return options
 }
 
@@ -745,7 +974,6 @@ type DeleteTagResults struct {
 	// Array of results of a delete_tag request.
 	Results []DeleteTagResultsItem `json:"results,omitempty"`
 }
-
 
 // UnmarshalDeleteTagResults unmarshals an instance of DeleteTagResults from the specified map of raw messages.
 func UnmarshalDeleteTagResults(m map[string]json.RawMessage, result interface{}) (err error) {
@@ -774,9 +1002,8 @@ type DeleteTagResultsItem struct {
 // The provider of the tag.
 const (
 	DeleteTagResultsItemProviderGhostConst = "ghost"
-	DeleteTagResultsItemProviderImsConst = "ims"
+	DeleteTagResultsItemProviderImsConst   = "ims"
 )
-
 
 // SetProperty allows the user to set an arbitrary property on an instance of DeleteTagResultsItem
 func (o *DeleteTagResultsItem) SetProperty(key string, value interface{}) {
@@ -852,7 +1079,6 @@ type DeleteTagsResult struct {
 	Items []DeleteTagsResultItem `json:"items,omitempty"`
 }
 
-
 // UnmarshalDeleteTagsResult unmarshals an instance of DeleteTagsResult from the specified map of raw messages.
 func UnmarshalDeleteTagsResult(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(DeleteTagsResult)
@@ -881,7 +1107,6 @@ type DeleteTagsResultItem struct {
 	IsError *bool `json:"is_error,omitempty"`
 }
 
-
 // UnmarshalDeleteTagsResultItem unmarshals an instance of DeleteTagsResultItem from the specified map of raw messages.
 func UnmarshalDeleteTagsResultItem(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(DeleteTagsResultItem)
@@ -900,30 +1125,36 @@ func UnmarshalDeleteTagsResultItem(m map[string]json.RawMessage, result interfac
 // DetachTagOptions : The DetachTag options.
 type DetachTagOptions struct {
 	// List of resources on which the tag or tags should be detached.
-	Resources []Resource `json:"resources" validate:"required"`
+	Resources []Resource `validate:"required"`
 
 	// The name of the tag to detach.
-	TagName *string `json:"tag_name,omitempty"`
+	TagName *string
 
 	// An array of tag names to detach.
-	TagNames []string `json:"tag_names,omitempty"`
+	TagNames []string
+
+	// The user on whose behalf the detach operation must be performed (_for administrators only_).
+	ImpersonateUser *string
 
 	// The ID of the billing account where the resources to be un-tagged lives. It is a required parameter if `tag_type` is
 	// set to `service`, otherwise it is inferred from the authorization IAM token.
-	AccountID *string `json:"account_id,omitempty"`
+	AccountID *string
 
-	// The type of the tag. Supported values are `user` and `service`. `service` is not supported for `providers=ims`.
-	TagType *string `json:"tag_type,omitempty"`
+	// The type of the tag. Supported values are `user`, `service` and `access`. `service` and `access` are not supported
+	// for IMS resources.
+	TagType *string
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
 }
 
 // Constants associated with the DetachTagOptions.TagType property.
-// The type of the tag. Supported values are `user` and `service`. `service` is not supported for `providers=ims`.
+// The type of the tag. Supported values are `user`, `service` and `access`. `service` and `access` are not supported
+// for IMS resources.
 const (
+	DetachTagOptionsTagTypeAccessConst  = "access"
 	DetachTagOptionsTagTypeServiceConst = "service"
-	DetachTagOptionsTagTypeUserConst = "user"
+	DetachTagOptionsTagTypeUserConst    = "user"
 )
 
 // NewDetachTagOptions : Instantiate DetachTagOptions
@@ -951,6 +1182,12 @@ func (options *DetachTagOptions) SetTagNames(tagNames []string) *DetachTagOption
 	return options
 }
 
+// SetImpersonateUser : Allow user to set ImpersonateUser
+func (options *DetachTagOptions) SetImpersonateUser(impersonateUser string) *DetachTagOptions {
+	options.ImpersonateUser = core.StringPtr(impersonateUser)
+	return options
+}
+
 // SetAccountID : Allow user to set AccountID
 func (options *DetachTagOptions) SetAccountID(accountID string) *DetachTagOptions {
 	options.AccountID = core.StringPtr(accountID)
@@ -971,71 +1208,81 @@ func (options *DetachTagOptions) SetHeaders(param map[string]string) *DetachTagO
 
 // ListTagsOptions : The ListTags options.
 type ListTagsOptions struct {
+	// The user on whose behalf the get operation must be performed (_for administrators only_).
+	ImpersonateUser *string
+
 	// The ID of the billing account to list the tags for. If it is not set, then it is taken from the authorization token.
 	// This parameter is required if `tag_type` is set to `service`.
-	AccountID *string `json:"account_id,omitempty"`
+	AccountID *string
 
-	// The type of the tag you want to list. Supported values are `user` and `service`.
-	TagType *string `json:"tag_type,omitempty"`
+	// The type of the tag you want to list. Supported values are `user`, `service` and `access`.
+	TagType *string
 
 	// If set to `true`, this query returns the provider, `ghost`, `ims` or `ghost,ims`, where the tag exists and the
 	// number of attached resources.
-	FullData *bool `json:"full_data,omitempty"`
+	FullData *bool
 
 	// Select a provider. Supported values are `ghost` and `ims`. To list GhoST tags and infrastructure tags use
-	// `ghost,ims`. `service` tags can only be attached to GhoST onboarded resources, so you don't need to set this
-	// parameter when listing `service` tags.
-	Providers []string `json:"providers,omitempty"`
+	// `ghost,ims`. `service` and `access` tags can only be attached to GhoST onboarded resources, so you should not set
+	// this parameter when listing them.
+	Providers []string
 
 	// If you want to return only the list of tags attached to a specified resource, pass the ID of the resource on this
 	// parameter. For GhoST onboarded resources, the resource ID is the CRN; for IMS resources, it is the IMS ID. When
 	// using this parameter, you must specify the appropriate provider (`ims` or `ghost`).
-	AttachedTo *string `json:"attached_to,omitempty"`
+	AttachedTo *string
 
 	// The offset is the index of the item from which you want to start returning data from.
-	Offset *int64 `json:"offset,omitempty"`
+	Offset *int64
 
 	// The number of tags to return.
-	Limit *int64 `json:"limit,omitempty"`
+	Limit *int64
 
 	// The search timeout bounds the search request to be executed within the specified time value. It returns the hits
 	// accumulated until time runs out.
-	Timeout *int64 `json:"timeout,omitempty"`
+	Timeout *int64
 
 	// Order the output by tag name.
-	OrderByName *string `json:"order_by_name,omitempty"`
+	OrderByName *string
 
 	// Filter on attached tags. If `true`, it returns only tags that are attached to one or more resources. If `false`, it
 	// returns all tags.
-	AttachedOnly *bool `json:"attached_only,omitempty"`
+	AttachedOnly *bool
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
 }
 
 // Constants associated with the ListTagsOptions.TagType property.
-// The type of the tag you want to list. Supported values are `user` and `service`.
+// The type of the tag you want to list. Supported values are `user`, `service` and `access`.
 const (
+	ListTagsOptionsTagTypeAccessConst  = "access"
 	ListTagsOptionsTagTypeServiceConst = "service"
-	ListTagsOptionsTagTypeUserConst = "user"
+	ListTagsOptionsTagTypeUserConst    = "user"
 )
 
 // Constants associated with the ListTagsOptions.Providers property.
 const (
 	ListTagsOptionsProvidersGhostConst = "ghost"
-	ListTagsOptionsProvidersImsConst = "ims"
+	ListTagsOptionsProvidersImsConst   = "ims"
 )
 
 // Constants associated with the ListTagsOptions.OrderByName property.
 // Order the output by tag name.
 const (
-	ListTagsOptionsOrderByNameAscConst = "asc"
+	ListTagsOptionsOrderByNameAscConst  = "asc"
 	ListTagsOptionsOrderByNameDescConst = "desc"
 )
 
 // NewListTagsOptions : Instantiate ListTagsOptions
 func (*GlobalTaggingV1) NewListTagsOptions() *ListTagsOptions {
 	return &ListTagsOptions{}
+}
+
+// SetImpersonateUser : Allow user to set ImpersonateUser
+func (options *ListTagsOptions) SetImpersonateUser(impersonateUser string) *ListTagsOptions {
+	options.ImpersonateUser = core.StringPtr(impersonateUser)
+	return options
 }
 
 // SetAccountID : Allow user to set AccountID
@@ -1113,7 +1360,6 @@ type Resource struct {
 	ResourceType *string `json:"resource_type,omitempty"`
 }
 
-
 // NewResource : Instantiate Resource (Generic Model Constructor)
 func (*GlobalTaggingV1) NewResource(resourceID string) (model *Resource, err error) {
 	model = &Resource{
@@ -1144,7 +1390,6 @@ type Tag struct {
 	Name *string `json:"name" validate:"required"`
 }
 
-
 // UnmarshalTag unmarshals an instance of Tag from the specified map of raw messages.
 func UnmarshalTag(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(Tag)
@@ -1170,7 +1415,6 @@ type TagList struct {
 	// Array of output results.
 	Items []Tag `json:"items,omitempty"`
 }
-
 
 // UnmarshalTagList unmarshals an instance of TagList from the specified map of raw messages.
 func UnmarshalTagList(m map[string]json.RawMessage, result interface{}) (err error) {
@@ -1201,7 +1445,6 @@ type TagResults struct {
 	Results []TagResultsItem `json:"results,omitempty"`
 }
 
-
 // UnmarshalTagResults unmarshals an instance of TagResults from the specified map of raw messages.
 func UnmarshalTagResults(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(TagResults)
@@ -1221,7 +1464,6 @@ type TagResultsItem struct {
 	// It is `true` if the operation exits with an error.
 	IsError *bool `json:"is_error,omitempty"`
 }
-
 
 // UnmarshalTagResultsItem unmarshals an instance of TagResultsItem from the specified map of raw messages.
 func UnmarshalTagResultsItem(m map[string]json.RawMessage, result interface{}) (err error) {

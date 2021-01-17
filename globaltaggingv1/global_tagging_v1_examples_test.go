@@ -105,11 +105,36 @@ var _ = Describe(`GlobalTaggingV1 Examples Tests`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
 		})
+		It(`CreateTag request example`, func() {
+			// begin-create_tag
+
+			createTagOptions := globalTaggingService.NewCreateTagOptions(
+				[]string{"env:example-access-tag"},
+			)
+			createTagOptions.SetTagType("access")
+
+			createTagResults, response, err := globalTaggingService.CreateTag(createTagOptions)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(createTagResults, "", "  ")
+			fmt.Println(string(b))
+
+			// end-create_tag
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(createTagResults).ToNot(BeNil())
+		})
 		It(`ListTags request example`, func() {
 			// begin-list_tags
 
 			listTagsOptions := globalTaggingService.NewListTagsOptions()
+			listTagsOptions.SetTagType("user")
 			listTagsOptions.SetAttachedOnly(true)
+			listTagsOptions.SetFullData(true)
+			listTagsOptions.SetProviders([]string{"ghost"})
+			listTagsOptions.SetOrderByName("asc")
 
 			tagList, response, err := globalTaggingService.ListTags(listTagsOptions)
 			if err != nil {
@@ -123,7 +148,6 @@ var _ = Describe(`GlobalTaggingV1 Examples Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(tagList).ToNot(BeNil())
-
 		})
 		It(`AttachTag request example`, func() {
 			// begin-attach_tag
@@ -136,6 +160,7 @@ var _ = Describe(`GlobalTaggingV1 Examples Tests`, func() {
 				[]globaltaggingv1.Resource{*resourceModel},
 			)
 			attachTagOptions.SetTagNames([]string{"tag_test_1", "tag_test_2"})
+			attachTagOptions.SetTagType("user")
 
 			tagResults, response, err := globalTaggingService.AttachTag(attachTagOptions)
 			if err != nil {
@@ -162,6 +187,7 @@ var _ = Describe(`GlobalTaggingV1 Examples Tests`, func() {
 				[]globaltaggingv1.Resource{*resourceModel},
 			)
 			detachTagOptions.SetTagNames([]string{"tag_test_1", "tag_test_2"})
+			detachTagOptions.SetTagType("user")
 
 			tagResults, response, err := globalTaggingService.DetachTag(detachTagOptions)
 			if err != nil {
@@ -180,7 +206,8 @@ var _ = Describe(`GlobalTaggingV1 Examples Tests`, func() {
 		It(`DeleteTag request example`, func() {
 			// begin-delete_tag
 
-			deleteTagOptions := globalTaggingService.NewDeleteTagOptions("tag_test_1")
+			deleteTagOptions := globalTaggingService.NewDeleteTagOptions("env:example-access-tag")
+			deleteTagOptions.SetTagType("access")
 
 			deleteTagResults, response, err := globalTaggingService.DeleteTag(deleteTagOptions)
 			if err != nil {
@@ -194,12 +221,12 @@ var _ = Describe(`GlobalTaggingV1 Examples Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(deleteTagResults).ToNot(BeNil())
-
 		})
 		It(`DeleteTagAll request example`, func() {
 			// begin-delete_tag_all
 
 			deleteTagAllOptions := globalTaggingService.NewDeleteTagAllOptions()
+			deleteTagAllOptions.SetTagType("user")
 
 			deleteTagsResult, response, err := globalTaggingService.DeleteTagAll(deleteTagAllOptions)
 			if err != nil {
@@ -213,7 +240,6 @@ var _ = Describe(`GlobalTaggingV1 Examples Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(deleteTagsResult).ToNot(BeNil())
-
 		})
 	})
 })
