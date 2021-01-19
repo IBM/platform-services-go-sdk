@@ -1,3 +1,10 @@
+## [0.17.6](https://github.com/IBM/platform-services-go-sdk/compare/v0.17.5...v0.17.6) (2021-01-19)
+
+
+### Bug Fixes
+
+* **Global Tagging:** update service after recent API changes ([c054f5d](https://github.com/IBM/platform-services-go-sdk/commit/c054f5de1dbaaf0be6c2564ea62de424d953eeb5))
+
 ## [0.17.5](https://github.com/IBM/platform-services-go-sdk/compare/v0.17.4...v0.17.5) (2021-01-14)
 
 
