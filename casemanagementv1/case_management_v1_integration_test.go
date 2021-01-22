@@ -30,7 +30,7 @@ import (
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
 
-	"github.com/IBM/go-sdk-core/v4/core"
+	"github.com/IBM/go-sdk-core/v5/core"
 	"github.com/IBM/platform-services-go-sdk/casemanagementv1"
 	common "github.com/IBM/platform-services-go-sdk/common"
 )
@@ -57,11 +57,7 @@ var (
 		Watchlist: []casemanagementv1.User{
 			casemanagementv1.User{
 				Realm:  core.StringPtr("IBMid"),
-				UserID: core.StringPtr("ashwini.pc@ibm.com"),
-			},
-			casemanagementv1.User{
-				Realm:  core.StringPtr("IBMid"),
-				UserID: core.StringPtr("bqegarci@us.ibm.com"),
+				UserID: core.StringPtr("abc@ibm.com"),
 			},
 		},
 	}
@@ -98,7 +94,8 @@ var _ = Describe("Case Management - Integration Tests", func() {
 		Expect(err).To(BeNil())
 		Expect(service).ToNot(BeNil())
 
-		core.SetLogger(core.NewLogger(core.LevelDebug, log.New(GinkgoWriter, "", log.LstdFlags)))
+		goLogger := log.New(GinkgoWriter, "", log.LstdFlags)
+		core.SetLogger(core.NewLogger(core.LevelError, goLogger, goLogger))
 		service.EnableRetries(4, 30*time.Second)
 
 		// Set client timeout.
@@ -297,7 +294,9 @@ var _ = Describe("Case Management - Integration Tests", func() {
 			Expect(detailedResponse.StatusCode).To(Equal(200))
 			Expect(result).ToNot(BeNil())
 			fmt.Fprintf(GinkgoWriter, "AddWatchlist() result:\n%s\n", common.ToJSON(result))
-			Expect(len(result.Added)).To(Equal(len(watchlistPayload.Watchlist)))
+
+			// We expect the call to fail because the fake user is not associated with the account.
+			Expect(len(result.Failed)).To(Equal(len(watchlistPayload.Watchlist)))
 		})
 	})
 
@@ -310,10 +309,12 @@ var _ = Describe("Case Management - Integration Tests", func() {
 
 		It("Successfully removed users from case watchlist", func() {
 			shouldSkipTest()
-			_, detailedResponse, err := service.RemoveWatchlist(options)
+			result, detailedResponse, err := service.RemoveWatchlist(options)
 
 			Expect(err).To((BeNil()))
 			Expect(detailedResponse.StatusCode).To(Equal(200))
+			Expect(result).ToNot(BeNil())
+			fmt.Fprintf(GinkgoWriter, "RemoveWatchlist() result:\n%s\n", common.ToJSON(result))
 		})
 	})
 
