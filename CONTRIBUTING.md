@@ -10,4 +10,4 @@ Before that, please search for similar issues. It's possible that someone has al
 
 # General Information
 For general guidance on contributing to this project, please see
-[this link](https://github.com/IBM/ibm-cloud-sdk-common/blob/master/CONTRIBUTING_go.md)
+[this link](https://github.com/IBM/ibm-cloud-sdk-common/blob/main/CONTRIBUTING_go.md)
