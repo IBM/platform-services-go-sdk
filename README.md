@@ -1,9 +1,9 @@
-[![Build Status](https://travis-ci.com/IBM/platform-services-go-sdk.svg?branch=master)](https://travis-ci.com/IBM/platform-services-go-sdk)
+[![Build Status](https://travis-ci.com/IBM/platform-services-go-sdk.svg?branch=main)](https://travis-ci.com/IBM/platform-services-go-sdk)
 [![Release](https://img.shields.io/github/v/release/IBM/platform-services-go-sdk)](https://github.com/IBM/platform-services-go-sdk/releases/latest)
 [![Go Reference](https://pkg.go.dev/badge/github.com/IBM/platform-services-go-sdk.svg)](https://pkg.go.dev/github.com/IBM/platform-services-go-sdk)
 ![GitHub go.mod Go version](https://img.shields.io/github/go-mod/go-version/IBM/platform-services-go-sdk)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
-[![codecov](https://codecov.io/gh/IBM/platform-services-go-sdk/branch/master/graph/badge.svg)](https://codecov.io/gh/IBM/platform-services-go-sdk)
+[![codecov](https://codecov.io/gh/IBM/platform-services-go-sdk/branch/main/graph/badge.svg)](https://codecov.io/gh/IBM/platform-services-go-sdk)
 [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
 [![CLA assistant](https://cla-assistant.io/readme/badge/ibm/platform-services-go-sdk)](https://cla-assistant.io/ibm/platform-services-go-sdk)
 
@@ -121,7 +121,7 @@ then run `dep ensure`.
 
 ## Using the SDK
 For general SDK usage information, please see
-[this link](https://github.com/IBM/ibm-cloud-sdk-common/blob/master/README.md)
+[this link](https://github.com/IBM/ibm-cloud-sdk-common/blob/main/README.md)
 
 ## Questions
 
