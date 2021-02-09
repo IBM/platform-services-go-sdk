@@ -1,3 +1,10 @@
+## [0.17.7](https://github.com/IBM/platform-services-go-sdk/compare/v0.17.6...v0.17.7) (2021-02-09)
+
+
+### Bug Fixes
+
+* **build:** default branch master -> main ([3039cb9](https://github.com/IBM/platform-services-go-sdk/commit/3039cb9b437ea7fb827522a8f675315fa017dd2e))
+
 ## [0.17.6](https://github.com/IBM/platform-services-go-sdk/compare/v0.17.5...v0.17.6) (2021-01-19)
 
 

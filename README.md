@@ -8,7 +8,7 @@
 [![CLA assistant](https://cla-assistant.io/readme/badge/ibm/platform-services-go-sdk)](https://cla-assistant.io/ibm/platform-services-go-sdk)
 
 
-# IBM Cloud Platform Services Go SDK Version 0.17.6
+# IBM Cloud Platform Services Go SDK Version 0.17.7
 
 Go client library to interact with various
 [IBM Cloud Platform Service APIs](https://cloud.ibm.com/docs?tab=api-docs&category=platform_services).
@@ -80,7 +80,7 @@ Service Name | Package name
 * Go version 1.12 or above.
 
 ## Installation
-The current version of this SDK: 0.17.6
+The current version of this SDK: 0.17.7
 
 There are a few different ways to download and install the Platform Services Go SDK project for use by your
 Go application:
@@ -113,7 +113,7 @@ to your `Gopkg.toml` file.  Here is an example:
 ```
 [[constraint]]
   name = "github.com/IBM/platform-services-go-sdk/globalsearchv2"
-  version = "0.17.6"
+  version = "0.17.7"
 
 ```
 
