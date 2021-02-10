@@ -94,6 +94,11 @@ var _ = Describe(`CaseManagementV1 Examples Tests`, func() {
 			// begin-getCases
 
 			getCasesOptions := caseManagementService.NewGetCasesOptions()
+			getCasesOptions.SetSearch("blocker")
+			getCasesOptions.SetSort("updated_at")
+			getCasesOptions.SetStatus([]string{casemanagementv1.GetCasesOptionsStatusNewConst})
+			getCasesOptions.SetOffset(0)
+			getCasesOptions.SetLimit(100)
 
 			caseList, response, err := caseManagementService.GetCases(getCasesOptions)
 			if err != nil {
@@ -114,9 +119,15 @@ var _ = Describe(`CaseManagementV1 Examples Tests`, func() {
 
 			createCaseOptions := caseManagementService.NewCreateCaseOptions(
 				"technical",
-				"testString",
-				"testString",
+				"Example technical case",
+				"This is an example case description.",
 			)
+			createCaseOptions.SetSeverity(1)
+			createCaseOptions.SetEu(&casemanagementv1.CasePayloadEu{Supported: core.BoolPtr(true), DataCenter: core.Int64Ptr(123)})
+
+			offeringType, _ := caseManagementService.NewOfferingType(casemanagementv1.OfferingTypeGroupCRNServiceNameConst, "cloud-object-storage")
+			offeringPayload, _ := caseManagementService.NewOffering("Cloud Object Storage", offeringType)
+			createCaseOptions.SetOffering(offeringPayload)
 
 			caseVar, response, err := caseManagementService.CreateCase(createCaseOptions)
 			if err != nil {
