@@ -30,7 +30,7 @@ import (
 	. "github.com/onsi/gomega"
 )
 
-const externalConfigFile = "../case_management_v1.env"
+const externalConfigFile = "../case_management.env"
 
 var (
 	caseManagementService *casemanagementv1.CaseManagementV1
