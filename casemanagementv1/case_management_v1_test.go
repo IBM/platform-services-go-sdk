@@ -20,17 +20,18 @@ import (
 	"bytes"
 	"context"
 	"fmt"
-	"github.com/IBM/go-sdk-core/v5/core"
-	"github.com/IBM/platform-services-go-sdk/casemanagementv1"
-	"github.com/go-openapi/strfmt"
-	. "github.com/onsi/ginkgo"
-	. "github.com/onsi/gomega"
 	"io"
 	"io/ioutil"
 	"net/http"
 	"net/http/httptest"
 	"os"
 	"time"
+
+	"github.com/IBM/go-sdk-core/v5/core"
+	"github.com/IBM/platform-services-go-sdk/casemanagementv1"
+	"github.com/go-openapi/strfmt"
+	. "github.com/onsi/ginkgo"
+	. "github.com/onsi/gomega"
 )
 
 var _ = Describe(`CaseManagementV1`, func() {
@@ -66,14 +67,13 @@ var _ = Describe(`CaseManagementV1`, func() {
 		Context(`Using external config, construct service client instances`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"CASE_MANAGEMENT_URL": "https://casemanagementv1/api",
+				"CASE_MANAGEMENT_URL":       "https://casemanagementv1/api",
 				"CASE_MANAGEMENT_AUTH_TYPE": "noauth",
 			}
 
 			It(`Create service client using external config successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				caseManagementService, serviceErr := casemanagementv1.NewCaseManagementV1UsingExternalConfig(&casemanagementv1.CaseManagementV1Options{
-				})
+				caseManagementService, serviceErr := casemanagementv1.NewCaseManagementV1UsingExternalConfig(&casemanagementv1.CaseManagementV1Options{})
 				Expect(caseManagementService).ToNot(BeNil())
 				Expect(serviceErr).To(BeNil())
 				ClearTestEnvironment(testEnvironment)
@@ -102,8 +102,7 @@ var _ = Describe(`CaseManagementV1`, func() {
 			})
 			It(`Create service client using external config and set url programatically successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				caseManagementService, serviceErr := casemanagementv1.NewCaseManagementV1UsingExternalConfig(&casemanagementv1.CaseManagementV1Options{
-				})
+				caseManagementService, serviceErr := casemanagementv1.NewCaseManagementV1UsingExternalConfig(&casemanagementv1.CaseManagementV1Options{})
 				err := caseManagementService.SetServiceURL("https://testService/api")
 				Expect(err).To(BeNil())
 				Expect(caseManagementService).ToNot(BeNil())
@@ -121,13 +120,12 @@ var _ = Describe(`CaseManagementV1`, func() {
 		Context(`Using external config, construct service client instances with error: Invalid Auth`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"CASE_MANAGEMENT_URL": "https://casemanagementv1/api",
+				"CASE_MANAGEMENT_URL":       "https://casemanagementv1/api",
 				"CASE_MANAGEMENT_AUTH_TYPE": "someOtherAuth",
 			}
 
 			SetTestEnvironment(testEnvironment)
-			caseManagementService, serviceErr := casemanagementv1.NewCaseManagementV1UsingExternalConfig(&casemanagementv1.CaseManagementV1Options{
-			})
+			caseManagementService, serviceErr := casemanagementv1.NewCaseManagementV1UsingExternalConfig(&casemanagementv1.CaseManagementV1Options{})
 
 			It(`Instantiate service client with error`, func() {
 				Expect(caseManagementService).To(BeNil())
@@ -138,7 +136,7 @@ var _ = Describe(`CaseManagementV1`, func() {
 		Context(`Using external config, construct service client instances with error: Invalid URL`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"CASE_MANAGEMENT_AUTH_TYPE":   "NOAuth",
+				"CASE_MANAGEMENT_AUTH_TYPE": "NOAuth",
 			}
 
 			SetTestEnvironment(testEnvironment)
@@ -2102,7 +2100,7 @@ var _ = Describe(`CaseManagementV1`, func() {
 				// Construct an instance of the UploadFileOptions model
 				uploadFileOptionsModel := new(casemanagementv1.UploadFileOptions)
 				uploadFileOptionsModel.CaseNumber = core.StringPtr("testString")
-				uploadFileOptionsModel.File = []casemanagementv1.FileWithMetadata{casemanagementv1.FileWithMetadata{Data: CreateMockReader("This is a mock file."), Filename: core.StringPtr("mockfilename.txt"), }}
+				uploadFileOptionsModel.File = []casemanagementv1.FileWithMetadata{casemanagementv1.FileWithMetadata{Data: CreateMockReader("This is a mock file."), Filename: core.StringPtr("mockfilename.txt")}}
 				uploadFileOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
 				result, response, operationErr := caseManagementService.UploadFile(uploadFileOptionsModel)
@@ -2155,7 +2153,7 @@ var _ = Describe(`CaseManagementV1`, func() {
 				// Construct an instance of the UploadFileOptions model
 				uploadFileOptionsModel := new(casemanagementv1.UploadFileOptions)
 				uploadFileOptionsModel.CaseNumber = core.StringPtr("testString")
-				uploadFileOptionsModel.File = []casemanagementv1.FileWithMetadata{casemanagementv1.FileWithMetadata{Data: CreateMockReader("This is a mock file."), Filename: core.StringPtr("mockfilename.txt"), }}
+				uploadFileOptionsModel.File = []casemanagementv1.FileWithMetadata{casemanagementv1.FileWithMetadata{Data: CreateMockReader("This is a mock file."), Filename: core.StringPtr("mockfilename.txt")}}
 				uploadFileOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with a Context to test a timeout error
@@ -2215,7 +2213,7 @@ var _ = Describe(`CaseManagementV1`, func() {
 				// Construct an instance of the UploadFileOptions model
 				uploadFileOptionsModel := new(casemanagementv1.UploadFileOptions)
 				uploadFileOptionsModel.CaseNumber = core.StringPtr("testString")
-				uploadFileOptionsModel.File = []casemanagementv1.FileWithMetadata{casemanagementv1.FileWithMetadata{Data: CreateMockReader("This is a mock file."), Filename: core.StringPtr("mockfilename.txt"), }}
+				uploadFileOptionsModel.File = []casemanagementv1.FileWithMetadata{casemanagementv1.FileWithMetadata{Data: CreateMockReader("This is a mock file."), Filename: core.StringPtr("mockfilename.txt")}}
 				uploadFileOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
@@ -2236,7 +2234,7 @@ var _ = Describe(`CaseManagementV1`, func() {
 				// Construct an instance of the UploadFileOptions model
 				uploadFileOptionsModel := new(casemanagementv1.UploadFileOptions)
 				uploadFileOptionsModel.CaseNumber = core.StringPtr("testString")
-				uploadFileOptionsModel.File = []casemanagementv1.FileWithMetadata{casemanagementv1.FileWithMetadata{Data: CreateMockReader("This is a mock file."), Filename: core.StringPtr("mockfilename.txt"), }}
+				uploadFileOptionsModel.File = []casemanagementv1.FileWithMetadata{casemanagementv1.FileWithMetadata{Data: CreateMockReader("This is a mock file."), Filename: core.StringPtr("mockfilename.txt")}}
 				uploadFileOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := caseManagementService.SetServiceURL("")
@@ -2849,11 +2847,11 @@ var _ = Describe(`CaseManagementV1`, func() {
 				file := []casemanagementv1.FileWithMetadata{}
 				uploadFileOptionsModel := caseManagementService.NewUploadFileOptions(caseNumber, file)
 				uploadFileOptionsModel.SetCaseNumber("testString")
-				uploadFileOptionsModel.SetFile([]casemanagementv1.FileWithMetadata{casemanagementv1.FileWithMetadata{Data: CreateMockReader("This is a mock file."), Filename: core.StringPtr("mockfilename.txt"), }})
+				uploadFileOptionsModel.SetFile([]casemanagementv1.FileWithMetadata{casemanagementv1.FileWithMetadata{Data: CreateMockReader("This is a mock file."), Filename: core.StringPtr("mockfilename.txt")}})
 				uploadFileOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(uploadFileOptionsModel).ToNot(BeNil())
 				Expect(uploadFileOptionsModel.CaseNumber).To(Equal(core.StringPtr("testString")))
-				Expect(uploadFileOptionsModel.File).To(Equal([]casemanagementv1.FileWithMetadata{casemanagementv1.FileWithMetadata{Data: CreateMockReader("This is a mock file."), Filename: core.StringPtr("mockfilename.txt"), }}))
+				Expect(uploadFileOptionsModel.File).To(Equal([]casemanagementv1.FileWithMetadata{casemanagementv1.FileWithMetadata{Data: CreateMockReader("This is a mock file."), Filename: core.StringPtr("mockfilename.txt")}}))
 				Expect(uploadFileOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewUser successfully`, func() {

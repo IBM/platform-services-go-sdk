@@ -17,7 +17,6 @@
 /*
  * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-8916ec9f-20210207-213231
  */
- 
 
 // Package casemanagementv1 : Operations and models for the CaseManagementV1 service
 package casemanagementv1
@@ -26,13 +25,14 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"github.com/IBM/go-sdk-core/v5/core"
-	common "github.com/IBM/platform-services-go-sdk/common"
 	"io"
 	"net/http"
 	"reflect"
 	"strings"
 	"time"
+
+	"github.com/IBM/go-sdk-core/v5/core"
+	common "github.com/IBM/platform-services-go-sdk/common"
 )
 
 // CaseManagementV1 : Case management API for creating cases, getting case statuses, adding comments to a case, adding
@@ -814,7 +814,7 @@ func (caseManagement *CaseManagementV1) DownloadFileWithContext(ctx context.Cont
 
 	pathParamsMap := map[string]string{
 		"case_number": *downloadFileOptions.CaseNumber,
-		"file_id": *downloadFileOptions.FileID,
+		"file_id":     *downloadFileOptions.FileID,
 	}
 
 	builder := core.NewRequestBuilder(core.GET)
@@ -864,7 +864,7 @@ func (caseManagement *CaseManagementV1) DeleteFileWithContext(ctx context.Contex
 
 	pathParamsMap := map[string]string{
 		"case_number": *deleteFileOptions.CaseNumber,
-		"file_id": *deleteFileOptions.FileID,
+		"file_id":     *deleteFileOptions.FileID,
 	}
 
 	builder := core.NewRequestBuilder(core.DELETE)
@@ -920,7 +920,7 @@ type AddCommentOptions struct {
 func (*CaseManagementV1) NewAddCommentOptions(caseNumber string, comment string) *AddCommentOptions {
 	return &AddCommentOptions{
 		CaseNumber: core.StringPtr(caseNumber),
-		Comment: core.StringPtr(comment),
+		Comment:    core.StringPtr(comment),
 	}
 }
 
@@ -1062,7 +1062,6 @@ type Attachment struct {
 	URL *string `json:"url,omitempty"`
 }
 
-
 // UnmarshalAttachment unmarshals an instance of Attachment from the specified map of raw messages.
 func UnmarshalAttachment(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(Attachment)
@@ -1095,7 +1094,6 @@ type AttachmentList struct {
 	// New attachments array.
 	Attachments []Attachment `json:"attachments,omitempty"`
 }
-
 
 // UnmarshalAttachmentList unmarshals an instance of AttachmentList from the specified map of raw messages.
 func UnmarshalAttachmentList(m map[string]json.RawMessage, result interface{}) (err error) {
@@ -1175,18 +1173,17 @@ type Case struct {
 // Name of the console to interact with the contact.
 const (
 	CaseContactTypeCloudSupportCenterConst = "Cloud Support Center"
-	CaseContactTypeImsConsoleConst = "IMS Console"
+	CaseContactTypeImsConsoleConst         = "IMS Console"
 )
 
 // Constants associated with the Case.SupportTier property.
 // Support tier of the account.
 const (
-	CaseSupportTierBasicConst = "Basic"
-	CaseSupportTierFreeConst = "Free"
-	CaseSupportTierPremiumConst = "Premium"
+	CaseSupportTierBasicConst    = "Basic"
+	CaseSupportTierFreeConst     = "Free"
+	CaseSupportTierPremiumConst  = "Premium"
 	CaseSupportTierStandardConst = "Standard"
 )
-
 
 // UnmarshalCase unmarshals an instance of Case from the specified map of raw messages.
 func UnmarshalCase(m map[string]json.RawMessage, result interface{}) (err error) {
@@ -1284,7 +1281,6 @@ type CaseEu struct {
 	DataCenter *string `json:"data_center,omitempty"`
 }
 
-
 // UnmarshalCaseEu unmarshals an instance of CaseEu from the specified map of raw messages.
 func UnmarshalCaseEu(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(CaseEu)
@@ -1320,7 +1316,6 @@ type CaseList struct {
 	// List of cases.
 	Cases []Case `json:"cases,omitempty"`
 }
-
 
 // UnmarshalCaseList unmarshals an instance of CaseList from the specified map of raw messages.
 func UnmarshalCaseList(m map[string]json.RawMessage, result interface{}) (err error) {
@@ -1363,7 +1358,6 @@ type CasePayloadEu struct {
 	DataCenter *int64 `json:"data_center,omitempty"`
 }
 
-
 // UnmarshalCasePayloadEu unmarshals an instance of CasePayloadEu from the specified map of raw messages.
 func UnmarshalCasePayloadEu(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(CasePayloadEu)
@@ -1390,7 +1384,6 @@ type Comment struct {
 	// User info in a case.
 	AddedBy *User `json:"added_by,omitempty"`
 }
-
 
 // UnmarshalComment unmarshals an instance of Comment from the specified map of raw messages.
 func UnmarshalComment(m map[string]json.RawMessage, result interface{}) (err error) {
@@ -1453,17 +1446,17 @@ type CreateCaseOptions struct {
 // Constants associated with the CreateCaseOptions.Type property.
 // Case type.
 const (
-	CreateCaseOptionsTypeAccountAndAccessConst = "account_and_access"
+	CreateCaseOptionsTypeAccountAndAccessConst  = "account_and_access"
 	CreateCaseOptionsTypeBillingAndInvoiceConst = "billing_and_invoice"
-	CreateCaseOptionsTypeSalesConst = "sales"
-	CreateCaseOptionsTypeTechnicalConst = "technical"
+	CreateCaseOptionsTypeSalesConst             = "sales"
+	CreateCaseOptionsTypeTechnicalConst         = "technical"
 )
 
 // NewCreateCaseOptions : Instantiate CreateCaseOptions
 func (*CaseManagementV1) NewCreateCaseOptions(typeVar string, subject string, description string) *CreateCaseOptions {
 	return &CreateCaseOptions{
-		Type: core.StringPtr(typeVar),
-		Subject: core.StringPtr(subject),
+		Type:        core.StringPtr(typeVar),
+		Subject:     core.StringPtr(subject),
 		Description: core.StringPtr(description),
 	}
 }
@@ -1550,7 +1543,7 @@ type DeleteFileOptions struct {
 func (*CaseManagementV1) NewDeleteFileOptions(caseNumber string, fileID string) *DeleteFileOptions {
 	return &DeleteFileOptions{
 		CaseNumber: core.StringPtr(caseNumber),
-		FileID: core.StringPtr(fileID),
+		FileID:     core.StringPtr(fileID),
 	}
 }
 
@@ -1588,7 +1581,7 @@ type DownloadFileOptions struct {
 func (*CaseManagementV1) NewDownloadFileOptions(caseNumber string, fileID string) *DownloadFileOptions {
 	return &DownloadFileOptions{
 		CaseNumber: core.StringPtr(caseNumber),
-		FileID: core.StringPtr(fileID),
+		FileID:     core.StringPtr(fileID),
 	}
 }
 
@@ -1621,7 +1614,6 @@ type FileWithMetadata struct {
 	// The content type of the file.
 	ContentType *string `json:"content_type,omitempty"`
 }
-
 
 // NewFileWithMetadata : Instantiate FileWithMetadata (Generic Model Constructor)
 func (*CaseManagementV1) NewFileWithMetadata(data io.ReadCloser) (model *FileWithMetadata, err error) {
@@ -1665,28 +1657,28 @@ type GetCaseOptions struct {
 
 // Constants associated with the GetCaseOptions.Fields property.
 const (
-	GetCaseOptionsFieldsAgentCloseOnlyConst = "agent_close_only"
-	GetCaseOptionsFieldsAttachmentsConst = "attachments"
-	GetCaseOptionsFieldsCloseNotesConst = "close_notes"
-	GetCaseOptionsFieldsCommentsConst = "comments"
-	GetCaseOptionsFieldsContactConst = "contact"
-	GetCaseOptionsFieldsContactTypeConst = "contact_type"
-	GetCaseOptionsFieldsCreatedAtConst = "created_at"
-	GetCaseOptionsFieldsCreatedByConst = "created_by"
-	GetCaseOptionsFieldsDescriptionConst = "description"
-	GetCaseOptionsFieldsEuConst = "eu"
-	GetCaseOptionsFieldsInvoiceNumberConst = "invoice_number"
-	GetCaseOptionsFieldsNumberConst = "number"
-	GetCaseOptionsFieldsOfferingConst = "offering"
-	GetCaseOptionsFieldsResolutionConst = "resolution"
-	GetCaseOptionsFieldsResourcesConst = "resources"
-	GetCaseOptionsFieldsSeverityConst = "severity"
+	GetCaseOptionsFieldsAgentCloseOnlyConst   = "agent_close_only"
+	GetCaseOptionsFieldsAttachmentsConst      = "attachments"
+	GetCaseOptionsFieldsCloseNotesConst       = "close_notes"
+	GetCaseOptionsFieldsCommentsConst         = "comments"
+	GetCaseOptionsFieldsContactConst          = "contact"
+	GetCaseOptionsFieldsContactTypeConst      = "contact_type"
+	GetCaseOptionsFieldsCreatedAtConst        = "created_at"
+	GetCaseOptionsFieldsCreatedByConst        = "created_by"
+	GetCaseOptionsFieldsDescriptionConst      = "description"
+	GetCaseOptionsFieldsEuConst               = "eu"
+	GetCaseOptionsFieldsInvoiceNumberConst    = "invoice_number"
+	GetCaseOptionsFieldsNumberConst           = "number"
+	GetCaseOptionsFieldsOfferingConst         = "offering"
+	GetCaseOptionsFieldsResolutionConst       = "resolution"
+	GetCaseOptionsFieldsResourcesConst        = "resources"
+	GetCaseOptionsFieldsSeverityConst         = "severity"
 	GetCaseOptionsFieldsShortDescriptionConst = "short_description"
-	GetCaseOptionsFieldsStatusConst = "status"
-	GetCaseOptionsFieldsSupportTierConst = "support_tier"
-	GetCaseOptionsFieldsUpdatedAtConst = "updated_at"
-	GetCaseOptionsFieldsUpdatedByConst = "updated_by"
-	GetCaseOptionsFieldsWatchlistConst = "watchlist"
+	GetCaseOptionsFieldsStatusConst           = "status"
+	GetCaseOptionsFieldsSupportTierConst      = "support_tier"
+	GetCaseOptionsFieldsUpdatedAtConst        = "updated_at"
+	GetCaseOptionsFieldsUpdatedByConst        = "updated_by"
+	GetCaseOptionsFieldsWatchlistConst        = "watchlist"
 )
 
 // NewGetCaseOptions : Instantiate GetCaseOptions
@@ -1741,38 +1733,38 @@ type GetCasesOptions struct {
 
 // Constants associated with the GetCasesOptions.Status property.
 const (
-	GetCasesOptionsStatusClosedConst = "closed"
-	GetCasesOptionsStatusInProgressConst = "in_progress"
-	GetCasesOptionsStatusNewConst = "new"
+	GetCasesOptionsStatusClosedConst             = "closed"
+	GetCasesOptionsStatusInProgressConst         = "in_progress"
+	GetCasesOptionsStatusNewConst                = "new"
 	GetCasesOptionsStatusResolutionProvidedConst = "resolution_provided"
-	GetCasesOptionsStatusResolvedConst = "resolved"
-	GetCasesOptionsStatusWaitingOnClientConst = "waiting_on_client"
+	GetCasesOptionsStatusResolvedConst           = "resolved"
+	GetCasesOptionsStatusWaitingOnClientConst    = "waiting_on_client"
 )
 
 // Constants associated with the GetCasesOptions.Fields property.
 const (
-	GetCasesOptionsFieldsAgentCloseOnlyConst = "agent_close_only"
-	GetCasesOptionsFieldsAttachmentsConst = "attachments"
-	GetCasesOptionsFieldsCloseNotesConst = "close_notes"
-	GetCasesOptionsFieldsCommentsConst = "comments"
-	GetCasesOptionsFieldsContactConst = "contact"
-	GetCasesOptionsFieldsContactTypeConst = "contact_type"
-	GetCasesOptionsFieldsCreatedAtConst = "created_at"
-	GetCasesOptionsFieldsCreatedByConst = "created_by"
-	GetCasesOptionsFieldsDescriptionConst = "description"
-	GetCasesOptionsFieldsEuConst = "eu"
-	GetCasesOptionsFieldsInvoiceNumberConst = "invoice_number"
-	GetCasesOptionsFieldsNumberConst = "number"
-	GetCasesOptionsFieldsOfferingConst = "offering"
-	GetCasesOptionsFieldsResolutionConst = "resolution"
-	GetCasesOptionsFieldsResourcesConst = "resources"
-	GetCasesOptionsFieldsSeverityConst = "severity"
+	GetCasesOptionsFieldsAgentCloseOnlyConst   = "agent_close_only"
+	GetCasesOptionsFieldsAttachmentsConst      = "attachments"
+	GetCasesOptionsFieldsCloseNotesConst       = "close_notes"
+	GetCasesOptionsFieldsCommentsConst         = "comments"
+	GetCasesOptionsFieldsContactConst          = "contact"
+	GetCasesOptionsFieldsContactTypeConst      = "contact_type"
+	GetCasesOptionsFieldsCreatedAtConst        = "created_at"
+	GetCasesOptionsFieldsCreatedByConst        = "created_by"
+	GetCasesOptionsFieldsDescriptionConst      = "description"
+	GetCasesOptionsFieldsEuConst               = "eu"
+	GetCasesOptionsFieldsInvoiceNumberConst    = "invoice_number"
+	GetCasesOptionsFieldsNumberConst           = "number"
+	GetCasesOptionsFieldsOfferingConst         = "offering"
+	GetCasesOptionsFieldsResolutionConst       = "resolution"
+	GetCasesOptionsFieldsResourcesConst        = "resources"
+	GetCasesOptionsFieldsSeverityConst         = "severity"
 	GetCasesOptionsFieldsShortDescriptionConst = "short_description"
-	GetCasesOptionsFieldsStatusConst = "status"
-	GetCasesOptionsFieldsSupportTierConst = "support_tier"
-	GetCasesOptionsFieldsUpdatedAtConst = "updated_at"
-	GetCasesOptionsFieldsUpdatedByConst = "updated_by"
-	GetCasesOptionsFieldsWatchlistConst = "watchlist"
+	GetCasesOptionsFieldsStatusConst           = "status"
+	GetCasesOptionsFieldsSupportTierConst      = "support_tier"
+	GetCasesOptionsFieldsUpdatedAtConst        = "updated_at"
+	GetCasesOptionsFieldsUpdatedByConst        = "updated_by"
+	GetCasesOptionsFieldsWatchlistConst        = "watchlist"
 )
 
 // NewGetCasesOptions : Instantiate GetCasesOptions
@@ -1831,7 +1823,6 @@ type Offering struct {
 	Type *OfferingType `json:"type" validate:"required"`
 }
 
-
 // NewOffering : Instantiate Offering (Generic Model Constructor)
 func (*CaseManagementV1) NewOffering(name string, typeVar *OfferingType) (model *Offering, err error) {
 	model = &Offering{
@@ -1878,15 +1869,14 @@ type OfferingType struct {
 // deprecated in the future.
 const (
 	OfferingTypeGroupCRNServiceNameConst = "crn_service_name"
-	OfferingTypeGroupCategoryConst = "category"
+	OfferingTypeGroupCategoryConst       = "category"
 )
-
 
 // NewOfferingType : Instantiate OfferingType (Generic Model Constructor)
 func (*CaseManagementV1) NewOfferingType(group string, key string) (model *OfferingType, err error) {
 	model = &OfferingType{
 		Group: core.StringPtr(group),
-		Key: core.StringPtr(key),
+		Key:   core.StringPtr(key),
 	}
 	err = core.ValidateStruct(model, "required parameters")
 	return
@@ -1920,7 +1910,6 @@ type PaginationLink struct {
 	// URL to related pages of cases.
 	Href *string `json:"href,omitempty"`
 }
-
 
 // UnmarshalPaginationLink unmarshals an instance of PaginationLink from the specified map of raw messages.
 func UnmarshalPaginationLink(m map[string]json.RawMessage, result interface{}) (err error) {
@@ -1988,7 +1977,6 @@ type Resource struct {
 	Note *string `json:"note,omitempty"`
 }
 
-
 // UnmarshalResource unmarshals an instance of Resource from the specified map of raw messages.
 func UnmarshalResource(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(Resource)
@@ -2031,7 +2019,6 @@ type ResourcePayload struct {
 	// A note about this resource.
 	Note *string `json:"note,omitempty"`
 }
-
 
 // UnmarshalResourcePayload unmarshals an instance of ResourcePayload from the specified map of raw messages.
 func UnmarshalResourcePayload(m map[string]json.RawMessage, result interface{}) (err error) {
@@ -2082,8 +2069,8 @@ type StatusPayload struct {
 // Constants associated with the StatusPayload.Action property.
 // action to perform on the case.
 const (
-	StatusPayloadActionAcceptConst = "accept"
-	StatusPayloadActionResolveConst = "resolve"
+	StatusPayloadActionAcceptConst    = "accept"
+	StatusPayloadActionResolveConst   = "resolve"
 	StatusPayloadActionUnresolveConst = "unresolve"
 )
 
@@ -2135,7 +2122,7 @@ type UpdateCaseStatusOptions struct {
 // NewUpdateCaseStatusOptions : Instantiate UpdateCaseStatusOptions
 func (*CaseManagementV1) NewUpdateCaseStatusOptions(caseNumber string, statusPayload StatusPayloadIntf) *UpdateCaseStatusOptions {
 	return &UpdateCaseStatusOptions{
-		CaseNumber: core.StringPtr(caseNumber),
+		CaseNumber:    core.StringPtr(caseNumber),
 		StatusPayload: statusPayload,
 	}
 }
@@ -2174,7 +2161,7 @@ type UploadFileOptions struct {
 func (*CaseManagementV1) NewUploadFileOptions(caseNumber string, file []FileWithMetadata) *UploadFileOptions {
 	return &UploadFileOptions{
 		CaseNumber: core.StringPtr(caseNumber),
-		File: file,
+		File:       file,
 	}
 }
 
@@ -2211,16 +2198,15 @@ type User struct {
 // Constants associated with the User.Realm property.
 // the ID realm.
 const (
-	UserRealmBssConst = "BSS"
+	UserRealmBssConst   = "BSS"
 	UserRealmIbmidConst = "IBMid"
-	UserRealmSlConst = "SL"
+	UserRealmSlConst    = "SL"
 )
-
 
 // NewUser : Instantiate User (Generic Model Constructor)
 func (*CaseManagementV1) NewUser(realm string, userID string) (model *User, err error) {
 	model = &User{
-		Realm: core.StringPtr(realm),
+		Realm:  core.StringPtr(realm),
 		UserID: core.StringPtr(userID),
 	}
 	err = core.ValidateStruct(model, "required parameters")
@@ -2252,7 +2238,6 @@ type Watchlist struct {
 	Watchlist []User `json:"watchlist,omitempty"`
 }
 
-
 // UnmarshalWatchlist unmarshals an instance of Watchlist from the specified map of raw messages.
 func UnmarshalWatchlist(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(Watchlist)
@@ -2272,7 +2257,6 @@ type WatchlistAddResponse struct {
 	// List of failed to add user.
 	Failed []User `json:"failed,omitempty"`
 }
-
 
 // UnmarshalWatchlistAddResponse unmarshals an instance of WatchlistAddResponse from the specified map of raw messages.
 func UnmarshalWatchlistAddResponse(m map[string]json.RawMessage, result interface{}) (err error) {
@@ -2302,11 +2286,10 @@ type AcceptPayload struct {
 // Constants associated with the AcceptPayload.Action property.
 // action to perform on the case.
 const (
-	AcceptPayloadActionAcceptConst = "accept"
-	AcceptPayloadActionResolveConst = "resolve"
+	AcceptPayloadActionAcceptConst    = "accept"
+	AcceptPayloadActionResolveConst   = "resolve"
 	AcceptPayloadActionUnresolveConst = "unresolve"
 )
-
 
 func (*AcceptPayload) isaStatusPayload() bool {
 	return true
@@ -2350,16 +2333,15 @@ type ResolvePayload struct {
 // Constants associated with the ResolvePayload.Action property.
 // action to perform on the case.
 const (
-	ResolvePayloadActionAcceptConst = "accept"
-	ResolvePayloadActionResolveConst = "resolve"
+	ResolvePayloadActionAcceptConst    = "accept"
+	ResolvePayloadActionResolveConst   = "resolve"
 	ResolvePayloadActionUnresolveConst = "unresolve"
 )
-
 
 // NewResolvePayload : Instantiate ResolvePayload (Generic Model Constructor)
 func (*CaseManagementV1) NewResolvePayload(action string, resolutionCode int64) (model *ResolvePayload, err error) {
 	model = &ResolvePayload{
-		Action: core.StringPtr(action),
+		Action:         core.StringPtr(action),
 		ResolutionCode: core.Int64Ptr(resolutionCode),
 	}
 	err = core.ValidateStruct(model, "required parameters")
@@ -2402,16 +2384,15 @@ type UnresolvePayload struct {
 // Constants associated with the UnresolvePayload.Action property.
 // action to perform on the case.
 const (
-	UnresolvePayloadActionAcceptConst = "accept"
-	UnresolvePayloadActionResolveConst = "resolve"
+	UnresolvePayloadActionAcceptConst    = "accept"
+	UnresolvePayloadActionResolveConst   = "resolve"
 	UnresolvePayloadActionUnresolveConst = "unresolve"
 )
-
 
 // NewUnresolvePayload : Instantiate UnresolvePayload (Generic Model Constructor)
 func (*CaseManagementV1) NewUnresolvePayload(action string, comment string) (model *UnresolvePayload, err error) {
 	model = &UnresolvePayload{
-		Action: core.StringPtr(action),
+		Action:  core.StringPtr(action),
 		Comment: core.StringPtr(comment),
 	}
 	err = core.ValidateStruct(model, "required parameters")

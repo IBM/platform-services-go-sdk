@@ -21,20 +21,21 @@ package casemanagementv1_test
 import (
 	"encoding/json"
 	"fmt"
+	"io"
+	"os"
+
 	"github.com/IBM/go-sdk-core/v5/core"
 	"github.com/IBM/platform-services-go-sdk/casemanagementv1"
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
-	"io"
-	"os"
 )
 
 const externalConfigFile = "../case_management_v1.env"
 
 var (
 	caseManagementService *casemanagementv1.CaseManagementV1
-	config       map[string]string
-	configLoaded bool = false
+	config                map[string]string
+	configLoaded          bool = false
 )
 
 func shouldSkipTest() {
@@ -156,8 +157,8 @@ var _ = Describe(`CaseManagementV1 Examples Tests`, func() {
 			// begin-updateCaseStatus
 
 			statusPayloadModel := &casemanagementv1.ResolvePayload{
-				Action: core.StringPtr("resolve"),
-				Comment: core.StringPtr("It was actually a mistake"),
+				Action:         core.StringPtr("resolve"),
+				Comment:        core.StringPtr("It was actually a mistake"),
 				ResolutionCode: core.Int64Ptr(int64(1)),
 			}
 
@@ -249,7 +250,7 @@ var _ = Describe(`CaseManagementV1 Examples Tests`, func() {
 
 			uploadFileOptions := caseManagementService.NewUploadFileOptions(
 				"testString",
-				[]casemanagementv1.FileWithMetadata{casemanagementv1.FileWithMetadata{Data: CreateMockReader("This is a mock file."), Filename: core.StringPtr("mockfilename.txt"), }},
+				[]casemanagementv1.FileWithMetadata{casemanagementv1.FileWithMetadata{Data: CreateMockReader("This is a mock file."), Filename: core.StringPtr("mockfilename.txt")}},
 			)
 
 			attachment, response, err := caseManagementService.UploadFile(uploadFileOptions)
@@ -281,10 +282,14 @@ var _ = Describe(`CaseManagementV1 Examples Tests`, func() {
 			if result != nil {
 				defer result.Close()
 				outFile, err := os.Create("result.out")
-				if err != nil { panic(err) }
+				if err != nil {
+					panic(err)
+				}
 				defer outFile.Close()
 				_, err = io.Copy(outFile, result)
-				if err != nil { panic(err) }
+				if err != nil {
+					panic(err)
+				}
 			}
 
 			// end-downloadFile
