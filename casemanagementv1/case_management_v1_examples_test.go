@@ -117,6 +117,9 @@ var _ = Describe(`CaseManagementV1 Examples Tests`, func() {
 		It(`CreateCase request example`, func() {
 			// begin-createCase
 
+			offeringType, _ := caseManagementService.NewOfferingType(casemanagementv1.OfferingTypeGroupCRNServiceNameConst, "cloud-object-storage")
+			offeringPayload, _ := caseManagementService.NewOffering("Cloud Object Storage", offeringType)
+
 			createCaseOptions := caseManagementService.NewCreateCaseOptions(
 				"technical",
 				"Example technical case",
@@ -124,9 +127,6 @@ var _ = Describe(`CaseManagementV1 Examples Tests`, func() {
 			)
 			createCaseOptions.SetSeverity(1)
 			createCaseOptions.SetEu(&casemanagementv1.CasePayloadEu{Supported: core.BoolPtr(true), DataCenter: core.Int64Ptr(123)})
-
-			offeringType, _ := caseManagementService.NewOfferingType(casemanagementv1.OfferingTypeGroupCRNServiceNameConst, "cloud-object-storage")
-			offeringPayload, _ := caseManagementService.NewOffering("Cloud Object Storage", offeringType)
 			createCaseOptions.SetOffering(offeringPayload)
 
 			caseVar, response, err := caseManagementService.CreateCase(createCaseOptions)
