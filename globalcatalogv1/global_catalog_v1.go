@@ -1,5 +1,5 @@
 /**
- * (C) Copyright IBM Corp. 2020.
+ * (C) Copyright IBM Corp. 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,9 +15,8 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-d753183b-20201209-163011
+ * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-4c92c221-20210211-060810
  */
- 
 
 // Package globalcatalogv1 : Operations and models for the GlobalCatalogV1 service
 package globalcatalogv1
@@ -26,7 +25,7 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"github.com/IBM/go-sdk-core/v4/core"
+	"github.com/IBM/go-sdk-core/v5/core"
 	common "github.com/IBM/platform-services-go-sdk/common"
 	"github.com/go-openapi/strfmt"
 	"io"
@@ -215,8 +214,17 @@ func (globalCatalog *GlobalCatalogV1) ListCatalogEntriesWithContext(ctx context.
 	if listCatalogEntriesOptions.Languages != nil {
 		builder.AddQuery("languages", fmt.Sprint(*listCatalogEntriesOptions.Languages))
 	}
+	if listCatalogEntriesOptions.Catalog != nil {
+		builder.AddQuery("catalog", fmt.Sprint(*listCatalogEntriesOptions.Catalog))
+	}
 	if listCatalogEntriesOptions.Complete != nil {
 		builder.AddQuery("complete", fmt.Sprint(*listCatalogEntriesOptions.Complete))
+	}
+	if listCatalogEntriesOptions.Offset != nil {
+		builder.AddQuery("_offset", fmt.Sprint(*listCatalogEntriesOptions.Offset))
+	}
+	if listCatalogEntriesOptions.Limit != nil {
+		builder.AddQuery("_limit", fmt.Sprint(*listCatalogEntriesOptions.Limit))
 	}
 
 	request, err := builder.Build()
@@ -641,6 +649,12 @@ func (globalCatalog *GlobalCatalogV1) GetChildObjectsWithContext(ctx context.Con
 	}
 	if getChildObjectsOptions.Complete != nil {
 		builder.AddQuery("complete", fmt.Sprint(*getChildObjectsOptions.Complete))
+	}
+	if getChildObjectsOptions.Offset != nil {
+		builder.AddQuery("_offset", fmt.Sprint(*getChildObjectsOptions.Offset))
+	}
+	if getChildObjectsOptions.Limit != nil {
+		builder.AddQuery("_limit", fmt.Sprint(*getChildObjectsOptions.Limit))
 	}
 
 	request, err := builder.Build()
@@ -1226,7 +1240,6 @@ type AliasMetaData struct {
 	PlanID *string `json:"plan_id,omitempty"`
 }
 
-
 // UnmarshalAliasMetaData unmarshals an instance of AliasMetaData from the specified map of raw messages.
 func UnmarshalAliasMetaData(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(AliasMetaData)
@@ -1253,7 +1266,6 @@ type Amount struct {
 	// See Price for nested fields.
 	Prices []Price `json:"prices,omitempty"`
 }
-
 
 // UnmarshalAmount unmarshals an instance of Amount from the specified map of raw messages.
 func UnmarshalAmount(m map[string]json.RawMessage, result interface{}) (err error) {
@@ -1292,7 +1304,6 @@ type Artifact struct {
 	Size *int64 `json:"size,omitempty"`
 }
 
-
 // UnmarshalArtifact unmarshals an instance of Artifact from the specified map of raw messages.
 func UnmarshalArtifact(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(Artifact)
@@ -1328,7 +1339,6 @@ type Artifacts struct {
 	// The list of artifacts.
 	Resources []Artifact `json:"resources,omitempty"`
 }
-
 
 // UnmarshalArtifacts unmarshals an instance of Artifacts from the specified map of raw messages.
 func UnmarshalArtifacts(m map[string]json.RawMessage, result interface{}) (err error) {
@@ -1374,7 +1384,6 @@ type AuditSearchResult struct {
 	// The resources (audit messages) contained in this page of search results.
 	Resources []Message `json:"resources,omitempty"`
 }
-
 
 // UnmarshalAuditSearchResult unmarshals an instance of AuditSearchResult from the specified map of raw messages.
 func UnmarshalAuditSearchResult(m map[string]json.RawMessage, result interface{}) (err error) {
@@ -1428,7 +1437,6 @@ type Broker struct {
 	GUID *string `json:"guid,omitempty"`
 }
 
-
 // UnmarshalBroker unmarshals an instance of Broker from the specified map of raw messages.
 func UnmarshalBroker(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(Broker)
@@ -1458,7 +1466,6 @@ type Bullets struct {
 	// The bullet quantity.
 	Quantity *int64 `json:"quantity,omitempty"`
 }
-
 
 // UnmarshalBullets unmarshals an instance of Bullets from the specified map of raw messages.
 func UnmarshalBullets(m map[string]json.RawMessage, result interface{}) (err error) {
@@ -1529,7 +1536,6 @@ type CfMetaData struct {
 	// `us-south=123`.
 	CfGUID map[string]string `json:"cf_guid,omitempty"`
 }
-
 
 // UnmarshalCfMetaData unmarshals an instance of CfMetaData from the specified map of raw messages.
 func UnmarshalCfMetaData(m map[string]json.RawMessage, result interface{}) (err error) {
@@ -1626,7 +1632,6 @@ type Callbacks struct {
 	// API endpoint.
 	APIEndpoint map[string]string `json:"api_endpoint,omitempty"`
 }
-
 
 // UnmarshalCallbacks unmarshals an instance of Callbacks from the specified map of raw messages.
 func UnmarshalCallbacks(m map[string]json.RawMessage, result interface{}) (err error) {
@@ -1746,7 +1751,6 @@ const (
 	CatalogEntryKindServiceConst = "service"
 	CatalogEntryKindTemplateConst = "template"
 )
-
 
 // UnmarshalCatalogEntry unmarshals an instance of CatalogEntry from the specified map of raw messages.
 func UnmarshalCatalogEntry(m map[string]json.RawMessage, result interface{}) (err error) {
@@ -1876,7 +1880,6 @@ type CatalogEntryMetadata struct {
 	Deployment *CatalogEntryMetadataDeployment `json:"deployment,omitempty"`
 }
 
-
 // UnmarshalCatalogEntryMetadata unmarshals an instance of CatalogEntryMetadata from the specified map of raw messages.
 func UnmarshalCatalogEntryMetadata(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(CatalogEntryMetadata)
@@ -1970,7 +1973,6 @@ type CatalogEntryMetadataDeployment struct {
 	TargetNetwork *string `json:"target_network,omitempty"`
 }
 
-
 // UnmarshalCatalogEntryMetadataDeployment unmarshals an instance of CatalogEntryMetadataDeployment from the specified map of raw messages.
 func UnmarshalCatalogEntryMetadataDeployment(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(CatalogEntryMetadataDeployment)
@@ -2029,7 +2031,6 @@ type CatalogEntryMetadataPricing struct {
 	Metrics []Metrics `json:"metrics,omitempty"`
 }
 
-
 // UnmarshalCatalogEntryMetadataPricing unmarshals an instance of CatalogEntryMetadataPricing from the specified map of raw messages.
 func UnmarshalCatalogEntryMetadataPricing(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(CatalogEntryMetadataPricing)
@@ -2057,47 +2058,47 @@ func UnmarshalCatalogEntryMetadataPricing(m map[string]json.RawMessage, result i
 type CreateCatalogEntryOptions struct {
 	// Programmatic name for this catalog entry, which must be formatted like a CRN segment. See the display name in
 	// OverviewUI for a user-readable name.
-	Name *string `json:"name" validate:"required"`
+	Name *string `validate:"required"`
 
 	// The type of catalog entry, **service**, **template**, **dashboard**, which determines the type and shape of the
 	// object.
-	Kind *string `json:"kind" validate:"required"`
+	Kind *string `validate:"required"`
 
 	// Overview is nested in the top level. The key value pair is `[_language_]overview_ui`.
-	OverviewUI map[string]Overview `json:"overview_ui" validate:"required"`
+	OverviewUI map[string]Overview `validate:"required"`
 
 	// Image annotation for this catalog entry. The image is a URL.
-	Images *Image `json:"images" validate:"required"`
+	Images *Image `validate:"required"`
 
 	// Boolean value that determines the global visibility for the catalog entry, and its children. If it is not enabled,
 	// all plans are disabled.
-	Disabled *bool `json:"disabled" validate:"required"`
+	Disabled *bool `validate:"required"`
 
 	// A list of tags. For example, IBM, 3rd Party, Beta, GA, and Single Tenant.
-	Tags []string `json:"tags" validate:"required"`
+	Tags []string `validate:"required"`
 
 	// Information related to the provider associated with a catalog entry.
-	Provider *Provider `json:"provider" validate:"required"`
+	Provider *Provider `validate:"required"`
 
 	// Catalog entry's unique ID. It's the same across all catalog instances.
-	ID *string `json:"id" validate:"required"`
+	ID *string `validate:"required"`
 
 	// The ID of the parent catalog entry if it exists.
-	ParentID *string `json:"parent_id,omitempty"`
+	ParentID *string
 
 	// Boolean value that determines whether the catalog entry is a group.
-	Group *bool `json:"group,omitempty"`
+	Group *bool
 
 	// Boolean value that describes whether the service is active.
-	Active *bool `json:"active,omitempty"`
+	Active *bool
 
 	// Model used to describe metadata object that can be set.
-	Metadata *ObjectMetadataSet `json:"metadata,omitempty"`
+	Metadata *ObjectMetadataSet
 
 	// This changes the scope of the request regardless of the authorization header. Example scopes are `account` and
 	// `global`. `account=global` is reqired if operating with a service ID that has a global admin policy, for example
 	// `GET /?account=global`.
-	Account *string `json:"account,omitempty"`
+	Account *string
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -2219,7 +2220,6 @@ type DrMetaData struct {
 	Description *string `json:"description,omitempty"`
 }
 
-
 // UnmarshalDrMetaData unmarshals an instance of DrMetaData from the specified map of raw messages.
 func UnmarshalDrMetaData(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(DrMetaData)
@@ -2238,15 +2238,15 @@ func UnmarshalDrMetaData(m map[string]json.RawMessage, result interface{}) (err 
 // DeleteArtifactOptions : The DeleteArtifact options.
 type DeleteArtifactOptions struct {
 	// The object's unique ID.
-	ObjectID *string `json:"object_id" validate:"required,ne="`
+	ObjectID *string `validate:"required,ne="`
 
 	// The artifact's ID.
-	ArtifactID *string `json:"artifact_id" validate:"required,ne="`
+	ArtifactID *string `validate:"required,ne="`
 
 	// This changes the scope of the request regardless of the authorization header. Example scopes are `account` and
 	// `global`. `account=global` is reqired if operating with a service ID that has a global admin policy, for example
 	// `GET /?account=global`.
-	Account *string `json:"account,omitempty"`
+	Account *string
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -2287,16 +2287,16 @@ func (options *DeleteArtifactOptions) SetHeaders(param map[string]string) *Delet
 // DeleteCatalogEntryOptions : The DeleteCatalogEntry options.
 type DeleteCatalogEntryOptions struct {
 	// The object's unique ID.
-	ID *string `json:"id" validate:"required,ne="`
+	ID *string `validate:"required,ne="`
 
 	// This changes the scope of the request regardless of the authorization header. Example scopes are `account` and
 	// `global`. `account=global` is reqired if operating with a service ID that has a global admin policy, for example
 	// `GET /?account=global`.
-	Account *string `json:"account,omitempty"`
+	Account *string
 
 	// This will cause entry to be deleted fully. By default it is archived for two weeks, so that it can be restored if
 	// necessary.
-	Force *bool `json:"force,omitempty"`
+	Force *bool
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -2362,7 +2362,6 @@ type DeploymentBase struct {
 	// network to use during deployment.
 	TargetNetwork *string `json:"target_network,omitempty"`
 }
-
 
 // UnmarshalDeploymentBase unmarshals an instance of DeploymentBase from the specified map of raw messages.
 func UnmarshalDeploymentBase(m map[string]json.RawMessage, result interface{}) (err error) {
@@ -2437,7 +2436,6 @@ type EntrySearchResult struct {
 	Resources []CatalogEntry `json:"resources,omitempty"`
 }
 
-
 // UnmarshalEntrySearchResult unmarshals an instance of EntrySearchResult from the specified map of raw messages.
 func UnmarshalEntrySearchResult(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(EntrySearchResult)
@@ -2484,18 +2482,18 @@ func UnmarshalEntrySearchResult(m map[string]json.RawMessage, result interface{}
 // GetArtifactOptions : The GetArtifact options.
 type GetArtifactOptions struct {
 	// The object's unique ID.
-	ObjectID *string `json:"object_id" validate:"required,ne="`
+	ObjectID *string `validate:"required,ne="`
 
 	// The artifact's ID.
-	ArtifactID *string `json:"artifact_id" validate:"required,ne="`
+	ArtifactID *string `validate:"required,ne="`
 
 	// The type of the response:  or *_/_*.
-	Accept *string `json:"Accept,omitempty"`
+	Accept *string
 
 	// This changes the scope of the request regardless of the authorization header. Example scopes are `account` and
 	// `global`. `account=global` is reqired if operating with a service ID that has a global admin policy, for example
 	// `GET /?account=global`.
-	Account *string `json:"account,omitempty"`
+	Account *string
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -2542,28 +2540,28 @@ func (options *GetArtifactOptions) SetHeaders(param map[string]string) *GetArtif
 // GetAuditLogsOptions : The GetAuditLogs options.
 type GetAuditLogsOptions struct {
 	// The object's unique ID.
-	ID *string `json:"id" validate:"required,ne="`
+	ID *string `validate:"required,ne="`
 
 	// This changes the scope of the request regardless of the authorization header. Example scopes are `account` and
 	// `global`. `account=global` is reqired if operating with a service ID that has a global admin policy, for example
 	// `GET /?account=global`.
-	Account *string `json:"account,omitempty"`
+	Account *string
 
 	// Sets the sort order. False is descending.
-	Ascending *string `json:"ascending,omitempty"`
+	Ascending *string
 
 	// Starting time for the logs. If it's descending then the entries will be equal or earlier. The default is latest. For
 	// ascending it will entries equal or later. The default is earliest. It can be either a number or a string. If a
 	// number then it is in the format of Unix timestamps. If it is a string then it is a date in the format
 	// YYYY-MM-DDTHH:MM:SSZ  and the time is UTC. The T and the Z are required. For example: 2017-12-24T12:00:00Z for Noon
 	// UTC on Dec 24, 2017.
-	Startat *string `json:"startat,omitempty"`
+	Startat *string
 
 	// Count of number of log entries to skip before returning logs. The default is zero.
-	Offset *int64 `json:"_offset,omitempty"`
+	Offset *int64
 
 	// Count of number of entries to return. The default is fifty. The maximum value is two hundred.
-	Limit *int64 `json:"_limit,omitempty"`
+	Limit *int64
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -2621,31 +2619,31 @@ func (options *GetAuditLogsOptions) SetHeaders(param map[string]string) *GetAudi
 // GetCatalogEntryOptions : The GetCatalogEntry options.
 type GetCatalogEntryOptions struct {
 	// The catalog entry's unqiue ID.
-	ID *string `json:"id" validate:"required,ne="`
+	ID *string `validate:"required,ne="`
 
 	// This changes the scope of the request regardless of the authorization header. Example scopes are `account` and
 	// `global`. `account=global` is reqired if operating with a service ID that has a global admin policy, for example
 	// `GET /?account=global`.
-	Account *string `json:"account,omitempty"`
+	Account *string
 
 	// A GET call by default returns a basic set of properties. To include other properties, you must add this parameter. A
 	// wildcard (`*`) includes all properties for an object, for example `GET /id?include=*`. To include specific metadata
 	// fields, separate each field with a colon (:), for example `GET /id?include=metadata.ui:metadata.pricing`.
-	Include *string `json:"include,omitempty"`
+	Include *string
 
 	// Return the data strings in the specified langauge. By default the strings returned are of the language preferred by
 	// your browser through the Accept-Langauge header, which allows an override of the header. Languages are specified in
 	// standard form, such as `en-us`. To include all languages use a wildcard (*).
-	Languages *string `json:"languages,omitempty"`
+	Languages *string
 
 	// Returns all available fields for all languages. Use the value `?complete=true` as shortcut for
 	// ?include=*&languages=*.
-	Complete *string `json:"complete,omitempty"`
+	Complete *bool
 
 	// Return the children down to the requested depth. Use * to include the entire children tree. If there are more
 	// children than the maximum permitted an error will be returned. Be judicious with this as it can cause a large number
 	// of database accesses and can result in a large amount of data returned.
-	Depth *int64 `json:"depth,omitempty"`
+	Depth *int64
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -2683,8 +2681,8 @@ func (options *GetCatalogEntryOptions) SetLanguages(languages string) *GetCatalo
 }
 
 // SetComplete : Allow user to set Complete
-func (options *GetCatalogEntryOptions) SetComplete(complete string) *GetCatalogEntryOptions {
-	options.Complete = core.StringPtr(complete)
+func (options *GetCatalogEntryOptions) SetComplete(complete bool) *GetCatalogEntryOptions {
+	options.Complete = core.BoolPtr(complete)
 	return options
 }
 
@@ -2703,39 +2701,45 @@ func (options *GetCatalogEntryOptions) SetHeaders(param map[string]string) *GetC
 // GetChildObjectsOptions : The GetChildObjects options.
 type GetChildObjectsOptions struct {
 	// The parent catalog entry's ID.
-	ID *string `json:"id" validate:"required,ne="`
+	ID *string `validate:"required,ne="`
 
 	// The **kind** of child catalog entries to search for. A wildcard (*) includes all child catalog entries for all
 	// kinds, for example `GET /service_name/_*`.
-	Kind *string `json:"kind" validate:"required,ne="`
+	Kind *string `validate:"required,ne="`
 
 	// This changes the scope of the request regardless of the authorization header. Example scopes are `account` and
 	// `global`. `account=global` is reqired if operating with a service ID that has a global admin policy, for example
 	// `GET /?account=global`.
-	Account *string `json:"account,omitempty"`
+	Account *string
 
 	// A colon (:) separated list of properties to include. A GET call by defaults return a limited set of properties. To
 	// include other properties, you must add the include parameter.  A wildcard (*) includes all properties.
-	Include *string `json:"include,omitempty"`
+	Include *string
 
 	// A query filter, for example, `q=kind:iaas IBM`  will filter on entries of **kind** iaas that has `IBM` in their
 	// name, display name, or description.
-	Q *string `json:"q,omitempty"`
+	Q *string
 
 	// The field on which to sort the output. By default by name. Available fields are **name**, **kind**, and
 	// **provider**.
-	SortBy *string `json:"sort-by,omitempty"`
+	SortBy *string
 
 	// The sort order. The default is false, which is ascending.
-	Descending *string `json:"descending,omitempty"`
+	Descending *string
 
 	// Return the data strings in the specified langauge. By default the strings returned are of the language preferred by
 	// your browser through the Accept-Langauge header. This allows an override of the header. Languages are specified in
 	// standard form, such as `en-us`. To include all languages use the wildcard (*).
-	Languages *string `json:"languages,omitempty"`
+	Languages *string
 
 	// Use the value `?complete=true` as shortcut for ?include=*&languages=*.
-	Complete *string `json:"complete,omitempty"`
+	Complete *bool
+
+	// Useful for pagination, specifies index (origin 0) of first item to return in response.
+	Offset *int64
+
+	// Useful for pagination, specifies the maximum number of items to return in the response.
+	Limit *int64
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -2798,8 +2802,20 @@ func (options *GetChildObjectsOptions) SetLanguages(languages string) *GetChildO
 }
 
 // SetComplete : Allow user to set Complete
-func (options *GetChildObjectsOptions) SetComplete(complete string) *GetChildObjectsOptions {
-	options.Complete = core.StringPtr(complete)
+func (options *GetChildObjectsOptions) SetComplete(complete bool) *GetChildObjectsOptions {
+	options.Complete = core.BoolPtr(complete)
+	return options
+}
+
+// SetOffset : Allow user to set Offset
+func (options *GetChildObjectsOptions) SetOffset(offset int64) *GetChildObjectsOptions {
+	options.Offset = core.Int64Ptr(offset)
+	return options
+}
+
+// SetLimit : Allow user to set Limit
+func (options *GetChildObjectsOptions) SetLimit(limit int64) *GetChildObjectsOptions {
+	options.Limit = core.Int64Ptr(limit)
 	return options
 }
 
@@ -2812,12 +2828,12 @@ func (options *GetChildObjectsOptions) SetHeaders(param map[string]string) *GetC
 // GetPricingOptions : The GetPricing options.
 type GetPricingOptions struct {
 	// The object's unique ID.
-	ID *string `json:"id" validate:"required,ne="`
+	ID *string `validate:"required,ne="`
 
 	// This changes the scope of the request regardless of the authorization header. Example scopes are `account` and
 	// `global`. `account=global` is reqired if operating with a service ID that has a global admin policy, for example
 	// `GET /?account=global`.
-	Account *string `json:"account,omitempty"`
+	Account *string
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -2851,12 +2867,12 @@ func (options *GetPricingOptions) SetHeaders(param map[string]string) *GetPricin
 // GetVisibilityOptions : The GetVisibility options.
 type GetVisibilityOptions struct {
 	// The object's unique ID.
-	ID *string `json:"id" validate:"required,ne="`
+	ID *string `validate:"required,ne="`
 
 	// This changes the scope of the request regardless of the authorization header. Example scopes are `account` and
 	// `global`. `account=global` is reqired if operating with a service ID that has a global admin policy, for example
 	// `GET /?account=global`.
-	Account *string `json:"account,omitempty"`
+	Account *string
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -2902,7 +2918,6 @@ type Image struct {
 	FeatureImage *string `json:"feature_image,omitempty"`
 }
 
-
 // NewImage : Instantiate Image (Generic Model Constructor)
 func (*GlobalCatalogV1) NewImage(image string) (model *Image, err error) {
 	model = &Image{
@@ -2938,12 +2953,12 @@ func UnmarshalImage(m map[string]json.RawMessage, result interface{}) (err error
 // ListArtifactsOptions : The ListArtifacts options.
 type ListArtifactsOptions struct {
 	// The object's unique ID.
-	ObjectID *string `json:"object_id" validate:"required,ne="`
+	ObjectID *string `validate:"required,ne="`
 
 	// This changes the scope of the request regardless of the authorization header. Example scopes are `account` and
 	// `global`. `account=global` is reqired if operating with a service ID that has a global admin policy, for example
 	// `GET /?account=global`.
-	Account *string `json:"account,omitempty"`
+	Account *string
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -2979,36 +2994,47 @@ type ListCatalogEntriesOptions struct {
 	// This changes the scope of the request regardless of the authorization header. Example scopes are `account` and
 	// `global`. `account=global` is reqired if operating with a service ID that has a global admin policy, for example
 	// `GET /?account=global`.
-	Account *string `json:"account,omitempty"`
+	Account *string
 
 	// A GET call by default returns a basic set of properties. To include other properties, you must add this parameter. A
 	// wildcard (`*`) includes all properties for an object, for example `GET /?include=*`. To include specific metadata
 	// fields, separate each field with a colon (:), for example `GET /?include=metadata.ui:metadata.pricing`.
-	Include *string `json:"include,omitempty"`
+	Include *string
 
 	// Searches the catalog entries for keywords. Add filters to refine your search. A query filter, for example,
 	// `q=kind:iaas service_name rc:true`, filters entries of kind iaas with metadata.service.rc_compatible set to true and
 	//  have a service name is in their name, display name, or description.  Valid tags are **kind**:<string>,
 	// **tag**:<strging>, **rc**:[true|false], **iam**:[true|false], **active**:[true|false], **geo**:<string>, and
 	// **price**:<string>.
-	Q *string `json:"q,omitempty"`
+	Q *string
 
 	// The field on which the output is sorted. Sorts by default by **name** property. Available fields are **name**,
 	// **displayname** (overview_ui.display_name), **kind**, **provider** (provider.name), **sbsindex**
 	// (metadata.ui.side_by_side_index), and the time **created**, and **updated**.
-	SortBy *string `json:"sort-by,omitempty"`
+	SortBy *string
 
 	// Sets the sort order. The default is false, which is ascending.
-	Descending *string `json:"descending,omitempty"`
+	Descending *string
 
 	// Return the data strings in a specified langauge. By default, the strings returned are of the language preferred by
 	// your browser through the Accept-Langauge header, which allows an override of the header. Languages are specified in
 	// standard form, such as `en-us`. To include all languages use a wildcard (*).
-	Languages *string `json:"languages,omitempty"`
+	Languages *string
+
+	// Checks to see if a catalog's object is visible, or if it's filtered by service, plan, deployment, or region. Use the
+	// value `?catalog=true`. If a `200` code is returned, the object is visible. If a `403` code is returned, the object
+	// is not visible for the user.
+	Catalog *bool
 
 	// Returns all available fields for all languages. Use the value `?complete=true` as shortcut for
 	// ?include=*&languages=*.
-	Complete *string `json:"complete,omitempty"`
+	Complete *bool
+
+	// Useful for pagination, specifies index (origin 0) of first item to return in response.
+	Offset *int64
+
+	// Useful for pagination, specifies the maximum number of items to return in the response.
+	Limit *int64
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -3055,9 +3081,27 @@ func (options *ListCatalogEntriesOptions) SetLanguages(languages string) *ListCa
 	return options
 }
 
+// SetCatalog : Allow user to set Catalog
+func (options *ListCatalogEntriesOptions) SetCatalog(catalog bool) *ListCatalogEntriesOptions {
+	options.Catalog = core.BoolPtr(catalog)
+	return options
+}
+
 // SetComplete : Allow user to set Complete
-func (options *ListCatalogEntriesOptions) SetComplete(complete string) *ListCatalogEntriesOptions {
-	options.Complete = core.StringPtr(complete)
+func (options *ListCatalogEntriesOptions) SetComplete(complete bool) *ListCatalogEntriesOptions {
+	options.Complete = core.BoolPtr(complete)
+	return options
+}
+
+// SetOffset : Allow user to set Offset
+func (options *ListCatalogEntriesOptions) SetOffset(offset int64) *ListCatalogEntriesOptions {
+	options.Offset = core.Int64Ptr(offset)
+	return options
+}
+
+// SetLimit : Allow user to set Limit
+func (options *ListCatalogEntriesOptions) SetLimit(limit int64) *ListCatalogEntriesOptions {
+	options.Limit = core.Int64Ptr(limit)
 	return options
 }
 
@@ -3102,7 +3146,6 @@ type Message struct {
 	// An object containing details on changes made to object data.
 	Data map[string]interface{} `json:"data,omitempty"`
 }
-
 
 // UnmarshalMessage unmarshals an instance of Message from the specified map of raw messages.
 func UnmarshalMessage(m map[string]json.RawMessage, result interface{}) (err error) {
@@ -3196,7 +3239,6 @@ type Metrics struct {
 	// The pricing per metric by country and currency.
 	Amounts []Amount `json:"amounts,omitempty"`
 }
-
 
 // UnmarshalMetrics unmarshals an instance of Metrics from the specified map of raw messages.
 func UnmarshalMetrics(m map[string]json.RawMessage, result interface{}) (err error) {
@@ -3302,7 +3344,6 @@ type ObjectMetadataSet struct {
 	Deployment *DeploymentBase `json:"deployment,omitempty"`
 }
 
-
 // UnmarshalObjectMetadataSet unmarshals an instance of ObjectMetadataSet from the specified map of raw messages.
 func UnmarshalObjectMetadataSet(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(ObjectMetadataSet)
@@ -3381,7 +3422,6 @@ type Overview struct {
 	FeaturedDescription *string `json:"featured_description,omitempty"`
 }
 
-
 // NewOverview : Instantiate Overview (Generic Model Constructor)
 func (*GlobalCatalogV1) NewOverview(displayName string, longDescription string, description string) (model *Overview, err error) {
 	model = &Overview{
@@ -3447,7 +3487,6 @@ type PlanMetaData struct {
 	CfGUID map[string]string `json:"cf_guid,omitempty"`
 }
 
-
 // UnmarshalPlanMetaData unmarshals an instance of PlanMetaData from the specified map of raw messages.
 func UnmarshalPlanMetaData(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(PlanMetaData)
@@ -3500,7 +3539,6 @@ type Price struct {
 	Price *float64 `json:"Price,omitempty"`
 }
 
-
 // UnmarshalPrice unmarshals an instance of Price from the specified map of raw messages.
 func UnmarshalPrice(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(Price)
@@ -3530,7 +3568,6 @@ type PricingGet struct {
 	// Plan-specific cost metric structure.
 	Metrics []Metrics `json:"metrics,omitempty"`
 }
-
 
 // UnmarshalPricingGet unmarshals an instance of PricingGet from the specified map of raw messages.
 func UnmarshalPricingGet(m map[string]json.RawMessage, result interface{}) (err error) {
@@ -3566,7 +3603,6 @@ type PricingSet struct {
 	// Plan-specific starting price information.
 	StartingPrice *StartingPrice `json:"starting_price,omitempty"`
 }
-
 
 // UnmarshalPricingSet unmarshals an instance of PricingSet from the specified map of raw messages.
 func UnmarshalPricingSet(m map[string]json.RawMessage, result interface{}) (err error) {
@@ -3604,7 +3640,6 @@ type Provider struct {
 	// Provider's contact phone.
 	Phone *string `json:"phone,omitempty"`
 }
-
 
 // NewProvider : Instantiate Provider (Generic Model Constructor)
 func (*GlobalCatalogV1) NewProvider(email string, name string) (model *Provider, err error) {
@@ -3646,12 +3681,12 @@ func UnmarshalProvider(m map[string]json.RawMessage, result interface{}) (err er
 // RestoreCatalogEntryOptions : The RestoreCatalogEntry options.
 type RestoreCatalogEntryOptions struct {
 	// The catalog entry's unique ID.
-	ID *string `json:"id" validate:"required,ne="`
+	ID *string `validate:"required,ne="`
 
 	// This changes the scope of the request regardless of the authorization header. Example scopes are `account` and
 	// `global`. `account=global` is reqired if operating with a service ID that has a global admin policy, for example
 	// `GET /?account=global`.
-	Account *string `json:"account,omitempty"`
+	Account *string
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -3701,7 +3736,6 @@ type SLAMetaData struct {
 	Dr *DrMetaData `json:"dr,omitempty"`
 }
 
-
 // UnmarshalSLAMetaData unmarshals an instance of SLAMetaData from the specified map of raw messages.
 func UnmarshalSLAMetaData(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(SLAMetaData)
@@ -3741,7 +3775,6 @@ type SourceMetaData struct {
 	URL *string `json:"url,omitempty"`
 }
 
-
 // UnmarshalSourceMetaData unmarshals an instance of SourceMetaData from the specified map of raw messages.
 func UnmarshalSourceMetaData(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(SourceMetaData)
@@ -3775,7 +3808,6 @@ type StartingPrice struct {
 	// The pricing per metric by country and currency.
 	Amount []Amount `json:"amount,omitempty"`
 }
-
 
 // UnmarshalStartingPrice unmarshals an instance of StartingPrice from the specified map of raw messages.
 func UnmarshalStartingPrice(m map[string]json.RawMessage, result interface{}) (err error) {
@@ -3823,7 +3855,6 @@ type Strings struct {
 	// Instructions for UI strings.
 	Instruction *string `json:"instruction,omitempty"`
 }
-
 
 // UnmarshalStrings unmarshals an instance of Strings from the specified map of raw messages.
 func UnmarshalStrings(m map[string]json.RawMessage, result interface{}) (err error) {
@@ -3892,7 +3923,6 @@ type TemplateMetaData struct {
 	// Environment variables (key/value pairs) for the template.
 	EnvironmentVariables map[string]string `json:"environment_variables,omitempty"`
 }
-
 
 // UnmarshalTemplateMetaData unmarshals an instance of TemplateMetaData from the specified map of raw messages.
 func UnmarshalTemplateMetaData(m map[string]json.RawMessage, result interface{}) (err error) {
@@ -3983,7 +4013,6 @@ type UIMetaData struct {
 	NoUpgradeNextStep *bool `json:"no_upgrade_next_step,omitempty"`
 }
 
-
 // UnmarshalUIMetaData unmarshals an instance of UIMetaData from the specified map of raw messages.
 func UnmarshalUIMetaData(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(UIMetaData)
@@ -4061,7 +4090,6 @@ type UIMetaMedia struct {
 	Source *Bullets `json:"source,omitempty"`
 }
 
-
 // UnmarshalUIMetaMedia unmarshals an instance of UIMetaMedia from the specified map of raw messages.
 func UnmarshalUIMetaMedia(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(UIMetaMedia)
@@ -4128,7 +4156,6 @@ type Urls struct {
 	Apidocsurl *string `json:"apidocsurl,omitempty"`
 }
 
-
 // UnmarshalUrls unmarshals an instance of Urls from the specified map of raw messages.
 func UnmarshalUrls(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(Urls)
@@ -4187,54 +4214,54 @@ func UnmarshalUrls(m map[string]json.RawMessage, result interface{}) (err error)
 // UpdateCatalogEntryOptions : The UpdateCatalogEntry options.
 type UpdateCatalogEntryOptions struct {
 	// The object's unique ID.
-	ID *string `json:"id" validate:"required,ne="`
+	ID *string `validate:"required,ne="`
 
 	// Programmatic name for this catalog entry, which must be formatted like a CRN segment. See the display name in
 	// OverviewUI for a user-readable name.
-	Name *string `json:"name" validate:"required"`
+	Name *string `validate:"required"`
 
 	// The type of catalog entry, **service**, **template**, **dashboard**, which determines the type and shape of the
 	// object.
-	Kind *string `json:"kind" validate:"required"`
+	Kind *string `validate:"required"`
 
 	// Overview is nested in the top level. The key value pair is `[_language_]overview_ui`.
-	OverviewUI map[string]Overview `json:"overview_ui" validate:"required"`
+	OverviewUI map[string]Overview `validate:"required"`
 
 	// Image annotation for this catalog entry. The image is a URL.
-	Images *Image `json:"images" validate:"required"`
+	Images *Image `validate:"required"`
 
 	// Boolean value that determines the global visibility for the catalog entry, and its children. If it is not enabled,
 	// all plans are disabled.
-	Disabled *bool `json:"disabled" validate:"required"`
+	Disabled *bool `validate:"required"`
 
 	// A list of tags. For example, IBM, 3rd Party, Beta, GA, and Single Tenant.
-	Tags []string `json:"tags" validate:"required"`
+	Tags []string `validate:"required"`
 
 	// Information related to the provider associated with a catalog entry.
-	Provider *Provider `json:"provider" validate:"required"`
+	Provider *Provider `validate:"required"`
 
 	// The ID of the parent catalog entry if it exists.
-	ParentID *string `json:"parent_id,omitempty"`
+	ParentID *string
 
 	// Boolean value that determines whether the catalog entry is a group.
-	Group *bool `json:"group,omitempty"`
+	Group *bool
 
 	// Boolean value that describes whether the service is active.
-	Active *bool `json:"active,omitempty"`
+	Active *bool
 
 	// Model used to describe metadata object that can be set.
-	Metadata *ObjectMetadataSet `json:"metadata,omitempty"`
+	Metadata *ObjectMetadataSet
 
 	// This changes the scope of the request regardless of the authorization header. Example scopes are `account` and
 	// `global`. `account=global` is reqired if operating with a service ID that has a global admin policy, for example
 	// `GET /?account=global`.
-	Account *string `json:"account,omitempty"`
+	Account *string
 
 	// Reparenting object. In the body set the parent_id to a different parent. Or remove the parent_id field to reparent
 	// to the root of the catalog. If this is not set to 'true' then changing the parent_id in the body of the request will
 	// not be permitted. If this is 'true' and no change to parent_id then this is also error. This is to prevent
 	// accidental changing of parent.
-	Move *string `json:"move,omitempty"`
+	Move *string
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -4356,21 +4383,21 @@ func (options *UpdateCatalogEntryOptions) SetHeaders(param map[string]string) *U
 // UpdateVisibilityOptions : The UpdateVisibility options.
 type UpdateVisibilityOptions struct {
 	// The object's unique ID.
-	ID *string `json:"id" validate:"required,ne="`
+	ID *string `validate:"required,ne="`
 
 	// Allows the visibility to be extenable.
-	Extendable *bool `json:"extendable,omitempty"`
+	Extendable *bool
 
 	// Visibility details related to a catalog entry.
-	Include *VisibilityDetail `json:"include,omitempty"`
+	Include *VisibilityDetail
 
 	// Visibility details related to a catalog entry.
-	Exclude *VisibilityDetail `json:"exclude,omitempty"`
+	Exclude *VisibilityDetail
 
 	// This changes the scope of the request regardless of the authorization header. Example scopes are `account` and
 	// `global`. `account=global` is reqired if operating with a service ID that has a global admin policy, for example
 	// `GET /?account=global`.
-	Account *string `json:"account,omitempty"`
+	Account *string
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -4422,20 +4449,20 @@ func (options *UpdateVisibilityOptions) SetHeaders(param map[string]string) *Upd
 // UploadArtifactOptions : The UploadArtifact options.
 type UploadArtifactOptions struct {
 	// The object's unique ID.
-	ObjectID *string `json:"object_id" validate:"required,ne="`
+	ObjectID *string `validate:"required,ne="`
 
 	// The artifact's ID.
-	ArtifactID *string `json:"artifact_id" validate:"required,ne="`
+	ArtifactID *string `validate:"required,ne="`
 
-	Artifact io.ReadCloser `json:"artifact,omitempty"`
+	Artifact io.ReadCloser
 
 	// The type of the input.
-	ContentType *string `json:"Content-Type,omitempty"`
+	ContentType *string
 
 	// This changes the scope of the request regardless of the authorization header. Example scopes are `account` and
 	// `global`. `account=global` is reqired if operating with a service ID that has a global admin policy, for example
 	// `GET /?account=global`.
-	Account *string `json:"account,omitempty"`
+	Account *string
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -4509,7 +4536,6 @@ type Visibility struct {
 	Approved *bool `json:"approved,omitempty"`
 }
 
-
 // UnmarshalVisibility unmarshals an instance of Visibility from the specified map of raw messages.
 func UnmarshalVisibility(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(Visibility)
@@ -4547,7 +4573,6 @@ type VisibilityDetail struct {
 	Accounts *VisibilityDetailAccounts `json:"accounts" validate:"required"`
 }
 
-
 // NewVisibilityDetail : Instantiate VisibilityDetail (Generic Model Constructor)
 func (*GlobalCatalogV1) NewVisibilityDetail(accounts *VisibilityDetailAccounts) (model *VisibilityDetail, err error) {
 	model = &VisibilityDetail{
@@ -4574,7 +4599,6 @@ type VisibilityDetailAccounts struct {
 	// the value. It is replaced with the owner scope when saved.
 	Accountid *string `json:"_accountid_,omitempty"`
 }
-
 
 // UnmarshalVisibilityDetailAccounts unmarshals an instance of VisibilityDetailAccounts from the specified map of raw messages.
 func UnmarshalVisibilityDetailAccounts(m map[string]json.RawMessage, result interface{}) (err error) {
