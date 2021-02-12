@@ -35,6 +35,15 @@ import (
 	. "github.com/onsi/gomega"
 )
 
+//
+// This file provides an example of how to use the Global Catalog service.
+//
+// GLOBAL_CATALOG_URL=<service url>
+// GLOBAL_CATALOG_AUTH_TYPE=iam
+// GLOBAL_CATALOG_APIKEY=<IAM apikey>
+// GLOBAL_CATALOG_AUTH_URL=<IAM token service URL - omit this if using the production environment>
+//
+
 const externalConfigFile = "../global_catalog.env"
 
 var (
