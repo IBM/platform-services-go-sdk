@@ -7,7 +7,6 @@ require (
 	github.com/IBM/go-sdk-core/v5 v5.0.0
 	github.com/go-openapi/strfmt v0.19.10
 	github.com/google/uuid v1.1.1
-	github.com/joho/godotenv v1.3.0
 	github.com/onsi/ginkgo v1.14.2
 	github.com/onsi/gomega v1.10.3
 	github.com/satori/go.uuid v1.2.0
