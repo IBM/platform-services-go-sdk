@@ -22,7 +22,9 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
+	"io/ioutil"
 	"os"
+	"strings"
 
 	"github.com/IBM/go-sdk-core/v5/core"
 	"github.com/IBM/platform-services-go-sdk/casemanagementv1"
@@ -147,8 +149,12 @@ var _ = Describe(`CaseManagementV1 Examples Tests`, func() {
 			// begin-getCase
 
 			getCaseOptions := caseManagementService.NewGetCaseOptions(
-				"testString",
+				"CS1234567",
 			)
+			getCaseOptions.SetFields([]string{
+				casemanagementv1.GetCaseOptionsFieldsDescriptionConst,
+				casemanagementv1.GetCaseOptionsFieldsStatusConst,
+			})
 
 			caseVar, response, err := caseManagementService.GetCase(getCaseOptions)
 			if err != nil {
@@ -174,7 +180,7 @@ var _ = Describe(`CaseManagementV1 Examples Tests`, func() {
 			}
 
 			updateCaseStatusOptions := caseManagementService.NewUpdateCaseStatusOptions(
-				"testString",
+				"CS1234567",
 				statusPayloadModel,
 			)
 
@@ -196,7 +202,7 @@ var _ = Describe(`CaseManagementV1 Examples Tests`, func() {
 			// begin-addComment
 
 			addCommentOptions := caseManagementService.NewAddCommentOptions(
-				"testString",
+				"CS1234567",
 				"This is a test comment",
 			)
 
@@ -217,9 +223,12 @@ var _ = Describe(`CaseManagementV1 Examples Tests`, func() {
 		It(`AddWatchlist request example`, func() {
 			// begin-addWatchlist
 
+			watchListUser, _ := caseManagementService.NewUser("IBMid", "abc@ibm.com")
+
 			addWatchlistOptions := caseManagementService.NewAddWatchlistOptions(
-				"testString",
+				"CS1234567",
 			)
+			addWatchlistOptions.SetWatchlist([]casemanagementv1.User{*watchListUser})
 
 			watchlistAddResponse, response, err := caseManagementService.AddWatchlist(addWatchlistOptions)
 			if err != nil {
@@ -239,8 +248,9 @@ var _ = Describe(`CaseManagementV1 Examples Tests`, func() {
 			// begin-addResource
 
 			addResourceOptions := caseManagementService.NewAddResourceOptions(
-				"testString",
+				"CS1234567",
 			)
+			addResourceOptions.SetNote("This is a test note")
 
 			resource, response, err := caseManagementService.AddResource(addResourceOptions)
 			if err != nil {
@@ -259,9 +269,15 @@ var _ = Describe(`CaseManagementV1 Examples Tests`, func() {
 		It(`UploadFile request example`, func() {
 			// begin-uploadFile
 
+			testFile, _ := service.NewFileWithMetadata(ioutil.NopCloser(strings.NewReader("Test file content")))
+			testFile.Filename = core.StringPtr("testfile.txt")
+			testFile.ContentType = core.StringPtr("application/octet-stream")
+
+			filePayload := []casemanagementv1.FileWithMetadata{*testFile}
+
 			uploadFileOptions := caseManagementService.NewUploadFileOptions(
-				"testString",
-				[]casemanagementv1.FileWithMetadata{casemanagementv1.FileWithMetadata{Data: CreateMockReader("This is a mock file."), Filename: core.StringPtr("mockfilename.txt")}},
+				"CS1234567",
+				filePayload,
 			)
 
 			attachment, response, err := caseManagementService.UploadFile(uploadFileOptions)
@@ -282,8 +298,8 @@ var _ = Describe(`CaseManagementV1 Examples Tests`, func() {
 			// begin-downloadFile
 
 			downloadFileOptions := caseManagementService.NewDownloadFileOptions(
-				"testString",
-				"testString",
+				"CS1234567",
+				"FILEID123",
 			)
 
 			result, response, err := caseManagementService.DownloadFile(downloadFileOptions)
@@ -313,9 +329,12 @@ var _ = Describe(`CaseManagementV1 Examples Tests`, func() {
 		It(`RemoveWatchlist request example`, func() {
 			// begin-removeWatchlist
 
+			watchListUser, _ := caseManagementService.NewUser("IBMid", "abc@ibm.com")
+
 			removeWatchlistOptions := caseManagementService.NewRemoveWatchlistOptions(
-				"testString",
+				"CS1234567",
 			)
+			removeWatchlistOptions.SetWatchlist([]casemanagementv1.User{*watchListUser})
 
 			watchlist, response, err := caseManagementService.RemoveWatchlist(removeWatchlistOptions)
 			if err != nil {
@@ -335,8 +354,8 @@ var _ = Describe(`CaseManagementV1 Examples Tests`, func() {
 			// begin-deleteFile
 
 			deleteFileOptions := caseManagementService.NewDeleteFileOptions(
-				"testString",
-				"testString",
+				"CS1234567",
+				"FILEID123",
 			)
 
 			attachmentList, response, err := caseManagementService.DeleteFile(deleteFileOptions)
