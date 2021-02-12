@@ -112,7 +112,7 @@ var _ = Describe(`CaseManagementV1 Examples Tests`, func() {
 				"Example technical case",
 				"This is an example case description. This is where the problem would be described.",
 			)
-			createCaseOptions.SetSeverity(1)
+			createCaseOptions.SetSeverity(4)
 			createCaseOptions.SetEu(&casePayload)
 			createCaseOptions.SetOffering(offeringPayload)
 
