@@ -19,22 +19,29 @@
 package globalcatalogv1_test
 
 import (
+	"bytes"
 	"encoding/json"
 	"fmt"
+	"io/ioutil"
+	"log"
+	"os"
+	"strings"
+	"time"
+
 	"github.com/IBM/go-sdk-core/v5/core"
 	"github.com/IBM/platform-services-go-sdk/globalcatalogv1"
+	"github.com/google/uuid"
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
-	"io"
-	"os"
 )
 
-const externalConfigFile = "../global_catalog_v1.env"
+const externalConfigFile = "../global_catalog.env"
 
 var (
 	globalCatalogService *globalcatalogv1.GlobalCatalogV1
-	config       map[string]string
-	configLoaded bool = false
+	config               map[string]string
+	configLoaded         bool = false
+	catalogEntryID       string
 )
 
 func shouldSkipTest() {
@@ -82,6 +89,9 @@ var _ = Describe(`GlobalCatalogV1 Examples Tests`, func() {
 			// end-common
 
 			Expect(globalCatalogService).ToNot(BeNil())
+
+			core.SetLogger(core.NewLogger(core.LevelInfo, log.New(GinkgoWriter, "", log.LstdFlags), log.New(GinkgoWriter, "", log.LstdFlags)))
+			globalCatalogService.EnableRetries(4, 30*time.Second)
 		})
 	})
 
@@ -89,54 +99,56 @@ var _ = Describe(`GlobalCatalogV1 Examples Tests`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
 		})
-		It(`ListCatalogEntries request example`, func() {
-			// begin-list_catalog_entries
-
-			listCatalogEntriesOptions := globalCatalogService.NewListCatalogEntriesOptions()
-
-			entrySearchResult, response, err := globalCatalogService.ListCatalogEntries(listCatalogEntriesOptions)
-			if err != nil {
-				panic(err)
-			}
-			b, _ := json.MarshalIndent(entrySearchResult, "", "  ")
-			fmt.Println(string(b))
-
-			// end-list_catalog_entries
-
-			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(200))
-			Expect(entrySearchResult).ToNot(BeNil())
-
-		})
 		It(`CreateCatalogEntry request example`, func() {
 			// begin-create_catalog_entry
 
-			overviewModel := &globalcatalogv1.Overview{
-				DisplayName: core.StringPtr("testString"),
-				LongDescription: core.StringPtr("testString"),
-				Description: core.StringPtr("testString"),
+			displayName := "Example Web Starter"
+			description := "Use the Example service in your applications"
+			longDescription := "This is a starter that helps you use the Example service within your applications."
+			overviewModelEN := &globalcatalogv1.Overview{
+				DisplayName:     &displayName,
+				Description:     &description,
+				LongDescription: &longDescription,
 			}
+			overviewUI := make(map[string]globalcatalogv1.Overview)
+			overviewUI["en"] = *overviewModelEN
 
+			smallImageURL := "https://somehost.com/examplewebstarter/cachedIcon/small/0"
+			mediumImageURL := "https://somehost.com/examplewebstarter/cachedIcon/medium/0"
+			largeImageURL := "https://somehost.com/examplewebstarter/cachedIcon/large/0"
 			imageModel := &globalcatalogv1.Image{
-				Image: core.StringPtr("testString"),
+				Image:        &largeImageURL,
+				SmallImage:   &smallImageURL,
+				MediumImage:  &mediumImageURL,
+				FeatureImage: &largeImageURL,
 			}
 
 			providerModel := &globalcatalogv1.Provider{
-				Email: core.StringPtr("testString"),
-				Name: core.StringPtr("testString"),
+				Email:        core.StringPtr("info@examplestarter.com"),
+				Name:         core.StringPtr("Example Starter Co., Inc."),
+				Contact:      core.StringPtr("Example Starter Developer Relations"),
+				SupportEmail: core.StringPtr("support@examplestarter.com"),
+				Phone:        core.StringPtr("800-555-1234"),
 			}
 
+			metadataModel := &globalcatalogv1.ObjectMetadataSet{
+				Version: core.StringPtr("1.0.0"),
+			}
+
+			catalogEntryID = uuid.New().String()
+
 			createCatalogEntryOptions := globalCatalogService.NewCreateCatalogEntryOptions(
-				"testString",
-				"service",
-				make(map[string]globalcatalogv1.Overview),
+				"exampleWebStarter123",
+				globalcatalogv1.CreateCatalogEntryOptionsKindTemplateConst,
+				overviewUI,
 				imageModel,
-				true,
-				[]string{"testString"},
+				false,
+				[]string{"example-tag-1", "example-tag-2"},
 				providerModel,
-				"testString",
+				catalogEntryID,
 			)
-			createCatalogEntryOptions.OverviewUI["foo"] = *overviewModel
+			createCatalogEntryOptions.SetActive(true)
+			createCatalogEntryOptions.SetMetadata(metadataModel)
 
 			catalogEntry, response, err := globalCatalogService.CreateCatalogEntry(createCatalogEntryOptions)
 			if err != nil {
@@ -153,11 +165,14 @@ var _ = Describe(`GlobalCatalogV1 Examples Tests`, func() {
 
 		})
 		It(`GetCatalogEntry request example`, func() {
+			Expect(catalogEntryID).ToNot(BeEmpty())
+
 			// begin-get_catalog_entry
 
 			getCatalogEntryOptions := globalCatalogService.NewGetCatalogEntryOptions(
-				"testString",
+				catalogEntryID,
 			)
+			getCatalogEntryOptions.SetComplete(true)
 
 			catalogEntry, response, err := globalCatalogService.GetCatalogEntry(getCatalogEntryOptions)
 			if err != nil {
@@ -174,34 +189,55 @@ var _ = Describe(`GlobalCatalogV1 Examples Tests`, func() {
 
 		})
 		It(`UpdateCatalogEntry request example`, func() {
+			Expect(catalogEntryID).ToNot(BeEmpty())
+
 			// begin-update_catalog_entry
 
-			overviewModel := &globalcatalogv1.Overview{
-				DisplayName: core.StringPtr("testString"),
-				LongDescription: core.StringPtr("testString"),
-				Description: core.StringPtr("testString"),
+			displayName := "Example Web Starter V2"
+			description := "Use the Example V2 service in your applications"
+			longDescription := "This is a starter that helps you use the Example V2 service within your applications."
+			overviewModelEN := &globalcatalogv1.Overview{
+				DisplayName:     &displayName,
+				Description:     &description,
+				LongDescription: &longDescription,
 			}
+			overviewUI := make(map[string]globalcatalogv1.Overview)
+			overviewUI["en"] = *overviewModelEN
 
+			smallImageURL := "https://somehost.com/examplewebstarter/cachedIcon/small/0"
+			mediumImageURL := "https://somehost.com/examplewebstarter/cachedIcon/medium/0"
+			largeImageURL := "https://somehost.com/examplewebstarter/cachedIcon/large/0"
 			imageModel := &globalcatalogv1.Image{
-				Image: core.StringPtr("testString"),
+				Image:        &largeImageURL,
+				SmallImage:   &smallImageURL,
+				MediumImage:  &mediumImageURL,
+				FeatureImage: &largeImageURL,
 			}
 
 			providerModel := &globalcatalogv1.Provider{
-				Email: core.StringPtr("testString"),
-				Name: core.StringPtr("testString"),
+				Email:        core.StringPtr("info@examplestarter.com"),
+				Name:         core.StringPtr("Example Starter Co., Inc."),
+				Contact:      core.StringPtr("Example Starter Developer Relations"),
+				SupportEmail: core.StringPtr("support@examplestarter.com"),
+				Phone:        core.StringPtr("800-555-1234"),
+			}
+
+			metadataModel := &globalcatalogv1.ObjectMetadataSet{
+				Version: core.StringPtr("2.0.0"),
 			}
 
 			updateCatalogEntryOptions := globalCatalogService.NewUpdateCatalogEntryOptions(
-				"testString",
-				"testString",
-				"service",
-				make(map[string]globalcatalogv1.Overview),
+				catalogEntryID,
+				"exampleWebStarter123",
+				globalcatalogv1.UpdateCatalogEntryOptionsKindTemplateConst,
+				overviewUI,
 				imageModel,
-				true,
-				[]string{"testString"},
+				false,
+				[]string{"example-tag-1", "example-tag-2", "new-example-tag-3"},
 				providerModel,
 			)
-			updateCatalogEntryOptions.OverviewUI["foo"] = *overviewModel
+			updateCatalogEntryOptions.SetActive(true)
+			updateCatalogEntryOptions.SetMetadata(metadataModel)
 
 			catalogEntry, response, err := globalCatalogService.UpdateCatalogEntry(updateCatalogEntryOptions)
 			if err != nil {
@@ -217,13 +253,41 @@ var _ = Describe(`GlobalCatalogV1 Examples Tests`, func() {
 			Expect(catalogEntry).ToNot(BeNil())
 
 		})
+		It(`ListCatalogEntries request example`, func() {
+			// begin-list_catalog_entries
+
+			listCatalogEntriesOptions := globalCatalogService.NewListCatalogEntriesOptions()
+			listCatalogEntriesOptions.SetOffset(0)
+			listCatalogEntriesOptions.SetLimit(10)
+			listCatalogEntriesOptions.SetQ("kind:template tag:example-tag-1")
+			listCatalogEntriesOptions.SetComplete(true)
+
+			entrySearchResult, response, err := globalCatalogService.ListCatalogEntries(listCatalogEntriesOptions)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(entrySearchResult, "", "  ")
+			fmt.Println(string(b))
+
+			// end-list_catalog_entries
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(entrySearchResult).ToNot(BeNil())
+
+		})
 		It(`GetChildObjects request example`, func() {
+			Expect(catalogEntryID).ToNot(BeEmpty())
+
 			// begin-get_child_objects
 
 			getChildObjectsOptions := globalCatalogService.NewGetChildObjectsOptions(
-				"testString",
-				"testString",
+				catalogEntryID,
+				"*",
 			)
+			getChildObjectsOptions.SetOffset(0)
+			getChildObjectsOptions.SetLimit(10)
+			getChildObjectsOptions.SetComplete(true)
 
 			entrySearchResult, response, err := globalCatalogService.GetChildObjects(getChildObjectsOptions)
 			if err != nil {
@@ -237,13 +301,14 @@ var _ = Describe(`GlobalCatalogV1 Examples Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(entrySearchResult).ToNot(BeNil())
-
 		})
 		It(`RestoreCatalogEntry request example`, func() {
+			Expect(catalogEntryID).ToNot(BeEmpty())
+
 			// begin-restore_catalog_entry
 
 			restoreCatalogEntryOptions := globalCatalogService.NewRestoreCatalogEntryOptions(
-				"testString",
+				catalogEntryID,
 			)
 
 			response, err := globalCatalogService.RestoreCatalogEntry(restoreCatalogEntryOptions)
@@ -254,14 +319,16 @@ var _ = Describe(`GlobalCatalogV1 Examples Tests`, func() {
 			// end-restore_catalog_entry
 
 			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(204))
+			Expect(response.StatusCode).To(Equal(200))
 
 		})
 		It(`GetVisibility request example`, func() {
+			Expect(catalogEntryID).ToNot(BeEmpty())
+
 			// begin-get_visibility
 
 			getVisibilityOptions := globalCatalogService.NewGetVisibilityOptions(
-				"testString",
+				catalogEntryID,
 			)
 
 			visibility, response, err := globalCatalogService.GetVisibility(getVisibilityOptions)
@@ -279,28 +346,32 @@ var _ = Describe(`GlobalCatalogV1 Examples Tests`, func() {
 
 		})
 		It(`UpdateVisibility request example`, func() {
+			Expect(catalogEntryID).ToNot(BeEmpty())
+
 			// begin-update_visibility
 
 			updateVisibilityOptions := globalCatalogService.NewUpdateVisibilityOptions(
-				"testString",
+				catalogEntryID,
 			)
+			updateVisibilityOptions.SetExtendable(false)
 
 			response, err := globalCatalogService.UpdateVisibility(updateVisibilityOptions)
 			if err != nil {
-				panic(err)
+				fmt.Println("UpdateVisibility() returned the following error: ", err.Error())
 			}
 
 			// end-update_visibility
 
-			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(200))
-
+			Expect(err).ToNot(BeNil())
+			Expect(response.StatusCode).To(Equal(403))
 		})
 		It(`GetPricing request example`, func() {
+			Expect(catalogEntryID).ToNot(BeEmpty())
+
 			// begin-get_pricing
 
 			getPricingOptions := globalCatalogService.NewGetPricingOptions(
-				"testString",
+				catalogEntryID,
 			)
 
 			pricingGet, response, err := globalCatalogService.GetPricing(getPricingOptions)
@@ -318,11 +389,15 @@ var _ = Describe(`GlobalCatalogV1 Examples Tests`, func() {
 
 		})
 		It(`GetAuditLogs request example`, func() {
+			Expect(catalogEntryID).ToNot(BeEmpty())
+
 			// begin-get_audit_logs
 
 			getAuditLogsOptions := globalCatalogService.NewGetAuditLogsOptions(
-				"testString",
+				catalogEntryID,
 			)
+			getAuditLogsOptions.SetOffset(0)
+			getAuditLogsOptions.SetLimit(10)
 
 			auditSearchResult, response, err := globalCatalogService.GetAuditLogs(getAuditLogsOptions)
 			if err != nil {
@@ -336,13 +411,66 @@ var _ = Describe(`GlobalCatalogV1 Examples Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(auditSearchResult).ToNot(BeNil())
+		})
+		It(`UploadArtifact request example`, func() {
+			Expect(catalogEntryID).ToNot(BeEmpty())
 
+			// begin-upload_artifact
+
+			artifactContents := "This is an example artifact associated with a catalog entry."
+
+			uploadArtifactOptions := globalCatalogService.NewUploadArtifactOptions(
+				catalogEntryID,
+				"artifact.txt",
+			)
+			uploadArtifactOptions.SetArtifact(ioutil.NopCloser(strings.NewReader(artifactContents)))
+			uploadArtifactOptions.SetContentType("text/plain")
+
+			response, err := globalCatalogService.UploadArtifact(uploadArtifactOptions)
+			if err != nil {
+				panic(err)
+			}
+
+			// end-upload_artifact
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+		})
+		It(`GetArtifact request example`, func() {
+			Expect(catalogEntryID).ToNot(BeEmpty())
+
+			// begin-get_artifact
+
+			getArtifactOptions := globalCatalogService.NewGetArtifactOptions(
+				catalogEntryID,
+				"artifact.txt",
+			)
+
+			result, response, err := globalCatalogService.GetArtifact(getArtifactOptions)
+			if err != nil {
+				panic(err)
+			}
+			if result != nil {
+				defer result.Close()
+				buf := new(bytes.Buffer)
+				buf.ReadFrom(result)
+				fmt.Println("Artifact content-type: ", response.GetHeaders().Get("Content-Type"))
+				fmt.Println("Artifact contents: ", buf.String())
+			}
+
+			// end-get_artifact
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(result).ToNot(BeNil())
 		})
 		It(`ListArtifacts request example`, func() {
+			Expect(catalogEntryID).ToNot(BeEmpty())
+
 			// begin-list_artifacts
 
 			listArtifactsOptions := globalCatalogService.NewListArtifactsOptions(
-				"testString",
+				catalogEntryID,
 			)
 
 			artifacts, response, err := globalCatalogService.ListArtifacts(listArtifactsOptions)
@@ -359,77 +487,14 @@ var _ = Describe(`GlobalCatalogV1 Examples Tests`, func() {
 			Expect(artifacts).ToNot(BeNil())
 
 		})
-		It(`GetArtifact request example`, func() {
-			// begin-get_artifact
-
-			getArtifactOptions := globalCatalogService.NewGetArtifactOptions(
-				"testString",
-				"testString",
-			)
-
-			result, response, err := globalCatalogService.GetArtifact(getArtifactOptions)
-			if err != nil {
-				panic(err)
-			}
-			if result != nil {
-				defer result.Close()
-				outFile, err := os.Create("result.out")
-				if err != nil { panic(err) }
-				defer outFile.Close()
-				_, err = io.Copy(outFile, result)
-				if err != nil { panic(err) }
-			}
-
-			// end-get_artifact
-
-			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(200))
-			Expect(result).ToNot(BeNil())
-
-		})
-		It(`UploadArtifact request example`, func() {
-			// begin-upload_artifact
-
-			uploadArtifactOptions := globalCatalogService.NewUploadArtifactOptions(
-				"testString",
-				"testString",
-			)
-
-			response, err := globalCatalogService.UploadArtifact(uploadArtifactOptions)
-			if err != nil {
-				panic(err)
-			}
-
-			// end-upload_artifact
-
-			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(200))
-
-		})
-		It(`DeleteCatalogEntry request example`, func() {
-			// begin-delete_catalog_entry
-
-			deleteCatalogEntryOptions := globalCatalogService.NewDeleteCatalogEntryOptions(
-				"testString",
-			)
-
-			response, err := globalCatalogService.DeleteCatalogEntry(deleteCatalogEntryOptions)
-			if err != nil {
-				panic(err)
-			}
-
-			// end-delete_catalog_entry
-
-			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(204))
-
-		})
 		It(`DeleteArtifact request example`, func() {
+			Expect(catalogEntryID).ToNot(BeEmpty())
+
 			// begin-delete_artifact
 
 			deleteArtifactOptions := globalCatalogService.NewDeleteArtifactOptions(
-				"testString",
-				"testString",
+				catalogEntryID,
+				"artifact.txt",
 			)
 
 			response, err := globalCatalogService.DeleteArtifact(deleteArtifactOptions)
@@ -442,6 +507,25 @@ var _ = Describe(`GlobalCatalogV1 Examples Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 
+		})
+		It(`DeleteCatalogEntry request example`, func() {
+			Expect(catalogEntryID).ToNot(BeEmpty())
+
+			// begin-delete_catalog_entry
+
+			deleteCatalogEntryOptions := globalCatalogService.NewDeleteCatalogEntryOptions(
+				catalogEntryID,
+			)
+
+			response, err := globalCatalogService.DeleteCatalogEntry(deleteCatalogEntryOptions)
+			if err != nil {
+				panic(err)
+			}
+
+			// end-delete_catalog_entry
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
 		})
 	})
 })
