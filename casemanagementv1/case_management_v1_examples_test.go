@@ -92,30 +92,6 @@ var _ = Describe(`CaseManagementV1 Examples Tests`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
 		})
-		It(`GetCases request example`, func() {
-			// begin-getCases
-
-			getCasesOptions := caseManagementService.NewGetCasesOptions()
-			getCasesOptions.SetSearch("blocker")
-			getCasesOptions.SetSort("updated_at")
-			getCasesOptions.SetStatus([]string{casemanagementv1.GetCasesOptionsStatusNewConst})
-			getCasesOptions.SetOffset(0)
-			getCasesOptions.SetLimit(100)
-
-			caseList, response, err := caseManagementService.GetCases(getCasesOptions)
-			if err != nil {
-				panic(err)
-			}
-			b, _ := json.MarshalIndent(caseList, "", "  ")
-			fmt.Println(string(b))
-
-			// end-getCases
-
-			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(200))
-			Expect(caseList).ToNot(BeNil())
-
-		})
 		It(`CreateCase request example`, func() {
 			// begin-createCase
 
@@ -198,6 +174,30 @@ var _ = Describe(`CaseManagementV1 Examples Tests`, func() {
 			Expect(caseVar).ToNot(BeNil())
 
 		})
+		It(`GetCases request example`, func() {
+			// begin-getCases
+
+			getCasesOptions := caseManagementService.NewGetCasesOptions()
+			getCasesOptions.SetSearch("blocker")
+			getCasesOptions.SetSort("updated_at")
+			getCasesOptions.SetStatus([]string{casemanagementv1.GetCasesOptionsStatusNewConst})
+			getCasesOptions.SetOffset(0)
+			getCasesOptions.SetLimit(100)
+
+			caseList, response, err := caseManagementService.GetCases(getCasesOptions)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(caseList, "", "  ")
+			fmt.Println(string(b))
+
+			// end-getCases
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(caseList).ToNot(BeNil())
+
+		})
 		It(`AddComment request example`, func() {
 			// begin-addComment
 
@@ -242,6 +242,30 @@ var _ = Describe(`CaseManagementV1 Examples Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(watchlistAddResponse).ToNot(BeNil())
+
+		})
+		It(`RemoveWatchlist request example`, func() {
+			// begin-removeWatchlist
+
+			watchListUser, _ := caseManagementService.NewUser("IBMid", "abc@ibm.com")
+
+			removeWatchlistOptions := caseManagementService.NewRemoveWatchlistOptions(
+				"CS1234567",
+			)
+			removeWatchlistOptions.SetWatchlist([]casemanagementv1.User{*watchListUser})
+
+			watchlist, response, err := caseManagementService.RemoveWatchlist(removeWatchlistOptions)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(watchlist, "", "  ")
+			fmt.Println(string(b))
+
+			// end-removeWatchlist
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(watchlist).ToNot(BeNil())
 
 		})
 		It(`AddResource request example`, func() {
@@ -324,30 +348,6 @@ var _ = Describe(`CaseManagementV1 Examples Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(result).ToNot(BeNil())
-
-		})
-		It(`RemoveWatchlist request example`, func() {
-			// begin-removeWatchlist
-
-			watchListUser, _ := caseManagementService.NewUser("IBMid", "abc@ibm.com")
-
-			removeWatchlistOptions := caseManagementService.NewRemoveWatchlistOptions(
-				"CS1234567",
-			)
-			removeWatchlistOptions.SetWatchlist([]casemanagementv1.User{*watchListUser})
-
-			watchlist, response, err := caseManagementService.RemoveWatchlist(removeWatchlistOptions)
-			if err != nil {
-				panic(err)
-			}
-			b, _ := json.MarshalIndent(watchlist, "", "  ")
-			fmt.Println(string(b))
-
-			// end-removeWatchlist
-
-			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(200))
-			Expect(watchlist).ToNot(BeNil())
 
 		})
 		It(`DeleteFile request example`, func() {
