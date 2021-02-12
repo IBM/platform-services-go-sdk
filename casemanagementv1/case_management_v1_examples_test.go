@@ -19,9 +19,9 @@
 package casemanagementv1_test
 
 import (
+	"bytes"
 	"encoding/json"
 	"fmt"
-	"io"
 	"io/ioutil"
 	"os"
 	"strings"
@@ -38,6 +38,8 @@ var (
 	caseManagementService *casemanagementv1.CaseManagementV1
 	config                map[string]string
 	configLoaded          bool = false
+	caseNumber            string
+	attachmentID          string
 )
 
 func shouldSkipTest() {
@@ -95,16 +97,23 @@ var _ = Describe(`CaseManagementV1 Examples Tests`, func() {
 		It(`CreateCase request example`, func() {
 			// begin-createCase
 
-			offeringType, _ := caseManagementService.NewOfferingType(casemanagementv1.OfferingTypeGroupCRNServiceNameConst, "cloud-object-storage")
+			casePayload := casemanagementv1.CasePayloadEu{
+				Supported:  core.BoolPtr(true),
+				DataCenter: core.Int64Ptr(123),
+			}
+			offeringType, _ := caseManagementService.NewOfferingType(
+				casemanagementv1.OfferingTypeGroupCRNServiceNameConst,
+				"cloud-object-storage",
+			)
 			offeringPayload, _ := caseManagementService.NewOffering("Cloud Object Storage", offeringType)
 
 			createCaseOptions := caseManagementService.NewCreateCaseOptions(
 				"technical",
 				"Example technical case",
-				"This is an example case description.",
+				"This is an example case description. This is where the problem would be described.",
 			)
 			createCaseOptions.SetSeverity(1)
-			createCaseOptions.SetEu(&casemanagementv1.CasePayloadEu{Supported: core.BoolPtr(true), DataCenter: core.Int64Ptr(123)})
+			createCaseOptions.SetEu(&casePayload)
 			createCaseOptions.SetOffering(offeringPayload)
 
 			caseVar, response, err := caseManagementService.CreateCase(createCaseOptions)
@@ -141,22 +150,26 @@ var _ = Describe(`CaseManagementV1 Examples Tests`, func() {
 
 			// end-getCase
 
+			caseNumber = *caseVar.Number
+
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(caseVar).ToNot(BeNil())
 
 		})
 		It(`UpdateCaseStatus request example`, func() {
+			Expect(caseNumber).ToNot(BeEmpty())
+
 			// begin-updateCaseStatus
 
 			statusPayloadModel := &casemanagementv1.ResolvePayload{
 				Action:         core.StringPtr("resolve"),
-				Comment:        core.StringPtr("It was actually a mistake"),
+				Comment:        core.StringPtr("The problem has been resolved."),
 				ResolutionCode: core.Int64Ptr(int64(1)),
 			}
 
 			updateCaseStatusOptions := caseManagementService.NewUpdateCaseStatusOptions(
-				"CS1234567",
+				caseNumber,
 				statusPayloadModel,
 			)
 
@@ -199,11 +212,13 @@ var _ = Describe(`CaseManagementV1 Examples Tests`, func() {
 
 		})
 		It(`AddComment request example`, func() {
+			Expect(caseNumber).ToNot(BeEmpty())
+
 			// begin-addComment
 
 			addCommentOptions := caseManagementService.NewAddCommentOptions(
-				"CS1234567",
-				"This is a test comment",
+				caseNumber,
+				"This is an example comment.",
 			)
 
 			comment, response, err := caseManagementService.AddComment(addCommentOptions)
@@ -221,12 +236,14 @@ var _ = Describe(`CaseManagementV1 Examples Tests`, func() {
 
 		})
 		It(`AddWatchlist request example`, func() {
+			Expect(caseNumber).ToNot(BeEmpty())
+
 			// begin-addWatchlist
 
 			watchListUser, _ := caseManagementService.NewUser("IBMid", "abc@ibm.com")
 
 			addWatchlistOptions := caseManagementService.NewAddWatchlistOptions(
-				"CS1234567",
+				caseNumber,
 			)
 			addWatchlistOptions.SetWatchlist([]casemanagementv1.User{*watchListUser})
 
@@ -245,12 +262,14 @@ var _ = Describe(`CaseManagementV1 Examples Tests`, func() {
 
 		})
 		It(`RemoveWatchlist request example`, func() {
+			Expect(caseNumber).ToNot(BeEmpty())
+
 			// begin-removeWatchlist
 
 			watchListUser, _ := caseManagementService.NewUser("IBMid", "abc@ibm.com")
 
 			removeWatchlistOptions := caseManagementService.NewRemoveWatchlistOptions(
-				"CS1234567",
+				caseNumber,
 			)
 			removeWatchlistOptions.SetWatchlist([]casemanagementv1.User{*watchListUser})
 
@@ -269,12 +288,15 @@ var _ = Describe(`CaseManagementV1 Examples Tests`, func() {
 
 		})
 		It(`AddResource request example`, func() {
+			Expect(caseNumber).ToNot(BeEmpty())
+
 			// begin-addResource
 
 			addResourceOptions := caseManagementService.NewAddResourceOptions(
-				"CS1234567",
+				caseNumber,
 			)
-			addResourceOptions.SetNote("This is a test note")
+			addResourceOptions.SetCRN("crn:mycloud:myservice:123")
+			addResourceOptions.SetNote("This resource is the service that is having the problem.")
 
 			resource, response, err := caseManagementService.AddResource(addResourceOptions)
 			if err != nil {
@@ -291,16 +313,20 @@ var _ = Describe(`CaseManagementV1 Examples Tests`, func() {
 
 		})
 		It(`UploadFile request example`, func() {
+			Expect(caseNumber).ToNot(BeEmpty())
+
 			// begin-uploadFile
 
-			testFile, _ := service.NewFileWithMetadata(ioutil.NopCloser(strings.NewReader("Test file content")))
-			testFile.Filename = core.StringPtr("testfile.txt")
-			testFile.ContentType = core.StringPtr("application/octet-stream")
+			exampleFileContent := "This is the content of the file to upload."
 
-			filePayload := []casemanagementv1.FileWithMetadata{*testFile}
+			exampleFile, _ := caseManagementService.NewFileWithMetadata(ioutil.NopCloser(strings.NewReader(exampleFileContent)))
+			exampleFile.Filename = core.StringPtr("example.log")
+			exampleFile.ContentType = core.StringPtr("application/octet-stream")
+
+			filePayload := []casemanagementv1.FileWithMetadata{*exampleFile}
 
 			uploadFileOptions := caseManagementService.NewUploadFileOptions(
-				"CS1234567",
+				caseNumber,
 				filePayload,
 			)
 
@@ -313,17 +339,22 @@ var _ = Describe(`CaseManagementV1 Examples Tests`, func() {
 
 			// end-uploadFile
 
+			attachmentID = *attachment.ID
+
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(attachment).ToNot(BeNil())
 
 		})
 		It(`DownloadFile request example`, func() {
+			Expect(caseNumber).ToNot(BeEmpty())
+			Expect(attachmentID).ToNot(BeEmpty())
+
 			// begin-downloadFile
 
 			downloadFileOptions := caseManagementService.NewDownloadFileOptions(
-				"CS1234567",
-				"FILEID123",
+				caseNumber,
+				attachmentID,
 			)
 
 			result, response, err := caseManagementService.DownloadFile(downloadFileOptions)
@@ -332,15 +363,12 @@ var _ = Describe(`CaseManagementV1 Examples Tests`, func() {
 			}
 			if result != nil {
 				defer result.Close()
-				outFile, err := os.Create("result.out")
-				if err != nil {
-					panic(err)
-				}
-				defer outFile.Close()
-				_, err = io.Copy(outFile, result)
-				if err != nil {
-					panic(err)
-				}
+
+				buf := new(bytes.Buffer)
+				buf.ReadFrom(result)
+
+				fmt.Println("Attachment content-type: ", response.GetHeaders().Get("Content-Type"))
+				fmt.Println("Attachment contents: ", buf.String())
 			}
 
 			// end-downloadFile
@@ -351,11 +379,14 @@ var _ = Describe(`CaseManagementV1 Examples Tests`, func() {
 
 		})
 		It(`DeleteFile request example`, func() {
+			Expect(caseNumber).ToNot(BeEmpty())
+			Expect(attachmentID).ToNot(BeEmpty())
+
 			// begin-deleteFile
 
 			deleteFileOptions := caseManagementService.NewDeleteFileOptions(
-				"CS1234567",
-				"FILEID123",
+				caseNumber,
+				attachmentID,
 			)
 
 			attachmentList, response, err := caseManagementService.DeleteFile(deleteFileOptions)
