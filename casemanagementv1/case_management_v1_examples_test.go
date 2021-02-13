@@ -97,10 +97,10 @@ var _ = Describe(`CaseManagementV1 Examples Tests`, func() {
 		It(`CreateCase request example`, func() {
 			// begin-createCase
 
-			casePayload := casemanagementv1.CasePayloadEu{
-				Supported:  core.BoolPtr(true),
-				DataCenter: core.Int64Ptr(123),
-			}
+			// casePayload := casemanagementv1.CasePayloadEu{
+			// 	Supported:  core.BoolPtr(true),
+			// 	DataCenter: core.Int64Ptr(123),
+			// }
 			offeringType, _ := caseManagementService.NewOfferingType(
 				casemanagementv1.OfferingTypeGroupCRNServiceNameConst,
 				"cloud-object-storage",
@@ -113,7 +113,7 @@ var _ = Describe(`CaseManagementV1 Examples Tests`, func() {
 				"This is an example case description. This is where the problem would be described.",
 			)
 			createCaseOptions.SetSeverity(4)
-			createCaseOptions.SetEu(&casePayload)
+			// createCaseOptions.SetEu(&casePayload)
 			createCaseOptions.SetOffering(offeringPayload)
 
 			caseVar, response, err := caseManagementService.CreateCase(createCaseOptions)
@@ -128,17 +128,24 @@ var _ = Describe(`CaseManagementV1 Examples Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(caseVar).ToNot(BeNil())
+			Expect(caseVar.Number).ToNot(BeNil())
+
+			caseNumber = *caseVar.Number
 
 		})
 		It(`GetCase request example`, func() {
+			Expect(caseNumber).ToNot(BeEmpty())
+
 			// begin-getCase
 
 			getCaseOptions := caseManagementService.NewGetCaseOptions(
-				"CS1234567",
+				caseNumber,
 			)
 			getCaseOptions.SetFields([]string{
 				casemanagementv1.GetCaseOptionsFieldsDescriptionConst,
 				casemanagementv1.GetCaseOptionsFieldsStatusConst,
+				casemanagementv1.GetCaseOptionsFieldsSeverityConst,
+				casemanagementv1.GetCaseOptionsFieldsCreatedByConst,
 			})
 
 			caseVar, response, err := caseManagementService.GetCase(getCaseOptions)
@@ -149,38 +156,6 @@ var _ = Describe(`CaseManagementV1 Examples Tests`, func() {
 			fmt.Println(string(b))
 
 			// end-getCase
-
-			caseNumber = *caseVar.Number
-
-			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(200))
-			Expect(caseVar).ToNot(BeNil())
-
-		})
-		It(`UpdateCaseStatus request example`, func() {
-			Expect(caseNumber).ToNot(BeEmpty())
-
-			// begin-updateCaseStatus
-
-			statusPayloadModel := &casemanagementv1.ResolvePayload{
-				Action:         core.StringPtr("resolve"),
-				Comment:        core.StringPtr("The problem has been resolved."),
-				ResolutionCode: core.Int64Ptr(int64(1)),
-			}
-
-			updateCaseStatusOptions := caseManagementService.NewUpdateCaseStatusOptions(
-				caseNumber,
-				statusPayloadModel,
-			)
-
-			caseVar, response, err := caseManagementService.UpdateCaseStatus(updateCaseStatusOptions)
-			if err != nil {
-				panic(err)
-			}
-			b, _ := json.MarshalIndent(caseVar, "", "  ")
-			fmt.Println(string(b))
-
-			// end-updateCaseStatus
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
@@ -193,7 +168,7 @@ var _ = Describe(`CaseManagementV1 Examples Tests`, func() {
 			getCasesOptions := caseManagementService.NewGetCasesOptions()
 			getCasesOptions.SetSearch("blocker")
 			getCasesOptions.SetSort("updated_at")
-			getCasesOptions.SetStatus([]string{casemanagementv1.GetCasesOptionsStatusNewConst})
+			// getCasesOptions.SetStatus([]string{casemanagementv1.GetCasesOptionsStatusNewConst})
 			getCasesOptions.SetOffset(0)
 			getCasesOptions.SetLimit(100)
 
@@ -339,12 +314,12 @@ var _ = Describe(`CaseManagementV1 Examples Tests`, func() {
 
 			// end-uploadFile
 
-			attachmentID = *attachment.ID
-
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(attachment).ToNot(BeNil())
+			Expect(attachment.ID).ToNot(BeNil())
 
+			attachmentID = *attachment.ID
 		})
 		It(`DownloadFile request example`, func() {
 			Expect(caseNumber).ToNot(BeEmpty())
@@ -401,6 +376,36 @@ var _ = Describe(`CaseManagementV1 Examples Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(attachmentList).ToNot(BeNil())
+
+		})
+		It(`UpdateCaseStatus request example`, func() {
+			Expect(caseNumber).ToNot(BeEmpty())
+
+			// begin-updateCaseStatus
+
+			statusPayloadModel := &casemanagementv1.ResolvePayload{
+				Action:         core.StringPtr("resolve"),
+				Comment:        core.StringPtr("The problem has been resolved."),
+				ResolutionCode: core.Int64Ptr(int64(1)),
+			}
+
+			updateCaseStatusOptions := caseManagementService.NewUpdateCaseStatusOptions(
+				caseNumber,
+				statusPayloadModel,
+			)
+
+			caseVar, response, err := caseManagementService.UpdateCaseStatus(updateCaseStatusOptions)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(caseVar, "", "  ")
+			fmt.Println(string(b))
+
+			// end-updateCaseStatus
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(caseVar).ToNot(BeNil())
 
 		})
 	})
