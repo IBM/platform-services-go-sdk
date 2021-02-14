@@ -40,6 +40,7 @@ var (
 	configLoaded          bool = false
 	caseNumber            string
 	attachmentID          string
+	resourceCRN           string
 )
 
 func shouldSkipTest() {
@@ -61,6 +62,11 @@ var _ = Describe(`CaseManagementV1 Examples Tests`, func() {
 			config, err = core.GetServiceProperties(casemanagementv1.DefaultServiceName)
 			if err != nil {
 				Skip("Error loading service properties, skipping tests: " + err.Error())
+			}
+
+			resourceCRN = config["RESOURCE_CRN"]
+			if resourceCRN == "" {
+				Skip("RESOURCE_CRN configuration property not found, skipping...")
 			}
 
 			configLoaded = len(config) > 0
@@ -97,15 +103,14 @@ var _ = Describe(`CaseManagementV1 Examples Tests`, func() {
 		It(`CreateCase request example`, func() {
 			// begin-createCase
 
-			// casePayload := casemanagementv1.CasePayloadEu{
-			// 	Supported:  core.BoolPtr(true),
-			// 	DataCenter: core.Int64Ptr(123),
-			// }
 			offeringType, _ := caseManagementService.NewOfferingType(
 				casemanagementv1.OfferingTypeGroupCRNServiceNameConst,
 				"cloud-object-storage",
 			)
-			offeringPayload, _ := caseManagementService.NewOffering("Cloud Object Storage", offeringType)
+			offeringPayload, _ := caseManagementService.NewOffering(
+				"Cloud Object Storage",
+				offeringType,
+			)
 
 			createCaseOptions := caseManagementService.NewCreateCaseOptions(
 				"technical",
@@ -113,7 +118,6 @@ var _ = Describe(`CaseManagementV1 Examples Tests`, func() {
 				"This is an example case description. This is where the problem would be described.",
 			)
 			createCaseOptions.SetSeverity(4)
-			// createCaseOptions.SetEu(&casePayload)
 			createCaseOptions.SetOffering(offeringPayload)
 
 			caseVar, response, err := caseManagementService.CreateCase(createCaseOptions)
@@ -270,7 +274,7 @@ var _ = Describe(`CaseManagementV1 Examples Tests`, func() {
 			addResourceOptions := caseManagementService.NewAddResourceOptions(
 				caseNumber,
 			)
-			addResourceOptions.SetCRN("crn:mycloud:myservice:123")
+			addResourceOptions.SetCRN(resourceCRN)
 			addResourceOptions.SetNote("This resource is the service that is having the problem.")
 
 			resource, response, err := caseManagementService.AddResource(addResourceOptions)
