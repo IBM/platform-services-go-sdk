@@ -134,8 +134,8 @@ var _ = Describe("Catalog Management - Integration Tests", func() {
 			Expect(*result.ID).To(Equal(expectedAccount))
 			Expect(*result.AccountFilters.IncludeAll).To(BeTrue())
 			Expect(len(result.AccountFilters.CategoryFilters)).To(BeZero())
-			Expect(result.AccountFilters.IdFilters.Include).To(BeNil())
-			Expect(result.AccountFilters.IdFilters.Exclude).To(BeNil())
+			Expect(result.AccountFilters.IDFilters.Include).To(BeNil())
+			Expect(result.AccountFilters.IDFilters.Exclude).To(BeNil())
 		})
 
 		It("Get catalog account filters", func() {
@@ -148,8 +148,8 @@ var _ = Describe("Catalog Management - Integration Tests", func() {
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(*result.AccountFilters[0].IncludeAll).To(BeTrue())
 			Expect(len(result.AccountFilters[0].CategoryFilters)).To(BeZero())
-			Expect(result.AccountFilters[0].IdFilters.Include).To(BeNil())
-			Expect(result.AccountFilters[0].IdFilters.Exclude).To(BeNil())
+			Expect(result.AccountFilters[0].IDFilters.Include).To(BeNil())
+			Expect(result.AccountFilters[0].IDFilters.Exclude).To(BeNil())
 		})
 
 		It("Get list of catalogs", func() {
@@ -186,13 +186,7 @@ var _ = Describe("Catalog Management - Integration Tests", func() {
 			Expect(listResult).ToNot(BeNil())
 			fmt.Fprintf(GinkgoWriter, "ListCatalogs() result:\n%s\n", common.ToJSON(listResult))
 
-			Expect(*listResult.Offset).To(BeZero())
-			Expect(*listResult.Limit).To(BeZero())
 			Expect(catalogCount).To(Equal(expectedTotalCount))
-			Expect(listResult.Last).To(BeNil())
-			Expect(listResult.Prev).To(BeNil())
-			Expect(listResult.Next).To(BeNil())
-
 			Expect(*listResult.Resources[catalogIndex].Label).To(Equal(expectedLabel))
 			Expect(*listResult.Resources[catalogIndex].ShortDescription).To(Equal(expectedShortDesc))
 			Expect(*listResult.Resources[catalogIndex].URL).To(Equal(fmt.Sprintf(expectedURL, *createResult.ID)))
@@ -200,8 +194,8 @@ var _ = Describe("Catalog Management - Integration Tests", func() {
 			Expect(*listResult.Resources[catalogIndex].OwningAccount).To(Equal(expectedAccount))
 			Expect(*listResult.Resources[catalogIndex].CatalogFilters.IncludeAll).To(BeFalse())
 			Expect(len(listResult.Resources[catalogIndex].CatalogFilters.CategoryFilters)).To(BeZero())
-			Expect(listResult.Resources[catalogIndex].CatalogFilters.IdFilters.Include).To(BeNil())
-			Expect(listResult.Resources[catalogIndex].CatalogFilters.IdFilters.Exclude).To(BeNil())
+			Expect(listResult.Resources[catalogIndex].CatalogFilters.IDFilters.Include).To(BeNil())
+			Expect(listResult.Resources[catalogIndex].CatalogFilters.IDFilters.Exclude).To(BeNil())
 		})
 
 		It("Create a catalog", func() {
@@ -226,8 +220,8 @@ var _ = Describe("Catalog Management - Integration Tests", func() {
 			Expect(*result.OwningAccount).To(Equal(expectedAccount))
 			Expect(*result.CatalogFilters.IncludeAll).To(BeFalse())
 			Expect(len(result.CatalogFilters.CategoryFilters)).To(BeZero())
-			Expect(result.CatalogFilters.IdFilters.Include).To(BeNil())
-			Expect(result.CatalogFilters.IdFilters.Exclude).To(BeNil())
+			Expect(result.CatalogFilters.IDFilters.Include).To(BeNil())
+			Expect(result.CatalogFilters.IDFilters.Exclude).To(BeNil())
 		})
 
 		It("Get a catalog", func() {
@@ -256,8 +250,8 @@ var _ = Describe("Catalog Management - Integration Tests", func() {
 			Expect(*getResult.OwningAccount).To(Equal(expectedAccount))
 			Expect(*getResult.CatalogFilters.IncludeAll).To(BeFalse())
 			Expect(len(getResult.CatalogFilters.CategoryFilters)).To(BeZero())
-			Expect(getResult.CatalogFilters.IdFilters.Include).To(BeNil())
-			Expect(getResult.CatalogFilters.IdFilters.Exclude).To(BeNil())
+			Expect(getResult.CatalogFilters.IDFilters.Include).To(BeNil())
+			Expect(getResult.CatalogFilters.IDFilters.Exclude).To(BeNil())
 		})
 
 		It("Fail to get a catalog that does not exist", func() {
@@ -308,8 +302,8 @@ var _ = Describe("Catalog Management - Integration Tests", func() {
 			// Expect(*replaceResult.OwningAccount).To(Equal(expectedAccount))
 			Expect(*replaceResult.CatalogFilters.IncludeAll).To(BeTrue())
 			Expect(len(replaceResult.CatalogFilters.CategoryFilters)).To(BeZero())
-			Expect(replaceResult.CatalogFilters.IdFilters.Include).To(BeNil())
-			Expect(replaceResult.CatalogFilters.IdFilters.Exclude).To(BeNil())
+			Expect(replaceResult.CatalogFilters.IDFilters.Include).To(BeNil())
+			Expect(replaceResult.CatalogFilters.IDFilters.Exclude).To(BeNil())
 		})
 
 		It("Fail to update a catalog that does not exist", func() {
@@ -1059,81 +1053,12 @@ var _ = Describe("Catalog Management - Integration Tests", func() {
 		It("Fail to get version updates for version that does not exist", func() {
 			shouldSkipTest()
 
-			getOptions := service.NewGetVersionUpdatesOptions(fakeVersionLocator)
+			getOptions := service.NewGetVersionUpdatesOptions(fakeVersionLocator, "bogus", "bogus")
 			_, getResponse, err := service.GetVersionUpdates(getOptions)
 
 			Expect(err).ToNot(BeNil())
 			Expect(getResponse.StatusCode).To(Equal(404))
 		})
 
-		It("Get license providers", func() {
-			const (
-				expectedResourceCount       = 1
-				expectedTotalResults  int64 = 1
-				expectedTotalPages    int64 = 1
-				expectedName                = "IBM Passport Advantage"
-				expectedOfferingType        = "content"
-				expectedCreateURL           = "https://www.ibm.com/software/passportadvantage/aboutpassport.html"
-				expectedInfoURL             = "https://www.ibm.com/software/passportadvantage/"
-				expectedURL                 = "/v1/licensing/license_providers/11cabc37-c4a7-410b-894d-8cb3586423f1"
-				expectedState               = "active"
-			)
-
-			shouldSkipTest()
-
-			getOptions := service.NewGetLicenseProvidersOptions()
-			getResult, getResponse, err := service.GetLicenseProviders(getOptions)
-
-			Expect(err).To(BeNil())
-			Expect(getResponse.StatusCode).To(Equal(200))
-			Expect(len(getResult.Resources)).To(Equal(expectedResourceCount))
-			Expect(*getResult.TotalResults).To(Equal(expectedTotalResults))
-			Expect(*getResult.TotalPages).To(Equal(expectedTotalPages))
-			Expect(*getResult.Resources[0].Name).To(Equal(expectedName))
-			Expect(*getResult.Resources[0].OfferingType).To(Equal(expectedOfferingType))
-			Expect(*getResult.Resources[0].CreateURL).To(Equal(expectedCreateURL))
-			Expect(*getResult.Resources[0].InfoURL).To(Equal(expectedInfoURL))
-			Expect(*getResult.Resources[0].URL).To(Equal(expectedURL))
-			Expect(*getResult.Resources[0].State).To(Equal(expectedState))
-		})
-
-		It("Get license entitlements", func() {
-			const (
-				expectedResourceCount       = 0
-				expectedTotalResults  int64 = 0
-				expectedTotalPages    int64 = 1
-			)
-
-			shouldSkipTest()
-
-			listOptions := service.NewListLicenseEntitlementsOptions()
-			listResult, listResponse, err := service.ListLicenseEntitlements(listOptions)
-
-			Expect(err).To(BeNil())
-			Expect(listResponse.StatusCode).To(Equal(200))
-			Expect(len(listResult.Resources)).To(Equal(expectedResourceCount))
-			Expect(*listResult.TotalResults).To(Equal(expectedTotalResults))
-			Expect(*listResult.TotalPages).To(Equal(expectedTotalPages))
-		})
-
-		It("Fail to search license versions", func() {
-			shouldSkipTest()
-
-			searchOptions := service.NewSearchLicenseVersionsOptions(fakeName)
-			searchResponse, err := service.SearchLicenseVersions(searchOptions)
-
-			Expect(err).ToNot(BeNil())
-			Expect(searchResponse.StatusCode).To(Equal(403))
-		})
-
-		It("Fail to search license offerings", func() {
-			shouldSkipTest()
-
-			searchOptions := service.NewSearchLicenseOfferingsOptions(fakeName)
-			searchResponse, err := service.SearchLicenseOfferings(searchOptions)
-
-			Expect(err).ToNot(BeNil())
-			Expect(searchResponse.StatusCode).To(Equal(403))
-		})
 	})
 })
