@@ -111,6 +111,11 @@ var _ = Describe("IAM Policy Management - Integration Tests", func() {
 			serviceNameResourceAttribute.Value = core.StringPtr(testServiceName)
 			serviceNameResourceAttribute.Operator = core.StringPtr("stringEquals")
 
+			policyResourceTag := new(iampolicymanagementv1.ResourceTag)
+			policyResourceTag.Name = core.StringPtr("project")
+			policyResourceTag.Value = core.StringPtr("prototype")
+			policyResourceTag.Operator = core.StringPtr("stringEquals")
+
 			// Construct an instance of the SubjectAttribute model
 			subjectAttribute := new(iampolicymanagementv1.SubjectAttribute)
 			subjectAttribute.Name = core.StringPtr("iam_id")
@@ -119,6 +124,7 @@ var _ = Describe("IAM Policy Management - Integration Tests", func() {
 			// Construct an instance of the PolicyResource model
 			policyResource := new(iampolicymanagementv1.PolicyResource)
 			policyResource.Attributes = []iampolicymanagementv1.ResourceAttribute{*accountIdResourceAttribute, *serviceNameResourceAttribute}
+			policyResource.Tags = []iampolicymanagementv1.ResourceTag{*policyResourceTag}
 
 			// Construct an instance of the PolicyRole model
 			policyRole := new(iampolicymanagementv1.PolicyRole)

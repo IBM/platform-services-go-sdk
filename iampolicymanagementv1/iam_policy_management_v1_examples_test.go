@@ -25,15 +25,38 @@ import (
 	"github.com/IBM/platform-services-go-sdk/iampolicymanagementv1"
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
+	"math/rand"
 	"os"
+	"strconv"
 )
 
-const externalConfigFile = "../iam_policy_management_v1.env"
+// Below are examples on how to use IAM Policy Management service
+//
+// The following environment variables are assumed to be defined when running examples below:
+//
+// IAM_POLICY_MANAGEMENT_URL=https://iam.cloud.ibm.com
+// IAM_POLICY_MANAGEMENT_AUTH_TYPE=iam
+// IAM_POLICY_MANAGEMENT_AUTH_URL=https://iam.cloud.ibm.com/identity/token
+// IAM_POLICY_MANAGEMENT_APIKEY= <YOUR_APIKEY>
+// IAM_POLICY_MANAGEMENT_TEST_ACCOUNT_ID= <YOUR_ACCOUNT_ID>
+//
+// Alternatively, above environment variables can be placed in a "credentials" file
+
+const externalConfigFile = "../iam_policy_management.env"
 
 var (
+	// TODO: Align
 	iamPolicyManagementService *iampolicymanagementv1.IamPolicyManagementV1
 	config       map[string]string
 	configLoaded bool = false
+
+	testUserId        = "IBMid-GoSDK" + strconv.Itoa(rand.Intn(100000))
+	testServiceName   = "iam-groups"
+	testAccountId      string
+	testPolicyId       string
+	testPolicyETag     string
+	testCustomRoleId   string
+	testCustomRoleETag string
 )
 
 func shouldSkipTest() {
@@ -56,6 +79,8 @@ var _ = Describe(`IamPolicyManagementV1 Examples Tests`, func() {
 			if err != nil {
 				Skip("Error loading service properties, skipping tests: " + err.Error())
 			}
+
+			testAccountId = config["TEST_ACCOUNT_ID"]
 
 			configLoaded = len(config) > 0
 		})
@@ -88,48 +113,48 @@ var _ = Describe(`IamPolicyManagementV1 Examples Tests`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
 		})
-		It(`ListPolicies request example`, func() {
-			// begin-list_policies
-
-			listPoliciesOptions := iamPolicyManagementService.NewListPoliciesOptions(
-				"testString",
-			)
-
-			policyList, response, err := iamPolicyManagementService.ListPolicies(listPoliciesOptions)
-			if err != nil {
-				panic(err)
-			}
-			b, _ := json.MarshalIndent(policyList, "", "  ")
-			fmt.Println(string(b))
-
-			// end-list_policies
-
-			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(200))
-			Expect(policyList).ToNot(BeNil())
-
-		})
 		It(`CreatePolicy request example`, func() {
 			// begin-create_policy
 
-			policySubjectModel := &iampolicymanagementv1.PolicySubject{
+			subjectAttribute := &iampolicymanagementv1.SubjectAttribute{
+				Name: core.StringPtr("iam_id"),
+				Value: &testUserId,
+			}
+			policySubjects := &iampolicymanagementv1.PolicySubject{
+				Attributes: []iampolicymanagementv1.SubjectAttribute{*subjectAttribute},
+			}
+			policyRoles := &iampolicymanagementv1.PolicyRole{
+				RoleID: core.StringPtr("crn:v1:bluemix:public:iam::::role:Viewer"),
+			}
+			accountIdResourceAttribute := &iampolicymanagementv1.ResourceAttribute{
+				Name: core.StringPtr("accountId"),
+				Value: core.StringPtr(testAccountId),
+				Operator: core.StringPtr("stringEquals"),
+			}
+			serviceNameResourceAttribute := &iampolicymanagementv1.ResourceAttribute{
+				Name: core.StringPtr("serviceName"),
+				Value: core.StringPtr(testServiceName),
+				Operator: core.StringPtr("stringEquals"),
+			}
+			policyResourceTag := &iampolicymanagementv1.ResourceTag{
+				Name: core.StringPtr("project"),
+				Value: core.StringPtr("prototype"),
+				Operator: core.StringPtr("stringEquals"),
+			}
+			policyResources := &iampolicymanagementv1.PolicyResource{
+				Attributes: []iampolicymanagementv1.ResourceAttribute{
+					*accountIdResourceAttribute, *serviceNameResourceAttribute},
+				Tags: []iampolicymanagementv1.ResourceTag{*policyResourceTag},
 			}
 
-			policyRoleModel := &iampolicymanagementv1.PolicyRole{
-				RoleID: core.StringPtr("testString"),
-			}
-
-			policyResourceModel := &iampolicymanagementv1.PolicyResource{
-			}
-
-			createPolicyOptions := iamPolicyManagementService.NewCreatePolicyOptions(
-				"testString",
-				[]iampolicymanagementv1.PolicySubject{*policySubjectModel},
-				[]iampolicymanagementv1.PolicyRole{*policyRoleModel},
-				[]iampolicymanagementv1.PolicyResource{*policyResourceModel},
+			options := iamPolicyManagementService.NewCreatePolicyOptions(
+				"access",
+				[]iampolicymanagementv1.PolicySubject{*policySubjects},
+				[]iampolicymanagementv1.PolicyRole{*policyRoles},
+				[]iampolicymanagementv1.PolicyResource{*policyResources},
 			)
 
-			policy, response, err := iamPolicyManagementService.CreatePolicy(createPolicyOptions)
+			policy, response, err := iamPolicyManagementService.CreatePolicy(options)
 			if err != nil {
 				panic(err)
 			}
@@ -142,30 +167,68 @@ var _ = Describe(`IamPolicyManagementV1 Examples Tests`, func() {
 			Expect(response.StatusCode).To(Equal(201))
 			Expect(policy).ToNot(BeNil())
 
+			testPolicyId = *policy.ID
+		})
+		It(`GetPolicy request example`, func() {
+			// begin-get_policy
+
+			options := iamPolicyManagementService.NewGetPolicyOptions(
+				testPolicyId,
+			)
+
+			policy, response, err := iamPolicyManagementService.GetPolicy(options)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(policy, "", "  ")
+			fmt.Println(string(b))
+
+			// end-get_policy
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(policy).ToNot(BeNil())
+
+			testPolicyETag = response.GetHeaders().Get("ETag")
 		})
 		It(`UpdatePolicy request example`, func() {
 			// begin-update_policy
 
-			policySubjectModel := &iampolicymanagementv1.PolicySubject{
+			subjectAttribute := &iampolicymanagementv1.SubjectAttribute{
+				Name: core.StringPtr("iam_id"),
+				Value: &testUserId,
+			}
+			policySubjects := &iampolicymanagementv1.PolicySubject{
+				Attributes: []iampolicymanagementv1.SubjectAttribute{*subjectAttribute},
+			}
+			accountIdResourceAttribute := &iampolicymanagementv1.ResourceAttribute{
+				Name: core.StringPtr("accountId"),
+				Value: core.StringPtr(testAccountId),
+				Operator: core.StringPtr("stringEquals"),
+			}
+			serviceNameResourceAttribute := &iampolicymanagementv1.ResourceAttribute{
+				Name: core.StringPtr("serviceName"),
+				Value: core.StringPtr(testServiceName),
+				Operator: core.StringPtr("stringEquals"),
+			}
+			policyResources := &iampolicymanagementv1.PolicyResource{
+				Attributes: []iampolicymanagementv1.ResourceAttribute{
+					*accountIdResourceAttribute, *serviceNameResourceAttribute},
+			}
+			updatedPolicyRoles := &iampolicymanagementv1.PolicyRole{
+				RoleID: core.StringPtr("crn:v1:bluemix:public:iam::::role:Editor"),
 			}
 
-			policyRoleModel := &iampolicymanagementv1.PolicyRole{
-				RoleID: core.StringPtr("testString"),
-			}
-
-			policyResourceModel := &iampolicymanagementv1.PolicyResource{
-			}
-
-			updatePolicyOptions := iamPolicyManagementService.NewUpdatePolicyOptions(
-				"testString",
-				"testString",
-				"testString",
-				[]iampolicymanagementv1.PolicySubject{*policySubjectModel},
-				[]iampolicymanagementv1.PolicyRole{*policyRoleModel},
-				[]iampolicymanagementv1.PolicyResource{*policyResourceModel},
+			options := iamPolicyManagementService.NewUpdatePolicyOptions(
+				testPolicyId,
+				testPolicyETag,
+				"access",
+				[]iampolicymanagementv1.PolicySubject{*policySubjects},
+				[]iampolicymanagementv1.PolicyRole{*updatedPolicyRoles},
+				[]iampolicymanagementv1.PolicyResource{*policyResources},
 			)
 
-			policy, response, err := iamPolicyManagementService.UpdatePolicy(updatePolicyOptions)
+			policy, response, err := iamPolicyManagementService.UpdatePolicy(options)
 			if err != nil {
 				panic(err)
 			}
@@ -179,58 +242,59 @@ var _ = Describe(`IamPolicyManagementV1 Examples Tests`, func() {
 			Expect(policy).ToNot(BeNil())
 
 		})
-		It(`GetPolicy request example`, func() {
-			// begin-get_policy
+		It(`ListPolicies request example`, func() {
+			// begin-list_policies
 
-			getPolicyOptions := iamPolicyManagementService.NewGetPolicyOptions(
-				"testString",
+			options := iamPolicyManagementService.NewListPoliciesOptions(
+				testAccountId,
 			)
+			options.SetIamID(testUserId)
+			options.SetFormat("include_last_permit")
 
-			policy, response, err := iamPolicyManagementService.GetPolicy(getPolicyOptions)
+			policyList, response, err := iamPolicyManagementService.ListPolicies(options)
 			if err != nil {
 				panic(err)
 			}
-			b, _ := json.MarshalIndent(policy, "", "  ")
+			b, _ := json.MarshalIndent(policyList, "", "  ")
 			fmt.Println(string(b))
 
-			// end-get_policy
+			// end-list_policies
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
-			Expect(policy).ToNot(BeNil())
+			Expect(policyList).ToNot(BeNil())
 
 		})
-		It(`ListRoles request example`, func() {
-			// begin-list_roles
+		It(`DeletePolicy request example`, func() {
+			// begin-delete_policy
 
-			listRolesOptions := iamPolicyManagementService.NewListRolesOptions()
+			options := iamPolicyManagementService.NewDeletePolicyOptions(
+				testPolicyId,
+			)
 
-			roleList, response, err := iamPolicyManagementService.ListRoles(listRolesOptions)
+			response, err := iamPolicyManagementService.DeletePolicy(options)
 			if err != nil {
 				panic(err)
 			}
-			b, _ := json.MarshalIndent(roleList, "", "  ")
-			fmt.Println(string(b))
 
-			// end-list_roles
+			// end-delete_policy
 
 			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(200))
-			Expect(roleList).ToNot(BeNil())
+			Expect(response.StatusCode).To(Equal(204))
 
 		})
 		It(`CreateRole request example`, func() {
 			// begin-create_role
 
-			createRoleOptions := iamPolicyManagementService.NewCreateRoleOptions(
-				"testString",
-				[]string{"testString"},
-				"testString",
-				"testString",
-				"testString",
+			options := iamPolicyManagementService.NewCreateRoleOptions(
+				"IAM Groups read access",
+				[]string{"iam-groups.groups.read"},
+				"ExampleRoleIAMGroups",
+				testAccountId,
+				testServiceName,
 			)
 
-			customRole, response, err := iamPolicyManagementService.CreateRole(createRoleOptions)
+			customRole, response, err := iamPolicyManagementService.CreateRole(options)
 			if err != nil {
 				panic(err)
 			}
@@ -243,16 +307,43 @@ var _ = Describe(`IamPolicyManagementV1 Examples Tests`, func() {
 			Expect(response.StatusCode).To(Equal(201))
 			Expect(customRole).ToNot(BeNil())
 
+			testCustomRoleId = *customRole.ID
+		})
+		It(`GetRole request example`, func() {
+			// begin-get_role
+
+			options := iamPolicyManagementService.NewGetRoleOptions(
+				testCustomRoleId,
+			)
+
+			customRole, response, err := iamPolicyManagementService.GetRole(options)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(customRole, "", "  ")
+			fmt.Println(string(b))
+
+			// end-get_role
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(customRole).ToNot(BeNil())
+
+			testCustomRoleETag = response.Headers.Get("ETag")
+
 		})
 		It(`UpdateRole request example`, func() {
 			// begin-update_role
 
-			updateRoleOptions := iamPolicyManagementService.NewUpdateRoleOptions(
-				"testString",
-				"testString",
-			)
+			updatedRoleActions := []string{"iam-groups.groups.read", "iam-groups.groups.list"}
 
-			customRole, response, err := iamPolicyManagementService.UpdateRole(updateRoleOptions)
+			options := iamPolicyManagementService.NewUpdateRoleOptions(
+				testCustomRoleId,
+				testCustomRoleETag,
+			)
+			options.SetActions(updatedRoleActions)
+
+			customRole, response, err := iamPolicyManagementService.UpdateRole(options)
 			if err != nil {
 				panic(err)
 			}
@@ -266,58 +357,39 @@ var _ = Describe(`IamPolicyManagementV1 Examples Tests`, func() {
 			Expect(customRole).ToNot(BeNil())
 
 		})
-		It(`GetRole request example`, func() {
-			// begin-get_role
+		It(`ListRoles request example`, func() {
+			// begin-list_roles
 
-			getRoleOptions := iamPolicyManagementService.NewGetRoleOptions(
-				"testString",
-			)
+			options := iamPolicyManagementService.NewListRolesOptions()
+			options.SetAccountID(testAccountId)
 
-			customRole, response, err := iamPolicyManagementService.GetRole(getRoleOptions)
+			roleList, response, err := iamPolicyManagementService.ListRoles(options)
 			if err != nil {
 				panic(err)
 			}
-			b, _ := json.MarshalIndent(customRole, "", "  ")
+			b, _ := json.MarshalIndent(roleList, "", "  ")
 			fmt.Println(string(b))
 
-			// end-get_role
+			// end-list_roles
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
-			Expect(customRole).ToNot(BeNil())
+			Expect(roleList).ToNot(BeNil())
 
 		})
 		It(`DeleteRole request example`, func() {
 			// begin-delete_role
 
-			deleteRoleOptions := iamPolicyManagementService.NewDeleteRoleOptions(
-				"testString",
+			options := iamPolicyManagementService.NewDeleteRoleOptions(
+				testCustomRoleId,
 			)
 
-			response, err := iamPolicyManagementService.DeleteRole(deleteRoleOptions)
+			response, err := iamPolicyManagementService.DeleteRole(options)
 			if err != nil {
 				panic(err)
 			}
 
 			// end-delete_role
-
-			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(204))
-
-		})
-		It(`DeletePolicy request example`, func() {
-			// begin-delete_policy
-
-			deletePolicyOptions := iamPolicyManagementService.NewDeletePolicyOptions(
-				"testString",
-			)
-
-			response, err := iamPolicyManagementService.DeletePolicy(deletePolicyOptions)
-			if err != nil {
-				panic(err)
-			}
-
-			// end-delete_policy
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(204))
