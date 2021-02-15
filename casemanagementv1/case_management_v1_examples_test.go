@@ -171,7 +171,7 @@ var _ = Describe(`CaseManagementV1 Examples Tests`, func() {
 
 			getCasesOptions := caseManagementService.NewGetCasesOptions()
 			getCasesOptions.SetSearch("blocker")
-			getCasesOptions.SetSort("updated_at")
+			getCasesOptions.SetSort(casemanagementv1.GetCasesOptionsFieldsUpdatedAtConst)
 			// getCasesOptions.SetStatus([]string{casemanagementv1.GetCasesOptionsStatusNewConst})
 			getCasesOptions.SetOffset(0)
 			getCasesOptions.SetLimit(100)
