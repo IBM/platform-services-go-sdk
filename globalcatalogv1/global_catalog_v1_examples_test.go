@@ -119,8 +119,8 @@ var _ = Describe(`GlobalCatalogV1 Examples Tests`, func() {
 				Description:     &description,
 				LongDescription: &longDescription,
 			}
-			overviewUI := make(map[string]globalcatalogv1.Overview)
-			overviewUI["en"] = *overviewModelEN
+			overviewUIModel := make(map[string]globalcatalogv1.Overview)
+			overviewUIModel["en"] = *overviewModelEN
 
 			smallImageURL := "https://somehost.com/examplewebstarter/cachedIcon/small/0"
 			mediumImageURL := "https://somehost.com/examplewebstarter/cachedIcon/medium/0"
@@ -149,7 +149,7 @@ var _ = Describe(`GlobalCatalogV1 Examples Tests`, func() {
 			createCatalogEntryOptions := globalCatalogService.NewCreateCatalogEntryOptions(
 				"exampleWebStarter123",
 				globalcatalogv1.CreateCatalogEntryOptionsKindTemplateConst,
-				overviewUI,
+				overviewUIModel,
 				imageModel,
 				false,
 				[]string{"example-tag-1", "example-tag-2"},
