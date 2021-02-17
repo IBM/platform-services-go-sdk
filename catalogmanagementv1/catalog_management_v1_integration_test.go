@@ -41,7 +41,7 @@ import (
 var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 
 	const (
-		externalConfigFile   = "../catalog_management_v1.env"
+		externalConfigFile   = "../catalog_mgmt.env"
 		expectedShortDesc    = "test"
 		expectedURL          = "https://cm.globalcatalog.test.cloud.ibm.com/api/v1-beta/catalogs/%s"
 		expectedOfferingsURL = "https://cm.globalcatalog.test.cloud.ibm.com/api/v1-beta/catalogs/%s/offerings"
@@ -2062,18 +2062,6 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 			shouldSkipTest()
 		})
 		It(`CreateVersionInstance(createVersionInstanceOptions *CreateVersionInstanceOptions)`, func() {
-
-			// createVersionInstanceOptions := &catalogmanagementv1.CreateVersionInstanceOptions{
-			// 	XAuthRefreshToken:    core.StringPtr("n-ceaqQm1rcg07-A6eX7m2zhpkqh5YYF6Q2LcoW3tjZNpO3uGz-BPAKpBZXXGGrPCGSTItAEVic9ybhxc6QdLHk1YlJWBvOj5rU-3mQnQ0L7yV2zHWnWl3VewNZRO7kp4FeCNJpAMCDeOQqx1queYnWYbkicVChLMEJxsHSAxyhMyFxSD0uDgKyYNu23wxuxX8DWMqr976rudCnbHSUUJMKgC3eJvp5XYI7UT6zwR1qb55bkf7er8FwcmMjvnN8WLB-XVBCR8AZ-b_whNTgxiyJ2gyS7E6j_2HWDmyhutgtm3SqSZX1V7lI-PojWAFkxK8FUxcUXmwC_CoFda7bkqCP9-Jpnc8o_2dVJKg3L71AWVuZguDcG4-_kOF2-qEz_xnJ2CccRxLK0-wg8BXb1SgbUEsfpIwHp3bXvKEnI4nyJBL4CgKAte3XBO9P9QSf9HZurhjjRyY2ZSd2xIWhk68rI03XY-xzR5LFtweevPo_Tzr48agkWNJQJw9at0KvQHFiQr4SM5mc6X8Xznxxfycq4eZsnIj-YKkYMSOV3f5DnamFnchLr53omUfREWuhB-B7Ea3_79IEDrqvgePFcP2tQZSQV2V_qUTP_YpTTONnbd8ydS56mCLjheaR6VF2hIgkrR6I6Q_Bs0Bs1PSHxOzcca6PW3BkJNNJJz8W-zXIobHQnt-YCmmq3vZBidi-3M8ZyfzbRwnAZJ43zqSsisOAZ2tFdNFpnk4g396nLtdPtk5xGP2KebTeMD21KNn4-dsIZvNon5Vc2yQRQh1MxqErz50orS5z3XRDbJZ0pElTjO9UPnfOd4b2k2dAumtcE-pQW23uBJdh8yYdpD99QIuqV1sywH2QPgtBgqL6CFCq8l0cweH0DPjqAByftczpJ8FQyp93Jtojokn7sAn6JGNWnDAEK9ErXupOGO2EK0heEiAx3-tJrSEtyUsgiT21JdRo5-rTiMCqf2Ys0NsFE-SdeMeOpVmmRMgDj8yA0gUxMKSx9-Yykiv9OFTymIJilHnVIUIvnAmVxE2LlBVnd0-Zbd4JNlZojEuo89rQCA0hwt26l_ONP0OTKYRUOaiMSA_tLcU0KQAPF3q8CfzqfuXXWIEVDpeRNLKOjFhiWnlkhwg"),
-			// 	CatalogID:            &testCatalogID,
-			// 	OfferingID:           &gitToken,
-			// 	KindFormat:           core.StringPtr("operator"),
-			// 	Version:              core.StringPtr("0.4.0"),
-			// 	ClusterID:            core.StringPtr("c07cn9h20vsge6l0e8og"),
-			// 	ClusterRegion:        core.StringPtr("us-south"),
-			// 	ClusterNamespaces:    []string{"sdk-test"},
-			// 	ClusterAllNamespaces: core.BoolPtr(false),
-			// }
 
 			versionInstanceOptions := catalogManagementService.NewCreateVersionInstanceOptions(refreshToken)
 			versionInstanceOptions.SetCatalogID(testCatalogID)
