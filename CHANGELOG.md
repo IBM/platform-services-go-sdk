@@ -1,3 +1,10 @@
+## [0.17.8](https://github.com/IBM/platform-services-go-sdk/compare/v0.17.7...v0.17.8) (2021-02-17)
+
+
+### Bug Fixes
+
+* **Catalog Management:** re-gen service and new tests for version instance resource type ([#80](https://github.com/IBM/platform-services-go-sdk/issues/80)) ([c8af0d8](https://github.com/IBM/platform-services-go-sdk/commit/c8af0d85c78e8b05014ce543bf498e71105811ad))
+
 ## [0.17.7](https://github.com/IBM/platform-services-go-sdk/compare/v0.17.6...v0.17.7) (2021-02-09)
 
 
