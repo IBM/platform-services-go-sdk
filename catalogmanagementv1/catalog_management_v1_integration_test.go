@@ -1,7 +1,7 @@
 // +build integration
 
 /**
- * (C) Copyright IBM Corp. 2020.
+ * (C) Copyright IBM Corp. 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,199 +20,237 @@ package catalogmanagementv1_test
 
 import (
 	"fmt"
-	"log"
 	"os"
 	"time"
 
-	"github.com/IBM/go-sdk-core/v4/core"
+	"github.com/IBM/go-sdk-core/v5/core"
 	"github.com/IBM/platform-services-go-sdk/catalogmanagementv1"
 	common "github.com/IBM/platform-services-go-sdk/common"
-
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
 )
 
-const (
-	externalConfigFile   = "../catalog_mgmt.env"
-	expectedAccount      = "67d27f28d43948b2b3bda9138f251a13"
-	expectedShortDesc    = "test"
-	expectedURL          = "https://cm.globalcatalog.test.cloud.ibm.com/api/v1-beta/catalogs/%s"
-	expectedOfferingsURL = "https://cm.globalcatalog.test.cloud.ibm.com/api/v1-beta/catalogs/%s/offerings"
-	fakeName             = "bogus"
-	fakeVersionLocator   = "bogus.bogus"
-	expectedOfferingName = "test-offering"
-	expectedOfferingURL  = "https://cm.globalcatalog.test.cloud.ibm.com/api/v1-beta/catalogs/%s/offerings/%s"
-)
+/**
+ * This file contains an integration test for the catalogmanagementv1 package.
+ *
+ * Notes:
+ *
+ * The integration test will automatically skip tests if the required config file is not available.
+ */
 
-var (
-	service       *catalogmanagementv1.CatalogManagementV1
-	configLoaded  bool = false
-	gitToken      string
-	expectedLabel = fmt.Sprintf("integration-test-%d", time.Now().Unix())
-)
+var _ = Describe(`CatalogManagementV1 Integration Tests (New)`, func() {
 
-func shouldSkipTest() {
-	if !configLoaded {
-		Skip("External configuration is not available, skipping...")
-	}
-}
+	const (
+		externalConfigFile   = "../catalog_mgmt.env"
+		expectedShortDesc    = "test"
+		expectedURL          = "https://cm.globalcatalog.test.cloud.ibm.com/api/v1-beta/catalogs/%s"
+		expectedOfferingsURL = "https://cm.globalcatalog.test.cloud.ibm.com/api/v1-beta/catalogs/%s/offerings"
+		expectedAccount      = "67d27f28d43948b2b3bda9138f251a13"
+	)
 
-var _ = Describe("Catalog Management - Integration Tests", func() {
-	It("Successfully load the configuration", func() {
-		if _, err := os.Stat(externalConfigFile); err == nil {
-			if err = os.Setenv("IBM_CREDENTIALS_FILE", externalConfigFile); err == nil {
-				configLoaded = true
-			}
-		}
+	var (
+		err                      error
+		catalogManagementService *catalogmanagementv1.CatalogManagementV1
+		configLoaded             bool = false
+		serviceURL               string
+		config                   map[string]string
+		testCatalogID            string
+		testOfferingID           string
+		expectedLabel            = fmt.Sprintf("integration-test-%d", time.Now().Unix())
+		gitToken                 string
+		refreshToken             string
+		testVersionInstanceID    string
+	)
 
+	var shouldSkipTest = func() {
 		if !configLoaded {
-			Skip("External configuration could not be loaded, skipping...")
+			Skip("External configuration is not available, skipping...")
 		}
+	}
+
+	Describe(`External configuration`, func() {
+		It("Successfully load the configuration", func() {
+			_, err = os.Stat(externalConfigFile)
+			if err != nil {
+				Skip("External configuration file not found, skipping tests: " + err.Error())
+			}
+
+			os.Setenv("IBM_CREDENTIALS_FILE", externalConfigFile)
+			config, err = core.GetServiceProperties(catalogmanagementv1.DefaultServiceName)
+
+			if err != nil {
+				Skip("Error loading service properties, skipping tests: " + err.Error())
+			}
+			serviceURL = config["URL"]
+			if serviceURL == "" {
+				Skip("Unable to load service URL configuration property, skipping tests")
+			}
+			gitToken = config["GIT_TOKEN"]
+			if serviceURL == "" {
+				Skip("Unable to load service URL configuration property, skipping tests")
+			}
+
+			fmt.Fprintf(GinkgoWriter, "Service URL: %s\n", serviceURL)
+			shouldSkipTest = func() {}
+		})
 	})
 
-	It(`Successfully created CatalogManagementV1 service instance`, func() {
-		var err error
-		var config map[string]string
+	Describe(`Get Refresh Token`, func() {
+		It("successfully creates a refresh token", func() {
+			authenticator, err := core.GetAuthenticatorFromEnvironment("catalog_management")
+			iamAuthenticator := authenticator.(*core.IamAuthenticator)
 
-		shouldSkipTest()
+			Expect(err).To(BeNil())
 
-		service, err = catalogmanagementv1.NewCatalogManagementV1UsingExternalConfig(
-			&catalogmanagementv1.CatalogManagementV1Options{},
-		)
+			tokenServerResponse, err := iamAuthenticator.RequestToken()
+			refreshToken = tokenServerResponse.RefreshToken
 
-		Expect(err).To(BeNil())
-		Expect(service).ToNot(BeNil())
-
-		core.SetLogger(core.NewLogger(core.LevelDebug, log.New(GinkgoWriter, "", log.LstdFlags)))
-		service.EnableRetries(4, 30*time.Second)
-
-		config, err = core.GetServiceProperties(catalogmanagementv1.DefaultServiceName)
-
-		if err != nil {
-			configLoaded = false
-		}
-
-		Expect(err).To(BeNil())
-		gitToken = config["GIT_TOKEN"]
+			Expect(err).To(BeNil())
+			Expect(refreshToken).ToNot(BeNil())
+		})
 	})
 
-	Describe("Run integration tests", func() {
-		JustBeforeEach(func() {
+	Describe(`Client initialization`, func() {
+		BeforeEach(func() {
 			shouldSkipTest()
-
-			listResult, _, _ := service.ListCatalogs(service.NewListCatalogsOptions())
-			if listResult != nil && listResult.Resources != nil {
-				for _, resource := range listResult.Resources {
-					if *resource.Label == expectedLabel {
-						service.DeleteCatalog(service.NewDeleteCatalogOptions(*resource.ID))
-					}
-				}
-			}
 		})
+		It("Successfully construct the service client instance", func() {
 
-		JustAfterEach(func() {
-			shouldSkipTest()
+			catalogManagementServiceOptions := &catalogmanagementv1.CatalogManagementV1Options{}
 
-			listResult, _, _ := service.ListCatalogs(service.NewListCatalogsOptions())
-			if listResult != nil && listResult.Resources != nil {
-				for _, resource := range listResult.Resources {
-					if *resource.Label == expectedLabel {
-						service.DeleteCatalog(service.NewDeleteCatalogOptions(*resource.ID))
-					}
-				}
-			}
-		})
-
-		It("Get catalog account", func() {
-			shouldSkipTest()
-
-			options := service.NewGetCatalogAccountOptions()
-			result, response, err := service.GetCatalogAccount(options)
+			catalogManagementService, err = catalogmanagementv1.NewCatalogManagementV1UsingExternalConfig(catalogManagementServiceOptions)
 
 			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(200))
-			Expect(*result.ID).To(Equal(expectedAccount))
-			Expect(*result.AccountFilters.IncludeAll).To(BeTrue())
-			Expect(len(result.AccountFilters.CategoryFilters)).To(BeZero())
-			Expect(result.AccountFilters.IdFilters.Include).To(BeNil())
-			Expect(result.AccountFilters.IdFilters.Exclude).To(BeNil())
+			Expect(catalogManagementService).ToNot(BeNil())
+			Expect(catalogManagementService.Service.Options.URL).To(Equal(serviceURL))
+
 		})
+	})
+	/*
+		Describe(`GetCatalogAccount - Get catalog account settings`, func() {
+			BeforeEach(func() {
+				shouldSkipTest()
+			})
+			It(`GetCatalogAccount(getCatalogAccountOptions *GetCatalogAccountOptions)`, func() {
 
-		It("Get catalog account filters", func() {
-			shouldSkipTest()
-
-			options := service.NewGetCatalogAccountFiltersOptions()
-			result, response, err := service.GetCatalogAccountFilters(options)
-
-			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(200))
-			Expect(*result.AccountFilters[0].IncludeAll).To(BeTrue())
-			Expect(len(result.AccountFilters[0].CategoryFilters)).To(BeZero())
-			Expect(result.AccountFilters[0].IdFilters.Include).To(BeNil())
-			Expect(result.AccountFilters[0].IdFilters.Exclude).To(BeNil())
-		})
-
-		It("Get list of catalogs", func() {
-			const (
-				expectedTotalCount    = 1
-				expectedResourceCount = 1
-			)
-
-			catalogCount := 0
-			catalogIndex := -1
-
-			shouldSkipTest()
-
-			createOptions := service.NewCreateCatalogOptions()
-			createOptions.SetLabel(expectedLabel)
-			createOptions.SetShortDescription(expectedShortDesc)
-			createResult, _, _ := service.CreateCatalog(createOptions)
-
-			listOptions := service.NewListCatalogsOptions()
-			listResult, listResponse, err := service.ListCatalogs(listOptions)
-			if listResult != nil && listResult.Resources != nil {
-				for i, resource := range listResult.Resources {
-					if *resource.Label == expectedLabel {
-						catalogCount++
-						catalogIndex = i
-					}
+				getCatalogAccountOptions := &catalogmanagementv1.GetCatalogAccountOptions{
 				}
-			}
 
-			service.DeleteCatalog(service.NewDeleteCatalogOptions(*createResult.ID))
+				account, response, err := catalogManagementService.GetCatalogAccount(getCatalogAccountOptions)
 
-			Expect(err).To(BeNil())
-			Expect(listResponse.StatusCode).To(Equal(200))
-			Expect(listResult).ToNot(BeNil())
-			fmt.Fprintf(GinkgoWriter, "ListCatalogs() result:\n%s\n", common.ToJSON(listResult))
+				Expect(err).To(BeNil())
+				Expect(response.StatusCode).To(Equal(200))
+				Expect(account).ToNot(BeNil())
 
-			Expect(*listResult.Offset).To(BeZero())
-			Expect(*listResult.Limit).To(BeZero())
-			Expect(catalogCount).To(Equal(expectedTotalCount))
-			Expect(listResult.Last).To(BeNil())
-			Expect(listResult.Prev).To(BeNil())
-			Expect(listResult.Next).To(BeNil())
-
-			Expect(*listResult.Resources[catalogIndex].Label).To(Equal(expectedLabel))
-			Expect(*listResult.Resources[catalogIndex].ShortDescription).To(Equal(expectedShortDesc))
-			Expect(*listResult.Resources[catalogIndex].URL).To(Equal(fmt.Sprintf(expectedURL, *createResult.ID)))
-			Expect(*listResult.Resources[catalogIndex].OfferingsURL).To(Equal(fmt.Sprintf(expectedOfferingsURL, *createResult.ID)))
-			Expect(*listResult.Resources[catalogIndex].OwningAccount).To(Equal(expectedAccount))
-			Expect(*listResult.Resources[catalogIndex].CatalogFilters.IncludeAll).To(BeFalse())
-			Expect(len(listResult.Resources[catalogIndex].CatalogFilters.CategoryFilters)).To(BeZero())
-			Expect(listResult.Resources[catalogIndex].CatalogFilters.IdFilters.Include).To(BeNil())
-			Expect(listResult.Resources[catalogIndex].CatalogFilters.IdFilters.Exclude).To(BeNil())
+			})
 		})
 
-		It("Create a catalog", func() {
-			shouldSkipTest()
+		Describe(`UpdateCatalogAccount - Update account settings`, func() {
+			BeforeEach(func() {
+				shouldSkipTest()
+			})
+			It(`UpdateCatalogAccount(updateCatalogAccountOptions *UpdateCatalogAccountOptions)`, func() {
 
-			options := service.NewCreateCatalogOptions()
+				filterTermsModel := &catalogmanagementv1.FilterTerms{
+					FilterTerms: []string{"testString"},
+				}
+
+				categoryFilterModel := &catalogmanagementv1.CategoryFilter{
+					Include: core.BoolPtr(true),
+					Filter: filterTermsModel,
+				}
+
+				idFilterModel := &catalogmanagementv1.IDFilter{
+					Include: filterTermsModel,
+					Exclude: filterTermsModel,
+				}
+
+				filtersModel := &catalogmanagementv1.Filters{
+					IncludeAll: core.BoolPtr(true),
+					CategoryFilters: make(map[string]catalogmanagementv1.CategoryFilter),
+					IDFilters: idFilterModel,
+				}
+				filtersModel.CategoryFilters["foo"] = *categoryFilterModel
+
+				updateCatalogAccountOptions := &catalogmanagementv1.UpdateCatalogAccountOptions{
+					ID: core.StringPtr("testString"),
+					HideIBMCloudCatalog: core.BoolPtr(true),
+					AccountFilters: filtersModel,
+				}
+
+				response, err := catalogManagementService.UpdateCatalogAccount(updateCatalogAccountOptions)
+
+				Expect(err).To(BeNil())
+				Expect(response.StatusCode).To(Equal(200))
+
+			})
+		})
+
+		Describe(`GetCatalogAccountAudit - Get catalog account audit log`, func() {
+			BeforeEach(func() {
+				shouldSkipTest()
+			})
+			It(`GetCatalogAccountAudit(getCatalogAccountAuditOptions *GetCatalogAccountAuditOptions)`, func() {
+
+				getCatalogAccountAuditOptions := &catalogmanagementv1.GetCatalogAccountAuditOptions{
+				}
+
+				auditLog, response, err := catalogManagementService.GetCatalogAccountAudit(getCatalogAccountAuditOptions)
+
+				Expect(err).To(BeNil())
+				Expect(response.StatusCode).To(Equal(200))
+				Expect(auditLog).ToNot(BeNil())
+
+			})
+		})
+
+		Describe(`GetCatalogAccountFilters - Get catalog account filters`, func() {
+			BeforeEach(func() {
+				shouldSkipTest()
+			})
+			It(`GetCatalogAccountFilters(getCatalogAccountFiltersOptions *GetCatalogAccountFiltersOptions)`, func() {
+
+				getCatalogAccountFiltersOptions := &catalogmanagementv1.GetCatalogAccountFiltersOptions{
+					Catalog: core.StringPtr("testString"),
+				}
+
+				accumulatedFilters, response, err := catalogManagementService.GetCatalogAccountFilters(getCatalogAccountFiltersOptions)
+
+				Expect(err).To(BeNil())
+				Expect(response.StatusCode).To(Equal(200))
+				Expect(accumulatedFilters).ToNot(BeNil())
+
+			})
+		})
+
+		Describe(`ListCatalogs - Get list of catalogs`, func() {
+			BeforeEach(func() {
+				shouldSkipTest()
+			})
+			It(`ListCatalogs(listCatalogsOptions *ListCatalogsOptions)`, func() {
+
+				listCatalogsOptions := &catalogmanagementv1.ListCatalogsOptions{
+				}
+
+				catalogSearchResult, response, err := catalogManagementService.ListCatalogs(listCatalogsOptions)
+
+				Expect(err).To(BeNil())
+				Expect(response.StatusCode).To(Equal(200))
+				Expect(catalogSearchResult).ToNot(BeNil())
+
+			})
+		})
+	*/
+	Describe(`CreateCatalog - Create a catalog`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`CreateCatalog(createCatalogOptions *CreateCatalogOptions)`, func() {
+
+			options := catalogManagementService.NewCreateCatalogOptions()
 			options.SetLabel(expectedLabel)
 			options.SetShortDescription(expectedShortDesc)
-			result, response, err := service.CreateCatalog(options)
-
-			service.DeleteCatalog(service.NewDeleteCatalogOptions(*result.ID))
+			result, response, err := catalogManagementService.CreateCatalog(options)
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(201))
@@ -226,914 +264,2042 @@ var _ = Describe("Catalog Management - Integration Tests", func() {
 			Expect(*result.OwningAccount).To(Equal(expectedAccount))
 			Expect(*result.CatalogFilters.IncludeAll).To(BeFalse())
 			Expect(len(result.CatalogFilters.CategoryFilters)).To(BeZero())
-			Expect(result.CatalogFilters.IdFilters.Include).To(BeNil())
-			Expect(result.CatalogFilters.IdFilters.Exclude).To(BeNil())
+			Expect(result.CatalogFilters.IDFilters.Include).To(BeNil())
+			Expect(result.CatalogFilters.IDFilters.Exclude).To(BeNil())
+
+			Expect(result.ID).ToNot(BeNil())
+			testCatalogID = *result.ID
+		})
+	})
+	/*
+		Describe(`GetCatalog - Get catalog`, func() {
+			BeforeEach(func() {
+				shouldSkipTest()
+			})
+			It(`GetCatalog(getCatalogOptions *GetCatalogOptions)`, func() {
+
+				getCatalogOptions := &catalogmanagementv1.GetCatalogOptions{
+					CatalogIdentifier: core.StringPtr("testString"),
+				}
+
+				catalog, response, err := catalogManagementService.GetCatalog(getCatalogOptions)
+
+				Expect(err).To(BeNil())
+				Expect(response.StatusCode).To(Equal(200))
+				Expect(catalog).ToNot(BeNil())
+
+			})
 		})
 
-		It("Get a catalog", func() {
+		Describe(`ReplaceCatalog - Update catalog`, func() {
+			BeforeEach(func() {
+				shouldSkipTest()
+			})
+			It(`ReplaceCatalog(replaceCatalogOptions *ReplaceCatalogOptions)`, func() {
+
+				featureModel := &catalogmanagementv1.Feature{
+					Title: core.StringPtr("testString"),
+					Description: core.StringPtr("testString"),
+				}
+
+				filterTermsModel := &catalogmanagementv1.FilterTerms{
+					FilterTerms: []string{"testString"},
+				}
+
+				categoryFilterModel := &catalogmanagementv1.CategoryFilter{
+					Include: core.BoolPtr(true),
+					Filter: filterTermsModel,
+				}
+
+				idFilterModel := &catalogmanagementv1.IDFilter{
+					Include: filterTermsModel,
+					Exclude: filterTermsModel,
+				}
+
+				filtersModel := &catalogmanagementv1.Filters{
+					IncludeAll: core.BoolPtr(true),
+					CategoryFilters: make(map[string]catalogmanagementv1.CategoryFilter),
+					IDFilters: idFilterModel,
+				}
+				filtersModel.CategoryFilters["foo"] = *categoryFilterModel
+
+				syndicationClusterModel := &catalogmanagementv1.SyndicationCluster{
+					Region: core.StringPtr("testString"),
+					ID: core.StringPtr("testString"),
+					Name: core.StringPtr("testString"),
+					ResourceGroupName: core.StringPtr("testString"),
+					Type: core.StringPtr("testString"),
+					Namespaces: []string{"testString"},
+					AllNamespaces: core.BoolPtr(true),
+				}
+
+				syndicationHistoryModel := &catalogmanagementv1.SyndicationHistory{
+					Namespaces: []string{"testString"},
+					Clusters: []catalogmanagementv1.SyndicationCluster{*syndicationClusterModel},
+					LastRun: CreateMockDateTime(),
+				}
+
+				syndicationAuthorizationModel := &catalogmanagementv1.SyndicationAuthorization{
+					Token: core.StringPtr("testString"),
+					LastRun: CreateMockDateTime(),
+				}
+
+				syndicationResourceModel := &catalogmanagementv1.SyndicationResource{
+					RemoveRelatedComponents: core.BoolPtr(true),
+					Clusters: []catalogmanagementv1.SyndicationCluster{*syndicationClusterModel},
+					History: syndicationHistoryModel,
+					Authorization: syndicationAuthorizationModel,
+				}
+
+				replaceCatalogOptions := &catalogmanagementv1.ReplaceCatalogOptions{
+					CatalogIdentifier: core.StringPtr("testString"),
+					ID: core.StringPtr("testString"),
+					Rev: core.StringPtr("testString"),
+					Label: core.StringPtr("testString"),
+					ShortDescription: core.StringPtr("testString"),
+					CatalogIconURL: core.StringPtr("testString"),
+					Tags: []string{"testString"},
+					Features: []catalogmanagementv1.Feature{*featureModel},
+					Disabled: core.BoolPtr(true),
+					ResourceGroupID: core.StringPtr("testString"),
+					OwningAccount: core.StringPtr("testString"),
+					CatalogFilters: filtersModel,
+					SyndicationSettings: syndicationResourceModel,
+				}
+
+				catalog, response, err := catalogManagementService.ReplaceCatalog(replaceCatalogOptions)
+
+				Expect(err).To(BeNil())
+				Expect(response.StatusCode).To(Equal(200))
+				Expect(catalog).ToNot(BeNil())
+
+			})
+		})
+
+		Describe(`GetCatalogAudit - Get catalog audit log`, func() {
+			BeforeEach(func() {
+				shouldSkipTest()
+			})
+			It(`GetCatalogAudit(getCatalogAuditOptions *GetCatalogAuditOptions)`, func() {
+
+				getCatalogAuditOptions := &catalogmanagementv1.GetCatalogAuditOptions{
+					CatalogIdentifier: core.StringPtr("testString"),
+				}
+
+				auditLog, response, err := catalogManagementService.GetCatalogAudit(getCatalogAuditOptions)
+
+				Expect(err).To(BeNil())
+				Expect(response.StatusCode).To(Equal(200))
+				Expect(auditLog).ToNot(BeNil())
+
+			})
+		})
+
+		Describe(`GetEnterprise - Get enterprise settings`, func() {
+			BeforeEach(func() {
+				shouldSkipTest()
+			})
+			It(`GetEnterprise(getEnterpriseOptions *GetEnterpriseOptions)`, func() {
+
+				getEnterpriseOptions := &catalogmanagementv1.GetEnterpriseOptions{
+					EnterpriseID: core.StringPtr("testString"),
+				}
+
+				enterprise, response, err := catalogManagementService.GetEnterprise(getEnterpriseOptions)
+
+				Expect(err).To(BeNil())
+				Expect(response.StatusCode).To(Equal(200))
+				Expect(enterprise).ToNot(BeNil())
+
+			})
+		})
+
+		Describe(`UpdateEnterprise - Update enterprise settings`, func() {
+			BeforeEach(func() {
+				shouldSkipTest()
+			})
+			It(`UpdateEnterprise(updateEnterpriseOptions *UpdateEnterpriseOptions)`, func() {
+
+				filterTermsModel := &catalogmanagementv1.FilterTerms{
+					FilterTerms: []string{"testString"},
+				}
+
+				categoryFilterModel := &catalogmanagementv1.CategoryFilter{
+					Include: core.BoolPtr(true),
+					Filter: filterTermsModel,
+				}
+
+				idFilterModel := &catalogmanagementv1.IDFilter{
+					Include: filterTermsModel,
+					Exclude: filterTermsModel,
+				}
+
+				filtersModel := &catalogmanagementv1.Filters{
+					IncludeAll: core.BoolPtr(true),
+					CategoryFilters: make(map[string]catalogmanagementv1.CategoryFilter),
+					IDFilters: idFilterModel,
+				}
+				filtersModel.CategoryFilters["foo"] = *categoryFilterModel
+
+				accountGroupModel := &catalogmanagementv1.AccountGroup{
+					ID: core.StringPtr("testString"),
+					AccountFilters: filtersModel,
+				}
+
+				enterpriseAccountGroupsModel := &catalogmanagementv1.EnterpriseAccountGroups{
+					Keys: accountGroupModel,
+				}
+
+				updateEnterpriseOptions := &catalogmanagementv1.UpdateEnterpriseOptions{
+					EnterpriseID: core.StringPtr("testString"),
+					ID: core.StringPtr("testString"),
+					Rev: core.StringPtr("testString"),
+					AccountFilters: filtersModel,
+					AccountGroups: enterpriseAccountGroupsModel,
+				}
+
+				response, err := catalogManagementService.UpdateEnterprise(updateEnterpriseOptions)
+
+				Expect(err).To(BeNil())
+				Expect(response.StatusCode).To(Equal(200))
+
+			})
+		})
+
+		Describe(`GetEnterpriseAudit - Get enterprise audit log`, func() {
+			BeforeEach(func() {
+				shouldSkipTest()
+			})
+			It(`GetEnterpriseAudit(getEnterpriseAuditOptions *GetEnterpriseAuditOptions)`, func() {
+
+				getEnterpriseAuditOptions := &catalogmanagementv1.GetEnterpriseAuditOptions{
+					EnterpriseID: core.StringPtr("testString"),
+				}
+
+				auditLog, response, err := catalogManagementService.GetEnterpriseAudit(getEnterpriseAuditOptions)
+
+				Expect(err).To(BeNil())
+				Expect(response.StatusCode).To(Equal(200))
+				Expect(auditLog).ToNot(BeNil())
+
+			})
+		})
+
+		Describe(`GetConsumptionOfferings - Get consumption offerings`, func() {
+			BeforeEach(func() {
+				shouldSkipTest()
+			})
+			It(`GetConsumptionOfferings(getConsumptionOfferingsOptions *GetConsumptionOfferingsOptions)`, func() {
+
+				getConsumptionOfferingsOptions := &catalogmanagementv1.GetConsumptionOfferingsOptions{
+					Digest: core.BoolPtr(true),
+					Catalog: core.StringPtr("testString"),
+					Select: core.StringPtr("all"),
+					IncludeHidden: core.BoolPtr(true),
+					Limit: core.Int64Ptr(int64(1000)),
+					Offset: core.Int64Ptr(int64(38)),
+				}
+
+				offeringSearchResult, response, err := catalogManagementService.GetConsumptionOfferings(getConsumptionOfferingsOptions)
+
+				Expect(err).To(BeNil())
+				Expect(response.StatusCode).To(Equal(200))
+				Expect(offeringSearchResult).ToNot(BeNil())
+
+			})
+		})
+
+		Describe(`ListOfferings - Get list of offerings`, func() {
+			BeforeEach(func() {
+				shouldSkipTest()
+			})
+			It(`ListOfferings(listOfferingsOptions *ListOfferingsOptions)`, func() {
+
+				listOfferingsOptions := &catalogmanagementv1.ListOfferingsOptions{
+					CatalogIdentifier: core.StringPtr("testString"),
+					Digest: core.BoolPtr(true),
+					Limit: core.Int64Ptr(int64(1000)),
+					Offset: core.Int64Ptr(int64(38)),
+					Name: core.StringPtr("testString"),
+					Sort: core.StringPtr("testString"),
+				}
+
+				offeringSearchResult, response, err := catalogManagementService.ListOfferings(listOfferingsOptions)
+
+				Expect(err).To(BeNil())
+				Expect(response.StatusCode).To(Equal(200))
+				Expect(offeringSearchResult).ToNot(BeNil())
+
+			})
+		})
+
+		Describe(`CreateOffering - Create offering`, func() {
+			BeforeEach(func() {
+				shouldSkipTest()
+			})
+			It(`CreateOffering(createOfferingOptions *CreateOfferingOptions)`, func() {
+
+				ratingModel := &catalogmanagementv1.Rating{
+					OneStarCount: core.Int64Ptr(int64(38)),
+					TwoStarCount: core.Int64Ptr(int64(38)),
+					ThreeStarCount: core.Int64Ptr(int64(38)),
+					FourStarCount: core.Int64Ptr(int64(38)),
+				}
+
+				featureModel := &catalogmanagementv1.Feature{
+					Title: core.StringPtr("testString"),
+					Description: core.StringPtr("testString"),
+				}
+
+				configurationModel := &catalogmanagementv1.Configuration{
+					Key: core.StringPtr("testString"),
+					Type: core.StringPtr("testString"),
+					DefaultValue: core.StringPtr("testString"),
+					ValueConstraint: core.StringPtr("testString"),
+					Description: core.StringPtr("testString"),
+					Required: core.BoolPtr(true),
+					Options: []interface{}{"testString"},
+					Hidden: core.BoolPtr(true),
+				}
+
+				validationModel := &catalogmanagementv1.Validation{
+					Validated: CreateMockDateTime(),
+					Requested: CreateMockDateTime(),
+					State: core.StringPtr("testString"),
+					LastOperation: core.StringPtr("testString"),
+					Target: make(map[string]interface{}),
+				}
+
+				resourceModel := &catalogmanagementv1.Resource{
+					Type: core.StringPtr("mem"),
+					Value: core.StringPtr("testString"),
+				}
+
+				scriptModel := &catalogmanagementv1.Script{
+					Instructions: core.StringPtr("testString"),
+					Script: core.StringPtr("testString"),
+					ScriptPermission: core.StringPtr("testString"),
+					DeleteScript: core.StringPtr("testString"),
+					Scope: core.StringPtr("testString"),
+				}
+
+				versionEntitlementModel := &catalogmanagementv1.VersionEntitlement{
+					ProviderName: core.StringPtr("testString"),
+					ProviderID: core.StringPtr("testString"),
+					ProductID: core.StringPtr("testString"),
+					PartNumbers: []string{"testString"},
+					ImageRepoName: core.StringPtr("testString"),
+				}
+
+				licenseModel := &catalogmanagementv1.License{
+					ID: core.StringPtr("testString"),
+					Name: core.StringPtr("testString"),
+					Type: core.StringPtr("testString"),
+					URL: core.StringPtr("testString"),
+					Description: core.StringPtr("testString"),
+				}
+
+				stateModel := &catalogmanagementv1.State{
+					Current: core.StringPtr("testString"),
+					CurrentEntered: CreateMockDateTime(),
+					Pending: core.StringPtr("testString"),
+					PendingRequested: CreateMockDateTime(),
+					Previous: core.StringPtr("testString"),
+				}
+
+				versionModel := &catalogmanagementv1.Version{
+					ID: core.StringPtr("testString"),
+					Rev: core.StringPtr("testString"),
+					CRN: core.StringPtr("testString"),
+					Version: core.StringPtr("testString"),
+					Sha: core.StringPtr("testString"),
+					Created: CreateMockDateTime(),
+					Updated: CreateMockDateTime(),
+					OfferingID: core.StringPtr("testString"),
+					CatalogID: core.StringPtr("testString"),
+					KindID: core.StringPtr("testString"),
+					Tags: []string{"testString"},
+					RepoURL: core.StringPtr("testString"),
+					SourceURL: core.StringPtr("testString"),
+					TgzURL: core.StringPtr("testString"),
+					Configuration: []catalogmanagementv1.Configuration{*configurationModel},
+					Metadata: make(map[string]interface{}),
+					Validation: validationModel,
+					RequiredResources: []catalogmanagementv1.Resource{*resourceModel},
+					SingleInstance: core.BoolPtr(true),
+					Install: scriptModel,
+					PreInstall: []catalogmanagementv1.Script{*scriptModel},
+					Entitlement: versionEntitlementModel,
+					Licenses: []catalogmanagementv1.License{*licenseModel},
+					ImageManifestURL: core.StringPtr("testString"),
+					Deprecated: core.BoolPtr(true),
+					PackageVersion: core.StringPtr("testString"),
+					State: stateModel,
+					VersionLocator: core.StringPtr("testString"),
+					ConsoleURL: core.StringPtr("testString"),
+					LongDescription: core.StringPtr("testString"),
+					WhitelistedAccounts: []string{"testString"},
+				}
+
+				deploymentModel := &catalogmanagementv1.Deployment{
+					ID: core.StringPtr("testString"),
+					Label: core.StringPtr("testString"),
+					Name: core.StringPtr("testString"),
+					ShortDescription: core.StringPtr("testString"),
+					LongDescription: core.StringPtr("testString"),
+					Metadata: make(map[string]interface{}),
+					Tags: []string{"testString"},
+					Created: CreateMockDateTime(),
+					Updated: CreateMockDateTime(),
+				}
+
+				planModel := &catalogmanagementv1.Plan{
+					ID: core.StringPtr("testString"),
+					Label: core.StringPtr("testString"),
+					Name: core.StringPtr("testString"),
+					ShortDescription: core.StringPtr("testString"),
+					LongDescription: core.StringPtr("testString"),
+					Metadata: make(map[string]interface{}),
+					Tags: []string{"testString"},
+					AdditionalFeatures: []catalogmanagementv1.Feature{*featureModel},
+					Created: CreateMockDateTime(),
+					Updated: CreateMockDateTime(),
+					Deployments: []catalogmanagementv1.Deployment{*deploymentModel},
+				}
+
+				kindModel := &catalogmanagementv1.Kind{
+					ID: core.StringPtr("testString"),
+					FormatKind: core.StringPtr("testString"),
+					TargetKind: core.StringPtr("testString"),
+					Metadata: make(map[string]interface{}),
+					InstallDescription: core.StringPtr("testString"),
+					Tags: []string{"testString"},
+					AdditionalFeatures: []catalogmanagementv1.Feature{*featureModel},
+					Created: CreateMockDateTime(),
+					Updated: CreateMockDateTime(),
+					Versions: []catalogmanagementv1.Version{*versionModel},
+					Plans: []catalogmanagementv1.Plan{*planModel},
+				}
+
+				repoInfoModel := &catalogmanagementv1.RepoInfo{
+					Token: core.StringPtr("testString"),
+					Type: core.StringPtr("testString"),
+				}
+
+				createOfferingOptions := &catalogmanagementv1.CreateOfferingOptions{
+					CatalogIdentifier: core.StringPtr("testString"),
+					ID: core.StringPtr("testString"),
+					Rev: core.StringPtr("testString"),
+					URL: core.StringPtr("testString"),
+					CRN: core.StringPtr("testString"),
+					Label: core.StringPtr("testString"),
+					Name: core.StringPtr("testString"),
+					OfferingIconURL: core.StringPtr("testString"),
+					OfferingDocsURL: core.StringPtr("testString"),
+					OfferingSupportURL: core.StringPtr("testString"),
+					Tags: []string{"testString"},
+					Rating: ratingModel,
+					Created: CreateMockDateTime(),
+					Updated: CreateMockDateTime(),
+					ShortDescription: core.StringPtr("testString"),
+					LongDescription: core.StringPtr("testString"),
+					Features: []catalogmanagementv1.Feature{*featureModel},
+					Kinds: []catalogmanagementv1.Kind{*kindModel},
+					PermitRequestIBMPublicPublish: core.BoolPtr(true),
+					IBMPublishApproved: core.BoolPtr(true),
+					PublicPublishApproved: core.BoolPtr(true),
+					PublicOriginalCRN: core.StringPtr("testString"),
+					PublishPublicCRN: core.StringPtr("testString"),
+					PortalApprovalRecord: core.StringPtr("testString"),
+					PortalUIURL: core.StringPtr("testString"),
+					CatalogID: core.StringPtr("testString"),
+					CatalogName: core.StringPtr("testString"),
+					Metadata: make(map[string]interface{}),
+					Disclaimer: core.StringPtr("testString"),
+					Hidden: core.BoolPtr(true),
+					Provider: core.StringPtr("testString"),
+					RepoInfo: repoInfoModel,
+				}
+
+				offering, response, err := catalogManagementService.CreateOffering(createOfferingOptions)
+
+				Expect(err).To(BeNil())
+				Expect(response.StatusCode).To(Equal(201))
+				Expect(offering).ToNot(BeNil())
+
+			})
+		})
+
+		Describe(`ImportOfferingVersion - Import offering version`, func() {
+			BeforeEach(func() {
+				shouldSkipTest()
+			})
+			It(`ImportOfferingVersion(importOfferingVersionOptions *ImportOfferingVersionOptions)`, func() {
+
+				importOfferingVersionOptions := &catalogmanagementv1.ImportOfferingVersionOptions{
+					CatalogIdentifier: core.StringPtr("testString"),
+					OfferingID: core.StringPtr("testString"),
+					Tags: []string{"testString"},
+					TargetKinds: []string{"testString"},
+					Content: CreateMockByteArray("This is a mock byte array value."),
+					Zipurl: core.StringPtr("testString"),
+					TargetVersion: core.StringPtr("testString"),
+					IncludeConfig: core.BoolPtr(true),
+					RepoType: core.StringPtr("testString"),
+				}
+
+				offering, response, err := catalogManagementService.ImportOfferingVersion(importOfferingVersionOptions)
+
+				Expect(err).To(BeNil())
+				Expect(response.StatusCode).To(Equal(201))
+				Expect(offering).ToNot(BeNil())
+
+			})
+		})
+	*/
+	Describe(`ImportOffering - Import offering`, func() {
+		BeforeEach(func() {
 			shouldSkipTest()
-
-			createOptions := service.NewCreateCatalogOptions()
-			createOptions.SetLabel(expectedLabel)
-			createOptions.SetShortDescription(expectedShortDesc)
-			createResult, _, err := service.CreateCatalog(createOptions)
-
-			Expect(err).To(BeNil())
-
-			id := *createResult.ID
-
-			getOptions := service.NewGetCatalogOptions(id)
-			getResult, getResponse, err := service.GetCatalog(getOptions)
-
-			service.DeleteCatalog(service.NewDeleteCatalogOptions(id))
-
-			Expect(err).To(BeNil())
-			Expect(getResponse.StatusCode).To(Equal(200))
-			Expect(*getResult.Label).To(Equal(expectedLabel))
-			Expect(*getResult.ShortDescription).To(Equal(expectedShortDesc))
-			Expect(*getResult.URL).To(Equal(fmt.Sprintf(expectedURL, id)))
-			Expect(*getResult.OfferingsURL).To(Equal(fmt.Sprintf(expectedOfferingsURL, id)))
-			Expect(*getResult.OwningAccount).To(Equal(expectedAccount))
-			Expect(*getResult.CatalogFilters.IncludeAll).To(BeFalse())
-			Expect(len(getResult.CatalogFilters.CategoryFilters)).To(BeZero())
-			Expect(getResult.CatalogFilters.IdFilters.Include).To(BeNil())
-			Expect(getResult.CatalogFilters.IdFilters.Exclude).To(BeNil())
 		})
+		It(`ImportOffering(importOfferingOptions *ImportOfferingOptions)`, func() {
+			Expect(testCatalogID).ToNot(BeEmpty())
 
-		It("Fail to get a catalog that does not exist", func() {
-			shouldSkipTest()
-
-			id := fakeName
-			getOptions := service.NewGetCatalogOptions(id)
-			_, getResponse, err := service.GetCatalog(getOptions)
-
-			Expect(err).ToNot(BeNil())
-			Expect(getResponse.StatusCode).To(Equal(404))
-		})
-
-		It("Update a catalog", func() {
 			const (
-				expectedLabelUpdated     = "test2"
-				expectedShortDescUpdated = "integration-test-update"
+				expectedOfferingName       = "node-red-operator-certified"
+				expectedOfferingLabel      = "Node-RED Operator"
+				expectedOfferingTargetKind = "roks"
+				expectedOfferingVersion    = "0.0.2"
+				expectedOfferingVersions   = 1
+				expectedOfferingKinds      = 1
+				expectedOfferingShortDesc  = "Node-RED is a programming tool for wiring together hardware devices, APIs and online services in new and interesting ways."
+				expectedOfferingURL        = "https://cm.globalcatalog.test.cloud.ibm.com/api/v1-beta/catalogs/%s/offerings/%s"
+				expectedOfferingZipURL     = "https://github.com/rhm-samples/node-red-operator/blob/nodered-1.2.8/node-red-operator/bundle/0.0.2/manifests/node-red-operator.v0.0.2.clusterserviceversion.yaml"
 			)
-
-			shouldSkipTest()
-
-			createOptions := service.NewCreateCatalogOptions()
-			createOptions.SetLabel(expectedLabel)
-			createOptions.SetShortDescription(expectedShortDesc)
-			createResult, _, err := service.CreateCatalog(createOptions)
-
-			Expect(err).To(BeNil())
-
-			id := *createResult.ID
-
-			replaceOptions := service.NewReplaceCatalogOptions(id)
-			replaceOptions.SetCatalogIdentifier(id)
-			replaceOptions.SetID(id)
-			replaceOptions.SetLabel(expectedLabelUpdated)
-			replaceOptions.SetShortDescription(expectedShortDescUpdated)
-			replaceResult, replaceResponse, err := service.ReplaceCatalog(replaceOptions)
-
-			service.DeleteCatalog(service.NewDeleteCatalogOptions(id))
+			offeringOptions := catalogManagementService.NewImportOfferingOptions(testCatalogID)
+			offeringOptions.SetZipurl(expectedOfferingZipURL)
+			offeringOptions.SetXAuthToken(gitToken)
+			offeringOptions.SetTargetKinds([]string{"roks"})
+			offeringOptions.SetTargetVersion("0.0.2")
+			offeringOptions.SetRepoType("public_git")
+			offering, response, err := catalogManagementService.ImportOffering(offeringOptions)
 
 			Expect(err).To(BeNil())
-			Expect(replaceResponse.StatusCode).To(Equal(200))
-			Expect(replaceResult).ToNot(BeNil())
-			// fmt.Printf("replaceResult: %+v\n", replaceResult)
-			Expect(*replaceResult.Label).To(Equal(expectedLabelUpdated))
-			Expect(*replaceResult.ShortDescription).To(Equal(expectedShortDescUpdated))
-			// Expect(*replaceResult.URL).To(Equal(fmt.Sprintf(expectedURL, id)))
-			// Expect(*replaceResult.OfferingsURL).To(Equal(fmt.Sprintf(expectedOfferingsURL, id)))
-			// Expect(*replaceResult.OwningAccount).To(Equal(expectedAccount))
-			Expect(*replaceResult.CatalogFilters.IncludeAll).To(BeTrue())
-			Expect(len(replaceResult.CatalogFilters.CategoryFilters)).To(BeZero())
-			Expect(replaceResult.CatalogFilters.IdFilters.Include).To(BeNil())
-			Expect(replaceResult.CatalogFilters.IdFilters.Exclude).To(BeNil())
+			Expect(offering).ToNot(BeNil())
+			fmt.Fprintf(GinkgoWriter, "ImportOffering() result:\n%s\n", common.ToJSON(offering))
+
+			Expect(offering.ID).ToNot(BeNil())
+			testOfferingID = *offering.ID
+
+			Expect(response.StatusCode).To(Equal(201))
+			Expect(*offering.Name).To(Equal(expectedOfferingName))
+			Expect(*offering.URL).To(Equal(fmt.Sprintf(expectedOfferingURL, testCatalogID, testOfferingID)))
+			Expect(*offering.Label).To(Equal(expectedOfferingLabel))
+			Expect(*offering.ShortDescription).To(Equal(expectedOfferingShortDesc))
+			Expect(*offering.CatalogName).To(Equal(expectedLabel))
+			Expect(*offering.CatalogID).To(Equal(testCatalogID))
+			Expect(len(offering.Kinds)).To(Equal(expectedOfferingKinds))
+			Expect(*offering.Kinds[0].TargetKind).To(Equal(expectedOfferingTargetKind))
+			Expect(len(offering.Kinds[0].Versions)).To(Equal(expectedOfferingVersions))
+			Expect(*offering.Kinds[0].Versions[0].Version).To(Equal(expectedOfferingVersion))
+			Expect(*offering.Kinds[0].Versions[0].TgzURL).To(Equal(expectedOfferingZipURL))
+		})
+	})
+	/*
+		Describe(`ReloadOffering - Reload offering`, func() {
+			BeforeEach(func() {
+				shouldSkipTest()
+			})
+			It(`ReloadOffering(reloadOfferingOptions *ReloadOfferingOptions)`, func() {
+
+				reloadOfferingOptions := &catalogmanagementv1.ReloadOfferingOptions{
+					CatalogIdentifier: core.StringPtr("testString"),
+					OfferingID: core.StringPtr("testString"),
+					TargetVersion: core.StringPtr("testString"),
+					Tags: []string{"testString"},
+					TargetKinds: []string{"testString"},
+					Content: CreateMockByteArray("This is a mock byte array value."),
+					Zipurl: core.StringPtr("testString"),
+					RepoType: core.StringPtr("testString"),
+				}
+
+				offering, response, err := catalogManagementService.ReloadOffering(reloadOfferingOptions)
+
+				Expect(err).To(BeNil())
+				Expect(response.StatusCode).To(Equal(201))
+				Expect(offering).ToNot(BeNil())
+
+			})
 		})
 
-		It("Fail to update a catalog that does not exist", func() {
-			shouldSkipTest()
+		Describe(`GetOffering - Get offering`, func() {
+			BeforeEach(func() {
+				shouldSkipTest()
+			})
+			It(`GetOffering(getOfferingOptions *GetOfferingOptions)`, func() {
 
-			id := fakeName
-			replaceOptions := service.NewReplaceCatalogOptions(id)
-			replaceOptions.SetCatalogIdentifier(id)
-			replaceOptions.SetID(id)
-			_, replaceResponse, err := service.ReplaceCatalog(replaceOptions)
+				getOfferingOptions := &catalogmanagementv1.GetOfferingOptions{
+					CatalogIdentifier: core.StringPtr("testString"),
+					OfferingID: core.StringPtr("testString"),
+				}
 
-			Expect(err).ToNot(BeNil())
-			Expect(replaceResponse.StatusCode).To(Equal(404))
+				offering, response, err := catalogManagementService.GetOffering(getOfferingOptions)
+
+				Expect(err).To(BeNil())
+				Expect(response.StatusCode).To(Equal(200))
+				Expect(offering).ToNot(BeNil())
+
+			})
 		})
 
-		It("Delete a catalog", func() {
-			shouldSkipTest()
+		Describe(`ReplaceOffering - Update offering`, func() {
+			BeforeEach(func() {
+				shouldSkipTest()
+			})
+			It(`ReplaceOffering(replaceOfferingOptions *ReplaceOfferingOptions)`, func() {
 
-			createOptions := service.NewCreateCatalogOptions()
-			createOptions.SetLabel(expectedLabel)
-			createOptions.SetShortDescription(expectedShortDesc)
-			createResult, _, err := service.CreateCatalog(createOptions)
+				ratingModel := &catalogmanagementv1.Rating{
+					OneStarCount: core.Int64Ptr(int64(38)),
+					TwoStarCount: core.Int64Ptr(int64(38)),
+					ThreeStarCount: core.Int64Ptr(int64(38)),
+					FourStarCount: core.Int64Ptr(int64(38)),
+				}
 
-			Expect(err).To(BeNil())
+				featureModel := &catalogmanagementv1.Feature{
+					Title: core.StringPtr("testString"),
+					Description: core.StringPtr("testString"),
+				}
 
-			id := *createResult.ID
+				configurationModel := &catalogmanagementv1.Configuration{
+					Key: core.StringPtr("testString"),
+					Type: core.StringPtr("testString"),
+					DefaultValue: core.StringPtr("testString"),
+					ValueConstraint: core.StringPtr("testString"),
+					Description: core.StringPtr("testString"),
+					Required: core.BoolPtr(true),
+					Options: []interface{}{"testString"},
+					Hidden: core.BoolPtr(true),
+				}
 
-			deleteResponse, deleteErr := service.DeleteCatalog(service.NewDeleteCatalogOptions(id))
-			Expect(deleteErr).To(BeNil())
-			Expect(deleteResponse.StatusCode).To(Equal(200))
+				validationModel := &catalogmanagementv1.Validation{
+					Validated: CreateMockDateTime(),
+					Requested: CreateMockDateTime(),
+					State: core.StringPtr("testString"),
+					LastOperation: core.StringPtr("testString"),
+					Target: make(map[string]interface{}),
+				}
 
-			getOptions := service.NewGetCatalogOptions(id)
-			_, getResponse, getErr := service.GetCatalog(getOptions)
+				resourceModel := &catalogmanagementv1.Resource{
+					Type: core.StringPtr("mem"),
+					Value: core.StringPtr("testString"),
+				}
 
-			Expect(getErr).ToNot(BeNil())
-			Expect(getResponse.StatusCode).To(Equal(403))
+				scriptModel := &catalogmanagementv1.Script{
+					Instructions: core.StringPtr("testString"),
+					Script: core.StringPtr("testString"),
+					ScriptPermission: core.StringPtr("testString"),
+					DeleteScript: core.StringPtr("testString"),
+					Scope: core.StringPtr("testString"),
+				}
+
+				versionEntitlementModel := &catalogmanagementv1.VersionEntitlement{
+					ProviderName: core.StringPtr("testString"),
+					ProviderID: core.StringPtr("testString"),
+					ProductID: core.StringPtr("testString"),
+					PartNumbers: []string{"testString"},
+					ImageRepoName: core.StringPtr("testString"),
+				}
+
+				licenseModel := &catalogmanagementv1.License{
+					ID: core.StringPtr("testString"),
+					Name: core.StringPtr("testString"),
+					Type: core.StringPtr("testString"),
+					URL: core.StringPtr("testString"),
+					Description: core.StringPtr("testString"),
+				}
+
+				stateModel := &catalogmanagementv1.State{
+					Current: core.StringPtr("testString"),
+					CurrentEntered: CreateMockDateTime(),
+					Pending: core.StringPtr("testString"),
+					PendingRequested: CreateMockDateTime(),
+					Previous: core.StringPtr("testString"),
+				}
+
+				versionModel := &catalogmanagementv1.Version{
+					ID: core.StringPtr("testString"),
+					Rev: core.StringPtr("testString"),
+					CRN: core.StringPtr("testString"),
+					Version: core.StringPtr("testString"),
+					Sha: core.StringPtr("testString"),
+					Created: CreateMockDateTime(),
+					Updated: CreateMockDateTime(),
+					OfferingID: core.StringPtr("testString"),
+					CatalogID: core.StringPtr("testString"),
+					KindID: core.StringPtr("testString"),
+					Tags: []string{"testString"},
+					RepoURL: core.StringPtr("testString"),
+					SourceURL: core.StringPtr("testString"),
+					TgzURL: core.StringPtr("testString"),
+					Configuration: []catalogmanagementv1.Configuration{*configurationModel},
+					Metadata: make(map[string]interface{}),
+					Validation: validationModel,
+					RequiredResources: []catalogmanagementv1.Resource{*resourceModel},
+					SingleInstance: core.BoolPtr(true),
+					Install: scriptModel,
+					PreInstall: []catalogmanagementv1.Script{*scriptModel},
+					Entitlement: versionEntitlementModel,
+					Licenses: []catalogmanagementv1.License{*licenseModel},
+					ImageManifestURL: core.StringPtr("testString"),
+					Deprecated: core.BoolPtr(true),
+					PackageVersion: core.StringPtr("testString"),
+					State: stateModel,
+					VersionLocator: core.StringPtr("testString"),
+					ConsoleURL: core.StringPtr("testString"),
+					LongDescription: core.StringPtr("testString"),
+					WhitelistedAccounts: []string{"testString"},
+				}
+
+				deploymentModel := &catalogmanagementv1.Deployment{
+					ID: core.StringPtr("testString"),
+					Label: core.StringPtr("testString"),
+					Name: core.StringPtr("testString"),
+					ShortDescription: core.StringPtr("testString"),
+					LongDescription: core.StringPtr("testString"),
+					Metadata: make(map[string]interface{}),
+					Tags: []string{"testString"},
+					Created: CreateMockDateTime(),
+					Updated: CreateMockDateTime(),
+				}
+
+				planModel := &catalogmanagementv1.Plan{
+					ID: core.StringPtr("testString"),
+					Label: core.StringPtr("testString"),
+					Name: core.StringPtr("testString"),
+					ShortDescription: core.StringPtr("testString"),
+					LongDescription: core.StringPtr("testString"),
+					Metadata: make(map[string]interface{}),
+					Tags: []string{"testString"},
+					AdditionalFeatures: []catalogmanagementv1.Feature{*featureModel},
+					Created: CreateMockDateTime(),
+					Updated: CreateMockDateTime(),
+					Deployments: []catalogmanagementv1.Deployment{*deploymentModel},
+				}
+
+				kindModel := &catalogmanagementv1.Kind{
+					ID: core.StringPtr("testString"),
+					FormatKind: core.StringPtr("testString"),
+					TargetKind: core.StringPtr("testString"),
+					Metadata: make(map[string]interface{}),
+					InstallDescription: core.StringPtr("testString"),
+					Tags: []string{"testString"},
+					AdditionalFeatures: []catalogmanagementv1.Feature{*featureModel},
+					Created: CreateMockDateTime(),
+					Updated: CreateMockDateTime(),
+					Versions: []catalogmanagementv1.Version{*versionModel},
+					Plans: []catalogmanagementv1.Plan{*planModel},
+				}
+
+				repoInfoModel := &catalogmanagementv1.RepoInfo{
+					Token: core.StringPtr("testString"),
+					Type: core.StringPtr("testString"),
+				}
+
+				replaceOfferingOptions := &catalogmanagementv1.ReplaceOfferingOptions{
+					CatalogIdentifier: core.StringPtr("testString"),
+					OfferingID: core.StringPtr("testString"),
+					ID: core.StringPtr("testString"),
+					Rev: core.StringPtr("testString"),
+					URL: core.StringPtr("testString"),
+					CRN: core.StringPtr("testString"),
+					Label: core.StringPtr("testString"),
+					Name: core.StringPtr("testString"),
+					OfferingIconURL: core.StringPtr("testString"),
+					OfferingDocsURL: core.StringPtr("testString"),
+					OfferingSupportURL: core.StringPtr("testString"),
+					Tags: []string{"testString"},
+					Rating: ratingModel,
+					Created: CreateMockDateTime(),
+					Updated: CreateMockDateTime(),
+					ShortDescription: core.StringPtr("testString"),
+					LongDescription: core.StringPtr("testString"),
+					Features: []catalogmanagementv1.Feature{*featureModel},
+					Kinds: []catalogmanagementv1.Kind{*kindModel},
+					PermitRequestIBMPublicPublish: core.BoolPtr(true),
+					IBMPublishApproved: core.BoolPtr(true),
+					PublicPublishApproved: core.BoolPtr(true),
+					PublicOriginalCRN: core.StringPtr("testString"),
+					PublishPublicCRN: core.StringPtr("testString"),
+					PortalApprovalRecord: core.StringPtr("testString"),
+					PortalUIURL: core.StringPtr("testString"),
+					CatalogID: core.StringPtr("testString"),
+					CatalogName: core.StringPtr("testString"),
+					Metadata: make(map[string]interface{}),
+					Disclaimer: core.StringPtr("testString"),
+					Hidden: core.BoolPtr(true),
+					Provider: core.StringPtr("testString"),
+					RepoInfo: repoInfoModel,
+				}
+
+				offering, response, err := catalogManagementService.ReplaceOffering(replaceOfferingOptions)
+
+				Expect(err).To(BeNil())
+				Expect(response.StatusCode).To(Equal(200))
+				Expect(offering).ToNot(BeNil())
+
+			})
 		})
 
-		It("Fail to delete a catalog that does not exist", func() {
-			shouldSkipTest()
+		Describe(`GetOfferingAudit - Get offering audit log`, func() {
+			BeforeEach(func() {
+				shouldSkipTest()
+			})
+			It(`GetOfferingAudit(getOfferingAuditOptions *GetOfferingAuditOptions)`, func() {
 
-			id := fakeName
-			deleteResponse, deleteErr := service.DeleteCatalog(service.NewDeleteCatalogOptions(id))
+				getOfferingAuditOptions := &catalogmanagementv1.GetOfferingAuditOptions{
+					CatalogIdentifier: core.StringPtr("testString"),
+					OfferingID: core.StringPtr("testString"),
+				}
 
-			Expect(deleteErr).To(BeNil())
-			Expect(deleteResponse.StatusCode).To(Equal(200))
+				auditLog, response, err := catalogManagementService.GetOfferingAudit(getOfferingAuditOptions)
+
+				Expect(err).To(BeNil())
+				Expect(response.StatusCode).To(Equal(200))
+				Expect(auditLog).ToNot(BeNil())
+
+			})
 		})
 
-		It("Create an offering", func() {
-			shouldSkipTest()
+		Describe(`ReplaceOfferingIcon - Upload icon for offering`, func() {
+			BeforeEach(func() {
+				shouldSkipTest()
+			})
+			It(`ReplaceOfferingIcon(replaceOfferingIconOptions *ReplaceOfferingIconOptions)`, func() {
 
-			catalogOptions := service.NewCreateCatalogOptions()
-			catalogOptions.SetLabel(expectedLabel)
-			catalogResult, _, err := service.CreateCatalog(catalogOptions)
+				replaceOfferingIconOptions := &catalogmanagementv1.ReplaceOfferingIconOptions{
+					CatalogIdentifier: core.StringPtr("testString"),
+					OfferingID: core.StringPtr("testString"),
+					FileName: core.StringPtr("testString"),
+				}
 
-			Expect(err).To(BeNil())
+				offering, response, err := catalogManagementService.ReplaceOfferingIcon(replaceOfferingIconOptions)
 
-			catalogID := *catalogResult.ID
+				Expect(err).To(BeNil())
+				Expect(response.StatusCode).To(Equal(200))
+				Expect(offering).ToNot(BeNil())
 
-			offeringOptions := service.NewCreateOfferingOptions(catalogID)
-			offeringOptions.SetName(expectedOfferingName)
-			offeringOptions.SetLabel(expectedLabel)
-			offeringResult, offeringResponse, err := service.CreateOffering(offeringOptions)
-
-			service.DeleteCatalog(service.NewDeleteCatalogOptions(catalogID))
-
-			Expect(err).To(BeNil())
-
-			offeringID := *offeringResult.ID
-
-			Expect(offeringResponse.StatusCode).To(Equal(201))
-			Expect(*offeringResult.Name).To(Equal(expectedOfferingName))
-			Expect(*offeringResult.URL).To(Equal(fmt.Sprintf(expectedOfferingURL, catalogID, offeringID)))
-			Expect(*offeringResult.Label).To(Equal(expectedLabel))
+			})
 		})
 
-		It("Get an offering", func() {
-			shouldSkipTest()
+		Describe(`UpdateOfferingIBM - Allow offering to be published`, func() {
+			BeforeEach(func() {
+				shouldSkipTest()
+			})
+			It(`UpdateOfferingIBM(updateOfferingIBMOptions *UpdateOfferingIBMOptions)`, func() {
 
-			catalogOptions := service.NewCreateCatalogOptions()
-			catalogOptions.SetLabel(expectedLabel)
-			catalogResult, _, err := service.CreateCatalog(catalogOptions)
+				updateOfferingIBMOptions := &catalogmanagementv1.UpdateOfferingIBMOptions{
+					CatalogIdentifier: core.StringPtr("testString"),
+					OfferingID: core.StringPtr("testString"),
+					ApprovalType: core.StringPtr("allow_request"),
+					Approved: core.StringPtr("true"),
+				}
 
-			Expect(err).To(BeNil())
+				approvalResult, response, err := catalogManagementService.UpdateOfferingIBM(updateOfferingIBMOptions)
 
-			catalogID := *catalogResult.ID
+				Expect(err).To(BeNil())
+				Expect(response.StatusCode).To(Equal(200))
+				Expect(approvalResult).ToNot(BeNil())
 
-			offeringOptions := service.NewCreateOfferingOptions(catalogID)
-			offeringOptions.SetName(expectedOfferingName)
-			offeringOptions.SetLabel(expectedLabel)
-			offeringResult, _, err := service.CreateOffering(offeringOptions)
-
-			Expect(err).To(BeNil())
-
-			offeringID := *offeringResult.ID
-
-			getOptions := service.NewGetOfferingOptions(catalogID, offeringID)
-			getResult, getResponse, err := service.GetOffering(getOptions)
-
-			service.DeleteCatalog(service.NewDeleteCatalogOptions(catalogID))
-
-			Expect(err).To(BeNil())
-			Expect(getResponse.StatusCode).To(Equal(200))
-			Expect(*getResult.Name).To(Equal(expectedOfferingName))
-			Expect(*getResult.URL).To(Equal(fmt.Sprintf(expectedOfferingURL, catalogID, offeringID)))
-			Expect(*getResult.Label).To(Equal(expectedLabel))
+			})
 		})
 
-		It("Fail to get an offering that does not exist", func() {
-			shouldSkipTest()
+		Describe(`GetVersionUpdates - Get version updates`, func() {
+			BeforeEach(func() {
+				shouldSkipTest()
+			})
+			It(`GetVersionUpdates(getVersionUpdatesOptions *GetVersionUpdatesOptions)`, func() {
 
-			catalogOptions := service.NewCreateCatalogOptions()
-			catalogOptions.SetLabel(expectedLabel)
-			catalogResult, _, err := service.CreateCatalog(catalogOptions)
+				getVersionUpdatesOptions := &catalogmanagementv1.GetVersionUpdatesOptions{
+					CatalogIdentifier: core.StringPtr("testString"),
+					OfferingID: core.StringPtr("testString"),
+					Kind: core.StringPtr("testString"),
+					Version: core.StringPtr("testString"),
+					ClusterID: core.StringPtr("testString"),
+					Region: core.StringPtr("testString"),
+					ResourceGroupID: core.StringPtr("testString"),
+					Namespace: core.StringPtr("testString"),
+				}
 
-			Expect(err).To(BeNil())
+				versionUpdateDescriptor, response, err := catalogManagementService.GetVersionUpdates(getVersionUpdatesOptions)
 
-			catalogID := *catalogResult.ID
-			offeringID := fakeName
+				Expect(err).To(BeNil())
+				Expect(response.StatusCode).To(Equal(200))
+				Expect(versionUpdateDescriptor).ToNot(BeNil())
 
-			getOptions := service.NewGetOfferingOptions(catalogID, offeringID)
-			_, getResponse, err := service.GetOffering(getOptions)
-
-			service.DeleteCatalog(service.NewDeleteCatalogOptions(catalogID))
-
-			Expect(err).ToNot(BeNil())
-			Expect(getResponse.StatusCode).To(Equal(404))
-
-			_, getResponse, err = service.GetOffering(getOptions)
-
-			Expect(err).ToNot(BeNil())
-			Expect(getResponse.StatusCode).To(Equal(403))
+			})
 		})
 
-		It("List offerings", func() {
-			const (
-				expectedLimit         int64 = 100
-				expectedTotalCount    int64 = 1
-				expectedResourceCount int64 = 1
-				expectedResouceLen          = 1
-				expectedFirst               = "/api/v1-beta/catalogs/%s/offerings?limit=100&sort=label"
-				expectedLast                = "/api/v1-beta/catalogs/%s/offerings?limit=100&sort=label"
-			)
+		Describe(`GetVersionAbout - Get version about information`, func() {
+			BeforeEach(func() {
+				shouldSkipTest()
+			})
+			It(`GetVersionAbout(getVersionAboutOptions *GetVersionAboutOptions)`, func() {
 
-			shouldSkipTest()
+				getVersionAboutOptions := &catalogmanagementv1.GetVersionAboutOptions{
+					VersionLocID: core.StringPtr("testString"),
+				}
 
-			catalogOptions := service.NewCreateCatalogOptions()
-			catalogOptions.SetLabel(expectedLabel)
-			catalogResult, _, err := service.CreateCatalog(catalogOptions)
+				result, response, err := catalogManagementService.GetVersionAbout(getVersionAboutOptions)
 
-			Expect(err).To(BeNil())
+				Expect(err).To(BeNil())
+				Expect(response.StatusCode).To(Equal(200))
+				Expect(result).ToNot(BeNil())
 
-			catalogID := *catalogResult.ID
-
-			offeringOptions := service.NewCreateOfferingOptions(catalogID)
-			offeringOptions.SetName(expectedOfferingName)
-			offeringOptions.SetLabel(expectedLabel)
-			offeringResult, _, err := service.CreateOffering(offeringOptions)
-
-			Expect(err).To(BeNil())
-
-			offeringID := *offeringResult.ID
-
-			listOptions := service.NewListOfferingsOptions(catalogID)
-			listResult, listResponse, err := service.ListOfferings(listOptions)
-
-			service.DeleteCatalog(service.NewDeleteCatalogOptions(catalogID))
-
-			Expect(err).To(BeNil())
-			Expect(listResponse.StatusCode).To(Equal(200))
-			Expect(*listResult.Offset).To(BeZero())
-			Expect(*listResult.Limit).To(Equal(expectedLimit))
-			Expect(*listResult.TotalCount).To(Equal(expectedTotalCount))
-			Expect(*listResult.ResourceCount).To(Equal(expectedResourceCount))
-			Expect(*listResult.First).To(Equal(fmt.Sprintf(expectedFirst, catalogID)))
-			Expect(*listResult.Last).To(Equal(fmt.Sprintf(expectedLast, catalogID)))
-			Expect(len(listResult.Resources)).To(Equal(expectedResouceLen))
-
-			Expect(*listResult.Resources[0].ID).To(Equal(offeringID))
-			Expect(*listResult.Resources[0].URL).To(Equal(fmt.Sprintf(expectedOfferingURL, catalogID, offeringID)))
-			Expect(*listResult.Resources[0].Label).To(Equal(expectedLabel))
-			Expect(*listResult.Resources[0].Name).To(Equal(expectedOfferingName))
-			Expect(*listResult.Resources[0].CatalogID).To(Equal(catalogID))
-			Expect(*listResult.Resources[0].CatalogName).To(Equal(expectedLabel))
-
+			})
 		})
 
-		It("Delete an offering", func() {
-			shouldSkipTest()
+		Describe(`GetVersionLicense - Get version license content`, func() {
+			BeforeEach(func() {
+				shouldSkipTest()
+			})
+			It(`GetVersionLicense(getVersionLicenseOptions *GetVersionLicenseOptions)`, func() {
 
-			catalogOptions := service.NewCreateCatalogOptions()
-			catalogOptions.SetLabel(expectedLabel)
-			catalogResult, _, err := service.CreateCatalog(catalogOptions)
+				getVersionLicenseOptions := &catalogmanagementv1.GetVersionLicenseOptions{
+					VersionLocID: core.StringPtr("testString"),
+					LicenseID: core.StringPtr("testString"),
+				}
 
-			Expect(err).To(BeNil())
+				result, response, err := catalogManagementService.GetVersionLicense(getVersionLicenseOptions)
 
-			catalogID := *catalogResult.ID
+				Expect(err).To(BeNil())
+				Expect(response.StatusCode).To(Equal(200))
+				Expect(result).ToNot(BeNil())
 
-			offeringOptions := service.NewCreateOfferingOptions(catalogID)
-			offeringOptions.SetName(expectedOfferingName)
-			offeringOptions.SetLabel(expectedLabel)
-			offeringResult, _, err := service.CreateOffering(offeringOptions)
-
-			Expect(err).To(BeNil())
-
-			offeringID := *offeringResult.ID
-
-			deleteResponse, err := service.DeleteOffering(service.NewDeleteOfferingOptions(catalogID, offeringID))
-			Expect(err).To(BeNil())
-			Expect(deleteResponse.StatusCode).To(Equal(200))
-
-			_, getResponse, err := service.GetOffering(service.NewGetOfferingOptions(catalogID, offeringID))
-
-			Expect(err).ToNot(BeNil())
-			Expect(getResponse.StatusCode).To(Equal(404))
-
-			service.DeleteCatalog(service.NewDeleteCatalogOptions(catalogID))
+			})
 		})
 
-		It("Fail to delete an offering that does not exist", func() {
-			shouldSkipTest()
+		Describe(`GetVersionContainerImages - Get version's container images`, func() {
+			BeforeEach(func() {
+				shouldSkipTest()
+			})
+			It(`GetVersionContainerImages(getVersionContainerImagesOptions *GetVersionContainerImagesOptions)`, func() {
 
-			catalogOptions := service.NewCreateCatalogOptions()
-			catalogOptions.SetLabel(expectedLabel)
-			catalogResult, _, err := service.CreateCatalog(catalogOptions)
+				getVersionContainerImagesOptions := &catalogmanagementv1.GetVersionContainerImagesOptions{
+					VersionLocID: core.StringPtr("testString"),
+				}
 
-			Expect(err).To(BeNil())
+				imageManifest, response, err := catalogManagementService.GetVersionContainerImages(getVersionContainerImagesOptions)
 
-			catalogID := *catalogResult.ID
-			offeringID := fakeName
+				Expect(err).To(BeNil())
+				Expect(response.StatusCode).To(Equal(200))
+				Expect(imageManifest).ToNot(BeNil())
 
-			deleteResponse, err := service.DeleteOffering(service.NewDeleteOfferingOptions(catalogID, offeringID))
-			Expect(err).To(BeNil())
-			Expect(deleteResponse.StatusCode).To(Equal(200))
-
-			service.DeleteCatalog(service.NewDeleteCatalogOptions(catalogID))
-
-			deleteResponse, err = service.DeleteOffering(service.NewDeleteOfferingOptions(catalogID, offeringID))
-			Expect(err).ToNot(BeNil())
-			Expect(deleteResponse.StatusCode).To(Equal(403))
+			})
 		})
 
-		It("Update an offering", func() {
-			const (
-				expectedLabelUpdate     = "test-update"
-				expectedShortDesc       = "test-desc"
-				expectedShortDescUpdate = "test-desc-update"
-			)
+		Describe(`DeprecateVersion - Deprecate version`, func() {
+			BeforeEach(func() {
+				shouldSkipTest()
+			})
+			It(`DeprecateVersion(deprecateVersionOptions *DeprecateVersionOptions)`, func() {
 
-			shouldSkipTest()
+				deprecateVersionOptions := &catalogmanagementv1.DeprecateVersionOptions{
+					VersionLocID: core.StringPtr("testString"),
+				}
 
-			catalogOptions := service.NewCreateCatalogOptions()
-			catalogOptions.SetLabel(expectedLabel)
-			catalogResult, _, err := service.CreateCatalog(catalogOptions)
+				response, err := catalogManagementService.DeprecateVersion(deprecateVersionOptions)
 
-			Expect(err).To(BeNil())
+				Expect(err).To(BeNil())
+				Expect(response.StatusCode).To(Equal(202))
 
-			catalogID := *catalogResult.ID
-
-			offeringOptions := service.NewCreateOfferingOptions(catalogID)
-			offeringOptions.SetName(expectedOfferingName)
-			offeringOptions.SetLabel(expectedLabel)
-			offeringOptions.SetShortDescription(expectedShortDesc)
-			offeringResult, _, err := service.CreateOffering(offeringOptions)
-
-			Expect(err).To(BeNil())
-
-			offeringID := *offeringResult.ID
-			rev := *offeringResult.Rev
-
-			updateOptions := service.NewReplaceOfferingOptions(catalogID, offeringID)
-			updateOptions.SetID(offeringID)
-			updateOptions.SetLabel(expectedLabelUpdate)
-			updateOptions.SetShortDescription(expectedShortDescUpdate)
-			updateOptions.SetRev(rev)
-			updateResult, updateResponse, err := service.ReplaceOffering(updateOptions)
-
-			service.DeleteCatalog(service.NewDeleteCatalogOptions(catalogID))
-
-			Expect(err).To(BeNil())
-			Expect(updateResponse.StatusCode).To(Equal(200))
-			Expect(*updateResult.ShortDescription).To(Equal(expectedShortDescUpdate))
-			Expect(*updateResult.URL).To(Equal(fmt.Sprintf(expectedOfferingURL, catalogID, offeringID)))
-			Expect(*updateResult.Label).To(Equal(expectedLabelUpdate))
+			})
 		})
 
-		It("Fail to update an offering that does not exist", func() {
-			shouldSkipTest()
+		Describe(`AccountPublishVersion - Publish version to account members`, func() {
+			BeforeEach(func() {
+				shouldSkipTest()
+			})
+			It(`AccountPublishVersion(accountPublishVersionOptions *AccountPublishVersionOptions)`, func() {
 
-			catalogOptions := service.NewCreateCatalogOptions()
-			catalogOptions.SetLabel(expectedLabel)
-			catalogResult, _, err := service.CreateCatalog(catalogOptions)
+				accountPublishVersionOptions := &catalogmanagementv1.AccountPublishVersionOptions{
+					VersionLocID: core.StringPtr("testString"),
+				}
 
-			Expect(err).To(BeNil())
+				response, err := catalogManagementService.AccountPublishVersion(accountPublishVersionOptions)
 
-			catalogID := *catalogResult.ID
-			offeringID := fakeName
-			rev := fakeName
+				Expect(err).To(BeNil())
+				Expect(response.StatusCode).To(Equal(202))
 
-			updateOptions := service.NewReplaceOfferingOptions(catalogID, offeringID)
-			updateOptions.SetID(offeringID)
-			updateOptions.SetRev(rev)
-			_, updateResponse, err := service.ReplaceOffering(updateOptions)
-
-			service.DeleteCatalog(service.NewDeleteCatalogOptions(catalogID))
-
-			Expect(err).ToNot(BeNil())
-			Expect(updateResponse.StatusCode).To(Equal(404))
-
-			_, updateResponse, err = service.ReplaceOffering(updateOptions)
-			Expect(err).ToNot(BeNil())
-			Expect(updateResponse.StatusCode).To(Equal(403))
+			})
 		})
 
-		It("Get list of offerings for consumption", func() {
-			shouldSkipTest()
+		Describe(`IBMPublishVersion - Publish version to IBMers in public catalog`, func() {
+			BeforeEach(func() {
+				shouldSkipTest()
+			})
+			It(`IBMPublishVersion(ibmPublishVersionOptions *IBMPublishVersionOptions)`, func() {
 
-			options := service.NewGetConsumptionOfferingsOptions()
-			result, response, err := service.GetConsumptionOfferings(options)
+				ibmPublishVersionOptions := &catalogmanagementv1.IBMPublishVersionOptions{
+					VersionLocID: core.StringPtr("testString"),
+				}
+
+				response, err := catalogManagementService.IBMPublishVersion(ibmPublishVersionOptions)
+
+				Expect(err).To(BeNil())
+				Expect(response.StatusCode).To(Equal(202))
+
+			})
+		})
+
+		Describe(`PublicPublishVersion - Publish version to all users in public catalog`, func() {
+			BeforeEach(func() {
+				shouldSkipTest()
+			})
+			It(`PublicPublishVersion(publicPublishVersionOptions *PublicPublishVersionOptions)`, func() {
+
+				publicPublishVersionOptions := &catalogmanagementv1.PublicPublishVersionOptions{
+					VersionLocID: core.StringPtr("testString"),
+				}
+
+				response, err := catalogManagementService.PublicPublishVersion(publicPublishVersionOptions)
+
+				Expect(err).To(BeNil())
+				Expect(response.StatusCode).To(Equal(202))
+
+			})
+		})
+
+		Describe(`CommitVersion - Commit version`, func() {
+			BeforeEach(func() {
+				shouldSkipTest()
+			})
+			It(`CommitVersion(commitVersionOptions *CommitVersionOptions)`, func() {
+
+				commitVersionOptions := &catalogmanagementv1.CommitVersionOptions{
+					VersionLocID: core.StringPtr("testString"),
+				}
+
+				response, err := catalogManagementService.CommitVersion(commitVersionOptions)
+
+				Expect(err).To(BeNil())
+				Expect(response.StatusCode).To(Equal(200))
+
+			})
+		})
+
+		Describe(`CopyVersion - Copy version to new target kind`, func() {
+			BeforeEach(func() {
+				shouldSkipTest()
+			})
+			It(`CopyVersion(copyVersionOptions *CopyVersionOptions)`, func() {
+
+				copyVersionOptions := &catalogmanagementv1.CopyVersionOptions{
+					VersionLocID: core.StringPtr("testString"),
+					Tags: []string{"testString"},
+					TargetKinds: []string{"testString"},
+					Content: CreateMockByteArray("This is a mock byte array value."),
+				}
+
+				response, err := catalogManagementService.CopyVersion(copyVersionOptions)
+
+				Expect(err).To(BeNil())
+				Expect(response.StatusCode).To(Equal(200))
+
+			})
+		})
+
+		Describe(`GetVersionWorkingCopy - Create working copy of version`, func() {
+			BeforeEach(func() {
+				shouldSkipTest()
+			})
+			It(`GetVersionWorkingCopy(getVersionWorkingCopyOptions *GetVersionWorkingCopyOptions)`, func() {
+
+				getVersionWorkingCopyOptions := &catalogmanagementv1.GetVersionWorkingCopyOptions{
+					VersionLocID: core.StringPtr("testString"),
+				}
+
+				version, response, err := catalogManagementService.GetVersionWorkingCopy(getVersionWorkingCopyOptions)
+
+				Expect(err).To(BeNil())
+				Expect(response.StatusCode).To(Equal(200))
+				Expect(version).ToNot(BeNil())
+
+			})
+		})
+
+		Describe(`GetVersion - Get offering/kind/version 'branch'`, func() {
+			BeforeEach(func() {
+				shouldSkipTest()
+			})
+			It(`GetVersion(getVersionOptions *GetVersionOptions)`, func() {
+
+				getVersionOptions := &catalogmanagementv1.GetVersionOptions{
+					VersionLocID: core.StringPtr("testString"),
+				}
+
+				offering, response, err := catalogManagementService.GetVersion(getVersionOptions)
+
+				Expect(err).To(BeNil())
+				Expect(response.StatusCode).To(Equal(200))
+				Expect(offering).ToNot(BeNil())
+
+			})
+		})
+
+		Describe(`GetRepos - List a repository's entries`, func() {
+			BeforeEach(func() {
+				shouldSkipTest()
+			})
+			It(`GetRepos(getReposOptions *GetReposOptions)`, func() {
+
+				getReposOptions := &catalogmanagementv1.GetReposOptions{
+					Type: core.StringPtr("testString"),
+					Repourl: core.StringPtr("testString"),
+				}
+
+				helmRepoList, response, err := catalogManagementService.GetRepos(getReposOptions)
+
+				Expect(err).To(BeNil())
+				Expect(response.StatusCode).To(Equal(200))
+				Expect(helmRepoList).ToNot(BeNil())
+
+			})
+		})
+
+		Describe(`GetRepo - Get repository contents`, func() {
+			BeforeEach(func() {
+				shouldSkipTest()
+			})
+			It(`GetRepo(getRepoOptions *GetRepoOptions)`, func() {
+
+				getRepoOptions := &catalogmanagementv1.GetRepoOptions{
+					Type: core.StringPtr("testString"),
+					Charturl: core.StringPtr("testString"),
+				}
+
+				helmPackage, response, err := catalogManagementService.GetRepo(getRepoOptions)
+
+				Expect(err).To(BeNil())
+				Expect(response.StatusCode).To(Equal(200))
+				Expect(helmPackage).ToNot(BeNil())
+
+			})
+		})
+
+		Describe(`GetCluster - Get kubernetes cluster`, func() {
+			BeforeEach(func() {
+				shouldSkipTest()
+			})
+			It(`GetCluster(getClusterOptions *GetClusterOptions)`, func() {
+
+				getClusterOptions := &catalogmanagementv1.GetClusterOptions{
+					ClusterID: core.StringPtr("testString"),
+					Region: core.StringPtr("testString"),
+					XAuthRefreshToken: core.StringPtr("testString"),
+				}
+
+				clusterInfo, response, err := catalogManagementService.GetCluster(getClusterOptions)
+
+				Expect(err).To(BeNil())
+				Expect(response.StatusCode).To(Equal(200))
+				Expect(clusterInfo).ToNot(BeNil())
+
+			})
+		})
+
+		Describe(`GetNamespaces - Get cluster namespaces`, func() {
+			BeforeEach(func() {
+				shouldSkipTest()
+			})
+			It(`GetNamespaces(getNamespacesOptions *GetNamespacesOptions)`, func() {
+
+				getNamespacesOptions := &catalogmanagementv1.GetNamespacesOptions{
+					ClusterID: core.StringPtr("testString"),
+					Region: core.StringPtr("testString"),
+					XAuthRefreshToken: core.StringPtr("testString"),
+					Limit: core.Int64Ptr(int64(1000)),
+					Offset: core.Int64Ptr(int64(38)),
+				}
+
+				namespaceSearchResult, response, err := catalogManagementService.GetNamespaces(getNamespacesOptions)
+
+				Expect(err).To(BeNil())
+				Expect(response.StatusCode).To(Equal(200))
+				Expect(namespaceSearchResult).ToNot(BeNil())
+
+			})
+		})
+
+		Describe(`DeployOperators - Deploy operators`, func() {
+			BeforeEach(func() {
+				shouldSkipTest()
+			})
+			It(`DeployOperators(deployOperatorsOptions *DeployOperatorsOptions)`, func() {
+
+				deployOperatorsOptions := &catalogmanagementv1.DeployOperatorsOptions{
+					XAuthRefreshToken: core.StringPtr("testString"),
+					ClusterID: core.StringPtr("testString"),
+					Region: core.StringPtr("testString"),
+					Namespaces: []string{"testString"},
+					AllNamespaces: core.BoolPtr(true),
+					VersionLocatorID: core.StringPtr("testString"),
+				}
+
+				operatorDeployResult, response, err := catalogManagementService.DeployOperators(deployOperatorsOptions)
+
+				Expect(err).To(BeNil())
+				Expect(response.StatusCode).To(Equal(200))
+				Expect(operatorDeployResult).ToNot(BeNil())
+
+			})
+		})
+
+		Describe(`ListOperators - List operators`, func() {
+			BeforeEach(func() {
+				shouldSkipTest()
+			})
+			It(`ListOperators(listOperatorsOptions *ListOperatorsOptions)`, func() {
+
+				listOperatorsOptions := &catalogmanagementv1.ListOperatorsOptions{
+					XAuthRefreshToken: core.StringPtr("testString"),
+					ClusterID: core.StringPtr("testString"),
+					Region: core.StringPtr("testString"),
+					VersionLocatorID: core.StringPtr("testString"),
+				}
+
+				operatorDeployResult, response, err := catalogManagementService.ListOperators(listOperatorsOptions)
+
+				Expect(err).To(BeNil())
+				Expect(response.StatusCode).To(Equal(200))
+				Expect(operatorDeployResult).ToNot(BeNil())
+
+			})
+		})
+
+		Describe(`ReplaceOperators - Update operators`, func() {
+			BeforeEach(func() {
+				shouldSkipTest()
+			})
+			It(`ReplaceOperators(replaceOperatorsOptions *ReplaceOperatorsOptions)`, func() {
+
+				replaceOperatorsOptions := &catalogmanagementv1.ReplaceOperatorsOptions{
+					XAuthRefreshToken: core.StringPtr("testString"),
+					ClusterID: core.StringPtr("testString"),
+					Region: core.StringPtr("testString"),
+					Namespaces: []string{"testString"},
+					AllNamespaces: core.BoolPtr(true),
+					VersionLocatorID: core.StringPtr("testString"),
+				}
+
+				operatorDeployResult, response, err := catalogManagementService.ReplaceOperators(replaceOperatorsOptions)
+
+				Expect(err).To(BeNil())
+				Expect(response.StatusCode).To(Equal(200))
+				Expect(operatorDeployResult).ToNot(BeNil())
+
+			})
+		})
+
+		Describe(`InstallVersion - Install version`, func() {
+			BeforeEach(func() {
+				shouldSkipTest()
+			})
+			It(`InstallVersion(installVersionOptions *InstallVersionOptions)`, func() {
+
+				deployRequestBodySchematicsModel := &catalogmanagementv1.DeployRequestBodySchematics{
+					Name: core.StringPtr("testString"),
+					Description: core.StringPtr("testString"),
+					Tags: []string{"testString"},
+					ResourceGroupID: core.StringPtr("testString"),
+				}
+
+				installVersionOptions := &catalogmanagementv1.InstallVersionOptions{
+					VersionLocID: core.StringPtr("testString"),
+					XAuthRefreshToken: core.StringPtr("testString"),
+					ClusterID: core.StringPtr("testString"),
+					Region: core.StringPtr("testString"),
+					Namespace: core.StringPtr("testString"),
+					OverrideValues: make(map[string]interface{}),
+					EntitlementApikey: core.StringPtr("testString"),
+					Schematics: deployRequestBodySchematicsModel,
+					Script: core.StringPtr("testString"),
+					ScriptID: core.StringPtr("testString"),
+					VersionLocatorID: core.StringPtr("testString"),
+					VcenterID: core.StringPtr("testString"),
+					VcenterUser: core.StringPtr("testString"),
+					VcenterPassword: core.StringPtr("testString"),
+					VcenterLocation: core.StringPtr("testString"),
+					VcenterDatastore: core.StringPtr("testString"),
+				}
+
+				response, err := catalogManagementService.InstallVersion(installVersionOptions)
+
+				Expect(err).To(BeNil())
+				Expect(response.StatusCode).To(Equal(202))
+
+			})
+		})
+
+		Describe(`PreinstallVersion - Pre-install version`, func() {
+			BeforeEach(func() {
+				shouldSkipTest()
+			})
+			It(`PreinstallVersion(preinstallVersionOptions *PreinstallVersionOptions)`, func() {
+
+				deployRequestBodySchematicsModel := &catalogmanagementv1.DeployRequestBodySchematics{
+					Name: core.StringPtr("testString"),
+					Description: core.StringPtr("testString"),
+					Tags: []string{"testString"},
+					ResourceGroupID: core.StringPtr("testString"),
+				}
+
+				preinstallVersionOptions := &catalogmanagementv1.PreinstallVersionOptions{
+					VersionLocID: core.StringPtr("testString"),
+					XAuthRefreshToken: core.StringPtr("testString"),
+					ClusterID: core.StringPtr("testString"),
+					Region: core.StringPtr("testString"),
+					Namespace: core.StringPtr("testString"),
+					OverrideValues: make(map[string]interface{}),
+					EntitlementApikey: core.StringPtr("testString"),
+					Schematics: deployRequestBodySchematicsModel,
+					Script: core.StringPtr("testString"),
+					ScriptID: core.StringPtr("testString"),
+					VersionLocatorID: core.StringPtr("testString"),
+					VcenterID: core.StringPtr("testString"),
+					VcenterUser: core.StringPtr("testString"),
+					VcenterPassword: core.StringPtr("testString"),
+					VcenterLocation: core.StringPtr("testString"),
+					VcenterDatastore: core.StringPtr("testString"),
+				}
+
+				response, err := catalogManagementService.PreinstallVersion(preinstallVersionOptions)
+
+				Expect(err).To(BeNil())
+				Expect(response.StatusCode).To(Equal(202))
+
+			})
+		})
+
+		Describe(`GetPreinstall - Get version pre-install status`, func() {
+			BeforeEach(func() {
+				shouldSkipTest()
+			})
+			It(`GetPreinstall(getPreinstallOptions *GetPreinstallOptions)`, func() {
+
+				getPreinstallOptions := &catalogmanagementv1.GetPreinstallOptions{
+					VersionLocID: core.StringPtr("testString"),
+					XAuthRefreshToken: core.StringPtr("testString"),
+					ClusterID: core.StringPtr("testString"),
+					Region: core.StringPtr("testString"),
+					Namespace: core.StringPtr("testString"),
+				}
+
+				installStatus, response, err := catalogManagementService.GetPreinstall(getPreinstallOptions)
+
+				Expect(err).To(BeNil())
+				Expect(response.StatusCode).To(Equal(200))
+				Expect(installStatus).ToNot(BeNil())
+
+			})
+		})
+
+		Describe(`ValidateInstall - Validate offering`, func() {
+			BeforeEach(func() {
+				shouldSkipTest()
+			})
+			It(`ValidateInstall(validateInstallOptions *ValidateInstallOptions)`, func() {
+
+				deployRequestBodySchematicsModel := &catalogmanagementv1.DeployRequestBodySchematics{
+					Name: core.StringPtr("testString"),
+					Description: core.StringPtr("testString"),
+					Tags: []string{"testString"},
+					ResourceGroupID: core.StringPtr("testString"),
+				}
+
+				validateInstallOptions := &catalogmanagementv1.ValidateInstallOptions{
+					VersionLocID: core.StringPtr("testString"),
+					XAuthRefreshToken: core.StringPtr("testString"),
+					ClusterID: core.StringPtr("testString"),
+					Region: core.StringPtr("testString"),
+					Namespace: core.StringPtr("testString"),
+					OverrideValues: make(map[string]interface{}),
+					EntitlementApikey: core.StringPtr("testString"),
+					Schematics: deployRequestBodySchematicsModel,
+					Script: core.StringPtr("testString"),
+					ScriptID: core.StringPtr("testString"),
+					VersionLocatorID: core.StringPtr("testString"),
+					VcenterID: core.StringPtr("testString"),
+					VcenterUser: core.StringPtr("testString"),
+					VcenterPassword: core.StringPtr("testString"),
+					VcenterLocation: core.StringPtr("testString"),
+					VcenterDatastore: core.StringPtr("testString"),
+				}
+
+				response, err := catalogManagementService.ValidateInstall(validateInstallOptions)
+
+				Expect(err).To(BeNil())
+				Expect(response.StatusCode).To(Equal(202))
+
+			})
+		})
+
+		Describe(`GetValidationStatus - Get offering install status`, func() {
+			BeforeEach(func() {
+				shouldSkipTest()
+			})
+			It(`GetValidationStatus(getValidationStatusOptions *GetValidationStatusOptions)`, func() {
+
+				getValidationStatusOptions := &catalogmanagementv1.GetValidationStatusOptions{
+					VersionLocID: core.StringPtr("testString"),
+					XAuthRefreshToken: core.StringPtr("testString"),
+				}
+
+				validation, response, err := catalogManagementService.GetValidationStatus(getValidationStatusOptions)
+
+				Expect(err).To(BeNil())
+				Expect(response.StatusCode).To(Equal(200))
+				Expect(validation).ToNot(BeNil())
+
+			})
+		})
+
+		Describe(`GetOverrideValues - Get override values`, func() {
+			BeforeEach(func() {
+				shouldSkipTest()
+			})
+			It(`GetOverrideValues(getOverrideValuesOptions *GetOverrideValuesOptions)`, func() {
+
+				getOverrideValuesOptions := &catalogmanagementv1.GetOverrideValuesOptions{
+					VersionLocID: core.StringPtr("testString"),
+				}
+
+				result, response, err := catalogManagementService.GetOverrideValues(getOverrideValuesOptions)
+
+				Expect(err).To(BeNil())
+				Expect(response.StatusCode).To(Equal(200))
+				Expect(result).ToNot(BeNil())
+
+			})
+		})
+
+		Describe(`CreateLicenseEntitlement - Create license entitlement`, func() {
+			BeforeEach(func() {
+				shouldSkipTest()
+			})
+			It(`CreateLicenseEntitlement(createLicenseEntitlementOptions *CreateLicenseEntitlementOptions)`, func() {
+
+				createLicenseEntitlementOptions := &catalogmanagementv1.CreateLicenseEntitlementOptions{
+					Name: core.StringPtr("testString"),
+					EffectiveFrom: core.StringPtr("testString"),
+					EffectiveUntil: core.StringPtr("testString"),
+					VersionID: core.StringPtr("testString"),
+					LicenseID: core.StringPtr("testString"),
+					LicenseOwnerID: core.StringPtr("testString"),
+					LicenseProviderID: core.StringPtr("testString"),
+					LicenseProductID: core.StringPtr("testString"),
+					AccountID: core.StringPtr("testString"),
+				}
+
+				licenseEntitlement, response, err := catalogManagementService.CreateLicenseEntitlement(createLicenseEntitlementOptions)
+
+				Expect(err).To(BeNil())
+				Expect(response.StatusCode).To(Equal(200))
+				Expect(licenseEntitlement).ToNot(BeNil())
+
+			})
+		})
+
+		Describe(`SearchObjects - List objects across catalogs`, func() {
+			BeforeEach(func() {
+				shouldSkipTest()
+			})
+			It(`SearchObjects(searchObjectsOptions *SearchObjectsOptions)`, func() {
+
+				searchObjectsOptions := &catalogmanagementv1.SearchObjectsOptions{
+					Query: core.StringPtr("testString"),
+					Limit: core.Int64Ptr(int64(1000)),
+					Offset: core.Int64Ptr(int64(38)),
+					Collapse: core.BoolPtr(true),
+				}
+
+				objectSearchResult, response, err := catalogManagementService.SearchObjects(searchObjectsOptions)
+
+				Expect(err).To(BeNil())
+				Expect(response.StatusCode).To(Equal(200))
+				Expect(objectSearchResult).ToNot(BeNil())
+
+			})
+		})
+
+		Describe(`ListObjects - List objects within a catalog`, func() {
+			BeforeEach(func() {
+				shouldSkipTest()
+			})
+			It(`ListObjects(listObjectsOptions *ListObjectsOptions)`, func() {
+
+				listObjectsOptions := &catalogmanagementv1.ListObjectsOptions{
+					CatalogIdentifier: core.StringPtr("testString"),
+					Limit: core.Int64Ptr(int64(1000)),
+					Offset: core.Int64Ptr(int64(38)),
+					Name: core.StringPtr("testString"),
+					Sort: core.StringPtr("testString"),
+				}
+
+				objectListResult, response, err := catalogManagementService.ListObjects(listObjectsOptions)
+
+				Expect(err).To(BeNil())
+				Expect(response.StatusCode).To(Equal(200))
+				Expect(objectListResult).ToNot(BeNil())
+
+			})
+		})
+
+		Describe(`CreateObject - Create catalog object`, func() {
+			BeforeEach(func() {
+				shouldSkipTest()
+			})
+			It(`CreateObject(createObjectOptions *CreateObjectOptions)`, func() {
+
+				publishObjectModel := &catalogmanagementv1.PublishObject{
+					PermitIBMPublicPublish: core.BoolPtr(true),
+					IBMApproved: core.BoolPtr(true),
+					PublicApproved: core.BoolPtr(true),
+					PortalApprovalRecord: core.StringPtr("testString"),
+					PortalURL: core.StringPtr("testString"),
+				}
+
+				stateModel := &catalogmanagementv1.State{
+					Current: core.StringPtr("testString"),
+					CurrentEntered: CreateMockDateTime(),
+					Pending: core.StringPtr("testString"),
+					PendingRequested: CreateMockDateTime(),
+					Previous: core.StringPtr("testString"),
+				}
+
+				createObjectOptions := &catalogmanagementv1.CreateObjectOptions{
+					CatalogIdentifier: core.StringPtr("testString"),
+					ID: core.StringPtr("testString"),
+					Name: core.StringPtr("testString"),
+					Rev: core.StringPtr("testString"),
+					CRN: core.StringPtr("testString"),
+					URL: core.StringPtr("testString"),
+					ParentID: core.StringPtr("testString"),
+					LabelI18n: core.StringPtr("testString"),
+					Label: core.StringPtr("testString"),
+					Tags: []string{"testString"},
+					Created: CreateMockDateTime(),
+					Updated: CreateMockDateTime(),
+					ShortDescription: core.StringPtr("testString"),
+					ShortDescriptionI18n: core.StringPtr("testString"),
+					Kind: core.StringPtr("testString"),
+					Publish: publishObjectModel,
+					State: stateModel,
+					CatalogID: core.StringPtr("testString"),
+					CatalogName: core.StringPtr("testString"),
+					Data: make(map[string]interface{}),
+				}
+
+				catalogObject, response, err := catalogManagementService.CreateObject(createObjectOptions)
+
+				Expect(err).To(BeNil())
+				Expect(response.StatusCode).To(Equal(201))
+				Expect(catalogObject).ToNot(BeNil())
+
+			})
+		})
+
+		Describe(`GetObject - Get catalog object`, func() {
+			BeforeEach(func() {
+				shouldSkipTest()
+			})
+			It(`GetObject(getObjectOptions *GetObjectOptions)`, func() {
+
+				getObjectOptions := &catalogmanagementv1.GetObjectOptions{
+					CatalogIdentifier: core.StringPtr("testString"),
+					ObjectIdentifier: core.StringPtr("testString"),
+				}
+
+				catalogObject, response, err := catalogManagementService.GetObject(getObjectOptions)
+
+				Expect(err).To(BeNil())
+				Expect(response.StatusCode).To(Equal(200))
+				Expect(catalogObject).ToNot(BeNil())
+
+			})
+		})
+
+		Describe(`ReplaceObject - Update catalog object`, func() {
+			BeforeEach(func() {
+				shouldSkipTest()
+			})
+			It(`ReplaceObject(replaceObjectOptions *ReplaceObjectOptions)`, func() {
+
+				publishObjectModel := &catalogmanagementv1.PublishObject{
+					PermitIBMPublicPublish: core.BoolPtr(true),
+					IBMApproved: core.BoolPtr(true),
+					PublicApproved: core.BoolPtr(true),
+					PortalApprovalRecord: core.StringPtr("testString"),
+					PortalURL: core.StringPtr("testString"),
+				}
+
+				stateModel := &catalogmanagementv1.State{
+					Current: core.StringPtr("testString"),
+					CurrentEntered: CreateMockDateTime(),
+					Pending: core.StringPtr("testString"),
+					PendingRequested: CreateMockDateTime(),
+					Previous: core.StringPtr("testString"),
+				}
+
+				replaceObjectOptions := &catalogmanagementv1.ReplaceObjectOptions{
+					CatalogIdentifier: core.StringPtr("testString"),
+					ObjectIdentifier: core.StringPtr("testString"),
+					ID: core.StringPtr("testString"),
+					Name: core.StringPtr("testString"),
+					Rev: core.StringPtr("testString"),
+					CRN: core.StringPtr("testString"),
+					URL: core.StringPtr("testString"),
+					ParentID: core.StringPtr("testString"),
+					LabelI18n: core.StringPtr("testString"),
+					Label: core.StringPtr("testString"),
+					Tags: []string{"testString"},
+					Created: CreateMockDateTime(),
+					Updated: CreateMockDateTime(),
+					ShortDescription: core.StringPtr("testString"),
+					ShortDescriptionI18n: core.StringPtr("testString"),
+					Kind: core.StringPtr("testString"),
+					Publish: publishObjectModel,
+					State: stateModel,
+					CatalogID: core.StringPtr("testString"),
+					CatalogName: core.StringPtr("testString"),
+					Data: make(map[string]interface{}),
+				}
+
+				catalogObject, response, err := catalogManagementService.ReplaceObject(replaceObjectOptions)
+
+				Expect(err).To(BeNil())
+				Expect(response.StatusCode).To(Equal(200))
+				Expect(catalogObject).ToNot(BeNil())
+
+			})
+		})
+
+		Describe(`GetObjectAudit - Get catalog object audit log`, func() {
+			BeforeEach(func() {
+				shouldSkipTest()
+			})
+			It(`GetObjectAudit(getObjectAuditOptions *GetObjectAuditOptions)`, func() {
+
+				getObjectAuditOptions := &catalogmanagementv1.GetObjectAuditOptions{
+					CatalogIdentifier: core.StringPtr("testString"),
+					ObjectIdentifier: core.StringPtr("testString"),
+				}
+
+				auditLog, response, err := catalogManagementService.GetObjectAudit(getObjectAuditOptions)
+
+				Expect(err).To(BeNil())
+				Expect(response.StatusCode).To(Equal(200))
+				Expect(auditLog).ToNot(BeNil())
+
+			})
+		})
+
+		Describe(`AccountPublishObject - Publish object to account`, func() {
+			BeforeEach(func() {
+				shouldSkipTest()
+			})
+			It(`AccountPublishObject(accountPublishObjectOptions *AccountPublishObjectOptions)`, func() {
+
+				accountPublishObjectOptions := &catalogmanagementv1.AccountPublishObjectOptions{
+					CatalogIdentifier: core.StringPtr("testString"),
+					ObjectIdentifier: core.StringPtr("testString"),
+				}
+
+				response, err := catalogManagementService.AccountPublishObject(accountPublishObjectOptions)
+
+				Expect(err).To(BeNil())
+				Expect(response.StatusCode).To(Equal(202))
+
+			})
+		})
+
+		Describe(`SharedPublishObject - Publish object to share with allow list`, func() {
+			BeforeEach(func() {
+				shouldSkipTest()
+			})
+			It(`SharedPublishObject(sharedPublishObjectOptions *SharedPublishObjectOptions)`, func() {
+
+				sharedPublishObjectOptions := &catalogmanagementv1.SharedPublishObjectOptions{
+					CatalogIdentifier: core.StringPtr("testString"),
+					ObjectIdentifier: core.StringPtr("testString"),
+				}
+
+				response, err := catalogManagementService.SharedPublishObject(sharedPublishObjectOptions)
+
+				Expect(err).To(BeNil())
+				Expect(response.StatusCode).To(Equal(202))
+
+			})
+		})
+
+		Describe(`IBMPublishObject - Publish object to share with IBMers`, func() {
+			BeforeEach(func() {
+				shouldSkipTest()
+			})
+			It(`IBMPublishObject(ibmPublishObjectOptions *IBMPublishObjectOptions)`, func() {
+
+				ibmPublishObjectOptions := &catalogmanagementv1.IBMPublishObjectOptions{
+					CatalogIdentifier: core.StringPtr("testString"),
+					ObjectIdentifier: core.StringPtr("testString"),
+				}
+
+				response, err := catalogManagementService.IBMPublishObject(ibmPublishObjectOptions)
+
+				Expect(err).To(BeNil())
+				Expect(response.StatusCode).To(Equal(202))
+
+			})
+		})
+
+		Describe(`PublicPublishObject - Publish object to share with all users`, func() {
+			BeforeEach(func() {
+				shouldSkipTest()
+			})
+			It(`PublicPublishObject(publicPublishObjectOptions *PublicPublishObjectOptions)`, func() {
+
+				publicPublishObjectOptions := &catalogmanagementv1.PublicPublishObjectOptions{
+					CatalogIdentifier: core.StringPtr("testString"),
+					ObjectIdentifier: core.StringPtr("testString"),
+				}
+
+				response, err := catalogManagementService.PublicPublishObject(publicPublishObjectOptions)
+
+				Expect(err).To(BeNil())
+				Expect(response.StatusCode).To(Equal(202))
+
+			})
+		})
+
+		Describe(`CreateObjectAccess - Add account ID to object access list`, func() {
+			BeforeEach(func() {
+				shouldSkipTest()
+			})
+			It(`CreateObjectAccess(createObjectAccessOptions *CreateObjectAccessOptions)`, func() {
+
+				createObjectAccessOptions := &catalogmanagementv1.CreateObjectAccessOptions{
+					CatalogIdentifier: core.StringPtr("testString"),
+					ObjectIdentifier: core.StringPtr("testString"),
+					AccountIdentifier: core.StringPtr("testString"),
+				}
+
+				response, err := catalogManagementService.CreateObjectAccess(createObjectAccessOptions)
+
+				Expect(err).To(BeNil())
+				Expect(response.StatusCode).To(Equal(201))
+
+			})
+		})
+
+		Describe(`GetObjectAccess - Check for account ID in object access list`, func() {
+			BeforeEach(func() {
+				shouldSkipTest()
+			})
+			It(`GetObjectAccess(getObjectAccessOptions *GetObjectAccessOptions)`, func() {
+
+				getObjectAccessOptions := &catalogmanagementv1.GetObjectAccessOptions{
+					CatalogIdentifier: core.StringPtr("testString"),
+					ObjectIdentifier: core.StringPtr("testString"),
+					AccountIdentifier: core.StringPtr("testString"),
+				}
+
+				objectAccess, response, err := catalogManagementService.GetObjectAccess(getObjectAccessOptions)
+
+				Expect(err).To(BeNil())
+				Expect(response.StatusCode).To(Equal(200))
+				Expect(objectAccess).ToNot(BeNil())
+
+			})
+		})
+
+		Describe(`GetObjectAccessList - Get object access list`, func() {
+			BeforeEach(func() {
+				shouldSkipTest()
+			})
+			It(`GetObjectAccessList(getObjectAccessListOptions *GetObjectAccessListOptions)`, func() {
+
+				getObjectAccessListOptions := &catalogmanagementv1.GetObjectAccessListOptions{
+					CatalogIdentifier: core.StringPtr("testString"),
+					ObjectIdentifier: core.StringPtr("testString"),
+					Limit: core.Int64Ptr(int64(1000)),
+					Offset: core.Int64Ptr(int64(38)),
+				}
+
+				objectAccessListResult, response, err := catalogManagementService.GetObjectAccessList(getObjectAccessListOptions)
+
+				Expect(err).To(BeNil())
+				Expect(response.StatusCode).To(Equal(200))
+				Expect(objectAccessListResult).ToNot(BeNil())
+
+			})
+		})
+
+		Describe(`AddObjectAccessList - Add accounts to object access list`, func() {
+			BeforeEach(func() {
+				shouldSkipTest()
+			})
+			It(`AddObjectAccessList(addObjectAccessListOptions *AddObjectAccessListOptions)`, func() {
+
+				addObjectAccessListOptions := &catalogmanagementv1.AddObjectAccessListOptions{
+					CatalogIdentifier: core.StringPtr("testString"),
+					ObjectIdentifier: core.StringPtr("testString"),
+					Accounts: []string{"testString"},
+				}
+
+				accessListBulkResponse, response, err := catalogManagementService.AddObjectAccessList(addObjectAccessListOptions)
+
+				Expect(err).To(BeNil())
+				Expect(response.StatusCode).To(Equal(200))
+				Expect(accessListBulkResponse).ToNot(BeNil())
+
+			})
+		})
+	*/
+	Describe(`CreateVersionInstance - Create an offering version resource instance`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`CreateVersionInstance(createVersionInstanceOptions *CreateVersionInstanceOptions)`, func() {
+			Expect(testCatalogID).ToNot(BeEmpty())
+			Expect(testOfferingID).ToNot(BeEmpty())
+
+			versionInstanceOptions := catalogManagementService.NewCreateVersionInstanceOptions(refreshToken)
+			versionInstanceOptions.SetCatalogID(testCatalogID)
+			versionInstanceOptions.SetOfferingID(testOfferingID)
+			versionInstanceOptions.SetKindFormat("operator")
+			versionInstanceOptions.SetVersion("0.0.2")
+			versionInstanceOptions.SetClusterID("c07cn9h20vsge6l0e8o")
+			versionInstanceOptions.SetClusterRegion("us-south")
+			versionInstanceOptions.SetClusterNamespaces([]string{"sdk-test"})
+
+			versionInstance, response, err := catalogManagementService.CreateVersionInstance(versionInstanceOptions)
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(202))
+			Expect(versionInstance).ToNot(BeNil())
+			fmt.Fprintf(GinkgoWriter, "CreateVersionInstance() result:\n%s\n", common.ToJSON(versionInstance))
+
+			Expect(versionInstance.ID).ToNot(BeNil())
+			testVersionInstanceID = *versionInstance.ID
+			Expect(testVersionInstanceID).ToNot(BeEmpty())
+		})
+	})
+	Describe(`GetVersionInstance - Get Version Instrance`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`GetVersionInstance(getVersionInstanceOptions *GetVersionInstanceOptions)`, func() {
+			Expect(testVersionInstanceID).ToNot(BeEmpty())
+
+			getVersionInstanceOptions := &catalogmanagementv1.GetVersionInstanceOptions{
+				InstanceIdentifier: &testVersionInstanceID,
+			}
+
+			versionInstance, response, err := catalogManagementService.GetVersionInstance(getVersionInstanceOptions)
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
-			Expect(*result.Offset).To(BeZero())
-			Expect(*result.Limit).ToNot(BeZero())
-			Expect(*result.TotalCount).ToNot(BeZero())
-			Expect(result.Last).ToNot(BeNil())
-			Expect(result.Prev).To(BeNil())
-			Expect(result.Next).ToNot(BeNil())
-			Expect(len(result.Resources)).ToNot(BeZero())
+			Expect(versionInstance).ToNot(BeNil())
+			fmt.Fprintf(GinkgoWriter, "GetVersionInstance() result:\n%s\n", common.ToJSON(versionInstance))
 		})
+	})
 
-		// It("Import an offering", func() {
-		// 	const (
-		// 		expectedOfferingName       = "jenkins-operator"
-		// 		expectedOfferingLabel      = "Jenkins Operator"
-		// 		expectedOfferingTargetKind = "roks"
-		// 		expectedOfferingVersion    = "0.4.0"
-		// 		expectedOfferingVersions   = 1
-		// 		expectedOfferingKinds      = 1
-		// 		expectedOfferingShortDesc  = "Kubernetes native operator which fully manages Jenkins on Openshift."
-		// 		expectedOfferingURL        = "https://cm.globalcatalog.test.cloud.ibm.com/api/v1-beta/catalogs/%s/offerings/%s"
-		// 		// expectedOfferingZipURL     = "https://github.com/operator-framework/community-operators/blob/master/community-operators/jenkins-operator/0.4.0/jenkins-operator.v0.4.0.clusterserviceversion.yaml"
-		// 		expectedOfferingZipURL = "https://github.com/operator-framework/community-operators/blob/master/community-operators/jenkins-operator/0.4.0/manifests/jenkins-operator.v0.4.0.clusterserviceversion.yaml"
-		// 	)
-
-		// 	shouldSkipTest()
-
-		// 	catalogOptions := service.NewCreateCatalogOptions()
-		// 	catalogOptions.SetLabel(expectedLabel)
-		// 	catalogResult, _, err := service.CreateCatalog(catalogOptions)
-
-		// 	Expect(err).To(BeNil())
-
-		// 	catalogID := *catalogResult.ID
-
-		// 	offeringOptions := service.NewImportOfferingOptions(catalogID)
-		// 	offeringOptions.SetZipurl(expectedOfferingZipURL)
-		// 	offeringOptions.SetXAuthToken(gitToken)
-		// 	offeringResult, offeringResponse, err := service.ImportOffering(offeringOptions)
-
-		// 	service.DeleteCatalog(service.NewDeleteCatalogOptions(catalogID))
-
-		// 	Expect(err).To(BeNil())
-
-		// 	offeringID := *offeringResult.ID
-
-		// 	Expect(offeringResponse.StatusCode).To(Equal(201))
-		// 	Expect(*offeringResult.Name).To(Equal(expectedOfferingName))
-		// 	Expect(*offeringResult.URL).To(Equal(fmt.Sprintf(expectedOfferingURL, catalogID, offeringID)))
-		// 	Expect(*offeringResult.Label).To(Equal(expectedOfferingLabel))
-		// 	Expect(*offeringResult.ShortDescription).To(Equal(expectedOfferingShortDesc))
-		// 	Expect(*offeringResult.CatalogName).To(Equal(expectedLabel))
-		// 	Expect(*offeringResult.CatalogID).To(Equal(catalogID))
-		// 	Expect(len(offeringResult.Kinds)).To(Equal(expectedOfferingKinds))
-		// 	Expect(*offeringResult.Kinds[0].TargetKind).To(Equal(expectedOfferingTargetKind))
-		// 	Expect(len(offeringResult.Kinds[0].Versions)).To(Equal(expectedOfferingVersions))
-		// 	Expect(*offeringResult.Kinds[0].Versions[0].Version).To(Equal(expectedOfferingVersion))
-		// 	Expect(*offeringResult.Kinds[0].Versions[0].TgzURL).To(Equal(expectedOfferingZipURL))
-		// })
-
-		// It("Import new version to offering", func() {
-		// 	const (
-		// 		expectedOfferingName         = "jenkins-operator"
-		// 		expectedOfferingLabel        = "Jenkins Operator"
-		// 		expectedOfferingTargetKind   = "roks"
-		// 		expectedOfferingKinds        = 1
-		// 		expectedOfferingVersions     = 2
-		// 		expectedOfferingVersion1     = "0.3.31"
-		// 		expectedOfferingVersion2     = "0.4.0"
-		// 		expectedOfferingShortDesc    = "Kubernetes native operator which fully manages Jenkins on Openshift."
-		// 		expectedOfferingURL          = "https://cm.globalcatalog.test.cloud.ibm.com/api/v1-beta/catalogs/%s/offerings/%s"
-		// 		expectedOfferingZipURL       = "https://github.com/operator-framework/community-operators/blob/master/community-operators/jenkins-operator/0.3.31/jenkins-operator.v0.3.31.clusterserviceversion.yaml"
-		// 		expectedOfferingZipURLUpdate = "https://github.com/operator-framework/community-operators/blob/master/community-operators/jenkins-operator/0.4.0/jenkins-operator.v0.4.0.clusterserviceversion.yaml"
-		// 	)
-
-		// 	shouldSkipTest()
-
-		// 	catalogOptions := service.NewCreateCatalogOptions()
-		// 	catalogOptions.SetLabel(expectedLabel)
-		// 	catalogResult, _, err := service.CreateCatalog(catalogOptions)
-
-		// 	Expect(err).To(BeNil())
-
-		// 	catalogID := *catalogResult.ID
-
-		// 	offeringOptions := service.NewImportOfferingOptions(catalogID)
-		// 	offeringOptions.SetZipurl(expectedOfferingZipURL)
-		// 	offeringOptions.SetXAuthToken(gitToken)
-		// 	offeringResult, _, err := service.ImportOffering(offeringOptions)
-
-		// 	Expect(err).To(BeNil())
-
-		// 	offeringID := *offeringResult.ID
-
-		// 	importOptions := service.NewImportOfferingVersionOptions(catalogID, offeringID)
-		// 	importOptions.SetZipurl(expectedOfferingZipURLUpdate)
-		// 	importResult, importResponse, err := service.ImportOfferingVersion(importOptions)
-
-		// 	service.DeleteCatalog(service.NewDeleteCatalogOptions(catalogID))
-
-		// 	Expect(err).To(BeNil())
-		// 	Expect(importResponse.StatusCode).To(Equal(201))
-		// 	Expect(*importResult.Name).To(Equal(expectedOfferingName))
-		// 	Expect(*importResult.URL).To(Equal(fmt.Sprintf(expectedOfferingURL, catalogID, offeringID)))
-		// 	Expect(*importResult.Label).To(Equal(expectedOfferingLabel))
-		// 	Expect(*importResult.ShortDescription).To(Equal(expectedOfferingShortDesc))
-		// 	Expect(*importResult.CatalogName).To(Equal(expectedLabel))
-		// 	Expect(*importResult.CatalogID).To(Equal(catalogID))
-		// 	Expect(len(importResult.Kinds)).To(Equal(expectedOfferingKinds))
-		// 	Expect(*importResult.Kinds[0].TargetKind).To(Equal(expectedOfferingTargetKind))
-		// 	Expect(len(importResult.Kinds[0].Versions)).To(Equal(expectedOfferingVersions))
-		// 	Expect(*importResult.Kinds[0].Versions[0].Version).To(Equal(expectedOfferingVersion1))
-		// 	Expect(*importResult.Kinds[0].Versions[0].TgzURL).To(Equal(expectedOfferingZipURL))
-		// 	Expect(*importResult.Kinds[0].Versions[1].Version).To(Equal(expectedOfferingVersion2))
-		// 	Expect(*importResult.Kinds[0].Versions[1].TgzURL).To(Equal(expectedOfferingZipURLUpdate))
-		// })
-
-		It("Fail to import new version to offering that does not exist", func() {
-			const expectedOfferingZipURLUpdate = "https://github.com/operator-framework/community-operators/blob/master/community-operators/jenkins-operator/0.4.0/jenkins-operator.v0.4.0.clusterserviceversion.yaml"
-
+	Describe(`PutVersionInstance - Update Version Instance`, func() {
+		BeforeEach(func() {
 			shouldSkipTest()
+		})
+		It(`PutVersionInstance(putVersionInstanceOptions *PutVersionInstanceOptions)`, func() {
+			Expect(testVersionInstanceID).ToNot(BeEmpty())
 
-			catalogOptions := service.NewCreateCatalogOptions()
-			catalogOptions.SetLabel(expectedLabel)
-			catalogResult, _, err := service.CreateCatalog(catalogOptions)
+			putVersionInstanceOptions := catalogManagementService.NewPutVersionInstanceOptions(testVersionInstanceID, refreshToken)
+
+			versionInstance, response, err := catalogManagementService.PutVersionInstance(putVersionInstanceOptions)
 
 			Expect(err).To(BeNil())
-
-			catalogID := *catalogResult.ID
-
-			offeringID := fakeName
-
-			importOptions := service.NewImportOfferingVersionOptions(catalogID, offeringID)
-			importOptions.SetZipurl(expectedOfferingZipURLUpdate)
-			_, importResponse, err := service.ImportOfferingVersion(importOptions)
-
-			service.DeleteCatalog(service.NewDeleteCatalogOptions(catalogID))
-
-			Expect(err).ToNot(BeNil())
-			Expect(importResponse.StatusCode).To(Equal(404))
-
-			_, importResponse, err = service.ImportOfferingVersion(importOptions)
-			Expect(err).ToNot(BeNil())
-			Expect(importResponse.StatusCode).To(Equal(403))
+			Expect(response.StatusCode).To(Equal(202))
+			Expect(versionInstance).ToNot(BeNil())
+			fmt.Fprintf(GinkgoWriter, "PutVersionInstance() result:\n%s\n", common.ToJSON(versionInstance))
 		})
+	})
 
-		// It("Reload an offering", func() {
-		// 	const (
-		// 		expectedOfferingName       = "jenkins-operator"
-		// 		expectedOfferingLabel      = "Jenkins Operator"
-		// 		expectedOfferingTargetKind = "roks"
-		// 		expectedOfferingVersion    = "0.4.0"
-		// 		expectedOfferingVersions   = 1
-		// 		expectedOfferingKinds      = 1
-		// 		expectedOfferingShortDesc  = "Kubernetes native operator which fully manages Jenkins on Openshift."
-		// 		expectedOfferingURL        = "https://cm.globalcatalog.test.cloud.ibm.com/api/v1-beta/catalogs/%s/offerings/%s"
-		// 		expectedOfferingZipURL     = "https://github.com/operator-framework/community-operators/blob/master/community-operators/jenkins-operator/0.4.0/jenkins-operator.v0.4.0.clusterserviceversion.yaml"
-		// 	)
-
-		// 	shouldSkipTest()
-
-		// 	catalogOptions := service.NewCreateCatalogOptions()
-		// 	catalogOptions.SetLabel(expectedLabel)
-		// 	catalogResult, _, err := service.CreateCatalog(catalogOptions)
-
-		// 	Expect(err).To(BeNil())
-
-		// 	catalogID := *catalogResult.ID
-
-		// 	offeringOptions := service.NewImportOfferingOptions(catalogID)
-		// 	offeringOptions.SetZipurl(expectedOfferingZipURL)
-		// 	offeringOptions.SetXAuthToken(gitToken)
-		// 	offeringResult, _, err := service.ImportOffering(offeringOptions)
-
-		// 	Expect(err).To(BeNil())
-
-		// 	offeringID := *offeringResult.ID
-
-		// 	reloadOptions := service.NewReloadOfferingOptions(catalogID, offeringID, expectedOfferingVersion)
-		// 	reloadOptions.SetZipurl(expectedOfferingZipURL)
-		// 	reloadResult, reloadResponse, err := service.ReloadOffering(reloadOptions)
-
-		// 	service.DeleteCatalog(service.NewDeleteCatalogOptions(catalogID))
-
-		// 	Expect(err).To(BeNil())
-		// 	Expect(reloadResponse.StatusCode).To(Equal(200))
-		// 	Expect(*reloadResult.Name).To(Equal(expectedOfferingName))
-		// 	Expect(*reloadResult.URL).To(Equal(fmt.Sprintf(expectedOfferingURL, catalogID, offeringID)))
-		// 	Expect(*reloadResult.Label).To(Equal(expectedOfferingLabel))
-		// 	Expect(*reloadResult.ShortDescription).To(Equal(expectedOfferingShortDesc))
-		// 	Expect(*reloadResult.CatalogName).To(Equal(expectedLabel))
-		// 	Expect(*reloadResult.CatalogID).To(Equal(catalogID))
-		// 	Expect(len(reloadResult.Kinds)).To(Equal(expectedOfferingKinds))
-		// 	Expect(*reloadResult.Kinds[0].TargetKind).To(Equal(expectedOfferingTargetKind))
-		// 	Expect(len(reloadResult.Kinds[0].Versions)).To(Equal(expectedOfferingVersions))
-		// 	Expect(*reloadResult.Kinds[0].Versions[0].Version).To(Equal(expectedOfferingVersion))
-		// 	Expect(*reloadResult.Kinds[0].Versions[0].TgzURL).To(Equal(expectedOfferingZipURL))
-		// })
-
-		It("Fail to reload an offering that does not exist", func() {
-			const (
-				expectedOfferingVersion = "0.4.0"
-				expectedOfferingZipURL  = "https://github.com/operator-framework/community-operators/blob/master/community-operators/jenkins-operator/0.4.0/jenkins-operator.v0.4.0.clusterserviceversion.yaml"
-			)
-
+	Describe(`DeleteVersionInstance - Delete a version instance`, func() {
+		BeforeEach(func() {
 			shouldSkipTest()
+		})
+		It(`DeleteVersionInstance(deleteVersionInstanceOptions *DeleteVersionInstanceOptions)`, func() {
+			Expect(testVersionInstanceID).ToNot(BeEmpty())
 
-			catalogOptions := service.NewCreateCatalogOptions()
-			catalogOptions.SetLabel(expectedLabel)
-			catalogResult, _, err := service.CreateCatalog(catalogOptions)
+			deleteVersionInstanceOptions := catalogManagementService.NewDeleteVersionInstanceOptions(testVersionInstanceID)
+
+			response, err := catalogManagementService.DeleteVersionInstance(deleteVersionInstanceOptions)
 
 			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(202))
 
-			catalogID := *catalogResult.ID
-			offeringID := fakeName
-
-			reloadOptions := service.NewReloadOfferingOptions(catalogID, offeringID, expectedOfferingVersion)
-			reloadOptions.SetZipurl(expectedOfferingZipURL)
-			_, reloadResponse, err := service.ReloadOffering(reloadOptions)
-
-			service.DeleteCatalog(service.NewDeleteCatalogOptions(catalogID))
-
-			Expect(err).ToNot(BeNil())
-			Expect(reloadResponse.StatusCode).To(Equal(404))
-
-			_, reloadResponse, err = service.ReloadOffering(reloadOptions)
-			Expect(err).ToNot(BeNil())
-			Expect(reloadResponse.StatusCode).To(Equal(403))
 		})
+	})
 
-		// It("Get a version", func() {
-		// 	const (
-		// 		expectedOfferingName       = "jenkins-operator"
-		// 		expectedOfferingLabel      = "Jenkins Operator"
-		// 		expectedOfferingTargetKind = "roks"
-		// 		expectedOfferingVersion    = "0.4.0"
-		// 		expectedOfferingVersions   = 1
-		// 		expectedOfferingKinds      = 1
-		// 		expectedOfferingShortDesc  = "Kubernetes native operator which fully manages Jenkins on Openshift."
-		// 		expectedOfferingURL        = "https://cm.globalcatalog.test.cloud.ibm.com/api/v1-beta/catalogs/%s/offerings/%s"
-		// 		expectedOfferingZipURL     = "https://github.com/operator-framework/community-operators/blob/master/community-operators/jenkins-operator/0.4.0/jenkins-operator.v0.4.0.clusterserviceversion.yaml"
-		// 	)
+	/* 	Describe(`DeleteVersion - Delete version`, func() {
+	   		BeforeEach(func() {
+	   			shouldSkipTest()
+	   		})
+	   		It(`DeleteVersion(deleteVersionOptions *DeleteVersionOptions)`, func() {
 
-		// 	shouldSkipTest()
+	   			deleteVersionOptions := &catalogmanagementv1.DeleteVersionOptions{
+	   				VersionLocID: core.StringPtr("testString"),
+	   			}
 
-		// 	catalogOptions := service.NewCreateCatalogOptions()
-		// 	catalogOptions.SetLabel(expectedLabel)
-		// 	catalogResult, _, err := service.CreateCatalog(catalogOptions)
+	   			response, err := catalogManagementService.DeleteVersion(deleteVersionOptions)
 
-		// 	Expect(err).To(BeNil())
+	   			Expect(err).To(BeNil())
+	   			Expect(response.StatusCode).To(Equal(200))
 
-		// 	catalogID := *catalogResult.ID
+	   		})
+	   	})
 
-		// 	offeringOptions := service.NewImportOfferingOptions(catalogID)
-		// 	offeringOptions.SetZipurl(expectedOfferingZipURL)
-		// 	offeringOptions.SetXAuthToken(gitToken)
-		// 	offeringResult, _, err := service.ImportOffering(offeringOptions)
+	   	Describe(`DeleteOperators - Delete operators`, func() {
+	   		BeforeEach(func() {
+	   			shouldSkipTest()
+	   		})
+	   		It(`DeleteOperators(deleteOperatorsOptions *DeleteOperatorsOptions)`, func() {
 
-		// 	Expect(err).To(BeNil())
+	   			deleteOperatorsOptions := &catalogmanagementv1.DeleteOperatorsOptions{
+	   				XAuthRefreshToken: core.StringPtr("testString"),
+	   				ClusterID: core.StringPtr("testString"),
+	   				Region: core.StringPtr("testString"),
+	   				VersionLocatorID: core.StringPtr("testString"),
+	   			}
 
-		// 	offeringID := *offeringResult.ID
-		// 	versionLocator := *offeringResult.Kinds[0].Versions[0].VersionLocator
+	   			response, err := catalogManagementService.DeleteOperators(deleteOperatorsOptions)
 
-		// 	versionOptions := service.NewGetVersionOptions(versionLocator)
-		// 	versionResult, versionResponse, err := service.GetVersion(versionOptions)
+	   			Expect(err).To(BeNil())
+	   			Expect(response.StatusCode).To(Equal(200))
 
-		// 	service.DeleteCatalog(service.NewDeleteCatalogOptions(catalogID))
+	   		})
+	   	})
 
-		// 	Expect(err).To(BeNil())
-		// 	Expect(versionResponse.StatusCode).To(Equal(200))
-		// 	Expect(*versionResult.Name).To(Equal(expectedOfferingName))
-		// 	Expect(*versionResult.URL).To(Equal(fmt.Sprintf(expectedOfferingURL, catalogID, offeringID)))
-		// 	Expect(*versionResult.Label).To(Equal(expectedOfferingLabel))
-		// 	Expect(*versionResult.ShortDescription).To(Equal(expectedOfferingShortDesc))
-		// 	Expect(*versionResult.CatalogName).To(Equal(expectedLabel))
-		// 	Expect(*versionResult.CatalogID).To(Equal(catalogID))
-		// 	Expect(len(versionResult.Kinds)).To(Equal(expectedOfferingKinds))
-		// 	Expect(*versionResult.Kinds[0].TargetKind).To(Equal(expectedOfferingTargetKind))
-		// 	Expect(len(versionResult.Kinds[0].Versions)).To(Equal(expectedOfferingVersions))
-		// 	Expect(*versionResult.Kinds[0].Versions[0].Version).To(Equal(expectedOfferingVersion))
-		// 	Expect(*versionResult.Kinds[0].Versions[0].TgzURL).To(Equal(expectedOfferingZipURL))
-		// })
+	   	Describe(`DeleteOffering - Delete offering`, func() {
+	   		BeforeEach(func() {
+	   			shouldSkipTest()
+	   		})
+	   		It(`DeleteOffering(deleteOfferingOptions *DeleteOfferingOptions)`, func() {
 
-		It("Fail to get a version that does not exist", func() {
+	   			deleteOfferingOptions := &catalogmanagementv1.DeleteOfferingOptions{
+	   				CatalogIdentifier: core.StringPtr("testString"),
+	   				OfferingID: core.StringPtr("testString"),
+	   			}
+
+	   			response, err := catalogManagementService.DeleteOffering(deleteOfferingOptions)
+
+	   			Expect(err).To(BeNil())
+	   			Expect(response.StatusCode).To(Equal(200))
+
+	   		})
+	   	})
+
+	   	Describe(`DeleteObjectAccessList - Delete accounts from object access list`, func() {
+	   		BeforeEach(func() {
+	   			shouldSkipTest()
+	   		})
+	   		It(`DeleteObjectAccessList(deleteObjectAccessListOptions *DeleteObjectAccessListOptions)`, func() {
+
+	   			deleteObjectAccessListOptions := &catalogmanagementv1.DeleteObjectAccessListOptions{
+	   				CatalogIdentifier: core.StringPtr("testString"),
+	   				ObjectIdentifier: core.StringPtr("testString"),
+	   				Accounts: []string{"testString"},
+	   			}
+
+	   			accessListBulkResponse, response, err := catalogManagementService.DeleteObjectAccessList(deleteObjectAccessListOptions)
+
+	   			Expect(err).To(BeNil())
+	   			Expect(response.StatusCode).To(Equal(200))
+	   			Expect(accessListBulkResponse).ToNot(BeNil())
+
+	   		})
+	   	})
+
+	   	Describe(`DeleteObjectAccess - Remove account ID from object access list`, func() {
+	   		BeforeEach(func() {
+	   			shouldSkipTest()
+	   		})
+	   		It(`DeleteObjectAccess(deleteObjectAccessOptions *DeleteObjectAccessOptions)`, func() {
+
+	   			deleteObjectAccessOptions := &catalogmanagementv1.DeleteObjectAccessOptions{
+	   				CatalogIdentifier: core.StringPtr("testString"),
+	   				ObjectIdentifier: core.StringPtr("testString"),
+	   				AccountIdentifier: core.StringPtr("testString"),
+	   			}
+
+	   			response, err := catalogManagementService.DeleteObjectAccess(deleteObjectAccessOptions)
+
+	   			Expect(err).To(BeNil())
+	   			Expect(response.StatusCode).To(Equal(200))
+
+	   		})
+	   	})
+
+	   	Describe(`DeleteObject - Delete catalog object`, func() {
+	   		BeforeEach(func() {
+	   			shouldSkipTest()
+	   		})
+	   		It(`DeleteObject(deleteObjectOptions *DeleteObjectOptions)`, func() {
+
+	   			deleteObjectOptions := &catalogmanagementv1.DeleteObjectOptions{
+	   				CatalogIdentifier: core.StringPtr("testString"),
+	   				ObjectIdentifier: core.StringPtr("testString"),
+	   			}
+
+	   			response, err := catalogManagementService.DeleteObject(deleteObjectOptions)
+
+	   			Expect(err).To(BeNil())
+	   			Expect(response.StatusCode).To(Equal(200))
+
+	   		})
+	   	})
+
+	   	Describe(`DeleteLicenseEntitlement - Delete license entitlement`, func() {
+	   		BeforeEach(func() {
+	   			shouldSkipTest()
+	   		})
+	   		It(`DeleteLicenseEntitlement(deleteLicenseEntitlementOptions *DeleteLicenseEntitlementOptions)`, func() {
+
+	   			deleteLicenseEntitlementOptions := &catalogmanagementv1.DeleteLicenseEntitlementOptions{
+	   				EntitlementID: core.StringPtr("testString"),
+	   				AccountID: core.StringPtr("testString"),
+	   			}
+
+	   			response, err := catalogManagementService.DeleteLicenseEntitlement(deleteLicenseEntitlementOptions)
+
+	   			Expect(err).To(BeNil())
+	   			Expect(response.StatusCode).To(Equal(200))
+
+	   		})
+	   	})
+	*/
+
+	Describe(`DeleteCatalog - Delete catalog`, func() {
+		BeforeEach(func() {
 			shouldSkipTest()
-
-			versionOptions := service.NewGetVersionOptions(fakeVersionLocator)
-			_, versionResponse, err := service.GetVersion(versionOptions)
-
-			Expect(err).ToNot(BeNil())
-			Expect(versionResponse.StatusCode).To(Equal(404))
 		})
+		It(`DeleteCatalog(deleteCatalogOptions *DeleteCatalogOptions)`, func() {
+			Expect(testCatalogID).ToNot(BeEmpty())
 
-		// It("Delete a version", func() {
-		// 	const expectedOfferingZipURL = "https://github.com/operator-framework/community-operators/blob/master/community-operators/jenkins-operator/0.4.0/jenkins-operator.v0.4.0.clusterserviceversion.yaml"
+			deleteCatalogOptions := &catalogmanagementv1.DeleteCatalogOptions{
+				CatalogIdentifier: &testCatalogID,
+			}
 
-		// 	shouldSkipTest()
-
-		// 	catalogOptions := service.NewCreateCatalogOptions()
-		// 	catalogOptions.SetLabel(expectedLabel)
-		// 	catalogResult, _, err := service.CreateCatalog(catalogOptions)
-
-		// 	Expect(err).To(BeNil())
-
-		// 	catalogID := *catalogResult.ID
-
-		// 	offeringOptions := service.NewImportOfferingOptions(catalogID)
-		// 	offeringOptions.SetZipurl(expectedOfferingZipURL)
-		// 	offeringOptions.SetXAuthToken(gitToken)
-		// 	offeringResult, _, err := service.ImportOffering(offeringOptions)
-
-		// 	Expect(err).To(BeNil())
-
-		// 	versionLocator := *offeringResult.Kinds[0].Versions[0].VersionLocator
-
-		// 	deleteOptions := service.NewDeleteVersionOptions(versionLocator)
-		// 	deleteResponse, err := service.DeleteVersion(deleteOptions)
-
-		// 	service.DeleteCatalog(service.NewDeleteCatalogOptions(catalogID))
-
-		// 	Expect(err).To(BeNil())
-		// 	Expect(deleteResponse.StatusCode).To(Equal(200))
-		// })
-
-		It("Failed to delete a version that does not exist", func() {
-			shouldSkipTest()
-
-			deleteOptions := service.NewDeleteVersionOptions(fakeVersionLocator)
-			deleteResponse, err := service.DeleteVersion(deleteOptions)
-
-			Expect(err).ToNot(BeNil())
-			Expect(deleteResponse.StatusCode).To(Equal(404))
-		})
-
-		// It("Get version about", func() {
-		// 	const expectedOfferingZipURL = "https://github.com/operator-framework/community-operators/blob/master/community-operators/jenkins-operator/0.4.0/jenkins-operator.v0.4.0.clusterserviceversion.yaml"
-
-		// 	shouldSkipTest()
-
-		// 	catalogOptions := service.NewCreateCatalogOptions()
-		// 	catalogOptions.SetLabel(expectedLabel)
-		// 	catalogResult, _, err := service.CreateCatalog(catalogOptions)
-
-		// 	Expect(err).To(BeNil())
-
-		// 	catalogID := *catalogResult.ID
-
-		// 	offeringOptions := service.NewImportOfferingOptions(catalogID)
-		// 	offeringOptions.SetZipurl(expectedOfferingZipURL)
-		// 	offeringOptions.SetXAuthToken(gitToken)
-		// 	offeringResult, _, err := service.ImportOffering(offeringOptions)
-
-		// 	Expect(err).To(BeNil())
-
-		// 	versionLocator := *offeringResult.Kinds[0].Versions[0].VersionLocator
-
-		// 	getOptions := service.NewGetVersionAboutOptions(versionLocator)
-		// 	getResult, getResponse, err := service.GetVersionAbout(getOptions)
-
-		// 	service.DeleteCatalog(service.NewDeleteCatalogOptions(catalogID))
-
-		// 	Expect(err).To(BeNil())
-		// 	Expect(getResponse.StatusCode).To(Equal(200))
-		// 	Expect(len(*getResult)).ToNot(BeZero())
-		// })
-
-		It("Fail to get version about for a version that does not exist", func() {
-			shouldSkipTest()
-
-			getOptions := service.NewGetVersionAboutOptions(fakeVersionLocator)
-			_, getResponse, err := service.GetVersionAbout(getOptions)
-
-			Expect(err).ToNot(BeNil())
-			Expect(getResponse.StatusCode).To(Equal(404))
-		})
-
-		// It("Get version updates", func() {
-		// 	const (
-		// 		expectedOfferingUpdates      = 1
-		// 		expectedOfferingVersion2     = "0.4.0"
-		// 		expectedOfferingZipURL       = "https://github.com/operator-framework/community-operators/blob/master/community-operators/jenkins-operator/0.3.31/jenkins-operator.v0.3.31.clusterserviceversion.yaml"
-		// 		expectedOfferingZipURLUpdate = "https://github.com/operator-framework/community-operators/blob/master/community-operators/jenkins-operator/0.4.0/jenkins-operator.v0.4.0.clusterserviceversion.yaml"
-		// 	)
-
-		// 	shouldSkipTest()
-
-		// 	catalogOptions := service.NewCreateCatalogOptions()
-		// 	catalogOptions.SetLabel(expectedLabel)
-		// 	catalogResult, _, err := service.CreateCatalog(catalogOptions)
-
-		// 	Expect(err).To(BeNil())
-
-		// 	catalogID := *catalogResult.ID
-
-		// 	offeringOptions := service.NewImportOfferingOptions(catalogID)
-		// 	offeringOptions.SetZipurl(expectedOfferingZipURL)
-		// 	offeringOptions.SetXAuthToken(gitToken)
-		// 	offeringResult, _, err := service.ImportOffering(offeringOptions)
-
-		// 	Expect(err).To(BeNil())
-
-		// 	offeringID := *offeringResult.ID
-		// 	versionLocator1 := *offeringResult.Kinds[0].Versions[0].VersionLocator
-
-		// 	importOptions := service.NewImportOfferingVersionOptions(catalogID, offeringID)
-		// 	importOptions.SetZipurl(expectedOfferingZipURLUpdate)
-		// 	importResult, _, err := service.ImportOfferingVersion(importOptions)
-
-		// 	Expect(err).To(BeNil())
-
-		// 	versionLocator2 := *importResult.Kinds[0].Versions[1].VersionLocator
-
-		// 	getOptions := service.NewGetVersionUpdatesOptions(versionLocator1)
-		// 	getResult, getResponse, err := service.GetVersionUpdates(getOptions)
-
-		// 	service.DeleteCatalog(service.NewDeleteCatalogOptions(catalogID))
-
-		// 	Expect(err).To(BeNil())
-		// 	Expect(getResponse.StatusCode).To(Equal(200))
-		// 	Expect(len(getResult)).To(Equal(expectedOfferingUpdates))
-		// 	Expect(*getResult[0].VersionLocator).To(Equal(versionLocator2))
-		// 	Expect(*getResult[0].Version).To(Equal(expectedOfferingVersion2))
-		// 	Expect(*getResult[0].PackageVersion).To(Equal(expectedOfferingVersion2))
-		// 	Expect(*getResult[0].CanUpdate).To(BeTrue())
-		// })
-
-		It("Fail to get version updates for version that does not exist", func() {
-			shouldSkipTest()
-
-			getOptions := service.NewGetVersionUpdatesOptions(fakeVersionLocator)
-			_, getResponse, err := service.GetVersionUpdates(getOptions)
-
-			Expect(err).ToNot(BeNil())
-			Expect(getResponse.StatusCode).To(Equal(404))
-		})
-
-		It("Get license providers", func() {
-			const (
-				expectedResourceCount       = 1
-				expectedTotalResults  int64 = 1
-				expectedTotalPages    int64 = 1
-				expectedName                = "IBM Passport Advantage"
-				expectedOfferingType        = "content"
-				expectedCreateURL           = "https://www.ibm.com/software/passportadvantage/aboutpassport.html"
-				expectedInfoURL             = "https://www.ibm.com/software/passportadvantage/"
-				expectedURL                 = "/v1/licensing/license_providers/11cabc37-c4a7-410b-894d-8cb3586423f1"
-				expectedState               = "active"
-			)
-
-			shouldSkipTest()
-
-			getOptions := service.NewGetLicenseProvidersOptions()
-			getResult, getResponse, err := service.GetLicenseProviders(getOptions)
+			response, err := catalogManagementService.DeleteCatalog(deleteCatalogOptions)
 
 			Expect(err).To(BeNil())
-			Expect(getResponse.StatusCode).To(Equal(200))
-			Expect(len(getResult.Resources)).To(Equal(expectedResourceCount))
-			Expect(*getResult.TotalResults).To(Equal(expectedTotalResults))
-			Expect(*getResult.TotalPages).To(Equal(expectedTotalPages))
-			Expect(*getResult.Resources[0].Name).To(Equal(expectedName))
-			Expect(*getResult.Resources[0].OfferingType).To(Equal(expectedOfferingType))
-			Expect(*getResult.Resources[0].CreateURL).To(Equal(expectedCreateURL))
-			Expect(*getResult.Resources[0].InfoURL).To(Equal(expectedInfoURL))
-			Expect(*getResult.Resources[0].URL).To(Equal(expectedURL))
-			Expect(*getResult.Resources[0].State).To(Equal(expectedState))
-		})
+			Expect(response.StatusCode).To(Equal(200))
 
-		It("Get license entitlements", func() {
-			const (
-				expectedResourceCount       = 0
-				expectedTotalResults  int64 = 0
-				expectedTotalPages    int64 = 1
-			)
-
-			shouldSkipTest()
-
-			listOptions := service.NewListLicenseEntitlementsOptions()
-			listResult, listResponse, err := service.ListLicenseEntitlements(listOptions)
-
-			Expect(err).To(BeNil())
-			Expect(listResponse.StatusCode).To(Equal(200))
-			Expect(len(listResult.Resources)).To(Equal(expectedResourceCount))
-			Expect(*listResult.TotalResults).To(Equal(expectedTotalResults))
-			Expect(*listResult.TotalPages).To(Equal(expectedTotalPages))
-		})
-
-		It("Fail to search license versions", func() {
-			shouldSkipTest()
-
-			searchOptions := service.NewSearchLicenseVersionsOptions(fakeName)
-			searchResponse, err := service.SearchLicenseVersions(searchOptions)
-
-			Expect(err).ToNot(BeNil())
-			Expect(searchResponse.StatusCode).To(Equal(403))
-		})
-
-		It("Fail to search license offerings", func() {
-			shouldSkipTest()
-
-			searchOptions := service.NewSearchLicenseOfferingsOptions(fakeName)
-			searchResponse, err := service.SearchLicenseOfferings(searchOptions)
-
-			Expect(err).ToNot(BeNil())
-			Expect(searchResponse.StatusCode).To(Equal(403))
 		})
 	})
 })
