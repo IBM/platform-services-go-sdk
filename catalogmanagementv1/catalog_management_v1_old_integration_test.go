@@ -57,7 +57,7 @@ func shouldSkipTest() {
 	}
 }
 
-var _ = Describe("Catalog Management - Integration Tests", func() {
+var _ = Describe("Catalog Management - Integration Tests (OLD)", func() {
 	It("Successfully load the configuration", func() {
 		if _, err := os.Stat(externalConfigFile); err == nil {
 			if err = os.Setenv("IBM_CREDENTIALS_FILE", externalConfigFile); err == nil {

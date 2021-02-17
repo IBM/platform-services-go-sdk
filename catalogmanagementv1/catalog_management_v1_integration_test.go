@@ -38,7 +38,7 @@ import (
  * The integration test will automatically skip tests if the required config file is not available.
  */
 
-var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
+var _ = Describe(`CatalogManagementV1 Integration Tests (New)`, func() {
 
 	const (
 		externalConfigFile   = "../catalog_mgmt.env"
@@ -59,7 +59,7 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 		expectedLabel            = fmt.Sprintf("integration-test-%d", time.Now().Unix())
 		gitToken                 string
 		refreshToken             string
-		testVersionInstanceId    string
+		testVersionInstanceID    string
 	)
 
 	var shouldSkipTest = func() {
@@ -90,7 +90,7 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 				Skip("Unable to load service URL configuration property, skipping tests")
 			}
 
-			fmt.Printf("Service URL: %s\n", serviceURL)
+			fmt.Fprintf(GinkgoWriter, "Service URL: %s\n", serviceURL)
 			shouldSkipTest = func() {}
 		})
 	})
@@ -267,8 +267,8 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 			Expect(result.CatalogFilters.IDFilters.Include).To(BeNil())
 			Expect(result.CatalogFilters.IDFilters.Exclude).To(BeNil())
 
+			Expect(result.ID).ToNot(BeNil())
 			testCatalogID = *result.ID
-
 		})
 	})
 	/*
@@ -762,6 +762,8 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 			shouldSkipTest()
 		})
 		It(`ImportOffering(importOfferingOptions *ImportOfferingOptions)`, func() {
+			Expect(testCatalogID).ToNot(BeEmpty())
+
 			const (
 				expectedOfferingName       = "node-red-operator-certified"
 				expectedOfferingLabel      = "Node-RED Operator"
@@ -782,7 +784,10 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 			offering, response, err := catalogManagementService.ImportOffering(offeringOptions)
 
 			Expect(err).To(BeNil())
+			Expect(offering).ToNot(BeNil())
+			fmt.Fprintf(GinkgoWriter, "ImportOffering() result:\n%s\n", common.ToJSON(offering))
 
+			Expect(offering.ID).ToNot(BeNil())
 			testOfferingID = *offering.ID
 
 			Expect(response.StatusCode).To(Equal(201))
@@ -2062,6 +2067,8 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 			shouldSkipTest()
 		})
 		It(`CreateVersionInstance(createVersionInstanceOptions *CreateVersionInstanceOptions)`, func() {
+			Expect(testCatalogID).ToNot(BeEmpty())
+			Expect(testOfferingID).ToNot(BeEmpty())
 
 			versionInstanceOptions := catalogManagementService.NewCreateVersionInstanceOptions(refreshToken)
 			versionInstanceOptions.SetCatalogID(testCatalogID)
@@ -2077,11 +2084,11 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(202))
 			Expect(versionInstance).ToNot(BeNil())
+			fmt.Fprintf(GinkgoWriter, "CreateVersionInstance() result:\n%s\n", common.ToJSON(versionInstance))
 
-			testVersionInstanceId = *versionInstance.ID
-
-			Expect(testVersionInstanceId).ToNot(BeNil())
-
+			Expect(versionInstance.ID).ToNot(BeNil())
+			testVersionInstanceID = *versionInstance.ID
+			Expect(testVersionInstanceID).ToNot(BeEmpty())
 		})
 	})
 	Describe(`GetVersionInstance - Get Version Instrance`, func() {
@@ -2089,9 +2096,10 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 			shouldSkipTest()
 		})
 		It(`GetVersionInstance(getVersionInstanceOptions *GetVersionInstanceOptions)`, func() {
+			Expect(testVersionInstanceID).ToNot(BeEmpty())
 
 			getVersionInstanceOptions := &catalogmanagementv1.GetVersionInstanceOptions{
-				InstanceIdentifier: &testVersionInstanceId,
+				InstanceIdentifier: &testVersionInstanceID,
 			}
 
 			versionInstance, response, err := catalogManagementService.GetVersionInstance(getVersionInstanceOptions)
@@ -2099,7 +2107,7 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(versionInstance).ToNot(BeNil())
-
+			fmt.Fprintf(GinkgoWriter, "GetVersionInstance() result:\n%s\n", common.ToJSON(versionInstance))
 		})
 	})
 
@@ -2108,15 +2116,16 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 			shouldSkipTest()
 		})
 		It(`PutVersionInstance(putVersionInstanceOptions *PutVersionInstanceOptions)`, func() {
+			Expect(testVersionInstanceID).ToNot(BeEmpty())
 
-			putVersionInstanceOptions := catalogManagementService.NewPutVersionInstanceOptions(testVersionInstanceId, refreshToken)
+			putVersionInstanceOptions := catalogManagementService.NewPutVersionInstanceOptions(testVersionInstanceID, refreshToken)
 
 			versionInstance, response, err := catalogManagementService.PutVersionInstance(putVersionInstanceOptions)
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(202))
 			Expect(versionInstance).ToNot(BeNil())
-
+			fmt.Fprintf(GinkgoWriter, "PutVersionInstance() result:\n%s\n", common.ToJSON(versionInstance))
 		})
 	})
 
@@ -2125,8 +2134,9 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 			shouldSkipTest()
 		})
 		It(`DeleteVersionInstance(deleteVersionInstanceOptions *DeleteVersionInstanceOptions)`, func() {
+			Expect(testVersionInstanceID).ToNot(BeEmpty())
 
-			deleteVersionInstanceOptions := catalogManagementService.NewDeleteVersionInstanceOptions(testVersionInstanceId)
+			deleteVersionInstanceOptions := catalogManagementService.NewDeleteVersionInstanceOptions(testVersionInstanceID)
 
 			response, err := catalogManagementService.DeleteVersionInstance(deleteVersionInstanceOptions)
 
@@ -2279,6 +2289,7 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 			shouldSkipTest()
 		})
 		It(`DeleteCatalog(deleteCatalogOptions *DeleteCatalogOptions)`, func() {
+			Expect(testCatalogID).ToNot(BeEmpty())
 
 			deleteCatalogOptions := &catalogmanagementv1.DeleteCatalogOptions{
 				CatalogIdentifier: &testCatalogID,
@@ -2292,7 +2303,3 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 		})
 	})
 })
-
-//
-// Utility functions are declared in the unit test file
-//
