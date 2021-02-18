@@ -172,7 +172,6 @@ var _ = Describe(`CaseManagementV1 Examples Tests`, func() {
 			getCasesOptions := caseManagementService.NewGetCasesOptions()
 			getCasesOptions.SetSearch("blocker")
 			getCasesOptions.SetSort(casemanagementv1.GetCasesOptionsFieldsUpdatedAtConst)
-			// getCasesOptions.SetStatus([]string{casemanagementv1.GetCasesOptionsStatusNewConst})
 			getCasesOptions.SetOffset(0)
 			getCasesOptions.SetLimit(100)
 
@@ -342,7 +341,6 @@ var _ = Describe(`CaseManagementV1 Examples Tests`, func() {
 			}
 			if result != nil {
 				defer result.Close()
-
 				buf := new(bytes.Buffer)
 				buf.ReadFrom(result)
 
