@@ -1,5 +1,5 @@
 /**
- * (C) Copyright IBM Corp. 2020.
+ * (C) Copyright IBM Corp. 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -222,10 +222,8 @@ var _ = Describe(`CaseManagementV1`, func() {
 
 	Describe(`GetCases(getCasesOptions *GetCasesOptions)`, func() {
 		getCasesPath := "/cases"
-		var serverSleepTime time.Duration
-		Context(`Using mock server endpoint`, func() {
+		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
-				serverSleepTime = 0
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
@@ -242,7 +240,74 @@ var _ = Describe(`CaseManagementV1`, func() {
 					Expect(req.URL.Query()["sort"]).To(Equal([]string{"number"}))
 
 					// Sleep a short time to support a timeout test
-					time.Sleep(serverSleepTime)
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"total_count": 10, "first": {"href": "Href"}, "next": {"href": "Href"}, "previous": {"href": "Href"}, "last": {"href": "Href"}, "cases": [{"number": "Number", "short_description": "ShortDescription", "description": "Description", "created_at": "CreatedAt", "created_by": {"name": "Name", "realm": "IBMid", "user_id": "abc@ibm.com"}, "updated_at": "UpdatedAt", "updated_by": {"name": "Name", "realm": "IBMid", "user_id": "abc@ibm.com"}, "contact_type": "Cloud Support Center", "contact": {"name": "Name", "realm": "IBMid", "user_id": "abc@ibm.com"}, "status": "Status", "severity": 8, "support_tier": "Free", "resolution": "Resolution", "close_notes": "CloseNotes", "eu": {"support": false, "data_center": "DataCenter"}, "watchlist": [{"name": "Name", "realm": "IBMid", "user_id": "abc@ibm.com"}], "attachments": [{"id": "ID", "filename": "Filename", "size_in_bytes": 11, "created_at": "CreatedAt", "url": "URL"}], "offering": {"name": "Name", "type": {"group": "crn_service_name", "key": "Key", "kind": "Kind", "id": "ID"}}, "resources": [{"crn": "CRN", "name": "Name", "type": "Type", "url": "URL", "note": "Note"}], "comments": [{"value": "Value", "added_at": "AddedAt", "added_by": {"name": "Name", "realm": "IBMid", "user_id": "abc@ibm.com"}}]}]}`)
+				}))
+			})
+			It(`Invoke GetCases successfully with retries`, func() {
+				caseManagementService, serviceErr := casemanagementv1.NewCaseManagementV1(&casemanagementv1.CaseManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(caseManagementService).ToNot(BeNil())
+				caseManagementService.EnableRetries(0, 0)
+
+				// Construct an instance of the GetCasesOptions model
+				getCasesOptionsModel := new(casemanagementv1.GetCasesOptions)
+				getCasesOptionsModel.Offset = core.Int64Ptr(int64(38))
+				getCasesOptionsModel.Limit = core.Int64Ptr(int64(38))
+				getCasesOptionsModel.Search = core.StringPtr("testString")
+				getCasesOptionsModel.Sort = core.StringPtr("number")
+				getCasesOptionsModel.Status = []string{"new"}
+				getCasesOptionsModel.Fields = []string{"number"}
+				getCasesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := caseManagementService.GetCasesWithContext(ctx, getCasesOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				caseManagementService.DisableRetries()
+				result, response, operationErr := caseManagementService.GetCases(getCasesOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = caseManagementService.GetCasesWithContext(ctx, getCasesOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getCasesPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					Expect(req.URL.Query()["offset"]).To(Equal([]string{fmt.Sprint(int64(38))}))
+
+					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(38))}))
+
+					Expect(req.URL.Query()["search"]).To(Equal([]string{"testString"}))
+
+					Expect(req.URL.Query()["sort"]).To(Equal([]string{"number"}))
 
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
@@ -257,7 +322,6 @@ var _ = Describe(`CaseManagementV1`, func() {
 				})
 				Expect(serviceErr).To(BeNil())
 				Expect(caseManagementService).ToNot(BeNil())
-				caseManagementService.EnableRetries(0, 0)
 
 				// Invoke operation with nil options model (negative test)
 				result, response, operationErr := caseManagementService.GetCases(nil)
@@ -281,30 +345,6 @@ var _ = Describe(`CaseManagementV1`, func() {
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
 
-				// Invoke operation with a Context to test a timeout error
-				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc()
-				serverSleepTime = 100 * time.Millisecond
-				_, _, operationErr = caseManagementService.GetCasesWithContext(ctx, getCasesOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-				serverSleepTime = time.Duration(0)
-
-				// Disable retries and test again
-				caseManagementService.DisableRetries()
-				result, response, operationErr = caseManagementService.GetCases(getCasesOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).ToNot(BeNil())
-
-				// Re-test the timeout error with retries disabled
-				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc2()
-				serverSleepTime = 100 * time.Millisecond
-				_, _, operationErr = caseManagementService.GetCasesWithContext(ctx, getCasesOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-				serverSleepTime = time.Duration(0)
 			})
 			It(`Invoke GetCases with error: Operation request error`, func() {
 				caseManagementService, serviceErr := casemanagementv1.NewCaseManagementV1(&casemanagementv1.CaseManagementV1Options{
@@ -423,10 +463,8 @@ var _ = Describe(`CaseManagementV1`, func() {
 
 	Describe(`CreateCase(createCaseOptions *CreateCaseOptions)`, func() {
 		createCasePath := "/cases"
-		var serverSleepTime time.Duration
-		Context(`Using mock server endpoint`, func() {
+		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
-				serverSleepTime = 0
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
@@ -451,7 +489,115 @@ var _ = Describe(`CaseManagementV1`, func() {
 					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
 
 					// Sleep a short time to support a timeout test
-					time.Sleep(serverSleepTime)
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"number": "Number", "short_description": "ShortDescription", "description": "Description", "created_at": "CreatedAt", "created_by": {"name": "Name", "realm": "IBMid", "user_id": "abc@ibm.com"}, "updated_at": "UpdatedAt", "updated_by": {"name": "Name", "realm": "IBMid", "user_id": "abc@ibm.com"}, "contact_type": "Cloud Support Center", "contact": {"name": "Name", "realm": "IBMid", "user_id": "abc@ibm.com"}, "status": "Status", "severity": 8, "support_tier": "Free", "resolution": "Resolution", "close_notes": "CloseNotes", "eu": {"support": false, "data_center": "DataCenter"}, "watchlist": [{"name": "Name", "realm": "IBMid", "user_id": "abc@ibm.com"}], "attachments": [{"id": "ID", "filename": "Filename", "size_in_bytes": 11, "created_at": "CreatedAt", "url": "URL"}], "offering": {"name": "Name", "type": {"group": "crn_service_name", "key": "Key", "kind": "Kind", "id": "ID"}}, "resources": [{"crn": "CRN", "name": "Name", "type": "Type", "url": "URL", "note": "Note"}], "comments": [{"value": "Value", "added_at": "AddedAt", "added_by": {"name": "Name", "realm": "IBMid", "user_id": "abc@ibm.com"}}]}`)
+				}))
+			})
+			It(`Invoke CreateCase successfully with retries`, func() {
+				caseManagementService, serviceErr := casemanagementv1.NewCaseManagementV1(&casemanagementv1.CaseManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(caseManagementService).ToNot(BeNil())
+				caseManagementService.EnableRetries(0, 0)
+
+				// Construct an instance of the CasePayloadEu model
+				casePayloadEuModel := new(casemanagementv1.CasePayloadEu)
+				casePayloadEuModel.Supported = core.BoolPtr(true)
+				casePayloadEuModel.DataCenter = core.Int64Ptr(int64(38))
+
+				// Construct an instance of the OfferingType model
+				offeringTypeModel := new(casemanagementv1.OfferingType)
+				offeringTypeModel.Group = core.StringPtr("crn_service_name")
+				offeringTypeModel.Key = core.StringPtr("testString")
+				offeringTypeModel.Kind = core.StringPtr("testString")
+				offeringTypeModel.ID = core.StringPtr("testString")
+
+				// Construct an instance of the Offering model
+				offeringModel := new(casemanagementv1.Offering)
+				offeringModel.Name = core.StringPtr("testString")
+				offeringModel.Type = offeringTypeModel
+
+				// Construct an instance of the ResourcePayload model
+				resourcePayloadModel := new(casemanagementv1.ResourcePayload)
+				resourcePayloadModel.CRN = core.StringPtr("testString")
+				resourcePayloadModel.Type = core.StringPtr("testString")
+				resourcePayloadModel.ID = core.Float64Ptr(float64(72.5))
+				resourcePayloadModel.Note = core.StringPtr("testString")
+
+				// Construct an instance of the User model
+				userModel := new(casemanagementv1.User)
+				userModel.Realm = core.StringPtr("IBMid")
+				userModel.UserID = core.StringPtr("abc@ibm.com")
+
+				// Construct an instance of the CreateCaseOptions model
+				createCaseOptionsModel := new(casemanagementv1.CreateCaseOptions)
+				createCaseOptionsModel.Type = core.StringPtr("technical")
+				createCaseOptionsModel.Subject = core.StringPtr("testString")
+				createCaseOptionsModel.Description = core.StringPtr("testString")
+				createCaseOptionsModel.Severity = core.Int64Ptr(int64(1))
+				createCaseOptionsModel.Eu = casePayloadEuModel
+				createCaseOptionsModel.Offering = offeringModel
+				createCaseOptionsModel.Resources = []casemanagementv1.ResourcePayload{*resourcePayloadModel}
+				createCaseOptionsModel.Watchlist = []casemanagementv1.User{*userModel}
+				createCaseOptionsModel.InvoiceNumber = core.StringPtr("testString")
+				createCaseOptionsModel.SLACreditRequest = core.BoolPtr(true)
+				createCaseOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := caseManagementService.CreateCaseWithContext(ctx, createCaseOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				caseManagementService.DisableRetries()
+				result, response, operationErr := caseManagementService.CreateCase(createCaseOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = caseManagementService.CreateCaseWithContext(ctx, createCaseOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(createCasePath))
+					Expect(req.Method).To(Equal("POST"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
 
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
@@ -466,7 +612,6 @@ var _ = Describe(`CaseManagementV1`, func() {
 				})
 				Expect(serviceErr).To(BeNil())
 				Expect(caseManagementService).ToNot(BeNil())
-				caseManagementService.EnableRetries(0, 0)
 
 				// Invoke operation with nil options model (negative test)
 				result, response, operationErr := caseManagementService.CreateCase(nil)
@@ -523,30 +668,6 @@ var _ = Describe(`CaseManagementV1`, func() {
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
 
-				// Invoke operation with a Context to test a timeout error
-				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc()
-				serverSleepTime = 100 * time.Millisecond
-				_, _, operationErr = caseManagementService.CreateCaseWithContext(ctx, createCaseOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-				serverSleepTime = time.Duration(0)
-
-				// Disable retries and test again
-				caseManagementService.DisableRetries()
-				result, response, operationErr = caseManagementService.CreateCase(createCaseOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).ToNot(BeNil())
-
-				// Re-test the timeout error with retries disabled
-				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc2()
-				serverSleepTime = 100 * time.Millisecond
-				_, _, operationErr = caseManagementService.CreateCaseWithContext(ctx, createCaseOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-				serverSleepTime = time.Duration(0)
 			})
 			It(`Invoke CreateCase with error: Operation validation and request error`, func() {
 				caseManagementService, serviceErr := casemanagementv1.NewCaseManagementV1(&casemanagementv1.CaseManagementV1Options{
@@ -668,10 +789,8 @@ var _ = Describe(`CaseManagementV1`, func() {
 
 	Describe(`GetCase(getCaseOptions *GetCaseOptions)`, func() {
 		getCasePath := "/cases/testString"
-		var serverSleepTime time.Duration
-		Context(`Using mock server endpoint`, func() {
+		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
-				serverSleepTime = 0
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
@@ -680,7 +799,62 @@ var _ = Describe(`CaseManagementV1`, func() {
 					Expect(req.Method).To(Equal("GET"))
 
 					// Sleep a short time to support a timeout test
-					time.Sleep(serverSleepTime)
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"number": "Number", "short_description": "ShortDescription", "description": "Description", "created_at": "CreatedAt", "created_by": {"name": "Name", "realm": "IBMid", "user_id": "abc@ibm.com"}, "updated_at": "UpdatedAt", "updated_by": {"name": "Name", "realm": "IBMid", "user_id": "abc@ibm.com"}, "contact_type": "Cloud Support Center", "contact": {"name": "Name", "realm": "IBMid", "user_id": "abc@ibm.com"}, "status": "Status", "severity": 8, "support_tier": "Free", "resolution": "Resolution", "close_notes": "CloseNotes", "eu": {"support": false, "data_center": "DataCenter"}, "watchlist": [{"name": "Name", "realm": "IBMid", "user_id": "abc@ibm.com"}], "attachments": [{"id": "ID", "filename": "Filename", "size_in_bytes": 11, "created_at": "CreatedAt", "url": "URL"}], "offering": {"name": "Name", "type": {"group": "crn_service_name", "key": "Key", "kind": "Kind", "id": "ID"}}, "resources": [{"crn": "CRN", "name": "Name", "type": "Type", "url": "URL", "note": "Note"}], "comments": [{"value": "Value", "added_at": "AddedAt", "added_by": {"name": "Name", "realm": "IBMid", "user_id": "abc@ibm.com"}}]}`)
+				}))
+			})
+			It(`Invoke GetCase successfully with retries`, func() {
+				caseManagementService, serviceErr := casemanagementv1.NewCaseManagementV1(&casemanagementv1.CaseManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(caseManagementService).ToNot(BeNil())
+				caseManagementService.EnableRetries(0, 0)
+
+				// Construct an instance of the GetCaseOptions model
+				getCaseOptionsModel := new(casemanagementv1.GetCaseOptions)
+				getCaseOptionsModel.CaseNumber = core.StringPtr("testString")
+				getCaseOptionsModel.Fields = []string{"number"}
+				getCaseOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := caseManagementService.GetCaseWithContext(ctx, getCaseOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				caseManagementService.DisableRetries()
+				result, response, operationErr := caseManagementService.GetCase(getCaseOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = caseManagementService.GetCaseWithContext(ctx, getCaseOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getCasePath))
+					Expect(req.Method).To(Equal("GET"))
 
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
@@ -695,7 +869,6 @@ var _ = Describe(`CaseManagementV1`, func() {
 				})
 				Expect(serviceErr).To(BeNil())
 				Expect(caseManagementService).ToNot(BeNil())
-				caseManagementService.EnableRetries(0, 0)
 
 				// Invoke operation with nil options model (negative test)
 				result, response, operationErr := caseManagementService.GetCase(nil)
@@ -715,30 +888,6 @@ var _ = Describe(`CaseManagementV1`, func() {
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
 
-				// Invoke operation with a Context to test a timeout error
-				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc()
-				serverSleepTime = 100 * time.Millisecond
-				_, _, operationErr = caseManagementService.GetCaseWithContext(ctx, getCaseOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-				serverSleepTime = time.Duration(0)
-
-				// Disable retries and test again
-				caseManagementService.DisableRetries()
-				result, response, operationErr = caseManagementService.GetCase(getCaseOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).ToNot(BeNil())
-
-				// Re-test the timeout error with retries disabled
-				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc2()
-				serverSleepTime = 100 * time.Millisecond
-				_, _, operationErr = caseManagementService.GetCaseWithContext(ctx, getCaseOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-				serverSleepTime = time.Duration(0)
 			})
 			It(`Invoke GetCase with error: Operation validation and request error`, func() {
 				caseManagementService, serviceErr := casemanagementv1.NewCaseManagementV1(&casemanagementv1.CaseManagementV1Options{
@@ -829,10 +978,8 @@ var _ = Describe(`CaseManagementV1`, func() {
 
 	Describe(`UpdateCaseStatus(updateCaseStatusOptions *UpdateCaseStatusOptions)`, func() {
 		updateCaseStatusPath := "/cases/testString/status"
-		var serverSleepTime time.Duration
-		Context(`Using mock server endpoint`, func() {
+		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
-				serverSleepTime = 0
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
@@ -857,7 +1004,84 @@ var _ = Describe(`CaseManagementV1`, func() {
 					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
 
 					// Sleep a short time to support a timeout test
-					time.Sleep(serverSleepTime)
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"number": "Number", "short_description": "ShortDescription", "description": "Description", "created_at": "CreatedAt", "created_by": {"name": "Name", "realm": "IBMid", "user_id": "abc@ibm.com"}, "updated_at": "UpdatedAt", "updated_by": {"name": "Name", "realm": "IBMid", "user_id": "abc@ibm.com"}, "contact_type": "Cloud Support Center", "contact": {"name": "Name", "realm": "IBMid", "user_id": "abc@ibm.com"}, "status": "Status", "severity": 8, "support_tier": "Free", "resolution": "Resolution", "close_notes": "CloseNotes", "eu": {"support": false, "data_center": "DataCenter"}, "watchlist": [{"name": "Name", "realm": "IBMid", "user_id": "abc@ibm.com"}], "attachments": [{"id": "ID", "filename": "Filename", "size_in_bytes": 11, "created_at": "CreatedAt", "url": "URL"}], "offering": {"name": "Name", "type": {"group": "crn_service_name", "key": "Key", "kind": "Kind", "id": "ID"}}, "resources": [{"crn": "CRN", "name": "Name", "type": "Type", "url": "URL", "note": "Note"}], "comments": [{"value": "Value", "added_at": "AddedAt", "added_by": {"name": "Name", "realm": "IBMid", "user_id": "abc@ibm.com"}}]}`)
+				}))
+			})
+			It(`Invoke UpdateCaseStatus successfully with retries`, func() {
+				caseManagementService, serviceErr := casemanagementv1.NewCaseManagementV1(&casemanagementv1.CaseManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(caseManagementService).ToNot(BeNil())
+				caseManagementService.EnableRetries(0, 0)
+
+				// Construct an instance of the ResolvePayload model
+				statusPayloadModel := new(casemanagementv1.ResolvePayload)
+				statusPayloadModel.Action = core.StringPtr("resolve")
+				statusPayloadModel.Comment = core.StringPtr("It was actually a mistake")
+				statusPayloadModel.ResolutionCode = core.Int64Ptr(int64(1))
+
+				// Construct an instance of the UpdateCaseStatusOptions model
+				updateCaseStatusOptionsModel := new(casemanagementv1.UpdateCaseStatusOptions)
+				updateCaseStatusOptionsModel.CaseNumber = core.StringPtr("testString")
+				updateCaseStatusOptionsModel.StatusPayload = statusPayloadModel
+				updateCaseStatusOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := caseManagementService.UpdateCaseStatusWithContext(ctx, updateCaseStatusOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				caseManagementService.DisableRetries()
+				result, response, operationErr := caseManagementService.UpdateCaseStatus(updateCaseStatusOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = caseManagementService.UpdateCaseStatusWithContext(ctx, updateCaseStatusOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(updateCaseStatusPath))
+					Expect(req.Method).To(Equal("PUT"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
 
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
@@ -872,7 +1096,6 @@ var _ = Describe(`CaseManagementV1`, func() {
 				})
 				Expect(serviceErr).To(BeNil())
 				Expect(caseManagementService).ToNot(BeNil())
-				caseManagementService.EnableRetries(0, 0)
 
 				// Invoke operation with nil options model (negative test)
 				result, response, operationErr := caseManagementService.UpdateCaseStatus(nil)
@@ -898,30 +1121,6 @@ var _ = Describe(`CaseManagementV1`, func() {
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
 
-				// Invoke operation with a Context to test a timeout error
-				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc()
-				serverSleepTime = 100 * time.Millisecond
-				_, _, operationErr = caseManagementService.UpdateCaseStatusWithContext(ctx, updateCaseStatusOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-				serverSleepTime = time.Duration(0)
-
-				// Disable retries and test again
-				caseManagementService.DisableRetries()
-				result, response, operationErr = caseManagementService.UpdateCaseStatus(updateCaseStatusOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).ToNot(BeNil())
-
-				// Re-test the timeout error with retries disabled
-				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc2()
-				serverSleepTime = 100 * time.Millisecond
-				_, _, operationErr = caseManagementService.UpdateCaseStatusWithContext(ctx, updateCaseStatusOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-				serverSleepTime = time.Duration(0)
 			})
 			It(`Invoke UpdateCaseStatus with error: Operation validation and request error`, func() {
 				caseManagementService, serviceErr := casemanagementv1.NewCaseManagementV1(&casemanagementv1.CaseManagementV1Options{
@@ -1012,10 +1211,8 @@ var _ = Describe(`CaseManagementV1`, func() {
 
 	Describe(`AddComment(addCommentOptions *AddCommentOptions)`, func() {
 		addCommentPath := "/cases/testString/comments"
-		var serverSleepTime time.Duration
-		Context(`Using mock server endpoint`, func() {
+		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
-				serverSleepTime = 0
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
@@ -1040,7 +1237,78 @@ var _ = Describe(`CaseManagementV1`, func() {
 					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
 
 					// Sleep a short time to support a timeout test
-					time.Sleep(serverSleepTime)
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"value": "Value", "added_at": "AddedAt", "added_by": {"name": "Name", "realm": "IBMid", "user_id": "abc@ibm.com"}}`)
+				}))
+			})
+			It(`Invoke AddComment successfully with retries`, func() {
+				caseManagementService, serviceErr := casemanagementv1.NewCaseManagementV1(&casemanagementv1.CaseManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(caseManagementService).ToNot(BeNil())
+				caseManagementService.EnableRetries(0, 0)
+
+				// Construct an instance of the AddCommentOptions model
+				addCommentOptionsModel := new(casemanagementv1.AddCommentOptions)
+				addCommentOptionsModel.CaseNumber = core.StringPtr("testString")
+				addCommentOptionsModel.Comment = core.StringPtr("This is a test comment")
+				addCommentOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := caseManagementService.AddCommentWithContext(ctx, addCommentOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				caseManagementService.DisableRetries()
+				result, response, operationErr := caseManagementService.AddComment(addCommentOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = caseManagementService.AddCommentWithContext(ctx, addCommentOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(addCommentPath))
+					Expect(req.Method).To(Equal("PUT"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
 
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
@@ -1055,7 +1323,6 @@ var _ = Describe(`CaseManagementV1`, func() {
 				})
 				Expect(serviceErr).To(BeNil())
 				Expect(caseManagementService).ToNot(BeNil())
-				caseManagementService.EnableRetries(0, 0)
 
 				// Invoke operation with nil options model (negative test)
 				result, response, operationErr := caseManagementService.AddComment(nil)
@@ -1075,30 +1342,6 @@ var _ = Describe(`CaseManagementV1`, func() {
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
 
-				// Invoke operation with a Context to test a timeout error
-				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc()
-				serverSleepTime = 100 * time.Millisecond
-				_, _, operationErr = caseManagementService.AddCommentWithContext(ctx, addCommentOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-				serverSleepTime = time.Duration(0)
-
-				// Disable retries and test again
-				caseManagementService.DisableRetries()
-				result, response, operationErr = caseManagementService.AddComment(addCommentOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).ToNot(BeNil())
-
-				// Re-test the timeout error with retries disabled
-				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc2()
-				serverSleepTime = 100 * time.Millisecond
-				_, _, operationErr = caseManagementService.AddCommentWithContext(ctx, addCommentOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-				serverSleepTime = time.Duration(0)
 			})
 			It(`Invoke AddComment with error: Operation validation and request error`, func() {
 				caseManagementService, serviceErr := casemanagementv1.NewCaseManagementV1(&casemanagementv1.CaseManagementV1Options{
@@ -1188,10 +1431,8 @@ var _ = Describe(`CaseManagementV1`, func() {
 
 	Describe(`AddWatchlist(addWatchlistOptions *AddWatchlistOptions)`, func() {
 		addWatchlistPath := "/cases/testString/watchlist"
-		var serverSleepTime time.Duration
-		Context(`Using mock server endpoint`, func() {
+		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
-				serverSleepTime = 0
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
@@ -1216,7 +1457,83 @@ var _ = Describe(`CaseManagementV1`, func() {
 					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
 
 					// Sleep a short time to support a timeout test
-					time.Sleep(serverSleepTime)
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"added": [{"name": "Name", "realm": "IBMid", "user_id": "abc@ibm.com"}], "failed": [{"name": "Name", "realm": "IBMid", "user_id": "abc@ibm.com"}]}`)
+				}))
+			})
+			It(`Invoke AddWatchlist successfully with retries`, func() {
+				caseManagementService, serviceErr := casemanagementv1.NewCaseManagementV1(&casemanagementv1.CaseManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(caseManagementService).ToNot(BeNil())
+				caseManagementService.EnableRetries(0, 0)
+
+				// Construct an instance of the User model
+				userModel := new(casemanagementv1.User)
+				userModel.Realm = core.StringPtr("IBMid")
+				userModel.UserID = core.StringPtr("abc@ibm.com")
+
+				// Construct an instance of the AddWatchlistOptions model
+				addWatchlistOptionsModel := new(casemanagementv1.AddWatchlistOptions)
+				addWatchlistOptionsModel.CaseNumber = core.StringPtr("testString")
+				addWatchlistOptionsModel.Watchlist = []casemanagementv1.User{*userModel}
+				addWatchlistOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := caseManagementService.AddWatchlistWithContext(ctx, addWatchlistOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				caseManagementService.DisableRetries()
+				result, response, operationErr := caseManagementService.AddWatchlist(addWatchlistOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = caseManagementService.AddWatchlistWithContext(ctx, addWatchlistOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(addWatchlistPath))
+					Expect(req.Method).To(Equal("PUT"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
 
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
@@ -1231,7 +1548,6 @@ var _ = Describe(`CaseManagementV1`, func() {
 				})
 				Expect(serviceErr).To(BeNil())
 				Expect(caseManagementService).ToNot(BeNil())
-				caseManagementService.EnableRetries(0, 0)
 
 				// Invoke operation with nil options model (negative test)
 				result, response, operationErr := caseManagementService.AddWatchlist(nil)
@@ -1256,30 +1572,6 @@ var _ = Describe(`CaseManagementV1`, func() {
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
 
-				// Invoke operation with a Context to test a timeout error
-				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc()
-				serverSleepTime = 100 * time.Millisecond
-				_, _, operationErr = caseManagementService.AddWatchlistWithContext(ctx, addWatchlistOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-				serverSleepTime = time.Duration(0)
-
-				// Disable retries and test again
-				caseManagementService.DisableRetries()
-				result, response, operationErr = caseManagementService.AddWatchlist(addWatchlistOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).ToNot(BeNil())
-
-				// Re-test the timeout error with retries disabled
-				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc2()
-				serverSleepTime = 100 * time.Millisecond
-				_, _, operationErr = caseManagementService.AddWatchlistWithContext(ctx, addWatchlistOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-				serverSleepTime = time.Duration(0)
 			})
 			It(`Invoke AddWatchlist with error: Operation validation and request error`, func() {
 				caseManagementService, serviceErr := casemanagementv1.NewCaseManagementV1(&casemanagementv1.CaseManagementV1Options{
@@ -1374,10 +1666,8 @@ var _ = Describe(`CaseManagementV1`, func() {
 
 	Describe(`RemoveWatchlist(removeWatchlistOptions *RemoveWatchlistOptions)`, func() {
 		removeWatchlistPath := "/cases/testString/watchlist"
-		var serverSleepTime time.Duration
-		Context(`Using mock server endpoint`, func() {
+		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
-				serverSleepTime = 0
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
@@ -1402,7 +1692,83 @@ var _ = Describe(`CaseManagementV1`, func() {
 					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
 
 					// Sleep a short time to support a timeout test
-					time.Sleep(serverSleepTime)
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"watchlist": [{"name": "Name", "realm": "IBMid", "user_id": "abc@ibm.com"}]}`)
+				}))
+			})
+			It(`Invoke RemoveWatchlist successfully with retries`, func() {
+				caseManagementService, serviceErr := casemanagementv1.NewCaseManagementV1(&casemanagementv1.CaseManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(caseManagementService).ToNot(BeNil())
+				caseManagementService.EnableRetries(0, 0)
+
+				// Construct an instance of the User model
+				userModel := new(casemanagementv1.User)
+				userModel.Realm = core.StringPtr("IBMid")
+				userModel.UserID = core.StringPtr("abc@ibm.com")
+
+				// Construct an instance of the RemoveWatchlistOptions model
+				removeWatchlistOptionsModel := new(casemanagementv1.RemoveWatchlistOptions)
+				removeWatchlistOptionsModel.CaseNumber = core.StringPtr("testString")
+				removeWatchlistOptionsModel.Watchlist = []casemanagementv1.User{*userModel}
+				removeWatchlistOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := caseManagementService.RemoveWatchlistWithContext(ctx, removeWatchlistOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				caseManagementService.DisableRetries()
+				result, response, operationErr := caseManagementService.RemoveWatchlist(removeWatchlistOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = caseManagementService.RemoveWatchlistWithContext(ctx, removeWatchlistOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(removeWatchlistPath))
+					Expect(req.Method).To(Equal("DELETE"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
 
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
@@ -1417,7 +1783,6 @@ var _ = Describe(`CaseManagementV1`, func() {
 				})
 				Expect(serviceErr).To(BeNil())
 				Expect(caseManagementService).ToNot(BeNil())
-				caseManagementService.EnableRetries(0, 0)
 
 				// Invoke operation with nil options model (negative test)
 				result, response, operationErr := caseManagementService.RemoveWatchlist(nil)
@@ -1442,30 +1807,6 @@ var _ = Describe(`CaseManagementV1`, func() {
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
 
-				// Invoke operation with a Context to test a timeout error
-				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc()
-				serverSleepTime = 100 * time.Millisecond
-				_, _, operationErr = caseManagementService.RemoveWatchlistWithContext(ctx, removeWatchlistOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-				serverSleepTime = time.Duration(0)
-
-				// Disable retries and test again
-				caseManagementService.DisableRetries()
-				result, response, operationErr = caseManagementService.RemoveWatchlist(removeWatchlistOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).ToNot(BeNil())
-
-				// Re-test the timeout error with retries disabled
-				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc2()
-				serverSleepTime = 100 * time.Millisecond
-				_, _, operationErr = caseManagementService.RemoveWatchlistWithContext(ctx, removeWatchlistOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-				serverSleepTime = time.Duration(0)
 			})
 			It(`Invoke RemoveWatchlist with error: Operation validation and request error`, func() {
 				caseManagementService, serviceErr := casemanagementv1.NewCaseManagementV1(&casemanagementv1.CaseManagementV1Options{
@@ -1558,10 +1899,8 @@ var _ = Describe(`CaseManagementV1`, func() {
 
 	Describe(`AddResource(addResourceOptions *AddResourceOptions)`, func() {
 		addResourcePath := "/cases/testString/resources"
-		var serverSleepTime time.Duration
-		Context(`Using mock server endpoint`, func() {
+		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
-				serverSleepTime = 0
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
@@ -1586,7 +1925,81 @@ var _ = Describe(`CaseManagementV1`, func() {
 					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
 
 					// Sleep a short time to support a timeout test
-					time.Sleep(serverSleepTime)
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"crn": "CRN", "name": "Name", "type": "Type", "url": "URL", "note": "Note"}`)
+				}))
+			})
+			It(`Invoke AddResource successfully with retries`, func() {
+				caseManagementService, serviceErr := casemanagementv1.NewCaseManagementV1(&casemanagementv1.CaseManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(caseManagementService).ToNot(BeNil())
+				caseManagementService.EnableRetries(0, 0)
+
+				// Construct an instance of the AddResourceOptions model
+				addResourceOptionsModel := new(casemanagementv1.AddResourceOptions)
+				addResourceOptionsModel.CaseNumber = core.StringPtr("testString")
+				addResourceOptionsModel.CRN = core.StringPtr("testString")
+				addResourceOptionsModel.Type = core.StringPtr("testString")
+				addResourceOptionsModel.ID = core.Float64Ptr(float64(72.5))
+				addResourceOptionsModel.Note = core.StringPtr("testString")
+				addResourceOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := caseManagementService.AddResourceWithContext(ctx, addResourceOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				caseManagementService.DisableRetries()
+				result, response, operationErr := caseManagementService.AddResource(addResourceOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = caseManagementService.AddResourceWithContext(ctx, addResourceOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(addResourcePath))
+					Expect(req.Method).To(Equal("PUT"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
 
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
@@ -1601,7 +2014,6 @@ var _ = Describe(`CaseManagementV1`, func() {
 				})
 				Expect(serviceErr).To(BeNil())
 				Expect(caseManagementService).ToNot(BeNil())
-				caseManagementService.EnableRetries(0, 0)
 
 				// Invoke operation with nil options model (negative test)
 				result, response, operationErr := caseManagementService.AddResource(nil)
@@ -1624,30 +2036,6 @@ var _ = Describe(`CaseManagementV1`, func() {
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
 
-				// Invoke operation with a Context to test a timeout error
-				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc()
-				serverSleepTime = 100 * time.Millisecond
-				_, _, operationErr = caseManagementService.AddResourceWithContext(ctx, addResourceOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-				serverSleepTime = time.Duration(0)
-
-				// Disable retries and test again
-				caseManagementService.DisableRetries()
-				result, response, operationErr = caseManagementService.AddResource(addResourceOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).ToNot(BeNil())
-
-				// Re-test the timeout error with retries disabled
-				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc2()
-				serverSleepTime = 100 * time.Millisecond
-				_, _, operationErr = caseManagementService.AddResourceWithContext(ctx, addResourceOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-				serverSleepTime = time.Duration(0)
 			})
 			It(`Invoke AddResource with error: Operation validation and request error`, func() {
 				caseManagementService, serviceErr := casemanagementv1.NewCaseManagementV1(&casemanagementv1.CaseManagementV1Options{
@@ -1735,10 +2123,8 @@ var _ = Describe(`CaseManagementV1`, func() {
 
 	Describe(`UploadFile(uploadFileOptions *UploadFileOptions)`, func() {
 		uploadFilePath := "/cases/testString/attachments"
-		var serverSleepTime time.Duration
-		Context(`Using mock server endpoint`, func() {
+		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
-				serverSleepTime = 0
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
@@ -1747,7 +2133,62 @@ var _ = Describe(`CaseManagementV1`, func() {
 					Expect(req.Method).To(Equal("PUT"))
 
 					// Sleep a short time to support a timeout test
-					time.Sleep(serverSleepTime)
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "filename": "Filename", "size_in_bytes": 11, "created_at": "CreatedAt", "url": "URL"}`)
+				}))
+			})
+			It(`Invoke UploadFile successfully with retries`, func() {
+				caseManagementService, serviceErr := casemanagementv1.NewCaseManagementV1(&casemanagementv1.CaseManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(caseManagementService).ToNot(BeNil())
+				caseManagementService.EnableRetries(0, 0)
+
+				// Construct an instance of the UploadFileOptions model
+				uploadFileOptionsModel := new(casemanagementv1.UploadFileOptions)
+				uploadFileOptionsModel.CaseNumber = core.StringPtr("testString")
+				uploadFileOptionsModel.File = []casemanagementv1.FileWithMetadata{casemanagementv1.FileWithMetadata{Data: CreateMockReader("This is a mock file."), Filename: core.StringPtr("mockfilename.txt")}}
+				uploadFileOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := caseManagementService.UploadFileWithContext(ctx, uploadFileOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				caseManagementService.DisableRetries()
+				result, response, operationErr := caseManagementService.UploadFile(uploadFileOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = caseManagementService.UploadFileWithContext(ctx, uploadFileOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(uploadFilePath))
+					Expect(req.Method).To(Equal("PUT"))
 
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
@@ -1762,7 +2203,6 @@ var _ = Describe(`CaseManagementV1`, func() {
 				})
 				Expect(serviceErr).To(BeNil())
 				Expect(caseManagementService).ToNot(BeNil())
-				caseManagementService.EnableRetries(0, 0)
 
 				// Invoke operation with nil options model (negative test)
 				result, response, operationErr := caseManagementService.UploadFile(nil)
@@ -1782,30 +2222,6 @@ var _ = Describe(`CaseManagementV1`, func() {
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
 
-				// Invoke operation with a Context to test a timeout error
-				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc()
-				serverSleepTime = 100 * time.Millisecond
-				_, _, operationErr = caseManagementService.UploadFileWithContext(ctx, uploadFileOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-				serverSleepTime = time.Duration(0)
-
-				// Disable retries and test again
-				caseManagementService.DisableRetries()
-				result, response, operationErr = caseManagementService.UploadFile(uploadFileOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).ToNot(BeNil())
-
-				// Re-test the timeout error with retries disabled
-				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc2()
-				serverSleepTime = 100 * time.Millisecond
-				_, _, operationErr = caseManagementService.UploadFileWithContext(ctx, uploadFileOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-				serverSleepTime = time.Duration(0)
 			})
 			It(`Invoke UploadFile with error: Operation validation and request error`, func() {
 				caseManagementService, serviceErr := casemanagementv1.NewCaseManagementV1(&casemanagementv1.CaseManagementV1Options{
@@ -1844,10 +2260,8 @@ var _ = Describe(`CaseManagementV1`, func() {
 
 	Describe(`DownloadFile(downloadFileOptions *DownloadFileOptions)`, func() {
 		downloadFilePath := "/cases/testString/attachments/testString"
-		var serverSleepTime time.Duration
-		Context(`Using mock server endpoint`, func() {
+		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
-				serverSleepTime = 0
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
@@ -1856,7 +2270,62 @@ var _ = Describe(`CaseManagementV1`, func() {
 					Expect(req.Method).To(Equal("GET"))
 
 					// Sleep a short time to support a timeout test
-					time.Sleep(serverSleepTime)
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/octet-stream")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `This is a mock binary response.`)
+				}))
+			})
+			It(`Invoke DownloadFile successfully with retries`, func() {
+				caseManagementService, serviceErr := casemanagementv1.NewCaseManagementV1(&casemanagementv1.CaseManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(caseManagementService).ToNot(BeNil())
+				caseManagementService.EnableRetries(0, 0)
+
+				// Construct an instance of the DownloadFileOptions model
+				downloadFileOptionsModel := new(casemanagementv1.DownloadFileOptions)
+				downloadFileOptionsModel.CaseNumber = core.StringPtr("testString")
+				downloadFileOptionsModel.FileID = core.StringPtr("testString")
+				downloadFileOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := caseManagementService.DownloadFileWithContext(ctx, downloadFileOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				caseManagementService.DisableRetries()
+				result, response, operationErr := caseManagementService.DownloadFile(downloadFileOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = caseManagementService.DownloadFileWithContext(ctx, downloadFileOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(downloadFilePath))
+					Expect(req.Method).To(Equal("GET"))
 
 					// Set mock response
 					res.Header().Set("Content-type", "application/octet-stream")
@@ -1871,7 +2340,6 @@ var _ = Describe(`CaseManagementV1`, func() {
 				})
 				Expect(serviceErr).To(BeNil())
 				Expect(caseManagementService).ToNot(BeNil())
-				caseManagementService.EnableRetries(0, 0)
 
 				// Invoke operation with nil options model (negative test)
 				result, response, operationErr := caseManagementService.DownloadFile(nil)
@@ -1891,30 +2359,6 @@ var _ = Describe(`CaseManagementV1`, func() {
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
 
-				// Invoke operation with a Context to test a timeout error
-				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc()
-				serverSleepTime = 100 * time.Millisecond
-				_, _, operationErr = caseManagementService.DownloadFileWithContext(ctx, downloadFileOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-				serverSleepTime = time.Duration(0)
-
-				// Disable retries and test again
-				caseManagementService.DisableRetries()
-				result, response, operationErr = caseManagementService.DownloadFile(downloadFileOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).ToNot(BeNil())
-
-				// Re-test the timeout error with retries disabled
-				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc2()
-				serverSleepTime = 100 * time.Millisecond
-				_, _, operationErr = caseManagementService.DownloadFileWithContext(ctx, downloadFileOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-				serverSleepTime = time.Duration(0)
 			})
 			It(`Invoke DownloadFile with error: Operation validation and request error`, func() {
 				caseManagementService, serviceErr := casemanagementv1.NewCaseManagementV1(&casemanagementv1.CaseManagementV1Options{
@@ -1999,10 +2443,8 @@ var _ = Describe(`CaseManagementV1`, func() {
 
 	Describe(`DeleteFile(deleteFileOptions *DeleteFileOptions)`, func() {
 		deleteFilePath := "/cases/testString/attachments/testString"
-		var serverSleepTime time.Duration
-		Context(`Using mock server endpoint`, func() {
+		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
-				serverSleepTime = 0
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
@@ -2011,7 +2453,62 @@ var _ = Describe(`CaseManagementV1`, func() {
 					Expect(req.Method).To(Equal("DELETE"))
 
 					// Sleep a short time to support a timeout test
-					time.Sleep(serverSleepTime)
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"attachments": [{"id": "ID", "filename": "Filename", "size_in_bytes": 11, "created_at": "CreatedAt", "url": "URL"}]}`)
+				}))
+			})
+			It(`Invoke DeleteFile successfully with retries`, func() {
+				caseManagementService, serviceErr := casemanagementv1.NewCaseManagementV1(&casemanagementv1.CaseManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(caseManagementService).ToNot(BeNil())
+				caseManagementService.EnableRetries(0, 0)
+
+				// Construct an instance of the DeleteFileOptions model
+				deleteFileOptionsModel := new(casemanagementv1.DeleteFileOptions)
+				deleteFileOptionsModel.CaseNumber = core.StringPtr("testString")
+				deleteFileOptionsModel.FileID = core.StringPtr("testString")
+				deleteFileOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := caseManagementService.DeleteFileWithContext(ctx, deleteFileOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				caseManagementService.DisableRetries()
+				result, response, operationErr := caseManagementService.DeleteFile(deleteFileOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = caseManagementService.DeleteFileWithContext(ctx, deleteFileOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(deleteFilePath))
+					Expect(req.Method).To(Equal("DELETE"))
 
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
@@ -2026,7 +2523,6 @@ var _ = Describe(`CaseManagementV1`, func() {
 				})
 				Expect(serviceErr).To(BeNil())
 				Expect(caseManagementService).ToNot(BeNil())
-				caseManagementService.EnableRetries(0, 0)
 
 				// Invoke operation with nil options model (negative test)
 				result, response, operationErr := caseManagementService.DeleteFile(nil)
@@ -2046,30 +2542,6 @@ var _ = Describe(`CaseManagementV1`, func() {
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
 
-				// Invoke operation with a Context to test a timeout error
-				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc()
-				serverSleepTime = 100 * time.Millisecond
-				_, _, operationErr = caseManagementService.DeleteFileWithContext(ctx, deleteFileOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-				serverSleepTime = time.Duration(0)
-
-				// Disable retries and test again
-				caseManagementService.DisableRetries()
-				result, response, operationErr = caseManagementService.DeleteFile(deleteFileOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).ToNot(BeNil())
-
-				// Re-test the timeout error with retries disabled
-				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc2()
-				serverSleepTime = 100 * time.Millisecond
-				_, _, operationErr = caseManagementService.DeleteFileWithContext(ctx, deleteFileOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-				serverSleepTime = time.Duration(0)
 			})
 			It(`Invoke DeleteFile with error: Operation validation and request error`, func() {
 				caseManagementService, serviceErr := casemanagementv1.NewCaseManagementV1(&casemanagementv1.CaseManagementV1Options{

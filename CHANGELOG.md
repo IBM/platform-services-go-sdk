@@ -1,3 +1,10 @@
+## [0.17.9](https://github.com/IBM/platform-services-go-sdk/compare/v0.17.8...v0.17.9) (2021-02-18)
+
+
+### Bug Fixes
+
+* **Case Management:** re-gen service and add examples ([#79](https://github.com/IBM/platform-services-go-sdk/issues/79)) ([0ce3946](https://github.com/IBM/platform-services-go-sdk/commit/0ce3946b2a70c57a80ccad7f077d2d427df37c54))
+
 ## [0.17.8](https://github.com/IBM/platform-services-go-sdk/compare/v0.17.7...v0.17.8) (2021-02-17)
 
 
