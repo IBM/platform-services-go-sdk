@@ -46,21 +46,12 @@ var (
 	caseNumber   string
 	commentValue = "Test comment"
 
-	offeringType, _    = service.NewOfferingType(casemanagementv1.OfferingTypeGroupCRNServiceNameConst, "cloud-object-storage")
-	offeringPayload, _ = service.NewOffering("Cloud Object Storage", offeringType)
+	// Configured resource CRN to use in tests.
+	resourceCRN string
 
-	resourcePayload = []casemanagementv1.ResourcePayload{casemanagementv1.ResourcePayload{
-		CRN: core.StringPtr("crn:v1:staging:public:cloud-object-storage:global:a/19c52e57800c4d8bb9aefc66b3e49755:61848e72-6ba6-415e-84e2-91f3915e194d::"),
-	}}
-
-	watchlistPayload = casemanagementv1.Watchlist{
-		Watchlist: []casemanagementv1.User{
-			casemanagementv1.User{
-				Realm:  core.StringPtr("IBMid"),
-				UserID: core.StringPtr("abc@ibm.com"),
-			},
-		},
-	}
+	// Model instances needed by the tests.
+	resourcePayload  []casemanagementv1.ResourcePayload
+	watchlistPayload *casemanagementv1.Watchlist
 )
 
 func shouldSkipTest() {
@@ -71,16 +62,40 @@ func shouldSkipTest() {
 
 var _ = Describe("Case Management - Integration Tests", func() {
 	It("Successfully load the configuration", func() {
+		var config map[string]string
 		if _, fileErr := os.Stat(externalConfigFile); fileErr == nil {
 			os.Setenv("IBM_CREDENTIALS_FILE", externalConfigFile)
-			config, _ := core.GetServiceProperties(casemanagementv1.DefaultServiceName)
+			config, _ = core.GetServiceProperties(casemanagementv1.DefaultServiceName)
 			if len(config) > 0 {
 				configLoaded = true
+			}
+
+			if configLoaded {
+
 			}
 		}
 
 		if !configLoaded {
 			Skip("External configuration could not be loaded, skipping...")
+		}
+
+		resourceCRN = config["RESOURCE_CRN"]
+		if resourceCRN == "" {
+			Skip("RESOURCE_CRN configuration property not found, skipping...")
+		}
+
+		// Initialize required model instances.
+		resourcePayload = []casemanagementv1.ResourcePayload{casemanagementv1.ResourcePayload{
+			CRN: &resourceCRN,
+		}}
+
+		watchlistPayload = &casemanagementv1.Watchlist{
+			Watchlist: []casemanagementv1.User{
+				casemanagementv1.User{
+					Realm:  core.StringPtr("IBMid"),
+					UserID: core.StringPtr("abc@ibm.com"),
+				},
+			},
 		}
 	})
 
@@ -107,6 +122,16 @@ var _ = Describe("Case Management - Integration Tests", func() {
 	Describe("Create a case", func() {
 		var options *casemanagementv1.CreateCaseOptions
 		BeforeEach(func() {
+			offeringType := &casemanagementv1.OfferingType{
+				Group: core.StringPtr(casemanagementv1.OfferingTypeGroupCRNServiceNameConst),
+				Key:   core.StringPtr("cloud-object-storage"),
+			}
+
+			offeringPayload := &casemanagementv1.Offering{
+				Name: core.StringPtr("Cloud Object Storage"),
+				Type: offeringType,
+			}
+
 			options = service.NewCreateCaseOptions("technical", "Test case for Go SDK", "Test case for Go SDK")
 			options.SetSeverity(4)
 			options.SetOffering(offeringPayload)

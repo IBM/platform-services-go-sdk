@@ -8,7 +8,7 @@ travis-ci: test-cov lint tidy
 test:
 	go test `go list ./...`
 
-test-cov: 
+test-cov:
 	go test `go list ./...` ${COVERAGE}
 
 test-int:

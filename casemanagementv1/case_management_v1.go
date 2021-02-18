@@ -1,5 +1,5 @@
 /**
- * (C) Copyright IBM Corp. 2020.
+ * (C) Copyright IBM Corp. 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,7 +15,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-d753183b-20201209-163011
+ * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-8916ec9f-20210207-213231
  */
 
 // Package casemanagementv1 : Operations and models for the CaseManagementV1 service
@@ -907,10 +907,10 @@ func (caseManagement *CaseManagementV1) DeleteFileWithContext(ctx context.Contex
 // AddCommentOptions : The AddComment options.
 type AddCommentOptions struct {
 	// Unique identifier of a case.
-	CaseNumber *string `json:"case_number" validate:"required,ne="`
+	CaseNumber *string `validate:"required,ne="`
 
 	// Comment to add to the case.
-	Comment *string `json:"comment" validate:"required"`
+	Comment *string `validate:"required"`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -945,20 +945,20 @@ func (options *AddCommentOptions) SetHeaders(param map[string]string) *AddCommen
 // AddResourceOptions : The AddResource options.
 type AddResourceOptions struct {
 	// Unique identifier of a case.
-	CaseNumber *string `json:"case_number" validate:"required,ne="`
+	CaseNumber *string `validate:"required,ne="`
 
 	// Cloud Resource Name of the resource.
-	CRN *string `json:"crn,omitempty"`
+	CRN *string
 
 	// Only used to attach Classic IaaS devices which have no CRN.
-	Type *string `json:"type,omitempty"`
+	Type *string
 
 	// Only used to attach Classic IaaS devices which have no CRN. Id of Classic IaaS device. This is deprecated in favor
 	// of the crn field.
-	ID *float64 `json:"id,omitempty"`
+	ID *float64
 
 	// A note about this resource.
-	Note *string `json:"note,omitempty"`
+	Note *string
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -1010,10 +1010,10 @@ func (options *AddResourceOptions) SetHeaders(param map[string]string) *AddResou
 // AddWatchlistOptions : The AddWatchlist options.
 type AddWatchlistOptions struct {
 	// Unique identifier of a case.
-	CaseNumber *string `json:"case_number" validate:"required,ne="`
+	CaseNumber *string `validate:"required,ne="`
 
 	// Array of user ID objects.
-	Watchlist []User `json:"watchlist,omitempty"`
+	Watchlist []User
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -1407,37 +1407,37 @@ func UnmarshalComment(m map[string]json.RawMessage, result interface{}) (err err
 // CreateCaseOptions : The CreateCase options.
 type CreateCaseOptions struct {
 	// Case type.
-	Type *string `json:"type" validate:"required"`
+	Type *string `validate:"required"`
 
 	// Subject of the case.
-	Subject *string `json:"subject" validate:"required"`
+	Subject *string `validate:"required"`
 
 	// Detailed description of the issue.
-	Description *string `json:"description" validate:"required"`
+	Description *string `validate:"required"`
 
 	// Severity of the case. Smaller values mean higher severity.
-	Severity *int64 `json:"severity,omitempty"`
+	Severity *int64
 
 	// Specify if the case should be treated as EU regulated. Only one of the following properties is required. Call EU
 	// support utility endpoint to determine which property must be specified for your account.
-	Eu *CasePayloadEu `json:"eu,omitempty"`
+	Eu *CasePayloadEu
 
 	// Offering details.
-	Offering *Offering `json:"offering,omitempty"`
+	Offering *Offering
 
 	// List of resources to attach to case. If attaching Classic IaaS devices use type and id fields if Cloud Resource Name
 	// (CRN) is unavialable. Otherwise pass the resource CRN. The resource list must be consistent with the value selected
 	// for the resource offering.
-	Resources []ResourcePayload `json:"resources,omitempty"`
+	Resources []ResourcePayload
 
 	// Array of user IDs to add to the watchlist.
-	Watchlist []User `json:"watchlist,omitempty"`
+	Watchlist []User
 
 	// Invoice number of "Billing and Invoice" case type.
-	InvoiceNumber *string `json:"invoice_number,omitempty"`
+	InvoiceNumber *string
 
 	// Flag to indicate if case is for an Service Level Agreement (SLA) credit request.
-	SLACreditRequest *bool `json:"sla_credit_request,omitempty"`
+	SLACreditRequest *bool
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -1530,10 +1530,10 @@ func (options *CreateCaseOptions) SetHeaders(param map[string]string) *CreateCas
 // DeleteFileOptions : The DeleteFile options.
 type DeleteFileOptions struct {
 	// Unique identifier of a case.
-	CaseNumber *string `json:"case_number" validate:"required,ne="`
+	CaseNumber *string `validate:"required,ne="`
 
 	// Unique identifier of a file.
-	FileID *string `json:"file_id" validate:"required,ne="`
+	FileID *string `validate:"required,ne="`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -1568,10 +1568,10 @@ func (options *DeleteFileOptions) SetHeaders(param map[string]string) *DeleteFil
 // DownloadFileOptions : The DownloadFile options.
 type DownloadFileOptions struct {
 	// Unique identifier of a case.
-	CaseNumber *string `json:"case_number" validate:"required,ne="`
+	CaseNumber *string `validate:"required,ne="`
 
 	// Unique identifier of a file.
-	FileID *string `json:"file_id" validate:"required,ne="`
+	FileID *string `validate:"required,ne="`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -1646,10 +1646,10 @@ func UnmarshalFileWithMetadata(m map[string]json.RawMessage, result interface{})
 // GetCaseOptions : The GetCase options.
 type GetCaseOptions struct {
 	// Unique identifier of a case.
-	CaseNumber *string `json:"case_number" validate:"required,ne="`
+	CaseNumber *string `validate:"required,ne="`
 
 	// Seleted fields of interest instead of the entire case information.
-	Fields []string `json:"fields,omitempty"`
+	Fields []string
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -1709,23 +1709,23 @@ func (options *GetCaseOptions) SetHeaders(param map[string]string) *GetCaseOptio
 // GetCasesOptions : The GetCases options.
 type GetCasesOptions struct {
 	// Number of cases should be skipped.
-	Offset *int64 `json:"offset,omitempty"`
+	Offset *int64
 
 	// Number of cases should be returned.
-	Limit *int64 `json:"limit,omitempty"`
+	Limit *int64
 
 	// String that a case might contain.
-	Search *string `json:"search,omitempty"`
+	Search *string
 
 	// Sort field and direction. If omitted, default to descending of updated date. Prefix "~" signifies sort in
 	// descending.
-	Sort *string `json:"sort,omitempty"`
+	Sort *string
 
 	// Case status filter.
-	Status []string `json:"status,omitempty"`
+	Status []string
 
 	// Seleted fields of interest instead of the entire case information.
-	Fields []string `json:"fields,omitempty"`
+	Fields []string
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -1925,10 +1925,10 @@ func UnmarshalPaginationLink(m map[string]json.RawMessage, result interface{}) (
 // RemoveWatchlistOptions : The RemoveWatchlist options.
 type RemoveWatchlistOptions struct {
 	// Unique identifier of a case.
-	CaseNumber *string `json:"case_number" validate:"required,ne="`
+	CaseNumber *string `validate:"required,ne="`
 
 	// Array of user ID objects.
-	Watchlist []User `json:"watchlist,omitempty"`
+	Watchlist []User
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -2110,10 +2110,10 @@ func UnmarshalStatusPayload(m map[string]json.RawMessage, result interface{}) (e
 // UpdateCaseStatusOptions : The UpdateCaseStatus options.
 type UpdateCaseStatusOptions struct {
 	// Unique identifier of a case.
-	CaseNumber *string `json:"case_number" validate:"required,ne="`
+	CaseNumber *string `validate:"required,ne="`
 
 	// Payload to update status of the case.
-	StatusPayload StatusPayloadIntf `json:"StatusPayload" validate:"required"`
+	StatusPayload StatusPayloadIntf `validate:"required"`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -2148,10 +2148,10 @@ func (options *UpdateCaseStatusOptions) SetHeaders(param map[string]string) *Upd
 // UploadFileOptions : The UploadFile options.
 type UploadFileOptions struct {
 	// Unique identifier of a case.
-	CaseNumber *string `json:"case_number" validate:"required,ne="`
+	CaseNumber *string `validate:"required,ne="`
 
 	// file of supported types, 8MB in size limit.
-	File []FileWithMetadata `json:"file" validate:"required"`
+	File []FileWithMetadata `validate:"required"`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
