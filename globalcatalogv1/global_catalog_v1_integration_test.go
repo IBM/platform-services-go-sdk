@@ -23,14 +23,14 @@ import (
 	"fmt"
 	"io/ioutil"
 	"log"
+	"os"
 	"strings"
 	"time"
 
-	"github.com/IBM/go-sdk-core/v4/core"
+	"github.com/IBM/go-sdk-core/v5/core"
 	common "github.com/IBM/platform-services-go-sdk/common"
 	"github.com/IBM/platform-services-go-sdk/globalcatalogv1"
 
-	"github.com/joho/godotenv"
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
 )
@@ -65,6 +65,7 @@ var (
 	listArtifacts               *globalcatalogv1.ListArtifactsOptions
 	getArtifact                 *globalcatalogv1.GetArtifactOptions
 	deleteArtifact              *globalcatalogv1.DeleteArtifactOptions
+	config                      map[string]string
 	configLoaded                bool = false
 )
 
@@ -76,13 +77,19 @@ func shouldSkipTest() {
 
 var _ = Describe("Global Catalog - Integration Tests", func() {
 	It("Successfully load the configuration", func() {
-
-		err := godotenv.Overload(externalConfigFile)
-		if err == nil {
-			configLoaded = true
-		} else {
-			Skip("External configuration could not be loaded, skipping...")
+		var err error
+		_, err = os.Stat(externalConfigFile)
+		if err != nil {
+			Skip("External configuration file not found, skipping tests: " + err.Error())
 		}
+
+		os.Setenv("IBM_CREDENTIALS_FILE", externalConfigFile)
+		config, err = core.GetServiceProperties(globalcatalogv1.DefaultServiceName)
+		if err != nil {
+			Skip("Error loading service properties, skipping tests: " + err.Error())
+		}
+
+		configLoaded = len(config) > 0
 	})
 
 	It(`Successfully created GlobalCatalogV1 service instance`, func() {
@@ -146,7 +153,7 @@ var _ = Describe("Global Catalog - Integration Tests", func() {
 		Expect(err).To(BeNil())
 		Expect(service).ToNot(BeNil())
 
-		core.SetLogger(core.NewLogger(core.LevelDebug, log.New(GinkgoWriter, "", log.LstdFlags)))
+		core.SetLogger(core.NewLogger(core.LevelDebug, log.New(GinkgoWriter, "", log.LstdFlags), log.New(GinkgoWriter, "", log.LstdFlags)))
 		service.EnableRetries(4, 30*time.Second)
 
 		overviewUi[en] = *overview
@@ -328,6 +335,8 @@ var _ = Describe("Global Catalog - Integration Tests", func() {
 			result, detailedResponse, err := service.ListCatalogEntries(defaultList)
 			Expect(err).To(BeNil())
 			Expect(detailedResponse.StatusCode).To(Equal(200))
+			Expect(result).ToNot(BeNil())
+			fmt.Fprintf(GinkgoWriter, "ListCatalogEntries() result:\n%s", common.ToJSON(result))
 			Expect(result.Resources).NotTo(BeNil())
 			Expect(len(result.Resources)).NotTo(BeZero())
 		})
