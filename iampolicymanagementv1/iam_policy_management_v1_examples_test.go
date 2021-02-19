@@ -134,8 +134,8 @@ var _ = Describe(`IamPolicyManagementV1 Examples Tests`, func() {
 				Operator: core.StringPtr("stringEquals"),
 			}
 			serviceNameResourceAttribute := &iampolicymanagementv1.ResourceAttribute{
-				Name:     core.StringPtr("serviceName"),
-				Value:    core.StringPtr(exampleServiceName),
+				Name:     core.StringPtr("serviceType"),
+				Value:    core.StringPtr("service"),
 				Operator: core.StringPtr("stringEquals"),
 			}
 			policyResourceTag := &iampolicymanagementv1.ResourceTag{
@@ -209,13 +209,19 @@ var _ = Describe(`IamPolicyManagementV1 Examples Tests`, func() {
 				Operator: core.StringPtr("stringEquals"),
 			}
 			serviceNameResourceAttribute := &iampolicymanagementv1.ResourceAttribute{
-				Name:     core.StringPtr("serviceName"),
-				Value:    core.StringPtr(exampleServiceName),
+				Name:     core.StringPtr("serviceType"),
+				Value:    core.StringPtr("service"),
+				Operator: core.StringPtr("stringEquals"),
+			}
+			policyResourceTag := &iampolicymanagementv1.ResourceTag{
+				Name:     core.StringPtr("project"),
+				Value:    core.StringPtr("prototype"),
 				Operator: core.StringPtr("stringEquals"),
 			}
 			policyResources := &iampolicymanagementv1.PolicyResource{
 				Attributes: []iampolicymanagementv1.ResourceAttribute{
 					*accountIDResourceAttribute, *serviceNameResourceAttribute},
+				Tags: []iampolicymanagementv1.ResourceTag{*policyResourceTag},
 			}
 			updatedPolicyRoles := &iampolicymanagementv1.PolicyRole{
 				RoleID: core.StringPtr("crn:v1:bluemix:public:iam::::role:Editor"),

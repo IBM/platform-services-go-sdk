@@ -107,8 +107,8 @@ var _ = Describe("IAM Policy Management - Integration Tests", func() {
 			accountIdResourceAttribute.Operator = core.StringPtr("stringEquals")
 
 			serviceNameResourceAttribute := new(iampolicymanagementv1.ResourceAttribute)
-			serviceNameResourceAttribute.Name = core.StringPtr("serviceName")
-			serviceNameResourceAttribute.Value = core.StringPtr(testServiceName)
+			serviceNameResourceAttribute.Name = core.StringPtr("serviceType")
+			serviceNameResourceAttribute.Value = core.StringPtr("service")
 			serviceNameResourceAttribute.Operator = core.StringPtr("stringEquals")
 
 			policyResourceTag := new(iampolicymanagementv1.ResourceTag)
@@ -188,8 +188,8 @@ var _ = Describe("IAM Policy Management - Integration Tests", func() {
 			accountIdResourceAttribute.Operator = core.StringPtr("stringEquals")
 
 			serviceNameResourceAttribute := new(iampolicymanagementv1.ResourceAttribute)
-			serviceNameResourceAttribute.Name = core.StringPtr("serviceName")
-			serviceNameResourceAttribute.Value = core.StringPtr(testServiceName)
+			serviceNameResourceAttribute.Name = core.StringPtr("serviceType")
+			serviceNameResourceAttribute.Value = core.StringPtr("service")
 			serviceNameResourceAttribute.Operator = core.StringPtr("stringEquals")
 
 			// Construct an instance of the SubjectAttribute model
@@ -197,9 +197,15 @@ var _ = Describe("IAM Policy Management - Integration Tests", func() {
 			subjectAttribute.Name = core.StringPtr("iam_id")
 			subjectAttribute.Value = core.StringPtr(testUserId)
 
+			policyResourceTag := new(iampolicymanagementv1.ResourceTag)
+			policyResourceTag.Name = core.StringPtr("project")
+			policyResourceTag.Value = core.StringPtr("prototype")
+			policyResourceTag.Operator = core.StringPtr("stringEquals")
+
 			// Construct an instance of the PolicyResource model
 			policyResource := new(iampolicymanagementv1.PolicyResource)
 			policyResource.Attributes = []iampolicymanagementv1.ResourceAttribute{*accountIdResourceAttribute, *serviceNameResourceAttribute}
+			policyResource.Tags = []iampolicymanagementv1.ResourceTag{*policyResourceTag}
 
 			// Construct an instance of the PolicyRole model
 			policyRole := new(iampolicymanagementv1.PolicyRole)
