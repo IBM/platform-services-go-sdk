@@ -35,6 +35,9 @@ var (
 	userManagementService *usermanagementv1.UserManagementV1
 	config                map[string]string
 	configLoaded          bool = false
+
+	accountID string
+	iamID     string
 )
 
 func shouldSkipTest() {
@@ -57,6 +60,9 @@ var _ = Describe(`UserManagementV1 Examples Tests`, func() {
 			if err != nil {
 				Skip("Error loading service properties, skipping tests: " + err.Error())
 			}
+
+			accountID = config["ACCOUNT_ID"]
+			Expect(accountID).ToNot(BeEmpty())
 
 			configLoaded = len(config) > 0
 		})
@@ -90,11 +96,23 @@ var _ = Describe(`UserManagementV1 Examples Tests`, func() {
 			shouldSkipTest()
 		})
 		It(`InviteUsers request example`, func() {
+			Expect(accountID).ToNot(BeEmpty())
+
 			// begin-invite_users
 
+			user := usermanagementv1.InviteUser{
+				Email:       core.StringPtr("abc@ibm.com"),
+				AccountRole: core.StringPtr("Member"),
+			}
+
+			usersToInvite := []usermanagementv1.InviteUser{
+				user,
+			}
+
 			inviteUsersOptions := userManagementService.NewInviteUsersOptions(
-				"testString",
+				accountID,
 			)
+			inviteUsersOptions.SetUsers(usersToInvite)
 
 			invitedUserList, response, err := userManagementService.InviteUsers(inviteUsersOptions)
 			if err != nil {
@@ -108,14 +126,21 @@ var _ = Describe(`UserManagementV1 Examples Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(202))
 			Expect(invitedUserList).ToNot(BeNil())
+			Expect(invitedUserList.Resources).ToNot(BeEmpty())
+
+			iamID = *invitedUserList.Resources[0].ID
 
 		})
 		It(`ListUsers request example`, func() {
+			Expect(accountID).ToNot(BeEmpty())
+
 			// begin-list_users
 
 			listUsersOptions := userManagementService.NewListUsersOptions(
-				"testString",
+				accountID,
 			)
+			listUsersOptions.SetState("ACTIVE")
+			listUsersOptions.SetLimit(100)
 
 			userList, response, err := userManagementService.ListUsers(listUsersOptions)
 			if err != nil {
@@ -132,11 +157,14 @@ var _ = Describe(`UserManagementV1 Examples Tests`, func() {
 
 		})
 		It(`RemoveUser request example`, func() {
+			Expect(accountID).ToNot(BeEmpty())
+			Expect(iamID).ToNot(BeEmpty())
+
 			// begin-remove_user
 
 			removeUserOptions := userManagementService.NewRemoveUserOptions(
-				"testString",
-				"testString",
+				accountID,
+				iamID,
 			)
 
 			response, err := userManagementService.RemoveUser(removeUserOptions)
@@ -151,11 +179,14 @@ var _ = Describe(`UserManagementV1 Examples Tests`, func() {
 
 		})
 		It(`GetUserProfile request example`, func() {
+			Expect(accountID).ToNot(BeEmpty())
+			Expect(iamID).ToNot(BeEmpty())
+
 			// begin-get_user_profile
 
 			getUserProfileOptions := userManagementService.NewGetUserProfileOptions(
-				"testString",
-				"testString",
+				accountID,
+				iamID,
 			)
 
 			userProfile, response, err := userManagementService.GetUserProfile(getUserProfileOptions)
@@ -173,12 +204,16 @@ var _ = Describe(`UserManagementV1 Examples Tests`, func() {
 
 		})
 		It(`UpdateUserProfile request example`, func() {
+			Expect(accountID).ToNot(BeEmpty())
+			Expect(iamID).ToNot(BeEmpty())
+
 			// begin-update_user_profile
 
 			updateUserProfileOptions := userManagementService.NewUpdateUserProfileOptions(
-				"testString",
-				"testString",
+				accountID,
+				iamID,
 			)
+			updateUserProfileOptions.SetPhonenumber("123456789")
 
 			response, err := userManagementService.UpdateUserProfile(updateUserProfileOptions)
 			if err != nil {
@@ -192,11 +227,14 @@ var _ = Describe(`UserManagementV1 Examples Tests`, func() {
 
 		})
 		It(`GetUserSettings request example`, func() {
+			Expect(accountID).ToNot(BeEmpty())
+			Expect(iamID).ToNot(BeEmpty())
+
 			// begin-get_user_settings
 
 			getUserSettingsOptions := userManagementService.NewGetUserSettingsOptions(
-				"testString",
-				"testString",
+				accountID,
+				iamID,
 			)
 
 			userSettings, response, err := userManagementService.GetUserSettings(getUserSettingsOptions)
@@ -214,12 +252,17 @@ var _ = Describe(`UserManagementV1 Examples Tests`, func() {
 
 		})
 		It(`UpdateUserSettings request example`, func() {
+			Expect(accountID).ToNot(BeEmpty())
+			Expect(iamID).ToNot(BeEmpty())
+
 			// begin-update_user_settings
 
 			updateUserSettingsOptions := userManagementService.NewUpdateUserSettingsOptions(
-				"testString",
-				"testString",
+				accountID,
+				iamID,
 			)
+			updateUserSettingsOptions.SetSelfManage(true)
+			updateUserSettingsOptions.SetAllowedIPAddresses("192.168.0.2,192.168.0.3")
 
 			response, err := userManagementService.UpdateUserSettings(updateUserSettingsOptions)
 			if err != nil {
