@@ -21,19 +21,20 @@ package usermanagementv1_test
 import (
 	"encoding/json"
 	"fmt"
+	"os"
+
 	"github.com/IBM/go-sdk-core/v5/core"
 	"github.com/IBM/platform-services-go-sdk/usermanagementv1"
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
-	"os"
 )
 
 const externalConfigFile = "../user_management_v1.env"
 
 var (
 	userManagementService *usermanagementv1.UserManagementV1
-	config       map[string]string
-	configLoaded bool = false
+	config                map[string]string
+	configLoaded          bool = false
 )
 
 func shouldSkipTest() {

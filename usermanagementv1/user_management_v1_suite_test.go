@@ -17,9 +17,10 @@
 package usermanagementv1_test
 
 import (
+	"testing"
+
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
-	"testing"
 )
 
 func TestUserManagementV1(t *testing.T) {

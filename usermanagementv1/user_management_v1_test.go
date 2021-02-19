@@ -20,17 +20,18 @@ import (
 	"bytes"
 	"context"
 	"fmt"
-	"github.com/IBM/go-sdk-core/v5/core"
-	"github.com/IBM/platform-services-go-sdk/usermanagementv1"
-	"github.com/go-openapi/strfmt"
-	. "github.com/onsi/ginkgo"
-	. "github.com/onsi/gomega"
 	"io"
 	"io/ioutil"
 	"net/http"
 	"net/http/httptest"
 	"os"
 	"time"
+
+	"github.com/IBM/go-sdk-core/v5/core"
+	"github.com/IBM/platform-services-go-sdk/usermanagementv1"
+	"github.com/go-openapi/strfmt"
+	. "github.com/onsi/ginkgo"
+	. "github.com/onsi/gomega"
 )
 
 var _ = Describe(`UserManagementV1`, func() {
@@ -66,14 +67,13 @@ var _ = Describe(`UserManagementV1`, func() {
 		Context(`Using external config, construct service client instances`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"USER_MANAGEMENT_URL": "https://usermanagementv1/api",
+				"USER_MANAGEMENT_URL":       "https://usermanagementv1/api",
 				"USER_MANAGEMENT_AUTH_TYPE": "noauth",
 			}
 
 			It(`Create service client using external config successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				userManagementService, serviceErr := usermanagementv1.NewUserManagementV1UsingExternalConfig(&usermanagementv1.UserManagementV1Options{
-				})
+				userManagementService, serviceErr := usermanagementv1.NewUserManagementV1UsingExternalConfig(&usermanagementv1.UserManagementV1Options{})
 				Expect(userManagementService).ToNot(BeNil())
 				Expect(serviceErr).To(BeNil())
 				ClearTestEnvironment(testEnvironment)
@@ -102,8 +102,7 @@ var _ = Describe(`UserManagementV1`, func() {
 			})
 			It(`Create service client using external config and set url programatically successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				userManagementService, serviceErr := usermanagementv1.NewUserManagementV1UsingExternalConfig(&usermanagementv1.UserManagementV1Options{
-				})
+				userManagementService, serviceErr := usermanagementv1.NewUserManagementV1UsingExternalConfig(&usermanagementv1.UserManagementV1Options{})
 				err := userManagementService.SetServiceURL("https://testService/api")
 				Expect(err).To(BeNil())
 				Expect(userManagementService).ToNot(BeNil())
@@ -121,13 +120,12 @@ var _ = Describe(`UserManagementV1`, func() {
 		Context(`Using external config, construct service client instances with error: Invalid Auth`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"USER_MANAGEMENT_URL": "https://usermanagementv1/api",
+				"USER_MANAGEMENT_URL":       "https://usermanagementv1/api",
 				"USER_MANAGEMENT_AUTH_TYPE": "someOtherAuth",
 			}
 
 			SetTestEnvironment(testEnvironment)
-			userManagementService, serviceErr := usermanagementv1.NewUserManagementV1UsingExternalConfig(&usermanagementv1.UserManagementV1Options{
-			})
+			userManagementService, serviceErr := usermanagementv1.NewUserManagementV1UsingExternalConfig(&usermanagementv1.UserManagementV1Options{})
 
 			It(`Instantiate service client with error`, func() {
 				Expect(userManagementService).To(BeNil())
@@ -138,7 +136,7 @@ var _ = Describe(`UserManagementV1`, func() {
 		Context(`Using external config, construct service client instances with error: Invalid URL`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"USER_MANAGEMENT_AUTH_TYPE":   "NOAuth",
+				"USER_MANAGEMENT_AUTH_TYPE": "NOAuth",
 			}
 
 			SetTestEnvironment(testEnvironment)
@@ -1068,14 +1066,13 @@ var _ = Describe(`UserManagementV1`, func() {
 		Context(`Using external config, construct service client instances`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"USER_MANAGEMENT_URL": "https://usermanagementv1/api",
+				"USER_MANAGEMENT_URL":       "https://usermanagementv1/api",
 				"USER_MANAGEMENT_AUTH_TYPE": "noauth",
 			}
 
 			It(`Create service client using external config successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				userManagementService, serviceErr := usermanagementv1.NewUserManagementV1UsingExternalConfig(&usermanagementv1.UserManagementV1Options{
-				})
+				userManagementService, serviceErr := usermanagementv1.NewUserManagementV1UsingExternalConfig(&usermanagementv1.UserManagementV1Options{})
 				Expect(userManagementService).ToNot(BeNil())
 				Expect(serviceErr).To(BeNil())
 				ClearTestEnvironment(testEnvironment)
@@ -1104,8 +1101,7 @@ var _ = Describe(`UserManagementV1`, func() {
 			})
 			It(`Create service client using external config and set url programatically successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				userManagementService, serviceErr := usermanagementv1.NewUserManagementV1UsingExternalConfig(&usermanagementv1.UserManagementV1Options{
-				})
+				userManagementService, serviceErr := usermanagementv1.NewUserManagementV1UsingExternalConfig(&usermanagementv1.UserManagementV1Options{})
 				err := userManagementService.SetServiceURL("https://testService/api")
 				Expect(err).To(BeNil())
 				Expect(userManagementService).ToNot(BeNil())
@@ -1123,13 +1119,12 @@ var _ = Describe(`UserManagementV1`, func() {
 		Context(`Using external config, construct service client instances with error: Invalid Auth`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"USER_MANAGEMENT_URL": "https://usermanagementv1/api",
+				"USER_MANAGEMENT_URL":       "https://usermanagementv1/api",
 				"USER_MANAGEMENT_AUTH_TYPE": "someOtherAuth",
 			}
 
 			SetTestEnvironment(testEnvironment)
-			userManagementService, serviceErr := usermanagementv1.NewUserManagementV1UsingExternalConfig(&usermanagementv1.UserManagementV1Options{
-			})
+			userManagementService, serviceErr := usermanagementv1.NewUserManagementV1UsingExternalConfig(&usermanagementv1.UserManagementV1Options{})
 
 			It(`Instantiate service client with error`, func() {
 				Expect(userManagementService).To(BeNil())
@@ -1140,7 +1135,7 @@ var _ = Describe(`UserManagementV1`, func() {
 		Context(`Using external config, construct service client instances with error: Invalid URL`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"USER_MANAGEMENT_AUTH_TYPE":   "NOAuth",
+				"USER_MANAGEMENT_AUTH_TYPE": "NOAuth",
 			}
 
 			SetTestEnvironment(testEnvironment)
