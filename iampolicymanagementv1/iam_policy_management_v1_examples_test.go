@@ -28,32 +28,36 @@ import (
 	"os"
 )
 
-// Below are examples on how to use IAM Policy Management service
 //
-// The following environment variables are assumed to be defined when running examples below:
+// This file provides an example of how to use the IAM Policy Management service.
+//
+// The following configuration properties are assumed to be defined:
 //
 // IAM_POLICY_MANAGEMENT_URL=https://iam.cloud.ibm.com
 // IAM_POLICY_MANAGEMENT_AUTH_TYPE=iam
 // IAM_POLICY_MANAGEMENT_AUTH_URL=https://iam.cloud.ibm.com/identity/token
-// IAM_POLICY_MANAGEMENT_APIKEY= <YOUR_APIKEY>
-// IAM_POLICY_MANAGEMENT_TEST_ACCOUNT_ID= <YOUR_ACCOUNT_ID>
+// IAM_POLICY_MANAGEMENT_APIKEY=<YOUR_APIKEY>
+// IAM_POLICY_MANAGEMENT_TEST_ACCOUNT_ID=<YOUR_ACCOUNT_ID>
 //
-// Alternatively, above environment variables can be placed in a "credentials" file
-
+// These configuration properties can be exported as environment variables, or stored
+// in a configuration file and then:
+// export IBM_CREDENTIALS_FILE=<name of config file>
+//
+// Location of our config file.
 const externalConfigFile = "../iam_policy_management.env"
 
 var (
 	// TODO: Align
 	iamPolicyManagementService *iampolicymanagementv1.IamPolicyManagementV1
-	config       map[string]string
-	configLoaded bool = false
+	config                     map[string]string
+	configLoaded               bool = false
 
-	exampleUserId         = "IBMid-user1"
+	exampleUserID         = "IBMid-user1"
 	exampleServiceName    = "iam-groups"
-	exampleAccountId      string
-	examplePolicyId       string
+	exampleAccountID      string
+	examplePolicyID       string
 	examplePolicyETag     string
-	exampleCustomRoleId   string
+	exampleCustomRoleID   string
 	exampleCustomRoleETag string
 )
 
@@ -78,7 +82,7 @@ var _ = Describe(`IamPolicyManagementV1 Examples Tests`, func() {
 				Skip("Error loading service properties, skipping tests: " + err.Error())
 			}
 
-			exampleAccountId = config["TEST_ACCOUNT_ID"]
+			exampleAccountID = config["TEST_ACCOUNT_ID"]
 
 			configLoaded = len(config) > 0
 		})
@@ -115,8 +119,8 @@ var _ = Describe(`IamPolicyManagementV1 Examples Tests`, func() {
 			// begin-create_policy
 
 			subjectAttribute := &iampolicymanagementv1.SubjectAttribute{
-				Name: core.StringPtr("iam_id"),
-				Value: &exampleUserId,
+				Name:  core.StringPtr("iam_id"),
+				Value: &exampleUserID,
 			}
 			policySubjects := &iampolicymanagementv1.PolicySubject{
 				Attributes: []iampolicymanagementv1.SubjectAttribute{*subjectAttribute},
@@ -124,24 +128,24 @@ var _ = Describe(`IamPolicyManagementV1 Examples Tests`, func() {
 			policyRoles := &iampolicymanagementv1.PolicyRole{
 				RoleID: core.StringPtr("crn:v1:bluemix:public:iam::::role:Viewer"),
 			}
-			accountIdResourceAttribute := &iampolicymanagementv1.ResourceAttribute{
-				Name: core.StringPtr("accountId"),
-				Value: core.StringPtr(exampleAccountId),
+			accountIDResourceAttribute := &iampolicymanagementv1.ResourceAttribute{
+				Name:     core.StringPtr("accountId"),
+				Value:    core.StringPtr(exampleAccountID),
 				Operator: core.StringPtr("stringEquals"),
 			}
 			serviceNameResourceAttribute := &iampolicymanagementv1.ResourceAttribute{
-				Name: core.StringPtr("serviceName"),
-				Value: core.StringPtr(exampleServiceName),
+				Name:     core.StringPtr("serviceName"),
+				Value:    core.StringPtr(exampleServiceName),
 				Operator: core.StringPtr("stringEquals"),
 			}
 			policyResourceTag := &iampolicymanagementv1.ResourceTag{
-				Name: core.StringPtr("project"),
-				Value: core.StringPtr("prototype"),
+				Name:     core.StringPtr("project"),
+				Value:    core.StringPtr("prototype"),
 				Operator: core.StringPtr("stringEquals"),
 			}
 			policyResources := &iampolicymanagementv1.PolicyResource{
 				Attributes: []iampolicymanagementv1.ResourceAttribute{
-					*accountIdResourceAttribute, *serviceNameResourceAttribute},
+					*accountIDResourceAttribute, *serviceNameResourceAttribute},
 				Tags: []iampolicymanagementv1.ResourceTag{*policyResourceTag},
 			}
 
@@ -165,13 +169,13 @@ var _ = Describe(`IamPolicyManagementV1 Examples Tests`, func() {
 			Expect(response.StatusCode).To(Equal(201))
 			Expect(policy).ToNot(BeNil())
 
-			examplePolicyId = *policy.ID
+			examplePolicyID = *policy.ID
 		})
 		It(`GetPolicy request example`, func() {
 			// begin-get_policy
 
 			options := iamPolicyManagementService.NewGetPolicyOptions(
-				examplePolicyId,
+				examplePolicyID,
 			)
 
 			policy, response, err := iamPolicyManagementService.GetPolicy(options)
@@ -193,32 +197,32 @@ var _ = Describe(`IamPolicyManagementV1 Examples Tests`, func() {
 			// begin-update_policy
 
 			subjectAttribute := &iampolicymanagementv1.SubjectAttribute{
-				Name: core.StringPtr("iam_id"),
-				Value: &exampleUserId,
+				Name:  core.StringPtr("iam_id"),
+				Value: &exampleUserID,
 			}
 			policySubjects := &iampolicymanagementv1.PolicySubject{
 				Attributes: []iampolicymanagementv1.SubjectAttribute{*subjectAttribute},
 			}
-			accountIdResourceAttribute := &iampolicymanagementv1.ResourceAttribute{
-				Name: core.StringPtr("accountId"),
-				Value: core.StringPtr(exampleAccountId),
+			accountIDResourceAttribute := &iampolicymanagementv1.ResourceAttribute{
+				Name:     core.StringPtr("accountId"),
+				Value:    core.StringPtr(exampleAccountID),
 				Operator: core.StringPtr("stringEquals"),
 			}
 			serviceNameResourceAttribute := &iampolicymanagementv1.ResourceAttribute{
-				Name: core.StringPtr("serviceName"),
-				Value: core.StringPtr(exampleServiceName),
+				Name:     core.StringPtr("serviceName"),
+				Value:    core.StringPtr(exampleServiceName),
 				Operator: core.StringPtr("stringEquals"),
 			}
 			policyResources := &iampolicymanagementv1.PolicyResource{
 				Attributes: []iampolicymanagementv1.ResourceAttribute{
-					*accountIdResourceAttribute, *serviceNameResourceAttribute},
+					*accountIDResourceAttribute, *serviceNameResourceAttribute},
 			}
 			updatedPolicyRoles := &iampolicymanagementv1.PolicyRole{
 				RoleID: core.StringPtr("crn:v1:bluemix:public:iam::::role:Editor"),
 			}
 
 			options := iamPolicyManagementService.NewUpdatePolicyOptions(
-				examplePolicyId,
+				examplePolicyID,
 				examplePolicyETag,
 				"access",
 				[]iampolicymanagementv1.PolicySubject{*policySubjects},
@@ -244,9 +248,9 @@ var _ = Describe(`IamPolicyManagementV1 Examples Tests`, func() {
 			// begin-list_policies
 
 			options := iamPolicyManagementService.NewListPoliciesOptions(
-				exampleAccountId,
+				exampleAccountID,
 			)
-			options.SetIamID(exampleUserId)
+			options.SetIamID(exampleUserID)
 			options.SetFormat("include_last_permit")
 
 			policyList, response, err := iamPolicyManagementService.ListPolicies(options)
@@ -267,7 +271,7 @@ var _ = Describe(`IamPolicyManagementV1 Examples Tests`, func() {
 			// begin-delete_policy
 
 			options := iamPolicyManagementService.NewDeletePolicyOptions(
-				examplePolicyId,
+				examplePolicyID,
 			)
 
 			response, err := iamPolicyManagementService.DeletePolicy(options)
@@ -288,7 +292,7 @@ var _ = Describe(`IamPolicyManagementV1 Examples Tests`, func() {
 				"IAM Groups read access",
 				[]string{"iam-groups.groups.read"},
 				"ExampleRoleIAMGroups",
-				exampleAccountId,
+				exampleAccountID,
 				exampleServiceName,
 			)
 
@@ -305,13 +309,13 @@ var _ = Describe(`IamPolicyManagementV1 Examples Tests`, func() {
 			Expect(response.StatusCode).To(Equal(201))
 			Expect(customRole).ToNot(BeNil())
 
-			exampleCustomRoleId = *customRole.ID
+			exampleCustomRoleID = *customRole.ID
 		})
 		It(`GetRole request example`, func() {
 			// begin-get_role
 
 			options := iamPolicyManagementService.NewGetRoleOptions(
-				exampleCustomRoleId,
+				exampleCustomRoleID,
 			)
 
 			customRole, response, err := iamPolicyManagementService.GetRole(options)
@@ -336,7 +340,7 @@ var _ = Describe(`IamPolicyManagementV1 Examples Tests`, func() {
 			updatedRoleActions := []string{"iam-groups.groups.read", "iam-groups.groups.list"}
 
 			options := iamPolicyManagementService.NewUpdateRoleOptions(
-				exampleCustomRoleId,
+				exampleCustomRoleID,
 				exampleCustomRoleETag,
 			)
 			options.SetActions(updatedRoleActions)
@@ -359,7 +363,7 @@ var _ = Describe(`IamPolicyManagementV1 Examples Tests`, func() {
 			// begin-list_roles
 
 			options := iamPolicyManagementService.NewListRolesOptions()
-			options.SetAccountID(exampleAccountId)
+			options.SetAccountID(exampleAccountID)
 
 			roleList, response, err := iamPolicyManagementService.ListRoles(options)
 			if err != nil {
@@ -379,7 +383,7 @@ var _ = Describe(`IamPolicyManagementV1 Examples Tests`, func() {
 			// begin-delete_role
 
 			options := iamPolicyManagementService.NewDeleteRoleOptions(
-				exampleCustomRoleId,
+				exampleCustomRoleID,
 			)
 
 			response, err := iamPolicyManagementService.DeleteRole(options)
