@@ -33,9 +33,9 @@ import (
 //
 // The following configuration properties are assumed to be defined:
 //
-// IAM_POLICY_MANAGEMENT_URL=https://iam.cloud.ibm.com
+// IAM_POLICY_MANAGEMENT_URL=<service url>
 // IAM_POLICY_MANAGEMENT_AUTH_TYPE=iam
-// IAM_POLICY_MANAGEMENT_AUTH_URL=https://iam.cloud.ibm.com/identity/token
+// IAM_POLICY_MANAGEMENT_AUTH_URL=<IAM token service URL - omit this if using the production environment>
 // IAM_POLICY_MANAGEMENT_APIKEY=<YOUR_APIKEY>
 // IAM_POLICY_MANAGEMENT_TEST_ACCOUNT_ID=<YOUR_ACCOUNT_ID>
 //
