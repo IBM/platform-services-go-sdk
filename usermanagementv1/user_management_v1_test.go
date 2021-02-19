@@ -1,5 +1,5 @@
 /**
- * (C) Copyright IBM Corp. 2020.
+ * (C) Copyright IBM Corp. 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,7 +20,7 @@ import (
 	"bytes"
 	"context"
 	"fmt"
-	"github.com/IBM/go-sdk-core/v4/core"
+	"github.com/IBM/go-sdk-core/v5/core"
 	"github.com/IBM/platform-services-go-sdk/usermanagementv1"
 	"github.com/go-openapi/strfmt"
 	. "github.com/onsi/ginkgo"
@@ -174,11 +174,8 @@ var _ = Describe(`UserManagementV1`, func() {
 					Expect(req.URL.EscapedPath()).To(Equal(listUsersPath))
 					Expect(req.Method).To(Equal("GET"))
 					Expect(req.URL.Query()["state"]).To(Equal([]string{"testString"}))
-
 					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(100))}))
-
 					Expect(req.URL.Query()["_start"]).To(Equal([]string{"testString"}))
-
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
 					fmt.Fprintf(res, `} this is not valid json {`)
@@ -220,10 +217,8 @@ var _ = Describe(`UserManagementV1`, func() {
 
 	Describe(`ListUsers(listUsersOptions *ListUsersOptions)`, func() {
 		listUsersPath := "/v2/accounts/testString/users"
-		var serverSleepTime time.Duration
-		Context(`Using mock server endpoint`, func() {
+		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
-				serverSleepTime = 0
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
@@ -232,14 +227,71 @@ var _ = Describe(`UserManagementV1`, func() {
 					Expect(req.Method).To(Equal("GET"))
 
 					Expect(req.URL.Query()["state"]).To(Equal([]string{"testString"}))
-
 					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(100))}))
-
 					Expect(req.URL.Query()["_start"]).To(Equal([]string{"testString"}))
-
 					// Sleep a short time to support a timeout test
-					time.Sleep(serverSleepTime)
+					time.Sleep(100 * time.Millisecond)
 
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"total_results": 12, "limit": 5, "first_url": "FirstURL", "next_url": "NextURL", "resources": [{"id": "ID", "iam_id": "IamID", "realm": "Realm", "user_id": "UserID", "firstname": "Firstname", "lastname": "Lastname", "state": "State", "email": "Email", "phonenumber": "Phonenumber", "altphonenumber": "Altphonenumber", "photo": "Photo", "account_id": "AccountID"}]}`)
+				}))
+			})
+			It(`Invoke ListUsers successfully with retries`, func() {
+				userManagementService, serviceErr := usermanagementv1.NewUserManagementV1(&usermanagementv1.UserManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(userManagementService).ToNot(BeNil())
+				userManagementService.EnableRetries(0, 0)
+
+				// Construct an instance of the ListUsersOptions model
+				listUsersOptionsModel := new(usermanagementv1.ListUsersOptions)
+				listUsersOptionsModel.AccountID = core.StringPtr("testString")
+				listUsersOptionsModel.State = core.StringPtr("testString")
+				listUsersOptionsModel.Limit = core.Int64Ptr(int64(100))
+				listUsersOptionsModel.Start = core.StringPtr("testString")
+				listUsersOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := userManagementService.ListUsersWithContext(ctx, listUsersOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				userManagementService.DisableRetries()
+				result, response, operationErr := userManagementService.ListUsers(listUsersOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = userManagementService.ListUsersWithContext(ctx, listUsersOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(listUsersPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					Expect(req.URL.Query()["state"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(100))}))
+					Expect(req.URL.Query()["_start"]).To(Equal([]string{"testString"}))
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
@@ -253,7 +305,6 @@ var _ = Describe(`UserManagementV1`, func() {
 				})
 				Expect(serviceErr).To(BeNil())
 				Expect(userManagementService).ToNot(BeNil())
-				userManagementService.EnableRetries(0, 0)
 
 				// Invoke operation with nil options model (negative test)
 				result, response, operationErr := userManagementService.ListUsers(nil)
@@ -275,30 +326,6 @@ var _ = Describe(`UserManagementV1`, func() {
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
 
-				// Invoke operation with a Context to test a timeout error
-				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc()
-				serverSleepTime = 100 * time.Millisecond
-				_, _, operationErr = userManagementService.ListUsersWithContext(ctx, listUsersOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-				serverSleepTime = time.Duration(0)
-
-				// Disable retries and test again
-				userManagementService.DisableRetries()
-				result, response, operationErr = userManagementService.ListUsers(listUsersOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).ToNot(BeNil())
-
-				// Re-test the timeout error with retries disabled
-				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc2()
-				serverSleepTime = 100 * time.Millisecond
-				_, _, operationErr = userManagementService.ListUsersWithContext(ctx, listUsersOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-				serverSleepTime = time.Duration(0)
 			})
 			It(`Invoke ListUsers with error: Operation validation and request error`, func() {
 				userManagementService, serviceErr := usermanagementv1.NewUserManagementV1(&usermanagementv1.UserManagementV1Options{
@@ -411,10 +438,8 @@ var _ = Describe(`UserManagementV1`, func() {
 
 	Describe(`InviteUsers(inviteUsersOptions *InviteUsersOptions)`, func() {
 		inviteUsersPath := "/v2/accounts/testString/users"
-		var serverSleepTime time.Duration
-		Context(`Using mock server endpoint`, func() {
+		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
-				serverSleepTime = 0
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
@@ -439,7 +464,104 @@ var _ = Describe(`UserManagementV1`, func() {
 					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
 
 					// Sleep a short time to support a timeout test
-					time.Sleep(serverSleepTime)
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(202)
+					fmt.Fprintf(res, "%s", `{"resources": [{"email": "Email", "id": "ID", "state": "State"}]}`)
+				}))
+			})
+			It(`Invoke InviteUsers successfully with retries`, func() {
+				userManagementService, serviceErr := usermanagementv1.NewUserManagementV1(&usermanagementv1.UserManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(userManagementService).ToNot(BeNil())
+				userManagementService.EnableRetries(0, 0)
+
+				// Construct an instance of the InviteUser model
+				inviteUserModel := new(usermanagementv1.InviteUser)
+				inviteUserModel.Email = core.StringPtr("testString")
+				inviteUserModel.AccountRole = core.StringPtr("testString")
+
+				// Construct an instance of the Role model
+				roleModel := new(usermanagementv1.Role)
+				roleModel.RoleID = core.StringPtr("testString")
+
+				// Construct an instance of the Attribute model
+				attributeModel := new(usermanagementv1.Attribute)
+				attributeModel.Name = core.StringPtr("testString")
+				attributeModel.Value = core.StringPtr("testString")
+
+				// Construct an instance of the Resource model
+				resourceModel := new(usermanagementv1.Resource)
+				resourceModel.Attributes = []usermanagementv1.Attribute{*attributeModel}
+
+				// Construct an instance of the InviteUserIamPolicy model
+				inviteUserIamPolicyModel := new(usermanagementv1.InviteUserIamPolicy)
+				inviteUserIamPolicyModel.Type = core.StringPtr("testString")
+				inviteUserIamPolicyModel.Roles = []usermanagementv1.Role{*roleModel}
+				inviteUserIamPolicyModel.Resources = []usermanagementv1.Resource{*resourceModel}
+
+				// Construct an instance of the InviteUsersOptions model
+				inviteUsersOptionsModel := new(usermanagementv1.InviteUsersOptions)
+				inviteUsersOptionsModel.AccountID = core.StringPtr("testString")
+				inviteUsersOptionsModel.Users = []usermanagementv1.InviteUser{*inviteUserModel}
+				inviteUsersOptionsModel.IamPolicy = []usermanagementv1.InviteUserIamPolicy{*inviteUserIamPolicyModel}
+				inviteUsersOptionsModel.AccessGroups = []string{"testString"}
+				inviteUsersOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := userManagementService.InviteUsersWithContext(ctx, inviteUsersOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				userManagementService.DisableRetries()
+				result, response, operationErr := userManagementService.InviteUsers(inviteUsersOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = userManagementService.InviteUsersWithContext(ctx, inviteUsersOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(inviteUsersPath))
+					Expect(req.Method).To(Equal("POST"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
 
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
@@ -454,7 +576,6 @@ var _ = Describe(`UserManagementV1`, func() {
 				})
 				Expect(serviceErr).To(BeNil())
 				Expect(userManagementService).ToNot(BeNil())
-				userManagementService.EnableRetries(0, 0)
 
 				// Invoke operation with nil options model (negative test)
 				result, response, operationErr := userManagementService.InviteUsers(nil)
@@ -500,30 +621,6 @@ var _ = Describe(`UserManagementV1`, func() {
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
 
-				// Invoke operation with a Context to test a timeout error
-				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc()
-				serverSleepTime = 100 * time.Millisecond
-				_, _, operationErr = userManagementService.InviteUsersWithContext(ctx, inviteUsersOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-				serverSleepTime = time.Duration(0)
-
-				// Disable retries and test again
-				userManagementService.DisableRetries()
-				result, response, operationErr = userManagementService.InviteUsers(inviteUsersOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).ToNot(BeNil())
-
-				// Re-test the timeout error with retries disabled
-				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc2()
-				serverSleepTime = 100 * time.Millisecond
-				_, _, operationErr = userManagementService.InviteUsersWithContext(ctx, inviteUsersOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-				serverSleepTime = time.Duration(0)
 			})
 			It(`Invoke InviteUsers with error: Operation validation and request error`, func() {
 				userManagementService, serviceErr := usermanagementv1.NewUserManagementV1(&usermanagementv1.UserManagementV1Options{
@@ -634,10 +731,8 @@ var _ = Describe(`UserManagementV1`, func() {
 
 	Describe(`GetUserProfile(getUserProfileOptions *GetUserProfileOptions)`, func() {
 		getUserProfilePath := "/v2/accounts/testString/users/testString"
-		var serverSleepTime time.Duration
-		Context(`Using mock server endpoint`, func() {
+		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
-				serverSleepTime = 0
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
@@ -646,7 +741,62 @@ var _ = Describe(`UserManagementV1`, func() {
 					Expect(req.Method).To(Equal("GET"))
 
 					// Sleep a short time to support a timeout test
-					time.Sleep(serverSleepTime)
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "iam_id": "IamID", "realm": "Realm", "user_id": "UserID", "firstname": "Firstname", "lastname": "Lastname", "state": "State", "email": "Email", "phonenumber": "Phonenumber", "altphonenumber": "Altphonenumber", "photo": "Photo", "account_id": "AccountID"}`)
+				}))
+			})
+			It(`Invoke GetUserProfile successfully with retries`, func() {
+				userManagementService, serviceErr := usermanagementv1.NewUserManagementV1(&usermanagementv1.UserManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(userManagementService).ToNot(BeNil())
+				userManagementService.EnableRetries(0, 0)
+
+				// Construct an instance of the GetUserProfileOptions model
+				getUserProfileOptionsModel := new(usermanagementv1.GetUserProfileOptions)
+				getUserProfileOptionsModel.AccountID = core.StringPtr("testString")
+				getUserProfileOptionsModel.IamID = core.StringPtr("testString")
+				getUserProfileOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := userManagementService.GetUserProfileWithContext(ctx, getUserProfileOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				userManagementService.DisableRetries()
+				result, response, operationErr := userManagementService.GetUserProfile(getUserProfileOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = userManagementService.GetUserProfileWithContext(ctx, getUserProfileOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getUserProfilePath))
+					Expect(req.Method).To(Equal("GET"))
 
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
@@ -661,7 +811,6 @@ var _ = Describe(`UserManagementV1`, func() {
 				})
 				Expect(serviceErr).To(BeNil())
 				Expect(userManagementService).ToNot(BeNil())
-				userManagementService.EnableRetries(0, 0)
 
 				// Invoke operation with nil options model (negative test)
 				result, response, operationErr := userManagementService.GetUserProfile(nil)
@@ -681,30 +830,6 @@ var _ = Describe(`UserManagementV1`, func() {
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
 
-				// Invoke operation with a Context to test a timeout error
-				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc()
-				serverSleepTime = 100 * time.Millisecond
-				_, _, operationErr = userManagementService.GetUserProfileWithContext(ctx, getUserProfileOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-				serverSleepTime = time.Duration(0)
-
-				// Disable retries and test again
-				userManagementService.DisableRetries()
-				result, response, operationErr = userManagementService.GetUserProfile(getUserProfileOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).ToNot(BeNil())
-
-				// Re-test the timeout error with retries disabled
-				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc2()
-				serverSleepTime = 100 * time.Millisecond
-				_, _, operationErr = userManagementService.GetUserProfileWithContext(ctx, getUserProfileOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-				serverSleepTime = time.Duration(0)
 			})
 			It(`Invoke GetUserProfile with error: Operation validation and request error`, func() {
 				userManagementService, serviceErr := usermanagementv1.NewUserManagementV1(&usermanagementv1.UserManagementV1Options{
@@ -778,7 +903,6 @@ var _ = Describe(`UserManagementV1`, func() {
 				})
 				Expect(serviceErr).To(BeNil())
 				Expect(userManagementService).ToNot(BeNil())
-				userManagementService.EnableRetries(0, 0)
 
 				// Invoke operation with nil options model (negative test)
 				response, operationErr := userManagementService.UpdateUserProfile(nil)
@@ -799,12 +923,6 @@ var _ = Describe(`UserManagementV1`, func() {
 				updateUserProfileOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
-				response, operationErr = userManagementService.UpdateUserProfile(updateUserProfileOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-
-				// Disable retries and test again
-				userManagementService.DisableRetries()
 				response, operationErr = userManagementService.UpdateUserProfile(updateUserProfileOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
@@ -870,7 +988,6 @@ var _ = Describe(`UserManagementV1`, func() {
 				})
 				Expect(serviceErr).To(BeNil())
 				Expect(userManagementService).ToNot(BeNil())
-				userManagementService.EnableRetries(0, 0)
 
 				// Invoke operation with nil options model (negative test)
 				response, operationErr := userManagementService.RemoveUser(nil)
@@ -884,12 +1001,6 @@ var _ = Describe(`UserManagementV1`, func() {
 				removeUserOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
-				response, operationErr = userManagementService.RemoveUser(removeUserOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-
-				// Disable retries and test again
-				userManagementService.DisableRetries()
 				response, operationErr = userManagementService.RemoveUser(removeUserOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
@@ -1103,10 +1214,8 @@ var _ = Describe(`UserManagementV1`, func() {
 
 	Describe(`GetUserSettings(getUserSettingsOptions *GetUserSettingsOptions)`, func() {
 		getUserSettingsPath := "/v2/accounts/testString/users/testString/settings"
-		var serverSleepTime time.Duration
-		Context(`Using mock server endpoint`, func() {
+		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
-				serverSleepTime = 0
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
@@ -1115,7 +1224,62 @@ var _ = Describe(`UserManagementV1`, func() {
 					Expect(req.Method).To(Equal("GET"))
 
 					// Sleep a short time to support a timeout test
-					time.Sleep(serverSleepTime)
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"language": "Language", "notification_language": "NotificationLanguage", "allowed_ip_addresses": "32.96.110.50,172.16.254.1", "self_manage": true}`)
+				}))
+			})
+			It(`Invoke GetUserSettings successfully with retries`, func() {
+				userManagementService, serviceErr := usermanagementv1.NewUserManagementV1(&usermanagementv1.UserManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(userManagementService).ToNot(BeNil())
+				userManagementService.EnableRetries(0, 0)
+
+				// Construct an instance of the GetUserSettingsOptions model
+				getUserSettingsOptionsModel := new(usermanagementv1.GetUserSettingsOptions)
+				getUserSettingsOptionsModel.AccountID = core.StringPtr("testString")
+				getUserSettingsOptionsModel.IamID = core.StringPtr("testString")
+				getUserSettingsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := userManagementService.GetUserSettingsWithContext(ctx, getUserSettingsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				userManagementService.DisableRetries()
+				result, response, operationErr := userManagementService.GetUserSettings(getUserSettingsOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = userManagementService.GetUserSettingsWithContext(ctx, getUserSettingsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getUserSettingsPath))
+					Expect(req.Method).To(Equal("GET"))
 
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
@@ -1130,7 +1294,6 @@ var _ = Describe(`UserManagementV1`, func() {
 				})
 				Expect(serviceErr).To(BeNil())
 				Expect(userManagementService).ToNot(BeNil())
-				userManagementService.EnableRetries(0, 0)
 
 				// Invoke operation with nil options model (negative test)
 				result, response, operationErr := userManagementService.GetUserSettings(nil)
@@ -1150,30 +1313,6 @@ var _ = Describe(`UserManagementV1`, func() {
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
 
-				// Invoke operation with a Context to test a timeout error
-				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc()
-				serverSleepTime = 100 * time.Millisecond
-				_, _, operationErr = userManagementService.GetUserSettingsWithContext(ctx, getUserSettingsOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-				serverSleepTime = time.Duration(0)
-
-				// Disable retries and test again
-				userManagementService.DisableRetries()
-				result, response, operationErr = userManagementService.GetUserSettings(getUserSettingsOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).ToNot(BeNil())
-
-				// Re-test the timeout error with retries disabled
-				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc2()
-				serverSleepTime = 100 * time.Millisecond
-				_, _, operationErr = userManagementService.GetUserSettingsWithContext(ctx, getUserSettingsOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-				serverSleepTime = time.Duration(0)
 			})
 			It(`Invoke GetUserSettings with error: Operation validation and request error`, func() {
 				userManagementService, serviceErr := usermanagementv1.NewUserManagementV1(&usermanagementv1.UserManagementV1Options{
@@ -1247,7 +1386,6 @@ var _ = Describe(`UserManagementV1`, func() {
 				})
 				Expect(serviceErr).To(BeNil())
 				Expect(userManagementService).ToNot(BeNil())
-				userManagementService.EnableRetries(0, 0)
 
 				// Invoke operation with nil options model (negative test)
 				response, operationErr := userManagementService.UpdateUserSettings(nil)
@@ -1265,12 +1403,6 @@ var _ = Describe(`UserManagementV1`, func() {
 				updateUserSettingsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
-				response, operationErr = userManagementService.UpdateUserSettings(updateUserSettingsOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-
-				// Disable retries and test again
-				userManagementService.DisableRetries()
 				response, operationErr = userManagementService.UpdateUserSettings(updateUserSettingsOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
