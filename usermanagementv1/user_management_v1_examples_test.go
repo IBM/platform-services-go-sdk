@@ -29,7 +29,7 @@ import (
 	. "github.com/onsi/gomega"
 )
 
-const externalConfigFile = "../user_management_v1.env"
+const externalConfigFile = "../user_management.env"
 
 var (
 	userManagementService *usermanagementv1.UserManagementV1
@@ -89,6 +89,27 @@ var _ = Describe(`UserManagementV1 Examples Tests`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
 		})
+		It(`InviteUsers request example`, func() {
+			// begin-invite_users
+
+			inviteUsersOptions := userManagementService.NewInviteUsersOptions(
+				"testString",
+			)
+
+			invitedUserList, response, err := userManagementService.InviteUsers(inviteUsersOptions)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(invitedUserList, "", "  ")
+			fmt.Println(string(b))
+
+			// end-invite_users
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(202))
+			Expect(invitedUserList).ToNot(BeNil())
+
+		})
 		It(`ListUsers request example`, func() {
 			// begin-list_users
 
@@ -110,25 +131,23 @@ var _ = Describe(`UserManagementV1 Examples Tests`, func() {
 			Expect(userList).ToNot(BeNil())
 
 		})
-		It(`InviteUsers request example`, func() {
-			// begin-invite_users
+		It(`RemoveUser request example`, func() {
+			// begin-remove_user
 
-			inviteUsersOptions := userManagementService.NewInviteUsersOptions(
+			removeUserOptions := userManagementService.NewRemoveUserOptions(
+				"testString",
 				"testString",
 			)
 
-			invitedUserList, response, err := userManagementService.InviteUsers(inviteUsersOptions)
+			response, err := userManagementService.RemoveUser(removeUserOptions)
 			if err != nil {
 				panic(err)
 			}
-			b, _ := json.MarshalIndent(invitedUserList, "", "  ")
-			fmt.Println(string(b))
 
-			// end-invite_users
+			// end-remove_user
 
 			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(202))
-			Expect(invitedUserList).ToNot(BeNil())
+			Expect(response.StatusCode).To(Equal(204))
 
 		})
 		It(`GetUserProfile request example`, func() {
@@ -208,25 +227,6 @@ var _ = Describe(`UserManagementV1 Examples Tests`, func() {
 			}
 
 			// end-update_user_settings
-
-			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(204))
-
-		})
-		It(`RemoveUser request example`, func() {
-			// begin-remove_user
-
-			removeUserOptions := userManagementService.NewRemoveUserOptions(
-				"testString",
-				"testString",
-			)
-
-			response, err := userManagementService.RemoveUser(removeUserOptions)
-			if err != nil {
-				panic(err)
-			}
-
-			// end-remove_user
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(204))
