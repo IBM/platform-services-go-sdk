@@ -20,7 +20,7 @@ package atrackerv1_test
 
 import (
 	"fmt"
-	"github.com/IBM/go-sdk-core/v4/core"
+	"github.com/IBM/go-sdk-core/v5/core"
 	"github.com/IBM/platform-services-go-sdk/atrackerv1"
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
@@ -40,15 +40,15 @@ var _ = Describe(`AtrackerV1 Integration Tests`, func() {
 	const externalConfigFile = "../atracker_v1.env"
 
 	var (
-		err          error
+		err             error
 		atrackerService *atrackerv1.AtrackerV1
-		serviceURL   string
-		config       map[string]string
+		serviceURL      string
+		config          map[string]string
 	)
 
 	// Globlal variables to hold link values
 	var (
-		routeIDLink string
+		routeIDLink  string
 		targetIDLink string
 	)
 
@@ -101,15 +101,15 @@ var _ = Describe(`AtrackerV1 Integration Tests`, func() {
 		It(`CreateTarget(createTargetOptions *CreateTargetOptions)`, func() {
 
 			cosEndpointModel := &atrackerv1.CosEndpoint{
-				Endpoint: core.StringPtr("s3.private.us-east.cloud-object-storage.appdomain.cloud"),
+				Endpoint:  core.StringPtr("s3.private.us-east.cloud-object-storage.appdomain.cloud"),
 				TargetCRN: core.StringPtr("crn:v1:bluemix:public:cloud-object-storage:global:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::"),
-				Bucket: core.StringPtr("my-atracker-bucket"),
-				APIKey: core.StringPtr("xxxxxxxxxxxxxx"),
+				Bucket:    core.StringPtr("my-atracker-bucket"),
+				APIKey:    core.StringPtr("xxxxxxxxxxxxxx"),
 			}
 
 			createTargetOptions := &atrackerv1.CreateTargetOptions{
-				Name: core.StringPtr("my-cos-target"),
-				TargetType: core.StringPtr("cloud_object_storage"),
+				Name:        core.StringPtr("my-cos-target"),
+				TargetType:  core.StringPtr("cloud_object_storage"),
 				CosEndpoint: cosEndpointModel,
 			}
 
@@ -119,7 +119,7 @@ var _ = Describe(`AtrackerV1 Integration Tests`, func() {
 			Expect(response.StatusCode).To(Equal(201))
 			Expect(target).ToNot(BeNil())
 
-			targetIDLink = *target.ID;
+			targetIDLink = *target.ID
 
 		})
 	})
@@ -130,8 +130,7 @@ var _ = Describe(`AtrackerV1 Integration Tests`, func() {
 		})
 		It(`ListTargets(listTargetsOptions *ListTargetsOptions)`, func() {
 
-			listTargetsOptions := &atrackerv1.ListTargetsOptions{
-			}
+			listTargetsOptions := &atrackerv1.ListTargetsOptions{}
 
 			targetList, response, err := atrackerService.ListTargets(listTargetsOptions)
 
@@ -170,16 +169,16 @@ var _ = Describe(`AtrackerV1 Integration Tests`, func() {
 		It(`ReplaceTarget(replaceTargetOptions *ReplaceTargetOptions)`, func() {
 
 			cosEndpointModel := &atrackerv1.CosEndpoint{
-				Endpoint: core.StringPtr("s3.private.us-east.cloud-object-storage.appdomain.cloud"),
+				Endpoint:  core.StringPtr("s3.private.us-east.cloud-object-storage.appdomain.cloud"),
 				TargetCRN: core.StringPtr("crn:v1:bluemix:public:cloud-object-storage:global:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::"),
-				Bucket: core.StringPtr("my-atracker-bucket"),
-				APIKey: core.StringPtr("xxxxxxxxxxxxxx"),
+				Bucket:    core.StringPtr("my-atracker-bucket"),
+				APIKey:    core.StringPtr("xxxxxxxxxxxxxx"),
 			}
 
 			replaceTargetOptions := &atrackerv1.ReplaceTargetOptions{
-				ID: core.StringPtr(targetIDLink),
-				Name: core.StringPtr("my-cos-target-modified"),
-				TargetType: core.StringPtr("cloud_object_storage"),
+				ID:          core.StringPtr(targetIDLink),
+				Name:        core.StringPtr("my-cos-target-modified"),
+				TargetType:  core.StringPtr("cloud_object_storage"),
 				CosEndpoint: cosEndpointModel,
 			}
 
@@ -204,9 +203,9 @@ var _ = Describe(`AtrackerV1 Integration Tests`, func() {
 			}
 
 			createRouteOptions := &atrackerv1.CreateRouteOptions{
-				Name: core.StringPtr("my-route"),
+				Name:                core.StringPtr("my-route"),
 				ReceiveGlobalEvents: core.BoolPtr(false),
-				Rules: []atrackerv1.Rule{*ruleModel},
+				Rules:               []atrackerv1.Rule{*ruleModel},
 			}
 
 			route, response, err := atrackerService.CreateRoute(createRouteOptions)
@@ -215,7 +214,7 @@ var _ = Describe(`AtrackerV1 Integration Tests`, func() {
 			Expect(response.StatusCode).To(Equal(201))
 			Expect(route).ToNot(BeNil())
 
-			routeIDLink = *route.ID;
+			routeIDLink = *route.ID
 
 		})
 	})
@@ -226,8 +225,7 @@ var _ = Describe(`AtrackerV1 Integration Tests`, func() {
 		})
 		It(`ListRoutes(listRoutesOptions *ListRoutesOptions)`, func() {
 
-			listRoutesOptions := &atrackerv1.ListRoutesOptions{
-			}
+			listRoutesOptions := &atrackerv1.ListRoutesOptions{}
 
 			routeList, response, err := atrackerService.ListRoutes(listRoutesOptions)
 
@@ -270,10 +268,10 @@ var _ = Describe(`AtrackerV1 Integration Tests`, func() {
 			}
 
 			replaceRouteOptions := &atrackerv1.ReplaceRouteOptions{
-				ID: core.StringPtr(routeIDLink),
-				Name: core.StringPtr("my-route-modified"),
+				ID:                  core.StringPtr(routeIDLink),
+				Name:                core.StringPtr("my-route-modified"),
 				ReceiveGlobalEvents: core.BoolPtr(false),
-				Rules: []atrackerv1.Rule{*ruleModel},
+				Rules:               []atrackerv1.Rule{*ruleModel},
 			}
 
 			route, response, err := atrackerService.ReplaceRoute(replaceRouteOptions)
