@@ -21,7 +21,7 @@ package atrackerv1_test
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/IBM/go-sdk-core/v4/core"
+	"github.com/IBM/go-sdk-core/v5/core"
 	"github.com/IBM/platform-services-go-sdk/atrackerv1"
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
@@ -32,13 +32,13 @@ const externalConfigFile = "../atracker_v1.env"
 
 var (
 	atrackerService *atrackerv1.AtrackerV1
-	config       map[string]string
-	configLoaded bool = false
+	config          map[string]string
+	configLoaded    bool = false
 )
 
 // Globlal variables to hold link values
 var (
-	routeIDLink string
+	routeIDLink  string
 	targetIDLink string
 )
 
@@ -98,10 +98,10 @@ var _ = Describe(`AtrackerV1 Examples Tests`, func() {
 			// begin-create_target
 
 			cosEndpointModel := &atrackerv1.CosEndpoint{
-				Endpoint: core.StringPtr("s3.private.us-east.cloud-object-storage.appdomain.cloud"),
+				Endpoint:  core.StringPtr("s3.private.us-east.cloud-object-storage.appdomain.cloud"),
 				TargetCRN: core.StringPtr("crn:v1:bluemix:public:cloud-object-storage:global:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::"),
-				Bucket: core.StringPtr("my-atracker-bucket"),
-				APIKey: core.StringPtr("xxxxxxxxxxxxxx"),
+				Bucket:    core.StringPtr("my-atracker-bucket"),
+				APIKey:    core.StringPtr("xxxxxxxxxxxxxx"),
 			}
 
 			createTargetOptions := atrackerService.NewCreateTargetOptions(
@@ -123,7 +123,7 @@ var _ = Describe(`AtrackerV1 Examples Tests`, func() {
 			Expect(response.StatusCode).To(Equal(201))
 			Expect(target).ToNot(BeNil())
 
-			targetIDLink = *target.ID;
+			targetIDLink = *target.ID
 
 		})
 		It(`ListTargets request example`, func() {
@@ -170,10 +170,10 @@ var _ = Describe(`AtrackerV1 Examples Tests`, func() {
 			// begin-replace_target
 
 			cosEndpointModel := &atrackerv1.CosEndpoint{
-				Endpoint: core.StringPtr("s3.private.us-east.cloud-object-storage.appdomain.cloud"),
+				Endpoint:  core.StringPtr("s3.private.us-east.cloud-object-storage.appdomain.cloud"),
 				TargetCRN: core.StringPtr("crn:v1:bluemix:public:cloud-object-storage:global:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::"),
-				Bucket: core.StringPtr("my-atracker-bucket"),
-				APIKey: core.StringPtr("xxxxxxxxxxxxxx"),
+				Bucket:    core.StringPtr("my-atracker-bucket"),
+				APIKey:    core.StringPtr("xxxxxxxxxxxxxx"),
 			}
 
 			replaceTargetOptions := atrackerService.NewReplaceTargetOptions(
@@ -223,7 +223,7 @@ var _ = Describe(`AtrackerV1 Examples Tests`, func() {
 			Expect(response.StatusCode).To(Equal(201))
 			Expect(route).ToNot(BeNil())
 
-			routeIDLink = *route.ID;
+			routeIDLink = *route.ID
 
 		})
 		It(`ListRoutes request example`, func() {
