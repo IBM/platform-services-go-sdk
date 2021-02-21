@@ -1,7 +1,7 @@
 // +build examples
 
 /**
- * (C) Copyright IBM Corp. 2020.
+ * (C) Copyright IBM Corp. 2020, 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -29,14 +29,21 @@ import (
 	. "github.com/onsi/gomega"
 )
 
+//
 // This file provides an example of how to use the Global Search service.
+//
+// The following configuration properties are assumed to be defined:
 //
 // The following configuration properties are assumed to be defined in the external configuration file:
 // GLOBAL_SEARCH_URL=<service url>
 // GLOBAL_SEARCH_AUTHTYPE=iam
 // GLOBAL_SEARCH_APIKEY=<IAM api key>
 // GLOBAL_SEARCH_AUTH_URL=<IAM token service URL - omit this if using the production environment>
-
+//
+// These configuration properties can be exported as environment variables, or stored
+// in a configuration file and then:
+// export IBM_CREDENTIALS_FILE=<name of configuration file>
+//
 const externalConfigFile = "../global_search.env"
 
 var (

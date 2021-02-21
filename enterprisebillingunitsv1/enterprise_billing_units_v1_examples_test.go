@@ -1,7 +1,7 @@
 // +build examples
 
 /**
- * (C) Copyright IBM Corp. 2020.
+ * (C) Copyright IBM Corp. 2020, 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -32,13 +32,18 @@ import (
 //
 // This file provides an example of how to use the Enterprise Billing Units service.
 //
-// The following configuration properties are assumed to be defined in the external configuration file:
+// The following configuration properties are assumed to be defined:
+//
 // ENTERPRISE_BILLING_UNITS_URL=<service url>
 // ENTERPRISE_BILLING_UNITS_AUTHTYPE=iam
 // ENTERPRISE_BILLING_UNITS_APIKEY=<your iam apikey>
 // ENTERPRISE_BILLING_UNITS_AUTH_URL=<IAM token service URL - omit this if using the production environment>
 // ENTERPRISE_BILLING_UNITS_ENTERPRISE_ID=<id of enterprise to use for examples>
 // ENTERPRISE_BILLING_UNITS_BILLING_UNIT_ID=<id of billing unit to use for examples>
+//
+// These configuration properties can be exported as environment variables, or stored
+// in a configuration file and then:
+// export IBM_CREDENTIALS_FILE=<name of configuration file>
 //
 const externalConfigFile = "../enterprise_billing_units.env"
 
