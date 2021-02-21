@@ -1,7 +1,7 @@
 // +build examples
 
 /**
- * (C) Copyright IBM Corp. 2020.
+ * (C) Copyright IBM Corp. 2020, 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -30,7 +30,7 @@ import (
 )
 
 //
-// This file provides an example of how to use the Usage Reports service.
+// This file provides an example of how to use the Enterprise Usage Reports service.
 //
 // The following configuration properties are assumed to be defined:
 // ENTERPRISE_USAGE_REPORTS_URL=<service url>
@@ -43,10 +43,9 @@ import (
 // ENTERPRISE_USAGE_REPORTS_BILLING_MONTH=<the billing month (yyyy-mm) for which usage info will be retrieved>
 //
 // These configuration properties can be exported as environment variables, or stored
-// in a "credentials" file and then:
-// export IBM_CREDENTIALS_FILE=<name of credentials file>
+// in a configuration file and then:
+// export IBM_CREDENTIALS_FILE=<name of configuration file>
 //
-
 const externalConfigFile = "../enterprise_usage_reports.env"
 
 var (

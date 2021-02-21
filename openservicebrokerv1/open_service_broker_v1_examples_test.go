@@ -1,7 +1,7 @@
 // +build examples
 
 /**
- * (C) Copyright IBM Corp. 2020.
+ * (C) Copyright IBM Corp. 2020, 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -29,10 +29,8 @@ import (
 	. "github.com/onsi/gomega"
 )
 
-const externalConfigFile = "../open_service_broker.env"
-
 //
-// This file provides an example of how to use the Open Service broker service.
+// This file provides an example of how to use the Open Service Broker service.
 //
 // The following configuration properties are assumed to be defined:
 //
@@ -50,9 +48,10 @@ const externalConfigFile = "../open_service_broker.env"
 // OPEN_SERVICE_BROKER_ORGANIZATION_GUID=<The IBM Cloud platform GUID for the organization under which the service instance is to be provisioned>
 //
 // These configuration properties can be exported as environment variables, or stored
-// in a "credentials" file and then:
-// export IBM_CREDENTIALS_FILE=<name of credentials file>
+// in a configuration file and then:
+// export IBM_CREDENTIALS_FILE=<name of configuration file>
 //
+const externalConfigFile = "../open_service_broker.env"
 
 var (
 	openServiceBrokerService *openservicebrokerv1.OpenServiceBrokerV1
