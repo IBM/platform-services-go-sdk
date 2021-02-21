@@ -1,5 +1,5 @@
 /**
- * (C) Copyright IBM Corp. 2020.
+ * (C) Copyright IBM Corp. 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,9 +15,8 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-d753183b-20201209-145823
+ * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-8af3411e-20210219-150013
  */
- 
 
 // Package atrackerv1 : Operations and models for the AtrackerV1 service
 package atrackerv1
@@ -26,7 +25,7 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"github.com/IBM/go-sdk-core/v4/core"
+	"github.com/IBM/go-sdk-core/v5/core"
 	common "github.com/IBM/platform-services-go-sdk/common"
 	"net/http"
 	"reflect"
@@ -35,7 +34,7 @@ import (
 
 // AtrackerV1 : IBM Cloud Activity Tracking Service (ATracker Service for short) is an activity tracker configuration
 // service for your application events as well as events from IBM services under your account. It is designed to enable
-// you to route activity tracker events to your designated Cloud Object Storage location in different regions.
+// you to route  activity tracker events to your designated Cloud Object Storage location in different regions.
 //
 // Version: 1.0.0
 type AtrackerV1 struct {
@@ -176,10 +175,10 @@ func (atracker *AtrackerV1) DisableRetries() {
 }
 
 // CreateTarget : Create a Cloud Object Storage target for a region
-// Creates a new Cloud Object Storage (COS) target with specified COS endpoint information and credentials. Commonly the
-// COS endpoint should be on the same region as ATracker Services where this API is invoked. The Target definition could
-// only be referenced by the routing rules defined in the same region through the same API endpoint. If a COS endpoint
-// to be used across multiple regions, you must define a target for each region's API endpoint.
+// Creates a new Cloud Object Storage (COS) target with specified COS endpoint information and credentials.  Commonly
+// the COS endpoint should be on the same region as ATracker Services where this API is invoked. The  Target definition
+// could only be referenced by the routing rules defined in the same region through the same  API endpoint. If a COS
+// endpoint to be used across multiple regions, you must define a target for each region's API endpoint.
 func (atracker *AtrackerV1) CreateTarget(createTargetOptions *CreateTargetOptions) (result *Target, response *core.DetailedResponse, err error) {
 	return atracker.CreateTargetWithContext(context.Background(), createTargetOptions)
 }
@@ -479,7 +478,7 @@ func (atracker *AtrackerV1) DeleteTargetWithContext(ctx context.Context, deleteT
 }
 
 // CreateRoute : Create a Route for the region
-// Creates a route with rules defined how to route AT events to targets for a region. For each account and region, only
+// Creates a route with rules defined how to route AT events to targets for a region.  For each account and region, only
 // one route could be defined. A route could contain multiple rules which enable atracker service to match incoming AT
 // events based on the source crn and forward the events to customer configured targets.
 func (atracker *AtrackerV1) CreateRoute(createRouteOptions *CreateRouteOptions) (result *Route, response *core.DetailedResponse, err error) {
@@ -784,13 +783,13 @@ func (atracker *AtrackerV1) DeleteRouteWithContext(ctx context.Context, deleteRo
 type CreateRouteOptions struct {
 	// The name of the route. Must be 180 characters or less and cannot include any special characters other than `(space)
 	// - . _ :`.
-	Name *string `json:"name" validate:"required"`
+	Name *string `validate:"required"`
 
 	// Whether or not all global events should be forwarded to this region.
-	ReceiveGlobalEvents *bool `json:"receive_global_events" validate:"required"`
+	ReceiveGlobalEvents *bool `validate:"required"`
 
 	// Routing rules that will be evaluated in their order of the array.
-	Rules []Rule `json:"rules" validate:"required"`
+	Rules []Rule `validate:"required"`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -832,13 +831,13 @@ func (options *CreateRouteOptions) SetHeaders(param map[string]string) *CreateRo
 // CreateTargetOptions : The CreateTarget options.
 type CreateTargetOptions struct {
 	// The name of the target. Must be 256 characters or less.
-	Name *string `json:"name" validate:"required"`
+	Name *string `validate:"required"`
 
 	// The type of the target.
-	TargetType *string `json:"target_type" validate:"required"`
+	TargetType *string `validate:"required"`
 
 	// Property values for a Cloud Object Storage Endpoint.
-	CosEndpoint *CosEndpoint `json:"cos_endpoint" validate:"required"`
+	CosEndpoint *CosEndpoint `validate:"required"`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -886,7 +885,7 @@ func (options *CreateTargetOptions) SetHeaders(param map[string]string) *CreateT
 // DeleteRouteOptions : The DeleteRoute options.
 type DeleteRouteOptions struct {
 	// The v4 UUID that uniquely identifies the route.
-	ID *string `json:"id" validate:"required,ne="`
+	ID *string `validate:"required,ne="`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -914,7 +913,7 @@ func (options *DeleteRouteOptions) SetHeaders(param map[string]string) *DeleteRo
 // DeleteTargetOptions : The DeleteTarget options.
 type DeleteTargetOptions struct {
 	// The v4 UUID that uniquely identifies the target.
-	ID *string `json:"id" validate:"required,ne="`
+	ID *string `validate:"required,ne="`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -942,7 +941,7 @@ func (options *DeleteTargetOptions) SetHeaders(param map[string]string) *DeleteT
 // GetRouteOptions : The GetRoute options.
 type GetRouteOptions struct {
 	// The v4 UUID that uniquely identifies the route.
-	ID *string `json:"id" validate:"required,ne="`
+	ID *string `validate:"required,ne="`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -970,7 +969,7 @@ func (options *GetRouteOptions) SetHeaders(param map[string]string) *GetRouteOpt
 // GetTargetOptions : The GetTarget options.
 type GetTargetOptions struct {
 	// The v4 UUID that uniquely identifies the target.
-	ID *string `json:"id" validate:"required,ne="`
+	ID *string `validate:"required,ne="`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -1034,17 +1033,17 @@ func (options *ListTargetsOptions) SetHeaders(param map[string]string) *ListTarg
 // ReplaceRouteOptions : The ReplaceRoute options.
 type ReplaceRouteOptions struct {
 	// The v4 UUID that uniquely identifies the route.
-	ID *string `json:"id" validate:"required,ne="`
+	ID *string `validate:"required,ne="`
 
 	// The name of the route. Must be 180 characters or less and cannot include any special characters other than `(space)
 	// - . _ :`.
-	Name *string `json:"name" validate:"required"`
+	Name *string `validate:"required"`
 
 	// Whether or not all global events should be forwarded to this region.
-	ReceiveGlobalEvents *bool `json:"receive_global_events" validate:"required"`
+	ReceiveGlobalEvents *bool `validate:"required"`
 
 	// Routing rules that will be evaluated in their order of the array.
-	Rules []Rule `json:"rules" validate:"required"`
+	Rules []Rule `validate:"required"`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -1093,16 +1092,16 @@ func (options *ReplaceRouteOptions) SetHeaders(param map[string]string) *Replace
 // ReplaceTargetOptions : The ReplaceTarget options.
 type ReplaceTargetOptions struct {
 	// The v4 UUID that uniquely identifies the target.
-	ID *string `json:"id" validate:"required,ne="`
+	ID *string `validate:"required,ne="`
 
 	// The name of the target. Must be 256 characters or less.
-	Name *string `json:"name" validate:"required"`
+	Name *string `validate:"required"`
 
 	// The type of the target.
-	TargetType *string `json:"target_type" validate:"required"`
+	TargetType *string `validate:"required"`
 
 	// Property values for a Cloud Object Storage Endpoint.
-	CosEndpoint *CosEndpoint `json:"cos_endpoint" validate:"required"`
+	CosEndpoint *CosEndpoint `validate:"required"`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -1162,9 +1161,6 @@ type Route struct {
 	// The name of this route.
 	Name *string `json:"name" validate:"required"`
 
-	// The uuid of ATracker services in this region.
-	InstanceID *string `json:"instance_id" validate:"required"`
-
 	// The crn of this route type resource.
 	CRN *string `json:"crn" validate:"required"`
 
@@ -1178,7 +1174,6 @@ type Route struct {
 	Rules []Rule `json:"rules" validate:"required"`
 }
 
-
 // UnmarshalRoute unmarshals an instance of Route from the specified map of raw messages.
 func UnmarshalRoute(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(Route)
@@ -1187,10 +1182,6 @@ func UnmarshalRoute(m map[string]json.RawMessage, result interface{}) (err error
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "instance_id", &obj.InstanceID)
 	if err != nil {
 		return
 	}
@@ -1220,7 +1211,6 @@ type RouteList struct {
 	Routes []Route `json:"routes" validate:"required"`
 }
 
-
 // UnmarshalRouteList unmarshals an instance of RouteList from the specified map of raw messages.
 func UnmarshalRouteList(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(RouteList)
@@ -1234,11 +1224,9 @@ func UnmarshalRouteList(m map[string]json.RawMessage, result interface{}) (err e
 
 // Rule : The request payload to create a regional route.
 type Rule struct {
-	// The target ID List. Only one target id is supported. For regional route, the id must be V4 uuid of a target in the
-	// same region. For global route, it will be region-code and target-id separated by colon.
+	// The target ID List. Only one target id is supported.
 	TargetIds []string `json:"target_ids" validate:"required"`
 }
-
 
 // NewRule : Instantiate Rule (Generic Model Constructor)
 func (*AtrackerV1) NewRule(targetIds []string) (model *Rule, err error) {
@@ -1269,9 +1257,6 @@ type Target struct {
 	// The name of this target resource.
 	Name *string `json:"name" validate:"required"`
 
-	// The uuid of ATracker services in this region.
-	InstanceID *string `json:"instance_id" validate:"required"`
-
 	// The crn of this target type resource.
 	CRN *string `json:"crn" validate:"required"`
 
@@ -1292,7 +1277,6 @@ const (
 	TargetTargetTypeCloudObjectStorageConst = "cloud_object_storage"
 )
 
-
 // UnmarshalTarget unmarshals an instance of Target from the specified map of raw messages.
 func UnmarshalTarget(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(Target)
@@ -1301,10 +1285,6 @@ func UnmarshalTarget(m map[string]json.RawMessage, result interface{}) (err erro
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "instance_id", &obj.InstanceID)
 	if err != nil {
 		return
 	}
@@ -1334,7 +1314,6 @@ type TargetList struct {
 	Targets []Target `json:"targets" validate:"required"`
 }
 
-
 // UnmarshalTargetList unmarshals an instance of TargetList from the specified map of raw messages.
 func UnmarshalTargetList(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(TargetList)
@@ -1360,7 +1339,6 @@ type CosEndpoint struct {
 	// The IAM Api key that have writer access to this cos instance. This credential will be masked in the response.
 	APIKey *string `json:"api_key" validate:"required"`
 }
-
 
 // NewCosEndpoint : Instantiate CosEndpoint (Generic Model Constructor)
 func (*AtrackerV1) NewCosEndpoint(endpoint string, targetCRN string, bucket string, apiKey string) (model *CosEndpoint, err error) {
