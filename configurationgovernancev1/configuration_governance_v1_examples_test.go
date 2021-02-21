@@ -30,9 +30,11 @@ import (
 	. "github.com/onsi/gomega"
 )
 
+//
 // This file provides an example of how to use the Configuration Governance service.
 //
-// The following configuration properties are assumed to be defined in the external configuration file:
+// The following configuration properties are assumed to be defined:
+//
 // CONFIGURATION_GOVERNANCE_URL=<service url>
 // CONFIGURATION_GOVERNANCE_AUTHTYPE=iam
 // CONFIGURATION_GOVERNANCE_APIKEY=<IAM api key of user with authority to create rules>
@@ -42,7 +44,10 @@ import (
 // CONFIGURATION_GOVERNANCE_ENTERPRISE_SCOPE_ID=<the id of the "enterprise" scope to be used in the examples>
 // CONFIGURATION_GOVERNANCE_SUBACCT_SCOPE_ID=<the id of the "leaf account" scope to be used in the examples>
 //
-
+// These configuration properties can be exported as environment variables, or stored
+// in a configuration file and then:
+// export IBM_CREDENTIALS_FILE=<name of configuration file>
+//
 const externalConfigFile = "../configuration_governance.env"
 
 var (
