@@ -1,7 +1,7 @@
 // +build integration
 
 /**
- * (C) Copyright IBM Corp. 2020.
+ * (C) Copyright IBM Corp. 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,7 +25,7 @@ import (
 	"os"
 	"time"
 
-	"github.com/IBM/go-sdk-core/v4/core"
+	"github.com/IBM/go-sdk-core/v5/core"
 	common "github.com/IBM/platform-services-go-sdk/common"
 	"github.com/IBM/platform-services-go-sdk/usermanagementv1"
 	. "github.com/onsi/ginkgo"
@@ -96,7 +96,7 @@ var _ = Describe(`UserManagementV1 Integration Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(userManagementService).ToNot(BeNil())
 			Expect(userManagementService.Service.Options.URL).To(Equal(serviceURL))
-			core.SetLogger(core.NewLogger(core.LevelDebug, log.New(GinkgoWriter, "", log.LstdFlags)))
+			core.SetLogger(core.NewLogger(core.LevelDebug, log.New(GinkgoWriter, "", log.LstdFlags), log.New(GinkgoWriter, "", log.LstdFlags)))
 			userManagementService.EnableRetries(4, 30*time.Second)
 		})
 		It("Successfully construct the service client alternate instance", func() {
@@ -254,6 +254,7 @@ var _ = Describe(`UserManagementV1 Integration Tests`, func() {
 			}
 
 			result, response, err := userManagementService.GetUserProfile(getUserProfileOptions)
+
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(result).ToNot(BeNil())
@@ -291,8 +292,6 @@ var _ = Describe(`UserManagementV1 Integration Tests`, func() {
 				AccountID: &accountID,
 				IamID:     &deleteUserID,
 			}
-
-			// fmt.Println(*removeUserOptions)
 
 			response, err := userManagementService.RemoveUser(removeUserOptions)
 
