@@ -52,7 +52,7 @@ var _ = Describe(`UserManagementV1 Integration Tests`, func() {
 		config                map[string]string
 		deleteUserID          string
 		accountID             = "1aa434630b594b8a88b961a44c9eb2a9"
-		userID                = "IBMid-550009SDCP"
+		userID                = "IBMid-55000AVVUP"
 		memberEmail           = "aminttest+linked_account_owner_11@mail.test.ibm.com"
 		viewerRoleID          = "crn:v1:bluemix:public:iam::::role:Viewer"
 		accessGroupID         = "AccessGroupId-51675919-2bd7-4ce3-86e4-5faff8065574"
