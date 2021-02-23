@@ -221,7 +221,7 @@ var _ = Describe(`UserManagementV1 Examples Tests`, func() {
 				deleteUserID,
 			)
 
-			response, err := userManagementService.RemoveUser(removeUserOptions)
+			response, err := userManagementAdminService.RemoveUser(removeUserOptions)
 			if err != nil {
 				panic(err)
 			}
