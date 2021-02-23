@@ -70,7 +70,7 @@ var _ = Describe(`UserManagementV1 Integration Tests`, func() {
 			}
 
 			os.Setenv("IBM_CREDENTIALS_FILE", externalConfigFile)
-			config, err = core.GetServiceProperties("USERMGMT1")
+			config, err = core.GetServiceProperties(usermanagementv1.DefaultServiceName)
 			if err != nil {
 				Skip("Error loading service properties, skipping tests: " + err.Error())
 			}
@@ -90,7 +90,7 @@ var _ = Describe(`UserManagementV1 Integration Tests`, func() {
 		})
 		It("Successfully construct the service client main instance", func() {
 			userManagementServiceOptions := &usermanagementv1.UserManagementV1Options{
-				ServiceName: "USERMGMT1",
+				ServiceName: usermanagementv1.DefaultServiceName,
 			}
 			userManagementService, err = usermanagementv1.NewUserManagementV1UsingExternalConfig(userManagementServiceOptions)
 			Expect(err).To(BeNil())
