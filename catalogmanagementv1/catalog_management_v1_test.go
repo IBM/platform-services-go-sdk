@@ -7088,15 +7088,15 @@ var _ = Describe(`CatalogManagementV1`, func() {
 			})
 		})
 	})
-	Describe(`GetVersionUpdates(getVersionUpdatesOptions *GetVersionUpdatesOptions) - Operation response error`, func() {
-		getVersionUpdatesPath := "/catalogs/testString/offerings/testString/updates"
+	Describe(`GetOfferingUpdates(getOfferingUpdatesOptions *GetOfferingUpdatesOptions) - Operation response error`, func() {
+		getOfferingUpdatesPath := "/catalogs/testString/offerings/testString/updates"
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(getVersionUpdatesPath))
+					Expect(req.URL.EscapedPath()).To(Equal(getOfferingUpdatesPath))
 					Expect(req.Method).To(Equal("GET"))
 					Expect(req.URL.Query()["kind"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["version"]).To(Equal([]string{"testString"}))
@@ -7109,7 +7109,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 					fmt.Fprintf(res, `} this is not valid json {`)
 				}))
 			})
-			It(`Invoke GetVersionUpdates with error: Operation response processing error`, func() {
+			It(`Invoke GetOfferingUpdates with error: Operation response processing error`, func() {
 				catalogManagementService, serviceErr := catalogmanagementv1.NewCatalogManagementV1(&catalogmanagementv1.CatalogManagementV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -7117,26 +7117,26 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(catalogManagementService).ToNot(BeNil())
 
-				// Construct an instance of the GetVersionUpdatesOptions model
-				getVersionUpdatesOptionsModel := new(catalogmanagementv1.GetVersionUpdatesOptions)
-				getVersionUpdatesOptionsModel.CatalogIdentifier = core.StringPtr("testString")
-				getVersionUpdatesOptionsModel.OfferingID = core.StringPtr("testString")
-				getVersionUpdatesOptionsModel.Kind = core.StringPtr("testString")
-				getVersionUpdatesOptionsModel.Version = core.StringPtr("testString")
-				getVersionUpdatesOptionsModel.ClusterID = core.StringPtr("testString")
-				getVersionUpdatesOptionsModel.Region = core.StringPtr("testString")
-				getVersionUpdatesOptionsModel.ResourceGroupID = core.StringPtr("testString")
-				getVersionUpdatesOptionsModel.Namespace = core.StringPtr("testString")
-				getVersionUpdatesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the GetOfferingUpdatesOptions model
+				getOfferingUpdatesOptionsModel := new(catalogmanagementv1.GetOfferingUpdatesOptions)
+				getOfferingUpdatesOptionsModel.CatalogIdentifier = core.StringPtr("testString")
+				getOfferingUpdatesOptionsModel.OfferingID = core.StringPtr("testString")
+				getOfferingUpdatesOptionsModel.Kind = core.StringPtr("testString")
+				getOfferingUpdatesOptionsModel.Version = core.StringPtr("testString")
+				getOfferingUpdatesOptionsModel.ClusterID = core.StringPtr("testString")
+				getOfferingUpdatesOptionsModel.Region = core.StringPtr("testString")
+				getOfferingUpdatesOptionsModel.ResourceGroupID = core.StringPtr("testString")
+				getOfferingUpdatesOptionsModel.Namespace = core.StringPtr("testString")
+				getOfferingUpdatesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
-				result, response, operationErr := catalogManagementService.GetVersionUpdates(getVersionUpdatesOptionsModel)
+				result, response, operationErr := catalogManagementService.GetOfferingUpdates(getOfferingUpdatesOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
 
 				// Enable retries and test again
 				catalogManagementService.EnableRetries(0, 0)
-				result, response, operationErr = catalogManagementService.GetVersionUpdates(getVersionUpdatesOptionsModel)
+				result, response, operationErr = catalogManagementService.GetOfferingUpdates(getOfferingUpdatesOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
@@ -7147,15 +7147,15 @@ var _ = Describe(`CatalogManagementV1`, func() {
 		})
 	})
 
-	Describe(`GetVersionUpdates(getVersionUpdatesOptions *GetVersionUpdatesOptions)`, func() {
-		getVersionUpdatesPath := "/catalogs/testString/offerings/testString/updates"
+	Describe(`GetOfferingUpdates(getOfferingUpdatesOptions *GetOfferingUpdatesOptions)`, func() {
+		getOfferingUpdatesPath := "/catalogs/testString/offerings/testString/updates"
 		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(getVersionUpdatesPath))
+					Expect(req.URL.EscapedPath()).To(Equal(getOfferingUpdatesPath))
 					Expect(req.Method).To(Equal("GET"))
 
 					Expect(req.URL.Query()["kind"]).To(Equal([]string{"testString"}))
@@ -7173,7 +7173,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 					fmt.Fprintf(res, "%s", `[{"version_locator": "VersionLocator", "version": "Version", "state": {"current": "Current", "current_entered": "2019-01-01T12:00:00.000Z", "pending": "Pending", "pending_requested": "2019-01-01T12:00:00.000Z", "previous": "Previous"}, "required_resources": [{"type": "mem", "value": "anyValue"}], "package_version": "PackageVersion", "can_update": false, "messages": {"mapKey": "Inner"}}]`)
 				}))
 			})
-			It(`Invoke GetVersionUpdates successfully with retries`, func() {
+			It(`Invoke GetOfferingUpdates successfully with retries`, func() {
 				catalogManagementService, serviceErr := catalogmanagementv1.NewCatalogManagementV1(&catalogmanagementv1.CatalogManagementV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -7182,28 +7182,28 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				Expect(catalogManagementService).ToNot(BeNil())
 				catalogManagementService.EnableRetries(0, 0)
 
-				// Construct an instance of the GetVersionUpdatesOptions model
-				getVersionUpdatesOptionsModel := new(catalogmanagementv1.GetVersionUpdatesOptions)
-				getVersionUpdatesOptionsModel.CatalogIdentifier = core.StringPtr("testString")
-				getVersionUpdatesOptionsModel.OfferingID = core.StringPtr("testString")
-				getVersionUpdatesOptionsModel.Kind = core.StringPtr("testString")
-				getVersionUpdatesOptionsModel.Version = core.StringPtr("testString")
-				getVersionUpdatesOptionsModel.ClusterID = core.StringPtr("testString")
-				getVersionUpdatesOptionsModel.Region = core.StringPtr("testString")
-				getVersionUpdatesOptionsModel.ResourceGroupID = core.StringPtr("testString")
-				getVersionUpdatesOptionsModel.Namespace = core.StringPtr("testString")
-				getVersionUpdatesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the GetOfferingUpdatesOptions model
+				getOfferingUpdatesOptionsModel := new(catalogmanagementv1.GetOfferingUpdatesOptions)
+				getOfferingUpdatesOptionsModel.CatalogIdentifier = core.StringPtr("testString")
+				getOfferingUpdatesOptionsModel.OfferingID = core.StringPtr("testString")
+				getOfferingUpdatesOptionsModel.Kind = core.StringPtr("testString")
+				getOfferingUpdatesOptionsModel.Version = core.StringPtr("testString")
+				getOfferingUpdatesOptionsModel.ClusterID = core.StringPtr("testString")
+				getOfferingUpdatesOptionsModel.Region = core.StringPtr("testString")
+				getOfferingUpdatesOptionsModel.ResourceGroupID = core.StringPtr("testString")
+				getOfferingUpdatesOptionsModel.Namespace = core.StringPtr("testString")
+				getOfferingUpdatesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with a Context to test a timeout error
 				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
 				defer cancelFunc()
-				_, _, operationErr := catalogManagementService.GetVersionUpdatesWithContext(ctx, getVersionUpdatesOptionsModel)
+				_, _, operationErr := catalogManagementService.GetOfferingUpdatesWithContext(ctx, getOfferingUpdatesOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
 
 				// Disable retries and test again
 				catalogManagementService.DisableRetries()
-				result, response, operationErr := catalogManagementService.GetVersionUpdates(getVersionUpdatesOptionsModel)
+				result, response, operationErr := catalogManagementService.GetOfferingUpdates(getOfferingUpdatesOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
@@ -7211,7 +7211,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				// Re-test the timeout error with retries disabled
 				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
 				defer cancelFunc2()
-				_, _, operationErr = catalogManagementService.GetVersionUpdatesWithContext(ctx, getVersionUpdatesOptionsModel)
+				_, _, operationErr = catalogManagementService.GetOfferingUpdatesWithContext(ctx, getOfferingUpdatesOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
 			})
@@ -7225,7 +7225,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(getVersionUpdatesPath))
+					Expect(req.URL.EscapedPath()).To(Equal(getOfferingUpdatesPath))
 					Expect(req.Method).To(Equal("GET"))
 
 					Expect(req.URL.Query()["kind"]).To(Equal([]string{"testString"}))
@@ -7240,7 +7240,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 					fmt.Fprintf(res, "%s", `[{"version_locator": "VersionLocator", "version": "Version", "state": {"current": "Current", "current_entered": "2019-01-01T12:00:00.000Z", "pending": "Pending", "pending_requested": "2019-01-01T12:00:00.000Z", "previous": "Previous"}, "required_resources": [{"type": "mem", "value": "anyValue"}], "package_version": "PackageVersion", "can_update": false, "messages": {"mapKey": "Inner"}}]`)
 				}))
 			})
-			It(`Invoke GetVersionUpdates successfully`, func() {
+			It(`Invoke GetOfferingUpdates successfully`, func() {
 				catalogManagementService, serviceErr := catalogmanagementv1.NewCatalogManagementV1(&catalogmanagementv1.CatalogManagementV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -7249,31 +7249,31 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				Expect(catalogManagementService).ToNot(BeNil())
 
 				// Invoke operation with nil options model (negative test)
-				result, response, operationErr := catalogManagementService.GetVersionUpdates(nil)
+				result, response, operationErr := catalogManagementService.GetOfferingUpdates(nil)
 				Expect(operationErr).NotTo(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
 
-				// Construct an instance of the GetVersionUpdatesOptions model
-				getVersionUpdatesOptionsModel := new(catalogmanagementv1.GetVersionUpdatesOptions)
-				getVersionUpdatesOptionsModel.CatalogIdentifier = core.StringPtr("testString")
-				getVersionUpdatesOptionsModel.OfferingID = core.StringPtr("testString")
-				getVersionUpdatesOptionsModel.Kind = core.StringPtr("testString")
-				getVersionUpdatesOptionsModel.Version = core.StringPtr("testString")
-				getVersionUpdatesOptionsModel.ClusterID = core.StringPtr("testString")
-				getVersionUpdatesOptionsModel.Region = core.StringPtr("testString")
-				getVersionUpdatesOptionsModel.ResourceGroupID = core.StringPtr("testString")
-				getVersionUpdatesOptionsModel.Namespace = core.StringPtr("testString")
-				getVersionUpdatesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the GetOfferingUpdatesOptions model
+				getOfferingUpdatesOptionsModel := new(catalogmanagementv1.GetOfferingUpdatesOptions)
+				getOfferingUpdatesOptionsModel.CatalogIdentifier = core.StringPtr("testString")
+				getOfferingUpdatesOptionsModel.OfferingID = core.StringPtr("testString")
+				getOfferingUpdatesOptionsModel.Kind = core.StringPtr("testString")
+				getOfferingUpdatesOptionsModel.Version = core.StringPtr("testString")
+				getOfferingUpdatesOptionsModel.ClusterID = core.StringPtr("testString")
+				getOfferingUpdatesOptionsModel.Region = core.StringPtr("testString")
+				getOfferingUpdatesOptionsModel.ResourceGroupID = core.StringPtr("testString")
+				getOfferingUpdatesOptionsModel.Namespace = core.StringPtr("testString")
+				getOfferingUpdatesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
-				result, response, operationErr = catalogManagementService.GetVersionUpdates(getVersionUpdatesOptionsModel)
+				result, response, operationErr = catalogManagementService.GetOfferingUpdates(getOfferingUpdatesOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
 
 			})
-			It(`Invoke GetVersionUpdates with error: Operation validation and request error`, func() {
+			It(`Invoke GetOfferingUpdates with error: Operation validation and request error`, func() {
 				catalogManagementService, serviceErr := catalogmanagementv1.NewCatalogManagementV1(&catalogmanagementv1.CatalogManagementV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -7281,29 +7281,29 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(catalogManagementService).ToNot(BeNil())
 
-				// Construct an instance of the GetVersionUpdatesOptions model
-				getVersionUpdatesOptionsModel := new(catalogmanagementv1.GetVersionUpdatesOptions)
-				getVersionUpdatesOptionsModel.CatalogIdentifier = core.StringPtr("testString")
-				getVersionUpdatesOptionsModel.OfferingID = core.StringPtr("testString")
-				getVersionUpdatesOptionsModel.Kind = core.StringPtr("testString")
-				getVersionUpdatesOptionsModel.Version = core.StringPtr("testString")
-				getVersionUpdatesOptionsModel.ClusterID = core.StringPtr("testString")
-				getVersionUpdatesOptionsModel.Region = core.StringPtr("testString")
-				getVersionUpdatesOptionsModel.ResourceGroupID = core.StringPtr("testString")
-				getVersionUpdatesOptionsModel.Namespace = core.StringPtr("testString")
-				getVersionUpdatesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the GetOfferingUpdatesOptions model
+				getOfferingUpdatesOptionsModel := new(catalogmanagementv1.GetOfferingUpdatesOptions)
+				getOfferingUpdatesOptionsModel.CatalogIdentifier = core.StringPtr("testString")
+				getOfferingUpdatesOptionsModel.OfferingID = core.StringPtr("testString")
+				getOfferingUpdatesOptionsModel.Kind = core.StringPtr("testString")
+				getOfferingUpdatesOptionsModel.Version = core.StringPtr("testString")
+				getOfferingUpdatesOptionsModel.ClusterID = core.StringPtr("testString")
+				getOfferingUpdatesOptionsModel.Region = core.StringPtr("testString")
+				getOfferingUpdatesOptionsModel.ResourceGroupID = core.StringPtr("testString")
+				getOfferingUpdatesOptionsModel.Namespace = core.StringPtr("testString")
+				getOfferingUpdatesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := catalogManagementService.SetServiceURL("")
 				Expect(err).To(BeNil())
-				result, response, operationErr := catalogManagementService.GetVersionUpdates(getVersionUpdatesOptionsModel)
+				result, response, operationErr := catalogManagementService.GetOfferingUpdates(getOfferingUpdatesOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
-				// Construct a second instance of the GetVersionUpdatesOptions model with no property values
-				getVersionUpdatesOptionsModelNew := new(catalogmanagementv1.GetVersionUpdatesOptions)
+				// Construct a second instance of the GetOfferingUpdatesOptions model with no property values
+				getOfferingUpdatesOptionsModelNew := new(catalogmanagementv1.GetOfferingUpdatesOptions)
 				// Invoke operation with invalid model (negative test)
-				result, response, operationErr = catalogManagementService.GetVersionUpdates(getVersionUpdatesOptionsModelNew)
+				result, response, operationErr = catalogManagementService.GetOfferingUpdates(getOfferingUpdatesOptionsModelNew)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
@@ -7442,15 +7442,15 @@ var _ = Describe(`CatalogManagementV1`, func() {
 		})
 	})
 
-	Describe(`GetVersionAbout(getVersionAboutOptions *GetVersionAboutOptions)`, func() {
-		getVersionAboutPath := "/versions/testString/about"
+	Describe(`GetOfferingAbout(getOfferingAboutOptions *GetOfferingAboutOptions)`, func() {
+		getOfferingAboutPath := "/versions/testString/about"
 		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(getVersionAboutPath))
+					Expect(req.URL.EscapedPath()).To(Equal(getOfferingAboutPath))
 					Expect(req.Method).To(Equal("GET"))
 
 					// Sleep a short time to support a timeout test
@@ -7462,7 +7462,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 					fmt.Fprintf(res, "%s", `"OperationResponse"`)
 				}))
 			})
-			It(`Invoke GetVersionAbout successfully with retries`, func() {
+			It(`Invoke GetOfferingAbout successfully with retries`, func() {
 				catalogManagementService, serviceErr := catalogmanagementv1.NewCatalogManagementV1(&catalogmanagementv1.CatalogManagementV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -7471,21 +7471,21 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				Expect(catalogManagementService).ToNot(BeNil())
 				catalogManagementService.EnableRetries(0, 0)
 
-				// Construct an instance of the GetVersionAboutOptions model
-				getVersionAboutOptionsModel := new(catalogmanagementv1.GetVersionAboutOptions)
-				getVersionAboutOptionsModel.VersionLocID = core.StringPtr("testString")
-				getVersionAboutOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the GetOfferingAboutOptions model
+				getOfferingAboutOptionsModel := new(catalogmanagementv1.GetOfferingAboutOptions)
+				getOfferingAboutOptionsModel.VersionLocID = core.StringPtr("testString")
+				getOfferingAboutOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with a Context to test a timeout error
 				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
 				defer cancelFunc()
-				_, _, operationErr := catalogManagementService.GetVersionAboutWithContext(ctx, getVersionAboutOptionsModel)
+				_, _, operationErr := catalogManagementService.GetOfferingAboutWithContext(ctx, getOfferingAboutOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
 
 				// Disable retries and test again
 				catalogManagementService.DisableRetries()
-				result, response, operationErr := catalogManagementService.GetVersionAbout(getVersionAboutOptionsModel)
+				result, response, operationErr := catalogManagementService.GetOfferingAbout(getOfferingAboutOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
@@ -7493,7 +7493,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				// Re-test the timeout error with retries disabled
 				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
 				defer cancelFunc2()
-				_, _, operationErr = catalogManagementService.GetVersionAboutWithContext(ctx, getVersionAboutOptionsModel)
+				_, _, operationErr = catalogManagementService.GetOfferingAboutWithContext(ctx, getOfferingAboutOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
 			})
@@ -7507,7 +7507,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(getVersionAboutPath))
+					Expect(req.URL.EscapedPath()).To(Equal(getOfferingAboutPath))
 					Expect(req.Method).To(Equal("GET"))
 
 					// Set mock response
@@ -7516,7 +7516,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 					fmt.Fprintf(res, "%s", `"OperationResponse"`)
 				}))
 			})
-			It(`Invoke GetVersionAbout successfully`, func() {
+			It(`Invoke GetOfferingAbout successfully`, func() {
 				catalogManagementService, serviceErr := catalogmanagementv1.NewCatalogManagementV1(&catalogmanagementv1.CatalogManagementV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -7525,24 +7525,24 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				Expect(catalogManagementService).ToNot(BeNil())
 
 				// Invoke operation with nil options model (negative test)
-				result, response, operationErr := catalogManagementService.GetVersionAbout(nil)
+				result, response, operationErr := catalogManagementService.GetOfferingAbout(nil)
 				Expect(operationErr).NotTo(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
 
-				// Construct an instance of the GetVersionAboutOptions model
-				getVersionAboutOptionsModel := new(catalogmanagementv1.GetVersionAboutOptions)
-				getVersionAboutOptionsModel.VersionLocID = core.StringPtr("testString")
-				getVersionAboutOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the GetOfferingAboutOptions model
+				getOfferingAboutOptionsModel := new(catalogmanagementv1.GetOfferingAboutOptions)
+				getOfferingAboutOptionsModel.VersionLocID = core.StringPtr("testString")
+				getOfferingAboutOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
-				result, response, operationErr = catalogManagementService.GetVersionAbout(getVersionAboutOptionsModel)
+				result, response, operationErr = catalogManagementService.GetOfferingAbout(getOfferingAboutOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
 
 			})
-			It(`Invoke GetVersionAbout with error: Operation validation and request error`, func() {
+			It(`Invoke GetOfferingAbout with error: Operation validation and request error`, func() {
 				catalogManagementService, serviceErr := catalogmanagementv1.NewCatalogManagementV1(&catalogmanagementv1.CatalogManagementV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -7550,22 +7550,22 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(catalogManagementService).ToNot(BeNil())
 
-				// Construct an instance of the GetVersionAboutOptions model
-				getVersionAboutOptionsModel := new(catalogmanagementv1.GetVersionAboutOptions)
-				getVersionAboutOptionsModel.VersionLocID = core.StringPtr("testString")
-				getVersionAboutOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the GetOfferingAboutOptions model
+				getOfferingAboutOptionsModel := new(catalogmanagementv1.GetOfferingAboutOptions)
+				getOfferingAboutOptionsModel.VersionLocID = core.StringPtr("testString")
+				getOfferingAboutOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := catalogManagementService.SetServiceURL("")
 				Expect(err).To(BeNil())
-				result, response, operationErr := catalogManagementService.GetVersionAbout(getVersionAboutOptionsModel)
+				result, response, operationErr := catalogManagementService.GetOfferingAbout(getOfferingAboutOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
-				// Construct a second instance of the GetVersionAboutOptions model with no property values
-				getVersionAboutOptionsModelNew := new(catalogmanagementv1.GetVersionAboutOptions)
+				// Construct a second instance of the GetOfferingAboutOptions model with no property values
+				getOfferingAboutOptionsModelNew := new(catalogmanagementv1.GetOfferingAboutOptions)
 				// Invoke operation with invalid model (negative test)
-				result, response, operationErr = catalogManagementService.GetVersionAbout(getVersionAboutOptionsModelNew)
+				result, response, operationErr = catalogManagementService.GetOfferingAbout(getOfferingAboutOptionsModelNew)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
@@ -7576,15 +7576,15 @@ var _ = Describe(`CatalogManagementV1`, func() {
 		})
 	})
 
-	Describe(`GetVersionLicense(getVersionLicenseOptions *GetVersionLicenseOptions)`, func() {
-		getVersionLicensePath := "/versions/testString/licenses/testString"
+	Describe(`GetOfferingLicense(getOfferingLicenseOptions *GetOfferingLicenseOptions)`, func() {
+		getOfferingLicensePath := "/versions/testString/licenses/testString"
 		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(getVersionLicensePath))
+					Expect(req.URL.EscapedPath()).To(Equal(getOfferingLicensePath))
 					Expect(req.Method).To(Equal("GET"))
 
 					// Sleep a short time to support a timeout test
@@ -7596,7 +7596,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 					fmt.Fprintf(res, "%s", `"OperationResponse"`)
 				}))
 			})
-			It(`Invoke GetVersionLicense successfully with retries`, func() {
+			It(`Invoke GetOfferingLicense successfully with retries`, func() {
 				catalogManagementService, serviceErr := catalogmanagementv1.NewCatalogManagementV1(&catalogmanagementv1.CatalogManagementV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -7605,22 +7605,22 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				Expect(catalogManagementService).ToNot(BeNil())
 				catalogManagementService.EnableRetries(0, 0)
 
-				// Construct an instance of the GetVersionLicenseOptions model
-				getVersionLicenseOptionsModel := new(catalogmanagementv1.GetVersionLicenseOptions)
-				getVersionLicenseOptionsModel.VersionLocID = core.StringPtr("testString")
-				getVersionLicenseOptionsModel.LicenseID = core.StringPtr("testString")
-				getVersionLicenseOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the GetOfferingLicenseOptions model
+				getOfferingLicenseOptionsModel := new(catalogmanagementv1.GetOfferingLicenseOptions)
+				getOfferingLicenseOptionsModel.VersionLocID = core.StringPtr("testString")
+				getOfferingLicenseOptionsModel.LicenseID = core.StringPtr("testString")
+				getOfferingLicenseOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with a Context to test a timeout error
 				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
 				defer cancelFunc()
-				_, _, operationErr := catalogManagementService.GetVersionLicenseWithContext(ctx, getVersionLicenseOptionsModel)
+				_, _, operationErr := catalogManagementService.GetOfferingLicenseWithContext(ctx, getOfferingLicenseOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
 
 				// Disable retries and test again
 				catalogManagementService.DisableRetries()
-				result, response, operationErr := catalogManagementService.GetVersionLicense(getVersionLicenseOptionsModel)
+				result, response, operationErr := catalogManagementService.GetOfferingLicense(getOfferingLicenseOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
@@ -7628,7 +7628,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				// Re-test the timeout error with retries disabled
 				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
 				defer cancelFunc2()
-				_, _, operationErr = catalogManagementService.GetVersionLicenseWithContext(ctx, getVersionLicenseOptionsModel)
+				_, _, operationErr = catalogManagementService.GetOfferingLicenseWithContext(ctx, getOfferingLicenseOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
 			})
@@ -7642,7 +7642,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(getVersionLicensePath))
+					Expect(req.URL.EscapedPath()).To(Equal(getOfferingLicensePath))
 					Expect(req.Method).To(Equal("GET"))
 
 					// Set mock response
@@ -7651,7 +7651,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 					fmt.Fprintf(res, "%s", `"OperationResponse"`)
 				}))
 			})
-			It(`Invoke GetVersionLicense successfully`, func() {
+			It(`Invoke GetOfferingLicense successfully`, func() {
 				catalogManagementService, serviceErr := catalogmanagementv1.NewCatalogManagementV1(&catalogmanagementv1.CatalogManagementV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -7660,25 +7660,25 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				Expect(catalogManagementService).ToNot(BeNil())
 
 				// Invoke operation with nil options model (negative test)
-				result, response, operationErr := catalogManagementService.GetVersionLicense(nil)
+				result, response, operationErr := catalogManagementService.GetOfferingLicense(nil)
 				Expect(operationErr).NotTo(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
 
-				// Construct an instance of the GetVersionLicenseOptions model
-				getVersionLicenseOptionsModel := new(catalogmanagementv1.GetVersionLicenseOptions)
-				getVersionLicenseOptionsModel.VersionLocID = core.StringPtr("testString")
-				getVersionLicenseOptionsModel.LicenseID = core.StringPtr("testString")
-				getVersionLicenseOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the GetOfferingLicenseOptions model
+				getOfferingLicenseOptionsModel := new(catalogmanagementv1.GetOfferingLicenseOptions)
+				getOfferingLicenseOptionsModel.VersionLocID = core.StringPtr("testString")
+				getOfferingLicenseOptionsModel.LicenseID = core.StringPtr("testString")
+				getOfferingLicenseOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
-				result, response, operationErr = catalogManagementService.GetVersionLicense(getVersionLicenseOptionsModel)
+				result, response, operationErr = catalogManagementService.GetOfferingLicense(getOfferingLicenseOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
 
 			})
-			It(`Invoke GetVersionLicense with error: Operation validation and request error`, func() {
+			It(`Invoke GetOfferingLicense with error: Operation validation and request error`, func() {
 				catalogManagementService, serviceErr := catalogmanagementv1.NewCatalogManagementV1(&catalogmanagementv1.CatalogManagementV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -7686,23 +7686,23 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(catalogManagementService).ToNot(BeNil())
 
-				// Construct an instance of the GetVersionLicenseOptions model
-				getVersionLicenseOptionsModel := new(catalogmanagementv1.GetVersionLicenseOptions)
-				getVersionLicenseOptionsModel.VersionLocID = core.StringPtr("testString")
-				getVersionLicenseOptionsModel.LicenseID = core.StringPtr("testString")
-				getVersionLicenseOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the GetOfferingLicenseOptions model
+				getOfferingLicenseOptionsModel := new(catalogmanagementv1.GetOfferingLicenseOptions)
+				getOfferingLicenseOptionsModel.VersionLocID = core.StringPtr("testString")
+				getOfferingLicenseOptionsModel.LicenseID = core.StringPtr("testString")
+				getOfferingLicenseOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := catalogManagementService.SetServiceURL("")
 				Expect(err).To(BeNil())
-				result, response, operationErr := catalogManagementService.GetVersionLicense(getVersionLicenseOptionsModel)
+				result, response, operationErr := catalogManagementService.GetOfferingLicense(getOfferingLicenseOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
-				// Construct a second instance of the GetVersionLicenseOptions model with no property values
-				getVersionLicenseOptionsModelNew := new(catalogmanagementv1.GetVersionLicenseOptions)
+				// Construct a second instance of the GetOfferingLicenseOptions model with no property values
+				getOfferingLicenseOptionsModelNew := new(catalogmanagementv1.GetOfferingLicenseOptions)
 				// Invoke operation with invalid model (negative test)
-				result, response, operationErr = catalogManagementService.GetVersionLicense(getVersionLicenseOptionsModelNew)
+				result, response, operationErr = catalogManagementService.GetOfferingLicense(getOfferingLicenseOptionsModelNew)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
@@ -7712,22 +7712,22 @@ var _ = Describe(`CatalogManagementV1`, func() {
 			})
 		})
 	})
-	Describe(`GetVersionContainerImages(getVersionContainerImagesOptions *GetVersionContainerImagesOptions) - Operation response error`, func() {
-		getVersionContainerImagesPath := "/versions/testString/containerImages"
+	Describe(`GetOfferingContainerImages(getOfferingContainerImagesOptions *GetOfferingContainerImagesOptions) - Operation response error`, func() {
+		getOfferingContainerImagesPath := "/versions/testString/containerImages"
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(getVersionContainerImagesPath))
+					Expect(req.URL.EscapedPath()).To(Equal(getOfferingContainerImagesPath))
 					Expect(req.Method).To(Equal("GET"))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
 					fmt.Fprintf(res, `} this is not valid json {`)
 				}))
 			})
-			It(`Invoke GetVersionContainerImages with error: Operation response processing error`, func() {
+			It(`Invoke GetOfferingContainerImages with error: Operation response processing error`, func() {
 				catalogManagementService, serviceErr := catalogmanagementv1.NewCatalogManagementV1(&catalogmanagementv1.CatalogManagementV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -7735,19 +7735,19 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(catalogManagementService).ToNot(BeNil())
 
-				// Construct an instance of the GetVersionContainerImagesOptions model
-				getVersionContainerImagesOptionsModel := new(catalogmanagementv1.GetVersionContainerImagesOptions)
-				getVersionContainerImagesOptionsModel.VersionLocID = core.StringPtr("testString")
-				getVersionContainerImagesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the GetOfferingContainerImagesOptions model
+				getOfferingContainerImagesOptionsModel := new(catalogmanagementv1.GetOfferingContainerImagesOptions)
+				getOfferingContainerImagesOptionsModel.VersionLocID = core.StringPtr("testString")
+				getOfferingContainerImagesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
-				result, response, operationErr := catalogManagementService.GetVersionContainerImages(getVersionContainerImagesOptionsModel)
+				result, response, operationErr := catalogManagementService.GetOfferingContainerImages(getOfferingContainerImagesOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
 
 				// Enable retries and test again
 				catalogManagementService.EnableRetries(0, 0)
-				result, response, operationErr = catalogManagementService.GetVersionContainerImages(getVersionContainerImagesOptionsModel)
+				result, response, operationErr = catalogManagementService.GetOfferingContainerImages(getOfferingContainerImagesOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
@@ -7758,15 +7758,15 @@ var _ = Describe(`CatalogManagementV1`, func() {
 		})
 	})
 
-	Describe(`GetVersionContainerImages(getVersionContainerImagesOptions *GetVersionContainerImagesOptions)`, func() {
-		getVersionContainerImagesPath := "/versions/testString/containerImages"
+	Describe(`GetOfferingContainerImages(getOfferingContainerImagesOptions *GetOfferingContainerImagesOptions)`, func() {
+		getOfferingContainerImagesPath := "/versions/testString/containerImages"
 		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(getVersionContainerImagesPath))
+					Expect(req.URL.EscapedPath()).To(Equal(getOfferingContainerImagesPath))
 					Expect(req.Method).To(Equal("GET"))
 
 					// Sleep a short time to support a timeout test
@@ -7778,7 +7778,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 					fmt.Fprintf(res, "%s", `{"description": "Description", "images": [{"image": "Image"}]}`)
 				}))
 			})
-			It(`Invoke GetVersionContainerImages successfully with retries`, func() {
+			It(`Invoke GetOfferingContainerImages successfully with retries`, func() {
 				catalogManagementService, serviceErr := catalogmanagementv1.NewCatalogManagementV1(&catalogmanagementv1.CatalogManagementV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -7787,21 +7787,21 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				Expect(catalogManagementService).ToNot(BeNil())
 				catalogManagementService.EnableRetries(0, 0)
 
-				// Construct an instance of the GetVersionContainerImagesOptions model
-				getVersionContainerImagesOptionsModel := new(catalogmanagementv1.GetVersionContainerImagesOptions)
-				getVersionContainerImagesOptionsModel.VersionLocID = core.StringPtr("testString")
-				getVersionContainerImagesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the GetOfferingContainerImagesOptions model
+				getOfferingContainerImagesOptionsModel := new(catalogmanagementv1.GetOfferingContainerImagesOptions)
+				getOfferingContainerImagesOptionsModel.VersionLocID = core.StringPtr("testString")
+				getOfferingContainerImagesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with a Context to test a timeout error
 				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
 				defer cancelFunc()
-				_, _, operationErr := catalogManagementService.GetVersionContainerImagesWithContext(ctx, getVersionContainerImagesOptionsModel)
+				_, _, operationErr := catalogManagementService.GetOfferingContainerImagesWithContext(ctx, getOfferingContainerImagesOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
 
 				// Disable retries and test again
 				catalogManagementService.DisableRetries()
-				result, response, operationErr := catalogManagementService.GetVersionContainerImages(getVersionContainerImagesOptionsModel)
+				result, response, operationErr := catalogManagementService.GetOfferingContainerImages(getOfferingContainerImagesOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
@@ -7809,7 +7809,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				// Re-test the timeout error with retries disabled
 				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
 				defer cancelFunc2()
-				_, _, operationErr = catalogManagementService.GetVersionContainerImagesWithContext(ctx, getVersionContainerImagesOptionsModel)
+				_, _, operationErr = catalogManagementService.GetOfferingContainerImagesWithContext(ctx, getOfferingContainerImagesOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
 			})
@@ -7823,7 +7823,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(getVersionContainerImagesPath))
+					Expect(req.URL.EscapedPath()).To(Equal(getOfferingContainerImagesPath))
 					Expect(req.Method).To(Equal("GET"))
 
 					// Set mock response
@@ -7832,7 +7832,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 					fmt.Fprintf(res, "%s", `{"description": "Description", "images": [{"image": "Image"}]}`)
 				}))
 			})
-			It(`Invoke GetVersionContainerImages successfully`, func() {
+			It(`Invoke GetOfferingContainerImages successfully`, func() {
 				catalogManagementService, serviceErr := catalogmanagementv1.NewCatalogManagementV1(&catalogmanagementv1.CatalogManagementV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -7841,24 +7841,24 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				Expect(catalogManagementService).ToNot(BeNil())
 
 				// Invoke operation with nil options model (negative test)
-				result, response, operationErr := catalogManagementService.GetVersionContainerImages(nil)
+				result, response, operationErr := catalogManagementService.GetOfferingContainerImages(nil)
 				Expect(operationErr).NotTo(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
 
-				// Construct an instance of the GetVersionContainerImagesOptions model
-				getVersionContainerImagesOptionsModel := new(catalogmanagementv1.GetVersionContainerImagesOptions)
-				getVersionContainerImagesOptionsModel.VersionLocID = core.StringPtr("testString")
-				getVersionContainerImagesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the GetOfferingContainerImagesOptions model
+				getOfferingContainerImagesOptionsModel := new(catalogmanagementv1.GetOfferingContainerImagesOptions)
+				getOfferingContainerImagesOptionsModel.VersionLocID = core.StringPtr("testString")
+				getOfferingContainerImagesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
-				result, response, operationErr = catalogManagementService.GetVersionContainerImages(getVersionContainerImagesOptionsModel)
+				result, response, operationErr = catalogManagementService.GetOfferingContainerImages(getOfferingContainerImagesOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
 
 			})
-			It(`Invoke GetVersionContainerImages with error: Operation validation and request error`, func() {
+			It(`Invoke GetOfferingContainerImages with error: Operation validation and request error`, func() {
 				catalogManagementService, serviceErr := catalogmanagementv1.NewCatalogManagementV1(&catalogmanagementv1.CatalogManagementV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -7866,22 +7866,22 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(catalogManagementService).ToNot(BeNil())
 
-				// Construct an instance of the GetVersionContainerImagesOptions model
-				getVersionContainerImagesOptionsModel := new(catalogmanagementv1.GetVersionContainerImagesOptions)
-				getVersionContainerImagesOptionsModel.VersionLocID = core.StringPtr("testString")
-				getVersionContainerImagesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the GetOfferingContainerImagesOptions model
+				getOfferingContainerImagesOptionsModel := new(catalogmanagementv1.GetOfferingContainerImagesOptions)
+				getOfferingContainerImagesOptionsModel.VersionLocID = core.StringPtr("testString")
+				getOfferingContainerImagesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := catalogManagementService.SetServiceURL("")
 				Expect(err).To(BeNil())
-				result, response, operationErr := catalogManagementService.GetVersionContainerImages(getVersionContainerImagesOptionsModel)
+				result, response, operationErr := catalogManagementService.GetOfferingContainerImages(getOfferingContainerImagesOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
-				// Construct a second instance of the GetVersionContainerImagesOptions model with no property values
-				getVersionContainerImagesOptionsModelNew := new(catalogmanagementv1.GetVersionContainerImagesOptions)
+				// Construct a second instance of the GetOfferingContainerImagesOptions model with no property values
+				getOfferingContainerImagesOptionsModelNew := new(catalogmanagementv1.GetOfferingContainerImagesOptions)
 				// Invoke operation with invalid model (negative test)
-				result, response, operationErr = catalogManagementService.GetVersionContainerImages(getVersionContainerImagesOptionsModelNew)
+				result, response, operationErr = catalogManagementService.GetOfferingContainerImages(getOfferingContainerImagesOptionsModelNew)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
@@ -8327,22 +8327,22 @@ var _ = Describe(`CatalogManagementV1`, func() {
 			})
 		})
 	})
-	Describe(`GetVersionWorkingCopy(getVersionWorkingCopyOptions *GetVersionWorkingCopyOptions) - Operation response error`, func() {
-		getVersionWorkingCopyPath := "/versions/testString/workingcopy"
+	Describe(`GetOfferingWorkingCopy(getOfferingWorkingCopyOptions *GetOfferingWorkingCopyOptions) - Operation response error`, func() {
+		getOfferingWorkingCopyPath := "/versions/testString/workingcopy"
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(getVersionWorkingCopyPath))
+					Expect(req.URL.EscapedPath()).To(Equal(getOfferingWorkingCopyPath))
 					Expect(req.Method).To(Equal("POST"))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
 					fmt.Fprintf(res, `} this is not valid json {`)
 				}))
 			})
-			It(`Invoke GetVersionWorkingCopy with error: Operation response processing error`, func() {
+			It(`Invoke GetOfferingWorkingCopy with error: Operation response processing error`, func() {
 				catalogManagementService, serviceErr := catalogmanagementv1.NewCatalogManagementV1(&catalogmanagementv1.CatalogManagementV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -8350,19 +8350,19 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(catalogManagementService).ToNot(BeNil())
 
-				// Construct an instance of the GetVersionWorkingCopyOptions model
-				getVersionWorkingCopyOptionsModel := new(catalogmanagementv1.GetVersionWorkingCopyOptions)
-				getVersionWorkingCopyOptionsModel.VersionLocID = core.StringPtr("testString")
-				getVersionWorkingCopyOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the GetOfferingWorkingCopyOptions model
+				getOfferingWorkingCopyOptionsModel := new(catalogmanagementv1.GetOfferingWorkingCopyOptions)
+				getOfferingWorkingCopyOptionsModel.VersionLocID = core.StringPtr("testString")
+				getOfferingWorkingCopyOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
-				result, response, operationErr := catalogManagementService.GetVersionWorkingCopy(getVersionWorkingCopyOptionsModel)
+				result, response, operationErr := catalogManagementService.GetOfferingWorkingCopy(getOfferingWorkingCopyOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
 
 				// Enable retries and test again
 				catalogManagementService.EnableRetries(0, 0)
-				result, response, operationErr = catalogManagementService.GetVersionWorkingCopy(getVersionWorkingCopyOptionsModel)
+				result, response, operationErr = catalogManagementService.GetOfferingWorkingCopy(getOfferingWorkingCopyOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
@@ -8373,15 +8373,15 @@ var _ = Describe(`CatalogManagementV1`, func() {
 		})
 	})
 
-	Describe(`GetVersionWorkingCopy(getVersionWorkingCopyOptions *GetVersionWorkingCopyOptions)`, func() {
-		getVersionWorkingCopyPath := "/versions/testString/workingcopy"
+	Describe(`GetOfferingWorkingCopy(getOfferingWorkingCopyOptions *GetOfferingWorkingCopyOptions)`, func() {
+		getOfferingWorkingCopyPath := "/versions/testString/workingcopy"
 		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(getVersionWorkingCopyPath))
+					Expect(req.URL.EscapedPath()).To(Equal(getOfferingWorkingCopyPath))
 					Expect(req.Method).To(Equal("POST"))
 
 					// Sleep a short time to support a timeout test
@@ -8393,7 +8393,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 					fmt.Fprintf(res, "%s", `{"id": "ID", "_rev": "Rev", "crn": "CRN", "version": "Version", "sha": "Sha", "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "offering_id": "OfferingID", "catalog_id": "CatalogID", "kind_id": "KindID", "tags": ["Tags"], "repo_url": "RepoURL", "source_url": "SourceURL", "tgz_url": "TgzURL", "configuration": [{"key": "Key", "type": "Type", "default_value": "anyValue", "value_constraint": "ValueConstraint", "description": "Description", "required": true, "options": ["anyValue"], "hidden": true}], "metadata": {"mapKey": "anyValue"}, "validation": {"validated": "2019-01-01T12:00:00.000Z", "requested": "2019-01-01T12:00:00.000Z", "state": "State", "last_operation": "LastOperation", "target": {"mapKey": "anyValue"}}, "required_resources": [{"type": "mem", "value": "anyValue"}], "single_instance": true, "install": {"instructions": "Instructions", "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}, "pre_install": [{"instructions": "Instructions", "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}], "entitlement": {"provider_name": "ProviderName", "provider_id": "ProviderID", "product_id": "ProductID", "part_numbers": ["PartNumbers"], "image_repo_name": "ImageRepoName"}, "licenses": [{"id": "ID", "name": "Name", "type": "Type", "url": "URL", "description": "Description"}], "image_manifest_url": "ImageManifestURL", "deprecated": true, "package_version": "PackageVersion", "state": {"current": "Current", "current_entered": "2019-01-01T12:00:00.000Z", "pending": "Pending", "pending_requested": "2019-01-01T12:00:00.000Z", "previous": "Previous"}, "version_locator": "VersionLocator", "console_url": "ConsoleURL", "long_description": "LongDescription", "whitelisted_accounts": ["WhitelistedAccounts"]}`)
 				}))
 			})
-			It(`Invoke GetVersionWorkingCopy successfully with retries`, func() {
+			It(`Invoke GetOfferingWorkingCopy successfully with retries`, func() {
 				catalogManagementService, serviceErr := catalogmanagementv1.NewCatalogManagementV1(&catalogmanagementv1.CatalogManagementV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -8402,21 +8402,21 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				Expect(catalogManagementService).ToNot(BeNil())
 				catalogManagementService.EnableRetries(0, 0)
 
-				// Construct an instance of the GetVersionWorkingCopyOptions model
-				getVersionWorkingCopyOptionsModel := new(catalogmanagementv1.GetVersionWorkingCopyOptions)
-				getVersionWorkingCopyOptionsModel.VersionLocID = core.StringPtr("testString")
-				getVersionWorkingCopyOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the GetOfferingWorkingCopyOptions model
+				getOfferingWorkingCopyOptionsModel := new(catalogmanagementv1.GetOfferingWorkingCopyOptions)
+				getOfferingWorkingCopyOptionsModel.VersionLocID = core.StringPtr("testString")
+				getOfferingWorkingCopyOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with a Context to test a timeout error
 				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
 				defer cancelFunc()
-				_, _, operationErr := catalogManagementService.GetVersionWorkingCopyWithContext(ctx, getVersionWorkingCopyOptionsModel)
+				_, _, operationErr := catalogManagementService.GetOfferingWorkingCopyWithContext(ctx, getOfferingWorkingCopyOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
 
 				// Disable retries and test again
 				catalogManagementService.DisableRetries()
-				result, response, operationErr := catalogManagementService.GetVersionWorkingCopy(getVersionWorkingCopyOptionsModel)
+				result, response, operationErr := catalogManagementService.GetOfferingWorkingCopy(getOfferingWorkingCopyOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
@@ -8424,7 +8424,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				// Re-test the timeout error with retries disabled
 				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
 				defer cancelFunc2()
-				_, _, operationErr = catalogManagementService.GetVersionWorkingCopyWithContext(ctx, getVersionWorkingCopyOptionsModel)
+				_, _, operationErr = catalogManagementService.GetOfferingWorkingCopyWithContext(ctx, getOfferingWorkingCopyOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
 			})
@@ -8438,7 +8438,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(getVersionWorkingCopyPath))
+					Expect(req.URL.EscapedPath()).To(Equal(getOfferingWorkingCopyPath))
 					Expect(req.Method).To(Equal("POST"))
 
 					// Set mock response
@@ -8447,7 +8447,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 					fmt.Fprintf(res, "%s", `{"id": "ID", "_rev": "Rev", "crn": "CRN", "version": "Version", "sha": "Sha", "created": "2019-01-01T12:00:00.000Z", "updated": "2019-01-01T12:00:00.000Z", "offering_id": "OfferingID", "catalog_id": "CatalogID", "kind_id": "KindID", "tags": ["Tags"], "repo_url": "RepoURL", "source_url": "SourceURL", "tgz_url": "TgzURL", "configuration": [{"key": "Key", "type": "Type", "default_value": "anyValue", "value_constraint": "ValueConstraint", "description": "Description", "required": true, "options": ["anyValue"], "hidden": true}], "metadata": {"mapKey": "anyValue"}, "validation": {"validated": "2019-01-01T12:00:00.000Z", "requested": "2019-01-01T12:00:00.000Z", "state": "State", "last_operation": "LastOperation", "target": {"mapKey": "anyValue"}}, "required_resources": [{"type": "mem", "value": "anyValue"}], "single_instance": true, "install": {"instructions": "Instructions", "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}, "pre_install": [{"instructions": "Instructions", "script": "Script", "script_permission": "ScriptPermission", "delete_script": "DeleteScript", "scope": "Scope"}], "entitlement": {"provider_name": "ProviderName", "provider_id": "ProviderID", "product_id": "ProductID", "part_numbers": ["PartNumbers"], "image_repo_name": "ImageRepoName"}, "licenses": [{"id": "ID", "name": "Name", "type": "Type", "url": "URL", "description": "Description"}], "image_manifest_url": "ImageManifestURL", "deprecated": true, "package_version": "PackageVersion", "state": {"current": "Current", "current_entered": "2019-01-01T12:00:00.000Z", "pending": "Pending", "pending_requested": "2019-01-01T12:00:00.000Z", "previous": "Previous"}, "version_locator": "VersionLocator", "console_url": "ConsoleURL", "long_description": "LongDescription", "whitelisted_accounts": ["WhitelistedAccounts"]}`)
 				}))
 			})
-			It(`Invoke GetVersionWorkingCopy successfully`, func() {
+			It(`Invoke GetOfferingWorkingCopy successfully`, func() {
 				catalogManagementService, serviceErr := catalogmanagementv1.NewCatalogManagementV1(&catalogmanagementv1.CatalogManagementV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -8456,24 +8456,24 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				Expect(catalogManagementService).ToNot(BeNil())
 
 				// Invoke operation with nil options model (negative test)
-				result, response, operationErr := catalogManagementService.GetVersionWorkingCopy(nil)
+				result, response, operationErr := catalogManagementService.GetOfferingWorkingCopy(nil)
 				Expect(operationErr).NotTo(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
 
-				// Construct an instance of the GetVersionWorkingCopyOptions model
-				getVersionWorkingCopyOptionsModel := new(catalogmanagementv1.GetVersionWorkingCopyOptions)
-				getVersionWorkingCopyOptionsModel.VersionLocID = core.StringPtr("testString")
-				getVersionWorkingCopyOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the GetOfferingWorkingCopyOptions model
+				getOfferingWorkingCopyOptionsModel := new(catalogmanagementv1.GetOfferingWorkingCopyOptions)
+				getOfferingWorkingCopyOptionsModel.VersionLocID = core.StringPtr("testString")
+				getOfferingWorkingCopyOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
-				result, response, operationErr = catalogManagementService.GetVersionWorkingCopy(getVersionWorkingCopyOptionsModel)
+				result, response, operationErr = catalogManagementService.GetOfferingWorkingCopy(getOfferingWorkingCopyOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
 
 			})
-			It(`Invoke GetVersionWorkingCopy with error: Operation validation and request error`, func() {
+			It(`Invoke GetOfferingWorkingCopy with error: Operation validation and request error`, func() {
 				catalogManagementService, serviceErr := catalogmanagementv1.NewCatalogManagementV1(&catalogmanagementv1.CatalogManagementV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -8481,22 +8481,22 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(catalogManagementService).ToNot(BeNil())
 
-				// Construct an instance of the GetVersionWorkingCopyOptions model
-				getVersionWorkingCopyOptionsModel := new(catalogmanagementv1.GetVersionWorkingCopyOptions)
-				getVersionWorkingCopyOptionsModel.VersionLocID = core.StringPtr("testString")
-				getVersionWorkingCopyOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the GetOfferingWorkingCopyOptions model
+				getOfferingWorkingCopyOptionsModel := new(catalogmanagementv1.GetOfferingWorkingCopyOptions)
+				getOfferingWorkingCopyOptionsModel.VersionLocID = core.StringPtr("testString")
+				getOfferingWorkingCopyOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := catalogManagementService.SetServiceURL("")
 				Expect(err).To(BeNil())
-				result, response, operationErr := catalogManagementService.GetVersionWorkingCopy(getVersionWorkingCopyOptionsModel)
+				result, response, operationErr := catalogManagementService.GetOfferingWorkingCopy(getOfferingWorkingCopyOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
-				// Construct a second instance of the GetVersionWorkingCopyOptions model with no property values
-				getVersionWorkingCopyOptionsModelNew := new(catalogmanagementv1.GetVersionWorkingCopyOptions)
+				// Construct a second instance of the GetOfferingWorkingCopyOptions model with no property values
+				getOfferingWorkingCopyOptionsModelNew := new(catalogmanagementv1.GetOfferingWorkingCopyOptions)
 				// Invoke operation with invalid model (negative test)
-				result, response, operationErr = catalogManagementService.GetVersionWorkingCopy(getVersionWorkingCopyOptionsModelNew)
+				result, response, operationErr = catalogManagementService.GetOfferingWorkingCopy(getOfferingWorkingCopyOptionsModelNew)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
@@ -14974,15 +14974,15 @@ var _ = Describe(`CatalogManagementV1`, func() {
 			fmt.Fprintf(GinkgoWriter, "Expected error: %s\n", err.Error())
 		})
 	})
-	Describe(`CreateVersionInstance(createVersionInstanceOptions *CreateVersionInstanceOptions) - Operation response error`, func() {
-		createVersionInstancePath := "/instances"
+	Describe(`CreateOfferingInstance(createOfferingInstanceOptions *CreateOfferingInstanceOptions) - Operation response error`, func() {
+		createOfferingInstancePath := "/instances/offerings"
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(createVersionInstancePath))
+					Expect(req.URL.EscapedPath()).To(Equal(createOfferingInstancePath))
 					Expect(req.Method).To(Equal("POST"))
 					Expect(req.Header["X-Auth-Refresh-Token"]).ToNot(BeNil())
 					Expect(req.Header["X-Auth-Refresh-Token"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
@@ -14991,7 +14991,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 					fmt.Fprintf(res, `} this is not valid json {`)
 				}))
 			})
-			It(`Invoke CreateVersionInstance with error: Operation response processing error`, func() {
+			It(`Invoke CreateOfferingInstance with error: Operation response processing error`, func() {
 				catalogManagementService, serviceErr := catalogmanagementv1.NewCatalogManagementV1(&catalogmanagementv1.CatalogManagementV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -14999,31 +14999,31 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(catalogManagementService).ToNot(BeNil())
 
-				// Construct an instance of the CreateVersionInstanceOptions model
-				createVersionInstanceOptionsModel := new(catalogmanagementv1.CreateVersionInstanceOptions)
-				createVersionInstanceOptionsModel.XAuthRefreshToken = core.StringPtr("testString")
-				createVersionInstanceOptionsModel.ID = core.StringPtr("testString")
-				createVersionInstanceOptionsModel.URL = core.StringPtr("testString")
-				createVersionInstanceOptionsModel.CRN = core.StringPtr("testString")
-				createVersionInstanceOptionsModel.Label = core.StringPtr("testString")
-				createVersionInstanceOptionsModel.CatalogID = core.StringPtr("testString")
-				createVersionInstanceOptionsModel.OfferingID = core.StringPtr("testString")
-				createVersionInstanceOptionsModel.KindFormat = core.StringPtr("testString")
-				createVersionInstanceOptionsModel.Version = core.StringPtr("testString")
-				createVersionInstanceOptionsModel.ClusterID = core.StringPtr("testString")
-				createVersionInstanceOptionsModel.ClusterRegion = core.StringPtr("testString")
-				createVersionInstanceOptionsModel.ClusterNamespaces = []string{"testString"}
-				createVersionInstanceOptionsModel.ClusterAllNamespaces = core.BoolPtr(true)
-				createVersionInstanceOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the CreateOfferingInstanceOptions model
+				createOfferingInstanceOptionsModel := new(catalogmanagementv1.CreateOfferingInstanceOptions)
+				createOfferingInstanceOptionsModel.XAuthRefreshToken = core.StringPtr("testString")
+				createOfferingInstanceOptionsModel.ID = core.StringPtr("testString")
+				createOfferingInstanceOptionsModel.URL = core.StringPtr("testString")
+				createOfferingInstanceOptionsModel.CRN = core.StringPtr("testString")
+				createOfferingInstanceOptionsModel.Label = core.StringPtr("testString")
+				createOfferingInstanceOptionsModel.CatalogID = core.StringPtr("testString")
+				createOfferingInstanceOptionsModel.OfferingID = core.StringPtr("testString")
+				createOfferingInstanceOptionsModel.KindFormat = core.StringPtr("testString")
+				createOfferingInstanceOptionsModel.Version = core.StringPtr("testString")
+				createOfferingInstanceOptionsModel.ClusterID = core.StringPtr("testString")
+				createOfferingInstanceOptionsModel.ClusterRegion = core.StringPtr("testString")
+				createOfferingInstanceOptionsModel.ClusterNamespaces = []string{"testString"}
+				createOfferingInstanceOptionsModel.ClusterAllNamespaces = core.BoolPtr(true)
+				createOfferingInstanceOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
-				result, response, operationErr := catalogManagementService.CreateVersionInstance(createVersionInstanceOptionsModel)
+				result, response, operationErr := catalogManagementService.CreateOfferingInstance(createOfferingInstanceOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
 
 				// Enable retries and test again
 				catalogManagementService.EnableRetries(0, 0)
-				result, response, operationErr = catalogManagementService.CreateVersionInstance(createVersionInstanceOptionsModel)
+				result, response, operationErr = catalogManagementService.CreateOfferingInstance(createOfferingInstanceOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
@@ -15034,15 +15034,15 @@ var _ = Describe(`CatalogManagementV1`, func() {
 		})
 	})
 
-	Describe(`CreateVersionInstance(createVersionInstanceOptions *CreateVersionInstanceOptions)`, func() {
-		createVersionInstancePath := "/instances"
+	Describe(`CreateOfferingInstance(createOfferingInstanceOptions *CreateOfferingInstanceOptions)`, func() {
+		createOfferingInstancePath := "/instances/offerings"
 		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(createVersionInstancePath))
+					Expect(req.URL.EscapedPath()).To(Equal(createOfferingInstancePath))
 					Expect(req.Method).To(Equal("POST"))
 
 					// For gzip-disabled operation, verify Content-Encoding is not set.
@@ -15072,7 +15072,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 					fmt.Fprintf(res, "%s", `{"id": "ID", "url": "URL", "crn": "CRN", "label": "Label", "catalog_id": "CatalogID", "offering_id": "OfferingID", "kind_format": "KindFormat", "version": "Version", "cluster_id": "ClusterID", "cluster_region": "ClusterRegion", "cluster_namespaces": ["ClusterNamespaces"], "cluster_all_namespaces": true}`)
 				}))
 			})
-			It(`Invoke CreateVersionInstance successfully with retries`, func() {
+			It(`Invoke CreateOfferingInstance successfully with retries`, func() {
 				catalogManagementService, serviceErr := catalogmanagementv1.NewCatalogManagementV1(&catalogmanagementv1.CatalogManagementV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -15081,33 +15081,33 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				Expect(catalogManagementService).ToNot(BeNil())
 				catalogManagementService.EnableRetries(0, 0)
 
-				// Construct an instance of the CreateVersionInstanceOptions model
-				createVersionInstanceOptionsModel := new(catalogmanagementv1.CreateVersionInstanceOptions)
-				createVersionInstanceOptionsModel.XAuthRefreshToken = core.StringPtr("testString")
-				createVersionInstanceOptionsModel.ID = core.StringPtr("testString")
-				createVersionInstanceOptionsModel.URL = core.StringPtr("testString")
-				createVersionInstanceOptionsModel.CRN = core.StringPtr("testString")
-				createVersionInstanceOptionsModel.Label = core.StringPtr("testString")
-				createVersionInstanceOptionsModel.CatalogID = core.StringPtr("testString")
-				createVersionInstanceOptionsModel.OfferingID = core.StringPtr("testString")
-				createVersionInstanceOptionsModel.KindFormat = core.StringPtr("testString")
-				createVersionInstanceOptionsModel.Version = core.StringPtr("testString")
-				createVersionInstanceOptionsModel.ClusterID = core.StringPtr("testString")
-				createVersionInstanceOptionsModel.ClusterRegion = core.StringPtr("testString")
-				createVersionInstanceOptionsModel.ClusterNamespaces = []string{"testString"}
-				createVersionInstanceOptionsModel.ClusterAllNamespaces = core.BoolPtr(true)
-				createVersionInstanceOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the CreateOfferingInstanceOptions model
+				createOfferingInstanceOptionsModel := new(catalogmanagementv1.CreateOfferingInstanceOptions)
+				createOfferingInstanceOptionsModel.XAuthRefreshToken = core.StringPtr("testString")
+				createOfferingInstanceOptionsModel.ID = core.StringPtr("testString")
+				createOfferingInstanceOptionsModel.URL = core.StringPtr("testString")
+				createOfferingInstanceOptionsModel.CRN = core.StringPtr("testString")
+				createOfferingInstanceOptionsModel.Label = core.StringPtr("testString")
+				createOfferingInstanceOptionsModel.CatalogID = core.StringPtr("testString")
+				createOfferingInstanceOptionsModel.OfferingID = core.StringPtr("testString")
+				createOfferingInstanceOptionsModel.KindFormat = core.StringPtr("testString")
+				createOfferingInstanceOptionsModel.Version = core.StringPtr("testString")
+				createOfferingInstanceOptionsModel.ClusterID = core.StringPtr("testString")
+				createOfferingInstanceOptionsModel.ClusterRegion = core.StringPtr("testString")
+				createOfferingInstanceOptionsModel.ClusterNamespaces = []string{"testString"}
+				createOfferingInstanceOptionsModel.ClusterAllNamespaces = core.BoolPtr(true)
+				createOfferingInstanceOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with a Context to test a timeout error
 				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
 				defer cancelFunc()
-				_, _, operationErr := catalogManagementService.CreateVersionInstanceWithContext(ctx, createVersionInstanceOptionsModel)
+				_, _, operationErr := catalogManagementService.CreateOfferingInstanceWithContext(ctx, createOfferingInstanceOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
 
 				// Disable retries and test again
 				catalogManagementService.DisableRetries()
-				result, response, operationErr := catalogManagementService.CreateVersionInstance(createVersionInstanceOptionsModel)
+				result, response, operationErr := catalogManagementService.CreateOfferingInstance(createOfferingInstanceOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
@@ -15115,7 +15115,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				// Re-test the timeout error with retries disabled
 				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
 				defer cancelFunc2()
-				_, _, operationErr = catalogManagementService.CreateVersionInstanceWithContext(ctx, createVersionInstanceOptionsModel)
+				_, _, operationErr = catalogManagementService.CreateOfferingInstanceWithContext(ctx, createOfferingInstanceOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
 			})
@@ -15129,7 +15129,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(createVersionInstancePath))
+					Expect(req.URL.EscapedPath()).To(Equal(createOfferingInstancePath))
 					Expect(req.Method).To(Equal("POST"))
 
 					// For gzip-disabled operation, verify Content-Encoding is not set.
@@ -15156,7 +15156,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 					fmt.Fprintf(res, "%s", `{"id": "ID", "url": "URL", "crn": "CRN", "label": "Label", "catalog_id": "CatalogID", "offering_id": "OfferingID", "kind_format": "KindFormat", "version": "Version", "cluster_id": "ClusterID", "cluster_region": "ClusterRegion", "cluster_namespaces": ["ClusterNamespaces"], "cluster_all_namespaces": true}`)
 				}))
 			})
-			It(`Invoke CreateVersionInstance successfully`, func() {
+			It(`Invoke CreateOfferingInstance successfully`, func() {
 				catalogManagementService, serviceErr := catalogmanagementv1.NewCatalogManagementV1(&catalogmanagementv1.CatalogManagementV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -15165,36 +15165,36 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				Expect(catalogManagementService).ToNot(BeNil())
 
 				// Invoke operation with nil options model (negative test)
-				result, response, operationErr := catalogManagementService.CreateVersionInstance(nil)
+				result, response, operationErr := catalogManagementService.CreateOfferingInstance(nil)
 				Expect(operationErr).NotTo(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
 
-				// Construct an instance of the CreateVersionInstanceOptions model
-				createVersionInstanceOptionsModel := new(catalogmanagementv1.CreateVersionInstanceOptions)
-				createVersionInstanceOptionsModel.XAuthRefreshToken = core.StringPtr("testString")
-				createVersionInstanceOptionsModel.ID = core.StringPtr("testString")
-				createVersionInstanceOptionsModel.URL = core.StringPtr("testString")
-				createVersionInstanceOptionsModel.CRN = core.StringPtr("testString")
-				createVersionInstanceOptionsModel.Label = core.StringPtr("testString")
-				createVersionInstanceOptionsModel.CatalogID = core.StringPtr("testString")
-				createVersionInstanceOptionsModel.OfferingID = core.StringPtr("testString")
-				createVersionInstanceOptionsModel.KindFormat = core.StringPtr("testString")
-				createVersionInstanceOptionsModel.Version = core.StringPtr("testString")
-				createVersionInstanceOptionsModel.ClusterID = core.StringPtr("testString")
-				createVersionInstanceOptionsModel.ClusterRegion = core.StringPtr("testString")
-				createVersionInstanceOptionsModel.ClusterNamespaces = []string{"testString"}
-				createVersionInstanceOptionsModel.ClusterAllNamespaces = core.BoolPtr(true)
-				createVersionInstanceOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the CreateOfferingInstanceOptions model
+				createOfferingInstanceOptionsModel := new(catalogmanagementv1.CreateOfferingInstanceOptions)
+				createOfferingInstanceOptionsModel.XAuthRefreshToken = core.StringPtr("testString")
+				createOfferingInstanceOptionsModel.ID = core.StringPtr("testString")
+				createOfferingInstanceOptionsModel.URL = core.StringPtr("testString")
+				createOfferingInstanceOptionsModel.CRN = core.StringPtr("testString")
+				createOfferingInstanceOptionsModel.Label = core.StringPtr("testString")
+				createOfferingInstanceOptionsModel.CatalogID = core.StringPtr("testString")
+				createOfferingInstanceOptionsModel.OfferingID = core.StringPtr("testString")
+				createOfferingInstanceOptionsModel.KindFormat = core.StringPtr("testString")
+				createOfferingInstanceOptionsModel.Version = core.StringPtr("testString")
+				createOfferingInstanceOptionsModel.ClusterID = core.StringPtr("testString")
+				createOfferingInstanceOptionsModel.ClusterRegion = core.StringPtr("testString")
+				createOfferingInstanceOptionsModel.ClusterNamespaces = []string{"testString"}
+				createOfferingInstanceOptionsModel.ClusterAllNamespaces = core.BoolPtr(true)
+				createOfferingInstanceOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
-				result, response, operationErr = catalogManagementService.CreateVersionInstance(createVersionInstanceOptionsModel)
+				result, response, operationErr = catalogManagementService.CreateOfferingInstance(createOfferingInstanceOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
 
 			})
-			It(`Invoke CreateVersionInstance with error: Operation validation and request error`, func() {
+			It(`Invoke CreateOfferingInstance with error: Operation validation and request error`, func() {
 				catalogManagementService, serviceErr := catalogmanagementv1.NewCatalogManagementV1(&catalogmanagementv1.CatalogManagementV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -15202,34 +15202,34 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(catalogManagementService).ToNot(BeNil())
 
-				// Construct an instance of the CreateVersionInstanceOptions model
-				createVersionInstanceOptionsModel := new(catalogmanagementv1.CreateVersionInstanceOptions)
-				createVersionInstanceOptionsModel.XAuthRefreshToken = core.StringPtr("testString")
-				createVersionInstanceOptionsModel.ID = core.StringPtr("testString")
-				createVersionInstanceOptionsModel.URL = core.StringPtr("testString")
-				createVersionInstanceOptionsModel.CRN = core.StringPtr("testString")
-				createVersionInstanceOptionsModel.Label = core.StringPtr("testString")
-				createVersionInstanceOptionsModel.CatalogID = core.StringPtr("testString")
-				createVersionInstanceOptionsModel.OfferingID = core.StringPtr("testString")
-				createVersionInstanceOptionsModel.KindFormat = core.StringPtr("testString")
-				createVersionInstanceOptionsModel.Version = core.StringPtr("testString")
-				createVersionInstanceOptionsModel.ClusterID = core.StringPtr("testString")
-				createVersionInstanceOptionsModel.ClusterRegion = core.StringPtr("testString")
-				createVersionInstanceOptionsModel.ClusterNamespaces = []string{"testString"}
-				createVersionInstanceOptionsModel.ClusterAllNamespaces = core.BoolPtr(true)
-				createVersionInstanceOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the CreateOfferingInstanceOptions model
+				createOfferingInstanceOptionsModel := new(catalogmanagementv1.CreateOfferingInstanceOptions)
+				createOfferingInstanceOptionsModel.XAuthRefreshToken = core.StringPtr("testString")
+				createOfferingInstanceOptionsModel.ID = core.StringPtr("testString")
+				createOfferingInstanceOptionsModel.URL = core.StringPtr("testString")
+				createOfferingInstanceOptionsModel.CRN = core.StringPtr("testString")
+				createOfferingInstanceOptionsModel.Label = core.StringPtr("testString")
+				createOfferingInstanceOptionsModel.CatalogID = core.StringPtr("testString")
+				createOfferingInstanceOptionsModel.OfferingID = core.StringPtr("testString")
+				createOfferingInstanceOptionsModel.KindFormat = core.StringPtr("testString")
+				createOfferingInstanceOptionsModel.Version = core.StringPtr("testString")
+				createOfferingInstanceOptionsModel.ClusterID = core.StringPtr("testString")
+				createOfferingInstanceOptionsModel.ClusterRegion = core.StringPtr("testString")
+				createOfferingInstanceOptionsModel.ClusterNamespaces = []string{"testString"}
+				createOfferingInstanceOptionsModel.ClusterAllNamespaces = core.BoolPtr(true)
+				createOfferingInstanceOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := catalogManagementService.SetServiceURL("")
 				Expect(err).To(BeNil())
-				result, response, operationErr := catalogManagementService.CreateVersionInstance(createVersionInstanceOptionsModel)
+				result, response, operationErr := catalogManagementService.CreateOfferingInstance(createOfferingInstanceOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
-				// Construct a second instance of the CreateVersionInstanceOptions model with no property values
-				createVersionInstanceOptionsModelNew := new(catalogmanagementv1.CreateVersionInstanceOptions)
+				// Construct a second instance of the CreateOfferingInstanceOptions model with no property values
+				createOfferingInstanceOptionsModelNew := new(catalogmanagementv1.CreateOfferingInstanceOptions)
 				// Invoke operation with invalid model (negative test)
-				result, response, operationErr = catalogManagementService.CreateVersionInstance(createVersionInstanceOptionsModelNew)
+				result, response, operationErr = catalogManagementService.CreateOfferingInstance(createOfferingInstanceOptionsModelNew)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
@@ -15239,22 +15239,22 @@ var _ = Describe(`CatalogManagementV1`, func() {
 			})
 		})
 	})
-	Describe(`GetVersionInstance(getVersionInstanceOptions *GetVersionInstanceOptions) - Operation response error`, func() {
-		getVersionInstancePath := "/instances/testString"
+	Describe(`GetOfferingInstance(getOfferingInstanceOptions *GetOfferingInstanceOptions) - Operation response error`, func() {
+		getOfferingInstancePath := "/instances/offerings/testString"
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(getVersionInstancePath))
+					Expect(req.URL.EscapedPath()).To(Equal(getOfferingInstancePath))
 					Expect(req.Method).To(Equal("GET"))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
 					fmt.Fprintf(res, `} this is not valid json {`)
 				}))
 			})
-			It(`Invoke GetVersionInstance with error: Operation response processing error`, func() {
+			It(`Invoke GetOfferingInstance with error: Operation response processing error`, func() {
 				catalogManagementService, serviceErr := catalogmanagementv1.NewCatalogManagementV1(&catalogmanagementv1.CatalogManagementV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -15262,19 +15262,19 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(catalogManagementService).ToNot(BeNil())
 
-				// Construct an instance of the GetVersionInstanceOptions model
-				getVersionInstanceOptionsModel := new(catalogmanagementv1.GetVersionInstanceOptions)
-				getVersionInstanceOptionsModel.InstanceIdentifier = core.StringPtr("testString")
-				getVersionInstanceOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the GetOfferingInstanceOptions model
+				getOfferingInstanceOptionsModel := new(catalogmanagementv1.GetOfferingInstanceOptions)
+				getOfferingInstanceOptionsModel.InstanceIdentifier = core.StringPtr("testString")
+				getOfferingInstanceOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
-				result, response, operationErr := catalogManagementService.GetVersionInstance(getVersionInstanceOptionsModel)
+				result, response, operationErr := catalogManagementService.GetOfferingInstance(getOfferingInstanceOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
 
 				// Enable retries and test again
 				catalogManagementService.EnableRetries(0, 0)
-				result, response, operationErr = catalogManagementService.GetVersionInstance(getVersionInstanceOptionsModel)
+				result, response, operationErr = catalogManagementService.GetOfferingInstance(getOfferingInstanceOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
@@ -15285,15 +15285,15 @@ var _ = Describe(`CatalogManagementV1`, func() {
 		})
 	})
 
-	Describe(`GetVersionInstance(getVersionInstanceOptions *GetVersionInstanceOptions)`, func() {
-		getVersionInstancePath := "/instances/testString"
+	Describe(`GetOfferingInstance(getOfferingInstanceOptions *GetOfferingInstanceOptions)`, func() {
+		getOfferingInstancePath := "/instances/offerings/testString"
 		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(getVersionInstancePath))
+					Expect(req.URL.EscapedPath()).To(Equal(getOfferingInstancePath))
 					Expect(req.Method).To(Equal("GET"))
 
 					// Sleep a short time to support a timeout test
@@ -15305,7 +15305,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 					fmt.Fprintf(res, "%s", `{"id": "ID", "url": "URL", "crn": "CRN", "label": "Label", "catalog_id": "CatalogID", "offering_id": "OfferingID", "kind_format": "KindFormat", "version": "Version", "cluster_id": "ClusterID", "cluster_region": "ClusterRegion", "cluster_namespaces": ["ClusterNamespaces"], "cluster_all_namespaces": true}`)
 				}))
 			})
-			It(`Invoke GetVersionInstance successfully with retries`, func() {
+			It(`Invoke GetOfferingInstance successfully with retries`, func() {
 				catalogManagementService, serviceErr := catalogmanagementv1.NewCatalogManagementV1(&catalogmanagementv1.CatalogManagementV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -15314,21 +15314,21 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				Expect(catalogManagementService).ToNot(BeNil())
 				catalogManagementService.EnableRetries(0, 0)
 
-				// Construct an instance of the GetVersionInstanceOptions model
-				getVersionInstanceOptionsModel := new(catalogmanagementv1.GetVersionInstanceOptions)
-				getVersionInstanceOptionsModel.InstanceIdentifier = core.StringPtr("testString")
-				getVersionInstanceOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the GetOfferingInstanceOptions model
+				getOfferingInstanceOptionsModel := new(catalogmanagementv1.GetOfferingInstanceOptions)
+				getOfferingInstanceOptionsModel.InstanceIdentifier = core.StringPtr("testString")
+				getOfferingInstanceOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with a Context to test a timeout error
 				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
 				defer cancelFunc()
-				_, _, operationErr := catalogManagementService.GetVersionInstanceWithContext(ctx, getVersionInstanceOptionsModel)
+				_, _, operationErr := catalogManagementService.GetOfferingInstanceWithContext(ctx, getOfferingInstanceOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
 
 				// Disable retries and test again
 				catalogManagementService.DisableRetries()
-				result, response, operationErr := catalogManagementService.GetVersionInstance(getVersionInstanceOptionsModel)
+				result, response, operationErr := catalogManagementService.GetOfferingInstance(getOfferingInstanceOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
@@ -15336,7 +15336,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				// Re-test the timeout error with retries disabled
 				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
 				defer cancelFunc2()
-				_, _, operationErr = catalogManagementService.GetVersionInstanceWithContext(ctx, getVersionInstanceOptionsModel)
+				_, _, operationErr = catalogManagementService.GetOfferingInstanceWithContext(ctx, getOfferingInstanceOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
 			})
@@ -15350,7 +15350,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(getVersionInstancePath))
+					Expect(req.URL.EscapedPath()).To(Equal(getOfferingInstancePath))
 					Expect(req.Method).To(Equal("GET"))
 
 					// Set mock response
@@ -15359,7 +15359,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 					fmt.Fprintf(res, "%s", `{"id": "ID", "url": "URL", "crn": "CRN", "label": "Label", "catalog_id": "CatalogID", "offering_id": "OfferingID", "kind_format": "KindFormat", "version": "Version", "cluster_id": "ClusterID", "cluster_region": "ClusterRegion", "cluster_namespaces": ["ClusterNamespaces"], "cluster_all_namespaces": true}`)
 				}))
 			})
-			It(`Invoke GetVersionInstance successfully`, func() {
+			It(`Invoke GetOfferingInstance successfully`, func() {
 				catalogManagementService, serviceErr := catalogmanagementv1.NewCatalogManagementV1(&catalogmanagementv1.CatalogManagementV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -15368,24 +15368,24 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				Expect(catalogManagementService).ToNot(BeNil())
 
 				// Invoke operation with nil options model (negative test)
-				result, response, operationErr := catalogManagementService.GetVersionInstance(nil)
+				result, response, operationErr := catalogManagementService.GetOfferingInstance(nil)
 				Expect(operationErr).NotTo(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
 
-				// Construct an instance of the GetVersionInstanceOptions model
-				getVersionInstanceOptionsModel := new(catalogmanagementv1.GetVersionInstanceOptions)
-				getVersionInstanceOptionsModel.InstanceIdentifier = core.StringPtr("testString")
-				getVersionInstanceOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the GetOfferingInstanceOptions model
+				getOfferingInstanceOptionsModel := new(catalogmanagementv1.GetOfferingInstanceOptions)
+				getOfferingInstanceOptionsModel.InstanceIdentifier = core.StringPtr("testString")
+				getOfferingInstanceOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
-				result, response, operationErr = catalogManagementService.GetVersionInstance(getVersionInstanceOptionsModel)
+				result, response, operationErr = catalogManagementService.GetOfferingInstance(getOfferingInstanceOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
 
 			})
-			It(`Invoke GetVersionInstance with error: Operation validation and request error`, func() {
+			It(`Invoke GetOfferingInstance with error: Operation validation and request error`, func() {
 				catalogManagementService, serviceErr := catalogmanagementv1.NewCatalogManagementV1(&catalogmanagementv1.CatalogManagementV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -15393,22 +15393,22 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(catalogManagementService).ToNot(BeNil())
 
-				// Construct an instance of the GetVersionInstanceOptions model
-				getVersionInstanceOptionsModel := new(catalogmanagementv1.GetVersionInstanceOptions)
-				getVersionInstanceOptionsModel.InstanceIdentifier = core.StringPtr("testString")
-				getVersionInstanceOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the GetOfferingInstanceOptions model
+				getOfferingInstanceOptionsModel := new(catalogmanagementv1.GetOfferingInstanceOptions)
+				getOfferingInstanceOptionsModel.InstanceIdentifier = core.StringPtr("testString")
+				getOfferingInstanceOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := catalogManagementService.SetServiceURL("")
 				Expect(err).To(BeNil())
-				result, response, operationErr := catalogManagementService.GetVersionInstance(getVersionInstanceOptionsModel)
+				result, response, operationErr := catalogManagementService.GetOfferingInstance(getOfferingInstanceOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
-				// Construct a second instance of the GetVersionInstanceOptions model with no property values
-				getVersionInstanceOptionsModelNew := new(catalogmanagementv1.GetVersionInstanceOptions)
+				// Construct a second instance of the GetOfferingInstanceOptions model with no property values
+				getOfferingInstanceOptionsModelNew := new(catalogmanagementv1.GetOfferingInstanceOptions)
 				// Invoke operation with invalid model (negative test)
-				result, response, operationErr = catalogManagementService.GetVersionInstance(getVersionInstanceOptionsModelNew)
+				result, response, operationErr = catalogManagementService.GetOfferingInstance(getOfferingInstanceOptionsModelNew)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
@@ -15418,15 +15418,15 @@ var _ = Describe(`CatalogManagementV1`, func() {
 			})
 		})
 	})
-	Describe(`PutVersionInstance(putVersionInstanceOptions *PutVersionInstanceOptions) - Operation response error`, func() {
-		putVersionInstancePath := "/instances/testString"
+	Describe(`PutOfferingInstance(putOfferingInstanceOptions *PutOfferingInstanceOptions) - Operation response error`, func() {
+		putOfferingInstancePath := "/instances/offerings/testString"
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(putVersionInstancePath))
+					Expect(req.URL.EscapedPath()).To(Equal(putOfferingInstancePath))
 					Expect(req.Method).To(Equal("PUT"))
 					Expect(req.Header["X-Auth-Refresh-Token"]).ToNot(BeNil())
 					Expect(req.Header["X-Auth-Refresh-Token"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
@@ -15435,7 +15435,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 					fmt.Fprintf(res, `} this is not valid json {`)
 				}))
 			})
-			It(`Invoke PutVersionInstance with error: Operation response processing error`, func() {
+			It(`Invoke PutOfferingInstance with error: Operation response processing error`, func() {
 				catalogManagementService, serviceErr := catalogmanagementv1.NewCatalogManagementV1(&catalogmanagementv1.CatalogManagementV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -15443,32 +15443,32 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(catalogManagementService).ToNot(BeNil())
 
-				// Construct an instance of the PutVersionInstanceOptions model
-				putVersionInstanceOptionsModel := new(catalogmanagementv1.PutVersionInstanceOptions)
-				putVersionInstanceOptionsModel.InstanceIdentifier = core.StringPtr("testString")
-				putVersionInstanceOptionsModel.XAuthRefreshToken = core.StringPtr("testString")
-				putVersionInstanceOptionsModel.ID = core.StringPtr("testString")
-				putVersionInstanceOptionsModel.URL = core.StringPtr("testString")
-				putVersionInstanceOptionsModel.CRN = core.StringPtr("testString")
-				putVersionInstanceOptionsModel.Label = core.StringPtr("testString")
-				putVersionInstanceOptionsModel.CatalogID = core.StringPtr("testString")
-				putVersionInstanceOptionsModel.OfferingID = core.StringPtr("testString")
-				putVersionInstanceOptionsModel.KindFormat = core.StringPtr("testString")
-				putVersionInstanceOptionsModel.Version = core.StringPtr("testString")
-				putVersionInstanceOptionsModel.ClusterID = core.StringPtr("testString")
-				putVersionInstanceOptionsModel.ClusterRegion = core.StringPtr("testString")
-				putVersionInstanceOptionsModel.ClusterNamespaces = []string{"testString"}
-				putVersionInstanceOptionsModel.ClusterAllNamespaces = core.BoolPtr(true)
-				putVersionInstanceOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the PutOfferingInstanceOptions model
+				putOfferingInstanceOptionsModel := new(catalogmanagementv1.PutOfferingInstanceOptions)
+				putOfferingInstanceOptionsModel.InstanceIdentifier = core.StringPtr("testString")
+				putOfferingInstanceOptionsModel.XAuthRefreshToken = core.StringPtr("testString")
+				putOfferingInstanceOptionsModel.ID = core.StringPtr("testString")
+				putOfferingInstanceOptionsModel.URL = core.StringPtr("testString")
+				putOfferingInstanceOptionsModel.CRN = core.StringPtr("testString")
+				putOfferingInstanceOptionsModel.Label = core.StringPtr("testString")
+				putOfferingInstanceOptionsModel.CatalogID = core.StringPtr("testString")
+				putOfferingInstanceOptionsModel.OfferingID = core.StringPtr("testString")
+				putOfferingInstanceOptionsModel.KindFormat = core.StringPtr("testString")
+				putOfferingInstanceOptionsModel.Version = core.StringPtr("testString")
+				putOfferingInstanceOptionsModel.ClusterID = core.StringPtr("testString")
+				putOfferingInstanceOptionsModel.ClusterRegion = core.StringPtr("testString")
+				putOfferingInstanceOptionsModel.ClusterNamespaces = []string{"testString"}
+				putOfferingInstanceOptionsModel.ClusterAllNamespaces = core.BoolPtr(true)
+				putOfferingInstanceOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
-				result, response, operationErr := catalogManagementService.PutVersionInstance(putVersionInstanceOptionsModel)
+				result, response, operationErr := catalogManagementService.PutOfferingInstance(putOfferingInstanceOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
 
 				// Enable retries and test again
 				catalogManagementService.EnableRetries(0, 0)
-				result, response, operationErr = catalogManagementService.PutVersionInstance(putVersionInstanceOptionsModel)
+				result, response, operationErr = catalogManagementService.PutOfferingInstance(putOfferingInstanceOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
@@ -15479,15 +15479,15 @@ var _ = Describe(`CatalogManagementV1`, func() {
 		})
 	})
 
-	Describe(`PutVersionInstance(putVersionInstanceOptions *PutVersionInstanceOptions)`, func() {
-		putVersionInstancePath := "/instances/testString"
+	Describe(`PutOfferingInstance(putOfferingInstanceOptions *PutOfferingInstanceOptions)`, func() {
+		putOfferingInstancePath := "/instances/offerings/testString"
 		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(putVersionInstancePath))
+					Expect(req.URL.EscapedPath()).To(Equal(putOfferingInstancePath))
 					Expect(req.Method).To(Equal("PUT"))
 
 					// For gzip-disabled operation, verify Content-Encoding is not set.
@@ -15517,7 +15517,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 					fmt.Fprintf(res, "%s", `{"id": "ID", "url": "URL", "crn": "CRN", "label": "Label", "catalog_id": "CatalogID", "offering_id": "OfferingID", "kind_format": "KindFormat", "version": "Version", "cluster_id": "ClusterID", "cluster_region": "ClusterRegion", "cluster_namespaces": ["ClusterNamespaces"], "cluster_all_namespaces": true}`)
 				}))
 			})
-			It(`Invoke PutVersionInstance successfully with retries`, func() {
+			It(`Invoke PutOfferingInstance successfully with retries`, func() {
 				catalogManagementService, serviceErr := catalogmanagementv1.NewCatalogManagementV1(&catalogmanagementv1.CatalogManagementV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -15526,34 +15526,34 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				Expect(catalogManagementService).ToNot(BeNil())
 				catalogManagementService.EnableRetries(0, 0)
 
-				// Construct an instance of the PutVersionInstanceOptions model
-				putVersionInstanceOptionsModel := new(catalogmanagementv1.PutVersionInstanceOptions)
-				putVersionInstanceOptionsModel.InstanceIdentifier = core.StringPtr("testString")
-				putVersionInstanceOptionsModel.XAuthRefreshToken = core.StringPtr("testString")
-				putVersionInstanceOptionsModel.ID = core.StringPtr("testString")
-				putVersionInstanceOptionsModel.URL = core.StringPtr("testString")
-				putVersionInstanceOptionsModel.CRN = core.StringPtr("testString")
-				putVersionInstanceOptionsModel.Label = core.StringPtr("testString")
-				putVersionInstanceOptionsModel.CatalogID = core.StringPtr("testString")
-				putVersionInstanceOptionsModel.OfferingID = core.StringPtr("testString")
-				putVersionInstanceOptionsModel.KindFormat = core.StringPtr("testString")
-				putVersionInstanceOptionsModel.Version = core.StringPtr("testString")
-				putVersionInstanceOptionsModel.ClusterID = core.StringPtr("testString")
-				putVersionInstanceOptionsModel.ClusterRegion = core.StringPtr("testString")
-				putVersionInstanceOptionsModel.ClusterNamespaces = []string{"testString"}
-				putVersionInstanceOptionsModel.ClusterAllNamespaces = core.BoolPtr(true)
-				putVersionInstanceOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the PutOfferingInstanceOptions model
+				putOfferingInstanceOptionsModel := new(catalogmanagementv1.PutOfferingInstanceOptions)
+				putOfferingInstanceOptionsModel.InstanceIdentifier = core.StringPtr("testString")
+				putOfferingInstanceOptionsModel.XAuthRefreshToken = core.StringPtr("testString")
+				putOfferingInstanceOptionsModel.ID = core.StringPtr("testString")
+				putOfferingInstanceOptionsModel.URL = core.StringPtr("testString")
+				putOfferingInstanceOptionsModel.CRN = core.StringPtr("testString")
+				putOfferingInstanceOptionsModel.Label = core.StringPtr("testString")
+				putOfferingInstanceOptionsModel.CatalogID = core.StringPtr("testString")
+				putOfferingInstanceOptionsModel.OfferingID = core.StringPtr("testString")
+				putOfferingInstanceOptionsModel.KindFormat = core.StringPtr("testString")
+				putOfferingInstanceOptionsModel.Version = core.StringPtr("testString")
+				putOfferingInstanceOptionsModel.ClusterID = core.StringPtr("testString")
+				putOfferingInstanceOptionsModel.ClusterRegion = core.StringPtr("testString")
+				putOfferingInstanceOptionsModel.ClusterNamespaces = []string{"testString"}
+				putOfferingInstanceOptionsModel.ClusterAllNamespaces = core.BoolPtr(true)
+				putOfferingInstanceOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with a Context to test a timeout error
 				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
 				defer cancelFunc()
-				_, _, operationErr := catalogManagementService.PutVersionInstanceWithContext(ctx, putVersionInstanceOptionsModel)
+				_, _, operationErr := catalogManagementService.PutOfferingInstanceWithContext(ctx, putOfferingInstanceOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
 
 				// Disable retries and test again
 				catalogManagementService.DisableRetries()
-				result, response, operationErr := catalogManagementService.PutVersionInstance(putVersionInstanceOptionsModel)
+				result, response, operationErr := catalogManagementService.PutOfferingInstance(putOfferingInstanceOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
@@ -15561,7 +15561,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				// Re-test the timeout error with retries disabled
 				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
 				defer cancelFunc2()
-				_, _, operationErr = catalogManagementService.PutVersionInstanceWithContext(ctx, putVersionInstanceOptionsModel)
+				_, _, operationErr = catalogManagementService.PutOfferingInstanceWithContext(ctx, putOfferingInstanceOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
 			})
@@ -15575,7 +15575,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(putVersionInstancePath))
+					Expect(req.URL.EscapedPath()).To(Equal(putOfferingInstancePath))
 					Expect(req.Method).To(Equal("PUT"))
 
 					// For gzip-disabled operation, verify Content-Encoding is not set.
@@ -15602,7 +15602,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 					fmt.Fprintf(res, "%s", `{"id": "ID", "url": "URL", "crn": "CRN", "label": "Label", "catalog_id": "CatalogID", "offering_id": "OfferingID", "kind_format": "KindFormat", "version": "Version", "cluster_id": "ClusterID", "cluster_region": "ClusterRegion", "cluster_namespaces": ["ClusterNamespaces"], "cluster_all_namespaces": true}`)
 				}))
 			})
-			It(`Invoke PutVersionInstance successfully`, func() {
+			It(`Invoke PutOfferingInstance successfully`, func() {
 				catalogManagementService, serviceErr := catalogmanagementv1.NewCatalogManagementV1(&catalogmanagementv1.CatalogManagementV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -15611,37 +15611,37 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				Expect(catalogManagementService).ToNot(BeNil())
 
 				// Invoke operation with nil options model (negative test)
-				result, response, operationErr := catalogManagementService.PutVersionInstance(nil)
+				result, response, operationErr := catalogManagementService.PutOfferingInstance(nil)
 				Expect(operationErr).NotTo(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
 
-				// Construct an instance of the PutVersionInstanceOptions model
-				putVersionInstanceOptionsModel := new(catalogmanagementv1.PutVersionInstanceOptions)
-				putVersionInstanceOptionsModel.InstanceIdentifier = core.StringPtr("testString")
-				putVersionInstanceOptionsModel.XAuthRefreshToken = core.StringPtr("testString")
-				putVersionInstanceOptionsModel.ID = core.StringPtr("testString")
-				putVersionInstanceOptionsModel.URL = core.StringPtr("testString")
-				putVersionInstanceOptionsModel.CRN = core.StringPtr("testString")
-				putVersionInstanceOptionsModel.Label = core.StringPtr("testString")
-				putVersionInstanceOptionsModel.CatalogID = core.StringPtr("testString")
-				putVersionInstanceOptionsModel.OfferingID = core.StringPtr("testString")
-				putVersionInstanceOptionsModel.KindFormat = core.StringPtr("testString")
-				putVersionInstanceOptionsModel.Version = core.StringPtr("testString")
-				putVersionInstanceOptionsModel.ClusterID = core.StringPtr("testString")
-				putVersionInstanceOptionsModel.ClusterRegion = core.StringPtr("testString")
-				putVersionInstanceOptionsModel.ClusterNamespaces = []string{"testString"}
-				putVersionInstanceOptionsModel.ClusterAllNamespaces = core.BoolPtr(true)
-				putVersionInstanceOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the PutOfferingInstanceOptions model
+				putOfferingInstanceOptionsModel := new(catalogmanagementv1.PutOfferingInstanceOptions)
+				putOfferingInstanceOptionsModel.InstanceIdentifier = core.StringPtr("testString")
+				putOfferingInstanceOptionsModel.XAuthRefreshToken = core.StringPtr("testString")
+				putOfferingInstanceOptionsModel.ID = core.StringPtr("testString")
+				putOfferingInstanceOptionsModel.URL = core.StringPtr("testString")
+				putOfferingInstanceOptionsModel.CRN = core.StringPtr("testString")
+				putOfferingInstanceOptionsModel.Label = core.StringPtr("testString")
+				putOfferingInstanceOptionsModel.CatalogID = core.StringPtr("testString")
+				putOfferingInstanceOptionsModel.OfferingID = core.StringPtr("testString")
+				putOfferingInstanceOptionsModel.KindFormat = core.StringPtr("testString")
+				putOfferingInstanceOptionsModel.Version = core.StringPtr("testString")
+				putOfferingInstanceOptionsModel.ClusterID = core.StringPtr("testString")
+				putOfferingInstanceOptionsModel.ClusterRegion = core.StringPtr("testString")
+				putOfferingInstanceOptionsModel.ClusterNamespaces = []string{"testString"}
+				putOfferingInstanceOptionsModel.ClusterAllNamespaces = core.BoolPtr(true)
+				putOfferingInstanceOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
-				result, response, operationErr = catalogManagementService.PutVersionInstance(putVersionInstanceOptionsModel)
+				result, response, operationErr = catalogManagementService.PutOfferingInstance(putOfferingInstanceOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
 
 			})
-			It(`Invoke PutVersionInstance with error: Operation validation and request error`, func() {
+			It(`Invoke PutOfferingInstance with error: Operation validation and request error`, func() {
 				catalogManagementService, serviceErr := catalogmanagementv1.NewCatalogManagementV1(&catalogmanagementv1.CatalogManagementV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -15649,35 +15649,35 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(catalogManagementService).ToNot(BeNil())
 
-				// Construct an instance of the PutVersionInstanceOptions model
-				putVersionInstanceOptionsModel := new(catalogmanagementv1.PutVersionInstanceOptions)
-				putVersionInstanceOptionsModel.InstanceIdentifier = core.StringPtr("testString")
-				putVersionInstanceOptionsModel.XAuthRefreshToken = core.StringPtr("testString")
-				putVersionInstanceOptionsModel.ID = core.StringPtr("testString")
-				putVersionInstanceOptionsModel.URL = core.StringPtr("testString")
-				putVersionInstanceOptionsModel.CRN = core.StringPtr("testString")
-				putVersionInstanceOptionsModel.Label = core.StringPtr("testString")
-				putVersionInstanceOptionsModel.CatalogID = core.StringPtr("testString")
-				putVersionInstanceOptionsModel.OfferingID = core.StringPtr("testString")
-				putVersionInstanceOptionsModel.KindFormat = core.StringPtr("testString")
-				putVersionInstanceOptionsModel.Version = core.StringPtr("testString")
-				putVersionInstanceOptionsModel.ClusterID = core.StringPtr("testString")
-				putVersionInstanceOptionsModel.ClusterRegion = core.StringPtr("testString")
-				putVersionInstanceOptionsModel.ClusterNamespaces = []string{"testString"}
-				putVersionInstanceOptionsModel.ClusterAllNamespaces = core.BoolPtr(true)
-				putVersionInstanceOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the PutOfferingInstanceOptions model
+				putOfferingInstanceOptionsModel := new(catalogmanagementv1.PutOfferingInstanceOptions)
+				putOfferingInstanceOptionsModel.InstanceIdentifier = core.StringPtr("testString")
+				putOfferingInstanceOptionsModel.XAuthRefreshToken = core.StringPtr("testString")
+				putOfferingInstanceOptionsModel.ID = core.StringPtr("testString")
+				putOfferingInstanceOptionsModel.URL = core.StringPtr("testString")
+				putOfferingInstanceOptionsModel.CRN = core.StringPtr("testString")
+				putOfferingInstanceOptionsModel.Label = core.StringPtr("testString")
+				putOfferingInstanceOptionsModel.CatalogID = core.StringPtr("testString")
+				putOfferingInstanceOptionsModel.OfferingID = core.StringPtr("testString")
+				putOfferingInstanceOptionsModel.KindFormat = core.StringPtr("testString")
+				putOfferingInstanceOptionsModel.Version = core.StringPtr("testString")
+				putOfferingInstanceOptionsModel.ClusterID = core.StringPtr("testString")
+				putOfferingInstanceOptionsModel.ClusterRegion = core.StringPtr("testString")
+				putOfferingInstanceOptionsModel.ClusterNamespaces = []string{"testString"}
+				putOfferingInstanceOptionsModel.ClusterAllNamespaces = core.BoolPtr(true)
+				putOfferingInstanceOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := catalogManagementService.SetServiceURL("")
 				Expect(err).To(BeNil())
-				result, response, operationErr := catalogManagementService.PutVersionInstance(putVersionInstanceOptionsModel)
+				result, response, operationErr := catalogManagementService.PutOfferingInstance(putOfferingInstanceOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
-				// Construct a second instance of the PutVersionInstanceOptions model with no property values
-				putVersionInstanceOptionsModelNew := new(catalogmanagementv1.PutVersionInstanceOptions)
+				// Construct a second instance of the PutOfferingInstanceOptions model with no property values
+				putOfferingInstanceOptionsModelNew := new(catalogmanagementv1.PutOfferingInstanceOptions)
 				// Invoke operation with invalid model (negative test)
-				result, response, operationErr = catalogManagementService.PutVersionInstance(putVersionInstanceOptionsModelNew)
+				result, response, operationErr = catalogManagementService.PutOfferingInstance(putOfferingInstanceOptionsModelNew)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
@@ -15688,15 +15688,15 @@ var _ = Describe(`CatalogManagementV1`, func() {
 		})
 	})
 
-	Describe(`DeleteVersionInstance(deleteVersionInstanceOptions *DeleteVersionInstanceOptions)`, func() {
-		deleteVersionInstancePath := "/instances/testString"
+	Describe(`DeleteOfferingInstance(deleteOfferingInstanceOptions *DeleteOfferingInstanceOptions)`, func() {
+		deleteOfferingInstancePath := "/instances/offerings/testString"
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(deleteVersionInstancePath))
+					Expect(req.URL.EscapedPath()).To(Equal(deleteOfferingInstancePath))
 					Expect(req.Method).To(Equal("DELETE"))
 
 					Expect(req.Header["X-Auth-Refresh-Token"]).ToNot(BeNil())
@@ -15704,7 +15704,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 					res.WriteHeader(200)
 				}))
 			})
-			It(`Invoke DeleteVersionInstance successfully`, func() {
+			It(`Invoke DeleteOfferingInstance successfully`, func() {
 				catalogManagementService, serviceErr := catalogmanagementv1.NewCatalogManagementV1(&catalogmanagementv1.CatalogManagementV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -15713,22 +15713,22 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				Expect(catalogManagementService).ToNot(BeNil())
 
 				// Invoke operation with nil options model (negative test)
-				response, operationErr := catalogManagementService.DeleteVersionInstance(nil)
+				response, operationErr := catalogManagementService.DeleteOfferingInstance(nil)
 				Expect(operationErr).NotTo(BeNil())
 				Expect(response).To(BeNil())
 
-				// Construct an instance of the DeleteVersionInstanceOptions model
-				deleteVersionInstanceOptionsModel := new(catalogmanagementv1.DeleteVersionInstanceOptions)
-				deleteVersionInstanceOptionsModel.InstanceIdentifier = core.StringPtr("testString")
-				deleteVersionInstanceOptionsModel.XAuthRefreshToken = core.StringPtr("testString")
-				deleteVersionInstanceOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the DeleteOfferingInstanceOptions model
+				deleteOfferingInstanceOptionsModel := new(catalogmanagementv1.DeleteOfferingInstanceOptions)
+				deleteOfferingInstanceOptionsModel.InstanceIdentifier = core.StringPtr("testString")
+				deleteOfferingInstanceOptionsModel.XAuthRefreshToken = core.StringPtr("testString")
+				deleteOfferingInstanceOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
-				response, operationErr = catalogManagementService.DeleteVersionInstance(deleteVersionInstanceOptionsModel)
+				response, operationErr = catalogManagementService.DeleteOfferingInstance(deleteOfferingInstanceOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 			})
-			It(`Invoke DeleteVersionInstance with error: Operation validation and request error`, func() {
+			It(`Invoke DeleteOfferingInstance with error: Operation validation and request error`, func() {
 				catalogManagementService, serviceErr := catalogmanagementv1.NewCatalogManagementV1(&catalogmanagementv1.CatalogManagementV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -15736,22 +15736,22 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(catalogManagementService).ToNot(BeNil())
 
-				// Construct an instance of the DeleteVersionInstanceOptions model
-				deleteVersionInstanceOptionsModel := new(catalogmanagementv1.DeleteVersionInstanceOptions)
-				deleteVersionInstanceOptionsModel.InstanceIdentifier = core.StringPtr("testString")
-				deleteVersionInstanceOptionsModel.XAuthRefreshToken = core.StringPtr("testString")
-				deleteVersionInstanceOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the DeleteOfferingInstanceOptions model
+				deleteOfferingInstanceOptionsModel := new(catalogmanagementv1.DeleteOfferingInstanceOptions)
+				deleteOfferingInstanceOptionsModel.InstanceIdentifier = core.StringPtr("testString")
+				deleteOfferingInstanceOptionsModel.XAuthRefreshToken = core.StringPtr("testString")
+				deleteOfferingInstanceOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := catalogManagementService.SetServiceURL("")
 				Expect(err).To(BeNil())
-				response, operationErr := catalogManagementService.DeleteVersionInstance(deleteVersionInstanceOptionsModel)
+				response, operationErr := catalogManagementService.DeleteOfferingInstance(deleteOfferingInstanceOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
 				Expect(response).To(BeNil())
-				// Construct a second instance of the DeleteVersionInstanceOptions model with no property values
-				deleteVersionInstanceOptionsModelNew := new(catalogmanagementv1.DeleteVersionInstanceOptions)
+				// Construct a second instance of the DeleteOfferingInstanceOptions model with no property values
+				deleteOfferingInstanceOptionsModelNew := new(catalogmanagementv1.DeleteOfferingInstanceOptions)
 				// Invoke operation with invalid model (negative test)
-				response, operationErr = catalogManagementService.DeleteVersionInstance(deleteVersionInstanceOptionsModelNew)
+				response, operationErr = catalogManagementService.DeleteOfferingInstance(deleteOfferingInstanceOptionsModelNew)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).To(BeNil())
 			})
@@ -16067,6 +16067,40 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				Expect(createObjectOptionsModel.CatalogName).To(Equal(core.StringPtr("testString")))
 				Expect(createObjectOptionsModel.Data).To(Equal(make(map[string]interface{})))
 				Expect(createObjectOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
+			It(`Invoke NewCreateOfferingInstanceOptions successfully`, func() {
+				// Construct an instance of the CreateOfferingInstanceOptions model
+				xAuthRefreshToken := "testString"
+				createOfferingInstanceOptionsModel := catalogManagementService.NewCreateOfferingInstanceOptions(xAuthRefreshToken)
+				createOfferingInstanceOptionsModel.SetXAuthRefreshToken("testString")
+				createOfferingInstanceOptionsModel.SetID("testString")
+				createOfferingInstanceOptionsModel.SetURL("testString")
+				createOfferingInstanceOptionsModel.SetCRN("testString")
+				createOfferingInstanceOptionsModel.SetLabel("testString")
+				createOfferingInstanceOptionsModel.SetCatalogID("testString")
+				createOfferingInstanceOptionsModel.SetOfferingID("testString")
+				createOfferingInstanceOptionsModel.SetKindFormat("testString")
+				createOfferingInstanceOptionsModel.SetVersion("testString")
+				createOfferingInstanceOptionsModel.SetClusterID("testString")
+				createOfferingInstanceOptionsModel.SetClusterRegion("testString")
+				createOfferingInstanceOptionsModel.SetClusterNamespaces([]string{"testString"})
+				createOfferingInstanceOptionsModel.SetClusterAllNamespaces(true)
+				createOfferingInstanceOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(createOfferingInstanceOptionsModel).ToNot(BeNil())
+				Expect(createOfferingInstanceOptionsModel.XAuthRefreshToken).To(Equal(core.StringPtr("testString")))
+				Expect(createOfferingInstanceOptionsModel.ID).To(Equal(core.StringPtr("testString")))
+				Expect(createOfferingInstanceOptionsModel.URL).To(Equal(core.StringPtr("testString")))
+				Expect(createOfferingInstanceOptionsModel.CRN).To(Equal(core.StringPtr("testString")))
+				Expect(createOfferingInstanceOptionsModel.Label).To(Equal(core.StringPtr("testString")))
+				Expect(createOfferingInstanceOptionsModel.CatalogID).To(Equal(core.StringPtr("testString")))
+				Expect(createOfferingInstanceOptionsModel.OfferingID).To(Equal(core.StringPtr("testString")))
+				Expect(createOfferingInstanceOptionsModel.KindFormat).To(Equal(core.StringPtr("testString")))
+				Expect(createOfferingInstanceOptionsModel.Version).To(Equal(core.StringPtr("testString")))
+				Expect(createOfferingInstanceOptionsModel.ClusterID).To(Equal(core.StringPtr("testString")))
+				Expect(createOfferingInstanceOptionsModel.ClusterRegion).To(Equal(core.StringPtr("testString")))
+				Expect(createOfferingInstanceOptionsModel.ClusterNamespaces).To(Equal([]string{"testString"}))
+				Expect(createOfferingInstanceOptionsModel.ClusterAllNamespaces).To(Equal(core.BoolPtr(true)))
+				Expect(createOfferingInstanceOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewCreateOfferingOptions successfully`, func() {
 				// Construct an instance of the Rating model
@@ -16406,40 +16440,6 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				Expect(createOfferingOptionsModel.RepoInfo).To(Equal(repoInfoModel))
 				Expect(createOfferingOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
-			It(`Invoke NewCreateVersionInstanceOptions successfully`, func() {
-				// Construct an instance of the CreateVersionInstanceOptions model
-				xAuthRefreshToken := "testString"
-				createVersionInstanceOptionsModel := catalogManagementService.NewCreateVersionInstanceOptions(xAuthRefreshToken)
-				createVersionInstanceOptionsModel.SetXAuthRefreshToken("testString")
-				createVersionInstanceOptionsModel.SetID("testString")
-				createVersionInstanceOptionsModel.SetURL("testString")
-				createVersionInstanceOptionsModel.SetCRN("testString")
-				createVersionInstanceOptionsModel.SetLabel("testString")
-				createVersionInstanceOptionsModel.SetCatalogID("testString")
-				createVersionInstanceOptionsModel.SetOfferingID("testString")
-				createVersionInstanceOptionsModel.SetKindFormat("testString")
-				createVersionInstanceOptionsModel.SetVersion("testString")
-				createVersionInstanceOptionsModel.SetClusterID("testString")
-				createVersionInstanceOptionsModel.SetClusterRegion("testString")
-				createVersionInstanceOptionsModel.SetClusterNamespaces([]string{"testString"})
-				createVersionInstanceOptionsModel.SetClusterAllNamespaces(true)
-				createVersionInstanceOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
-				Expect(createVersionInstanceOptionsModel).ToNot(BeNil())
-				Expect(createVersionInstanceOptionsModel.XAuthRefreshToken).To(Equal(core.StringPtr("testString")))
-				Expect(createVersionInstanceOptionsModel.ID).To(Equal(core.StringPtr("testString")))
-				Expect(createVersionInstanceOptionsModel.URL).To(Equal(core.StringPtr("testString")))
-				Expect(createVersionInstanceOptionsModel.CRN).To(Equal(core.StringPtr("testString")))
-				Expect(createVersionInstanceOptionsModel.Label).To(Equal(core.StringPtr("testString")))
-				Expect(createVersionInstanceOptionsModel.CatalogID).To(Equal(core.StringPtr("testString")))
-				Expect(createVersionInstanceOptionsModel.OfferingID).To(Equal(core.StringPtr("testString")))
-				Expect(createVersionInstanceOptionsModel.KindFormat).To(Equal(core.StringPtr("testString")))
-				Expect(createVersionInstanceOptionsModel.Version).To(Equal(core.StringPtr("testString")))
-				Expect(createVersionInstanceOptionsModel.ClusterID).To(Equal(core.StringPtr("testString")))
-				Expect(createVersionInstanceOptionsModel.ClusterRegion).To(Equal(core.StringPtr("testString")))
-				Expect(createVersionInstanceOptionsModel.ClusterNamespaces).To(Equal([]string{"testString"}))
-				Expect(createVersionInstanceOptionsModel.ClusterAllNamespaces).To(Equal(core.BoolPtr(true)))
-				Expect(createVersionInstanceOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
-			})
 			It(`Invoke NewDeleteCatalogOptions successfully`, func() {
 				// Construct an instance of the DeleteCatalogOptions model
 				catalogIdentifier := "testString"
@@ -16507,6 +16507,19 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				Expect(deleteObjectOptionsModel.ObjectIdentifier).To(Equal(core.StringPtr("testString")))
 				Expect(deleteObjectOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
+			It(`Invoke NewDeleteOfferingInstanceOptions successfully`, func() {
+				// Construct an instance of the DeleteOfferingInstanceOptions model
+				instanceIdentifier := "testString"
+				xAuthRefreshToken := "testString"
+				deleteOfferingInstanceOptionsModel := catalogManagementService.NewDeleteOfferingInstanceOptions(instanceIdentifier, xAuthRefreshToken)
+				deleteOfferingInstanceOptionsModel.SetInstanceIdentifier("testString")
+				deleteOfferingInstanceOptionsModel.SetXAuthRefreshToken("testString")
+				deleteOfferingInstanceOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(deleteOfferingInstanceOptionsModel).ToNot(BeNil())
+				Expect(deleteOfferingInstanceOptionsModel.InstanceIdentifier).To(Equal(core.StringPtr("testString")))
+				Expect(deleteOfferingInstanceOptionsModel.XAuthRefreshToken).To(Equal(core.StringPtr("testString")))
+				Expect(deleteOfferingInstanceOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
 			It(`Invoke NewDeleteOfferingOptions successfully`, func() {
 				// Construct an instance of the DeleteOfferingOptions model
 				catalogIdentifier := "testString"
@@ -16538,19 +16551,6 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				Expect(deleteOperatorsOptionsModel.Region).To(Equal(core.StringPtr("testString")))
 				Expect(deleteOperatorsOptionsModel.VersionLocatorID).To(Equal(core.StringPtr("testString")))
 				Expect(deleteOperatorsOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
-			})
-			It(`Invoke NewDeleteVersionInstanceOptions successfully`, func() {
-				// Construct an instance of the DeleteVersionInstanceOptions model
-				instanceIdentifier := "testString"
-				xAuthRefreshToken := "testString"
-				deleteVersionInstanceOptionsModel := catalogManagementService.NewDeleteVersionInstanceOptions(instanceIdentifier, xAuthRefreshToken)
-				deleteVersionInstanceOptionsModel.SetInstanceIdentifier("testString")
-				deleteVersionInstanceOptionsModel.SetXAuthRefreshToken("testString")
-				deleteVersionInstanceOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
-				Expect(deleteVersionInstanceOptionsModel).ToNot(BeNil())
-				Expect(deleteVersionInstanceOptionsModel.InstanceIdentifier).To(Equal(core.StringPtr("testString")))
-				Expect(deleteVersionInstanceOptionsModel.XAuthRefreshToken).To(Equal(core.StringPtr("testString")))
-				Expect(deleteVersionInstanceOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewDeleteVersionOptions successfully`, func() {
 				// Construct an instance of the DeleteVersionOptions model
@@ -16769,6 +16769,16 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				Expect(getObjectOptionsModel.ObjectIdentifier).To(Equal(core.StringPtr("testString")))
 				Expect(getObjectOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
+			It(`Invoke NewGetOfferingAboutOptions successfully`, func() {
+				// Construct an instance of the GetOfferingAboutOptions model
+				versionLocID := "testString"
+				getOfferingAboutOptionsModel := catalogManagementService.NewGetOfferingAboutOptions(versionLocID)
+				getOfferingAboutOptionsModel.SetVersionLocID("testString")
+				getOfferingAboutOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(getOfferingAboutOptionsModel).ToNot(BeNil())
+				Expect(getOfferingAboutOptionsModel.VersionLocID).To(Equal(core.StringPtr("testString")))
+				Expect(getOfferingAboutOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
 			It(`Invoke NewGetOfferingAuditOptions successfully`, func() {
 				// Construct an instance of the GetOfferingAuditOptions model
 				catalogIdentifier := "testString"
@@ -16782,6 +16792,39 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				Expect(getOfferingAuditOptionsModel.OfferingID).To(Equal(core.StringPtr("testString")))
 				Expect(getOfferingAuditOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
+			It(`Invoke NewGetOfferingContainerImagesOptions successfully`, func() {
+				// Construct an instance of the GetOfferingContainerImagesOptions model
+				versionLocID := "testString"
+				getOfferingContainerImagesOptionsModel := catalogManagementService.NewGetOfferingContainerImagesOptions(versionLocID)
+				getOfferingContainerImagesOptionsModel.SetVersionLocID("testString")
+				getOfferingContainerImagesOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(getOfferingContainerImagesOptionsModel).ToNot(BeNil())
+				Expect(getOfferingContainerImagesOptionsModel.VersionLocID).To(Equal(core.StringPtr("testString")))
+				Expect(getOfferingContainerImagesOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
+			It(`Invoke NewGetOfferingInstanceOptions successfully`, func() {
+				// Construct an instance of the GetOfferingInstanceOptions model
+				instanceIdentifier := "testString"
+				getOfferingInstanceOptionsModel := catalogManagementService.NewGetOfferingInstanceOptions(instanceIdentifier)
+				getOfferingInstanceOptionsModel.SetInstanceIdentifier("testString")
+				getOfferingInstanceOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(getOfferingInstanceOptionsModel).ToNot(BeNil())
+				Expect(getOfferingInstanceOptionsModel.InstanceIdentifier).To(Equal(core.StringPtr("testString")))
+				Expect(getOfferingInstanceOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
+			It(`Invoke NewGetOfferingLicenseOptions successfully`, func() {
+				// Construct an instance of the GetOfferingLicenseOptions model
+				versionLocID := "testString"
+				licenseID := "testString"
+				getOfferingLicenseOptionsModel := catalogManagementService.NewGetOfferingLicenseOptions(versionLocID, licenseID)
+				getOfferingLicenseOptionsModel.SetVersionLocID("testString")
+				getOfferingLicenseOptionsModel.SetLicenseID("testString")
+				getOfferingLicenseOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(getOfferingLicenseOptionsModel).ToNot(BeNil())
+				Expect(getOfferingLicenseOptionsModel.VersionLocID).To(Equal(core.StringPtr("testString")))
+				Expect(getOfferingLicenseOptionsModel.LicenseID).To(Equal(core.StringPtr("testString")))
+				Expect(getOfferingLicenseOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
 			It(`Invoke NewGetOfferingOptions successfully`, func() {
 				// Construct an instance of the GetOfferingOptions model
 				catalogIdentifier := "testString"
@@ -16794,6 +16837,42 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				Expect(getOfferingOptionsModel.CatalogIdentifier).To(Equal(core.StringPtr("testString")))
 				Expect(getOfferingOptionsModel.OfferingID).To(Equal(core.StringPtr("testString")))
 				Expect(getOfferingOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
+			It(`Invoke NewGetOfferingUpdatesOptions successfully`, func() {
+				// Construct an instance of the GetOfferingUpdatesOptions model
+				catalogIdentifier := "testString"
+				offeringID := "testString"
+				kind := "testString"
+				getOfferingUpdatesOptionsModel := catalogManagementService.NewGetOfferingUpdatesOptions(catalogIdentifier, offeringID, kind)
+				getOfferingUpdatesOptionsModel.SetCatalogIdentifier("testString")
+				getOfferingUpdatesOptionsModel.SetOfferingID("testString")
+				getOfferingUpdatesOptionsModel.SetKind("testString")
+				getOfferingUpdatesOptionsModel.SetVersion("testString")
+				getOfferingUpdatesOptionsModel.SetClusterID("testString")
+				getOfferingUpdatesOptionsModel.SetRegion("testString")
+				getOfferingUpdatesOptionsModel.SetResourceGroupID("testString")
+				getOfferingUpdatesOptionsModel.SetNamespace("testString")
+				getOfferingUpdatesOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(getOfferingUpdatesOptionsModel).ToNot(BeNil())
+				Expect(getOfferingUpdatesOptionsModel.CatalogIdentifier).To(Equal(core.StringPtr("testString")))
+				Expect(getOfferingUpdatesOptionsModel.OfferingID).To(Equal(core.StringPtr("testString")))
+				Expect(getOfferingUpdatesOptionsModel.Kind).To(Equal(core.StringPtr("testString")))
+				Expect(getOfferingUpdatesOptionsModel.Version).To(Equal(core.StringPtr("testString")))
+				Expect(getOfferingUpdatesOptionsModel.ClusterID).To(Equal(core.StringPtr("testString")))
+				Expect(getOfferingUpdatesOptionsModel.Region).To(Equal(core.StringPtr("testString")))
+				Expect(getOfferingUpdatesOptionsModel.ResourceGroupID).To(Equal(core.StringPtr("testString")))
+				Expect(getOfferingUpdatesOptionsModel.Namespace).To(Equal(core.StringPtr("testString")))
+				Expect(getOfferingUpdatesOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
+			It(`Invoke NewGetOfferingWorkingCopyOptions successfully`, func() {
+				// Construct an instance of the GetOfferingWorkingCopyOptions model
+				versionLocID := "testString"
+				getOfferingWorkingCopyOptionsModel := catalogManagementService.NewGetOfferingWorkingCopyOptions(versionLocID)
+				getOfferingWorkingCopyOptionsModel.SetVersionLocID("testString")
+				getOfferingWorkingCopyOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(getOfferingWorkingCopyOptionsModel).ToNot(BeNil())
+				Expect(getOfferingWorkingCopyOptionsModel.VersionLocID).To(Equal(core.StringPtr("testString")))
+				Expect(getOfferingWorkingCopyOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewGetOverrideValuesOptions successfully`, func() {
 				// Construct an instance of the GetOverrideValuesOptions model
@@ -16863,49 +16942,6 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				Expect(getValidationStatusOptionsModel.XAuthRefreshToken).To(Equal(core.StringPtr("testString")))
 				Expect(getValidationStatusOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
-			It(`Invoke NewGetVersionAboutOptions successfully`, func() {
-				// Construct an instance of the GetVersionAboutOptions model
-				versionLocID := "testString"
-				getVersionAboutOptionsModel := catalogManagementService.NewGetVersionAboutOptions(versionLocID)
-				getVersionAboutOptionsModel.SetVersionLocID("testString")
-				getVersionAboutOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
-				Expect(getVersionAboutOptionsModel).ToNot(BeNil())
-				Expect(getVersionAboutOptionsModel.VersionLocID).To(Equal(core.StringPtr("testString")))
-				Expect(getVersionAboutOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
-			})
-			It(`Invoke NewGetVersionContainerImagesOptions successfully`, func() {
-				// Construct an instance of the GetVersionContainerImagesOptions model
-				versionLocID := "testString"
-				getVersionContainerImagesOptionsModel := catalogManagementService.NewGetVersionContainerImagesOptions(versionLocID)
-				getVersionContainerImagesOptionsModel.SetVersionLocID("testString")
-				getVersionContainerImagesOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
-				Expect(getVersionContainerImagesOptionsModel).ToNot(BeNil())
-				Expect(getVersionContainerImagesOptionsModel.VersionLocID).To(Equal(core.StringPtr("testString")))
-				Expect(getVersionContainerImagesOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
-			})
-			It(`Invoke NewGetVersionInstanceOptions successfully`, func() {
-				// Construct an instance of the GetVersionInstanceOptions model
-				instanceIdentifier := "testString"
-				getVersionInstanceOptionsModel := catalogManagementService.NewGetVersionInstanceOptions(instanceIdentifier)
-				getVersionInstanceOptionsModel.SetInstanceIdentifier("testString")
-				getVersionInstanceOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
-				Expect(getVersionInstanceOptionsModel).ToNot(BeNil())
-				Expect(getVersionInstanceOptionsModel.InstanceIdentifier).To(Equal(core.StringPtr("testString")))
-				Expect(getVersionInstanceOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
-			})
-			It(`Invoke NewGetVersionLicenseOptions successfully`, func() {
-				// Construct an instance of the GetVersionLicenseOptions model
-				versionLocID := "testString"
-				licenseID := "testString"
-				getVersionLicenseOptionsModel := catalogManagementService.NewGetVersionLicenseOptions(versionLocID, licenseID)
-				getVersionLicenseOptionsModel.SetVersionLocID("testString")
-				getVersionLicenseOptionsModel.SetLicenseID("testString")
-				getVersionLicenseOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
-				Expect(getVersionLicenseOptionsModel).ToNot(BeNil())
-				Expect(getVersionLicenseOptionsModel.VersionLocID).To(Equal(core.StringPtr("testString")))
-				Expect(getVersionLicenseOptionsModel.LicenseID).To(Equal(core.StringPtr("testString")))
-				Expect(getVersionLicenseOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
-			})
 			It(`Invoke NewGetVersionOptions successfully`, func() {
 				// Construct an instance of the GetVersionOptions model
 				versionLocID := "testString"
@@ -16915,42 +16951,6 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				Expect(getVersionOptionsModel).ToNot(BeNil())
 				Expect(getVersionOptionsModel.VersionLocID).To(Equal(core.StringPtr("testString")))
 				Expect(getVersionOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
-			})
-			It(`Invoke NewGetVersionUpdatesOptions successfully`, func() {
-				// Construct an instance of the GetVersionUpdatesOptions model
-				catalogIdentifier := "testString"
-				offeringID := "testString"
-				kind := "testString"
-				getVersionUpdatesOptionsModel := catalogManagementService.NewGetVersionUpdatesOptions(catalogIdentifier, offeringID, kind)
-				getVersionUpdatesOptionsModel.SetCatalogIdentifier("testString")
-				getVersionUpdatesOptionsModel.SetOfferingID("testString")
-				getVersionUpdatesOptionsModel.SetKind("testString")
-				getVersionUpdatesOptionsModel.SetVersion("testString")
-				getVersionUpdatesOptionsModel.SetClusterID("testString")
-				getVersionUpdatesOptionsModel.SetRegion("testString")
-				getVersionUpdatesOptionsModel.SetResourceGroupID("testString")
-				getVersionUpdatesOptionsModel.SetNamespace("testString")
-				getVersionUpdatesOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
-				Expect(getVersionUpdatesOptionsModel).ToNot(BeNil())
-				Expect(getVersionUpdatesOptionsModel.CatalogIdentifier).To(Equal(core.StringPtr("testString")))
-				Expect(getVersionUpdatesOptionsModel.OfferingID).To(Equal(core.StringPtr("testString")))
-				Expect(getVersionUpdatesOptionsModel.Kind).To(Equal(core.StringPtr("testString")))
-				Expect(getVersionUpdatesOptionsModel.Version).To(Equal(core.StringPtr("testString")))
-				Expect(getVersionUpdatesOptionsModel.ClusterID).To(Equal(core.StringPtr("testString")))
-				Expect(getVersionUpdatesOptionsModel.Region).To(Equal(core.StringPtr("testString")))
-				Expect(getVersionUpdatesOptionsModel.ResourceGroupID).To(Equal(core.StringPtr("testString")))
-				Expect(getVersionUpdatesOptionsModel.Namespace).To(Equal(core.StringPtr("testString")))
-				Expect(getVersionUpdatesOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
-			})
-			It(`Invoke NewGetVersionWorkingCopyOptions successfully`, func() {
-				// Construct an instance of the GetVersionWorkingCopyOptions model
-				versionLocID := "testString"
-				getVersionWorkingCopyOptionsModel := catalogManagementService.NewGetVersionWorkingCopyOptions(versionLocID)
-				getVersionWorkingCopyOptionsModel.SetVersionLocID("testString")
-				getVersionWorkingCopyOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
-				Expect(getVersionWorkingCopyOptionsModel).ToNot(BeNil())
-				Expect(getVersionWorkingCopyOptionsModel.VersionLocID).To(Equal(core.StringPtr("testString")))
-				Expect(getVersionWorkingCopyOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewIBMPublishObjectOptions successfully`, func() {
 				// Construct an instance of the IBMPublishObjectOptions model
@@ -17223,42 +17223,42 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				Expect(publicPublishVersionOptionsModel.VersionLocID).To(Equal(core.StringPtr("testString")))
 				Expect(publicPublishVersionOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
-			It(`Invoke NewPutVersionInstanceOptions successfully`, func() {
-				// Construct an instance of the PutVersionInstanceOptions model
+			It(`Invoke NewPutOfferingInstanceOptions successfully`, func() {
+				// Construct an instance of the PutOfferingInstanceOptions model
 				instanceIdentifier := "testString"
 				xAuthRefreshToken := "testString"
-				putVersionInstanceOptionsModel := catalogManagementService.NewPutVersionInstanceOptions(instanceIdentifier, xAuthRefreshToken)
-				putVersionInstanceOptionsModel.SetInstanceIdentifier("testString")
-				putVersionInstanceOptionsModel.SetXAuthRefreshToken("testString")
-				putVersionInstanceOptionsModel.SetID("testString")
-				putVersionInstanceOptionsModel.SetURL("testString")
-				putVersionInstanceOptionsModel.SetCRN("testString")
-				putVersionInstanceOptionsModel.SetLabel("testString")
-				putVersionInstanceOptionsModel.SetCatalogID("testString")
-				putVersionInstanceOptionsModel.SetOfferingID("testString")
-				putVersionInstanceOptionsModel.SetKindFormat("testString")
-				putVersionInstanceOptionsModel.SetVersion("testString")
-				putVersionInstanceOptionsModel.SetClusterID("testString")
-				putVersionInstanceOptionsModel.SetClusterRegion("testString")
-				putVersionInstanceOptionsModel.SetClusterNamespaces([]string{"testString"})
-				putVersionInstanceOptionsModel.SetClusterAllNamespaces(true)
-				putVersionInstanceOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
-				Expect(putVersionInstanceOptionsModel).ToNot(BeNil())
-				Expect(putVersionInstanceOptionsModel.InstanceIdentifier).To(Equal(core.StringPtr("testString")))
-				Expect(putVersionInstanceOptionsModel.XAuthRefreshToken).To(Equal(core.StringPtr("testString")))
-				Expect(putVersionInstanceOptionsModel.ID).To(Equal(core.StringPtr("testString")))
-				Expect(putVersionInstanceOptionsModel.URL).To(Equal(core.StringPtr("testString")))
-				Expect(putVersionInstanceOptionsModel.CRN).To(Equal(core.StringPtr("testString")))
-				Expect(putVersionInstanceOptionsModel.Label).To(Equal(core.StringPtr("testString")))
-				Expect(putVersionInstanceOptionsModel.CatalogID).To(Equal(core.StringPtr("testString")))
-				Expect(putVersionInstanceOptionsModel.OfferingID).To(Equal(core.StringPtr("testString")))
-				Expect(putVersionInstanceOptionsModel.KindFormat).To(Equal(core.StringPtr("testString")))
-				Expect(putVersionInstanceOptionsModel.Version).To(Equal(core.StringPtr("testString")))
-				Expect(putVersionInstanceOptionsModel.ClusterID).To(Equal(core.StringPtr("testString")))
-				Expect(putVersionInstanceOptionsModel.ClusterRegion).To(Equal(core.StringPtr("testString")))
-				Expect(putVersionInstanceOptionsModel.ClusterNamespaces).To(Equal([]string{"testString"}))
-				Expect(putVersionInstanceOptionsModel.ClusterAllNamespaces).To(Equal(core.BoolPtr(true)))
-				Expect(putVersionInstanceOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+				putOfferingInstanceOptionsModel := catalogManagementService.NewPutOfferingInstanceOptions(instanceIdentifier, xAuthRefreshToken)
+				putOfferingInstanceOptionsModel.SetInstanceIdentifier("testString")
+				putOfferingInstanceOptionsModel.SetXAuthRefreshToken("testString")
+				putOfferingInstanceOptionsModel.SetID("testString")
+				putOfferingInstanceOptionsModel.SetURL("testString")
+				putOfferingInstanceOptionsModel.SetCRN("testString")
+				putOfferingInstanceOptionsModel.SetLabel("testString")
+				putOfferingInstanceOptionsModel.SetCatalogID("testString")
+				putOfferingInstanceOptionsModel.SetOfferingID("testString")
+				putOfferingInstanceOptionsModel.SetKindFormat("testString")
+				putOfferingInstanceOptionsModel.SetVersion("testString")
+				putOfferingInstanceOptionsModel.SetClusterID("testString")
+				putOfferingInstanceOptionsModel.SetClusterRegion("testString")
+				putOfferingInstanceOptionsModel.SetClusterNamespaces([]string{"testString"})
+				putOfferingInstanceOptionsModel.SetClusterAllNamespaces(true)
+				putOfferingInstanceOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(putOfferingInstanceOptionsModel).ToNot(BeNil())
+				Expect(putOfferingInstanceOptionsModel.InstanceIdentifier).To(Equal(core.StringPtr("testString")))
+				Expect(putOfferingInstanceOptionsModel.XAuthRefreshToken).To(Equal(core.StringPtr("testString")))
+				Expect(putOfferingInstanceOptionsModel.ID).To(Equal(core.StringPtr("testString")))
+				Expect(putOfferingInstanceOptionsModel.URL).To(Equal(core.StringPtr("testString")))
+				Expect(putOfferingInstanceOptionsModel.CRN).To(Equal(core.StringPtr("testString")))
+				Expect(putOfferingInstanceOptionsModel.Label).To(Equal(core.StringPtr("testString")))
+				Expect(putOfferingInstanceOptionsModel.CatalogID).To(Equal(core.StringPtr("testString")))
+				Expect(putOfferingInstanceOptionsModel.OfferingID).To(Equal(core.StringPtr("testString")))
+				Expect(putOfferingInstanceOptionsModel.KindFormat).To(Equal(core.StringPtr("testString")))
+				Expect(putOfferingInstanceOptionsModel.Version).To(Equal(core.StringPtr("testString")))
+				Expect(putOfferingInstanceOptionsModel.ClusterID).To(Equal(core.StringPtr("testString")))
+				Expect(putOfferingInstanceOptionsModel.ClusterRegion).To(Equal(core.StringPtr("testString")))
+				Expect(putOfferingInstanceOptionsModel.ClusterNamespaces).To(Equal([]string{"testString"}))
+				Expect(putOfferingInstanceOptionsModel.ClusterAllNamespaces).To(Equal(core.BoolPtr(true)))
+				Expect(putOfferingInstanceOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewReloadOfferingOptions successfully`, func() {
 				// Construct an instance of the ReloadOfferingOptions model
