@@ -980,8 +980,8 @@ var _ = Describe("Catalog Management - Integration Tests (OLD)", func() {
 
 		// 	versionLocator := *offeringResult.Kinds[0].Versions[0].VersionLocator
 
-		// 	getOptions := service.NewGetVersionAboutOptions(versionLocator)
-		// 	getResult, getResponse, err := service.GetVersionAbout(getOptions)
+		// 	getOptions := service.NewGetOfferingAboutOptions(versionLocator)
+		// 	getResult, getResponse, err := service.GetOfferingAbout(getOptions)
 
 		// 	service.DeleteCatalog(service.NewDeleteCatalogOptions(catalogID))
 
@@ -993,8 +993,8 @@ var _ = Describe("Catalog Management - Integration Tests (OLD)", func() {
 		It("Fail to get version about for a version that does not exist", func() {
 			shouldSkipTest()
 
-			getOptions := service.NewGetVersionAboutOptions(fakeVersionLocator)
-			_, getResponse, err := service.GetVersionAbout(getOptions)
+			getOptions := service.NewGetOfferingAboutOptions(fakeVersionLocator)
+			_, getResponse, err := service.GetOfferingAbout(getOptions)
 
 			Expect(err).ToNot(BeNil())
 			Expect(getResponse.StatusCode).To(Equal(404))
@@ -1036,8 +1036,8 @@ var _ = Describe("Catalog Management - Integration Tests (OLD)", func() {
 
 		// 	versionLocator2 := *importResult.Kinds[0].Versions[1].VersionLocator
 
-		// 	getOptions := service.NewGetVersionUpdatesOptions(versionLocator1)
-		// 	getResult, getResponse, err := service.GetVersionUpdates(getOptions)
+		// 	getOptions := service.NewGetOfferingUpdatesOptions(versionLocator1)
+		// 	getResult, getResponse, err := service.GetOfferingUpdates(getOptions)
 
 		// 	service.DeleteCatalog(service.NewDeleteCatalogOptions(catalogID))
 
@@ -1053,8 +1053,8 @@ var _ = Describe("Catalog Management - Integration Tests (OLD)", func() {
 		It("Fail to get version updates for version that does not exist", func() {
 			shouldSkipTest()
 
-			getOptions := service.NewGetVersionUpdatesOptions(fakeVersionLocator, "bogus", "bogus")
-			_, getResponse, err := service.GetVersionUpdates(getOptions)
+			getOptions := service.NewGetOfferingUpdatesOptions(fakeVersionLocator, "bogus", "bogus")
+			_, getResponse, err := service.GetOfferingUpdates(getOptions)
 
 			Expect(err).ToNot(BeNil())
 			Expect(getResponse.StatusCode).To(Equal(404))
