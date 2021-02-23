@@ -97,7 +97,7 @@ var _ = Describe(`UserManagementV1 Examples Tests`, func() {
 			// begin-common
 
 			userManagementServiceOptions := &usermanagementv1.UserManagementV1Options{
-				ServiceName: "USER_MANAGEMENT",
+				ServiceName: usermanagementv1.DefaultServiceName,
 			}
 
 			userManagementService, err = usermanagementv1.NewUserManagementV1UsingExternalConfig(userManagementServiceOptions)
