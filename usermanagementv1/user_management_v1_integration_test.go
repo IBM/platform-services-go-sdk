@@ -50,12 +50,13 @@ var _ = Describe(`UserManagementV1 Integration Tests`, func() {
 		alternateService      *usermanagementv1.UserManagementV1
 		serviceURL            string
 		config                map[string]string
-		deleteUserID          string
-		accountID             = "1aa434630b594b8a88b961a44c9eb2a9"
-		userID                = "IBMid-550009SDCP"
-		memberEmail           = "aminttest+linked_account_owner_11@mail.test.ibm.com"
-		viewerRoleID          = "crn:v1:bluemix:public:iam::::role:Viewer"
-		accessGroupID         = "AccessGroupId-51675919-2bd7-4ce3-86e4-5faff8065574"
+		accountID             string
+		userID                string
+		memberEmail           string
+		viewerRoleID          string
+		accessGroupID         string
+
+		deleteUserID string
 	)
 
 	var shouldSkipTest = func() {
@@ -77,6 +78,26 @@ var _ = Describe(`UserManagementV1 Integration Tests`, func() {
 			serviceURL = config["URL"]
 			if serviceURL == "" {
 				Skip("Unable to load service URL configuration property, skipping tests")
+			}
+			accountID = config["ACCOUNT_ID"]
+			if accountID == "" {
+				Skip("Unable to load account ID configuration property, skipping tests")
+			}
+			userID = config["USER_ID"]
+			if userID == "" {
+				Skip("Unable to load user ID configuration property, skipping tests")
+			}
+			memberEmail = config["MEMBER_EMAIL"]
+			if memberEmail == "" {
+				Skip("Unable to load member email configuration property, skipping tests")
+			}
+			viewerRoleID = config["VIEWER_ROLE_ID"]
+			if viewerRoleID == "" {
+				Skip("Unable to load viewer role ID configuration property, skipping tests")
+			}
+			accessGroupID = config["ACCESS_GROUP_ID"]
+			if accessGroupID == "" {
+				Skip("Unable to load access group ID configuration property, skipping tests")
 			}
 
 			fmt.Fprintf(GinkgoWriter, "Service URL: %s\n", serviceURL)
