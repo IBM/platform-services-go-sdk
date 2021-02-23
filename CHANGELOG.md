@@ -1,3 +1,10 @@
+## [0.17.13](https://github.com/IBM/platform-services-go-sdk/compare/v0.17.12...v0.17.13) (2021-02-23)
+
+
+### Bug Fixes
+
+* **Catalog Management:** re-gen after operation name changes ([#87](https://github.com/IBM/platform-services-go-sdk/issues/87)) ([1718555](https://github.com/IBM/platform-services-go-sdk/commit/171855571405b7d187c14d08be60dc05fce98733))
+
 ## [0.17.12](https://github.com/IBM/platform-services-go-sdk/compare/v0.17.11...v0.17.12) (2021-02-23)
 
 
