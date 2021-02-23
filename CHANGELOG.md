@@ -1,3 +1,10 @@
+## [0.17.12](https://github.com/IBM/platform-services-go-sdk/compare/v0.17.11...v0.17.12) (2021-02-23)
+
+
+### Bug Fixes
+
+* **Catalog Management:** re-gen after update to delete_version_instance ([#85](https://github.com/IBM/platform-services-go-sdk/issues/85)) ([568be81](https://github.com/IBM/platform-services-go-sdk/commit/568be81b0505c291ae5d1921ca3944140da03747))
+
 ## [0.17.11](https://github.com/IBM/platform-services-go-sdk/compare/v0.17.10...v0.17.11) (2021-02-21)
 
 

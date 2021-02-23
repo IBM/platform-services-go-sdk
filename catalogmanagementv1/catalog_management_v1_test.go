@@ -15699,6 +15699,8 @@ var _ = Describe(`CatalogManagementV1`, func() {
 					Expect(req.URL.EscapedPath()).To(Equal(deleteVersionInstancePath))
 					Expect(req.Method).To(Equal("DELETE"))
 
+					Expect(req.Header["X-Auth-Refresh-Token"]).ToNot(BeNil())
+					Expect(req.Header["X-Auth-Refresh-Token"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					res.WriteHeader(200)
 				}))
 			})
@@ -15718,6 +15720,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				// Construct an instance of the DeleteVersionInstanceOptions model
 				deleteVersionInstanceOptionsModel := new(catalogmanagementv1.DeleteVersionInstanceOptions)
 				deleteVersionInstanceOptionsModel.InstanceIdentifier = core.StringPtr("testString")
+				deleteVersionInstanceOptionsModel.XAuthRefreshToken = core.StringPtr("testString")
 				deleteVersionInstanceOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
@@ -15736,6 +15739,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				// Construct an instance of the DeleteVersionInstanceOptions model
 				deleteVersionInstanceOptionsModel := new(catalogmanagementv1.DeleteVersionInstanceOptions)
 				deleteVersionInstanceOptionsModel.InstanceIdentifier = core.StringPtr("testString")
+				deleteVersionInstanceOptionsModel.XAuthRefreshToken = core.StringPtr("testString")
 				deleteVersionInstanceOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := catalogManagementService.SetServiceURL("")
@@ -16538,11 +16542,14 @@ var _ = Describe(`CatalogManagementV1`, func() {
 			It(`Invoke NewDeleteVersionInstanceOptions successfully`, func() {
 				// Construct an instance of the DeleteVersionInstanceOptions model
 				instanceIdentifier := "testString"
-				deleteVersionInstanceOptionsModel := catalogManagementService.NewDeleteVersionInstanceOptions(instanceIdentifier)
+				xAuthRefreshToken := "testString"
+				deleteVersionInstanceOptionsModel := catalogManagementService.NewDeleteVersionInstanceOptions(instanceIdentifier, xAuthRefreshToken)
 				deleteVersionInstanceOptionsModel.SetInstanceIdentifier("testString")
+				deleteVersionInstanceOptionsModel.SetXAuthRefreshToken("testString")
 				deleteVersionInstanceOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(deleteVersionInstanceOptionsModel).ToNot(BeNil())
 				Expect(deleteVersionInstanceOptionsModel.InstanceIdentifier).To(Equal(core.StringPtr("testString")))
+				Expect(deleteVersionInstanceOptionsModel.XAuthRefreshToken).To(Equal(core.StringPtr("testString")))
 				Expect(deleteVersionInstanceOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewDeleteVersionOptions successfully`, func() {
