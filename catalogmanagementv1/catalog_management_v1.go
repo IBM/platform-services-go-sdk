@@ -15,7 +15,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-4c92c221-20210211-060810
+ * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-212f8afa-20210222-123519
  */
 
 // Package catalogmanagementv1 : Operations and models for the CatalogManagementV1 service
@@ -5230,6 +5230,9 @@ func (catalogManagement *CatalogManagementV1) DeleteVersionInstanceWithContext(c
 	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
+	if deleteVersionInstanceOptions.XAuthRefreshToken != nil {
+		builder.AddHeader("X-Auth-Refresh-Token", fmt.Sprint(*deleteVersionInstanceOptions.XAuthRefreshToken))
+	}
 
 	request, err := builder.Build()
 	if err != nil {
@@ -7342,20 +7345,30 @@ type DeleteVersionInstanceOptions struct {
 	// Version Instance identifier.
 	InstanceIdentifier *string `validate:"required,ne="`
 
+	// IAM Refresh token.
+	XAuthRefreshToken *string `validate:"required"`
+
 	// Allows users to set headers on API requests
 	Headers map[string]string
 }
 
 // NewDeleteVersionInstanceOptions : Instantiate DeleteVersionInstanceOptions
-func (*CatalogManagementV1) NewDeleteVersionInstanceOptions(instanceIdentifier string) *DeleteVersionInstanceOptions {
+func (*CatalogManagementV1) NewDeleteVersionInstanceOptions(instanceIdentifier string, xAuthRefreshToken string) *DeleteVersionInstanceOptions {
 	return &DeleteVersionInstanceOptions{
 		InstanceIdentifier: core.StringPtr(instanceIdentifier),
+		XAuthRefreshToken: core.StringPtr(xAuthRefreshToken),
 	}
 }
 
 // SetInstanceIdentifier : Allow user to set InstanceIdentifier
 func (options *DeleteVersionInstanceOptions) SetInstanceIdentifier(instanceIdentifier string) *DeleteVersionInstanceOptions {
 	options.InstanceIdentifier = core.StringPtr(instanceIdentifier)
+	return options
+}
+
+// SetXAuthRefreshToken : Allow user to set XAuthRefreshToken
+func (options *DeleteVersionInstanceOptions) SetXAuthRefreshToken(xAuthRefreshToken string) *DeleteVersionInstanceOptions {
+	options.XAuthRefreshToken = core.StringPtr(xAuthRefreshToken)
 	return options
 }
 

@@ -2136,7 +2136,7 @@ var _ = Describe(`CatalogManagementV1 Integration Tests (New)`, func() {
 		It(`DeleteVersionInstance(deleteVersionInstanceOptions *DeleteVersionInstanceOptions)`, func() {
 			Expect(testVersionInstanceID).ToNot(BeEmpty())
 
-			deleteVersionInstanceOptions := catalogManagementService.NewDeleteVersionInstanceOptions(testVersionInstanceID)
+			deleteVersionInstanceOptions := catalogManagementService.NewDeleteVersionInstanceOptions(testVersionInstanceID, refreshToken)
 
 			response, err := catalogManagementService.DeleteVersionInstance(deleteVersionInstanceOptions)
 
