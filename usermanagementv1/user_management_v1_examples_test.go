@@ -22,6 +22,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"os"
+	"time"
 
 	"github.com/IBM/go-sdk-core/v5/core"
 	"github.com/IBM/platform-services-go-sdk/usermanagementv1"
@@ -33,11 +34,17 @@ const externalConfigFile = "../user_management.env"
 
 var (
 	userManagementService *usermanagementv1.UserManagementV1
+	alternateService      *usermanagementv1.UserManagementV1
 	config                map[string]string
 	configLoaded          bool = false
 
-	accountID string
-	iamID     string
+	accountID     string
+	userID        string
+	memberEmail   string
+	viewerRoleID  string
+	accessGroupID string
+
+	deleteUserID string
 )
 
 func shouldSkipTest() {
@@ -64,6 +71,18 @@ var _ = Describe(`UserManagementV1 Examples Tests`, func() {
 			accountID = config["ACCOUNT_ID"]
 			Expect(accountID).ToNot(BeEmpty())
 
+			userID = config["USER_ID"]
+			Expect(userID).ToNot(BeEmpty())
+
+			memberEmail = config["MEMBER_EMAIL"]
+			Expect(memberEmail).ToNot(BeEmpty())
+
+			viewerRoleID = config["VIEWER_ROLE_ID"]
+			Expect(viewerRoleID).ToNot(BeEmpty())
+
+			accessGroupID = config["ACCESS_GROUP_ID"]
+			Expect(accessGroupID).ToNot(BeEmpty())
+
 			configLoaded = len(config) > 0
 		})
 	})
@@ -77,9 +96,20 @@ var _ = Describe(`UserManagementV1 Examples Tests`, func() {
 
 			// begin-common
 
-			userManagementServiceOptions := &usermanagementv1.UserManagementV1Options{}
+			userManagementServiceOptions := &usermanagementv1.UserManagementV1Options{
+				ServiceName: "USER_MANAGEMENT",
+			}
 
 			userManagementService, err = usermanagementv1.NewUserManagementV1UsingExternalConfig(userManagementServiceOptions)
+
+			if err != nil {
+				panic(err)
+			}
+
+			userManagementServiceOptions = &usermanagementv1.UserManagementV1Options{
+				ServiceName: "USERMGMT2",
+			}
+			alternateService, err = usermanagementv1.NewUserManagementV1UsingExternalConfig(userManagementServiceOptions)
 
 			if err != nil {
 				panic(err)
@@ -88,6 +118,7 @@ var _ = Describe(`UserManagementV1 Examples Tests`, func() {
 			// end-common
 
 			Expect(userManagementService).ToNot(BeNil())
+			userManagementService.EnableRetries(4, 30*time.Second)
 		})
 	})
 
@@ -100,21 +131,43 @@ var _ = Describe(`UserManagementV1 Examples Tests`, func() {
 
 			// begin-invite_users
 
-			user := usermanagementv1.InviteUser{
-				Email:       core.StringPtr("abc@ibm.com"),
+			inviteUserModel := &usermanagementv1.InviteUser{
+				Email:       &memberEmail,
 				AccountRole: core.StringPtr("Member"),
 			}
 
-			usersToInvite := []usermanagementv1.InviteUser{
-				user,
+			roleModel := &usermanagementv1.Role{
+				RoleID: &viewerRoleID,
 			}
 
-			inviteUsersOptions := userManagementService.NewInviteUsersOptions(
-				accountID,
-			)
-			inviteUsersOptions.SetUsers(usersToInvite)
+			attributeModel := &usermanagementv1.Attribute{
+				Name:  core.StringPtr("accountId"),
+				Value: &accountID,
+			}
 
-			invitedUserList, response, err := userManagementService.InviteUsers(inviteUsersOptions)
+			attributeModel2 := &usermanagementv1.Attribute{
+				Name:  core.StringPtr("resourceGroupId"),
+				Value: core.StringPtr("*"),
+			}
+
+			resourceModel := &usermanagementv1.Resource{
+				Attributes: []usermanagementv1.Attribute{*attributeModel, *attributeModel2},
+			}
+
+			inviteUserIamPolicyModel := &usermanagementv1.InviteUserIamPolicy{
+				Type:      core.StringPtr("access"),
+				Roles:     []usermanagementv1.Role{*roleModel},
+				Resources: []usermanagementv1.Resource{*resourceModel},
+			}
+
+			inviteUsersOptions := &usermanagementv1.InviteUsersOptions{
+				AccountID:    &accountID,
+				Users:        []usermanagementv1.InviteUser{*inviteUserModel},
+				IamPolicy:    []usermanagementv1.InviteUserIamPolicy{*inviteUserIamPolicyModel},
+				AccessGroups: []string{accessGroupID},
+			}
+
+			invitedUserList, response, err := alternateService.InviteUsers(inviteUsersOptions)
 			if err != nil {
 				panic(err)
 			}
@@ -128,8 +181,9 @@ var _ = Describe(`UserManagementV1 Examples Tests`, func() {
 			Expect(invitedUserList).ToNot(BeNil())
 			Expect(invitedUserList.Resources).ToNot(BeEmpty())
 
-			iamID = *invitedUserList.Resources[0].ID
-
+			for _, res := range invitedUserList.Resources {
+				deleteUserID = *res.ID
+			}
 		})
 		It(`ListUsers request example`, func() {
 			Expect(accountID).ToNot(BeEmpty())
@@ -158,13 +212,13 @@ var _ = Describe(`UserManagementV1 Examples Tests`, func() {
 		})
 		It(`RemoveUser request example`, func() {
 			Expect(accountID).ToNot(BeEmpty())
-			Expect(iamID).ToNot(BeEmpty())
+			Expect(deleteUserID).ToNot(BeEmpty())
 
 			// begin-remove_user
 
 			removeUserOptions := userManagementService.NewRemoveUserOptions(
 				accountID,
-				iamID,
+				deleteUserID,
 			)
 
 			response, err := userManagementService.RemoveUser(removeUserOptions)
@@ -180,13 +234,13 @@ var _ = Describe(`UserManagementV1 Examples Tests`, func() {
 		})
 		It(`GetUserProfile request example`, func() {
 			Expect(accountID).ToNot(BeEmpty())
-			Expect(iamID).ToNot(BeEmpty())
+			Expect(userID).ToNot(BeEmpty())
 
 			// begin-get_user_profile
 
 			getUserProfileOptions := userManagementService.NewGetUserProfileOptions(
 				accountID,
-				iamID,
+				userID,
 			)
 
 			userProfile, response, err := userManagementService.GetUserProfile(getUserProfileOptions)
@@ -205,13 +259,13 @@ var _ = Describe(`UserManagementV1 Examples Tests`, func() {
 		})
 		It(`UpdateUserProfile request example`, func() {
 			Expect(accountID).ToNot(BeEmpty())
-			Expect(iamID).ToNot(BeEmpty())
+			Expect(userID).ToNot(BeEmpty())
 
 			// begin-update_user_profile
 
 			updateUserProfileOptions := userManagementService.NewUpdateUserProfileOptions(
 				accountID,
-				iamID,
+				userID,
 			)
 			updateUserProfileOptions.SetPhonenumber("123456789")
 
@@ -228,13 +282,13 @@ var _ = Describe(`UserManagementV1 Examples Tests`, func() {
 		})
 		It(`GetUserSettings request example`, func() {
 			Expect(accountID).ToNot(BeEmpty())
-			Expect(iamID).ToNot(BeEmpty())
+			Expect(userID).ToNot(BeEmpty())
 
 			// begin-get_user_settings
 
 			getUserSettingsOptions := userManagementService.NewGetUserSettingsOptions(
 				accountID,
-				iamID,
+				userID,
 			)
 
 			userSettings, response, err := userManagementService.GetUserSettings(getUserSettingsOptions)
@@ -253,13 +307,13 @@ var _ = Describe(`UserManagementV1 Examples Tests`, func() {
 		})
 		It(`UpdateUserSettings request example`, func() {
 			Expect(accountID).ToNot(BeEmpty())
-			Expect(iamID).ToNot(BeEmpty())
+			Expect(userID).ToNot(BeEmpty())
 
 			// begin-update_user_settings
 
 			updateUserSettingsOptions := userManagementService.NewUpdateUserSettingsOptions(
 				accountID,
-				iamID,
+				userID,
 			)
 			updateUserSettingsOptions.SetSelfManage(true)
 			updateUserSettingsOptions.SetAllowedIPAddresses("192.168.0.2,192.168.0.3")
