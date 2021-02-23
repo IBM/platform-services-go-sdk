@@ -45,16 +45,16 @@ var _ = Describe(`UserManagementV1 Integration Tests`, func() {
 	const externalConfigFile = "../user_management.env"
 
 	var (
-		err                   error
-		userManagementService *usermanagementv1.UserManagementV1
-		alternateService      *usermanagementv1.UserManagementV1
-		serviceURL            string
-		config                map[string]string
-		accountID             string
-		userID                string
-		memberEmail           string
-		viewerRoleID          string
-		accessGroupID         string
+		err                        error
+		userManagementService      *usermanagementv1.UserManagementV1
+		userManagementAdminService *usermanagementv1.UserManagementV1
+		serviceURL                 string
+		config                     map[string]string
+		accountID                  string
+		userID                     string
+		memberEmail                string
+		viewerRoleID               string
+		accessGroupID              string
 
 		deleteUserID string
 	)
@@ -120,15 +120,15 @@ var _ = Describe(`UserManagementV1 Integration Tests`, func() {
 			core.SetLogger(core.NewLogger(core.LevelDebug, log.New(GinkgoWriter, "", log.LstdFlags), log.New(GinkgoWriter, "", log.LstdFlags)))
 			userManagementService.EnableRetries(4, 30*time.Second)
 		})
-		It("Successfully construct the service client alternate instance", func() {
+		It("Successfully construct the service client admin instance", func() {
 			userManagementServiceOptions := &usermanagementv1.UserManagementV1Options{
-				ServiceName: "USERMGMT2",
+				ServiceName: "USER_MANAGEMENT_ADMIN",
 			}
-			alternateService, err = usermanagementv1.NewUserManagementV1UsingExternalConfig(userManagementServiceOptions)
+			userManagementAdminService, err = usermanagementv1.NewUserManagementV1UsingExternalConfig(userManagementServiceOptions)
 			Expect(err).To(BeNil())
-			Expect(alternateService).ToNot(BeNil())
-			Expect(alternateService.Service.Options.URL).To(Equal(serviceURL))
-			alternateService.EnableRetries(4, 30*time.Second)
+			Expect(userManagementAdminService).ToNot(BeNil())
+			Expect(userManagementAdminService.Service.Options.URL).To(Equal(serviceURL))
+			userManagementAdminService.EnableRetries(4, 30*time.Second)
 		})
 	})
 
@@ -251,7 +251,7 @@ var _ = Describe(`UserManagementV1 Integration Tests`, func() {
 				AccessGroups: []string{accessGroupID},
 			}
 
-			result, response, err := alternateService.InviteUsers(inviteUsersOptions)
+			result, response, err := userManagementAdminService.InviteUsers(inviteUsersOptions)
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(202))
 			Expect(result).ToNot(BeNil())

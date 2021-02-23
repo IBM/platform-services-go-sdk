@@ -33,10 +33,10 @@ import (
 const externalConfigFile = "../user_management.env"
 
 var (
-	userManagementService *usermanagementv1.UserManagementV1
-	alternateService      *usermanagementv1.UserManagementV1
-	config                map[string]string
-	configLoaded          bool = false
+	userManagementService      *usermanagementv1.UserManagementV1
+	userManagementAdminService *usermanagementv1.UserManagementV1
+	config                     map[string]string
+	configLoaded               bool = false
 
 	accountID     string
 	userID        string
@@ -106,10 +106,10 @@ var _ = Describe(`UserManagementV1 Examples Tests`, func() {
 				panic(err)
 			}
 
-			userManagementServiceOptions = &usermanagementv1.UserManagementV1Options{
-				ServiceName: "USERMGMT2",
+			userManagementAdminServiceOptions := &usermanagementv1.UserManagementV1Options{
+				ServiceName: "USER_MANAGEMENT_ADMIN",
 			}
-			alternateService, err = usermanagementv1.NewUserManagementV1UsingExternalConfig(userManagementServiceOptions)
+			userManagementAdminService, err = usermanagementv1.NewUserManagementV1UsingExternalConfig(userManagementAdminServiceOptions)
 
 			if err != nil {
 				panic(err)
@@ -167,7 +167,7 @@ var _ = Describe(`UserManagementV1 Examples Tests`, func() {
 				AccessGroups: []string{accessGroupID},
 			}
 
-			invitedUserList, response, err := alternateService.InviteUsers(inviteUsersOptions)
+			invitedUserList, response, err := userManagementAdminService.InviteUsers(inviteUsersOptions)
 			if err != nil {
 				panic(err)
 			}
