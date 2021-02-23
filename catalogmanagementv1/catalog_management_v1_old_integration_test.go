@@ -34,7 +34,6 @@ import (
 
 const (
 	externalConfigFile   = "../catalog_mgmt.env"
-	expectedAccount      = "67d27f28d43948b2b3bda9138f251a13"
 	expectedShortDesc    = "test"
 	expectedURL          = "https://cm.globalcatalog.test.cloud.ibm.com/api/v1-beta/catalogs/%s"
 	expectedOfferingsURL = "https://cm.globalcatalog.test.cloud.ibm.com/api/v1-beta/catalogs/%s/offerings"
@@ -46,9 +45,10 @@ const (
 
 var (
 	service       *catalogmanagementv1.CatalogManagementV1
-	configLoaded  bool = false
 	gitToken      string
-	expectedLabel = fmt.Sprintf("integration-test-%d", time.Now().Unix())
+	accountID     string
+	configLoaded  bool = false
+	expectedLabel      = fmt.Sprintf("integration-test-%d", time.Now().Unix())
 )
 
 func shouldSkipTest() {
@@ -94,6 +94,10 @@ var _ = Describe("Catalog Management - Integration Tests (OLD)", func() {
 
 		Expect(err).To(BeNil())
 		gitToken = config["GIT_TOKEN"]
+		Expect(gitToken).ToNot(BeEmpty())
+
+		accountID = config["ACCOUNT_ID"]
+		Expect(accountID).ToNot(BeEmpty())
 	})
 
 	Describe("Run integration tests", func() {
@@ -131,11 +135,11 @@ var _ = Describe("Catalog Management - Integration Tests (OLD)", func() {
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
-			Expect(*result.ID).To(Equal(expectedAccount))
+			Expect(*result.ID).To(Equal(accountID))
 			Expect(*result.AccountFilters.IncludeAll).To(BeTrue())
 			Expect(len(result.AccountFilters.CategoryFilters)).To(BeZero())
-			Expect(result.AccountFilters.IDFilters.Include).To(BeNil())
-			Expect(result.AccountFilters.IDFilters.Exclude).To(BeNil())
+			Expect(result.AccountFilters.IDFilters.Include).ToNot(BeNil())
+			Expect(result.AccountFilters.IDFilters.Exclude).ToNot(BeNil())
 		})
 
 		It("Get catalog account filters", func() {
@@ -148,8 +152,8 @@ var _ = Describe("Catalog Management - Integration Tests (OLD)", func() {
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(*result.AccountFilters[0].IncludeAll).To(BeTrue())
 			Expect(len(result.AccountFilters[0].CategoryFilters)).To(BeZero())
-			Expect(result.AccountFilters[0].IDFilters.Include).To(BeNil())
-			Expect(result.AccountFilters[0].IDFilters.Exclude).To(BeNil())
+			Expect(result.AccountFilters[0].IDFilters.Include).ToNot(BeNil())
+			Expect(result.AccountFilters[0].IDFilters.Exclude).ToNot(BeNil())
 		})
 
 		It("Get list of catalogs", func() {
@@ -191,7 +195,7 @@ var _ = Describe("Catalog Management - Integration Tests (OLD)", func() {
 			Expect(*listResult.Resources[catalogIndex].ShortDescription).To(Equal(expectedShortDesc))
 			Expect(*listResult.Resources[catalogIndex].URL).To(Equal(fmt.Sprintf(expectedURL, *createResult.ID)))
 			Expect(*listResult.Resources[catalogIndex].OfferingsURL).To(Equal(fmt.Sprintf(expectedOfferingsURL, *createResult.ID)))
-			Expect(*listResult.Resources[catalogIndex].OwningAccount).To(Equal(expectedAccount))
+			Expect(*listResult.Resources[catalogIndex].OwningAccount).To(Equal(accountID))
 			Expect(*listResult.Resources[catalogIndex].CatalogFilters.IncludeAll).To(BeFalse())
 			Expect(len(listResult.Resources[catalogIndex].CatalogFilters.CategoryFilters)).To(BeZero())
 			Expect(listResult.Resources[catalogIndex].CatalogFilters.IDFilters.Include).To(BeNil())
@@ -217,7 +221,7 @@ var _ = Describe("Catalog Management - Integration Tests (OLD)", func() {
 			Expect(*result.ShortDescription).To(Equal(expectedShortDesc))
 			Expect(*result.URL).To(Equal(fmt.Sprintf(expectedURL, *result.ID)))
 			Expect(*result.OfferingsURL).To(Equal(fmt.Sprintf(expectedOfferingsURL, *result.ID)))
-			Expect(*result.OwningAccount).To(Equal(expectedAccount))
+			Expect(*result.OwningAccount).To(Equal(accountID))
 			Expect(*result.CatalogFilters.IncludeAll).To(BeFalse())
 			Expect(len(result.CatalogFilters.CategoryFilters)).To(BeZero())
 			Expect(result.CatalogFilters.IDFilters.Include).To(BeNil())
@@ -247,7 +251,7 @@ var _ = Describe("Catalog Management - Integration Tests (OLD)", func() {
 			Expect(*getResult.ShortDescription).To(Equal(expectedShortDesc))
 			Expect(*getResult.URL).To(Equal(fmt.Sprintf(expectedURL, id)))
 			Expect(*getResult.OfferingsURL).To(Equal(fmt.Sprintf(expectedOfferingsURL, id)))
-			Expect(*getResult.OwningAccount).To(Equal(expectedAccount))
+			Expect(*getResult.OwningAccount).To(Equal(accountID))
 			Expect(*getResult.CatalogFilters.IncludeAll).To(BeFalse())
 			Expect(len(getResult.CatalogFilters.CategoryFilters)).To(BeZero())
 			Expect(getResult.CatalogFilters.IDFilters.Include).To(BeNil())
@@ -299,7 +303,7 @@ var _ = Describe("Catalog Management - Integration Tests (OLD)", func() {
 			Expect(*replaceResult.ShortDescription).To(Equal(expectedShortDescUpdated))
 			// Expect(*replaceResult.URL).To(Equal(fmt.Sprintf(expectedURL, id)))
 			// Expect(*replaceResult.OfferingsURL).To(Equal(fmt.Sprintf(expectedOfferingsURL, id)))
-			// Expect(*replaceResult.OwningAccount).To(Equal(expectedAccount))
+			// Expect(*replaceResult.OwningAccount).To(Equal(accountID))
 			Expect(*replaceResult.CatalogFilters.IncludeAll).To(BeTrue())
 			Expect(len(replaceResult.CatalogFilters.CategoryFilters)).To(BeZero())
 			Expect(replaceResult.CatalogFilters.IDFilters.Include).To(BeNil())

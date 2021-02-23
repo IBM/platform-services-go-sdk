@@ -45,7 +45,6 @@ var _ = Describe(`CatalogManagementV1 Integration Tests (New)`, func() {
 		expectedShortDesc    = "test"
 		expectedURL          = "https://cm.globalcatalog.test.cloud.ibm.com/api/v1-beta/catalogs/%s"
 		expectedOfferingsURL = "https://cm.globalcatalog.test.cloud.ibm.com/api/v1-beta/catalogs/%s/offerings"
-		expectedAccount      = "67d27f28d43948b2b3bda9138f251a13"
 	)
 
 	var (
@@ -60,6 +59,8 @@ var _ = Describe(`CatalogManagementV1 Integration Tests (New)`, func() {
 		gitToken                 string
 		refreshToken             string
 		testOfferingInstanceID   string
+		targetAccountID          string
+		targetClusterID          string
 	)
 
 	var shouldSkipTest = func() {
@@ -88,6 +89,14 @@ var _ = Describe(`CatalogManagementV1 Integration Tests (New)`, func() {
 			gitToken = config["GIT_TOKEN"]
 			if serviceURL == "" {
 				Skip("Unable to load service URL configuration property, skipping tests")
+			}
+			targetAccountID = config["ACCOUNT_ID"]
+			if targetAccountID == "" {
+				Skip("Unable to load account ID configuration property, skipping tests")
+			}
+			targetClusterID = config["CLUSTER_ID"]
+			if targetClusterID == "" {
+				Skip("Unable to load cluster ID configuration property, skipping tests")
 			}
 
 			fmt.Fprintf(GinkgoWriter, "Service URL: %s\n", serviceURL)
@@ -261,7 +270,7 @@ var _ = Describe(`CatalogManagementV1 Integration Tests (New)`, func() {
 			Expect(*result.ShortDescription).To(Equal(expectedShortDesc))
 			Expect(*result.URL).To(Equal(fmt.Sprintf(expectedURL, *result.ID)))
 			Expect(*result.OfferingsURL).To(Equal(fmt.Sprintf(expectedOfferingsURL, *result.ID)))
-			Expect(*result.OwningAccount).To(Equal(expectedAccount))
+			Expect(*result.OwningAccount).To(Equal(targetAccountID))
 			Expect(*result.CatalogFilters.IncludeAll).To(BeFalse())
 			Expect(len(result.CatalogFilters.CategoryFilters)).To(BeZero())
 			Expect(result.CatalogFilters.IDFilters.Include).To(BeNil())
@@ -2062,7 +2071,7 @@ var _ = Describe(`CatalogManagementV1 Integration Tests (New)`, func() {
 			})
 		})
 	*/
-	Describe(`CreateOfferingInstance - Create an offering version resource instance`, func() {
+	Describe(`CreateOfferingInstance - Create an offering instance`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
 		})
@@ -2070,28 +2079,28 @@ var _ = Describe(`CatalogManagementV1 Integration Tests (New)`, func() {
 			Expect(testCatalogID).ToNot(BeEmpty())
 			Expect(testOfferingID).ToNot(BeEmpty())
 
-			versionInstanceOptions := catalogManagementService.NewCreateOfferingInstanceOptions(refreshToken)
-			versionInstanceOptions.SetCatalogID(testCatalogID)
-			versionInstanceOptions.SetOfferingID(testOfferingID)
-			versionInstanceOptions.SetKindFormat("operator")
-			versionInstanceOptions.SetVersion("0.0.2")
-			versionInstanceOptions.SetClusterID("c07cn9h20vsge6l0e8o")
-			versionInstanceOptions.SetClusterRegion("us-south")
-			versionInstanceOptions.SetClusterNamespaces([]string{"sdk-test"})
+			offeringInstanceOptions := catalogManagementService.NewCreateOfferingInstanceOptions(refreshToken)
+			offeringInstanceOptions.SetCatalogID(testCatalogID)
+			offeringInstanceOptions.SetOfferingID(testOfferingID)
+			offeringInstanceOptions.SetKindFormat("operator")
+			offeringInstanceOptions.SetVersion("0.0.2")
+			offeringInstanceOptions.SetClusterID(targetClusterID)
+			offeringInstanceOptions.SetClusterRegion("us-south")
+			offeringInstanceOptions.SetClusterNamespaces([]string{"sdk-test"})
 
-			versionInstance, response, err := catalogManagementService.CreateOfferingInstance(versionInstanceOptions)
+			offeringInstance, response, err := catalogManagementService.CreateOfferingInstance(offeringInstanceOptions)
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(202))
-			Expect(versionInstance).ToNot(BeNil())
-			fmt.Fprintf(GinkgoWriter, "CreateOfferingInstance() result:\n%s\n", common.ToJSON(versionInstance))
+			Expect(offeringInstance).ToNot(BeNil())
+			fmt.Fprintf(GinkgoWriter, "CreateOfferingInstance() result:\n%s\n", common.ToJSON(offeringInstance))
 
-			Expect(versionInstance.ID).ToNot(BeNil())
-			testOfferingInstanceID = *versionInstance.ID
+			Expect(offeringInstance.ID).ToNot(BeNil())
+			testOfferingInstanceID = *offeringInstance.ID
 			Expect(testOfferingInstanceID).ToNot(BeEmpty())
 		})
 	})
-	Describe(`GetOfferingInstance - Get Version Instrance`, func() {
+	Describe(`GetOfferingInstance - Get Offering Instrance`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
 		})
@@ -2102,16 +2111,16 @@ var _ = Describe(`CatalogManagementV1 Integration Tests (New)`, func() {
 				InstanceIdentifier: &testOfferingInstanceID,
 			}
 
-			versionInstance, response, err := catalogManagementService.GetOfferingInstance(getOfferingInstanceOptions)
+			offeringInstance, response, err := catalogManagementService.GetOfferingInstance(getOfferingInstanceOptions)
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
-			Expect(versionInstance).ToNot(BeNil())
-			fmt.Fprintf(GinkgoWriter, "GetOfferingInstance() result:\n%s\n", common.ToJSON(versionInstance))
+			Expect(offeringInstance).ToNot(BeNil())
+			fmt.Fprintf(GinkgoWriter, "GetOfferingInstance() result:\n%s\n", common.ToJSON(offeringInstance))
 		})
 	})
 
-	Describe(`PutOfferingInstance - Update Version Instance`, func() {
+	Describe(`PutOfferingInstance - Update Offering Instance`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
 		})
@@ -2119,13 +2128,20 @@ var _ = Describe(`CatalogManagementV1 Integration Tests (New)`, func() {
 			Expect(testOfferingInstanceID).ToNot(BeEmpty())
 
 			putOfferingInstanceOptions := catalogManagementService.NewPutOfferingInstanceOptions(testOfferingInstanceID, refreshToken)
+			putOfferingInstanceOptions.SetCatalogID(testCatalogID)
+			putOfferingInstanceOptions.SetOfferingID(testOfferingID)
+			putOfferingInstanceOptions.SetKindFormat("operator")
+			putOfferingInstanceOptions.SetVersion("0.0.2")
+			putOfferingInstanceOptions.SetClusterID(targetClusterID)
+			putOfferingInstanceOptions.SetClusterRegion("us-south")
+			putOfferingInstanceOptions.SetClusterNamespaces([]string{"sdk-test"})
 
-			versionInstance, response, err := catalogManagementService.PutOfferingInstance(putOfferingInstanceOptions)
+			offeringInstance, response, err := catalogManagementService.PutOfferingInstance(putOfferingInstanceOptions)
 
 			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(202))
-			Expect(versionInstance).ToNot(BeNil())
-			fmt.Fprintf(GinkgoWriter, "PutOfferingInstance() result:\n%s\n", common.ToJSON(versionInstance))
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(offeringInstance).ToNot(BeNil())
+			fmt.Fprintf(GinkgoWriter, "PutOfferingInstance() result:\n%s\n", common.ToJSON(offeringInstance))
 		})
 	})
 
@@ -2141,7 +2157,7 @@ var _ = Describe(`CatalogManagementV1 Integration Tests (New)`, func() {
 			response, err := catalogManagementService.DeleteOfferingInstance(deleteOfferingInstanceOptions)
 
 			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(202))
+			Expect(response.StatusCode).To(Equal(200))
 
 		})
 	})
