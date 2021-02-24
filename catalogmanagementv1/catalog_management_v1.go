@@ -15,7 +15,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-4c92c221-20210211-060810
+ * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-212f8afa-20210222-123519
  */
 
 // Package catalogmanagementv1 : Operations and models for the CatalogManagementV1 service
@@ -1986,26 +1986,26 @@ func (catalogManagement *CatalogManagementV1) UpdateOfferingIBMWithContext(ctx c
 	return
 }
 
-// GetVersionUpdates : Get version updates
+// GetOfferingUpdates : Get version updates
 // Get available updates for the specified version.
-func (catalogManagement *CatalogManagementV1) GetVersionUpdates(getVersionUpdatesOptions *GetVersionUpdatesOptions) (result []VersionUpdateDescriptor, response *core.DetailedResponse, err error) {
-	return catalogManagement.GetVersionUpdatesWithContext(context.Background(), getVersionUpdatesOptions)
+func (catalogManagement *CatalogManagementV1) GetOfferingUpdates(getOfferingUpdatesOptions *GetOfferingUpdatesOptions) (result []VersionUpdateDescriptor, response *core.DetailedResponse, err error) {
+	return catalogManagement.GetOfferingUpdatesWithContext(context.Background(), getOfferingUpdatesOptions)
 }
 
-// GetVersionUpdatesWithContext is an alternate form of the GetVersionUpdates method which supports a Context parameter
-func (catalogManagement *CatalogManagementV1) GetVersionUpdatesWithContext(ctx context.Context, getVersionUpdatesOptions *GetVersionUpdatesOptions) (result []VersionUpdateDescriptor, response *core.DetailedResponse, err error) {
-	err = core.ValidateNotNil(getVersionUpdatesOptions, "getVersionUpdatesOptions cannot be nil")
+// GetOfferingUpdatesWithContext is an alternate form of the GetOfferingUpdates method which supports a Context parameter
+func (catalogManagement *CatalogManagementV1) GetOfferingUpdatesWithContext(ctx context.Context, getOfferingUpdatesOptions *GetOfferingUpdatesOptions) (result []VersionUpdateDescriptor, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(getOfferingUpdatesOptions, "getOfferingUpdatesOptions cannot be nil")
 	if err != nil {
 		return
 	}
-	err = core.ValidateStruct(getVersionUpdatesOptions, "getVersionUpdatesOptions")
+	err = core.ValidateStruct(getOfferingUpdatesOptions, "getOfferingUpdatesOptions")
 	if err != nil {
 		return
 	}
 
 	pathParamsMap := map[string]string{
-		"catalog_identifier": *getVersionUpdatesOptions.CatalogIdentifier,
-		"offering_id": *getVersionUpdatesOptions.OfferingID,
+		"catalog_identifier": *getOfferingUpdatesOptions.CatalogIdentifier,
+		"offering_id": *getOfferingUpdatesOptions.OfferingID,
 	}
 
 	builder := core.NewRequestBuilder(core.GET)
@@ -2016,31 +2016,31 @@ func (catalogManagement *CatalogManagementV1) GetVersionUpdatesWithContext(ctx c
 		return
 	}
 
-	for headerName, headerValue := range getVersionUpdatesOptions.Headers {
+	for headerName, headerValue := range getOfferingUpdatesOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "GetVersionUpdates")
+	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "GetOfferingUpdates")
 	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
 
-	builder.AddQuery("kind", fmt.Sprint(*getVersionUpdatesOptions.Kind))
-	if getVersionUpdatesOptions.Version != nil {
-		builder.AddQuery("version", fmt.Sprint(*getVersionUpdatesOptions.Version))
+	builder.AddQuery("kind", fmt.Sprint(*getOfferingUpdatesOptions.Kind))
+	if getOfferingUpdatesOptions.Version != nil {
+		builder.AddQuery("version", fmt.Sprint(*getOfferingUpdatesOptions.Version))
 	}
-	if getVersionUpdatesOptions.ClusterID != nil {
-		builder.AddQuery("cluster_id", fmt.Sprint(*getVersionUpdatesOptions.ClusterID))
+	if getOfferingUpdatesOptions.ClusterID != nil {
+		builder.AddQuery("cluster_id", fmt.Sprint(*getOfferingUpdatesOptions.ClusterID))
 	}
-	if getVersionUpdatesOptions.Region != nil {
-		builder.AddQuery("region", fmt.Sprint(*getVersionUpdatesOptions.Region))
+	if getOfferingUpdatesOptions.Region != nil {
+		builder.AddQuery("region", fmt.Sprint(*getOfferingUpdatesOptions.Region))
 	}
-	if getVersionUpdatesOptions.ResourceGroupID != nil {
-		builder.AddQuery("resource_group_id", fmt.Sprint(*getVersionUpdatesOptions.ResourceGroupID))
+	if getOfferingUpdatesOptions.ResourceGroupID != nil {
+		builder.AddQuery("resource_group_id", fmt.Sprint(*getOfferingUpdatesOptions.ResourceGroupID))
 	}
-	if getVersionUpdatesOptions.Namespace != nil {
-		builder.AddQuery("namespace", fmt.Sprint(*getVersionUpdatesOptions.Namespace))
+	if getOfferingUpdatesOptions.Namespace != nil {
+		builder.AddQuery("namespace", fmt.Sprint(*getOfferingUpdatesOptions.Namespace))
 	}
 
 	request, err := builder.Build()
@@ -2062,25 +2062,25 @@ func (catalogManagement *CatalogManagementV1) GetVersionUpdatesWithContext(ctx c
 	return
 }
 
-// GetVersionAbout : Get version about information
+// GetOfferingAbout : Get version about information
 // Get the about information, in markdown, for the current version.
-func (catalogManagement *CatalogManagementV1) GetVersionAbout(getVersionAboutOptions *GetVersionAboutOptions) (result *string, response *core.DetailedResponse, err error) {
-	return catalogManagement.GetVersionAboutWithContext(context.Background(), getVersionAboutOptions)
+func (catalogManagement *CatalogManagementV1) GetOfferingAbout(getOfferingAboutOptions *GetOfferingAboutOptions) (result *string, response *core.DetailedResponse, err error) {
+	return catalogManagement.GetOfferingAboutWithContext(context.Background(), getOfferingAboutOptions)
 }
 
-// GetVersionAboutWithContext is an alternate form of the GetVersionAbout method which supports a Context parameter
-func (catalogManagement *CatalogManagementV1) GetVersionAboutWithContext(ctx context.Context, getVersionAboutOptions *GetVersionAboutOptions) (result *string, response *core.DetailedResponse, err error) {
-	err = core.ValidateNotNil(getVersionAboutOptions, "getVersionAboutOptions cannot be nil")
+// GetOfferingAboutWithContext is an alternate form of the GetOfferingAbout method which supports a Context parameter
+func (catalogManagement *CatalogManagementV1) GetOfferingAboutWithContext(ctx context.Context, getOfferingAboutOptions *GetOfferingAboutOptions) (result *string, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(getOfferingAboutOptions, "getOfferingAboutOptions cannot be nil")
 	if err != nil {
 		return
 	}
-	err = core.ValidateStruct(getVersionAboutOptions, "getVersionAboutOptions")
+	err = core.ValidateStruct(getOfferingAboutOptions, "getOfferingAboutOptions")
 	if err != nil {
 		return
 	}
 
 	pathParamsMap := map[string]string{
-		"version_loc_id": *getVersionAboutOptions.VersionLocID,
+		"version_loc_id": *getOfferingAboutOptions.VersionLocID,
 	}
 
 	builder := core.NewRequestBuilder(core.GET)
@@ -2091,11 +2091,11 @@ func (catalogManagement *CatalogManagementV1) GetVersionAboutWithContext(ctx con
 		return
 	}
 
-	for headerName, headerValue := range getVersionAboutOptions.Headers {
+	for headerName, headerValue := range getOfferingAboutOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "GetVersionAbout")
+	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "GetOfferingAbout")
 	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
@@ -2111,26 +2111,26 @@ func (catalogManagement *CatalogManagementV1) GetVersionAboutWithContext(ctx con
 	return
 }
 
-// GetVersionLicense : Get version license content
+// GetOfferingLicense : Get version license content
 // Get the license content for the specified license ID in the specified version.
-func (catalogManagement *CatalogManagementV1) GetVersionLicense(getVersionLicenseOptions *GetVersionLicenseOptions) (result *string, response *core.DetailedResponse, err error) {
-	return catalogManagement.GetVersionLicenseWithContext(context.Background(), getVersionLicenseOptions)
+func (catalogManagement *CatalogManagementV1) GetOfferingLicense(getOfferingLicenseOptions *GetOfferingLicenseOptions) (result *string, response *core.DetailedResponse, err error) {
+	return catalogManagement.GetOfferingLicenseWithContext(context.Background(), getOfferingLicenseOptions)
 }
 
-// GetVersionLicenseWithContext is an alternate form of the GetVersionLicense method which supports a Context parameter
-func (catalogManagement *CatalogManagementV1) GetVersionLicenseWithContext(ctx context.Context, getVersionLicenseOptions *GetVersionLicenseOptions) (result *string, response *core.DetailedResponse, err error) {
-	err = core.ValidateNotNil(getVersionLicenseOptions, "getVersionLicenseOptions cannot be nil")
+// GetOfferingLicenseWithContext is an alternate form of the GetOfferingLicense method which supports a Context parameter
+func (catalogManagement *CatalogManagementV1) GetOfferingLicenseWithContext(ctx context.Context, getOfferingLicenseOptions *GetOfferingLicenseOptions) (result *string, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(getOfferingLicenseOptions, "getOfferingLicenseOptions cannot be nil")
 	if err != nil {
 		return
 	}
-	err = core.ValidateStruct(getVersionLicenseOptions, "getVersionLicenseOptions")
+	err = core.ValidateStruct(getOfferingLicenseOptions, "getOfferingLicenseOptions")
 	if err != nil {
 		return
 	}
 
 	pathParamsMap := map[string]string{
-		"version_loc_id": *getVersionLicenseOptions.VersionLocID,
-		"license_id": *getVersionLicenseOptions.LicenseID,
+		"version_loc_id": *getOfferingLicenseOptions.VersionLocID,
+		"license_id": *getOfferingLicenseOptions.LicenseID,
 	}
 
 	builder := core.NewRequestBuilder(core.GET)
@@ -2141,11 +2141,11 @@ func (catalogManagement *CatalogManagementV1) GetVersionLicenseWithContext(ctx c
 		return
 	}
 
-	for headerName, headerValue := range getVersionLicenseOptions.Headers {
+	for headerName, headerValue := range getOfferingLicenseOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "GetVersionLicense")
+	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "GetOfferingLicense")
 	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
@@ -2161,26 +2161,26 @@ func (catalogManagement *CatalogManagementV1) GetVersionLicenseWithContext(ctx c
 	return
 }
 
-// GetVersionContainerImages : Get version's container images
+// GetOfferingContainerImages : Get version's container images
 // Get the list of container images associated with the specified version. The "image_manifest_url" property of the
 // version should be the URL for the image manifest, and the operation will return that content.
-func (catalogManagement *CatalogManagementV1) GetVersionContainerImages(getVersionContainerImagesOptions *GetVersionContainerImagesOptions) (result *ImageManifest, response *core.DetailedResponse, err error) {
-	return catalogManagement.GetVersionContainerImagesWithContext(context.Background(), getVersionContainerImagesOptions)
+func (catalogManagement *CatalogManagementV1) GetOfferingContainerImages(getOfferingContainerImagesOptions *GetOfferingContainerImagesOptions) (result *ImageManifest, response *core.DetailedResponse, err error) {
+	return catalogManagement.GetOfferingContainerImagesWithContext(context.Background(), getOfferingContainerImagesOptions)
 }
 
-// GetVersionContainerImagesWithContext is an alternate form of the GetVersionContainerImages method which supports a Context parameter
-func (catalogManagement *CatalogManagementV1) GetVersionContainerImagesWithContext(ctx context.Context, getVersionContainerImagesOptions *GetVersionContainerImagesOptions) (result *ImageManifest, response *core.DetailedResponse, err error) {
-	err = core.ValidateNotNil(getVersionContainerImagesOptions, "getVersionContainerImagesOptions cannot be nil")
+// GetOfferingContainerImagesWithContext is an alternate form of the GetOfferingContainerImages method which supports a Context parameter
+func (catalogManagement *CatalogManagementV1) GetOfferingContainerImagesWithContext(ctx context.Context, getOfferingContainerImagesOptions *GetOfferingContainerImagesOptions) (result *ImageManifest, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(getOfferingContainerImagesOptions, "getOfferingContainerImagesOptions cannot be nil")
 	if err != nil {
 		return
 	}
-	err = core.ValidateStruct(getVersionContainerImagesOptions, "getVersionContainerImagesOptions")
+	err = core.ValidateStruct(getOfferingContainerImagesOptions, "getOfferingContainerImagesOptions")
 	if err != nil {
 		return
 	}
 
 	pathParamsMap := map[string]string{
-		"version_loc_id": *getVersionContainerImagesOptions.VersionLocID,
+		"version_loc_id": *getOfferingContainerImagesOptions.VersionLocID,
 	}
 
 	builder := core.NewRequestBuilder(core.GET)
@@ -2191,11 +2191,11 @@ func (catalogManagement *CatalogManagementV1) GetVersionContainerImagesWithConte
 		return
 	}
 
-	for headerName, headerValue := range getVersionContainerImagesOptions.Headers {
+	for headerName, headerValue := range getOfferingContainerImagesOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "GetVersionContainerImages")
+	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "GetOfferingContainerImages")
 	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
@@ -2524,25 +2524,25 @@ func (catalogManagement *CatalogManagementV1) CopyVersionWithContext(ctx context
 	return
 }
 
-// GetVersionWorkingCopy : Create working copy of version
+// GetOfferingWorkingCopy : Create working copy of version
 // Create a working copy of the specified version.
-func (catalogManagement *CatalogManagementV1) GetVersionWorkingCopy(getVersionWorkingCopyOptions *GetVersionWorkingCopyOptions) (result *Version, response *core.DetailedResponse, err error) {
-	return catalogManagement.GetVersionWorkingCopyWithContext(context.Background(), getVersionWorkingCopyOptions)
+func (catalogManagement *CatalogManagementV1) GetOfferingWorkingCopy(getOfferingWorkingCopyOptions *GetOfferingWorkingCopyOptions) (result *Version, response *core.DetailedResponse, err error) {
+	return catalogManagement.GetOfferingWorkingCopyWithContext(context.Background(), getOfferingWorkingCopyOptions)
 }
 
-// GetVersionWorkingCopyWithContext is an alternate form of the GetVersionWorkingCopy method which supports a Context parameter
-func (catalogManagement *CatalogManagementV1) GetVersionWorkingCopyWithContext(ctx context.Context, getVersionWorkingCopyOptions *GetVersionWorkingCopyOptions) (result *Version, response *core.DetailedResponse, err error) {
-	err = core.ValidateNotNil(getVersionWorkingCopyOptions, "getVersionWorkingCopyOptions cannot be nil")
+// GetOfferingWorkingCopyWithContext is an alternate form of the GetOfferingWorkingCopy method which supports a Context parameter
+func (catalogManagement *CatalogManagementV1) GetOfferingWorkingCopyWithContext(ctx context.Context, getOfferingWorkingCopyOptions *GetOfferingWorkingCopyOptions) (result *Version, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(getOfferingWorkingCopyOptions, "getOfferingWorkingCopyOptions cannot be nil")
 	if err != nil {
 		return
 	}
-	err = core.ValidateStruct(getVersionWorkingCopyOptions, "getVersionWorkingCopyOptions")
+	err = core.ValidateStruct(getOfferingWorkingCopyOptions, "getOfferingWorkingCopyOptions")
 	if err != nil {
 		return
 	}
 
 	pathParamsMap := map[string]string{
-		"version_loc_id": *getVersionWorkingCopyOptions.VersionLocID,
+		"version_loc_id": *getOfferingWorkingCopyOptions.VersionLocID,
 	}
 
 	builder := core.NewRequestBuilder(core.POST)
@@ -2553,11 +2553,11 @@ func (catalogManagement *CatalogManagementV1) GetVersionWorkingCopyWithContext(c
 		return
 	}
 
-	for headerName, headerValue := range getVersionWorkingCopyOptions.Headers {
+	for headerName, headerValue := range getOfferingWorkingCopyOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "GetVersionWorkingCopy")
+	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "GetOfferingWorkingCopy")
 	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
@@ -4931,19 +4931,19 @@ func (catalogManagement *CatalogManagementV1) AddObjectAccessListWithContext(ctx
 	return
 }
 
-// CreateVersionInstance : Create an offering version resource instance
-// Provision a new (offering) version in a given account, and return its resource instance.
-func (catalogManagement *CatalogManagementV1) CreateVersionInstance(createVersionInstanceOptions *CreateVersionInstanceOptions) (result *VersionInstance, response *core.DetailedResponse, err error) {
-	return catalogManagement.CreateVersionInstanceWithContext(context.Background(), createVersionInstanceOptions)
+// CreateOfferingInstance : Create an offering resource instance
+// Provision a new offering in a given account, and return its resource instance.
+func (catalogManagement *CatalogManagementV1) CreateOfferingInstance(createOfferingInstanceOptions *CreateOfferingInstanceOptions) (result *OfferingInstance, response *core.DetailedResponse, err error) {
+	return catalogManagement.CreateOfferingInstanceWithContext(context.Background(), createOfferingInstanceOptions)
 }
 
-// CreateVersionInstanceWithContext is an alternate form of the CreateVersionInstance method which supports a Context parameter
-func (catalogManagement *CatalogManagementV1) CreateVersionInstanceWithContext(ctx context.Context, createVersionInstanceOptions *CreateVersionInstanceOptions) (result *VersionInstance, response *core.DetailedResponse, err error) {
-	err = core.ValidateNotNil(createVersionInstanceOptions, "createVersionInstanceOptions cannot be nil")
+// CreateOfferingInstanceWithContext is an alternate form of the CreateOfferingInstance method which supports a Context parameter
+func (catalogManagement *CatalogManagementV1) CreateOfferingInstanceWithContext(ctx context.Context, createOfferingInstanceOptions *CreateOfferingInstanceOptions) (result *OfferingInstance, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(createOfferingInstanceOptions, "createOfferingInstanceOptions cannot be nil")
 	if err != nil {
 		return
 	}
-	err = core.ValidateStruct(createVersionInstanceOptions, "createVersionInstanceOptions")
+	err = core.ValidateStruct(createOfferingInstanceOptions, "createOfferingInstanceOptions")
 	if err != nil {
 		return
 	}
@@ -4951,61 +4951,61 @@ func (catalogManagement *CatalogManagementV1) CreateVersionInstanceWithContext(c
 	builder := core.NewRequestBuilder(core.POST)
 	builder = builder.WithContext(ctx)
 	builder.EnableGzipCompression = catalogManagement.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(catalogManagement.Service.Options.URL, `/instances`, nil)
+	_, err = builder.ResolveRequestURL(catalogManagement.Service.Options.URL, `/instances/offerings`, nil)
 	if err != nil {
 		return
 	}
 
-	for headerName, headerValue := range createVersionInstanceOptions.Headers {
+	for headerName, headerValue := range createOfferingInstanceOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "CreateVersionInstance")
+	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "CreateOfferingInstance")
 	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
 	builder.AddHeader("Content-Type", "application/json")
-	if createVersionInstanceOptions.XAuthRefreshToken != nil {
-		builder.AddHeader("X-Auth-Refresh-Token", fmt.Sprint(*createVersionInstanceOptions.XAuthRefreshToken))
+	if createOfferingInstanceOptions.XAuthRefreshToken != nil {
+		builder.AddHeader("X-Auth-Refresh-Token", fmt.Sprint(*createOfferingInstanceOptions.XAuthRefreshToken))
 	}
 
 	body := make(map[string]interface{})
-	if createVersionInstanceOptions.ID != nil {
-		body["id"] = createVersionInstanceOptions.ID
+	if createOfferingInstanceOptions.ID != nil {
+		body["id"] = createOfferingInstanceOptions.ID
 	}
-	if createVersionInstanceOptions.URL != nil {
-		body["url"] = createVersionInstanceOptions.URL
+	if createOfferingInstanceOptions.URL != nil {
+		body["url"] = createOfferingInstanceOptions.URL
 	}
-	if createVersionInstanceOptions.CRN != nil {
-		body["crn"] = createVersionInstanceOptions.CRN
+	if createOfferingInstanceOptions.CRN != nil {
+		body["crn"] = createOfferingInstanceOptions.CRN
 	}
-	if createVersionInstanceOptions.Label != nil {
-		body["label"] = createVersionInstanceOptions.Label
+	if createOfferingInstanceOptions.Label != nil {
+		body["label"] = createOfferingInstanceOptions.Label
 	}
-	if createVersionInstanceOptions.CatalogID != nil {
-		body["catalog_id"] = createVersionInstanceOptions.CatalogID
+	if createOfferingInstanceOptions.CatalogID != nil {
+		body["catalog_id"] = createOfferingInstanceOptions.CatalogID
 	}
-	if createVersionInstanceOptions.OfferingID != nil {
-		body["offering_id"] = createVersionInstanceOptions.OfferingID
+	if createOfferingInstanceOptions.OfferingID != nil {
+		body["offering_id"] = createOfferingInstanceOptions.OfferingID
 	}
-	if createVersionInstanceOptions.KindFormat != nil {
-		body["kind_format"] = createVersionInstanceOptions.KindFormat
+	if createOfferingInstanceOptions.KindFormat != nil {
+		body["kind_format"] = createOfferingInstanceOptions.KindFormat
 	}
-	if createVersionInstanceOptions.Version != nil {
-		body["version"] = createVersionInstanceOptions.Version
+	if createOfferingInstanceOptions.Version != nil {
+		body["version"] = createOfferingInstanceOptions.Version
 	}
-	if createVersionInstanceOptions.ClusterID != nil {
-		body["cluster_id"] = createVersionInstanceOptions.ClusterID
+	if createOfferingInstanceOptions.ClusterID != nil {
+		body["cluster_id"] = createOfferingInstanceOptions.ClusterID
 	}
-	if createVersionInstanceOptions.ClusterRegion != nil {
-		body["cluster_region"] = createVersionInstanceOptions.ClusterRegion
+	if createOfferingInstanceOptions.ClusterRegion != nil {
+		body["cluster_region"] = createOfferingInstanceOptions.ClusterRegion
 	}
-	if createVersionInstanceOptions.ClusterNamespaces != nil {
-		body["cluster_namespaces"] = createVersionInstanceOptions.ClusterNamespaces
+	if createOfferingInstanceOptions.ClusterNamespaces != nil {
+		body["cluster_namespaces"] = createOfferingInstanceOptions.ClusterNamespaces
 	}
-	if createVersionInstanceOptions.ClusterAllNamespaces != nil {
-		body["cluster_all_namespaces"] = createVersionInstanceOptions.ClusterAllNamespaces
+	if createOfferingInstanceOptions.ClusterAllNamespaces != nil {
+		body["cluster_all_namespaces"] = createOfferingInstanceOptions.ClusterAllNamespaces
 	}
 	_, err = builder.SetBodyContentJSON(body)
 	if err != nil {
@@ -5022,7 +5022,7 @@ func (catalogManagement *CatalogManagementV1) CreateVersionInstanceWithContext(c
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalVersionInstance)
+	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalOfferingInstance)
 	if err != nil {
 		return
 	}
@@ -5031,40 +5031,40 @@ func (catalogManagement *CatalogManagementV1) CreateVersionInstanceWithContext(c
 	return
 }
 
-// GetVersionInstance : Get Version Instrance
-// Get the resource associated with an installed version instance.
-func (catalogManagement *CatalogManagementV1) GetVersionInstance(getVersionInstanceOptions *GetVersionInstanceOptions) (result *VersionInstance, response *core.DetailedResponse, err error) {
-	return catalogManagement.GetVersionInstanceWithContext(context.Background(), getVersionInstanceOptions)
+// GetOfferingInstance : Get Offering Instance
+// Get the resource associated with an installed offering instance.
+func (catalogManagement *CatalogManagementV1) GetOfferingInstance(getOfferingInstanceOptions *GetOfferingInstanceOptions) (result *OfferingInstance, response *core.DetailedResponse, err error) {
+	return catalogManagement.GetOfferingInstanceWithContext(context.Background(), getOfferingInstanceOptions)
 }
 
-// GetVersionInstanceWithContext is an alternate form of the GetVersionInstance method which supports a Context parameter
-func (catalogManagement *CatalogManagementV1) GetVersionInstanceWithContext(ctx context.Context, getVersionInstanceOptions *GetVersionInstanceOptions) (result *VersionInstance, response *core.DetailedResponse, err error) {
-	err = core.ValidateNotNil(getVersionInstanceOptions, "getVersionInstanceOptions cannot be nil")
+// GetOfferingInstanceWithContext is an alternate form of the GetOfferingInstance method which supports a Context parameter
+func (catalogManagement *CatalogManagementV1) GetOfferingInstanceWithContext(ctx context.Context, getOfferingInstanceOptions *GetOfferingInstanceOptions) (result *OfferingInstance, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(getOfferingInstanceOptions, "getOfferingInstanceOptions cannot be nil")
 	if err != nil {
 		return
 	}
-	err = core.ValidateStruct(getVersionInstanceOptions, "getVersionInstanceOptions")
+	err = core.ValidateStruct(getOfferingInstanceOptions, "getOfferingInstanceOptions")
 	if err != nil {
 		return
 	}
 
 	pathParamsMap := map[string]string{
-		"instance_identifier": *getVersionInstanceOptions.InstanceIdentifier,
+		"instance_identifier": *getOfferingInstanceOptions.InstanceIdentifier,
 	}
 
 	builder := core.NewRequestBuilder(core.GET)
 	builder = builder.WithContext(ctx)
 	builder.EnableGzipCompression = catalogManagement.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(catalogManagement.Service.Options.URL, `/instances/{instance_identifier}`, pathParamsMap)
+	_, err = builder.ResolveRequestURL(catalogManagement.Service.Options.URL, `/instances/offerings/{instance_identifier}`, pathParamsMap)
 	if err != nil {
 		return
 	}
 
-	for headerName, headerValue := range getVersionInstanceOptions.Headers {
+	for headerName, headerValue := range getOfferingInstanceOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "GetVersionInstance")
+	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "GetOfferingInstance")
 	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
@@ -5080,7 +5080,7 @@ func (catalogManagement *CatalogManagementV1) GetVersionInstanceWithContext(ctx 
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalVersionInstance)
+	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalOfferingInstance)
 	if err != nil {
 		return
 	}
@@ -5089,85 +5089,85 @@ func (catalogManagement *CatalogManagementV1) GetVersionInstanceWithContext(ctx 
 	return
 }
 
-// PutVersionInstance : Update Version Instance
-// Update an installed version instance.
-func (catalogManagement *CatalogManagementV1) PutVersionInstance(putVersionInstanceOptions *PutVersionInstanceOptions) (result *VersionInstance, response *core.DetailedResponse, err error) {
-	return catalogManagement.PutVersionInstanceWithContext(context.Background(), putVersionInstanceOptions)
+// PutOfferingInstance : Update Offering Instance
+// Update an installed offering instance.
+func (catalogManagement *CatalogManagementV1) PutOfferingInstance(putOfferingInstanceOptions *PutOfferingInstanceOptions) (result *OfferingInstance, response *core.DetailedResponse, err error) {
+	return catalogManagement.PutOfferingInstanceWithContext(context.Background(), putOfferingInstanceOptions)
 }
 
-// PutVersionInstanceWithContext is an alternate form of the PutVersionInstance method which supports a Context parameter
-func (catalogManagement *CatalogManagementV1) PutVersionInstanceWithContext(ctx context.Context, putVersionInstanceOptions *PutVersionInstanceOptions) (result *VersionInstance, response *core.DetailedResponse, err error) {
-	err = core.ValidateNotNil(putVersionInstanceOptions, "putVersionInstanceOptions cannot be nil")
+// PutOfferingInstanceWithContext is an alternate form of the PutOfferingInstance method which supports a Context parameter
+func (catalogManagement *CatalogManagementV1) PutOfferingInstanceWithContext(ctx context.Context, putOfferingInstanceOptions *PutOfferingInstanceOptions) (result *OfferingInstance, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(putOfferingInstanceOptions, "putOfferingInstanceOptions cannot be nil")
 	if err != nil {
 		return
 	}
-	err = core.ValidateStruct(putVersionInstanceOptions, "putVersionInstanceOptions")
+	err = core.ValidateStruct(putOfferingInstanceOptions, "putOfferingInstanceOptions")
 	if err != nil {
 		return
 	}
 
 	pathParamsMap := map[string]string{
-		"instance_identifier": *putVersionInstanceOptions.InstanceIdentifier,
+		"instance_identifier": *putOfferingInstanceOptions.InstanceIdentifier,
 	}
 
 	builder := core.NewRequestBuilder(core.PUT)
 	builder = builder.WithContext(ctx)
 	builder.EnableGzipCompression = catalogManagement.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(catalogManagement.Service.Options.URL, `/instances/{instance_identifier}`, pathParamsMap)
+	_, err = builder.ResolveRequestURL(catalogManagement.Service.Options.URL, `/instances/offerings/{instance_identifier}`, pathParamsMap)
 	if err != nil {
 		return
 	}
 
-	for headerName, headerValue := range putVersionInstanceOptions.Headers {
+	for headerName, headerValue := range putOfferingInstanceOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "PutVersionInstance")
+	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "PutOfferingInstance")
 	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
 	builder.AddHeader("Content-Type", "application/json")
-	if putVersionInstanceOptions.XAuthRefreshToken != nil {
-		builder.AddHeader("X-Auth-Refresh-Token", fmt.Sprint(*putVersionInstanceOptions.XAuthRefreshToken))
+	if putOfferingInstanceOptions.XAuthRefreshToken != nil {
+		builder.AddHeader("X-Auth-Refresh-Token", fmt.Sprint(*putOfferingInstanceOptions.XAuthRefreshToken))
 	}
 
 	body := make(map[string]interface{})
-	if putVersionInstanceOptions.ID != nil {
-		body["id"] = putVersionInstanceOptions.ID
+	if putOfferingInstanceOptions.ID != nil {
+		body["id"] = putOfferingInstanceOptions.ID
 	}
-	if putVersionInstanceOptions.URL != nil {
-		body["url"] = putVersionInstanceOptions.URL
+	if putOfferingInstanceOptions.URL != nil {
+		body["url"] = putOfferingInstanceOptions.URL
 	}
-	if putVersionInstanceOptions.CRN != nil {
-		body["crn"] = putVersionInstanceOptions.CRN
+	if putOfferingInstanceOptions.CRN != nil {
+		body["crn"] = putOfferingInstanceOptions.CRN
 	}
-	if putVersionInstanceOptions.Label != nil {
-		body["label"] = putVersionInstanceOptions.Label
+	if putOfferingInstanceOptions.Label != nil {
+		body["label"] = putOfferingInstanceOptions.Label
 	}
-	if putVersionInstanceOptions.CatalogID != nil {
-		body["catalog_id"] = putVersionInstanceOptions.CatalogID
+	if putOfferingInstanceOptions.CatalogID != nil {
+		body["catalog_id"] = putOfferingInstanceOptions.CatalogID
 	}
-	if putVersionInstanceOptions.OfferingID != nil {
-		body["offering_id"] = putVersionInstanceOptions.OfferingID
+	if putOfferingInstanceOptions.OfferingID != nil {
+		body["offering_id"] = putOfferingInstanceOptions.OfferingID
 	}
-	if putVersionInstanceOptions.KindFormat != nil {
-		body["kind_format"] = putVersionInstanceOptions.KindFormat
+	if putOfferingInstanceOptions.KindFormat != nil {
+		body["kind_format"] = putOfferingInstanceOptions.KindFormat
 	}
-	if putVersionInstanceOptions.Version != nil {
-		body["version"] = putVersionInstanceOptions.Version
+	if putOfferingInstanceOptions.Version != nil {
+		body["version"] = putOfferingInstanceOptions.Version
 	}
-	if putVersionInstanceOptions.ClusterID != nil {
-		body["cluster_id"] = putVersionInstanceOptions.ClusterID
+	if putOfferingInstanceOptions.ClusterID != nil {
+		body["cluster_id"] = putOfferingInstanceOptions.ClusterID
 	}
-	if putVersionInstanceOptions.ClusterRegion != nil {
-		body["cluster_region"] = putVersionInstanceOptions.ClusterRegion
+	if putOfferingInstanceOptions.ClusterRegion != nil {
+		body["cluster_region"] = putOfferingInstanceOptions.ClusterRegion
 	}
-	if putVersionInstanceOptions.ClusterNamespaces != nil {
-		body["cluster_namespaces"] = putVersionInstanceOptions.ClusterNamespaces
+	if putOfferingInstanceOptions.ClusterNamespaces != nil {
+		body["cluster_namespaces"] = putOfferingInstanceOptions.ClusterNamespaces
 	}
-	if putVersionInstanceOptions.ClusterAllNamespaces != nil {
-		body["cluster_all_namespaces"] = putVersionInstanceOptions.ClusterAllNamespaces
+	if putOfferingInstanceOptions.ClusterAllNamespaces != nil {
+		body["cluster_all_namespaces"] = putOfferingInstanceOptions.ClusterAllNamespaces
 	}
 	_, err = builder.SetBodyContentJSON(body)
 	if err != nil {
@@ -5184,7 +5184,7 @@ func (catalogManagement *CatalogManagementV1) PutVersionInstanceWithContext(ctx 
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalVersionInstance)
+	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalOfferingInstance)
 	if err != nil {
 		return
 	}
@@ -5193,42 +5193,45 @@ func (catalogManagement *CatalogManagementV1) PutVersionInstanceWithContext(ctx 
 	return
 }
 
-// DeleteVersionInstance : Delete a version instance
+// DeleteOfferingInstance : Delete a version instance
 // Delete and instance deployed out of a product version.
-func (catalogManagement *CatalogManagementV1) DeleteVersionInstance(deleteVersionInstanceOptions *DeleteVersionInstanceOptions) (response *core.DetailedResponse, err error) {
-	return catalogManagement.DeleteVersionInstanceWithContext(context.Background(), deleteVersionInstanceOptions)
+func (catalogManagement *CatalogManagementV1) DeleteOfferingInstance(deleteOfferingInstanceOptions *DeleteOfferingInstanceOptions) (response *core.DetailedResponse, err error) {
+	return catalogManagement.DeleteOfferingInstanceWithContext(context.Background(), deleteOfferingInstanceOptions)
 }
 
-// DeleteVersionInstanceWithContext is an alternate form of the DeleteVersionInstance method which supports a Context parameter
-func (catalogManagement *CatalogManagementV1) DeleteVersionInstanceWithContext(ctx context.Context, deleteVersionInstanceOptions *DeleteVersionInstanceOptions) (response *core.DetailedResponse, err error) {
-	err = core.ValidateNotNil(deleteVersionInstanceOptions, "deleteVersionInstanceOptions cannot be nil")
+// DeleteOfferingInstanceWithContext is an alternate form of the DeleteOfferingInstance method which supports a Context parameter
+func (catalogManagement *CatalogManagementV1) DeleteOfferingInstanceWithContext(ctx context.Context, deleteOfferingInstanceOptions *DeleteOfferingInstanceOptions) (response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(deleteOfferingInstanceOptions, "deleteOfferingInstanceOptions cannot be nil")
 	if err != nil {
 		return
 	}
-	err = core.ValidateStruct(deleteVersionInstanceOptions, "deleteVersionInstanceOptions")
+	err = core.ValidateStruct(deleteOfferingInstanceOptions, "deleteOfferingInstanceOptions")
 	if err != nil {
 		return
 	}
 
 	pathParamsMap := map[string]string{
-		"instance_identifier": *deleteVersionInstanceOptions.InstanceIdentifier,
+		"instance_identifier": *deleteOfferingInstanceOptions.InstanceIdentifier,
 	}
 
 	builder := core.NewRequestBuilder(core.DELETE)
 	builder = builder.WithContext(ctx)
 	builder.EnableGzipCompression = catalogManagement.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(catalogManagement.Service.Options.URL, `/instances/{instance_identifier}`, pathParamsMap)
+	_, err = builder.ResolveRequestURL(catalogManagement.Service.Options.URL, `/instances/offerings/{instance_identifier}`, pathParamsMap)
 	if err != nil {
 		return
 	}
 
-	for headerName, headerValue := range deleteVersionInstanceOptions.Headers {
+	for headerName, headerValue := range deleteOfferingInstanceOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "DeleteVersionInstance")
+	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "DeleteOfferingInstance")
 	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
+	}
+	if deleteOfferingInstanceOptions.XAuthRefreshToken != nil {
+		builder.AddHeader("X-Auth-Refresh-Token", fmt.Sprint(*deleteOfferingInstanceOptions.XAuthRefreshToken))
 	}
 
 	request, err := builder.Build()
@@ -6599,6 +6602,142 @@ func (options *CreateObjectOptions) SetHeaders(param map[string]string) *CreateO
 	return options
 }
 
+// CreateOfferingInstanceOptions : The CreateOfferingInstance options.
+type CreateOfferingInstanceOptions struct {
+	// IAM Refresh token.
+	XAuthRefreshToken *string `validate:"required"`
+
+	// provisioned instance ID (part of the CRN).
+	ID *string
+
+	// url reference to this object.
+	URL *string
+
+	// platform CRN for this instance.
+	CRN *string
+
+	// the label for this instance.
+	Label *string
+
+	// Catalog ID this instance was created from.
+	CatalogID *string
+
+	// Offering ID this instance was created from.
+	OfferingID *string
+
+	// the format this instance has (helm, operator, ova...).
+	KindFormat *string
+
+	// The version this instance was installed from (not version id).
+	Version *string
+
+	// Cluster ID.
+	ClusterID *string
+
+	// Cluster region (e.g., us-south).
+	ClusterRegion *string
+
+	// List of target namespaces to install into.
+	ClusterNamespaces []string
+
+	// designate to install into all namespaces.
+	ClusterAllNamespaces *bool
+
+	// Allows users to set headers on API requests
+	Headers map[string]string
+}
+
+// NewCreateOfferingInstanceOptions : Instantiate CreateOfferingInstanceOptions
+func (*CatalogManagementV1) NewCreateOfferingInstanceOptions(xAuthRefreshToken string) *CreateOfferingInstanceOptions {
+	return &CreateOfferingInstanceOptions{
+		XAuthRefreshToken: core.StringPtr(xAuthRefreshToken),
+	}
+}
+
+// SetXAuthRefreshToken : Allow user to set XAuthRefreshToken
+func (options *CreateOfferingInstanceOptions) SetXAuthRefreshToken(xAuthRefreshToken string) *CreateOfferingInstanceOptions {
+	options.XAuthRefreshToken = core.StringPtr(xAuthRefreshToken)
+	return options
+}
+
+// SetID : Allow user to set ID
+func (options *CreateOfferingInstanceOptions) SetID(id string) *CreateOfferingInstanceOptions {
+	options.ID = core.StringPtr(id)
+	return options
+}
+
+// SetURL : Allow user to set URL
+func (options *CreateOfferingInstanceOptions) SetURL(url string) *CreateOfferingInstanceOptions {
+	options.URL = core.StringPtr(url)
+	return options
+}
+
+// SetCRN : Allow user to set CRN
+func (options *CreateOfferingInstanceOptions) SetCRN(crn string) *CreateOfferingInstanceOptions {
+	options.CRN = core.StringPtr(crn)
+	return options
+}
+
+// SetLabel : Allow user to set Label
+func (options *CreateOfferingInstanceOptions) SetLabel(label string) *CreateOfferingInstanceOptions {
+	options.Label = core.StringPtr(label)
+	return options
+}
+
+// SetCatalogID : Allow user to set CatalogID
+func (options *CreateOfferingInstanceOptions) SetCatalogID(catalogID string) *CreateOfferingInstanceOptions {
+	options.CatalogID = core.StringPtr(catalogID)
+	return options
+}
+
+// SetOfferingID : Allow user to set OfferingID
+func (options *CreateOfferingInstanceOptions) SetOfferingID(offeringID string) *CreateOfferingInstanceOptions {
+	options.OfferingID = core.StringPtr(offeringID)
+	return options
+}
+
+// SetKindFormat : Allow user to set KindFormat
+func (options *CreateOfferingInstanceOptions) SetKindFormat(kindFormat string) *CreateOfferingInstanceOptions {
+	options.KindFormat = core.StringPtr(kindFormat)
+	return options
+}
+
+// SetVersion : Allow user to set Version
+func (options *CreateOfferingInstanceOptions) SetVersion(version string) *CreateOfferingInstanceOptions {
+	options.Version = core.StringPtr(version)
+	return options
+}
+
+// SetClusterID : Allow user to set ClusterID
+func (options *CreateOfferingInstanceOptions) SetClusterID(clusterID string) *CreateOfferingInstanceOptions {
+	options.ClusterID = core.StringPtr(clusterID)
+	return options
+}
+
+// SetClusterRegion : Allow user to set ClusterRegion
+func (options *CreateOfferingInstanceOptions) SetClusterRegion(clusterRegion string) *CreateOfferingInstanceOptions {
+	options.ClusterRegion = core.StringPtr(clusterRegion)
+	return options
+}
+
+// SetClusterNamespaces : Allow user to set ClusterNamespaces
+func (options *CreateOfferingInstanceOptions) SetClusterNamespaces(clusterNamespaces []string) *CreateOfferingInstanceOptions {
+	options.ClusterNamespaces = clusterNamespaces
+	return options
+}
+
+// SetClusterAllNamespaces : Allow user to set ClusterAllNamespaces
+func (options *CreateOfferingInstanceOptions) SetClusterAllNamespaces(clusterAllNamespaces bool) *CreateOfferingInstanceOptions {
+	options.ClusterAllNamespaces = core.BoolPtr(clusterAllNamespaces)
+	return options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *CreateOfferingInstanceOptions) SetHeaders(param map[string]string) *CreateOfferingInstanceOptions {
+	options.Headers = param
+	return options
+}
+
 // CreateOfferingOptions : The CreateOffering options.
 type CreateOfferingOptions struct {
 	// Catalog identifier.
@@ -6906,142 +7045,6 @@ func (options *CreateOfferingOptions) SetHeaders(param map[string]string) *Creat
 	return options
 }
 
-// CreateVersionInstanceOptions : The CreateVersionInstance options.
-type CreateVersionInstanceOptions struct {
-	// IAM Refresh token.
-	XAuthRefreshToken *string `validate:"required"`
-
-	// provisioned instance ID (part of the CRN).
-	ID *string
-
-	// url reference to this object.
-	URL *string
-
-	// platform CRN for this instance.
-	CRN *string
-
-	// the label for this instance.
-	Label *string
-
-	// Catalog ID this instance was created from.
-	CatalogID *string
-
-	// Offering ID this instance was created from.
-	OfferingID *string
-
-	// the format this instance has (helm, operator, ova...).
-	KindFormat *string
-
-	// The version this instance was installed from (not version id).
-	Version *string
-
-	// Cluster ID.
-	ClusterID *string
-
-	// Cluster region (e.g., us-south).
-	ClusterRegion *string
-
-	// List of target namespaces to install into.
-	ClusterNamespaces []string
-
-	// designate to install into all namespaces.
-	ClusterAllNamespaces *bool
-
-	// Allows users to set headers on API requests
-	Headers map[string]string
-}
-
-// NewCreateVersionInstanceOptions : Instantiate CreateVersionInstanceOptions
-func (*CatalogManagementV1) NewCreateVersionInstanceOptions(xAuthRefreshToken string) *CreateVersionInstanceOptions {
-	return &CreateVersionInstanceOptions{
-		XAuthRefreshToken: core.StringPtr(xAuthRefreshToken),
-	}
-}
-
-// SetXAuthRefreshToken : Allow user to set XAuthRefreshToken
-func (options *CreateVersionInstanceOptions) SetXAuthRefreshToken(xAuthRefreshToken string) *CreateVersionInstanceOptions {
-	options.XAuthRefreshToken = core.StringPtr(xAuthRefreshToken)
-	return options
-}
-
-// SetID : Allow user to set ID
-func (options *CreateVersionInstanceOptions) SetID(id string) *CreateVersionInstanceOptions {
-	options.ID = core.StringPtr(id)
-	return options
-}
-
-// SetURL : Allow user to set URL
-func (options *CreateVersionInstanceOptions) SetURL(url string) *CreateVersionInstanceOptions {
-	options.URL = core.StringPtr(url)
-	return options
-}
-
-// SetCRN : Allow user to set CRN
-func (options *CreateVersionInstanceOptions) SetCRN(crn string) *CreateVersionInstanceOptions {
-	options.CRN = core.StringPtr(crn)
-	return options
-}
-
-// SetLabel : Allow user to set Label
-func (options *CreateVersionInstanceOptions) SetLabel(label string) *CreateVersionInstanceOptions {
-	options.Label = core.StringPtr(label)
-	return options
-}
-
-// SetCatalogID : Allow user to set CatalogID
-func (options *CreateVersionInstanceOptions) SetCatalogID(catalogID string) *CreateVersionInstanceOptions {
-	options.CatalogID = core.StringPtr(catalogID)
-	return options
-}
-
-// SetOfferingID : Allow user to set OfferingID
-func (options *CreateVersionInstanceOptions) SetOfferingID(offeringID string) *CreateVersionInstanceOptions {
-	options.OfferingID = core.StringPtr(offeringID)
-	return options
-}
-
-// SetKindFormat : Allow user to set KindFormat
-func (options *CreateVersionInstanceOptions) SetKindFormat(kindFormat string) *CreateVersionInstanceOptions {
-	options.KindFormat = core.StringPtr(kindFormat)
-	return options
-}
-
-// SetVersion : Allow user to set Version
-func (options *CreateVersionInstanceOptions) SetVersion(version string) *CreateVersionInstanceOptions {
-	options.Version = core.StringPtr(version)
-	return options
-}
-
-// SetClusterID : Allow user to set ClusterID
-func (options *CreateVersionInstanceOptions) SetClusterID(clusterID string) *CreateVersionInstanceOptions {
-	options.ClusterID = core.StringPtr(clusterID)
-	return options
-}
-
-// SetClusterRegion : Allow user to set ClusterRegion
-func (options *CreateVersionInstanceOptions) SetClusterRegion(clusterRegion string) *CreateVersionInstanceOptions {
-	options.ClusterRegion = core.StringPtr(clusterRegion)
-	return options
-}
-
-// SetClusterNamespaces : Allow user to set ClusterNamespaces
-func (options *CreateVersionInstanceOptions) SetClusterNamespaces(clusterNamespaces []string) *CreateVersionInstanceOptions {
-	options.ClusterNamespaces = clusterNamespaces
-	return options
-}
-
-// SetClusterAllNamespaces : Allow user to set ClusterAllNamespaces
-func (options *CreateVersionInstanceOptions) SetClusterAllNamespaces(clusterAllNamespaces bool) *CreateVersionInstanceOptions {
-	options.ClusterAllNamespaces = core.BoolPtr(clusterAllNamespaces)
-	return options
-}
-
-// SetHeaders : Allow user to set Headers
-func (options *CreateVersionInstanceOptions) SetHeaders(param map[string]string) *CreateVersionInstanceOptions {
-	options.Headers = param
-	return options
-}
-
 // DeleteCatalogOptions : The DeleteCatalog options.
 type DeleteCatalogOptions struct {
 	// Catalog identifier.
@@ -7241,6 +7244,44 @@ func (options *DeleteObjectOptions) SetHeaders(param map[string]string) *DeleteO
 	return options
 }
 
+// DeleteOfferingInstanceOptions : The DeleteOfferingInstance options.
+type DeleteOfferingInstanceOptions struct {
+	// Version Instance identifier.
+	InstanceIdentifier *string `validate:"required,ne="`
+
+	// IAM Refresh token.
+	XAuthRefreshToken *string `validate:"required"`
+
+	// Allows users to set headers on API requests
+	Headers map[string]string
+}
+
+// NewDeleteOfferingInstanceOptions : Instantiate DeleteOfferingInstanceOptions
+func (*CatalogManagementV1) NewDeleteOfferingInstanceOptions(instanceIdentifier string, xAuthRefreshToken string) *DeleteOfferingInstanceOptions {
+	return &DeleteOfferingInstanceOptions{
+		InstanceIdentifier: core.StringPtr(instanceIdentifier),
+		XAuthRefreshToken: core.StringPtr(xAuthRefreshToken),
+	}
+}
+
+// SetInstanceIdentifier : Allow user to set InstanceIdentifier
+func (options *DeleteOfferingInstanceOptions) SetInstanceIdentifier(instanceIdentifier string) *DeleteOfferingInstanceOptions {
+	options.InstanceIdentifier = core.StringPtr(instanceIdentifier)
+	return options
+}
+
+// SetXAuthRefreshToken : Allow user to set XAuthRefreshToken
+func (options *DeleteOfferingInstanceOptions) SetXAuthRefreshToken(xAuthRefreshToken string) *DeleteOfferingInstanceOptions {
+	options.XAuthRefreshToken = core.StringPtr(xAuthRefreshToken)
+	return options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *DeleteOfferingInstanceOptions) SetHeaders(param map[string]string) *DeleteOfferingInstanceOptions {
+	options.Headers = param
+	return options
+}
+
 // DeleteOfferingOptions : The DeleteOffering options.
 type DeleteOfferingOptions struct {
 	// Catalog identifier.
@@ -7333,34 +7374,6 @@ func (options *DeleteOperatorsOptions) SetVersionLocatorID(versionLocatorID stri
 
 // SetHeaders : Allow user to set Headers
 func (options *DeleteOperatorsOptions) SetHeaders(param map[string]string) *DeleteOperatorsOptions {
-	options.Headers = param
-	return options
-}
-
-// DeleteVersionInstanceOptions : The DeleteVersionInstance options.
-type DeleteVersionInstanceOptions struct {
-	// Version Instance identifier.
-	InstanceIdentifier *string `validate:"required,ne="`
-
-	// Allows users to set headers on API requests
-	Headers map[string]string
-}
-
-// NewDeleteVersionInstanceOptions : Instantiate DeleteVersionInstanceOptions
-func (*CatalogManagementV1) NewDeleteVersionInstanceOptions(instanceIdentifier string) *DeleteVersionInstanceOptions {
-	return &DeleteVersionInstanceOptions{
-		InstanceIdentifier: core.StringPtr(instanceIdentifier),
-	}
-}
-
-// SetInstanceIdentifier : Allow user to set InstanceIdentifier
-func (options *DeleteVersionInstanceOptions) SetInstanceIdentifier(instanceIdentifier string) *DeleteVersionInstanceOptions {
-	options.InstanceIdentifier = core.StringPtr(instanceIdentifier)
-	return options
-}
-
-// SetHeaders : Allow user to set Headers
-func (options *DeleteVersionInstanceOptions) SetHeaders(param map[string]string) *DeleteVersionInstanceOptions {
 	options.Headers = param
 	return options
 }
@@ -8287,6 +8300,34 @@ func (options *GetObjectOptions) SetHeaders(param map[string]string) *GetObjectO
 	return options
 }
 
+// GetOfferingAboutOptions : The GetOfferingAbout options.
+type GetOfferingAboutOptions struct {
+	// A dotted value of `catalogID`.`versionID`.
+	VersionLocID *string `validate:"required,ne="`
+
+	// Allows users to set headers on API requests
+	Headers map[string]string
+}
+
+// NewGetOfferingAboutOptions : Instantiate GetOfferingAboutOptions
+func (*CatalogManagementV1) NewGetOfferingAboutOptions(versionLocID string) *GetOfferingAboutOptions {
+	return &GetOfferingAboutOptions{
+		VersionLocID: core.StringPtr(versionLocID),
+	}
+}
+
+// SetVersionLocID : Allow user to set VersionLocID
+func (options *GetOfferingAboutOptions) SetVersionLocID(versionLocID string) *GetOfferingAboutOptions {
+	options.VersionLocID = core.StringPtr(versionLocID)
+	return options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *GetOfferingAboutOptions) SetHeaders(param map[string]string) *GetOfferingAboutOptions {
+	options.Headers = param
+	return options
+}
+
 // GetOfferingAuditOptions : The GetOfferingAudit options.
 type GetOfferingAuditOptions struct {
 	// Catalog identifier.
@@ -8325,6 +8366,100 @@ func (options *GetOfferingAuditOptions) SetHeaders(param map[string]string) *Get
 	return options
 }
 
+// GetOfferingContainerImagesOptions : The GetOfferingContainerImages options.
+type GetOfferingContainerImagesOptions struct {
+	// A dotted value of `catalogID`.`versionID`.
+	VersionLocID *string `validate:"required,ne="`
+
+	// Allows users to set headers on API requests
+	Headers map[string]string
+}
+
+// NewGetOfferingContainerImagesOptions : Instantiate GetOfferingContainerImagesOptions
+func (*CatalogManagementV1) NewGetOfferingContainerImagesOptions(versionLocID string) *GetOfferingContainerImagesOptions {
+	return &GetOfferingContainerImagesOptions{
+		VersionLocID: core.StringPtr(versionLocID),
+	}
+}
+
+// SetVersionLocID : Allow user to set VersionLocID
+func (options *GetOfferingContainerImagesOptions) SetVersionLocID(versionLocID string) *GetOfferingContainerImagesOptions {
+	options.VersionLocID = core.StringPtr(versionLocID)
+	return options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *GetOfferingContainerImagesOptions) SetHeaders(param map[string]string) *GetOfferingContainerImagesOptions {
+	options.Headers = param
+	return options
+}
+
+// GetOfferingInstanceOptions : The GetOfferingInstance options.
+type GetOfferingInstanceOptions struct {
+	// Version Instance identifier.
+	InstanceIdentifier *string `validate:"required,ne="`
+
+	// Allows users to set headers on API requests
+	Headers map[string]string
+}
+
+// NewGetOfferingInstanceOptions : Instantiate GetOfferingInstanceOptions
+func (*CatalogManagementV1) NewGetOfferingInstanceOptions(instanceIdentifier string) *GetOfferingInstanceOptions {
+	return &GetOfferingInstanceOptions{
+		InstanceIdentifier: core.StringPtr(instanceIdentifier),
+	}
+}
+
+// SetInstanceIdentifier : Allow user to set InstanceIdentifier
+func (options *GetOfferingInstanceOptions) SetInstanceIdentifier(instanceIdentifier string) *GetOfferingInstanceOptions {
+	options.InstanceIdentifier = core.StringPtr(instanceIdentifier)
+	return options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *GetOfferingInstanceOptions) SetHeaders(param map[string]string) *GetOfferingInstanceOptions {
+	options.Headers = param
+	return options
+}
+
+// GetOfferingLicenseOptions : The GetOfferingLicense options.
+type GetOfferingLicenseOptions struct {
+	// A dotted value of `catalogID`.`versionID`.
+	VersionLocID *string `validate:"required,ne="`
+
+	// The ID of the license, which maps to the file name in the 'licenses' directory of this verions tgz file.
+	LicenseID *string `validate:"required,ne="`
+
+	// Allows users to set headers on API requests
+	Headers map[string]string
+}
+
+// NewGetOfferingLicenseOptions : Instantiate GetOfferingLicenseOptions
+func (*CatalogManagementV1) NewGetOfferingLicenseOptions(versionLocID string, licenseID string) *GetOfferingLicenseOptions {
+	return &GetOfferingLicenseOptions{
+		VersionLocID: core.StringPtr(versionLocID),
+		LicenseID: core.StringPtr(licenseID),
+	}
+}
+
+// SetVersionLocID : Allow user to set VersionLocID
+func (options *GetOfferingLicenseOptions) SetVersionLocID(versionLocID string) *GetOfferingLicenseOptions {
+	options.VersionLocID = core.StringPtr(versionLocID)
+	return options
+}
+
+// SetLicenseID : Allow user to set LicenseID
+func (options *GetOfferingLicenseOptions) SetLicenseID(licenseID string) *GetOfferingLicenseOptions {
+	options.LicenseID = core.StringPtr(licenseID)
+	return options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *GetOfferingLicenseOptions) SetHeaders(param map[string]string) *GetOfferingLicenseOptions {
+	options.Headers = param
+	return options
+}
+
 // GetOfferingOptions : The GetOffering options.
 type GetOfferingOptions struct {
 	// Catalog identifier.
@@ -8359,6 +8494,127 @@ func (options *GetOfferingOptions) SetOfferingID(offeringID string) *GetOffering
 
 // SetHeaders : Allow user to set Headers
 func (options *GetOfferingOptions) SetHeaders(param map[string]string) *GetOfferingOptions {
+	options.Headers = param
+	return options
+}
+
+// GetOfferingUpdatesOptions : The GetOfferingUpdates options.
+type GetOfferingUpdatesOptions struct {
+	// Catalog identifier.
+	CatalogIdentifier *string `validate:"required,ne="`
+
+	// Offering identification.
+	OfferingID *string `validate:"required,ne="`
+
+	// The kind of offering (e.g, helm, ova, terraform ...).
+	Kind *string `validate:"required"`
+
+	// optionaly provide an existing version to check updates for if one is not given, all version will be returned.
+	Version *string
+
+	// The id of the cluster where this version was installed.
+	ClusterID *string
+
+	// The region of the cluster where this version was installed.
+	Region *string
+
+	// The resource group id of the cluster where this version was installed.
+	ResourceGroupID *string
+
+	// The namespace of the cluster where this version was installed.
+	Namespace *string
+
+	// Allows users to set headers on API requests
+	Headers map[string]string
+}
+
+// NewGetOfferingUpdatesOptions : Instantiate GetOfferingUpdatesOptions
+func (*CatalogManagementV1) NewGetOfferingUpdatesOptions(catalogIdentifier string, offeringID string, kind string) *GetOfferingUpdatesOptions {
+	return &GetOfferingUpdatesOptions{
+		CatalogIdentifier: core.StringPtr(catalogIdentifier),
+		OfferingID: core.StringPtr(offeringID),
+		Kind: core.StringPtr(kind),
+	}
+}
+
+// SetCatalogIdentifier : Allow user to set CatalogIdentifier
+func (options *GetOfferingUpdatesOptions) SetCatalogIdentifier(catalogIdentifier string) *GetOfferingUpdatesOptions {
+	options.CatalogIdentifier = core.StringPtr(catalogIdentifier)
+	return options
+}
+
+// SetOfferingID : Allow user to set OfferingID
+func (options *GetOfferingUpdatesOptions) SetOfferingID(offeringID string) *GetOfferingUpdatesOptions {
+	options.OfferingID = core.StringPtr(offeringID)
+	return options
+}
+
+// SetKind : Allow user to set Kind
+func (options *GetOfferingUpdatesOptions) SetKind(kind string) *GetOfferingUpdatesOptions {
+	options.Kind = core.StringPtr(kind)
+	return options
+}
+
+// SetVersion : Allow user to set Version
+func (options *GetOfferingUpdatesOptions) SetVersion(version string) *GetOfferingUpdatesOptions {
+	options.Version = core.StringPtr(version)
+	return options
+}
+
+// SetClusterID : Allow user to set ClusterID
+func (options *GetOfferingUpdatesOptions) SetClusterID(clusterID string) *GetOfferingUpdatesOptions {
+	options.ClusterID = core.StringPtr(clusterID)
+	return options
+}
+
+// SetRegion : Allow user to set Region
+func (options *GetOfferingUpdatesOptions) SetRegion(region string) *GetOfferingUpdatesOptions {
+	options.Region = core.StringPtr(region)
+	return options
+}
+
+// SetResourceGroupID : Allow user to set ResourceGroupID
+func (options *GetOfferingUpdatesOptions) SetResourceGroupID(resourceGroupID string) *GetOfferingUpdatesOptions {
+	options.ResourceGroupID = core.StringPtr(resourceGroupID)
+	return options
+}
+
+// SetNamespace : Allow user to set Namespace
+func (options *GetOfferingUpdatesOptions) SetNamespace(namespace string) *GetOfferingUpdatesOptions {
+	options.Namespace = core.StringPtr(namespace)
+	return options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *GetOfferingUpdatesOptions) SetHeaders(param map[string]string) *GetOfferingUpdatesOptions {
+	options.Headers = param
+	return options
+}
+
+// GetOfferingWorkingCopyOptions : The GetOfferingWorkingCopy options.
+type GetOfferingWorkingCopyOptions struct {
+	// A dotted value of `catalogID`.`versionID`.
+	VersionLocID *string `validate:"required,ne="`
+
+	// Allows users to set headers on API requests
+	Headers map[string]string
+}
+
+// NewGetOfferingWorkingCopyOptions : Instantiate GetOfferingWorkingCopyOptions
+func (*CatalogManagementV1) NewGetOfferingWorkingCopyOptions(versionLocID string) *GetOfferingWorkingCopyOptions {
+	return &GetOfferingWorkingCopyOptions{
+		VersionLocID: core.StringPtr(versionLocID),
+	}
+}
+
+// SetVersionLocID : Allow user to set VersionLocID
+func (options *GetOfferingWorkingCopyOptions) SetVersionLocID(versionLocID string) *GetOfferingWorkingCopyOptions {
+	options.VersionLocID = core.StringPtr(versionLocID)
+	return options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *GetOfferingWorkingCopyOptions) SetHeaders(param map[string]string) *GetOfferingWorkingCopyOptions {
 	options.Headers = param
 	return options
 }
@@ -8571,128 +8827,6 @@ func (options *GetValidationStatusOptions) SetHeaders(param map[string]string) *
 	return options
 }
 
-// GetVersionAboutOptions : The GetVersionAbout options.
-type GetVersionAboutOptions struct {
-	// A dotted value of `catalogID`.`versionID`.
-	VersionLocID *string `validate:"required,ne="`
-
-	// Allows users to set headers on API requests
-	Headers map[string]string
-}
-
-// NewGetVersionAboutOptions : Instantiate GetVersionAboutOptions
-func (*CatalogManagementV1) NewGetVersionAboutOptions(versionLocID string) *GetVersionAboutOptions {
-	return &GetVersionAboutOptions{
-		VersionLocID: core.StringPtr(versionLocID),
-	}
-}
-
-// SetVersionLocID : Allow user to set VersionLocID
-func (options *GetVersionAboutOptions) SetVersionLocID(versionLocID string) *GetVersionAboutOptions {
-	options.VersionLocID = core.StringPtr(versionLocID)
-	return options
-}
-
-// SetHeaders : Allow user to set Headers
-func (options *GetVersionAboutOptions) SetHeaders(param map[string]string) *GetVersionAboutOptions {
-	options.Headers = param
-	return options
-}
-
-// GetVersionContainerImagesOptions : The GetVersionContainerImages options.
-type GetVersionContainerImagesOptions struct {
-	// A dotted value of `catalogID`.`versionID`.
-	VersionLocID *string `validate:"required,ne="`
-
-	// Allows users to set headers on API requests
-	Headers map[string]string
-}
-
-// NewGetVersionContainerImagesOptions : Instantiate GetVersionContainerImagesOptions
-func (*CatalogManagementV1) NewGetVersionContainerImagesOptions(versionLocID string) *GetVersionContainerImagesOptions {
-	return &GetVersionContainerImagesOptions{
-		VersionLocID: core.StringPtr(versionLocID),
-	}
-}
-
-// SetVersionLocID : Allow user to set VersionLocID
-func (options *GetVersionContainerImagesOptions) SetVersionLocID(versionLocID string) *GetVersionContainerImagesOptions {
-	options.VersionLocID = core.StringPtr(versionLocID)
-	return options
-}
-
-// SetHeaders : Allow user to set Headers
-func (options *GetVersionContainerImagesOptions) SetHeaders(param map[string]string) *GetVersionContainerImagesOptions {
-	options.Headers = param
-	return options
-}
-
-// GetVersionInstanceOptions : The GetVersionInstance options.
-type GetVersionInstanceOptions struct {
-	// Version Instance identifier.
-	InstanceIdentifier *string `validate:"required,ne="`
-
-	// Allows users to set headers on API requests
-	Headers map[string]string
-}
-
-// NewGetVersionInstanceOptions : Instantiate GetVersionInstanceOptions
-func (*CatalogManagementV1) NewGetVersionInstanceOptions(instanceIdentifier string) *GetVersionInstanceOptions {
-	return &GetVersionInstanceOptions{
-		InstanceIdentifier: core.StringPtr(instanceIdentifier),
-	}
-}
-
-// SetInstanceIdentifier : Allow user to set InstanceIdentifier
-func (options *GetVersionInstanceOptions) SetInstanceIdentifier(instanceIdentifier string) *GetVersionInstanceOptions {
-	options.InstanceIdentifier = core.StringPtr(instanceIdentifier)
-	return options
-}
-
-// SetHeaders : Allow user to set Headers
-func (options *GetVersionInstanceOptions) SetHeaders(param map[string]string) *GetVersionInstanceOptions {
-	options.Headers = param
-	return options
-}
-
-// GetVersionLicenseOptions : The GetVersionLicense options.
-type GetVersionLicenseOptions struct {
-	// A dotted value of `catalogID`.`versionID`.
-	VersionLocID *string `validate:"required,ne="`
-
-	// The ID of the license, which maps to the file name in the 'licenses' directory of this verions tgz file.
-	LicenseID *string `validate:"required,ne="`
-
-	// Allows users to set headers on API requests
-	Headers map[string]string
-}
-
-// NewGetVersionLicenseOptions : Instantiate GetVersionLicenseOptions
-func (*CatalogManagementV1) NewGetVersionLicenseOptions(versionLocID string, licenseID string) *GetVersionLicenseOptions {
-	return &GetVersionLicenseOptions{
-		VersionLocID: core.StringPtr(versionLocID),
-		LicenseID: core.StringPtr(licenseID),
-	}
-}
-
-// SetVersionLocID : Allow user to set VersionLocID
-func (options *GetVersionLicenseOptions) SetVersionLocID(versionLocID string) *GetVersionLicenseOptions {
-	options.VersionLocID = core.StringPtr(versionLocID)
-	return options
-}
-
-// SetLicenseID : Allow user to set LicenseID
-func (options *GetVersionLicenseOptions) SetLicenseID(licenseID string) *GetVersionLicenseOptions {
-	options.LicenseID = core.StringPtr(licenseID)
-	return options
-}
-
-// SetHeaders : Allow user to set Headers
-func (options *GetVersionLicenseOptions) SetHeaders(param map[string]string) *GetVersionLicenseOptions {
-	options.Headers = param
-	return options
-}
-
 // GetVersionOptions : The GetVersion options.
 type GetVersionOptions struct {
 	// A dotted value of `catalogID`.`versionID`.
@@ -8717,127 +8851,6 @@ func (options *GetVersionOptions) SetVersionLocID(versionLocID string) *GetVersi
 
 // SetHeaders : Allow user to set Headers
 func (options *GetVersionOptions) SetHeaders(param map[string]string) *GetVersionOptions {
-	options.Headers = param
-	return options
-}
-
-// GetVersionUpdatesOptions : The GetVersionUpdates options.
-type GetVersionUpdatesOptions struct {
-	// Catalog identifier.
-	CatalogIdentifier *string `validate:"required,ne="`
-
-	// Offering identification.
-	OfferingID *string `validate:"required,ne="`
-
-	// The kind of offering (e.g, helm, ova, terraform ...).
-	Kind *string `validate:"required"`
-
-	// optionaly provide an existing version to check updates for if one is not given, all version will be returned.
-	Version *string
-
-	// The id of the cluster where this version was installed.
-	ClusterID *string
-
-	// The region of the cluster where this version was installed.
-	Region *string
-
-	// The resource group id of the cluster where this version was installed.
-	ResourceGroupID *string
-
-	// The namespace of the cluster where this version was installed.
-	Namespace *string
-
-	// Allows users to set headers on API requests
-	Headers map[string]string
-}
-
-// NewGetVersionUpdatesOptions : Instantiate GetVersionUpdatesOptions
-func (*CatalogManagementV1) NewGetVersionUpdatesOptions(catalogIdentifier string, offeringID string, kind string) *GetVersionUpdatesOptions {
-	return &GetVersionUpdatesOptions{
-		CatalogIdentifier: core.StringPtr(catalogIdentifier),
-		OfferingID: core.StringPtr(offeringID),
-		Kind: core.StringPtr(kind),
-	}
-}
-
-// SetCatalogIdentifier : Allow user to set CatalogIdentifier
-func (options *GetVersionUpdatesOptions) SetCatalogIdentifier(catalogIdentifier string) *GetVersionUpdatesOptions {
-	options.CatalogIdentifier = core.StringPtr(catalogIdentifier)
-	return options
-}
-
-// SetOfferingID : Allow user to set OfferingID
-func (options *GetVersionUpdatesOptions) SetOfferingID(offeringID string) *GetVersionUpdatesOptions {
-	options.OfferingID = core.StringPtr(offeringID)
-	return options
-}
-
-// SetKind : Allow user to set Kind
-func (options *GetVersionUpdatesOptions) SetKind(kind string) *GetVersionUpdatesOptions {
-	options.Kind = core.StringPtr(kind)
-	return options
-}
-
-// SetVersion : Allow user to set Version
-func (options *GetVersionUpdatesOptions) SetVersion(version string) *GetVersionUpdatesOptions {
-	options.Version = core.StringPtr(version)
-	return options
-}
-
-// SetClusterID : Allow user to set ClusterID
-func (options *GetVersionUpdatesOptions) SetClusterID(clusterID string) *GetVersionUpdatesOptions {
-	options.ClusterID = core.StringPtr(clusterID)
-	return options
-}
-
-// SetRegion : Allow user to set Region
-func (options *GetVersionUpdatesOptions) SetRegion(region string) *GetVersionUpdatesOptions {
-	options.Region = core.StringPtr(region)
-	return options
-}
-
-// SetResourceGroupID : Allow user to set ResourceGroupID
-func (options *GetVersionUpdatesOptions) SetResourceGroupID(resourceGroupID string) *GetVersionUpdatesOptions {
-	options.ResourceGroupID = core.StringPtr(resourceGroupID)
-	return options
-}
-
-// SetNamespace : Allow user to set Namespace
-func (options *GetVersionUpdatesOptions) SetNamespace(namespace string) *GetVersionUpdatesOptions {
-	options.Namespace = core.StringPtr(namespace)
-	return options
-}
-
-// SetHeaders : Allow user to set Headers
-func (options *GetVersionUpdatesOptions) SetHeaders(param map[string]string) *GetVersionUpdatesOptions {
-	options.Headers = param
-	return options
-}
-
-// GetVersionWorkingCopyOptions : The GetVersionWorkingCopy options.
-type GetVersionWorkingCopyOptions struct {
-	// A dotted value of `catalogID`.`versionID`.
-	VersionLocID *string `validate:"required,ne="`
-
-	// Allows users to set headers on API requests
-	Headers map[string]string
-}
-
-// NewGetVersionWorkingCopyOptions : Instantiate GetVersionWorkingCopyOptions
-func (*CatalogManagementV1) NewGetVersionWorkingCopyOptions(versionLocID string) *GetVersionWorkingCopyOptions {
-	return &GetVersionWorkingCopyOptions{
-		VersionLocID: core.StringPtr(versionLocID),
-	}
-}
-
-// SetVersionLocID : Allow user to set VersionLocID
-func (options *GetVersionWorkingCopyOptions) SetVersionLocID(versionLocID string) *GetVersionWorkingCopyOptions {
-	options.VersionLocID = core.StringPtr(versionLocID)
-	return options
-}
-
-// SetHeaders : Allow user to set Headers
-func (options *GetVersionWorkingCopyOptions) SetHeaders(param map[string]string) *GetVersionWorkingCopyOptions {
 	options.Headers = param
 	return options
 }
@@ -10945,6 +10958,100 @@ func UnmarshalOffering(m map[string]json.RawMessage, result interface{}) (err er
 	return
 }
 
+// OfferingInstance : A offering instance resource (provision instance of a catalog offering).
+type OfferingInstance struct {
+	// provisioned instance ID (part of the CRN).
+	ID *string `json:"id,omitempty"`
+
+	// url reference to this object.
+	URL *string `json:"url,omitempty"`
+
+	// platform CRN for this instance.
+	CRN *string `json:"crn,omitempty"`
+
+	// the label for this instance.
+	Label *string `json:"label,omitempty"`
+
+	// Catalog ID this instance was created from.
+	CatalogID *string `json:"catalog_id,omitempty"`
+
+	// Offering ID this instance was created from.
+	OfferingID *string `json:"offering_id,omitempty"`
+
+	// the format this instance has (helm, operator, ova...).
+	KindFormat *string `json:"kind_format,omitempty"`
+
+	// The version this instance was installed from (not version id).
+	Version *string `json:"version,omitempty"`
+
+	// Cluster ID.
+	ClusterID *string `json:"cluster_id,omitempty"`
+
+	// Cluster region (e.g., us-south).
+	ClusterRegion *string `json:"cluster_region,omitempty"`
+
+	// List of target namespaces to install into.
+	ClusterNamespaces []string `json:"cluster_namespaces,omitempty"`
+
+	// designate to install into all namespaces.
+	ClusterAllNamespaces *bool `json:"cluster_all_namespaces,omitempty"`
+}
+
+// UnmarshalOfferingInstance unmarshals an instance of OfferingInstance from the specified map of raw messages.
+func UnmarshalOfferingInstance(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(OfferingInstance)
+	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "url", &obj.URL)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "crn", &obj.CRN)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "label", &obj.Label)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "catalog_id", &obj.CatalogID)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "offering_id", &obj.OfferingID)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "kind_format", &obj.KindFormat)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "version", &obj.Version)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "cluster_id", &obj.ClusterID)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "cluster_region", &obj.ClusterRegion)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "cluster_namespaces", &obj.ClusterNamespaces)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "cluster_all_namespaces", &obj.ClusterAllNamespaces)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
 // OfferingSearchResult : Paginated offering search result.
 type OfferingSearchResult struct {
 	// The offset (origin 0) of the first resource in this page of search results.
@@ -11447,8 +11554,8 @@ func UnmarshalPublishObject(m map[string]json.RawMessage, result interface{}) (e
 	return
 }
 
-// PutVersionInstanceOptions : The PutVersionInstance options.
-type PutVersionInstanceOptions struct {
+// PutOfferingInstanceOptions : The PutOfferingInstance options.
+type PutOfferingInstanceOptions struct {
 	// Version Instance identifier.
 	InstanceIdentifier *string `validate:"required,ne="`
 
@@ -11495,100 +11602,100 @@ type PutVersionInstanceOptions struct {
 	Headers map[string]string
 }
 
-// NewPutVersionInstanceOptions : Instantiate PutVersionInstanceOptions
-func (*CatalogManagementV1) NewPutVersionInstanceOptions(instanceIdentifier string, xAuthRefreshToken string) *PutVersionInstanceOptions {
-	return &PutVersionInstanceOptions{
+// NewPutOfferingInstanceOptions : Instantiate PutOfferingInstanceOptions
+func (*CatalogManagementV1) NewPutOfferingInstanceOptions(instanceIdentifier string, xAuthRefreshToken string) *PutOfferingInstanceOptions {
+	return &PutOfferingInstanceOptions{
 		InstanceIdentifier: core.StringPtr(instanceIdentifier),
 		XAuthRefreshToken: core.StringPtr(xAuthRefreshToken),
 	}
 }
 
 // SetInstanceIdentifier : Allow user to set InstanceIdentifier
-func (options *PutVersionInstanceOptions) SetInstanceIdentifier(instanceIdentifier string) *PutVersionInstanceOptions {
+func (options *PutOfferingInstanceOptions) SetInstanceIdentifier(instanceIdentifier string) *PutOfferingInstanceOptions {
 	options.InstanceIdentifier = core.StringPtr(instanceIdentifier)
 	return options
 }
 
 // SetXAuthRefreshToken : Allow user to set XAuthRefreshToken
-func (options *PutVersionInstanceOptions) SetXAuthRefreshToken(xAuthRefreshToken string) *PutVersionInstanceOptions {
+func (options *PutOfferingInstanceOptions) SetXAuthRefreshToken(xAuthRefreshToken string) *PutOfferingInstanceOptions {
 	options.XAuthRefreshToken = core.StringPtr(xAuthRefreshToken)
 	return options
 }
 
 // SetID : Allow user to set ID
-func (options *PutVersionInstanceOptions) SetID(id string) *PutVersionInstanceOptions {
+func (options *PutOfferingInstanceOptions) SetID(id string) *PutOfferingInstanceOptions {
 	options.ID = core.StringPtr(id)
 	return options
 }
 
 // SetURL : Allow user to set URL
-func (options *PutVersionInstanceOptions) SetURL(url string) *PutVersionInstanceOptions {
+func (options *PutOfferingInstanceOptions) SetURL(url string) *PutOfferingInstanceOptions {
 	options.URL = core.StringPtr(url)
 	return options
 }
 
 // SetCRN : Allow user to set CRN
-func (options *PutVersionInstanceOptions) SetCRN(crn string) *PutVersionInstanceOptions {
+func (options *PutOfferingInstanceOptions) SetCRN(crn string) *PutOfferingInstanceOptions {
 	options.CRN = core.StringPtr(crn)
 	return options
 }
 
 // SetLabel : Allow user to set Label
-func (options *PutVersionInstanceOptions) SetLabel(label string) *PutVersionInstanceOptions {
+func (options *PutOfferingInstanceOptions) SetLabel(label string) *PutOfferingInstanceOptions {
 	options.Label = core.StringPtr(label)
 	return options
 }
 
 // SetCatalogID : Allow user to set CatalogID
-func (options *PutVersionInstanceOptions) SetCatalogID(catalogID string) *PutVersionInstanceOptions {
+func (options *PutOfferingInstanceOptions) SetCatalogID(catalogID string) *PutOfferingInstanceOptions {
 	options.CatalogID = core.StringPtr(catalogID)
 	return options
 }
 
 // SetOfferingID : Allow user to set OfferingID
-func (options *PutVersionInstanceOptions) SetOfferingID(offeringID string) *PutVersionInstanceOptions {
+func (options *PutOfferingInstanceOptions) SetOfferingID(offeringID string) *PutOfferingInstanceOptions {
 	options.OfferingID = core.StringPtr(offeringID)
 	return options
 }
 
 // SetKindFormat : Allow user to set KindFormat
-func (options *PutVersionInstanceOptions) SetKindFormat(kindFormat string) *PutVersionInstanceOptions {
+func (options *PutOfferingInstanceOptions) SetKindFormat(kindFormat string) *PutOfferingInstanceOptions {
 	options.KindFormat = core.StringPtr(kindFormat)
 	return options
 }
 
 // SetVersion : Allow user to set Version
-func (options *PutVersionInstanceOptions) SetVersion(version string) *PutVersionInstanceOptions {
+func (options *PutOfferingInstanceOptions) SetVersion(version string) *PutOfferingInstanceOptions {
 	options.Version = core.StringPtr(version)
 	return options
 }
 
 // SetClusterID : Allow user to set ClusterID
-func (options *PutVersionInstanceOptions) SetClusterID(clusterID string) *PutVersionInstanceOptions {
+func (options *PutOfferingInstanceOptions) SetClusterID(clusterID string) *PutOfferingInstanceOptions {
 	options.ClusterID = core.StringPtr(clusterID)
 	return options
 }
 
 // SetClusterRegion : Allow user to set ClusterRegion
-func (options *PutVersionInstanceOptions) SetClusterRegion(clusterRegion string) *PutVersionInstanceOptions {
+func (options *PutOfferingInstanceOptions) SetClusterRegion(clusterRegion string) *PutOfferingInstanceOptions {
 	options.ClusterRegion = core.StringPtr(clusterRegion)
 	return options
 }
 
 // SetClusterNamespaces : Allow user to set ClusterNamespaces
-func (options *PutVersionInstanceOptions) SetClusterNamespaces(clusterNamespaces []string) *PutVersionInstanceOptions {
+func (options *PutOfferingInstanceOptions) SetClusterNamespaces(clusterNamespaces []string) *PutOfferingInstanceOptions {
 	options.ClusterNamespaces = clusterNamespaces
 	return options
 }
 
 // SetClusterAllNamespaces : Allow user to set ClusterAllNamespaces
-func (options *PutVersionInstanceOptions) SetClusterAllNamespaces(clusterAllNamespaces bool) *PutVersionInstanceOptions {
+func (options *PutOfferingInstanceOptions) SetClusterAllNamespaces(clusterAllNamespaces bool) *PutOfferingInstanceOptions {
 	options.ClusterAllNamespaces = core.BoolPtr(clusterAllNamespaces)
 	return options
 }
 
 // SetHeaders : Allow user to set Headers
-func (options *PutVersionInstanceOptions) SetHeaders(param map[string]string) *PutVersionInstanceOptions {
+func (options *PutOfferingInstanceOptions) SetHeaders(param map[string]string) *PutOfferingInstanceOptions {
 	options.Headers = param
 	return options
 }
@@ -13557,100 +13664,6 @@ func UnmarshalVersionEntitlement(m map[string]json.RawMessage, result interface{
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "image_repo_name", &obj.ImageRepoName)
-	if err != nil {
-		return
-	}
-	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
-	return
-}
-
-// VersionInstance : A version instance resource (provision instance of a catalog version).
-type VersionInstance struct {
-	// provisioned instance ID (part of the CRN).
-	ID *string `json:"id,omitempty"`
-
-	// url reference to this object.
-	URL *string `json:"url,omitempty"`
-
-	// platform CRN for this instance.
-	CRN *string `json:"crn,omitempty"`
-
-	// the label for this instance.
-	Label *string `json:"label,omitempty"`
-
-	// Catalog ID this instance was created from.
-	CatalogID *string `json:"catalog_id,omitempty"`
-
-	// Offering ID this instance was created from.
-	OfferingID *string `json:"offering_id,omitempty"`
-
-	// the format this instance has (helm, operator, ova...).
-	KindFormat *string `json:"kind_format,omitempty"`
-
-	// The version this instance was installed from (not version id).
-	Version *string `json:"version,omitempty"`
-
-	// Cluster ID.
-	ClusterID *string `json:"cluster_id,omitempty"`
-
-	// Cluster region (e.g., us-south).
-	ClusterRegion *string `json:"cluster_region,omitempty"`
-
-	// List of target namespaces to install into.
-	ClusterNamespaces []string `json:"cluster_namespaces,omitempty"`
-
-	// designate to install into all namespaces.
-	ClusterAllNamespaces *bool `json:"cluster_all_namespaces,omitempty"`
-}
-
-// UnmarshalVersionInstance unmarshals an instance of VersionInstance from the specified map of raw messages.
-func UnmarshalVersionInstance(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(VersionInstance)
-	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "url", &obj.URL)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "crn", &obj.CRN)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "label", &obj.Label)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "catalog_id", &obj.CatalogID)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "offering_id", &obj.OfferingID)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "kind_format", &obj.KindFormat)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "version", &obj.Version)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "cluster_id", &obj.ClusterID)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "cluster_region", &obj.ClusterRegion)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "cluster_namespaces", &obj.ClusterNamespaces)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "cluster_all_namespaces", &obj.ClusterAllNamespaces)
 	if err != nil {
 		return
 	}

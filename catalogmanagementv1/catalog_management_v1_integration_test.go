@@ -45,7 +45,6 @@ var _ = Describe(`CatalogManagementV1 Integration Tests (New)`, func() {
 		expectedShortDesc    = "test"
 		expectedURL          = "https://cm.globalcatalog.test.cloud.ibm.com/api/v1-beta/catalogs/%s"
 		expectedOfferingsURL = "https://cm.globalcatalog.test.cloud.ibm.com/api/v1-beta/catalogs/%s/offerings"
-		expectedAccount      = "67d27f28d43948b2b3bda9138f251a13"
 	)
 
 	var (
@@ -59,7 +58,9 @@ var _ = Describe(`CatalogManagementV1 Integration Tests (New)`, func() {
 		expectedLabel            = fmt.Sprintf("integration-test-%d", time.Now().Unix())
 		gitToken                 string
 		refreshToken             string
-		testVersionInstanceID    string
+		testOfferingInstanceID   string
+		targetAccountID          string
+		targetClusterID          string
 	)
 
 	var shouldSkipTest = func() {
@@ -88,6 +89,14 @@ var _ = Describe(`CatalogManagementV1 Integration Tests (New)`, func() {
 			gitToken = config["GIT_TOKEN"]
 			if serviceURL == "" {
 				Skip("Unable to load service URL configuration property, skipping tests")
+			}
+			targetAccountID = config["ACCOUNT_ID"]
+			if targetAccountID == "" {
+				Skip("Unable to load account ID configuration property, skipping tests")
+			}
+			targetClusterID = config["CLUSTER_ID"]
+			if targetClusterID == "" {
+				Skip("Unable to load cluster ID configuration property, skipping tests")
 			}
 
 			fmt.Fprintf(GinkgoWriter, "Service URL: %s\n", serviceURL)
@@ -261,7 +270,7 @@ var _ = Describe(`CatalogManagementV1 Integration Tests (New)`, func() {
 			Expect(*result.ShortDescription).To(Equal(expectedShortDesc))
 			Expect(*result.URL).To(Equal(fmt.Sprintf(expectedURL, *result.ID)))
 			Expect(*result.OfferingsURL).To(Equal(fmt.Sprintf(expectedOfferingsURL, *result.ID)))
-			Expect(*result.OwningAccount).To(Equal(expectedAccount))
+			Expect(*result.OwningAccount).To(Equal(targetAccountID))
 			Expect(*result.CatalogFilters.IncludeAll).To(BeFalse())
 			Expect(len(result.CatalogFilters.CategoryFilters)).To(BeZero())
 			Expect(result.CatalogFilters.IDFilters.Include).To(BeNil())
@@ -2062,86 +2071,93 @@ var _ = Describe(`CatalogManagementV1 Integration Tests (New)`, func() {
 			})
 		})
 	*/
-	Describe(`CreateVersionInstance - Create an offering version resource instance`, func() {
+	Describe(`CreateOfferingInstance - Create an offering instance`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
 		})
-		It(`CreateVersionInstance(createVersionInstanceOptions *CreateVersionInstanceOptions)`, func() {
+		It(`CreateOfferingInstance(createOfferingInstanceOptions *CreateOfferingInstanceOptions)`, func() {
 			Expect(testCatalogID).ToNot(BeEmpty())
 			Expect(testOfferingID).ToNot(BeEmpty())
 
-			versionInstanceOptions := catalogManagementService.NewCreateVersionInstanceOptions(refreshToken)
-			versionInstanceOptions.SetCatalogID(testCatalogID)
-			versionInstanceOptions.SetOfferingID(testOfferingID)
-			versionInstanceOptions.SetKindFormat("operator")
-			versionInstanceOptions.SetVersion("0.0.2")
-			versionInstanceOptions.SetClusterID("c07cn9h20vsge6l0e8o")
-			versionInstanceOptions.SetClusterRegion("us-south")
-			versionInstanceOptions.SetClusterNamespaces([]string{"sdk-test"})
+			offeringInstanceOptions := catalogManagementService.NewCreateOfferingInstanceOptions(refreshToken)
+			offeringInstanceOptions.SetCatalogID(testCatalogID)
+			offeringInstanceOptions.SetOfferingID(testOfferingID)
+			offeringInstanceOptions.SetKindFormat("operator")
+			offeringInstanceOptions.SetVersion("0.0.2")
+			offeringInstanceOptions.SetClusterID(targetClusterID)
+			offeringInstanceOptions.SetClusterRegion("us-south")
+			offeringInstanceOptions.SetClusterNamespaces([]string{"sdk-test"})
 
-			versionInstance, response, err := catalogManagementService.CreateVersionInstance(versionInstanceOptions)
+			offeringInstance, response, err := catalogManagementService.CreateOfferingInstance(offeringInstanceOptions)
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(202))
-			Expect(versionInstance).ToNot(BeNil())
-			fmt.Fprintf(GinkgoWriter, "CreateVersionInstance() result:\n%s\n", common.ToJSON(versionInstance))
+			Expect(offeringInstance).ToNot(BeNil())
+			fmt.Fprintf(GinkgoWriter, "CreateOfferingInstance() result:\n%s\n", common.ToJSON(offeringInstance))
 
-			Expect(versionInstance.ID).ToNot(BeNil())
-			testVersionInstanceID = *versionInstance.ID
-			Expect(testVersionInstanceID).ToNot(BeEmpty())
+			Expect(offeringInstance.ID).ToNot(BeNil())
+			testOfferingInstanceID = *offeringInstance.ID
+			Expect(testOfferingInstanceID).ToNot(BeEmpty())
 		})
 	})
-	Describe(`GetVersionInstance - Get Version Instrance`, func() {
+	Describe(`GetOfferingInstance - Get Offering Instrance`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
 		})
-		It(`GetVersionInstance(getVersionInstanceOptions *GetVersionInstanceOptions)`, func() {
-			Expect(testVersionInstanceID).ToNot(BeEmpty())
+		It(`GetOfferingInstance(getOfferingInstanceOptions *GetOfferingInstanceOptions)`, func() {
+			Expect(testOfferingInstanceID).ToNot(BeEmpty())
 
-			getVersionInstanceOptions := &catalogmanagementv1.GetVersionInstanceOptions{
-				InstanceIdentifier: &testVersionInstanceID,
+			getOfferingInstanceOptions := &catalogmanagementv1.GetOfferingInstanceOptions{
+				InstanceIdentifier: &testOfferingInstanceID,
 			}
 
-			versionInstance, response, err := catalogManagementService.GetVersionInstance(getVersionInstanceOptions)
+			offeringInstance, response, err := catalogManagementService.GetOfferingInstance(getOfferingInstanceOptions)
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
-			Expect(versionInstance).ToNot(BeNil())
-			fmt.Fprintf(GinkgoWriter, "GetVersionInstance() result:\n%s\n", common.ToJSON(versionInstance))
+			Expect(offeringInstance).ToNot(BeNil())
+			fmt.Fprintf(GinkgoWriter, "GetOfferingInstance() result:\n%s\n", common.ToJSON(offeringInstance))
 		})
 	})
 
-	Describe(`PutVersionInstance - Update Version Instance`, func() {
+	Describe(`PutOfferingInstance - Update Offering Instance`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
 		})
-		It(`PutVersionInstance(putVersionInstanceOptions *PutVersionInstanceOptions)`, func() {
-			Expect(testVersionInstanceID).ToNot(BeEmpty())
+		It(`PutOfferingInstance(putOfferingInstanceOptions *PutOfferingInstanceOptions)`, func() {
+			Expect(testOfferingInstanceID).ToNot(BeEmpty())
 
-			putVersionInstanceOptions := catalogManagementService.NewPutVersionInstanceOptions(testVersionInstanceID, refreshToken)
+			putOfferingInstanceOptions := catalogManagementService.NewPutOfferingInstanceOptions(testOfferingInstanceID, refreshToken)
+			putOfferingInstanceOptions.SetCatalogID(testCatalogID)
+			putOfferingInstanceOptions.SetOfferingID(testOfferingID)
+			putOfferingInstanceOptions.SetKindFormat("operator")
+			putOfferingInstanceOptions.SetVersion("0.0.2")
+			putOfferingInstanceOptions.SetClusterID(targetClusterID)
+			putOfferingInstanceOptions.SetClusterRegion("us-south")
+			putOfferingInstanceOptions.SetClusterNamespaces([]string{"sdk-test"})
 
-			versionInstance, response, err := catalogManagementService.PutVersionInstance(putVersionInstanceOptions)
+			offeringInstance, response, err := catalogManagementService.PutOfferingInstance(putOfferingInstanceOptions)
 
 			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(202))
-			Expect(versionInstance).ToNot(BeNil())
-			fmt.Fprintf(GinkgoWriter, "PutVersionInstance() result:\n%s\n", common.ToJSON(versionInstance))
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(offeringInstance).ToNot(BeNil())
+			fmt.Fprintf(GinkgoWriter, "PutOfferingInstance() result:\n%s\n", common.ToJSON(offeringInstance))
 		})
 	})
 
-	Describe(`DeleteVersionInstance - Delete a version instance`, func() {
+	Describe(`DeleteOfferingInstance - Delete an offering instance`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
 		})
-		It(`DeleteVersionInstance(deleteVersionInstanceOptions *DeleteVersionInstanceOptions)`, func() {
-			Expect(testVersionInstanceID).ToNot(BeEmpty())
+		It(`DeleteOfferingInstance(deleteOfferingInstanceOptions *DeleteOfferingInstanceOptions)`, func() {
+			Expect(testOfferingInstanceID).ToNot(BeEmpty())
 
-			deleteVersionInstanceOptions := catalogManagementService.NewDeleteVersionInstanceOptions(testVersionInstanceID)
+			deleteOfferingInstanceOptions := catalogManagementService.NewDeleteOfferingInstanceOptions(testOfferingInstanceID, refreshToken)
 
-			response, err := catalogManagementService.DeleteVersionInstance(deleteVersionInstanceOptions)
+			response, err := catalogManagementService.DeleteOfferingInstance(deleteOfferingInstanceOptions)
 
 			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(202))
+			Expect(response.StatusCode).To(Equal(200))
 
 		})
 	})
