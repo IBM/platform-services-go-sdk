@@ -1,7 +1,7 @@
 // +build integration
 
 /**
- * (C) Copyright IBM Corp. 2020.
+ * (C) Copyright IBM Corp. 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,7 +25,7 @@ import (
 	"os"
 	"time"
 
-	"github.com/IBM/go-sdk-core/v4/core"
+	"github.com/IBM/go-sdk-core/v5/core"
 	common "github.com/IBM/platform-services-go-sdk/common"
 	"github.com/IBM/platform-services-go-sdk/usermanagementv1"
 	. "github.com/onsi/ginkgo"
@@ -45,17 +45,18 @@ var _ = Describe(`UserManagementV1 Integration Tests`, func() {
 	const externalConfigFile = "../user_management.env"
 
 	var (
-		err                   error
-		userManagementService *usermanagementv1.UserManagementV1
-		alternateService      *usermanagementv1.UserManagementV1
-		serviceURL            string
-		config                map[string]string
-		deleteUserID          string
-		accountID             = "1aa434630b594b8a88b961a44c9eb2a9"
-		userID                = "IBMid-550009SDCP"
-		memberEmail           = "aminttest+linked_account_owner_11@mail.test.ibm.com"
-		viewerRoleID          = "crn:v1:bluemix:public:iam::::role:Viewer"
-		accessGroupID         = "AccessGroupId-51675919-2bd7-4ce3-86e4-5faff8065574"
+		err                        error
+		userManagementService      *usermanagementv1.UserManagementV1
+		userManagementAdminService *usermanagementv1.UserManagementV1
+		serviceURL                 string
+		config                     map[string]string
+		accountID                  string
+		userID                     string
+		memberEmail                string
+		viewerRoleID               string
+		accessGroupID              string
+
+		deleteUserID string
 	)
 
 	var shouldSkipTest = func() {
@@ -70,13 +71,33 @@ var _ = Describe(`UserManagementV1 Integration Tests`, func() {
 			}
 
 			os.Setenv("IBM_CREDENTIALS_FILE", externalConfigFile)
-			config, err = core.GetServiceProperties("USERMGMT1")
+			config, err = core.GetServiceProperties(usermanagementv1.DefaultServiceName)
 			if err != nil {
 				Skip("Error loading service properties, skipping tests: " + err.Error())
 			}
 			serviceURL = config["URL"]
 			if serviceURL == "" {
 				Skip("Unable to load service URL configuration property, skipping tests")
+			}
+			accountID = config["ACCOUNT_ID"]
+			if accountID == "" {
+				Skip("Unable to load account ID configuration property, skipping tests")
+			}
+			userID = config["USER_ID"]
+			if userID == "" {
+				Skip("Unable to load user ID configuration property, skipping tests")
+			}
+			memberEmail = config["MEMBER_EMAIL"]
+			if memberEmail == "" {
+				Skip("Unable to load member email configuration property, skipping tests")
+			}
+			viewerRoleID = config["VIEWER_ROLE_ID"]
+			if viewerRoleID == "" {
+				Skip("Unable to load viewer role ID configuration property, skipping tests")
+			}
+			accessGroupID = config["ACCESS_GROUP_ID"]
+			if accessGroupID == "" {
+				Skip("Unable to load access group ID configuration property, skipping tests")
 			}
 
 			fmt.Fprintf(GinkgoWriter, "Service URL: %s\n", serviceURL)
@@ -90,24 +111,24 @@ var _ = Describe(`UserManagementV1 Integration Tests`, func() {
 		})
 		It("Successfully construct the service client main instance", func() {
 			userManagementServiceOptions := &usermanagementv1.UserManagementV1Options{
-				ServiceName: "USERMGMT1",
+				ServiceName: usermanagementv1.DefaultServiceName,
 			}
 			userManagementService, err = usermanagementv1.NewUserManagementV1UsingExternalConfig(userManagementServiceOptions)
 			Expect(err).To(BeNil())
 			Expect(userManagementService).ToNot(BeNil())
 			Expect(userManagementService.Service.Options.URL).To(Equal(serviceURL))
-			core.SetLogger(core.NewLogger(core.LevelDebug, log.New(GinkgoWriter, "", log.LstdFlags)))
+			core.SetLogger(core.NewLogger(core.LevelDebug, log.New(GinkgoWriter, "", log.LstdFlags), log.New(GinkgoWriter, "", log.LstdFlags)))
 			userManagementService.EnableRetries(4, 30*time.Second)
 		})
-		It("Successfully construct the service client alternate instance", func() {
+		It("Successfully construct the service client admin instance", func() {
 			userManagementServiceOptions := &usermanagementv1.UserManagementV1Options{
-				ServiceName: "USERMGMT2",
+				ServiceName: "USER_MANAGEMENT_ADMIN",
 			}
-			alternateService, err = usermanagementv1.NewUserManagementV1UsingExternalConfig(userManagementServiceOptions)
+			userManagementAdminService, err = usermanagementv1.NewUserManagementV1UsingExternalConfig(userManagementServiceOptions)
 			Expect(err).To(BeNil())
-			Expect(alternateService).ToNot(BeNil())
-			Expect(alternateService.Service.Options.URL).To(Equal(serviceURL))
-			alternateService.EnableRetries(4, 30*time.Second)
+			Expect(userManagementAdminService).ToNot(BeNil())
+			Expect(userManagementAdminService.Service.Options.URL).To(Equal(serviceURL))
+			userManagementAdminService.EnableRetries(4, 30*time.Second)
 		})
 	})
 
@@ -230,7 +251,7 @@ var _ = Describe(`UserManagementV1 Integration Tests`, func() {
 				AccessGroups: []string{accessGroupID},
 			}
 
-			result, response, err := alternateService.InviteUsers(inviteUsersOptions)
+			result, response, err := userManagementAdminService.InviteUsers(inviteUsersOptions)
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(202))
 			Expect(result).ToNot(BeNil())
@@ -254,6 +275,7 @@ var _ = Describe(`UserManagementV1 Integration Tests`, func() {
 			}
 
 			result, response, err := userManagementService.GetUserProfile(getUserProfileOptions)
+
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(result).ToNot(BeNil())
@@ -291,8 +313,6 @@ var _ = Describe(`UserManagementV1 Integration Tests`, func() {
 				AccountID: &accountID,
 				IamID:     &deleteUserID,
 			}
-
-			// fmt.Println(*removeUserOptions)
 
 			response, err := userManagementService.RemoveUser(removeUserOptions)
 

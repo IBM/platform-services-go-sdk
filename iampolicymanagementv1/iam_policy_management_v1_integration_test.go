@@ -29,7 +29,7 @@ import (
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
 
-	"github.com/IBM/go-sdk-core/v4/core"
+	"github.com/IBM/go-sdk-core/v5/core"
 	common "github.com/IBM/platform-services-go-sdk/common"
 	"github.com/IBM/platform-services-go-sdk/iampolicymanagementv1"
 )
@@ -91,7 +91,7 @@ var _ = Describe("IAM Policy Management - Integration Tests", func() {
 		Expect(err).To(BeNil())
 		Expect(service).ToNot(BeNil())
 
-		core.SetLogger(core.NewLogger(core.LevelDebug, log.New(GinkgoWriter, "", log.LstdFlags)))
+		core.SetLogger(core.NewLogger(core.LevelDebug, log.New(GinkgoWriter, "", log.LstdFlags), log.New(GinkgoWriter, "", log.LstdFlags)))
 		service.EnableRetries(4, 30*time.Second)
 	})
 
@@ -107,9 +107,14 @@ var _ = Describe("IAM Policy Management - Integration Tests", func() {
 			accountIdResourceAttribute.Operator = core.StringPtr("stringEquals")
 
 			serviceNameResourceAttribute := new(iampolicymanagementv1.ResourceAttribute)
-			serviceNameResourceAttribute.Name = core.StringPtr("serviceName")
-			serviceNameResourceAttribute.Value = core.StringPtr(testServiceName)
+			serviceNameResourceAttribute.Name = core.StringPtr("serviceType")
+			serviceNameResourceAttribute.Value = core.StringPtr("service")
 			serviceNameResourceAttribute.Operator = core.StringPtr("stringEquals")
+
+			policyResourceTag := new(iampolicymanagementv1.ResourceTag)
+			policyResourceTag.Name = core.StringPtr("project")
+			policyResourceTag.Value = core.StringPtr("prototype")
+			policyResourceTag.Operator = core.StringPtr("stringEquals")
 
 			// Construct an instance of the SubjectAttribute model
 			subjectAttribute := new(iampolicymanagementv1.SubjectAttribute)
@@ -119,6 +124,7 @@ var _ = Describe("IAM Policy Management - Integration Tests", func() {
 			// Construct an instance of the PolicyResource model
 			policyResource := new(iampolicymanagementv1.PolicyResource)
 			policyResource.Attributes = []iampolicymanagementv1.ResourceAttribute{*accountIdResourceAttribute, *serviceNameResourceAttribute}
+			policyResource.Tags = []iampolicymanagementv1.ResourceTag{*policyResourceTag}
 
 			// Construct an instance of the PolicyRole model
 			policyRole := new(iampolicymanagementv1.PolicyRole)
@@ -182,8 +188,8 @@ var _ = Describe("IAM Policy Management - Integration Tests", func() {
 			accountIdResourceAttribute.Operator = core.StringPtr("stringEquals")
 
 			serviceNameResourceAttribute := new(iampolicymanagementv1.ResourceAttribute)
-			serviceNameResourceAttribute.Name = core.StringPtr("serviceName")
-			serviceNameResourceAttribute.Value = core.StringPtr(testServiceName)
+			serviceNameResourceAttribute.Name = core.StringPtr("serviceType")
+			serviceNameResourceAttribute.Value = core.StringPtr("service")
 			serviceNameResourceAttribute.Operator = core.StringPtr("stringEquals")
 
 			// Construct an instance of the SubjectAttribute model
@@ -191,9 +197,15 @@ var _ = Describe("IAM Policy Management - Integration Tests", func() {
 			subjectAttribute.Name = core.StringPtr("iam_id")
 			subjectAttribute.Value = core.StringPtr(testUserId)
 
+			policyResourceTag := new(iampolicymanagementv1.ResourceTag)
+			policyResourceTag.Name = core.StringPtr("project")
+			policyResourceTag.Value = core.StringPtr("prototype")
+			policyResourceTag.Operator = core.StringPtr("stringEquals")
+
 			// Construct an instance of the PolicyResource model
 			policyResource := new(iampolicymanagementv1.PolicyResource)
 			policyResource.Attributes = []iampolicymanagementv1.ResourceAttribute{*accountIdResourceAttribute, *serviceNameResourceAttribute}
+			policyResource.Tags = []iampolicymanagementv1.ResourceTag{*policyResourceTag}
 
 			// Construct an instance of the PolicyRole model
 			policyRole := new(iampolicymanagementv1.PolicyRole)

@@ -1,5 +1,5 @@
 /**
- * (C) Copyright IBM Corp. 2020.
+ * (C) Copyright IBM Corp. 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,7 +15,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-d753183b-20201209-163011
+ * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-9b90c5f5-20210129-120415
  */
  
 
@@ -26,7 +26,7 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"github.com/IBM/go-sdk-core/v4/core"
+	"github.com/IBM/go-sdk-core/v5/core"
 	common "github.com/IBM/platform-services-go-sdk/common"
 	"github.com/go-openapi/strfmt"
 	"net/http"
@@ -162,10 +162,10 @@ func (iamPolicyManagement *IamPolicyManagementV1) DisableRetries() {
 
 // ListPolicies : Get policies by attributes
 // Get policies and filter by attributes. While managing policies, you may want to retrieve policies in the account and
-// filter by attribute values. This can be done through query parameters. Currently, we only support the following
-// attributes: account_id, iam_id, access_group_id, type, and service_type. account_id is a required query parameter.
-// Only policies that have the specified attributes and that the caller has read access to are returned. If the caller
-// does not have read access to any policies an empty array is returned.
+// filter by attribute values. This can be done through query parameters. Currently, only the following attributes are
+// supported: account_id, iam_id, access_group_id, type, service_type, sort and format. account_id is a required query
+// parameter. Only policies that have the specified attributes and that the caller has read access to are returned. If
+// the caller does not have read access to any policies an empty array is returned.
 func (iamPolicyManagement *IamPolicyManagementV1) ListPolicies(listPoliciesOptions *ListPoliciesOptions) (result *PolicyList, response *core.DetailedResponse, err error) {
 	return iamPolicyManagement.ListPoliciesWithContext(context.Background(), listPoliciesOptions)
 }
@@ -214,6 +214,12 @@ func (iamPolicyManagement *IamPolicyManagementV1) ListPoliciesWithContext(ctx co
 	}
 	if listPoliciesOptions.ServiceType != nil {
 		builder.AddQuery("service_type", fmt.Sprint(*listPoliciesOptions.ServiceType))
+	}
+	if listPoliciesOptions.TagName != nil {
+		builder.AddQuery("tag_name", fmt.Sprint(*listPoliciesOptions.TagName))
+	}
+	if listPoliciesOptions.TagValue != nil {
+		builder.AddQuery("tag_value", fmt.Sprint(*listPoliciesOptions.TagValue))
 	}
 	if listPoliciesOptions.Sort != nil {
 		builder.AddQuery("sort", fmt.Sprint(*listPoliciesOptions.Sort))
@@ -880,22 +886,22 @@ func (iamPolicyManagement *IamPolicyManagementV1) DeleteRoleWithContext(ctx cont
 // CreatePolicyOptions : The CreatePolicy options.
 type CreatePolicyOptions struct {
 	// The policy type; either 'access' or 'authorization'.
-	Type *string `json:"type" validate:"required"`
+	Type *string `validate:"required"`
 
 	// The subjects associated with a policy.
-	Subjects []PolicySubject `json:"subjects" validate:"required"`
+	Subjects []PolicySubject `validate:"required"`
 
 	// A set of role cloud resource names (CRNs) granted by the policy.
-	Roles []PolicyRole `json:"roles" validate:"required"`
+	Roles []PolicyRole `validate:"required"`
 
 	// The resources associated with a policy.
-	Resources []PolicyResource `json:"resources" validate:"required"`
+	Resources []PolicyResource `validate:"required"`
 
 	// Customer-defined description.
-	Description *string `json:"description,omitempty"`
+	Description *string
 
 	// Translation language code.
-	AcceptLanguage *string `json:"Accept-Language,omitempty"`
+	AcceptLanguage *string
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -956,25 +962,25 @@ func (options *CreatePolicyOptions) SetHeaders(param map[string]string) *CreateP
 // CreateRoleOptions : The CreateRole options.
 type CreateRoleOptions struct {
 	// The display name of the role that is shown in the console.
-	DisplayName *string `json:"display_name" validate:"required"`
+	DisplayName *string `validate:"required"`
 
 	// The actions of the role.
-	Actions []string `json:"actions" validate:"required"`
+	Actions []string `validate:"required"`
 
 	// The name of the role that is used in the CRN. Can only be alphanumeric and has to be capitalized.
-	Name *string `json:"name" validate:"required"`
+	Name *string `validate:"required"`
 
 	// The account GUID.
-	AccountID *string `json:"account_id" validate:"required"`
+	AccountID *string `validate:"required"`
 
 	// The service name.
-	ServiceName *string `json:"service_name" validate:"required"`
+	ServiceName *string `validate:"required"`
 
 	// The description of the role.
-	Description *string `json:"description,omitempty"`
+	Description *string
 
 	// Translation language code.
-	AcceptLanguage *string `json:"Accept-Language,omitempty"`
+	AcceptLanguage *string
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -1042,7 +1048,7 @@ func (options *CreateRoleOptions) SetHeaders(param map[string]string) *CreateRol
 // DeletePolicyOptions : The DeletePolicy options.
 type DeletePolicyOptions struct {
 	// The policy ID.
-	PolicyID *string `json:"policy_id" validate:"required,ne="`
+	PolicyID *string `validate:"required,ne="`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -1070,7 +1076,7 @@ func (options *DeletePolicyOptions) SetHeaders(param map[string]string) *DeleteP
 // DeleteRoleOptions : The DeleteRole options.
 type DeleteRoleOptions struct {
 	// The role ID.
-	RoleID *string `json:"role_id" validate:"required,ne="`
+	RoleID *string `validate:"required,ne="`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -1098,7 +1104,7 @@ func (options *DeleteRoleOptions) SetHeaders(param map[string]string) *DeleteRol
 // GetPolicyOptions : The GetPolicy options.
 type GetPolicyOptions struct {
 	// The policy ID.
-	PolicyID *string `json:"policy_id" validate:"required,ne="`
+	PolicyID *string `validate:"required,ne="`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -1126,7 +1132,7 @@ func (options *GetPolicyOptions) SetHeaders(param map[string]string) *GetPolicyO
 // GetRoleOptions : The GetRole options.
 type GetRoleOptions struct {
 	// The role ID.
-	RoleID *string `json:"role_id" validate:"required,ne="`
+	RoleID *string `validate:"required,ne="`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -1154,28 +1160,34 @@ func (options *GetRoleOptions) SetHeaders(param map[string]string) *GetRoleOptio
 // ListPoliciesOptions : The ListPolicies options.
 type ListPoliciesOptions struct {
 	// The account GUID in which the policies belong to.
-	AccountID *string `json:"account_id" validate:"required"`
+	AccountID *string `validate:"required"`
 
 	// Translation language code.
-	AcceptLanguage *string `json:"Accept-Language,omitempty"`
+	AcceptLanguage *string
 
 	// The IAM ID used to identify the subject.
-	IamID *string `json:"iam_id,omitempty"`
+	IamID *string
 
 	// The access group id.
-	AccessGroupID *string `json:"access_group_id,omitempty"`
+	AccessGroupID *string
 
 	// The type of policy (access or authorization).
-	Type *string `json:"type,omitempty"`
+	Type *string
 
 	// The type of service.
-	ServiceType *string `json:"service_type,omitempty"`
+	ServiceType *string
+
+	// The name of the access management tag in the policy.
+	TagName *string
+
+	// The value of the access management tag in the policy.
+	TagValue *string
 
 	// Sort the results by any of the top level policy fields (id, created_at, created_by_id, last_modified_at, etc).
-	Sort *string `json:"sort,omitempty"`
+	Sort *string
 
 	// Include additional data per policy returned [include_last_permit, display].
-	Format *string `json:"format,omitempty"`
+	Format *string
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -1224,6 +1236,18 @@ func (options *ListPoliciesOptions) SetServiceType(serviceType string) *ListPoli
 	return options
 }
 
+// SetTagName : Allow user to set TagName
+func (options *ListPoliciesOptions) SetTagName(tagName string) *ListPoliciesOptions {
+	options.TagName = core.StringPtr(tagName)
+	return options
+}
+
+// SetTagValue : Allow user to set TagValue
+func (options *ListPoliciesOptions) SetTagValue(tagValue string) *ListPoliciesOptions {
+	options.TagValue = core.StringPtr(tagValue)
+	return options
+}
+
 // SetSort : Allow user to set Sort
 func (options *ListPoliciesOptions) SetSort(sort string) *ListPoliciesOptions {
 	options.Sort = core.StringPtr(sort)
@@ -1245,13 +1269,13 @@ func (options *ListPoliciesOptions) SetHeaders(param map[string]string) *ListPol
 // ListRolesOptions : The ListRoles options.
 type ListRolesOptions struct {
 	// Translation language code.
-	AcceptLanguage *string `json:"Accept-Language,omitempty"`
+	AcceptLanguage *string
 
 	// The account GUID in which the roles belong to.
-	AccountID *string `json:"account_id,omitempty"`
+	AccountID *string
 
 	// The name of service.
-	ServiceName *string `json:"service_name,omitempty"`
+	ServiceName *string
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -1289,26 +1313,26 @@ func (options *ListRolesOptions) SetHeaders(param map[string]string) *ListRolesO
 // UpdatePolicyOptions : The UpdatePolicy options.
 type UpdatePolicyOptions struct {
 	// The policy ID.
-	PolicyID *string `json:"policy_id" validate:"required,ne="`
+	PolicyID *string `validate:"required,ne="`
 
 	// The revision number for updating a policy and must match the ETag value of the existing policy. The Etag can be
 	// retrieved using the GET /v1/policies/{policy_id} API and looking at the ETag response header.
-	IfMatch *string `json:"If-Match" validate:"required"`
+	IfMatch *string `validate:"required"`
 
 	// The policy type; either 'access' or 'authorization'.
-	Type *string `json:"type" validate:"required"`
+	Type *string `validate:"required"`
 
 	// The subjects associated with a policy.
-	Subjects []PolicySubject `json:"subjects" validate:"required"`
+	Subjects []PolicySubject `validate:"required"`
 
 	// A set of role cloud resource names (CRNs) granted by the policy.
-	Roles []PolicyRole `json:"roles" validate:"required"`
+	Roles []PolicyRole `validate:"required"`
 
 	// The resources associated with a policy.
-	Resources []PolicyResource `json:"resources" validate:"required"`
+	Resources []PolicyResource `validate:"required"`
 
 	// Customer-defined description.
-	Description *string `json:"description,omitempty"`
+	Description *string
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -1377,20 +1401,20 @@ func (options *UpdatePolicyOptions) SetHeaders(param map[string]string) *UpdateP
 // UpdateRoleOptions : The UpdateRole options.
 type UpdateRoleOptions struct {
 	// The role ID.
-	RoleID *string `json:"role_id" validate:"required,ne="`
+	RoleID *string `validate:"required,ne="`
 
 	// The revision number for updating a role and must match the ETag value of the existing role. The Etag can be
 	// retrieved using the GET /v2/roles/{role_id} API and looking at the ETag response header.
-	IfMatch *string `json:"If-Match" validate:"required"`
+	IfMatch *string `validate:"required"`
 
 	// The display name of the role that is shown in the console.
-	DisplayName *string `json:"display_name,omitempty"`
+	DisplayName *string
 
 	// The description of the role.
-	Description *string `json:"description,omitempty"`
+	Description *string
 
 	// The actions of the role.
-	Actions []string `json:"actions,omitempty"`
+	Actions []string
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -1652,6 +1676,9 @@ func UnmarshalPolicyList(m map[string]json.RawMessage, result interface{}) (err 
 type PolicyResource struct {
 	// List of resource attributes.
 	Attributes []ResourceAttribute `json:"attributes,omitempty"`
+
+	// List of access management tags.
+	Tags []ResourceTag `json:"tags,omitempty"`
 }
 
 
@@ -1659,6 +1686,10 @@ type PolicyResource struct {
 func UnmarshalPolicyResource(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(PolicyResource)
 	err = core.UnmarshalModel(m, "attributes", &obj.Attributes, UnmarshalResourceAttribute)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "tags", &obj.Tags, UnmarshalResourceTag)
 	if err != nil {
 		return
 	}
@@ -1751,6 +1782,48 @@ func (*IamPolicyManagementV1) NewResourceAttribute(name string, value string) (m
 // UnmarshalResourceAttribute unmarshals an instance of ResourceAttribute from the specified map of raw messages.
 func UnmarshalResourceAttribute(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(ResourceAttribute)
+	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "value", &obj.Value)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "operator", &obj.Operator)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// ResourceTag : A tag associated with a resource.
+type ResourceTag struct {
+	// The name of an access management tag.
+	Name *string `json:"name" validate:"required"`
+
+	// The value of an access management tag.
+	Value *string `json:"value" validate:"required"`
+
+	// The operator of an access management tag.
+	Operator *string `json:"operator,omitempty"`
+}
+
+
+// NewResourceTag : Instantiate ResourceTag (Generic Model Constructor)
+func (*IamPolicyManagementV1) NewResourceTag(name string, value string) (model *ResourceTag, err error) {
+	model = &ResourceTag{
+		Name: core.StringPtr(name),
+		Value: core.StringPtr(value),
+	}
+	err = core.ValidateStruct(model, "required parameters")
+	return
+}
+
+// UnmarshalResourceTag unmarshals an instance of ResourceTag from the specified map of raw messages.
+func UnmarshalResourceTag(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(ResourceTag)
 	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
 	if err != nil {
 		return
