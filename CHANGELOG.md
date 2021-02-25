@@ -1,3 +1,10 @@
+## [0.17.15](https://github.com/IBM/platform-services-go-sdk/compare/v0.17.14...v0.17.15) (2021-02-25)
+
+
+### Bug Fixes
+
+* **IAM Policy Management:** re-gen service and add examples after recent API changes ([#77](https://github.com/IBM/platform-services-go-sdk/issues/77)) ([6ae8d2d](https://github.com/IBM/platform-services-go-sdk/commit/6ae8d2d4c4dac98199b6b256e8285a502bd7e2e5))
+
 ## [0.17.14](https://github.com/IBM/platform-services-go-sdk/compare/v0.17.13...v0.17.14) (2021-02-25)
 
 
