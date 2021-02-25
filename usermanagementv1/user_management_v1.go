@@ -1,5 +1,5 @@
 /**
- * (C) Copyright IBM Corp. 2020.
+ * (C) Copyright IBM Corp. 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,9 +15,8 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-d753183b-20201209-163011
+ * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-7b3ab37f-20210218-191409
  */
- 
 
 // Package usermanagementv1 : Operations and models for the UserManagementV1 service
 package usermanagementv1
@@ -26,11 +25,12 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"github.com/IBM/go-sdk-core/v4/core"
-	common "github.com/IBM/platform-services-go-sdk/common"
 	"net/http"
 	"reflect"
 	"time"
+
+	"github.com/IBM/go-sdk-core/v5/core"
+	common "github.com/IBM/platform-services-go-sdk/common"
 )
 
 // UserManagementV1 : Manage the lifecycle of your users using User Management APIs.
@@ -336,7 +336,7 @@ func (userManagement *UserManagementV1) GetUserProfileWithContext(ctx context.Co
 
 	pathParamsMap := map[string]string{
 		"account_id": *getUserProfileOptions.AccountID,
-		"iam_id": *getUserProfileOptions.IamID,
+		"iam_id":     *getUserProfileOptions.IamID,
 	}
 
 	builder := core.NewRequestBuilder(core.GET)
@@ -400,7 +400,7 @@ func (userManagement *UserManagementV1) UpdateUserProfileWithContext(ctx context
 
 	pathParamsMap := map[string]string{
 		"account_id": *updateUserProfileOptions.AccountID,
-		"iam_id": *updateUserProfileOptions.IamID,
+		"iam_id":     *updateUserProfileOptions.IamID,
 	}
 
 	builder := core.NewRequestBuilder(core.PATCH)
@@ -480,7 +480,7 @@ func (userManagement *UserManagementV1) RemoveUserWithContext(ctx context.Contex
 
 	pathParamsMap := map[string]string{
 		"account_id": *removeUserOptions.AccountID,
-		"iam_id": *removeUserOptions.IamID,
+		"iam_id":     *removeUserOptions.IamID,
 	}
 
 	builder := core.NewRequestBuilder(core.DELETE)
@@ -536,7 +536,7 @@ func (userManagement *UserManagementV1) GetUserSettingsWithContext(ctx context.C
 
 	pathParamsMap := map[string]string{
 		"account_id": *getUserSettingsOptions.AccountID,
-		"iam_id": *getUserSettingsOptions.IamID,
+		"iam_id":     *getUserSettingsOptions.IamID,
 	}
 
 	builder := core.NewRequestBuilder(core.GET)
@@ -598,7 +598,7 @@ func (userManagement *UserManagementV1) UpdateUserSettingsWithContext(ctx contex
 
 	pathParamsMap := map[string]string{
 		"account_id": *updateUserSettingsOptions.AccountID,
-		"iam_id": *updateUserSettingsOptions.IamID,
+		"iam_id":     *updateUserSettingsOptions.IamID,
 	}
 
 	builder := core.NewRequestBuilder(core.PATCH)
@@ -650,10 +650,10 @@ func (userManagement *UserManagementV1) UpdateUserSettingsWithContext(ctx contex
 // GetUserProfileOptions : The GetUserProfile options.
 type GetUserProfileOptions struct {
 	// The account ID.
-	AccountID *string `json:"account_id" validate:"required,ne="`
+	AccountID *string `validate:"required,ne="`
 
 	// The user's IAM ID.
-	IamID *string `json:"iam_id" validate:"required,ne="`
+	IamID *string `validate:"required,ne="`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -663,7 +663,7 @@ type GetUserProfileOptions struct {
 func (*UserManagementV1) NewGetUserProfileOptions(accountID string, iamID string) *GetUserProfileOptions {
 	return &GetUserProfileOptions{
 		AccountID: core.StringPtr(accountID),
-		IamID: core.StringPtr(iamID),
+		IamID:     core.StringPtr(iamID),
 	}
 }
 
@@ -688,10 +688,10 @@ func (options *GetUserProfileOptions) SetHeaders(param map[string]string) *GetUs
 // GetUserSettingsOptions : The GetUserSettings options.
 type GetUserSettingsOptions struct {
 	// The account ID.
-	AccountID *string `json:"account_id" validate:"required,ne="`
+	AccountID *string `validate:"required,ne="`
 
 	// The user's IAM ID.
-	IamID *string `json:"iam_id" validate:"required,ne="`
+	IamID *string `validate:"required,ne="`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -701,7 +701,7 @@ type GetUserSettingsOptions struct {
 func (*UserManagementV1) NewGetUserSettingsOptions(accountID string, iamID string) *GetUserSettingsOptions {
 	return &GetUserSettingsOptions{
 		AccountID: core.StringPtr(accountID),
-		IamID: core.StringPtr(iamID),
+		IamID:     core.StringPtr(iamID),
 	}
 }
 
@@ -726,16 +726,16 @@ func (options *GetUserSettingsOptions) SetHeaders(param map[string]string) *GetU
 // InviteUsersOptions : The InviteUsers options.
 type InviteUsersOptions struct {
 	// The account ID.
-	AccountID *string `json:"account_id" validate:"required,ne="`
+	AccountID *string `validate:"required,ne="`
 
 	// A list of users to be invited.
-	Users []InviteUser `json:"users,omitempty"`
+	Users []InviteUser
 
 	// A list of IAM policies.
-	IamPolicy []InviteUserIamPolicy `json:"iam_policy,omitempty"`
+	IamPolicy []InviteUserIamPolicy
 
 	// A list of access groups.
-	AccessGroups []string `json:"access_groups,omitempty"`
+	AccessGroups []string
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -790,7 +790,6 @@ type InvitedUser struct {
 	State *string `json:"state,omitempty"`
 }
 
-
 // UnmarshalInvitedUser unmarshals an instance of InvitedUser from the specified map of raw messages.
 func UnmarshalInvitedUser(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(InvitedUser)
@@ -816,7 +815,6 @@ type InvitedUserList struct {
 	Resources []InvitedUser `json:"resources,omitempty"`
 }
 
-
 // UnmarshalInvitedUserList unmarshals an instance of InvitedUserList from the specified map of raw messages.
 func UnmarshalInvitedUserList(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(InvitedUserList)
@@ -831,17 +829,17 @@ func UnmarshalInvitedUserList(m map[string]json.RawMessage, result interface{}) 
 // ListUsersOptions : The ListUsers options.
 type ListUsersOptions struct {
 	// The account ID.
-	AccountID *string `json:"account_id" validate:"required,ne="`
+	AccountID *string `validate:"required,ne="`
 
 	// The state of the user.
-	State *string `json:"state,omitempty"`
+	State *string
 
 	// The number of results to be returned.
-	Limit *int64 `json:"limit,omitempty"`
+	Limit *int64
 
 	// An optional token that indicates the beginning of the page of results to be returned. If omitted, the first page of
 	// results is returned. This value is obtained from the 'next_url' field of the operation response.
-	Start *string `json:"_start,omitempty"`
+	Start *string
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -887,10 +885,10 @@ func (options *ListUsersOptions) SetHeaders(param map[string]string) *ListUsersO
 // RemoveUserOptions : The RemoveUser options.
 type RemoveUserOptions struct {
 	// The account ID.
-	AccountID *string `json:"account_id" validate:"required,ne="`
+	AccountID *string `validate:"required,ne="`
 
 	// The user's IAM ID.
-	IamID *string `json:"iam_id" validate:"required,ne="`
+	IamID *string `validate:"required,ne="`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -900,7 +898,7 @@ type RemoveUserOptions struct {
 func (*UserManagementV1) NewRemoveUserOptions(accountID string, iamID string) *RemoveUserOptions {
 	return &RemoveUserOptions{
 		AccountID: core.StringPtr(accountID),
-		IamID: core.StringPtr(iamID),
+		IamID:     core.StringPtr(iamID),
 	}
 }
 
@@ -925,32 +923,32 @@ func (options *RemoveUserOptions) SetHeaders(param map[string]string) *RemoveUse
 // UpdateUserProfileOptions : The UpdateUserProfile options.
 type UpdateUserProfileOptions struct {
 	// The account ID.
-	AccountID *string `json:"account_id" validate:"required,ne="`
+	AccountID *string `validate:"required,ne="`
 
 	// The user's IAM ID.
-	IamID *string `json:"iam_id" validate:"required,ne="`
+	IamID *string `validate:"required,ne="`
 
 	// The first name of the user.
-	Firstname *string `json:"firstname,omitempty"`
+	Firstname *string
 
 	// The last name of the user.
-	Lastname *string `json:"lastname,omitempty"`
+	Lastname *string
 
 	// The state of the user. Possible values are `PROCESSING`, `PENDING`, `ACTIVE`, `DISABLED_CLASSIC_INFRASTRUCTURE`, and
 	// `VPN_ONLY`.
-	State *string `json:"state,omitempty"`
+	State *string
 
 	// The email address of the user.
-	Email *string `json:"email,omitempty"`
+	Email *string
 
 	// The phone number of the user.
-	Phonenumber *string `json:"phonenumber,omitempty"`
+	Phonenumber *string
 
 	// The alternative phone number of the user.
-	Altphonenumber *string `json:"altphonenumber,omitempty"`
+	Altphonenumber *string
 
 	// A link to a photo of the user.
-	Photo *string `json:"photo,omitempty"`
+	Photo *string
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -960,7 +958,7 @@ type UpdateUserProfileOptions struct {
 func (*UserManagementV1) NewUpdateUserProfileOptions(accountID string, iamID string) *UpdateUserProfileOptions {
 	return &UpdateUserProfileOptions{
 		AccountID: core.StringPtr(accountID),
-		IamID: core.StringPtr(iamID),
+		IamID:     core.StringPtr(iamID),
 	}
 }
 
@@ -1027,22 +1025,22 @@ func (options *UpdateUserProfileOptions) SetHeaders(param map[string]string) *Up
 // UpdateUserSettingsOptions : The UpdateUserSettings options.
 type UpdateUserSettingsOptions struct {
 	// The account ID.
-	AccountID *string `json:"account_id" validate:"required,ne="`
+	AccountID *string `validate:"required,ne="`
 
 	// The user's IAM ID.
-	IamID *string `json:"iam_id" validate:"required,ne="`
+	IamID *string `validate:"required,ne="`
 
 	// The console UI language. By default, this field is empty.
-	Language *string `json:"language,omitempty"`
+	Language *string
 
 	// The language for email and phone notifications. By default, this field is empty.
-	NotificationLanguage *string `json:"notification_language,omitempty"`
+	NotificationLanguage *string
 
 	// A comma-separated list of IP addresses.
-	AllowedIPAddresses *string `json:"allowed_ip_addresses,omitempty"`
+	AllowedIPAddresses *string
 
 	// Whether user managed login is enabled. The default value is `false`.
-	SelfManage *bool `json:"self_manage,omitempty"`
+	SelfManage *bool
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -1052,7 +1050,7 @@ type UpdateUserSettingsOptions struct {
 func (*UserManagementV1) NewUpdateUserSettingsOptions(accountID string, iamID string) *UpdateUserSettingsOptions {
 	return &UpdateUserSettingsOptions{
 		AccountID: core.StringPtr(accountID),
-		IamID: core.StringPtr(iamID),
+		IamID:     core.StringPtr(iamID),
 	}
 }
 
@@ -1115,7 +1113,6 @@ type UserList struct {
 	// A list of users in the account.
 	Resources []UserProfile `json:"resources,omitempty"`
 }
-
 
 // UnmarshalUserList unmarshals an instance of UserList from the specified map of raw messages.
 func UnmarshalUserList(m map[string]json.RawMessage, result interface{}) (err error) {
@@ -1183,7 +1180,6 @@ type UserProfile struct {
 	// An alphanumeric value identifying the account ID.
 	AccountID *string `json:"account_id,omitempty"`
 }
-
 
 // UnmarshalUserProfile unmarshals an instance of UserProfile from the specified map of raw messages.
 func UnmarshalUserProfile(m map[string]json.RawMessage, result interface{}) (err error) {
@@ -1255,7 +1251,6 @@ type UserSettings struct {
 	SelfManage *bool `json:"self_manage,omitempty"`
 }
 
-
 // UnmarshalUserSettings unmarshals an instance of UserSettings from the specified map of raw messages.
 func UnmarshalUserSettings(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(UserSettings)
@@ -1288,7 +1283,6 @@ type Attribute struct {
 	Value *string `json:"value,omitempty"`
 }
 
-
 // UnmarshalAttribute unmarshals an instance of Attribute from the specified map of raw messages.
 func UnmarshalAttribute(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(Attribute)
@@ -1312,7 +1306,6 @@ type InviteUser struct {
 	// The account role of the user to be invited.
 	AccountRole *string `json:"account_role,omitempty"`
 }
-
 
 // UnmarshalInviteUser unmarshals an instance of InviteUser from the specified map of raw messages.
 func UnmarshalInviteUser(m map[string]json.RawMessage, result interface{}) (err error) {
@@ -1340,7 +1333,6 @@ type InviteUserIamPolicy struct {
 	// A list of resources.
 	Resources []Resource `json:"resources,omitempty"`
 }
-
 
 // NewInviteUserIamPolicy : Instantiate InviteUserIamPolicy (Generic Model Constructor)
 func (*UserManagementV1) NewInviteUserIamPolicy(typeVar string) (model *InviteUserIamPolicy, err error) {
@@ -1376,7 +1368,6 @@ type Resource struct {
 	Attributes []Attribute `json:"attributes,omitempty"`
 }
 
-
 // UnmarshalResource unmarshals an instance of Resource from the specified map of raw messages.
 func UnmarshalResource(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(Resource)
@@ -1393,7 +1384,6 @@ type Role struct {
 	// An alphanumeric value identifying the origin.
 	RoleID *string `json:"role_id,omitempty"`
 }
-
 
 // UnmarshalRole unmarshals an instance of Role from the specified map of raw messages.
 func UnmarshalRole(m map[string]json.RawMessage, result interface{}) (err error) {

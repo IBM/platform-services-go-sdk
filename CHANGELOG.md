@@ -1,3 +1,10 @@
+## [0.17.14](https://github.com/IBM/platform-services-go-sdk/compare/v0.17.13...v0.17.14) (2021-02-25)
+
+
+### Bug Fixes
+
+* **User Management:** regen service and add examples ([#82](https://github.com/IBM/platform-services-go-sdk/issues/82)) ([ddfe34d](https://github.com/IBM/platform-services-go-sdk/commit/ddfe34d44d8f452bbc32ee2338094034b37692e1))
+
 ## [0.17.13](https://github.com/IBM/platform-services-go-sdk/compare/v0.17.12...v0.17.13) (2021-02-23)
 
 
