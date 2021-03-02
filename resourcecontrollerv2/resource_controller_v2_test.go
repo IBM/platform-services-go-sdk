@@ -1,5 +1,5 @@
 /**
- * (C) Copyright IBM Corp. 2020.
+ * (C) Copyright IBM Corp. 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,7 +20,7 @@ import (
 	"bytes"
 	"context"
 	"fmt"
-	"github.com/IBM/go-sdk-core/v4/core"
+	"github.com/IBM/go-sdk-core/v5/core"
 	"github.com/IBM/platform-services-go-sdk/resourcecontrollerv2"
 	"github.com/go-openapi/strfmt"
 	. "github.com/onsi/ginkgo"
@@ -174,25 +174,15 @@ var _ = Describe(`ResourceControllerV2`, func() {
 					Expect(req.URL.EscapedPath()).To(Equal(listResourceInstancesPath))
 					Expect(req.Method).To(Equal("GET"))
 					Expect(req.URL.Query()["guid"]).To(Equal([]string{"testString"}))
-
 					Expect(req.URL.Query()["name"]).To(Equal([]string{"testString"}))
-
 					Expect(req.URL.Query()["resource_group_id"]).To(Equal([]string{"testString"}))
-
 					Expect(req.URL.Query()["resource_id"]).To(Equal([]string{"testString"}))
-
 					Expect(req.URL.Query()["resource_plan_id"]).To(Equal([]string{"testString"}))
-
 					Expect(req.URL.Query()["type"]).To(Equal([]string{"testString"}))
-
 					Expect(req.URL.Query()["sub_type"]).To(Equal([]string{"testString"}))
-
 					Expect(req.URL.Query()["limit"]).To(Equal([]string{"testString"}))
-
 					Expect(req.URL.Query()["updated_from"]).To(Equal([]string{"2019-01-08T00:00:00.000Z"}))
-
 					Expect(req.URL.Query()["updated_to"]).To(Equal([]string{"2019-01-08T00:00:00.000Z"}))
-
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
 					fmt.Fprintf(res, `} this is not valid json {`)
@@ -240,10 +230,8 @@ var _ = Describe(`ResourceControllerV2`, func() {
 
 	Describe(`ListResourceInstances(listResourceInstancesOptions *ListResourceInstancesOptions)`, func() {
 		listResourceInstancesPath := "/v2/resource_instances"
-		var serverSleepTime time.Duration
-		Context(`Using mock server endpoint`, func() {
+		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
-				serverSleepTime = 0
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
@@ -252,32 +240,95 @@ var _ = Describe(`ResourceControllerV2`, func() {
 					Expect(req.Method).To(Equal("GET"))
 
 					Expect(req.URL.Query()["guid"]).To(Equal([]string{"testString"}))
-
 					Expect(req.URL.Query()["name"]).To(Equal([]string{"testString"}))
-
 					Expect(req.URL.Query()["resource_group_id"]).To(Equal([]string{"testString"}))
-
 					Expect(req.URL.Query()["resource_id"]).To(Equal([]string{"testString"}))
-
 					Expect(req.URL.Query()["resource_plan_id"]).To(Equal([]string{"testString"}))
-
 					Expect(req.URL.Query()["type"]).To(Equal([]string{"testString"}))
-
 					Expect(req.URL.Query()["sub_type"]).To(Equal([]string{"testString"}))
-
 					Expect(req.URL.Query()["limit"]).To(Equal([]string{"testString"}))
-
 					Expect(req.URL.Query()["updated_from"]).To(Equal([]string{"2019-01-08T00:00:00.000Z"}))
-
 					Expect(req.URL.Query()["updated_to"]).To(Equal([]string{"2019-01-08T00:00:00.000Z"}))
-
 					// Sleep a short time to support a timeout test
-					time.Sleep(serverSleepTime)
+					time.Sleep(100 * time.Millisecond)
 
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"next_url": "NextURL", "resources": [{"id": "ID", "guid": "GUID", "crn": "CRN", "url": "URL", "name": "Name", "account_id": "AccountID", "resource_group_id": "ResourceGroupID", "resource_group_crn": "ResourceGroupCRN", "resource_id": "ResourceID", "resource_plan_id": "ResourcePlanID", "target_crn": "TargetCRN", "parameters": {"mapKey": "anyValue"}, "state": "State", "type": "Type", "sub_type": "SubType", "allow_cleanup": true, "locked": true, "last_operation": {"mapKey": "anyValue"}, "dashboard_url": "DashboardURL", "plan_history": [{"resource_plan_id": "ResourcePlanID", "start_date": "2019-01-01T12:00:00"}], "resource_aliases_url": "ResourceAliasesURL", "resource_bindings_url": "ResourceBindingsURL", "resource_keys_url": "ResourceKeysURL", "created_at": "2019-01-01T12:00:00", "created_by": "CreatedBy", "updated_at": "2019-01-01T12:00:00", "updated_by": "UpdatedBy", "deleted_at": "2019-01-01T12:00:00", "deleted_by": "DeletedBy", "scheduled_reclaim_at": "2019-01-01T12:00:00", "scheduled_reclaim_by": "ScheduledReclaimBy", "restored_at": "2019-01-01T12:00:00", "restored_by": "RestoredBy"}], "rows_count": 9}`)
+					fmt.Fprintf(res, "%s", `{"next_url": "NextURL", "resources": [{"id": "ID", "guid": "GUID", "crn": "CRN", "url": "URL", "name": "Name", "account_id": "AccountID", "resource_group_id": "ResourceGroupID", "resource_group_crn": "ResourceGroupCRN", "resource_id": "ResourceID", "resource_plan_id": "ResourcePlanID", "target_crn": "TargetCRN", "parameters": {"mapKey": "anyValue"}, "state": "State", "type": "Type", "sub_type": "SubType", "allow_cleanup": true, "locked": true, "last_operation": {"mapKey": "anyValue"}, "dashboard_url": "DashboardURL", "plan_history": [{"resource_plan_id": "ResourcePlanID", "start_date": "2019-01-01T12:00:00.000Z", "requestor_id": "RequestorID"}], "extensions": {"mapKey": "anyValue"}, "resource_aliases_url": "ResourceAliasesURL", "resource_bindings_url": "ResourceBindingsURL", "resource_keys_url": "ResourceKeysURL", "created_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "updated_at": "2019-01-01T12:00:00.000Z", "updated_by": "UpdatedBy", "deleted_at": "2019-01-01T12:00:00.000Z", "deleted_by": "DeletedBy", "scheduled_reclaim_at": "2019-01-01T12:00:00.000Z", "scheduled_reclaim_by": "ScheduledReclaimBy", "restored_at": "2019-01-01T12:00:00.000Z", "restored_by": "RestoredBy"}], "rows_count": 9}`)
+				}))
+			})
+			It(`Invoke ListResourceInstances successfully with retries`, func() {
+				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(resourceControllerService).ToNot(BeNil())
+				resourceControllerService.EnableRetries(0, 0)
+
+				// Construct an instance of the ListResourceInstancesOptions model
+				listResourceInstancesOptionsModel := new(resourcecontrollerv2.ListResourceInstancesOptions)
+				listResourceInstancesOptionsModel.GUID = core.StringPtr("testString")
+				listResourceInstancesOptionsModel.Name = core.StringPtr("testString")
+				listResourceInstancesOptionsModel.ResourceGroupID = core.StringPtr("testString")
+				listResourceInstancesOptionsModel.ResourceID = core.StringPtr("testString")
+				listResourceInstancesOptionsModel.ResourcePlanID = core.StringPtr("testString")
+				listResourceInstancesOptionsModel.Type = core.StringPtr("testString")
+				listResourceInstancesOptionsModel.SubType = core.StringPtr("testString")
+				listResourceInstancesOptionsModel.Limit = core.StringPtr("testString")
+				listResourceInstancesOptionsModel.UpdatedFrom = core.StringPtr("2019-01-08T00:00:00.000Z")
+				listResourceInstancesOptionsModel.UpdatedTo = core.StringPtr("2019-01-08T00:00:00.000Z")
+				listResourceInstancesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := resourceControllerService.ListResourceInstancesWithContext(ctx, listResourceInstancesOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				resourceControllerService.DisableRetries()
+				result, response, operationErr := resourceControllerService.ListResourceInstances(listResourceInstancesOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = resourceControllerService.ListResourceInstancesWithContext(ctx, listResourceInstancesOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(listResourceInstancesPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					Expect(req.URL.Query()["guid"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["name"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["resource_group_id"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["resource_id"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["resource_plan_id"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["type"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["sub_type"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["limit"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["updated_from"]).To(Equal([]string{"2019-01-08T00:00:00.000Z"}))
+					Expect(req.URL.Query()["updated_to"]).To(Equal([]string{"2019-01-08T00:00:00.000Z"}))
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"next_url": "NextURL", "resources": [{"id": "ID", "guid": "GUID", "crn": "CRN", "url": "URL", "name": "Name", "account_id": "AccountID", "resource_group_id": "ResourceGroupID", "resource_group_crn": "ResourceGroupCRN", "resource_id": "ResourceID", "resource_plan_id": "ResourcePlanID", "target_crn": "TargetCRN", "parameters": {"mapKey": "anyValue"}, "state": "State", "type": "Type", "sub_type": "SubType", "allow_cleanup": true, "locked": true, "last_operation": {"mapKey": "anyValue"}, "dashboard_url": "DashboardURL", "plan_history": [{"resource_plan_id": "ResourcePlanID", "start_date": "2019-01-01T12:00:00.000Z", "requestor_id": "RequestorID"}], "extensions": {"mapKey": "anyValue"}, "resource_aliases_url": "ResourceAliasesURL", "resource_bindings_url": "ResourceBindingsURL", "resource_keys_url": "ResourceKeysURL", "created_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "updated_at": "2019-01-01T12:00:00.000Z", "updated_by": "UpdatedBy", "deleted_at": "2019-01-01T12:00:00.000Z", "deleted_by": "DeletedBy", "scheduled_reclaim_at": "2019-01-01T12:00:00.000Z", "scheduled_reclaim_by": "ScheduledReclaimBy", "restored_at": "2019-01-01T12:00:00.000Z", "restored_by": "RestoredBy"}], "rows_count": 9}`)
 				}))
 			})
 			It(`Invoke ListResourceInstances successfully`, func() {
@@ -287,7 +338,6 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				})
 				Expect(serviceErr).To(BeNil())
 				Expect(resourceControllerService).ToNot(BeNil())
-				resourceControllerService.EnableRetries(0, 0)
 
 				// Invoke operation with nil options model (negative test)
 				result, response, operationErr := resourceControllerService.ListResourceInstances(nil)
@@ -315,30 +365,6 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
 
-				// Invoke operation with a Context to test a timeout error
-				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc()
-				serverSleepTime = 100 * time.Millisecond
-				_, _, operationErr = resourceControllerService.ListResourceInstancesWithContext(ctx, listResourceInstancesOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-				serverSleepTime = time.Duration(0)
-
-				// Disable retries and test again
-				resourceControllerService.DisableRetries()
-				result, response, operationErr = resourceControllerService.ListResourceInstances(listResourceInstancesOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).ToNot(BeNil())
-
-				// Re-test the timeout error with retries disabled
-				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc2()
-				serverSleepTime = 100 * time.Millisecond
-				_, _, operationErr = resourceControllerService.ListResourceInstancesWithContext(ctx, listResourceInstancesOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-				serverSleepTime = time.Duration(0)
 			})
 			It(`Invoke ListResourceInstances with error: Operation request error`, func() {
 				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
@@ -432,10 +458,8 @@ var _ = Describe(`ResourceControllerV2`, func() {
 
 	Describe(`CreateResourceInstance(createResourceInstanceOptions *CreateResourceInstanceOptions)`, func() {
 		createResourceInstancePath := "/v2/resource_instances"
-		var serverSleepTime time.Duration
-		Context(`Using mock server endpoint`, func() {
+		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
-				serverSleepTime = 0
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
@@ -462,12 +486,91 @@ var _ = Describe(`ResourceControllerV2`, func() {
 					Expect(req.Header["Entity-Lock"]).ToNot(BeNil())
 					Expect(req.Header["Entity-Lock"][0]).To(Equal(fmt.Sprintf("%v", true)))
 					// Sleep a short time to support a timeout test
-					time.Sleep(serverSleepTime)
+					time.Sleep(100 * time.Millisecond)
 
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "guid": "GUID", "crn": "CRN", "url": "URL", "name": "Name", "account_id": "AccountID", "resource_group_id": "ResourceGroupID", "resource_group_crn": "ResourceGroupCRN", "resource_id": "ResourceID", "resource_plan_id": "ResourcePlanID", "target_crn": "TargetCRN", "parameters": {"mapKey": "anyValue"}, "state": "State", "type": "Type", "sub_type": "SubType", "allow_cleanup": true, "locked": true, "last_operation": {"mapKey": "anyValue"}, "dashboard_url": "DashboardURL", "plan_history": [{"resource_plan_id": "ResourcePlanID", "start_date": "2019-01-01T12:00:00"}], "resource_aliases_url": "ResourceAliasesURL", "resource_bindings_url": "ResourceBindingsURL", "resource_keys_url": "ResourceKeysURL", "created_at": "2019-01-01T12:00:00", "created_by": "CreatedBy", "updated_at": "2019-01-01T12:00:00", "updated_by": "UpdatedBy", "deleted_at": "2019-01-01T12:00:00", "deleted_by": "DeletedBy", "scheduled_reclaim_at": "2019-01-01T12:00:00", "scheduled_reclaim_by": "ScheduledReclaimBy", "restored_at": "2019-01-01T12:00:00", "restored_by": "RestoredBy"}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "guid": "GUID", "crn": "CRN", "url": "URL", "name": "Name", "account_id": "AccountID", "resource_group_id": "ResourceGroupID", "resource_group_crn": "ResourceGroupCRN", "resource_id": "ResourceID", "resource_plan_id": "ResourcePlanID", "target_crn": "TargetCRN", "parameters": {"mapKey": "anyValue"}, "state": "State", "type": "Type", "sub_type": "SubType", "allow_cleanup": true, "locked": true, "last_operation": {"mapKey": "anyValue"}, "dashboard_url": "DashboardURL", "plan_history": [{"resource_plan_id": "ResourcePlanID", "start_date": "2019-01-01T12:00:00.000Z", "requestor_id": "RequestorID"}], "extensions": {"mapKey": "anyValue"}, "resource_aliases_url": "ResourceAliasesURL", "resource_bindings_url": "ResourceBindingsURL", "resource_keys_url": "ResourceKeysURL", "created_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "updated_at": "2019-01-01T12:00:00.000Z", "updated_by": "UpdatedBy", "deleted_at": "2019-01-01T12:00:00.000Z", "deleted_by": "DeletedBy", "scheduled_reclaim_at": "2019-01-01T12:00:00.000Z", "scheduled_reclaim_by": "ScheduledReclaimBy", "restored_at": "2019-01-01T12:00:00.000Z", "restored_by": "RestoredBy"}`)
+				}))
+			})
+			It(`Invoke CreateResourceInstance successfully with retries`, func() {
+				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(resourceControllerService).ToNot(BeNil())
+				resourceControllerService.EnableRetries(0, 0)
+
+				// Construct an instance of the CreateResourceInstanceOptions model
+				createResourceInstanceOptionsModel := new(resourcecontrollerv2.CreateResourceInstanceOptions)
+				createResourceInstanceOptionsModel.Name = core.StringPtr("my-instance")
+				createResourceInstanceOptionsModel.Target = core.StringPtr("bluemix-us-south")
+				createResourceInstanceOptionsModel.ResourceGroup = core.StringPtr("5c49eabc-f5e8-5881-a37e-2d100a33b3df")
+				createResourceInstanceOptionsModel.ResourcePlanID = core.StringPtr("cloudant-standard")
+				createResourceInstanceOptionsModel.Tags = []string{"testString"}
+				createResourceInstanceOptionsModel.AllowCleanup = core.BoolPtr(true)
+				createResourceInstanceOptionsModel.Parameters = make(map[string]interface{})
+				createResourceInstanceOptionsModel.EntityLock = core.BoolPtr(true)
+				createResourceInstanceOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := resourceControllerService.CreateResourceInstanceWithContext(ctx, createResourceInstanceOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				resourceControllerService.DisableRetries()
+				result, response, operationErr := resourceControllerService.CreateResourceInstance(createResourceInstanceOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = resourceControllerService.CreateResourceInstanceWithContext(ctx, createResourceInstanceOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(createResourceInstancePath))
+					Expect(req.Method).To(Equal("POST"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
+					Expect(req.Header["Entity-Lock"]).ToNot(BeNil())
+					Expect(req.Header["Entity-Lock"][0]).To(Equal(fmt.Sprintf("%v", true)))
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(201)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "guid": "GUID", "crn": "CRN", "url": "URL", "name": "Name", "account_id": "AccountID", "resource_group_id": "ResourceGroupID", "resource_group_crn": "ResourceGroupCRN", "resource_id": "ResourceID", "resource_plan_id": "ResourcePlanID", "target_crn": "TargetCRN", "parameters": {"mapKey": "anyValue"}, "state": "State", "type": "Type", "sub_type": "SubType", "allow_cleanup": true, "locked": true, "last_operation": {"mapKey": "anyValue"}, "dashboard_url": "DashboardURL", "plan_history": [{"resource_plan_id": "ResourcePlanID", "start_date": "2019-01-01T12:00:00.000Z", "requestor_id": "RequestorID"}], "extensions": {"mapKey": "anyValue"}, "resource_aliases_url": "ResourceAliasesURL", "resource_bindings_url": "ResourceBindingsURL", "resource_keys_url": "ResourceKeysURL", "created_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "updated_at": "2019-01-01T12:00:00.000Z", "updated_by": "UpdatedBy", "deleted_at": "2019-01-01T12:00:00.000Z", "deleted_by": "DeletedBy", "scheduled_reclaim_at": "2019-01-01T12:00:00.000Z", "scheduled_reclaim_by": "ScheduledReclaimBy", "restored_at": "2019-01-01T12:00:00.000Z", "restored_by": "RestoredBy"}`)
 				}))
 			})
 			It(`Invoke CreateResourceInstance successfully`, func() {
@@ -477,7 +580,6 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				})
 				Expect(serviceErr).To(BeNil())
 				Expect(resourceControllerService).ToNot(BeNil())
-				resourceControllerService.EnableRetries(0, 0)
 
 				// Invoke operation with nil options model (negative test)
 				result, response, operationErr := resourceControllerService.CreateResourceInstance(nil)
@@ -503,30 +605,6 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
 
-				// Invoke operation with a Context to test a timeout error
-				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc()
-				serverSleepTime = 100 * time.Millisecond
-				_, _, operationErr = resourceControllerService.CreateResourceInstanceWithContext(ctx, createResourceInstanceOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-				serverSleepTime = time.Duration(0)
-
-				// Disable retries and test again
-				resourceControllerService.DisableRetries()
-				result, response, operationErr = resourceControllerService.CreateResourceInstance(createResourceInstanceOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).ToNot(BeNil())
-
-				// Re-test the timeout error with retries disabled
-				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc2()
-				serverSleepTime = 100 * time.Millisecond
-				_, _, operationErr = resourceControllerService.CreateResourceInstanceWithContext(ctx, createResourceInstanceOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-				serverSleepTime = time.Duration(0)
 			})
 			It(`Invoke CreateResourceInstance with error: Operation validation and request error`, func() {
 				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
@@ -616,10 +694,8 @@ var _ = Describe(`ResourceControllerV2`, func() {
 
 	Describe(`GetResourceInstance(getResourceInstanceOptions *GetResourceInstanceOptions)`, func() {
 		getResourceInstancePath := "/v2/resource_instances/testString"
-		var serverSleepTime time.Duration
-		Context(`Using mock server endpoint`, func() {
+		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
-				serverSleepTime = 0
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
@@ -628,12 +704,66 @@ var _ = Describe(`ResourceControllerV2`, func() {
 					Expect(req.Method).To(Equal("GET"))
 
 					// Sleep a short time to support a timeout test
-					time.Sleep(serverSleepTime)
+					time.Sleep(100 * time.Millisecond)
 
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "guid": "GUID", "crn": "CRN", "url": "URL", "name": "Name", "account_id": "AccountID", "resource_group_id": "ResourceGroupID", "resource_group_crn": "ResourceGroupCRN", "resource_id": "ResourceID", "resource_plan_id": "ResourcePlanID", "target_crn": "TargetCRN", "parameters": {"mapKey": "anyValue"}, "state": "State", "type": "Type", "sub_type": "SubType", "allow_cleanup": true, "locked": true, "last_operation": {"mapKey": "anyValue"}, "dashboard_url": "DashboardURL", "plan_history": [{"resource_plan_id": "ResourcePlanID", "start_date": "2019-01-01T12:00:00"}], "resource_aliases_url": "ResourceAliasesURL", "resource_bindings_url": "ResourceBindingsURL", "resource_keys_url": "ResourceKeysURL", "created_at": "2019-01-01T12:00:00", "created_by": "CreatedBy", "updated_at": "2019-01-01T12:00:00", "updated_by": "UpdatedBy", "deleted_at": "2019-01-01T12:00:00", "deleted_by": "DeletedBy", "scheduled_reclaim_at": "2019-01-01T12:00:00", "scheduled_reclaim_by": "ScheduledReclaimBy", "restored_at": "2019-01-01T12:00:00", "restored_by": "RestoredBy"}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "guid": "GUID", "crn": "CRN", "url": "URL", "name": "Name", "account_id": "AccountID", "resource_group_id": "ResourceGroupID", "resource_group_crn": "ResourceGroupCRN", "resource_id": "ResourceID", "resource_plan_id": "ResourcePlanID", "target_crn": "TargetCRN", "parameters": {"mapKey": "anyValue"}, "state": "State", "type": "Type", "sub_type": "SubType", "allow_cleanup": true, "locked": true, "last_operation": {"mapKey": "anyValue"}, "dashboard_url": "DashboardURL", "plan_history": [{"resource_plan_id": "ResourcePlanID", "start_date": "2019-01-01T12:00:00.000Z", "requestor_id": "RequestorID"}], "extensions": {"mapKey": "anyValue"}, "resource_aliases_url": "ResourceAliasesURL", "resource_bindings_url": "ResourceBindingsURL", "resource_keys_url": "ResourceKeysURL", "created_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "updated_at": "2019-01-01T12:00:00.000Z", "updated_by": "UpdatedBy", "deleted_at": "2019-01-01T12:00:00.000Z", "deleted_by": "DeletedBy", "scheduled_reclaim_at": "2019-01-01T12:00:00.000Z", "scheduled_reclaim_by": "ScheduledReclaimBy", "restored_at": "2019-01-01T12:00:00.000Z", "restored_by": "RestoredBy"}`)
+				}))
+			})
+			It(`Invoke GetResourceInstance successfully with retries`, func() {
+				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(resourceControllerService).ToNot(BeNil())
+				resourceControllerService.EnableRetries(0, 0)
+
+				// Construct an instance of the GetResourceInstanceOptions model
+				getResourceInstanceOptionsModel := new(resourcecontrollerv2.GetResourceInstanceOptions)
+				getResourceInstanceOptionsModel.ID = core.StringPtr("testString")
+				getResourceInstanceOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := resourceControllerService.GetResourceInstanceWithContext(ctx, getResourceInstanceOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				resourceControllerService.DisableRetries()
+				result, response, operationErr := resourceControllerService.GetResourceInstance(getResourceInstanceOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = resourceControllerService.GetResourceInstanceWithContext(ctx, getResourceInstanceOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getResourceInstancePath))
+					Expect(req.Method).To(Equal("GET"))
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "guid": "GUID", "crn": "CRN", "url": "URL", "name": "Name", "account_id": "AccountID", "resource_group_id": "ResourceGroupID", "resource_group_crn": "ResourceGroupCRN", "resource_id": "ResourceID", "resource_plan_id": "ResourcePlanID", "target_crn": "TargetCRN", "parameters": {"mapKey": "anyValue"}, "state": "State", "type": "Type", "sub_type": "SubType", "allow_cleanup": true, "locked": true, "last_operation": {"mapKey": "anyValue"}, "dashboard_url": "DashboardURL", "plan_history": [{"resource_plan_id": "ResourcePlanID", "start_date": "2019-01-01T12:00:00.000Z", "requestor_id": "RequestorID"}], "extensions": {"mapKey": "anyValue"}, "resource_aliases_url": "ResourceAliasesURL", "resource_bindings_url": "ResourceBindingsURL", "resource_keys_url": "ResourceKeysURL", "created_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "updated_at": "2019-01-01T12:00:00.000Z", "updated_by": "UpdatedBy", "deleted_at": "2019-01-01T12:00:00.000Z", "deleted_by": "DeletedBy", "scheduled_reclaim_at": "2019-01-01T12:00:00.000Z", "scheduled_reclaim_by": "ScheduledReclaimBy", "restored_at": "2019-01-01T12:00:00.000Z", "restored_by": "RestoredBy"}`)
 				}))
 			})
 			It(`Invoke GetResourceInstance successfully`, func() {
@@ -643,7 +773,6 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				})
 				Expect(serviceErr).To(BeNil())
 				Expect(resourceControllerService).ToNot(BeNil())
-				resourceControllerService.EnableRetries(0, 0)
 
 				// Invoke operation with nil options model (negative test)
 				result, response, operationErr := resourceControllerService.GetResourceInstance(nil)
@@ -662,30 +791,6 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
 
-				// Invoke operation with a Context to test a timeout error
-				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc()
-				serverSleepTime = 100 * time.Millisecond
-				_, _, operationErr = resourceControllerService.GetResourceInstanceWithContext(ctx, getResourceInstanceOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-				serverSleepTime = time.Duration(0)
-
-				// Disable retries and test again
-				resourceControllerService.DisableRetries()
-				result, response, operationErr = resourceControllerService.GetResourceInstance(getResourceInstanceOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).ToNot(BeNil())
-
-				// Re-test the timeout error with retries disabled
-				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc2()
-				serverSleepTime = 100 * time.Millisecond
-				_, _, operationErr = resourceControllerService.GetResourceInstanceWithContext(ctx, getResourceInstanceOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-				serverSleepTime = time.Duration(0)
 			})
 			It(`Invoke GetResourceInstance with error: Operation validation and request error`, func() {
 				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
@@ -732,6 +837,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 					Expect(req.URL.EscapedPath()).To(Equal(deleteResourceInstancePath))
 					Expect(req.Method).To(Equal("DELETE"))
 
+					// TODO: Add check for recursive query parameter
 					res.WriteHeader(202)
 				}))
 			})
@@ -742,7 +848,6 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				})
 				Expect(serviceErr).To(BeNil())
 				Expect(resourceControllerService).ToNot(BeNil())
-				resourceControllerService.EnableRetries(0, 0)
 
 				// Invoke operation with nil options model (negative test)
 				response, operationErr := resourceControllerService.DeleteResourceInstance(nil)
@@ -752,15 +857,10 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				// Construct an instance of the DeleteResourceInstanceOptions model
 				deleteResourceInstanceOptionsModel := new(resourcecontrollerv2.DeleteResourceInstanceOptions)
 				deleteResourceInstanceOptionsModel.ID = core.StringPtr("testString")
+				deleteResourceInstanceOptionsModel.Recursive = core.BoolPtr(true)
 				deleteResourceInstanceOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
-				response, operationErr = resourceControllerService.DeleteResourceInstance(deleteResourceInstanceOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-
-				// Disable retries and test again
-				resourceControllerService.DisableRetries()
 				response, operationErr = resourceControllerService.DeleteResourceInstance(deleteResourceInstanceOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
@@ -776,6 +876,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				// Construct an instance of the DeleteResourceInstanceOptions model
 				deleteResourceInstanceOptionsModel := new(resourcecontrollerv2.DeleteResourceInstanceOptions)
 				deleteResourceInstanceOptionsModel.ID = core.StringPtr("testString")
+				deleteResourceInstanceOptionsModel.Recursive = core.BoolPtr(true)
 				deleteResourceInstanceOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := resourceControllerService.SetServiceURL("")
@@ -848,10 +949,8 @@ var _ = Describe(`ResourceControllerV2`, func() {
 
 	Describe(`UpdateResourceInstance(updateResourceInstanceOptions *UpdateResourceInstanceOptions)`, func() {
 		updateResourceInstancePath := "/v2/resource_instances/testString"
-		var serverSleepTime time.Duration
-		Context(`Using mock server endpoint`, func() {
+		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
-				serverSleepTime = 0
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
@@ -876,12 +975,86 @@ var _ = Describe(`ResourceControllerV2`, func() {
 					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
 
 					// Sleep a short time to support a timeout test
-					time.Sleep(serverSleepTime)
+					time.Sleep(100 * time.Millisecond)
 
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "guid": "GUID", "crn": "CRN", "url": "URL", "name": "Name", "account_id": "AccountID", "resource_group_id": "ResourceGroupID", "resource_group_crn": "ResourceGroupCRN", "resource_id": "ResourceID", "resource_plan_id": "ResourcePlanID", "target_crn": "TargetCRN", "parameters": {"mapKey": "anyValue"}, "state": "State", "type": "Type", "sub_type": "SubType", "allow_cleanup": true, "locked": true, "last_operation": {"mapKey": "anyValue"}, "dashboard_url": "DashboardURL", "plan_history": [{"resource_plan_id": "ResourcePlanID", "start_date": "2019-01-01T12:00:00"}], "resource_aliases_url": "ResourceAliasesURL", "resource_bindings_url": "ResourceBindingsURL", "resource_keys_url": "ResourceKeysURL", "created_at": "2019-01-01T12:00:00", "created_by": "CreatedBy", "updated_at": "2019-01-01T12:00:00", "updated_by": "UpdatedBy", "deleted_at": "2019-01-01T12:00:00", "deleted_by": "DeletedBy", "scheduled_reclaim_at": "2019-01-01T12:00:00", "scheduled_reclaim_by": "ScheduledReclaimBy", "restored_at": "2019-01-01T12:00:00", "restored_by": "RestoredBy"}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "guid": "GUID", "crn": "CRN", "url": "URL", "name": "Name", "account_id": "AccountID", "resource_group_id": "ResourceGroupID", "resource_group_crn": "ResourceGroupCRN", "resource_id": "ResourceID", "resource_plan_id": "ResourcePlanID", "target_crn": "TargetCRN", "parameters": {"mapKey": "anyValue"}, "state": "State", "type": "Type", "sub_type": "SubType", "allow_cleanup": true, "locked": true, "last_operation": {"mapKey": "anyValue"}, "dashboard_url": "DashboardURL", "plan_history": [{"resource_plan_id": "ResourcePlanID", "start_date": "2019-01-01T12:00:00.000Z", "requestor_id": "RequestorID"}], "extensions": {"mapKey": "anyValue"}, "resource_aliases_url": "ResourceAliasesURL", "resource_bindings_url": "ResourceBindingsURL", "resource_keys_url": "ResourceKeysURL", "created_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "updated_at": "2019-01-01T12:00:00.000Z", "updated_by": "UpdatedBy", "deleted_at": "2019-01-01T12:00:00.000Z", "deleted_by": "DeletedBy", "scheduled_reclaim_at": "2019-01-01T12:00:00.000Z", "scheduled_reclaim_by": "ScheduledReclaimBy", "restored_at": "2019-01-01T12:00:00.000Z", "restored_by": "RestoredBy"}`)
+				}))
+			})
+			It(`Invoke UpdateResourceInstance successfully with retries`, func() {
+				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(resourceControllerService).ToNot(BeNil())
+				resourceControllerService.EnableRetries(0, 0)
+
+				// Construct an instance of the UpdateResourceInstanceOptions model
+				updateResourceInstanceOptionsModel := new(resourcecontrollerv2.UpdateResourceInstanceOptions)
+				updateResourceInstanceOptionsModel.ID = core.StringPtr("testString")
+				updateResourceInstanceOptionsModel.Name = core.StringPtr("my-new-instance-name")
+				updateResourceInstanceOptionsModel.Parameters = make(map[string]interface{})
+				updateResourceInstanceOptionsModel.ResourcePlanID = core.StringPtr("a8dff6d3-d287-4668-a81d-c87c55c2656d")
+				updateResourceInstanceOptionsModel.AllowCleanup = core.BoolPtr(true)
+				updateResourceInstanceOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := resourceControllerService.UpdateResourceInstanceWithContext(ctx, updateResourceInstanceOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				resourceControllerService.DisableRetries()
+				result, response, operationErr := resourceControllerService.UpdateResourceInstance(updateResourceInstanceOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = resourceControllerService.UpdateResourceInstanceWithContext(ctx, updateResourceInstanceOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(updateResourceInstancePath))
+					Expect(req.Method).To(Equal("PATCH"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "guid": "GUID", "crn": "CRN", "url": "URL", "name": "Name", "account_id": "AccountID", "resource_group_id": "ResourceGroupID", "resource_group_crn": "ResourceGroupCRN", "resource_id": "ResourceID", "resource_plan_id": "ResourcePlanID", "target_crn": "TargetCRN", "parameters": {"mapKey": "anyValue"}, "state": "State", "type": "Type", "sub_type": "SubType", "allow_cleanup": true, "locked": true, "last_operation": {"mapKey": "anyValue"}, "dashboard_url": "DashboardURL", "plan_history": [{"resource_plan_id": "ResourcePlanID", "start_date": "2019-01-01T12:00:00.000Z", "requestor_id": "RequestorID"}], "extensions": {"mapKey": "anyValue"}, "resource_aliases_url": "ResourceAliasesURL", "resource_bindings_url": "ResourceBindingsURL", "resource_keys_url": "ResourceKeysURL", "created_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "updated_at": "2019-01-01T12:00:00.000Z", "updated_by": "UpdatedBy", "deleted_at": "2019-01-01T12:00:00.000Z", "deleted_by": "DeletedBy", "scheduled_reclaim_at": "2019-01-01T12:00:00.000Z", "scheduled_reclaim_by": "ScheduledReclaimBy", "restored_at": "2019-01-01T12:00:00.000Z", "restored_by": "RestoredBy"}`)
 				}))
 			})
 			It(`Invoke UpdateResourceInstance successfully`, func() {
@@ -891,7 +1064,6 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				})
 				Expect(serviceErr).To(BeNil())
 				Expect(resourceControllerService).ToNot(BeNil())
-				resourceControllerService.EnableRetries(0, 0)
 
 				// Invoke operation with nil options model (negative test)
 				result, response, operationErr := resourceControllerService.UpdateResourceInstance(nil)
@@ -914,30 +1086,6 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
 
-				// Invoke operation with a Context to test a timeout error
-				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc()
-				serverSleepTime = 100 * time.Millisecond
-				_, _, operationErr = resourceControllerService.UpdateResourceInstanceWithContext(ctx, updateResourceInstanceOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-				serverSleepTime = time.Duration(0)
-
-				// Disable retries and test again
-				resourceControllerService.DisableRetries()
-				result, response, operationErr = resourceControllerService.UpdateResourceInstance(updateResourceInstanceOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).ToNot(BeNil())
-
-				// Re-test the timeout error with retries disabled
-				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc2()
-				serverSleepTime = 100 * time.Millisecond
-				_, _, operationErr = resourceControllerService.UpdateResourceInstanceWithContext(ctx, updateResourceInstanceOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-				serverSleepTime = time.Duration(0)
 			})
 			It(`Invoke UpdateResourceInstance with error: Operation validation and request error`, func() {
 				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
@@ -967,6 +1115,364 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				updateResourceInstanceOptionsModelNew := new(resourcecontrollerv2.UpdateResourceInstanceOptions)
 				// Invoke operation with invalid model (negative test)
 				result, response, operationErr = resourceControllerService.UpdateResourceInstance(updateResourceInstanceOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`ListResourceAliasesForInstance(listResourceAliasesForInstanceOptions *ListResourceAliasesForInstanceOptions) - Operation response error`, func() {
+		listResourceAliasesForInstancePath := "/v2/resource_instances/testString/resource_aliases"
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(listResourceAliasesForInstancePath))
+					Expect(req.Method).To(Equal("GET"))
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, `} this is not valid json {`)
+				}))
+			})
+			It(`Invoke ListResourceAliasesForInstance with error: Operation response processing error`, func() {
+				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(resourceControllerService).ToNot(BeNil())
+
+				// Construct an instance of the ListResourceAliasesForInstanceOptions model
+				listResourceAliasesForInstanceOptionsModel := new(resourcecontrollerv2.ListResourceAliasesForInstanceOptions)
+				listResourceAliasesForInstanceOptionsModel.ID = core.StringPtr("testString")
+				listResourceAliasesForInstanceOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Expect response parsing to fail since we are receiving a text/plain response
+				result, response, operationErr := resourceControllerService.ListResourceAliasesForInstance(listResourceAliasesForInstanceOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				resourceControllerService.EnableRetries(0, 0)
+				result, response, operationErr = resourceControllerService.ListResourceAliasesForInstance(listResourceAliasesForInstanceOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+
+	Describe(`ListResourceAliasesForInstance(listResourceAliasesForInstanceOptions *ListResourceAliasesForInstanceOptions)`, func() {
+		listResourceAliasesForInstancePath := "/v2/resource_instances/testString/resource_aliases"
+		Context(`Using mock server endpoint with timeout`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(listResourceAliasesForInstancePath))
+					Expect(req.Method).To(Equal("GET"))
+
+					// Sleep a short time to support a timeout test
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"next_url": "NextURL", "resources": [{"id": "ID", "guid": "GUID", "crn": "CRN", "url": "URL", "name": "Name", "account_id": "AccountID", "resource_group_id": "ResourceGroupID", "resource_group_crn": "ResourceGroupCRN", "target_crn": "TargetCRN", "state": "State", "resource_instance_id": "ResourceInstanceID", "region_instance_id": "RegionInstanceID", "resource_instance_url": "ResourceInstanceURL", "resource_bindings_url": "ResourceBindingsURL", "resource_keys_url": "ResourceKeysURL", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "deleted_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "updated_by": "UpdatedBy", "deleted_by": "DeletedBy"}], "rows_count": 9}`)
+				}))
+			})
+			It(`Invoke ListResourceAliasesForInstance successfully with retries`, func() {
+				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(resourceControllerService).ToNot(BeNil())
+				resourceControllerService.EnableRetries(0, 0)
+
+				// Construct an instance of the ListResourceAliasesForInstanceOptions model
+				listResourceAliasesForInstanceOptionsModel := new(resourcecontrollerv2.ListResourceAliasesForInstanceOptions)
+				listResourceAliasesForInstanceOptionsModel.ID = core.StringPtr("testString")
+				listResourceAliasesForInstanceOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := resourceControllerService.ListResourceAliasesForInstanceWithContext(ctx, listResourceAliasesForInstanceOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				resourceControllerService.DisableRetries()
+				result, response, operationErr := resourceControllerService.ListResourceAliasesForInstance(listResourceAliasesForInstanceOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = resourceControllerService.ListResourceAliasesForInstanceWithContext(ctx, listResourceAliasesForInstanceOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(listResourceAliasesForInstancePath))
+					Expect(req.Method).To(Equal("GET"))
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"next_url": "NextURL", "resources": [{"id": "ID", "guid": "GUID", "crn": "CRN", "url": "URL", "name": "Name", "account_id": "AccountID", "resource_group_id": "ResourceGroupID", "resource_group_crn": "ResourceGroupCRN", "target_crn": "TargetCRN", "state": "State", "resource_instance_id": "ResourceInstanceID", "region_instance_id": "RegionInstanceID", "resource_instance_url": "ResourceInstanceURL", "resource_bindings_url": "ResourceBindingsURL", "resource_keys_url": "ResourceKeysURL", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "deleted_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "updated_by": "UpdatedBy", "deleted_by": "DeletedBy"}], "rows_count": 9}`)
+				}))
+			})
+			It(`Invoke ListResourceAliasesForInstance successfully`, func() {
+				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(resourceControllerService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				result, response, operationErr := resourceControllerService.ListResourceAliasesForInstance(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+
+				// Construct an instance of the ListResourceAliasesForInstanceOptions model
+				listResourceAliasesForInstanceOptionsModel := new(resourcecontrollerv2.ListResourceAliasesForInstanceOptions)
+				listResourceAliasesForInstanceOptionsModel.ID = core.StringPtr("testString")
+				listResourceAliasesForInstanceOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				result, response, operationErr = resourceControllerService.ListResourceAliasesForInstance(listResourceAliasesForInstanceOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+			})
+			It(`Invoke ListResourceAliasesForInstance with error: Operation validation and request error`, func() {
+				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(resourceControllerService).ToNot(BeNil())
+
+				// Construct an instance of the ListResourceAliasesForInstanceOptions model
+				listResourceAliasesForInstanceOptionsModel := new(resourcecontrollerv2.ListResourceAliasesForInstanceOptions)
+				listResourceAliasesForInstanceOptionsModel.ID = core.StringPtr("testString")
+				listResourceAliasesForInstanceOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := resourceControllerService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				result, response, operationErr := resourceControllerService.ListResourceAliasesForInstance(listResourceAliasesForInstanceOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+				// Construct a second instance of the ListResourceAliasesForInstanceOptions model with no property values
+				listResourceAliasesForInstanceOptionsModelNew := new(resourcecontrollerv2.ListResourceAliasesForInstanceOptions)
+				// Invoke operation with invalid model (negative test)
+				result, response, operationErr = resourceControllerService.ListResourceAliasesForInstance(listResourceAliasesForInstanceOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`ListResourceKeysForInstance(listResourceKeysForInstanceOptions *ListResourceKeysForInstanceOptions) - Operation response error`, func() {
+		listResourceKeysForInstancePath := "/v2/resource_instances/testString/resource_keys"
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(listResourceKeysForInstancePath))
+					Expect(req.Method).To(Equal("GET"))
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, `} this is not valid json {`)
+				}))
+			})
+			It(`Invoke ListResourceKeysForInstance with error: Operation response processing error`, func() {
+				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(resourceControllerService).ToNot(BeNil())
+
+				// Construct an instance of the ListResourceKeysForInstanceOptions model
+				listResourceKeysForInstanceOptionsModel := new(resourcecontrollerv2.ListResourceKeysForInstanceOptions)
+				listResourceKeysForInstanceOptionsModel.ID = core.StringPtr("testString")
+				listResourceKeysForInstanceOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Expect response parsing to fail since we are receiving a text/plain response
+				result, response, operationErr := resourceControllerService.ListResourceKeysForInstance(listResourceKeysForInstanceOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				resourceControllerService.EnableRetries(0, 0)
+				result, response, operationErr = resourceControllerService.ListResourceKeysForInstance(listResourceKeysForInstanceOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+
+	Describe(`ListResourceKeysForInstance(listResourceKeysForInstanceOptions *ListResourceKeysForInstanceOptions)`, func() {
+		listResourceKeysForInstancePath := "/v2/resource_instances/testString/resource_keys"
+		Context(`Using mock server endpoint with timeout`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(listResourceKeysForInstancePath))
+					Expect(req.Method).To(Equal("GET"))
+
+					// Sleep a short time to support a timeout test
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"next_url": "NextURL", "resources": [{"id": "ID", "guid": "GUID", "crn": "CRN", "url": "URL", "name": "Name", "account_id": "AccountID", "resource_group_id": "ResourceGroupID", "source_crn": "SourceCRN", "role": "Role", "state": "State", "credentials": {"apikey": "Apikey", "iam_apikey_description": "IamApikeyDescription", "iam_apikey_name": "IamApikeyName", "iam_role_crn": "IamRoleCRN", "iam_serviceid_crn": "IamServiceidCRN"}, "iam_compatible": false, "resource_instance_url": "ResourceInstanceURL", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "deleted_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "updated_by": "UpdatedBy", "deleted_by": "DeletedBy"}], "rows_count": 9}`)
+				}))
+			})
+			It(`Invoke ListResourceKeysForInstance successfully with retries`, func() {
+				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(resourceControllerService).ToNot(BeNil())
+				resourceControllerService.EnableRetries(0, 0)
+
+				// Construct an instance of the ListResourceKeysForInstanceOptions model
+				listResourceKeysForInstanceOptionsModel := new(resourcecontrollerv2.ListResourceKeysForInstanceOptions)
+				listResourceKeysForInstanceOptionsModel.ID = core.StringPtr("testString")
+				listResourceKeysForInstanceOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := resourceControllerService.ListResourceKeysForInstanceWithContext(ctx, listResourceKeysForInstanceOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				resourceControllerService.DisableRetries()
+				result, response, operationErr := resourceControllerService.ListResourceKeysForInstance(listResourceKeysForInstanceOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = resourceControllerService.ListResourceKeysForInstanceWithContext(ctx, listResourceKeysForInstanceOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(listResourceKeysForInstancePath))
+					Expect(req.Method).To(Equal("GET"))
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"next_url": "NextURL", "resources": [{"id": "ID", "guid": "GUID", "crn": "CRN", "url": "URL", "name": "Name", "account_id": "AccountID", "resource_group_id": "ResourceGroupID", "source_crn": "SourceCRN", "role": "Role", "state": "State", "credentials": {"apikey": "Apikey", "iam_apikey_description": "IamApikeyDescription", "iam_apikey_name": "IamApikeyName", "iam_role_crn": "IamRoleCRN", "iam_serviceid_crn": "IamServiceidCRN"}, "iam_compatible": false, "resource_instance_url": "ResourceInstanceURL", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "deleted_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "updated_by": "UpdatedBy", "deleted_by": "DeletedBy"}], "rows_count": 9}`)
+				}))
+			})
+			It(`Invoke ListResourceKeysForInstance successfully`, func() {
+				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(resourceControllerService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				result, response, operationErr := resourceControllerService.ListResourceKeysForInstance(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+
+				// Construct an instance of the ListResourceKeysForInstanceOptions model
+				listResourceKeysForInstanceOptionsModel := new(resourcecontrollerv2.ListResourceKeysForInstanceOptions)
+				listResourceKeysForInstanceOptionsModel.ID = core.StringPtr("testString")
+				listResourceKeysForInstanceOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				result, response, operationErr = resourceControllerService.ListResourceKeysForInstance(listResourceKeysForInstanceOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+			})
+			It(`Invoke ListResourceKeysForInstance with error: Operation validation and request error`, func() {
+				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(resourceControllerService).ToNot(BeNil())
+
+				// Construct an instance of the ListResourceKeysForInstanceOptions model
+				listResourceKeysForInstanceOptionsModel := new(resourcecontrollerv2.ListResourceKeysForInstanceOptions)
+				listResourceKeysForInstanceOptionsModel.ID = core.StringPtr("testString")
+				listResourceKeysForInstanceOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := resourceControllerService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				result, response, operationErr := resourceControllerService.ListResourceKeysForInstance(listResourceKeysForInstanceOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+				// Construct a second instance of the ListResourceKeysForInstanceOptions model with no property values
+				listResourceKeysForInstanceOptionsModelNew := new(resourcecontrollerv2.ListResourceKeysForInstanceOptions)
+				// Invoke operation with invalid model (negative test)
+				result, response, operationErr = resourceControllerService.ListResourceKeysForInstance(listResourceKeysForInstanceOptionsModelNew)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
@@ -1024,10 +1530,8 @@ var _ = Describe(`ResourceControllerV2`, func() {
 
 	Describe(`LockResourceInstance(lockResourceInstanceOptions *LockResourceInstanceOptions)`, func() {
 		lockResourceInstancePath := "/v2/resource_instances/testString/lock"
-		var serverSleepTime time.Duration
-		Context(`Using mock server endpoint`, func() {
+		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
-				serverSleepTime = 0
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
@@ -1036,12 +1540,66 @@ var _ = Describe(`ResourceControllerV2`, func() {
 					Expect(req.Method).To(Equal("POST"))
 
 					// Sleep a short time to support a timeout test
-					time.Sleep(serverSleepTime)
+					time.Sleep(100 * time.Millisecond)
 
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "guid": "GUID", "crn": "CRN", "url": "URL", "name": "Name", "account_id": "AccountID", "resource_group_id": "ResourceGroupID", "resource_group_crn": "ResourceGroupCRN", "resource_id": "ResourceID", "resource_plan_id": "ResourcePlanID", "target_crn": "TargetCRN", "parameters": {"mapKey": "anyValue"}, "state": "State", "type": "Type", "sub_type": "SubType", "allow_cleanup": true, "locked": true, "last_operation": {"mapKey": "anyValue"}, "dashboard_url": "DashboardURL", "plan_history": [{"resource_plan_id": "ResourcePlanID", "start_date": "2019-01-01T12:00:00"}], "resource_aliases_url": "ResourceAliasesURL", "resource_bindings_url": "ResourceBindingsURL", "resource_keys_url": "ResourceKeysURL", "created_at": "2019-01-01T12:00:00", "created_by": "CreatedBy", "updated_at": "2019-01-01T12:00:00", "updated_by": "UpdatedBy", "deleted_at": "2019-01-01T12:00:00", "deleted_by": "DeletedBy", "scheduled_reclaim_at": "2019-01-01T12:00:00", "scheduled_reclaim_by": "ScheduledReclaimBy", "restored_at": "2019-01-01T12:00:00", "restored_by": "RestoredBy"}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "guid": "GUID", "crn": "CRN", "url": "URL", "name": "Name", "account_id": "AccountID", "resource_group_id": "ResourceGroupID", "resource_group_crn": "ResourceGroupCRN", "resource_id": "ResourceID", "resource_plan_id": "ResourcePlanID", "target_crn": "TargetCRN", "parameters": {"mapKey": "anyValue"}, "state": "State", "type": "Type", "sub_type": "SubType", "allow_cleanup": true, "locked": true, "last_operation": {"mapKey": "anyValue"}, "dashboard_url": "DashboardURL", "plan_history": [{"resource_plan_id": "ResourcePlanID", "start_date": "2019-01-01T12:00:00.000Z", "requestor_id": "RequestorID"}], "extensions": {"mapKey": "anyValue"}, "resource_aliases_url": "ResourceAliasesURL", "resource_bindings_url": "ResourceBindingsURL", "resource_keys_url": "ResourceKeysURL", "created_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "updated_at": "2019-01-01T12:00:00.000Z", "updated_by": "UpdatedBy", "deleted_at": "2019-01-01T12:00:00.000Z", "deleted_by": "DeletedBy", "scheduled_reclaim_at": "2019-01-01T12:00:00.000Z", "scheduled_reclaim_by": "ScheduledReclaimBy", "restored_at": "2019-01-01T12:00:00.000Z", "restored_by": "RestoredBy"}`)
+				}))
+			})
+			It(`Invoke LockResourceInstance successfully with retries`, func() {
+				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(resourceControllerService).ToNot(BeNil())
+				resourceControllerService.EnableRetries(0, 0)
+
+				// Construct an instance of the LockResourceInstanceOptions model
+				lockResourceInstanceOptionsModel := new(resourcecontrollerv2.LockResourceInstanceOptions)
+				lockResourceInstanceOptionsModel.ID = core.StringPtr("testString")
+				lockResourceInstanceOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := resourceControllerService.LockResourceInstanceWithContext(ctx, lockResourceInstanceOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				resourceControllerService.DisableRetries()
+				result, response, operationErr := resourceControllerService.LockResourceInstance(lockResourceInstanceOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = resourceControllerService.LockResourceInstanceWithContext(ctx, lockResourceInstanceOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(lockResourceInstancePath))
+					Expect(req.Method).To(Equal("POST"))
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "guid": "GUID", "crn": "CRN", "url": "URL", "name": "Name", "account_id": "AccountID", "resource_group_id": "ResourceGroupID", "resource_group_crn": "ResourceGroupCRN", "resource_id": "ResourceID", "resource_plan_id": "ResourcePlanID", "target_crn": "TargetCRN", "parameters": {"mapKey": "anyValue"}, "state": "State", "type": "Type", "sub_type": "SubType", "allow_cleanup": true, "locked": true, "last_operation": {"mapKey": "anyValue"}, "dashboard_url": "DashboardURL", "plan_history": [{"resource_plan_id": "ResourcePlanID", "start_date": "2019-01-01T12:00:00.000Z", "requestor_id": "RequestorID"}], "extensions": {"mapKey": "anyValue"}, "resource_aliases_url": "ResourceAliasesURL", "resource_bindings_url": "ResourceBindingsURL", "resource_keys_url": "ResourceKeysURL", "created_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "updated_at": "2019-01-01T12:00:00.000Z", "updated_by": "UpdatedBy", "deleted_at": "2019-01-01T12:00:00.000Z", "deleted_by": "DeletedBy", "scheduled_reclaim_at": "2019-01-01T12:00:00.000Z", "scheduled_reclaim_by": "ScheduledReclaimBy", "restored_at": "2019-01-01T12:00:00.000Z", "restored_by": "RestoredBy"}`)
 				}))
 			})
 			It(`Invoke LockResourceInstance successfully`, func() {
@@ -1051,7 +1609,6 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				})
 				Expect(serviceErr).To(BeNil())
 				Expect(resourceControllerService).ToNot(BeNil())
-				resourceControllerService.EnableRetries(0, 0)
 
 				// Invoke operation with nil options model (negative test)
 				result, response, operationErr := resourceControllerService.LockResourceInstance(nil)
@@ -1070,30 +1627,6 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
 
-				// Invoke operation with a Context to test a timeout error
-				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc()
-				serverSleepTime = 100 * time.Millisecond
-				_, _, operationErr = resourceControllerService.LockResourceInstanceWithContext(ctx, lockResourceInstanceOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-				serverSleepTime = time.Duration(0)
-
-				// Disable retries and test again
-				resourceControllerService.DisableRetries()
-				result, response, operationErr = resourceControllerService.LockResourceInstance(lockResourceInstanceOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).ToNot(BeNil())
-
-				// Re-test the timeout error with retries disabled
-				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc2()
-				serverSleepTime = 100 * time.Millisecond
-				_, _, operationErr = resourceControllerService.LockResourceInstanceWithContext(ctx, lockResourceInstanceOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-				serverSleepTime = time.Duration(0)
 			})
 			It(`Invoke LockResourceInstance with error: Operation validation and request error`, func() {
 				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
@@ -1176,10 +1709,8 @@ var _ = Describe(`ResourceControllerV2`, func() {
 
 	Describe(`UnlockResourceInstance(unlockResourceInstanceOptions *UnlockResourceInstanceOptions)`, func() {
 		unlockResourceInstancePath := "/v2/resource_instances/testString/lock"
-		var serverSleepTime time.Duration
-		Context(`Using mock server endpoint`, func() {
+		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
-				serverSleepTime = 0
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
@@ -1188,12 +1719,66 @@ var _ = Describe(`ResourceControllerV2`, func() {
 					Expect(req.Method).To(Equal("DELETE"))
 
 					// Sleep a short time to support a timeout test
-					time.Sleep(serverSleepTime)
+					time.Sleep(100 * time.Millisecond)
 
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "guid": "GUID", "crn": "CRN", "url": "URL", "name": "Name", "account_id": "AccountID", "resource_group_id": "ResourceGroupID", "resource_group_crn": "ResourceGroupCRN", "resource_id": "ResourceID", "resource_plan_id": "ResourcePlanID", "target_crn": "TargetCRN", "parameters": {"mapKey": "anyValue"}, "state": "State", "type": "Type", "sub_type": "SubType", "allow_cleanup": true, "locked": true, "last_operation": {"mapKey": "anyValue"}, "dashboard_url": "DashboardURL", "plan_history": [{"resource_plan_id": "ResourcePlanID", "start_date": "2019-01-01T12:00:00"}], "resource_aliases_url": "ResourceAliasesURL", "resource_bindings_url": "ResourceBindingsURL", "resource_keys_url": "ResourceKeysURL", "created_at": "2019-01-01T12:00:00", "created_by": "CreatedBy", "updated_at": "2019-01-01T12:00:00", "updated_by": "UpdatedBy", "deleted_at": "2019-01-01T12:00:00", "deleted_by": "DeletedBy", "scheduled_reclaim_at": "2019-01-01T12:00:00", "scheduled_reclaim_by": "ScheduledReclaimBy", "restored_at": "2019-01-01T12:00:00", "restored_by": "RestoredBy"}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "guid": "GUID", "crn": "CRN", "url": "URL", "name": "Name", "account_id": "AccountID", "resource_group_id": "ResourceGroupID", "resource_group_crn": "ResourceGroupCRN", "resource_id": "ResourceID", "resource_plan_id": "ResourcePlanID", "target_crn": "TargetCRN", "parameters": {"mapKey": "anyValue"}, "state": "State", "type": "Type", "sub_type": "SubType", "allow_cleanup": true, "locked": true, "last_operation": {"mapKey": "anyValue"}, "dashboard_url": "DashboardURL", "plan_history": [{"resource_plan_id": "ResourcePlanID", "start_date": "2019-01-01T12:00:00.000Z", "requestor_id": "RequestorID"}], "extensions": {"mapKey": "anyValue"}, "resource_aliases_url": "ResourceAliasesURL", "resource_bindings_url": "ResourceBindingsURL", "resource_keys_url": "ResourceKeysURL", "created_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "updated_at": "2019-01-01T12:00:00.000Z", "updated_by": "UpdatedBy", "deleted_at": "2019-01-01T12:00:00.000Z", "deleted_by": "DeletedBy", "scheduled_reclaim_at": "2019-01-01T12:00:00.000Z", "scheduled_reclaim_by": "ScheduledReclaimBy", "restored_at": "2019-01-01T12:00:00.000Z", "restored_by": "RestoredBy"}`)
+				}))
+			})
+			It(`Invoke UnlockResourceInstance successfully with retries`, func() {
+				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(resourceControllerService).ToNot(BeNil())
+				resourceControllerService.EnableRetries(0, 0)
+
+				// Construct an instance of the UnlockResourceInstanceOptions model
+				unlockResourceInstanceOptionsModel := new(resourcecontrollerv2.UnlockResourceInstanceOptions)
+				unlockResourceInstanceOptionsModel.ID = core.StringPtr("testString")
+				unlockResourceInstanceOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := resourceControllerService.UnlockResourceInstanceWithContext(ctx, unlockResourceInstanceOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				resourceControllerService.DisableRetries()
+				result, response, operationErr := resourceControllerService.UnlockResourceInstance(unlockResourceInstanceOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = resourceControllerService.UnlockResourceInstanceWithContext(ctx, unlockResourceInstanceOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(unlockResourceInstancePath))
+					Expect(req.Method).To(Equal("DELETE"))
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "guid": "GUID", "crn": "CRN", "url": "URL", "name": "Name", "account_id": "AccountID", "resource_group_id": "ResourceGroupID", "resource_group_crn": "ResourceGroupCRN", "resource_id": "ResourceID", "resource_plan_id": "ResourcePlanID", "target_crn": "TargetCRN", "parameters": {"mapKey": "anyValue"}, "state": "State", "type": "Type", "sub_type": "SubType", "allow_cleanup": true, "locked": true, "last_operation": {"mapKey": "anyValue"}, "dashboard_url": "DashboardURL", "plan_history": [{"resource_plan_id": "ResourcePlanID", "start_date": "2019-01-01T12:00:00.000Z", "requestor_id": "RequestorID"}], "extensions": {"mapKey": "anyValue"}, "resource_aliases_url": "ResourceAliasesURL", "resource_bindings_url": "ResourceBindingsURL", "resource_keys_url": "ResourceKeysURL", "created_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "updated_at": "2019-01-01T12:00:00.000Z", "updated_by": "UpdatedBy", "deleted_at": "2019-01-01T12:00:00.000Z", "deleted_by": "DeletedBy", "scheduled_reclaim_at": "2019-01-01T12:00:00.000Z", "scheduled_reclaim_by": "ScheduledReclaimBy", "restored_at": "2019-01-01T12:00:00.000Z", "restored_by": "RestoredBy"}`)
 				}))
 			})
 			It(`Invoke UnlockResourceInstance successfully`, func() {
@@ -1203,7 +1788,6 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				})
 				Expect(serviceErr).To(BeNil())
 				Expect(resourceControllerService).ToNot(BeNil())
-				resourceControllerService.EnableRetries(0, 0)
 
 				// Invoke operation with nil options model (negative test)
 				result, response, operationErr := resourceControllerService.UnlockResourceInstance(nil)
@@ -1222,30 +1806,6 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
 
-				// Invoke operation with a Context to test a timeout error
-				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc()
-				serverSleepTime = 100 * time.Millisecond
-				_, _, operationErr = resourceControllerService.UnlockResourceInstanceWithContext(ctx, unlockResourceInstanceOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-				serverSleepTime = time.Duration(0)
-
-				// Disable retries and test again
-				resourceControllerService.DisableRetries()
-				result, response, operationErr = resourceControllerService.UnlockResourceInstance(unlockResourceInstanceOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).ToNot(BeNil())
-
-				// Re-test the timeout error with retries disabled
-				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc2()
-				serverSleepTime = 100 * time.Millisecond
-				_, _, operationErr = resourceControllerService.UnlockResourceInstanceWithContext(ctx, unlockResourceInstanceOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-				serverSleepTime = time.Duration(0)
 			})
 			It(`Invoke UnlockResourceInstance with error: Operation validation and request error`, func() {
 				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
@@ -1419,19 +1979,12 @@ var _ = Describe(`ResourceControllerV2`, func() {
 					Expect(req.URL.EscapedPath()).To(Equal(listResourceKeysPath))
 					Expect(req.Method).To(Equal("GET"))
 					Expect(req.URL.Query()["guid"]).To(Equal([]string{"testString"}))
-
 					Expect(req.URL.Query()["name"]).To(Equal([]string{"testString"}))
-
 					Expect(req.URL.Query()["resource_group_id"]).To(Equal([]string{"testString"}))
-
 					Expect(req.URL.Query()["resource_id"]).To(Equal([]string{"testString"}))
-
 					Expect(req.URL.Query()["limit"]).To(Equal([]string{"testString"}))
-
 					Expect(req.URL.Query()["updated_from"]).To(Equal([]string{"2019-01-08T00:00:00.000Z"}))
-
 					Expect(req.URL.Query()["updated_to"]).To(Equal([]string{"2019-01-08T00:00:00.000Z"}))
-
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
 					fmt.Fprintf(res, `} this is not valid json {`)
@@ -1476,10 +2029,8 @@ var _ = Describe(`ResourceControllerV2`, func() {
 
 	Describe(`ListResourceKeys(listResourceKeysOptions *ListResourceKeysOptions)`, func() {
 		listResourceKeysPath := "/v2/resource_keys"
-		var serverSleepTime time.Duration
-		Context(`Using mock server endpoint`, func() {
+		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
-				serverSleepTime = 0
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
@@ -1488,26 +2039,86 @@ var _ = Describe(`ResourceControllerV2`, func() {
 					Expect(req.Method).To(Equal("GET"))
 
 					Expect(req.URL.Query()["guid"]).To(Equal([]string{"testString"}))
-
 					Expect(req.URL.Query()["name"]).To(Equal([]string{"testString"}))
-
 					Expect(req.URL.Query()["resource_group_id"]).To(Equal([]string{"testString"}))
-
 					Expect(req.URL.Query()["resource_id"]).To(Equal([]string{"testString"}))
-
 					Expect(req.URL.Query()["limit"]).To(Equal([]string{"testString"}))
-
 					Expect(req.URL.Query()["updated_from"]).To(Equal([]string{"2019-01-08T00:00:00.000Z"}))
-
 					Expect(req.URL.Query()["updated_to"]).To(Equal([]string{"2019-01-08T00:00:00.000Z"}))
-
 					// Sleep a short time to support a timeout test
-					time.Sleep(serverSleepTime)
+					time.Sleep(100 * time.Millisecond)
 
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"next_url": "NextURL", "resources": [{"id": "ID", "guid": "GUID", "crn": "CRN", "url": "URL", "name": "Name", "account_id": "AccountID", "resource_group_id": "ResourceGroupID", "source_crn": "SourceCRN", "role": "Role", "state": "State", "credentials": {"apikey": "Apikey", "iam_apikey_description": "IamApikeyDescription", "iam_apikey_name": "IamApikeyName", "iam_role_crn": "IamRoleCRN", "iam_serviceid_crn": "IamServiceidCRN"}, "iam_compatible": false, "resource_instance_url": "ResourceInstanceURL", "created_at": "2019-01-01T12:00:00", "updated_at": "2019-01-01T12:00:00", "deleted_at": "2019-01-01T12:00:00", "created_by": "CreatedBy", "updated_by": "UpdatedBy", "deleted_by": "DeletedBy"}], "rows_count": 9}`)
+					fmt.Fprintf(res, "%s", `{"next_url": "NextURL", "resources": [{"id": "ID", "guid": "GUID", "crn": "CRN", "url": "URL", "name": "Name", "account_id": "AccountID", "resource_group_id": "ResourceGroupID", "source_crn": "SourceCRN", "role": "Role", "state": "State", "credentials": {"apikey": "Apikey", "iam_apikey_description": "IamApikeyDescription", "iam_apikey_name": "IamApikeyName", "iam_role_crn": "IamRoleCRN", "iam_serviceid_crn": "IamServiceidCRN"}, "iam_compatible": false, "resource_instance_url": "ResourceInstanceURL", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "deleted_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "updated_by": "UpdatedBy", "deleted_by": "DeletedBy"}], "rows_count": 9}`)
+				}))
+			})
+			It(`Invoke ListResourceKeys successfully with retries`, func() {
+				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(resourceControllerService).ToNot(BeNil())
+				resourceControllerService.EnableRetries(0, 0)
+
+				// Construct an instance of the ListResourceKeysOptions model
+				listResourceKeysOptionsModel := new(resourcecontrollerv2.ListResourceKeysOptions)
+				listResourceKeysOptionsModel.GUID = core.StringPtr("testString")
+				listResourceKeysOptionsModel.Name = core.StringPtr("testString")
+				listResourceKeysOptionsModel.ResourceGroupID = core.StringPtr("testString")
+				listResourceKeysOptionsModel.ResourceID = core.StringPtr("testString")
+				listResourceKeysOptionsModel.Limit = core.StringPtr("testString")
+				listResourceKeysOptionsModel.UpdatedFrom = core.StringPtr("2019-01-08T00:00:00.000Z")
+				listResourceKeysOptionsModel.UpdatedTo = core.StringPtr("2019-01-08T00:00:00.000Z")
+				listResourceKeysOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := resourceControllerService.ListResourceKeysWithContext(ctx, listResourceKeysOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				resourceControllerService.DisableRetries()
+				result, response, operationErr := resourceControllerService.ListResourceKeys(listResourceKeysOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = resourceControllerService.ListResourceKeysWithContext(ctx, listResourceKeysOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(listResourceKeysPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					Expect(req.URL.Query()["guid"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["name"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["resource_group_id"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["resource_id"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["limit"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["updated_from"]).To(Equal([]string{"2019-01-08T00:00:00.000Z"}))
+					Expect(req.URL.Query()["updated_to"]).To(Equal([]string{"2019-01-08T00:00:00.000Z"}))
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"next_url": "NextURL", "resources": [{"id": "ID", "guid": "GUID", "crn": "CRN", "url": "URL", "name": "Name", "account_id": "AccountID", "resource_group_id": "ResourceGroupID", "source_crn": "SourceCRN", "role": "Role", "state": "State", "credentials": {"apikey": "Apikey", "iam_apikey_description": "IamApikeyDescription", "iam_apikey_name": "IamApikeyName", "iam_role_crn": "IamRoleCRN", "iam_serviceid_crn": "IamServiceidCRN"}, "iam_compatible": false, "resource_instance_url": "ResourceInstanceURL", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "deleted_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "updated_by": "UpdatedBy", "deleted_by": "DeletedBy"}], "rows_count": 9}`)
 				}))
 			})
 			It(`Invoke ListResourceKeys successfully`, func() {
@@ -1517,7 +2128,6 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				})
 				Expect(serviceErr).To(BeNil())
 				Expect(resourceControllerService).ToNot(BeNil())
-				resourceControllerService.EnableRetries(0, 0)
 
 				// Invoke operation with nil options model (negative test)
 				result, response, operationErr := resourceControllerService.ListResourceKeys(nil)
@@ -1542,30 +2152,6 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
 
-				// Invoke operation with a Context to test a timeout error
-				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc()
-				serverSleepTime = 100 * time.Millisecond
-				_, _, operationErr = resourceControllerService.ListResourceKeysWithContext(ctx, listResourceKeysOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-				serverSleepTime = time.Duration(0)
-
-				// Disable retries and test again
-				resourceControllerService.DisableRetries()
-				result, response, operationErr = resourceControllerService.ListResourceKeys(listResourceKeysOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).ToNot(BeNil())
-
-				// Re-test the timeout error with retries disabled
-				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc2()
-				serverSleepTime = 100 * time.Millisecond
-				_, _, operationErr = resourceControllerService.ListResourceKeysWithContext(ctx, listResourceKeysOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-				serverSleepTime = time.Duration(0)
 			})
 			It(`Invoke ListResourceKeys with error: Operation request error`, func() {
 				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
@@ -1625,6 +2211,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				// Construct an instance of the ResourceKeyPostParameters model
 				resourceKeyPostParametersModel := new(resourcecontrollerv2.ResourceKeyPostParameters)
 				resourceKeyPostParametersModel.ServiceidCRN = core.StringPtr("crn:v1:bluemix:public:iam-identity::a/9fceaa56d1ab84893af6b9eec5ab81bb::serviceid:ServiceId-fe4c29b5-db13-410a-bacc-b5779a03d393")
+				resourceKeyPostParametersModel.SetProperty("foo", core.StringPtr("testString"))
 
 				// Construct an instance of the CreateResourceKeyOptions model
 				createResourceKeyOptionsModel := new(resourcecontrollerv2.CreateResourceKeyOptions)
@@ -1654,10 +2241,8 @@ var _ = Describe(`ResourceControllerV2`, func() {
 
 	Describe(`CreateResourceKey(createResourceKeyOptions *CreateResourceKeyOptions)`, func() {
 		createResourceKeyPath := "/v2/resource_keys"
-		var serverSleepTime time.Duration
-		Context(`Using mock server endpoint`, func() {
+		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
-				serverSleepTime = 0
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
@@ -1682,12 +2267,90 @@ var _ = Describe(`ResourceControllerV2`, func() {
 					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
 
 					// Sleep a short time to support a timeout test
-					time.Sleep(serverSleepTime)
+					time.Sleep(100 * time.Millisecond)
 
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "guid": "GUID", "crn": "CRN", "url": "URL", "name": "Name", "account_id": "AccountID", "resource_group_id": "ResourceGroupID", "source_crn": "SourceCRN", "role": "Role", "state": "State", "credentials": {"apikey": "Apikey", "iam_apikey_description": "IamApikeyDescription", "iam_apikey_name": "IamApikeyName", "iam_role_crn": "IamRoleCRN", "iam_serviceid_crn": "IamServiceidCRN"}, "iam_compatible": false, "resource_instance_url": "ResourceInstanceURL", "created_at": "2019-01-01T12:00:00", "updated_at": "2019-01-01T12:00:00", "deleted_at": "2019-01-01T12:00:00", "created_by": "CreatedBy", "updated_by": "UpdatedBy", "deleted_by": "DeletedBy"}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "guid": "GUID", "crn": "CRN", "url": "URL", "name": "Name", "account_id": "AccountID", "resource_group_id": "ResourceGroupID", "source_crn": "SourceCRN", "role": "Role", "state": "State", "credentials": {"apikey": "Apikey", "iam_apikey_description": "IamApikeyDescription", "iam_apikey_name": "IamApikeyName", "iam_role_crn": "IamRoleCRN", "iam_serviceid_crn": "IamServiceidCRN"}, "iam_compatible": false, "resource_instance_url": "ResourceInstanceURL", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "deleted_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "updated_by": "UpdatedBy", "deleted_by": "DeletedBy"}`)
+				}))
+			})
+			It(`Invoke CreateResourceKey successfully with retries`, func() {
+				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(resourceControllerService).ToNot(BeNil())
+				resourceControllerService.EnableRetries(0, 0)
+
+				// Construct an instance of the ResourceKeyPostParameters model
+				resourceKeyPostParametersModel := new(resourcecontrollerv2.ResourceKeyPostParameters)
+				resourceKeyPostParametersModel.ServiceidCRN = core.StringPtr("crn:v1:bluemix:public:iam-identity::a/9fceaa56d1ab84893af6b9eec5ab81bb::serviceid:ServiceId-fe4c29b5-db13-410a-bacc-b5779a03d393")
+				resourceKeyPostParametersModel.SetProperty("foo", core.StringPtr("testString"))
+
+				// Construct an instance of the CreateResourceKeyOptions model
+				createResourceKeyOptionsModel := new(resourcecontrollerv2.CreateResourceKeyOptions)
+				createResourceKeyOptionsModel.Name = core.StringPtr("my-key")
+				createResourceKeyOptionsModel.Source = core.StringPtr("25eba2a9-beef-450b-82cf-f5ad5e36c6dd")
+				createResourceKeyOptionsModel.Parameters = resourceKeyPostParametersModel
+				createResourceKeyOptionsModel.Role = core.StringPtr("Writer")
+				createResourceKeyOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := resourceControllerService.CreateResourceKeyWithContext(ctx, createResourceKeyOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				resourceControllerService.DisableRetries()
+				result, response, operationErr := resourceControllerService.CreateResourceKey(createResourceKeyOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = resourceControllerService.CreateResourceKeyWithContext(ctx, createResourceKeyOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(createResourceKeyPath))
+					Expect(req.Method).To(Equal("POST"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(201)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "guid": "GUID", "crn": "CRN", "url": "URL", "name": "Name", "account_id": "AccountID", "resource_group_id": "ResourceGroupID", "source_crn": "SourceCRN", "role": "Role", "state": "State", "credentials": {"apikey": "Apikey", "iam_apikey_description": "IamApikeyDescription", "iam_apikey_name": "IamApikeyName", "iam_role_crn": "IamRoleCRN", "iam_serviceid_crn": "IamServiceidCRN"}, "iam_compatible": false, "resource_instance_url": "ResourceInstanceURL", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "deleted_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "updated_by": "UpdatedBy", "deleted_by": "DeletedBy"}`)
 				}))
 			})
 			It(`Invoke CreateResourceKey successfully`, func() {
@@ -1697,7 +2360,6 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				})
 				Expect(serviceErr).To(BeNil())
 				Expect(resourceControllerService).ToNot(BeNil())
-				resourceControllerService.EnableRetries(0, 0)
 
 				// Invoke operation with nil options model (negative test)
 				result, response, operationErr := resourceControllerService.CreateResourceKey(nil)
@@ -1708,6 +2370,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				// Construct an instance of the ResourceKeyPostParameters model
 				resourceKeyPostParametersModel := new(resourcecontrollerv2.ResourceKeyPostParameters)
 				resourceKeyPostParametersModel.ServiceidCRN = core.StringPtr("crn:v1:bluemix:public:iam-identity::a/9fceaa56d1ab84893af6b9eec5ab81bb::serviceid:ServiceId-fe4c29b5-db13-410a-bacc-b5779a03d393")
+				resourceKeyPostParametersModel.SetProperty("foo", core.StringPtr("testString"))
 
 				// Construct an instance of the CreateResourceKeyOptions model
 				createResourceKeyOptionsModel := new(resourcecontrollerv2.CreateResourceKeyOptions)
@@ -1723,30 +2386,6 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
 
-				// Invoke operation with a Context to test a timeout error
-				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc()
-				serverSleepTime = 100 * time.Millisecond
-				_, _, operationErr = resourceControllerService.CreateResourceKeyWithContext(ctx, createResourceKeyOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-				serverSleepTime = time.Duration(0)
-
-				// Disable retries and test again
-				resourceControllerService.DisableRetries()
-				result, response, operationErr = resourceControllerService.CreateResourceKey(createResourceKeyOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).ToNot(BeNil())
-
-				// Re-test the timeout error with retries disabled
-				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc2()
-				serverSleepTime = 100 * time.Millisecond
-				_, _, operationErr = resourceControllerService.CreateResourceKeyWithContext(ctx, createResourceKeyOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-				serverSleepTime = time.Duration(0)
 			})
 			It(`Invoke CreateResourceKey with error: Operation validation and request error`, func() {
 				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
@@ -1759,6 +2398,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				// Construct an instance of the ResourceKeyPostParameters model
 				resourceKeyPostParametersModel := new(resourcecontrollerv2.ResourceKeyPostParameters)
 				resourceKeyPostParametersModel.ServiceidCRN = core.StringPtr("crn:v1:bluemix:public:iam-identity::a/9fceaa56d1ab84893af6b9eec5ab81bb::serviceid:ServiceId-fe4c29b5-db13-410a-bacc-b5779a03d393")
+				resourceKeyPostParametersModel.SetProperty("foo", core.StringPtr("testString"))
 
 				// Construct an instance of the CreateResourceKeyOptions model
 				createResourceKeyOptionsModel := new(resourcecontrollerv2.CreateResourceKeyOptions)
@@ -1836,10 +2476,8 @@ var _ = Describe(`ResourceControllerV2`, func() {
 
 	Describe(`GetResourceKey(getResourceKeyOptions *GetResourceKeyOptions)`, func() {
 		getResourceKeyPath := "/v2/resource_keys/testString"
-		var serverSleepTime time.Duration
-		Context(`Using mock server endpoint`, func() {
+		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
-				serverSleepTime = 0
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
@@ -1848,12 +2486,66 @@ var _ = Describe(`ResourceControllerV2`, func() {
 					Expect(req.Method).To(Equal("GET"))
 
 					// Sleep a short time to support a timeout test
-					time.Sleep(serverSleepTime)
+					time.Sleep(100 * time.Millisecond)
 
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "guid": "GUID", "crn": "CRN", "url": "URL", "name": "Name", "account_id": "AccountID", "resource_group_id": "ResourceGroupID", "source_crn": "SourceCRN", "role": "Role", "state": "State", "credentials": {"apikey": "Apikey", "iam_apikey_description": "IamApikeyDescription", "iam_apikey_name": "IamApikeyName", "iam_role_crn": "IamRoleCRN", "iam_serviceid_crn": "IamServiceidCRN"}, "iam_compatible": false, "resource_instance_url": "ResourceInstanceURL", "created_at": "2019-01-01T12:00:00", "updated_at": "2019-01-01T12:00:00", "deleted_at": "2019-01-01T12:00:00", "created_by": "CreatedBy", "updated_by": "UpdatedBy", "deleted_by": "DeletedBy"}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "guid": "GUID", "crn": "CRN", "url": "URL", "name": "Name", "account_id": "AccountID", "resource_group_id": "ResourceGroupID", "source_crn": "SourceCRN", "role": "Role", "state": "State", "credentials": {"apikey": "Apikey", "iam_apikey_description": "IamApikeyDescription", "iam_apikey_name": "IamApikeyName", "iam_role_crn": "IamRoleCRN", "iam_serviceid_crn": "IamServiceidCRN"}, "iam_compatible": false, "resource_instance_url": "ResourceInstanceURL", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "deleted_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "updated_by": "UpdatedBy", "deleted_by": "DeletedBy"}`)
+				}))
+			})
+			It(`Invoke GetResourceKey successfully with retries`, func() {
+				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(resourceControllerService).ToNot(BeNil())
+				resourceControllerService.EnableRetries(0, 0)
+
+				// Construct an instance of the GetResourceKeyOptions model
+				getResourceKeyOptionsModel := new(resourcecontrollerv2.GetResourceKeyOptions)
+				getResourceKeyOptionsModel.ID = core.StringPtr("testString")
+				getResourceKeyOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := resourceControllerService.GetResourceKeyWithContext(ctx, getResourceKeyOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				resourceControllerService.DisableRetries()
+				result, response, operationErr := resourceControllerService.GetResourceKey(getResourceKeyOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = resourceControllerService.GetResourceKeyWithContext(ctx, getResourceKeyOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getResourceKeyPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "guid": "GUID", "crn": "CRN", "url": "URL", "name": "Name", "account_id": "AccountID", "resource_group_id": "ResourceGroupID", "source_crn": "SourceCRN", "role": "Role", "state": "State", "credentials": {"apikey": "Apikey", "iam_apikey_description": "IamApikeyDescription", "iam_apikey_name": "IamApikeyName", "iam_role_crn": "IamRoleCRN", "iam_serviceid_crn": "IamServiceidCRN"}, "iam_compatible": false, "resource_instance_url": "ResourceInstanceURL", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "deleted_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "updated_by": "UpdatedBy", "deleted_by": "DeletedBy"}`)
 				}))
 			})
 			It(`Invoke GetResourceKey successfully`, func() {
@@ -1863,7 +2555,6 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				})
 				Expect(serviceErr).To(BeNil())
 				Expect(resourceControllerService).ToNot(BeNil())
-				resourceControllerService.EnableRetries(0, 0)
 
 				// Invoke operation with nil options model (negative test)
 				result, response, operationErr := resourceControllerService.GetResourceKey(nil)
@@ -1882,30 +2573,6 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
 
-				// Invoke operation with a Context to test a timeout error
-				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc()
-				serverSleepTime = 100 * time.Millisecond
-				_, _, operationErr = resourceControllerService.GetResourceKeyWithContext(ctx, getResourceKeyOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-				serverSleepTime = time.Duration(0)
-
-				// Disable retries and test again
-				resourceControllerService.DisableRetries()
-				result, response, operationErr = resourceControllerService.GetResourceKey(getResourceKeyOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).ToNot(BeNil())
-
-				// Re-test the timeout error with retries disabled
-				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc2()
-				serverSleepTime = 100 * time.Millisecond
-				_, _, operationErr = resourceControllerService.GetResourceKeyWithContext(ctx, getResourceKeyOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-				serverSleepTime = time.Duration(0)
 			})
 			It(`Invoke GetResourceKey with error: Operation validation and request error`, func() {
 				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
@@ -1962,7 +2629,6 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				})
 				Expect(serviceErr).To(BeNil())
 				Expect(resourceControllerService).ToNot(BeNil())
-				resourceControllerService.EnableRetries(0, 0)
 
 				// Invoke operation with nil options model (negative test)
 				response, operationErr := resourceControllerService.DeleteResourceKey(nil)
@@ -1975,12 +2641,6 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				deleteResourceKeyOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
-				response, operationErr = resourceControllerService.DeleteResourceKey(deleteResourceKeyOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-
-				// Disable retries and test again
-				resourceControllerService.DisableRetries()
 				response, operationErr = resourceControllerService.DeleteResourceKey(deleteResourceKeyOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
@@ -2065,10 +2725,8 @@ var _ = Describe(`ResourceControllerV2`, func() {
 
 	Describe(`UpdateResourceKey(updateResourceKeyOptions *UpdateResourceKeyOptions)`, func() {
 		updateResourceKeyPath := "/v2/resource_keys/testString"
-		var serverSleepTime time.Duration
-		Context(`Using mock server endpoint`, func() {
+		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
-				serverSleepTime = 0
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
@@ -2093,12 +2751,83 @@ var _ = Describe(`ResourceControllerV2`, func() {
 					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
 
 					// Sleep a short time to support a timeout test
-					time.Sleep(serverSleepTime)
+					time.Sleep(100 * time.Millisecond)
 
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "guid": "GUID", "crn": "CRN", "url": "URL", "name": "Name", "account_id": "AccountID", "resource_group_id": "ResourceGroupID", "source_crn": "SourceCRN", "role": "Role", "state": "State", "credentials": {"apikey": "Apikey", "iam_apikey_description": "IamApikeyDescription", "iam_apikey_name": "IamApikeyName", "iam_role_crn": "IamRoleCRN", "iam_serviceid_crn": "IamServiceidCRN"}, "iam_compatible": false, "resource_instance_url": "ResourceInstanceURL", "created_at": "2019-01-01T12:00:00", "updated_at": "2019-01-01T12:00:00", "deleted_at": "2019-01-01T12:00:00", "created_by": "CreatedBy", "updated_by": "UpdatedBy", "deleted_by": "DeletedBy"}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "guid": "GUID", "crn": "CRN", "url": "URL", "name": "Name", "account_id": "AccountID", "resource_group_id": "ResourceGroupID", "source_crn": "SourceCRN", "role": "Role", "state": "State", "credentials": {"apikey": "Apikey", "iam_apikey_description": "IamApikeyDescription", "iam_apikey_name": "IamApikeyName", "iam_role_crn": "IamRoleCRN", "iam_serviceid_crn": "IamServiceidCRN"}, "iam_compatible": false, "resource_instance_url": "ResourceInstanceURL", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "deleted_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "updated_by": "UpdatedBy", "deleted_by": "DeletedBy"}`)
+				}))
+			})
+			It(`Invoke UpdateResourceKey successfully with retries`, func() {
+				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(resourceControllerService).ToNot(BeNil())
+				resourceControllerService.EnableRetries(0, 0)
+
+				// Construct an instance of the UpdateResourceKeyOptions model
+				updateResourceKeyOptionsModel := new(resourcecontrollerv2.UpdateResourceKeyOptions)
+				updateResourceKeyOptionsModel.ID = core.StringPtr("testString")
+				updateResourceKeyOptionsModel.Name = core.StringPtr("my-new-key-name")
+				updateResourceKeyOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := resourceControllerService.UpdateResourceKeyWithContext(ctx, updateResourceKeyOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				resourceControllerService.DisableRetries()
+				result, response, operationErr := resourceControllerService.UpdateResourceKey(updateResourceKeyOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = resourceControllerService.UpdateResourceKeyWithContext(ctx, updateResourceKeyOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(updateResourceKeyPath))
+					Expect(req.Method).To(Equal("PATCH"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "guid": "GUID", "crn": "CRN", "url": "URL", "name": "Name", "account_id": "AccountID", "resource_group_id": "ResourceGroupID", "source_crn": "SourceCRN", "role": "Role", "state": "State", "credentials": {"apikey": "Apikey", "iam_apikey_description": "IamApikeyDescription", "iam_apikey_name": "IamApikeyName", "iam_role_crn": "IamRoleCRN", "iam_serviceid_crn": "IamServiceidCRN"}, "iam_compatible": false, "resource_instance_url": "ResourceInstanceURL", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "deleted_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "updated_by": "UpdatedBy", "deleted_by": "DeletedBy"}`)
 				}))
 			})
 			It(`Invoke UpdateResourceKey successfully`, func() {
@@ -2108,7 +2837,6 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				})
 				Expect(serviceErr).To(BeNil())
 				Expect(resourceControllerService).ToNot(BeNil())
-				resourceControllerService.EnableRetries(0, 0)
 
 				// Invoke operation with nil options model (negative test)
 				result, response, operationErr := resourceControllerService.UpdateResourceKey(nil)
@@ -2128,30 +2856,6 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
 
-				// Invoke operation with a Context to test a timeout error
-				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc()
-				serverSleepTime = 100 * time.Millisecond
-				_, _, operationErr = resourceControllerService.UpdateResourceKeyWithContext(ctx, updateResourceKeyOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-				serverSleepTime = time.Duration(0)
-
-				// Disable retries and test again
-				resourceControllerService.DisableRetries()
-				result, response, operationErr = resourceControllerService.UpdateResourceKey(updateResourceKeyOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).ToNot(BeNil())
-
-				// Re-test the timeout error with retries disabled
-				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc2()
-				serverSleepTime = 100 * time.Millisecond
-				_, _, operationErr = resourceControllerService.UpdateResourceKeyWithContext(ctx, updateResourceKeyOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-				serverSleepTime = time.Duration(0)
 			})
 			It(`Invoke UpdateResourceKey with error: Operation validation and request error`, func() {
 				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
@@ -2326,21 +3030,13 @@ var _ = Describe(`ResourceControllerV2`, func() {
 					Expect(req.URL.EscapedPath()).To(Equal(listResourceBindingsPath))
 					Expect(req.Method).To(Equal("GET"))
 					Expect(req.URL.Query()["guid"]).To(Equal([]string{"testString"}))
-
 					Expect(req.URL.Query()["name"]).To(Equal([]string{"testString"}))
-
 					Expect(req.URL.Query()["resource_group_id"]).To(Equal([]string{"testString"}))
-
 					Expect(req.URL.Query()["resource_id"]).To(Equal([]string{"testString"}))
-
 					Expect(req.URL.Query()["region_binding_id"]).To(Equal([]string{"testString"}))
-
 					Expect(req.URL.Query()["limit"]).To(Equal([]string{"testString"}))
-
 					Expect(req.URL.Query()["updated_from"]).To(Equal([]string{"2019-01-08T00:00:00.000Z"}))
-
 					Expect(req.URL.Query()["updated_to"]).To(Equal([]string{"2019-01-08T00:00:00.000Z"}))
-
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
 					fmt.Fprintf(res, `} this is not valid json {`)
@@ -2386,10 +3082,8 @@ var _ = Describe(`ResourceControllerV2`, func() {
 
 	Describe(`ListResourceBindings(listResourceBindingsOptions *ListResourceBindingsOptions)`, func() {
 		listResourceBindingsPath := "/v2/resource_bindings"
-		var serverSleepTime time.Duration
-		Context(`Using mock server endpoint`, func() {
+		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
-				serverSleepTime = 0
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
@@ -2398,28 +3092,89 @@ var _ = Describe(`ResourceControllerV2`, func() {
 					Expect(req.Method).To(Equal("GET"))
 
 					Expect(req.URL.Query()["guid"]).To(Equal([]string{"testString"}))
-
 					Expect(req.URL.Query()["name"]).To(Equal([]string{"testString"}))
-
 					Expect(req.URL.Query()["resource_group_id"]).To(Equal([]string{"testString"}))
-
 					Expect(req.URL.Query()["resource_id"]).To(Equal([]string{"testString"}))
-
 					Expect(req.URL.Query()["region_binding_id"]).To(Equal([]string{"testString"}))
-
 					Expect(req.URL.Query()["limit"]).To(Equal([]string{"testString"}))
-
 					Expect(req.URL.Query()["updated_from"]).To(Equal([]string{"2019-01-08T00:00:00.000Z"}))
-
 					Expect(req.URL.Query()["updated_to"]).To(Equal([]string{"2019-01-08T00:00:00.000Z"}))
-
 					// Sleep a short time to support a timeout test
-					time.Sleep(serverSleepTime)
+					time.Sleep(100 * time.Millisecond)
 
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"next_url": "NextURL", "resources": [{"id": "ID", "guid": "GUID", "crn": "CRN", "url": "URL", "name": "Name", "account_id": "AccountID", "resource_group_id": "ResourceGroupID", "source_crn": "SourceCRN", "target_crn": "TargetCRN", "role": "Role", "region_binding_id": "RegionBindingID", "state": "State", "credentials": {"apikey": "Apikey", "iam_apikey_description": "IamApikeyDescription", "iam_apikey_name": "IamApikeyName", "iam_role_crn": "IamRoleCRN", "iam_serviceid_crn": "IamServiceidCRN"}, "iam_compatible": false, "resource_alias_url": "ResourceAliasURL", "created_at": "2019-01-01T12:00:00", "updated_at": "2019-01-01T12:00:00", "deleted_at": "2019-01-01T12:00:00", "created_by": "CreatedBy", "updated_by": "UpdatedBy", "deleted_by": "DeletedBy"}], "rows_count": 9}`)
+					fmt.Fprintf(res, "%s", `{"next_url": "NextURL", "resources": [{"id": "ID", "guid": "GUID", "crn": "CRN", "url": "URL", "name": "Name", "account_id": "AccountID", "resource_group_id": "ResourceGroupID", "source_crn": "SourceCRN", "target_crn": "TargetCRN", "role": "Role", "region_binding_id": "RegionBindingID", "state": "State", "credentials": {"apikey": "Apikey", "iam_apikey_description": "IamApikeyDescription", "iam_apikey_name": "IamApikeyName", "iam_role_crn": "IamRoleCRN", "iam_serviceid_crn": "IamServiceidCRN"}, "iam_compatible": false, "resource_alias_url": "ResourceAliasURL", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "deleted_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "updated_by": "UpdatedBy", "deleted_by": "DeletedBy"}], "rows_count": 9}`)
+				}))
+			})
+			It(`Invoke ListResourceBindings successfully with retries`, func() {
+				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(resourceControllerService).ToNot(BeNil())
+				resourceControllerService.EnableRetries(0, 0)
+
+				// Construct an instance of the ListResourceBindingsOptions model
+				listResourceBindingsOptionsModel := new(resourcecontrollerv2.ListResourceBindingsOptions)
+				listResourceBindingsOptionsModel.GUID = core.StringPtr("testString")
+				listResourceBindingsOptionsModel.Name = core.StringPtr("testString")
+				listResourceBindingsOptionsModel.ResourceGroupID = core.StringPtr("testString")
+				listResourceBindingsOptionsModel.ResourceID = core.StringPtr("testString")
+				listResourceBindingsOptionsModel.RegionBindingID = core.StringPtr("testString")
+				listResourceBindingsOptionsModel.Limit = core.StringPtr("testString")
+				listResourceBindingsOptionsModel.UpdatedFrom = core.StringPtr("2019-01-08T00:00:00.000Z")
+				listResourceBindingsOptionsModel.UpdatedTo = core.StringPtr("2019-01-08T00:00:00.000Z")
+				listResourceBindingsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := resourceControllerService.ListResourceBindingsWithContext(ctx, listResourceBindingsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				resourceControllerService.DisableRetries()
+				result, response, operationErr := resourceControllerService.ListResourceBindings(listResourceBindingsOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = resourceControllerService.ListResourceBindingsWithContext(ctx, listResourceBindingsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(listResourceBindingsPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					Expect(req.URL.Query()["guid"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["name"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["resource_group_id"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["resource_id"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["region_binding_id"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["limit"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["updated_from"]).To(Equal([]string{"2019-01-08T00:00:00.000Z"}))
+					Expect(req.URL.Query()["updated_to"]).To(Equal([]string{"2019-01-08T00:00:00.000Z"}))
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"next_url": "NextURL", "resources": [{"id": "ID", "guid": "GUID", "crn": "CRN", "url": "URL", "name": "Name", "account_id": "AccountID", "resource_group_id": "ResourceGroupID", "source_crn": "SourceCRN", "target_crn": "TargetCRN", "role": "Role", "region_binding_id": "RegionBindingID", "state": "State", "credentials": {"apikey": "Apikey", "iam_apikey_description": "IamApikeyDescription", "iam_apikey_name": "IamApikeyName", "iam_role_crn": "IamRoleCRN", "iam_serviceid_crn": "IamServiceidCRN"}, "iam_compatible": false, "resource_alias_url": "ResourceAliasURL", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "deleted_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "updated_by": "UpdatedBy", "deleted_by": "DeletedBy"}], "rows_count": 9}`)
 				}))
 			})
 			It(`Invoke ListResourceBindings successfully`, func() {
@@ -2429,7 +3184,6 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				})
 				Expect(serviceErr).To(BeNil())
 				Expect(resourceControllerService).ToNot(BeNil())
-				resourceControllerService.EnableRetries(0, 0)
 
 				// Invoke operation with nil options model (negative test)
 				result, response, operationErr := resourceControllerService.ListResourceBindings(nil)
@@ -2455,30 +3209,6 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
 
-				// Invoke operation with a Context to test a timeout error
-				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc()
-				serverSleepTime = 100 * time.Millisecond
-				_, _, operationErr = resourceControllerService.ListResourceBindingsWithContext(ctx, listResourceBindingsOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-				serverSleepTime = time.Duration(0)
-
-				// Disable retries and test again
-				resourceControllerService.DisableRetries()
-				result, response, operationErr = resourceControllerService.ListResourceBindings(listResourceBindingsOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).ToNot(BeNil())
-
-				// Re-test the timeout error with retries disabled
-				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc2()
-				serverSleepTime = 100 * time.Millisecond
-				_, _, operationErr = resourceControllerService.ListResourceBindingsWithContext(ctx, listResourceBindingsOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-				serverSleepTime = time.Duration(0)
 			})
 			It(`Invoke ListResourceBindings with error: Operation request error`, func() {
 				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
@@ -2539,6 +3269,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				// Construct an instance of the ResourceBindingPostParameters model
 				resourceBindingPostParametersModel := new(resourcecontrollerv2.ResourceBindingPostParameters)
 				resourceBindingPostParametersModel.ServiceidCRN = core.StringPtr("crn:v1:bluemix:public:iam-identity::a/9fceaa56d1ab84893af6b9eec5ab81bb::serviceid:ServiceId-fe4c29b5-db13-410a-bacc-b5779a03d393")
+				resourceBindingPostParametersModel.SetProperty("foo", core.StringPtr("testString"))
 
 				// Construct an instance of the CreateResourceBindingOptions model
 				createResourceBindingOptionsModel := new(resourcecontrollerv2.CreateResourceBindingOptions)
@@ -2569,10 +3300,8 @@ var _ = Describe(`ResourceControllerV2`, func() {
 
 	Describe(`CreateResourceBinding(createResourceBindingOptions *CreateResourceBindingOptions)`, func() {
 		createResourceBindingPath := "/v2/resource_bindings"
-		var serverSleepTime time.Duration
-		Context(`Using mock server endpoint`, func() {
+		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
-				serverSleepTime = 0
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
@@ -2597,12 +3326,91 @@ var _ = Describe(`ResourceControllerV2`, func() {
 					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
 
 					// Sleep a short time to support a timeout test
-					time.Sleep(serverSleepTime)
+					time.Sleep(100 * time.Millisecond)
 
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "guid": "GUID", "crn": "CRN", "url": "URL", "name": "Name", "account_id": "AccountID", "resource_group_id": "ResourceGroupID", "source_crn": "SourceCRN", "target_crn": "TargetCRN", "role": "Role", "region_binding_id": "RegionBindingID", "state": "State", "credentials": {"apikey": "Apikey", "iam_apikey_description": "IamApikeyDescription", "iam_apikey_name": "IamApikeyName", "iam_role_crn": "IamRoleCRN", "iam_serviceid_crn": "IamServiceidCRN"}, "iam_compatible": false, "resource_alias_url": "ResourceAliasURL", "created_at": "2019-01-01T12:00:00", "updated_at": "2019-01-01T12:00:00", "deleted_at": "2019-01-01T12:00:00", "created_by": "CreatedBy", "updated_by": "UpdatedBy", "deleted_by": "DeletedBy"}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "guid": "GUID", "crn": "CRN", "url": "URL", "name": "Name", "account_id": "AccountID", "resource_group_id": "ResourceGroupID", "source_crn": "SourceCRN", "target_crn": "TargetCRN", "role": "Role", "region_binding_id": "RegionBindingID", "state": "State", "credentials": {"apikey": "Apikey", "iam_apikey_description": "IamApikeyDescription", "iam_apikey_name": "IamApikeyName", "iam_role_crn": "IamRoleCRN", "iam_serviceid_crn": "IamServiceidCRN"}, "iam_compatible": false, "resource_alias_url": "ResourceAliasURL", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "deleted_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "updated_by": "UpdatedBy", "deleted_by": "DeletedBy"}`)
+				}))
+			})
+			It(`Invoke CreateResourceBinding successfully with retries`, func() {
+				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(resourceControllerService).ToNot(BeNil())
+				resourceControllerService.EnableRetries(0, 0)
+
+				// Construct an instance of the ResourceBindingPostParameters model
+				resourceBindingPostParametersModel := new(resourcecontrollerv2.ResourceBindingPostParameters)
+				resourceBindingPostParametersModel.ServiceidCRN = core.StringPtr("crn:v1:bluemix:public:iam-identity::a/9fceaa56d1ab84893af6b9eec5ab81bb::serviceid:ServiceId-fe4c29b5-db13-410a-bacc-b5779a03d393")
+				resourceBindingPostParametersModel.SetProperty("foo", core.StringPtr("testString"))
+
+				// Construct an instance of the CreateResourceBindingOptions model
+				createResourceBindingOptionsModel := new(resourcecontrollerv2.CreateResourceBindingOptions)
+				createResourceBindingOptionsModel.Source = core.StringPtr("25eba2a9-beef-450b-82cf-f5ad5e36c6dd")
+				createResourceBindingOptionsModel.Target = core.StringPtr("crn:v1:bluemix:public:cf:us-south:s/0ba4dba0-a120-4a1e-a124-5a249a904b76::cf-application:a1caa40b-2c24-4da8-8267-ac2c1a42ad0c")
+				createResourceBindingOptionsModel.Name = core.StringPtr("my-binding")
+				createResourceBindingOptionsModel.Parameters = resourceBindingPostParametersModel
+				createResourceBindingOptionsModel.Role = core.StringPtr("Writer")
+				createResourceBindingOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := resourceControllerService.CreateResourceBindingWithContext(ctx, createResourceBindingOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				resourceControllerService.DisableRetries()
+				result, response, operationErr := resourceControllerService.CreateResourceBinding(createResourceBindingOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = resourceControllerService.CreateResourceBindingWithContext(ctx, createResourceBindingOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(createResourceBindingPath))
+					Expect(req.Method).To(Equal("POST"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(201)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "guid": "GUID", "crn": "CRN", "url": "URL", "name": "Name", "account_id": "AccountID", "resource_group_id": "ResourceGroupID", "source_crn": "SourceCRN", "target_crn": "TargetCRN", "role": "Role", "region_binding_id": "RegionBindingID", "state": "State", "credentials": {"apikey": "Apikey", "iam_apikey_description": "IamApikeyDescription", "iam_apikey_name": "IamApikeyName", "iam_role_crn": "IamRoleCRN", "iam_serviceid_crn": "IamServiceidCRN"}, "iam_compatible": false, "resource_alias_url": "ResourceAliasURL", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "deleted_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "updated_by": "UpdatedBy", "deleted_by": "DeletedBy"}`)
 				}))
 			})
 			It(`Invoke CreateResourceBinding successfully`, func() {
@@ -2612,7 +3420,6 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				})
 				Expect(serviceErr).To(BeNil())
 				Expect(resourceControllerService).ToNot(BeNil())
-				resourceControllerService.EnableRetries(0, 0)
 
 				// Invoke operation with nil options model (negative test)
 				result, response, operationErr := resourceControllerService.CreateResourceBinding(nil)
@@ -2623,6 +3430,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				// Construct an instance of the ResourceBindingPostParameters model
 				resourceBindingPostParametersModel := new(resourcecontrollerv2.ResourceBindingPostParameters)
 				resourceBindingPostParametersModel.ServiceidCRN = core.StringPtr("crn:v1:bluemix:public:iam-identity::a/9fceaa56d1ab84893af6b9eec5ab81bb::serviceid:ServiceId-fe4c29b5-db13-410a-bacc-b5779a03d393")
+				resourceBindingPostParametersModel.SetProperty("foo", core.StringPtr("testString"))
 
 				// Construct an instance of the CreateResourceBindingOptions model
 				createResourceBindingOptionsModel := new(resourcecontrollerv2.CreateResourceBindingOptions)
@@ -2639,30 +3447,6 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
 
-				// Invoke operation with a Context to test a timeout error
-				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc()
-				serverSleepTime = 100 * time.Millisecond
-				_, _, operationErr = resourceControllerService.CreateResourceBindingWithContext(ctx, createResourceBindingOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-				serverSleepTime = time.Duration(0)
-
-				// Disable retries and test again
-				resourceControllerService.DisableRetries()
-				result, response, operationErr = resourceControllerService.CreateResourceBinding(createResourceBindingOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).ToNot(BeNil())
-
-				// Re-test the timeout error with retries disabled
-				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc2()
-				serverSleepTime = 100 * time.Millisecond
-				_, _, operationErr = resourceControllerService.CreateResourceBindingWithContext(ctx, createResourceBindingOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-				serverSleepTime = time.Duration(0)
 			})
 			It(`Invoke CreateResourceBinding with error: Operation validation and request error`, func() {
 				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
@@ -2675,6 +3459,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				// Construct an instance of the ResourceBindingPostParameters model
 				resourceBindingPostParametersModel := new(resourcecontrollerv2.ResourceBindingPostParameters)
 				resourceBindingPostParametersModel.ServiceidCRN = core.StringPtr("crn:v1:bluemix:public:iam-identity::a/9fceaa56d1ab84893af6b9eec5ab81bb::serviceid:ServiceId-fe4c29b5-db13-410a-bacc-b5779a03d393")
+				resourceBindingPostParametersModel.SetProperty("foo", core.StringPtr("testString"))
 
 				// Construct an instance of the CreateResourceBindingOptions model
 				createResourceBindingOptionsModel := new(resourcecontrollerv2.CreateResourceBindingOptions)
@@ -2753,10 +3538,8 @@ var _ = Describe(`ResourceControllerV2`, func() {
 
 	Describe(`GetResourceBinding(getResourceBindingOptions *GetResourceBindingOptions)`, func() {
 		getResourceBindingPath := "/v2/resource_bindings/testString"
-		var serverSleepTime time.Duration
-		Context(`Using mock server endpoint`, func() {
+		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
-				serverSleepTime = 0
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
@@ -2765,12 +3548,66 @@ var _ = Describe(`ResourceControllerV2`, func() {
 					Expect(req.Method).To(Equal("GET"))
 
 					// Sleep a short time to support a timeout test
-					time.Sleep(serverSleepTime)
+					time.Sleep(100 * time.Millisecond)
 
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "guid": "GUID", "crn": "CRN", "url": "URL", "name": "Name", "account_id": "AccountID", "resource_group_id": "ResourceGroupID", "source_crn": "SourceCRN", "target_crn": "TargetCRN", "role": "Role", "region_binding_id": "RegionBindingID", "state": "State", "credentials": {"apikey": "Apikey", "iam_apikey_description": "IamApikeyDescription", "iam_apikey_name": "IamApikeyName", "iam_role_crn": "IamRoleCRN", "iam_serviceid_crn": "IamServiceidCRN"}, "iam_compatible": false, "resource_alias_url": "ResourceAliasURL", "created_at": "2019-01-01T12:00:00", "updated_at": "2019-01-01T12:00:00", "deleted_at": "2019-01-01T12:00:00", "created_by": "CreatedBy", "updated_by": "UpdatedBy", "deleted_by": "DeletedBy"}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "guid": "GUID", "crn": "CRN", "url": "URL", "name": "Name", "account_id": "AccountID", "resource_group_id": "ResourceGroupID", "source_crn": "SourceCRN", "target_crn": "TargetCRN", "role": "Role", "region_binding_id": "RegionBindingID", "state": "State", "credentials": {"apikey": "Apikey", "iam_apikey_description": "IamApikeyDescription", "iam_apikey_name": "IamApikeyName", "iam_role_crn": "IamRoleCRN", "iam_serviceid_crn": "IamServiceidCRN"}, "iam_compatible": false, "resource_alias_url": "ResourceAliasURL", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "deleted_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "updated_by": "UpdatedBy", "deleted_by": "DeletedBy"}`)
+				}))
+			})
+			It(`Invoke GetResourceBinding successfully with retries`, func() {
+				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(resourceControllerService).ToNot(BeNil())
+				resourceControllerService.EnableRetries(0, 0)
+
+				// Construct an instance of the GetResourceBindingOptions model
+				getResourceBindingOptionsModel := new(resourcecontrollerv2.GetResourceBindingOptions)
+				getResourceBindingOptionsModel.ID = core.StringPtr("testString")
+				getResourceBindingOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := resourceControllerService.GetResourceBindingWithContext(ctx, getResourceBindingOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				resourceControllerService.DisableRetries()
+				result, response, operationErr := resourceControllerService.GetResourceBinding(getResourceBindingOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = resourceControllerService.GetResourceBindingWithContext(ctx, getResourceBindingOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getResourceBindingPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "guid": "GUID", "crn": "CRN", "url": "URL", "name": "Name", "account_id": "AccountID", "resource_group_id": "ResourceGroupID", "source_crn": "SourceCRN", "target_crn": "TargetCRN", "role": "Role", "region_binding_id": "RegionBindingID", "state": "State", "credentials": {"apikey": "Apikey", "iam_apikey_description": "IamApikeyDescription", "iam_apikey_name": "IamApikeyName", "iam_role_crn": "IamRoleCRN", "iam_serviceid_crn": "IamServiceidCRN"}, "iam_compatible": false, "resource_alias_url": "ResourceAliasURL", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "deleted_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "updated_by": "UpdatedBy", "deleted_by": "DeletedBy"}`)
 				}))
 			})
 			It(`Invoke GetResourceBinding successfully`, func() {
@@ -2780,7 +3617,6 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				})
 				Expect(serviceErr).To(BeNil())
 				Expect(resourceControllerService).ToNot(BeNil())
-				resourceControllerService.EnableRetries(0, 0)
 
 				// Invoke operation with nil options model (negative test)
 				result, response, operationErr := resourceControllerService.GetResourceBinding(nil)
@@ -2799,30 +3635,6 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
 
-				// Invoke operation with a Context to test a timeout error
-				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc()
-				serverSleepTime = 100 * time.Millisecond
-				_, _, operationErr = resourceControllerService.GetResourceBindingWithContext(ctx, getResourceBindingOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-				serverSleepTime = time.Duration(0)
-
-				// Disable retries and test again
-				resourceControllerService.DisableRetries()
-				result, response, operationErr = resourceControllerService.GetResourceBinding(getResourceBindingOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).ToNot(BeNil())
-
-				// Re-test the timeout error with retries disabled
-				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc2()
-				serverSleepTime = 100 * time.Millisecond
-				_, _, operationErr = resourceControllerService.GetResourceBindingWithContext(ctx, getResourceBindingOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-				serverSleepTime = time.Duration(0)
 			})
 			It(`Invoke GetResourceBinding with error: Operation validation and request error`, func() {
 				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
@@ -2879,7 +3691,6 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				})
 				Expect(serviceErr).To(BeNil())
 				Expect(resourceControllerService).ToNot(BeNil())
-				resourceControllerService.EnableRetries(0, 0)
 
 				// Invoke operation with nil options model (negative test)
 				response, operationErr := resourceControllerService.DeleteResourceBinding(nil)
@@ -2892,12 +3703,6 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				deleteResourceBindingOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
-				response, operationErr = resourceControllerService.DeleteResourceBinding(deleteResourceBindingOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-
-				// Disable retries and test again
-				resourceControllerService.DisableRetries()
 				response, operationErr = resourceControllerService.DeleteResourceBinding(deleteResourceBindingOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
@@ -2982,10 +3787,8 @@ var _ = Describe(`ResourceControllerV2`, func() {
 
 	Describe(`UpdateResourceBinding(updateResourceBindingOptions *UpdateResourceBindingOptions)`, func() {
 		updateResourceBindingPath := "/v2/resource_bindings/testString"
-		var serverSleepTime time.Duration
-		Context(`Using mock server endpoint`, func() {
+		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
-				serverSleepTime = 0
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
@@ -3010,12 +3813,83 @@ var _ = Describe(`ResourceControllerV2`, func() {
 					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
 
 					// Sleep a short time to support a timeout test
-					time.Sleep(serverSleepTime)
+					time.Sleep(100 * time.Millisecond)
 
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "guid": "GUID", "crn": "CRN", "url": "URL", "name": "Name", "account_id": "AccountID", "resource_group_id": "ResourceGroupID", "source_crn": "SourceCRN", "target_crn": "TargetCRN", "role": "Role", "region_binding_id": "RegionBindingID", "state": "State", "credentials": {"apikey": "Apikey", "iam_apikey_description": "IamApikeyDescription", "iam_apikey_name": "IamApikeyName", "iam_role_crn": "IamRoleCRN", "iam_serviceid_crn": "IamServiceidCRN"}, "iam_compatible": false, "resource_alias_url": "ResourceAliasURL", "created_at": "2019-01-01T12:00:00", "updated_at": "2019-01-01T12:00:00", "deleted_at": "2019-01-01T12:00:00", "created_by": "CreatedBy", "updated_by": "UpdatedBy", "deleted_by": "DeletedBy"}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "guid": "GUID", "crn": "CRN", "url": "URL", "name": "Name", "account_id": "AccountID", "resource_group_id": "ResourceGroupID", "source_crn": "SourceCRN", "target_crn": "TargetCRN", "role": "Role", "region_binding_id": "RegionBindingID", "state": "State", "credentials": {"apikey": "Apikey", "iam_apikey_description": "IamApikeyDescription", "iam_apikey_name": "IamApikeyName", "iam_role_crn": "IamRoleCRN", "iam_serviceid_crn": "IamServiceidCRN"}, "iam_compatible": false, "resource_alias_url": "ResourceAliasURL", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "deleted_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "updated_by": "UpdatedBy", "deleted_by": "DeletedBy"}`)
+				}))
+			})
+			It(`Invoke UpdateResourceBinding successfully with retries`, func() {
+				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(resourceControllerService).ToNot(BeNil())
+				resourceControllerService.EnableRetries(0, 0)
+
+				// Construct an instance of the UpdateResourceBindingOptions model
+				updateResourceBindingOptionsModel := new(resourcecontrollerv2.UpdateResourceBindingOptions)
+				updateResourceBindingOptionsModel.ID = core.StringPtr("testString")
+				updateResourceBindingOptionsModel.Name = core.StringPtr("my-new-binding-name")
+				updateResourceBindingOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := resourceControllerService.UpdateResourceBindingWithContext(ctx, updateResourceBindingOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				resourceControllerService.DisableRetries()
+				result, response, operationErr := resourceControllerService.UpdateResourceBinding(updateResourceBindingOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = resourceControllerService.UpdateResourceBindingWithContext(ctx, updateResourceBindingOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(updateResourceBindingPath))
+					Expect(req.Method).To(Equal("PATCH"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "guid": "GUID", "crn": "CRN", "url": "URL", "name": "Name", "account_id": "AccountID", "resource_group_id": "ResourceGroupID", "source_crn": "SourceCRN", "target_crn": "TargetCRN", "role": "Role", "region_binding_id": "RegionBindingID", "state": "State", "credentials": {"apikey": "Apikey", "iam_apikey_description": "IamApikeyDescription", "iam_apikey_name": "IamApikeyName", "iam_role_crn": "IamRoleCRN", "iam_serviceid_crn": "IamServiceidCRN"}, "iam_compatible": false, "resource_alias_url": "ResourceAliasURL", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "deleted_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "updated_by": "UpdatedBy", "deleted_by": "DeletedBy"}`)
 				}))
 			})
 			It(`Invoke UpdateResourceBinding successfully`, func() {
@@ -3025,7 +3899,6 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				})
 				Expect(serviceErr).To(BeNil())
 				Expect(resourceControllerService).ToNot(BeNil())
-				resourceControllerService.EnableRetries(0, 0)
 
 				// Invoke operation with nil options model (negative test)
 				result, response, operationErr := resourceControllerService.UpdateResourceBinding(nil)
@@ -3045,30 +3918,6 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
 
-				// Invoke operation with a Context to test a timeout error
-				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc()
-				serverSleepTime = 100 * time.Millisecond
-				_, _, operationErr = resourceControllerService.UpdateResourceBindingWithContext(ctx, updateResourceBindingOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-				serverSleepTime = time.Duration(0)
-
-				// Disable retries and test again
-				resourceControllerService.DisableRetries()
-				result, response, operationErr = resourceControllerService.UpdateResourceBinding(updateResourceBindingOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).ToNot(BeNil())
-
-				// Re-test the timeout error with retries disabled
-				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc2()
-				serverSleepTime = 100 * time.Millisecond
-				_, _, operationErr = resourceControllerService.UpdateResourceBindingWithContext(ctx, updateResourceBindingOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-				serverSleepTime = time.Duration(0)
 			})
 			It(`Invoke UpdateResourceBinding with error: Operation validation and request error`, func() {
 				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
@@ -3243,23 +4092,14 @@ var _ = Describe(`ResourceControllerV2`, func() {
 					Expect(req.URL.EscapedPath()).To(Equal(listResourceAliasesPath))
 					Expect(req.Method).To(Equal("GET"))
 					Expect(req.URL.Query()["guid"]).To(Equal([]string{"testString"}))
-
 					Expect(req.URL.Query()["name"]).To(Equal([]string{"testString"}))
-
 					Expect(req.URL.Query()["resource_instance_id"]).To(Equal([]string{"testString"}))
-
 					Expect(req.URL.Query()["region_instance_id"]).To(Equal([]string{"testString"}))
-
 					Expect(req.URL.Query()["resource_id"]).To(Equal([]string{"testString"}))
-
 					Expect(req.URL.Query()["resource_group_id"]).To(Equal([]string{"testString"}))
-
 					Expect(req.URL.Query()["limit"]).To(Equal([]string{"testString"}))
-
 					Expect(req.URL.Query()["updated_from"]).To(Equal([]string{"2019-01-08T00:00:00.000Z"}))
-
 					Expect(req.URL.Query()["updated_to"]).To(Equal([]string{"2019-01-08T00:00:00.000Z"}))
-
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
 					fmt.Fprintf(res, `} this is not valid json {`)
@@ -3306,10 +4146,8 @@ var _ = Describe(`ResourceControllerV2`, func() {
 
 	Describe(`ListResourceAliases(listResourceAliasesOptions *ListResourceAliasesOptions)`, func() {
 		listResourceAliasesPath := "/v2/resource_aliases"
-		var serverSleepTime time.Duration
-		Context(`Using mock server endpoint`, func() {
+		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
-				serverSleepTime = 0
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
@@ -3318,30 +4156,92 @@ var _ = Describe(`ResourceControllerV2`, func() {
 					Expect(req.Method).To(Equal("GET"))
 
 					Expect(req.URL.Query()["guid"]).To(Equal([]string{"testString"}))
-
 					Expect(req.URL.Query()["name"]).To(Equal([]string{"testString"}))
-
 					Expect(req.URL.Query()["resource_instance_id"]).To(Equal([]string{"testString"}))
-
 					Expect(req.URL.Query()["region_instance_id"]).To(Equal([]string{"testString"}))
-
 					Expect(req.URL.Query()["resource_id"]).To(Equal([]string{"testString"}))
-
 					Expect(req.URL.Query()["resource_group_id"]).To(Equal([]string{"testString"}))
-
 					Expect(req.URL.Query()["limit"]).To(Equal([]string{"testString"}))
-
 					Expect(req.URL.Query()["updated_from"]).To(Equal([]string{"2019-01-08T00:00:00.000Z"}))
-
 					Expect(req.URL.Query()["updated_to"]).To(Equal([]string{"2019-01-08T00:00:00.000Z"}))
-
 					// Sleep a short time to support a timeout test
-					time.Sleep(serverSleepTime)
+					time.Sleep(100 * time.Millisecond)
 
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"next_url": "NextURL", "resources": [{"id": "ID", "guid": "GUID", "crn": "CRN", "url": "URL", "name": "Name", "account_id": "AccountID", "resource_group_id": "ResourceGroupID", "resource_group_crn": "ResourceGroupCRN", "target_crn": "TargetCRN", "state": "State", "resource_instance_id": "ResourceInstanceID", "region_instance_id": "RegionInstanceID", "resource_instance_url": "ResourceInstanceURL", "resource_bindings_url": "ResourceBindingsURL", "resource_keys_url": "ResourceKeysURL", "created_at": "2019-01-01T12:00:00", "updated_at": "2019-01-01T12:00:00", "deleted_at": "2019-01-01T12:00:00", "created_by": "CreatedBy", "updated_by": "UpdatedBy", "deleted_by": "DeletedBy"}], "rows_count": 9}`)
+					fmt.Fprintf(res, "%s", `{"next_url": "NextURL", "resources": [{"id": "ID", "guid": "GUID", "crn": "CRN", "url": "URL", "name": "Name", "account_id": "AccountID", "resource_group_id": "ResourceGroupID", "resource_group_crn": "ResourceGroupCRN", "target_crn": "TargetCRN", "state": "State", "resource_instance_id": "ResourceInstanceID", "region_instance_id": "RegionInstanceID", "resource_instance_url": "ResourceInstanceURL", "resource_bindings_url": "ResourceBindingsURL", "resource_keys_url": "ResourceKeysURL", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "deleted_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "updated_by": "UpdatedBy", "deleted_by": "DeletedBy"}], "rows_count": 9}`)
+				}))
+			})
+			It(`Invoke ListResourceAliases successfully with retries`, func() {
+				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(resourceControllerService).ToNot(BeNil())
+				resourceControllerService.EnableRetries(0, 0)
+
+				// Construct an instance of the ListResourceAliasesOptions model
+				listResourceAliasesOptionsModel := new(resourcecontrollerv2.ListResourceAliasesOptions)
+				listResourceAliasesOptionsModel.GUID = core.StringPtr("testString")
+				listResourceAliasesOptionsModel.Name = core.StringPtr("testString")
+				listResourceAliasesOptionsModel.ResourceInstanceID = core.StringPtr("testString")
+				listResourceAliasesOptionsModel.RegionInstanceID = core.StringPtr("testString")
+				listResourceAliasesOptionsModel.ResourceID = core.StringPtr("testString")
+				listResourceAliasesOptionsModel.ResourceGroupID = core.StringPtr("testString")
+				listResourceAliasesOptionsModel.Limit = core.StringPtr("testString")
+				listResourceAliasesOptionsModel.UpdatedFrom = core.StringPtr("2019-01-08T00:00:00.000Z")
+				listResourceAliasesOptionsModel.UpdatedTo = core.StringPtr("2019-01-08T00:00:00.000Z")
+				listResourceAliasesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := resourceControllerService.ListResourceAliasesWithContext(ctx, listResourceAliasesOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				resourceControllerService.DisableRetries()
+				result, response, operationErr := resourceControllerService.ListResourceAliases(listResourceAliasesOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = resourceControllerService.ListResourceAliasesWithContext(ctx, listResourceAliasesOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(listResourceAliasesPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					Expect(req.URL.Query()["guid"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["name"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["resource_instance_id"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["region_instance_id"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["resource_id"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["resource_group_id"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["limit"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["updated_from"]).To(Equal([]string{"2019-01-08T00:00:00.000Z"}))
+					Expect(req.URL.Query()["updated_to"]).To(Equal([]string{"2019-01-08T00:00:00.000Z"}))
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"next_url": "NextURL", "resources": [{"id": "ID", "guid": "GUID", "crn": "CRN", "url": "URL", "name": "Name", "account_id": "AccountID", "resource_group_id": "ResourceGroupID", "resource_group_crn": "ResourceGroupCRN", "target_crn": "TargetCRN", "state": "State", "resource_instance_id": "ResourceInstanceID", "region_instance_id": "RegionInstanceID", "resource_instance_url": "ResourceInstanceURL", "resource_bindings_url": "ResourceBindingsURL", "resource_keys_url": "ResourceKeysURL", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "deleted_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "updated_by": "UpdatedBy", "deleted_by": "DeletedBy"}], "rows_count": 9}`)
 				}))
 			})
 			It(`Invoke ListResourceAliases successfully`, func() {
@@ -3351,7 +4251,6 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				})
 				Expect(serviceErr).To(BeNil())
 				Expect(resourceControllerService).ToNot(BeNil())
-				resourceControllerService.EnableRetries(0, 0)
 
 				// Invoke operation with nil options model (negative test)
 				result, response, operationErr := resourceControllerService.ListResourceAliases(nil)
@@ -3378,30 +4277,6 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
 
-				// Invoke operation with a Context to test a timeout error
-				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc()
-				serverSleepTime = 100 * time.Millisecond
-				_, _, operationErr = resourceControllerService.ListResourceAliasesWithContext(ctx, listResourceAliasesOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-				serverSleepTime = time.Duration(0)
-
-				// Disable retries and test again
-				resourceControllerService.DisableRetries()
-				result, response, operationErr = resourceControllerService.ListResourceAliases(listResourceAliasesOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).ToNot(BeNil())
-
-				// Re-test the timeout error with retries disabled
-				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc2()
-				serverSleepTime = 100 * time.Millisecond
-				_, _, operationErr = resourceControllerService.ListResourceAliasesWithContext(ctx, listResourceAliasesOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-				serverSleepTime = time.Duration(0)
 			})
 			It(`Invoke ListResourceAliases with error: Operation request error`, func() {
 				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
@@ -3464,7 +4339,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				createResourceAliasOptionsModel := new(resourcecontrollerv2.CreateResourceAliasOptions)
 				createResourceAliasOptionsModel.Name = core.StringPtr("my-alias")
 				createResourceAliasOptionsModel.Source = core.StringPtr("a8dff6d3-d287-4668-a81d-c87c55c2656d")
-				createResourceAliasOptionsModel.Target = core.StringPtr("crn:v1:staging:public:cf:us-south:o/5e939cd5-6377-4383-b9e0-9db22cd11753::cf-space:66c8b915-101a-406c-a784-e6636676e4f5")
+				createResourceAliasOptionsModel.Target = core.StringPtr("crn:v1:bluemix:public:cf:us-south:o/5e939cd5-6377-4383-b9e0-9db22cd11753::cf-space:66c8b915-101a-406c-a784-e6636676e4f5")
 				createResourceAliasOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
 				result, response, operationErr := resourceControllerService.CreateResourceAlias(createResourceAliasOptionsModel)
@@ -3487,10 +4362,8 @@ var _ = Describe(`ResourceControllerV2`, func() {
 
 	Describe(`CreateResourceAlias(createResourceAliasOptions *CreateResourceAliasOptions)`, func() {
 		createResourceAliasPath := "/v2/resource_aliases"
-		var serverSleepTime time.Duration
-		Context(`Using mock server endpoint`, func() {
+		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
-				serverSleepTime = 0
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
@@ -3515,12 +4388,84 @@ var _ = Describe(`ResourceControllerV2`, func() {
 					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
 
 					// Sleep a short time to support a timeout test
-					time.Sleep(serverSleepTime)
+					time.Sleep(100 * time.Millisecond)
 
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "guid": "GUID", "crn": "CRN", "url": "URL", "name": "Name", "account_id": "AccountID", "resource_group_id": "ResourceGroupID", "resource_group_crn": "ResourceGroupCRN", "target_crn": "TargetCRN", "state": "State", "resource_instance_id": "ResourceInstanceID", "region_instance_id": "RegionInstanceID", "resource_instance_url": "ResourceInstanceURL", "resource_bindings_url": "ResourceBindingsURL", "resource_keys_url": "ResourceKeysURL", "created_at": "2019-01-01T12:00:00", "updated_at": "2019-01-01T12:00:00", "deleted_at": "2019-01-01T12:00:00", "created_by": "CreatedBy", "updated_by": "UpdatedBy", "deleted_by": "DeletedBy"}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "guid": "GUID", "crn": "CRN", "url": "URL", "name": "Name", "account_id": "AccountID", "resource_group_id": "ResourceGroupID", "resource_group_crn": "ResourceGroupCRN", "target_crn": "TargetCRN", "state": "State", "resource_instance_id": "ResourceInstanceID", "region_instance_id": "RegionInstanceID", "resource_instance_url": "ResourceInstanceURL", "resource_bindings_url": "ResourceBindingsURL", "resource_keys_url": "ResourceKeysURL", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "deleted_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "updated_by": "UpdatedBy", "deleted_by": "DeletedBy"}`)
+				}))
+			})
+			It(`Invoke CreateResourceAlias successfully with retries`, func() {
+				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(resourceControllerService).ToNot(BeNil())
+				resourceControllerService.EnableRetries(0, 0)
+
+				// Construct an instance of the CreateResourceAliasOptions model
+				createResourceAliasOptionsModel := new(resourcecontrollerv2.CreateResourceAliasOptions)
+				createResourceAliasOptionsModel.Name = core.StringPtr("my-alias")
+				createResourceAliasOptionsModel.Source = core.StringPtr("a8dff6d3-d287-4668-a81d-c87c55c2656d")
+				createResourceAliasOptionsModel.Target = core.StringPtr("crn:v1:bluemix:public:cf:us-south:o/5e939cd5-6377-4383-b9e0-9db22cd11753::cf-space:66c8b915-101a-406c-a784-e6636676e4f5")
+				createResourceAliasOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := resourceControllerService.CreateResourceAliasWithContext(ctx, createResourceAliasOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				resourceControllerService.DisableRetries()
+				result, response, operationErr := resourceControllerService.CreateResourceAlias(createResourceAliasOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = resourceControllerService.CreateResourceAliasWithContext(ctx, createResourceAliasOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(createResourceAliasPath))
+					Expect(req.Method).To(Equal("POST"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(201)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "guid": "GUID", "crn": "CRN", "url": "URL", "name": "Name", "account_id": "AccountID", "resource_group_id": "ResourceGroupID", "resource_group_crn": "ResourceGroupCRN", "target_crn": "TargetCRN", "state": "State", "resource_instance_id": "ResourceInstanceID", "region_instance_id": "RegionInstanceID", "resource_instance_url": "ResourceInstanceURL", "resource_bindings_url": "ResourceBindingsURL", "resource_keys_url": "ResourceKeysURL", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "deleted_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "updated_by": "UpdatedBy", "deleted_by": "DeletedBy"}`)
 				}))
 			})
 			It(`Invoke CreateResourceAlias successfully`, func() {
@@ -3530,7 +4475,6 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				})
 				Expect(serviceErr).To(BeNil())
 				Expect(resourceControllerService).ToNot(BeNil())
-				resourceControllerService.EnableRetries(0, 0)
 
 				// Invoke operation with nil options model (negative test)
 				result, response, operationErr := resourceControllerService.CreateResourceAlias(nil)
@@ -3542,7 +4486,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				createResourceAliasOptionsModel := new(resourcecontrollerv2.CreateResourceAliasOptions)
 				createResourceAliasOptionsModel.Name = core.StringPtr("my-alias")
 				createResourceAliasOptionsModel.Source = core.StringPtr("a8dff6d3-d287-4668-a81d-c87c55c2656d")
-				createResourceAliasOptionsModel.Target = core.StringPtr("crn:v1:staging:public:cf:us-south:o/5e939cd5-6377-4383-b9e0-9db22cd11753::cf-space:66c8b915-101a-406c-a784-e6636676e4f5")
+				createResourceAliasOptionsModel.Target = core.StringPtr("crn:v1:bluemix:public:cf:us-south:o/5e939cd5-6377-4383-b9e0-9db22cd11753::cf-space:66c8b915-101a-406c-a784-e6636676e4f5")
 				createResourceAliasOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
@@ -3551,30 +4495,6 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
 
-				// Invoke operation with a Context to test a timeout error
-				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc()
-				serverSleepTime = 100 * time.Millisecond
-				_, _, operationErr = resourceControllerService.CreateResourceAliasWithContext(ctx, createResourceAliasOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-				serverSleepTime = time.Duration(0)
-
-				// Disable retries and test again
-				resourceControllerService.DisableRetries()
-				result, response, operationErr = resourceControllerService.CreateResourceAlias(createResourceAliasOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).ToNot(BeNil())
-
-				// Re-test the timeout error with retries disabled
-				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc2()
-				serverSleepTime = 100 * time.Millisecond
-				_, _, operationErr = resourceControllerService.CreateResourceAliasWithContext(ctx, createResourceAliasOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-				serverSleepTime = time.Duration(0)
 			})
 			It(`Invoke CreateResourceAlias with error: Operation validation and request error`, func() {
 				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
@@ -3588,7 +4508,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				createResourceAliasOptionsModel := new(resourcecontrollerv2.CreateResourceAliasOptions)
 				createResourceAliasOptionsModel.Name = core.StringPtr("my-alias")
 				createResourceAliasOptionsModel.Source = core.StringPtr("a8dff6d3-d287-4668-a81d-c87c55c2656d")
-				createResourceAliasOptionsModel.Target = core.StringPtr("crn:v1:staging:public:cf:us-south:o/5e939cd5-6377-4383-b9e0-9db22cd11753::cf-space:66c8b915-101a-406c-a784-e6636676e4f5")
+				createResourceAliasOptionsModel.Target = core.StringPtr("crn:v1:bluemix:public:cf:us-south:o/5e939cd5-6377-4383-b9e0-9db22cd11753::cf-space:66c8b915-101a-406c-a784-e6636676e4f5")
 				createResourceAliasOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := resourceControllerService.SetServiceURL("")
@@ -3659,10 +4579,8 @@ var _ = Describe(`ResourceControllerV2`, func() {
 
 	Describe(`GetResourceAlias(getResourceAliasOptions *GetResourceAliasOptions)`, func() {
 		getResourceAliasPath := "/v2/resource_aliases/testString"
-		var serverSleepTime time.Duration
-		Context(`Using mock server endpoint`, func() {
+		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
-				serverSleepTime = 0
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
@@ -3671,12 +4589,66 @@ var _ = Describe(`ResourceControllerV2`, func() {
 					Expect(req.Method).To(Equal("GET"))
 
 					// Sleep a short time to support a timeout test
-					time.Sleep(serverSleepTime)
+					time.Sleep(100 * time.Millisecond)
 
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "guid": "GUID", "crn": "CRN", "url": "URL", "name": "Name", "account_id": "AccountID", "resource_group_id": "ResourceGroupID", "resource_group_crn": "ResourceGroupCRN", "target_crn": "TargetCRN", "state": "State", "resource_instance_id": "ResourceInstanceID", "region_instance_id": "RegionInstanceID", "resource_instance_url": "ResourceInstanceURL", "resource_bindings_url": "ResourceBindingsURL", "resource_keys_url": "ResourceKeysURL", "created_at": "2019-01-01T12:00:00", "updated_at": "2019-01-01T12:00:00", "deleted_at": "2019-01-01T12:00:00", "created_by": "CreatedBy", "updated_by": "UpdatedBy", "deleted_by": "DeletedBy"}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "guid": "GUID", "crn": "CRN", "url": "URL", "name": "Name", "account_id": "AccountID", "resource_group_id": "ResourceGroupID", "resource_group_crn": "ResourceGroupCRN", "target_crn": "TargetCRN", "state": "State", "resource_instance_id": "ResourceInstanceID", "region_instance_id": "RegionInstanceID", "resource_instance_url": "ResourceInstanceURL", "resource_bindings_url": "ResourceBindingsURL", "resource_keys_url": "ResourceKeysURL", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "deleted_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "updated_by": "UpdatedBy", "deleted_by": "DeletedBy"}`)
+				}))
+			})
+			It(`Invoke GetResourceAlias successfully with retries`, func() {
+				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(resourceControllerService).ToNot(BeNil())
+				resourceControllerService.EnableRetries(0, 0)
+
+				// Construct an instance of the GetResourceAliasOptions model
+				getResourceAliasOptionsModel := new(resourcecontrollerv2.GetResourceAliasOptions)
+				getResourceAliasOptionsModel.ID = core.StringPtr("testString")
+				getResourceAliasOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := resourceControllerService.GetResourceAliasWithContext(ctx, getResourceAliasOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				resourceControllerService.DisableRetries()
+				result, response, operationErr := resourceControllerService.GetResourceAlias(getResourceAliasOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = resourceControllerService.GetResourceAliasWithContext(ctx, getResourceAliasOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getResourceAliasPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "guid": "GUID", "crn": "CRN", "url": "URL", "name": "Name", "account_id": "AccountID", "resource_group_id": "ResourceGroupID", "resource_group_crn": "ResourceGroupCRN", "target_crn": "TargetCRN", "state": "State", "resource_instance_id": "ResourceInstanceID", "region_instance_id": "RegionInstanceID", "resource_instance_url": "ResourceInstanceURL", "resource_bindings_url": "ResourceBindingsURL", "resource_keys_url": "ResourceKeysURL", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "deleted_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "updated_by": "UpdatedBy", "deleted_by": "DeletedBy"}`)
 				}))
 			})
 			It(`Invoke GetResourceAlias successfully`, func() {
@@ -3686,7 +4658,6 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				})
 				Expect(serviceErr).To(BeNil())
 				Expect(resourceControllerService).ToNot(BeNil())
-				resourceControllerService.EnableRetries(0, 0)
 
 				// Invoke operation with nil options model (negative test)
 				result, response, operationErr := resourceControllerService.GetResourceAlias(nil)
@@ -3705,30 +4676,6 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
 
-				// Invoke operation with a Context to test a timeout error
-				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc()
-				serverSleepTime = 100 * time.Millisecond
-				_, _, operationErr = resourceControllerService.GetResourceAliasWithContext(ctx, getResourceAliasOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-				serverSleepTime = time.Duration(0)
-
-				// Disable retries and test again
-				resourceControllerService.DisableRetries()
-				result, response, operationErr = resourceControllerService.GetResourceAlias(getResourceAliasOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).ToNot(BeNil())
-
-				// Re-test the timeout error with retries disabled
-				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc2()
-				serverSleepTime = 100 * time.Millisecond
-				_, _, operationErr = resourceControllerService.GetResourceAliasWithContext(ctx, getResourceAliasOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-				serverSleepTime = time.Duration(0)
 			})
 			It(`Invoke GetResourceAlias with error: Operation validation and request error`, func() {
 				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
@@ -3785,7 +4732,6 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				})
 				Expect(serviceErr).To(BeNil())
 				Expect(resourceControllerService).ToNot(BeNil())
-				resourceControllerService.EnableRetries(0, 0)
 
 				// Invoke operation with nil options model (negative test)
 				response, operationErr := resourceControllerService.DeleteResourceAlias(nil)
@@ -3798,12 +4744,6 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				deleteResourceAliasOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
-				response, operationErr = resourceControllerService.DeleteResourceAlias(deleteResourceAliasOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-
-				// Disable retries and test again
-				resourceControllerService.DisableRetries()
 				response, operationErr = resourceControllerService.DeleteResourceAlias(deleteResourceAliasOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
@@ -3888,10 +4828,8 @@ var _ = Describe(`ResourceControllerV2`, func() {
 
 	Describe(`UpdateResourceAlias(updateResourceAliasOptions *UpdateResourceAliasOptions)`, func() {
 		updateResourceAliasPath := "/v2/resource_aliases/testString"
-		var serverSleepTime time.Duration
-		Context(`Using mock server endpoint`, func() {
+		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
-				serverSleepTime = 0
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
@@ -3916,12 +4854,83 @@ var _ = Describe(`ResourceControllerV2`, func() {
 					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
 
 					// Sleep a short time to support a timeout test
-					time.Sleep(serverSleepTime)
+					time.Sleep(100 * time.Millisecond)
 
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "guid": "GUID", "crn": "CRN", "url": "URL", "name": "Name", "account_id": "AccountID", "resource_group_id": "ResourceGroupID", "resource_group_crn": "ResourceGroupCRN", "target_crn": "TargetCRN", "state": "State", "resource_instance_id": "ResourceInstanceID", "region_instance_id": "RegionInstanceID", "resource_instance_url": "ResourceInstanceURL", "resource_bindings_url": "ResourceBindingsURL", "resource_keys_url": "ResourceKeysURL", "created_at": "2019-01-01T12:00:00", "updated_at": "2019-01-01T12:00:00", "deleted_at": "2019-01-01T12:00:00", "created_by": "CreatedBy", "updated_by": "UpdatedBy", "deleted_by": "DeletedBy"}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "guid": "GUID", "crn": "CRN", "url": "URL", "name": "Name", "account_id": "AccountID", "resource_group_id": "ResourceGroupID", "resource_group_crn": "ResourceGroupCRN", "target_crn": "TargetCRN", "state": "State", "resource_instance_id": "ResourceInstanceID", "region_instance_id": "RegionInstanceID", "resource_instance_url": "ResourceInstanceURL", "resource_bindings_url": "ResourceBindingsURL", "resource_keys_url": "ResourceKeysURL", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "deleted_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "updated_by": "UpdatedBy", "deleted_by": "DeletedBy"}`)
+				}))
+			})
+			It(`Invoke UpdateResourceAlias successfully with retries`, func() {
+				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(resourceControllerService).ToNot(BeNil())
+				resourceControllerService.EnableRetries(0, 0)
+
+				// Construct an instance of the UpdateResourceAliasOptions model
+				updateResourceAliasOptionsModel := new(resourcecontrollerv2.UpdateResourceAliasOptions)
+				updateResourceAliasOptionsModel.ID = core.StringPtr("testString")
+				updateResourceAliasOptionsModel.Name = core.StringPtr("my-new-alias-name")
+				updateResourceAliasOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := resourceControllerService.UpdateResourceAliasWithContext(ctx, updateResourceAliasOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				resourceControllerService.DisableRetries()
+				result, response, operationErr := resourceControllerService.UpdateResourceAlias(updateResourceAliasOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = resourceControllerService.UpdateResourceAliasWithContext(ctx, updateResourceAliasOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(updateResourceAliasPath))
+					Expect(req.Method).To(Equal("PATCH"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "guid": "GUID", "crn": "CRN", "url": "URL", "name": "Name", "account_id": "AccountID", "resource_group_id": "ResourceGroupID", "resource_group_crn": "ResourceGroupCRN", "target_crn": "TargetCRN", "state": "State", "resource_instance_id": "ResourceInstanceID", "region_instance_id": "RegionInstanceID", "resource_instance_url": "ResourceInstanceURL", "resource_bindings_url": "ResourceBindingsURL", "resource_keys_url": "ResourceKeysURL", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "deleted_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "updated_by": "UpdatedBy", "deleted_by": "DeletedBy"}`)
 				}))
 			})
 			It(`Invoke UpdateResourceAlias successfully`, func() {
@@ -3931,7 +4940,6 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				})
 				Expect(serviceErr).To(BeNil())
 				Expect(resourceControllerService).ToNot(BeNil())
-				resourceControllerService.EnableRetries(0, 0)
 
 				// Invoke operation with nil options model (negative test)
 				result, response, operationErr := resourceControllerService.UpdateResourceAlias(nil)
@@ -3951,30 +4959,6 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
 
-				// Invoke operation with a Context to test a timeout error
-				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc()
-				serverSleepTime = 100 * time.Millisecond
-				_, _, operationErr = resourceControllerService.UpdateResourceAliasWithContext(ctx, updateResourceAliasOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-				serverSleepTime = time.Duration(0)
-
-				// Disable retries and test again
-				resourceControllerService.DisableRetries()
-				result, response, operationErr = resourceControllerService.UpdateResourceAlias(updateResourceAliasOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).ToNot(BeNil())
-
-				// Re-test the timeout error with retries disabled
-				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc2()
-				serverSleepTime = 100 * time.Millisecond
-				_, _, operationErr = resourceControllerService.UpdateResourceAliasWithContext(ctx, updateResourceAliasOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-				serverSleepTime = time.Duration(0)
 			})
 			It(`Invoke UpdateResourceAlias with error: Operation validation and request error`, func() {
 				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
@@ -4001,6 +4985,185 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				updateResourceAliasOptionsModelNew := new(resourcecontrollerv2.UpdateResourceAliasOptions)
 				// Invoke operation with invalid model (negative test)
 				result, response, operationErr = resourceControllerService.UpdateResourceAlias(updateResourceAliasOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`ListResourceBindingsForAlias(listResourceBindingsForAliasOptions *ListResourceBindingsForAliasOptions) - Operation response error`, func() {
+		listResourceBindingsForAliasPath := "/v2/resource_aliases/testString/resource_bindings"
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(listResourceBindingsForAliasPath))
+					Expect(req.Method).To(Equal("GET"))
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, `} this is not valid json {`)
+				}))
+			})
+			It(`Invoke ListResourceBindingsForAlias with error: Operation response processing error`, func() {
+				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(resourceControllerService).ToNot(BeNil())
+
+				// Construct an instance of the ListResourceBindingsForAliasOptions model
+				listResourceBindingsForAliasOptionsModel := new(resourcecontrollerv2.ListResourceBindingsForAliasOptions)
+				listResourceBindingsForAliasOptionsModel.ID = core.StringPtr("testString")
+				listResourceBindingsForAliasOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Expect response parsing to fail since we are receiving a text/plain response
+				result, response, operationErr := resourceControllerService.ListResourceBindingsForAlias(listResourceBindingsForAliasOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				resourceControllerService.EnableRetries(0, 0)
+				result, response, operationErr = resourceControllerService.ListResourceBindingsForAlias(listResourceBindingsForAliasOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+
+	Describe(`ListResourceBindingsForAlias(listResourceBindingsForAliasOptions *ListResourceBindingsForAliasOptions)`, func() {
+		listResourceBindingsForAliasPath := "/v2/resource_aliases/testString/resource_bindings"
+		Context(`Using mock server endpoint with timeout`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(listResourceBindingsForAliasPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					// Sleep a short time to support a timeout test
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"next_url": "NextURL", "resources": [{"id": "ID", "guid": "GUID", "crn": "CRN", "url": "URL", "name": "Name", "account_id": "AccountID", "resource_group_id": "ResourceGroupID", "source_crn": "SourceCRN", "target_crn": "TargetCRN", "role": "Role", "region_binding_id": "RegionBindingID", "state": "State", "credentials": {"apikey": "Apikey", "iam_apikey_description": "IamApikeyDescription", "iam_apikey_name": "IamApikeyName", "iam_role_crn": "IamRoleCRN", "iam_serviceid_crn": "IamServiceidCRN"}, "iam_compatible": false, "resource_alias_url": "ResourceAliasURL", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "deleted_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "updated_by": "UpdatedBy", "deleted_by": "DeletedBy"}], "rows_count": 9}`)
+				}))
+			})
+			It(`Invoke ListResourceBindingsForAlias successfully with retries`, func() {
+				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(resourceControllerService).ToNot(BeNil())
+				resourceControllerService.EnableRetries(0, 0)
+
+				// Construct an instance of the ListResourceBindingsForAliasOptions model
+				listResourceBindingsForAliasOptionsModel := new(resourcecontrollerv2.ListResourceBindingsForAliasOptions)
+				listResourceBindingsForAliasOptionsModel.ID = core.StringPtr("testString")
+				listResourceBindingsForAliasOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := resourceControllerService.ListResourceBindingsForAliasWithContext(ctx, listResourceBindingsForAliasOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				resourceControllerService.DisableRetries()
+				result, response, operationErr := resourceControllerService.ListResourceBindingsForAlias(listResourceBindingsForAliasOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = resourceControllerService.ListResourceBindingsForAliasWithContext(ctx, listResourceBindingsForAliasOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(listResourceBindingsForAliasPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"next_url": "NextURL", "resources": [{"id": "ID", "guid": "GUID", "crn": "CRN", "url": "URL", "name": "Name", "account_id": "AccountID", "resource_group_id": "ResourceGroupID", "source_crn": "SourceCRN", "target_crn": "TargetCRN", "role": "Role", "region_binding_id": "RegionBindingID", "state": "State", "credentials": {"apikey": "Apikey", "iam_apikey_description": "IamApikeyDescription", "iam_apikey_name": "IamApikeyName", "iam_role_crn": "IamRoleCRN", "iam_serviceid_crn": "IamServiceidCRN"}, "iam_compatible": false, "resource_alias_url": "ResourceAliasURL", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "deleted_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "updated_by": "UpdatedBy", "deleted_by": "DeletedBy"}], "rows_count": 9}`)
+				}))
+			})
+			It(`Invoke ListResourceBindingsForAlias successfully`, func() {
+				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(resourceControllerService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				result, response, operationErr := resourceControllerService.ListResourceBindingsForAlias(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+
+				// Construct an instance of the ListResourceBindingsForAliasOptions model
+				listResourceBindingsForAliasOptionsModel := new(resourcecontrollerv2.ListResourceBindingsForAliasOptions)
+				listResourceBindingsForAliasOptionsModel.ID = core.StringPtr("testString")
+				listResourceBindingsForAliasOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				result, response, operationErr = resourceControllerService.ListResourceBindingsForAlias(listResourceBindingsForAliasOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+			})
+			It(`Invoke ListResourceBindingsForAlias with error: Operation validation and request error`, func() {
+				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(resourceControllerService).ToNot(BeNil())
+
+				// Construct an instance of the ListResourceBindingsForAliasOptions model
+				listResourceBindingsForAliasOptionsModel := new(resourcecontrollerv2.ListResourceBindingsForAliasOptions)
+				listResourceBindingsForAliasOptionsModel.ID = core.StringPtr("testString")
+				listResourceBindingsForAliasOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := resourceControllerService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				result, response, operationErr := resourceControllerService.ListResourceBindingsForAlias(listResourceBindingsForAliasOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+				// Construct a second instance of the ListResourceBindingsForAliasOptions model with no property values
+				listResourceBindingsForAliasOptionsModelNew := new(resourcecontrollerv2.ListResourceBindingsForAliasOptions)
+				// Invoke operation with invalid model (negative test)
+				result, response, operationErr = resourceControllerService.ListResourceBindingsForAlias(listResourceBindingsForAliasOptionsModelNew)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
@@ -4149,9 +5312,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 					Expect(req.URL.EscapedPath()).To(Equal(listReclamationsPath))
 					Expect(req.Method).To(Equal("GET"))
 					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"testString"}))
-
 					Expect(req.URL.Query()["resource_instance_id"]).To(Equal([]string{"testString"}))
-
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
 					fmt.Fprintf(res, `} this is not valid json {`)
@@ -4191,10 +5352,8 @@ var _ = Describe(`ResourceControllerV2`, func() {
 
 	Describe(`ListReclamations(listReclamationsOptions *ListReclamationsOptions)`, func() {
 		listReclamationsPath := "/v1/reclamations"
-		var serverSleepTime time.Duration
-		Context(`Using mock server endpoint`, func() {
+		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
-				serverSleepTime = 0
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
@@ -4203,16 +5362,71 @@ var _ = Describe(`ResourceControllerV2`, func() {
 					Expect(req.Method).To(Equal("GET"))
 
 					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"testString"}))
-
 					Expect(req.URL.Query()["resource_instance_id"]).To(Equal([]string{"testString"}))
-
 					// Sleep a short time to support a timeout test
-					time.Sleep(serverSleepTime)
+					time.Sleep(100 * time.Millisecond)
 
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"resources": [{"id": "ID", "entity_id": "EntityID", "entity_type_id": "EntityTypeID", "entity_crn": "EntityCRN", "resource_instance_id": "ResourceInstanceID", "resource_group_id": "ResourceGroupID", "account_id": "AccountID", "policy_id": "PolicyID", "state": "State", "target_time": "TargetTime", "custom_properties": {"mapKey": "anyValue"}, "created_at": "2019-01-01T12:00:00", "created_by": "CreatedBy", "updated_at": "2019-01-01T12:00:00", "updated_by": "UpdatedBy"}]}`)
+					fmt.Fprintf(res, "%s", `{"resources": [{"id": "ID", "entity_id": "EntityID", "entity_type_id": "EntityTypeID", "entity_crn": "EntityCRN", "resource_instance_id": "ResourceInstanceID", "resource_group_id": "ResourceGroupID", "account_id": "AccountID", "policy_id": "PolicyID", "state": "State", "target_time": "TargetTime", "custom_properties": {"mapKey": "anyValue"}, "created_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "updated_at": "2019-01-01T12:00:00.000Z", "updated_by": "UpdatedBy"}]}`)
+				}))
+			})
+			It(`Invoke ListReclamations successfully with retries`, func() {
+				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(resourceControllerService).ToNot(BeNil())
+				resourceControllerService.EnableRetries(0, 0)
+
+				// Construct an instance of the ListReclamationsOptions model
+				listReclamationsOptionsModel := new(resourcecontrollerv2.ListReclamationsOptions)
+				listReclamationsOptionsModel.AccountID = core.StringPtr("testString")
+				listReclamationsOptionsModel.ResourceInstanceID = core.StringPtr("testString")
+				listReclamationsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := resourceControllerService.ListReclamationsWithContext(ctx, listReclamationsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				resourceControllerService.DisableRetries()
+				result, response, operationErr := resourceControllerService.ListReclamations(listReclamationsOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = resourceControllerService.ListReclamationsWithContext(ctx, listReclamationsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(listReclamationsPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["resource_instance_id"]).To(Equal([]string{"testString"}))
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"resources": [{"id": "ID", "entity_id": "EntityID", "entity_type_id": "EntityTypeID", "entity_crn": "EntityCRN", "resource_instance_id": "ResourceInstanceID", "resource_group_id": "ResourceGroupID", "account_id": "AccountID", "policy_id": "PolicyID", "state": "State", "target_time": "TargetTime", "custom_properties": {"mapKey": "anyValue"}, "created_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "updated_at": "2019-01-01T12:00:00.000Z", "updated_by": "UpdatedBy"}]}`)
 				}))
 			})
 			It(`Invoke ListReclamations successfully`, func() {
@@ -4222,7 +5436,6 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				})
 				Expect(serviceErr).To(BeNil())
 				Expect(resourceControllerService).ToNot(BeNil())
-				resourceControllerService.EnableRetries(0, 0)
 
 				// Invoke operation with nil options model (negative test)
 				result, response, operationErr := resourceControllerService.ListReclamations(nil)
@@ -4242,30 +5455,6 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
 
-				// Invoke operation with a Context to test a timeout error
-				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc()
-				serverSleepTime = 100 * time.Millisecond
-				_, _, operationErr = resourceControllerService.ListReclamationsWithContext(ctx, listReclamationsOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-				serverSleepTime = time.Duration(0)
-
-				// Disable retries and test again
-				resourceControllerService.DisableRetries()
-				result, response, operationErr = resourceControllerService.ListReclamations(listReclamationsOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).ToNot(BeNil())
-
-				// Re-test the timeout error with retries disabled
-				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc2()
-				serverSleepTime = 100 * time.Millisecond
-				_, _, operationErr = resourceControllerService.ListReclamationsWithContext(ctx, listReclamationsOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-				serverSleepTime = time.Duration(0)
 			})
 			It(`Invoke ListReclamations with error: Operation request error`, func() {
 				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
@@ -4345,10 +5534,8 @@ var _ = Describe(`ResourceControllerV2`, func() {
 
 	Describe(`RunReclamationAction(runReclamationActionOptions *RunReclamationActionOptions)`, func() {
 		runReclamationActionPath := "/v1/reclamations/testString/actions/testString"
-		var serverSleepTime time.Duration
-		Context(`Using mock server endpoint`, func() {
+		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
-				serverSleepTime = 0
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
@@ -4373,12 +5560,85 @@ var _ = Describe(`ResourceControllerV2`, func() {
 					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
 
 					// Sleep a short time to support a timeout test
-					time.Sleep(serverSleepTime)
+					time.Sleep(100 * time.Millisecond)
 
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "entity_id": "EntityID", "entity_type_id": "EntityTypeID", "entity_crn": "EntityCRN", "resource_instance_id": "ResourceInstanceID", "resource_group_id": "ResourceGroupID", "account_id": "AccountID", "policy_id": "PolicyID", "state": "State", "target_time": "TargetTime", "custom_properties": {"mapKey": "anyValue"}, "created_at": "2019-01-01T12:00:00", "created_by": "CreatedBy", "updated_at": "2019-01-01T12:00:00", "updated_by": "UpdatedBy"}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "entity_id": "EntityID", "entity_type_id": "EntityTypeID", "entity_crn": "EntityCRN", "resource_instance_id": "ResourceInstanceID", "resource_group_id": "ResourceGroupID", "account_id": "AccountID", "policy_id": "PolicyID", "state": "State", "target_time": "TargetTime", "custom_properties": {"mapKey": "anyValue"}, "created_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "updated_at": "2019-01-01T12:00:00.000Z", "updated_by": "UpdatedBy"}`)
+				}))
+			})
+			It(`Invoke RunReclamationAction successfully with retries`, func() {
+				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(resourceControllerService).ToNot(BeNil())
+				resourceControllerService.EnableRetries(0, 0)
+
+				// Construct an instance of the RunReclamationActionOptions model
+				runReclamationActionOptionsModel := new(resourcecontrollerv2.RunReclamationActionOptions)
+				runReclamationActionOptionsModel.ID = core.StringPtr("testString")
+				runReclamationActionOptionsModel.ActionName = core.StringPtr("testString")
+				runReclamationActionOptionsModel.RequestBy = core.StringPtr("testString")
+				runReclamationActionOptionsModel.Comment = core.StringPtr("testString")
+				runReclamationActionOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := resourceControllerService.RunReclamationActionWithContext(ctx, runReclamationActionOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				resourceControllerService.DisableRetries()
+				result, response, operationErr := resourceControllerService.RunReclamationAction(runReclamationActionOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = resourceControllerService.RunReclamationActionWithContext(ctx, runReclamationActionOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(runReclamationActionPath))
+					Expect(req.Method).To(Equal("POST"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "entity_id": "EntityID", "entity_type_id": "EntityTypeID", "entity_crn": "EntityCRN", "resource_instance_id": "ResourceInstanceID", "resource_group_id": "ResourceGroupID", "account_id": "AccountID", "policy_id": "PolicyID", "state": "State", "target_time": "TargetTime", "custom_properties": {"mapKey": "anyValue"}, "created_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "updated_at": "2019-01-01T12:00:00.000Z", "updated_by": "UpdatedBy"}`)
 				}))
 			})
 			It(`Invoke RunReclamationAction successfully`, func() {
@@ -4388,7 +5648,6 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				})
 				Expect(serviceErr).To(BeNil())
 				Expect(resourceControllerService).ToNot(BeNil())
-				resourceControllerService.EnableRetries(0, 0)
 
 				// Invoke operation with nil options model (negative test)
 				result, response, operationErr := resourceControllerService.RunReclamationAction(nil)
@@ -4410,30 +5669,6 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
 
-				// Invoke operation with a Context to test a timeout error
-				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc()
-				serverSleepTime = 100 * time.Millisecond
-				_, _, operationErr = resourceControllerService.RunReclamationActionWithContext(ctx, runReclamationActionOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-				serverSleepTime = time.Duration(0)
-
-				// Disable retries and test again
-				resourceControllerService.DisableRetries()
-				result, response, operationErr = resourceControllerService.RunReclamationAction(runReclamationActionOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).ToNot(BeNil())
-
-				// Re-test the timeout error with retries disabled
-				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc2()
-				serverSleepTime = 100 * time.Millisecond
-				_, _, operationErr = resourceControllerService.RunReclamationActionWithContext(ctx, runReclamationActionOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-				serverSleepTime = time.Duration(0)
 			})
 			It(`Invoke RunReclamationAction with error: Operation validation and request error`, func() {
 				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
@@ -4481,16 +5716,16 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				// Construct an instance of the CreateResourceAliasOptions model
 				createResourceAliasOptionsName := "my-alias"
 				createResourceAliasOptionsSource := "a8dff6d3-d287-4668-a81d-c87c55c2656d"
-				createResourceAliasOptionsTarget := "crn:v1:staging:public:cf:us-south:o/5e939cd5-6377-4383-b9e0-9db22cd11753::cf-space:66c8b915-101a-406c-a784-e6636676e4f5"
+				createResourceAliasOptionsTarget := "crn:v1:bluemix:public:cf:us-south:o/5e939cd5-6377-4383-b9e0-9db22cd11753::cf-space:66c8b915-101a-406c-a784-e6636676e4f5"
 				createResourceAliasOptionsModel := resourceControllerService.NewCreateResourceAliasOptions(createResourceAliasOptionsName, createResourceAliasOptionsSource, createResourceAliasOptionsTarget)
 				createResourceAliasOptionsModel.SetName("my-alias")
 				createResourceAliasOptionsModel.SetSource("a8dff6d3-d287-4668-a81d-c87c55c2656d")
-				createResourceAliasOptionsModel.SetTarget("crn:v1:staging:public:cf:us-south:o/5e939cd5-6377-4383-b9e0-9db22cd11753::cf-space:66c8b915-101a-406c-a784-e6636676e4f5")
+				createResourceAliasOptionsModel.SetTarget("crn:v1:bluemix:public:cf:us-south:o/5e939cd5-6377-4383-b9e0-9db22cd11753::cf-space:66c8b915-101a-406c-a784-e6636676e4f5")
 				createResourceAliasOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(createResourceAliasOptionsModel).ToNot(BeNil())
 				Expect(createResourceAliasOptionsModel.Name).To(Equal(core.StringPtr("my-alias")))
 				Expect(createResourceAliasOptionsModel.Source).To(Equal(core.StringPtr("a8dff6d3-d287-4668-a81d-c87c55c2656d")))
-				Expect(createResourceAliasOptionsModel.Target).To(Equal(core.StringPtr("crn:v1:staging:public:cf:us-south:o/5e939cd5-6377-4383-b9e0-9db22cd11753::cf-space:66c8b915-101a-406c-a784-e6636676e4f5")))
+				Expect(createResourceAliasOptionsModel.Target).To(Equal(core.StringPtr("crn:v1:bluemix:public:cf:us-south:o/5e939cd5-6377-4383-b9e0-9db22cd11753::cf-space:66c8b915-101a-406c-a784-e6636676e4f5")))
 				Expect(createResourceAliasOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewCreateResourceBindingOptions successfully`, func() {
@@ -4498,7 +5733,10 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				resourceBindingPostParametersModel := new(resourcecontrollerv2.ResourceBindingPostParameters)
 				Expect(resourceBindingPostParametersModel).ToNot(BeNil())
 				resourceBindingPostParametersModel.ServiceidCRN = core.StringPtr("crn:v1:bluemix:public:iam-identity::a/9fceaa56d1ab84893af6b9eec5ab81bb::serviceid:ServiceId-fe4c29b5-db13-410a-bacc-b5779a03d393")
+				resourceBindingPostParametersModel.SetProperty("foo", core.StringPtr("testString"))
 				Expect(resourceBindingPostParametersModel.ServiceidCRN).To(Equal(core.StringPtr("crn:v1:bluemix:public:iam-identity::a/9fceaa56d1ab84893af6b9eec5ab81bb::serviceid:ServiceId-fe4c29b5-db13-410a-bacc-b5779a03d393")))
+				Expect(resourceBindingPostParametersModel.GetProperties()).ToNot(BeEmpty())
+				Expect(resourceBindingPostParametersModel.GetProperty("foo")).To(Equal(core.StringPtr("testString")))
 
 				// Construct an instance of the CreateResourceBindingOptions model
 				createResourceBindingOptionsSource := "25eba2a9-beef-450b-82cf-f5ad5e36c6dd"
@@ -4550,7 +5788,10 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				resourceKeyPostParametersModel := new(resourcecontrollerv2.ResourceKeyPostParameters)
 				Expect(resourceKeyPostParametersModel).ToNot(BeNil())
 				resourceKeyPostParametersModel.ServiceidCRN = core.StringPtr("crn:v1:bluemix:public:iam-identity::a/9fceaa56d1ab84893af6b9eec5ab81bb::serviceid:ServiceId-fe4c29b5-db13-410a-bacc-b5779a03d393")
+				resourceKeyPostParametersModel.SetProperty("foo", core.StringPtr("testString"))
 				Expect(resourceKeyPostParametersModel.ServiceidCRN).To(Equal(core.StringPtr("crn:v1:bluemix:public:iam-identity::a/9fceaa56d1ab84893af6b9eec5ab81bb::serviceid:ServiceId-fe4c29b5-db13-410a-bacc-b5779a03d393")))
+				Expect(resourceKeyPostParametersModel.GetProperties()).ToNot(BeEmpty())
+				Expect(resourceKeyPostParametersModel.GetProperty("foo")).To(Equal(core.StringPtr("testString")))
 
 				// Construct an instance of the CreateResourceKeyOptions model
 				createResourceKeyOptionsName := "my-key"
@@ -4593,9 +5834,11 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				id := "testString"
 				deleteResourceInstanceOptionsModel := resourceControllerService.NewDeleteResourceInstanceOptions(id)
 				deleteResourceInstanceOptionsModel.SetID("testString")
+				deleteResourceInstanceOptionsModel.SetRecursive(true)
 				deleteResourceInstanceOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(deleteResourceInstanceOptionsModel).ToNot(BeNil())
 				Expect(deleteResourceInstanceOptionsModel.ID).To(Equal(core.StringPtr("testString")))
+				Expect(deleteResourceInstanceOptionsModel.Recursive).To(Equal(core.BoolPtr(true)))
 				Expect(deleteResourceInstanceOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewDeleteResourceKeyOptions successfully`, func() {
@@ -4659,6 +5902,16 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				Expect(listReclamationsOptionsModel.ResourceInstanceID).To(Equal(core.StringPtr("testString")))
 				Expect(listReclamationsOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
+			It(`Invoke NewListResourceAliasesForInstanceOptions successfully`, func() {
+				// Construct an instance of the ListResourceAliasesForInstanceOptions model
+				id := "testString"
+				listResourceAliasesForInstanceOptionsModel := resourceControllerService.NewListResourceAliasesForInstanceOptions(id)
+				listResourceAliasesForInstanceOptionsModel.SetID("testString")
+				listResourceAliasesForInstanceOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(listResourceAliasesForInstanceOptionsModel).ToNot(BeNil())
+				Expect(listResourceAliasesForInstanceOptionsModel.ID).To(Equal(core.StringPtr("testString")))
+				Expect(listResourceAliasesForInstanceOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
 			It(`Invoke NewListResourceAliasesOptions successfully`, func() {
 				// Construct an instance of the ListResourceAliasesOptions model
 				listResourceAliasesOptionsModel := resourceControllerService.NewListResourceAliasesOptions()
@@ -4683,6 +5936,16 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				Expect(listResourceAliasesOptionsModel.UpdatedFrom).To(Equal(core.StringPtr("2019-01-08T00:00:00.000Z")))
 				Expect(listResourceAliasesOptionsModel.UpdatedTo).To(Equal(core.StringPtr("2019-01-08T00:00:00.000Z")))
 				Expect(listResourceAliasesOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
+			It(`Invoke NewListResourceBindingsForAliasOptions successfully`, func() {
+				// Construct an instance of the ListResourceBindingsForAliasOptions model
+				id := "testString"
+				listResourceBindingsForAliasOptionsModel := resourceControllerService.NewListResourceBindingsForAliasOptions(id)
+				listResourceBindingsForAliasOptionsModel.SetID("testString")
+				listResourceBindingsForAliasOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(listResourceBindingsForAliasOptionsModel).ToNot(BeNil())
+				Expect(listResourceBindingsForAliasOptionsModel.ID).To(Equal(core.StringPtr("testString")))
+				Expect(listResourceBindingsForAliasOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewListResourceBindingsOptions successfully`, func() {
 				// Construct an instance of the ListResourceBindingsOptions model
@@ -4733,6 +5996,16 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				Expect(listResourceInstancesOptionsModel.UpdatedFrom).To(Equal(core.StringPtr("2019-01-08T00:00:00.000Z")))
 				Expect(listResourceInstancesOptionsModel.UpdatedTo).To(Equal(core.StringPtr("2019-01-08T00:00:00.000Z")))
 				Expect(listResourceInstancesOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
+			It(`Invoke NewListResourceKeysForInstanceOptions successfully`, func() {
+				// Construct an instance of the ListResourceKeysForInstanceOptions model
+				id := "testString"
+				listResourceKeysForInstanceOptionsModel := resourceControllerService.NewListResourceKeysForInstanceOptions(id)
+				listResourceKeysForInstanceOptionsModel.SetID("testString")
+				listResourceKeysForInstanceOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(listResourceKeysForInstanceOptionsModel).ToNot(BeNil())
+				Expect(listResourceKeysForInstanceOptionsModel.ID).To(Equal(core.StringPtr("testString")))
+				Expect(listResourceKeysForInstanceOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewListResourceKeysOptions successfully`, func() {
 				// Construct an instance of the ListResourceKeysOptions model
