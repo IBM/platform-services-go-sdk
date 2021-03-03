@@ -1,0 +1,243 @@
+// +build examples
+
+/**
+ * (C) Copyright IBM Corp. 2021.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package resourcemanagerv2_test
+
+import (
+	"encoding/json"
+	"fmt"
+	"github.com/IBM/go-sdk-core/v5/core"
+	"github.com/IBM/platform-services-go-sdk/resourcemanagerv2"
+	. "github.com/onsi/ginkgo"
+	. "github.com/onsi/gomega"
+	"os"
+)
+
+//
+// This file provides an example of how to use the Resource Manager service.
+//
+// The following configuration properties are assumed to be defined:
+// RESOURCE_MANAGER_URL=<service base url>
+// RESOURCE_MANAGER_AUTH_TYPE=iam
+// RESOURCE_MANAGER_APIKEY=<IAM apikey>
+// RESOURCE_MANAGER_AUTH_URL=<IAM token service base URL - omit this if using the production environment>
+//
+// These configuration properties can be exported as environment variables, or stored
+// in a configuration file and then:
+// export IBM_CREDENTIALS_FILE=<name of configuration file>
+//
+const externalConfigFile = "../resource_manager_v2.env"
+
+var (
+	resourceManagerService *resourcemanagerv2.ResourceManagerV2
+	config       map[string]string
+	configLoaded bool = false
+)
+
+func shouldSkipTest() {
+	if !configLoaded {
+		Skip("External configuration is not available, skipping tests...")
+	}
+}
+
+var _ = Describe(`ResourceManagerV2 Examples Tests`, func() {
+	Describe(`External configuration`, func() {
+		It("Successfully load the configuration", func() {
+			var err error
+			_, err = os.Stat(externalConfigFile)
+			if err != nil {
+				Skip("External configuration file not found, skipping tests: " + err.Error())
+			}
+
+			os.Setenv("IBM_CREDENTIALS_FILE", externalConfigFile)
+			config, err = core.GetServiceProperties(resourcemanagerv2.DefaultServiceName)
+			if err != nil {
+				Skip("Error loading service properties, skipping tests: " + err.Error())
+			}
+
+			configLoaded = len(config) > 0
+		})
+	})
+
+	Describe(`Client initialization`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It("Successfully construct the service client instance", func() {
+			var err error
+
+			// begin-common
+
+			resourceManagerServiceOptions := &resourcemanagerv2.ResourceManagerV2Options{}
+
+			resourceManagerService, err = resourcemanagerv2.NewResourceManagerV2UsingExternalConfig(resourceManagerServiceOptions)
+
+			if err != nil {
+				panic(err)
+			}
+
+			// end-common
+
+			Expect(resourceManagerService).ToNot(BeNil())
+		})
+	})
+
+	Describe(`ResourceManagerV2 request examples`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`ListResourceGroups request example`, func() {
+			// begin-list_resource_groups
+
+			listResourceGroupsOptions := resourceManagerService.NewListResourceGroupsOptions()
+
+			resourceGroupList, response, err := resourceManagerService.ListResourceGroups(listResourceGroupsOptions)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(resourceGroupList, "", "  ")
+			fmt.Println(string(b))
+
+			// end-list_resource_groups
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(resourceGroupList).ToNot(BeNil())
+
+		})
+		It(`CreateResourceGroup request example`, func() {
+			// begin-create_resource_group
+
+			createResourceGroupOptions := resourceManagerService.NewCreateResourceGroupOptions()
+
+			resCreateResourceGroup, response, err := resourceManagerService.CreateResourceGroup(createResourceGroupOptions)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(resCreateResourceGroup, "", "  ")
+			fmt.Println(string(b))
+
+			// end-create_resource_group
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(201))
+			Expect(resCreateResourceGroup).ToNot(BeNil())
+
+		})
+		It(`GetResourceGroup request example`, func() {
+			// begin-get_resource_group
+
+			getResourceGroupOptions := resourceManagerService.NewGetResourceGroupOptions(
+				"testString",
+			)
+
+			resourceGroup, response, err := resourceManagerService.GetResourceGroup(getResourceGroupOptions)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(resourceGroup, "", "  ")
+			fmt.Println(string(b))
+
+			// end-get_resource_group
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(resourceGroup).ToNot(BeNil())
+
+		})
+		It(`UpdateResourceGroup request example`, func() {
+			// begin-update_resource_group
+
+			updateResourceGroupOptions := resourceManagerService.NewUpdateResourceGroupOptions(
+				"testString",
+			)
+
+			resourceGroup, response, err := resourceManagerService.UpdateResourceGroup(updateResourceGroupOptions)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(resourceGroup, "", "  ")
+			fmt.Println(string(b))
+
+			// end-update_resource_group
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(resourceGroup).ToNot(BeNil())
+
+		})
+		It(`ListQuotaDefinitions request example`, func() {
+			// begin-list_quota_definitions
+
+			listQuotaDefinitionsOptions := resourceManagerService.NewListQuotaDefinitionsOptions()
+
+			quotaDefinitionList, response, err := resourceManagerService.ListQuotaDefinitions(listQuotaDefinitionsOptions)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(quotaDefinitionList, "", "  ")
+			fmt.Println(string(b))
+
+			// end-list_quota_definitions
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(quotaDefinitionList).ToNot(BeNil())
+
+		})
+		It(`GetQuotaDefinition request example`, func() {
+			// begin-get_quota_definition
+
+			getQuotaDefinitionOptions := resourceManagerService.NewGetQuotaDefinitionOptions(
+				"testString",
+			)
+
+			quotaDefinition, response, err := resourceManagerService.GetQuotaDefinition(getQuotaDefinitionOptions)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(quotaDefinition, "", "  ")
+			fmt.Println(string(b))
+
+			// end-get_quota_definition
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(quotaDefinition).ToNot(BeNil())
+
+		})
+		It(`DeleteResourceGroup request example`, func() {
+			// begin-delete_resource_group
+
+			deleteResourceGroupOptions := resourceManagerService.NewDeleteResourceGroupOptions(
+				"testString",
+			)
+
+			response, err := resourceManagerService.DeleteResourceGroup(deleteResourceGroupOptions)
+			if err != nil {
+				panic(err)
+			}
+
+			// end-delete_resource_group
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(204))
+
+		})
+	})
+})
