@@ -1,5 +1,5 @@
 /**
- * (C) Copyright IBM Corp. 2020.
+ * (C) Copyright IBM Corp. 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,9 +15,8 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-d753183b-20201209-163011
+ * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-9ae61cfc-20210302-143858
  */
- 
 
 // Package resourcecontrollerv2 : Operations and models for the ResourceControllerV2 service
 package resourcecontrollerv2
@@ -26,7 +25,7 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"github.com/IBM/go-sdk-core/v4/core"
+	"github.com/IBM/go-sdk-core/v5/core"
 	common "github.com/IBM/platform-services-go-sdk/common"
 	"github.com/go-openapi/strfmt"
 	"net/http"
@@ -424,6 +423,10 @@ func (resourceController *ResourceControllerV2) DeleteResourceInstanceWithContex
 		builder.AddHeader(headerName, headerValue)
 	}
 
+	if deleteResourceInstanceOptions.Recursive != nil {
+		builder.AddQuery("recursive", fmt.Sprint(*deleteResourceInstanceOptions.Recursive))
+	}
+
 	request, err := builder.Build()
 	if err != nil {
 		return
@@ -503,6 +506,122 @@ func (resourceController *ResourceControllerV2) UpdateResourceInstanceWithContex
 		return
 	}
 	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalResourceInstance)
+	if err != nil {
+		return
+	}
+	response.Result = result
+
+	return
+}
+
+// ListResourceAliasesForInstance : Get a list of all resource aliases for the instance
+// Get a list of all resource aliases for the instance.
+func (resourceController *ResourceControllerV2) ListResourceAliasesForInstance(listResourceAliasesForInstanceOptions *ListResourceAliasesForInstanceOptions) (result *ResourceAliasesList, response *core.DetailedResponse, err error) {
+	return resourceController.ListResourceAliasesForInstanceWithContext(context.Background(), listResourceAliasesForInstanceOptions)
+}
+
+// ListResourceAliasesForInstanceWithContext is an alternate form of the ListResourceAliasesForInstance method which supports a Context parameter
+func (resourceController *ResourceControllerV2) ListResourceAliasesForInstanceWithContext(ctx context.Context, listResourceAliasesForInstanceOptions *ListResourceAliasesForInstanceOptions) (result *ResourceAliasesList, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(listResourceAliasesForInstanceOptions, "listResourceAliasesForInstanceOptions cannot be nil")
+	if err != nil {
+		return
+	}
+	err = core.ValidateStruct(listResourceAliasesForInstanceOptions, "listResourceAliasesForInstanceOptions")
+	if err != nil {
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"id": *listResourceAliasesForInstanceOptions.ID,
+	}
+
+	builder := core.NewRequestBuilder(core.GET)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = resourceController.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(resourceController.Service.Options.URL, `/v2/resource_instances/{id}/resource_aliases`, pathParamsMap)
+	if err != nil {
+		return
+	}
+
+	for headerName, headerValue := range listResourceAliasesForInstanceOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("resource_controller", "V2", "ListResourceAliasesForInstance")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Accept", "application/json")
+
+	request, err := builder.Build()
+	if err != nil {
+		return
+	}
+
+	var rawResponse map[string]json.RawMessage
+	response, err = resourceController.Service.Request(request, &rawResponse)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalResourceAliasesList)
+	if err != nil {
+		return
+	}
+	response.Result = result
+
+	return
+}
+
+// ListResourceKeysForInstance : Get a list of all the resource keys for the instance
+// Get a list of all the resource keys for the instance.
+func (resourceController *ResourceControllerV2) ListResourceKeysForInstance(listResourceKeysForInstanceOptions *ListResourceKeysForInstanceOptions) (result *ResourceKeysList, response *core.DetailedResponse, err error) {
+	return resourceController.ListResourceKeysForInstanceWithContext(context.Background(), listResourceKeysForInstanceOptions)
+}
+
+// ListResourceKeysForInstanceWithContext is an alternate form of the ListResourceKeysForInstance method which supports a Context parameter
+func (resourceController *ResourceControllerV2) ListResourceKeysForInstanceWithContext(ctx context.Context, listResourceKeysForInstanceOptions *ListResourceKeysForInstanceOptions) (result *ResourceKeysList, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(listResourceKeysForInstanceOptions, "listResourceKeysForInstanceOptions cannot be nil")
+	if err != nil {
+		return
+	}
+	err = core.ValidateStruct(listResourceKeysForInstanceOptions, "listResourceKeysForInstanceOptions")
+	if err != nil {
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"id": *listResourceKeysForInstanceOptions.ID,
+	}
+
+	builder := core.NewRequestBuilder(core.GET)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = resourceController.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(resourceController.Service.Options.URL, `/v2/resource_instances/{id}/resource_keys`, pathParamsMap)
+	if err != nil {
+		return
+	}
+
+	for headerName, headerValue := range listResourceKeysForInstanceOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("resource_controller", "V2", "ListResourceKeysForInstance")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Accept", "application/json")
+
+	request, err := builder.Build()
+	if err != nil {
+		return
+	}
+
+	var rawResponse map[string]json.RawMessage
+	response, err = resourceController.Service.Request(request, &rawResponse)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalResourceKeysList)
 	if err != nil {
 		return
 	}
@@ -1594,6 +1713,64 @@ func (resourceController *ResourceControllerV2) UpdateResourceAliasWithContext(c
 	return
 }
 
+// ListResourceBindingsForAlias : Get a list of all resource bindings for the alias
+// Get a list of all resource bindings for the alias.
+func (resourceController *ResourceControllerV2) ListResourceBindingsForAlias(listResourceBindingsForAliasOptions *ListResourceBindingsForAliasOptions) (result *ResourceBindingsList, response *core.DetailedResponse, err error) {
+	return resourceController.ListResourceBindingsForAliasWithContext(context.Background(), listResourceBindingsForAliasOptions)
+}
+
+// ListResourceBindingsForAliasWithContext is an alternate form of the ListResourceBindingsForAlias method which supports a Context parameter
+func (resourceController *ResourceControllerV2) ListResourceBindingsForAliasWithContext(ctx context.Context, listResourceBindingsForAliasOptions *ListResourceBindingsForAliasOptions) (result *ResourceBindingsList, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(listResourceBindingsForAliasOptions, "listResourceBindingsForAliasOptions cannot be nil")
+	if err != nil {
+		return
+	}
+	err = core.ValidateStruct(listResourceBindingsForAliasOptions, "listResourceBindingsForAliasOptions")
+	if err != nil {
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"id": *listResourceBindingsForAliasOptions.ID,
+	}
+
+	builder := core.NewRequestBuilder(core.GET)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = resourceController.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(resourceController.Service.Options.URL, `/v2/resource_aliases/{id}/resource_bindings`, pathParamsMap)
+	if err != nil {
+		return
+	}
+
+	for headerName, headerValue := range listResourceBindingsForAliasOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("resource_controller", "V2", "ListResourceBindingsForAlias")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Accept", "application/json")
+
+	request, err := builder.Build()
+	if err != nil {
+		return
+	}
+
+	var rawResponse map[string]json.RawMessage
+	response, err = resourceController.Service.Request(request, &rawResponse)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalResourceBindingsList)
+	if err != nil {
+		return
+	}
+	response.Result = result
+
+	return
+}
+
 // ListReclamations : Get a list of all reclamations
 // Get a list of all reclamations.
 func (resourceController *ResourceControllerV2) ListReclamations(listReclamationsOptions *ListReclamationsOptions) (result *ReclamationsList, response *core.DetailedResponse, err error) {
@@ -1728,13 +1905,13 @@ func (resourceController *ResourceControllerV2) RunReclamationActionWithContext(
 type CreateResourceAliasOptions struct {
 	// The name of the alias. Must be 180 characters or less and cannot include any special characters other than `(space)
 	// - . _ :`.
-	Name *string `json:"name" validate:"required"`
+	Name *string `validate:"required"`
 
 	// The short or long ID of resource instance.
-	Source *string `json:"source" validate:"required"`
+	Source *string `validate:"required"`
 
 	// The CRN of target name(space) in a specific environment, e.g. space in Dallas YP, CFEE instance etc.
-	Target *string `json:"target" validate:"required"`
+	Target *string `validate:"required"`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -1776,21 +1953,21 @@ func (options *CreateResourceAliasOptions) SetHeaders(param map[string]string) *
 // CreateResourceBindingOptions : The CreateResourceBinding options.
 type CreateResourceBindingOptions struct {
 	// The short or long ID of resource alias.
-	Source *string `json:"source" validate:"required"`
+	Source *string `validate:"required"`
 
 	// The CRN of application to bind to in a specific environment, e.g. Dallas YP, CFEE instance.
-	Target *string `json:"target" validate:"required"`
+	Target *string `validate:"required"`
 
 	// The name of the binding. Must be 180 characters or less and cannot include any special characters other than
 	// `(space) - . _ :`.
-	Name *string `json:"name,omitempty"`
+	Name *string
 
 	// Configuration options represented as key-value pairs. Service defined options are passed through to the target
 	// resource brokers, whereas platform defined options are not.
-	Parameters *ResourceBindingPostParameters `json:"parameters,omitempty"`
+	Parameters *ResourceBindingPostParameters
 
 	// The role name or it's CRN.
-	Role *string `json:"role,omitempty"`
+	Role *string
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -1844,31 +2021,31 @@ func (options *CreateResourceBindingOptions) SetHeaders(param map[string]string)
 type CreateResourceInstanceOptions struct {
 	// The name of the instance. Must be 180 characters or less and cannot include any special characters other than
 	// `(space) - . _ :`.
-	Name *string `json:"name" validate:"required"`
+	Name *string `validate:"required"`
 
 	// The deployment location where the instance should be hosted.
-	Target *string `json:"target" validate:"required"`
+	Target *string `validate:"required"`
 
 	// Short or long ID of resource group.
-	ResourceGroup *string `json:"resource_group" validate:"required"`
+	ResourceGroup *string `validate:"required"`
 
 	// The unique ID of the plan associated with the offering. This value is provided by and stored in the global catalog.
-	ResourcePlanID *string `json:"resource_plan_id" validate:"required"`
+	ResourcePlanID *string `validate:"required"`
 
 	// Tags that are attached to the instance after provisioning. These tags can be searched and managed through the
 	// Tagging API in IBM Cloud.
-	Tags []string `json:"tags,omitempty"`
+	Tags []string
 
 	// A boolean that dictates if the resource instance should be deleted (cleaned up) during the processing of a region
 	// instance delete call.
-	AllowCleanup *bool `json:"allow_cleanup,omitempty"`
+	AllowCleanup *bool
 
 	// Configuration options represented as key-value pairs that are passed through to the target resource brokers.
-	Parameters map[string]interface{} `json:"parameters,omitempty"`
+	Parameters map[string]interface{}
 
 	// Indicates if the resource instance is locked for further update or delete operations. It does not affect actions
 	// performed on child resources like aliases, bindings or keys. False by default.
-	EntityLock *bool `json:"Entity-Lock,omitempty"`
+	EntityLock *bool
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -1941,17 +2118,17 @@ func (options *CreateResourceInstanceOptions) SetHeaders(param map[string]string
 // CreateResourceKeyOptions : The CreateResourceKey options.
 type CreateResourceKeyOptions struct {
 	// The name of the key.
-	Name *string `json:"name" validate:"required"`
+	Name *string `validate:"required"`
 
 	// The short or long ID of resource instance or alias.
-	Source *string `json:"source" validate:"required"`
+	Source *string `validate:"required"`
 
 	// Configuration options represented as key-value pairs. Service defined options are passed through to the target
 	// resource brokers, whereas platform defined options are not.
-	Parameters *ResourceKeyPostParameters `json:"parameters,omitempty"`
+	Parameters *ResourceKeyPostParameters
 
 	// The role name or it's CRN.
-	Role *string `json:"role,omitempty"`
+	Role *string
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -2015,7 +2192,6 @@ type Credentials struct {
 	// Allows users to set arbitrary properties
 	additionalProperties map[string]interface{}
 }
-
 
 // SetProperty allows the user to set an arbitrary property on an instance of Credentials
 func (o *Credentials) SetProperty(key string, value interface{}) {
@@ -2106,7 +2282,7 @@ func UnmarshalCredentials(m map[string]json.RawMessage, result interface{}) (err
 // DeleteResourceAliasOptions : The DeleteResourceAlias options.
 type DeleteResourceAliasOptions struct {
 	// The short or long ID of the alias.
-	ID *string `json:"id" validate:"required,ne="`
+	ID *string `validate:"required,ne="`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -2134,7 +2310,7 @@ func (options *DeleteResourceAliasOptions) SetHeaders(param map[string]string) *
 // DeleteResourceBindingOptions : The DeleteResourceBinding options.
 type DeleteResourceBindingOptions struct {
 	// The short or long ID of the binding.
-	ID *string `json:"id" validate:"required,ne="`
+	ID *string `validate:"required,ne="`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -2162,7 +2338,10 @@ func (options *DeleteResourceBindingOptions) SetHeaders(param map[string]string)
 // DeleteResourceInstanceOptions : The DeleteResourceInstance options.
 type DeleteResourceInstanceOptions struct {
 	// The short or long ID of the instance.
-	ID *string `json:"id" validate:"required,ne="`
+	ID *string `validate:"required,ne="`
+
+	// Will delete resource bindings, keys and aliases associated with the instance.
+	Recursive *bool
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -2181,6 +2360,12 @@ func (options *DeleteResourceInstanceOptions) SetID(id string) *DeleteResourceIn
 	return options
 }
 
+// SetRecursive : Allow user to set Recursive
+func (options *DeleteResourceInstanceOptions) SetRecursive(recursive bool) *DeleteResourceInstanceOptions {
+	options.Recursive = core.BoolPtr(recursive)
+	return options
+}
+
 // SetHeaders : Allow user to set Headers
 func (options *DeleteResourceInstanceOptions) SetHeaders(param map[string]string) *DeleteResourceInstanceOptions {
 	options.Headers = param
@@ -2190,7 +2375,7 @@ func (options *DeleteResourceInstanceOptions) SetHeaders(param map[string]string
 // DeleteResourceKeyOptions : The DeleteResourceKey options.
 type DeleteResourceKeyOptions struct {
 	// The short or long ID of the key.
-	ID *string `json:"id" validate:"required,ne="`
+	ID *string `validate:"required,ne="`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -2218,7 +2403,7 @@ func (options *DeleteResourceKeyOptions) SetHeaders(param map[string]string) *De
 // GetResourceAliasOptions : The GetResourceAlias options.
 type GetResourceAliasOptions struct {
 	// The short or long ID of the alias.
-	ID *string `json:"id" validate:"required,ne="`
+	ID *string `validate:"required,ne="`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -2246,7 +2431,7 @@ func (options *GetResourceAliasOptions) SetHeaders(param map[string]string) *Get
 // GetResourceBindingOptions : The GetResourceBinding options.
 type GetResourceBindingOptions struct {
 	// The short or long ID of the binding.
-	ID *string `json:"id" validate:"required,ne="`
+	ID *string `validate:"required,ne="`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -2274,7 +2459,7 @@ func (options *GetResourceBindingOptions) SetHeaders(param map[string]string) *G
 // GetResourceInstanceOptions : The GetResourceInstance options.
 type GetResourceInstanceOptions struct {
 	// The short or long ID of the instance.
-	ID *string `json:"id" validate:"required,ne="`
+	ID *string `validate:"required,ne="`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -2302,7 +2487,7 @@ func (options *GetResourceInstanceOptions) SetHeaders(param map[string]string) *
 // GetResourceKeyOptions : The GetResourceKey options.
 type GetResourceKeyOptions struct {
 	// The short or long ID of the key.
-	ID *string `json:"id" validate:"required,ne="`
+	ID *string `validate:"required,ne="`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -2330,10 +2515,10 @@ func (options *GetResourceKeyOptions) SetHeaders(param map[string]string) *GetRe
 // ListReclamationsOptions : The ListReclamations options.
 type ListReclamationsOptions struct {
 	// An alpha-numeric value identifying the account ID.
-	AccountID *string `json:"account_id,omitempty"`
+	AccountID *string
 
 	// The short ID of the resource instance.
-	ResourceInstanceID *string `json:"resource_instance_id,omitempty"`
+	ResourceInstanceID *string
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -2362,35 +2547,63 @@ func (options *ListReclamationsOptions) SetHeaders(param map[string]string) *Lis
 	return options
 }
 
+// ListResourceAliasesForInstanceOptions : The ListResourceAliasesForInstance options.
+type ListResourceAliasesForInstanceOptions struct {
+	// The short or long ID of the instance.
+	ID *string `validate:"required,ne="`
+
+	// Allows users to set headers on API requests
+	Headers map[string]string
+}
+
+// NewListResourceAliasesForInstanceOptions : Instantiate ListResourceAliasesForInstanceOptions
+func (*ResourceControllerV2) NewListResourceAliasesForInstanceOptions(id string) *ListResourceAliasesForInstanceOptions {
+	return &ListResourceAliasesForInstanceOptions{
+		ID: core.StringPtr(id),
+	}
+}
+
+// SetID : Allow user to set ID
+func (options *ListResourceAliasesForInstanceOptions) SetID(id string) *ListResourceAliasesForInstanceOptions {
+	options.ID = core.StringPtr(id)
+	return options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *ListResourceAliasesForInstanceOptions) SetHeaders(param map[string]string) *ListResourceAliasesForInstanceOptions {
+	options.Headers = param
+	return options
+}
+
 // ListResourceAliasesOptions : The ListResourceAliases options.
 type ListResourceAliasesOptions struct {
 	// Short ID of the alias.
-	GUID *string `json:"guid,omitempty"`
+	GUID *string
 
 	// The human-readable name of the alias.
-	Name *string `json:"name,omitempty"`
+	Name *string
 
 	// Resource instance short ID.
-	ResourceInstanceID *string `json:"resource_instance_id,omitempty"`
+	ResourceInstanceID *string
 
 	// Short ID of the instance in a specific targeted environment. For example, `service_instance_id` in a given IBM Cloud
 	// environment.
-	RegionInstanceID *string `json:"region_instance_id,omitempty"`
+	RegionInstanceID *string
 
 	// The unique ID of the offering (service name). This value is provided by and stored in the global catalog.
-	ResourceID *string `json:"resource_id,omitempty"`
+	ResourceID *string
 
 	// Short ID of Resource group.
-	ResourceGroupID *string `json:"resource_group_id,omitempty"`
+	ResourceGroupID *string
 
 	// Limit on how many items should be returned.
-	Limit *string `json:"limit,omitempty"`
+	Limit *string
 
 	// Start date inclusive filter.
-	UpdatedFrom *string `json:"updated_from,omitempty"`
+	UpdatedFrom *string
 
 	// End date inclusive filter.
-	UpdatedTo *string `json:"updated_to,omitempty"`
+	UpdatedTo *string
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -2461,32 +2674,60 @@ func (options *ListResourceAliasesOptions) SetHeaders(param map[string]string) *
 	return options
 }
 
+// ListResourceBindingsForAliasOptions : The ListResourceBindingsForAlias options.
+type ListResourceBindingsForAliasOptions struct {
+	// The short or long ID of the alias.
+	ID *string `validate:"required,ne="`
+
+	// Allows users to set headers on API requests
+	Headers map[string]string
+}
+
+// NewListResourceBindingsForAliasOptions : Instantiate ListResourceBindingsForAliasOptions
+func (*ResourceControllerV2) NewListResourceBindingsForAliasOptions(id string) *ListResourceBindingsForAliasOptions {
+	return &ListResourceBindingsForAliasOptions{
+		ID: core.StringPtr(id),
+	}
+}
+
+// SetID : Allow user to set ID
+func (options *ListResourceBindingsForAliasOptions) SetID(id string) *ListResourceBindingsForAliasOptions {
+	options.ID = core.StringPtr(id)
+	return options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *ListResourceBindingsForAliasOptions) SetHeaders(param map[string]string) *ListResourceBindingsForAliasOptions {
+	options.Headers = param
+	return options
+}
+
 // ListResourceBindingsOptions : The ListResourceBindings options.
 type ListResourceBindingsOptions struct {
 	// The short ID of the binding.
-	GUID *string `json:"guid,omitempty"`
+	GUID *string
 
 	// The human-readable name of the binding.
-	Name *string `json:"name,omitempty"`
+	Name *string
 
 	// Short ID of the resource group.
-	ResourceGroupID *string `json:"resource_group_id,omitempty"`
+	ResourceGroupID *string
 
 	// The unique ID of the offering (service name). This value is provided by and stored in the global catalog.
-	ResourceID *string `json:"resource_id,omitempty"`
+	ResourceID *string
 
 	// Short ID of the binding in the specific targeted environment, e.g. service_binding_id in a given IBM Cloud
 	// environment.
-	RegionBindingID *string `json:"region_binding_id,omitempty"`
+	RegionBindingID *string
 
 	// Limit on how many items should be returned.
-	Limit *string `json:"limit,omitempty"`
+	Limit *string
 
 	// Start date inclusive filter.
-	UpdatedFrom *string `json:"updated_from,omitempty"`
+	UpdatedFrom *string
 
 	// End date inclusive filter.
-	UpdatedTo *string `json:"updated_to,omitempty"`
+	UpdatedTo *string
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -2556,34 +2797,34 @@ type ListResourceInstancesOptions struct {
 	// When you provision a new resource in the specified location for the selected plan, a GUID (globally unique
 	// identifier) is created. This is a unique internal GUID managed by Resource controller that corresponds to the
 	// instance.
-	GUID *string `json:"guid,omitempty"`
+	GUID *string
 
 	// The human-readable name of the instance.
-	Name *string `json:"name,omitempty"`
+	Name *string
 
 	// Short ID of a resource group.
-	ResourceGroupID *string `json:"resource_group_id,omitempty"`
+	ResourceGroupID *string
 
 	// The unique ID of the offering. This value is provided by and stored in the global catalog.
-	ResourceID *string `json:"resource_id,omitempty"`
+	ResourceID *string
 
 	// The unique ID of the plan associated with the offering. This value is provided by and stored in the global catalog.
-	ResourcePlanID *string `json:"resource_plan_id,omitempty"`
+	ResourcePlanID *string
 
 	// The type of the instance. For example, `service_instance`.
-	Type *string `json:"type,omitempty"`
+	Type *string
 
 	// The sub-type of instance, e.g. `cfaas`.
-	SubType *string `json:"sub_type,omitempty"`
+	SubType *string
 
 	// Limit on how many items should be returned.
-	Limit *string `json:"limit,omitempty"`
+	Limit *string
 
 	// Start date inclusive filter.
-	UpdatedFrom *string `json:"updated_from,omitempty"`
+	UpdatedFrom *string
 
 	// End date inclusive filter.
-	UpdatedTo *string `json:"updated_to,omitempty"`
+	UpdatedTo *string
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -2660,29 +2901,57 @@ func (options *ListResourceInstancesOptions) SetHeaders(param map[string]string)
 	return options
 }
 
+// ListResourceKeysForInstanceOptions : The ListResourceKeysForInstance options.
+type ListResourceKeysForInstanceOptions struct {
+	// The short or long ID of the instance.
+	ID *string `validate:"required,ne="`
+
+	// Allows users to set headers on API requests
+	Headers map[string]string
+}
+
+// NewListResourceKeysForInstanceOptions : Instantiate ListResourceKeysForInstanceOptions
+func (*ResourceControllerV2) NewListResourceKeysForInstanceOptions(id string) *ListResourceKeysForInstanceOptions {
+	return &ListResourceKeysForInstanceOptions{
+		ID: core.StringPtr(id),
+	}
+}
+
+// SetID : Allow user to set ID
+func (options *ListResourceKeysForInstanceOptions) SetID(id string) *ListResourceKeysForInstanceOptions {
+	options.ID = core.StringPtr(id)
+	return options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *ListResourceKeysForInstanceOptions) SetHeaders(param map[string]string) *ListResourceKeysForInstanceOptions {
+	options.Headers = param
+	return options
+}
+
 // ListResourceKeysOptions : The ListResourceKeys options.
 type ListResourceKeysOptions struct {
 	// When you create a new key, a GUID (globally unique identifier) is assigned. This is a unique internal GUID managed
 	// by Resource controller that corresponds to the key.
-	GUID *string `json:"guid,omitempty"`
+	GUID *string
 
 	// The human-readable name of the key.
-	Name *string `json:"name,omitempty"`
+	Name *string
 
 	// The short ID of the resource group.
-	ResourceGroupID *string `json:"resource_group_id,omitempty"`
+	ResourceGroupID *string
 
 	// The unique ID of the offering. This value is provided by and stored in the global catalog.
-	ResourceID *string `json:"resource_id,omitempty"`
+	ResourceID *string
 
 	// Limit on how many items should be returned.
-	Limit *string `json:"limit,omitempty"`
+	Limit *string
 
 	// Start date inclusive filter.
-	UpdatedFrom *string `json:"updated_from,omitempty"`
+	UpdatedFrom *string
 
 	// End date inclusive filter.
-	UpdatedTo *string `json:"updated_to,omitempty"`
+	UpdatedTo *string
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -2744,7 +3013,7 @@ func (options *ListResourceKeysOptions) SetHeaders(param map[string]string) *Lis
 // LockResourceInstanceOptions : The LockResourceInstance options.
 type LockResourceInstanceOptions struct {
 	// The short or long ID of the instance.
-	ID *string `json:"id" validate:"required,ne="`
+	ID *string `validate:"required,ne="`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -2776,8 +3045,10 @@ type PlanHistoryItem struct {
 
 	// The date on which the plan was changed.
 	StartDate *strfmt.DateTime `json:"start_date" validate:"required"`
-}
 
+	// The subject who made the plan change.
+	RequestorID *string `json:"requestor_id,omitempty"`
+}
 
 // UnmarshalPlanHistoryItem unmarshals an instance of PlanHistoryItem from the specified map of raw messages.
 func UnmarshalPlanHistoryItem(m map[string]json.RawMessage, result interface{}) (err error) {
@@ -2787,6 +3058,10 @@ func UnmarshalPlanHistoryItem(m map[string]json.RawMessage, result interface{}) 
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "start_date", &obj.StartDate)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "requestor_id", &obj.RequestorID)
 	if err != nil {
 		return
 	}
@@ -2842,7 +3117,6 @@ type Reclamation struct {
 	// The subject who updated the reclamation.
 	UpdatedBy *string `json:"updated_by,omitempty"`
 }
-
 
 // UnmarshalReclamation unmarshals an instance of Reclamation from the specified map of raw messages.
 func UnmarshalReclamation(m map[string]json.RawMessage, result interface{}) (err error) {
@@ -2916,7 +3190,6 @@ type ReclamationsList struct {
 	// A list of reclamations.
 	Resources []Reclamation `json:"resources,omitempty"`
 }
-
 
 // UnmarshalReclamationsList unmarshals an instance of ReclamationsList from the specified map of raw messages.
 func UnmarshalReclamationsList(m map[string]json.RawMessage, result interface{}) (err error) {
@@ -2997,7 +3270,6 @@ type ResourceAlias struct {
 	// The subject who deleted the alias.
 	DeletedBy *string `json:"deleted_by,omitempty"`
 }
-
 
 // UnmarshalResourceAlias unmarshals an instance of ResourceAlias from the specified map of raw messages.
 func UnmarshalResourceAlias(m map[string]json.RawMessage, result interface{}) (err error) {
@@ -3102,7 +3374,6 @@ type ResourceAliasesList struct {
 	RowsCount *int64 `json:"rows_count" validate:"required"`
 }
 
-
 // UnmarshalResourceAliasesList unmarshals an instance of ResourceAliasesList from the specified map of raw messages.
 func UnmarshalResourceAliasesList(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(ResourceAliasesList)
@@ -3191,7 +3462,6 @@ type ResourceBinding struct {
 	// The subject who deleted the binding.
 	DeletedBy *string `json:"deleted_by,omitempty"`
 }
-
 
 // UnmarshalResourceBinding unmarshals an instance of ResourceBinding from the specified map of raw messages.
 func UnmarshalResourceBinding(m map[string]json.RawMessage, result interface{}) (err error) {
@@ -3289,8 +3559,43 @@ func UnmarshalResourceBinding(m map[string]json.RawMessage, result interface{}) 
 type ResourceBindingPostParameters struct {
 	// An optional platform defined option to reuse an existing IAM serviceId for the role assignment.
 	ServiceidCRN *string `json:"serviceid_crn,omitempty"`
+
+	// Allows users to set arbitrary properties
+	additionalProperties map[string]interface{}
 }
 
+// SetProperty allows the user to set an arbitrary property on an instance of ResourceBindingPostParameters
+func (o *ResourceBindingPostParameters) SetProperty(key string, value interface{}) {
+	if o.additionalProperties == nil {
+		o.additionalProperties = make(map[string]interface{})
+	}
+	o.additionalProperties[key] = value
+}
+
+// GetProperty allows the user to retrieve an arbitrary property from an instance of ResourceBindingPostParameters
+func (o *ResourceBindingPostParameters) GetProperty(key string) interface{} {
+	return o.additionalProperties[key]
+}
+
+// GetProperties allows the user to retrieve the map of arbitrary properties from an instance of ResourceBindingPostParameters
+func (o *ResourceBindingPostParameters) GetProperties() map[string]interface{} {
+	return o.additionalProperties
+}
+
+// MarshalJSON performs custom serialization for instances of ResourceBindingPostParameters
+func (o *ResourceBindingPostParameters) MarshalJSON() (buffer []byte, err error) {
+	m := make(map[string]interface{})
+	if len(o.additionalProperties) > 0 {
+		for k, v := range o.additionalProperties {
+			m[k] = v
+		}
+	}
+	if o.ServiceidCRN != nil {
+		m["serviceid_crn"] = o.ServiceidCRN
+	}
+	buffer, err = json.Marshal(m)
+	return
+}
 
 // UnmarshalResourceBindingPostParameters unmarshals an instance of ResourceBindingPostParameters from the specified map of raw messages.
 func UnmarshalResourceBindingPostParameters(m map[string]json.RawMessage, result interface{}) (err error) {
@@ -3298,6 +3603,16 @@ func UnmarshalResourceBindingPostParameters(m map[string]json.RawMessage, result
 	err = core.UnmarshalPrimitive(m, "serviceid_crn", &obj.ServiceidCRN)
 	if err != nil {
 		return
+	}
+	delete(m, "serviceid_crn")
+	for k := range m {
+		var v interface{}
+		e := core.UnmarshalPrimitive(m, k, &v)
+		if e != nil {
+			err = e
+			return
+		}
+		obj.SetProperty(k, v)
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
 	return
@@ -3314,7 +3629,6 @@ type ResourceBindingsList struct {
 	// The number of resource bindings in `resources`.
 	RowsCount *int64 `json:"rows_count" validate:"required"`
 }
-
 
 // UnmarshalResourceBindingsList unmarshals an instance of ResourceBindingsList from the specified map of raw messages.
 func UnmarshalResourceBindingsList(m map[string]json.RawMessage, result interface{}) (err error) {
@@ -3401,6 +3715,9 @@ type ResourceInstance struct {
 	// The plan history of the instance.
 	PlanHistory []PlanHistoryItem `json:"plan_history,omitempty"`
 
+	// Additional instance properties, contributed by the service and/or platform, are represented as key-value pairs.
+	Extensions map[string]interface{} `json:"extensions,omitempty"`
+
 	// The relative path to the resource aliases for the instance.
 	ResourceAliasesURL *string `json:"resource_aliases_url,omitempty"`
 
@@ -3440,7 +3757,6 @@ type ResourceInstance struct {
 	// The subject who restored the instance back from reclamation.
 	RestoredBy *string `json:"restored_by,omitempty"`
 }
-
 
 // UnmarshalResourceInstance unmarshals an instance of ResourceInstance from the specified map of raw messages.
 func UnmarshalResourceInstance(m map[string]json.RawMessage, result interface{}) (err error) {
@@ -3525,6 +3841,10 @@ func UnmarshalResourceInstance(m map[string]json.RawMessage, result interface{})
 	if err != nil {
 		return
 	}
+	err = core.UnmarshalPrimitive(m, "extensions", &obj.Extensions)
+	if err != nil {
+		return
+	}
 	err = core.UnmarshalPrimitive(m, "resource_aliases_url", &obj.ResourceAliasesURL)
 	if err != nil {
 		return
@@ -3592,7 +3912,6 @@ type ResourceInstancesList struct {
 	// The number of resource instances in `resources`.
 	RowsCount *int64 `json:"rows_count" validate:"required"`
 }
-
 
 // UnmarshalResourceInstancesList unmarshals an instance of ResourceInstancesList from the specified map of raw messages.
 func UnmarshalResourceInstancesList(m map[string]json.RawMessage, result interface{}) (err error) {
@@ -3675,7 +3994,6 @@ type ResourceKey struct {
 	// The subject who deleted the key.
 	DeletedBy *string `json:"deleted_by,omitempty"`
 }
-
 
 // UnmarshalResourceKey unmarshals an instance of ResourceKey from the specified map of raw messages.
 func UnmarshalResourceKey(m map[string]json.RawMessage, result interface{}) (err error) {
@@ -3765,8 +4083,43 @@ func UnmarshalResourceKey(m map[string]json.RawMessage, result interface{}) (err
 type ResourceKeyPostParameters struct {
 	// An optional platform defined option to reuse an existing IAM serviceId for the role assignment.
 	ServiceidCRN *string `json:"serviceid_crn,omitempty"`
+
+	// Allows users to set arbitrary properties
+	additionalProperties map[string]interface{}
 }
 
+// SetProperty allows the user to set an arbitrary property on an instance of ResourceKeyPostParameters
+func (o *ResourceKeyPostParameters) SetProperty(key string, value interface{}) {
+	if o.additionalProperties == nil {
+		o.additionalProperties = make(map[string]interface{})
+	}
+	o.additionalProperties[key] = value
+}
+
+// GetProperty allows the user to retrieve an arbitrary property from an instance of ResourceKeyPostParameters
+func (o *ResourceKeyPostParameters) GetProperty(key string) interface{} {
+	return o.additionalProperties[key]
+}
+
+// GetProperties allows the user to retrieve the map of arbitrary properties from an instance of ResourceKeyPostParameters
+func (o *ResourceKeyPostParameters) GetProperties() map[string]interface{} {
+	return o.additionalProperties
+}
+
+// MarshalJSON performs custom serialization for instances of ResourceKeyPostParameters
+func (o *ResourceKeyPostParameters) MarshalJSON() (buffer []byte, err error) {
+	m := make(map[string]interface{})
+	if len(o.additionalProperties) > 0 {
+		for k, v := range o.additionalProperties {
+			m[k] = v
+		}
+	}
+	if o.ServiceidCRN != nil {
+		m["serviceid_crn"] = o.ServiceidCRN
+	}
+	buffer, err = json.Marshal(m)
+	return
+}
 
 // UnmarshalResourceKeyPostParameters unmarshals an instance of ResourceKeyPostParameters from the specified map of raw messages.
 func UnmarshalResourceKeyPostParameters(m map[string]json.RawMessage, result interface{}) (err error) {
@@ -3774,6 +4127,16 @@ func UnmarshalResourceKeyPostParameters(m map[string]json.RawMessage, result int
 	err = core.UnmarshalPrimitive(m, "serviceid_crn", &obj.ServiceidCRN)
 	if err != nil {
 		return
+	}
+	delete(m, "serviceid_crn")
+	for k := range m {
+		var v interface{}
+		e := core.UnmarshalPrimitive(m, k, &v)
+		if e != nil {
+			err = e
+			return
+		}
+		obj.SetProperty(k, v)
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
 	return
@@ -3790,7 +4153,6 @@ type ResourceKeysList struct {
 	// The number of resource keys in `resources`.
 	RowsCount *int64 `json:"rows_count" validate:"required"`
 }
-
 
 // UnmarshalResourceKeysList unmarshals an instance of ResourceKeysList from the specified map of raw messages.
 func UnmarshalResourceKeysList(m map[string]json.RawMessage, result interface{}) (err error) {
@@ -3814,16 +4176,16 @@ func UnmarshalResourceKeysList(m map[string]json.RawMessage, result interface{})
 // RunReclamationActionOptions : The RunReclamationAction options.
 type RunReclamationActionOptions struct {
 	// The ID associated with the reclamation.
-	ID *string `json:"id" validate:"required,ne="`
+	ID *string `validate:"required,ne="`
 
 	// The reclamation action name. Specify `reclaim` to delete a resource, or `restore` to restore a resource.
-	ActionName *string `json:"action_name" validate:"required,ne="`
+	ActionName *string `validate:"required,ne="`
 
 	// The request initiator, if different from the request token.
-	RequestBy *string `json:"request_by,omitempty"`
+	RequestBy *string
 
 	// A comment to describe the action.
-	Comment *string `json:"comment,omitempty"`
+	Comment *string
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -3870,7 +4232,7 @@ func (options *RunReclamationActionOptions) SetHeaders(param map[string]string) 
 // UnlockResourceInstanceOptions : The UnlockResourceInstance options.
 type UnlockResourceInstanceOptions struct {
 	// The short or long ID of the instance.
-	ID *string `json:"id" validate:"required,ne="`
+	ID *string `validate:"required,ne="`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -3898,11 +4260,11 @@ func (options *UnlockResourceInstanceOptions) SetHeaders(param map[string]string
 // UpdateResourceAliasOptions : The UpdateResourceAlias options.
 type UpdateResourceAliasOptions struct {
 	// The short or long ID of the alias.
-	ID *string `json:"id" validate:"required,ne="`
+	ID *string `validate:"required,ne="`
 
 	// The new name of the alias. Must be 180 characters or less and cannot include any special characters other than
 	// `(space) - . _ :`.
-	Name *string `json:"name" validate:"required"`
+	Name *string `validate:"required"`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -3937,11 +4299,11 @@ func (options *UpdateResourceAliasOptions) SetHeaders(param map[string]string) *
 // UpdateResourceBindingOptions : The UpdateResourceBinding options.
 type UpdateResourceBindingOptions struct {
 	// The short or long ID of the binding.
-	ID *string `json:"id" validate:"required,ne="`
+	ID *string `validate:"required,ne="`
 
 	// The new name of the binding. Must be 180 characters or less and cannot include any special characters other than
 	// `(space) - . _ :`.
-	Name *string `json:"name" validate:"required"`
+	Name *string `validate:"required"`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -3976,21 +4338,21 @@ func (options *UpdateResourceBindingOptions) SetHeaders(param map[string]string)
 // UpdateResourceInstanceOptions : The UpdateResourceInstance options.
 type UpdateResourceInstanceOptions struct {
 	// The short or long ID of the instance.
-	ID *string `json:"id" validate:"required,ne="`
+	ID *string `validate:"required,ne="`
 
 	// The new name of the instance. Must be 180 characters or less and cannot include any special characters other than
 	// `(space) - . _ :`.
-	Name *string `json:"name,omitempty"`
+	Name *string
 
 	// The new configuration options for the instance.
-	Parameters map[string]interface{} `json:"parameters,omitempty"`
+	Parameters map[string]interface{}
 
 	// The unique ID of the plan associated with the offering. This value is provided by and stored in the global catalog.
-	ResourcePlanID *string `json:"resource_plan_id,omitempty"`
+	ResourcePlanID *string
 
 	// A boolean that dictates if the resource instance should be deleted (cleaned up) during the processing of a region
 	// instance delete call.
-	AllowCleanup *bool `json:"allow_cleanup,omitempty"`
+	AllowCleanup *bool
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -4042,11 +4404,11 @@ func (options *UpdateResourceInstanceOptions) SetHeaders(param map[string]string
 // UpdateResourceKeyOptions : The UpdateResourceKey options.
 type UpdateResourceKeyOptions struct {
 	// The short or long ID of the key.
-	ID *string `json:"id" validate:"required,ne="`
+	ID *string `validate:"required,ne="`
 
 	// The new name of the key. Must be 180 characters or less and cannot include any special characters other than
 	// `(space) - . _ :`.
-	Name *string `json:"name" validate:"required"`
+	Name *string `validate:"required"`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
