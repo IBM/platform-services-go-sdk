@@ -21,7 +21,7 @@ import (
 	"log"
 	"time"
 
-	"github.com/IBM/go-sdk-core/v4/core"
+	"github.com/IBM/go-sdk-core/v5/core"
 	"github.com/IBM/platform-services-go-sdk/resourcemanagerv2"
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
@@ -82,7 +82,7 @@ var _ = Describe("Resource Manager - Integration Tests", func() {
 		Expect(err).To(BeNil())
 		Expect(service1).ToNot(BeNil())
 
-		core.SetLogger(core.NewLogger(core.LevelDebug, log.New(GinkgoWriter, "", log.LstdFlags)))
+		core.SetLogger(core.NewLogger(core.LevelDebug, log.New(GinkgoWriter, "", log.LstdFlags), log.New(GinkgoWriter, "", log.LstdFlags)))
 		service1.EnableRetries(4, 30*time.Second)
 
 		options2 := &resourcemanagerv2.ResourceManagerV2Options{
