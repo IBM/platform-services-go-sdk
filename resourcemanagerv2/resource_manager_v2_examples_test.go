@@ -127,6 +127,8 @@ var _ = Describe(`ResourceManagerV2 Examples Tests`, func() {
 			shouldSkipTest()
 		})
 		It(`CreateResourceGroup request example`, func() {
+			Expect(exampleUserAccountID).NotTo(BeNil())
+
 			// begin-create_resource_group
 
 			createResourceGroupOptions := resourceManagerService.NewCreateResourceGroupOptions()
