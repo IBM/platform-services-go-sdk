@@ -21,11 +21,12 @@ package resourcemanagerv2_test
 import (
 	"encoding/json"
 	"fmt"
+	"os"
+
 	"github.com/IBM/go-sdk-core/v5/core"
 	"github.com/IBM/platform-services-go-sdk/resourcemanagerv2"
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
-	"os"
 )
 
 //
@@ -41,12 +42,17 @@ import (
 // in a configuration file and then:
 // export IBM_CREDENTIALS_FILE=<name of configuration file>
 //
-const externalConfigFile = "../resource_manager_v2.env"
+const externalConfigFile = "../resource_manager.env"
 
 var (
 	resourceManagerService *resourcemanagerv2.ResourceManagerV2
-	config       map[string]string
-	configLoaded bool = false
+	config                 map[string]string
+	configLoaded           bool = false
+
+	exampleQuotaID       string
+	exampleUserAccountID string
+
+	resourceGroupID string
 )
 
 func shouldSkipTest() {
@@ -70,6 +76,12 @@ var _ = Describe(`ResourceManagerV2 Examples Tests`, func() {
 				Skip("Error loading service properties, skipping tests: " + err.Error())
 			}
 
+			exampleQuotaID = config["TEST_QUOTA_ID"]
+			Expect(exampleQuotaID).ToNot(BeEmpty())
+
+			exampleUserAccountID = config["TEST_USER_ACCOUNT_ID"]
+			Expect(exampleUserAccountID).ToNot(BeEmpty())
+
 			configLoaded = len(config) > 0
 		})
 	})
@@ -83,7 +95,9 @@ var _ = Describe(`ResourceManagerV2 Examples Tests`, func() {
 
 			// begin-common
 
-			resourceManagerServiceOptions := &resourcemanagerv2.ResourceManagerV2Options{}
+			resourceManagerServiceOptions := &resourcemanagerv2.ResourceManagerV2Options{
+				ServiceName: resourcemanagerv2.DefaultServiceName,
+			}
 
 			resourceManagerService, err = resourcemanagerv2.NewResourceManagerV2UsingExternalConfig(resourceManagerServiceOptions)
 
@@ -101,29 +115,12 @@ var _ = Describe(`ResourceManagerV2 Examples Tests`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
 		})
-		It(`ListResourceGroups request example`, func() {
-			// begin-list_resource_groups
-
-			listResourceGroupsOptions := resourceManagerService.NewListResourceGroupsOptions()
-
-			resourceGroupList, response, err := resourceManagerService.ListResourceGroups(listResourceGroupsOptions)
-			if err != nil {
-				panic(err)
-			}
-			b, _ := json.MarshalIndent(resourceGroupList, "", "  ")
-			fmt.Println(string(b))
-
-			// end-list_resource_groups
-
-			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(200))
-			Expect(resourceGroupList).ToNot(BeNil())
-
-		})
 		It(`CreateResourceGroup request example`, func() {
 			// begin-create_resource_group
 
 			createResourceGroupOptions := resourceManagerService.NewCreateResourceGroupOptions()
+			createResourceGroupOptions.SetAccountID(exampleUserAccountID)
+			createResourceGroupOptions.SetName("ExampleGroup")
 
 			resCreateResourceGroup, response, err := resourceManagerService.CreateResourceGroup(createResourceGroupOptions)
 			if err != nil {
@@ -138,12 +135,15 @@ var _ = Describe(`ResourceManagerV2 Examples Tests`, func() {
 			Expect(response.StatusCode).To(Equal(201))
 			Expect(resCreateResourceGroup).ToNot(BeNil())
 
+			resourceGroupID = *resCreateResourceGroup.ID
 		})
 		It(`GetResourceGroup request example`, func() {
+			Expect(resourceGroupID).NotTo(BeNil())
+
 			// begin-get_resource_group
 
 			getResourceGroupOptions := resourceManagerService.NewGetResourceGroupOptions(
-				"testString",
+				resourceGroupID,
 			)
 
 			resourceGroup, response, err := resourceManagerService.GetResourceGroup(getResourceGroupOptions)
@@ -158,14 +158,17 @@ var _ = Describe(`ResourceManagerV2 Examples Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(resourceGroup).ToNot(BeNil())
-
 		})
 		It(`UpdateResourceGroup request example`, func() {
+			Expect(resourceGroupID).NotTo(BeNil())
+
 			// begin-update_resource_group
 
 			updateResourceGroupOptions := resourceManagerService.NewUpdateResourceGroupOptions(
-				"testString",
+				resourceGroupID,
 			)
+			updateResourceGroupOptions.SetName("RenamedExampleGroup")
+			updateResourceGroupOptions.SetState("ACTIVE")
 
 			resourceGroup, response, err := resourceManagerService.UpdateResourceGroup(updateResourceGroupOptions)
 			if err != nil {
@@ -179,7 +182,69 @@ var _ = Describe(`ResourceManagerV2 Examples Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(resourceGroup).ToNot(BeNil())
+		})
+		It(`ListResourceGroups request example`, func() {
+			Expect(exampleUserAccountID).NotTo(BeNil())
 
+			// begin-list_resource_groups
+
+			listResourceGroupsOptions := resourceManagerService.NewListResourceGroupsOptions()
+			listResourceGroupsOptions.SetAccountID(exampleUserAccountID)
+			listResourceGroupsOptions.SetIncludeDeleted(true)
+
+			resourceGroupList, response, err := resourceManagerService.ListResourceGroups(listResourceGroupsOptions)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(resourceGroupList, "", "  ")
+			fmt.Println(string(b))
+
+			// end-list_resource_groups
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(resourceGroupList).ToNot(BeNil())
+		})
+		It(`DeleteResourceGroup request example`, func() {
+			Expect(resourceGroupID).NotTo(BeNil())
+
+			// begin-delete_resource_group
+
+			deleteResourceGroupOptions := resourceManagerService.NewDeleteResourceGroupOptions(
+				resourceGroupID,
+			)
+
+			response, err := resourceManagerService.DeleteResourceGroup(deleteResourceGroupOptions)
+			if err != nil {
+				panic(err)
+			}
+
+			// end-delete_resource_group
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(204))
+		})
+		It(`GetQuotaDefinition request example`, func() {
+			Expect(exampleQuotaID).NotTo(BeNil())
+
+			// begin-get_quota_definition
+
+			getQuotaDefinitionOptions := resourceManagerService.NewGetQuotaDefinitionOptions(
+				exampleQuotaID,
+			)
+
+			quotaDefinition, response, err := resourceManagerService.GetQuotaDefinition(getQuotaDefinitionOptions)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(quotaDefinition, "", "  ")
+			fmt.Println(string(b))
+
+			// end-get_quota_definition
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(quotaDefinition).ToNot(BeNil())
 		})
 		It(`ListQuotaDefinitions request example`, func() {
 			// begin-list_quota_definitions
@@ -198,46 +263,6 @@ var _ = Describe(`ResourceManagerV2 Examples Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(quotaDefinitionList).ToNot(BeNil())
-
-		})
-		It(`GetQuotaDefinition request example`, func() {
-			// begin-get_quota_definition
-
-			getQuotaDefinitionOptions := resourceManagerService.NewGetQuotaDefinitionOptions(
-				"testString",
-			)
-
-			quotaDefinition, response, err := resourceManagerService.GetQuotaDefinition(getQuotaDefinitionOptions)
-			if err != nil {
-				panic(err)
-			}
-			b, _ := json.MarshalIndent(quotaDefinition, "", "  ")
-			fmt.Println(string(b))
-
-			// end-get_quota_definition
-
-			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(200))
-			Expect(quotaDefinition).ToNot(BeNil())
-
-		})
-		It(`DeleteResourceGroup request example`, func() {
-			// begin-delete_resource_group
-
-			deleteResourceGroupOptions := resourceManagerService.NewDeleteResourceGroupOptions(
-				"testString",
-			)
-
-			response, err := resourceManagerService.DeleteResourceGroup(deleteResourceGroupOptions)
-			if err != nil {
-				panic(err)
-			}
-
-			// end-delete_resource_group
-
-			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(204))
-
 		})
 	})
 })
