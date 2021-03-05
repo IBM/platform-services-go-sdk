@@ -1,7 +1,7 @@
 // +build integration
 
 /**
- * (C) Copyright IBM Corp. 2020.
+ * (C) Copyright IBM Corp. 2020, 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,7 +25,7 @@ import (
 	"os"
 	"time"
 
-	"github.com/IBM/go-sdk-core/v4/core"
+	"github.com/IBM/go-sdk-core/v5/core"
 	common "github.com/IBM/platform-services-go-sdk/common"
 	"github.com/IBM/platform-services-go-sdk/iamidentityv1"
 	. "github.com/onsi/ginkgo"
@@ -117,7 +117,7 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 			Expect(iamIdentityService).ToNot(BeNil())
 			Expect(iamIdentityService.Service.Options.URL).To(Equal(serviceURL))
 
-			core.SetLogger(core.NewLogger(core.LevelDebug, log.New(GinkgoWriter, "", log.LstdFlags)))
+			core.SetLogger(core.NewLogger(core.LevelDebug, log.New(GinkgoWriter, "", log.LstdFlags), log.New(GinkgoWriter, "", log.LstdFlags)))
 			iamIdentityService.EnableRetries(4, 30*time.Second)
 		})
 		It("Successfully setup the environment for tests", func() {
@@ -556,6 +556,50 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 			Expect(serviceID).To(BeNil())
 		})
 	})
+
+	// Describe(`GetAccountSettings - Get account configurations`, func() {
+	// 	BeforeEach(func() {
+	// 		shouldSkipTest()
+	// 	})
+	// 	It(`GetAccountSettings(getAccountSettingsOptions *GetAccountSettingsOptions)`, func() {
+
+	// 		getAccountSettingsOptions := &iamidentityv1.GetAccountSettingsOptions{
+	// 			AccountID:      core.StringPtr("testString"),
+	// 			IncludeHistory: core.BoolPtr(true),
+	// 		}
+
+	// 		accountSettingsResponse, response, err := iamIdentityService.GetAccountSettings(getAccountSettingsOptions)
+
+	// 		Expect(err).To(BeNil())
+	// 		Expect(response.StatusCode).To(Equal(200))
+	// 		Expect(accountSettingsResponse).ToNot(BeNil())
+	// 	})
+	// })
+
+	// Describe(`UpdateAccountSettings - Update account configurations`, func() {
+	// 	BeforeEach(func() {
+	// 		shouldSkipTest()
+	// 	})
+	// 	It(`UpdateAccountSettings(updateAccountSettingsOptions *UpdateAccountSettingsOptions)`, func() {
+
+	// 		updateAccountSettingsOptions := &iamidentityv1.UpdateAccountSettingsOptions{
+	// 			IfMatch:                      core.StringPtr("testString"),
+	// 			AccountID:                    core.StringPtr("testString"),
+	// 			RestrictCreateServiceID:      core.StringPtr("RESTRICTED"),
+	// 			RestrictCreatePlatformApikey: core.StringPtr("RESTRICTED"),
+	// 			AllowedIPAddresses:           core.StringPtr("testString"),
+	// 			Mfa:                          core.StringPtr("NONE"),
+	// 			SessionExpirationInSeconds:   core.StringPtr("testString"),
+	// 			SessionInvalidationInSeconds: core.StringPtr("testString"),
+	// 		}
+
+	// 		accountSettingsResponse, response, err := iamIdentityService.UpdateAccountSettings(updateAccountSettingsOptions)
+
+	// 		Expect(err).To(BeNil())
+	// 		Expect(response.StatusCode).To(Equal(200))
+	// 		Expect(accountSettingsResponse).ToNot(BeNil())
+	// 	})
+	// })
 })
 
 var _ = AfterSuite(func() {
