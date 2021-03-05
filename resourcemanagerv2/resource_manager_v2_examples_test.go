@@ -45,9 +45,10 @@ import (
 const externalConfigFile = "../resource_manager.env"
 
 var (
-	resourceManagerService *resourcemanagerv2.ResourceManagerV2
-	config                 map[string]string
-	configLoaded           bool = false
+	resourceManagerService       *resourcemanagerv2.ResourceManagerV2
+	deleteResourceManagerService *resourcemanagerv2.ResourceManagerV2
+	config                       map[string]string
+	configLoaded                 bool = false
 
 	exampleQuotaID       string
 	exampleUserAccountID string
@@ -100,6 +101,16 @@ var _ = Describe(`ResourceManagerV2 Examples Tests`, func() {
 			}
 
 			resourceManagerService, err = resourcemanagerv2.NewResourceManagerV2UsingExternalConfig(resourceManagerServiceOptions)
+
+			if err != nil {
+				panic(err)
+			}
+
+			deleteResourceManagerServiceOptions := &resourcemanagerv2.ResourceManagerV2Options{
+				ServiceName: "DELETE_RESOURCE_MANAGER",
+			}
+
+			deleteResourceManagerService, err = resourcemanagerv2.NewResourceManagerV2UsingExternalConfig(deleteResourceManagerServiceOptions)
 
 			if err != nil {
 				panic(err)
@@ -214,7 +225,7 @@ var _ = Describe(`ResourceManagerV2 Examples Tests`, func() {
 				resourceGroupID,
 			)
 
-			response, err := resourceManagerService.DeleteResourceGroup(deleteResourceGroupOptions)
+			response, err := deleteResourceManagerService.DeleteResourceGroup(deleteResourceGroupOptions)
 			if err != nil {
 				panic(err)
 			}
