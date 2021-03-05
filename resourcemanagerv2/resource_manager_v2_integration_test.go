@@ -35,8 +35,9 @@ var (
 	service1           *resourcemanagerv2.ResourceManagerV2
 	service2           *resourcemanagerv2.ResourceManagerV2
 	err                error
-	testQuotaID        string = "7ce89f4a-4381-4600-b814-3cd9a4f4bdf4"
-	testUserAccountID  string = "60ce10d1d94749bf8dceff12065db1b0"
+	config             map[string]string
+	testQuotaID        string
+	testUserAccountID  string
 	newResourceGroupID string
 	configLoaded       bool = false
 )
@@ -54,6 +55,18 @@ var _ = Describe("Resource Manager - Integration Tests", func() {
 			err = os.Setenv("IBM_CREDENTIALS_FILE", externalConfigFile)
 			if err == nil {
 				configLoaded = true
+			}
+			config, err = core.GetServiceProperties(resourcemanagerv2.DefaultServiceName)
+			if err != nil {
+				Skip("Error loading service properties, skipping tests: " + err.Error())
+			}
+			testQuotaID = config["TEST_QUOTA_ID"]
+			if testQuotaID == "" {
+				Skip("Unable to load test quota ID configuration property, skipping tests")
+			}
+			testUserAccountID = config["TEST_USER_ACCOUNT_ID"]
+			if testUserAccountID == "" {
+				Skip("Unable to test user account ID configuration property, skipping tests")
 			}
 		}
 		if !configLoaded {
