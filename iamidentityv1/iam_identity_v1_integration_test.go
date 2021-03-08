@@ -557,49 +557,67 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 		})
 	})
 
-	// Describe(`GetAccountSettings - Get account configurations`, func() {
-	// 	BeforeEach(func() {
-	// 		shouldSkipTest()
-	// 	})
-	// 	It(`GetAccountSettings(getAccountSettingsOptions *GetAccountSettingsOptions)`, func() {
+	Describe(`GetAccountSettings - Get account configurations`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`GetAccountSettings(getAccountSettingsOptions *GetAccountSettingsOptions)`, func() {
 
-	// 		getAccountSettingsOptions := &iamidentityv1.GetAccountSettingsOptions{
-	// 			AccountID:      core.StringPtr("testString"),
-	// 			IncludeHistory: core.BoolPtr(true),
-	// 		}
+			getAccountSettingsOptions := &iamidentityv1.GetAccountSettingsOptions{
+				AccountID:      core.StringPtr(accountID),
+				IncludeHistory: core.BoolPtr(true),
+			}
 
-	// 		accountSettingsResponse, response, err := iamIdentityService.GetAccountSettings(getAccountSettingsOptions)
+			accountSettingsResponse, response, err := iamIdentityService.GetAccountSettings(getAccountSettingsOptions)
 
-	// 		Expect(err).To(BeNil())
-	// 		Expect(response.StatusCode).To(Equal(200))
-	// 		Expect(accountSettingsResponse).ToNot(BeNil())
-	// 	})
-	// })
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(accountSettingsResponse).ToNot(BeNil())
+			Expect(accountSettingsResponse.History).ToNot(BeNil())
+			Expect(accountSettingsResponse.EntityTag).ToNot(BeNil())
+			Expect(accountSettingsResponse.AllowedIPAddresses).To(BeNil())
+			Expect(accountSettingsResponse.RestrictCreateServiceID).ToNot(BeNil())
+			Expect(accountSettingsResponse.RestrictCreatePlatformApikey).ToNot(BeNil())
+			Expect(accountSettingsResponse.SessionExpirationInSeconds).ToNot(BeNil())
+			Expect(accountSettingsResponse.SessionInvalidationInSeconds).ToNot(BeNil())
+			Expect(accountSettingsResponse.Mfa).ToNot(BeNil())
+		})
+	})
 
-	// Describe(`UpdateAccountSettings - Update account configurations`, func() {
-	// 	BeforeEach(func() {
-	// 		shouldSkipTest()
-	// 	})
-	// 	It(`UpdateAccountSettings(updateAccountSettingsOptions *UpdateAccountSettingsOptions)`, func() {
+	Describe(`UpdateAccountSettings - Update account configurations`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`UpdateAccountSettings(updateAccountSettingsOptions *UpdateAccountSettingsOptions)`, func() {
 
-	// 		updateAccountSettingsOptions := &iamidentityv1.UpdateAccountSettingsOptions{
-	// 			IfMatch:                      core.StringPtr("testString"),
-	// 			AccountID:                    core.StringPtr("testString"),
-	// 			RestrictCreateServiceID:      core.StringPtr("RESTRICTED"),
-	// 			RestrictCreatePlatformApikey: core.StringPtr("RESTRICTED"),
-	// 			AllowedIPAddresses:           core.StringPtr("testString"),
-	// 			Mfa:                          core.StringPtr("NONE"),
-	// 			SessionExpirationInSeconds:   core.StringPtr("testString"),
-	// 			SessionInvalidationInSeconds: core.StringPtr("testString"),
-	// 		}
+			accountSettingsRequestOptions := &iamidentityv1.UpdateAccountSettingsOptions{
+				IfMatch:                      core.StringPtr("*"),
+				AccountID:                    core.StringPtr(accountID),
+				RestrictCreateServiceID:      core.StringPtr("NOT_RESTRICTED"),
+				RestrictCreatePlatformApikey: core.StringPtr("NOT_RESTRICTED"),
+				//AllowedIPAddresses:           core.StringPtr("testString"),
+				Mfa:                          core.StringPtr("NONE"),
+				SessionExpirationInSeconds:   core.StringPtr("86400"),
+				SessionInvalidationInSeconds: core.StringPtr("7200"),
+			}
 
-	// 		accountSettingsResponse, response, err := iamIdentityService.UpdateAccountSettings(updateAccountSettingsOptions)
+			accountSettingsResponse, response, err := iamIdentityService.UpdateAccountSettings(accountSettingsRequestOptions)
 
-	// 		Expect(err).To(BeNil())
-	// 		Expect(response.StatusCode).To(Equal(200))
-	// 		Expect(accountSettingsResponse).ToNot(BeNil())
-	// 	})
-	// })
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(accountSettingsResponse).ToNot(BeNil())
+			Expect(accountSettingsResponse.History).ToNot(BeNil())
+			Expect(accountSettingsResponse.EntityTag).ToNot(BeNil())
+			Expect(accountSettingsResponse.AllowedIPAddresses).To(BeNil())
+			Expect(accountSettingsResponse.Mfa).To(Equal(accountSettingsRequestOptions.Mfa))
+			Expect(accountSettingsResponse.AccountID).To(Equal(accountSettingsRequestOptions.AccountID))
+			Expect(accountSettingsResponse.RestrictCreateServiceID).To(Equal(accountSettingsRequestOptions.RestrictCreateServiceID))
+			Expect(accountSettingsResponse.RestrictCreatePlatformApikey).To(Equal(accountSettingsRequestOptions.RestrictCreatePlatformApikey))
+			Expect(accountSettingsResponse.SessionInvalidationInSeconds).To(Equal(accountSettingsRequestOptions.SessionInvalidationInSeconds))
+			Expect(accountSettingsResponse.SessionExpirationInSeconds).To(Equal(accountSettingsRequestOptions.SessionExpirationInSeconds))
+			fmt.Fprintf(GinkgoWriter, "UpdateAccountSettings response:\n%s\n", common.ToJSON(accountSettingsResponse))
+		})
+	})
 })
 
 var _ = AfterSuite(func() {

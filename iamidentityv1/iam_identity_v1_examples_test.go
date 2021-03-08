@@ -409,46 +409,49 @@ var _ = Describe(`IamIdentityV1 Examples Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(204))
 		})
-		// It(`GetAccountSettings request example`, func() {
-		// 	// begin-getAccountSettings
+		It(`GetAccountSettings request example`, func() {
+			// begin-getAccountSettings
 
-		// 	getAccountSettingsOptions := iamIdentityService.NewGetAccountSettingsOptions(
-		// 		"testString",
-		// 	)
+			getAccountSettingsOptions := iamIdentityService.NewGetAccountSettingsOptions(accountID)
 
-		// 	accountSettingsResponse, response, err := iamIdentityService.GetAccountSettings(getAccountSettingsOptions)
-		// 	if err != nil {
-		// 		panic(err)
-		// 	}
-		// 	b, _ := json.MarshalIndent(accountSettingsResponse, "", "  ")
-		// 	fmt.Println(string(b))
+			accountSettingsResponse, response, err := iamIdentityService.GetAccountSettings(getAccountSettingsOptions)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(accountSettingsResponse, "", "  ")
+			fmt.Println(string(b))
 
-		// 	// end-getAccountSettings
+			// end-getAccountSettings
 
-		// 	Expect(err).To(BeNil())
-		// 	Expect(response.StatusCode).To(Equal(200))
-		// 	Expect(accountSettingsResponse).ToNot(BeNil())
-		// })
-		// It(`UpdateAccountSettings request example`, func() {
-		// 	// begin-updateAccountSettings
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(accountSettingsResponse).ToNot(BeNil())
+		})
+		It(`UpdateAccountSettings request example`, func() {
+			// begin-updateAccountSettings
 
-		// 	updateAccountSettingsOptions := iamIdentityService.NewUpdateAccountSettingsOptions(
-		// 		"testString",
-		// 		"testString",
-		// 	)
+			updateAccountSettingsOptions := iamIdentityService.NewUpdateAccountSettingsOptions(
+				"*",
+				accountID,
+			)
+			updateAccountSettingsOptions.SetSessionExpirationInSeconds("86400")
+			updateAccountSettingsOptions.SetSessionInvalidationInSeconds("7200")
+			updateAccountSettingsOptions.SetMfa("NONE")
+			updateAccountSettingsOptions.SetRestrictCreatePlatformApikey("NOT_RESTRICTED")
+			updateAccountSettingsOptions.SetRestrictCreatePlatformApikey("NOT_RESTRICTED")
 
-		// 	accountSettingsResponse, response, err := iamIdentityService.UpdateAccountSettings(updateAccountSettingsOptions)
-		// 	if err != nil {
-		// 		panic(err)
-		// 	}
-		// 	b, _ := json.MarshalIndent(accountSettingsResponse, "", "  ")
-		// 	fmt.Println(string(b))
+			accountSettingsResponse, response, err := iamIdentityService.UpdateAccountSettings(updateAccountSettingsOptions)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(accountSettingsResponse, "", "  ")
+			fmt.Println(string(b))
 
-		// 	// end-updateAccountSettings
+			// end-updateAccountSettings
 
-		// 	Expect(err).To(BeNil())
-		// 	Expect(response.StatusCode).To(Equal(200))
-		// 	Expect(accountSettingsResponse).ToNot(BeNil())
-		// })
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(accountSettingsResponse).ToNot(BeNil())
+		})
 	})
 })
