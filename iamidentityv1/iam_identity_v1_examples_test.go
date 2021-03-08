@@ -66,6 +66,8 @@ var (
 
 	svcID     string
 	svcIDEtag string
+
+	accountSettingEtag string
 )
 
 func shouldSkipTest() {
@@ -426,12 +428,15 @@ var _ = Describe(`IamIdentityV1 Examples Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(accountSettingsResponse).ToNot(BeNil())
+
+			accountSettingEtag = response.GetHeaders().Get("Etag")
+			Expect(accountSettingEtag).ToNot(BeEmpty())
 		})
 		It(`UpdateAccountSettings request example`, func() {
 			// begin-updateAccountSettings
 
 			updateAccountSettingsOptions := iamIdentityService.NewUpdateAccountSettingsOptions(
-				"*",
+				accountSettingEtag,
 				accountID,
 			)
 			updateAccountSettingsOptions.SetSessionExpirationInSeconds("86400")

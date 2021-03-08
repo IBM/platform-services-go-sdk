@@ -66,6 +66,8 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 		serviceId1     string
 		serviceIdEtag1 string
 		newDescription string = "This is an updated description"
+
+		accountSettingEtag string
 	)
 
 	var shouldSkipTest = func() {
@@ -581,6 +583,9 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 			Expect(accountSettingsResponse.SessionExpirationInSeconds).ToNot(BeNil())
 			Expect(accountSettingsResponse.SessionInvalidationInSeconds).ToNot(BeNil())
 			Expect(accountSettingsResponse.Mfa).ToNot(BeNil())
+
+			accountSettingEtag = response.GetHeaders().Get("Etag")
+			Expect(accountSettingEtag).ToNot(BeEmpty())
 		})
 	})
 
@@ -591,7 +596,7 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 		It(`UpdateAccountSettings(updateAccountSettingsOptions *UpdateAccountSettingsOptions)`, func() {
 
 			accountSettingsRequestOptions := &iamidentityv1.UpdateAccountSettingsOptions{
-				IfMatch:                      core.StringPtr("*"),
+				IfMatch:                      core.StringPtr(accountSettingEtag),
 				AccountID:                    core.StringPtr(accountID),
 				RestrictCreateServiceID:      core.StringPtr("NOT_RESTRICTED"),
 				RestrictCreatePlatformApikey: core.StringPtr("NOT_RESTRICTED"),
@@ -607,7 +612,7 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(accountSettingsResponse).ToNot(BeNil())
 			Expect(accountSettingsResponse.History).ToNot(BeNil())
-			Expect(accountSettingsResponse.EntityTag).ToNot(BeNil())
+			Expect(accountSettingsResponse.EntityTag).ToNot(Equal(accountSettingEtag))
 			Expect(accountSettingsResponse.AllowedIPAddresses).To(BeNil())
 			Expect(accountSettingsResponse.Mfa).To(Equal(accountSettingsRequestOptions.Mfa))
 			Expect(accountSettingsResponse.AccountID).To(Equal(accountSettingsRequestOptions.AccountID))
