@@ -32,8 +32,8 @@ Changes might occur which impact applications that use this SDK.
 - [Overview](#overview)
 - [Prerequisites](#prerequisites)
 - [Installation](#installation)
-    + [Go modules](#go-modules)
-    + [`go get` command](#go-get-command)
+  * [Go modules](#go-modules)
+  * [`go get` command](#go-get-command)
 - [Using the SDK](#using-the-sdk)
 - [Questions](#questions)
 - [Issues](#issues)
@@ -81,7 +81,7 @@ Service Name | Package name
 ## Installation
 The current version of this SDK: 0.17.16
 
-#### Go modules  
+### Go modules  
 If your application uses Go modules for dependency management (recommended), just add an import for each service 
 that you will use in your application.  
 Here is an example:
@@ -98,7 +98,7 @@ In the example above, the `globalsearchv2` part of the import path is the packag
 associated with the Global Search service.  
 See the service table above to find the approprate package name for the services used by your application. 
 
-#### `go get` command  
+### `go get` command  
 Alternatively, you can use the `go get` command to download and install the appropriate packages needed by your application:
 ```
 go get -u github.com/IBM/platform-services-go-sdk/globalsearchv2
