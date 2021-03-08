@@ -95,8 +95,8 @@ Next, run `go build` or `go mod tidy` to download and install the new dependenci
 `go.mod` file.  
 
 In the example above, the `globalsearchv2` part of the import path is the package name
-associated with the Global Search service.  
-See the service table above to find the approprate package name for the services used by your application. 
+associated with the Global Search service.
+See the service table above to find the approprate package name for the services used by your application.
 
 ### `go get` command  
 Alternatively, you can use the `go get` command to download and install the appropriate packages needed by your application:
