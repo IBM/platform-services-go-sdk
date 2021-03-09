@@ -17,9 +17,10 @@
 package securitycompliancev1_test
 
 import (
+	"testing"
+
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
-	"testing"
 )
 
 func TestSecurityComplianceV1(t *testing.T) {

@@ -21,11 +21,12 @@ package securitycompliancev1_test
 import (
 	"encoding/json"
 	"fmt"
+	"os"
+
 	"github.com/IBM/go-sdk-core/v5/core"
 	"github.com/IBM/platform-services-go-sdk/securitycompliancev1"
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
-	"os"
 )
 
 //
@@ -45,8 +46,8 @@ const externalConfigFile = "../security_compliance_v1.env"
 
 var (
 	securityComplianceService *securitycompliancev1.SecurityComplianceV1
-	config       map[string]string
-	configLoaded bool = false
+	config                    map[string]string
+	configLoaded              bool = false
 )
 
 func shouldSkipTest() {

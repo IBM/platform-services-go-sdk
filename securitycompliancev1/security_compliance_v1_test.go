@@ -20,17 +20,18 @@ import (
 	"bytes"
 	"context"
 	"fmt"
-	"github.com/IBM/go-sdk-core/v5/core"
-	"github.com/IBM/platform-services-go-sdk/securitycompliancev1"
-	"github.com/go-openapi/strfmt"
-	. "github.com/onsi/ginkgo"
-	. "github.com/onsi/gomega"
 	"io"
 	"io/ioutil"
 	"net/http"
 	"net/http/httptest"
 	"os"
 	"time"
+
+	"github.com/IBM/go-sdk-core/v5/core"
+	"github.com/IBM/platform-services-go-sdk/securitycompliancev1"
+	"github.com/go-openapi/strfmt"
+	. "github.com/onsi/ginkgo"
+	. "github.com/onsi/gomega"
 )
 
 var _ = Describe(`SecurityComplianceV1`, func() {
@@ -66,14 +67,13 @@ var _ = Describe(`SecurityComplianceV1`, func() {
 		Context(`Using external config, construct service client instances`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"SECURITY_COMPLIANCE_URL": "https://securitycompliancev1/api",
+				"SECURITY_COMPLIANCE_URL":       "https://securitycompliancev1/api",
 				"SECURITY_COMPLIANCE_AUTH_TYPE": "noauth",
 			}
 
 			It(`Create service client using external config successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				securityComplianceService, serviceErr := securitycompliancev1.NewSecurityComplianceV1UsingExternalConfig(&securitycompliancev1.SecurityComplianceV1Options{
-				})
+				securityComplianceService, serviceErr := securitycompliancev1.NewSecurityComplianceV1UsingExternalConfig(&securitycompliancev1.SecurityComplianceV1Options{})
 				Expect(securityComplianceService).ToNot(BeNil())
 				Expect(serviceErr).To(BeNil())
 				ClearTestEnvironment(testEnvironment)
@@ -102,8 +102,7 @@ var _ = Describe(`SecurityComplianceV1`, func() {
 			})
 			It(`Create service client using external config and set url programatically successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				securityComplianceService, serviceErr := securitycompliancev1.NewSecurityComplianceV1UsingExternalConfig(&securitycompliancev1.SecurityComplianceV1Options{
-				})
+				securityComplianceService, serviceErr := securitycompliancev1.NewSecurityComplianceV1UsingExternalConfig(&securitycompliancev1.SecurityComplianceV1Options{})
 				err := securityComplianceService.SetServiceURL("https://testService/api")
 				Expect(err).To(BeNil())
 				Expect(securityComplianceService).ToNot(BeNil())
@@ -121,13 +120,12 @@ var _ = Describe(`SecurityComplianceV1`, func() {
 		Context(`Using external config, construct service client instances with error: Invalid Auth`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"SECURITY_COMPLIANCE_URL": "https://securitycompliancev1/api",
+				"SECURITY_COMPLIANCE_URL":       "https://securitycompliancev1/api",
 				"SECURITY_COMPLIANCE_AUTH_TYPE": "someOtherAuth",
 			}
 
 			SetTestEnvironment(testEnvironment)
-			securityComplianceService, serviceErr := securitycompliancev1.NewSecurityComplianceV1UsingExternalConfig(&securitycompliancev1.SecurityComplianceV1Options{
-			})
+			securityComplianceService, serviceErr := securitycompliancev1.NewSecurityComplianceV1UsingExternalConfig(&securitycompliancev1.SecurityComplianceV1Options{})
 
 			It(`Instantiate service client with error`, func() {
 				Expect(securityComplianceService).To(BeNil())
@@ -138,7 +136,7 @@ var _ = Describe(`SecurityComplianceV1`, func() {
 		Context(`Using external config, construct service client instances with error: Invalid URL`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"SECURITY_COMPLIANCE_AUTH_TYPE":   "NOAuth",
+				"SECURITY_COMPLIANCE_AUTH_TYPE": "NOAuth",
 			}
 
 			SetTestEnvironment(testEnvironment)
@@ -420,14 +418,13 @@ var _ = Describe(`SecurityComplianceV1`, func() {
 		Context(`Using external config, construct service client instances`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"SECURITY_COMPLIANCE_URL": "https://securitycompliancev1/api",
+				"SECURITY_COMPLIANCE_URL":       "https://securitycompliancev1/api",
 				"SECURITY_COMPLIANCE_AUTH_TYPE": "noauth",
 			}
 
 			It(`Create service client using external config successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				securityComplianceService, serviceErr := securitycompliancev1.NewSecurityComplianceV1UsingExternalConfig(&securitycompliancev1.SecurityComplianceV1Options{
-				})
+				securityComplianceService, serviceErr := securitycompliancev1.NewSecurityComplianceV1UsingExternalConfig(&securitycompliancev1.SecurityComplianceV1Options{})
 				Expect(securityComplianceService).ToNot(BeNil())
 				Expect(serviceErr).To(BeNil())
 				ClearTestEnvironment(testEnvironment)
@@ -456,8 +453,7 @@ var _ = Describe(`SecurityComplianceV1`, func() {
 			})
 			It(`Create service client using external config and set url programatically successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				securityComplianceService, serviceErr := securitycompliancev1.NewSecurityComplianceV1UsingExternalConfig(&securitycompliancev1.SecurityComplianceV1Options{
-				})
+				securityComplianceService, serviceErr := securitycompliancev1.NewSecurityComplianceV1UsingExternalConfig(&securitycompliancev1.SecurityComplianceV1Options{})
 				err := securityComplianceService.SetServiceURL("https://testService/api")
 				Expect(err).To(BeNil())
 				Expect(securityComplianceService).ToNot(BeNil())
@@ -475,13 +471,12 @@ var _ = Describe(`SecurityComplianceV1`, func() {
 		Context(`Using external config, construct service client instances with error: Invalid Auth`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"SECURITY_COMPLIANCE_URL": "https://securitycompliancev1/api",
+				"SECURITY_COMPLIANCE_URL":       "https://securitycompliancev1/api",
 				"SECURITY_COMPLIANCE_AUTH_TYPE": "someOtherAuth",
 			}
 
 			SetTestEnvironment(testEnvironment)
-			securityComplianceService, serviceErr := securitycompliancev1.NewSecurityComplianceV1UsingExternalConfig(&securitycompliancev1.SecurityComplianceV1Options{
-			})
+			securityComplianceService, serviceErr := securitycompliancev1.NewSecurityComplianceV1UsingExternalConfig(&securitycompliancev1.SecurityComplianceV1Options{})
 
 			It(`Instantiate service client with error`, func() {
 				Expect(securityComplianceService).To(BeNil())
@@ -492,7 +487,7 @@ var _ = Describe(`SecurityComplianceV1`, func() {
 		Context(`Using external config, construct service client instances with error: Invalid URL`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"SECURITY_COMPLIANCE_AUTH_TYPE":   "NOAuth",
+				"SECURITY_COMPLIANCE_AUTH_TYPE": "NOAuth",
 			}
 
 			SetTestEnvironment(testEnvironment)
@@ -737,14 +732,13 @@ var _ = Describe(`SecurityComplianceV1`, func() {
 		Context(`Using external config, construct service client instances`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"SECURITY_COMPLIANCE_URL": "https://securitycompliancev1/api",
+				"SECURITY_COMPLIANCE_URL":       "https://securitycompliancev1/api",
 				"SECURITY_COMPLIANCE_AUTH_TYPE": "noauth",
 			}
 
 			It(`Create service client using external config successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				securityComplianceService, serviceErr := securitycompliancev1.NewSecurityComplianceV1UsingExternalConfig(&securitycompliancev1.SecurityComplianceV1Options{
-				})
+				securityComplianceService, serviceErr := securitycompliancev1.NewSecurityComplianceV1UsingExternalConfig(&securitycompliancev1.SecurityComplianceV1Options{})
 				Expect(securityComplianceService).ToNot(BeNil())
 				Expect(serviceErr).To(BeNil())
 				ClearTestEnvironment(testEnvironment)
@@ -773,8 +767,7 @@ var _ = Describe(`SecurityComplianceV1`, func() {
 			})
 			It(`Create service client using external config and set url programatically successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				securityComplianceService, serviceErr := securitycompliancev1.NewSecurityComplianceV1UsingExternalConfig(&securitycompliancev1.SecurityComplianceV1Options{
-				})
+				securityComplianceService, serviceErr := securitycompliancev1.NewSecurityComplianceV1UsingExternalConfig(&securitycompliancev1.SecurityComplianceV1Options{})
 				err := securityComplianceService.SetServiceURL("https://testService/api")
 				Expect(err).To(BeNil())
 				Expect(securityComplianceService).ToNot(BeNil())
@@ -792,13 +785,12 @@ var _ = Describe(`SecurityComplianceV1`, func() {
 		Context(`Using external config, construct service client instances with error: Invalid Auth`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"SECURITY_COMPLIANCE_URL": "https://securitycompliancev1/api",
+				"SECURITY_COMPLIANCE_URL":       "https://securitycompliancev1/api",
 				"SECURITY_COMPLIANCE_AUTH_TYPE": "someOtherAuth",
 			}
 
 			SetTestEnvironment(testEnvironment)
-			securityComplianceService, serviceErr := securitycompliancev1.NewSecurityComplianceV1UsingExternalConfig(&securitycompliancev1.SecurityComplianceV1Options{
-			})
+			securityComplianceService, serviceErr := securitycompliancev1.NewSecurityComplianceV1UsingExternalConfig(&securitycompliancev1.SecurityComplianceV1Options{})
 
 			It(`Instantiate service client with error`, func() {
 				Expect(securityComplianceService).To(BeNil())
@@ -809,7 +801,7 @@ var _ = Describe(`SecurityComplianceV1`, func() {
 		Context(`Using external config, construct service client instances with error: Invalid URL`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"SECURITY_COMPLIANCE_AUTH_TYPE":   "NOAuth",
+				"SECURITY_COMPLIANCE_AUTH_TYPE": "NOAuth",
 			}
 
 			SetTestEnvironment(testEnvironment)
