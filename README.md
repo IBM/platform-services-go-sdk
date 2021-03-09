@@ -66,6 +66,7 @@ Service Name | Package name
 [Open Service Broker](https://cloud.ibm.com/apidocs/resource-controller/ibm-cloud-osb-api) | openservicebrokerv1
 [Resource Controller](https://cloud.ibm.com/apidocs/resource-controller/resource-controller) | resourcecontrollerv2
 [Resource Manager](https://cloud.ibm.com/apidocs/resource-controller/resource-manager) | resourcemanagerv2
+[Security Compliance](https://cloud.ibm.com/apidocs/security-compliance/posture) | securitycompliancev1
 [Usage Metering](https://cloud.ibm.com/apidocs/usage-metering) | usagemeteringv4
 [Usage Reports](https://cloud.ibm.com/apidocs/metering-reporting) | usagereportsv4
 [User Management](https://cloud.ibm.com/apidocs/user-management) | usermanagementv1
