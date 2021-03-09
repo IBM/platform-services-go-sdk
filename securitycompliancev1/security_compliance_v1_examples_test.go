@@ -42,7 +42,7 @@ import (
 // in a configuration file and then:
 // export IBM_CREDENTIALS_FILE=<name of configuration file>
 //
-const externalConfigFile = "../security_compliance_v1.env"
+const externalConfigFile = "../security_compliance.env"
 
 var (
 	securityComplianceService *securitycompliancev1.SecurityComplianceV1

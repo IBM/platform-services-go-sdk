@@ -38,7 +38,7 @@ import (
 
 var _ = Describe(`SecurityComplianceV1 Integration Tests`, func() {
 
-	const externalConfigFile = "../security_compliance_v1.env"
+	const externalConfigFile = "../security_compliance.env"
 
 	var (
 		err                       error
