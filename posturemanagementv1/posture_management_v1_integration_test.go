@@ -38,7 +38,7 @@ import (
 
 var _ = Describe(`PostureManagementV1 Integration Tests`, func() {
 
-	const externalConfigFile = "../posture_management_v1.env"
+	const externalConfigFile = "../posture_management.env"
 
 	var (
 		err                      error
