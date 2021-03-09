@@ -17,9 +17,10 @@
 package posturemanagementv1_test
 
 import (
+	"testing"
+
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
-	"testing"
 )
 
 func TestPostureManagementV1(t *testing.T) {

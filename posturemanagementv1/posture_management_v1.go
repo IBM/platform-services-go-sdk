@@ -25,11 +25,12 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"github.com/IBM/go-sdk-core/v5/core"
-	common "github.com/IBM/platform-services-go-sdk/common"
 	"net/http"
 	"reflect"
 	"time"
+
+	"github.com/IBM/go-sdk-core/v5/core"
+	common "github.com/IBM/platform-services-go-sdk/common"
 )
 
 // PostureManagementV1 : With IBM Cloud® Security and Compliance Center, you can embed checks into your every day
@@ -627,8 +628,8 @@ type Profile struct {
 // Constants associated with the Profile.ProfileType property.
 // The type of profile.
 const (
-	ProfileProfileTypeCustomConst = "custom"
-	ProfileProfileTypeGroupConst = "group"
+	ProfileProfileTypeCustomConst     = "custom"
+	ProfileProfileTypeGroupConst      = "group"
 	ProfileProfileTypePredefinedConst = "predefined"
 )
 
@@ -754,46 +755,46 @@ type Scan struct {
 // Constants associated with the Scan.Status property.
 // The status of the collector as it completes a scan.
 const (
-	ScanStatusAbortTaskRequestCompletedConst = "abort_task_request_completed"
-	ScanStatusAbortTaskRequestFailedConst = "abort_task_request_failed"
-	ScanStatusAbortTaskRequestReceivedConst = "abort_task_request_received"
-	ScanStatusControllerAbortedConst = "controller_aborted"
-	ScanStatusDiscoveryCompletedConst = "discovery_completed"
-	ScanStatusDiscoveryInProgressConst = "discovery_in_progress"
-	ScanStatusDiscoveryResultPostedNoErrorConst = "discovery_result_posted_no_error"
-	ScanStatusDiscoveryResultPostedWithErrorConst = "discovery_result_posted_with_error"
-	ScanStatusDiscoveryStartedConst = "discovery_started"
-	ScanStatusErrorInAbortTaskRequestConst = "error_in_abort_task_request"
-	ScanStatusErrorInDiscoveryConst = "error_in_discovery"
-	ScanStatusErrorInFactCollectionConst = "error_in_fact_collection"
-	ScanStatusErrorInFactValidationConst = "error_in_fact_validation"
-	ScanStatusErrorInInventoryConst = "error_in_inventory"
-	ScanStatusErrorInRemediationConst = "error_in_remediation"
-	ScanStatusErrorInValidationConst = "error_in_validation"
-	ScanStatusFactCollectionCompletedConst = "fact_collection_completed"
-	ScanStatusFactCollectionInProgressConst = "fact_collection_in_progress"
-	ScanStatusFactCollectionStartedConst = "fact_collection_started"
-	ScanStatusFactValidationCompletedConst = "fact_validation_completed"
-	ScanStatusFactValidationInProgressConst = "fact_validation_in_progress"
-	ScanStatusFactValidationStartedConst = "fact_validation_started"
-	ScanStatusGatewayAbortedConst = "gateway_aborted"
-	ScanStatusInventoryCompletedConst = "inventory_completed"
-	ScanStatusInventoryCompletedWithErrorConst = "inventory_completed_with_error"
-	ScanStatusInventoryInProgressConst = "inventory_in_progress"
-	ScanStatusInventoryStartedConst = "inventory_started"
-	ScanStatusNotAcceptedConst = "not_accepted"
-	ScanStatusPendingConst = "pending"
-	ScanStatusRemediationCompletedConst = "remediation_completed"
-	ScanStatusRemediationInProgressConst = "remediation_in_progress"
-	ScanStatusRemediationStartedConst = "remediation_started"
-	ScanStatusSentToCollectorConst = "sent_to_collector"
-	ScanStatusUserAbortedConst = "user_aborted"
-	ScanStatusValidationCompletedConst = "validation_completed"
-	ScanStatusValidationInProgressConst = "validation_in_progress"
-	ScanStatusValidationResultPostedNoErrorConst = "validation_result_posted_no_error"
+	ScanStatusAbortTaskRequestCompletedConst       = "abort_task_request_completed"
+	ScanStatusAbortTaskRequestFailedConst          = "abort_task_request_failed"
+	ScanStatusAbortTaskRequestReceivedConst        = "abort_task_request_received"
+	ScanStatusControllerAbortedConst               = "controller_aborted"
+	ScanStatusDiscoveryCompletedConst              = "discovery_completed"
+	ScanStatusDiscoveryInProgressConst             = "discovery_in_progress"
+	ScanStatusDiscoveryResultPostedNoErrorConst    = "discovery_result_posted_no_error"
+	ScanStatusDiscoveryResultPostedWithErrorConst  = "discovery_result_posted_with_error"
+	ScanStatusDiscoveryStartedConst                = "discovery_started"
+	ScanStatusErrorInAbortTaskRequestConst         = "error_in_abort_task_request"
+	ScanStatusErrorInDiscoveryConst                = "error_in_discovery"
+	ScanStatusErrorInFactCollectionConst           = "error_in_fact_collection"
+	ScanStatusErrorInFactValidationConst           = "error_in_fact_validation"
+	ScanStatusErrorInInventoryConst                = "error_in_inventory"
+	ScanStatusErrorInRemediationConst              = "error_in_remediation"
+	ScanStatusErrorInValidationConst               = "error_in_validation"
+	ScanStatusFactCollectionCompletedConst         = "fact_collection_completed"
+	ScanStatusFactCollectionInProgressConst        = "fact_collection_in_progress"
+	ScanStatusFactCollectionStartedConst           = "fact_collection_started"
+	ScanStatusFactValidationCompletedConst         = "fact_validation_completed"
+	ScanStatusFactValidationInProgressConst        = "fact_validation_in_progress"
+	ScanStatusFactValidationStartedConst           = "fact_validation_started"
+	ScanStatusGatewayAbortedConst                  = "gateway_aborted"
+	ScanStatusInventoryCompletedConst              = "inventory_completed"
+	ScanStatusInventoryCompletedWithErrorConst     = "inventory_completed_with_error"
+	ScanStatusInventoryInProgressConst             = "inventory_in_progress"
+	ScanStatusInventoryStartedConst                = "inventory_started"
+	ScanStatusNotAcceptedConst                     = "not_accepted"
+	ScanStatusPendingConst                         = "pending"
+	ScanStatusRemediationCompletedConst            = "remediation_completed"
+	ScanStatusRemediationInProgressConst           = "remediation_in_progress"
+	ScanStatusRemediationStartedConst              = "remediation_started"
+	ScanStatusSentToCollectorConst                 = "sent_to_collector"
+	ScanStatusUserAbortedConst                     = "user_aborted"
+	ScanStatusValidationCompletedConst             = "validation_completed"
+	ScanStatusValidationInProgressConst            = "validation_in_progress"
+	ScanStatusValidationResultPostedNoErrorConst   = "validation_result_posted_no_error"
 	ScanStatusValidationResultPostedWithErrorConst = "validation_result_posted_with_error"
-	ScanStatusValidationStartedConst = "validation_started"
-	ScanStatusWaitingForRefineConst = "waiting_for_refine"
+	ScanStatusValidationStartedConst               = "validation_started"
+	ScanStatusWaitingForRefineConst                = "waiting_for_refine"
 )
 
 // UnmarshalScan unmarshals an instance of Scan from the specified map of raw messages.
@@ -867,28 +868,28 @@ type Scope struct {
 // Constants associated with the Scope.EnvironmentType property.
 // The environment that the scope is targeted to.
 const (
-	ScopeEnvironmentTypeAwsConst = "aws"
-	ScopeEnvironmentTypeAzureConst = "azure"
-	ScopeEnvironmentTypeGcpConst = "gcp"
-	ScopeEnvironmentTypeHostedConst = "hosted"
-	ScopeEnvironmentTypeIBMConst = "ibm"
+	ScopeEnvironmentTypeAwsConst       = "aws"
+	ScopeEnvironmentTypeAzureConst     = "azure"
+	ScopeEnvironmentTypeGcpConst       = "gcp"
+	ScopeEnvironmentTypeHostedConst    = "hosted"
+	ScopeEnvironmentTypeIBMConst       = "ibm"
 	ScopeEnvironmentTypeOnPremiseConst = "on_premise"
 	ScopeEnvironmentTypeOpenstackConst = "openstack"
-	ScopeEnvironmentTypeServicesConst = "services"
+	ScopeEnvironmentTypeServicesConst  = "services"
 )
 
 // Constants associated with the Scope.LastScanType property.
 // The last type of scan that was run on the scope.
 const (
-	ScopeLastScanTypeAbortTasksConst = "abort_tasks"
-	ScopeLastScanTypeDiscoveryConst = "discovery"
-	ScopeLastScanTypeEvidenceConst = "evidence"
+	ScopeLastScanTypeAbortTasksConst     = "abort_tasks"
+	ScopeLastScanTypeDiscoveryConst      = "discovery"
+	ScopeLastScanTypeEvidenceConst       = "evidence"
 	ScopeLastScanTypeFactCollectionConst = "fact_collection"
 	ScopeLastScanTypeFactValidationConst = "fact_validation"
-	ScopeLastScanTypeInventoryConst = "inventory"
-	ScopeLastScanTypeRemediationConst = "remediation"
-	ScopeLastScanTypeScriptConst = "script"
-	ScopeLastScanTypeValidationConst = "validation"
+	ScopeLastScanTypeInventoryConst      = "inventory"
+	ScopeLastScanTypeRemediationConst    = "remediation"
+	ScopeLastScanTypeScriptConst         = "script"
+	ScopeLastScanTypeValidationConst     = "validation"
 )
 
 // UnmarshalScope unmarshals an instance of Scope from the specified map of raw messages.

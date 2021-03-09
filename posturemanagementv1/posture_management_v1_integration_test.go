@@ -20,11 +20,12 @@ package posturemanagementv1_test
 
 import (
 	"fmt"
+	"os"
+
 	"github.com/IBM/go-sdk-core/v5/core"
 	"github.com/IBM/platform-services-go-sdk/posturemanagementv1"
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
-	"os"
 )
 
 /**
@@ -40,10 +41,10 @@ var _ = Describe(`PostureManagementV1 Integration Tests`, func() {
 	const externalConfigFile = "../posture_management_v1.env"
 
 	var (
-		err          error
+		err                      error
 		postureManagementService *posturemanagementv1.PostureManagementV1
-		serviceURL   string
-		config       map[string]string
+		serviceURL               string
+		config                   map[string]string
 	)
 
 	var shouldSkipTest = func() {
@@ -95,9 +96,9 @@ var _ = Describe(`PostureManagementV1 Integration Tests`, func() {
 		It(`CreateValidationScan(createValidationScanOptions *CreateValidationScanOptions)`, func() {
 
 			createValidationScanOptions := &posturemanagementv1.CreateValidationScanOptions{
-				AccountID: core.StringPtr("testString"),
-				ScopeID: core.Int64Ptr(int64(1)),
-				ProfileID: core.Int64Ptr(int64(6)),
+				AccountID:      core.StringPtr("testString"),
+				ScopeID:        core.Int64Ptr(int64(1)),
+				ProfileID:      core.Int64Ptr(int64(6)),
 				GroupProfileID: core.Int64Ptr(int64(13)),
 			}
 
@@ -118,7 +119,7 @@ var _ = Describe(`PostureManagementV1 Integration Tests`, func() {
 
 			listProfileOptions := &posturemanagementv1.ListProfileOptions{
 				AccountID: core.StringPtr("testString"),
-				Name: core.StringPtr("testString"),
+				Name:      core.StringPtr("testString"),
 			}
 
 			profilesList, response, err := postureManagementService.ListProfile(listProfileOptions)
@@ -138,7 +139,7 @@ var _ = Describe(`PostureManagementV1 Integration Tests`, func() {
 
 			listScopesOptions := &posturemanagementv1.ListScopesOptions{
 				AccountID: core.StringPtr("testString"),
-				Name: core.StringPtr("testString"),
+				Name:      core.StringPtr("testString"),
 			}
 
 			scopesList, response, err := postureManagementService.ListScopes(listScopesOptions)
