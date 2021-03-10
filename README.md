@@ -32,9 +32,8 @@ Changes might occur which impact applications that use this SDK.
 - [Overview](#overview)
 - [Prerequisites](#prerequisites)
 - [Installation](#installation)
-    + [`go get` command](#go-get-command)
-    + [Go modules](#go-modules)
-    + [`dep` dependency manager](#dep-dependency-manager)
+  * [Go modules](#go-modules)
+  * [`go get` command](#go-get-command)
 - [Using the SDK](#using-the-sdk)
 - [Questions](#questions)
 - [Issues](#issues)
@@ -82,42 +81,29 @@ Service Name | Package name
 ## Installation
 The current version of this SDK: 0.17.16
 
-There are a few different ways to download and install the Platform Services Go SDK project for use by your
-Go application:
-
-#### `go get` command  
-Use this command to download and install the Platform Services Go SDK project to allow your Go application to
-use it:
-
-```
-go get -u github.com/IBM/platform-services-go-sdk
-```
-
-#### Go modules  
-If your application is using Go modules, you can add a suitable import to your
-Go application, like this:
+### Go modules  
+If your application uses Go modules for dependency management (recommended), just add an import for each service 
+that you will use in your application.  
+Here is an example:
 
 ```go
 import (
 	"github.com/IBM/platform-services-go-sdk/globalsearchv2"
 )
 ```
+Next, run `go build` or `go mod tidy` to download and install the new dependencies and update your application's
+`go.mod` file.  
 
-then run `go mod tidy` to download and install the new dependency and update your Go application's
-`go.mod` file.
+In the example above, the `globalsearchv2` part of the import path is the package name
+associated with the Global Search service.
+See the service table above to find the approprate package name for the services used by your application.
 
-#### `dep` dependency manager  
-If your application is using the `dep` dependency management tool, you can add a dependency
-to your `Gopkg.toml` file.  Here is an example:
-
+### `go get` command  
+Alternatively, you can use the `go get` command to download and install the appropriate packages needed by your application:
 ```
-[[constraint]]
-  name = "github.com/IBM/platform-services-go-sdk/globalsearchv2"
-  version = "0.17.16"
-
+go get -u github.com/IBM/platform-services-go-sdk/globalsearchv2
 ```
-
-then run `dep ensure`.
+Be sure to use the appropriate package name from the service table above for the services used by your application.
 
 ## Using the SDK
 For general SDK usage information, please see
