@@ -33,7 +33,7 @@ const externalConfigFile = "../resource_manager.env"
 
 var (
 	service            *resourcemanagerv2.ResourceManagerV2
-	serviceUser        *resourcemanagerv2.ResourceManagerV2
+	altService         *resourcemanagerv2.ResourceManagerV2
 	err                error
 	config             map[string]string
 	testQuotaID        string
@@ -88,11 +88,11 @@ var _ = Describe("Resource Manager - Integration Tests", func() {
 		optionsUser := &resourcemanagerv2.ResourceManagerV2Options{
 			ServiceName: "ALT_RESOURCE_MANAGER",
 		}
-		serviceUser, err = resourcemanagerv2.NewResourceManagerV2UsingExternalConfig(optionsUser)
+		altService, err = resourcemanagerv2.NewResourceManagerV2UsingExternalConfig(optionsUser)
 		Expect(err).To(BeNil())
-		Expect(serviceUser).ToNot(BeNil())
+		Expect(altService).ToNot(BeNil())
 
-		serviceUser.EnableRetries(4, 30*time.Second)
+		altService.EnableRetries(4, 30*time.Second)
 	})
 
 	It("Get list of all quota definition", func() {
@@ -179,8 +179,8 @@ var _ = Describe("Resource Manager - Integration Tests", func() {
 		It("Successfully deleted resource group", func() {
 			shouldSkipTest()
 
-			deleteResourceGroupOptionsModel := serviceUser.NewDeleteResourceGroupOptions(newResourceGroupID)
-			detailedResponse, err := serviceUser.DeleteResourceGroup(deleteResourceGroupOptionsModel)
+			deleteResourceGroupOptionsModel := altService.NewDeleteResourceGroupOptions(newResourceGroupID)
+			detailedResponse, err := altService.DeleteResourceGroup(deleteResourceGroupOptionsModel)
 			Expect(err).To(BeNil())
 			Expect(detailedResponse.StatusCode).To(Equal(204))
 		})
