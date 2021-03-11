@@ -60,11 +60,11 @@ var _ = Describe("Resource Manager - Integration Tests", func() {
 			if err != nil {
 				Skip("Error loading service properties, skipping tests: " + err.Error())
 			}
-			testQuotaID = config["TEST_QUOTA_ID"]
+			testQuotaID = config["QUOTA_ID"]
 			if testQuotaID == "" {
 				Skip("Unable to load test quota ID configuration property, skipping tests")
 			}
-			testUserAccountID = config["TEST_USER_ACCOUNT_ID"]
+			testUserAccountID = config["USER_ACCOUNT_ID"]
 			if testUserAccountID == "" {
 				Skip("Unable to test user account ID configuration property, skipping tests")
 			}

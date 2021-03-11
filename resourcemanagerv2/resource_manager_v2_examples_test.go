@@ -77,10 +77,10 @@ var _ = Describe(`ResourceManagerV2 Examples Tests`, func() {
 				Skip("Error loading service properties, skipping tests: " + err.Error())
 			}
 
-			exampleQuotaID = config["TEST_QUOTA_ID"]
+			exampleQuotaID = config["QUOTA_ID"]
 			Expect(exampleQuotaID).ToNot(BeEmpty())
 
-			exampleUserAccountID = config["TEST_USER_ACCOUNT_ID"]
+			exampleUserAccountID = config["USER_ACCOUNT_ID"]
 			Expect(exampleUserAccountID).ToNot(BeEmpty())
 
 			configLoaded = len(config) > 0
