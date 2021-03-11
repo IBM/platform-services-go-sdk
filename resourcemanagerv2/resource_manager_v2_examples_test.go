@@ -35,8 +35,15 @@ import (
 // The following configuration properties are assumed to be defined:
 // RESOURCE_MANAGER_URL=<service base url>
 // RESOURCE_MANAGER_AUTH_TYPE=iam
-// RESOURCE_MANAGER_APIKEY=<IAM apikey>
+// RESOURCE_MANAGER_APIKEY=<IAM apikey of the service>
 // RESOURCE_MANAGER_AUTH_URL=<IAM token service base URL - omit this if using the production environment>
+// RESOURCE_MANAGER_QUOTA_ID=<quota ID>
+// RESOURCE_MANAGER_USER_ACCOUNT_ID=<account ID of the user with delete permission>
+//
+// ALT_RESOURCE_MANAGER_URL=<service base url>
+// ALT_RESOURCE_MANAGER_AUTH_TYPE=iam
+// ALT_RESOURCE_MANAGER_AUTH_URL=<IAM token service base URL - omit this if using the production environment>
+// ALT_RESOURCE_MANAGER_APIKEY=<IAM apikey of the user with delete permission>
 //
 // These configuration properties can be exported as environment variables, or stored
 // in a configuration file and then:
