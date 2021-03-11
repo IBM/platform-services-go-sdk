@@ -1,7 +1,7 @@
 // +build examples
 
 /**
- * (C) Copyright IBM Corp. 2020.
+ * (C) Copyright IBM Corp. 2020, 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,7 +23,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/IBM/go-sdk-core/v4/core"
+	"github.com/IBM/go-sdk-core/v5/core"
 	"github.com/IBM/platform-services-go-sdk/iamidentityv1"
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
@@ -66,6 +66,8 @@ var (
 
 	svcID     string
 	svcIDEtag string
+
+	accountSettingEtag string
 )
 
 func shouldSkipTest() {
@@ -408,6 +410,53 @@ var _ = Describe(`IamIdentityV1 Examples Tests`, func() {
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(204))
+		})
+		It(`GetAccountSettings request example`, func() {
+			// begin-getAccountSettings
+
+			getAccountSettingsOptions := iamIdentityService.NewGetAccountSettingsOptions(accountID)
+
+			accountSettingsResponse, response, err := iamIdentityService.GetAccountSettings(getAccountSettingsOptions)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(accountSettingsResponse, "", "  ")
+			fmt.Println(string(b))
+
+			// end-getAccountSettings
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(accountSettingsResponse).ToNot(BeNil())
+
+			accountSettingEtag = response.GetHeaders().Get("Etag")
+			Expect(accountSettingEtag).ToNot(BeEmpty())
+		})
+		It(`UpdateAccountSettings request example`, func() {
+			// begin-updateAccountSettings
+
+			updateAccountSettingsOptions := iamIdentityService.NewUpdateAccountSettingsOptions(
+				accountSettingEtag,
+				accountID,
+			)
+			updateAccountSettingsOptions.SetSessionExpirationInSeconds("86400")
+			updateAccountSettingsOptions.SetSessionInvalidationInSeconds("7200")
+			updateAccountSettingsOptions.SetMfa("NONE")
+			updateAccountSettingsOptions.SetRestrictCreatePlatformApikey("NOT_RESTRICTED")
+			updateAccountSettingsOptions.SetRestrictCreatePlatformApikey("NOT_RESTRICTED")
+
+			accountSettingsResponse, response, err := iamIdentityService.UpdateAccountSettings(updateAccountSettingsOptions)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(accountSettingsResponse, "", "  ")
+			fmt.Println(string(b))
+
+			// end-updateAccountSettings
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(accountSettingsResponse).ToNot(BeNil())
 		})
 	})
 })
