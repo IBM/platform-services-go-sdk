@@ -1,3 +1,10 @@
+## [0.17.17](https://github.com/IBM/platform-services-go-sdk/compare/v0.17.16...v0.17.17) (2021-03-11)
+
+
+### Bug Fixes
+
+* **IAM Identity:** update service after recent API changes ([#93](https://github.com/IBM/platform-services-go-sdk/issues/93)) ([c56e295](https://github.com/IBM/platform-services-go-sdk/commit/c56e295e94a715ae0bcd33d1ae2115fe368616b9))
+
 ## [0.17.16](https://github.com/IBM/platform-services-go-sdk/compare/v0.17.15...v0.17.16) (2021-03-05)
 
 
