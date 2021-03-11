@@ -76,7 +76,7 @@ var _ = Describe("Resource Manager - Integration Tests", func() {
 	It(`Successfully created ResourceManagerV2 service instances`, func() {
 		shouldSkipTest()
 		options := &resourcemanagerv2.ResourceManagerV2Options{
-			ServiceName: "RESOURCE_MANAGER_SERVICE",
+			ServiceName: resourcemanagerv2.DefaultServiceName,
 		}
 		service, err = resourcemanagerv2.NewResourceManagerV2UsingExternalConfig(options)
 		Expect(err).To(BeNil())
@@ -86,7 +86,7 @@ var _ = Describe("Resource Manager - Integration Tests", func() {
 		service.EnableRetries(4, 30*time.Second)
 
 		optionsUser := &resourcemanagerv2.ResourceManagerV2Options{
-			ServiceName: "RESOURCE_MANAGER_USER",
+			ServiceName: "ALT_RESOURCE_MANAGER",
 		}
 		serviceUser, err = resourcemanagerv2.NewResourceManagerV2UsingExternalConfig(optionsUser)
 		Expect(err).To(BeNil())
