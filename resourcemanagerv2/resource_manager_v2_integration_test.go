@@ -32,8 +32,8 @@ import (
 const externalConfigFile = "../resource_manager.env"
 
 var (
-	service1           *resourcemanagerv2.ResourceManagerV2
-	service2           *resourcemanagerv2.ResourceManagerV2
+	service            *resourcemanagerv2.ResourceManagerV2
+	serviceUser        *resourcemanagerv2.ResourceManagerV2
 	err                error
 	config             map[string]string
 	testQuotaID        string
@@ -75,30 +75,30 @@ var _ = Describe("Resource Manager - Integration Tests", func() {
 	})
 	It(`Successfully created ResourceManagerV2 service instances`, func() {
 		shouldSkipTest()
-		options1 := &resourcemanagerv2.ResourceManagerV2Options{
-			ServiceName: "RMGR1",
+		options := &resourcemanagerv2.ResourceManagerV2Options{
+			ServiceName: "RESOURCE_MANAGER_SERVICE",
 		}
-		service1, err = resourcemanagerv2.NewResourceManagerV2UsingExternalConfig(options1)
+		service, err = resourcemanagerv2.NewResourceManagerV2UsingExternalConfig(options)
 		Expect(err).To(BeNil())
-		Expect(service1).ToNot(BeNil())
+		Expect(service).ToNot(BeNil())
 
 		core.SetLogger(core.NewLogger(core.LevelDebug, log.New(GinkgoWriter, "", log.LstdFlags), log.New(GinkgoWriter, "", log.LstdFlags)))
-		service1.EnableRetries(4, 30*time.Second)
+		service.EnableRetries(4, 30*time.Second)
 
-		options2 := &resourcemanagerv2.ResourceManagerV2Options{
-			ServiceName: "RMGR2",
+		optionsUser := &resourcemanagerv2.ResourceManagerV2Options{
+			ServiceName: "RESOURCE_MANAGER_USER",
 		}
-		service2, err = resourcemanagerv2.NewResourceManagerV2UsingExternalConfig(options2)
+		serviceUser, err = resourcemanagerv2.NewResourceManagerV2UsingExternalConfig(optionsUser)
 		Expect(err).To(BeNil())
-		Expect(service2).ToNot(BeNil())
+		Expect(serviceUser).ToNot(BeNil())
 
-		service2.EnableRetries(4, 30*time.Second)
+		serviceUser.EnableRetries(4, 30*time.Second)
 	})
 
 	It("Get list of all quota definition", func() {
 		shouldSkipTest()
-		listQuotaDefinitionOptionsModel := service1.NewListQuotaDefinitionsOptions()
-		result, detailedResponse, err := service1.ListQuotaDefinitions(listQuotaDefinitionOptionsModel)
+		listQuotaDefinitionOptionsModel := service.NewListQuotaDefinitionsOptions()
+		result, detailedResponse, err := service.ListQuotaDefinitions(listQuotaDefinitionOptionsModel)
 		Expect(err).To(BeNil())
 		Expect(detailedResponse.StatusCode).To(Equal(200))
 		Expect(result.Resources).NotTo(BeNil())
@@ -106,8 +106,8 @@ var _ = Describe("Resource Manager - Integration Tests", func() {
 
 	It("Get a quota definition by id", func() {
 		shouldSkipTest()
-		getQuotaDefinitionOptionsModel := service1.NewGetQuotaDefinitionOptions(testQuotaID)
-		result, detailedResponse, err := service1.GetQuotaDefinition(getQuotaDefinitionOptionsModel)
+		getQuotaDefinitionOptionsModel := service.NewGetQuotaDefinitionOptions(testQuotaID)
+		result, detailedResponse, err := service.GetQuotaDefinition(getQuotaDefinitionOptionsModel)
 		Expect(err).To(BeNil())
 		Expect(detailedResponse.StatusCode).To(Equal(200))
 		Expect(result).NotTo(BeNil())
@@ -117,9 +117,9 @@ var _ = Describe("Resource Manager - Integration Tests", func() {
 		It("Successfully retrieved list of resource groups in an account", func() {
 			shouldSkipTest()
 
-			listResourceGroupsOptionsModel := service1.NewListResourceGroupsOptions()
+			listResourceGroupsOptionsModel := service.NewListResourceGroupsOptions()
 			listResourceGroupsOptionsModel.SetAccountID(testUserAccountID)
-			result, detailedResponse, err := service1.ListResourceGroups(listResourceGroupsOptionsModel)
+			result, detailedResponse, err := service.ListResourceGroups(listResourceGroupsOptionsModel)
 			Expect(err).To(BeNil())
 			Expect(detailedResponse.StatusCode).To(Equal(200))
 			Expect(len(result.Resources)).To(BeNumerically(">=", 1))
@@ -139,10 +139,10 @@ var _ = Describe("Resource Manager - Integration Tests", func() {
 		It("Successfully created new resource group in an account", func() {
 			shouldSkipTest()
 
-			createResourceGroupOptionsModel := service1.NewCreateResourceGroupOptions()
+			createResourceGroupOptionsModel := service.NewCreateResourceGroupOptions()
 			createResourceGroupOptionsModel.SetAccountID(testUserAccountID)
 			createResourceGroupOptionsModel.SetName("TestGroup")
-			result, detailedResponse, err := service1.CreateResourceGroup(createResourceGroupOptionsModel)
+			result, detailedResponse, err := service.CreateResourceGroup(createResourceGroupOptionsModel)
 			Expect(err).To(BeNil())
 			Expect(detailedResponse.StatusCode).To(Equal(201))
 			Expect(result).NotTo(BeNil())
@@ -155,8 +155,8 @@ var _ = Describe("Resource Manager - Integration Tests", func() {
 		It("Successfully retrieved resource group by ID", func() {
 			shouldSkipTest()
 
-			getResourceGroupOptionsModel := service1.NewGetResourceGroupOptions(newResourceGroupID)
-			result, detailedResponse, err := service1.GetResourceGroup(getResourceGroupOptionsModel)
+			getResourceGroupOptionsModel := service.NewGetResourceGroupOptions(newResourceGroupID)
+			result, detailedResponse, err := service.GetResourceGroup(getResourceGroupOptionsModel)
 			Expect(err).To(BeNil())
 			Expect(detailedResponse.StatusCode).To(Equal(200))
 			Expect(result).NotTo(BeNil())
@@ -167,8 +167,8 @@ var _ = Describe("Resource Manager - Integration Tests", func() {
 		It("Successfully updated resource group", func() {
 			shouldSkipTest()
 
-			updateResourceGroupOptionsModel := service1.NewUpdateResourceGroupOptions(newResourceGroupID)
-			result, detailedResponse, err := service1.UpdateResourceGroup(updateResourceGroupOptionsModel)
+			updateResourceGroupOptionsModel := service.NewUpdateResourceGroupOptions(newResourceGroupID)
+			result, detailedResponse, err := service.UpdateResourceGroup(updateResourceGroupOptionsModel)
 			Expect(err).To(BeNil())
 			Expect(detailedResponse.StatusCode).To(Equal(200))
 			Expect(result).NotTo(BeNil())
@@ -179,8 +179,8 @@ var _ = Describe("Resource Manager - Integration Tests", func() {
 		It("Successfully deleted resource group", func() {
 			shouldSkipTest()
 
-			deleteResourceGroupOptionsModel := service2.NewDeleteResourceGroupOptions(newResourceGroupID)
-			detailedResponse, err := service2.DeleteResourceGroup(deleteResourceGroupOptionsModel)
+			deleteResourceGroupOptionsModel := serviceUser.NewDeleteResourceGroupOptions(newResourceGroupID)
+			detailedResponse, err := serviceUser.DeleteResourceGroup(deleteResourceGroupOptionsModel)
 			Expect(err).To(BeNil())
 			Expect(detailedResponse.StatusCode).To(Equal(204))
 		})
