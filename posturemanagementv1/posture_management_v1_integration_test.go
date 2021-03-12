@@ -45,6 +45,13 @@ var _ = Describe(`PostureManagementV1 Integration Tests`, func() {
 		postureManagementService *posturemanagementv1.PostureManagementV1
 		serviceURL               string
 		config                   map[string]string
+
+		accountID   string
+		profileName string
+		scopesName  string
+
+		profileID *int64
+		scopeID   *int64
 	)
 
 	var shouldSkipTest = func() {
@@ -68,6 +75,15 @@ var _ = Describe(`PostureManagementV1 Integration Tests`, func() {
 				Skip("Unable to load service URL configuration property, skipping tests")
 			}
 
+			accountID = config["ACCOUNT_ID"]
+			Expect(accountID).ToNot(BeEmpty())
+
+			profileName = config["PROFILE_NAME"]
+			Expect(profileName).ToNot(BeEmpty())
+
+			scopesName = config["SCOPES_NAME"]
+			Expect(scopesName).ToNot(BeEmpty())
+
 			fmt.Printf("Service URL: %s\n", serviceURL)
 			shouldSkipTest = func() {}
 		})
@@ -89,28 +105,6 @@ var _ = Describe(`PostureManagementV1 Integration Tests`, func() {
 		})
 	})
 
-	Describe(`CreateValidationScan - Initiate a validation scan`, func() {
-		BeforeEach(func() {
-			shouldSkipTest()
-		})
-		It(`CreateValidationScan(createValidationScanOptions *CreateValidationScanOptions)`, func() {
-
-			createValidationScanOptions := &posturemanagementv1.CreateValidationScanOptions{
-				AccountID:      core.StringPtr("testString"),
-				ScopeID:        core.Int64Ptr(int64(1)),
-				ProfileID:      core.Int64Ptr(int64(6)),
-				GroupProfileID: core.Int64Ptr(int64(13)),
-			}
-
-			result, response, err := postureManagementService.CreateValidationScan(createValidationScanOptions)
-
-			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(200))
-			Expect(result).ToNot(BeNil())
-
-		})
-	})
-
 	Describe(`ListProfile - List profiles`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
@@ -118,8 +112,8 @@ var _ = Describe(`PostureManagementV1 Integration Tests`, func() {
 		It(`ListProfile(listProfileOptions *ListProfileOptions)`, func() {
 
 			listProfileOptions := &posturemanagementv1.ListProfileOptions{
-				AccountID: core.StringPtr("testString"),
-				Name:      core.StringPtr("testString"),
+				AccountID: core.StringPtr(accountID),
+				Name:      core.StringPtr(profileName),
 			}
 
 			profilesList, response, err := postureManagementService.ListProfile(listProfileOptions)
@@ -128,6 +122,7 @@ var _ = Describe(`PostureManagementV1 Integration Tests`, func() {
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(profilesList).ToNot(BeNil())
 
+			profileID = profilesList.Profiles[0].ProfileID
 		})
 	})
 
@@ -138,8 +133,8 @@ var _ = Describe(`PostureManagementV1 Integration Tests`, func() {
 		It(`ListScopes(listScopesOptions *ListScopesOptions)`, func() {
 
 			listScopesOptions := &posturemanagementv1.ListScopesOptions{
-				AccountID: core.StringPtr("testString"),
-				Name:      core.StringPtr("testString"),
+				AccountID: core.StringPtr(accountID),
+				Name:      core.StringPtr(scopesName),
 			}
 
 			scopesList, response, err := postureManagementService.ListScopes(listScopesOptions)
@@ -147,6 +142,30 @@ var _ = Describe(`PostureManagementV1 Integration Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(scopesList).ToNot(BeNil())
+
+			scopeID = scopesList.Scopes[0].ScopeID
+		})
+	})
+
+	Describe(`CreateValidationScan - Initiate a validation scan`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`CreateValidationScan(createValidationScanOptions *CreateValidationScanOptions)`, func() {
+			Expect(scopeID).ToNot(BeNil())
+			Expect(profileID).ToNot(BeNil())
+
+			createValidationScanOptions := &posturemanagementv1.CreateValidationScanOptions{
+				AccountID: core.StringPtr(accountID),
+				ScopeID:   scopeID,
+				ProfileID: profileID,
+			}
+
+			result, response, err := postureManagementService.CreateValidationScan(createValidationScanOptions)
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(result).ToNot(BeNil())
 
 		})
 	})
