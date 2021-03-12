@@ -37,6 +37,9 @@ import (
 // POSTURE_MANAGEMENT_AUTH_TYPE=iam
 // POSTURE_MANAGEMENT_APIKEY=<IAM apikey>
 // POSTURE_MANAGEMENT_AUTH_URL=<IAM token service base URL - omit this if using the production environment>
+// POSTURE_MANAGEMENT_ACCOUNT_ID=<IBM CLOUD ACCOUNT ID>
+// POSTURE_MANAGEMENT_SCOPES_NAME=<The name of the scope>
+// POSTURE_MANAGEMENT_PROFILE_NAME=<The name of profile - CIS IBM Foundations Benchmark 1.0.0>
 //
 // These configuration properties can be exported as environment variables, or stored
 // in a configuration file and then:
@@ -48,6 +51,13 @@ var (
 	postureManagementService *posturemanagementv1.PostureManagementV1
 	config                   map[string]string
 	configLoaded             bool = false
+
+	accountID   string
+	profileName string
+	scopesName  string
+
+	profileID int64
+	scopeID   int64
 )
 
 func shouldSkipTest() {
@@ -72,6 +82,15 @@ var _ = Describe(`PostureManagementV1 Examples Tests`, func() {
 			}
 
 			configLoaded = len(config) > 0
+
+			accountID = config["ACCOUNT_ID"]
+			Expect(accountID).ToNot(BeEmpty())
+
+			profileName = config["PROFILE_NAME"]
+			Expect(profileName).ToNot(BeEmpty())
+
+			scopesName = config["SCOPES_NAME"]
+			Expect(scopesName).ToNot(BeEmpty())
 		})
 	})
 
@@ -102,33 +121,13 @@ var _ = Describe(`PostureManagementV1 Examples Tests`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
 		})
-		It(`CreateValidationScan request example`, func() {
-			// begin-create_validation_scan
-
-			createValidationScanOptions := postureManagementService.NewCreateValidationScanOptions(
-				"testString",
-			)
-
-			result, response, err := postureManagementService.CreateValidationScan(createValidationScanOptions)
-			if err != nil {
-				panic(err)
-			}
-			b, _ := json.MarshalIndent(result, "", "  ")
-			fmt.Println(string(b))
-
-			// end-create_validation_scan
-
-			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(200))
-			Expect(result).ToNot(BeNil())
-
-		})
 		It(`ListProfile request example`, func() {
 			// begin-list_profile
 
 			listProfileOptions := postureManagementService.NewListProfileOptions(
-				"testString",
+				accountID,
 			)
+			listProfileOptions.SetName(profileName)
 
 			profilesList, response, err := postureManagementService.ListProfile(listProfileOptions)
 			if err != nil {
@@ -143,13 +142,15 @@ var _ = Describe(`PostureManagementV1 Examples Tests`, func() {
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(profilesList).ToNot(BeNil())
 
+			profileID = *profilesList.Profiles[0].ProfileID
 		})
 		It(`ListScopes request example`, func() {
 			// begin-list_scopes
 
 			listScopesOptions := postureManagementService.NewListScopesOptions(
-				"testString",
+				accountID,
 			)
+			listScopesOptions.SetName(scopesName)
 
 			scopesList, response, err := postureManagementService.ListScopes(listScopesOptions)
 			if err != nil {
@@ -163,6 +164,30 @@ var _ = Describe(`PostureManagementV1 Examples Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(scopesList).ToNot(BeNil())
+
+			scopeID = *scopesList.Scopes[0].ScopeID
+		})
+		It(`CreateValidationScan request example`, func() {
+			// begin-create_validation_scan
+
+			createValidationScanOptions := postureManagementService.NewCreateValidationScanOptions(
+				accountID,
+			)
+			createValidationScanOptions.SetProfileID(profileID)
+			createValidationScanOptions.SetScopeID(scopeID)
+
+			result, response, err := postureManagementService.CreateValidationScan(createValidationScanOptions)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(result, "", "  ")
+			fmt.Println(string(b))
+
+			// end-create_validation_scan
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(result).ToNot(BeNil())
 
 		})
 	})
