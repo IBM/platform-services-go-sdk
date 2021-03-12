@@ -114,7 +114,7 @@ var _ = Describe(`ResourceManagerV2 Examples Tests`, func() {
 			}
 
 			deleteResourceManagerServiceOptions := &resourcemanagerv2.ResourceManagerV2Options{
-				ServiceName: "DELETE_RESOURCE_MANAGER",
+				ServiceName: "ALT_RESOURCE_MANAGER",
 			}
 
 			deleteResourceManagerService, err = resourcemanagerv2.NewResourceManagerV2UsingExternalConfig(deleteResourceManagerServiceOptions)
