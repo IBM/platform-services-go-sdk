@@ -19,14 +19,13 @@ package resourcemanagerv2_test
 
 import (
 	"log"
+	"os"
 	"time"
 
 	"github.com/IBM/go-sdk-core/v5/core"
 	"github.com/IBM/platform-services-go-sdk/resourcemanagerv2"
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
-
-	"os"
 )
 
 const externalConfigFile = "../resource_manager.env"
