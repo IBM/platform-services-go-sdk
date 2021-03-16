@@ -1,5 +1,5 @@
 /**
- * (C) Copyright IBM Corp. 2020.
+ * (C) Copyright IBM Corp. 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,9 +15,8 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-d753183b-20201209-163011
+ * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-0e7faf45-20210305-072529
  */
- 
 
 // Package iamidentityv1 : Operations and models for the IamIdentityV1 service
 package iamidentityv1
@@ -26,7 +25,7 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"github.com/IBM/go-sdk-core/v4/core"
+	"github.com/IBM/go-sdk-core/v5/core"
 	common "github.com/IBM/platform-services-go-sdk/common"
 	"github.com/go-openapi/strfmt"
 	"net/http"
@@ -34,7 +33,8 @@ import (
 	"time"
 )
 
-// IamIdentityV1 : The IAM Identity Service API allows for the management of Identities (Service IDs, ApiKeys).
+// IamIdentityV1 : The IAM Identity Service API allows for the management of Account Settings and Identities (Service
+// IDs, ApiKeys).
 //
 // Version: 1.0.0
 type IamIdentityV1 struct {
@@ -1121,6 +1121,290 @@ func (iamIdentity *IamIdentityV1) UnlockServiceIDWithContext(ctx context.Context
 	return
 }
 
+// GetAccountSettings : Get account configurations
+// Returns the details of an account's configuration.
+func (iamIdentity *IamIdentityV1) GetAccountSettings(getAccountSettingsOptions *GetAccountSettingsOptions) (result *AccountSettingsResponse, response *core.DetailedResponse, err error) {
+	return iamIdentity.GetAccountSettingsWithContext(context.Background(), getAccountSettingsOptions)
+}
+
+// GetAccountSettingsWithContext is an alternate form of the GetAccountSettings method which supports a Context parameter
+func (iamIdentity *IamIdentityV1) GetAccountSettingsWithContext(ctx context.Context, getAccountSettingsOptions *GetAccountSettingsOptions) (result *AccountSettingsResponse, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(getAccountSettingsOptions, "getAccountSettingsOptions cannot be nil")
+	if err != nil {
+		return
+	}
+	err = core.ValidateStruct(getAccountSettingsOptions, "getAccountSettingsOptions")
+	if err != nil {
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"account_id": *getAccountSettingsOptions.AccountID,
+	}
+
+	builder := core.NewRequestBuilder(core.GET)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = iamIdentity.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(iamIdentity.Service.Options.URL, `/v1/accounts/{account_id}/settings/identity`, pathParamsMap)
+	if err != nil {
+		return
+	}
+
+	for headerName, headerValue := range getAccountSettingsOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("iam_identity", "V1", "GetAccountSettings")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Accept", "application/json")
+
+	if getAccountSettingsOptions.IncludeHistory != nil {
+		builder.AddQuery("include_history", fmt.Sprint(*getAccountSettingsOptions.IncludeHistory))
+	}
+
+	request, err := builder.Build()
+	if err != nil {
+		return
+	}
+
+	var rawResponse map[string]json.RawMessage
+	response, err = iamIdentity.Service.Request(request, &rawResponse)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalAccountSettingsResponse)
+	if err != nil {
+		return
+	}
+	response.Result = result
+
+	return
+}
+
+// UpdateAccountSettings : Update account configurations
+// Allows a user to configure settings on their account with regards to MFA, session lifetimes,  access control for
+// creating new identities, and enforcing IP restrictions on  token creation.
+func (iamIdentity *IamIdentityV1) UpdateAccountSettings(updateAccountSettingsOptions *UpdateAccountSettingsOptions) (result *AccountSettingsResponse, response *core.DetailedResponse, err error) {
+	return iamIdentity.UpdateAccountSettingsWithContext(context.Background(), updateAccountSettingsOptions)
+}
+
+// UpdateAccountSettingsWithContext is an alternate form of the UpdateAccountSettings method which supports a Context parameter
+func (iamIdentity *IamIdentityV1) UpdateAccountSettingsWithContext(ctx context.Context, updateAccountSettingsOptions *UpdateAccountSettingsOptions) (result *AccountSettingsResponse, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(updateAccountSettingsOptions, "updateAccountSettingsOptions cannot be nil")
+	if err != nil {
+		return
+	}
+	err = core.ValidateStruct(updateAccountSettingsOptions, "updateAccountSettingsOptions")
+	if err != nil {
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"account_id": *updateAccountSettingsOptions.AccountID,
+	}
+
+	builder := core.NewRequestBuilder(core.PUT)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = iamIdentity.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(iamIdentity.Service.Options.URL, `/v1/accounts/{account_id}/settings/identity`, pathParamsMap)
+	if err != nil {
+		return
+	}
+
+	for headerName, headerValue := range updateAccountSettingsOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("iam_identity", "V1", "UpdateAccountSettings")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Accept", "application/json")
+	builder.AddHeader("Content-Type", "application/json")
+	if updateAccountSettingsOptions.IfMatch != nil {
+		builder.AddHeader("If-Match", fmt.Sprint(*updateAccountSettingsOptions.IfMatch))
+	}
+
+	body := make(map[string]interface{})
+	if updateAccountSettingsOptions.RestrictCreateServiceID != nil {
+		body["restrict_create_service_id"] = updateAccountSettingsOptions.RestrictCreateServiceID
+	}
+	if updateAccountSettingsOptions.RestrictCreatePlatformApikey != nil {
+		body["restrict_create_platform_apikey"] = updateAccountSettingsOptions.RestrictCreatePlatformApikey
+	}
+	if updateAccountSettingsOptions.AllowedIPAddresses != nil {
+		body["allowed_ip_addresses"] = updateAccountSettingsOptions.AllowedIPAddresses
+	}
+	if updateAccountSettingsOptions.Mfa != nil {
+		body["mfa"] = updateAccountSettingsOptions.Mfa
+	}
+	if updateAccountSettingsOptions.SessionExpirationInSeconds != nil {
+		body["session_expiration_in_seconds"] = updateAccountSettingsOptions.SessionExpirationInSeconds
+	}
+	if updateAccountSettingsOptions.SessionInvalidationInSeconds != nil {
+		body["session_invalidation_in_seconds"] = updateAccountSettingsOptions.SessionInvalidationInSeconds
+	}
+	_, err = builder.SetBodyContentJSON(body)
+	if err != nil {
+		return
+	}
+
+	request, err := builder.Build()
+	if err != nil {
+		return
+	}
+
+	var rawResponse map[string]json.RawMessage
+	response, err = iamIdentity.Service.Request(request, &rawResponse)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalAccountSettingsResponse)
+	if err != nil {
+		return
+	}
+	response.Result = result
+
+	return
+}
+
+// AccountSettingsResponse : Response body format for Account Settings REST requests.
+type AccountSettingsResponse struct {
+	// Context with key properties for problem determination.
+	Context *ResponseContext `json:"context,omitempty"`
+
+	// Unique ID of the account.
+	AccountID *string `json:"account_id" validate:"required"`
+
+	// Defines whether or not creating a Service Id is access controlled. Valid values:
+	//   * RESTRICTED - to apply access control
+	//   * NOT_RESTRICTED - to remove access control
+	//   * NOT_SET - to 'unset' a previous set value.
+	RestrictCreateServiceID *string `json:"restrict_create_service_id" validate:"required"`
+
+	// Defines whether or not creating a Service Id is access controlled. Valid values:
+	//   * RESTRICTED - to apply access control
+	//   * NOT_RESTRICTED - to remove access control
+	//   * NOT_SET - to 'unset' a previous set value.
+	RestrictCreatePlatformApikey *string `json:"restrict_create_platform_apikey" validate:"required"`
+
+	// Defines the IP addresses and subnets from which IAM tokens can be created for the account.
+	AllowedIPAddresses *string `json:"allowed_ip_addresses" validate:"required"`
+
+	// Version of the account settings.
+	EntityTag *string `json:"entity_tag" validate:"required"`
+
+	// Defines the MFA trait for the account. Valid values:
+	//   * NONE - No MFA trait set
+	//   * TOTP - For all non-federated IBMId users
+	//   * TOTP4ALL - For all users
+	//   * LEVEL1 - Email-based MFA for all users
+	//   * LEVEL2 - TOTP-based MFA for all users
+	//   * LEVEL3 - U2F MFA for all users.
+	Mfa *string `json:"mfa" validate:"required"`
+
+	// History of the Account Settings.
+	History []EnityHistoryRecord `json:"history,omitempty"`
+
+	// Defines the session expiration in seconds for the account. Valid values:
+	//   * Any whole number between between '900' and '86400'
+	//   * NOT_SET - To unset account setting and use service default.
+	SessionExpirationInSeconds *string `json:"session_expiration_in_seconds" validate:"required"`
+
+	// Defines the period of time in seconds in which a session will be invalidated due  to inactivity. Valid values:
+	//   * Any whole number between '900' and '7200'
+	//   * NOT_SET - To unset account setting and use service default.
+	SessionInvalidationInSeconds *string `json:"session_invalidation_in_seconds" validate:"required"`
+}
+
+// Constants associated with the AccountSettingsResponse.RestrictCreateServiceID property.
+// Defines whether or not creating a Service Id is access controlled. Valid values:
+//   * RESTRICTED - to apply access control
+//   * NOT_RESTRICTED - to remove access control
+//   * NOT_SET - to 'unset' a previous set value.
+const (
+	AccountSettingsResponseRestrictCreateServiceIDNotRestrictedConst = "NOT_RESTRICTED"
+	AccountSettingsResponseRestrictCreateServiceIDNotSetConst = "NOT_SET"
+	AccountSettingsResponseRestrictCreateServiceIDRestrictedConst = "RESTRICTED"
+)
+
+// Constants associated with the AccountSettingsResponse.RestrictCreatePlatformApikey property.
+// Defines whether or not creating a Service Id is access controlled. Valid values:
+//   * RESTRICTED - to apply access control
+//   * NOT_RESTRICTED - to remove access control
+//   * NOT_SET - to 'unset' a previous set value.
+const (
+	AccountSettingsResponseRestrictCreatePlatformApikeyNotRestrictedConst = "NOT_RESTRICTED"
+	AccountSettingsResponseRestrictCreatePlatformApikeyNotSetConst = "NOT_SET"
+	AccountSettingsResponseRestrictCreatePlatformApikeyRestrictedConst = "RESTRICTED"
+)
+
+// Constants associated with the AccountSettingsResponse.Mfa property.
+// Defines the MFA trait for the account. Valid values:
+//   * NONE - No MFA trait set
+//   * TOTP - For all non-federated IBMId users
+//   * TOTP4ALL - For all users
+//   * LEVEL1 - Email-based MFA for all users
+//   * LEVEL2 - TOTP-based MFA for all users
+//   * LEVEL3 - U2F MFA for all users.
+const (
+	AccountSettingsResponseMfaLevel1Const = "LEVEL1"
+	AccountSettingsResponseMfaLevel2Const = "LEVEL2"
+	AccountSettingsResponseMfaLevel3Const = "LEVEL3"
+	AccountSettingsResponseMfaNoneConst = "NONE"
+	AccountSettingsResponseMfaTotpConst = "TOTP"
+	AccountSettingsResponseMfaTotp4allConst = "TOTP4ALL"
+)
+
+// UnmarshalAccountSettingsResponse unmarshals an instance of AccountSettingsResponse from the specified map of raw messages.
+func UnmarshalAccountSettingsResponse(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(AccountSettingsResponse)
+	err = core.UnmarshalModel(m, "context", &obj.Context, UnmarshalResponseContext)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "account_id", &obj.AccountID)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "restrict_create_service_id", &obj.RestrictCreateServiceID)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "restrict_create_platform_apikey", &obj.RestrictCreatePlatformApikey)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "allowed_ip_addresses", &obj.AllowedIPAddresses)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "entity_tag", &obj.EntityTag)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "mfa", &obj.Mfa)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "history", &obj.History, UnmarshalEnityHistoryRecord)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "session_expiration_in_seconds", &obj.SessionExpirationInSeconds)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "session_invalidation_in_seconds", &obj.SessionInvalidationInSeconds)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
 // APIKey : Response body format for API key V1 REST requests.
 type APIKey struct {
 	// Context with key properties for problem determination.
@@ -1172,7 +1456,6 @@ type APIKey struct {
 	// History of the API key.
 	History []EnityHistoryRecord `json:"history,omitempty"`
 }
-
 
 // UnmarshalAPIKey unmarshals an instance of APIKey from the specified map of raw messages.
 func UnmarshalAPIKey(m map[string]json.RawMessage, result interface{}) (err error) {
@@ -1259,7 +1542,6 @@ type APIKeyInsideCreateServiceIDRequest struct {
 	StoreValue *bool `json:"store_value,omitempty"`
 }
 
-
 // NewAPIKeyInsideCreateServiceIDRequest : Instantiate APIKeyInsideCreateServiceIDRequest (Generic Model Constructor)
 func (*IamIdentityV1) NewAPIKeyInsideCreateServiceIDRequest(name string) (model *APIKeyInsideCreateServiceIDRequest, err error) {
 	model = &APIKeyInsideCreateServiceIDRequest{
@@ -1318,7 +1600,6 @@ type APIKeyList struct {
 	Apikeys []APIKey `json:"apikeys" validate:"required"`
 }
 
-
 // UnmarshalAPIKeyList unmarshals an instance of APIKeyList from the specified map of raw messages.
 func UnmarshalAPIKeyList(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(APIKeyList)
@@ -1358,31 +1639,31 @@ func UnmarshalAPIKeyList(m map[string]json.RawMessage, result interface{}) (err 
 type CreateAPIKeyOptions struct {
 	// Name of the API key. The name is not checked for uniqueness. Therefore multiple names with the same value can exist.
 	// Access is done via the UUID of the API key.
-	Name *string `json:"name" validate:"required"`
+	Name *string `validate:"required"`
 
 	// The iam_id that this API key authenticates.
-	IamID *string `json:"iam_id" validate:"required"`
+	IamID *string `validate:"required"`
 
 	// The optional description of the API key. The 'description' property is only available if a description was provided
 	// during a create of an API key.
-	Description *string `json:"description,omitempty"`
+	Description *string
 
 	// The account ID of the API key.
-	AccountID *string `json:"account_id,omitempty"`
+	AccountID *string
 
 	// You can optionally passthrough the API key value for this API key. If passed, NO validation of that apiKey value is
 	// done, i.e. the value can be non-URL safe. If omitted, the API key management will create an URL safe opaque API key
 	// value. The value of the API key is checked for uniqueness. Please ensure enough variations when passing in this
 	// value.
-	Apikey *string `json:"apikey,omitempty"`
+	Apikey *string
 
 	// Send true or false to set whether the API key value is retrievable in the future by using the Get details of an API
 	// key request. If you create an API key for a user, you must specify `false` or omit the value. We don't allow storing
 	// of API keys for users.
-	StoreValue *bool `json:"store_value,omitempty"`
+	StoreValue *bool
 
 	// Indicates if the API key is locked for further write operations. False by default.
-	EntityLock *string `json:"Entity-Lock,omitempty"`
+	EntityLock *string
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -1447,24 +1728,24 @@ func (options *CreateAPIKeyOptions) SetHeaders(param map[string]string) *CreateA
 // CreateServiceIDOptions : The CreateServiceID options.
 type CreateServiceIDOptions struct {
 	// ID of the account the service ID belongs to.
-	AccountID *string `json:"account_id" validate:"required"`
+	AccountID *string `validate:"required"`
 
 	// Name of the Service Id. The name is not checked for uniqueness. Therefore multiple names with the same value can
 	// exist. Access is done via the UUID of the Service Id.
-	Name *string `json:"name" validate:"required"`
+	Name *string `validate:"required"`
 
 	// The optional description of the Service Id. The 'description' property is only available if a description was
 	// provided during a create of a Service Id.
-	Description *string `json:"description,omitempty"`
+	Description *string
 
 	// Optional list of CRNs (string array) which point to the services connected to the service ID.
-	UniqueInstanceCrns []string `json:"unique_instance_crns,omitempty"`
+	UniqueInstanceCrns []string
 
 	// Parameters for the API key in the Create service Id V1 REST request.
-	Apikey *APIKeyInsideCreateServiceIDRequest `json:"apikey,omitempty"`
+	Apikey *APIKeyInsideCreateServiceIDRequest
 
 	// Indicates if the service ID is locked for further write operations. False by default.
-	EntityLock *string `json:"Entity-Lock,omitempty"`
+	EntityLock *string
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -1523,7 +1804,7 @@ func (options *CreateServiceIDOptions) SetHeaders(param map[string]string) *Crea
 // DeleteAPIKeyOptions : The DeleteAPIKey options.
 type DeleteAPIKeyOptions struct {
 	// Unique ID of the API key.
-	ID *string `json:"id" validate:"required,ne="`
+	ID *string `validate:"required,ne="`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -1551,7 +1832,7 @@ func (options *DeleteAPIKeyOptions) SetHeaders(param map[string]string) *DeleteA
 // DeleteServiceIDOptions : The DeleteServiceID options.
 type DeleteServiceIDOptions struct {
 	// Unique ID of the service ID.
-	ID *string `json:"id" validate:"required,ne="`
+	ID *string `validate:"required,ne="`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -1597,7 +1878,6 @@ type EnityHistoryRecord struct {
 	Message *string `json:"message" validate:"required"`
 }
 
-
 // UnmarshalEnityHistoryRecord unmarshals an instance of EnityHistoryRecord from the specified map of raw messages.
 func UnmarshalEnityHistoryRecord(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(EnityHistoryRecord)
@@ -1629,13 +1909,50 @@ func UnmarshalEnityHistoryRecord(m map[string]json.RawMessage, result interface{
 	return
 }
 
+// GetAccountSettingsOptions : The GetAccountSettings options.
+type GetAccountSettingsOptions struct {
+	// Unique ID of the account.
+	AccountID *string `validate:"required,ne="`
+
+	// Defines if the entity history is included in the response.
+	IncludeHistory *bool
+
+	// Allows users to set headers on API requests
+	Headers map[string]string
+}
+
+// NewGetAccountSettingsOptions : Instantiate GetAccountSettingsOptions
+func (*IamIdentityV1) NewGetAccountSettingsOptions(accountID string) *GetAccountSettingsOptions {
+	return &GetAccountSettingsOptions{
+		AccountID: core.StringPtr(accountID),
+	}
+}
+
+// SetAccountID : Allow user to set AccountID
+func (options *GetAccountSettingsOptions) SetAccountID(accountID string) *GetAccountSettingsOptions {
+	options.AccountID = core.StringPtr(accountID)
+	return options
+}
+
+// SetIncludeHistory : Allow user to set IncludeHistory
+func (options *GetAccountSettingsOptions) SetIncludeHistory(includeHistory bool) *GetAccountSettingsOptions {
+	options.IncludeHistory = core.BoolPtr(includeHistory)
+	return options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *GetAccountSettingsOptions) SetHeaders(param map[string]string) *GetAccountSettingsOptions {
+	options.Headers = param
+	return options
+}
+
 // GetAPIKeyOptions : The GetAPIKey options.
 type GetAPIKeyOptions struct {
 	// Unique ID of the API key.
-	ID *string `json:"id" validate:"required,ne="`
+	ID *string `validate:"required,ne="`
 
 	// Defines if the entity history is included in the response.
-	IncludeHistory *bool `json:"include_history,omitempty"`
+	IncludeHistory *bool
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -1669,10 +1986,10 @@ func (options *GetAPIKeyOptions) SetHeaders(param map[string]string) *GetAPIKeyO
 // GetAPIKeysDetailsOptions : The GetAPIKeysDetails options.
 type GetAPIKeysDetailsOptions struct {
 	// API key value.
-	IamAPIKey *string `json:"IAM-ApiKey,omitempty"`
+	IamAPIKey *string
 
 	// Defines if the entity history is included in the response.
-	IncludeHistory *bool `json:"include_history,omitempty"`
+	IncludeHistory *bool
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -1704,10 +2021,10 @@ func (options *GetAPIKeysDetailsOptions) SetHeaders(param map[string]string) *Ge
 // GetServiceIDOptions : The GetServiceID options.
 type GetServiceIDOptions struct {
 	// Unique ID of the service ID.
-	ID *string `json:"id" validate:"required,ne="`
+	ID *string `validate:"required,ne="`
 
 	// Defines if the entity history is included in the response.
-	IncludeHistory *bool `json:"include_history,omitempty"`
+	IncludeHistory *bool
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -1743,33 +2060,33 @@ type ListAPIKeysOptions struct {
 	// Account ID of the API keys(s) to query. If a service IAM ID is specified in iam_id then account_id must match the
 	// account of the IAM ID. If a user IAM ID is specified in iam_id then then account_id must match the account of the
 	// Authorization token.
-	AccountID *string `json:"account_id,omitempty"`
+	AccountID *string
 
 	// IAM ID of the API key(s) to be queried. The IAM ID may be that of a user or a service. For a user IAM ID iam_id must
 	// match the Authorization token.
-	IamID *string `json:"iam_id,omitempty"`
+	IamID *string
 
 	// Optional size of a single page. Default is 20 items per page. Valid range is 1 to 100.
-	Pagesize *int64 `json:"pagesize,omitempty"`
+	Pagesize *int64
 
 	// Optional Prev or Next page token returned from a previous query execution. Default is start with first page.
-	Pagetoken *string `json:"pagetoken,omitempty"`
+	Pagetoken *string
 
 	// Optional parameter to define the scope of the queried API Keys. Can be 'entity' (default) or 'account'.
-	Scope *string `json:"scope,omitempty"`
+	Scope *string
 
 	// Optional parameter to filter the type of the queried API Keys. Can be 'user' or 'serviceid'.
-	Type *string `json:"type,omitempty"`
+	Type *string
 
 	// Optional sort property, valid values are name, description, created_at and created_by. If specified, the items are
 	// sorted by the value of this property.
-	Sort *string `json:"sort,omitempty"`
+	Sort *string
 
 	// Optional sort order, valid values are asc and desc. Default: asc.
-	Order *string `json:"order,omitempty"`
+	Order *string
 
 	// Defines if the entity history is included in the response.
-	IncludeHistory *bool `json:"include_history,omitempty"`
+	IncludeHistory *bool
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -1864,26 +2181,26 @@ func (options *ListAPIKeysOptions) SetHeaders(param map[string]string) *ListAPIK
 // ListServiceIdsOptions : The ListServiceIds options.
 type ListServiceIdsOptions struct {
 	// Account ID of the service ID(s) to query. This parameter is required (unless using a pagetoken).
-	AccountID *string `json:"account_id,omitempty"`
+	AccountID *string
 
 	// Name of the service ID(s) to query. Optional.20 items per page. Valid range is 1 to 100.
-	Name *string `json:"name,omitempty"`
+	Name *string
 
 	// Optional size of a single page. Default is 20 items per page. Valid range is 1 to 100.
-	Pagesize *int64 `json:"pagesize,omitempty"`
+	Pagesize *int64
 
 	// Optional Prev or Next page token returned from a previous query execution. Default is start with first page.
-	Pagetoken *string `json:"pagetoken,omitempty"`
+	Pagetoken *string
 
 	// Optional sort property, valid values are name, description, created_at and modified_at. If specified, the items are
 	// sorted by the value of this property.
-	Sort *string `json:"sort,omitempty"`
+	Sort *string
 
 	// Optional sort order, valid values are asc and desc. Default: asc.
-	Order *string `json:"order,omitempty"`
+	Order *string
 
 	// Defines if the entity history is included in the response.
-	IncludeHistory *bool `json:"include_history,omitempty"`
+	IncludeHistory *bool
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -1952,7 +2269,7 @@ func (options *ListServiceIdsOptions) SetHeaders(param map[string]string) *ListS
 // LockAPIKeyOptions : The LockAPIKey options.
 type LockAPIKeyOptions struct {
 	// Unique ID of the API key.
-	ID *string `json:"id" validate:"required,ne="`
+	ID *string `validate:"required,ne="`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -1980,7 +2297,7 @@ func (options *LockAPIKeyOptions) SetHeaders(param map[string]string) *LockAPIKe
 // LockServiceIDOptions : The LockServiceID options.
 type LockServiceIDOptions struct {
 	// Unique ID of the service ID.
-	ID *string `json:"id" validate:"required,ne="`
+	ID *string `validate:"required,ne="`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -2040,7 +2357,6 @@ type ResponseContext struct {
 	// The cluster name.
 	ClusterName *string `json:"cluster_name,omitempty"`
 }
-
 
 // UnmarshalResponseContext unmarshals an instance of ResponseContext from the specified map of raw messages.
 func UnmarshalResponseContext(m map[string]json.RawMessage, result interface{}) (err error) {
@@ -2142,7 +2458,6 @@ type ServiceID struct {
 	Apikey *APIKey `json:"apikey" validate:"required"`
 }
 
-
 // UnmarshalServiceID unmarshals an instance of ServiceID from the specified map of raw messages.
 func UnmarshalServiceID(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(ServiceID)
@@ -2232,7 +2547,6 @@ type ServiceIDList struct {
 	Serviceids []ServiceID `json:"serviceids" validate:"required"`
 }
 
-
 // UnmarshalServiceIDList unmarshals an instance of ServiceIDList from the specified map of raw messages.
 func UnmarshalServiceIDList(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(ServiceIDList)
@@ -2271,7 +2585,7 @@ func UnmarshalServiceIDList(m map[string]json.RawMessage, result interface{}) (e
 // UnlockAPIKeyOptions : The UnlockAPIKey options.
 type UnlockAPIKeyOptions struct {
 	// Unique ID of the API key.
-	ID *string `json:"id" validate:"required,ne="`
+	ID *string `validate:"required,ne="`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -2299,7 +2613,7 @@ func (options *UnlockAPIKeyOptions) SetHeaders(param map[string]string) *UnlockA
 // UnlockServiceIDOptions : The UnlockServiceID options.
 type UnlockServiceIDOptions struct {
 	// Unique ID of the service ID.
-	ID *string `json:"id" validate:"required,ne="`
+	ID *string `validate:"required,ne="`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -2324,23 +2638,172 @@ func (options *UnlockServiceIDOptions) SetHeaders(param map[string]string) *Unlo
 	return options
 }
 
+// UpdateAccountSettingsOptions : The UpdateAccountSettings options.
+type UpdateAccountSettingsOptions struct {
+	// Version of the account settings to be updated. Specify the version that you  retrieved as entity_tag (ETag header)
+	// when reading the account. This value helps  identifying parallel usage of this API. Pass * to indicate to update any
+	// version  available. This might result in stale updates.
+	IfMatch *string `validate:"required"`
+
+	// The id of the account to update the settings for.
+	AccountID *string `validate:"required,ne="`
+
+	// Defines whether or not creating a Service Id is access controlled. Valid values:
+	//   * RESTRICTED - to apply access control
+	//   * NOT_RESTRICTED - to remove access control
+	//   * NOT_SET - to unset a previously set value.
+	RestrictCreateServiceID *string
+
+	// Defines whether or not creating a Service Id is access controlled. Valid values:
+	//   * RESTRICTED - to apply access control
+	//   * NOT_RESTRICTED - to remove access control
+	//   * NOT_SET - to 'unset' a previous set value.
+	RestrictCreatePlatformApikey *string
+
+	// Defines the IP addresses and subnets from which IAM tokens can be created for the account.
+	AllowedIPAddresses *string
+
+	// Defines the MFA trait for the account. Valid values:
+	//   * NONE - No MFA trait set
+	//   * TOTP - For all non-federated IBMId users
+	//   * TOTP4ALL - For all users
+	//   * LEVEL1 - Email-based MFA for all users
+	//   * LEVEL2 - TOTP-based MFA for all users
+	//   * LEVEL3 - U2F MFA for all users.
+	Mfa *string
+
+	// Defines the session expiration in seconds for the account. Valid values:
+	//   * Any whole number between between '900' and '86400'
+	//   * NOT_SET - To unset account setting and use service default.
+	SessionExpirationInSeconds *string
+
+	// Defines the period of time in seconds in which a session will be invalidated due  to inactivity. Valid values:
+	//   * Any whole number between '900' and '7200'
+	//   * NOT_SET - To unset account setting and use service default.
+	SessionInvalidationInSeconds *string
+
+	// Allows users to set headers on API requests
+	Headers map[string]string
+}
+
+// Constants associated with the UpdateAccountSettingsOptions.RestrictCreateServiceID property.
+// Defines whether or not creating a Service Id is access controlled. Valid values:
+//   * RESTRICTED - to apply access control
+//   * NOT_RESTRICTED - to remove access control
+//   * NOT_SET - to unset a previously set value.
+const (
+	UpdateAccountSettingsOptionsRestrictCreateServiceIDNotRestrictedConst = "NOT_RESTRICTED"
+	UpdateAccountSettingsOptionsRestrictCreateServiceIDNotSetConst = "NOT_SET"
+	UpdateAccountSettingsOptionsRestrictCreateServiceIDRestrictedConst = "RESTRICTED"
+)
+
+// Constants associated with the UpdateAccountSettingsOptions.RestrictCreatePlatformApikey property.
+// Defines whether or not creating a Service Id is access controlled. Valid values:
+//   * RESTRICTED - to apply access control
+//   * NOT_RESTRICTED - to remove access control
+//   * NOT_SET - to 'unset' a previous set value.
+const (
+	UpdateAccountSettingsOptionsRestrictCreatePlatformApikeyNotRestrictedConst = "NOT_RESTRICTED"
+	UpdateAccountSettingsOptionsRestrictCreatePlatformApikeyNotSetConst = "NOT_SET"
+	UpdateAccountSettingsOptionsRestrictCreatePlatformApikeyRestrictedConst = "RESTRICTED"
+)
+
+// Constants associated with the UpdateAccountSettingsOptions.Mfa property.
+// Defines the MFA trait for the account. Valid values:
+//   * NONE - No MFA trait set
+//   * TOTP - For all non-federated IBMId users
+//   * TOTP4ALL - For all users
+//   * LEVEL1 - Email-based MFA for all users
+//   * LEVEL2 - TOTP-based MFA for all users
+//   * LEVEL3 - U2F MFA for all users.
+const (
+	UpdateAccountSettingsOptionsMfaLevel1Const = "LEVEL1"
+	UpdateAccountSettingsOptionsMfaLevel2Const = "LEVEL2"
+	UpdateAccountSettingsOptionsMfaLevel3Const = "LEVEL3"
+	UpdateAccountSettingsOptionsMfaNoneConst = "NONE"
+	UpdateAccountSettingsOptionsMfaTotpConst = "TOTP"
+	UpdateAccountSettingsOptionsMfaTotp4allConst = "TOTP4ALL"
+)
+
+// NewUpdateAccountSettingsOptions : Instantiate UpdateAccountSettingsOptions
+func (*IamIdentityV1) NewUpdateAccountSettingsOptions(ifMatch string, accountID string) *UpdateAccountSettingsOptions {
+	return &UpdateAccountSettingsOptions{
+		IfMatch: core.StringPtr(ifMatch),
+		AccountID: core.StringPtr(accountID),
+	}
+}
+
+// SetIfMatch : Allow user to set IfMatch
+func (options *UpdateAccountSettingsOptions) SetIfMatch(ifMatch string) *UpdateAccountSettingsOptions {
+	options.IfMatch = core.StringPtr(ifMatch)
+	return options
+}
+
+// SetAccountID : Allow user to set AccountID
+func (options *UpdateAccountSettingsOptions) SetAccountID(accountID string) *UpdateAccountSettingsOptions {
+	options.AccountID = core.StringPtr(accountID)
+	return options
+}
+
+// SetRestrictCreateServiceID : Allow user to set RestrictCreateServiceID
+func (options *UpdateAccountSettingsOptions) SetRestrictCreateServiceID(restrictCreateServiceID string) *UpdateAccountSettingsOptions {
+	options.RestrictCreateServiceID = core.StringPtr(restrictCreateServiceID)
+	return options
+}
+
+// SetRestrictCreatePlatformApikey : Allow user to set RestrictCreatePlatformApikey
+func (options *UpdateAccountSettingsOptions) SetRestrictCreatePlatformApikey(restrictCreatePlatformApikey string) *UpdateAccountSettingsOptions {
+	options.RestrictCreatePlatformApikey = core.StringPtr(restrictCreatePlatformApikey)
+	return options
+}
+
+// SetAllowedIPAddresses : Allow user to set AllowedIPAddresses
+func (options *UpdateAccountSettingsOptions) SetAllowedIPAddresses(allowedIPAddresses string) *UpdateAccountSettingsOptions {
+	options.AllowedIPAddresses = core.StringPtr(allowedIPAddresses)
+	return options
+}
+
+// SetMfa : Allow user to set Mfa
+func (options *UpdateAccountSettingsOptions) SetMfa(mfa string) *UpdateAccountSettingsOptions {
+	options.Mfa = core.StringPtr(mfa)
+	return options
+}
+
+// SetSessionExpirationInSeconds : Allow user to set SessionExpirationInSeconds
+func (options *UpdateAccountSettingsOptions) SetSessionExpirationInSeconds(sessionExpirationInSeconds string) *UpdateAccountSettingsOptions {
+	options.SessionExpirationInSeconds = core.StringPtr(sessionExpirationInSeconds)
+	return options
+}
+
+// SetSessionInvalidationInSeconds : Allow user to set SessionInvalidationInSeconds
+func (options *UpdateAccountSettingsOptions) SetSessionInvalidationInSeconds(sessionInvalidationInSeconds string) *UpdateAccountSettingsOptions {
+	options.SessionInvalidationInSeconds = core.StringPtr(sessionInvalidationInSeconds)
+	return options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *UpdateAccountSettingsOptions) SetHeaders(param map[string]string) *UpdateAccountSettingsOptions {
+	options.Headers = param
+	return options
+}
+
 // UpdateAPIKeyOptions : The UpdateAPIKey options.
 type UpdateAPIKeyOptions struct {
 	// Unique ID of the API key to be updated.
-	ID *string `json:"id" validate:"required,ne="`
+	ID *string `validate:"required,ne="`
 
 	// Version of the API key to be updated. Specify the version that you retrieved when reading the API key. This value
 	// helps identifying parallel usage of this API. Pass * to indicate to update any version available. This might result
 	// in stale updates.
-	IfMatch *string `json:"If-Match" validate:"required"`
+	IfMatch *string `validate:"required"`
 
 	// The name of the API key to update. If specified in the request the parameter must not be empty. The name is not
 	// checked for uniqueness. Failure to this will result in an Error condition.
-	Name *string `json:"name,omitempty"`
+	Name *string
 
 	// The description of the API key to update. If specified an empty description will clear the description of the API
 	// key. If a non empty value is provided the API key will be updated.
-	Description *string `json:"description,omitempty"`
+	Description *string
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -2387,24 +2850,24 @@ func (options *UpdateAPIKeyOptions) SetHeaders(param map[string]string) *UpdateA
 // UpdateServiceIDOptions : The UpdateServiceID options.
 type UpdateServiceIDOptions struct {
 	// Unique ID of the service ID to be updated.
-	ID *string `json:"id" validate:"required,ne="`
+	ID *string `validate:"required,ne="`
 
 	// Version of the service ID to be updated. Specify the version that you retrieved as entity_tag (ETag header) when
 	// reading the service ID. This value helps identifying parallel usage of this API. Pass * to indicate to update any
 	// version available. This might result in stale updates.
-	IfMatch *string `json:"If-Match" validate:"required"`
+	IfMatch *string `validate:"required"`
 
 	// The name of the service ID to update. If specified in the request the parameter must not be empty. The name is not
 	// checked for uniqueness. Failure to this will result in an Error condition.
-	Name *string `json:"name,omitempty"`
+	Name *string
 
 	// The description of the service ID to update. If specified an empty description will clear the description of the
 	// service ID. If an non empty value is provided the service ID will be updated.
-	Description *string `json:"description,omitempty"`
+	Description *string
 
 	// List of CRNs which point to the services connected to this service ID. If specified an empty list will clear all
 	// existing unique instance crns of the service ID.
-	UniqueInstanceCrns []string `json:"unique_instance_crns,omitempty"`
+	UniqueInstanceCrns []string
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
