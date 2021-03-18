@@ -1,5 +1,5 @@
 /**
- * (C) Copyright IBM Corp. 2020.
+ * (C) Copyright IBM Corp. 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,9 +15,8 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-d753183b-20201209-163011
+ * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-4883cbcd-20210301-143711
  */
- 
 
 // Package resourcemanagerv2 : Operations and models for the ResourceManagerV2 service
 package resourcemanagerv2
@@ -26,12 +25,13 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"github.com/IBM/go-sdk-core/v4/core"
-	common "github.com/IBM/platform-services-go-sdk/common"
-	"github.com/go-openapi/strfmt"
 	"net/http"
 	"reflect"
 	"time"
+
+	"github.com/IBM/go-sdk-core/v5/core"
+	common "github.com/IBM/platform-services-go-sdk/common"
+	"github.com/go-openapi/strfmt"
 )
 
 // ResourceManagerV2 : Manage lifecycle of your Cloud resource groups using Resource Manager APIs.
@@ -196,6 +196,15 @@ func (resourceManager *ResourceManagerV2) ListResourceGroupsWithContext(ctx cont
 	}
 	if listResourceGroupsOptions.Date != nil {
 		builder.AddQuery("date", fmt.Sprint(*listResourceGroupsOptions.Date))
+	}
+	if listResourceGroupsOptions.Name != nil {
+		builder.AddQuery("name", fmt.Sprint(*listResourceGroupsOptions.Name))
+	}
+	if listResourceGroupsOptions.Default != nil {
+		builder.AddQuery("default", fmt.Sprint(*listResourceGroupsOptions.Default))
+	}
+	if listResourceGroupsOptions.IncludeDeleted != nil {
+		builder.AddQuery("include_deleted", fmt.Sprint(*listResourceGroupsOptions.IncludeDeleted))
 	}
 
 	request, err := builder.Build()
@@ -568,10 +577,10 @@ func (resourceManager *ResourceManagerV2) GetQuotaDefinitionWithContext(ctx cont
 // CreateResourceGroupOptions : The CreateResourceGroup options.
 type CreateResourceGroupOptions struct {
 	// The new name of the resource group.
-	Name *string `json:"name,omitempty"`
+	Name *string
 
 	// The account id of the resource group.
-	AccountID *string `json:"account_id,omitempty"`
+	AccountID *string
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -603,7 +612,7 @@ func (options *CreateResourceGroupOptions) SetHeaders(param map[string]string) *
 // DeleteResourceGroupOptions : The DeleteResourceGroup options.
 type DeleteResourceGroupOptions struct {
 	// The short or long ID of the alias.
-	ID *string `json:"id" validate:"required,ne="`
+	ID *string `validate:"required,ne="`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -631,7 +640,7 @@ func (options *DeleteResourceGroupOptions) SetHeaders(param map[string]string) *
 // GetQuotaDefinitionOptions : The GetQuotaDefinition options.
 type GetQuotaDefinitionOptions struct {
 	// The id of the quota.
-	ID *string `json:"id" validate:"required,ne="`
+	ID *string `validate:"required,ne="`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -659,7 +668,7 @@ func (options *GetQuotaDefinitionOptions) SetHeaders(param map[string]string) *G
 // GetResourceGroupOptions : The GetResourceGroup options.
 type GetResourceGroupOptions struct {
 	// The short or long ID of the alias.
-	ID *string `json:"id" validate:"required,ne="`
+	ID *string `validate:"required,ne="`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -705,10 +714,20 @@ func (options *ListQuotaDefinitionsOptions) SetHeaders(param map[string]string) 
 // ListResourceGroupsOptions : The ListResourceGroups options.
 type ListResourceGroupsOptions struct {
 	// The ID of the account that contains the resource groups that you want to get.
-	AccountID *string `json:"account_id,omitempty"`
+	AccountID *string
 
-	// The date would be in a format of YYYY-MM which returns resource groups exclude the deleted ones before this month.
-	Date *string `json:"date,omitempty"`
+	// The date in the format of YYYY-MM which returns resource groups. Deleted resource groups will be excluded before
+	// this month.
+	Date *string
+
+	// The name of the resource group.
+	Name *string
+
+	// Boolean value to specify whether or not to list default resource groups.
+	Default *bool
+
+	// Boolean value to specify whether or not to list default resource groups.
+	IncludeDeleted *bool
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -728,6 +747,24 @@ func (options *ListResourceGroupsOptions) SetAccountID(accountID string) *ListRe
 // SetDate : Allow user to set Date
 func (options *ListResourceGroupsOptions) SetDate(date string) *ListResourceGroupsOptions {
 	options.Date = core.StringPtr(date)
+	return options
+}
+
+// SetName : Allow user to set Name
+func (options *ListResourceGroupsOptions) SetName(name string) *ListResourceGroupsOptions {
+	options.Name = core.StringPtr(name)
+	return options
+}
+
+// SetDefault : Allow user to set Default
+func (options *ListResourceGroupsOptions) SetDefault(defaultVar bool) *ListResourceGroupsOptions {
+	options.Default = core.BoolPtr(defaultVar)
+	return options
+}
+
+// SetIncludeDeleted : Allow user to set IncludeDeleted
+func (options *ListResourceGroupsOptions) SetIncludeDeleted(includeDeleted bool) *ListResourceGroupsOptions {
+	options.IncludeDeleted = core.BoolPtr(includeDeleted)
 	return options
 }
 
@@ -778,7 +815,6 @@ type QuotaDefinition struct {
 	// The date when the quota was last updated.
 	UpdatedAt *strfmt.DateTime `json:"updated_at,omitempty"`
 }
-
 
 // UnmarshalQuotaDefinition unmarshals an instance of QuotaDefinition from the specified map of raw messages.
 func UnmarshalQuotaDefinition(m map[string]json.RawMessage, result interface{}) (err error) {
@@ -845,7 +881,6 @@ type QuotaDefinitionList struct {
 	Resources []QuotaDefinition `json:"resources" validate:"required"`
 }
 
-
 // UnmarshalQuotaDefinitionList unmarshals an instance of QuotaDefinitionList from the specified map of raw messages.
 func UnmarshalQuotaDefinitionList(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(QuotaDefinitionList)
@@ -863,10 +898,9 @@ type ResCreateResourceGroup struct {
 	ID *string `json:"id,omitempty"`
 
 	// The full CRN (cloud resource name) associated with the resource group. For more on this format, see [Cloud Resource
-	// Names](https://cloud.ibm.com/docs/resources?topic=resources-crn).
+	// Names](https://cloud.ibm.com/docs/account?topic=account-crn).
 	CRN *string `json:"crn,omitempty"`
 }
-
 
 // UnmarshalResCreateResourceGroup unmarshals an instance of ResCreateResourceGroup from the specified map of raw messages.
 func UnmarshalResCreateResourceGroup(m map[string]json.RawMessage, result interface{}) (err error) {
@@ -889,7 +923,7 @@ type ResourceGroup struct {
 	ID *string `json:"id,omitempty"`
 
 	// The full CRN (cloud resource name) associated with the resource group. For more on this format, see [Cloud Resource
-	// Names](https://cloud.ibm.com/docs/resources?topic=resources-crn).
+	// Names](https://cloud.ibm.com/docs/account?topic=account-crn).
 	CRN *string `json:"crn,omitempty"`
 
 	// An alpha-numeric value identifying the account ID.
@@ -925,7 +959,6 @@ type ResourceGroup struct {
 	// The date when the resource group was last updated.
 	UpdatedAt *strfmt.DateTime `json:"updated_at,omitempty"`
 }
-
 
 // UnmarshalResourceGroup unmarshals an instance of ResourceGroup from the specified map of raw messages.
 func UnmarshalResourceGroup(m map[string]json.RawMessage, result interface{}) (err error) {
@@ -992,7 +1025,6 @@ type ResourceGroupList struct {
 	Resources []ResourceGroup `json:"resources" validate:"required"`
 }
 
-
 // UnmarshalResourceGroupList unmarshals an instance of ResourceGroupList from the specified map of raw messages.
 func UnmarshalResourceGroupList(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(ResourceGroupList)
@@ -1013,13 +1045,12 @@ type ResourceQuota struct {
 	ResourceID *string `json:"resource_id,omitempty"`
 
 	// The full CRN (cloud resource name) associated with the quota. For more on this format, see
-	// https://cloud.ibm.com/docs/resources?topic=resources-crn#crn.
+	// https://cloud.ibm.com/docs/account?topic=account-crn.
 	CRN *string `json:"crn,omitempty"`
 
 	// The limit number of this resource.
 	Limit *float64 `json:"limit,omitempty"`
 }
-
 
 // UnmarshalResourceQuota unmarshals an instance of ResourceQuota from the specified map of raw messages.
 func UnmarshalResourceQuota(m map[string]json.RawMessage, result interface{}) (err error) {
@@ -1047,13 +1078,13 @@ func UnmarshalResourceQuota(m map[string]json.RawMessage, result interface{}) (e
 // UpdateResourceGroupOptions : The UpdateResourceGroup options.
 type UpdateResourceGroupOptions struct {
 	// The short or long ID of the alias.
-	ID *string `json:"id" validate:"required,ne="`
+	ID *string `validate:"required,ne="`
 
 	// The new name of the resource group.
-	Name *string `json:"name,omitempty"`
+	Name *string
 
 	// The state of the resource group.
-	State *string `json:"state,omitempty"`
+	State *string
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
