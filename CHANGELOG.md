@@ -1,3 +1,10 @@
+## [0.17.18](https://github.com/IBM/platform-services-go-sdk/compare/v0.17.17...v0.17.18) (2021-03-18)
+
+
+### Bug Fixes
+
+* **Resource Manager:** update service after recent API changes and generate examples ([#92](https://github.com/IBM/platform-services-go-sdk/issues/92)) ([a049b18](https://github.com/IBM/platform-services-go-sdk/commit/a049b184d4cdc280497f6460680abdc83dea694d))
+
 ## [0.17.17](https://github.com/IBM/platform-services-go-sdk/compare/v0.17.16...v0.17.17) (2021-03-11)
 
 
