@@ -235,6 +235,32 @@ var _ = Describe("IAM Policy Management - Integration Tests", func() {
 			Expect(policy.Roles[0].RoleID).To(Equal(options.Roles[0].RoleID))
 			Expect(policy.Resources).To(Equal(options.Resources))
 
+			testPolicyETag = detailedResponse.GetHeaders().Get(etagHeader)
+
+		})
+	})
+
+	Describe("Patch an access policy", func() {
+
+		It("Successfully patched an access policy", func() {
+			shouldSkipTest()
+			Expect(testPolicyId).To(Not(BeNil()))
+			Expect(testPolicyETag).To(Not(BeNil()))
+
+			// Construct an instance of the PatchPolicyOptions model
+			options := new(iampolicymanagementv1.PatchPolicyOptions)
+			options.PolicyID = core.StringPtr(testPolicyId)
+			options.IfMatch = core.StringPtr(testPolicyETag)
+			options.State = core.StringPtr("active")
+
+			policy, detailedResponse, err := service.PatchPolicy(options)
+			Expect(err).To(BeNil())
+			Expect(detailedResponse.StatusCode).To(Equal(200))
+			Expect(policy).ToNot(BeNil())
+			fmt.Fprintf(GinkgoWriter, "PatchPolicy() result:\n%s\n", common.ToJSON(policy))
+			Expect(*policy.ID).To(Equal(testPolicyId))
+			Expect(policy.State).To(Equal(options.State))
+
 		})
 	})
 

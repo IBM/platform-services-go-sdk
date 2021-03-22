@@ -15,9 +15,8 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-9b90c5f5-20210129-120415
+ * IBM OpenAPI SDK Code Generator Version: 3.29.1-b338fb38-20210313-010605
  */
- 
 
 // Package iampolicymanagementv1 : Operations and models for the IamPolicyManagementV1 service
 package iampolicymanagementv1
@@ -163,9 +162,9 @@ func (iamPolicyManagement *IamPolicyManagementV1) DisableRetries() {
 // ListPolicies : Get policies by attributes
 // Get policies and filter by attributes. While managing policies, you may want to retrieve policies in the account and
 // filter by attribute values. This can be done through query parameters. Currently, only the following attributes are
-// supported: account_id, iam_id, access_group_id, type, service_type, sort and format. account_id is a required query
-// parameter. Only policies that have the specified attributes and that the caller has read access to are returned. If
-// the caller does not have read access to any policies an empty array is returned.
+// supported: account_id, iam_id, access_group_id, type, service_type, sort, format and state. account_id is a required
+// query parameter. Only policies that have the specified attributes and that the caller has read access to are
+// returned. If the caller does not have read access to any policies an empty array is returned.
 func (iamPolicyManagement *IamPolicyManagementV1) ListPolicies(listPoliciesOptions *ListPoliciesOptions) (result *PolicyList, response *core.DetailedResponse, err error) {
 	return iamPolicyManagement.ListPoliciesWithContext(context.Background(), listPoliciesOptions)
 }
@@ -227,6 +226,9 @@ func (iamPolicyManagement *IamPolicyManagementV1) ListPoliciesWithContext(ctx co
 	if listPoliciesOptions.Format != nil {
 		builder.AddQuery("format", fmt.Sprint(*listPoliciesOptions.Format))
 	}
+	if listPoliciesOptions.State != nil {
+		builder.AddQuery("state", fmt.Sprint(*listPoliciesOptions.State))
+	}
 
 	request, err := builder.Build()
 	if err != nil {
@@ -252,17 +254,23 @@ func (iamPolicyManagement *IamPolicyManagementV1) ListPoliciesWithContext(ctx co
 // **authorization**. A policy administrator might want to create an access policy which grants access to a user,
 // service-id, or an access group. They might also want to create an authorization policy and setup access between
 // services.
-// ### Access To create an access policy, use **`"type": "access"`** in the body. The possible subject attributes are
-// **`iam_id`** and **`access_group_id`**. Use the **`iam_id`** subject attribute for assigning access for a user or
-// service-id. Use the **`access_group_id`** subject attribute for assigning access for an access group. The roles must
-// be a subset of a service's or the platform's supported roles. The resource attributes must be a subset of a service's
-// or the platform's supported attributes. The policy resource must include either the **`serviceType`**,
-// **`serviceName`**,  or **`resourceGroupId`** attribute and the **`accountId`** attribute.` If the subject is a locked
-// service-id, the request will fail.
-// ### Authorization Authorization policies are supported by services on a case by case basis. Refer to service
-// documentation to verify their support of authorization policies. To create an authorization policy, use **`"type":
-// "authorization"`** in the body. The subject attributes must match the supported authorization subjects of the
-// resource. Multiple subject attributes might be provided. The following attributes are supported:
+//
+// ### Access
+//
+// To create an access policy, use **`"type": "access"`** in the body. The possible subject attributes are **`iam_id`**
+// and **`access_group_id`**. Use the **`iam_id`** subject attribute for assigning access for a user or service-id. Use
+// the **`access_group_id`** subject attribute for assigning access for an access group. The roles must be a subset of a
+// service's or the platform's supported roles. The resource attributes must be a subset of a service's or the
+// platform's supported attributes. The policy resource must include either the **`serviceType`**, **`serviceName`**,
+// or **`resourceGroupId`** attribute and the **`accountId`** attribute.` If the subject is a locked service-id, the
+// request will fail.
+//
+// ### Authorization
+//
+// Authorization policies are supported by services on a case by case basis. Refer to service documentation to verify
+// their support of authorization policies. To create an authorization policy, use **`"type": "authorization"`** in the
+// body. The subject attributes must match the supported authorization subjects of the resource. Multiple subject
+// attributes might be provided. The following attributes are supported:
 //   serviceName, serviceInstance, region, resourceType, resource, accountId The policy roles must be a subset of the
 // supported authorization roles supported by the target service. The user must also have the same level of access or
 // greater to the target resource in order to grant the role. The resource attributes must be a subset of a service's or
@@ -348,16 +356,22 @@ func (iamPolicyManagement *IamPolicyManagementV1) CreatePolicyWithContext(ctx co
 // UpdatePolicy : Update a policy
 // Update a policy to grant access between a subject and a resource. A policy administrator might want to update an
 // existing policy. The policy type cannot be changed (You cannot change an access policy to an authorization policy).
-// ### Access To update an access policy, use **`"type": "access"`** in the body. The possible subject attributes are
-// **`iam_id`** and **`access_group_id`**. Use the **`iam_id`** subject attribute for assigning access for a user or
-// service-id. Use the **`access_group_id`** subject attribute for assigning access for an access group. The roles must
-// be a subset of a service's or the platform's supported roles. The resource attributes must be a subset of a service's
-// or the platform's supported attributes. The policy resource must include either the **`serviceType`**,
-// **`serviceName`**,  or **`resourceGroupId`** attribute and the **`accountId`** attribute.` If the subject is a locked
-// service-id, the request will fail.
-// ### Authorization To update an authorization policy, use **`"type": "authorization"`** in the body. The subject
-// attributes must match the supported authorization subjects of the resource. Multiple subject attributes might be
-// provided. The following attributes are supported:
+//
+// ### Access
+//
+// To update an access policy, use **`"type": "access"`** in the body. The possible subject attributes are **`iam_id`**
+// and **`access_group_id`**. Use the **`iam_id`** subject attribute for assigning access for a user or service-id. Use
+// the **`access_group_id`** subject attribute for assigning access for an access group. The roles must be a subset of a
+// service's or the platform's supported roles. The resource attributes must be a subset of a service's or the
+// platform's supported attributes. The policy resource must include either the **`serviceType`**, **`serviceName`**,
+// or **`resourceGroupId`** attribute and the **`accountId`** attribute.` If the subject is a locked service-id, the
+// request will fail.
+//
+// ### Authorization
+//
+// To update an authorization policy, use **`"type": "authorization"`** in the body. The subject attributes must match
+// the supported authorization subjects of the resource. Multiple subject attributes might be provided. The following
+// attributes are supported:
 //   serviceName, serviceInstance, region, resourceType, resource, accountId The policy roles must be a subset of the
 // supported authorization roles supported by the target service. The user must also have the same level of access or
 // greater to the target resource in order to grant the role. The resource attributes must be a subset of a service's or
@@ -547,6 +561,78 @@ func (iamPolicyManagement *IamPolicyManagementV1) DeletePolicyWithContext(ctx co
 	}
 
 	response, err = iamPolicyManagement.Service.Request(request, nil)
+
+	return
+}
+
+// PatchPolicy : Restore a deleted policy by ID
+// Restore a policy that has recently been deleted. A policy administrator might want to restore a deleted policy. To
+// restore a policy, use **`"state": "active"`** in the body.
+func (iamPolicyManagement *IamPolicyManagementV1) PatchPolicy(patchPolicyOptions *PatchPolicyOptions) (result *Policy, response *core.DetailedResponse, err error) {
+	return iamPolicyManagement.PatchPolicyWithContext(context.Background(), patchPolicyOptions)
+}
+
+// PatchPolicyWithContext is an alternate form of the PatchPolicy method which supports a Context parameter
+func (iamPolicyManagement *IamPolicyManagementV1) PatchPolicyWithContext(ctx context.Context, patchPolicyOptions *PatchPolicyOptions) (result *Policy, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(patchPolicyOptions, "patchPolicyOptions cannot be nil")
+	if err != nil {
+		return
+	}
+	err = core.ValidateStruct(patchPolicyOptions, "patchPolicyOptions")
+	if err != nil {
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"policy_id": *patchPolicyOptions.PolicyID,
+	}
+
+	builder := core.NewRequestBuilder(core.PATCH)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = iamPolicyManagement.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(iamPolicyManagement.Service.Options.URL, `/v1/policies/{policy_id}`, pathParamsMap)
+	if err != nil {
+		return
+	}
+
+	for headerName, headerValue := range patchPolicyOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("iam_policy_management", "V1", "PatchPolicy")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Accept", "application/json")
+	builder.AddHeader("Content-Type", "application/json")
+	if patchPolicyOptions.IfMatch != nil {
+		builder.AddHeader("If-Match", fmt.Sprint(*patchPolicyOptions.IfMatch))
+	}
+
+	body := make(map[string]interface{})
+	if patchPolicyOptions.State != nil {
+		body["state"] = patchPolicyOptions.State
+	}
+	_, err = builder.SetBodyContentJSON(body)
+	if err != nil {
+		return
+	}
+
+	request, err := builder.Build()
+	if err != nil {
+		return
+	}
+
+	var rawResponse map[string]json.RawMessage
+	response, err = iamPolicyManagement.Service.Request(request, &rawResponse)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalPolicy)
+	if err != nil {
+		return
+	}
+	response.Result = result
 
 	return
 }
@@ -1189,6 +1275,9 @@ type ListPoliciesOptions struct {
 	// Include additional data per policy returned [include_last_permit, display].
 	Format *string
 
+	// The state of the policy, 'active' or 'deleted'.
+	State *string
+
 	// Allows users to set headers on API requests
 	Headers map[string]string
 }
@@ -1260,6 +1349,12 @@ func (options *ListPoliciesOptions) SetFormat(format string) *ListPoliciesOption
 	return options
 }
 
+// SetState : Allow user to set State
+func (options *ListPoliciesOptions) SetState(state string) *ListPoliciesOptions {
+	options.State = core.StringPtr(state)
+	return options
+}
+
 // SetHeaders : Allow user to set Headers
 func (options *ListPoliciesOptions) SetHeaders(param map[string]string) *ListPoliciesOptions {
 	options.Headers = param
@@ -1306,6 +1401,54 @@ func (options *ListRolesOptions) SetServiceName(serviceName string) *ListRolesOp
 
 // SetHeaders : Allow user to set Headers
 func (options *ListRolesOptions) SetHeaders(param map[string]string) *ListRolesOptions {
+	options.Headers = param
+	return options
+}
+
+// PatchPolicyOptions : The PatchPolicy options.
+type PatchPolicyOptions struct {
+	// The policy ID.
+	PolicyID *string `validate:"required,ne="`
+
+	// The revision number for updating a policy and must match the ETag value of the existing policy. The Etag can be
+	// retrieved using the GET /v1/policies/{policy_id} API and looking at the ETag response header.
+	IfMatch *string `validate:"required"`
+
+	// The policy state; either 'active' or 'deleted'.
+	State *string
+
+	// Allows users to set headers on API requests
+	Headers map[string]string
+}
+
+// NewPatchPolicyOptions : Instantiate PatchPolicyOptions
+func (*IamPolicyManagementV1) NewPatchPolicyOptions(policyID string, ifMatch string) *PatchPolicyOptions {
+	return &PatchPolicyOptions{
+		PolicyID: core.StringPtr(policyID),
+		IfMatch: core.StringPtr(ifMatch),
+	}
+}
+
+// SetPolicyID : Allow user to set PolicyID
+func (options *PatchPolicyOptions) SetPolicyID(policyID string) *PatchPolicyOptions {
+	options.PolicyID = core.StringPtr(policyID)
+	return options
+}
+
+// SetIfMatch : Allow user to set IfMatch
+func (options *PatchPolicyOptions) SetIfMatch(ifMatch string) *PatchPolicyOptions {
+	options.IfMatch = core.StringPtr(ifMatch)
+	return options
+}
+
+// SetState : Allow user to set State
+func (options *PatchPolicyOptions) SetState(state string) *PatchPolicyOptions {
+	options.State = core.StringPtr(state)
+	return options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *PatchPolicyOptions) SetHeaders(param map[string]string) *PatchPolicyOptions {
 	options.Headers = param
 	return options
 }
@@ -1506,7 +1649,6 @@ type CustomRole struct {
 	Href *string `json:"href,omitempty"`
 }
 
-
 // UnmarshalCustomRole unmarshals an instance of CustomRole from the specified map of raw messages.
 func UnmarshalCustomRole(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(CustomRole)
@@ -1600,8 +1742,10 @@ type Policy struct {
 
 	// The iam ID of the entity that last modified the policy.
 	LastModifiedByID *string `json:"last_modified_by_id,omitempty"`
-}
 
+	// The policy state; either 'active' or 'deleted'.
+	State *string `json:"state,omitempty"`
+}
 
 // UnmarshalPolicy unmarshals an instance of Policy from the specified map of raw messages.
 func UnmarshalPolicy(m map[string]json.RawMessage, result interface{}) (err error) {
@@ -1650,6 +1794,10 @@ func UnmarshalPolicy(m map[string]json.RawMessage, result interface{}) (err erro
 	if err != nil {
 		return
 	}
+	err = core.UnmarshalPrimitive(m, "state", &obj.State)
+	if err != nil {
+		return
+	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
 	return
 }
@@ -1659,7 +1807,6 @@ type PolicyList struct {
 	// List of policies.
 	Policies []Policy `json:"policies,omitempty"`
 }
-
 
 // UnmarshalPolicyList unmarshals an instance of PolicyList from the specified map of raw messages.
 func UnmarshalPolicyList(m map[string]json.RawMessage, result interface{}) (err error) {
@@ -1680,7 +1827,6 @@ type PolicyResource struct {
 	// List of access management tags.
 	Tags []ResourceTag `json:"tags,omitempty"`
 }
-
 
 // UnmarshalPolicyResource unmarshals an instance of PolicyResource from the specified map of raw messages.
 func UnmarshalPolicyResource(m map[string]json.RawMessage, result interface{}) (err error) {
@@ -1708,7 +1854,6 @@ type PolicyRole struct {
 	// The description of the role.
 	Description *string `json:"description,omitempty"`
 }
-
 
 // NewPolicyRole : Instantiate PolicyRole (Generic Model Constructor)
 func (*IamPolicyManagementV1) NewPolicyRole(roleID string) (model *PolicyRole, err error) {
@@ -1744,7 +1889,6 @@ type PolicySubject struct {
 	Attributes []SubjectAttribute `json:"attributes,omitempty"`
 }
 
-
 // UnmarshalPolicySubject unmarshals an instance of PolicySubject from the specified map of raw messages.
 func UnmarshalPolicySubject(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(PolicySubject)
@@ -1767,7 +1911,6 @@ type ResourceAttribute struct {
 	// The operator of an attribute.
 	Operator *string `json:"operator,omitempty"`
 }
-
 
 // NewResourceAttribute : Instantiate ResourceAttribute (Generic Model Constructor)
 func (*IamPolicyManagementV1) NewResourceAttribute(name string, value string) (model *ResourceAttribute, err error) {
@@ -1809,7 +1952,6 @@ type ResourceTag struct {
 	// The operator of an access management tag.
 	Operator *string `json:"operator,omitempty"`
 }
-
 
 // NewResourceTag : Instantiate ResourceTag (Generic Model Constructor)
 func (*IamPolicyManagementV1) NewResourceTag(name string, value string) (model *ResourceTag, err error) {
@@ -1855,7 +1997,6 @@ type Role struct {
 	CRN *string `json:"crn,omitempty"`
 }
 
-
 // UnmarshalRole unmarshals an instance of Role from the specified map of raw messages.
 func UnmarshalRole(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(Role)
@@ -1891,7 +2032,6 @@ type RoleList struct {
 	SystemRoles []Role `json:"system_roles,omitempty"`
 }
 
-
 // UnmarshalRoleList unmarshals an instance of RoleList from the specified map of raw messages.
 func UnmarshalRoleList(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(RoleList)
@@ -1919,7 +2059,6 @@ type SubjectAttribute struct {
 	// The value of an attribute.
 	Value *string `json:"value" validate:"required"`
 }
-
 
 // NewSubjectAttribute : Instantiate SubjectAttribute (Generic Model Constructor)
 func (*IamPolicyManagementV1) NewSubjectAttribute(name string, value string) (model *SubjectAttribute, err error) {

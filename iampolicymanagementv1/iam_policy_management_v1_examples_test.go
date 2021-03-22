@@ -249,6 +249,31 @@ var _ = Describe(`IamPolicyManagementV1 Examples Tests`, func() {
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(policy).ToNot(BeNil())
 
+			examplePolicyETag = response.GetHeaders().Get("ETag")
+		})
+		It(`PatchPolicy request example`, func() {
+			// begin-patch_policy
+
+			options := iamPolicyManagementService.NewPatchPolicyOptions(
+				examplePolicyID,
+				examplePolicyETag,
+			)
+
+			options.SetState("active")
+
+			policy, response, err := iamPolicyManagementService.PatchPolicy(options)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(policy, "", "  ")
+			fmt.Println(string(b))
+
+			// end-patch_policy
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(policy).ToNot(BeNil())
+
 		})
 		It(`ListPolicies request example`, func() {
 			// begin-list_policies
