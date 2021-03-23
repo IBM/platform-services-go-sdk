@@ -25,8 +25,6 @@ import (
 
 	"github.com/IBM/go-sdk-core/v5/core"
 	"github.com/IBM/platform-services-go-sdk/resourcemanagerv2"
-	. "github.com/onsi/ginkgo"
-	. "github.com/onsi/gomega"
 )
 
 //
@@ -147,7 +145,7 @@ var _ = Describe(`ResourceManagerV2 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(resCreateResourceGroup, "", "  ")
-			fmt.Println(string(b))
+			fmt.Printf("\nCreateResourceGroup() result:\n %s \n", string(b))
 
 			// end-create_resource_group
 
@@ -171,7 +169,7 @@ var _ = Describe(`ResourceManagerV2 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(resourceGroup, "", "  ")
-			fmt.Println(string(b))
+			fmt.Printf("\nGetResourceGroup() result:\n %s \n", string(b))
 
 			// end-get_resource_group
 
@@ -195,7 +193,7 @@ var _ = Describe(`ResourceManagerV2 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(resourceGroup, "", "  ")
-			fmt.Println(string(b))
+			fmt.Printf("\nUpdateResourceGroup() result:\n %s \n", string(b))
 
 			// end-update_resource_group
 
@@ -217,7 +215,7 @@ var _ = Describe(`ResourceManagerV2 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(resourceGroupList, "", "  ")
-			fmt.Println(string(b))
+			fmt.Printf("\nListResourceGroups() result:\n %s \n", string(b))
 
 			// end-list_resource_groups
 
@@ -238,6 +236,7 @@ var _ = Describe(`ResourceManagerV2 Examples Tests`, func() {
 			if err != nil {
 				panic(err)
 			}
+			fmt.Println("\nDeleteResourceGroup() is executed successfully.")
 
 			// end-delete_resource_group
 
@@ -258,7 +257,7 @@ var _ = Describe(`ResourceManagerV2 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(quotaDefinition, "", "  ")
-			fmt.Println(string(b))
+			fmt.Printf("\nGetQuotaDefinition() result:\n %s \n", string(b))
 
 			// end-get_quota_definition
 
@@ -276,7 +275,7 @@ var _ = Describe(`ResourceManagerV2 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(quotaDefinitionList, "", "  ")
-			fmt.Println(string(b))
+			fmt.Printf("\nListQuotaDefinitions() result:\n %s \n", string(b))
 
 			// end-list_quota_definitions
 
