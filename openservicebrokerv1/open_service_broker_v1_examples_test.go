@@ -25,8 +25,6 @@ import (
 
 	"github.com/IBM/go-sdk-core/v4/core"
 	"github.com/IBM/platform-services-go-sdk/openservicebrokerv1"
-	. "github.com/onsi/ginkgo"
-	. "github.com/onsi/gomega"
 )
 
 //
@@ -159,7 +157,7 @@ var _ = Describe(`OpenServiceBrokerV1 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(result, "", "  ")
-			fmt.Println(string(b))
+			fmt.Printf("\nGetServiceInstanceState() result:\n %s \n", string(b))
 
 			// end-get_service_instance_state
 
@@ -182,7 +180,7 @@ var _ = Describe(`OpenServiceBrokerV1 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(result, "", "  ")
-			fmt.Println(string(b))
+			fmt.Printf("\nReplaceServiceInstanceState() result:\n %s \n", string(b))
 
 			// end-replace_service_instance_state
 
@@ -218,7 +216,7 @@ var _ = Describe(`OpenServiceBrokerV1 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(result, "", "  ")
-			fmt.Println(string(b))
+			fmt.Printf("\nReplaceServiceInstance() result:\n %s \n", string(b))
 
 			// end-replace_service_instance
 
@@ -256,7 +254,7 @@ var _ = Describe(`OpenServiceBrokerV1 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(result, "", "  ")
-			fmt.Println(string(b))
+			fmt.Printf("\nUpdateServiceInstance() result:\n %s \n", string(b))
 
 			// end-update_service_instance
 
@@ -275,7 +273,7 @@ var _ = Describe(`OpenServiceBrokerV1 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(result, "", "  ")
-			fmt.Println(string(b))
+			fmt.Printf("\nListCatalog() result:\n %s \n", string(b))
 
 			// end-list_catalog
 
@@ -299,7 +297,7 @@ var _ = Describe(`OpenServiceBrokerV1 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(result, "", "  ")
-			fmt.Println(string(b))
+			fmt.Printf("\nGetLastOperation() result:\n %s \n", string(b))
 
 			// end-get_last_operation
 
@@ -333,7 +331,7 @@ var _ = Describe(`OpenServiceBrokerV1 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(result, "", "  ")
-			fmt.Println(string(b))
+			fmt.Printf("\nReplaceServiceBinding() result:\n %s \n", string(b))
 
 			// end-replace_service_binding
 
@@ -356,7 +354,7 @@ var _ = Describe(`OpenServiceBrokerV1 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(result, "", "  ")
-			fmt.Println(string(b))
+			fmt.Printf("\nDeleteServiceInstance() result:\n %s \n", string(b))
 
 			// end-delete_service_instance
 
@@ -379,6 +377,7 @@ var _ = Describe(`OpenServiceBrokerV1 Examples Tests`, func() {
 			if err != nil {
 				panic(err)
 			}
+			fmt.Println("\nDeleteServiceBinding() is executed successfully.")
 
 			// end-delete_service_binding
 
