@@ -25,8 +25,6 @@ import (
 
 	"github.com/IBM/go-sdk-core/v4/core"
 	"github.com/IBM/platform-services-go-sdk/usagereportsv4"
-	. "github.com/onsi/ginkgo"
-	. "github.com/onsi/gomega"
 )
 
 //
@@ -136,7 +134,7 @@ var _ = Describe(`UsageReportsV4 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(accountSummary, "", "  ")
-			fmt.Println(string(b))
+			fmt.Printf("\nGetAccountSummary() result:\n %s \n", string(b))
 
 			// end-get_account_summary
 
@@ -157,7 +155,7 @@ var _ = Describe(`UsageReportsV4 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(accountUsage, "", "  ")
-			fmt.Println(string(b))
+			fmt.Printf("\nGetAccountUsage() result:\n %s \n", string(b))
 
 			// end-get_account_usage
 
@@ -179,7 +177,7 @@ var _ = Describe(`UsageReportsV4 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(resourceGroupUsage, "", "  ")
-			fmt.Println(string(b))
+			fmt.Printf("\nGetResourceGroupUsage() result:\n %s \n", string(b))
 
 			// end-get_resource_group_usage
 
@@ -201,7 +199,7 @@ var _ = Describe(`UsageReportsV4 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(orgUsage, "", "  ")
-			fmt.Println(string(b))
+			fmt.Printf("\nGetOrgUsage() result:\n %s \n", string(b))
 
 			// end-get_org_usage
 
@@ -222,7 +220,7 @@ var _ = Describe(`UsageReportsV4 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(instancesUsage, "", "  ")
-			fmt.Println(string(b))
+			fmt.Printf("\nGetResourceUsageAccount() result:\n %s \n", string(b))
 
 			// end-get_resource_usage_account
 
@@ -244,7 +242,7 @@ var _ = Describe(`UsageReportsV4 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(instancesUsage, "", "  ")
-			fmt.Println(string(b))
+			fmt.Printf("\nGetResourceUsageResourceGroup() result:\n %s \n", string(b))
 
 			// end-get_resource_usage_resource_group
 
@@ -266,7 +264,7 @@ var _ = Describe(`UsageReportsV4 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(instancesUsage, "", "  ")
-			fmt.Println(string(b))
+			fmt.Printf("\nGetResourceUsageOrg() result:\n %s \n", string(b))
 
 			// end-get_resource_usage_org
 
