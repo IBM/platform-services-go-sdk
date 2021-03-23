@@ -26,8 +26,6 @@ import (
 
 	"github.com/IBM/go-sdk-core/v5/core"
 	"github.com/IBM/platform-services-go-sdk/resourcecontrollerv2"
-	. "github.com/onsi/ginkgo"
-	. "github.com/onsi/gomega"
 )
 
 //
@@ -160,7 +158,7 @@ var _ = Describe(`ResourceControllerV2 Examples Tests`, func() {
 			}
 
 			b, _ := json.MarshalIndent(resourceInstance, "", "  ")
-			fmt.Printf("\nCreateResourceInstance() response:\n%s\n", string(b))
+			fmt.Printf("\nCreateResourceInstance() response:\n %s \n", string(b))
 
 			// end-create_resource_instance
 
@@ -182,7 +180,7 @@ var _ = Describe(`ResourceControllerV2 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(resourceInstance, "", "  ")
-			fmt.Printf("\nGetResourceInstance() response:\n%s\n", string(b))
+			fmt.Printf("\nGetResourceInstance() response:\n %s \n", string(b))
 
 			// end-get_resource_instance
 
@@ -201,7 +199,7 @@ var _ = Describe(`ResourceControllerV2 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(resourceInstancesList, "", "  ")
-			fmt.Printf("\nListResourceInstances() response:\n%s\n", string(b))
+			fmt.Printf("\nListResourceInstances() response:\n %s \n", string(b))
 
 			// end-list_resource_instances
 
@@ -224,7 +222,7 @@ var _ = Describe(`ResourceControllerV2 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(resourceInstance, "", "  ")
-			fmt.Printf("\nUpdateResourceInstance() response:\n%s\n", string(b))
+			fmt.Printf("\nUpdateResourceInstance() response:\n %s \n", string(b))
 
 			// end-update_resource_instance
 
@@ -246,7 +244,7 @@ var _ = Describe(`ResourceControllerV2 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(resourceAlias, "", "  ")
-			fmt.Printf("\nCreateResourceAlias() response:\n%s\n", string(b))
+			fmt.Printf("\nCreateResourceAlias() response:\n %s \n", string(b))
 
 			// end-create_resource_alias
 
@@ -268,7 +266,7 @@ var _ = Describe(`ResourceControllerV2 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(resourceAlias, "", "  ")
-			fmt.Printf("\nGetResourceAlias() response:\n%s\n", string(b))
+			fmt.Printf("\nGetResourceAlias() response:\n %s \n", string(b))
 
 			// end-get_resource_alias
 
@@ -287,7 +285,7 @@ var _ = Describe(`ResourceControllerV2 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(resourceAliasesList, "", "  ")
-			fmt.Printf("\nListResourceAliases() response:\n%s\n", string(b))
+			fmt.Printf("\nListResourceAliases() response:\n %s \n", string(b))
 
 			// end-list_resource_aliases
 
@@ -308,7 +306,7 @@ var _ = Describe(`ResourceControllerV2 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(resourceAlias, "", "  ")
-			fmt.Printf("\nUpdateResourceAlias() response:\n%s\n", string(b))
+			fmt.Printf("\nUpdateResourceAlias() response:\n %s \n", string(b))
 
 			// end-update_resource_alias
 
@@ -328,7 +326,7 @@ var _ = Describe(`ResourceControllerV2 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(resourceAliasesList, "", "  ")
-			fmt.Printf("\nListResourceAliasesForInstance() response:\n%s\n", string(b))
+			fmt.Printf("\nListResourceAliasesForInstance() response:\n %s \n", string(b))
 
 			// end-list_resource_aliases_for_instance
 
@@ -354,7 +352,7 @@ var _ = Describe(`ResourceControllerV2 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(resourceBinding, "", "  ")
-			fmt.Printf("\nCreateResourceBinding() response:\n%s\n", string(b))
+			fmt.Printf("\nCreateResourceBinding() response:\n %s \n", string(b))
 
 			// end-create_resource_binding
 
@@ -376,7 +374,7 @@ var _ = Describe(`ResourceControllerV2 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(resourceBinding, "", "  ")
-			fmt.Printf("\nGetResourceBinding() response:\n%s\n", string(b))
+			fmt.Printf("\nGetResourceBinding() response:\n %s \n", string(b))
 
 			// end-get_resource_binding
 
@@ -395,7 +393,7 @@ var _ = Describe(`ResourceControllerV2 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(resourceBindingsList, "", "  ")
-			fmt.Printf("\nListResourceBindings() response:\n%s\n", string(b))
+			fmt.Printf("\nListResourceBindings() response:\n %s \n", string(b))
 
 			// end-list_resource_bindings
 
@@ -416,7 +414,7 @@ var _ = Describe(`ResourceControllerV2 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(resourceBinding, "", "  ")
-			fmt.Printf("\nUpdateResourceBinding() response:\n%s\n", string(b))
+			fmt.Printf("\nUpdateResourceBinding() response:\n %s \n", string(b))
 
 			// end-update_resource_binding
 
@@ -436,7 +434,7 @@ var _ = Describe(`ResourceControllerV2 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(resourceBindingsList, "", "  ")
-			fmt.Printf("\nListResourceBindingsForAlias() response:\n%s\n", string(b))
+			fmt.Printf("\nListResourceBindingsForAlias() response:\n %s \n", string(b))
 
 			// end-list_resource_bindings_for_alias
 
@@ -461,7 +459,7 @@ var _ = Describe(`ResourceControllerV2 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(resourceKey, "", "  ")
-			fmt.Printf("\nCreateResourceKey() response:\n%s\n", string(b))
+			fmt.Printf("\nCreateResourceKey() response:\n %s \n", string(b))
 
 			// end-create_resource_key
 
@@ -483,7 +481,7 @@ var _ = Describe(`ResourceControllerV2 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(resourceKey, "", "  ")
-			fmt.Printf("\nGetResourceKey() response:\n%s\n", string(b))
+			fmt.Printf("\nGetResourceKey() response:\n %s \n", string(b))
 
 			// end-get_resource_key
 
@@ -502,7 +500,7 @@ var _ = Describe(`ResourceControllerV2 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(resourceKeysList, "", "  ")
-			fmt.Printf("\nListResourceKeys() response:\n%s\n", string(b))
+			fmt.Printf("\nListResourceKeys() response:\n %s \n", string(b))
 
 			// end-list_resource_keys
 
@@ -523,7 +521,7 @@ var _ = Describe(`ResourceControllerV2 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(resourceKey, "", "  ")
-			fmt.Printf("\nUpdateResourceKey() response:\n%s\n", string(b))
+			fmt.Printf("\nUpdateResourceKey() response:\n %s \n", string(b))
 
 			// end-update_resource_key
 
@@ -543,7 +541,7 @@ var _ = Describe(`ResourceControllerV2 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(resourceKeysList, "", "  ")
-			fmt.Printf("\nListResourceKeysForInstance() response:\n%s\n", string(b))
+			fmt.Printf("\nListResourceKeysForInstance() response:\n %s \n", string(b))
 
 			// end-list_resource_keys_for_instance
 
@@ -618,7 +616,7 @@ var _ = Describe(`ResourceControllerV2 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(resourceInstance, "", "  ")
-			fmt.Printf("\nLockResourceInstance() response:\n%s\n", string(b))
+			fmt.Printf("\nLockResourceInstance() response:\n %s \n", string(b))
 
 			// end-lock_resource_instance
 
@@ -638,7 +636,7 @@ var _ = Describe(`ResourceControllerV2 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(resourceInstance, "", "  ")
-			fmt.Printf("\nUnlockResourceInstance() response:\n%s\n", string(b))
+			fmt.Printf("\nUnlockResourceInstance() response:\n %s \n", string(b))
 
 			// end-unlock_resource_instance
 
@@ -677,7 +675,7 @@ var _ = Describe(`ResourceControllerV2 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(reclamationsList, "", "  ")
-			fmt.Printf("\nListReclamations() response:\n%s\n", string(b))
+			fmt.Printf("\nListReclamations() response:\n %s \n", string(b))
 
 			// end-list_reclamations
 
@@ -704,7 +702,7 @@ var _ = Describe(`ResourceControllerV2 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(reclamation, "", "  ")
-			fmt.Printf("\nRunReclamationAction() response:\n%s\n", string(b))
+			fmt.Printf("\nRunReclamationAction() response:\n %s \n", string(b))
 
 			// end-run_reclamation_action
 
