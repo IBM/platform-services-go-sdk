@@ -50,8 +50,10 @@ var _ = Describe(`PostureManagementV1 Integration Tests`, func() {
 		profileName string
 		scopesName  string
 
-		profileID *int64
-		scopeID   *int64
+		profileID *string
+		scopeID   *string
+
+		groupProfileID = "0"
 	)
 
 	var shouldSkipTest = func() {
@@ -105,18 +107,18 @@ var _ = Describe(`PostureManagementV1 Integration Tests`, func() {
 		})
 	})
 
-	Describe(`ListProfile - List profiles`, func() {
+	Describe(`ListProfiles - List profiles`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
 		})
-		It(`ListProfile(listProfileOptions *ListProfileOptions)`, func() {
+		It(`ListProfiles(listProfilesOptions *ListProfilesOptions)`, func() {
 
-			listProfileOptions := &posturemanagementv1.ListProfileOptions{
+			listProfilesOptions := &posturemanagementv1.ListProfilesOptions{
 				AccountID: core.StringPtr(accountID),
 				Name:      core.StringPtr(profileName),
 			}
 
-			profilesList, response, err := postureManagementService.ListProfile(listProfileOptions)
+			profilesList, response, err := postureManagementService.ListProfiles(listProfilesOptions)
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
@@ -147,24 +149,25 @@ var _ = Describe(`PostureManagementV1 Integration Tests`, func() {
 		})
 	})
 
-	Describe(`CreateValidationScan - Initiate a validation scan`, func() {
+	Describe(`CreateValidation - Initiate a validation`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
 		})
-		It(`CreateValidationScan(createValidationScanOptions *CreateValidationScanOptions)`, func() {
+		It(`CreateValidation(createValidationOptions *CreateValidationOptions)`, func() {
 			Expect(scopeID).ToNot(BeNil())
 			Expect(profileID).ToNot(BeNil())
 
-			createValidationScanOptions := &posturemanagementv1.CreateValidationScanOptions{
-				AccountID: core.StringPtr(accountID),
-				ScopeID:   scopeID,
-				ProfileID: profileID,
+			createValidationOptions := &posturemanagementv1.CreateValidationOptions{
+				AccountID:      core.StringPtr(accountID),
+				ScopeID:        scopeID,
+				ProfileID:      profileID,
+				GroupProfileID: core.StringPtr(groupProfileID),
 			}
 
-			result, response, err := postureManagementService.CreateValidationScan(createValidationScanOptions)
+			result, response, err := postureManagementService.CreateValidation(createValidationOptions)
 
 			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(200))
+			Expect(response.StatusCode).To(Equal(202))
 			Expect(result).ToNot(BeNil())
 
 		})

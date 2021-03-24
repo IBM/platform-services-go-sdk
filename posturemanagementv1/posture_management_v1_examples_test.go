@@ -56,8 +56,10 @@ var (
 	profileName string
 	scopesName  string
 
-	profileID int64
-	scopeID   int64
+	profileID string
+	scopeID   string
+
+	groupProfileID = "0"
 )
 
 func shouldSkipTest() {
@@ -121,22 +123,22 @@ var _ = Describe(`PostureManagementV1 Examples Tests`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
 		})
-		It(`ListProfile request example`, func() {
-			// begin-list_profile
+		It(`ListProfiles request example`, func() {
+			// begin-list_profiles
 
-			listProfileOptions := postureManagementService.NewListProfileOptions(
+			listProfilesOptions := postureManagementService.NewListProfilesOptions(
 				accountID,
 			)
-			listProfileOptions.SetName(profileName)
+			listProfilesOptions.SetName(profileName)
 
-			profilesList, response, err := postureManagementService.ListProfile(listProfileOptions)
+			profilesList, response, err := postureManagementService.ListProfiles(listProfilesOptions)
 			if err != nil {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(profilesList, "", "  ")
 			fmt.Println(string(b))
 
-			// end-list_profile
+			// end-list_profiles
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
@@ -167,26 +169,27 @@ var _ = Describe(`PostureManagementV1 Examples Tests`, func() {
 
 			scopeID = *scopesList.Scopes[0].ScopeID
 		})
-		It(`CreateValidationScan request example`, func() {
-			// begin-create_validation_scan
+		It(`CreateValidation request example`, func() {
+			// begin-create_validation
 
-			createValidationScanOptions := postureManagementService.NewCreateValidationScanOptions(
+			createValidationOptions := postureManagementService.NewCreateValidationOptions(
 				accountID,
 			)
-			createValidationScanOptions.SetProfileID(profileID)
-			createValidationScanOptions.SetScopeID(scopeID)
+			createValidationOptions.SetProfileID(profileID)
+			createValidationOptions.SetScopeID(scopeID)
+			createValidationOptions.SetGroupProfileID(groupProfileID)
 
-			result, response, err := postureManagementService.CreateValidationScan(createValidationScanOptions)
+			result, response, err := postureManagementService.CreateValidation(createValidationOptions)
 			if err != nil {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(result, "", "  ")
 			fmt.Println(string(b))
 
-			// end-create_validation_scan
+			// end-create_validation
 
 			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(200))
+			Expect(response.StatusCode).To(Equal(202))
 			Expect(result).ToNot(BeNil())
 
 		})
