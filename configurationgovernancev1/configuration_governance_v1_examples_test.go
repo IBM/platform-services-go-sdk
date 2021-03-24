@@ -26,6 +26,8 @@ import (
 	"github.com/IBM/go-sdk-core/v4/core"
 	"github.com/IBM/platform-services-go-sdk/configurationgovernancev1"
 	"github.com/google/uuid"
+	. "github.com/onsi/ginkgo"
+	. "github.com/onsi/gomega"
 )
 
 //
@@ -184,7 +186,7 @@ var _ = Describe(`ConfigurationGovernanceV1 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(createRulesResponse, "", "  ")
-			fmt.Printf("\nCreateRules() result:\n %s \n", string(b))
+			fmt.Printf("\nCreateRules() result:\n%s\n", string(b))
 
 			// end-create_rules
 
@@ -211,7 +213,7 @@ var _ = Describe(`ConfigurationGovernanceV1 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(ruleList, "", "  ")
-			fmt.Printf("\nListRules() result:\n %s \n", string(b))
+			fmt.Printf("\nListRules() result:\n%s\n", string(b))
 
 			// end-list_rules
 
@@ -233,7 +235,7 @@ var _ = Describe(`ConfigurationGovernanceV1 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(rule, "", "  ")
-			fmt.Printf("\nGetRule() result:\n %s \n", string(b))
+			fmt.Printf("\nGetRule() result:\n%s\n", string(b))
 
 			// end-get_rule
 
@@ -275,7 +277,7 @@ var _ = Describe(`ConfigurationGovernanceV1 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(rule, "", "  ")
-			fmt.Printf("\nUpdateRule() result:\n %s \n", string(b))
+			fmt.Printf("\nUpdateRule() result:\n%s\n", string(b))
 
 			// end-update_rule
 
@@ -318,7 +320,7 @@ var _ = Describe(`ConfigurationGovernanceV1 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(createAttachmentsResponse, "", "  ")
-			fmt.Printf("\nCreateAttachments() result:\n %s \n", string(b))
+			fmt.Printf("\nCreateAttachments() result:\n%s\n", string(b))
 
 			// end-create_attachments
 
@@ -346,7 +348,7 @@ var _ = Describe(`ConfigurationGovernanceV1 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(attachmentList, "", "  ")
-			fmt.Printf("\nListAttachments() result:\n %s \n", string(b))
+			fmt.Printf("\nListAttachments() result:\n%s\n", string(b))
 
 			// end-list_attachments
 
@@ -371,7 +373,7 @@ var _ = Describe(`ConfigurationGovernanceV1 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(attachment, "", "  ")
-			fmt.Printf("\nGetAttachment() result:\n %s \n", string(b))
+			fmt.Printf("\nGetAttachment() result:\n%s\n", string(b))
 
 			// end-get_attachment
 
@@ -415,7 +417,7 @@ var _ = Describe(`ConfigurationGovernanceV1 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(attachment, "", "  ")
-			fmt.Printf("UpdateAttachment() result:\n %s \n", string(b))
+			fmt.Printf("UpdateAttachment() result:\n%s\n", string(b))
 
 			// end-update_attachment
 
@@ -439,7 +441,7 @@ var _ = Describe(`ConfigurationGovernanceV1 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(response, "", "  ")
-			fmt.Printf("DeleteAttachment() response body:\n %s \n", string(b))
+			fmt.Printf("DeleteAttachment() response status code: %d\n", response.StatusCode)
 
 			// end-delete_attachment
 
@@ -458,7 +460,7 @@ var _ = Describe(`ConfigurationGovernanceV1 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(response, "", "  ")
-			fmt.Printf("DeleteRule() response body:\n %s \n", string(b))
+			fmt.Printf("DeleteRule() response status code: %d\n", response.StatusCode)
 
 			// end-delete_rule
 
