@@ -25,6 +25,8 @@ import (
 
 	"github.com/IBM/go-sdk-core/v4/core"
 	"github.com/IBM/platform-services-go-sdk/globaltaggingv1"
+	. "github.com/onsi/ginkgo"
+	. "github.com/onsi/gomega"
 )
 
 //
@@ -122,7 +124,7 @@ var _ = Describe(`GlobalTaggingV1 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(createTagResults, "", "  ")
-			fmt.Printf("\nCreateTag() result:\n %s \n", string(b))
+			fmt.Printf("\nCreateTag() result:\n%s\n", string(b))
 
 			// end-create_tag
 
@@ -145,7 +147,7 @@ var _ = Describe(`GlobalTaggingV1 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(tagList, "", "  ")
-			fmt.Printf("\nListTags() result:\n %s \n", string(b))
+			fmt.Printf("\nListTags() result:\n%s\n", string(b))
 
 			// end-list_tags
 
@@ -171,7 +173,7 @@ var _ = Describe(`GlobalTaggingV1 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(tagResults, "", "  ")
-			fmt.Printf("\nAttachTag() result:\n %s \n", string(b))
+			fmt.Printf("\nAttachTag() result:\n%s\n", string(b))
 
 			// end-attach_tag
 
@@ -198,7 +200,7 @@ var _ = Describe(`GlobalTaggingV1 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(tagResults, "", "  ")
-			fmt.Printf("\nDetachTag() result:\n %s \n", string(b))
+			fmt.Printf("\nDetachTag() result:\n%s\n", string(b))
 
 			// end-detach_tag
 
@@ -218,7 +220,7 @@ var _ = Describe(`GlobalTaggingV1 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(deleteTagResults, "", "  ")
-			fmt.Printf("\nDeleteTag() result:\n %s \n", string(b))
+			fmt.Printf("\nDeleteTag() result:\n%s\n", string(b))
 
 			// end-delete_tag
 
@@ -237,7 +239,7 @@ var _ = Describe(`GlobalTaggingV1 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(deleteTagsResult, "", "  ")
-			fmt.Printf("\nDeleteTagAll() result:\n %s \n", string(b))
+			fmt.Printf("\nDeleteTagAll() result:\n%s\n", string(b))
 
 			// end-delete_tag_all
 
