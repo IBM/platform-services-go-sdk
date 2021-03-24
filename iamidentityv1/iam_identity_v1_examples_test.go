@@ -25,6 +25,8 @@ import (
 
 	"github.com/IBM/go-sdk-core/v5/core"
 	"github.com/IBM/platform-services-go-sdk/iamidentityv1"
+	. "github.com/onsi/ginkgo"
+	. "github.com/onsi/gomega"
 )
 
 //
@@ -149,7 +151,7 @@ var _ = Describe(`IamIdentityV1 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(apiKey, "", "  ")
-			fmt.Printf("\nCreateAPIKey() result:\n %s \n", string(b))
+			fmt.Printf("\nCreateAPIKey() result:\n%s\n", string(b))
 			apikeyID = *apiKey.ID
 
 			// end-create_api_key
@@ -172,7 +174,7 @@ var _ = Describe(`IamIdentityV1 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(apiKeyList, "", "  ")
-			fmt.Printf("\nListAPIKeys() result:\n %s \n", string(b))
+			fmt.Printf("\nListAPIKeys() result:\n%s\n", string(b))
 
 			// end-list_api_keys
 
@@ -192,7 +194,7 @@ var _ = Describe(`IamIdentityV1 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(apiKey, "", "  ")
-			fmt.Printf("\nGetAPIKeysDetails() result:\n %s \n", string(b))
+			fmt.Printf("\nGetAPIKeysDetails() result:\n%s\n", string(b))
 
 			// end-get_api_keys_details
 
@@ -211,7 +213,7 @@ var _ = Describe(`IamIdentityV1 Examples Tests`, func() {
 			}
 			apikeyEtag = response.GetHeaders().Get("Etag")
 			b, _ := json.MarshalIndent(apiKey, "", "  ")
-			fmt.Printf("\nGetAPIKey() result:\n %s \n", string(b))
+			fmt.Printf("\nGetAPIKey() result:\n%s\n", string(b))
 
 			// end-get_api_key
 
@@ -231,7 +233,7 @@ var _ = Describe(`IamIdentityV1 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(apiKey, "", "  ")
-			fmt.Printf("\nUpdateAPIKey() result:\n %s \n", string(b))
+			fmt.Printf("\nUpdateAPIKey() result:\n%s\n", string(b))
 
 			// end-update_api_key
 
@@ -248,7 +250,7 @@ var _ = Describe(`IamIdentityV1 Examples Tests`, func() {
 			if err != nil {
 				panic(err)
 			}
-			fmt.Println("\nLockAPIKey() is executed successfully.")
+			fmt.Printf("\nLockAPIKey() response status code: %d\n", response.StatusCode)
 
 			// end-lock_api_key
 
@@ -264,7 +266,7 @@ var _ = Describe(`IamIdentityV1 Examples Tests`, func() {
 			if err != nil {
 				panic(err)
 			}
-			fmt.Println("\nUnlockAPIKey() is executed successfully.")
+			fmt.Printf("\nUnlockAPIKey() response status code: %d\n", response.StatusCode)
 
 			// end-unlock_api_key
 
@@ -280,7 +282,7 @@ var _ = Describe(`IamIdentityV1 Examples Tests`, func() {
 			if err != nil {
 				panic(err)
 			}
-			fmt.Println("\nDeleteAPIKey() is executed successfully.")
+			fmt.Printf("\nDeleteAPIKey() response status code: %d\n", response.StatusCode)
 
 			// end-delete_api_key
 
@@ -299,7 +301,7 @@ var _ = Describe(`IamIdentityV1 Examples Tests`, func() {
 			}
 			svcID = *serviceID.ID
 			b, _ := json.MarshalIndent(serviceID, "", "  ")
-			fmt.Printf("\nCreateServiceID() result:\n %s \n", string(b))
+			fmt.Printf("\nCreateServiceID() result:\n%s\n", string(b))
 
 			// end-create_service_id
 
@@ -319,7 +321,7 @@ var _ = Describe(`IamIdentityV1 Examples Tests`, func() {
 			}
 			svcIDEtag = response.GetHeaders().Get("Etag")
 			b, _ := json.MarshalIndent(serviceID, "", "  ")
-			fmt.Printf("\nGetServiceID() result:\n %s \n", string(b))
+			fmt.Printf("\nGetServiceID() result:\n%s\n", string(b))
 
 			// end-get_service_id
 
@@ -340,7 +342,7 @@ var _ = Describe(`IamIdentityV1 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(serviceIDList, "", "  ")
-			fmt.Printf("\nListServiceIds() result:\n %s \n", string(b))
+			fmt.Printf("\nListServiceIds() result:\n%s\n", string(b))
 
 			// end-list_service_ids
 
@@ -359,7 +361,7 @@ var _ = Describe(`IamIdentityV1 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(serviceID, "", "  ")
-			fmt.Printf("\nUpdateServiceID() result:\n %s \n", string(b))
+			fmt.Printf("\nUpdateServiceID() result:\n%s\n", string(b))
 
 			// end-update_service_id
 
@@ -376,7 +378,7 @@ var _ = Describe(`IamIdentityV1 Examples Tests`, func() {
 			if err != nil {
 				panic(err)
 			}
-			fmt.Println("\nLockServiceID() is executed successfully.")
+			fmt.Printf("\nLockServiceID() response status code: %d\n", response.StatusCode)
 
 			// end-lock_service_id
 
@@ -392,7 +394,7 @@ var _ = Describe(`IamIdentityV1 Examples Tests`, func() {
 			if err != nil {
 				panic(err)
 			}
-			fmt.Println("\nUnlockServiceID() is executed successfully.")
+			fmt.Printf("\nUnlockServiceID() response status code: %d\n", response.StatusCode)
 
 			// end-unlock_service_id
 
@@ -408,7 +410,7 @@ var _ = Describe(`IamIdentityV1 Examples Tests`, func() {
 			if err != nil {
 				panic(err)
 			}
-			fmt.Println("\nDeleteServiceID() is executed successfully.")
+			fmt.Printf("\nDeleteServiceID() response status code: %d\n", response.StatusCode)
 
 			// end-delete_service_id
 
@@ -425,7 +427,7 @@ var _ = Describe(`IamIdentityV1 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(accountSettingsResponse, "", "  ")
-			fmt.Printf("\nGetAccountSettings() result:\n %s \n", string(b))
+			fmt.Printf("\nGetAccountSettings() result:\n%s\n", string(b))
 
 			// end-getAccountSettings
 
@@ -454,7 +456,7 @@ var _ = Describe(`IamIdentityV1 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(accountSettingsResponse, "", "  ")
-			fmt.Printf("\nUpdateAccountSettings() result:\n %s \n", string(b))
+			fmt.Printf("\nUpdateAccountSettings() result:\n%s\n", string(b))
 
 			// end-updateAccountSettings
 
