@@ -26,6 +26,8 @@ import (
 
 	"github.com/IBM/go-sdk-core/v4/core"
 	"github.com/IBM/platform-services-go-sdk/usagemeteringv4"
+	. "github.com/onsi/ginkgo"
+	. "github.com/onsi/gomega"
 )
 
 //
@@ -152,7 +154,7 @@ var _ = Describe(`UsageMeteringV4 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(responseAccepted, "", "  ")
-			fmt.Printf("\nReportResourceUsage() result:\n %s \n", string(b))
+			fmt.Printf("\nReportResourceUsage() result:\n%s\n", string(b))
 
 			// end-report_resource_usage
 
