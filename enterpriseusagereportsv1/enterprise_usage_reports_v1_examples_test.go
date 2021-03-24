@@ -25,6 +25,8 @@ import (
 
 	"github.com/IBM/go-sdk-core/v4/core"
 	"github.com/IBM/platform-services-go-sdk/enterpriseusagereportsv1"
+	. "github.com/onsi/ginkgo"
+	. "github.com/onsi/gomega"
 )
 
 //
@@ -132,7 +134,7 @@ var _ = Describe(`EnterpriseUsageReportsV1 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(reports, "", "  ")
-			fmt.Printf("\nGetResourceUsageReport() result:\n %s \n", string(b))
+			fmt.Printf("\nGetResourceUsageReport() result:\n%s\n", string(b))
 
 			// end-get_resource_usage_report
 
