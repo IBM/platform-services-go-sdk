@@ -15,7 +15,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-e6cfc86e-20210308-121737
+ * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-b414353e-20210324-135924
  */
 
 // Package posturemanagementv1 : Operations and models for the PostureManagementV1 service
@@ -25,12 +25,12 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"github.com/IBM/go-sdk-core/v5/core"
+	common "github.com/IBM/platform-services-go-sdk/common"
+	"github.com/go-openapi/strfmt"
 	"net/http"
 	"reflect"
 	"time"
-
-	"github.com/IBM/go-sdk-core/v5/core"
-	common "github.com/IBM/platform-services-go-sdk/common"
 )
 
 // PostureManagementV1 : With IBM Cloud® Security and Compliance Center, you can embed checks into your every day
@@ -157,22 +157,22 @@ func (postureManagement *PostureManagementV1) DisableRetries() {
 	postureManagement.Service.DisableRetries()
 }
 
-// CreateValidationScan : Initiate a validation scan
-// Validation scans determine a specified scope's adherence to regulatory controls by validating the configuration of
+// CreateValidation : Initiate a validations scan
+// Validations scans determine a specified scope's adherence to regulatory controls by validating the configuration of
 // the resources in your scope to the attached profile. To initiate a scan, you must have configured a collector,
 // provided credentials, and completed both a fact collection and discovery scan. [Learn
 // more](/docs/security-compliance?topic=security-compliance-schedule-scan).
-func (postureManagement *PostureManagementV1) CreateValidationScan(createValidationScanOptions *CreateValidationScanOptions) (result *Result, response *core.DetailedResponse, err error) {
-	return postureManagement.CreateValidationScanWithContext(context.Background(), createValidationScanOptions)
+func (postureManagement *PostureManagementV1) CreateValidation(createValidationOptions *CreateValidationOptions) (result *Result, response *core.DetailedResponse, err error) {
+	return postureManagement.CreateValidationWithContext(context.Background(), createValidationOptions)
 }
 
-// CreateValidationScanWithContext is an alternate form of the CreateValidationScan method which supports a Context parameter
-func (postureManagement *PostureManagementV1) CreateValidationScanWithContext(ctx context.Context, createValidationScanOptions *CreateValidationScanOptions) (result *Result, response *core.DetailedResponse, err error) {
-	err = core.ValidateNotNil(createValidationScanOptions, "createValidationScanOptions cannot be nil")
+// CreateValidationWithContext is an alternate form of the CreateValidation method which supports a Context parameter
+func (postureManagement *PostureManagementV1) CreateValidationWithContext(ctx context.Context, createValidationOptions *CreateValidationOptions) (result *Result, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(createValidationOptions, "createValidationOptions cannot be nil")
 	if err != nil {
 		return
 	}
-	err = core.ValidateStruct(createValidationScanOptions, "createValidationScanOptions")
+	err = core.ValidateStruct(createValidationOptions, "createValidationOptions")
 	if err != nil {
 		return
 	}
@@ -180,33 +180,33 @@ func (postureManagement *PostureManagementV1) CreateValidationScanWithContext(ct
 	builder := core.NewRequestBuilder(core.POST)
 	builder = builder.WithContext(ctx)
 	builder.EnableGzipCompression = postureManagement.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(postureManagement.Service.Options.URL, `/posture/v1/scans/validation`, nil)
+	_, err = builder.ResolveRequestURL(postureManagement.Service.Options.URL, `/posture/v1/scans/validations`, nil)
 	if err != nil {
 		return
 	}
 
-	for headerName, headerValue := range createValidationScanOptions.Headers {
+	for headerName, headerValue := range createValidationOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("posture_management", "V1", "CreateValidationScan")
+	sdkHeaders := common.GetSdkHeaders("posture_management", "V1", "CreateValidation")
 	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
 	builder.AddHeader("Content-Type", "application/json")
 
-	builder.AddQuery("account_id", fmt.Sprint(*createValidationScanOptions.AccountID))
+	builder.AddQuery("account_id", fmt.Sprint(*createValidationOptions.AccountID))
 
 	body := make(map[string]interface{})
-	if createValidationScanOptions.ScopeID != nil {
-		body["scope_id"] = createValidationScanOptions.ScopeID
+	if createValidationOptions.ScopeID != nil {
+		body["scope_id"] = createValidationOptions.ScopeID
 	}
-	if createValidationScanOptions.ProfileID != nil {
-		body["profile_id"] = createValidationScanOptions.ProfileID
+	if createValidationOptions.ProfileID != nil {
+		body["profile_id"] = createValidationOptions.ProfileID
 	}
-	if createValidationScanOptions.GroupProfileID != nil {
-		body["group_profile_id"] = createValidationScanOptions.GroupProfileID
+	if createValidationOptions.GroupProfileID != nil {
+		body["group_profile_id"] = createValidationOptions.GroupProfileID
 	}
 	_, err = builder.SetBodyContentJSON(body)
 	if err != nil {
@@ -232,19 +232,19 @@ func (postureManagement *PostureManagementV1) CreateValidationScanWithContext(ct
 	return
 }
 
-// ListProfile : List profiles
+// ListProfiles : List profiles
 // List all of the profiles that are available in your account. To view a specific profile, you can filter by name.
-func (postureManagement *PostureManagementV1) ListProfile(listProfileOptions *ListProfileOptions) (result *ProfilesList, response *core.DetailedResponse, err error) {
-	return postureManagement.ListProfileWithContext(context.Background(), listProfileOptions)
+func (postureManagement *PostureManagementV1) ListProfiles(listProfilesOptions *ListProfilesOptions) (result *ProfilesList, response *core.DetailedResponse, err error) {
+	return postureManagement.ListProfilesWithContext(context.Background(), listProfilesOptions)
 }
 
-// ListProfileWithContext is an alternate form of the ListProfile method which supports a Context parameter
-func (postureManagement *PostureManagementV1) ListProfileWithContext(ctx context.Context, listProfileOptions *ListProfileOptions) (result *ProfilesList, response *core.DetailedResponse, err error) {
-	err = core.ValidateNotNil(listProfileOptions, "listProfileOptions cannot be nil")
+// ListProfilesWithContext is an alternate form of the ListProfiles method which supports a Context parameter
+func (postureManagement *PostureManagementV1) ListProfilesWithContext(ctx context.Context, listProfilesOptions *ListProfilesOptions) (result *ProfilesList, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(listProfilesOptions, "listProfilesOptions cannot be nil")
 	if err != nil {
 		return
 	}
-	err = core.ValidateStruct(listProfileOptions, "listProfileOptions")
+	err = core.ValidateStruct(listProfilesOptions, "listProfilesOptions")
 	if err != nil {
 		return
 	}
@@ -257,19 +257,19 @@ func (postureManagement *PostureManagementV1) ListProfileWithContext(ctx context
 		return
 	}
 
-	for headerName, headerValue := range listProfileOptions.Headers {
+	for headerName, headerValue := range listProfilesOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("posture_management", "V1", "ListProfile")
+	sdkHeaders := common.GetSdkHeaders("posture_management", "V1", "ListProfiles")
 	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
 
-	builder.AddQuery("account_id", fmt.Sprint(*listProfileOptions.AccountID))
-	if listProfileOptions.Name != nil {
-		builder.AddQuery("name", fmt.Sprint(*listProfileOptions.Name))
+	builder.AddQuery("account_id", fmt.Sprint(*listProfilesOptions.AccountID))
+	if listProfilesOptions.Name != nil {
+		builder.AddQuery("name", fmt.Sprint(*listProfilesOptions.Name))
 	}
 
 	request, err := builder.Build()
@@ -451,63 +451,63 @@ func UnmarshalApplicabilityCriteria(m map[string]json.RawMessage, result interfa
 	return
 }
 
-// CreateValidationScanOptions : The CreateValidationScan options.
-type CreateValidationScanOptions struct {
+// CreateValidationOptions : The CreateValidation options.
+type CreateValidationOptions struct {
 	// Your IBM Cloud account ID.
 	AccountID *string `validate:"required"`
 
 	// The unique ID of the scope.
-	ScopeID *int64
+	ScopeID *string
 
 	// The unique ID of the profile.
-	ProfileID *int64
+	ProfileID *string
 
 	// The ID of the profile group.
-	GroupProfileID *int64
+	GroupProfileID *string
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
 }
 
-// NewCreateValidationScanOptions : Instantiate CreateValidationScanOptions
-func (*PostureManagementV1) NewCreateValidationScanOptions(accountID string) *CreateValidationScanOptions {
-	return &CreateValidationScanOptions{
+// NewCreateValidationOptions : Instantiate CreateValidationOptions
+func (*PostureManagementV1) NewCreateValidationOptions(accountID string) *CreateValidationOptions {
+	return &CreateValidationOptions{
 		AccountID: core.StringPtr(accountID),
 	}
 }
 
 // SetAccountID : Allow user to set AccountID
-func (options *CreateValidationScanOptions) SetAccountID(accountID string) *CreateValidationScanOptions {
+func (options *CreateValidationOptions) SetAccountID(accountID string) *CreateValidationOptions {
 	options.AccountID = core.StringPtr(accountID)
 	return options
 }
 
 // SetScopeID : Allow user to set ScopeID
-func (options *CreateValidationScanOptions) SetScopeID(scopeID int64) *CreateValidationScanOptions {
-	options.ScopeID = core.Int64Ptr(scopeID)
+func (options *CreateValidationOptions) SetScopeID(scopeID string) *CreateValidationOptions {
+	options.ScopeID = core.StringPtr(scopeID)
 	return options
 }
 
 // SetProfileID : Allow user to set ProfileID
-func (options *CreateValidationScanOptions) SetProfileID(profileID int64) *CreateValidationScanOptions {
-	options.ProfileID = core.Int64Ptr(profileID)
+func (options *CreateValidationOptions) SetProfileID(profileID string) *CreateValidationOptions {
+	options.ProfileID = core.StringPtr(profileID)
 	return options
 }
 
 // SetGroupProfileID : Allow user to set GroupProfileID
-func (options *CreateValidationScanOptions) SetGroupProfileID(groupProfileID int64) *CreateValidationScanOptions {
-	options.GroupProfileID = core.Int64Ptr(groupProfileID)
+func (options *CreateValidationOptions) SetGroupProfileID(groupProfileID string) *CreateValidationOptions {
+	options.GroupProfileID = core.StringPtr(groupProfileID)
 	return options
 }
 
 // SetHeaders : Allow user to set Headers
-func (options *CreateValidationScanOptions) SetHeaders(param map[string]string) *CreateValidationScanOptions {
+func (options *CreateValidationOptions) SetHeaders(param map[string]string) *CreateValidationOptions {
 	options.Headers = param
 	return options
 }
 
-// ListProfileOptions : The ListProfile options.
-type ListProfileOptions struct {
+// ListProfilesOptions : The ListProfiles options.
+type ListProfilesOptions struct {
 	// Your account ID.
 	AccountID *string `validate:"required"`
 
@@ -518,27 +518,27 @@ type ListProfileOptions struct {
 	Headers map[string]string
 }
 
-// NewListProfileOptions : Instantiate ListProfileOptions
-func (*PostureManagementV1) NewListProfileOptions(accountID string) *ListProfileOptions {
-	return &ListProfileOptions{
+// NewListProfilesOptions : Instantiate ListProfilesOptions
+func (*PostureManagementV1) NewListProfilesOptions(accountID string) *ListProfilesOptions {
+	return &ListProfilesOptions{
 		AccountID: core.StringPtr(accountID),
 	}
 }
 
 // SetAccountID : Allow user to set AccountID
-func (options *ListProfileOptions) SetAccountID(accountID string) *ListProfileOptions {
+func (options *ListProfilesOptions) SetAccountID(accountID string) *ListProfilesOptions {
 	options.AccountID = core.StringPtr(accountID)
 	return options
 }
 
 // SetName : Allow user to set Name
-func (options *ListProfileOptions) SetName(name string) *ListProfileOptions {
+func (options *ListProfilesOptions) SetName(name string) *ListProfilesOptions {
 	options.Name = core.StringPtr(name)
 	return options
 }
 
 // SetHeaders : Allow user to set Headers
-func (options *ListProfileOptions) SetHeaders(param map[string]string) *ListProfileOptions {
+func (options *ListProfilesOptions) SetHeaders(param map[string]string) *ListProfilesOptions {
 	options.Headers = param
 	return options
 }
@@ -585,9 +585,6 @@ type Profile struct {
 	// The name of the profile.
 	Name *string `json:"name,omitempty"`
 
-	// The number of goals that are in the profile.
-	NoOfGoals *int64 `json:"no_of_goals,omitempty"`
-
 	// A description of the profile.
 	Description *string `json:"description,omitempty"`
 
@@ -607,7 +604,7 @@ type Profile struct {
 	ApplicabilityCriteria *ApplicabilityCriteria `json:"applicability_criteria,omitempty"`
 
 	// An auto-generated unique identifying number of the profile.
-	ProfileID *int64 `json:"profile_id,omitempty"`
+	ProfileID *string `json:"profile_id,omitempty"`
 
 	// The base profile that the controls are pulled from.
 	BaseProfile *string `json:"base_profile,omitempty"`
@@ -616,10 +613,10 @@ type Profile struct {
 	ProfileType *string `json:"profile_type,omitempty"`
 
 	// The time that the profile was created in UTC.
-	CreatedTime *string `json:"created_time,omitempty"`
+	CreatedTime *strfmt.DateTime `json:"created_time,omitempty"`
 
 	// The time that the profile was most recently modified in UTC.
-	ModifiedTime *string `json:"modified_time,omitempty"`
+	ModifiedTime *strfmt.DateTime `json:"modified_time,omitempty"`
 
 	// The profile status. If the profile is enabled, the value is true. If the profile is disabled, the value is false.
 	Enabled *bool `json:"enabled,omitempty"`
@@ -628,19 +625,15 @@ type Profile struct {
 // Constants associated with the Profile.ProfileType property.
 // The type of profile.
 const (
-	ProfileProfileTypeCustomConst     = "custom"
-	ProfileProfileTypeGroupConst      = "group"
+	ProfileProfileTypeCustomConst = "custom"
 	ProfileProfileTypePredefinedConst = "predefined"
+	ProfileProfileTypeTemplateGroupConst = "template_group"
 )
 
 // UnmarshalProfile unmarshals an instance of Profile from the specified map of raw messages.
 func UnmarshalProfile(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(Profile)
 	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "no_of_goals", &obj.NoOfGoals)
 	if err != nil {
 		return
 	}
@@ -740,10 +733,10 @@ func UnmarshalResult(m map[string]json.RawMessage, result interface{}) (err erro
 // Scan : Scan.
 type Scan struct {
 	// An auto-generated unique identifier for the scan.
-	ScanID *int64 `json:"scan_id,omitempty"`
+	ScanID *string `json:"scan_id,omitempty"`
 
 	// An auto-generated unique identifier for discovery.
-	DiscoverID *int64 `json:"discover_id,omitempty"`
+	DiscoverID *string `json:"discover_id,omitempty"`
 
 	// The status of the collector as it completes a scan.
 	Status *string `json:"status,omitempty"`
@@ -755,46 +748,46 @@ type Scan struct {
 // Constants associated with the Scan.Status property.
 // The status of the collector as it completes a scan.
 const (
-	ScanStatusAbortTaskRequestCompletedConst       = "abort_task_request_completed"
-	ScanStatusAbortTaskRequestFailedConst          = "abort_task_request_failed"
-	ScanStatusAbortTaskRequestReceivedConst        = "abort_task_request_received"
-	ScanStatusControllerAbortedConst               = "controller_aborted"
-	ScanStatusDiscoveryCompletedConst              = "discovery_completed"
-	ScanStatusDiscoveryInProgressConst             = "discovery_in_progress"
-	ScanStatusDiscoveryResultPostedNoErrorConst    = "discovery_result_posted_no_error"
-	ScanStatusDiscoveryResultPostedWithErrorConst  = "discovery_result_posted_with_error"
-	ScanStatusDiscoveryStartedConst                = "discovery_started"
-	ScanStatusErrorInAbortTaskRequestConst         = "error_in_abort_task_request"
-	ScanStatusErrorInDiscoveryConst                = "error_in_discovery"
-	ScanStatusErrorInFactCollectionConst           = "error_in_fact_collection"
-	ScanStatusErrorInFactValidationConst           = "error_in_fact_validation"
-	ScanStatusErrorInInventoryConst                = "error_in_inventory"
-	ScanStatusErrorInRemediationConst              = "error_in_remediation"
-	ScanStatusErrorInValidationConst               = "error_in_validation"
-	ScanStatusFactCollectionCompletedConst         = "fact_collection_completed"
-	ScanStatusFactCollectionInProgressConst        = "fact_collection_in_progress"
-	ScanStatusFactCollectionStartedConst           = "fact_collection_started"
-	ScanStatusFactValidationCompletedConst         = "fact_validation_completed"
-	ScanStatusFactValidationInProgressConst        = "fact_validation_in_progress"
-	ScanStatusFactValidationStartedConst           = "fact_validation_started"
-	ScanStatusGatewayAbortedConst                  = "gateway_aborted"
-	ScanStatusInventoryCompletedConst              = "inventory_completed"
-	ScanStatusInventoryCompletedWithErrorConst     = "inventory_completed_with_error"
-	ScanStatusInventoryInProgressConst             = "inventory_in_progress"
-	ScanStatusInventoryStartedConst                = "inventory_started"
-	ScanStatusNotAcceptedConst                     = "not_accepted"
-	ScanStatusPendingConst                         = "pending"
-	ScanStatusRemediationCompletedConst            = "remediation_completed"
-	ScanStatusRemediationInProgressConst           = "remediation_in_progress"
-	ScanStatusRemediationStartedConst              = "remediation_started"
-	ScanStatusSentToCollectorConst                 = "sent_to_collector"
-	ScanStatusUserAbortedConst                     = "user_aborted"
-	ScanStatusValidationCompletedConst             = "validation_completed"
-	ScanStatusValidationInProgressConst            = "validation_in_progress"
-	ScanStatusValidationResultPostedNoErrorConst   = "validation_result_posted_no_error"
+	ScanStatusAbortTaskRequestCompletedConst = "abort_task_request_completed"
+	ScanStatusAbortTaskRequestFailedConst = "abort_task_request_failed"
+	ScanStatusAbortTaskRequestReceivedConst = "abort_task_request_received"
+	ScanStatusControllerAbortedConst = "controller_aborted"
+	ScanStatusDiscoveryCompletedConst = "discovery_completed"
+	ScanStatusDiscoveryInProgressConst = "discovery_in_progress"
+	ScanStatusDiscoveryResultPostedNoErrorConst = "discovery_result_posted_no_error"
+	ScanStatusDiscoveryResultPostedWithErrorConst = "discovery_result_posted_with_error"
+	ScanStatusDiscoveryStartedConst = "discovery_started"
+	ScanStatusErrorInAbortTaskRequestConst = "error_in_abort_task_request"
+	ScanStatusErrorInDiscoveryConst = "error_in_discovery"
+	ScanStatusErrorInFactCollectionConst = "error_in_fact_collection"
+	ScanStatusErrorInFactValidationConst = "error_in_fact_validation"
+	ScanStatusErrorInInventoryConst = "error_in_inventory"
+	ScanStatusErrorInRemediationConst = "error_in_remediation"
+	ScanStatusErrorInValidationConst = "error_in_validation"
+	ScanStatusFactCollectionCompletedConst = "fact_collection_completed"
+	ScanStatusFactCollectionInProgressConst = "fact_collection_in_progress"
+	ScanStatusFactCollectionStartedConst = "fact_collection_started"
+	ScanStatusFactValidationCompletedConst = "fact_validation_completed"
+	ScanStatusFactValidationInProgressConst = "fact_validation_in_progress"
+	ScanStatusFactValidationStartedConst = "fact_validation_started"
+	ScanStatusGatewayAbortedConst = "gateway_aborted"
+	ScanStatusInventoryCompletedConst = "inventory_completed"
+	ScanStatusInventoryCompletedWithErrorConst = "inventory_completed_with_error"
+	ScanStatusInventoryInProgressConst = "inventory_in_progress"
+	ScanStatusInventoryStartedConst = "inventory_started"
+	ScanStatusNotAcceptedConst = "not_accepted"
+	ScanStatusPendingConst = "pending"
+	ScanStatusRemediationCompletedConst = "remediation_completed"
+	ScanStatusRemediationInProgressConst = "remediation_in_progress"
+	ScanStatusRemediationStartedConst = "remediation_started"
+	ScanStatusSentToCollectorConst = "sent_to_collector"
+	ScanStatusUserAbortedConst = "user_aborted"
+	ScanStatusValidationCompletedConst = "validation_completed"
+	ScanStatusValidationInProgressConst = "validation_in_progress"
+	ScanStatusValidationResultPostedNoErrorConst = "validation_result_posted_no_error"
 	ScanStatusValidationResultPostedWithErrorConst = "validation_result_posted_with_error"
-	ScanStatusValidationStartedConst               = "validation_started"
-	ScanStatusWaitingForRefineConst                = "waiting_for_refine"
+	ScanStatusValidationStartedConst = "validation_started"
+	ScanStatusWaitingForRefineConst = "waiting_for_refine"
 )
 
 // UnmarshalScan unmarshals an instance of Scan from the specified map of raw messages.
@@ -832,7 +825,7 @@ type Scope struct {
 	ModifiedBy *string `json:"modified_by,omitempty"`
 
 	// An auto-generated unique identifier for the scope.
-	ScopeID *int64 `json:"scope_id,omitempty"`
+	ScopeID *string `json:"scope_id,omitempty"`
 
 	// A unique name for your scope.
 	Name *string `json:"name,omitempty"`
@@ -844,10 +837,10 @@ type Scope struct {
 	EnvironmentType *string `json:"environment_type,omitempty"`
 
 	// The time that the scope was created in UTC.
-	CreatedTime *string `json:"created_time,omitempty"`
+	CreatedTime *strfmt.DateTime `json:"created_time,omitempty"`
 
 	// The time that the scope was last modified in UTC.
-	ModifiedTime *string `json:"modified_time,omitempty"`
+	ModifiedTime *strfmt.DateTime `json:"modified_time,omitempty"`
 
 	// The last type of scan that was run on the scope.
 	LastScanType *string `json:"last_scan_type,omitempty"`
@@ -856,10 +849,10 @@ type Scope struct {
 	LastScanTypeDescription *string `json:"last_scan_type_description,omitempty"`
 
 	// The last time that a scan status for a scope was updated in UTC.
-	LastScanStatusUpdatedTime *string `json:"last_scan_status_updated_time,omitempty"`
+	LastScanStatusUpdatedTime *strfmt.DateTime `json:"last_scan_status_updated_time,omitempty"`
 
 	// The unique IDs of the collectors that are attached to the scope.
-	CollectorsID []int64 `json:"collectors_id,omitempty"`
+	CollectorsID []string `json:"collectors_id,omitempty"`
 
 	// A list of the scans that have been run on the scope.
 	Scans []Scan `json:"scans,omitempty"`
@@ -868,28 +861,28 @@ type Scope struct {
 // Constants associated with the Scope.EnvironmentType property.
 // The environment that the scope is targeted to.
 const (
-	ScopeEnvironmentTypeAwsConst       = "aws"
-	ScopeEnvironmentTypeAzureConst     = "azure"
-	ScopeEnvironmentTypeGcpConst       = "gcp"
-	ScopeEnvironmentTypeHostedConst    = "hosted"
-	ScopeEnvironmentTypeIBMConst       = "ibm"
+	ScopeEnvironmentTypeAwsConst = "aws"
+	ScopeEnvironmentTypeAzureConst = "azure"
+	ScopeEnvironmentTypeGcpConst = "gcp"
+	ScopeEnvironmentTypeHostedConst = "hosted"
+	ScopeEnvironmentTypeIBMConst = "ibm"
 	ScopeEnvironmentTypeOnPremiseConst = "on_premise"
 	ScopeEnvironmentTypeOpenstackConst = "openstack"
-	ScopeEnvironmentTypeServicesConst  = "services"
+	ScopeEnvironmentTypeServicesConst = "services"
 )
 
 // Constants associated with the Scope.LastScanType property.
 // The last type of scan that was run on the scope.
 const (
-	ScopeLastScanTypeAbortTasksConst     = "abort_tasks"
-	ScopeLastScanTypeDiscoveryConst      = "discovery"
-	ScopeLastScanTypeEvidenceConst       = "evidence"
+	ScopeLastScanTypeAbortTasksConst = "abort_tasks"
+	ScopeLastScanTypeDiscoveryConst = "discovery"
+	ScopeLastScanTypeEvidenceConst = "evidence"
 	ScopeLastScanTypeFactCollectionConst = "fact_collection"
 	ScopeLastScanTypeFactValidationConst = "fact_validation"
-	ScopeLastScanTypeInventoryConst      = "inventory"
-	ScopeLastScanTypeRemediationConst    = "remediation"
-	ScopeLastScanTypeScriptConst         = "script"
-	ScopeLastScanTypeValidationConst     = "validation"
+	ScopeLastScanTypeInventoryConst = "inventory"
+	ScopeLastScanTypeRemediationConst = "remediation"
+	ScopeLastScanTypeScriptConst = "script"
+	ScopeLastScanTypeValidationConst = "validation"
 )
 
 // UnmarshalScope unmarshals an instance of Scope from the specified map of raw messages.

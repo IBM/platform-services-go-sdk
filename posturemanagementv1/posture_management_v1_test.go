@@ -20,18 +20,17 @@ import (
 	"bytes"
 	"context"
 	"fmt"
+	"github.com/IBM/go-sdk-core/v5/core"
+	"github.com/IBM/platform-services-go-sdk/posturemanagementv1"
+	"github.com/go-openapi/strfmt"
+	. "github.com/onsi/ginkgo"
+	. "github.com/onsi/gomega"
 	"io"
 	"io/ioutil"
 	"net/http"
 	"net/http/httptest"
 	"os"
 	"time"
-
-	"github.com/IBM/go-sdk-core/v5/core"
-	"github.com/IBM/platform-services-go-sdk/posturemanagementv1"
-	"github.com/go-openapi/strfmt"
-	. "github.com/onsi/ginkgo"
-	. "github.com/onsi/gomega"
 )
 
 var _ = Describe(`PostureManagementV1`, func() {
@@ -67,13 +66,14 @@ var _ = Describe(`PostureManagementV1`, func() {
 		Context(`Using external config, construct service client instances`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"POSTURE_MANAGEMENT_URL":       "https://posturemanagementv1/api",
+				"POSTURE_MANAGEMENT_URL": "https://posturemanagementv1/api",
 				"POSTURE_MANAGEMENT_AUTH_TYPE": "noauth",
 			}
 
 			It(`Create service client using external config successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				postureManagementService, serviceErr := posturemanagementv1.NewPostureManagementV1UsingExternalConfig(&posturemanagementv1.PostureManagementV1Options{})
+				postureManagementService, serviceErr := posturemanagementv1.NewPostureManagementV1UsingExternalConfig(&posturemanagementv1.PostureManagementV1Options{
+				})
 				Expect(postureManagementService).ToNot(BeNil())
 				Expect(serviceErr).To(BeNil())
 				ClearTestEnvironment(testEnvironment)
@@ -102,7 +102,8 @@ var _ = Describe(`PostureManagementV1`, func() {
 			})
 			It(`Create service client using external config and set url programatically successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				postureManagementService, serviceErr := posturemanagementv1.NewPostureManagementV1UsingExternalConfig(&posturemanagementv1.PostureManagementV1Options{})
+				postureManagementService, serviceErr := posturemanagementv1.NewPostureManagementV1UsingExternalConfig(&posturemanagementv1.PostureManagementV1Options{
+				})
 				err := postureManagementService.SetServiceURL("https://testService/api")
 				Expect(err).To(BeNil())
 				Expect(postureManagementService).ToNot(BeNil())
@@ -120,12 +121,13 @@ var _ = Describe(`PostureManagementV1`, func() {
 		Context(`Using external config, construct service client instances with error: Invalid Auth`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"POSTURE_MANAGEMENT_URL":       "https://posturemanagementv1/api",
+				"POSTURE_MANAGEMENT_URL": "https://posturemanagementv1/api",
 				"POSTURE_MANAGEMENT_AUTH_TYPE": "someOtherAuth",
 			}
 
 			SetTestEnvironment(testEnvironment)
-			postureManagementService, serviceErr := posturemanagementv1.NewPostureManagementV1UsingExternalConfig(&posturemanagementv1.PostureManagementV1Options{})
+			postureManagementService, serviceErr := posturemanagementv1.NewPostureManagementV1UsingExternalConfig(&posturemanagementv1.PostureManagementV1Options{
+			})
 
 			It(`Instantiate service client with error`, func() {
 				Expect(postureManagementService).To(BeNil())
@@ -136,7 +138,7 @@ var _ = Describe(`PostureManagementV1`, func() {
 		Context(`Using external config, construct service client instances with error: Invalid URL`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"POSTURE_MANAGEMENT_AUTH_TYPE": "NOAuth",
+				"POSTURE_MANAGEMENT_AUTH_TYPE":   "NOAuth",
 			}
 
 			SetTestEnvironment(testEnvironment)
@@ -161,23 +163,23 @@ var _ = Describe(`PostureManagementV1`, func() {
 			fmt.Fprintf(GinkgoWriter, "Expected error: %s\n", err.Error())
 		})
 	})
-	Describe(`CreateValidationScan(createValidationScanOptions *CreateValidationScanOptions) - Operation response error`, func() {
-		createValidationScanPath := "/posture/v1/scans/validation"
+	Describe(`CreateValidation(createValidationOptions *CreateValidationOptions) - Operation response error`, func() {
+		createValidationPath := "/posture/v1/scans/validations"
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(createValidationScanPath))
+					Expect(req.URL.EscapedPath()).To(Equal(createValidationPath))
 					Expect(req.Method).To(Equal("POST"))
 					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"testString"}))
 					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(200)
+					res.WriteHeader(202)
 					fmt.Fprintf(res, `} this is not valid json {`)
 				}))
 			})
-			It(`Invoke CreateValidationScan with error: Operation response processing error`, func() {
+			It(`Invoke CreateValidation with error: Operation response processing error`, func() {
 				postureManagementService, serviceErr := posturemanagementv1.NewPostureManagementV1(&posturemanagementv1.PostureManagementV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -185,22 +187,22 @@ var _ = Describe(`PostureManagementV1`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(postureManagementService).ToNot(BeNil())
 
-				// Construct an instance of the CreateValidationScanOptions model
-				createValidationScanOptionsModel := new(posturemanagementv1.CreateValidationScanOptions)
-				createValidationScanOptionsModel.AccountID = core.StringPtr("testString")
-				createValidationScanOptionsModel.ScopeID = core.Int64Ptr(int64(1))
-				createValidationScanOptionsModel.ProfileID = core.Int64Ptr(int64(6))
-				createValidationScanOptionsModel.GroupProfileID = core.Int64Ptr(int64(13))
-				createValidationScanOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the CreateValidationOptions model
+				createValidationOptionsModel := new(posturemanagementv1.CreateValidationOptions)
+				createValidationOptionsModel.AccountID = core.StringPtr("testString")
+				createValidationOptionsModel.ScopeID = core.StringPtr("1")
+				createValidationOptionsModel.ProfileID = core.StringPtr("6")
+				createValidationOptionsModel.GroupProfileID = core.StringPtr("13")
+				createValidationOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
-				result, response, operationErr := postureManagementService.CreateValidationScan(createValidationScanOptionsModel)
+				result, response, operationErr := postureManagementService.CreateValidation(createValidationOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
 
 				// Enable retries and test again
 				postureManagementService.EnableRetries(0, 0)
-				result, response, operationErr = postureManagementService.CreateValidationScan(createValidationScanOptionsModel)
+				result, response, operationErr = postureManagementService.CreateValidation(createValidationOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
@@ -211,15 +213,15 @@ var _ = Describe(`PostureManagementV1`, func() {
 		})
 	})
 
-	Describe(`CreateValidationScan(createValidationScanOptions *CreateValidationScanOptions)`, func() {
-		createValidationScanPath := "/posture/v1/scans/validation"
+	Describe(`CreateValidation(createValidationOptions *CreateValidationOptions)`, func() {
+		createValidationPath := "/posture/v1/scans/validations"
 		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(createValidationScanPath))
+					Expect(req.URL.EscapedPath()).To(Equal(createValidationPath))
 					Expect(req.Method).To(Equal("POST"))
 
 					// For gzip-disabled operation, verify Content-Encoding is not set.
@@ -244,11 +246,11 @@ var _ = Describe(`PostureManagementV1`, func() {
 
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"result": true, "message": "Message"}`)
+					res.WriteHeader(202)
+					fmt.Fprintf(res, "%s", `{"result": true, "message": "Success: The validation is in progress. To see the results, go to Security & Compliance > Assess > Scans in the service dashboard and select the scan My_Example_scan."}`)
 				}))
 			})
-			It(`Invoke CreateValidationScan successfully with retries`, func() {
+			It(`Invoke CreateValidation successfully with retries`, func() {
 				postureManagementService, serviceErr := posturemanagementv1.NewPostureManagementV1(&posturemanagementv1.PostureManagementV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -257,24 +259,24 @@ var _ = Describe(`PostureManagementV1`, func() {
 				Expect(postureManagementService).ToNot(BeNil())
 				postureManagementService.EnableRetries(0, 0)
 
-				// Construct an instance of the CreateValidationScanOptions model
-				createValidationScanOptionsModel := new(posturemanagementv1.CreateValidationScanOptions)
-				createValidationScanOptionsModel.AccountID = core.StringPtr("testString")
-				createValidationScanOptionsModel.ScopeID = core.Int64Ptr(int64(1))
-				createValidationScanOptionsModel.ProfileID = core.Int64Ptr(int64(6))
-				createValidationScanOptionsModel.GroupProfileID = core.Int64Ptr(int64(13))
-				createValidationScanOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the CreateValidationOptions model
+				createValidationOptionsModel := new(posturemanagementv1.CreateValidationOptions)
+				createValidationOptionsModel.AccountID = core.StringPtr("testString")
+				createValidationOptionsModel.ScopeID = core.StringPtr("1")
+				createValidationOptionsModel.ProfileID = core.StringPtr("6")
+				createValidationOptionsModel.GroupProfileID = core.StringPtr("13")
+				createValidationOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with a Context to test a timeout error
 				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
 				defer cancelFunc()
-				_, _, operationErr := postureManagementService.CreateValidationScanWithContext(ctx, createValidationScanOptionsModel)
+				_, _, operationErr := postureManagementService.CreateValidationWithContext(ctx, createValidationOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
 
 				// Disable retries and test again
 				postureManagementService.DisableRetries()
-				result, response, operationErr := postureManagementService.CreateValidationScan(createValidationScanOptionsModel)
+				result, response, operationErr := postureManagementService.CreateValidation(createValidationOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
@@ -282,7 +284,7 @@ var _ = Describe(`PostureManagementV1`, func() {
 				// Re-test the timeout error with retries disabled
 				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
 				defer cancelFunc2()
-				_, _, operationErr = postureManagementService.CreateValidationScanWithContext(ctx, createValidationScanOptionsModel)
+				_, _, operationErr = postureManagementService.CreateValidationWithContext(ctx, createValidationOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
 			})
@@ -296,7 +298,7 @@ var _ = Describe(`PostureManagementV1`, func() {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(createValidationScanPath))
+					Expect(req.URL.EscapedPath()).To(Equal(createValidationPath))
 					Expect(req.Method).To(Equal("POST"))
 
 					// For gzip-disabled operation, verify Content-Encoding is not set.
@@ -318,11 +320,11 @@ var _ = Describe(`PostureManagementV1`, func() {
 					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"testString"}))
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"result": true, "message": "Message"}`)
+					res.WriteHeader(202)
+					fmt.Fprintf(res, "%s", `{"result": true, "message": "Success: The validation is in progress. To see the results, go to Security & Compliance > Assess > Scans in the service dashboard and select the scan My_Example_scan."}`)
 				}))
 			})
-			It(`Invoke CreateValidationScan successfully`, func() {
+			It(`Invoke CreateValidation successfully`, func() {
 				postureManagementService, serviceErr := posturemanagementv1.NewPostureManagementV1(&posturemanagementv1.PostureManagementV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -331,27 +333,27 @@ var _ = Describe(`PostureManagementV1`, func() {
 				Expect(postureManagementService).ToNot(BeNil())
 
 				// Invoke operation with nil options model (negative test)
-				result, response, operationErr := postureManagementService.CreateValidationScan(nil)
+				result, response, operationErr := postureManagementService.CreateValidation(nil)
 				Expect(operationErr).NotTo(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
 
-				// Construct an instance of the CreateValidationScanOptions model
-				createValidationScanOptionsModel := new(posturemanagementv1.CreateValidationScanOptions)
-				createValidationScanOptionsModel.AccountID = core.StringPtr("testString")
-				createValidationScanOptionsModel.ScopeID = core.Int64Ptr(int64(1))
-				createValidationScanOptionsModel.ProfileID = core.Int64Ptr(int64(6))
-				createValidationScanOptionsModel.GroupProfileID = core.Int64Ptr(int64(13))
-				createValidationScanOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the CreateValidationOptions model
+				createValidationOptionsModel := new(posturemanagementv1.CreateValidationOptions)
+				createValidationOptionsModel.AccountID = core.StringPtr("testString")
+				createValidationOptionsModel.ScopeID = core.StringPtr("1")
+				createValidationOptionsModel.ProfileID = core.StringPtr("6")
+				createValidationOptionsModel.GroupProfileID = core.StringPtr("13")
+				createValidationOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
-				result, response, operationErr = postureManagementService.CreateValidationScan(createValidationScanOptionsModel)
+				result, response, operationErr = postureManagementService.CreateValidation(createValidationOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
 
 			})
-			It(`Invoke CreateValidationScan with error: Operation validation and request error`, func() {
+			It(`Invoke CreateValidation with error: Operation validation and request error`, func() {
 				postureManagementService, serviceErr := posturemanagementv1.NewPostureManagementV1(&posturemanagementv1.PostureManagementV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -359,25 +361,25 @@ var _ = Describe(`PostureManagementV1`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(postureManagementService).ToNot(BeNil())
 
-				// Construct an instance of the CreateValidationScanOptions model
-				createValidationScanOptionsModel := new(posturemanagementv1.CreateValidationScanOptions)
-				createValidationScanOptionsModel.AccountID = core.StringPtr("testString")
-				createValidationScanOptionsModel.ScopeID = core.Int64Ptr(int64(1))
-				createValidationScanOptionsModel.ProfileID = core.Int64Ptr(int64(6))
-				createValidationScanOptionsModel.GroupProfileID = core.Int64Ptr(int64(13))
-				createValidationScanOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the CreateValidationOptions model
+				createValidationOptionsModel := new(posturemanagementv1.CreateValidationOptions)
+				createValidationOptionsModel.AccountID = core.StringPtr("testString")
+				createValidationOptionsModel.ScopeID = core.StringPtr("1")
+				createValidationOptionsModel.ProfileID = core.StringPtr("6")
+				createValidationOptionsModel.GroupProfileID = core.StringPtr("13")
+				createValidationOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := postureManagementService.SetServiceURL("")
 				Expect(err).To(BeNil())
-				result, response, operationErr := postureManagementService.CreateValidationScan(createValidationScanOptionsModel)
+				result, response, operationErr := postureManagementService.CreateValidation(createValidationOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
-				// Construct a second instance of the CreateValidationScanOptions model with no property values
-				createValidationScanOptionsModelNew := new(posturemanagementv1.CreateValidationScanOptions)
+				// Construct a second instance of the CreateValidationOptions model with no property values
+				createValidationOptionsModelNew := new(posturemanagementv1.CreateValidationOptions)
 				// Invoke operation with invalid model (negative test)
-				result, response, operationErr = postureManagementService.CreateValidationScan(createValidationScanOptionsModelNew)
+				result, response, operationErr = postureManagementService.CreateValidation(createValidationOptionsModelNew)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
@@ -418,13 +420,14 @@ var _ = Describe(`PostureManagementV1`, func() {
 		Context(`Using external config, construct service client instances`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"POSTURE_MANAGEMENT_URL":       "https://posturemanagementv1/api",
+				"POSTURE_MANAGEMENT_URL": "https://posturemanagementv1/api",
 				"POSTURE_MANAGEMENT_AUTH_TYPE": "noauth",
 			}
 
 			It(`Create service client using external config successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				postureManagementService, serviceErr := posturemanagementv1.NewPostureManagementV1UsingExternalConfig(&posturemanagementv1.PostureManagementV1Options{})
+				postureManagementService, serviceErr := posturemanagementv1.NewPostureManagementV1UsingExternalConfig(&posturemanagementv1.PostureManagementV1Options{
+				})
 				Expect(postureManagementService).ToNot(BeNil())
 				Expect(serviceErr).To(BeNil())
 				ClearTestEnvironment(testEnvironment)
@@ -453,7 +456,8 @@ var _ = Describe(`PostureManagementV1`, func() {
 			})
 			It(`Create service client using external config and set url programatically successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				postureManagementService, serviceErr := posturemanagementv1.NewPostureManagementV1UsingExternalConfig(&posturemanagementv1.PostureManagementV1Options{})
+				postureManagementService, serviceErr := posturemanagementv1.NewPostureManagementV1UsingExternalConfig(&posturemanagementv1.PostureManagementV1Options{
+				})
 				err := postureManagementService.SetServiceURL("https://testService/api")
 				Expect(err).To(BeNil())
 				Expect(postureManagementService).ToNot(BeNil())
@@ -471,12 +475,13 @@ var _ = Describe(`PostureManagementV1`, func() {
 		Context(`Using external config, construct service client instances with error: Invalid Auth`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"POSTURE_MANAGEMENT_URL":       "https://posturemanagementv1/api",
+				"POSTURE_MANAGEMENT_URL": "https://posturemanagementv1/api",
 				"POSTURE_MANAGEMENT_AUTH_TYPE": "someOtherAuth",
 			}
 
 			SetTestEnvironment(testEnvironment)
-			postureManagementService, serviceErr := posturemanagementv1.NewPostureManagementV1UsingExternalConfig(&posturemanagementv1.PostureManagementV1Options{})
+			postureManagementService, serviceErr := posturemanagementv1.NewPostureManagementV1UsingExternalConfig(&posturemanagementv1.PostureManagementV1Options{
+			})
 
 			It(`Instantiate service client with error`, func() {
 				Expect(postureManagementService).To(BeNil())
@@ -487,7 +492,7 @@ var _ = Describe(`PostureManagementV1`, func() {
 		Context(`Using external config, construct service client instances with error: Invalid URL`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"POSTURE_MANAGEMENT_AUTH_TYPE": "NOAuth",
+				"POSTURE_MANAGEMENT_AUTH_TYPE":   "NOAuth",
 			}
 
 			SetTestEnvironment(testEnvironment)
@@ -512,15 +517,15 @@ var _ = Describe(`PostureManagementV1`, func() {
 			fmt.Fprintf(GinkgoWriter, "Expected error: %s\n", err.Error())
 		})
 	})
-	Describe(`ListProfile(listProfileOptions *ListProfileOptions) - Operation response error`, func() {
-		listProfilePath := "/posture/v1/profiles"
+	Describe(`ListProfiles(listProfilesOptions *ListProfilesOptions) - Operation response error`, func() {
+		listProfilesPath := "/posture/v1/profiles"
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(listProfilePath))
+					Expect(req.URL.EscapedPath()).To(Equal(listProfilesPath))
 					Expect(req.Method).To(Equal("GET"))
 					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["name"]).To(Equal([]string{"testString"}))
@@ -529,7 +534,7 @@ var _ = Describe(`PostureManagementV1`, func() {
 					fmt.Fprintf(res, `} this is not valid json {`)
 				}))
 			})
-			It(`Invoke ListProfile with error: Operation response processing error`, func() {
+			It(`Invoke ListProfiles with error: Operation response processing error`, func() {
 				postureManagementService, serviceErr := posturemanagementv1.NewPostureManagementV1(&posturemanagementv1.PostureManagementV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -537,20 +542,20 @@ var _ = Describe(`PostureManagementV1`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(postureManagementService).ToNot(BeNil())
 
-				// Construct an instance of the ListProfileOptions model
-				listProfileOptionsModel := new(posturemanagementv1.ListProfileOptions)
-				listProfileOptionsModel.AccountID = core.StringPtr("testString")
-				listProfileOptionsModel.Name = core.StringPtr("testString")
-				listProfileOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the ListProfilesOptions model
+				listProfilesOptionsModel := new(posturemanagementv1.ListProfilesOptions)
+				listProfilesOptionsModel.AccountID = core.StringPtr("testString")
+				listProfilesOptionsModel.Name = core.StringPtr("testString")
+				listProfilesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
-				result, response, operationErr := postureManagementService.ListProfile(listProfileOptionsModel)
+				result, response, operationErr := postureManagementService.ListProfiles(listProfilesOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
 
 				// Enable retries and test again
 				postureManagementService.EnableRetries(0, 0)
-				result, response, operationErr = postureManagementService.ListProfile(listProfileOptionsModel)
+				result, response, operationErr = postureManagementService.ListProfiles(listProfilesOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
@@ -561,15 +566,15 @@ var _ = Describe(`PostureManagementV1`, func() {
 		})
 	})
 
-	Describe(`ListProfile(listProfileOptions *ListProfileOptions)`, func() {
-		listProfilePath := "/posture/v1/profiles"
+	Describe(`ListProfiles(listProfilesOptions *ListProfilesOptions)`, func() {
+		listProfilesPath := "/posture/v1/profiles"
 		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(listProfilePath))
+					Expect(req.URL.EscapedPath()).To(Equal(listProfilesPath))
 					Expect(req.Method).To(Equal("GET"))
 
 					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"testString"}))
@@ -580,10 +585,10 @@ var _ = Describe(`PostureManagementV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"profiles": [{"name": "CIS IBM Foundations Benchmark 1.0.0", "no_of_goals": 58, "description": "CIS IBM Foundations Benchmark 1.0.0", "version": 1, "created_by": "IBMid-5500081P68", "modified_by": "IBMid-5500081P68", "reason_for_delete": "ReasonForDelete", "applicability_criteria": {"environment": ["[IBM Cloud]"], "resource": ["[My_example_bucket]"], "environment_category": ["[Cloud]"], "resource_category": ["[Storage]"], "resource_type": ["Bucket"], "software_details": {"anyKey": "anyValue"}, "os_details": {"anyKey": "anyValue"}, "additional_details": {"anyKey": "anyValue"}, "environment_category_description": {"mapKey": "Cloud"}, "environment_description": {"mapKey": "IBM Cloud"}, "resource_category_description": {"mapKey": "Storage"}, "resource_type_description": {"mapKey": "Bucket"}, "resource_description": {"mapKey": "My_specific_bucket"}}, "profile_id": 3045, "base_profile": "CIS IBM Foundations Benchmark 1.0.0", "profile_type": "predefined", "created_time": "2021-02-26T04:07:25Z", "modified_time": "2021-02-26T04:07:25Z", "enabled": true}]}`)
+					fmt.Fprintf(res, "%s", `{"profiles": [{"name": "CIS IBM Foundations Benchmark 1.0.0", "description": "CIS IBM Foundations Benchmark 1.0.0", "version": 1, "created_by": "IBMid-5500081P68", "modified_by": "IBMid-5500081P68", "reason_for_delete": "ReasonForDelete", "applicability_criteria": {"environment": ["ibm"], "resource": ["cloud_object_storage"], "environment_category": ["cloud_platform"], "resource_category": ["xaas"], "resource_type": ["storage"], "software_details": {"anyKey": "anyValue"}, "os_details": {"anyKey": "anyValue"}, "additional_details": {"anyKey": "anyValue"}, "environment_category_description": {"mapKey": "Cloud"}, "environment_description": {"mapKey": "IBM Cloud"}, "resource_category_description": {"mapKey": "Storage"}, "resource_type_description": {"mapKey": "Bucket"}, "resource_description": {"mapKey": "My_specific_bucket"}}, "profile_id": "3045", "base_profile": "CIS IBM Foundations Benchmark 1.0.0", "profile_type": "predefined", "created_time": "2021-02-26T04:07:25.000Z", "modified_time": "2021-02-26T04:07:25.000Z", "enabled": true}]}`)
 				}))
 			})
-			It(`Invoke ListProfile successfully with retries`, func() {
+			It(`Invoke ListProfiles successfully with retries`, func() {
 				postureManagementService, serviceErr := posturemanagementv1.NewPostureManagementV1(&posturemanagementv1.PostureManagementV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -592,22 +597,22 @@ var _ = Describe(`PostureManagementV1`, func() {
 				Expect(postureManagementService).ToNot(BeNil())
 				postureManagementService.EnableRetries(0, 0)
 
-				// Construct an instance of the ListProfileOptions model
-				listProfileOptionsModel := new(posturemanagementv1.ListProfileOptions)
-				listProfileOptionsModel.AccountID = core.StringPtr("testString")
-				listProfileOptionsModel.Name = core.StringPtr("testString")
-				listProfileOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the ListProfilesOptions model
+				listProfilesOptionsModel := new(posturemanagementv1.ListProfilesOptions)
+				listProfilesOptionsModel.AccountID = core.StringPtr("testString")
+				listProfilesOptionsModel.Name = core.StringPtr("testString")
+				listProfilesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with a Context to test a timeout error
 				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
 				defer cancelFunc()
-				_, _, operationErr := postureManagementService.ListProfileWithContext(ctx, listProfileOptionsModel)
+				_, _, operationErr := postureManagementService.ListProfilesWithContext(ctx, listProfilesOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
 
 				// Disable retries and test again
 				postureManagementService.DisableRetries()
-				result, response, operationErr := postureManagementService.ListProfile(listProfileOptionsModel)
+				result, response, operationErr := postureManagementService.ListProfiles(listProfilesOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
@@ -615,7 +620,7 @@ var _ = Describe(`PostureManagementV1`, func() {
 				// Re-test the timeout error with retries disabled
 				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
 				defer cancelFunc2()
-				_, _, operationErr = postureManagementService.ListProfileWithContext(ctx, listProfileOptionsModel)
+				_, _, operationErr = postureManagementService.ListProfilesWithContext(ctx, listProfilesOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
 			})
@@ -629,7 +634,7 @@ var _ = Describe(`PostureManagementV1`, func() {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(listProfilePath))
+					Expect(req.URL.EscapedPath()).To(Equal(listProfilesPath))
 					Expect(req.Method).To(Equal("GET"))
 
 					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"testString"}))
@@ -637,10 +642,10 @@ var _ = Describe(`PostureManagementV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"profiles": [{"name": "CIS IBM Foundations Benchmark 1.0.0", "no_of_goals": 58, "description": "CIS IBM Foundations Benchmark 1.0.0", "version": 1, "created_by": "IBMid-5500081P68", "modified_by": "IBMid-5500081P68", "reason_for_delete": "ReasonForDelete", "applicability_criteria": {"environment": ["[IBM Cloud]"], "resource": ["[My_example_bucket]"], "environment_category": ["[Cloud]"], "resource_category": ["[Storage]"], "resource_type": ["Bucket"], "software_details": {"anyKey": "anyValue"}, "os_details": {"anyKey": "anyValue"}, "additional_details": {"anyKey": "anyValue"}, "environment_category_description": {"mapKey": "Cloud"}, "environment_description": {"mapKey": "IBM Cloud"}, "resource_category_description": {"mapKey": "Storage"}, "resource_type_description": {"mapKey": "Bucket"}, "resource_description": {"mapKey": "My_specific_bucket"}}, "profile_id": 3045, "base_profile": "CIS IBM Foundations Benchmark 1.0.0", "profile_type": "predefined", "created_time": "2021-02-26T04:07:25Z", "modified_time": "2021-02-26T04:07:25Z", "enabled": true}]}`)
+					fmt.Fprintf(res, "%s", `{"profiles": [{"name": "CIS IBM Foundations Benchmark 1.0.0", "description": "CIS IBM Foundations Benchmark 1.0.0", "version": 1, "created_by": "IBMid-5500081P68", "modified_by": "IBMid-5500081P68", "reason_for_delete": "ReasonForDelete", "applicability_criteria": {"environment": ["ibm"], "resource": ["cloud_object_storage"], "environment_category": ["cloud_platform"], "resource_category": ["xaas"], "resource_type": ["storage"], "software_details": {"anyKey": "anyValue"}, "os_details": {"anyKey": "anyValue"}, "additional_details": {"anyKey": "anyValue"}, "environment_category_description": {"mapKey": "Cloud"}, "environment_description": {"mapKey": "IBM Cloud"}, "resource_category_description": {"mapKey": "Storage"}, "resource_type_description": {"mapKey": "Bucket"}, "resource_description": {"mapKey": "My_specific_bucket"}}, "profile_id": "3045", "base_profile": "CIS IBM Foundations Benchmark 1.0.0", "profile_type": "predefined", "created_time": "2021-02-26T04:07:25.000Z", "modified_time": "2021-02-26T04:07:25.000Z", "enabled": true}]}`)
 				}))
 			})
-			It(`Invoke ListProfile successfully`, func() {
+			It(`Invoke ListProfiles successfully`, func() {
 				postureManagementService, serviceErr := posturemanagementv1.NewPostureManagementV1(&posturemanagementv1.PostureManagementV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -649,25 +654,25 @@ var _ = Describe(`PostureManagementV1`, func() {
 				Expect(postureManagementService).ToNot(BeNil())
 
 				// Invoke operation with nil options model (negative test)
-				result, response, operationErr := postureManagementService.ListProfile(nil)
+				result, response, operationErr := postureManagementService.ListProfiles(nil)
 				Expect(operationErr).NotTo(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
 
-				// Construct an instance of the ListProfileOptions model
-				listProfileOptionsModel := new(posturemanagementv1.ListProfileOptions)
-				listProfileOptionsModel.AccountID = core.StringPtr("testString")
-				listProfileOptionsModel.Name = core.StringPtr("testString")
-				listProfileOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the ListProfilesOptions model
+				listProfilesOptionsModel := new(posturemanagementv1.ListProfilesOptions)
+				listProfilesOptionsModel.AccountID = core.StringPtr("testString")
+				listProfilesOptionsModel.Name = core.StringPtr("testString")
+				listProfilesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
-				result, response, operationErr = postureManagementService.ListProfile(listProfileOptionsModel)
+				result, response, operationErr = postureManagementService.ListProfiles(listProfilesOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
 
 			})
-			It(`Invoke ListProfile with error: Operation validation and request error`, func() {
+			It(`Invoke ListProfiles with error: Operation validation and request error`, func() {
 				postureManagementService, serviceErr := posturemanagementv1.NewPostureManagementV1(&posturemanagementv1.PostureManagementV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -675,23 +680,23 @@ var _ = Describe(`PostureManagementV1`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(postureManagementService).ToNot(BeNil())
 
-				// Construct an instance of the ListProfileOptions model
-				listProfileOptionsModel := new(posturemanagementv1.ListProfileOptions)
-				listProfileOptionsModel.AccountID = core.StringPtr("testString")
-				listProfileOptionsModel.Name = core.StringPtr("testString")
-				listProfileOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the ListProfilesOptions model
+				listProfilesOptionsModel := new(posturemanagementv1.ListProfilesOptions)
+				listProfilesOptionsModel.AccountID = core.StringPtr("testString")
+				listProfilesOptionsModel.Name = core.StringPtr("testString")
+				listProfilesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := postureManagementService.SetServiceURL("")
 				Expect(err).To(BeNil())
-				result, response, operationErr := postureManagementService.ListProfile(listProfileOptionsModel)
+				result, response, operationErr := postureManagementService.ListProfiles(listProfilesOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
-				// Construct a second instance of the ListProfileOptions model with no property values
-				listProfileOptionsModelNew := new(posturemanagementv1.ListProfileOptions)
+				// Construct a second instance of the ListProfilesOptions model with no property values
+				listProfilesOptionsModelNew := new(posturemanagementv1.ListProfilesOptions)
 				// Invoke operation with invalid model (negative test)
-				result, response, operationErr = postureManagementService.ListProfile(listProfileOptionsModelNew)
+				result, response, operationErr = postureManagementService.ListProfiles(listProfilesOptionsModelNew)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
@@ -732,13 +737,14 @@ var _ = Describe(`PostureManagementV1`, func() {
 		Context(`Using external config, construct service client instances`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"POSTURE_MANAGEMENT_URL":       "https://posturemanagementv1/api",
+				"POSTURE_MANAGEMENT_URL": "https://posturemanagementv1/api",
 				"POSTURE_MANAGEMENT_AUTH_TYPE": "noauth",
 			}
 
 			It(`Create service client using external config successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				postureManagementService, serviceErr := posturemanagementv1.NewPostureManagementV1UsingExternalConfig(&posturemanagementv1.PostureManagementV1Options{})
+				postureManagementService, serviceErr := posturemanagementv1.NewPostureManagementV1UsingExternalConfig(&posturemanagementv1.PostureManagementV1Options{
+				})
 				Expect(postureManagementService).ToNot(BeNil())
 				Expect(serviceErr).To(BeNil())
 				ClearTestEnvironment(testEnvironment)
@@ -767,7 +773,8 @@ var _ = Describe(`PostureManagementV1`, func() {
 			})
 			It(`Create service client using external config and set url programatically successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				postureManagementService, serviceErr := posturemanagementv1.NewPostureManagementV1UsingExternalConfig(&posturemanagementv1.PostureManagementV1Options{})
+				postureManagementService, serviceErr := posturemanagementv1.NewPostureManagementV1UsingExternalConfig(&posturemanagementv1.PostureManagementV1Options{
+				})
 				err := postureManagementService.SetServiceURL("https://testService/api")
 				Expect(err).To(BeNil())
 				Expect(postureManagementService).ToNot(BeNil())
@@ -785,12 +792,13 @@ var _ = Describe(`PostureManagementV1`, func() {
 		Context(`Using external config, construct service client instances with error: Invalid Auth`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"POSTURE_MANAGEMENT_URL":       "https://posturemanagementv1/api",
+				"POSTURE_MANAGEMENT_URL": "https://posturemanagementv1/api",
 				"POSTURE_MANAGEMENT_AUTH_TYPE": "someOtherAuth",
 			}
 
 			SetTestEnvironment(testEnvironment)
-			postureManagementService, serviceErr := posturemanagementv1.NewPostureManagementV1UsingExternalConfig(&posturemanagementv1.PostureManagementV1Options{})
+			postureManagementService, serviceErr := posturemanagementv1.NewPostureManagementV1UsingExternalConfig(&posturemanagementv1.PostureManagementV1Options{
+			})
 
 			It(`Instantiate service client with error`, func() {
 				Expect(postureManagementService).To(BeNil())
@@ -801,7 +809,7 @@ var _ = Describe(`PostureManagementV1`, func() {
 		Context(`Using external config, construct service client instances with error: Invalid URL`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"POSTURE_MANAGEMENT_AUTH_TYPE": "NOAuth",
+				"POSTURE_MANAGEMENT_AUTH_TYPE":   "NOAuth",
 			}
 
 			SetTestEnvironment(testEnvironment)
@@ -894,7 +902,7 @@ var _ = Describe(`PostureManagementV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"scopes": [{"description": "This scope targets all of the resources that are available in our IBM Cloud staging environment.", "created_by": "IBMid-5500081P68", "modified_by": "IBMid-5500081P68", "scope_id": 1, "name": "My_Example_Scope", "enabled": true, "environment_type": "ibm", "created_time": "2021-02-26T04:07:25Z", "modified_time": "2021-02-26T04:07:25Z", "last_scan_type": "fact_collection", "last_scan_type_description": "Fact collection", "last_scan_status_updated_time": "2021-02-26T04:07:25Z", "collectors_id": [12], "scans": [{"scan_id": 235, "discover_id": 49, "status": "validation_completed", "status_message": "The collector aborted the task during upgrade."}]}]}`)
+					fmt.Fprintf(res, "%s", `{"scopes": [{"description": "This scope targets all of the resources that are available in our IBM Cloud staging environment.", "created_by": "IBMid-5500081P68", "modified_by": "IBMid-5500081P68", "scope_id": "1", "name": "My_Example_Scope", "enabled": true, "environment_type": "ibm", "created_time": "2021-02-26T04:07:25.000Z", "modified_time": "2021-02-26T04:07:25.000Z", "last_scan_type": "fact_collection", "last_scan_type_description": "Fact collection", "last_scan_status_updated_time": "2021-02-26T04:07:25.000Z", "collectors_id": ["CollectorsID"], "scans": [{"scan_id": "235", "discover_id": "49", "status": "validation_completed", "status_message": "The collector aborted the task during upgrade."}]}]}`)
 				}))
 			})
 			It(`Invoke ListScopes successfully with retries`, func() {
@@ -951,7 +959,7 @@ var _ = Describe(`PostureManagementV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"scopes": [{"description": "This scope targets all of the resources that are available in our IBM Cloud staging environment.", "created_by": "IBMid-5500081P68", "modified_by": "IBMid-5500081P68", "scope_id": 1, "name": "My_Example_Scope", "enabled": true, "environment_type": "ibm", "created_time": "2021-02-26T04:07:25Z", "modified_time": "2021-02-26T04:07:25Z", "last_scan_type": "fact_collection", "last_scan_type_description": "Fact collection", "last_scan_status_updated_time": "2021-02-26T04:07:25Z", "collectors_id": [12], "scans": [{"scan_id": 235, "discover_id": 49, "status": "validation_completed", "status_message": "The collector aborted the task during upgrade."}]}]}`)
+					fmt.Fprintf(res, "%s", `{"scopes": [{"description": "This scope targets all of the resources that are available in our IBM Cloud staging environment.", "created_by": "IBMid-5500081P68", "modified_by": "IBMid-5500081P68", "scope_id": "1", "name": "My_Example_Scope", "enabled": true, "environment_type": "ibm", "created_time": "2021-02-26T04:07:25.000Z", "modified_time": "2021-02-26T04:07:25.000Z", "last_scan_type": "fact_collection", "last_scan_type_description": "Fact collection", "last_scan_status_updated_time": "2021-02-26T04:07:25.000Z", "collectors_id": ["CollectorsID"], "scans": [{"scan_id": "235", "discover_id": "49", "status": "validation_completed", "status_message": "The collector aborted the task during upgrade."}]}]}`)
 				}))
 			})
 			It(`Invoke ListScopes successfully`, func() {
@@ -1021,33 +1029,33 @@ var _ = Describe(`PostureManagementV1`, func() {
 				URL:           "http://posturemanagementv1modelgenerator.com",
 				Authenticator: &core.NoAuthAuthenticator{},
 			})
-			It(`Invoke NewCreateValidationScanOptions successfully`, func() {
-				// Construct an instance of the CreateValidationScanOptions model
+			It(`Invoke NewCreateValidationOptions successfully`, func() {
+				// Construct an instance of the CreateValidationOptions model
 				accountID := "testString"
-				createValidationScanOptionsModel := postureManagementService.NewCreateValidationScanOptions(accountID)
-				createValidationScanOptionsModel.SetAccountID("testString")
-				createValidationScanOptionsModel.SetScopeID(int64(1))
-				createValidationScanOptionsModel.SetProfileID(int64(6))
-				createValidationScanOptionsModel.SetGroupProfileID(int64(13))
-				createValidationScanOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
-				Expect(createValidationScanOptionsModel).ToNot(BeNil())
-				Expect(createValidationScanOptionsModel.AccountID).To(Equal(core.StringPtr("testString")))
-				Expect(createValidationScanOptionsModel.ScopeID).To(Equal(core.Int64Ptr(int64(1))))
-				Expect(createValidationScanOptionsModel.ProfileID).To(Equal(core.Int64Ptr(int64(6))))
-				Expect(createValidationScanOptionsModel.GroupProfileID).To(Equal(core.Int64Ptr(int64(13))))
-				Expect(createValidationScanOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+				createValidationOptionsModel := postureManagementService.NewCreateValidationOptions(accountID)
+				createValidationOptionsModel.SetAccountID("testString")
+				createValidationOptionsModel.SetScopeID("1")
+				createValidationOptionsModel.SetProfileID("6")
+				createValidationOptionsModel.SetGroupProfileID("13")
+				createValidationOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(createValidationOptionsModel).ToNot(BeNil())
+				Expect(createValidationOptionsModel.AccountID).To(Equal(core.StringPtr("testString")))
+				Expect(createValidationOptionsModel.ScopeID).To(Equal(core.StringPtr("1")))
+				Expect(createValidationOptionsModel.ProfileID).To(Equal(core.StringPtr("6")))
+				Expect(createValidationOptionsModel.GroupProfileID).To(Equal(core.StringPtr("13")))
+				Expect(createValidationOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
-			It(`Invoke NewListProfileOptions successfully`, func() {
-				// Construct an instance of the ListProfileOptions model
+			It(`Invoke NewListProfilesOptions successfully`, func() {
+				// Construct an instance of the ListProfilesOptions model
 				accountID := "testString"
-				listProfileOptionsModel := postureManagementService.NewListProfileOptions(accountID)
-				listProfileOptionsModel.SetAccountID("testString")
-				listProfileOptionsModel.SetName("testString")
-				listProfileOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
-				Expect(listProfileOptionsModel).ToNot(BeNil())
-				Expect(listProfileOptionsModel.AccountID).To(Equal(core.StringPtr("testString")))
-				Expect(listProfileOptionsModel.Name).To(Equal(core.StringPtr("testString")))
-				Expect(listProfileOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+				listProfilesOptionsModel := postureManagementService.NewListProfilesOptions(accountID)
+				listProfilesOptionsModel.SetAccountID("testString")
+				listProfilesOptionsModel.SetName("testString")
+				listProfilesOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(listProfilesOptionsModel).ToNot(BeNil())
+				Expect(listProfilesOptionsModel.AccountID).To(Equal(core.StringPtr("testString")))
+				Expect(listProfilesOptionsModel.Name).To(Equal(core.StringPtr("testString")))
+				Expect(listProfilesOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewListScopesOptions successfully`, func() {
 				// Construct an instance of the ListScopesOptions model
