@@ -28,6 +28,8 @@ import (
 
 	"github.com/IBM/go-sdk-core/v5/core"
 	"github.com/IBM/platform-services-go-sdk/casemanagementv1"
+	. "github.com/onsi/ginkgo"
+	. "github.com/onsi/gomega"
 )
 
 //
@@ -138,7 +140,7 @@ var _ = Describe(`CaseManagementV1 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(caseVar, "", "  ")
-			fmt.Printf("\nCreateCase() result:\n %s \n", string(b))
+			fmt.Printf("\nCreateCase() result:\n%s\n", string(b))
 
 			// end-createCase
 
@@ -170,7 +172,7 @@ var _ = Describe(`CaseManagementV1 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(caseVar, "", "  ")
-			fmt.Printf("\nGetCase() result:\n %s \n", string(b))
+			fmt.Printf("\nGetCase() result:\n%s\n", string(b))
 
 			// end-getCase
 
@@ -193,7 +195,7 @@ var _ = Describe(`CaseManagementV1 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(caseList, "", "  ")
-			fmt.Printf("\nGetCases() result:\n %s \n", string(b))
+			fmt.Printf("\nGetCases() result:\n%s\n", string(b))
 
 			// end-getCases
 
@@ -217,7 +219,7 @@ var _ = Describe(`CaseManagementV1 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(comment, "", "  ")
-			fmt.Printf("\nAddComment() result:\n %s \n", string(b))
+			fmt.Printf("\nAddComment() result:\n%s\n", string(b))
 
 			// end-addComment
 
@@ -243,7 +245,7 @@ var _ = Describe(`CaseManagementV1 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(watchlistAddResponse, "", "  ")
-			fmt.Printf("\nAddWatchlist() result:\n %s \n", string(b))
+			fmt.Printf("\nAddWatchlist() result:\n%s\n", string(b))
 
 			// end-addWatchlist
 
@@ -269,7 +271,7 @@ var _ = Describe(`CaseManagementV1 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(watchlist, "", "  ")
-			fmt.Printf("\nRemoveWatchlist() result:\n &s \n", string(b))
+			fmt.Printf("\nRemoveWatchlist() result:\n%s\n", string(b))
 
 			// end-removeWatchlist
 
@@ -294,7 +296,7 @@ var _ = Describe(`CaseManagementV1 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(resource, "", "  ")
-			fmt.Printf("\nAddResource() result:\n %s \n", string(b))
+			fmt.Printf("\nAddResource() result:\n%s\n", string(b))
 
 			// end-addResource
 
@@ -326,7 +328,7 @@ var _ = Describe(`CaseManagementV1 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(attachment, "", "  ")
-			fmt.Printf("\nUploadFile() result:\n %s \n", string(b))
+			fmt.Printf("\nUploadFile() result:\n%s\n", string(b))
 
 			// end-uploadFile
 
@@ -385,7 +387,7 @@ var _ = Describe(`CaseManagementV1 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(attachmentList, "", "  ")
-			fmt.Printf("\nDeleteFile() result:\n %s \n", string(b))
+			fmt.Printf("\nDeleteFile() result:\n%s\n", string(b))
 
 			// end-deleteFile
 
@@ -415,7 +417,7 @@ var _ = Describe(`CaseManagementV1 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(caseVar, "", "  ")
-			fmt.Printf("\nUpdateCaseStatus() result:\n %s \n", string(b))
+			fmt.Printf("\nUpdateCaseStatus() result:\n%s\n", string(b))
 
 			// end-updateCaseStatus
 
