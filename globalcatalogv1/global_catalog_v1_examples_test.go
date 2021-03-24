@@ -31,6 +31,8 @@ import (
 	"github.com/IBM/go-sdk-core/v5/core"
 	"github.com/IBM/platform-services-go-sdk/globalcatalogv1"
 	"github.com/google/uuid"
+	. "github.com/onsi/ginkgo"
+	. "github.com/onsi/gomega"
 )
 
 //
@@ -167,7 +169,7 @@ var _ = Describe(`GlobalCatalogV1 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(catalogEntry, "", "  ")
-			fmt.Printf("\nCreateCatalogEntry() result:\n %s \n", string(b))
+			fmt.Printf("\nCreateCatalogEntry() result:\n%s\n", string(b))
 
 			// end-create_catalog_entry
 
@@ -191,7 +193,7 @@ var _ = Describe(`GlobalCatalogV1 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(catalogEntry, "", "  ")
-			fmt.Printf("\nGetCatalogEntry() result:\n %s \n", string(b))
+			fmt.Printf("\nGetCatalogEntry() result:\n%s\n", string(b))
 
 			// end-get_catalog_entry
 
@@ -256,7 +258,7 @@ var _ = Describe(`GlobalCatalogV1 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(catalogEntry, "", "  ")
-			fmt.Printf("\nUpdateCatalogEntry() result:\n %s \n", string(b))
+			fmt.Printf("\nUpdateCatalogEntry() result:\n%s\n", string(b))
 
 			// end-update_catalog_entry
 
@@ -279,7 +281,7 @@ var _ = Describe(`GlobalCatalogV1 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(entrySearchResult, "", "  ")
-			fmt.Printf("\nListCatalogEntries() result:\n %s \n", string(b))
+			fmt.Printf("\nListCatalogEntries() result:\n%s\n", string(b))
 
 			// end-list_catalog_entries
 
@@ -306,7 +308,7 @@ var _ = Describe(`GlobalCatalogV1 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(entrySearchResult, "", "  ")
-			fmt.Printf("\nGetChildObjects() result:\n %s \n", string(b))
+			fmt.Printf("\nGetChildObjects() result:\n%s\n", string(b))
 
 			// end-get_child_objects
 
@@ -327,7 +329,7 @@ var _ = Describe(`GlobalCatalogV1 Examples Tests`, func() {
 			if err != nil {
 				panic(err)
 			}
-			fmt.Println("\nRestoreCatalogEntry() is executed successfully.")
+			fmt.Printf("\nRestoreCatalogEntry() response status code: %d\n", response.StatusCode)
 
 			// end-restore_catalog_entry
 
@@ -349,7 +351,7 @@ var _ = Describe(`GlobalCatalogV1 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(visibility, "", "  ")
-			fmt.Printf("\nGetVisibility() result:\n %s \n", string(b))
+			fmt.Printf("\nGetVisibility() result:\n%s\n", string(b))
 
 			// end-get_visibility
 
@@ -372,7 +374,7 @@ var _ = Describe(`GlobalCatalogV1 Examples Tests`, func() {
 			if err != nil {
 				fmt.Println("UpdateVisibility() returned the following error: ", err.Error())
 			}
-			fmt.Println("\nUpdateVisibility() is executed successfully.")
+			fmt.Printf("\nUpdateVisibility() response status code: %d\n: ", response.StatusCode)
 
 			// end-update_visibility
 
@@ -393,7 +395,7 @@ var _ = Describe(`GlobalCatalogV1 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(pricingGet, "", "  ")
-			fmt.Printf("\nGetPricing() result:\n %s \n", string(b))
+			fmt.Printf("\nGetPricing() result:\n%s\n", string(b))
 
 			// end-get_pricing
 
@@ -418,7 +420,7 @@ var _ = Describe(`GlobalCatalogV1 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(auditSearchResult, "", "  ")
-			fmt.Printf("\nGetAuditLogs() result:\n %s \n", string(b))
+			fmt.Printf("\nGetAuditLogs() result:\n%s\n", string(b))
 
 			// end-get_audit_logs
 
@@ -444,7 +446,7 @@ var _ = Describe(`GlobalCatalogV1 Examples Tests`, func() {
 			if err != nil {
 				panic(err)
 			}
-			fmt.Println("\nUploadArtifact() is executed successfully.")
+			fmt.Printf("\nUploadArtifact() response status code: %d\n", response.StatusCode)
 
 			// end-upload_artifact
 
@@ -494,7 +496,7 @@ var _ = Describe(`GlobalCatalogV1 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(artifacts, "", "  ")
-			fmt.Printf("\nListArtifacts() result:\n %s \n", string(b))
+			fmt.Printf("\nListArtifacts() result:\n%s\n", string(b))
 
 			// end-list_artifacts
 
@@ -517,7 +519,7 @@ var _ = Describe(`GlobalCatalogV1 Examples Tests`, func() {
 			if err != nil {
 				panic(err)
 			}
-			fmt.Println("\nDeleteArtifact() is executed successfully.")
+			fmt.Printf("\nDeleteArtifact() response status code: %d\n", response.StatusCode)
 			// end-delete_artifact
 
 			Expect(err).To(BeNil())
@@ -537,7 +539,7 @@ var _ = Describe(`GlobalCatalogV1 Examples Tests`, func() {
 			if err != nil {
 				panic(err)
 			}
-			fmt.Println("\nDeleteCatalogEntry() is executed successfully.")
+			fmt.Printf("\nDeleteCatalogEntry() response status code: %d\n", response.StatusCode)
 
 			// end-delete_catalog_entry
 
