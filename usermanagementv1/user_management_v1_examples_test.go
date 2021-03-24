@@ -26,6 +26,8 @@ import (
 
 	"github.com/IBM/go-sdk-core/v5/core"
 	"github.com/IBM/platform-services-go-sdk/usermanagementv1"
+	. "github.com/onsi/ginkgo"
+	. "github.com/onsi/gomega"
 )
 
 const externalConfigFile = "../user_management.env"
@@ -170,7 +172,7 @@ var _ = Describe(`UserManagementV1 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(invitedUserList, "", "  ")
-			fmt.Printf("\nInviteUsers() result:\n %s \n", string(b))
+			fmt.Printf("\nInviteUsers() result:\n%s\n", string(b))
 
 			// end-invite_users
 
@@ -199,7 +201,7 @@ var _ = Describe(`UserManagementV1 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(userList, "", "  ")
-			fmt.Printf("\nListUsers() result:\n %s \n", string(b))
+			fmt.Printf("\nListUsers() result:\n%s\n", string(b))
 
 			// end-list_users
 
@@ -223,7 +225,7 @@ var _ = Describe(`UserManagementV1 Examples Tests`, func() {
 			if err != nil {
 				panic(err)
 			}
-			fmt.Println("\nRemoveUser() is executed successfully.")
+			fmt.Printf("\nRemoveUser() response status code: %d\n", response.StatusCode)
 
 			// end-remove_user
 
@@ -247,7 +249,7 @@ var _ = Describe(`UserManagementV1 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(userProfile, "", "  ")
-			fmt.Printf("\nGetUserProfile() result:\n %s \n", string(b))
+			fmt.Printf("\nGetUserProfile() result:\n%s\n", string(b))
 
 			// end-get_user_profile
 
@@ -272,7 +274,7 @@ var _ = Describe(`UserManagementV1 Examples Tests`, func() {
 			if err != nil {
 				panic(err)
 			}
-			fmt.Println("\nUpdateUserProfile() is executed successfully.")
+			fmt.Printf("\nUpdateUserProfile() response status code: %d\n", response.StatusCode)
 
 			// end-update_user_profile
 
@@ -296,7 +298,7 @@ var _ = Describe(`UserManagementV1 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(userSettings, "", "  ")
-			fmt.Printf("\nGetUserSettings() result:\n %s \n", string(b))
+			fmt.Printf("\nGetUserSettings() result:\n%s\n", string(b))
 
 			// end-get_user_settings
 
@@ -322,7 +324,7 @@ var _ = Describe(`UserManagementV1 Examples Tests`, func() {
 			if err != nil {
 				panic(err)
 			}
-			fmt.Println("\nUpdateUserSettings() is executed successfully.")
+			fmt.Printf("\nUpdateUserSettings() response status code: %d\n", response.StatusCode)
 
 			// end-update_user_settings
 
