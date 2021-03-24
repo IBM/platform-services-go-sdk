@@ -23,6 +23,8 @@ import (
 	"fmt"
 	"github.com/IBM/go-sdk-core/v5/core"
 	"github.com/IBM/platform-services-go-sdk/atrackerv1"
+	. "github.com/onsi/ginkgo"
+	. "github.com/onsi/gomega"
 	"os"
 )
 
@@ -113,7 +115,7 @@ var _ = Describe(`AtrackerV1 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(target, "", "  ")
-			fmt.Printf("\nCreateTarget() result:\n %s \n", string(b))
+			fmt.Printf("\nCreateTarget() result:\n%s\n", string(b))
 
 			// end-create_target
 
@@ -134,7 +136,7 @@ var _ = Describe(`AtrackerV1 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(targetList, "", "  ")
-			fmt.Print("\nListTargets() result:\n %s \n", string(b))
+			fmt.Printf("\nListTargets() result:\n%s\n", string(b))
 
 			// end-list_targets
 
@@ -155,7 +157,7 @@ var _ = Describe(`AtrackerV1 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(target, "", "  ")
-			fmt.Printf("\nGetTarget() result:\n %s \n", string(b))
+			fmt.Printf("\nGetTarget() result:\n%s\n", string(b))
 
 			// end-get_target
 
@@ -186,7 +188,7 @@ var _ = Describe(`AtrackerV1 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(target, "", "  ")
-			fmt.Printf("\nReplaceTarget() result:\n %s \n", string(b))
+			fmt.Printf("\nReplaceTarget() result:\n%s\n", string(b))
 
 			// end-replace_target
 
@@ -213,7 +215,7 @@ var _ = Describe(`AtrackerV1 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(route, "", "  ")
-			fmt.Printf("\nCreateRoute() result:\n %s \n", string(b))
+			fmt.Printf("\nCreateRoute() result:\n%s\n", string(b))
 
 			// end-create_route
 
@@ -234,7 +236,7 @@ var _ = Describe(`AtrackerV1 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(routeList, "", "  ")
-			fmt.Printf("\nListRoutes() result:\n %s \n", string(b))
+			fmt.Printf("\nListRoutes() result:\n%s\n", string(b))
 
 			// end-list_routes
 
@@ -255,7 +257,7 @@ var _ = Describe(`AtrackerV1 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(route, "", "  ")
-			fmt.Printf("\nGetRoute() result:\n %s \n", string(b))
+			fmt.Printf("\nGetRoute() result:\n%s\n", string(b))
 
 			// end-get_route
 
@@ -283,7 +285,7 @@ var _ = Describe(`AtrackerV1 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(route, "", "  ")
-			fmt.Printf("\nReplaceRoute() result:\n %s \n", string(b))
+			fmt.Printf("\nReplaceRoute() result:\n%s\n", string(b))
 
 			// end-replace_route
 
@@ -303,7 +305,7 @@ var _ = Describe(`AtrackerV1 Examples Tests`, func() {
 			if err != nil {
 				panic(err)
 			}
-			fmt.Println("\nDeleteRoute() is executed successfully.")
+			fmt.Printf("\nDeleteRoute() response status code: %d\n", response.StatusCode)
 			// end-delete_route
 
 			Expect(err).To(BeNil())
@@ -321,7 +323,7 @@ var _ = Describe(`AtrackerV1 Examples Tests`, func() {
 			if err != nil {
 				panic(err)
 			}
-			fmt.Println("\nDeleteTarget() is executed successfully.")
+			fmt.Printf("\nDeleteTarget() result status code: %d\n", response.StatusCode)
 			// end-delete_target
 
 			Expect(err).To(BeNil())
