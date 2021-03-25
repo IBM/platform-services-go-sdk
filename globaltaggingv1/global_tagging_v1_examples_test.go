@@ -124,7 +124,7 @@ var _ = Describe(`GlobalTaggingV1 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(createTagResults, "", "  ")
-			fmt.Println(string(b))
+			fmt.Printf("\nCreateTag() result:\n%s\n", string(b))
 
 			// end-create_tag
 
@@ -147,7 +147,7 @@ var _ = Describe(`GlobalTaggingV1 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(tagList, "", "  ")
-			fmt.Println(string(b))
+			fmt.Printf("\nListTags() result:\n%s\n", string(b))
 
 			// end-list_tags
 
@@ -173,7 +173,7 @@ var _ = Describe(`GlobalTaggingV1 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(tagResults, "", "  ")
-			fmt.Println(string(b))
+			fmt.Printf("\nAttachTag() result:\n%s\n", string(b))
 
 			// end-attach_tag
 
@@ -200,7 +200,7 @@ var _ = Describe(`GlobalTaggingV1 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(tagResults, "", "  ")
-			fmt.Println(string(b))
+			fmt.Printf("\nDetachTag() result:\n%s\n", string(b))
 
 			// end-detach_tag
 
@@ -220,7 +220,7 @@ var _ = Describe(`GlobalTaggingV1 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(deleteTagResults, "", "  ")
-			fmt.Println(string(b))
+			fmt.Printf("\nDeleteTag() result:\n%s\n", string(b))
 
 			// end-delete_tag
 
@@ -239,7 +239,7 @@ var _ = Describe(`GlobalTaggingV1 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(deleteTagsResult, "", "  ")
-			fmt.Println(string(b))
+			fmt.Printf("\nDeleteTagAll() result:\n%s\n", string(b))
 
 			// end-delete_tag_all
 

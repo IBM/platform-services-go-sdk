@@ -1,5 +1,5 @@
 /**
- * (C) Copyright IBM Corp. 2020.
+ * (C) Copyright IBM Corp. 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,9 +15,8 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-d753183b-20201209-163011
+ * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-b414353e-20210324-135924
  */
- 
 
 // Package globalsearchv2 : Operations and models for the GlobalSearchV2 service
 package globalsearchv2
@@ -26,12 +25,13 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"github.com/IBM/go-sdk-core/v4/core"
-	common "github.com/IBM/platform-services-go-sdk/common"
 	"net/http"
 	"reflect"
 	"strings"
 	"time"
+
+	"github.com/IBM/go-sdk-core/v5/core"
+	common "github.com/IBM/platform-services-go-sdk/common"
 )
 
 // GlobalSearchV2 : Search for resources with the global and shared resource properties repository integrated in the IBM
@@ -166,7 +166,7 @@ func (globalSearch *GlobalSearchV2) DisableRetries() {
 	globalSearch.Service.DisableRetries()
 }
 
-// Search : Find instances of resources
+// Search : Find instances of resources (v3)
 // Find cloud foundry resources, resource controller-enabled resources, or storage and network resources running on
 // classic infrastructure in a specific account ID. You can apply query strings if necessary. To filter results, you can
 // insert a string using the Lucene syntax and the query string is parsed into a series of terms and operators. A term
@@ -262,8 +262,8 @@ func (globalSearch *GlobalSearchV2) SearchWithContext(ctx context.Context, searc
 	return
 }
 
-// GetSupportedTypes : Get all supported resource types
-// Retrieves a list of all the resource types supported by GhoST.
+// GetSupportedTypes : DEPRECATED. Get all GhoST indices
+// Retrieves a list of all GhoST indices.
 func (globalSearch *GlobalSearchV2) GetSupportedTypes(getSupportedTypesOptions *GetSupportedTypesOptions) (result *SupportedTypesList, response *core.DetailedResponse, err error) {
 	return globalSearch.GetSupportedTypesWithContext(context.Background(), getSupportedTypesOptions)
 }
@@ -339,7 +339,6 @@ type ResultItem struct {
 	additionalProperties map[string]interface{}
 }
 
-
 // SetProperty allows the user to set an arbitrary property on an instance of ResultItem
 func (o *ResultItem) SetProperty(key string, value interface{}) {
 	if o.additionalProperties == nil {
@@ -407,7 +406,6 @@ type ScanResult struct {
 	Items []ResultItem `json:"items" validate:"required"`
 }
 
-
 // UnmarshalScanResult unmarshals an instance of ScanResult from the specified map of raw messages.
 func UnmarshalScanResult(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(ScanResult)
@@ -430,30 +428,30 @@ func UnmarshalScanResult(m map[string]json.RawMessage, result interface{}) (err 
 // SearchOptions : The Search options.
 type SearchOptions struct {
 	// The Lucene-formatted query string. Default to '*' if not set.
-	Query *string `json:"query,omitempty"`
+	Query *string
 
 	// The list of the fields returned by the search. Defaults to all. `crn` is always returned.
-	Fields []string `json:"fields,omitempty"`
+	Fields []string
 
 	// An opaque search cursor that is returned on each operation call and that must be set on next call.
-	SearchCursor *string `json:"search_cursor,omitempty"`
+	SearchCursor *string
 
 	// An aplhanumeric string that can be used to trace a request across services. If not specified it will be
 	// automatically generated with the prefix "gst-".
-	TransactionID *string `json:"transaction-id,omitempty"`
+	TransactionID *string
 
 	// The account ID to filter resources.
-	AccountID *string `json:"account_id,omitempty"`
+	AccountID *string
 
 	// The maximum number of hits to return. Defaults to 10.
-	Limit *int64 `json:"limit,omitempty"`
+	Limit *int64
 
 	// A search timeout, bounding the search request to be executed within the specified time value and bail with the hits
 	// accumulated up to that point when expired. Defaults to the system defined timeout.
-	Timeout *int64 `json:"timeout,omitempty"`
+	Timeout *int64
 
 	// Comma separated properties names used for sorting.
-	Sort []string `json:"sort,omitempty"`
+	Sort []string
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -518,12 +516,11 @@ func (options *SearchOptions) SetHeaders(param map[string]string) *SearchOptions
 	return options
 }
 
-// SupportedTypesList : A list of resource types supported by GhoST.
+// SupportedTypesList : A list of all GhoST indices.
 type SupportedTypesList struct {
-	// A list of resource types supported by GhoST.
+	// A list of all GhoST indices.
 	SupportedTypes []string `json:"supported_types,omitempty"`
 }
-
 
 // UnmarshalSupportedTypesList unmarshals an instance of SupportedTypesList from the specified map of raw messages.
 func UnmarshalSupportedTypesList(m map[string]json.RawMessage, result interface{}) (err error) {

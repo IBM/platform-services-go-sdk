@@ -19,24 +19,24 @@ package resourcemanagerv2_test
 
 import (
 	"log"
+	"os"
 	"time"
 
-	"github.com/IBM/go-sdk-core/v4/core"
+	"github.com/IBM/go-sdk-core/v5/core"
 	"github.com/IBM/platform-services-go-sdk/resourcemanagerv2"
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
-
-	"os"
 )
 
 const externalConfigFile = "../resource_manager.env"
 
 var (
-	service1           *resourcemanagerv2.ResourceManagerV2
-	service2           *resourcemanagerv2.ResourceManagerV2
+	service            *resourcemanagerv2.ResourceManagerV2
+	altService         *resourcemanagerv2.ResourceManagerV2
 	err                error
-	testQuotaID        string = "7ce89f4a-4381-4600-b814-3cd9a4f4bdf4"
-	testUserAccountID  string = "60ce10d1d94749bf8dceff12065db1b0"
+	config             map[string]string
+	testQuotaID        string
+	testUserAccountID  string
 	newResourceGroupID string
 	configLoaded       bool = false
 )
@@ -55,6 +55,18 @@ var _ = Describe("Resource Manager - Integration Tests", func() {
 			if err == nil {
 				configLoaded = true
 			}
+			config, err = core.GetServiceProperties(resourcemanagerv2.DefaultServiceName)
+			if err != nil {
+				Skip("Error loading service properties, skipping tests: " + err.Error())
+			}
+			testQuotaID = config["QUOTA_ID"]
+			if testQuotaID == "" {
+				Skip("Unable to load test quota ID configuration property, skipping tests")
+			}
+			testUserAccountID = config["USER_ACCOUNT_ID"]
+			if testUserAccountID == "" {
+				Skip("Unable to test user account ID configuration property, skipping tests")
+			}
 		}
 		if !configLoaded {
 			Skip("External configuration could not be loaded, skipping...")
@@ -62,30 +74,30 @@ var _ = Describe("Resource Manager - Integration Tests", func() {
 	})
 	It(`Successfully created ResourceManagerV2 service instances`, func() {
 		shouldSkipTest()
-		options1 := &resourcemanagerv2.ResourceManagerV2Options{
-			ServiceName: "RMGR1",
+		options := &resourcemanagerv2.ResourceManagerV2Options{
+			ServiceName: resourcemanagerv2.DefaultServiceName,
 		}
-		service1, err = resourcemanagerv2.NewResourceManagerV2UsingExternalConfig(options1)
+		service, err = resourcemanagerv2.NewResourceManagerV2UsingExternalConfig(options)
 		Expect(err).To(BeNil())
-		Expect(service1).ToNot(BeNil())
+		Expect(service).ToNot(BeNil())
 
-		core.SetLogger(core.NewLogger(core.LevelDebug, log.New(GinkgoWriter, "", log.LstdFlags)))
-		service1.EnableRetries(4, 30*time.Second)
+		core.SetLogger(core.NewLogger(core.LevelDebug, log.New(GinkgoWriter, "", log.LstdFlags), log.New(GinkgoWriter, "", log.LstdFlags)))
+		service.EnableRetries(4, 30*time.Second)
 
-		options2 := &resourcemanagerv2.ResourceManagerV2Options{
-			ServiceName: "RMGR2",
+		optionsUser := &resourcemanagerv2.ResourceManagerV2Options{
+			ServiceName: "ALT_RESOURCE_MANAGER",
 		}
-		service2, err = resourcemanagerv2.NewResourceManagerV2UsingExternalConfig(options2)
+		altService, err = resourcemanagerv2.NewResourceManagerV2UsingExternalConfig(optionsUser)
 		Expect(err).To(BeNil())
-		Expect(service2).ToNot(BeNil())
+		Expect(altService).ToNot(BeNil())
 
-		service2.EnableRetries(4, 30*time.Second)
+		altService.EnableRetries(4, 30*time.Second)
 	})
 
 	It("Get list of all quota definition", func() {
 		shouldSkipTest()
-		listQuotaDefinitionOptionsModel := service1.NewListQuotaDefinitionsOptions()
-		result, detailedResponse, err := service1.ListQuotaDefinitions(listQuotaDefinitionOptionsModel)
+		listQuotaDefinitionOptionsModel := service.NewListQuotaDefinitionsOptions()
+		result, detailedResponse, err := service.ListQuotaDefinitions(listQuotaDefinitionOptionsModel)
 		Expect(err).To(BeNil())
 		Expect(detailedResponse.StatusCode).To(Equal(200))
 		Expect(result.Resources).NotTo(BeNil())
@@ -93,8 +105,8 @@ var _ = Describe("Resource Manager - Integration Tests", func() {
 
 	It("Get a quota definition by id", func() {
 		shouldSkipTest()
-		getQuotaDefinitionOptionsModel := service1.NewGetQuotaDefinitionOptions(testQuotaID)
-		result, detailedResponse, err := service1.GetQuotaDefinition(getQuotaDefinitionOptionsModel)
+		getQuotaDefinitionOptionsModel := service.NewGetQuotaDefinitionOptions(testQuotaID)
+		result, detailedResponse, err := service.GetQuotaDefinition(getQuotaDefinitionOptionsModel)
 		Expect(err).To(BeNil())
 		Expect(detailedResponse.StatusCode).To(Equal(200))
 		Expect(result).NotTo(BeNil())
@@ -104,9 +116,9 @@ var _ = Describe("Resource Manager - Integration Tests", func() {
 		It("Successfully retrieved list of resource groups in an account", func() {
 			shouldSkipTest()
 
-			listResourceGroupsOptionsModel := service1.NewListResourceGroupsOptions()
+			listResourceGroupsOptionsModel := service.NewListResourceGroupsOptions()
 			listResourceGroupsOptionsModel.SetAccountID(testUserAccountID)
-			result, detailedResponse, err := service1.ListResourceGroups(listResourceGroupsOptionsModel)
+			result, detailedResponse, err := service.ListResourceGroups(listResourceGroupsOptionsModel)
 			Expect(err).To(BeNil())
 			Expect(detailedResponse.StatusCode).To(Equal(200))
 			Expect(len(result.Resources)).To(BeNumerically(">=", 1))
@@ -126,10 +138,10 @@ var _ = Describe("Resource Manager - Integration Tests", func() {
 		It("Successfully created new resource group in an account", func() {
 			shouldSkipTest()
 
-			createResourceGroupOptionsModel := service1.NewCreateResourceGroupOptions()
+			createResourceGroupOptionsModel := service.NewCreateResourceGroupOptions()
 			createResourceGroupOptionsModel.SetAccountID(testUserAccountID)
 			createResourceGroupOptionsModel.SetName("TestGroup")
-			result, detailedResponse, err := service1.CreateResourceGroup(createResourceGroupOptionsModel)
+			result, detailedResponse, err := service.CreateResourceGroup(createResourceGroupOptionsModel)
 			Expect(err).To(BeNil())
 			Expect(detailedResponse.StatusCode).To(Equal(201))
 			Expect(result).NotTo(BeNil())
@@ -142,8 +154,8 @@ var _ = Describe("Resource Manager - Integration Tests", func() {
 		It("Successfully retrieved resource group by ID", func() {
 			shouldSkipTest()
 
-			getResourceGroupOptionsModel := service1.NewGetResourceGroupOptions(newResourceGroupID)
-			result, detailedResponse, err := service1.GetResourceGroup(getResourceGroupOptionsModel)
+			getResourceGroupOptionsModel := service.NewGetResourceGroupOptions(newResourceGroupID)
+			result, detailedResponse, err := service.GetResourceGroup(getResourceGroupOptionsModel)
 			Expect(err).To(BeNil())
 			Expect(detailedResponse.StatusCode).To(Equal(200))
 			Expect(result).NotTo(BeNil())
@@ -154,8 +166,8 @@ var _ = Describe("Resource Manager - Integration Tests", func() {
 		It("Successfully updated resource group", func() {
 			shouldSkipTest()
 
-			updateResourceGroupOptionsModel := service1.NewUpdateResourceGroupOptions(newResourceGroupID)
-			result, detailedResponse, err := service1.UpdateResourceGroup(updateResourceGroupOptionsModel)
+			updateResourceGroupOptionsModel := service.NewUpdateResourceGroupOptions(newResourceGroupID)
+			result, detailedResponse, err := service.UpdateResourceGroup(updateResourceGroupOptionsModel)
 			Expect(err).To(BeNil())
 			Expect(detailedResponse.StatusCode).To(Equal(200))
 			Expect(result).NotTo(BeNil())
@@ -166,8 +178,8 @@ var _ = Describe("Resource Manager - Integration Tests", func() {
 		It("Successfully deleted resource group", func() {
 			shouldSkipTest()
 
-			deleteResourceGroupOptionsModel := service2.NewDeleteResourceGroupOptions(newResourceGroupID)
-			detailedResponse, err := service2.DeleteResourceGroup(deleteResourceGroupOptionsModel)
+			deleteResourceGroupOptionsModel := altService.NewDeleteResourceGroupOptions(newResourceGroupID)
+			detailedResponse, err := altService.DeleteResourceGroup(deleteResourceGroupOptionsModel)
 			Expect(err).To(BeNil())
 			Expect(detailedResponse.StatusCode).To(Equal(204))
 		})

@@ -1,7 +1,7 @@
 // +build examples
 
 /**
- * (C) Copyright IBM Corp. 2020.
+ * (C) Copyright IBM Corp. 2020, 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,7 +23,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/IBM/go-sdk-core/v4/core"
+	"github.com/IBM/go-sdk-core/v5/core"
 	"github.com/IBM/platform-services-go-sdk/iamidentityv1"
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
@@ -66,6 +66,8 @@ var (
 
 	svcID     string
 	svcIDEtag string
+
+	accountSettingEtag string
 )
 
 func shouldSkipTest() {
@@ -149,7 +151,7 @@ var _ = Describe(`IamIdentityV1 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(apiKey, "", "  ")
-			fmt.Println(string(b))
+			fmt.Printf("\nCreateAPIKey() result:\n%s\n", string(b))
 			apikeyID = *apiKey.ID
 
 			// end-create_api_key
@@ -172,7 +174,7 @@ var _ = Describe(`IamIdentityV1 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(apiKeyList, "", "  ")
-			fmt.Println(string(b))
+			fmt.Printf("\nListAPIKeys() result:\n%s\n", string(b))
 
 			// end-list_api_keys
 
@@ -192,7 +194,7 @@ var _ = Describe(`IamIdentityV1 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(apiKey, "", "  ")
-			fmt.Println(string(b))
+			fmt.Printf("\nGetAPIKeysDetails() result:\n%s\n", string(b))
 
 			// end-get_api_keys_details
 
@@ -211,7 +213,7 @@ var _ = Describe(`IamIdentityV1 Examples Tests`, func() {
 			}
 			apikeyEtag = response.GetHeaders().Get("Etag")
 			b, _ := json.MarshalIndent(apiKey, "", "  ")
-			fmt.Println(string(b))
+			fmt.Printf("\nGetAPIKey() result:\n%s\n", string(b))
 
 			// end-get_api_key
 
@@ -231,7 +233,7 @@ var _ = Describe(`IamIdentityV1 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(apiKey, "", "  ")
-			fmt.Println(string(b))
+			fmt.Printf("\nUpdateAPIKey() result:\n%s\n", string(b))
 
 			// end-update_api_key
 
@@ -248,6 +250,7 @@ var _ = Describe(`IamIdentityV1 Examples Tests`, func() {
 			if err != nil {
 				panic(err)
 			}
+			fmt.Printf("\nLockAPIKey() response status code: %d\n", response.StatusCode)
 
 			// end-lock_api_key
 
@@ -263,6 +266,7 @@ var _ = Describe(`IamIdentityV1 Examples Tests`, func() {
 			if err != nil {
 				panic(err)
 			}
+			fmt.Printf("\nUnlockAPIKey() response status code: %d\n", response.StatusCode)
 
 			// end-unlock_api_key
 
@@ -278,6 +282,7 @@ var _ = Describe(`IamIdentityV1 Examples Tests`, func() {
 			if err != nil {
 				panic(err)
 			}
+			fmt.Printf("\nDeleteAPIKey() response status code: %d\n", response.StatusCode)
 
 			// end-delete_api_key
 
@@ -296,7 +301,7 @@ var _ = Describe(`IamIdentityV1 Examples Tests`, func() {
 			}
 			svcID = *serviceID.ID
 			b, _ := json.MarshalIndent(serviceID, "", "  ")
-			fmt.Println(string(b))
+			fmt.Printf("\nCreateServiceID() result:\n%s\n", string(b))
 
 			// end-create_service_id
 
@@ -316,7 +321,7 @@ var _ = Describe(`IamIdentityV1 Examples Tests`, func() {
 			}
 			svcIDEtag = response.GetHeaders().Get("Etag")
 			b, _ := json.MarshalIndent(serviceID, "", "  ")
-			fmt.Println(string(b))
+			fmt.Printf("\nGetServiceID() result:\n%s\n", string(b))
 
 			// end-get_service_id
 
@@ -337,7 +342,7 @@ var _ = Describe(`IamIdentityV1 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(serviceIDList, "", "  ")
-			fmt.Println(string(b))
+			fmt.Printf("\nListServiceIds() result:\n%s\n", string(b))
 
 			// end-list_service_ids
 
@@ -356,7 +361,7 @@ var _ = Describe(`IamIdentityV1 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(serviceID, "", "  ")
-			fmt.Println(string(b))
+			fmt.Printf("\nUpdateServiceID() result:\n%s\n", string(b))
 
 			// end-update_service_id
 
@@ -373,6 +378,7 @@ var _ = Describe(`IamIdentityV1 Examples Tests`, func() {
 			if err != nil {
 				panic(err)
 			}
+			fmt.Printf("\nLockServiceID() response status code: %d\n", response.StatusCode)
 
 			// end-lock_service_id
 
@@ -388,6 +394,7 @@ var _ = Describe(`IamIdentityV1 Examples Tests`, func() {
 			if err != nil {
 				panic(err)
 			}
+			fmt.Printf("\nUnlockServiceID() response status code: %d\n", response.StatusCode)
 
 			// end-unlock_service_id
 
@@ -403,11 +410,59 @@ var _ = Describe(`IamIdentityV1 Examples Tests`, func() {
 			if err != nil {
 				panic(err)
 			}
+			fmt.Printf("\nDeleteServiceID() response status code: %d\n", response.StatusCode)
 
 			// end-delete_service_id
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(204))
+		})
+		It(`GetAccountSettings request example`, func() {
+			// begin-getAccountSettings
+
+			getAccountSettingsOptions := iamIdentityService.NewGetAccountSettingsOptions(accountID)
+
+			accountSettingsResponse, response, err := iamIdentityService.GetAccountSettings(getAccountSettingsOptions)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(accountSettingsResponse, "", "  ")
+			fmt.Printf("\nGetAccountSettings() result:\n%s\n", string(b))
+
+			// end-getAccountSettings
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(accountSettingsResponse).ToNot(BeNil())
+
+			accountSettingEtag = response.GetHeaders().Get("Etag")
+			Expect(accountSettingEtag).ToNot(BeEmpty())
+		})
+		It(`UpdateAccountSettings request example`, func() {
+			// begin-updateAccountSettings
+
+			updateAccountSettingsOptions := iamIdentityService.NewUpdateAccountSettingsOptions(
+				accountSettingEtag,
+				accountID,
+			)
+			updateAccountSettingsOptions.SetSessionExpirationInSeconds("86400")
+			updateAccountSettingsOptions.SetSessionInvalidationInSeconds("7200")
+			updateAccountSettingsOptions.SetMfa("NONE")
+			updateAccountSettingsOptions.SetRestrictCreatePlatformApikey("NOT_RESTRICTED")
+			updateAccountSettingsOptions.SetRestrictCreatePlatformApikey("NOT_RESTRICTED")
+
+			accountSettingsResponse, response, err := iamIdentityService.UpdateAccountSettings(updateAccountSettingsOptions)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(accountSettingsResponse, "", "  ")
+			fmt.Printf("\nUpdateAccountSettings() result:\n%s\n", string(b))
+
+			// end-updateAccountSettings
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(accountSettingsResponse).ToNot(BeNil())
 		})
 	})
 })

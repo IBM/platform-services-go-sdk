@@ -172,7 +172,7 @@ var _ = Describe(`UserManagementV1 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(invitedUserList, "", "  ")
-			fmt.Println(string(b))
+			fmt.Printf("\nInviteUsers() result:\n%s\n", string(b))
 
 			// end-invite_users
 
@@ -201,7 +201,7 @@ var _ = Describe(`UserManagementV1 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(userList, "", "  ")
-			fmt.Println(string(b))
+			fmt.Printf("\nListUsers() result:\n%s\n", string(b))
 
 			// end-list_users
 
@@ -225,6 +225,7 @@ var _ = Describe(`UserManagementV1 Examples Tests`, func() {
 			if err != nil {
 				panic(err)
 			}
+			fmt.Printf("\nRemoveUser() response status code: %d\n", response.StatusCode)
 
 			// end-remove_user
 
@@ -248,7 +249,7 @@ var _ = Describe(`UserManagementV1 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(userProfile, "", "  ")
-			fmt.Println(string(b))
+			fmt.Printf("\nGetUserProfile() result:\n%s\n", string(b))
 
 			// end-get_user_profile
 
@@ -273,6 +274,7 @@ var _ = Describe(`UserManagementV1 Examples Tests`, func() {
 			if err != nil {
 				panic(err)
 			}
+			fmt.Printf("\nUpdateUserProfile() response status code: %d\n", response.StatusCode)
 
 			// end-update_user_profile
 
@@ -296,7 +298,7 @@ var _ = Describe(`UserManagementV1 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(userSettings, "", "  ")
-			fmt.Println(string(b))
+			fmt.Printf("\nGetUserSettings() result:\n%s\n", string(b))
 
 			// end-get_user_settings
 
@@ -322,6 +324,7 @@ var _ = Describe(`UserManagementV1 Examples Tests`, func() {
 			if err != nil {
 				panic(err)
 			}
+			fmt.Printf("\nUpdateUserSettings() response status code: %d\n", response.StatusCode)
 
 			// end-update_user_settings
 
