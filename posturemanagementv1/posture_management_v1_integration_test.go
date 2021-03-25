@@ -114,8 +114,8 @@ var _ = Describe(`PostureManagementV1 Integration Tests`, func() {
 		It(`ListProfiles(listProfilesOptions *ListProfilesOptions)`, func() {
 
 			listProfilesOptions := &posturemanagementv1.ListProfilesOptions{
-				AccountID: core.StringPtr(accountID),
-				Name:      core.StringPtr(profileName),
+				AccountID: &accountID,
+				Name:      &profileName,
 			}
 
 			profilesList, response, err := postureManagementService.ListProfiles(listProfilesOptions)
@@ -135,8 +135,8 @@ var _ = Describe(`PostureManagementV1 Integration Tests`, func() {
 		It(`ListScopes(listScopesOptions *ListScopesOptions)`, func() {
 
 			listScopesOptions := &posturemanagementv1.ListScopesOptions{
-				AccountID: core.StringPtr(accountID),
-				Name:      core.StringPtr(scopesName),
+				AccountID: &accountID,
+				Name:      &scopesName,
 			}
 
 			scopesList, response, err := postureManagementService.ListScopes(listScopesOptions)
@@ -158,10 +158,10 @@ var _ = Describe(`PostureManagementV1 Integration Tests`, func() {
 			Expect(profileID).ToNot(BeNil())
 
 			createValidationOptions := &posturemanagementv1.CreateValidationOptions{
-				AccountID:      core.StringPtr(accountID),
+				AccountID:      &accountID,
 				ScopeID:        scopeID,
 				ProfileID:      profileID,
-				GroupProfileID: core.StringPtr(groupProfileID),
+				GroupProfileID: &groupProfileID,
 			}
 
 			result, response, err := postureManagementService.CreateValidation(createValidationOptions)

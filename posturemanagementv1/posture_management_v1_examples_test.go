@@ -136,7 +136,7 @@ var _ = Describe(`PostureManagementV1 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(profilesList, "", "  ")
-			fmt.Println(string(b))
+			fmt.Printf("\nListProfiles() result:\n%s\n", string(b))
 
 			// end-list_profiles
 
@@ -159,7 +159,7 @@ var _ = Describe(`PostureManagementV1 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(scopesList, "", "  ")
-			fmt.Println(string(b))
+			fmt.Printf("\nListScopes() result:\n%s\n", string(b))
 
 			// end-list_scopes
 
@@ -184,7 +184,7 @@ var _ = Describe(`PostureManagementV1 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(result, "", "  ")
-			fmt.Println(string(b))
+			fmt.Printf("\nCreateValidation() result:\n%s\n", string(b))
 
 			// end-create_validation
 
