@@ -25,12 +25,13 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"github.com/IBM/go-sdk-core/v5/core"
-	common "github.com/IBM/platform-services-go-sdk/common"
 	"net/http"
 	"reflect"
 	"strings"
 	"time"
+
+	"github.com/IBM/go-sdk-core/v5/core"
+	common "github.com/IBM/platform-services-go-sdk/common"
 )
 
 // GlobalSearchV2 : Search for resources with the global and shared resource properties repository integrated in the IBM

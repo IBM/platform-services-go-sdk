@@ -17,9 +17,10 @@
 package globalsearchv2_test
 
 import (
+	"testing"
+
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
-	"testing"
 )
 
 func TestGlobalSearchV2(t *testing.T) {
