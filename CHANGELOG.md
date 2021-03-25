@@ -1,3 +1,10 @@
+## [0.17.20](https://github.com/IBM/platform-services-go-sdk/compare/v0.17.19...v0.17.20) (2021-03-25)
+
+
+### Bug Fixes
+
+* **Global Search:** update service after recent API changes  ([#99](https://github.com/IBM/platform-services-go-sdk/issues/99)) ([cafd943](https://github.com/IBM/platform-services-go-sdk/commit/cafd943f7e5cf7ff6db47ad49546f0f49f5480a3))
+
 ## [0.17.19](https://github.com/IBM/platform-services-go-sdk/compare/v0.17.18...v0.17.19) (2021-03-25)
 
 
