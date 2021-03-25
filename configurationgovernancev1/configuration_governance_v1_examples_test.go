@@ -440,7 +440,6 @@ var _ = Describe(`ConfigurationGovernanceV1 Examples Tests`, func() {
 			if err != nil {
 				panic(err)
 			}
-			b, _ := json.MarshalIndent(response, "", "  ")
 			fmt.Printf("DeleteAttachment() response status code: %d\n", response.StatusCode)
 
 			// end-delete_attachment
@@ -459,7 +458,6 @@ var _ = Describe(`ConfigurationGovernanceV1 Examples Tests`, func() {
 			if err != nil {
 				panic(err)
 			}
-			b, _ := json.MarshalIndent(response, "", "  ")
 			fmt.Printf("DeleteRule() response status code: %d\n", response.StatusCode)
 
 			// end-delete_rule
