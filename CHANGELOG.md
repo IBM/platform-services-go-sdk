@@ -1,3 +1,10 @@
+## [0.17.19](https://github.com/IBM/platform-services-go-sdk/compare/v0.17.18...v0.17.19) (2021-03-25)
+
+
+### Bug Fixes
+
+* add labels to examples ([#97](https://github.com/IBM/platform-services-go-sdk/issues/97)) ([35e8342](https://github.com/IBM/platform-services-go-sdk/commit/35e8342ffe1d5a18ffee3d36bd495dd49d1f9b07))
+
 ## [0.17.18](https://github.com/IBM/platform-services-go-sdk/compare/v0.17.17...v0.17.18) (2021-03-18)
 
 
