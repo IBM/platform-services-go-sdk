@@ -1,3 +1,10 @@
+# [0.18.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.17.20...v0.18.0) (2021-03-26)
+
+
+### Features
+
+* **Posture Management:** add service to project ([#95](https://github.com/IBM/platform-services-go-sdk/issues/95)) ([635e364](https://github.com/IBM/platform-services-go-sdk/commit/635e3647be0ef56b2bee77199c90fc7cf1213084))
+
 ## [0.17.20](https://github.com/IBM/platform-services-go-sdk/compare/v0.17.19...v0.17.20) (2021-03-25)
 
 
