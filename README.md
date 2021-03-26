@@ -63,6 +63,7 @@ Service Name | Package name
 [IAM Identity Service](https://cloud.ibm.com/apidocs/iam-identity-token-api) | iamidentityv1
 [IAM Policy Managemenet](https://cloud.ibm.com/apidocs/iam-policy-management) | iampolicymanagementv1
 [Open Service Broker](https://cloud.ibm.com/apidocs/resource-controller/ibm-cloud-osb-api) | openservicebrokerv1
+[Posture Management](https://cloud.ibm.com/apidocs/security-compliance/posture) | posturemanagementv1
 [Resource Controller](https://cloud.ibm.com/apidocs/resource-controller/resource-controller) | resourcecontrollerv2
 [Resource Manager](https://cloud.ibm.com/apidocs/resource-controller/resource-manager) | resourcemanagerv2
 [Usage Metering](https://cloud.ibm.com/apidocs/usage-metering) | usagemeteringv4
