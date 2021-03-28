@@ -1754,7 +1754,7 @@ type ListAccountGroupsOptions struct {
 	Limit *int64 `json:"limit,omitempty"`
 
 	// Allows users to set next_docid for pagination
-	Next_docid *string `json:"limit,omitempty"`
+	Next_docid *string `json:"next_docid,omitempty"`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
