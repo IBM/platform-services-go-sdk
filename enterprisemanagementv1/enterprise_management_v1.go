@@ -285,7 +285,7 @@ func (enterpriseManagement *EnterpriseManagementV1) ListAccountGroupsWithContext
 	if listAccountGroupsOptions.Limit != nil {
 		builder.AddQuery("limit", fmt.Sprint(*listAccountGroupsOptions.Limit))
 	}
-	if listAccountGroupsOptions.Next_docid != nil {
+	if listAccountGroupsOptions.Next_docid != nil && *listAccountGroupsOptions.Next_docid != "" {
 		builder.AddQuery("next_docid", fmt.Sprint(*listAccountGroupsOptions.Next_docid))
 	}
 	request, err := builder.Build()
@@ -620,7 +620,7 @@ func (enterpriseManagement *EnterpriseManagementV1) ListAccountsWithContext(ctx 
 	if listAccountsOptions.Limit != nil {
 		builder.AddQuery("limit", fmt.Sprint(*listAccountsOptions.Limit))
 	}
-	if listAccountsOptions.Next_docid != nil {
+	if listAccountsOptions.Next_docid != nil && *listAccountsOptions.Next_docid != "" {
 		builder.AddQuery("next_docid", fmt.Sprint(*listAccountsOptions.Next_docid))
 	}
 

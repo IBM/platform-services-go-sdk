@@ -354,7 +354,7 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 					Expect(req.URL.Query()["parent"]).To(Equal([]string{"testString"}))
 
 					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(38))}))
-
+					Expect(req.URL.Query()["next_docid"]).To(Equal([]string{"teststring"}))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
 					fmt.Fprintf(res, `} this is not valid json {`)
@@ -374,6 +374,7 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 				listAccountGroupsOptionsModel.ParentAccountGroupID = core.StringPtr("testString")
 				listAccountGroupsOptionsModel.Parent = core.StringPtr("testString")
 				listAccountGroupsOptionsModel.Limit = core.Int64Ptr(int64(38))
+				listAccountGroupsOptionsModel.Next_docid =core.StringPtr("teststring")
 				listAccountGroupsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
 				result, response, operationErr := enterpriseManagementService.ListAccountGroups(listAccountGroupsOptionsModel)
@@ -415,6 +416,8 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 
 					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(38))}))
 
+					Expect(req.URL.Query()["next_docid"]).To(Equal([]string{"testString"}))
+
 					// Sleep a short time to support a timeout test
 					time.Sleep(serverSleepTime)
 
@@ -446,6 +449,7 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 				listAccountGroupsOptionsModel.Parent = core.StringPtr("testString")
 				listAccountGroupsOptionsModel.Limit = core.Int64Ptr(int64(38))
 				listAccountGroupsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				listAccountGroupsOptionsModel.Next_docid =core.StringPtr("testString")
 
 				// Invoke operation with valid options model (positive test)
 				result, response, operationErr = enterpriseManagementService.ListAccountGroups(listAccountGroupsOptionsModel)
