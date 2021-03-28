@@ -23,7 +23,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/IBM/go-sdk-core/v4/core"
+	"github.com/IBM/go-sdk-core/v5/core"
 	"github.com/IBM/platform-services-go-sdk/globalsearchv2"
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
@@ -117,7 +117,7 @@ var _ = Describe(`GlobalSearchV2 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(scanResult, "", "  ")
-			fmt.Println(string(b))
+			fmt.Printf("\nSearch() result:\n%s\n", string(b))
 
 			// end-search
 
@@ -136,7 +136,7 @@ var _ = Describe(`GlobalSearchV2 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(supportedTypesList, "", "  ")
-			fmt.Println(string(b))
+			fmt.Printf("\nGetSupportedTypes() result:\n%s\n", string(b))
 
 			// end-get_supported_types
 

@@ -126,7 +126,7 @@ var _ = Describe(`EnterpriseBillingUnitsV1 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(billingUnit, "", "  ")
-			fmt.Println(string(b))
+			fmt.Printf("\nGetBillingUnit() result:\n%s\n", string(b))
 
 			// end-get_billing_unit
 
@@ -146,7 +146,7 @@ var _ = Describe(`EnterpriseBillingUnitsV1 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(billingUnitsList, "", "  ")
-			fmt.Println(string(b))
+			fmt.Printf("\nListBillingUnits() result:\n%s\n", string(b))
 
 			// end-list_billing_units
 
@@ -167,7 +167,7 @@ var _ = Describe(`EnterpriseBillingUnitsV1 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(billingOption, "", "  ")
-			fmt.Println(string(b))
+			fmt.Printf("\nListBillingOptions() result:\n%s\n", string(b))
 
 			// end-list_billing_options
 
@@ -188,7 +188,7 @@ var _ = Describe(`EnterpriseBillingUnitsV1 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(creditPoolsList, "", "  ")
-			fmt.Println(string(b))
+			fmt.Printf("\nGetCreditPools() result:\n%s\n", string(b))
 
 			// end-get_credit_pools
 
