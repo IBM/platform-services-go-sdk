@@ -285,7 +285,9 @@ func (enterpriseManagement *EnterpriseManagementV1) ListAccountGroupsWithContext
 	if listAccountGroupsOptions.Limit != nil {
 		builder.AddQuery("limit", fmt.Sprint(*listAccountGroupsOptions.Limit))
 	}
-
+	if listAccountGroupsOptions.Next_docid != nil {
+		builder.AddQuery("next_docid", fmt.Sprint(*listAccountGroupsOptions.Next_docid))
+	}
 	request, err := builder.Build()
 	if err != nil {
 		return
@@ -617,6 +619,9 @@ func (enterpriseManagement *EnterpriseManagementV1) ListAccountsWithContext(ctx 
 	}
 	if listAccountsOptions.Limit != nil {
 		builder.AddQuery("limit", fmt.Sprint(*listAccountsOptions.Limit))
+	}
+	if listAccountsOptions.Next_docid != nil {
+		builder.AddQuery("next_docid", fmt.Sprint(*listAccountsOptions.Next_docid))
 	}
 
 	request, err := builder.Build()
@@ -1748,6 +1753,9 @@ type ListAccountGroupsOptions struct {
 	// Return results up to this limit. Valid values are between `0` and `100`.
 	Limit *int64 `json:"limit,omitempty"`
 
+	// Allows users to set next_docid for pagination
+	Next_docid *string `json:"limit,omitempty"`
+
 	// Allows users to set headers on API requests
 	Headers map[string]string
 }
@@ -1784,6 +1792,12 @@ func (options *ListAccountGroupsOptions) SetLimit(limit int64) *ListAccountGroup
 // SetHeaders : Allow user to set Headers
 func (options *ListAccountGroupsOptions) SetHeaders(param map[string]string) *ListAccountGroupsOptions {
 	options.Headers = param
+	return options
+}
+
+// SetNext_docid : Allow user to set Next_docid
+func (options *ListAccountGroupsOptions) SetNext_docid(next_docid string) *ListAccountGroupsOptions {
+	options.EnterpriseID = core.StringPtr(next_docid)
 	return options
 }
 
@@ -1835,6 +1849,9 @@ type ListAccountsOptions struct {
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
+
+	// Allow users to set next_docid
+	Next_docid *string `json:"next_docid,omitempty"`
 }
 
 // NewListAccountsOptions : Instantiate ListAccountsOptions
@@ -1869,6 +1886,12 @@ func (options *ListAccountsOptions) SetLimit(limit int64) *ListAccountsOptions {
 // SetHeaders : Allow user to set Headers
 func (options *ListAccountsOptions) SetHeaders(param map[string]string) *ListAccountsOptions {
 	options.Headers = param
+	return options
+}
+
+// SetNext_docid : Allow user to set Next_docid
+func (options *ListAccountsOptions) SetNext_docid(next_docid string) *ListAccountsOptions {
+	options.Next_docid=core.StringPtr(next_docid)
 	return options
 }
 
