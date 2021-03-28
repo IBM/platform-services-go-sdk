@@ -145,6 +145,7 @@ var _ = Describe(`ResourceControllerV2 Examples Tests`, func() {
 			shouldSkipTest()
 		})
 		It(`CreateResourceInstance request example`, func() {
+			fmt.Println("\nCreateResourceInstance() result:")
 			// begin-create_resource_instance
 
 			createResourceInstanceOptions := resourceControllerService.NewCreateResourceInstanceOptions(
@@ -160,7 +161,7 @@ var _ = Describe(`ResourceControllerV2 Examples Tests`, func() {
 			}
 
 			b, _ := json.MarshalIndent(resourceInstance, "", "  ")
-			fmt.Printf("\nCreateResourceInstance() response:\n%s\n", string(b))
+			fmt.Println(string(b))
 
 			// end-create_resource_instance
 
@@ -171,6 +172,7 @@ var _ = Describe(`ResourceControllerV2 Examples Tests`, func() {
 			instanceGUID = *resourceInstance.GUID
 		})
 		It(`GetResourceInstance request example`, func() {
+			fmt.Println("\nGetResourceInstance() result:")
 			// begin-get_resource_instance
 
 			getResourceInstanceOptions := resourceControllerService.NewGetResourceInstanceOptions(
@@ -182,7 +184,7 @@ var _ = Describe(`ResourceControllerV2 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(resourceInstance, "", "  ")
-			fmt.Printf("\nGetResourceInstance() response:\n%s\n", string(b))
+			fmt.Println(string(b))
 
 			// end-get_resource_instance
 
@@ -191,6 +193,7 @@ var _ = Describe(`ResourceControllerV2 Examples Tests`, func() {
 			Expect(resourceInstance).ToNot(BeNil())
 		})
 		It(`ListResourceInstances request example`, func() {
+			fmt.Println("\nListResourceInstances() result:")
 			// begin-list_resource_instances
 
 			listResourceInstancesOptions := resourceControllerService.NewListResourceInstancesOptions()
@@ -201,7 +204,7 @@ var _ = Describe(`ResourceControllerV2 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(resourceInstancesList, "", "  ")
-			fmt.Printf("\nListResourceInstances() response:\n%s\n", string(b))
+			fmt.Println(string(b))
 
 			// end-list_resource_instances
 
@@ -210,6 +213,7 @@ var _ = Describe(`ResourceControllerV2 Examples Tests`, func() {
 			Expect(resourceInstancesList).ToNot(BeNil())
 		})
 		It(`UpdateResourceInstance request example`, func() {
+			fmt.Println("\nUpdateResourceInstance() result:")
 			// begin-update_resource_instance
 
 			parameters := map[string]interface{}{"exampleProperty": "exampleValue"}
@@ -224,7 +228,7 @@ var _ = Describe(`ResourceControllerV2 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(resourceInstance, "", "  ")
-			fmt.Printf("\nUpdateResourceInstance() response:\n%s\n", string(b))
+			fmt.Println(string(b))
 
 			// end-update_resource_instance
 
@@ -233,6 +237,7 @@ var _ = Describe(`ResourceControllerV2 Examples Tests`, func() {
 			Expect(resourceInstance).ToNot(BeNil())
 		})
 		It(`CreateResourceAlias request example`, func() {
+			fmt.Println("\nCreateResourceAlias() result:")
 			// begin-create_resource_alias
 
 			createResourceAliasOptions := resourceControllerService.NewCreateResourceAliasOptions(
@@ -246,7 +251,7 @@ var _ = Describe(`ResourceControllerV2 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(resourceAlias, "", "  ")
-			fmt.Printf("\nCreateResourceAlias() response:\n%s\n", string(b))
+			fmt.Println(string(b))
 
 			// end-create_resource_alias
 
@@ -257,6 +262,7 @@ var _ = Describe(`ResourceControllerV2 Examples Tests`, func() {
 			aliasGUID = *resourceAlias.GUID
 		})
 		It(`GetResourceAlias request example`, func() {
+			fmt.Println("\nGetResourceAlias() result:")
 			// begin-get_resource_alias
 
 			getResourceAliasOptions := resourceControllerService.NewGetResourceAliasOptions(
@@ -268,7 +274,7 @@ var _ = Describe(`ResourceControllerV2 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(resourceAlias, "", "  ")
-			fmt.Printf("\nGetResourceAlias() response:\n%s\n", string(b))
+			fmt.Println(string(b))
 
 			// end-get_resource_alias
 
@@ -277,6 +283,7 @@ var _ = Describe(`ResourceControllerV2 Examples Tests`, func() {
 			Expect(resourceAlias).ToNot(BeNil())
 		})
 		It(`ListResourceAliases request example`, func() {
+			fmt.Println("\nListResourceAliases() result:")
 			// begin-list_resource_aliases
 
 			listResourceAliasesOptions := resourceControllerService.NewListResourceAliasesOptions()
@@ -287,7 +294,7 @@ var _ = Describe(`ResourceControllerV2 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(resourceAliasesList, "", "  ")
-			fmt.Printf("\nListResourceAliases() response:\n%s\n", string(b))
+			fmt.Println(string(b))
 
 			// end-list_resource_aliases
 
@@ -296,6 +303,7 @@ var _ = Describe(`ResourceControllerV2 Examples Tests`, func() {
 			Expect(resourceAliasesList).ToNot(BeNil())
 		})
 		It(`UpdateResourceAlias request example`, func() {
+			fmt.Println("\nUpdateResourceAlias() result:")
 			// begin-update_resource_alias
 
 			updateResourceAliasOptions := resourceControllerService.NewUpdateResourceAliasOptions(
@@ -308,7 +316,7 @@ var _ = Describe(`ResourceControllerV2 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(resourceAlias, "", "  ")
-			fmt.Printf("\nUpdateResourceAlias() response:\n%s\n", string(b))
+			fmt.Println(string(b))
 
 			// end-update_resource_alias
 
@@ -317,6 +325,7 @@ var _ = Describe(`ResourceControllerV2 Examples Tests`, func() {
 			Expect(resourceAlias).ToNot(BeNil())
 		})
 		It(`ListResourceAliasesForInstance request example`, func() {
+			fmt.Println("\nListResourceAliasesForInstance() result:")
 			// begin-list_resource_aliases_for_instance
 
 			listResourceAliasesForInstanceOptions := resourceControllerService.NewListResourceAliasesForInstanceOptions(
@@ -328,7 +337,7 @@ var _ = Describe(`ResourceControllerV2 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(resourceAliasesList, "", "  ")
-			fmt.Printf("\nListResourceAliasesForInstance() response:\n%s\n", string(b))
+			fmt.Println(string(b))
 
 			// end-list_resource_aliases_for_instance
 
@@ -337,6 +346,7 @@ var _ = Describe(`ResourceControllerV2 Examples Tests`, func() {
 			Expect(resourceAliasesList).ToNot(BeNil())
 		})
 		It(`CreateResourceBinding request example`, func() {
+			fmt.Println("\nCreateResourceBinding() result:")
 			// begin-create_resource_binding
 
 			createResourceBindingOptions := resourceControllerService.NewCreateResourceBindingOptions(
@@ -354,7 +364,7 @@ var _ = Describe(`ResourceControllerV2 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(resourceBinding, "", "  ")
-			fmt.Printf("\nCreateResourceBinding() response:\n%s\n", string(b))
+			fmt.Println(string(b))
 
 			// end-create_resource_binding
 
@@ -365,6 +375,7 @@ var _ = Describe(`ResourceControllerV2 Examples Tests`, func() {
 			bindingGUID = *resourceBinding.GUID
 		})
 		It(`GetResourceBinding request example`, func() {
+			fmt.Println("\nGetResourceBinding() result:")
 			// begin-get_resource_binding
 
 			getResourceBindingOptions := resourceControllerService.NewGetResourceBindingOptions(
@@ -376,7 +387,7 @@ var _ = Describe(`ResourceControllerV2 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(resourceBinding, "", "  ")
-			fmt.Printf("\nGetResourceBinding() response:\n%s\n", string(b))
+			fmt.Println(string(b))
 
 			// end-get_resource_binding
 
@@ -385,6 +396,7 @@ var _ = Describe(`ResourceControllerV2 Examples Tests`, func() {
 			Expect(resourceBinding).ToNot(BeNil())
 		})
 		It(`ListResourceBindings request example`, func() {
+			fmt.Println("\nListResourceBindings() result:")
 			// begin-list_resource_bindings
 
 			listResourceBindingsOptions := resourceControllerService.NewListResourceBindingsOptions()
@@ -395,7 +407,7 @@ var _ = Describe(`ResourceControllerV2 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(resourceBindingsList, "", "  ")
-			fmt.Printf("\nListResourceBindings() response:\n%s\n", string(b))
+			fmt.Println(string(b))
 
 			// end-list_resource_bindings
 
@@ -404,6 +416,7 @@ var _ = Describe(`ResourceControllerV2 Examples Tests`, func() {
 			Expect(resourceBindingsList).ToNot(BeNil())
 		})
 		It(`UpdateResourceBinding request example`, func() {
+			fmt.Println("\nUpdateResourceBinding() result:")
 			// begin-update_resource_binding
 
 			updateResourceBindingOptions := resourceControllerService.NewUpdateResourceBindingOptions(
@@ -416,7 +429,7 @@ var _ = Describe(`ResourceControllerV2 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(resourceBinding, "", "  ")
-			fmt.Printf("\nUpdateResourceBinding() response:\n%s\n", string(b))
+			fmt.Println(string(b))
 
 			// end-update_resource_binding
 
@@ -425,6 +438,7 @@ var _ = Describe(`ResourceControllerV2 Examples Tests`, func() {
 			Expect(resourceBinding).ToNot(BeNil())
 		})
 		It(`ListResourceBindingsForAlias request example`, func() {
+			fmt.Println("\nListResourceBindingsForAlias() result:")
 			// begin-list_resource_bindings_for_alias
 
 			listResourceBindingsForAliasOptions := resourceControllerService.NewListResourceBindingsForAliasOptions(
@@ -436,7 +450,7 @@ var _ = Describe(`ResourceControllerV2 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(resourceBindingsList, "", "  ")
-			fmt.Printf("\nListResourceBindingsForAlias() response:\n%s\n", string(b))
+			fmt.Println(string(b))
 
 			// end-list_resource_bindings_for_alias
 
@@ -445,6 +459,7 @@ var _ = Describe(`ResourceControllerV2 Examples Tests`, func() {
 			Expect(resourceBindingsList).ToNot(BeNil())
 		})
 		It(`CreateResourceKey request example`, func() {
+			fmt.Println("\nCreateResourceKey() result:")
 			// begin-create_resource_key
 
 			createResourceKeyOptions := resourceControllerService.NewCreateResourceKeyOptions(
@@ -461,7 +476,7 @@ var _ = Describe(`ResourceControllerV2 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(resourceKey, "", "  ")
-			fmt.Printf("\nCreateResourceKey() response:\n%s\n", string(b))
+			fmt.Println(string(b))
 
 			// end-create_resource_key
 
@@ -472,6 +487,7 @@ var _ = Describe(`ResourceControllerV2 Examples Tests`, func() {
 			instanceKeyGUID = *resourceKey.GUID
 		})
 		It(`GetResourceKey request example`, func() {
+			fmt.Println("\nGetResourceKey() result:")
 			// begin-get_resource_key
 
 			getResourceKeyOptions := resourceControllerService.NewGetResourceKeyOptions(
@@ -483,7 +499,7 @@ var _ = Describe(`ResourceControllerV2 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(resourceKey, "", "  ")
-			fmt.Printf("\nGetResourceKey() response:\n%s\n", string(b))
+			fmt.Println(string(b))
 
 			// end-get_resource_key
 
@@ -492,6 +508,7 @@ var _ = Describe(`ResourceControllerV2 Examples Tests`, func() {
 			Expect(resourceKey).ToNot(BeNil())
 		})
 		It(`ListResourceKeys request example`, func() {
+			fmt.Println("\nListResourceKeys() result:")
 			// begin-list_resource_keys
 
 			listResourceKeysOptions := resourceControllerService.NewListResourceKeysOptions()
@@ -502,7 +519,7 @@ var _ = Describe(`ResourceControllerV2 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(resourceKeysList, "", "  ")
-			fmt.Printf("\nListResourceKeys() response:\n%s\n", string(b))
+			fmt.Println(string(b))
 
 			// end-list_resource_keys
 
@@ -511,6 +528,7 @@ var _ = Describe(`ResourceControllerV2 Examples Tests`, func() {
 			Expect(resourceKeysList).ToNot(BeNil())
 		})
 		It(`UpdateResourceKey request example`, func() {
+			fmt.Println("\nUpdateResourceKey() result:")
 			// begin-update_resource_key
 
 			updateResourceKeyOptions := resourceControllerService.NewUpdateResourceKeyOptions(
@@ -523,7 +541,7 @@ var _ = Describe(`ResourceControllerV2 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(resourceKey, "", "  ")
-			fmt.Printf("\nUpdateResourceKey() response:\n%s\n", string(b))
+			fmt.Println(string(b))
 
 			// end-update_resource_key
 
@@ -532,6 +550,7 @@ var _ = Describe(`ResourceControllerV2 Examples Tests`, func() {
 			Expect(resourceKey).ToNot(BeNil())
 		})
 		It(`ListResourceKeysForInstance request example`, func() {
+			fmt.Println("\nListResourceKeysForInstance() result:")
 			// begin-list_resource_keys_for_instance
 
 			listResourceKeysForInstanceOptions := resourceControllerService.NewListResourceKeysForInstanceOptions(
@@ -543,7 +562,7 @@ var _ = Describe(`ResourceControllerV2 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(resourceKeysList, "", "  ")
-			fmt.Printf("\nListResourceKeysForInstance() response:\n%s\n", string(b))
+			fmt.Println(string(b))
 
 			// end-list_resource_keys_for_instance
 
@@ -563,9 +582,9 @@ var _ = Describe(`ResourceControllerV2 Examples Tests`, func() {
 			if err != nil {
 				panic(err)
 			}
-			fmt.Printf("\nDeleteResourceBinding() response status code: %d\n", response.StatusCode)
 
 			// end-delete_resource_binding
+			fmt.Printf("\nDeleteResourceBinding() response status code: %d\n", response.StatusCode)
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(204))
@@ -581,9 +600,9 @@ var _ = Describe(`ResourceControllerV2 Examples Tests`, func() {
 			if err != nil {
 				panic(err)
 			}
-			fmt.Printf("\nDeleteResourceKey() response status code: %d\n", response.StatusCode)
 
 			// end-delete_resource_key
+			fmt.Printf("\nDeleteResourceKey() response status code: %d\n", response.StatusCode)
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(204))
@@ -599,14 +618,15 @@ var _ = Describe(`ResourceControllerV2 Examples Tests`, func() {
 			if err != nil {
 				panic(err)
 			}
-			fmt.Printf("\nDeleteResourceAlias() response status code: %d\n", response.StatusCode)
 
 			// end-delete_resource_alias
+			fmt.Printf("\nDeleteResourceAlias() response status code: %d\n", response.StatusCode)
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(204))
 		})
 		It(`LockResourceInstance request example`, func() {
+			fmt.Println("\nLockResourceInstance() result:")
 			// begin-lock_resource_instance
 
 			lockResourceInstanceOptions := resourceControllerService.NewLockResourceInstanceOptions(
@@ -618,7 +638,7 @@ var _ = Describe(`ResourceControllerV2 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(resourceInstance, "", "  ")
-			fmt.Printf("\nLockResourceInstance() response:\n%s\n", string(b))
+			fmt.Println(string(b))
 
 			// end-lock_resource_instance
 
@@ -627,6 +647,7 @@ var _ = Describe(`ResourceControllerV2 Examples Tests`, func() {
 			Expect(resourceInstance).ToNot(BeNil())
 		})
 		It(`UnlockResourceInstance request example`, func() {
+			fmt.Println("\nUnlockResourceInstance() result:")
 			// begin-unlock_resource_instance
 
 			unlockResourceInstanceOptions := resourceControllerService.NewUnlockResourceInstanceOptions(
@@ -638,7 +659,7 @@ var _ = Describe(`ResourceControllerV2 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(resourceInstance, "", "  ")
-			fmt.Printf("\nUnlockResourceInstance() response:\n%s\n", string(b))
+			fmt.Println(string(b))
 
 			// end-unlock_resource_instance
 
@@ -658,9 +679,9 @@ var _ = Describe(`ResourceControllerV2 Examples Tests`, func() {
 			if err != nil {
 				panic(err)
 			}
-			fmt.Printf("\nDeleteResourceInstance() response status code: %d\n", response.StatusCode)
 
 			// end-delete_resource_instance
+			fmt.Printf("\nDeleteResourceInstance() response status code: %d\n", response.StatusCode)
 
 			time.Sleep(20 * time.Second)
 
@@ -668,6 +689,7 @@ var _ = Describe(`ResourceControllerV2 Examples Tests`, func() {
 			Expect(response.StatusCode).To(Equal(204))
 		})
 		It(`ListReclamations request example`, func() {
+			fmt.Println("\nListReclamations() result:")
 			// begin-list_reclamations
 
 			listReclamationsOptions := resourceControllerService.NewListReclamationsOptions()
@@ -677,7 +699,7 @@ var _ = Describe(`ResourceControllerV2 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(reclamationsList, "", "  ")
-			fmt.Printf("\nListReclamations() response:\n%s\n", string(b))
+			fmt.Println(string(b))
 
 			// end-list_reclamations
 
@@ -692,6 +714,7 @@ var _ = Describe(`ResourceControllerV2 Examples Tests`, func() {
 			}
 		})
 		It(`RunReclamationAction request example`, func() {
+			fmt.Println("\nRunReclamationAction() result:")
 			// begin-run_reclamation_action
 
 			runReclamationActionOptions := resourceControllerService.NewRunReclamationActionOptions(
@@ -704,7 +727,7 @@ var _ = Describe(`ResourceControllerV2 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(reclamation, "", "  ")
-			fmt.Printf("\nRunReclamationAction() response:\n%s\n", string(b))
+			fmt.Println(string(b))
 
 			// end-run_reclamation_action
 
