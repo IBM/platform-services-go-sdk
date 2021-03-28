@@ -15,7 +15,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-9ae61cfc-20210302-143858
+ * IBM OpenAPI SDK Code Generator Version: 3.29.1-b338fb38-20210313-010605
  */
 
 // Package resourcecontrollerv2 : Operations and models for the ResourceControllerV2 service
@@ -215,6 +215,12 @@ func (resourceController *ResourceControllerV2) ListResourceInstancesWithContext
 	}
 	if listResourceInstancesOptions.Limit != nil {
 		builder.AddQuery("limit", fmt.Sprint(*listResourceInstancesOptions.Limit))
+	}
+	if listResourceInstancesOptions.State != nil {
+		builder.AddQuery("state", fmt.Sprint(*listResourceInstancesOptions.State))
+	}
+	if listResourceInstancesOptions.OrderDirection != nil {
+		builder.AddQuery("order_direction", fmt.Sprint(*listResourceInstancesOptions.OrderDirection))
 	}
 	if listResourceInstancesOptions.UpdatedFrom != nil {
 		builder.AddQuery("updated_from", fmt.Sprint(*listResourceInstancesOptions.UpdatedFrom))
@@ -1847,7 +1853,7 @@ func (resourceController *ResourceControllerV2) RunReclamationActionWithContext(
 	}
 
 	pathParamsMap := map[string]string{
-		"id": *runReclamationActionOptions.ID,
+		"id":          *runReclamationActionOptions.ID,
 		"action_name": *runReclamationActionOptions.ActionName,
 	}
 
@@ -1910,7 +1916,7 @@ type CreateResourceAliasOptions struct {
 	// The short or long ID of resource instance.
 	Source *string `validate:"required"`
 
-	// The CRN of target name(space) in a specific environment, e.g. space in Dallas YP, CFEE instance etc.
+	// The CRN of target name(space) in a specific environment, for example, space in Dallas YP, CFEE instance etc.
 	Target *string `validate:"required"`
 
 	// Allows users to set headers on API requests
@@ -1920,7 +1926,7 @@ type CreateResourceAliasOptions struct {
 // NewCreateResourceAliasOptions : Instantiate CreateResourceAliasOptions
 func (*ResourceControllerV2) NewCreateResourceAliasOptions(name string, source string, target string) *CreateResourceAliasOptions {
 	return &CreateResourceAliasOptions{
-		Name: core.StringPtr(name),
+		Name:   core.StringPtr(name),
 		Source: core.StringPtr(source),
 		Target: core.StringPtr(target),
 	}
@@ -1955,7 +1961,7 @@ type CreateResourceBindingOptions struct {
 	// The short or long ID of resource alias.
 	Source *string `validate:"required"`
 
-	// The CRN of application to bind to in a specific environment, e.g. Dallas YP, CFEE instance.
+	// The CRN of application to bind to in a specific environment, for example, Dallas YP, CFEE instance.
 	Target *string `validate:"required"`
 
 	// The name of the binding. Must be 180 characters or less and cannot include any special characters other than
@@ -2054,9 +2060,9 @@ type CreateResourceInstanceOptions struct {
 // NewCreateResourceInstanceOptions : Instantiate CreateResourceInstanceOptions
 func (*ResourceControllerV2) NewCreateResourceInstanceOptions(name string, target string, resourceGroup string, resourcePlanID string) *CreateResourceInstanceOptions {
 	return &CreateResourceInstanceOptions{
-		Name: core.StringPtr(name),
-		Target: core.StringPtr(target),
-		ResourceGroup: core.StringPtr(resourceGroup),
+		Name:           core.StringPtr(name),
+		Target:         core.StringPtr(target),
+		ResourceGroup:  core.StringPtr(resourceGroup),
 		ResourcePlanID: core.StringPtr(resourcePlanID),
 	}
 }
@@ -2137,7 +2143,7 @@ type CreateResourceKeyOptions struct {
 // NewCreateResourceKeyOptions : Instantiate CreateResourceKeyOptions
 func (*ResourceControllerV2) NewCreateResourceKeyOptions(name string, source string) *CreateResourceKeyOptions {
 	return &CreateResourceKeyOptions{
-		Name: core.StringPtr(name),
+		Name:   core.StringPtr(name),
 		Source: core.StringPtr(source),
 	}
 }
@@ -2716,7 +2722,7 @@ type ListResourceBindingsOptions struct {
 	// The unique ID of the offering (service name). This value is provided by and stored in the global catalog.
 	ResourceID *string
 
-	// Short ID of the binding in the specific targeted environment, e.g. service_binding_id in a given IBM Cloud
+	// Short ID of the binding in the specific targeted environment, for example, service_binding_id in a given IBM Cloud
 	// environment.
 	RegionBindingID *string
 
@@ -2811,14 +2817,20 @@ type ListResourceInstancesOptions struct {
 	// The unique ID of the plan associated with the offering. This value is provided by and stored in the global catalog.
 	ResourcePlanID *string
 
-	// The type of the instance. For example, `service_instance`.
+	// The type of the instance, for example, `service_instance`.
 	Type *string
 
-	// The sub-type of instance, e.g. `cfaas`.
+	// The sub-type of instance, for example, `cfaas`.
 	SubType *string
 
 	// Limit on how many items should be returned.
 	Limit *string
+
+	// The state of the instance. If not specified, instances in state `active` and `provisioning` are returned.
+	State *string
+
+	// Order of results.
+	OrderDirection *string
 
 	// Start date inclusive filter.
 	UpdatedFrom *string
@@ -2829,6 +2841,21 @@ type ListResourceInstancesOptions struct {
 	// Allows users to set headers on API requests
 	Headers map[string]string
 }
+
+// Constants associated with the ListResourceInstancesOptions.State property.
+// The state of the instance. If not specified, instances in state `active` and `provisioning` are returned.
+const (
+	ListResourceInstancesOptionsStateActiveConst       = "active"
+	ListResourceInstancesOptionsStateProvisioningConst = "provisioning"
+	ListResourceInstancesOptionsStateRemovedConst      = "removed"
+)
+
+// Constants associated with the ListResourceInstancesOptions.OrderDirection property.
+// Order of results.
+const (
+	ListResourceInstancesOptionsOrderDirectionAscConst  = "asc"
+	ListResourceInstancesOptionsOrderDirectionDescConst = "desc"
+)
 
 // NewListResourceInstancesOptions : Instantiate ListResourceInstancesOptions
 func (*ResourceControllerV2) NewListResourceInstancesOptions() *ListResourceInstancesOptions {
@@ -2880,6 +2907,18 @@ func (options *ListResourceInstancesOptions) SetSubType(subType string) *ListRes
 // SetLimit : Allow user to set Limit
 func (options *ListResourceInstancesOptions) SetLimit(limit string) *ListResourceInstancesOptions {
 	options.Limit = core.StringPtr(limit)
+	return options
+}
+
+// SetState : Allow user to set State
+func (options *ListResourceInstancesOptions) SetState(state string) *ListResourceInstancesOptions {
+	options.State = core.StringPtr(state)
+	return options
+}
+
+// SetOrderDirection : Allow user to set OrderDirection
+func (options *ListResourceInstancesOptions) SetOrderDirection(orderDirection string) *ListResourceInstancesOptions {
+	options.OrderDirection = core.StringPtr(orderDirection)
 	return options
 }
 
@@ -3211,46 +3250,8 @@ type ResourceAlias struct {
 	// indentifier managed by the resource controller that corresponds to the alias.
 	GUID *string `json:"guid,omitempty"`
 
-	// The full Cloud Resource Name (CRN) associated with the alias. For more information about this format, see [Cloud
-	// Resource Names](https://cloud.ibm.com/docs/overview?topic=overview-crn).
-	CRN *string `json:"crn,omitempty"`
-
 	// When you created a new alias, a relative URL path is created identifying the location of the alias.
 	URL *string `json:"url,omitempty"`
-
-	// The human-readable name of the alias.
-	Name *string `json:"name,omitempty"`
-
-	// An alpha-numeric value identifying the account ID.
-	AccountID *string `json:"account_id,omitempty"`
-
-	// The short ID of the resource group.
-	ResourceGroupID *string `json:"resource_group_id,omitempty"`
-
-	// The long ID (full CRN) of the resource group.
-	ResourceGroupCRN *string `json:"resource_group_crn,omitempty"`
-
-	// The CRN of the target namespace in the specific environment.
-	TargetCRN *string `json:"target_crn,omitempty"`
-
-	// The state of the alias.
-	State *string `json:"state,omitempty"`
-
-	// The short ID of the resource instance that is being aliased.
-	ResourceInstanceID *string `json:"resource_instance_id,omitempty"`
-
-	// The short ID of the instance in the specific target environment, e.g. `service_instance_id` in a given IBM Cloud
-	// environment.
-	RegionInstanceID *string `json:"region_instance_id,omitempty"`
-
-	// The relative path to the instance.
-	ResourceInstanceURL *string `json:"resource_instance_url,omitempty"`
-
-	// The relative path to the resource bindings for the alias.
-	ResourceBindingsURL *string `json:"resource_bindings_url,omitempty"`
-
-	// The relative path to the resource keys for the alias.
-	ResourceKeysURL *string `json:"resource_keys_url,omitempty"`
 
 	// The date when the alias was created.
 	CreatedAt *strfmt.DateTime `json:"created_at,omitempty"`
@@ -3269,6 +3270,50 @@ type ResourceAlias struct {
 
 	// The subject who deleted the alias.
 	DeletedBy *string `json:"deleted_by,omitempty"`
+
+	// The human-readable name of the alias.
+	Name *string `json:"name,omitempty"`
+
+	// The ID of the resource instance that is being aliased.
+	ResourceInstanceID *string `json:"resource_instance_id,omitempty"`
+
+	// The CRN of the target namespace in the specific environment.
+	TargetCRN *string `json:"target_crn,omitempty"`
+
+	// An alpha-numeric value identifying the account ID.
+	AccountID *string `json:"account_id,omitempty"`
+
+	// The unique ID of the offering. This value is provided by and stored in the global catalog.
+	ResourceID *string `json:"resource_id,omitempty"`
+
+	// The ID of the resource group.
+	ResourceGroupID *string `json:"resource_group_id,omitempty"`
+
+	// The CRN of the alias. For more information about this format, see [Cloud Resource
+	// Names](https://cloud.ibm.com/docs/overview?topic=overview-crn).
+	CRN *string `json:"crn,omitempty"`
+
+	// The ID of the instance in the specific target environment, for example, `service_instance_id` in a given IBM Cloud
+	// environment.
+	RegionInstanceID *string `json:"region_instance_id,omitempty"`
+
+	// The CRN of the instance in the specific target environment.
+	RegionInstanceCRN *string `json:"region_instance_crn,omitempty"`
+
+	// The state of the alias.
+	State *string `json:"state,omitempty"`
+
+	// A boolean that dictates if the alias was migrated from a previous CF instance.
+	Migrated *bool `json:"migrated,omitempty"`
+
+	// The relative path to the resource instance.
+	ResourceInstanceURL *string `json:"resource_instance_url,omitempty"`
+
+	// The relative path to the resource bindings for the alias.
+	ResourceBindingsURL *string `json:"resource_bindings_url,omitempty"`
+
+	// The relative path to the resource keys for the alias.
+	ResourceKeysURL *string `json:"resource_keys_url,omitempty"`
 }
 
 // UnmarshalResourceAlias unmarshals an instance of ResourceAlias from the specified map of raw messages.
@@ -3282,55 +3327,7 @@ func UnmarshalResourceAlias(m map[string]json.RawMessage, result interface{}) (e
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalPrimitive(m, "crn", &obj.CRN)
-	if err != nil {
-		return
-	}
 	err = core.UnmarshalPrimitive(m, "url", &obj.URL)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "account_id", &obj.AccountID)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "resource_group_id", &obj.ResourceGroupID)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "resource_group_crn", &obj.ResourceGroupCRN)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "target_crn", &obj.TargetCRN)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "state", &obj.State)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "resource_instance_id", &obj.ResourceInstanceID)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "region_instance_id", &obj.RegionInstanceID)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "resource_instance_url", &obj.ResourceInstanceURL)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "resource_bindings_url", &obj.ResourceBindingsURL)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "resource_keys_url", &obj.ResourceKeysURL)
 	if err != nil {
 		return
 	}
@@ -3358,34 +3355,90 @@ func UnmarshalResourceAlias(m map[string]json.RawMessage, result interface{}) (e
 	if err != nil {
 		return
 	}
+	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "resource_instance_id", &obj.ResourceInstanceID)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "target_crn", &obj.TargetCRN)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "account_id", &obj.AccountID)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "resource_id", &obj.ResourceID)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "resource_group_id", &obj.ResourceGroupID)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "crn", &obj.CRN)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "region_instance_id", &obj.RegionInstanceID)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "region_instance_crn", &obj.RegionInstanceCRN)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "state", &obj.State)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "migrated", &obj.Migrated)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "resource_instance_url", &obj.ResourceInstanceURL)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "resource_bindings_url", &obj.ResourceBindingsURL)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "resource_keys_url", &obj.ResourceKeysURL)
+	if err != nil {
+		return
+	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
 	return
 }
 
 // ResourceAliasesList : A list of resource aliases.
 type ResourceAliasesList struct {
+	// The number of resource aliases in `resources`.
+	RowsCount *int64 `json:"rows_count" validate:"required"`
+
 	// The URL for requesting the next page of results.
 	NextURL *string `json:"next_url" validate:"required"`
 
 	// A list of resource aliases.
 	Resources []ResourceAlias `json:"resources" validate:"required"`
-
-	// The number of resource aliases in `resources`.
-	RowsCount *int64 `json:"rows_count" validate:"required"`
 }
 
 // UnmarshalResourceAliasesList unmarshals an instance of ResourceAliasesList from the specified map of raw messages.
 func UnmarshalResourceAliasesList(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(ResourceAliasesList)
+	err = core.UnmarshalPrimitive(m, "rows_count", &obj.RowsCount)
+	if err != nil {
+		return
+	}
 	err = core.UnmarshalPrimitive(m, "next_url", &obj.NextURL)
 	if err != nil {
 		return
 	}
 	err = core.UnmarshalModel(m, "resources", &obj.Resources, UnmarshalResourceAlias)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "rows_count", &obj.RowsCount)
 	if err != nil {
 		return
 	}
@@ -3402,47 +3455,8 @@ type ResourceBinding struct {
 	// identifier managed by the resource controller that corresponds to the binding.
 	GUID *string `json:"guid,omitempty"`
 
-	// The full Cloud Resource Name (CRN) associated with the binding. For more information about this format, see [Cloud
-	// Resource Names](https://cloud.ibm.com/docs/overview?topic=overview-crn).
-	CRN *string `json:"crn,omitempty"`
-
 	// When you provision a new binding, a relative URL path is created identifying the location of the binding.
 	URL *string `json:"url,omitempty"`
-
-	// The human-readable name of the binding.
-	Name *string `json:"name,omitempty"`
-
-	// An alpha-numeric value identifying the account ID.
-	AccountID *string `json:"account_id,omitempty"`
-
-	// The short ID of the resource group.
-	ResourceGroupID *string `json:"resource_group_id,omitempty"`
-
-	// The CRN of resource alias associated to the binding.
-	SourceCRN *string `json:"source_crn,omitempty"`
-
-	// The CRN of target resource, e.g. application, in a specific environment.
-	TargetCRN *string `json:"target_crn,omitempty"`
-
-	// The role CRN.
-	Role *string `json:"role,omitempty"`
-
-	// The short ID of the binding in specific targeted environment, e.g. `service_binding_id` in a given IBM Cloud
-	// environment.
-	RegionBindingID *string `json:"region_binding_id,omitempty"`
-
-	// The state of the binding.
-	State *string `json:"state,omitempty"`
-
-	// The credentials for the binding. Additional key-value pairs are passed through from the resource brokers.  For
-	// additional details, see the service’s documentation.
-	Credentials *Credentials `json:"credentials,omitempty"`
-
-	// Specifies whether the binding’s credentials support IAM.
-	IamCompatible *bool `json:"iam_compatible,omitempty"`
-
-	// The relative path to the resource alias that this binding is associated with.
-	ResourceAliasURL *string `json:"resource_alias_url,omitempty"`
 
 	// The date when the binding was created.
 	CreatedAt *strfmt.DateTime `json:"created_at,omitempty"`
@@ -3461,6 +3475,51 @@ type ResourceBinding struct {
 
 	// The subject who deleted the binding.
 	DeletedBy *string `json:"deleted_by,omitempty"`
+
+	// The CRN of resource alias associated to the binding.
+	SourceCRN *string `json:"source_crn,omitempty"`
+
+	// The CRN of target resource, for example, application, in a specific environment.
+	TargetCRN *string `json:"target_crn,omitempty"`
+
+	// The full Cloud Resource Name (CRN) associated with the binding. For more information about this format, see [Cloud
+	// Resource Names](https://cloud.ibm.com/docs/overview?topic=overview-crn).
+	CRN *string `json:"crn,omitempty"`
+
+	// The ID of the binding in the specific target environment, for example, `service_binding_id` in a given IBM Cloud
+	// environment.
+	RegionBindingID *string `json:"region_binding_id,omitempty"`
+
+	// The CRN of the binding in the specific target environment.
+	RegionBindingCRN *string `json:"region_binding_crn,omitempty"`
+
+	// The human-readable name of the binding.
+	Name *string `json:"name,omitempty"`
+
+	// An alpha-numeric value identifying the account ID.
+	AccountID *string `json:"account_id,omitempty"`
+
+	// The ID of the resource group.
+	ResourceGroupID *string `json:"resource_group_id,omitempty"`
+
+	// The state of the binding.
+	State *string `json:"state,omitempty"`
+
+	// The credentials for the binding. Additional key-value pairs are passed through from the resource brokers.  For
+	// additional details, see the service’s documentation.
+	Credentials *Credentials `json:"credentials,omitempty"`
+
+	// Specifies whether the binding’s credentials support IAM.
+	IamCompatible *bool `json:"iam_compatible,omitempty"`
+
+	// The unique ID of the offering. This value is provided by and stored in the global catalog.
+	ResourceID *string `json:"resource_id,omitempty"`
+
+	// A boolean that dictates if the alias was migrated from a previous CF instance.
+	Migrated *bool `json:"migrated,omitempty"`
+
+	// The relative path to the resource alias that this binding is associated with.
+	ResourceAliasURL *string `json:"resource_alias_url,omitempty"`
 }
 
 // UnmarshalResourceBinding unmarshals an instance of ResourceBinding from the specified map of raw messages.
@@ -3474,55 +3533,7 @@ func UnmarshalResourceBinding(m map[string]json.RawMessage, result interface{}) 
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalPrimitive(m, "crn", &obj.CRN)
-	if err != nil {
-		return
-	}
 	err = core.UnmarshalPrimitive(m, "url", &obj.URL)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "account_id", &obj.AccountID)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "resource_group_id", &obj.ResourceGroupID)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "source_crn", &obj.SourceCRN)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "target_crn", &obj.TargetCRN)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "role", &obj.Role)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "region_binding_id", &obj.RegionBindingID)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "state", &obj.State)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalModel(m, "credentials", &obj.Credentials, UnmarshalCredentials)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "iam_compatible", &obj.IamCompatible)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "resource_alias_url", &obj.ResourceAliasURL)
 	if err != nil {
 		return
 	}
@@ -3547,6 +3558,62 @@ func UnmarshalResourceBinding(m map[string]json.RawMessage, result interface{}) 
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "deleted_by", &obj.DeletedBy)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "source_crn", &obj.SourceCRN)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "target_crn", &obj.TargetCRN)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "crn", &obj.CRN)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "region_binding_id", &obj.RegionBindingID)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "region_binding_crn", &obj.RegionBindingCRN)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "account_id", &obj.AccountID)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "resource_group_id", &obj.ResourceGroupID)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "state", &obj.State)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "credentials", &obj.Credentials, UnmarshalCredentials)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "iam_compatible", &obj.IamCompatible)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "resource_id", &obj.ResourceID)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "migrated", &obj.Migrated)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "resource_alias_url", &obj.ResourceAliasURL)
 	if err != nil {
 		return
 	}
@@ -3620,28 +3687,28 @@ func UnmarshalResourceBindingPostParameters(m map[string]json.RawMessage, result
 
 // ResourceBindingsList : A list of resource bindings.
 type ResourceBindingsList struct {
+	// The number of resource bindings in `resources`.
+	RowsCount *int64 `json:"rows_count" validate:"required"`
+
 	// The URL for requesting the next page of results.
 	NextURL *string `json:"next_url" validate:"required"`
 
 	// A list of resource bindings.
 	Resources []ResourceBinding `json:"resources" validate:"required"`
-
-	// The number of resource bindings in `resources`.
-	RowsCount *int64 `json:"rows_count" validate:"required"`
 }
 
 // UnmarshalResourceBindingsList unmarshals an instance of ResourceBindingsList from the specified map of raw messages.
 func UnmarshalResourceBindingsList(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(ResourceBindingsList)
+	err = core.UnmarshalPrimitive(m, "rows_count", &obj.RowsCount)
+	if err != nil {
+		return
+	}
 	err = core.UnmarshalPrimitive(m, "next_url", &obj.NextURL)
 	if err != nil {
 		return
 	}
 	err = core.UnmarshalModel(m, "resources", &obj.Resources, UnmarshalResourceBinding)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "rows_count", &obj.RowsCount)
 	if err != nil {
 		return
 	}
@@ -3658,65 +3725,92 @@ type ResourceInstance struct {
 	// identifier managed by the resource controller that corresponds to the instance.
 	GUID *string `json:"guid,omitempty"`
 
-	// The full Cloud Resource Name (CRN) associated with the instance. For more information about this format, see [Cloud
-	// Resource Names](https://cloud.ibm.com/docs/overview?topic=overview-crn).
-	CRN *string `json:"crn,omitempty"`
-
 	// When you provision a new resource, a relative URL path is created identifying the location of the instance.
 	URL *string `json:"url,omitempty"`
+
+	// The date when the instance was created.
+	CreatedAt *strfmt.DateTime `json:"created_at,omitempty"`
+
+	// The date when the instance was last updated.
+	UpdatedAt *strfmt.DateTime `json:"updated_at,omitempty"`
+
+	// The date when the instance was deleted.
+	DeletedAt *strfmt.DateTime `json:"deleted_at,omitempty"`
+
+	// The subject who created the instance.
+	CreatedBy *string `json:"created_by,omitempty"`
+
+	// The subject who updated the instance.
+	UpdatedBy *string `json:"updated_by,omitempty"`
+
+	// The subject who deleted the instance.
+	DeletedBy *string `json:"deleted_by,omitempty"`
+
+	// The date when the instance was scheduled for reclamation.
+	ScheduledReclaimAt *strfmt.DateTime `json:"scheduled_reclaim_at,omitempty"`
+
+	// The date when the instance under reclamation was restored.
+	RestoredAt *strfmt.DateTime `json:"restored_at,omitempty"`
+
+	// The subject who restored the instance back from reclamation.
+	RestoredBy *string `json:"restored_by,omitempty"`
+
+	// The subject who initiated the instance reclamation.
+	ScheduledReclaimBy *string `json:"scheduled_reclaim_by,omitempty"`
 
 	// The human-readable name of the instance.
 	Name *string `json:"name,omitempty"`
 
+	// The deployment location where the instance was provisioned.
+	RegionID *string `json:"region_id,omitempty"`
+
 	// An alpha-numeric value identifying the account ID.
 	AccountID *string `json:"account_id,omitempty"`
 
-	// The short ID of the resource group.
-	ResourceGroupID *string `json:"resource_group_id,omitempty"`
-
-	// The long ID (full CRN) of the resource group.
-	ResourceGroupCRN *string `json:"resource_group_crn,omitempty"`
-
-	// The unique ID of the offering. This value is provided by and stored in the global catalog.
-	ResourceID *string `json:"resource_id,omitempty"`
+	// The unique ID of the reseller channel where the instance was provisioned from.
+	ResellerChannelID *string `json:"reseller_channel_id,omitempty"`
 
 	// The unique ID of the plan associated with the offering. This value is provided by and stored in the global catalog.
 	ResourcePlanID *string `json:"resource_plan_id,omitempty"`
 
-	// The full deployment CRN as defined in the global catalog. The Cloud Resource Name (CRN) of the deployment location
-	// where the instance is provisioned.
+	// The ID of the resource group.
+	ResourceGroupID *string `json:"resource_group_id,omitempty"`
+
+	// The CRN of the resource group.
+	ResourceGroupCRN *string `json:"resource_group_crn,omitempty"`
+
+	// The deployment CRN as defined in the global catalog. The Cloud Resource Name (CRN) of the deployment location where
+	// the instance is provisioned.
 	TargetCRN *string `json:"target_crn,omitempty"`
 
 	// The current configuration parameters of the instance.
 	Parameters map[string]interface{} `json:"parameters,omitempty"`
 
-	// The current state of the instance. For example, if the instance is deleted, it will return removed.
-	State *string `json:"state,omitempty"`
-
-	// The type of the instance, e.g. `service_instance`.
-	Type *string `json:"type,omitempty"`
-
-	// The sub-type of instance, e.g. `cfaas`.
-	SubType *string `json:"sub_type,omitempty"`
-
 	// A boolean that dictates if the resource instance should be deleted (cleaned up) during the processing of a region
 	// instance delete call.
 	AllowCleanup *bool `json:"allow_cleanup,omitempty"`
 
-	// A boolean that dictates if the resource instance is locked or not.
-	Locked *bool `json:"locked,omitempty"`
+	// The full Cloud Resource Name (CRN) associated with the instance. For more information about this format, see [Cloud
+	// Resource Names](https://cloud.ibm.com/docs/overview?topic=overview-crn).
+	CRN *string `json:"crn,omitempty"`
 
-	// The status of the last operation requested on the instance.
-	LastOperation map[string]interface{} `json:"last_operation,omitempty"`
+	// The current state of the instance. For example, if the instance is deleted, it will return removed.
+	State *string `json:"state,omitempty"`
+
+	// The type of the instance, for example, `service_instance`.
+	Type *string `json:"type,omitempty"`
+
+	// The sub-type of instance, for example, `cfaas`.
+	SubType *string `json:"sub_type,omitempty"`
+
+	// The unique ID of the offering. This value is provided by and stored in the global catalog.
+	ResourceID *string `json:"resource_id,omitempty"`
 
 	// The resource-broker-provided URL to access administrative features of the instance.
 	DashboardURL *string `json:"dashboard_url,omitempty"`
 
-	// The plan history of the instance.
-	PlanHistory []PlanHistoryItem `json:"plan_history,omitempty"`
-
-	// Additional instance properties, contributed by the service and/or platform, are represented as key-value pairs.
-	Extensions map[string]interface{} `json:"extensions,omitempty"`
+	// The status of the last operation requested on the instance.
+	LastOperation map[string]interface{} `json:"last_operation,omitempty"`
 
 	// The relative path to the resource aliases for the instance.
 	ResourceAliasesURL *string `json:"resource_aliases_url,omitempty"`
@@ -3727,35 +3821,20 @@ type ResourceInstance struct {
 	// The relative path to the resource keys for the instance.
 	ResourceKeysURL *string `json:"resource_keys_url,omitempty"`
 
-	// The date when the instance was created.
-	CreatedAt *strfmt.DateTime `json:"created_at,omitempty"`
+	// The plan history of the instance.
+	PlanHistory []PlanHistoryItem `json:"plan_history,omitempty"`
 
-	// The subject who created the instance.
-	CreatedBy *string `json:"created_by,omitempty"`
+	// A boolean that dictates if the resource instance was migrated from a previous CF instance.
+	Migrated *bool `json:"migrated,omitempty"`
 
-	// The date when the instance was last updated.
-	UpdatedAt *strfmt.DateTime `json:"updated_at,omitempty"`
+	// Additional instance properties, contributed by the service and/or platform, are represented as key-value pairs.
+	Extensions map[string]interface{} `json:"extensions,omitempty"`
 
-	// The subject who updated the instance.
-	UpdatedBy *string `json:"updated_by,omitempty"`
+	// The CRN of the resource that has control of the instance.
+	ControlledBy *string `json:"controlled_by,omitempty"`
 
-	// The date when the instance was deleted.
-	DeletedAt *strfmt.DateTime `json:"deleted_at,omitempty"`
-
-	// The subject who deleted the instance.
-	DeletedBy *string `json:"deleted_by,omitempty"`
-
-	// The date when the instance was scheduled for reclamation.
-	ScheduledReclaimAt *strfmt.DateTime `json:"scheduled_reclaim_at,omitempty"`
-
-	// The subject who initiated the instance reclamation.
-	ScheduledReclaimBy *string `json:"scheduled_reclaim_by,omitempty"`
-
-	// The date when the instance under reclamation was restored.
-	RestoredAt *strfmt.DateTime `json:"restored_at,omitempty"`
-
-	// The subject who restored the instance back from reclamation.
-	RestoredBy *string `json:"restored_by,omitempty"`
+	// A boolean that dictates if the resource instance is locked or not.
+	Locked *bool `json:"locked,omitempty"`
 }
 
 // UnmarshalResourceInstance unmarshals an instance of ResourceInstance from the specified map of raw messages.
@@ -3769,11 +3848,47 @@ func UnmarshalResourceInstance(m map[string]json.RawMessage, result interface{})
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalPrimitive(m, "crn", &obj.CRN)
+	err = core.UnmarshalPrimitive(m, "url", &obj.URL)
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalPrimitive(m, "url", &obj.URL)
+	err = core.UnmarshalPrimitive(m, "created_at", &obj.CreatedAt)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "updated_at", &obj.UpdatedAt)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "deleted_at", &obj.DeletedAt)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "created_by", &obj.CreatedBy)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "updated_by", &obj.UpdatedBy)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "deleted_by", &obj.DeletedBy)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "scheduled_reclaim_at", &obj.ScheduledReclaimAt)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "restored_at", &obj.RestoredAt)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "restored_by", &obj.RestoredBy)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "scheduled_reclaim_by", &obj.ScheduledReclaimBy)
 	if err != nil {
 		return
 	}
@@ -3781,7 +3896,19 @@ func UnmarshalResourceInstance(m map[string]json.RawMessage, result interface{})
 	if err != nil {
 		return
 	}
+	err = core.UnmarshalPrimitive(m, "region_id", &obj.RegionID)
+	if err != nil {
+		return
+	}
 	err = core.UnmarshalPrimitive(m, "account_id", &obj.AccountID)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "reseller_channel_id", &obj.ResellerChannelID)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "resource_plan_id", &obj.ResourcePlanID)
 	if err != nil {
 		return
 	}
@@ -3793,19 +3920,19 @@ func UnmarshalResourceInstance(m map[string]json.RawMessage, result interface{})
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalPrimitive(m, "resource_id", &obj.ResourceID)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "resource_plan_id", &obj.ResourcePlanID)
-	if err != nil {
-		return
-	}
 	err = core.UnmarshalPrimitive(m, "target_crn", &obj.TargetCRN)
 	if err != nil {
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "parameters", &obj.Parameters)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "allow_cleanup", &obj.AllowCleanup)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "crn", &obj.CRN)
 	if err != nil {
 		return
 	}
@@ -3821,15 +3948,7 @@ func UnmarshalResourceInstance(m map[string]json.RawMessage, result interface{})
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalPrimitive(m, "allow_cleanup", &obj.AllowCleanup)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "locked", &obj.Locked)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "last_operation", &obj.LastOperation)
+	err = core.UnmarshalPrimitive(m, "resource_id", &obj.ResourceID)
 	if err != nil {
 		return
 	}
@@ -3837,11 +3956,7 @@ func UnmarshalResourceInstance(m map[string]json.RawMessage, result interface{})
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(m, "plan_history", &obj.PlanHistory, UnmarshalPlanHistoryItem)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "extensions", &obj.Extensions)
+	err = core.UnmarshalPrimitive(m, "last_operation", &obj.LastOperation)
 	if err != nil {
 		return
 	}
@@ -3857,43 +3972,23 @@ func UnmarshalResourceInstance(m map[string]json.RawMessage, result interface{})
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalPrimitive(m, "created_at", &obj.CreatedAt)
+	err = core.UnmarshalModel(m, "plan_history", &obj.PlanHistory, UnmarshalPlanHistoryItem)
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalPrimitive(m, "created_by", &obj.CreatedBy)
+	err = core.UnmarshalPrimitive(m, "migrated", &obj.Migrated)
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalPrimitive(m, "updated_at", &obj.UpdatedAt)
+	err = core.UnmarshalPrimitive(m, "extensions", &obj.Extensions)
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalPrimitive(m, "updated_by", &obj.UpdatedBy)
+	err = core.UnmarshalPrimitive(m, "controlled_by", &obj.ControlledBy)
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalPrimitive(m, "deleted_at", &obj.DeletedAt)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "deleted_by", &obj.DeletedBy)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "scheduled_reclaim_at", &obj.ScheduledReclaimAt)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "scheduled_reclaim_by", &obj.ScheduledReclaimBy)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "restored_at", &obj.RestoredAt)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "restored_by", &obj.RestoredBy)
+	err = core.UnmarshalPrimitive(m, "locked", &obj.Locked)
 	if err != nil {
 		return
 	}
@@ -3903,28 +3998,28 @@ func UnmarshalResourceInstance(m map[string]json.RawMessage, result interface{})
 
 // ResourceInstancesList : A list of resource instances.
 type ResourceInstancesList struct {
+	// The number of resource instances in `resources`.
+	RowsCount *int64 `json:"rows_count" validate:"required"`
+
 	// The URL for requesting the next page of results.
 	NextURL *string `json:"next_url" validate:"required"`
 
 	// A list of resource instances.
 	Resources []ResourceInstance `json:"resources" validate:"required"`
-
-	// The number of resource instances in `resources`.
-	RowsCount *int64 `json:"rows_count" validate:"required"`
 }
 
 // UnmarshalResourceInstancesList unmarshals an instance of ResourceInstancesList from the specified map of raw messages.
 func UnmarshalResourceInstancesList(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(ResourceInstancesList)
+	err = core.UnmarshalPrimitive(m, "rows_count", &obj.RowsCount)
+	if err != nil {
+		return
+	}
 	err = core.UnmarshalPrimitive(m, "next_url", &obj.NextURL)
 	if err != nil {
 		return
 	}
 	err = core.UnmarshalModel(m, "resources", &obj.Resources, UnmarshalResourceInstance)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "rows_count", &obj.RowsCount)
 	if err != nil {
 		return
 	}
@@ -3941,40 +4036,8 @@ type ResourceKey struct {
 	// identifier managed by the resource controller that corresponds to the key.
 	GUID *string `json:"guid,omitempty"`
 
-	// The full Cloud Resource Name (CRN) associated with the key. For more information about this format, see [Cloud
-	// Resource Names](https://cloud.ibm.com/docs/overview?topic=overview-crn).
-	CRN *string `json:"crn,omitempty"`
-
 	// When you created a new key, a relative URL path is created identifying the location of the key.
 	URL *string `json:"url,omitempty"`
-
-	// The human-readable name of the key.
-	Name *string `json:"name,omitempty"`
-
-	// An alpha-numeric value identifying the account ID.
-	AccountID *string `json:"account_id,omitempty"`
-
-	// The short ID of the resource group.
-	ResourceGroupID *string `json:"resource_group_id,omitempty"`
-
-	// The CRN of resource instance or alias associated to the key.
-	SourceCRN *string `json:"source_crn,omitempty"`
-
-	// The role CRN.
-	Role *string `json:"role,omitempty"`
-
-	// The state of the key.
-	State *string `json:"state,omitempty"`
-
-	// The credentials for the key. Additional key-value pairs are passed through from the resource brokers.  Refer to
-	// service’s documentation for additional details.
-	Credentials *Credentials `json:"credentials,omitempty"`
-
-	// Specifies whether the key’s credentials support IAM.
-	IamCompatible *bool `json:"iam_compatible,omitempty"`
-
-	// The relative path to the resource.
-	ResourceInstanceURL *string `json:"resource_instance_url,omitempty"`
 
 	// The date when the key was created.
 	CreatedAt *strfmt.DateTime `json:"created_at,omitempty"`
@@ -3993,6 +4056,44 @@ type ResourceKey struct {
 
 	// The subject who deleted the key.
 	DeletedBy *string `json:"deleted_by,omitempty"`
+
+	// The CRN of resource instance or alias associated to the key.
+	SourceCRN *string `json:"source_crn,omitempty"`
+
+	// The human-readable name of the key.
+	Name *string `json:"name,omitempty"`
+
+	// The full Cloud Resource Name (CRN) associated with the key. For more information about this format, see [Cloud
+	// Resource Names](https://cloud.ibm.com/docs/overview?topic=overview-crn).
+	CRN *string `json:"crn,omitempty"`
+
+	// The state of the key.
+	State *string `json:"state,omitempty"`
+
+	// An alpha-numeric value identifying the account ID.
+	AccountID *string `json:"account_id,omitempty"`
+
+	// The ID of the resource group.
+	ResourceGroupID *string `json:"resource_group_id,omitempty"`
+
+	// The unique ID of the offering. This value is provided by and stored in the global catalog.
+	ResourceID *string `json:"resource_id,omitempty"`
+
+	// The credentials for the key. Additional key-value pairs are passed through from the resource brokers.  Refer to
+	// service’s documentation for additional details.
+	Credentials *Credentials `json:"credentials,omitempty"`
+
+	// Specifies whether the key’s credentials support IAM.
+	IamCompatible *bool `json:"iam_compatible,omitempty"`
+
+	// A boolean that dictates if the alias was migrated from a previous CF instance.
+	Migrated *bool `json:"migrated,omitempty"`
+
+	// The relative path to the resource.
+	ResourceInstanceURL *string `json:"resource_instance_url,omitempty"`
+
+	// The relative path to the resource alias that this binding is associated with.
+	ResourceAliasURL *string `json:"resource_alias_url,omitempty"`
 }
 
 // UnmarshalResourceKey unmarshals an instance of ResourceKey from the specified map of raw messages.
@@ -4006,47 +4107,7 @@ func UnmarshalResourceKey(m map[string]json.RawMessage, result interface{}) (err
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalPrimitive(m, "crn", &obj.CRN)
-	if err != nil {
-		return
-	}
 	err = core.UnmarshalPrimitive(m, "url", &obj.URL)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "account_id", &obj.AccountID)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "resource_group_id", &obj.ResourceGroupID)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "source_crn", &obj.SourceCRN)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "role", &obj.Role)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "state", &obj.State)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalModel(m, "credentials", &obj.Credentials, UnmarshalCredentials)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "iam_compatible", &obj.IamCompatible)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "resource_instance_url", &obj.ResourceInstanceURL)
 	if err != nil {
 		return
 	}
@@ -4071,6 +4132,54 @@ func UnmarshalResourceKey(m map[string]json.RawMessage, result interface{}) (err
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "deleted_by", &obj.DeletedBy)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "source_crn", &obj.SourceCRN)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "crn", &obj.CRN)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "state", &obj.State)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "account_id", &obj.AccountID)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "resource_group_id", &obj.ResourceGroupID)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "resource_id", &obj.ResourceID)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "credentials", &obj.Credentials, UnmarshalCredentials)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "iam_compatible", &obj.IamCompatible)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "migrated", &obj.Migrated)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "resource_instance_url", &obj.ResourceInstanceURL)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "resource_alias_url", &obj.ResourceAliasURL)
 	if err != nil {
 		return
 	}
@@ -4144,28 +4253,28 @@ func UnmarshalResourceKeyPostParameters(m map[string]json.RawMessage, result int
 
 // ResourceKeysList : A list of resource keys.
 type ResourceKeysList struct {
+	// The number of resource keys in `resources`.
+	RowsCount *int64 `json:"rows_count" validate:"required"`
+
 	// The URL for requesting the next page of results.
 	NextURL *string `json:"next_url" validate:"required"`
 
 	// A list of resource keys.
 	Resources []ResourceKey `json:"resources" validate:"required"`
-
-	// The number of resource keys in `resources`.
-	RowsCount *int64 `json:"rows_count" validate:"required"`
 }
 
 // UnmarshalResourceKeysList unmarshals an instance of ResourceKeysList from the specified map of raw messages.
 func UnmarshalResourceKeysList(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(ResourceKeysList)
+	err = core.UnmarshalPrimitive(m, "rows_count", &obj.RowsCount)
+	if err != nil {
+		return
+	}
 	err = core.UnmarshalPrimitive(m, "next_url", &obj.NextURL)
 	if err != nil {
 		return
 	}
 	err = core.UnmarshalModel(m, "resources", &obj.Resources, UnmarshalResourceKey)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "rows_count", &obj.RowsCount)
 	if err != nil {
 		return
 	}
@@ -4194,7 +4303,7 @@ type RunReclamationActionOptions struct {
 // NewRunReclamationActionOptions : Instantiate RunReclamationActionOptions
 func (*ResourceControllerV2) NewRunReclamationActionOptions(id string, actionName string) *RunReclamationActionOptions {
 	return &RunReclamationActionOptions{
-		ID: core.StringPtr(id),
+		ID:         core.StringPtr(id),
 		ActionName: core.StringPtr(actionName),
 	}
 }
@@ -4273,7 +4382,7 @@ type UpdateResourceAliasOptions struct {
 // NewUpdateResourceAliasOptions : Instantiate UpdateResourceAliasOptions
 func (*ResourceControllerV2) NewUpdateResourceAliasOptions(id string, name string) *UpdateResourceAliasOptions {
 	return &UpdateResourceAliasOptions{
-		ID: core.StringPtr(id),
+		ID:   core.StringPtr(id),
 		Name: core.StringPtr(name),
 	}
 }
@@ -4312,7 +4421,7 @@ type UpdateResourceBindingOptions struct {
 // NewUpdateResourceBindingOptions : Instantiate UpdateResourceBindingOptions
 func (*ResourceControllerV2) NewUpdateResourceBindingOptions(id string, name string) *UpdateResourceBindingOptions {
 	return &UpdateResourceBindingOptions{
-		ID: core.StringPtr(id),
+		ID:   core.StringPtr(id),
 		Name: core.StringPtr(name),
 	}
 }
@@ -4417,7 +4526,7 @@ type UpdateResourceKeyOptions struct {
 // NewUpdateResourceKeyOptions : Instantiate UpdateResourceKeyOptions
 func (*ResourceControllerV2) NewUpdateResourceKeyOptions(id string, name string) *UpdateResourceKeyOptions {
 	return &UpdateResourceKeyOptions{
-		ID: core.StringPtr(id),
+		ID:   core.StringPtr(id),
 		Name: core.StringPtr(name),
 	}
 }
