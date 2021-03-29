@@ -1,3 +1,24 @@
+# [0.18.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.17.20...v0.18.0) (2021-03-26)
+
+
+### Features
+
+* **Posture Management:** add service to project ([#95](https://github.com/IBM/platform-services-go-sdk/issues/95)) ([635e364](https://github.com/IBM/platform-services-go-sdk/commit/635e3647be0ef56b2bee77199c90fc7cf1213084))
+
+## [0.17.20](https://github.com/IBM/platform-services-go-sdk/compare/v0.17.19...v0.17.20) (2021-03-25)
+
+
+### Bug Fixes
+
+* **Global Search:** update service after recent API changes  ([#99](https://github.com/IBM/platform-services-go-sdk/issues/99)) ([cafd943](https://github.com/IBM/platform-services-go-sdk/commit/cafd943f7e5cf7ff6db47ad49546f0f49f5480a3))
+
+## [0.17.19](https://github.com/IBM/platform-services-go-sdk/compare/v0.17.18...v0.17.19) (2021-03-25)
+
+
+### Bug Fixes
+
+* add labels to examples ([#97](https://github.com/IBM/platform-services-go-sdk/issues/97)) ([35e8342](https://github.com/IBM/platform-services-go-sdk/commit/35e8342ffe1d5a18ffee3d36bd495dd49d1f9b07))
+
 ## [0.17.18](https://github.com/IBM/platform-services-go-sdk/compare/v0.17.17...v0.17.18) (2021-03-18)
 
 

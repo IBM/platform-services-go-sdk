@@ -154,7 +154,7 @@ var _ = Describe(`UsageMeteringV4 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(responseAccepted, "", "  ")
-			fmt.Println(string(b))
+			fmt.Printf("\nReportResourceUsage() result:\n%s\n", string(b))
 
 			// end-report_resource_usage
 

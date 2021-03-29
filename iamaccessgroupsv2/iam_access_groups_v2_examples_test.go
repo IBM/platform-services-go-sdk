@@ -123,7 +123,7 @@ var _ = Describe(`IamAccessGroupsV2 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(group, "", "  ")
-			fmt.Println(string(b))
+			fmt.Printf("\nCreateAccessGroup() result:\n%s\n", string(b))
 
 			// end-create_access_group
 
@@ -142,7 +142,7 @@ var _ = Describe(`IamAccessGroupsV2 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(group, "", "  ")
-			fmt.Println(string(b))
+			fmt.Printf("\nGetAccessGroup() result:\n%s\n", string(b))
 
 			// end-get_access_group
 
@@ -163,7 +163,7 @@ var _ = Describe(`IamAccessGroupsV2 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(group, "", "  ")
-			fmt.Println(string(b))
+			fmt.Printf("\nUpdateAccessGroup() result:\n%s\n", string(b))
 
 			// end-update_access_group
 
@@ -180,7 +180,7 @@ var _ = Describe(`IamAccessGroupsV2 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(groupsList, "", "  ")
-			fmt.Println(string(b))
+			fmt.Printf("\nListAccessGroups() result:\n%s\n", string(b))
 
 			// end-list_access_groups
 
@@ -208,7 +208,7 @@ var _ = Describe(`IamAccessGroupsV2 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(addGroupMembersResponse, "", "  ")
-			fmt.Println(string(b))
+			fmt.Printf("\nAddMembersToAccessGroup() result:\n%s\n", string(b))
 
 			// end-add_members_to_access_group
 
@@ -224,6 +224,7 @@ var _ = Describe(`IamAccessGroupsV2 Examples Tests`, func() {
 			if err != nil {
 				panic(err)
 			}
+			fmt.Printf("\nIsMemberOfAccessGroup() response status code: %d\n", response.StatusCode)
 
 			// end-is_member_of_access_group
 
@@ -239,7 +240,7 @@ var _ = Describe(`IamAccessGroupsV2 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(groupMembersList, "", "  ")
-			fmt.Println(string(b))
+			fmt.Printf("\nListAccessGroupMembers() result:\n%s\n", string(b))
 
 			// end-list_access_group_members
 
@@ -255,6 +256,7 @@ var _ = Describe(`IamAccessGroupsV2 Examples Tests`, func() {
 			if err != nil {
 				panic(err)
 			}
+			fmt.Printf("\nRemoveMemberFromAccessGroup() response status code: %d\n:", response.StatusCode)
 
 			// end-remove_member_from_access_group
 
@@ -271,7 +273,7 @@ var _ = Describe(`IamAccessGroupsV2 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(deleteGroupBulkMembersResponse, "", "  ")
-			fmt.Println(string(b))
+			fmt.Printf("\nRemoveMembersFromAccessGroup() result:\n%s\n", string(b))
 
 			// end-remove_members_from_access_group
 
@@ -290,7 +292,7 @@ var _ = Describe(`IamAccessGroupsV2 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(addMembershipMultipleGroupsResponse, "", "  ")
-			fmt.Println(string(b))
+			fmt.Printf("\nAddMemberToMultipleAccessGroups() result:\n%s\n", string(b))
 
 			// end-add_member_to_multiple_access_groups
 
@@ -307,7 +309,7 @@ var _ = Describe(`IamAccessGroupsV2 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(deleteFromAllGroupsResponse, "", "  ")
-			fmt.Println(string(b))
+			fmt.Printf("\nRemoveMemberFromAllAccessGroups() result:\n%s\n", string(b))
 
 			// end-remove_member_from_all_access_groups
 
@@ -335,7 +337,7 @@ var _ = Describe(`IamAccessGroupsV2 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(rule, "", "  ")
-			fmt.Println(string(b))
+			fmt.Printf("\nAddAccessGroupRule() result:\n%s\n", string(b))
 
 			// end-add_access_group_rule
 
@@ -354,7 +356,7 @@ var _ = Describe(`IamAccessGroupsV2 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(rule, "", "  ")
-			fmt.Println(string(b))
+			fmt.Printf("\nGetAccessGroupRule() result:\n%s\n", string(b))
 
 			// end-get_access_group_rule
 
@@ -386,7 +388,7 @@ var _ = Describe(`IamAccessGroupsV2 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(rule, "", "  ")
-			fmt.Println(string(b))
+			fmt.Printf("\nReplaceAccessGroupRule() result:\n%s\n", string(b))
 
 			// end-replace_access_group_rule
 
@@ -403,7 +405,7 @@ var _ = Describe(`IamAccessGroupsV2 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(rulesList, "", "  ")
-			fmt.Println(string(b))
+			fmt.Printf("\nListAccessGroupRules() result:\n%s\n", string(b))
 
 			// end-list_access_group_rules
 
@@ -420,6 +422,7 @@ var _ = Describe(`IamAccessGroupsV2 Examples Tests`, func() {
 			if err != nil {
 				panic(err)
 			}
+			fmt.Printf("\nRemoveAccessGroupRule() response status code: %d\n", response.StatusCode)
 
 			// end-remove_access_group_rule
 
@@ -435,7 +438,7 @@ var _ = Describe(`IamAccessGroupsV2 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(accountSettings, "", "  ")
-			fmt.Println(string(b))
+			fmt.Printf("\nGetAccountSettings() result:\n%s\n", string(b))
 
 			// end-get_account_settings
 
@@ -455,7 +458,7 @@ var _ = Describe(`IamAccessGroupsV2 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(accountSettings, "", "  ")
-			fmt.Println(string(b))
+			fmt.Printf("\nUpdateAccountSettings() result:\n%s\n", string(b))
 
 			// end-update_account_settings
 
@@ -471,6 +474,7 @@ var _ = Describe(`IamAccessGroupsV2 Examples Tests`, func() {
 			if err != nil {
 				panic(err)
 			}
+			fmt.Printf("\nDeleteAccessGroup() response status code: %d\n", response.StatusCode)
 
 			// end-delete_access_group
 

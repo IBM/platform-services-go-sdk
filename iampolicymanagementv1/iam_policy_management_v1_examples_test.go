@@ -161,7 +161,7 @@ var _ = Describe(`IamPolicyManagementV1 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(policy, "", "  ")
-			fmt.Println(string(b))
+			fmt.Printf("\nCreatePolicy() result:\n%s\n", string(b))
 
 			// end-create_policy
 
@@ -183,7 +183,7 @@ var _ = Describe(`IamPolicyManagementV1 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(policy, "", "  ")
-			fmt.Println(string(b))
+			fmt.Printf("\nGetPolicy() result:\n%s\n", string(b))
 
 			// end-get_policy
 
@@ -241,7 +241,7 @@ var _ = Describe(`IamPolicyManagementV1 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(policy, "", "  ")
-			fmt.Println(string(b))
+			fmt.Printf("\nUpdatePolicy() result:\n%s\n", string(b))
 
 			// end-update_policy
 
@@ -289,7 +289,7 @@ var _ = Describe(`IamPolicyManagementV1 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(policyList, "", "  ")
-			fmt.Println(string(b))
+			fmt.Printf("\nListPolicies() result:\n%s\n", string(b))
 
 			// end-list_policies
 
@@ -309,6 +309,7 @@ var _ = Describe(`IamPolicyManagementV1 Examples Tests`, func() {
 			if err != nil {
 				panic(err)
 			}
+			fmt.Printf("\nDeletePolicy() response status code: %d\n", response.StatusCode)
 
 			// end-delete_policy
 
@@ -332,7 +333,7 @@ var _ = Describe(`IamPolicyManagementV1 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(customRole, "", "  ")
-			fmt.Println(string(b))
+			fmt.Printf("\nCreateRole() result:\n%s\n", string(b))
 
 			// end-create_role
 
@@ -354,7 +355,7 @@ var _ = Describe(`IamPolicyManagementV1 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(customRole, "", "  ")
-			fmt.Println(string(b))
+			fmt.Printf("\nGetRole() result:\n%s\n", string(b))
 
 			// end-get_role
 
@@ -381,7 +382,7 @@ var _ = Describe(`IamPolicyManagementV1 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(customRole, "", "  ")
-			fmt.Println(string(b))
+			fmt.Printf("\nUpdateRole() result:\n%s\n", string(b))
 
 			// end-update_role
 
@@ -401,7 +402,7 @@ var _ = Describe(`IamPolicyManagementV1 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(roleList, "", "  ")
-			fmt.Println(string(b))
+			fmt.Printf("\nListRoles() result:\n%s\n", string(b))
 
 			// end-list_roles
 
@@ -421,6 +422,7 @@ var _ = Describe(`IamPolicyManagementV1 Examples Tests`, func() {
 			if err != nil {
 				panic(err)
 			}
+			fmt.Printf("\nDeleteRole() response status code: %d\n", response.StatusCode)
 
 			// end-delete_role
 
