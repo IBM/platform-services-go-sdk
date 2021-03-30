@@ -25,13 +25,12 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"net/http"
-	"reflect"
-	"time"
-
 	"github.com/IBM/go-sdk-core/v5/core"
 	common "github.com/IBM/platform-services-go-sdk/common"
 	"github.com/go-openapi/strfmt"
+	"net/http"
+	"reflect"
+	"time"
 )
 
 // ResourceControllerV2 : Manage lifecycle of your Cloud resources using Resource Controller APIs. Resources are
