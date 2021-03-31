@@ -18,7 +18,10 @@
 package resourcecontrollerv2_test
 
 import (
+	"fmt"
 	"log"
+	"os"
+	"time"
 
 	"github.com/IBM/go-sdk-core/v5/core"
 	common "github.com/IBM/platform-services-go-sdk/common"
@@ -26,10 +29,6 @@ import (
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
 	uuid "github.com/satori/go.uuid"
-
-	"fmt"
-	"os"
-	"time"
 )
 
 const externalConfigFile = "../resource_controller.env"
