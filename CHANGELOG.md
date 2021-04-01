@@ -1,3 +1,10 @@
+## [0.18.3](https://github.com/IBM/platform-services-go-sdk/compare/v0.18.2...v0.18.3) (2021-04-01)
+
+
+### Bug Fixes
+
+* **deps:** upgrade dependencies ([#104](https://github.com/IBM/platform-services-go-sdk/issues/104)) ([b390039](https://github.com/IBM/platform-services-go-sdk/commit/b390039057f40cef909b37ab5f197dcad8f0c0c1))
+
 ## [0.18.2](https://github.com/IBM/platform-services-go-sdk/compare/v0.18.1...v0.18.2) (2021-04-01)
 
 
