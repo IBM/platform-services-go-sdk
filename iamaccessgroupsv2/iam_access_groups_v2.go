@@ -15,9 +15,8 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-1eae594e-20210113-143533
+ * IBM OpenAPI SDK Code Generator Version: 3.29.1-b338fb38-20210313-010605
  */
- 
 
 // Package iamaccessgroupsv2 : Operations and models for the IamAccessGroupsV2 service
 package iamaccessgroupsv2
@@ -26,15 +25,16 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"github.com/IBM/go-sdk-core/v4/core"
-	common "github.com/IBM/platform-services-go-sdk/common"
-	"github.com/go-openapi/strfmt"
 	"net/http"
 	"reflect"
 	"time"
+
+	"github.com/IBM/go-sdk-core/v5/core"
+	common "github.com/IBM/platform-services-go-sdk/common"
+	"github.com/go-openapi/strfmt"
 )
 
-// IamAccessGroupsV2 : The IAM Access Groups API allows for the management of Access Groups (Create, Read, Update,
+// IamAccessGroupsV2 : The IAM Access Groups API allows for the management of access groups (Create, Read, Update,
 // Delete) as well as the management of memberships and rules within the group container.
 //
 // Version: 1.0
@@ -161,8 +161,8 @@ func (iamAccessGroups *IamAccessGroupsV2) DisableRetries() {
 	iamAccessGroups.Service.DisableRetries()
 }
 
-// CreateAccessGroup : Create an Access Group
-// Create a new Access Group to assign multiple users and service ids to multiple policies. The group will be created in
+// CreateAccessGroup : Create an access group
+// Create a new access group to assign multiple users and service ids to multiple policies. The group will be created in
 // the account specified by the `account_id` parameter. The group name is a required field, but a description is
 // optional. Because the group's name does not have to be unique, it is possible to create multiple groups with the same
 // name.
@@ -236,8 +236,8 @@ func (iamAccessGroups *IamAccessGroupsV2) CreateAccessGroupWithContext(ctx conte
 	return
 }
 
-// ListAccessGroups : List Access Groups
-// This API lists Access Groups within an account. Parameters for pagination and sorting can be used to filter the
+// ListAccessGroups : List access groups
+// This API lists access groups within an account. Parameters for pagination and sorting can be used to filter the
 // results. The `account_id` query parameter determines which account to retrieve groups from. Only the groups you have
 // access to are returned (either because of a policy on a specific group or account level access (admin, editor, or
 // viewer)). There may be more groups in the account that aren't shown if you lack the aforementioned permissions.
@@ -316,10 +316,10 @@ func (iamAccessGroups *IamAccessGroupsV2) ListAccessGroupsWithContext(ctx contex
 	return
 }
 
-// GetAccessGroup : Get an Access Group
-// Retrieve an Access Group by its `access_group_id`. Only the groups data is returned (group name, description,
-// account_id, ...), not membership or rule information. A revision number is returned in the `Etag` header, which is
-// needed when updating the Access Group.
+// GetAccessGroup : Get an access group
+// Retrieve an access group by its `access_group_id`. Only the groups data is returned (group name, description,
+// account_id, ...), not membership or rule information. A revision number is returned in the `ETag` header, which is
+// needed when updating the access group.
 func (iamAccessGroups *IamAccessGroupsV2) GetAccessGroup(getAccessGroupOptions *GetAccessGroupOptions) (result *Group, response *core.DetailedResponse, err error) {
 	return iamAccessGroups.GetAccessGroupWithContext(context.Background(), getAccessGroupOptions)
 }
@@ -383,9 +383,9 @@ func (iamAccessGroups *IamAccessGroupsV2) GetAccessGroupWithContext(ctx context.
 	return
 }
 
-// UpdateAccessGroup : Update an Access Group
-// Update the group name or description of an existing Access Group using this API. An `If-Match` header must be
-// populated with the group's most recent revision number (which can be acquired in the `Get an Access Group` API).
+// UpdateAccessGroup : Update an access group
+// Update the group name or description of an existing access group using this API. An `If-Match` header must be
+// populated with the group's most recent revision number (which can be acquired in the `Get an access group` API).
 func (iamAccessGroups *IamAccessGroupsV2) UpdateAccessGroup(updateAccessGroupOptions *UpdateAccessGroupOptions) (result *Group, response *core.DetailedResponse, err error) {
 	return iamAccessGroups.UpdateAccessGroupWithContext(context.Background(), updateAccessGroupOptions)
 }
@@ -461,8 +461,8 @@ func (iamAccessGroups *IamAccessGroupsV2) UpdateAccessGroupWithContext(ctx conte
 	return
 }
 
-// DeleteAccessGroup : Delete an Access Group
-// This API is used for deleting an Access Group. If the Access Group has no members or rules associated with it, the
+// DeleteAccessGroup : Delete an access group
+// This API is used for deleting an access group. If the access group has no members or rules associated with it, the
 // group and its policies will be deleted. However, if rules or members do exist, set the `force` parameter to true to
 // delete the group as well as its associated members, rules, and policies.
 func (iamAccessGroups *IamAccessGroupsV2) DeleteAccessGroup(deleteAccessGroupOptions *DeleteAccessGroupOptions) (response *core.DetailedResponse, err error) {
@@ -518,7 +518,7 @@ func (iamAccessGroups *IamAccessGroupsV2) DeleteAccessGroupWithContext(ctx conte
 	return
 }
 
-// IsMemberOfAccessGroup : Check membership in an Access Group
+// IsMemberOfAccessGroup : Check membership in an access group
 // This HEAD operation determines if a given `iam_id` is present in a group. No response body is returned with this
 // request. If the membership exists, a `204 - No Content` status code is returned. If the membership or the group does
 // not exist, a `404 - Not Found` status code is returned.
@@ -539,7 +539,7 @@ func (iamAccessGroups *IamAccessGroupsV2) IsMemberOfAccessGroupWithContext(ctx c
 
 	pathParamsMap := map[string]string{
 		"access_group_id": *isMemberOfAccessGroupOptions.AccessGroupID,
-		"iam_id": *isMemberOfAccessGroupOptions.IamID,
+		"iam_id":          *isMemberOfAccessGroupOptions.IamID,
 	}
 
 	builder := core.NewRequestBuilder(core.HEAD)
@@ -572,8 +572,8 @@ func (iamAccessGroups *IamAccessGroupsV2) IsMemberOfAccessGroupWithContext(ctx c
 	return
 }
 
-// AddMembersToAccessGroup : Add members to an Access Group
-// Use this API to add users (`IBMid-...`) or service IDs (`iam-ServiceId-...`) to an Access Group. Any member added
+// AddMembersToAccessGroup : Add members to an access group
+// Use this API to add users (`IBMid-...`) or service IDs (`iam-ServiceId-...`) to an access group. Any member added
 // gains access to resources defined in the group's policies. To revoke a given user's access, simply remove them from
 // the group. There is no limit to the number of members one group can have, but each `iam_id` can only be added to 50
 // groups. Additionally, this API request payload can add up to 50 members per call.
@@ -646,7 +646,7 @@ func (iamAccessGroups *IamAccessGroupsV2) AddMembersToAccessGroupWithContext(ctx
 	return
 }
 
-// ListAccessGroupMembers : List Access Group members
+// ListAccessGroupMembers : List access group members
 // List all members of a given group using this API. Parameters for pagination and sorting can be used to filter the
 // results. The most useful query parameter may be the `verbose` flag. If `verbose=true`, user and service ID names will
 // be retrieved for each `iam_id`. If performance is a concern, leave the `verbose` parameter off so that name
@@ -726,7 +726,7 @@ func (iamAccessGroups *IamAccessGroupsV2) ListAccessGroupMembersWithContext(ctx 
 	return
 }
 
-// RemoveMemberFromAccessGroup : Delete member from an Access Group
+// RemoveMemberFromAccessGroup : Delete member from an access group
 // Remove one member from a group using this API. If the operation is successful, only a `204 - No Content` response
 // with no body is returned. However, if any error occurs, the standard error format will be returned.
 func (iamAccessGroups *IamAccessGroupsV2) RemoveMemberFromAccessGroup(removeMemberFromAccessGroupOptions *RemoveMemberFromAccessGroupOptions) (response *core.DetailedResponse, err error) {
@@ -746,7 +746,7 @@ func (iamAccessGroups *IamAccessGroupsV2) RemoveMemberFromAccessGroupWithContext
 
 	pathParamsMap := map[string]string{
 		"access_group_id": *removeMemberFromAccessGroupOptions.AccessGroupID,
-		"iam_id": *removeMemberFromAccessGroupOptions.IamID,
+		"iam_id":          *removeMemberFromAccessGroupOptions.IamID,
 	}
 
 	builder := core.NewRequestBuilder(core.DELETE)
@@ -779,7 +779,7 @@ func (iamAccessGroups *IamAccessGroupsV2) RemoveMemberFromAccessGroupWithContext
 	return
 }
 
-// RemoveMembersFromAccessGroup : Delete members from an Access Group
+// RemoveMembersFromAccessGroup : Delete members from an access group
 // Remove multiple members from a group using this API. On a successful call, this API will always return 207. It is the
 // caller's responsibility to iterate across the body to determine successful deletion of each member. This API request
 // payload can delete up to 50 members per call.
@@ -852,9 +852,9 @@ func (iamAccessGroups *IamAccessGroupsV2) RemoveMembersFromAccessGroupWithContex
 	return
 }
 
-// RemoveMemberFromAllAccessGroups : Delete member from all Access Groups
+// RemoveMemberFromAllAccessGroups : Delete member from all access groups
 // This API removes a given member from every group they are a member of within the specified account. By using one
-// operation, you can revoke one member's access to all Access Groups in the account. If a partial failure occurs on
+// operation, you can revoke one member's access to all access groups in the account. If a partial failure occurs on
 // deletion, the response will be shown in the body.
 func (iamAccessGroups *IamAccessGroupsV2) RemoveMemberFromAllAccessGroups(removeMemberFromAllAccessGroupsOptions *RemoveMemberFromAllAccessGroupsOptions) (result *DeleteFromAllGroupsResponse, response *core.DetailedResponse, err error) {
 	return iamAccessGroups.RemoveMemberFromAllAccessGroupsWithContext(context.Background(), removeMemberFromAllAccessGroupsOptions)
@@ -917,8 +917,8 @@ func (iamAccessGroups *IamAccessGroupsV2) RemoveMemberFromAllAccessGroupsWithCon
 	return
 }
 
-// AddMemberToMultipleAccessGroups : Add member to multiple Access Groups
-// This API will add a member to multiple Access Groups in an account. The limit of how many groups that can be in the
+// AddMemberToMultipleAccessGroups : Add member to multiple access groups
+// This API will add a member to multiple access groups in an account. The limit of how many groups that can be in the
 // request is 50. The response is a list of results that show if adding the member to each group was successful or not.
 func (iamAccessGroups *IamAccessGroupsV2) AddMemberToMultipleAccessGroups(addMemberToMultipleAccessGroupsOptions *AddMemberToMultipleAccessGroupsOptions) (result *AddMembershipMultipleGroupsResponse, response *core.DetailedResponse, err error) {
 	return iamAccessGroups.AddMemberToMultipleAccessGroupsWithContext(context.Background(), addMemberToMultipleAccessGroupsOptions)
@@ -994,8 +994,8 @@ func (iamAccessGroups *IamAccessGroupsV2) AddMemberToMultipleAccessGroupsWithCon
 	return
 }
 
-// AddAccessGroupRule : Create rule for an Access Group
-// Rules can be used to dynamically add users to an Access Group. If a user's SAML assertions match the rule's
+// AddAccessGroupRule : Create rule for an access group
+// Rules can be used to dynamically add users to an access group. If a user's SAML assertions match the rule's
 // conditions during login, the user will be dynamically added to the group. The duration of the user's access to the
 // group is determined by the `expiration` field. After access expires, the user will need to log in again to regain
 // access. Note that the condition's value field must be a stringified JSON value. [Consult this documentation for
@@ -1078,8 +1078,8 @@ func (iamAccessGroups *IamAccessGroupsV2) AddAccessGroupRuleWithContext(ctx cont
 	return
 }
 
-// ListAccessGroupRules : List Access Group rules
-// This API lists all rules in a given Access Group. Because only a few rules are created on each group, there is no
+// ListAccessGroupRules : List access group rules
+// This API lists all rules in a given access group. Because only a few rules are created on each group, there is no
 // pagination or sorting support on this API.
 func (iamAccessGroups *IamAccessGroupsV2) ListAccessGroupRules(listAccessGroupRulesOptions *ListAccessGroupRulesOptions) (result *RulesList, response *core.DetailedResponse, err error) {
 	return iamAccessGroups.ListAccessGroupRulesWithContext(context.Background(), listAccessGroupRulesOptions)
@@ -1140,8 +1140,8 @@ func (iamAccessGroups *IamAccessGroupsV2) ListAccessGroupRulesWithContext(ctx co
 	return
 }
 
-// GetAccessGroupRule : Get an Access Group rule
-// Retrieve a rule from an Access Group. A revision number is returned in the `Etag` header, which is needed when
+// GetAccessGroupRule : Get an access group rule
+// Retrieve a rule from an access group. A revision number is returned in the `ETag` header, which is needed when
 // updating the rule.
 func (iamAccessGroups *IamAccessGroupsV2) GetAccessGroupRule(getAccessGroupRuleOptions *GetAccessGroupRuleOptions) (result *Rule, response *core.DetailedResponse, err error) {
 	return iamAccessGroups.GetAccessGroupRuleWithContext(context.Background(), getAccessGroupRuleOptions)
@@ -1160,7 +1160,7 @@ func (iamAccessGroups *IamAccessGroupsV2) GetAccessGroupRuleWithContext(ctx cont
 
 	pathParamsMap := map[string]string{
 		"access_group_id": *getAccessGroupRuleOptions.AccessGroupID,
-		"rule_id": *getAccessGroupRuleOptions.RuleID,
+		"rule_id":         *getAccessGroupRuleOptions.RuleID,
 	}
 
 	builder := core.NewRequestBuilder(core.GET)
@@ -1203,9 +1203,9 @@ func (iamAccessGroups *IamAccessGroupsV2) GetAccessGroupRuleWithContext(ctx cont
 	return
 }
 
-// ReplaceAccessGroupRule : Replace an Access Group rule
+// ReplaceAccessGroupRule : Replace an access group rule
 // Update the body of an existing rule using this API. An `If-Match` header must be populated with the rule's most
-// recent revision number (which can be acquired in the `Get an Access Group rule` API).
+// recent revision number (which can be acquired in the `Get an access group rule` API).
 func (iamAccessGroups *IamAccessGroupsV2) ReplaceAccessGroupRule(replaceAccessGroupRuleOptions *ReplaceAccessGroupRuleOptions) (result *Rule, response *core.DetailedResponse, err error) {
 	return iamAccessGroups.ReplaceAccessGroupRuleWithContext(context.Background(), replaceAccessGroupRuleOptions)
 }
@@ -1223,7 +1223,7 @@ func (iamAccessGroups *IamAccessGroupsV2) ReplaceAccessGroupRuleWithContext(ctx 
 
 	pathParamsMap := map[string]string{
 		"access_group_id": *replaceAccessGroupRuleOptions.AccessGroupID,
-		"rule_id": *replaceAccessGroupRuleOptions.RuleID,
+		"rule_id":         *replaceAccessGroupRuleOptions.RuleID,
 	}
 
 	builder := core.NewRequestBuilder(core.PUT)
@@ -1288,7 +1288,7 @@ func (iamAccessGroups *IamAccessGroupsV2) ReplaceAccessGroupRuleWithContext(ctx 
 	return
 }
 
-// RemoveAccessGroupRule : Delete an Access Group rule
+// RemoveAccessGroupRule : Delete an access group rule
 // Remove one rule from a group using this API. If the operation is successful, only a `204 - No Content` response with
 // no body is returned. However, if any error occurs, the standard error format will be returned.
 func (iamAccessGroups *IamAccessGroupsV2) RemoveAccessGroupRule(removeAccessGroupRuleOptions *RemoveAccessGroupRuleOptions) (response *core.DetailedResponse, err error) {
@@ -1308,7 +1308,7 @@ func (iamAccessGroups *IamAccessGroupsV2) RemoveAccessGroupRuleWithContext(ctx c
 
 	pathParamsMap := map[string]string{
 		"access_group_id": *removeAccessGroupRuleOptions.AccessGroupID,
-		"rule_id": *removeAccessGroupRuleOptions.RuleID,
+		"rule_id":         *removeAccessGroupRuleOptions.RuleID,
 	}
 
 	builder := core.NewRequestBuilder(core.DELETE)
@@ -1341,8 +1341,8 @@ func (iamAccessGroups *IamAccessGroupsV2) RemoveAccessGroupRuleWithContext(ctx c
 	return
 }
 
-// GetAccountSettings : Get Account Settings
-// Retrieve the Access Groups settings for a specific account.
+// GetAccountSettings : Get account settings
+// Retrieve the access groups settings for a specific account.
 func (iamAccessGroups *IamAccessGroupsV2) GetAccountSettings(getAccountSettingsOptions *GetAccountSettingsOptions) (result *AccountSettings, response *core.DetailedResponse, err error) {
 	return iamAccessGroups.GetAccountSettingsWithContext(context.Background(), getAccountSettingsOptions)
 }
@@ -1400,8 +1400,8 @@ func (iamAccessGroups *IamAccessGroupsV2) GetAccountSettingsWithContext(ctx cont
 	return
 }
 
-// UpdateAccountSettings : Update Account Settings
-// Update the Access Groups settings for a specific account. Note: When the `public_access_enabled` setting is set to
+// UpdateAccountSettings : Update account settings
+// Update the access groups settings for a specific account. Note: When the `public_access_enabled` setting is set to
 // false, all policies within the account attached to the Public Access group will be deleted. Only set
 // `public_access_enabled` to false if you are sure that you want those policies to be removed.
 func (iamAccessGroups *IamAccessGroupsV2) UpdateAccountSettings(updateAccountSettingsOptions *UpdateAccountSettingsOptions) (result *AccountSettings, response *core.DetailedResponse, err error) {
@@ -1471,7 +1471,7 @@ func (iamAccessGroups *IamAccessGroupsV2) UpdateAccountSettingsWithContext(ctx c
 	return
 }
 
-// AccountSettings : The Access Groups settings for a specific account.
+// AccountSettings : The access groups settings for a specific account.
 type AccountSettings struct {
 	// The account id of the settings being shown.
 	AccountID *string `json:"account_id,omitempty"`
@@ -1486,7 +1486,6 @@ type AccountSettings struct {
 	// is set to false, all policies within the account attached to the Public Access group will be deleted.
 	PublicAccessEnabled *bool `json:"public_access_enabled,omitempty"`
 }
-
 
 // UnmarshalAccountSettings unmarshals an instance of AccountSettings from the specified map of raw messages.
 func UnmarshalAccountSettings(m map[string]json.RawMessage, result interface{}) (err error) {
@@ -1513,10 +1512,10 @@ func UnmarshalAccountSettings(m map[string]json.RawMessage, result interface{}) 
 
 // AddAccessGroupRuleOptions : The AddAccessGroupRule options.
 type AddAccessGroupRuleOptions struct {
-	// The Access Group identifier.
+	// The access group identifier.
 	AccessGroupID *string `validate:"required,ne="`
 
-	// The number of hours that the rule lives for (Must be between 1 and 24).
+	// The number of hours that the rule lives for.
 	Expiration *int64 `validate:"required"`
 
 	// The url of the identity provider.
@@ -1528,7 +1527,9 @@ type AddAccessGroupRuleOptions struct {
 	// The name of the rule.
 	Name *string
 
-	// An optional transaction id for the request.
+	// An optional transaction ID can be passed to your request, which can be useful for tracking calls through multiple
+	// services by using one identifier. The header key must be set to Transaction-Id and the value is anything that you
+	// choose. If no transaction ID is passed in, then a random ID is generated.
 	TransactionID *string
 
 	// Allows users to set headers on API requests
@@ -1539,9 +1540,9 @@ type AddAccessGroupRuleOptions struct {
 func (*IamAccessGroupsV2) NewAddAccessGroupRuleOptions(accessGroupID string, expiration int64, realmName string, conditions []RuleConditions) *AddAccessGroupRuleOptions {
 	return &AddAccessGroupRuleOptions{
 		AccessGroupID: core.StringPtr(accessGroupID),
-		Expiration: core.Int64Ptr(expiration),
-		RealmName: core.StringPtr(realmName),
-		Conditions: conditions,
+		Expiration:    core.Int64Ptr(expiration),
+		RealmName:     core.StringPtr(realmName),
+		Conditions:    conditions,
 	}
 }
 
@@ -1596,12 +1597,11 @@ type AddGroupMembersRequestMembersItem struct {
 	Type *string `json:"type" validate:"required"`
 }
 
-
 // NewAddGroupMembersRequestMembersItem : Instantiate AddGroupMembersRequestMembersItem (Generic Model Constructor)
 func (*IamAccessGroupsV2) NewAddGroupMembersRequestMembersItem(iamID string, typeVar string) (model *AddGroupMembersRequestMembersItem, err error) {
 	model = &AddGroupMembersRequestMembersItem{
 		IamID: core.StringPtr(iamID),
-		Type: core.StringPtr(typeVar),
+		Type:  core.StringPtr(typeVar),
 	}
 	err = core.ValidateStruct(model, "required parameters")
 	return
@@ -1627,7 +1627,6 @@ type AddGroupMembersResponse struct {
 	// The members added to an access group.
 	Members []AddGroupMembersResponseMembersItem `json:"members,omitempty"`
 }
-
 
 // UnmarshalAddGroupMembersResponse unmarshals an instance of AddGroupMembersResponse from the specified map of raw messages.
 func UnmarshalAddGroupMembersResponse(m map[string]json.RawMessage, result interface{}) (err error) {
@@ -1663,7 +1662,6 @@ type AddGroupMembersResponseMembersItem struct {
 	// A list of errors that occurred when trying to add members to a group.
 	Errors []Error `json:"errors,omitempty"`
 }
-
 
 // UnmarshalAddGroupMembersResponseMembersItem unmarshals an instance of AddGroupMembersResponseMembersItem from the specified map of raw messages.
 func UnmarshalAddGroupMembersResponseMembersItem(m map[string]json.RawMessage, result interface{}) (err error) {
@@ -1702,7 +1700,9 @@ func UnmarshalAddGroupMembersResponseMembersItem(m map[string]json.RawMessage, r
 
 // AddMemberToMultipleAccessGroupsOptions : The AddMemberToMultipleAccessGroups options.
 type AddMemberToMultipleAccessGroupsOptions struct {
-	// IBM Cloud account identifier.
+	// Account ID of the API keys(s) to query. If a service IAM ID is specified in iam_id then account_id must match the
+	// account of the IAM ID. If a user IAM ID is specified in iam_id then then account_id must match the account of the
+	// Authorization token.
 	AccountID *string `validate:"required"`
 
 	// The IAM identifier.
@@ -1714,7 +1714,9 @@ type AddMemberToMultipleAccessGroupsOptions struct {
 	// The ids of the access groups a given member is to be added to.
 	Groups []string
 
-	// An optional transaction id for the request.
+	// An optional transaction ID can be passed to your request, which can be useful for tracking calls through multiple
+	// services by using one identifier. The header key must be set to Transaction-Id and the value is anything that you
+	// choose. If no transaction ID is passed in, then a random ID is generated.
 	TransactionID *string
 
 	// Allows users to set headers on API requests
@@ -1725,7 +1727,7 @@ type AddMemberToMultipleAccessGroupsOptions struct {
 func (*IamAccessGroupsV2) NewAddMemberToMultipleAccessGroupsOptions(accountID string, iamID string) *AddMemberToMultipleAccessGroupsOptions {
 	return &AddMemberToMultipleAccessGroupsOptions{
 		AccountID: core.StringPtr(accountID),
-		IamID: core.StringPtr(iamID),
+		IamID:     core.StringPtr(iamID),
 	}
 }
 
@@ -1767,13 +1769,15 @@ func (options *AddMemberToMultipleAccessGroupsOptions) SetHeaders(param map[stri
 
 // AddMembersToAccessGroupOptions : The AddMembersToAccessGroup options.
 type AddMembersToAccessGroupOptions struct {
-	// The Access Group identifier.
+	// The access group identifier.
 	AccessGroupID *string `validate:"required,ne="`
 
 	// An array of member objects to add to an access group.
 	Members []AddGroupMembersRequestMembersItem
 
-	// An optional transaction id for the request.
+	// An optional transaction ID can be passed to your request, which can be useful for tracking calls through multiple
+	// services by using one identifier. The header key must be set to Transaction-Id and the value is anything that you
+	// choose. If no transaction ID is passed in, then a random ID is generated.
 	TransactionID *string
 
 	// Allows users to set headers on API requests
@@ -1820,7 +1824,6 @@ type AddMembershipMultipleGroupsResponse struct {
 	Groups []AddMembershipMultipleGroupsResponseGroupsItem `json:"groups,omitempty"`
 }
 
-
 // UnmarshalAddMembershipMultipleGroupsResponse unmarshals an instance of AddMembershipMultipleGroupsResponse from the specified map of raw messages.
 func UnmarshalAddMembershipMultipleGroupsResponse(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(AddMembershipMultipleGroupsResponse)
@@ -1838,7 +1841,7 @@ func UnmarshalAddMembershipMultipleGroupsResponse(m map[string]json.RawMessage, 
 
 // AddMembershipMultipleGroupsResponseGroupsItem : AddMembershipMultipleGroupsResponseGroupsItem struct
 type AddMembershipMultipleGroupsResponseGroupsItem struct {
-	// The Access Group that the member is to be added to.
+	// The access group that the member is to be added to.
 	AccessGroupID *string `json:"access_group_id,omitempty"`
 
 	// The outcome of the add membership operation on this `access_group_id`.
@@ -1850,7 +1853,6 @@ type AddMembershipMultipleGroupsResponseGroupsItem struct {
 	// List of errors encountered when adding member to access group.
 	Errors []Error `json:"errors,omitempty"`
 }
-
 
 // UnmarshalAddMembershipMultipleGroupsResponseGroupsItem unmarshals an instance of AddMembershipMultipleGroupsResponseGroupsItem from the specified map of raw messages.
 func UnmarshalAddMembershipMultipleGroupsResponseGroupsItem(m map[string]json.RawMessage, result interface{}) (err error) {
@@ -1877,16 +1879,21 @@ func UnmarshalAddMembershipMultipleGroupsResponseGroupsItem(m map[string]json.Ra
 
 // CreateAccessGroupOptions : The CreateAccessGroup options.
 type CreateAccessGroupOptions struct {
-	// IBM Cloud account identifier.
+	// Account ID of the API keys(s) to query. If a service IAM ID is specified in iam_id then account_id must match the
+	// account of the IAM ID. If a user IAM ID is specified in iam_id then then account_id must match the account of the
+	// Authorization token.
 	AccountID *string `validate:"required"`
 
-	// Assign the specified name to the Access Group. This field has a limit of 100 characters.
+	// Assign the specified name to the access group. This field is case-sensitive and has a limit of 100 characters. The
+	// group name has to be unique within an account.
 	Name *string `validate:"required"`
 
-	// Assign a description for the Access Group. This field has a limit of 250 characters.
+	// Assign an optional description for the access group. This field has a limit of 250 characters.
 	Description *string
 
-	// An optional transaction id for the request.
+	// An optional transaction ID can be passed to your request, which can be useful for tracking calls through multiple
+	// services by using one identifier. The header key must be set to Transaction-Id and the value is anything that you
+	// choose. If no transaction ID is passed in, then a random ID is generated.
 	TransactionID *string
 
 	// Allows users to set headers on API requests
@@ -1897,7 +1904,7 @@ type CreateAccessGroupOptions struct {
 func (*IamAccessGroupsV2) NewCreateAccessGroupOptions(accountID string, name string) *CreateAccessGroupOptions {
 	return &CreateAccessGroupOptions{
 		AccountID: core.StringPtr(accountID),
-		Name: core.StringPtr(name),
+		Name:      core.StringPtr(name),
 	}
 }
 
@@ -1933,10 +1940,12 @@ func (options *CreateAccessGroupOptions) SetHeaders(param map[string]string) *Cr
 
 // DeleteAccessGroupOptions : The DeleteAccessGroup options.
 type DeleteAccessGroupOptions struct {
-	// The Access Group identifier.
+	// The access group identifier.
 	AccessGroupID *string `validate:"required,ne="`
 
-	// An optional transaction id for the request.
+	// An optional transaction ID can be passed to your request, which can be useful for tracking calls through multiple
+	// services by using one identifier. The header key must be set to Transaction-Id and the value is anything that you
+	// choose. If no transaction ID is passed in, then a random ID is generated.
 	TransactionID *string
 
 	// If force is true, delete the group as well as its associated members and rules.
@@ -1986,7 +1995,6 @@ type DeleteFromAllGroupsResponse struct {
 	Groups []DeleteFromAllGroupsResponseGroupsItem `json:"groups,omitempty"`
 }
 
-
 // UnmarshalDeleteFromAllGroupsResponse unmarshals an instance of DeleteFromAllGroupsResponse from the specified map of raw messages.
 func UnmarshalDeleteFromAllGroupsResponse(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(DeleteFromAllGroupsResponse)
@@ -2004,7 +2012,7 @@ func UnmarshalDeleteFromAllGroupsResponse(m map[string]json.RawMessage, result i
 
 // DeleteFromAllGroupsResponseGroupsItem : DeleteFromAllGroupsResponseGroupsItem struct
 type DeleteFromAllGroupsResponseGroupsItem struct {
-	// The Access Group that the member is to be deleted from.
+	// The access group that the member is to be deleted from.
 	AccessGroupID *string `json:"access_group_id,omitempty"`
 
 	// The outcome of the delete operation on this `access_group_id`.
@@ -2016,7 +2024,6 @@ type DeleteFromAllGroupsResponseGroupsItem struct {
 	// A list of errors that occurred when trying to remove a member from groups.
 	Errors []Error `json:"errors,omitempty"`
 }
-
 
 // UnmarshalDeleteFromAllGroupsResponseGroupsItem unmarshals an instance of DeleteFromAllGroupsResponseGroupsItem from the specified map of raw messages.
 func UnmarshalDeleteFromAllGroupsResponseGroupsItem(m map[string]json.RawMessage, result interface{}) (err error) {
@@ -2050,7 +2057,6 @@ type DeleteGroupBulkMembersResponse struct {
 	Members []DeleteGroupBulkMembersResponseMembersItem `json:"members,omitempty"`
 }
 
-
 // UnmarshalDeleteGroupBulkMembersResponse unmarshals an instance of DeleteGroupBulkMembersResponse from the specified map of raw messages.
 func UnmarshalDeleteGroupBulkMembersResponse(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(DeleteGroupBulkMembersResponse)
@@ -2080,7 +2086,6 @@ type DeleteGroupBulkMembersResponseMembersItem struct {
 	// A list of errors that occurred when trying to remove a member from groups.
 	Errors []Error `json:"errors,omitempty"`
 }
-
 
 // UnmarshalDeleteGroupBulkMembersResponseMembersItem unmarshals an instance of DeleteGroupBulkMembersResponseMembersItem from the specified map of raw messages.
 func UnmarshalDeleteGroupBulkMembersResponseMembersItem(m map[string]json.RawMessage, result interface{}) (err error) {
@@ -2116,7 +2121,6 @@ type Error struct {
 	Message *string `json:"message,omitempty"`
 }
 
-
 // UnmarshalError unmarshals an instance of Error from the specified map of raw messages.
 func UnmarshalError(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(Error)
@@ -2134,10 +2138,12 @@ func UnmarshalError(m map[string]json.RawMessage, result interface{}) (err error
 
 // GetAccessGroupOptions : The GetAccessGroup options.
 type GetAccessGroupOptions struct {
-	// The Access Group identifier.
+	// The access group identifier.
 	AccessGroupID *string `validate:"required,ne="`
 
-	// An optional transaction id for the request.
+	// An optional transaction ID can be passed to your request, which can be useful for tracking calls through multiple
+	// services by using one identifier. The header key must be set to Transaction-Id and the value is anything that you
+	// choose. If no transaction ID is passed in, then a random ID is generated.
 	TransactionID *string
 
 	// If show_federated is true, the group will return an is_federated value that is set to true if rules exist for the
@@ -2181,13 +2187,15 @@ func (options *GetAccessGroupOptions) SetHeaders(param map[string]string) *GetAc
 
 // GetAccessGroupRuleOptions : The GetAccessGroupRule options.
 type GetAccessGroupRuleOptions struct {
-	// The Access Group identifier.
+	// The access group identifier.
 	AccessGroupID *string `validate:"required,ne="`
 
 	// The rule to get.
 	RuleID *string `validate:"required,ne="`
 
-	// An optional transaction id for the request.
+	// An optional transaction ID can be passed to your request, which can be useful for tracking calls through multiple
+	// services by using one identifier. The header key must be set to Transaction-Id and the value is anything that you
+	// choose. If no transaction ID is passed in, then a random ID is generated.
 	TransactionID *string
 
 	// Allows users to set headers on API requests
@@ -2198,7 +2206,7 @@ type GetAccessGroupRuleOptions struct {
 func (*IamAccessGroupsV2) NewGetAccessGroupRuleOptions(accessGroupID string, ruleID string) *GetAccessGroupRuleOptions {
 	return &GetAccessGroupRuleOptions{
 		AccessGroupID: core.StringPtr(accessGroupID),
-		RuleID: core.StringPtr(ruleID),
+		RuleID:        core.StringPtr(ruleID),
 	}
 }
 
@@ -2228,10 +2236,14 @@ func (options *GetAccessGroupRuleOptions) SetHeaders(param map[string]string) *G
 
 // GetAccountSettingsOptions : The GetAccountSettings options.
 type GetAccountSettingsOptions struct {
-	// IBM Cloud account identifier.
+	// Account ID of the API keys(s) to query. If a service IAM ID is specified in iam_id then account_id must match the
+	// account of the IAM ID. If a user IAM ID is specified in iam_id then then account_id must match the account of the
+	// Authorization token.
 	AccountID *string `validate:"required"`
 
-	// An optional transaction id for the request.
+	// An optional transaction ID can be passed to your request, which can be useful for tracking calls through multiple
+	// services by using one identifier. The header key must be set to Transaction-Id and the value is anything that you
+	// choose. If no transaction ID is passed in, then a random ID is generated.
 	TransactionID *string
 
 	// Allows users to set headers on API requests
@@ -2265,7 +2277,7 @@ func (options *GetAccountSettingsOptions) SetHeaders(param map[string]string) *G
 
 // Group : An IAM access group.
 type Group struct {
-	// The group's Access Group ID.
+	// The group's access group ID.
 	ID *string `json:"id,omitempty"`
 
 	// The group's name.
@@ -2295,7 +2307,6 @@ type Group struct {
 	// This is set to true if rules exist for the group.
 	IsFederated *bool `json:"is_federated,omitempty"`
 }
-
 
 // UnmarshalGroup unmarshals an instance of Group from the specified map of raw messages.
 func UnmarshalGroup(m map[string]json.RawMessage, result interface{}) (err error) {
@@ -2371,7 +2382,6 @@ type GroupMembersList struct {
 	Members []ListGroupMembersResponseMember `json:"members,omitempty"`
 }
 
-
 // UnmarshalGroupMembersList unmarshals an instance of GroupMembersList from the specified map of raw messages.
 func UnmarshalGroupMembersList(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(GroupMembersList)
@@ -2438,7 +2448,6 @@ type GroupsList struct {
 	Groups []Group `json:"groups,omitempty"`
 }
 
-
 // UnmarshalGroupsList unmarshals an instance of GroupsList from the specified map of raw messages.
 func UnmarshalGroupsList(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(GroupsList)
@@ -2484,7 +2493,6 @@ type HrefStruct struct {
 	Href *string `json:"href,omitempty"`
 }
 
-
 // UnmarshalHrefStruct unmarshals an instance of HrefStruct from the specified map of raw messages.
 func UnmarshalHrefStruct(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(HrefStruct)
@@ -2498,13 +2506,15 @@ func UnmarshalHrefStruct(m map[string]json.RawMessage, result interface{}) (err 
 
 // IsMemberOfAccessGroupOptions : The IsMemberOfAccessGroup options.
 type IsMemberOfAccessGroupOptions struct {
-	// The Access Group identifier.
+	// The access group identifier.
 	AccessGroupID *string `validate:"required,ne="`
 
 	// The IAM identifier.
 	IamID *string `validate:"required,ne="`
 
-	// An optional transaction id for the request.
+	// An optional transaction ID can be passed to your request, which can be useful for tracking calls through multiple
+	// services by using one identifier. The header key must be set to Transaction-Id and the value is anything that you
+	// choose. If no transaction ID is passed in, then a random ID is generated.
 	TransactionID *string
 
 	// Allows users to set headers on API requests
@@ -2515,7 +2525,7 @@ type IsMemberOfAccessGroupOptions struct {
 func (*IamAccessGroupsV2) NewIsMemberOfAccessGroupOptions(accessGroupID string, iamID string) *IsMemberOfAccessGroupOptions {
 	return &IsMemberOfAccessGroupOptions{
 		AccessGroupID: core.StringPtr(accessGroupID),
-		IamID: core.StringPtr(iamID),
+		IamID:         core.StringPtr(iamID),
 	}
 }
 
@@ -2545,10 +2555,12 @@ func (options *IsMemberOfAccessGroupOptions) SetHeaders(param map[string]string)
 
 // ListAccessGroupMembersOptions : The ListAccessGroupMembers options.
 type ListAccessGroupMembersOptions struct {
-	// The Access Group identifier.
+	// The access group identifier.
 	AccessGroupID *string `validate:"required,ne="`
 
-	// An optional transaction id for the request.
+	// An optional transaction ID can be passed to your request, which can be useful for tracking calls through multiple
+	// services by using one identifier. The header key must be set to Transaction-Id and the value is anything that you
+	// choose. If no transaction ID is passed in, then a random ID is generated.
 	TransactionID *string
 
 	// Return up to this limit of results where limit is between 0 and 100.
@@ -2627,10 +2639,12 @@ func (options *ListAccessGroupMembersOptions) SetHeaders(param map[string]string
 
 // ListAccessGroupRulesOptions : The ListAccessGroupRules options.
 type ListAccessGroupRulesOptions struct {
-	// The Access Group identifier.
+	// The access group identifier.
 	AccessGroupID *string `validate:"required,ne="`
 
-	// An optional transaction id for the request.
+	// An optional transaction ID can be passed to your request, which can be useful for tracking calls through multiple
+	// services by using one identifier. The header key must be set to Transaction-Id and the value is anything that you
+	// choose. If no transaction ID is passed in, then a random ID is generated.
 	TransactionID *string
 
 	// Allows users to set headers on API requests
@@ -2664,10 +2678,14 @@ func (options *ListAccessGroupRulesOptions) SetHeaders(param map[string]string) 
 
 // ListAccessGroupsOptions : The ListAccessGroups options.
 type ListAccessGroupsOptions struct {
-	// IBM Cloud account identifier.
+	// Account ID of the API keys(s) to query. If a service IAM ID is specified in iam_id then account_id must match the
+	// account of the IAM ID. If a user IAM ID is specified in iam_id then then account_id must match the account of the
+	// Authorization token.
 	AccountID *string `validate:"required"`
 
-	// An optional transaction id for the request.
+	// An optional transaction ID can be passed to your request, which can be useful for tracking calls through multiple
+	// services by using one identifier. The header key must be set to Transaction-Id and the value is anything that you
+	// choose. If no transaction ID is passed in, then a random ID is generated.
 	TransactionID *string
 
 	// Return groups for member id (IBMid or Service Id).
@@ -2781,7 +2799,6 @@ type ListGroupMembersResponseMember struct {
 	CreatedByID *string `json:"created_by_id,omitempty"`
 }
 
-
 // UnmarshalListGroupMembersResponseMember unmarshals an instance of ListGroupMembersResponseMember from the specified map of raw messages.
 func UnmarshalListGroupMembersResponseMember(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(ListGroupMembersResponseMember)
@@ -2823,13 +2840,15 @@ func UnmarshalListGroupMembersResponseMember(m map[string]json.RawMessage, resul
 
 // RemoveAccessGroupRuleOptions : The RemoveAccessGroupRule options.
 type RemoveAccessGroupRuleOptions struct {
-	// The Access Group identifier.
+	// The access group identifier.
 	AccessGroupID *string `validate:"required,ne="`
 
 	// The rule to get.
 	RuleID *string `validate:"required,ne="`
 
-	// An optional transaction id for the request.
+	// An optional transaction ID can be passed to your request, which can be useful for tracking calls through multiple
+	// services by using one identifier. The header key must be set to Transaction-Id and the value is anything that you
+	// choose. If no transaction ID is passed in, then a random ID is generated.
 	TransactionID *string
 
 	// Allows users to set headers on API requests
@@ -2840,7 +2859,7 @@ type RemoveAccessGroupRuleOptions struct {
 func (*IamAccessGroupsV2) NewRemoveAccessGroupRuleOptions(accessGroupID string, ruleID string) *RemoveAccessGroupRuleOptions {
 	return &RemoveAccessGroupRuleOptions{
 		AccessGroupID: core.StringPtr(accessGroupID),
-		RuleID: core.StringPtr(ruleID),
+		RuleID:        core.StringPtr(ruleID),
 	}
 }
 
@@ -2870,13 +2889,15 @@ func (options *RemoveAccessGroupRuleOptions) SetHeaders(param map[string]string)
 
 // RemoveMemberFromAccessGroupOptions : The RemoveMemberFromAccessGroup options.
 type RemoveMemberFromAccessGroupOptions struct {
-	// The Access Group identifier.
+	// The access group identifier.
 	AccessGroupID *string `validate:"required,ne="`
 
 	// The IAM identifier.
 	IamID *string `validate:"required,ne="`
 
-	// An optional transaction id for the request.
+	// An optional transaction ID can be passed to your request, which can be useful for tracking calls through multiple
+	// services by using one identifier. The header key must be set to Transaction-Id and the value is anything that you
+	// choose. If no transaction ID is passed in, then a random ID is generated.
 	TransactionID *string
 
 	// Allows users to set headers on API requests
@@ -2887,7 +2908,7 @@ type RemoveMemberFromAccessGroupOptions struct {
 func (*IamAccessGroupsV2) NewRemoveMemberFromAccessGroupOptions(accessGroupID string, iamID string) *RemoveMemberFromAccessGroupOptions {
 	return &RemoveMemberFromAccessGroupOptions{
 		AccessGroupID: core.StringPtr(accessGroupID),
-		IamID: core.StringPtr(iamID),
+		IamID:         core.StringPtr(iamID),
 	}
 }
 
@@ -2917,13 +2938,17 @@ func (options *RemoveMemberFromAccessGroupOptions) SetHeaders(param map[string]s
 
 // RemoveMemberFromAllAccessGroupsOptions : The RemoveMemberFromAllAccessGroups options.
 type RemoveMemberFromAllAccessGroupsOptions struct {
-	// IBM Cloud account identifier.
+	// Account ID of the API keys(s) to query. If a service IAM ID is specified in iam_id then account_id must match the
+	// account of the IAM ID. If a user IAM ID is specified in iam_id then then account_id must match the account of the
+	// Authorization token.
 	AccountID *string `validate:"required"`
 
 	// The IAM identifier.
 	IamID *string `validate:"required,ne="`
 
-	// An optional transaction id for the request.
+	// An optional transaction ID can be passed to your request, which can be useful for tracking calls through multiple
+	// services by using one identifier. The header key must be set to Transaction-Id and the value is anything that you
+	// choose. If no transaction ID is passed in, then a random ID is generated.
 	TransactionID *string
 
 	// Allows users to set headers on API requests
@@ -2934,7 +2959,7 @@ type RemoveMemberFromAllAccessGroupsOptions struct {
 func (*IamAccessGroupsV2) NewRemoveMemberFromAllAccessGroupsOptions(accountID string, iamID string) *RemoveMemberFromAllAccessGroupsOptions {
 	return &RemoveMemberFromAllAccessGroupsOptions{
 		AccountID: core.StringPtr(accountID),
-		IamID: core.StringPtr(iamID),
+		IamID:     core.StringPtr(iamID),
 	}
 }
 
@@ -2964,13 +2989,15 @@ func (options *RemoveMemberFromAllAccessGroupsOptions) SetHeaders(param map[stri
 
 // RemoveMembersFromAccessGroupOptions : The RemoveMembersFromAccessGroup options.
 type RemoveMembersFromAccessGroupOptions struct {
-	// The Access Group identifier.
+	// The access group identifier.
 	AccessGroupID *string `validate:"required,ne="`
 
 	// The `iam_id`s to remove from the access group. This field has a limit of 50 `iam_id`s.
 	Members []string
 
-	// An optional transaction id for the request.
+	// An optional transaction ID can be passed to your request, which can be useful for tracking calls through multiple
+	// services by using one identifier. The header key must be set to Transaction-Id and the value is anything that you
+	// choose. If no transaction ID is passed in, then a random ID is generated.
 	TransactionID *string
 
 	// Allows users to set headers on API requests
@@ -3010,16 +3037,16 @@ func (options *RemoveMembersFromAccessGroupOptions) SetHeaders(param map[string]
 
 // ReplaceAccessGroupRuleOptions : The ReplaceAccessGroupRule options.
 type ReplaceAccessGroupRuleOptions struct {
-	// The Access Group identifier.
+	// The access group identifier.
 	AccessGroupID *string `validate:"required,ne="`
 
 	// The rule to get.
 	RuleID *string `validate:"required,ne="`
 
-	// The current revision number of the rule being updated. This can be found in the Get Rule response Etag header.
+	// The current revision number of the rule being updated. This can be found in the Get Rule response ETag header.
 	IfMatch *string `validate:"required"`
 
-	// The number of hours that the rule lives for (Must be between 1 and 24).
+	// The number of hours that the rule lives for.
 	Expiration *int64 `validate:"required"`
 
 	// The url of the identity provider.
@@ -3031,7 +3058,9 @@ type ReplaceAccessGroupRuleOptions struct {
 	// The name of the rule.
 	Name *string
 
-	// An optional transaction id for the request.
+	// An optional transaction ID can be passed to your request, which can be useful for tracking calls through multiple
+	// services by using one identifier. The header key must be set to Transaction-Id and the value is anything that you
+	// choose. If no transaction ID is passed in, then a random ID is generated.
 	TransactionID *string
 
 	// Allows users to set headers on API requests
@@ -3042,11 +3071,11 @@ type ReplaceAccessGroupRuleOptions struct {
 func (*IamAccessGroupsV2) NewReplaceAccessGroupRuleOptions(accessGroupID string, ruleID string, ifMatch string, expiration int64, realmName string, conditions []RuleConditions) *ReplaceAccessGroupRuleOptions {
 	return &ReplaceAccessGroupRuleOptions{
 		AccessGroupID: core.StringPtr(accessGroupID),
-		RuleID: core.StringPtr(ruleID),
-		IfMatch: core.StringPtr(ifMatch),
-		Expiration: core.Int64Ptr(expiration),
-		RealmName: core.StringPtr(realmName),
-		Conditions: conditions,
+		RuleID:        core.StringPtr(ruleID),
+		IfMatch:       core.StringPtr(ifMatch),
+		Expiration:    core.Int64Ptr(expiration),
+		RealmName:     core.StringPtr(realmName),
+		Conditions:    conditions,
 	}
 }
 
@@ -3140,7 +3169,6 @@ type Rule struct {
 	LastModifiedByID *string `json:"last_modified_by_id,omitempty"`
 }
 
-
 // UnmarshalRule unmarshals an instance of Rule from the specified map of raw messages.
 func UnmarshalRule(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(Rule)
@@ -3197,21 +3225,30 @@ type RuleConditions struct {
 	// The claim to evaluate against. This will be found in the `ext` claims of a user's login request.
 	Claim *string `json:"claim" validate:"required"`
 
-	// The operation to perform on the claim. Valid operators are EQUALS, EQUALS_IGNORE_CASE, IN, NOT_EQUALS_IGNORE_CASE,
-	// NOT_EQUALS, and CONTAINS.
+	// The operation to perform on the claim.
 	Operator *string `json:"operator" validate:"required"`
 
 	// The stringified JSON value that the claim is compared to using the operator.
 	Value *string `json:"value" validate:"required"`
 }
 
+// Constants associated with the RuleConditions.Operator property.
+// The operation to perform on the claim.
+const (
+	RuleConditionsOperatorContainsConst            = "CONTAINS"
+	RuleConditionsOperatorEqualsConst              = "EQUALS"
+	RuleConditionsOperatorEqualsIgnoreCaseConst    = "EQUALS_IGNORE_CASE"
+	RuleConditionsOperatorInConst                  = "IN"
+	RuleConditionsOperatorNotEqualsConst           = "NOT_EQUALS"
+	RuleConditionsOperatorNotEqualsIgnoreCaseConst = "NOT_EQUALS_IGNORE_CASE"
+)
 
 // NewRuleConditions : Instantiate RuleConditions (Generic Model Constructor)
 func (*IamAccessGroupsV2) NewRuleConditions(claim string, operator string, value string) (model *RuleConditions, err error) {
 	model = &RuleConditions{
-		Claim: core.StringPtr(claim),
+		Claim:    core.StringPtr(claim),
 		Operator: core.StringPtr(operator),
-		Value: core.StringPtr(value),
+		Value:    core.StringPtr(value),
 	}
 	err = core.ValidateStruct(model, "required parameters")
 	return
@@ -3242,7 +3279,6 @@ type RulesList struct {
 	Rules []Rule `json:"rules,omitempty"`
 }
 
-
 // UnmarshalRulesList unmarshals an instance of RulesList from the specified map of raw messages.
 func UnmarshalRulesList(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(RulesList)
@@ -3256,20 +3292,23 @@ func UnmarshalRulesList(m map[string]json.RawMessage, result interface{}) (err e
 
 // UpdateAccessGroupOptions : The UpdateAccessGroup options.
 type UpdateAccessGroupOptions struct {
-	// The Access Group identifier.
+	// The access group identifier.
 	AccessGroupID *string `validate:"required,ne="`
 
-	// The current revision number of the group being updated. This can be found in the Create/Get Access Group response
-	// Etag header.
+	// The current revision number of the group being updated. This can be found in the Create/Get access group response
+	// ETag header.
 	IfMatch *string `validate:"required"`
 
-	// Assign the specified name to the Access Group. This field has a limit of 100 characters.
+	// Assign the specified name to the access group. This field is case-sensitive and has a limit of 100 characters. The
+	// group name has to be unique within an account.
 	Name *string
 
-	// Assign a description for the Access Group. This field has a limit of 250 characters.
+	// Assign an optional description for the access group. This field has a limit of 250 characters.
 	Description *string
 
-	// An optional transaction id for the request.
+	// An optional transaction ID can be passed to your request, which can be useful for tracking calls through multiple
+	// services by using one identifier. The header key must be set to Transaction-Id and the value is anything that you
+	// choose. If no transaction ID is passed in, then a random ID is generated.
 	TransactionID *string
 
 	// Allows users to set headers on API requests
@@ -3280,7 +3319,7 @@ type UpdateAccessGroupOptions struct {
 func (*IamAccessGroupsV2) NewUpdateAccessGroupOptions(accessGroupID string, ifMatch string) *UpdateAccessGroupOptions {
 	return &UpdateAccessGroupOptions{
 		AccessGroupID: core.StringPtr(accessGroupID),
-		IfMatch: core.StringPtr(ifMatch),
+		IfMatch:       core.StringPtr(ifMatch),
 	}
 }
 
@@ -3322,14 +3361,18 @@ func (options *UpdateAccessGroupOptions) SetHeaders(param map[string]string) *Up
 
 // UpdateAccountSettingsOptions : The UpdateAccountSettings options.
 type UpdateAccountSettingsOptions struct {
-	// IBM Cloud account identifier.
+	// Account ID of the API keys(s) to query. If a service IAM ID is specified in iam_id then account_id must match the
+	// account of the IAM ID. If a user IAM ID is specified in iam_id then then account_id must match the account of the
+	// Authorization token.
 	AccountID *string `validate:"required"`
 
 	// This flag controls the public access feature within the account. It is set to true by default. Note: When this flag
 	// is set to false, all policies within the account attached to the Public Access group will be deleted.
 	PublicAccessEnabled *bool
 
-	// An optional transaction id for the request.
+	// An optional transaction ID can be passed to your request, which can be useful for tracking calls through multiple
+	// services by using one identifier. The header key must be set to Transaction-Id and the value is anything that you
+	// choose. If no transaction ID is passed in, then a random ID is generated.
 	TransactionID *string
 
 	// Allows users to set headers on API requests
