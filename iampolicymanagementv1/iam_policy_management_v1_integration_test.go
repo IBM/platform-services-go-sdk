@@ -249,7 +249,7 @@ var _ = Describe("IAM Policy Management - Integration Tests", func() {
 
 			// Construct an instance of the PatchPolicyOptions model
 			options := new(iampolicymanagementv1.PatchPolicyOptions)
-			options.PolicyID = core.StringPtr(testPolicyId)
+			options.PolicyID = &testPolicyId
 			options.IfMatch = core.StringPtr(testPolicyETag)
 			options.State = core.StringPtr("active")
 
