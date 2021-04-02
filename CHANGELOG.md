@@ -1,3 +1,10 @@
+## [0.18.4](https://github.com/IBM/platform-services-go-sdk/compare/v0.18.3...v0.18.4) (2021-04-02)
+
+
+### Bug Fixes
+
+* **deps:** use v5 core with all services ([#105](https://github.com/IBM/platform-services-go-sdk/issues/105)) ([a482f6d](https://github.com/IBM/platform-services-go-sdk/commit/a482f6d7c4b5d042392ad65b902607cf77943742))
+
 ## [0.18.3](https://github.com/IBM/platform-services-go-sdk/compare/v0.18.2...v0.18.3) (2021-04-01)
 
 
