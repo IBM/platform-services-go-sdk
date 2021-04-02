@@ -24,7 +24,7 @@ import (
 	"os"
 	"time"
 
-	"github.com/IBM/go-sdk-core/v4/core"
+	"github.com/IBM/go-sdk-core/v5/core"
 	"github.com/IBM/platform-services-go-sdk/catalogmanagementv1"
 	common "github.com/IBM/platform-services-go-sdk/common"
 
@@ -83,7 +83,7 @@ var _ = Describe("Catalog Management - Integration Tests (OLD)", func() {
 		Expect(err).To(BeNil())
 		Expect(service).ToNot(BeNil())
 
-		core.SetLogger(core.NewLogger(core.LevelDebug, log.New(GinkgoWriter, "", log.LstdFlags)))
+		core.SetLogger(core.NewLogger(core.LevelDebug, log.New(GinkgoWriter, "", log.LstdFlags), log.New(GinkgoWriter, "", log.LstdFlags)))
 		service.EnableRetries(4, 30*time.Second)
 
 		config, err = core.GetServiceProperties(catalogmanagementv1.DefaultServiceName)

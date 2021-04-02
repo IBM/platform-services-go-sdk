@@ -17,7 +17,6 @@
 /*
  * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-d753183b-20201209-163011
  */
- 
 
 // Package usagereportsv4 : Operations and models for the UsageReportsV4 service
 package usagereportsv4
@@ -26,12 +25,13 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"github.com/IBM/go-sdk-core/v4/core"
-	common "github.com/IBM/platform-services-go-sdk/common"
-	"github.com/go-openapi/strfmt"
 	"net/http"
 	"reflect"
 	"time"
+
+	"github.com/IBM/go-sdk-core/v5/core"
+	common "github.com/IBM/platform-services-go-sdk/common"
+	"github.com/go-openapi/strfmt"
 )
 
 // UsageReportsV4 : Usage reports for IBM Cloud accounts
@@ -178,7 +178,7 @@ func (usageReports *UsageReportsV4) GetAccountSummaryWithContext(ctx context.Con
 	}
 
 	pathParamsMap := map[string]string{
-		"account_id": *getAccountSummaryOptions.AccountID,
+		"account_id":   *getAccountSummaryOptions.AccountID,
 		"billingmonth": *getAccountSummaryOptions.Billingmonth,
 	}
 
@@ -238,7 +238,7 @@ func (usageReports *UsageReportsV4) GetAccountUsageWithContext(ctx context.Conte
 	}
 
 	pathParamsMap := map[string]string{
-		"account_id": *getAccountUsageOptions.AccountID,
+		"account_id":   *getAccountUsageOptions.AccountID,
 		"billingmonth": *getAccountUsageOptions.Billingmonth,
 	}
 
@@ -305,9 +305,9 @@ func (usageReports *UsageReportsV4) GetResourceGroupUsageWithContext(ctx context
 	}
 
 	pathParamsMap := map[string]string{
-		"account_id": *getResourceGroupUsageOptions.AccountID,
+		"account_id":        *getResourceGroupUsageOptions.AccountID,
 		"resource_group_id": *getResourceGroupUsageOptions.ResourceGroupID,
-		"billingmonth": *getResourceGroupUsageOptions.Billingmonth,
+		"billingmonth":      *getResourceGroupUsageOptions.Billingmonth,
 	}
 
 	builder := core.NewRequestBuilder(core.GET)
@@ -373,9 +373,9 @@ func (usageReports *UsageReportsV4) GetOrgUsageWithContext(ctx context.Context, 
 	}
 
 	pathParamsMap := map[string]string{
-		"account_id": *getOrgUsageOptions.AccountID,
+		"account_id":      *getOrgUsageOptions.AccountID,
 		"organization_id": *getOrgUsageOptions.OrganizationID,
-		"billingmonth": *getOrgUsageOptions.Billingmonth,
+		"billingmonth":    *getOrgUsageOptions.Billingmonth,
 	}
 
 	builder := core.NewRequestBuilder(core.GET)
@@ -441,7 +441,7 @@ func (usageReports *UsageReportsV4) GetResourceUsageAccountWithContext(ctx conte
 	}
 
 	pathParamsMap := map[string]string{
-		"account_id": *getResourceUsageAccountOptions.AccountID,
+		"account_id":   *getResourceUsageAccountOptions.AccountID,
 		"billingmonth": *getResourceUsageAccountOptions.Billingmonth,
 	}
 
@@ -532,9 +532,9 @@ func (usageReports *UsageReportsV4) GetResourceUsageResourceGroupWithContext(ctx
 	}
 
 	pathParamsMap := map[string]string{
-		"account_id": *getResourceUsageResourceGroupOptions.AccountID,
+		"account_id":        *getResourceUsageResourceGroupOptions.AccountID,
 		"resource_group_id": *getResourceUsageResourceGroupOptions.ResourceGroupID,
-		"billingmonth": *getResourceUsageResourceGroupOptions.Billingmonth,
+		"billingmonth":      *getResourceUsageResourceGroupOptions.Billingmonth,
 	}
 
 	builder := core.NewRequestBuilder(core.GET)
@@ -618,9 +618,9 @@ func (usageReports *UsageReportsV4) GetResourceUsageOrgWithContext(ctx context.C
 	}
 
 	pathParamsMap := map[string]string{
-		"account_id": *getResourceUsageOrgOptions.AccountID,
+		"account_id":      *getResourceUsageOrgOptions.AccountID,
 		"organization_id": *getResourceUsageOrgOptions.OrganizationID,
-		"billingmonth": *getResourceUsageOrgOptions.Billingmonth,
+		"billingmonth":    *getResourceUsageOrgOptions.Billingmonth,
 	}
 
 	builder := core.NewRequestBuilder(core.GET)
@@ -712,7 +712,6 @@ type AccountSummary struct {
 	Subscription *SubscriptionSummary `json:"subscription" validate:"required"`
 }
 
-
 // UnmarshalAccountSummary unmarshals an instance of AccountSummary from the specified map of raw messages.
 func UnmarshalAccountSummary(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(AccountSummary)
@@ -770,7 +769,6 @@ type AccountUsage struct {
 	Resources []Resource `json:"resources" validate:"required"`
 }
 
-
 // UnmarshalAccountUsage unmarshals an instance of AccountUsage from the specified map of raw messages.
 func UnmarshalAccountUsage(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(AccountUsage)
@@ -813,7 +811,6 @@ type Discount struct {
 	Discount *float64 `json:"discount" validate:"required"`
 }
 
-
 // UnmarshalDiscount unmarshals an instance of Discount from the specified map of raw messages.
 func UnmarshalDiscount(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(Discount)
@@ -852,7 +849,7 @@ type GetAccountSummaryOptions struct {
 // NewGetAccountSummaryOptions : Instantiate GetAccountSummaryOptions
 func (*UsageReportsV4) NewGetAccountSummaryOptions(accountID string, billingmonth string) *GetAccountSummaryOptions {
 	return &GetAccountSummaryOptions{
-		AccountID: core.StringPtr(accountID),
+		AccountID:    core.StringPtr(accountID),
 		Billingmonth: core.StringPtr(billingmonth),
 	}
 }
@@ -896,7 +893,7 @@ type GetAccountUsageOptions struct {
 // NewGetAccountUsageOptions : Instantiate GetAccountUsageOptions
 func (*UsageReportsV4) NewGetAccountUsageOptions(accountID string, billingmonth string) *GetAccountUsageOptions {
 	return &GetAccountUsageOptions{
-		AccountID: core.StringPtr(accountID),
+		AccountID:    core.StringPtr(accountID),
 		Billingmonth: core.StringPtr(billingmonth),
 	}
 }
@@ -955,9 +952,9 @@ type GetOrgUsageOptions struct {
 // NewGetOrgUsageOptions : Instantiate GetOrgUsageOptions
 func (*UsageReportsV4) NewGetOrgUsageOptions(accountID string, organizationID string, billingmonth string) *GetOrgUsageOptions {
 	return &GetOrgUsageOptions{
-		AccountID: core.StringPtr(accountID),
+		AccountID:      core.StringPtr(accountID),
 		OrganizationID: core.StringPtr(organizationID),
-		Billingmonth: core.StringPtr(billingmonth),
+		Billingmonth:   core.StringPtr(billingmonth),
 	}
 }
 
@@ -1021,9 +1018,9 @@ type GetResourceGroupUsageOptions struct {
 // NewGetResourceGroupUsageOptions : Instantiate GetResourceGroupUsageOptions
 func (*UsageReportsV4) NewGetResourceGroupUsageOptions(accountID string, resourceGroupID string, billingmonth string) *GetResourceGroupUsageOptions {
 	return &GetResourceGroupUsageOptions{
-		AccountID: core.StringPtr(accountID),
+		AccountID:       core.StringPtr(accountID),
 		ResourceGroupID: core.StringPtr(resourceGroupID),
-		Billingmonth: core.StringPtr(billingmonth),
+		Billingmonth:    core.StringPtr(billingmonth),
 	}
 }
 
@@ -1108,7 +1105,7 @@ type GetResourceUsageAccountOptions struct {
 // NewGetResourceUsageAccountOptions : Instantiate GetResourceUsageAccountOptions
 func (*UsageReportsV4) NewGetResourceUsageAccountOptions(accountID string, billingmonth string) *GetResourceUsageAccountOptions {
 	return &GetResourceUsageAccountOptions{
-		AccountID: core.StringPtr(accountID),
+		AccountID:    core.StringPtr(accountID),
 		Billingmonth: core.StringPtr(billingmonth),
 	}
 }
@@ -1233,9 +1230,9 @@ type GetResourceUsageOrgOptions struct {
 // NewGetResourceUsageOrgOptions : Instantiate GetResourceUsageOrgOptions
 func (*UsageReportsV4) NewGetResourceUsageOrgOptions(accountID string, organizationID string, billingmonth string) *GetResourceUsageOrgOptions {
 	return &GetResourceUsageOrgOptions{
-		AccountID: core.StringPtr(accountID),
+		AccountID:      core.StringPtr(accountID),
 		OrganizationID: core.StringPtr(organizationID),
-		Billingmonth: core.StringPtr(billingmonth),
+		Billingmonth:   core.StringPtr(billingmonth),
 	}
 }
 
@@ -1353,9 +1350,9 @@ type GetResourceUsageResourceGroupOptions struct {
 // NewGetResourceUsageResourceGroupOptions : Instantiate GetResourceUsageResourceGroupOptions
 func (*UsageReportsV4) NewGetResourceUsageResourceGroupOptions(accountID string, resourceGroupID string, billingmonth string) *GetResourceUsageResourceGroupOptions {
 	return &GetResourceUsageResourceGroupOptions{
-		AccountID: core.StringPtr(accountID),
+		AccountID:       core.StringPtr(accountID),
 		ResourceGroupID: core.StringPtr(resourceGroupID),
-		Billingmonth: core.StringPtr(billingmonth),
+		Billingmonth:    core.StringPtr(billingmonth),
 	}
 }
 
@@ -1479,7 +1476,6 @@ type InstanceUsage struct {
 	Usage []Metric `json:"usage" validate:"required"`
 }
 
-
 // UnmarshalInstanceUsage unmarshals an instance of InstanceUsage from the specified map of raw messages.
 func UnmarshalInstanceUsage(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(InstanceUsage)
@@ -1553,7 +1549,6 @@ type InstancesUsageFirst struct {
 	Href *string `json:"href,omitempty"`
 }
 
-
 // UnmarshalInstancesUsageFirst unmarshals an instance of InstancesUsageFirst from the specified map of raw messages.
 func UnmarshalInstancesUsageFirst(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(InstancesUsageFirst)
@@ -1573,7 +1568,6 @@ type InstancesUsageNext struct {
 	// The value of the `_start` query parameter to fetch the next page.
 	Offset *string `json:"offset,omitempty"`
 }
-
 
 // UnmarshalInstancesUsageNext unmarshals an instance of InstancesUsageNext from the specified map of raw messages.
 func UnmarshalInstancesUsageNext(m map[string]json.RawMessage, result interface{}) (err error) {
@@ -1607,7 +1601,6 @@ type InstancesUsage struct {
 	// The list of instance usage reports.
 	Resources []InstanceUsage `json:"resources,omitempty"`
 }
-
 
 // UnmarshalInstancesUsage unmarshals an instance of InstancesUsage from the specified map of raw messages.
 func UnmarshalInstancesUsage(m map[string]json.RawMessage, result interface{}) (err error) {
@@ -1665,7 +1658,6 @@ type Metric struct {
 	// All the discounts applicable to the metric.
 	Discounts []Discount `json:"discounts" validate:"required"`
 }
-
 
 // UnmarshalMetric unmarshals an instance of Metric from the specified map of raw messages.
 func UnmarshalMetric(m map[string]json.RawMessage, result interface{}) (err error) {
@@ -1731,7 +1723,6 @@ type Offer struct {
 	Credits *OfferCredits `json:"credits" validate:"required"`
 }
 
-
 // UnmarshalOffer unmarshals an instance of Offer from the specified map of raw messages.
 func UnmarshalOffer(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(Offer)
@@ -1775,7 +1766,6 @@ type OfferCredits struct {
 	Balance *float64 `json:"balance" validate:"required"`
 }
 
-
 // UnmarshalOfferCredits unmarshals an instance of OfferCredits from the specified map of raw messages.
 func UnmarshalOfferCredits(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(OfferCredits)
@@ -1815,7 +1805,6 @@ type OrgUsage struct {
 	// All the resource used in the account.
 	Resources []Resource `json:"resources" validate:"required"`
 }
-
 
 // UnmarshalOrgUsage unmarshals an instance of OrgUsage from the specified map of raw messages.
 func UnmarshalOrgUsage(m map[string]json.RawMessage, result interface{}) (err error) {
@@ -1871,7 +1860,6 @@ type Plan struct {
 	// All the discounts applicable to the plan.
 	Discounts []Discount `json:"discounts" validate:"required"`
 }
-
 
 // UnmarshalPlan unmarshals an instance of Plan from the specified map of raw messages.
 func UnmarshalPlan(m map[string]json.RawMessage, result interface{}) (err error) {
@@ -1932,7 +1920,6 @@ type Resource struct {
 	Discounts []Discount `json:"discounts" validate:"required"`
 }
 
-
 // UnmarshalResource unmarshals an instance of Resource from the specified map of raw messages.
 func UnmarshalResource(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(Resource)
@@ -1989,7 +1976,6 @@ type ResourceGroupUsage struct {
 	Resources []Resource `json:"resources" validate:"required"`
 }
 
-
 // UnmarshalResourceGroupUsage unmarshals an instance of ResourceGroupUsage from the specified map of raw messages.
 func UnmarshalResourceGroupUsage(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(ResourceGroupUsage)
@@ -2029,7 +2015,6 @@ type ResourcesSummary struct {
 	// Non-billable charges for all cloud resources used in the account.
 	NonBillableCost *float64 `json:"non_billable_cost" validate:"required"`
 }
-
 
 // UnmarshalResourcesSummary unmarshals an instance of ResourcesSummary from the specified map of raw messages.
 func UnmarshalResourcesSummary(m map[string]json.RawMessage, result interface{}) (err error) {
@@ -2072,7 +2057,6 @@ type Subscription struct {
 	// The terms through which the subscription is split into.
 	Terms []SubscriptionTerm `json:"terms" validate:"required"`
 }
-
 
 // UnmarshalSubscription unmarshals an instance of Subscription from the specified map of raw messages.
 func UnmarshalSubscription(m map[string]json.RawMessage, result interface{}) (err error) {
@@ -2122,7 +2106,6 @@ type SubscriptionSummary struct {
 	Subscriptions []Subscription `json:"subscriptions,omitempty"`
 }
 
-
 // UnmarshalSubscriptionSummary unmarshals an instance of SubscriptionSummary from the specified map of raw messages.
 func UnmarshalSubscriptionSummary(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(SubscriptionSummary)
@@ -2149,7 +2132,6 @@ type SubscriptionTerm struct {
 	// Information about credits related to a subscription.
 	Credits *SubscriptionTermCredits `json:"credits" validate:"required"`
 }
-
 
 // UnmarshalSubscriptionTerm unmarshals an instance of SubscriptionTerm from the specified map of raw messages.
 func UnmarshalSubscriptionTerm(m map[string]json.RawMessage, result interface{}) (err error) {
@@ -2185,7 +2167,6 @@ type SubscriptionTermCredits struct {
 	Balance *float64 `json:"balance" validate:"required"`
 }
 
-
 // UnmarshalSubscriptionTermCredits unmarshals an instance of SubscriptionTermCredits from the specified map of raw messages.
 func UnmarshalSubscriptionTermCredits(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(SubscriptionTermCredits)
@@ -2220,7 +2201,6 @@ type SupportSummary struct {
 	// Additional support cost for the month.
 	Overage *float64 `json:"overage" validate:"required"`
 }
-
 
 // UnmarshalSupportSummary unmarshals an instance of SupportSummary from the specified map of raw messages.
 func UnmarshalSupportSummary(m map[string]json.RawMessage, result interface{}) (err error) {

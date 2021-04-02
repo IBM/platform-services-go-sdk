@@ -17,7 +17,6 @@
 /*
  * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-c6db7f4a-20210114-141015
  */
- 
 
 // Package configurationgovernancev1 : Operations and models for the ConfigurationGovernanceV1 service
 package configurationgovernancev1
@@ -26,12 +25,13 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"github.com/IBM/go-sdk-core/v4/core"
-	common "github.com/IBM/platform-services-go-sdk/common"
-	"github.com/go-openapi/strfmt"
 	"net/http"
 	"reflect"
 	"time"
+
+	"github.com/IBM/go-sdk-core/v5/core"
+	common "github.com/IBM/platform-services-go-sdk/common"
+	"github.com/go-openapi/strfmt"
 )
 
 // ConfigurationGovernanceV1 : API specification for the Configuration Governance service.
@@ -673,7 +673,7 @@ func (configurationGovernance *ConfigurationGovernanceV1) GetAttachmentWithConte
 	}
 
 	pathParamsMap := map[string]string{
-		"rule_id": *getAttachmentOptions.RuleID,
+		"rule_id":       *getAttachmentOptions.RuleID,
 		"attachment_id": *getAttachmentOptions.AttachmentID,
 	}
 
@@ -735,7 +735,7 @@ func (configurationGovernance *ConfigurationGovernanceV1) UpdateAttachmentWithCo
 	}
 
 	pathParamsMap := map[string]string{
-		"rule_id": *updateAttachmentOptions.RuleID,
+		"rule_id":       *updateAttachmentOptions.RuleID,
 		"attachment_id": *updateAttachmentOptions.AttachmentID,
 	}
 
@@ -816,7 +816,7 @@ func (configurationGovernance *ConfigurationGovernanceV1) DeleteAttachmentWithCo
 	}
 
 	pathParamsMap := map[string]string{
-		"rule_id": *deleteAttachmentOptions.RuleID,
+		"rule_id":       *deleteAttachmentOptions.RuleID,
 		"attachment_id": *deleteAttachmentOptions.AttachmentID,
 	}
 
@@ -868,7 +868,6 @@ type Attachment struct {
 	ExcludedScopes []RuleScope `json:"excluded_scopes,omitempty"`
 }
 
-
 // UnmarshalAttachment unmarshals an instance of Attachment from the specified map of raw messages.
 func UnmarshalAttachment(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(Attachment)
@@ -916,7 +915,6 @@ type AttachmentList struct {
 	Attachments []Attachment `json:"attachments" validate:"required"`
 }
 
-
 // UnmarshalAttachmentList unmarshals an instance of AttachmentList from the specified map of raw messages.
 func UnmarshalAttachmentList(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(AttachmentList)
@@ -960,11 +958,10 @@ type AttachmentRequest struct {
 	ExcludedScopes []RuleScope `json:"excluded_scopes,omitempty"`
 }
 
-
 // NewAttachmentRequest : Instantiate AttachmentRequest (Generic Model Constructor)
 func (*ConfigurationGovernanceV1) NewAttachmentRequest(accountID string, includedScope *RuleScope) (model *AttachmentRequest, err error) {
 	model = &AttachmentRequest{
-		AccountID: core.StringPtr(accountID),
+		AccountID:     core.StringPtr(accountID),
 		IncludedScope: includedScope,
 	}
 	err = core.ValidateStruct(model, "required parameters")
@@ -1012,7 +1009,7 @@ type CreateAttachmentsOptions struct {
 // NewCreateAttachmentsOptions : Instantiate CreateAttachmentsOptions
 func (*ConfigurationGovernanceV1) NewCreateAttachmentsOptions(ruleID string, attachments []AttachmentRequest) *CreateAttachmentsOptions {
 	return &CreateAttachmentsOptions{
-		RuleID: core.StringPtr(ruleID),
+		RuleID:      core.StringPtr(ruleID),
 		Attachments: attachments,
 	}
 }
@@ -1046,7 +1043,6 @@ type CreateAttachmentsResponse struct {
 	Attachments []Attachment `json:"attachments" validate:"required"`
 }
 
-
 // UnmarshalCreateAttachmentsResponse unmarshals an instance of CreateAttachmentsResponse from the specified map of raw messages.
 func UnmarshalCreateAttachmentsResponse(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(CreateAttachmentsResponse)
@@ -1071,7 +1067,6 @@ type CreateRuleRequest struct {
 	// User-settable properties associated with a rule to be created or updated.
 	Rule *RuleRequest `json:"rule" validate:"required"`
 }
-
 
 // NewCreateRuleRequest : Instantiate CreateRuleRequest (Generic Model Constructor)
 func (*ConfigurationGovernanceV1) NewCreateRuleRequest(rule *RuleRequest) (model *CreateRuleRequest, err error) {
@@ -1126,7 +1121,6 @@ type CreateRuleResponse struct {
 	// This field will be present for a failed rule request.
 	Trace *string `json:"trace,omitempty"`
 }
-
 
 // UnmarshalCreateRuleResponse unmarshals an instance of CreateRuleResponse from the specified map of raw messages.
 func UnmarshalCreateRuleResponse(m map[string]json.RawMessage, result interface{}) (err error) {
@@ -1203,7 +1197,6 @@ type CreateRulesResponse struct {
 	Rules []CreateRuleResponse `json:"rules" validate:"required"`
 }
 
-
 // UnmarshalCreateRulesResponse unmarshals an instance of CreateRulesResponse from the specified map of raw messages.
 func UnmarshalCreateRulesResponse(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(CreateRulesResponse)
@@ -1238,7 +1231,7 @@ type DeleteAttachmentOptions struct {
 // NewDeleteAttachmentOptions : Instantiate DeleteAttachmentOptions
 func (*ConfigurationGovernanceV1) NewDeleteAttachmentOptions(ruleID string, attachmentID string) *DeleteAttachmentOptions {
 	return &DeleteAttachmentOptions{
-		RuleID: core.StringPtr(ruleID),
+		RuleID:       core.StringPtr(ruleID),
 		AttachmentID: core.StringPtr(attachmentID),
 	}
 }
@@ -1324,7 +1317,6 @@ const (
 	EnforcementActionActionDisallowConst = "disallow"
 )
 
-
 // NewEnforcementAction : Instantiate EnforcementAction (Generic Model Constructor)
 func (*ConfigurationGovernanceV1) NewEnforcementAction(action string) (model *EnforcementAction, err error) {
 	model = &EnforcementAction{
@@ -1368,7 +1360,7 @@ type GetAttachmentOptions struct {
 // NewGetAttachmentOptions : Instantiate GetAttachmentOptions
 func (*ConfigurationGovernanceV1) NewGetAttachmentOptions(ruleID string, attachmentID string) *GetAttachmentOptions {
 	return &GetAttachmentOptions{
-		RuleID: core.StringPtr(ruleID),
+		RuleID:       core.StringPtr(ruleID),
 		AttachmentID: core.StringPtr(attachmentID),
 	}
 }
@@ -1444,7 +1436,6 @@ type Link struct {
 	// The URL for the first, previous, next, or last page of resources.
 	Href *string `json:"href" validate:"required"`
 }
-
 
 // UnmarshalLink unmarshals an instance of Link from the specified map of raw messages.
 func UnmarshalLink(m map[string]json.RawMessage, result interface{}) (err error) {
@@ -1673,7 +1664,6 @@ const (
 	RuleRuleTypeUserDefinedConst = "user_defined"
 )
 
-
 // UnmarshalRule unmarshals an instance of Rule from the specified map of raw messages.
 func UnmarshalRule(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(Rule)
@@ -1771,22 +1761,22 @@ type RuleCondition struct {
 //
 // There are three types of operators: string, numeric, and boolean.
 const (
-	RuleConditionOperatorIpsInRangeConst = "ips_in_range"
-	RuleConditionOperatorIsEmptyConst = "is_empty"
-	RuleConditionOperatorIsFalseConst = "is_false"
-	RuleConditionOperatorIsNotEmptyConst = "is_not_empty"
-	RuleConditionOperatorIsTrueConst = "is_true"
-	RuleConditionOperatorNumEqualsConst = "num_equals"
-	RuleConditionOperatorNumGreaterThanConst = "num_greater_than"
+	RuleConditionOperatorIpsInRangeConst           = "ips_in_range"
+	RuleConditionOperatorIsEmptyConst              = "is_empty"
+	RuleConditionOperatorIsFalseConst              = "is_false"
+	RuleConditionOperatorIsNotEmptyConst           = "is_not_empty"
+	RuleConditionOperatorIsTrueConst               = "is_true"
+	RuleConditionOperatorNumEqualsConst            = "num_equals"
+	RuleConditionOperatorNumGreaterThanConst       = "num_greater_than"
 	RuleConditionOperatorNumGreaterThanEqualsConst = "num_greater_than_equals"
-	RuleConditionOperatorNumLessThanConst = "num_less_than"
-	RuleConditionOperatorNumLessThanEqualsConst = "num_less_than_equals"
-	RuleConditionOperatorNumNotEqualsConst = "num_not_equals"
-	RuleConditionOperatorStringEqualsConst = "string_equals"
-	RuleConditionOperatorStringMatchConst = "string_match"
-	RuleConditionOperatorStringNotEqualsConst = "string_not_equals"
-	RuleConditionOperatorStringNotMatchConst = "string_not_match"
-	RuleConditionOperatorStringsInListConst = "strings_in_list"
+	RuleConditionOperatorNumLessThanConst          = "num_less_than"
+	RuleConditionOperatorNumLessThanEqualsConst    = "num_less_than_equals"
+	RuleConditionOperatorNumNotEqualsConst         = "num_not_equals"
+	RuleConditionOperatorStringEqualsConst         = "string_equals"
+	RuleConditionOperatorStringMatchConst          = "string_match"
+	RuleConditionOperatorStringNotEqualsConst      = "string_not_equals"
+	RuleConditionOperatorStringNotMatchConst       = "string_not_match"
+	RuleConditionOperatorStringsInListConst        = "strings_in_list"
 )
 
 func (*RuleCondition) isaRuleCondition() bool {
@@ -1848,7 +1838,6 @@ type RuleList struct {
 	// An array of rules.
 	Rules []Rule `json:"rules" validate:"required"`
 }
-
 
 // UnmarshalRuleList unmarshals an instance of RuleList from the specified map of raw messages.
 func UnmarshalRuleList(m map[string]json.RawMessage, result interface{}) (err error) {
@@ -1916,14 +1905,13 @@ const (
 	RuleRequestRuleTypeUserDefinedConst = "user_defined"
 )
 
-
 // NewRuleRequest : Instantiate RuleRequest (Generic Model Constructor)
 func (*ConfigurationGovernanceV1) NewRuleRequest(name string, description string, target *TargetResource, requiredConfig RuleRequiredConfigIntf, enforcementActions []EnforcementAction) (model *RuleRequest, err error) {
 	model = &RuleRequest{
-		Name: core.StringPtr(name),
-		Description: core.StringPtr(description),
-		Target: target,
-		RequiredConfig: requiredConfig,
+		Name:               core.StringPtr(name),
+		Description:        core.StringPtr(description),
+		Target:             target,
+		RequiredConfig:     requiredConfig,
 		EnforcementActions: enforcementActions,
 	}
 	err = core.ValidateStruct(model, "required parameters")
@@ -2002,22 +1990,22 @@ type RuleRequiredConfig struct {
 //
 // There are three types of operators: string, numeric, and boolean.
 const (
-	RuleRequiredConfigOperatorIpsInRangeConst = "ips_in_range"
-	RuleRequiredConfigOperatorIsEmptyConst = "is_empty"
-	RuleRequiredConfigOperatorIsFalseConst = "is_false"
-	RuleRequiredConfigOperatorIsNotEmptyConst = "is_not_empty"
-	RuleRequiredConfigOperatorIsTrueConst = "is_true"
-	RuleRequiredConfigOperatorNumEqualsConst = "num_equals"
-	RuleRequiredConfigOperatorNumGreaterThanConst = "num_greater_than"
+	RuleRequiredConfigOperatorIpsInRangeConst           = "ips_in_range"
+	RuleRequiredConfigOperatorIsEmptyConst              = "is_empty"
+	RuleRequiredConfigOperatorIsFalseConst              = "is_false"
+	RuleRequiredConfigOperatorIsNotEmptyConst           = "is_not_empty"
+	RuleRequiredConfigOperatorIsTrueConst               = "is_true"
+	RuleRequiredConfigOperatorNumEqualsConst            = "num_equals"
+	RuleRequiredConfigOperatorNumGreaterThanConst       = "num_greater_than"
 	RuleRequiredConfigOperatorNumGreaterThanEqualsConst = "num_greater_than_equals"
-	RuleRequiredConfigOperatorNumLessThanConst = "num_less_than"
-	RuleRequiredConfigOperatorNumLessThanEqualsConst = "num_less_than_equals"
-	RuleRequiredConfigOperatorNumNotEqualsConst = "num_not_equals"
-	RuleRequiredConfigOperatorStringEqualsConst = "string_equals"
-	RuleRequiredConfigOperatorStringMatchConst = "string_match"
-	RuleRequiredConfigOperatorStringNotEqualsConst = "string_not_equals"
-	RuleRequiredConfigOperatorStringNotMatchConst = "string_not_match"
-	RuleRequiredConfigOperatorStringsInListConst = "strings_in_list"
+	RuleRequiredConfigOperatorNumLessThanConst          = "num_less_than"
+	RuleRequiredConfigOperatorNumLessThanEqualsConst    = "num_less_than_equals"
+	RuleRequiredConfigOperatorNumNotEqualsConst         = "num_not_equals"
+	RuleRequiredConfigOperatorStringEqualsConst         = "string_equals"
+	RuleRequiredConfigOperatorStringMatchConst          = "string_match"
+	RuleRequiredConfigOperatorStringNotEqualsConst      = "string_not_equals"
+	RuleRequiredConfigOperatorStringNotMatchConst       = "string_not_match"
+	RuleRequiredConfigOperatorStringsInListConst        = "strings_in_list"
 )
 
 func (*RuleRequiredConfig) isaRuleRequiredConfig() bool {
@@ -2068,7 +2056,6 @@ type RuleResponseError struct {
 	Message *string `json:"message" validate:"required"`
 }
 
-
 // UnmarshalRuleResponseError unmarshals an instance of RuleResponseError from the specified map of raw messages.
 func UnmarshalRuleResponseError(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(RuleResponseError)
@@ -2099,18 +2086,17 @@ type RuleScope struct {
 // Constants associated with the RuleScope.ScopeType property.
 // The type of scope that you want to evaluate.
 const (
-	RuleScopeScopeTypeAccountConst = "account"
-	RuleScopeScopeTypeAccountResourceGroupConst = "account.resource_group"
-	RuleScopeScopeTypeEnterpriseConst = "enterprise"
-	RuleScopeScopeTypeEnterpriseAccountConst = "enterprise.account"
+	RuleScopeScopeTypeAccountConst                = "account"
+	RuleScopeScopeTypeAccountResourceGroupConst   = "account.resource_group"
+	RuleScopeScopeTypeEnterpriseConst             = "enterprise"
+	RuleScopeScopeTypeEnterpriseAccountConst      = "enterprise.account"
 	RuleScopeScopeTypeEnterpriseAccountGroupConst = "enterprise.account_group"
 )
-
 
 // NewRuleScope : Instantiate RuleScope (Generic Model Constructor)
 func (*ConfigurationGovernanceV1) NewRuleScope(scopeID string, scopeType string) (model *RuleScope, err error) {
 	model = &RuleScope{
-		ScopeID: core.StringPtr(scopeID),
+		ScopeID:   core.StringPtr(scopeID),
 		ScopeType: core.StringPtr(scopeType),
 	}
 	err = core.ValidateStruct(model, "required parameters")
@@ -2165,24 +2151,23 @@ type RuleSingleProperty struct {
 //
 // There are three types of operators: string, numeric, and boolean.
 const (
-	RuleSinglePropertyOperatorIpsInRangeConst = "ips_in_range"
-	RuleSinglePropertyOperatorIsEmptyConst = "is_empty"
-	RuleSinglePropertyOperatorIsFalseConst = "is_false"
-	RuleSinglePropertyOperatorIsNotEmptyConst = "is_not_empty"
-	RuleSinglePropertyOperatorIsTrueConst = "is_true"
-	RuleSinglePropertyOperatorNumEqualsConst = "num_equals"
-	RuleSinglePropertyOperatorNumGreaterThanConst = "num_greater_than"
+	RuleSinglePropertyOperatorIpsInRangeConst           = "ips_in_range"
+	RuleSinglePropertyOperatorIsEmptyConst              = "is_empty"
+	RuleSinglePropertyOperatorIsFalseConst              = "is_false"
+	RuleSinglePropertyOperatorIsNotEmptyConst           = "is_not_empty"
+	RuleSinglePropertyOperatorIsTrueConst               = "is_true"
+	RuleSinglePropertyOperatorNumEqualsConst            = "num_equals"
+	RuleSinglePropertyOperatorNumGreaterThanConst       = "num_greater_than"
 	RuleSinglePropertyOperatorNumGreaterThanEqualsConst = "num_greater_than_equals"
-	RuleSinglePropertyOperatorNumLessThanConst = "num_less_than"
-	RuleSinglePropertyOperatorNumLessThanEqualsConst = "num_less_than_equals"
-	RuleSinglePropertyOperatorNumNotEqualsConst = "num_not_equals"
-	RuleSinglePropertyOperatorStringEqualsConst = "string_equals"
-	RuleSinglePropertyOperatorStringMatchConst = "string_match"
-	RuleSinglePropertyOperatorStringNotEqualsConst = "string_not_equals"
-	RuleSinglePropertyOperatorStringNotMatchConst = "string_not_match"
-	RuleSinglePropertyOperatorStringsInListConst = "strings_in_list"
+	RuleSinglePropertyOperatorNumLessThanConst          = "num_less_than"
+	RuleSinglePropertyOperatorNumLessThanEqualsConst    = "num_less_than_equals"
+	RuleSinglePropertyOperatorNumNotEqualsConst         = "num_not_equals"
+	RuleSinglePropertyOperatorStringEqualsConst         = "string_equals"
+	RuleSinglePropertyOperatorStringMatchConst          = "string_match"
+	RuleSinglePropertyOperatorStringNotEqualsConst      = "string_not_equals"
+	RuleSinglePropertyOperatorStringNotMatchConst       = "string_not_match"
+	RuleSinglePropertyOperatorStringsInListConst        = "strings_in_list"
 )
-
 
 // NewRuleSingleProperty : Instantiate RuleSingleProperty (Generic Model Constructor)
 func (*ConfigurationGovernanceV1) NewRuleSingleProperty(property string, operator string) (model *RuleSingleProperty, err error) {
@@ -2238,29 +2223,28 @@ type RuleTargetAttribute struct {
 //
 // There are three types of operators: string, numeric, and boolean.
 const (
-	RuleTargetAttributeOperatorIpsInRangeConst = "ips_in_range"
-	RuleTargetAttributeOperatorIsEmptyConst = "is_empty"
-	RuleTargetAttributeOperatorIsFalseConst = "is_false"
-	RuleTargetAttributeOperatorIsNotEmptyConst = "is_not_empty"
-	RuleTargetAttributeOperatorIsTrueConst = "is_true"
-	RuleTargetAttributeOperatorNumEqualsConst = "num_equals"
-	RuleTargetAttributeOperatorNumGreaterThanConst = "num_greater_than"
+	RuleTargetAttributeOperatorIpsInRangeConst           = "ips_in_range"
+	RuleTargetAttributeOperatorIsEmptyConst              = "is_empty"
+	RuleTargetAttributeOperatorIsFalseConst              = "is_false"
+	RuleTargetAttributeOperatorIsNotEmptyConst           = "is_not_empty"
+	RuleTargetAttributeOperatorIsTrueConst               = "is_true"
+	RuleTargetAttributeOperatorNumEqualsConst            = "num_equals"
+	RuleTargetAttributeOperatorNumGreaterThanConst       = "num_greater_than"
 	RuleTargetAttributeOperatorNumGreaterThanEqualsConst = "num_greater_than_equals"
-	RuleTargetAttributeOperatorNumLessThanConst = "num_less_than"
-	RuleTargetAttributeOperatorNumLessThanEqualsConst = "num_less_than_equals"
-	RuleTargetAttributeOperatorNumNotEqualsConst = "num_not_equals"
-	RuleTargetAttributeOperatorStringEqualsConst = "string_equals"
-	RuleTargetAttributeOperatorStringMatchConst = "string_match"
-	RuleTargetAttributeOperatorStringNotEqualsConst = "string_not_equals"
-	RuleTargetAttributeOperatorStringNotMatchConst = "string_not_match"
-	RuleTargetAttributeOperatorStringsInListConst = "strings_in_list"
+	RuleTargetAttributeOperatorNumLessThanConst          = "num_less_than"
+	RuleTargetAttributeOperatorNumLessThanEqualsConst    = "num_less_than_equals"
+	RuleTargetAttributeOperatorNumNotEqualsConst         = "num_not_equals"
+	RuleTargetAttributeOperatorStringEqualsConst         = "string_equals"
+	RuleTargetAttributeOperatorStringMatchConst          = "string_match"
+	RuleTargetAttributeOperatorStringNotEqualsConst      = "string_not_equals"
+	RuleTargetAttributeOperatorStringNotMatchConst       = "string_not_match"
+	RuleTargetAttributeOperatorStringsInListConst        = "strings_in_list"
 )
-
 
 // NewRuleTargetAttribute : Instantiate RuleTargetAttribute (Generic Model Constructor)
 func (*ConfigurationGovernanceV1) NewRuleTargetAttribute(name string, operator string) (model *RuleTargetAttribute, err error) {
 	model = &RuleTargetAttribute{
-		Name: core.StringPtr(name),
+		Name:     core.StringPtr(name),
 		Operator: core.StringPtr(operator),
 	}
 	err = core.ValidateStruct(model, "required parameters")
@@ -2299,11 +2283,10 @@ type TargetResource struct {
 	AdditionalTargetAttributes []RuleTargetAttribute `json:"additional_target_attributes,omitempty"`
 }
 
-
 // NewTargetResource : Instantiate TargetResource (Generic Model Constructor)
 func (*ConfigurationGovernanceV1) NewTargetResource(serviceName string, resourceKind string) (model *TargetResource, err error) {
 	model = &TargetResource{
-		ServiceName: core.StringPtr(serviceName),
+		ServiceName:  core.StringPtr(serviceName),
 		ResourceKind: core.StringPtr(resourceKind),
 	}
 	err = core.ValidateStruct(model, "required parameters")
@@ -2367,10 +2350,10 @@ type UpdateAttachmentOptions struct {
 // NewUpdateAttachmentOptions : Instantiate UpdateAttachmentOptions
 func (*ConfigurationGovernanceV1) NewUpdateAttachmentOptions(ruleID string, attachmentID string, ifMatch string, accountID string, includedScope *RuleScope) *UpdateAttachmentOptions {
 	return &UpdateAttachmentOptions{
-		RuleID: core.StringPtr(ruleID),
-		AttachmentID: core.StringPtr(attachmentID),
-		IfMatch: core.StringPtr(ifMatch),
-		AccountID: core.StringPtr(accountID),
+		RuleID:        core.StringPtr(ruleID),
+		AttachmentID:  core.StringPtr(attachmentID),
+		IfMatch:       core.StringPtr(ifMatch),
+		AccountID:     core.StringPtr(accountID),
 		IncludedScope: includedScope,
 	}
 }
@@ -2481,12 +2464,12 @@ const (
 // NewUpdateRuleOptions : Instantiate UpdateRuleOptions
 func (*ConfigurationGovernanceV1) NewUpdateRuleOptions(ruleID string, ifMatch string, name string, description string, target *TargetResource, requiredConfig RuleRequiredConfigIntf, enforcementActions []EnforcementAction) *UpdateRuleOptions {
 	return &UpdateRuleOptions{
-		RuleID: core.StringPtr(ruleID),
-		IfMatch: core.StringPtr(ifMatch),
-		Name: core.StringPtr(name),
-		Description: core.StringPtr(description),
-		Target: target,
-		RequiredConfig: requiredConfig,
+		RuleID:             core.StringPtr(ruleID),
+		IfMatch:            core.StringPtr(ifMatch),
+		Name:               core.StringPtr(name),
+		Description:        core.StringPtr(description),
+		Target:             target,
+		RequiredConfig:     requiredConfig,
 		EnforcementActions: enforcementActions,
 	}
 }
@@ -2571,7 +2554,6 @@ type RuleConditionAndLvl2 struct {
 	And []RuleSingleProperty `json:"and" validate:"required"`
 }
 
-
 // NewRuleConditionAndLvl2 : Instantiate RuleConditionAndLvl2 (Generic Model Constructor)
 func (*ConfigurationGovernanceV1) NewRuleConditionAndLvl2(and []RuleSingleProperty) (model *RuleConditionAndLvl2, err error) {
 	model = &RuleConditionAndLvl2{
@@ -2607,7 +2589,6 @@ type RuleConditionOrLvl2 struct {
 
 	Or []RuleSingleProperty `json:"or" validate:"required"`
 }
-
 
 // NewRuleConditionOrLvl2 : Instantiate RuleConditionOrLvl2 (Generic Model Constructor)
 func (*ConfigurationGovernanceV1) NewRuleConditionOrLvl2(or []RuleSingleProperty) (model *RuleConditionOrLvl2, err error) {
@@ -2667,24 +2648,23 @@ type RuleConditionSingleProperty struct {
 //
 // There are three types of operators: string, numeric, and boolean.
 const (
-	RuleConditionSinglePropertyOperatorIpsInRangeConst = "ips_in_range"
-	RuleConditionSinglePropertyOperatorIsEmptyConst = "is_empty"
-	RuleConditionSinglePropertyOperatorIsFalseConst = "is_false"
-	RuleConditionSinglePropertyOperatorIsNotEmptyConst = "is_not_empty"
-	RuleConditionSinglePropertyOperatorIsTrueConst = "is_true"
-	RuleConditionSinglePropertyOperatorNumEqualsConst = "num_equals"
-	RuleConditionSinglePropertyOperatorNumGreaterThanConst = "num_greater_than"
+	RuleConditionSinglePropertyOperatorIpsInRangeConst           = "ips_in_range"
+	RuleConditionSinglePropertyOperatorIsEmptyConst              = "is_empty"
+	RuleConditionSinglePropertyOperatorIsFalseConst              = "is_false"
+	RuleConditionSinglePropertyOperatorIsNotEmptyConst           = "is_not_empty"
+	RuleConditionSinglePropertyOperatorIsTrueConst               = "is_true"
+	RuleConditionSinglePropertyOperatorNumEqualsConst            = "num_equals"
+	RuleConditionSinglePropertyOperatorNumGreaterThanConst       = "num_greater_than"
 	RuleConditionSinglePropertyOperatorNumGreaterThanEqualsConst = "num_greater_than_equals"
-	RuleConditionSinglePropertyOperatorNumLessThanConst = "num_less_than"
-	RuleConditionSinglePropertyOperatorNumLessThanEqualsConst = "num_less_than_equals"
-	RuleConditionSinglePropertyOperatorNumNotEqualsConst = "num_not_equals"
-	RuleConditionSinglePropertyOperatorStringEqualsConst = "string_equals"
-	RuleConditionSinglePropertyOperatorStringMatchConst = "string_match"
-	RuleConditionSinglePropertyOperatorStringNotEqualsConst = "string_not_equals"
-	RuleConditionSinglePropertyOperatorStringNotMatchConst = "string_not_match"
-	RuleConditionSinglePropertyOperatorStringsInListConst = "strings_in_list"
+	RuleConditionSinglePropertyOperatorNumLessThanConst          = "num_less_than"
+	RuleConditionSinglePropertyOperatorNumLessThanEqualsConst    = "num_less_than_equals"
+	RuleConditionSinglePropertyOperatorNumNotEqualsConst         = "num_not_equals"
+	RuleConditionSinglePropertyOperatorStringEqualsConst         = "string_equals"
+	RuleConditionSinglePropertyOperatorStringMatchConst          = "string_match"
+	RuleConditionSinglePropertyOperatorStringNotEqualsConst      = "string_not_equals"
+	RuleConditionSinglePropertyOperatorStringNotMatchConst       = "string_not_match"
+	RuleConditionSinglePropertyOperatorStringsInListConst        = "strings_in_list"
 )
-
 
 // NewRuleConditionSingleProperty : Instantiate RuleConditionSingleProperty (Generic Model Constructor)
 func (*ConfigurationGovernanceV1) NewRuleConditionSingleProperty(property string, operator string) (model *RuleConditionSingleProperty, err error) {
@@ -2801,24 +2781,23 @@ type RuleRequiredConfigSingleProperty struct {
 //
 // There are three types of operators: string, numeric, and boolean.
 const (
-	RuleRequiredConfigSinglePropertyOperatorIpsInRangeConst = "ips_in_range"
-	RuleRequiredConfigSinglePropertyOperatorIsEmptyConst = "is_empty"
-	RuleRequiredConfigSinglePropertyOperatorIsFalseConst = "is_false"
-	RuleRequiredConfigSinglePropertyOperatorIsNotEmptyConst = "is_not_empty"
-	RuleRequiredConfigSinglePropertyOperatorIsTrueConst = "is_true"
-	RuleRequiredConfigSinglePropertyOperatorNumEqualsConst = "num_equals"
-	RuleRequiredConfigSinglePropertyOperatorNumGreaterThanConst = "num_greater_than"
+	RuleRequiredConfigSinglePropertyOperatorIpsInRangeConst           = "ips_in_range"
+	RuleRequiredConfigSinglePropertyOperatorIsEmptyConst              = "is_empty"
+	RuleRequiredConfigSinglePropertyOperatorIsFalseConst              = "is_false"
+	RuleRequiredConfigSinglePropertyOperatorIsNotEmptyConst           = "is_not_empty"
+	RuleRequiredConfigSinglePropertyOperatorIsTrueConst               = "is_true"
+	RuleRequiredConfigSinglePropertyOperatorNumEqualsConst            = "num_equals"
+	RuleRequiredConfigSinglePropertyOperatorNumGreaterThanConst       = "num_greater_than"
 	RuleRequiredConfigSinglePropertyOperatorNumGreaterThanEqualsConst = "num_greater_than_equals"
-	RuleRequiredConfigSinglePropertyOperatorNumLessThanConst = "num_less_than"
-	RuleRequiredConfigSinglePropertyOperatorNumLessThanEqualsConst = "num_less_than_equals"
-	RuleRequiredConfigSinglePropertyOperatorNumNotEqualsConst = "num_not_equals"
-	RuleRequiredConfigSinglePropertyOperatorStringEqualsConst = "string_equals"
-	RuleRequiredConfigSinglePropertyOperatorStringMatchConst = "string_match"
-	RuleRequiredConfigSinglePropertyOperatorStringNotEqualsConst = "string_not_equals"
-	RuleRequiredConfigSinglePropertyOperatorStringNotMatchConst = "string_not_match"
-	RuleRequiredConfigSinglePropertyOperatorStringsInListConst = "strings_in_list"
+	RuleRequiredConfigSinglePropertyOperatorNumLessThanConst          = "num_less_than"
+	RuleRequiredConfigSinglePropertyOperatorNumLessThanEqualsConst    = "num_less_than_equals"
+	RuleRequiredConfigSinglePropertyOperatorNumNotEqualsConst         = "num_not_equals"
+	RuleRequiredConfigSinglePropertyOperatorStringEqualsConst         = "string_equals"
+	RuleRequiredConfigSinglePropertyOperatorStringMatchConst          = "string_match"
+	RuleRequiredConfigSinglePropertyOperatorStringNotEqualsConst      = "string_not_equals"
+	RuleRequiredConfigSinglePropertyOperatorStringNotMatchConst       = "string_not_match"
+	RuleRequiredConfigSinglePropertyOperatorStringsInListConst        = "strings_in_list"
 )
-
 
 // NewRuleRequiredConfigSingleProperty : Instantiate RuleRequiredConfigSingleProperty (Generic Model Constructor)
 func (*ConfigurationGovernanceV1) NewRuleRequiredConfigSingleProperty(property string, operator string) (model *RuleRequiredConfigSingleProperty, err error) {
@@ -2865,7 +2844,6 @@ type RuleRequiredConfigMultiplePropertiesConditionAnd struct {
 	And []RuleConditionIntf `json:"and" validate:"required"`
 }
 
-
 // NewRuleRequiredConfigMultiplePropertiesConditionAnd : Instantiate RuleRequiredConfigMultiplePropertiesConditionAnd (Generic Model Constructor)
 func (*ConfigurationGovernanceV1) NewRuleRequiredConfigMultiplePropertiesConditionAnd(and []RuleConditionIntf) (model *RuleRequiredConfigMultiplePropertiesConditionAnd, err error) {
 	model = &RuleRequiredConfigMultiplePropertiesConditionAnd{
@@ -2905,7 +2883,6 @@ type RuleRequiredConfigMultiplePropertiesConditionOr struct {
 
 	Or []RuleConditionIntf `json:"or" validate:"required"`
 }
-
 
 // NewRuleRequiredConfigMultiplePropertiesConditionOr : Instantiate RuleRequiredConfigMultiplePropertiesConditionOr (Generic Model Constructor)
 func (*ConfigurationGovernanceV1) NewRuleRequiredConfigMultiplePropertiesConditionOr(or []RuleConditionIntf) (model *RuleRequiredConfigMultiplePropertiesConditionOr, err error) {

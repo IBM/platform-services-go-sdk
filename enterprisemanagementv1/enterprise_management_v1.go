@@ -17,7 +17,6 @@
 /*
  * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-629bbb97-20201207-171303
  */
- 
 
 // Package enterprisemanagementv1 : Operations and models for the EnterpriseManagementV1 service
 package enterprisemanagementv1
@@ -26,12 +25,13 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"github.com/IBM/go-sdk-core/v4/core"
-	common "github.com/IBM/platform-services-go-sdk/common"
-	"github.com/go-openapi/strfmt"
 	"net/http"
 	"reflect"
 	"time"
+
+	"github.com/IBM/go-sdk-core/v5/core"
+	common "github.com/IBM/platform-services-go-sdk/common"
+	"github.com/go-openapi/strfmt"
 )
 
 // EnterpriseManagementV1 : The Enterprise Management API enables you to create and manage an enterprise, account
@@ -451,7 +451,7 @@ func (enterpriseManagement *EnterpriseManagementV1) ImportAccountToEnterpriseWit
 
 	pathParamsMap := map[string]string{
 		"enterprise_id": *importAccountToEnterpriseOptions.EnterpriseID,
-		"account_id": *importAccountToEnterpriseOptions.AccountID,
+		"account_id":    *importAccountToEnterpriseOptions.AccountID,
 	}
 
 	builder := core.NewRequestBuilder(core.PUT)
@@ -1081,7 +1081,6 @@ type Account struct {
 	UpdatedBy *string `json:"updated_by,omitempty"`
 }
 
-
 // UnmarshalAccount unmarshals an instance of Account from the specified map of raw messages.
 func UnmarshalAccount(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(Account)
@@ -1205,7 +1204,6 @@ type AccountGroup struct {
 	UpdatedBy *string `json:"updated_by,omitempty"`
 }
 
-
 // UnmarshalAccountGroup unmarshals an instance of AccountGroup from the specified map of raw messages.
 func UnmarshalAccountGroup(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(AccountGroup)
@@ -1292,8 +1290,8 @@ type CreateAccountGroupOptions struct {
 // NewCreateAccountGroupOptions : Instantiate CreateAccountGroupOptions
 func (*EnterpriseManagementV1) NewCreateAccountGroupOptions(parent string, name string, primaryContactIamID string) *CreateAccountGroupOptions {
 	return &CreateAccountGroupOptions{
-		Parent: core.StringPtr(parent),
-		Name: core.StringPtr(name),
+		Parent:              core.StringPtr(parent),
+		Name:                core.StringPtr(name),
 		PrimaryContactIamID: core.StringPtr(primaryContactIamID),
 	}
 }
@@ -1328,7 +1326,6 @@ type CreateAccountGroupResponse struct {
 	AccountGroupID *string `json:"account_group_id,omitempty"`
 }
 
-
 // UnmarshalCreateAccountGroupResponse unmarshals an instance of CreateAccountGroupResponse from the specified map of raw messages.
 func UnmarshalCreateAccountGroupResponse(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(CreateAccountGroupResponse)
@@ -1359,8 +1356,8 @@ type CreateAccountOptions struct {
 // NewCreateAccountOptions : Instantiate CreateAccountOptions
 func (*EnterpriseManagementV1) NewCreateAccountOptions(parent string, name string, ownerIamID string) *CreateAccountOptions {
 	return &CreateAccountOptions{
-		Parent: core.StringPtr(parent),
-		Name: core.StringPtr(name),
+		Parent:     core.StringPtr(parent),
+		Name:       core.StringPtr(name),
 		OwnerIamID: core.StringPtr(ownerIamID),
 	}
 }
@@ -1395,7 +1392,6 @@ type CreateAccountResponse struct {
 	AccountID *string `json:"account_id,omitempty"`
 }
 
-
 // UnmarshalCreateAccountResponse unmarshals an instance of CreateAccountResponse from the specified map of raw messages.
 func UnmarshalCreateAccountResponse(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(CreateAccountResponse)
@@ -1428,8 +1424,8 @@ type CreateEnterpriseOptions struct {
 // NewCreateEnterpriseOptions : Instantiate CreateEnterpriseOptions
 func (*EnterpriseManagementV1) NewCreateEnterpriseOptions(sourceAccountID string, name string, primaryContactIamID string) *CreateEnterpriseOptions {
 	return &CreateEnterpriseOptions{
-		SourceAccountID: core.StringPtr(sourceAccountID),
-		Name: core.StringPtr(name),
+		SourceAccountID:     core.StringPtr(sourceAccountID),
+		Name:                core.StringPtr(name),
 		PrimaryContactIamID: core.StringPtr(primaryContactIamID),
 	}
 }
@@ -1473,7 +1469,6 @@ type CreateEnterpriseResponse struct {
 	// the enterprise management.
 	EnterpriseAccountID *string `json:"enterprise_account_id,omitempty"`
 }
-
 
 // UnmarshalCreateEnterpriseResponse unmarshals an instance of CreateEnterpriseResponse from the specified map of raw messages.
 func UnmarshalCreateEnterpriseResponse(m map[string]json.RawMessage, result interface{}) (err error) {
@@ -1531,7 +1526,6 @@ type Enterprise struct {
 	// The IAM ID of the user or service that updated the enterprise.
 	UpdatedBy *string `json:"updated_by,omitempty"`
 }
-
 
 // UnmarshalEnterprise unmarshals an instance of Enterprise from the specified map of raw messages.
 func UnmarshalEnterprise(m map[string]json.RawMessage, result interface{}) (err error) {
@@ -1700,7 +1694,7 @@ type ImportAccountToEnterpriseOptions struct {
 func (*EnterpriseManagementV1) NewImportAccountToEnterpriseOptions(enterpriseID string, accountID string) *ImportAccountToEnterpriseOptions {
 	return &ImportAccountToEnterpriseOptions{
 		EnterpriseID: core.StringPtr(enterpriseID),
-		AccountID: core.StringPtr(accountID),
+		AccountID:    core.StringPtr(accountID),
 	}
 }
 
@@ -1799,7 +1793,6 @@ type ListAccountGroupsResponse struct {
 	Resources []AccountGroup `json:"resources,omitempty"`
 }
 
-
 // UnmarshalListAccountGroupsResponse unmarshals an instance of ListAccountGroupsResponse from the specified map of raw messages.
 func UnmarshalListAccountGroupsResponse(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(ListAccountGroupsResponse)
@@ -1883,7 +1876,6 @@ type ListAccountsResponse struct {
 	// A list of accounts.
 	Resources []Account `json:"resources,omitempty"`
 }
-
 
 // UnmarshalListAccountsResponse unmarshals an instance of ListAccountsResponse from the specified map of raw messages.
 func UnmarshalListAccountsResponse(m map[string]json.RawMessage, result interface{}) (err error) {
@@ -1969,7 +1961,6 @@ type ListEnterprisesResponse struct {
 	Resources []Enterprise `json:"resources,omitempty"`
 }
 
-
 // UnmarshalListEnterprisesResponse unmarshals an instance of ListEnterprisesResponse from the specified map of raw messages.
 func UnmarshalListEnterprisesResponse(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(ListEnterprisesResponse)
@@ -2051,7 +2042,7 @@ type UpdateAccountOptions struct {
 func (*EnterpriseManagementV1) NewUpdateAccountOptions(accountID string, parent string) *UpdateAccountOptions {
 	return &UpdateAccountOptions{
 		AccountID: core.StringPtr(accountID),
-		Parent: core.StringPtr(parent),
+		Parent:    core.StringPtr(parent),
 	}
 }
 
