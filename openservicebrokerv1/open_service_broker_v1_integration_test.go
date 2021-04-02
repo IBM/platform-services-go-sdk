@@ -21,7 +21,7 @@ import (
 	"log"
 	"time"
 
-	"github.com/IBM/go-sdk-core/v4/core"
+	"github.com/IBM/go-sdk-core/v5/core"
 	common "github.com/IBM/platform-services-go-sdk/common"
 	"github.com/IBM/platform-services-go-sdk/openservicebrokerv1"
 	. "github.com/onsi/ginkgo"
@@ -88,7 +88,7 @@ var _ = Describe("Open Service Broker - Integration Tests", func() {
 		Expect(err).To(BeNil())
 		Expect(service).ToNot(BeNil())
 
-		core.SetLogger(core.NewLogger(core.LevelDebug, log.New(GinkgoWriter, "", log.LstdFlags)))
+		core.SetLogger(core.NewLogger(core.LevelDebug, log.New(GinkgoWriter, "", log.LstdFlags), log.New(GinkgoWriter, "", log.LstdFlags)))
 		service.EnableRetries(4, 30*time.Second)
 
 		fmt.Fprintf(GinkgoWriter, "Transaction Id for Test Run: %s\n", transactionId)

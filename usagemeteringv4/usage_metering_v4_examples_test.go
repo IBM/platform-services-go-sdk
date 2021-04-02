@@ -24,7 +24,7 @@ import (
 	"os"
 	"time"
 
-	"github.com/IBM/go-sdk-core/v4/core"
+	"github.com/IBM/go-sdk-core/v5/core"
 	"github.com/IBM/platform-services-go-sdk/usagemeteringv4"
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"

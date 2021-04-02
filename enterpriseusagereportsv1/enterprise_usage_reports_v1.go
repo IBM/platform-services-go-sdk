@@ -17,7 +17,6 @@
 /*
  * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-629bbb97-20201207-171303
  */
- 
 
 // Package enterpriseusagereportsv1 : Operations and models for the EnterpriseUsageReportsV1 service
 package enterpriseusagereportsv1
@@ -26,11 +25,12 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"github.com/IBM/go-sdk-core/v4/core"
-	common "github.com/IBM/platform-services-go-sdk/common"
 	"net/http"
 	"reflect"
 	"time"
+
+	"github.com/IBM/go-sdk-core/v5/core"
+	common "github.com/IBM/platform-services-go-sdk/common"
 )
 
 // EnterpriseUsageReportsV1 : Usage reports for IBM Cloud enterprise entities
@@ -337,7 +337,6 @@ type Link struct {
 	Href *string `json:"href,omitempty"`
 }
 
-
 // UnmarshalLink unmarshals an instance of Link from the specified map of raw messages.
 func UnmarshalLink(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(Link)
@@ -372,7 +371,6 @@ type MetricUsage struct {
 	// The price with which cost was calculated.
 	Price []interface{} `json:"price,omitempty"`
 }
-
 
 // UnmarshalMetricUsage unmarshals an instance of MetricUsage from the specified map of raw messages.
 func UnmarshalMetricUsage(m map[string]json.RawMessage, result interface{}) (err error) {
@@ -433,7 +431,6 @@ type PlanUsage struct {
 	Usage []MetricUsage `json:"usage" validate:"required"`
 }
 
-
 // UnmarshalPlanUsage unmarshals an instance of PlanUsage from the specified map of raw messages.
 func UnmarshalPlanUsage(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(PlanUsage)
@@ -484,7 +481,6 @@ type Reports struct {
 	Reports []ResourceUsageReport `json:"reports,omitempty"`
 }
 
-
 // UnmarshalReports unmarshals an instance of Reports from the specified map of raw messages.
 func UnmarshalReports(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(Reports)
@@ -528,7 +524,6 @@ type ResourceUsage struct {
 	// All of the plans in the resource.
 	Plans []PlanUsage `json:"plans" validate:"required"`
 }
-
 
 // UnmarshalResourceUsage unmarshals an instance of ResourceUsage from the specified map of raw messages.
 func UnmarshalResourceUsage(m map[string]json.RawMessage, result interface{}) (err error) {
@@ -612,11 +607,10 @@ type ResourceUsageReport struct {
 // Constants associated with the ResourceUsageReport.EntityType property.
 // The entity type.
 const (
-	ResourceUsageReportEntityTypeAccountConst = "account"
+	ResourceUsageReportEntityTypeAccountConst      = "account"
 	ResourceUsageReportEntityTypeAccountGroupConst = "account-group"
-	ResourceUsageReportEntityTypeEnterpriseConst = "enterprise"
+	ResourceUsageReportEntityTypeEnterpriseConst   = "enterprise"
 )
-
 
 // UnmarshalResourceUsageReport unmarshals an instance of ResourceUsageReport from the specified map of raw messages.
 func UnmarshalResourceUsageReport(m map[string]json.RawMessage, result interface{}) (err error) {

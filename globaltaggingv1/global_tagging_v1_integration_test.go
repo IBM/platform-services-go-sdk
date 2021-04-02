@@ -25,7 +25,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/IBM/go-sdk-core/v4/core"
+	"github.com/IBM/go-sdk-core/v5/core"
 	common "github.com/IBM/platform-services-go-sdk/common"
 	"github.com/IBM/platform-services-go-sdk/globaltaggingv1"
 	. "github.com/onsi/ginkgo"
@@ -107,7 +107,7 @@ var _ = Describe(`GlobalTaggingV1 Integration Tests`, func() {
 			Expect(globalTaggingService).ToNot(BeNil())
 			Expect(globalTaggingService.Service.Options.URL).To(Equal(serviceURL))
 
-			core.SetLogger(core.NewLogger(core.LevelDebug, log.New(GinkgoWriter, "", log.LstdFlags)))
+			core.SetLogger(core.NewLogger(core.LevelDebug, log.New(GinkgoWriter, "", log.LstdFlags), log.New(GinkgoWriter, "", log.LstdFlags)))
 			globalTaggingService.EnableRetries(4, 30*time.Second)
 		})
 

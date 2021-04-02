@@ -23,7 +23,7 @@ import (
 	"os"
 	"time"
 
-	"github.com/IBM/go-sdk-core/v4/core"
+	"github.com/IBM/go-sdk-core/v5/core"
 	common "github.com/IBM/platform-services-go-sdk/common"
 	"github.com/IBM/platform-services-go-sdk/usagemeteringv4"
 	. "github.com/onsi/ginkgo"
@@ -74,11 +74,6 @@ var _ = Describe(`UsageMeteringV4 Integration Tests`, func() {
 
 			fmt.Printf("Service URL: %s\n", serviceURL)
 			shouldSkipTest = func() {}
-		})
-	})
-
-	Describe(`Construct model instances`, func() {
-		It(`Sucessfully construct resource usage models`, func() {
 		})
 	})
 

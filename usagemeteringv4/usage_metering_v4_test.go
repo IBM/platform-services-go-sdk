@@ -20,17 +20,18 @@ import (
 	"bytes"
 	"context"
 	"fmt"
-	"github.com/IBM/go-sdk-core/v4/core"
-	"github.com/IBM/platform-services-go-sdk/usagemeteringv4"
-	"github.com/go-openapi/strfmt"
-	. "github.com/onsi/ginkgo"
-	. "github.com/onsi/gomega"
 	"io"
 	"io/ioutil"
 	"net/http"
 	"net/http/httptest"
 	"os"
 	"time"
+
+	"github.com/IBM/go-sdk-core/v5/core"
+	"github.com/IBM/platform-services-go-sdk/usagemeteringv4"
+	"github.com/go-openapi/strfmt"
+	. "github.com/onsi/ginkgo"
+	. "github.com/onsi/gomega"
 )
 
 var _ = Describe(`UsageMeteringV4`, func() {
@@ -66,14 +67,13 @@ var _ = Describe(`UsageMeteringV4`, func() {
 		Context(`Using external config, construct service client instances`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"USAGE_METERING_URL": "https://usagemeteringv4/api",
+				"USAGE_METERING_URL":       "https://usagemeteringv4/api",
 				"USAGE_METERING_AUTH_TYPE": "noauth",
 			}
 
 			It(`Create service client using external config successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				usageMeteringService, serviceErr := usagemeteringv4.NewUsageMeteringV4UsingExternalConfig(&usagemeteringv4.UsageMeteringV4Options{
-				})
+				usageMeteringService, serviceErr := usagemeteringv4.NewUsageMeteringV4UsingExternalConfig(&usagemeteringv4.UsageMeteringV4Options{})
 				Expect(usageMeteringService).ToNot(BeNil())
 				Expect(serviceErr).To(BeNil())
 				ClearTestEnvironment(testEnvironment)
@@ -102,8 +102,7 @@ var _ = Describe(`UsageMeteringV4`, func() {
 			})
 			It(`Create service client using external config and set url programatically successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				usageMeteringService, serviceErr := usagemeteringv4.NewUsageMeteringV4UsingExternalConfig(&usagemeteringv4.UsageMeteringV4Options{
-				})
+				usageMeteringService, serviceErr := usagemeteringv4.NewUsageMeteringV4UsingExternalConfig(&usagemeteringv4.UsageMeteringV4Options{})
 				err := usageMeteringService.SetServiceURL("https://testService/api")
 				Expect(err).To(BeNil())
 				Expect(usageMeteringService).ToNot(BeNil())
@@ -121,13 +120,12 @@ var _ = Describe(`UsageMeteringV4`, func() {
 		Context(`Using external config, construct service client instances with error: Invalid Auth`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"USAGE_METERING_URL": "https://usagemeteringv4/api",
+				"USAGE_METERING_URL":       "https://usagemeteringv4/api",
 				"USAGE_METERING_AUTH_TYPE": "someOtherAuth",
 			}
 
 			SetTestEnvironment(testEnvironment)
-			usageMeteringService, serviceErr := usagemeteringv4.NewUsageMeteringV4UsingExternalConfig(&usagemeteringv4.UsageMeteringV4Options{
-			})
+			usageMeteringService, serviceErr := usagemeteringv4.NewUsageMeteringV4UsingExternalConfig(&usagemeteringv4.UsageMeteringV4Options{})
 
 			It(`Instantiate service client with error`, func() {
 				Expect(usageMeteringService).To(BeNil())
@@ -138,7 +136,7 @@ var _ = Describe(`UsageMeteringV4`, func() {
 		Context(`Using external config, construct service client instances with error: Invalid URL`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"USAGE_METERING_AUTH_TYPE":   "NOAuth",
+				"USAGE_METERING_AUTH_TYPE": "NOAuth",
 			}
 
 			SetTestEnvironment(testEnvironment)

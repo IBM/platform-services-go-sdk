@@ -23,7 +23,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/IBM/go-sdk-core/v4/core"
+	"github.com/IBM/go-sdk-core/v5/core"
 	"github.com/IBM/platform-services-go-sdk/configurationgovernancev1"
 	"github.com/google/uuid"
 	. "github.com/onsi/ginkgo"

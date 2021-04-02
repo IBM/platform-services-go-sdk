@@ -20,17 +20,18 @@ import (
 	"bytes"
 	"context"
 	"fmt"
-	"github.com/IBM/go-sdk-core/v4/core"
-	"github.com/IBM/platform-services-go-sdk/enterpriseusagereportsv1"
-	"github.com/go-openapi/strfmt"
-	. "github.com/onsi/ginkgo"
-	. "github.com/onsi/gomega"
 	"io"
 	"io/ioutil"
 	"net/http"
 	"net/http/httptest"
 	"os"
 	"time"
+
+	"github.com/IBM/go-sdk-core/v5/core"
+	"github.com/IBM/platform-services-go-sdk/enterpriseusagereportsv1"
+	"github.com/go-openapi/strfmt"
+	. "github.com/onsi/ginkgo"
+	. "github.com/onsi/gomega"
 )
 
 var _ = Describe(`EnterpriseUsageReportsV1`, func() {
@@ -66,14 +67,13 @@ var _ = Describe(`EnterpriseUsageReportsV1`, func() {
 		Context(`Using external config, construct service client instances`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"ENTERPRISE_USAGE_REPORTS_URL": "https://enterpriseusagereportsv1/api",
+				"ENTERPRISE_USAGE_REPORTS_URL":       "https://enterpriseusagereportsv1/api",
 				"ENTERPRISE_USAGE_REPORTS_AUTH_TYPE": "noauth",
 			}
 
 			It(`Create service client using external config successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				enterpriseUsageReportsService, serviceErr := enterpriseusagereportsv1.NewEnterpriseUsageReportsV1UsingExternalConfig(&enterpriseusagereportsv1.EnterpriseUsageReportsV1Options{
-				})
+				enterpriseUsageReportsService, serviceErr := enterpriseusagereportsv1.NewEnterpriseUsageReportsV1UsingExternalConfig(&enterpriseusagereportsv1.EnterpriseUsageReportsV1Options{})
 				Expect(enterpriseUsageReportsService).ToNot(BeNil())
 				Expect(serviceErr).To(BeNil())
 				ClearTestEnvironment(testEnvironment)
@@ -102,8 +102,7 @@ var _ = Describe(`EnterpriseUsageReportsV1`, func() {
 			})
 			It(`Create service client using external config and set url programatically successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				enterpriseUsageReportsService, serviceErr := enterpriseusagereportsv1.NewEnterpriseUsageReportsV1UsingExternalConfig(&enterpriseusagereportsv1.EnterpriseUsageReportsV1Options{
-				})
+				enterpriseUsageReportsService, serviceErr := enterpriseusagereportsv1.NewEnterpriseUsageReportsV1UsingExternalConfig(&enterpriseusagereportsv1.EnterpriseUsageReportsV1Options{})
 				err := enterpriseUsageReportsService.SetServiceURL("https://testService/api")
 				Expect(err).To(BeNil())
 				Expect(enterpriseUsageReportsService).ToNot(BeNil())
@@ -121,13 +120,12 @@ var _ = Describe(`EnterpriseUsageReportsV1`, func() {
 		Context(`Using external config, construct service client instances with error: Invalid Auth`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"ENTERPRISE_USAGE_REPORTS_URL": "https://enterpriseusagereportsv1/api",
+				"ENTERPRISE_USAGE_REPORTS_URL":       "https://enterpriseusagereportsv1/api",
 				"ENTERPRISE_USAGE_REPORTS_AUTH_TYPE": "someOtherAuth",
 			}
 
 			SetTestEnvironment(testEnvironment)
-			enterpriseUsageReportsService, serviceErr := enterpriseusagereportsv1.NewEnterpriseUsageReportsV1UsingExternalConfig(&enterpriseusagereportsv1.EnterpriseUsageReportsV1Options{
-			})
+			enterpriseUsageReportsService, serviceErr := enterpriseusagereportsv1.NewEnterpriseUsageReportsV1UsingExternalConfig(&enterpriseusagereportsv1.EnterpriseUsageReportsV1Options{})
 
 			It(`Instantiate service client with error`, func() {
 				Expect(enterpriseUsageReportsService).To(BeNil())
@@ -138,7 +136,7 @@ var _ = Describe(`EnterpriseUsageReportsV1`, func() {
 		Context(`Using external config, construct service client instances with error: Invalid URL`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"ENTERPRISE_USAGE_REPORTS_AUTH_TYPE":   "NOAuth",
+				"ENTERPRISE_USAGE_REPORTS_AUTH_TYPE": "NOAuth",
 			}
 
 			SetTestEnvironment(testEnvironment)
@@ -178,7 +176,6 @@ var _ = Describe(`EnterpriseUsageReportsV1`, func() {
 					Expect(req.URL.Query()["account_group_id"]).To(Equal([]string{"def456a237b94b9a9238ef024e204c9f"}))
 
 					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"987abcba31834216b8c726a7dd9eb8d6"}))
-
 
 					// TODO: Add check for children query parameter
 
@@ -251,7 +248,6 @@ var _ = Describe(`EnterpriseUsageReportsV1`, func() {
 					Expect(req.URL.Query()["account_group_id"]).To(Equal([]string{"def456a237b94b9a9238ef024e204c9f"}))
 
 					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"987abcba31834216b8c726a7dd9eb8d6"}))
-
 
 					// TODO: Add check for children query parameter
 
