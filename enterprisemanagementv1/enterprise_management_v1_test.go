@@ -1,5 +1,7 @@
+// +build unit
+
 /**
- * (C) Copyright IBM Corp. 2020.
+ * (C) Copyright IBM Corp. 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,7 +22,7 @@ import (
 	"bytes"
 	"context"
 	"fmt"
-	"github.com/IBM/go-sdk-core/v4/core"
+	"github.com/IBM/go-sdk-core/v5/core"
 	"github.com/IBM/platform-services-go-sdk/enterprisemanagementv1"
 	"github.com/go-openapi/strfmt"
 	. "github.com/onsi/ginkgo"
@@ -213,10 +215,8 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 
 	Describe(`CreateAccountGroup(createAccountGroupOptions *CreateAccountGroupOptions)`, func() {
 		createAccountGroupPath := "/account-groups"
-		var serverSleepTime time.Duration
-		Context(`Using mock server endpoint`, func() {
+		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
-				serverSleepTime = 0
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
@@ -241,7 +241,79 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
 
 					// Sleep a short time to support a timeout test
-					time.Sleep(serverSleepTime)
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(201)
+					fmt.Fprintf(res, "%s", `{"account_group_id": "AccountGroupID"}`)
+				}))
+			})
+			It(`Invoke CreateAccountGroup successfully with retries`, func() {
+				enterpriseManagementService, serviceErr := enterprisemanagementv1.NewEnterpriseManagementV1(&enterprisemanagementv1.EnterpriseManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(enterpriseManagementService).ToNot(BeNil())
+				enterpriseManagementService.EnableRetries(0, 0)
+
+				// Construct an instance of the CreateAccountGroupOptions model
+				createAccountGroupOptionsModel := new(enterprisemanagementv1.CreateAccountGroupOptions)
+				createAccountGroupOptionsModel.Parent = core.StringPtr("testString")
+				createAccountGroupOptionsModel.Name = core.StringPtr("testString")
+				createAccountGroupOptionsModel.PrimaryContactIamID = core.StringPtr("testString")
+				createAccountGroupOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := enterpriseManagementService.CreateAccountGroupWithContext(ctx, createAccountGroupOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				enterpriseManagementService.DisableRetries()
+				result, response, operationErr := enterpriseManagementService.CreateAccountGroup(createAccountGroupOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = enterpriseManagementService.CreateAccountGroupWithContext(ctx, createAccountGroupOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(createAccountGroupPath))
+					Expect(req.Method).To(Equal("POST"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
 
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
@@ -256,7 +328,6 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 				})
 				Expect(serviceErr).To(BeNil())
 				Expect(enterpriseManagementService).ToNot(BeNil())
-				enterpriseManagementService.EnableRetries(0, 0)
 
 				// Invoke operation with nil options model (negative test)
 				result, response, operationErr := enterpriseManagementService.CreateAccountGroup(nil)
@@ -277,30 +348,6 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
 
-				// Invoke operation with a Context to test a timeout error
-				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc()
-				serverSleepTime = 100 * time.Millisecond
-				_, _, operationErr = enterpriseManagementService.CreateAccountGroupWithContext(ctx, createAccountGroupOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-				serverSleepTime = time.Duration(0)
-
-				// Disable retries and test again
-				enterpriseManagementService.DisableRetries()
-				result, response, operationErr = enterpriseManagementService.CreateAccountGroup(createAccountGroupOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).ToNot(BeNil())
-
-				// Re-test the timeout error with retries disabled
-				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc2()
-				serverSleepTime = 100 * time.Millisecond
-				_, _, operationErr = enterpriseManagementService.CreateAccountGroupWithContext(ctx, createAccountGroupOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-				serverSleepTime = time.Duration(0)
 			})
 			It(`Invoke CreateAccountGroup with error: Operation validation and request error`, func() {
 				enterpriseManagementService, serviceErr := enterprisemanagementv1.NewEnterpriseManagementV1(&enterprisemanagementv1.EnterpriseManagementV1Options{
@@ -348,13 +395,10 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 					Expect(req.URL.EscapedPath()).To(Equal(listAccountGroupsPath))
 					Expect(req.Method).To(Equal("GET"))
 					Expect(req.URL.Query()["enterprise_id"]).To(Equal([]string{"testString"}))
-
 					Expect(req.URL.Query()["parent_account_group_id"]).To(Equal([]string{"testString"}))
-
+					Expect(req.URL.Query()["next_docid"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["parent"]).To(Equal([]string{"testString"}))
-
 					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(38))}))
-
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
 					fmt.Fprintf(res, `} this is not valid json {`)
@@ -372,6 +416,7 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 				listAccountGroupsOptionsModel := new(enterprisemanagementv1.ListAccountGroupsOptions)
 				listAccountGroupsOptionsModel.EnterpriseID = core.StringPtr("testString")
 				listAccountGroupsOptionsModel.ParentAccountGroupID = core.StringPtr("testString")
+				listAccountGroupsOptionsModel.NextDocid = core.StringPtr("testString")
 				listAccountGroupsOptionsModel.Parent = core.StringPtr("testString")
 				listAccountGroupsOptionsModel.Limit = core.Int64Ptr(int64(38))
 				listAccountGroupsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
@@ -396,10 +441,8 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 
 	Describe(`ListAccountGroups(listAccountGroupsOptions *ListAccountGroupsOptions)`, func() {
 		listAccountGroupsPath := "/account-groups"
-		var serverSleepTime time.Duration
-		Context(`Using mock server endpoint`, func() {
+		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
-				serverSleepTime = 0
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
@@ -408,20 +451,80 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 					Expect(req.Method).To(Equal("GET"))
 
 					Expect(req.URL.Query()["enterprise_id"]).To(Equal([]string{"testString"}))
-
 					Expect(req.URL.Query()["parent_account_group_id"]).To(Equal([]string{"testString"}))
-
+					Expect(req.URL.Query()["next_docid"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["parent"]).To(Equal([]string{"testString"}))
-
 					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(38))}))
-
 					// Sleep a short time to support a timeout test
-					time.Sleep(serverSleepTime)
+					time.Sleep(100 * time.Millisecond)
 
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"rows_count": 9, "next_url": "NextURL", "resources": [{"url": "URL", "id": "ID", "crn": "CRN", "parent": "Parent", "enterprise_account_id": "EnterpriseAccountID", "enterprise_id": "EnterpriseID", "enterprise_path": "EnterprisePath", "name": "Name", "state": "State", "primary_contact_iam_id": "PrimaryContactIamID", "primary_contact_email": "PrimaryContactEmail", "created_at": "2019-01-01T12:00:00", "created_by": "CreatedBy", "updated_at": "2019-01-01T12:00:00", "updated_by": "UpdatedBy"}]}`)
+					fmt.Fprintf(res, "%s", `{"rows_count": 9, "next_url": "NextURL", "resources": [{"url": "URL", "id": "ID", "crn": "CRN", "parent": "Parent", "enterprise_account_id": "EnterpriseAccountID", "enterprise_id": "EnterpriseID", "enterprise_path": "EnterprisePath", "name": "Name", "state": "State", "primary_contact_iam_id": "PrimaryContactIamID", "primary_contact_email": "PrimaryContactEmail", "created_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "updated_at": "2019-01-01T12:00:00.000Z", "updated_by": "UpdatedBy"}]}`)
+				}))
+			})
+			It(`Invoke ListAccountGroups successfully with retries`, func() {
+				enterpriseManagementService, serviceErr := enterprisemanagementv1.NewEnterpriseManagementV1(&enterprisemanagementv1.EnterpriseManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(enterpriseManagementService).ToNot(BeNil())
+				enterpriseManagementService.EnableRetries(0, 0)
+
+				// Construct an instance of the ListAccountGroupsOptions model
+				listAccountGroupsOptionsModel := new(enterprisemanagementv1.ListAccountGroupsOptions)
+				listAccountGroupsOptionsModel.EnterpriseID = core.StringPtr("testString")
+				listAccountGroupsOptionsModel.ParentAccountGroupID = core.StringPtr("testString")
+				listAccountGroupsOptionsModel.NextDocid = core.StringPtr("testString")
+				listAccountGroupsOptionsModel.Parent = core.StringPtr("testString")
+				listAccountGroupsOptionsModel.Limit = core.Int64Ptr(int64(38))
+				listAccountGroupsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := enterpriseManagementService.ListAccountGroupsWithContext(ctx, listAccountGroupsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				enterpriseManagementService.DisableRetries()
+				result, response, operationErr := enterpriseManagementService.ListAccountGroups(listAccountGroupsOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = enterpriseManagementService.ListAccountGroupsWithContext(ctx, listAccountGroupsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(listAccountGroupsPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					Expect(req.URL.Query()["enterprise_id"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["parent_account_group_id"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["next_docid"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["parent"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(38))}))
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"rows_count": 9, "next_url": "NextURL", "resources": [{"url": "URL", "id": "ID", "crn": "CRN", "parent": "Parent", "enterprise_account_id": "EnterpriseAccountID", "enterprise_id": "EnterpriseID", "enterprise_path": "EnterprisePath", "name": "Name", "state": "State", "primary_contact_iam_id": "PrimaryContactIamID", "primary_contact_email": "PrimaryContactEmail", "created_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "updated_at": "2019-01-01T12:00:00.000Z", "updated_by": "UpdatedBy"}]}`)
 				}))
 			})
 			It(`Invoke ListAccountGroups successfully`, func() {
@@ -431,7 +534,6 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 				})
 				Expect(serviceErr).To(BeNil())
 				Expect(enterpriseManagementService).ToNot(BeNil())
-				enterpriseManagementService.EnableRetries(0, 0)
 
 				// Invoke operation with nil options model (negative test)
 				result, response, operationErr := enterpriseManagementService.ListAccountGroups(nil)
@@ -443,6 +545,7 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 				listAccountGroupsOptionsModel := new(enterprisemanagementv1.ListAccountGroupsOptions)
 				listAccountGroupsOptionsModel.EnterpriseID = core.StringPtr("testString")
 				listAccountGroupsOptionsModel.ParentAccountGroupID = core.StringPtr("testString")
+				listAccountGroupsOptionsModel.NextDocid = core.StringPtr("testString")
 				listAccountGroupsOptionsModel.Parent = core.StringPtr("testString")
 				listAccountGroupsOptionsModel.Limit = core.Int64Ptr(int64(38))
 				listAccountGroupsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
@@ -453,30 +556,6 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
 
-				// Invoke operation with a Context to test a timeout error
-				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc()
-				serverSleepTime = 100 * time.Millisecond
-				_, _, operationErr = enterpriseManagementService.ListAccountGroupsWithContext(ctx, listAccountGroupsOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-				serverSleepTime = time.Duration(0)
-
-				// Disable retries and test again
-				enterpriseManagementService.DisableRetries()
-				result, response, operationErr = enterpriseManagementService.ListAccountGroups(listAccountGroupsOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).ToNot(BeNil())
-
-				// Re-test the timeout error with retries disabled
-				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc2()
-				serverSleepTime = 100 * time.Millisecond
-				_, _, operationErr = enterpriseManagementService.ListAccountGroupsWithContext(ctx, listAccountGroupsOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-				serverSleepTime = time.Duration(0)
 			})
 			It(`Invoke ListAccountGroups with error: Operation request error`, func() {
 				enterpriseManagementService, serviceErr := enterprisemanagementv1.NewEnterpriseManagementV1(&enterprisemanagementv1.EnterpriseManagementV1Options{
@@ -490,6 +569,7 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 				listAccountGroupsOptionsModel := new(enterprisemanagementv1.ListAccountGroupsOptions)
 				listAccountGroupsOptionsModel.EnterpriseID = core.StringPtr("testString")
 				listAccountGroupsOptionsModel.ParentAccountGroupID = core.StringPtr("testString")
+				listAccountGroupsOptionsModel.NextDocid = core.StringPtr("testString")
 				listAccountGroupsOptionsModel.Parent = core.StringPtr("testString")
 				listAccountGroupsOptionsModel.Limit = core.Int64Ptr(int64(38))
 				listAccountGroupsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
@@ -555,10 +635,8 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 
 	Describe(`GetAccountGroup(getAccountGroupOptions *GetAccountGroupOptions)`, func() {
 		getAccountGroupPath := "/account-groups/testString"
-		var serverSleepTime time.Duration
-		Context(`Using mock server endpoint`, func() {
+		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
-				serverSleepTime = 0
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
@@ -567,12 +645,66 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 					Expect(req.Method).To(Equal("GET"))
 
 					// Sleep a short time to support a timeout test
-					time.Sleep(serverSleepTime)
+					time.Sleep(100 * time.Millisecond)
 
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"url": "URL", "id": "ID", "crn": "CRN", "parent": "Parent", "enterprise_account_id": "EnterpriseAccountID", "enterprise_id": "EnterpriseID", "enterprise_path": "EnterprisePath", "name": "Name", "state": "State", "primary_contact_iam_id": "PrimaryContactIamID", "primary_contact_email": "PrimaryContactEmail", "created_at": "2019-01-01T12:00:00", "created_by": "CreatedBy", "updated_at": "2019-01-01T12:00:00", "updated_by": "UpdatedBy"}`)
+					fmt.Fprintf(res, "%s", `{"url": "URL", "id": "ID", "crn": "CRN", "parent": "Parent", "enterprise_account_id": "EnterpriseAccountID", "enterprise_id": "EnterpriseID", "enterprise_path": "EnterprisePath", "name": "Name", "state": "State", "primary_contact_iam_id": "PrimaryContactIamID", "primary_contact_email": "PrimaryContactEmail", "created_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "updated_at": "2019-01-01T12:00:00.000Z", "updated_by": "UpdatedBy"}`)
+				}))
+			})
+			It(`Invoke GetAccountGroup successfully with retries`, func() {
+				enterpriseManagementService, serviceErr := enterprisemanagementv1.NewEnterpriseManagementV1(&enterprisemanagementv1.EnterpriseManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(enterpriseManagementService).ToNot(BeNil())
+				enterpriseManagementService.EnableRetries(0, 0)
+
+				// Construct an instance of the GetAccountGroupOptions model
+				getAccountGroupOptionsModel := new(enterprisemanagementv1.GetAccountGroupOptions)
+				getAccountGroupOptionsModel.AccountGroupID = core.StringPtr("testString")
+				getAccountGroupOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := enterpriseManagementService.GetAccountGroupWithContext(ctx, getAccountGroupOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				enterpriseManagementService.DisableRetries()
+				result, response, operationErr := enterpriseManagementService.GetAccountGroup(getAccountGroupOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = enterpriseManagementService.GetAccountGroupWithContext(ctx, getAccountGroupOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getAccountGroupPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"url": "URL", "id": "ID", "crn": "CRN", "parent": "Parent", "enterprise_account_id": "EnterpriseAccountID", "enterprise_id": "EnterpriseID", "enterprise_path": "EnterprisePath", "name": "Name", "state": "State", "primary_contact_iam_id": "PrimaryContactIamID", "primary_contact_email": "PrimaryContactEmail", "created_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "updated_at": "2019-01-01T12:00:00.000Z", "updated_by": "UpdatedBy"}`)
 				}))
 			})
 			It(`Invoke GetAccountGroup successfully`, func() {
@@ -582,7 +714,6 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 				})
 				Expect(serviceErr).To(BeNil())
 				Expect(enterpriseManagementService).ToNot(BeNil())
-				enterpriseManagementService.EnableRetries(0, 0)
 
 				// Invoke operation with nil options model (negative test)
 				result, response, operationErr := enterpriseManagementService.GetAccountGroup(nil)
@@ -601,30 +732,6 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
 
-				// Invoke operation with a Context to test a timeout error
-				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc()
-				serverSleepTime = 100 * time.Millisecond
-				_, _, operationErr = enterpriseManagementService.GetAccountGroupWithContext(ctx, getAccountGroupOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-				serverSleepTime = time.Duration(0)
-
-				// Disable retries and test again
-				enterpriseManagementService.DisableRetries()
-				result, response, operationErr = enterpriseManagementService.GetAccountGroup(getAccountGroupOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).ToNot(BeNil())
-
-				// Re-test the timeout error with retries disabled
-				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc2()
-				serverSleepTime = 100 * time.Millisecond
-				_, _, operationErr = enterpriseManagementService.GetAccountGroupWithContext(ctx, getAccountGroupOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-				serverSleepTime = time.Duration(0)
 			})
 			It(`Invoke GetAccountGroup with error: Operation validation and request error`, func() {
 				enterpriseManagementService, serviceErr := enterprisemanagementv1.NewEnterpriseManagementV1(&enterprisemanagementv1.EnterpriseManagementV1Options{
@@ -697,7 +804,6 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 				})
 				Expect(serviceErr).To(BeNil())
 				Expect(enterpriseManagementService).ToNot(BeNil())
-				enterpriseManagementService.EnableRetries(0, 0)
 
 				// Invoke operation with nil options model (negative test)
 				response, operationErr := enterpriseManagementService.UpdateAccountGroup(nil)
@@ -712,12 +818,6 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 				updateAccountGroupOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
-				response, operationErr = enterpriseManagementService.UpdateAccountGroup(updateAccountGroupOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-
-				// Disable retries and test again
-				enterpriseManagementService.DisableRetries()
 				response, operationErr = enterpriseManagementService.UpdateAccountGroup(updateAccountGroupOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
@@ -921,7 +1021,6 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 				})
 				Expect(serviceErr).To(BeNil())
 				Expect(enterpriseManagementService).ToNot(BeNil())
-				enterpriseManagementService.EnableRetries(0, 0)
 
 				// Invoke operation with nil options model (negative test)
 				response, operationErr := enterpriseManagementService.ImportAccountToEnterprise(nil)
@@ -937,12 +1036,6 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 				importAccountToEnterpriseOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
-				response, operationErr = enterpriseManagementService.ImportAccountToEnterprise(importAccountToEnterpriseOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-
-				// Disable retries and test again
-				enterpriseManagementService.DisableRetries()
 				response, operationErr = enterpriseManagementService.ImportAccountToEnterprise(importAccountToEnterpriseOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
@@ -1031,10 +1124,8 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 
 	Describe(`CreateAccount(createAccountOptions *CreateAccountOptions)`, func() {
 		createAccountPath := "/accounts"
-		var serverSleepTime time.Duration
-		Context(`Using mock server endpoint`, func() {
+		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
-				serverSleepTime = 0
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
@@ -1059,7 +1150,79 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
 
 					// Sleep a short time to support a timeout test
-					time.Sleep(serverSleepTime)
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(201)
+					fmt.Fprintf(res, "%s", `{"account_id": "AccountID"}`)
+				}))
+			})
+			It(`Invoke CreateAccount successfully with retries`, func() {
+				enterpriseManagementService, serviceErr := enterprisemanagementv1.NewEnterpriseManagementV1(&enterprisemanagementv1.EnterpriseManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(enterpriseManagementService).ToNot(BeNil())
+				enterpriseManagementService.EnableRetries(0, 0)
+
+				// Construct an instance of the CreateAccountOptions model
+				createAccountOptionsModel := new(enterprisemanagementv1.CreateAccountOptions)
+				createAccountOptionsModel.Parent = core.StringPtr("testString")
+				createAccountOptionsModel.Name = core.StringPtr("testString")
+				createAccountOptionsModel.OwnerIamID = core.StringPtr("testString")
+				createAccountOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := enterpriseManagementService.CreateAccountWithContext(ctx, createAccountOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				enterpriseManagementService.DisableRetries()
+				result, response, operationErr := enterpriseManagementService.CreateAccount(createAccountOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = enterpriseManagementService.CreateAccountWithContext(ctx, createAccountOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(createAccountPath))
+					Expect(req.Method).To(Equal("POST"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
 
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
@@ -1074,7 +1237,6 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 				})
 				Expect(serviceErr).To(BeNil())
 				Expect(enterpriseManagementService).ToNot(BeNil())
-				enterpriseManagementService.EnableRetries(0, 0)
 
 				// Invoke operation with nil options model (negative test)
 				result, response, operationErr := enterpriseManagementService.CreateAccount(nil)
@@ -1095,30 +1257,6 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
 
-				// Invoke operation with a Context to test a timeout error
-				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc()
-				serverSleepTime = 100 * time.Millisecond
-				_, _, operationErr = enterpriseManagementService.CreateAccountWithContext(ctx, createAccountOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-				serverSleepTime = time.Duration(0)
-
-				// Disable retries and test again
-				enterpriseManagementService.DisableRetries()
-				result, response, operationErr = enterpriseManagementService.CreateAccount(createAccountOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).ToNot(BeNil())
-
-				// Re-test the timeout error with retries disabled
-				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc2()
-				serverSleepTime = 100 * time.Millisecond
-				_, _, operationErr = enterpriseManagementService.CreateAccountWithContext(ctx, createAccountOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-				serverSleepTime = time.Duration(0)
 			})
 			It(`Invoke CreateAccount with error: Operation validation and request error`, func() {
 				enterpriseManagementService, serviceErr := enterprisemanagementv1.NewEnterpriseManagementV1(&enterprisemanagementv1.EnterpriseManagementV1Options{
@@ -1166,13 +1304,10 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 					Expect(req.URL.EscapedPath()).To(Equal(listAccountsPath))
 					Expect(req.Method).To(Equal("GET"))
 					Expect(req.URL.Query()["enterprise_id"]).To(Equal([]string{"testString"}))
-
 					Expect(req.URL.Query()["account_group_id"]).To(Equal([]string{"testString"}))
-
+					Expect(req.URL.Query()["next_docid"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["parent"]).To(Equal([]string{"testString"}))
-
 					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(38))}))
-
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
 					fmt.Fprintf(res, `} this is not valid json {`)
@@ -1190,6 +1325,7 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 				listAccountsOptionsModel := new(enterprisemanagementv1.ListAccountsOptions)
 				listAccountsOptionsModel.EnterpriseID = core.StringPtr("testString")
 				listAccountsOptionsModel.AccountGroupID = core.StringPtr("testString")
+				listAccountsOptionsModel.NextDocid = core.StringPtr("testString")
 				listAccountsOptionsModel.Parent = core.StringPtr("testString")
 				listAccountsOptionsModel.Limit = core.Int64Ptr(int64(38))
 				listAccountsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
@@ -1214,10 +1350,8 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 
 	Describe(`ListAccounts(listAccountsOptions *ListAccountsOptions)`, func() {
 		listAccountsPath := "/accounts"
-		var serverSleepTime time.Duration
-		Context(`Using mock server endpoint`, func() {
+		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
-				serverSleepTime = 0
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
@@ -1226,20 +1360,80 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 					Expect(req.Method).To(Equal("GET"))
 
 					Expect(req.URL.Query()["enterprise_id"]).To(Equal([]string{"testString"}))
-
 					Expect(req.URL.Query()["account_group_id"]).To(Equal([]string{"testString"}))
-
+					Expect(req.URL.Query()["next_docid"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["parent"]).To(Equal([]string{"testString"}))
-
 					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(38))}))
-
 					// Sleep a short time to support a timeout test
-					time.Sleep(serverSleepTime)
+					time.Sleep(100 * time.Millisecond)
 
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"rows_count": 9, "next_url": "NextURL", "resources": [{"url": "URL", "id": "ID", "crn": "CRN", "parent": "Parent", "enterprise_account_id": "EnterpriseAccountID", "enterprise_id": "EnterpriseID", "enterprise_path": "EnterprisePath", "name": "Name", "state": "State", "owner_iam_id": "OwnerIamID", "paid": true, "owner_email": "OwnerEmail", "is_enterprise_account": false, "created_at": "2019-01-01T12:00:00", "created_by": "CreatedBy", "updated_at": "2019-01-01T12:00:00", "updated_by": "UpdatedBy"}]}`)
+					fmt.Fprintf(res, "%s", `{"rows_count": 9, "next_url": "NextURL", "resources": [{"url": "URL", "id": "ID", "crn": "CRN", "parent": "Parent", "enterprise_account_id": "EnterpriseAccountID", "enterprise_id": "EnterpriseID", "enterprise_path": "EnterprisePath", "name": "Name", "state": "State", "owner_iam_id": "OwnerIamID", "paid": true, "owner_email": "OwnerEmail", "is_enterprise_account": false, "created_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "updated_at": "2019-01-01T12:00:00.000Z", "updated_by": "UpdatedBy"}]}`)
+				}))
+			})
+			It(`Invoke ListAccounts successfully with retries`, func() {
+				enterpriseManagementService, serviceErr := enterprisemanagementv1.NewEnterpriseManagementV1(&enterprisemanagementv1.EnterpriseManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(enterpriseManagementService).ToNot(BeNil())
+				enterpriseManagementService.EnableRetries(0, 0)
+
+				// Construct an instance of the ListAccountsOptions model
+				listAccountsOptionsModel := new(enterprisemanagementv1.ListAccountsOptions)
+				listAccountsOptionsModel.EnterpriseID = core.StringPtr("testString")
+				listAccountsOptionsModel.AccountGroupID = core.StringPtr("testString")
+				listAccountsOptionsModel.NextDocid = core.StringPtr("testString")
+				listAccountsOptionsModel.Parent = core.StringPtr("testString")
+				listAccountsOptionsModel.Limit = core.Int64Ptr(int64(38))
+				listAccountsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := enterpriseManagementService.ListAccountsWithContext(ctx, listAccountsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				enterpriseManagementService.DisableRetries()
+				result, response, operationErr := enterpriseManagementService.ListAccounts(listAccountsOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = enterpriseManagementService.ListAccountsWithContext(ctx, listAccountsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(listAccountsPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					Expect(req.URL.Query()["enterprise_id"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["account_group_id"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["next_docid"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["parent"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(38))}))
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"rows_count": 9, "next_url": "NextURL", "resources": [{"url": "URL", "id": "ID", "crn": "CRN", "parent": "Parent", "enterprise_account_id": "EnterpriseAccountID", "enterprise_id": "EnterpriseID", "enterprise_path": "EnterprisePath", "name": "Name", "state": "State", "owner_iam_id": "OwnerIamID", "paid": true, "owner_email": "OwnerEmail", "is_enterprise_account": false, "created_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "updated_at": "2019-01-01T12:00:00.000Z", "updated_by": "UpdatedBy"}]}`)
 				}))
 			})
 			It(`Invoke ListAccounts successfully`, func() {
@@ -1249,7 +1443,6 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 				})
 				Expect(serviceErr).To(BeNil())
 				Expect(enterpriseManagementService).ToNot(BeNil())
-				enterpriseManagementService.EnableRetries(0, 0)
 
 				// Invoke operation with nil options model (negative test)
 				result, response, operationErr := enterpriseManagementService.ListAccounts(nil)
@@ -1261,6 +1454,7 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 				listAccountsOptionsModel := new(enterprisemanagementv1.ListAccountsOptions)
 				listAccountsOptionsModel.EnterpriseID = core.StringPtr("testString")
 				listAccountsOptionsModel.AccountGroupID = core.StringPtr("testString")
+				listAccountsOptionsModel.NextDocid = core.StringPtr("testString")
 				listAccountsOptionsModel.Parent = core.StringPtr("testString")
 				listAccountsOptionsModel.Limit = core.Int64Ptr(int64(38))
 				listAccountsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
@@ -1271,30 +1465,6 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
 
-				// Invoke operation with a Context to test a timeout error
-				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc()
-				serverSleepTime = 100 * time.Millisecond
-				_, _, operationErr = enterpriseManagementService.ListAccountsWithContext(ctx, listAccountsOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-				serverSleepTime = time.Duration(0)
-
-				// Disable retries and test again
-				enterpriseManagementService.DisableRetries()
-				result, response, operationErr = enterpriseManagementService.ListAccounts(listAccountsOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).ToNot(BeNil())
-
-				// Re-test the timeout error with retries disabled
-				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc2()
-				serverSleepTime = 100 * time.Millisecond
-				_, _, operationErr = enterpriseManagementService.ListAccountsWithContext(ctx, listAccountsOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-				serverSleepTime = time.Duration(0)
 			})
 			It(`Invoke ListAccounts with error: Operation request error`, func() {
 				enterpriseManagementService, serviceErr := enterprisemanagementv1.NewEnterpriseManagementV1(&enterprisemanagementv1.EnterpriseManagementV1Options{
@@ -1308,6 +1478,7 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 				listAccountsOptionsModel := new(enterprisemanagementv1.ListAccountsOptions)
 				listAccountsOptionsModel.EnterpriseID = core.StringPtr("testString")
 				listAccountsOptionsModel.AccountGroupID = core.StringPtr("testString")
+				listAccountsOptionsModel.NextDocid = core.StringPtr("testString")
 				listAccountsOptionsModel.Parent = core.StringPtr("testString")
 				listAccountsOptionsModel.Limit = core.Int64Ptr(int64(38))
 				listAccountsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
@@ -1373,10 +1544,8 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 
 	Describe(`GetAccount(getAccountOptions *GetAccountOptions)`, func() {
 		getAccountPath := "/accounts/testString"
-		var serverSleepTime time.Duration
-		Context(`Using mock server endpoint`, func() {
+		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
-				serverSleepTime = 0
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
@@ -1385,12 +1554,66 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 					Expect(req.Method).To(Equal("GET"))
 
 					// Sleep a short time to support a timeout test
-					time.Sleep(serverSleepTime)
+					time.Sleep(100 * time.Millisecond)
 
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"url": "URL", "id": "ID", "crn": "CRN", "parent": "Parent", "enterprise_account_id": "EnterpriseAccountID", "enterprise_id": "EnterpriseID", "enterprise_path": "EnterprisePath", "name": "Name", "state": "State", "owner_iam_id": "OwnerIamID", "paid": true, "owner_email": "OwnerEmail", "is_enterprise_account": false, "created_at": "2019-01-01T12:00:00", "created_by": "CreatedBy", "updated_at": "2019-01-01T12:00:00", "updated_by": "UpdatedBy"}`)
+					fmt.Fprintf(res, "%s", `{"url": "URL", "id": "ID", "crn": "CRN", "parent": "Parent", "enterprise_account_id": "EnterpriseAccountID", "enterprise_id": "EnterpriseID", "enterprise_path": "EnterprisePath", "name": "Name", "state": "State", "owner_iam_id": "OwnerIamID", "paid": true, "owner_email": "OwnerEmail", "is_enterprise_account": false, "created_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "updated_at": "2019-01-01T12:00:00.000Z", "updated_by": "UpdatedBy"}`)
+				}))
+			})
+			It(`Invoke GetAccount successfully with retries`, func() {
+				enterpriseManagementService, serviceErr := enterprisemanagementv1.NewEnterpriseManagementV1(&enterprisemanagementv1.EnterpriseManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(enterpriseManagementService).ToNot(BeNil())
+				enterpriseManagementService.EnableRetries(0, 0)
+
+				// Construct an instance of the GetAccountOptions model
+				getAccountOptionsModel := new(enterprisemanagementv1.GetAccountOptions)
+				getAccountOptionsModel.AccountID = core.StringPtr("testString")
+				getAccountOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := enterpriseManagementService.GetAccountWithContext(ctx, getAccountOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				enterpriseManagementService.DisableRetries()
+				result, response, operationErr := enterpriseManagementService.GetAccount(getAccountOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = enterpriseManagementService.GetAccountWithContext(ctx, getAccountOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getAccountPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"url": "URL", "id": "ID", "crn": "CRN", "parent": "Parent", "enterprise_account_id": "EnterpriseAccountID", "enterprise_id": "EnterpriseID", "enterprise_path": "EnterprisePath", "name": "Name", "state": "State", "owner_iam_id": "OwnerIamID", "paid": true, "owner_email": "OwnerEmail", "is_enterprise_account": false, "created_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "updated_at": "2019-01-01T12:00:00.000Z", "updated_by": "UpdatedBy"}`)
 				}))
 			})
 			It(`Invoke GetAccount successfully`, func() {
@@ -1400,7 +1623,6 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 				})
 				Expect(serviceErr).To(BeNil())
 				Expect(enterpriseManagementService).ToNot(BeNil())
-				enterpriseManagementService.EnableRetries(0, 0)
 
 				// Invoke operation with nil options model (negative test)
 				result, response, operationErr := enterpriseManagementService.GetAccount(nil)
@@ -1419,30 +1641,6 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
 
-				// Invoke operation with a Context to test a timeout error
-				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc()
-				serverSleepTime = 100 * time.Millisecond
-				_, _, operationErr = enterpriseManagementService.GetAccountWithContext(ctx, getAccountOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-				serverSleepTime = time.Duration(0)
-
-				// Disable retries and test again
-				enterpriseManagementService.DisableRetries()
-				result, response, operationErr = enterpriseManagementService.GetAccount(getAccountOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).ToNot(BeNil())
-
-				// Re-test the timeout error with retries disabled
-				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc2()
-				serverSleepTime = 100 * time.Millisecond
-				_, _, operationErr = enterpriseManagementService.GetAccountWithContext(ctx, getAccountOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-				serverSleepTime = time.Duration(0)
 			})
 			It(`Invoke GetAccount with error: Operation validation and request error`, func() {
 				enterpriseManagementService, serviceErr := enterprisemanagementv1.NewEnterpriseManagementV1(&enterprisemanagementv1.EnterpriseManagementV1Options{
@@ -1515,7 +1713,6 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 				})
 				Expect(serviceErr).To(BeNil())
 				Expect(enterpriseManagementService).ToNot(BeNil())
-				enterpriseManagementService.EnableRetries(0, 0)
 
 				// Invoke operation with nil options model (negative test)
 				response, operationErr := enterpriseManagementService.UpdateAccount(nil)
@@ -1529,12 +1726,6 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 				updateAccountOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
-				response, operationErr = enterpriseManagementService.UpdateAccount(updateAccountOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-
-				// Disable retries and test again
-				enterpriseManagementService.DisableRetries()
 				response, operationErr = enterpriseManagementService.UpdateAccount(updateAccountOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
@@ -1750,10 +1941,8 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 
 	Describe(`CreateEnterprise(createEnterpriseOptions *CreateEnterpriseOptions)`, func() {
 		createEnterprisePath := "/enterprises"
-		var serverSleepTime time.Duration
-		Context(`Using mock server endpoint`, func() {
+		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
-				serverSleepTime = 0
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
@@ -1778,7 +1967,80 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
 
 					// Sleep a short time to support a timeout test
-					time.Sleep(serverSleepTime)
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(202)
+					fmt.Fprintf(res, "%s", `{"enterprise_id": "EnterpriseID", "enterprise_account_id": "EnterpriseAccountID"}`)
+				}))
+			})
+			It(`Invoke CreateEnterprise successfully with retries`, func() {
+				enterpriseManagementService, serviceErr := enterprisemanagementv1.NewEnterpriseManagementV1(&enterprisemanagementv1.EnterpriseManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(enterpriseManagementService).ToNot(BeNil())
+				enterpriseManagementService.EnableRetries(0, 0)
+
+				// Construct an instance of the CreateEnterpriseOptions model
+				createEnterpriseOptionsModel := new(enterprisemanagementv1.CreateEnterpriseOptions)
+				createEnterpriseOptionsModel.SourceAccountID = core.StringPtr("testString")
+				createEnterpriseOptionsModel.Name = core.StringPtr("testString")
+				createEnterpriseOptionsModel.PrimaryContactIamID = core.StringPtr("testString")
+				createEnterpriseOptionsModel.Domain = core.StringPtr("testString")
+				createEnterpriseOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := enterpriseManagementService.CreateEnterpriseWithContext(ctx, createEnterpriseOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				enterpriseManagementService.DisableRetries()
+				result, response, operationErr := enterpriseManagementService.CreateEnterprise(createEnterpriseOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = enterpriseManagementService.CreateEnterpriseWithContext(ctx, createEnterpriseOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(createEnterprisePath))
+					Expect(req.Method).To(Equal("POST"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
 
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
@@ -1793,7 +2055,6 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 				})
 				Expect(serviceErr).To(BeNil())
 				Expect(enterpriseManagementService).ToNot(BeNil())
-				enterpriseManagementService.EnableRetries(0, 0)
 
 				// Invoke operation with nil options model (negative test)
 				result, response, operationErr := enterpriseManagementService.CreateEnterprise(nil)
@@ -1815,30 +2076,6 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
 
-				// Invoke operation with a Context to test a timeout error
-				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc()
-				serverSleepTime = 100 * time.Millisecond
-				_, _, operationErr = enterpriseManagementService.CreateEnterpriseWithContext(ctx, createEnterpriseOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-				serverSleepTime = time.Duration(0)
-
-				// Disable retries and test again
-				enterpriseManagementService.DisableRetries()
-				result, response, operationErr = enterpriseManagementService.CreateEnterprise(createEnterpriseOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).ToNot(BeNil())
-
-				// Re-test the timeout error with retries disabled
-				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc2()
-				serverSleepTime = 100 * time.Millisecond
-				_, _, operationErr = enterpriseManagementService.CreateEnterpriseWithContext(ctx, createEnterpriseOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-				serverSleepTime = time.Duration(0)
 			})
 			It(`Invoke CreateEnterprise with error: Operation validation and request error`, func() {
 				enterpriseManagementService, serviceErr := enterprisemanagementv1.NewEnterpriseManagementV1(&enterprisemanagementv1.EnterpriseManagementV1Options{
@@ -1887,13 +2124,10 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 					Expect(req.URL.EscapedPath()).To(Equal(listEnterprisesPath))
 					Expect(req.Method).To(Equal("GET"))
 					Expect(req.URL.Query()["enterprise_account_id"]).To(Equal([]string{"testString"}))
-
 					Expect(req.URL.Query()["account_group_id"]).To(Equal([]string{"testString"}))
-
 					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"testString"}))
-
+					Expect(req.URL.Query()["next_docid"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(38))}))
-
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
 					fmt.Fprintf(res, `} this is not valid json {`)
@@ -1912,6 +2146,7 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 				listEnterprisesOptionsModel.EnterpriseAccountID = core.StringPtr("testString")
 				listEnterprisesOptionsModel.AccountGroupID = core.StringPtr("testString")
 				listEnterprisesOptionsModel.AccountID = core.StringPtr("testString")
+				listEnterprisesOptionsModel.NextDocid = core.StringPtr("testString")
 				listEnterprisesOptionsModel.Limit = core.Int64Ptr(int64(38))
 				listEnterprisesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
@@ -1935,10 +2170,8 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 
 	Describe(`ListEnterprises(listEnterprisesOptions *ListEnterprisesOptions)`, func() {
 		listEnterprisesPath := "/enterprises"
-		var serverSleepTime time.Duration
-		Context(`Using mock server endpoint`, func() {
+		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
-				serverSleepTime = 0
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
@@ -1947,20 +2180,80 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 					Expect(req.Method).To(Equal("GET"))
 
 					Expect(req.URL.Query()["enterprise_account_id"]).To(Equal([]string{"testString"}))
-
 					Expect(req.URL.Query()["account_group_id"]).To(Equal([]string{"testString"}))
-
 					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"testString"}))
-
+					Expect(req.URL.Query()["next_docid"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(38))}))
-
 					// Sleep a short time to support a timeout test
-					time.Sleep(serverSleepTime)
+					time.Sleep(100 * time.Millisecond)
 
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"rows_count": 9, "next_url": "NextURL", "resources": [{"url": "URL", "id": "ID", "enterprise_account_id": "EnterpriseAccountID", "crn": "CRN", "name": "Name", "domain": "Domain", "state": "State", "primary_contact_iam_id": "PrimaryContactIamID", "primary_contact_email": "PrimaryContactEmail", "created_at": "2019-01-01T12:00:00", "created_by": "CreatedBy", "updated_at": "2019-01-01T12:00:00", "updated_by": "UpdatedBy"}]}`)
+					fmt.Fprintf(res, "%s", `{"rows_count": 9, "next_url": "NextURL", "resources": [{"url": "URL", "id": "ID", "enterprise_account_id": "EnterpriseAccountID", "crn": "CRN", "name": "Name", "domain": "Domain", "state": "State", "primary_contact_iam_id": "PrimaryContactIamID", "primary_contact_email": "PrimaryContactEmail", "created_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "updated_at": "2019-01-01T12:00:00.000Z", "updated_by": "UpdatedBy"}]}`)
+				}))
+			})
+			It(`Invoke ListEnterprises successfully with retries`, func() {
+				enterpriseManagementService, serviceErr := enterprisemanagementv1.NewEnterpriseManagementV1(&enterprisemanagementv1.EnterpriseManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(enterpriseManagementService).ToNot(BeNil())
+				enterpriseManagementService.EnableRetries(0, 0)
+
+				// Construct an instance of the ListEnterprisesOptions model
+				listEnterprisesOptionsModel := new(enterprisemanagementv1.ListEnterprisesOptions)
+				listEnterprisesOptionsModel.EnterpriseAccountID = core.StringPtr("testString")
+				listEnterprisesOptionsModel.AccountGroupID = core.StringPtr("testString")
+				listEnterprisesOptionsModel.AccountID = core.StringPtr("testString")
+				listEnterprisesOptionsModel.NextDocid = core.StringPtr("testString")
+				listEnterprisesOptionsModel.Limit = core.Int64Ptr(int64(38))
+				listEnterprisesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := enterpriseManagementService.ListEnterprisesWithContext(ctx, listEnterprisesOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				enterpriseManagementService.DisableRetries()
+				result, response, operationErr := enterpriseManagementService.ListEnterprises(listEnterprisesOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = enterpriseManagementService.ListEnterprisesWithContext(ctx, listEnterprisesOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(listEnterprisesPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					Expect(req.URL.Query()["enterprise_account_id"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["account_group_id"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["next_docid"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(38))}))
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"rows_count": 9, "next_url": "NextURL", "resources": [{"url": "URL", "id": "ID", "enterprise_account_id": "EnterpriseAccountID", "crn": "CRN", "name": "Name", "domain": "Domain", "state": "State", "primary_contact_iam_id": "PrimaryContactIamID", "primary_contact_email": "PrimaryContactEmail", "created_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "updated_at": "2019-01-01T12:00:00.000Z", "updated_by": "UpdatedBy"}]}`)
 				}))
 			})
 			It(`Invoke ListEnterprises successfully`, func() {
@@ -1970,7 +2263,6 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 				})
 				Expect(serviceErr).To(BeNil())
 				Expect(enterpriseManagementService).ToNot(BeNil())
-				enterpriseManagementService.EnableRetries(0, 0)
 
 				// Invoke operation with nil options model (negative test)
 				result, response, operationErr := enterpriseManagementService.ListEnterprises(nil)
@@ -1983,6 +2275,7 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 				listEnterprisesOptionsModel.EnterpriseAccountID = core.StringPtr("testString")
 				listEnterprisesOptionsModel.AccountGroupID = core.StringPtr("testString")
 				listEnterprisesOptionsModel.AccountID = core.StringPtr("testString")
+				listEnterprisesOptionsModel.NextDocid = core.StringPtr("testString")
 				listEnterprisesOptionsModel.Limit = core.Int64Ptr(int64(38))
 				listEnterprisesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
@@ -1992,30 +2285,6 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
 
-				// Invoke operation with a Context to test a timeout error
-				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc()
-				serverSleepTime = 100 * time.Millisecond
-				_, _, operationErr = enterpriseManagementService.ListEnterprisesWithContext(ctx, listEnterprisesOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-				serverSleepTime = time.Duration(0)
-
-				// Disable retries and test again
-				enterpriseManagementService.DisableRetries()
-				result, response, operationErr = enterpriseManagementService.ListEnterprises(listEnterprisesOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).ToNot(BeNil())
-
-				// Re-test the timeout error with retries disabled
-				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc2()
-				serverSleepTime = 100 * time.Millisecond
-				_, _, operationErr = enterpriseManagementService.ListEnterprisesWithContext(ctx, listEnterprisesOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-				serverSleepTime = time.Duration(0)
 			})
 			It(`Invoke ListEnterprises with error: Operation request error`, func() {
 				enterpriseManagementService, serviceErr := enterprisemanagementv1.NewEnterpriseManagementV1(&enterprisemanagementv1.EnterpriseManagementV1Options{
@@ -2030,6 +2299,7 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 				listEnterprisesOptionsModel.EnterpriseAccountID = core.StringPtr("testString")
 				listEnterprisesOptionsModel.AccountGroupID = core.StringPtr("testString")
 				listEnterprisesOptionsModel.AccountID = core.StringPtr("testString")
+				listEnterprisesOptionsModel.NextDocid = core.StringPtr("testString")
 				listEnterprisesOptionsModel.Limit = core.Int64Ptr(int64(38))
 				listEnterprisesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
@@ -2094,10 +2364,8 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 
 	Describe(`GetEnterprise(getEnterpriseOptions *GetEnterpriseOptions)`, func() {
 		getEnterprisePath := "/enterprises/testString"
-		var serverSleepTime time.Duration
-		Context(`Using mock server endpoint`, func() {
+		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
-				serverSleepTime = 0
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
@@ -2106,12 +2374,66 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 					Expect(req.Method).To(Equal("GET"))
 
 					// Sleep a short time to support a timeout test
-					time.Sleep(serverSleepTime)
+					time.Sleep(100 * time.Millisecond)
 
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"url": "URL", "id": "ID", "enterprise_account_id": "EnterpriseAccountID", "crn": "CRN", "name": "Name", "domain": "Domain", "state": "State", "primary_contact_iam_id": "PrimaryContactIamID", "primary_contact_email": "PrimaryContactEmail", "created_at": "2019-01-01T12:00:00", "created_by": "CreatedBy", "updated_at": "2019-01-01T12:00:00", "updated_by": "UpdatedBy"}`)
+					fmt.Fprintf(res, "%s", `{"url": "URL", "id": "ID", "enterprise_account_id": "EnterpriseAccountID", "crn": "CRN", "name": "Name", "domain": "Domain", "state": "State", "primary_contact_iam_id": "PrimaryContactIamID", "primary_contact_email": "PrimaryContactEmail", "created_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "updated_at": "2019-01-01T12:00:00.000Z", "updated_by": "UpdatedBy"}`)
+				}))
+			})
+			It(`Invoke GetEnterprise successfully with retries`, func() {
+				enterpriseManagementService, serviceErr := enterprisemanagementv1.NewEnterpriseManagementV1(&enterprisemanagementv1.EnterpriseManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(enterpriseManagementService).ToNot(BeNil())
+				enterpriseManagementService.EnableRetries(0, 0)
+
+				// Construct an instance of the GetEnterpriseOptions model
+				getEnterpriseOptionsModel := new(enterprisemanagementv1.GetEnterpriseOptions)
+				getEnterpriseOptionsModel.EnterpriseID = core.StringPtr("testString")
+				getEnterpriseOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := enterpriseManagementService.GetEnterpriseWithContext(ctx, getEnterpriseOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				enterpriseManagementService.DisableRetries()
+				result, response, operationErr := enterpriseManagementService.GetEnterprise(getEnterpriseOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = enterpriseManagementService.GetEnterpriseWithContext(ctx, getEnterpriseOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getEnterprisePath))
+					Expect(req.Method).To(Equal("GET"))
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"url": "URL", "id": "ID", "enterprise_account_id": "EnterpriseAccountID", "crn": "CRN", "name": "Name", "domain": "Domain", "state": "State", "primary_contact_iam_id": "PrimaryContactIamID", "primary_contact_email": "PrimaryContactEmail", "created_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "updated_at": "2019-01-01T12:00:00.000Z", "updated_by": "UpdatedBy"}`)
 				}))
 			})
 			It(`Invoke GetEnterprise successfully`, func() {
@@ -2121,7 +2443,6 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 				})
 				Expect(serviceErr).To(BeNil())
 				Expect(enterpriseManagementService).ToNot(BeNil())
-				enterpriseManagementService.EnableRetries(0, 0)
 
 				// Invoke operation with nil options model (negative test)
 				result, response, operationErr := enterpriseManagementService.GetEnterprise(nil)
@@ -2140,30 +2461,6 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
 
-				// Invoke operation with a Context to test a timeout error
-				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc()
-				serverSleepTime = 100 * time.Millisecond
-				_, _, operationErr = enterpriseManagementService.GetEnterpriseWithContext(ctx, getEnterpriseOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-				serverSleepTime = time.Duration(0)
-
-				// Disable retries and test again
-				enterpriseManagementService.DisableRetries()
-				result, response, operationErr = enterpriseManagementService.GetEnterprise(getEnterpriseOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).ToNot(BeNil())
-
-				// Re-test the timeout error with retries disabled
-				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc2()
-				serverSleepTime = 100 * time.Millisecond
-				_, _, operationErr = enterpriseManagementService.GetEnterpriseWithContext(ctx, getEnterpriseOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-				serverSleepTime = time.Duration(0)
 			})
 			It(`Invoke GetEnterprise with error: Operation validation and request error`, func() {
 				enterpriseManagementService, serviceErr := enterprisemanagementv1.NewEnterpriseManagementV1(&enterprisemanagementv1.EnterpriseManagementV1Options{
@@ -2236,7 +2533,6 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 				})
 				Expect(serviceErr).To(BeNil())
 				Expect(enterpriseManagementService).ToNot(BeNil())
-				enterpriseManagementService.EnableRetries(0, 0)
 
 				// Invoke operation with nil options model (negative test)
 				response, operationErr := enterpriseManagementService.UpdateEnterprise(nil)
@@ -2252,12 +2548,6 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 				updateEnterpriseOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
-				response, operationErr = enterpriseManagementService.UpdateEnterprise(updateEnterpriseOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-
-				// Disable retries and test again
-				enterpriseManagementService.DisableRetries()
 				response, operationErr = enterpriseManagementService.UpdateEnterprise(updateEnterpriseOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
@@ -2404,12 +2694,14 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 				listAccountGroupsOptionsModel := enterpriseManagementService.NewListAccountGroupsOptions()
 				listAccountGroupsOptionsModel.SetEnterpriseID("testString")
 				listAccountGroupsOptionsModel.SetParentAccountGroupID("testString")
+				listAccountGroupsOptionsModel.SetNextDocid("testString")
 				listAccountGroupsOptionsModel.SetParent("testString")
 				listAccountGroupsOptionsModel.SetLimit(int64(38))
 				listAccountGroupsOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(listAccountGroupsOptionsModel).ToNot(BeNil())
 				Expect(listAccountGroupsOptionsModel.EnterpriseID).To(Equal(core.StringPtr("testString")))
 				Expect(listAccountGroupsOptionsModel.ParentAccountGroupID).To(Equal(core.StringPtr("testString")))
+				Expect(listAccountGroupsOptionsModel.NextDocid).To(Equal(core.StringPtr("testString")))
 				Expect(listAccountGroupsOptionsModel.Parent).To(Equal(core.StringPtr("testString")))
 				Expect(listAccountGroupsOptionsModel.Limit).To(Equal(core.Int64Ptr(int64(38))))
 				Expect(listAccountGroupsOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
@@ -2419,12 +2711,14 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 				listAccountsOptionsModel := enterpriseManagementService.NewListAccountsOptions()
 				listAccountsOptionsModel.SetEnterpriseID("testString")
 				listAccountsOptionsModel.SetAccountGroupID("testString")
+				listAccountsOptionsModel.SetNextDocid("testString")
 				listAccountsOptionsModel.SetParent("testString")
 				listAccountsOptionsModel.SetLimit(int64(38))
 				listAccountsOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(listAccountsOptionsModel).ToNot(BeNil())
 				Expect(listAccountsOptionsModel.EnterpriseID).To(Equal(core.StringPtr("testString")))
 				Expect(listAccountsOptionsModel.AccountGroupID).To(Equal(core.StringPtr("testString")))
+				Expect(listAccountsOptionsModel.NextDocid).To(Equal(core.StringPtr("testString")))
 				Expect(listAccountsOptionsModel.Parent).To(Equal(core.StringPtr("testString")))
 				Expect(listAccountsOptionsModel.Limit).To(Equal(core.Int64Ptr(int64(38))))
 				Expect(listAccountsOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
@@ -2435,12 +2729,14 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 				listEnterprisesOptionsModel.SetEnterpriseAccountID("testString")
 				listEnterprisesOptionsModel.SetAccountGroupID("testString")
 				listEnterprisesOptionsModel.SetAccountID("testString")
+				listEnterprisesOptionsModel.SetNextDocid("testString")
 				listEnterprisesOptionsModel.SetLimit(int64(38))
 				listEnterprisesOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(listEnterprisesOptionsModel).ToNot(BeNil())
 				Expect(listEnterprisesOptionsModel.EnterpriseAccountID).To(Equal(core.StringPtr("testString")))
 				Expect(listEnterprisesOptionsModel.AccountGroupID).To(Equal(core.StringPtr("testString")))
 				Expect(listEnterprisesOptionsModel.AccountID).To(Equal(core.StringPtr("testString")))
+				Expect(listEnterprisesOptionsModel.NextDocid).To(Equal(core.StringPtr("testString")))
 				Expect(listEnterprisesOptionsModel.Limit).To(Equal(core.Int64Ptr(int64(38))))
 				Expect(listEnterprisesOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})

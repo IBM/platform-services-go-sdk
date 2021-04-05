@@ -1,5 +1,5 @@
 /**
- * (C) Copyright IBM Corp. 2020.
+ * (C) Copyright IBM Corp. 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,9 +15,8 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-629bbb97-20201207-171303
+ * IBM OpenAPI SDK Code Generator Version: 3.29.1-b338fb38-20210313-010605
  */
- 
 
 // Package enterprisemanagementv1 : Operations and models for the EnterpriseManagementV1 service
 package enterprisemanagementv1
@@ -26,7 +25,7 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"github.com/IBM/go-sdk-core/v4/core"
+	"github.com/IBM/go-sdk-core/v5/core"
 	common "github.com/IBM/platform-services-go-sdk/common"
 	"github.com/go-openapi/strfmt"
 	"net/http"
@@ -43,7 +42,7 @@ type EnterpriseManagementV1 struct {
 }
 
 // DefaultServiceURL is the default URL to make service requests to.
-const DefaultServiceURL = "https://enterprise.cloud.ibm.com/v1"
+const DefaultServiceURL = "https://enterprise.test.cloud.ibm.com/v1"
 
 // DefaultServiceName is the default key used to find external configuration information.
 const DefaultServiceName = "enterprise_management"
@@ -278,6 +277,9 @@ func (enterpriseManagement *EnterpriseManagementV1) ListAccountGroupsWithContext
 	}
 	if listAccountGroupsOptions.ParentAccountGroupID != nil {
 		builder.AddQuery("parent_account_group_id", fmt.Sprint(*listAccountGroupsOptions.ParentAccountGroupID))
+	}
+	if listAccountGroupsOptions.NextDocid != nil {
+		builder.AddQuery("next_docid", fmt.Sprint(*listAccountGroupsOptions.NextDocid))
 	}
 	if listAccountGroupsOptions.Parent != nil {
 		builder.AddQuery("parent", fmt.Sprint(*listAccountGroupsOptions.Parent))
@@ -612,6 +614,9 @@ func (enterpriseManagement *EnterpriseManagementV1) ListAccountsWithContext(ctx 
 	if listAccountsOptions.AccountGroupID != nil {
 		builder.AddQuery("account_group_id", fmt.Sprint(*listAccountsOptions.AccountGroupID))
 	}
+	if listAccountsOptions.NextDocid != nil {
+		builder.AddQuery("next_docid", fmt.Sprint(*listAccountsOptions.NextDocid))
+	}
 	if listAccountsOptions.Parent != nil {
 		builder.AddQuery("parent", fmt.Sprint(*listAccountsOptions.Parent))
 	}
@@ -880,6 +885,9 @@ func (enterpriseManagement *EnterpriseManagementV1) ListEnterprisesWithContext(c
 	if listEnterprisesOptions.AccountID != nil {
 		builder.AddQuery("account_id", fmt.Sprint(*listEnterprisesOptions.AccountID))
 	}
+	if listEnterprisesOptions.NextDocid != nil {
+		builder.AddQuery("next_docid", fmt.Sprint(*listEnterprisesOptions.NextDocid))
+	}
 	if listEnterprisesOptions.Limit != nil {
 		builder.AddQuery("limit", fmt.Sprint(*listEnterprisesOptions.Limit))
 	}
@@ -1081,7 +1089,6 @@ type Account struct {
 	UpdatedBy *string `json:"updated_by,omitempty"`
 }
 
-
 // UnmarshalAccount unmarshals an instance of Account from the specified map of raw messages.
 func UnmarshalAccount(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(Account)
@@ -1205,7 +1212,6 @@ type AccountGroup struct {
 	UpdatedBy *string `json:"updated_by,omitempty"`
 }
 
-
 // UnmarshalAccountGroup unmarshals an instance of AccountGroup from the specified map of raw messages.
 func UnmarshalAccountGroup(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(AccountGroup)
@@ -1277,13 +1283,13 @@ func UnmarshalAccountGroup(m map[string]json.RawMessage, result interface{}) (er
 type CreateAccountGroupOptions struct {
 	// The CRN of the parent under which the account group will be created. The parent can be an existing account group or
 	// the enterprise itself.
-	Parent *string `json:"parent" validate:"required"`
+	Parent *string `validate:"required"`
 
 	// The name of the account group. This field must have 3 - 60 characters.
-	Name *string `json:"name" validate:"required"`
+	Name *string `validate:"required"`
 
 	// The IAM ID of the primary contact for this account group, such as `IBMid-0123ABC`. The IAM ID must already exist.
-	PrimaryContactIamID *string `json:"primary_contact_iam_id" validate:"required"`
+	PrimaryContactIamID *string `validate:"required"`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -1328,7 +1334,6 @@ type CreateAccountGroupResponse struct {
 	AccountGroupID *string `json:"account_group_id,omitempty"`
 }
 
-
 // UnmarshalCreateAccountGroupResponse unmarshals an instance of CreateAccountGroupResponse from the specified map of raw messages.
 func UnmarshalCreateAccountGroupResponse(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(CreateAccountGroupResponse)
@@ -1344,13 +1349,13 @@ func UnmarshalCreateAccountGroupResponse(m map[string]json.RawMessage, result in
 type CreateAccountOptions struct {
 	// The CRN of the parent under which the account will be created. The parent can be an existing account group or the
 	// enterprise itself.
-	Parent *string `json:"parent" validate:"required"`
+	Parent *string `validate:"required"`
 
 	// The name of the account. This field must have 3 - 60 characters.
-	Name *string `json:"name" validate:"required"`
+	Name *string `validate:"required"`
 
 	// The IAM ID of the account owner, such as `IBMid-0123ABC`. The IAM ID must already exist.
-	OwnerIamID *string `json:"owner_iam_id" validate:"required"`
+	OwnerIamID *string `validate:"required"`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -1395,7 +1400,6 @@ type CreateAccountResponse struct {
 	AccountID *string `json:"account_id,omitempty"`
 }
 
-
 // UnmarshalCreateAccountResponse unmarshals an instance of CreateAccountResponse from the specified map of raw messages.
 func UnmarshalCreateAccountResponse(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(CreateAccountResponse)
@@ -1410,16 +1414,16 @@ func UnmarshalCreateAccountResponse(m map[string]json.RawMessage, result interfa
 // CreateEnterpriseOptions : The CreateEnterprise options.
 type CreateEnterpriseOptions struct {
 	// The ID of the account that is used to create the enterprise.
-	SourceAccountID *string `json:"source_account_id" validate:"required"`
+	SourceAccountID *string `validate:"required"`
 
 	// The name of the enterprise. This field must have 3 - 60 characters.
-	Name *string `json:"name" validate:"required"`
+	Name *string `validate:"required"`
 
 	// The IAM ID of the enterprise primary contact, such as `IBMid-0123ABC`. The IAM ID must already exist.
-	PrimaryContactIamID *string `json:"primary_contact_iam_id" validate:"required"`
+	PrimaryContactIamID *string `validate:"required"`
 
 	// A domain or subdomain for the enterprise, such as `example.com` or `my.example.com`.
-	Domain *string `json:"domain,omitempty"`
+	Domain *string
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -1473,7 +1477,6 @@ type CreateEnterpriseResponse struct {
 	// the enterprise management.
 	EnterpriseAccountID *string `json:"enterprise_account_id,omitempty"`
 }
-
 
 // UnmarshalCreateEnterpriseResponse unmarshals an instance of CreateEnterpriseResponse from the specified map of raw messages.
 func UnmarshalCreateEnterpriseResponse(m map[string]json.RawMessage, result interface{}) (err error) {
@@ -1531,7 +1534,6 @@ type Enterprise struct {
 	// The IAM ID of the user or service that updated the enterprise.
 	UpdatedBy *string `json:"updated_by,omitempty"`
 }
-
 
 // UnmarshalEnterprise unmarshals an instance of Enterprise from the specified map of raw messages.
 func UnmarshalEnterprise(m map[string]json.RawMessage, result interface{}) (err error) {
@@ -1595,7 +1597,7 @@ func UnmarshalEnterprise(m map[string]json.RawMessage, result interface{}) (err 
 // GetAccountGroupOptions : The GetAccountGroup options.
 type GetAccountGroupOptions struct {
 	// The ID of the account group to retrieve.
-	AccountGroupID *string `json:"account_group_id" validate:"required,ne="`
+	AccountGroupID *string `validate:"required,ne="`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -1623,7 +1625,7 @@ func (options *GetAccountGroupOptions) SetHeaders(param map[string]string) *GetA
 // GetAccountOptions : The GetAccount options.
 type GetAccountOptions struct {
 	// The ID of the account to retrieve.
-	AccountID *string `json:"account_id" validate:"required,ne="`
+	AccountID *string `validate:"required,ne="`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -1651,7 +1653,7 @@ func (options *GetAccountOptions) SetHeaders(param map[string]string) *GetAccoun
 // GetEnterpriseOptions : The GetEnterprise options.
 type GetEnterpriseOptions struct {
 	// The ID of the enterprise to retrieve.
-	EnterpriseID *string `json:"enterprise_id" validate:"required,ne="`
+	EnterpriseID *string `validate:"required,ne="`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -1679,18 +1681,18 @@ func (options *GetEnterpriseOptions) SetHeaders(param map[string]string) *GetEnt
 // ImportAccountToEnterpriseOptions : The ImportAccountToEnterprise options.
 type ImportAccountToEnterpriseOptions struct {
 	// The ID of the enterprise to import the stand-alone account into.
-	EnterpriseID *string `json:"enterprise_id" validate:"required,ne="`
+	EnterpriseID *string `validate:"required,ne="`
 
 	// The ID of the existing stand-alone account to be imported.
-	AccountID *string `json:"account_id" validate:"required,ne="`
+	AccountID *string `validate:"required,ne="`
 
 	// The CRN of the expected parent of the imported account. The parent is the enterprise or account group that the
 	// account is added to.
-	Parent *string `json:"parent,omitempty"`
+	Parent *string
 
 	// The ID of the [billing unit](/apidocs/enterprise-apis/billing-unit) to use for billing this account in the
 	// enterprise.
-	BillingUnitID *string `json:"billing_unit_id,omitempty"`
+	BillingUnitID *string
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -1737,16 +1739,20 @@ func (options *ImportAccountToEnterpriseOptions) SetHeaders(param map[string]str
 // ListAccountGroupsOptions : The ListAccountGroups options.
 type ListAccountGroupsOptions struct {
 	// Get account groups that are either immediate children or are a part of the hierarchy for a given enterprise ID.
-	EnterpriseID *string `json:"enterprise_id,omitempty"`
+	EnterpriseID *string
 
 	// Get account groups that are either immediate children or are a part of the hierarchy for a given account group ID.
-	ParentAccountGroupID *string `json:"parent_account_group_id,omitempty"`
+	ParentAccountGroupID *string
+
+	// The first item to be returned in the page of results. This value can be obtained from the next_url property from the
+	// previous call of the operation. If not specified, then the first page of results is returned.
+	NextDocid *string
 
 	// Get account groups that are either immediate children or are a part of the hierarchy for a given parent CRN.
-	Parent *string `json:"parent,omitempty"`
+	Parent *string
 
 	// Return results up to this limit. Valid values are between `0` and `100`.
-	Limit *int64 `json:"limit,omitempty"`
+	Limit *int64
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -1766,6 +1772,12 @@ func (options *ListAccountGroupsOptions) SetEnterpriseID(enterpriseID string) *L
 // SetParentAccountGroupID : Allow user to set ParentAccountGroupID
 func (options *ListAccountGroupsOptions) SetParentAccountGroupID(parentAccountGroupID string) *ListAccountGroupsOptions {
 	options.ParentAccountGroupID = core.StringPtr(parentAccountGroupID)
+	return options
+}
+
+// SetNextDocid : Allow user to set NextDocid
+func (options *ListAccountGroupsOptions) SetNextDocid(nextDocid string) *ListAccountGroupsOptions {
+	options.NextDocid = core.StringPtr(nextDocid)
 	return options
 }
 
@@ -1799,7 +1811,6 @@ type ListAccountGroupsResponse struct {
 	Resources []AccountGroup `json:"resources,omitempty"`
 }
 
-
 // UnmarshalListAccountGroupsResponse unmarshals an instance of ListAccountGroupsResponse from the specified map of raw messages.
 func UnmarshalListAccountGroupsResponse(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(ListAccountGroupsResponse)
@@ -1822,16 +1833,20 @@ func UnmarshalListAccountGroupsResponse(m map[string]json.RawMessage, result int
 // ListAccountsOptions : The ListAccounts options.
 type ListAccountsOptions struct {
 	// Get accounts that are either immediate children or are a part of the hierarchy for a given enterprise ID.
-	EnterpriseID *string `json:"enterprise_id,omitempty"`
+	EnterpriseID *string
 
 	// Get accounts that are either immediate children or are a part of the hierarchy for a given account group ID.
-	AccountGroupID *string `json:"account_group_id,omitempty"`
+	AccountGroupID *string
+
+	// The first item to be returned in the page of results. This value can be obtained from the next_url property from the
+	// previous call of the operation. If not specified, then the first page of results is returned.
+	NextDocid *string
 
 	// Get accounts that are either immediate children or are a part of the hierarchy for a given parent CRN.
-	Parent *string `json:"parent,omitempty"`
+	Parent *string
 
 	// Return results up to this limit. Valid values are between `0` and `100`.
-	Limit *int64 `json:"limit,omitempty"`
+	Limit *int64
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -1851,6 +1866,12 @@ func (options *ListAccountsOptions) SetEnterpriseID(enterpriseID string) *ListAc
 // SetAccountGroupID : Allow user to set AccountGroupID
 func (options *ListAccountsOptions) SetAccountGroupID(accountGroupID string) *ListAccountsOptions {
 	options.AccountGroupID = core.StringPtr(accountGroupID)
+	return options
+}
+
+// SetNextDocid : Allow user to set NextDocid
+func (options *ListAccountsOptions) SetNextDocid(nextDocid string) *ListAccountsOptions {
+	options.NextDocid = core.StringPtr(nextDocid)
 	return options
 }
 
@@ -1884,7 +1905,6 @@ type ListAccountsResponse struct {
 	Resources []Account `json:"resources,omitempty"`
 }
 
-
 // UnmarshalListAccountsResponse unmarshals an instance of ListAccountsResponse from the specified map of raw messages.
 func UnmarshalListAccountsResponse(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(ListAccountsResponse)
@@ -1907,16 +1927,20 @@ func UnmarshalListAccountsResponse(m map[string]json.RawMessage, result interfac
 // ListEnterprisesOptions : The ListEnterprises options.
 type ListEnterprisesOptions struct {
 	// Get enterprises for a given enterprise account ID.
-	EnterpriseAccountID *string `json:"enterprise_account_id,omitempty"`
+	EnterpriseAccountID *string
 
 	// Get enterprises for a given account group ID.
-	AccountGroupID *string `json:"account_group_id,omitempty"`
+	AccountGroupID *string
 
 	// Get enterprises for a given account ID.
-	AccountID *string `json:"account_id,omitempty"`
+	AccountID *string
+
+	// The first item to be returned in the page of results. This value can be obtained from the next_url property from the
+	// previous call of the operation. If not specified, then the first page of results is returned.
+	NextDocid *string
 
 	// Return results up to this limit. Valid values are between `0` and `100`.
-	Limit *int64 `json:"limit,omitempty"`
+	Limit *int64
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -1945,6 +1969,12 @@ func (options *ListEnterprisesOptions) SetAccountID(accountID string) *ListEnter
 	return options
 }
 
+// SetNextDocid : Allow user to set NextDocid
+func (options *ListEnterprisesOptions) SetNextDocid(nextDocid string) *ListEnterprisesOptions {
+	options.NextDocid = core.StringPtr(nextDocid)
+	return options
+}
+
 // SetLimit : Allow user to set Limit
 func (options *ListEnterprisesOptions) SetLimit(limit int64) *ListEnterprisesOptions {
 	options.Limit = core.Int64Ptr(limit)
@@ -1969,7 +1999,6 @@ type ListEnterprisesResponse struct {
 	Resources []Enterprise `json:"resources,omitempty"`
 }
 
-
 // UnmarshalListEnterprisesResponse unmarshals an instance of ListEnterprisesResponse from the specified map of raw messages.
 func UnmarshalListEnterprisesResponse(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(ListEnterprisesResponse)
@@ -1992,13 +2021,13 @@ func UnmarshalListEnterprisesResponse(m map[string]json.RawMessage, result inter
 // UpdateAccountGroupOptions : The UpdateAccountGroup options.
 type UpdateAccountGroupOptions struct {
 	// The ID of the account group to retrieve.
-	AccountGroupID *string `json:"account_group_id" validate:"required,ne="`
+	AccountGroupID *string `validate:"required,ne="`
 
 	// The new name of the account group. This field must have 3 - 60 characters.
-	Name *string `json:"name,omitempty"`
+	Name *string
 
 	// The IAM ID of the user to be the new primary contact for the account group.
-	PrimaryContactIamID *string `json:"primary_contact_iam_id,omitempty"`
+	PrimaryContactIamID *string
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -2038,10 +2067,10 @@ func (options *UpdateAccountGroupOptions) SetHeaders(param map[string]string) *U
 // UpdateAccountOptions : The UpdateAccount options.
 type UpdateAccountOptions struct {
 	// The ID of the account to retrieve.
-	AccountID *string `json:"account_id" validate:"required,ne="`
+	AccountID *string `validate:"required,ne="`
 
 	// The CRN of the new parent within the enterprise.
-	Parent *string `json:"parent" validate:"required"`
+	Parent *string `validate:"required"`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -2076,16 +2105,16 @@ func (options *UpdateAccountOptions) SetHeaders(param map[string]string) *Update
 // UpdateEnterpriseOptions : The UpdateEnterprise options.
 type UpdateEnterpriseOptions struct {
 	// The ID of the enterprise to retrieve.
-	EnterpriseID *string `json:"enterprise_id" validate:"required,ne="`
+	EnterpriseID *string `validate:"required,ne="`
 
 	// The new name of the enterprise. This field must have 3 - 60 characters.
-	Name *string `json:"name,omitempty"`
+	Name *string
 
 	// The new domain of the enterprise. This field has a limit of 60 characters.
-	Domain *string `json:"domain,omitempty"`
+	Domain *string
 
 	// The IAM ID of the user to be the new primary contact for the enterprise.
-	PrimaryContactIamID *string `json:"primary_contact_iam_id,omitempty"`
+	PrimaryContactIamID *string
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
