@@ -48,13 +48,13 @@ var _ = Describe(`EnterpriseManagementV1 Integration Tests`, func() {
 		serviceURL                  string
 		testConfig                  map[string]string
 
-		authType     string
-		apiKey       string
-		authUrl      string
-		enterpriseId string
-		accountId    string
-		accountIamId string
-		//exampleAccountGroupName = "Example Account Group"
+		authType                string
+		apiKey                  string
+		authUrl                 string
+		enterpriseId            string
+		accountId               string
+		accountIamId            string
+		exampleAccountGroupName = "Example Account Group"
 		//resultPerPage           int64
 	)
 
@@ -121,46 +121,46 @@ var _ = Describe(`EnterpriseManagementV1 Integration Tests`, func() {
 		})
 	})
 
-	//Describe(`CreateAccountGroup - Create an account group`, func() {
-	//	BeforeEach(func() {
-	//		shouldSkipTest()
-	//	})
-	//	It(`CreateAccountGroup(createAccountGroupOptions *CreateAccountGroupOptions)`, func() {
-	//		var parent = "crn:v1:bluemix:public:enterprise::a/" + accountId + "::enterprise:" + enterpriseId
-	//		//fmt.Println(parent)
-	//		createAccountGroupOptions := &enterprisemanagementv1.CreateAccountGroupOptions{
-	//			Parent:              &parent,
-	//			Name:                &exampleAccountGroupName,
-	//			PrimaryContactIamID: &accountIamId,
-	//		}
-	//
-	//		createAccountGroupResponse, response, err := enterpriseManagementService.CreateAccountGroup(createAccountGroupOptions)
-	//
-	//		Expect(err).To(BeNil())
-	//		Expect(response.StatusCode).To(Equal(201))
-	//		Expect(createAccountGroupResponse).ToNot(BeNil())
-	//
-	//	})
-	//})
-
-	Describe(`ListAccountGroups - List account groups`, func() {
+	Describe(`CreateAccountGroup - Create an account group`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
 		})
-		It(`ListAccountGroups(listAccountGroupsOptions *ListAccountGroupsOptions)`, func() {
-
-			listAccountGroupsOptions := &enterprisemanagementv1.ListAccountGroupsOptions{
-				EnterpriseID: &enterpriseId,
+		It(`CreateAccountGroup(createAccountGroupOptions *CreateAccountGroupOptions)`, func() {
+			var parent = "crn:v1:bluemix:public:enterprise::a/" + accountId + "::enterprise:" + enterpriseId
+			//fmt.Println(parent)
+			createAccountGroupOptions := &enterprisemanagementv1.CreateAccountGroupOptions{
+				Parent:              &parent,
+				Name:                &exampleAccountGroupName,
+				PrimaryContactIamID: &accountIamId,
 			}
 
-			listAccountGroupsResponse, response, err := enterpriseManagementService.ListAccountGroups(listAccountGroupsOptions)
+			createAccountGroupResponse, response, err := enterpriseManagementService.CreateAccountGroup(createAccountGroupOptions)
 
 			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(200))
-			Expect(listAccountGroupsResponse).ToNot(BeNil())
+			Expect(response.StatusCode).To(Equal(201))
+			Expect(createAccountGroupResponse).ToNot(BeNil())
 
 		})
 	})
+
+	//Describe(`ListAccountGroups - List account groups`, func() {
+	//	BeforeEach(func() {
+	//		shouldSkipTest()
+	//	})
+	//	It(`ListAccountGroups(listAccountGroupsOptions *ListAccountGroupsOptions)`, func() {
+	//
+	//		listAccountGroupsOptions := &enterprisemanagementv1.ListAccountGroupsOptions{
+	//			EnterpriseID: &enterpriseId,
+	//		}
+	//
+	//		listAccountGroupsResponse, response, err := enterpriseManagementService.ListAccountGroups(listAccountGroupsOptions)
+	//
+	//		Expect(err).To(BeNil())
+	//		Expect(response.StatusCode).To(Equal(200))
+	//		Expect(listAccountGroupsResponse).ToNot(BeNil())
+	//
+	//	})
+	//})
 	//
 	//Describe(`ListAccountGroups - List account groups with paging`, func() {
 	//	BeforeEach(func() {
