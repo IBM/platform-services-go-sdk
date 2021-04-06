@@ -52,6 +52,10 @@ var _ = Describe(`EnterpriseManagementV1 Integration Tests`, func() {
 		apiKey       string
 		authUrl      string
 		enterpriseId string
+		accountId    string
+		accountIamId string
+		//exampleAccountGroupName = "Example Account Group"
+		//resultPerPage           int64
 	)
 
 	var shouldSkipTest = func() {
@@ -87,6 +91,12 @@ var _ = Describe(`EnterpriseManagementV1 Integration Tests`, func() {
 			enterpriseId = testConfig["ENTERPRISE_ID"]
 			Expect(enterpriseId).ToNot(BeEmpty())
 
+			accountId = testConfig["ACCOUNT_ID"]
+			Expect(accountId).ToNot(BeEmpty())
+
+			accountIamId = testConfig["ACCOUNT_IAM_ID"]
+			Expect(accountIamId).NotTo(BeEmpty())
+
 			fmt.Printf("Service URL: %s\n", serviceURL)
 			shouldSkipTest = func() {}
 		})
@@ -116,11 +126,12 @@ var _ = Describe(`EnterpriseManagementV1 Integration Tests`, func() {
 	//		shouldSkipTest()
 	//	})
 	//	It(`CreateAccountGroup(createAccountGroupOptions *CreateAccountGroupOptions)`, func() {
-	//
+	//		var parent = "crn:v1:bluemix:public:enterprise::a/" + accountId + "::enterprise:" + enterpriseId
+	//		//fmt.Println(parent)
 	//		createAccountGroupOptions := &enterprisemanagementv1.CreateAccountGroupOptions{
-	//			Parent:              core.StringPtr("testString"),
-	//			Name:                core.StringPtr("testString"),
-	//			PrimaryContactIamID: core.StringPtr("testString"),
+	//			Parent:              &parent,
+	//			Name:                &exampleAccountGroupName,
+	//			PrimaryContactIamID: &accountIamId,
 	//		}
 	//
 	//		createAccountGroupResponse, response, err := enterpriseManagementService.CreateAccountGroup(createAccountGroupOptions)
@@ -139,11 +150,8 @@ var _ = Describe(`EnterpriseManagementV1 Integration Tests`, func() {
 		It(`ListAccountGroups(listAccountGroupsOptions *ListAccountGroupsOptions)`, func() {
 
 			listAccountGroupsOptions := &enterprisemanagementv1.ListAccountGroupsOptions{
-				EnterpriseID: core.StringPtr("testString"),
-				//ParentAccountGroupID: core.StringPtr("testString"),
-				NextDocid: core.StringPtr("testString"),
-				Parent:    core.StringPtr("testString"),
-				Limit:     core.Int64Ptr(int64(38)),
+				//EnterpriseID: &enterpriseId,
+				//Limit: &resultPerPage,
 			}
 
 			listAccountGroupsResponse, response, err := enterpriseManagementService.ListAccountGroups(listAccountGroupsOptions)
@@ -154,6 +162,38 @@ var _ = Describe(`EnterpriseManagementV1 Integration Tests`, func() {
 
 		})
 	})
+	//
+	//Describe(`ListAccountGroups - List account groups with paging`, func() {
+	//	BeforeEach(func() {
+	//		shouldSkipTest()
+	//	})
+	//	It(`ListAccountGroups(listAccountGroupsOptions *ListAccountGroupsOptions)`, func() {
+	//
+	//		listAccountGroupsOptionsPage1 := &enterprisemanagementv1.ListAccountGroupsOptions{
+	//			EnterpriseID: &enterpriseId,
+	//			Limit:        &resultPerPage,
+	//		}
+	//
+	//		listAccountGroupsResponsePage1, responsePage1, errorPage1 := enterpriseManagementService.ListAccountGroups(listAccountGroupsOptionsPage1)
+	//
+	//		Expect(errorPage1).To(BeNil())
+	//		Expect(responsePage1.StatusCode).To(Equal(200))
+	//		Expect(listAccountGroupsResponsePage1).ToNot(BeNil())
+	//		Expect(listAccountGroupsResponsePage1.RowsCount).To(Equal(1))
+	//
+	//		listAccountGroupsOptionsPage2 := &enterprisemanagementv1.ListAccountGroupsOptions{
+	//			NextDocid: listAccountGroupsResponsePage1.NextURL,
+	//			Limit:     &resultPerPage,
+	//		}
+	//		listAccountGroupsResponsePage2, responsePage2, errorPage2 := enterpriseManagementService.ListAccountGroups(listAccountGroupsOptionsPage2)
+	//
+	//		Expect(errorPage2).To(BeNil())
+	//		Expect(responsePage2.StatusCode).To(Equal(200))
+	//		Expect(listAccountGroupsResponsePage2).ToNot(BeNil())
+	//		Expect(listAccountGroupsResponsePage2).To(Equal(1))
+	//
+	//	})
+	//})
 
 	//Describe(`GetAccountGroup - Get account group by ID`, func() {
 	//	BeforeEach(func() {
@@ -201,10 +241,7 @@ var _ = Describe(`EnterpriseManagementV1 Integration Tests`, func() {
 	//	It(`ImportAccountToEnterprise(importAccountToEnterpriseOptions *ImportAccountToEnterpriseOptions)`, func() {
 	//
 	//		importAccountToEnterpriseOptions := &enterprisemanagementv1.ImportAccountToEnterpriseOptions{
-	//			EnterpriseID:  core.StringPtr("testString"),
-	//			AccountID:     core.StringPtr("testString"),
-	//			Parent:        core.StringPtr("testString"),
-	//			BillingUnitID: core.StringPtr("testString"),
+	//			AccountID: core.StringPtr("testString"),
 	//		}
 	//
 	//		response, err := enterpriseManagementService.ImportAccountToEnterprise(importAccountToEnterpriseOptions)
@@ -326,11 +363,7 @@ var _ = Describe(`EnterpriseManagementV1 Integration Tests`, func() {
 	//	It(`ListEnterprises(listEnterprisesOptions *ListEnterprisesOptions)`, func() {
 	//
 	//		listEnterprisesOptions := &enterprisemanagementv1.ListEnterprisesOptions{
-	//			EnterpriseAccountID: core.StringPtr("testString"),
-	//			AccountGroupID:      core.StringPtr("testString"),
-	//			AccountID:           core.StringPtr("testString"),
-	//			NextDocid:           core.StringPtr("testString"),
-	//			Limit:               core.Int64Ptr(int64(38)),
+	//			AccountID: &accountId,
 	//		}
 	//
 	//		listEnterprisesResponse, response, err := enterpriseManagementService.ListEnterprises(listEnterprisesOptions)
