@@ -150,8 +150,7 @@ var _ = Describe(`EnterpriseManagementV1 Integration Tests`, func() {
 		It(`ListAccountGroups(listAccountGroupsOptions *ListAccountGroupsOptions)`, func() {
 
 			listAccountGroupsOptions := &enterprisemanagementv1.ListAccountGroupsOptions{
-				//EnterpriseID: &enterpriseId,
-				//Limit: &resultPerPage,
+				EnterpriseID: &enterpriseId,
 			}
 
 			listAccountGroupsResponse, response, err := enterpriseManagementService.ListAccountGroups(listAccountGroupsOptions)
