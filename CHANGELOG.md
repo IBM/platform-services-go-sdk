@@ -1,3 +1,10 @@
+## [0.18.5](https://github.com/IBM/platform-services-go-sdk/compare/v0.18.4...v0.18.5) (2021-04-06)
+
+
+### Bug Fixes
+
+* **IAM Policy Management:** add restore policy functionality ([#98](https://github.com/IBM/platform-services-go-sdk/issues/98)) ([75529fc](https://github.com/IBM/platform-services-go-sdk/commit/75529fc523a4715d6a5350fa1ff6fe7d9a2d2be3))
+
 ## [0.18.4](https://github.com/IBM/platform-services-go-sdk/compare/v0.18.3...v0.18.4) (2021-04-02)
 
 
