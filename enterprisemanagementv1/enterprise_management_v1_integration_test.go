@@ -20,7 +20,9 @@ package enterprisemanagementv1_test
 
 import (
 	"fmt"
+	"log"
 	"os"
+	"time"
 
 	"github.com/IBM/go-sdk-core/v5/core"
 	"github.com/IBM/platform-services-go-sdk/enterprisemanagementv1"
@@ -79,7 +81,7 @@ var _ = Describe(`EnterpriseManagementV1 Integration Tests`, func() {
 			authUrl = testConfig["AUTH_URL"]
 			Expect(authUrl).ToNot(BeEmpty())
 
-			apiKey = testConfig["API_KEY"]
+			apiKey = testConfig["APIKEY"]
 			Expect(apiKey).ToNot(BeEmpty())
 
 			enterpriseId = testConfig["ENTERPRISE_ID"]
@@ -100,7 +102,7 @@ var _ = Describe(`EnterpriseManagementV1 Integration Tests`, func() {
 
 			enterpriseManagementService, err = enterprisemanagementv1.NewEnterpriseManagementV1UsingExternalConfig(enterpriseManagementServiceOptions)
 
-			core.SetLogger(core.NewLogger(core.LevelDebug, log.New(GinkgoWriter, "", log.LstdFlags)))
+			core.SetLogger(core.NewLogger(core.LevelDebug, log.New(GinkgoWriter, "", log.LstdFlags), log.New(GinkgoWriter, "", log.LstdFlags)))
 			enterpriseManagementService.EnableRetries(4, 30*time.Second)
 
 			Expect(err).To(BeNil())
