@@ -1,3 +1,31 @@
+## [0.18.5](https://github.com/IBM/platform-services-go-sdk/compare/v0.18.4...v0.18.5) (2021-04-06)
+
+
+### Bug Fixes
+
+* **IAM Policy Management:** add restore policy functionality ([#98](https://github.com/IBM/platform-services-go-sdk/issues/98)) ([75529fc](https://github.com/IBM/platform-services-go-sdk/commit/75529fc523a4715d6a5350fa1ff6fe7d9a2d2be3))
+
+## [0.18.4](https://github.com/IBM/platform-services-go-sdk/compare/v0.18.3...v0.18.4) (2021-04-02)
+
+
+### Bug Fixes
+
+* **deps:** use v5 core with all services ([#105](https://github.com/IBM/platform-services-go-sdk/issues/105)) ([a482f6d](https://github.com/IBM/platform-services-go-sdk/commit/a482f6d7c4b5d042392ad65b902607cf77943742))
+
+## [0.18.3](https://github.com/IBM/platform-services-go-sdk/compare/v0.18.2...v0.18.3) (2021-04-01)
+
+
+### Bug Fixes
+
+* **deps:** upgrade dependencies ([#104](https://github.com/IBM/platform-services-go-sdk/issues/104)) ([b390039](https://github.com/IBM/platform-services-go-sdk/commit/b390039057f40cef909b37ab5f197dcad8f0c0c1))
+
+## [0.18.2](https://github.com/IBM/platform-services-go-sdk/compare/v0.18.1...v0.18.2) (2021-04-01)
+
+
+### Bug Fixes
+
+* **IAM Access Groups:** update service after recent api changes ([#103](https://github.com/IBM/platform-services-go-sdk/issues/103)) ([f785034](https://github.com/IBM/platform-services-go-sdk/commit/f785034b6f3f8d11489b30fcff404c0c02515ebf))
+
 ## [0.18.1](https://github.com/IBM/platform-services-go-sdk/compare/v0.18.0...v0.18.1) (2021-03-31)
 
 

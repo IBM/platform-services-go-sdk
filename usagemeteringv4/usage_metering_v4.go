@@ -17,7 +17,6 @@
 /*
  * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-d753183b-20201209-163011
  */
- 
 
 // Package usagemeteringv4 : Operations and models for the UsageMeteringV4 service
 package usagemeteringv4
@@ -26,11 +25,12 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"github.com/IBM/go-sdk-core/v4/core"
-	common "github.com/IBM/platform-services-go-sdk/common"
 	"net/http"
 	"reflect"
 	"time"
+
+	"github.com/IBM/go-sdk-core/v5/core"
+	common "github.com/IBM/platform-services-go-sdk/common"
 )
 
 // UsageMeteringV4 : IBM Cloud Usage Metering is a platform service that enables service providers to submit metrics
@@ -242,7 +242,7 @@ type ReportResourceUsageOptions struct {
 // NewReportResourceUsageOptions : Instantiate ReportResourceUsageOptions
 func (*UsageMeteringV4) NewReportResourceUsageOptions(resourceID string, resourceUsage []ResourceInstanceUsage) *ReportResourceUsageOptions {
 	return &ReportResourceUsageOptions{
-		ResourceID: core.StringPtr(resourceID),
+		ResourceID:    core.StringPtr(resourceID),
 		ResourceUsage: resourceUsage,
 	}
 }
@@ -275,11 +275,10 @@ type MeasureAndQuantity struct {
 	Quantity interface{} `json:"quantity" validate:"required"`
 }
 
-
 // NewMeasureAndQuantity : Instantiate MeasureAndQuantity (Generic Model Constructor)
 func (*UsageMeteringV4) NewMeasureAndQuantity(measure string, quantity interface{}) (model *MeasureAndQuantity, err error) {
 	model = &MeasureAndQuantity{
-		Measure: core.StringPtr(measure),
+		Measure:  core.StringPtr(measure),
 		Quantity: quantity,
 	}
 	err = core.ValidateStruct(model, "required parameters")
@@ -329,15 +328,14 @@ type ResourceInstanceUsage struct {
 	ConsumerID *string `json:"consumer_id,omitempty"`
 }
 
-
 // NewResourceInstanceUsage : Instantiate ResourceInstanceUsage (Generic Model Constructor)
 func (*UsageMeteringV4) NewResourceInstanceUsage(resourceInstanceID string, planID string, start int64, end int64, measuredUsage []MeasureAndQuantity) (model *ResourceInstanceUsage, err error) {
 	model = &ResourceInstanceUsage{
 		ResourceInstanceID: core.StringPtr(resourceInstanceID),
-		PlanID: core.StringPtr(planID),
-		Start: core.Int64Ptr(start),
-		End: core.Int64Ptr(end),
-		MeasuredUsage: measuredUsage,
+		PlanID:             core.StringPtr(planID),
+		Start:              core.Int64Ptr(start),
+		End:                core.Int64Ptr(end),
+		MeasuredUsage:      measuredUsage,
 	}
 	err = core.ValidateStruct(model, "required parameters")
 	return
@@ -393,7 +391,6 @@ type ResourceUsageDetails struct {
 	Message *string `json:"message,omitempty"`
 }
 
-
 // UnmarshalResourceUsageDetails unmarshals an instance of ResourceUsageDetails from the specified map of raw messages.
 func UnmarshalResourceUsageDetails(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(ResourceUsageDetails)
@@ -422,7 +419,6 @@ type ResponseAccepted struct {
 	// Response body that contains the status of each submitted usage record.
 	Resources []ResourceUsageDetails `json:"resources" validate:"required"`
 }
-
 
 // UnmarshalResponseAccepted unmarshals an instance of ResponseAccepted from the specified map of raw messages.
 func UnmarshalResponseAccepted(m map[string]json.RawMessage, result interface{}) (err error) {

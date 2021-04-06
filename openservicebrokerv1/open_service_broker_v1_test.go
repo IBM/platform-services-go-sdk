@@ -20,17 +20,18 @@ import (
 	"bytes"
 	"context"
 	"fmt"
-	"github.com/IBM/go-sdk-core/v4/core"
-	"github.com/IBM/platform-services-go-sdk/openservicebrokerv1"
-	"github.com/go-openapi/strfmt"
-	. "github.com/onsi/ginkgo"
-	. "github.com/onsi/gomega"
 	"io"
 	"io/ioutil"
 	"net/http"
 	"net/http/httptest"
 	"os"
 	"time"
+
+	"github.com/IBM/go-sdk-core/v5/core"
+	"github.com/IBM/platform-services-go-sdk/openservicebrokerv1"
+	"github.com/go-openapi/strfmt"
+	. "github.com/onsi/ginkgo"
+	. "github.com/onsi/gomega"
 )
 
 var _ = Describe(`OpenServiceBrokerV1`, func() {
@@ -66,14 +67,13 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 		Context(`Using external config, construct service client instances`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"OPEN_SERVICE_BROKER_URL": "https://openservicebrokerv1/api",
+				"OPEN_SERVICE_BROKER_URL":       "https://openservicebrokerv1/api",
 				"OPEN_SERVICE_BROKER_AUTH_TYPE": "noauth",
 			}
 
 			It(`Create service client using external config successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				openServiceBrokerService, serviceErr := openservicebrokerv1.NewOpenServiceBrokerV1UsingExternalConfig(&openservicebrokerv1.OpenServiceBrokerV1Options{
-				})
+				openServiceBrokerService, serviceErr := openservicebrokerv1.NewOpenServiceBrokerV1UsingExternalConfig(&openservicebrokerv1.OpenServiceBrokerV1Options{})
 				Expect(openServiceBrokerService).ToNot(BeNil())
 				Expect(serviceErr).To(BeNil())
 				ClearTestEnvironment(testEnvironment)
@@ -102,8 +102,7 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 			})
 			It(`Create service client using external config and set url programatically successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				openServiceBrokerService, serviceErr := openservicebrokerv1.NewOpenServiceBrokerV1UsingExternalConfig(&openservicebrokerv1.OpenServiceBrokerV1Options{
-				})
+				openServiceBrokerService, serviceErr := openservicebrokerv1.NewOpenServiceBrokerV1UsingExternalConfig(&openservicebrokerv1.OpenServiceBrokerV1Options{})
 				err := openServiceBrokerService.SetServiceURL("https://testService/api")
 				Expect(err).To(BeNil())
 				Expect(openServiceBrokerService).ToNot(BeNil())
@@ -121,13 +120,12 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 		Context(`Using external config, construct service client instances with error: Invalid Auth`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"OPEN_SERVICE_BROKER_URL": "https://openservicebrokerv1/api",
+				"OPEN_SERVICE_BROKER_URL":       "https://openservicebrokerv1/api",
 				"OPEN_SERVICE_BROKER_AUTH_TYPE": "someOtherAuth",
 			}
 
 			SetTestEnvironment(testEnvironment)
-			openServiceBrokerService, serviceErr := openservicebrokerv1.NewOpenServiceBrokerV1UsingExternalConfig(&openservicebrokerv1.OpenServiceBrokerV1Options{
-			})
+			openServiceBrokerService, serviceErr := openservicebrokerv1.NewOpenServiceBrokerV1UsingExternalConfig(&openservicebrokerv1.OpenServiceBrokerV1Options{})
 
 			It(`Instantiate service client with error`, func() {
 				Expect(openServiceBrokerService).To(BeNil())
@@ -138,7 +136,7 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 		Context(`Using external config, construct service client instances with error: Invalid URL`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"OPEN_SERVICE_BROKER_AUTH_TYPE":   "NOAuth",
+				"OPEN_SERVICE_BROKER_AUTH_TYPE": "NOAuth",
 			}
 
 			SetTestEnvironment(testEnvironment)
@@ -523,14 +521,13 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 		Context(`Using external config, construct service client instances`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"OPEN_SERVICE_BROKER_URL": "https://openservicebrokerv1/api",
+				"OPEN_SERVICE_BROKER_URL":       "https://openservicebrokerv1/api",
 				"OPEN_SERVICE_BROKER_AUTH_TYPE": "noauth",
 			}
 
 			It(`Create service client using external config successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				openServiceBrokerService, serviceErr := openservicebrokerv1.NewOpenServiceBrokerV1UsingExternalConfig(&openservicebrokerv1.OpenServiceBrokerV1Options{
-				})
+				openServiceBrokerService, serviceErr := openservicebrokerv1.NewOpenServiceBrokerV1UsingExternalConfig(&openservicebrokerv1.OpenServiceBrokerV1Options{})
 				Expect(openServiceBrokerService).ToNot(BeNil())
 				Expect(serviceErr).To(BeNil())
 				ClearTestEnvironment(testEnvironment)
@@ -559,8 +556,7 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 			})
 			It(`Create service client using external config and set url programatically successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				openServiceBrokerService, serviceErr := openservicebrokerv1.NewOpenServiceBrokerV1UsingExternalConfig(&openservicebrokerv1.OpenServiceBrokerV1Options{
-				})
+				openServiceBrokerService, serviceErr := openservicebrokerv1.NewOpenServiceBrokerV1UsingExternalConfig(&openservicebrokerv1.OpenServiceBrokerV1Options{})
 				err := openServiceBrokerService.SetServiceURL("https://testService/api")
 				Expect(err).To(BeNil())
 				Expect(openServiceBrokerService).ToNot(BeNil())
@@ -578,13 +574,12 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 		Context(`Using external config, construct service client instances with error: Invalid Auth`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"OPEN_SERVICE_BROKER_URL": "https://openservicebrokerv1/api",
+				"OPEN_SERVICE_BROKER_URL":       "https://openservicebrokerv1/api",
 				"OPEN_SERVICE_BROKER_AUTH_TYPE": "someOtherAuth",
 			}
 
 			SetTestEnvironment(testEnvironment)
-			openServiceBrokerService, serviceErr := openservicebrokerv1.NewOpenServiceBrokerV1UsingExternalConfig(&openservicebrokerv1.OpenServiceBrokerV1Options{
-			})
+			openServiceBrokerService, serviceErr := openservicebrokerv1.NewOpenServiceBrokerV1UsingExternalConfig(&openservicebrokerv1.OpenServiceBrokerV1Options{})
 
 			It(`Instantiate service client with error`, func() {
 				Expect(openServiceBrokerService).To(BeNil())
@@ -595,7 +590,7 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 		Context(`Using external config, construct service client instances with error: Invalid URL`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"OPEN_SERVICE_BROKER_AUTH_TYPE":   "NOAuth",
+				"OPEN_SERVICE_BROKER_AUTH_TYPE": "NOAuth",
 			}
 
 			SetTestEnvironment(testEnvironment)
@@ -710,7 +705,6 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 						Expect(err).To(BeNil())
 					}
 					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
-
 
 					// TODO: Add check for accepts_incomplete query parameter
 
@@ -923,7 +917,6 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 					}
 					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
 
-
 					// TODO: Add check for accepts_incomplete query parameter
 
 					// Sleep a short time to support a timeout test
@@ -1057,7 +1050,6 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 
 					Expect(req.URL.Query()["plan_id"]).To(Equal([]string{"testString"}))
 
-
 					// TODO: Add check for accepts_incomplete query parameter
 
 					res.Header().Set("Content-type", "application/json")
@@ -1115,7 +1107,6 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 					Expect(req.URL.Query()["service_id"]).To(Equal([]string{"testString"}))
 
 					Expect(req.URL.Query()["plan_id"]).To(Equal([]string{"testString"}))
-
 
 					// TODO: Add check for accepts_incomplete query parameter
 
@@ -1249,14 +1240,13 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 		Context(`Using external config, construct service client instances`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"OPEN_SERVICE_BROKER_URL": "https://openservicebrokerv1/api",
+				"OPEN_SERVICE_BROKER_URL":       "https://openservicebrokerv1/api",
 				"OPEN_SERVICE_BROKER_AUTH_TYPE": "noauth",
 			}
 
 			It(`Create service client using external config successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				openServiceBrokerService, serviceErr := openservicebrokerv1.NewOpenServiceBrokerV1UsingExternalConfig(&openservicebrokerv1.OpenServiceBrokerV1Options{
-				})
+				openServiceBrokerService, serviceErr := openservicebrokerv1.NewOpenServiceBrokerV1UsingExternalConfig(&openservicebrokerv1.OpenServiceBrokerV1Options{})
 				Expect(openServiceBrokerService).ToNot(BeNil())
 				Expect(serviceErr).To(BeNil())
 				ClearTestEnvironment(testEnvironment)
@@ -1285,8 +1275,7 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 			})
 			It(`Create service client using external config and set url programatically successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				openServiceBrokerService, serviceErr := openservicebrokerv1.NewOpenServiceBrokerV1UsingExternalConfig(&openservicebrokerv1.OpenServiceBrokerV1Options{
-				})
+				openServiceBrokerService, serviceErr := openservicebrokerv1.NewOpenServiceBrokerV1UsingExternalConfig(&openservicebrokerv1.OpenServiceBrokerV1Options{})
 				err := openServiceBrokerService.SetServiceURL("https://testService/api")
 				Expect(err).To(BeNil())
 				Expect(openServiceBrokerService).ToNot(BeNil())
@@ -1304,13 +1293,12 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 		Context(`Using external config, construct service client instances with error: Invalid Auth`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"OPEN_SERVICE_BROKER_URL": "https://openservicebrokerv1/api",
+				"OPEN_SERVICE_BROKER_URL":       "https://openservicebrokerv1/api",
 				"OPEN_SERVICE_BROKER_AUTH_TYPE": "someOtherAuth",
 			}
 
 			SetTestEnvironment(testEnvironment)
-			openServiceBrokerService, serviceErr := openservicebrokerv1.NewOpenServiceBrokerV1UsingExternalConfig(&openservicebrokerv1.OpenServiceBrokerV1Options{
-			})
+			openServiceBrokerService, serviceErr := openservicebrokerv1.NewOpenServiceBrokerV1UsingExternalConfig(&openservicebrokerv1.OpenServiceBrokerV1Options{})
 
 			It(`Instantiate service client with error`, func() {
 				Expect(openServiceBrokerService).To(BeNil())
@@ -1321,7 +1309,7 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 		Context(`Using external config, construct service client instances with error: Invalid URL`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"OPEN_SERVICE_BROKER_AUTH_TYPE":   "NOAuth",
+				"OPEN_SERVICE_BROKER_AUTH_TYPE": "NOAuth",
 			}
 
 			SetTestEnvironment(testEnvironment)
@@ -1519,14 +1507,13 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 		Context(`Using external config, construct service client instances`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"OPEN_SERVICE_BROKER_URL": "https://openservicebrokerv1/api",
+				"OPEN_SERVICE_BROKER_URL":       "https://openservicebrokerv1/api",
 				"OPEN_SERVICE_BROKER_AUTH_TYPE": "noauth",
 			}
 
 			It(`Create service client using external config successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				openServiceBrokerService, serviceErr := openservicebrokerv1.NewOpenServiceBrokerV1UsingExternalConfig(&openservicebrokerv1.OpenServiceBrokerV1Options{
-				})
+				openServiceBrokerService, serviceErr := openservicebrokerv1.NewOpenServiceBrokerV1UsingExternalConfig(&openservicebrokerv1.OpenServiceBrokerV1Options{})
 				Expect(openServiceBrokerService).ToNot(BeNil())
 				Expect(serviceErr).To(BeNil())
 				ClearTestEnvironment(testEnvironment)
@@ -1555,8 +1542,7 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 			})
 			It(`Create service client using external config and set url programatically successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				openServiceBrokerService, serviceErr := openservicebrokerv1.NewOpenServiceBrokerV1UsingExternalConfig(&openservicebrokerv1.OpenServiceBrokerV1Options{
-				})
+				openServiceBrokerService, serviceErr := openservicebrokerv1.NewOpenServiceBrokerV1UsingExternalConfig(&openservicebrokerv1.OpenServiceBrokerV1Options{})
 				err := openServiceBrokerService.SetServiceURL("https://testService/api")
 				Expect(err).To(BeNil())
 				Expect(openServiceBrokerService).ToNot(BeNil())
@@ -1574,13 +1560,12 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 		Context(`Using external config, construct service client instances with error: Invalid Auth`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"OPEN_SERVICE_BROKER_URL": "https://openservicebrokerv1/api",
+				"OPEN_SERVICE_BROKER_URL":       "https://openservicebrokerv1/api",
 				"OPEN_SERVICE_BROKER_AUTH_TYPE": "someOtherAuth",
 			}
 
 			SetTestEnvironment(testEnvironment)
-			openServiceBrokerService, serviceErr := openservicebrokerv1.NewOpenServiceBrokerV1UsingExternalConfig(&openservicebrokerv1.OpenServiceBrokerV1Options{
-			})
+			openServiceBrokerService, serviceErr := openservicebrokerv1.NewOpenServiceBrokerV1UsingExternalConfig(&openservicebrokerv1.OpenServiceBrokerV1Options{})
 
 			It(`Instantiate service client with error`, func() {
 				Expect(openServiceBrokerService).To(BeNil())
@@ -1591,7 +1576,7 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 		Context(`Using external config, construct service client instances with error: Invalid URL`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"OPEN_SERVICE_BROKER_AUTH_TYPE":   "NOAuth",
+				"OPEN_SERVICE_BROKER_AUTH_TYPE": "NOAuth",
 			}
 
 			SetTestEnvironment(testEnvironment)
@@ -1820,14 +1805,13 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 		Context(`Using external config, construct service client instances`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"OPEN_SERVICE_BROKER_URL": "https://openservicebrokerv1/api",
+				"OPEN_SERVICE_BROKER_URL":       "https://openservicebrokerv1/api",
 				"OPEN_SERVICE_BROKER_AUTH_TYPE": "noauth",
 			}
 
 			It(`Create service client using external config successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				openServiceBrokerService, serviceErr := openservicebrokerv1.NewOpenServiceBrokerV1UsingExternalConfig(&openservicebrokerv1.OpenServiceBrokerV1Options{
-				})
+				openServiceBrokerService, serviceErr := openservicebrokerv1.NewOpenServiceBrokerV1UsingExternalConfig(&openservicebrokerv1.OpenServiceBrokerV1Options{})
 				Expect(openServiceBrokerService).ToNot(BeNil())
 				Expect(serviceErr).To(BeNil())
 				ClearTestEnvironment(testEnvironment)
@@ -1856,8 +1840,7 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 			})
 			It(`Create service client using external config and set url programatically successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				openServiceBrokerService, serviceErr := openservicebrokerv1.NewOpenServiceBrokerV1UsingExternalConfig(&openservicebrokerv1.OpenServiceBrokerV1Options{
-				})
+				openServiceBrokerService, serviceErr := openservicebrokerv1.NewOpenServiceBrokerV1UsingExternalConfig(&openservicebrokerv1.OpenServiceBrokerV1Options{})
 				err := openServiceBrokerService.SetServiceURL("https://testService/api")
 				Expect(err).To(BeNil())
 				Expect(openServiceBrokerService).ToNot(BeNil())
@@ -1875,13 +1858,12 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 		Context(`Using external config, construct service client instances with error: Invalid Auth`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"OPEN_SERVICE_BROKER_URL": "https://openservicebrokerv1/api",
+				"OPEN_SERVICE_BROKER_URL":       "https://openservicebrokerv1/api",
 				"OPEN_SERVICE_BROKER_AUTH_TYPE": "someOtherAuth",
 			}
 
 			SetTestEnvironment(testEnvironment)
-			openServiceBrokerService, serviceErr := openservicebrokerv1.NewOpenServiceBrokerV1UsingExternalConfig(&openservicebrokerv1.OpenServiceBrokerV1Options{
-			})
+			openServiceBrokerService, serviceErr := openservicebrokerv1.NewOpenServiceBrokerV1UsingExternalConfig(&openservicebrokerv1.OpenServiceBrokerV1Options{})
 
 			It(`Instantiate service client with error`, func() {
 				Expect(openServiceBrokerService).To(BeNil())
@@ -1892,7 +1874,7 @@ var _ = Describe(`OpenServiceBrokerV1`, func() {
 		Context(`Using external config, construct service client instances with error: Invalid URL`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"OPEN_SERVICE_BROKER_AUTH_TYPE":   "NOAuth",
+				"OPEN_SERVICE_BROKER_AUTH_TYPE": "NOAuth",
 			}
 
 			SetTestEnvironment(testEnvironment)

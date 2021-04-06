@@ -25,12 +25,14 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"github.com/IBM/go-sdk-core/v5/core"
-	common "github.com/IBM/platform-services-go-sdk/common"
-	"github.com/go-openapi/strfmt"
+
 	"net/http"
 	"reflect"
 	"time"
+
+	"github.com/IBM/go-sdk-core/v5/core"
+	common "github.com/IBM/platform-services-go-sdk/common"
+	"github.com/go-openapi/strfmt"
 )
 
 // EnterpriseManagementV1 : The Enterprise Management API enables you to create and manage an enterprise, account
@@ -453,7 +455,7 @@ func (enterpriseManagement *EnterpriseManagementV1) ImportAccountToEnterpriseWit
 
 	pathParamsMap := map[string]string{
 		"enterprise_id": *importAccountToEnterpriseOptions.EnterpriseID,
-		"account_id": *importAccountToEnterpriseOptions.AccountID,
+		"account_id":    *importAccountToEnterpriseOptions.AccountID,
 	}
 
 	builder := core.NewRequestBuilder(core.PUT)
@@ -1298,8 +1300,8 @@ type CreateAccountGroupOptions struct {
 // NewCreateAccountGroupOptions : Instantiate CreateAccountGroupOptions
 func (*EnterpriseManagementV1) NewCreateAccountGroupOptions(parent string, name string, primaryContactIamID string) *CreateAccountGroupOptions {
 	return &CreateAccountGroupOptions{
-		Parent: core.StringPtr(parent),
-		Name: core.StringPtr(name),
+		Parent:              core.StringPtr(parent),
+		Name:                core.StringPtr(name),
 		PrimaryContactIamID: core.StringPtr(primaryContactIamID),
 	}
 }
@@ -1364,8 +1366,8 @@ type CreateAccountOptions struct {
 // NewCreateAccountOptions : Instantiate CreateAccountOptions
 func (*EnterpriseManagementV1) NewCreateAccountOptions(parent string, name string, ownerIamID string) *CreateAccountOptions {
 	return &CreateAccountOptions{
-		Parent: core.StringPtr(parent),
-		Name: core.StringPtr(name),
+		Parent:     core.StringPtr(parent),
+		Name:       core.StringPtr(name),
 		OwnerIamID: core.StringPtr(ownerIamID),
 	}
 }
@@ -1432,8 +1434,8 @@ type CreateEnterpriseOptions struct {
 // NewCreateEnterpriseOptions : Instantiate CreateEnterpriseOptions
 func (*EnterpriseManagementV1) NewCreateEnterpriseOptions(sourceAccountID string, name string, primaryContactIamID string) *CreateEnterpriseOptions {
 	return &CreateEnterpriseOptions{
-		SourceAccountID: core.StringPtr(sourceAccountID),
-		Name: core.StringPtr(name),
+		SourceAccountID:     core.StringPtr(sourceAccountID),
+		Name:                core.StringPtr(name),
 		PrimaryContactIamID: core.StringPtr(primaryContactIamID),
 	}
 }
@@ -1702,7 +1704,7 @@ type ImportAccountToEnterpriseOptions struct {
 func (*EnterpriseManagementV1) NewImportAccountToEnterpriseOptions(enterpriseID string, accountID string) *ImportAccountToEnterpriseOptions {
 	return &ImportAccountToEnterpriseOptions{
 		EnterpriseID: core.StringPtr(enterpriseID),
-		AccountID: core.StringPtr(accountID),
+		AccountID:    core.StringPtr(accountID),
 	}
 }
 
@@ -2080,7 +2082,7 @@ type UpdateAccountOptions struct {
 func (*EnterpriseManagementV1) NewUpdateAccountOptions(accountID string, parent string) *UpdateAccountOptions {
 	return &UpdateAccountOptions{
 		AccountID: core.StringPtr(accountID),
-		Parent: core.StringPtr(parent),
+		Parent:    core.StringPtr(parent),
 	}
 }
 

@@ -176,23 +176,15 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 					Expect(req.Header["Accept-Language"]).ToNot(BeNil())
 					Expect(req.Header["Accept-Language"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"testString"}))
-
 					Expect(req.URL.Query()["iam_id"]).To(Equal([]string{"testString"}))
-
 					Expect(req.URL.Query()["access_group_id"]).To(Equal([]string{"testString"}))
-
 					Expect(req.URL.Query()["type"]).To(Equal([]string{"testString"}))
-
 					Expect(req.URL.Query()["service_type"]).To(Equal([]string{"testString"}))
-
 					Expect(req.URL.Query()["tag_name"]).To(Equal([]string{"testString"}))
-
 					Expect(req.URL.Query()["tag_value"]).To(Equal([]string{"testString"}))
-
 					Expect(req.URL.Query()["sort"]).To(Equal([]string{"testString"}))
-
 					Expect(req.URL.Query()["format"]).To(Equal([]string{"testString"}))
-
+					Expect(req.URL.Query()["state"]).To(Equal([]string{"testString"}))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
 					fmt.Fprintf(res, `} this is not valid json {`)
@@ -218,6 +210,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				listPoliciesOptionsModel.TagValue = core.StringPtr("testString")
 				listPoliciesOptionsModel.Sort = core.StringPtr("testString")
 				listPoliciesOptionsModel.Format = core.StringPtr("testString")
+				listPoliciesOptionsModel.State = core.StringPtr("testString")
 				listPoliciesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
 				result, response, operationErr := iamPolicyManagementService.ListPolicies(listPoliciesOptionsModel)
@@ -252,30 +245,22 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 					Expect(req.Header["Accept-Language"]).ToNot(BeNil())
 					Expect(req.Header["Accept-Language"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"testString"}))
-
 					Expect(req.URL.Query()["iam_id"]).To(Equal([]string{"testString"}))
-
 					Expect(req.URL.Query()["access_group_id"]).To(Equal([]string{"testString"}))
-
 					Expect(req.URL.Query()["type"]).To(Equal([]string{"testString"}))
-
 					Expect(req.URL.Query()["service_type"]).To(Equal([]string{"testString"}))
-
 					Expect(req.URL.Query()["tag_name"]).To(Equal([]string{"testString"}))
-
 					Expect(req.URL.Query()["tag_value"]).To(Equal([]string{"testString"}))
-
 					Expect(req.URL.Query()["sort"]).To(Equal([]string{"testString"}))
-
 					Expect(req.URL.Query()["format"]).To(Equal([]string{"testString"}))
-
+					Expect(req.URL.Query()["state"]).To(Equal([]string{"testString"}))
 					// Sleep a short time to support a timeout test
 					time.Sleep(100 * time.Millisecond)
 
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"policies": [{"id": "ID", "type": "Type", "description": "Description", "subjects": [{"attributes": [{"name": "Name", "value": "Value"}]}], "roles": [{"role_id": "RoleID", "display_name": "DisplayName", "description": "Description"}], "resources": [{"attributes": [{"name": "Name", "value": "Value", "operator": "Operator"}], "tags": [{"name": "Name", "value": "Value", "operator": "Operator"}]}], "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}]}`)
+					fmt.Fprintf(res, "%s", `{"policies": [{"id": "ID", "type": "Type", "description": "Description", "subjects": [{"attributes": [{"name": "Name", "value": "Value"}]}], "roles": [{"role_id": "RoleID", "display_name": "DisplayName", "description": "Description"}], "resources": [{"attributes": [{"name": "Name", "value": "Value", "operator": "Operator"}], "tags": [{"name": "Name", "value": "Value", "operator": "Operator"}]}], "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "state": "State"}]}`)
 				}))
 			})
 			It(`Invoke ListPolicies successfully with retries`, func() {
@@ -299,6 +284,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				listPoliciesOptionsModel.TagValue = core.StringPtr("testString")
 				listPoliciesOptionsModel.Sort = core.StringPtr("testString")
 				listPoliciesOptionsModel.Format = core.StringPtr("testString")
+				listPoliciesOptionsModel.State = core.StringPtr("testString")
 				listPoliciesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with a Context to test a timeout error
@@ -338,27 +324,19 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 					Expect(req.Header["Accept-Language"]).ToNot(BeNil())
 					Expect(req.Header["Accept-Language"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"testString"}))
-
 					Expect(req.URL.Query()["iam_id"]).To(Equal([]string{"testString"}))
-
 					Expect(req.URL.Query()["access_group_id"]).To(Equal([]string{"testString"}))
-
 					Expect(req.URL.Query()["type"]).To(Equal([]string{"testString"}))
-
 					Expect(req.URL.Query()["service_type"]).To(Equal([]string{"testString"}))
-
 					Expect(req.URL.Query()["tag_name"]).To(Equal([]string{"testString"}))
-
 					Expect(req.URL.Query()["tag_value"]).To(Equal([]string{"testString"}))
-
 					Expect(req.URL.Query()["sort"]).To(Equal([]string{"testString"}))
-
 					Expect(req.URL.Query()["format"]).To(Equal([]string{"testString"}))
-
+					Expect(req.URL.Query()["state"]).To(Equal([]string{"testString"}))
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"policies": [{"id": "ID", "type": "Type", "description": "Description", "subjects": [{"attributes": [{"name": "Name", "value": "Value"}]}], "roles": [{"role_id": "RoleID", "display_name": "DisplayName", "description": "Description"}], "resources": [{"attributes": [{"name": "Name", "value": "Value", "operator": "Operator"}], "tags": [{"name": "Name", "value": "Value", "operator": "Operator"}]}], "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}]}`)
+					fmt.Fprintf(res, "%s", `{"policies": [{"id": "ID", "type": "Type", "description": "Description", "subjects": [{"attributes": [{"name": "Name", "value": "Value"}]}], "roles": [{"role_id": "RoleID", "display_name": "DisplayName", "description": "Description"}], "resources": [{"attributes": [{"name": "Name", "value": "Value", "operator": "Operator"}], "tags": [{"name": "Name", "value": "Value", "operator": "Operator"}]}], "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "state": "State"}]}`)
 				}))
 			})
 			It(`Invoke ListPolicies successfully`, func() {
@@ -387,6 +365,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				listPoliciesOptionsModel.TagValue = core.StringPtr("testString")
 				listPoliciesOptionsModel.Sort = core.StringPtr("testString")
 				listPoliciesOptionsModel.Format = core.StringPtr("testString")
+				listPoliciesOptionsModel.State = core.StringPtr("testString")
 				listPoliciesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
@@ -416,6 +395,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				listPoliciesOptionsModel.TagValue = core.StringPtr("testString")
 				listPoliciesOptionsModel.Sort = core.StringPtr("testString")
 				listPoliciesOptionsModel.Format = core.StringPtr("testString")
+				listPoliciesOptionsModel.State = core.StringPtr("testString")
 				listPoliciesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := iamPolicyManagementService.SetServiceURL("")
@@ -556,7 +536,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "type": "Type", "description": "Description", "subjects": [{"attributes": [{"name": "Name", "value": "Value"}]}], "roles": [{"role_id": "RoleID", "display_name": "DisplayName", "description": "Description"}], "resources": [{"attributes": [{"name": "Name", "value": "Value", "operator": "Operator"}], "tags": [{"name": "Name", "value": "Value", "operator": "Operator"}]}], "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "type": "Type", "description": "Description", "subjects": [{"attributes": [{"name": "Name", "value": "Value"}]}], "roles": [{"role_id": "RoleID", "display_name": "DisplayName", "description": "Description"}], "resources": [{"attributes": [{"name": "Name", "value": "Value", "operator": "Operator"}], "tags": [{"name": "Name", "value": "Value", "operator": "Operator"}]}], "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "state": "State"}`)
 				}))
 			})
 			It(`Invoke CreatePolicy successfully with retries`, func() {
@@ -663,7 +643,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "type": "Type", "description": "Description", "subjects": [{"attributes": [{"name": "Name", "value": "Value"}]}], "roles": [{"role_id": "RoleID", "display_name": "DisplayName", "description": "Description"}], "resources": [{"attributes": [{"name": "Name", "value": "Value", "operator": "Operator"}], "tags": [{"name": "Name", "value": "Value", "operator": "Operator"}]}], "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "type": "Type", "description": "Description", "subjects": [{"attributes": [{"name": "Name", "value": "Value"}]}], "roles": [{"role_id": "RoleID", "display_name": "DisplayName", "description": "Description"}], "resources": [{"attributes": [{"name": "Name", "value": "Value", "operator": "Operator"}], "tags": [{"name": "Name", "value": "Value", "operator": "Operator"}]}], "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "state": "State"}`)
 				}))
 			})
 			It(`Invoke CreatePolicy successfully`, func() {
@@ -914,7 +894,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "type": "Type", "description": "Description", "subjects": [{"attributes": [{"name": "Name", "value": "Value"}]}], "roles": [{"role_id": "RoleID", "display_name": "DisplayName", "description": "Description"}], "resources": [{"attributes": [{"name": "Name", "value": "Value", "operator": "Operator"}], "tags": [{"name": "Name", "value": "Value", "operator": "Operator"}]}], "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "type": "Type", "description": "Description", "subjects": [{"attributes": [{"name": "Name", "value": "Value"}]}], "roles": [{"role_id": "RoleID", "display_name": "DisplayName", "description": "Description"}], "resources": [{"attributes": [{"name": "Name", "value": "Value", "operator": "Operator"}], "tags": [{"name": "Name", "value": "Value", "operator": "Operator"}]}], "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "state": "State"}`)
 				}))
 			})
 			It(`Invoke UpdatePolicy successfully with retries`, func() {
@@ -1022,7 +1002,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "type": "Type", "description": "Description", "subjects": [{"attributes": [{"name": "Name", "value": "Value"}]}], "roles": [{"role_id": "RoleID", "display_name": "DisplayName", "description": "Description"}], "resources": [{"attributes": [{"name": "Name", "value": "Value", "operator": "Operator"}], "tags": [{"name": "Name", "value": "Value", "operator": "Operator"}]}], "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "type": "Type", "description": "Description", "subjects": [{"attributes": [{"name": "Name", "value": "Value"}]}], "roles": [{"role_id": "RoleID", "display_name": "DisplayName", "description": "Description"}], "resources": [{"attributes": [{"name": "Name", "value": "Value", "operator": "Operator"}], "tags": [{"name": "Name", "value": "Value", "operator": "Operator"}]}], "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "state": "State"}`)
 				}))
 			})
 			It(`Invoke UpdatePolicy successfully`, func() {
@@ -1219,7 +1199,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "type": "Type", "description": "Description", "subjects": [{"attributes": [{"name": "Name", "value": "Value"}]}], "roles": [{"role_id": "RoleID", "display_name": "DisplayName", "description": "Description"}], "resources": [{"attributes": [{"name": "Name", "value": "Value", "operator": "Operator"}], "tags": [{"name": "Name", "value": "Value", "operator": "Operator"}]}], "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "type": "Type", "description": "Description", "subjects": [{"attributes": [{"name": "Name", "value": "Value"}]}], "roles": [{"role_id": "RoleID", "display_name": "DisplayName", "description": "Description"}], "resources": [{"attributes": [{"name": "Name", "value": "Value", "operator": "Operator"}], "tags": [{"name": "Name", "value": "Value", "operator": "Operator"}]}], "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "state": "State"}`)
 				}))
 			})
 			It(`Invoke GetPolicy successfully with retries`, func() {
@@ -1273,7 +1253,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "type": "Type", "description": "Description", "subjects": [{"attributes": [{"name": "Name", "value": "Value"}]}], "roles": [{"role_id": "RoleID", "display_name": "DisplayName", "description": "Description"}], "resources": [{"attributes": [{"name": "Name", "value": "Value", "operator": "Operator"}], "tags": [{"name": "Name", "value": "Value", "operator": "Operator"}]}], "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "type": "Type", "description": "Description", "subjects": [{"attributes": [{"name": "Name", "value": "Value"}]}], "roles": [{"role_id": "RoleID", "display_name": "DisplayName", "description": "Description"}], "resources": [{"attributes": [{"name": "Name", "value": "Value", "operator": "Operator"}], "tags": [{"name": "Name", "value": "Value", "operator": "Operator"}]}], "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "state": "State"}`)
 				}))
 			})
 			It(`Invoke GetPolicy successfully`, func() {
@@ -1398,6 +1378,231 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				response, operationErr = iamPolicyManagementService.DeletePolicy(deletePolicyOptionsModelNew)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`PatchPolicy(patchPolicyOptions *PatchPolicyOptions) - Operation response error`, func() {
+		patchPolicyPath := "/v1/policies/testString"
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(patchPolicyPath))
+					Expect(req.Method).To(Equal("PATCH"))
+					Expect(req.Header["If-Match"]).ToNot(BeNil())
+					Expect(req.Header["If-Match"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, `} this is not valid json {`)
+				}))
+			})
+			It(`Invoke PatchPolicy with error: Operation response processing error`, func() {
+				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamPolicyManagementService).ToNot(BeNil())
+
+				// Construct an instance of the PatchPolicyOptions model
+				patchPolicyOptionsModel := new(iampolicymanagementv1.PatchPolicyOptions)
+				patchPolicyOptionsModel.PolicyID = core.StringPtr("testString")
+				patchPolicyOptionsModel.IfMatch = core.StringPtr("testString")
+				patchPolicyOptionsModel.State = core.StringPtr("testString")
+				patchPolicyOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Expect response parsing to fail since we are receiving a text/plain response
+				result, response, operationErr := iamPolicyManagementService.PatchPolicy(patchPolicyOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				iamPolicyManagementService.EnableRetries(0, 0)
+				result, response, operationErr = iamPolicyManagementService.PatchPolicy(patchPolicyOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+
+	Describe(`PatchPolicy(patchPolicyOptions *PatchPolicyOptions)`, func() {
+		patchPolicyPath := "/v1/policies/testString"
+		Context(`Using mock server endpoint with timeout`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(patchPolicyPath))
+					Expect(req.Method).To(Equal("PATCH"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
+					Expect(req.Header["If-Match"]).ToNot(BeNil())
+					Expect(req.Header["If-Match"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
+					// Sleep a short time to support a timeout test
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "type": "Type", "description": "Description", "subjects": [{"attributes": [{"name": "Name", "value": "Value"}]}], "roles": [{"role_id": "RoleID", "display_name": "DisplayName", "description": "Description"}], "resources": [{"attributes": [{"name": "Name", "value": "Value", "operator": "Operator"}], "tags": [{"name": "Name", "value": "Value", "operator": "Operator"}]}], "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "state": "State"}`)
+				}))
+			})
+			It(`Invoke PatchPolicy successfully with retries`, func() {
+				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamPolicyManagementService).ToNot(BeNil())
+				iamPolicyManagementService.EnableRetries(0, 0)
+
+				// Construct an instance of the PatchPolicyOptions model
+				patchPolicyOptionsModel := new(iampolicymanagementv1.PatchPolicyOptions)
+				patchPolicyOptionsModel.PolicyID = core.StringPtr("testString")
+				patchPolicyOptionsModel.IfMatch = core.StringPtr("testString")
+				patchPolicyOptionsModel.State = core.StringPtr("testString")
+				patchPolicyOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := iamPolicyManagementService.PatchPolicyWithContext(ctx, patchPolicyOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				iamPolicyManagementService.DisableRetries()
+				result, response, operationErr := iamPolicyManagementService.PatchPolicy(patchPolicyOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = iamPolicyManagementService.PatchPolicyWithContext(ctx, patchPolicyOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(patchPolicyPath))
+					Expect(req.Method).To(Equal("PATCH"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
+					Expect(req.Header["If-Match"]).ToNot(BeNil())
+					Expect(req.Header["If-Match"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "type": "Type", "description": "Description", "subjects": [{"attributes": [{"name": "Name", "value": "Value"}]}], "roles": [{"role_id": "RoleID", "display_name": "DisplayName", "description": "Description"}], "resources": [{"attributes": [{"name": "Name", "value": "Value", "operator": "Operator"}], "tags": [{"name": "Name", "value": "Value", "operator": "Operator"}]}], "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "state": "State"}`)
+				}))
+			})
+			It(`Invoke PatchPolicy successfully`, func() {
+				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamPolicyManagementService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				result, response, operationErr := iamPolicyManagementService.PatchPolicy(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+
+				// Construct an instance of the PatchPolicyOptions model
+				patchPolicyOptionsModel := new(iampolicymanagementv1.PatchPolicyOptions)
+				patchPolicyOptionsModel.PolicyID = core.StringPtr("testString")
+				patchPolicyOptionsModel.IfMatch = core.StringPtr("testString")
+				patchPolicyOptionsModel.State = core.StringPtr("testString")
+				patchPolicyOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				result, response, operationErr = iamPolicyManagementService.PatchPolicy(patchPolicyOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+			})
+			It(`Invoke PatchPolicy with error: Operation validation and request error`, func() {
+				iamPolicyManagementService, serviceErr := iampolicymanagementv1.NewIamPolicyManagementV1(&iampolicymanagementv1.IamPolicyManagementV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamPolicyManagementService).ToNot(BeNil())
+
+				// Construct an instance of the PatchPolicyOptions model
+				patchPolicyOptionsModel := new(iampolicymanagementv1.PatchPolicyOptions)
+				patchPolicyOptionsModel.PolicyID = core.StringPtr("testString")
+				patchPolicyOptionsModel.IfMatch = core.StringPtr("testString")
+				patchPolicyOptionsModel.State = core.StringPtr("testString")
+				patchPolicyOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := iamPolicyManagementService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				result, response, operationErr := iamPolicyManagementService.PatchPolicy(patchPolicyOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+				// Construct a second instance of the PatchPolicyOptions model with no property values
+				patchPolicyOptionsModelNew := new(iampolicymanagementv1.PatchPolicyOptions)
+				// Invoke operation with invalid model (negative test)
+				result, response, operationErr = iamPolicyManagementService.PatchPolicy(patchPolicyOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
 			})
 			AfterEach(func() {
 				testServer.Close()
@@ -1545,9 +1750,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 					Expect(req.Header["Accept-Language"]).ToNot(BeNil())
 					Expect(req.Header["Accept-Language"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"testString"}))
-
 					Expect(req.URL.Query()["service_name"]).To(Equal([]string{"testString"}))
-
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
 					fmt.Fprintf(res, `} this is not valid json {`)
@@ -1600,9 +1803,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 					Expect(req.Header["Accept-Language"]).ToNot(BeNil())
 					Expect(req.Header["Accept-Language"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"testString"}))
-
 					Expect(req.URL.Query()["service_name"]).To(Equal([]string{"testString"}))
-
 					// Sleep a short time to support a timeout test
 					time.Sleep(100 * time.Millisecond)
 
@@ -1665,9 +1866,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 					Expect(req.Header["Accept-Language"]).ToNot(BeNil())
 					Expect(req.Header["Accept-Language"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"testString"}))
-
 					Expect(req.URL.Query()["service_name"]).To(Equal([]string{"testString"}))
-
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
@@ -2609,6 +2808,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				listPoliciesOptionsModel.SetTagValue("testString")
 				listPoliciesOptionsModel.SetSort("testString")
 				listPoliciesOptionsModel.SetFormat("testString")
+				listPoliciesOptionsModel.SetState("testString")
 				listPoliciesOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(listPoliciesOptionsModel).ToNot(BeNil())
 				Expect(listPoliciesOptionsModel.AccountID).To(Equal(core.StringPtr("testString")))
@@ -2621,6 +2821,7 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				Expect(listPoliciesOptionsModel.TagValue).To(Equal(core.StringPtr("testString")))
 				Expect(listPoliciesOptionsModel.Sort).To(Equal(core.StringPtr("testString")))
 				Expect(listPoliciesOptionsModel.Format).To(Equal(core.StringPtr("testString")))
+				Expect(listPoliciesOptionsModel.State).To(Equal(core.StringPtr("testString")))
 				Expect(listPoliciesOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewListRolesOptions successfully`, func() {
@@ -2635,6 +2836,21 @@ var _ = Describe(`IamPolicyManagementV1`, func() {
 				Expect(listRolesOptionsModel.AccountID).To(Equal(core.StringPtr("testString")))
 				Expect(listRolesOptionsModel.ServiceName).To(Equal(core.StringPtr("testString")))
 				Expect(listRolesOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
+			It(`Invoke NewPatchPolicyOptions successfully`, func() {
+				// Construct an instance of the PatchPolicyOptions model
+				policyID := "testString"
+				ifMatch := "testString"
+				patchPolicyOptionsModel := iamPolicyManagementService.NewPatchPolicyOptions(policyID, ifMatch)
+				patchPolicyOptionsModel.SetPolicyID("testString")
+				patchPolicyOptionsModel.SetIfMatch("testString")
+				patchPolicyOptionsModel.SetState("testString")
+				patchPolicyOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(patchPolicyOptionsModel).ToNot(BeNil())
+				Expect(patchPolicyOptionsModel.PolicyID).To(Equal(core.StringPtr("testString")))
+				Expect(patchPolicyOptionsModel.IfMatch).To(Equal(core.StringPtr("testString")))
+				Expect(patchPolicyOptionsModel.State).To(Equal(core.StringPtr("testString")))
+				Expect(patchPolicyOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewUpdatePolicyOptions successfully`, func() {
 				// Construct an instance of the SubjectAttribute model

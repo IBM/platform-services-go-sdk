@@ -20,7 +20,7 @@ import (
 	"bytes"
 	"context"
 	"fmt"
-	"github.com/IBM/go-sdk-core/v4/core"
+	"github.com/IBM/go-sdk-core/v5/core"
 	"github.com/IBM/platform-services-go-sdk/iamaccessgroupsv2"
 	"github.com/go-openapi/strfmt"
 	. "github.com/onsi/ginkgo"
@@ -66,14 +66,13 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 		Context(`Using external config, construct service client instances`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"IAM_ACCESS_GROUPS_URL": "https://iamaccessgroupsv2/api",
+				"IAM_ACCESS_GROUPS_URL":       "https://iamaccessgroupsv2/api",
 				"IAM_ACCESS_GROUPS_AUTH_TYPE": "noauth",
 			}
 
 			It(`Create service client using external config successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				iamAccessGroupsService, serviceErr := iamaccessgroupsv2.NewIamAccessGroupsV2UsingExternalConfig(&iamaccessgroupsv2.IamAccessGroupsV2Options{
-				})
+				iamAccessGroupsService, serviceErr := iamaccessgroupsv2.NewIamAccessGroupsV2UsingExternalConfig(&iamaccessgroupsv2.IamAccessGroupsV2Options{})
 				Expect(iamAccessGroupsService).ToNot(BeNil())
 				Expect(serviceErr).To(BeNil())
 				ClearTestEnvironment(testEnvironment)
@@ -102,8 +101,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 			})
 			It(`Create service client using external config and set url programatically successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				iamAccessGroupsService, serviceErr := iamaccessgroupsv2.NewIamAccessGroupsV2UsingExternalConfig(&iamaccessgroupsv2.IamAccessGroupsV2Options{
-				})
+				iamAccessGroupsService, serviceErr := iamaccessgroupsv2.NewIamAccessGroupsV2UsingExternalConfig(&iamaccessgroupsv2.IamAccessGroupsV2Options{})
 				err := iamAccessGroupsService.SetServiceURL("https://testService/api")
 				Expect(err).To(BeNil())
 				Expect(iamAccessGroupsService).ToNot(BeNil())
@@ -121,13 +119,12 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 		Context(`Using external config, construct service client instances with error: Invalid Auth`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"IAM_ACCESS_GROUPS_URL": "https://iamaccessgroupsv2/api",
+				"IAM_ACCESS_GROUPS_URL":       "https://iamaccessgroupsv2/api",
 				"IAM_ACCESS_GROUPS_AUTH_TYPE": "someOtherAuth",
 			}
 
 			SetTestEnvironment(testEnvironment)
-			iamAccessGroupsService, serviceErr := iamaccessgroupsv2.NewIamAccessGroupsV2UsingExternalConfig(&iamaccessgroupsv2.IamAccessGroupsV2Options{
-			})
+			iamAccessGroupsService, serviceErr := iamaccessgroupsv2.NewIamAccessGroupsV2UsingExternalConfig(&iamaccessgroupsv2.IamAccessGroupsV2Options{})
 
 			It(`Instantiate service client with error`, func() {
 				Expect(iamAccessGroupsService).To(BeNil())
@@ -138,7 +135,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 		Context(`Using external config, construct service client instances with error: Invalid URL`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"IAM_ACCESS_GROUPS_AUTH_TYPE":   "NOAuth",
+				"IAM_ACCESS_GROUPS_AUTH_TYPE": "NOAuth",
 			}
 
 			SetTestEnvironment(testEnvironment)
@@ -176,7 +173,6 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 					Expect(req.Header["Transaction-Id"]).ToNot(BeNil())
 					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"testString"}))
-
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
 					fmt.Fprintf(res, `} this is not valid json {`)
@@ -193,8 +189,8 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				// Construct an instance of the CreateAccessGroupOptions model
 				createAccessGroupOptionsModel := new(iamaccessgroupsv2.CreateAccessGroupOptions)
 				createAccessGroupOptionsModel.AccountID = core.StringPtr("testString")
-				createAccessGroupOptionsModel.Name = core.StringPtr("testString")
-				createAccessGroupOptionsModel.Description = core.StringPtr("testString")
+				createAccessGroupOptionsModel.Name = core.StringPtr("Managers")
+				createAccessGroupOptionsModel.Description = core.StringPtr("Group for managers")
 				createAccessGroupOptionsModel.TransactionID = core.StringPtr("testString")
 				createAccessGroupOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
@@ -246,14 +242,13 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 					Expect(req.Header["Transaction-Id"]).ToNot(BeNil())
 					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"testString"}))
-
 					// Sleep a short time to support a timeout test
 					time.Sleep(100 * time.Millisecond)
 
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "description": "Description", "account_id": "AccountID", "created_at": "2019-01-01T12:00:00", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00", "last_modified_by_id": "LastModifiedByID", "href": "Href", "is_federated": false}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "description": "Description", "account_id": "AccountID", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "href": "Href", "is_federated": false}`)
 				}))
 			})
 			It(`Invoke CreateAccessGroup successfully with retries`, func() {
@@ -268,8 +263,8 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				// Construct an instance of the CreateAccessGroupOptions model
 				createAccessGroupOptionsModel := new(iamaccessgroupsv2.CreateAccessGroupOptions)
 				createAccessGroupOptionsModel.AccountID = core.StringPtr("testString")
-				createAccessGroupOptionsModel.Name = core.StringPtr("testString")
-				createAccessGroupOptionsModel.Description = core.StringPtr("testString")
+				createAccessGroupOptionsModel.Name = core.StringPtr("Managers")
+				createAccessGroupOptionsModel.Description = core.StringPtr("Group for managers")
 				createAccessGroupOptionsModel.TransactionID = core.StringPtr("testString")
 				createAccessGroupOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
@@ -326,11 +321,10 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 					Expect(req.Header["Transaction-Id"]).ToNot(BeNil())
 					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"testString"}))
-
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "description": "Description", "account_id": "AccountID", "created_at": "2019-01-01T12:00:00", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00", "last_modified_by_id": "LastModifiedByID", "href": "Href", "is_federated": false}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "description": "Description", "account_id": "AccountID", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "href": "Href", "is_federated": false}`)
 				}))
 			})
 			It(`Invoke CreateAccessGroup successfully`, func() {
@@ -350,8 +344,8 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				// Construct an instance of the CreateAccessGroupOptions model
 				createAccessGroupOptionsModel := new(iamaccessgroupsv2.CreateAccessGroupOptions)
 				createAccessGroupOptionsModel.AccountID = core.StringPtr("testString")
-				createAccessGroupOptionsModel.Name = core.StringPtr("testString")
-				createAccessGroupOptionsModel.Description = core.StringPtr("testString")
+				createAccessGroupOptionsModel.Name = core.StringPtr("Managers")
+				createAccessGroupOptionsModel.Description = core.StringPtr("Group for managers")
 				createAccessGroupOptionsModel.TransactionID = core.StringPtr("testString")
 				createAccessGroupOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
@@ -373,8 +367,8 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				// Construct an instance of the CreateAccessGroupOptions model
 				createAccessGroupOptionsModel := new(iamaccessgroupsv2.CreateAccessGroupOptions)
 				createAccessGroupOptionsModel.AccountID = core.StringPtr("testString")
-				createAccessGroupOptionsModel.Name = core.StringPtr("testString")
-				createAccessGroupOptionsModel.Description = core.StringPtr("testString")
+				createAccessGroupOptionsModel.Name = core.StringPtr("Managers")
+				createAccessGroupOptionsModel.Description = core.StringPtr("Group for managers")
 				createAccessGroupOptionsModel.TransactionID = core.StringPtr("testString")
 				createAccessGroupOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
@@ -411,21 +405,12 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 					Expect(req.Header["Transaction-Id"]).ToNot(BeNil())
 					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"testString"}))
-
 					Expect(req.URL.Query()["iam_id"]).To(Equal([]string{"testString"}))
-
 					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(38))}))
-
 					Expect(req.URL.Query()["offset"]).To(Equal([]string{fmt.Sprint(int64(38))}))
-
 					Expect(req.URL.Query()["sort"]).To(Equal([]string{"testString"}))
-
-
 					// TODO: Add check for show_federated query parameter
-
-
 					// TODO: Add check for hide_public_access query parameter
-
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
 					fmt.Fprintf(res, `} this is not valid json {`)
@@ -483,28 +468,19 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 					Expect(req.Header["Transaction-Id"]).ToNot(BeNil())
 					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"testString"}))
-
 					Expect(req.URL.Query()["iam_id"]).To(Equal([]string{"testString"}))
-
 					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(38))}))
-
 					Expect(req.URL.Query()["offset"]).To(Equal([]string{fmt.Sprint(int64(38))}))
-
 					Expect(req.URL.Query()["sort"]).To(Equal([]string{"testString"}))
-
-
 					// TODO: Add check for show_federated query parameter
-
-
 					// TODO: Add check for hide_public_access query parameter
-
 					// Sleep a short time to support a timeout test
 					time.Sleep(100 * time.Millisecond)
 
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"limit": 5, "offset": 6, "total_count": 10, "first": {"href": "Href"}, "previous": {"href": "Href"}, "next": {"href": "Href"}, "last": {"href": "Href"}, "groups": [{"id": "ID", "name": "Name", "description": "Description", "account_id": "AccountID", "created_at": "2019-01-01T12:00:00", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00", "last_modified_by_id": "LastModifiedByID", "href": "Href", "is_federated": false}]}`)
+					fmt.Fprintf(res, "%s", `{"limit": 5, "offset": 6, "total_count": 10, "first": {"href": "Href"}, "previous": {"href": "Href"}, "next": {"href": "Href"}, "last": {"href": "Href"}, "groups": [{"id": "ID", "name": "Name", "description": "Description", "account_id": "AccountID", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "href": "Href", "is_federated": false}]}`)
 				}))
 			})
 			It(`Invoke ListAccessGroups successfully with retries`, func() {
@@ -565,25 +541,16 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 					Expect(req.Header["Transaction-Id"]).ToNot(BeNil())
 					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"testString"}))
-
 					Expect(req.URL.Query()["iam_id"]).To(Equal([]string{"testString"}))
-
 					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(38))}))
-
 					Expect(req.URL.Query()["offset"]).To(Equal([]string{fmt.Sprint(int64(38))}))
-
 					Expect(req.URL.Query()["sort"]).To(Equal([]string{"testString"}))
-
-
 					// TODO: Add check for show_federated query parameter
-
-
 					// TODO: Add check for hide_public_access query parameter
-
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"limit": 5, "offset": 6, "total_count": 10, "first": {"href": "Href"}, "previous": {"href": "Href"}, "next": {"href": "Href"}, "last": {"href": "Href"}, "groups": [{"id": "ID", "name": "Name", "description": "Description", "account_id": "AccountID", "created_at": "2019-01-01T12:00:00", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00", "last_modified_by_id": "LastModifiedByID", "href": "Href", "is_federated": false}]}`)
+					fmt.Fprintf(res, "%s", `{"limit": 5, "offset": 6, "total_count": 10, "first": {"href": "Href"}, "previous": {"href": "Href"}, "next": {"href": "Href"}, "last": {"href": "Href"}, "groups": [{"id": "ID", "name": "Name", "description": "Description", "account_id": "AccountID", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "href": "Href", "is_federated": false}]}`)
 				}))
 			})
 			It(`Invoke ListAccessGroups successfully`, func() {
@@ -671,9 +638,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 					Expect(req.Method).To(Equal("GET"))
 					Expect(req.Header["Transaction-Id"]).ToNot(BeNil())
 					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
-
 					// TODO: Add check for show_federated query parameter
-
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
 					fmt.Fprintf(res, `} this is not valid json {`)
@@ -725,16 +690,14 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 
 					Expect(req.Header["Transaction-Id"]).ToNot(BeNil())
 					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
-
 					// TODO: Add check for show_federated query parameter
-
 					// Sleep a short time to support a timeout test
 					time.Sleep(100 * time.Millisecond)
 
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "description": "Description", "account_id": "AccountID", "created_at": "2019-01-01T12:00:00", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00", "last_modified_by_id": "LastModifiedByID", "href": "Href", "is_federated": false}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "description": "Description", "account_id": "AccountID", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "href": "Href", "is_federated": false}`)
 				}))
 			})
 			It(`Invoke GetAccessGroup successfully with retries`, func() {
@@ -789,13 +752,11 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 
 					Expect(req.Header["Transaction-Id"]).ToNot(BeNil())
 					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
-
 					// TODO: Add check for show_federated query parameter
-
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "description": "Description", "account_id": "AccountID", "created_at": "2019-01-01T12:00:00", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00", "last_modified_by_id": "LastModifiedByID", "href": "Href", "is_federated": false}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "description": "Description", "account_id": "AccountID", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "href": "Href", "is_federated": false}`)
 				}))
 			})
 			It(`Invoke GetAccessGroup successfully`, func() {
@@ -892,8 +853,8 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				updateAccessGroupOptionsModel := new(iamaccessgroupsv2.UpdateAccessGroupOptions)
 				updateAccessGroupOptionsModel.AccessGroupID = core.StringPtr("testString")
 				updateAccessGroupOptionsModel.IfMatch = core.StringPtr("testString")
-				updateAccessGroupOptionsModel.Name = core.StringPtr("testString")
-				updateAccessGroupOptionsModel.Description = core.StringPtr("testString")
+				updateAccessGroupOptionsModel.Name = core.StringPtr("Awesome Managers")
+				updateAccessGroupOptionsModel.Description = core.StringPtr("Group for awesome managers.")
 				updateAccessGroupOptionsModel.TransactionID = core.StringPtr("testString")
 				updateAccessGroupOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
@@ -952,7 +913,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "description": "Description", "account_id": "AccountID", "created_at": "2019-01-01T12:00:00", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00", "last_modified_by_id": "LastModifiedByID", "href": "Href", "is_federated": false}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "description": "Description", "account_id": "AccountID", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "href": "Href", "is_federated": false}`)
 				}))
 			})
 			It(`Invoke UpdateAccessGroup successfully with retries`, func() {
@@ -968,8 +929,8 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				updateAccessGroupOptionsModel := new(iamaccessgroupsv2.UpdateAccessGroupOptions)
 				updateAccessGroupOptionsModel.AccessGroupID = core.StringPtr("testString")
 				updateAccessGroupOptionsModel.IfMatch = core.StringPtr("testString")
-				updateAccessGroupOptionsModel.Name = core.StringPtr("testString")
-				updateAccessGroupOptionsModel.Description = core.StringPtr("testString")
+				updateAccessGroupOptionsModel.Name = core.StringPtr("Awesome Managers")
+				updateAccessGroupOptionsModel.Description = core.StringPtr("Group for awesome managers.")
 				updateAccessGroupOptionsModel.TransactionID = core.StringPtr("testString")
 				updateAccessGroupOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
@@ -1030,7 +991,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "description": "Description", "account_id": "AccountID", "created_at": "2019-01-01T12:00:00", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00", "last_modified_by_id": "LastModifiedByID", "href": "Href", "is_federated": false}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "description": "Description", "account_id": "AccountID", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "href": "Href", "is_federated": false}`)
 				}))
 			})
 			It(`Invoke UpdateAccessGroup successfully`, func() {
@@ -1051,8 +1012,8 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				updateAccessGroupOptionsModel := new(iamaccessgroupsv2.UpdateAccessGroupOptions)
 				updateAccessGroupOptionsModel.AccessGroupID = core.StringPtr("testString")
 				updateAccessGroupOptionsModel.IfMatch = core.StringPtr("testString")
-				updateAccessGroupOptionsModel.Name = core.StringPtr("testString")
-				updateAccessGroupOptionsModel.Description = core.StringPtr("testString")
+				updateAccessGroupOptionsModel.Name = core.StringPtr("Awesome Managers")
+				updateAccessGroupOptionsModel.Description = core.StringPtr("Group for awesome managers.")
 				updateAccessGroupOptionsModel.TransactionID = core.StringPtr("testString")
 				updateAccessGroupOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
@@ -1075,8 +1036,8 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				updateAccessGroupOptionsModel := new(iamaccessgroupsv2.UpdateAccessGroupOptions)
 				updateAccessGroupOptionsModel.AccessGroupID = core.StringPtr("testString")
 				updateAccessGroupOptionsModel.IfMatch = core.StringPtr("testString")
-				updateAccessGroupOptionsModel.Name = core.StringPtr("testString")
-				updateAccessGroupOptionsModel.Description = core.StringPtr("testString")
+				updateAccessGroupOptionsModel.Name = core.StringPtr("Awesome Managers")
+				updateAccessGroupOptionsModel.Description = core.StringPtr("Group for awesome managers.")
 				updateAccessGroupOptionsModel.TransactionID = core.StringPtr("testString")
 				updateAccessGroupOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
@@ -1114,9 +1075,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 
 					Expect(req.Header["Transaction-Id"]).ToNot(BeNil())
 					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
-
 					// TODO: Add check for force query parameter
-
 					res.WriteHeader(204)
 				}))
 			})
@@ -1209,14 +1168,13 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 		Context(`Using external config, construct service client instances`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"IAM_ACCESS_GROUPS_URL": "https://iamaccessgroupsv2/api",
+				"IAM_ACCESS_GROUPS_URL":       "https://iamaccessgroupsv2/api",
 				"IAM_ACCESS_GROUPS_AUTH_TYPE": "noauth",
 			}
 
 			It(`Create service client using external config successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				iamAccessGroupsService, serviceErr := iamaccessgroupsv2.NewIamAccessGroupsV2UsingExternalConfig(&iamaccessgroupsv2.IamAccessGroupsV2Options{
-				})
+				iamAccessGroupsService, serviceErr := iamaccessgroupsv2.NewIamAccessGroupsV2UsingExternalConfig(&iamaccessgroupsv2.IamAccessGroupsV2Options{})
 				Expect(iamAccessGroupsService).ToNot(BeNil())
 				Expect(serviceErr).To(BeNil())
 				ClearTestEnvironment(testEnvironment)
@@ -1245,8 +1203,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 			})
 			It(`Create service client using external config and set url programatically successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				iamAccessGroupsService, serviceErr := iamaccessgroupsv2.NewIamAccessGroupsV2UsingExternalConfig(&iamaccessgroupsv2.IamAccessGroupsV2Options{
-				})
+				iamAccessGroupsService, serviceErr := iamaccessgroupsv2.NewIamAccessGroupsV2UsingExternalConfig(&iamaccessgroupsv2.IamAccessGroupsV2Options{})
 				err := iamAccessGroupsService.SetServiceURL("https://testService/api")
 				Expect(err).To(BeNil())
 				Expect(iamAccessGroupsService).ToNot(BeNil())
@@ -1264,13 +1221,12 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 		Context(`Using external config, construct service client instances with error: Invalid Auth`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"IAM_ACCESS_GROUPS_URL": "https://iamaccessgroupsv2/api",
+				"IAM_ACCESS_GROUPS_URL":       "https://iamaccessgroupsv2/api",
 				"IAM_ACCESS_GROUPS_AUTH_TYPE": "someOtherAuth",
 			}
 
 			SetTestEnvironment(testEnvironment)
-			iamAccessGroupsService, serviceErr := iamaccessgroupsv2.NewIamAccessGroupsV2UsingExternalConfig(&iamaccessgroupsv2.IamAccessGroupsV2Options{
-			})
+			iamAccessGroupsService, serviceErr := iamaccessgroupsv2.NewIamAccessGroupsV2UsingExternalConfig(&iamaccessgroupsv2.IamAccessGroupsV2Options{})
 
 			It(`Instantiate service client with error`, func() {
 				Expect(iamAccessGroupsService).To(BeNil())
@@ -1281,7 +1237,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 		Context(`Using external config, construct service client instances with error: Invalid URL`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"IAM_ACCESS_GROUPS_AUTH_TYPE":   "NOAuth",
+				"IAM_ACCESS_GROUPS_AUTH_TYPE": "NOAuth",
 			}
 
 			SetTestEnvironment(testEnvironment)
@@ -1408,8 +1364,8 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 
 				// Construct an instance of the AddGroupMembersRequestMembersItem model
 				addGroupMembersRequestMembersItemModel := new(iamaccessgroupsv2.AddGroupMembersRequestMembersItem)
-				addGroupMembersRequestMembersItemModel.IamID = core.StringPtr("testString")
-				addGroupMembersRequestMembersItemModel.Type = core.StringPtr("testString")
+				addGroupMembersRequestMembersItemModel.IamID = core.StringPtr("IBMid-user1")
+				addGroupMembersRequestMembersItemModel.Type = core.StringPtr("user")
 
 				// Construct an instance of the AddMembersToAccessGroupOptions model
 				addMembersToAccessGroupOptionsModel := new(iamaccessgroupsv2.AddMembersToAccessGroupOptions)
@@ -1471,7 +1427,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(207)
-					fmt.Fprintf(res, "%s", `{"members": [{"iam_id": "IamID", "type": "Type", "created_at": "2019-01-01T12:00:00", "created_by_id": "CreatedByID", "status_code": 10, "trace": "Trace", "errors": [{"code": "Code", "message": "Message"}]}]}`)
+					fmt.Fprintf(res, "%s", `{"members": [{"iam_id": "IamID", "type": "Type", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "status_code": 10, "trace": "Trace", "errors": [{"code": "Code", "message": "Message"}]}]}`)
 				}))
 			})
 			It(`Invoke AddMembersToAccessGroup successfully with retries`, func() {
@@ -1485,8 +1441,8 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 
 				// Construct an instance of the AddGroupMembersRequestMembersItem model
 				addGroupMembersRequestMembersItemModel := new(iamaccessgroupsv2.AddGroupMembersRequestMembersItem)
-				addGroupMembersRequestMembersItemModel.IamID = core.StringPtr("testString")
-				addGroupMembersRequestMembersItemModel.Type = core.StringPtr("testString")
+				addGroupMembersRequestMembersItemModel.IamID = core.StringPtr("IBMid-user1")
+				addGroupMembersRequestMembersItemModel.Type = core.StringPtr("user")
 
 				// Construct an instance of the AddMembersToAccessGroupOptions model
 				addMembersToAccessGroupOptionsModel := new(iamaccessgroupsv2.AddMembersToAccessGroupOptions)
@@ -1550,7 +1506,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(207)
-					fmt.Fprintf(res, "%s", `{"members": [{"iam_id": "IamID", "type": "Type", "created_at": "2019-01-01T12:00:00", "created_by_id": "CreatedByID", "status_code": 10, "trace": "Trace", "errors": [{"code": "Code", "message": "Message"}]}]}`)
+					fmt.Fprintf(res, "%s", `{"members": [{"iam_id": "IamID", "type": "Type", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "status_code": 10, "trace": "Trace", "errors": [{"code": "Code", "message": "Message"}]}]}`)
 				}))
 			})
 			It(`Invoke AddMembersToAccessGroup successfully`, func() {
@@ -1569,8 +1525,8 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 
 				// Construct an instance of the AddGroupMembersRequestMembersItem model
 				addGroupMembersRequestMembersItemModel := new(iamaccessgroupsv2.AddGroupMembersRequestMembersItem)
-				addGroupMembersRequestMembersItemModel.IamID = core.StringPtr("testString")
-				addGroupMembersRequestMembersItemModel.Type = core.StringPtr("testString")
+				addGroupMembersRequestMembersItemModel.IamID = core.StringPtr("IBMid-user1")
+				addGroupMembersRequestMembersItemModel.Type = core.StringPtr("user")
 
 				// Construct an instance of the AddMembersToAccessGroupOptions model
 				addMembersToAccessGroupOptionsModel := new(iamaccessgroupsv2.AddMembersToAccessGroupOptions)
@@ -1596,8 +1552,8 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 
 				// Construct an instance of the AddGroupMembersRequestMembersItem model
 				addGroupMembersRequestMembersItemModel := new(iamaccessgroupsv2.AddGroupMembersRequestMembersItem)
-				addGroupMembersRequestMembersItemModel.IamID = core.StringPtr("testString")
-				addGroupMembersRequestMembersItemModel.Type = core.StringPtr("testString")
+				addGroupMembersRequestMembersItemModel.IamID = core.StringPtr("IBMid-user1")
+				addGroupMembersRequestMembersItemModel.Type = core.StringPtr("user")
 
 				// Construct an instance of the AddMembersToAccessGroupOptions model
 				addMembersToAccessGroupOptionsModel := new(iamaccessgroupsv2.AddMembersToAccessGroupOptions)
@@ -1639,16 +1595,10 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 					Expect(req.Header["Transaction-Id"]).ToNot(BeNil())
 					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(38))}))
-
 					Expect(req.URL.Query()["offset"]).To(Equal([]string{fmt.Sprint(int64(38))}))
-
 					Expect(req.URL.Query()["type"]).To(Equal([]string{"testString"}))
-
-
 					// TODO: Add check for verbose query parameter
-
 					Expect(req.URL.Query()["sort"]).To(Equal([]string{"testString"}))
-
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
 					fmt.Fprintf(res, `} this is not valid json {`)
@@ -1705,23 +1655,17 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 					Expect(req.Header["Transaction-Id"]).ToNot(BeNil())
 					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(38))}))
-
 					Expect(req.URL.Query()["offset"]).To(Equal([]string{fmt.Sprint(int64(38))}))
-
 					Expect(req.URL.Query()["type"]).To(Equal([]string{"testString"}))
-
-
 					// TODO: Add check for verbose query parameter
-
 					Expect(req.URL.Query()["sort"]).To(Equal([]string{"testString"}))
-
 					// Sleep a short time to support a timeout test
 					time.Sleep(100 * time.Millisecond)
 
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"limit": 5, "offset": 6, "total_count": 10, "first": {"href": "Href"}, "previous": {"href": "Href"}, "next": {"href": "Href"}, "last": {"href": "Href"}, "members": [{"iam_id": "IamID", "type": "Type", "name": "Name", "email": "Email", "description": "Description", "href": "Href", "created_at": "2019-01-01T12:00:00", "created_by_id": "CreatedByID"}]}`)
+					fmt.Fprintf(res, "%s", `{"limit": 5, "offset": 6, "total_count": 10, "first": {"href": "Href"}, "previous": {"href": "Href"}, "next": {"href": "Href"}, "last": {"href": "Href"}, "members": [{"iam_id": "IamID", "type": "Type", "name": "Name", "email": "Email", "description": "Description", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID"}]}`)
 				}))
 			})
 			It(`Invoke ListAccessGroupMembers successfully with retries`, func() {
@@ -1781,20 +1725,14 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 					Expect(req.Header["Transaction-Id"]).ToNot(BeNil())
 					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(38))}))
-
 					Expect(req.URL.Query()["offset"]).To(Equal([]string{fmt.Sprint(int64(38))}))
-
 					Expect(req.URL.Query()["type"]).To(Equal([]string{"testString"}))
-
-
 					// TODO: Add check for verbose query parameter
-
 					Expect(req.URL.Query()["sort"]).To(Equal([]string{"testString"}))
-
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"limit": 5, "offset": 6, "total_count": 10, "first": {"href": "Href"}, "previous": {"href": "Href"}, "next": {"href": "Href"}, "last": {"href": "Href"}, "members": [{"iam_id": "IamID", "type": "Type", "name": "Name", "email": "Email", "description": "Description", "href": "Href", "created_at": "2019-01-01T12:00:00", "created_by_id": "CreatedByID"}]}`)
+					fmt.Fprintf(res, "%s", `{"limit": 5, "offset": 6, "total_count": 10, "first": {"href": "Href"}, "previous": {"href": "Href"}, "next": {"href": "Href"}, "last": {"href": "Href"}, "members": [{"iam_id": "IamID", "type": "Type", "name": "Name", "email": "Email", "description": "Description", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID"}]}`)
 				}))
 			})
 			It(`Invoke ListAccessGroupMembers successfully`, func() {
@@ -1971,7 +1909,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				// Construct an instance of the RemoveMembersFromAccessGroupOptions model
 				removeMembersFromAccessGroupOptionsModel := new(iamaccessgroupsv2.RemoveMembersFromAccessGroupOptions)
 				removeMembersFromAccessGroupOptionsModel.AccessGroupID = core.StringPtr("testString")
-				removeMembersFromAccessGroupOptionsModel.Members = []string{"testString"}
+				removeMembersFromAccessGroupOptionsModel.Members = []string{"IBMId-user1", "iam-ServiceId-123"}
 				removeMembersFromAccessGroupOptionsModel.TransactionID = core.StringPtr("testString")
 				removeMembersFromAccessGroupOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
@@ -2043,7 +1981,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				// Construct an instance of the RemoveMembersFromAccessGroupOptions model
 				removeMembersFromAccessGroupOptionsModel := new(iamaccessgroupsv2.RemoveMembersFromAccessGroupOptions)
 				removeMembersFromAccessGroupOptionsModel.AccessGroupID = core.StringPtr("testString")
-				removeMembersFromAccessGroupOptionsModel.Members = []string{"testString"}
+				removeMembersFromAccessGroupOptionsModel.Members = []string{"IBMId-user1", "iam-ServiceId-123"}
 				removeMembersFromAccessGroupOptionsModel.TransactionID = core.StringPtr("testString")
 				removeMembersFromAccessGroupOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
@@ -2122,7 +2060,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				// Construct an instance of the RemoveMembersFromAccessGroupOptions model
 				removeMembersFromAccessGroupOptionsModel := new(iamaccessgroupsv2.RemoveMembersFromAccessGroupOptions)
 				removeMembersFromAccessGroupOptionsModel.AccessGroupID = core.StringPtr("testString")
-				removeMembersFromAccessGroupOptionsModel.Members = []string{"testString"}
+				removeMembersFromAccessGroupOptionsModel.Members = []string{"IBMId-user1", "iam-ServiceId-123"}
 				removeMembersFromAccessGroupOptionsModel.TransactionID = core.StringPtr("testString")
 				removeMembersFromAccessGroupOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
@@ -2144,7 +2082,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				// Construct an instance of the RemoveMembersFromAccessGroupOptions model
 				removeMembersFromAccessGroupOptionsModel := new(iamaccessgroupsv2.RemoveMembersFromAccessGroupOptions)
 				removeMembersFromAccessGroupOptionsModel.AccessGroupID = core.StringPtr("testString")
-				removeMembersFromAccessGroupOptionsModel.Members = []string{"testString"}
+				removeMembersFromAccessGroupOptionsModel.Members = []string{"IBMId-user1", "iam-ServiceId-123"}
 				removeMembersFromAccessGroupOptionsModel.TransactionID = core.StringPtr("testString")
 				removeMembersFromAccessGroupOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
@@ -2181,7 +2119,6 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 					Expect(req.Header["Transaction-Id"]).ToNot(BeNil())
 					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"testString"}))
-
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(207)
 					fmt.Fprintf(res, `} this is not valid json {`)
@@ -2234,7 +2171,6 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 					Expect(req.Header["Transaction-Id"]).ToNot(BeNil())
 					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"testString"}))
-
 					// Sleep a short time to support a timeout test
 					time.Sleep(100 * time.Millisecond)
 
@@ -2297,7 +2233,6 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 					Expect(req.Header["Transaction-Id"]).ToNot(BeNil())
 					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"testString"}))
-
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(207)
@@ -2380,7 +2315,6 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 					Expect(req.Header["Transaction-Id"]).ToNot(BeNil())
 					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"testString"}))
-
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(207)
 					fmt.Fprintf(res, `} this is not valid json {`)
@@ -2398,8 +2332,8 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				addMemberToMultipleAccessGroupsOptionsModel := new(iamaccessgroupsv2.AddMemberToMultipleAccessGroupsOptions)
 				addMemberToMultipleAccessGroupsOptionsModel.AccountID = core.StringPtr("testString")
 				addMemberToMultipleAccessGroupsOptionsModel.IamID = core.StringPtr("testString")
-				addMemberToMultipleAccessGroupsOptionsModel.Type = core.StringPtr("testString")
-				addMemberToMultipleAccessGroupsOptionsModel.Groups = []string{"testString"}
+				addMemberToMultipleAccessGroupsOptionsModel.Type = core.StringPtr("user")
+				addMemberToMultipleAccessGroupsOptionsModel.Groups = []string{"access-group-id-1"}
 				addMemberToMultipleAccessGroupsOptionsModel.TransactionID = core.StringPtr("testString")
 				addMemberToMultipleAccessGroupsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
@@ -2451,7 +2385,6 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 					Expect(req.Header["Transaction-Id"]).ToNot(BeNil())
 					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"testString"}))
-
 					// Sleep a short time to support a timeout test
 					time.Sleep(100 * time.Millisecond)
 
@@ -2474,8 +2407,8 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				addMemberToMultipleAccessGroupsOptionsModel := new(iamaccessgroupsv2.AddMemberToMultipleAccessGroupsOptions)
 				addMemberToMultipleAccessGroupsOptionsModel.AccountID = core.StringPtr("testString")
 				addMemberToMultipleAccessGroupsOptionsModel.IamID = core.StringPtr("testString")
-				addMemberToMultipleAccessGroupsOptionsModel.Type = core.StringPtr("testString")
-				addMemberToMultipleAccessGroupsOptionsModel.Groups = []string{"testString"}
+				addMemberToMultipleAccessGroupsOptionsModel.Type = core.StringPtr("user")
+				addMemberToMultipleAccessGroupsOptionsModel.Groups = []string{"access-group-id-1"}
 				addMemberToMultipleAccessGroupsOptionsModel.TransactionID = core.StringPtr("testString")
 				addMemberToMultipleAccessGroupsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
@@ -2532,7 +2465,6 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 					Expect(req.Header["Transaction-Id"]).ToNot(BeNil())
 					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"testString"}))
-
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(207)
@@ -2557,8 +2489,8 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				addMemberToMultipleAccessGroupsOptionsModel := new(iamaccessgroupsv2.AddMemberToMultipleAccessGroupsOptions)
 				addMemberToMultipleAccessGroupsOptionsModel.AccountID = core.StringPtr("testString")
 				addMemberToMultipleAccessGroupsOptionsModel.IamID = core.StringPtr("testString")
-				addMemberToMultipleAccessGroupsOptionsModel.Type = core.StringPtr("testString")
-				addMemberToMultipleAccessGroupsOptionsModel.Groups = []string{"testString"}
+				addMemberToMultipleAccessGroupsOptionsModel.Type = core.StringPtr("user")
+				addMemberToMultipleAccessGroupsOptionsModel.Groups = []string{"access-group-id-1"}
 				addMemberToMultipleAccessGroupsOptionsModel.TransactionID = core.StringPtr("testString")
 				addMemberToMultipleAccessGroupsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
@@ -2581,8 +2513,8 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				addMemberToMultipleAccessGroupsOptionsModel := new(iamaccessgroupsv2.AddMemberToMultipleAccessGroupsOptions)
 				addMemberToMultipleAccessGroupsOptionsModel.AccountID = core.StringPtr("testString")
 				addMemberToMultipleAccessGroupsOptionsModel.IamID = core.StringPtr("testString")
-				addMemberToMultipleAccessGroupsOptionsModel.Type = core.StringPtr("testString")
-				addMemberToMultipleAccessGroupsOptionsModel.Groups = []string{"testString"}
+				addMemberToMultipleAccessGroupsOptionsModel.Type = core.StringPtr("user")
+				addMemberToMultipleAccessGroupsOptionsModel.Groups = []string{"access-group-id-1"}
 				addMemberToMultipleAccessGroupsOptionsModel.TransactionID = core.StringPtr("testString")
 				addMemberToMultipleAccessGroupsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
@@ -2637,14 +2569,13 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 		Context(`Using external config, construct service client instances`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"IAM_ACCESS_GROUPS_URL": "https://iamaccessgroupsv2/api",
+				"IAM_ACCESS_GROUPS_URL":       "https://iamaccessgroupsv2/api",
 				"IAM_ACCESS_GROUPS_AUTH_TYPE": "noauth",
 			}
 
 			It(`Create service client using external config successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				iamAccessGroupsService, serviceErr := iamaccessgroupsv2.NewIamAccessGroupsV2UsingExternalConfig(&iamaccessgroupsv2.IamAccessGroupsV2Options{
-				})
+				iamAccessGroupsService, serviceErr := iamaccessgroupsv2.NewIamAccessGroupsV2UsingExternalConfig(&iamaccessgroupsv2.IamAccessGroupsV2Options{})
 				Expect(iamAccessGroupsService).ToNot(BeNil())
 				Expect(serviceErr).To(BeNil())
 				ClearTestEnvironment(testEnvironment)
@@ -2673,8 +2604,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 			})
 			It(`Create service client using external config and set url programatically successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				iamAccessGroupsService, serviceErr := iamaccessgroupsv2.NewIamAccessGroupsV2UsingExternalConfig(&iamaccessgroupsv2.IamAccessGroupsV2Options{
-				})
+				iamAccessGroupsService, serviceErr := iamaccessgroupsv2.NewIamAccessGroupsV2UsingExternalConfig(&iamaccessgroupsv2.IamAccessGroupsV2Options{})
 				err := iamAccessGroupsService.SetServiceURL("https://testService/api")
 				Expect(err).To(BeNil())
 				Expect(iamAccessGroupsService).ToNot(BeNil())
@@ -2692,13 +2622,12 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 		Context(`Using external config, construct service client instances with error: Invalid Auth`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"IAM_ACCESS_GROUPS_URL": "https://iamaccessgroupsv2/api",
+				"IAM_ACCESS_GROUPS_URL":       "https://iamaccessgroupsv2/api",
 				"IAM_ACCESS_GROUPS_AUTH_TYPE": "someOtherAuth",
 			}
 
 			SetTestEnvironment(testEnvironment)
-			iamAccessGroupsService, serviceErr := iamaccessgroupsv2.NewIamAccessGroupsV2UsingExternalConfig(&iamaccessgroupsv2.IamAccessGroupsV2Options{
-			})
+			iamAccessGroupsService, serviceErr := iamaccessgroupsv2.NewIamAccessGroupsV2UsingExternalConfig(&iamaccessgroupsv2.IamAccessGroupsV2Options{})
 
 			It(`Instantiate service client with error`, func() {
 				Expect(iamAccessGroupsService).To(BeNil())
@@ -2709,7 +2638,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 		Context(`Using external config, construct service client instances with error: Invalid URL`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"IAM_ACCESS_GROUPS_AUTH_TYPE":   "NOAuth",
+				"IAM_ACCESS_GROUPS_AUTH_TYPE": "NOAuth",
 			}
 
 			SetTestEnvironment(testEnvironment)
@@ -2761,17 +2690,17 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 
 				// Construct an instance of the RuleConditions model
 				ruleConditionsModel := new(iamaccessgroupsv2.RuleConditions)
-				ruleConditionsModel.Claim = core.StringPtr("testString")
-				ruleConditionsModel.Operator = core.StringPtr("testString")
-				ruleConditionsModel.Value = core.StringPtr("testString")
+				ruleConditionsModel.Claim = core.StringPtr("isManager")
+				ruleConditionsModel.Operator = core.StringPtr("EQUALS")
+				ruleConditionsModel.Value = core.StringPtr("true")
 
 				// Construct an instance of the AddAccessGroupRuleOptions model
 				addAccessGroupRuleOptionsModel := new(iamaccessgroupsv2.AddAccessGroupRuleOptions)
 				addAccessGroupRuleOptionsModel.AccessGroupID = core.StringPtr("testString")
-				addAccessGroupRuleOptionsModel.Expiration = core.Int64Ptr(int64(38))
-				addAccessGroupRuleOptionsModel.RealmName = core.StringPtr("testString")
+				addAccessGroupRuleOptionsModel.Expiration = core.Int64Ptr(int64(12))
+				addAccessGroupRuleOptionsModel.RealmName = core.StringPtr("https://idp.example.org/SAML2")
 				addAccessGroupRuleOptionsModel.Conditions = []iamaccessgroupsv2.RuleConditions{*ruleConditionsModel}
-				addAccessGroupRuleOptionsModel.Name = core.StringPtr("testString")
+				addAccessGroupRuleOptionsModel.Name = core.StringPtr("Manager group rule")
 				addAccessGroupRuleOptionsModel.TransactionID = core.StringPtr("testString")
 				addAccessGroupRuleOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
@@ -2828,7 +2757,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "expiration": 10, "realm_name": "RealmName", "access_group_id": "AccessGroupID", "account_id": "AccountID", "conditions": [{"claim": "Claim", "operator": "Operator", "value": "Value"}], "created_at": "2019-01-01T12:00:00", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00", "last_modified_by_id": "LastModifiedByID"}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "expiration": 10, "realm_name": "RealmName", "access_group_id": "AccessGroupID", "account_id": "AccountID", "conditions": [{"claim": "Claim", "operator": "EQUALS", "value": "Value"}], "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}`)
 				}))
 			})
 			It(`Invoke AddAccessGroupRule successfully with retries`, func() {
@@ -2842,17 +2771,17 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 
 				// Construct an instance of the RuleConditions model
 				ruleConditionsModel := new(iamaccessgroupsv2.RuleConditions)
-				ruleConditionsModel.Claim = core.StringPtr("testString")
-				ruleConditionsModel.Operator = core.StringPtr("testString")
-				ruleConditionsModel.Value = core.StringPtr("testString")
+				ruleConditionsModel.Claim = core.StringPtr("isManager")
+				ruleConditionsModel.Operator = core.StringPtr("EQUALS")
+				ruleConditionsModel.Value = core.StringPtr("true")
 
 				// Construct an instance of the AddAccessGroupRuleOptions model
 				addAccessGroupRuleOptionsModel := new(iamaccessgroupsv2.AddAccessGroupRuleOptions)
 				addAccessGroupRuleOptionsModel.AccessGroupID = core.StringPtr("testString")
-				addAccessGroupRuleOptionsModel.Expiration = core.Int64Ptr(int64(38))
-				addAccessGroupRuleOptionsModel.RealmName = core.StringPtr("testString")
+				addAccessGroupRuleOptionsModel.Expiration = core.Int64Ptr(int64(12))
+				addAccessGroupRuleOptionsModel.RealmName = core.StringPtr("https://idp.example.org/SAML2")
 				addAccessGroupRuleOptionsModel.Conditions = []iamaccessgroupsv2.RuleConditions{*ruleConditionsModel}
-				addAccessGroupRuleOptionsModel.Name = core.StringPtr("testString")
+				addAccessGroupRuleOptionsModel.Name = core.StringPtr("Manager group rule")
 				addAccessGroupRuleOptionsModel.TransactionID = core.StringPtr("testString")
 				addAccessGroupRuleOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
@@ -2911,7 +2840,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "expiration": 10, "realm_name": "RealmName", "access_group_id": "AccessGroupID", "account_id": "AccountID", "conditions": [{"claim": "Claim", "operator": "Operator", "value": "Value"}], "created_at": "2019-01-01T12:00:00", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00", "last_modified_by_id": "LastModifiedByID"}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "expiration": 10, "realm_name": "RealmName", "access_group_id": "AccessGroupID", "account_id": "AccountID", "conditions": [{"claim": "Claim", "operator": "EQUALS", "value": "Value"}], "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}`)
 				}))
 			})
 			It(`Invoke AddAccessGroupRule successfully`, func() {
@@ -2930,17 +2859,17 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 
 				// Construct an instance of the RuleConditions model
 				ruleConditionsModel := new(iamaccessgroupsv2.RuleConditions)
-				ruleConditionsModel.Claim = core.StringPtr("testString")
-				ruleConditionsModel.Operator = core.StringPtr("testString")
-				ruleConditionsModel.Value = core.StringPtr("testString")
+				ruleConditionsModel.Claim = core.StringPtr("isManager")
+				ruleConditionsModel.Operator = core.StringPtr("EQUALS")
+				ruleConditionsModel.Value = core.StringPtr("true")
 
 				// Construct an instance of the AddAccessGroupRuleOptions model
 				addAccessGroupRuleOptionsModel := new(iamaccessgroupsv2.AddAccessGroupRuleOptions)
 				addAccessGroupRuleOptionsModel.AccessGroupID = core.StringPtr("testString")
-				addAccessGroupRuleOptionsModel.Expiration = core.Int64Ptr(int64(38))
-				addAccessGroupRuleOptionsModel.RealmName = core.StringPtr("testString")
+				addAccessGroupRuleOptionsModel.Expiration = core.Int64Ptr(int64(12))
+				addAccessGroupRuleOptionsModel.RealmName = core.StringPtr("https://idp.example.org/SAML2")
 				addAccessGroupRuleOptionsModel.Conditions = []iamaccessgroupsv2.RuleConditions{*ruleConditionsModel}
-				addAccessGroupRuleOptionsModel.Name = core.StringPtr("testString")
+				addAccessGroupRuleOptionsModel.Name = core.StringPtr("Manager group rule")
 				addAccessGroupRuleOptionsModel.TransactionID = core.StringPtr("testString")
 				addAccessGroupRuleOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
@@ -2961,17 +2890,17 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 
 				// Construct an instance of the RuleConditions model
 				ruleConditionsModel := new(iamaccessgroupsv2.RuleConditions)
-				ruleConditionsModel.Claim = core.StringPtr("testString")
-				ruleConditionsModel.Operator = core.StringPtr("testString")
-				ruleConditionsModel.Value = core.StringPtr("testString")
+				ruleConditionsModel.Claim = core.StringPtr("isManager")
+				ruleConditionsModel.Operator = core.StringPtr("EQUALS")
+				ruleConditionsModel.Value = core.StringPtr("true")
 
 				// Construct an instance of the AddAccessGroupRuleOptions model
 				addAccessGroupRuleOptionsModel := new(iamaccessgroupsv2.AddAccessGroupRuleOptions)
 				addAccessGroupRuleOptionsModel.AccessGroupID = core.StringPtr("testString")
-				addAccessGroupRuleOptionsModel.Expiration = core.Int64Ptr(int64(38))
-				addAccessGroupRuleOptionsModel.RealmName = core.StringPtr("testString")
+				addAccessGroupRuleOptionsModel.Expiration = core.Int64Ptr(int64(12))
+				addAccessGroupRuleOptionsModel.RealmName = core.StringPtr("https://idp.example.org/SAML2")
 				addAccessGroupRuleOptionsModel.Conditions = []iamaccessgroupsv2.RuleConditions{*ruleConditionsModel}
-				addAccessGroupRuleOptionsModel.Name = core.StringPtr("testString")
+				addAccessGroupRuleOptionsModel.Name = core.StringPtr("Manager group rule")
 				addAccessGroupRuleOptionsModel.TransactionID = core.StringPtr("testString")
 				addAccessGroupRuleOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
@@ -3063,7 +2992,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"rules": [{"id": "ID", "name": "Name", "expiration": 10, "realm_name": "RealmName", "access_group_id": "AccessGroupID", "account_id": "AccountID", "conditions": [{"claim": "Claim", "operator": "Operator", "value": "Value"}], "created_at": "2019-01-01T12:00:00", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00", "last_modified_by_id": "LastModifiedByID"}]}`)
+					fmt.Fprintf(res, "%s", `{"rules": [{"id": "ID", "name": "Name", "expiration": 10, "realm_name": "RealmName", "access_group_id": "AccessGroupID", "account_id": "AccountID", "conditions": [{"claim": "Claim", "operator": "EQUALS", "value": "Value"}], "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}]}`)
 				}))
 			})
 			It(`Invoke ListAccessGroupRules successfully with retries`, func() {
@@ -3120,7 +3049,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"rules": [{"id": "ID", "name": "Name", "expiration": 10, "realm_name": "RealmName", "access_group_id": "AccessGroupID", "account_id": "AccountID", "conditions": [{"claim": "Claim", "operator": "Operator", "value": "Value"}], "created_at": "2019-01-01T12:00:00", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00", "last_modified_by_id": "LastModifiedByID"}]}`)
+					fmt.Fprintf(res, "%s", `{"rules": [{"id": "ID", "name": "Name", "expiration": 10, "realm_name": "RealmName", "access_group_id": "AccessGroupID", "account_id": "AccountID", "conditions": [{"claim": "Claim", "operator": "EQUALS", "value": "Value"}], "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}]}`)
 				}))
 			})
 			It(`Invoke ListAccessGroupRules successfully`, func() {
@@ -3253,7 +3182,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "expiration": 10, "realm_name": "RealmName", "access_group_id": "AccessGroupID", "account_id": "AccountID", "conditions": [{"claim": "Claim", "operator": "Operator", "value": "Value"}], "created_at": "2019-01-01T12:00:00", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00", "last_modified_by_id": "LastModifiedByID"}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "expiration": 10, "realm_name": "RealmName", "access_group_id": "AccessGroupID", "account_id": "AccountID", "conditions": [{"claim": "Claim", "operator": "EQUALS", "value": "Value"}], "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}`)
 				}))
 			})
 			It(`Invoke GetAccessGroupRule successfully with retries`, func() {
@@ -3311,7 +3240,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "expiration": 10, "realm_name": "RealmName", "access_group_id": "AccessGroupID", "account_id": "AccountID", "conditions": [{"claim": "Claim", "operator": "Operator", "value": "Value"}], "created_at": "2019-01-01T12:00:00", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00", "last_modified_by_id": "LastModifiedByID"}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "expiration": 10, "realm_name": "RealmName", "access_group_id": "AccessGroupID", "account_id": "AccountID", "conditions": [{"claim": "Claim", "operator": "EQUALS", "value": "Value"}], "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}`)
 				}))
 			})
 			It(`Invoke GetAccessGroupRule successfully`, func() {
@@ -3406,19 +3335,19 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 
 				// Construct an instance of the RuleConditions model
 				ruleConditionsModel := new(iamaccessgroupsv2.RuleConditions)
-				ruleConditionsModel.Claim = core.StringPtr("testString")
-				ruleConditionsModel.Operator = core.StringPtr("testString")
-				ruleConditionsModel.Value = core.StringPtr("testString")
+				ruleConditionsModel.Claim = core.StringPtr("isManager")
+				ruleConditionsModel.Operator = core.StringPtr("EQUALS")
+				ruleConditionsModel.Value = core.StringPtr("true")
 
 				// Construct an instance of the ReplaceAccessGroupRuleOptions model
 				replaceAccessGroupRuleOptionsModel := new(iamaccessgroupsv2.ReplaceAccessGroupRuleOptions)
 				replaceAccessGroupRuleOptionsModel.AccessGroupID = core.StringPtr("testString")
 				replaceAccessGroupRuleOptionsModel.RuleID = core.StringPtr("testString")
 				replaceAccessGroupRuleOptionsModel.IfMatch = core.StringPtr("testString")
-				replaceAccessGroupRuleOptionsModel.Expiration = core.Int64Ptr(int64(38))
-				replaceAccessGroupRuleOptionsModel.RealmName = core.StringPtr("testString")
+				replaceAccessGroupRuleOptionsModel.Expiration = core.Int64Ptr(int64(12))
+				replaceAccessGroupRuleOptionsModel.RealmName = core.StringPtr("https://idp.example.org/SAML2")
 				replaceAccessGroupRuleOptionsModel.Conditions = []iamaccessgroupsv2.RuleConditions{*ruleConditionsModel}
-				replaceAccessGroupRuleOptionsModel.Name = core.StringPtr("testString")
+				replaceAccessGroupRuleOptionsModel.Name = core.StringPtr("Manager group rule")
 				replaceAccessGroupRuleOptionsModel.TransactionID = core.StringPtr("testString")
 				replaceAccessGroupRuleOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
@@ -3477,7 +3406,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "expiration": 10, "realm_name": "RealmName", "access_group_id": "AccessGroupID", "account_id": "AccountID", "conditions": [{"claim": "Claim", "operator": "Operator", "value": "Value"}], "created_at": "2019-01-01T12:00:00", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00", "last_modified_by_id": "LastModifiedByID"}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "expiration": 10, "realm_name": "RealmName", "access_group_id": "AccessGroupID", "account_id": "AccountID", "conditions": [{"claim": "Claim", "operator": "EQUALS", "value": "Value"}], "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}`)
 				}))
 			})
 			It(`Invoke ReplaceAccessGroupRule successfully with retries`, func() {
@@ -3491,19 +3420,19 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 
 				// Construct an instance of the RuleConditions model
 				ruleConditionsModel := new(iamaccessgroupsv2.RuleConditions)
-				ruleConditionsModel.Claim = core.StringPtr("testString")
-				ruleConditionsModel.Operator = core.StringPtr("testString")
-				ruleConditionsModel.Value = core.StringPtr("testString")
+				ruleConditionsModel.Claim = core.StringPtr("isManager")
+				ruleConditionsModel.Operator = core.StringPtr("EQUALS")
+				ruleConditionsModel.Value = core.StringPtr("true")
 
 				// Construct an instance of the ReplaceAccessGroupRuleOptions model
 				replaceAccessGroupRuleOptionsModel := new(iamaccessgroupsv2.ReplaceAccessGroupRuleOptions)
 				replaceAccessGroupRuleOptionsModel.AccessGroupID = core.StringPtr("testString")
 				replaceAccessGroupRuleOptionsModel.RuleID = core.StringPtr("testString")
 				replaceAccessGroupRuleOptionsModel.IfMatch = core.StringPtr("testString")
-				replaceAccessGroupRuleOptionsModel.Expiration = core.Int64Ptr(int64(38))
-				replaceAccessGroupRuleOptionsModel.RealmName = core.StringPtr("testString")
+				replaceAccessGroupRuleOptionsModel.Expiration = core.Int64Ptr(int64(12))
+				replaceAccessGroupRuleOptionsModel.RealmName = core.StringPtr("https://idp.example.org/SAML2")
 				replaceAccessGroupRuleOptionsModel.Conditions = []iamaccessgroupsv2.RuleConditions{*ruleConditionsModel}
-				replaceAccessGroupRuleOptionsModel.Name = core.StringPtr("testString")
+				replaceAccessGroupRuleOptionsModel.Name = core.StringPtr("Manager group rule")
 				replaceAccessGroupRuleOptionsModel.TransactionID = core.StringPtr("testString")
 				replaceAccessGroupRuleOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
@@ -3564,7 +3493,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "expiration": 10, "realm_name": "RealmName", "access_group_id": "AccessGroupID", "account_id": "AccountID", "conditions": [{"claim": "Claim", "operator": "Operator", "value": "Value"}], "created_at": "2019-01-01T12:00:00", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00", "last_modified_by_id": "LastModifiedByID"}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "expiration": 10, "realm_name": "RealmName", "access_group_id": "AccessGroupID", "account_id": "AccountID", "conditions": [{"claim": "Claim", "operator": "EQUALS", "value": "Value"}], "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}`)
 				}))
 			})
 			It(`Invoke ReplaceAccessGroupRule successfully`, func() {
@@ -3583,19 +3512,19 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 
 				// Construct an instance of the RuleConditions model
 				ruleConditionsModel := new(iamaccessgroupsv2.RuleConditions)
-				ruleConditionsModel.Claim = core.StringPtr("testString")
-				ruleConditionsModel.Operator = core.StringPtr("testString")
-				ruleConditionsModel.Value = core.StringPtr("testString")
+				ruleConditionsModel.Claim = core.StringPtr("isManager")
+				ruleConditionsModel.Operator = core.StringPtr("EQUALS")
+				ruleConditionsModel.Value = core.StringPtr("true")
 
 				// Construct an instance of the ReplaceAccessGroupRuleOptions model
 				replaceAccessGroupRuleOptionsModel := new(iamaccessgroupsv2.ReplaceAccessGroupRuleOptions)
 				replaceAccessGroupRuleOptionsModel.AccessGroupID = core.StringPtr("testString")
 				replaceAccessGroupRuleOptionsModel.RuleID = core.StringPtr("testString")
 				replaceAccessGroupRuleOptionsModel.IfMatch = core.StringPtr("testString")
-				replaceAccessGroupRuleOptionsModel.Expiration = core.Int64Ptr(int64(38))
-				replaceAccessGroupRuleOptionsModel.RealmName = core.StringPtr("testString")
+				replaceAccessGroupRuleOptionsModel.Expiration = core.Int64Ptr(int64(12))
+				replaceAccessGroupRuleOptionsModel.RealmName = core.StringPtr("https://idp.example.org/SAML2")
 				replaceAccessGroupRuleOptionsModel.Conditions = []iamaccessgroupsv2.RuleConditions{*ruleConditionsModel}
-				replaceAccessGroupRuleOptionsModel.Name = core.StringPtr("testString")
+				replaceAccessGroupRuleOptionsModel.Name = core.StringPtr("Manager group rule")
 				replaceAccessGroupRuleOptionsModel.TransactionID = core.StringPtr("testString")
 				replaceAccessGroupRuleOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
@@ -3616,19 +3545,19 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 
 				// Construct an instance of the RuleConditions model
 				ruleConditionsModel := new(iamaccessgroupsv2.RuleConditions)
-				ruleConditionsModel.Claim = core.StringPtr("testString")
-				ruleConditionsModel.Operator = core.StringPtr("testString")
-				ruleConditionsModel.Value = core.StringPtr("testString")
+				ruleConditionsModel.Claim = core.StringPtr("isManager")
+				ruleConditionsModel.Operator = core.StringPtr("EQUALS")
+				ruleConditionsModel.Value = core.StringPtr("true")
 
 				// Construct an instance of the ReplaceAccessGroupRuleOptions model
 				replaceAccessGroupRuleOptionsModel := new(iamaccessgroupsv2.ReplaceAccessGroupRuleOptions)
 				replaceAccessGroupRuleOptionsModel.AccessGroupID = core.StringPtr("testString")
 				replaceAccessGroupRuleOptionsModel.RuleID = core.StringPtr("testString")
 				replaceAccessGroupRuleOptionsModel.IfMatch = core.StringPtr("testString")
-				replaceAccessGroupRuleOptionsModel.Expiration = core.Int64Ptr(int64(38))
-				replaceAccessGroupRuleOptionsModel.RealmName = core.StringPtr("testString")
+				replaceAccessGroupRuleOptionsModel.Expiration = core.Int64Ptr(int64(12))
+				replaceAccessGroupRuleOptionsModel.RealmName = core.StringPtr("https://idp.example.org/SAML2")
 				replaceAccessGroupRuleOptionsModel.Conditions = []iamaccessgroupsv2.RuleConditions{*ruleConditionsModel}
-				replaceAccessGroupRuleOptionsModel.Name = core.StringPtr("testString")
+				replaceAccessGroupRuleOptionsModel.Name = core.StringPtr("Manager group rule")
 				replaceAccessGroupRuleOptionsModel.TransactionID = core.StringPtr("testString")
 				replaceAccessGroupRuleOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
@@ -3758,14 +3687,13 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 		Context(`Using external config, construct service client instances`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"IAM_ACCESS_GROUPS_URL": "https://iamaccessgroupsv2/api",
+				"IAM_ACCESS_GROUPS_URL":       "https://iamaccessgroupsv2/api",
 				"IAM_ACCESS_GROUPS_AUTH_TYPE": "noauth",
 			}
 
 			It(`Create service client using external config successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				iamAccessGroupsService, serviceErr := iamaccessgroupsv2.NewIamAccessGroupsV2UsingExternalConfig(&iamaccessgroupsv2.IamAccessGroupsV2Options{
-				})
+				iamAccessGroupsService, serviceErr := iamaccessgroupsv2.NewIamAccessGroupsV2UsingExternalConfig(&iamaccessgroupsv2.IamAccessGroupsV2Options{})
 				Expect(iamAccessGroupsService).ToNot(BeNil())
 				Expect(serviceErr).To(BeNil())
 				ClearTestEnvironment(testEnvironment)
@@ -3794,8 +3722,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 			})
 			It(`Create service client using external config and set url programatically successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				iamAccessGroupsService, serviceErr := iamaccessgroupsv2.NewIamAccessGroupsV2UsingExternalConfig(&iamaccessgroupsv2.IamAccessGroupsV2Options{
-				})
+				iamAccessGroupsService, serviceErr := iamaccessgroupsv2.NewIamAccessGroupsV2UsingExternalConfig(&iamaccessgroupsv2.IamAccessGroupsV2Options{})
 				err := iamAccessGroupsService.SetServiceURL("https://testService/api")
 				Expect(err).To(BeNil())
 				Expect(iamAccessGroupsService).ToNot(BeNil())
@@ -3813,13 +3740,12 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 		Context(`Using external config, construct service client instances with error: Invalid Auth`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"IAM_ACCESS_GROUPS_URL": "https://iamaccessgroupsv2/api",
+				"IAM_ACCESS_GROUPS_URL":       "https://iamaccessgroupsv2/api",
 				"IAM_ACCESS_GROUPS_AUTH_TYPE": "someOtherAuth",
 			}
 
 			SetTestEnvironment(testEnvironment)
-			iamAccessGroupsService, serviceErr := iamaccessgroupsv2.NewIamAccessGroupsV2UsingExternalConfig(&iamaccessgroupsv2.IamAccessGroupsV2Options{
-			})
+			iamAccessGroupsService, serviceErr := iamaccessgroupsv2.NewIamAccessGroupsV2UsingExternalConfig(&iamaccessgroupsv2.IamAccessGroupsV2Options{})
 
 			It(`Instantiate service client with error`, func() {
 				Expect(iamAccessGroupsService).To(BeNil())
@@ -3830,7 +3756,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 		Context(`Using external config, construct service client instances with error: Invalid URL`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"IAM_ACCESS_GROUPS_AUTH_TYPE":   "NOAuth",
+				"IAM_ACCESS_GROUPS_AUTH_TYPE": "NOAuth",
 			}
 
 			SetTestEnvironment(testEnvironment)
@@ -3868,7 +3794,6 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 					Expect(req.Header["Transaction-Id"]).ToNot(BeNil())
 					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"testString"}))
-
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
 					fmt.Fprintf(res, `} this is not valid json {`)
@@ -3920,14 +3845,13 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 					Expect(req.Header["Transaction-Id"]).ToNot(BeNil())
 					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"testString"}))
-
 					// Sleep a short time to support a timeout test
 					time.Sleep(100 * time.Millisecond)
 
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"account_id": "AccountID", "last_modified_at": "2019-01-01T12:00:00", "last_modified_by_id": "LastModifiedByID", "public_access_enabled": false}`)
+					fmt.Fprintf(res, "%s", `{"account_id": "AccountID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "public_access_enabled": false}`)
 				}))
 			})
 			It(`Invoke GetAccountSettings successfully with retries`, func() {
@@ -3982,11 +3906,10 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 					Expect(req.Header["Transaction-Id"]).ToNot(BeNil())
 					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"testString"}))
-
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"account_id": "AccountID", "last_modified_at": "2019-01-01T12:00:00", "last_modified_by_id": "LastModifiedByID", "public_access_enabled": false}`)
+					fmt.Fprintf(res, "%s", `{"account_id": "AccountID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "public_access_enabled": false}`)
 				}))
 			})
 			It(`Invoke GetAccountSettings successfully`, func() {
@@ -4063,7 +3986,6 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 					Expect(req.Header["Transaction-Id"]).ToNot(BeNil())
 					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"testString"}))
-
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
 					fmt.Fprintf(res, `} this is not valid json {`)
@@ -4132,14 +4054,13 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 					Expect(req.Header["Transaction-Id"]).ToNot(BeNil())
 					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"testString"}))
-
 					// Sleep a short time to support a timeout test
 					time.Sleep(100 * time.Millisecond)
 
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"account_id": "AccountID", "last_modified_at": "2019-01-01T12:00:00", "last_modified_by_id": "LastModifiedByID", "public_access_enabled": false}`)
+					fmt.Fprintf(res, "%s", `{"account_id": "AccountID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "public_access_enabled": false}`)
 				}))
 			})
 			It(`Invoke UpdateAccountSettings successfully with retries`, func() {
@@ -4211,11 +4132,10 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 					Expect(req.Header["Transaction-Id"]).ToNot(BeNil())
 					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"testString"}))
-
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"account_id": "AccountID", "last_modified_at": "2019-01-01T12:00:00", "last_modified_by_id": "LastModifiedByID", "public_access_enabled": false}`)
+					fmt.Fprintf(res, "%s", `{"account_id": "AccountID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "public_access_enabled": false}`)
 				}))
 			})
 			It(`Invoke UpdateAccountSettings successfully`, func() {
@@ -4291,32 +4211,32 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				// Construct an instance of the RuleConditions model
 				ruleConditionsModel := new(iamaccessgroupsv2.RuleConditions)
 				Expect(ruleConditionsModel).ToNot(BeNil())
-				ruleConditionsModel.Claim = core.StringPtr("testString")
-				ruleConditionsModel.Operator = core.StringPtr("testString")
-				ruleConditionsModel.Value = core.StringPtr("testString")
-				Expect(ruleConditionsModel.Claim).To(Equal(core.StringPtr("testString")))
-				Expect(ruleConditionsModel.Operator).To(Equal(core.StringPtr("testString")))
-				Expect(ruleConditionsModel.Value).To(Equal(core.StringPtr("testString")))
+				ruleConditionsModel.Claim = core.StringPtr("isManager")
+				ruleConditionsModel.Operator = core.StringPtr("EQUALS")
+				ruleConditionsModel.Value = core.StringPtr("true")
+				Expect(ruleConditionsModel.Claim).To(Equal(core.StringPtr("isManager")))
+				Expect(ruleConditionsModel.Operator).To(Equal(core.StringPtr("EQUALS")))
+				Expect(ruleConditionsModel.Value).To(Equal(core.StringPtr("true")))
 
 				// Construct an instance of the AddAccessGroupRuleOptions model
 				accessGroupID := "testString"
-				addAccessGroupRuleOptionsExpiration := int64(38)
-				addAccessGroupRuleOptionsRealmName := "testString"
+				addAccessGroupRuleOptionsExpiration := int64(12)
+				addAccessGroupRuleOptionsRealmName := "https://idp.example.org/SAML2"
 				addAccessGroupRuleOptionsConditions := []iamaccessgroupsv2.RuleConditions{}
 				addAccessGroupRuleOptionsModel := iamAccessGroupsService.NewAddAccessGroupRuleOptions(accessGroupID, addAccessGroupRuleOptionsExpiration, addAccessGroupRuleOptionsRealmName, addAccessGroupRuleOptionsConditions)
 				addAccessGroupRuleOptionsModel.SetAccessGroupID("testString")
-				addAccessGroupRuleOptionsModel.SetExpiration(int64(38))
-				addAccessGroupRuleOptionsModel.SetRealmName("testString")
+				addAccessGroupRuleOptionsModel.SetExpiration(int64(12))
+				addAccessGroupRuleOptionsModel.SetRealmName("https://idp.example.org/SAML2")
 				addAccessGroupRuleOptionsModel.SetConditions([]iamaccessgroupsv2.RuleConditions{*ruleConditionsModel})
-				addAccessGroupRuleOptionsModel.SetName("testString")
+				addAccessGroupRuleOptionsModel.SetName("Manager group rule")
 				addAccessGroupRuleOptionsModel.SetTransactionID("testString")
 				addAccessGroupRuleOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(addAccessGroupRuleOptionsModel).ToNot(BeNil())
 				Expect(addAccessGroupRuleOptionsModel.AccessGroupID).To(Equal(core.StringPtr("testString")))
-				Expect(addAccessGroupRuleOptionsModel.Expiration).To(Equal(core.Int64Ptr(int64(38))))
-				Expect(addAccessGroupRuleOptionsModel.RealmName).To(Equal(core.StringPtr("testString")))
+				Expect(addAccessGroupRuleOptionsModel.Expiration).To(Equal(core.Int64Ptr(int64(12))))
+				Expect(addAccessGroupRuleOptionsModel.RealmName).To(Equal(core.StringPtr("https://idp.example.org/SAML2")))
 				Expect(addAccessGroupRuleOptionsModel.Conditions).To(Equal([]iamaccessgroupsv2.RuleConditions{*ruleConditionsModel}))
-				Expect(addAccessGroupRuleOptionsModel.Name).To(Equal(core.StringPtr("testString")))
+				Expect(addAccessGroupRuleOptionsModel.Name).To(Equal(core.StringPtr("Manager group rule")))
 				Expect(addAccessGroupRuleOptionsModel.TransactionID).To(Equal(core.StringPtr("testString")))
 				Expect(addAccessGroupRuleOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
@@ -4334,15 +4254,15 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				addMemberToMultipleAccessGroupsOptionsModel := iamAccessGroupsService.NewAddMemberToMultipleAccessGroupsOptions(accountID, iamID)
 				addMemberToMultipleAccessGroupsOptionsModel.SetAccountID("testString")
 				addMemberToMultipleAccessGroupsOptionsModel.SetIamID("testString")
-				addMemberToMultipleAccessGroupsOptionsModel.SetType("testString")
-				addMemberToMultipleAccessGroupsOptionsModel.SetGroups([]string{"testString"})
+				addMemberToMultipleAccessGroupsOptionsModel.SetType("user")
+				addMemberToMultipleAccessGroupsOptionsModel.SetGroups([]string{"access-group-id-1"})
 				addMemberToMultipleAccessGroupsOptionsModel.SetTransactionID("testString")
 				addMemberToMultipleAccessGroupsOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(addMemberToMultipleAccessGroupsOptionsModel).ToNot(BeNil())
 				Expect(addMemberToMultipleAccessGroupsOptionsModel.AccountID).To(Equal(core.StringPtr("testString")))
 				Expect(addMemberToMultipleAccessGroupsOptionsModel.IamID).To(Equal(core.StringPtr("testString")))
-				Expect(addMemberToMultipleAccessGroupsOptionsModel.Type).To(Equal(core.StringPtr("testString")))
-				Expect(addMemberToMultipleAccessGroupsOptionsModel.Groups).To(Equal([]string{"testString"}))
+				Expect(addMemberToMultipleAccessGroupsOptionsModel.Type).To(Equal(core.StringPtr("user")))
+				Expect(addMemberToMultipleAccessGroupsOptionsModel.Groups).To(Equal([]string{"access-group-id-1"}))
 				Expect(addMemberToMultipleAccessGroupsOptionsModel.TransactionID).To(Equal(core.StringPtr("testString")))
 				Expect(addMemberToMultipleAccessGroupsOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
@@ -4350,10 +4270,10 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				// Construct an instance of the AddGroupMembersRequestMembersItem model
 				addGroupMembersRequestMembersItemModel := new(iamaccessgroupsv2.AddGroupMembersRequestMembersItem)
 				Expect(addGroupMembersRequestMembersItemModel).ToNot(BeNil())
-				addGroupMembersRequestMembersItemModel.IamID = core.StringPtr("testString")
-				addGroupMembersRequestMembersItemModel.Type = core.StringPtr("testString")
-				Expect(addGroupMembersRequestMembersItemModel.IamID).To(Equal(core.StringPtr("testString")))
-				Expect(addGroupMembersRequestMembersItemModel.Type).To(Equal(core.StringPtr("testString")))
+				addGroupMembersRequestMembersItemModel.IamID = core.StringPtr("IBMid-user1")
+				addGroupMembersRequestMembersItemModel.Type = core.StringPtr("user")
+				Expect(addGroupMembersRequestMembersItemModel.IamID).To(Equal(core.StringPtr("IBMid-user1")))
+				Expect(addGroupMembersRequestMembersItemModel.Type).To(Equal(core.StringPtr("user")))
 
 				// Construct an instance of the AddMembersToAccessGroupOptions model
 				accessGroupID := "testString"
@@ -4371,17 +4291,17 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 			It(`Invoke NewCreateAccessGroupOptions successfully`, func() {
 				// Construct an instance of the CreateAccessGroupOptions model
 				accountID := "testString"
-				createAccessGroupOptionsName := "testString"
+				createAccessGroupOptionsName := "Managers"
 				createAccessGroupOptionsModel := iamAccessGroupsService.NewCreateAccessGroupOptions(accountID, createAccessGroupOptionsName)
 				createAccessGroupOptionsModel.SetAccountID("testString")
-				createAccessGroupOptionsModel.SetName("testString")
-				createAccessGroupOptionsModel.SetDescription("testString")
+				createAccessGroupOptionsModel.SetName("Managers")
+				createAccessGroupOptionsModel.SetDescription("Group for managers")
 				createAccessGroupOptionsModel.SetTransactionID("testString")
 				createAccessGroupOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(createAccessGroupOptionsModel).ToNot(BeNil())
 				Expect(createAccessGroupOptionsModel.AccountID).To(Equal(core.StringPtr("testString")))
-				Expect(createAccessGroupOptionsModel.Name).To(Equal(core.StringPtr("testString")))
-				Expect(createAccessGroupOptionsModel.Description).To(Equal(core.StringPtr("testString")))
+				Expect(createAccessGroupOptionsModel.Name).To(Equal(core.StringPtr("Managers")))
+				Expect(createAccessGroupOptionsModel.Description).To(Equal(core.StringPtr("Group for managers")))
 				Expect(createAccessGroupOptionsModel.TransactionID).To(Equal(core.StringPtr("testString")))
 				Expect(createAccessGroupOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
@@ -4563,12 +4483,12 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				accessGroupID := "testString"
 				removeMembersFromAccessGroupOptionsModel := iamAccessGroupsService.NewRemoveMembersFromAccessGroupOptions(accessGroupID)
 				removeMembersFromAccessGroupOptionsModel.SetAccessGroupID("testString")
-				removeMembersFromAccessGroupOptionsModel.SetMembers([]string{"testString"})
+				removeMembersFromAccessGroupOptionsModel.SetMembers([]string{"IBMId-user1", "iam-ServiceId-123"})
 				removeMembersFromAccessGroupOptionsModel.SetTransactionID("testString")
 				removeMembersFromAccessGroupOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(removeMembersFromAccessGroupOptionsModel).ToNot(BeNil())
 				Expect(removeMembersFromAccessGroupOptionsModel.AccessGroupID).To(Equal(core.StringPtr("testString")))
-				Expect(removeMembersFromAccessGroupOptionsModel.Members).To(Equal([]string{"testString"}))
+				Expect(removeMembersFromAccessGroupOptionsModel.Members).To(Equal([]string{"IBMId-user1", "iam-ServiceId-123"}))
 				Expect(removeMembersFromAccessGroupOptionsModel.TransactionID).To(Equal(core.StringPtr("testString")))
 				Expect(removeMembersFromAccessGroupOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
@@ -4576,44 +4496,44 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				// Construct an instance of the RuleConditions model
 				ruleConditionsModel := new(iamaccessgroupsv2.RuleConditions)
 				Expect(ruleConditionsModel).ToNot(BeNil())
-				ruleConditionsModel.Claim = core.StringPtr("testString")
-				ruleConditionsModel.Operator = core.StringPtr("testString")
-				ruleConditionsModel.Value = core.StringPtr("testString")
-				Expect(ruleConditionsModel.Claim).To(Equal(core.StringPtr("testString")))
-				Expect(ruleConditionsModel.Operator).To(Equal(core.StringPtr("testString")))
-				Expect(ruleConditionsModel.Value).To(Equal(core.StringPtr("testString")))
+				ruleConditionsModel.Claim = core.StringPtr("isManager")
+				ruleConditionsModel.Operator = core.StringPtr("EQUALS")
+				ruleConditionsModel.Value = core.StringPtr("true")
+				Expect(ruleConditionsModel.Claim).To(Equal(core.StringPtr("isManager")))
+				Expect(ruleConditionsModel.Operator).To(Equal(core.StringPtr("EQUALS")))
+				Expect(ruleConditionsModel.Value).To(Equal(core.StringPtr("true")))
 
 				// Construct an instance of the ReplaceAccessGroupRuleOptions model
 				accessGroupID := "testString"
 				ruleID := "testString"
 				ifMatch := "testString"
-				replaceAccessGroupRuleOptionsExpiration := int64(38)
-				replaceAccessGroupRuleOptionsRealmName := "testString"
+				replaceAccessGroupRuleOptionsExpiration := int64(12)
+				replaceAccessGroupRuleOptionsRealmName := "https://idp.example.org/SAML2"
 				replaceAccessGroupRuleOptionsConditions := []iamaccessgroupsv2.RuleConditions{}
 				replaceAccessGroupRuleOptionsModel := iamAccessGroupsService.NewReplaceAccessGroupRuleOptions(accessGroupID, ruleID, ifMatch, replaceAccessGroupRuleOptionsExpiration, replaceAccessGroupRuleOptionsRealmName, replaceAccessGroupRuleOptionsConditions)
 				replaceAccessGroupRuleOptionsModel.SetAccessGroupID("testString")
 				replaceAccessGroupRuleOptionsModel.SetRuleID("testString")
 				replaceAccessGroupRuleOptionsModel.SetIfMatch("testString")
-				replaceAccessGroupRuleOptionsModel.SetExpiration(int64(38))
-				replaceAccessGroupRuleOptionsModel.SetRealmName("testString")
+				replaceAccessGroupRuleOptionsModel.SetExpiration(int64(12))
+				replaceAccessGroupRuleOptionsModel.SetRealmName("https://idp.example.org/SAML2")
 				replaceAccessGroupRuleOptionsModel.SetConditions([]iamaccessgroupsv2.RuleConditions{*ruleConditionsModel})
-				replaceAccessGroupRuleOptionsModel.SetName("testString")
+				replaceAccessGroupRuleOptionsModel.SetName("Manager group rule")
 				replaceAccessGroupRuleOptionsModel.SetTransactionID("testString")
 				replaceAccessGroupRuleOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(replaceAccessGroupRuleOptionsModel).ToNot(BeNil())
 				Expect(replaceAccessGroupRuleOptionsModel.AccessGroupID).To(Equal(core.StringPtr("testString")))
 				Expect(replaceAccessGroupRuleOptionsModel.RuleID).To(Equal(core.StringPtr("testString")))
 				Expect(replaceAccessGroupRuleOptionsModel.IfMatch).To(Equal(core.StringPtr("testString")))
-				Expect(replaceAccessGroupRuleOptionsModel.Expiration).To(Equal(core.Int64Ptr(int64(38))))
-				Expect(replaceAccessGroupRuleOptionsModel.RealmName).To(Equal(core.StringPtr("testString")))
+				Expect(replaceAccessGroupRuleOptionsModel.Expiration).To(Equal(core.Int64Ptr(int64(12))))
+				Expect(replaceAccessGroupRuleOptionsModel.RealmName).To(Equal(core.StringPtr("https://idp.example.org/SAML2")))
 				Expect(replaceAccessGroupRuleOptionsModel.Conditions).To(Equal([]iamaccessgroupsv2.RuleConditions{*ruleConditionsModel}))
-				Expect(replaceAccessGroupRuleOptionsModel.Name).To(Equal(core.StringPtr("testString")))
+				Expect(replaceAccessGroupRuleOptionsModel.Name).To(Equal(core.StringPtr("Manager group rule")))
 				Expect(replaceAccessGroupRuleOptionsModel.TransactionID).To(Equal(core.StringPtr("testString")))
 				Expect(replaceAccessGroupRuleOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewRuleConditions successfully`, func() {
 				claim := "testString"
-				operator := "testString"
+				operator := "EQUALS"
 				value := "testString"
 				model, err := iamAccessGroupsService.NewRuleConditions(claim, operator, value)
 				Expect(model).ToNot(BeNil())
@@ -4626,15 +4546,15 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				updateAccessGroupOptionsModel := iamAccessGroupsService.NewUpdateAccessGroupOptions(accessGroupID, ifMatch)
 				updateAccessGroupOptionsModel.SetAccessGroupID("testString")
 				updateAccessGroupOptionsModel.SetIfMatch("testString")
-				updateAccessGroupOptionsModel.SetName("testString")
-				updateAccessGroupOptionsModel.SetDescription("testString")
+				updateAccessGroupOptionsModel.SetName("Awesome Managers")
+				updateAccessGroupOptionsModel.SetDescription("Group for awesome managers.")
 				updateAccessGroupOptionsModel.SetTransactionID("testString")
 				updateAccessGroupOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(updateAccessGroupOptionsModel).ToNot(BeNil())
 				Expect(updateAccessGroupOptionsModel.AccessGroupID).To(Equal(core.StringPtr("testString")))
 				Expect(updateAccessGroupOptionsModel.IfMatch).To(Equal(core.StringPtr("testString")))
-				Expect(updateAccessGroupOptionsModel.Name).To(Equal(core.StringPtr("testString")))
-				Expect(updateAccessGroupOptionsModel.Description).To(Equal(core.StringPtr("testString")))
+				Expect(updateAccessGroupOptionsModel.Name).To(Equal(core.StringPtr("Awesome Managers")))
+				Expect(updateAccessGroupOptionsModel.Description).To(Equal(core.StringPtr("Group for awesome managers.")))
 				Expect(updateAccessGroupOptionsModel.TransactionID).To(Equal(core.StringPtr("testString")))
 				Expect(updateAccessGroupOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})

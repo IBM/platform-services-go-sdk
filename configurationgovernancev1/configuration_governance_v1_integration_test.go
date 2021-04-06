@@ -24,7 +24,7 @@ import (
 	"os"
 	"time"
 
-	"github.com/IBM/go-sdk-core/v4/core"
+	"github.com/IBM/go-sdk-core/v5/core"
 	common "github.com/IBM/platform-services-go-sdk/common"
 	. "github.com/IBM/platform-services-go-sdk/configurationgovernancev1"
 	"github.com/google/uuid"
@@ -229,7 +229,7 @@ var _ = Describe(`ConfigurationGovernanceV1 Integration Tests`, func() {
 			Expect(service).ToNot(BeNil())
 			Expect(service.Service.Options.URL).To(Equal(serviceURL))
 
-			core.SetLogger(core.NewLogger(core.LevelDebug, log.New(GinkgoWriter, "", log.LstdFlags)))
+			core.SetLogger(core.NewLogger(core.LevelDebug, log.New(GinkgoWriter, "", log.LstdFlags), log.New(GinkgoWriter, "", log.LstdFlags)))
 			service.EnableRetries(4, 30*time.Second)
 		})
 		It("Successfully construct addition 'no-access' service client instance", func() {
