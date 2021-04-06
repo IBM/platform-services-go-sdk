@@ -17,7 +17,6 @@
 /*
  * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-629bbb97-20201207-171303
  */
- 
 
 // Package enterprisebillingunitsv1 : Operations and models for the EnterpriseBillingUnitsV1 service
 package enterprisebillingunitsv1
@@ -26,12 +25,13 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"github.com/IBM/go-sdk-core/v4/core"
-	common "github.com/IBM/platform-services-go-sdk/common"
-	"github.com/go-openapi/strfmt"
 	"net/http"
 	"reflect"
 	"time"
+
+	"github.com/IBM/go-sdk-core/v5/core"
+	common "github.com/IBM/platform-services-go-sdk/common"
+	"github.com/go-openapi/strfmt"
 )
 
 // EnterpriseBillingUnitsV1 : Billing units for IBM Cloud enterprises
@@ -446,15 +446,15 @@ type BillingOption struct {
 // Constants associated with the BillingOption.State property.
 // The state of the billing option. The valid values include `ACTIVE, `SUSPENDED`, and `CANCELED`.
 const (
-	BillingOptionStateActiveConst = "ACTIVE"
-	BillingOptionStateCanceledConst = "CANCELED"
+	BillingOptionStateActiveConst    = "ACTIVE"
+	BillingOptionStateCanceledConst  = "CANCELED"
 	BillingOptionStateSuspendedConst = "SUSPENDED"
 )
 
 // Constants associated with the BillingOption.Type property.
 // The type of billing option. The valid values are `SUBSCRIPTION` and `OFFER`.
 const (
-	BillingOptionTypeOfferConst = "OFFER"
+	BillingOptionTypeOfferConst        = "OFFER"
 	BillingOptionTypeSubscriptionConst = "SUBSCRIPTION"
 )
 
@@ -462,10 +462,9 @@ const (
 // The category of the billing option. The valid values are `PLATFORM`, `SERVICE`, and `SUPPORT`.
 const (
 	BillingOptionCategoryPlatformConst = "PLATFORM"
-	BillingOptionCategoryServiceConst = "SERVICE"
-	BillingOptionCategorySupportConst = "SUPPORT"
+	BillingOptionCategoryServiceConst  = "SERVICE"
+	BillingOptionCategorySupportConst  = "SUPPORT"
 )
-
 
 // UnmarshalBillingOption unmarshals an instance of BillingOption from the specified map of raw messages.
 func UnmarshalBillingOption(m map[string]json.RawMessage, result interface{}) (err error) {
@@ -538,7 +537,6 @@ type BillingOptionsList struct {
 	Resources []BillingOption `json:"resources,omitempty"`
 }
 
-
 // UnmarshalBillingOptionsList unmarshals an instance of BillingOptionsList from the specified map of raw messages.
 func UnmarshalBillingOptionsList(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(BillingOptionsList)
@@ -584,7 +582,6 @@ type BillingUnit struct {
 	// The creation date of the billing unit.
 	CreatedAt *strfmt.DateTime `json:"created_at,omitempty"`
 }
-
 
 // UnmarshalBillingUnit unmarshals an instance of BillingUnit from the specified map of raw messages.
 func UnmarshalBillingUnit(m map[string]json.RawMessage, result interface{}) (err error) {
@@ -637,7 +634,6 @@ type BillingUnitsList struct {
 	Resources []BillingUnit `json:"resources,omitempty"`
 }
 
-
 // UnmarshalBillingUnitsList unmarshals an instance of BillingUnitsList from the specified map of raw messages.
 func UnmarshalBillingUnitsList(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(BillingUnitsList)
@@ -680,9 +676,8 @@ type CreditPool struct {
 // The type of credit, either `PLATFORM` or `SUPPORT`.
 const (
 	CreditPoolTypePlatformConst = "PLATFORM"
-	CreditPoolTypeSupportConst = "SUPPORT"
+	CreditPoolTypeSupportConst  = "SUPPORT"
 )
-
 
 // UnmarshalCreditPool unmarshals an instance of CreditPool from the specified map of raw messages.
 func UnmarshalCreditPool(m map[string]json.RawMessage, result interface{}) (err error) {
@@ -720,7 +715,6 @@ type CreditPoolOverage struct {
 	Resources []map[string]interface{} `json:"resources,omitempty"`
 }
 
-
 // UnmarshalCreditPoolOverage unmarshals an instance of CreditPoolOverage from the specified map of raw messages.
 func UnmarshalCreditPoolOverage(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(CreditPoolOverage)
@@ -748,7 +742,6 @@ type CreditPoolsList struct {
 	// A list of credit pools found by the query.
 	Resources []CreditPool `json:"resources,omitempty"`
 }
-
 
 // UnmarshalCreditPoolsList unmarshals an instance of CreditPoolsList from the specified map of raw messages.
 func UnmarshalCreditPoolsList(m map[string]json.RawMessage, result interface{}) (err error) {
@@ -950,12 +943,11 @@ type TermCredits struct {
 // The category of the credit pool. The valid values are `PLATFORM`, `OFFER`, or `SERVICE` for platform credit and
 // `SUPPORT` for support credit.
 const (
-	TermCreditsCategoryOfferConst = "OFFER"
+	TermCreditsCategoryOfferConst    = "OFFER"
 	TermCreditsCategoryPlatformConst = "PLATFORM"
-	TermCreditsCategoryServiceConst = "SERVICE"
-	TermCreditsCategorySupportConst = "SUPPORT"
+	TermCreditsCategoryServiceConst  = "SERVICE"
+	TermCreditsCategorySupportConst  = "SUPPORT"
 )
-
 
 // UnmarshalTermCredits unmarshals an instance of TermCredits from the specified map of raw messages.
 func UnmarshalTermCredits(m map[string]json.RawMessage, result interface{}) (err error) {

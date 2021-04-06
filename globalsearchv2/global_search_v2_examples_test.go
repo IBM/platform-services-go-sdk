@@ -98,6 +98,34 @@ var _ = Describe(`GlobalSearchV2 Examples Tests`, func() {
 
 			Expect(globalSearchService).ToNot(BeNil())
 		})
+
+		It("Successfully construct the service client instance programmatically", func() {
+			// This block is here merely to provide a working example for the front-matter
+			// associated with the search API reference.
+			var err error
+
+			iamApiKey := config["APIKEY"]
+			serviceURL := config["URL"]
+
+			// begin example
+			authenticator := &core.IamAuthenticator{
+				ApiKey: iamApiKey,
+			}
+
+			serviceOptions := &globalsearchv2.GlobalSearchV2Options{
+				Authenticator: authenticator,
+				URL:           serviceURL,
+			}
+
+			searchService, err := globalsearchv2.NewGlobalSearchV2(serviceOptions)
+
+			if err != nil {
+				panic(err)
+			}
+			// end example
+
+			Expect(searchService).ToNot(BeNil())
+		})
 	})
 
 	Describe(`GlobalSearchV2 request examples`, func() {

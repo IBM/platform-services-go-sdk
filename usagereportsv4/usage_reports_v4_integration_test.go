@@ -24,7 +24,7 @@ import (
 	"os"
 	"time"
 
-	"github.com/IBM/go-sdk-core/v4/core"
+	"github.com/IBM/go-sdk-core/v5/core"
 	common "github.com/IBM/platform-services-go-sdk/common"
 	"github.com/IBM/platform-services-go-sdk/usagereportsv4"
 	. "github.com/onsi/ginkgo"
@@ -108,7 +108,7 @@ var _ = Describe(`UsageReportsV4 Integration Tests`, func() {
 			Expect(usageReportsService).ToNot(BeNil())
 			Expect(usageReportsService.Service.Options.URL).To(Equal(serviceURL))
 
-			core.SetLogger(core.NewLogger(core.LevelDebug, log.New(GinkgoWriter, "", log.LstdFlags)))
+			core.SetLogger(core.NewLogger(core.LevelDebug, log.New(GinkgoWriter, "", log.LstdFlags), log.New(GinkgoWriter, "", log.LstdFlags)))
 			usageReportsService.EnableRetries(4, 30*time.Second)
 		})
 	})

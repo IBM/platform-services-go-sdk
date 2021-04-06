@@ -22,7 +22,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/IBM/go-sdk-core/v4/core"
+	"github.com/IBM/go-sdk-core/v5/core"
 	common "github.com/IBM/platform-services-go-sdk/common"
 	"github.com/IBM/platform-services-go-sdk/enterprisebillingunitsv1"
 	. "github.com/onsi/ginkgo"

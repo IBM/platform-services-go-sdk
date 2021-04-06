@@ -20,17 +20,18 @@ import (
 	"bytes"
 	"context"
 	"fmt"
-	"github.com/IBM/go-sdk-core/v4/core"
-	"github.com/IBM/platform-services-go-sdk/enterprisemanagementv1"
-	"github.com/go-openapi/strfmt"
-	. "github.com/onsi/ginkgo"
-	. "github.com/onsi/gomega"
 	"io"
 	"io/ioutil"
 	"net/http"
 	"net/http/httptest"
 	"os"
 	"time"
+
+	"github.com/IBM/go-sdk-core/v5/core"
+	"github.com/IBM/platform-services-go-sdk/enterprisemanagementv1"
+	"github.com/go-openapi/strfmt"
+	. "github.com/onsi/ginkgo"
+	. "github.com/onsi/gomega"
 )
 
 var _ = Describe(`EnterpriseManagementV1`, func() {
@@ -66,14 +67,13 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 		Context(`Using external config, construct service client instances`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"ENTERPRISE_MANAGEMENT_URL": "https://enterprisemanagementv1/api",
+				"ENTERPRISE_MANAGEMENT_URL":       "https://enterprisemanagementv1/api",
 				"ENTERPRISE_MANAGEMENT_AUTH_TYPE": "noauth",
 			}
 
 			It(`Create service client using external config successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				enterpriseManagementService, serviceErr := enterprisemanagementv1.NewEnterpriseManagementV1UsingExternalConfig(&enterprisemanagementv1.EnterpriseManagementV1Options{
-				})
+				enterpriseManagementService, serviceErr := enterprisemanagementv1.NewEnterpriseManagementV1UsingExternalConfig(&enterprisemanagementv1.EnterpriseManagementV1Options{})
 				Expect(enterpriseManagementService).ToNot(BeNil())
 				Expect(serviceErr).To(BeNil())
 				ClearTestEnvironment(testEnvironment)
@@ -102,8 +102,7 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 			})
 			It(`Create service client using external config and set url programatically successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				enterpriseManagementService, serviceErr := enterprisemanagementv1.NewEnterpriseManagementV1UsingExternalConfig(&enterprisemanagementv1.EnterpriseManagementV1Options{
-				})
+				enterpriseManagementService, serviceErr := enterprisemanagementv1.NewEnterpriseManagementV1UsingExternalConfig(&enterprisemanagementv1.EnterpriseManagementV1Options{})
 				err := enterpriseManagementService.SetServiceURL("https://testService/api")
 				Expect(err).To(BeNil())
 				Expect(enterpriseManagementService).ToNot(BeNil())
@@ -121,13 +120,12 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 		Context(`Using external config, construct service client instances with error: Invalid Auth`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"ENTERPRISE_MANAGEMENT_URL": "https://enterprisemanagementv1/api",
+				"ENTERPRISE_MANAGEMENT_URL":       "https://enterprisemanagementv1/api",
 				"ENTERPRISE_MANAGEMENT_AUTH_TYPE": "someOtherAuth",
 			}
 
 			SetTestEnvironment(testEnvironment)
-			enterpriseManagementService, serviceErr := enterprisemanagementv1.NewEnterpriseManagementV1UsingExternalConfig(&enterprisemanagementv1.EnterpriseManagementV1Options{
-			})
+			enterpriseManagementService, serviceErr := enterprisemanagementv1.NewEnterpriseManagementV1UsingExternalConfig(&enterprisemanagementv1.EnterpriseManagementV1Options{})
 
 			It(`Instantiate service client with error`, func() {
 				Expect(enterpriseManagementService).To(BeNil())
@@ -138,7 +136,7 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 		Context(`Using external config, construct service client instances with error: Invalid URL`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"ENTERPRISE_MANAGEMENT_AUTH_TYPE":   "NOAuth",
+				"ENTERPRISE_MANAGEMENT_AUTH_TYPE": "NOAuth",
 			}
 
 			SetTestEnvironment(testEnvironment)
@@ -786,14 +784,13 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 		Context(`Using external config, construct service client instances`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"ENTERPRISE_MANAGEMENT_URL": "https://enterprisemanagementv1/api",
+				"ENTERPRISE_MANAGEMENT_URL":       "https://enterprisemanagementv1/api",
 				"ENTERPRISE_MANAGEMENT_AUTH_TYPE": "noauth",
 			}
 
 			It(`Create service client using external config successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				enterpriseManagementService, serviceErr := enterprisemanagementv1.NewEnterpriseManagementV1UsingExternalConfig(&enterprisemanagementv1.EnterpriseManagementV1Options{
-				})
+				enterpriseManagementService, serviceErr := enterprisemanagementv1.NewEnterpriseManagementV1UsingExternalConfig(&enterprisemanagementv1.EnterpriseManagementV1Options{})
 				Expect(enterpriseManagementService).ToNot(BeNil())
 				Expect(serviceErr).To(BeNil())
 				ClearTestEnvironment(testEnvironment)
@@ -822,8 +819,7 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 			})
 			It(`Create service client using external config and set url programatically successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				enterpriseManagementService, serviceErr := enterprisemanagementv1.NewEnterpriseManagementV1UsingExternalConfig(&enterprisemanagementv1.EnterpriseManagementV1Options{
-				})
+				enterpriseManagementService, serviceErr := enterprisemanagementv1.NewEnterpriseManagementV1UsingExternalConfig(&enterprisemanagementv1.EnterpriseManagementV1Options{})
 				err := enterpriseManagementService.SetServiceURL("https://testService/api")
 				Expect(err).To(BeNil())
 				Expect(enterpriseManagementService).ToNot(BeNil())
@@ -841,13 +837,12 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 		Context(`Using external config, construct service client instances with error: Invalid Auth`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"ENTERPRISE_MANAGEMENT_URL": "https://enterprisemanagementv1/api",
+				"ENTERPRISE_MANAGEMENT_URL":       "https://enterprisemanagementv1/api",
 				"ENTERPRISE_MANAGEMENT_AUTH_TYPE": "someOtherAuth",
 			}
 
 			SetTestEnvironment(testEnvironment)
-			enterpriseManagementService, serviceErr := enterprisemanagementv1.NewEnterpriseManagementV1UsingExternalConfig(&enterprisemanagementv1.EnterpriseManagementV1Options{
-			})
+			enterpriseManagementService, serviceErr := enterprisemanagementv1.NewEnterpriseManagementV1UsingExternalConfig(&enterprisemanagementv1.EnterpriseManagementV1Options{})
 
 			It(`Instantiate service client with error`, func() {
 				Expect(enterpriseManagementService).To(BeNil())
@@ -858,7 +853,7 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 		Context(`Using external config, construct service client instances with error: Invalid URL`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"ENTERPRISE_MANAGEMENT_AUTH_TYPE":   "NOAuth",
+				"ENTERPRISE_MANAGEMENT_AUTH_TYPE": "NOAuth",
 			}
 
 			SetTestEnvironment(testEnvironment)
@@ -1602,14 +1597,13 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 		Context(`Using external config, construct service client instances`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"ENTERPRISE_MANAGEMENT_URL": "https://enterprisemanagementv1/api",
+				"ENTERPRISE_MANAGEMENT_URL":       "https://enterprisemanagementv1/api",
 				"ENTERPRISE_MANAGEMENT_AUTH_TYPE": "noauth",
 			}
 
 			It(`Create service client using external config successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				enterpriseManagementService, serviceErr := enterprisemanagementv1.NewEnterpriseManagementV1UsingExternalConfig(&enterprisemanagementv1.EnterpriseManagementV1Options{
-				})
+				enterpriseManagementService, serviceErr := enterprisemanagementv1.NewEnterpriseManagementV1UsingExternalConfig(&enterprisemanagementv1.EnterpriseManagementV1Options{})
 				Expect(enterpriseManagementService).ToNot(BeNil())
 				Expect(serviceErr).To(BeNil())
 				ClearTestEnvironment(testEnvironment)
@@ -1638,8 +1632,7 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 			})
 			It(`Create service client using external config and set url programatically successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				enterpriseManagementService, serviceErr := enterprisemanagementv1.NewEnterpriseManagementV1UsingExternalConfig(&enterprisemanagementv1.EnterpriseManagementV1Options{
-				})
+				enterpriseManagementService, serviceErr := enterprisemanagementv1.NewEnterpriseManagementV1UsingExternalConfig(&enterprisemanagementv1.EnterpriseManagementV1Options{})
 				err := enterpriseManagementService.SetServiceURL("https://testService/api")
 				Expect(err).To(BeNil())
 				Expect(enterpriseManagementService).ToNot(BeNil())
@@ -1657,13 +1650,12 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 		Context(`Using external config, construct service client instances with error: Invalid Auth`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"ENTERPRISE_MANAGEMENT_URL": "https://enterprisemanagementv1/api",
+				"ENTERPRISE_MANAGEMENT_URL":       "https://enterprisemanagementv1/api",
 				"ENTERPRISE_MANAGEMENT_AUTH_TYPE": "someOtherAuth",
 			}
 
 			SetTestEnvironment(testEnvironment)
-			enterpriseManagementService, serviceErr := enterprisemanagementv1.NewEnterpriseManagementV1UsingExternalConfig(&enterprisemanagementv1.EnterpriseManagementV1Options{
-			})
+			enterpriseManagementService, serviceErr := enterprisemanagementv1.NewEnterpriseManagementV1UsingExternalConfig(&enterprisemanagementv1.EnterpriseManagementV1Options{})
 
 			It(`Instantiate service client with error`, func() {
 				Expect(enterpriseManagementService).To(BeNil())
@@ -1674,7 +1666,7 @@ var _ = Describe(`EnterpriseManagementV1`, func() {
 		Context(`Using external config, construct service client instances with error: Invalid URL`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"ENTERPRISE_MANAGEMENT_AUTH_TYPE":   "NOAuth",
+				"ENTERPRISE_MANAGEMENT_AUTH_TYPE": "NOAuth",
 			}
 
 			SetTestEnvironment(testEnvironment)

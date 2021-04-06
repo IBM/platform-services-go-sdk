@@ -17,7 +17,6 @@
 /*
  * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-d753183b-20201209-163011
  */
- 
 
 // Package openservicebrokerv1 : Operations and models for the OpenServiceBrokerV1 service
 package openservicebrokerv1
@@ -26,11 +25,12 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"github.com/IBM/go-sdk-core/v4/core"
-	common "github.com/IBM/platform-services-go-sdk/common"
 	"net/http"
 	"reflect"
 	"time"
+
+	"github.com/IBM/go-sdk-core/v5/core"
+	common "github.com/IBM/platform-services-go-sdk/common"
 )
 
 // OpenServiceBrokerV1 : Contribute resources to the IBM Cloud catalog by implementing a `service broker` that conforms
@@ -716,7 +716,7 @@ func (openServiceBroker *OpenServiceBrokerV1) ReplaceServiceBindingWithContext(c
 	}
 
 	pathParamsMap := map[string]string{
-		"binding_id": *replaceServiceBindingOptions.BindingID,
+		"binding_id":  *replaceServiceBindingOptions.BindingID,
 		"instance_id": *replaceServiceBindingOptions.InstanceID,
 	}
 
@@ -800,7 +800,7 @@ func (openServiceBroker *OpenServiceBrokerV1) DeleteServiceBindingWithContext(ct
 	}
 
 	pathParamsMap := map[string]string{
-		"binding_id": *deleteServiceBindingOptions.BindingID,
+		"binding_id":  *deleteServiceBindingOptions.BindingID,
 		"instance_id": *deleteServiceBindingOptions.InstanceID,
 	}
 
@@ -856,10 +856,10 @@ type DeleteServiceBindingOptions struct {
 // NewDeleteServiceBindingOptions : Instantiate DeleteServiceBindingOptions
 func (*OpenServiceBrokerV1) NewDeleteServiceBindingOptions(bindingID string, instanceID string, planID string, serviceID string) *DeleteServiceBindingOptions {
 	return &DeleteServiceBindingOptions{
-		BindingID: core.StringPtr(bindingID),
+		BindingID:  core.StringPtr(bindingID),
 		InstanceID: core.StringPtr(instanceID),
-		PlanID: core.StringPtr(planID),
-		ServiceID: core.StringPtr(serviceID),
+		PlanID:     core.StringPtr(planID),
+		ServiceID:  core.StringPtr(serviceID),
 	}
 }
 
@@ -918,8 +918,8 @@ type DeleteServiceInstanceOptions struct {
 // NewDeleteServiceInstanceOptions : Instantiate DeleteServiceInstanceOptions
 func (*OpenServiceBrokerV1) NewDeleteServiceInstanceOptions(serviceID string, planID string, instanceID string) *DeleteServiceInstanceOptions {
 	return &DeleteServiceInstanceOptions{
-		ServiceID: core.StringPtr(serviceID),
-		PlanID: core.StringPtr(planID),
+		ServiceID:  core.StringPtr(serviceID),
+		PlanID:     core.StringPtr(planID),
 		InstanceID: core.StringPtr(instanceID),
 	}
 }
@@ -1089,7 +1089,7 @@ type ReplaceServiceBindingOptions struct {
 // NewReplaceServiceBindingOptions : Instantiate ReplaceServiceBindingOptions
 func (*OpenServiceBrokerV1) NewReplaceServiceBindingOptions(bindingID string, instanceID string) *ReplaceServiceBindingOptions {
 	return &ReplaceServiceBindingOptions{
-		BindingID: core.StringPtr(bindingID),
+		BindingID:  core.StringPtr(bindingID),
 		InstanceID: core.StringPtr(instanceID),
 	}
 }
@@ -1313,7 +1313,6 @@ type Resp1874644Root struct {
 	LastActive *float64 `json:"last_active,omitempty"`
 }
 
-
 // UnmarshalResp1874644Root unmarshals an instance of Resp1874644Root from the specified map of raw messages.
 func UnmarshalResp1874644Root(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(Resp1874644Root)
@@ -1338,7 +1337,6 @@ type Resp1874650Root struct {
 	// List of services.
 	Services []Services `json:"services,omitempty"`
 }
-
 
 // UnmarshalResp1874650Root unmarshals an instance of Resp1874650Root from the specified map of raw messages.
 func UnmarshalResp1874650Root(m map[string]json.RawMessage, result interface{}) (err error) {
@@ -1366,7 +1364,6 @@ type Resp2079872Root struct {
 	Operation *string `json:"operation,omitempty"`
 }
 
-
 // UnmarshalResp2079872Root unmarshals an instance of Resp2079872Root from the specified map of raw messages.
 func UnmarshalResp2079872Root(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(Resp2079872Root)
@@ -1391,7 +1388,6 @@ type Resp2079874Root struct {
 	// parameter. If present, MUST be a non-empty string.
 	Operation *string `json:"operation,omitempty"`
 }
-
 
 // UnmarshalResp2079874Root unmarshals an instance of Resp2079874Root from the specified map of raw messages.
 func UnmarshalResp2079874Root(m map[string]json.RawMessage, result interface{}) (err error) {
@@ -1423,7 +1419,6 @@ type Resp2079876Root struct {
 	// invalid.
 	VolumeMounts []VolumeMount `json:"volume_mounts,omitempty"`
 }
-
 
 // UnmarshalResp2079876Root unmarshals an instance of Resp2079876Root from the specified map of raw messages.
 func UnmarshalResp2079876Root(m map[string]json.RawMessage, result interface{}) (err error) {
@@ -1460,7 +1455,6 @@ type Resp2079894Root struct {
 	State *string `json:"state" validate:"required"`
 }
 
-
 // UnmarshalResp2079894Root unmarshals an instance of Resp2079894Root from the specified map of raw messages.
 func UnmarshalResp2079894Root(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(Resp2079894Root)
@@ -1490,7 +1484,6 @@ type Resp2448145Root struct {
 	// second/hour.
 	LastActive *int64 `json:"last_active,omitempty"`
 }
-
 
 // UnmarshalResp2448145Root unmarshals an instance of Resp2448145Root from the specified map of raw messages.
 func UnmarshalResp2448145Root(m map[string]json.RawMessage, result interface{}) (err error) {
@@ -1620,7 +1613,6 @@ type BindResource struct {
 	Route *string `json:"route,omitempty"`
 }
 
-
 // UnmarshalBindResource unmarshals an instance of BindResource from the specified map of raw messages.
 func UnmarshalBindResource(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(BindResource)
@@ -1665,7 +1657,6 @@ type Context struct {
 	Platform *string `json:"platform,omitempty"`
 }
 
-
 // UnmarshalContext unmarshals an instance of Context from the specified map of raw messages.
 func UnmarshalContext(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(Context)
@@ -1705,7 +1696,6 @@ type Plans struct {
 	// non-empty string, and it's NOT displayed in the IBM Cloud catalog or IBM Cloud CLI.
 	Name *string `json:"name" validate:"required"`
 }
-
 
 // UnmarshalPlans unmarshals an instance of Plans from the specified map of raw messages.
 func UnmarshalPlans(m map[string]json.RawMessage, result interface{}) (err error) {
@@ -1769,7 +1759,6 @@ type Services struct {
 	Plans []Plans `json:"plans" validate:"required"`
 }
 
-
 // UnmarshalServices unmarshals an instance of Services from the specified map of raw messages.
 func UnmarshalServices(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(Services)
@@ -1819,7 +1808,6 @@ type VolumeMount struct {
 	// Device object containing device_type specific details. Currently only shared devices are supported.
 	Device *string `json:"device" validate:"required"`
 }
-
 
 // UnmarshalVolumeMount unmarshals an instance of VolumeMount from the specified map of raw messages.
 func UnmarshalVolumeMount(m map[string]json.RawMessage, result interface{}) (err error) {
