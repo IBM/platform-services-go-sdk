@@ -48,14 +48,16 @@ var _ = Describe(`EnterpriseManagementV1 Integration Tests`, func() {
 		serviceURL                  string
 		testConfig                  map[string]string
 
-		authType                string
-		apiKey                  string
-		authUrl                 string
-		enterpriseId            string
-		accountId               string
-		accountIamId            string
-		exampleAccountGroupName = "Example Account Group"
-		//resultPerPage           int64
+		authType                       string
+		apiKey                         string
+		authUrl                        string
+		enterpriseId                   string
+		accountId                      string
+		accountIamId                   string
+		exampleAccountGroupName              = "Example Account Group"
+		updatedExampleAccountGroupName       = "Updated Example Account Group"
+		resultPerPage                  int64 = 1
+		accountGroupId                 *string
 	)
 
 	var shouldSkipTest = func() {
@@ -127,7 +129,6 @@ var _ = Describe(`EnterpriseManagementV1 Integration Tests`, func() {
 		})
 		It(`CreateAccountGroup(createAccountGroupOptions *CreateAccountGroupOptions)`, func() {
 			var parent = "crn:v1:bluemix:public:enterprise::a/" + accountId + "::enterprise:" + enterpriseId
-			//fmt.Println(parent)
 			createAccountGroupOptions := &enterprisemanagementv1.CreateAccountGroupOptions{
 				Parent:              &parent,
 				Name:                &exampleAccountGroupName,
@@ -140,99 +141,102 @@ var _ = Describe(`EnterpriseManagementV1 Integration Tests`, func() {
 			Expect(response.StatusCode).To(Equal(201))
 			Expect(createAccountGroupResponse).ToNot(BeNil())
 
+			accountGroupId = createAccountGroupResponse.AccountGroupID
+
 		})
 	})
 
-	//Describe(`ListAccountGroups - List account groups`, func() {
-	//	BeforeEach(func() {
-	//		shouldSkipTest()
-	//	})
-	//	It(`ListAccountGroups(listAccountGroupsOptions *ListAccountGroupsOptions)`, func() {
-	//
-	//		listAccountGroupsOptions := &enterprisemanagementv1.ListAccountGroupsOptions{
-	//			EnterpriseID: &enterpriseId,
-	//		}
-	//
-	//		listAccountGroupsResponse, response, err := enterpriseManagementService.ListAccountGroups(listAccountGroupsOptions)
-	//
-	//		Expect(err).To(BeNil())
-	//		Expect(response.StatusCode).To(Equal(200))
-	//		Expect(listAccountGroupsResponse).ToNot(BeNil())
-	//
-	//	})
-	//})
-	//
-	//Describe(`ListAccountGroups - List account groups with paging`, func() {
-	//	BeforeEach(func() {
-	//		shouldSkipTest()
-	//	})
-	//	It(`ListAccountGroups(listAccountGroupsOptions *ListAccountGroupsOptions)`, func() {
-	//
-	//		listAccountGroupsOptionsPage1 := &enterprisemanagementv1.ListAccountGroupsOptions{
-	//			EnterpriseID: &enterpriseId,
-	//			Limit:        &resultPerPage,
-	//		}
-	//
-	//		listAccountGroupsResponsePage1, responsePage1, errorPage1 := enterpriseManagementService.ListAccountGroups(listAccountGroupsOptionsPage1)
-	//
-	//		Expect(errorPage1).To(BeNil())
-	//		Expect(responsePage1.StatusCode).To(Equal(200))
-	//		Expect(listAccountGroupsResponsePage1).ToNot(BeNil())
-	//		Expect(listAccountGroupsResponsePage1.RowsCount).To(Equal(1))
-	//
-	//		listAccountGroupsOptionsPage2 := &enterprisemanagementv1.ListAccountGroupsOptions{
-	//			NextDocid: listAccountGroupsResponsePage1.NextURL,
-	//			Limit:     &resultPerPage,
-	//		}
-	//		listAccountGroupsResponsePage2, responsePage2, errorPage2 := enterpriseManagementService.ListAccountGroups(listAccountGroupsOptionsPage2)
-	//
-	//		Expect(errorPage2).To(BeNil())
-	//		Expect(responsePage2.StatusCode).To(Equal(200))
-	//		Expect(listAccountGroupsResponsePage2).ToNot(BeNil())
-	//		Expect(listAccountGroupsResponsePage2).To(Equal(1))
-	//
-	//	})
-	//})
+	Describe(`ListAccountGroups - List account groups`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`ListAccountGroups(listAccountGroupsOptions *ListAccountGroupsOptions)`, func() {
 
-	//Describe(`GetAccountGroup - Get account group by ID`, func() {
-	//	BeforeEach(func() {
-	//		shouldSkipTest()
-	//	})
-	//	It(`GetAccountGroup(getAccountGroupOptions *GetAccountGroupOptions)`, func() {
-	//
-	//		getAccountGroupOptions := &enterprisemanagementv1.GetAccountGroupOptions{
-	//			AccountGroupID: core.StringPtr("testString"),
-	//		}
-	//
-	//		accountGroup, response, err := enterpriseManagementService.GetAccountGroup(getAccountGroupOptions)
-	//
-	//		Expect(err).To(BeNil())
-	//		Expect(response.StatusCode).To(Equal(200))
-	//		Expect(accountGroup).ToNot(BeNil())
-	//
-	//	})
-	//})
-	//
-	//Describe(`UpdateAccountGroup - Update an account group`, func() {
-	//	BeforeEach(func() {
-	//		shouldSkipTest()
-	//	})
-	//	It(`UpdateAccountGroup(updateAccountGroupOptions *UpdateAccountGroupOptions)`, func() {
-	//
-	//		updateAccountGroupOptions := &enterprisemanagementv1.UpdateAccountGroupOptions{
-	//			AccountGroupID:      core.StringPtr("testString"),
-	//			Name:                core.StringPtr("testString"),
-	//			PrimaryContactIamID: core.StringPtr("testString"),
-	//		}
-	//
-	//		response, err := enterpriseManagementService.UpdateAccountGroup(updateAccountGroupOptions)
-	//
-	//		Expect(err).To(BeNil())
-	//		Expect(response.StatusCode).To(Equal(204))
-	//
-	//	})
-	//})
-	//
+			listAccountGroupsOptions := &enterprisemanagementv1.ListAccountGroupsOptions{
+				EnterpriseID: &enterpriseId,
+			}
+
+			listAccountGroupsResponse, response, err := enterpriseManagementService.ListAccountGroups(listAccountGroupsOptions)
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(listAccountGroupsResponse).ToNot(BeNil())
+
+		})
+	})
+
+	Describe(`ListAccountGroups - List account groups with paging`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`ListAccountGroups(listAccountGroupsOptions *ListAccountGroupsOptions)`, func() {
+
+			listAccountGroupsOptionsPage1 := &enterprisemanagementv1.ListAccountGroupsOptions{
+				EnterpriseID: &enterpriseId,
+				Limit:        &resultPerPage,
+			}
+
+			listAccountGroupsResponsePage1, responsePage1, errorPage1 := enterpriseManagementService.ListAccountGroups(listAccountGroupsOptionsPage1)
+
+			Expect(errorPage1).To(BeNil())
+			Expect(responsePage1.StatusCode).To(Equal(200))
+			Expect(listAccountGroupsResponsePage1).ToNot(BeNil())
+			Expect(listAccountGroupsResponsePage1.RowsCount).To(Equal(&resultPerPage))
+
+			//listAccountGroupsOptionsPage2 := &enterprisemanagementv1.ListAccountGroupsOptions{
+			//	EnterpriseID: &enterpriseId,
+			//	NextDocid:    listAccountGroupsResponsePage1.NextURL,
+			//	Limit:        &resultPerPage,
+			//}
+			//listAccountGroupsResponsePage2, responsePage2, errorPage2 := enterpriseManagementService.ListAccountGroups(listAccountGroupsOptionsPage2)
+			//
+			//Expect(errorPage2).To(BeNil())
+			//Expect(responsePage2.StatusCode).To(Equal(200))
+			//Expect(listAccountGroupsResponsePage2).ToNot(BeNil())
+			//Expect(listAccountGroupsResponsePage2.RowsCount).To(Equal(&resultPerPage))
+
+		})
+	})
+
+	Describe(`GetAccountGroup - Get account group by ID`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`GetAccountGroup(getAccountGroupOptions *GetAccountGroupOptions)`, func() {
+
+			getAccountGroupOptions := &enterprisemanagementv1.GetAccountGroupOptions{
+				AccountGroupID: accountGroupId,
+			}
+
+			accountGroup, response, err := enterpriseManagementService.GetAccountGroup(getAccountGroupOptions)
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(accountGroup).ToNot(BeNil())
+
+		})
+	})
+
+	Describe(`UpdateAccountGroup - Update an account group`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`UpdateAccountGroup(updateAccountGroupOptions *UpdateAccountGroupOptions)`, func() {
+
+			updateAccountGroupOptions := &enterprisemanagementv1.UpdateAccountGroupOptions{
+				AccountGroupID:      accountGroupId,
+				Name:                &updatedExampleAccountGroupName,
+				PrimaryContactIamID: &accountIamId,
+			}
+
+			response, err := enterpriseManagementService.UpdateAccountGroup(updateAccountGroupOptions)
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(204))
+
+		})
+	})
+
 	//Describe(`ImportAccountToEnterprise - Import an account into an enterprise`, func() {
 	//	BeforeEach(func() {
 	//		shouldSkipTest()
@@ -272,28 +276,58 @@ var _ = Describe(`EnterpriseManagementV1 Integration Tests`, func() {
 	//	})
 	//})
 	//
-	//Describe(`ListAccounts - List accounts`, func() {
-	//	BeforeEach(func() {
-	//		shouldSkipTest()
-	//	})
-	//	It(`ListAccounts(listAccountsOptions *ListAccountsOptions)`, func() {
-	//
-	//		listAccountsOptions := &enterprisemanagementv1.ListAccountsOptions{
-	//			EnterpriseID:   core.StringPtr("testString"),
-	//			AccountGroupID: core.StringPtr("testString"),
-	//			NextDocid:      core.StringPtr("testString"),
-	//			Parent:         core.StringPtr("testString"),
-	//			Limit:          core.Int64Ptr(int64(38)),
-	//		}
-	//
-	//		listAccountsResponse, response, err := enterpriseManagementService.ListAccounts(listAccountsOptions)
-	//
-	//		Expect(err).To(BeNil())
-	//		Expect(response.StatusCode).To(Equal(200))
-	//		Expect(listAccountsResponse).ToNot(BeNil())
-	//
-	//	})
-	//})
+	Describe(`ListAccounts - List accounts`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`ListAccounts(listAccountsOptions *ListAccountsOptions)`, func() {
+
+			listAccountsOptions := &enterprisemanagementv1.ListAccountsOptions{
+				EnterpriseID: &enterpriseId,
+			}
+
+			listAccountsResponse, response, err := enterpriseManagementService.ListAccounts(listAccountsOptions)
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(listAccountsResponse).ToNot(BeNil())
+
+		})
+	})
+
+	Describe(`ListAccounts - List accounts with pagination`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`ListAccounts(listAccountsOptions *ListAccountsOptions)`, func() {
+
+			listAccountsOptionsPage1 := &enterprisemanagementv1.ListAccountsOptions{
+				EnterpriseID: &enterpriseId,
+				Limit:        &resultPerPage,
+			}
+
+			listAccountsResponsePage1, responsePage1, errorPage1 := enterpriseManagementService.ListAccounts(listAccountsOptionsPage1)
+
+			Expect(errorPage1).To(BeNil())
+			Expect(responsePage1.StatusCode).To(Equal(200))
+			Expect(listAccountsResponsePage1).ToNot(BeNil())
+			Expect(listAccountsResponsePage1.RowsCount).To(Equal(&resultPerPage))
+
+			listAccountsOptionsPage2 := &enterprisemanagementv1.ListAccountsOptions{
+				EnterpriseID: &enterpriseId,
+				Limit:        &resultPerPage,
+				NextDocid:    listAccountsResponsePage1.NextURL,
+			}
+
+			listAccountsResponsePage2, responsePage2, errorPage2 := enterpriseManagementService.ListAccounts(listAccountsOptionsPage2)
+
+			Expect(errorPage2).To(BeNil())
+			Expect(responsePage2.StatusCode).To(Equal(200))
+			Expect(listAccountsResponsePage2).ToNot(BeNil())
+			Expect(listAccountsResponsePage2.RowsCount).To(Equal(&resultPerPage))
+
+		})
+	})
 	//
 	//Describe(`GetAccount - Get account by ID`, func() {
 	//	BeforeEach(func() {
