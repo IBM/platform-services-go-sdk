@@ -24,9 +24,9 @@ import (
 	"github.com/IBM/go-sdk-core/v5/core"
 	common "github.com/IBM/platform-services-go-sdk/common"
 	"github.com/IBM/platform-services-go-sdk/openservicebrokerv1"
+	"github.com/google/uuid"
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
-	uuid "github.com/satori/go.uuid"
 
 	"fmt"
 	"os"
@@ -54,7 +54,7 @@ var (
 	testServiceId         string = "a10e46ae-3685-11e9-b210-d663bd873d93"
 	testReasonCode        string = "test_reason"
 	testInitiatorId       string = "test_initiator"
-	transactionId         string = uuid.NewV4().String()
+	transactionId         string = uuid.New().String()
 )
 
 func shouldSkipTest() {
