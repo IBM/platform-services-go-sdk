@@ -202,18 +202,20 @@ var _ = Describe(`EnterpriseManagementV1 Integration Tests`, func() {
 			Expect(listAccountGroupsResponsePage1).ToNot(BeNil())
 			Expect(listAccountGroupsResponsePage1.RowsCount).To(Equal(&resultPerPage))
 
-			//listAccountGroupsOptionsPage2 := &enterprisemanagementv1.ListAccountGroupsOptions{
-			//	EnterpriseID: &enterpriseId,
-			//	NextDocid:    listAccountGroupsResponsePage1.NextURL,
-			//	Limit:        &resultPerPage,
-			//}
-			//listAccountGroupsResponsePage2, responsePage2, errorPage2 := enterpriseManagementService.ListAccountGroups(listAccountGroupsOptionsPage2)
-			//
-			//Expect(errorPage2).To(BeNil())
-			//Expect(responsePage2.StatusCode).To(Equal(200))
-			//Expect(listAccountGroupsResponsePage2).ToNot(BeNil())
-			//Expect(listAccountGroupsResponsePage2.RowsCount).To(Equal(&resultPerPage))
+			docID, err := core.GetQueryParam(listAccountGroupsResponsePage1.NextURL, "next_docid")
+			Expect(err).To(BeNil())
 
+			listAccountGroupsOptionsPage2 := &enterprisemanagementv1.ListAccountGroupsOptions{
+				EnterpriseID: &enterpriseId,
+				NextDocid:    docID,
+				Limit:        &resultPerPage,
+			}
+			listAccountGroupsResponsePage2, responsePage2, errorPage2 := enterpriseManagementService.ListAccountGroups(listAccountGroupsOptionsPage2)
+
+			Expect(errorPage2).To(BeNil())
+			Expect(responsePage2.StatusCode).To(Equal(200))
+			Expect(listAccountGroupsResponsePage2).ToNot(BeNil())
+			Expect(listAccountGroupsResponsePage2.RowsCount).To(Equal(&resultPerPage))
 		})
 	})
 
@@ -290,7 +292,7 @@ var _ = Describe(`EnterpriseManagementV1 Integration Tests`, func() {
 			createAccountResponse, response, err := enterpriseManagementService.CreateAccount(createAccountOptions)
 
 			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(201))
+			Expect(response.StatusCode).To(Equal(202))
 			Expect(createAccountResponse).ToNot(BeNil())
 
 			exampleAccountId = createAccountResponse.AccountID
@@ -335,18 +337,21 @@ var _ = Describe(`EnterpriseManagementV1 Integration Tests`, func() {
 			Expect(listAccountsResponsePage1).ToNot(BeNil())
 			Expect(listAccountsResponsePage1.RowsCount).To(Equal(&resultPerPage))
 
-			//listAccountsOptionsPage2 := &enterprisemanagementv1.ListAccountsOptions{
-			//	EnterpriseID: &enterpriseId,
-			//	Limit:        &resultPerPage,
-			//	NextDocid:    listAccountsResponsePage1.NextURL,
-			//}
-			//
-			//listAccountsResponsePage2, responsePage2, errorPage2 := enterpriseManagementService.ListAccounts(listAccountsOptionsPage2)
-			//
-			//Expect(errorPage2).To(BeNil())
-			//Expect(responsePage2.StatusCode).To(Equal(200))
-			//Expect(listAccountsResponsePage2).ToNot(BeNil())
-			//Expect(listAccountsResponsePage2.RowsCount).To(Equal(&resultPerPage))
+			docID, err := core.GetQueryParam(listAccountsResponsePage1.NextURL, "next_docid")
+			Expect(err).To(BeNil())
+
+			listAccountsOptionsPage2 := &enterprisemanagementv1.ListAccountsOptions{
+				EnterpriseID: &enterpriseId,
+				Limit:        &resultPerPage,
+				NextDocid:    docID,
+			}
+
+			listAccountsResponsePage2, responsePage2, errorPage2 := enterpriseManagementService.ListAccounts(listAccountsOptionsPage2)
+
+			Expect(errorPage2).To(BeNil())
+			Expect(responsePage2.StatusCode).To(Equal(200))
+			Expect(listAccountsResponsePage2).ToNot(BeNil())
+			Expect(listAccountsResponsePage2.RowsCount).To(Equal(&resultPerPage))
 
 		})
 	})
@@ -376,7 +381,7 @@ var _ = Describe(`EnterpriseManagementV1 Integration Tests`, func() {
 		})
 		It(`UpdateAccount(updateAccountOptions *UpdateAccountOptions)`, func() {
 
-			var newParent = "crn:v1:bluemix:public:enterprise::a/" + accountId + "::enterprise:" + *secondExampleAccountGroupId
+			var newParent = "crn:v1:bluemix:public:enterprise::a/" + accountId + "::account-group:" + *secondExampleAccountGroupId
 			updateAccountOptions := &enterprisemanagementv1.UpdateAccountOptions{
 				AccountID: exampleAccountId,
 				Parent:    &newParent,
@@ -385,7 +390,7 @@ var _ = Describe(`EnterpriseManagementV1 Integration Tests`, func() {
 			response, err := enterpriseManagementService.UpdateAccount(updateAccountOptions)
 
 			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(204))
+			Expect(response.StatusCode).To(Equal(202))
 
 		})
 	})
@@ -412,24 +417,24 @@ var _ = Describe(`EnterpriseManagementV1 Integration Tests`, func() {
 	// 	})
 	// })
 
-	Describe(`ListEnterprises - List enterprises`, func() {
-		BeforeEach(func() {
-			shouldSkipTest()
-		})
-		It(`ListEnterprises(listEnterprisesOptions *ListEnterprisesOptions)`, func() {
+	// Describe(`ListEnterprises - List enterprises`, func() {
+	// 	BeforeEach(func() {
+	// 		shouldSkipTest()
+	// 	})
+	// 	It(`ListEnterprises(listEnterprisesOptions *ListEnterprisesOptions)`, func() {
 
-			listEnterprisesOptions := &enterprisemanagementv1.ListEnterprisesOptions{
-				AccountID: &accountId,
-			}
+	// 		listEnterprisesOptions := &enterprisemanagementv1.ListEnterprisesOptions{
+	// 			AccountID: &accountId,
+	// 		}
 
-			listEnterprisesResponse, response, err := enterpriseManagementService.ListEnterprises(listEnterprisesOptions)
+	// 		listEnterprisesResponse, response, err := enterpriseManagementService.ListEnterprises(listEnterprisesOptions)
 
-			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(200))
-			Expect(listEnterprisesResponse).ToNot(BeNil())
+	// 		Expect(err).To(BeNil())
+	// 		Expect(response.StatusCode).To(Equal(200))
+	// 		Expect(listEnterprisesResponse).ToNot(BeNil())
 
-		})
-	})
+	// 	})
+	// })
 
 	Describe(`GetEnterprise - Get enterprise by ID`, func() {
 		BeforeEach(func() {
