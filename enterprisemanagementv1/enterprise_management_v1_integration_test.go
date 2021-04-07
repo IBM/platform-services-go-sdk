@@ -48,16 +48,22 @@ var _ = Describe(`EnterpriseManagementV1 Integration Tests`, func() {
 		serviceURL                  string
 		testConfig                  map[string]string
 
-		authType                       string
-		apiKey                         string
-		authUrl                        string
-		enterpriseId                   string
-		accountId                      string
-		accountIamId                   string
-		exampleAccountGroupName              = "Example Account Group"
-		updatedExampleAccountGroupName       = "Updated Example Account Group"
-		resultPerPage                  int64 = 1
-		accountGroupId                 *string
+		authType                            string
+		apiKey                              string
+		authUrl                             string
+		enterpriseId                        string
+		accountId                           string
+		accountIamId                        string
+		firstExampleAccountGroupName        = "Example Account Group"
+		firstUpdatedExampleAccountGroupName = "Updated Example Account Group"
+		secondExampleAccountGroupName       = "Second Example Account Group"
+		// exampleEnterpriseName               = "Example Enterprise Name"
+		exampleAccountName          = "Example Account Name"
+		exampleAccountId            *string
+		resultPerPage               int64 = 1
+		firstExampleAccountGroupId  *string
+		secondExampleAccountGroupId *string
+		updatedEnterpriseName       = "Updated Enterprise Name"
 	)
 
 	var shouldSkipTest = func() {
@@ -129,20 +135,33 @@ var _ = Describe(`EnterpriseManagementV1 Integration Tests`, func() {
 		})
 		It(`CreateAccountGroup(createAccountGroupOptions *CreateAccountGroupOptions)`, func() {
 			var parent = "crn:v1:bluemix:public:enterprise::a/" + accountId + "::enterprise:" + enterpriseId
-			createAccountGroupOptions := &enterprisemanagementv1.CreateAccountGroupOptions{
+			createFirstAccountGroupOptions := &enterprisemanagementv1.CreateAccountGroupOptions{
 				Parent:              &parent,
-				Name:                &exampleAccountGroupName,
+				Name:                &firstExampleAccountGroupName,
 				PrimaryContactIamID: &accountIamId,
 			}
 
-			createAccountGroupResponse, response, err := enterpriseManagementService.CreateAccountGroup(createAccountGroupOptions)
+			createFirstExampleAccountGroupResponse, firstExampleResponse, firstError := enterpriseManagementService.CreateAccountGroup(createFirstAccountGroupOptions)
 
-			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(201))
-			Expect(createAccountGroupResponse).ToNot(BeNil())
+			Expect(firstError).To(BeNil())
+			Expect(firstExampleResponse.StatusCode).To(Equal(201))
+			Expect(createFirstExampleAccountGroupResponse).ToNot(BeNil())
 
-			accountGroupId = createAccountGroupResponse.AccountGroupID
+			firstExampleAccountGroupId = createFirstExampleAccountGroupResponse.AccountGroupID
 
+			createSecondAccountGroupOptions := &enterprisemanagementv1.CreateAccountGroupOptions{
+				Parent:              &parent,
+				Name:                &secondExampleAccountGroupName,
+				PrimaryContactIamID: &accountIamId,
+			}
+
+			createSecondExampleAccountGroupResponse, secondExampleResponse, secondError := enterpriseManagementService.CreateAccountGroup(createSecondAccountGroupOptions)
+
+			Expect(secondError).To(BeNil())
+			Expect(secondExampleResponse.StatusCode).To(Equal(201))
+			Expect(createSecondExampleAccountGroupResponse).ToNot(BeNil())
+
+			secondExampleAccountGroupId = createSecondExampleAccountGroupResponse.AccountGroupID
 		})
 	})
 
@@ -205,7 +224,7 @@ var _ = Describe(`EnterpriseManagementV1 Integration Tests`, func() {
 		It(`GetAccountGroup(getAccountGroupOptions *GetAccountGroupOptions)`, func() {
 
 			getAccountGroupOptions := &enterprisemanagementv1.GetAccountGroupOptions{
-				AccountGroupID: accountGroupId,
+				AccountGroupID: firstExampleAccountGroupId,
 			}
 
 			accountGroup, response, err := enterpriseManagementService.GetAccountGroup(getAccountGroupOptions)
@@ -224,8 +243,8 @@ var _ = Describe(`EnterpriseManagementV1 Integration Tests`, func() {
 		It(`UpdateAccountGroup(updateAccountGroupOptions *UpdateAccountGroupOptions)`, func() {
 
 			updateAccountGroupOptions := &enterprisemanagementv1.UpdateAccountGroupOptions{
-				AccountGroupID:      accountGroupId,
-				Name:                &updatedExampleAccountGroupName,
+				AccountGroupID:      firstExampleAccountGroupId,
+				Name:                &firstUpdatedExampleAccountGroupName,
 				PrimaryContactIamID: &accountIamId,
 			}
 
@@ -255,27 +274,30 @@ var _ = Describe(`EnterpriseManagementV1 Integration Tests`, func() {
 	//	})
 	//})
 	//
-	//Describe(`CreateAccount - Create a new account in an enterprise`, func() {
-	//	BeforeEach(func() {
-	//		shouldSkipTest()
-	//	})
-	//	It(`CreateAccount(createAccountOptions *CreateAccountOptions)`, func() {
-	//
-	//		createAccountOptions := &enterprisemanagementv1.CreateAccountOptions{
-	//			Parent:     core.StringPtr("testString"),
-	//			Name:       core.StringPtr("testString"),
-	//			OwnerIamID: core.StringPtr("testString"),
-	//		}
-	//
-	//		createAccountResponse, response, err := enterpriseManagementService.CreateAccount(createAccountOptions)
-	//
-	//		Expect(err).To(BeNil())
-	//		Expect(response.StatusCode).To(Equal(201))
-	//		Expect(createAccountResponse).ToNot(BeNil())
-	//
-	//	})
-	//})
-	//
+	Describe(`CreateAccount - Create a new account in an enterprise`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`CreateAccount(createAccountOptions *CreateAccountOptions)`, func() {
+			var parent = "crn:v1:bluemix:public:enterprise::a/" + accountId + "::account-group:" + *firstExampleAccountGroupId
+			fmt.Println(parent)
+			createAccountOptions := &enterprisemanagementv1.CreateAccountOptions{
+				Parent:     &parent,
+				Name:       &exampleAccountName,
+				OwnerIamID: &accountIamId,
+			}
+
+			createAccountResponse, response, err := enterpriseManagementService.CreateAccount(createAccountOptions)
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(201))
+			Expect(createAccountResponse).ToNot(BeNil())
+
+			exampleAccountId = createAccountResponse.AccountID
+
+		})
+	})
+
 	Describe(`ListAccounts - List accounts`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
@@ -313,140 +335,140 @@ var _ = Describe(`EnterpriseManagementV1 Integration Tests`, func() {
 			Expect(listAccountsResponsePage1).ToNot(BeNil())
 			Expect(listAccountsResponsePage1.RowsCount).To(Equal(&resultPerPage))
 
-			listAccountsOptionsPage2 := &enterprisemanagementv1.ListAccountsOptions{
-				EnterpriseID: &enterpriseId,
-				Limit:        &resultPerPage,
-				NextDocid:    listAccountsResponsePage1.NextURL,
-			}
-
-			listAccountsResponsePage2, responsePage2, errorPage2 := enterpriseManagementService.ListAccounts(listAccountsOptionsPage2)
-
-			Expect(errorPage2).To(BeNil())
-			Expect(responsePage2.StatusCode).To(Equal(200))
-			Expect(listAccountsResponsePage2).ToNot(BeNil())
-			Expect(listAccountsResponsePage2.RowsCount).To(Equal(&resultPerPage))
+			//listAccountsOptionsPage2 := &enterprisemanagementv1.ListAccountsOptions{
+			//	EnterpriseID: &enterpriseId,
+			//	Limit:        &resultPerPage,
+			//	NextDocid:    listAccountsResponsePage1.NextURL,
+			//}
+			//
+			//listAccountsResponsePage2, responsePage2, errorPage2 := enterpriseManagementService.ListAccounts(listAccountsOptionsPage2)
+			//
+			//Expect(errorPage2).To(BeNil())
+			//Expect(responsePage2.StatusCode).To(Equal(200))
+			//Expect(listAccountsResponsePage2).ToNot(BeNil())
+			//Expect(listAccountsResponsePage2.RowsCount).To(Equal(&resultPerPage))
 
 		})
 	})
-	//
-	//Describe(`GetAccount - Get account by ID`, func() {
-	//	BeforeEach(func() {
-	//		shouldSkipTest()
-	//	})
-	//	It(`GetAccount(getAccountOptions *GetAccountOptions)`, func() {
-	//
-	//		getAccountOptions := &enterprisemanagementv1.GetAccountOptions{
-	//			AccountID: core.StringPtr("testString"),
-	//		}
-	//
-	//		account, response, err := enterpriseManagementService.GetAccount(getAccountOptions)
-	//
-	//		Expect(err).To(BeNil())
-	//		Expect(response.StatusCode).To(Equal(200))
-	//		Expect(account).ToNot(BeNil())
-	//
-	//	})
-	//})
-	//
-	//Describe(`UpdateAccount - Move an account within the enterprise`, func() {
-	//	BeforeEach(func() {
-	//		shouldSkipTest()
-	//	})
-	//	It(`UpdateAccount(updateAccountOptions *UpdateAccountOptions)`, func() {
-	//
-	//		updateAccountOptions := &enterprisemanagementv1.UpdateAccountOptions{
-	//			AccountID: core.StringPtr("testString"),
-	//			Parent:    core.StringPtr("testString"),
-	//		}
-	//
-	//		response, err := enterpriseManagementService.UpdateAccount(updateAccountOptions)
-	//
-	//		Expect(err).To(BeNil())
-	//		Expect(response.StatusCode).To(Equal(204))
-	//
-	//	})
-	//})
-	//
-	//Describe(`CreateEnterprise - Create an enterprise`, func() {
-	//	BeforeEach(func() {
-	//		shouldSkipTest()
-	//	})
-	//	It(`CreateEnterprise(createEnterpriseOptions *CreateEnterpriseOptions)`, func() {
-	//
-	//		createEnterpriseOptions := &enterprisemanagementv1.CreateEnterpriseOptions{
-	//			SourceAccountID:     core.StringPtr("testString"),
-	//			Name:                core.StringPtr("testString"),
-	//			PrimaryContactIamID: core.StringPtr("testString"),
-	//			Domain:              core.StringPtr("testString"),
-	//		}
-	//
-	//		createEnterpriseResponse, response, err := enterpriseManagementService.CreateEnterprise(createEnterpriseOptions)
-	//
-	//		Expect(err).To(BeNil())
-	//		Expect(response.StatusCode).To(Equal(202))
-	//		Expect(createEnterpriseResponse).ToNot(BeNil())
-	//
-	//	})
-	//})
-	//
-	//Describe(`ListEnterprises - List enterprises`, func() {
-	//	BeforeEach(func() {
-	//		shouldSkipTest()
-	//	})
-	//	It(`ListEnterprises(listEnterprisesOptions *ListEnterprisesOptions)`, func() {
-	//
-	//		listEnterprisesOptions := &enterprisemanagementv1.ListEnterprisesOptions{
-	//			AccountID: &accountId,
-	//		}
-	//
-	//		listEnterprisesResponse, response, err := enterpriseManagementService.ListEnterprises(listEnterprisesOptions)
-	//
-	//		Expect(err).To(BeNil())
-	//		Expect(response.StatusCode).To(Equal(200))
-	//		Expect(listEnterprisesResponse).ToNot(BeNil())
-	//
-	//	})
-	//})
-	//
-	//Describe(`GetEnterprise - Get enterprise by ID`, func() {
-	//	BeforeEach(func() {
-	//		shouldSkipTest()
-	//	})
-	//	It(`GetEnterprise(getEnterpriseOptions *GetEnterpriseOptions)`, func() {
-	//
-	//		getEnterpriseOptions := &enterprisemanagementv1.GetEnterpriseOptions{
-	//			EnterpriseID: core.StringPtr("testString"),
-	//		}
-	//
-	//		enterprise, response, err := enterpriseManagementService.GetEnterprise(getEnterpriseOptions)
-	//
-	//		Expect(err).To(BeNil())
-	//		Expect(response.StatusCode).To(Equal(200))
-	//		Expect(enterprise).ToNot(BeNil())
-	//
-	//	})
-	//})
-	//
-	//Describe(`UpdateEnterprise - Update an enterprise`, func() {
-	//	BeforeEach(func() {
-	//		shouldSkipTest()
-	//	})
-	//	It(`UpdateEnterprise(updateEnterpriseOptions *UpdateEnterpriseOptions)`, func() {
-	//
-	//		updateEnterpriseOptions := &enterprisemanagementv1.UpdateEnterpriseOptions{
-	//			EnterpriseID:        core.StringPtr("testString"),
-	//			Name:                core.StringPtr("testString"),
-	//			Domain:              core.StringPtr("testString"),
-	//			PrimaryContactIamID: core.StringPtr("testString"),
-	//		}
-	//
-	//		response, err := enterpriseManagementService.UpdateEnterprise(updateEnterpriseOptions)
-	//
-	//		Expect(err).To(BeNil())
-	//		Expect(response.StatusCode).To(Equal(204))
-	//
-	//	})
-	//})
+
+	Describe(`GetAccount - Get account by ID`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`GetAccount(getAccountOptions *GetAccountOptions)`, func() {
+
+			getAccountOptions := &enterprisemanagementv1.GetAccountOptions{
+				AccountID: exampleAccountId,
+			}
+
+			account, response, err := enterpriseManagementService.GetAccount(getAccountOptions)
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(account).ToNot(BeNil())
+
+		})
+	})
+
+	Describe(`UpdateAccount - Move an account within the enterprise`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`UpdateAccount(updateAccountOptions *UpdateAccountOptions)`, func() {
+
+			var newParent = "crn:v1:bluemix:public:enterprise::a/" + accountId + "::enterprise:" + *secondExampleAccountGroupId
+			updateAccountOptions := &enterprisemanagementv1.UpdateAccountOptions{
+				AccountID: exampleAccountId,
+				Parent:    &newParent,
+			}
+
+			response, err := enterpriseManagementService.UpdateAccount(updateAccountOptions)
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(204))
+
+		})
+	})
+
+	// Describe(`CreateEnterprise - Create an enterprise`, func() {
+	// 	BeforeEach(func() {
+	// 		shouldSkipTest()
+	// 	})
+	// 	It(`CreateEnterprise(createEnterpriseOptions *CreateEnterpriseOptions)`, func() {
+
+	// 		createEnterpriseOptions := &enterprisemanagementv1.CreateEnterpriseOptions{
+	// 			SourceAccountID:     &accountId,
+	// 			Name:                &exampleEnterpriseName,
+	// 			PrimaryContactIamID: &accountIamId,
+	// 			// Domain:              core.StringPtr("testString"),
+	// 		}
+
+	// 		createEnterpriseResponse, response, err := enterpriseManagementService.CreateEnterprise(createEnterpriseOptions)
+
+	// 		Expect(err).To(BeNil())
+	// 		Expect(response.StatusCode).To(Equal(202))
+	// 		Expect(createEnterpriseResponse).ToNot(BeNil())
+
+	// 	})
+	// })
+
+	Describe(`ListEnterprises - List enterprises`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`ListEnterprises(listEnterprisesOptions *ListEnterprisesOptions)`, func() {
+
+			listEnterprisesOptions := &enterprisemanagementv1.ListEnterprisesOptions{
+				AccountID: &accountId,
+			}
+
+			listEnterprisesResponse, response, err := enterpriseManagementService.ListEnterprises(listEnterprisesOptions)
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(listEnterprisesResponse).ToNot(BeNil())
+
+		})
+	})
+
+	Describe(`GetEnterprise - Get enterprise by ID`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`GetEnterprise(getEnterpriseOptions *GetEnterpriseOptions)`, func() {
+
+			getEnterpriseOptions := &enterprisemanagementv1.GetEnterpriseOptions{
+				EnterpriseID: &enterpriseId,
+			}
+
+			enterprise, response, err := enterpriseManagementService.GetEnterprise(getEnterpriseOptions)
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(enterprise).ToNot(BeNil())
+
+		})
+	})
+
+	Describe(`UpdateEnterprise - Update an enterprise`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`UpdateEnterprise(updateEnterpriseOptions *UpdateEnterpriseOptions)`, func() {
+
+			updateEnterpriseOptions := &enterprisemanagementv1.UpdateEnterpriseOptions{
+				EnterpriseID:        &enterpriseId,
+				Name:                &updatedEnterpriseName,
+				PrimaryContactIamID: &accountIamId,
+			}
+
+			response, err := enterpriseManagementService.UpdateEnterprise(updateEnterpriseOptions)
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(204))
+
+		})
+	})
 })
 
 //
