@@ -26,9 +26,9 @@ import (
 	"github.com/IBM/go-sdk-core/v5/core"
 	common "github.com/IBM/platform-services-go-sdk/common"
 	"github.com/IBM/platform-services-go-sdk/resourcecontrollerv2"
+	"github.com/google/uuid"
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
-	uuid "github.com/satori/go.uuid"
 )
 
 const externalConfigFile = "../resource_controller.env"
@@ -74,7 +74,7 @@ var (
 	testReclamationID1      string
 	testReclamationID2      string
 
-	transactionID string = uuid.NewV4().String()
+	transactionID string = uuid.New().String()
 )
 
 func shouldSkipTest() {
