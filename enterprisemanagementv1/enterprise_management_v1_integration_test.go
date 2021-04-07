@@ -258,24 +258,6 @@ var _ = Describe(`EnterpriseManagementV1 Integration Tests`, func() {
 		})
 	})
 
-	//Describe(`ImportAccountToEnterprise - Import an account into an enterprise`, func() {
-	//	BeforeEach(func() {
-	//		shouldSkipTest()
-	//	})
-	//	It(`ImportAccountToEnterprise(importAccountToEnterpriseOptions *ImportAccountToEnterpriseOptions)`, func() {
-	//
-	//		importAccountToEnterpriseOptions := &enterprisemanagementv1.ImportAccountToEnterpriseOptions{
-	//			AccountID: core.StringPtr("testString"),
-	//		}
-	//
-	//		response, err := enterpriseManagementService.ImportAccountToEnterprise(importAccountToEnterpriseOptions)
-	//
-	//		Expect(err).To(BeNil())
-	//		Expect(response.StatusCode).To(Equal(202))
-	//
-	//	})
-	//})
-	//
 	Describe(`CreateAccount - Create a new account in an enterprise`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
@@ -395,47 +377,6 @@ var _ = Describe(`EnterpriseManagementV1 Integration Tests`, func() {
 		})
 	})
 
-	// Describe(`CreateEnterprise - Create an enterprise`, func() {
-	// 	BeforeEach(func() {
-	// 		shouldSkipTest()
-	// 	})
-	// 	It(`CreateEnterprise(createEnterpriseOptions *CreateEnterpriseOptions)`, func() {
-
-	// 		createEnterpriseOptions := &enterprisemanagementv1.CreateEnterpriseOptions{
-	// 			SourceAccountID:     &accountId,
-	// 			Name:                &exampleEnterpriseName,
-	// 			PrimaryContactIamID: &accountIamId,
-	// 			// Domain:              core.StringPtr("testString"),
-	// 		}
-
-	// 		createEnterpriseResponse, response, err := enterpriseManagementService.CreateEnterprise(createEnterpriseOptions)
-
-	// 		Expect(err).To(BeNil())
-	// 		Expect(response.StatusCode).To(Equal(202))
-	// 		Expect(createEnterpriseResponse).ToNot(BeNil())
-
-	// 	})
-	// })
-
-	// Describe(`ListEnterprises - List enterprises`, func() {
-	// 	BeforeEach(func() {
-	// 		shouldSkipTest()
-	// 	})
-	// 	It(`ListEnterprises(listEnterprisesOptions *ListEnterprisesOptions)`, func() {
-
-	// 		listEnterprisesOptions := &enterprisemanagementv1.ListEnterprisesOptions{
-	// 			AccountID: &accountId,
-	// 		}
-
-	// 		listEnterprisesResponse, response, err := enterpriseManagementService.ListEnterprises(listEnterprisesOptions)
-
-	// 		Expect(err).To(BeNil())
-	// 		Expect(response.StatusCode).To(Equal(200))
-	// 		Expect(listEnterprisesResponse).ToNot(BeNil())
-
-	// 	})
-	// })
-
 	Describe(`GetEnterprise - Get enterprise by ID`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
@@ -475,7 +416,3 @@ var _ = Describe(`EnterpriseManagementV1 Integration Tests`, func() {
 		})
 	})
 })
-
-//
-// Utility functions are declared in the unit test file
-//
