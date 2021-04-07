@@ -57,13 +57,12 @@ var _ = Describe(`EnterpriseManagementV1 Integration Tests`, func() {
 		firstExampleAccountGroupName        = "Example Account Group"
 		firstUpdatedExampleAccountGroupName = "Updated Example Account Group"
 		secondExampleAccountGroupName       = "Second Example Account Group"
-		// exampleEnterpriseName               = "Example Enterprise Name"
-		exampleAccountName          = "Example Account Name"
-		exampleAccountId            *string
-		resultPerPage               int64 = 1
-		firstExampleAccountGroupId  *string
-		secondExampleAccountGroupId *string
-		updatedEnterpriseName       = "Updated Enterprise Name"
+		exampleAccountName                  = "Example Account Name"
+		exampleAccountId                    *string
+		resultPerPage                       int64 = 1
+		firstExampleAccountGroupId          *string
+		secondExampleAccountGroupId         *string
+		updatedEnterpriseName               = "Updated Enterprise Name"
 	)
 
 	var shouldSkipTest = func() {
