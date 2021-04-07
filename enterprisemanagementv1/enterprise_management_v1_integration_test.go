@@ -48,9 +48,6 @@ var _ = Describe(`EnterpriseManagementV1 Integration Tests`, func() {
 		serviceURL                  string
 		testConfig                  map[string]string
 
-		authType                            string
-		apiKey                              string
-		authUrl                             string
 		enterpriseId                        string
 		accountId                           string
 		accountIamId                        string
@@ -86,15 +83,6 @@ var _ = Describe(`EnterpriseManagementV1 Integration Tests`, func() {
 				Skip("Unable to load service URL configuration property, skipping tests")
 			}
 
-			authType = testConfig["AUTHTYPE"]
-			Expect(authType).ToNot(BeEmpty())
-
-			authUrl = testConfig["AUTH_URL"]
-			Expect(authUrl).ToNot(BeEmpty())
-
-			apiKey = testConfig["APIKEY"]
-			Expect(apiKey).ToNot(BeEmpty())
-
 			enterpriseId = testConfig["ENTERPRISE_ID"]
 			Expect(enterpriseId).ToNot(BeEmpty())
 
@@ -104,7 +92,7 @@ var _ = Describe(`EnterpriseManagementV1 Integration Tests`, func() {
 			accountIamId = testConfig["ACCOUNT_IAM_ID"]
 			Expect(accountIamId).NotTo(BeEmpty())
 
-			fmt.Printf("Service URL: %s\n", serviceURL)
+			fmt.Fprintf(GinkgoWriter, "Service URL: %s\n", serviceURL)
 			shouldSkipTest = func() {}
 		})
 	})
@@ -263,7 +251,6 @@ var _ = Describe(`EnterpriseManagementV1 Integration Tests`, func() {
 		})
 		It(`CreateAccount(createAccountOptions *CreateAccountOptions)`, func() {
 			var parent = "crn:v1:bluemix:public:enterprise::a/" + accountId + "::account-group:" + *firstExampleAccountGroupId
-			fmt.Println(parent)
 			createAccountOptions := &enterprisemanagementv1.CreateAccountOptions{
 				Parent:     &parent,
 				Name:       &exampleAccountName,
