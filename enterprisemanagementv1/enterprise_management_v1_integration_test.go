@@ -376,6 +376,25 @@ var _ = Describe(`EnterpriseManagementV1 Integration Tests`, func() {
 		})
 	})
 
+	Describe(`ListEnterprises - List enterprises`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`ListEnterprises(listEnterprisesOptions *ListEnterprisesOptions)`, func() {
+
+			listEnterprisesOptions := &enterprisemanagementv1.ListEnterprisesOptions{
+				AccountID: &accountId,
+			}
+
+			listEnterprisesResponse, response, err := enterpriseManagementService.ListEnterprises(listEnterprisesOptions)
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(listEnterprisesResponse).ToNot(BeNil())
+
+		})
+	})
+
 	Describe(`GetEnterprise - Get enterprise by ID`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
