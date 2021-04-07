@@ -1,3 +1,10 @@
+## [0.18.7](https://github.com/IBM/platform-services-go-sdk/compare/v0.18.6...v0.18.7) (2021-04-07)
+
+
+### Bug Fixes
+
+* avoid satori/go.uuid dep due to vulnerability ([#108](https://github.com/IBM/platform-services-go-sdk/issues/108)) ([b73e9d4](https://github.com/IBM/platform-services-go-sdk/commit/b73e9d4f5a9c0f9b5f2d25886a1e1fbd723701b8))
+
 ## [0.18.6](https://github.com/IBM/platform-services-go-sdk/compare/v0.18.5...v0.18.6) (2021-04-07)
 
 
