@@ -25,14 +25,12 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-
-	"net/http"
-	"reflect"
-	"time"
-
 	"github.com/IBM/go-sdk-core/v5/core"
 	common "github.com/IBM/platform-services-go-sdk/common"
 	"github.com/go-openapi/strfmt"
+	"net/http"
+	"reflect"
+	"time"
 )
 
 // EnterpriseManagementV1 : The Enterprise Management API enables you to create and manage an enterprise, account
@@ -44,7 +42,7 @@ type EnterpriseManagementV1 struct {
 }
 
 // DefaultServiceURL is the default URL to make service requests to.
-const DefaultServiceURL = "https://enterprise.test.cloud.ibm.com/v1"
+const DefaultServiceURL = "https://enterprise.cloud.ibm.com/v1"
 
 // DefaultServiceName is the default key used to find external configuration information.
 const DefaultServiceName = "enterprise_management"
