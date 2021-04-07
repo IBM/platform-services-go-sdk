@@ -187,7 +187,7 @@ var _ = Describe(`EnterpriseManagementV1 Integration Tests`, func() {
 			Expect(errorPage1).To(BeNil())
 			Expect(responsePage1.StatusCode).To(Equal(200))
 			Expect(listAccountGroupsResponsePage1).ToNot(BeNil())
-			Expect(listAccountGroupsResponsePage1.RowsCount).To(Equal(&resultPerPage))
+			Expect(*listAccountGroupsResponsePage1.RowsCount).To(Equal(resultPerPage))
 
 			docID, err := core.GetQueryParam(listAccountGroupsResponsePage1.NextURL, "next_docid")
 			Expect(err).To(BeNil())
@@ -202,7 +202,7 @@ var _ = Describe(`EnterpriseManagementV1 Integration Tests`, func() {
 			Expect(errorPage2).To(BeNil())
 			Expect(responsePage2.StatusCode).To(Equal(200))
 			Expect(listAccountGroupsResponsePage2).ToNot(BeNil())
-			Expect(listAccountGroupsResponsePage2.RowsCount).To(Equal(&resultPerPage))
+			Expect(*listAccountGroupsResponsePage2.RowsCount).To(Equal(resultPerPage))
 		})
 	})
 
@@ -303,7 +303,7 @@ var _ = Describe(`EnterpriseManagementV1 Integration Tests`, func() {
 			Expect(errorPage1).To(BeNil())
 			Expect(responsePage1.StatusCode).To(Equal(200))
 			Expect(listAccountsResponsePage1).ToNot(BeNil())
-			Expect(listAccountsResponsePage1.RowsCount).To(Equal(&resultPerPage))
+			Expect(*listAccountsResponsePage1.RowsCount).To(Equal(resultPerPage))
 
 			docID, err := core.GetQueryParam(listAccountsResponsePage1.NextURL, "next_docid")
 			Expect(err).To(BeNil())
@@ -319,7 +319,7 @@ var _ = Describe(`EnterpriseManagementV1 Integration Tests`, func() {
 			Expect(errorPage2).To(BeNil())
 			Expect(responsePage2.StatusCode).To(Equal(200))
 			Expect(listAccountsResponsePage2).ToNot(BeNil())
-			Expect(listAccountsResponsePage2.RowsCount).To(Equal(&resultPerPage))
+			Expect(*listAccountsResponsePage2.RowsCount).To(Equal(resultPerPage))
 
 		})
 	})
