@@ -21,11 +21,12 @@ package enterprisemanagementv1_test
 import (
 	"encoding/json"
 	"fmt"
+	"os"
+
 	"github.com/IBM/go-sdk-core/v5/core"
 	"github.com/IBM/platform-services-go-sdk/enterprisemanagementv1"
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
-	"os"
 )
 
 //
@@ -44,27 +45,19 @@ import (
 // in a configuration file and then:
 // export IBM_CREDENTIALS_FILE=<name of configuration file>
 //
-const externalConfigFile = "../enterprise_management_v1.env"
+const externalConfigFile = "../enterprise_management.env"
 
 var (
-	enterpriseManagementService  *enterprisemanagementv1.EnterpriseManagementV1
-	config                       map[string]string
-	configLoaded                 bool = false
-	url                          string
-	authType                     string
-	authUrl                      string
-	apiKey                       string
-	enterpriseId                 string
-	enterpriseAccountId          string
-	enterpriseAccountIamId       string
-	firstAccountGroupName        = "Example Account Group"
-	firstAccountGroupId          string
-	firstUpdatedAccountGroupName = "Updated Example Account Group"
-	secondAccountGroupId         string
-	secondAccountGroupName       = "Second Example Account Group"
-	accountName                  = "Example Account Name"
-	accountId                    string
-	updatedEnterpriseName        = "Updated Enterprise Name"
+	enterpriseManagementService *enterprisemanagementv1.EnterpriseManagementV1
+	config                      map[string]string
+	configLoaded                bool = false
+	enterpriseID                string
+	enterpriseAccountID         string
+	enterpriseAccountIamID      string
+
+	accountGroupID          string
+	newParentAccountGroupID string
+	accountID               string
 )
 
 func shouldSkipTest() {
@@ -90,26 +83,14 @@ var _ = Describe(`EnterpriseManagementV1 Examples Tests`, func() {
 
 			configLoaded = len(config) > 0
 
-			url = config["URL"]
-			Expect(url).ToNot(BeEmpty())
+			enterpriseID = config["ENTERPRISE_ID"]
+			Expect(enterpriseID).ToNot(BeEmpty())
 
-			authType = config["AUTHTYPE"]
-			Expect(authType).ToNot(BeEmpty())
+			enterpriseAccountID = config["ACCOUNT_ID"]
+			Expect(enterpriseAccountID).ToNot(BeEmpty())
 
-			authUrl = config["AUTH_URL"]
-			Expect(authUrl).ToNot(BeEmpty())
-
-			apiKey = config["APIKEY"]
-			Expect(apiKey).ToNot(BeEmpty())
-
-			enterpriseId = config["ENTERPRISE_ID"]
-			Expect(enterpriseId).ToNot(BeEmpty())
-
-			enterpriseAccountId = config["ACCOUNT_ID"]
-			Expect(enterpriseAccountId).ToNot(BeEmpty())
-
-			enterpriseAccountIamId = config["ACCOUNT_IAM_ID"]
-			Expect(enterpriseAccountIamId).ToNot(BeEmpty())
+			enterpriseAccountIamID = config["ACCOUNT_IAM_ID"]
+			Expect(enterpriseAccountIamID).ToNot(BeEmpty())
 		})
 	})
 
@@ -141,12 +122,13 @@ var _ = Describe(`EnterpriseManagementV1 Examples Tests`, func() {
 			shouldSkipTest()
 		})
 		It(`CreateAccountGroup request example`, func() {
+			fmt.Println("\nCreateAccountGroup() result:")
 			// begin-create_account_group
-			var parent = "crn:v1:bluemix:public:enterprise::a/" + enterpriseAccountId + "::enterprise:" + enterpriseId
+			var parentCRN = "crn:v1:bluemix:public:enterprise::a/" + enterpriseAccountID + "::enterprise:" + enterpriseID
 			createAccountGroupOptions := enterpriseManagementService.NewCreateAccountGroupOptions(
-				parent,
-				firstAccountGroupName,
-				enterpriseAccountIamId,
+				parentCRN,
+				"Example Account Group",
+				enterpriseAccountIamID,
 			)
 
 			createAccountGroupResponse, response, err := enterpriseManagementService.CreateAccountGroup(createAccountGroupOptions)
@@ -162,16 +144,16 @@ var _ = Describe(`EnterpriseManagementV1 Examples Tests`, func() {
 			Expect(response.StatusCode).To(Equal(201))
 			Expect(createAccountGroupResponse).ToNot(BeNil())
 
-			firstAccountGroupId = *createAccountGroupResponse.AccountGroupID
+			accountGroupID = *createAccountGroupResponse.AccountGroupID
 
 		})
-		It(`CreateAccountGroup request example`, func() {
-			// begin-create_account_group
-			var parent = "crn:v1:bluemix:public:enterprise::a/" + enterpriseAccountId + "::enterprise:" + enterpriseId
+		It(`CreateAccountGroup request example (new parent account group)`, func() {
+			fmt.Println("\nCreateAccountGroup(<new-parent>) result:")
+			var parentCRN = "crn:v1:bluemix:public:enterprise::a/" + enterpriseAccountID + "::enterprise:" + enterpriseID
 			createAccountGroupOptions := enterpriseManagementService.NewCreateAccountGroupOptions(
-				parent,
-				secondAccountGroupName,
-				enterpriseAccountIamId,
+				parentCRN,
+				"New Parent Account Group",
+				enterpriseAccountIamID,
 			)
 
 			createAccountGroupResponse, response, err := enterpriseManagementService.CreateAccountGroup(createAccountGroupOptions)
@@ -181,20 +163,19 @@ var _ = Describe(`EnterpriseManagementV1 Examples Tests`, func() {
 			b, _ := json.MarshalIndent(createAccountGroupResponse, "", "  ")
 			fmt.Println(string(b))
 
-			// end-create_account_group
-
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(201))
 			Expect(createAccountGroupResponse).ToNot(BeNil())
 
-			secondAccountGroupId = *createAccountGroupResponse.AccountGroupID
+			newParentAccountGroupID = *createAccountGroupResponse.AccountGroupID
 
 		})
 		It(`ListAccountGroups request example`, func() {
+			fmt.Println("\nListAccountGroups() result:")
 			// begin-list_account_groups
 
 			listAccountGroupsOptions := enterpriseManagementService.NewListAccountGroupsOptions()
-			listAccountGroupsOptions.SetEnterpriseID(enterpriseId)
+			listAccountGroupsOptions.SetEnterpriseID(enterpriseID)
 
 			listAccountGroupsResponse, response, err := enterpriseManagementService.ListAccountGroups(listAccountGroupsOptions)
 			if err != nil {
@@ -211,10 +192,11 @@ var _ = Describe(`EnterpriseManagementV1 Examples Tests`, func() {
 
 		})
 		It(`GetAccountGroup request example`, func() {
+			fmt.Println("\nGetAccountGroup() result:")
 			// begin-get_account_group
 
 			getAccountGroupOptions := enterpriseManagementService.NewGetAccountGroupOptions(
-				firstAccountGroupId,
+				accountGroupID,
 			)
 
 			accountGroup, response, err := enterpriseManagementService.GetAccountGroup(getAccountGroupOptions)
@@ -235,10 +217,10 @@ var _ = Describe(`EnterpriseManagementV1 Examples Tests`, func() {
 			// begin-update_account_group
 
 			updateAccountGroupOptions := enterpriseManagementService.NewUpdateAccountGroupOptions(
-				firstAccountGroupId,
+				accountGroupID,
 			)
-			updateAccountGroupOptions.SetName(firstUpdatedAccountGroupName)
-			updateAccountGroupOptions.SetPrimaryContactIamID(enterpriseAccountIamId)
+			updateAccountGroupOptions.SetName("Updated Account Group")
+			updateAccountGroupOptions.SetPrimaryContactIamID(enterpriseAccountIamID)
 
 			response, err := enterpriseManagementService.UpdateAccountGroup(updateAccountGroupOptions)
 			if err != nil {
@@ -248,16 +230,17 @@ var _ = Describe(`EnterpriseManagementV1 Examples Tests`, func() {
 			// end-update_account_group
 
 			Expect(err).To(BeNil())
+			fmt.Printf("\nUpdateAccountGroup() response status code: %d\n", response.StatusCode)
 			Expect(response.StatusCode).To(Equal(204))
-
 		})
 		It(`ImportAccountToEnterprise request example`, func() {
 			Skip("Skip by design")
+			accountID := "<accountID-to-be-imported>"
 			// begin-import_account_to_enterprise
 
 			importAccountToEnterpriseOptions := enterpriseManagementService.NewImportAccountToEnterpriseOptions(
-				enterpriseId,
-				"Standalone Account Id",
+				enterpriseID,
+				accountID,
 			)
 
 			response, err := enterpriseManagementService.ImportAccountToEnterprise(importAccountToEnterpriseOptions)
@@ -268,17 +251,19 @@ var _ = Describe(`EnterpriseManagementV1 Examples Tests`, func() {
 			// end-import_account_to_enterprise
 
 			Expect(err).To(BeNil())
+			fmt.Printf("\nImportAccountToEnterprise() response status code: %d\n", response.StatusCode)
 			Expect(response.StatusCode).To(Equal(202))
 
 		})
 		It(`CreateAccount request example`, func() {
+			fmt.Println("\nCreateAccount() result:")
 			// begin-create_account
 
-			var parent = "crn:v1:bluemix:public:enterprise::a/" + enterpriseAccountId + "::account-group:" + firstAccountGroupId
+			var parentCRN = "crn:v1:bluemix:public:enterprise::a/" + enterpriseAccountID + "::account-group:" + accountGroupID
 			createAccountOptions := enterpriseManagementService.NewCreateAccountOptions(
-				parent,
-				accountName,
-				enterpriseAccountIamId,
+				parentCRN,
+				"Example Account",
+				enterpriseAccountIamID,
 			)
 
 			createAccountResponse, response, err := enterpriseManagementService.CreateAccount(createAccountOptions)
@@ -294,14 +279,15 @@ var _ = Describe(`EnterpriseManagementV1 Examples Tests`, func() {
 			Expect(response.StatusCode).To(Equal(202))
 			Expect(createAccountResponse).ToNot(BeNil())
 
-			accountId = *createAccountResponse.AccountID
+			accountID = *createAccountResponse.AccountID
 
 		})
 		It(`ListAccounts request example`, func() {
+			fmt.Println("\nListAccounts() result:")
 			// begin-list_accounts
 
 			listAccountsOptions := enterpriseManagementService.NewListAccountsOptions()
-			listAccountsOptions.SetEnterpriseID(enterpriseId)
+			listAccountsOptions.SetEnterpriseID(enterpriseID)
 
 			listAccountsResponse, response, err := enterpriseManagementService.ListAccounts(listAccountsOptions)
 			if err != nil {
@@ -318,10 +304,11 @@ var _ = Describe(`EnterpriseManagementV1 Examples Tests`, func() {
 
 		})
 		It(`GetAccount request example`, func() {
+			fmt.Println("\nGetAccount() result:")
 			// begin-get_account
 
 			getAccountOptions := enterpriseManagementService.NewGetAccountOptions(
-				accountId,
+				accountID,
 			)
 
 			account, response, err := enterpriseManagementService.GetAccount(getAccountOptions)
@@ -341,10 +328,10 @@ var _ = Describe(`EnterpriseManagementV1 Examples Tests`, func() {
 		It(`UpdateAccount request example`, func() {
 			// begin-update_account
 
-			var newParent = "crn:v1:bluemix:public:enterprise::a/" + enterpriseAccountId + "::account-group:" + secondAccountGroupId
+			var newParentCRN = "crn:v1:bluemix:public:enterprise::a/" + enterpriseAccountID + "::account-group:" + newParentAccountGroupID
 			updateAccountOptions := enterpriseManagementService.NewUpdateAccountOptions(
-				accountId,
-				newParent,
+				accountID,
+				newParentCRN,
 			)
 
 			response, err := enterpriseManagementService.UpdateAccount(updateAccountOptions)
@@ -355,17 +342,23 @@ var _ = Describe(`EnterpriseManagementV1 Examples Tests`, func() {
 			// end-update_account
 
 			Expect(err).To(BeNil())
+			fmt.Printf("\nUpdateAccount() response status code: %d\n", response.StatusCode)
 			Expect(response.StatusCode).To(Equal(202))
 
 		})
 		It(`CreateEnterprise request example`, func() {
 			Skip("Skip by design")
+
+			srcAccountID := "<standalone-account-id>"
+			enterpriseIamID := "<primary-contact-iam-id>"
+
+			fmt.Println("\nCreateEnterprise() result:")
 			// begin-create_enterprise
 
 			createEnterpriseOptions := enterpriseManagementService.NewCreateEnterpriseOptions(
-				"Standalone Account Id",
-				"Example Enterprise name",
-				"Standalone Account IAM Id",
+				srcAccountID,
+				"Example Enterprise",
+				enterpriseIamID,
 			)
 
 			createEnterpriseResponse, response, err := enterpriseManagementService.CreateEnterprise(createEnterpriseOptions)
@@ -383,10 +376,11 @@ var _ = Describe(`EnterpriseManagementV1 Examples Tests`, func() {
 
 		})
 		It(`ListEnterprises request example`, func() {
+			fmt.Println("\nListEnterprises() result:")
 			// begin-list_enterprises
 
 			listEnterprisesOptions := enterpriseManagementService.NewListEnterprisesOptions()
-			listEnterprisesOptions.SetAccountID(enterpriseAccountId)
+			listEnterprisesOptions.SetAccountID(enterpriseAccountID)
 
 			listEnterprisesResponse, response, err := enterpriseManagementService.ListEnterprises(listEnterprisesOptions)
 			if err != nil {
@@ -403,10 +397,11 @@ var _ = Describe(`EnterpriseManagementV1 Examples Tests`, func() {
 
 		})
 		It(`GetEnterprise request example`, func() {
+			fmt.Println("\nGetEnterprise() result:")
 			// begin-get_enterprise
 
 			getEnterpriseOptions := enterpriseManagementService.NewGetEnterpriseOptions(
-				enterpriseId,
+				enterpriseID,
 			)
 
 			enterprise, response, err := enterpriseManagementService.GetEnterprise(getEnterpriseOptions)
@@ -424,13 +419,14 @@ var _ = Describe(`EnterpriseManagementV1 Examples Tests`, func() {
 
 		})
 		It(`UpdateEnterprise request example`, func() {
+			fmt.Println("\nUpdaeEnterprise() result:")
 			// begin-update_enterprise
 
 			updateEnterpriseOptions := enterpriseManagementService.NewUpdateEnterpriseOptions(
-				enterpriseId,
+				enterpriseID,
 			)
-			updateEnterpriseOptions.SetName(updatedEnterpriseName)
-			updateEnterpriseOptions.SetPrimaryContactIamID(enterpriseAccountIamId)
+			updateEnterpriseOptions.SetName("Updated Example Enterprise")
+			updateEnterpriseOptions.SetPrimaryContactIamID(enterpriseAccountIamID)
 
 			response, err := enterpriseManagementService.UpdateEnterprise(updateEnterpriseOptions)
 			if err != nil {
