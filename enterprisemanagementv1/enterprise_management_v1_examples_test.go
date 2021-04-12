@@ -419,7 +419,7 @@ var _ = Describe(`EnterpriseManagementV1 Examples Tests`, func() {
 
 		})
 		It(`UpdateEnterprise request example`, func() {
-			fmt.Println("\nUpdaeEnterprise() result:")
+			fmt.Println("\nUpdateEnterprise() result:")
 			// begin-update_enterprise
 
 			updateEnterpriseOptions := enterpriseManagementService.NewUpdateEnterpriseOptions(
