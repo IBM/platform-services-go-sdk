@@ -33,6 +33,8 @@ import (
 
 const externalConfigFile = "../resource_controller.env"
 
+const resultsPerPage = 20
+
 var (
 	service      *resourcecontrollerv2.ResourceControllerV2
 	err          error
@@ -272,21 +274,41 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 				shouldSkipTest()
 
 				options := service.NewListResourceInstancesOptions()
+				options.SetLimit(resultsPerPage)
 				headers := map[string]string{
 					"Transaction-ID": "rc-sdk-go-test03-" + transactionID,
 				}
 				options.SetHeaders(headers)
-				result, resp, err := service.ListResourceInstances(options)
 
-				//should return one or more instances
-				Expect(err).To(BeNil())
-				Expect(resp.StatusCode).To(Equal(200))
-				Expect(result).ToNot(BeNil())
+				results := []resourcecontrollerv2.ResourceInstance{}
 
-				fmt.Fprintf(GinkgoWriter, "ListResourceInstances() result:\n%s\n", common.ToJSON(result))
+				for {
+					result, resp, err := service.ListResourceInstances(options)
 
-				Expect(*result.RowsCount).Should(BeNumerically(">=", int64(1)))
-				Expect(len(result.Resources)).Should(BeNumerically(">=", 1))
+					//should return one or more instances
+					Expect(err).To(BeNil())
+					Expect(resp.StatusCode).To(Equal(200))
+					Expect(result).ToNot(BeNil())
+
+					Expect(*result.RowsCount).Should(BeNumerically(">=", int64(1)))
+					Expect(*result.RowsCount).Should(BeNumerically("<=", int64(resultsPerPage)))
+					Expect(len(result.Resources)).Should(BeNumerically(">=", 1))
+					Expect(len(result.Resources)).Should(BeNumerically("<=", resultsPerPage))
+
+					results = append(results, result.Resources...)
+
+					if result.NextURL == nil {
+						break
+					}
+
+					start, err := core.GetQueryParam(result.NextURL, "start")
+					Expect(err).To(BeNil())
+
+					options.SetStart(*start)
+				}
+
+				fmt.Fprintf(GinkgoWriter, "ListResourceInstances() result:\n%s\n", common.ToJSON(results))
+
 			})
 
 			It("04 - List Resource Instances With GUID Filter", func() {
@@ -433,21 +455,41 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 				shouldSkipTest()
 
 				options := service.NewListResourceAliasesOptions()
+				options.SetLimit(resultsPerPage)
 				headers := map[string]string{
 					"Transaction-ID": "rc-sdk-go-test09-" + transactionID,
 				}
 				options.SetHeaders(headers)
-				result, resp, err := service.ListResourceAliases(options)
 
-				//should return one or more aliases
-				Expect(err).To(BeNil())
-				Expect(resp.StatusCode).To(Equal(200))
-				Expect(result).ToNot(BeNil())
+				results := []resourcecontrollerv2.ResourceAlias{}
 
-				fmt.Fprintf(GinkgoWriter, "ListResourceAliases() result:\n%s\n", common.ToJSON(result))
+				for {
+					result, resp, err := service.ListResourceAliases(options)
 
-				Expect(*result.RowsCount).Should(BeNumerically(">=", int64(1)))
-				Expect(len(result.Resources)).Should(BeNumerically(">=", 1))
+					//should return one or more aliases
+					Expect(err).To(BeNil())
+					Expect(resp.StatusCode).To(Equal(200))
+					Expect(result).ToNot(BeNil())
+
+					Expect(*result.RowsCount).Should(BeNumerically(">=", int64(1)))
+					Expect(*result.RowsCount).Should(BeNumerically("<=", int64(resultsPerPage)))
+					Expect(len(result.Resources)).Should(BeNumerically(">=", 1))
+					Expect(len(result.Resources)).Should(BeNumerically("<=", resultsPerPage))
+
+					results = append(results, result.Resources...)
+
+					if result.NextURL == nil {
+						break
+					}
+
+					start, err := core.GetQueryParam(result.NextURL, "start")
+					Expect(err).To(BeNil())
+
+					options.SetStart(*start)
+
+				}
+
+				fmt.Fprintf(GinkgoWriter, "ListResourceAliases() result:\n%s\n", common.ToJSON(results))
 			})
 
 			It("10 - List Resource Aliases With GUID Filter", func() {
@@ -507,18 +549,35 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 				Expect(testInstanceGUID).ToNot(BeEmpty())
 
 				listResourceAliasesForInstanceOptions := &resourcecontrollerv2.ListResourceAliasesForInstanceOptions{
-					ID: &testInstanceGUID,
+					ID:    &testInstanceGUID,
+					Limit: core.Int64Ptr(resultsPerPage),
 				}
 
-				resourceAliasesList, response, err := service.ListResourceAliasesForInstance(listResourceAliasesForInstanceOptions)
+				results := []resourcecontrollerv2.ResourceAlias{}
 
-				Expect(err).To(BeNil())
-				Expect(response.StatusCode).To(Equal(200))
-				Expect(resourceAliasesList).ToNot(BeNil())
+				for {
+					resourceAliasesList, response, err := service.ListResourceAliasesForInstance(listResourceAliasesForInstanceOptions)
 
-				fmt.Fprintf(GinkgoWriter, "ListResourceAliasesForInstance() result:\n%s\n", common.ToJSON(resourceAliasesList))
+					Expect(err).To(BeNil())
+					Expect(response.StatusCode).To(Equal(200))
+					Expect(resourceAliasesList).ToNot(BeNil())
 
-				Expect(resourceAliasesList.Resources).ToNot(BeEmpty())
+					results = append(results, resourceAliasesList.Resources...)
+
+					Expect(*resourceAliasesList.RowsCount).To(Equal(1))
+					Expect(len(resourceAliasesList.Resources)).To(Equal(1))
+
+					if resourceAliasesList.NextURL == nil {
+						break
+					}
+
+					start, err := core.GetQueryParam(resourceAliasesList.NextURL, "start")
+					Expect(err).To(BeNil())
+
+					listResourceAliasesForInstanceOptions.Start = start
+				}
+
+				fmt.Fprintf(GinkgoWriter, "ListResourceAliasesForInstance() result:\n%s\n", common.ToJSON(results))
 			})
 		})
 	})
@@ -624,21 +683,41 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 				shouldSkipTest()
 
 				options := service.NewListResourceBindingsOptions()
+				options.SetLimit(resultsPerPage)
 				headers := map[string]string{
 					"Transaction-ID": "rc-sdk-go-test15-" + transactionID,
 				}
 				options.SetHeaders(headers)
-				result, resp, err := service.ListResourceBindings(options)
 
-				//should return one or more bindings
-				Expect(err).To(BeNil())
-				Expect(resp.StatusCode).To(Equal(200))
-				Expect(result).ToNot(BeNil())
+				results := []resourcecontrollerv2.ResourceBinding{}
 
-				fmt.Fprintf(GinkgoWriter, "ListResourceBindings() result:\n%s\n", common.ToJSON(result))
+				for {
+					result, resp, err := service.ListResourceBindings(options)
 
-				Expect(*result.RowsCount).Should(BeNumerically(">=", int64(1)))
-				Expect(len(result.Resources)).Should(BeNumerically(">=", 1))
+					//should return one or more aliases
+					Expect(err).To(BeNil())
+					Expect(resp.StatusCode).To(Equal(200))
+					Expect(result).ToNot(BeNil())
+
+					Expect(*result.RowsCount).Should(BeNumerically(">=", int64(1)))
+					Expect(*result.RowsCount).Should(BeNumerically("<=", int64(resultsPerPage)))
+					Expect(len(result.Resources)).Should(BeNumerically(">=", 1))
+					Expect(len(result.Resources)).Should(BeNumerically("<=", resultsPerPage))
+
+					results = append(results, result.Resources...)
+
+					if result.NextURL == nil {
+						break
+					}
+
+					start, err := core.GetQueryParam(result.NextURL, "start")
+					Expect(err).To(BeNil())
+
+					options.SetStart(*start)
+
+				}
+
+				fmt.Fprintf(GinkgoWriter, "ListResourceBindings() result:\n%s\n", common.ToJSON(results))
 			})
 
 			It("16 - List Resource Bindings With GUID Filter", func() {
@@ -698,18 +777,35 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 				Expect(testAliasGUID).ToNot(BeEmpty())
 
 				listResourceBindingsForAliasOptions := &resourcecontrollerv2.ListResourceBindingsForAliasOptions{
-					ID: &testAliasGUID,
+					ID:    &testAliasGUID,
+					Limit: core.Int64Ptr(resultsPerPage),
 				}
 
-				resourceBindingsList, response, err := service.ListResourceBindingsForAlias(listResourceBindingsForAliasOptions)
+				results := []resourcecontrollerv2.ResourceBinding{}
 
-				Expect(err).To(BeNil())
-				Expect(response.StatusCode).To(Equal(200))
-				Expect(resourceBindingsList).ToNot(BeNil())
+				for {
+					resourceBindingsList, response, err := service.ListResourceBindingsForAlias(listResourceBindingsForAliasOptions)
 
-				fmt.Fprintf(GinkgoWriter, "ListResourceBindingsForAlias() result:\n%s\n", common.ToJSON(resourceBindingsList))
+					Expect(err).To(BeNil())
+					Expect(response.StatusCode).To(Equal(200))
+					Expect(resourceBindingsList).ToNot(BeNil())
 
-				Expect(resourceBindingsList.Resources).ToNot(BeEmpty())
+					results = append(results, resourceBindingsList.Resources...)
+
+					Expect(*resourceBindingsList.RowsCount).To(Equal(1))
+					Expect(len(resourceBindingsList.Resources)).To(Equal(1))
+
+					if resourceBindingsList.NextURL == nil {
+						break
+					}
+
+					start, err := core.GetQueryParam(resourceBindingsList.NextURL, "start")
+					Expect(err).To(BeNil())
+
+					listResourceBindingsForAliasOptions.Start = start
+				}
+
+				fmt.Fprintf(GinkgoWriter, "ListResourceBindingsForAlias() result:\n%s\n", common.ToJSON(results))
 			})
 		})
 	})
@@ -804,21 +900,40 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 				shouldSkipTest()
 
 				options := service.NewListResourceKeysOptions()
+				options.SetLimit(resultsPerPage)
 				headers := map[string]string{
 					"Transaction-ID": "rc-sdk-go-test21-" + transactionID,
 				}
 				options.SetHeaders(headers)
-				result, resp, err := service.ListResourceKeys(options)
 
-				//should return one or more keys
-				Expect(err).To(BeNil())
-				Expect(resp.StatusCode).To(Equal(200))
-				Expect(result).ToNot(BeNil())
+				results := []resourcecontrollerv2.ResourceKey{}
 
-				fmt.Fprintf(GinkgoWriter, "ListResourceKeys() result:\n%s\n", common.ToJSON(result))
+				for {
+					result, resp, err := service.ListResourceKeys(options)
 
-				Expect(*result.RowsCount).Should(BeNumerically(">=", int64(1)))
-				Expect(len(result.Resources)).Should(BeNumerically(">=", 1))
+					//should return one or more aliases
+					Expect(err).To(BeNil())
+					Expect(resp.StatusCode).To(Equal(200))
+					Expect(result).ToNot(BeNil())
+
+					Expect(*result.RowsCount).Should(BeNumerically(">=", int64(1)))
+					Expect(*result.RowsCount).Should(BeNumerically("<=", int64(resultsPerPage)))
+					Expect(len(result.Resources)).Should(BeNumerically(">=", 1))
+					Expect(len(result.Resources)).Should(BeNumerically("<=", resultsPerPage))
+
+					results = append(results, result.Resources...)
+
+					if result.NextURL == nil {
+						break
+					}
+
+					start, err := core.GetQueryParam(result.NextURL, "start")
+					Expect(err).To(BeNil())
+
+					options.SetStart(*start)
+
+				}
+				fmt.Fprintf(GinkgoWriter, "ListResourceKeys() result:\n%s\n", common.ToJSON(results))
 			})
 
 			It("22 - List Resource Keys With GUID Filter", func() {
@@ -875,18 +990,35 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 				Expect(testInstanceGUID).ToNot(BeEmpty())
 
 				listResourceKeysForInstanceOptions := &resourcecontrollerv2.ListResourceKeysForInstanceOptions{
-					ID: &testInstanceGUID,
+					ID:    &testInstanceGUID,
+					Limit: core.Int64Ptr(resultsPerPage),
 				}
 
-				resourceKeysList, response, err := service.ListResourceKeysForInstance(listResourceKeysForInstanceOptions)
+				results := []resourcecontrollerv2.ResourceKey{}
 
-				Expect(err).To(BeNil())
-				Expect(response.StatusCode).To(Equal(200))
-				Expect(resourceKeysList).ToNot(BeNil())
+				for {
+					resourceKeysList, response, err := service.ListResourceKeysForInstance(listResourceKeysForInstanceOptions)
 
-				fmt.Fprintf(GinkgoWriter, "ListResourceKeysForInstance() result:\n%s\n", common.ToJSON(resourceKeysList))
+					Expect(err).To(BeNil())
+					Expect(response.StatusCode).To(Equal(200))
+					Expect(resourceKeysList).ToNot(BeNil())
 
-				Expect(resourceKeysList.Resources).ToNot(BeEmpty())
+					results = append(results, resourceKeysList.Resources...)
+
+					Expect(*resourceKeysList.RowsCount).To(Equal(1))
+					Expect(len(resourceKeysList.Resources)).To(Equal(1))
+
+					if resourceKeysList.NextURL == nil {
+						break
+					}
+
+					start, err := core.GetQueryParam(resourceKeysList.NextURL, "start")
+					Expect(err).To(BeNil())
+
+					listResourceKeysForInstanceOptions.Start = start
+				}
+
+				fmt.Fprintf(GinkgoWriter, "ListResourceKeysForInstance() result:\n%s\n", common.ToJSON(results))
 			})
 		})
 	})
@@ -1070,7 +1202,7 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 				"Transaction-ID": "rc-sdk-go-test31-" + transactionID,
 			}
 			options.SetHeaders(headers)
-			resp, err := service.DeleteResourceInstance(options)
+			_, resp, err := service.DeleteResourceInstance(options)
 
 			Expect(resp.StatusCode).To(Equal(400))
 			Expect(err).NotTo(BeNil())
@@ -1260,7 +1392,7 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 				"Transaction-ID": "rc-sdk-go-test40-" + transactionID,
 			}
 			options.SetHeaders(headers)
-			resp, err := service.DeleteResourceInstance(options)
+			_, resp, err := service.DeleteResourceInstance(options)
 
 			Expect(err).NotTo(BeNil())
 			Expect(resp.StatusCode).To(Equal(400))
@@ -1305,7 +1437,7 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 				"Transaction-ID": "rc-sdk-go-test42-" + transactionID,
 			}
 			options.SetHeaders(headers)
-			resp, err := service.DeleteResourceInstance(options)
+			_, resp, err := service.DeleteResourceInstance(options)
 
 			Expect(resp.StatusCode).To(Equal(204))
 			Expect(err).To(BeNil())
@@ -1387,7 +1519,7 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 				"Transaction-ID": "rc-sdk-go-test45-" + transactionID,
 			}
 			options.SetHeaders(headers)
-			resp, err := service.DeleteResourceInstance(options)
+			_, resp, err := service.DeleteResourceInstance(options)
 
 			Expect(resp.StatusCode).To(Equal(204))
 			Expect(err).To(BeNil())
@@ -1515,7 +1647,7 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 				"Transaction-ID": "rc-sdk-go-test50-" + transactionID,
 			}
 			options.SetHeaders(headers)
-			resp, err := service.DeleteResourceInstance(options)
+			_, resp, err := service.DeleteResourceInstance(options)
 
 			Expect(resp.StatusCode).To(Equal(204))
 			Expect(err).To(BeNil())
@@ -1705,7 +1837,7 @@ func cleanupByName() {
 					"Transaction-ID": "rc-sdk-cleanup-" + transactionID,
 				}
 				deleteInstanceOptions = deleteInstanceOptions.SetHeaders(deleteInstanceHeaders)
-				instanceDelResp, instanceDelErr := service.DeleteResourceInstance(deleteInstanceOptions)
+				_, instanceDelResp, instanceDelErr := service.DeleteResourceInstance(deleteInstanceOptions)
 				if instanceDelResp.StatusCode == 204 {
 					fmt.Fprintln(GinkgoWriter, "Successful cleanup of instance ", instanceGUID)
 				} else if instanceDelResp.StatusCode == 410 {
@@ -1908,7 +2040,7 @@ func cleanupInstance() {
 		"Transaction-ID": "rc-sdk-cleanup-" + transactionID,
 	}
 	options3 = options3.SetHeaders(headers3)
-	resp3, err3 := service.DeleteResourceInstance(options3)
+	_, resp3, err3 := service.DeleteResourceInstance(options3)
 	if resp3.StatusCode == 204 {
 		fmt.Fprintf(GinkgoWriter, "Successful cleanup of instance %s.\n", testInstanceGUID)
 	} else if resp3.StatusCode == 410 {
@@ -1940,7 +2072,7 @@ func cleanupReclamationInstance() {
 			"Transaction-ID": "rc-sdk-cleanup-" + transactionID,
 		}
 		options2 = options2.SetHeaders(headers2)
-		resp2, err2 := service.DeleteResourceInstance(options2)
+		_, resp2, err2 := service.DeleteResourceInstance(options2)
 		if resp2.StatusCode == 204 {
 			fmt.Fprintf(GinkgoWriter, "Successfully scheduled instance %s for reclamation.\n", testReclaimInstanceGUID)
 			time.Sleep(20 * time.Second)
