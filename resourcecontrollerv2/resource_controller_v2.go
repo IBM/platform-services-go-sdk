@@ -15,7 +15,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 3.29.1-b338fb38-20210313-010605
+ * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-bd714324-20210408-112704
  */
 
 // Package resourcecontrollerv2 : Operations and models for the ResourceControllerV2 service
@@ -216,6 +216,9 @@ func (resourceController *ResourceControllerV2) ListResourceInstancesWithContext
 	if listResourceInstancesOptions.Limit != nil {
 		builder.AddQuery("limit", fmt.Sprint(*listResourceInstancesOptions.Limit))
 	}
+	if listResourceInstancesOptions.Start != nil {
+		builder.AddQuery("start", fmt.Sprint(*listResourceInstancesOptions.Start))
+	}
 	if listResourceInstancesOptions.State != nil {
 		builder.AddQuery("state", fmt.Sprint(*listResourceInstancesOptions.State))
 	}
@@ -393,12 +396,12 @@ func (resourceController *ResourceControllerV2) GetResourceInstanceWithContext(c
 
 // DeleteResourceInstance : Delete a resource instance
 // Delete a resource instance by ID.
-func (resourceController *ResourceControllerV2) DeleteResourceInstance(deleteResourceInstanceOptions *DeleteResourceInstanceOptions) (response *core.DetailedResponse, err error) {
+func (resourceController *ResourceControllerV2) DeleteResourceInstance(deleteResourceInstanceOptions *DeleteResourceInstanceOptions) (result *ResourceInstance, response *core.DetailedResponse, err error) {
 	return resourceController.DeleteResourceInstanceWithContext(context.Background(), deleteResourceInstanceOptions)
 }
 
 // DeleteResourceInstanceWithContext is an alternate form of the DeleteResourceInstance method which supports a Context parameter
-func (resourceController *ResourceControllerV2) DeleteResourceInstanceWithContext(ctx context.Context, deleteResourceInstanceOptions *DeleteResourceInstanceOptions) (response *core.DetailedResponse, err error) {
+func (resourceController *ResourceControllerV2) DeleteResourceInstanceWithContext(ctx context.Context, deleteResourceInstanceOptions *DeleteResourceInstanceOptions) (result *ResourceInstance, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(deleteResourceInstanceOptions, "deleteResourceInstanceOptions cannot be nil")
 	if err != nil {
 		return
@@ -428,6 +431,7 @@ func (resourceController *ResourceControllerV2) DeleteResourceInstanceWithContex
 	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
+	builder.AddHeader("Accept", "application/json")
 
 	if deleteResourceInstanceOptions.Recursive != nil {
 		builder.AddQuery("recursive", fmt.Sprint(*deleteResourceInstanceOptions.Recursive))
@@ -438,7 +442,16 @@ func (resourceController *ResourceControllerV2) DeleteResourceInstanceWithContex
 		return
 	}
 
-	response, err = resourceController.Service.Request(request, nil)
+	var rawResponse map[string]json.RawMessage
+	response, err = resourceController.Service.Request(request, &rawResponse)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalResourceInstance)
+	if err != nil {
+		return
+	}
+	response.Result = result
 
 	return
 }
@@ -559,6 +572,13 @@ func (resourceController *ResourceControllerV2) ListResourceAliasesForInstanceWi
 	}
 	builder.AddHeader("Accept", "application/json")
 
+	if listResourceAliasesForInstanceOptions.Limit != nil {
+		builder.AddQuery("limit", fmt.Sprint(*listResourceAliasesForInstanceOptions.Limit))
+	}
+	if listResourceAliasesForInstanceOptions.Start != nil {
+		builder.AddQuery("start", fmt.Sprint(*listResourceAliasesForInstanceOptions.Start))
+	}
+
 	request, err := builder.Build()
 	if err != nil {
 		return
@@ -616,6 +636,13 @@ func (resourceController *ResourceControllerV2) ListResourceKeysForInstanceWithC
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
+
+	if listResourceKeysForInstanceOptions.Limit != nil {
+		builder.AddQuery("limit", fmt.Sprint(*listResourceKeysForInstanceOptions.Limit))
+	}
+	if listResourceKeysForInstanceOptions.Start != nil {
+		builder.AddQuery("start", fmt.Sprint(*listResourceKeysForInstanceOptions.Start))
+	}
 
 	request, err := builder.Build()
 	if err != nil {
@@ -798,6 +825,9 @@ func (resourceController *ResourceControllerV2) ListResourceKeysWithContext(ctx 
 	}
 	if listResourceKeysOptions.Limit != nil {
 		builder.AddQuery("limit", fmt.Sprint(*listResourceKeysOptions.Limit))
+	}
+	if listResourceKeysOptions.Start != nil {
+		builder.AddQuery("start", fmt.Sprint(*listResourceKeysOptions.Start))
 	}
 	if listResourceKeysOptions.UpdatedFrom != nil {
 		builder.AddQuery("updated_from", fmt.Sprint(*listResourceKeysOptions.UpdatedFrom))
@@ -1120,6 +1150,9 @@ func (resourceController *ResourceControllerV2) ListResourceBindingsWithContext(
 	}
 	if listResourceBindingsOptions.Limit != nil {
 		builder.AddQuery("limit", fmt.Sprint(*listResourceBindingsOptions.Limit))
+	}
+	if listResourceBindingsOptions.Start != nil {
+		builder.AddQuery("start", fmt.Sprint(*listResourceBindingsOptions.Start))
 	}
 	if listResourceBindingsOptions.UpdatedFrom != nil {
 		builder.AddQuery("updated_from", fmt.Sprint(*listResourceBindingsOptions.UpdatedFrom))
@@ -1449,6 +1482,9 @@ func (resourceController *ResourceControllerV2) ListResourceAliasesWithContext(c
 	if listResourceAliasesOptions.Limit != nil {
 		builder.AddQuery("limit", fmt.Sprint(*listResourceAliasesOptions.Limit))
 	}
+	if listResourceAliasesOptions.Start != nil {
+		builder.AddQuery("start", fmt.Sprint(*listResourceAliasesOptions.Start))
+	}
 	if listResourceAliasesOptions.UpdatedFrom != nil {
 		builder.AddQuery("updated_from", fmt.Sprint(*listResourceAliasesOptions.UpdatedFrom))
 	}
@@ -1757,6 +1793,13 @@ func (resourceController *ResourceControllerV2) ListResourceBindingsForAliasWith
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
+
+	if listResourceBindingsForAliasOptions.Limit != nil {
+		builder.AddQuery("limit", fmt.Sprint(*listResourceBindingsForAliasOptions.Limit))
+	}
+	if listResourceBindingsForAliasOptions.Start != nil {
+		builder.AddQuery("start", fmt.Sprint(*listResourceBindingsForAliasOptions.Start))
+	}
 
 	request, err := builder.Build()
 	if err != nil {
@@ -2558,6 +2601,14 @@ type ListResourceAliasesForInstanceOptions struct {
 	// The short or long ID of the instance.
 	ID *string `validate:"required,ne="`
 
+	// Limit on how many items should be returned.
+	Limit *int64
+
+	// An optional token that indicates the beginning of the page of results to be returned. Any additional query
+	// parameters are ignored if a page token is present. If omitted, the first page of results is returned. This value is
+	// obtained from the 'next_url' field of the operation response.
+	Start *string
+
 	// Allows users to set headers on API requests
 	Headers map[string]string
 }
@@ -2572,6 +2623,18 @@ func (*ResourceControllerV2) NewListResourceAliasesForInstanceOptions(id string)
 // SetID : Allow user to set ID
 func (options *ListResourceAliasesForInstanceOptions) SetID(id string) *ListResourceAliasesForInstanceOptions {
 	options.ID = core.StringPtr(id)
+	return options
+}
+
+// SetLimit : Allow user to set Limit
+func (options *ListResourceAliasesForInstanceOptions) SetLimit(limit int64) *ListResourceAliasesForInstanceOptions {
+	options.Limit = core.Int64Ptr(limit)
+	return options
+}
+
+// SetStart : Allow user to set Start
+func (options *ListResourceAliasesForInstanceOptions) SetStart(start string) *ListResourceAliasesForInstanceOptions {
+	options.Start = core.StringPtr(start)
 	return options
 }
 
@@ -2603,7 +2666,12 @@ type ListResourceAliasesOptions struct {
 	ResourceGroupID *string
 
 	// Limit on how many items should be returned.
-	Limit *string
+	Limit *int64
+
+	// An optional token that indicates the beginning of the page of results to be returned. Any additional query
+	// parameters are ignored if a page token is present. If omitted, the first page of results is returned. This value is
+	// obtained from the 'next_url' field of the operation response.
+	Start *string
 
 	// Start date inclusive filter.
 	UpdatedFrom *string
@@ -2657,8 +2725,14 @@ func (options *ListResourceAliasesOptions) SetResourceGroupID(resourceGroupID st
 }
 
 // SetLimit : Allow user to set Limit
-func (options *ListResourceAliasesOptions) SetLimit(limit string) *ListResourceAliasesOptions {
-	options.Limit = core.StringPtr(limit)
+func (options *ListResourceAliasesOptions) SetLimit(limit int64) *ListResourceAliasesOptions {
+	options.Limit = core.Int64Ptr(limit)
+	return options
+}
+
+// SetStart : Allow user to set Start
+func (options *ListResourceAliasesOptions) SetStart(start string) *ListResourceAliasesOptions {
+	options.Start = core.StringPtr(start)
 	return options
 }
 
@@ -2685,6 +2759,14 @@ type ListResourceBindingsForAliasOptions struct {
 	// The short or long ID of the alias.
 	ID *string `validate:"required,ne="`
 
+	// Limit on how many items should be returned.
+	Limit *int64
+
+	// An optional token that indicates the beginning of the page of results to be returned. Any additional query
+	// parameters are ignored if a page token is present. If omitted, the first page of results is returned. This value is
+	// obtained from the 'next_url' field of the operation response.
+	Start *string
+
 	// Allows users to set headers on API requests
 	Headers map[string]string
 }
@@ -2699,6 +2781,18 @@ func (*ResourceControllerV2) NewListResourceBindingsForAliasOptions(id string) *
 // SetID : Allow user to set ID
 func (options *ListResourceBindingsForAliasOptions) SetID(id string) *ListResourceBindingsForAliasOptions {
 	options.ID = core.StringPtr(id)
+	return options
+}
+
+// SetLimit : Allow user to set Limit
+func (options *ListResourceBindingsForAliasOptions) SetLimit(limit int64) *ListResourceBindingsForAliasOptions {
+	options.Limit = core.Int64Ptr(limit)
+	return options
+}
+
+// SetStart : Allow user to set Start
+func (options *ListResourceBindingsForAliasOptions) SetStart(start string) *ListResourceBindingsForAliasOptions {
+	options.Start = core.StringPtr(start)
 	return options
 }
 
@@ -2727,7 +2821,12 @@ type ListResourceBindingsOptions struct {
 	RegionBindingID *string
 
 	// Limit on how many items should be returned.
-	Limit *string
+	Limit *int64
+
+	// An optional token that indicates the beginning of the page of results to be returned. Any additional query
+	// parameters are ignored if a page token is present. If omitted, the first page of results is returned. This value is
+	// obtained from the 'next_url' field of the operation response.
+	Start *string
 
 	// Start date inclusive filter.
 	UpdatedFrom *string
@@ -2775,8 +2874,14 @@ func (options *ListResourceBindingsOptions) SetRegionBindingID(regionBindingID s
 }
 
 // SetLimit : Allow user to set Limit
-func (options *ListResourceBindingsOptions) SetLimit(limit string) *ListResourceBindingsOptions {
-	options.Limit = core.StringPtr(limit)
+func (options *ListResourceBindingsOptions) SetLimit(limit int64) *ListResourceBindingsOptions {
+	options.Limit = core.Int64Ptr(limit)
+	return options
+}
+
+// SetStart : Allow user to set Start
+func (options *ListResourceBindingsOptions) SetStart(start string) *ListResourceBindingsOptions {
+	options.Start = core.StringPtr(start)
 	return options
 }
 
@@ -2824,7 +2929,12 @@ type ListResourceInstancesOptions struct {
 	SubType *string
 
 	// Limit on how many items should be returned.
-	Limit *string
+	Limit *int64
+
+	// An optional token that indicates the beginning of the page of results to be returned. Any additional query
+	// parameters are ignored if a page token is present. If omitted, the first page of results is returned. This value is
+	// obtained from the 'next_url' field of the operation response.
+	Start *string
 
 	// The state of the instance. If not specified, instances in state `active` and `provisioning` are returned.
 	State *string
@@ -2905,8 +3015,14 @@ func (options *ListResourceInstancesOptions) SetSubType(subType string) *ListRes
 }
 
 // SetLimit : Allow user to set Limit
-func (options *ListResourceInstancesOptions) SetLimit(limit string) *ListResourceInstancesOptions {
-	options.Limit = core.StringPtr(limit)
+func (options *ListResourceInstancesOptions) SetLimit(limit int64) *ListResourceInstancesOptions {
+	options.Limit = core.Int64Ptr(limit)
+	return options
+}
+
+// SetStart : Allow user to set Start
+func (options *ListResourceInstancesOptions) SetStart(start string) *ListResourceInstancesOptions {
+	options.Start = core.StringPtr(start)
 	return options
 }
 
@@ -2945,6 +3061,14 @@ type ListResourceKeysForInstanceOptions struct {
 	// The short or long ID of the instance.
 	ID *string `validate:"required,ne="`
 
+	// Limit on how many items should be returned.
+	Limit *int64
+
+	// An optional token that indicates the beginning of the page of results to be returned. Any additional query
+	// parameters are ignored if a page token is present. If omitted, the first page of results is returned. This value is
+	// obtained from the 'next_url' field of the operation response.
+	Start *string
+
 	// Allows users to set headers on API requests
 	Headers map[string]string
 }
@@ -2959,6 +3083,18 @@ func (*ResourceControllerV2) NewListResourceKeysForInstanceOptions(id string) *L
 // SetID : Allow user to set ID
 func (options *ListResourceKeysForInstanceOptions) SetID(id string) *ListResourceKeysForInstanceOptions {
 	options.ID = core.StringPtr(id)
+	return options
+}
+
+// SetLimit : Allow user to set Limit
+func (options *ListResourceKeysForInstanceOptions) SetLimit(limit int64) *ListResourceKeysForInstanceOptions {
+	options.Limit = core.Int64Ptr(limit)
+	return options
+}
+
+// SetStart : Allow user to set Start
+func (options *ListResourceKeysForInstanceOptions) SetStart(start string) *ListResourceKeysForInstanceOptions {
+	options.Start = core.StringPtr(start)
 	return options
 }
 
@@ -2984,7 +3120,12 @@ type ListResourceKeysOptions struct {
 	ResourceID *string
 
 	// Limit on how many items should be returned.
-	Limit *string
+	Limit *int64
+
+	// An optional token that indicates the beginning of the page of results to be returned. Any additional query
+	// parameters are ignored if a page token is present. If omitted, the first page of results is returned. This value is
+	// obtained from the 'next_url' field of the operation response.
+	Start *string
 
 	// Start date inclusive filter.
 	UpdatedFrom *string
@@ -3026,8 +3167,14 @@ func (options *ListResourceKeysOptions) SetResourceID(resourceID string) *ListRe
 }
 
 // SetLimit : Allow user to set Limit
-func (options *ListResourceKeysOptions) SetLimit(limit string) *ListResourceKeysOptions {
-	options.Limit = core.StringPtr(limit)
+func (options *ListResourceKeysOptions) SetLimit(limit int64) *ListResourceKeysOptions {
+	options.Limit = core.Int64Ptr(limit)
+	return options
+}
+
+// SetStart : Allow user to set Start
+func (options *ListResourceKeysOptions) SetStart(start string) *ListResourceKeysOptions {
+	options.Start = core.StringPtr(start)
 	return options
 }
 
