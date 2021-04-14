@@ -48,18 +48,18 @@ var _ = Describe(`EnterpriseManagementV1 Integration Tests`, func() {
 		serviceURL                  string
 		testConfig                  map[string]string
 
-		enterpriseId string
-		accountId    string
-		accountIamId string
+		enterpriseID string
+		accountID    string
+		accountIamID string
 
 		accountGroupName          = "Example Account Group"
-		accountGroupId            *string
+		accountGroupID            string
 		updatedAccountGroupName   = "Updated Example Account Group"
 		newParentAccountGroupName = "Second Example Account Group"
-		newParentAccountGroupId   *string
+		newParentAccountGroupID   string
 
 		exampleAccountName = "Example Account Name"
-		exampleAccountId   *string
+		exampleAccountID   string
 
 		updatedEnterpriseName = "Updated Enterprise Name"
 	)
@@ -85,14 +85,14 @@ var _ = Describe(`EnterpriseManagementV1 Integration Tests`, func() {
 				Skip("Unable to load service URL configuration property, skipping tests")
 			}
 
-			enterpriseId = testConfig["ENTERPRISE_ID"]
-			Expect(enterpriseId).ToNot(BeEmpty())
+			enterpriseID = testConfig["ENTERPRISE_ID"]
+			Expect(enterpriseID).ToNot(BeEmpty())
 
-			accountId = testConfig["ACCOUNT_ID"]
-			Expect(accountId).ToNot(BeEmpty())
+			accountID = testConfig["ACCOUNT_ID"]
+			Expect(accountID).ToNot(BeEmpty())
 
-			accountIamId = testConfig["ACCOUNT_IAM_ID"]
-			Expect(accountIamId).NotTo(BeEmpty())
+			accountIamID = testConfig["ACCOUNT_IAM_ID"]
+			Expect(accountIamID).NotTo(BeEmpty())
 
 			fmt.Fprintf(GinkgoWriter, "Service URL: %s\n", serviceURL)
 			shouldSkipTest = func() {}
@@ -123,11 +123,11 @@ var _ = Describe(`EnterpriseManagementV1 Integration Tests`, func() {
 			shouldSkipTest()
 		})
 		It(`CreateAccountGroup(createAccountGroupOptions *CreateAccountGroupOptions)`, func() {
-			var parentCRN = "crn:v1:bluemix:public:enterprise::a/" + accountId + "::enterprise:" + enterpriseId
+			var parentCRN = "crn:v1:bluemix:public:enterprise::a/" + accountID + "::enterprise:" + enterpriseID
 			createAccountGroupOptions := &enterprisemanagementv1.CreateAccountGroupOptions{
 				Parent:              &parentCRN,
 				Name:                &accountGroupName,
-				PrimaryContactIamID: &accountIamId,
+				PrimaryContactIamID: &accountIamID,
 			}
 
 			accountGroupResponse, response, err := enterpriseManagementService.CreateAccountGroup(createAccountGroupOptions)
@@ -136,15 +136,15 @@ var _ = Describe(`EnterpriseManagementV1 Integration Tests`, func() {
 			Expect(response.StatusCode).To(Equal(201))
 			Expect(accountGroupResponse).ToNot(BeNil())
 
-			accountGroupId = accountGroupResponse.AccountGroupID
+			accountGroupID = *accountGroupResponse.AccountGroupID
 		})
 
 		It(`CreateAccountGroup(createAccountGroupOptions *CreateAccountGroupOptions) - new parent account group`, func() {
-			var parentCRN = "crn:v1:bluemix:public:enterprise::a/" + accountId + "::enterprise:" + enterpriseId
+			var parentCRN = "crn:v1:bluemix:public:enterprise::a/" + accountID + "::enterprise:" + enterpriseID
 			createAccountGroupOptions := &enterprisemanagementv1.CreateAccountGroupOptions{
 				Parent:              &parentCRN,
 				Name:                &newParentAccountGroupName,
-				PrimaryContactIamID: &accountIamId,
+				PrimaryContactIamID: &accountIamID,
 			}
 
 			accountGroupResponse, response, err := enterpriseManagementService.CreateAccountGroup(createAccountGroupOptions)
@@ -153,7 +153,7 @@ var _ = Describe(`EnterpriseManagementV1 Integration Tests`, func() {
 			Expect(response.StatusCode).To(Equal(201))
 			Expect(accountGroupResponse).ToNot(BeNil())
 
-			newParentAccountGroupId = accountGroupResponse.AccountGroupID
+			newParentAccountGroupID = *accountGroupResponse.AccountGroupID
 		})
 	})
 
@@ -171,7 +171,7 @@ var _ = Describe(`EnterpriseManagementV1 Integration Tests`, func() {
 			for moreResults {
 
 				listAccountGroupsOptions := &enterprisemanagementv1.ListAccountGroupsOptions{
-					EnterpriseID: &enterpriseId,
+					EnterpriseID: &enterpriseID,
 					Limit:        &resultPerPage,
 					NextDocid:    &nextDocid,
 				}
@@ -195,7 +195,7 @@ var _ = Describe(`EnterpriseManagementV1 Integration Tests`, func() {
 
 			var foundAccountGroup = false
 			for i := range accountGroupList {
-				if *accountGroupList[i].ID == *accountGroupId {
+				if *accountGroupList[i].ID == accountGroupID {
 					foundAccountGroup = true
 				}
 			}
@@ -203,13 +203,13 @@ var _ = Describe(`EnterpriseManagementV1 Integration Tests`, func() {
 
 			var foundParentAccountGroup = false
 			for i := range accountGroupList {
-				if *accountGroupList[i].ID == *newParentAccountGroupId {
+				if *accountGroupList[i].ID == newParentAccountGroupID {
 					foundParentAccountGroup = true
 				}
 			}
 			Expect(foundParentAccountGroup).To(BeTrue())
 
-			fmt.Printf("Recieved a total of %d account groups.", len(accountGroupList))
+			fmt.Printf("Received a total of %d account groups.", len(accountGroupList))
 		})
 	})
 
@@ -220,7 +220,7 @@ var _ = Describe(`EnterpriseManagementV1 Integration Tests`, func() {
 		It(`GetAccountGroup(getAccountGroupOptions *GetAccountGroupOptions)`, func() {
 
 			getAccountGroupOptions := &enterprisemanagementv1.GetAccountGroupOptions{
-				AccountGroupID: accountGroupId,
+				AccountGroupID: &accountGroupID,
 			}
 
 			accountGroupResponse, response, err := enterpriseManagementService.GetAccountGroup(getAccountGroupOptions)
@@ -228,7 +228,7 @@ var _ = Describe(`EnterpriseManagementV1 Integration Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(accountGroupResponse).ToNot(BeNil())
-			Expect(accountGroupResponse.ID).To(Equal(accountGroupId))
+			Expect(*accountGroupResponse.ID).To(Equal(accountGroupID))
 
 		})
 	})
@@ -240,9 +240,9 @@ var _ = Describe(`EnterpriseManagementV1 Integration Tests`, func() {
 		It(`UpdateAccountGroup(updateAccountGroupOptions *UpdateAccountGroupOptions)`, func() {
 
 			updateAccountGroupOptions := &enterprisemanagementv1.UpdateAccountGroupOptions{
-				AccountGroupID:      accountGroupId,
+				AccountGroupID:      &accountGroupID,
 				Name:                &updatedAccountGroupName,
-				PrimaryContactIamID: &accountIamId,
+				PrimaryContactIamID: &accountIamID,
 			}
 
 			response, err := enterpriseManagementService.UpdateAccountGroup(updateAccountGroupOptions)
@@ -258,11 +258,11 @@ var _ = Describe(`EnterpriseManagementV1 Integration Tests`, func() {
 			shouldSkipTest()
 		})
 		It(`CreateAccount(createAccountOptions *CreateAccountOptions)`, func() {
-			var parentCRN = "crn:v1:bluemix:public:enterprise::a/" + accountId + "::account-group:" + *accountGroupId
+			var parentCRN = "crn:v1:bluemix:public:enterprise::a/" + accountID + "::account-group:" + accountGroupID
 			createAccountOptions := &enterprisemanagementv1.CreateAccountOptions{
 				Parent:     &parentCRN,
 				Name:       &exampleAccountName,
-				OwnerIamID: &accountIamId,
+				OwnerIamID: &accountIamID,
 			}
 
 			createAccountResponse, response, err := enterpriseManagementService.CreateAccount(createAccountOptions)
@@ -271,7 +271,7 @@ var _ = Describe(`EnterpriseManagementV1 Integration Tests`, func() {
 			Expect(response.StatusCode).To(Equal(202))
 			Expect(createAccountResponse).ToNot(BeNil())
 
-			exampleAccountId = createAccountResponse.AccountID
+			exampleAccountID = *createAccountResponse.AccountID
 
 		})
 	})
@@ -291,7 +291,7 @@ var _ = Describe(`EnterpriseManagementV1 Integration Tests`, func() {
 				listAccountsOptions := &enterprisemanagementv1.ListAccountsOptions{
 					Limit:          &resultPerPage,
 					NextDocid:      &nextDocid,
-					AccountGroupID: accountGroupId,
+					AccountGroupID: &accountGroupID,
 				}
 
 				listAccountsResponse, response, err := enterpriseManagementService.ListAccounts(listAccountsOptions)
@@ -312,7 +312,7 @@ var _ = Describe(`EnterpriseManagementV1 Integration Tests`, func() {
 			}
 			var foundExampleAccount = false
 			for i := range accountsList {
-				if *accountsList[i].ID == *exampleAccountId {
+				if *accountsList[i].ID == exampleAccountID {
 					foundExampleAccount = true
 				}
 			}
@@ -329,7 +329,7 @@ var _ = Describe(`EnterpriseManagementV1 Integration Tests`, func() {
 		It(`GetAccount(getAccountOptions *GetAccountOptions)`, func() {
 
 			getAccountOptions := &enterprisemanagementv1.GetAccountOptions{
-				AccountID: exampleAccountId,
+				AccountID: &exampleAccountID,
 			}
 
 			account, response, err := enterpriseManagementService.GetAccount(getAccountOptions)
@@ -337,7 +337,7 @@ var _ = Describe(`EnterpriseManagementV1 Integration Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(account).ToNot(BeNil())
-			Expect(account.ID).To(Equal(exampleAccountId))
+			Expect(*account.ID).To(Equal(exampleAccountID))
 
 		})
 	})
@@ -348,9 +348,9 @@ var _ = Describe(`EnterpriseManagementV1 Integration Tests`, func() {
 		})
 		It(`UpdateAccount(updateAccountOptions *UpdateAccountOptions)`, func() {
 
-			var newParentCRN = "crn:v1:bluemix:public:enterprise::a/" + accountId + "::account-group:" + *newParentAccountGroupId
+			var newParentCRN = "crn:v1:bluemix:public:enterprise::a/" + accountID + "::account-group:" + newParentAccountGroupID
 			updateAccountOptions := &enterprisemanagementv1.UpdateAccountOptions{
-				AccountID: exampleAccountId,
+				AccountID: &exampleAccountID,
 				Parent:    &newParentCRN,
 			}
 
@@ -375,7 +375,7 @@ var _ = Describe(`EnterpriseManagementV1 Integration Tests`, func() {
 
 			for moreResults {
 				listEnterprisesOptions := &enterprisemanagementv1.ListEnterprisesOptions{
-					AccountID: &accountId,
+					AccountID: &accountID,
 					Limit:     &resultPerPage,
 					NextDocid: &nextDocid,
 				}
@@ -398,7 +398,7 @@ var _ = Describe(`EnterpriseManagementV1 Integration Tests`, func() {
 			}
 			var found = false
 			for i := range enterpriseList {
-				if *enterpriseList[i].ID == enterpriseId {
+				if *enterpriseList[i].ID == enterpriseID {
 					found = true
 				}
 			}
@@ -414,7 +414,7 @@ var _ = Describe(`EnterpriseManagementV1 Integration Tests`, func() {
 		It(`GetEnterprise(getEnterpriseOptions *GetEnterpriseOptions)`, func() {
 
 			getEnterpriseOptions := &enterprisemanagementv1.GetEnterpriseOptions{
-				EnterpriseID: &enterpriseId,
+				EnterpriseID: &enterpriseID,
 			}
 
 			getEnterpriseResponse, response, err := enterpriseManagementService.GetEnterprise(getEnterpriseOptions)
@@ -422,7 +422,7 @@ var _ = Describe(`EnterpriseManagementV1 Integration Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(getEnterpriseResponse).ToNot(BeNil())
-			Expect(*getEnterpriseResponse.ID).To(Equal(enterpriseId))
+			Expect(*getEnterpriseResponse.ID).To(Equal(enterpriseID))
 
 		})
 	})
@@ -434,9 +434,9 @@ var _ = Describe(`EnterpriseManagementV1 Integration Tests`, func() {
 		It(`UpdateEnterprise(updateEnterpriseOptions *UpdateEnterpriseOptions)`, func() {
 
 			updateEnterpriseOptions := &enterprisemanagementv1.UpdateEnterpriseOptions{
-				EnterpriseID:        &enterpriseId,
+				EnterpriseID:        &enterpriseID,
 				Name:                &updatedEnterpriseName,
-				PrimaryContactIamID: &accountIamId,
+				PrimaryContactIamID: &accountIamID,
 			}
 
 			response, err := enterpriseManagementService.UpdateEnterprise(updateEnterpriseOptions)
