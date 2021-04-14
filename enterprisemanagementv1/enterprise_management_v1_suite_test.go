@@ -17,9 +17,10 @@
 package enterprisemanagementv1_test
 
 import (
+	"testing"
+
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
-	"testing"
 )
 
 func TestEnterpriseManagementV1(t *testing.T) {
