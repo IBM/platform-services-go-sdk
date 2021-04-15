@@ -668,6 +668,7 @@ var _ = Describe(`ResourceControllerV2 Examples Tests`, func() {
 			Expect(resourceInstance).ToNot(BeNil())
 		})
 		It(`DeleteResourceInstance request example`, func() {
+			fmt.Println("\nDeleteResourceInstance() result:")
 			// begin-delete_resource_instance
 
 			deleteResourceInstanceOptions := resourceControllerService.NewDeleteResourceInstanceOptions(
@@ -675,13 +676,14 @@ var _ = Describe(`ResourceControllerV2 Examples Tests`, func() {
 			)
 			deleteResourceInstanceOptions.SetRecursive(false)
 
-			response, err := resourceControllerService.DeleteResourceInstance(deleteResourceInstanceOptions)
+			resourceInstance, response, err := resourceControllerService.DeleteResourceInstance(deleteResourceInstanceOptions)
 			if err != nil {
 				panic(err)
 			}
+			b, _ := json.MarshalIndent(resourceInstance, "", "  ")
+			fmt.Println(string(b))
 
 			// end-delete_resource_instance
-			fmt.Printf("\nDeleteResourceInstance() response status code: %d\n", response.StatusCode)
 
 			time.Sleep(20 * time.Second)
 
