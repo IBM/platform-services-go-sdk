@@ -138,6 +138,7 @@ var _ = Describe(`ConfigurationGovernanceV1 Examples Tests`, func() {
 			shouldSkipTest()
 		})
 		It(`CreateRules request example`, func() {
+			fmt.Println("\nCreateRules() result:")
 			// begin-create_rules
 
 			ruleRequestModel := &configurationgovernancev1.RuleRequest{
@@ -186,7 +187,7 @@ var _ = Describe(`ConfigurationGovernanceV1 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(createRulesResponse, "", "  ")
-			fmt.Printf("\nCreateRules() result:\n%s\n", string(b))
+			fmt.Println(string(b))
 
 			// end-create_rules
 
@@ -202,6 +203,7 @@ var _ = Describe(`ConfigurationGovernanceV1 Examples Tests`, func() {
 			Expect(ruleIDLink).ToNot(BeEmpty())
 		})
 		It(`ListRules request example`, func() {
+			fmt.Println("\nListRules() result:")
 			// begin-list_rules
 
 			listRulesOptions := configurationGovernanceService.NewListRulesOptions(accountID)
@@ -213,7 +215,7 @@ var _ = Describe(`ConfigurationGovernanceV1 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(ruleList, "", "  ")
-			fmt.Printf("\nListRules() result:\n%s\n", string(b))
+			fmt.Println(string(b))
 
 			// end-list_rules
 
@@ -225,6 +227,7 @@ var _ = Describe(`ConfigurationGovernanceV1 Examples Tests`, func() {
 		It(`GetRule request example`, func() {
 			Expect(ruleIDLink).ToNot(BeEmpty())
 
+			fmt.Println("\nGetRule() result:")
 			// begin-get_rule
 
 			getRuleOptions := configurationGovernanceService.NewGetRuleOptions(ruleIDLink)
@@ -235,7 +238,7 @@ var _ = Describe(`ConfigurationGovernanceV1 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(rule, "", "  ")
-			fmt.Printf("\nGetRule() result:\n%s\n", string(b))
+			fmt.Println(string(b))
 
 			// end-get_rule
 
@@ -255,6 +258,7 @@ var _ = Describe(`ConfigurationGovernanceV1 Examples Tests`, func() {
 			Expect(ruleToUpdateLink).ToNot(BeNil())
 			Expect(ruleToUpdateEtagLink).ToNot(BeEmpty())
 
+			fmt.Println("\nUpdateRule() result:")
 			// begin-update_rule
 
 			// Update the existing rule's description.
@@ -277,7 +281,7 @@ var _ = Describe(`ConfigurationGovernanceV1 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(rule, "", "  ")
-			fmt.Printf("\nUpdateRule() result:\n%s\n", string(b))
+			fmt.Println(string(b))
 
 			// end-update_rule
 
@@ -289,6 +293,7 @@ var _ = Describe(`ConfigurationGovernanceV1 Examples Tests`, func() {
 		It(`CreateAttachments request example`, func() {
 			Expect(ruleIDLink).ToNot(BeEmpty())
 
+			fmt.Println("\nCreateAttachments() result:")
 			// begin-create_attachments
 
 			createAttachmentRequest := configurationgovernancev1.AttachmentRequest{
@@ -320,7 +325,7 @@ var _ = Describe(`ConfigurationGovernanceV1 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(createAttachmentsResponse, "", "  ")
-			fmt.Printf("\nCreateAttachments() result:\n%s\n", string(b))
+			fmt.Println(string(b))
 
 			// end-create_attachments
 
@@ -338,6 +343,7 @@ var _ = Describe(`ConfigurationGovernanceV1 Examples Tests`, func() {
 		It(`ListAttachments request example`, func() {
 			Expect(ruleIDLink).ToNot(BeEmpty())
 
+			fmt.Println("\nListAttachments() result:")
 			// begin-list_attachments
 
 			listAttachmentsOptions := configurationGovernanceService.NewListAttachmentsOptions(ruleIDLink)
@@ -348,7 +354,7 @@ var _ = Describe(`ConfigurationGovernanceV1 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(attachmentList, "", "  ")
-			fmt.Printf("\nListAttachments() result:\n%s\n", string(b))
+			fmt.Println(string(b))
 
 			// end-list_attachments
 
@@ -360,6 +366,7 @@ var _ = Describe(`ConfigurationGovernanceV1 Examples Tests`, func() {
 			Expect(ruleIDLink).ToNot(BeEmpty())
 			Expect(attachmentIDLink).ToNot(BeEmpty())
 
+			fmt.Println("\nGetAttachment() result:")
 			// begin-get_attachment
 
 			getAttachmentOptions := configurationGovernanceService.NewGetAttachmentOptions(
@@ -373,7 +380,7 @@ var _ = Describe(`ConfigurationGovernanceV1 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(attachment, "", "  ")
-			fmt.Printf("\nGetAttachment() result:\n%s\n", string(b))
+			fmt.Println(string(b))
 
 			// end-get_attachment
 
@@ -393,6 +400,7 @@ var _ = Describe(`ConfigurationGovernanceV1 Examples Tests`, func() {
 			Expect(attachmentToUpdateLink).ToNot(BeNil())
 			Expect(attachmentToUpdateEtagLink).ToNot(BeEmpty())
 
+			fmt.Println("\nUpdateAttachment() result:")
 			// begin-update_attachment
 
 			// Update the Note field within the existing attachment's IncludedScope.
@@ -417,7 +425,7 @@ var _ = Describe(`ConfigurationGovernanceV1 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(attachment, "", "  ")
-			fmt.Printf("UpdateAttachment() result:\n%s\n", string(b))
+			fmt.Println(string(b))
 
 			// end-update_attachment
 
@@ -440,9 +448,9 @@ var _ = Describe(`ConfigurationGovernanceV1 Examples Tests`, func() {
 			if err != nil {
 				panic(err)
 			}
-			fmt.Printf("DeleteAttachment() response status code: %d\n", response.StatusCode)
 
 			// end-delete_attachment
+			fmt.Printf("DeleteAttachment() response status code: %d\n", response.StatusCode)
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(204))
@@ -458,9 +466,9 @@ var _ = Describe(`ConfigurationGovernanceV1 Examples Tests`, func() {
 			if err != nil {
 				panic(err)
 			}
-			fmt.Printf("DeleteRule() response status code: %d\n", response.StatusCode)
 
 			// end-delete_rule
+			fmt.Printf("DeleteRule() response status code: %d\n", response.StatusCode)
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(204))
