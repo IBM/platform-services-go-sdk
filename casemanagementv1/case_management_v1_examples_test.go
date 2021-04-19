@@ -116,7 +116,7 @@ var _ = Describe(`CaseManagementV1 Examples Tests`, func() {
 			shouldSkipTest()
 		})
 		It(`CreateCase request example`, func() {
-			fmt.Println("\n() result:")
+			fmt.Println("\nCreateCase() result:")
 			// begin-createCase
 
 			offeringType, _ := caseManagementService.NewOfferingType(
@@ -156,7 +156,7 @@ var _ = Describe(`CaseManagementV1 Examples Tests`, func() {
 		It(`GetCase request example`, func() {
 			Expect(caseNumber).ToNot(BeEmpty())
 
-			fmt.Println("\n() result:")
+			fmt.Println("\nGetCase() result:")
 			// begin-getCase
 
 			getCaseOptions := caseManagementService.NewGetCaseOptions(
@@ -184,7 +184,7 @@ var _ = Describe(`CaseManagementV1 Examples Tests`, func() {
 
 		})
 		It(`GetCases request example`, func() {
-			fmt.Println("\n() result:")
+			fmt.Println("\nGetCases() result:")
 			// begin-getCases
 
 			getCasesOptions := caseManagementService.NewGetCasesOptions()
@@ -210,7 +210,7 @@ var _ = Describe(`CaseManagementV1 Examples Tests`, func() {
 		It(`AddComment request example`, func() {
 			Expect(caseNumber).ToNot(BeEmpty())
 
-			fmt.Println("\n() result:")
+			fmt.Println("\nAddComment() result:")
 			// begin-addComment
 
 			addCommentOptions := caseManagementService.NewAddCommentOptions(
@@ -235,7 +235,7 @@ var _ = Describe(`CaseManagementV1 Examples Tests`, func() {
 		It(`AddWatchlist request example`, func() {
 			Expect(caseNumber).ToNot(BeEmpty())
 
-			fmt.Println("\n() result:")
+			fmt.Println("\nAddWatchlist() result:")
 			// begin-addWatchlist
 
 			watchListUser, _ := caseManagementService.NewUser("IBMid", "abc@ibm.com")
@@ -262,7 +262,7 @@ var _ = Describe(`CaseManagementV1 Examples Tests`, func() {
 		It(`RemoveWatchlist request example`, func() {
 			Expect(caseNumber).ToNot(BeEmpty())
 
-			fmt.Println("\n() result:")
+			fmt.Println("\nRemoveWatchlist() result:")
 			// begin-removeWatchlist
 
 			watchListUser, _ := caseManagementService.NewUser("IBMid", "abc@ibm.com")
@@ -289,7 +289,7 @@ var _ = Describe(`CaseManagementV1 Examples Tests`, func() {
 		It(`AddResource request example`, func() {
 			Expect(caseNumber).ToNot(BeEmpty())
 
-			fmt.Println("\n() result:")
+			fmt.Println("\nAddResource() result:")
 			// begin-addResource
 
 			addResourceOptions := caseManagementService.NewAddResourceOptions(
@@ -315,7 +315,7 @@ var _ = Describe(`CaseManagementV1 Examples Tests`, func() {
 		It(`UploadFile request example`, func() {
 			Expect(caseNumber).ToNot(BeEmpty())
 
-			fmt.Println("\n() result:")
+			fmt.Println("\nNewUploadFileOptions() result:")
 			// begin-uploadFile
 
 			exampleFileContent := "This is the content of the file to upload."
@@ -351,7 +351,7 @@ var _ = Describe(`CaseManagementV1 Examples Tests`, func() {
 			Expect(caseNumber).ToNot(BeEmpty())
 			Expect(attachmentID).ToNot(BeEmpty())
 
-			fmt.Println("\n() result:")
+			fmt.Println("\nDownloadFile() result:")
 			// begin-downloadFile
 
 			downloadFileOptions := caseManagementService.NewDownloadFileOptions(
@@ -382,7 +382,7 @@ var _ = Describe(`CaseManagementV1 Examples Tests`, func() {
 			Expect(caseNumber).ToNot(BeEmpty())
 			Expect(attachmentID).ToNot(BeEmpty())
 
-			fmt.Println("\n() result:")
+			fmt.Println("\nDeleteFile() result:")
 			// begin-deleteFile
 
 			deleteFileOptions := caseManagementService.NewDeleteFileOptions(
@@ -407,7 +407,7 @@ var _ = Describe(`CaseManagementV1 Examples Tests`, func() {
 		It(`UpdateCaseStatus request example`, func() {
 			Expect(caseNumber).ToNot(BeEmpty())
 
-			fmt.Println("\n() result:")
+			fmt.Println("\nUpdateCaseStatus() result:")
 			// begin-updateCaseStatus
 
 			statusPayloadModel := &casemanagementv1.ResolvePayload{
