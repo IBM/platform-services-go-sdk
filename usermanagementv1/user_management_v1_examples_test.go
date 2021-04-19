@@ -129,6 +129,7 @@ var _ = Describe(`UserManagementV1 Examples Tests`, func() {
 		It(`InviteUsers request example`, func() {
 			Expect(accountID).ToNot(BeEmpty())
 
+			fmt.Println("\nInviteUsers() result:")
 			// begin-invite_users
 
 			inviteUserModel := &usermanagementv1.InviteUser{
@@ -172,7 +173,7 @@ var _ = Describe(`UserManagementV1 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(invitedUserList, "", "  ")
-			fmt.Printf("\nInviteUsers() result:\n%s\n", string(b))
+			fmt.Println(string(b))
 
 			// end-invite_users
 
@@ -188,6 +189,7 @@ var _ = Describe(`UserManagementV1 Examples Tests`, func() {
 		It(`ListUsers request example`, func() {
 			Expect(accountID).ToNot(BeEmpty())
 
+			fmt.Println("\nListUsers() result:")
 			// begin-list_users
 
 			listUsersOptions := userManagementService.NewListUsersOptions(
@@ -201,7 +203,7 @@ var _ = Describe(`UserManagementV1 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(userList, "", "  ")
-			fmt.Printf("\nListUsers() result:\n%s\n", string(b))
+			fmt.Println(string(b))
 
 			// end-list_users
 
@@ -225,9 +227,9 @@ var _ = Describe(`UserManagementV1 Examples Tests`, func() {
 			if err != nil {
 				panic(err)
 			}
-			fmt.Printf("\nRemoveUser() response status code: %d\n", response.StatusCode)
 
 			// end-remove_user
+			fmt.Printf("\nRemoveUser() response status code: %d\n", response.StatusCode)
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(204))
@@ -237,6 +239,7 @@ var _ = Describe(`UserManagementV1 Examples Tests`, func() {
 			Expect(accountID).ToNot(BeEmpty())
 			Expect(userID).ToNot(BeEmpty())
 
+			fmt.Println("\nGetUserProfile() result:")
 			// begin-get_user_profile
 
 			getUserProfileOptions := userManagementService.NewGetUserProfileOptions(
@@ -249,7 +252,7 @@ var _ = Describe(`UserManagementV1 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(userProfile, "", "  ")
-			fmt.Printf("\nGetUserProfile() result:\n%s\n", string(b))
+			fmt.Println(string(b))
 
 			// end-get_user_profile
 
@@ -274,9 +277,9 @@ var _ = Describe(`UserManagementV1 Examples Tests`, func() {
 			if err != nil {
 				panic(err)
 			}
-			fmt.Printf("\nUpdateUserProfile() response status code: %d\n", response.StatusCode)
 
 			// end-update_user_profile
+			fmt.Printf("\nUpdateUserProfile() response status code: %d\n", response.StatusCode)
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(204))
@@ -286,6 +289,7 @@ var _ = Describe(`UserManagementV1 Examples Tests`, func() {
 			Expect(accountID).ToNot(BeEmpty())
 			Expect(userID).ToNot(BeEmpty())
 
+			fmt.Println("\nGetUserSettings() result:")
 			// begin-get_user_settings
 
 			getUserSettingsOptions := userManagementService.NewGetUserSettingsOptions(
@@ -298,7 +302,7 @@ var _ = Describe(`UserManagementV1 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(userSettings, "", "  ")
-			fmt.Printf("\nGetUserSettings() result:\n%s\n", string(b))
+			fmt.Println(string(b))
 
 			// end-get_user_settings
 
@@ -324,9 +328,9 @@ var _ = Describe(`UserManagementV1 Examples Tests`, func() {
 			if err != nil {
 				panic(err)
 			}
-			fmt.Printf("\nUpdateUserSettings() response status code: %d\n", response.StatusCode)
 
 			// end-update_user_settings
+			fmt.Printf("\nUpdateUserSettings() response status code: %d\n", response.StatusCode)
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(204))
