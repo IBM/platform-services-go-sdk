@@ -114,6 +114,7 @@ var _ = Describe(`IamAccessGroupsV2 Examples Tests`, func() {
 			shouldSkipTest()
 		})
 		It(`CreateAccessGroup request example`, func() {
+			fmt.Println("\nCreateAccessGroup() result:")
 			// begin-create_access_group
 
 			createAccessGroupOptions := iamAccessGroupsService.NewCreateAccessGroupOptions(testAccountID, "Managers")
@@ -123,7 +124,7 @@ var _ = Describe(`IamAccessGroupsV2 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(group, "", "  ")
-			fmt.Printf("\nCreateAccessGroup() result:\n%s\n", string(b))
+			fmt.Println(string(b))
 
 			// end-create_access_group
 
@@ -135,6 +136,7 @@ var _ = Describe(`IamAccessGroupsV2 Examples Tests`, func() {
 		})
 		It(`GetAccessGroup request example`, func() {
 			// begin-get_access_group
+			fmt.Println("\nGetAccessGroup() result:")
 
 			getAccessGroupOptions := iamAccessGroupsService.NewGetAccessGroupOptions(testGroupID)
 			group, response, err := iamAccessGroupsService.GetAccessGroup(getAccessGroupOptions)
@@ -142,7 +144,7 @@ var _ = Describe(`IamAccessGroupsV2 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(group, "", "  ")
-			fmt.Printf("\nGetAccessGroup() result:\n%s\n", string(b))
+			fmt.Println(string(b))
 
 			// end-get_access_group
 
@@ -153,6 +155,7 @@ var _ = Describe(`IamAccessGroupsV2 Examples Tests`, func() {
 			testGroupEtag = response.GetHeaders().Get("ETag")
 		})
 		It(`UpdateAccessGroup request example`, func() {
+			fmt.Println("\nUpdateAccessGroup() result:")
 			// begin-update_access_group
 
 			updateAccessGroupOptions := iamAccessGroupsService.NewUpdateAccessGroupOptions(testGroupID, testGroupEtag)
@@ -163,7 +166,7 @@ var _ = Describe(`IamAccessGroupsV2 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(group, "", "  ")
-			fmt.Printf("\nUpdateAccessGroup() result:\n%s\n", string(b))
+			fmt.Println(string(b))
 
 			// end-update_access_group
 
@@ -172,6 +175,7 @@ var _ = Describe(`IamAccessGroupsV2 Examples Tests`, func() {
 			Expect(group).ToNot(BeNil())
 		})
 		It(`ListAccessGroups request example`, func() {
+			fmt.Println("\nListAccessGroups() result:")
 			// begin-list_access_groups
 
 			listAccessGroupsOptions := iamAccessGroupsService.NewListAccessGroupsOptions(testAccountID)
@@ -180,7 +184,7 @@ var _ = Describe(`IamAccessGroupsV2 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(groupsList, "", "  ")
-			fmt.Printf("\nListAccessGroups() result:\n%s\n", string(b))
+			fmt.Println(string(b))
 
 			// end-list_access_groups
 
@@ -189,6 +193,7 @@ var _ = Describe(`IamAccessGroupsV2 Examples Tests`, func() {
 			Expect(groupsList).ToNot(BeNil())
 		})
 		It(`AddMembersToAccessGroup request example`, func() {
+			fmt.Println("\nAddMembersToAccessGroup() result:")
 			// begin-add_members_to_access_group
 
 			groupMembers := []iamaccessgroupsv2.AddGroupMembersRequestMembersItem{
@@ -208,7 +213,7 @@ var _ = Describe(`IamAccessGroupsV2 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(addGroupMembersResponse, "", "  ")
-			fmt.Printf("\nAddMembersToAccessGroup() result:\n%s\n", string(b))
+			fmt.Println(string(b))
 
 			// end-add_members_to_access_group
 
@@ -224,14 +229,15 @@ var _ = Describe(`IamAccessGroupsV2 Examples Tests`, func() {
 			if err != nil {
 				panic(err)
 			}
-			fmt.Printf("\nIsMemberOfAccessGroup() response status code: %d\n", response.StatusCode)
 
 			// end-is_member_of_access_group
+			fmt.Printf("\nIsMemberOfAccessGroup() response status code: %d\n", response.StatusCode)
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(204))
 		})
 		It(`ListAccessGroupMembers request example`, func() {
+			fmt.Println("\nListAccessGroupMembers() result:")
 			// begin-list_access_group_members
 
 			listAccessGroupMembersOptions := iamAccessGroupsService.NewListAccessGroupMembersOptions(testGroupID)
@@ -240,7 +246,7 @@ var _ = Describe(`IamAccessGroupsV2 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(groupMembersList, "", "  ")
-			fmt.Printf("\nListAccessGroupMembers() result:\n%s\n", string(b))
+			fmt.Println(string(b))
 
 			// end-list_access_group_members
 
@@ -256,14 +262,15 @@ var _ = Describe(`IamAccessGroupsV2 Examples Tests`, func() {
 			if err != nil {
 				panic(err)
 			}
-			fmt.Printf("\nRemoveMemberFromAccessGroup() response status code: %d\n:", response.StatusCode)
 
 			// end-remove_member_from_access_group
+			fmt.Printf("\nRemoveMemberFromAccessGroup() response status code: %d\n:", response.StatusCode)
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(204))
 		})
 		It(`RemoveMembersFromAccessGroup request example`, func() {
+			fmt.Println("\nRemoveMembersFromAccessGroup() result:")
 			// begin-remove_members_from_access_group
 
 			removeMembersFromAccessGroupOptions := iamAccessGroupsService.NewRemoveMembersFromAccessGroupOptions(testGroupID)
@@ -273,7 +280,7 @@ var _ = Describe(`IamAccessGroupsV2 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(deleteGroupBulkMembersResponse, "", "  ")
-			fmt.Printf("\nRemoveMembersFromAccessGroup() result:\n%s\n", string(b))
+			fmt.Println(string(b))
 
 			// end-remove_members_from_access_group
 
@@ -282,6 +289,7 @@ var _ = Describe(`IamAccessGroupsV2 Examples Tests`, func() {
 			Expect(deleteGroupBulkMembersResponse).ToNot(BeNil())
 		})
 		It(`AddMemberToMultipleAccessGroups request example`, func() {
+			fmt.Println("\nAddMemberToMultipleAccessGroups() result:")
 			// begin-add_member_to_multiple_access_groups
 
 			addMemberToMultipleAccessGroupsOptions := iamAccessGroupsService.NewAddMemberToMultipleAccessGroupsOptions(testAccountID, "IBMid-user1")
@@ -292,7 +300,7 @@ var _ = Describe(`IamAccessGroupsV2 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(addMembershipMultipleGroupsResponse, "", "  ")
-			fmt.Printf("\nAddMemberToMultipleAccessGroups() result:\n%s\n", string(b))
+			fmt.Println(string(b))
 
 			// end-add_member_to_multiple_access_groups
 
@@ -301,6 +309,7 @@ var _ = Describe(`IamAccessGroupsV2 Examples Tests`, func() {
 			Expect(addMembershipMultipleGroupsResponse).ToNot(BeNil())
 		})
 		It(`RemoveMemberFromAllAccessGroups request example`, func() {
+			fmt.Println("\nRemoveMemberFromAllAccessGroups() result:")
 			// begin-remove_member_from_all_access_groups
 
 			removeMemberFromAllAccessGroupsOptions := iamAccessGroupsService.NewRemoveMemberFromAllAccessGroupsOptions(testAccountID, "IBMid-user1")
@@ -309,7 +318,7 @@ var _ = Describe(`IamAccessGroupsV2 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(deleteFromAllGroupsResponse, "", "  ")
-			fmt.Printf("\nRemoveMemberFromAllAccessGroups() result:\n%s\n", string(b))
+			fmt.Println(string(b))
 
 			// end-remove_member_from_all_access_groups
 
@@ -318,6 +327,7 @@ var _ = Describe(`IamAccessGroupsV2 Examples Tests`, func() {
 			Expect(deleteFromAllGroupsResponse).ToNot(BeNil())
 		})
 		It(`AddAccessGroupRule request example`, func() {
+			fmt.Println("\nAddAccessGroupRule() result:")
 			// begin-add_access_group_rule
 
 			ruleConditionsModel := iamaccessgroupsv2.RuleConditions{
@@ -337,7 +347,7 @@ var _ = Describe(`IamAccessGroupsV2 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(rule, "", "  ")
-			fmt.Printf("\nAddAccessGroupRule() result:\n%s\n", string(b))
+			fmt.Println(string(b))
 
 			// end-add_access_group_rule
 
@@ -348,6 +358,7 @@ var _ = Describe(`IamAccessGroupsV2 Examples Tests`, func() {
 			testClaimRuleID = *rule.ID
 		})
 		It(`GetAccessGroupRule request example`, func() {
+			fmt.Println("\nGetAccessGroupRule() result:")
 			// begin-get_access_group_rule
 
 			getAccessGroupRuleOptions := iamAccessGroupsService.NewGetAccessGroupRuleOptions(testGroupID, testClaimRuleID)
@@ -356,7 +367,7 @@ var _ = Describe(`IamAccessGroupsV2 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(rule, "", "  ")
-			fmt.Printf("\nGetAccessGroupRule() result:\n%s\n", string(b))
+			fmt.Println(string(b))
 
 			// end-get_access_group_rule
 
@@ -367,6 +378,7 @@ var _ = Describe(`IamAccessGroupsV2 Examples Tests`, func() {
 			testClaimRuleEtag = response.GetHeaders().Get("Etag")
 		})
 		It(`ReplaceAccessGroupRule request example`, func() {
+			fmt.Println("\nReplaceAccessGroupRule() result:")
 			// begin-replace_access_group_rule
 
 			ruleConditionsModel := iamaccessgroupsv2.RuleConditions{
@@ -388,7 +400,7 @@ var _ = Describe(`IamAccessGroupsV2 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(rule, "", "  ")
-			fmt.Printf("\nReplaceAccessGroupRule() result:\n%s\n", string(b))
+			fmt.Println(string(b))
 
 			// end-replace_access_group_rule
 
@@ -397,6 +409,7 @@ var _ = Describe(`IamAccessGroupsV2 Examples Tests`, func() {
 			Expect(rule).ToNot(BeNil())
 		})
 		It(`ListAccessGroupRules request example`, func() {
+			fmt.Println("\nListAccessGroupRules() result:")
 			// begin-list_access_group_rules
 
 			listAccessGroupRulesOptions := iamAccessGroupsService.NewListAccessGroupRulesOptions(testGroupID)
@@ -405,7 +418,7 @@ var _ = Describe(`IamAccessGroupsV2 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(rulesList, "", "  ")
-			fmt.Printf("\nListAccessGroupRules() result:\n%s\n", string(b))
+			fmt.Println(string(b))
 
 			// end-list_access_group_rules
 
@@ -422,14 +435,15 @@ var _ = Describe(`IamAccessGroupsV2 Examples Tests`, func() {
 			if err != nil {
 				panic(err)
 			}
-			fmt.Printf("\nRemoveAccessGroupRule() response status code: %d\n", response.StatusCode)
 
 			// end-remove_access_group_rule
+			fmt.Printf("\nRemoveAccessGroupRule() response status code: %d\n", response.StatusCode)
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(204))
 		})
 		It(`GetAccountSettings request example`, func() {
+			fmt.Println("\nGetAccountSettings() result:")
 			// begin-get_account_settings
 
 			getAccountSettingsOptions := iamAccessGroupsService.NewGetAccountSettingsOptions(testAccountID)
@@ -438,7 +452,7 @@ var _ = Describe(`IamAccessGroupsV2 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(accountSettings, "", "  ")
-			fmt.Printf("\nGetAccountSettings() result:\n%s\n", string(b))
+			fmt.Println(string(b))
 
 			// end-get_account_settings
 
@@ -449,6 +463,7 @@ var _ = Describe(`IamAccessGroupsV2 Examples Tests`, func() {
 			testAccountSettings = accountSettings
 		})
 		It(`UpdateAccountSettings request example`, func() {
+			fmt.Println("\nUpdateAccountSettings() result:")
 			// begin-update_account_settings
 
 			updateAccountSettingsOptions := iamAccessGroupsService.NewUpdateAccountSettingsOptions(testAccountID)
@@ -458,7 +473,7 @@ var _ = Describe(`IamAccessGroupsV2 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(accountSettings, "", "  ")
-			fmt.Printf("\nUpdateAccountSettings() result:\n%s\n", string(b))
+			fmt.Println(string(b))
 
 			// end-update_account_settings
 
@@ -474,9 +489,9 @@ var _ = Describe(`IamAccessGroupsV2 Examples Tests`, func() {
 			if err != nil {
 				panic(err)
 			}
-			fmt.Printf("\nDeleteAccessGroup() response status code: %d\n", response.StatusCode)
 
 			// end-delete_access_group
+			fmt.Printf("\nDeleteAccessGroup() response status code: %d\n", response.StatusCode)
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(204))
