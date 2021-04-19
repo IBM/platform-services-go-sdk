@@ -124,6 +124,7 @@ var _ = Describe(`PostureManagementV1 Examples Tests`, func() {
 			shouldSkipTest()
 		})
 		It(`ListProfiles request example`, func() {
+			fmt.Println("\nListProfiles() result:")
 			// begin-list_profiles
 
 			listProfilesOptions := postureManagementService.NewListProfilesOptions(
@@ -136,7 +137,7 @@ var _ = Describe(`PostureManagementV1 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(profilesList, "", "  ")
-			fmt.Printf("\nListProfiles() result:\n%s\n", string(b))
+			fmt.Println(string(b))
 
 			// end-list_profiles
 
@@ -147,6 +148,7 @@ var _ = Describe(`PostureManagementV1 Examples Tests`, func() {
 			profileID = *profilesList.Profiles[0].ProfileID
 		})
 		It(`ListScopes request example`, func() {
+			fmt.Println("\nListScopes() result:")
 			// begin-list_scopes
 
 			listScopesOptions := postureManagementService.NewListScopesOptions(
@@ -159,7 +161,7 @@ var _ = Describe(`PostureManagementV1 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(scopesList, "", "  ")
-			fmt.Printf("\nListScopes() result:\n%s\n", string(b))
+			fmt.Println(string(b))
 
 			// end-list_scopes
 
@@ -170,6 +172,7 @@ var _ = Describe(`PostureManagementV1 Examples Tests`, func() {
 			scopeID = *scopesList.Scopes[0].ScopeID
 		})
 		It(`CreateValidation request example`, func() {
+			fmt.Println("\nCreateValidation() result:")
 			// begin-create_validation
 
 			createValidationOptions := postureManagementService.NewCreateValidationOptions(
@@ -184,7 +187,7 @@ var _ = Describe(`PostureManagementV1 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(result, "", "  ")
-			fmt.Printf("\nCreateValidation() result:\n%s\n", string(b))
+			fmt.Println(string(b))
 
 			// end-create_validation
 
