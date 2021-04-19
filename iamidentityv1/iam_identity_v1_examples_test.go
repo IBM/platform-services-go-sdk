@@ -141,7 +141,7 @@ var _ = Describe(`IamIdentityV1 Examples Tests`, func() {
 			shouldSkipTest()
 		})
 		It(`CreateAPIKey request example`, func() {
-			fmt.Println("\n() result:")
+			fmt.Println("\nCreateAPIKey() result:")
 			// begin-create_api_key
 
 			createAPIKeyOptions := iamIdentityService.NewCreateAPIKeyOptions(apikeyName, iamID)
