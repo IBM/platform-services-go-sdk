@@ -114,6 +114,7 @@ var _ = Describe(`GlobalCatalogV1 Examples Tests`, func() {
 			shouldSkipTest()
 		})
 		It(`CreateCatalogEntry request example`, func() {
+			fmt.Println("\nCreateCatalogEntry() result:")
 			// begin-create_catalog_entry
 
 			displayName := "Example Web Starter"
@@ -169,7 +170,7 @@ var _ = Describe(`GlobalCatalogV1 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(catalogEntry, "", "  ")
-			fmt.Printf("\nCreateCatalogEntry() result:\n%s\n", string(b))
+			fmt.Println(string(b))
 
 			// end-create_catalog_entry
 
@@ -181,6 +182,7 @@ var _ = Describe(`GlobalCatalogV1 Examples Tests`, func() {
 		It(`GetCatalogEntry request example`, func() {
 			Expect(catalogEntryID).ToNot(BeEmpty())
 
+			fmt.Println("\nGetCatalogEntry() result:")
 			// begin-get_catalog_entry
 
 			getCatalogEntryOptions := globalCatalogService.NewGetCatalogEntryOptions(
@@ -193,7 +195,7 @@ var _ = Describe(`GlobalCatalogV1 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(catalogEntry, "", "  ")
-			fmt.Printf("\nGetCatalogEntry() result:\n%s\n", string(b))
+			fmt.Println(string(b))
 
 			// end-get_catalog_entry
 
@@ -205,6 +207,7 @@ var _ = Describe(`GlobalCatalogV1 Examples Tests`, func() {
 		It(`UpdateCatalogEntry request example`, func() {
 			Expect(catalogEntryID).ToNot(BeEmpty())
 
+			fmt.Println("\nUpdateCatalogEntry() result:")
 			// begin-update_catalog_entry
 
 			displayName := "Example Web Starter V2"
@@ -258,7 +261,7 @@ var _ = Describe(`GlobalCatalogV1 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(catalogEntry, "", "  ")
-			fmt.Printf("\nUpdateCatalogEntry() result:\n%s\n", string(b))
+			fmt.Println(string(b))
 
 			// end-update_catalog_entry
 
@@ -268,6 +271,7 @@ var _ = Describe(`GlobalCatalogV1 Examples Tests`, func() {
 
 		})
 		It(`ListCatalogEntries request example`, func() {
+			fmt.Println("\nListCatalogEntries() result:")
 			// begin-list_catalog_entries
 
 			listCatalogEntriesOptions := globalCatalogService.NewListCatalogEntriesOptions()
@@ -281,7 +285,7 @@ var _ = Describe(`GlobalCatalogV1 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(entrySearchResult, "", "  ")
-			fmt.Printf("\nListCatalogEntries() result:\n%s\n", string(b))
+			fmt.Println(string(b))
 
 			// end-list_catalog_entries
 
@@ -293,6 +297,7 @@ var _ = Describe(`GlobalCatalogV1 Examples Tests`, func() {
 		It(`GetChildObjects request example`, func() {
 			Expect(catalogEntryID).ToNot(BeEmpty())
 
+			fmt.Println("\nGetChildObjects() result:")
 			// begin-get_child_objects
 
 			getChildObjectsOptions := globalCatalogService.NewGetChildObjectsOptions(
@@ -308,7 +313,7 @@ var _ = Describe(`GlobalCatalogV1 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(entrySearchResult, "", "  ")
-			fmt.Printf("\nGetChildObjects() result:\n%s\n", string(b))
+			fmt.Println(string(b))
 
 			// end-get_child_objects
 
@@ -329,9 +334,9 @@ var _ = Describe(`GlobalCatalogV1 Examples Tests`, func() {
 			if err != nil {
 				panic(err)
 			}
-			fmt.Printf("\nRestoreCatalogEntry() response status code: %d\n", response.StatusCode)
 
 			// end-restore_catalog_entry
+			fmt.Printf("\nRestoreCatalogEntry() response status code: %d\n", response.StatusCode)
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
@@ -340,6 +345,7 @@ var _ = Describe(`GlobalCatalogV1 Examples Tests`, func() {
 		It(`GetVisibility request example`, func() {
 			Expect(catalogEntryID).ToNot(BeEmpty())
 
+			fmt.Println("\nGetVisibility() result:")
 			// begin-get_visibility
 
 			getVisibilityOptions := globalCatalogService.NewGetVisibilityOptions(
@@ -351,7 +357,7 @@ var _ = Describe(`GlobalCatalogV1 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(visibility, "", "  ")
-			fmt.Printf("\nGetVisibility() result:\n%s\n", string(b))
+			fmt.Println(string(b))
 
 			// end-get_visibility
 
@@ -374,9 +380,9 @@ var _ = Describe(`GlobalCatalogV1 Examples Tests`, func() {
 			if err != nil {
 				fmt.Println("UpdateVisibility() returned the following error: ", err.Error())
 			}
-			fmt.Printf("\nUpdateVisibility() response status code: %d\n: ", response.StatusCode)
 
 			// end-update_visibility
+			fmt.Printf("\nUpdateVisibility() response status code: %d\n: ", response.StatusCode)
 
 			Expect(err).ToNot(BeNil())
 			Expect(response.StatusCode).To(Equal(403))
@@ -384,6 +390,7 @@ var _ = Describe(`GlobalCatalogV1 Examples Tests`, func() {
 		It(`GetPricing request example`, func() {
 			Expect(catalogEntryID).ToNot(BeEmpty())
 
+			fmt.Println("\nGetPricing() result:")
 			// begin-get_pricing
 
 			getPricingOptions := globalCatalogService.NewGetPricingOptions(
@@ -395,7 +402,7 @@ var _ = Describe(`GlobalCatalogV1 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(pricingGet, "", "  ")
-			fmt.Printf("\nGetPricing() result:\n%s\n", string(b))
+			fmt.Println(string(b))
 
 			// end-get_pricing
 
@@ -407,6 +414,7 @@ var _ = Describe(`GlobalCatalogV1 Examples Tests`, func() {
 		It(`GetAuditLogs request example`, func() {
 			Expect(catalogEntryID).ToNot(BeEmpty())
 
+			fmt.Println("\nGetAuditLogs() result:")
 			// begin-get_audit_logs
 
 			getAuditLogsOptions := globalCatalogService.NewGetAuditLogsOptions(
@@ -420,7 +428,7 @@ var _ = Describe(`GlobalCatalogV1 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(auditSearchResult, "", "  ")
-			fmt.Printf("\nGetAuditLogs() result:\n%s\n", string(b))
+			fmt.Println(string(b))
 
 			// end-get_audit_logs
 
@@ -446,9 +454,9 @@ var _ = Describe(`GlobalCatalogV1 Examples Tests`, func() {
 			if err != nil {
 				panic(err)
 			}
-			fmt.Printf("\nUploadArtifact() response status code: %d\n", response.StatusCode)
 
 			// end-upload_artifact
+			fmt.Printf("\nUploadArtifact() response status code: %d\n", response.StatusCode)
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
@@ -456,6 +464,7 @@ var _ = Describe(`GlobalCatalogV1 Examples Tests`, func() {
 		It(`GetArtifact request example`, func() {
 			Expect(catalogEntryID).ToNot(BeEmpty())
 
+			fmt.Println("\nGetArtifact() result:")
 			// begin-get_artifact
 
 			getArtifactOptions := globalCatalogService.NewGetArtifactOptions(
@@ -471,9 +480,7 @@ var _ = Describe(`GlobalCatalogV1 Examples Tests`, func() {
 				defer result.Close()
 				buf := new(bytes.Buffer)
 				buf.ReadFrom(result)
-				fmt.Println("\nGetArtifact() result:")
-				fmt.Printf("Artifact content-type: %s \n", response.GetHeaders().Get("Content-Type"))
-				fmt.Printf("Artifact contents: %s \n", buf.String())
+				fmt.Println(buf.String())
 			}
 
 			// end-get_artifact
@@ -485,6 +492,7 @@ var _ = Describe(`GlobalCatalogV1 Examples Tests`, func() {
 		It(`ListArtifacts request example`, func() {
 			Expect(catalogEntryID).ToNot(BeEmpty())
 
+			fmt.Println("\nListArtifacts() result:")
 			// begin-list_artifacts
 
 			listArtifactsOptions := globalCatalogService.NewListArtifactsOptions(
@@ -496,7 +504,7 @@ var _ = Describe(`GlobalCatalogV1 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(artifacts, "", "  ")
-			fmt.Printf("\nListArtifacts() result:\n%s\n", string(b))
+			fmt.Println(string(b))
 
 			// end-list_artifacts
 
@@ -519,8 +527,8 @@ var _ = Describe(`GlobalCatalogV1 Examples Tests`, func() {
 			if err != nil {
 				panic(err)
 			}
-			fmt.Printf("\nDeleteArtifact() response status code: %d\n", response.StatusCode)
 			// end-delete_artifact
+			fmt.Printf("\nDeleteArtifact() response status code: %d\n", response.StatusCode)
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
@@ -539,9 +547,9 @@ var _ = Describe(`GlobalCatalogV1 Examples Tests`, func() {
 			if err != nil {
 				panic(err)
 			}
-			fmt.Printf("\nDeleteCatalogEntry() response status code: %d\n", response.StatusCode)
 
 			// end-delete_catalog_entry
+			fmt.Printf("\nDeleteCatalogEntry() response status code: %d\n", response.StatusCode)
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
