@@ -1,3 +1,10 @@
+## [0.18.8](https://github.com/IBM/platform-services-go-sdk/compare/v0.18.7...v0.18.8) (2021-04-14)
+
+
+### Bug Fixes
+
+* **Enterprise Management:** update service after API changes ([#110](https://github.com/IBM/platform-services-go-sdk/issues/110)) ([6516057](https://github.com/IBM/platform-services-go-sdk/commit/6516057ff74065d79e132b5d01a86c8a057eb8d8))
+
 ## [0.18.7](https://github.com/IBM/platform-services-go-sdk/compare/v0.18.6...v0.18.7) (2021-04-07)
 
 

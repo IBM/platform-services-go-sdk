@@ -15,7 +15,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 3.29.1-b338fb38-20210313-010605
+ * IBM OpenAPI SDK Code Generator Version: 3.30.0-bd714324-20210406-200538
  */
 
 // Package enterprisemanagementv1 : Operations and models for the EnterpriseManagementV1 service
@@ -25,12 +25,13 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"github.com/IBM/go-sdk-core/v5/core"
-	common "github.com/IBM/platform-services-go-sdk/common"
-	"github.com/go-openapi/strfmt"
 	"net/http"
 	"reflect"
 	"time"
+
+	"github.com/IBM/go-sdk-core/v5/core"
+	common "github.com/IBM/platform-services-go-sdk/common"
+	"github.com/go-openapi/strfmt"
 )
 
 // EnterpriseManagementV1 : The Enterprise Management API enables you to create and manage an enterprise, account
@@ -160,21 +161,24 @@ func (enterpriseManagement *EnterpriseManagementV1) DisableRetries() {
 	enterpriseManagement.Service.DisableRetries()
 }
 
-// CreateAccountGroup : Create an account group
-// Create a new account group, which can be used to group together multiple accounts. To create an account group, you
-// must have an existing enterprise. The API creates an account group entity under the parent that is specified in the
-// payload of the request. The request also takes in the name and the primary contact of this new account group.
-func (enterpriseManagement *EnterpriseManagementV1) CreateAccountGroup(createAccountGroupOptions *CreateAccountGroupOptions) (result *CreateAccountGroupResponse, response *core.DetailedResponse, err error) {
-	return enterpriseManagement.CreateAccountGroupWithContext(context.Background(), createAccountGroupOptions)
+// CreateEnterprise : Create an enterprise
+// Create a new enterprise, which you can use to centrally manage multiple accounts. To create an enterprise, you must
+// have an active Subscription account. <br/><br/>The API creates an enterprise entity, which is the root of the
+// enterprise hierarchy. It also creates a new enterprise account that is used to manage the enterprise. All
+// subscriptions, support entitlements, credits, and discounts from the source subscription account are migrated to the
+// enterprise account, and the source account becomes a child account in the hierarchy. The user that you assign as the
+// enterprise primary contact is also assigned as the owner of the enterprise account.
+func (enterpriseManagement *EnterpriseManagementV1) CreateEnterprise(createEnterpriseOptions *CreateEnterpriseOptions) (result *CreateEnterpriseResponse, response *core.DetailedResponse, err error) {
+	return enterpriseManagement.CreateEnterpriseWithContext(context.Background(), createEnterpriseOptions)
 }
 
-// CreateAccountGroupWithContext is an alternate form of the CreateAccountGroup method which supports a Context parameter
-func (enterpriseManagement *EnterpriseManagementV1) CreateAccountGroupWithContext(ctx context.Context, createAccountGroupOptions *CreateAccountGroupOptions) (result *CreateAccountGroupResponse, response *core.DetailedResponse, err error) {
-	err = core.ValidateNotNil(createAccountGroupOptions, "createAccountGroupOptions cannot be nil")
+// CreateEnterpriseWithContext is an alternate form of the CreateEnterprise method which supports a Context parameter
+func (enterpriseManagement *EnterpriseManagementV1) CreateEnterpriseWithContext(ctx context.Context, createEnterpriseOptions *CreateEnterpriseOptions) (result *CreateEnterpriseResponse, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(createEnterpriseOptions, "createEnterpriseOptions cannot be nil")
 	if err != nil {
 		return
 	}
-	err = core.ValidateStruct(createAccountGroupOptions, "createAccountGroupOptions")
+	err = core.ValidateStruct(createEnterpriseOptions, "createEnterpriseOptions")
 	if err != nil {
 		return
 	}
@@ -182,16 +186,16 @@ func (enterpriseManagement *EnterpriseManagementV1) CreateAccountGroupWithContex
 	builder := core.NewRequestBuilder(core.POST)
 	builder = builder.WithContext(ctx)
 	builder.EnableGzipCompression = enterpriseManagement.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(enterpriseManagement.Service.Options.URL, `/account-groups`, nil)
+	_, err = builder.ResolveRequestURL(enterpriseManagement.Service.Options.URL, `/enterprises`, nil)
 	if err != nil {
 		return
 	}
 
-	for headerName, headerValue := range createAccountGroupOptions.Headers {
+	for headerName, headerValue := range createEnterpriseOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("enterprise_management", "V1", "CreateAccountGroup")
+	sdkHeaders := common.GetSdkHeaders("enterprise_management", "V1", "CreateEnterprise")
 	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
@@ -199,14 +203,17 @@ func (enterpriseManagement *EnterpriseManagementV1) CreateAccountGroupWithContex
 	builder.AddHeader("Content-Type", "application/json")
 
 	body := make(map[string]interface{})
-	if createAccountGroupOptions.Parent != nil {
-		body["parent"] = createAccountGroupOptions.Parent
+	if createEnterpriseOptions.SourceAccountID != nil {
+		body["source_account_id"] = createEnterpriseOptions.SourceAccountID
 	}
-	if createAccountGroupOptions.Name != nil {
-		body["name"] = createAccountGroupOptions.Name
+	if createEnterpriseOptions.Name != nil {
+		body["name"] = createEnterpriseOptions.Name
 	}
-	if createAccountGroupOptions.PrimaryContactIamID != nil {
-		body["primary_contact_iam_id"] = createAccountGroupOptions.PrimaryContactIamID
+	if createEnterpriseOptions.PrimaryContactIamID != nil {
+		body["primary_contact_iam_id"] = createEnterpriseOptions.PrimaryContactIamID
+	}
+	if createEnterpriseOptions.Domain != nil {
+		body["domain"] = createEnterpriseOptions.Domain
 	}
 	_, err = builder.SetBodyContentJSON(body)
 	if err != nil {
@@ -223,7 +230,7 @@ func (enterpriseManagement *EnterpriseManagementV1) CreateAccountGroupWithContex
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalCreateAccountGroupResponse)
+	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalCreateEnterpriseResponse)
 	if err != nil {
 		return
 	}
@@ -232,24 +239,22 @@ func (enterpriseManagement *EnterpriseManagementV1) CreateAccountGroupWithContex
 	return
 }
 
-// ListAccountGroups : List account groups
-// Retrieve all account groups based on the values that are passed in the query parameters. If no query parameter is
-// passed, all of the account groups in the enterprise for which the calling identity has access are returned.
-// <br/><br/>You can use pagination parameters to filter the results. The `limit` field can be used to limit the number
-// of results that are displayed for this method.<br/><br/>This method ensures that only the account groups that the
-// user has access to are returned. Access can be controlled either through a policy on a specific account group, or
-// account-level platform services access roles, such as Administrator, Editor, Operator, or Viewer. When you call the
-// method with the `enterprise_id`, `parent_account_group_id` or `parent` query parameter, all of the account groups
-// that are immediate children of this entity are returned. Authentication is performed on all account groups before
-// they are returned to the user to ensure that only those account groups are returned to which the calling identity has
-// access.
-func (enterpriseManagement *EnterpriseManagementV1) ListAccountGroups(listAccountGroupsOptions *ListAccountGroupsOptions) (result *ListAccountGroupsResponse, response *core.DetailedResponse, err error) {
-	return enterpriseManagement.ListAccountGroupsWithContext(context.Background(), listAccountGroupsOptions)
+// ListEnterprises : List enterprises
+// Retrieve all enterprises for a given ID by passing the IDs on query parameters. If no ID is passed, the enterprises
+// for which the calling identity is the primary contact are returned. You can use pagination parameters to filter the
+// results. <br/><br/>This method ensures that only the enterprises that the user has access to are returned. Access can
+// be controlled either through a policy on a specific enterprise, or account-level platform services access roles, such
+// as Administrator, Editor, Operator, or Viewer. When you call the method with the `enterprise_account_id` or
+// `account_id` query parameter, the account ID in the token is compared with that in the query parameter. If these
+// account IDs match, authentication isn't performed and the enterprise information is returned. If the account IDs
+// don't match, authentication is performed and only then is the enterprise information returned in the response.
+func (enterpriseManagement *EnterpriseManagementV1) ListEnterprises(listEnterprisesOptions *ListEnterprisesOptions) (result *ListEnterprisesResponse, response *core.DetailedResponse, err error) {
+	return enterpriseManagement.ListEnterprisesWithContext(context.Background(), listEnterprisesOptions)
 }
 
-// ListAccountGroupsWithContext is an alternate form of the ListAccountGroups method which supports a Context parameter
-func (enterpriseManagement *EnterpriseManagementV1) ListAccountGroupsWithContext(ctx context.Context, listAccountGroupsOptions *ListAccountGroupsOptions) (result *ListAccountGroupsResponse, response *core.DetailedResponse, err error) {
-	err = core.ValidateStruct(listAccountGroupsOptions, "listAccountGroupsOptions")
+// ListEnterprisesWithContext is an alternate form of the ListEnterprises method which supports a Context parameter
+func (enterpriseManagement *EnterpriseManagementV1) ListEnterprisesWithContext(ctx context.Context, listEnterprisesOptions *ListEnterprisesOptions) (result *ListEnterprisesResponse, response *core.DetailedResponse, err error) {
+	err = core.ValidateStruct(listEnterprisesOptions, "listEnterprisesOptions")
 	if err != nil {
 		return
 	}
@@ -257,35 +262,35 @@ func (enterpriseManagement *EnterpriseManagementV1) ListAccountGroupsWithContext
 	builder := core.NewRequestBuilder(core.GET)
 	builder = builder.WithContext(ctx)
 	builder.EnableGzipCompression = enterpriseManagement.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(enterpriseManagement.Service.Options.URL, `/account-groups`, nil)
+	_, err = builder.ResolveRequestURL(enterpriseManagement.Service.Options.URL, `/enterprises`, nil)
 	if err != nil {
 		return
 	}
 
-	for headerName, headerValue := range listAccountGroupsOptions.Headers {
+	for headerName, headerValue := range listEnterprisesOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("enterprise_management", "V1", "ListAccountGroups")
+	sdkHeaders := common.GetSdkHeaders("enterprise_management", "V1", "ListEnterprises")
 	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
 
-	if listAccountGroupsOptions.EnterpriseID != nil {
-		builder.AddQuery("enterprise_id", fmt.Sprint(*listAccountGroupsOptions.EnterpriseID))
+	if listEnterprisesOptions.EnterpriseAccountID != nil {
+		builder.AddQuery("enterprise_account_id", fmt.Sprint(*listEnterprisesOptions.EnterpriseAccountID))
 	}
-	if listAccountGroupsOptions.ParentAccountGroupID != nil {
-		builder.AddQuery("parent_account_group_id", fmt.Sprint(*listAccountGroupsOptions.ParentAccountGroupID))
+	if listEnterprisesOptions.AccountGroupID != nil {
+		builder.AddQuery("account_group_id", fmt.Sprint(*listEnterprisesOptions.AccountGroupID))
 	}
-	if listAccountGroupsOptions.NextDocid != nil {
-		builder.AddQuery("next_docid", fmt.Sprint(*listAccountGroupsOptions.NextDocid))
+	if listEnterprisesOptions.AccountID != nil {
+		builder.AddQuery("account_id", fmt.Sprint(*listEnterprisesOptions.AccountID))
 	}
-	if listAccountGroupsOptions.Parent != nil {
-		builder.AddQuery("parent", fmt.Sprint(*listAccountGroupsOptions.Parent))
+	if listEnterprisesOptions.NextDocid != nil {
+		builder.AddQuery("next_docid", fmt.Sprint(*listEnterprisesOptions.NextDocid))
 	}
-	if listAccountGroupsOptions.Limit != nil {
-		builder.AddQuery("limit", fmt.Sprint(*listAccountGroupsOptions.Limit))
+	if listEnterprisesOptions.Limit != nil {
+		builder.AddQuery("limit", fmt.Sprint(*listEnterprisesOptions.Limit))
 	}
 
 	request, err := builder.Build()
@@ -298,7 +303,7 @@ func (enterpriseManagement *EnterpriseManagementV1) ListAccountGroupsWithContext
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalListAccountGroupsResponse)
+	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalListEnterprisesResponse)
 	if err != nil {
 		return
 	}
@@ -307,41 +312,41 @@ func (enterpriseManagement *EnterpriseManagementV1) ListAccountGroupsWithContext
 	return
 }
 
-// GetAccountGroup : Get account group by ID
-// Retrieve an account by the `account_group_id` parameter. All data related to the account group is returned only if
-// the caller has access to retrieve the account group.
-func (enterpriseManagement *EnterpriseManagementV1) GetAccountGroup(getAccountGroupOptions *GetAccountGroupOptions) (result *AccountGroup, response *core.DetailedResponse, err error) {
-	return enterpriseManagement.GetAccountGroupWithContext(context.Background(), getAccountGroupOptions)
+// GetEnterprise : Get enterprise by ID
+// Retrieve an enterprise by the `enterprise_id` parameter. All data related to the enterprise is returned only if the
+// caller has access to retrieve the enterprise.
+func (enterpriseManagement *EnterpriseManagementV1) GetEnterprise(getEnterpriseOptions *GetEnterpriseOptions) (result *Enterprise, response *core.DetailedResponse, err error) {
+	return enterpriseManagement.GetEnterpriseWithContext(context.Background(), getEnterpriseOptions)
 }
 
-// GetAccountGroupWithContext is an alternate form of the GetAccountGroup method which supports a Context parameter
-func (enterpriseManagement *EnterpriseManagementV1) GetAccountGroupWithContext(ctx context.Context, getAccountGroupOptions *GetAccountGroupOptions) (result *AccountGroup, response *core.DetailedResponse, err error) {
-	err = core.ValidateNotNil(getAccountGroupOptions, "getAccountGroupOptions cannot be nil")
+// GetEnterpriseWithContext is an alternate form of the GetEnterprise method which supports a Context parameter
+func (enterpriseManagement *EnterpriseManagementV1) GetEnterpriseWithContext(ctx context.Context, getEnterpriseOptions *GetEnterpriseOptions) (result *Enterprise, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(getEnterpriseOptions, "getEnterpriseOptions cannot be nil")
 	if err != nil {
 		return
 	}
-	err = core.ValidateStruct(getAccountGroupOptions, "getAccountGroupOptions")
+	err = core.ValidateStruct(getEnterpriseOptions, "getEnterpriseOptions")
 	if err != nil {
 		return
 	}
 
 	pathParamsMap := map[string]string{
-		"account_group_id": *getAccountGroupOptions.AccountGroupID,
+		"enterprise_id": *getEnterpriseOptions.EnterpriseID,
 	}
 
 	builder := core.NewRequestBuilder(core.GET)
 	builder = builder.WithContext(ctx)
 	builder.EnableGzipCompression = enterpriseManagement.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(enterpriseManagement.Service.Options.URL, `/account-groups/{account_group_id}`, pathParamsMap)
+	_, err = builder.ResolveRequestURL(enterpriseManagement.Service.Options.URL, `/enterprises/{enterprise_id}`, pathParamsMap)
 	if err != nil {
 		return
 	}
 
-	for headerName, headerValue := range getAccountGroupOptions.Headers {
+	for headerName, headerValue := range getEnterpriseOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("enterprise_management", "V1", "GetAccountGroup")
+	sdkHeaders := common.GetSdkHeaders("enterprise_management", "V1", "GetEnterprise")
 	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
@@ -357,7 +362,7 @@ func (enterpriseManagement *EnterpriseManagementV1) GetAccountGroupWithContext(c
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalAccountGroup)
+	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalEnterprise)
 	if err != nil {
 		return
 	}
@@ -366,52 +371,55 @@ func (enterpriseManagement *EnterpriseManagementV1) GetAccountGroupWithContext(c
 	return
 }
 
-// UpdateAccountGroup : Update an account group
-// Update the name or IAM ID of the primary contact for an existing account group. The new primary contact must already
-// be a user in the enterprise account.
-func (enterpriseManagement *EnterpriseManagementV1) UpdateAccountGroup(updateAccountGroupOptions *UpdateAccountGroupOptions) (response *core.DetailedResponse, err error) {
-	return enterpriseManagement.UpdateAccountGroupWithContext(context.Background(), updateAccountGroupOptions)
+// UpdateEnterprise : Update an enterprise
+// Update the name, domain, or IAM ID of the primary contact for an existing enterprise. The new primary contact must
+// already be a user in the enterprise account.
+func (enterpriseManagement *EnterpriseManagementV1) UpdateEnterprise(updateEnterpriseOptions *UpdateEnterpriseOptions) (response *core.DetailedResponse, err error) {
+	return enterpriseManagement.UpdateEnterpriseWithContext(context.Background(), updateEnterpriseOptions)
 }
 
-// UpdateAccountGroupWithContext is an alternate form of the UpdateAccountGroup method which supports a Context parameter
-func (enterpriseManagement *EnterpriseManagementV1) UpdateAccountGroupWithContext(ctx context.Context, updateAccountGroupOptions *UpdateAccountGroupOptions) (response *core.DetailedResponse, err error) {
-	err = core.ValidateNotNil(updateAccountGroupOptions, "updateAccountGroupOptions cannot be nil")
+// UpdateEnterpriseWithContext is an alternate form of the UpdateEnterprise method which supports a Context parameter
+func (enterpriseManagement *EnterpriseManagementV1) UpdateEnterpriseWithContext(ctx context.Context, updateEnterpriseOptions *UpdateEnterpriseOptions) (response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(updateEnterpriseOptions, "updateEnterpriseOptions cannot be nil")
 	if err != nil {
 		return
 	}
-	err = core.ValidateStruct(updateAccountGroupOptions, "updateAccountGroupOptions")
+	err = core.ValidateStruct(updateEnterpriseOptions, "updateEnterpriseOptions")
 	if err != nil {
 		return
 	}
 
 	pathParamsMap := map[string]string{
-		"account_group_id": *updateAccountGroupOptions.AccountGroupID,
+		"enterprise_id": *updateEnterpriseOptions.EnterpriseID,
 	}
 
 	builder := core.NewRequestBuilder(core.PATCH)
 	builder = builder.WithContext(ctx)
 	builder.EnableGzipCompression = enterpriseManagement.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(enterpriseManagement.Service.Options.URL, `/account-groups/{account_group_id}`, pathParamsMap)
+	_, err = builder.ResolveRequestURL(enterpriseManagement.Service.Options.URL, `/enterprises/{enterprise_id}`, pathParamsMap)
 	if err != nil {
 		return
 	}
 
-	for headerName, headerValue := range updateAccountGroupOptions.Headers {
+	for headerName, headerValue := range updateEnterpriseOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("enterprise_management", "V1", "UpdateAccountGroup")
+	sdkHeaders := common.GetSdkHeaders("enterprise_management", "V1", "UpdateEnterprise")
 	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Content-Type", "application/json")
 
 	body := make(map[string]interface{})
-	if updateAccountGroupOptions.Name != nil {
-		body["name"] = updateAccountGroupOptions.Name
+	if updateEnterpriseOptions.Name != nil {
+		body["name"] = updateEnterpriseOptions.Name
 	}
-	if updateAccountGroupOptions.PrimaryContactIamID != nil {
-		body["primary_contact_iam_id"] = updateAccountGroupOptions.PrimaryContactIamID
+	if updateEnterpriseOptions.Domain != nil {
+		body["domain"] = updateEnterpriseOptions.Domain
+	}
+	if updateEnterpriseOptions.PrimaryContactIamID != nil {
+		body["primary_contact_iam_id"] = updateEnterpriseOptions.PrimaryContactIamID
 	}
 	_, err = builder.SetBodyContentJSON(body)
 	if err != nil {
@@ -760,24 +768,21 @@ func (enterpriseManagement *EnterpriseManagementV1) UpdateAccountWithContext(ctx
 	return
 }
 
-// CreateEnterprise : Create an enterprise
-// Create a new enterprise, which you can use to centrally manage multiple accounts. To create an enterprise, you must
-// have an active Subscription account. <br/><br/>The API creates an enterprise entity, which is the root of the
-// enterprise hierarchy. It also creates a new enterprise account that is used to manage the enterprise. All
-// subscriptions, support entitlements, credits, and discounts from the source subscription account are migrated to the
-// enterprise account, and the source account becomes a child account in the hierarchy. The user that you assign as the
-// enterprise primary contact is also assigned as the owner of the enterprise account.
-func (enterpriseManagement *EnterpriseManagementV1) CreateEnterprise(createEnterpriseOptions *CreateEnterpriseOptions) (result *CreateEnterpriseResponse, response *core.DetailedResponse, err error) {
-	return enterpriseManagement.CreateEnterpriseWithContext(context.Background(), createEnterpriseOptions)
+// CreateAccountGroup : Create an account group
+// Create a new account group, which can be used to group together multiple accounts. To create an account group, you
+// must have an existing enterprise. The API creates an account group entity under the parent that is specified in the
+// payload of the request. The request also takes in the name and the primary contact of this new account group.
+func (enterpriseManagement *EnterpriseManagementV1) CreateAccountGroup(createAccountGroupOptions *CreateAccountGroupOptions) (result *CreateAccountGroupResponse, response *core.DetailedResponse, err error) {
+	return enterpriseManagement.CreateAccountGroupWithContext(context.Background(), createAccountGroupOptions)
 }
 
-// CreateEnterpriseWithContext is an alternate form of the CreateEnterprise method which supports a Context parameter
-func (enterpriseManagement *EnterpriseManagementV1) CreateEnterpriseWithContext(ctx context.Context, createEnterpriseOptions *CreateEnterpriseOptions) (result *CreateEnterpriseResponse, response *core.DetailedResponse, err error) {
-	err = core.ValidateNotNil(createEnterpriseOptions, "createEnterpriseOptions cannot be nil")
+// CreateAccountGroupWithContext is an alternate form of the CreateAccountGroup method which supports a Context parameter
+func (enterpriseManagement *EnterpriseManagementV1) CreateAccountGroupWithContext(ctx context.Context, createAccountGroupOptions *CreateAccountGroupOptions) (result *CreateAccountGroupResponse, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(createAccountGroupOptions, "createAccountGroupOptions cannot be nil")
 	if err != nil {
 		return
 	}
-	err = core.ValidateStruct(createEnterpriseOptions, "createEnterpriseOptions")
+	err = core.ValidateStruct(createAccountGroupOptions, "createAccountGroupOptions")
 	if err != nil {
 		return
 	}
@@ -785,16 +790,16 @@ func (enterpriseManagement *EnterpriseManagementV1) CreateEnterpriseWithContext(
 	builder := core.NewRequestBuilder(core.POST)
 	builder = builder.WithContext(ctx)
 	builder.EnableGzipCompression = enterpriseManagement.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(enterpriseManagement.Service.Options.URL, `/enterprises`, nil)
+	_, err = builder.ResolveRequestURL(enterpriseManagement.Service.Options.URL, `/account-groups`, nil)
 	if err != nil {
 		return
 	}
 
-	for headerName, headerValue := range createEnterpriseOptions.Headers {
+	for headerName, headerValue := range createAccountGroupOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("enterprise_management", "V1", "CreateEnterprise")
+	sdkHeaders := common.GetSdkHeaders("enterprise_management", "V1", "CreateAccountGroup")
 	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
@@ -802,17 +807,14 @@ func (enterpriseManagement *EnterpriseManagementV1) CreateEnterpriseWithContext(
 	builder.AddHeader("Content-Type", "application/json")
 
 	body := make(map[string]interface{})
-	if createEnterpriseOptions.SourceAccountID != nil {
-		body["source_account_id"] = createEnterpriseOptions.SourceAccountID
+	if createAccountGroupOptions.Parent != nil {
+		body["parent"] = createAccountGroupOptions.Parent
 	}
-	if createEnterpriseOptions.Name != nil {
-		body["name"] = createEnterpriseOptions.Name
+	if createAccountGroupOptions.Name != nil {
+		body["name"] = createAccountGroupOptions.Name
 	}
-	if createEnterpriseOptions.PrimaryContactIamID != nil {
-		body["primary_contact_iam_id"] = createEnterpriseOptions.PrimaryContactIamID
-	}
-	if createEnterpriseOptions.Domain != nil {
-		body["domain"] = createEnterpriseOptions.Domain
+	if createAccountGroupOptions.PrimaryContactIamID != nil {
+		body["primary_contact_iam_id"] = createAccountGroupOptions.PrimaryContactIamID
 	}
 	_, err = builder.SetBodyContentJSON(body)
 	if err != nil {
@@ -829,7 +831,7 @@ func (enterpriseManagement *EnterpriseManagementV1) CreateEnterpriseWithContext(
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalCreateEnterpriseResponse)
+	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalCreateAccountGroupResponse)
 	if err != nil {
 		return
 	}
@@ -838,22 +840,24 @@ func (enterpriseManagement *EnterpriseManagementV1) CreateEnterpriseWithContext(
 	return
 }
 
-// ListEnterprises : List enterprises
-// Retrieve all enterprises for a given ID by passing the IDs on query parameters. If no ID is passed, the enterprises
-// for which the calling identity is the primary contact are returned. You can use pagination parameters to filter the
-// results. <br/><br/>This method ensures that only the enterprises that the user has access to are returned. Access can
-// be controlled either through a policy on a specific enterprise, or account-level platform services access roles, such
-// as Administrator, Editor, Operator, or Viewer. When you call the method with the `enterprise_account_id` or
-// `account_id` query parameter, the account ID in the token is compared with that in the query parameter. If these
-// account IDs match, authentication isn't performed and the enterprise information is returned. If the account IDs
-// don't match, authentication is performed and only then is the enterprise information returned in the response.
-func (enterpriseManagement *EnterpriseManagementV1) ListEnterprises(listEnterprisesOptions *ListEnterprisesOptions) (result *ListEnterprisesResponse, response *core.DetailedResponse, err error) {
-	return enterpriseManagement.ListEnterprisesWithContext(context.Background(), listEnterprisesOptions)
+// ListAccountGroups : List account groups
+// Retrieve all account groups based on the values that are passed in the query parameters. If no query parameter is
+// passed, all of the account groups in the enterprise for which the calling identity has access are returned.
+// <br/><br/>You can use pagination parameters to filter the results. The `limit` field can be used to limit the number
+// of results that are displayed for this method.<br/><br/>This method ensures that only the account groups that the
+// user has access to are returned. Access can be controlled either through a policy on a specific account group, or
+// account-level platform services access roles, such as Administrator, Editor, Operator, or Viewer. When you call the
+// method with the `enterprise_id`, `parent_account_group_id` or `parent` query parameter, all of the account groups
+// that are immediate children of this entity are returned. Authentication is performed on all account groups before
+// they are returned to the user to ensure that only those account groups are returned to which the calling identity has
+// access.
+func (enterpriseManagement *EnterpriseManagementV1) ListAccountGroups(listAccountGroupsOptions *ListAccountGroupsOptions) (result *ListAccountGroupsResponse, response *core.DetailedResponse, err error) {
+	return enterpriseManagement.ListAccountGroupsWithContext(context.Background(), listAccountGroupsOptions)
 }
 
-// ListEnterprisesWithContext is an alternate form of the ListEnterprises method which supports a Context parameter
-func (enterpriseManagement *EnterpriseManagementV1) ListEnterprisesWithContext(ctx context.Context, listEnterprisesOptions *ListEnterprisesOptions) (result *ListEnterprisesResponse, response *core.DetailedResponse, err error) {
-	err = core.ValidateStruct(listEnterprisesOptions, "listEnterprisesOptions")
+// ListAccountGroupsWithContext is an alternate form of the ListAccountGroups method which supports a Context parameter
+func (enterpriseManagement *EnterpriseManagementV1) ListAccountGroupsWithContext(ctx context.Context, listAccountGroupsOptions *ListAccountGroupsOptions) (result *ListAccountGroupsResponse, response *core.DetailedResponse, err error) {
+	err = core.ValidateStruct(listAccountGroupsOptions, "listAccountGroupsOptions")
 	if err != nil {
 		return
 	}
@@ -861,35 +865,35 @@ func (enterpriseManagement *EnterpriseManagementV1) ListEnterprisesWithContext(c
 	builder := core.NewRequestBuilder(core.GET)
 	builder = builder.WithContext(ctx)
 	builder.EnableGzipCompression = enterpriseManagement.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(enterpriseManagement.Service.Options.URL, `/enterprises`, nil)
+	_, err = builder.ResolveRequestURL(enterpriseManagement.Service.Options.URL, `/account-groups`, nil)
 	if err != nil {
 		return
 	}
 
-	for headerName, headerValue := range listEnterprisesOptions.Headers {
+	for headerName, headerValue := range listAccountGroupsOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("enterprise_management", "V1", "ListEnterprises")
+	sdkHeaders := common.GetSdkHeaders("enterprise_management", "V1", "ListAccountGroups")
 	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
 
-	if listEnterprisesOptions.EnterpriseAccountID != nil {
-		builder.AddQuery("enterprise_account_id", fmt.Sprint(*listEnterprisesOptions.EnterpriseAccountID))
+	if listAccountGroupsOptions.EnterpriseID != nil {
+		builder.AddQuery("enterprise_id", fmt.Sprint(*listAccountGroupsOptions.EnterpriseID))
 	}
-	if listEnterprisesOptions.AccountGroupID != nil {
-		builder.AddQuery("account_group_id", fmt.Sprint(*listEnterprisesOptions.AccountGroupID))
+	if listAccountGroupsOptions.ParentAccountGroupID != nil {
+		builder.AddQuery("parent_account_group_id", fmt.Sprint(*listAccountGroupsOptions.ParentAccountGroupID))
 	}
-	if listEnterprisesOptions.AccountID != nil {
-		builder.AddQuery("account_id", fmt.Sprint(*listEnterprisesOptions.AccountID))
+	if listAccountGroupsOptions.NextDocid != nil {
+		builder.AddQuery("next_docid", fmt.Sprint(*listAccountGroupsOptions.NextDocid))
 	}
-	if listEnterprisesOptions.NextDocid != nil {
-		builder.AddQuery("next_docid", fmt.Sprint(*listEnterprisesOptions.NextDocid))
+	if listAccountGroupsOptions.Parent != nil {
+		builder.AddQuery("parent", fmt.Sprint(*listAccountGroupsOptions.Parent))
 	}
-	if listEnterprisesOptions.Limit != nil {
-		builder.AddQuery("limit", fmt.Sprint(*listEnterprisesOptions.Limit))
+	if listAccountGroupsOptions.Limit != nil {
+		builder.AddQuery("limit", fmt.Sprint(*listAccountGroupsOptions.Limit))
 	}
 
 	request, err := builder.Build()
@@ -902,7 +906,7 @@ func (enterpriseManagement *EnterpriseManagementV1) ListEnterprisesWithContext(c
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalListEnterprisesResponse)
+	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalListAccountGroupsResponse)
 	if err != nil {
 		return
 	}
@@ -911,41 +915,41 @@ func (enterpriseManagement *EnterpriseManagementV1) ListEnterprisesWithContext(c
 	return
 }
 
-// GetEnterprise : Get enterprise by ID
-// Retrieve an enterprise by the `enterprise_id` parameter. All data related to the enterprise is returned only if the
-// caller has access to retrieve the enterprise.
-func (enterpriseManagement *EnterpriseManagementV1) GetEnterprise(getEnterpriseOptions *GetEnterpriseOptions) (result *Enterprise, response *core.DetailedResponse, err error) {
-	return enterpriseManagement.GetEnterpriseWithContext(context.Background(), getEnterpriseOptions)
+// GetAccountGroup : Get account group by ID
+// Retrieve an account by the `account_group_id` parameter. All data related to the account group is returned only if
+// the caller has access to retrieve the account group.
+func (enterpriseManagement *EnterpriseManagementV1) GetAccountGroup(getAccountGroupOptions *GetAccountGroupOptions) (result *AccountGroup, response *core.DetailedResponse, err error) {
+	return enterpriseManagement.GetAccountGroupWithContext(context.Background(), getAccountGroupOptions)
 }
 
-// GetEnterpriseWithContext is an alternate form of the GetEnterprise method which supports a Context parameter
-func (enterpriseManagement *EnterpriseManagementV1) GetEnterpriseWithContext(ctx context.Context, getEnterpriseOptions *GetEnterpriseOptions) (result *Enterprise, response *core.DetailedResponse, err error) {
-	err = core.ValidateNotNil(getEnterpriseOptions, "getEnterpriseOptions cannot be nil")
+// GetAccountGroupWithContext is an alternate form of the GetAccountGroup method which supports a Context parameter
+func (enterpriseManagement *EnterpriseManagementV1) GetAccountGroupWithContext(ctx context.Context, getAccountGroupOptions *GetAccountGroupOptions) (result *AccountGroup, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(getAccountGroupOptions, "getAccountGroupOptions cannot be nil")
 	if err != nil {
 		return
 	}
-	err = core.ValidateStruct(getEnterpriseOptions, "getEnterpriseOptions")
+	err = core.ValidateStruct(getAccountGroupOptions, "getAccountGroupOptions")
 	if err != nil {
 		return
 	}
 
 	pathParamsMap := map[string]string{
-		"enterprise_id": *getEnterpriseOptions.EnterpriseID,
+		"account_group_id": *getAccountGroupOptions.AccountGroupID,
 	}
 
 	builder := core.NewRequestBuilder(core.GET)
 	builder = builder.WithContext(ctx)
 	builder.EnableGzipCompression = enterpriseManagement.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(enterpriseManagement.Service.Options.URL, `/enterprises/{enterprise_id}`, pathParamsMap)
+	_, err = builder.ResolveRequestURL(enterpriseManagement.Service.Options.URL, `/account-groups/{account_group_id}`, pathParamsMap)
 	if err != nil {
 		return
 	}
 
-	for headerName, headerValue := range getEnterpriseOptions.Headers {
+	for headerName, headerValue := range getAccountGroupOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("enterprise_management", "V1", "GetEnterprise")
+	sdkHeaders := common.GetSdkHeaders("enterprise_management", "V1", "GetAccountGroup")
 	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
@@ -961,7 +965,7 @@ func (enterpriseManagement *EnterpriseManagementV1) GetEnterpriseWithContext(ctx
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalEnterprise)
+	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalAccountGroup)
 	if err != nil {
 		return
 	}
@@ -970,55 +974,52 @@ func (enterpriseManagement *EnterpriseManagementV1) GetEnterpriseWithContext(ctx
 	return
 }
 
-// UpdateEnterprise : Update an enterprise
-// Update the name, domain, or IAM ID of the primary contact for an existing enterprise. The new primary contact must
-// already be a user in the enterprise account.
-func (enterpriseManagement *EnterpriseManagementV1) UpdateEnterprise(updateEnterpriseOptions *UpdateEnterpriseOptions) (response *core.DetailedResponse, err error) {
-	return enterpriseManagement.UpdateEnterpriseWithContext(context.Background(), updateEnterpriseOptions)
+// UpdateAccountGroup : Update an account group
+// Update the name or IAM ID of the primary contact for an existing account group. The new primary contact must already
+// be a user in the enterprise account.
+func (enterpriseManagement *EnterpriseManagementV1) UpdateAccountGroup(updateAccountGroupOptions *UpdateAccountGroupOptions) (response *core.DetailedResponse, err error) {
+	return enterpriseManagement.UpdateAccountGroupWithContext(context.Background(), updateAccountGroupOptions)
 }
 
-// UpdateEnterpriseWithContext is an alternate form of the UpdateEnterprise method which supports a Context parameter
-func (enterpriseManagement *EnterpriseManagementV1) UpdateEnterpriseWithContext(ctx context.Context, updateEnterpriseOptions *UpdateEnterpriseOptions) (response *core.DetailedResponse, err error) {
-	err = core.ValidateNotNil(updateEnterpriseOptions, "updateEnterpriseOptions cannot be nil")
+// UpdateAccountGroupWithContext is an alternate form of the UpdateAccountGroup method which supports a Context parameter
+func (enterpriseManagement *EnterpriseManagementV1) UpdateAccountGroupWithContext(ctx context.Context, updateAccountGroupOptions *UpdateAccountGroupOptions) (response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(updateAccountGroupOptions, "updateAccountGroupOptions cannot be nil")
 	if err != nil {
 		return
 	}
-	err = core.ValidateStruct(updateEnterpriseOptions, "updateEnterpriseOptions")
+	err = core.ValidateStruct(updateAccountGroupOptions, "updateAccountGroupOptions")
 	if err != nil {
 		return
 	}
 
 	pathParamsMap := map[string]string{
-		"enterprise_id": *updateEnterpriseOptions.EnterpriseID,
+		"account_group_id": *updateAccountGroupOptions.AccountGroupID,
 	}
 
 	builder := core.NewRequestBuilder(core.PATCH)
 	builder = builder.WithContext(ctx)
 	builder.EnableGzipCompression = enterpriseManagement.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(enterpriseManagement.Service.Options.URL, `/enterprises/{enterprise_id}`, pathParamsMap)
+	_, err = builder.ResolveRequestURL(enterpriseManagement.Service.Options.URL, `/account-groups/{account_group_id}`, pathParamsMap)
 	if err != nil {
 		return
 	}
 
-	for headerName, headerValue := range updateEnterpriseOptions.Headers {
+	for headerName, headerValue := range updateAccountGroupOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("enterprise_management", "V1", "UpdateEnterprise")
+	sdkHeaders := common.GetSdkHeaders("enterprise_management", "V1", "UpdateAccountGroup")
 	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Content-Type", "application/json")
 
 	body := make(map[string]interface{})
-	if updateEnterpriseOptions.Name != nil {
-		body["name"] = updateEnterpriseOptions.Name
+	if updateAccountGroupOptions.Name != nil {
+		body["name"] = updateAccountGroupOptions.Name
 	}
-	if updateEnterpriseOptions.Domain != nil {
-		body["domain"] = updateEnterpriseOptions.Domain
-	}
-	if updateEnterpriseOptions.PrimaryContactIamID != nil {
-		body["primary_contact_iam_id"] = updateEnterpriseOptions.PrimaryContactIamID
+	if updateAccountGroupOptions.PrimaryContactIamID != nil {
+		body["primary_contact_iam_id"] = updateAccountGroupOptions.PrimaryContactIamID
 	}
 	_, err = builder.SetBodyContentJSON(body)
 	if err != nil {
