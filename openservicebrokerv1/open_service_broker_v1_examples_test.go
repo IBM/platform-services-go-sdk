@@ -148,6 +148,7 @@ var _ = Describe(`OpenServiceBrokerV1 Examples Tests`, func() {
 			shouldSkipTest()
 		})
 		It(`GetServiceInstanceState request example`, func() {
+			fmt.Println("\nGetServiceInstanceState() result:")
 			// begin-get_service_instance_state
 
 			options := openServiceBrokerService.NewGetServiceInstanceStateOptions(
@@ -159,7 +160,7 @@ var _ = Describe(`OpenServiceBrokerV1 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(result, "", "  ")
-			fmt.Printf("\nGetServiceInstanceState() result:\n%s\n", string(b))
+			fmt.Println(string(b))
 
 			// end-get_service_instance_state
 
@@ -169,6 +170,7 @@ var _ = Describe(`OpenServiceBrokerV1 Examples Tests`, func() {
 
 		})
 		It(`ReplaceServiceInstanceState request example`, func() {
+			fmt.Println("\nReplaceServiceInstanceState() result:")
 			// begin-replace_service_instance_state
 
 			options := openServiceBrokerService.NewReplaceServiceInstanceStateOptions(
@@ -182,7 +184,7 @@ var _ = Describe(`OpenServiceBrokerV1 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(result, "", "  ")
-			fmt.Printf("\nReplaceServiceInstanceState() result:\n%s\n", string(b))
+			fmt.Println(string(b))
 
 			// end-replace_service_instance_state
 
@@ -192,6 +194,7 @@ var _ = Describe(`OpenServiceBrokerV1 Examples Tests`, func() {
 
 		})
 		It(`ReplaceServiceInstance request example`, func() {
+			fmt.Println("\nReplaceServiceInstance() result:")
 			// begin-replace_service_instance
 
 			contextOpt := &openservicebrokerv1.Context{
@@ -218,7 +221,7 @@ var _ = Describe(`OpenServiceBrokerV1 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(result, "", "  ")
-			fmt.Printf("\nReplaceServiceInstance() result:\n%s\n", string(b))
+			fmt.Println(string(b))
 
 			// end-replace_service_instance
 
@@ -228,6 +231,7 @@ var _ = Describe(`OpenServiceBrokerV1 Examples Tests`, func() {
 
 		})
 		It(`UpdateServiceInstance request example`, func() {
+			fmt.Println("\nUpdateServiceInstance() result:")
 			// begin-update_service_instance
 
 			contextOpt := &openservicebrokerv1.Context{
@@ -256,7 +260,7 @@ var _ = Describe(`OpenServiceBrokerV1 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(result, "", "  ")
-			fmt.Printf("\nUpdateServiceInstance() result:\n%s\n", string(b))
+			fmt.Println(string(b))
 
 			// end-update_service_instance
 
@@ -266,6 +270,7 @@ var _ = Describe(`OpenServiceBrokerV1 Examples Tests`, func() {
 
 		})
 		It(`ListCatalog request example`, func() {
+			fmt.Println("\nListCatalog() result:")
 			// begin-list_catalog
 
 			options := openServiceBrokerService.NewListCatalogOptions()
@@ -275,7 +280,7 @@ var _ = Describe(`OpenServiceBrokerV1 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(result, "", "  ")
-			fmt.Printf("\nListCatalog() result:\n%s\n", string(b))
+			fmt.Println(string(b))
 
 			// end-list_catalog
 
@@ -285,6 +290,7 @@ var _ = Describe(`OpenServiceBrokerV1 Examples Tests`, func() {
 
 		})
 		It(`GetLastOperation request example`, func() {
+			fmt.Println("\nGetLastOperation() result:")
 			// begin-get_last_operation
 
 			options := openServiceBrokerService.NewGetLastOperationOptions(
@@ -299,7 +305,7 @@ var _ = Describe(`OpenServiceBrokerV1 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(result, "", "  ")
-			fmt.Printf("\nGetLastOperation() result:\n%s\n", string(b))
+			fmt.Println(string(b))
 
 			// end-get_last_operation
 
@@ -309,6 +315,7 @@ var _ = Describe(`OpenServiceBrokerV1 Examples Tests`, func() {
 
 		})
 		It(`ReplaceServiceBinding request example`, func() {
+			fmt.Println("\nReplaceServiceBinding() result:")
 			// begin-replace_service_binding
 
 			paramsOpt := make(map[string]string, 0)
@@ -333,7 +340,7 @@ var _ = Describe(`OpenServiceBrokerV1 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(result, "", "  ")
-			fmt.Printf("\nReplaceServiceBinding() result:\n%s\n", string(b))
+			fmt.Println(string(b))
 
 			// end-replace_service_binding
 
@@ -343,6 +350,7 @@ var _ = Describe(`OpenServiceBrokerV1 Examples Tests`, func() {
 
 		})
 		It(`DeleteServiceInstance request example`, func() {
+			fmt.Println("\nDeleteServiceInstance() result:")
 			// begin-delete_service_instance
 
 			options := openServiceBrokerService.NewDeleteServiceInstanceOptions(
@@ -356,7 +364,7 @@ var _ = Describe(`OpenServiceBrokerV1 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(result, "", "  ")
-			fmt.Printf("\nDeleteServiceInstance() result:\n%s\n", string(b))
+			fmt.Println(string(b))
 
 			// end-delete_service_instance
 
@@ -379,9 +387,9 @@ var _ = Describe(`OpenServiceBrokerV1 Examples Tests`, func() {
 			if err != nil {
 				panic(err)
 			}
-			fmt.Printf("\nDeleteServiceBinding() response status code: %d\n", response.StatusCode)
 
 			// end-delete_service_binding
+			fmt.Printf("\nDeleteServiceBinding() response status code: %d\n", response.StatusCode)
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
