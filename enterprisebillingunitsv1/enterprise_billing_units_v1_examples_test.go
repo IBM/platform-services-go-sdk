@@ -115,6 +115,7 @@ var _ = Describe(`EnterpriseBillingUnitsV1 Examples Tests`, func() {
 			shouldSkipTest()
 		})
 		It(`GetBillingUnit request example`, func() {
+			fmt.Println("\nGetBillingUnit() result:")
 			// begin-get_billing_unit
 
 			getBillingUnitOptions := enterpriseBillingUnitsService.NewGetBillingUnitOptions(
@@ -126,7 +127,7 @@ var _ = Describe(`EnterpriseBillingUnitsV1 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(billingUnit, "", "  ")
-			fmt.Printf("\nGetBillingUnit() result:\n%s\n", string(b))
+			fmt.Println(string(b))
 
 			// end-get_billing_unit
 
@@ -136,6 +137,7 @@ var _ = Describe(`EnterpriseBillingUnitsV1 Examples Tests`, func() {
 
 		})
 		It(`ListBillingUnits request example`, func() {
+			fmt.Println("\nListBillingUnits() result:")
 			// begin-list_billing_units
 
 			listBillingUnitsOptions := enterpriseBillingUnitsService.NewListBillingUnitsOptions()
@@ -146,7 +148,7 @@ var _ = Describe(`EnterpriseBillingUnitsV1 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(billingUnitsList, "", "  ")
-			fmt.Printf("\nListBillingUnits() result:\n%s\n", string(b))
+			fmt.Println(string(b))
 
 			// end-list_billing_units
 
@@ -156,6 +158,7 @@ var _ = Describe(`EnterpriseBillingUnitsV1 Examples Tests`, func() {
 
 		})
 		It(`ListBillingOptions request example`, func() {
+			fmt.Println("\nListBillingOptions() result:")
 			// begin-list_billing_options
 
 			listBillingOptionsOptions := enterpriseBillingUnitsService.NewListBillingOptionsOptions(
@@ -167,7 +170,7 @@ var _ = Describe(`EnterpriseBillingUnitsV1 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(billingOption, "", "  ")
-			fmt.Printf("\nListBillingOptions() result:\n%s\n", string(b))
+			fmt.Println(string(b))
 
 			// end-list_billing_options
 
@@ -177,6 +180,7 @@ var _ = Describe(`EnterpriseBillingUnitsV1 Examples Tests`, func() {
 
 		})
 		It(`GetCreditPools request example`, func() {
+			fmt.Println("\nGetCreditPools() result:")
 			// begin-get_credit_pools
 
 			getCreditPoolsOptions := enterpriseBillingUnitsService.NewGetCreditPoolsOptions(
@@ -188,7 +192,7 @@ var _ = Describe(`EnterpriseBillingUnitsV1 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(creditPoolsList, "", "  ")
-			fmt.Printf("\nGetCreditPools() result:\n%s\n", string(b))
+			fmt.Println(string(b))
 
 			// end-get_credit_pools
 
