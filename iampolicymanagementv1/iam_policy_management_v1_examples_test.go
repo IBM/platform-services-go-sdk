@@ -314,7 +314,6 @@ var _ = Describe(`IamPolicyManagementV1 Examples Tests`, func() {
 			if err != nil {
 				panic(err)
 			}
-			fmt.Println(string(b))
 
 			// end-delete_policy
 			fmt.Printf("\nDeletePolicy() response status code: %d\n", response.StatusCode)
