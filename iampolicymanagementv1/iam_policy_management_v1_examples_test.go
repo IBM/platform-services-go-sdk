@@ -116,6 +116,7 @@ var _ = Describe(`IamPolicyManagementV1 Examples Tests`, func() {
 			shouldSkipTest()
 		})
 		It(`CreatePolicy request example`, func() {
+			fmt.Println("\nCreatePolicy() result:")
 			// begin-create_policy
 
 			subjectAttribute := &iampolicymanagementv1.SubjectAttribute{
@@ -161,7 +162,7 @@ var _ = Describe(`IamPolicyManagementV1 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(policy, "", "  ")
-			fmt.Printf("\nCreatePolicy() result:\n%s\n", string(b))
+			fmt.Println(string(b))
 
 			// end-create_policy
 
@@ -172,6 +173,7 @@ var _ = Describe(`IamPolicyManagementV1 Examples Tests`, func() {
 			examplePolicyID = *policy.ID
 		})
 		It(`GetPolicy request example`, func() {
+			fmt.Println("\nGetPolicy() result:")
 			// begin-get_policy
 
 			options := iamPolicyManagementService.NewGetPolicyOptions(
@@ -183,7 +185,7 @@ var _ = Describe(`IamPolicyManagementV1 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(policy, "", "  ")
-			fmt.Printf("\nGetPolicy() result:\n%s\n", string(b))
+			fmt.Println(string(b))
 
 			// end-get_policy
 
@@ -194,6 +196,7 @@ var _ = Describe(`IamPolicyManagementV1 Examples Tests`, func() {
 			examplePolicyETag = response.GetHeaders().Get("ETag")
 		})
 		It(`UpdatePolicy request example`, func() {
+			fmt.Println("\nUpdatePolicy() result:")
 			// begin-update_policy
 
 			subjectAttribute := &iampolicymanagementv1.SubjectAttribute{
@@ -241,7 +244,7 @@ var _ = Describe(`IamPolicyManagementV1 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(policy, "", "  ")
-			fmt.Printf("\nUpdatePolicy() result:\n%s\n", string(b))
+			fmt.Println(string(b))
 
 			// end-update_policy
 
@@ -252,6 +255,7 @@ var _ = Describe(`IamPolicyManagementV1 Examples Tests`, func() {
 			examplePolicyETag = response.GetHeaders().Get("ETag")
 		})
 		It(`PatchPolicy request example`, func() {
+			fmt.Println("\nPatchPolicy() result:")
 			// begin-patch_policy
 
 			options := iamPolicyManagementService.NewPatchPolicyOptions(
@@ -276,6 +280,7 @@ var _ = Describe(`IamPolicyManagementV1 Examples Tests`, func() {
 
 		})
 		It(`ListPolicies request example`, func() {
+			fmt.Println("\nListPolicies() result:")
 			// begin-list_policies
 
 			options := iamPolicyManagementService.NewListPoliciesOptions(
@@ -289,7 +294,7 @@ var _ = Describe(`IamPolicyManagementV1 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(policyList, "", "  ")
-			fmt.Printf("\nListPolicies() result:\n%s\n", string(b))
+			fmt.Println(string(b))
 
 			// end-list_policies
 
@@ -309,15 +314,16 @@ var _ = Describe(`IamPolicyManagementV1 Examples Tests`, func() {
 			if err != nil {
 				panic(err)
 			}
-			fmt.Printf("\nDeletePolicy() response status code: %d\n", response.StatusCode)
+			fmt.Println(string(b))
 
 			// end-delete_policy
-
+			fmt.Printf("\nDeletePolicy() response status code: %d\n", response.StatusCode)
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(204))
 
 		})
 		It(`CreateRole request example`, func() {
+			fmt.Println("\nCreateRole() result:")
 			// begin-create_role
 
 			options := iamPolicyManagementService.NewCreateRoleOptions(
@@ -333,7 +339,7 @@ var _ = Describe(`IamPolicyManagementV1 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(customRole, "", "  ")
-			fmt.Printf("\nCreateRole() result:\n%s\n", string(b))
+			fmt.Println(string(b))
 
 			// end-create_role
 
@@ -344,6 +350,7 @@ var _ = Describe(`IamPolicyManagementV1 Examples Tests`, func() {
 			exampleCustomRoleID = *customRole.ID
 		})
 		It(`GetRole request example`, func() {
+			fmt.Println("\nGetRole() result:")
 			// begin-get_role
 
 			options := iamPolicyManagementService.NewGetRoleOptions(
@@ -355,7 +362,7 @@ var _ = Describe(`IamPolicyManagementV1 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(customRole, "", "  ")
-			fmt.Printf("\nGetRole() result:\n%s\n", string(b))
+			fmt.Println(string(b))
 
 			// end-get_role
 
@@ -367,6 +374,7 @@ var _ = Describe(`IamPolicyManagementV1 Examples Tests`, func() {
 
 		})
 		It(`UpdateRole request example`, func() {
+			fmt.Println("\nUpdateRole() result:")
 			// begin-update_role
 
 			updatedRoleActions := []string{"iam-groups.groups.read", "iam-groups.groups.list"}
@@ -382,7 +390,7 @@ var _ = Describe(`IamPolicyManagementV1 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(customRole, "", "  ")
-			fmt.Printf("\nUpdateRole() result:\n%s\n", string(b))
+			fmt.Println(string(b))
 
 			// end-update_role
 
@@ -392,6 +400,7 @@ var _ = Describe(`IamPolicyManagementV1 Examples Tests`, func() {
 
 		})
 		It(`ListRoles request example`, func() {
+			fmt.Println("\nListRoles() result:")
 			// begin-list_roles
 
 			options := iamPolicyManagementService.NewListRolesOptions()
@@ -402,7 +411,7 @@ var _ = Describe(`IamPolicyManagementV1 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(roleList, "", "  ")
-			fmt.Printf("\nListRoles() result:\n%s\n", string(b))
+			fmt.Println(string(b))
 
 			// end-list_roles
 
@@ -422,9 +431,9 @@ var _ = Describe(`IamPolicyManagementV1 Examples Tests`, func() {
 			if err != nil {
 				panic(err)
 			}
-			fmt.Printf("\nDeleteRole() response status code: %d\n", response.StatusCode)
 
 			// end-delete_role
+			fmt.Printf("\nDeleteRole() response status code: %d\n", response.StatusCode)
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(204))
