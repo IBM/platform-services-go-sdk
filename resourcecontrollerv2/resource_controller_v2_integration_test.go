@@ -297,12 +297,12 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 
 					results = append(results, result.Resources...)
 
-					if result.NextURL == nil {
-						break
-					}
-
 					start, err := core.GetQueryParam(result.NextURL, "start")
 					Expect(err).To(BeNil())
+
+					if start == nil {
+						break
+					}
 
 					options.SetStart(*start)
 				}
@@ -478,12 +478,12 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 
 					results = append(results, result.Resources...)
 
-					if result.NextURL == nil {
-						break
-					}
-
 					start, err := core.GetQueryParam(result.NextURL, "start")
 					Expect(err).To(BeNil())
+
+					if start == nil {
+						break
+					}
 
 					options.SetStart(*start)
 
@@ -567,12 +567,12 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 					Expect(*resourceAliasesList.RowsCount).To(Equal(int64(1)))
 					Expect(len(resourceAliasesList.Resources)).To(Equal(1))
 
-					if resourceAliasesList.NextURL == nil {
-						break
-					}
-
 					start, err := core.GetQueryParam(resourceAliasesList.NextURL, "start")
 					Expect(err).To(BeNil())
+
+					if start == nil {
+						break
+					}
 
 					listResourceAliasesForInstanceOptions.Start = start
 				}
@@ -706,12 +706,12 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 
 					results = append(results, result.Resources...)
 
-					if result.NextURL == nil {
-						break
-					}
-
 					start, err := core.GetQueryParam(result.NextURL, "start")
 					Expect(err).To(BeNil())
+
+					if start == nil {
+						break
+					}
 
 					options.SetStart(*start)
 
@@ -795,12 +795,12 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 					Expect(*resourceBindingsList.RowsCount).To(Equal(int64(1)))
 					Expect(len(resourceBindingsList.Resources)).To(Equal(1))
 
-					if resourceBindingsList.NextURL == nil {
-						break
-					}
-
 					start, err := core.GetQueryParam(resourceBindingsList.NextURL, "start")
 					Expect(err).To(BeNil())
+
+					if start == nil {
+						break
+					}
 
 					listResourceBindingsForAliasOptions.Start = start
 				}
@@ -923,12 +923,12 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 
 					results = append(results, result.Resources...)
 
-					if result.NextURL == nil {
-						break
-					}
-
 					start, err := core.GetQueryParam(result.NextURL, "start")
 					Expect(err).To(BeNil())
+
+					if start == nil {
+						break
+					}
 
 					options.SetStart(*start)
 
@@ -1008,12 +1008,12 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 					Expect(*resourceKeysList.RowsCount).To(Equal(int64(1)))
 					Expect(len(resourceKeysList.Resources)).To(Equal(1))
 
-					if resourceKeysList.NextURL == nil {
-						break
-					}
-
 					start, err := core.GetQueryParam(resourceKeysList.NextURL, "start")
 					Expect(err).To(BeNil())
+
+					if start == nil {
+						break
+					}
 
 					listResourceKeysForInstanceOptions.Start = start
 				}
