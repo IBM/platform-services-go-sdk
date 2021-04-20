@@ -844,115 +844,9 @@ var _ = Describe(`ResourceControllerV2`, func() {
 			})
 		})
 	})
-	Describe(`DeleteResourceInstance(deleteResourceInstanceOptions *DeleteResourceInstanceOptions) - Operation response error`, func() {
-		deleteResourceInstancePath := "/v2/resource_instances/testString"
-		Context(`Using mock server endpoint`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(deleteResourceInstancePath))
-					Expect(req.Method).To(Equal("DELETE"))
-					// TODO: Add check for recursive query parameter
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(202)
-					fmt.Fprintf(res, `} this is not valid json {`)
-				}))
-			})
-			It(`Invoke DeleteResourceInstance with error: Operation response processing error`, func() {
-				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(resourceControllerService).ToNot(BeNil())
-
-				// Construct an instance of the DeleteResourceInstanceOptions model
-				deleteResourceInstanceOptionsModel := new(resourcecontrollerv2.DeleteResourceInstanceOptions)
-				deleteResourceInstanceOptionsModel.ID = core.StringPtr("testString")
-				deleteResourceInstanceOptionsModel.Recursive = core.BoolPtr(true)
-				deleteResourceInstanceOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-				// Expect response parsing to fail since we are receiving a text/plain response
-				result, response, operationErr := resourceControllerService.DeleteResourceInstance(deleteResourceInstanceOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).To(BeNil())
-
-				// Enable retries and test again
-				resourceControllerService.EnableRetries(0, 0)
-				result, response, operationErr = resourceControllerService.DeleteResourceInstance(deleteResourceInstanceOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).To(BeNil())
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
-	})
 
 	Describe(`DeleteResourceInstance(deleteResourceInstanceOptions *DeleteResourceInstanceOptions)`, func() {
 		deleteResourceInstancePath := "/v2/resource_instances/testString"
-		Context(`Using mock server endpoint with timeout`, func() {
-			BeforeEach(func() {
-				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-					defer GinkgoRecover()
-
-					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(deleteResourceInstancePath))
-					Expect(req.Method).To(Equal("DELETE"))
-
-					// TODO: Add check for recursive query parameter
-					// Sleep a short time to support a timeout test
-					time.Sleep(100 * time.Millisecond)
-
-					// Set mock response
-					res.Header().Set("Content-type", "application/json")
-					res.WriteHeader(202)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "guid": "GUID", "url": "URL", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "deleted_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "updated_by": "UpdatedBy", "deleted_by": "DeletedBy", "scheduled_reclaim_at": "2019-01-01T12:00:00.000Z", "restored_at": "2019-01-01T12:00:00.000Z", "restored_by": "RestoredBy", "scheduled_reclaim_by": "ScheduledReclaimBy", "name": "Name", "region_id": "RegionID", "account_id": "AccountID", "reseller_channel_id": "ResellerChannelID", "resource_plan_id": "ResourcePlanID", "resource_group_id": "ResourceGroupID", "resource_group_crn": "ResourceGroupCRN", "target_crn": "TargetCRN", "parameters": {"mapKey": "anyValue"}, "allow_cleanup": true, "crn": "CRN", "state": "State", "type": "Type", "sub_type": "SubType", "resource_id": "ResourceID", "dashboard_url": "DashboardURL", "last_operation": {"mapKey": "anyValue"}, "resource_aliases_url": "ResourceAliasesURL", "resource_bindings_url": "ResourceBindingsURL", "resource_keys_url": "ResourceKeysURL", "plan_history": [{"resource_plan_id": "ResourcePlanID", "start_date": "2019-01-01T12:00:00.000Z", "requestor_id": "RequestorID"}], "migrated": true, "extensions": {"mapKey": "anyValue"}, "controlled_by": "ControlledBy", "locked": true}`)
-				}))
-			})
-			It(`Invoke DeleteResourceInstance successfully with retries`, func() {
-				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
-					URL:           testServer.URL,
-					Authenticator: &core.NoAuthAuthenticator{},
-				})
-				Expect(serviceErr).To(BeNil())
-				Expect(resourceControllerService).ToNot(BeNil())
-				resourceControllerService.EnableRetries(0, 0)
-
-				// Construct an instance of the DeleteResourceInstanceOptions model
-				deleteResourceInstanceOptionsModel := new(resourcecontrollerv2.DeleteResourceInstanceOptions)
-				deleteResourceInstanceOptionsModel.ID = core.StringPtr("testString")
-				deleteResourceInstanceOptionsModel.Recursive = core.BoolPtr(true)
-				deleteResourceInstanceOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
-
-				// Invoke operation with a Context to test a timeout error
-				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc()
-				_, _, operationErr := resourceControllerService.DeleteResourceInstanceWithContext(ctx, deleteResourceInstanceOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-
-				// Disable retries and test again
-				resourceControllerService.DisableRetries()
-				result, response, operationErr := resourceControllerService.DeleteResourceInstance(deleteResourceInstanceOptionsModel)
-				Expect(operationErr).To(BeNil())
-				Expect(response).ToNot(BeNil())
-				Expect(result).ToNot(BeNil())
-
-				// Re-test the timeout error with retries disabled
-				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
-				defer cancelFunc2()
-				_, _, operationErr = resourceControllerService.DeleteResourceInstanceWithContext(ctx, deleteResourceInstanceOptionsModel)
-				Expect(operationErr).ToNot(BeNil())
-				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
-			})
-			AfterEach(func() {
-				testServer.Close()
-			})
-		})
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
@@ -963,10 +857,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 					Expect(req.Method).To(Equal("DELETE"))
 
 					// TODO: Add check for recursive query parameter
-					// Set mock response
-					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(202)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "guid": "GUID", "url": "URL", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "deleted_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "updated_by": "UpdatedBy", "deleted_by": "DeletedBy", "scheduled_reclaim_at": "2019-01-01T12:00:00.000Z", "restored_at": "2019-01-01T12:00:00.000Z", "restored_by": "RestoredBy", "scheduled_reclaim_by": "ScheduledReclaimBy", "name": "Name", "region_id": "RegionID", "account_id": "AccountID", "reseller_channel_id": "ResellerChannelID", "resource_plan_id": "ResourcePlanID", "resource_group_id": "ResourceGroupID", "resource_group_crn": "ResourceGroupCRN", "target_crn": "TargetCRN", "parameters": {"mapKey": "anyValue"}, "allow_cleanup": true, "crn": "CRN", "state": "State", "type": "Type", "sub_type": "SubType", "resource_id": "ResourceID", "dashboard_url": "DashboardURL", "last_operation": {"mapKey": "anyValue"}, "resource_aliases_url": "ResourceAliasesURL", "resource_bindings_url": "ResourceBindingsURL", "resource_keys_url": "ResourceKeysURL", "plan_history": [{"resource_plan_id": "ResourcePlanID", "start_date": "2019-01-01T12:00:00.000Z", "requestor_id": "RequestorID"}], "migrated": true, "extensions": {"mapKey": "anyValue"}, "controlled_by": "ControlledBy", "locked": true}`)
 				}))
 			})
 			It(`Invoke DeleteResourceInstance successfully`, func() {
@@ -978,10 +869,9 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				Expect(resourceControllerService).ToNot(BeNil())
 
 				// Invoke operation with nil options model (negative test)
-				result, response, operationErr := resourceControllerService.DeleteResourceInstance(nil)
+				response, operationErr := resourceControllerService.DeleteResourceInstance(nil)
 				Expect(operationErr).NotTo(BeNil())
 				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
 
 				// Construct an instance of the DeleteResourceInstanceOptions model
 				deleteResourceInstanceOptionsModel := new(resourcecontrollerv2.DeleteResourceInstanceOptions)
@@ -990,11 +880,9 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				deleteResourceInstanceOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
-				result, response, operationErr = resourceControllerService.DeleteResourceInstance(deleteResourceInstanceOptionsModel)
+				response, operationErr = resourceControllerService.DeleteResourceInstance(deleteResourceInstanceOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
-				Expect(result).ToNot(BeNil())
-
 			})
 			It(`Invoke DeleteResourceInstance with error: Operation validation and request error`, func() {
 				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
@@ -1012,18 +900,16 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				// Invoke operation with empty URL (negative test)
 				err := resourceControllerService.SetServiceURL("")
 				Expect(err).To(BeNil())
-				result, response, operationErr := resourceControllerService.DeleteResourceInstance(deleteResourceInstanceOptionsModel)
+				response, operationErr := resourceControllerService.DeleteResourceInstance(deleteResourceInstanceOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
 				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
 				// Construct a second instance of the DeleteResourceInstanceOptions model with no property values
 				deleteResourceInstanceOptionsModelNew := new(resourcecontrollerv2.DeleteResourceInstanceOptions)
 				// Invoke operation with invalid model (negative test)
-				result, response, operationErr = resourceControllerService.DeleteResourceInstance(deleteResourceInstanceOptionsModelNew)
+				response, operationErr = resourceControllerService.DeleteResourceInstance(deleteResourceInstanceOptionsModelNew)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).To(BeNil())
-				Expect(result).To(BeNil())
 			})
 			AfterEach(func() {
 				testServer.Close()

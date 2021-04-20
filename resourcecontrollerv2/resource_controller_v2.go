@@ -15,7 +15,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-bd714324-20210408-112704
+ * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-77b4cbf2-20210420-134305
  */
 
 // Package resourcecontrollerv2 : Operations and models for the ResourceControllerV2 service
@@ -163,7 +163,8 @@ func (resourceController *ResourceControllerV2) DisableRetries() {
 }
 
 // ListResourceInstances : Get a list of all resource instances
-// Get a list of all resource instances.
+// View a list of all available resource instances. Resources is a broad term that could mean anything from a service
+// instance to a virtual machine associated with the customer account.
 func (resourceController *ResourceControllerV2) ListResourceInstances(listResourceInstancesOptions *ListResourceInstancesOptions) (result *ResourceInstancesList, response *core.DetailedResponse, err error) {
 	return resourceController.ListResourceInstancesWithContext(context.Background(), listResourceInstancesOptions)
 }
@@ -253,7 +254,8 @@ func (resourceController *ResourceControllerV2) ListResourceInstancesWithContext
 }
 
 // CreateResourceInstance : Create (provision) a new resource instance
-// Provision a new resource in the specified location for the selected plan.
+// When you provision a service you get an instance of that service. An instance represents the resource with which you
+// create, and additionally, represents a chargeable record of which billing can occur.
 func (resourceController *ResourceControllerV2) CreateResourceInstance(createResourceInstanceOptions *CreateResourceInstanceOptions) (result *ResourceInstance, response *core.DetailedResponse, err error) {
 	return resourceController.CreateResourceInstanceWithContext(context.Background(), createResourceInstanceOptions)
 }
@@ -338,7 +340,8 @@ func (resourceController *ResourceControllerV2) CreateResourceInstanceWithContex
 }
 
 // GetResourceInstance : Get a resource instance
-// Retrieve a resource instance by ID.
+// Retrieve a resource instance by ID. Find more details on a particular instance, like when it was provisioned and who
+// provisioned it.
 func (resourceController *ResourceControllerV2) GetResourceInstance(getResourceInstanceOptions *GetResourceInstanceOptions) (result *ResourceInstance, response *core.DetailedResponse, err error) {
 	return resourceController.GetResourceInstanceWithContext(context.Background(), getResourceInstanceOptions)
 }
@@ -396,13 +399,14 @@ func (resourceController *ResourceControllerV2) GetResourceInstanceWithContext(c
 }
 
 // DeleteResourceInstance : Delete a resource instance
-// Delete a resource instance by ID.
-func (resourceController *ResourceControllerV2) DeleteResourceInstance(deleteResourceInstanceOptions *DeleteResourceInstanceOptions) (result *ResourceInstance, response *core.DetailedResponse, err error) {
+// Delete a resource instance by ID. If the resource instance has any resource keys or aliases associated with it, use
+// the `recursive=true` parameter to delete it.
+func (resourceController *ResourceControllerV2) DeleteResourceInstance(deleteResourceInstanceOptions *DeleteResourceInstanceOptions) (response *core.DetailedResponse, err error) {
 	return resourceController.DeleteResourceInstanceWithContext(context.Background(), deleteResourceInstanceOptions)
 }
 
 // DeleteResourceInstanceWithContext is an alternate form of the DeleteResourceInstance method which supports a Context parameter
-func (resourceController *ResourceControllerV2) DeleteResourceInstanceWithContext(ctx context.Context, deleteResourceInstanceOptions *DeleteResourceInstanceOptions) (result *ResourceInstance, response *core.DetailedResponse, err error) {
+func (resourceController *ResourceControllerV2) DeleteResourceInstanceWithContext(ctx context.Context, deleteResourceInstanceOptions *DeleteResourceInstanceOptions) (response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(deleteResourceInstanceOptions, "deleteResourceInstanceOptions cannot be nil")
 	if err != nil {
 		return
@@ -432,7 +436,6 @@ func (resourceController *ResourceControllerV2) DeleteResourceInstanceWithContex
 	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
-	builder.AddHeader("Accept", "application/json")
 
 	if deleteResourceInstanceOptions.Recursive != nil {
 		builder.AddQuery("recursive", fmt.Sprint(*deleteResourceInstanceOptions.Recursive))
@@ -443,22 +446,13 @@ func (resourceController *ResourceControllerV2) DeleteResourceInstanceWithContex
 		return
 	}
 
-	var rawResponse map[string]json.RawMessage
-	response, err = resourceController.Service.Request(request, &rawResponse)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalResourceInstance)
-	if err != nil {
-		return
-	}
-	response.Result = result
+	response, err = resourceController.Service.Request(request, nil)
 
 	return
 }
 
 // UpdateResourceInstance : Update a resource instance
-// Update a resource instance by ID.
+// You can use the ID to make updates to the resource instance, like changing the name or plan.
 func (resourceController *ResourceControllerV2) UpdateResourceInstance(updateResourceInstanceOptions *UpdateResourceInstanceOptions) (result *ResourceInstance, response *core.DetailedResponse, err error) {
 	return resourceController.UpdateResourceInstanceWithContext(context.Background(), updateResourceInstanceOptions)
 }
@@ -535,7 +529,7 @@ func (resourceController *ResourceControllerV2) UpdateResourceInstanceWithContex
 }
 
 // ListResourceAliasesForInstance : Get a list of all resource aliases for the instance
-// Get a list of all resource aliases for the instance.
+// Retrieving a list of all resource aliases can help you find out who's using the resource instance.
 func (resourceController *ResourceControllerV2) ListResourceAliasesForInstance(listResourceAliasesForInstanceOptions *ListResourceAliasesForInstanceOptions) (result *ResourceAliasesList, response *core.DetailedResponse, err error) {
 	return resourceController.ListResourceAliasesForInstanceWithContext(context.Background(), listResourceAliasesForInstanceOptions)
 }
@@ -600,7 +594,8 @@ func (resourceController *ResourceControllerV2) ListResourceAliasesForInstanceWi
 }
 
 // ListResourceKeysForInstance : Get a list of all the resource keys for the instance
-// Get a list of all the resource keys for the instance.
+// You may have many resource keys for one resource instance. For example, you may have a different resource key for
+// each user or each role.
 func (resourceController *ResourceControllerV2) ListResourceKeysForInstance(listResourceKeysForInstanceOptions *ListResourceKeysForInstanceOptions) (result *ResourceKeysList, response *core.DetailedResponse, err error) {
 	return resourceController.ListResourceKeysForInstanceWithContext(context.Background(), listResourceKeysForInstanceOptions)
 }
@@ -724,7 +719,8 @@ func (resourceController *ResourceControllerV2) LockResourceInstanceWithContext(
 }
 
 // UnlockResourceInstance : Unlock a resource instance
-// Unlocks a resource instance by ID.
+// Unlock a resource instance to update or delete it. Unlocking a resource instance does not affect child resources like
+// aliases, bindings or keys.
 func (resourceController *ResourceControllerV2) UnlockResourceInstance(unlockResourceInstanceOptions *UnlockResourceInstanceOptions) (result *ResourceInstance, response *core.DetailedResponse, err error) {
 	return resourceController.UnlockResourceInstanceWithContext(context.Background(), unlockResourceInstanceOptions)
 }

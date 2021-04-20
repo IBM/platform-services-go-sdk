@@ -564,7 +564,7 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 
 					results = append(results, resourceAliasesList.Resources...)
 
-					Expect(*resourceAliasesList.RowsCount).To(Equal(1))
+					Expect(*resourceAliasesList.RowsCount).To(Equal(int64(1)))
 					Expect(len(resourceAliasesList.Resources)).To(Equal(1))
 
 					if resourceAliasesList.NextURL == nil {
@@ -792,7 +792,7 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 
 					results = append(results, resourceBindingsList.Resources...)
 
-					Expect(*resourceBindingsList.RowsCount).To(Equal(1))
+					Expect(*resourceBindingsList.RowsCount).To(Equal(int64(1)))
 					Expect(len(resourceBindingsList.Resources)).To(Equal(1))
 
 					if resourceBindingsList.NextURL == nil {
@@ -1005,7 +1005,7 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 
 					results = append(results, resourceKeysList.Resources...)
 
-					Expect(*resourceKeysList.RowsCount).To(Equal(1))
+					Expect(*resourceKeysList.RowsCount).To(Equal(int64(1)))
 					Expect(len(resourceKeysList.Resources)).To(Equal(1))
 
 					if resourceKeysList.NextURL == nil {
@@ -1202,7 +1202,7 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 				"Transaction-ID": "rc-sdk-go-test31-" + transactionID,
 			}
 			options.SetHeaders(headers)
-			_, resp, err := service.DeleteResourceInstance(options)
+			resp, err := service.DeleteResourceInstance(options)
 
 			Expect(resp.StatusCode).To(Equal(400))
 			Expect(err).NotTo(BeNil())
@@ -1392,7 +1392,7 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 				"Transaction-ID": "rc-sdk-go-test40-" + transactionID,
 			}
 			options.SetHeaders(headers)
-			_, resp, err := service.DeleteResourceInstance(options)
+			resp, err := service.DeleteResourceInstance(options)
 
 			Expect(err).NotTo(BeNil())
 			Expect(resp.StatusCode).To(Equal(400))
@@ -1437,7 +1437,7 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 				"Transaction-ID": "rc-sdk-go-test42-" + transactionID,
 			}
 			options.SetHeaders(headers)
-			_, resp, err := service.DeleteResourceInstance(options)
+			resp, err := service.DeleteResourceInstance(options)
 
 			Expect(resp.StatusCode).To(Equal(204))
 			Expect(err).To(BeNil())
@@ -1519,7 +1519,7 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 				"Transaction-ID": "rc-sdk-go-test45-" + transactionID,
 			}
 			options.SetHeaders(headers)
-			_, resp, err := service.DeleteResourceInstance(options)
+			resp, err := service.DeleteResourceInstance(options)
 
 			Expect(resp.StatusCode).To(Equal(204))
 			Expect(err).To(BeNil())
@@ -1647,7 +1647,7 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 				"Transaction-ID": "rc-sdk-go-test50-" + transactionID,
 			}
 			options.SetHeaders(headers)
-			_, resp, err := service.DeleteResourceInstance(options)
+			resp, err := service.DeleteResourceInstance(options)
 
 			Expect(resp.StatusCode).To(Equal(204))
 			Expect(err).To(BeNil())
@@ -1837,7 +1837,7 @@ func cleanupByName() {
 					"Transaction-ID": "rc-sdk-cleanup-" + transactionID,
 				}
 				deleteInstanceOptions = deleteInstanceOptions.SetHeaders(deleteInstanceHeaders)
-				_, instanceDelResp, instanceDelErr := service.DeleteResourceInstance(deleteInstanceOptions)
+				instanceDelResp, instanceDelErr := service.DeleteResourceInstance(deleteInstanceOptions)
 				if instanceDelResp.StatusCode == 204 {
 					fmt.Fprintln(GinkgoWriter, "Successful cleanup of instance ", instanceGUID)
 				} else if instanceDelResp.StatusCode == 410 {
@@ -2040,7 +2040,7 @@ func cleanupInstance() {
 		"Transaction-ID": "rc-sdk-cleanup-" + transactionID,
 	}
 	options3 = options3.SetHeaders(headers3)
-	_, resp3, err3 := service.DeleteResourceInstance(options3)
+	resp3, err3 := service.DeleteResourceInstance(options3)
 	if resp3.StatusCode == 204 {
 		fmt.Fprintf(GinkgoWriter, "Successful cleanup of instance %s.\n", testInstanceGUID)
 	} else if resp3.StatusCode == 410 {
@@ -2072,7 +2072,7 @@ func cleanupReclamationInstance() {
 			"Transaction-ID": "rc-sdk-cleanup-" + transactionID,
 		}
 		options2 = options2.SetHeaders(headers2)
-		_, resp2, err2 := service.DeleteResourceInstance(options2)
+		resp2, err2 := service.DeleteResourceInstance(options2)
 		if resp2.StatusCode == 204 {
 			fmt.Fprintf(GinkgoWriter, "Successfully scheduled instance %s for reclamation.\n", testReclaimInstanceGUID)
 			time.Sleep(20 * time.Second)
