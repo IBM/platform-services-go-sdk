@@ -668,7 +668,6 @@ var _ = Describe(`ResourceControllerV2 Examples Tests`, func() {
 			Expect(resourceInstance).ToNot(BeNil())
 		})
 		It(`DeleteResourceInstance request example`, func() {
-			fmt.Println("\nDeleteResourceInstance() result:")
 			// begin-delete_resource_instance
 
 			deleteResourceInstanceOptions := resourceControllerService.NewDeleteResourceInstanceOptions(
