@@ -123,6 +123,7 @@ var _ = Describe(`EnterpriseUsageReportsV1 Examples Tests`, func() {
 			shouldSkipTest()
 		})
 		It(`GetResourceUsageReport request example`, func() {
+			fmt.Println("\nGetResourceUsageReport() result:")
 			// begin-get_resource_usage_report
 
 			getResourceUsageReportOptions := enterpriseUsageReportsService.NewGetResourceUsageReportOptions()
@@ -134,7 +135,7 @@ var _ = Describe(`EnterpriseUsageReportsV1 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(reports, "", "  ")
-			fmt.Printf("\nGetResourceUsageReport() result:\n%s\n", string(b))
+			fmt.Println(string(b))
 
 			// end-get_resource_usage_report
 

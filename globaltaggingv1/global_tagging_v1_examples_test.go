@@ -112,6 +112,7 @@ var _ = Describe(`GlobalTaggingV1 Examples Tests`, func() {
 			shouldSkipTest()
 		})
 		It(`CreateTag request example`, func() {
+			fmt.Println("\nCreateTag() result:")
 			// begin-create_tag
 
 			createTagOptions := globalTaggingService.NewCreateTagOptions(
@@ -124,7 +125,7 @@ var _ = Describe(`GlobalTaggingV1 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(createTagResults, "", "  ")
-			fmt.Printf("\nCreateTag() result:\n%s\n", string(b))
+			fmt.Println(string(b))
 
 			// end-create_tag
 
@@ -133,6 +134,7 @@ var _ = Describe(`GlobalTaggingV1 Examples Tests`, func() {
 			Expect(createTagResults).ToNot(BeNil())
 		})
 		It(`ListTags request example`, func() {
+			fmt.Println("\nListTags() result:")
 			// begin-list_tags
 
 			listTagsOptions := globalTaggingService.NewListTagsOptions()
@@ -147,7 +149,7 @@ var _ = Describe(`GlobalTaggingV1 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(tagList, "", "  ")
-			fmt.Printf("\nListTags() result:\n%s\n", string(b))
+			fmt.Println(string(b))
 
 			// end-list_tags
 
@@ -156,6 +158,7 @@ var _ = Describe(`GlobalTaggingV1 Examples Tests`, func() {
 			Expect(tagList).ToNot(BeNil())
 		})
 		It(`AttachTag request example`, func() {
+			fmt.Println("\nAttachTag() result:")
 			// begin-attach_tag
 
 			resourceModel := &globaltaggingv1.Resource{
@@ -173,7 +176,7 @@ var _ = Describe(`GlobalTaggingV1 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(tagResults, "", "  ")
-			fmt.Printf("\nAttachTag() result:\n%s\n", string(b))
+			fmt.Println(string(b))
 
 			// end-attach_tag
 
@@ -183,6 +186,7 @@ var _ = Describe(`GlobalTaggingV1 Examples Tests`, func() {
 
 		})
 		It(`DetachTag request example`, func() {
+			fmt.Println("\nDetachTag() result:")
 			// begin-detach_tag
 
 			resourceModel := &globaltaggingv1.Resource{
@@ -200,7 +204,7 @@ var _ = Describe(`GlobalTaggingV1 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(tagResults, "", "  ")
-			fmt.Printf("\nDetachTag() result:\n%s\n", string(b))
+			fmt.Println(string(b))
 
 			// end-detach_tag
 
@@ -210,6 +214,7 @@ var _ = Describe(`GlobalTaggingV1 Examples Tests`, func() {
 
 		})
 		It(`DeleteTag request example`, func() {
+			fmt.Println("\nDeleteTag() result:")
 			// begin-delete_tag
 
 			deleteTagOptions := globalTaggingService.NewDeleteTagOptions("env:example-access-tag")
@@ -220,7 +225,7 @@ var _ = Describe(`GlobalTaggingV1 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(deleteTagResults, "", "  ")
-			fmt.Printf("\nDeleteTag() result:\n%s\n", string(b))
+			fmt.Println(string(b))
 
 			// end-delete_tag
 
@@ -229,6 +234,7 @@ var _ = Describe(`GlobalTaggingV1 Examples Tests`, func() {
 			Expect(deleteTagResults).ToNot(BeNil())
 		})
 		It(`DeleteTagAll request example`, func() {
+			fmt.Println("\nDeleteTagAll() result:")
 			// begin-delete_tag_all
 
 			deleteTagAllOptions := globalTaggingService.NewDeleteTagAllOptions()
@@ -239,7 +245,7 @@ var _ = Describe(`GlobalTaggingV1 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(deleteTagsResult, "", "  ")
-			fmt.Printf("\nDeleteTagAll() result:\n%s\n", string(b))
+			fmt.Println(string(b))
 
 			// end-delete_tag_all
 

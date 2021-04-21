@@ -124,6 +124,7 @@ var _ = Describe(`UsageReportsV4 Examples Tests`, func() {
 			shouldSkipTest()
 		})
 		It(`GetAccountSummary request example`, func() {
+			fmt.Println("\nGetAccountSummary() result:")
 			// begin-get_account_summary
 
 			getAccountSummaryOptions := usageReportsService.NewGetAccountSummaryOptions(
@@ -136,7 +137,7 @@ var _ = Describe(`UsageReportsV4 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(accountSummary, "", "  ")
-			fmt.Printf("\nGetAccountSummary() result:\n%s\n", string(b))
+			fmt.Println(string(b))
 
 			// end-get_account_summary
 
@@ -145,6 +146,7 @@ var _ = Describe(`UsageReportsV4 Examples Tests`, func() {
 			Expect(accountSummary).ToNot(BeNil())
 		})
 		It(`GetAccountUsage request example`, func() {
+			fmt.Println("\nGetAccountUsage() result:")
 			// begin-get_account_usage
 
 			getAccountUsageOptions := usageReportsService.NewGetAccountUsageOptions(
@@ -157,7 +159,7 @@ var _ = Describe(`UsageReportsV4 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(accountUsage, "", "  ")
-			fmt.Printf("\nGetAccountUsage() result:\n%s\n", string(b))
+			fmt.Println(string(b))
 
 			// end-get_account_usage
 
@@ -166,6 +168,7 @@ var _ = Describe(`UsageReportsV4 Examples Tests`, func() {
 			Expect(accountUsage).ToNot(BeNil())
 		})
 		It(`GetResourceGroupUsage request example`, func() {
+			fmt.Println("\nGetResourceGroupUsage() result:")
 			// begin-get_resource_group_usage
 
 			getResourceGroupUsageOptions := usageReportsService.NewGetResourceGroupUsageOptions(
@@ -179,7 +182,7 @@ var _ = Describe(`UsageReportsV4 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(resourceGroupUsage, "", "  ")
-			fmt.Printf("\nGetResourceGroupUsage() result:\n%s\n", string(b))
+			fmt.Println(string(b))
 
 			// end-get_resource_group_usage
 
@@ -188,6 +191,7 @@ var _ = Describe(`UsageReportsV4 Examples Tests`, func() {
 			Expect(resourceGroupUsage).ToNot(BeNil())
 		})
 		It(`GetOrgUsage request example`, func() {
+			fmt.Println("\nGetOrgUsage() result:")
 			// begin-get_org_usage
 
 			getOrgUsageOptions := usageReportsService.NewGetOrgUsageOptions(
@@ -201,7 +205,7 @@ var _ = Describe(`UsageReportsV4 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(orgUsage, "", "  ")
-			fmt.Printf("\nGetOrgUsage() result:\n%s\n", string(b))
+			fmt.Println(string(b))
 
 			// end-get_org_usage
 
@@ -210,6 +214,7 @@ var _ = Describe(`UsageReportsV4 Examples Tests`, func() {
 			Expect(orgUsage).ToNot(BeNil())
 		})
 		It(`GetResourceUsageAccount request example`, func() {
+			fmt.Println("\nGetResourceUsageAccount() result:")
 			// begin-get_resource_usage_account
 
 			getResourceUsageAccountOptions := usageReportsService.NewGetResourceUsageAccountOptions(
@@ -222,7 +227,7 @@ var _ = Describe(`UsageReportsV4 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(instancesUsage, "", "  ")
-			fmt.Printf("\nGetResourceUsageAccount() result:\n%s\n", string(b))
+			fmt.Println(string(b))
 
 			// end-get_resource_usage_account
 
@@ -231,6 +236,7 @@ var _ = Describe(`UsageReportsV4 Examples Tests`, func() {
 			Expect(instancesUsage).ToNot(BeNil())
 		})
 		It(`GetResourceUsageResourceGroup request example`, func() {
+			fmt.Println("\nGetResourceUsageResourceGroup() result:")
 			// begin-get_resource_usage_resource_group
 
 			getResourceUsageResourceGroupOptions := usageReportsService.NewGetResourceUsageResourceGroupOptions(
@@ -244,7 +250,7 @@ var _ = Describe(`UsageReportsV4 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(instancesUsage, "", "  ")
-			fmt.Printf("\nGetResourceUsageResourceGroup() result:\n%s\n", string(b))
+			fmt.Println(string(b))
 
 			// end-get_resource_usage_resource_group
 
@@ -253,6 +259,7 @@ var _ = Describe(`UsageReportsV4 Examples Tests`, func() {
 			Expect(instancesUsage).ToNot(BeNil())
 		})
 		It(`GetResourceUsageOrg request example`, func() {
+			fmt.Println("\nGetResourceUsageOrg() result:")
 			// begin-get_resource_usage_org
 
 			getResourceUsageOrgOptions := usageReportsService.NewGetResourceUsageOrgOptions(
@@ -266,7 +273,7 @@ var _ = Describe(`UsageReportsV4 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(instancesUsage, "", "  ")
-			fmt.Printf("\nGetResourceUsageOrg() result:\n%s\n", string(b))
+			fmt.Println(string(b))
 
 			// end-get_resource_usage_org
 

@@ -133,6 +133,7 @@ var _ = Describe(`GlobalSearchV2 Examples Tests`, func() {
 			shouldSkipTest()
 		})
 		It(`Search request example`, func() {
+			fmt.Println("\nSearch() result:")
 			// begin-search
 
 			searchOptions := globalSearchService.NewSearchOptions()
@@ -145,7 +146,7 @@ var _ = Describe(`GlobalSearchV2 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(scanResult, "", "  ")
-			fmt.Printf("\nSearch() result:\n%s\n", string(b))
+			fmt.Println(string(b))
 
 			// end-search
 
@@ -155,6 +156,7 @@ var _ = Describe(`GlobalSearchV2 Examples Tests`, func() {
 
 		})
 		It(`GetSupportedTypes request example`, func() {
+			fmt.Println("\nGetSupportedTypes() result:")
 			// begin-get_supported_types
 
 			getSupportedTypesOptions := globalSearchService.NewGetSupportedTypesOptions()
@@ -164,7 +166,7 @@ var _ = Describe(`GlobalSearchV2 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(supportedTypesList, "", "  ")
-			fmt.Printf("\nGetSupportedTypes() result:\n%s\n", string(b))
+			fmt.Println(string(b))
 
 			// end-get_supported_types
 

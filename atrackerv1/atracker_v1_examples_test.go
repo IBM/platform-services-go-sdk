@@ -95,6 +95,7 @@ var _ = Describe(`AtrackerV1 Examples Tests`, func() {
 			shouldSkipTest()
 		})
 		It(`CreateTarget request example`, func() {
+			fmt.Println("\nCreateTarget() result:")
 			// begin-create_target
 
 			cosEndpointModel := &atrackerv1.CosEndpoint{
@@ -115,7 +116,7 @@ var _ = Describe(`AtrackerV1 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(target, "", "  ")
-			fmt.Printf("\nCreateTarget() result:\n%s\n", string(b))
+			fmt.Println(string(b))
 
 			// end-create_target
 
@@ -127,6 +128,7 @@ var _ = Describe(`AtrackerV1 Examples Tests`, func() {
 
 		})
 		It(`ListTargets request example`, func() {
+			fmt.Println("\nListTargets() result:")
 			// begin-list_targets
 
 			listTargetsOptions := atrackerService.NewListTargetsOptions()
@@ -136,7 +138,7 @@ var _ = Describe(`AtrackerV1 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(targetList, "", "  ")
-			fmt.Printf("\nListTargets() result:\n%s\n", string(b))
+			fmt.Println(string(b))
 
 			// end-list_targets
 
@@ -146,6 +148,7 @@ var _ = Describe(`AtrackerV1 Examples Tests`, func() {
 
 		})
 		It(`GetTarget request example`, func() {
+			fmt.Println("\nGetTarget() result:")
 			// begin-get_target
 
 			getTargetOptions := atrackerService.NewGetTargetOptions(
@@ -157,7 +160,7 @@ var _ = Describe(`AtrackerV1 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(target, "", "  ")
-			fmt.Printf("\nGetTarget() result:\n%s\n", string(b))
+			fmt.Println(string(b))
 
 			// end-get_target
 
@@ -167,6 +170,7 @@ var _ = Describe(`AtrackerV1 Examples Tests`, func() {
 
 		})
 		It(`ReplaceTarget request example`, func() {
+			fmt.Println("\nReplaceTarget() result:")
 			// begin-replace_target
 
 			cosEndpointModel := &atrackerv1.CosEndpoint{
@@ -188,7 +192,7 @@ var _ = Describe(`AtrackerV1 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(target, "", "  ")
-			fmt.Printf("\nReplaceTarget() result:\n%s\n", string(b))
+			fmt.Println(string(b))
 
 			// end-replace_target
 
@@ -198,6 +202,7 @@ var _ = Describe(`AtrackerV1 Examples Tests`, func() {
 
 		})
 		It(`CreateRoute request example`, func() {
+			fmt.Println("\nCreateRoute() result:")
 			// begin-create_route
 
 			ruleModel := &atrackerv1.Rule{
@@ -215,7 +220,7 @@ var _ = Describe(`AtrackerV1 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(route, "", "  ")
-			fmt.Printf("\nCreateRoute() result:\n%s\n", string(b))
+			fmt.Println(string(b))
 
 			// end-create_route
 
@@ -227,6 +232,7 @@ var _ = Describe(`AtrackerV1 Examples Tests`, func() {
 
 		})
 		It(`ListRoutes request example`, func() {
+			fmt.Println("\nListRoutes() result:")
 			// begin-list_routes
 
 			listRoutesOptions := atrackerService.NewListRoutesOptions()
@@ -236,7 +242,7 @@ var _ = Describe(`AtrackerV1 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(routeList, "", "  ")
-			fmt.Printf("\nListRoutes() result:\n%s\n", string(b))
+			fmt.Println(string(b))
 
 			// end-list_routes
 
@@ -246,6 +252,7 @@ var _ = Describe(`AtrackerV1 Examples Tests`, func() {
 
 		})
 		It(`GetRoute request example`, func() {
+			fmt.Println("\nGetRoute() result:")
 			// begin-get_route
 
 			getRouteOptions := atrackerService.NewGetRouteOptions(
@@ -257,7 +264,7 @@ var _ = Describe(`AtrackerV1 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(route, "", "  ")
-			fmt.Printf("\nGetRoute() result:\n%s\n", string(b))
+			fmt.Println(string(b))
 
 			// end-get_route
 
@@ -267,6 +274,7 @@ var _ = Describe(`AtrackerV1 Examples Tests`, func() {
 
 		})
 		It(`ReplaceRoute request example`, func() {
+			fmt.Println("\nReplaceRoute() result:")
 			// begin-replace_route
 
 			ruleModel := &atrackerv1.Rule{
@@ -285,7 +293,7 @@ var _ = Describe(`AtrackerV1 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(route, "", "  ")
-			fmt.Printf("\nReplaceRoute() result:\n%s\n", string(b))
+			fmt.Println(string(b))
 
 			// end-replace_route
 
@@ -305,8 +313,8 @@ var _ = Describe(`AtrackerV1 Examples Tests`, func() {
 			if err != nil {
 				panic(err)
 			}
-			fmt.Printf("\nDeleteRoute() response status code: %d\n", response.StatusCode)
 			// end-delete_route
+			fmt.Printf("\nDeleteRoute() response status code: %d\n", response.StatusCode)
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(204))
@@ -323,8 +331,8 @@ var _ = Describe(`AtrackerV1 Examples Tests`, func() {
 			if err != nil {
 				panic(err)
 			}
-			fmt.Printf("\nDeleteTarget() result status code: %d\n", response.StatusCode)
 			// end-delete_target
+			fmt.Printf("\nDeleteTarget() response status code: %d\n", response.StatusCode)
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(204))

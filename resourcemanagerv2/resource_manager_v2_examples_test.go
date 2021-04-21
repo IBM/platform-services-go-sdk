@@ -136,6 +136,7 @@ var _ = Describe(`ResourceManagerV2 Examples Tests`, func() {
 		It(`CreateResourceGroup request example`, func() {
 			Expect(exampleUserAccountID).NotTo(BeNil())
 
+			fmt.Println("\nCreateResourceGroup() result:")
 			// begin-create_resource_group
 
 			createResourceGroupOptions := resourceManagerService.NewCreateResourceGroupOptions()
@@ -147,7 +148,7 @@ var _ = Describe(`ResourceManagerV2 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(resCreateResourceGroup, "", "  ")
-			fmt.Printf("\nCreateResourceGroup() result:\n%s\n", string(b))
+			fmt.Println(string(b))
 
 			// end-create_resource_group
 
@@ -160,6 +161,7 @@ var _ = Describe(`ResourceManagerV2 Examples Tests`, func() {
 		It(`GetResourceGroup request example`, func() {
 			Expect(resourceGroupID).NotTo(BeNil())
 
+			fmt.Println("\nGetResourceGroup() result:")
 			// begin-get_resource_group
 
 			getResourceGroupOptions := resourceManagerService.NewGetResourceGroupOptions(
@@ -171,7 +173,7 @@ var _ = Describe(`ResourceManagerV2 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(resourceGroup, "", "  ")
-			fmt.Printf("\nGetResourceGroup() result:\n%s\n", string(b))
+			fmt.Println(string(b))
 
 			// end-get_resource_group
 
@@ -182,6 +184,7 @@ var _ = Describe(`ResourceManagerV2 Examples Tests`, func() {
 		It(`UpdateResourceGroup request example`, func() {
 			Expect(resourceGroupID).NotTo(BeNil())
 
+			fmt.Println("\nUpdateResourceGroup() result:")
 			// begin-update_resource_group
 
 			updateResourceGroupOptions := resourceManagerService.NewUpdateResourceGroupOptions(
@@ -195,7 +198,7 @@ var _ = Describe(`ResourceManagerV2 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(resourceGroup, "", "  ")
-			fmt.Printf("\nUpdateResourceGroup() result:\n%s\n", string(b))
+			fmt.Println(string(b))
 
 			// end-update_resource_group
 
@@ -206,6 +209,7 @@ var _ = Describe(`ResourceManagerV2 Examples Tests`, func() {
 		It(`ListResourceGroups request example`, func() {
 			Expect(exampleUserAccountID).NotTo(BeNil())
 
+			fmt.Println("\nListResourceGroups() result:")
 			// begin-list_resource_groups
 
 			listResourceGroupsOptions := resourceManagerService.NewListResourceGroupsOptions()
@@ -217,7 +221,7 @@ var _ = Describe(`ResourceManagerV2 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(resourceGroupList, "", "  ")
-			fmt.Printf("\nListResourceGroups() result:\n%s\n", string(b))
+			fmt.Println(string(b))
 
 			// end-list_resource_groups
 
@@ -238,16 +242,17 @@ var _ = Describe(`ResourceManagerV2 Examples Tests`, func() {
 			if err != nil {
 				panic(err)
 			}
-			fmt.Printf("\nDeleteResourceGroup() response status code: %d\n", response.StatusCode)
 
 			// end-delete_resource_group
 
+			fmt.Printf("\nDeleteResourceGroup() response status code: %d\n", response.StatusCode)
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(204))
 		})
 		It(`GetQuotaDefinition request example`, func() {
 			Expect(exampleQuotaID).NotTo(BeNil())
 
+			fmt.Println("\nGetQuotaDefinition() result:")
 			// begin-get_quota_definition
 
 			getQuotaDefinitionOptions := resourceManagerService.NewGetQuotaDefinitionOptions(
@@ -259,7 +264,7 @@ var _ = Describe(`ResourceManagerV2 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(quotaDefinition, "", "  ")
-			fmt.Printf("\nGetQuotaDefinition() result:\n%s\n", string(b))
+			fmt.Println(string(b))
 
 			// end-get_quota_definition
 
@@ -268,6 +273,7 @@ var _ = Describe(`ResourceManagerV2 Examples Tests`, func() {
 			Expect(quotaDefinition).ToNot(BeNil())
 		})
 		It(`ListQuotaDefinitions request example`, func() {
+			fmt.Println("\nListQuotaDefinitions() result:")
 			// begin-list_quota_definitions
 
 			listQuotaDefinitionsOptions := resourceManagerService.NewListQuotaDefinitionsOptions()
@@ -277,7 +283,7 @@ var _ = Describe(`ResourceManagerV2 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(quotaDefinitionList, "", "  ")
-			fmt.Printf("\nListQuotaDefinitions() result:\n%s\n", string(b))
+			fmt.Println(string(b))
 
 			// end-list_quota_definitions
 

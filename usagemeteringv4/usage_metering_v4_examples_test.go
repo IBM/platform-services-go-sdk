@@ -115,6 +115,7 @@ var _ = Describe(`UsageMeteringV4 Examples Tests`, func() {
 			planID := "cloudant-standard"
 			region := "us-south"
 
+			fmt.Println("\nReportResourceUsage() result:")
 			// begin-report_resource_usage
 
 			// Report usage for a mythical resource.
@@ -154,7 +155,7 @@ var _ = Describe(`UsageMeteringV4 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(responseAccepted, "", "  ")
-			fmt.Printf("\nReportResourceUsage() result:\n%s\n", string(b))
+			fmt.Println(string(b))
 
 			// end-report_resource_usage
 

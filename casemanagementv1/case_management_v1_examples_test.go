@@ -116,6 +116,7 @@ var _ = Describe(`CaseManagementV1 Examples Tests`, func() {
 			shouldSkipTest()
 		})
 		It(`CreateCase request example`, func() {
+			fmt.Println("\nCreateCase() result:")
 			// begin-createCase
 
 			offeringType, _ := caseManagementService.NewOfferingType(
@@ -140,7 +141,7 @@ var _ = Describe(`CaseManagementV1 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(caseVar, "", "  ")
-			fmt.Printf("\nCreateCase() result:\n%s\n", string(b))
+			fmt.Println(string(b))
 
 			// end-createCase
 
@@ -155,6 +156,7 @@ var _ = Describe(`CaseManagementV1 Examples Tests`, func() {
 		It(`GetCase request example`, func() {
 			Expect(caseNumber).ToNot(BeEmpty())
 
+			fmt.Println("\nGetCase() result:")
 			// begin-getCase
 
 			getCaseOptions := caseManagementService.NewGetCaseOptions(
@@ -172,7 +174,7 @@ var _ = Describe(`CaseManagementV1 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(caseVar, "", "  ")
-			fmt.Printf("\nGetCase() result:\n%s\n", string(b))
+			fmt.Println(string(b))
 
 			// end-getCase
 
@@ -182,6 +184,7 @@ var _ = Describe(`CaseManagementV1 Examples Tests`, func() {
 
 		})
 		It(`GetCases request example`, func() {
+			fmt.Println("\nGetCases() result:")
 			// begin-getCases
 
 			getCasesOptions := caseManagementService.NewGetCasesOptions()
@@ -195,7 +198,7 @@ var _ = Describe(`CaseManagementV1 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(caseList, "", "  ")
-			fmt.Printf("\nGetCases() result:\n%s\n", string(b))
+			fmt.Println(string(b))
 
 			// end-getCases
 
@@ -207,6 +210,7 @@ var _ = Describe(`CaseManagementV1 Examples Tests`, func() {
 		It(`AddComment request example`, func() {
 			Expect(caseNumber).ToNot(BeEmpty())
 
+			fmt.Println("\nAddComment() result:")
 			// begin-addComment
 
 			addCommentOptions := caseManagementService.NewAddCommentOptions(
@@ -219,7 +223,7 @@ var _ = Describe(`CaseManagementV1 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(comment, "", "  ")
-			fmt.Printf("\nAddComment() result:\n%s\n", string(b))
+			fmt.Println(string(b))
 
 			// end-addComment
 
@@ -231,6 +235,7 @@ var _ = Describe(`CaseManagementV1 Examples Tests`, func() {
 		It(`AddWatchlist request example`, func() {
 			Expect(caseNumber).ToNot(BeEmpty())
 
+			fmt.Println("\nAddWatchlist() result:")
 			// begin-addWatchlist
 
 			watchListUser, _ := caseManagementService.NewUser("IBMid", "abc@ibm.com")
@@ -245,7 +250,7 @@ var _ = Describe(`CaseManagementV1 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(watchlistAddResponse, "", "  ")
-			fmt.Printf("\nAddWatchlist() result:\n%s\n", string(b))
+			fmt.Println(string(b))
 
 			// end-addWatchlist
 
@@ -257,6 +262,7 @@ var _ = Describe(`CaseManagementV1 Examples Tests`, func() {
 		It(`RemoveWatchlist request example`, func() {
 			Expect(caseNumber).ToNot(BeEmpty())
 
+			fmt.Println("\nRemoveWatchlist() result:")
 			// begin-removeWatchlist
 
 			watchListUser, _ := caseManagementService.NewUser("IBMid", "abc@ibm.com")
@@ -271,7 +277,7 @@ var _ = Describe(`CaseManagementV1 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(watchlist, "", "  ")
-			fmt.Printf("\nRemoveWatchlist() result:\n%s\n", string(b))
+			fmt.Println(string(b))
 
 			// end-removeWatchlist
 
@@ -283,6 +289,7 @@ var _ = Describe(`CaseManagementV1 Examples Tests`, func() {
 		It(`AddResource request example`, func() {
 			Expect(caseNumber).ToNot(BeEmpty())
 
+			fmt.Println("\nAddResource() result:")
 			// begin-addResource
 
 			addResourceOptions := caseManagementService.NewAddResourceOptions(
@@ -296,7 +303,7 @@ var _ = Describe(`CaseManagementV1 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(resource, "", "  ")
-			fmt.Printf("\nAddResource() result:\n%s\n", string(b))
+			fmt.Println(string(b))
 
 			// end-addResource
 
@@ -308,6 +315,7 @@ var _ = Describe(`CaseManagementV1 Examples Tests`, func() {
 		It(`UploadFile request example`, func() {
 			Expect(caseNumber).ToNot(BeEmpty())
 
+			fmt.Println("\nNewUploadFileOptions() result:")
 			// begin-uploadFile
 
 			exampleFileContent := "This is the content of the file to upload."
@@ -328,7 +336,7 @@ var _ = Describe(`CaseManagementV1 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(attachment, "", "  ")
-			fmt.Printf("\nUploadFile() result:\n%s\n", string(b))
+			fmt.Println(string(b))
 
 			// end-uploadFile
 
@@ -343,6 +351,7 @@ var _ = Describe(`CaseManagementV1 Examples Tests`, func() {
 			Expect(caseNumber).ToNot(BeEmpty())
 			Expect(attachmentID).ToNot(BeEmpty())
 
+			fmt.Println("\nDownloadFile() result:")
 			// begin-downloadFile
 
 			downloadFileOptions := caseManagementService.NewDownloadFileOptions(
@@ -359,9 +368,7 @@ var _ = Describe(`CaseManagementV1 Examples Tests`, func() {
 				buf := new(bytes.Buffer)
 				buf.ReadFrom(result)
 
-				fmt.Println("\nDownloadFile() result:")
-				fmt.Println("Attachment content-type: ", response.GetHeaders().Get("Content-Type"))
-				fmt.Println("Attachment contents: ", buf.String())
+				fmt.Println(buf.String())
 			}
 
 			// end-downloadFile
@@ -375,6 +382,7 @@ var _ = Describe(`CaseManagementV1 Examples Tests`, func() {
 			Expect(caseNumber).ToNot(BeEmpty())
 			Expect(attachmentID).ToNot(BeEmpty())
 
+			fmt.Println("\nDeleteFile() result:")
 			// begin-deleteFile
 
 			deleteFileOptions := caseManagementService.NewDeleteFileOptions(
@@ -387,7 +395,7 @@ var _ = Describe(`CaseManagementV1 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(attachmentList, "", "  ")
-			fmt.Printf("\nDeleteFile() result:\n%s\n", string(b))
+			fmt.Println(string(b))
 
 			// end-deleteFile
 
@@ -399,6 +407,7 @@ var _ = Describe(`CaseManagementV1 Examples Tests`, func() {
 		It(`UpdateCaseStatus request example`, func() {
 			Expect(caseNumber).ToNot(BeEmpty())
 
+			fmt.Println("\nUpdateCaseStatus() result:")
 			// begin-updateCaseStatus
 
 			statusPayloadModel := &casemanagementv1.ResolvePayload{
@@ -417,7 +426,7 @@ var _ = Describe(`CaseManagementV1 Examples Tests`, func() {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(caseVar, "", "  ")
-			fmt.Printf("\nUpdateCaseStatus() result:\n%s\n", string(b))
+			fmt.Println(string(b))
 
 			// end-updateCaseStatus
 
