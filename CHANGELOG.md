@@ -1,3 +1,10 @@
+## [0.18.9](https://github.com/IBM/platform-services-go-sdk/compare/v0.18.8...v0.18.9) (2021-04-21)
+
+
+### Bug Fixes
+
+* **Resource Controller:** update service after recent API changes ([#112](https://github.com/IBM/platform-services-go-sdk/issues/112)) ([cd579d1](https://github.com/IBM/platform-services-go-sdk/commit/cd579d19a99dee176fdaa16c2738ccaa0bcd3150))
+
 ## [0.18.8](https://github.com/IBM/platform-services-go-sdk/compare/v0.18.7...v0.18.8) (2021-04-14)
 
 
