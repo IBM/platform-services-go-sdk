@@ -2744,7 +2744,7 @@ var _ = Describe(`IamIdentityV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"context": {"transaction_id": "TransactionID", "operation": "Operation", "user_agent": "UserAgent", "url": "URL", "instance_id": "InstanceID", "thread_id": "ThreadID", "host": "Host", "start_time": "StartTime", "end_time": "EndTime", "elapsed_time": "ElapsedTime", "cluster_name": "ClusterName"}, "account_id": "AccountID", "restrict_create_service_id": "RESTRICTED", "restrict_create_platform_apikey": "RESTRICTED", "allowed_ip_addresses": "AllowedIPAddresses", "entity_tag": "EntityTag", "mfa": "NONE", "history": [{"timestamp": "Timestamp", "iam_id": "IamID", "iam_id_account": "IamIDAccount", "action": "Action", "params": ["Params"], "message": "Message"}], "session_expiration_in_seconds": "SessionExpirationInSeconds", "session_invalidation_in_seconds": "SessionInvalidationInSeconds"}`)
+					fmt.Fprintf(res, "%s", `{"context": {"transaction_id": "TransactionID", "operation": "Operation", "user_agent": "UserAgent", "url": "URL", "instance_id": "InstanceID", "thread_id": "ThreadID", "host": "Host", "start_time": "StartTime", "end_time": "EndTime", "elapsed_time": "ElapsedTime", "cluster_name": "ClusterName"}, "account_id": "AccountID", "restrict_create_service_id": "RESTRICTED", "restrict_create_platform_apikey": "RESTRICTED", "allowed_ip_addresses": "AllowedIPAddresses", "entity_tag": "EntityTag", "mfa": "NONE", "history": [{"timestamp": "Timestamp", "iam_id": "IamID", "iam_id_account": "IamIDAccount", "action": "Action", "params": ["Params"], "message": "Message"}], "session_expiration_in_seconds": "SessionExpirationInSeconds", "session_invalidation_in_seconds": "SessionInvalidationInSeconds", "max_sessions_per_identity": "MaxSessionsPerIdentity"}`)
 				}))
 			})
 			It(`Invoke GetAccountSettings successfully with retries`, func() {
@@ -2800,7 +2800,7 @@ var _ = Describe(`IamIdentityV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"context": {"transaction_id": "TransactionID", "operation": "Operation", "user_agent": "UserAgent", "url": "URL", "instance_id": "InstanceID", "thread_id": "ThreadID", "host": "Host", "start_time": "StartTime", "end_time": "EndTime", "elapsed_time": "ElapsedTime", "cluster_name": "ClusterName"}, "account_id": "AccountID", "restrict_create_service_id": "RESTRICTED", "restrict_create_platform_apikey": "RESTRICTED", "allowed_ip_addresses": "AllowedIPAddresses", "entity_tag": "EntityTag", "mfa": "NONE", "history": [{"timestamp": "Timestamp", "iam_id": "IamID", "iam_id_account": "IamIDAccount", "action": "Action", "params": ["Params"], "message": "Message"}], "session_expiration_in_seconds": "SessionExpirationInSeconds", "session_invalidation_in_seconds": "SessionInvalidationInSeconds"}`)
+					fmt.Fprintf(res, "%s", `{"context": {"transaction_id": "TransactionID", "operation": "Operation", "user_agent": "UserAgent", "url": "URL", "instance_id": "InstanceID", "thread_id": "ThreadID", "host": "Host", "start_time": "StartTime", "end_time": "EndTime", "elapsed_time": "ElapsedTime", "cluster_name": "ClusterName"}, "account_id": "AccountID", "restrict_create_service_id": "RESTRICTED", "restrict_create_platform_apikey": "RESTRICTED", "allowed_ip_addresses": "AllowedIPAddresses", "entity_tag": "EntityTag", "mfa": "NONE", "history": [{"timestamp": "Timestamp", "iam_id": "IamID", "iam_id_account": "IamIDAccount", "action": "Action", "params": ["Params"], "message": "Message"}], "session_expiration_in_seconds": "SessionExpirationInSeconds", "session_invalidation_in_seconds": "SessionInvalidationInSeconds", "max_sessions_per_identity": "MaxSessionsPerIdentity"}`)
 				}))
 			})
 			It(`Invoke GetAccountSettings successfully`, func() {
@@ -2899,6 +2899,7 @@ var _ = Describe(`IamIdentityV1`, func() {
 				updateAccountSettingsOptionsModel.Mfa = core.StringPtr("NONE")
 				updateAccountSettingsOptionsModel.SessionExpirationInSeconds = core.StringPtr("testString")
 				updateAccountSettingsOptionsModel.SessionInvalidationInSeconds = core.StringPtr("testString")
+				updateAccountSettingsOptionsModel.MaxSessionsPerIdentity = core.StringPtr("testString")
 				updateAccountSettingsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
 				result, response, operationErr := iamIdentityService.UpdateAccountSettings(updateAccountSettingsOptionsModel)
@@ -2954,7 +2955,7 @@ var _ = Describe(`IamIdentityV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"context": {"transaction_id": "TransactionID", "operation": "Operation", "user_agent": "UserAgent", "url": "URL", "instance_id": "InstanceID", "thread_id": "ThreadID", "host": "Host", "start_time": "StartTime", "end_time": "EndTime", "elapsed_time": "ElapsedTime", "cluster_name": "ClusterName"}, "account_id": "AccountID", "restrict_create_service_id": "RESTRICTED", "restrict_create_platform_apikey": "RESTRICTED", "allowed_ip_addresses": "AllowedIPAddresses", "entity_tag": "EntityTag", "mfa": "NONE", "history": [{"timestamp": "Timestamp", "iam_id": "IamID", "iam_id_account": "IamIDAccount", "action": "Action", "params": ["Params"], "message": "Message"}], "session_expiration_in_seconds": "SessionExpirationInSeconds", "session_invalidation_in_seconds": "SessionInvalidationInSeconds"}`)
+					fmt.Fprintf(res, "%s", `{"context": {"transaction_id": "TransactionID", "operation": "Operation", "user_agent": "UserAgent", "url": "URL", "instance_id": "InstanceID", "thread_id": "ThreadID", "host": "Host", "start_time": "StartTime", "end_time": "EndTime", "elapsed_time": "ElapsedTime", "cluster_name": "ClusterName"}, "account_id": "AccountID", "restrict_create_service_id": "RESTRICTED", "restrict_create_platform_apikey": "RESTRICTED", "allowed_ip_addresses": "AllowedIPAddresses", "entity_tag": "EntityTag", "mfa": "NONE", "history": [{"timestamp": "Timestamp", "iam_id": "IamID", "iam_id_account": "IamIDAccount", "action": "Action", "params": ["Params"], "message": "Message"}], "session_expiration_in_seconds": "SessionExpirationInSeconds", "session_invalidation_in_seconds": "SessionInvalidationInSeconds", "max_sessions_per_identity": "MaxSessionsPerIdentity"}`)
 				}))
 			})
 			It(`Invoke UpdateAccountSettings successfully with retries`, func() {
@@ -2976,6 +2977,7 @@ var _ = Describe(`IamIdentityV1`, func() {
 				updateAccountSettingsOptionsModel.Mfa = core.StringPtr("NONE")
 				updateAccountSettingsOptionsModel.SessionExpirationInSeconds = core.StringPtr("testString")
 				updateAccountSettingsOptionsModel.SessionInvalidationInSeconds = core.StringPtr("testString")
+				updateAccountSettingsOptionsModel.MaxSessionsPerIdentity = core.StringPtr("testString")
 				updateAccountSettingsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with a Context to test a timeout error
@@ -3033,7 +3035,7 @@ var _ = Describe(`IamIdentityV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"context": {"transaction_id": "TransactionID", "operation": "Operation", "user_agent": "UserAgent", "url": "URL", "instance_id": "InstanceID", "thread_id": "ThreadID", "host": "Host", "start_time": "StartTime", "end_time": "EndTime", "elapsed_time": "ElapsedTime", "cluster_name": "ClusterName"}, "account_id": "AccountID", "restrict_create_service_id": "RESTRICTED", "restrict_create_platform_apikey": "RESTRICTED", "allowed_ip_addresses": "AllowedIPAddresses", "entity_tag": "EntityTag", "mfa": "NONE", "history": [{"timestamp": "Timestamp", "iam_id": "IamID", "iam_id_account": "IamIDAccount", "action": "Action", "params": ["Params"], "message": "Message"}], "session_expiration_in_seconds": "SessionExpirationInSeconds", "session_invalidation_in_seconds": "SessionInvalidationInSeconds"}`)
+					fmt.Fprintf(res, "%s", `{"context": {"transaction_id": "TransactionID", "operation": "Operation", "user_agent": "UserAgent", "url": "URL", "instance_id": "InstanceID", "thread_id": "ThreadID", "host": "Host", "start_time": "StartTime", "end_time": "EndTime", "elapsed_time": "ElapsedTime", "cluster_name": "ClusterName"}, "account_id": "AccountID", "restrict_create_service_id": "RESTRICTED", "restrict_create_platform_apikey": "RESTRICTED", "allowed_ip_addresses": "AllowedIPAddresses", "entity_tag": "EntityTag", "mfa": "NONE", "history": [{"timestamp": "Timestamp", "iam_id": "IamID", "iam_id_account": "IamIDAccount", "action": "Action", "params": ["Params"], "message": "Message"}], "session_expiration_in_seconds": "SessionExpirationInSeconds", "session_invalidation_in_seconds": "SessionInvalidationInSeconds", "max_sessions_per_identity": "MaxSessionsPerIdentity"}`)
 				}))
 			})
 			It(`Invoke UpdateAccountSettings successfully`, func() {
@@ -3060,6 +3062,7 @@ var _ = Describe(`IamIdentityV1`, func() {
 				updateAccountSettingsOptionsModel.Mfa = core.StringPtr("NONE")
 				updateAccountSettingsOptionsModel.SessionExpirationInSeconds = core.StringPtr("testString")
 				updateAccountSettingsOptionsModel.SessionInvalidationInSeconds = core.StringPtr("testString")
+				updateAccountSettingsOptionsModel.MaxSessionsPerIdentity = core.StringPtr("testString")
 				updateAccountSettingsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
@@ -3087,6 +3090,7 @@ var _ = Describe(`IamIdentityV1`, func() {
 				updateAccountSettingsOptionsModel.Mfa = core.StringPtr("NONE")
 				updateAccountSettingsOptionsModel.SessionExpirationInSeconds = core.StringPtr("testString")
 				updateAccountSettingsOptionsModel.SessionInvalidationInSeconds = core.StringPtr("testString")
+				updateAccountSettingsOptionsModel.MaxSessionsPerIdentity = core.StringPtr("testString")
 				updateAccountSettingsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := iamIdentityService.SetServiceURL("")
@@ -3343,6 +3347,7 @@ var _ = Describe(`IamIdentityV1`, func() {
 				updateAccountSettingsOptionsModel.SetMfa("NONE")
 				updateAccountSettingsOptionsModel.SetSessionExpirationInSeconds("testString")
 				updateAccountSettingsOptionsModel.SetSessionInvalidationInSeconds("testString")
+				updateAccountSettingsOptionsModel.SetMaxSessionsPerIdentity("testString")
 				updateAccountSettingsOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(updateAccountSettingsOptionsModel).ToNot(BeNil())
 				Expect(updateAccountSettingsOptionsModel.IfMatch).To(Equal(core.StringPtr("testString")))
@@ -3353,6 +3358,7 @@ var _ = Describe(`IamIdentityV1`, func() {
 				Expect(updateAccountSettingsOptionsModel.Mfa).To(Equal(core.StringPtr("NONE")))
 				Expect(updateAccountSettingsOptionsModel.SessionExpirationInSeconds).To(Equal(core.StringPtr("testString")))
 				Expect(updateAccountSettingsOptionsModel.SessionInvalidationInSeconds).To(Equal(core.StringPtr("testString")))
+				Expect(updateAccountSettingsOptionsModel.MaxSessionsPerIdentity).To(Equal(core.StringPtr("testString")))
 				Expect(updateAccountSettingsOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewUpdateAPIKeyOptions successfully`, func() {
