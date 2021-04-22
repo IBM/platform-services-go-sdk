@@ -604,6 +604,7 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 				Mfa:                          core.StringPtr("NONE"),
 				SessionExpirationInSeconds:   core.StringPtr("86400"),
 				SessionInvalidationInSeconds: core.StringPtr("7200"),
+				MaxSessionsPerIdentity:       core.StringPtr("10"),
 			}
 
 			accountSettingsResponse, response, err := iamIdentityService.UpdateAccountSettings(accountSettingsRequestOptions)
