@@ -15,7 +15,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-0e7faf45-20210305-072529
+ * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-46891d34-20210426-162952
  */
 
 // Package iamidentityv1 : Operations and models for the IamIdentityV1 service
@@ -25,12 +25,13 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"github.com/IBM/go-sdk-core/v5/core"
-	common "github.com/IBM/platform-services-go-sdk/common"
-	"github.com/go-openapi/strfmt"
 	"net/http"
 	"reflect"
 	"time"
+
+	"github.com/IBM/go-sdk-core/v5/core"
+	common "github.com/IBM/platform-services-go-sdk/common"
+	"github.com/go-openapi/strfmt"
 )
 
 // IamIdentityV1 : The IAM Identity Service API allows for the management of Account Settings and Identities (Service
@@ -525,9 +526,8 @@ func (iamIdentity *IamIdentityV1) UpdateAPIKeyWithContext(ctx context.Context, u
 }
 
 // DeleteAPIKey : Deletes an API key
-// Deletes an API key. Existing tokens will remain valid until expired. Refresh tokens  will not work any more for this
-// API key. Users can manage user API keys for themself, or service ID API  keys for service IDs that are bound to an
-// entity they have access  to.
+// Deletes an API key. Existing tokens will remain valid until expired. Users can manage user API keys for themself, or
+// service ID API  keys for service IDs that are bound to an entity they have access  to.
 func (iamIdentity *IamIdentityV1) DeleteAPIKey(deleteAPIKeyOptions *DeleteAPIKeyOptions) (response *core.DetailedResponse, err error) {
 	return iamIdentity.DeleteAPIKeyWithContext(context.Background(), deleteAPIKeyOptions)
 }
@@ -1246,6 +1246,9 @@ func (iamIdentity *IamIdentityV1) UpdateAccountSettingsWithContext(ctx context.C
 	if updateAccountSettingsOptions.SessionInvalidationInSeconds != nil {
 		body["session_invalidation_in_seconds"] = updateAccountSettingsOptions.SessionInvalidationInSeconds
 	}
+	if updateAccountSettingsOptions.MaxSessionsPerIdentity != nil {
+		body["max_sessions_per_identity"] = updateAccountSettingsOptions.MaxSessionsPerIdentity
+	}
 	_, err = builder.SetBodyContentJSON(body)
 	if err != nil {
 		return
@@ -1284,7 +1287,7 @@ type AccountSettingsResponse struct {
 	//   * NOT_SET - to 'unset' a previous set value.
 	RestrictCreateServiceID *string `json:"restrict_create_service_id" validate:"required"`
 
-	// Defines whether or not creating a Service Id is access controlled. Valid values:
+	// Defines whether or not creating platform API keys is access controlled. Valid values:
 	//   * RESTRICTED - to apply access control
 	//   * NOT_RESTRICTED - to remove access control
 	//   * NOT_SET - to 'unset' a previous set value.
@@ -1317,6 +1320,11 @@ type AccountSettingsResponse struct {
 	//   * Any whole number between '900' and '7200'
 	//   * NOT_SET - To unset account setting and use service default.
 	SessionInvalidationInSeconds *string `json:"session_invalidation_in_seconds" validate:"required"`
+
+	// Defines the max allowed sessions per identity required by the account. Valid values:
+	//   * Any whole number greater than 0
+	//   * NOT_SET - To unset account setting and use service default.
+	MaxSessionsPerIdentity *string `json:"max_sessions_per_identity" validate:"required"`
 }
 
 // Constants associated with the AccountSettingsResponse.RestrictCreateServiceID property.
@@ -1326,19 +1334,19 @@ type AccountSettingsResponse struct {
 //   * NOT_SET - to 'unset' a previous set value.
 const (
 	AccountSettingsResponseRestrictCreateServiceIDNotRestrictedConst = "NOT_RESTRICTED"
-	AccountSettingsResponseRestrictCreateServiceIDNotSetConst = "NOT_SET"
-	AccountSettingsResponseRestrictCreateServiceIDRestrictedConst = "RESTRICTED"
+	AccountSettingsResponseRestrictCreateServiceIDNotSetConst        = "NOT_SET"
+	AccountSettingsResponseRestrictCreateServiceIDRestrictedConst    = "RESTRICTED"
 )
 
 // Constants associated with the AccountSettingsResponse.RestrictCreatePlatformApikey property.
-// Defines whether or not creating a Service Id is access controlled. Valid values:
+// Defines whether or not creating platform API keys is access controlled. Valid values:
 //   * RESTRICTED - to apply access control
 //   * NOT_RESTRICTED - to remove access control
 //   * NOT_SET - to 'unset' a previous set value.
 const (
 	AccountSettingsResponseRestrictCreatePlatformApikeyNotRestrictedConst = "NOT_RESTRICTED"
-	AccountSettingsResponseRestrictCreatePlatformApikeyNotSetConst = "NOT_SET"
-	AccountSettingsResponseRestrictCreatePlatformApikeyRestrictedConst = "RESTRICTED"
+	AccountSettingsResponseRestrictCreatePlatformApikeyNotSetConst        = "NOT_SET"
+	AccountSettingsResponseRestrictCreatePlatformApikeyRestrictedConst    = "RESTRICTED"
 )
 
 // Constants associated with the AccountSettingsResponse.Mfa property.
@@ -1350,11 +1358,11 @@ const (
 //   * LEVEL2 - TOTP-based MFA for all users
 //   * LEVEL3 - U2F MFA for all users.
 const (
-	AccountSettingsResponseMfaLevel1Const = "LEVEL1"
-	AccountSettingsResponseMfaLevel2Const = "LEVEL2"
-	AccountSettingsResponseMfaLevel3Const = "LEVEL3"
-	AccountSettingsResponseMfaNoneConst = "NONE"
-	AccountSettingsResponseMfaTotpConst = "TOTP"
+	AccountSettingsResponseMfaLevel1Const   = "LEVEL1"
+	AccountSettingsResponseMfaLevel2Const   = "LEVEL2"
+	AccountSettingsResponseMfaLevel3Const   = "LEVEL3"
+	AccountSettingsResponseMfaNoneConst     = "NONE"
+	AccountSettingsResponseMfaTotpConst     = "TOTP"
 	AccountSettingsResponseMfaTotp4allConst = "TOTP4ALL"
 )
 
@@ -1398,6 +1406,10 @@ func UnmarshalAccountSettingsResponse(m map[string]json.RawMessage, result inter
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "session_invalidation_in_seconds", &obj.SessionInvalidationInSeconds)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "max_sessions_per_identity", &obj.MaxSessionsPerIdentity)
 	if err != nil {
 		return
 	}
@@ -1672,7 +1684,7 @@ type CreateAPIKeyOptions struct {
 // NewCreateAPIKeyOptions : Instantiate CreateAPIKeyOptions
 func (*IamIdentityV1) NewCreateAPIKeyOptions(name string, iamID string) *CreateAPIKeyOptions {
 	return &CreateAPIKeyOptions{
-		Name: core.StringPtr(name),
+		Name:  core.StringPtr(name),
 		IamID: core.StringPtr(iamID),
 	}
 }
@@ -1755,7 +1767,7 @@ type CreateServiceIDOptions struct {
 func (*IamIdentityV1) NewCreateServiceIDOptions(accountID string, name string) *CreateServiceIDOptions {
 	return &CreateServiceIDOptions{
 		AccountID: core.StringPtr(accountID),
-		Name: core.StringPtr(name),
+		Name:      core.StringPtr(name),
 	}
 }
 
@@ -2096,20 +2108,20 @@ type ListAPIKeysOptions struct {
 // Optional parameter to define the scope of the queried API Keys. Can be 'entity' (default) or 'account'.
 const (
 	ListAPIKeysOptionsScopeAccountConst = "account"
-	ListAPIKeysOptionsScopeEntityConst = "entity"
+	ListAPIKeysOptionsScopeEntityConst  = "entity"
 )
 
 // Constants associated with the ListAPIKeysOptions.Type property.
 // Optional parameter to filter the type of the queried API Keys. Can be 'user' or 'serviceid'.
 const (
 	ListAPIKeysOptionsTypeServiceidConst = "serviceid"
-	ListAPIKeysOptionsTypeUserConst = "user"
+	ListAPIKeysOptionsTypeUserConst      = "user"
 )
 
 // Constants associated with the ListAPIKeysOptions.Order property.
 // Optional sort order, valid values are asc and desc. Default: asc.
 const (
-	ListAPIKeysOptionsOrderAscConst = "asc"
+	ListAPIKeysOptionsOrderAscConst  = "asc"
 	ListAPIKeysOptionsOrderDescConst = "desc"
 )
 
@@ -2209,7 +2221,7 @@ type ListServiceIdsOptions struct {
 // Constants associated with the ListServiceIdsOptions.Order property.
 // Optional sort order, valid values are asc and desc. Default: asc.
 const (
-	ListServiceIdsOptionsOrderAscConst = "asc"
+	ListServiceIdsOptionsOrderAscConst  = "asc"
 	ListServiceIdsOptionsOrderDescConst = "desc"
 )
 
@@ -2654,7 +2666,7 @@ type UpdateAccountSettingsOptions struct {
 	//   * NOT_SET - to unset a previously set value.
 	RestrictCreateServiceID *string
 
-	// Defines whether or not creating a Service Id is access controlled. Valid values:
+	// Defines whether or not creating platform API keys is access controlled. Valid values:
 	//   * RESTRICTED - to apply access control
 	//   * NOT_RESTRICTED - to remove access control
 	//   * NOT_SET - to 'unset' a previous set value.
@@ -2682,6 +2694,11 @@ type UpdateAccountSettingsOptions struct {
 	//   * NOT_SET - To unset account setting and use service default.
 	SessionInvalidationInSeconds *string
 
+	// Defines the max allowed sessions per identity required by the account. Value values:
+	//   * Any whole number greater than 0
+	//   * NOT_SET - To unset account setting and use service default.
+	MaxSessionsPerIdentity *string
+
 	// Allows users to set headers on API requests
 	Headers map[string]string
 }
@@ -2693,19 +2710,19 @@ type UpdateAccountSettingsOptions struct {
 //   * NOT_SET - to unset a previously set value.
 const (
 	UpdateAccountSettingsOptionsRestrictCreateServiceIDNotRestrictedConst = "NOT_RESTRICTED"
-	UpdateAccountSettingsOptionsRestrictCreateServiceIDNotSetConst = "NOT_SET"
-	UpdateAccountSettingsOptionsRestrictCreateServiceIDRestrictedConst = "RESTRICTED"
+	UpdateAccountSettingsOptionsRestrictCreateServiceIDNotSetConst        = "NOT_SET"
+	UpdateAccountSettingsOptionsRestrictCreateServiceIDRestrictedConst    = "RESTRICTED"
 )
 
 // Constants associated with the UpdateAccountSettingsOptions.RestrictCreatePlatformApikey property.
-// Defines whether or not creating a Service Id is access controlled. Valid values:
+// Defines whether or not creating platform API keys is access controlled. Valid values:
 //   * RESTRICTED - to apply access control
 //   * NOT_RESTRICTED - to remove access control
 //   * NOT_SET - to 'unset' a previous set value.
 const (
 	UpdateAccountSettingsOptionsRestrictCreatePlatformApikeyNotRestrictedConst = "NOT_RESTRICTED"
-	UpdateAccountSettingsOptionsRestrictCreatePlatformApikeyNotSetConst = "NOT_SET"
-	UpdateAccountSettingsOptionsRestrictCreatePlatformApikeyRestrictedConst = "RESTRICTED"
+	UpdateAccountSettingsOptionsRestrictCreatePlatformApikeyNotSetConst        = "NOT_SET"
+	UpdateAccountSettingsOptionsRestrictCreatePlatformApikeyRestrictedConst    = "RESTRICTED"
 )
 
 // Constants associated with the UpdateAccountSettingsOptions.Mfa property.
@@ -2717,18 +2734,18 @@ const (
 //   * LEVEL2 - TOTP-based MFA for all users
 //   * LEVEL3 - U2F MFA for all users.
 const (
-	UpdateAccountSettingsOptionsMfaLevel1Const = "LEVEL1"
-	UpdateAccountSettingsOptionsMfaLevel2Const = "LEVEL2"
-	UpdateAccountSettingsOptionsMfaLevel3Const = "LEVEL3"
-	UpdateAccountSettingsOptionsMfaNoneConst = "NONE"
-	UpdateAccountSettingsOptionsMfaTotpConst = "TOTP"
+	UpdateAccountSettingsOptionsMfaLevel1Const   = "LEVEL1"
+	UpdateAccountSettingsOptionsMfaLevel2Const   = "LEVEL2"
+	UpdateAccountSettingsOptionsMfaLevel3Const   = "LEVEL3"
+	UpdateAccountSettingsOptionsMfaNoneConst     = "NONE"
+	UpdateAccountSettingsOptionsMfaTotpConst     = "TOTP"
 	UpdateAccountSettingsOptionsMfaTotp4allConst = "TOTP4ALL"
 )
 
 // NewUpdateAccountSettingsOptions : Instantiate UpdateAccountSettingsOptions
 func (*IamIdentityV1) NewUpdateAccountSettingsOptions(ifMatch string, accountID string) *UpdateAccountSettingsOptions {
 	return &UpdateAccountSettingsOptions{
-		IfMatch: core.StringPtr(ifMatch),
+		IfMatch:   core.StringPtr(ifMatch),
 		AccountID: core.StringPtr(accountID),
 	}
 }
@@ -2781,6 +2798,12 @@ func (options *UpdateAccountSettingsOptions) SetSessionInvalidationInSeconds(ses
 	return options
 }
 
+// SetMaxSessionsPerIdentity : Allow user to set MaxSessionsPerIdentity
+func (options *UpdateAccountSettingsOptions) SetMaxSessionsPerIdentity(maxSessionsPerIdentity string) *UpdateAccountSettingsOptions {
+	options.MaxSessionsPerIdentity = core.StringPtr(maxSessionsPerIdentity)
+	return options
+}
+
 // SetHeaders : Allow user to set Headers
 func (options *UpdateAccountSettingsOptions) SetHeaders(param map[string]string) *UpdateAccountSettingsOptions {
 	options.Headers = param
@@ -2812,7 +2835,7 @@ type UpdateAPIKeyOptions struct {
 // NewUpdateAPIKeyOptions : Instantiate UpdateAPIKeyOptions
 func (*IamIdentityV1) NewUpdateAPIKeyOptions(id string, ifMatch string) *UpdateAPIKeyOptions {
 	return &UpdateAPIKeyOptions{
-		ID: core.StringPtr(id),
+		ID:      core.StringPtr(id),
 		IfMatch: core.StringPtr(ifMatch),
 	}
 }
@@ -2876,7 +2899,7 @@ type UpdateServiceIDOptions struct {
 // NewUpdateServiceIDOptions : Instantiate UpdateServiceIDOptions
 func (*IamIdentityV1) NewUpdateServiceIDOptions(id string, ifMatch string) *UpdateServiceIDOptions {
 	return &UpdateServiceIDOptions{
-		ID: core.StringPtr(id),
+		ID:      core.StringPtr(id),
 		IfMatch: core.StringPtr(ifMatch),
 	}
 }
