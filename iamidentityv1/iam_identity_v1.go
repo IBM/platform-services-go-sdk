@@ -25,12 +25,13 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"github.com/IBM/go-sdk-core/v5/core"
-	common "github.com/IBM/platform-services-go-sdk/common"
-	"github.com/go-openapi/strfmt"
 	"net/http"
 	"reflect"
 	"time"
+
+	"github.com/IBM/go-sdk-core/v5/core"
+	common "github.com/IBM/platform-services-go-sdk/common"
+	"github.com/go-openapi/strfmt"
 )
 
 // IamIdentityV1 : The IAM Identity Service API allows for the management of Account Settings and Identities (Service
@@ -1333,8 +1334,8 @@ type AccountSettingsResponse struct {
 //   * NOT_SET - to 'unset' a previous set value.
 const (
 	AccountSettingsResponseRestrictCreateServiceIDNotRestrictedConst = "NOT_RESTRICTED"
-	AccountSettingsResponseRestrictCreateServiceIDNotSetConst = "NOT_SET"
-	AccountSettingsResponseRestrictCreateServiceIDRestrictedConst = "RESTRICTED"
+	AccountSettingsResponseRestrictCreateServiceIDNotSetConst        = "NOT_SET"
+	AccountSettingsResponseRestrictCreateServiceIDRestrictedConst    = "RESTRICTED"
 )
 
 // Constants associated with the AccountSettingsResponse.RestrictCreatePlatformApikey property.
@@ -1344,8 +1345,8 @@ const (
 //   * NOT_SET - to 'unset' a previous set value.
 const (
 	AccountSettingsResponseRestrictCreatePlatformApikeyNotRestrictedConst = "NOT_RESTRICTED"
-	AccountSettingsResponseRestrictCreatePlatformApikeyNotSetConst = "NOT_SET"
-	AccountSettingsResponseRestrictCreatePlatformApikeyRestrictedConst = "RESTRICTED"
+	AccountSettingsResponseRestrictCreatePlatformApikeyNotSetConst        = "NOT_SET"
+	AccountSettingsResponseRestrictCreatePlatformApikeyRestrictedConst    = "RESTRICTED"
 )
 
 // Constants associated with the AccountSettingsResponse.Mfa property.
@@ -1357,11 +1358,11 @@ const (
 //   * LEVEL2 - TOTP-based MFA for all users
 //   * LEVEL3 - U2F MFA for all users.
 const (
-	AccountSettingsResponseMfaLevel1Const = "LEVEL1"
-	AccountSettingsResponseMfaLevel2Const = "LEVEL2"
-	AccountSettingsResponseMfaLevel3Const = "LEVEL3"
-	AccountSettingsResponseMfaNoneConst = "NONE"
-	AccountSettingsResponseMfaTotpConst = "TOTP"
+	AccountSettingsResponseMfaLevel1Const   = "LEVEL1"
+	AccountSettingsResponseMfaLevel2Const   = "LEVEL2"
+	AccountSettingsResponseMfaLevel3Const   = "LEVEL3"
+	AccountSettingsResponseMfaNoneConst     = "NONE"
+	AccountSettingsResponseMfaTotpConst     = "TOTP"
 	AccountSettingsResponseMfaTotp4allConst = "TOTP4ALL"
 )
 
@@ -1683,7 +1684,7 @@ type CreateAPIKeyOptions struct {
 // NewCreateAPIKeyOptions : Instantiate CreateAPIKeyOptions
 func (*IamIdentityV1) NewCreateAPIKeyOptions(name string, iamID string) *CreateAPIKeyOptions {
 	return &CreateAPIKeyOptions{
-		Name: core.StringPtr(name),
+		Name:  core.StringPtr(name),
 		IamID: core.StringPtr(iamID),
 	}
 }
@@ -1766,7 +1767,7 @@ type CreateServiceIDOptions struct {
 func (*IamIdentityV1) NewCreateServiceIDOptions(accountID string, name string) *CreateServiceIDOptions {
 	return &CreateServiceIDOptions{
 		AccountID: core.StringPtr(accountID),
-		Name: core.StringPtr(name),
+		Name:      core.StringPtr(name),
 	}
 }
 
@@ -2107,20 +2108,20 @@ type ListAPIKeysOptions struct {
 // Optional parameter to define the scope of the queried API Keys. Can be 'entity' (default) or 'account'.
 const (
 	ListAPIKeysOptionsScopeAccountConst = "account"
-	ListAPIKeysOptionsScopeEntityConst = "entity"
+	ListAPIKeysOptionsScopeEntityConst  = "entity"
 )
 
 // Constants associated with the ListAPIKeysOptions.Type property.
 // Optional parameter to filter the type of the queried API Keys. Can be 'user' or 'serviceid'.
 const (
 	ListAPIKeysOptionsTypeServiceidConst = "serviceid"
-	ListAPIKeysOptionsTypeUserConst = "user"
+	ListAPIKeysOptionsTypeUserConst      = "user"
 )
 
 // Constants associated with the ListAPIKeysOptions.Order property.
 // Optional sort order, valid values are asc and desc. Default: asc.
 const (
-	ListAPIKeysOptionsOrderAscConst = "asc"
+	ListAPIKeysOptionsOrderAscConst  = "asc"
 	ListAPIKeysOptionsOrderDescConst = "desc"
 )
 
@@ -2220,7 +2221,7 @@ type ListServiceIdsOptions struct {
 // Constants associated with the ListServiceIdsOptions.Order property.
 // Optional sort order, valid values are asc and desc. Default: asc.
 const (
-	ListServiceIdsOptionsOrderAscConst = "asc"
+	ListServiceIdsOptionsOrderAscConst  = "asc"
 	ListServiceIdsOptionsOrderDescConst = "desc"
 )
 
@@ -2709,8 +2710,8 @@ type UpdateAccountSettingsOptions struct {
 //   * NOT_SET - to unset a previously set value.
 const (
 	UpdateAccountSettingsOptionsRestrictCreateServiceIDNotRestrictedConst = "NOT_RESTRICTED"
-	UpdateAccountSettingsOptionsRestrictCreateServiceIDNotSetConst = "NOT_SET"
-	UpdateAccountSettingsOptionsRestrictCreateServiceIDRestrictedConst = "RESTRICTED"
+	UpdateAccountSettingsOptionsRestrictCreateServiceIDNotSetConst        = "NOT_SET"
+	UpdateAccountSettingsOptionsRestrictCreateServiceIDRestrictedConst    = "RESTRICTED"
 )
 
 // Constants associated with the UpdateAccountSettingsOptions.RestrictCreatePlatformApikey property.
@@ -2720,8 +2721,8 @@ const (
 //   * NOT_SET - to 'unset' a previous set value.
 const (
 	UpdateAccountSettingsOptionsRestrictCreatePlatformApikeyNotRestrictedConst = "NOT_RESTRICTED"
-	UpdateAccountSettingsOptionsRestrictCreatePlatformApikeyNotSetConst = "NOT_SET"
-	UpdateAccountSettingsOptionsRestrictCreatePlatformApikeyRestrictedConst = "RESTRICTED"
+	UpdateAccountSettingsOptionsRestrictCreatePlatformApikeyNotSetConst        = "NOT_SET"
+	UpdateAccountSettingsOptionsRestrictCreatePlatformApikeyRestrictedConst    = "RESTRICTED"
 )
 
 // Constants associated with the UpdateAccountSettingsOptions.Mfa property.
@@ -2733,18 +2734,18 @@ const (
 //   * LEVEL2 - TOTP-based MFA for all users
 //   * LEVEL3 - U2F MFA for all users.
 const (
-	UpdateAccountSettingsOptionsMfaLevel1Const = "LEVEL1"
-	UpdateAccountSettingsOptionsMfaLevel2Const = "LEVEL2"
-	UpdateAccountSettingsOptionsMfaLevel3Const = "LEVEL3"
-	UpdateAccountSettingsOptionsMfaNoneConst = "NONE"
-	UpdateAccountSettingsOptionsMfaTotpConst = "TOTP"
+	UpdateAccountSettingsOptionsMfaLevel1Const   = "LEVEL1"
+	UpdateAccountSettingsOptionsMfaLevel2Const   = "LEVEL2"
+	UpdateAccountSettingsOptionsMfaLevel3Const   = "LEVEL3"
+	UpdateAccountSettingsOptionsMfaNoneConst     = "NONE"
+	UpdateAccountSettingsOptionsMfaTotpConst     = "TOTP"
 	UpdateAccountSettingsOptionsMfaTotp4allConst = "TOTP4ALL"
 )
 
 // NewUpdateAccountSettingsOptions : Instantiate UpdateAccountSettingsOptions
 func (*IamIdentityV1) NewUpdateAccountSettingsOptions(ifMatch string, accountID string) *UpdateAccountSettingsOptions {
 	return &UpdateAccountSettingsOptions{
-		IfMatch: core.StringPtr(ifMatch),
+		IfMatch:   core.StringPtr(ifMatch),
 		AccountID: core.StringPtr(accountID),
 	}
 }
@@ -2834,7 +2835,7 @@ type UpdateAPIKeyOptions struct {
 // NewUpdateAPIKeyOptions : Instantiate UpdateAPIKeyOptions
 func (*IamIdentityV1) NewUpdateAPIKeyOptions(id string, ifMatch string) *UpdateAPIKeyOptions {
 	return &UpdateAPIKeyOptions{
-		ID: core.StringPtr(id),
+		ID:      core.StringPtr(id),
 		IfMatch: core.StringPtr(ifMatch),
 	}
 }
@@ -2898,7 +2899,7 @@ type UpdateServiceIDOptions struct {
 // NewUpdateServiceIDOptions : Instantiate UpdateServiceIDOptions
 func (*IamIdentityV1) NewUpdateServiceIDOptions(id string, ifMatch string) *UpdateServiceIDOptions {
 	return &UpdateServiceIDOptions{
-		ID: core.StringPtr(id),
+		ID:      core.StringPtr(id),
 		IfMatch: core.StringPtr(ifMatch),
 	}
 }
