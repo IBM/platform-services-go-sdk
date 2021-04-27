@@ -15,7 +15,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-212f8afa-20210222-123519
+ * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-3dfbf8b1-20210427-155443
  */
 
 // Package catalogmanagementv1 : Operations and models for the CatalogManagementV1 service
@@ -25,12 +25,13 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"github.com/IBM/go-sdk-core/v5/core"
-	common "github.com/IBM/platform-services-go-sdk/common"
-	"github.com/go-openapi/strfmt"
 	"net/http"
 	"reflect"
 	"time"
+
+	"github.com/IBM/go-sdk-core/v5/core"
+	common "github.com/IBM/platform-services-go-sdk/common"
+	"github.com/go-openapi/strfmt"
 )
 
 // CatalogManagementV1 : This is the API to use for managing private catalogs for IBM Cloud. Private catalogs provide a
@@ -490,6 +491,9 @@ func (catalogManagement *CatalogManagementV1) CreateCatalogWithContext(ctx conte
 	if createCatalogOptions.SyndicationSettings != nil {
 		body["syndication_settings"] = createCatalogOptions.SyndicationSettings
 	}
+	if createCatalogOptions.Kind != nil {
+		body["kind"] = createCatalogOptions.Kind
+	}
 	_, err = builder.SetBodyContentJSON(body)
 	if err != nil {
 		return
@@ -648,6 +652,9 @@ func (catalogManagement *CatalogManagementV1) ReplaceCatalogWithContext(ctx cont
 	}
 	if replaceCatalogOptions.SyndicationSettings != nil {
 		body["syndication_settings"] = replaceCatalogOptions.SyndicationSettings
+	}
+	if replaceCatalogOptions.Kind != nil {
+		body["kind"] = replaceCatalogOptions.Kind
 	}
 	_, err = builder.SetBodyContentJSON(body)
 	if err != nil {
@@ -1179,6 +1186,9 @@ func (catalogManagement *CatalogManagementV1) CreateOfferingWithContext(ctx cont
 	if createOfferingOptions.Tags != nil {
 		body["tags"] = createOfferingOptions.Tags
 	}
+	if createOfferingOptions.Keywords != nil {
+		body["keywords"] = createOfferingOptions.Keywords
+	}
 	if createOfferingOptions.Rating != nil {
 		body["rating"] = createOfferingOptions.Rating
 	}
@@ -1316,6 +1326,9 @@ func (catalogManagement *CatalogManagementV1) ImportOfferingVersionWithContext(c
 	if importOfferingVersionOptions.IncludeConfig != nil {
 		builder.AddQuery("includeConfig", fmt.Sprint(*importOfferingVersionOptions.IncludeConfig))
 	}
+	if importOfferingVersionOptions.IsVsi != nil {
+		builder.AddQuery("isVSI", fmt.Sprint(*importOfferingVersionOptions.IsVsi))
+	}
 	if importOfferingVersionOptions.RepoType != nil {
 		builder.AddQuery("repoType", fmt.Sprint(*importOfferingVersionOptions.RepoType))
 	}
@@ -1408,6 +1421,9 @@ func (catalogManagement *CatalogManagementV1) ImportOfferingWithContext(ctx cont
 	}
 	if importOfferingOptions.IncludeConfig != nil {
 		builder.AddQuery("includeConfig", fmt.Sprint(*importOfferingOptions.IncludeConfig))
+	}
+	if importOfferingOptions.IsVsi != nil {
+		builder.AddQuery("isVSI", fmt.Sprint(*importOfferingOptions.IsVsi))
 	}
 	if importOfferingOptions.RepoType != nil {
 		builder.AddQuery("repoType", fmt.Sprint(*importOfferingOptions.RepoType))
@@ -1660,6 +1676,9 @@ func (catalogManagement *CatalogManagementV1) ReplaceOfferingWithContext(ctx con
 	}
 	if replaceOfferingOptions.Tags != nil {
 		body["tags"] = replaceOfferingOptions.Tags
+	}
+	if replaceOfferingOptions.Keywords != nil {
+		body["keywords"] = replaceOfferingOptions.Keywords
 	}
 	if replaceOfferingOptions.Rating != nil {
 		body["rating"] = replaceOfferingOptions.Rating
@@ -3876,6 +3895,9 @@ func (catalogManagement *CatalogManagementV1) SearchObjectsWithContext(ctx conte
 	if searchObjectsOptions.Collapse != nil {
 		builder.AddQuery("collapse", fmt.Sprint(*searchObjectsOptions.Collapse))
 	}
+	if searchObjectsOptions.Digest != nil {
+		builder.AddQuery("digest", fmt.Sprint(*searchObjectsOptions.Digest))
+	}
 
 	request, err := builder.Build()
 	if err != nil {
@@ -5669,6 +5691,9 @@ type Catalog struct {
 
 	// Feature information.
 	SyndicationSettings *SyndicationResource `json:"syndication_settings,omitempty"`
+
+	// Kind of catalog. Supported kinds are offering and vpe.
+	Kind *string `json:"kind,omitempty"`
 }
 
 // UnmarshalCatalog unmarshals an instance of Catalog from the specified map of raw messages.
@@ -5739,6 +5764,10 @@ func UnmarshalCatalog(m map[string]json.RawMessage, result interface{}) (err err
 		return
 	}
 	err = core.UnmarshalModel(m, "syndication_settings", &obj.SyndicationSettings, UnmarshalSyndicationResource)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "kind", &obj.Kind)
 	if err != nil {
 		return
 	}
@@ -6170,6 +6199,9 @@ type CreateCatalogOptions struct {
 	// Feature information.
 	SyndicationSettings *SyndicationResource
 
+	// Kind of catalog. Supported kinds are offering and vpe.
+	Kind *string
+
 	// Allows users to set headers on API requests
 	Headers map[string]string
 }
@@ -6248,6 +6280,12 @@ func (options *CreateCatalogOptions) SetCatalogFilters(catalogFilters *Filters) 
 // SetSyndicationSettings : Allow user to set SyndicationSettings
 func (options *CreateCatalogOptions) SetSyndicationSettings(syndicationSettings *SyndicationResource) *CreateCatalogOptions {
 	options.SyndicationSettings = syndicationSettings
+	return options
+}
+
+// SetKind : Allow user to set Kind
+func (options *CreateCatalogOptions) SetKind(kind string) *CreateCatalogOptions {
+	options.Kind = core.StringPtr(kind)
 	return options
 }
 
@@ -6773,6 +6811,9 @@ type CreateOfferingOptions struct {
 	// List of tags associated with this catalog.
 	Tags []string
 
+	// List of keywords associated with offering, typically used to search for it.
+	Keywords []string
+
 	// Repository info for offerings.
 	Rating *Rating
 
@@ -6910,6 +6951,12 @@ func (options *CreateOfferingOptions) SetOfferingSupportURL(offeringSupportURL s
 // SetTags : Allow user to set Tags
 func (options *CreateOfferingOptions) SetTags(tags []string) *CreateOfferingOptions {
 	options.Tags = tags
+	return options
+}
+
+// SetKeywords : Allow user to set Keywords
+func (options *CreateOfferingOptions) SetKeywords(keywords []string) *CreateOfferingOptions {
+	options.Keywords = keywords
 	return options
 }
 
@@ -9251,6 +9298,9 @@ type ImportOfferingOptions struct {
 	// Add all possible configuration items when creating this version.
 	IncludeConfig *bool
 
+	// Indicates that the current terraform template is used to install a VSI Image.
+	IsVsi *bool
+
 	// The type of repository containing this version.  Valid values are 'public_git' or 'enterprise_git'.
 	RepoType *string
 
@@ -9316,6 +9366,12 @@ func (options *ImportOfferingOptions) SetIncludeConfig(includeConfig bool) *Impo
 	return options
 }
 
+// SetIsVsi : Allow user to set IsVsi
+func (options *ImportOfferingOptions) SetIsVsi(isVsi bool) *ImportOfferingOptions {
+	options.IsVsi = core.BoolPtr(isVsi)
+	return options
+}
+
 // SetRepoType : Allow user to set RepoType
 func (options *ImportOfferingOptions) SetRepoType(repoType string) *ImportOfferingOptions {
 	options.RepoType = core.StringPtr(repoType)
@@ -9359,6 +9415,9 @@ type ImportOfferingVersionOptions struct {
 
 	// Add all possible configuration values to this version when importing.
 	IncludeConfig *bool
+
+	// Indicates that the current terraform template is used to install a VSI Image.
+	IsVsi *bool
 
 	// The type of repository containing this version.  Valid values are 'public_git' or 'enterprise_git'.
 	RepoType *string
@@ -9420,6 +9479,12 @@ func (options *ImportOfferingVersionOptions) SetTargetVersion(targetVersion stri
 // SetIncludeConfig : Allow user to set IncludeConfig
 func (options *ImportOfferingVersionOptions) SetIncludeConfig(includeConfig bool) *ImportOfferingVersionOptions {
 	options.IncludeConfig = core.BoolPtr(includeConfig)
+	return options
+}
+
+// SetIsVsi : Allow user to set IsVsi
+func (options *ImportOfferingVersionOptions) SetIsVsi(isVsi bool) *ImportOfferingVersionOptions {
+	options.IsVsi = core.BoolPtr(isVsi)
 	return options
 }
 
@@ -10763,6 +10828,9 @@ type Offering struct {
 	// List of tags associated with this catalog.
 	Tags []string `json:"tags,omitempty"`
 
+	// List of keywords associated with offering, typically used to search for it.
+	Keywords []string `json:"keywords,omitempty"`
+
 	// Repository info for offerings.
 	Rating *Rating `json:"rating,omitempty"`
 
@@ -10867,6 +10935,10 @@ func UnmarshalOffering(m map[string]json.RawMessage, result interface{}) (err er
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "tags", &obj.Tags)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "keywords", &obj.Keywords)
 	if err != nil {
 		return
 	}
@@ -11872,6 +11944,9 @@ type ReplaceCatalogOptions struct {
 	// Feature information.
 	SyndicationSettings *SyndicationResource
 
+	// Kind of catalog. Supported kinds are offering and vpe.
+	Kind *string
+
 	// Allows users to set headers on API requests
 	Headers map[string]string
 }
@@ -11958,6 +12033,12 @@ func (options *ReplaceCatalogOptions) SetCatalogFilters(catalogFilters *Filters)
 // SetSyndicationSettings : Allow user to set SyndicationSettings
 func (options *ReplaceCatalogOptions) SetSyndicationSettings(syndicationSettings *SyndicationResource) *ReplaceCatalogOptions {
 	options.SyndicationSettings = syndicationSettings
+	return options
+}
+
+// SetKind : Allow user to set Kind
+func (options *ReplaceCatalogOptions) SetKind(kind string) *ReplaceCatalogOptions {
+	options.Kind = core.StringPtr(kind)
 	return options
 }
 
@@ -12262,6 +12343,9 @@ type ReplaceOfferingOptions struct {
 	// List of tags associated with this catalog.
 	Tags []string
 
+	// List of keywords associated with offering, typically used to search for it.
+	Keywords []string
+
 	// Repository info for offerings.
 	Rating *Rating
 
@@ -12406,6 +12490,12 @@ func (options *ReplaceOfferingOptions) SetOfferingSupportURL(offeringSupportURL 
 // SetTags : Allow user to set Tags
 func (options *ReplaceOfferingOptions) SetTags(tags []string) *ReplaceOfferingOptions {
 	options.Tags = tags
+	return options
+}
+
+// SetKeywords : Allow user to set Keywords
+func (options *ReplaceOfferingOptions) SetKeywords(keywords []string) *ReplaceOfferingOptions {
+	options.Keywords = keywords
 	return options
 }
 
@@ -12732,6 +12822,9 @@ type SearchObjectsOptions struct {
 	// When true, hide private objects that correspond to public or IBM published objects.
 	Collapse *bool
 
+	// Display a digests of search results, has default value of true.
+	Digest *bool
+
 	// Allows users to set headers on API requests
 	Headers map[string]string
 }
@@ -12764,6 +12857,12 @@ func (options *SearchObjectsOptions) SetOffset(offset int64) *SearchObjectsOptio
 // SetCollapse : Allow user to set Collapse
 func (options *SearchObjectsOptions) SetCollapse(collapse bool) *SearchObjectsOptions {
 	options.Collapse = core.BoolPtr(collapse)
+	return options
+}
+
+// SetDigest : Allow user to set Digest
+func (options *SearchObjectsOptions) SetDigest(digest bool) *SearchObjectsOptions {
+	options.Digest = core.BoolPtr(digest)
 	return options
 }
 
