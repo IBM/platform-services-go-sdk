@@ -17,9 +17,10 @@
 package catalogmanagementv1_test
 
 import (
+	"testing"
+
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
-	"testing"
 )
 
 func TestCatalogManagementV1(t *testing.T) {
