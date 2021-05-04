@@ -58,7 +58,7 @@ Service Name | Package name
 [Global Tagging](https://cloud.ibm.com/apidocs/tagging) | globaltaggingv1
 [IAM Access Groups](https://cloud.ibm.com/apidocs/iam-access-groups) | iamaccessgroupsv2
 [IAM Identity Service](https://cloud.ibm.com/apidocs/iam-identity-token-api) | iamidentityv1
-[IAM Policy Managemenet](https://cloud.ibm.com/apidocs/iam-policy-management) | iampolicymanagementv1
+[IAM Policy Management](https://cloud.ibm.com/apidocs/iam-policy-management) | iampolicymanagementv1
 [Open Service Broker](https://cloud.ibm.com/apidocs/resource-controller/ibm-cloud-osb-api) | openservicebrokerv1
 [Posture Management](https://cloud.ibm.com/apidocs/security-compliance/posture) | posturemanagementv1
 [Resource Controller](https://cloud.ibm.com/apidocs/resource-controller/resource-controller) | resourcecontrollerv2
