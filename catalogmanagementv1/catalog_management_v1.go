@@ -15,7 +15,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-3dfbf8b1-20210427-155443
+ * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-902c9336-20210506-113923
  */
 
 // Package catalogmanagementv1 : Operations and models for the CatalogManagementV1 service
@@ -202,11 +202,13 @@ func (catalogManagement *CatalogManagementV1) GetCatalogAccountWithContext(ctx c
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalAccount)
-	if err != nil {
-		return
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalAccount)
+		if err != nil {
+			return
+		}
+		response.Result = result
 	}
-	response.Result = result
 
 	return
 }
@@ -308,11 +310,13 @@ func (catalogManagement *CatalogManagementV1) GetCatalogAccountAuditWithContext(
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalAuditLog)
-	if err != nil {
-		return
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalAuditLog)
+		if err != nil {
+			return
+		}
+		response.Result = result
 	}
-	response.Result = result
 
 	return
 }
@@ -362,11 +366,13 @@ func (catalogManagement *CatalogManagementV1) GetCatalogAccountFiltersWithContex
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalAccumulatedFilters)
-	if err != nil {
-		return
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalAccumulatedFilters)
+		if err != nil {
+			return
+		}
+		response.Result = result
 	}
-	response.Result = result
 
 	return
 }
@@ -413,11 +419,13 @@ func (catalogManagement *CatalogManagementV1) ListCatalogsWithContext(ctx contex
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalCatalogSearchResult)
-	if err != nil {
-		return
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalCatalogSearchResult)
+		if err != nil {
+			return
+		}
+		response.Result = result
 	}
-	response.Result = result
 
 	return
 }
@@ -509,11 +517,13 @@ func (catalogManagement *CatalogManagementV1) CreateCatalogWithContext(ctx conte
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalCatalog)
-	if err != nil {
-		return
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalCatalog)
+		if err != nil {
+			return
+		}
+		response.Result = result
 	}
-	response.Result = result
 
 	return
 }
@@ -567,11 +577,13 @@ func (catalogManagement *CatalogManagementV1) GetCatalogWithContext(ctx context.
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalCatalog)
-	if err != nil {
-		return
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalCatalog)
+		if err != nil {
+			return
+		}
+		response.Result = result
 	}
-	response.Result = result
 
 	return
 }
@@ -671,11 +683,13 @@ func (catalogManagement *CatalogManagementV1) ReplaceCatalogWithContext(ctx cont
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalCatalog)
-	if err != nil {
-		return
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalCatalog)
+		if err != nil {
+			return
+		}
+		response.Result = result
 	}
-	response.Result = result
 
 	return
 }
@@ -777,194 +791,13 @@ func (catalogManagement *CatalogManagementV1) GetCatalogAuditWithContext(ctx con
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalAuditLog)
-	if err != nil {
-		return
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalAuditLog)
+		if err != nil {
+			return
+		}
+		response.Result = result
 	}
-	response.Result = result
-
-	return
-}
-
-// GetEnterprise : Get enterprise settings
-// Get the enterprise settings for the specified enterprise ID.
-func (catalogManagement *CatalogManagementV1) GetEnterprise(getEnterpriseOptions *GetEnterpriseOptions) (result *Enterprise, response *core.DetailedResponse, err error) {
-	return catalogManagement.GetEnterpriseWithContext(context.Background(), getEnterpriseOptions)
-}
-
-// GetEnterpriseWithContext is an alternate form of the GetEnterprise method which supports a Context parameter
-func (catalogManagement *CatalogManagementV1) GetEnterpriseWithContext(ctx context.Context, getEnterpriseOptions *GetEnterpriseOptions) (result *Enterprise, response *core.DetailedResponse, err error) {
-	err = core.ValidateNotNil(getEnterpriseOptions, "getEnterpriseOptions cannot be nil")
-	if err != nil {
-		return
-	}
-	err = core.ValidateStruct(getEnterpriseOptions, "getEnterpriseOptions")
-	if err != nil {
-		return
-	}
-
-	pathParamsMap := map[string]string{
-		"enterprise_id": *getEnterpriseOptions.EnterpriseID,
-	}
-
-	builder := core.NewRequestBuilder(core.GET)
-	builder = builder.WithContext(ctx)
-	builder.EnableGzipCompression = catalogManagement.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(catalogManagement.Service.Options.URL, `/enterprises/{enterprise_id}`, pathParamsMap)
-	if err != nil {
-		return
-	}
-
-	for headerName, headerValue := range getEnterpriseOptions.Headers {
-		builder.AddHeader(headerName, headerValue)
-	}
-
-	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "GetEnterprise")
-	for headerName, headerValue := range sdkHeaders {
-		builder.AddHeader(headerName, headerValue)
-	}
-	builder.AddHeader("Accept", "application/json")
-
-	request, err := builder.Build()
-	if err != nil {
-		return
-	}
-
-	var rawResponse map[string]json.RawMessage
-	response, err = catalogManagement.Service.Request(request, &rawResponse)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalEnterprise)
-	if err != nil {
-		return
-	}
-	response.Result = result
-
-	return
-}
-
-// UpdateEnterprise : Update enterprise settings
-// Update the settings for an enterprise.
-func (catalogManagement *CatalogManagementV1) UpdateEnterprise(updateEnterpriseOptions *UpdateEnterpriseOptions) (response *core.DetailedResponse, err error) {
-	return catalogManagement.UpdateEnterpriseWithContext(context.Background(), updateEnterpriseOptions)
-}
-
-// UpdateEnterpriseWithContext is an alternate form of the UpdateEnterprise method which supports a Context parameter
-func (catalogManagement *CatalogManagementV1) UpdateEnterpriseWithContext(ctx context.Context, updateEnterpriseOptions *UpdateEnterpriseOptions) (response *core.DetailedResponse, err error) {
-	err = core.ValidateNotNil(updateEnterpriseOptions, "updateEnterpriseOptions cannot be nil")
-	if err != nil {
-		return
-	}
-	err = core.ValidateStruct(updateEnterpriseOptions, "updateEnterpriseOptions")
-	if err != nil {
-		return
-	}
-
-	pathParamsMap := map[string]string{
-		"enterprise_id": *updateEnterpriseOptions.EnterpriseID,
-	}
-
-	builder := core.NewRequestBuilder(core.PUT)
-	builder = builder.WithContext(ctx)
-	builder.EnableGzipCompression = catalogManagement.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(catalogManagement.Service.Options.URL, `/enterprises/{enterprise_id}`, pathParamsMap)
-	if err != nil {
-		return
-	}
-
-	for headerName, headerValue := range updateEnterpriseOptions.Headers {
-		builder.AddHeader(headerName, headerValue)
-	}
-
-	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "UpdateEnterprise")
-	for headerName, headerValue := range sdkHeaders {
-		builder.AddHeader(headerName, headerValue)
-	}
-	builder.AddHeader("Content-Type", "application/json")
-
-	body := make(map[string]interface{})
-	if updateEnterpriseOptions.ID != nil {
-		body["id"] = updateEnterpriseOptions.ID
-	}
-	if updateEnterpriseOptions.Rev != nil {
-		body["_rev"] = updateEnterpriseOptions.Rev
-	}
-	if updateEnterpriseOptions.AccountFilters != nil {
-		body["account_filters"] = updateEnterpriseOptions.AccountFilters
-	}
-	if updateEnterpriseOptions.AccountGroups != nil {
-		body["account_groups"] = updateEnterpriseOptions.AccountGroups
-	}
-	_, err = builder.SetBodyContentJSON(body)
-	if err != nil {
-		return
-	}
-
-	request, err := builder.Build()
-	if err != nil {
-		return
-	}
-
-	response, err = catalogManagement.Service.Request(request, nil)
-
-	return
-}
-
-// GetEnterpriseAudit : Get enterprise audit log
-// Get the audit log associated with an enterprise.
-func (catalogManagement *CatalogManagementV1) GetEnterpriseAudit(getEnterpriseAuditOptions *GetEnterpriseAuditOptions) (result *AuditLog, response *core.DetailedResponse, err error) {
-	return catalogManagement.GetEnterpriseAuditWithContext(context.Background(), getEnterpriseAuditOptions)
-}
-
-// GetEnterpriseAuditWithContext is an alternate form of the GetEnterpriseAudit method which supports a Context parameter
-func (catalogManagement *CatalogManagementV1) GetEnterpriseAuditWithContext(ctx context.Context, getEnterpriseAuditOptions *GetEnterpriseAuditOptions) (result *AuditLog, response *core.DetailedResponse, err error) {
-	err = core.ValidateNotNil(getEnterpriseAuditOptions, "getEnterpriseAuditOptions cannot be nil")
-	if err != nil {
-		return
-	}
-	err = core.ValidateStruct(getEnterpriseAuditOptions, "getEnterpriseAuditOptions")
-	if err != nil {
-		return
-	}
-
-	pathParamsMap := map[string]string{
-		"enterprise_id": *getEnterpriseAuditOptions.EnterpriseID,
-	}
-
-	builder := core.NewRequestBuilder(core.GET)
-	builder = builder.WithContext(ctx)
-	builder.EnableGzipCompression = catalogManagement.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(catalogManagement.Service.Options.URL, `/enterprises/{enterprise_id}/audit`, pathParamsMap)
-	if err != nil {
-		return
-	}
-
-	for headerName, headerValue := range getEnterpriseAuditOptions.Headers {
-		builder.AddHeader(headerName, headerValue)
-	}
-
-	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "GetEnterpriseAudit")
-	for headerName, headerValue := range sdkHeaders {
-		builder.AddHeader(headerName, headerValue)
-	}
-	builder.AddHeader("Accept", "application/json")
-
-	request, err := builder.Build()
-	if err != nil {
-		return
-	}
-
-	var rawResponse map[string]json.RawMessage
-	response, err = catalogManagement.Service.Request(request, &rawResponse)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalAuditLog)
-	if err != nil {
-		return
-	}
-	response.Result = result
 
 	return
 }
@@ -1031,11 +864,13 @@ func (catalogManagement *CatalogManagementV1) GetConsumptionOfferingsWithContext
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalOfferingSearchResult)
-	if err != nil {
-		return
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalOfferingSearchResult)
+		if err != nil {
+			return
+		}
+		response.Result = result
 	}
-	response.Result = result
 
 	return
 }
@@ -1106,11 +941,13 @@ func (catalogManagement *CatalogManagementV1) ListOfferingsWithContext(ctx conte
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalOfferingSearchResult)
-	if err != nil {
-		return
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalOfferingSearchResult)
+		if err != nil {
+			return
+		}
+		response.Result = result
 	}
-	response.Result = result
 
 	return
 }
@@ -1267,11 +1104,13 @@ func (catalogManagement *CatalogManagementV1) CreateOfferingWithContext(ctx cont
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalOffering)
-	if err != nil {
-		return
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalOffering)
+		if err != nil {
+			return
+		}
+		response.Result = result
 	}
-	response.Result = result
 
 	return
 }
@@ -1358,11 +1197,13 @@ func (catalogManagement *CatalogManagementV1) ImportOfferingVersionWithContext(c
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalOffering)
-	if err != nil {
-		return
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalOffering)
+		if err != nil {
+			return
+		}
+		response.Result = result
 	}
-	response.Result = result
 
 	return
 }
@@ -1454,11 +1295,13 @@ func (catalogManagement *CatalogManagementV1) ImportOfferingWithContext(ctx cont
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalOffering)
-	if err != nil {
-		return
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalOffering)
+		if err != nil {
+			return
+		}
+		response.Result = result
 	}
-	response.Result = result
 
 	return
 }
@@ -1537,11 +1380,13 @@ func (catalogManagement *CatalogManagementV1) ReloadOfferingWithContext(ctx cont
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalOffering)
-	if err != nil {
-		return
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalOffering)
+		if err != nil {
+			return
+		}
+		response.Result = result
 	}
-	response.Result = result
 
 	return
 }
@@ -1596,11 +1441,13 @@ func (catalogManagement *CatalogManagementV1) GetOfferingWithContext(ctx context
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalOffering)
-	if err != nil {
-		return
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalOffering)
+		if err != nil {
+			return
+		}
+		response.Result = result
 	}
-	response.Result = result
 
 	return
 }
@@ -1758,11 +1605,13 @@ func (catalogManagement *CatalogManagementV1) ReplaceOfferingWithContext(ctx con
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalOffering)
-	if err != nil {
-		return
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalOffering)
+		if err != nil {
+			return
+		}
+		response.Result = result
 	}
-	response.Result = result
 
 	return
 }
@@ -1866,11 +1715,13 @@ func (catalogManagement *CatalogManagementV1) GetOfferingAuditWithContext(ctx co
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalAuditLog)
-	if err != nil {
-		return
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalAuditLog)
+		if err != nil {
+			return
+		}
+		response.Result = result
 	}
-	response.Result = result
 
 	return
 }
@@ -1926,11 +1777,13 @@ func (catalogManagement *CatalogManagementV1) ReplaceOfferingIconWithContext(ctx
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalOffering)
-	if err != nil {
-		return
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalOffering)
+		if err != nil {
+			return
+		}
+		response.Result = result
 	}
-	response.Result = result
 
 	return
 }
@@ -1996,11 +1849,13 @@ func (catalogManagement *CatalogManagementV1) UpdateOfferingIBMWithContext(ctx c
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalApprovalResult)
-	if err != nil {
-		return
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalApprovalResult)
+		if err != nil {
+			return
+		}
+		response.Result = result
 	}
-	response.Result = result
 
 	return
 }
@@ -2072,11 +1927,13 @@ func (catalogManagement *CatalogManagementV1) GetOfferingUpdatesWithContext(ctx 
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalVersionUpdateDescriptor)
-	if err != nil {
-		return
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalVersionUpdateDescriptor)
+		if err != nil {
+			return
+		}
+		response.Result = result
 	}
-	response.Result = result
 
 	return
 }
@@ -2230,11 +2087,13 @@ func (catalogManagement *CatalogManagementV1) GetOfferingContainerImagesWithCont
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalImageManifest)
-	if err != nil {
-		return
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalImageManifest)
+		if err != nil {
+			return
+		}
+		response.Result = result
 	}
-	response.Result = result
 
 	return
 }
@@ -2592,11 +2451,13 @@ func (catalogManagement *CatalogManagementV1) GetOfferingWorkingCopyWithContext(
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalVersion)
-	if err != nil {
-		return
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalVersion)
+		if err != nil {
+			return
+		}
+		response.Result = result
 	}
-	response.Result = result
 
 	return
 }
@@ -2650,11 +2511,13 @@ func (catalogManagement *CatalogManagementV1) GetVersionWithContext(ctx context.
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalOffering)
-	if err != nil {
-		return
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalOffering)
+		if err != nil {
+			return
+		}
+		response.Result = result
 	}
-	response.Result = result
 
 	return
 }
@@ -2704,126 +2567,6 @@ func (catalogManagement *CatalogManagementV1) DeleteVersionWithContext(ctx conte
 	}
 
 	response, err = catalogManagement.Service.Request(request, nil)
-
-	return
-}
-
-// GetRepos : List a repository's entries
-// List the available entries from a given repository.
-func (catalogManagement *CatalogManagementV1) GetRepos(getReposOptions *GetReposOptions) (result *HelmRepoList, response *core.DetailedResponse, err error) {
-	return catalogManagement.GetReposWithContext(context.Background(), getReposOptions)
-}
-
-// GetReposWithContext is an alternate form of the GetRepos method which supports a Context parameter
-func (catalogManagement *CatalogManagementV1) GetReposWithContext(ctx context.Context, getReposOptions *GetReposOptions) (result *HelmRepoList, response *core.DetailedResponse, err error) {
-	err = core.ValidateNotNil(getReposOptions, "getReposOptions cannot be nil")
-	if err != nil {
-		return
-	}
-	err = core.ValidateStruct(getReposOptions, "getReposOptions")
-	if err != nil {
-		return
-	}
-
-	pathParamsMap := map[string]string{
-		"type": *getReposOptions.Type,
-	}
-
-	builder := core.NewRequestBuilder(core.GET)
-	builder = builder.WithContext(ctx)
-	builder.EnableGzipCompression = catalogManagement.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(catalogManagement.Service.Options.URL, `/repo/{type}/entries`, pathParamsMap)
-	if err != nil {
-		return
-	}
-
-	for headerName, headerValue := range getReposOptions.Headers {
-		builder.AddHeader(headerName, headerValue)
-	}
-
-	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "GetRepos")
-	for headerName, headerValue := range sdkHeaders {
-		builder.AddHeader(headerName, headerValue)
-	}
-	builder.AddHeader("Accept", "application/json")
-
-	builder.AddQuery("repourl", fmt.Sprint(*getReposOptions.Repourl))
-
-	request, err := builder.Build()
-	if err != nil {
-		return
-	}
-
-	var rawResponse map[string]json.RawMessage
-	response, err = catalogManagement.Service.Request(request, &rawResponse)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalHelmRepoList)
-	if err != nil {
-		return
-	}
-	response.Result = result
-
-	return
-}
-
-// GetRepo : Get repository contents
-// Get the contents of a given repo.
-func (catalogManagement *CatalogManagementV1) GetRepo(getRepoOptions *GetRepoOptions) (result *HelmPackage, response *core.DetailedResponse, err error) {
-	return catalogManagement.GetRepoWithContext(context.Background(), getRepoOptions)
-}
-
-// GetRepoWithContext is an alternate form of the GetRepo method which supports a Context parameter
-func (catalogManagement *CatalogManagementV1) GetRepoWithContext(ctx context.Context, getRepoOptions *GetRepoOptions) (result *HelmPackage, response *core.DetailedResponse, err error) {
-	err = core.ValidateNotNil(getRepoOptions, "getRepoOptions cannot be nil")
-	if err != nil {
-		return
-	}
-	err = core.ValidateStruct(getRepoOptions, "getRepoOptions")
-	if err != nil {
-		return
-	}
-
-	pathParamsMap := map[string]string{
-		"type": *getRepoOptions.Type,
-	}
-
-	builder := core.NewRequestBuilder(core.GET)
-	builder = builder.WithContext(ctx)
-	builder.EnableGzipCompression = catalogManagement.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(catalogManagement.Service.Options.URL, `/repo/{type}`, pathParamsMap)
-	if err != nil {
-		return
-	}
-
-	for headerName, headerValue := range getRepoOptions.Headers {
-		builder.AddHeader(headerName, headerValue)
-	}
-
-	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "GetRepo")
-	for headerName, headerValue := range sdkHeaders {
-		builder.AddHeader(headerName, headerValue)
-	}
-	builder.AddHeader("Accept", "application/json")
-
-	builder.AddQuery("charturl", fmt.Sprint(*getRepoOptions.Charturl))
-
-	request, err := builder.Build()
-	if err != nil {
-		return
-	}
-
-	var rawResponse map[string]json.RawMessage
-	response, err = catalogManagement.Service.Request(request, &rawResponse)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalHelmPackage)
-	if err != nil {
-		return
-	}
-	response.Result = result
 
 	return
 }
@@ -2882,11 +2625,13 @@ func (catalogManagement *CatalogManagementV1) GetClusterWithContext(ctx context.
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalClusterInfo)
-	if err != nil {
-		return
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalClusterInfo)
+		if err != nil {
+			return
+		}
+		response.Result = result
 	}
-	response.Result = result
 
 	return
 }
@@ -2951,11 +2696,13 @@ func (catalogManagement *CatalogManagementV1) GetNamespacesWithContext(ctx conte
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalNamespaceSearchResult)
-	if err != nil {
-		return
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalNamespaceSearchResult)
+		if err != nil {
+			return
+		}
+		response.Result = result
 	}
-	response.Result = result
 
 	return
 }
@@ -3030,11 +2777,13 @@ func (catalogManagement *CatalogManagementV1) DeployOperatorsWithContext(ctx con
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalOperatorDeployResult)
-	if err != nil {
-		return
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalOperatorDeployResult)
+		if err != nil {
+			return
+		}
+		response.Result = result
 	}
-	response.Result = result
 
 	return
 }
@@ -3091,11 +2840,13 @@ func (catalogManagement *CatalogManagementV1) ListOperatorsWithContext(ctx conte
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalOperatorDeployResult)
-	if err != nil {
-		return
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalOperatorDeployResult)
+		if err != nil {
+			return
+		}
+		response.Result = result
 	}
-	response.Result = result
 
 	return
 }
@@ -3170,11 +2921,13 @@ func (catalogManagement *CatalogManagementV1) ReplaceOperatorsWithContext(ctx co
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalOperatorDeployResult)
-	if err != nil {
-		return
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalOperatorDeployResult)
+		if err != nil {
+			return
+		}
+		response.Result = result
 	}
-	response.Result = result
 
 	return
 }
@@ -3492,11 +3245,13 @@ func (catalogManagement *CatalogManagementV1) GetPreinstallWithContext(ctx conte
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalInstallStatus)
-	if err != nil {
-		return
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalInstallStatus)
+		if err != nil {
+			return
+		}
+		response.Result = result
 	}
-	response.Result = result
 
 	return
 }
@@ -3653,11 +3408,13 @@ func (catalogManagement *CatalogManagementV1) GetValidationStatusWithContext(ctx
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalValidation)
-	if err != nil {
-		return
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalValidation)
+		if err != nil {
+			return
+		}
+		response.Result = result
 	}
-	response.Result = result
 
 	return
 }
@@ -3707,144 +3464,6 @@ func (catalogManagement *CatalogManagementV1) GetOverrideValuesWithContext(ctx c
 	}
 
 	response, err = catalogManagement.Service.Request(request, &result)
-
-	return
-}
-
-// CreateLicenseEntitlement : Create license entitlement
-// Create an entitlement for a Cloud account.  This is used to give an account an entitlement to a license.
-func (catalogManagement *CatalogManagementV1) CreateLicenseEntitlement(createLicenseEntitlementOptions *CreateLicenseEntitlementOptions) (result *LicenseEntitlement, response *core.DetailedResponse, err error) {
-	return catalogManagement.CreateLicenseEntitlementWithContext(context.Background(), createLicenseEntitlementOptions)
-}
-
-// CreateLicenseEntitlementWithContext is an alternate form of the CreateLicenseEntitlement method which supports a Context parameter
-func (catalogManagement *CatalogManagementV1) CreateLicenseEntitlementWithContext(ctx context.Context, createLicenseEntitlementOptions *CreateLicenseEntitlementOptions) (result *LicenseEntitlement, response *core.DetailedResponse, err error) {
-	err = core.ValidateStruct(createLicenseEntitlementOptions, "createLicenseEntitlementOptions")
-	if err != nil {
-		return
-	}
-
-	builder := core.NewRequestBuilder(core.POST)
-	builder = builder.WithContext(ctx)
-	builder.EnableGzipCompression = catalogManagement.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(catalogManagement.Service.Options.URL, `/license/entitlements`, nil)
-	if err != nil {
-		return
-	}
-
-	for headerName, headerValue := range createLicenseEntitlementOptions.Headers {
-		builder.AddHeader(headerName, headerValue)
-	}
-
-	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "CreateLicenseEntitlement")
-	for headerName, headerValue := range sdkHeaders {
-		builder.AddHeader(headerName, headerValue)
-	}
-	builder.AddHeader("Accept", "application/json")
-	builder.AddHeader("Content-Type", "application/json")
-
-	if createLicenseEntitlementOptions.AccountID != nil {
-		builder.AddQuery("account_id", fmt.Sprint(*createLicenseEntitlementOptions.AccountID))
-	}
-
-	body := make(map[string]interface{})
-	if createLicenseEntitlementOptions.Name != nil {
-		body["name"] = createLicenseEntitlementOptions.Name
-	}
-	if createLicenseEntitlementOptions.EffectiveFrom != nil {
-		body["effective_from"] = createLicenseEntitlementOptions.EffectiveFrom
-	}
-	if createLicenseEntitlementOptions.EffectiveUntil != nil {
-		body["effective_until"] = createLicenseEntitlementOptions.EffectiveUntil
-	}
-	if createLicenseEntitlementOptions.VersionID != nil {
-		body["version_id"] = createLicenseEntitlementOptions.VersionID
-	}
-	if createLicenseEntitlementOptions.LicenseID != nil {
-		body["license_id"] = createLicenseEntitlementOptions.LicenseID
-	}
-	if createLicenseEntitlementOptions.LicenseOwnerID != nil {
-		body["license_owner_id"] = createLicenseEntitlementOptions.LicenseOwnerID
-	}
-	if createLicenseEntitlementOptions.LicenseProviderID != nil {
-		body["license_provider_id"] = createLicenseEntitlementOptions.LicenseProviderID
-	}
-	if createLicenseEntitlementOptions.LicenseProductID != nil {
-		body["license_product_id"] = createLicenseEntitlementOptions.LicenseProductID
-	}
-	_, err = builder.SetBodyContentJSON(body)
-	if err != nil {
-		return
-	}
-
-	request, err := builder.Build()
-	if err != nil {
-		return
-	}
-
-	var rawResponse map[string]json.RawMessage
-	response, err = catalogManagement.Service.Request(request, &rawResponse)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalLicenseEntitlement)
-	if err != nil {
-		return
-	}
-	response.Result = result
-
-	return
-}
-
-// DeleteLicenseEntitlement : Delete license entitlement
-// Delete a license entitlement that is bound to an account. Note that BSS will mark the entitlement field "state":
-// "removed".
-func (catalogManagement *CatalogManagementV1) DeleteLicenseEntitlement(deleteLicenseEntitlementOptions *DeleteLicenseEntitlementOptions) (response *core.DetailedResponse, err error) {
-	return catalogManagement.DeleteLicenseEntitlementWithContext(context.Background(), deleteLicenseEntitlementOptions)
-}
-
-// DeleteLicenseEntitlementWithContext is an alternate form of the DeleteLicenseEntitlement method which supports a Context parameter
-func (catalogManagement *CatalogManagementV1) DeleteLicenseEntitlementWithContext(ctx context.Context, deleteLicenseEntitlementOptions *DeleteLicenseEntitlementOptions) (response *core.DetailedResponse, err error) {
-	err = core.ValidateNotNil(deleteLicenseEntitlementOptions, "deleteLicenseEntitlementOptions cannot be nil")
-	if err != nil {
-		return
-	}
-	err = core.ValidateStruct(deleteLicenseEntitlementOptions, "deleteLicenseEntitlementOptions")
-	if err != nil {
-		return
-	}
-
-	pathParamsMap := map[string]string{
-		"entitlement_id": *deleteLicenseEntitlementOptions.EntitlementID,
-	}
-
-	builder := core.NewRequestBuilder(core.DELETE)
-	builder = builder.WithContext(ctx)
-	builder.EnableGzipCompression = catalogManagement.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(catalogManagement.Service.Options.URL, `/license/entitlements/{entitlement_id}`, pathParamsMap)
-	if err != nil {
-		return
-	}
-
-	for headerName, headerValue := range deleteLicenseEntitlementOptions.Headers {
-		builder.AddHeader(headerName, headerValue)
-	}
-
-	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "DeleteLicenseEntitlement")
-	for headerName, headerValue := range sdkHeaders {
-		builder.AddHeader(headerName, headerValue)
-	}
-
-	if deleteLicenseEntitlementOptions.AccountID != nil {
-		builder.AddQuery("account_id", fmt.Sprint(*deleteLicenseEntitlementOptions.AccountID))
-	}
-
-	request, err := builder.Build()
-	if err != nil {
-		return
-	}
-
-	response, err = catalogManagement.Service.Request(request, nil)
 
 	return
 }
@@ -3909,11 +3528,13 @@ func (catalogManagement *CatalogManagementV1) SearchObjectsWithContext(ctx conte
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalObjectSearchResult)
-	if err != nil {
-		return
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalObjectSearchResult)
+		if err != nil {
+			return
+		}
+		response.Result = result
 	}
-	response.Result = result
 
 	return
 }
@@ -3980,11 +3601,13 @@ func (catalogManagement *CatalogManagementV1) ListObjectsWithContext(ctx context
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalObjectListResult)
-	if err != nil {
-		return
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalObjectListResult)
+		if err != nil {
+			return
+		}
+		response.Result = result
 	}
-	response.Result = result
 
 	return
 }
@@ -4102,11 +3725,13 @@ func (catalogManagement *CatalogManagementV1) CreateObjectWithContext(ctx contex
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalCatalogObject)
-	if err != nil {
-		return
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalCatalogObject)
+		if err != nil {
+			return
+		}
+		response.Result = result
 	}
-	response.Result = result
 
 	return
 }
@@ -4161,11 +3786,13 @@ func (catalogManagement *CatalogManagementV1) GetObjectWithContext(ctx context.C
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalCatalogObject)
-	if err != nil {
-		return
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalCatalogObject)
+		if err != nil {
+			return
+		}
+		response.Result = result
 	}
-	response.Result = result
 
 	return
 }
@@ -4284,11 +3911,13 @@ func (catalogManagement *CatalogManagementV1) ReplaceObjectWithContext(ctx conte
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalCatalogObject)
-	if err != nil {
-		return
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalCatalogObject)
+		if err != nil {
+			return
+		}
+		response.Result = result
 	}
-	response.Result = result
 
 	return
 }
@@ -4392,11 +4021,13 @@ func (catalogManagement *CatalogManagementV1) GetObjectAuditWithContext(ctx cont
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalAuditLog)
-	if err != nil {
-		return
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalAuditLog)
+		if err != nil {
+			return
+		}
+		response.Result = result
 	}
-	response.Result = result
 
 	return
 }
@@ -4698,11 +4329,13 @@ func (catalogManagement *CatalogManagementV1) GetObjectAccessWithContext(ctx con
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalObjectAccess)
-	if err != nil {
-		return
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalObjectAccess)
+		if err != nil {
+			return
+		}
+		response.Result = result
 	}
-	response.Result = result
 
 	return
 }
@@ -4814,11 +4447,13 @@ func (catalogManagement *CatalogManagementV1) GetObjectAccessListWithContext(ctx
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalObjectAccessListResult)
-	if err != nil {
-		return
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalObjectAccessListResult)
+		if err != nil {
+			return
+		}
+		response.Result = result
 	}
-	response.Result = result
 
 	return
 }
@@ -4879,11 +4514,13 @@ func (catalogManagement *CatalogManagementV1) DeleteObjectAccessListWithContext(
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalAccessListBulkResponse)
-	if err != nil {
-		return
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalAccessListBulkResponse)
+		if err != nil {
+			return
+		}
+		response.Result = result
 	}
-	response.Result = result
 
 	return
 }
@@ -4944,11 +4581,13 @@ func (catalogManagement *CatalogManagementV1) AddObjectAccessListWithContext(ctx
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalAccessListBulkResponse)
-	if err != nil {
-		return
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalAccessListBulkResponse)
+		if err != nil {
+			return
+		}
+		response.Result = result
 	}
-	response.Result = result
 
 	return
 }
@@ -5044,11 +4683,13 @@ func (catalogManagement *CatalogManagementV1) CreateOfferingInstanceWithContext(
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalOfferingInstance)
-	if err != nil {
-		return
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalOfferingInstance)
+		if err != nil {
+			return
+		}
+		response.Result = result
 	}
-	response.Result = result
 
 	return
 }
@@ -5102,11 +4743,13 @@ func (catalogManagement *CatalogManagementV1) GetOfferingInstanceWithContext(ctx
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalOfferingInstance)
-	if err != nil {
-		return
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalOfferingInstance)
+		if err != nil {
+			return
+		}
+		response.Result = result
 	}
-	response.Result = result
 
 	return
 }
@@ -5206,11 +4849,13 @@ func (catalogManagement *CatalogManagementV1) PutOfferingInstanceWithContext(ctx
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalOfferingInstance)
-	if err != nil {
-		return
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalOfferingInstance)
+		if err != nil {
+			return
+		}
+		response.Result = result
 	}
-	response.Result = result
 
 	return
 }
@@ -5303,30 +4948,6 @@ func UnmarshalAccount(m map[string]json.RawMessage, result interface{}) (err err
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "hide_IBM_cloud_catalog", &obj.HideIBMCloudCatalog)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalModel(m, "account_filters", &obj.AccountFilters, UnmarshalFilters)
-	if err != nil {
-		return
-	}
-	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
-	return
-}
-
-// AccountGroup : Filters for an Account Group.
-type AccountGroup struct {
-	// Account group identification.
-	ID *string `json:"id,omitempty"`
-
-	// Filters for account and catalog filters.
-	AccountFilters *Filters `json:"account_filters,omitempty"`
-}
-
-// UnmarshalAccountGroup unmarshals an instance of AccountGroup from the specified map of raw messages.
-func UnmarshalAccountGroup(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(AccountGroup)
-	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
 	if err != nil {
 		return
 	}
@@ -6295,104 +5916,6 @@ func (options *CreateCatalogOptions) SetHeaders(param map[string]string) *Create
 	return options
 }
 
-// CreateLicenseEntitlementOptions : The CreateLicenseEntitlement options.
-type CreateLicenseEntitlementOptions struct {
-	// Entitlement name.
-	Name *string
-
-	// Entitlement is good from this starting date. eg. '2019-07-17T21:21:47.6794935Z'.
-	EffectiveFrom *string
-
-	// Entitlement is good until this ending date. eg. '2019-07-17T21:21:47.6794935Z'.
-	EffectiveUntil *string
-
-	// Global Catalog ID of the version.
-	VersionID *string
-
-	// Specific license entitlement ID from the license provider, eg. D1W3R4.
-	LicenseID *string
-
-	// IBM ID of the owner of this license entitlement.
-	LicenseOwnerID *string
-
-	// License provider ID.
-	LicenseProviderID *string
-
-	// License product ID.
-	LicenseProductID *string
-
-	// if not specified the token's account will be used.
-	AccountID *string
-
-	// Allows users to set headers on API requests
-	Headers map[string]string
-}
-
-// NewCreateLicenseEntitlementOptions : Instantiate CreateLicenseEntitlementOptions
-func (*CatalogManagementV1) NewCreateLicenseEntitlementOptions() *CreateLicenseEntitlementOptions {
-	return &CreateLicenseEntitlementOptions{}
-}
-
-// SetName : Allow user to set Name
-func (options *CreateLicenseEntitlementOptions) SetName(name string) *CreateLicenseEntitlementOptions {
-	options.Name = core.StringPtr(name)
-	return options
-}
-
-// SetEffectiveFrom : Allow user to set EffectiveFrom
-func (options *CreateLicenseEntitlementOptions) SetEffectiveFrom(effectiveFrom string) *CreateLicenseEntitlementOptions {
-	options.EffectiveFrom = core.StringPtr(effectiveFrom)
-	return options
-}
-
-// SetEffectiveUntil : Allow user to set EffectiveUntil
-func (options *CreateLicenseEntitlementOptions) SetEffectiveUntil(effectiveUntil string) *CreateLicenseEntitlementOptions {
-	options.EffectiveUntil = core.StringPtr(effectiveUntil)
-	return options
-}
-
-// SetVersionID : Allow user to set VersionID
-func (options *CreateLicenseEntitlementOptions) SetVersionID(versionID string) *CreateLicenseEntitlementOptions {
-	options.VersionID = core.StringPtr(versionID)
-	return options
-}
-
-// SetLicenseID : Allow user to set LicenseID
-func (options *CreateLicenseEntitlementOptions) SetLicenseID(licenseID string) *CreateLicenseEntitlementOptions {
-	options.LicenseID = core.StringPtr(licenseID)
-	return options
-}
-
-// SetLicenseOwnerID : Allow user to set LicenseOwnerID
-func (options *CreateLicenseEntitlementOptions) SetLicenseOwnerID(licenseOwnerID string) *CreateLicenseEntitlementOptions {
-	options.LicenseOwnerID = core.StringPtr(licenseOwnerID)
-	return options
-}
-
-// SetLicenseProviderID : Allow user to set LicenseProviderID
-func (options *CreateLicenseEntitlementOptions) SetLicenseProviderID(licenseProviderID string) *CreateLicenseEntitlementOptions {
-	options.LicenseProviderID = core.StringPtr(licenseProviderID)
-	return options
-}
-
-// SetLicenseProductID : Allow user to set LicenseProductID
-func (options *CreateLicenseEntitlementOptions) SetLicenseProductID(licenseProductID string) *CreateLicenseEntitlementOptions {
-	options.LicenseProductID = core.StringPtr(licenseProductID)
-	return options
-}
-
-// SetAccountID : Allow user to set AccountID
-func (options *CreateLicenseEntitlementOptions) SetAccountID(accountID string) *CreateLicenseEntitlementOptions {
-	options.AccountID = core.StringPtr(accountID)
-	return options
-}
-
-// SetHeaders : Allow user to set Headers
-func (options *CreateLicenseEntitlementOptions) SetHeaders(param map[string]string) *CreateLicenseEntitlementOptions {
-	options.Headers = param
-	return options
-}
-
 // CreateObjectAccessOptions : The CreateObjectAccess options.
 type CreateObjectAccessOptions struct {
 	// Catalog identifier.
@@ -7120,43 +6643,6 @@ func (options *DeleteCatalogOptions) SetHeaders(param map[string]string) *Delete
 	return options
 }
 
-// DeleteLicenseEntitlementOptions : The DeleteLicenseEntitlement options.
-type DeleteLicenseEntitlementOptions struct {
-	// The specific entitlement ID (can be obtained from one of the license entitlement queries).
-	EntitlementID *string `validate:"required,ne="`
-
-	// The account ID to query for the entitlement. Default is the account from the user's token.
-	AccountID *string
-
-	// Allows users to set headers on API requests
-	Headers map[string]string
-}
-
-// NewDeleteLicenseEntitlementOptions : Instantiate DeleteLicenseEntitlementOptions
-func (*CatalogManagementV1) NewDeleteLicenseEntitlementOptions(entitlementID string) *DeleteLicenseEntitlementOptions {
-	return &DeleteLicenseEntitlementOptions{
-		EntitlementID: core.StringPtr(entitlementID),
-	}
-}
-
-// SetEntitlementID : Allow user to set EntitlementID
-func (options *DeleteLicenseEntitlementOptions) SetEntitlementID(entitlementID string) *DeleteLicenseEntitlementOptions {
-	options.EntitlementID = core.StringPtr(entitlementID)
-	return options
-}
-
-// SetAccountID : Allow user to set AccountID
-func (options *DeleteLicenseEntitlementOptions) SetAccountID(accountID string) *DeleteLicenseEntitlementOptions {
-	options.AccountID = core.StringPtr(accountID)
-	return options
-}
-
-// SetHeaders : Allow user to set Headers
-func (options *DeleteLicenseEntitlementOptions) SetHeaders(param map[string]string) *DeleteLicenseEntitlementOptions {
-	options.Headers = param
-	return options
-}
-
 // DeleteObjectAccessListOptions : The DeleteObjectAccessList options.
 type DeleteObjectAccessListOptions struct {
 	// Catalog identifier.
@@ -7665,61 +7151,6 @@ func (options *DeprecateVersionOptions) SetHeaders(param map[string]string) *Dep
 	return options
 }
 
-// Enterprise : Enterprise account information.
-type Enterprise struct {
-	// Enterprise identification.
-	ID *string `json:"id,omitempty"`
-
-	// Cloudant revision.
-	Rev *string `json:"_rev,omitempty"`
-
-	// Filters for account and catalog filters.
-	AccountFilters *Filters `json:"account_filters,omitempty"`
-
-	// Map of account group ids to AccountGroup objects.
-	AccountGroups *EnterpriseAccountGroups `json:"account_groups,omitempty"`
-}
-
-// UnmarshalEnterprise unmarshals an instance of Enterprise from the specified map of raw messages.
-func UnmarshalEnterprise(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(Enterprise)
-	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "_rev", &obj.Rev)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalModel(m, "account_filters", &obj.AccountFilters, UnmarshalFilters)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalModel(m, "account_groups", &obj.AccountGroups, UnmarshalEnterpriseAccountGroups)
-	if err != nil {
-		return
-	}
-	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
-	return
-}
-
-// EnterpriseAccountGroups : Map of account group ids to AccountGroup objects.
-type EnterpriseAccountGroups struct {
-	// Filters for an Account Group.
-	Keys *AccountGroup `json:"keys,omitempty"`
-}
-
-// UnmarshalEnterpriseAccountGroups unmarshals an instance of EnterpriseAccountGroups from the specified map of raw messages.
-func UnmarshalEnterpriseAccountGroups(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(EnterpriseAccountGroups)
-	err = core.UnmarshalModel(m, "keys", &obj.Keys, UnmarshalAccountGroup)
-	if err != nil {
-		return
-	}
-	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
-	return
-}
-
 // Feature : Feature information.
 type Feature struct {
 	// Heading.
@@ -8041,62 +7472,6 @@ func (options *GetConsumptionOfferingsOptions) SetOffset(offset int64) *GetConsu
 
 // SetHeaders : Allow user to set Headers
 func (options *GetConsumptionOfferingsOptions) SetHeaders(param map[string]string) *GetConsumptionOfferingsOptions {
-	options.Headers = param
-	return options
-}
-
-// GetEnterpriseAuditOptions : The GetEnterpriseAudit options.
-type GetEnterpriseAuditOptions struct {
-	// Enterprise identification.
-	EnterpriseID *string `validate:"required,ne="`
-
-	// Allows users to set headers on API requests
-	Headers map[string]string
-}
-
-// NewGetEnterpriseAuditOptions : Instantiate GetEnterpriseAuditOptions
-func (*CatalogManagementV1) NewGetEnterpriseAuditOptions(enterpriseID string) *GetEnterpriseAuditOptions {
-	return &GetEnterpriseAuditOptions{
-		EnterpriseID: core.StringPtr(enterpriseID),
-	}
-}
-
-// SetEnterpriseID : Allow user to set EnterpriseID
-func (options *GetEnterpriseAuditOptions) SetEnterpriseID(enterpriseID string) *GetEnterpriseAuditOptions {
-	options.EnterpriseID = core.StringPtr(enterpriseID)
-	return options
-}
-
-// SetHeaders : Allow user to set Headers
-func (options *GetEnterpriseAuditOptions) SetHeaders(param map[string]string) *GetEnterpriseAuditOptions {
-	options.Headers = param
-	return options
-}
-
-// GetEnterpriseOptions : The GetEnterprise options.
-type GetEnterpriseOptions struct {
-	// Enterprise identification.
-	EnterpriseID *string `validate:"required,ne="`
-
-	// Allows users to set headers on API requests
-	Headers map[string]string
-}
-
-// NewGetEnterpriseOptions : Instantiate GetEnterpriseOptions
-func (*CatalogManagementV1) NewGetEnterpriseOptions(enterpriseID string) *GetEnterpriseOptions {
-	return &GetEnterpriseOptions{
-		EnterpriseID: core.StringPtr(enterpriseID),
-	}
-}
-
-// SetEnterpriseID : Allow user to set EnterpriseID
-func (options *GetEnterpriseOptions) SetEnterpriseID(enterpriseID string) *GetEnterpriseOptions {
-	options.EnterpriseID = core.StringPtr(enterpriseID)
-	return options
-}
-
-// SetHeaders : Allow user to set Headers
-func (options *GetEnterpriseOptions) SetHeaders(param map[string]string) *GetEnterpriseOptions {
 	options.Headers = param
 	return options
 }
@@ -8759,83 +8134,6 @@ func (options *GetPreinstallOptions) SetHeaders(param map[string]string) *GetPre
 	return options
 }
 
-// GetRepoOptions : The GetRepo options.
-type GetRepoOptions struct {
-	// The type of repository (valid repository types: helm).
-	Type *string `validate:"required,ne="`
-
-	// The URL for the repository's chart zip file (e.g
-	// https://registry.bluemix.net/helm/ibm-charts/charts/ibm-redis-ha-dev-1.0.0.tgz).
-	Charturl *string `validate:"required"`
-
-	// Allows users to set headers on API requests
-	Headers map[string]string
-}
-
-// NewGetRepoOptions : Instantiate GetRepoOptions
-func (*CatalogManagementV1) NewGetRepoOptions(typeVar string, charturl string) *GetRepoOptions {
-	return &GetRepoOptions{
-		Type: core.StringPtr(typeVar),
-		Charturl: core.StringPtr(charturl),
-	}
-}
-
-// SetType : Allow user to set Type
-func (options *GetRepoOptions) SetType(typeVar string) *GetRepoOptions {
-	options.Type = core.StringPtr(typeVar)
-	return options
-}
-
-// SetCharturl : Allow user to set Charturl
-func (options *GetRepoOptions) SetCharturl(charturl string) *GetRepoOptions {
-	options.Charturl = core.StringPtr(charturl)
-	return options
-}
-
-// SetHeaders : Allow user to set Headers
-func (options *GetRepoOptions) SetHeaders(param map[string]string) *GetRepoOptions {
-	options.Headers = param
-	return options
-}
-
-// GetReposOptions : The GetRepos options.
-type GetReposOptions struct {
-	// The type of repository (valid repository types: helm).
-	Type *string `validate:"required,ne="`
-
-	// The URL for the repository's root (e.g https://kubernetes-charts-incubator.storage.googleapis.com).
-	Repourl *string `validate:"required"`
-
-	// Allows users to set headers on API requests
-	Headers map[string]string
-}
-
-// NewGetReposOptions : Instantiate GetReposOptions
-func (*CatalogManagementV1) NewGetReposOptions(typeVar string, repourl string) *GetReposOptions {
-	return &GetReposOptions{
-		Type: core.StringPtr(typeVar),
-		Repourl: core.StringPtr(repourl),
-	}
-}
-
-// SetType : Allow user to set Type
-func (options *GetReposOptions) SetType(typeVar string) *GetReposOptions {
-	options.Type = core.StringPtr(typeVar)
-	return options
-}
-
-// SetRepourl : Allow user to set Repourl
-func (options *GetReposOptions) SetRepourl(repourl string) *GetReposOptions {
-	options.Repourl = core.StringPtr(repourl)
-	return options
-}
-
-// SetHeaders : Allow user to set Headers
-func (options *GetReposOptions) SetHeaders(param map[string]string) *GetReposOptions {
-	options.Headers = param
-	return options
-}
-
 // GetValidationStatusOptions : The GetValidationStatus options.
 type GetValidationStatusOptions struct {
 	// A dotted value of `catalogID`.`versionID`.
@@ -8900,245 +8198,6 @@ func (options *GetVersionOptions) SetVersionLocID(versionLocID string) *GetVersi
 func (options *GetVersionOptions) SetHeaders(param map[string]string) *GetVersionOptions {
 	options.Headers = param
 	return options
-}
-
-// HelmChart : Helm chart.
-type HelmChart struct {
-	// Chart name.
-	Name *string `json:"name,omitempty"`
-
-	// Chart description.
-	Description *string `json:"description,omitempty"`
-
-	// Chart icon.
-	Icon *string `json:"icon,omitempty"`
-
-	// Chart version.
-	Version *string `json:"version,omitempty"`
-
-	// Chart app version.
-	AppVersion *string `json:"appVersion,omitempty"`
-}
-
-// UnmarshalHelmChart unmarshals an instance of HelmChart from the specified map of raw messages.
-func UnmarshalHelmChart(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(HelmChart)
-	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "description", &obj.Description)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "icon", &obj.Icon)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "version", &obj.Version)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "appVersion", &obj.AppVersion)
-	if err != nil {
-		return
-	}
-	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
-	return
-}
-
-// HelmPackage : Helm package.
-type HelmPackage struct {
-	// The name of the requested chart, or the name of a nested chart within the requested chart.
-	Chart *HelmPackageChart `json:"chart,omitempty"`
-}
-
-// UnmarshalHelmPackage unmarshals an instance of HelmPackage from the specified map of raw messages.
-func UnmarshalHelmPackage(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(HelmPackage)
-	err = core.UnmarshalModel(m, "chart", &obj.Chart, UnmarshalHelmPackageChart)
-	if err != nil {
-		return
-	}
-	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
-	return
-}
-
-// HelmPackageChart : The name of the requested chart, or the name of a nested chart within the requested chart.
-type HelmPackageChart struct {
-	// Helm chart.
-	ChartYaml *HelmChart `json:"Chart.yaml,omitempty"`
-
-	// Project SHA.
-	Sha *string `json:"sha,omitempty"`
-
-	// Helm chart description.
-	ReadmeMd *string `json:"README.md,omitempty"`
-
-	// Values metadata.
-	ValuesMetadata map[string]interface{} `json:"values-metadata,omitempty"`
-
-	// License metadata.
-	LicenseMetadata map[string]interface{} `json:"license-metadata,omitempty"`
-}
-
-// UnmarshalHelmPackageChart unmarshals an instance of HelmPackageChart from the specified map of raw messages.
-func UnmarshalHelmPackageChart(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(HelmPackageChart)
-	err = core.UnmarshalModel(m, "Chart.yaml", &obj.ChartYaml, UnmarshalHelmChart)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "sha", &obj.Sha)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "README.md", &obj.ReadmeMd)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "values-metadata", &obj.ValuesMetadata)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "license-metadata", &obj.LicenseMetadata)
-	if err != nil {
-		return
-	}
-	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
-	return
-}
-
-// HelmRepoList : Helm repository metadata.
-type HelmRepoList struct {
-	// A chart entry in the repo. This response will contain many chart names.
-	Chart *HelmRepoListChart `json:"chart,omitempty"`
-}
-
-// UnmarshalHelmRepoList unmarshals an instance of HelmRepoList from the specified map of raw messages.
-func UnmarshalHelmRepoList(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(HelmRepoList)
-	err = core.UnmarshalModel(m, "chart", &obj.Chart, UnmarshalHelmRepoListChart)
-	if err != nil {
-		return
-	}
-	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
-	return
-}
-
-// HelmRepoListChart : A chart entry in the repo. This response will contain many chart names.
-type HelmRepoListChart struct {
-	// API version.
-	APIVersion *string `json:"api_version,omitempty"`
-
-	// Date and time created.
-	Created *strfmt.DateTime `json:"created,omitempty"`
-
-	// Description of Helm repo entry.
-	Description *string `json:"description,omitempty"`
-
-	// Denotes whether repo entry is deprecated.
-	Deprecated *bool `json:"deprecated,omitempty"`
-
-	// Digest of entry.
-	Digest *string `json:"digest,omitempty"`
-
-	// Location of repo entry.
-	Home *string `json:"home,omitempty"`
-
-	// Entry icon.
-	Icon *string `json:"icon,omitempty"`
-
-	// List of keywords.
-	Keywords []string `json:"keywords,omitempty"`
-
-	// Emails and names of repo maintainers.
-	Maintainers []Maintainers `json:"maintainers,omitempty"`
-
-	// Entry name.
-	Name *string `json:"name,omitempty"`
-
-	// Helm server version.
-	TillerVersion *string `json:"tiller_version,omitempty"`
-
-	// Array of URLs.
-	Urls []string `json:"urls,omitempty"`
-
-	// Array of sources.
-	Sources []string `json:"sources,omitempty"`
-
-	// Entry version.
-	Version *string `json:"version,omitempty"`
-
-	// Application version.
-	AppVersion *string `json:"appVersion,omitempty"`
-}
-
-// UnmarshalHelmRepoListChart unmarshals an instance of HelmRepoListChart from the specified map of raw messages.
-func UnmarshalHelmRepoListChart(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(HelmRepoListChart)
-	err = core.UnmarshalPrimitive(m, "api_version", &obj.APIVersion)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "created", &obj.Created)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "description", &obj.Description)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "deprecated", &obj.Deprecated)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "digest", &obj.Digest)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "home", &obj.Home)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "icon", &obj.Icon)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "keywords", &obj.Keywords)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalModel(m, "maintainers", &obj.Maintainers, UnmarshalMaintainers)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "tiller_version", &obj.TillerVersion)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "urls", &obj.Urls)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "sources", &obj.Sources)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "version", &obj.Version)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "appVersion", &obj.AppVersion)
-	if err != nil {
-		return
-	}
-	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
-	return
 }
 
 // IDFilter : Filter on offering ID's. There is an include filter and an exclule filter. Both can be set.
@@ -9942,281 +9001,6 @@ func UnmarshalLicense(m map[string]json.RawMessage, result interface{}) (err err
 	return
 }
 
-// LicenseEntitlement : License entitlement.
-type LicenseEntitlement struct {
-	// Entitlement name.
-	Name *string `json:"name,omitempty"`
-
-	// Entitlement ID.
-	ID *string `json:"id,omitempty"`
-
-	// Entitlement CRN.
-	CRN *string `json:"crn,omitempty"`
-
-	// URL for the BSS entitlement, e.g. /v1/licensing/entitlements/:id.
-	URL *string `json:"url,omitempty"`
-
-	// Entitlement offering type.
-	OfferingType *string `json:"offering_type,omitempty"`
-
-	// State of the BSS entitlement, e.g. 'active' or if it's been deleted, 'removed'.
-	State *string `json:"state,omitempty"`
-
-	// Entitlement is good from this starting date. eg. '2019-07-17T21:21:47.6794935Z'.
-	EffectiveFrom *string `json:"effective_from,omitempty"`
-
-	// Entitlement is good until this ending date. eg. '2019-07-17T21:21:47.6794935Z'.
-	EffectiveUntil *string `json:"effective_until,omitempty"`
-
-	// Account ID where this entitlement is bound to.
-	AccountID *string `json:"account_id,omitempty"`
-
-	// Account ID of owner.
-	OwnerID *string `json:"owner_id,omitempty"`
-
-	// GC ID of the specific offering version.
-	VersionID *string `json:"version_id,omitempty"`
-
-	// Marketplace offering ID for this license entitlement.
-	LicenseOfferingID *string `json:"license_offering_id,omitempty"`
-
-	// Specific license entitlement ID from the license provider, eg. D1W3R4.
-	LicenseID *string `json:"license_id,omitempty"`
-
-	// IBM ID of the owner of this license entitlement.
-	LicenseOwnerID *string `json:"license_owner_id,omitempty"`
-
-	// Type of license entitlement, e.g. ibm-ppa.
-	LicenseType *string `json:"license_type,omitempty"`
-
-	// ID of the license provider.
-	LicenseProviderID *string `json:"license_provider_id,omitempty"`
-
-	// URL for the BSS license provider, e.g. /v1/licensing/license_providers/:license_provider_id.
-	LicenseProviderURL *string `json:"license_provider_url,omitempty"`
-
-	// Specific license entitlement ID from the license provider, eg. D1W3R4.
-	LicenseProductID *string `json:"license_product_id,omitempty"`
-
-	// Location of the registry images, eg. cp/cp4d.
-	NamespaceRepository *string `json:"namespace_repository,omitempty"`
-
-	// API key for access to the license entitlement.
-	Apikey *string `json:"apikey,omitempty"`
-
-	// IBM ID.
-	CreateBy *string `json:"create_by,omitempty"`
-
-	// IBM ID.
-	UpdateBy *string `json:"update_by,omitempty"`
-
-	// Creation date, eg. '2019-07-17T21:21:47.6794935Z'.
-	CreateAt *string `json:"create_at,omitempty"`
-
-	// Date last updated, eg. '2019-07-17T21:21:47.6794935Z'.
-	UpdatedAt *string `json:"updated_at,omitempty"`
-
-	// Entitlement history.
-	History []LicenseEntitlementHistoryItem `json:"history,omitempty"`
-
-	// Array of license offering references.
-	OfferingList []LicenseOfferingReference `json:"offering_list,omitempty"`
-}
-
-// UnmarshalLicenseEntitlement unmarshals an instance of LicenseEntitlement from the specified map of raw messages.
-func UnmarshalLicenseEntitlement(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(LicenseEntitlement)
-	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "crn", &obj.CRN)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "url", &obj.URL)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "offering_type", &obj.OfferingType)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "state", &obj.State)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "effective_from", &obj.EffectiveFrom)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "effective_until", &obj.EffectiveUntil)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "account_id", &obj.AccountID)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "owner_id", &obj.OwnerID)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "version_id", &obj.VersionID)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "license_offering_id", &obj.LicenseOfferingID)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "license_id", &obj.LicenseID)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "license_owner_id", &obj.LicenseOwnerID)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "license_type", &obj.LicenseType)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "license_provider_id", &obj.LicenseProviderID)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "license_provider_url", &obj.LicenseProviderURL)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "license_product_id", &obj.LicenseProductID)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "namespace_repository", &obj.NamespaceRepository)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "apikey", &obj.Apikey)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "create_by", &obj.CreateBy)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "update_by", &obj.UpdateBy)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "create_at", &obj.CreateAt)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "updated_at", &obj.UpdatedAt)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalModel(m, "history", &obj.History, UnmarshalLicenseEntitlementHistoryItem)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalModel(m, "offering_list", &obj.OfferingList, UnmarshalLicenseOfferingReference)
-	if err != nil {
-		return
-	}
-	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
-	return
-}
-
-// LicenseEntitlementHistoryItem : LicenseEntitlementHistoryItem struct
-type LicenseEntitlementHistoryItem struct {
-	// Eg. create.
-	Action *string `json:"action,omitempty"`
-
-	// Eg. IBM ID of user.
-	User *string `json:"user,omitempty"`
-
-	// Date of action, eg. '2019-07-17T21:21:47.6794935Z'.
-	Date *string `json:"date,omitempty"`
-}
-
-// UnmarshalLicenseEntitlementHistoryItem unmarshals an instance of LicenseEntitlementHistoryItem from the specified map of raw messages.
-func UnmarshalLicenseEntitlementHistoryItem(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(LicenseEntitlementHistoryItem)
-	err = core.UnmarshalPrimitive(m, "action", &obj.Action)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "user", &obj.User)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "date", &obj.Date)
-	if err != nil {
-		return
-	}
-	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
-	return
-}
-
-// LicenseOfferingReference : License offering reference.
-type LicenseOfferingReference struct {
-	// Offering ID.
-	ID *string `json:"id,omitempty"`
-
-	// Offering name.
-	Name *string `json:"name,omitempty"`
-
-	// Offering label'.
-	Label *string `json:"label,omitempty"`
-
-	// URL to offering icon.
-	OfferingIconURL *string `json:"offering_icon_url,omitempty"`
-
-	// Account ID associated with offering.
-	AccountID *string `json:"account_id,omitempty"`
-
-	// Catalog ID associated with offering.
-	CatalogID *string `json:"catalog_id,omitempty"`
-}
-
-// UnmarshalLicenseOfferingReference unmarshals an instance of LicenseOfferingReference from the specified map of raw messages.
-func UnmarshalLicenseOfferingReference(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(LicenseOfferingReference)
-	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "label", &obj.Label)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "offering_icon_url", &obj.OfferingIconURL)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "account_id", &obj.AccountID)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "catalog_id", &obj.CatalogID)
-	if err != nil {
-		return
-	}
-	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
-	return
-}
-
 // ListCatalogsOptions : The ListCatalogs options.
 type ListCatalogsOptions struct {
 
@@ -10433,30 +9217,6 @@ func (options *ListOperatorsOptions) SetVersionLocatorID(versionLocatorID string
 func (options *ListOperatorsOptions) SetHeaders(param map[string]string) *ListOperatorsOptions {
 	options.Headers = param
 	return options
-}
-
-// Maintainers : Repo maintainers.
-type Maintainers struct {
-	// Maintainer email address.
-	Email *string `json:"email,omitempty"`
-
-	// Name of maintainer.
-	Name *string `json:"name,omitempty"`
-}
-
-// UnmarshalMaintainers unmarshals an instance of Maintainers from the specified map of raw messages.
-func UnmarshalMaintainers(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(Maintainers)
-	err = core.UnmarshalPrimitive(m, "email", &obj.Email)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
-	if err != nil {
-		return
-	}
-	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
-	return
 }
 
 // NamespaceSearchResult : Paginated list of namespace search results.
@@ -13147,70 +11907,6 @@ func (options *UpdateCatalogAccountOptions) SetAccountFilters(accountFilters *Fi
 
 // SetHeaders : Allow user to set Headers
 func (options *UpdateCatalogAccountOptions) SetHeaders(param map[string]string) *UpdateCatalogAccountOptions {
-	options.Headers = param
-	return options
-}
-
-// UpdateEnterpriseOptions : The UpdateEnterprise options.
-type UpdateEnterpriseOptions struct {
-	// Enterprise identification.
-	EnterpriseID *string `validate:"required,ne="`
-
-	// Enterprise identification.
-	ID *string
-
-	// Cloudant revision.
-	Rev *string
-
-	// Filters for account and catalog filters.
-	AccountFilters *Filters
-
-	// Map of account group ids to AccountGroup objects.
-	AccountGroups *EnterpriseAccountGroups
-
-	// Allows users to set headers on API requests
-	Headers map[string]string
-}
-
-// NewUpdateEnterpriseOptions : Instantiate UpdateEnterpriseOptions
-func (*CatalogManagementV1) NewUpdateEnterpriseOptions(enterpriseID string) *UpdateEnterpriseOptions {
-	return &UpdateEnterpriseOptions{
-		EnterpriseID: core.StringPtr(enterpriseID),
-	}
-}
-
-// SetEnterpriseID : Allow user to set EnterpriseID
-func (options *UpdateEnterpriseOptions) SetEnterpriseID(enterpriseID string) *UpdateEnterpriseOptions {
-	options.EnterpriseID = core.StringPtr(enterpriseID)
-	return options
-}
-
-// SetID : Allow user to set ID
-func (options *UpdateEnterpriseOptions) SetID(id string) *UpdateEnterpriseOptions {
-	options.ID = core.StringPtr(id)
-	return options
-}
-
-// SetRev : Allow user to set Rev
-func (options *UpdateEnterpriseOptions) SetRev(rev string) *UpdateEnterpriseOptions {
-	options.Rev = core.StringPtr(rev)
-	return options
-}
-
-// SetAccountFilters : Allow user to set AccountFilters
-func (options *UpdateEnterpriseOptions) SetAccountFilters(accountFilters *Filters) *UpdateEnterpriseOptions {
-	options.AccountFilters = accountFilters
-	return options
-}
-
-// SetAccountGroups : Allow user to set AccountGroups
-func (options *UpdateEnterpriseOptions) SetAccountGroups(accountGroups *EnterpriseAccountGroups) *UpdateEnterpriseOptions {
-	options.AccountGroups = accountGroups
-	return options
-}
-
-// SetHeaders : Allow user to set Headers
-func (options *UpdateEnterpriseOptions) SetHeaders(param map[string]string) *UpdateEnterpriseOptions {
 	options.Headers = param
 	return options
 }
