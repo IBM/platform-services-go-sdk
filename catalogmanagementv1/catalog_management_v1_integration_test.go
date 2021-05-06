@@ -41,10 +41,10 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 	const externalConfigFile = "../catalog_management_v1.env"
 
 	var (
-		err          error
+		err                      error
 		catalogManagementService *catalogmanagementv1.CatalogManagementV1
-		serviceURL   string
-		config       map[string]string
+		serviceURL               string
+		config                   map[string]string
 	)
 
 	var shouldSkipTest = func() {
@@ -95,8 +95,7 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 		})
 		It(`GetCatalogAccount(getCatalogAccountOptions *GetCatalogAccountOptions)`, func() {
 
-			getCatalogAccountOptions := &catalogmanagementv1.GetCatalogAccountOptions{
-			}
+			getCatalogAccountOptions := &catalogmanagementv1.GetCatalogAccountOptions{}
 
 			account, response, err := catalogManagementService.GetCatalogAccount(getCatalogAccountOptions)
 
@@ -119,7 +118,7 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 
 			categoryFilterModel := &catalogmanagementv1.CategoryFilter{
 				Include: core.BoolPtr(true),
-				Filter: filterTermsModel,
+				Filter:  filterTermsModel,
 			}
 
 			idFilterModel := &catalogmanagementv1.IDFilter{
@@ -128,16 +127,16 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 			}
 
 			filtersModel := &catalogmanagementv1.Filters{
-				IncludeAll: core.BoolPtr(true),
+				IncludeAll:      core.BoolPtr(true),
 				CategoryFilters: make(map[string]catalogmanagementv1.CategoryFilter),
-				IDFilters: idFilterModel,
+				IDFilters:       idFilterModel,
 			}
 			filtersModel.CategoryFilters["foo"] = *categoryFilterModel
 
 			updateCatalogAccountOptions := &catalogmanagementv1.UpdateCatalogAccountOptions{
-				ID: core.StringPtr("testString"),
+				ID:                  core.StringPtr("testString"),
 				HideIBMCloudCatalog: core.BoolPtr(true),
-				AccountFilters: filtersModel,
+				AccountFilters:      filtersModel,
 			}
 
 			response, err := catalogManagementService.UpdateCatalogAccount(updateCatalogAccountOptions)
@@ -154,8 +153,7 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 		})
 		It(`GetCatalogAccountAudit(getCatalogAccountAuditOptions *GetCatalogAccountAuditOptions)`, func() {
 
-			getCatalogAccountAuditOptions := &catalogmanagementv1.GetCatalogAccountAuditOptions{
-			}
+			getCatalogAccountAuditOptions := &catalogmanagementv1.GetCatalogAccountAuditOptions{}
 
 			auditLog, response, err := catalogManagementService.GetCatalogAccountAudit(getCatalogAccountAuditOptions)
 
@@ -191,8 +189,7 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 		})
 		It(`ListCatalogs(listCatalogsOptions *ListCatalogsOptions)`, func() {
 
-			listCatalogsOptions := &catalogmanagementv1.ListCatalogsOptions{
-			}
+			listCatalogsOptions := &catalogmanagementv1.ListCatalogsOptions{}
 
 			catalogSearchResult, response, err := catalogManagementService.ListCatalogs(listCatalogsOptions)
 
@@ -210,7 +207,7 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 		It(`CreateCatalog(createCatalogOptions *CreateCatalogOptions)`, func() {
 
 			featureModel := &catalogmanagementv1.Feature{
-				Title: core.StringPtr("testString"),
+				Title:       core.StringPtr("testString"),
 				Description: core.StringPtr("testString"),
 			}
 
@@ -220,7 +217,7 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 
 			categoryFilterModel := &catalogmanagementv1.CategoryFilter{
 				Include: core.BoolPtr(true),
-				Filter: filterTermsModel,
+				Filter:  filterTermsModel,
 			}
 
 			idFilterModel := &catalogmanagementv1.IDFilter{
@@ -229,54 +226,54 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 			}
 
 			filtersModel := &catalogmanagementv1.Filters{
-				IncludeAll: core.BoolPtr(true),
+				IncludeAll:      core.BoolPtr(true),
 				CategoryFilters: make(map[string]catalogmanagementv1.CategoryFilter),
-				IDFilters: idFilterModel,
+				IDFilters:       idFilterModel,
 			}
 			filtersModel.CategoryFilters["foo"] = *categoryFilterModel
 
 			syndicationClusterModel := &catalogmanagementv1.SyndicationCluster{
-				Region: core.StringPtr("testString"),
-				ID: core.StringPtr("testString"),
-				Name: core.StringPtr("testString"),
+				Region:            core.StringPtr("testString"),
+				ID:                core.StringPtr("testString"),
+				Name:              core.StringPtr("testString"),
 				ResourceGroupName: core.StringPtr("testString"),
-				Type: core.StringPtr("testString"),
-				Namespaces: []string{"testString"},
-				AllNamespaces: core.BoolPtr(true),
+				Type:              core.StringPtr("testString"),
+				Namespaces:        []string{"testString"},
+				AllNamespaces:     core.BoolPtr(true),
 			}
 
 			syndicationHistoryModel := &catalogmanagementv1.SyndicationHistory{
 				Namespaces: []string{"testString"},
-				Clusters: []catalogmanagementv1.SyndicationCluster{*syndicationClusterModel},
-				LastRun: CreateMockDateTime("2019-01-01T12:00:00.000Z"),
+				Clusters:   []catalogmanagementv1.SyndicationCluster{*syndicationClusterModel},
+				LastRun:    CreateMockDateTime("2019-01-01T12:00:00.000Z"),
 			}
 
 			syndicationAuthorizationModel := &catalogmanagementv1.SyndicationAuthorization{
-				Token: core.StringPtr("testString"),
+				Token:   core.StringPtr("testString"),
 				LastRun: CreateMockDateTime("2019-01-01T12:00:00.000Z"),
 			}
 
 			syndicationResourceModel := &catalogmanagementv1.SyndicationResource{
 				RemoveRelatedComponents: core.BoolPtr(true),
-				Clusters: []catalogmanagementv1.SyndicationCluster{*syndicationClusterModel},
-				History: syndicationHistoryModel,
-				Authorization: syndicationAuthorizationModel,
+				Clusters:                []catalogmanagementv1.SyndicationCluster{*syndicationClusterModel},
+				History:                 syndicationHistoryModel,
+				Authorization:           syndicationAuthorizationModel,
 			}
 
 			createCatalogOptions := &catalogmanagementv1.CreateCatalogOptions{
-				ID: core.StringPtr("testString"),
-				Rev: core.StringPtr("testString"),
-				Label: core.StringPtr("testString"),
-				ShortDescription: core.StringPtr("testString"),
-				CatalogIconURL: core.StringPtr("testString"),
-				Tags: []string{"testString"},
-				Features: []catalogmanagementv1.Feature{*featureModel},
-				Disabled: core.BoolPtr(true),
-				ResourceGroupID: core.StringPtr("testString"),
-				OwningAccount: core.StringPtr("testString"),
-				CatalogFilters: filtersModel,
+				ID:                  core.StringPtr("testString"),
+				Rev:                 core.StringPtr("testString"),
+				Label:               core.StringPtr("testString"),
+				ShortDescription:    core.StringPtr("testString"),
+				CatalogIconURL:      core.StringPtr("testString"),
+				Tags:                []string{"testString"},
+				Features:            []catalogmanagementv1.Feature{*featureModel},
+				Disabled:            core.BoolPtr(true),
+				ResourceGroupID:     core.StringPtr("testString"),
+				OwningAccount:       core.StringPtr("testString"),
+				CatalogFilters:      filtersModel,
 				SyndicationSettings: syndicationResourceModel,
-				Kind: core.StringPtr("testString"),
+				Kind:                core.StringPtr("testString"),
 			}
 
 			catalog, response, err := catalogManagementService.CreateCatalog(createCatalogOptions)
@@ -314,7 +311,7 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 		It(`ReplaceCatalog(replaceCatalogOptions *ReplaceCatalogOptions)`, func() {
 
 			featureModel := &catalogmanagementv1.Feature{
-				Title: core.StringPtr("testString"),
+				Title:       core.StringPtr("testString"),
 				Description: core.StringPtr("testString"),
 			}
 
@@ -324,7 +321,7 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 
 			categoryFilterModel := &catalogmanagementv1.CategoryFilter{
 				Include: core.BoolPtr(true),
-				Filter: filterTermsModel,
+				Filter:  filterTermsModel,
 			}
 
 			idFilterModel := &catalogmanagementv1.IDFilter{
@@ -333,55 +330,55 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 			}
 
 			filtersModel := &catalogmanagementv1.Filters{
-				IncludeAll: core.BoolPtr(true),
+				IncludeAll:      core.BoolPtr(true),
 				CategoryFilters: make(map[string]catalogmanagementv1.CategoryFilter),
-				IDFilters: idFilterModel,
+				IDFilters:       idFilterModel,
 			}
 			filtersModel.CategoryFilters["foo"] = *categoryFilterModel
 
 			syndicationClusterModel := &catalogmanagementv1.SyndicationCluster{
-				Region: core.StringPtr("testString"),
-				ID: core.StringPtr("testString"),
-				Name: core.StringPtr("testString"),
+				Region:            core.StringPtr("testString"),
+				ID:                core.StringPtr("testString"),
+				Name:              core.StringPtr("testString"),
 				ResourceGroupName: core.StringPtr("testString"),
-				Type: core.StringPtr("testString"),
-				Namespaces: []string{"testString"},
-				AllNamespaces: core.BoolPtr(true),
+				Type:              core.StringPtr("testString"),
+				Namespaces:        []string{"testString"},
+				AllNamespaces:     core.BoolPtr(true),
 			}
 
 			syndicationHistoryModel := &catalogmanagementv1.SyndicationHistory{
 				Namespaces: []string{"testString"},
-				Clusters: []catalogmanagementv1.SyndicationCluster{*syndicationClusterModel},
-				LastRun: CreateMockDateTime("2019-01-01T12:00:00.000Z"),
+				Clusters:   []catalogmanagementv1.SyndicationCluster{*syndicationClusterModel},
+				LastRun:    CreateMockDateTime("2019-01-01T12:00:00.000Z"),
 			}
 
 			syndicationAuthorizationModel := &catalogmanagementv1.SyndicationAuthorization{
-				Token: core.StringPtr("testString"),
+				Token:   core.StringPtr("testString"),
 				LastRun: CreateMockDateTime("2019-01-01T12:00:00.000Z"),
 			}
 
 			syndicationResourceModel := &catalogmanagementv1.SyndicationResource{
 				RemoveRelatedComponents: core.BoolPtr(true),
-				Clusters: []catalogmanagementv1.SyndicationCluster{*syndicationClusterModel},
-				History: syndicationHistoryModel,
-				Authorization: syndicationAuthorizationModel,
+				Clusters:                []catalogmanagementv1.SyndicationCluster{*syndicationClusterModel},
+				History:                 syndicationHistoryModel,
+				Authorization:           syndicationAuthorizationModel,
 			}
 
 			replaceCatalogOptions := &catalogmanagementv1.ReplaceCatalogOptions{
-				CatalogIdentifier: core.StringPtr("testString"),
-				ID: core.StringPtr("testString"),
-				Rev: core.StringPtr("testString"),
-				Label: core.StringPtr("testString"),
-				ShortDescription: core.StringPtr("testString"),
-				CatalogIconURL: core.StringPtr("testString"),
-				Tags: []string{"testString"},
-				Features: []catalogmanagementv1.Feature{*featureModel},
-				Disabled: core.BoolPtr(true),
-				ResourceGroupID: core.StringPtr("testString"),
-				OwningAccount: core.StringPtr("testString"),
-				CatalogFilters: filtersModel,
+				CatalogIdentifier:   core.StringPtr("testString"),
+				ID:                  core.StringPtr("testString"),
+				Rev:                 core.StringPtr("testString"),
+				Label:               core.StringPtr("testString"),
+				ShortDescription:    core.StringPtr("testString"),
+				CatalogIconURL:      core.StringPtr("testString"),
+				Tags:                []string{"testString"},
+				Features:            []catalogmanagementv1.Feature{*featureModel},
+				Disabled:            core.BoolPtr(true),
+				ResourceGroupID:     core.StringPtr("testString"),
+				OwningAccount:       core.StringPtr("testString"),
+				CatalogFilters:      filtersModel,
 				SyndicationSettings: syndicationResourceModel,
-				Kind: core.StringPtr("testString"),
+				Kind:                core.StringPtr("testString"),
 			}
 
 			catalog, response, err := catalogManagementService.ReplaceCatalog(replaceCatalogOptions)
@@ -419,12 +416,12 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 		It(`GetConsumptionOfferings(getConsumptionOfferingsOptions *GetConsumptionOfferingsOptions)`, func() {
 
 			getConsumptionOfferingsOptions := &catalogmanagementv1.GetConsumptionOfferingsOptions{
-				Digest: core.BoolPtr(true),
-				Catalog: core.StringPtr("testString"),
-				Select: core.StringPtr("all"),
+				Digest:        core.BoolPtr(true),
+				Catalog:       core.StringPtr("testString"),
+				Select:        core.StringPtr("all"),
 				IncludeHidden: core.BoolPtr(true),
-				Limit: core.Int64Ptr(int64(1000)),
-				Offset: core.Int64Ptr(int64(38)),
+				Limit:         core.Int64Ptr(int64(1000)),
+				Offset:        core.Int64Ptr(int64(38)),
 			}
 
 			offeringSearchResult, response, err := catalogManagementService.GetConsumptionOfferings(getConsumptionOfferingsOptions)
@@ -444,11 +441,11 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 
 			listOfferingsOptions := &catalogmanagementv1.ListOfferingsOptions{
 				CatalogIdentifier: core.StringPtr("testString"),
-				Digest: core.BoolPtr(true),
-				Limit: core.Int64Ptr(int64(1000)),
-				Offset: core.Int64Ptr(int64(38)),
-				Name: core.StringPtr("testString"),
-				Sort: core.StringPtr("testString"),
+				Digest:            core.BoolPtr(true),
+				Limit:             core.Int64Ptr(int64(1000)),
+				Offset:            core.Int64Ptr(int64(38)),
+				Name:              core.StringPtr("testString"),
+				Sort:              core.StringPtr("testString"),
 			}
 
 			offeringSearchResult, response, err := catalogManagementService.ListOfferings(listOfferingsOptions)
@@ -467,186 +464,186 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 		It(`CreateOffering(createOfferingOptions *CreateOfferingOptions)`, func() {
 
 			ratingModel := &catalogmanagementv1.Rating{
-				OneStarCount: core.Int64Ptr(int64(38)),
-				TwoStarCount: core.Int64Ptr(int64(38)),
+				OneStarCount:   core.Int64Ptr(int64(38)),
+				TwoStarCount:   core.Int64Ptr(int64(38)),
 				ThreeStarCount: core.Int64Ptr(int64(38)),
-				FourStarCount: core.Int64Ptr(int64(38)),
+				FourStarCount:  core.Int64Ptr(int64(38)),
 			}
 
 			featureModel := &catalogmanagementv1.Feature{
-				Title: core.StringPtr("testString"),
+				Title:       core.StringPtr("testString"),
 				Description: core.StringPtr("testString"),
 			}
 
 			configurationModel := &catalogmanagementv1.Configuration{
-				Key: core.StringPtr("testString"),
-				Type: core.StringPtr("testString"),
-				DefaultValue: core.StringPtr("testString"),
+				Key:             core.StringPtr("testString"),
+				Type:            core.StringPtr("testString"),
+				DefaultValue:    core.StringPtr("testString"),
 				ValueConstraint: core.StringPtr("testString"),
-				Description: core.StringPtr("testString"),
-				Required: core.BoolPtr(true),
-				Options: []interface{}{"testString"},
-				Hidden: core.BoolPtr(true),
+				Description:     core.StringPtr("testString"),
+				Required:        core.BoolPtr(true),
+				Options:         []interface{}{"testString"},
+				Hidden:          core.BoolPtr(true),
 			}
 
 			validationModel := &catalogmanagementv1.Validation{
-				Validated: CreateMockDateTime("2019-01-01T12:00:00.000Z"),
-				Requested: CreateMockDateTime("2019-01-01T12:00:00.000Z"),
-				State: core.StringPtr("testString"),
+				Validated:     CreateMockDateTime("2019-01-01T12:00:00.000Z"),
+				Requested:     CreateMockDateTime("2019-01-01T12:00:00.000Z"),
+				State:         core.StringPtr("testString"),
 				LastOperation: core.StringPtr("testString"),
-				Target: make(map[string]interface{}),
+				Target:        make(map[string]interface{}),
 			}
 
 			resourceModel := &catalogmanagementv1.Resource{
-				Type: core.StringPtr("mem"),
+				Type:  core.StringPtr("mem"),
 				Value: core.StringPtr("testString"),
 			}
 
 			scriptModel := &catalogmanagementv1.Script{
-				Instructions: core.StringPtr("testString"),
-				Script: core.StringPtr("testString"),
+				Instructions:     core.StringPtr("testString"),
+				Script:           core.StringPtr("testString"),
 				ScriptPermission: core.StringPtr("testString"),
-				DeleteScript: core.StringPtr("testString"),
-				Scope: core.StringPtr("testString"),
+				DeleteScript:     core.StringPtr("testString"),
+				Scope:            core.StringPtr("testString"),
 			}
 
 			versionEntitlementModel := &catalogmanagementv1.VersionEntitlement{
-				ProviderName: core.StringPtr("testString"),
-				ProviderID: core.StringPtr("testString"),
-				ProductID: core.StringPtr("testString"),
-				PartNumbers: []string{"testString"},
+				ProviderName:  core.StringPtr("testString"),
+				ProviderID:    core.StringPtr("testString"),
+				ProductID:     core.StringPtr("testString"),
+				PartNumbers:   []string{"testString"},
 				ImageRepoName: core.StringPtr("testString"),
 			}
 
 			licenseModel := &catalogmanagementv1.License{
-				ID: core.StringPtr("testString"),
-				Name: core.StringPtr("testString"),
-				Type: core.StringPtr("testString"),
-				URL: core.StringPtr("testString"),
+				ID:          core.StringPtr("testString"),
+				Name:        core.StringPtr("testString"),
+				Type:        core.StringPtr("testString"),
+				URL:         core.StringPtr("testString"),
 				Description: core.StringPtr("testString"),
 			}
 
 			stateModel := &catalogmanagementv1.State{
-				Current: core.StringPtr("testString"),
-				CurrentEntered: CreateMockDateTime("2019-01-01T12:00:00.000Z"),
-				Pending: core.StringPtr("testString"),
+				Current:          core.StringPtr("testString"),
+				CurrentEntered:   CreateMockDateTime("2019-01-01T12:00:00.000Z"),
+				Pending:          core.StringPtr("testString"),
 				PendingRequested: CreateMockDateTime("2019-01-01T12:00:00.000Z"),
-				Previous: core.StringPtr("testString"),
+				Previous:         core.StringPtr("testString"),
 			}
 
 			versionModel := &catalogmanagementv1.Version{
-				ID: core.StringPtr("testString"),
-				Rev: core.StringPtr("testString"),
-				CRN: core.StringPtr("testString"),
-				Version: core.StringPtr("testString"),
-				Sha: core.StringPtr("testString"),
-				Created: CreateMockDateTime("2019-01-01T12:00:00.000Z"),
-				Updated: CreateMockDateTime("2019-01-01T12:00:00.000Z"),
-				OfferingID: core.StringPtr("testString"),
-				CatalogID: core.StringPtr("testString"),
-				KindID: core.StringPtr("testString"),
-				Tags: []string{"testString"},
-				RepoURL: core.StringPtr("testString"),
-				SourceURL: core.StringPtr("testString"),
-				TgzURL: core.StringPtr("testString"),
-				Configuration: []catalogmanagementv1.Configuration{*configurationModel},
-				Metadata: make(map[string]interface{}),
-				Validation: validationModel,
-				RequiredResources: []catalogmanagementv1.Resource{*resourceModel},
-				SingleInstance: core.BoolPtr(true),
-				Install: scriptModel,
-				PreInstall: []catalogmanagementv1.Script{*scriptModel},
-				Entitlement: versionEntitlementModel,
-				Licenses: []catalogmanagementv1.License{*licenseModel},
-				ImageManifestURL: core.StringPtr("testString"),
-				Deprecated: core.BoolPtr(true),
-				PackageVersion: core.StringPtr("testString"),
-				State: stateModel,
-				VersionLocator: core.StringPtr("testString"),
-				ConsoleURL: core.StringPtr("testString"),
-				LongDescription: core.StringPtr("testString"),
+				ID:                  core.StringPtr("testString"),
+				Rev:                 core.StringPtr("testString"),
+				CRN:                 core.StringPtr("testString"),
+				Version:             core.StringPtr("testString"),
+				Sha:                 core.StringPtr("testString"),
+				Created:             CreateMockDateTime("2019-01-01T12:00:00.000Z"),
+				Updated:             CreateMockDateTime("2019-01-01T12:00:00.000Z"),
+				OfferingID:          core.StringPtr("testString"),
+				CatalogID:           core.StringPtr("testString"),
+				KindID:              core.StringPtr("testString"),
+				Tags:                []string{"testString"},
+				RepoURL:             core.StringPtr("testString"),
+				SourceURL:           core.StringPtr("testString"),
+				TgzURL:              core.StringPtr("testString"),
+				Configuration:       []catalogmanagementv1.Configuration{*configurationModel},
+				Metadata:            make(map[string]interface{}),
+				Validation:          validationModel,
+				RequiredResources:   []catalogmanagementv1.Resource{*resourceModel},
+				SingleInstance:      core.BoolPtr(true),
+				Install:             scriptModel,
+				PreInstall:          []catalogmanagementv1.Script{*scriptModel},
+				Entitlement:         versionEntitlementModel,
+				Licenses:            []catalogmanagementv1.License{*licenseModel},
+				ImageManifestURL:    core.StringPtr("testString"),
+				Deprecated:          core.BoolPtr(true),
+				PackageVersion:      core.StringPtr("testString"),
+				State:               stateModel,
+				VersionLocator:      core.StringPtr("testString"),
+				ConsoleURL:          core.StringPtr("testString"),
+				LongDescription:     core.StringPtr("testString"),
 				WhitelistedAccounts: []string{"testString"},
 			}
 
 			deploymentModel := &catalogmanagementv1.Deployment{
-				ID: core.StringPtr("testString"),
-				Label: core.StringPtr("testString"),
-				Name: core.StringPtr("testString"),
+				ID:               core.StringPtr("testString"),
+				Label:            core.StringPtr("testString"),
+				Name:             core.StringPtr("testString"),
 				ShortDescription: core.StringPtr("testString"),
-				LongDescription: core.StringPtr("testString"),
-				Metadata: make(map[string]interface{}),
-				Tags: []string{"testString"},
-				Created: CreateMockDateTime("2019-01-01T12:00:00.000Z"),
-				Updated: CreateMockDateTime("2019-01-01T12:00:00.000Z"),
+				LongDescription:  core.StringPtr("testString"),
+				Metadata:         make(map[string]interface{}),
+				Tags:             []string{"testString"},
+				Created:          CreateMockDateTime("2019-01-01T12:00:00.000Z"),
+				Updated:          CreateMockDateTime("2019-01-01T12:00:00.000Z"),
 			}
 
 			planModel := &catalogmanagementv1.Plan{
-				ID: core.StringPtr("testString"),
-				Label: core.StringPtr("testString"),
-				Name: core.StringPtr("testString"),
-				ShortDescription: core.StringPtr("testString"),
-				LongDescription: core.StringPtr("testString"),
-				Metadata: make(map[string]interface{}),
-				Tags: []string{"testString"},
+				ID:                 core.StringPtr("testString"),
+				Label:              core.StringPtr("testString"),
+				Name:               core.StringPtr("testString"),
+				ShortDescription:   core.StringPtr("testString"),
+				LongDescription:    core.StringPtr("testString"),
+				Metadata:           make(map[string]interface{}),
+				Tags:               []string{"testString"},
 				AdditionalFeatures: []catalogmanagementv1.Feature{*featureModel},
-				Created: CreateMockDateTime("2019-01-01T12:00:00.000Z"),
-				Updated: CreateMockDateTime("2019-01-01T12:00:00.000Z"),
-				Deployments: []catalogmanagementv1.Deployment{*deploymentModel},
+				Created:            CreateMockDateTime("2019-01-01T12:00:00.000Z"),
+				Updated:            CreateMockDateTime("2019-01-01T12:00:00.000Z"),
+				Deployments:        []catalogmanagementv1.Deployment{*deploymentModel},
 			}
 
 			kindModel := &catalogmanagementv1.Kind{
-				ID: core.StringPtr("testString"),
-				FormatKind: core.StringPtr("testString"),
-				TargetKind: core.StringPtr("testString"),
-				Metadata: make(map[string]interface{}),
+				ID:                 core.StringPtr("testString"),
+				FormatKind:         core.StringPtr("testString"),
+				TargetKind:         core.StringPtr("testString"),
+				Metadata:           make(map[string]interface{}),
 				InstallDescription: core.StringPtr("testString"),
-				Tags: []string{"testString"},
+				Tags:               []string{"testString"},
 				AdditionalFeatures: []catalogmanagementv1.Feature{*featureModel},
-				Created: CreateMockDateTime("2019-01-01T12:00:00.000Z"),
-				Updated: CreateMockDateTime("2019-01-01T12:00:00.000Z"),
-				Versions: []catalogmanagementv1.Version{*versionModel},
-				Plans: []catalogmanagementv1.Plan{*planModel},
+				Created:            CreateMockDateTime("2019-01-01T12:00:00.000Z"),
+				Updated:            CreateMockDateTime("2019-01-01T12:00:00.000Z"),
+				Versions:           []catalogmanagementv1.Version{*versionModel},
+				Plans:              []catalogmanagementv1.Plan{*planModel},
 			}
 
 			repoInfoModel := &catalogmanagementv1.RepoInfo{
 				Token: core.StringPtr("testString"),
-				Type: core.StringPtr("testString"),
+				Type:  core.StringPtr("testString"),
 			}
 
 			createOfferingOptions := &catalogmanagementv1.CreateOfferingOptions{
-				CatalogIdentifier: core.StringPtr("testString"),
-				ID: core.StringPtr("testString"),
-				Rev: core.StringPtr("testString"),
-				URL: core.StringPtr("testString"),
-				CRN: core.StringPtr("testString"),
-				Label: core.StringPtr("testString"),
-				Name: core.StringPtr("testString"),
-				OfferingIconURL: core.StringPtr("testString"),
-				OfferingDocsURL: core.StringPtr("testString"),
-				OfferingSupportURL: core.StringPtr("testString"),
-				Tags: []string{"testString"},
-				Keywords: []string{"testString"},
-				Rating: ratingModel,
-				Created: CreateMockDateTime("2019-01-01T12:00:00.000Z"),
-				Updated: CreateMockDateTime("2019-01-01T12:00:00.000Z"),
-				ShortDescription: core.StringPtr("testString"),
-				LongDescription: core.StringPtr("testString"),
-				Features: []catalogmanagementv1.Feature{*featureModel},
-				Kinds: []catalogmanagementv1.Kind{*kindModel},
+				CatalogIdentifier:             core.StringPtr("testString"),
+				ID:                            core.StringPtr("testString"),
+				Rev:                           core.StringPtr("testString"),
+				URL:                           core.StringPtr("testString"),
+				CRN:                           core.StringPtr("testString"),
+				Label:                         core.StringPtr("testString"),
+				Name:                          core.StringPtr("testString"),
+				OfferingIconURL:               core.StringPtr("testString"),
+				OfferingDocsURL:               core.StringPtr("testString"),
+				OfferingSupportURL:            core.StringPtr("testString"),
+				Tags:                          []string{"testString"},
+				Keywords:                      []string{"testString"},
+				Rating:                        ratingModel,
+				Created:                       CreateMockDateTime("2019-01-01T12:00:00.000Z"),
+				Updated:                       CreateMockDateTime("2019-01-01T12:00:00.000Z"),
+				ShortDescription:              core.StringPtr("testString"),
+				LongDescription:               core.StringPtr("testString"),
+				Features:                      []catalogmanagementv1.Feature{*featureModel},
+				Kinds:                         []catalogmanagementv1.Kind{*kindModel},
 				PermitRequestIBMPublicPublish: core.BoolPtr(true),
-				IBMPublishApproved: core.BoolPtr(true),
-				PublicPublishApproved: core.BoolPtr(true),
-				PublicOriginalCRN: core.StringPtr("testString"),
-				PublishPublicCRN: core.StringPtr("testString"),
-				PortalApprovalRecord: core.StringPtr("testString"),
-				PortalUIURL: core.StringPtr("testString"),
-				CatalogID: core.StringPtr("testString"),
-				CatalogName: core.StringPtr("testString"),
-				Metadata: make(map[string]interface{}),
-				Disclaimer: core.StringPtr("testString"),
-				Hidden: core.BoolPtr(true),
-				Provider: core.StringPtr("testString"),
-				RepoInfo: repoInfoModel,
+				IBMPublishApproved:            core.BoolPtr(true),
+				PublicPublishApproved:         core.BoolPtr(true),
+				PublicOriginalCRN:             core.StringPtr("testString"),
+				PublishPublicCRN:              core.StringPtr("testString"),
+				PortalApprovalRecord:          core.StringPtr("testString"),
+				PortalUIURL:                   core.StringPtr("testString"),
+				CatalogID:                     core.StringPtr("testString"),
+				CatalogName:                   core.StringPtr("testString"),
+				Metadata:                      make(map[string]interface{}),
+				Disclaimer:                    core.StringPtr("testString"),
+				Hidden:                        core.BoolPtr(true),
+				Provider:                      core.StringPtr("testString"),
+				RepoInfo:                      repoInfoModel,
 			}
 
 			offering, response, err := catalogManagementService.CreateOffering(createOfferingOptions)
@@ -666,15 +663,15 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 
 			importOfferingVersionOptions := &catalogmanagementv1.ImportOfferingVersionOptions{
 				CatalogIdentifier: core.StringPtr("testString"),
-				OfferingID: core.StringPtr("testString"),
-				Tags: []string{"testString"},
-				TargetKinds: []string{"testString"},
-				Content: CreateMockByteArray("This is a mock byte array value."),
-				Zipurl: core.StringPtr("testString"),
-				TargetVersion: core.StringPtr("testString"),
-				IncludeConfig: core.BoolPtr(true),
-				IsVsi: core.BoolPtr(true),
-				RepoType: core.StringPtr("testString"),
+				OfferingID:        core.StringPtr("testString"),
+				Tags:              []string{"testString"},
+				TargetKinds:       []string{"testString"},
+				Content:           CreateMockByteArray("This is a mock byte array value."),
+				Zipurl:            core.StringPtr("testString"),
+				TargetVersion:     core.StringPtr("testString"),
+				IncludeConfig:     core.BoolPtr(true),
+				IsVsi:             core.BoolPtr(true),
+				RepoType:          core.StringPtr("testString"),
 			}
 
 			offering, response, err := catalogManagementService.ImportOfferingVersion(importOfferingVersionOptions)
@@ -694,16 +691,16 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 
 			importOfferingOptions := &catalogmanagementv1.ImportOfferingOptions{
 				CatalogIdentifier: core.StringPtr("testString"),
-				Tags: []string{"testString"},
-				TargetKinds: []string{"testString"},
-				Content: CreateMockByteArray("This is a mock byte array value."),
-				Zipurl: core.StringPtr("testString"),
-				OfferingID: core.StringPtr("testString"),
-				TargetVersion: core.StringPtr("testString"),
-				IncludeConfig: core.BoolPtr(true),
-				IsVsi: core.BoolPtr(true),
-				RepoType: core.StringPtr("testString"),
-				XAuthToken: core.StringPtr("testString"),
+				Tags:              []string{"testString"},
+				TargetKinds:       []string{"testString"},
+				Content:           CreateMockByteArray("This is a mock byte array value."),
+				Zipurl:            core.StringPtr("testString"),
+				OfferingID:        core.StringPtr("testString"),
+				TargetVersion:     core.StringPtr("testString"),
+				IncludeConfig:     core.BoolPtr(true),
+				IsVsi:             core.BoolPtr(true),
+				RepoType:          core.StringPtr("testString"),
+				XAuthToken:        core.StringPtr("testString"),
 			}
 
 			offering, response, err := catalogManagementService.ImportOffering(importOfferingOptions)
@@ -723,13 +720,13 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 
 			reloadOfferingOptions := &catalogmanagementv1.ReloadOfferingOptions{
 				CatalogIdentifier: core.StringPtr("testString"),
-				OfferingID: core.StringPtr("testString"),
-				TargetVersion: core.StringPtr("testString"),
-				Tags: []string{"testString"},
-				TargetKinds: []string{"testString"},
-				Content: CreateMockByteArray("This is a mock byte array value."),
-				Zipurl: core.StringPtr("testString"),
-				RepoType: core.StringPtr("testString"),
+				OfferingID:        core.StringPtr("testString"),
+				TargetVersion:     core.StringPtr("testString"),
+				Tags:              []string{"testString"},
+				TargetKinds:       []string{"testString"},
+				Content:           CreateMockByteArray("This is a mock byte array value."),
+				Zipurl:            core.StringPtr("testString"),
+				RepoType:          core.StringPtr("testString"),
 			}
 
 			offering, response, err := catalogManagementService.ReloadOffering(reloadOfferingOptions)
@@ -749,7 +746,7 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 
 			getOfferingOptions := &catalogmanagementv1.GetOfferingOptions{
 				CatalogIdentifier: core.StringPtr("testString"),
-				OfferingID: core.StringPtr("testString"),
+				OfferingID:        core.StringPtr("testString"),
 			}
 
 			offering, response, err := catalogManagementService.GetOffering(getOfferingOptions)
@@ -768,187 +765,187 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 		It(`ReplaceOffering(replaceOfferingOptions *ReplaceOfferingOptions)`, func() {
 
 			ratingModel := &catalogmanagementv1.Rating{
-				OneStarCount: core.Int64Ptr(int64(38)),
-				TwoStarCount: core.Int64Ptr(int64(38)),
+				OneStarCount:   core.Int64Ptr(int64(38)),
+				TwoStarCount:   core.Int64Ptr(int64(38)),
 				ThreeStarCount: core.Int64Ptr(int64(38)),
-				FourStarCount: core.Int64Ptr(int64(38)),
+				FourStarCount:  core.Int64Ptr(int64(38)),
 			}
 
 			featureModel := &catalogmanagementv1.Feature{
-				Title: core.StringPtr("testString"),
+				Title:       core.StringPtr("testString"),
 				Description: core.StringPtr("testString"),
 			}
 
 			configurationModel := &catalogmanagementv1.Configuration{
-				Key: core.StringPtr("testString"),
-				Type: core.StringPtr("testString"),
-				DefaultValue: core.StringPtr("testString"),
+				Key:             core.StringPtr("testString"),
+				Type:            core.StringPtr("testString"),
+				DefaultValue:    core.StringPtr("testString"),
 				ValueConstraint: core.StringPtr("testString"),
-				Description: core.StringPtr("testString"),
-				Required: core.BoolPtr(true),
-				Options: []interface{}{"testString"},
-				Hidden: core.BoolPtr(true),
+				Description:     core.StringPtr("testString"),
+				Required:        core.BoolPtr(true),
+				Options:         []interface{}{"testString"},
+				Hidden:          core.BoolPtr(true),
 			}
 
 			validationModel := &catalogmanagementv1.Validation{
-				Validated: CreateMockDateTime("2019-01-01T12:00:00.000Z"),
-				Requested: CreateMockDateTime("2019-01-01T12:00:00.000Z"),
-				State: core.StringPtr("testString"),
+				Validated:     CreateMockDateTime("2019-01-01T12:00:00.000Z"),
+				Requested:     CreateMockDateTime("2019-01-01T12:00:00.000Z"),
+				State:         core.StringPtr("testString"),
 				LastOperation: core.StringPtr("testString"),
-				Target: make(map[string]interface{}),
+				Target:        make(map[string]interface{}),
 			}
 
 			resourceModel := &catalogmanagementv1.Resource{
-				Type: core.StringPtr("mem"),
+				Type:  core.StringPtr("mem"),
 				Value: core.StringPtr("testString"),
 			}
 
 			scriptModel := &catalogmanagementv1.Script{
-				Instructions: core.StringPtr("testString"),
-				Script: core.StringPtr("testString"),
+				Instructions:     core.StringPtr("testString"),
+				Script:           core.StringPtr("testString"),
 				ScriptPermission: core.StringPtr("testString"),
-				DeleteScript: core.StringPtr("testString"),
-				Scope: core.StringPtr("testString"),
+				DeleteScript:     core.StringPtr("testString"),
+				Scope:            core.StringPtr("testString"),
 			}
 
 			versionEntitlementModel := &catalogmanagementv1.VersionEntitlement{
-				ProviderName: core.StringPtr("testString"),
-				ProviderID: core.StringPtr("testString"),
-				ProductID: core.StringPtr("testString"),
-				PartNumbers: []string{"testString"},
+				ProviderName:  core.StringPtr("testString"),
+				ProviderID:    core.StringPtr("testString"),
+				ProductID:     core.StringPtr("testString"),
+				PartNumbers:   []string{"testString"},
 				ImageRepoName: core.StringPtr("testString"),
 			}
 
 			licenseModel := &catalogmanagementv1.License{
-				ID: core.StringPtr("testString"),
-				Name: core.StringPtr("testString"),
-				Type: core.StringPtr("testString"),
-				URL: core.StringPtr("testString"),
+				ID:          core.StringPtr("testString"),
+				Name:        core.StringPtr("testString"),
+				Type:        core.StringPtr("testString"),
+				URL:         core.StringPtr("testString"),
 				Description: core.StringPtr("testString"),
 			}
 
 			stateModel := &catalogmanagementv1.State{
-				Current: core.StringPtr("testString"),
-				CurrentEntered: CreateMockDateTime("2019-01-01T12:00:00.000Z"),
-				Pending: core.StringPtr("testString"),
+				Current:          core.StringPtr("testString"),
+				CurrentEntered:   CreateMockDateTime("2019-01-01T12:00:00.000Z"),
+				Pending:          core.StringPtr("testString"),
 				PendingRequested: CreateMockDateTime("2019-01-01T12:00:00.000Z"),
-				Previous: core.StringPtr("testString"),
+				Previous:         core.StringPtr("testString"),
 			}
 
 			versionModel := &catalogmanagementv1.Version{
-				ID: core.StringPtr("testString"),
-				Rev: core.StringPtr("testString"),
-				CRN: core.StringPtr("testString"),
-				Version: core.StringPtr("testString"),
-				Sha: core.StringPtr("testString"),
-				Created: CreateMockDateTime("2019-01-01T12:00:00.000Z"),
-				Updated: CreateMockDateTime("2019-01-01T12:00:00.000Z"),
-				OfferingID: core.StringPtr("testString"),
-				CatalogID: core.StringPtr("testString"),
-				KindID: core.StringPtr("testString"),
-				Tags: []string{"testString"},
-				RepoURL: core.StringPtr("testString"),
-				SourceURL: core.StringPtr("testString"),
-				TgzURL: core.StringPtr("testString"),
-				Configuration: []catalogmanagementv1.Configuration{*configurationModel},
-				Metadata: make(map[string]interface{}),
-				Validation: validationModel,
-				RequiredResources: []catalogmanagementv1.Resource{*resourceModel},
-				SingleInstance: core.BoolPtr(true),
-				Install: scriptModel,
-				PreInstall: []catalogmanagementv1.Script{*scriptModel},
-				Entitlement: versionEntitlementModel,
-				Licenses: []catalogmanagementv1.License{*licenseModel},
-				ImageManifestURL: core.StringPtr("testString"),
-				Deprecated: core.BoolPtr(true),
-				PackageVersion: core.StringPtr("testString"),
-				State: stateModel,
-				VersionLocator: core.StringPtr("testString"),
-				ConsoleURL: core.StringPtr("testString"),
-				LongDescription: core.StringPtr("testString"),
+				ID:                  core.StringPtr("testString"),
+				Rev:                 core.StringPtr("testString"),
+				CRN:                 core.StringPtr("testString"),
+				Version:             core.StringPtr("testString"),
+				Sha:                 core.StringPtr("testString"),
+				Created:             CreateMockDateTime("2019-01-01T12:00:00.000Z"),
+				Updated:             CreateMockDateTime("2019-01-01T12:00:00.000Z"),
+				OfferingID:          core.StringPtr("testString"),
+				CatalogID:           core.StringPtr("testString"),
+				KindID:              core.StringPtr("testString"),
+				Tags:                []string{"testString"},
+				RepoURL:             core.StringPtr("testString"),
+				SourceURL:           core.StringPtr("testString"),
+				TgzURL:              core.StringPtr("testString"),
+				Configuration:       []catalogmanagementv1.Configuration{*configurationModel},
+				Metadata:            make(map[string]interface{}),
+				Validation:          validationModel,
+				RequiredResources:   []catalogmanagementv1.Resource{*resourceModel},
+				SingleInstance:      core.BoolPtr(true),
+				Install:             scriptModel,
+				PreInstall:          []catalogmanagementv1.Script{*scriptModel},
+				Entitlement:         versionEntitlementModel,
+				Licenses:            []catalogmanagementv1.License{*licenseModel},
+				ImageManifestURL:    core.StringPtr("testString"),
+				Deprecated:          core.BoolPtr(true),
+				PackageVersion:      core.StringPtr("testString"),
+				State:               stateModel,
+				VersionLocator:      core.StringPtr("testString"),
+				ConsoleURL:          core.StringPtr("testString"),
+				LongDescription:     core.StringPtr("testString"),
 				WhitelistedAccounts: []string{"testString"},
 			}
 
 			deploymentModel := &catalogmanagementv1.Deployment{
-				ID: core.StringPtr("testString"),
-				Label: core.StringPtr("testString"),
-				Name: core.StringPtr("testString"),
+				ID:               core.StringPtr("testString"),
+				Label:            core.StringPtr("testString"),
+				Name:             core.StringPtr("testString"),
 				ShortDescription: core.StringPtr("testString"),
-				LongDescription: core.StringPtr("testString"),
-				Metadata: make(map[string]interface{}),
-				Tags: []string{"testString"},
-				Created: CreateMockDateTime("2019-01-01T12:00:00.000Z"),
-				Updated: CreateMockDateTime("2019-01-01T12:00:00.000Z"),
+				LongDescription:  core.StringPtr("testString"),
+				Metadata:         make(map[string]interface{}),
+				Tags:             []string{"testString"},
+				Created:          CreateMockDateTime("2019-01-01T12:00:00.000Z"),
+				Updated:          CreateMockDateTime("2019-01-01T12:00:00.000Z"),
 			}
 
 			planModel := &catalogmanagementv1.Plan{
-				ID: core.StringPtr("testString"),
-				Label: core.StringPtr("testString"),
-				Name: core.StringPtr("testString"),
-				ShortDescription: core.StringPtr("testString"),
-				LongDescription: core.StringPtr("testString"),
-				Metadata: make(map[string]interface{}),
-				Tags: []string{"testString"},
+				ID:                 core.StringPtr("testString"),
+				Label:              core.StringPtr("testString"),
+				Name:               core.StringPtr("testString"),
+				ShortDescription:   core.StringPtr("testString"),
+				LongDescription:    core.StringPtr("testString"),
+				Metadata:           make(map[string]interface{}),
+				Tags:               []string{"testString"},
 				AdditionalFeatures: []catalogmanagementv1.Feature{*featureModel},
-				Created: CreateMockDateTime("2019-01-01T12:00:00.000Z"),
-				Updated: CreateMockDateTime("2019-01-01T12:00:00.000Z"),
-				Deployments: []catalogmanagementv1.Deployment{*deploymentModel},
+				Created:            CreateMockDateTime("2019-01-01T12:00:00.000Z"),
+				Updated:            CreateMockDateTime("2019-01-01T12:00:00.000Z"),
+				Deployments:        []catalogmanagementv1.Deployment{*deploymentModel},
 			}
 
 			kindModel := &catalogmanagementv1.Kind{
-				ID: core.StringPtr("testString"),
-				FormatKind: core.StringPtr("testString"),
-				TargetKind: core.StringPtr("testString"),
-				Metadata: make(map[string]interface{}),
+				ID:                 core.StringPtr("testString"),
+				FormatKind:         core.StringPtr("testString"),
+				TargetKind:         core.StringPtr("testString"),
+				Metadata:           make(map[string]interface{}),
 				InstallDescription: core.StringPtr("testString"),
-				Tags: []string{"testString"},
+				Tags:               []string{"testString"},
 				AdditionalFeatures: []catalogmanagementv1.Feature{*featureModel},
-				Created: CreateMockDateTime("2019-01-01T12:00:00.000Z"),
-				Updated: CreateMockDateTime("2019-01-01T12:00:00.000Z"),
-				Versions: []catalogmanagementv1.Version{*versionModel},
-				Plans: []catalogmanagementv1.Plan{*planModel},
+				Created:            CreateMockDateTime("2019-01-01T12:00:00.000Z"),
+				Updated:            CreateMockDateTime("2019-01-01T12:00:00.000Z"),
+				Versions:           []catalogmanagementv1.Version{*versionModel},
+				Plans:              []catalogmanagementv1.Plan{*planModel},
 			}
 
 			repoInfoModel := &catalogmanagementv1.RepoInfo{
 				Token: core.StringPtr("testString"),
-				Type: core.StringPtr("testString"),
+				Type:  core.StringPtr("testString"),
 			}
 
 			replaceOfferingOptions := &catalogmanagementv1.ReplaceOfferingOptions{
-				CatalogIdentifier: core.StringPtr("testString"),
-				OfferingID: core.StringPtr("testString"),
-				ID: core.StringPtr("testString"),
-				Rev: core.StringPtr("testString"),
-				URL: core.StringPtr("testString"),
-				CRN: core.StringPtr("testString"),
-				Label: core.StringPtr("testString"),
-				Name: core.StringPtr("testString"),
-				OfferingIconURL: core.StringPtr("testString"),
-				OfferingDocsURL: core.StringPtr("testString"),
-				OfferingSupportURL: core.StringPtr("testString"),
-				Tags: []string{"testString"},
-				Keywords: []string{"testString"},
-				Rating: ratingModel,
-				Created: CreateMockDateTime("2019-01-01T12:00:00.000Z"),
-				Updated: CreateMockDateTime("2019-01-01T12:00:00.000Z"),
-				ShortDescription: core.StringPtr("testString"),
-				LongDescription: core.StringPtr("testString"),
-				Features: []catalogmanagementv1.Feature{*featureModel},
-				Kinds: []catalogmanagementv1.Kind{*kindModel},
+				CatalogIdentifier:             core.StringPtr("testString"),
+				OfferingID:                    core.StringPtr("testString"),
+				ID:                            core.StringPtr("testString"),
+				Rev:                           core.StringPtr("testString"),
+				URL:                           core.StringPtr("testString"),
+				CRN:                           core.StringPtr("testString"),
+				Label:                         core.StringPtr("testString"),
+				Name:                          core.StringPtr("testString"),
+				OfferingIconURL:               core.StringPtr("testString"),
+				OfferingDocsURL:               core.StringPtr("testString"),
+				OfferingSupportURL:            core.StringPtr("testString"),
+				Tags:                          []string{"testString"},
+				Keywords:                      []string{"testString"},
+				Rating:                        ratingModel,
+				Created:                       CreateMockDateTime("2019-01-01T12:00:00.000Z"),
+				Updated:                       CreateMockDateTime("2019-01-01T12:00:00.000Z"),
+				ShortDescription:              core.StringPtr("testString"),
+				LongDescription:               core.StringPtr("testString"),
+				Features:                      []catalogmanagementv1.Feature{*featureModel},
+				Kinds:                         []catalogmanagementv1.Kind{*kindModel},
 				PermitRequestIBMPublicPublish: core.BoolPtr(true),
-				IBMPublishApproved: core.BoolPtr(true),
-				PublicPublishApproved: core.BoolPtr(true),
-				PublicOriginalCRN: core.StringPtr("testString"),
-				PublishPublicCRN: core.StringPtr("testString"),
-				PortalApprovalRecord: core.StringPtr("testString"),
-				PortalUIURL: core.StringPtr("testString"),
-				CatalogID: core.StringPtr("testString"),
-				CatalogName: core.StringPtr("testString"),
-				Metadata: make(map[string]interface{}),
-				Disclaimer: core.StringPtr("testString"),
-				Hidden: core.BoolPtr(true),
-				Provider: core.StringPtr("testString"),
-				RepoInfo: repoInfoModel,
+				IBMPublishApproved:            core.BoolPtr(true),
+				PublicPublishApproved:         core.BoolPtr(true),
+				PublicOriginalCRN:             core.StringPtr("testString"),
+				PublishPublicCRN:              core.StringPtr("testString"),
+				PortalApprovalRecord:          core.StringPtr("testString"),
+				PortalUIURL:                   core.StringPtr("testString"),
+				CatalogID:                     core.StringPtr("testString"),
+				CatalogName:                   core.StringPtr("testString"),
+				Metadata:                      make(map[string]interface{}),
+				Disclaimer:                    core.StringPtr("testString"),
+				Hidden:                        core.BoolPtr(true),
+				Provider:                      core.StringPtr("testString"),
+				RepoInfo:                      repoInfoModel,
 			}
 
 			offering, response, err := catalogManagementService.ReplaceOffering(replaceOfferingOptions)
@@ -968,7 +965,7 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 
 			getOfferingAuditOptions := &catalogmanagementv1.GetOfferingAuditOptions{
 				CatalogIdentifier: core.StringPtr("testString"),
-				OfferingID: core.StringPtr("testString"),
+				OfferingID:        core.StringPtr("testString"),
 			}
 
 			auditLog, response, err := catalogManagementService.GetOfferingAudit(getOfferingAuditOptions)
@@ -988,8 +985,8 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 
 			replaceOfferingIconOptions := &catalogmanagementv1.ReplaceOfferingIconOptions{
 				CatalogIdentifier: core.StringPtr("testString"),
-				OfferingID: core.StringPtr("testString"),
-				FileName: core.StringPtr("testString"),
+				OfferingID:        core.StringPtr("testString"),
+				FileName:          core.StringPtr("testString"),
 			}
 
 			offering, response, err := catalogManagementService.ReplaceOfferingIcon(replaceOfferingIconOptions)
@@ -1009,9 +1006,9 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 
 			updateOfferingIBMOptions := &catalogmanagementv1.UpdateOfferingIBMOptions{
 				CatalogIdentifier: core.StringPtr("testString"),
-				OfferingID: core.StringPtr("testString"),
-				ApprovalType: core.StringPtr("allow_request"),
-				Approved: core.StringPtr("true"),
+				OfferingID:        core.StringPtr("testString"),
+				ApprovalType:      core.StringPtr("allow_request"),
+				Approved:          core.StringPtr("true"),
 			}
 
 			approvalResult, response, err := catalogManagementService.UpdateOfferingIBM(updateOfferingIBMOptions)
@@ -1031,13 +1028,13 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 
 			getOfferingUpdatesOptions := &catalogmanagementv1.GetOfferingUpdatesOptions{
 				CatalogIdentifier: core.StringPtr("testString"),
-				OfferingID: core.StringPtr("testString"),
-				Kind: core.StringPtr("testString"),
-				Version: core.StringPtr("testString"),
-				ClusterID: core.StringPtr("testString"),
-				Region: core.StringPtr("testString"),
-				ResourceGroupID: core.StringPtr("testString"),
-				Namespace: core.StringPtr("testString"),
+				OfferingID:        core.StringPtr("testString"),
+				Kind:              core.StringPtr("testString"),
+				Version:           core.StringPtr("testString"),
+				ClusterID:         core.StringPtr("testString"),
+				Region:            core.StringPtr("testString"),
+				ResourceGroupID:   core.StringPtr("testString"),
+				Namespace:         core.StringPtr("testString"),
 			}
 
 			versionUpdateDescriptor, response, err := catalogManagementService.GetOfferingUpdates(getOfferingUpdatesOptions)
@@ -1076,7 +1073,7 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 
 			getOfferingLicenseOptions := &catalogmanagementv1.GetOfferingLicenseOptions{
 				VersionLocID: core.StringPtr("testString"),
-				LicenseID: core.StringPtr("testString"),
+				LicenseID:    core.StringPtr("testString"),
 			}
 
 			result, response, err := catalogManagementService.GetOfferingLicense(getOfferingLicenseOptions)
@@ -1205,9 +1202,9 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 
 			copyVersionOptions := &catalogmanagementv1.CopyVersionOptions{
 				VersionLocID: core.StringPtr("testString"),
-				Tags: []string{"testString"},
-				TargetKinds: []string{"testString"},
-				Content: CreateMockByteArray("This is a mock byte array value."),
+				Tags:         []string{"testString"},
+				TargetKinds:  []string{"testString"},
+				Content:      CreateMockByteArray("This is a mock byte array value."),
 			}
 
 			response, err := catalogManagementService.CopyVersion(copyVersionOptions)
@@ -1263,8 +1260,8 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 		It(`GetCluster(getClusterOptions *GetClusterOptions)`, func() {
 
 			getClusterOptions := &catalogmanagementv1.GetClusterOptions{
-				ClusterID: core.StringPtr("testString"),
-				Region: core.StringPtr("testString"),
+				ClusterID:         core.StringPtr("testString"),
+				Region:            core.StringPtr("testString"),
 				XAuthRefreshToken: core.StringPtr("testString"),
 			}
 
@@ -1284,11 +1281,11 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 		It(`GetNamespaces(getNamespacesOptions *GetNamespacesOptions)`, func() {
 
 			getNamespacesOptions := &catalogmanagementv1.GetNamespacesOptions{
-				ClusterID: core.StringPtr("testString"),
-				Region: core.StringPtr("testString"),
+				ClusterID:         core.StringPtr("testString"),
+				Region:            core.StringPtr("testString"),
 				XAuthRefreshToken: core.StringPtr("testString"),
-				Limit: core.Int64Ptr(int64(1000)),
-				Offset: core.Int64Ptr(int64(38)),
+				Limit:             core.Int64Ptr(int64(1000)),
+				Offset:            core.Int64Ptr(int64(38)),
 			}
 
 			namespaceSearchResult, response, err := catalogManagementService.GetNamespaces(getNamespacesOptions)
@@ -1308,11 +1305,11 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 
 			deployOperatorsOptions := &catalogmanagementv1.DeployOperatorsOptions{
 				XAuthRefreshToken: core.StringPtr("testString"),
-				ClusterID: core.StringPtr("testString"),
-				Region: core.StringPtr("testString"),
-				Namespaces: []string{"testString"},
-				AllNamespaces: core.BoolPtr(true),
-				VersionLocatorID: core.StringPtr("testString"),
+				ClusterID:         core.StringPtr("testString"),
+				Region:            core.StringPtr("testString"),
+				Namespaces:        []string{"testString"},
+				AllNamespaces:     core.BoolPtr(true),
+				VersionLocatorID:  core.StringPtr("testString"),
 			}
 
 			operatorDeployResult, response, err := catalogManagementService.DeployOperators(deployOperatorsOptions)
@@ -1332,9 +1329,9 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 
 			listOperatorsOptions := &catalogmanagementv1.ListOperatorsOptions{
 				XAuthRefreshToken: core.StringPtr("testString"),
-				ClusterID: core.StringPtr("testString"),
-				Region: core.StringPtr("testString"),
-				VersionLocatorID: core.StringPtr("testString"),
+				ClusterID:         core.StringPtr("testString"),
+				Region:            core.StringPtr("testString"),
+				VersionLocatorID:  core.StringPtr("testString"),
 			}
 
 			operatorDeployResult, response, err := catalogManagementService.ListOperators(listOperatorsOptions)
@@ -1354,11 +1351,11 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 
 			replaceOperatorsOptions := &catalogmanagementv1.ReplaceOperatorsOptions{
 				XAuthRefreshToken: core.StringPtr("testString"),
-				ClusterID: core.StringPtr("testString"),
-				Region: core.StringPtr("testString"),
-				Namespaces: []string{"testString"},
-				AllNamespaces: core.BoolPtr(true),
-				VersionLocatorID: core.StringPtr("testString"),
+				ClusterID:         core.StringPtr("testString"),
+				Region:            core.StringPtr("testString"),
+				Namespaces:        []string{"testString"},
+				AllNamespaces:     core.BoolPtr(true),
+				VersionLocatorID:  core.StringPtr("testString"),
 			}
 
 			operatorDeployResult, response, err := catalogManagementService.ReplaceOperators(replaceOperatorsOptions)
@@ -1377,29 +1374,29 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 		It(`InstallVersion(installVersionOptions *InstallVersionOptions)`, func() {
 
 			deployRequestBodySchematicsModel := &catalogmanagementv1.DeployRequestBodySchematics{
-				Name: core.StringPtr("testString"),
-				Description: core.StringPtr("testString"),
-				Tags: []string{"testString"},
+				Name:            core.StringPtr("testString"),
+				Description:     core.StringPtr("testString"),
+				Tags:            []string{"testString"},
 				ResourceGroupID: core.StringPtr("testString"),
 			}
 
 			installVersionOptions := &catalogmanagementv1.InstallVersionOptions{
-				VersionLocID: core.StringPtr("testString"),
+				VersionLocID:      core.StringPtr("testString"),
 				XAuthRefreshToken: core.StringPtr("testString"),
-				ClusterID: core.StringPtr("testString"),
-				Region: core.StringPtr("testString"),
-				Namespace: core.StringPtr("testString"),
-				OverrideValues: make(map[string]interface{}),
+				ClusterID:         core.StringPtr("testString"),
+				Region:            core.StringPtr("testString"),
+				Namespace:         core.StringPtr("testString"),
+				OverrideValues:    make(map[string]interface{}),
 				EntitlementApikey: core.StringPtr("testString"),
-				Schematics: deployRequestBodySchematicsModel,
-				Script: core.StringPtr("testString"),
-				ScriptID: core.StringPtr("testString"),
-				VersionLocatorID: core.StringPtr("testString"),
-				VcenterID: core.StringPtr("testString"),
-				VcenterUser: core.StringPtr("testString"),
-				VcenterPassword: core.StringPtr("testString"),
-				VcenterLocation: core.StringPtr("testString"),
-				VcenterDatastore: core.StringPtr("testString"),
+				Schematics:        deployRequestBodySchematicsModel,
+				Script:            core.StringPtr("testString"),
+				ScriptID:          core.StringPtr("testString"),
+				VersionLocatorID:  core.StringPtr("testString"),
+				VcenterID:         core.StringPtr("testString"),
+				VcenterUser:       core.StringPtr("testString"),
+				VcenterPassword:   core.StringPtr("testString"),
+				VcenterLocation:   core.StringPtr("testString"),
+				VcenterDatastore:  core.StringPtr("testString"),
 			}
 
 			response, err := catalogManagementService.InstallVersion(installVersionOptions)
@@ -1417,29 +1414,29 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 		It(`PreinstallVersion(preinstallVersionOptions *PreinstallVersionOptions)`, func() {
 
 			deployRequestBodySchematicsModel := &catalogmanagementv1.DeployRequestBodySchematics{
-				Name: core.StringPtr("testString"),
-				Description: core.StringPtr("testString"),
-				Tags: []string{"testString"},
+				Name:            core.StringPtr("testString"),
+				Description:     core.StringPtr("testString"),
+				Tags:            []string{"testString"},
 				ResourceGroupID: core.StringPtr("testString"),
 			}
 
 			preinstallVersionOptions := &catalogmanagementv1.PreinstallVersionOptions{
-				VersionLocID: core.StringPtr("testString"),
+				VersionLocID:      core.StringPtr("testString"),
 				XAuthRefreshToken: core.StringPtr("testString"),
-				ClusterID: core.StringPtr("testString"),
-				Region: core.StringPtr("testString"),
-				Namespace: core.StringPtr("testString"),
-				OverrideValues: make(map[string]interface{}),
+				ClusterID:         core.StringPtr("testString"),
+				Region:            core.StringPtr("testString"),
+				Namespace:         core.StringPtr("testString"),
+				OverrideValues:    make(map[string]interface{}),
 				EntitlementApikey: core.StringPtr("testString"),
-				Schematics: deployRequestBodySchematicsModel,
-				Script: core.StringPtr("testString"),
-				ScriptID: core.StringPtr("testString"),
-				VersionLocatorID: core.StringPtr("testString"),
-				VcenterID: core.StringPtr("testString"),
-				VcenterUser: core.StringPtr("testString"),
-				VcenterPassword: core.StringPtr("testString"),
-				VcenterLocation: core.StringPtr("testString"),
-				VcenterDatastore: core.StringPtr("testString"),
+				Schematics:        deployRequestBodySchematicsModel,
+				Script:            core.StringPtr("testString"),
+				ScriptID:          core.StringPtr("testString"),
+				VersionLocatorID:  core.StringPtr("testString"),
+				VcenterID:         core.StringPtr("testString"),
+				VcenterUser:       core.StringPtr("testString"),
+				VcenterPassword:   core.StringPtr("testString"),
+				VcenterLocation:   core.StringPtr("testString"),
+				VcenterDatastore:  core.StringPtr("testString"),
 			}
 
 			response, err := catalogManagementService.PreinstallVersion(preinstallVersionOptions)
@@ -1457,11 +1454,11 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 		It(`GetPreinstall(getPreinstallOptions *GetPreinstallOptions)`, func() {
 
 			getPreinstallOptions := &catalogmanagementv1.GetPreinstallOptions{
-				VersionLocID: core.StringPtr("testString"),
+				VersionLocID:      core.StringPtr("testString"),
 				XAuthRefreshToken: core.StringPtr("testString"),
-				ClusterID: core.StringPtr("testString"),
-				Region: core.StringPtr("testString"),
-				Namespace: core.StringPtr("testString"),
+				ClusterID:         core.StringPtr("testString"),
+				Region:            core.StringPtr("testString"),
+				Namespace:         core.StringPtr("testString"),
 			}
 
 			installStatus, response, err := catalogManagementService.GetPreinstall(getPreinstallOptions)
@@ -1480,29 +1477,29 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 		It(`ValidateInstall(validateInstallOptions *ValidateInstallOptions)`, func() {
 
 			deployRequestBodySchematicsModel := &catalogmanagementv1.DeployRequestBodySchematics{
-				Name: core.StringPtr("testString"),
-				Description: core.StringPtr("testString"),
-				Tags: []string{"testString"},
+				Name:            core.StringPtr("testString"),
+				Description:     core.StringPtr("testString"),
+				Tags:            []string{"testString"},
 				ResourceGroupID: core.StringPtr("testString"),
 			}
 
 			validateInstallOptions := &catalogmanagementv1.ValidateInstallOptions{
-				VersionLocID: core.StringPtr("testString"),
+				VersionLocID:      core.StringPtr("testString"),
 				XAuthRefreshToken: core.StringPtr("testString"),
-				ClusterID: core.StringPtr("testString"),
-				Region: core.StringPtr("testString"),
-				Namespace: core.StringPtr("testString"),
-				OverrideValues: make(map[string]interface{}),
+				ClusterID:         core.StringPtr("testString"),
+				Region:            core.StringPtr("testString"),
+				Namespace:         core.StringPtr("testString"),
+				OverrideValues:    make(map[string]interface{}),
 				EntitlementApikey: core.StringPtr("testString"),
-				Schematics: deployRequestBodySchematicsModel,
-				Script: core.StringPtr("testString"),
-				ScriptID: core.StringPtr("testString"),
-				VersionLocatorID: core.StringPtr("testString"),
-				VcenterID: core.StringPtr("testString"),
-				VcenterUser: core.StringPtr("testString"),
-				VcenterPassword: core.StringPtr("testString"),
-				VcenterLocation: core.StringPtr("testString"),
-				VcenterDatastore: core.StringPtr("testString"),
+				Schematics:        deployRequestBodySchematicsModel,
+				Script:            core.StringPtr("testString"),
+				ScriptID:          core.StringPtr("testString"),
+				VersionLocatorID:  core.StringPtr("testString"),
+				VcenterID:         core.StringPtr("testString"),
+				VcenterUser:       core.StringPtr("testString"),
+				VcenterPassword:   core.StringPtr("testString"),
+				VcenterLocation:   core.StringPtr("testString"),
+				VcenterDatastore:  core.StringPtr("testString"),
 			}
 
 			response, err := catalogManagementService.ValidateInstall(validateInstallOptions)
@@ -1520,7 +1517,7 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 		It(`GetValidationStatus(getValidationStatusOptions *GetValidationStatusOptions)`, func() {
 
 			getValidationStatusOptions := &catalogmanagementv1.GetValidationStatusOptions{
-				VersionLocID: core.StringPtr("testString"),
+				VersionLocID:      core.StringPtr("testString"),
 				XAuthRefreshToken: core.StringPtr("testString"),
 			}
 
@@ -1559,11 +1556,11 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 		It(`SearchObjects(searchObjectsOptions *SearchObjectsOptions)`, func() {
 
 			searchObjectsOptions := &catalogmanagementv1.SearchObjectsOptions{
-				Query: core.StringPtr("testString"),
-				Limit: core.Int64Ptr(int64(1000)),
-				Offset: core.Int64Ptr(int64(38)),
+				Query:    core.StringPtr("testString"),
+				Limit:    core.Int64Ptr(int64(1000)),
+				Offset:   core.Int64Ptr(int64(38)),
 				Collapse: core.BoolPtr(true),
-				Digest: core.BoolPtr(true),
+				Digest:   core.BoolPtr(true),
 			}
 
 			objectSearchResult, response, err := catalogManagementService.SearchObjects(searchObjectsOptions)
@@ -1583,10 +1580,10 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 
 			listObjectsOptions := &catalogmanagementv1.ListObjectsOptions{
 				CatalogIdentifier: core.StringPtr("testString"),
-				Limit: core.Int64Ptr(int64(1000)),
-				Offset: core.Int64Ptr(int64(38)),
-				Name: core.StringPtr("testString"),
-				Sort: core.StringPtr("testString"),
+				Limit:             core.Int64Ptr(int64(1000)),
+				Offset:            core.Int64Ptr(int64(38)),
+				Name:              core.StringPtr("testString"),
+				Sort:              core.StringPtr("testString"),
 			}
 
 			objectListResult, response, err := catalogManagementService.ListObjects(listObjectsOptions)
@@ -1606,41 +1603,41 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 
 			publishObjectModel := &catalogmanagementv1.PublishObject{
 				PermitIBMPublicPublish: core.BoolPtr(true),
-				IBMApproved: core.BoolPtr(true),
-				PublicApproved: core.BoolPtr(true),
-				PortalApprovalRecord: core.StringPtr("testString"),
-				PortalURL: core.StringPtr("testString"),
+				IBMApproved:            core.BoolPtr(true),
+				PublicApproved:         core.BoolPtr(true),
+				PortalApprovalRecord:   core.StringPtr("testString"),
+				PortalURL:              core.StringPtr("testString"),
 			}
 
 			stateModel := &catalogmanagementv1.State{
-				Current: core.StringPtr("testString"),
-				CurrentEntered: CreateMockDateTime("2019-01-01T12:00:00.000Z"),
-				Pending: core.StringPtr("testString"),
+				Current:          core.StringPtr("testString"),
+				CurrentEntered:   CreateMockDateTime("2019-01-01T12:00:00.000Z"),
+				Pending:          core.StringPtr("testString"),
 				PendingRequested: CreateMockDateTime("2019-01-01T12:00:00.000Z"),
-				Previous: core.StringPtr("testString"),
+				Previous:         core.StringPtr("testString"),
 			}
 
 			createObjectOptions := &catalogmanagementv1.CreateObjectOptions{
-				CatalogIdentifier: core.StringPtr("testString"),
-				ID: core.StringPtr("testString"),
-				Name: core.StringPtr("testString"),
-				Rev: core.StringPtr("testString"),
-				CRN: core.StringPtr("testString"),
-				URL: core.StringPtr("testString"),
-				ParentID: core.StringPtr("testString"),
-				LabelI18n: core.StringPtr("testString"),
-				Label: core.StringPtr("testString"),
-				Tags: []string{"testString"},
-				Created: CreateMockDateTime("2019-01-01T12:00:00.000Z"),
-				Updated: CreateMockDateTime("2019-01-01T12:00:00.000Z"),
-				ShortDescription: core.StringPtr("testString"),
+				CatalogIdentifier:    core.StringPtr("testString"),
+				ID:                   core.StringPtr("testString"),
+				Name:                 core.StringPtr("testString"),
+				Rev:                  core.StringPtr("testString"),
+				CRN:                  core.StringPtr("testString"),
+				URL:                  core.StringPtr("testString"),
+				ParentID:             core.StringPtr("testString"),
+				LabelI18n:            core.StringPtr("testString"),
+				Label:                core.StringPtr("testString"),
+				Tags:                 []string{"testString"},
+				Created:              CreateMockDateTime("2019-01-01T12:00:00.000Z"),
+				Updated:              CreateMockDateTime("2019-01-01T12:00:00.000Z"),
+				ShortDescription:     core.StringPtr("testString"),
 				ShortDescriptionI18n: core.StringPtr("testString"),
-				Kind: core.StringPtr("testString"),
-				Publish: publishObjectModel,
-				State: stateModel,
-				CatalogID: core.StringPtr("testString"),
-				CatalogName: core.StringPtr("testString"),
-				Data: make(map[string]interface{}),
+				Kind:                 core.StringPtr("testString"),
+				Publish:              publishObjectModel,
+				State:                stateModel,
+				CatalogID:            core.StringPtr("testString"),
+				CatalogName:          core.StringPtr("testString"),
+				Data:                 make(map[string]interface{}),
 			}
 
 			catalogObject, response, err := catalogManagementService.CreateObject(createObjectOptions)
@@ -1660,7 +1657,7 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 
 			getObjectOptions := &catalogmanagementv1.GetObjectOptions{
 				CatalogIdentifier: core.StringPtr("testString"),
-				ObjectIdentifier: core.StringPtr("testString"),
+				ObjectIdentifier:  core.StringPtr("testString"),
 			}
 
 			catalogObject, response, err := catalogManagementService.GetObject(getObjectOptions)
@@ -1680,42 +1677,42 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 
 			publishObjectModel := &catalogmanagementv1.PublishObject{
 				PermitIBMPublicPublish: core.BoolPtr(true),
-				IBMApproved: core.BoolPtr(true),
-				PublicApproved: core.BoolPtr(true),
-				PortalApprovalRecord: core.StringPtr("testString"),
-				PortalURL: core.StringPtr("testString"),
+				IBMApproved:            core.BoolPtr(true),
+				PublicApproved:         core.BoolPtr(true),
+				PortalApprovalRecord:   core.StringPtr("testString"),
+				PortalURL:              core.StringPtr("testString"),
 			}
 
 			stateModel := &catalogmanagementv1.State{
-				Current: core.StringPtr("testString"),
-				CurrentEntered: CreateMockDateTime("2019-01-01T12:00:00.000Z"),
-				Pending: core.StringPtr("testString"),
+				Current:          core.StringPtr("testString"),
+				CurrentEntered:   CreateMockDateTime("2019-01-01T12:00:00.000Z"),
+				Pending:          core.StringPtr("testString"),
 				PendingRequested: CreateMockDateTime("2019-01-01T12:00:00.000Z"),
-				Previous: core.StringPtr("testString"),
+				Previous:         core.StringPtr("testString"),
 			}
 
 			replaceObjectOptions := &catalogmanagementv1.ReplaceObjectOptions{
-				CatalogIdentifier: core.StringPtr("testString"),
-				ObjectIdentifier: core.StringPtr("testString"),
-				ID: core.StringPtr("testString"),
-				Name: core.StringPtr("testString"),
-				Rev: core.StringPtr("testString"),
-				CRN: core.StringPtr("testString"),
-				URL: core.StringPtr("testString"),
-				ParentID: core.StringPtr("testString"),
-				LabelI18n: core.StringPtr("testString"),
-				Label: core.StringPtr("testString"),
-				Tags: []string{"testString"},
-				Created: CreateMockDateTime("2019-01-01T12:00:00.000Z"),
-				Updated: CreateMockDateTime("2019-01-01T12:00:00.000Z"),
-				ShortDescription: core.StringPtr("testString"),
+				CatalogIdentifier:    core.StringPtr("testString"),
+				ObjectIdentifier:     core.StringPtr("testString"),
+				ID:                   core.StringPtr("testString"),
+				Name:                 core.StringPtr("testString"),
+				Rev:                  core.StringPtr("testString"),
+				CRN:                  core.StringPtr("testString"),
+				URL:                  core.StringPtr("testString"),
+				ParentID:             core.StringPtr("testString"),
+				LabelI18n:            core.StringPtr("testString"),
+				Label:                core.StringPtr("testString"),
+				Tags:                 []string{"testString"},
+				Created:              CreateMockDateTime("2019-01-01T12:00:00.000Z"),
+				Updated:              CreateMockDateTime("2019-01-01T12:00:00.000Z"),
+				ShortDescription:     core.StringPtr("testString"),
 				ShortDescriptionI18n: core.StringPtr("testString"),
-				Kind: core.StringPtr("testString"),
-				Publish: publishObjectModel,
-				State: stateModel,
-				CatalogID: core.StringPtr("testString"),
-				CatalogName: core.StringPtr("testString"),
-				Data: make(map[string]interface{}),
+				Kind:                 core.StringPtr("testString"),
+				Publish:              publishObjectModel,
+				State:                stateModel,
+				CatalogID:            core.StringPtr("testString"),
+				CatalogName:          core.StringPtr("testString"),
+				Data:                 make(map[string]interface{}),
 			}
 
 			catalogObject, response, err := catalogManagementService.ReplaceObject(replaceObjectOptions)
@@ -1735,7 +1732,7 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 
 			getObjectAuditOptions := &catalogmanagementv1.GetObjectAuditOptions{
 				CatalogIdentifier: core.StringPtr("testString"),
-				ObjectIdentifier: core.StringPtr("testString"),
+				ObjectIdentifier:  core.StringPtr("testString"),
 			}
 
 			auditLog, response, err := catalogManagementService.GetObjectAudit(getObjectAuditOptions)
@@ -1755,7 +1752,7 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 
 			accountPublishObjectOptions := &catalogmanagementv1.AccountPublishObjectOptions{
 				CatalogIdentifier: core.StringPtr("testString"),
-				ObjectIdentifier: core.StringPtr("testString"),
+				ObjectIdentifier:  core.StringPtr("testString"),
 			}
 
 			response, err := catalogManagementService.AccountPublishObject(accountPublishObjectOptions)
@@ -1774,7 +1771,7 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 
 			sharedPublishObjectOptions := &catalogmanagementv1.SharedPublishObjectOptions{
 				CatalogIdentifier: core.StringPtr("testString"),
-				ObjectIdentifier: core.StringPtr("testString"),
+				ObjectIdentifier:  core.StringPtr("testString"),
 			}
 
 			response, err := catalogManagementService.SharedPublishObject(sharedPublishObjectOptions)
@@ -1793,7 +1790,7 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 
 			ibmPublishObjectOptions := &catalogmanagementv1.IBMPublishObjectOptions{
 				CatalogIdentifier: core.StringPtr("testString"),
-				ObjectIdentifier: core.StringPtr("testString"),
+				ObjectIdentifier:  core.StringPtr("testString"),
 			}
 
 			response, err := catalogManagementService.IBMPublishObject(ibmPublishObjectOptions)
@@ -1812,7 +1809,7 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 
 			publicPublishObjectOptions := &catalogmanagementv1.PublicPublishObjectOptions{
 				CatalogIdentifier: core.StringPtr("testString"),
-				ObjectIdentifier: core.StringPtr("testString"),
+				ObjectIdentifier:  core.StringPtr("testString"),
 			}
 
 			response, err := catalogManagementService.PublicPublishObject(publicPublishObjectOptions)
@@ -1831,7 +1828,7 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 
 			createObjectAccessOptions := &catalogmanagementv1.CreateObjectAccessOptions{
 				CatalogIdentifier: core.StringPtr("testString"),
-				ObjectIdentifier: core.StringPtr("testString"),
+				ObjectIdentifier:  core.StringPtr("testString"),
 				AccountIdentifier: core.StringPtr("testString"),
 			}
 
@@ -1851,7 +1848,7 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 
 			getObjectAccessOptions := &catalogmanagementv1.GetObjectAccessOptions{
 				CatalogIdentifier: core.StringPtr("testString"),
-				ObjectIdentifier: core.StringPtr("testString"),
+				ObjectIdentifier:  core.StringPtr("testString"),
 				AccountIdentifier: core.StringPtr("testString"),
 			}
 
@@ -1872,9 +1869,9 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 
 			getObjectAccessListOptions := &catalogmanagementv1.GetObjectAccessListOptions{
 				CatalogIdentifier: core.StringPtr("testString"),
-				ObjectIdentifier: core.StringPtr("testString"),
-				Limit: core.Int64Ptr(int64(1000)),
-				Offset: core.Int64Ptr(int64(38)),
+				ObjectIdentifier:  core.StringPtr("testString"),
+				Limit:             core.Int64Ptr(int64(1000)),
+				Offset:            core.Int64Ptr(int64(38)),
 			}
 
 			objectAccessListResult, response, err := catalogManagementService.GetObjectAccessList(getObjectAccessListOptions)
@@ -1894,8 +1891,8 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 
 			addObjectAccessListOptions := &catalogmanagementv1.AddObjectAccessListOptions{
 				CatalogIdentifier: core.StringPtr("testString"),
-				ObjectIdentifier: core.StringPtr("testString"),
-				Accounts: []string{"testString"},
+				ObjectIdentifier:  core.StringPtr("testString"),
+				Accounts:          []string{"testString"},
 			}
 
 			accessListBulkResponse, response, err := catalogManagementService.AddObjectAccessList(addObjectAccessListOptions)
@@ -1914,18 +1911,18 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 		It(`CreateOfferingInstance(createOfferingInstanceOptions *CreateOfferingInstanceOptions)`, func() {
 
 			createOfferingInstanceOptions := &catalogmanagementv1.CreateOfferingInstanceOptions{
-				XAuthRefreshToken: core.StringPtr("testString"),
-				ID: core.StringPtr("testString"),
-				URL: core.StringPtr("testString"),
-				CRN: core.StringPtr("testString"),
-				Label: core.StringPtr("testString"),
-				CatalogID: core.StringPtr("testString"),
-				OfferingID: core.StringPtr("testString"),
-				KindFormat: core.StringPtr("testString"),
-				Version: core.StringPtr("testString"),
-				ClusterID: core.StringPtr("testString"),
-				ClusterRegion: core.StringPtr("testString"),
-				ClusterNamespaces: []string{"testString"},
+				XAuthRefreshToken:    core.StringPtr("testString"),
+				ID:                   core.StringPtr("testString"),
+				URL:                  core.StringPtr("testString"),
+				CRN:                  core.StringPtr("testString"),
+				Label:                core.StringPtr("testString"),
+				CatalogID:            core.StringPtr("testString"),
+				OfferingID:           core.StringPtr("testString"),
+				KindFormat:           core.StringPtr("testString"),
+				Version:              core.StringPtr("testString"),
+				ClusterID:            core.StringPtr("testString"),
+				ClusterRegion:        core.StringPtr("testString"),
+				ClusterNamespaces:    []string{"testString"},
 				ClusterAllNamespaces: core.BoolPtr(true),
 			}
 
@@ -1964,19 +1961,19 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 		It(`PutOfferingInstance(putOfferingInstanceOptions *PutOfferingInstanceOptions)`, func() {
 
 			putOfferingInstanceOptions := &catalogmanagementv1.PutOfferingInstanceOptions{
-				InstanceIdentifier: core.StringPtr("testString"),
-				XAuthRefreshToken: core.StringPtr("testString"),
-				ID: core.StringPtr("testString"),
-				URL: core.StringPtr("testString"),
-				CRN: core.StringPtr("testString"),
-				Label: core.StringPtr("testString"),
-				CatalogID: core.StringPtr("testString"),
-				OfferingID: core.StringPtr("testString"),
-				KindFormat: core.StringPtr("testString"),
-				Version: core.StringPtr("testString"),
-				ClusterID: core.StringPtr("testString"),
-				ClusterRegion: core.StringPtr("testString"),
-				ClusterNamespaces: []string{"testString"},
+				InstanceIdentifier:   core.StringPtr("testString"),
+				XAuthRefreshToken:    core.StringPtr("testString"),
+				ID:                   core.StringPtr("testString"),
+				URL:                  core.StringPtr("testString"),
+				CRN:                  core.StringPtr("testString"),
+				Label:                core.StringPtr("testString"),
+				CatalogID:            core.StringPtr("testString"),
+				OfferingID:           core.StringPtr("testString"),
+				KindFormat:           core.StringPtr("testString"),
+				Version:              core.StringPtr("testString"),
+				ClusterID:            core.StringPtr("testString"),
+				ClusterRegion:        core.StringPtr("testString"),
+				ClusterNamespaces:    []string{"testString"},
 				ClusterAllNamespaces: core.BoolPtr(true),
 			}
 
@@ -2015,9 +2012,9 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 
 			deleteOperatorsOptions := &catalogmanagementv1.DeleteOperatorsOptions{
 				XAuthRefreshToken: core.StringPtr("testString"),
-				ClusterID: core.StringPtr("testString"),
-				Region: core.StringPtr("testString"),
-				VersionLocatorID: core.StringPtr("testString"),
+				ClusterID:         core.StringPtr("testString"),
+				Region:            core.StringPtr("testString"),
+				VersionLocatorID:  core.StringPtr("testString"),
 			}
 
 			response, err := catalogManagementService.DeleteOperators(deleteOperatorsOptions)
@@ -2036,7 +2033,7 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 
 			deleteOfferingInstanceOptions := &catalogmanagementv1.DeleteOfferingInstanceOptions{
 				InstanceIdentifier: core.StringPtr("testString"),
-				XAuthRefreshToken: core.StringPtr("testString"),
+				XAuthRefreshToken:  core.StringPtr("testString"),
 			}
 
 			response, err := catalogManagementService.DeleteOfferingInstance(deleteOfferingInstanceOptions)
@@ -2055,7 +2052,7 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 
 			deleteOfferingOptions := &catalogmanagementv1.DeleteOfferingOptions{
 				CatalogIdentifier: core.StringPtr("testString"),
-				OfferingID: core.StringPtr("testString"),
+				OfferingID:        core.StringPtr("testString"),
 			}
 
 			response, err := catalogManagementService.DeleteOffering(deleteOfferingOptions)
@@ -2074,8 +2071,8 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 
 			deleteObjectAccessListOptions := &catalogmanagementv1.DeleteObjectAccessListOptions{
 				CatalogIdentifier: core.StringPtr("testString"),
-				ObjectIdentifier: core.StringPtr("testString"),
-				Accounts: []string{"testString"},
+				ObjectIdentifier:  core.StringPtr("testString"),
+				Accounts:          []string{"testString"},
 			}
 
 			accessListBulkResponse, response, err := catalogManagementService.DeleteObjectAccessList(deleteObjectAccessListOptions)
@@ -2095,7 +2092,7 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 
 			deleteObjectAccessOptions := &catalogmanagementv1.DeleteObjectAccessOptions{
 				CatalogIdentifier: core.StringPtr("testString"),
-				ObjectIdentifier: core.StringPtr("testString"),
+				ObjectIdentifier:  core.StringPtr("testString"),
 				AccountIdentifier: core.StringPtr("testString"),
 			}
 
@@ -2115,7 +2112,7 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 
 			deleteObjectOptions := &catalogmanagementv1.DeleteObjectOptions{
 				CatalogIdentifier: core.StringPtr("testString"),
-				ObjectIdentifier: core.StringPtr("testString"),
+				ObjectIdentifier:  core.StringPtr("testString"),
 			}
 
 			response, err := catalogManagementService.DeleteObject(deleteObjectOptions)
