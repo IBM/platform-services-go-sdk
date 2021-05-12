@@ -8,7 +8,9 @@ vendor/
 .openapi-generator-ignore
 .openapi-generator/VERSION
 /.project
+package.json
 package-lock.json
+node_modules/
 
 # IDE files
 *.idea
