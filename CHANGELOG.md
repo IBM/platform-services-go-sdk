@@ -1,3 +1,10 @@
+## [0.18.12](https://github.com/IBM/platform-services-go-sdk/compare/v0.18.11...v0.18.12) (2021-05-13)
+
+
+### Bug Fixes
+
+* **Catalog Management:** Re-gen code after recent API changes to offering instances ([af27018](https://github.com/IBM/platform-services-go-sdk/commit/af270183650809d677e0745a072c03549ea41d8d))
+
 ## [0.18.11](https://github.com/IBM/platform-services-go-sdk/compare/v0.18.10...v0.18.11) (2021-04-27)
 
 
