@@ -59,6 +59,7 @@ var _ = Describe(`CatalogManagementV1 Integration Tests (New)`, func() {
 		gitToken                 string
 		refreshToken             string
 		testOfferingInstanceID   string
+		testOfferingInstanceRev  string
 		targetAccountID          string
 		targetClusterID          string
 	)
@@ -782,7 +783,7 @@ var _ = Describe(`CatalogManagementV1 Integration Tests (New)`, func() {
 				expectedOfferingKinds      = 1
 				expectedOfferingShortDesc  = "Node-RED is a programming tool for wiring together hardware devices, APIs and online services in new and interesting ways."
 				expectedOfferingURL        = "https://cm.globalcatalog.test.cloud.ibm.com/api/v1-beta/catalogs/%s/offerings/%s"
-				expectedOfferingZipURL     = "https://github.com/rhm-samples/node-red-operator/blob/nodered-1.2.8/node-red-operator/bundle/0.0.2/manifests/node-red-operator.v0.0.2.clusterserviceversion.yaml"
+				expectedOfferingZipURL     = "https://github.com/rhm-samples/node-red-operator/blob/master/node-red-operator/bundle/0.0.2/node-red-operator.v0.0.2.clusterserviceversion.yaml"
 			)
 			offeringOptions := catalogManagementService.NewImportOfferingOptions(testCatalogID)
 			offeringOptions.SetZipurl(expectedOfferingZipURL)
@@ -2087,6 +2088,8 @@ var _ = Describe(`CatalogManagementV1 Integration Tests (New)`, func() {
 			offeringInstanceOptions.SetClusterID(targetClusterID)
 			offeringInstanceOptions.SetClusterRegion("us-south")
 			offeringInstanceOptions.SetClusterNamespaces([]string{"sdk-test"})
+			offeringInstanceOptions.SetSchematicsWorkspaceID("test-id")
+			offeringInstanceOptions.SetResourceGroupID("24a205592b2845c7a992efa55fe33ee0")
 
 			offeringInstance, response, err := catalogManagementService.CreateOfferingInstance(offeringInstanceOptions)
 
@@ -2097,6 +2100,7 @@ var _ = Describe(`CatalogManagementV1 Integration Tests (New)`, func() {
 
 			Expect(offeringInstance.ID).ToNot(BeNil())
 			testOfferingInstanceID = *offeringInstance.ID
+			testOfferingInstanceRev = *offeringInstance.Rev
 			Expect(testOfferingInstanceID).ToNot(BeEmpty())
 		})
 	})
@@ -2128,6 +2132,8 @@ var _ = Describe(`CatalogManagementV1 Integration Tests (New)`, func() {
 			Expect(testOfferingInstanceID).ToNot(BeEmpty())
 
 			putOfferingInstanceOptions := catalogManagementService.NewPutOfferingInstanceOptions(testOfferingInstanceID, refreshToken)
+			putOfferingInstanceOptions.SetID(testOfferingInstanceID)
+			putOfferingInstanceOptions.SetRev(testOfferingInstanceRev)
 			putOfferingInstanceOptions.SetCatalogID(testCatalogID)
 			putOfferingInstanceOptions.SetOfferingID(testOfferingID)
 			putOfferingInstanceOptions.SetKindFormat("operator")
@@ -2157,7 +2163,7 @@ var _ = Describe(`CatalogManagementV1 Integration Tests (New)`, func() {
 			response, err := catalogManagementService.DeleteOfferingInstance(deleteOfferingInstanceOptions)
 
 			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(200))
+			Expect(response.StatusCode).To(Equal(204))
 
 		})
 	})
