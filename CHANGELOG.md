@@ -1,3 +1,10 @@
+## [0.18.13](https://github.com/IBM/platform-services-go-sdk/compare/v0.18.12...v0.18.13) (2021-05-14)
+
+
+### Bug Fixes
+
+* **build:** prevent package-lock.json from being committed by semantic-release ([3e5b8a4](https://github.com/IBM/platform-services-go-sdk/commit/3e5b8a4b148d146f7063323e012446b3786ea086))
+
 ## [0.18.12](https://github.com/IBM/platform-services-go-sdk/compare/v0.18.11...v0.18.12) (2021-05-13)
 
 
