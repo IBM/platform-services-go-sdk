@@ -97,7 +97,7 @@ before proceeding.
 
 ### Inspect new generated SDK code
 Next, it is recommended that you inspect the differences in the new and previous generated code to
-get an overall view of the changes caused by the re-generation step.   The changes that you see in the
+get an overall view of the changes caused by the re-generation step. The changes that you see in the
 generated service code should be in line with the API definition changes that have occurred since you last
 generated the SDK code.
 Example:
