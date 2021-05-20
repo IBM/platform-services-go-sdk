@@ -915,12 +915,6 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 					Expect(err).To(BeNil())
 					Expect(resp.StatusCode).To(Equal(200))
 					Expect(result).ToNot(BeNil())
-
-					Expect(*result.RowsCount).Should(BeNumerically(">=", int64(1)))
-					Expect(*result.RowsCount).Should(BeNumerically("<=", int64(resultsPerPage)))
-					Expect(len(result.Resources)).Should(BeNumerically(">=", 1))
-					Expect(len(result.Resources)).Should(BeNumerically("<=", resultsPerPage))
-
 					results = append(results, result.Resources...)
 
 					start, err := core.GetQueryParam(result.NextURL, "start")
@@ -933,6 +927,8 @@ var _ = Describe("Resource Controller - Integration Tests", func() {
 					options.SetStart(*start)
 
 				}
+				Expect(len(results)).Should(BeNumerically(">=", 1))
+
 				fmt.Fprintf(GinkgoWriter, "ListResourceKeys() result:\n%s\n", common.ToJSON(results))
 			})
 
