@@ -1,3 +1,10 @@
+## [0.18.15](https://github.com/IBM/platform-services-go-sdk/compare/v0.18.14...v0.18.15) (2021-06-07)
+
+
+### Bug Fixes
+
+* **Catalog Management:** add channel and install plan to catalog management offering instance ([#125](https://github.com/IBM/platform-services-go-sdk/issues/125)) ([9f5a90c](https://github.com/IBM/platform-services-go-sdk/commit/9f5a90c7e9654c427d54fc823866ebe688b609c3))
+
 ## [0.18.14](https://github.com/IBM/platform-services-go-sdk/compare/v0.18.13...v0.18.14) (2021-06-01)
 
 
