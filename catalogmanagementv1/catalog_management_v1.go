@@ -4677,6 +4677,12 @@ func (catalogManagement *CatalogManagementV1) CreateOfferingInstanceWithContext(
 	if createOfferingInstanceOptions.ResourceGroupID != nil {
 		body["resource_group_id"] = createOfferingInstanceOptions.ResourceGroupID
 	}
+	if createOfferingInstanceOptions.InstallPlan != nil {
+		body["install_plan"] = createOfferingInstanceOptions.InstallPlan
+	}
+	if createOfferingInstanceOptions.Channel != nil {
+		body["channel"] = createOfferingInstanceOptions.Channel
+	}
 	_, err = builder.SetBodyContentJSON(body)
 	if err != nil {
 		return
@@ -4851,6 +4857,12 @@ func (catalogManagement *CatalogManagementV1) PutOfferingInstanceWithContext(ctx
 	}
 	if putOfferingInstanceOptions.ResourceGroupID != nil {
 		body["resource_group_id"] = putOfferingInstanceOptions.ResourceGroupID
+	}
+	if putOfferingInstanceOptions.InstallPlan != nil {
+		body["install_plan"] = putOfferingInstanceOptions.InstallPlan
+	}
+	if putOfferingInstanceOptions.Channel != nil {
+		body["channel"] = putOfferingInstanceOptions.Channel
 	}
 	_, err = builder.SetBodyContentJSON(body)
 	if err != nil {
@@ -6231,6 +6243,13 @@ type CreateOfferingInstanceOptions struct {
 	// Id of the resource group to provision the offering instance into.
 	ResourceGroupID *string
 
+	// Type of install plan (also known as approval strategy) for operator subscriptions. Can be either automatic, which
+	// automatically upgrades operators to the latest in a channel, or manual, which requires approval on the cluster.
+	InstallPlan *string
+
+	// Channel to pin the operator subscription to.
+	Channel *string
+
 	// Allows users to set headers on API requests
 	Headers map[string]string
 }
@@ -6335,6 +6354,18 @@ func (options *CreateOfferingInstanceOptions) SetSchematicsWorkspaceID(schematic
 // SetResourceGroupID : Allow user to set ResourceGroupID
 func (options *CreateOfferingInstanceOptions) SetResourceGroupID(resourceGroupID string) *CreateOfferingInstanceOptions {
 	options.ResourceGroupID = core.StringPtr(resourceGroupID)
+	return options
+}
+
+// SetInstallPlan : Allow user to set InstallPlan
+func (options *CreateOfferingInstanceOptions) SetInstallPlan(installPlan string) *CreateOfferingInstanceOptions {
+	options.InstallPlan = core.StringPtr(installPlan)
+	return options
+}
+
+// SetChannel : Allow user to set Channel
+func (options *CreateOfferingInstanceOptions) SetChannel(channel string) *CreateOfferingInstanceOptions {
+	options.Channel = core.StringPtr(channel)
 	return options
 }
 
@@ -9881,6 +9912,13 @@ type OfferingInstance struct {
 
 	// Id of the resource group to provision the offering instance into.
 	ResourceGroupID *string `json:"resource_group_id,omitempty"`
+
+	// Type of install plan (also known as approval strategy) for operator subscriptions. Can be either automatic, which
+	// automatically upgrades operators to the latest in a channel, or manual, which requires approval on the cluster.
+	InstallPlan *string `json:"install_plan,omitempty"`
+
+	// Channel to pin the operator subscription to.
+	Channel *string `json:"channel,omitempty"`
 }
 
 // UnmarshalOfferingInstance unmarshals an instance of OfferingInstance from the specified map of raw messages.
@@ -9943,6 +9981,14 @@ func UnmarshalOfferingInstance(m map[string]json.RawMessage, result interface{})
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "resource_group_id", &obj.ResourceGroupID)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "install_plan", &obj.InstallPlan)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "channel", &obj.Channel)
 	if err != nil {
 		return
 	}
@@ -10505,6 +10551,13 @@ type PutOfferingInstanceOptions struct {
 	// Id of the resource group to provision the offering instance into.
 	ResourceGroupID *string
 
+	// Type of install plan (also known as approval strategy) for operator subscriptions. Can be either automatic, which
+	// automatically upgrades operators to the latest in a channel, or manual, which requires approval on the cluster.
+	InstallPlan *string
+
+	// Channel to pin the operator subscription to.
+	Channel *string
+
 	// Allows users to set headers on API requests
 	Headers map[string]string
 }
@@ -10616,6 +10669,18 @@ func (options *PutOfferingInstanceOptions) SetSchematicsWorkspaceID(schematicsWo
 // SetResourceGroupID : Allow user to set ResourceGroupID
 func (options *PutOfferingInstanceOptions) SetResourceGroupID(resourceGroupID string) *PutOfferingInstanceOptions {
 	options.ResourceGroupID = core.StringPtr(resourceGroupID)
+	return options
+}
+
+// SetInstallPlan : Allow user to set InstallPlan
+func (options *PutOfferingInstanceOptions) SetInstallPlan(installPlan string) *PutOfferingInstanceOptions {
+	options.InstallPlan = core.StringPtr(installPlan)
+	return options
+}
+
+// SetChannel : Allow user to set Channel
+func (options *PutOfferingInstanceOptions) SetChannel(channel string) *PutOfferingInstanceOptions {
+	options.Channel = core.StringPtr(channel)
 	return options
 }
 

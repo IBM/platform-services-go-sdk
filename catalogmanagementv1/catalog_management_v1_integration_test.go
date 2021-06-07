@@ -2090,6 +2090,8 @@ var _ = Describe(`CatalogManagementV1 Integration Tests (New)`, func() {
 			offeringInstanceOptions.SetClusterNamespaces([]string{"sdk-test"})
 			offeringInstanceOptions.SetSchematicsWorkspaceID("test-id")
 			offeringInstanceOptions.SetResourceGroupID("24a205592b2845c7a992efa55fe33ee0")
+			offeringInstanceOptions.SetChannel("stable")
+			offeringInstanceOptions.SetInstallPlan("automatic")
 
 			offeringInstance, response, err := catalogManagementService.CreateOfferingInstance(offeringInstanceOptions)
 
@@ -2141,6 +2143,8 @@ var _ = Describe(`CatalogManagementV1 Integration Tests (New)`, func() {
 			putOfferingInstanceOptions.SetClusterID(targetClusterID)
 			putOfferingInstanceOptions.SetClusterRegion("us-south")
 			putOfferingInstanceOptions.SetClusterNamespaces([]string{"sdk-test"})
+			putOfferingInstanceOptions.SetChannel("beta")
+			putOfferingInstanceOptions.SetInstallPlan("manual")
 
 			offeringInstance, response, err := catalogManagementService.PutOfferingInstance(putOfferingInstanceOptions)
 
