@@ -2098,6 +2098,7 @@ var _ = Describe(`CatalogManagementV1 Integration Tests (New)`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(202))
 			Expect(offeringInstance).ToNot(BeNil())
+			Expect(*offeringInstance.LastOperation.State).To(Equal("in progress"))
 			fmt.Fprintf(GinkgoWriter, "CreateOfferingInstance() result:\n%s\n", common.ToJSON(offeringInstance))
 
 			Expect(offeringInstance.ID).ToNot(BeNil())
@@ -2119,6 +2120,7 @@ var _ = Describe(`CatalogManagementV1 Integration Tests (New)`, func() {
 
 			offeringInstance, response, err := catalogManagementService.GetOfferingInstance(getOfferingInstanceOptions)
 
+			Expect(offeringInstance.Metadata).ToNot(BeNil())
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(offeringInstance).ToNot(BeNil())
