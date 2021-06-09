@@ -1,3 +1,10 @@
+## [0.18.16](https://github.com/IBM/platform-services-go-sdk/compare/v0.18.15...v0.18.16) (2021-06-09)
+
+
+### Bug Fixes
+
+* **Catalog Management:** add metadata and lastoperation to offering instance ([#126](https://github.com/IBM/platform-services-go-sdk/issues/126)) ([097f824](https://github.com/IBM/platform-services-go-sdk/commit/097f8245c323b080c011003ca45528e397e309fe))
+
 ## [0.18.15](https://github.com/IBM/platform-services-go-sdk/compare/v0.18.14...v0.18.15) (2021-06-07)
 
 
