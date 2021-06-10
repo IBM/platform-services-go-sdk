@@ -67,13 +67,14 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 		Context(`Using external config, construct service client instances`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"GLOBAL_TAGGING_URL":       "https://globaltaggingv1/api",
+				"GLOBAL_TAGGING_URL": "https://globaltaggingv1/api",
 				"GLOBAL_TAGGING_AUTH_TYPE": "noauth",
 			}
 
 			It(`Create service client using external config successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				globalTaggingService, serviceErr := globaltaggingv1.NewGlobalTaggingV1UsingExternalConfig(&globaltaggingv1.GlobalTaggingV1Options{})
+				globalTaggingService, serviceErr := globaltaggingv1.NewGlobalTaggingV1UsingExternalConfig(&globaltaggingv1.GlobalTaggingV1Options{
+				})
 				Expect(globalTaggingService).ToNot(BeNil())
 				Expect(serviceErr).To(BeNil())
 				ClearTestEnvironment(testEnvironment)
@@ -102,7 +103,8 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 			})
 			It(`Create service client using external config and set url programatically successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				globalTaggingService, serviceErr := globaltaggingv1.NewGlobalTaggingV1UsingExternalConfig(&globaltaggingv1.GlobalTaggingV1Options{})
+				globalTaggingService, serviceErr := globaltaggingv1.NewGlobalTaggingV1UsingExternalConfig(&globaltaggingv1.GlobalTaggingV1Options{
+				})
 				err := globalTaggingService.SetServiceURL("https://testService/api")
 				Expect(err).To(BeNil())
 				Expect(globalTaggingService).ToNot(BeNil())
@@ -120,12 +122,13 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 		Context(`Using external config, construct service client instances with error: Invalid Auth`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"GLOBAL_TAGGING_URL":       "https://globaltaggingv1/api",
+				"GLOBAL_TAGGING_URL": "https://globaltaggingv1/api",
 				"GLOBAL_TAGGING_AUTH_TYPE": "someOtherAuth",
 			}
 
 			SetTestEnvironment(testEnvironment)
-			globalTaggingService, serviceErr := globaltaggingv1.NewGlobalTaggingV1UsingExternalConfig(&globaltaggingv1.GlobalTaggingV1Options{})
+			globalTaggingService, serviceErr := globaltaggingv1.NewGlobalTaggingV1UsingExternalConfig(&globaltaggingv1.GlobalTaggingV1Options{
+			})
 
 			It(`Instantiate service client with error`, func() {
 				Expect(globalTaggingService).To(BeNil())
@@ -136,7 +139,7 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 		Context(`Using external config, construct service client instances with error: Invalid URL`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"GLOBAL_TAGGING_AUTH_TYPE": "NOAuth",
+				"GLOBAL_TAGGING_AUTH_TYPE":   "NOAuth",
 			}
 
 			SetTestEnvironment(testEnvironment)
@@ -163,7 +166,7 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 	})
 	Describe(`ListTags(listTagsOptions *ListTagsOptions) - Operation response error`, func() {
 		listTagsPath := "/v3/tags"
-		Context(`Using mock server endpoint`, func() {
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
@@ -172,25 +175,15 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 					Expect(req.URL.EscapedPath()).To(Equal(listTagsPath))
 					Expect(req.Method).To(Equal("GET"))
 					Expect(req.URL.Query()["impersonate_user"]).To(Equal([]string{"testString"}))
-
 					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"testString"}))
-
 					Expect(req.URL.Query()["tag_type"]).To(Equal([]string{"user"}))
-
 					// TODO: Add check for full_data query parameter
-
 					Expect(req.URL.Query()["attached_to"]).To(Equal([]string{"testString"}))
-
 					Expect(req.URL.Query()["offset"]).To(Equal([]string{fmt.Sprint(int64(0))}))
-
 					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(1))}))
-
 					Expect(req.URL.Query()["timeout"]).To(Equal([]string{fmt.Sprint(int64(0))}))
-
 					Expect(req.URL.Query()["order_by_name"]).To(Equal([]string{"asc"}))
-
 					// TODO: Add check for attached_only query parameter
-
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
 					fmt.Fprintf(res, `} this is not valid json {`)
@@ -236,7 +229,6 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 			})
 		})
 	})
-
 	Describe(`ListTags(listTagsOptions *ListTagsOptions)`, func() {
 		listTagsPath := "/v3/tags"
 		Context(`Using mock server endpoint with timeout`, func() {
@@ -249,25 +241,15 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 					Expect(req.Method).To(Equal("GET"))
 
 					Expect(req.URL.Query()["impersonate_user"]).To(Equal([]string{"testString"}))
-
 					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"testString"}))
-
 					Expect(req.URL.Query()["tag_type"]).To(Equal([]string{"user"}))
-
 					// TODO: Add check for full_data query parameter
-
 					Expect(req.URL.Query()["attached_to"]).To(Equal([]string{"testString"}))
-
 					Expect(req.URL.Query()["offset"]).To(Equal([]string{fmt.Sprint(int64(0))}))
-
 					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(1))}))
-
 					Expect(req.URL.Query()["timeout"]).To(Equal([]string{fmt.Sprint(int64(0))}))
-
 					Expect(req.URL.Query()["order_by_name"]).To(Equal([]string{"asc"}))
-
 					// TODO: Add check for attached_only query parameter
-
 					// Sleep a short time to support a timeout test
 					time.Sleep(100 * time.Millisecond)
 
@@ -336,25 +318,15 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 					Expect(req.Method).To(Equal("GET"))
 
 					Expect(req.URL.Query()["impersonate_user"]).To(Equal([]string{"testString"}))
-
 					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"testString"}))
-
 					Expect(req.URL.Query()["tag_type"]).To(Equal([]string{"user"}))
-
 					// TODO: Add check for full_data query parameter
-
 					Expect(req.URL.Query()["attached_to"]).To(Equal([]string{"testString"}))
-
 					Expect(req.URL.Query()["offset"]).To(Equal([]string{fmt.Sprint(int64(0))}))
-
 					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(1))}))
-
 					Expect(req.URL.Query()["timeout"]).To(Equal([]string{fmt.Sprint(int64(0))}))
-
 					Expect(req.URL.Query()["order_by_name"]).To(Equal([]string{"asc"}))
-
 					// TODO: Add check for attached_only query parameter
-
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
@@ -432,10 +404,54 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 				testServer.Close()
 			})
 		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke ListTags successfully`, func() {
+				globalTaggingService, serviceErr := globaltaggingv1.NewGlobalTaggingV1(&globaltaggingv1.GlobalTaggingV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(globalTaggingService).ToNot(BeNil())
+
+				// Construct an instance of the ListTagsOptions model
+				listTagsOptionsModel := new(globaltaggingv1.ListTagsOptions)
+				listTagsOptionsModel.ImpersonateUser = core.StringPtr("testString")
+				listTagsOptionsModel.AccountID = core.StringPtr("testString")
+				listTagsOptionsModel.TagType = core.StringPtr("user")
+				listTagsOptionsModel.FullData = core.BoolPtr(true)
+				listTagsOptionsModel.Providers = []string{"ghost"}
+				listTagsOptionsModel.AttachedTo = core.StringPtr("testString")
+				listTagsOptionsModel.Offset = core.Int64Ptr(int64(0))
+				listTagsOptionsModel.Limit = core.Int64Ptr(int64(1))
+				listTagsOptionsModel.Timeout = core.Int64Ptr(int64(0))
+				listTagsOptionsModel.OrderByName = core.StringPtr("asc")
+				listTagsOptionsModel.AttachedOnly = core.BoolPtr(true)
+				listTagsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := globalTaggingService.ListTags(listTagsOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
 	})
 	Describe(`CreateTag(createTagOptions *CreateTagOptions) - Operation response error`, func() {
 		createTagPath := "/v3/tags"
-		Context(`Using mock server endpoint`, func() {
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
@@ -444,11 +460,8 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 					Expect(req.URL.EscapedPath()).To(Equal(createTagPath))
 					Expect(req.Method).To(Equal("POST"))
 					Expect(req.URL.Query()["impersonate_user"]).To(Equal([]string{"testString"}))
-
 					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"testString"}))
-
 					Expect(req.URL.Query()["tag_type"]).To(Equal([]string{"access"}))
-
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
 					fmt.Fprintf(res, `} this is not valid json {`)
@@ -487,7 +500,6 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 			})
 		})
 	})
-
 	Describe(`CreateTag(createTagOptions *CreateTagOptions)`, func() {
 		createTagPath := "/v3/tags"
 		Context(`Using mock server endpoint with timeout`, func() {
@@ -516,11 +528,8 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
 
 					Expect(req.URL.Query()["impersonate_user"]).To(Equal([]string{"testString"}))
-
 					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"testString"}))
-
 					Expect(req.URL.Query()["tag_type"]).To(Equal([]string{"access"}))
-
 					// Sleep a short time to support a timeout test
 					time.Sleep(100 * time.Millisecond)
 
@@ -598,11 +607,8 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
 
 					Expect(req.URL.Query()["impersonate_user"]).To(Equal([]string{"testString"}))
-
 					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"testString"}))
-
 					Expect(req.URL.Query()["tag_type"]).To(Equal([]string{"access"}))
-
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
@@ -673,10 +679,47 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 				testServer.Close()
 			})
 		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke CreateTag successfully`, func() {
+				globalTaggingService, serviceErr := globaltaggingv1.NewGlobalTaggingV1(&globaltaggingv1.GlobalTaggingV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(globalTaggingService).ToNot(BeNil())
+
+				// Construct an instance of the CreateTagOptions model
+				createTagOptionsModel := new(globaltaggingv1.CreateTagOptions)
+				createTagOptionsModel.TagNames = []string{"testString"}
+				createTagOptionsModel.ImpersonateUser = core.StringPtr("testString")
+				createTagOptionsModel.AccountID = core.StringPtr("testString")
+				createTagOptionsModel.TagType = core.StringPtr("access")
+				createTagOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := globalTaggingService.CreateTag(createTagOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
 	})
 	Describe(`DeleteTagAll(deleteTagAllOptions *DeleteTagAllOptions) - Operation response error`, func() {
 		deleteTagAllPath := "/v3/tags"
-		Context(`Using mock server endpoint`, func() {
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
@@ -685,13 +728,9 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 					Expect(req.URL.EscapedPath()).To(Equal(deleteTagAllPath))
 					Expect(req.Method).To(Equal("DELETE"))
 					Expect(req.URL.Query()["providers"]).To(Equal([]string{"ghost"}))
-
 					Expect(req.URL.Query()["impersonate_user"]).To(Equal([]string{"testString"}))
-
 					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"testString"}))
-
 					Expect(req.URL.Query()["tag_type"]).To(Equal([]string{"user"}))
-
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
 					fmt.Fprintf(res, `} this is not valid json {`)
@@ -730,7 +769,6 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 			})
 		})
 	})
-
 	Describe(`DeleteTagAll(deleteTagAllOptions *DeleteTagAllOptions)`, func() {
 		deleteTagAllPath := "/v3/tags"
 		Context(`Using mock server endpoint with timeout`, func() {
@@ -743,13 +781,9 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 					Expect(req.Method).To(Equal("DELETE"))
 
 					Expect(req.URL.Query()["providers"]).To(Equal([]string{"ghost"}))
-
 					Expect(req.URL.Query()["impersonate_user"]).To(Equal([]string{"testString"}))
-
 					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"testString"}))
-
 					Expect(req.URL.Query()["tag_type"]).To(Equal([]string{"user"}))
-
 					// Sleep a short time to support a timeout test
 					time.Sleep(100 * time.Millisecond)
 
@@ -811,13 +845,9 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 					Expect(req.Method).To(Equal("DELETE"))
 
 					Expect(req.URL.Query()["providers"]).To(Equal([]string{"ghost"}))
-
 					Expect(req.URL.Query()["impersonate_user"]).To(Equal([]string{"testString"}))
-
 					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"testString"}))
-
 					Expect(req.URL.Query()["tag_type"]).To(Equal([]string{"user"}))
-
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
@@ -881,10 +911,47 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 				testServer.Close()
 			})
 		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke DeleteTagAll successfully`, func() {
+				globalTaggingService, serviceErr := globaltaggingv1.NewGlobalTaggingV1(&globaltaggingv1.GlobalTaggingV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(globalTaggingService).ToNot(BeNil())
+
+				// Construct an instance of the DeleteTagAllOptions model
+				deleteTagAllOptionsModel := new(globaltaggingv1.DeleteTagAllOptions)
+				deleteTagAllOptionsModel.Providers = core.StringPtr("ghost")
+				deleteTagAllOptionsModel.ImpersonateUser = core.StringPtr("testString")
+				deleteTagAllOptionsModel.AccountID = core.StringPtr("testString")
+				deleteTagAllOptionsModel.TagType = core.StringPtr("user")
+				deleteTagAllOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := globalTaggingService.DeleteTagAll(deleteTagAllOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
 	})
 	Describe(`DeleteTag(deleteTagOptions *DeleteTagOptions) - Operation response error`, func() {
 		deleteTagPath := "/v3/tags/testString"
-		Context(`Using mock server endpoint`, func() {
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
@@ -893,11 +960,8 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 					Expect(req.URL.EscapedPath()).To(Equal(deleteTagPath))
 					Expect(req.Method).To(Equal("DELETE"))
 					Expect(req.URL.Query()["impersonate_user"]).To(Equal([]string{"testString"}))
-
 					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"testString"}))
-
 					Expect(req.URL.Query()["tag_type"]).To(Equal([]string{"user"}))
-
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
 					fmt.Fprintf(res, `} this is not valid json {`)
@@ -937,7 +1001,6 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 			})
 		})
 	})
-
 	Describe(`DeleteTag(deleteTagOptions *DeleteTagOptions)`, func() {
 		deleteTagPath := "/v3/tags/testString"
 		Context(`Using mock server endpoint with timeout`, func() {
@@ -950,11 +1013,8 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 					Expect(req.Method).To(Equal("DELETE"))
 
 					Expect(req.URL.Query()["impersonate_user"]).To(Equal([]string{"testString"}))
-
 					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"testString"}))
-
 					Expect(req.URL.Query()["tag_type"]).To(Equal([]string{"user"}))
-
 					// Sleep a short time to support a timeout test
 					time.Sleep(100 * time.Millisecond)
 
@@ -1017,11 +1077,8 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 					Expect(req.Method).To(Equal("DELETE"))
 
 					Expect(req.URL.Query()["impersonate_user"]).To(Equal([]string{"testString"}))
-
 					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"testString"}))
-
 					Expect(req.URL.Query()["tag_type"]).To(Equal([]string{"user"}))
-
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
@@ -1094,10 +1151,48 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 				testServer.Close()
 			})
 		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke DeleteTag successfully`, func() {
+				globalTaggingService, serviceErr := globaltaggingv1.NewGlobalTaggingV1(&globaltaggingv1.GlobalTaggingV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(globalTaggingService).ToNot(BeNil())
+
+				// Construct an instance of the DeleteTagOptions model
+				deleteTagOptionsModel := new(globaltaggingv1.DeleteTagOptions)
+				deleteTagOptionsModel.TagName = core.StringPtr("testString")
+				deleteTagOptionsModel.Providers = []string{"ghost"}
+				deleteTagOptionsModel.ImpersonateUser = core.StringPtr("testString")
+				deleteTagOptionsModel.AccountID = core.StringPtr("testString")
+				deleteTagOptionsModel.TagType = core.StringPtr("user")
+				deleteTagOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := globalTaggingService.DeleteTag(deleteTagOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
 	})
 	Describe(`AttachTag(attachTagOptions *AttachTagOptions) - Operation response error`, func() {
 		attachTagPath := "/v3/tags/attach"
-		Context(`Using mock server endpoint`, func() {
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
@@ -1106,11 +1201,8 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 					Expect(req.URL.EscapedPath()).To(Equal(attachTagPath))
 					Expect(req.Method).To(Equal("POST"))
 					Expect(req.URL.Query()["impersonate_user"]).To(Equal([]string{"testString"}))
-
 					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"testString"}))
-
 					Expect(req.URL.Query()["tag_type"]).To(Equal([]string{"user"}))
-
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
 					fmt.Fprintf(res, `} this is not valid json {`)
@@ -1156,7 +1248,6 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 			})
 		})
 	})
-
 	Describe(`AttachTag(attachTagOptions *AttachTagOptions)`, func() {
 		attachTagPath := "/v3/tags/attach"
 		Context(`Using mock server endpoint with timeout`, func() {
@@ -1185,11 +1276,8 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
 
 					Expect(req.URL.Query()["impersonate_user"]).To(Equal([]string{"testString"}))
-
 					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"testString"}))
-
 					Expect(req.URL.Query()["tag_type"]).To(Equal([]string{"user"}))
-
 					// Sleep a short time to support a timeout test
 					time.Sleep(100 * time.Millisecond)
 
@@ -1274,11 +1362,8 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
 
 					Expect(req.URL.Query()["impersonate_user"]).To(Equal([]string{"testString"}))
-
 					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"testString"}))
-
 					Expect(req.URL.Query()["tag_type"]).To(Equal([]string{"user"}))
-
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
@@ -1363,10 +1448,54 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 				testServer.Close()
 			})
 		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke AttachTag successfully`, func() {
+				globalTaggingService, serviceErr := globaltaggingv1.NewGlobalTaggingV1(&globaltaggingv1.GlobalTaggingV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(globalTaggingService).ToNot(BeNil())
+
+				// Construct an instance of the Resource model
+				resourceModel := new(globaltaggingv1.Resource)
+				resourceModel.ResourceID = core.StringPtr("testString")
+				resourceModel.ResourceType = core.StringPtr("testString")
+
+				// Construct an instance of the AttachTagOptions model
+				attachTagOptionsModel := new(globaltaggingv1.AttachTagOptions)
+				attachTagOptionsModel.Resources = []globaltaggingv1.Resource{*resourceModel}
+				attachTagOptionsModel.TagName = core.StringPtr("testString")
+				attachTagOptionsModel.TagNames = []string{"testString"}
+				attachTagOptionsModel.ImpersonateUser = core.StringPtr("testString")
+				attachTagOptionsModel.AccountID = core.StringPtr("testString")
+				attachTagOptionsModel.TagType = core.StringPtr("user")
+				attachTagOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := globalTaggingService.AttachTag(attachTagOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
 	})
 	Describe(`DetachTag(detachTagOptions *DetachTagOptions) - Operation response error`, func() {
 		detachTagPath := "/v3/tags/detach"
-		Context(`Using mock server endpoint`, func() {
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
@@ -1375,11 +1504,8 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 					Expect(req.URL.EscapedPath()).To(Equal(detachTagPath))
 					Expect(req.Method).To(Equal("POST"))
 					Expect(req.URL.Query()["impersonate_user"]).To(Equal([]string{"testString"}))
-
 					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"testString"}))
-
 					Expect(req.URL.Query()["tag_type"]).To(Equal([]string{"user"}))
-
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
 					fmt.Fprintf(res, `} this is not valid json {`)
@@ -1425,7 +1551,6 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 			})
 		})
 	})
-
 	Describe(`DetachTag(detachTagOptions *DetachTagOptions)`, func() {
 		detachTagPath := "/v3/tags/detach"
 		Context(`Using mock server endpoint with timeout`, func() {
@@ -1454,11 +1579,8 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
 
 					Expect(req.URL.Query()["impersonate_user"]).To(Equal([]string{"testString"}))
-
 					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"testString"}))
-
 					Expect(req.URL.Query()["tag_type"]).To(Equal([]string{"user"}))
-
 					// Sleep a short time to support a timeout test
 					time.Sleep(100 * time.Millisecond)
 
@@ -1543,11 +1665,8 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
 
 					Expect(req.URL.Query()["impersonate_user"]).To(Equal([]string{"testString"}))
-
 					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"testString"}))
-
 					Expect(req.URL.Query()["tag_type"]).To(Equal([]string{"user"}))
-
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
@@ -1626,6 +1745,50 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 				result, response, operationErr = globalTaggingService.DetachTag(detachTagOptionsModelNew)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke DetachTag successfully`, func() {
+				globalTaggingService, serviceErr := globaltaggingv1.NewGlobalTaggingV1(&globaltaggingv1.GlobalTaggingV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(globalTaggingService).ToNot(BeNil())
+
+				// Construct an instance of the Resource model
+				resourceModel := new(globaltaggingv1.Resource)
+				resourceModel.ResourceID = core.StringPtr("testString")
+				resourceModel.ResourceType = core.StringPtr("testString")
+
+				// Construct an instance of the DetachTagOptions model
+				detachTagOptionsModel := new(globaltaggingv1.DetachTagOptions)
+				detachTagOptionsModel.Resources = []globaltaggingv1.Resource{*resourceModel}
+				detachTagOptionsModel.TagName = core.StringPtr("testString")
+				detachTagOptionsModel.TagNames = []string{"testString"}
+				detachTagOptionsModel.ImpersonateUser = core.StringPtr("testString")
+				detachTagOptionsModel.AccountID = core.StringPtr("testString")
+				detachTagOptionsModel.TagType = core.StringPtr("user")
+				detachTagOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := globalTaggingService.DetachTag(detachTagOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
 				Expect(result).To(BeNil())
 			})
 			AfterEach(func() {
@@ -1775,8 +1938,8 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 			})
 			It(`Invoke NewResource successfully`, func() {
 				resourceID := "testString"
-				model, err := globalTaggingService.NewResource(resourceID)
-				Expect(model).ToNot(BeNil())
+				_model, err := globalTaggingService.NewResource(resourceID)
+				Expect(_model).ToNot(BeNil())
 				Expect(err).To(BeNil())
 			})
 		})
@@ -1795,11 +1958,11 @@ var _ = Describe(`GlobalTaggingV1`, func() {
 			Expect(mockReader).ToNot(BeNil())
 		})
 		It(`Invoke CreateMockDate() successfully`, func() {
-			mockDate := CreateMockDate()
+			mockDate := CreateMockDate("2019-01-01")
 			Expect(mockDate).ToNot(BeNil())
 		})
 		It(`Invoke CreateMockDateTime() successfully`, func() {
-			mockDateTime := CreateMockDateTime()
+			mockDateTime := CreateMockDateTime("2019-01-01T12:00:00.000Z")
 			Expect(mockDateTime).ToNot(BeNil())
 		})
 	})
@@ -1824,13 +1987,19 @@ func CreateMockReader(mockData string) io.ReadCloser {
 	return ioutil.NopCloser(bytes.NewReader([]byte(mockData)))
 }
 
-func CreateMockDate() *strfmt.Date {
-	d := strfmt.Date(time.Date(2009, time.November, 10, 23, 0, 0, 0, time.UTC))
+func CreateMockDate(mockData string) *strfmt.Date {
+	d, err := core.ParseDate(mockData)
+	if err != nil {
+		return nil
+	}
 	return &d
 }
 
-func CreateMockDateTime() *strfmt.DateTime {
-	d := strfmt.DateTime(time.Date(2009, time.November, 10, 23, 0, 0, 0, time.UTC))
+func CreateMockDateTime(mockData string) *strfmt.DateTime {
+	d, err := core.ParseDateTime(mockData)
+	if err != nil {
+		return nil
+	}
 	return &d
 }
 
