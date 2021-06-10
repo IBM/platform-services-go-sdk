@@ -15,7 +15,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-a8493a65-20210115-083246
+ * IBM OpenAPI SDK Code Generator Version: 3.33.0-caf29bd0-20210603-225214
  */
 
 // Package globaltaggingv1 : Operations and models for the GlobalTaggingV1 service
@@ -241,11 +241,13 @@ func (globalTagging *GlobalTaggingV1) ListTagsWithContext(ctx context.Context, l
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalTagList)
-	if err != nil {
-		return
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalTagList)
+		if err != nil {
+			return
+		}
+		response.Result = result
 	}
-	response.Result = result
 
 	return
 }
@@ -317,11 +319,13 @@ func (globalTagging *GlobalTaggingV1) CreateTagWithContext(ctx context.Context, 
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalCreateTagResults)
-	if err != nil {
-		return
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalCreateTagResults)
+		if err != nil {
+			return
+		}
+		response.Result = result
 	}
-	response.Result = result
 
 	return
 }
@@ -380,11 +384,13 @@ func (globalTagging *GlobalTaggingV1) DeleteTagAllWithContext(ctx context.Contex
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalDeleteTagsResult)
-	if err != nil {
-		return
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalDeleteTagsResult)
+		if err != nil {
+			return
+		}
+		response.Result = result
 	}
-	response.Result = result
 
 	return
 }
@@ -451,22 +457,19 @@ func (globalTagging *GlobalTaggingV1) DeleteTagWithContext(ctx context.Context, 
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalDeleteTagResults)
-	if err != nil {
-		return
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalDeleteTagResults)
+		if err != nil {
+			return
+		}
+		response.Result = result
 	}
-	response.Result = result
 
 	return
 }
 
 // AttachTag : Attach tags
-// Attaches one or more tags to one or more resources. To attach a `user` tag on a resource, you must have the access
-// listed in the [Granting users access to tag resources](https://cloud.ibm.com/docs/account?topic=account-access)
-// documentation. To attach a `service` tag, you must be an authorized service. If that is the case, then you can attach
-// a `service` tag with your registered `prefix` to any resource in any account. The account ID must be set through the
-// `account_id` query parameter. To attach an `access` tag, you must be the resource administrator within the account.
-// You can attach only `access` tags already existing.
+// Attaches one or more tags to one or more resources.
 func (globalTagging *GlobalTaggingV1) AttachTag(attachTagOptions *AttachTagOptions) (result *TagResults, response *core.DetailedResponse, err error) {
 	return globalTagging.AttachTagWithContext(context.Background(), attachTagOptions)
 }
@@ -536,22 +539,19 @@ func (globalTagging *GlobalTaggingV1) AttachTagWithContext(ctx context.Context, 
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalTagResults)
-	if err != nil {
-		return
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalTagResults)
+		if err != nil {
+			return
+		}
+		response.Result = result
 	}
-	response.Result = result
 
 	return
 }
 
 // DetachTag : Detach tags
-// Detaches one or more tags from one or more resources. To detach a `user` tag on a resource you must have the
-// permissions listed in the [Granting users access to tag
-// resources](https://cloud.ibm.com/docs/account?topic=account-access) documentation. To detach a `service` tag you must
-// be an authorized Service. If that is the case, then you can detach a `service` tag with your registered `prefix` from
-// any resource in any account. The account ID must be set through the `account_id` query parameter. To detach an
-// `access` tag, you must be the resource administrator within the account.
+// Detaches one or more tags from one or more resources.
 func (globalTagging *GlobalTaggingV1) DetachTag(detachTagOptions *DetachTagOptions) (result *TagResults, response *core.DetailedResponse, err error) {
 	return globalTagging.DetachTagWithContext(context.Background(), detachTagOptions)
 }
@@ -621,11 +621,13 @@ func (globalTagging *GlobalTaggingV1) DetachTagWithContext(ctx context.Context, 
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalTagResults)
-	if err != nil {
-		return
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalTagResults)
+		if err != nil {
+			return
+		}
+		response.Result = result
 	}
-	response.Result = result
 
 	return
 }
@@ -660,9 +662,9 @@ type AttachTagOptions struct {
 // The type of the tag. Supported values are `user`, `service` and `access`. `service` and `access` are not supported
 // for IMS resources.
 const (
-	AttachTagOptionsTagTypeAccessConst  = "access"
+	AttachTagOptionsTagTypeAccessConst = "access"
 	AttachTagOptionsTagTypeServiceConst = "service"
-	AttachTagOptionsTagTypeUserConst    = "user"
+	AttachTagOptionsTagTypeUserConst = "user"
 )
 
 // NewAttachTagOptions : Instantiate AttachTagOptions
@@ -673,39 +675,39 @@ func (*GlobalTaggingV1) NewAttachTagOptions(resources []Resource) *AttachTagOpti
 }
 
 // SetResources : Allow user to set Resources
-func (options *AttachTagOptions) SetResources(resources []Resource) *AttachTagOptions {
-	options.Resources = resources
-	return options
+func (_options *AttachTagOptions) SetResources(resources []Resource) *AttachTagOptions {
+	_options.Resources = resources
+	return _options
 }
 
 // SetTagName : Allow user to set TagName
-func (options *AttachTagOptions) SetTagName(tagName string) *AttachTagOptions {
-	options.TagName = core.StringPtr(tagName)
-	return options
+func (_options *AttachTagOptions) SetTagName(tagName string) *AttachTagOptions {
+	_options.TagName = core.StringPtr(tagName)
+	return _options
 }
 
 // SetTagNames : Allow user to set TagNames
-func (options *AttachTagOptions) SetTagNames(tagNames []string) *AttachTagOptions {
-	options.TagNames = tagNames
-	return options
+func (_options *AttachTagOptions) SetTagNames(tagNames []string) *AttachTagOptions {
+	_options.TagNames = tagNames
+	return _options
 }
 
 // SetImpersonateUser : Allow user to set ImpersonateUser
-func (options *AttachTagOptions) SetImpersonateUser(impersonateUser string) *AttachTagOptions {
-	options.ImpersonateUser = core.StringPtr(impersonateUser)
-	return options
+func (_options *AttachTagOptions) SetImpersonateUser(impersonateUser string) *AttachTagOptions {
+	_options.ImpersonateUser = core.StringPtr(impersonateUser)
+	return _options
 }
 
 // SetAccountID : Allow user to set AccountID
-func (options *AttachTagOptions) SetAccountID(accountID string) *AttachTagOptions {
-	options.AccountID = core.StringPtr(accountID)
-	return options
+func (_options *AttachTagOptions) SetAccountID(accountID string) *AttachTagOptions {
+	_options.AccountID = core.StringPtr(accountID)
+	return _options
 }
 
 // SetTagType : Allow user to set TagType
-func (options *AttachTagOptions) SetTagType(tagType string) *AttachTagOptions {
-	options.TagType = core.StringPtr(tagType)
-	return options
+func (_options *AttachTagOptions) SetTagType(tagType string) *AttachTagOptions {
+	_options.TagType = core.StringPtr(tagType)
+	return _options
 }
 
 // SetHeaders : Allow user to set Headers
@@ -747,27 +749,27 @@ func (*GlobalTaggingV1) NewCreateTagOptions(tagNames []string) *CreateTagOptions
 }
 
 // SetTagNames : Allow user to set TagNames
-func (options *CreateTagOptions) SetTagNames(tagNames []string) *CreateTagOptions {
-	options.TagNames = tagNames
-	return options
+func (_options *CreateTagOptions) SetTagNames(tagNames []string) *CreateTagOptions {
+	_options.TagNames = tagNames
+	return _options
 }
 
 // SetImpersonateUser : Allow user to set ImpersonateUser
-func (options *CreateTagOptions) SetImpersonateUser(impersonateUser string) *CreateTagOptions {
-	options.ImpersonateUser = core.StringPtr(impersonateUser)
-	return options
+func (_options *CreateTagOptions) SetImpersonateUser(impersonateUser string) *CreateTagOptions {
+	_options.ImpersonateUser = core.StringPtr(impersonateUser)
+	return _options
 }
 
 // SetAccountID : Allow user to set AccountID
-func (options *CreateTagOptions) SetAccountID(accountID string) *CreateTagOptions {
-	options.AccountID = core.StringPtr(accountID)
-	return options
+func (_options *CreateTagOptions) SetAccountID(accountID string) *CreateTagOptions {
+	_options.AccountID = core.StringPtr(accountID)
+	return _options
 }
 
 // SetTagType : Allow user to set TagType
-func (options *CreateTagOptions) SetTagType(tagType string) *CreateTagOptions {
-	options.TagType = core.StringPtr(tagType)
-	return options
+func (_options *CreateTagOptions) SetTagType(tagType string) *CreateTagOptions {
+	_options.TagType = core.StringPtr(tagType)
+	return _options
 }
 
 // SetHeaders : Allow user to set Headers
@@ -841,16 +843,16 @@ type DeleteTagAllOptions struct {
 // Select a provider. Supported values are `ghost` and `ims`.
 const (
 	DeleteTagAllOptionsProvidersGhostConst = "ghost"
-	DeleteTagAllOptionsProvidersImsConst   = "ims"
+	DeleteTagAllOptionsProvidersImsConst = "ims"
 )
 
 // Constants associated with the DeleteTagAllOptions.TagType property.
 // The type of the tag. Supported values are `user`, `service` and `access`. `service` and `access` are not supported
 // for IMS resources (`providers` parameter set to `ims`).
 const (
-	DeleteTagAllOptionsTagTypeAccessConst  = "access"
+	DeleteTagAllOptionsTagTypeAccessConst = "access"
 	DeleteTagAllOptionsTagTypeServiceConst = "service"
-	DeleteTagAllOptionsTagTypeUserConst    = "user"
+	DeleteTagAllOptionsTagTypeUserConst = "user"
 )
 
 // NewDeleteTagAllOptions : Instantiate DeleteTagAllOptions
@@ -859,27 +861,27 @@ func (*GlobalTaggingV1) NewDeleteTagAllOptions() *DeleteTagAllOptions {
 }
 
 // SetProviders : Allow user to set Providers
-func (options *DeleteTagAllOptions) SetProviders(providers string) *DeleteTagAllOptions {
-	options.Providers = core.StringPtr(providers)
-	return options
+func (_options *DeleteTagAllOptions) SetProviders(providers string) *DeleteTagAllOptions {
+	_options.Providers = core.StringPtr(providers)
+	return _options
 }
 
 // SetImpersonateUser : Allow user to set ImpersonateUser
-func (options *DeleteTagAllOptions) SetImpersonateUser(impersonateUser string) *DeleteTagAllOptions {
-	options.ImpersonateUser = core.StringPtr(impersonateUser)
-	return options
+func (_options *DeleteTagAllOptions) SetImpersonateUser(impersonateUser string) *DeleteTagAllOptions {
+	_options.ImpersonateUser = core.StringPtr(impersonateUser)
+	return _options
 }
 
 // SetAccountID : Allow user to set AccountID
-func (options *DeleteTagAllOptions) SetAccountID(accountID string) *DeleteTagAllOptions {
-	options.AccountID = core.StringPtr(accountID)
-	return options
+func (_options *DeleteTagAllOptions) SetAccountID(accountID string) *DeleteTagAllOptions {
+	_options.AccountID = core.StringPtr(accountID)
+	return _options
 }
 
 // SetTagType : Allow user to set TagType
-func (options *DeleteTagAllOptions) SetTagType(tagType string) *DeleteTagAllOptions {
-	options.TagType = core.StringPtr(tagType)
-	return options
+func (_options *DeleteTagAllOptions) SetTagType(tagType string) *DeleteTagAllOptions {
+	_options.TagType = core.StringPtr(tagType)
+	return _options
 }
 
 // SetHeaders : Allow user to set Headers
@@ -893,7 +895,8 @@ type DeleteTagOptions struct {
 	// The name of tag to be deleted.
 	TagName *string `validate:"required,ne="`
 
-	// Select a provider. Supported values are `ghost` and `ims`. To delete tag both in GhoST in IMS, use `ghost,ims`.
+	// Select a provider. Supported values are `ghost` and `ims`. To delete tags both in Global Search and Tagging and in
+	// IMS, use `ghost,ims`.
 	Providers []string
 
 	// The user on whose behalf the delete operation must be performed (_for administrators only_).
@@ -914,16 +917,16 @@ type DeleteTagOptions struct {
 // Constants associated with the DeleteTagOptions.Providers property.
 const (
 	DeleteTagOptionsProvidersGhostConst = "ghost"
-	DeleteTagOptionsProvidersImsConst   = "ims"
+	DeleteTagOptionsProvidersImsConst = "ims"
 )
 
 // Constants associated with the DeleteTagOptions.TagType property.
 // The type of the tag. Supported values are `user`, `service` and `access`. `service` and `access` are not supported
 // for IMS resources (`providers` parameter set to `ims`).
 const (
-	DeleteTagOptionsTagTypeAccessConst  = "access"
+	DeleteTagOptionsTagTypeAccessConst = "access"
 	DeleteTagOptionsTagTypeServiceConst = "service"
-	DeleteTagOptionsTagTypeUserConst    = "user"
+	DeleteTagOptionsTagTypeUserConst = "user"
 )
 
 // NewDeleteTagOptions : Instantiate DeleteTagOptions
@@ -934,33 +937,33 @@ func (*GlobalTaggingV1) NewDeleteTagOptions(tagName string) *DeleteTagOptions {
 }
 
 // SetTagName : Allow user to set TagName
-func (options *DeleteTagOptions) SetTagName(tagName string) *DeleteTagOptions {
-	options.TagName = core.StringPtr(tagName)
-	return options
+func (_options *DeleteTagOptions) SetTagName(tagName string) *DeleteTagOptions {
+	_options.TagName = core.StringPtr(tagName)
+	return _options
 }
 
 // SetProviders : Allow user to set Providers
-func (options *DeleteTagOptions) SetProviders(providers []string) *DeleteTagOptions {
-	options.Providers = providers
-	return options
+func (_options *DeleteTagOptions) SetProviders(providers []string) *DeleteTagOptions {
+	_options.Providers = providers
+	return _options
 }
 
 // SetImpersonateUser : Allow user to set ImpersonateUser
-func (options *DeleteTagOptions) SetImpersonateUser(impersonateUser string) *DeleteTagOptions {
-	options.ImpersonateUser = core.StringPtr(impersonateUser)
-	return options
+func (_options *DeleteTagOptions) SetImpersonateUser(impersonateUser string) *DeleteTagOptions {
+	_options.ImpersonateUser = core.StringPtr(impersonateUser)
+	return _options
 }
 
 // SetAccountID : Allow user to set AccountID
-func (options *DeleteTagOptions) SetAccountID(accountID string) *DeleteTagOptions {
-	options.AccountID = core.StringPtr(accountID)
-	return options
+func (_options *DeleteTagOptions) SetAccountID(accountID string) *DeleteTagOptions {
+	_options.AccountID = core.StringPtr(accountID)
+	return _options
 }
 
 // SetTagType : Allow user to set TagType
-func (options *DeleteTagOptions) SetTagType(tagType string) *DeleteTagOptions {
-	options.TagType = core.StringPtr(tagType)
-	return options
+func (_options *DeleteTagOptions) SetTagType(tagType string) *DeleteTagOptions {
+	_options.TagType = core.StringPtr(tagType)
+	return _options
 }
 
 // SetHeaders : Allow user to set Headers
@@ -1002,7 +1005,7 @@ type DeleteTagResultsItem struct {
 // The provider of the tag.
 const (
 	DeleteTagResultsItemProviderGhostConst = "ghost"
-	DeleteTagResultsItemProviderImsConst   = "ims"
+	DeleteTagResultsItemProviderImsConst = "ims"
 )
 
 // SetProperty allows the user to set an arbitrary property on an instance of DeleteTagResultsItem
@@ -1152,9 +1155,9 @@ type DetachTagOptions struct {
 // The type of the tag. Supported values are `user`, `service` and `access`. `service` and `access` are not supported
 // for IMS resources.
 const (
-	DetachTagOptionsTagTypeAccessConst  = "access"
+	DetachTagOptionsTagTypeAccessConst = "access"
 	DetachTagOptionsTagTypeServiceConst = "service"
-	DetachTagOptionsTagTypeUserConst    = "user"
+	DetachTagOptionsTagTypeUserConst = "user"
 )
 
 // NewDetachTagOptions : Instantiate DetachTagOptions
@@ -1165,39 +1168,39 @@ func (*GlobalTaggingV1) NewDetachTagOptions(resources []Resource) *DetachTagOpti
 }
 
 // SetResources : Allow user to set Resources
-func (options *DetachTagOptions) SetResources(resources []Resource) *DetachTagOptions {
-	options.Resources = resources
-	return options
+func (_options *DetachTagOptions) SetResources(resources []Resource) *DetachTagOptions {
+	_options.Resources = resources
+	return _options
 }
 
 // SetTagName : Allow user to set TagName
-func (options *DetachTagOptions) SetTagName(tagName string) *DetachTagOptions {
-	options.TagName = core.StringPtr(tagName)
-	return options
+func (_options *DetachTagOptions) SetTagName(tagName string) *DetachTagOptions {
+	_options.TagName = core.StringPtr(tagName)
+	return _options
 }
 
 // SetTagNames : Allow user to set TagNames
-func (options *DetachTagOptions) SetTagNames(tagNames []string) *DetachTagOptions {
-	options.TagNames = tagNames
-	return options
+func (_options *DetachTagOptions) SetTagNames(tagNames []string) *DetachTagOptions {
+	_options.TagNames = tagNames
+	return _options
 }
 
 // SetImpersonateUser : Allow user to set ImpersonateUser
-func (options *DetachTagOptions) SetImpersonateUser(impersonateUser string) *DetachTagOptions {
-	options.ImpersonateUser = core.StringPtr(impersonateUser)
-	return options
+func (_options *DetachTagOptions) SetImpersonateUser(impersonateUser string) *DetachTagOptions {
+	_options.ImpersonateUser = core.StringPtr(impersonateUser)
+	return _options
 }
 
 // SetAccountID : Allow user to set AccountID
-func (options *DetachTagOptions) SetAccountID(accountID string) *DetachTagOptions {
-	options.AccountID = core.StringPtr(accountID)
-	return options
+func (_options *DetachTagOptions) SetAccountID(accountID string) *DetachTagOptions {
+	_options.AccountID = core.StringPtr(accountID)
+	return _options
 }
 
 // SetTagType : Allow user to set TagType
-func (options *DetachTagOptions) SetTagType(tagType string) *DetachTagOptions {
-	options.TagType = core.StringPtr(tagType)
-	return options
+func (_options *DetachTagOptions) SetTagType(tagType string) *DetachTagOptions {
+	_options.TagType = core.StringPtr(tagType)
+	return _options
 }
 
 // SetHeaders : Allow user to set Headers
@@ -1222,14 +1225,15 @@ type ListTagsOptions struct {
 	// number of attached resources.
 	FullData *bool
 
-	// Select a provider. Supported values are `ghost` and `ims`. To list GhoST tags and infrastructure tags use
-	// `ghost,ims`. `service` and `access` tags can only be attached to GhoST onboarded resources, so you should not set
-	// this parameter when listing them.
+	// Select a provider. Supported values are `ghost` and `ims`. To list both Global Search and Tagging tags and
+	// infrastructure tags, use `ghost,ims`. `service` and `access` tags can only be attached to resources that are
+	// onboarded to Global Search and Tagging, so you should not set this parameter when listing them.
 	Providers []string
 
 	// If you want to return only the list of tags attached to a specified resource, pass the ID of the resource on this
-	// parameter. For GhoST onboarded resources, the resource ID is the CRN; for IMS resources, it is the IMS ID. When
-	// using this parameter, you must specify the appropriate provider (`ims` or `ghost`).
+	// parameter. For resources that are onboarded to Global Search and Tagging, the resource ID is the CRN; for IMS
+	// resources, it is the IMS ID. When using this parameter, you must specify the appropriate provider (`ims` or
+	// `ghost`).
 	AttachedTo *string
 
 	// The offset is the index of the item from which you want to start returning data from.
@@ -1256,21 +1260,21 @@ type ListTagsOptions struct {
 // Constants associated with the ListTagsOptions.TagType property.
 // The type of the tag you want to list. Supported values are `user`, `service` and `access`.
 const (
-	ListTagsOptionsTagTypeAccessConst  = "access"
+	ListTagsOptionsTagTypeAccessConst = "access"
 	ListTagsOptionsTagTypeServiceConst = "service"
-	ListTagsOptionsTagTypeUserConst    = "user"
+	ListTagsOptionsTagTypeUserConst = "user"
 )
 
 // Constants associated with the ListTagsOptions.Providers property.
 const (
 	ListTagsOptionsProvidersGhostConst = "ghost"
-	ListTagsOptionsProvidersImsConst   = "ims"
+	ListTagsOptionsProvidersImsConst = "ims"
 )
 
 // Constants associated with the ListTagsOptions.OrderByName property.
 // Order the output by tag name.
 const (
-	ListTagsOptionsOrderByNameAscConst  = "asc"
+	ListTagsOptionsOrderByNameAscConst = "asc"
 	ListTagsOptionsOrderByNameDescConst = "desc"
 )
 
@@ -1280,69 +1284,69 @@ func (*GlobalTaggingV1) NewListTagsOptions() *ListTagsOptions {
 }
 
 // SetImpersonateUser : Allow user to set ImpersonateUser
-func (options *ListTagsOptions) SetImpersonateUser(impersonateUser string) *ListTagsOptions {
-	options.ImpersonateUser = core.StringPtr(impersonateUser)
-	return options
+func (_options *ListTagsOptions) SetImpersonateUser(impersonateUser string) *ListTagsOptions {
+	_options.ImpersonateUser = core.StringPtr(impersonateUser)
+	return _options
 }
 
 // SetAccountID : Allow user to set AccountID
-func (options *ListTagsOptions) SetAccountID(accountID string) *ListTagsOptions {
-	options.AccountID = core.StringPtr(accountID)
-	return options
+func (_options *ListTagsOptions) SetAccountID(accountID string) *ListTagsOptions {
+	_options.AccountID = core.StringPtr(accountID)
+	return _options
 }
 
 // SetTagType : Allow user to set TagType
-func (options *ListTagsOptions) SetTagType(tagType string) *ListTagsOptions {
-	options.TagType = core.StringPtr(tagType)
-	return options
+func (_options *ListTagsOptions) SetTagType(tagType string) *ListTagsOptions {
+	_options.TagType = core.StringPtr(tagType)
+	return _options
 }
 
 // SetFullData : Allow user to set FullData
-func (options *ListTagsOptions) SetFullData(fullData bool) *ListTagsOptions {
-	options.FullData = core.BoolPtr(fullData)
-	return options
+func (_options *ListTagsOptions) SetFullData(fullData bool) *ListTagsOptions {
+	_options.FullData = core.BoolPtr(fullData)
+	return _options
 }
 
 // SetProviders : Allow user to set Providers
-func (options *ListTagsOptions) SetProviders(providers []string) *ListTagsOptions {
-	options.Providers = providers
-	return options
+func (_options *ListTagsOptions) SetProviders(providers []string) *ListTagsOptions {
+	_options.Providers = providers
+	return _options
 }
 
 // SetAttachedTo : Allow user to set AttachedTo
-func (options *ListTagsOptions) SetAttachedTo(attachedTo string) *ListTagsOptions {
-	options.AttachedTo = core.StringPtr(attachedTo)
-	return options
+func (_options *ListTagsOptions) SetAttachedTo(attachedTo string) *ListTagsOptions {
+	_options.AttachedTo = core.StringPtr(attachedTo)
+	return _options
 }
 
 // SetOffset : Allow user to set Offset
-func (options *ListTagsOptions) SetOffset(offset int64) *ListTagsOptions {
-	options.Offset = core.Int64Ptr(offset)
-	return options
+func (_options *ListTagsOptions) SetOffset(offset int64) *ListTagsOptions {
+	_options.Offset = core.Int64Ptr(offset)
+	return _options
 }
 
 // SetLimit : Allow user to set Limit
-func (options *ListTagsOptions) SetLimit(limit int64) *ListTagsOptions {
-	options.Limit = core.Int64Ptr(limit)
-	return options
+func (_options *ListTagsOptions) SetLimit(limit int64) *ListTagsOptions {
+	_options.Limit = core.Int64Ptr(limit)
+	return _options
 }
 
 // SetTimeout : Allow user to set Timeout
-func (options *ListTagsOptions) SetTimeout(timeout int64) *ListTagsOptions {
-	options.Timeout = core.Int64Ptr(timeout)
-	return options
+func (_options *ListTagsOptions) SetTimeout(timeout int64) *ListTagsOptions {
+	_options.Timeout = core.Int64Ptr(timeout)
+	return _options
 }
 
 // SetOrderByName : Allow user to set OrderByName
-func (options *ListTagsOptions) SetOrderByName(orderByName string) *ListTagsOptions {
-	options.OrderByName = core.StringPtr(orderByName)
-	return options
+func (_options *ListTagsOptions) SetOrderByName(orderByName string) *ListTagsOptions {
+	_options.OrderByName = core.StringPtr(orderByName)
+	return _options
 }
 
 // SetAttachedOnly : Allow user to set AttachedOnly
-func (options *ListTagsOptions) SetAttachedOnly(attachedOnly bool) *ListTagsOptions {
-	options.AttachedOnly = core.BoolPtr(attachedOnly)
-	return options
+func (_options *ListTagsOptions) SetAttachedOnly(attachedOnly bool) *ListTagsOptions {
+	_options.AttachedOnly = core.BoolPtr(attachedOnly)
+	return _options
 }
 
 // SetHeaders : Allow user to set Headers
@@ -1361,11 +1365,11 @@ type Resource struct {
 }
 
 // NewResource : Instantiate Resource (Generic Model Constructor)
-func (*GlobalTaggingV1) NewResource(resourceID string) (model *Resource, err error) {
-	model = &Resource{
+func (*GlobalTaggingV1) NewResource(resourceID string) (_model *Resource, err error) {
+	_model = &Resource{
 		ResourceID: core.StringPtr(resourceID),
 	}
-	err = core.ValidateStruct(model, "required parameters")
+	err = core.ValidateStruct(_model, "required parameters")
 	return
 }
 
