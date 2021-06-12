@@ -20,17 +20,18 @@ import (
 	"bytes"
 	"context"
 	"fmt"
-	"github.com/IBM/go-sdk-core/v5/core"
-	"github.com/IBM/platform-services-go-sdk/atrackerv1"
-	"github.com/go-openapi/strfmt"
-	. "github.com/onsi/ginkgo"
-	. "github.com/onsi/gomega"
 	"io"
 	"io/ioutil"
 	"net/http"
 	"net/http/httptest"
 	"os"
 	"time"
+
+	"github.com/IBM/go-sdk-core/v5/core"
+	"github.com/IBM/platform-services-go-sdk/atrackerv1"
+	"github.com/go-openapi/strfmt"
+	. "github.com/onsi/ginkgo"
+	. "github.com/onsi/gomega"
 )
 
 var _ = Describe(`AtrackerV1`, func() {
@@ -197,7 +198,7 @@ var _ = Describe(`AtrackerV1`, func() {
 	})
 	Describe(`CreateTarget(createTargetOptions *CreateTargetOptions) - Operation response error`, func() {
 		createTargetPath := "/api/v1/targets"
-		Context(`Using mock server endpoint`, func() {
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
@@ -249,7 +250,6 @@ var _ = Describe(`AtrackerV1`, func() {
 			})
 		})
 	})
-
 	Describe(`CreateTarget(createTargetOptions *CreateTargetOptions)`, func() {
 		createTargetPath := "/api/v1/targets"
 		Context(`Using mock server endpoint with timeout`, func() {
@@ -283,7 +283,7 @@ var _ = Describe(`AtrackerV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"id": "f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "name": "a-cos-target-us-south", "crn": "crn:v1:bluemix:public:atracker:us-south:a/11111111111111111111111111111111:b6eec08b-5201-08ca-451b-cd71523e3626:target:f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "target_type": "cloud_object_storage", "encrypt_key": "REDACTED", "cos_endpoint": {"endpoint": "s3.private.us-east.cloud-object-storage.appdomain.cloud", "target_crn": "crn:v1:bluemix:public:cloud-object-storage:global:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::", "bucket": "my-atracker-bucket", "api_key": "xxxxxxxxxxxxxx"}}`)
+					fmt.Fprintf(res, "%s", `{"id": "f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "name": "a-cos-target-us-south", "crn": "crn:v1:bluemix:public:atracker:us-south:a/11111111111111111111111111111111:b6eec08b-5201-08ca-451b-cd71523e3626:target:f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "target_type": "cloud_object_storage", "encrypt_key": "REDACTED", "cos_endpoint": {"endpoint": "s3.private.us-east.cloud-object-storage.appdomain.cloud", "target_crn": "crn:v1:bluemix:public:cloud-object-storage:global:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::", "bucket": "my-atracker-bucket", "api_key": "xxxxxxxxxxxxxx"}, "cos_write_status": {"status": "success", "last_failure": "2021-05-18T20:15:12.353Z", "reason_for_last_failure": "Provided API key could not be found"}, "created": "2021-05-18T20:15:12.353Z", "updated": "2021-05-18T20:15:12.353Z"}`)
 				}))
 			})
 			It(`Invoke CreateTarget successfully with retries`, func() {
@@ -362,7 +362,7 @@ var _ = Describe(`AtrackerV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"id": "f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "name": "a-cos-target-us-south", "crn": "crn:v1:bluemix:public:atracker:us-south:a/11111111111111111111111111111111:b6eec08b-5201-08ca-451b-cd71523e3626:target:f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "target_type": "cloud_object_storage", "encrypt_key": "REDACTED", "cos_endpoint": {"endpoint": "s3.private.us-east.cloud-object-storage.appdomain.cloud", "target_crn": "crn:v1:bluemix:public:cloud-object-storage:global:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::", "bucket": "my-atracker-bucket", "api_key": "xxxxxxxxxxxxxx"}}`)
+					fmt.Fprintf(res, "%s", `{"id": "f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "name": "a-cos-target-us-south", "crn": "crn:v1:bluemix:public:atracker:us-south:a/11111111111111111111111111111111:b6eec08b-5201-08ca-451b-cd71523e3626:target:f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "target_type": "cloud_object_storage", "encrypt_key": "REDACTED", "cos_endpoint": {"endpoint": "s3.private.us-east.cloud-object-storage.appdomain.cloud", "target_crn": "crn:v1:bluemix:public:cloud-object-storage:global:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::", "bucket": "my-atracker-bucket", "api_key": "xxxxxxxxxxxxxx"}, "cos_write_status": {"status": "success", "last_failure": "2021-05-18T20:15:12.353Z", "reason_for_last_failure": "Provided API key could not be found"}, "created": "2021-05-18T20:15:12.353Z", "updated": "2021-05-18T20:15:12.353Z"}`)
 				}))
 			})
 			It(`Invoke CreateTarget successfully`, func() {
@@ -441,10 +441,53 @@ var _ = Describe(`AtrackerV1`, func() {
 				testServer.Close()
 			})
 		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(201)
+				}))
+			})
+			It(`Invoke CreateTarget successfully`, func() {
+				atrackerService, serviceErr := atrackerv1.NewAtrackerV1(&atrackerv1.AtrackerV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(atrackerService).ToNot(BeNil())
+
+				// Construct an instance of the CosEndpoint model
+				cosEndpointModel := new(atrackerv1.CosEndpoint)
+				cosEndpointModel.Endpoint = core.StringPtr("s3.private.us-east.cloud-object-storage.appdomain.cloud")
+				cosEndpointModel.TargetCRN = core.StringPtr("crn:v1:bluemix:public:cloud-object-storage:global:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::")
+				cosEndpointModel.Bucket = core.StringPtr("my-atracker-bucket")
+				cosEndpointModel.APIKey = core.StringPtr("xxxxxxxxxxxxxx")
+
+				// Construct an instance of the CreateTargetOptions model
+				createTargetOptionsModel := new(atrackerv1.CreateTargetOptions)
+				createTargetOptionsModel.Name = core.StringPtr("my-cos-target")
+				createTargetOptionsModel.TargetType = core.StringPtr("cloud_object_storage")
+				createTargetOptionsModel.CosEndpoint = cosEndpointModel
+				createTargetOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := atrackerService.CreateTarget(createTargetOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
 	})
 	Describe(`ListTargets(listTargetsOptions *ListTargetsOptions) - Operation response error`, func() {
 		listTargetsPath := "/api/v1/targets"
-		Context(`Using mock server endpoint`, func() {
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
@@ -486,7 +529,6 @@ var _ = Describe(`AtrackerV1`, func() {
 			})
 		})
 	})
-
 	Describe(`ListTargets(listTargetsOptions *ListTargetsOptions)`, func() {
 		listTargetsPath := "/api/v1/targets"
 		Context(`Using mock server endpoint with timeout`, func() {
@@ -504,7 +546,7 @@ var _ = Describe(`AtrackerV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"targets": [{"id": "f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "name": "a-cos-target-us-south", "crn": "crn:v1:bluemix:public:atracker:us-south:a/11111111111111111111111111111111:b6eec08b-5201-08ca-451b-cd71523e3626:target:f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "target_type": "cloud_object_storage", "encrypt_key": "REDACTED", "cos_endpoint": {"endpoint": "s3.private.us-east.cloud-object-storage.appdomain.cloud", "target_crn": "crn:v1:bluemix:public:cloud-object-storage:global:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::", "bucket": "my-atracker-bucket", "api_key": "xxxxxxxxxxxxxx"}}]}`)
+					fmt.Fprintf(res, "%s", `{"targets": [{"id": "f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "name": "a-cos-target-us-south", "crn": "crn:v1:bluemix:public:atracker:us-south:a/11111111111111111111111111111111:b6eec08b-5201-08ca-451b-cd71523e3626:target:f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "target_type": "cloud_object_storage", "encrypt_key": "REDACTED", "cos_endpoint": {"endpoint": "s3.private.us-east.cloud-object-storage.appdomain.cloud", "target_crn": "crn:v1:bluemix:public:cloud-object-storage:global:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::", "bucket": "my-atracker-bucket", "api_key": "xxxxxxxxxxxxxx"}, "cos_write_status": {"status": "success", "last_failure": "2021-05-18T20:15:12.353Z", "reason_for_last_failure": "Provided API key could not be found"}, "created": "2021-05-18T20:15:12.353Z", "updated": "2021-05-18T20:15:12.353Z"}]}`)
 				}))
 			})
 			It(`Invoke ListTargets successfully with retries`, func() {
@@ -557,7 +599,7 @@ var _ = Describe(`AtrackerV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"targets": [{"id": "f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "name": "a-cos-target-us-south", "crn": "crn:v1:bluemix:public:atracker:us-south:a/11111111111111111111111111111111:b6eec08b-5201-08ca-451b-cd71523e3626:target:f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "target_type": "cloud_object_storage", "encrypt_key": "REDACTED", "cos_endpoint": {"endpoint": "s3.private.us-east.cloud-object-storage.appdomain.cloud", "target_crn": "crn:v1:bluemix:public:cloud-object-storage:global:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::", "bucket": "my-atracker-bucket", "api_key": "xxxxxxxxxxxxxx"}}]}`)
+					fmt.Fprintf(res, "%s", `{"targets": [{"id": "f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "name": "a-cos-target-us-south", "crn": "crn:v1:bluemix:public:atracker:us-south:a/11111111111111111111111111111111:b6eec08b-5201-08ca-451b-cd71523e3626:target:f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "target_type": "cloud_object_storage", "encrypt_key": "REDACTED", "cos_endpoint": {"endpoint": "s3.private.us-east.cloud-object-storage.appdomain.cloud", "target_crn": "crn:v1:bluemix:public:cloud-object-storage:global:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::", "bucket": "my-atracker-bucket", "api_key": "xxxxxxxxxxxxxx"}, "cos_write_status": {"status": "success", "last_failure": "2021-05-18T20:15:12.353Z", "reason_for_last_failure": "Provided API key could not be found"}, "created": "2021-05-18T20:15:12.353Z", "updated": "2021-05-18T20:15:12.353Z"}]}`)
 				}))
 			})
 			It(`Invoke ListTargets successfully`, func() {
@@ -609,10 +651,43 @@ var _ = Describe(`AtrackerV1`, func() {
 				testServer.Close()
 			})
 		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke ListTargets successfully`, func() {
+				atrackerService, serviceErr := atrackerv1.NewAtrackerV1(&atrackerv1.AtrackerV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(atrackerService).ToNot(BeNil())
+
+				// Construct an instance of the ListTargetsOptions model
+				listTargetsOptionsModel := new(atrackerv1.ListTargetsOptions)
+				listTargetsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := atrackerService.ListTargets(listTargetsOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
 	})
 	Describe(`GetTarget(getTargetOptions *GetTargetOptions) - Operation response error`, func() {
 		getTargetPath := "/api/v1/targets/testString"
-		Context(`Using mock server endpoint`, func() {
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
@@ -655,7 +730,6 @@ var _ = Describe(`AtrackerV1`, func() {
 			})
 		})
 	})
-
 	Describe(`GetTarget(getTargetOptions *GetTargetOptions)`, func() {
 		getTargetPath := "/api/v1/targets/testString"
 		Context(`Using mock server endpoint with timeout`, func() {
@@ -673,7 +747,7 @@ var _ = Describe(`AtrackerV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "name": "a-cos-target-us-south", "crn": "crn:v1:bluemix:public:atracker:us-south:a/11111111111111111111111111111111:b6eec08b-5201-08ca-451b-cd71523e3626:target:f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "target_type": "cloud_object_storage", "encrypt_key": "REDACTED", "cos_endpoint": {"endpoint": "s3.private.us-east.cloud-object-storage.appdomain.cloud", "target_crn": "crn:v1:bluemix:public:cloud-object-storage:global:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::", "bucket": "my-atracker-bucket", "api_key": "xxxxxxxxxxxxxx"}}`)
+					fmt.Fprintf(res, "%s", `{"id": "f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "name": "a-cos-target-us-south", "crn": "crn:v1:bluemix:public:atracker:us-south:a/11111111111111111111111111111111:b6eec08b-5201-08ca-451b-cd71523e3626:target:f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "target_type": "cloud_object_storage", "encrypt_key": "REDACTED", "cos_endpoint": {"endpoint": "s3.private.us-east.cloud-object-storage.appdomain.cloud", "target_crn": "crn:v1:bluemix:public:cloud-object-storage:global:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::", "bucket": "my-atracker-bucket", "api_key": "xxxxxxxxxxxxxx"}, "cos_write_status": {"status": "success", "last_failure": "2021-05-18T20:15:12.353Z", "reason_for_last_failure": "Provided API key could not be found"}, "created": "2021-05-18T20:15:12.353Z", "updated": "2021-05-18T20:15:12.353Z"}`)
 				}))
 			})
 			It(`Invoke GetTarget successfully with retries`, func() {
@@ -727,7 +801,7 @@ var _ = Describe(`AtrackerV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "name": "a-cos-target-us-south", "crn": "crn:v1:bluemix:public:atracker:us-south:a/11111111111111111111111111111111:b6eec08b-5201-08ca-451b-cd71523e3626:target:f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "target_type": "cloud_object_storage", "encrypt_key": "REDACTED", "cos_endpoint": {"endpoint": "s3.private.us-east.cloud-object-storage.appdomain.cloud", "target_crn": "crn:v1:bluemix:public:cloud-object-storage:global:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::", "bucket": "my-atracker-bucket", "api_key": "xxxxxxxxxxxxxx"}}`)
+					fmt.Fprintf(res, "%s", `{"id": "f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "name": "a-cos-target-us-south", "crn": "crn:v1:bluemix:public:atracker:us-south:a/11111111111111111111111111111111:b6eec08b-5201-08ca-451b-cd71523e3626:target:f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "target_type": "cloud_object_storage", "encrypt_key": "REDACTED", "cos_endpoint": {"endpoint": "s3.private.us-east.cloud-object-storage.appdomain.cloud", "target_crn": "crn:v1:bluemix:public:cloud-object-storage:global:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::", "bucket": "my-atracker-bucket", "api_key": "xxxxxxxxxxxxxx"}, "cos_write_status": {"status": "success", "last_failure": "2021-05-18T20:15:12.353Z", "reason_for_last_failure": "Provided API key could not be found"}, "created": "2021-05-18T20:15:12.353Z", "updated": "2021-05-18T20:15:12.353Z"}`)
 				}))
 			})
 			It(`Invoke GetTarget successfully`, func() {
@@ -788,10 +862,44 @@ var _ = Describe(`AtrackerV1`, func() {
 				testServer.Close()
 			})
 		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke GetTarget successfully`, func() {
+				atrackerService, serviceErr := atrackerv1.NewAtrackerV1(&atrackerv1.AtrackerV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(atrackerService).ToNot(BeNil())
+
+				// Construct an instance of the GetTargetOptions model
+				getTargetOptionsModel := new(atrackerv1.GetTargetOptions)
+				getTargetOptionsModel.ID = core.StringPtr("testString")
+				getTargetOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := atrackerService.GetTarget(getTargetOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
 	})
 	Describe(`ReplaceTarget(replaceTargetOptions *ReplaceTargetOptions) - Operation response error`, func() {
 		replaceTargetPath := "/api/v1/targets/testString"
-		Context(`Using mock server endpoint`, func() {
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
@@ -844,7 +952,6 @@ var _ = Describe(`AtrackerV1`, func() {
 			})
 		})
 	})
-
 	Describe(`ReplaceTarget(replaceTargetOptions *ReplaceTargetOptions)`, func() {
 		replaceTargetPath := "/api/v1/targets/testString"
 		Context(`Using mock server endpoint with timeout`, func() {
@@ -878,7 +985,7 @@ var _ = Describe(`AtrackerV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "name": "a-cos-target-us-south", "crn": "crn:v1:bluemix:public:atracker:us-south:a/11111111111111111111111111111111:b6eec08b-5201-08ca-451b-cd71523e3626:target:f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "target_type": "cloud_object_storage", "encrypt_key": "REDACTED", "cos_endpoint": {"endpoint": "s3.private.us-east.cloud-object-storage.appdomain.cloud", "target_crn": "crn:v1:bluemix:public:cloud-object-storage:global:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::", "bucket": "my-atracker-bucket", "api_key": "xxxxxxxxxxxxxx"}}`)
+					fmt.Fprintf(res, "%s", `{"id": "f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "name": "a-cos-target-us-south", "crn": "crn:v1:bluemix:public:atracker:us-south:a/11111111111111111111111111111111:b6eec08b-5201-08ca-451b-cd71523e3626:target:f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "target_type": "cloud_object_storage", "encrypt_key": "REDACTED", "cos_endpoint": {"endpoint": "s3.private.us-east.cloud-object-storage.appdomain.cloud", "target_crn": "crn:v1:bluemix:public:cloud-object-storage:global:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::", "bucket": "my-atracker-bucket", "api_key": "xxxxxxxxxxxxxx"}, "cos_write_status": {"status": "success", "last_failure": "2021-05-18T20:15:12.353Z", "reason_for_last_failure": "Provided API key could not be found"}, "created": "2021-05-18T20:15:12.353Z", "updated": "2021-05-18T20:15:12.353Z"}`)
 				}))
 			})
 			It(`Invoke ReplaceTarget successfully with retries`, func() {
@@ -958,7 +1065,7 @@ var _ = Describe(`AtrackerV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "name": "a-cos-target-us-south", "crn": "crn:v1:bluemix:public:atracker:us-south:a/11111111111111111111111111111111:b6eec08b-5201-08ca-451b-cd71523e3626:target:f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "target_type": "cloud_object_storage", "encrypt_key": "REDACTED", "cos_endpoint": {"endpoint": "s3.private.us-east.cloud-object-storage.appdomain.cloud", "target_crn": "crn:v1:bluemix:public:cloud-object-storage:global:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::", "bucket": "my-atracker-bucket", "api_key": "xxxxxxxxxxxxxx"}}`)
+					fmt.Fprintf(res, "%s", `{"id": "f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "name": "a-cos-target-us-south", "crn": "crn:v1:bluemix:public:atracker:us-south:a/11111111111111111111111111111111:b6eec08b-5201-08ca-451b-cd71523e3626:target:f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "target_type": "cloud_object_storage", "encrypt_key": "REDACTED", "cos_endpoint": {"endpoint": "s3.private.us-east.cloud-object-storage.appdomain.cloud", "target_crn": "crn:v1:bluemix:public:cloud-object-storage:global:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::", "bucket": "my-atracker-bucket", "api_key": "xxxxxxxxxxxxxx"}, "cos_write_status": {"status": "success", "last_failure": "2021-05-18T20:15:12.353Z", "reason_for_last_failure": "Provided API key could not be found"}, "created": "2021-05-18T20:15:12.353Z", "updated": "2021-05-18T20:15:12.353Z"}`)
 				}))
 			})
 			It(`Invoke ReplaceTarget successfully`, func() {
@@ -1039,10 +1146,155 @@ var _ = Describe(`AtrackerV1`, func() {
 				testServer.Close()
 			})
 		})
-	})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
 
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke ReplaceTarget successfully`, func() {
+				atrackerService, serviceErr := atrackerv1.NewAtrackerV1(&atrackerv1.AtrackerV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(atrackerService).ToNot(BeNil())
+
+				// Construct an instance of the CosEndpoint model
+				cosEndpointModel := new(atrackerv1.CosEndpoint)
+				cosEndpointModel.Endpoint = core.StringPtr("s3.private.us-east.cloud-object-storage.appdomain.cloud")
+				cosEndpointModel.TargetCRN = core.StringPtr("crn:v1:bluemix:public:cloud-object-storage:global:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::")
+				cosEndpointModel.Bucket = core.StringPtr("my-atracker-bucket")
+				cosEndpointModel.APIKey = core.StringPtr("xxxxxxxxxxxxxx")
+
+				// Construct an instance of the ReplaceTargetOptions model
+				replaceTargetOptionsModel := new(atrackerv1.ReplaceTargetOptions)
+				replaceTargetOptionsModel.ID = core.StringPtr("testString")
+				replaceTargetOptionsModel.Name = core.StringPtr("my-cos-target")
+				replaceTargetOptionsModel.TargetType = core.StringPtr("cloud_object_storage")
+				replaceTargetOptionsModel.CosEndpoint = cosEndpointModel
+				replaceTargetOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := atrackerService.ReplaceTarget(replaceTargetOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`DeleteTarget(deleteTargetOptions *DeleteTargetOptions) - Operation response error`, func() {
+		deleteTargetPath := "/api/v1/targets/testString"
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(deleteTargetPath))
+					Expect(req.Method).To(Equal("DELETE"))
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, `} this is not valid json {`)
+				}))
+			})
+			It(`Invoke DeleteTarget with error: Operation response processing error`, func() {
+				atrackerService, serviceErr := atrackerv1.NewAtrackerV1(&atrackerv1.AtrackerV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(atrackerService).ToNot(BeNil())
+
+				// Construct an instance of the DeleteTargetOptions model
+				deleteTargetOptionsModel := new(atrackerv1.DeleteTargetOptions)
+				deleteTargetOptionsModel.ID = core.StringPtr("testString")
+				deleteTargetOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Expect response parsing to fail since we are receiving a text/plain response
+				result, response, operationErr := atrackerService.DeleteTarget(deleteTargetOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				atrackerService.EnableRetries(0, 0)
+				result, response, operationErr = atrackerService.DeleteTarget(deleteTargetOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
 	Describe(`DeleteTarget(deleteTargetOptions *DeleteTargetOptions)`, func() {
 		deleteTargetPath := "/api/v1/targets/testString"
+		Context(`Using mock server endpoint with timeout`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(deleteTargetPath))
+					Expect(req.Method).To(Equal("DELETE"))
+
+					// Sleep a short time to support a timeout test
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"status_code": "StatusCode", "trace": "Trace", "warnings": [{"code": "Code", "message": "Message"}]}`)
+				}))
+			})
+			It(`Invoke DeleteTarget successfully with retries`, func() {
+				atrackerService, serviceErr := atrackerv1.NewAtrackerV1(&atrackerv1.AtrackerV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(atrackerService).ToNot(BeNil())
+				atrackerService.EnableRetries(0, 0)
+
+				// Construct an instance of the DeleteTargetOptions model
+				deleteTargetOptionsModel := new(atrackerv1.DeleteTargetOptions)
+				deleteTargetOptionsModel.ID = core.StringPtr("testString")
+				deleteTargetOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := atrackerService.DeleteTargetWithContext(ctx, deleteTargetOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				atrackerService.DisableRetries()
+				result, response, operationErr := atrackerService.DeleteTarget(deleteTargetOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = atrackerService.DeleteTargetWithContext(ctx, deleteTargetOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
@@ -1052,7 +1304,10 @@ var _ = Describe(`AtrackerV1`, func() {
 					Expect(req.URL.EscapedPath()).To(Equal(deleteTargetPath))
 					Expect(req.Method).To(Equal("DELETE"))
 
-					res.WriteHeader(204)
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"status_code": "StatusCode", "trace": "Trace", "warnings": [{"code": "Code", "message": "Message"}]}`)
 				}))
 			})
 			It(`Invoke DeleteTarget successfully`, func() {
@@ -1064,9 +1319,10 @@ var _ = Describe(`AtrackerV1`, func() {
 				Expect(atrackerService).ToNot(BeNil())
 
 				// Invoke operation with nil options model (negative test)
-				response, operationErr := atrackerService.DeleteTarget(nil)
+				result, response, operationErr := atrackerService.DeleteTarget(nil)
 				Expect(operationErr).NotTo(BeNil())
 				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
 
 				// Construct an instance of the DeleteTargetOptions model
 				deleteTargetOptionsModel := new(atrackerv1.DeleteTargetOptions)
@@ -1074,9 +1330,11 @@ var _ = Describe(`AtrackerV1`, func() {
 				deleteTargetOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
-				response, operationErr = atrackerService.DeleteTarget(deleteTargetOptionsModel)
+				result, response, operationErr = atrackerService.DeleteTarget(deleteTargetOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
 			})
 			It(`Invoke DeleteTarget with error: Operation validation and request error`, func() {
 				atrackerService, serviceErr := atrackerv1.NewAtrackerV1(&atrackerv1.AtrackerV1Options{
@@ -1093,185 +1351,273 @@ var _ = Describe(`AtrackerV1`, func() {
 				// Invoke operation with empty URL (negative test)
 				err := atrackerService.SetServiceURL("")
 				Expect(err).To(BeNil())
-				response, operationErr := atrackerService.DeleteTarget(deleteTargetOptionsModel)
+				result, response, operationErr := atrackerService.DeleteTarget(deleteTargetOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
 				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
 				// Construct a second instance of the DeleteTargetOptions model with no property values
 				deleteTargetOptionsModelNew := new(atrackerv1.DeleteTargetOptions)
 				// Invoke operation with invalid model (negative test)
-				response, operationErr = atrackerService.DeleteTarget(deleteTargetOptionsModelNew)
+				result, response, operationErr = atrackerService.DeleteTarget(deleteTargetOptionsModelNew)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke DeleteTarget successfully`, func() {
+				atrackerService, serviceErr := atrackerv1.NewAtrackerV1(&atrackerv1.AtrackerV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(atrackerService).ToNot(BeNil())
+
+				// Construct an instance of the DeleteTargetOptions model
+				deleteTargetOptionsModel := new(atrackerv1.DeleteTargetOptions)
+				deleteTargetOptionsModel.ID = core.StringPtr("testString")
+				deleteTargetOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := atrackerService.DeleteTarget(deleteTargetOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
 			})
 			AfterEach(func() {
 				testServer.Close()
 			})
 		})
 	})
-	Describe(`Service constructor tests`, func() {
-		It(`Instantiate service client`, func() {
-			atrackerService, serviceErr := atrackerv1.NewAtrackerV1(&atrackerv1.AtrackerV1Options{
-				Authenticator: &core.NoAuthAuthenticator{},
+	Describe(`ValidateTarget(validateTargetOptions *ValidateTargetOptions) - Operation response error`, func() {
+		validateTargetPath := "/api/v1/targets/testString/validate"
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(validateTargetPath))
+					Expect(req.Method).To(Equal("POST"))
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, `} this is not valid json {`)
+				}))
 			})
-			Expect(atrackerService).ToNot(BeNil())
-			Expect(serviceErr).To(BeNil())
-		})
-		It(`Instantiate service client with error: Invalid URL`, func() {
-			atrackerService, serviceErr := atrackerv1.NewAtrackerV1(&atrackerv1.AtrackerV1Options{
-				URL: "{BAD_URL_STRING",
+			It(`Invoke ValidateTarget with error: Operation response processing error`, func() {
+				atrackerService, serviceErr := atrackerv1.NewAtrackerV1(&atrackerv1.AtrackerV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(atrackerService).ToNot(BeNil())
+
+				// Construct an instance of the ValidateTargetOptions model
+				validateTargetOptionsModel := new(atrackerv1.ValidateTargetOptions)
+				validateTargetOptionsModel.ID = core.StringPtr("testString")
+				validateTargetOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Expect response parsing to fail since we are receiving a text/plain response
+				result, response, operationErr := atrackerService.ValidateTarget(validateTargetOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				atrackerService.EnableRetries(0, 0)
+				result, response, operationErr = atrackerService.ValidateTarget(validateTargetOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
 			})
-			Expect(atrackerService).To(BeNil())
-			Expect(serviceErr).ToNot(BeNil())
-		})
-		It(`Instantiate service client with error: Invalid Auth`, func() {
-			atrackerService, serviceErr := atrackerv1.NewAtrackerV1(&atrackerv1.AtrackerV1Options{
-				URL: "https://atrackerv1/api",
-				Authenticator: &core.BasicAuthenticator{
-					Username: "",
-					Password: "",
-				},
+			AfterEach(func() {
+				testServer.Close()
 			})
-			Expect(atrackerService).To(BeNil())
-			Expect(serviceErr).ToNot(BeNil())
 		})
 	})
-	Describe(`Service constructor tests using external config`, func() {
-		Context(`Using external config, construct service client instances`, func() {
-			// Map containing environment variables used in testing.
-			var testEnvironment = map[string]string{
-				"ATRACKER_URL": "https://atrackerv1/api",
-				"ATRACKER_AUTH_TYPE": "noauth",
-			}
+	Describe(`ValidateTarget(validateTargetOptions *ValidateTargetOptions)`, func() {
+		validateTargetPath := "/api/v1/targets/testString/validate"
+		Context(`Using mock server endpoint with timeout`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
 
-			It(`Create service client using external config successfully`, func() {
-				SetTestEnvironment(testEnvironment)
-				atrackerService, serviceErr := atrackerv1.NewAtrackerV1UsingExternalConfig(&atrackerv1.AtrackerV1Options{
-				})
-				Expect(atrackerService).ToNot(BeNil())
-				Expect(serviceErr).To(BeNil())
-				ClearTestEnvironment(testEnvironment)
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(validateTargetPath))
+					Expect(req.Method).To(Equal("POST"))
 
-				clone := atrackerService.Clone()
-				Expect(clone).ToNot(BeNil())
-				Expect(clone.Service != atrackerService.Service).To(BeTrue())
-				Expect(clone.GetServiceURL()).To(Equal(atrackerService.GetServiceURL()))
-				Expect(clone.Service.Options.Authenticator).To(Equal(atrackerService.Service.Options.Authenticator))
+					// Sleep a short time to support a timeout test
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"id": "f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "name": "a-cos-target-us-south", "crn": "crn:v1:bluemix:public:atracker:us-south:a/11111111111111111111111111111111:b6eec08b-5201-08ca-451b-cd71523e3626:target:f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "target_type": "cloud_object_storage", "encrypt_key": "REDACTED", "cos_endpoint": {"endpoint": "s3.private.us-east.cloud-object-storage.appdomain.cloud", "target_crn": "crn:v1:bluemix:public:cloud-object-storage:global:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::", "bucket": "my-atracker-bucket", "api_key": "xxxxxxxxxxxxxx"}, "cos_write_status": {"status": "success", "last_failure": "2021-05-18T20:15:12.353Z", "reason_for_last_failure": "Provided API key could not be found"}, "created": "2021-05-18T20:15:12.353Z", "updated": "2021-05-18T20:15:12.353Z"}`)
+				}))
 			})
-			It(`Create service client using external config and set url from constructor successfully`, func() {
-				SetTestEnvironment(testEnvironment)
-				atrackerService, serviceErr := atrackerv1.NewAtrackerV1UsingExternalConfig(&atrackerv1.AtrackerV1Options{
-					URL: "https://testService/api",
+			It(`Invoke ValidateTarget successfully with retries`, func() {
+				atrackerService, serviceErr := atrackerv1.NewAtrackerV1(&atrackerv1.AtrackerV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
 				})
-				Expect(atrackerService).ToNot(BeNil())
 				Expect(serviceErr).To(BeNil())
-				Expect(atrackerService.Service.GetServiceURL()).To(Equal("https://testService/api"))
-				ClearTestEnvironment(testEnvironment)
+				Expect(atrackerService).ToNot(BeNil())
+				atrackerService.EnableRetries(0, 0)
 
-				clone := atrackerService.Clone()
-				Expect(clone).ToNot(BeNil())
-				Expect(clone.Service != atrackerService.Service).To(BeTrue())
-				Expect(clone.GetServiceURL()).To(Equal(atrackerService.GetServiceURL()))
-				Expect(clone.Service.Options.Authenticator).To(Equal(atrackerService.Service.Options.Authenticator))
+				// Construct an instance of the ValidateTargetOptions model
+				validateTargetOptionsModel := new(atrackerv1.ValidateTargetOptions)
+				validateTargetOptionsModel.ID = core.StringPtr("testString")
+				validateTargetOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := atrackerService.ValidateTargetWithContext(ctx, validateTargetOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				atrackerService.DisableRetries()
+				result, response, operationErr := atrackerService.ValidateTarget(validateTargetOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = atrackerService.ValidateTargetWithContext(ctx, validateTargetOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
 			})
-			It(`Create service client using external config and set url programatically successfully`, func() {
-				SetTestEnvironment(testEnvironment)
-				atrackerService, serviceErr := atrackerv1.NewAtrackerV1UsingExternalConfig(&atrackerv1.AtrackerV1Options{
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(validateTargetPath))
+					Expect(req.Method).To(Equal("POST"))
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"id": "f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "name": "a-cos-target-us-south", "crn": "crn:v1:bluemix:public:atracker:us-south:a/11111111111111111111111111111111:b6eec08b-5201-08ca-451b-cd71523e3626:target:f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "target_type": "cloud_object_storage", "encrypt_key": "REDACTED", "cos_endpoint": {"endpoint": "s3.private.us-east.cloud-object-storage.appdomain.cloud", "target_crn": "crn:v1:bluemix:public:cloud-object-storage:global:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::", "bucket": "my-atracker-bucket", "api_key": "xxxxxxxxxxxxxx"}, "cos_write_status": {"status": "success", "last_failure": "2021-05-18T20:15:12.353Z", "reason_for_last_failure": "Provided API key could not be found"}, "created": "2021-05-18T20:15:12.353Z", "updated": "2021-05-18T20:15:12.353Z"}`)
+				}))
+			})
+			It(`Invoke ValidateTarget successfully`, func() {
+				atrackerService, serviceErr := atrackerv1.NewAtrackerV1(&atrackerv1.AtrackerV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
 				})
-				err := atrackerService.SetServiceURL("https://testService/api")
+				Expect(serviceErr).To(BeNil())
+				Expect(atrackerService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				result, response, operationErr := atrackerService.ValidateTarget(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+
+				// Construct an instance of the ValidateTargetOptions model
+				validateTargetOptionsModel := new(atrackerv1.ValidateTargetOptions)
+				validateTargetOptionsModel.ID = core.StringPtr("testString")
+				validateTargetOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				result, response, operationErr = atrackerService.ValidateTarget(validateTargetOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+			})
+			It(`Invoke ValidateTarget with error: Operation validation and request error`, func() {
+				atrackerService, serviceErr := atrackerv1.NewAtrackerV1(&atrackerv1.AtrackerV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(atrackerService).ToNot(BeNil())
+
+				// Construct an instance of the ValidateTargetOptions model
+				validateTargetOptionsModel := new(atrackerv1.ValidateTargetOptions)
+				validateTargetOptionsModel.ID = core.StringPtr("testString")
+				validateTargetOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := atrackerService.SetServiceURL("")
 				Expect(err).To(BeNil())
-				Expect(atrackerService).ToNot(BeNil())
+				result, response, operationErr := atrackerService.ValidateTarget(validateTargetOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+				// Construct a second instance of the ValidateTargetOptions model with no property values
+				validateTargetOptionsModelNew := new(atrackerv1.ValidateTargetOptions)
+				// Invoke operation with invalid model (negative test)
+				result, response, operationErr = atrackerService.ValidateTarget(validateTargetOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke ValidateTarget successfully`, func() {
+				atrackerService, serviceErr := atrackerv1.NewAtrackerV1(&atrackerv1.AtrackerV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
 				Expect(serviceErr).To(BeNil())
-				Expect(atrackerService.Service.GetServiceURL()).To(Equal("https://testService/api"))
-				ClearTestEnvironment(testEnvironment)
+				Expect(atrackerService).ToNot(BeNil())
 
-				clone := atrackerService.Clone()
-				Expect(clone).ToNot(BeNil())
-				Expect(clone.Service != atrackerService.Service).To(BeTrue())
-				Expect(clone.GetServiceURL()).To(Equal(atrackerService.GetServiceURL()))
-				Expect(clone.Service.Options.Authenticator).To(Equal(atrackerService.Service.Options.Authenticator))
+				// Construct an instance of the ValidateTargetOptions model
+				validateTargetOptionsModel := new(atrackerv1.ValidateTargetOptions)
+				validateTargetOptionsModel.ID = core.StringPtr("testString")
+				validateTargetOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := atrackerService.ValidateTarget(validateTargetOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
 			})
-		})
-		Context(`Using external config, construct service client instances with error: Invalid Auth`, func() {
-			// Map containing environment variables used in testing.
-			var testEnvironment = map[string]string{
-				"ATRACKER_URL": "https://atrackerv1/api",
-				"ATRACKER_AUTH_TYPE": "someOtherAuth",
-			}
-
-			SetTestEnvironment(testEnvironment)
-			atrackerService, serviceErr := atrackerv1.NewAtrackerV1UsingExternalConfig(&atrackerv1.AtrackerV1Options{
+			AfterEach(func() {
+				testServer.Close()
 			})
-
-			It(`Instantiate service client with error`, func() {
-				Expect(atrackerService).To(BeNil())
-				Expect(serviceErr).ToNot(BeNil())
-				ClearTestEnvironment(testEnvironment)
-			})
-		})
-		Context(`Using external config, construct service client instances with error: Invalid URL`, func() {
-			// Map containing environment variables used in testing.
-			var testEnvironment = map[string]string{
-				"ATRACKER_AUTH_TYPE":   "NOAuth",
-			}
-
-			SetTestEnvironment(testEnvironment)
-			atrackerService, serviceErr := atrackerv1.NewAtrackerV1UsingExternalConfig(&atrackerv1.AtrackerV1Options{
-				URL: "{BAD_URL_STRING",
-			})
-
-			It(`Instantiate service client with error`, func() {
-				Expect(atrackerService).To(BeNil())
-				Expect(serviceErr).ToNot(BeNil())
-				ClearTestEnvironment(testEnvironment)
-			})
-		})
-	})
-	Describe(`Regional endpoint tests`, func() {
-		It(`GetServiceURLForRegion(region string)`, func() {
-			var url string
-			var err error
-			url, err = atrackerv1.GetServiceURLForRegion("private.us-south")
-			Expect(url).To(Equal("https://private.us-south.atracker.cloud.ibm.com"))
-			Expect(err).To(BeNil())
-
-			url, err = atrackerv1.GetServiceURLForRegion("private.us-east")
-			Expect(url).To(Equal("https://private.us-east.atracker.cloud.ibm.com"))
-			Expect(err).To(BeNil())
-
-			url, err = atrackerv1.GetServiceURLForRegion("private.au-syd")
-			Expect(url).To(Equal("https://private.au-syd.atracker.cloud.ibm.com"))
-			Expect(err).To(BeNil())
-
-			url, err = atrackerv1.GetServiceURLForRegion("private.eu-de")
-			Expect(url).To(Equal("https://private.eu-de.atracker.cloud.ibm.com"))
-			Expect(err).To(BeNil())
-
-			url, err = atrackerv1.GetServiceURLForRegion("private.eu-gb")
-			Expect(url).To(Equal("https://private.eu-gb.atracker.cloud.ibm.com"))
-			Expect(err).To(BeNil())
-
-			url, err = atrackerv1.GetServiceURLForRegion("private.in-che")
-			Expect(url).To(Equal("https://private.in-che.atracker.cloud.ibm.com"))
-			Expect(err).To(BeNil())
-
-			url, err = atrackerv1.GetServiceURLForRegion("private.jp-tok")
-			Expect(url).To(Equal("https://private.jp-tok.atracker.cloud.ibm.com"))
-			Expect(err).To(BeNil())
-
-			url, err = atrackerv1.GetServiceURLForRegion("private.kr-seo")
-			Expect(url).To(Equal("https://private.kr-seo.atracker.cloud.ibm.com"))
-			Expect(err).To(BeNil())
-
-			url, err = atrackerv1.GetServiceURLForRegion("INVALID_REGION")
-			Expect(url).To(BeEmpty())
-			Expect(err).ToNot(BeNil())
-			fmt.Fprintf(GinkgoWriter, "Expected error: %s\n", err.Error())
 		})
 	})
 	Describe(`CreateRoute(createRouteOptions *CreateRouteOptions) - Operation response error`, func() {
 		createRoutePath := "/api/v1/routes"
-		Context(`Using mock server endpoint`, func() {
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
@@ -1320,7 +1666,6 @@ var _ = Describe(`AtrackerV1`, func() {
 			})
 		})
 	})
-
 	Describe(`CreateRoute(createRouteOptions *CreateRouteOptions)`, func() {
 		createRoutePath := "/api/v1/routes"
 		Context(`Using mock server endpoint with timeout`, func() {
@@ -1354,7 +1699,7 @@ var _ = Describe(`AtrackerV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"id": "c3af557f-fb0e-4476-85c3-0889e7fe7bc4", "name": "my-route", "crn": "crn:v1:bluemix:public:atracker:us-south:a/11111111111111111111111111111111:b6eec08b-5201-08ca-451b-cd71523e3626:route:c3af557f-fb0e-4476-85c3-0889e7fe7bc4", "version": 0, "receive_global_events": false, "rules": [{"target_ids": ["c3af557f-fb0e-4476-85c3-0889e7fe7bc4"]}]}`)
+					fmt.Fprintf(res, "%s", `{"id": "c3af557f-fb0e-4476-85c3-0889e7fe7bc4", "name": "my-route", "crn": "crn:v1:bluemix:public:atracker:us-south:a/11111111111111111111111111111111:b6eec08b-5201-08ca-451b-cd71523e3626:route:c3af557f-fb0e-4476-85c3-0889e7fe7bc4", "version": 0, "receive_global_events": false, "rules": [{"target_ids": ["c3af557f-fb0e-4476-85c3-0889e7fe7bc4"]}], "created": "2021-05-18T20:15:12.353Z", "updated": "2021-05-18T20:15:12.353Z"}`)
 				}))
 			})
 			It(`Invoke CreateRoute successfully with retries`, func() {
@@ -1430,7 +1775,7 @@ var _ = Describe(`AtrackerV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"id": "c3af557f-fb0e-4476-85c3-0889e7fe7bc4", "name": "my-route", "crn": "crn:v1:bluemix:public:atracker:us-south:a/11111111111111111111111111111111:b6eec08b-5201-08ca-451b-cd71523e3626:route:c3af557f-fb0e-4476-85c3-0889e7fe7bc4", "version": 0, "receive_global_events": false, "rules": [{"target_ids": ["c3af557f-fb0e-4476-85c3-0889e7fe7bc4"]}]}`)
+					fmt.Fprintf(res, "%s", `{"id": "c3af557f-fb0e-4476-85c3-0889e7fe7bc4", "name": "my-route", "crn": "crn:v1:bluemix:public:atracker:us-south:a/11111111111111111111111111111111:b6eec08b-5201-08ca-451b-cd71523e3626:route:c3af557f-fb0e-4476-85c3-0889e7fe7bc4", "version": 0, "receive_global_events": false, "rules": [{"target_ids": ["c3af557f-fb0e-4476-85c3-0889e7fe7bc4"]}], "created": "2021-05-18T20:15:12.353Z", "updated": "2021-05-18T20:15:12.353Z"}`)
 				}))
 			})
 			It(`Invoke CreateRoute successfully`, func() {
@@ -1503,10 +1848,50 @@ var _ = Describe(`AtrackerV1`, func() {
 				testServer.Close()
 			})
 		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(201)
+				}))
+			})
+			It(`Invoke CreateRoute successfully`, func() {
+				atrackerService, serviceErr := atrackerv1.NewAtrackerV1(&atrackerv1.AtrackerV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(atrackerService).ToNot(BeNil())
+
+				// Construct an instance of the Rule model
+				ruleModel := new(atrackerv1.Rule)
+				ruleModel.TargetIds = []string{"c3af557f-fb0e-4476-85c3-0889e7fe7bc4"}
+
+				// Construct an instance of the CreateRouteOptions model
+				createRouteOptionsModel := new(atrackerv1.CreateRouteOptions)
+				createRouteOptionsModel.Name = core.StringPtr("my-route")
+				createRouteOptionsModel.ReceiveGlobalEvents = core.BoolPtr(false)
+				createRouteOptionsModel.Rules = []atrackerv1.Rule{*ruleModel}
+				createRouteOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := atrackerService.CreateRoute(createRouteOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
 	})
 	Describe(`ListRoutes(listRoutesOptions *ListRoutesOptions) - Operation response error`, func() {
 		listRoutesPath := "/api/v1/routes"
-		Context(`Using mock server endpoint`, func() {
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
@@ -1548,7 +1933,6 @@ var _ = Describe(`AtrackerV1`, func() {
 			})
 		})
 	})
-
 	Describe(`ListRoutes(listRoutesOptions *ListRoutesOptions)`, func() {
 		listRoutesPath := "/api/v1/routes"
 		Context(`Using mock server endpoint with timeout`, func() {
@@ -1566,7 +1950,7 @@ var _ = Describe(`AtrackerV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"routes": [{"id": "c3af557f-fb0e-4476-85c3-0889e7fe7bc4", "name": "my-route", "crn": "crn:v1:bluemix:public:atracker:us-south:a/11111111111111111111111111111111:b6eec08b-5201-08ca-451b-cd71523e3626:route:c3af557f-fb0e-4476-85c3-0889e7fe7bc4", "version": 0, "receive_global_events": false, "rules": [{"target_ids": ["c3af557f-fb0e-4476-85c3-0889e7fe7bc4"]}]}]}`)
+					fmt.Fprintf(res, "%s", `{"routes": [{"id": "c3af557f-fb0e-4476-85c3-0889e7fe7bc4", "name": "my-route", "crn": "crn:v1:bluemix:public:atracker:us-south:a/11111111111111111111111111111111:b6eec08b-5201-08ca-451b-cd71523e3626:route:c3af557f-fb0e-4476-85c3-0889e7fe7bc4", "version": 0, "receive_global_events": false, "rules": [{"target_ids": ["c3af557f-fb0e-4476-85c3-0889e7fe7bc4"]}], "created": "2021-05-18T20:15:12.353Z", "updated": "2021-05-18T20:15:12.353Z"}]}`)
 				}))
 			})
 			It(`Invoke ListRoutes successfully with retries`, func() {
@@ -1619,7 +2003,7 @@ var _ = Describe(`AtrackerV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"routes": [{"id": "c3af557f-fb0e-4476-85c3-0889e7fe7bc4", "name": "my-route", "crn": "crn:v1:bluemix:public:atracker:us-south:a/11111111111111111111111111111111:b6eec08b-5201-08ca-451b-cd71523e3626:route:c3af557f-fb0e-4476-85c3-0889e7fe7bc4", "version": 0, "receive_global_events": false, "rules": [{"target_ids": ["c3af557f-fb0e-4476-85c3-0889e7fe7bc4"]}]}]}`)
+					fmt.Fprintf(res, "%s", `{"routes": [{"id": "c3af557f-fb0e-4476-85c3-0889e7fe7bc4", "name": "my-route", "crn": "crn:v1:bluemix:public:atracker:us-south:a/11111111111111111111111111111111:b6eec08b-5201-08ca-451b-cd71523e3626:route:c3af557f-fb0e-4476-85c3-0889e7fe7bc4", "version": 0, "receive_global_events": false, "rules": [{"target_ids": ["c3af557f-fb0e-4476-85c3-0889e7fe7bc4"]}], "created": "2021-05-18T20:15:12.353Z", "updated": "2021-05-18T20:15:12.353Z"}]}`)
 				}))
 			})
 			It(`Invoke ListRoutes successfully`, func() {
@@ -1671,10 +2055,43 @@ var _ = Describe(`AtrackerV1`, func() {
 				testServer.Close()
 			})
 		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke ListRoutes successfully`, func() {
+				atrackerService, serviceErr := atrackerv1.NewAtrackerV1(&atrackerv1.AtrackerV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(atrackerService).ToNot(BeNil())
+
+				// Construct an instance of the ListRoutesOptions model
+				listRoutesOptionsModel := new(atrackerv1.ListRoutesOptions)
+				listRoutesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := atrackerService.ListRoutes(listRoutesOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
 	})
 	Describe(`GetRoute(getRouteOptions *GetRouteOptions) - Operation response error`, func() {
 		getRoutePath := "/api/v1/routes/testString"
-		Context(`Using mock server endpoint`, func() {
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
@@ -1717,7 +2134,6 @@ var _ = Describe(`AtrackerV1`, func() {
 			})
 		})
 	})
-
 	Describe(`GetRoute(getRouteOptions *GetRouteOptions)`, func() {
 		getRoutePath := "/api/v1/routes/testString"
 		Context(`Using mock server endpoint with timeout`, func() {
@@ -1735,7 +2151,7 @@ var _ = Describe(`AtrackerV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "c3af557f-fb0e-4476-85c3-0889e7fe7bc4", "name": "my-route", "crn": "crn:v1:bluemix:public:atracker:us-south:a/11111111111111111111111111111111:b6eec08b-5201-08ca-451b-cd71523e3626:route:c3af557f-fb0e-4476-85c3-0889e7fe7bc4", "version": 0, "receive_global_events": false, "rules": [{"target_ids": ["c3af557f-fb0e-4476-85c3-0889e7fe7bc4"]}]}`)
+					fmt.Fprintf(res, "%s", `{"id": "c3af557f-fb0e-4476-85c3-0889e7fe7bc4", "name": "my-route", "crn": "crn:v1:bluemix:public:atracker:us-south:a/11111111111111111111111111111111:b6eec08b-5201-08ca-451b-cd71523e3626:route:c3af557f-fb0e-4476-85c3-0889e7fe7bc4", "version": 0, "receive_global_events": false, "rules": [{"target_ids": ["c3af557f-fb0e-4476-85c3-0889e7fe7bc4"]}], "created": "2021-05-18T20:15:12.353Z", "updated": "2021-05-18T20:15:12.353Z"}`)
 				}))
 			})
 			It(`Invoke GetRoute successfully with retries`, func() {
@@ -1789,7 +2205,7 @@ var _ = Describe(`AtrackerV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "c3af557f-fb0e-4476-85c3-0889e7fe7bc4", "name": "my-route", "crn": "crn:v1:bluemix:public:atracker:us-south:a/11111111111111111111111111111111:b6eec08b-5201-08ca-451b-cd71523e3626:route:c3af557f-fb0e-4476-85c3-0889e7fe7bc4", "version": 0, "receive_global_events": false, "rules": [{"target_ids": ["c3af557f-fb0e-4476-85c3-0889e7fe7bc4"]}]}`)
+					fmt.Fprintf(res, "%s", `{"id": "c3af557f-fb0e-4476-85c3-0889e7fe7bc4", "name": "my-route", "crn": "crn:v1:bluemix:public:atracker:us-south:a/11111111111111111111111111111111:b6eec08b-5201-08ca-451b-cd71523e3626:route:c3af557f-fb0e-4476-85c3-0889e7fe7bc4", "version": 0, "receive_global_events": false, "rules": [{"target_ids": ["c3af557f-fb0e-4476-85c3-0889e7fe7bc4"]}], "created": "2021-05-18T20:15:12.353Z", "updated": "2021-05-18T20:15:12.353Z"}`)
 				}))
 			})
 			It(`Invoke GetRoute successfully`, func() {
@@ -1850,10 +2266,44 @@ var _ = Describe(`AtrackerV1`, func() {
 				testServer.Close()
 			})
 		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke GetRoute successfully`, func() {
+				atrackerService, serviceErr := atrackerv1.NewAtrackerV1(&atrackerv1.AtrackerV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(atrackerService).ToNot(BeNil())
+
+				// Construct an instance of the GetRouteOptions model
+				getRouteOptionsModel := new(atrackerv1.GetRouteOptions)
+				getRouteOptionsModel.ID = core.StringPtr("testString")
+				getRouteOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := atrackerService.GetRoute(getRouteOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
 	})
 	Describe(`ReplaceRoute(replaceRouteOptions *ReplaceRouteOptions) - Operation response error`, func() {
 		replaceRoutePath := "/api/v1/routes/testString"
-		Context(`Using mock server endpoint`, func() {
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
@@ -1903,7 +2353,6 @@ var _ = Describe(`AtrackerV1`, func() {
 			})
 		})
 	})
-
 	Describe(`ReplaceRoute(replaceRouteOptions *ReplaceRouteOptions)`, func() {
 		replaceRoutePath := "/api/v1/routes/testString"
 		Context(`Using mock server endpoint with timeout`, func() {
@@ -1937,7 +2386,7 @@ var _ = Describe(`AtrackerV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "c3af557f-fb0e-4476-85c3-0889e7fe7bc4", "name": "my-route", "crn": "crn:v1:bluemix:public:atracker:us-south:a/11111111111111111111111111111111:b6eec08b-5201-08ca-451b-cd71523e3626:route:c3af557f-fb0e-4476-85c3-0889e7fe7bc4", "version": 0, "receive_global_events": false, "rules": [{"target_ids": ["c3af557f-fb0e-4476-85c3-0889e7fe7bc4"]}]}`)
+					fmt.Fprintf(res, "%s", `{"id": "c3af557f-fb0e-4476-85c3-0889e7fe7bc4", "name": "my-route", "crn": "crn:v1:bluemix:public:atracker:us-south:a/11111111111111111111111111111111:b6eec08b-5201-08ca-451b-cd71523e3626:route:c3af557f-fb0e-4476-85c3-0889e7fe7bc4", "version": 0, "receive_global_events": false, "rules": [{"target_ids": ["c3af557f-fb0e-4476-85c3-0889e7fe7bc4"]}], "created": "2021-05-18T20:15:12.353Z", "updated": "2021-05-18T20:15:12.353Z"}`)
 				}))
 			})
 			It(`Invoke ReplaceRoute successfully with retries`, func() {
@@ -2014,7 +2463,7 @@ var _ = Describe(`AtrackerV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "c3af557f-fb0e-4476-85c3-0889e7fe7bc4", "name": "my-route", "crn": "crn:v1:bluemix:public:atracker:us-south:a/11111111111111111111111111111111:b6eec08b-5201-08ca-451b-cd71523e3626:route:c3af557f-fb0e-4476-85c3-0889e7fe7bc4", "version": 0, "receive_global_events": false, "rules": [{"target_ids": ["c3af557f-fb0e-4476-85c3-0889e7fe7bc4"]}]}`)
+					fmt.Fprintf(res, "%s", `{"id": "c3af557f-fb0e-4476-85c3-0889e7fe7bc4", "name": "my-route", "crn": "crn:v1:bluemix:public:atracker:us-south:a/11111111111111111111111111111111:b6eec08b-5201-08ca-451b-cd71523e3626:route:c3af557f-fb0e-4476-85c3-0889e7fe7bc4", "version": 0, "receive_global_events": false, "rules": [{"target_ids": ["c3af557f-fb0e-4476-85c3-0889e7fe7bc4"]}], "created": "2021-05-18T20:15:12.353Z", "updated": "2021-05-18T20:15:12.353Z"}`)
 				}))
 			})
 			It(`Invoke ReplaceRoute successfully`, func() {
@@ -2089,8 +2538,48 @@ var _ = Describe(`AtrackerV1`, func() {
 				testServer.Close()
 			})
 		})
-	})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
 
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke ReplaceRoute successfully`, func() {
+				atrackerService, serviceErr := atrackerv1.NewAtrackerV1(&atrackerv1.AtrackerV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(atrackerService).ToNot(BeNil())
+
+				// Construct an instance of the Rule model
+				ruleModel := new(atrackerv1.Rule)
+				ruleModel.TargetIds = []string{"c3af557f-fb0e-4476-85c3-0889e7fe7bc4"}
+
+				// Construct an instance of the ReplaceRouteOptions model
+				replaceRouteOptionsModel := new(atrackerv1.ReplaceRouteOptions)
+				replaceRouteOptionsModel.ID = core.StringPtr("testString")
+				replaceRouteOptionsModel.Name = core.StringPtr("my-route")
+				replaceRouteOptionsModel.ReceiveGlobalEvents = core.BoolPtr(false)
+				replaceRouteOptionsModel.Rules = []atrackerv1.Rule{*ruleModel}
+				replaceRouteOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := atrackerService.ReplaceRoute(replaceRouteOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
 	Describe(`DeleteRoute(deleteRouteOptions *DeleteRouteOptions)`, func() {
 		deleteRoutePath := "/api/v1/routes/testString"
 		Context(`Using mock server endpoint`, func() {
@@ -2327,17 +2816,27 @@ var _ = Describe(`AtrackerV1`, func() {
 			})
 			It(`Invoke NewRule successfully`, func() {
 				targetIds := []string{"c3af557f-fb0e-4476-85c3-0889e7fe7bc4"}
-				model, err := atrackerService.NewRule(targetIds)
-				Expect(model).ToNot(BeNil())
+				_model, err := atrackerService.NewRule(targetIds)
+				Expect(_model).ToNot(BeNil())
 				Expect(err).To(BeNil())
+			})
+			It(`Invoke NewValidateTargetOptions successfully`, func() {
+				// Construct an instance of the ValidateTargetOptions model
+				id := "testString"
+				validateTargetOptionsModel := atrackerService.NewValidateTargetOptions(id)
+				validateTargetOptionsModel.SetID("testString")
+				validateTargetOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(validateTargetOptionsModel).ToNot(BeNil())
+				Expect(validateTargetOptionsModel.ID).To(Equal(core.StringPtr("testString")))
+				Expect(validateTargetOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewCosEndpoint successfully`, func() {
 				endpoint := "s3.private.us-east.cloud-object-storage.appdomain.cloud"
 				targetCRN := "crn:v1:bluemix:public:cloud-object-storage:global:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::"
 				bucket := "my-atracker-bucket"
 				apiKey := "xxxxxxxxxxxxxx"
-				model, err := atrackerService.NewCosEndpoint(endpoint, targetCRN, bucket, apiKey)
-				Expect(model).ToNot(BeNil())
+				_model, err := atrackerService.NewCosEndpoint(endpoint, targetCRN, bucket, apiKey)
+				Expect(_model).ToNot(BeNil())
 				Expect(err).To(BeNil())
 			})
 		})
@@ -2356,11 +2855,11 @@ var _ = Describe(`AtrackerV1`, func() {
 			Expect(mockReader).ToNot(BeNil())
 		})
 		It(`Invoke CreateMockDate() successfully`, func() {
-			mockDate := CreateMockDate()
+			mockDate := CreateMockDate("2019-01-01")
 			Expect(mockDate).ToNot(BeNil())
 		})
 		It(`Invoke CreateMockDateTime() successfully`, func() {
-			mockDateTime := CreateMockDateTime()
+			mockDateTime := CreateMockDateTime("2019-01-01T12:00:00.000Z")
 			Expect(mockDateTime).ToNot(BeNil())
 		})
 	})
@@ -2385,13 +2884,19 @@ func CreateMockReader(mockData string) io.ReadCloser {
 	return ioutil.NopCloser(bytes.NewReader([]byte(mockData)))
 }
 
-func CreateMockDate() *strfmt.Date {
-	d := strfmt.Date(time.Date(2009, time.November, 10, 23, 0, 0, 0, time.UTC))
+func CreateMockDate(mockData string) *strfmt.Date {
+	d, err := core.ParseDate(mockData)
+	if err != nil {
+		return nil
+	}
 	return &d
 }
 
-func CreateMockDateTime() *strfmt.DateTime {
-	d := strfmt.DateTime(time.Date(2009, time.November, 10, 23, 0, 0, 0, time.UTC))
+func CreateMockDateTime(mockData string) *strfmt.DateTime {
+	d, err := core.ParseDateTime(mockData)
+	if err != nil {
+		return nil
+	}
 	return &d
 }
 
