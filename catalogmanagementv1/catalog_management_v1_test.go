@@ -1,5 +1,3 @@
-// +build unit
-
 /**
  * (C) Copyright IBM Corp. 2021.
  *
@@ -14742,10 +14740,19 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(catalogManagementService).ToNot(BeNil())
 
+				// Construct an instance of the OfferingInstanceLastOperation model
+				offeringInstanceLastOperationModel := new(catalogmanagementv1.OfferingInstanceLastOperation)
+				offeringInstanceLastOperationModel.Operation = core.StringPtr("testString")
+				offeringInstanceLastOperationModel.State = core.StringPtr("testString")
+				offeringInstanceLastOperationModel.Message = core.StringPtr("testString")
+				offeringInstanceLastOperationModel.TransactionID = core.StringPtr("testString")
+				offeringInstanceLastOperationModel.Updated = core.StringPtr("testString")
+
 				// Construct an instance of the CreateOfferingInstanceOptions model
 				createOfferingInstanceOptionsModel := new(catalogmanagementv1.CreateOfferingInstanceOptions)
 				createOfferingInstanceOptionsModel.XAuthRefreshToken = core.StringPtr("testString")
 				createOfferingInstanceOptionsModel.ID = core.StringPtr("testString")
+				createOfferingInstanceOptionsModel.Rev = core.StringPtr("testString")
 				createOfferingInstanceOptionsModel.URL = core.StringPtr("testString")
 				createOfferingInstanceOptionsModel.CRN = core.StringPtr("testString")
 				createOfferingInstanceOptionsModel.Label = core.StringPtr("testString")
@@ -14757,6 +14764,12 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				createOfferingInstanceOptionsModel.ClusterRegion = core.StringPtr("testString")
 				createOfferingInstanceOptionsModel.ClusterNamespaces = []string{"testString"}
 				createOfferingInstanceOptionsModel.ClusterAllNamespaces = core.BoolPtr(true)
+				createOfferingInstanceOptionsModel.SchematicsWorkspaceID = core.StringPtr("testString")
+				createOfferingInstanceOptionsModel.ResourceGroupID = core.StringPtr("testString")
+				createOfferingInstanceOptionsModel.InstallPlan = core.StringPtr("testString")
+				createOfferingInstanceOptionsModel.Channel = core.StringPtr("testString")
+				createOfferingInstanceOptionsModel.Metadata = make(map[string]interface{})
+				createOfferingInstanceOptionsModel.LastOperation = offeringInstanceLastOperationModel
 				createOfferingInstanceOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
 				result, response, operationErr := catalogManagementService.CreateOfferingInstance(createOfferingInstanceOptionsModel)
@@ -14811,7 +14824,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "url": "URL", "crn": "CRN", "label": "Label", "catalog_id": "CatalogID", "offering_id": "OfferingID", "kind_format": "KindFormat", "version": "Version", "cluster_id": "ClusterID", "cluster_region": "ClusterRegion", "cluster_namespaces": ["ClusterNamespaces"], "cluster_all_namespaces": true}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "_rev": "Rev", "url": "URL", "crn": "CRN", "label": "Label", "catalog_id": "CatalogID", "offering_id": "OfferingID", "kind_format": "KindFormat", "version": "Version", "cluster_id": "ClusterID", "cluster_region": "ClusterRegion", "cluster_namespaces": ["ClusterNamespaces"], "cluster_all_namespaces": true, "schematics_workspace_id": "SchematicsWorkspaceID", "resource_group_id": "ResourceGroupID", "install_plan": "InstallPlan", "channel": "Channel", "metadata": {"mapKey": "anyValue"}, "last_operation": {"operation": "Operation", "state": "State", "message": "Message", "transaction_id": "TransactionID", "updated": "Updated"}}`)
 				}))
 			})
 			It(`Invoke CreateOfferingInstance successfully with retries`, func() {
@@ -14823,10 +14836,19 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				Expect(catalogManagementService).ToNot(BeNil())
 				catalogManagementService.EnableRetries(0, 0)
 
+				// Construct an instance of the OfferingInstanceLastOperation model
+				offeringInstanceLastOperationModel := new(catalogmanagementv1.OfferingInstanceLastOperation)
+				offeringInstanceLastOperationModel.Operation = core.StringPtr("testString")
+				offeringInstanceLastOperationModel.State = core.StringPtr("testString")
+				offeringInstanceLastOperationModel.Message = core.StringPtr("testString")
+				offeringInstanceLastOperationModel.TransactionID = core.StringPtr("testString")
+				offeringInstanceLastOperationModel.Updated = core.StringPtr("testString")
+
 				// Construct an instance of the CreateOfferingInstanceOptions model
 				createOfferingInstanceOptionsModel := new(catalogmanagementv1.CreateOfferingInstanceOptions)
 				createOfferingInstanceOptionsModel.XAuthRefreshToken = core.StringPtr("testString")
 				createOfferingInstanceOptionsModel.ID = core.StringPtr("testString")
+				createOfferingInstanceOptionsModel.Rev = core.StringPtr("testString")
 				createOfferingInstanceOptionsModel.URL = core.StringPtr("testString")
 				createOfferingInstanceOptionsModel.CRN = core.StringPtr("testString")
 				createOfferingInstanceOptionsModel.Label = core.StringPtr("testString")
@@ -14838,6 +14860,12 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				createOfferingInstanceOptionsModel.ClusterRegion = core.StringPtr("testString")
 				createOfferingInstanceOptionsModel.ClusterNamespaces = []string{"testString"}
 				createOfferingInstanceOptionsModel.ClusterAllNamespaces = core.BoolPtr(true)
+				createOfferingInstanceOptionsModel.SchematicsWorkspaceID = core.StringPtr("testString")
+				createOfferingInstanceOptionsModel.ResourceGroupID = core.StringPtr("testString")
+				createOfferingInstanceOptionsModel.InstallPlan = core.StringPtr("testString")
+				createOfferingInstanceOptionsModel.Channel = core.StringPtr("testString")
+				createOfferingInstanceOptionsModel.Metadata = make(map[string]interface{})
+				createOfferingInstanceOptionsModel.LastOperation = offeringInstanceLastOperationModel
 				createOfferingInstanceOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with a Context to test a timeout error
@@ -14895,7 +14923,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "url": "URL", "crn": "CRN", "label": "Label", "catalog_id": "CatalogID", "offering_id": "OfferingID", "kind_format": "KindFormat", "version": "Version", "cluster_id": "ClusterID", "cluster_region": "ClusterRegion", "cluster_namespaces": ["ClusterNamespaces"], "cluster_all_namespaces": true}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "_rev": "Rev", "url": "URL", "crn": "CRN", "label": "Label", "catalog_id": "CatalogID", "offering_id": "OfferingID", "kind_format": "KindFormat", "version": "Version", "cluster_id": "ClusterID", "cluster_region": "ClusterRegion", "cluster_namespaces": ["ClusterNamespaces"], "cluster_all_namespaces": true, "schematics_workspace_id": "SchematicsWorkspaceID", "resource_group_id": "ResourceGroupID", "install_plan": "InstallPlan", "channel": "Channel", "metadata": {"mapKey": "anyValue"}, "last_operation": {"operation": "Operation", "state": "State", "message": "Message", "transaction_id": "TransactionID", "updated": "Updated"}}`)
 				}))
 			})
 			It(`Invoke CreateOfferingInstance successfully`, func() {
@@ -14912,10 +14940,19 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
 
+				// Construct an instance of the OfferingInstanceLastOperation model
+				offeringInstanceLastOperationModel := new(catalogmanagementv1.OfferingInstanceLastOperation)
+				offeringInstanceLastOperationModel.Operation = core.StringPtr("testString")
+				offeringInstanceLastOperationModel.State = core.StringPtr("testString")
+				offeringInstanceLastOperationModel.Message = core.StringPtr("testString")
+				offeringInstanceLastOperationModel.TransactionID = core.StringPtr("testString")
+				offeringInstanceLastOperationModel.Updated = core.StringPtr("testString")
+
 				// Construct an instance of the CreateOfferingInstanceOptions model
 				createOfferingInstanceOptionsModel := new(catalogmanagementv1.CreateOfferingInstanceOptions)
 				createOfferingInstanceOptionsModel.XAuthRefreshToken = core.StringPtr("testString")
 				createOfferingInstanceOptionsModel.ID = core.StringPtr("testString")
+				createOfferingInstanceOptionsModel.Rev = core.StringPtr("testString")
 				createOfferingInstanceOptionsModel.URL = core.StringPtr("testString")
 				createOfferingInstanceOptionsModel.CRN = core.StringPtr("testString")
 				createOfferingInstanceOptionsModel.Label = core.StringPtr("testString")
@@ -14927,6 +14964,12 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				createOfferingInstanceOptionsModel.ClusterRegion = core.StringPtr("testString")
 				createOfferingInstanceOptionsModel.ClusterNamespaces = []string{"testString"}
 				createOfferingInstanceOptionsModel.ClusterAllNamespaces = core.BoolPtr(true)
+				createOfferingInstanceOptionsModel.SchematicsWorkspaceID = core.StringPtr("testString")
+				createOfferingInstanceOptionsModel.ResourceGroupID = core.StringPtr("testString")
+				createOfferingInstanceOptionsModel.InstallPlan = core.StringPtr("testString")
+				createOfferingInstanceOptionsModel.Channel = core.StringPtr("testString")
+				createOfferingInstanceOptionsModel.Metadata = make(map[string]interface{})
+				createOfferingInstanceOptionsModel.LastOperation = offeringInstanceLastOperationModel
 				createOfferingInstanceOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
@@ -14944,10 +14987,19 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(catalogManagementService).ToNot(BeNil())
 
+				// Construct an instance of the OfferingInstanceLastOperation model
+				offeringInstanceLastOperationModel := new(catalogmanagementv1.OfferingInstanceLastOperation)
+				offeringInstanceLastOperationModel.Operation = core.StringPtr("testString")
+				offeringInstanceLastOperationModel.State = core.StringPtr("testString")
+				offeringInstanceLastOperationModel.Message = core.StringPtr("testString")
+				offeringInstanceLastOperationModel.TransactionID = core.StringPtr("testString")
+				offeringInstanceLastOperationModel.Updated = core.StringPtr("testString")
+
 				// Construct an instance of the CreateOfferingInstanceOptions model
 				createOfferingInstanceOptionsModel := new(catalogmanagementv1.CreateOfferingInstanceOptions)
 				createOfferingInstanceOptionsModel.XAuthRefreshToken = core.StringPtr("testString")
 				createOfferingInstanceOptionsModel.ID = core.StringPtr("testString")
+				createOfferingInstanceOptionsModel.Rev = core.StringPtr("testString")
 				createOfferingInstanceOptionsModel.URL = core.StringPtr("testString")
 				createOfferingInstanceOptionsModel.CRN = core.StringPtr("testString")
 				createOfferingInstanceOptionsModel.Label = core.StringPtr("testString")
@@ -14959,6 +15011,12 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				createOfferingInstanceOptionsModel.ClusterRegion = core.StringPtr("testString")
 				createOfferingInstanceOptionsModel.ClusterNamespaces = []string{"testString"}
 				createOfferingInstanceOptionsModel.ClusterAllNamespaces = core.BoolPtr(true)
+				createOfferingInstanceOptionsModel.SchematicsWorkspaceID = core.StringPtr("testString")
+				createOfferingInstanceOptionsModel.ResourceGroupID = core.StringPtr("testString")
+				createOfferingInstanceOptionsModel.InstallPlan = core.StringPtr("testString")
+				createOfferingInstanceOptionsModel.Channel = core.StringPtr("testString")
+				createOfferingInstanceOptionsModel.Metadata = make(map[string]interface{})
+				createOfferingInstanceOptionsModel.LastOperation = offeringInstanceLastOperationModel
 				createOfferingInstanceOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := catalogManagementService.SetServiceURL("")
@@ -14997,10 +15055,19 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(catalogManagementService).ToNot(BeNil())
 
+				// Construct an instance of the OfferingInstanceLastOperation model
+				offeringInstanceLastOperationModel := new(catalogmanagementv1.OfferingInstanceLastOperation)
+				offeringInstanceLastOperationModel.Operation = core.StringPtr("testString")
+				offeringInstanceLastOperationModel.State = core.StringPtr("testString")
+				offeringInstanceLastOperationModel.Message = core.StringPtr("testString")
+				offeringInstanceLastOperationModel.TransactionID = core.StringPtr("testString")
+				offeringInstanceLastOperationModel.Updated = core.StringPtr("testString")
+
 				// Construct an instance of the CreateOfferingInstanceOptions model
 				createOfferingInstanceOptionsModel := new(catalogmanagementv1.CreateOfferingInstanceOptions)
 				createOfferingInstanceOptionsModel.XAuthRefreshToken = core.StringPtr("testString")
 				createOfferingInstanceOptionsModel.ID = core.StringPtr("testString")
+				createOfferingInstanceOptionsModel.Rev = core.StringPtr("testString")
 				createOfferingInstanceOptionsModel.URL = core.StringPtr("testString")
 				createOfferingInstanceOptionsModel.CRN = core.StringPtr("testString")
 				createOfferingInstanceOptionsModel.Label = core.StringPtr("testString")
@@ -15012,6 +15079,12 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				createOfferingInstanceOptionsModel.ClusterRegion = core.StringPtr("testString")
 				createOfferingInstanceOptionsModel.ClusterNamespaces = []string{"testString"}
 				createOfferingInstanceOptionsModel.ClusterAllNamespaces = core.BoolPtr(true)
+				createOfferingInstanceOptionsModel.SchematicsWorkspaceID = core.StringPtr("testString")
+				createOfferingInstanceOptionsModel.ResourceGroupID = core.StringPtr("testString")
+				createOfferingInstanceOptionsModel.InstallPlan = core.StringPtr("testString")
+				createOfferingInstanceOptionsModel.Channel = core.StringPtr("testString")
+				createOfferingInstanceOptionsModel.Metadata = make(map[string]interface{})
+				createOfferingInstanceOptionsModel.LastOperation = offeringInstanceLastOperationModel
 				createOfferingInstanceOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation
@@ -15089,7 +15162,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "url": "URL", "crn": "CRN", "label": "Label", "catalog_id": "CatalogID", "offering_id": "OfferingID", "kind_format": "KindFormat", "version": "Version", "cluster_id": "ClusterID", "cluster_region": "ClusterRegion", "cluster_namespaces": ["ClusterNamespaces"], "cluster_all_namespaces": true}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "_rev": "Rev", "url": "URL", "crn": "CRN", "label": "Label", "catalog_id": "CatalogID", "offering_id": "OfferingID", "kind_format": "KindFormat", "version": "Version", "cluster_id": "ClusterID", "cluster_region": "ClusterRegion", "cluster_namespaces": ["ClusterNamespaces"], "cluster_all_namespaces": true, "schematics_workspace_id": "SchematicsWorkspaceID", "resource_group_id": "ResourceGroupID", "install_plan": "InstallPlan", "channel": "Channel", "metadata": {"mapKey": "anyValue"}, "last_operation": {"operation": "Operation", "state": "State", "message": "Message", "transaction_id": "TransactionID", "updated": "Updated"}}`)
 				}))
 			})
 			It(`Invoke GetOfferingInstance successfully with retries`, func() {
@@ -15143,7 +15216,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "url": "URL", "crn": "CRN", "label": "Label", "catalog_id": "CatalogID", "offering_id": "OfferingID", "kind_format": "KindFormat", "version": "Version", "cluster_id": "ClusterID", "cluster_region": "ClusterRegion", "cluster_namespaces": ["ClusterNamespaces"], "cluster_all_namespaces": true}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "_rev": "Rev", "url": "URL", "crn": "CRN", "label": "Label", "catalog_id": "CatalogID", "offering_id": "OfferingID", "kind_format": "KindFormat", "version": "Version", "cluster_id": "ClusterID", "cluster_region": "ClusterRegion", "cluster_namespaces": ["ClusterNamespaces"], "cluster_all_namespaces": true, "schematics_workspace_id": "SchematicsWorkspaceID", "resource_group_id": "ResourceGroupID", "install_plan": "InstallPlan", "channel": "Channel", "metadata": {"mapKey": "anyValue"}, "last_operation": {"operation": "Operation", "state": "State", "message": "Message", "transaction_id": "TransactionID", "updated": "Updated"}}`)
 				}))
 			})
 			It(`Invoke GetOfferingInstance successfully`, func() {
@@ -15264,11 +15337,20 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(catalogManagementService).ToNot(BeNil())
 
+				// Construct an instance of the OfferingInstanceLastOperation model
+				offeringInstanceLastOperationModel := new(catalogmanagementv1.OfferingInstanceLastOperation)
+				offeringInstanceLastOperationModel.Operation = core.StringPtr("testString")
+				offeringInstanceLastOperationModel.State = core.StringPtr("testString")
+				offeringInstanceLastOperationModel.Message = core.StringPtr("testString")
+				offeringInstanceLastOperationModel.TransactionID = core.StringPtr("testString")
+				offeringInstanceLastOperationModel.Updated = core.StringPtr("testString")
+
 				// Construct an instance of the PutOfferingInstanceOptions model
 				putOfferingInstanceOptionsModel := new(catalogmanagementv1.PutOfferingInstanceOptions)
 				putOfferingInstanceOptionsModel.InstanceIdentifier = core.StringPtr("testString")
 				putOfferingInstanceOptionsModel.XAuthRefreshToken = core.StringPtr("testString")
 				putOfferingInstanceOptionsModel.ID = core.StringPtr("testString")
+				putOfferingInstanceOptionsModel.Rev = core.StringPtr("testString")
 				putOfferingInstanceOptionsModel.URL = core.StringPtr("testString")
 				putOfferingInstanceOptionsModel.CRN = core.StringPtr("testString")
 				putOfferingInstanceOptionsModel.Label = core.StringPtr("testString")
@@ -15280,6 +15362,12 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				putOfferingInstanceOptionsModel.ClusterRegion = core.StringPtr("testString")
 				putOfferingInstanceOptionsModel.ClusterNamespaces = []string{"testString"}
 				putOfferingInstanceOptionsModel.ClusterAllNamespaces = core.BoolPtr(true)
+				putOfferingInstanceOptionsModel.SchematicsWorkspaceID = core.StringPtr("testString")
+				putOfferingInstanceOptionsModel.ResourceGroupID = core.StringPtr("testString")
+				putOfferingInstanceOptionsModel.InstallPlan = core.StringPtr("testString")
+				putOfferingInstanceOptionsModel.Channel = core.StringPtr("testString")
+				putOfferingInstanceOptionsModel.Metadata = make(map[string]interface{})
+				putOfferingInstanceOptionsModel.LastOperation = offeringInstanceLastOperationModel
 				putOfferingInstanceOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
 				result, response, operationErr := catalogManagementService.PutOfferingInstance(putOfferingInstanceOptionsModel)
@@ -15334,7 +15422,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "url": "URL", "crn": "CRN", "label": "Label", "catalog_id": "CatalogID", "offering_id": "OfferingID", "kind_format": "KindFormat", "version": "Version", "cluster_id": "ClusterID", "cluster_region": "ClusterRegion", "cluster_namespaces": ["ClusterNamespaces"], "cluster_all_namespaces": true}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "_rev": "Rev", "url": "URL", "crn": "CRN", "label": "Label", "catalog_id": "CatalogID", "offering_id": "OfferingID", "kind_format": "KindFormat", "version": "Version", "cluster_id": "ClusterID", "cluster_region": "ClusterRegion", "cluster_namespaces": ["ClusterNamespaces"], "cluster_all_namespaces": true, "schematics_workspace_id": "SchematicsWorkspaceID", "resource_group_id": "ResourceGroupID", "install_plan": "InstallPlan", "channel": "Channel", "metadata": {"mapKey": "anyValue"}, "last_operation": {"operation": "Operation", "state": "State", "message": "Message", "transaction_id": "TransactionID", "updated": "Updated"}}`)
 				}))
 			})
 			It(`Invoke PutOfferingInstance successfully with retries`, func() {
@@ -15346,11 +15434,20 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				Expect(catalogManagementService).ToNot(BeNil())
 				catalogManagementService.EnableRetries(0, 0)
 
+				// Construct an instance of the OfferingInstanceLastOperation model
+				offeringInstanceLastOperationModel := new(catalogmanagementv1.OfferingInstanceLastOperation)
+				offeringInstanceLastOperationModel.Operation = core.StringPtr("testString")
+				offeringInstanceLastOperationModel.State = core.StringPtr("testString")
+				offeringInstanceLastOperationModel.Message = core.StringPtr("testString")
+				offeringInstanceLastOperationModel.TransactionID = core.StringPtr("testString")
+				offeringInstanceLastOperationModel.Updated = core.StringPtr("testString")
+
 				// Construct an instance of the PutOfferingInstanceOptions model
 				putOfferingInstanceOptionsModel := new(catalogmanagementv1.PutOfferingInstanceOptions)
 				putOfferingInstanceOptionsModel.InstanceIdentifier = core.StringPtr("testString")
 				putOfferingInstanceOptionsModel.XAuthRefreshToken = core.StringPtr("testString")
 				putOfferingInstanceOptionsModel.ID = core.StringPtr("testString")
+				putOfferingInstanceOptionsModel.Rev = core.StringPtr("testString")
 				putOfferingInstanceOptionsModel.URL = core.StringPtr("testString")
 				putOfferingInstanceOptionsModel.CRN = core.StringPtr("testString")
 				putOfferingInstanceOptionsModel.Label = core.StringPtr("testString")
@@ -15362,6 +15459,12 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				putOfferingInstanceOptionsModel.ClusterRegion = core.StringPtr("testString")
 				putOfferingInstanceOptionsModel.ClusterNamespaces = []string{"testString"}
 				putOfferingInstanceOptionsModel.ClusterAllNamespaces = core.BoolPtr(true)
+				putOfferingInstanceOptionsModel.SchematicsWorkspaceID = core.StringPtr("testString")
+				putOfferingInstanceOptionsModel.ResourceGroupID = core.StringPtr("testString")
+				putOfferingInstanceOptionsModel.InstallPlan = core.StringPtr("testString")
+				putOfferingInstanceOptionsModel.Channel = core.StringPtr("testString")
+				putOfferingInstanceOptionsModel.Metadata = make(map[string]interface{})
+				putOfferingInstanceOptionsModel.LastOperation = offeringInstanceLastOperationModel
 				putOfferingInstanceOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with a Context to test a timeout error
@@ -15419,7 +15522,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "url": "URL", "crn": "CRN", "label": "Label", "catalog_id": "CatalogID", "offering_id": "OfferingID", "kind_format": "KindFormat", "version": "Version", "cluster_id": "ClusterID", "cluster_region": "ClusterRegion", "cluster_namespaces": ["ClusterNamespaces"], "cluster_all_namespaces": true}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "_rev": "Rev", "url": "URL", "crn": "CRN", "label": "Label", "catalog_id": "CatalogID", "offering_id": "OfferingID", "kind_format": "KindFormat", "version": "Version", "cluster_id": "ClusterID", "cluster_region": "ClusterRegion", "cluster_namespaces": ["ClusterNamespaces"], "cluster_all_namespaces": true, "schematics_workspace_id": "SchematicsWorkspaceID", "resource_group_id": "ResourceGroupID", "install_plan": "InstallPlan", "channel": "Channel", "metadata": {"mapKey": "anyValue"}, "last_operation": {"operation": "Operation", "state": "State", "message": "Message", "transaction_id": "TransactionID", "updated": "Updated"}}`)
 				}))
 			})
 			It(`Invoke PutOfferingInstance successfully`, func() {
@@ -15436,11 +15539,20 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
 
+				// Construct an instance of the OfferingInstanceLastOperation model
+				offeringInstanceLastOperationModel := new(catalogmanagementv1.OfferingInstanceLastOperation)
+				offeringInstanceLastOperationModel.Operation = core.StringPtr("testString")
+				offeringInstanceLastOperationModel.State = core.StringPtr("testString")
+				offeringInstanceLastOperationModel.Message = core.StringPtr("testString")
+				offeringInstanceLastOperationModel.TransactionID = core.StringPtr("testString")
+				offeringInstanceLastOperationModel.Updated = core.StringPtr("testString")
+
 				// Construct an instance of the PutOfferingInstanceOptions model
 				putOfferingInstanceOptionsModel := new(catalogmanagementv1.PutOfferingInstanceOptions)
 				putOfferingInstanceOptionsModel.InstanceIdentifier = core.StringPtr("testString")
 				putOfferingInstanceOptionsModel.XAuthRefreshToken = core.StringPtr("testString")
 				putOfferingInstanceOptionsModel.ID = core.StringPtr("testString")
+				putOfferingInstanceOptionsModel.Rev = core.StringPtr("testString")
 				putOfferingInstanceOptionsModel.URL = core.StringPtr("testString")
 				putOfferingInstanceOptionsModel.CRN = core.StringPtr("testString")
 				putOfferingInstanceOptionsModel.Label = core.StringPtr("testString")
@@ -15452,6 +15564,12 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				putOfferingInstanceOptionsModel.ClusterRegion = core.StringPtr("testString")
 				putOfferingInstanceOptionsModel.ClusterNamespaces = []string{"testString"}
 				putOfferingInstanceOptionsModel.ClusterAllNamespaces = core.BoolPtr(true)
+				putOfferingInstanceOptionsModel.SchematicsWorkspaceID = core.StringPtr("testString")
+				putOfferingInstanceOptionsModel.ResourceGroupID = core.StringPtr("testString")
+				putOfferingInstanceOptionsModel.InstallPlan = core.StringPtr("testString")
+				putOfferingInstanceOptionsModel.Channel = core.StringPtr("testString")
+				putOfferingInstanceOptionsModel.Metadata = make(map[string]interface{})
+				putOfferingInstanceOptionsModel.LastOperation = offeringInstanceLastOperationModel
 				putOfferingInstanceOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
@@ -15469,11 +15587,20 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(catalogManagementService).ToNot(BeNil())
 
+				// Construct an instance of the OfferingInstanceLastOperation model
+				offeringInstanceLastOperationModel := new(catalogmanagementv1.OfferingInstanceLastOperation)
+				offeringInstanceLastOperationModel.Operation = core.StringPtr("testString")
+				offeringInstanceLastOperationModel.State = core.StringPtr("testString")
+				offeringInstanceLastOperationModel.Message = core.StringPtr("testString")
+				offeringInstanceLastOperationModel.TransactionID = core.StringPtr("testString")
+				offeringInstanceLastOperationModel.Updated = core.StringPtr("testString")
+
 				// Construct an instance of the PutOfferingInstanceOptions model
 				putOfferingInstanceOptionsModel := new(catalogmanagementv1.PutOfferingInstanceOptions)
 				putOfferingInstanceOptionsModel.InstanceIdentifier = core.StringPtr("testString")
 				putOfferingInstanceOptionsModel.XAuthRefreshToken = core.StringPtr("testString")
 				putOfferingInstanceOptionsModel.ID = core.StringPtr("testString")
+				putOfferingInstanceOptionsModel.Rev = core.StringPtr("testString")
 				putOfferingInstanceOptionsModel.URL = core.StringPtr("testString")
 				putOfferingInstanceOptionsModel.CRN = core.StringPtr("testString")
 				putOfferingInstanceOptionsModel.Label = core.StringPtr("testString")
@@ -15485,6 +15612,12 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				putOfferingInstanceOptionsModel.ClusterRegion = core.StringPtr("testString")
 				putOfferingInstanceOptionsModel.ClusterNamespaces = []string{"testString"}
 				putOfferingInstanceOptionsModel.ClusterAllNamespaces = core.BoolPtr(true)
+				putOfferingInstanceOptionsModel.SchematicsWorkspaceID = core.StringPtr("testString")
+				putOfferingInstanceOptionsModel.ResourceGroupID = core.StringPtr("testString")
+				putOfferingInstanceOptionsModel.InstallPlan = core.StringPtr("testString")
+				putOfferingInstanceOptionsModel.Channel = core.StringPtr("testString")
+				putOfferingInstanceOptionsModel.Metadata = make(map[string]interface{})
+				putOfferingInstanceOptionsModel.LastOperation = offeringInstanceLastOperationModel
 				putOfferingInstanceOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := catalogManagementService.SetServiceURL("")
@@ -15523,11 +15656,20 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(catalogManagementService).ToNot(BeNil())
 
+				// Construct an instance of the OfferingInstanceLastOperation model
+				offeringInstanceLastOperationModel := new(catalogmanagementv1.OfferingInstanceLastOperation)
+				offeringInstanceLastOperationModel.Operation = core.StringPtr("testString")
+				offeringInstanceLastOperationModel.State = core.StringPtr("testString")
+				offeringInstanceLastOperationModel.Message = core.StringPtr("testString")
+				offeringInstanceLastOperationModel.TransactionID = core.StringPtr("testString")
+				offeringInstanceLastOperationModel.Updated = core.StringPtr("testString")
+
 				// Construct an instance of the PutOfferingInstanceOptions model
 				putOfferingInstanceOptionsModel := new(catalogmanagementv1.PutOfferingInstanceOptions)
 				putOfferingInstanceOptionsModel.InstanceIdentifier = core.StringPtr("testString")
 				putOfferingInstanceOptionsModel.XAuthRefreshToken = core.StringPtr("testString")
 				putOfferingInstanceOptionsModel.ID = core.StringPtr("testString")
+				putOfferingInstanceOptionsModel.Rev = core.StringPtr("testString")
 				putOfferingInstanceOptionsModel.URL = core.StringPtr("testString")
 				putOfferingInstanceOptionsModel.CRN = core.StringPtr("testString")
 				putOfferingInstanceOptionsModel.Label = core.StringPtr("testString")
@@ -15539,6 +15681,12 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				putOfferingInstanceOptionsModel.ClusterRegion = core.StringPtr("testString")
 				putOfferingInstanceOptionsModel.ClusterNamespaces = []string{"testString"}
 				putOfferingInstanceOptionsModel.ClusterAllNamespaces = core.BoolPtr(true)
+				putOfferingInstanceOptionsModel.SchematicsWorkspaceID = core.StringPtr("testString")
+				putOfferingInstanceOptionsModel.ResourceGroupID = core.StringPtr("testString")
+				putOfferingInstanceOptionsModel.InstallPlan = core.StringPtr("testString")
+				putOfferingInstanceOptionsModel.Channel = core.StringPtr("testString")
+				putOfferingInstanceOptionsModel.Metadata = make(map[string]interface{})
+				putOfferingInstanceOptionsModel.LastOperation = offeringInstanceLastOperationModel
 				putOfferingInstanceOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation
@@ -15912,11 +16060,26 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				Expect(createObjectOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewCreateOfferingInstanceOptions successfully`, func() {
+				// Construct an instance of the OfferingInstanceLastOperation model
+				offeringInstanceLastOperationModel := new(catalogmanagementv1.OfferingInstanceLastOperation)
+				Expect(offeringInstanceLastOperationModel).ToNot(BeNil())
+				offeringInstanceLastOperationModel.Operation = core.StringPtr("testString")
+				offeringInstanceLastOperationModel.State = core.StringPtr("testString")
+				offeringInstanceLastOperationModel.Message = core.StringPtr("testString")
+				offeringInstanceLastOperationModel.TransactionID = core.StringPtr("testString")
+				offeringInstanceLastOperationModel.Updated = core.StringPtr("testString")
+				Expect(offeringInstanceLastOperationModel.Operation).To(Equal(core.StringPtr("testString")))
+				Expect(offeringInstanceLastOperationModel.State).To(Equal(core.StringPtr("testString")))
+				Expect(offeringInstanceLastOperationModel.Message).To(Equal(core.StringPtr("testString")))
+				Expect(offeringInstanceLastOperationModel.TransactionID).To(Equal(core.StringPtr("testString")))
+				Expect(offeringInstanceLastOperationModel.Updated).To(Equal(core.StringPtr("testString")))
+
 				// Construct an instance of the CreateOfferingInstanceOptions model
 				xAuthRefreshToken := "testString"
 				createOfferingInstanceOptionsModel := catalogManagementService.NewCreateOfferingInstanceOptions(xAuthRefreshToken)
 				createOfferingInstanceOptionsModel.SetXAuthRefreshToken("testString")
 				createOfferingInstanceOptionsModel.SetID("testString")
+				createOfferingInstanceOptionsModel.SetRev("testString")
 				createOfferingInstanceOptionsModel.SetURL("testString")
 				createOfferingInstanceOptionsModel.SetCRN("testString")
 				createOfferingInstanceOptionsModel.SetLabel("testString")
@@ -15928,10 +16091,17 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				createOfferingInstanceOptionsModel.SetClusterRegion("testString")
 				createOfferingInstanceOptionsModel.SetClusterNamespaces([]string{"testString"})
 				createOfferingInstanceOptionsModel.SetClusterAllNamespaces(true)
+				createOfferingInstanceOptionsModel.SetSchematicsWorkspaceID("testString")
+				createOfferingInstanceOptionsModel.SetResourceGroupID("testString")
+				createOfferingInstanceOptionsModel.SetInstallPlan("testString")
+				createOfferingInstanceOptionsModel.SetChannel("testString")
+				createOfferingInstanceOptionsModel.SetMetadata(make(map[string]interface{}))
+				createOfferingInstanceOptionsModel.SetLastOperation(offeringInstanceLastOperationModel)
 				createOfferingInstanceOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(createOfferingInstanceOptionsModel).ToNot(BeNil())
 				Expect(createOfferingInstanceOptionsModel.XAuthRefreshToken).To(Equal(core.StringPtr("testString")))
 				Expect(createOfferingInstanceOptionsModel.ID).To(Equal(core.StringPtr("testString")))
+				Expect(createOfferingInstanceOptionsModel.Rev).To(Equal(core.StringPtr("testString")))
 				Expect(createOfferingInstanceOptionsModel.URL).To(Equal(core.StringPtr("testString")))
 				Expect(createOfferingInstanceOptionsModel.CRN).To(Equal(core.StringPtr("testString")))
 				Expect(createOfferingInstanceOptionsModel.Label).To(Equal(core.StringPtr("testString")))
@@ -15943,6 +16113,12 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				Expect(createOfferingInstanceOptionsModel.ClusterRegion).To(Equal(core.StringPtr("testString")))
 				Expect(createOfferingInstanceOptionsModel.ClusterNamespaces).To(Equal([]string{"testString"}))
 				Expect(createOfferingInstanceOptionsModel.ClusterAllNamespaces).To(Equal(core.BoolPtr(true)))
+				Expect(createOfferingInstanceOptionsModel.SchematicsWorkspaceID).To(Equal(core.StringPtr("testString")))
+				Expect(createOfferingInstanceOptionsModel.ResourceGroupID).To(Equal(core.StringPtr("testString")))
+				Expect(createOfferingInstanceOptionsModel.InstallPlan).To(Equal(core.StringPtr("testString")))
+				Expect(createOfferingInstanceOptionsModel.Channel).To(Equal(core.StringPtr("testString")))
+				Expect(createOfferingInstanceOptionsModel.Metadata).To(Equal(make(map[string]interface{})))
+				Expect(createOfferingInstanceOptionsModel.LastOperation).To(Equal(offeringInstanceLastOperationModel))
 				Expect(createOfferingInstanceOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewCreateOfferingOptions successfully`, func() {
@@ -17015,6 +17191,20 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				Expect(publicPublishVersionOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewPutOfferingInstanceOptions successfully`, func() {
+				// Construct an instance of the OfferingInstanceLastOperation model
+				offeringInstanceLastOperationModel := new(catalogmanagementv1.OfferingInstanceLastOperation)
+				Expect(offeringInstanceLastOperationModel).ToNot(BeNil())
+				offeringInstanceLastOperationModel.Operation = core.StringPtr("testString")
+				offeringInstanceLastOperationModel.State = core.StringPtr("testString")
+				offeringInstanceLastOperationModel.Message = core.StringPtr("testString")
+				offeringInstanceLastOperationModel.TransactionID = core.StringPtr("testString")
+				offeringInstanceLastOperationModel.Updated = core.StringPtr("testString")
+				Expect(offeringInstanceLastOperationModel.Operation).To(Equal(core.StringPtr("testString")))
+				Expect(offeringInstanceLastOperationModel.State).To(Equal(core.StringPtr("testString")))
+				Expect(offeringInstanceLastOperationModel.Message).To(Equal(core.StringPtr("testString")))
+				Expect(offeringInstanceLastOperationModel.TransactionID).To(Equal(core.StringPtr("testString")))
+				Expect(offeringInstanceLastOperationModel.Updated).To(Equal(core.StringPtr("testString")))
+
 				// Construct an instance of the PutOfferingInstanceOptions model
 				instanceIdentifier := "testString"
 				xAuthRefreshToken := "testString"
@@ -17022,6 +17212,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				putOfferingInstanceOptionsModel.SetInstanceIdentifier("testString")
 				putOfferingInstanceOptionsModel.SetXAuthRefreshToken("testString")
 				putOfferingInstanceOptionsModel.SetID("testString")
+				putOfferingInstanceOptionsModel.SetRev("testString")
 				putOfferingInstanceOptionsModel.SetURL("testString")
 				putOfferingInstanceOptionsModel.SetCRN("testString")
 				putOfferingInstanceOptionsModel.SetLabel("testString")
@@ -17033,11 +17224,18 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				putOfferingInstanceOptionsModel.SetClusterRegion("testString")
 				putOfferingInstanceOptionsModel.SetClusterNamespaces([]string{"testString"})
 				putOfferingInstanceOptionsModel.SetClusterAllNamespaces(true)
+				putOfferingInstanceOptionsModel.SetSchematicsWorkspaceID("testString")
+				putOfferingInstanceOptionsModel.SetResourceGroupID("testString")
+				putOfferingInstanceOptionsModel.SetInstallPlan("testString")
+				putOfferingInstanceOptionsModel.SetChannel("testString")
+				putOfferingInstanceOptionsModel.SetMetadata(make(map[string]interface{}))
+				putOfferingInstanceOptionsModel.SetLastOperation(offeringInstanceLastOperationModel)
 				putOfferingInstanceOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(putOfferingInstanceOptionsModel).ToNot(BeNil())
 				Expect(putOfferingInstanceOptionsModel.InstanceIdentifier).To(Equal(core.StringPtr("testString")))
 				Expect(putOfferingInstanceOptionsModel.XAuthRefreshToken).To(Equal(core.StringPtr("testString")))
 				Expect(putOfferingInstanceOptionsModel.ID).To(Equal(core.StringPtr("testString")))
+				Expect(putOfferingInstanceOptionsModel.Rev).To(Equal(core.StringPtr("testString")))
 				Expect(putOfferingInstanceOptionsModel.URL).To(Equal(core.StringPtr("testString")))
 				Expect(putOfferingInstanceOptionsModel.CRN).To(Equal(core.StringPtr("testString")))
 				Expect(putOfferingInstanceOptionsModel.Label).To(Equal(core.StringPtr("testString")))
@@ -17049,6 +17247,12 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				Expect(putOfferingInstanceOptionsModel.ClusterRegion).To(Equal(core.StringPtr("testString")))
 				Expect(putOfferingInstanceOptionsModel.ClusterNamespaces).To(Equal([]string{"testString"}))
 				Expect(putOfferingInstanceOptionsModel.ClusterAllNamespaces).To(Equal(core.BoolPtr(true)))
+				Expect(putOfferingInstanceOptionsModel.SchematicsWorkspaceID).To(Equal(core.StringPtr("testString")))
+				Expect(putOfferingInstanceOptionsModel.ResourceGroupID).To(Equal(core.StringPtr("testString")))
+				Expect(putOfferingInstanceOptionsModel.InstallPlan).To(Equal(core.StringPtr("testString")))
+				Expect(putOfferingInstanceOptionsModel.Channel).To(Equal(core.StringPtr("testString")))
+				Expect(putOfferingInstanceOptionsModel.Metadata).To(Equal(make(map[string]interface{})))
+				Expect(putOfferingInstanceOptionsModel.LastOperation).To(Equal(offeringInstanceLastOperationModel))
 				Expect(putOfferingInstanceOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewReloadOfferingOptions successfully`, func() {

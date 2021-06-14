@@ -4635,6 +4635,9 @@ func (catalogManagement *CatalogManagementV1) CreateOfferingInstanceWithContext(
 	if createOfferingInstanceOptions.ID != nil {
 		body["id"] = createOfferingInstanceOptions.ID
 	}
+	if createOfferingInstanceOptions.Rev != nil {
+		body["_rev"] = createOfferingInstanceOptions.Rev
+	}
 	if createOfferingInstanceOptions.URL != nil {
 		body["url"] = createOfferingInstanceOptions.URL
 	}
@@ -4667,6 +4670,24 @@ func (catalogManagement *CatalogManagementV1) CreateOfferingInstanceWithContext(
 	}
 	if createOfferingInstanceOptions.ClusterAllNamespaces != nil {
 		body["cluster_all_namespaces"] = createOfferingInstanceOptions.ClusterAllNamespaces
+	}
+	if createOfferingInstanceOptions.SchematicsWorkspaceID != nil {
+		body["schematics_workspace_id"] = createOfferingInstanceOptions.SchematicsWorkspaceID
+	}
+	if createOfferingInstanceOptions.ResourceGroupID != nil {
+		body["resource_group_id"] = createOfferingInstanceOptions.ResourceGroupID
+	}
+	if createOfferingInstanceOptions.InstallPlan != nil {
+		body["install_plan"] = createOfferingInstanceOptions.InstallPlan
+	}
+	if createOfferingInstanceOptions.Channel != nil {
+		body["channel"] = createOfferingInstanceOptions.Channel
+	}
+	if createOfferingInstanceOptions.Metadata != nil {
+		body["metadata"] = createOfferingInstanceOptions.Metadata
+	}
+	if createOfferingInstanceOptions.LastOperation != nil {
+		body["last_operation"] = createOfferingInstanceOptions.LastOperation
 	}
 	_, err = builder.SetBodyContentJSON(body)
 	if err != nil {
@@ -4801,6 +4822,9 @@ func (catalogManagement *CatalogManagementV1) PutOfferingInstanceWithContext(ctx
 	if putOfferingInstanceOptions.ID != nil {
 		body["id"] = putOfferingInstanceOptions.ID
 	}
+	if putOfferingInstanceOptions.Rev != nil {
+		body["_rev"] = putOfferingInstanceOptions.Rev
+	}
 	if putOfferingInstanceOptions.URL != nil {
 		body["url"] = putOfferingInstanceOptions.URL
 	}
@@ -4833,6 +4857,24 @@ func (catalogManagement *CatalogManagementV1) PutOfferingInstanceWithContext(ctx
 	}
 	if putOfferingInstanceOptions.ClusterAllNamespaces != nil {
 		body["cluster_all_namespaces"] = putOfferingInstanceOptions.ClusterAllNamespaces
+	}
+	if putOfferingInstanceOptions.SchematicsWorkspaceID != nil {
+		body["schematics_workspace_id"] = putOfferingInstanceOptions.SchematicsWorkspaceID
+	}
+	if putOfferingInstanceOptions.ResourceGroupID != nil {
+		body["resource_group_id"] = putOfferingInstanceOptions.ResourceGroupID
+	}
+	if putOfferingInstanceOptions.InstallPlan != nil {
+		body["install_plan"] = putOfferingInstanceOptions.InstallPlan
+	}
+	if putOfferingInstanceOptions.Channel != nil {
+		body["channel"] = putOfferingInstanceOptions.Channel
+	}
+	if putOfferingInstanceOptions.Metadata != nil {
+		body["metadata"] = putOfferingInstanceOptions.Metadata
+	}
+	if putOfferingInstanceOptions.LastOperation != nil {
+		body["last_operation"] = putOfferingInstanceOptions.LastOperation
 	}
 	_, err = builder.SetBodyContentJSON(body)
 	if err != nil {
@@ -6171,6 +6213,9 @@ type CreateOfferingInstanceOptions struct {
 	// provisioned instance ID (part of the CRN).
 	ID *string
 
+	// Cloudant revision.
+	Rev *string
+
 	// url reference to this object.
 	URL *string
 
@@ -6204,6 +6249,25 @@ type CreateOfferingInstanceOptions struct {
 	// designate to install into all namespaces.
 	ClusterAllNamespaces *bool
 
+	// Id of the schematics workspace, for offering instances provisioned through schematics.
+	SchematicsWorkspaceID *string
+
+	// Id of the resource group to provision the offering instance into.
+	ResourceGroupID *string
+
+	// Type of install plan (also known as approval strategy) for operator subscriptions. Can be either automatic, which
+	// automatically upgrades operators to the latest in a channel, or manual, which requires approval on the cluster.
+	InstallPlan *string
+
+	// Channel to pin the operator subscription to.
+	Channel *string
+
+	// Map of metadata values for this offering instance.
+	Metadata map[string]interface{}
+
+	// the last operation performed and status.
+	LastOperation *OfferingInstanceLastOperation
+
 	// Allows users to set headers on API requests
 	Headers map[string]string
 }
@@ -6224,6 +6288,12 @@ func (_options *CreateOfferingInstanceOptions) SetXAuthRefreshToken(xAuthRefresh
 // SetID : Allow user to set ID
 func (_options *CreateOfferingInstanceOptions) SetID(id string) *CreateOfferingInstanceOptions {
 	_options.ID = core.StringPtr(id)
+	return _options
+}
+
+// SetRev : Allow user to set Rev
+func (_options *CreateOfferingInstanceOptions) SetRev(rev string) *CreateOfferingInstanceOptions {
+	_options.Rev = core.StringPtr(rev)
 	return _options
 }
 
@@ -6290,6 +6360,42 @@ func (_options *CreateOfferingInstanceOptions) SetClusterNamespaces(clusterNames
 // SetClusterAllNamespaces : Allow user to set ClusterAllNamespaces
 func (_options *CreateOfferingInstanceOptions) SetClusterAllNamespaces(clusterAllNamespaces bool) *CreateOfferingInstanceOptions {
 	_options.ClusterAllNamespaces = core.BoolPtr(clusterAllNamespaces)
+	return _options
+}
+
+// SetSchematicsWorkspaceID : Allow user to set SchematicsWorkspaceID
+func (_options *CreateOfferingInstanceOptions) SetSchematicsWorkspaceID(schematicsWorkspaceID string) *CreateOfferingInstanceOptions {
+	_options.SchematicsWorkspaceID = core.StringPtr(schematicsWorkspaceID)
+	return _options
+}
+
+// SetResourceGroupID : Allow user to set ResourceGroupID
+func (_options *CreateOfferingInstanceOptions) SetResourceGroupID(resourceGroupID string) *CreateOfferingInstanceOptions {
+	_options.ResourceGroupID = core.StringPtr(resourceGroupID)
+	return _options
+}
+
+// SetInstallPlan : Allow user to set InstallPlan
+func (_options *CreateOfferingInstanceOptions) SetInstallPlan(installPlan string) *CreateOfferingInstanceOptions {
+	_options.InstallPlan = core.StringPtr(installPlan)
+	return _options
+}
+
+// SetChannel : Allow user to set Channel
+func (_options *CreateOfferingInstanceOptions) SetChannel(channel string) *CreateOfferingInstanceOptions {
+	_options.Channel = core.StringPtr(channel)
+	return _options
+}
+
+// SetMetadata : Allow user to set Metadata
+func (_options *CreateOfferingInstanceOptions) SetMetadata(metadata map[string]interface{}) *CreateOfferingInstanceOptions {
+	_options.Metadata = metadata
+	return _options
+}
+
+// SetLastOperation : Allow user to set LastOperation
+func (_options *CreateOfferingInstanceOptions) SetLastOperation(lastOperation *OfferingInstanceLastOperation) *CreateOfferingInstanceOptions {
+	_options.LastOperation = lastOperation
 	return _options
 }
 
@@ -9795,6 +9901,9 @@ type OfferingInstance struct {
 	// provisioned instance ID (part of the CRN).
 	ID *string `json:"id,omitempty"`
 
+	// Cloudant revision.
+	Rev *string `json:"_rev,omitempty"`
+
 	// url reference to this object.
 	URL *string `json:"url,omitempty"`
 
@@ -9827,12 +9936,35 @@ type OfferingInstance struct {
 
 	// designate to install into all namespaces.
 	ClusterAllNamespaces *bool `json:"cluster_all_namespaces,omitempty"`
+
+	// Id of the schematics workspace, for offering instances provisioned through schematics.
+	SchematicsWorkspaceID *string `json:"schematics_workspace_id,omitempty"`
+
+	// Id of the resource group to provision the offering instance into.
+	ResourceGroupID *string `json:"resource_group_id,omitempty"`
+
+	// Type of install plan (also known as approval strategy) for operator subscriptions. Can be either automatic, which
+	// automatically upgrades operators to the latest in a channel, or manual, which requires approval on the cluster.
+	InstallPlan *string `json:"install_plan,omitempty"`
+
+	// Channel to pin the operator subscription to.
+	Channel *string `json:"channel,omitempty"`
+
+	// Map of metadata values for this offering instance.
+	Metadata map[string]interface{} `json:"metadata,omitempty"`
+
+	// the last operation performed and status.
+	LastOperation *OfferingInstanceLastOperation `json:"last_operation,omitempty"`
 }
 
 // UnmarshalOfferingInstance unmarshals an instance of OfferingInstance from the specified map of raw messages.
 func UnmarshalOfferingInstance(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(OfferingInstance)
 	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "_rev", &obj.Rev)
 	if err != nil {
 		return
 	}
@@ -9877,6 +10009,75 @@ func UnmarshalOfferingInstance(m map[string]json.RawMessage, result interface{})
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "cluster_all_namespaces", &obj.ClusterAllNamespaces)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "schematics_workspace_id", &obj.SchematicsWorkspaceID)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "resource_group_id", &obj.ResourceGroupID)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "install_plan", &obj.InstallPlan)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "channel", &obj.Channel)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "metadata", &obj.Metadata)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "last_operation", &obj.LastOperation, UnmarshalOfferingInstanceLastOperation)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// OfferingInstanceLastOperation : the last operation performed and status.
+type OfferingInstanceLastOperation struct {
+	// last operation performed.
+	Operation *string `json:"operation,omitempty"`
+
+	// state after the last operation performed.
+	State *string `json:"state,omitempty"`
+
+	// additional information about the last operation.
+	Message *string `json:"message,omitempty"`
+
+	// transaction id from the last operation.
+	TransactionID *string `json:"transaction_id,omitempty"`
+
+	// Date and time last updated.
+	Updated *string `json:"updated,omitempty"`
+}
+
+// UnmarshalOfferingInstanceLastOperation unmarshals an instance of OfferingInstanceLastOperation from the specified map of raw messages.
+func UnmarshalOfferingInstanceLastOperation(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(OfferingInstanceLastOperation)
+	err = core.UnmarshalPrimitive(m, "operation", &obj.Operation)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "state", &obj.State)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "message", &obj.Message)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "transaction_id", &obj.TransactionID)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "updated", &obj.Updated)
 	if err != nil {
 		return
 	}
@@ -10397,6 +10598,9 @@ type PutOfferingInstanceOptions struct {
 	// provisioned instance ID (part of the CRN).
 	ID *string
 
+	// Cloudant revision.
+	Rev *string
+
 	// url reference to this object.
 	URL *string
 
@@ -10430,6 +10634,25 @@ type PutOfferingInstanceOptions struct {
 	// designate to install into all namespaces.
 	ClusterAllNamespaces *bool
 
+	// Id of the schematics workspace, for offering instances provisioned through schematics.
+	SchematicsWorkspaceID *string
+
+	// Id of the resource group to provision the offering instance into.
+	ResourceGroupID *string
+
+	// Type of install plan (also known as approval strategy) for operator subscriptions. Can be either automatic, which
+	// automatically upgrades operators to the latest in a channel, or manual, which requires approval on the cluster.
+	InstallPlan *string
+
+	// Channel to pin the operator subscription to.
+	Channel *string
+
+	// Map of metadata values for this offering instance.
+	Metadata map[string]interface{}
+
+	// the last operation performed and status.
+	LastOperation *OfferingInstanceLastOperation
+
 	// Allows users to set headers on API requests
 	Headers map[string]string
 }
@@ -10457,6 +10680,12 @@ func (_options *PutOfferingInstanceOptions) SetXAuthRefreshToken(xAuthRefreshTok
 // SetID : Allow user to set ID
 func (_options *PutOfferingInstanceOptions) SetID(id string) *PutOfferingInstanceOptions {
 	_options.ID = core.StringPtr(id)
+	return _options
+}
+
+// SetRev : Allow user to set Rev
+func (_options *PutOfferingInstanceOptions) SetRev(rev string) *PutOfferingInstanceOptions {
+	_options.Rev = core.StringPtr(rev)
 	return _options
 }
 
@@ -10523,6 +10752,42 @@ func (_options *PutOfferingInstanceOptions) SetClusterNamespaces(clusterNamespac
 // SetClusterAllNamespaces : Allow user to set ClusterAllNamespaces
 func (_options *PutOfferingInstanceOptions) SetClusterAllNamespaces(clusterAllNamespaces bool) *PutOfferingInstanceOptions {
 	_options.ClusterAllNamespaces = core.BoolPtr(clusterAllNamespaces)
+	return _options
+}
+
+// SetSchematicsWorkspaceID : Allow user to set SchematicsWorkspaceID
+func (_options *PutOfferingInstanceOptions) SetSchematicsWorkspaceID(schematicsWorkspaceID string) *PutOfferingInstanceOptions {
+	_options.SchematicsWorkspaceID = core.StringPtr(schematicsWorkspaceID)
+	return _options
+}
+
+// SetResourceGroupID : Allow user to set ResourceGroupID
+func (_options *PutOfferingInstanceOptions) SetResourceGroupID(resourceGroupID string) *PutOfferingInstanceOptions {
+	_options.ResourceGroupID = core.StringPtr(resourceGroupID)
+	return _options
+}
+
+// SetInstallPlan : Allow user to set InstallPlan
+func (_options *PutOfferingInstanceOptions) SetInstallPlan(installPlan string) *PutOfferingInstanceOptions {
+	_options.InstallPlan = core.StringPtr(installPlan)
+	return _options
+}
+
+// SetChannel : Allow user to set Channel
+func (_options *PutOfferingInstanceOptions) SetChannel(channel string) *PutOfferingInstanceOptions {
+	_options.Channel = core.StringPtr(channel)
+	return _options
+}
+
+// SetMetadata : Allow user to set Metadata
+func (_options *PutOfferingInstanceOptions) SetMetadata(metadata map[string]interface{}) *PutOfferingInstanceOptions {
+	_options.Metadata = metadata
+	return _options
+}
+
+// SetLastOperation : Allow user to set LastOperation
+func (_options *PutOfferingInstanceOptions) SetLastOperation(lastOperation *OfferingInstanceLastOperation) *PutOfferingInstanceOptions {
+	_options.LastOperation = lastOperation
 	return _options
 }
 
