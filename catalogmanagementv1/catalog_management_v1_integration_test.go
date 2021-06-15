@@ -626,24 +626,44 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 		It(`Returns list of offerings`, func() {
 			Expect(catalogID).NotTo(BeNil())
 
-			listOfferingsOptions := &catalogmanagementv1.ListOfferingsOptions{
-				CatalogIdentifier: &catalogID,
-			}
-
-			offeringList, response, err := catalogManagementServiceAuthorized.ListOfferings(listOfferingsOptions)
-
-			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(200))
-			Expect(offeringList).NotTo(BeNil())
-
+			var offset int64 = 0
+			var limit int64 = 50
+			fetch := true
+			amountOfOfferings := 0
 			contains := false
-			for _, offering := range offeringList.Resources {
-				if *offering.ID == offeringID {
-					contains = true
-					break
+
+			for fetch == true {
+				listOfferingsOptions := &catalogmanagementv1.ListOfferingsOptions{
+					CatalogIdentifier: &catalogID,
+					Offset:            &offset,
+					Limit:             &limit,
+				}
+
+				offeringList, response, err := catalogManagementServiceAuthorized.ListOfferings(listOfferingsOptions)
+
+				Expect(err).To(BeNil())
+				Expect(response.StatusCode).To(Equal(200))
+				Expect(offeringList).NotTo(BeNil())
+
+				if len(offeringList.Resources) > 0 {
+					amountOfOfferings += len(offeringList.Resources)
+					offset += 50
+
+					if contains == false {
+						for _, offering := range offeringList.Resources {
+							if *offering.ID == offeringID {
+								contains = true
+								break
+							}
+						}
+					}
+				} else {
+					fetch = false
 				}
 			}
 			Expect(contains).To(BeTrue())
+
+			fmt.Printf("Amount of Offerings: %d", amountOfOfferings)
 		})
 	})
 
@@ -3039,17 +3059,35 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 
 		It(`Returns objects`, func() {
 
-			searchObjectsOptions := &catalogmanagementv1.SearchObjectsOptions{
-				Query:    core.StringPtr("name: " + objectName),
-				Collapse: core.BoolPtr(true),
-				Digest:   core.BoolPtr(true),
+			var offset int64 = 0
+			var limit int64 = 0
+			fetch := true
+			amountOfObjects := 0
+
+			for fetch == true {
+				searchObjectsOptions := &catalogmanagementv1.SearchObjectsOptions{
+					Query:    core.StringPtr("name: offer*"),
+					Collapse: core.BoolPtr(true),
+					Digest:   core.BoolPtr(true),
+					Limit:    &limit,
+					Offset:   &offset,
+				}
+
+				searchResult, response, err := catalogManagementServiceAuthorized.SearchObjects(searchObjectsOptions)
+
+				Expect(err).To(BeNil())
+				Expect(response.StatusCode).To(Equal(200))
+				Expect(searchResult).NotTo(BeNil())
+
+				if len(searchResult.Resources) > 0 {
+					amountOfObjects += len(searchResult.Resources)
+					offset += 50
+				} else {
+					fetch = false
+				}
 			}
 
-			searchResult, response, err := catalogManagementServiceAuthorized.SearchObjects(searchObjectsOptions)
-
-			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(200))
-			Expect(searchResult).NotTo(BeNil())
+			fmt.Printf("Amount of objects: %d", amountOfObjects)
 		})
 	})
 
@@ -3092,24 +3130,44 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 
 			Expect(catalogID).NotTo(BeNil())
 
-			listObjectsOptions := &catalogmanagementv1.ListObjectsOptions{
-				CatalogIdentifier: &catalogID,
-			}
-
-			searchResult, response, err := catalogManagementServiceAuthorized.ListObjects(listObjectsOptions)
-
-			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(200))
-			Expect(searchResult).NotTo(BeNil())
-
+			var limit int64 = 50
+			var offset int64 = 0
+			amountOfObjects := 0
 			contains := false
-			for _, obj := range searchResult.Resources {
-				if *obj.ID == objectID {
-					contains = true
-					break
+			fetch := true
+
+			for fetch == true {
+
+				listObjectsOptions := &catalogmanagementv1.ListObjectsOptions{
+					CatalogIdentifier: &catalogID,
+					Offset:            &offset,
+					Limit:             &limit,
+				}
+
+				searchResult, response, err := catalogManagementServiceAuthorized.ListObjects(listObjectsOptions)
+
+				Expect(err).To(BeNil())
+				Expect(response.StatusCode).To(Equal(200))
+				Expect(searchResult).NotTo(BeNil())
+
+				if len(searchResult.Resources) > 0 {
+					amountOfObjects += len(searchResult.Resources)
+					offset += 50
+
+					if contains == false {
+						for _, obj := range searchResult.Resources {
+							if *obj.ID == objectID {
+								contains = true
+								break
+							}
+						}
+					}
+				} else {
+					fetch = false
 				}
 			}
 			Expect(contains).To(BeTrue())
+			fmt.Printf("Amount of objects: %d", amountOfObjects)
 		})
 	})
 
