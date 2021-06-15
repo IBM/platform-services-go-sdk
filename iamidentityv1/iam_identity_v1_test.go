@@ -391,6 +391,48 @@ var _ = Describe(`IamIdentityV1`, func() {
 				testServer.Close()
 			})
 		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke ListAPIKeys successfully`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Construct an instance of the ListAPIKeysOptions model
+				listAPIKeysOptionsModel := new(iamidentityv1.ListAPIKeysOptions)
+				listAPIKeysOptionsModel.AccountID = core.StringPtr("testString")
+				listAPIKeysOptionsModel.IamID = core.StringPtr("testString")
+				listAPIKeysOptionsModel.Pagesize = core.Int64Ptr(int64(38))
+				listAPIKeysOptionsModel.Pagetoken = core.StringPtr("testString")
+				listAPIKeysOptionsModel.Scope = core.StringPtr("entity")
+				listAPIKeysOptionsModel.Type = core.StringPtr("user")
+				listAPIKeysOptionsModel.Sort = core.StringPtr("testString")
+				listAPIKeysOptionsModel.Order = core.StringPtr("asc")
+				listAPIKeysOptionsModel.IncludeHistory = core.BoolPtr(true)
+				listAPIKeysOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := iamIdentityService.ListAPIKeys(listAPIKeysOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
 	})
 	Describe(`CreateAPIKey(createAPIKeyOptions *CreateAPIKeyOptions) - Operation response error`, func() {
 		createAPIKeyPath := "/v1/apikeys"
@@ -445,7 +487,6 @@ var _ = Describe(`IamIdentityV1`, func() {
 			})
 		})
 	})
-
 	Describe(`CreateAPIKey(createAPIKeyOptions *CreateAPIKeyOptions)`, func() {
 		createAPIKeyPath := "/v1/apikeys"
 		Context(`Using mock server endpoint with timeout`, func() {
@@ -632,6 +673,46 @@ var _ = Describe(`IamIdentityV1`, func() {
 				testServer.Close()
 			})
 		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(201)
+				}))
+			})
+			It(`Invoke CreateAPIKey successfully`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Construct an instance of the CreateAPIKeyOptions model
+				createAPIKeyOptionsModel := new(iamidentityv1.CreateAPIKeyOptions)
+				createAPIKeyOptionsModel.Name = core.StringPtr("testString")
+				createAPIKeyOptionsModel.IamID = core.StringPtr("testString")
+				createAPIKeyOptionsModel.Description = core.StringPtr("testString")
+				createAPIKeyOptionsModel.AccountID = core.StringPtr("testString")
+				createAPIKeyOptionsModel.Apikey = core.StringPtr("testString")
+				createAPIKeyOptionsModel.StoreValue = core.BoolPtr(true)
+				createAPIKeyOptionsModel.EntityLock = core.StringPtr("testString")
+				createAPIKeyOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := iamIdentityService.CreateAPIKey(createAPIKeyOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
 	})
 	Describe(`GetAPIKeysDetails(getAPIKeysDetailsOptions *GetAPIKeysDetailsOptions) - Operation response error`, func() {
 		getAPIKeysDetailsPath := "/v1/apikeys/details"
@@ -682,7 +763,6 @@ var _ = Describe(`IamIdentityV1`, func() {
 			})
 		})
 	})
-
 	Describe(`GetAPIKeysDetails(getAPIKeysDetailsOptions *GetAPIKeysDetailsOptions)`, func() {
 		getAPIKeysDetailsPath := "/v1/apikeys/details"
 		Context(`Using mock server endpoint with timeout`, func() {
@@ -817,6 +897,41 @@ var _ = Describe(`IamIdentityV1`, func() {
 				testServer.Close()
 			})
 		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke GetAPIKeysDetails successfully`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Construct an instance of the GetAPIKeysDetailsOptions model
+				getAPIKeysDetailsOptionsModel := new(iamidentityv1.GetAPIKeysDetailsOptions)
+				getAPIKeysDetailsOptionsModel.IamAPIKey = core.StringPtr("testString")
+				getAPIKeysDetailsOptionsModel.IncludeHistory = core.BoolPtr(true)
+				getAPIKeysDetailsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := iamIdentityService.GetAPIKeysDetails(getAPIKeysDetailsOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
 	})
 	Describe(`GetAPIKey(getAPIKeyOptions *GetAPIKeyOptions) - Operation response error`, func() {
 		getAPIKeyPath := "/v1/apikeys/testString"
@@ -865,7 +980,6 @@ var _ = Describe(`IamIdentityV1`, func() {
 			})
 		})
 	})
-
 	Describe(`GetAPIKey(getAPIKeyOptions *GetAPIKeyOptions)`, func() {
 		getAPIKeyPath := "/v1/apikeys/testString"
 		Context(`Using mock server endpoint with timeout`, func() {
@@ -1003,6 +1117,41 @@ var _ = Describe(`IamIdentityV1`, func() {
 				testServer.Close()
 			})
 		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke GetAPIKey successfully`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Construct an instance of the GetAPIKeyOptions model
+				getAPIKeyOptionsModel := new(iamidentityv1.GetAPIKeyOptions)
+				getAPIKeyOptionsModel.ID = core.StringPtr("testString")
+				getAPIKeyOptionsModel.IncludeHistory = core.BoolPtr(true)
+				getAPIKeyOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := iamIdentityService.GetAPIKey(getAPIKeyOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
 	})
 	Describe(`UpdateAPIKey(updateAPIKeyOptions *UpdateAPIKeyOptions) - Operation response error`, func() {
 		updateAPIKeyPath := "/v1/apikeys/testString"
@@ -1054,7 +1203,6 @@ var _ = Describe(`IamIdentityV1`, func() {
 			})
 		})
 	})
-
 	Describe(`UpdateAPIKey(updateAPIKeyOptions *UpdateAPIKeyOptions)`, func() {
 		updateAPIKeyPath := "/v1/apikeys/testString"
 		Context(`Using mock server endpoint with timeout`, func() {
@@ -1232,8 +1380,44 @@ var _ = Describe(`IamIdentityV1`, func() {
 				testServer.Close()
 			})
 		})
-	})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
 
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke UpdateAPIKey successfully`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Construct an instance of the UpdateAPIKeyOptions model
+				updateAPIKeyOptionsModel := new(iamidentityv1.UpdateAPIKeyOptions)
+				updateAPIKeyOptionsModel.ID = core.StringPtr("testString")
+				updateAPIKeyOptionsModel.IfMatch = core.StringPtr("testString")
+				updateAPIKeyOptionsModel.Name = core.StringPtr("testString")
+				updateAPIKeyOptionsModel.Description = core.StringPtr("testString")
+				updateAPIKeyOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := iamIdentityService.UpdateAPIKey(updateAPIKeyOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
 	Describe(`DeleteAPIKey(deleteAPIKeyOptions *DeleteAPIKeyOptions)`, func() {
 		deleteAPIKeyPath := "/v1/apikeys/testString"
 		Context(`Using mock server endpoint`, func() {
@@ -1302,7 +1486,6 @@ var _ = Describe(`IamIdentityV1`, func() {
 			})
 		})
 	})
-
 	Describe(`LockAPIKey(lockAPIKeyOptions *LockAPIKeyOptions)`, func() {
 		lockAPIKeyPath := "/v1/apikeys/testString/lock"
 		Context(`Using mock server endpoint`, func() {
@@ -1371,7 +1554,6 @@ var _ = Describe(`IamIdentityV1`, func() {
 			})
 		})
 	})
-
 	Describe(`UnlockAPIKey(unlockAPIKeyOptions *UnlockAPIKeyOptions)`, func() {
 		unlockAPIKeyPath := "/v1/apikeys/testString/lock"
 		Context(`Using mock server endpoint`, func() {
@@ -1498,7 +1680,6 @@ var _ = Describe(`IamIdentityV1`, func() {
 			})
 		})
 	})
-
 	Describe(`ListServiceIds(listServiceIdsOptions *ListServiceIdsOptions)`, func() {
 		listServiceIdsPath := "/v1/serviceids/"
 		Context(`Using mock server endpoint with timeout`, func() {
@@ -1656,6 +1837,46 @@ var _ = Describe(`IamIdentityV1`, func() {
 				testServer.Close()
 			})
 		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke ListServiceIds successfully`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Construct an instance of the ListServiceIdsOptions model
+				listServiceIdsOptionsModel := new(iamidentityv1.ListServiceIdsOptions)
+				listServiceIdsOptionsModel.AccountID = core.StringPtr("testString")
+				listServiceIdsOptionsModel.Name = core.StringPtr("testString")
+				listServiceIdsOptionsModel.Pagesize = core.Int64Ptr(int64(38))
+				listServiceIdsOptionsModel.Pagetoken = core.StringPtr("testString")
+				listServiceIdsOptionsModel.Sort = core.StringPtr("testString")
+				listServiceIdsOptionsModel.Order = core.StringPtr("asc")
+				listServiceIdsOptionsModel.IncludeHistory = core.BoolPtr(true)
+				listServiceIdsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := iamIdentityService.ListServiceIds(listServiceIdsOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
 	})
 	Describe(`CreateServiceID(createServiceIDOptions *CreateServiceIDOptions) - Operation response error`, func() {
 		createServiceIDPath := "/v1/serviceids/"
@@ -1716,7 +1937,6 @@ var _ = Describe(`IamIdentityV1`, func() {
 			})
 		})
 	})
-
 	Describe(`CreateServiceID(createServiceIDOptions *CreateServiceIDOptions)`, func() {
 		createServiceIDPath := "/v1/serviceids/"
 		Context(`Using mock server endpoint with timeout`, func() {
@@ -1921,6 +2141,52 @@ var _ = Describe(`IamIdentityV1`, func() {
 				testServer.Close()
 			})
 		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(201)
+				}))
+			})
+			It(`Invoke CreateServiceID successfully`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Construct an instance of the APIKeyInsideCreateServiceIDRequest model
+				apiKeyInsideCreateServiceIDRequestModel := new(iamidentityv1.APIKeyInsideCreateServiceIDRequest)
+				apiKeyInsideCreateServiceIDRequestModel.Name = core.StringPtr("testString")
+				apiKeyInsideCreateServiceIDRequestModel.Description = core.StringPtr("testString")
+				apiKeyInsideCreateServiceIDRequestModel.Apikey = core.StringPtr("testString")
+				apiKeyInsideCreateServiceIDRequestModel.StoreValue = core.BoolPtr(true)
+
+				// Construct an instance of the CreateServiceIDOptions model
+				createServiceIDOptionsModel := new(iamidentityv1.CreateServiceIDOptions)
+				createServiceIDOptionsModel.AccountID = core.StringPtr("testString")
+				createServiceIDOptionsModel.Name = core.StringPtr("testString")
+				createServiceIDOptionsModel.Description = core.StringPtr("testString")
+				createServiceIDOptionsModel.UniqueInstanceCrns = []string{"testString"}
+				createServiceIDOptionsModel.Apikey = apiKeyInsideCreateServiceIDRequestModel
+				createServiceIDOptionsModel.EntityLock = core.StringPtr("testString")
+				createServiceIDOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := iamIdentityService.CreateServiceID(createServiceIDOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
 	})
 	Describe(`GetServiceID(getServiceIDOptions *GetServiceIDOptions) - Operation response error`, func() {
 		getServiceIDPath := "/v1/serviceids/testString"
@@ -1969,7 +2235,6 @@ var _ = Describe(`IamIdentityV1`, func() {
 			})
 		})
 	})
-
 	Describe(`GetServiceID(getServiceIDOptions *GetServiceIDOptions)`, func() {
 		getServiceIDPath := "/v1/serviceids/testString"
 		Context(`Using mock server endpoint with timeout`, func() {
@@ -2107,6 +2372,41 @@ var _ = Describe(`IamIdentityV1`, func() {
 				testServer.Close()
 			})
 		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke GetServiceID successfully`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Construct an instance of the GetServiceIDOptions model
+				getServiceIDOptionsModel := new(iamidentityv1.GetServiceIDOptions)
+				getServiceIDOptionsModel.ID = core.StringPtr("testString")
+				getServiceIDOptionsModel.IncludeHistory = core.BoolPtr(true)
+				getServiceIDOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := iamIdentityService.GetServiceID(getServiceIDOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
 	})
 	Describe(`UpdateServiceID(updateServiceIDOptions *UpdateServiceIDOptions) - Operation response error`, func() {
 		updateServiceIDPath := "/v1/serviceids/testString"
@@ -2159,7 +2459,6 @@ var _ = Describe(`IamIdentityV1`, func() {
 			})
 		})
 	})
-
 	Describe(`UpdateServiceID(updateServiceIDOptions *UpdateServiceIDOptions)`, func() {
 		updateServiceIDPath := "/v1/serviceids/testString"
 		Context(`Using mock server endpoint with timeout`, func() {
@@ -2340,8 +2639,45 @@ var _ = Describe(`IamIdentityV1`, func() {
 				testServer.Close()
 			})
 		})
-	})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
 
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke UpdateServiceID successfully`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Construct an instance of the UpdateServiceIDOptions model
+				updateServiceIDOptionsModel := new(iamidentityv1.UpdateServiceIDOptions)
+				updateServiceIDOptionsModel.ID = core.StringPtr("testString")
+				updateServiceIDOptionsModel.IfMatch = core.StringPtr("testString")
+				updateServiceIDOptionsModel.Name = core.StringPtr("testString")
+				updateServiceIDOptionsModel.Description = core.StringPtr("testString")
+				updateServiceIDOptionsModel.UniqueInstanceCrns = []string{"testString"}
+				updateServiceIDOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := iamIdentityService.UpdateServiceID(updateServiceIDOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
 	Describe(`DeleteServiceID(deleteServiceIDOptions *DeleteServiceIDOptions)`, func() {
 		deleteServiceIDPath := "/v1/serviceids/testString"
 		Context(`Using mock server endpoint`, func() {
@@ -2410,7 +2746,6 @@ var _ = Describe(`IamIdentityV1`, func() {
 			})
 		})
 	})
-
 	Describe(`LockServiceID(lockServiceIDOptions *LockServiceIDOptions)`, func() {
 		lockServiceIDPath := "/v1/serviceids/testString/lock"
 		Context(`Using mock server endpoint`, func() {
@@ -2479,7 +2814,6 @@ var _ = Describe(`IamIdentityV1`, func() {
 			})
 		})
 	})
-
 	Describe(`UnlockServiceID(unlockServiceIDOptions *UnlockServiceIDOptions)`, func() {
 		unlockServiceIDPath := "/v1/serviceids/testString/lock"
 		Context(`Using mock server endpoint`, func() {
@@ -2548,131 +2882,6 @@ var _ = Describe(`IamIdentityV1`, func() {
 			})
 		})
 	})
-	Describe(`Service constructor tests`, func() {
-		It(`Instantiate service client`, func() {
-			iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
-				Authenticator: &core.NoAuthAuthenticator{},
-			})
-			Expect(iamIdentityService).ToNot(BeNil())
-			Expect(serviceErr).To(BeNil())
-		})
-		It(`Instantiate service client with error: Invalid URL`, func() {
-			iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
-				URL: "{BAD_URL_STRING",
-			})
-			Expect(iamIdentityService).To(BeNil())
-			Expect(serviceErr).ToNot(BeNil())
-		})
-		It(`Instantiate service client with error: Invalid Auth`, func() {
-			iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
-				URL: "https://iamidentityv1/api",
-				Authenticator: &core.BasicAuthenticator{
-					Username: "",
-					Password: "",
-				},
-			})
-			Expect(iamIdentityService).To(BeNil())
-			Expect(serviceErr).ToNot(BeNil())
-		})
-	})
-	Describe(`Service constructor tests using external config`, func() {
-		Context(`Using external config, construct service client instances`, func() {
-			// Map containing environment variables used in testing.
-			var testEnvironment = map[string]string{
-				"IAM_IDENTITY_URL":       "https://iamidentityv1/api",
-				"IAM_IDENTITY_AUTH_TYPE": "noauth",
-			}
-
-			It(`Create service client using external config successfully`, func() {
-				SetTestEnvironment(testEnvironment)
-				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1UsingExternalConfig(&iamidentityv1.IamIdentityV1Options{})
-				Expect(iamIdentityService).ToNot(BeNil())
-				Expect(serviceErr).To(BeNil())
-				ClearTestEnvironment(testEnvironment)
-
-				clone := iamIdentityService.Clone()
-				Expect(clone).ToNot(BeNil())
-				Expect(clone.Service != iamIdentityService.Service).To(BeTrue())
-				Expect(clone.GetServiceURL()).To(Equal(iamIdentityService.GetServiceURL()))
-				Expect(clone.Service.Options.Authenticator).To(Equal(iamIdentityService.Service.Options.Authenticator))
-			})
-			It(`Create service client using external config and set url from constructor successfully`, func() {
-				SetTestEnvironment(testEnvironment)
-				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1UsingExternalConfig(&iamidentityv1.IamIdentityV1Options{
-					URL: "https://testService/api",
-				})
-				Expect(iamIdentityService).ToNot(BeNil())
-				Expect(serviceErr).To(BeNil())
-				Expect(iamIdentityService.Service.GetServiceURL()).To(Equal("https://testService/api"))
-				ClearTestEnvironment(testEnvironment)
-
-				clone := iamIdentityService.Clone()
-				Expect(clone).ToNot(BeNil())
-				Expect(clone.Service != iamIdentityService.Service).To(BeTrue())
-				Expect(clone.GetServiceURL()).To(Equal(iamIdentityService.GetServiceURL()))
-				Expect(clone.Service.Options.Authenticator).To(Equal(iamIdentityService.Service.Options.Authenticator))
-			})
-			It(`Create service client using external config and set url programatically successfully`, func() {
-				SetTestEnvironment(testEnvironment)
-				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1UsingExternalConfig(&iamidentityv1.IamIdentityV1Options{})
-				err := iamIdentityService.SetServiceURL("https://testService/api")
-				Expect(err).To(BeNil())
-				Expect(iamIdentityService).ToNot(BeNil())
-				Expect(serviceErr).To(BeNil())
-				Expect(iamIdentityService.Service.GetServiceURL()).To(Equal("https://testService/api"))
-				ClearTestEnvironment(testEnvironment)
-
-				clone := iamIdentityService.Clone()
-				Expect(clone).ToNot(BeNil())
-				Expect(clone.Service != iamIdentityService.Service).To(BeTrue())
-				Expect(clone.GetServiceURL()).To(Equal(iamIdentityService.GetServiceURL()))
-				Expect(clone.Service.Options.Authenticator).To(Equal(iamIdentityService.Service.Options.Authenticator))
-			})
-		})
-		Context(`Using external config, construct service client instances with error: Invalid Auth`, func() {
-			// Map containing environment variables used in testing.
-			var testEnvironment = map[string]string{
-				"IAM_IDENTITY_URL":       "https://iamidentityv1/api",
-				"IAM_IDENTITY_AUTH_TYPE": "someOtherAuth",
-			}
-
-			SetTestEnvironment(testEnvironment)
-			iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1UsingExternalConfig(&iamidentityv1.IamIdentityV1Options{})
-
-			It(`Instantiate service client with error`, func() {
-				Expect(iamIdentityService).To(BeNil())
-				Expect(serviceErr).ToNot(BeNil())
-				ClearTestEnvironment(testEnvironment)
-			})
-		})
-		Context(`Using external config, construct service client instances with error: Invalid URL`, func() {
-			// Map containing environment variables used in testing.
-			var testEnvironment = map[string]string{
-				"IAM_IDENTITY_AUTH_TYPE": "NOAuth",
-			}
-
-			SetTestEnvironment(testEnvironment)
-			iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1UsingExternalConfig(&iamidentityv1.IamIdentityV1Options{
-				URL: "{BAD_URL_STRING",
-			})
-
-			It(`Instantiate service client with error`, func() {
-				Expect(iamIdentityService).To(BeNil())
-				Expect(serviceErr).ToNot(BeNil())
-				ClearTestEnvironment(testEnvironment)
-			})
-		})
-	})
-	Describe(`Regional endpoint tests`, func() {
-		It(`GetServiceURLForRegion(region string)`, func() {
-			var url string
-			var err error
-			url, err = iamidentityv1.GetServiceURLForRegion("INVALID_REGION")
-			Expect(url).To(BeEmpty())
-			Expect(err).ToNot(BeNil())
-			fmt.Fprintf(GinkgoWriter, "Expected error: %s\n", err.Error())
-		})
-	})
 	Describe(`GetAccountSettings(getAccountSettingsOptions *GetAccountSettingsOptions) - Operation response error`, func() {
 		getAccountSettingsPath := "/v1/accounts/testString/settings/identity"
 		Context(`Using mock server endpoint`, func() {
@@ -2720,7 +2929,6 @@ var _ = Describe(`IamIdentityV1`, func() {
 			})
 		})
 	})
-
 	Describe(`GetAccountSettings(getAccountSettingsOptions *GetAccountSettingsOptions)`, func() {
 		getAccountSettingsPath := "/v1/accounts/testString/settings/identity"
 		Context(`Using mock server endpoint with timeout`, func() {
@@ -2858,6 +3066,41 @@ var _ = Describe(`IamIdentityV1`, func() {
 				testServer.Close()
 			})
 		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke GetAccountSettings successfully`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Construct an instance of the GetAccountSettingsOptions model
+				getAccountSettingsOptionsModel := new(iamidentityv1.GetAccountSettingsOptions)
+				getAccountSettingsOptionsModel.AccountID = core.StringPtr("testString")
+				getAccountSettingsOptionsModel.IncludeHistory = core.BoolPtr(true)
+				getAccountSettingsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := iamIdentityService.GetAccountSettings(getAccountSettingsOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
 	})
 	Describe(`UpdateAccountSettings(updateAccountSettingsOptions *UpdateAccountSettingsOptions) - Operation response error`, func() {
 		updateAccountSettingsPath := "/v1/accounts/testString/settings/identity"
@@ -2914,7 +3157,6 @@ var _ = Describe(`IamIdentityV1`, func() {
 			})
 		})
 	})
-
 	Describe(`UpdateAccountSettings(updateAccountSettingsOptions *UpdateAccountSettingsOptions)`, func() {
 		updateAccountSettingsPath := "/v1/accounts/testString/settings/identity"
 		Context(`Using mock server endpoint with timeout`, func() {
@@ -3107,6 +3349,48 @@ var _ = Describe(`IamIdentityV1`, func() {
 				testServer.Close()
 			})
 		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke UpdateAccountSettings successfully`, func() {
+				iamIdentityService, serviceErr := iamidentityv1.NewIamIdentityV1(&iamidentityv1.IamIdentityV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamIdentityService).ToNot(BeNil())
+
+				// Construct an instance of the UpdateAccountSettingsOptions model
+				updateAccountSettingsOptionsModel := new(iamidentityv1.UpdateAccountSettingsOptions)
+				updateAccountSettingsOptionsModel.IfMatch = core.StringPtr("testString")
+				updateAccountSettingsOptionsModel.AccountID = core.StringPtr("testString")
+				updateAccountSettingsOptionsModel.RestrictCreateServiceID = core.StringPtr("RESTRICTED")
+				updateAccountSettingsOptionsModel.RestrictCreatePlatformApikey = core.StringPtr("RESTRICTED")
+				updateAccountSettingsOptionsModel.AllowedIPAddresses = core.StringPtr("testString")
+				updateAccountSettingsOptionsModel.Mfa = core.StringPtr("NONE")
+				updateAccountSettingsOptionsModel.SessionExpirationInSeconds = core.StringPtr("testString")
+				updateAccountSettingsOptionsModel.SessionInvalidationInSeconds = core.StringPtr("testString")
+				updateAccountSettingsOptionsModel.MaxSessionsPerIdentity = core.StringPtr("testString")
+				updateAccountSettingsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := iamIdentityService.UpdateAccountSettings(updateAccountSettingsOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
 	})
 	Describe(`Model constructor tests`, func() {
 		Context(`Using a service client instance`, func() {
@@ -3116,8 +3400,8 @@ var _ = Describe(`IamIdentityV1`, func() {
 			})
 			It(`Invoke NewAPIKeyInsideCreateServiceIDRequest successfully`, func() {
 				name := "testString"
-				model, err := iamIdentityService.NewAPIKeyInsideCreateServiceIDRequest(name)
-				Expect(model).ToNot(BeNil())
+				_model, err := iamIdentityService.NewAPIKeyInsideCreateServiceIDRequest(name)
+				Expect(_model).ToNot(BeNil())
 				Expect(err).To(BeNil())
 			})
 			It(`Invoke NewCreateAPIKeyOptions successfully`, func() {
@@ -3408,11 +3692,11 @@ var _ = Describe(`IamIdentityV1`, func() {
 			Expect(mockReader).ToNot(BeNil())
 		})
 		It(`Invoke CreateMockDate() successfully`, func() {
-			mockDate := CreateMockDate()
+			mockDate := CreateMockDate("2019-01-01")
 			Expect(mockDate).ToNot(BeNil())
 		})
 		It(`Invoke CreateMockDateTime() successfully`, func() {
-			mockDateTime := CreateMockDateTime()
+			mockDateTime := CreateMockDateTime("2019-01-01T12:00:00.000Z")
 			Expect(mockDateTime).ToNot(BeNil())
 		})
 	})
@@ -3437,13 +3721,19 @@ func CreateMockReader(mockData string) io.ReadCloser {
 	return ioutil.NopCloser(bytes.NewReader([]byte(mockData)))
 }
 
-func CreateMockDate() *strfmt.Date {
-	d := strfmt.Date(time.Date(2009, time.November, 10, 23, 0, 0, 0, time.UTC))
+func CreateMockDate(mockData string) *strfmt.Date {
+	d, err := core.ParseDate(mockData)
+	if err != nil {
+		return nil
+	}
 	return &d
 }
 
-func CreateMockDateTime() *strfmt.DateTime {
-	d := strfmt.DateTime(time.Date(2009, time.November, 10, 23, 0, 0, 0, time.UTC))
+func CreateMockDateTime(mockData string) *strfmt.DateTime {
+	d, err := core.ParseDateTime(mockData)
+	if err != nil {
+		return nil
+	}
 	return &d
 }
 
