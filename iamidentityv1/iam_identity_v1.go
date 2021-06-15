@@ -15,7 +15,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-46891d34-20210426-162952
+ * IBM OpenAPI SDK Code Generator Version: 3.33.0-caf29bd0-20210603-225214
  */
 
 // Package iamidentityv1 : Operations and models for the IamIdentityV1 service
@@ -233,11 +233,13 @@ func (iamIdentity *IamIdentityV1) ListAPIKeysWithContext(ctx context.Context, li
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalAPIKeyList)
-	if err != nil {
-		return
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalAPIKeyList)
+		if err != nil {
+			return
+		}
+		response.Result = result
 	}
-	response.Result = result
 
 	return
 }
@@ -316,11 +318,13 @@ func (iamIdentity *IamIdentityV1) CreateAPIKeyWithContext(ctx context.Context, c
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalAPIKey)
-	if err != nil {
-		return
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalAPIKey)
+		if err != nil {
+			return
+		}
+		response.Result = result
 	}
-	response.Result = result
 
 	return
 }
@@ -374,11 +378,13 @@ func (iamIdentity *IamIdentityV1) GetAPIKeysDetailsWithContext(ctx context.Conte
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalAPIKey)
-	if err != nil {
-		return
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalAPIKey)
+		if err != nil {
+			return
+		}
+		response.Result = result
 	}
-	response.Result = result
 
 	return
 }
@@ -439,11 +445,13 @@ func (iamIdentity *IamIdentityV1) GetAPIKeyWithContext(ctx context.Context, getA
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalAPIKey)
-	if err != nil {
-		return
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalAPIKey)
+		if err != nil {
+			return
+		}
+		response.Result = result
 	}
-	response.Result = result
 
 	return
 }
@@ -516,11 +524,13 @@ func (iamIdentity *IamIdentityV1) UpdateAPIKeyWithContext(ctx context.Context, u
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalAPIKey)
-	if err != nil {
-		return
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalAPIKey)
+		if err != nil {
+			return
+		}
+		response.Result = result
 	}
-	response.Result = result
 
 	return
 }
@@ -738,11 +748,13 @@ func (iamIdentity *IamIdentityV1) ListServiceIdsWithContext(ctx context.Context,
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalServiceIDList)
-	if err != nil {
-		return
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalServiceIDList)
+		if err != nil {
+			return
+		}
+		response.Result = result
 	}
-	response.Result = result
 
 	return
 }
@@ -818,11 +830,13 @@ func (iamIdentity *IamIdentityV1) CreateServiceIDWithContext(ctx context.Context
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalServiceID)
-	if err != nil {
-		return
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalServiceID)
+		if err != nil {
+			return
+		}
+		response.Result = result
 	}
-	response.Result = result
 
 	return
 }
@@ -881,11 +895,13 @@ func (iamIdentity *IamIdentityV1) GetServiceIDWithContext(ctx context.Context, g
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalServiceID)
-	if err != nil {
-		return
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalServiceID)
+		if err != nil {
+			return
+		}
+		response.Result = result
 	}
-	response.Result = result
 
 	return
 }
@@ -961,11 +977,13 @@ func (iamIdentity *IamIdentityV1) UpdateServiceIDWithContext(ctx context.Context
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalServiceID)
-	if err != nil {
-		return
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalServiceID)
+		if err != nil {
+			return
+		}
+		response.Result = result
 	}
-	response.Result = result
 
 	return
 }
@@ -1174,11 +1192,13 @@ func (iamIdentity *IamIdentityV1) GetAccountSettingsWithContext(ctx context.Cont
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalAccountSettingsResponse)
-	if err != nil {
-		return
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalAccountSettingsResponse)
+		if err != nil {
+			return
+		}
+		response.Result = result
 	}
-	response.Result = result
 
 	return
 }
@@ -1264,11 +1284,13 @@ func (iamIdentity *IamIdentityV1) UpdateAccountSettingsWithContext(ctx context.C
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalAccountSettingsResponse)
-	if err != nil {
-		return
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalAccountSettingsResponse)
+		if err != nil {
+			return
+		}
+		response.Result = result
 	}
-	response.Result = result
 
 	return
 }
@@ -1555,11 +1577,11 @@ type APIKeyInsideCreateServiceIDRequest struct {
 }
 
 // NewAPIKeyInsideCreateServiceIDRequest : Instantiate APIKeyInsideCreateServiceIDRequest (Generic Model Constructor)
-func (*IamIdentityV1) NewAPIKeyInsideCreateServiceIDRequest(name string) (model *APIKeyInsideCreateServiceIDRequest, err error) {
-	model = &APIKeyInsideCreateServiceIDRequest{
+func (*IamIdentityV1) NewAPIKeyInsideCreateServiceIDRequest(name string) (_model *APIKeyInsideCreateServiceIDRequest, err error) {
+	_model = &APIKeyInsideCreateServiceIDRequest{
 		Name: core.StringPtr(name),
 	}
-	err = core.ValidateStruct(model, "required parameters")
+	err = core.ValidateStruct(_model, "required parameters")
 	return
 }
 
@@ -1690,45 +1712,45 @@ func (*IamIdentityV1) NewCreateAPIKeyOptions(name string, iamID string) *CreateA
 }
 
 // SetName : Allow user to set Name
-func (options *CreateAPIKeyOptions) SetName(name string) *CreateAPIKeyOptions {
-	options.Name = core.StringPtr(name)
-	return options
+func (_options *CreateAPIKeyOptions) SetName(name string) *CreateAPIKeyOptions {
+	_options.Name = core.StringPtr(name)
+	return _options
 }
 
 // SetIamID : Allow user to set IamID
-func (options *CreateAPIKeyOptions) SetIamID(iamID string) *CreateAPIKeyOptions {
-	options.IamID = core.StringPtr(iamID)
-	return options
+func (_options *CreateAPIKeyOptions) SetIamID(iamID string) *CreateAPIKeyOptions {
+	_options.IamID = core.StringPtr(iamID)
+	return _options
 }
 
 // SetDescription : Allow user to set Description
-func (options *CreateAPIKeyOptions) SetDescription(description string) *CreateAPIKeyOptions {
-	options.Description = core.StringPtr(description)
-	return options
+func (_options *CreateAPIKeyOptions) SetDescription(description string) *CreateAPIKeyOptions {
+	_options.Description = core.StringPtr(description)
+	return _options
 }
 
 // SetAccountID : Allow user to set AccountID
-func (options *CreateAPIKeyOptions) SetAccountID(accountID string) *CreateAPIKeyOptions {
-	options.AccountID = core.StringPtr(accountID)
-	return options
+func (_options *CreateAPIKeyOptions) SetAccountID(accountID string) *CreateAPIKeyOptions {
+	_options.AccountID = core.StringPtr(accountID)
+	return _options
 }
 
 // SetApikey : Allow user to set Apikey
-func (options *CreateAPIKeyOptions) SetApikey(apikey string) *CreateAPIKeyOptions {
-	options.Apikey = core.StringPtr(apikey)
-	return options
+func (_options *CreateAPIKeyOptions) SetApikey(apikey string) *CreateAPIKeyOptions {
+	_options.Apikey = core.StringPtr(apikey)
+	return _options
 }
 
 // SetStoreValue : Allow user to set StoreValue
-func (options *CreateAPIKeyOptions) SetStoreValue(storeValue bool) *CreateAPIKeyOptions {
-	options.StoreValue = core.BoolPtr(storeValue)
-	return options
+func (_options *CreateAPIKeyOptions) SetStoreValue(storeValue bool) *CreateAPIKeyOptions {
+	_options.StoreValue = core.BoolPtr(storeValue)
+	return _options
 }
 
 // SetEntityLock : Allow user to set EntityLock
-func (options *CreateAPIKeyOptions) SetEntityLock(entityLock string) *CreateAPIKeyOptions {
-	options.EntityLock = core.StringPtr(entityLock)
-	return options
+func (_options *CreateAPIKeyOptions) SetEntityLock(entityLock string) *CreateAPIKeyOptions {
+	_options.EntityLock = core.StringPtr(entityLock)
+	return _options
 }
 
 // SetHeaders : Allow user to set Headers
@@ -1772,39 +1794,39 @@ func (*IamIdentityV1) NewCreateServiceIDOptions(accountID string, name string) *
 }
 
 // SetAccountID : Allow user to set AccountID
-func (options *CreateServiceIDOptions) SetAccountID(accountID string) *CreateServiceIDOptions {
-	options.AccountID = core.StringPtr(accountID)
-	return options
+func (_options *CreateServiceIDOptions) SetAccountID(accountID string) *CreateServiceIDOptions {
+	_options.AccountID = core.StringPtr(accountID)
+	return _options
 }
 
 // SetName : Allow user to set Name
-func (options *CreateServiceIDOptions) SetName(name string) *CreateServiceIDOptions {
-	options.Name = core.StringPtr(name)
-	return options
+func (_options *CreateServiceIDOptions) SetName(name string) *CreateServiceIDOptions {
+	_options.Name = core.StringPtr(name)
+	return _options
 }
 
 // SetDescription : Allow user to set Description
-func (options *CreateServiceIDOptions) SetDescription(description string) *CreateServiceIDOptions {
-	options.Description = core.StringPtr(description)
-	return options
+func (_options *CreateServiceIDOptions) SetDescription(description string) *CreateServiceIDOptions {
+	_options.Description = core.StringPtr(description)
+	return _options
 }
 
 // SetUniqueInstanceCrns : Allow user to set UniqueInstanceCrns
-func (options *CreateServiceIDOptions) SetUniqueInstanceCrns(uniqueInstanceCrns []string) *CreateServiceIDOptions {
-	options.UniqueInstanceCrns = uniqueInstanceCrns
-	return options
+func (_options *CreateServiceIDOptions) SetUniqueInstanceCrns(uniqueInstanceCrns []string) *CreateServiceIDOptions {
+	_options.UniqueInstanceCrns = uniqueInstanceCrns
+	return _options
 }
 
 // SetApikey : Allow user to set Apikey
-func (options *CreateServiceIDOptions) SetApikey(apikey *APIKeyInsideCreateServiceIDRequest) *CreateServiceIDOptions {
-	options.Apikey = apikey
-	return options
+func (_options *CreateServiceIDOptions) SetApikey(apikey *APIKeyInsideCreateServiceIDRequest) *CreateServiceIDOptions {
+	_options.Apikey = apikey
+	return _options
 }
 
 // SetEntityLock : Allow user to set EntityLock
-func (options *CreateServiceIDOptions) SetEntityLock(entityLock string) *CreateServiceIDOptions {
-	options.EntityLock = core.StringPtr(entityLock)
-	return options
+func (_options *CreateServiceIDOptions) SetEntityLock(entityLock string) *CreateServiceIDOptions {
+	_options.EntityLock = core.StringPtr(entityLock)
+	return _options
 }
 
 // SetHeaders : Allow user to set Headers
@@ -1830,9 +1852,9 @@ func (*IamIdentityV1) NewDeleteAPIKeyOptions(id string) *DeleteAPIKeyOptions {
 }
 
 // SetID : Allow user to set ID
-func (options *DeleteAPIKeyOptions) SetID(id string) *DeleteAPIKeyOptions {
-	options.ID = core.StringPtr(id)
-	return options
+func (_options *DeleteAPIKeyOptions) SetID(id string) *DeleteAPIKeyOptions {
+	_options.ID = core.StringPtr(id)
+	return _options
 }
 
 // SetHeaders : Allow user to set Headers
@@ -1858,9 +1880,9 @@ func (*IamIdentityV1) NewDeleteServiceIDOptions(id string) *DeleteServiceIDOptio
 }
 
 // SetID : Allow user to set ID
-func (options *DeleteServiceIDOptions) SetID(id string) *DeleteServiceIDOptions {
-	options.ID = core.StringPtr(id)
-	return options
+func (_options *DeleteServiceIDOptions) SetID(id string) *DeleteServiceIDOptions {
+	_options.ID = core.StringPtr(id)
+	return _options
 }
 
 // SetHeaders : Allow user to set Headers
@@ -1941,15 +1963,15 @@ func (*IamIdentityV1) NewGetAccountSettingsOptions(accountID string) *GetAccount
 }
 
 // SetAccountID : Allow user to set AccountID
-func (options *GetAccountSettingsOptions) SetAccountID(accountID string) *GetAccountSettingsOptions {
-	options.AccountID = core.StringPtr(accountID)
-	return options
+func (_options *GetAccountSettingsOptions) SetAccountID(accountID string) *GetAccountSettingsOptions {
+	_options.AccountID = core.StringPtr(accountID)
+	return _options
 }
 
 // SetIncludeHistory : Allow user to set IncludeHistory
-func (options *GetAccountSettingsOptions) SetIncludeHistory(includeHistory bool) *GetAccountSettingsOptions {
-	options.IncludeHistory = core.BoolPtr(includeHistory)
-	return options
+func (_options *GetAccountSettingsOptions) SetIncludeHistory(includeHistory bool) *GetAccountSettingsOptions {
+	_options.IncludeHistory = core.BoolPtr(includeHistory)
+	return _options
 }
 
 // SetHeaders : Allow user to set Headers
@@ -1978,15 +2000,15 @@ func (*IamIdentityV1) NewGetAPIKeyOptions(id string) *GetAPIKeyOptions {
 }
 
 // SetID : Allow user to set ID
-func (options *GetAPIKeyOptions) SetID(id string) *GetAPIKeyOptions {
-	options.ID = core.StringPtr(id)
-	return options
+func (_options *GetAPIKeyOptions) SetID(id string) *GetAPIKeyOptions {
+	_options.ID = core.StringPtr(id)
+	return _options
 }
 
 // SetIncludeHistory : Allow user to set IncludeHistory
-func (options *GetAPIKeyOptions) SetIncludeHistory(includeHistory bool) *GetAPIKeyOptions {
-	options.IncludeHistory = core.BoolPtr(includeHistory)
-	return options
+func (_options *GetAPIKeyOptions) SetIncludeHistory(includeHistory bool) *GetAPIKeyOptions {
+	_options.IncludeHistory = core.BoolPtr(includeHistory)
+	return _options
 }
 
 // SetHeaders : Allow user to set Headers
@@ -2013,15 +2035,15 @@ func (*IamIdentityV1) NewGetAPIKeysDetailsOptions() *GetAPIKeysDetailsOptions {
 }
 
 // SetIamAPIKey : Allow user to set IamAPIKey
-func (options *GetAPIKeysDetailsOptions) SetIamAPIKey(iamAPIKey string) *GetAPIKeysDetailsOptions {
-	options.IamAPIKey = core.StringPtr(iamAPIKey)
-	return options
+func (_options *GetAPIKeysDetailsOptions) SetIamAPIKey(iamAPIKey string) *GetAPIKeysDetailsOptions {
+	_options.IamAPIKey = core.StringPtr(iamAPIKey)
+	return _options
 }
 
 // SetIncludeHistory : Allow user to set IncludeHistory
-func (options *GetAPIKeysDetailsOptions) SetIncludeHistory(includeHistory bool) *GetAPIKeysDetailsOptions {
-	options.IncludeHistory = core.BoolPtr(includeHistory)
-	return options
+func (_options *GetAPIKeysDetailsOptions) SetIncludeHistory(includeHistory bool) *GetAPIKeysDetailsOptions {
+	_options.IncludeHistory = core.BoolPtr(includeHistory)
+	return _options
 }
 
 // SetHeaders : Allow user to set Headers
@@ -2050,15 +2072,15 @@ func (*IamIdentityV1) NewGetServiceIDOptions(id string) *GetServiceIDOptions {
 }
 
 // SetID : Allow user to set ID
-func (options *GetServiceIDOptions) SetID(id string) *GetServiceIDOptions {
-	options.ID = core.StringPtr(id)
-	return options
+func (_options *GetServiceIDOptions) SetID(id string) *GetServiceIDOptions {
+	_options.ID = core.StringPtr(id)
+	return _options
 }
 
 // SetIncludeHistory : Allow user to set IncludeHistory
-func (options *GetServiceIDOptions) SetIncludeHistory(includeHistory bool) *GetServiceIDOptions {
-	options.IncludeHistory = core.BoolPtr(includeHistory)
-	return options
+func (_options *GetServiceIDOptions) SetIncludeHistory(includeHistory bool) *GetServiceIDOptions {
+	_options.IncludeHistory = core.BoolPtr(includeHistory)
+	return _options
 }
 
 // SetHeaders : Allow user to set Headers
@@ -2131,57 +2153,57 @@ func (*IamIdentityV1) NewListAPIKeysOptions() *ListAPIKeysOptions {
 }
 
 // SetAccountID : Allow user to set AccountID
-func (options *ListAPIKeysOptions) SetAccountID(accountID string) *ListAPIKeysOptions {
-	options.AccountID = core.StringPtr(accountID)
-	return options
+func (_options *ListAPIKeysOptions) SetAccountID(accountID string) *ListAPIKeysOptions {
+	_options.AccountID = core.StringPtr(accountID)
+	return _options
 }
 
 // SetIamID : Allow user to set IamID
-func (options *ListAPIKeysOptions) SetIamID(iamID string) *ListAPIKeysOptions {
-	options.IamID = core.StringPtr(iamID)
-	return options
+func (_options *ListAPIKeysOptions) SetIamID(iamID string) *ListAPIKeysOptions {
+	_options.IamID = core.StringPtr(iamID)
+	return _options
 }
 
 // SetPagesize : Allow user to set Pagesize
-func (options *ListAPIKeysOptions) SetPagesize(pagesize int64) *ListAPIKeysOptions {
-	options.Pagesize = core.Int64Ptr(pagesize)
-	return options
+func (_options *ListAPIKeysOptions) SetPagesize(pagesize int64) *ListAPIKeysOptions {
+	_options.Pagesize = core.Int64Ptr(pagesize)
+	return _options
 }
 
 // SetPagetoken : Allow user to set Pagetoken
-func (options *ListAPIKeysOptions) SetPagetoken(pagetoken string) *ListAPIKeysOptions {
-	options.Pagetoken = core.StringPtr(pagetoken)
-	return options
+func (_options *ListAPIKeysOptions) SetPagetoken(pagetoken string) *ListAPIKeysOptions {
+	_options.Pagetoken = core.StringPtr(pagetoken)
+	return _options
 }
 
 // SetScope : Allow user to set Scope
-func (options *ListAPIKeysOptions) SetScope(scope string) *ListAPIKeysOptions {
-	options.Scope = core.StringPtr(scope)
-	return options
+func (_options *ListAPIKeysOptions) SetScope(scope string) *ListAPIKeysOptions {
+	_options.Scope = core.StringPtr(scope)
+	return _options
 }
 
 // SetType : Allow user to set Type
-func (options *ListAPIKeysOptions) SetType(typeVar string) *ListAPIKeysOptions {
-	options.Type = core.StringPtr(typeVar)
-	return options
+func (_options *ListAPIKeysOptions) SetType(typeVar string) *ListAPIKeysOptions {
+	_options.Type = core.StringPtr(typeVar)
+	return _options
 }
 
 // SetSort : Allow user to set Sort
-func (options *ListAPIKeysOptions) SetSort(sort string) *ListAPIKeysOptions {
-	options.Sort = core.StringPtr(sort)
-	return options
+func (_options *ListAPIKeysOptions) SetSort(sort string) *ListAPIKeysOptions {
+	_options.Sort = core.StringPtr(sort)
+	return _options
 }
 
 // SetOrder : Allow user to set Order
-func (options *ListAPIKeysOptions) SetOrder(order string) *ListAPIKeysOptions {
-	options.Order = core.StringPtr(order)
-	return options
+func (_options *ListAPIKeysOptions) SetOrder(order string) *ListAPIKeysOptions {
+	_options.Order = core.StringPtr(order)
+	return _options
 }
 
 // SetIncludeHistory : Allow user to set IncludeHistory
-func (options *ListAPIKeysOptions) SetIncludeHistory(includeHistory bool) *ListAPIKeysOptions {
-	options.IncludeHistory = core.BoolPtr(includeHistory)
-	return options
+func (_options *ListAPIKeysOptions) SetIncludeHistory(includeHistory bool) *ListAPIKeysOptions {
+	_options.IncludeHistory = core.BoolPtr(includeHistory)
+	return _options
 }
 
 // SetHeaders : Allow user to set Headers
@@ -2231,45 +2253,45 @@ func (*IamIdentityV1) NewListServiceIdsOptions() *ListServiceIdsOptions {
 }
 
 // SetAccountID : Allow user to set AccountID
-func (options *ListServiceIdsOptions) SetAccountID(accountID string) *ListServiceIdsOptions {
-	options.AccountID = core.StringPtr(accountID)
-	return options
+func (_options *ListServiceIdsOptions) SetAccountID(accountID string) *ListServiceIdsOptions {
+	_options.AccountID = core.StringPtr(accountID)
+	return _options
 }
 
 // SetName : Allow user to set Name
-func (options *ListServiceIdsOptions) SetName(name string) *ListServiceIdsOptions {
-	options.Name = core.StringPtr(name)
-	return options
+func (_options *ListServiceIdsOptions) SetName(name string) *ListServiceIdsOptions {
+	_options.Name = core.StringPtr(name)
+	return _options
 }
 
 // SetPagesize : Allow user to set Pagesize
-func (options *ListServiceIdsOptions) SetPagesize(pagesize int64) *ListServiceIdsOptions {
-	options.Pagesize = core.Int64Ptr(pagesize)
-	return options
+func (_options *ListServiceIdsOptions) SetPagesize(pagesize int64) *ListServiceIdsOptions {
+	_options.Pagesize = core.Int64Ptr(pagesize)
+	return _options
 }
 
 // SetPagetoken : Allow user to set Pagetoken
-func (options *ListServiceIdsOptions) SetPagetoken(pagetoken string) *ListServiceIdsOptions {
-	options.Pagetoken = core.StringPtr(pagetoken)
-	return options
+func (_options *ListServiceIdsOptions) SetPagetoken(pagetoken string) *ListServiceIdsOptions {
+	_options.Pagetoken = core.StringPtr(pagetoken)
+	return _options
 }
 
 // SetSort : Allow user to set Sort
-func (options *ListServiceIdsOptions) SetSort(sort string) *ListServiceIdsOptions {
-	options.Sort = core.StringPtr(sort)
-	return options
+func (_options *ListServiceIdsOptions) SetSort(sort string) *ListServiceIdsOptions {
+	_options.Sort = core.StringPtr(sort)
+	return _options
 }
 
 // SetOrder : Allow user to set Order
-func (options *ListServiceIdsOptions) SetOrder(order string) *ListServiceIdsOptions {
-	options.Order = core.StringPtr(order)
-	return options
+func (_options *ListServiceIdsOptions) SetOrder(order string) *ListServiceIdsOptions {
+	_options.Order = core.StringPtr(order)
+	return _options
 }
 
 // SetIncludeHistory : Allow user to set IncludeHistory
-func (options *ListServiceIdsOptions) SetIncludeHistory(includeHistory bool) *ListServiceIdsOptions {
-	options.IncludeHistory = core.BoolPtr(includeHistory)
-	return options
+func (_options *ListServiceIdsOptions) SetIncludeHistory(includeHistory bool) *ListServiceIdsOptions {
+	_options.IncludeHistory = core.BoolPtr(includeHistory)
+	return _options
 }
 
 // SetHeaders : Allow user to set Headers
@@ -2295,9 +2317,9 @@ func (*IamIdentityV1) NewLockAPIKeyOptions(id string) *LockAPIKeyOptions {
 }
 
 // SetID : Allow user to set ID
-func (options *LockAPIKeyOptions) SetID(id string) *LockAPIKeyOptions {
-	options.ID = core.StringPtr(id)
-	return options
+func (_options *LockAPIKeyOptions) SetID(id string) *LockAPIKeyOptions {
+	_options.ID = core.StringPtr(id)
+	return _options
 }
 
 // SetHeaders : Allow user to set Headers
@@ -2323,9 +2345,9 @@ func (*IamIdentityV1) NewLockServiceIDOptions(id string) *LockServiceIDOptions {
 }
 
 // SetID : Allow user to set ID
-func (options *LockServiceIDOptions) SetID(id string) *LockServiceIDOptions {
-	options.ID = core.StringPtr(id)
-	return options
+func (_options *LockServiceIDOptions) SetID(id string) *LockServiceIDOptions {
+	_options.ID = core.StringPtr(id)
+	return _options
 }
 
 // SetHeaders : Allow user to set Headers
@@ -2466,8 +2488,9 @@ type ServiceID struct {
 	// History of the Service ID.
 	History []EnityHistoryRecord `json:"history,omitempty"`
 
-	// Response body format for API key V1 REST requests.
-	Apikey *APIKey `json:"apikey" validate:"required"`
+	// Api key details for the Service ID. The apikey is only included in the response when creating a Service ID with an
+	// apikey.
+	Apikey *APIKey `json:"apikey,omitempty"`
 }
 
 // UnmarshalServiceID unmarshals an instance of ServiceID from the specified map of raw messages.
@@ -2611,9 +2634,9 @@ func (*IamIdentityV1) NewUnlockAPIKeyOptions(id string) *UnlockAPIKeyOptions {
 }
 
 // SetID : Allow user to set ID
-func (options *UnlockAPIKeyOptions) SetID(id string) *UnlockAPIKeyOptions {
-	options.ID = core.StringPtr(id)
-	return options
+func (_options *UnlockAPIKeyOptions) SetID(id string) *UnlockAPIKeyOptions {
+	_options.ID = core.StringPtr(id)
+	return _options
 }
 
 // SetHeaders : Allow user to set Headers
@@ -2639,9 +2662,9 @@ func (*IamIdentityV1) NewUnlockServiceIDOptions(id string) *UnlockServiceIDOptio
 }
 
 // SetID : Allow user to set ID
-func (options *UnlockServiceIDOptions) SetID(id string) *UnlockServiceIDOptions {
-	options.ID = core.StringPtr(id)
-	return options
+func (_options *UnlockServiceIDOptions) SetID(id string) *UnlockServiceIDOptions {
+	_options.ID = core.StringPtr(id)
+	return _options
 }
 
 // SetHeaders : Allow user to set Headers
@@ -2751,57 +2774,57 @@ func (*IamIdentityV1) NewUpdateAccountSettingsOptions(ifMatch string, accountID 
 }
 
 // SetIfMatch : Allow user to set IfMatch
-func (options *UpdateAccountSettingsOptions) SetIfMatch(ifMatch string) *UpdateAccountSettingsOptions {
-	options.IfMatch = core.StringPtr(ifMatch)
-	return options
+func (_options *UpdateAccountSettingsOptions) SetIfMatch(ifMatch string) *UpdateAccountSettingsOptions {
+	_options.IfMatch = core.StringPtr(ifMatch)
+	return _options
 }
 
 // SetAccountID : Allow user to set AccountID
-func (options *UpdateAccountSettingsOptions) SetAccountID(accountID string) *UpdateAccountSettingsOptions {
-	options.AccountID = core.StringPtr(accountID)
-	return options
+func (_options *UpdateAccountSettingsOptions) SetAccountID(accountID string) *UpdateAccountSettingsOptions {
+	_options.AccountID = core.StringPtr(accountID)
+	return _options
 }
 
 // SetRestrictCreateServiceID : Allow user to set RestrictCreateServiceID
-func (options *UpdateAccountSettingsOptions) SetRestrictCreateServiceID(restrictCreateServiceID string) *UpdateAccountSettingsOptions {
-	options.RestrictCreateServiceID = core.StringPtr(restrictCreateServiceID)
-	return options
+func (_options *UpdateAccountSettingsOptions) SetRestrictCreateServiceID(restrictCreateServiceID string) *UpdateAccountSettingsOptions {
+	_options.RestrictCreateServiceID = core.StringPtr(restrictCreateServiceID)
+	return _options
 }
 
 // SetRestrictCreatePlatformApikey : Allow user to set RestrictCreatePlatformApikey
-func (options *UpdateAccountSettingsOptions) SetRestrictCreatePlatformApikey(restrictCreatePlatformApikey string) *UpdateAccountSettingsOptions {
-	options.RestrictCreatePlatformApikey = core.StringPtr(restrictCreatePlatformApikey)
-	return options
+func (_options *UpdateAccountSettingsOptions) SetRestrictCreatePlatformApikey(restrictCreatePlatformApikey string) *UpdateAccountSettingsOptions {
+	_options.RestrictCreatePlatformApikey = core.StringPtr(restrictCreatePlatformApikey)
+	return _options
 }
 
 // SetAllowedIPAddresses : Allow user to set AllowedIPAddresses
-func (options *UpdateAccountSettingsOptions) SetAllowedIPAddresses(allowedIPAddresses string) *UpdateAccountSettingsOptions {
-	options.AllowedIPAddresses = core.StringPtr(allowedIPAddresses)
-	return options
+func (_options *UpdateAccountSettingsOptions) SetAllowedIPAddresses(allowedIPAddresses string) *UpdateAccountSettingsOptions {
+	_options.AllowedIPAddresses = core.StringPtr(allowedIPAddresses)
+	return _options
 }
 
 // SetMfa : Allow user to set Mfa
-func (options *UpdateAccountSettingsOptions) SetMfa(mfa string) *UpdateAccountSettingsOptions {
-	options.Mfa = core.StringPtr(mfa)
-	return options
+func (_options *UpdateAccountSettingsOptions) SetMfa(mfa string) *UpdateAccountSettingsOptions {
+	_options.Mfa = core.StringPtr(mfa)
+	return _options
 }
 
 // SetSessionExpirationInSeconds : Allow user to set SessionExpirationInSeconds
-func (options *UpdateAccountSettingsOptions) SetSessionExpirationInSeconds(sessionExpirationInSeconds string) *UpdateAccountSettingsOptions {
-	options.SessionExpirationInSeconds = core.StringPtr(sessionExpirationInSeconds)
-	return options
+func (_options *UpdateAccountSettingsOptions) SetSessionExpirationInSeconds(sessionExpirationInSeconds string) *UpdateAccountSettingsOptions {
+	_options.SessionExpirationInSeconds = core.StringPtr(sessionExpirationInSeconds)
+	return _options
 }
 
 // SetSessionInvalidationInSeconds : Allow user to set SessionInvalidationInSeconds
-func (options *UpdateAccountSettingsOptions) SetSessionInvalidationInSeconds(sessionInvalidationInSeconds string) *UpdateAccountSettingsOptions {
-	options.SessionInvalidationInSeconds = core.StringPtr(sessionInvalidationInSeconds)
-	return options
+func (_options *UpdateAccountSettingsOptions) SetSessionInvalidationInSeconds(sessionInvalidationInSeconds string) *UpdateAccountSettingsOptions {
+	_options.SessionInvalidationInSeconds = core.StringPtr(sessionInvalidationInSeconds)
+	return _options
 }
 
 // SetMaxSessionsPerIdentity : Allow user to set MaxSessionsPerIdentity
-func (options *UpdateAccountSettingsOptions) SetMaxSessionsPerIdentity(maxSessionsPerIdentity string) *UpdateAccountSettingsOptions {
-	options.MaxSessionsPerIdentity = core.StringPtr(maxSessionsPerIdentity)
-	return options
+func (_options *UpdateAccountSettingsOptions) SetMaxSessionsPerIdentity(maxSessionsPerIdentity string) *UpdateAccountSettingsOptions {
+	_options.MaxSessionsPerIdentity = core.StringPtr(maxSessionsPerIdentity)
+	return _options
 }
 
 // SetHeaders : Allow user to set Headers
@@ -2841,27 +2864,27 @@ func (*IamIdentityV1) NewUpdateAPIKeyOptions(id string, ifMatch string) *UpdateA
 }
 
 // SetID : Allow user to set ID
-func (options *UpdateAPIKeyOptions) SetID(id string) *UpdateAPIKeyOptions {
-	options.ID = core.StringPtr(id)
-	return options
+func (_options *UpdateAPIKeyOptions) SetID(id string) *UpdateAPIKeyOptions {
+	_options.ID = core.StringPtr(id)
+	return _options
 }
 
 // SetIfMatch : Allow user to set IfMatch
-func (options *UpdateAPIKeyOptions) SetIfMatch(ifMatch string) *UpdateAPIKeyOptions {
-	options.IfMatch = core.StringPtr(ifMatch)
-	return options
+func (_options *UpdateAPIKeyOptions) SetIfMatch(ifMatch string) *UpdateAPIKeyOptions {
+	_options.IfMatch = core.StringPtr(ifMatch)
+	return _options
 }
 
 // SetName : Allow user to set Name
-func (options *UpdateAPIKeyOptions) SetName(name string) *UpdateAPIKeyOptions {
-	options.Name = core.StringPtr(name)
-	return options
+func (_options *UpdateAPIKeyOptions) SetName(name string) *UpdateAPIKeyOptions {
+	_options.Name = core.StringPtr(name)
+	return _options
 }
 
 // SetDescription : Allow user to set Description
-func (options *UpdateAPIKeyOptions) SetDescription(description string) *UpdateAPIKeyOptions {
-	options.Description = core.StringPtr(description)
-	return options
+func (_options *UpdateAPIKeyOptions) SetDescription(description string) *UpdateAPIKeyOptions {
+	_options.Description = core.StringPtr(description)
+	return _options
 }
 
 // SetHeaders : Allow user to set Headers
@@ -2905,33 +2928,33 @@ func (*IamIdentityV1) NewUpdateServiceIDOptions(id string, ifMatch string) *Upda
 }
 
 // SetID : Allow user to set ID
-func (options *UpdateServiceIDOptions) SetID(id string) *UpdateServiceIDOptions {
-	options.ID = core.StringPtr(id)
-	return options
+func (_options *UpdateServiceIDOptions) SetID(id string) *UpdateServiceIDOptions {
+	_options.ID = core.StringPtr(id)
+	return _options
 }
 
 // SetIfMatch : Allow user to set IfMatch
-func (options *UpdateServiceIDOptions) SetIfMatch(ifMatch string) *UpdateServiceIDOptions {
-	options.IfMatch = core.StringPtr(ifMatch)
-	return options
+func (_options *UpdateServiceIDOptions) SetIfMatch(ifMatch string) *UpdateServiceIDOptions {
+	_options.IfMatch = core.StringPtr(ifMatch)
+	return _options
 }
 
 // SetName : Allow user to set Name
-func (options *UpdateServiceIDOptions) SetName(name string) *UpdateServiceIDOptions {
-	options.Name = core.StringPtr(name)
-	return options
+func (_options *UpdateServiceIDOptions) SetName(name string) *UpdateServiceIDOptions {
+	_options.Name = core.StringPtr(name)
+	return _options
 }
 
 // SetDescription : Allow user to set Description
-func (options *UpdateServiceIDOptions) SetDescription(description string) *UpdateServiceIDOptions {
-	options.Description = core.StringPtr(description)
-	return options
+func (_options *UpdateServiceIDOptions) SetDescription(description string) *UpdateServiceIDOptions {
+	_options.Description = core.StringPtr(description)
+	return _options
 }
 
 // SetUniqueInstanceCrns : Allow user to set UniqueInstanceCrns
-func (options *UpdateServiceIDOptions) SetUniqueInstanceCrns(uniqueInstanceCrns []string) *UpdateServiceIDOptions {
-	options.UniqueInstanceCrns = uniqueInstanceCrns
-	return options
+func (_options *UpdateServiceIDOptions) SetUniqueInstanceCrns(uniqueInstanceCrns []string) *UpdateServiceIDOptions {
+	_options.UniqueInstanceCrns = uniqueInstanceCrns
+	return _options
 }
 
 // SetHeaders : Allow user to set Headers
