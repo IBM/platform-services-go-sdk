@@ -1,3 +1,10 @@
+## [0.18.18](https://github.com/IBM/platform-services-go-sdk/compare/v0.18.17...v0.18.18) (2021-06-15)
+
+
+### Bug Fixes
+
+* **IAM Identity:** re-gen service after recent API changes ([#129](https://github.com/IBM/platform-services-go-sdk/issues/129)) ([c1b4418](https://github.com/IBM/platform-services-go-sdk/commit/c1b44189948b59ff2aabf30b47490245e47e8dd1))
+
 ## [0.18.17](https://github.com/IBM/platform-services-go-sdk/compare/v0.18.16...v0.18.17) (2021-06-14)
 
 
