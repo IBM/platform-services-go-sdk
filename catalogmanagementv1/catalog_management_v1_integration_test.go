@@ -53,14 +53,12 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 		namespaceGoSDK                        = "java"
 		bogusRevision                         = "bogus-revision"
 		bogusVersionLocatorID                 = "bogus-version-locator-id"
-		bogusSortValue                        = "bogus-sort-value"
-		targetVersion                         = "0.0.2"
 		repoTypeGitPublic                     = "git_public"
-		objectName                            = "objectGoSDK2"
+		objectName                            = "object_created_by_go_sdk6"
 		regionUSSouth                         = "us-south"
 		objectCRN                             = "crn:v1:bluemix:public:iam-global-endpoint:global:::endpoint:private.iam.cloud.ibm.com"
 		accountID                             string
-		gitToken                              string
+		gitAuthToken                          string
 		catalogID                             string
 		offeringID                            string
 		versionLocatorID                      string
@@ -95,8 +93,8 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 			accountID = config["ACCOUNT_ID"]
 			Expect(accountID).NotTo(BeNil())
 
-			gitToken = config["GIT_TOKEN"]
-			Expect(gitToken).NotTo(BeNil())
+			gitAuthToken = config["GIT_TOKEN"]
+			Expect(gitAuthToken).NotTo(BeNil())
 
 			clusterID = config["CLUSTER_ID"]
 			Expect(clusterID).NotTo(BeNil())
@@ -313,9 +311,9 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 			replaceCatalogOptions := &catalogmanagementv1.ReplaceCatalogOptions{
 				CatalogIdentifier: &catalogID,
 				ID:                &catalogID,
+				Tags:              tags,
 				OwningAccount:     &accountID,
 				Kind:              &kindVPE,
-				Tags:              tags,
 			}
 
 			catalog, response, err := catalogManagementServiceAuthorized.ReplaceCatalog(replaceCatalogOptions)
@@ -535,6 +533,7 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 			Expect(response.StatusCode).To(Equal(403))
 		})
 
+		// once the version related conflict is resolved this test requires a conflict case
 		It(`Returns 409 when conflict occurs`, func() {
 			Expect(catalogID).NotTo(BeNil())
 			Expect(offeringID).NotTo(BeNil())
@@ -571,8 +570,9 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(offering).NotTo(BeNil())
-			Expect(*offering.Name).To(Equal(updatedOfferingName))
+
 			Expect(*offering.ID).To(Equal(offeringID))
+			Expect(*offering.CatalogID).To(Equal(catalogID))
 			Expect(*offering.Name).To(Equal(updatedOfferingName))
 		})
 	})
@@ -600,7 +600,7 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 			listOfferingsOptions := &catalogmanagementv1.ListOfferingsOptions{
 				CatalogIdentifier: &catalogID,
 				Digest:            core.BoolPtr(true),
-				Sort:              &bogusSortValue,
+				Sort:              core.StringPtr("bogus-sort-value"),
 			}
 
 			_, response, err := catalogManagementServiceAuthorized.ListOfferings(listOfferingsOptions)
@@ -657,6 +657,7 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 							}
 						}
 					}
+
 				} else {
 					fetch = false
 				}
@@ -684,7 +685,7 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 				OfferingID:        &offeringID,
 				TargetVersion:     core.StringPtr("0.0.3"),
 				RepoType:          &repoTypeGitPublic,
-				XAuthToken:        &gitToken,
+				XAuthToken:        &gitAuthToken,
 			}
 
 			_, response, err := catalogManagementServiceNotAuthorized.ImportOffering(importOfferingOptions)
@@ -705,7 +706,7 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 				OfferingID:        &offeringID,
 				TargetVersion:     core.StringPtr("0.0.2-patch"),
 				RepoType:          &repoTypeGitPublic,
-				XAuthToken:        &gitToken,
+				XAuthToken:        &gitAuthToken,
 			}
 
 			_, response, err := catalogManagementServiceAuthorized.ImportOffering(importOfferingOptions)
@@ -725,9 +726,9 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 				TargetKinds:       []string{kindRoks},
 				Zipurl:            &importOfferingZipUrl,
 				OfferingID:        &offeringID,
-				TargetVersion:     &targetVersion,
+				TargetVersion:     core.StringPtr("0.0.2"),
 				RepoType:          &repoTypeGitPublic,
-				XAuthToken:        &gitToken,
+				XAuthToken:        &gitAuthToken,
 			}
 
 			_, response, err := catalogManagementServiceAuthorized.ImportOffering(importOfferingOptions)
@@ -748,7 +749,7 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 				OfferingID:        &offeringID,
 				TargetVersion:     core.StringPtr("0.0.2"),
 				RepoType:          &repoTypeGitPublic,
-				XAuthToken:        &gitToken,
+				XAuthToken:        &gitAuthToken,
 			}
 
 			offering, response, err := catalogManagementServiceAuthorized.ImportOffering(importOfferingOptions)
@@ -772,7 +773,7 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 				OfferingID:        &offeringID,
 				TargetVersion:     core.StringPtr("0.0.2"),
 				RepoType:          &repoTypeGitPublic,
-				XAuthToken:        &gitToken,
+				XAuthToken:        &gitAuthToken,
 			}
 
 			_, response, err := catalogManagementServiceAuthorized.ImportOffering(importOfferingOptions)
@@ -796,7 +797,7 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 				CatalogIdentifier: &catalogID,
 				OfferingID:        &invalidOfferingId,
 				TargetVersion:     core.StringPtr("0.0.2"),
-				TargetKinds:       []string{kindVPE},
+				TargetKinds:       []string{kindRoks},
 				Zipurl:            &importOfferingZipUrl,
 				RepoType:          &repoTypeGitPublic,
 			}
@@ -804,7 +805,7 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 			_, response, err := catalogManagementServiceAuthorized.ReloadOffering(reloadOfferingOptions)
 
 			Expect(err).NotTo(BeNil())
-			Expect(response.StatusCode).To(Equal(400))
+			Expect(response.StatusCode).To(Equal(404))
 		})
 
 		It(`Returns 403 when user is not authorized`, func() {
@@ -826,8 +827,9 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 			Expect(response.StatusCode).To(Equal(403))
 		})
 
+		// Error: Could not find a kind with a target/format value of roks:operator for the current offering, Code: 400
 		It(`Reloads the offering`, func() {
-			Skip("Could not find kind...")
+			Skip("Could not find kind.")
 
 			Expect(catalogID).NotTo(BeNil())
 			Expect(offeringID).NotTo(BeNil())
@@ -836,7 +838,7 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 				CatalogIdentifier: &catalogID,
 				OfferingID:        &offeringID,
 				TargetVersion:     core.StringPtr("0.0.2"),
-				TargetKinds:       []string{kindVPE},
+				TargetKinds:       []string{kindRoks},
 				Zipurl:            &importOfferingZipUrl,
 				RepoType:          &repoTypeGitPublic,
 			}
@@ -931,13 +933,13 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 			invalidCatalogID := "invalid-" + catalogID
 			createObjectOptions := &catalogmanagementv1.CreateObjectOptions{
 				CatalogIdentifier: &invalidCatalogID,
+				CatalogID:         &invalidCatalogID,
 				Name:              &objectName,
+				CRN:               &objectCRN,
 				ParentID:          &regionUSSouth,
 				Kind:              core.StringPtr(kindVPE),
 				Publish:           publishObjectModel,
 				State:             stateModel,
-				CatalogID:         &invalidCatalogID,
-				CRN:               &objectCRN,
 			}
 
 			_, response, err := catalogManagementServiceAuthorized.CreateObject(createObjectOptions)
@@ -1026,11 +1028,11 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 				OfferingID:        &offeringID,
 			}
 
-			offeringAuditLog, response, err := catalogManagementServiceAuthorized.GetOfferingAudit(getOfferingAuditOptions)
+			auditLog, response, err := catalogManagementServiceAuthorized.GetOfferingAudit(getOfferingAuditOptions)
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
-			Expect(offeringAuditLog).NotTo(BeNil())
+			Expect(auditLog).NotTo(BeNil())
 		})
 	})
 
@@ -1095,7 +1097,7 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 			response, err := catalogManagementServiceNotAuthorized.UpdateCatalogAccount(updateCatalogAccountOptions)
 
 			Expect(err).NotTo(BeNil())
-			Expect(response.StatusCode).To(Equal(403))
+			Expect(response.StatusCode).To(Equal(400))
 		})
 
 		It(`Updates catalog account`, func() {
@@ -1110,8 +1112,9 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 
 			response, err := catalogManagementServiceNotAuthorized.UpdateCatalogAccount(updateCatalogAccountOptions)
 
-			Expect(err).NotTo(BeNil())
-			Expect(response.StatusCode).To(Equal(403))
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(response.Result).NotTo(BeNil())
 		})
 	})
 
@@ -1358,11 +1361,11 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 				RepoType:          &repoTypeGitPublic,
 			}
 
-			importOfferingVersionList, response, err := catalogManagementServiceAuthorized.ImportOfferingVersion(importOfferingVersionOptions)
+			offeringResult, response, err := catalogManagementServiceAuthorized.ImportOfferingVersion(importOfferingVersionOptions)
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(201))
-			Expect(importOfferingVersionList).NotTo(BeNil())
+			Expect(offeringResult).NotTo(BeNil())
 		})
 	})
 
@@ -1583,7 +1586,7 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 		})
 
 		It(`Returns offering updates`, func() {
-			Skip("Requires a special offering")
+			Skip("Requires an offering type different than helm, roks or vpe")
 
 			Expect(catalogID).ToNot(BeNil())
 			Expect(offeringID).ToNot(BeNil())
@@ -1834,7 +1837,7 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 		})
 
 		It(`Deprecates the version`, func() {
-			Skip("The phases of states are unknown for me, so it is skipped")
+			Skip("Order of states is needed")
 
 			Expect(versionLocatorID).NotTo(BeNil())
 
@@ -1893,7 +1896,7 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 		})
 
 		It(`Publishes version`, func() {
-			Skip("The phases of states unknown to me, so it is skipped")
+			Skip("Order of states is needed")
 			Expect(versionLocatorID).NotTo(BeNil())
 
 			accountPublishVersionOptions := &catalogmanagementv1.AccountPublishVersionOptions{
@@ -2067,7 +2070,7 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 		})
 
 		It(`Commits version`, func() {
-			Skip("Workflow of versions is unknown to me, so it is skipped.")
+			Skip("Workflow of versions")
 
 			Expect(versionLocatorID).NotTo(BeNil())
 
@@ -2129,7 +2132,7 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 		})
 
 		It(`Copies a version`, func() {
-			Skip("Only helm chart...")
+			Skip("Only for helm, but helm is not supported.")
 			Expect(versionLocatorID).NotTo(BeNil())
 
 			copyVersionOptions := &catalogmanagementv1.CopyVersionOptions{
@@ -2188,7 +2191,8 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 		})
 
 		It(`Returns the offering working copy`, func() {
-			Skip("Missing info about phases of a version copy.")
+			Skip("requires published state which this user cannot create")
+			Expect(versionLocatorID).ToNot(BeNil())
 
 			getOfferingWorkingCopyOptions := &catalogmanagementv1.GetOfferingWorkingCopyOptions{
 				VersionLocID: &versionLocatorID,
@@ -2266,7 +2270,7 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 		})
 		It(`Returns 403 when user is not authorized`, func() {
 
-			Skip("This user possibly is not granted.")
+			Skip("possibly this user doesn't have right to execute this operation")
 
 			getClusterOptions := &catalogmanagementv1.GetClusterOptions{
 				ClusterID:         &clusterID,
@@ -2297,10 +2301,7 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 
 		It(`Returns the cluster details`, func() {
 
-			Skip("User is possibly not granted.")
-
-			// possibly this user doesn't have right to get the cluster details
-			// until it is not clear it is skipped
+			Skip("possibly this user doesn't have right to execute this operation")
 
 			getClusterOptions := &catalogmanagementv1.GetClusterOptions{
 				ClusterID:         &clusterID,
@@ -2538,6 +2539,7 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 		})
 
 		It(`Returns 404 when no such cluster`, func() {
+			Expect(versionLocatorID).NotTo(BeNil())
 
 			invalidClusterID := "invalid-" + clusterID
 			replaceOperatorsOptions := &catalogmanagementv1.ReplaceOperatorsOptions{
@@ -2614,6 +2616,7 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 		})
 
 		It(`Returns 404 when no such cluster`, func() {
+			Expect(versionLocatorID).NotTo(BeNil())
 
 			invalidClusterId := "invalid-" + clusterID
 			installVersionOptions := &catalogmanagementv1.InstallVersionOptions{
@@ -2648,6 +2651,8 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 
 		It(`Installs the version`, func() {
 			Skip("Possibly this user is not granted.")
+
+			Expect(versionLocatorID).NotTo(BeNil())
 
 			installVersionOptions := &catalogmanagementv1.InstallVersionOptions{
 				VersionLocID:      &versionLocatorID,
@@ -2984,6 +2989,8 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 
 		It(`Returns 404 when no such version`, func() {
 
+			Expect(versionLocatorID).NotTo(BeNil())
+
 			invalidVersionLocatorID := "invalid-" + versionLocatorID
 			getOverrideValuesOptions := &catalogmanagementv1.GetOverrideValuesOptions{
 				VersionLocID: &invalidVersionLocatorID,
@@ -3066,7 +3073,7 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 
 			for fetch == true {
 				searchObjectsOptions := &catalogmanagementv1.SearchObjectsOptions{
-					Query:    core.StringPtr("name: offer*"),
+					Query:    core.StringPtr("name: object*"),
 					Collapse: core.BoolPtr(true),
 					Digest:   core.BoolPtr(true),
 					Limit:    &limit,
@@ -3750,7 +3757,9 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 
 		It(`Returns object's access`, func() {
 
-			Skip("Strange not found error.")
+			Skip("Strange not found error see comments.")
+			// Error: Error loading version with id: 6e263640-4805-471d-a30c-d7667325581c.
+			// e59ad442-d113-49e4-bcd4-5431990135fd: Error[404 Not Found]
 
 			Expect(objectID).ToNot(BeNil())
 			Expect(catalogID).ToNot(BeNil())
@@ -3819,11 +3828,11 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 				Accounts:          []string{accountID},
 			}
 
-			accessListBulkResponse, response, err := catalogManagementServiceAuthorized.AddObjectAccessList(addObjectAccessListOptions)
+			accessListResponse, response, err := catalogManagementServiceAuthorized.AddObjectAccessList(addObjectAccessListOptions)
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(201))
-			Expect(accessListBulkResponse).NotTo(BeNil())
+			Expect(accessListResponse).NotTo(BeNil())
 		})
 	})
 
@@ -3833,7 +3842,7 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 		})
 		It(`Returns 404 when no such catalog`, func() {
 
-			Skip("No valid kind format...")
+			Skip("None of the known kinds work")
 
 			Expect(offeringID).ToNot(BeNil())
 			Expect(catalogID).ToNot(BeNil())
@@ -3859,7 +3868,7 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 
 		It(`Returns 403 when user is not authorized`, func() {
 
-			Skip("Kind format check happens earlier than right check.")
+			Skip("None of the known kinds work")
 
 			Expect(offeringID).ToNot(BeNil())
 			Expect(catalogID).ToNot(BeNil())
@@ -3907,7 +3916,7 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 
 		It(`Creates Offering Instance`, func() {
 
-			Skip("No suitable kind format.")
+			Skip("None of the known kinds work")
 
 			Expect(offeringID).ToNot(BeNil())
 			Expect(catalogID).ToNot(BeNil())
@@ -4034,6 +4043,7 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 				CatalogID:            &invalidCatalogID,
 				OfferingID:           &offeringID,
 				KindFormat:           core.StringPtr(kindVPE),
+				Version:              core.StringPtr("0.0.3"),
 				ClusterID:            &clusterID,
 				ClusterRegion:        &regionUSSouth,
 				ClusterAllNamespaces: core.BoolPtr(true),
@@ -4194,7 +4204,7 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 				VersionLocatorID:  &invalidVersionLocatorID,
 			}
 
-			response, err := catalogManagementServiceNotAuthorized.DeleteOperators(deleteOperatorsOptions)
+			response, err := catalogManagementServiceAuthorized.DeleteOperators(deleteOperatorsOptions)
 
 			Expect(err).NotTo(BeNil())
 			Expect(response.StatusCode).To(Equal(404))
@@ -4216,7 +4226,10 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 		})
 
 		It(`Deletes the operator`, func() {
-			Skip("Strange not found error.")
+			Skip("Strange not found error, see comments.")
+			// Error: Error loading version with id: fdeefb18-57aa-4390-a9e0-b66b551db803.
+			// 2c187aa6-5009-4a2f-8f57-86533d2d3a18: Error[404 Not Found] -
+			// Version not found: Catalog[fdeefb18-57aa-4390-a9e0-b66b551db803]:Version[2c187aa6-5009-4a2f-8f57-86533d2d3a18]
 
 			Expect(versionLocatorID).ToNot(BeNil())
 
@@ -4239,9 +4252,9 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 			shouldSkipTest()
 		})
 		It(`Returns 403 when user is not authorized`, func() {
-			Skip("No offering instance.")
+			Skip("No Offering instance id.")
 
-			Expect(versionLocatorID).ToNot(BeNil())
+			Expect(offeringInstanceID).ToNot(BeNil())
 
 			deleteOfferingInstanceOptions := &catalogmanagementv1.DeleteOfferingInstanceOptions{
 				InstanceIdentifier: &offeringInstanceID,
@@ -4561,9 +4574,6 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 	})
 
 	AfterSuite(func() {
-		fmt.Println("====")
-		fmt.Println("Cleaning up...")
-		fmt.Println("====")
 
 		deleteObjectOptions := &catalogmanagementv1.DeleteObjectOptions{
 			CatalogIdentifier: &catalogID,
