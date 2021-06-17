@@ -4530,7 +4530,7 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 			shouldSkipTest()
 		})
 
-		It(`Returns 404 when no such catalog`, func() {
+		It(`Returns 200 when no such catalog`, func() {
 			Expect(catalogID).NotTo(BeNil())
 
 			invalidCatalogId := "invalid-" + catalogID
