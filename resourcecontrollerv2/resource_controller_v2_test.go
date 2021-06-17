@@ -67,13 +67,14 @@ var _ = Describe(`ResourceControllerV2`, func() {
 		Context(`Using external config, construct service client instances`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"RESOURCE_CONTROLLER_URL":       "https://resourcecontrollerv2/api",
+				"RESOURCE_CONTROLLER_URL": "https://resourcecontrollerv2/api",
 				"RESOURCE_CONTROLLER_AUTH_TYPE": "noauth",
 			}
 
 			It(`Create service client using external config successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2UsingExternalConfig(&resourcecontrollerv2.ResourceControllerV2Options{})
+				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2UsingExternalConfig(&resourcecontrollerv2.ResourceControllerV2Options{
+				})
 				Expect(resourceControllerService).ToNot(BeNil())
 				Expect(serviceErr).To(BeNil())
 				ClearTestEnvironment(testEnvironment)
@@ -102,7 +103,8 @@ var _ = Describe(`ResourceControllerV2`, func() {
 			})
 			It(`Create service client using external config and set url programatically successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2UsingExternalConfig(&resourcecontrollerv2.ResourceControllerV2Options{})
+				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2UsingExternalConfig(&resourcecontrollerv2.ResourceControllerV2Options{
+				})
 				err := resourceControllerService.SetServiceURL("https://testService/api")
 				Expect(err).To(BeNil())
 				Expect(resourceControllerService).ToNot(BeNil())
@@ -120,12 +122,13 @@ var _ = Describe(`ResourceControllerV2`, func() {
 		Context(`Using external config, construct service client instances with error: Invalid Auth`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"RESOURCE_CONTROLLER_URL":       "https://resourcecontrollerv2/api",
+				"RESOURCE_CONTROLLER_URL": "https://resourcecontrollerv2/api",
 				"RESOURCE_CONTROLLER_AUTH_TYPE": "someOtherAuth",
 			}
 
 			SetTestEnvironment(testEnvironment)
-			resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2UsingExternalConfig(&resourcecontrollerv2.ResourceControllerV2Options{})
+			resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2UsingExternalConfig(&resourcecontrollerv2.ResourceControllerV2Options{
+			})
 
 			It(`Instantiate service client with error`, func() {
 				Expect(resourceControllerService).To(BeNil())
@@ -136,7 +139,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 		Context(`Using external config, construct service client instances with error: Invalid URL`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"RESOURCE_CONTROLLER_AUTH_TYPE": "NOAuth",
+				"RESOURCE_CONTROLLER_AUTH_TYPE":   "NOAuth",
 			}
 
 			SetTestEnvironment(testEnvironment)
@@ -163,7 +166,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 	})
 	Describe(`ListResourceInstances(listResourceInstancesOptions *ListResourceInstancesOptions) - Operation response error`, func() {
 		listResourceInstancesPath := "/v2/resource_instances"
-		Context(`Using mock server endpoint`, func() {
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
@@ -181,7 +184,6 @@ var _ = Describe(`ResourceControllerV2`, func() {
 					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(100))}))
 					Expect(req.URL.Query()["start"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["state"]).To(Equal([]string{"active"}))
-					Expect(req.URL.Query()["order_direction"]).To(Equal([]string{"asc"}))
 					Expect(req.URL.Query()["updated_from"]).To(Equal([]string{"2019-01-08T00:00:00.000Z"}))
 					Expect(req.URL.Query()["updated_to"]).To(Equal([]string{"2019-01-08T00:00:00.000Z"}))
 					res.Header().Set("Content-type", "application/json")
@@ -209,7 +211,6 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				listResourceInstancesOptionsModel.Limit = core.Int64Ptr(int64(100))
 				listResourceInstancesOptionsModel.Start = core.StringPtr("testString")
 				listResourceInstancesOptionsModel.State = core.StringPtr("active")
-				listResourceInstancesOptionsModel.OrderDirection = core.StringPtr("asc")
 				listResourceInstancesOptionsModel.UpdatedFrom = core.StringPtr("2019-01-08T00:00:00.000Z")
 				listResourceInstancesOptionsModel.UpdatedTo = core.StringPtr("2019-01-08T00:00:00.000Z")
 				listResourceInstancesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
@@ -231,7 +232,6 @@ var _ = Describe(`ResourceControllerV2`, func() {
 			})
 		})
 	})
-
 	Describe(`ListResourceInstances(listResourceInstancesOptions *ListResourceInstancesOptions)`, func() {
 		listResourceInstancesPath := "/v2/resource_instances"
 		Context(`Using mock server endpoint with timeout`, func() {
@@ -253,7 +253,6 @@ var _ = Describe(`ResourceControllerV2`, func() {
 					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(100))}))
 					Expect(req.URL.Query()["start"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["state"]).To(Equal([]string{"active"}))
-					Expect(req.URL.Query()["order_direction"]).To(Equal([]string{"asc"}))
 					Expect(req.URL.Query()["updated_from"]).To(Equal([]string{"2019-01-08T00:00:00.000Z"}))
 					Expect(req.URL.Query()["updated_to"]).To(Equal([]string{"2019-01-08T00:00:00.000Z"}))
 					// Sleep a short time to support a timeout test
@@ -286,7 +285,6 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				listResourceInstancesOptionsModel.Limit = core.Int64Ptr(int64(100))
 				listResourceInstancesOptionsModel.Start = core.StringPtr("testString")
 				listResourceInstancesOptionsModel.State = core.StringPtr("active")
-				listResourceInstancesOptionsModel.OrderDirection = core.StringPtr("asc")
 				listResourceInstancesOptionsModel.UpdatedFrom = core.StringPtr("2019-01-08T00:00:00.000Z")
 				listResourceInstancesOptionsModel.UpdatedTo = core.StringPtr("2019-01-08T00:00:00.000Z")
 				listResourceInstancesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
@@ -335,7 +333,6 @@ var _ = Describe(`ResourceControllerV2`, func() {
 					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(100))}))
 					Expect(req.URL.Query()["start"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["state"]).To(Equal([]string{"active"}))
-					Expect(req.URL.Query()["order_direction"]).To(Equal([]string{"asc"}))
 					Expect(req.URL.Query()["updated_from"]).To(Equal([]string{"2019-01-08T00:00:00.000Z"}))
 					Expect(req.URL.Query()["updated_to"]).To(Equal([]string{"2019-01-08T00:00:00.000Z"}))
 					// Set mock response
@@ -370,7 +367,6 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				listResourceInstancesOptionsModel.Limit = core.Int64Ptr(int64(100))
 				listResourceInstancesOptionsModel.Start = core.StringPtr("testString")
 				listResourceInstancesOptionsModel.State = core.StringPtr("active")
-				listResourceInstancesOptionsModel.OrderDirection = core.StringPtr("asc")
 				listResourceInstancesOptionsModel.UpdatedFrom = core.StringPtr("2019-01-08T00:00:00.000Z")
 				listResourceInstancesOptionsModel.UpdatedTo = core.StringPtr("2019-01-08T00:00:00.000Z")
 				listResourceInstancesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
@@ -402,7 +398,6 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				listResourceInstancesOptionsModel.Limit = core.Int64Ptr(int64(100))
 				listResourceInstancesOptionsModel.Start = core.StringPtr("testString")
 				listResourceInstancesOptionsModel.State = core.StringPtr("active")
-				listResourceInstancesOptionsModel.OrderDirection = core.StringPtr("asc")
 				listResourceInstancesOptionsModel.UpdatedFrom = core.StringPtr("2019-01-08T00:00:00.000Z")
 				listResourceInstancesOptionsModel.UpdatedTo = core.StringPtr("2019-01-08T00:00:00.000Z")
 				listResourceInstancesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
@@ -419,10 +414,55 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				testServer.Close()
 			})
 		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke ListResourceInstances successfully`, func() {
+				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(resourceControllerService).ToNot(BeNil())
+
+				// Construct an instance of the ListResourceInstancesOptions model
+				listResourceInstancesOptionsModel := new(resourcecontrollerv2.ListResourceInstancesOptions)
+				listResourceInstancesOptionsModel.GUID = core.StringPtr("testString")
+				listResourceInstancesOptionsModel.Name = core.StringPtr("testString")
+				listResourceInstancesOptionsModel.ResourceGroupID = core.StringPtr("testString")
+				listResourceInstancesOptionsModel.ResourceID = core.StringPtr("testString")
+				listResourceInstancesOptionsModel.ResourcePlanID = core.StringPtr("testString")
+				listResourceInstancesOptionsModel.Type = core.StringPtr("testString")
+				listResourceInstancesOptionsModel.SubType = core.StringPtr("testString")
+				listResourceInstancesOptionsModel.Limit = core.Int64Ptr(int64(100))
+				listResourceInstancesOptionsModel.Start = core.StringPtr("testString")
+				listResourceInstancesOptionsModel.State = core.StringPtr("active")
+				listResourceInstancesOptionsModel.UpdatedFrom = core.StringPtr("2019-01-08T00:00:00.000Z")
+				listResourceInstancesOptionsModel.UpdatedTo = core.StringPtr("2019-01-08T00:00:00.000Z")
+				listResourceInstancesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := resourceControllerService.ListResourceInstances(listResourceInstancesOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
 	})
 	Describe(`CreateResourceInstance(createResourceInstanceOptions *CreateResourceInstanceOptions) - Operation response error`, func() {
 		createResourceInstancePath := "/v2/resource_instances"
-		Context(`Using mock server endpoint`, func() {
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
@@ -447,10 +487,10 @@ var _ = Describe(`ResourceControllerV2`, func() {
 
 				// Construct an instance of the CreateResourceInstanceOptions model
 				createResourceInstanceOptionsModel := new(resourcecontrollerv2.CreateResourceInstanceOptions)
-				createResourceInstanceOptionsModel.Name = core.StringPtr("ExampleResourceInstance")
-				createResourceInstanceOptionsModel.Target = core.StringPtr("global")
-				createResourceInstanceOptionsModel.ResourceGroup = core.StringPtr("13aa3ee48c3b44ddb64c05c79f7ab8ef")
-				createResourceInstanceOptionsModel.ResourcePlanID = core.StringPtr("a10e4960-3685-11e9-b210-d663bd873d93")
+				createResourceInstanceOptionsModel.Name = core.StringPtr("my-instance")
+				createResourceInstanceOptionsModel.Target = core.StringPtr("bluemix-us-south")
+				createResourceInstanceOptionsModel.ResourceGroup = core.StringPtr("5c49eabc-f5e8-5881-a37e-2d100a33b3df")
+				createResourceInstanceOptionsModel.ResourcePlanID = core.StringPtr("cloudant-standard")
 				createResourceInstanceOptionsModel.Tags = []string{"testString"}
 				createResourceInstanceOptionsModel.AllowCleanup = core.BoolPtr(true)
 				createResourceInstanceOptionsModel.Parameters = make(map[string]interface{})
@@ -474,7 +514,6 @@ var _ = Describe(`ResourceControllerV2`, func() {
 			})
 		})
 	})
-
 	Describe(`CreateResourceInstance(createResourceInstanceOptions *CreateResourceInstanceOptions)`, func() {
 		createResourceInstancePath := "/v2/resource_instances"
 		Context(`Using mock server endpoint with timeout`, func() {
@@ -524,10 +563,10 @@ var _ = Describe(`ResourceControllerV2`, func() {
 
 				// Construct an instance of the CreateResourceInstanceOptions model
 				createResourceInstanceOptionsModel := new(resourcecontrollerv2.CreateResourceInstanceOptions)
-				createResourceInstanceOptionsModel.Name = core.StringPtr("ExampleResourceInstance")
-				createResourceInstanceOptionsModel.Target = core.StringPtr("global")
-				createResourceInstanceOptionsModel.ResourceGroup = core.StringPtr("13aa3ee48c3b44ddb64c05c79f7ab8ef")
-				createResourceInstanceOptionsModel.ResourcePlanID = core.StringPtr("a10e4960-3685-11e9-b210-d663bd873d93")
+				createResourceInstanceOptionsModel.Name = core.StringPtr("my-instance")
+				createResourceInstanceOptionsModel.Target = core.StringPtr("bluemix-us-south")
+				createResourceInstanceOptionsModel.ResourceGroup = core.StringPtr("5c49eabc-f5e8-5881-a37e-2d100a33b3df")
+				createResourceInstanceOptionsModel.ResourcePlanID = core.StringPtr("cloudant-standard")
 				createResourceInstanceOptionsModel.Tags = []string{"testString"}
 				createResourceInstanceOptionsModel.AllowCleanup = core.BoolPtr(true)
 				createResourceInstanceOptionsModel.Parameters = make(map[string]interface{})
@@ -608,10 +647,10 @@ var _ = Describe(`ResourceControllerV2`, func() {
 
 				// Construct an instance of the CreateResourceInstanceOptions model
 				createResourceInstanceOptionsModel := new(resourcecontrollerv2.CreateResourceInstanceOptions)
-				createResourceInstanceOptionsModel.Name = core.StringPtr("ExampleResourceInstance")
-				createResourceInstanceOptionsModel.Target = core.StringPtr("global")
-				createResourceInstanceOptionsModel.ResourceGroup = core.StringPtr("13aa3ee48c3b44ddb64c05c79f7ab8ef")
-				createResourceInstanceOptionsModel.ResourcePlanID = core.StringPtr("a10e4960-3685-11e9-b210-d663bd873d93")
+				createResourceInstanceOptionsModel.Name = core.StringPtr("my-instance")
+				createResourceInstanceOptionsModel.Target = core.StringPtr("bluemix-us-south")
+				createResourceInstanceOptionsModel.ResourceGroup = core.StringPtr("5c49eabc-f5e8-5881-a37e-2d100a33b3df")
+				createResourceInstanceOptionsModel.ResourcePlanID = core.StringPtr("cloudant-standard")
 				createResourceInstanceOptionsModel.Tags = []string{"testString"}
 				createResourceInstanceOptionsModel.AllowCleanup = core.BoolPtr(true)
 				createResourceInstanceOptionsModel.Parameters = make(map[string]interface{})
@@ -635,10 +674,10 @@ var _ = Describe(`ResourceControllerV2`, func() {
 
 				// Construct an instance of the CreateResourceInstanceOptions model
 				createResourceInstanceOptionsModel := new(resourcecontrollerv2.CreateResourceInstanceOptions)
-				createResourceInstanceOptionsModel.Name = core.StringPtr("ExampleResourceInstance")
-				createResourceInstanceOptionsModel.Target = core.StringPtr("global")
-				createResourceInstanceOptionsModel.ResourceGroup = core.StringPtr("13aa3ee48c3b44ddb64c05c79f7ab8ef")
-				createResourceInstanceOptionsModel.ResourcePlanID = core.StringPtr("a10e4960-3685-11e9-b210-d663bd873d93")
+				createResourceInstanceOptionsModel.Name = core.StringPtr("my-instance")
+				createResourceInstanceOptionsModel.Target = core.StringPtr("bluemix-us-south")
+				createResourceInstanceOptionsModel.ResourceGroup = core.StringPtr("5c49eabc-f5e8-5881-a37e-2d100a33b3df")
+				createResourceInstanceOptionsModel.ResourcePlanID = core.StringPtr("cloudant-standard")
 				createResourceInstanceOptionsModel.Tags = []string{"testString"}
 				createResourceInstanceOptionsModel.AllowCleanup = core.BoolPtr(true)
 				createResourceInstanceOptionsModel.Parameters = make(map[string]interface{})
@@ -664,10 +703,51 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				testServer.Close()
 			})
 		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(201)
+				}))
+			})
+			It(`Invoke CreateResourceInstance successfully`, func() {
+				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(resourceControllerService).ToNot(BeNil())
+
+				// Construct an instance of the CreateResourceInstanceOptions model
+				createResourceInstanceOptionsModel := new(resourcecontrollerv2.CreateResourceInstanceOptions)
+				createResourceInstanceOptionsModel.Name = core.StringPtr("my-instance")
+				createResourceInstanceOptionsModel.Target = core.StringPtr("bluemix-us-south")
+				createResourceInstanceOptionsModel.ResourceGroup = core.StringPtr("5c49eabc-f5e8-5881-a37e-2d100a33b3df")
+				createResourceInstanceOptionsModel.ResourcePlanID = core.StringPtr("cloudant-standard")
+				createResourceInstanceOptionsModel.Tags = []string{"testString"}
+				createResourceInstanceOptionsModel.AllowCleanup = core.BoolPtr(true)
+				createResourceInstanceOptionsModel.Parameters = make(map[string]interface{})
+				createResourceInstanceOptionsModel.EntityLock = core.BoolPtr(true)
+				createResourceInstanceOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := resourceControllerService.CreateResourceInstance(createResourceInstanceOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
 	})
 	Describe(`GetResourceInstance(getResourceInstanceOptions *GetResourceInstanceOptions) - Operation response error`, func() {
 		getResourceInstancePath := "/v2/resource_instances/testString"
-		Context(`Using mock server endpoint`, func() {
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
@@ -710,7 +790,6 @@ var _ = Describe(`ResourceControllerV2`, func() {
 			})
 		})
 	})
-
 	Describe(`GetResourceInstance(getResourceInstanceOptions *GetResourceInstanceOptions)`, func() {
 		getResourceInstancePath := "/v2/resource_instances/testString"
 		Context(`Using mock server endpoint with timeout`, func() {
@@ -843,8 +922,41 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				testServer.Close()
 			})
 		})
-	})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
 
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke GetResourceInstance successfully`, func() {
+				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(resourceControllerService).ToNot(BeNil())
+
+				// Construct an instance of the GetResourceInstanceOptions model
+				getResourceInstanceOptionsModel := new(resourcecontrollerv2.GetResourceInstanceOptions)
+				getResourceInstanceOptionsModel.ID = core.StringPtr("testString")
+				getResourceInstanceOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := resourceControllerService.GetResourceInstance(getResourceInstanceOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
 	Describe(`DeleteResourceInstance(deleteResourceInstanceOptions *DeleteResourceInstanceOptions)`, func() {
 		deleteResourceInstancePath := "/v2/resource_instances/testString"
 		Context(`Using mock server endpoint`, func() {
@@ -918,7 +1030,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 	})
 	Describe(`UpdateResourceInstance(updateResourceInstanceOptions *UpdateResourceInstanceOptions) - Operation response error`, func() {
 		updateResourceInstancePath := "/v2/resource_instances/testString"
-		Context(`Using mock server endpoint`, func() {
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
@@ -942,9 +1054,9 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				// Construct an instance of the UpdateResourceInstanceOptions model
 				updateResourceInstanceOptionsModel := new(resourcecontrollerv2.UpdateResourceInstanceOptions)
 				updateResourceInstanceOptionsModel.ID = core.StringPtr("testString")
-				updateResourceInstanceOptionsModel.Name = core.StringPtr("UpdatedExampleResourceInstance")
+				updateResourceInstanceOptionsModel.Name = core.StringPtr("my-new-instance-name")
 				updateResourceInstanceOptionsModel.Parameters = make(map[string]interface{})
-				updateResourceInstanceOptionsModel.ResourcePlanID = core.StringPtr("testString")
+				updateResourceInstanceOptionsModel.ResourcePlanID = core.StringPtr("a8dff6d3-d287-4668-a81d-c87c55c2656d")
 				updateResourceInstanceOptionsModel.AllowCleanup = core.BoolPtr(true)
 				updateResourceInstanceOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
@@ -965,7 +1077,6 @@ var _ = Describe(`ResourceControllerV2`, func() {
 			})
 		})
 	})
-
 	Describe(`UpdateResourceInstance(updateResourceInstanceOptions *UpdateResourceInstanceOptions)`, func() {
 		updateResourceInstancePath := "/v2/resource_instances/testString"
 		Context(`Using mock server endpoint with timeout`, func() {
@@ -1014,9 +1125,9 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				// Construct an instance of the UpdateResourceInstanceOptions model
 				updateResourceInstanceOptionsModel := new(resourcecontrollerv2.UpdateResourceInstanceOptions)
 				updateResourceInstanceOptionsModel.ID = core.StringPtr("testString")
-				updateResourceInstanceOptionsModel.Name = core.StringPtr("UpdatedExampleResourceInstance")
+				updateResourceInstanceOptionsModel.Name = core.StringPtr("my-new-instance-name")
 				updateResourceInstanceOptionsModel.Parameters = make(map[string]interface{})
-				updateResourceInstanceOptionsModel.ResourcePlanID = core.StringPtr("testString")
+				updateResourceInstanceOptionsModel.ResourcePlanID = core.StringPtr("a8dff6d3-d287-4668-a81d-c87c55c2656d")
 				updateResourceInstanceOptionsModel.AllowCleanup = core.BoolPtr(true)
 				updateResourceInstanceOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
@@ -1093,9 +1204,9 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				// Construct an instance of the UpdateResourceInstanceOptions model
 				updateResourceInstanceOptionsModel := new(resourcecontrollerv2.UpdateResourceInstanceOptions)
 				updateResourceInstanceOptionsModel.ID = core.StringPtr("testString")
-				updateResourceInstanceOptionsModel.Name = core.StringPtr("UpdatedExampleResourceInstance")
+				updateResourceInstanceOptionsModel.Name = core.StringPtr("my-new-instance-name")
 				updateResourceInstanceOptionsModel.Parameters = make(map[string]interface{})
-				updateResourceInstanceOptionsModel.ResourcePlanID = core.StringPtr("testString")
+				updateResourceInstanceOptionsModel.ResourcePlanID = core.StringPtr("a8dff6d3-d287-4668-a81d-c87c55c2656d")
 				updateResourceInstanceOptionsModel.AllowCleanup = core.BoolPtr(true)
 				updateResourceInstanceOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
@@ -1117,9 +1228,9 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				// Construct an instance of the UpdateResourceInstanceOptions model
 				updateResourceInstanceOptionsModel := new(resourcecontrollerv2.UpdateResourceInstanceOptions)
 				updateResourceInstanceOptionsModel.ID = core.StringPtr("testString")
-				updateResourceInstanceOptionsModel.Name = core.StringPtr("UpdatedExampleResourceInstance")
+				updateResourceInstanceOptionsModel.Name = core.StringPtr("my-new-instance-name")
 				updateResourceInstanceOptionsModel.Parameters = make(map[string]interface{})
-				updateResourceInstanceOptionsModel.ResourcePlanID = core.StringPtr("testString")
+				updateResourceInstanceOptionsModel.ResourcePlanID = core.StringPtr("a8dff6d3-d287-4668-a81d-c87c55c2656d")
 				updateResourceInstanceOptionsModel.AllowCleanup = core.BoolPtr(true)
 				updateResourceInstanceOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
@@ -1142,10 +1253,48 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				testServer.Close()
 			})
 		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke UpdateResourceInstance successfully`, func() {
+				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(resourceControllerService).ToNot(BeNil())
+
+				// Construct an instance of the UpdateResourceInstanceOptions model
+				updateResourceInstanceOptionsModel := new(resourcecontrollerv2.UpdateResourceInstanceOptions)
+				updateResourceInstanceOptionsModel.ID = core.StringPtr("testString")
+				updateResourceInstanceOptionsModel.Name = core.StringPtr("my-new-instance-name")
+				updateResourceInstanceOptionsModel.Parameters = make(map[string]interface{})
+				updateResourceInstanceOptionsModel.ResourcePlanID = core.StringPtr("a8dff6d3-d287-4668-a81d-c87c55c2656d")
+				updateResourceInstanceOptionsModel.AllowCleanup = core.BoolPtr(true)
+				updateResourceInstanceOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := resourceControllerService.UpdateResourceInstance(updateResourceInstanceOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
 	})
 	Describe(`ListResourceAliasesForInstance(listResourceAliasesForInstanceOptions *ListResourceAliasesForInstanceOptions) - Operation response error`, func() {
 		listResourceAliasesForInstancePath := "/v2/resource_instances/testString/resource_aliases"
-		Context(`Using mock server endpoint`, func() {
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
@@ -1192,7 +1341,6 @@ var _ = Describe(`ResourceControllerV2`, func() {
 			})
 		})
 	})
-
 	Describe(`ListResourceAliasesForInstance(listResourceAliasesForInstanceOptions *ListResourceAliasesForInstanceOptions)`, func() {
 		listResourceAliasesForInstancePath := "/v2/resource_instances/testString/resource_aliases"
 		Context(`Using mock server endpoint with timeout`, func() {
@@ -1335,10 +1483,46 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				testServer.Close()
 			})
 		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke ListResourceAliasesForInstance successfully`, func() {
+				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(resourceControllerService).ToNot(BeNil())
+
+				// Construct an instance of the ListResourceAliasesForInstanceOptions model
+				listResourceAliasesForInstanceOptionsModel := new(resourcecontrollerv2.ListResourceAliasesForInstanceOptions)
+				listResourceAliasesForInstanceOptionsModel.ID = core.StringPtr("testString")
+				listResourceAliasesForInstanceOptionsModel.Limit = core.Int64Ptr(int64(100))
+				listResourceAliasesForInstanceOptionsModel.Start = core.StringPtr("testString")
+				listResourceAliasesForInstanceOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := resourceControllerService.ListResourceAliasesForInstance(listResourceAliasesForInstanceOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
 	})
 	Describe(`ListResourceKeysForInstance(listResourceKeysForInstanceOptions *ListResourceKeysForInstanceOptions) - Operation response error`, func() {
 		listResourceKeysForInstancePath := "/v2/resource_instances/testString/resource_keys"
-		Context(`Using mock server endpoint`, func() {
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
@@ -1385,7 +1569,6 @@ var _ = Describe(`ResourceControllerV2`, func() {
 			})
 		})
 	})
-
 	Describe(`ListResourceKeysForInstance(listResourceKeysForInstanceOptions *ListResourceKeysForInstanceOptions)`, func() {
 		listResourceKeysForInstancePath := "/v2/resource_instances/testString/resource_keys"
 		Context(`Using mock server endpoint with timeout`, func() {
@@ -1528,10 +1711,46 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				testServer.Close()
 			})
 		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke ListResourceKeysForInstance successfully`, func() {
+				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(resourceControllerService).ToNot(BeNil())
+
+				// Construct an instance of the ListResourceKeysForInstanceOptions model
+				listResourceKeysForInstanceOptionsModel := new(resourcecontrollerv2.ListResourceKeysForInstanceOptions)
+				listResourceKeysForInstanceOptionsModel.ID = core.StringPtr("testString")
+				listResourceKeysForInstanceOptionsModel.Limit = core.Int64Ptr(int64(100))
+				listResourceKeysForInstanceOptionsModel.Start = core.StringPtr("testString")
+				listResourceKeysForInstanceOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := resourceControllerService.ListResourceKeysForInstance(listResourceKeysForInstanceOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
 	})
 	Describe(`LockResourceInstance(lockResourceInstanceOptions *LockResourceInstanceOptions) - Operation response error`, func() {
 		lockResourceInstancePath := "/v2/resource_instances/testString/lock"
-		Context(`Using mock server endpoint`, func() {
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
@@ -1574,7 +1793,6 @@ var _ = Describe(`ResourceControllerV2`, func() {
 			})
 		})
 	})
-
 	Describe(`LockResourceInstance(lockResourceInstanceOptions *LockResourceInstanceOptions)`, func() {
 		lockResourceInstancePath := "/v2/resource_instances/testString/lock"
 		Context(`Using mock server endpoint with timeout`, func() {
@@ -1707,10 +1925,44 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				testServer.Close()
 			})
 		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke LockResourceInstance successfully`, func() {
+				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(resourceControllerService).ToNot(BeNil())
+
+				// Construct an instance of the LockResourceInstanceOptions model
+				lockResourceInstanceOptionsModel := new(resourcecontrollerv2.LockResourceInstanceOptions)
+				lockResourceInstanceOptionsModel.ID = core.StringPtr("testString")
+				lockResourceInstanceOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := resourceControllerService.LockResourceInstance(lockResourceInstanceOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
 	})
 	Describe(`UnlockResourceInstance(unlockResourceInstanceOptions *UnlockResourceInstanceOptions) - Operation response error`, func() {
 		unlockResourceInstancePath := "/v2/resource_instances/testString/lock"
-		Context(`Using mock server endpoint`, func() {
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
@@ -1753,7 +2005,6 @@ var _ = Describe(`ResourceControllerV2`, func() {
 			})
 		})
 	})
-
 	Describe(`UnlockResourceInstance(unlockResourceInstanceOptions *UnlockResourceInstanceOptions)`, func() {
 		unlockResourceInstancePath := "/v2/resource_instances/testString/lock"
 		Context(`Using mock server endpoint with timeout`, func() {
@@ -1886,135 +2137,44 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				testServer.Close()
 			})
 		})
-	})
-	Describe(`Service constructor tests`, func() {
-		It(`Instantiate service client`, func() {
-			resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
-				Authenticator: &core.NoAuthAuthenticator{},
-			})
-			Expect(resourceControllerService).ToNot(BeNil())
-			Expect(serviceErr).To(BeNil())
-		})
-		It(`Instantiate service client with error: Invalid URL`, func() {
-			resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
-				URL: "{BAD_URL_STRING",
-			})
-			Expect(resourceControllerService).To(BeNil())
-			Expect(serviceErr).ToNot(BeNil())
-		})
-		It(`Instantiate service client with error: Invalid Auth`, func() {
-			resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
-				URL: "https://resourcecontrollerv2/api",
-				Authenticator: &core.BasicAuthenticator{
-					Username: "",
-					Password: "",
-				},
-			})
-			Expect(resourceControllerService).To(BeNil())
-			Expect(serviceErr).ToNot(BeNil())
-		})
-	})
-	Describe(`Service constructor tests using external config`, func() {
-		Context(`Using external config, construct service client instances`, func() {
-			// Map containing environment variables used in testing.
-			var testEnvironment = map[string]string{
-				"RESOURCE_CONTROLLER_URL":       "https://resourcecontrollerv2/api",
-				"RESOURCE_CONTROLLER_AUTH_TYPE": "noauth",
-			}
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
 
-			It(`Create service client using external config successfully`, func() {
-				SetTestEnvironment(testEnvironment)
-				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2UsingExternalConfig(&resourcecontrollerv2.ResourceControllerV2Options{})
-				Expect(resourceControllerService).ToNot(BeNil())
-				Expect(serviceErr).To(BeNil())
-				ClearTestEnvironment(testEnvironment)
-
-				clone := resourceControllerService.Clone()
-				Expect(clone).ToNot(BeNil())
-				Expect(clone.Service != resourceControllerService.Service).To(BeTrue())
-				Expect(clone.GetServiceURL()).To(Equal(resourceControllerService.GetServiceURL()))
-				Expect(clone.Service.Options.Authenticator).To(Equal(resourceControllerService.Service.Options.Authenticator))
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
 			})
-			It(`Create service client using external config and set url from constructor successfully`, func() {
-				SetTestEnvironment(testEnvironment)
-				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2UsingExternalConfig(&resourcecontrollerv2.ResourceControllerV2Options{
-					URL: "https://testService/api",
+			It(`Invoke UnlockResourceInstance successfully`, func() {
+				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
 				})
-				Expect(resourceControllerService).ToNot(BeNil())
 				Expect(serviceErr).To(BeNil())
-				Expect(resourceControllerService.Service.GetServiceURL()).To(Equal("https://testService/api"))
-				ClearTestEnvironment(testEnvironment)
-
-				clone := resourceControllerService.Clone()
-				Expect(clone).ToNot(BeNil())
-				Expect(clone.Service != resourceControllerService.Service).To(BeTrue())
-				Expect(clone.GetServiceURL()).To(Equal(resourceControllerService.GetServiceURL()))
-				Expect(clone.Service.Options.Authenticator).To(Equal(resourceControllerService.Service.Options.Authenticator))
-			})
-			It(`Create service client using external config and set url programatically successfully`, func() {
-				SetTestEnvironment(testEnvironment)
-				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2UsingExternalConfig(&resourcecontrollerv2.ResourceControllerV2Options{})
-				err := resourceControllerService.SetServiceURL("https://testService/api")
-				Expect(err).To(BeNil())
 				Expect(resourceControllerService).ToNot(BeNil())
-				Expect(serviceErr).To(BeNil())
-				Expect(resourceControllerService.Service.GetServiceURL()).To(Equal("https://testService/api"))
-				ClearTestEnvironment(testEnvironment)
 
-				clone := resourceControllerService.Clone()
-				Expect(clone).ToNot(BeNil())
-				Expect(clone.Service != resourceControllerService.Service).To(BeTrue())
-				Expect(clone.GetServiceURL()).To(Equal(resourceControllerService.GetServiceURL()))
-				Expect(clone.Service.Options.Authenticator).To(Equal(resourceControllerService.Service.Options.Authenticator))
+				// Construct an instance of the UnlockResourceInstanceOptions model
+				unlockResourceInstanceOptionsModel := new(resourcecontrollerv2.UnlockResourceInstanceOptions)
+				unlockResourceInstanceOptionsModel.ID = core.StringPtr("testString")
+				unlockResourceInstanceOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := resourceControllerService.UnlockResourceInstance(unlockResourceInstanceOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
 			})
-		})
-		Context(`Using external config, construct service client instances with error: Invalid Auth`, func() {
-			// Map containing environment variables used in testing.
-			var testEnvironment = map[string]string{
-				"RESOURCE_CONTROLLER_URL":       "https://resourcecontrollerv2/api",
-				"RESOURCE_CONTROLLER_AUTH_TYPE": "someOtherAuth",
-			}
-
-			SetTestEnvironment(testEnvironment)
-			resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2UsingExternalConfig(&resourcecontrollerv2.ResourceControllerV2Options{})
-
-			It(`Instantiate service client with error`, func() {
-				Expect(resourceControllerService).To(BeNil())
-				Expect(serviceErr).ToNot(BeNil())
-				ClearTestEnvironment(testEnvironment)
+			AfterEach(func() {
+				testServer.Close()
 			})
-		})
-		Context(`Using external config, construct service client instances with error: Invalid URL`, func() {
-			// Map containing environment variables used in testing.
-			var testEnvironment = map[string]string{
-				"RESOURCE_CONTROLLER_AUTH_TYPE": "NOAuth",
-			}
-
-			SetTestEnvironment(testEnvironment)
-			resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2UsingExternalConfig(&resourcecontrollerv2.ResourceControllerV2Options{
-				URL: "{BAD_URL_STRING",
-			})
-
-			It(`Instantiate service client with error`, func() {
-				Expect(resourceControllerService).To(BeNil())
-				Expect(serviceErr).ToNot(BeNil())
-				ClearTestEnvironment(testEnvironment)
-			})
-		})
-	})
-	Describe(`Regional endpoint tests`, func() {
-		It(`GetServiceURLForRegion(region string)`, func() {
-			var url string
-			var err error
-			url, err = resourcecontrollerv2.GetServiceURLForRegion("INVALID_REGION")
-			Expect(url).To(BeEmpty())
-			Expect(err).ToNot(BeNil())
-			fmt.Fprintf(GinkgoWriter, "Expected error: %s\n", err.Error())
 		})
 	})
 	Describe(`ListResourceKeys(listResourceKeysOptions *ListResourceKeysOptions) - Operation response error`, func() {
 		listResourceKeysPath := "/v2/resource_keys"
-		Context(`Using mock server endpoint`, func() {
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
@@ -2072,7 +2232,6 @@ var _ = Describe(`ResourceControllerV2`, func() {
 			})
 		})
 	})
-
 	Describe(`ListResourceKeys(listResourceKeysOptions *ListResourceKeysOptions)`, func() {
 		listResourceKeysPath := "/v2/resource_keys"
 		Context(`Using mock server endpoint with timeout`, func() {
@@ -2235,10 +2394,51 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				testServer.Close()
 			})
 		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke ListResourceKeys successfully`, func() {
+				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(resourceControllerService).ToNot(BeNil())
+
+				// Construct an instance of the ListResourceKeysOptions model
+				listResourceKeysOptionsModel := new(resourcecontrollerv2.ListResourceKeysOptions)
+				listResourceKeysOptionsModel.GUID = core.StringPtr("testString")
+				listResourceKeysOptionsModel.Name = core.StringPtr("testString")
+				listResourceKeysOptionsModel.ResourceGroupID = core.StringPtr("testString")
+				listResourceKeysOptionsModel.ResourceID = core.StringPtr("testString")
+				listResourceKeysOptionsModel.Limit = core.Int64Ptr(int64(100))
+				listResourceKeysOptionsModel.Start = core.StringPtr("testString")
+				listResourceKeysOptionsModel.UpdatedFrom = core.StringPtr("2019-01-08T00:00:00.000Z")
+				listResourceKeysOptionsModel.UpdatedTo = core.StringPtr("2019-01-08T00:00:00.000Z")
+				listResourceKeysOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := resourceControllerService.ListResourceKeys(listResourceKeysOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
 	})
 	Describe(`CreateResourceKey(createResourceKeyOptions *CreateResourceKeyOptions) - Operation response error`, func() {
 		createResourceKeyPath := "/v2/resource_keys"
-		Context(`Using mock server endpoint`, func() {
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
@@ -2266,10 +2466,10 @@ var _ = Describe(`ResourceControllerV2`, func() {
 
 				// Construct an instance of the CreateResourceKeyOptions model
 				createResourceKeyOptionsModel := new(resourcecontrollerv2.CreateResourceKeyOptions)
-				createResourceKeyOptionsModel.Name = core.StringPtr("ExampleResourceKey")
-				createResourceKeyOptionsModel.Source = core.StringPtr("381fd51a-f251-4f95-aff4-2b03fa8caa63")
+				createResourceKeyOptionsModel.Name = core.StringPtr("my-key")
+				createResourceKeyOptionsModel.Source = core.StringPtr("25eba2a9-beef-450b-82cf-f5ad5e36c6dd")
 				createResourceKeyOptionsModel.Parameters = resourceKeyPostParametersModel
-				createResourceKeyOptionsModel.Role = core.StringPtr("testString")
+				createResourceKeyOptionsModel.Role = core.StringPtr("Writer")
 				createResourceKeyOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
 				result, response, operationErr := resourceControllerService.CreateResourceKey(createResourceKeyOptionsModel)
@@ -2289,7 +2489,6 @@ var _ = Describe(`ResourceControllerV2`, func() {
 			})
 		})
 	})
-
 	Describe(`CreateResourceKey(createResourceKeyOptions *CreateResourceKeyOptions)`, func() {
 		createResourceKeyPath := "/v2/resource_keys"
 		Context(`Using mock server endpoint with timeout`, func() {
@@ -2342,10 +2541,10 @@ var _ = Describe(`ResourceControllerV2`, func() {
 
 				// Construct an instance of the CreateResourceKeyOptions model
 				createResourceKeyOptionsModel := new(resourcecontrollerv2.CreateResourceKeyOptions)
-				createResourceKeyOptionsModel.Name = core.StringPtr("ExampleResourceKey")
-				createResourceKeyOptionsModel.Source = core.StringPtr("381fd51a-f251-4f95-aff4-2b03fa8caa63")
+				createResourceKeyOptionsModel.Name = core.StringPtr("my-key")
+				createResourceKeyOptionsModel.Source = core.StringPtr("25eba2a9-beef-450b-82cf-f5ad5e36c6dd")
 				createResourceKeyOptionsModel.Parameters = resourceKeyPostParametersModel
-				createResourceKeyOptionsModel.Role = core.StringPtr("testString")
+				createResourceKeyOptionsModel.Role = core.StringPtr("Writer")
 				createResourceKeyOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with a Context to test a timeout error
@@ -2425,10 +2624,10 @@ var _ = Describe(`ResourceControllerV2`, func() {
 
 				// Construct an instance of the CreateResourceKeyOptions model
 				createResourceKeyOptionsModel := new(resourcecontrollerv2.CreateResourceKeyOptions)
-				createResourceKeyOptionsModel.Name = core.StringPtr("ExampleResourceKey")
-				createResourceKeyOptionsModel.Source = core.StringPtr("381fd51a-f251-4f95-aff4-2b03fa8caa63")
+				createResourceKeyOptionsModel.Name = core.StringPtr("my-key")
+				createResourceKeyOptionsModel.Source = core.StringPtr("25eba2a9-beef-450b-82cf-f5ad5e36c6dd")
 				createResourceKeyOptionsModel.Parameters = resourceKeyPostParametersModel
-				createResourceKeyOptionsModel.Role = core.StringPtr("testString")
+				createResourceKeyOptionsModel.Role = core.StringPtr("Writer")
 				createResourceKeyOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
@@ -2453,10 +2652,10 @@ var _ = Describe(`ResourceControllerV2`, func() {
 
 				// Construct an instance of the CreateResourceKeyOptions model
 				createResourceKeyOptionsModel := new(resourcecontrollerv2.CreateResourceKeyOptions)
-				createResourceKeyOptionsModel.Name = core.StringPtr("ExampleResourceKey")
-				createResourceKeyOptionsModel.Source = core.StringPtr("381fd51a-f251-4f95-aff4-2b03fa8caa63")
+				createResourceKeyOptionsModel.Name = core.StringPtr("my-key")
+				createResourceKeyOptionsModel.Source = core.StringPtr("25eba2a9-beef-450b-82cf-f5ad5e36c6dd")
 				createResourceKeyOptionsModel.Parameters = resourceKeyPostParametersModel
-				createResourceKeyOptionsModel.Role = core.StringPtr("testString")
+				createResourceKeyOptionsModel.Role = core.StringPtr("Writer")
 				createResourceKeyOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := resourceControllerService.SetServiceURL("")
@@ -2478,10 +2677,52 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				testServer.Close()
 			})
 		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(201)
+				}))
+			})
+			It(`Invoke CreateResourceKey successfully`, func() {
+				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(resourceControllerService).ToNot(BeNil())
+
+				// Construct an instance of the ResourceKeyPostParameters model
+				resourceKeyPostParametersModel := new(resourcecontrollerv2.ResourceKeyPostParameters)
+				resourceKeyPostParametersModel.ServiceidCRN = core.StringPtr("crn:v1:bluemix:public:iam-identity::a/9fceaa56d1ab84893af6b9eec5ab81bb::serviceid:ServiceId-fe4c29b5-db13-410a-bacc-b5779a03d393")
+				resourceKeyPostParametersModel.SetProperty("foo", core.StringPtr("testString"))
+
+				// Construct an instance of the CreateResourceKeyOptions model
+				createResourceKeyOptionsModel := new(resourcecontrollerv2.CreateResourceKeyOptions)
+				createResourceKeyOptionsModel.Name = core.StringPtr("my-key")
+				createResourceKeyOptionsModel.Source = core.StringPtr("25eba2a9-beef-450b-82cf-f5ad5e36c6dd")
+				createResourceKeyOptionsModel.Parameters = resourceKeyPostParametersModel
+				createResourceKeyOptionsModel.Role = core.StringPtr("Writer")
+				createResourceKeyOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := resourceControllerService.CreateResourceKey(createResourceKeyOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
 	})
 	Describe(`GetResourceKey(getResourceKeyOptions *GetResourceKeyOptions) - Operation response error`, func() {
 		getResourceKeyPath := "/v2/resource_keys/testString"
-		Context(`Using mock server endpoint`, func() {
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
@@ -2524,7 +2765,6 @@ var _ = Describe(`ResourceControllerV2`, func() {
 			})
 		})
 	})
-
 	Describe(`GetResourceKey(getResourceKeyOptions *GetResourceKeyOptions)`, func() {
 		getResourceKeyPath := "/v2/resource_keys/testString"
 		Context(`Using mock server endpoint with timeout`, func() {
@@ -2657,8 +2897,41 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				testServer.Close()
 			})
 		})
-	})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
 
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke GetResourceKey successfully`, func() {
+				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(resourceControllerService).ToNot(BeNil())
+
+				// Construct an instance of the GetResourceKeyOptions model
+				getResourceKeyOptionsModel := new(resourcecontrollerv2.GetResourceKeyOptions)
+				getResourceKeyOptionsModel.ID = core.StringPtr("testString")
+				getResourceKeyOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := resourceControllerService.GetResourceKey(getResourceKeyOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
 	Describe(`DeleteResourceKey(deleteResourceKeyOptions *DeleteResourceKeyOptions)`, func() {
 		deleteResourceKeyPath := "/v2/resource_keys/testString"
 		Context(`Using mock server endpoint`, func() {
@@ -2729,7 +3002,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 	})
 	Describe(`UpdateResourceKey(updateResourceKeyOptions *UpdateResourceKeyOptions) - Operation response error`, func() {
 		updateResourceKeyPath := "/v2/resource_keys/testString"
-		Context(`Using mock server endpoint`, func() {
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
@@ -2753,7 +3026,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				// Construct an instance of the UpdateResourceKeyOptions model
 				updateResourceKeyOptionsModel := new(resourcecontrollerv2.UpdateResourceKeyOptions)
 				updateResourceKeyOptionsModel.ID = core.StringPtr("testString")
-				updateResourceKeyOptionsModel.Name = core.StringPtr("UpdatedExampleResourceKey")
+				updateResourceKeyOptionsModel.Name = core.StringPtr("my-new-key-name")
 				updateResourceKeyOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
 				result, response, operationErr := resourceControllerService.UpdateResourceKey(updateResourceKeyOptionsModel)
@@ -2773,7 +3046,6 @@ var _ = Describe(`ResourceControllerV2`, func() {
 			})
 		})
 	})
-
 	Describe(`UpdateResourceKey(updateResourceKeyOptions *UpdateResourceKeyOptions)`, func() {
 		updateResourceKeyPath := "/v2/resource_keys/testString"
 		Context(`Using mock server endpoint with timeout`, func() {
@@ -2822,7 +3094,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				// Construct an instance of the UpdateResourceKeyOptions model
 				updateResourceKeyOptionsModel := new(resourcecontrollerv2.UpdateResourceKeyOptions)
 				updateResourceKeyOptionsModel.ID = core.StringPtr("testString")
-				updateResourceKeyOptionsModel.Name = core.StringPtr("UpdatedExampleResourceKey")
+				updateResourceKeyOptionsModel.Name = core.StringPtr("my-new-key-name")
 				updateResourceKeyOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with a Context to test a timeout error
@@ -2898,7 +3170,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				// Construct an instance of the UpdateResourceKeyOptions model
 				updateResourceKeyOptionsModel := new(resourcecontrollerv2.UpdateResourceKeyOptions)
 				updateResourceKeyOptionsModel.ID = core.StringPtr("testString")
-				updateResourceKeyOptionsModel.Name = core.StringPtr("UpdatedExampleResourceKey")
+				updateResourceKeyOptionsModel.Name = core.StringPtr("my-new-key-name")
 				updateResourceKeyOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
@@ -2919,7 +3191,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				// Construct an instance of the UpdateResourceKeyOptions model
 				updateResourceKeyOptionsModel := new(resourcecontrollerv2.UpdateResourceKeyOptions)
 				updateResourceKeyOptionsModel.ID = core.StringPtr("testString")
-				updateResourceKeyOptionsModel.Name = core.StringPtr("UpdatedExampleResourceKey")
+				updateResourceKeyOptionsModel.Name = core.StringPtr("my-new-key-name")
 				updateResourceKeyOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := resourceControllerService.SetServiceURL("")
@@ -2941,135 +3213,45 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				testServer.Close()
 			})
 		})
-	})
-	Describe(`Service constructor tests`, func() {
-		It(`Instantiate service client`, func() {
-			resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
-				Authenticator: &core.NoAuthAuthenticator{},
-			})
-			Expect(resourceControllerService).ToNot(BeNil())
-			Expect(serviceErr).To(BeNil())
-		})
-		It(`Instantiate service client with error: Invalid URL`, func() {
-			resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
-				URL: "{BAD_URL_STRING",
-			})
-			Expect(resourceControllerService).To(BeNil())
-			Expect(serviceErr).ToNot(BeNil())
-		})
-		It(`Instantiate service client with error: Invalid Auth`, func() {
-			resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
-				URL: "https://resourcecontrollerv2/api",
-				Authenticator: &core.BasicAuthenticator{
-					Username: "",
-					Password: "",
-				},
-			})
-			Expect(resourceControllerService).To(BeNil())
-			Expect(serviceErr).ToNot(BeNil())
-		})
-	})
-	Describe(`Service constructor tests using external config`, func() {
-		Context(`Using external config, construct service client instances`, func() {
-			// Map containing environment variables used in testing.
-			var testEnvironment = map[string]string{
-				"RESOURCE_CONTROLLER_URL":       "https://resourcecontrollerv2/api",
-				"RESOURCE_CONTROLLER_AUTH_TYPE": "noauth",
-			}
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
 
-			It(`Create service client using external config successfully`, func() {
-				SetTestEnvironment(testEnvironment)
-				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2UsingExternalConfig(&resourcecontrollerv2.ResourceControllerV2Options{})
-				Expect(resourceControllerService).ToNot(BeNil())
-				Expect(serviceErr).To(BeNil())
-				ClearTestEnvironment(testEnvironment)
-
-				clone := resourceControllerService.Clone()
-				Expect(clone).ToNot(BeNil())
-				Expect(clone.Service != resourceControllerService.Service).To(BeTrue())
-				Expect(clone.GetServiceURL()).To(Equal(resourceControllerService.GetServiceURL()))
-				Expect(clone.Service.Options.Authenticator).To(Equal(resourceControllerService.Service.Options.Authenticator))
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
 			})
-			It(`Create service client using external config and set url from constructor successfully`, func() {
-				SetTestEnvironment(testEnvironment)
-				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2UsingExternalConfig(&resourcecontrollerv2.ResourceControllerV2Options{
-					URL: "https://testService/api",
+			It(`Invoke UpdateResourceKey successfully`, func() {
+				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
 				})
-				Expect(resourceControllerService).ToNot(BeNil())
 				Expect(serviceErr).To(BeNil())
-				Expect(resourceControllerService.Service.GetServiceURL()).To(Equal("https://testService/api"))
-				ClearTestEnvironment(testEnvironment)
-
-				clone := resourceControllerService.Clone()
-				Expect(clone).ToNot(BeNil())
-				Expect(clone.Service != resourceControllerService.Service).To(BeTrue())
-				Expect(clone.GetServiceURL()).To(Equal(resourceControllerService.GetServiceURL()))
-				Expect(clone.Service.Options.Authenticator).To(Equal(resourceControllerService.Service.Options.Authenticator))
-			})
-			It(`Create service client using external config and set url programatically successfully`, func() {
-				SetTestEnvironment(testEnvironment)
-				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2UsingExternalConfig(&resourcecontrollerv2.ResourceControllerV2Options{})
-				err := resourceControllerService.SetServiceURL("https://testService/api")
-				Expect(err).To(BeNil())
 				Expect(resourceControllerService).ToNot(BeNil())
-				Expect(serviceErr).To(BeNil())
-				Expect(resourceControllerService.Service.GetServiceURL()).To(Equal("https://testService/api"))
-				ClearTestEnvironment(testEnvironment)
 
-				clone := resourceControllerService.Clone()
-				Expect(clone).ToNot(BeNil())
-				Expect(clone.Service != resourceControllerService.Service).To(BeTrue())
-				Expect(clone.GetServiceURL()).To(Equal(resourceControllerService.GetServiceURL()))
-				Expect(clone.Service.Options.Authenticator).To(Equal(resourceControllerService.Service.Options.Authenticator))
+				// Construct an instance of the UpdateResourceKeyOptions model
+				updateResourceKeyOptionsModel := new(resourcecontrollerv2.UpdateResourceKeyOptions)
+				updateResourceKeyOptionsModel.ID = core.StringPtr("testString")
+				updateResourceKeyOptionsModel.Name = core.StringPtr("my-new-key-name")
+				updateResourceKeyOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := resourceControllerService.UpdateResourceKey(updateResourceKeyOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
 			})
-		})
-		Context(`Using external config, construct service client instances with error: Invalid Auth`, func() {
-			// Map containing environment variables used in testing.
-			var testEnvironment = map[string]string{
-				"RESOURCE_CONTROLLER_URL":       "https://resourcecontrollerv2/api",
-				"RESOURCE_CONTROLLER_AUTH_TYPE": "someOtherAuth",
-			}
-
-			SetTestEnvironment(testEnvironment)
-			resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2UsingExternalConfig(&resourcecontrollerv2.ResourceControllerV2Options{})
-
-			It(`Instantiate service client with error`, func() {
-				Expect(resourceControllerService).To(BeNil())
-				Expect(serviceErr).ToNot(BeNil())
-				ClearTestEnvironment(testEnvironment)
+			AfterEach(func() {
+				testServer.Close()
 			})
-		})
-		Context(`Using external config, construct service client instances with error: Invalid URL`, func() {
-			// Map containing environment variables used in testing.
-			var testEnvironment = map[string]string{
-				"RESOURCE_CONTROLLER_AUTH_TYPE": "NOAuth",
-			}
-
-			SetTestEnvironment(testEnvironment)
-			resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2UsingExternalConfig(&resourcecontrollerv2.ResourceControllerV2Options{
-				URL: "{BAD_URL_STRING",
-			})
-
-			It(`Instantiate service client with error`, func() {
-				Expect(resourceControllerService).To(BeNil())
-				Expect(serviceErr).ToNot(BeNil())
-				ClearTestEnvironment(testEnvironment)
-			})
-		})
-	})
-	Describe(`Regional endpoint tests`, func() {
-		It(`GetServiceURLForRegion(region string)`, func() {
-			var url string
-			var err error
-			url, err = resourcecontrollerv2.GetServiceURLForRegion("INVALID_REGION")
-			Expect(url).To(BeEmpty())
-			Expect(err).ToNot(BeNil())
-			fmt.Fprintf(GinkgoWriter, "Expected error: %s\n", err.Error())
 		})
 	})
 	Describe(`ListResourceBindings(listResourceBindingsOptions *ListResourceBindingsOptions) - Operation response error`, func() {
 		listResourceBindingsPath := "/v2/resource_bindings"
-		Context(`Using mock server endpoint`, func() {
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
@@ -3129,7 +3311,6 @@ var _ = Describe(`ResourceControllerV2`, func() {
 			})
 		})
 	})
-
 	Describe(`ListResourceBindings(listResourceBindingsOptions *ListResourceBindingsOptions)`, func() {
 		listResourceBindingsPath := "/v2/resource_bindings"
 		Context(`Using mock server endpoint with timeout`, func() {
@@ -3297,10 +3478,52 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				testServer.Close()
 			})
 		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke ListResourceBindings successfully`, func() {
+				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(resourceControllerService).ToNot(BeNil())
+
+				// Construct an instance of the ListResourceBindingsOptions model
+				listResourceBindingsOptionsModel := new(resourcecontrollerv2.ListResourceBindingsOptions)
+				listResourceBindingsOptionsModel.GUID = core.StringPtr("testString")
+				listResourceBindingsOptionsModel.Name = core.StringPtr("testString")
+				listResourceBindingsOptionsModel.ResourceGroupID = core.StringPtr("testString")
+				listResourceBindingsOptionsModel.ResourceID = core.StringPtr("testString")
+				listResourceBindingsOptionsModel.RegionBindingID = core.StringPtr("testString")
+				listResourceBindingsOptionsModel.Limit = core.Int64Ptr(int64(100))
+				listResourceBindingsOptionsModel.Start = core.StringPtr("testString")
+				listResourceBindingsOptionsModel.UpdatedFrom = core.StringPtr("2019-01-08T00:00:00.000Z")
+				listResourceBindingsOptionsModel.UpdatedTo = core.StringPtr("2019-01-08T00:00:00.000Z")
+				listResourceBindingsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := resourceControllerService.ListResourceBindings(listResourceBindingsOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
 	})
 	Describe(`CreateResourceBinding(createResourceBindingOptions *CreateResourceBindingOptions) - Operation response error`, func() {
 		createResourceBindingPath := "/v2/resource_bindings"
-		Context(`Using mock server endpoint`, func() {
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
@@ -3328,11 +3551,11 @@ var _ = Describe(`ResourceControllerV2`, func() {
 
 				// Construct an instance of the CreateResourceBindingOptions model
 				createResourceBindingOptionsModel := new(resourcecontrollerv2.CreateResourceBindingOptions)
-				createResourceBindingOptionsModel.Source = core.StringPtr("faaec9d8-ec64-44d8-ab83-868632fac6a2")
-				createResourceBindingOptionsModel.Target = core.StringPtr("crn:v1:staging:public:bluemix:us-south:s/e1773b6e-17b4-40c8-b5ed-d2a1c4b620d7::cf-application:8d9457e0-1303-4f32-b4b3-5525575f6205")
-				createResourceBindingOptionsModel.Name = core.StringPtr("ExampleResourceBinding")
+				createResourceBindingOptionsModel.Source = core.StringPtr("25eba2a9-beef-450b-82cf-f5ad5e36c6dd")
+				createResourceBindingOptionsModel.Target = core.StringPtr("crn:v1:bluemix:public:cf:us-south:s/0ba4dba0-a120-4a1e-a124-5a249a904b76::cf-application:a1caa40b-2c24-4da8-8267-ac2c1a42ad0c")
+				createResourceBindingOptionsModel.Name = core.StringPtr("my-binding")
 				createResourceBindingOptionsModel.Parameters = resourceBindingPostParametersModel
-				createResourceBindingOptionsModel.Role = core.StringPtr("testString")
+				createResourceBindingOptionsModel.Role = core.StringPtr("Writer")
 				createResourceBindingOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
 				result, response, operationErr := resourceControllerService.CreateResourceBinding(createResourceBindingOptionsModel)
@@ -3352,7 +3575,6 @@ var _ = Describe(`ResourceControllerV2`, func() {
 			})
 		})
 	})
-
 	Describe(`CreateResourceBinding(createResourceBindingOptions *CreateResourceBindingOptions)`, func() {
 		createResourceBindingPath := "/v2/resource_bindings"
 		Context(`Using mock server endpoint with timeout`, func() {
@@ -3405,11 +3627,11 @@ var _ = Describe(`ResourceControllerV2`, func() {
 
 				// Construct an instance of the CreateResourceBindingOptions model
 				createResourceBindingOptionsModel := new(resourcecontrollerv2.CreateResourceBindingOptions)
-				createResourceBindingOptionsModel.Source = core.StringPtr("faaec9d8-ec64-44d8-ab83-868632fac6a2")
-				createResourceBindingOptionsModel.Target = core.StringPtr("crn:v1:staging:public:bluemix:us-south:s/e1773b6e-17b4-40c8-b5ed-d2a1c4b620d7::cf-application:8d9457e0-1303-4f32-b4b3-5525575f6205")
-				createResourceBindingOptionsModel.Name = core.StringPtr("ExampleResourceBinding")
+				createResourceBindingOptionsModel.Source = core.StringPtr("25eba2a9-beef-450b-82cf-f5ad5e36c6dd")
+				createResourceBindingOptionsModel.Target = core.StringPtr("crn:v1:bluemix:public:cf:us-south:s/0ba4dba0-a120-4a1e-a124-5a249a904b76::cf-application:a1caa40b-2c24-4da8-8267-ac2c1a42ad0c")
+				createResourceBindingOptionsModel.Name = core.StringPtr("my-binding")
 				createResourceBindingOptionsModel.Parameters = resourceBindingPostParametersModel
-				createResourceBindingOptionsModel.Role = core.StringPtr("testString")
+				createResourceBindingOptionsModel.Role = core.StringPtr("Writer")
 				createResourceBindingOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with a Context to test a timeout error
@@ -3489,11 +3711,11 @@ var _ = Describe(`ResourceControllerV2`, func() {
 
 				// Construct an instance of the CreateResourceBindingOptions model
 				createResourceBindingOptionsModel := new(resourcecontrollerv2.CreateResourceBindingOptions)
-				createResourceBindingOptionsModel.Source = core.StringPtr("faaec9d8-ec64-44d8-ab83-868632fac6a2")
-				createResourceBindingOptionsModel.Target = core.StringPtr("crn:v1:staging:public:bluemix:us-south:s/e1773b6e-17b4-40c8-b5ed-d2a1c4b620d7::cf-application:8d9457e0-1303-4f32-b4b3-5525575f6205")
-				createResourceBindingOptionsModel.Name = core.StringPtr("ExampleResourceBinding")
+				createResourceBindingOptionsModel.Source = core.StringPtr("25eba2a9-beef-450b-82cf-f5ad5e36c6dd")
+				createResourceBindingOptionsModel.Target = core.StringPtr("crn:v1:bluemix:public:cf:us-south:s/0ba4dba0-a120-4a1e-a124-5a249a904b76::cf-application:a1caa40b-2c24-4da8-8267-ac2c1a42ad0c")
+				createResourceBindingOptionsModel.Name = core.StringPtr("my-binding")
 				createResourceBindingOptionsModel.Parameters = resourceBindingPostParametersModel
-				createResourceBindingOptionsModel.Role = core.StringPtr("testString")
+				createResourceBindingOptionsModel.Role = core.StringPtr("Writer")
 				createResourceBindingOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
@@ -3518,11 +3740,11 @@ var _ = Describe(`ResourceControllerV2`, func() {
 
 				// Construct an instance of the CreateResourceBindingOptions model
 				createResourceBindingOptionsModel := new(resourcecontrollerv2.CreateResourceBindingOptions)
-				createResourceBindingOptionsModel.Source = core.StringPtr("faaec9d8-ec64-44d8-ab83-868632fac6a2")
-				createResourceBindingOptionsModel.Target = core.StringPtr("crn:v1:staging:public:bluemix:us-south:s/e1773b6e-17b4-40c8-b5ed-d2a1c4b620d7::cf-application:8d9457e0-1303-4f32-b4b3-5525575f6205")
-				createResourceBindingOptionsModel.Name = core.StringPtr("ExampleResourceBinding")
+				createResourceBindingOptionsModel.Source = core.StringPtr("25eba2a9-beef-450b-82cf-f5ad5e36c6dd")
+				createResourceBindingOptionsModel.Target = core.StringPtr("crn:v1:bluemix:public:cf:us-south:s/0ba4dba0-a120-4a1e-a124-5a249a904b76::cf-application:a1caa40b-2c24-4da8-8267-ac2c1a42ad0c")
+				createResourceBindingOptionsModel.Name = core.StringPtr("my-binding")
 				createResourceBindingOptionsModel.Parameters = resourceBindingPostParametersModel
-				createResourceBindingOptionsModel.Role = core.StringPtr("testString")
+				createResourceBindingOptionsModel.Role = core.StringPtr("Writer")
 				createResourceBindingOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := resourceControllerService.SetServiceURL("")
@@ -3544,10 +3766,53 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				testServer.Close()
 			})
 		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(201)
+				}))
+			})
+			It(`Invoke CreateResourceBinding successfully`, func() {
+				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(resourceControllerService).ToNot(BeNil())
+
+				// Construct an instance of the ResourceBindingPostParameters model
+				resourceBindingPostParametersModel := new(resourcecontrollerv2.ResourceBindingPostParameters)
+				resourceBindingPostParametersModel.ServiceidCRN = core.StringPtr("crn:v1:bluemix:public:iam-identity::a/9fceaa56d1ab84893af6b9eec5ab81bb::serviceid:ServiceId-fe4c29b5-db13-410a-bacc-b5779a03d393")
+				resourceBindingPostParametersModel.SetProperty("foo", core.StringPtr("testString"))
+
+				// Construct an instance of the CreateResourceBindingOptions model
+				createResourceBindingOptionsModel := new(resourcecontrollerv2.CreateResourceBindingOptions)
+				createResourceBindingOptionsModel.Source = core.StringPtr("25eba2a9-beef-450b-82cf-f5ad5e36c6dd")
+				createResourceBindingOptionsModel.Target = core.StringPtr("crn:v1:bluemix:public:cf:us-south:s/0ba4dba0-a120-4a1e-a124-5a249a904b76::cf-application:a1caa40b-2c24-4da8-8267-ac2c1a42ad0c")
+				createResourceBindingOptionsModel.Name = core.StringPtr("my-binding")
+				createResourceBindingOptionsModel.Parameters = resourceBindingPostParametersModel
+				createResourceBindingOptionsModel.Role = core.StringPtr("Writer")
+				createResourceBindingOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := resourceControllerService.CreateResourceBinding(createResourceBindingOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
 	})
 	Describe(`GetResourceBinding(getResourceBindingOptions *GetResourceBindingOptions) - Operation response error`, func() {
 		getResourceBindingPath := "/v2/resource_bindings/testString"
-		Context(`Using mock server endpoint`, func() {
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
@@ -3590,7 +3855,6 @@ var _ = Describe(`ResourceControllerV2`, func() {
 			})
 		})
 	})
-
 	Describe(`GetResourceBinding(getResourceBindingOptions *GetResourceBindingOptions)`, func() {
 		getResourceBindingPath := "/v2/resource_bindings/testString"
 		Context(`Using mock server endpoint with timeout`, func() {
@@ -3723,8 +3987,41 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				testServer.Close()
 			})
 		})
-	})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
 
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke GetResourceBinding successfully`, func() {
+				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(resourceControllerService).ToNot(BeNil())
+
+				// Construct an instance of the GetResourceBindingOptions model
+				getResourceBindingOptionsModel := new(resourcecontrollerv2.GetResourceBindingOptions)
+				getResourceBindingOptionsModel.ID = core.StringPtr("testString")
+				getResourceBindingOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := resourceControllerService.GetResourceBinding(getResourceBindingOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
 	Describe(`DeleteResourceBinding(deleteResourceBindingOptions *DeleteResourceBindingOptions)`, func() {
 		deleteResourceBindingPath := "/v2/resource_bindings/testString"
 		Context(`Using mock server endpoint`, func() {
@@ -3795,7 +4092,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 	})
 	Describe(`UpdateResourceBinding(updateResourceBindingOptions *UpdateResourceBindingOptions) - Operation response error`, func() {
 		updateResourceBindingPath := "/v2/resource_bindings/testString"
-		Context(`Using mock server endpoint`, func() {
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
@@ -3819,7 +4116,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				// Construct an instance of the UpdateResourceBindingOptions model
 				updateResourceBindingOptionsModel := new(resourcecontrollerv2.UpdateResourceBindingOptions)
 				updateResourceBindingOptionsModel.ID = core.StringPtr("testString")
-				updateResourceBindingOptionsModel.Name = core.StringPtr("UpdatedExampleResourceBinding")
+				updateResourceBindingOptionsModel.Name = core.StringPtr("my-new-binding-name")
 				updateResourceBindingOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
 				result, response, operationErr := resourceControllerService.UpdateResourceBinding(updateResourceBindingOptionsModel)
@@ -3839,7 +4136,6 @@ var _ = Describe(`ResourceControllerV2`, func() {
 			})
 		})
 	})
-
 	Describe(`UpdateResourceBinding(updateResourceBindingOptions *UpdateResourceBindingOptions)`, func() {
 		updateResourceBindingPath := "/v2/resource_bindings/testString"
 		Context(`Using mock server endpoint with timeout`, func() {
@@ -3888,7 +4184,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				// Construct an instance of the UpdateResourceBindingOptions model
 				updateResourceBindingOptionsModel := new(resourcecontrollerv2.UpdateResourceBindingOptions)
 				updateResourceBindingOptionsModel.ID = core.StringPtr("testString")
-				updateResourceBindingOptionsModel.Name = core.StringPtr("UpdatedExampleResourceBinding")
+				updateResourceBindingOptionsModel.Name = core.StringPtr("my-new-binding-name")
 				updateResourceBindingOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with a Context to test a timeout error
@@ -3964,7 +4260,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				// Construct an instance of the UpdateResourceBindingOptions model
 				updateResourceBindingOptionsModel := new(resourcecontrollerv2.UpdateResourceBindingOptions)
 				updateResourceBindingOptionsModel.ID = core.StringPtr("testString")
-				updateResourceBindingOptionsModel.Name = core.StringPtr("UpdatedExampleResourceBinding")
+				updateResourceBindingOptionsModel.Name = core.StringPtr("my-new-binding-name")
 				updateResourceBindingOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
@@ -3985,7 +4281,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				// Construct an instance of the UpdateResourceBindingOptions model
 				updateResourceBindingOptionsModel := new(resourcecontrollerv2.UpdateResourceBindingOptions)
 				updateResourceBindingOptionsModel.ID = core.StringPtr("testString")
-				updateResourceBindingOptionsModel.Name = core.StringPtr("UpdatedExampleResourceBinding")
+				updateResourceBindingOptionsModel.Name = core.StringPtr("my-new-binding-name")
 				updateResourceBindingOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := resourceControllerService.SetServiceURL("")
@@ -4007,135 +4303,45 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				testServer.Close()
 			})
 		})
-	})
-	Describe(`Service constructor tests`, func() {
-		It(`Instantiate service client`, func() {
-			resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
-				Authenticator: &core.NoAuthAuthenticator{},
-			})
-			Expect(resourceControllerService).ToNot(BeNil())
-			Expect(serviceErr).To(BeNil())
-		})
-		It(`Instantiate service client with error: Invalid URL`, func() {
-			resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
-				URL: "{BAD_URL_STRING",
-			})
-			Expect(resourceControllerService).To(BeNil())
-			Expect(serviceErr).ToNot(BeNil())
-		})
-		It(`Instantiate service client with error: Invalid Auth`, func() {
-			resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
-				URL: "https://resourcecontrollerv2/api",
-				Authenticator: &core.BasicAuthenticator{
-					Username: "",
-					Password: "",
-				},
-			})
-			Expect(resourceControllerService).To(BeNil())
-			Expect(serviceErr).ToNot(BeNil())
-		})
-	})
-	Describe(`Service constructor tests using external config`, func() {
-		Context(`Using external config, construct service client instances`, func() {
-			// Map containing environment variables used in testing.
-			var testEnvironment = map[string]string{
-				"RESOURCE_CONTROLLER_URL":       "https://resourcecontrollerv2/api",
-				"RESOURCE_CONTROLLER_AUTH_TYPE": "noauth",
-			}
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
 
-			It(`Create service client using external config successfully`, func() {
-				SetTestEnvironment(testEnvironment)
-				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2UsingExternalConfig(&resourcecontrollerv2.ResourceControllerV2Options{})
-				Expect(resourceControllerService).ToNot(BeNil())
-				Expect(serviceErr).To(BeNil())
-				ClearTestEnvironment(testEnvironment)
-
-				clone := resourceControllerService.Clone()
-				Expect(clone).ToNot(BeNil())
-				Expect(clone.Service != resourceControllerService.Service).To(BeTrue())
-				Expect(clone.GetServiceURL()).To(Equal(resourceControllerService.GetServiceURL()))
-				Expect(clone.Service.Options.Authenticator).To(Equal(resourceControllerService.Service.Options.Authenticator))
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
 			})
-			It(`Create service client using external config and set url from constructor successfully`, func() {
-				SetTestEnvironment(testEnvironment)
-				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2UsingExternalConfig(&resourcecontrollerv2.ResourceControllerV2Options{
-					URL: "https://testService/api",
+			It(`Invoke UpdateResourceBinding successfully`, func() {
+				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
 				})
-				Expect(resourceControllerService).ToNot(BeNil())
 				Expect(serviceErr).To(BeNil())
-				Expect(resourceControllerService.Service.GetServiceURL()).To(Equal("https://testService/api"))
-				ClearTestEnvironment(testEnvironment)
-
-				clone := resourceControllerService.Clone()
-				Expect(clone).ToNot(BeNil())
-				Expect(clone.Service != resourceControllerService.Service).To(BeTrue())
-				Expect(clone.GetServiceURL()).To(Equal(resourceControllerService.GetServiceURL()))
-				Expect(clone.Service.Options.Authenticator).To(Equal(resourceControllerService.Service.Options.Authenticator))
-			})
-			It(`Create service client using external config and set url programatically successfully`, func() {
-				SetTestEnvironment(testEnvironment)
-				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2UsingExternalConfig(&resourcecontrollerv2.ResourceControllerV2Options{})
-				err := resourceControllerService.SetServiceURL("https://testService/api")
-				Expect(err).To(BeNil())
 				Expect(resourceControllerService).ToNot(BeNil())
-				Expect(serviceErr).To(BeNil())
-				Expect(resourceControllerService.Service.GetServiceURL()).To(Equal("https://testService/api"))
-				ClearTestEnvironment(testEnvironment)
 
-				clone := resourceControllerService.Clone()
-				Expect(clone).ToNot(BeNil())
-				Expect(clone.Service != resourceControllerService.Service).To(BeTrue())
-				Expect(clone.GetServiceURL()).To(Equal(resourceControllerService.GetServiceURL()))
-				Expect(clone.Service.Options.Authenticator).To(Equal(resourceControllerService.Service.Options.Authenticator))
+				// Construct an instance of the UpdateResourceBindingOptions model
+				updateResourceBindingOptionsModel := new(resourcecontrollerv2.UpdateResourceBindingOptions)
+				updateResourceBindingOptionsModel.ID = core.StringPtr("testString")
+				updateResourceBindingOptionsModel.Name = core.StringPtr("my-new-binding-name")
+				updateResourceBindingOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := resourceControllerService.UpdateResourceBinding(updateResourceBindingOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
 			})
-		})
-		Context(`Using external config, construct service client instances with error: Invalid Auth`, func() {
-			// Map containing environment variables used in testing.
-			var testEnvironment = map[string]string{
-				"RESOURCE_CONTROLLER_URL":       "https://resourcecontrollerv2/api",
-				"RESOURCE_CONTROLLER_AUTH_TYPE": "someOtherAuth",
-			}
-
-			SetTestEnvironment(testEnvironment)
-			resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2UsingExternalConfig(&resourcecontrollerv2.ResourceControllerV2Options{})
-
-			It(`Instantiate service client with error`, func() {
-				Expect(resourceControllerService).To(BeNil())
-				Expect(serviceErr).ToNot(BeNil())
-				ClearTestEnvironment(testEnvironment)
+			AfterEach(func() {
+				testServer.Close()
 			})
-		})
-		Context(`Using external config, construct service client instances with error: Invalid URL`, func() {
-			// Map containing environment variables used in testing.
-			var testEnvironment = map[string]string{
-				"RESOURCE_CONTROLLER_AUTH_TYPE": "NOAuth",
-			}
-
-			SetTestEnvironment(testEnvironment)
-			resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2UsingExternalConfig(&resourcecontrollerv2.ResourceControllerV2Options{
-				URL: "{BAD_URL_STRING",
-			})
-
-			It(`Instantiate service client with error`, func() {
-				Expect(resourceControllerService).To(BeNil())
-				Expect(serviceErr).ToNot(BeNil())
-				ClearTestEnvironment(testEnvironment)
-			})
-		})
-	})
-	Describe(`Regional endpoint tests`, func() {
-		It(`GetServiceURLForRegion(region string)`, func() {
-			var url string
-			var err error
-			url, err = resourcecontrollerv2.GetServiceURLForRegion("INVALID_REGION")
-			Expect(url).To(BeEmpty())
-			Expect(err).ToNot(BeNil())
-			fmt.Fprintf(GinkgoWriter, "Expected error: %s\n", err.Error())
 		})
 	})
 	Describe(`ListResourceAliases(listResourceAliasesOptions *ListResourceAliasesOptions) - Operation response error`, func() {
 		listResourceAliasesPath := "/v2/resource_aliases"
-		Context(`Using mock server endpoint`, func() {
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
@@ -4197,7 +4403,6 @@ var _ = Describe(`ResourceControllerV2`, func() {
 			})
 		})
 	})
-
 	Describe(`ListResourceAliases(listResourceAliasesOptions *ListResourceAliasesOptions)`, func() {
 		listResourceAliasesPath := "/v2/resource_aliases"
 		Context(`Using mock server endpoint with timeout`, func() {
@@ -4370,10 +4575,53 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				testServer.Close()
 			})
 		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke ListResourceAliases successfully`, func() {
+				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(resourceControllerService).ToNot(BeNil())
+
+				// Construct an instance of the ListResourceAliasesOptions model
+				listResourceAliasesOptionsModel := new(resourcecontrollerv2.ListResourceAliasesOptions)
+				listResourceAliasesOptionsModel.GUID = core.StringPtr("testString")
+				listResourceAliasesOptionsModel.Name = core.StringPtr("testString")
+				listResourceAliasesOptionsModel.ResourceInstanceID = core.StringPtr("testString")
+				listResourceAliasesOptionsModel.RegionInstanceID = core.StringPtr("testString")
+				listResourceAliasesOptionsModel.ResourceID = core.StringPtr("testString")
+				listResourceAliasesOptionsModel.ResourceGroupID = core.StringPtr("testString")
+				listResourceAliasesOptionsModel.Limit = core.Int64Ptr(int64(100))
+				listResourceAliasesOptionsModel.Start = core.StringPtr("testString")
+				listResourceAliasesOptionsModel.UpdatedFrom = core.StringPtr("2019-01-08T00:00:00.000Z")
+				listResourceAliasesOptionsModel.UpdatedTo = core.StringPtr("2019-01-08T00:00:00.000Z")
+				listResourceAliasesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := resourceControllerService.ListResourceAliases(listResourceAliasesOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
 	})
 	Describe(`CreateResourceAlias(createResourceAliasOptions *CreateResourceAliasOptions) - Operation response error`, func() {
 		createResourceAliasPath := "/v2/resource_aliases"
-		Context(`Using mock server endpoint`, func() {
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
@@ -4396,9 +4644,9 @@ var _ = Describe(`ResourceControllerV2`, func() {
 
 				// Construct an instance of the CreateResourceAliasOptions model
 				createResourceAliasOptionsModel := new(resourcecontrollerv2.CreateResourceAliasOptions)
-				createResourceAliasOptionsModel.Name = core.StringPtr("ExampleResourceAlias")
-				createResourceAliasOptionsModel.Source = core.StringPtr("381fd51a-f251-4f95-aff4-2b03fa8caa63")
-				createResourceAliasOptionsModel.Target = core.StringPtr("crn:v1:bluemix:public:bluemix:us-south:o/d35d4f0e-5076-4c89-9361-2522894b6548::cf-space:e1773b6e-17b4-40c8-b5ed-d2a1c4b620d7")
+				createResourceAliasOptionsModel.Name = core.StringPtr("my-alias")
+				createResourceAliasOptionsModel.Source = core.StringPtr("a8dff6d3-d287-4668-a81d-c87c55c2656d")
+				createResourceAliasOptionsModel.Target = core.StringPtr("crn:v1:bluemix:public:cf:us-south:o/5e939cd5-6377-4383-b9e0-9db22cd11753::cf-space:66c8b915-101a-406c-a784-e6636676e4f5")
 				createResourceAliasOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
 				result, response, operationErr := resourceControllerService.CreateResourceAlias(createResourceAliasOptionsModel)
@@ -4418,7 +4666,6 @@ var _ = Describe(`ResourceControllerV2`, func() {
 			})
 		})
 	})
-
 	Describe(`CreateResourceAlias(createResourceAliasOptions *CreateResourceAliasOptions)`, func() {
 		createResourceAliasPath := "/v2/resource_aliases"
 		Context(`Using mock server endpoint with timeout`, func() {
@@ -4466,9 +4713,9 @@ var _ = Describe(`ResourceControllerV2`, func() {
 
 				// Construct an instance of the CreateResourceAliasOptions model
 				createResourceAliasOptionsModel := new(resourcecontrollerv2.CreateResourceAliasOptions)
-				createResourceAliasOptionsModel.Name = core.StringPtr("ExampleResourceAlias")
-				createResourceAliasOptionsModel.Source = core.StringPtr("381fd51a-f251-4f95-aff4-2b03fa8caa63")
-				createResourceAliasOptionsModel.Target = core.StringPtr("crn:v1:bluemix:public:bluemix:us-south:o/d35d4f0e-5076-4c89-9361-2522894b6548::cf-space:e1773b6e-17b4-40c8-b5ed-d2a1c4b620d7")
+				createResourceAliasOptionsModel.Name = core.StringPtr("my-alias")
+				createResourceAliasOptionsModel.Source = core.StringPtr("a8dff6d3-d287-4668-a81d-c87c55c2656d")
+				createResourceAliasOptionsModel.Target = core.StringPtr("crn:v1:bluemix:public:cf:us-south:o/5e939cd5-6377-4383-b9e0-9db22cd11753::cf-space:66c8b915-101a-406c-a784-e6636676e4f5")
 				createResourceAliasOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with a Context to test a timeout error
@@ -4543,9 +4790,9 @@ var _ = Describe(`ResourceControllerV2`, func() {
 
 				// Construct an instance of the CreateResourceAliasOptions model
 				createResourceAliasOptionsModel := new(resourcecontrollerv2.CreateResourceAliasOptions)
-				createResourceAliasOptionsModel.Name = core.StringPtr("ExampleResourceAlias")
-				createResourceAliasOptionsModel.Source = core.StringPtr("381fd51a-f251-4f95-aff4-2b03fa8caa63")
-				createResourceAliasOptionsModel.Target = core.StringPtr("crn:v1:bluemix:public:bluemix:us-south:o/d35d4f0e-5076-4c89-9361-2522894b6548::cf-space:e1773b6e-17b4-40c8-b5ed-d2a1c4b620d7")
+				createResourceAliasOptionsModel.Name = core.StringPtr("my-alias")
+				createResourceAliasOptionsModel.Source = core.StringPtr("a8dff6d3-d287-4668-a81d-c87c55c2656d")
+				createResourceAliasOptionsModel.Target = core.StringPtr("crn:v1:bluemix:public:cf:us-south:o/5e939cd5-6377-4383-b9e0-9db22cd11753::cf-space:66c8b915-101a-406c-a784-e6636676e4f5")
 				createResourceAliasOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
@@ -4565,9 +4812,9 @@ var _ = Describe(`ResourceControllerV2`, func() {
 
 				// Construct an instance of the CreateResourceAliasOptions model
 				createResourceAliasOptionsModel := new(resourcecontrollerv2.CreateResourceAliasOptions)
-				createResourceAliasOptionsModel.Name = core.StringPtr("ExampleResourceAlias")
-				createResourceAliasOptionsModel.Source = core.StringPtr("381fd51a-f251-4f95-aff4-2b03fa8caa63")
-				createResourceAliasOptionsModel.Target = core.StringPtr("crn:v1:bluemix:public:bluemix:us-south:o/d35d4f0e-5076-4c89-9361-2522894b6548::cf-space:e1773b6e-17b4-40c8-b5ed-d2a1c4b620d7")
+				createResourceAliasOptionsModel.Name = core.StringPtr("my-alias")
+				createResourceAliasOptionsModel.Source = core.StringPtr("a8dff6d3-d287-4668-a81d-c87c55c2656d")
+				createResourceAliasOptionsModel.Target = core.StringPtr("crn:v1:bluemix:public:cf:us-south:o/5e939cd5-6377-4383-b9e0-9db22cd11753::cf-space:66c8b915-101a-406c-a784-e6636676e4f5")
 				createResourceAliasOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := resourceControllerService.SetServiceURL("")
@@ -4589,10 +4836,46 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				testServer.Close()
 			})
 		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(201)
+				}))
+			})
+			It(`Invoke CreateResourceAlias successfully`, func() {
+				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(resourceControllerService).ToNot(BeNil())
+
+				// Construct an instance of the CreateResourceAliasOptions model
+				createResourceAliasOptionsModel := new(resourcecontrollerv2.CreateResourceAliasOptions)
+				createResourceAliasOptionsModel.Name = core.StringPtr("my-alias")
+				createResourceAliasOptionsModel.Source = core.StringPtr("a8dff6d3-d287-4668-a81d-c87c55c2656d")
+				createResourceAliasOptionsModel.Target = core.StringPtr("crn:v1:bluemix:public:cf:us-south:o/5e939cd5-6377-4383-b9e0-9db22cd11753::cf-space:66c8b915-101a-406c-a784-e6636676e4f5")
+				createResourceAliasOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := resourceControllerService.CreateResourceAlias(createResourceAliasOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
 	})
 	Describe(`GetResourceAlias(getResourceAliasOptions *GetResourceAliasOptions) - Operation response error`, func() {
 		getResourceAliasPath := "/v2/resource_aliases/testString"
-		Context(`Using mock server endpoint`, func() {
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
@@ -4635,7 +4918,6 @@ var _ = Describe(`ResourceControllerV2`, func() {
 			})
 		})
 	})
-
 	Describe(`GetResourceAlias(getResourceAliasOptions *GetResourceAliasOptions)`, func() {
 		getResourceAliasPath := "/v2/resource_aliases/testString"
 		Context(`Using mock server endpoint with timeout`, func() {
@@ -4768,8 +5050,41 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				testServer.Close()
 			})
 		})
-	})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
 
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke GetResourceAlias successfully`, func() {
+				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(resourceControllerService).ToNot(BeNil())
+
+				// Construct an instance of the GetResourceAliasOptions model
+				getResourceAliasOptionsModel := new(resourcecontrollerv2.GetResourceAliasOptions)
+				getResourceAliasOptionsModel.ID = core.StringPtr("testString")
+				getResourceAliasOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := resourceControllerService.GetResourceAlias(getResourceAliasOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
 	Describe(`DeleteResourceAlias(deleteResourceAliasOptions *DeleteResourceAliasOptions)`, func() {
 		deleteResourceAliasPath := "/v2/resource_aliases/testString"
 		Context(`Using mock server endpoint`, func() {
@@ -4840,7 +5155,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 	})
 	Describe(`UpdateResourceAlias(updateResourceAliasOptions *UpdateResourceAliasOptions) - Operation response error`, func() {
 		updateResourceAliasPath := "/v2/resource_aliases/testString"
-		Context(`Using mock server endpoint`, func() {
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
@@ -4864,7 +5179,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				// Construct an instance of the UpdateResourceAliasOptions model
 				updateResourceAliasOptionsModel := new(resourcecontrollerv2.UpdateResourceAliasOptions)
 				updateResourceAliasOptionsModel.ID = core.StringPtr("testString")
-				updateResourceAliasOptionsModel.Name = core.StringPtr("UpdatedExampleResourceAlias")
+				updateResourceAliasOptionsModel.Name = core.StringPtr("my-new-alias-name")
 				updateResourceAliasOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
 				result, response, operationErr := resourceControllerService.UpdateResourceAlias(updateResourceAliasOptionsModel)
@@ -4884,7 +5199,6 @@ var _ = Describe(`ResourceControllerV2`, func() {
 			})
 		})
 	})
-
 	Describe(`UpdateResourceAlias(updateResourceAliasOptions *UpdateResourceAliasOptions)`, func() {
 		updateResourceAliasPath := "/v2/resource_aliases/testString"
 		Context(`Using mock server endpoint with timeout`, func() {
@@ -4933,7 +5247,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				// Construct an instance of the UpdateResourceAliasOptions model
 				updateResourceAliasOptionsModel := new(resourcecontrollerv2.UpdateResourceAliasOptions)
 				updateResourceAliasOptionsModel.ID = core.StringPtr("testString")
-				updateResourceAliasOptionsModel.Name = core.StringPtr("UpdatedExampleResourceAlias")
+				updateResourceAliasOptionsModel.Name = core.StringPtr("my-new-alias-name")
 				updateResourceAliasOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with a Context to test a timeout error
@@ -5009,7 +5323,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				// Construct an instance of the UpdateResourceAliasOptions model
 				updateResourceAliasOptionsModel := new(resourcecontrollerv2.UpdateResourceAliasOptions)
 				updateResourceAliasOptionsModel.ID = core.StringPtr("testString")
-				updateResourceAliasOptionsModel.Name = core.StringPtr("UpdatedExampleResourceAlias")
+				updateResourceAliasOptionsModel.Name = core.StringPtr("my-new-alias-name")
 				updateResourceAliasOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
@@ -5030,7 +5344,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				// Construct an instance of the UpdateResourceAliasOptions model
 				updateResourceAliasOptionsModel := new(resourcecontrollerv2.UpdateResourceAliasOptions)
 				updateResourceAliasOptionsModel.ID = core.StringPtr("testString")
-				updateResourceAliasOptionsModel.Name = core.StringPtr("UpdatedExampleResourceAlias")
+				updateResourceAliasOptionsModel.Name = core.StringPtr("my-new-alias-name")
 				updateResourceAliasOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := resourceControllerService.SetServiceURL("")
@@ -5052,10 +5366,45 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				testServer.Close()
 			})
 		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke UpdateResourceAlias successfully`, func() {
+				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(resourceControllerService).ToNot(BeNil())
+
+				// Construct an instance of the UpdateResourceAliasOptions model
+				updateResourceAliasOptionsModel := new(resourcecontrollerv2.UpdateResourceAliasOptions)
+				updateResourceAliasOptionsModel.ID = core.StringPtr("testString")
+				updateResourceAliasOptionsModel.Name = core.StringPtr("my-new-alias-name")
+				updateResourceAliasOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := resourceControllerService.UpdateResourceAlias(updateResourceAliasOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
 	})
 	Describe(`ListResourceBindingsForAlias(listResourceBindingsForAliasOptions *ListResourceBindingsForAliasOptions) - Operation response error`, func() {
 		listResourceBindingsForAliasPath := "/v2/resource_aliases/testString/resource_bindings"
-		Context(`Using mock server endpoint`, func() {
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
@@ -5102,7 +5451,6 @@ var _ = Describe(`ResourceControllerV2`, func() {
 			})
 		})
 	})
-
 	Describe(`ListResourceBindingsForAlias(listResourceBindingsForAliasOptions *ListResourceBindingsForAliasOptions)`, func() {
 		listResourceBindingsForAliasPath := "/v2/resource_aliases/testString/resource_bindings"
 		Context(`Using mock server endpoint with timeout`, func() {
@@ -5245,135 +5593,46 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				testServer.Close()
 			})
 		})
-	})
-	Describe(`Service constructor tests`, func() {
-		It(`Instantiate service client`, func() {
-			resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
-				Authenticator: &core.NoAuthAuthenticator{},
-			})
-			Expect(resourceControllerService).ToNot(BeNil())
-			Expect(serviceErr).To(BeNil())
-		})
-		It(`Instantiate service client with error: Invalid URL`, func() {
-			resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
-				URL: "{BAD_URL_STRING",
-			})
-			Expect(resourceControllerService).To(BeNil())
-			Expect(serviceErr).ToNot(BeNil())
-		})
-		It(`Instantiate service client with error: Invalid Auth`, func() {
-			resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
-				URL: "https://resourcecontrollerv2/api",
-				Authenticator: &core.BasicAuthenticator{
-					Username: "",
-					Password: "",
-				},
-			})
-			Expect(resourceControllerService).To(BeNil())
-			Expect(serviceErr).ToNot(BeNil())
-		})
-	})
-	Describe(`Service constructor tests using external config`, func() {
-		Context(`Using external config, construct service client instances`, func() {
-			// Map containing environment variables used in testing.
-			var testEnvironment = map[string]string{
-				"RESOURCE_CONTROLLER_URL":       "https://resourcecontrollerv2/api",
-				"RESOURCE_CONTROLLER_AUTH_TYPE": "noauth",
-			}
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
 
-			It(`Create service client using external config successfully`, func() {
-				SetTestEnvironment(testEnvironment)
-				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2UsingExternalConfig(&resourcecontrollerv2.ResourceControllerV2Options{})
-				Expect(resourceControllerService).ToNot(BeNil())
-				Expect(serviceErr).To(BeNil())
-				ClearTestEnvironment(testEnvironment)
-
-				clone := resourceControllerService.Clone()
-				Expect(clone).ToNot(BeNil())
-				Expect(clone.Service != resourceControllerService.Service).To(BeTrue())
-				Expect(clone.GetServiceURL()).To(Equal(resourceControllerService.GetServiceURL()))
-				Expect(clone.Service.Options.Authenticator).To(Equal(resourceControllerService.Service.Options.Authenticator))
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
 			})
-			It(`Create service client using external config and set url from constructor successfully`, func() {
-				SetTestEnvironment(testEnvironment)
-				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2UsingExternalConfig(&resourcecontrollerv2.ResourceControllerV2Options{
-					URL: "https://testService/api",
+			It(`Invoke ListResourceBindingsForAlias successfully`, func() {
+				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
 				})
-				Expect(resourceControllerService).ToNot(BeNil())
 				Expect(serviceErr).To(BeNil())
-				Expect(resourceControllerService.Service.GetServiceURL()).To(Equal("https://testService/api"))
-				ClearTestEnvironment(testEnvironment)
-
-				clone := resourceControllerService.Clone()
-				Expect(clone).ToNot(BeNil())
-				Expect(clone.Service != resourceControllerService.Service).To(BeTrue())
-				Expect(clone.GetServiceURL()).To(Equal(resourceControllerService.GetServiceURL()))
-				Expect(clone.Service.Options.Authenticator).To(Equal(resourceControllerService.Service.Options.Authenticator))
-			})
-			It(`Create service client using external config and set url programatically successfully`, func() {
-				SetTestEnvironment(testEnvironment)
-				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2UsingExternalConfig(&resourcecontrollerv2.ResourceControllerV2Options{})
-				err := resourceControllerService.SetServiceURL("https://testService/api")
-				Expect(err).To(BeNil())
 				Expect(resourceControllerService).ToNot(BeNil())
-				Expect(serviceErr).To(BeNil())
-				Expect(resourceControllerService.Service.GetServiceURL()).To(Equal("https://testService/api"))
-				ClearTestEnvironment(testEnvironment)
 
-				clone := resourceControllerService.Clone()
-				Expect(clone).ToNot(BeNil())
-				Expect(clone.Service != resourceControllerService.Service).To(BeTrue())
-				Expect(clone.GetServiceURL()).To(Equal(resourceControllerService.GetServiceURL()))
-				Expect(clone.Service.Options.Authenticator).To(Equal(resourceControllerService.Service.Options.Authenticator))
+				// Construct an instance of the ListResourceBindingsForAliasOptions model
+				listResourceBindingsForAliasOptionsModel := new(resourcecontrollerv2.ListResourceBindingsForAliasOptions)
+				listResourceBindingsForAliasOptionsModel.ID = core.StringPtr("testString")
+				listResourceBindingsForAliasOptionsModel.Limit = core.Int64Ptr(int64(100))
+				listResourceBindingsForAliasOptionsModel.Start = core.StringPtr("testString")
+				listResourceBindingsForAliasOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := resourceControllerService.ListResourceBindingsForAlias(listResourceBindingsForAliasOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
 			})
-		})
-		Context(`Using external config, construct service client instances with error: Invalid Auth`, func() {
-			// Map containing environment variables used in testing.
-			var testEnvironment = map[string]string{
-				"RESOURCE_CONTROLLER_URL":       "https://resourcecontrollerv2/api",
-				"RESOURCE_CONTROLLER_AUTH_TYPE": "someOtherAuth",
-			}
-
-			SetTestEnvironment(testEnvironment)
-			resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2UsingExternalConfig(&resourcecontrollerv2.ResourceControllerV2Options{})
-
-			It(`Instantiate service client with error`, func() {
-				Expect(resourceControllerService).To(BeNil())
-				Expect(serviceErr).ToNot(BeNil())
-				ClearTestEnvironment(testEnvironment)
+			AfterEach(func() {
+				testServer.Close()
 			})
-		})
-		Context(`Using external config, construct service client instances with error: Invalid URL`, func() {
-			// Map containing environment variables used in testing.
-			var testEnvironment = map[string]string{
-				"RESOURCE_CONTROLLER_AUTH_TYPE": "NOAuth",
-			}
-
-			SetTestEnvironment(testEnvironment)
-			resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2UsingExternalConfig(&resourcecontrollerv2.ResourceControllerV2Options{
-				URL: "{BAD_URL_STRING",
-			})
-
-			It(`Instantiate service client with error`, func() {
-				Expect(resourceControllerService).To(BeNil())
-				Expect(serviceErr).ToNot(BeNil())
-				ClearTestEnvironment(testEnvironment)
-			})
-		})
-	})
-	Describe(`Regional endpoint tests`, func() {
-		It(`GetServiceURLForRegion(region string)`, func() {
-			var url string
-			var err error
-			url, err = resourcecontrollerv2.GetServiceURLForRegion("INVALID_REGION")
-			Expect(url).To(BeEmpty())
-			Expect(err).ToNot(BeNil())
-			fmt.Fprintf(GinkgoWriter, "Expected error: %s\n", err.Error())
 		})
 	})
 	Describe(`ListReclamations(listReclamationsOptions *ListReclamationsOptions) - Operation response error`, func() {
 		listReclamationsPath := "/v1/reclamations"
-		Context(`Using mock server endpoint`, func() {
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
@@ -5419,7 +5678,6 @@ var _ = Describe(`ResourceControllerV2`, func() {
 			})
 		})
 	})
-
 	Describe(`ListReclamations(listReclamationsOptions *ListReclamationsOptions)`, func() {
 		listReclamationsPath := "/v1/reclamations"
 		Context(`Using mock server endpoint with timeout`, func() {
@@ -5552,10 +5810,45 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				testServer.Close()
 			})
 		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke ListReclamations successfully`, func() {
+				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(resourceControllerService).ToNot(BeNil())
+
+				// Construct an instance of the ListReclamationsOptions model
+				listReclamationsOptionsModel := new(resourcecontrollerv2.ListReclamationsOptions)
+				listReclamationsOptionsModel.AccountID = core.StringPtr("testString")
+				listReclamationsOptionsModel.ResourceInstanceID = core.StringPtr("testString")
+				listReclamationsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := resourceControllerService.ListReclamations(listReclamationsOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
 	})
 	Describe(`RunReclamationAction(runReclamationActionOptions *RunReclamationActionOptions) - Operation response error`, func() {
 		runReclamationActionPath := "/v1/reclamations/testString/actions/testString"
-		Context(`Using mock server endpoint`, func() {
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
@@ -5601,7 +5894,6 @@ var _ = Describe(`ResourceControllerV2`, func() {
 			})
 		})
 	})
-
 	Describe(`RunReclamationAction(runReclamationActionOptions *RunReclamationActionOptions)`, func() {
 		runReclamationActionPath := "/v1/reclamations/testString/actions/testString"
 		Context(`Using mock server endpoint with timeout`, func() {
@@ -5775,6 +6067,43 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				testServer.Close()
 			})
 		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke RunReclamationAction successfully`, func() {
+				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(resourceControllerService).ToNot(BeNil())
+
+				// Construct an instance of the RunReclamationActionOptions model
+				runReclamationActionOptionsModel := new(resourcecontrollerv2.RunReclamationActionOptions)
+				runReclamationActionOptionsModel.ID = core.StringPtr("testString")
+				runReclamationActionOptionsModel.ActionName = core.StringPtr("testString")
+				runReclamationActionOptionsModel.RequestBy = core.StringPtr("testString")
+				runReclamationActionOptionsModel.Comment = core.StringPtr("testString")
+				runReclamationActionOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := resourceControllerService.RunReclamationAction(runReclamationActionOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
 	})
 	Describe(`Model constructor tests`, func() {
 		Context(`Using a service client instance`, func() {
@@ -5784,18 +6113,18 @@ var _ = Describe(`ResourceControllerV2`, func() {
 			})
 			It(`Invoke NewCreateResourceAliasOptions successfully`, func() {
 				// Construct an instance of the CreateResourceAliasOptions model
-				createResourceAliasOptionsName := "ExampleResourceAlias"
-				createResourceAliasOptionsSource := "381fd51a-f251-4f95-aff4-2b03fa8caa63"
-				createResourceAliasOptionsTarget := "crn:v1:bluemix:public:bluemix:us-south:o/d35d4f0e-5076-4c89-9361-2522894b6548::cf-space:e1773b6e-17b4-40c8-b5ed-d2a1c4b620d7"
+				createResourceAliasOptionsName := "my-alias"
+				createResourceAliasOptionsSource := "a8dff6d3-d287-4668-a81d-c87c55c2656d"
+				createResourceAliasOptionsTarget := "crn:v1:bluemix:public:cf:us-south:o/5e939cd5-6377-4383-b9e0-9db22cd11753::cf-space:66c8b915-101a-406c-a784-e6636676e4f5"
 				createResourceAliasOptionsModel := resourceControllerService.NewCreateResourceAliasOptions(createResourceAliasOptionsName, createResourceAliasOptionsSource, createResourceAliasOptionsTarget)
-				createResourceAliasOptionsModel.SetName("ExampleResourceAlias")
-				createResourceAliasOptionsModel.SetSource("381fd51a-f251-4f95-aff4-2b03fa8caa63")
-				createResourceAliasOptionsModel.SetTarget("crn:v1:bluemix:public:bluemix:us-south:o/d35d4f0e-5076-4c89-9361-2522894b6548::cf-space:e1773b6e-17b4-40c8-b5ed-d2a1c4b620d7")
+				createResourceAliasOptionsModel.SetName("my-alias")
+				createResourceAliasOptionsModel.SetSource("a8dff6d3-d287-4668-a81d-c87c55c2656d")
+				createResourceAliasOptionsModel.SetTarget("crn:v1:bluemix:public:cf:us-south:o/5e939cd5-6377-4383-b9e0-9db22cd11753::cf-space:66c8b915-101a-406c-a784-e6636676e4f5")
 				createResourceAliasOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(createResourceAliasOptionsModel).ToNot(BeNil())
-				Expect(createResourceAliasOptionsModel.Name).To(Equal(core.StringPtr("ExampleResourceAlias")))
-				Expect(createResourceAliasOptionsModel.Source).To(Equal(core.StringPtr("381fd51a-f251-4f95-aff4-2b03fa8caa63")))
-				Expect(createResourceAliasOptionsModel.Target).To(Equal(core.StringPtr("crn:v1:bluemix:public:bluemix:us-south:o/d35d4f0e-5076-4c89-9361-2522894b6548::cf-space:e1773b6e-17b4-40c8-b5ed-d2a1c4b620d7")))
+				Expect(createResourceAliasOptionsModel.Name).To(Equal(core.StringPtr("my-alias")))
+				Expect(createResourceAliasOptionsModel.Source).To(Equal(core.StringPtr("a8dff6d3-d287-4668-a81d-c87c55c2656d")))
+				Expect(createResourceAliasOptionsModel.Target).To(Equal(core.StringPtr("crn:v1:bluemix:public:cf:us-south:o/5e939cd5-6377-4383-b9e0-9db22cd11753::cf-space:66c8b915-101a-406c-a784-e6636676e4f5")))
 				Expect(createResourceAliasOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewCreateResourceBindingOptions successfully`, func() {
@@ -5809,44 +6138,44 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				Expect(resourceBindingPostParametersModel.GetProperty("foo")).To(Equal(core.StringPtr("testString")))
 
 				// Construct an instance of the CreateResourceBindingOptions model
-				createResourceBindingOptionsSource := "faaec9d8-ec64-44d8-ab83-868632fac6a2"
-				createResourceBindingOptionsTarget := "crn:v1:staging:public:bluemix:us-south:s/e1773b6e-17b4-40c8-b5ed-d2a1c4b620d7::cf-application:8d9457e0-1303-4f32-b4b3-5525575f6205"
+				createResourceBindingOptionsSource := "25eba2a9-beef-450b-82cf-f5ad5e36c6dd"
+				createResourceBindingOptionsTarget := "crn:v1:bluemix:public:cf:us-south:s/0ba4dba0-a120-4a1e-a124-5a249a904b76::cf-application:a1caa40b-2c24-4da8-8267-ac2c1a42ad0c"
 				createResourceBindingOptionsModel := resourceControllerService.NewCreateResourceBindingOptions(createResourceBindingOptionsSource, createResourceBindingOptionsTarget)
-				createResourceBindingOptionsModel.SetSource("faaec9d8-ec64-44d8-ab83-868632fac6a2")
-				createResourceBindingOptionsModel.SetTarget("crn:v1:staging:public:bluemix:us-south:s/e1773b6e-17b4-40c8-b5ed-d2a1c4b620d7::cf-application:8d9457e0-1303-4f32-b4b3-5525575f6205")
-				createResourceBindingOptionsModel.SetName("ExampleResourceBinding")
+				createResourceBindingOptionsModel.SetSource("25eba2a9-beef-450b-82cf-f5ad5e36c6dd")
+				createResourceBindingOptionsModel.SetTarget("crn:v1:bluemix:public:cf:us-south:s/0ba4dba0-a120-4a1e-a124-5a249a904b76::cf-application:a1caa40b-2c24-4da8-8267-ac2c1a42ad0c")
+				createResourceBindingOptionsModel.SetName("my-binding")
 				createResourceBindingOptionsModel.SetParameters(resourceBindingPostParametersModel)
-				createResourceBindingOptionsModel.SetRole("testString")
+				createResourceBindingOptionsModel.SetRole("Writer")
 				createResourceBindingOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(createResourceBindingOptionsModel).ToNot(BeNil())
-				Expect(createResourceBindingOptionsModel.Source).To(Equal(core.StringPtr("faaec9d8-ec64-44d8-ab83-868632fac6a2")))
-				Expect(createResourceBindingOptionsModel.Target).To(Equal(core.StringPtr("crn:v1:staging:public:bluemix:us-south:s/e1773b6e-17b4-40c8-b5ed-d2a1c4b620d7::cf-application:8d9457e0-1303-4f32-b4b3-5525575f6205")))
-				Expect(createResourceBindingOptionsModel.Name).To(Equal(core.StringPtr("ExampleResourceBinding")))
+				Expect(createResourceBindingOptionsModel.Source).To(Equal(core.StringPtr("25eba2a9-beef-450b-82cf-f5ad5e36c6dd")))
+				Expect(createResourceBindingOptionsModel.Target).To(Equal(core.StringPtr("crn:v1:bluemix:public:cf:us-south:s/0ba4dba0-a120-4a1e-a124-5a249a904b76::cf-application:a1caa40b-2c24-4da8-8267-ac2c1a42ad0c")))
+				Expect(createResourceBindingOptionsModel.Name).To(Equal(core.StringPtr("my-binding")))
 				Expect(createResourceBindingOptionsModel.Parameters).To(Equal(resourceBindingPostParametersModel))
-				Expect(createResourceBindingOptionsModel.Role).To(Equal(core.StringPtr("testString")))
+				Expect(createResourceBindingOptionsModel.Role).To(Equal(core.StringPtr("Writer")))
 				Expect(createResourceBindingOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewCreateResourceInstanceOptions successfully`, func() {
 				// Construct an instance of the CreateResourceInstanceOptions model
-				createResourceInstanceOptionsName := "ExampleResourceInstance"
-				createResourceInstanceOptionsTarget := "global"
-				createResourceInstanceOptionsResourceGroup := "13aa3ee48c3b44ddb64c05c79f7ab8ef"
-				createResourceInstanceOptionsResourcePlanID := "a10e4960-3685-11e9-b210-d663bd873d93"
+				createResourceInstanceOptionsName := "my-instance"
+				createResourceInstanceOptionsTarget := "bluemix-us-south"
+				createResourceInstanceOptionsResourceGroup := "5c49eabc-f5e8-5881-a37e-2d100a33b3df"
+				createResourceInstanceOptionsResourcePlanID := "cloudant-standard"
 				createResourceInstanceOptionsModel := resourceControllerService.NewCreateResourceInstanceOptions(createResourceInstanceOptionsName, createResourceInstanceOptionsTarget, createResourceInstanceOptionsResourceGroup, createResourceInstanceOptionsResourcePlanID)
-				createResourceInstanceOptionsModel.SetName("ExampleResourceInstance")
-				createResourceInstanceOptionsModel.SetTarget("global")
-				createResourceInstanceOptionsModel.SetResourceGroup("13aa3ee48c3b44ddb64c05c79f7ab8ef")
-				createResourceInstanceOptionsModel.SetResourcePlanID("a10e4960-3685-11e9-b210-d663bd873d93")
+				createResourceInstanceOptionsModel.SetName("my-instance")
+				createResourceInstanceOptionsModel.SetTarget("bluemix-us-south")
+				createResourceInstanceOptionsModel.SetResourceGroup("5c49eabc-f5e8-5881-a37e-2d100a33b3df")
+				createResourceInstanceOptionsModel.SetResourcePlanID("cloudant-standard")
 				createResourceInstanceOptionsModel.SetTags([]string{"testString"})
 				createResourceInstanceOptionsModel.SetAllowCleanup(true)
 				createResourceInstanceOptionsModel.SetParameters(make(map[string]interface{}))
 				createResourceInstanceOptionsModel.SetEntityLock(true)
 				createResourceInstanceOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(createResourceInstanceOptionsModel).ToNot(BeNil())
-				Expect(createResourceInstanceOptionsModel.Name).To(Equal(core.StringPtr("ExampleResourceInstance")))
-				Expect(createResourceInstanceOptionsModel.Target).To(Equal(core.StringPtr("global")))
-				Expect(createResourceInstanceOptionsModel.ResourceGroup).To(Equal(core.StringPtr("13aa3ee48c3b44ddb64c05c79f7ab8ef")))
-				Expect(createResourceInstanceOptionsModel.ResourcePlanID).To(Equal(core.StringPtr("a10e4960-3685-11e9-b210-d663bd873d93")))
+				Expect(createResourceInstanceOptionsModel.Name).To(Equal(core.StringPtr("my-instance")))
+				Expect(createResourceInstanceOptionsModel.Target).To(Equal(core.StringPtr("bluemix-us-south")))
+				Expect(createResourceInstanceOptionsModel.ResourceGroup).To(Equal(core.StringPtr("5c49eabc-f5e8-5881-a37e-2d100a33b3df")))
+				Expect(createResourceInstanceOptionsModel.ResourcePlanID).To(Equal(core.StringPtr("cloudant-standard")))
 				Expect(createResourceInstanceOptionsModel.Tags).To(Equal([]string{"testString"}))
 				Expect(createResourceInstanceOptionsModel.AllowCleanup).To(Equal(core.BoolPtr(true)))
 				Expect(createResourceInstanceOptionsModel.Parameters).To(Equal(make(map[string]interface{})))
@@ -5864,19 +6193,19 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				Expect(resourceKeyPostParametersModel.GetProperty("foo")).To(Equal(core.StringPtr("testString")))
 
 				// Construct an instance of the CreateResourceKeyOptions model
-				createResourceKeyOptionsName := "ExampleResourceKey"
-				createResourceKeyOptionsSource := "381fd51a-f251-4f95-aff4-2b03fa8caa63"
+				createResourceKeyOptionsName := "my-key"
+				createResourceKeyOptionsSource := "25eba2a9-beef-450b-82cf-f5ad5e36c6dd"
 				createResourceKeyOptionsModel := resourceControllerService.NewCreateResourceKeyOptions(createResourceKeyOptionsName, createResourceKeyOptionsSource)
-				createResourceKeyOptionsModel.SetName("ExampleResourceKey")
-				createResourceKeyOptionsModel.SetSource("381fd51a-f251-4f95-aff4-2b03fa8caa63")
+				createResourceKeyOptionsModel.SetName("my-key")
+				createResourceKeyOptionsModel.SetSource("25eba2a9-beef-450b-82cf-f5ad5e36c6dd")
 				createResourceKeyOptionsModel.SetParameters(resourceKeyPostParametersModel)
-				createResourceKeyOptionsModel.SetRole("testString")
+				createResourceKeyOptionsModel.SetRole("Writer")
 				createResourceKeyOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(createResourceKeyOptionsModel).ToNot(BeNil())
-				Expect(createResourceKeyOptionsModel.Name).To(Equal(core.StringPtr("ExampleResourceKey")))
-				Expect(createResourceKeyOptionsModel.Source).To(Equal(core.StringPtr("381fd51a-f251-4f95-aff4-2b03fa8caa63")))
+				Expect(createResourceKeyOptionsModel.Name).To(Equal(core.StringPtr("my-key")))
+				Expect(createResourceKeyOptionsModel.Source).To(Equal(core.StringPtr("25eba2a9-beef-450b-82cf-f5ad5e36c6dd")))
 				Expect(createResourceKeyOptionsModel.Parameters).To(Equal(resourceKeyPostParametersModel))
-				Expect(createResourceKeyOptionsModel.Role).To(Equal(core.StringPtr("testString")))
+				Expect(createResourceKeyOptionsModel.Role).To(Equal(core.StringPtr("Writer")))
 				Expect(createResourceKeyOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewDeleteResourceAliasOptions successfully`, func() {
@@ -6065,7 +6394,6 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				listResourceInstancesOptionsModel.SetLimit(int64(100))
 				listResourceInstancesOptionsModel.SetStart("testString")
 				listResourceInstancesOptionsModel.SetState("active")
-				listResourceInstancesOptionsModel.SetOrderDirection("asc")
 				listResourceInstancesOptionsModel.SetUpdatedFrom("2019-01-08T00:00:00.000Z")
 				listResourceInstancesOptionsModel.SetUpdatedTo("2019-01-08T00:00:00.000Z")
 				listResourceInstancesOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
@@ -6080,7 +6408,6 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				Expect(listResourceInstancesOptionsModel.Limit).To(Equal(core.Int64Ptr(int64(100))))
 				Expect(listResourceInstancesOptionsModel.Start).To(Equal(core.StringPtr("testString")))
 				Expect(listResourceInstancesOptionsModel.State).To(Equal(core.StringPtr("active")))
-				Expect(listResourceInstancesOptionsModel.OrderDirection).To(Equal(core.StringPtr("asc")))
 				Expect(listResourceInstancesOptionsModel.UpdatedFrom).To(Equal(core.StringPtr("2019-01-08T00:00:00.000Z")))
 				Expect(listResourceInstancesOptionsModel.UpdatedTo).To(Equal(core.StringPtr("2019-01-08T00:00:00.000Z")))
 				Expect(listResourceInstancesOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
@@ -6162,27 +6489,27 @@ var _ = Describe(`ResourceControllerV2`, func() {
 			It(`Invoke NewUpdateResourceAliasOptions successfully`, func() {
 				// Construct an instance of the UpdateResourceAliasOptions model
 				id := "testString"
-				updateResourceAliasOptionsName := "UpdatedExampleResourceAlias"
+				updateResourceAliasOptionsName := "my-new-alias-name"
 				updateResourceAliasOptionsModel := resourceControllerService.NewUpdateResourceAliasOptions(id, updateResourceAliasOptionsName)
 				updateResourceAliasOptionsModel.SetID("testString")
-				updateResourceAliasOptionsModel.SetName("UpdatedExampleResourceAlias")
+				updateResourceAliasOptionsModel.SetName("my-new-alias-name")
 				updateResourceAliasOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(updateResourceAliasOptionsModel).ToNot(BeNil())
 				Expect(updateResourceAliasOptionsModel.ID).To(Equal(core.StringPtr("testString")))
-				Expect(updateResourceAliasOptionsModel.Name).To(Equal(core.StringPtr("UpdatedExampleResourceAlias")))
+				Expect(updateResourceAliasOptionsModel.Name).To(Equal(core.StringPtr("my-new-alias-name")))
 				Expect(updateResourceAliasOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewUpdateResourceBindingOptions successfully`, func() {
 				// Construct an instance of the UpdateResourceBindingOptions model
 				id := "testString"
-				updateResourceBindingOptionsName := "UpdatedExampleResourceBinding"
+				updateResourceBindingOptionsName := "my-new-binding-name"
 				updateResourceBindingOptionsModel := resourceControllerService.NewUpdateResourceBindingOptions(id, updateResourceBindingOptionsName)
 				updateResourceBindingOptionsModel.SetID("testString")
-				updateResourceBindingOptionsModel.SetName("UpdatedExampleResourceBinding")
+				updateResourceBindingOptionsModel.SetName("my-new-binding-name")
 				updateResourceBindingOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(updateResourceBindingOptionsModel).ToNot(BeNil())
 				Expect(updateResourceBindingOptionsModel.ID).To(Equal(core.StringPtr("testString")))
-				Expect(updateResourceBindingOptionsModel.Name).To(Equal(core.StringPtr("UpdatedExampleResourceBinding")))
+				Expect(updateResourceBindingOptionsModel.Name).To(Equal(core.StringPtr("my-new-binding-name")))
 				Expect(updateResourceBindingOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewUpdateResourceInstanceOptions successfully`, func() {
@@ -6190,30 +6517,30 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				id := "testString"
 				updateResourceInstanceOptionsModel := resourceControllerService.NewUpdateResourceInstanceOptions(id)
 				updateResourceInstanceOptionsModel.SetID("testString")
-				updateResourceInstanceOptionsModel.SetName("UpdatedExampleResourceInstance")
+				updateResourceInstanceOptionsModel.SetName("my-new-instance-name")
 				updateResourceInstanceOptionsModel.SetParameters(make(map[string]interface{}))
-				updateResourceInstanceOptionsModel.SetResourcePlanID("testString")
+				updateResourceInstanceOptionsModel.SetResourcePlanID("a8dff6d3-d287-4668-a81d-c87c55c2656d")
 				updateResourceInstanceOptionsModel.SetAllowCleanup(true)
 				updateResourceInstanceOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(updateResourceInstanceOptionsModel).ToNot(BeNil())
 				Expect(updateResourceInstanceOptionsModel.ID).To(Equal(core.StringPtr("testString")))
-				Expect(updateResourceInstanceOptionsModel.Name).To(Equal(core.StringPtr("UpdatedExampleResourceInstance")))
+				Expect(updateResourceInstanceOptionsModel.Name).To(Equal(core.StringPtr("my-new-instance-name")))
 				Expect(updateResourceInstanceOptionsModel.Parameters).To(Equal(make(map[string]interface{})))
-				Expect(updateResourceInstanceOptionsModel.ResourcePlanID).To(Equal(core.StringPtr("testString")))
+				Expect(updateResourceInstanceOptionsModel.ResourcePlanID).To(Equal(core.StringPtr("a8dff6d3-d287-4668-a81d-c87c55c2656d")))
 				Expect(updateResourceInstanceOptionsModel.AllowCleanup).To(Equal(core.BoolPtr(true)))
 				Expect(updateResourceInstanceOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewUpdateResourceKeyOptions successfully`, func() {
 				// Construct an instance of the UpdateResourceKeyOptions model
 				id := "testString"
-				updateResourceKeyOptionsName := "UpdatedExampleResourceKey"
+				updateResourceKeyOptionsName := "my-new-key-name"
 				updateResourceKeyOptionsModel := resourceControllerService.NewUpdateResourceKeyOptions(id, updateResourceKeyOptionsName)
 				updateResourceKeyOptionsModel.SetID("testString")
-				updateResourceKeyOptionsModel.SetName("UpdatedExampleResourceKey")
+				updateResourceKeyOptionsModel.SetName("my-new-key-name")
 				updateResourceKeyOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(updateResourceKeyOptionsModel).ToNot(BeNil())
 				Expect(updateResourceKeyOptionsModel.ID).To(Equal(core.StringPtr("testString")))
-				Expect(updateResourceKeyOptionsModel.Name).To(Equal(core.StringPtr("UpdatedExampleResourceKey")))
+				Expect(updateResourceKeyOptionsModel.Name).To(Equal(core.StringPtr("my-new-key-name")))
 				Expect(updateResourceKeyOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 		})
@@ -6232,11 +6559,11 @@ var _ = Describe(`ResourceControllerV2`, func() {
 			Expect(mockReader).ToNot(BeNil())
 		})
 		It(`Invoke CreateMockDate() successfully`, func() {
-			mockDate := CreateMockDate()
+			mockDate := CreateMockDate("2019-01-01")
 			Expect(mockDate).ToNot(BeNil())
 		})
 		It(`Invoke CreateMockDateTime() successfully`, func() {
-			mockDateTime := CreateMockDateTime()
+			mockDateTime := CreateMockDateTime("2019-01-01T12:00:00.000Z")
 			Expect(mockDateTime).ToNot(BeNil())
 		})
 	})
@@ -6261,13 +6588,19 @@ func CreateMockReader(mockData string) io.ReadCloser {
 	return ioutil.NopCloser(bytes.NewReader([]byte(mockData)))
 }
 
-func CreateMockDate() *strfmt.Date {
-	d := strfmt.Date(time.Date(2009, time.November, 10, 23, 0, 0, 0, time.UTC))
+func CreateMockDate(mockData string) *strfmt.Date {
+	d, err := core.ParseDate(mockData)
+	if err != nil {
+		return nil
+	}
 	return &d
 }
 
-func CreateMockDateTime() *strfmt.DateTime {
-	d := strfmt.DateTime(time.Date(2009, time.November, 10, 23, 0, 0, 0, time.UTC))
+func CreateMockDateTime(mockData string) *strfmt.DateTime {
+	d, err := core.ParseDateTime(mockData)
+	if err != nil {
+		return nil
+	}
 	return &d
 }
 

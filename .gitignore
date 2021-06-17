@@ -8,7 +8,11 @@ vendor/
 .openapi-generator-ignore
 .openapi-generator/VERSION
 /.project
+
+# files produced by "npm install" commands during build
+package.json
 package-lock.json
+node_modules/
 
 # IDE files
 *.idea

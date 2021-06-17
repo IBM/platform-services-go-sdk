@@ -1,3 +1,52 @@
+## [0.18.18](https://github.com/IBM/platform-services-go-sdk/compare/v0.18.17...v0.18.18) (2021-06-15)
+
+
+### Bug Fixes
+
+* **IAM Identity:** re-gen service after recent API changes ([#129](https://github.com/IBM/platform-services-go-sdk/issues/129)) ([c1b4418](https://github.com/IBM/platform-services-go-sdk/commit/c1b44189948b59ff2aabf30b47490245e47e8dd1))
+
+## [0.18.17](https://github.com/IBM/platform-services-go-sdk/compare/v0.18.16...v0.18.17) (2021-06-14)
+
+
+### Bug Fixes
+
+* **Activity Tracker:** re-gen service after recent API changes and hand edits for examples and IT ([#128](https://github.com/IBM/platform-services-go-sdk/issues/128)) ([5c5f4ac](https://github.com/IBM/platform-services-go-sdk/commit/5c5f4ac7c4dcb03fe29a17d0dbaa23ec0a60da6e))
+
+## [0.18.16](https://github.com/IBM/platform-services-go-sdk/compare/v0.18.15...v0.18.16) (2021-06-09)
+
+
+### Bug Fixes
+
+* **Catalog Management:** add metadata and lastoperation to offering instance ([#126](https://github.com/IBM/platform-services-go-sdk/issues/126)) ([097f824](https://github.com/IBM/platform-services-go-sdk/commit/097f8245c323b080c011003ca45528e397e309fe))
+
+## [0.18.15](https://github.com/IBM/platform-services-go-sdk/compare/v0.18.14...v0.18.15) (2021-06-07)
+
+
+### Bug Fixes
+
+* **Catalog Management:** add channel and install plan to catalog management offering instance ([#125](https://github.com/IBM/platform-services-go-sdk/issues/125)) ([9f5a90c](https://github.com/IBM/platform-services-go-sdk/commit/9f5a90c7e9654c427d54fc823866ebe688b609c3))
+
+## [0.18.14](https://github.com/IBM/platform-services-go-sdk/compare/v0.18.13...v0.18.14) (2021-06-01)
+
+
+### Bug Fixes
+
+* **Resource Controller:** update service after recent api changes ([#123](https://github.com/IBM/platform-services-go-sdk/issues/123)) ([a7f14ee](https://github.com/IBM/platform-services-go-sdk/commit/a7f14ee285ced3c4ec52b4b56e6cf9011d234b54))
+
+## [0.18.13](https://github.com/IBM/platform-services-go-sdk/compare/v0.18.12...v0.18.13) (2021-05-14)
+
+
+### Bug Fixes
+
+* **build:** prevent package-lock.json from being committed by semantic-release ([3e5b8a4](https://github.com/IBM/platform-services-go-sdk/commit/3e5b8a4b148d146f7063323e012446b3786ea086))
+
+## [0.18.12](https://github.com/IBM/platform-services-go-sdk/compare/v0.18.11...v0.18.12) (2021-05-13)
+
+
+### Bug Fixes
+
+* **Catalog Management:** Re-gen code after recent API changes to offering instances ([af27018](https://github.com/IBM/platform-services-go-sdk/commit/af270183650809d677e0745a072c03549ea41d8d))
+
 ## [0.18.11](https://github.com/IBM/platform-services-go-sdk/compare/v0.18.10...v0.18.11) (2021-04-27)
 
 

@@ -15,7 +15,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-b414353e-20210324-135924
+ * IBM OpenAPI SDK Code Generator Version: 3.33.0-caf29bd0-20210603-225214
  */
 
 // Package globalsearchv2 : Operations and models for the GlobalSearchV2 service
@@ -35,12 +35,12 @@ import (
 )
 
 // GlobalSearchV2 : Search for resources with the global and shared resource properties repository integrated in the IBM
-// Cloud Platform. The search repository stores and searches cloud resources attributes, which categorize or classify
-// resources. A resource is a physical or logical component that can be provisioned or reserved for an application or
-// service instance and is owned by resource providers, such as Cloud Foundry, IBM containers, or Resource Controller,
-// in the IBM Cloud platform. Resources are uniquely identified by a CRN (Cloud Resource Naming identifier) or by an IMS
-// ID. The properties of a resource include tags and system properties. Both properties are defined in an IBM Cloud
-// billing account, and span across many regions.
+// Cloud platform. The search repository stores and searches cloud resources attributes, which categorize or classify
+// resources. A resource is a physical or logical component that can be created or reserved for an application or
+// service instance and is owned by resource providers, such as Cloud Foundry, IBM Kubernetes Service, or resource
+// controller in IBM Cloud. Resources are uniquely identified by a Cloud Resource Name (CRN)  or by an IMS ID. The
+// properties of a resource include tags and system properties. Both properties are defined in an IBM Cloud billing
+// account, and span across many regions.
 //
 // Version: 2.0.1
 type GlobalSearchV2 struct {
@@ -167,17 +167,20 @@ func (globalSearch *GlobalSearchV2) DisableRetries() {
 }
 
 // Search : Find instances of resources (v3)
-// Find cloud foundry resources, resource controller-enabled resources, or storage and network resources running on
-// classic infrastructure in a specific account ID. You can apply query strings if necessary. To filter results, you can
-// insert a string using the Lucene syntax and the query string is parsed into a series of terms and operators. A term
-// can be a single word or a phrase, in which case the search is performed for all the words, in the same order. To
-// filter for a specific value regardless of the property that contains it, use an asterisk as the key name. Only
-// resources that belong to the account ID and that are accessible by the client are returned. You must use this
-// operation when you need to fetch more than `10000` resource items. The `/v2/resources/search` prohibits paginating
-// through such a big number. On the first call, the operation returns a live cursor on the data that you must use on
-// all the subsequent calls to get the next batch of results until you get the empty result set. By default, the fields
-// returned for every resources are: "crn", "name", "family", "type", "account_id". You can specify the subset of the
-// fields you want in your request.
+// Find Cloud Foundry resources, IAM-enabled resources, or  storage and network resources running on classic
+// infrastructure in a  specific account ID. You can apply query strings if necessary.
+//
+// To filter results, you can insert a string using the Lucene syntax and the  query string is parsed into a series of
+// terms and operators. A term can be  a single word or a phrase, in which case the search is performed for all  the
+// words, in the same order. To filter for a specific value regardless of  the property that contains it, type the
+// search term without specifying a  field. Only resources that belong to the account ID and that are accessible  by the
+// client are returned.
+//
+// You must use `/v3/resources/search` when you need to fetch more than `10000`  resource items. The
+// `/v2/resources/search` prohibits paginating through such  a big number. On the first call, the operation returns a
+// live cursor on the  data that you must use on all the subsequent calls to get the next batch of  results until you
+// get the empty result set. By default, the fields returned  for every resource are "crn", "name", "family", "type",
+// and "account_id". You  can specify the subset of the fields you want in your request.
 func (globalSearch *GlobalSearchV2) Search(searchOptions *SearchOptions) (result *ScanResult, response *core.DetailedResponse, err error) {
 	return globalSearch.SearchWithContext(context.Background(), searchOptions)
 }
@@ -253,11 +256,13 @@ func (globalSearch *GlobalSearchV2) SearchWithContext(ctx context.Context, searc
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalScanResult)
-	if err != nil {
-		return
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalScanResult)
+		if err != nil {
+			return
+		}
+		response.Result = result
 	}
-	response.Result = result
 
 	return
 }
@@ -303,11 +308,13 @@ func (globalSearch *GlobalSearchV2) GetSupportedTypesWithContext(ctx context.Con
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalSupportedTypesList)
-	if err != nil {
-		return
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalSupportedTypesList)
+		if err != nil {
+			return
+		}
+		response.Result = result
 	}
-	response.Result = result
 
 	return
 }
@@ -463,51 +470,51 @@ func (*GlobalSearchV2) NewSearchOptions() *SearchOptions {
 }
 
 // SetQuery : Allow user to set Query
-func (options *SearchOptions) SetQuery(query string) *SearchOptions {
-	options.Query = core.StringPtr(query)
-	return options
+func (_options *SearchOptions) SetQuery(query string) *SearchOptions {
+	_options.Query = core.StringPtr(query)
+	return _options
 }
 
 // SetFields : Allow user to set Fields
-func (options *SearchOptions) SetFields(fields []string) *SearchOptions {
-	options.Fields = fields
-	return options
+func (_options *SearchOptions) SetFields(fields []string) *SearchOptions {
+	_options.Fields = fields
+	return _options
 }
 
 // SetSearchCursor : Allow user to set SearchCursor
-func (options *SearchOptions) SetSearchCursor(searchCursor string) *SearchOptions {
-	options.SearchCursor = core.StringPtr(searchCursor)
-	return options
+func (_options *SearchOptions) SetSearchCursor(searchCursor string) *SearchOptions {
+	_options.SearchCursor = core.StringPtr(searchCursor)
+	return _options
 }
 
 // SetTransactionID : Allow user to set TransactionID
-func (options *SearchOptions) SetTransactionID(transactionID string) *SearchOptions {
-	options.TransactionID = core.StringPtr(transactionID)
-	return options
+func (_options *SearchOptions) SetTransactionID(transactionID string) *SearchOptions {
+	_options.TransactionID = core.StringPtr(transactionID)
+	return _options
 }
 
 // SetAccountID : Allow user to set AccountID
-func (options *SearchOptions) SetAccountID(accountID string) *SearchOptions {
-	options.AccountID = core.StringPtr(accountID)
-	return options
+func (_options *SearchOptions) SetAccountID(accountID string) *SearchOptions {
+	_options.AccountID = core.StringPtr(accountID)
+	return _options
 }
 
 // SetLimit : Allow user to set Limit
-func (options *SearchOptions) SetLimit(limit int64) *SearchOptions {
-	options.Limit = core.Int64Ptr(limit)
-	return options
+func (_options *SearchOptions) SetLimit(limit int64) *SearchOptions {
+	_options.Limit = core.Int64Ptr(limit)
+	return _options
 }
 
 // SetTimeout : Allow user to set Timeout
-func (options *SearchOptions) SetTimeout(timeout int64) *SearchOptions {
-	options.Timeout = core.Int64Ptr(timeout)
-	return options
+func (_options *SearchOptions) SetTimeout(timeout int64) *SearchOptions {
+	_options.Timeout = core.Int64Ptr(timeout)
+	return _options
 }
 
 // SetSort : Allow user to set Sort
-func (options *SearchOptions) SetSort(sort []string) *SearchOptions {
-	options.Sort = sort
-	return options
+func (_options *SearchOptions) SetSort(sort []string) *SearchOptions {
+	_options.Sort = sort
+	return _options
 }
 
 // SetHeaders : Allow user to set Headers

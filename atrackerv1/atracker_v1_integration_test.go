@@ -1,7 +1,7 @@
 // +build integration
 
 /**
- * (C) Copyright IBM Corp. 2020.
+ * (C) Copyright IBM Corp. 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,11 +20,12 @@ package atrackerv1_test
 
 import (
 	"fmt"
+	"os"
+
 	"github.com/IBM/go-sdk-core/v5/core"
 	"github.com/IBM/platform-services-go-sdk/atrackerv1"
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
-	"os"
 )
 
 /**
@@ -192,6 +193,25 @@ var _ = Describe(`AtrackerV1 Integration Tests`, func() {
 		})
 	})
 
+	Describe(`ValidateTarget - Update a target with cos validation results`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`ValidateTarget(validateTargetOptions *ValidateTargetOptions)`, func() {
+
+			validateTargetOptions := &atrackerv1.ValidateTargetOptions{
+				ID: core.StringPtr(targetIDLink),
+			}
+
+			target, response, err := atrackerService.ValidateTarget(validateTargetOptions)
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(target).ToNot(BeNil())
+		})
+
+	})
+
 	Describe(`CreateRoute - Create a Route for the region`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
@@ -312,10 +332,11 @@ var _ = Describe(`AtrackerV1 Integration Tests`, func() {
 				ID: core.StringPtr(targetIDLink),
 			}
 
-			response, err := atrackerService.DeleteTarget(deleteTargetOptions)
+			warningReport, response, err := atrackerService.DeleteTarget(deleteTargetOptions)
 
 			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(204))
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(warningReport).ToNot(BeNil())
 
 		})
 	})

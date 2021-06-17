@@ -1,7 +1,7 @@
 // +build examples
 
 /**
- * (C) Copyright IBM Corp. 2020.
+ * (C) Copyright IBM Corp. 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,13 +21,27 @@ package atrackerv1_test
 import (
 	"encoding/json"
 	"fmt"
+	"os"
+
 	"github.com/IBM/go-sdk-core/v5/core"
 	"github.com/IBM/platform-services-go-sdk/atrackerv1"
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
-	"os"
 )
 
+//
+// This file provides an example of how to use the atracker service.
+//
+// The following configuration properties are assumed to be defined:
+// ATRACKER_URL=<service base url>
+// ATRACKER_AUTH_TYPE=iam
+// ATRACKER_APIKEY=<IAM apikey>
+// ATRACKER_AUTH_URL=<IAM token service base URL - omit this if using the production environment>
+//
+// These configuration properties can be exported as environment variables, or stored
+// in a configuration file and then:
+// export IBM_CREDENTIALS_FILE=<name of configuration file>
+//
 const externalConfigFile = "../atracker_v1.env"
 
 var (
@@ -201,6 +215,28 @@ var _ = Describe(`AtrackerV1 Examples Tests`, func() {
 			Expect(target).ToNot(BeNil())
 
 		})
+		It(`ValidateTarget request example`, func() {
+			fmt.Println("\nValidateTarget() result:")
+			// begin-validate_target
+
+			validateTargetOptions := atrackerService.NewValidateTargetOptions(
+				targetIDLink,
+			)
+
+			target, response, err := atrackerService.ValidateTarget(validateTargetOptions)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(target, "", "  ")
+			fmt.Println(string(b))
+
+			// end-validate_target
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(target).ToNot(BeNil())
+
+		})
 		It(`CreateRoute request example`, func() {
 			fmt.Println("\nCreateRoute() result:")
 			// begin-create_route
@@ -321,21 +357,26 @@ var _ = Describe(`AtrackerV1 Examples Tests`, func() {
 
 		})
 		It(`DeleteTarget request example`, func() {
+			fmt.Println("\nDeleteTarget() result:")
 			// begin-delete_target
 
 			deleteTargetOptions := atrackerService.NewDeleteTargetOptions(
 				targetIDLink,
 			)
 
-			response, err := atrackerService.DeleteTarget(deleteTargetOptions)
+			warningReport, response, err := atrackerService.DeleteTarget(deleteTargetOptions)
 			if err != nil {
 				panic(err)
 			}
+			b, _ := json.MarshalIndent(warningReport, "", "  ")
+			fmt.Println(string(b))
+
 			// end-delete_target
 			fmt.Printf("\nDeleteTarget() response status code: %d\n", response.StatusCode)
 
 			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(204))
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(warningReport).ToNot(BeNil())
 
 		})
 	})
