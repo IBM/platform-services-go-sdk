@@ -42,12 +42,21 @@ import (
 // in a configuration file and then:
 // export IBM_CREDENTIALS_FILE=<name of configuration file>
 //
-const externalConfigFile = "../catalog_management_v1.env"
+const externalConfigFile = "../catalog_mgmt.env"
 
 var (
-	catalogManagementService *catalogmanagementv1.CatalogManagementV1
-	config                   map[string]string
-	configLoaded             bool = false
+	catalogManagementService  *catalogmanagementv1.CatalogManagementV1
+	config                    map[string]string
+	configLoaded              bool = false
+	accountID                 string
+	bearerToken               string
+	gitAuthTokenForPublicRepo string
+	catalogID                 string
+	offeringID                string
+	clusterID                 string
+	objectID                  string
+	offeringInstanceID        string
+	versionLocatorID          string
 )
 
 func shouldSkipTest() {
@@ -72,6 +81,15 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 			}
 
 			configLoaded = len(config) > 0
+
+			accountID = config["ACCOUNT_ID"]
+			Expect(accountID).NotTo(BeEmpty())
+
+			clusterID = config["CLUSTER_ID"]
+			Expect(clusterID).NotTo(BeEmpty())
+
+			gitAuthTokenForPublicRepo = config["GIT_TOKEN"]
+			Expect(gitAuthTokenForPublicRepo).NotTo(BeEmpty())
 		})
 	})
 
@@ -95,6 +113,11 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 			// end-common
 
 			Expect(catalogManagementService).ToNot(BeNil())
+
+			token, err := catalogManagementService.Service.Options.Authenticator.(*core.IamAuthenticator).RequestToken()
+			Expect(err).To(BeNil())
+			bearerToken = token.RefreshToken
+			Expect(bearerToken).NotTo(BeNil())
 		})
 	})
 
@@ -108,6 +131,10 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 			// begin-create_catalog
 
 			createCatalogOptions := catalogManagementService.NewCreateCatalogOptions()
+			createCatalogOptions.Label = core.StringPtr("Catalog Management Service")
+			createCatalogOptions.Tags = []string{"go", "sdk"}
+			createCatalogOptions.Kind = core.StringPtr("vpe")
+			createCatalogOptions.OwningAccount = &accountID
 
 			catalog, response, err := catalogManagementService.CreateCatalog(createCatalogOptions)
 			if err != nil {
@@ -122,6 +149,8 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 			Expect(response.StatusCode).To(Equal(201))
 			Expect(catalog).ToNot(BeNil())
 
+			catalogID = *catalog.ID
+
 		})
 
 		It(`GetCatalog request example`, func() {
@@ -129,7 +158,7 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 			// begin-get_catalog
 
 			getCatalogOptions := catalogManagementService.NewGetCatalogOptions(
-				"testString",
+				catalogID,
 			)
 
 			catalog, response, err := catalogManagementService.GetCatalog(getCatalogOptions)
@@ -152,8 +181,12 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 			// begin-replace_catalog
 
 			replaceCatalogOptions := catalogManagementService.NewReplaceCatalogOptions(
-				"testString",
+				catalogID,
 			)
+			replaceCatalogOptions.ID = &catalogID
+			replaceCatalogOptions.Tags = []string{"python", "sdk", "updated"}
+			replaceCatalogOptions.OwningAccount = &accountID
+			replaceCatalogOptions.Kind = core.StringPtr("vpe")
 
 			catalog, response, err := catalogManagementService.ReplaceCatalog(replaceCatalogOptions)
 			if err != nil {
@@ -196,8 +229,9 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 			// begin-create_offering
 
 			createOfferingOptions := catalogManagementService.NewCreateOfferingOptions(
-				"testString",
+				catalogID,
 			)
+			createOfferingOptions.Name = core.StringPtr("offering-name")
 
 			offering, response, err := catalogManagementService.CreateOffering(createOfferingOptions)
 			if err != nil {
@@ -212,6 +246,8 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 			Expect(response.StatusCode).To(Equal(201))
 			Expect(offering).ToNot(BeNil())
 
+			offeringID = *offering.ID
+
 		})
 
 		It(`GetOffering request example`, func() {
@@ -219,8 +255,8 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 			// begin-get_offering
 
 			getOfferingOptions := catalogManagementService.NewGetOfferingOptions(
-				"testString",
-				"testString",
+				catalogID,
+				offeringID,
 			)
 
 			offering, response, err := catalogManagementService.GetOffering(getOfferingOptions)
@@ -239,12 +275,13 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 		})
 
 		It(`ReplaceOffering request example`, func() {
+			Skip("Skipped by design.")
 			fmt.Println("\nReplaceOffering() result:")
 			// begin-replace_offering
 
 			replaceOfferingOptions := catalogManagementService.NewReplaceOfferingOptions(
-				"testString",
-				"testString",
+				catalogID,
+				offeringID,
 			)
 
 			offering, response, err := catalogManagementService.ReplaceOffering(replaceOfferingOptions)
@@ -267,8 +304,10 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 			// begin-list_offerings
 
 			listOfferingsOptions := catalogManagementService.NewListOfferingsOptions(
-				"testString",
+				catalogID,
 			)
+			listOfferingsOptions.Limit = core.Int64Ptr(100)
+			listOfferingsOptions.Offset = core.Int64Ptr(0)
 
 			offeringSearchResult, response, err := catalogManagementService.ListOfferings(listOfferingsOptions)
 			if err != nil {
@@ -290,8 +329,15 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 			// begin-import_offering
 
 			importOfferingOptions := catalogManagementService.NewImportOfferingOptions(
-				"testString",
+				catalogID,
 			)
+			importOfferingOptions.Tags = []string{"go", "sdk"}
+			importOfferingOptions.TargetKinds = []string{"roks"}
+			importOfferingOptions.Zipurl = core.StringPtr("https://github.com/rhm-samples/node-red-operator/blob/master/node-red-operator/bundle/0.0.2/node-red-operator.v0.0.2.clusterserviceversion.yaml")
+			importOfferingOptions.OfferingID = &offeringID
+			importOfferingOptions.TargetVersion = core.StringPtr("0.0.2")
+			importOfferingOptions.RepoType = core.StringPtr("git_public")
+			importOfferingOptions.XAuthToken = &gitAuthTokenForPublicRepo
 
 			offering, response, err := catalogManagementService.ImportOffering(importOfferingOptions)
 			if err != nil {
@@ -306,17 +352,24 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 			Expect(response.StatusCode).To(Equal(201))
 			Expect(offering).ToNot(BeNil())
 
+			versionLocatorID = *offering.Kinds[0].Versions[0].VersionLocator
+
 		})
 
 		It(`ReloadOffering request example`, func() {
+			Skip("Skip by design.")
 			fmt.Println("\nReloadOffering() result:")
 			// begin-reload_offering
 
 			reloadOfferingOptions := catalogManagementService.NewReloadOfferingOptions(
-				"testString",
-				"testString",
-				"testString",
+				catalogID,
+				offeringID,
+				"0.0.2",
 			)
+			reloadOfferingOptions.Tags = []string{"go", "sdk"}
+			reloadOfferingOptions.TargetKinds = []string{"roks"}
+			reloadOfferingOptions.Zipurl = core.StringPtr("https://github.com/rhm-samples/node-red-operator/blob/master/node-red-operator/bundle/0.0.2/node-red-operator.v0.0.2.clusterserviceversion.yaml")
+			reloadOfferingOptions.RepoType = core.StringPtr("git_public")
 
 			offering, response, err := catalogManagementService.ReloadOffering(reloadOfferingOptions)
 			if err != nil {
@@ -337,9 +390,26 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 			fmt.Println("\nCreateObject() result:")
 			// begin-create_object
 
+			publishObjectModel := &catalogmanagementv1.PublishObject{
+				PermitIBMPublicPublish: core.BoolPtr(true),
+				IBMApproved:            core.BoolPtr(true),
+				PublicApproved:         core.BoolPtr(true),
+			}
+
+			stateModel := &catalogmanagementv1.State{
+				Current: core.StringPtr("new"),
+			}
+
 			createObjectOptions := catalogManagementService.NewCreateObjectOptions(
-				"testString",
+				catalogID,
 			)
+			createObjectOptions.CatalogID = &catalogID
+			createObjectOptions.Name = core.StringPtr("object_in_ibm_cloud")
+			createObjectOptions.CRN = core.StringPtr("crn:v1:bluemix:public:iam-global-endpoint:global:::endpoint:private.iam.cloud.ibm.com")
+			createObjectOptions.ParentID = core.StringPtr("us-south")
+			createObjectOptions.Kind = core.StringPtr("vpe")
+			createObjectOptions.Publish = publishObjectModel
+			createObjectOptions.State = stateModel
 
 			catalogObject, response, err := catalogManagementService.CreateObject(createObjectOptions)
 			if err != nil {
@@ -354,6 +424,8 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 			Expect(response.StatusCode).To(Equal(201))
 			Expect(catalogObject).ToNot(BeNil())
 
+			objectID = *catalogObject.ID
+
 		})
 
 		It(`GetOfferingAudit request example`, func() {
@@ -361,8 +433,8 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 			// begin-get_offering_audit
 
 			getOfferingAuditOptions := catalogManagementService.NewGetOfferingAuditOptions(
-				"testString",
-				"testString",
+				catalogID,
+				offeringID,
 			)
 
 			auditLog, response, err := catalogManagementService.GetOfferingAudit(getOfferingAuditOptions)
@@ -402,9 +474,15 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 		})
 
 		It(`UpdateCatalogAccount request example`, func() {
+			Skip("Skipped bby design.")
 			// begin-update_catalog_account
 
+			includeAllFilter := &catalogmanagementv1.Filters{
+				IncludeAll: core.BoolPtr(true),
+			}
 			updateCatalogAccountOptions := catalogManagementService.NewUpdateCatalogAccountOptions()
+			updateCatalogAccountOptions.AccountFilters = includeAllFilter
+			updateCatalogAccountOptions.ID = &accountID
 
 			response, err := catalogManagementService.UpdateCatalogAccount(updateCatalogAccountOptions)
 			if err != nil {
@@ -466,7 +544,7 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 			// begin-get_catalog_audit
 
 			getCatalogAuditOptions := catalogManagementService.NewGetCatalogAuditOptions(
-				"testString",
+				catalogID,
 			)
 
 			auditLog, response, err := catalogManagementService.GetCatalogAudit(getCatalogAuditOptions)
@@ -510,9 +588,13 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 			// begin-import_offering_version
 
 			importOfferingVersionOptions := catalogManagementService.NewImportOfferingVersionOptions(
-				"testString",
-				"testString",
+				catalogID,
+				offeringID,
 			)
+			importOfferingVersionOptions.TargetKinds = []string{"roks"}
+			importOfferingVersionOptions.Zipurl = core.StringPtr("https://github.com/rhm-samples/node-red-operator/blob/master/node-red-operator/bundle/0.0.2/node-red-operator.v0.0.2.clusterserviceversion.yaml")
+			importOfferingVersionOptions.TargetVersion = core.StringPtr("0.0.3")
+			importOfferingVersionOptions.RepoType = core.StringPtr("git_public")
 
 			offering, response, err := catalogManagementService.ImportOfferingVersion(importOfferingVersionOptions)
 			if err != nil {
@@ -530,13 +612,14 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 		})
 
 		It(`ReplaceOfferingIcon request example`, func() {
+			Skip("Skipped by desing.")
 			fmt.Println("\nReplaceOfferingIcon() result:")
 			// begin-replace_offering_icon
 
 			replaceOfferingIconOptions := catalogManagementService.NewReplaceOfferingIconOptions(
-				"testString",
-				"testString",
-				"testString",
+				catalogID,
+				offeringID,
+				"offering_icon.png",
 			)
 
 			offering, response, err := catalogManagementService.ReplaceOfferingIcon(replaceOfferingIconOptions)
@@ -555,12 +638,13 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 		})
 
 		It(`UpdateOfferingIBM request example`, func() {
+			Skip("Skipped by desing.")
 			fmt.Println("\nUpdateOfferingIBM() result:")
 			// begin-update_offering_ibm
 
 			updateOfferingIBMOptions := catalogManagementService.NewUpdateOfferingIBMOptions(
-				"testString",
-				"testString",
+				catalogID,
+				offeringID,
 				"allow_request",
 				"true",
 			)
@@ -581,14 +665,19 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 		})
 
 		It(`GetOfferingUpdates request example`, func() {
+			Skip("Skipped by desing.")
 			fmt.Println("\nGetOfferingUpdates() result:")
 			// begin-get_offering_updates
 
 			getOfferingUpdatesOptions := catalogManagementService.NewGetOfferingUpdatesOptions(
-				"testString",
-				"testString",
-				"testString",
+				catalogID,
+				offeringID,
+				"roks",
 			)
+			getOfferingUpdatesOptions.Version = core.StringPtr("0.0.2")
+			getOfferingUpdatesOptions.ClusterID = &clusterID
+			getOfferingUpdatesOptions.Region = core.StringPtr("us-south")
+			getOfferingUpdatesOptions.Namespace = core.StringPtr("application-development-namespace")
 
 			versionUpdateDescriptor, response, err := catalogManagementService.GetOfferingUpdates(getOfferingUpdatesOptions)
 			if err != nil {
@@ -606,11 +695,12 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 		})
 
 		It(`GetOfferingAbout request example`, func() {
+			Skip("Skipped by desing.")
 			fmt.Println("\nGetOfferingAbout() result:")
 			// begin-get_offering_about
 
 			getOfferingAboutOptions := catalogManagementService.NewGetOfferingAboutOptions(
-				"testString",
+				versionLocatorID,
 			)
 
 			result, response, err := catalogManagementService.GetOfferingAbout(getOfferingAboutOptions)
@@ -629,12 +719,13 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 		})
 
 		It(`GetOfferingLicense request example`, func() {
+			Skip("Skipped by desing.")
 			fmt.Println("\nGetOfferingLicense() result:")
 			// begin-get_offering_license
 
 			getOfferingLicenseOptions := catalogManagementService.NewGetOfferingLicenseOptions(
-				"testString",
-				"testString",
+				versionLocatorID,
+				"license-id",
 			)
 
 			result, response, err := catalogManagementService.GetOfferingLicense(getOfferingLicenseOptions)
@@ -657,7 +748,7 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 			// begin-get_offering_container_images
 
 			getOfferingContainerImagesOptions := catalogManagementService.NewGetOfferingContainerImagesOptions(
-				"testString",
+				versionLocatorID,
 			)
 
 			imageManifest, response, err := catalogManagementService.GetOfferingContainerImages(getOfferingContainerImagesOptions)
@@ -676,10 +767,11 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 		})
 
 		It(`DeprecateVersion request example`, func() {
+			Skip("Skipped by desing.")
 			// begin-deprecate_version
 
 			deprecateVersionOptions := catalogManagementService.NewDeprecateVersionOptions(
-				"testString",
+				versionLocatorID,
 			)
 
 			response, err := catalogManagementService.DeprecateVersion(deprecateVersionOptions)
@@ -696,10 +788,11 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 		})
 
 		It(`AccountPublishVersion request example`, func() {
+			Skip("Skipped by desing.")
 			// begin-account_publish_version
 
 			accountPublishVersionOptions := catalogManagementService.NewAccountPublishVersionOptions(
-				"testString",
+				versionLocatorID,
 			)
 
 			response, err := catalogManagementService.AccountPublishVersion(accountPublishVersionOptions)
@@ -716,10 +809,11 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 		})
 
 		It(`IBMPublishVersion request example`, func() {
+			Skip("Skipped by desing.")
 			// begin-ibm_publish_version
 
 			ibmPublishVersionOptions := catalogManagementService.NewIBMPublishVersionOptions(
-				"testString",
+				versionLocatorID,
 			)
 
 			response, err := catalogManagementService.IBMPublishVersion(ibmPublishVersionOptions)
@@ -736,10 +830,11 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 		})
 
 		It(`PublicPublishVersion request example`, func() {
+			Skip("Skipped by desing.")
 			// begin-public_publish_version
 
 			publicPublishVersionOptions := catalogManagementService.NewPublicPublishVersionOptions(
-				"testString",
+				versionLocatorID,
 			)
 
 			response, err := catalogManagementService.PublicPublishVersion(publicPublishVersionOptions)
@@ -756,10 +851,11 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 		})
 
 		It(`CommitVersion request example`, func() {
+			Skip("Skipped by desing.")
 			// begin-commit_version
 
 			commitVersionOptions := catalogManagementService.NewCommitVersionOptions(
-				"testString",
+				versionLocatorID,
 			)
 
 			response, err := catalogManagementService.CommitVersion(commitVersionOptions)
@@ -776,11 +872,13 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 		})
 
 		It(`CopyVersion request example`, func() {
+			Skip("Skipped by desing.")
 			// begin-copy_version
 
 			copyVersionOptions := catalogManagementService.NewCopyVersionOptions(
-				"testString",
+				versionLocatorID,
 			)
+			copyVersionOptions.TargetKinds = []string{"roks"}
 
 			response, err := catalogManagementService.CopyVersion(copyVersionOptions)
 			if err != nil {
@@ -796,11 +894,12 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 		})
 
 		It(`GetOfferingWorkingCopy request example`, func() {
+			Skip("Skipped by desing.")
 			fmt.Println("\nGetOfferingWorkingCopy() result:")
 			// begin-get_offering_working_copy
 
 			getOfferingWorkingCopyOptions := catalogManagementService.NewGetOfferingWorkingCopyOptions(
-				"testString",
+				versionLocatorID,
 			)
 
 			version, response, err := catalogManagementService.GetOfferingWorkingCopy(getOfferingWorkingCopyOptions)
@@ -823,7 +922,7 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 			// begin-get_version
 
 			getVersionOptions := catalogManagementService.NewGetVersionOptions(
-				"testString",
+				versionLocatorID,
 			)
 
 			offering, response, err := catalogManagementService.GetVersion(getVersionOptions)
@@ -842,13 +941,14 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 		})
 
 		It(`GetCluster request example`, func() {
+			Skip("Skipped by desing.")
 			fmt.Println("\nGetCluster() result:")
 			// begin-get_cluster
 
 			getClusterOptions := catalogManagementService.NewGetClusterOptions(
-				"testString",
-				"testString",
-				"testString",
+				clusterID,
+				"us-south",
+				bearerToken,
 			)
 
 			clusterInfo, response, err := catalogManagementService.GetCluster(getClusterOptions)
@@ -867,13 +967,14 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 		})
 
 		It(`GetNamespaces request example`, func() {
+			Skip("Skipped by desing.")
 			fmt.Println("\nGetNamespaces() result:")
 			// begin-get_namespaces
 
 			getNamespacesOptions := catalogManagementService.NewGetNamespacesOptions(
-				"testString",
-				"testString",
-				"testString",
+				clusterID,
+				"us-south",
+				bearerToken,
 			)
 
 			namespaceSearchResult, response, err := catalogManagementService.GetNamespaces(getNamespacesOptions)
@@ -892,12 +993,17 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 		})
 
 		It(`DeployOperators request example`, func() {
+			Skip("Skipped by desing.")
 			fmt.Println("\nDeployOperators() result:")
 			// begin-deploy_operators
 
 			deployOperatorsOptions := catalogManagementService.NewDeployOperatorsOptions(
-				"testString",
+				bearerToken,
 			)
+			deployOperatorsOptions.ClusterID = &clusterID
+			deployOperatorsOptions.Region = core.StringPtr("us-south")
+			deployOperatorsOptions.AllNamespaces = core.BoolPtr(true)
+			deployOperatorsOptions.VersionLocatorID = &versionLocatorID
 
 			operatorDeployResult, response, err := catalogManagementService.DeployOperators(deployOperatorsOptions)
 			if err != nil {
@@ -915,14 +1021,15 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 		})
 
 		It(`ListOperators request example`, func() {
+			Skip("Skipped by desing.")
 			fmt.Println("\nListOperators() result:")
 			// begin-list_operators
 
 			listOperatorsOptions := catalogManagementService.NewListOperatorsOptions(
-				"testString",
-				"testString",
-				"testString",
-				"testString",
+				bearerToken,
+				clusterID,
+				"us-south",
+				versionLocatorID,
 			)
 
 			operatorDeployResult, response, err := catalogManagementService.ListOperators(listOperatorsOptions)
@@ -940,34 +1047,18 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 
 		})
 
-		It(`InstallVersion request example`, func() {
-			// begin-install_version
-
-			installVersionOptions := catalogManagementService.NewInstallVersionOptions(
-				"testString",
-				"testString",
-			)
-
-			response, err := catalogManagementService.InstallVersion(installVersionOptions)
-			if err != nil {
-				panic(err)
-			}
-
-			// end-install_version
-			fmt.Printf("\nInstallVersion() response status code: %d\n", response.StatusCode)
-
-			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(202))
-
-		})
-
 		It(`ReplaceOperators request example`, func() {
+			Skip("Skipped by desing.")
 			fmt.Println("\nReplaceOperators() result:")
 			// begin-replace_operators
 
 			replaceOperatorsOptions := catalogManagementService.NewReplaceOperatorsOptions(
-				"testString",
+				bearerToken,
 			)
+			replaceOperatorsOptions.ClusterID = &clusterID
+			replaceOperatorsOptions.Region = core.StringPtr("us-south")
+			replaceOperatorsOptions.AllNamespaces = core.BoolPtr(true)
+			replaceOperatorsOptions.VersionLocatorID = &versionLocatorID
 
 			operatorDeployResult, response, err := catalogManagementService.ReplaceOperators(replaceOperatorsOptions)
 			if err != nil {
@@ -984,12 +1075,35 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 
 		})
 
+		It(`InstallVersion request example`, func() {
+			Skip("Skipped by desing.")
+			// begin-install_version
+
+			installVersionOptions := catalogManagementService.NewInstallVersionOptions(
+				versionLocatorID,
+				bearerToken,
+			)
+
+			response, err := catalogManagementService.InstallVersion(installVersionOptions)
+			if err != nil {
+				panic(err)
+			}
+
+			// end-install_version
+			fmt.Printf("\nInstallVersion() response status code: %d\n", response.StatusCode)
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(202))
+
+		})
+
 		It(`PreinstallVersion request example`, func() {
+			Skip("Skipped by desing.")
 			// begin-preinstall_version
 
 			preinstallVersionOptions := catalogManagementService.NewPreinstallVersionOptions(
-				"testString",
-				"testString",
+				versionLocatorID,
+				bearerToken,
 			)
 
 			response, err := catalogManagementService.PreinstallVersion(preinstallVersionOptions)
@@ -1006,12 +1120,13 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 		})
 
 		It(`GetPreinstall request example`, func() {
+			Skip("Skipped by desing.")
 			fmt.Println("\nGetPreinstall() result:")
 			// begin-get_preinstall
 
 			getPreinstallOptions := catalogManagementService.NewGetPreinstallOptions(
-				"testString",
-				"testString",
+				versionLocatorID,
+				bearerToken,
 			)
 
 			installStatus, response, err := catalogManagementService.GetPreinstall(getPreinstallOptions)
@@ -1030,11 +1145,12 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 		})
 
 		It(`ValidateInstall request example`, func() {
+			Skip("Skipped by desing.")
 			// begin-validate_install
 
 			validateInstallOptions := catalogManagementService.NewValidateInstallOptions(
-				"testString",
-				"testString",
+				versionLocatorID,
+				bearerToken,
 			)
 
 			response, err := catalogManagementService.ValidateInstall(validateInstallOptions)
@@ -1055,8 +1171,8 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 			// begin-get_validation_status
 
 			getValidationStatusOptions := catalogManagementService.NewGetValidationStatusOptions(
-				"testString",
-				"testString",
+				versionLocatorID,
+				bearerToken,
 			)
 
 			validation, response, err := catalogManagementService.GetValidationStatus(getValidationStatusOptions)
@@ -1075,11 +1191,12 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 		})
 
 		It(`GetOverrideValues request example`, func() {
+			Skip("Skipped by desing.")
 			fmt.Println("\nGetOverrideValues() result:")
 			// begin-get_override_values
 
 			getOverrideValuesOptions := catalogManagementService.NewGetOverrideValuesOptions(
-				"testString",
+				versionLocatorID,
 			)
 
 			getOverrideValuesResponse, response, err := catalogManagementService.GetOverrideValues(getOverrideValuesOptions)
@@ -1102,8 +1219,12 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 			// begin-search_objects
 
 			searchObjectsOptions := catalogManagementService.NewSearchObjectsOptions(
-				"testString",
+				"name: object*",
 			)
+			searchObjectsOptions.Collapse = core.BoolPtr(true)
+			searchObjectsOptions.Digest = core.BoolPtr(true)
+			searchObjectsOptions.Limit = core.Int64Ptr(100)
+			searchObjectsOptions.Offset = core.Int64Ptr(0)
 
 			objectSearchResult, response, err := catalogManagementService.SearchObjects(searchObjectsOptions)
 			if err != nil {
@@ -1125,8 +1246,10 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 			// begin-list_objects
 
 			listObjectsOptions := catalogManagementService.NewListObjectsOptions(
-				"testString",
+				catalogID,
 			)
+			listObjectsOptions.Limit = core.Int64Ptr(100)
+			listObjectsOptions.Offset = core.Int64Ptr(0)
 
 			objectListResult, response, err := catalogManagementService.ListObjects(listObjectsOptions)
 			if err != nil {
@@ -1143,13 +1266,43 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 
 		})
 
+		It(`ReplaceObject request example`, func() {
+			Skip("Skipped by desing.")
+			fmt.Println("\nReplaceObject() result:")
+			// begin-replace_object
+
+			replaceObjectOptions := catalogManagementService.NewReplaceObjectOptions(
+				catalogID,
+				objectID,
+			)
+			replaceObjectOptions.ID = &objectID
+			replaceObjectOptions.Name = core.StringPtr("updated-object-name")
+			replaceObjectOptions.ParentID = core.StringPtr("us-south")
+			replaceObjectOptions.Kind = core.StringPtr("vpe")
+			replaceObjectOptions.CatalogID = &catalogID
+
+			catalogObject, response, err := catalogManagementService.ReplaceObject(replaceObjectOptions)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(catalogObject, "", "  ")
+			fmt.Println(string(b))
+
+			// end-replace_object
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(catalogObject).ToNot(BeNil())
+
+		})
+
 		It(`GetObject request example`, func() {
 			fmt.Println("\nGetObject() result:")
 			// begin-get_object
 
 			getObjectOptions := catalogManagementService.NewGetObjectOptions(
-				"testString",
-				"testString",
+				catalogID,
+				objectID,
 			)
 
 			catalogObject, response, err := catalogManagementService.GetObject(getObjectOptions)
@@ -1167,37 +1320,13 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 
 		})
 
-		It(`ReplaceObject request example`, func() {
-			fmt.Println("\nReplaceObject() result:")
-			// begin-replace_object
-
-			replaceObjectOptions := catalogManagementService.NewReplaceObjectOptions(
-				"testString",
-				"testString",
-			)
-
-			catalogObject, response, err := catalogManagementService.ReplaceObject(replaceObjectOptions)
-			if err != nil {
-				panic(err)
-			}
-			b, _ := json.MarshalIndent(catalogObject, "", "  ")
-			fmt.Println(string(b))
-
-			// end-replace_object
-
-			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(200))
-			Expect(catalogObject).ToNot(BeNil())
-
-		})
-
 		It(`GetObjectAudit request example`, func() {
 			fmt.Println("\nGetObjectAudit() result:")
 			// begin-get_object_audit
 
 			getObjectAuditOptions := catalogManagementService.NewGetObjectAuditOptions(
-				"testString",
-				"testString",
+				catalogID,
+				objectID,
 			)
 
 			auditLog, response, err := catalogManagementService.GetObjectAudit(getObjectAuditOptions)
@@ -1219,8 +1348,8 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 			// begin-account_publish_object
 
 			accountPublishObjectOptions := catalogManagementService.NewAccountPublishObjectOptions(
-				"testString",
-				"testString",
+				catalogID,
+				objectID,
 			)
 
 			response, err := catalogManagementService.AccountPublishObject(accountPublishObjectOptions)
@@ -1237,11 +1366,12 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 		})
 
 		It(`SharedPublishObject request example`, func() {
+			Skip("Skipped by desing.")
 			// begin-shared_publish_object
 
 			sharedPublishObjectOptions := catalogManagementService.NewSharedPublishObjectOptions(
-				"testString",
-				"testString",
+				catalogID,
+				objectID,
 			)
 
 			response, err := catalogManagementService.SharedPublishObject(sharedPublishObjectOptions)
@@ -1258,11 +1388,12 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 		})
 
 		It(`IBMPublishObject request example`, func() {
+			Skip("Skipped by desing.")
 			// begin-ibm_publish_object
 
 			ibmPublishObjectOptions := catalogManagementService.NewIBMPublishObjectOptions(
-				"testString",
-				"testString",
+				catalogID,
+				objectID,
 			)
 
 			response, err := catalogManagementService.IBMPublishObject(ibmPublishObjectOptions)
@@ -1279,11 +1410,12 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 		})
 
 		It(`PublicPublishObject request example`, func() {
+			Skip("Skipped by desing.")
 			// begin-public_publish_object
 
 			publicPublishObjectOptions := catalogManagementService.NewPublicPublishObjectOptions(
-				"testString",
-				"testString",
+				catalogID,
+				objectID,
 			)
 
 			response, err := catalogManagementService.PublicPublishObject(publicPublishObjectOptions)
@@ -1303,9 +1435,9 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 			// begin-create_object_access
 
 			createObjectAccessOptions := catalogManagementService.NewCreateObjectAccessOptions(
-				"testString",
-				"testString",
-				"testString",
+				catalogID,
+				objectID,
+				accountID,
 			)
 
 			response, err := catalogManagementService.CreateObjectAccess(createObjectAccessOptions)
@@ -1326,9 +1458,9 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 			// begin-get_object_access
 
 			getObjectAccessOptions := catalogManagementService.NewGetObjectAccessOptions(
-				"testString",
-				"testString",
-				"testString",
+				catalogID,
+				objectID,
+				accountID,
 			)
 
 			objectAccess, response, err := catalogManagementService.GetObjectAccess(getObjectAccessOptions)
@@ -1351,9 +1483,9 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 			// begin-add_object_access_list
 
 			addObjectAccessListOptions := catalogManagementService.NewAddObjectAccessListOptions(
-				"testString",
-				"testString",
-				[]string{"testString"},
+				catalogID,
+				objectID,
+				[]string{accountID},
 			)
 
 			accessListBulkResponse, response, err := catalogManagementService.AddObjectAccessList(addObjectAccessListOptions)
@@ -1366,7 +1498,7 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 			// end-add_object_access_list
 
 			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(200))
+			Expect(response.StatusCode).To(Equal(201))
 			Expect(accessListBulkResponse).ToNot(BeNil())
 
 		})
@@ -1376,8 +1508,8 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 			// begin-get_object_access_list
 
 			getObjectAccessListOptions := catalogManagementService.NewGetObjectAccessListOptions(
-				"testString",
-				"testString",
+				catalogID,
+				objectID,
 			)
 
 			objectAccessListResult, response, err := catalogManagementService.GetObjectAccessList(getObjectAccessListOptions)
@@ -1396,12 +1528,21 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 		})
 
 		It(`CreateOfferingInstance request example`, func() {
+			Skip("Skipped by desing.")
 			fmt.Println("\nCreateOfferingInstance() result:")
 			// begin-create_offering_instance
 
 			createOfferingInstanceOptions := catalogManagementService.NewCreateOfferingInstanceOptions(
-				"testString",
+				bearerToken,
 			)
+			createOfferingInstanceOptions.ID = &offeringID
+			createOfferingInstanceOptions.CatalogID = &catalogID
+			createOfferingInstanceOptions.OfferingID = &offeringID
+			createOfferingInstanceOptions.KindFormat = core.StringPtr("vpe")
+			createOfferingInstanceOptions.Version = core.StringPtr("0.0.2")
+			createOfferingInstanceOptions.ClusterID = &clusterID
+			createOfferingInstanceOptions.ClusterRegion = core.StringPtr("us-south")
+			createOfferingInstanceOptions.ClusterAllNamespaces = core.BoolPtr(true)
 
 			offeringInstance, response, err := catalogManagementService.CreateOfferingInstance(createOfferingInstanceOptions)
 			if err != nil {
@@ -1416,14 +1557,17 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 			Expect(response.StatusCode).To(Equal(201))
 			Expect(offeringInstance).ToNot(BeNil())
 
+			offeringInstanceID = *offeringInstance.ID
+
 		})
 
 		It(`GetOfferingInstance request example`, func() {
 			fmt.Println("\nGetOfferingInstance() result:")
+			Skip("Skipped by desing.")
 			// begin-get_offering_instance
 
 			getOfferingInstanceOptions := catalogManagementService.NewGetOfferingInstanceOptions(
-				"testString",
+				offeringInstanceID,
 			)
 
 			offeringInstance, response, err := catalogManagementService.GetOfferingInstance(getOfferingInstanceOptions)
@@ -1442,13 +1586,22 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 		})
 
 		It(`PutOfferingInstance request example`, func() {
+			Skip("Skipped by desing.")
 			fmt.Println("\nPutOfferingInstance() result:")
 			// begin-put_offering_instance
 
 			putOfferingInstanceOptions := catalogManagementService.NewPutOfferingInstanceOptions(
-				"testString",
-				"testString",
+				offeringInstanceID,
+				bearerToken,
 			)
+			putOfferingInstanceOptions.ID = &offeringID
+			putOfferingInstanceOptions.CatalogID = &catalogID
+			putOfferingInstanceOptions.OfferingID = &offeringID
+			putOfferingInstanceOptions.KindFormat = core.StringPtr("vpe")
+			putOfferingInstanceOptions.Version = core.StringPtr("0.0.2")
+			putOfferingInstanceOptions.ClusterID = &clusterID
+			putOfferingInstanceOptions.ClusterRegion = core.StringPtr("us-south")
+			putOfferingInstanceOptions.ClusterAllNamespaces = core.BoolPtr(true)
 
 			offeringInstance, response, err := catalogManagementService.PutOfferingInstance(putOfferingInstanceOptions)
 			if err != nil {
@@ -1469,7 +1622,7 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 			// begin-delete_version
 
 			deleteVersionOptions := catalogManagementService.NewDeleteVersionOptions(
-				"testString",
+				versionLocatorID,
 			)
 
 			response, err := catalogManagementService.DeleteVersion(deleteVersionOptions)
@@ -1486,13 +1639,14 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 		})
 
 		It(`DeleteOperators request example`, func() {
+			Skip("Skipped by desing.")
 			// begin-delete_operators
 
 			deleteOperatorsOptions := catalogManagementService.NewDeleteOperatorsOptions(
-				"testString",
-				"testString",
-				"testString",
-				"testString",
+				bearerToken,
+				clusterID,
+				"us-south",
+				versionLocatorID,
 			)
 
 			response, err := catalogManagementService.DeleteOperators(deleteOperatorsOptions)
@@ -1509,11 +1663,12 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 		})
 
 		It(`DeleteOfferingInstance request example`, func() {
+			Skip("Skipped by desing.")
 			// begin-delete_offering_instance
 
 			deleteOfferingInstanceOptions := catalogManagementService.NewDeleteOfferingInstanceOptions(
-				"testString",
-				"testString",
+				offeringInstanceID,
+				bearerToken,
 			)
 
 			response, err := catalogManagementService.DeleteOfferingInstance(deleteOfferingInstanceOptions)
@@ -1534,9 +1689,9 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 			// begin-delete_object_access_list
 
 			deleteObjectAccessListOptions := catalogManagementService.NewDeleteObjectAccessListOptions(
-				"testString",
-				"testString",
-				[]string{"testString"},
+				catalogID,
+				objectID,
+				[]string{accountID},
 			)
 
 			accessListBulkResponse, response, err := catalogManagementService.DeleteObjectAccessList(deleteObjectAccessListOptions)
@@ -1558,9 +1713,9 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 			// begin-delete_object_access
 
 			deleteObjectAccessOptions := catalogManagementService.NewDeleteObjectAccessOptions(
-				"testString",
-				"testString",
-				"testString",
+				catalogID,
+				objectID,
+				accountID,
 			)
 
 			response, err := catalogManagementService.DeleteObjectAccess(deleteObjectAccessOptions)
@@ -1580,8 +1735,8 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 			// begin-delete_object
 
 			deleteObjectOptions := catalogManagementService.NewDeleteObjectOptions(
-				"testString",
-				"testString",
+				catalogID,
+				objectID,
 			)
 
 			response, err := catalogManagementService.DeleteObject(deleteObjectOptions)
@@ -1601,8 +1756,8 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 			// begin-delete_offering
 
 			deleteOfferingOptions := catalogManagementService.NewDeleteOfferingOptions(
-				"testString",
-				"testString",
+				catalogID,
+				offeringID,
 			)
 
 			response, err := catalogManagementService.DeleteOffering(deleteOfferingOptions)
@@ -1622,7 +1777,7 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 			// begin-delete_catalog
 
 			deleteCatalogOptions := catalogManagementService.NewDeleteCatalogOptions(
-				"testString",
+				catalogID,
 			)
 
 			response, err := catalogManagementService.DeleteCatalog(deleteCatalogOptions)
