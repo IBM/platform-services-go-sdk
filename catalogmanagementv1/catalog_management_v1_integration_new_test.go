@@ -26,6 +26,7 @@ import (
 	. "github.com/onsi/gomega"
 	"log"
 	"os"
+	"strconv"
 )
 
 /**
@@ -54,15 +55,17 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 		bogusRevision                         = "bogus-revision"
 		bogusVersionLocatorID                 = "bogus-version-locator-id"
 		repoTypeGitPublic                     = "git_public"
-		objectName                            = "object_created_by_go_sdk6"
+		objectName                            = "object_created_by_go_sdk15"
 		regionUSSouth                         = "us-south"
 		objectCRN                             = "crn:v1:bluemix:public:iam-global-endpoint:global:::endpoint:private.iam.cloud.ibm.com"
 		accountID                             string
 		gitAuthToken                          string
 		catalogID                             string
+		createdOfferingIDs                    []string
 		offeringID                            string
 		versionLocatorID                      string
 		objectID                              string
+		createdObjectIDs                      []string
 		clusterID                             string
 		refreshTokenAuthorized                string
 		refreshTokenNotAuthorized             string
@@ -403,21 +406,25 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 		It(`Creates an offering`, func() {
 			Expect(catalogID).NotTo(BeNil())
 
-			offeringName := "offering-created-by-go-sdk"
-			createOfferingOptions := &catalogmanagementv1.CreateOfferingOptions{
-				CatalogIdentifier: &catalogID,
-				ID:                &catalogID,
-				Name:              &offeringName,
+			for i := 0; i < 2; i++ {
+				var name = fmt.Sprintf("offering-created-by-go-sdk-%d", i)
+				createOfferingOptions := &catalogmanagementv1.CreateOfferingOptions{
+					CatalogIdentifier: &catalogID,
+					Name:              &name,
+				}
+
+				offering, response, err := catalogManagementServiceAuthorized.CreateOffering(createOfferingOptions)
+
+				Expect(err).To(BeNil())
+				Expect(response.StatusCode).To(Equal(201))
+				Expect(offering).NotTo(BeNil())
+				Expect(offering.ID).NotTo(BeNil())
+
+				if offeringID == "" {
+					offeringID = *offering.ID
+				}
+				createdOfferingIDs = append(createdOfferingIDs, *offering.ID)
 			}
-
-			offering, response, err := catalogManagementServiceAuthorized.CreateOffering(createOfferingOptions)
-
-			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(201))
-			Expect(offering).NotTo(BeNil())
-			Expect(offering.ID).NotTo(BeNil())
-
-			offeringID = *offering.ID
 		})
 	})
 
@@ -627,12 +634,11 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 			Expect(catalogID).NotTo(BeNil())
 
 			var offset int64 = 0
-			var limit int64 = 50
-			fetch := true
+			var limit int64 = 1
 			amountOfOfferings := 0
-			contains := false
+			fetchMore := true
 
-			for fetch == true {
+			for fetchMore {
 				listOfferingsOptions := &catalogmanagementv1.ListOfferingsOptions{
 					CatalogIdentifier: &catalogID,
 					Offset:            &offset,
@@ -645,24 +651,24 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 				Expect(response.StatusCode).To(Equal(200))
 				Expect(offeringList).NotTo(BeNil())
 
-				if len(offeringList.Resources) > 0 {
-					amountOfOfferings += len(offeringList.Resources)
-					offset += 50
+				if offeringList.Next != nil {
+					offsetValue, err := core.GetQueryParam(offeringList.Next, "offset")
+					Expect(err).To(BeNil())
 
-					if contains == false {
-						for _, offering := range offeringList.Resources {
-							if *offering.ID == offeringID {
-								contains = true
-								break
-							}
-						}
+					if *offsetValue != "" {
+						offsetVal, errOffset := strconv.ParseInt(*offsetValue, 10, 64)
+						Expect(errOffset).To(BeNil())
+						offset = offsetVal
 					}
 
 				} else {
-					fetch = false
+					fetchMore = false
+				}
+
+				if *offeringList.ResourceCount > 0 {
+					amountOfOfferings += int(*offeringList.ResourceCount)
 				}
 			}
-			Expect(contains).To(BeTrue())
 
 			fmt.Printf("Amount of Offerings: %d", amountOfOfferings)
 		})
@@ -951,35 +957,41 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 		It(`Creates an object`, func() {
 			Expect(catalogID).NotTo(BeNil())
 
-			publishObjectModel := &catalogmanagementv1.PublishObject{
-				PermitIBMPublicPublish: core.BoolPtr(true),
-				IBMApproved:            core.BoolPtr(true),
-				PublicApproved:         core.BoolPtr(true),
+			for i := 0; i < 2; i++ {
+				publishObjectModel := &catalogmanagementv1.PublishObject{
+					PermitIBMPublicPublish: core.BoolPtr(true),
+					IBMApproved:            core.BoolPtr(true),
+					PublicApproved:         core.BoolPtr(true),
+				}
+
+				stateModel := &catalogmanagementv1.State{
+					Current: core.StringPtr("new"),
+				}
+
+				var name = fmt.Sprintf("%s_%d", objectName, i)
+				createObjectOptions := &catalogmanagementv1.CreateObjectOptions{
+					CatalogIdentifier: &catalogID,
+					CatalogID:         &catalogID,
+					Name:              &name,
+					CRN:               &objectCRN,
+					ParentID:          &regionUSSouth,
+					Kind:              core.StringPtr(kindVPE),
+					Publish:           publishObjectModel,
+					State:             stateModel,
+				}
+
+				catalogObject, response, err := catalogManagementServiceAuthorized.CreateObject(createObjectOptions)
+
+				Expect(err).To(BeNil())
+				Expect(response.StatusCode).To(Equal(201))
+				Expect(catalogObject).NotTo(BeNil())
+				Expect(catalogObject.ID).NotTo(BeNil())
+
+				if objectID == "" {
+					objectID = *catalogObject.ID
+				}
+				createdObjectIDs = append(createdObjectIDs, *catalogObject.ID)
 			}
-
-			stateModel := &catalogmanagementv1.State{
-				Current: core.StringPtr("new"),
-			}
-
-			createObjectOptions := &catalogmanagementv1.CreateObjectOptions{
-				CatalogIdentifier: &catalogID,
-				CatalogID:         &catalogID,
-				Name:              &objectName,
-				CRN:               &objectCRN,
-				ParentID:          &regionUSSouth,
-				Kind:              core.StringPtr(kindVPE),
-				Publish:           publishObjectModel,
-				State:             stateModel,
-			}
-
-			catalogObject, response, err := catalogManagementServiceAuthorized.CreateObject(createObjectOptions)
-
-			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(201))
-			Expect(catalogObject).NotTo(BeNil())
-			Expect(catalogObject.ID).NotTo(BeNil())
-
-			objectID = *catalogObject.ID
 		})
 	})
 
@@ -3071,7 +3083,7 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 			fetch := true
 			amountOfObjects := 0
 
-			for fetch == true {
+			for fetch {
 				searchObjectsOptions := &catalogmanagementv1.SearchObjectsOptions{
 					Query:    core.StringPtr("name: object*"),
 					Collapse: core.BoolPtr(true),
@@ -3086,12 +3098,23 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 				Expect(response.StatusCode).To(Equal(200))
 				Expect(searchResult).NotTo(BeNil())
 
-				if len(searchResult.Resources) > 0 {
-					amountOfObjects += len(searchResult.Resources)
-					offset += 50
+				if searchResult.Next != nil {
+					offsetValue, err := core.GetQueryParam(searchResult.Next, "offset")
+					Expect(err).To(BeNil())
+
+					if *offsetValue != "" {
+						offsetVal, errOffsetVal := strconv.ParseInt(*offsetValue, 10, 64)
+						Expect(errOffsetVal).To(BeNil())
+						offset = offsetVal
+					}
 				} else {
 					fetch = false
 				}
+
+				if *searchResult.ResourceCount > 0 {
+					amountOfObjects += int(*searchResult.ResourceCount)
+				}
+
 			}
 
 			fmt.Printf("Amount of objects: %d", amountOfObjects)
@@ -3137,13 +3160,12 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 
 			Expect(catalogID).NotTo(BeNil())
 
-			var limit int64 = 50
+			var limit int64 = 1
 			var offset int64 = 0
 			amountOfObjects := 0
-			contains := false
 			fetch := true
 
-			for fetch == true {
+			for fetch {
 
 				listObjectsOptions := &catalogmanagementv1.ListObjectsOptions{
 					CatalogIdentifier: &catalogID,
@@ -3157,23 +3179,23 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 				Expect(response.StatusCode).To(Equal(200))
 				Expect(searchResult).NotTo(BeNil())
 
-				if len(searchResult.Resources) > 0 {
-					amountOfObjects += len(searchResult.Resources)
-					offset += 50
+				if searchResult.Next != nil {
+					offsetValue, errOffset := core.GetQueryParam(searchResult.Next, "offset")
+					Expect(errOffset).To(BeNil())
 
-					if contains == false {
-						for _, obj := range searchResult.Resources {
-							if *obj.ID == objectID {
-								contains = true
-								break
-							}
-						}
+					if *offsetValue != "" {
+						offsetVal, errOffsetVal := strconv.ParseInt(*offsetValue, 10, 64)
+						Expect(errOffsetVal).To(BeNil())
+						offset = offsetVal
 					}
 				} else {
 					fetch = false
 				}
+
+				if *searchResult.ResourceCount > 0 {
+					amountOfObjects += int(*searchResult.ResourceCount)
+				}
 			}
-			Expect(contains).To(BeTrue())
 			fmt.Printf("Amount of objects: %d", amountOfObjects)
 		})
 	})
@@ -4455,18 +4477,19 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 
 		It(`Deletes object`, func() {
 
-			Expect(objectID).ToNot(BeNil())
 			Expect(catalogID).ToNot(BeNil())
 
-			deleteObjectOptions := &catalogmanagementv1.DeleteObjectOptions{
-				CatalogIdentifier: &catalogID,
-				ObjectIdentifier:  &objectID,
+			for _, id := range createdObjectIDs {
+				deleteObjectOptions := &catalogmanagementv1.DeleteObjectOptions{
+					CatalogIdentifier: &catalogID,
+					ObjectIdentifier:  &id,
+				}
+
+				response, err := catalogManagementServiceAuthorized.DeleteObject(deleteObjectOptions)
+
+				Expect(err).To(BeNil())
+				Expect(response.StatusCode).To(Equal(200))
 			}
-
-			response, err := catalogManagementServiceAuthorized.DeleteObject(deleteObjectOptions)
-
-			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(200))
 		})
 	})
 
@@ -4510,18 +4533,19 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 
 		It(`Deletes offering`, func() {
 
-			Expect(offeringID).ToNot(BeNil())
 			Expect(catalogID).ToNot(BeNil())
 
-			deleteOfferingOptions := &catalogmanagementv1.DeleteOfferingOptions{
-				CatalogIdentifier: &catalogID,
-				OfferingID:        &offeringID,
+			for _, id := range createdOfferingIDs {
+				deleteOfferingOptions := &catalogmanagementv1.DeleteOfferingOptions{
+					CatalogIdentifier: &catalogID,
+					OfferingID:        &id,
+				}
+
+				response, err := catalogManagementServiceAuthorized.DeleteOffering(deleteOfferingOptions)
+
+				Expect(err).To(BeNil())
+				Expect(response.StatusCode).To(Equal(200))
 			}
-
-			response, err := catalogManagementServiceAuthorized.DeleteOffering(deleteOfferingOptions)
-
-			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(200))
 		})
 	})
 
@@ -4575,24 +4599,28 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 
 	AfterSuite(func() {
 
-		deleteObjectOptions := &catalogmanagementv1.DeleteObjectOptions{
-			CatalogIdentifier: &catalogID,
-			ObjectIdentifier:  &objectID,
+		for _, createdObjectID := range createdObjectIDs {
+			deleteObjectOptions := &catalogmanagementv1.DeleteObjectOptions{
+				CatalogIdentifier: &catalogID,
+				ObjectIdentifier:  &createdObjectID,
+			}
+
+			_, err = catalogManagementServiceAuthorized.DeleteObject(deleteObjectOptions)
+			if err != nil {
+				fmt.Println("Object is already deleted.")
+			}
 		}
 
-		_, err = catalogManagementServiceAuthorized.DeleteObject(deleteObjectOptions)
-		if err != nil {
-			fmt.Println("Object is already deleted.")
-		}
+		for _, createdOfferingID := range createdOfferingIDs {
+			deleteOfferingOptions := &catalogmanagementv1.DeleteOfferingOptions{
+				CatalogIdentifier: &catalogID,
+				OfferingID:        &createdOfferingID,
+			}
 
-		deleteOfferingOptions := &catalogmanagementv1.DeleteOfferingOptions{
-			CatalogIdentifier: &catalogID,
-			OfferingID:        &offeringID,
-		}
-
-		_, err = catalogManagementServiceAuthorized.DeleteOffering(deleteOfferingOptions)
-		if err != nil {
-			fmt.Println("Offering is already deleted.")
+			_, err = catalogManagementServiceAuthorized.DeleteOffering(deleteOfferingOptions)
+			if err != nil {
+				fmt.Println("Offering is already deleted.")
+			}
 		}
 
 		deleteCatalogOptions := &catalogmanagementv1.DeleteCatalogOptions{
