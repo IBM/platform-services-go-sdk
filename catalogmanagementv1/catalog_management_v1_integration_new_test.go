@@ -20,13 +20,14 @@ package catalogmanagementv1_test
 
 import (
 	"fmt"
+	"log"
+	"os"
+	"strconv"
+
 	"github.com/IBM/go-sdk-core/v5/core"
 	"github.com/IBM/platform-services-go-sdk/catalogmanagementv1"
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
-	"log"
-	"os"
-	"strconv"
 )
 
 /**
@@ -145,7 +146,6 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 			Expect(err).To(BeNil())
 			refreshTokenNotAuthorized = tokenNotAuthorized.RefreshToken
 			Expect(refreshTokenNotAuthorized).ToNot(BeNil())
-
 		})
 	})
 
@@ -201,7 +201,6 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 			Expect(result.ID).NotTo(BeNil())
 			catalogID = *result.ID
 		})
-
 	})
 
 	Describe(`Get Catalog`, func() {
@@ -1440,7 +1439,6 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(offering).NotTo(BeNil())
 		})
-
 	})
 
 	Describe(`Update Offering IBM`, func() {
