@@ -150,7 +150,6 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 			Expect(catalog).ToNot(BeNil())
 
 			catalogID = *catalog.ID
-
 		})
 
 		It(`GetCatalog request example`, func() {
@@ -173,7 +172,6 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(catalog).ToNot(BeNil())
-
 		})
 
 		It(`ReplaceCatalog request example`, func() {
@@ -200,7 +198,6 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(catalog).ToNot(BeNil())
-
 		})
 
 		It(`ListCatalogs request example`, func() {
@@ -221,7 +218,6 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(catalogSearchResult).ToNot(BeNil())
-
 		})
 
 		It(`CreateOffering request example`, func() {
@@ -247,7 +243,6 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 			Expect(offering).ToNot(BeNil())
 
 			offeringID = *offering.ID
-
 		})
 
 		It(`GetOffering request example`, func() {
@@ -271,7 +266,6 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(offering).ToNot(BeNil())
-
 		})
 
 		It(`ReplaceOffering request example`, func() {
@@ -296,7 +290,6 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(offering).ToNot(BeNil())
-
 		})
 
 		It(`ListOfferings request example`, func() {
@@ -321,7 +314,6 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(offeringSearchResult).ToNot(BeNil())
-
 		})
 
 		It(`ImportOffering request example`, func() {
@@ -353,7 +345,6 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 			Expect(offering).ToNot(BeNil())
 
 			versionLocatorID = *offering.Kinds[0].Versions[0].VersionLocator
-
 		})
 
 		It(`ReloadOffering request example`, func() {
@@ -383,7 +374,6 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(201))
 			Expect(offering).ToNot(BeNil())
-
 		})
 
 		It(`CreateObject request example`, func() {
@@ -425,7 +415,6 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 			Expect(catalogObject).ToNot(BeNil())
 
 			objectID = *catalogObject.ID
-
 		})
 
 		It(`GetOfferingAudit request example`, func() {
@@ -449,7 +438,6 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(auditLog).ToNot(BeNil())
-
 		})
 
 		It(`GetCatalogAccount request example`, func() {
@@ -470,7 +458,6 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(account).ToNot(BeNil())
-
 		})
 
 		It(`UpdateCatalogAccount request example`, func() {
@@ -494,7 +481,6 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
-
 		})
 
 		It(`GetCatalogAccountAudit request example`, func() {
@@ -515,7 +501,6 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(auditLog).ToNot(BeNil())
-
 		})
 
 		It(`GetCatalogAccountFilters request example`, func() {
@@ -536,7 +521,6 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(accumulatedFilters).ToNot(BeNil())
-
 		})
 
 		It(`GetCatalogAudit request example`, func() {
@@ -559,7 +543,6 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(auditLog).ToNot(BeNil())
-
 		})
 
 		It(`GetConsumptionOfferings request example`, func() {
@@ -580,7 +563,6 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(offeringSearchResult).ToNot(BeNil())
-
 		})
 
 		It(`ImportOfferingVersion request example`, func() {
@@ -608,7 +590,6 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(201))
 			Expect(offering).ToNot(BeNil())
-
 		})
 
 		It(`ReplaceOfferingIcon request example`, func() {
@@ -634,7 +615,6 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(offering).ToNot(BeNil())
-
 		})
 
 		It(`UpdateOfferingIBM request example`, func() {
@@ -661,7 +641,6 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(approvalResult).ToNot(BeNil())
-
 		})
 
 		It(`GetOfferingUpdates request example`, func() {
@@ -691,7 +670,6 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(versionUpdateDescriptor).ToNot(BeNil())
-
 		})
 
 		It(`GetOfferingAbout request example`, func() {
@@ -715,7 +693,6 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(result).ToNot(BeNil())
-
 		})
 
 		It(`GetOfferingLicense request example`, func() {
@@ -740,7 +717,6 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(result).ToNot(BeNil())
-
 		})
 
 		It(`GetOfferingContainerImages request example`, func() {
@@ -763,7 +739,6 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(imageManifest).ToNot(BeNil())
-
 		})
 
 		It(`DeprecateVersion request example`, func() {
@@ -784,7 +759,6 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(202))
-
 		})
 
 		It(`AccountPublishVersion request example`, func() {
@@ -805,7 +779,6 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(202))
-
 		})
 
 		It(`IBMPublishVersion request example`, func() {
@@ -826,7 +799,6 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(202))
-
 		})
 
 		It(`PublicPublishVersion request example`, func() {
@@ -847,7 +819,6 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(202))
-
 		})
 
 		It(`CommitVersion request example`, func() {
@@ -868,7 +839,6 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
-
 		})
 
 		It(`CopyVersion request example`, func() {
@@ -890,7 +860,6 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
-
 		})
 
 		It(`GetOfferingWorkingCopy request example`, func() {
@@ -914,7 +883,6 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(version).ToNot(BeNil())
-
 		})
 
 		It(`GetVersion request example`, func() {
@@ -937,7 +905,6 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(offering).ToNot(BeNil())
-
 		})
 
 		It(`GetCluster request example`, func() {
@@ -963,7 +930,6 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(clusterInfo).ToNot(BeNil())
-
 		})
 
 		It(`GetNamespaces request example`, func() {
@@ -989,7 +955,6 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(namespaceSearchResult).ToNot(BeNil())
-
 		})
 
 		It(`DeployOperators request example`, func() {
@@ -1017,7 +982,6 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(operatorDeployResult).ToNot(BeNil())
-
 		})
 
 		It(`ListOperators request example`, func() {
@@ -1044,7 +1008,6 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(operatorDeployResult).ToNot(BeNil())
-
 		})
 
 		It(`ReplaceOperators request example`, func() {
@@ -1072,7 +1035,6 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(operatorDeployResult).ToNot(BeNil())
-
 		})
 
 		It(`InstallVersion request example`, func() {
@@ -1094,7 +1056,6 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(202))
-
 		})
 
 		It(`PreinstallVersion request example`, func() {
@@ -1116,7 +1077,6 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(202))
-
 		})
 
 		It(`GetPreinstall request example`, func() {
@@ -1141,7 +1101,6 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(installStatus).ToNot(BeNil())
-
 		})
 
 		It(`ValidateInstall request example`, func() {
@@ -1163,7 +1122,6 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(202))
-
 		})
 
 		It(`GetValidationStatus request example`, func() {
@@ -1187,7 +1145,6 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(validation).ToNot(BeNil())
-
 		})
 
 		It(`GetOverrideValues request example`, func() {
@@ -1211,7 +1168,6 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(getOverrideValuesResponse).ToNot(BeNil())
-
 		})
 
 		It(`SearchObjects request example`, func() {
@@ -1238,7 +1194,6 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(objectSearchResult).ToNot(BeNil())
-
 		})
 
 		It(`ListObjects request example`, func() {
@@ -1263,7 +1218,6 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(objectListResult).ToNot(BeNil())
-
 		})
 
 		It(`ReplaceObject request example`, func() {
@@ -1293,7 +1247,6 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(catalogObject).ToNot(BeNil())
-
 		})
 
 		It(`GetObject request example`, func() {
@@ -1317,7 +1270,6 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(catalogObject).ToNot(BeNil())
-
 		})
 
 		It(`GetObjectAudit request example`, func() {
@@ -1341,7 +1293,6 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(auditLog).ToNot(BeNil())
-
 		})
 
 		It(`AccountPublishObject request example`, func() {
@@ -1362,7 +1313,6 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(202))
-
 		})
 
 		It(`SharedPublishObject request example`, func() {
@@ -1384,7 +1334,6 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(202))
-
 		})
 
 		It(`IBMPublishObject request example`, func() {
@@ -1406,7 +1355,6 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(202))
-
 		})
 
 		It(`PublicPublishObject request example`, func() {
@@ -1428,7 +1376,6 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(202))
-
 		})
 
 		It(`CreateObjectAccess request example`, func() {
@@ -1450,7 +1397,6 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(201))
-
 		})
 
 		It(`GetObjectAccess request example`, func() {
@@ -1475,7 +1421,6 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(objectAccess).ToNot(BeNil())
-
 		})
 
 		It(`AddObjectAccessList request example`, func() {
@@ -1500,7 +1445,6 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(201))
 			Expect(accessListBulkResponse).ToNot(BeNil())
-
 		})
 
 		It(`GetObjectAccessList request example`, func() {
@@ -1524,7 +1468,6 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(objectAccessListResult).ToNot(BeNil())
-
 		})
 
 		It(`CreateOfferingInstance request example`, func() {
@@ -1558,7 +1501,6 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 			Expect(offeringInstance).ToNot(BeNil())
 
 			offeringInstanceID = *offeringInstance.ID
-
 		})
 
 		It(`GetOfferingInstance request example`, func() {
@@ -1582,7 +1524,6 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(offeringInstance).ToNot(BeNil())
-
 		})
 
 		It(`PutOfferingInstance request example`, func() {
@@ -1615,7 +1556,6 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(offeringInstance).ToNot(BeNil())
-
 		})
 
 		It(`DeleteVersion request example`, func() {
@@ -1635,7 +1575,6 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
-
 		})
 
 		It(`DeleteOperators request example`, func() {
@@ -1659,7 +1598,6 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
-
 		})
 
 		It(`DeleteOfferingInstance request example`, func() {
@@ -1681,7 +1619,6 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
-
 		})
 
 		It(`DeleteObjectAccessList request example`, func() {
@@ -1706,7 +1643,6 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(accessListBulkResponse).ToNot(BeNil())
-
 		})
 
 		It(`DeleteObjectAccess request example`, func() {
@@ -1728,7 +1664,6 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
-
 		})
 
 		It(`DeleteObject request example`, func() {
@@ -1749,7 +1684,6 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
-
 		})
 
 		It(`DeleteOffering request example`, func() {
@@ -1770,7 +1704,6 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
-
 		})
 
 		It(`DeleteCatalog request example`, func() {
@@ -1790,7 +1723,6 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
-
 		})
 	})
 })
