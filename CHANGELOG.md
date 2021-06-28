@@ -1,3 +1,10 @@
+## [0.18.21](https://github.com/IBM/platform-services-go-sdk/compare/v0.18.20...v0.18.21) (2021-06-28)
+
+
+### Bug Fixes
+
+* **catalog-management:** update cat mgmt sdk examples after recent api changes ([404bc50](https://github.com/IBM/platform-services-go-sdk/commit/404bc502eb6343005d9b2ebb07e7c0af48ef7004))
+
 ## [0.18.20](https://github.com/IBM/platform-services-go-sdk/compare/v0.18.19...v0.18.20) (2021-06-28)
 
 
