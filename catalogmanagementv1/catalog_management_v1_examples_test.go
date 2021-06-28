@@ -37,6 +37,9 @@ import (
 // CATALOG_MANAGEMENT_AUTH_TYPE=iam
 // CATALOG_MANAGEMENT_APIKEY=<IAM apikey>
 // CATALOG_MANAGEMENT_AUTH_URL=<IAM token service base URL - omit this if using the production environment>
+// CATALOG_MANAGEMENT_CLUSTER_ID=<ID of the cluster>
+// CATALOG_MANAGEMENT_ACCOUNT_ID=<ID of the Account>
+// CATALOG_MANAGEMENT_GIT_TOKEN=<Token used in communication with Git repository>
 //
 // These configuration properties can be exported as environment variables, or stored
 // in a configuration file and then:
@@ -98,8 +101,6 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 			shouldSkipTest()
 		})
 		It("Successfully construct the service client instance", func() {
-			var err error
-
 			// begin-common
 
 			catalogManagementServiceOptions := &catalogmanagementv1.CatalogManagementV1Options{}
@@ -114,9 +115,8 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 
 			Expect(catalogManagementService).ToNot(BeNil())
 
-			token, err := catalogManagementService.Service.Options.Authenticator.(*core.IamAuthenticator).RequestToken()
+			bearerToken, err := catalogManagementService.Service.Options.Authenticator.(*core.IamAuthenticator).GetToken()
 			Expect(err).To(BeNil())
-			bearerToken = token.RefreshToken
 			Expect(bearerToken).NotTo(BeNil())
 		})
 	})
