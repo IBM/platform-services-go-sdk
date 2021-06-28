@@ -20,17 +20,18 @@ import (
 	"bytes"
 	"context"
 	"fmt"
-	"github.com/IBM/go-sdk-core/v5/core"
-	"github.com/IBM/platform-services-go-sdk/iamaccessgroupsv2"
-	"github.com/go-openapi/strfmt"
-	. "github.com/onsi/ginkgo"
-	. "github.com/onsi/gomega"
 	"io"
 	"io/ioutil"
 	"net/http"
 	"net/http/httptest"
 	"os"
 	"time"
+
+	"github.com/IBM/go-sdk-core/v5/core"
+	"github.com/IBM/platform-services-go-sdk/iamaccessgroupsv2"
+	"github.com/go-openapi/strfmt"
+	. "github.com/onsi/ginkgo"
+	. "github.com/onsi/gomega"
 )
 
 var _ = Describe(`IamAccessGroupsV2`, func() {
@@ -66,13 +67,14 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 		Context(`Using external config, construct service client instances`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"IAM_ACCESS_GROUPS_URL":       "https://iamaccessgroupsv2/api",
+				"IAM_ACCESS_GROUPS_URL": "https://iamaccessgroupsv2/api",
 				"IAM_ACCESS_GROUPS_AUTH_TYPE": "noauth",
 			}
 
 			It(`Create service client using external config successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				iamAccessGroupsService, serviceErr := iamaccessgroupsv2.NewIamAccessGroupsV2UsingExternalConfig(&iamaccessgroupsv2.IamAccessGroupsV2Options{})
+				iamAccessGroupsService, serviceErr := iamaccessgroupsv2.NewIamAccessGroupsV2UsingExternalConfig(&iamaccessgroupsv2.IamAccessGroupsV2Options{
+				})
 				Expect(iamAccessGroupsService).ToNot(BeNil())
 				Expect(serviceErr).To(BeNil())
 				ClearTestEnvironment(testEnvironment)
@@ -101,7 +103,8 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 			})
 			It(`Create service client using external config and set url programatically successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				iamAccessGroupsService, serviceErr := iamaccessgroupsv2.NewIamAccessGroupsV2UsingExternalConfig(&iamaccessgroupsv2.IamAccessGroupsV2Options{})
+				iamAccessGroupsService, serviceErr := iamaccessgroupsv2.NewIamAccessGroupsV2UsingExternalConfig(&iamaccessgroupsv2.IamAccessGroupsV2Options{
+				})
 				err := iamAccessGroupsService.SetServiceURL("https://testService/api")
 				Expect(err).To(BeNil())
 				Expect(iamAccessGroupsService).ToNot(BeNil())
@@ -119,12 +122,13 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 		Context(`Using external config, construct service client instances with error: Invalid Auth`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"IAM_ACCESS_GROUPS_URL":       "https://iamaccessgroupsv2/api",
+				"IAM_ACCESS_GROUPS_URL": "https://iamaccessgroupsv2/api",
 				"IAM_ACCESS_GROUPS_AUTH_TYPE": "someOtherAuth",
 			}
 
 			SetTestEnvironment(testEnvironment)
-			iamAccessGroupsService, serviceErr := iamaccessgroupsv2.NewIamAccessGroupsV2UsingExternalConfig(&iamaccessgroupsv2.IamAccessGroupsV2Options{})
+			iamAccessGroupsService, serviceErr := iamaccessgroupsv2.NewIamAccessGroupsV2UsingExternalConfig(&iamaccessgroupsv2.IamAccessGroupsV2Options{
+			})
 
 			It(`Instantiate service client with error`, func() {
 				Expect(iamAccessGroupsService).To(BeNil())
@@ -135,7 +139,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 		Context(`Using external config, construct service client instances with error: Invalid URL`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"IAM_ACCESS_GROUPS_AUTH_TYPE": "NOAuth",
+				"IAM_ACCESS_GROUPS_AUTH_TYPE":   "NOAuth",
 			}
 
 			SetTestEnvironment(testEnvironment)
@@ -162,7 +166,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 	})
 	Describe(`CreateAccessGroup(createAccessGroupOptions *CreateAccessGroupOptions) - Operation response error`, func() {
 		createAccessGroupPath := "/groups"
-		Context(`Using mock server endpoint`, func() {
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
@@ -211,7 +215,6 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 			})
 		})
 	})
-
 	Describe(`CreateAccessGroup(createAccessGroupOptions *CreateAccessGroupOptions)`, func() {
 		createAccessGroupPath := "/groups"
 		Context(`Using mock server endpoint with timeout`, func() {
@@ -391,10 +394,47 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				testServer.Close()
 			})
 		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(201)
+				}))
+			})
+			It(`Invoke CreateAccessGroup successfully`, func() {
+				iamAccessGroupsService, serviceErr := iamaccessgroupsv2.NewIamAccessGroupsV2(&iamaccessgroupsv2.IamAccessGroupsV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamAccessGroupsService).ToNot(BeNil())
+
+				// Construct an instance of the CreateAccessGroupOptions model
+				createAccessGroupOptionsModel := new(iamaccessgroupsv2.CreateAccessGroupOptions)
+				createAccessGroupOptionsModel.AccountID = core.StringPtr("testString")
+				createAccessGroupOptionsModel.Name = core.StringPtr("Managers")
+				createAccessGroupOptionsModel.Description = core.StringPtr("Group for managers")
+				createAccessGroupOptionsModel.TransactionID = core.StringPtr("testString")
+				createAccessGroupOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := iamAccessGroupsService.CreateAccessGroup(createAccessGroupOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
 	})
 	Describe(`ListAccessGroups(listAccessGroupsOptions *ListAccessGroupsOptions) - Operation response error`, func() {
 		listAccessGroupsPath := "/groups"
-		Context(`Using mock server endpoint`, func() {
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
@@ -453,7 +493,6 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 			})
 		})
 	})
-
 	Describe(`ListAccessGroups(listAccessGroupsOptions *ListAccessGroupsOptions)`, func() {
 		listAccessGroupsPath := "/groups"
 		Context(`Using mock server endpoint with timeout`, func() {
@@ -625,10 +664,90 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				testServer.Close()
 			})
 		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke ListAccessGroups successfully`, func() {
+				iamAccessGroupsService, serviceErr := iamaccessgroupsv2.NewIamAccessGroupsV2(&iamaccessgroupsv2.IamAccessGroupsV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamAccessGroupsService).ToNot(BeNil())
+
+				// Construct an instance of the ListAccessGroupsOptions model
+				listAccessGroupsOptionsModel := new(iamaccessgroupsv2.ListAccessGroupsOptions)
+				listAccessGroupsOptionsModel.AccountID = core.StringPtr("testString")
+				listAccessGroupsOptionsModel.TransactionID = core.StringPtr("testString")
+				listAccessGroupsOptionsModel.IamID = core.StringPtr("testString")
+				listAccessGroupsOptionsModel.Limit = core.Int64Ptr(int64(38))
+				listAccessGroupsOptionsModel.Offset = core.Int64Ptr(int64(38))
+				listAccessGroupsOptionsModel.Sort = core.StringPtr("testString")
+				listAccessGroupsOptionsModel.ShowFederated = core.BoolPtr(true)
+				listAccessGroupsOptionsModel.HidePublicAccess = core.BoolPtr(true)
+				listAccessGroupsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := iamAccessGroupsService.ListAccessGroups(listAccessGroupsOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	Context(`Test pagination helper method on response`, func() {
+		It(`Invoke GetNextOffset successfully`, func() {
+			responseObject := new(iamaccessgroupsv2.GroupsList)
+			nextObject := new(iamaccessgroupsv2.HrefStruct)
+			nextObject.Href = core.StringPtr("ibm.com?offset=135")
+			responseObject.Next = nextObject
+
+			value, err := responseObject.GetNextOffset()
+			Expect(err).To(BeNil())
+			Expect(value).To(Equal(core.Int64Ptr(int64(135))))
+		})
+		It(`Invoke GetNextOffset without a "Next" property in the response`, func() {
+			responseObject := new(iamaccessgroupsv2.GroupsList)
+
+			value, err := responseObject.GetNextOffset()
+			Expect(err).To(BeNil())
+			Expect(value).To(BeNil())
+		})
+		It(`Invoke GetNextOffset without any query params in the "Next" URL`, func() {
+			responseObject := new(iamaccessgroupsv2.GroupsList)
+			nextObject := new(iamaccessgroupsv2.HrefStruct)
+			nextObject.Href = core.StringPtr("ibm.com")
+			responseObject.Next = nextObject
+
+			value, err := responseObject.GetNextOffset()
+			Expect(err).To(BeNil())
+			Expect(value).To(BeNil())
+		})
+		It(`Invoke GetNextOffset with a non-integer query param in the "Next" URL`, func() {
+			responseObject := new(iamaccessgroupsv2.GroupsList)
+			nextObject := new(iamaccessgroupsv2.HrefStruct)
+			nextObject.Href = core.StringPtr("ibm.com?offset=tiger")
+			responseObject.Next = nextObject
+
+			value, err := responseObject.GetNextOffset()
+			Expect(err).NotTo(BeNil())
+			Expect(value).To(BeNil())
+		})
+	})
 	})
 	Describe(`GetAccessGroup(getAccessGroupOptions *GetAccessGroupOptions) - Operation response error`, func() {
 		getAccessGroupPath := "/groups/testString"
-		Context(`Using mock server endpoint`, func() {
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
@@ -676,7 +795,6 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 			})
 		})
 	})
-
 	Describe(`GetAccessGroup(getAccessGroupOptions *GetAccessGroupOptions)`, func() {
 		getAccessGroupPath := "/groups/testString"
 		Context(`Using mock server endpoint with timeout`, func() {
@@ -821,10 +939,46 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				testServer.Close()
 			})
 		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke GetAccessGroup successfully`, func() {
+				iamAccessGroupsService, serviceErr := iamaccessgroupsv2.NewIamAccessGroupsV2(&iamaccessgroupsv2.IamAccessGroupsV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamAccessGroupsService).ToNot(BeNil())
+
+				// Construct an instance of the GetAccessGroupOptions model
+				getAccessGroupOptionsModel := new(iamaccessgroupsv2.GetAccessGroupOptions)
+				getAccessGroupOptionsModel.AccessGroupID = core.StringPtr("testString")
+				getAccessGroupOptionsModel.TransactionID = core.StringPtr("testString")
+				getAccessGroupOptionsModel.ShowFederated = core.BoolPtr(true)
+				getAccessGroupOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := iamAccessGroupsService.GetAccessGroup(getAccessGroupOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
 	})
 	Describe(`UpdateAccessGroup(updateAccessGroupOptions *UpdateAccessGroupOptions) - Operation response error`, func() {
 		updateAccessGroupPath := "/groups/testString"
-		Context(`Using mock server endpoint`, func() {
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
@@ -875,7 +1029,6 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 			})
 		})
 	})
-
 	Describe(`UpdateAccessGroup(updateAccessGroupOptions *UpdateAccessGroupOptions)`, func() {
 		updateAccessGroupPath := "/groups/testString"
 		Context(`Using mock server endpoint with timeout`, func() {
@@ -1060,8 +1213,45 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				testServer.Close()
 			})
 		})
-	})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
 
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke UpdateAccessGroup successfully`, func() {
+				iamAccessGroupsService, serviceErr := iamaccessgroupsv2.NewIamAccessGroupsV2(&iamaccessgroupsv2.IamAccessGroupsV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamAccessGroupsService).ToNot(BeNil())
+
+				// Construct an instance of the UpdateAccessGroupOptions model
+				updateAccessGroupOptionsModel := new(iamaccessgroupsv2.UpdateAccessGroupOptions)
+				updateAccessGroupOptionsModel.AccessGroupID = core.StringPtr("testString")
+				updateAccessGroupOptionsModel.IfMatch = core.StringPtr("testString")
+				updateAccessGroupOptionsModel.Name = core.StringPtr("Awesome Managers")
+				updateAccessGroupOptionsModel.Description = core.StringPtr("Group for awesome managers.")
+				updateAccessGroupOptionsModel.TransactionID = core.StringPtr("testString")
+				updateAccessGroupOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := iamAccessGroupsService.UpdateAccessGroup(updateAccessGroupOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
 	Describe(`DeleteAccessGroup(deleteAccessGroupOptions *DeleteAccessGroupOptions)`, func() {
 		deleteAccessGroupPath := "/groups/testString"
 		Context(`Using mock server endpoint`, func() {
@@ -1137,132 +1327,6 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 			})
 		})
 	})
-	Describe(`Service constructor tests`, func() {
-		It(`Instantiate service client`, func() {
-			iamAccessGroupsService, serviceErr := iamaccessgroupsv2.NewIamAccessGroupsV2(&iamaccessgroupsv2.IamAccessGroupsV2Options{
-				Authenticator: &core.NoAuthAuthenticator{},
-			})
-			Expect(iamAccessGroupsService).ToNot(BeNil())
-			Expect(serviceErr).To(BeNil())
-		})
-		It(`Instantiate service client with error: Invalid URL`, func() {
-			iamAccessGroupsService, serviceErr := iamaccessgroupsv2.NewIamAccessGroupsV2(&iamaccessgroupsv2.IamAccessGroupsV2Options{
-				URL: "{BAD_URL_STRING",
-			})
-			Expect(iamAccessGroupsService).To(BeNil())
-			Expect(serviceErr).ToNot(BeNil())
-		})
-		It(`Instantiate service client with error: Invalid Auth`, func() {
-			iamAccessGroupsService, serviceErr := iamaccessgroupsv2.NewIamAccessGroupsV2(&iamaccessgroupsv2.IamAccessGroupsV2Options{
-				URL: "https://iamaccessgroupsv2/api",
-				Authenticator: &core.BasicAuthenticator{
-					Username: "",
-					Password: "",
-				},
-			})
-			Expect(iamAccessGroupsService).To(BeNil())
-			Expect(serviceErr).ToNot(BeNil())
-		})
-	})
-	Describe(`Service constructor tests using external config`, func() {
-		Context(`Using external config, construct service client instances`, func() {
-			// Map containing environment variables used in testing.
-			var testEnvironment = map[string]string{
-				"IAM_ACCESS_GROUPS_URL":       "https://iamaccessgroupsv2/api",
-				"IAM_ACCESS_GROUPS_AUTH_TYPE": "noauth",
-			}
-
-			It(`Create service client using external config successfully`, func() {
-				SetTestEnvironment(testEnvironment)
-				iamAccessGroupsService, serviceErr := iamaccessgroupsv2.NewIamAccessGroupsV2UsingExternalConfig(&iamaccessgroupsv2.IamAccessGroupsV2Options{})
-				Expect(iamAccessGroupsService).ToNot(BeNil())
-				Expect(serviceErr).To(BeNil())
-				ClearTestEnvironment(testEnvironment)
-
-				clone := iamAccessGroupsService.Clone()
-				Expect(clone).ToNot(BeNil())
-				Expect(clone.Service != iamAccessGroupsService.Service).To(BeTrue())
-				Expect(clone.GetServiceURL()).To(Equal(iamAccessGroupsService.GetServiceURL()))
-				Expect(clone.Service.Options.Authenticator).To(Equal(iamAccessGroupsService.Service.Options.Authenticator))
-			})
-			It(`Create service client using external config and set url from constructor successfully`, func() {
-				SetTestEnvironment(testEnvironment)
-				iamAccessGroupsService, serviceErr := iamaccessgroupsv2.NewIamAccessGroupsV2UsingExternalConfig(&iamaccessgroupsv2.IamAccessGroupsV2Options{
-					URL: "https://testService/api",
-				})
-				Expect(iamAccessGroupsService).ToNot(BeNil())
-				Expect(serviceErr).To(BeNil())
-				Expect(iamAccessGroupsService.Service.GetServiceURL()).To(Equal("https://testService/api"))
-				ClearTestEnvironment(testEnvironment)
-
-				clone := iamAccessGroupsService.Clone()
-				Expect(clone).ToNot(BeNil())
-				Expect(clone.Service != iamAccessGroupsService.Service).To(BeTrue())
-				Expect(clone.GetServiceURL()).To(Equal(iamAccessGroupsService.GetServiceURL()))
-				Expect(clone.Service.Options.Authenticator).To(Equal(iamAccessGroupsService.Service.Options.Authenticator))
-			})
-			It(`Create service client using external config and set url programatically successfully`, func() {
-				SetTestEnvironment(testEnvironment)
-				iamAccessGroupsService, serviceErr := iamaccessgroupsv2.NewIamAccessGroupsV2UsingExternalConfig(&iamaccessgroupsv2.IamAccessGroupsV2Options{})
-				err := iamAccessGroupsService.SetServiceURL("https://testService/api")
-				Expect(err).To(BeNil())
-				Expect(iamAccessGroupsService).ToNot(BeNil())
-				Expect(serviceErr).To(BeNil())
-				Expect(iamAccessGroupsService.Service.GetServiceURL()).To(Equal("https://testService/api"))
-				ClearTestEnvironment(testEnvironment)
-
-				clone := iamAccessGroupsService.Clone()
-				Expect(clone).ToNot(BeNil())
-				Expect(clone.Service != iamAccessGroupsService.Service).To(BeTrue())
-				Expect(clone.GetServiceURL()).To(Equal(iamAccessGroupsService.GetServiceURL()))
-				Expect(clone.Service.Options.Authenticator).To(Equal(iamAccessGroupsService.Service.Options.Authenticator))
-			})
-		})
-		Context(`Using external config, construct service client instances with error: Invalid Auth`, func() {
-			// Map containing environment variables used in testing.
-			var testEnvironment = map[string]string{
-				"IAM_ACCESS_GROUPS_URL":       "https://iamaccessgroupsv2/api",
-				"IAM_ACCESS_GROUPS_AUTH_TYPE": "someOtherAuth",
-			}
-
-			SetTestEnvironment(testEnvironment)
-			iamAccessGroupsService, serviceErr := iamaccessgroupsv2.NewIamAccessGroupsV2UsingExternalConfig(&iamaccessgroupsv2.IamAccessGroupsV2Options{})
-
-			It(`Instantiate service client with error`, func() {
-				Expect(iamAccessGroupsService).To(BeNil())
-				Expect(serviceErr).ToNot(BeNil())
-				ClearTestEnvironment(testEnvironment)
-			})
-		})
-		Context(`Using external config, construct service client instances with error: Invalid URL`, func() {
-			// Map containing environment variables used in testing.
-			var testEnvironment = map[string]string{
-				"IAM_ACCESS_GROUPS_AUTH_TYPE": "NOAuth",
-			}
-
-			SetTestEnvironment(testEnvironment)
-			iamAccessGroupsService, serviceErr := iamaccessgroupsv2.NewIamAccessGroupsV2UsingExternalConfig(&iamaccessgroupsv2.IamAccessGroupsV2Options{
-				URL: "{BAD_URL_STRING",
-			})
-
-			It(`Instantiate service client with error`, func() {
-				Expect(iamAccessGroupsService).To(BeNil())
-				Expect(serviceErr).ToNot(BeNil())
-				ClearTestEnvironment(testEnvironment)
-			})
-		})
-	})
-	Describe(`Regional endpoint tests`, func() {
-		It(`GetServiceURLForRegion(region string)`, func() {
-			var url string
-			var err error
-			url, err = iamaccessgroupsv2.GetServiceURLForRegion("INVALID_REGION")
-			Expect(url).To(BeEmpty())
-			Expect(err).ToNot(BeNil())
-			fmt.Fprintf(GinkgoWriter, "Expected error: %s\n", err.Error())
-		})
-	})
-
 	Describe(`IsMemberOfAccessGroup(isMemberOfAccessGroupOptions *IsMemberOfAccessGroupOptions)`, func() {
 		isMemberOfAccessGroupPath := "/groups/testString/members/testString"
 		Context(`Using mock server endpoint`, func() {
@@ -1339,7 +1403,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 	})
 	Describe(`AddMembersToAccessGroup(addMembersToAccessGroupOptions *AddMembersToAccessGroupOptions) - Operation response error`, func() {
 		addMembersToAccessGroupPath := "/groups/testString/members"
-		Context(`Using mock server endpoint`, func() {
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
@@ -1391,7 +1455,6 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 			})
 		})
 	})
-
 	Describe(`AddMembersToAccessGroup(addMembersToAccessGroupOptions *AddMembersToAccessGroupOptions)`, func() {
 		addMembersToAccessGroupPath := "/groups/testString/members"
 		Context(`Using mock server endpoint with timeout`, func() {
@@ -1581,10 +1644,51 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				testServer.Close()
 			})
 		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(207)
+				}))
+			})
+			It(`Invoke AddMembersToAccessGroup successfully`, func() {
+				iamAccessGroupsService, serviceErr := iamaccessgroupsv2.NewIamAccessGroupsV2(&iamaccessgroupsv2.IamAccessGroupsV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamAccessGroupsService).ToNot(BeNil())
+
+				// Construct an instance of the AddGroupMembersRequestMembersItem model
+				addGroupMembersRequestMembersItemModel := new(iamaccessgroupsv2.AddGroupMembersRequestMembersItem)
+				addGroupMembersRequestMembersItemModel.IamID = core.StringPtr("IBMid-user1")
+				addGroupMembersRequestMembersItemModel.Type = core.StringPtr("user")
+
+				// Construct an instance of the AddMembersToAccessGroupOptions model
+				addMembersToAccessGroupOptionsModel := new(iamaccessgroupsv2.AddMembersToAccessGroupOptions)
+				addMembersToAccessGroupOptionsModel.AccessGroupID = core.StringPtr("testString")
+				addMembersToAccessGroupOptionsModel.Members = []iamaccessgroupsv2.AddGroupMembersRequestMembersItem{*addGroupMembersRequestMembersItemModel}
+				addMembersToAccessGroupOptionsModel.TransactionID = core.StringPtr("testString")
+				addMembersToAccessGroupOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := iamAccessGroupsService.AddMembersToAccessGroup(addMembersToAccessGroupOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
 	})
 	Describe(`ListAccessGroupMembers(listAccessGroupMembersOptions *ListAccessGroupMembersOptions) - Operation response error`, func() {
 		listAccessGroupMembersPath := "/groups/testString/members"
-		Context(`Using mock server endpoint`, func() {
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
@@ -1640,7 +1744,6 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 			})
 		})
 	})
-
 	Describe(`ListAccessGroupMembers(listAccessGroupMembersOptions *ListAccessGroupMembersOptions)`, func() {
 		listAccessGroupMembersPath := "/groups/testString/members"
 		Context(`Using mock server endpoint with timeout`, func() {
@@ -1805,8 +1908,86 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				testServer.Close()
 			})
 		})
-	})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
 
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke ListAccessGroupMembers successfully`, func() {
+				iamAccessGroupsService, serviceErr := iamaccessgroupsv2.NewIamAccessGroupsV2(&iamaccessgroupsv2.IamAccessGroupsV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamAccessGroupsService).ToNot(BeNil())
+
+				// Construct an instance of the ListAccessGroupMembersOptions model
+				listAccessGroupMembersOptionsModel := new(iamaccessgroupsv2.ListAccessGroupMembersOptions)
+				listAccessGroupMembersOptionsModel.AccessGroupID = core.StringPtr("testString")
+				listAccessGroupMembersOptionsModel.TransactionID = core.StringPtr("testString")
+				listAccessGroupMembersOptionsModel.Limit = core.Int64Ptr(int64(38))
+				listAccessGroupMembersOptionsModel.Offset = core.Int64Ptr(int64(38))
+				listAccessGroupMembersOptionsModel.Type = core.StringPtr("testString")
+				listAccessGroupMembersOptionsModel.Verbose = core.BoolPtr(true)
+				listAccessGroupMembersOptionsModel.Sort = core.StringPtr("testString")
+				listAccessGroupMembersOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := iamAccessGroupsService.ListAccessGroupMembers(listAccessGroupMembersOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	Context(`Test pagination helper method on response`, func() {
+		It(`Invoke GetNextOffset successfully`, func() {
+			responseObject := new(iamaccessgroupsv2.GroupMembersList)
+			nextObject := new(iamaccessgroupsv2.HrefStruct)
+			nextObject.Href = core.StringPtr("ibm.com?offset=135")
+			responseObject.Next = nextObject
+
+			value, err := responseObject.GetNextOffset()
+			Expect(err).To(BeNil())
+			Expect(value).To(Equal(core.Int64Ptr(int64(135))))
+		})
+		It(`Invoke GetNextOffset without a "Next" property in the response`, func() {
+			responseObject := new(iamaccessgroupsv2.GroupMembersList)
+
+			value, err := responseObject.GetNextOffset()
+			Expect(err).To(BeNil())
+			Expect(value).To(BeNil())
+		})
+		It(`Invoke GetNextOffset without any query params in the "Next" URL`, func() {
+			responseObject := new(iamaccessgroupsv2.GroupMembersList)
+			nextObject := new(iamaccessgroupsv2.HrefStruct)
+			nextObject.Href = core.StringPtr("ibm.com")
+			responseObject.Next = nextObject
+
+			value, err := responseObject.GetNextOffset()
+			Expect(err).To(BeNil())
+			Expect(value).To(BeNil())
+		})
+		It(`Invoke GetNextOffset with a non-integer query param in the "Next" URL`, func() {
+			responseObject := new(iamaccessgroupsv2.GroupMembersList)
+			nextObject := new(iamaccessgroupsv2.HrefStruct)
+			nextObject.Href = core.StringPtr("ibm.com?offset=tiger")
+			responseObject.Next = nextObject
+
+			value, err := responseObject.GetNextOffset()
+			Expect(err).NotTo(BeNil())
+			Expect(value).To(BeNil())
+		})
+	})
+	})
 	Describe(`RemoveMemberFromAccessGroup(removeMemberFromAccessGroupOptions *RemoveMemberFromAccessGroupOptions)`, func() {
 		removeMemberFromAccessGroupPath := "/groups/testString/members/testString"
 		Context(`Using mock server endpoint`, func() {
@@ -1883,7 +2064,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 	})
 	Describe(`RemoveMembersFromAccessGroup(removeMembersFromAccessGroupOptions *RemoveMembersFromAccessGroupOptions) - Operation response error`, func() {
 		removeMembersFromAccessGroupPath := "/groups/testString/members/delete"
-		Context(`Using mock server endpoint`, func() {
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
@@ -1930,7 +2111,6 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 			})
 		})
 	})
-
 	Describe(`RemoveMembersFromAccessGroup(removeMembersFromAccessGroupOptions *RemoveMembersFromAccessGroupOptions)`, func() {
 		removeMembersFromAccessGroupPath := "/groups/testString/members/delete"
 		Context(`Using mock server endpoint with timeout`, func() {
@@ -2105,10 +2285,46 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				testServer.Close()
 			})
 		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(207)
+				}))
+			})
+			It(`Invoke RemoveMembersFromAccessGroup successfully`, func() {
+				iamAccessGroupsService, serviceErr := iamaccessgroupsv2.NewIamAccessGroupsV2(&iamaccessgroupsv2.IamAccessGroupsV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamAccessGroupsService).ToNot(BeNil())
+
+				// Construct an instance of the RemoveMembersFromAccessGroupOptions model
+				removeMembersFromAccessGroupOptionsModel := new(iamaccessgroupsv2.RemoveMembersFromAccessGroupOptions)
+				removeMembersFromAccessGroupOptionsModel.AccessGroupID = core.StringPtr("testString")
+				removeMembersFromAccessGroupOptionsModel.Members = []string{"IBMId-user1", "iam-ServiceId-123"}
+				removeMembersFromAccessGroupOptionsModel.TransactionID = core.StringPtr("testString")
+				removeMembersFromAccessGroupOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := iamAccessGroupsService.RemoveMembersFromAccessGroup(removeMembersFromAccessGroupOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
 	})
 	Describe(`RemoveMemberFromAllAccessGroups(removeMemberFromAllAccessGroupsOptions *RemoveMemberFromAllAccessGroupsOptions) - Operation response error`, func() {
 		removeMemberFromAllAccessGroupsPath := "/groups/_allgroups/members/testString"
-		Context(`Using mock server endpoint`, func() {
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
@@ -2156,7 +2372,6 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 			})
 		})
 	})
-
 	Describe(`RemoveMemberFromAllAccessGroups(removeMemberFromAllAccessGroupsOptions *RemoveMemberFromAllAccessGroupsOptions)`, func() {
 		removeMemberFromAllAccessGroupsPath := "/groups/_allgroups/members/testString"
 		Context(`Using mock server endpoint with timeout`, func() {
@@ -2301,10 +2516,46 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				testServer.Close()
 			})
 		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(207)
+				}))
+			})
+			It(`Invoke RemoveMemberFromAllAccessGroups successfully`, func() {
+				iamAccessGroupsService, serviceErr := iamaccessgroupsv2.NewIamAccessGroupsV2(&iamaccessgroupsv2.IamAccessGroupsV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamAccessGroupsService).ToNot(BeNil())
+
+				// Construct an instance of the RemoveMemberFromAllAccessGroupsOptions model
+				removeMemberFromAllAccessGroupsOptionsModel := new(iamaccessgroupsv2.RemoveMemberFromAllAccessGroupsOptions)
+				removeMemberFromAllAccessGroupsOptionsModel.AccountID = core.StringPtr("testString")
+				removeMemberFromAllAccessGroupsOptionsModel.IamID = core.StringPtr("testString")
+				removeMemberFromAllAccessGroupsOptionsModel.TransactionID = core.StringPtr("testString")
+				removeMemberFromAllAccessGroupsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := iamAccessGroupsService.RemoveMemberFromAllAccessGroups(removeMemberFromAllAccessGroupsOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
 	})
 	Describe(`AddMemberToMultipleAccessGroups(addMemberToMultipleAccessGroupsOptions *AddMemberToMultipleAccessGroupsOptions) - Operation response error`, func() {
 		addMemberToMultipleAccessGroupsPath := "/groups/_allgroups/members/testString"
-		Context(`Using mock server endpoint`, func() {
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
@@ -2354,7 +2605,6 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 			})
 		})
 	})
-
 	Describe(`AddMemberToMultipleAccessGroups(addMemberToMultipleAccessGroupsOptions *AddMemberToMultipleAccessGroupsOptions)`, func() {
 		addMemberToMultipleAccessGroupsPath := "/groups/_allgroups/members/testString"
 		Context(`Using mock server endpoint with timeout`, func() {
@@ -2537,135 +2787,48 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				testServer.Close()
 			})
 		})
-	})
-	Describe(`Service constructor tests`, func() {
-		It(`Instantiate service client`, func() {
-			iamAccessGroupsService, serviceErr := iamaccessgroupsv2.NewIamAccessGroupsV2(&iamaccessgroupsv2.IamAccessGroupsV2Options{
-				Authenticator: &core.NoAuthAuthenticator{},
-			})
-			Expect(iamAccessGroupsService).ToNot(BeNil())
-			Expect(serviceErr).To(BeNil())
-		})
-		It(`Instantiate service client with error: Invalid URL`, func() {
-			iamAccessGroupsService, serviceErr := iamaccessgroupsv2.NewIamAccessGroupsV2(&iamaccessgroupsv2.IamAccessGroupsV2Options{
-				URL: "{BAD_URL_STRING",
-			})
-			Expect(iamAccessGroupsService).To(BeNil())
-			Expect(serviceErr).ToNot(BeNil())
-		})
-		It(`Instantiate service client with error: Invalid Auth`, func() {
-			iamAccessGroupsService, serviceErr := iamaccessgroupsv2.NewIamAccessGroupsV2(&iamaccessgroupsv2.IamAccessGroupsV2Options{
-				URL: "https://iamaccessgroupsv2/api",
-				Authenticator: &core.BasicAuthenticator{
-					Username: "",
-					Password: "",
-				},
-			})
-			Expect(iamAccessGroupsService).To(BeNil())
-			Expect(serviceErr).ToNot(BeNil())
-		})
-	})
-	Describe(`Service constructor tests using external config`, func() {
-		Context(`Using external config, construct service client instances`, func() {
-			// Map containing environment variables used in testing.
-			var testEnvironment = map[string]string{
-				"IAM_ACCESS_GROUPS_URL":       "https://iamaccessgroupsv2/api",
-				"IAM_ACCESS_GROUPS_AUTH_TYPE": "noauth",
-			}
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
 
-			It(`Create service client using external config successfully`, func() {
-				SetTestEnvironment(testEnvironment)
-				iamAccessGroupsService, serviceErr := iamaccessgroupsv2.NewIamAccessGroupsV2UsingExternalConfig(&iamaccessgroupsv2.IamAccessGroupsV2Options{})
-				Expect(iamAccessGroupsService).ToNot(BeNil())
-				Expect(serviceErr).To(BeNil())
-				ClearTestEnvironment(testEnvironment)
-
-				clone := iamAccessGroupsService.Clone()
-				Expect(clone).ToNot(BeNil())
-				Expect(clone.Service != iamAccessGroupsService.Service).To(BeTrue())
-				Expect(clone.GetServiceURL()).To(Equal(iamAccessGroupsService.GetServiceURL()))
-				Expect(clone.Service.Options.Authenticator).To(Equal(iamAccessGroupsService.Service.Options.Authenticator))
+					// Set success status code with no respoonse body
+					res.WriteHeader(207)
+				}))
 			})
-			It(`Create service client using external config and set url from constructor successfully`, func() {
-				SetTestEnvironment(testEnvironment)
-				iamAccessGroupsService, serviceErr := iamaccessgroupsv2.NewIamAccessGroupsV2UsingExternalConfig(&iamaccessgroupsv2.IamAccessGroupsV2Options{
-					URL: "https://testService/api",
+			It(`Invoke AddMemberToMultipleAccessGroups successfully`, func() {
+				iamAccessGroupsService, serviceErr := iamaccessgroupsv2.NewIamAccessGroupsV2(&iamaccessgroupsv2.IamAccessGroupsV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
 				})
-				Expect(iamAccessGroupsService).ToNot(BeNil())
 				Expect(serviceErr).To(BeNil())
-				Expect(iamAccessGroupsService.Service.GetServiceURL()).To(Equal("https://testService/api"))
-				ClearTestEnvironment(testEnvironment)
-
-				clone := iamAccessGroupsService.Clone()
-				Expect(clone).ToNot(BeNil())
-				Expect(clone.Service != iamAccessGroupsService.Service).To(BeTrue())
-				Expect(clone.GetServiceURL()).To(Equal(iamAccessGroupsService.GetServiceURL()))
-				Expect(clone.Service.Options.Authenticator).To(Equal(iamAccessGroupsService.Service.Options.Authenticator))
-			})
-			It(`Create service client using external config and set url programatically successfully`, func() {
-				SetTestEnvironment(testEnvironment)
-				iamAccessGroupsService, serviceErr := iamaccessgroupsv2.NewIamAccessGroupsV2UsingExternalConfig(&iamaccessgroupsv2.IamAccessGroupsV2Options{})
-				err := iamAccessGroupsService.SetServiceURL("https://testService/api")
-				Expect(err).To(BeNil())
 				Expect(iamAccessGroupsService).ToNot(BeNil())
-				Expect(serviceErr).To(BeNil())
-				Expect(iamAccessGroupsService.Service.GetServiceURL()).To(Equal("https://testService/api"))
-				ClearTestEnvironment(testEnvironment)
 
-				clone := iamAccessGroupsService.Clone()
-				Expect(clone).ToNot(BeNil())
-				Expect(clone.Service != iamAccessGroupsService.Service).To(BeTrue())
-				Expect(clone.GetServiceURL()).To(Equal(iamAccessGroupsService.GetServiceURL()))
-				Expect(clone.Service.Options.Authenticator).To(Equal(iamAccessGroupsService.Service.Options.Authenticator))
+				// Construct an instance of the AddMemberToMultipleAccessGroupsOptions model
+				addMemberToMultipleAccessGroupsOptionsModel := new(iamaccessgroupsv2.AddMemberToMultipleAccessGroupsOptions)
+				addMemberToMultipleAccessGroupsOptionsModel.AccountID = core.StringPtr("testString")
+				addMemberToMultipleAccessGroupsOptionsModel.IamID = core.StringPtr("testString")
+				addMemberToMultipleAccessGroupsOptionsModel.Type = core.StringPtr("user")
+				addMemberToMultipleAccessGroupsOptionsModel.Groups = []string{"access-group-id-1"}
+				addMemberToMultipleAccessGroupsOptionsModel.TransactionID = core.StringPtr("testString")
+				addMemberToMultipleAccessGroupsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := iamAccessGroupsService.AddMemberToMultipleAccessGroups(addMemberToMultipleAccessGroupsOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
 			})
-		})
-		Context(`Using external config, construct service client instances with error: Invalid Auth`, func() {
-			// Map containing environment variables used in testing.
-			var testEnvironment = map[string]string{
-				"IAM_ACCESS_GROUPS_URL":       "https://iamaccessgroupsv2/api",
-				"IAM_ACCESS_GROUPS_AUTH_TYPE": "someOtherAuth",
-			}
-
-			SetTestEnvironment(testEnvironment)
-			iamAccessGroupsService, serviceErr := iamaccessgroupsv2.NewIamAccessGroupsV2UsingExternalConfig(&iamaccessgroupsv2.IamAccessGroupsV2Options{})
-
-			It(`Instantiate service client with error`, func() {
-				Expect(iamAccessGroupsService).To(BeNil())
-				Expect(serviceErr).ToNot(BeNil())
-				ClearTestEnvironment(testEnvironment)
+			AfterEach(func() {
+				testServer.Close()
 			})
-		})
-		Context(`Using external config, construct service client instances with error: Invalid URL`, func() {
-			// Map containing environment variables used in testing.
-			var testEnvironment = map[string]string{
-				"IAM_ACCESS_GROUPS_AUTH_TYPE": "NOAuth",
-			}
-
-			SetTestEnvironment(testEnvironment)
-			iamAccessGroupsService, serviceErr := iamaccessgroupsv2.NewIamAccessGroupsV2UsingExternalConfig(&iamaccessgroupsv2.IamAccessGroupsV2Options{
-				URL: "{BAD_URL_STRING",
-			})
-
-			It(`Instantiate service client with error`, func() {
-				Expect(iamAccessGroupsService).To(BeNil())
-				Expect(serviceErr).ToNot(BeNil())
-				ClearTestEnvironment(testEnvironment)
-			})
-		})
-	})
-	Describe(`Regional endpoint tests`, func() {
-		It(`GetServiceURLForRegion(region string)`, func() {
-			var url string
-			var err error
-			url, err = iamaccessgroupsv2.GetServiceURLForRegion("INVALID_REGION")
-			Expect(url).To(BeEmpty())
-			Expect(err).ToNot(BeNil())
-			fmt.Fprintf(GinkgoWriter, "Expected error: %s\n", err.Error())
 		})
 	})
 	Describe(`AddAccessGroupRule(addAccessGroupRuleOptions *AddAccessGroupRuleOptions) - Operation response error`, func() {
 		addAccessGroupRulePath := "/groups/testString/rules"
-		Context(`Using mock server endpoint`, func() {
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
@@ -2721,7 +2884,6 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 			})
 		})
 	})
-
 	Describe(`AddAccessGroupRule(addAccessGroupRuleOptions *AddAccessGroupRuleOptions)`, func() {
 		addAccessGroupRulePath := "/groups/testString/rules"
 		Context(`Using mock server endpoint with timeout`, func() {
@@ -2923,10 +3085,55 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				testServer.Close()
 			})
 		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(201)
+				}))
+			})
+			It(`Invoke AddAccessGroupRule successfully`, func() {
+				iamAccessGroupsService, serviceErr := iamaccessgroupsv2.NewIamAccessGroupsV2(&iamaccessgroupsv2.IamAccessGroupsV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamAccessGroupsService).ToNot(BeNil())
+
+				// Construct an instance of the RuleConditions model
+				ruleConditionsModel := new(iamaccessgroupsv2.RuleConditions)
+				ruleConditionsModel.Claim = core.StringPtr("isManager")
+				ruleConditionsModel.Operator = core.StringPtr("EQUALS")
+				ruleConditionsModel.Value = core.StringPtr("true")
+
+				// Construct an instance of the AddAccessGroupRuleOptions model
+				addAccessGroupRuleOptionsModel := new(iamaccessgroupsv2.AddAccessGroupRuleOptions)
+				addAccessGroupRuleOptionsModel.AccessGroupID = core.StringPtr("testString")
+				addAccessGroupRuleOptionsModel.Expiration = core.Int64Ptr(int64(12))
+				addAccessGroupRuleOptionsModel.RealmName = core.StringPtr("https://idp.example.org/SAML2")
+				addAccessGroupRuleOptionsModel.Conditions = []iamaccessgroupsv2.RuleConditions{*ruleConditionsModel}
+				addAccessGroupRuleOptionsModel.Name = core.StringPtr("Manager group rule")
+				addAccessGroupRuleOptionsModel.TransactionID = core.StringPtr("testString")
+				addAccessGroupRuleOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := iamAccessGroupsService.AddAccessGroupRule(addAccessGroupRuleOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
 	})
 	Describe(`ListAccessGroupRules(listAccessGroupRulesOptions *ListAccessGroupRulesOptions) - Operation response error`, func() {
 		listAccessGroupRulesPath := "/groups/testString/rules"
-		Context(`Using mock server endpoint`, func() {
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
@@ -2972,7 +3179,6 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 			})
 		})
 	})
-
 	Describe(`ListAccessGroupRules(listAccessGroupRulesOptions *ListAccessGroupRulesOptions)`, func() {
 		listAccessGroupRulesPath := "/groups/testString/rules"
 		Context(`Using mock server endpoint with timeout`, func() {
@@ -3112,10 +3318,45 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				testServer.Close()
 			})
 		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke ListAccessGroupRules successfully`, func() {
+				iamAccessGroupsService, serviceErr := iamaccessgroupsv2.NewIamAccessGroupsV2(&iamaccessgroupsv2.IamAccessGroupsV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamAccessGroupsService).ToNot(BeNil())
+
+				// Construct an instance of the ListAccessGroupRulesOptions model
+				listAccessGroupRulesOptionsModel := new(iamaccessgroupsv2.ListAccessGroupRulesOptions)
+				listAccessGroupRulesOptionsModel.AccessGroupID = core.StringPtr("testString")
+				listAccessGroupRulesOptionsModel.TransactionID = core.StringPtr("testString")
+				listAccessGroupRulesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := iamAccessGroupsService.ListAccessGroupRules(listAccessGroupRulesOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
 	})
 	Describe(`GetAccessGroupRule(getAccessGroupRuleOptions *GetAccessGroupRuleOptions) - Operation response error`, func() {
 		getAccessGroupRulePath := "/groups/testString/rules/testString"
-		Context(`Using mock server endpoint`, func() {
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
@@ -3162,7 +3403,6 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 			})
 		})
 	})
-
 	Describe(`GetAccessGroupRule(getAccessGroupRuleOptions *GetAccessGroupRuleOptions)`, func() {
 		getAccessGroupRulePath := "/groups/testString/rules/testString"
 		Context(`Using mock server endpoint with timeout`, func() {
@@ -3305,10 +3545,46 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				testServer.Close()
 			})
 		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke GetAccessGroupRule successfully`, func() {
+				iamAccessGroupsService, serviceErr := iamaccessgroupsv2.NewIamAccessGroupsV2(&iamaccessgroupsv2.IamAccessGroupsV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamAccessGroupsService).ToNot(BeNil())
+
+				// Construct an instance of the GetAccessGroupRuleOptions model
+				getAccessGroupRuleOptionsModel := new(iamaccessgroupsv2.GetAccessGroupRuleOptions)
+				getAccessGroupRuleOptionsModel.AccessGroupID = core.StringPtr("testString")
+				getAccessGroupRuleOptionsModel.RuleID = core.StringPtr("testString")
+				getAccessGroupRuleOptionsModel.TransactionID = core.StringPtr("testString")
+				getAccessGroupRuleOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := iamAccessGroupsService.GetAccessGroupRule(getAccessGroupRuleOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
 	})
 	Describe(`ReplaceAccessGroupRule(replaceAccessGroupRuleOptions *ReplaceAccessGroupRuleOptions) - Operation response error`, func() {
 		replaceAccessGroupRulePath := "/groups/testString/rules/testString"
-		Context(`Using mock server endpoint`, func() {
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
@@ -3368,7 +3644,6 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 			})
 		})
 	})
-
 	Describe(`ReplaceAccessGroupRule(replaceAccessGroupRuleOptions *ReplaceAccessGroupRuleOptions)`, func() {
 		replaceAccessGroupRulePath := "/groups/testString/rules/testString"
 		Context(`Using mock server endpoint with timeout`, func() {
@@ -3580,8 +3855,54 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				testServer.Close()
 			})
 		})
-	})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
 
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke ReplaceAccessGroupRule successfully`, func() {
+				iamAccessGroupsService, serviceErr := iamaccessgroupsv2.NewIamAccessGroupsV2(&iamaccessgroupsv2.IamAccessGroupsV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamAccessGroupsService).ToNot(BeNil())
+
+				// Construct an instance of the RuleConditions model
+				ruleConditionsModel := new(iamaccessgroupsv2.RuleConditions)
+				ruleConditionsModel.Claim = core.StringPtr("isManager")
+				ruleConditionsModel.Operator = core.StringPtr("EQUALS")
+				ruleConditionsModel.Value = core.StringPtr("true")
+
+				// Construct an instance of the ReplaceAccessGroupRuleOptions model
+				replaceAccessGroupRuleOptionsModel := new(iamaccessgroupsv2.ReplaceAccessGroupRuleOptions)
+				replaceAccessGroupRuleOptionsModel.AccessGroupID = core.StringPtr("testString")
+				replaceAccessGroupRuleOptionsModel.RuleID = core.StringPtr("testString")
+				replaceAccessGroupRuleOptionsModel.IfMatch = core.StringPtr("testString")
+				replaceAccessGroupRuleOptionsModel.Expiration = core.Int64Ptr(int64(12))
+				replaceAccessGroupRuleOptionsModel.RealmName = core.StringPtr("https://idp.example.org/SAML2")
+				replaceAccessGroupRuleOptionsModel.Conditions = []iamaccessgroupsv2.RuleConditions{*ruleConditionsModel}
+				replaceAccessGroupRuleOptionsModel.Name = core.StringPtr("Manager group rule")
+				replaceAccessGroupRuleOptionsModel.TransactionID = core.StringPtr("testString")
+				replaceAccessGroupRuleOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := iamAccessGroupsService.ReplaceAccessGroupRule(replaceAccessGroupRuleOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
 	Describe(`RemoveAccessGroupRule(removeAccessGroupRuleOptions *RemoveAccessGroupRuleOptions)`, func() {
 		removeAccessGroupRulePath := "/groups/testString/rules/testString"
 		Context(`Using mock server endpoint`, func() {
@@ -3656,134 +3977,9 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 			})
 		})
 	})
-	Describe(`Service constructor tests`, func() {
-		It(`Instantiate service client`, func() {
-			iamAccessGroupsService, serviceErr := iamaccessgroupsv2.NewIamAccessGroupsV2(&iamaccessgroupsv2.IamAccessGroupsV2Options{
-				Authenticator: &core.NoAuthAuthenticator{},
-			})
-			Expect(iamAccessGroupsService).ToNot(BeNil())
-			Expect(serviceErr).To(BeNil())
-		})
-		It(`Instantiate service client with error: Invalid URL`, func() {
-			iamAccessGroupsService, serviceErr := iamaccessgroupsv2.NewIamAccessGroupsV2(&iamaccessgroupsv2.IamAccessGroupsV2Options{
-				URL: "{BAD_URL_STRING",
-			})
-			Expect(iamAccessGroupsService).To(BeNil())
-			Expect(serviceErr).ToNot(BeNil())
-		})
-		It(`Instantiate service client with error: Invalid Auth`, func() {
-			iamAccessGroupsService, serviceErr := iamaccessgroupsv2.NewIamAccessGroupsV2(&iamaccessgroupsv2.IamAccessGroupsV2Options{
-				URL: "https://iamaccessgroupsv2/api",
-				Authenticator: &core.BasicAuthenticator{
-					Username: "",
-					Password: "",
-				},
-			})
-			Expect(iamAccessGroupsService).To(BeNil())
-			Expect(serviceErr).ToNot(BeNil())
-		})
-	})
-	Describe(`Service constructor tests using external config`, func() {
-		Context(`Using external config, construct service client instances`, func() {
-			// Map containing environment variables used in testing.
-			var testEnvironment = map[string]string{
-				"IAM_ACCESS_GROUPS_URL":       "https://iamaccessgroupsv2/api",
-				"IAM_ACCESS_GROUPS_AUTH_TYPE": "noauth",
-			}
-
-			It(`Create service client using external config successfully`, func() {
-				SetTestEnvironment(testEnvironment)
-				iamAccessGroupsService, serviceErr := iamaccessgroupsv2.NewIamAccessGroupsV2UsingExternalConfig(&iamaccessgroupsv2.IamAccessGroupsV2Options{})
-				Expect(iamAccessGroupsService).ToNot(BeNil())
-				Expect(serviceErr).To(BeNil())
-				ClearTestEnvironment(testEnvironment)
-
-				clone := iamAccessGroupsService.Clone()
-				Expect(clone).ToNot(BeNil())
-				Expect(clone.Service != iamAccessGroupsService.Service).To(BeTrue())
-				Expect(clone.GetServiceURL()).To(Equal(iamAccessGroupsService.GetServiceURL()))
-				Expect(clone.Service.Options.Authenticator).To(Equal(iamAccessGroupsService.Service.Options.Authenticator))
-			})
-			It(`Create service client using external config and set url from constructor successfully`, func() {
-				SetTestEnvironment(testEnvironment)
-				iamAccessGroupsService, serviceErr := iamaccessgroupsv2.NewIamAccessGroupsV2UsingExternalConfig(&iamaccessgroupsv2.IamAccessGroupsV2Options{
-					URL: "https://testService/api",
-				})
-				Expect(iamAccessGroupsService).ToNot(BeNil())
-				Expect(serviceErr).To(BeNil())
-				Expect(iamAccessGroupsService.Service.GetServiceURL()).To(Equal("https://testService/api"))
-				ClearTestEnvironment(testEnvironment)
-
-				clone := iamAccessGroupsService.Clone()
-				Expect(clone).ToNot(BeNil())
-				Expect(clone.Service != iamAccessGroupsService.Service).To(BeTrue())
-				Expect(clone.GetServiceURL()).To(Equal(iamAccessGroupsService.GetServiceURL()))
-				Expect(clone.Service.Options.Authenticator).To(Equal(iamAccessGroupsService.Service.Options.Authenticator))
-			})
-			It(`Create service client using external config and set url programatically successfully`, func() {
-				SetTestEnvironment(testEnvironment)
-				iamAccessGroupsService, serviceErr := iamaccessgroupsv2.NewIamAccessGroupsV2UsingExternalConfig(&iamaccessgroupsv2.IamAccessGroupsV2Options{})
-				err := iamAccessGroupsService.SetServiceURL("https://testService/api")
-				Expect(err).To(BeNil())
-				Expect(iamAccessGroupsService).ToNot(BeNil())
-				Expect(serviceErr).To(BeNil())
-				Expect(iamAccessGroupsService.Service.GetServiceURL()).To(Equal("https://testService/api"))
-				ClearTestEnvironment(testEnvironment)
-
-				clone := iamAccessGroupsService.Clone()
-				Expect(clone).ToNot(BeNil())
-				Expect(clone.Service != iamAccessGroupsService.Service).To(BeTrue())
-				Expect(clone.GetServiceURL()).To(Equal(iamAccessGroupsService.GetServiceURL()))
-				Expect(clone.Service.Options.Authenticator).To(Equal(iamAccessGroupsService.Service.Options.Authenticator))
-			})
-		})
-		Context(`Using external config, construct service client instances with error: Invalid Auth`, func() {
-			// Map containing environment variables used in testing.
-			var testEnvironment = map[string]string{
-				"IAM_ACCESS_GROUPS_URL":       "https://iamaccessgroupsv2/api",
-				"IAM_ACCESS_GROUPS_AUTH_TYPE": "someOtherAuth",
-			}
-
-			SetTestEnvironment(testEnvironment)
-			iamAccessGroupsService, serviceErr := iamaccessgroupsv2.NewIamAccessGroupsV2UsingExternalConfig(&iamaccessgroupsv2.IamAccessGroupsV2Options{})
-
-			It(`Instantiate service client with error`, func() {
-				Expect(iamAccessGroupsService).To(BeNil())
-				Expect(serviceErr).ToNot(BeNil())
-				ClearTestEnvironment(testEnvironment)
-			})
-		})
-		Context(`Using external config, construct service client instances with error: Invalid URL`, func() {
-			// Map containing environment variables used in testing.
-			var testEnvironment = map[string]string{
-				"IAM_ACCESS_GROUPS_AUTH_TYPE": "NOAuth",
-			}
-
-			SetTestEnvironment(testEnvironment)
-			iamAccessGroupsService, serviceErr := iamaccessgroupsv2.NewIamAccessGroupsV2UsingExternalConfig(&iamaccessgroupsv2.IamAccessGroupsV2Options{
-				URL: "{BAD_URL_STRING",
-			})
-
-			It(`Instantiate service client with error`, func() {
-				Expect(iamAccessGroupsService).To(BeNil())
-				Expect(serviceErr).ToNot(BeNil())
-				ClearTestEnvironment(testEnvironment)
-			})
-		})
-	})
-	Describe(`Regional endpoint tests`, func() {
-		It(`GetServiceURLForRegion(region string)`, func() {
-			var url string
-			var err error
-			url, err = iamaccessgroupsv2.GetServiceURLForRegion("INVALID_REGION")
-			Expect(url).To(BeEmpty())
-			Expect(err).ToNot(BeNil())
-			fmt.Fprintf(GinkgoWriter, "Expected error: %s\n", err.Error())
-		})
-	})
 	Describe(`GetAccountSettings(getAccountSettingsOptions *GetAccountSettingsOptions) - Operation response error`, func() {
 		getAccountSettingsPath := "/groups/settings"
-		Context(`Using mock server endpoint`, func() {
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
@@ -3830,7 +4026,6 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 			})
 		})
 	})
-
 	Describe(`GetAccountSettings(getAccountSettingsOptions *GetAccountSettingsOptions)`, func() {
 		getAccountSettingsPath := "/groups/settings"
 		Context(`Using mock server endpoint with timeout`, func() {
@@ -3972,10 +4167,45 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				testServer.Close()
 			})
 		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke GetAccountSettings successfully`, func() {
+				iamAccessGroupsService, serviceErr := iamaccessgroupsv2.NewIamAccessGroupsV2(&iamaccessgroupsv2.IamAccessGroupsV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamAccessGroupsService).ToNot(BeNil())
+
+				// Construct an instance of the GetAccountSettingsOptions model
+				getAccountSettingsOptionsModel := new(iamaccessgroupsv2.GetAccountSettingsOptions)
+				getAccountSettingsOptionsModel.AccountID = core.StringPtr("testString")
+				getAccountSettingsOptionsModel.TransactionID = core.StringPtr("testString")
+				getAccountSettingsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := iamAccessGroupsService.GetAccountSettings(getAccountSettingsOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
 	})
 	Describe(`UpdateAccountSettings(updateAccountSettingsOptions *UpdateAccountSettingsOptions) - Operation response error`, func() {
 		updateAccountSettingsPath := "/groups/settings"
-		Context(`Using mock server endpoint`, func() {
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
@@ -4023,7 +4253,6 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 			})
 		})
 	})
-
 	Describe(`UpdateAccountSettings(updateAccountSettingsOptions *UpdateAccountSettingsOptions)`, func() {
 		updateAccountSettingsPath := "/groups/settings"
 		Context(`Using mock server endpoint with timeout`, func() {
@@ -4200,6 +4429,42 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				testServer.Close()
 			})
 		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke UpdateAccountSettings successfully`, func() {
+				iamAccessGroupsService, serviceErr := iamaccessgroupsv2.NewIamAccessGroupsV2(&iamaccessgroupsv2.IamAccessGroupsV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(iamAccessGroupsService).ToNot(BeNil())
+
+				// Construct an instance of the UpdateAccountSettingsOptions model
+				updateAccountSettingsOptionsModel := new(iamaccessgroupsv2.UpdateAccountSettingsOptions)
+				updateAccountSettingsOptionsModel.AccountID = core.StringPtr("testString")
+				updateAccountSettingsOptionsModel.PublicAccessEnabled = core.BoolPtr(true)
+				updateAccountSettingsOptionsModel.TransactionID = core.StringPtr("testString")
+				updateAccountSettingsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := iamAccessGroupsService.UpdateAccountSettings(updateAccountSettingsOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
 	})
 	Describe(`Model constructor tests`, func() {
 		Context(`Using a service client instance`, func() {
@@ -4243,8 +4508,8 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 			It(`Invoke NewAddGroupMembersRequestMembersItem successfully`, func() {
 				iamID := "testString"
 				typeVar := "testString"
-				model, err := iamAccessGroupsService.NewAddGroupMembersRequestMembersItem(iamID, typeVar)
-				Expect(model).ToNot(BeNil())
+				_model, err := iamAccessGroupsService.NewAddGroupMembersRequestMembersItem(iamID, typeVar)
+				Expect(_model).ToNot(BeNil())
 				Expect(err).To(BeNil())
 			})
 			It(`Invoke NewAddMemberToMultipleAccessGroupsOptions successfully`, func() {
@@ -4535,8 +4800,8 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				claim := "testString"
 				operator := "EQUALS"
 				value := "testString"
-				model, err := iamAccessGroupsService.NewRuleConditions(claim, operator, value)
-				Expect(model).ToNot(BeNil())
+				_model, err := iamAccessGroupsService.NewRuleConditions(claim, operator, value)
+				Expect(_model).ToNot(BeNil())
 				Expect(err).To(BeNil())
 			})
 			It(`Invoke NewUpdateAccessGroupOptions successfully`, func() {
@@ -4588,11 +4853,11 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 			Expect(mockReader).ToNot(BeNil())
 		})
 		It(`Invoke CreateMockDate() successfully`, func() {
-			mockDate := CreateMockDate()
+			mockDate := CreateMockDate("2019-01-01")
 			Expect(mockDate).ToNot(BeNil())
 		})
 		It(`Invoke CreateMockDateTime() successfully`, func() {
-			mockDateTime := CreateMockDateTime()
+			mockDateTime := CreateMockDateTime("2019-01-01T12:00:00.000Z")
 			Expect(mockDateTime).ToNot(BeNil())
 		})
 	})
@@ -4617,13 +4882,19 @@ func CreateMockReader(mockData string) io.ReadCloser {
 	return ioutil.NopCloser(bytes.NewReader([]byte(mockData)))
 }
 
-func CreateMockDate() *strfmt.Date {
-	d := strfmt.Date(time.Date(2009, time.November, 10, 23, 0, 0, 0, time.UTC))
+func CreateMockDate(mockData string) *strfmt.Date {
+	d, err := core.ParseDate(mockData)
+	if err != nil {
+		return nil
+	}
 	return &d
 }
 
-func CreateMockDateTime() *strfmt.DateTime {
-	d := strfmt.DateTime(time.Date(2009, time.November, 10, 23, 0, 0, 0, time.UTC))
+func CreateMockDateTime(mockData string) *strfmt.DateTime {
+	d, err := core.ParseDateTime(mockData)
+	if err != nil {
+		return nil
+	}
 	return &d
 }
 

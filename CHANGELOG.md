@@ -1,3 +1,10 @@
+## [0.18.19](https://github.com/IBM/platform-services-go-sdk/compare/v0.18.18...v0.18.19) (2021-06-25)
+
+
+### Bug Fixes
+
+* **IAM Access Groups:** update service after recent api changes ([#133](https://github.com/IBM/platform-services-go-sdk/issues/133)) ([0b54331](https://github.com/IBM/platform-services-go-sdk/commit/0b54331b42b62f2313f450f674b6d60dde6ea1d6))
+
 ## [0.18.18](https://github.com/IBM/platform-services-go-sdk/compare/v0.18.17...v0.18.18) (2021-06-15)
 
 
