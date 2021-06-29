@@ -18,7 +18,7 @@
  * IBM OpenAPI SDK Code Generator Version: 3.33.0-caf29bd0-20210603-225214
  */
 
-// Package ibmcloudshellv1 : Operations and models for the IbmCloudShellV1 service
+// Package ibmcloudshellv1 : Operations and models for the IBMCloudShellV1 service
 package ibmcloudshellv1
 
 import (
@@ -33,28 +33,28 @@ import (
 	common "github.com/IBM/platform-services-go-sdk/common"
 )
 
-// IbmCloudShellV1 : API docs for IBM Cloud Shell repository
+// IBMCloudShellV1 : API docs for IBM Cloud Shell repository
 //
 // Version: 1.0
-type IbmCloudShellV1 struct {
+type IBMCloudShellV1 struct {
 	Service *core.BaseService
 }
 
 // DefaultServiceURL is the default URL to make service requests to.
-const DefaultServiceURL = "https://api.shell.test.cloud.ibm.com"
+const DefaultServiceURL = "https://api.shell.cloud.ibm.com"
 
 // DefaultServiceName is the default key used to find external configuration information.
 const DefaultServiceName = "ibm_cloud_shell"
 
-// IbmCloudShellV1Options : Service options
-type IbmCloudShellV1Options struct {
+// IBMCloudShellV1Options : Service options
+type IBMCloudShellV1Options struct {
 	ServiceName   string
 	URL           string
 	Authenticator core.Authenticator
 }
 
-// NewIbmCloudShellV1UsingExternalConfig : constructs an instance of IbmCloudShellV1 with passed in options and external configuration.
-func NewIbmCloudShellV1UsingExternalConfig(options *IbmCloudShellV1Options) (ibmCloudShell *IbmCloudShellV1, err error) {
+// NewIBMCloudShellV1UsingExternalConfig : constructs an instance of IBMCloudShellV1 with passed in options and external configuration.
+func NewIBMCloudShellV1UsingExternalConfig(options *IBMCloudShellV1Options) (ibmCloudShell *IBMCloudShellV1, err error) {
 	if options.ServiceName == "" {
 		options.ServiceName = DefaultServiceName
 	}
@@ -66,7 +66,7 @@ func NewIbmCloudShellV1UsingExternalConfig(options *IbmCloudShellV1Options) (ibm
 		}
 	}
 
-	ibmCloudShell, err = NewIbmCloudShellV1(options)
+	ibmCloudShell, err = NewIBMCloudShellV1(options)
 	if err != nil {
 		return
 	}
@@ -82,8 +82,8 @@ func NewIbmCloudShellV1UsingExternalConfig(options *IbmCloudShellV1Options) (ibm
 	return
 }
 
-// NewIbmCloudShellV1 : constructs an instance of IbmCloudShellV1 with passed in options.
-func NewIbmCloudShellV1(options *IbmCloudShellV1Options) (service *IbmCloudShellV1, err error) {
+// NewIBMCloudShellV1 : constructs an instance of IBMCloudShellV1 with passed in options.
+func NewIBMCloudShellV1(options *IBMCloudShellV1Options) (service *IBMCloudShellV1, err error) {
 	serviceOptions := &core.ServiceOptions{
 		URL:           DefaultServiceURL,
 		Authenticator: options.Authenticator,
@@ -101,7 +101,7 @@ func NewIbmCloudShellV1(options *IbmCloudShellV1Options) (service *IbmCloudShell
 		}
 	}
 
-	service = &IbmCloudShellV1{
+	service = &IBMCloudShellV1{
 		Service: baseService,
 	}
 
@@ -114,7 +114,7 @@ func GetServiceURLForRegion(region string) (string, error) {
 }
 
 // Clone makes a copy of "ibmCloudShell" suitable for processing requests.
-func (ibmCloudShell *IbmCloudShellV1) Clone() *IbmCloudShellV1 {
+func (ibmCloudShell *IBMCloudShellV1) Clone() *IBMCloudShellV1 {
 	if core.IsNil(ibmCloudShell) {
 		return nil
 	}
@@ -124,63 +124,63 @@ func (ibmCloudShell *IbmCloudShellV1) Clone() *IbmCloudShellV1 {
 }
 
 // SetServiceURL sets the service URL
-func (ibmCloudShell *IbmCloudShellV1) SetServiceURL(url string) error {
+func (ibmCloudShell *IBMCloudShellV1) SetServiceURL(url string) error {
 	return ibmCloudShell.Service.SetServiceURL(url)
 }
 
 // GetServiceURL returns the service URL
-func (ibmCloudShell *IbmCloudShellV1) GetServiceURL() string {
+func (ibmCloudShell *IBMCloudShellV1) GetServiceURL() string {
 	return ibmCloudShell.Service.GetServiceURL()
 }
 
 // SetDefaultHeaders sets HTTP headers to be sent in every request
-func (ibmCloudShell *IbmCloudShellV1) SetDefaultHeaders(headers http.Header) {
+func (ibmCloudShell *IBMCloudShellV1) SetDefaultHeaders(headers http.Header) {
 	ibmCloudShell.Service.SetDefaultHeaders(headers)
 }
 
 // SetEnableGzipCompression sets the service's EnableGzipCompression field
-func (ibmCloudShell *IbmCloudShellV1) SetEnableGzipCompression(enableGzip bool) {
+func (ibmCloudShell *IBMCloudShellV1) SetEnableGzipCompression(enableGzip bool) {
 	ibmCloudShell.Service.SetEnableGzipCompression(enableGzip)
 }
 
 // GetEnableGzipCompression returns the service's EnableGzipCompression field
-func (ibmCloudShell *IbmCloudShellV1) GetEnableGzipCompression() bool {
+func (ibmCloudShell *IBMCloudShellV1) GetEnableGzipCompression() bool {
 	return ibmCloudShell.Service.GetEnableGzipCompression()
 }
 
 // EnableRetries enables automatic retries for requests invoked for this service instance.
 // If either parameter is specified as 0, then a default value is used instead.
-func (ibmCloudShell *IbmCloudShellV1) EnableRetries(maxRetries int, maxRetryInterval time.Duration) {
+func (ibmCloudShell *IBMCloudShellV1) EnableRetries(maxRetries int, maxRetryInterval time.Duration) {
 	ibmCloudShell.Service.EnableRetries(maxRetries, maxRetryInterval)
 }
 
 // DisableRetries disables automatic retries for requests invoked for this service instance.
-func (ibmCloudShell *IbmCloudShellV1) DisableRetries() {
+func (ibmCloudShell *IBMCloudShellV1) DisableRetries() {
 	ibmCloudShell.Service.DisableRetries()
 }
 
-// GetAccountSettingsByID : Get account settings
+// GetAccountSettings : Get account settings
 // Retrieve account settings for the given account ID. Call this method to get details about a particular account
 // setting, whether Cloud Shell is enabled, the list of enabled regions and the list of enabled features. Users need to
 // be an account owner or users need to be assigned an IAM policy with the Administrator role for the Cloud Shell
 // account management service.
-func (ibmCloudShell *IbmCloudShellV1) GetAccountSettingsByID(getAccountSettingsByIdOptions *GetAccountSettingsByIdOptions) (result *AccountSettings, response *core.DetailedResponse, err error) {
-	return ibmCloudShell.GetAccountSettingsByIDWithContext(context.Background(), getAccountSettingsByIdOptions)
+func (ibmCloudShell *IBMCloudShellV1) GetAccountSettings(getAccountSettingsOptions *GetAccountSettingsOptions) (result *AccountSettings, response *core.DetailedResponse, err error) {
+	return ibmCloudShell.GetAccountSettingsWithContext(context.Background(), getAccountSettingsOptions)
 }
 
-// GetAccountSettingsByIDWithContext is an alternate form of the GetAccountSettingsByID method which supports a Context parameter
-func (ibmCloudShell *IbmCloudShellV1) GetAccountSettingsByIDWithContext(ctx context.Context, getAccountSettingsByIdOptions *GetAccountSettingsByIdOptions) (result *AccountSettings, response *core.DetailedResponse, err error) {
-	err = core.ValidateNotNil(getAccountSettingsByIdOptions, "getAccountSettingsByIdOptions cannot be nil")
+// GetAccountSettingsWithContext is an alternate form of the GetAccountSettings method which supports a Context parameter
+func (ibmCloudShell *IBMCloudShellV1) GetAccountSettingsWithContext(ctx context.Context, getAccountSettingsOptions *GetAccountSettingsOptions) (result *AccountSettings, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(getAccountSettingsOptions, "getAccountSettingsOptions cannot be nil")
 	if err != nil {
 		return
 	}
-	err = core.ValidateStruct(getAccountSettingsByIdOptions, "getAccountSettingsByIdOptions")
+	err = core.ValidateStruct(getAccountSettingsOptions, "getAccountSettingsOptions")
 	if err != nil {
 		return
 	}
 
 	pathParamsMap := map[string]string{
-		"account_id": *getAccountSettingsByIdOptions.AccountID,
+		"account_id": *getAccountSettingsOptions.AccountID,
 	}
 
 	builder := core.NewRequestBuilder(core.GET)
@@ -191,11 +191,11 @@ func (ibmCloudShell *IbmCloudShellV1) GetAccountSettingsByIDWithContext(ctx cont
 		return
 	}
 
-	for headerName, headerValue := range getAccountSettingsByIdOptions.Headers {
+	for headerName, headerValue := range getAccountSettingsOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("ibm_cloud_shell", "V1", "GetAccountSettingsByID")
+	sdkHeaders := common.GetSdkHeaders("ibm_cloud_shell", "V1", "GetAccountSettings")
 	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
@@ -222,28 +222,28 @@ func (ibmCloudShell *IbmCloudShellV1) GetAccountSettingsByIDWithContext(ctx cont
 	return
 }
 
-// UpdateAccountSettingsByID : Update account settings
+// UpdateAccountSettings : Update account settings
 // Update account settings for the given account ID. Call this method to update account settings configuration, you can
 // enable or disable Cloud Shell, enable or disable available regions and enable and disable features. To update account
 // settings, users need to be an account owner or users need to be assigned an IAM policy with the Administrator role
 // for the Cloud Shell account management service.
-func (ibmCloudShell *IbmCloudShellV1) UpdateAccountSettingsByID(updateAccountSettingsByIdOptions *UpdateAccountSettingsByIdOptions) (result *AccountSettings, response *core.DetailedResponse, err error) {
-	return ibmCloudShell.UpdateAccountSettingsByIDWithContext(context.Background(), updateAccountSettingsByIdOptions)
+func (ibmCloudShell *IBMCloudShellV1) UpdateAccountSettings(updateAccountSettingsOptions *UpdateAccountSettingsOptions) (result *AccountSettings, response *core.DetailedResponse, err error) {
+	return ibmCloudShell.UpdateAccountSettingsWithContext(context.Background(), updateAccountSettingsOptions)
 }
 
-// UpdateAccountSettingsByIDWithContext is an alternate form of the UpdateAccountSettingsByID method which supports a Context parameter
-func (ibmCloudShell *IbmCloudShellV1) UpdateAccountSettingsByIDWithContext(ctx context.Context, updateAccountSettingsByIdOptions *UpdateAccountSettingsByIdOptions) (result *AccountSettings, response *core.DetailedResponse, err error) {
-	err = core.ValidateNotNil(updateAccountSettingsByIdOptions, "updateAccountSettingsByIdOptions cannot be nil")
+// UpdateAccountSettingsWithContext is an alternate form of the UpdateAccountSettings method which supports a Context parameter
+func (ibmCloudShell *IBMCloudShellV1) UpdateAccountSettingsWithContext(ctx context.Context, updateAccountSettingsOptions *UpdateAccountSettingsOptions) (result *AccountSettings, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(updateAccountSettingsOptions, "updateAccountSettingsOptions cannot be nil")
 	if err != nil {
 		return
 	}
-	err = core.ValidateStruct(updateAccountSettingsByIdOptions, "updateAccountSettingsByIdOptions")
+	err = core.ValidateStruct(updateAccountSettingsOptions, "updateAccountSettingsOptions")
 	if err != nil {
 		return
 	}
 
 	pathParamsMap := map[string]string{
-		"account_id": *updateAccountSettingsByIdOptions.AccountID,
+		"account_id": *updateAccountSettingsOptions.AccountID,
 	}
 
 	builder := core.NewRequestBuilder(core.POST)
@@ -254,11 +254,11 @@ func (ibmCloudShell *IbmCloudShellV1) UpdateAccountSettingsByIDWithContext(ctx c
 		return
 	}
 
-	for headerName, headerValue := range updateAccountSettingsByIdOptions.Headers {
+	for headerName, headerValue := range updateAccountSettingsOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("ibm_cloud_shell", "V1", "UpdateAccountSettingsByID")
+	sdkHeaders := common.GetSdkHeaders("ibm_cloud_shell", "V1", "UpdateAccountSettings")
 	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
@@ -266,44 +266,23 @@ func (ibmCloudShell *IbmCloudShellV1) UpdateAccountSettingsByIDWithContext(ctx c
 	builder.AddHeader("Content-Type", "application/json")
 
 	body := make(map[string]interface{})
-	if updateAccountSettingsByIdOptions.NewID != nil {
-		body["_id"] = updateAccountSettingsByIdOptions.NewID
+	if updateAccountSettingsOptions.Rev != nil {
+		body["_rev"] = updateAccountSettingsOptions.Rev
 	}
-	if updateAccountSettingsByIdOptions.NewRev != nil {
-		body["_rev"] = updateAccountSettingsByIdOptions.NewRev
+	if updateAccountSettingsOptions.DefaultEnableNewFeatures != nil {
+		body["default_enable_new_features"] = updateAccountSettingsOptions.DefaultEnableNewFeatures
 	}
-	if updateAccountSettingsByIdOptions.NewAccountID != nil {
-		body["account_id"] = updateAccountSettingsByIdOptions.NewAccountID
+	if updateAccountSettingsOptions.DefaultEnableNewRegions != nil {
+		body["default_enable_new_regions"] = updateAccountSettingsOptions.DefaultEnableNewRegions
 	}
-	if updateAccountSettingsByIdOptions.NewCreatedAt != nil {
-		body["created_at"] = updateAccountSettingsByIdOptions.NewCreatedAt
+	if updateAccountSettingsOptions.Enabled != nil {
+		body["enabled"] = updateAccountSettingsOptions.Enabled
 	}
-	if updateAccountSettingsByIdOptions.NewCreatedBy != nil {
-		body["created_by"] = updateAccountSettingsByIdOptions.NewCreatedBy
+	if updateAccountSettingsOptions.Features != nil {
+		body["features"] = updateAccountSettingsOptions.Features
 	}
-	if updateAccountSettingsByIdOptions.NewDefaultEnableNewFeatures != nil {
-		body["default_enable_new_features"] = updateAccountSettingsByIdOptions.NewDefaultEnableNewFeatures
-	}
-	if updateAccountSettingsByIdOptions.NewDefaultEnableNewRegions != nil {
-		body["default_enable_new_regions"] = updateAccountSettingsByIdOptions.NewDefaultEnableNewRegions
-	}
-	if updateAccountSettingsByIdOptions.NewEnabled != nil {
-		body["enabled"] = updateAccountSettingsByIdOptions.NewEnabled
-	}
-	if updateAccountSettingsByIdOptions.NewFeatures != nil {
-		body["features"] = updateAccountSettingsByIdOptions.NewFeatures
-	}
-	if updateAccountSettingsByIdOptions.NewRegions != nil {
-		body["regions"] = updateAccountSettingsByIdOptions.NewRegions
-	}
-	if updateAccountSettingsByIdOptions.NewType != nil {
-		body["type"] = updateAccountSettingsByIdOptions.NewType
-	}
-	if updateAccountSettingsByIdOptions.NewUpdatedAt != nil {
-		body["updated_at"] = updateAccountSettingsByIdOptions.NewUpdatedAt
-	}
-	if updateAccountSettingsByIdOptions.NewUpdatedBy != nil {
-		body["updated_by"] = updateAccountSettingsByIdOptions.NewUpdatedBy
+	if updateAccountSettingsOptions.Regions != nil {
+		body["regions"] = updateAccountSettingsOptions.Regions
 	}
 	_, err = builder.SetBodyContentJSON(body)
 	if err != nil {
@@ -342,7 +321,7 @@ type AccountSettings struct {
 	// The id of the account the settings belong to.
 	AccountID *string `json:"account_id,omitempty"`
 
-	// Creation timestamp.
+	// Creation timestamp in Unix epoch time.
 	CreatedAt *int64 `json:"created_at,omitempty"`
 
 	// IAM ID of creator.
@@ -368,7 +347,7 @@ type AccountSettings struct {
 	// Type of api response object.
 	Type *string `json:"type,omitempty"`
 
-	// Timestamp of last update.
+	// Timestamp of last update in Unix epoch time.
 	UpdatedAt *int64 `json:"updated_at,omitempty"`
 
 	// IAM ID of last updater.
@@ -458,8 +437,8 @@ func UnmarshalFeature(m map[string]json.RawMessage, result interface{}) (err err
 	return
 }
 
-// GetAccountSettingsByIdOptions : The GetAccountSettingsByID options.
-type GetAccountSettingsByIdOptions struct {
+// GetAccountSettingsOptions : The GetAccountSettings options.
+type GetAccountSettingsOptions struct {
 	// The account ID in which the account settings belong to.
 	AccountID *string `validate:"required,ne="`
 
@@ -467,21 +446,21 @@ type GetAccountSettingsByIdOptions struct {
 	Headers map[string]string
 }
 
-// NewGetAccountSettingsByIdOptions : Instantiate GetAccountSettingsByIdOptions
-func (*IbmCloudShellV1) NewGetAccountSettingsByIdOptions(accountID string) *GetAccountSettingsByIdOptions {
-	return &GetAccountSettingsByIdOptions{
+// NewGetAccountSettingsOptions : Instantiate GetAccountSettingsOptions
+func (*IBMCloudShellV1) NewGetAccountSettingsOptions(accountID string) *GetAccountSettingsOptions {
+	return &GetAccountSettingsOptions{
 		AccountID: core.StringPtr(accountID),
 	}
 }
 
 // SetAccountID : Allow user to set AccountID
-func (_options *GetAccountSettingsByIdOptions) SetAccountID(accountID string) *GetAccountSettingsByIdOptions {
+func (_options *GetAccountSettingsOptions) SetAccountID(accountID string) *GetAccountSettingsOptions {
 	_options.AccountID = core.StringPtr(accountID)
 	return _options
 }
 
 // SetHeaders : Allow user to set Headers
-func (options *GetAccountSettingsByIdOptions) SetHeaders(param map[string]string) *GetAccountSettingsByIdOptions {
+func (options *GetAccountSettingsOptions) SetHeaders(param map[string]string) *GetAccountSettingsOptions {
 	options.Headers = param
 	return options
 }
@@ -510,149 +489,86 @@ func UnmarshalRegionSetting(m map[string]json.RawMessage, result interface{}) (e
 	return
 }
 
-// UpdateAccountSettingsByIdOptions : The UpdateAccountSettingsByID options.
-type UpdateAccountSettingsByIdOptions struct {
+// UpdateAccountSettingsOptions : The UpdateAccountSettings options.
+type UpdateAccountSettingsOptions struct {
 	// The account ID in which the account settings belong to.
 	AccountID *string `validate:"required,ne="`
 
-	// Unique id of the settings object.
-	NewID *string
-
 	// Unique revision number for the settings object.
-	NewRev *string
-
-	// The id of the account the settings belong to.
-	NewAccountID *string
-
-	// Creation timestamp.
-	NewCreatedAt *int64
-
-	// IAM ID of creator.
-	NewCreatedBy *string
+	Rev *string
 
 	// You can choose which Cloud Shell features are available in the account and whether any new features are enabled as
 	// they become available. The feature settings apply only to the enabled Cloud Shell locations.
-	NewDefaultEnableNewFeatures *bool
+	DefaultEnableNewFeatures *bool
 
 	// Set whether Cloud Shell is enabled in a specific location for the account. The location determines where user and
 	// session data are stored. By default, users are routed to the nearest available location.
-	NewDefaultEnableNewRegions *bool
+	DefaultEnableNewRegions *bool
 
 	// When enabled, Cloud Shell is available to all users in the account.
-	NewEnabled *bool
+	Enabled *bool
 
 	// List of Cloud Shell features.
-	NewFeatures []Feature
+	Features []Feature
 
 	// List of Cloud Shell region settings.
-	NewRegions []RegionSetting
-
-	// Type of api response object.
-	NewType *string
-
-	// Timestamp of last update.
-	NewUpdatedAt *int64
-
-	// IAM ID of last updater.
-	NewUpdatedBy *string
+	Regions []RegionSetting
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
 }
 
-// NewUpdateAccountSettingsByIdOptions : Instantiate UpdateAccountSettingsByIdOptions
-func (*IbmCloudShellV1) NewUpdateAccountSettingsByIdOptions(accountID string) *UpdateAccountSettingsByIdOptions {
-	return &UpdateAccountSettingsByIdOptions{
+// NewUpdateAccountSettingsOptions : Instantiate UpdateAccountSettingsOptions
+func (*IBMCloudShellV1) NewUpdateAccountSettingsOptions(accountID string) *UpdateAccountSettingsOptions {
+	return &UpdateAccountSettingsOptions{
 		AccountID: core.StringPtr(accountID),
 	}
 }
 
 // SetAccountID : Allow user to set AccountID
-func (_options *UpdateAccountSettingsByIdOptions) SetAccountID(accountID string) *UpdateAccountSettingsByIdOptions {
+func (_options *UpdateAccountSettingsOptions) SetAccountID(accountID string) *UpdateAccountSettingsOptions {
 	_options.AccountID = core.StringPtr(accountID)
 	return _options
 }
 
-// SetNewID : Allow user to set NewID
-func (_options *UpdateAccountSettingsByIdOptions) SetNewID(newID string) *UpdateAccountSettingsByIdOptions {
-	_options.NewID = core.StringPtr(newID)
+// SetRev : Allow user to set Rev
+func (_options *UpdateAccountSettingsOptions) SetRev(rev string) *UpdateAccountSettingsOptions {
+	_options.Rev = core.StringPtr(rev)
 	return _options
 }
 
-// SetNewRev : Allow user to set NewRev
-func (_options *UpdateAccountSettingsByIdOptions) SetNewRev(newRev string) *UpdateAccountSettingsByIdOptions {
-	_options.NewRev = core.StringPtr(newRev)
+// SetDefaultEnableNewFeatures : Allow user to set DefaultEnableNewFeatures
+func (_options *UpdateAccountSettingsOptions) SetDefaultEnableNewFeatures(defaultEnableNewFeatures bool) *UpdateAccountSettingsOptions {
+	_options.DefaultEnableNewFeatures = core.BoolPtr(defaultEnableNewFeatures)
 	return _options
 }
 
-// SetNewAccountID : Allow user to set NewAccountID
-func (_options *UpdateAccountSettingsByIdOptions) SetNewAccountID(newAccountID string) *UpdateAccountSettingsByIdOptions {
-	_options.NewAccountID = core.StringPtr(newAccountID)
+// SetDefaultEnableNewRegions : Allow user to set DefaultEnableNewRegions
+func (_options *UpdateAccountSettingsOptions) SetDefaultEnableNewRegions(defaultEnableNewRegions bool) *UpdateAccountSettingsOptions {
+	_options.DefaultEnableNewRegions = core.BoolPtr(defaultEnableNewRegions)
 	return _options
 }
 
-// SetNewCreatedAt : Allow user to set NewCreatedAt
-func (_options *UpdateAccountSettingsByIdOptions) SetNewCreatedAt(newCreatedAt int64) *UpdateAccountSettingsByIdOptions {
-	_options.NewCreatedAt = core.Int64Ptr(newCreatedAt)
+// SetEnabled : Allow user to set Enabled
+func (_options *UpdateAccountSettingsOptions) SetEnabled(enabled bool) *UpdateAccountSettingsOptions {
+	_options.Enabled = core.BoolPtr(enabled)
 	return _options
 }
 
-// SetNewCreatedBy : Allow user to set NewCreatedBy
-func (_options *UpdateAccountSettingsByIdOptions) SetNewCreatedBy(newCreatedBy string) *UpdateAccountSettingsByIdOptions {
-	_options.NewCreatedBy = core.StringPtr(newCreatedBy)
+// SetFeatures : Allow user to set Features
+func (_options *UpdateAccountSettingsOptions) SetFeatures(features []Feature) *UpdateAccountSettingsOptions {
+	_options.Features = features
 	return _options
 }
 
-// SetNewDefaultEnableNewFeatures : Allow user to set NewDefaultEnableNewFeatures
-func (_options *UpdateAccountSettingsByIdOptions) SetNewDefaultEnableNewFeatures(newDefaultEnableNewFeatures bool) *UpdateAccountSettingsByIdOptions {
-	_options.NewDefaultEnableNewFeatures = core.BoolPtr(newDefaultEnableNewFeatures)
-	return _options
-}
-
-// SetNewDefaultEnableNewRegions : Allow user to set NewDefaultEnableNewRegions
-func (_options *UpdateAccountSettingsByIdOptions) SetNewDefaultEnableNewRegions(newDefaultEnableNewRegions bool) *UpdateAccountSettingsByIdOptions {
-	_options.NewDefaultEnableNewRegions = core.BoolPtr(newDefaultEnableNewRegions)
-	return _options
-}
-
-// SetNewEnabled : Allow user to set NewEnabled
-func (_options *UpdateAccountSettingsByIdOptions) SetNewEnabled(newEnabled bool) *UpdateAccountSettingsByIdOptions {
-	_options.NewEnabled = core.BoolPtr(newEnabled)
-	return _options
-}
-
-// SetNewFeatures : Allow user to set NewFeatures
-func (_options *UpdateAccountSettingsByIdOptions) SetNewFeatures(newFeatures []Feature) *UpdateAccountSettingsByIdOptions {
-	_options.NewFeatures = newFeatures
-	return _options
-}
-
-// SetNewRegions : Allow user to set NewRegions
-func (_options *UpdateAccountSettingsByIdOptions) SetNewRegions(newRegions []RegionSetting) *UpdateAccountSettingsByIdOptions {
-	_options.NewRegions = newRegions
-	return _options
-}
-
-// SetNewType : Allow user to set NewType
-func (_options *UpdateAccountSettingsByIdOptions) SetNewType(newType string) *UpdateAccountSettingsByIdOptions {
-	_options.NewType = core.StringPtr(newType)
-	return _options
-}
-
-// SetNewUpdatedAt : Allow user to set NewUpdatedAt
-func (_options *UpdateAccountSettingsByIdOptions) SetNewUpdatedAt(newUpdatedAt int64) *UpdateAccountSettingsByIdOptions {
-	_options.NewUpdatedAt = core.Int64Ptr(newUpdatedAt)
-	return _options
-}
-
-// SetNewUpdatedBy : Allow user to set NewUpdatedBy
-func (_options *UpdateAccountSettingsByIdOptions) SetNewUpdatedBy(newUpdatedBy string) *UpdateAccountSettingsByIdOptions {
-	_options.NewUpdatedBy = core.StringPtr(newUpdatedBy)
+// SetRegions : Allow user to set Regions
+func (_options *UpdateAccountSettingsOptions) SetRegions(regions []RegionSetting) *UpdateAccountSettingsOptions {
+	_options.Regions = regions
 	return _options
 }
 
 // SetHeaders : Allow user to set Headers
-func (options *UpdateAccountSettingsByIdOptions) SetHeaders(param map[string]string) *UpdateAccountSettingsByIdOptions {
+func (options *UpdateAccountSettingsOptions) SetHeaders(param map[string]string) *UpdateAccountSettingsOptions {
 	options.Headers = param
 	return options
 }

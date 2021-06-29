@@ -23,7 +23,7 @@ import (
 	. "github.com/onsi/gomega"
 )
 
-func TestIbmCloudShellV1(t *testing.T) {
+func TestIBMCloudShellV1(t *testing.T) {
 	RegisterFailHandler(Fail)
-	RunSpecs(t, "IbmCloudShellV1 Suite")
+	RunSpecs(t, "IBMCloudShellV1 Suite")
 }

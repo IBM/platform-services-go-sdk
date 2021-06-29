@@ -36,15 +36,16 @@ import (
  * The integration test will automatically skip tests if the required config file is not available.
  */
 
-var _ = Describe(`IbmCloudShellV1 Integration Tests`, func() {
+var _ = Describe(`IBMCloudShellV1 Integration Tests`, func() {
 
 	const externalConfigFile = "../ibm_cloud_shell_v1.env"
 
 	var (
 		err                  error
-		ibmCloudShellService *ibmcloudshellv1.IbmCloudShellV1
+		ibmCloudShellService *ibmcloudshellv1.IBMCloudShellV1
 		serviceURL           string
 		config               map[string]string
+		accountID            string
 	)
 
 	var shouldSkipTest = func() {
@@ -67,6 +68,10 @@ var _ = Describe(`IbmCloudShellV1 Integration Tests`, func() {
 			if serviceURL == "" {
 				Skip("Unable to load service URL configuration property, skipping tests")
 			}
+			accountID = config["ACCOUNT_ID"]
+			if accountID == "" {
+				Skip("Unable to load account ID configuration property, skipping tests")
+			}
 
 			fmt.Printf("Service URL: %s\n", serviceURL)
 			shouldSkipTest = func() {}
@@ -79,9 +84,9 @@ var _ = Describe(`IbmCloudShellV1 Integration Tests`, func() {
 		})
 		It("Successfully construct the service client instance", func() {
 
-			ibmCloudShellServiceOptions := &ibmcloudshellv1.IbmCloudShellV1Options{}
+			ibmCloudShellServiceOptions := &ibmcloudshellv1.IBMCloudShellV1Options{}
 
-			ibmCloudShellService, err = ibmcloudshellv1.NewIbmCloudShellV1UsingExternalConfig(ibmCloudShellServiceOptions)
+			ibmCloudShellService, err = ibmcloudshellv1.NewIBMCloudShellV1UsingExternalConfig(ibmCloudShellServiceOptions)
 
 			Expect(err).To(BeNil())
 			Expect(ibmCloudShellService).ToNot(BeNil())
@@ -89,17 +94,17 @@ var _ = Describe(`IbmCloudShellV1 Integration Tests`, func() {
 		})
 	})
 
-	Describe(`GetAccountSettingsByID - Get account settings`, func() {
+	Describe(`GetAccountSettings - Get account settings`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
 		})
-		It(`GetAccountSettingsByID(getAccountSettingsByIdOptions *GetAccountSettingsByIdOptions)`, func() {
+		It(`GetAccountSettings(getAccountSettingsOptions *GetAccountSettingsOptions)`, func() {
 
-			getAccountSettingsByIdOptions := &ibmcloudshellv1.GetAccountSettingsByIdOptions{
-				AccountID: core.StringPtr("12345678-abcd-1a2b-a1b2-1234567890ab"),
+			getAccountSettingsOptions := &ibmcloudshellv1.GetAccountSettingsOptions{
+				AccountID: &accountID,
 			}
 
-			accountSettings, response, err := ibmCloudShellService.GetAccountSettingsByID(getAccountSettingsByIdOptions)
+			accountSettings, response, err := ibmCloudShellService.GetAccountSettings(getAccountSettingsOptions)
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
@@ -108,15 +113,26 @@ var _ = Describe(`IbmCloudShellV1 Integration Tests`, func() {
 		})
 	})
 
-	Describe(`UpdateAccountSettingsByID - Update account settings`, func() {
+	Describe(`UpdateAccountSettings - Update account settings`, func() {
+
+		var existingAccountSettings *ibmcloudshellv1.AccountSettings
+
 		BeforeEach(func() {
 			shouldSkipTest()
+			getAccountSettingsOptions := &ibmcloudshellv1.GetAccountSettingsOptions{
+				AccountID: &accountID,
+			}
+			accountSettings, response, err := ibmCloudShellService.GetAccountSettings(getAccountSettingsOptions)
+			existingAccountSettings = accountSettings
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(existingAccountSettings).ToNot(BeNil())
 		})
-		It(`UpdateAccountSettingsByID(updateAccountSettingsByIdOptions *UpdateAccountSettingsByIdOptions)`, func() {
+		It(`UpdateAccountSettings(updateAccountSettingsOptions *UpdateAccountSettingsOptions)`, func() {
 
 			featureModel := []ibmcloudshellv1.Feature{
 				{
-					Enabled: core.BoolPtr(true),
+					Enabled: core.BoolPtr(false),
 					Key:     core.StringPtr("server.file_manager"),
 				},
 				{
@@ -131,39 +147,35 @@ var _ = Describe(`IbmCloudShellV1 Integration Tests`, func() {
 					Key:     core.StringPtr("eu-de"),
 				},
 				{
-					Enabled: core.BoolPtr(true),
+					Enabled: core.BoolPtr(false),
 					Key:     core.StringPtr("jp-tok"),
 				},
 				{
-					Enabled: core.BoolPtr(true),
+					Enabled: core.BoolPtr(false),
 					Key:     core.StringPtr("us-south"),
 				},
 			}
 
-			accountID := "12345678-abcd-1a2b-a1b2-1234567890ab"
-			updateAccountSettingsByIdOptions := &ibmcloudshellv1.UpdateAccountSettingsByIdOptions{
-				AccountID:                   core.StringPtr(accountID),
-				NewID:                       core.StringPtr("ac" + accountID),
-				NewRev:                      core.StringPtr("130" + accountID),
-				NewAccountID:                core.StringPtr(accountID),
-				NewCreatedAt:                core.Int64Ptr(int64(1600079615)),
-				NewCreatedBy:                core.StringPtr("IBMid-1000000000"),
-				NewDefaultEnableNewFeatures: core.BoolPtr(true),
-				NewDefaultEnableNewRegions:  core.BoolPtr(true),
-				NewEnabled:                  core.BoolPtr(true),
-				NewFeatures:                 featureModel,
-				NewRegions:                  regionSettingModel,
-				NewType:                     core.StringPtr("account_settings"),
-				NewUpdatedAt:                core.Int64Ptr(int64(1624359948)),
-				NewUpdatedBy:                core.StringPtr("IBMid-1000000000"),
+			updateAccountSettingsOptions := &ibmcloudshellv1.UpdateAccountSettingsOptions{
+				AccountID:                &accountID,
+				Rev:                      existingAccountSettings.Rev,
+				DefaultEnableNewFeatures: core.BoolPtr(false),
+				DefaultEnableNewRegions:  core.BoolPtr(true),
+				Enabled:                  core.BoolPtr(true),
+				Features:                 featureModel,
+				Regions:                  regionSettingModel,
 			}
 
-			accountSettings, response, err := ibmCloudShellService.UpdateAccountSettingsByID(updateAccountSettingsByIdOptions)
+			accountSettings, response, err := ibmCloudShellService.UpdateAccountSettings(updateAccountSettingsOptions)
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(accountSettings).ToNot(BeNil())
-
+			Expect(*accountSettings.DefaultEnableNewFeatures).To(Equal(false))
+			Expect(*accountSettings.DefaultEnableNewRegions).To(Equal(true))
+			Expect(*accountSettings.Enabled).To(Equal(true))
+			Expect(accountSettings.Features).To(Equal(featureModel))
+			Expect(accountSettings.Regions).To(Equal(regionSettingModel))
 		})
 	})
 })

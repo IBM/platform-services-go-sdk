@@ -37,6 +37,7 @@ import (
 // IBM_CLOUD_SHELL_AUTH_TYPE=iam
 // IBM_CLOUD_SHELL_APIKEY=<IAM apikey>
 // IBM_CLOUD_SHELL_AUTH_URL=<IAM token service base URL - omit this if using the production environment>
+// IBM_CLOUD_SHELL_ACCOUNT_ID=<IBM Cloud account ID>
 //
 // These configuration properties can be exported as environment variables, or stored
 // in a configuration file and then:
@@ -45,9 +46,10 @@ import (
 const externalConfigFile = "../ibm_cloud_shell_v1.env"
 
 var (
-	ibmCloudShellService *ibmcloudshellv1.IbmCloudShellV1
+	ibmCloudShellService *ibmcloudshellv1.IBMCloudShellV1
 	config               map[string]string
 	configLoaded         bool = false
+	accountID            string
 )
 
 func shouldSkipTest() {
@@ -56,7 +58,7 @@ func shouldSkipTest() {
 	}
 }
 
-var _ = Describe(`IbmCloudShellV1 Examples Tests`, func() {
+var _ = Describe(`IBMCloudShellV1 Examples Tests`, func() {
 	Describe(`External configuration`, func() {
 		It("Successfully load the configuration", func() {
 			var err error
@@ -71,6 +73,9 @@ var _ = Describe(`IbmCloudShellV1 Examples Tests`, func() {
 				Skip("Error loading service properties, skipping tests: " + err.Error())
 			}
 
+			accountID = config["ACCOUNT_ID"]
+			Expect(accountID).ToNot(BeEmpty())
+
 			configLoaded = len(config) > 0
 		})
 	})
@@ -84,9 +89,9 @@ var _ = Describe(`IbmCloudShellV1 Examples Tests`, func() {
 
 			// begin-common
 
-			ibmCloudShellServiceOptions := &ibmcloudshellv1.IbmCloudShellV1Options{}
+			ibmCloudShellServiceOptions := &ibmcloudshellv1.IBMCloudShellV1Options{}
 
-			ibmCloudShellService, err = ibmcloudshellv1.NewIbmCloudShellV1UsingExternalConfig(ibmCloudShellServiceOptions)
+			ibmCloudShellService, err = ibmcloudshellv1.NewIBMCloudShellV1UsingExternalConfig(ibmCloudShellServiceOptions)
 
 			if err != nil {
 				panic(err)
@@ -98,35 +103,35 @@ var _ = Describe(`IbmCloudShellV1 Examples Tests`, func() {
 		})
 	})
 
-	Describe(`IbmCloudShellV1 request examples`, func() {
+	Describe(`IBMCloudShellV1 request examples`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
 		})
-		It(`GetAccountSettingsByID request example`, func() {
-			fmt.Println("\nGetAccountSettingsByID() result:")
-			// begin-get_account_settings_by_id
+		It(`GetAccountSettings request example`, func() {
+			fmt.Println("\nGetAccountSettings() result:")
+			// begin-get_account_settings
 
-			getAccountSettingsByIdOptions := ibmCloudShellService.NewGetAccountSettingsByIdOptions(
-				AccountID: core.StringPtr("12345678-abcd-1a2b-a1b2-1234567890ab"),
+			getAccountSettingsOptions := ibmCloudShellService.NewGetAccountSettingsOptions(
+				AccountID: &accountID,
 			)
 
-			accountSettings, response, err := ibmCloudShellService.GetAccountSettingsByID(getAccountSettingsByIdOptions)
+			accountSettings, response, err := ibmCloudShellService.GetAccountSettings(getAccountSettingsOptions)
 			if err != nil {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(accountSettings, "", "  ")
 			fmt.Println(string(b))
 
-			// end-get_account_settings_by_id
+			// end-get_account_settings
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(accountSettings).ToNot(BeNil())
 
 		})
-		It(`UpdateAccountSettingsByID request example`, func() {
-			fmt.Println("\nUpdateAccountSettingsByID() result:")
-			// begin-update_account_settings_by_id
+		It(`UpdateAccountSettings request example`, func() {
+			fmt.Println("\nUpdateAccountSettings() result:")
+			// begin-update_account_settings
 
 			featureModel := []ibmcloudshellv1.Feature{
 				{
@@ -154,32 +159,24 @@ var _ = Describe(`IbmCloudShellV1 Examples Tests`, func() {
 				},
 			}
 
-			accountID := "12345678-abcd-1a2b-a1b2-1234567890ab"
-			updateAccountSettingsByIdOptions := &ibmcloudshellv1.UpdateAccountSettingsByIdOptions{
-				AccountID:                   core.StringPtr(accountID),
-				NewID:                       core.StringPtr("ac" + accountID),
-				NewRev:                      core.StringPtr("130" + accountID),
-				NewAccountID:                core.StringPtr(accountID),
-				NewCreatedAt:                core.Int64Ptr(int64(1600079615)),
-				NewCreatedBy:                core.StringPtr("IBMid-1000000000"),
-				NewDefaultEnableNewFeatures: core.BoolPtr(true),
-				NewDefaultEnableNewRegions:  core.BoolPtr(true),
-				NewEnabled:                  core.BoolPtr(true),
-				NewFeatures:                 featureModel,
-				NewRegions:                  regionSettingModel,
-				NewType:                     core.StringPtr("account_settings"),
-				NewUpdatedAt:                core.Int64Ptr(int64(1624359948)),
-				NewUpdatedBy:                core.StringPtr("IBMid-1000000000"),
+			updateAccountSettingsOptions := &ibmcloudshellv1.UpdateAccountSettingsOptions{
+				AccountID:                &accountID,
+				Rev:                      core.StringPtr(fmt.Sprintf("130-%s", &accountID)),
+				DefaultEnableNewFeatures: core.BoolPtr(false),
+				DefaultEnableNewRegions:  core.BoolPtr(true),
+				Enabled:                  core.BoolPtr(true),
+				Features:                 featureModel,
+				Regions:                  regionSettingModel,
 			}
 
-			accountSettings, response, err := ibmCloudShellService.UpdateAccountSettingsByID(updateAccountSettingsByIdOptions)
+			accountSettings, response, err := ibmCloudShellService.UpdateAccountSettings(updateAccountSettingsOptions)
 			if err != nil {
 				panic(err)
 			}
 			b, _ := json.MarshalIndent(accountSettings, "", "  ")
 			fmt.Println(string(b))
 
-			// end-update_account_settings_by_id
+			// end-update_account_settings
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
