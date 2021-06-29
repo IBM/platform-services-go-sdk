@@ -1,3 +1,10 @@
+# [0.19.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.18.21...v0.19.0) (2021-06-29)
+
+
+### Features
+
+* **cloudshell:** add service, tests and examples to project ([7fd66dc](https://github.com/IBM/platform-services-go-sdk/commit/7fd66dc3b499f18727fa11435e1a49d394f752cd))
+
 ## [0.18.21](https://github.com/IBM/platform-services-go-sdk/compare/v0.18.20...v0.18.21) (2021-06-28)
 
 
