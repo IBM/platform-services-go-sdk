@@ -379,5 +379,49 @@ var _ = Describe(`AtrackerV1 Examples Tests`, func() {
 			Expect(warningReport).ToNot(BeNil())
 
 		})
+		It(`GetEndpoints request example`, func() {
+			fmt.Println("\nGetEndpoints() result:")
+			// begin-get_endpoints
+
+			getEndpointsOptions := atrackerService.NewGetEndpointsOptions()
+
+			endpoints, response, err := atrackerService.GetEndpoints(getEndpointsOptions)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(endpoints, "", "  ")
+			fmt.Println(string(b))
+
+			// end-get_endpoints
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(endpoints).ToNot(BeNil())
+
+		})
+		It(`PatchEndpoints request example`, func() {
+			fmt.Println("\nPatchEndpoints() result:")
+			// begin-patch_endpoints
+
+			patchEndpointsOptions := atrackerService.NewPatchEndpointsOptions()
+
+			// set public enabled flag
+			publicEnabled := true
+			patchEndpointsOptions.SetAPIEndpoint(&atrackerv1.EndpointsRequestAPIEndpoint{PublicEnabled: &publicEnabled})
+
+			endpoints, response, err := atrackerService.PatchEndpoints(patchEndpointsOptions)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(endpoints, "", "  ")
+			fmt.Println(string(b))
+
+			// end-patch_endpoints
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(endpoints).ToNot(BeNil())
+
+		})
 	})
 })

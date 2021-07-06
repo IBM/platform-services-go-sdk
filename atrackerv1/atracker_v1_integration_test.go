@@ -340,6 +340,55 @@ var _ = Describe(`AtrackerV1 Integration Tests`, func() {
 
 		})
 	})
+
+	Describe(`GetEndpoints - Get endpoints`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`GetEndpoints(getEndpointsOptions *GetEndpointsOptions)`, func() {
+
+			getEndpointsOptions := &atrackerv1.GetEndpointsOptions{}
+
+			endpoints, response, err := atrackerService.GetEndpoints(getEndpointsOptions)
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(endpoints).ToNot(BeNil())
+			// more validations
+			Expect(endpoints.APIEndpoint.PublicURL).ToNot(BeNil())
+			Expect(endpoints.APIEndpoint.PrivateURL).ToNot(BeNil())
+			Expect(*endpoints.APIEndpoint.PrivateEnabled).To(Equal(true))
+		})
+	})
+
+	Describe(`PatchEndpoints - Modify endpoints`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`PatchEndpoints(patchEndpointsOptions *PatchEndpointsOptions)`, func() {
+
+			endpointsRequestAPIEndpointModel := &atrackerv1.EndpointsRequestAPIEndpoint{
+				PublicEnabled: core.BoolPtr(true),
+			}
+
+			patchEndpointsOptions := &atrackerv1.PatchEndpointsOptions{
+				APIEndpoint: endpointsRequestAPIEndpointModel,
+			}
+
+			endpoints, response, err := atrackerService.PatchEndpoints(patchEndpointsOptions)
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(endpoints).ToNot(BeNil())
+			Expect(endpoints.APIEndpoint).ToNot(BeNil())
+			// more validations
+			Expect(endpoints.APIEndpoint.PublicURL).ToNot(BeNil())
+			Expect(endpoints.APIEndpoint.PrivateURL).ToNot(BeNil())
+			Expect(*endpoints.APIEndpoint.PublicEnabled).To(Equal(true))
+			Expect(*endpoints.APIEndpoint.PrivateEnabled).To(Equal(true))
+		})
+	})
+
 })
 
 //
