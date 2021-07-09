@@ -1253,7 +1253,7 @@ var _ = Describe(`AtrackerV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"status_code": "StatusCode", "trace": "Trace", "warnings": [{"code": "Code", "message": "Message"}]}`)
+					fmt.Fprintf(res, "%s", `{"status_code": 10, "trace": "Trace", "warnings": [{"code": "Code", "message": "Message"}]}`)
 				}))
 			})
 			It(`Invoke DeleteTarget successfully with retries`, func() {
@@ -1307,7 +1307,7 @@ var _ = Describe(`AtrackerV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"status_code": "StatusCode", "trace": "Trace", "warnings": [{"code": "Code", "message": "Message"}]}`)
+					fmt.Fprintf(res, "%s", `{"status_code": 10, "trace": "Trace", "warnings": [{"code": "Code", "message": "Message"}]}`)
 				}))
 			})
 			It(`Invoke DeleteTarget successfully`, func() {
@@ -2648,6 +2648,463 @@ var _ = Describe(`AtrackerV1`, func() {
 			})
 		})
 	})
+	Describe(`GetEndpoints(getEndpointsOptions *GetEndpointsOptions) - Operation response error`, func() {
+		getEndpointsPath := "/api/v1/endpoints"
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getEndpointsPath))
+					Expect(req.Method).To(Equal("GET"))
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, `} this is not valid json {`)
+				}))
+			})
+			It(`Invoke GetEndpoints with error: Operation response processing error`, func() {
+				atrackerService, serviceErr := atrackerv1.NewAtrackerV1(&atrackerv1.AtrackerV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(atrackerService).ToNot(BeNil())
+
+				// Construct an instance of the GetEndpointsOptions model
+				getEndpointsOptionsModel := new(atrackerv1.GetEndpointsOptions)
+				getEndpointsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Expect response parsing to fail since we are receiving a text/plain response
+				result, response, operationErr := atrackerService.GetEndpoints(getEndpointsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				atrackerService.EnableRetries(0, 0)
+				result, response, operationErr = atrackerService.GetEndpoints(getEndpointsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`GetEndpoints(getEndpointsOptions *GetEndpointsOptions)`, func() {
+		getEndpointsPath := "/api/v1/endpoints"
+		Context(`Using mock server endpoint with timeout`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getEndpointsPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					// Sleep a short time to support a timeout test
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"api_endpoint": {"public_url": "https://us-south.atracker.cloud.ibm.com", "public_enabled": true, "private_url": "https://private.us-south.atracker.cloud.ibm.com", "private_enabled": true}}`)
+				}))
+			})
+			It(`Invoke GetEndpoints successfully with retries`, func() {
+				atrackerService, serviceErr := atrackerv1.NewAtrackerV1(&atrackerv1.AtrackerV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(atrackerService).ToNot(BeNil())
+				atrackerService.EnableRetries(0, 0)
+
+				// Construct an instance of the GetEndpointsOptions model
+				getEndpointsOptionsModel := new(atrackerv1.GetEndpointsOptions)
+				getEndpointsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := atrackerService.GetEndpointsWithContext(ctx, getEndpointsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				atrackerService.DisableRetries()
+				result, response, operationErr := atrackerService.GetEndpoints(getEndpointsOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = atrackerService.GetEndpointsWithContext(ctx, getEndpointsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(getEndpointsPath))
+					Expect(req.Method).To(Equal("GET"))
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"api_endpoint": {"public_url": "https://us-south.atracker.cloud.ibm.com", "public_enabled": true, "private_url": "https://private.us-south.atracker.cloud.ibm.com", "private_enabled": true}}`)
+				}))
+			})
+			It(`Invoke GetEndpoints successfully`, func() {
+				atrackerService, serviceErr := atrackerv1.NewAtrackerV1(&atrackerv1.AtrackerV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(atrackerService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				result, response, operationErr := atrackerService.GetEndpoints(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+
+				// Construct an instance of the GetEndpointsOptions model
+				getEndpointsOptionsModel := new(atrackerv1.GetEndpointsOptions)
+				getEndpointsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				result, response, operationErr = atrackerService.GetEndpoints(getEndpointsOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+			})
+			It(`Invoke GetEndpoints with error: Operation request error`, func() {
+				atrackerService, serviceErr := atrackerv1.NewAtrackerV1(&atrackerv1.AtrackerV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(atrackerService).ToNot(BeNil())
+
+				// Construct an instance of the GetEndpointsOptions model
+				getEndpointsOptionsModel := new(atrackerv1.GetEndpointsOptions)
+				getEndpointsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := atrackerService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				result, response, operationErr := atrackerService.GetEndpoints(getEndpointsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke GetEndpoints successfully`, func() {
+				atrackerService, serviceErr := atrackerv1.NewAtrackerV1(&atrackerv1.AtrackerV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(atrackerService).ToNot(BeNil())
+
+				// Construct an instance of the GetEndpointsOptions model
+				getEndpointsOptionsModel := new(atrackerv1.GetEndpointsOptions)
+				getEndpointsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := atrackerService.GetEndpoints(getEndpointsOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`PatchEndpoints(patchEndpointsOptions *PatchEndpointsOptions) - Operation response error`, func() {
+		patchEndpointsPath := "/api/v1/endpoints"
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(patchEndpointsPath))
+					Expect(req.Method).To(Equal("PATCH"))
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, `} this is not valid json {`)
+				}))
+			})
+			It(`Invoke PatchEndpoints with error: Operation response processing error`, func() {
+				atrackerService, serviceErr := atrackerv1.NewAtrackerV1(&atrackerv1.AtrackerV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(atrackerService).ToNot(BeNil())
+
+				// Construct an instance of the EndpointsRequestAPIEndpoint model
+				endpointsRequestAPIEndpointModel := new(atrackerv1.EndpointsRequestAPIEndpoint)
+				endpointsRequestAPIEndpointModel.PublicEnabled = core.BoolPtr(true)
+
+				// Construct an instance of the PatchEndpointsOptions model
+				patchEndpointsOptionsModel := new(atrackerv1.PatchEndpointsOptions)
+				patchEndpointsOptionsModel.APIEndpoint = endpointsRequestAPIEndpointModel
+				patchEndpointsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Expect response parsing to fail since we are receiving a text/plain response
+				result, response, operationErr := atrackerService.PatchEndpoints(patchEndpointsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				atrackerService.EnableRetries(0, 0)
+				result, response, operationErr = atrackerService.PatchEndpoints(patchEndpointsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`PatchEndpoints(patchEndpointsOptions *PatchEndpointsOptions)`, func() {
+		patchEndpointsPath := "/api/v1/endpoints"
+		Context(`Using mock server endpoint with timeout`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(patchEndpointsPath))
+					Expect(req.Method).To(Equal("PATCH"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
+					// Sleep a short time to support a timeout test
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"api_endpoint": {"public_url": "https://us-south.atracker.cloud.ibm.com", "public_enabled": true, "private_url": "https://private.us-south.atracker.cloud.ibm.com", "private_enabled": true}}`)
+				}))
+			})
+			It(`Invoke PatchEndpoints successfully with retries`, func() {
+				atrackerService, serviceErr := atrackerv1.NewAtrackerV1(&atrackerv1.AtrackerV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(atrackerService).ToNot(BeNil())
+				atrackerService.EnableRetries(0, 0)
+
+				// Construct an instance of the EndpointsRequestAPIEndpoint model
+				endpointsRequestAPIEndpointModel := new(atrackerv1.EndpointsRequestAPIEndpoint)
+				endpointsRequestAPIEndpointModel.PublicEnabled = core.BoolPtr(true)
+
+				// Construct an instance of the PatchEndpointsOptions model
+				patchEndpointsOptionsModel := new(atrackerv1.PatchEndpointsOptions)
+				patchEndpointsOptionsModel.APIEndpoint = endpointsRequestAPIEndpointModel
+				patchEndpointsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := atrackerService.PatchEndpointsWithContext(ctx, patchEndpointsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				atrackerService.DisableRetries()
+				result, response, operationErr := atrackerService.PatchEndpoints(patchEndpointsOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = atrackerService.PatchEndpointsWithContext(ctx, patchEndpointsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(patchEndpointsPath))
+					Expect(req.Method).To(Equal("PATCH"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"api_endpoint": {"public_url": "https://us-south.atracker.cloud.ibm.com", "public_enabled": true, "private_url": "https://private.us-south.atracker.cloud.ibm.com", "private_enabled": true}}`)
+				}))
+			})
+			It(`Invoke PatchEndpoints successfully`, func() {
+				atrackerService, serviceErr := atrackerv1.NewAtrackerV1(&atrackerv1.AtrackerV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(atrackerService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				result, response, operationErr := atrackerService.PatchEndpoints(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+
+				// Construct an instance of the EndpointsRequestAPIEndpoint model
+				endpointsRequestAPIEndpointModel := new(atrackerv1.EndpointsRequestAPIEndpoint)
+				endpointsRequestAPIEndpointModel.PublicEnabled = core.BoolPtr(true)
+
+				// Construct an instance of the PatchEndpointsOptions model
+				patchEndpointsOptionsModel := new(atrackerv1.PatchEndpointsOptions)
+				patchEndpointsOptionsModel.APIEndpoint = endpointsRequestAPIEndpointModel
+				patchEndpointsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				result, response, operationErr = atrackerService.PatchEndpoints(patchEndpointsOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+			})
+			It(`Invoke PatchEndpoints with error: Operation request error`, func() {
+				atrackerService, serviceErr := atrackerv1.NewAtrackerV1(&atrackerv1.AtrackerV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(atrackerService).ToNot(BeNil())
+
+				// Construct an instance of the EndpointsRequestAPIEndpoint model
+				endpointsRequestAPIEndpointModel := new(atrackerv1.EndpointsRequestAPIEndpoint)
+				endpointsRequestAPIEndpointModel.PublicEnabled = core.BoolPtr(true)
+
+				// Construct an instance of the PatchEndpointsOptions model
+				patchEndpointsOptionsModel := new(atrackerv1.PatchEndpointsOptions)
+				patchEndpointsOptionsModel.APIEndpoint = endpointsRequestAPIEndpointModel
+				patchEndpointsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := atrackerService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				result, response, operationErr := atrackerService.PatchEndpoints(patchEndpointsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke PatchEndpoints successfully`, func() {
+				atrackerService, serviceErr := atrackerv1.NewAtrackerV1(&atrackerv1.AtrackerV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(atrackerService).ToNot(BeNil())
+
+				// Construct an instance of the EndpointsRequestAPIEndpoint model
+				endpointsRequestAPIEndpointModel := new(atrackerv1.EndpointsRequestAPIEndpoint)
+				endpointsRequestAPIEndpointModel.PublicEnabled = core.BoolPtr(true)
+
+				// Construct an instance of the PatchEndpointsOptions model
+				patchEndpointsOptionsModel := new(atrackerv1.PatchEndpointsOptions)
+				patchEndpointsOptionsModel.APIEndpoint = endpointsRequestAPIEndpointModel
+				patchEndpointsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := atrackerService.PatchEndpoints(patchEndpointsOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
 	Describe(`Model constructor tests`, func() {
 		Context(`Using a service client instance`, func() {
 			atrackerService, _ := atrackerv1.NewAtrackerV1(&atrackerv1.AtrackerV1Options{
@@ -2724,6 +3181,13 @@ var _ = Describe(`AtrackerV1`, func() {
 				Expect(deleteTargetOptionsModel.ID).To(Equal(core.StringPtr("testString")))
 				Expect(deleteTargetOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
+			It(`Invoke NewGetEndpointsOptions successfully`, func() {
+				// Construct an instance of the GetEndpointsOptions model
+				getEndpointsOptionsModel := atrackerService.NewGetEndpointsOptions()
+				getEndpointsOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(getEndpointsOptionsModel).ToNot(BeNil())
+				Expect(getEndpointsOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
 			It(`Invoke NewGetRouteOptions successfully`, func() {
 				// Construct an instance of the GetRouteOptions model
 				id := "testString"
@@ -2757,6 +3221,21 @@ var _ = Describe(`AtrackerV1`, func() {
 				listTargetsOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(listTargetsOptionsModel).ToNot(BeNil())
 				Expect(listTargetsOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
+			It(`Invoke NewPatchEndpointsOptions successfully`, func() {
+				// Construct an instance of the EndpointsRequestAPIEndpoint model
+				endpointsRequestAPIEndpointModel := new(atrackerv1.EndpointsRequestAPIEndpoint)
+				Expect(endpointsRequestAPIEndpointModel).ToNot(BeNil())
+				endpointsRequestAPIEndpointModel.PublicEnabled = core.BoolPtr(true)
+				Expect(endpointsRequestAPIEndpointModel.PublicEnabled).To(Equal(core.BoolPtr(true)))
+
+				// Construct an instance of the PatchEndpointsOptions model
+				patchEndpointsOptionsModel := atrackerService.NewPatchEndpointsOptions()
+				patchEndpointsOptionsModel.SetAPIEndpoint(endpointsRequestAPIEndpointModel)
+				patchEndpointsOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(patchEndpointsOptionsModel).ToNot(BeNil())
+				Expect(patchEndpointsOptionsModel.APIEndpoint).To(Equal(endpointsRequestAPIEndpointModel))
+				Expect(patchEndpointsOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewReplaceRouteOptions successfully`, func() {
 				// Construct an instance of the Rule model
