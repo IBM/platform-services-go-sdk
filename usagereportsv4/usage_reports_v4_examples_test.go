@@ -167,6 +167,28 @@ var _ = Describe(`UsageReportsV4 Examples Tests`, func() {
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(accountUsage).ToNot(BeNil())
 		})
+		It(`GetAccountUsage request example with names`, func() {
+			fmt.Println("\nGetAccountUsage() with names result:")
+			// begin-get_account_usage
+
+			getAccountUsageOptions := usageReportsService.NewGetAccountUsageOptions(
+				accountID,
+				billingMonth,
+			).SetNames(true)
+
+			accountUsage, response, err := usageReportsService.GetAccountUsage(getAccountUsageOptions)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(accountUsage, "", "  ")
+			fmt.Println(string(b))
+
+			// end-get_account_usage
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(accountUsage).ToNot(BeNil())
+		})
 		It(`GetResourceGroupUsage request example`, func() {
 			fmt.Println("\nGetResourceGroupUsage() result:")
 			// begin-get_resource_group_usage
@@ -176,6 +198,29 @@ var _ = Describe(`UsageReportsV4 Examples Tests`, func() {
 				resourceGroupID,
 				billingMonth,
 			)
+
+			resourceGroupUsage, response, err := usageReportsService.GetResourceGroupUsage(getResourceGroupUsageOptions)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(resourceGroupUsage, "", "  ")
+			fmt.Println(string(b))
+
+			// end-get_resource_group_usage
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(resourceGroupUsage).ToNot(BeNil())
+		})
+		It(`GetResourceGroupUsage request example with names`, func() {
+			fmt.Println("\nGetResourceGroupUsage() with names result:")
+			// begin-get_resource_group_usage
+
+			getResourceGroupUsageOptions := usageReportsService.NewGetResourceGroupUsageOptions(
+				accountID,
+				resourceGroupID,
+				billingMonth,
+			).SetNames(true)
 
 			resourceGroupUsage, response, err := usageReportsService.GetResourceGroupUsage(getResourceGroupUsageOptions)
 			if err != nil {
@@ -213,6 +258,29 @@ var _ = Describe(`UsageReportsV4 Examples Tests`, func() {
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(orgUsage).ToNot(BeNil())
 		})
+		It(`GetOrgUsage request example with names`, func() {
+			fmt.Println("\nGetOrgUsage() with names result:")
+			// begin-get_org_usage
+
+			getOrgUsageOptions := usageReportsService.NewGetOrgUsageOptions(
+				accountID,
+				orgID,
+				billingMonth,
+			).SetNames(true)
+
+			orgUsage, response, err := usageReportsService.GetOrgUsage(getOrgUsageOptions)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(orgUsage, "", "  ")
+			fmt.Println(string(b))
+
+			// end-get_org_usage
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(orgUsage).ToNot(BeNil())
+		})
 		It(`GetResourceUsageAccount request example`, func() {
 			fmt.Println("\nGetResourceUsageAccount() result:")
 			// begin-get_resource_usage_account
@@ -221,6 +289,28 @@ var _ = Describe(`UsageReportsV4 Examples Tests`, func() {
 				accountID,
 				billingMonth,
 			)
+
+			instancesUsage, response, err := usageReportsService.GetResourceUsageAccount(getResourceUsageAccountOptions)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(instancesUsage, "", "  ")
+			fmt.Println(string(b))
+
+			// end-get_resource_usage_account
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(instancesUsage).ToNot(BeNil())
+		})
+		It(`GetResourceUsageAccount request example with names`, func() {
+			fmt.Println("\nGetResourceUsageAccount() with names result:")
+			// begin-get_resource_usage_account
+
+			getResourceUsageAccountOptions := usageReportsService.NewGetResourceUsageAccountOptions(
+				accountID,
+				billingMonth,
+			).SetNames(true)
 
 			instancesUsage, response, err := usageReportsService.GetResourceUsageAccount(getResourceUsageAccountOptions)
 			if err != nil {
@@ -258,6 +348,29 @@ var _ = Describe(`UsageReportsV4 Examples Tests`, func() {
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(instancesUsage).ToNot(BeNil())
 		})
+		It(`GetResourceUsageResourceGroup request example with names`, func() {
+			fmt.Println("\nGetResourceUsageResourceGroup() with names result:")
+			// begin-get_resource_usage_resource_group
+
+			getResourceUsageResourceGroupOptions := usageReportsService.NewGetResourceUsageResourceGroupOptions(
+				accountID,
+				resourceGroupID,
+				billingMonth,
+			).SetNames(true)
+
+			instancesUsage, response, err := usageReportsService.GetResourceUsageResourceGroup(getResourceUsageResourceGroupOptions)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(instancesUsage, "", "  ")
+			fmt.Println(string(b))
+
+			// end-get_resource_usage_resource_group
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(instancesUsage).ToNot(BeNil())
+		})
 		It(`GetResourceUsageOrg request example`, func() {
 			fmt.Println("\nGetResourceUsageOrg() result:")
 			// begin-get_resource_usage_org
@@ -267,6 +380,29 @@ var _ = Describe(`UsageReportsV4 Examples Tests`, func() {
 				orgID,
 				billingMonth,
 			)
+
+			instancesUsage, response, err := usageReportsService.GetResourceUsageOrg(getResourceUsageOrgOptions)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(instancesUsage, "", "  ")
+			fmt.Println(string(b))
+
+			// end-get_resource_usage_org
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(instancesUsage).ToNot(BeNil())
+		})
+		It(`GetResourceUsageOrg request example with names`, func() {
+			fmt.Println("\nGetResourceUsageOrg() with names result:")
+			// begin-get_resource_usage_org
+
+			getResourceUsageOrgOptions := usageReportsService.NewGetResourceUsageOrgOptions(
+				accountID,
+				orgID,
+				billingMonth,
+			).SetNames(true)
 
 			instancesUsage, response, err := usageReportsService.GetResourceUsageOrg(getResourceUsageOrgOptions)
 			if err != nil {

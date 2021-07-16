@@ -802,10 +802,10 @@ type Discount struct {
 	Ref *string `json:"ref" validate:"required"`
 
 	// The name of the discount indicating category.
-	Name *string `json:"name" validate:"required"`
+	Name *string `json:"name,omitempty"`
 
 	// The name of the discount.
-	DisplayName *string `json:"display_name" validate:"required"`
+	DisplayName *string `json:"display_name,omitempty"`
 
 	// The discount percentage.
 	Discount *float64 `json:"discount" validate:"required"`
@@ -1436,17 +1436,32 @@ type InstanceUsage struct {
 	// The ID of the resource instance.
 	ResourceInstanceID *string `json:"resource_instance_id" validate:"required"`
 
+	// The name of the resource instance.
+	ResourceInstanceName *string `json:"resource_instance_name,omitempty"`
+
 	// The ID of the resource.
 	ResourceID *string `json:"resource_id" validate:"required"`
+
+	// The name of the resource.
+	ResourceName *string `json:"resource_name,omitempty"`
 
 	// The ID of the resource group.
 	ResourceGroupID *string `json:"resource_group_id,omitempty"`
 
+	// The name of the resource group.
+	ResourceGroupName *string `json:"resource_group_name,omitempty"`
+
 	// The ID of the organization.
 	OrganizationID *string `json:"organization_id,omitempty"`
 
+	// The name of the organization.
+	OrganizationName *string `json:"organization_name,omitempty"`
+
 	// The ID of the space.
-	Space *string `json:"space,omitempty"`
+	SpaceID *string `json:"space_id,omitempty"`
+
+	// The name of the space.
+	SpaceName *string `json:"space_name,omitempty"`
 
 	// The ID of the consumer.
 	ConsumerID *string `json:"consumer_id,omitempty"`
@@ -1469,6 +1484,9 @@ type InstanceUsage struct {
 	// The ID of the plan where the instance was provisioned and rated.
 	PlanID *string `json:"plan_id" validate:"required"`
 
+	// The name of the plan where the instance was provisioned and rated.
+	PlanName *string `json:"plan_name,omitempty"`
+
 	// The month.
 	Month *string `json:"month" validate:"required"`
 
@@ -1487,7 +1505,15 @@ func UnmarshalInstanceUsage(m map[string]json.RawMessage, result interface{}) (e
 	if err != nil {
 		return
 	}
+	err = core.UnmarshalPrimitive(m, "resource_instance_name", &obj.ResourceInstanceName)
+	if err != nil {
+		return
+	}
 	err = core.UnmarshalPrimitive(m, "resource_id", &obj.ResourceID)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "resource_name", &obj.ResourceName)
 	if err != nil {
 		return
 	}
@@ -1495,11 +1521,23 @@ func UnmarshalInstanceUsage(m map[string]json.RawMessage, result interface{}) (e
 	if err != nil {
 		return
 	}
+	err = core.UnmarshalPrimitive(m, "resource_group_name", &obj.ResourceGroupName)
+	if err != nil {
+		return
+	}
 	err = core.UnmarshalPrimitive(m, "organization_id", &obj.OrganizationID)
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalPrimitive(m, "space", &obj.Space)
+	err = core.UnmarshalPrimitive(m, "organization_name", &obj.OrganizationName)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "space_id", &obj.SpaceID)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "space_name", &obj.SpaceName)
 	if err != nil {
 		return
 	}
@@ -1528,6 +1566,10 @@ func UnmarshalInstanceUsage(m map[string]json.RawMessage, result interface{}) (e
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "plan_id", &obj.PlanID)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "plan_name", &obj.PlanName)
 	if err != nil {
 		return
 	}
@@ -1631,8 +1673,11 @@ func UnmarshalInstancesUsage(m map[string]json.RawMessage, result interface{}) (
 
 // Metric : Information about a metric.
 type Metric struct {
-	// The name of the metric.
+	// The id of the metric.
 	Metric *string `json:"metric" validate:"required"`
+
+	// The name of the metric.
+	MetricName *string `json:"metric_name,omitempty"`
 
 	// The aggregated value for the metric.
 	Quantity *float64 `json:"quantity" validate:"required"`
@@ -1652,6 +1697,9 @@ type Metric struct {
 	// The unit that qualifies the quantity.
 	Unit *string `json:"unit,omitempty"`
 
+	// The unit name that qualifies the quantity.
+	UnitName *string `json:"unit_name,omitempty"`
+
 	// When set to `true`, the cost is for informational purpose and is not included while calculating the plan charges.
 	NonChargeable *bool `json:"non_chargeable,omitempty"`
 
@@ -1663,6 +1711,10 @@ type Metric struct {
 func UnmarshalMetric(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(Metric)
 	err = core.UnmarshalPrimitive(m, "metric", &obj.Metric)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "metric_name", &obj.MetricName)
 	if err != nil {
 		return
 	}
@@ -1687,6 +1739,10 @@ func UnmarshalMetric(m map[string]json.RawMessage, result interface{}) (err erro
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "unit", &obj.Unit)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "unit_name", &obj.UnitName)
 	if err != nil {
 		return
 	}
@@ -1793,6 +1849,9 @@ type OrgUsage struct {
 	// The ID of the organization.
 	OrganizationID *string `json:"organization_id" validate:"required"`
 
+	// The name of the organization.
+	OrganizationName *string `json:"organization_name,omitempty"`
+
 	// The target country pricing that should be used.
 	PricingCountry *string `json:"pricing_country" validate:"required"`
 
@@ -1814,6 +1873,10 @@ func UnmarshalOrgUsage(m map[string]json.RawMessage, result interface{}) (err er
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "organization_id", &obj.OrganizationID)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "organization_name", &obj.OrganizationName)
 	if err != nil {
 		return
 	}
@@ -1842,6 +1905,9 @@ type Plan struct {
 	// The ID of the plan.
 	PlanID *string `json:"plan_id" validate:"required"`
 
+	// The name of the plan.
+	PlanName *string `json:"plan_name,omitempty"`
+
 	// The pricing region for the plan.
 	PricingRegion *string `json:"pricing_region,omitempty"`
 
@@ -1865,6 +1931,10 @@ type Plan struct {
 func UnmarshalPlan(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(Plan)
 	err = core.UnmarshalPrimitive(m, "plan_id", &obj.PlanID)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "plan_name", &obj.PlanName)
 	if err != nil {
 		return
 	}
@@ -1901,6 +1971,9 @@ type Resource struct {
 	// The ID of the resource.
 	ResourceID *string `json:"resource_id" validate:"required"`
 
+	// The ID of the resource.
+	ResourceName *string `json:"resource_name,omitempty"`
+
 	// The billable charges for the account.
 	BillableCost *float64 `json:"billable_cost" validate:"required"`
 
@@ -1924,6 +1997,10 @@ type Resource struct {
 func UnmarshalResource(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(Resource)
 	err = core.UnmarshalPrimitive(m, "resource_id", &obj.ResourceID)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "resource_name", &obj.ResourceName)
 	if err != nil {
 		return
 	}
@@ -1963,6 +2040,9 @@ type ResourceGroupUsage struct {
 	// The ID of the resource group.
 	ResourceGroupID *string `json:"resource_group_id" validate:"required"`
 
+	// The ID of the resource group.
+	ResourceGroupName *string `json:"resource_group_name,omitempty"`
+
 	// The target country pricing that should be used.
 	PricingCountry *string `json:"pricing_country" validate:"required"`
 
@@ -1984,6 +2064,10 @@ func UnmarshalResourceGroupUsage(m map[string]json.RawMessage, result interface{
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "resource_group_id", &obj.ResourceGroupID)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "resource_group_name", &obj.ResourceGroupName)
 	if err != nil {
 		return
 	}
