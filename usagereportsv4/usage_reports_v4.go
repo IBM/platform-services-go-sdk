@@ -1,5 +1,5 @@
 /**
- * (C) Copyright IBM Corp. 2020.
+ * (C) Copyright IBM Corp. 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,7 +15,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-d753183b-20201209-163011
+ * IBM OpenAPI SDK Code Generator Version: 3.36.0-6f5b0381-20210716-180747
  */
 
 // Package usagereportsv4 : Operations and models for the UsageReportsV4 service
@@ -36,7 +36,7 @@ import (
 
 // UsageReportsV4 : Usage reports for IBM Cloud accounts
 //
-// Version: 4.0.5
+// Version: 4.0.6
 type UsageReportsV4 struct {
 	Service *core.BaseService
 }
@@ -178,7 +178,7 @@ func (usageReports *UsageReportsV4) GetAccountSummaryWithContext(ctx context.Con
 	}
 
 	pathParamsMap := map[string]string{
-		"account_id":   *getAccountSummaryOptions.AccountID,
+		"account_id": *getAccountSummaryOptions.AccountID,
 		"billingmonth": *getAccountSummaryOptions.Billingmonth,
 	}
 
@@ -210,11 +210,13 @@ func (usageReports *UsageReportsV4) GetAccountSummaryWithContext(ctx context.Con
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalAccountSummary)
-	if err != nil {
-		return
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalAccountSummary)
+		if err != nil {
+			return
+		}
+		response.Result = result
 	}
-	response.Result = result
 
 	return
 }
@@ -238,7 +240,7 @@ func (usageReports *UsageReportsV4) GetAccountUsageWithContext(ctx context.Conte
 	}
 
 	pathParamsMap := map[string]string{
-		"account_id":   *getAccountUsageOptions.AccountID,
+		"account_id": *getAccountUsageOptions.AccountID,
 		"billingmonth": *getAccountUsageOptions.Billingmonth,
 	}
 
@@ -277,11 +279,13 @@ func (usageReports *UsageReportsV4) GetAccountUsageWithContext(ctx context.Conte
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalAccountUsage)
-	if err != nil {
-		return
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalAccountUsage)
+		if err != nil {
+			return
+		}
+		response.Result = result
 	}
-	response.Result = result
 
 	return
 }
@@ -305,9 +309,9 @@ func (usageReports *UsageReportsV4) GetResourceGroupUsageWithContext(ctx context
 	}
 
 	pathParamsMap := map[string]string{
-		"account_id":        *getResourceGroupUsageOptions.AccountID,
+		"account_id": *getResourceGroupUsageOptions.AccountID,
 		"resource_group_id": *getResourceGroupUsageOptions.ResourceGroupID,
-		"billingmonth":      *getResourceGroupUsageOptions.Billingmonth,
+		"billingmonth": *getResourceGroupUsageOptions.Billingmonth,
 	}
 
 	builder := core.NewRequestBuilder(core.GET)
@@ -345,79 +349,13 @@ func (usageReports *UsageReportsV4) GetResourceGroupUsageWithContext(ctx context
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalResourceGroupUsage)
-	if err != nil {
-		return
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalResourceGroupUsage)
+		if err != nil {
+			return
+		}
+		response.Result = result
 	}
-	response.Result = result
-
-	return
-}
-
-// GetOrgUsage : Get organization usage
-// Usage for all the resources and plans in an organization in a given month. Account billing managers or organization
-// billing managers are authorized to access this report.
-func (usageReports *UsageReportsV4) GetOrgUsage(getOrgUsageOptions *GetOrgUsageOptions) (result *OrgUsage, response *core.DetailedResponse, err error) {
-	return usageReports.GetOrgUsageWithContext(context.Background(), getOrgUsageOptions)
-}
-
-// GetOrgUsageWithContext is an alternate form of the GetOrgUsage method which supports a Context parameter
-func (usageReports *UsageReportsV4) GetOrgUsageWithContext(ctx context.Context, getOrgUsageOptions *GetOrgUsageOptions) (result *OrgUsage, response *core.DetailedResponse, err error) {
-	err = core.ValidateNotNil(getOrgUsageOptions, "getOrgUsageOptions cannot be nil")
-	if err != nil {
-		return
-	}
-	err = core.ValidateStruct(getOrgUsageOptions, "getOrgUsageOptions")
-	if err != nil {
-		return
-	}
-
-	pathParamsMap := map[string]string{
-		"account_id":      *getOrgUsageOptions.AccountID,
-		"organization_id": *getOrgUsageOptions.OrganizationID,
-		"billingmonth":    *getOrgUsageOptions.Billingmonth,
-	}
-
-	builder := core.NewRequestBuilder(core.GET)
-	builder = builder.WithContext(ctx)
-	builder.EnableGzipCompression = usageReports.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(usageReports.Service.Options.URL, `/v4/accounts/{account_id}/organizations/{organization_id}/usage/{billingmonth}`, pathParamsMap)
-	if err != nil {
-		return
-	}
-
-	for headerName, headerValue := range getOrgUsageOptions.Headers {
-		builder.AddHeader(headerName, headerValue)
-	}
-
-	sdkHeaders := common.GetSdkHeaders("usage_reports", "V4", "GetOrgUsage")
-	for headerName, headerValue := range sdkHeaders {
-		builder.AddHeader(headerName, headerValue)
-	}
-	builder.AddHeader("Accept", "application/json")
-	if getOrgUsageOptions.AcceptLanguage != nil {
-		builder.AddHeader("Accept-Language", fmt.Sprint(*getOrgUsageOptions.AcceptLanguage))
-	}
-
-	if getOrgUsageOptions.Names != nil {
-		builder.AddQuery("_names", fmt.Sprint(*getOrgUsageOptions.Names))
-	}
-
-	request, err := builder.Build()
-	if err != nil {
-		return
-	}
-
-	var rawResponse map[string]json.RawMessage
-	response, err = usageReports.Service.Request(request, &rawResponse)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalOrgUsage)
-	if err != nil {
-		return
-	}
-	response.Result = result
 
 	return
 }
@@ -441,7 +379,7 @@ func (usageReports *UsageReportsV4) GetResourceUsageAccountWithContext(ctx conte
 	}
 
 	pathParamsMap := map[string]string{
-		"account_id":   *getResourceUsageAccountOptions.AccountID,
+		"account_id": *getResourceUsageAccountOptions.AccountID,
 		"billingmonth": *getResourceUsageAccountOptions.Billingmonth,
 	}
 
@@ -504,11 +442,13 @@ func (usageReports *UsageReportsV4) GetResourceUsageAccountWithContext(ctx conte
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalInstancesUsage)
-	if err != nil {
-		return
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalInstancesUsage)
+		if err != nil {
+			return
+		}
+		response.Result = result
 	}
-	response.Result = result
 
 	return
 }
@@ -532,9 +472,9 @@ func (usageReports *UsageReportsV4) GetResourceUsageResourceGroupWithContext(ctx
 	}
 
 	pathParamsMap := map[string]string{
-		"account_id":        *getResourceUsageResourceGroupOptions.AccountID,
+		"account_id": *getResourceUsageResourceGroupOptions.AccountID,
 		"resource_group_id": *getResourceUsageResourceGroupOptions.ResourceGroupID,
-		"billingmonth":      *getResourceUsageResourceGroupOptions.Billingmonth,
+		"billingmonth": *getResourceUsageResourceGroupOptions.Billingmonth,
 	}
 
 	builder := core.NewRequestBuilder(core.GET)
@@ -590,11 +530,13 @@ func (usageReports *UsageReportsV4) GetResourceUsageResourceGroupWithContext(ctx
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalInstancesUsage)
-	if err != nil {
-		return
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalInstancesUsage)
+		if err != nil {
+			return
+		}
+		response.Result = result
 	}
-	response.Result = result
 
 	return
 }
@@ -618,9 +560,9 @@ func (usageReports *UsageReportsV4) GetResourceUsageOrgWithContext(ctx context.C
 	}
 
 	pathParamsMap := map[string]string{
-		"account_id":      *getResourceUsageOrgOptions.AccountID,
+		"account_id": *getResourceUsageOrgOptions.AccountID,
 		"organization_id": *getResourceUsageOrgOptions.OrganizationID,
-		"billingmonth":    *getResourceUsageOrgOptions.Billingmonth,
+		"billingmonth": *getResourceUsageOrgOptions.Billingmonth,
 	}
 
 	builder := core.NewRequestBuilder(core.GET)
@@ -676,11 +618,83 @@ func (usageReports *UsageReportsV4) GetResourceUsageOrgWithContext(ctx context.C
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalInstancesUsage)
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalInstancesUsage)
+		if err != nil {
+			return
+		}
+		response.Result = result
+	}
+
+	return
+}
+
+// GetOrgUsage : Get organization usage
+// Usage for all the resources and plans in an organization in a given month. Account billing managers or organization
+// billing managers are authorized to access this report.
+func (usageReports *UsageReportsV4) GetOrgUsage(getOrgUsageOptions *GetOrgUsageOptions) (result *OrgUsage, response *core.DetailedResponse, err error) {
+	return usageReports.GetOrgUsageWithContext(context.Background(), getOrgUsageOptions)
+}
+
+// GetOrgUsageWithContext is an alternate form of the GetOrgUsage method which supports a Context parameter
+func (usageReports *UsageReportsV4) GetOrgUsageWithContext(ctx context.Context, getOrgUsageOptions *GetOrgUsageOptions) (result *OrgUsage, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(getOrgUsageOptions, "getOrgUsageOptions cannot be nil")
 	if err != nil {
 		return
 	}
-	response.Result = result
+	err = core.ValidateStruct(getOrgUsageOptions, "getOrgUsageOptions")
+	if err != nil {
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"account_id": *getOrgUsageOptions.AccountID,
+		"organization_id": *getOrgUsageOptions.OrganizationID,
+		"billingmonth": *getOrgUsageOptions.Billingmonth,
+	}
+
+	builder := core.NewRequestBuilder(core.GET)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = usageReports.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(usageReports.Service.Options.URL, `/v4/accounts/{account_id}/organizations/{organization_id}/usage/{billingmonth}`, pathParamsMap)
+	if err != nil {
+		return
+	}
+
+	for headerName, headerValue := range getOrgUsageOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("usage_reports", "V4", "GetOrgUsage")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Accept", "application/json")
+	if getOrgUsageOptions.AcceptLanguage != nil {
+		builder.AddHeader("Accept-Language", fmt.Sprint(*getOrgUsageOptions.AcceptLanguage))
+	}
+
+	if getOrgUsageOptions.Names != nil {
+		builder.AddQuery("_names", fmt.Sprint(*getOrgUsageOptions.Names))
+	}
+
+	request, err := builder.Build()
+	if err != nil {
+		return
+	}
+
+	var rawResponse map[string]json.RawMessage
+	response, err = usageReports.Service.Request(request, &rawResponse)
+	if err != nil {
+		return
+	}
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalOrgUsage)
+		if err != nil {
+			return
+		}
+		response.Result = result
+	}
 
 	return
 }
@@ -802,10 +816,10 @@ type Discount struct {
 	Ref *string `json:"ref" validate:"required"`
 
 	// The name of the discount indicating category.
-	Name *string `json:"name" validate:"required"`
+	Name *string `json:"name,omitempty"`
 
 	// The name of the discount.
-	DisplayName *string `json:"display_name" validate:"required"`
+	DisplayName *string `json:"display_name,omitempty"`
 
 	// The discount percentage.
 	Discount *float64 `json:"discount" validate:"required"`
@@ -837,10 +851,10 @@ func UnmarshalDiscount(m map[string]json.RawMessage, result interface{}) (err er
 // GetAccountSummaryOptions : The GetAccountSummary options.
 type GetAccountSummaryOptions struct {
 	// Account ID for which the usage report is requested.
-	AccountID *string `json:"account_id" validate:"required,ne="`
+	AccountID *string `validate:"required,ne="`
 
 	// The billing month for which the usage report is requested.  Format is yyyy-mm.
-	Billingmonth *string `json:"billingmonth" validate:"required,ne="`
+	Billingmonth *string `validate:"required,ne="`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -849,21 +863,21 @@ type GetAccountSummaryOptions struct {
 // NewGetAccountSummaryOptions : Instantiate GetAccountSummaryOptions
 func (*UsageReportsV4) NewGetAccountSummaryOptions(accountID string, billingmonth string) *GetAccountSummaryOptions {
 	return &GetAccountSummaryOptions{
-		AccountID:    core.StringPtr(accountID),
+		AccountID: core.StringPtr(accountID),
 		Billingmonth: core.StringPtr(billingmonth),
 	}
 }
 
 // SetAccountID : Allow user to set AccountID
-func (options *GetAccountSummaryOptions) SetAccountID(accountID string) *GetAccountSummaryOptions {
-	options.AccountID = core.StringPtr(accountID)
-	return options
+func (_options *GetAccountSummaryOptions) SetAccountID(accountID string) *GetAccountSummaryOptions {
+	_options.AccountID = core.StringPtr(accountID)
+	return _options
 }
 
 // SetBillingmonth : Allow user to set Billingmonth
-func (options *GetAccountSummaryOptions) SetBillingmonth(billingmonth string) *GetAccountSummaryOptions {
-	options.Billingmonth = core.StringPtr(billingmonth)
-	return options
+func (_options *GetAccountSummaryOptions) SetBillingmonth(billingmonth string) *GetAccountSummaryOptions {
+	_options.Billingmonth = core.StringPtr(billingmonth)
+	return _options
 }
 
 // SetHeaders : Allow user to set Headers
@@ -875,16 +889,16 @@ func (options *GetAccountSummaryOptions) SetHeaders(param map[string]string) *Ge
 // GetAccountUsageOptions : The GetAccountUsage options.
 type GetAccountUsageOptions struct {
 	// Account ID for which the usage report is requested.
-	AccountID *string `json:"account_id" validate:"required,ne="`
+	AccountID *string `validate:"required,ne="`
 
 	// The billing month for which the usage report is requested.  Format is yyyy-mm.
-	Billingmonth *string `json:"billingmonth" validate:"required,ne="`
+	Billingmonth *string `validate:"required,ne="`
 
 	// Include the name of every resource, plan, resource instance, organization, and resource group.
-	Names *bool `json:"_names,omitempty"`
+	Names *bool
 
 	// Prioritize the names returned in the order of the specified languages. Language will default to English.
-	AcceptLanguage *string `json:"Accept-Language,omitempty"`
+	AcceptLanguage *string
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -893,33 +907,33 @@ type GetAccountUsageOptions struct {
 // NewGetAccountUsageOptions : Instantiate GetAccountUsageOptions
 func (*UsageReportsV4) NewGetAccountUsageOptions(accountID string, billingmonth string) *GetAccountUsageOptions {
 	return &GetAccountUsageOptions{
-		AccountID:    core.StringPtr(accountID),
+		AccountID: core.StringPtr(accountID),
 		Billingmonth: core.StringPtr(billingmonth),
 	}
 }
 
 // SetAccountID : Allow user to set AccountID
-func (options *GetAccountUsageOptions) SetAccountID(accountID string) *GetAccountUsageOptions {
-	options.AccountID = core.StringPtr(accountID)
-	return options
+func (_options *GetAccountUsageOptions) SetAccountID(accountID string) *GetAccountUsageOptions {
+	_options.AccountID = core.StringPtr(accountID)
+	return _options
 }
 
 // SetBillingmonth : Allow user to set Billingmonth
-func (options *GetAccountUsageOptions) SetBillingmonth(billingmonth string) *GetAccountUsageOptions {
-	options.Billingmonth = core.StringPtr(billingmonth)
-	return options
+func (_options *GetAccountUsageOptions) SetBillingmonth(billingmonth string) *GetAccountUsageOptions {
+	_options.Billingmonth = core.StringPtr(billingmonth)
+	return _options
 }
 
 // SetNames : Allow user to set Names
-func (options *GetAccountUsageOptions) SetNames(names bool) *GetAccountUsageOptions {
-	options.Names = core.BoolPtr(names)
-	return options
+func (_options *GetAccountUsageOptions) SetNames(names bool) *GetAccountUsageOptions {
+	_options.Names = core.BoolPtr(names)
+	return _options
 }
 
 // SetAcceptLanguage : Allow user to set AcceptLanguage
-func (options *GetAccountUsageOptions) SetAcceptLanguage(acceptLanguage string) *GetAccountUsageOptions {
-	options.AcceptLanguage = core.StringPtr(acceptLanguage)
-	return options
+func (_options *GetAccountUsageOptions) SetAcceptLanguage(acceptLanguage string) *GetAccountUsageOptions {
+	_options.AcceptLanguage = core.StringPtr(acceptLanguage)
+	return _options
 }
 
 // SetHeaders : Allow user to set Headers
@@ -931,19 +945,19 @@ func (options *GetAccountUsageOptions) SetHeaders(param map[string]string) *GetA
 // GetOrgUsageOptions : The GetOrgUsage options.
 type GetOrgUsageOptions struct {
 	// Account ID for which the usage report is requested.
-	AccountID *string `json:"account_id" validate:"required,ne="`
+	AccountID *string `validate:"required,ne="`
 
 	// ID of the organization.
-	OrganizationID *string `json:"organization_id" validate:"required,ne="`
+	OrganizationID *string `validate:"required,ne="`
 
 	// The billing month for which the usage report is requested.  Format is yyyy-mm.
-	Billingmonth *string `json:"billingmonth" validate:"required,ne="`
+	Billingmonth *string `validate:"required,ne="`
 
 	// Include the name of every resource, plan, resource instance, organization, and resource group.
-	Names *bool `json:"_names,omitempty"`
+	Names *bool
 
 	// Prioritize the names returned in the order of the specified languages. Language will default to English.
-	AcceptLanguage *string `json:"Accept-Language,omitempty"`
+	AcceptLanguage *string
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -952,40 +966,40 @@ type GetOrgUsageOptions struct {
 // NewGetOrgUsageOptions : Instantiate GetOrgUsageOptions
 func (*UsageReportsV4) NewGetOrgUsageOptions(accountID string, organizationID string, billingmonth string) *GetOrgUsageOptions {
 	return &GetOrgUsageOptions{
-		AccountID:      core.StringPtr(accountID),
+		AccountID: core.StringPtr(accountID),
 		OrganizationID: core.StringPtr(organizationID),
-		Billingmonth:   core.StringPtr(billingmonth),
+		Billingmonth: core.StringPtr(billingmonth),
 	}
 }
 
 // SetAccountID : Allow user to set AccountID
-func (options *GetOrgUsageOptions) SetAccountID(accountID string) *GetOrgUsageOptions {
-	options.AccountID = core.StringPtr(accountID)
-	return options
+func (_options *GetOrgUsageOptions) SetAccountID(accountID string) *GetOrgUsageOptions {
+	_options.AccountID = core.StringPtr(accountID)
+	return _options
 }
 
 // SetOrganizationID : Allow user to set OrganizationID
-func (options *GetOrgUsageOptions) SetOrganizationID(organizationID string) *GetOrgUsageOptions {
-	options.OrganizationID = core.StringPtr(organizationID)
-	return options
+func (_options *GetOrgUsageOptions) SetOrganizationID(organizationID string) *GetOrgUsageOptions {
+	_options.OrganizationID = core.StringPtr(organizationID)
+	return _options
 }
 
 // SetBillingmonth : Allow user to set Billingmonth
-func (options *GetOrgUsageOptions) SetBillingmonth(billingmonth string) *GetOrgUsageOptions {
-	options.Billingmonth = core.StringPtr(billingmonth)
-	return options
+func (_options *GetOrgUsageOptions) SetBillingmonth(billingmonth string) *GetOrgUsageOptions {
+	_options.Billingmonth = core.StringPtr(billingmonth)
+	return _options
 }
 
 // SetNames : Allow user to set Names
-func (options *GetOrgUsageOptions) SetNames(names bool) *GetOrgUsageOptions {
-	options.Names = core.BoolPtr(names)
-	return options
+func (_options *GetOrgUsageOptions) SetNames(names bool) *GetOrgUsageOptions {
+	_options.Names = core.BoolPtr(names)
+	return _options
 }
 
 // SetAcceptLanguage : Allow user to set AcceptLanguage
-func (options *GetOrgUsageOptions) SetAcceptLanguage(acceptLanguage string) *GetOrgUsageOptions {
-	options.AcceptLanguage = core.StringPtr(acceptLanguage)
-	return options
+func (_options *GetOrgUsageOptions) SetAcceptLanguage(acceptLanguage string) *GetOrgUsageOptions {
+	_options.AcceptLanguage = core.StringPtr(acceptLanguage)
+	return _options
 }
 
 // SetHeaders : Allow user to set Headers
@@ -997,19 +1011,19 @@ func (options *GetOrgUsageOptions) SetHeaders(param map[string]string) *GetOrgUs
 // GetResourceGroupUsageOptions : The GetResourceGroupUsage options.
 type GetResourceGroupUsageOptions struct {
 	// Account ID for which the usage report is requested.
-	AccountID *string `json:"account_id" validate:"required,ne="`
+	AccountID *string `validate:"required,ne="`
 
 	// Resource group for which the usage report is requested.
-	ResourceGroupID *string `json:"resource_group_id" validate:"required,ne="`
+	ResourceGroupID *string `validate:"required,ne="`
 
 	// The billing month for which the usage report is requested.  Format is yyyy-mm.
-	Billingmonth *string `json:"billingmonth" validate:"required,ne="`
+	Billingmonth *string `validate:"required,ne="`
 
 	// Include the name of every resource, plan, resource instance, organization, and resource group.
-	Names *bool `json:"_names,omitempty"`
+	Names *bool
 
 	// Prioritize the names returned in the order of the specified languages. Language will default to English.
-	AcceptLanguage *string `json:"Accept-Language,omitempty"`
+	AcceptLanguage *string
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -1018,40 +1032,40 @@ type GetResourceGroupUsageOptions struct {
 // NewGetResourceGroupUsageOptions : Instantiate GetResourceGroupUsageOptions
 func (*UsageReportsV4) NewGetResourceGroupUsageOptions(accountID string, resourceGroupID string, billingmonth string) *GetResourceGroupUsageOptions {
 	return &GetResourceGroupUsageOptions{
-		AccountID:       core.StringPtr(accountID),
+		AccountID: core.StringPtr(accountID),
 		ResourceGroupID: core.StringPtr(resourceGroupID),
-		Billingmonth:    core.StringPtr(billingmonth),
+		Billingmonth: core.StringPtr(billingmonth),
 	}
 }
 
 // SetAccountID : Allow user to set AccountID
-func (options *GetResourceGroupUsageOptions) SetAccountID(accountID string) *GetResourceGroupUsageOptions {
-	options.AccountID = core.StringPtr(accountID)
-	return options
+func (_options *GetResourceGroupUsageOptions) SetAccountID(accountID string) *GetResourceGroupUsageOptions {
+	_options.AccountID = core.StringPtr(accountID)
+	return _options
 }
 
 // SetResourceGroupID : Allow user to set ResourceGroupID
-func (options *GetResourceGroupUsageOptions) SetResourceGroupID(resourceGroupID string) *GetResourceGroupUsageOptions {
-	options.ResourceGroupID = core.StringPtr(resourceGroupID)
-	return options
+func (_options *GetResourceGroupUsageOptions) SetResourceGroupID(resourceGroupID string) *GetResourceGroupUsageOptions {
+	_options.ResourceGroupID = core.StringPtr(resourceGroupID)
+	return _options
 }
 
 // SetBillingmonth : Allow user to set Billingmonth
-func (options *GetResourceGroupUsageOptions) SetBillingmonth(billingmonth string) *GetResourceGroupUsageOptions {
-	options.Billingmonth = core.StringPtr(billingmonth)
-	return options
+func (_options *GetResourceGroupUsageOptions) SetBillingmonth(billingmonth string) *GetResourceGroupUsageOptions {
+	_options.Billingmonth = core.StringPtr(billingmonth)
+	return _options
 }
 
 // SetNames : Allow user to set Names
-func (options *GetResourceGroupUsageOptions) SetNames(names bool) *GetResourceGroupUsageOptions {
-	options.Names = core.BoolPtr(names)
-	return options
+func (_options *GetResourceGroupUsageOptions) SetNames(names bool) *GetResourceGroupUsageOptions {
+	_options.Names = core.BoolPtr(names)
+	return _options
 }
 
 // SetAcceptLanguage : Allow user to set AcceptLanguage
-func (options *GetResourceGroupUsageOptions) SetAcceptLanguage(acceptLanguage string) *GetResourceGroupUsageOptions {
-	options.AcceptLanguage = core.StringPtr(acceptLanguage)
-	return options
+func (_options *GetResourceGroupUsageOptions) SetAcceptLanguage(acceptLanguage string) *GetResourceGroupUsageOptions {
+	_options.AcceptLanguage = core.StringPtr(acceptLanguage)
+	return _options
 }
 
 // SetHeaders : Allow user to set Headers
@@ -1063,40 +1077,40 @@ func (options *GetResourceGroupUsageOptions) SetHeaders(param map[string]string)
 // GetResourceUsageAccountOptions : The GetResourceUsageAccount options.
 type GetResourceUsageAccountOptions struct {
 	// Account ID for which the usage report is requested.
-	AccountID *string `json:"account_id" validate:"required,ne="`
+	AccountID *string `validate:"required,ne="`
 
 	// The billing month for which the usage report is requested.  Format is yyyy-mm.
-	Billingmonth *string `json:"billingmonth" validate:"required,ne="`
+	Billingmonth *string `validate:"required,ne="`
 
 	// Include the name of every resource, plan, resource instance, organization, and resource group.
-	Names *bool `json:"_names,omitempty"`
+	Names *bool
 
 	// Prioritize the names returned in the order of the specified languages. Language will default to English.
-	AcceptLanguage *string `json:"Accept-Language,omitempty"`
+	AcceptLanguage *string
 
 	// Number of usage records returned. The default value is 10. Maximum value is 20.
-	Limit *int64 `json:"_limit,omitempty"`
+	Limit *int64
 
 	// The offset from which the records must be fetched. Offset information is included in the response.
-	Start *string `json:"_start,omitempty"`
+	Start *string
 
 	// Filter by resource group.
-	ResourceGroupID *string `json:"resource_group_id,omitempty"`
+	ResourceGroupID *string
 
 	// Filter by organization_id.
-	OrganizationID *string `json:"organization_id,omitempty"`
+	OrganizationID *string
 
 	// Filter by resource instance_id.
-	ResourceInstanceID *string `json:"resource_instance_id,omitempty"`
+	ResourceInstanceID *string
 
 	// Filter by resource_id.
-	ResourceID *string `json:"resource_id,omitempty"`
+	ResourceID *string
 
 	// Filter by plan_id.
-	PlanID *string `json:"plan_id,omitempty"`
+	PlanID *string
 
 	// Region in which the resource instance is provisioned.
-	Region *string `json:"region,omitempty"`
+	Region *string
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -1105,81 +1119,81 @@ type GetResourceUsageAccountOptions struct {
 // NewGetResourceUsageAccountOptions : Instantiate GetResourceUsageAccountOptions
 func (*UsageReportsV4) NewGetResourceUsageAccountOptions(accountID string, billingmonth string) *GetResourceUsageAccountOptions {
 	return &GetResourceUsageAccountOptions{
-		AccountID:    core.StringPtr(accountID),
+		AccountID: core.StringPtr(accountID),
 		Billingmonth: core.StringPtr(billingmonth),
 	}
 }
 
 // SetAccountID : Allow user to set AccountID
-func (options *GetResourceUsageAccountOptions) SetAccountID(accountID string) *GetResourceUsageAccountOptions {
-	options.AccountID = core.StringPtr(accountID)
-	return options
+func (_options *GetResourceUsageAccountOptions) SetAccountID(accountID string) *GetResourceUsageAccountOptions {
+	_options.AccountID = core.StringPtr(accountID)
+	return _options
 }
 
 // SetBillingmonth : Allow user to set Billingmonth
-func (options *GetResourceUsageAccountOptions) SetBillingmonth(billingmonth string) *GetResourceUsageAccountOptions {
-	options.Billingmonth = core.StringPtr(billingmonth)
-	return options
+func (_options *GetResourceUsageAccountOptions) SetBillingmonth(billingmonth string) *GetResourceUsageAccountOptions {
+	_options.Billingmonth = core.StringPtr(billingmonth)
+	return _options
 }
 
 // SetNames : Allow user to set Names
-func (options *GetResourceUsageAccountOptions) SetNames(names bool) *GetResourceUsageAccountOptions {
-	options.Names = core.BoolPtr(names)
-	return options
+func (_options *GetResourceUsageAccountOptions) SetNames(names bool) *GetResourceUsageAccountOptions {
+	_options.Names = core.BoolPtr(names)
+	return _options
 }
 
 // SetAcceptLanguage : Allow user to set AcceptLanguage
-func (options *GetResourceUsageAccountOptions) SetAcceptLanguage(acceptLanguage string) *GetResourceUsageAccountOptions {
-	options.AcceptLanguage = core.StringPtr(acceptLanguage)
-	return options
+func (_options *GetResourceUsageAccountOptions) SetAcceptLanguage(acceptLanguage string) *GetResourceUsageAccountOptions {
+	_options.AcceptLanguage = core.StringPtr(acceptLanguage)
+	return _options
 }
 
 // SetLimit : Allow user to set Limit
-func (options *GetResourceUsageAccountOptions) SetLimit(limit int64) *GetResourceUsageAccountOptions {
-	options.Limit = core.Int64Ptr(limit)
-	return options
+func (_options *GetResourceUsageAccountOptions) SetLimit(limit int64) *GetResourceUsageAccountOptions {
+	_options.Limit = core.Int64Ptr(limit)
+	return _options
 }
 
 // SetStart : Allow user to set Start
-func (options *GetResourceUsageAccountOptions) SetStart(start string) *GetResourceUsageAccountOptions {
-	options.Start = core.StringPtr(start)
-	return options
+func (_options *GetResourceUsageAccountOptions) SetStart(start string) *GetResourceUsageAccountOptions {
+	_options.Start = core.StringPtr(start)
+	return _options
 }
 
 // SetResourceGroupID : Allow user to set ResourceGroupID
-func (options *GetResourceUsageAccountOptions) SetResourceGroupID(resourceGroupID string) *GetResourceUsageAccountOptions {
-	options.ResourceGroupID = core.StringPtr(resourceGroupID)
-	return options
+func (_options *GetResourceUsageAccountOptions) SetResourceGroupID(resourceGroupID string) *GetResourceUsageAccountOptions {
+	_options.ResourceGroupID = core.StringPtr(resourceGroupID)
+	return _options
 }
 
 // SetOrganizationID : Allow user to set OrganizationID
-func (options *GetResourceUsageAccountOptions) SetOrganizationID(organizationID string) *GetResourceUsageAccountOptions {
-	options.OrganizationID = core.StringPtr(organizationID)
-	return options
+func (_options *GetResourceUsageAccountOptions) SetOrganizationID(organizationID string) *GetResourceUsageAccountOptions {
+	_options.OrganizationID = core.StringPtr(organizationID)
+	return _options
 }
 
 // SetResourceInstanceID : Allow user to set ResourceInstanceID
-func (options *GetResourceUsageAccountOptions) SetResourceInstanceID(resourceInstanceID string) *GetResourceUsageAccountOptions {
-	options.ResourceInstanceID = core.StringPtr(resourceInstanceID)
-	return options
+func (_options *GetResourceUsageAccountOptions) SetResourceInstanceID(resourceInstanceID string) *GetResourceUsageAccountOptions {
+	_options.ResourceInstanceID = core.StringPtr(resourceInstanceID)
+	return _options
 }
 
 // SetResourceID : Allow user to set ResourceID
-func (options *GetResourceUsageAccountOptions) SetResourceID(resourceID string) *GetResourceUsageAccountOptions {
-	options.ResourceID = core.StringPtr(resourceID)
-	return options
+func (_options *GetResourceUsageAccountOptions) SetResourceID(resourceID string) *GetResourceUsageAccountOptions {
+	_options.ResourceID = core.StringPtr(resourceID)
+	return _options
 }
 
 // SetPlanID : Allow user to set PlanID
-func (options *GetResourceUsageAccountOptions) SetPlanID(planID string) *GetResourceUsageAccountOptions {
-	options.PlanID = core.StringPtr(planID)
-	return options
+func (_options *GetResourceUsageAccountOptions) SetPlanID(planID string) *GetResourceUsageAccountOptions {
+	_options.PlanID = core.StringPtr(planID)
+	return _options
 }
 
 // SetRegion : Allow user to set Region
-func (options *GetResourceUsageAccountOptions) SetRegion(region string) *GetResourceUsageAccountOptions {
-	options.Region = core.StringPtr(region)
-	return options
+func (_options *GetResourceUsageAccountOptions) SetRegion(region string) *GetResourceUsageAccountOptions {
+	_options.Region = core.StringPtr(region)
+	return _options
 }
 
 // SetHeaders : Allow user to set Headers
@@ -1191,37 +1205,37 @@ func (options *GetResourceUsageAccountOptions) SetHeaders(param map[string]strin
 // GetResourceUsageOrgOptions : The GetResourceUsageOrg options.
 type GetResourceUsageOrgOptions struct {
 	// Account ID for which the usage report is requested.
-	AccountID *string `json:"account_id" validate:"required,ne="`
+	AccountID *string `validate:"required,ne="`
 
 	// ID of the organization.
-	OrganizationID *string `json:"organization_id" validate:"required,ne="`
+	OrganizationID *string `validate:"required,ne="`
 
 	// The billing month for which the usage report is requested.  Format is yyyy-mm.
-	Billingmonth *string `json:"billingmonth" validate:"required,ne="`
+	Billingmonth *string `validate:"required,ne="`
 
 	// Include the name of every resource, plan, resource instance, organization, and resource group.
-	Names *bool `json:"_names,omitempty"`
+	Names *bool
 
 	// Prioritize the names returned in the order of the specified languages. Language will default to English.
-	AcceptLanguage *string `json:"Accept-Language,omitempty"`
+	AcceptLanguage *string
 
 	// Number of usage records returned. The default value is 10. Maximum value is 20.
-	Limit *int64 `json:"_limit,omitempty"`
+	Limit *int64
 
 	// The offset from which the records must be fetched. Offset information is included in the response.
-	Start *string `json:"_start,omitempty"`
+	Start *string
 
 	// Filter by resource instance id.
-	ResourceInstanceID *string `json:"resource_instance_id,omitempty"`
+	ResourceInstanceID *string
 
 	// Filter by resource_id.
-	ResourceID *string `json:"resource_id,omitempty"`
+	ResourceID *string
 
 	// Filter by plan_id.
-	PlanID *string `json:"plan_id,omitempty"`
+	PlanID *string
 
 	// Region in which the resource instance is provisioned.
-	Region *string `json:"region,omitempty"`
+	Region *string
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -1230,76 +1244,76 @@ type GetResourceUsageOrgOptions struct {
 // NewGetResourceUsageOrgOptions : Instantiate GetResourceUsageOrgOptions
 func (*UsageReportsV4) NewGetResourceUsageOrgOptions(accountID string, organizationID string, billingmonth string) *GetResourceUsageOrgOptions {
 	return &GetResourceUsageOrgOptions{
-		AccountID:      core.StringPtr(accountID),
+		AccountID: core.StringPtr(accountID),
 		OrganizationID: core.StringPtr(organizationID),
-		Billingmonth:   core.StringPtr(billingmonth),
+		Billingmonth: core.StringPtr(billingmonth),
 	}
 }
 
 // SetAccountID : Allow user to set AccountID
-func (options *GetResourceUsageOrgOptions) SetAccountID(accountID string) *GetResourceUsageOrgOptions {
-	options.AccountID = core.StringPtr(accountID)
-	return options
+func (_options *GetResourceUsageOrgOptions) SetAccountID(accountID string) *GetResourceUsageOrgOptions {
+	_options.AccountID = core.StringPtr(accountID)
+	return _options
 }
 
 // SetOrganizationID : Allow user to set OrganizationID
-func (options *GetResourceUsageOrgOptions) SetOrganizationID(organizationID string) *GetResourceUsageOrgOptions {
-	options.OrganizationID = core.StringPtr(organizationID)
-	return options
+func (_options *GetResourceUsageOrgOptions) SetOrganizationID(organizationID string) *GetResourceUsageOrgOptions {
+	_options.OrganizationID = core.StringPtr(organizationID)
+	return _options
 }
 
 // SetBillingmonth : Allow user to set Billingmonth
-func (options *GetResourceUsageOrgOptions) SetBillingmonth(billingmonth string) *GetResourceUsageOrgOptions {
-	options.Billingmonth = core.StringPtr(billingmonth)
-	return options
+func (_options *GetResourceUsageOrgOptions) SetBillingmonth(billingmonth string) *GetResourceUsageOrgOptions {
+	_options.Billingmonth = core.StringPtr(billingmonth)
+	return _options
 }
 
 // SetNames : Allow user to set Names
-func (options *GetResourceUsageOrgOptions) SetNames(names bool) *GetResourceUsageOrgOptions {
-	options.Names = core.BoolPtr(names)
-	return options
+func (_options *GetResourceUsageOrgOptions) SetNames(names bool) *GetResourceUsageOrgOptions {
+	_options.Names = core.BoolPtr(names)
+	return _options
 }
 
 // SetAcceptLanguage : Allow user to set AcceptLanguage
-func (options *GetResourceUsageOrgOptions) SetAcceptLanguage(acceptLanguage string) *GetResourceUsageOrgOptions {
-	options.AcceptLanguage = core.StringPtr(acceptLanguage)
-	return options
+func (_options *GetResourceUsageOrgOptions) SetAcceptLanguage(acceptLanguage string) *GetResourceUsageOrgOptions {
+	_options.AcceptLanguage = core.StringPtr(acceptLanguage)
+	return _options
 }
 
 // SetLimit : Allow user to set Limit
-func (options *GetResourceUsageOrgOptions) SetLimit(limit int64) *GetResourceUsageOrgOptions {
-	options.Limit = core.Int64Ptr(limit)
-	return options
+func (_options *GetResourceUsageOrgOptions) SetLimit(limit int64) *GetResourceUsageOrgOptions {
+	_options.Limit = core.Int64Ptr(limit)
+	return _options
 }
 
 // SetStart : Allow user to set Start
-func (options *GetResourceUsageOrgOptions) SetStart(start string) *GetResourceUsageOrgOptions {
-	options.Start = core.StringPtr(start)
-	return options
+func (_options *GetResourceUsageOrgOptions) SetStart(start string) *GetResourceUsageOrgOptions {
+	_options.Start = core.StringPtr(start)
+	return _options
 }
 
 // SetResourceInstanceID : Allow user to set ResourceInstanceID
-func (options *GetResourceUsageOrgOptions) SetResourceInstanceID(resourceInstanceID string) *GetResourceUsageOrgOptions {
-	options.ResourceInstanceID = core.StringPtr(resourceInstanceID)
-	return options
+func (_options *GetResourceUsageOrgOptions) SetResourceInstanceID(resourceInstanceID string) *GetResourceUsageOrgOptions {
+	_options.ResourceInstanceID = core.StringPtr(resourceInstanceID)
+	return _options
 }
 
 // SetResourceID : Allow user to set ResourceID
-func (options *GetResourceUsageOrgOptions) SetResourceID(resourceID string) *GetResourceUsageOrgOptions {
-	options.ResourceID = core.StringPtr(resourceID)
-	return options
+func (_options *GetResourceUsageOrgOptions) SetResourceID(resourceID string) *GetResourceUsageOrgOptions {
+	_options.ResourceID = core.StringPtr(resourceID)
+	return _options
 }
 
 // SetPlanID : Allow user to set PlanID
-func (options *GetResourceUsageOrgOptions) SetPlanID(planID string) *GetResourceUsageOrgOptions {
-	options.PlanID = core.StringPtr(planID)
-	return options
+func (_options *GetResourceUsageOrgOptions) SetPlanID(planID string) *GetResourceUsageOrgOptions {
+	_options.PlanID = core.StringPtr(planID)
+	return _options
 }
 
 // SetRegion : Allow user to set Region
-func (options *GetResourceUsageOrgOptions) SetRegion(region string) *GetResourceUsageOrgOptions {
-	options.Region = core.StringPtr(region)
-	return options
+func (_options *GetResourceUsageOrgOptions) SetRegion(region string) *GetResourceUsageOrgOptions {
+	_options.Region = core.StringPtr(region)
+	return _options
 }
 
 // SetHeaders : Allow user to set Headers
@@ -1311,37 +1325,37 @@ func (options *GetResourceUsageOrgOptions) SetHeaders(param map[string]string) *
 // GetResourceUsageResourceGroupOptions : The GetResourceUsageResourceGroup options.
 type GetResourceUsageResourceGroupOptions struct {
 	// Account ID for which the usage report is requested.
-	AccountID *string `json:"account_id" validate:"required,ne="`
+	AccountID *string `validate:"required,ne="`
 
 	// Resource group for which the usage report is requested.
-	ResourceGroupID *string `json:"resource_group_id" validate:"required,ne="`
+	ResourceGroupID *string `validate:"required,ne="`
 
 	// The billing month for which the usage report is requested.  Format is yyyy-mm.
-	Billingmonth *string `json:"billingmonth" validate:"required,ne="`
+	Billingmonth *string `validate:"required,ne="`
 
 	// Include the name of every resource, plan, resource instance, organization, and resource group.
-	Names *bool `json:"_names,omitempty"`
+	Names *bool
 
 	// Prioritize the names returned in the order of the specified languages. Language will default to English.
-	AcceptLanguage *string `json:"Accept-Language,omitempty"`
+	AcceptLanguage *string
 
 	// Number of usage records returned. The default value is 10. Maximum value is 20.
-	Limit *int64 `json:"_limit,omitempty"`
+	Limit *int64
 
 	// The offset from which the records must be fetched. Offset information is included in the response.
-	Start *string `json:"_start,omitempty"`
+	Start *string
 
 	// Filter by resource instance id.
-	ResourceInstanceID *string `json:"resource_instance_id,omitempty"`
+	ResourceInstanceID *string
 
 	// Filter by resource_id.
-	ResourceID *string `json:"resource_id,omitempty"`
+	ResourceID *string
 
 	// Filter by plan_id.
-	PlanID *string `json:"plan_id,omitempty"`
+	PlanID *string
 
 	// Region in which the resource instance is provisioned.
-	Region *string `json:"region,omitempty"`
+	Region *string
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -1350,76 +1364,76 @@ type GetResourceUsageResourceGroupOptions struct {
 // NewGetResourceUsageResourceGroupOptions : Instantiate GetResourceUsageResourceGroupOptions
 func (*UsageReportsV4) NewGetResourceUsageResourceGroupOptions(accountID string, resourceGroupID string, billingmonth string) *GetResourceUsageResourceGroupOptions {
 	return &GetResourceUsageResourceGroupOptions{
-		AccountID:       core.StringPtr(accountID),
+		AccountID: core.StringPtr(accountID),
 		ResourceGroupID: core.StringPtr(resourceGroupID),
-		Billingmonth:    core.StringPtr(billingmonth),
+		Billingmonth: core.StringPtr(billingmonth),
 	}
 }
 
 // SetAccountID : Allow user to set AccountID
-func (options *GetResourceUsageResourceGroupOptions) SetAccountID(accountID string) *GetResourceUsageResourceGroupOptions {
-	options.AccountID = core.StringPtr(accountID)
-	return options
+func (_options *GetResourceUsageResourceGroupOptions) SetAccountID(accountID string) *GetResourceUsageResourceGroupOptions {
+	_options.AccountID = core.StringPtr(accountID)
+	return _options
 }
 
 // SetResourceGroupID : Allow user to set ResourceGroupID
-func (options *GetResourceUsageResourceGroupOptions) SetResourceGroupID(resourceGroupID string) *GetResourceUsageResourceGroupOptions {
-	options.ResourceGroupID = core.StringPtr(resourceGroupID)
-	return options
+func (_options *GetResourceUsageResourceGroupOptions) SetResourceGroupID(resourceGroupID string) *GetResourceUsageResourceGroupOptions {
+	_options.ResourceGroupID = core.StringPtr(resourceGroupID)
+	return _options
 }
 
 // SetBillingmonth : Allow user to set Billingmonth
-func (options *GetResourceUsageResourceGroupOptions) SetBillingmonth(billingmonth string) *GetResourceUsageResourceGroupOptions {
-	options.Billingmonth = core.StringPtr(billingmonth)
-	return options
+func (_options *GetResourceUsageResourceGroupOptions) SetBillingmonth(billingmonth string) *GetResourceUsageResourceGroupOptions {
+	_options.Billingmonth = core.StringPtr(billingmonth)
+	return _options
 }
 
 // SetNames : Allow user to set Names
-func (options *GetResourceUsageResourceGroupOptions) SetNames(names bool) *GetResourceUsageResourceGroupOptions {
-	options.Names = core.BoolPtr(names)
-	return options
+func (_options *GetResourceUsageResourceGroupOptions) SetNames(names bool) *GetResourceUsageResourceGroupOptions {
+	_options.Names = core.BoolPtr(names)
+	return _options
 }
 
 // SetAcceptLanguage : Allow user to set AcceptLanguage
-func (options *GetResourceUsageResourceGroupOptions) SetAcceptLanguage(acceptLanguage string) *GetResourceUsageResourceGroupOptions {
-	options.AcceptLanguage = core.StringPtr(acceptLanguage)
-	return options
+func (_options *GetResourceUsageResourceGroupOptions) SetAcceptLanguage(acceptLanguage string) *GetResourceUsageResourceGroupOptions {
+	_options.AcceptLanguage = core.StringPtr(acceptLanguage)
+	return _options
 }
 
 // SetLimit : Allow user to set Limit
-func (options *GetResourceUsageResourceGroupOptions) SetLimit(limit int64) *GetResourceUsageResourceGroupOptions {
-	options.Limit = core.Int64Ptr(limit)
-	return options
+func (_options *GetResourceUsageResourceGroupOptions) SetLimit(limit int64) *GetResourceUsageResourceGroupOptions {
+	_options.Limit = core.Int64Ptr(limit)
+	return _options
 }
 
 // SetStart : Allow user to set Start
-func (options *GetResourceUsageResourceGroupOptions) SetStart(start string) *GetResourceUsageResourceGroupOptions {
-	options.Start = core.StringPtr(start)
-	return options
+func (_options *GetResourceUsageResourceGroupOptions) SetStart(start string) *GetResourceUsageResourceGroupOptions {
+	_options.Start = core.StringPtr(start)
+	return _options
 }
 
 // SetResourceInstanceID : Allow user to set ResourceInstanceID
-func (options *GetResourceUsageResourceGroupOptions) SetResourceInstanceID(resourceInstanceID string) *GetResourceUsageResourceGroupOptions {
-	options.ResourceInstanceID = core.StringPtr(resourceInstanceID)
-	return options
+func (_options *GetResourceUsageResourceGroupOptions) SetResourceInstanceID(resourceInstanceID string) *GetResourceUsageResourceGroupOptions {
+	_options.ResourceInstanceID = core.StringPtr(resourceInstanceID)
+	return _options
 }
 
 // SetResourceID : Allow user to set ResourceID
-func (options *GetResourceUsageResourceGroupOptions) SetResourceID(resourceID string) *GetResourceUsageResourceGroupOptions {
-	options.ResourceID = core.StringPtr(resourceID)
-	return options
+func (_options *GetResourceUsageResourceGroupOptions) SetResourceID(resourceID string) *GetResourceUsageResourceGroupOptions {
+	_options.ResourceID = core.StringPtr(resourceID)
+	return _options
 }
 
 // SetPlanID : Allow user to set PlanID
-func (options *GetResourceUsageResourceGroupOptions) SetPlanID(planID string) *GetResourceUsageResourceGroupOptions {
-	options.PlanID = core.StringPtr(planID)
-	return options
+func (_options *GetResourceUsageResourceGroupOptions) SetPlanID(planID string) *GetResourceUsageResourceGroupOptions {
+	_options.PlanID = core.StringPtr(planID)
+	return _options
 }
 
 // SetRegion : Allow user to set Region
-func (options *GetResourceUsageResourceGroupOptions) SetRegion(region string) *GetResourceUsageResourceGroupOptions {
-	options.Region = core.StringPtr(region)
-	return options
+func (_options *GetResourceUsageResourceGroupOptions) SetRegion(region string) *GetResourceUsageResourceGroupOptions {
+	_options.Region = core.StringPtr(region)
+	return _options
 }
 
 // SetHeaders : Allow user to set Headers
@@ -1436,17 +1450,32 @@ type InstanceUsage struct {
 	// The ID of the resource instance.
 	ResourceInstanceID *string `json:"resource_instance_id" validate:"required"`
 
+	// The name of the resource instance.
+	ResourceInstanceName *string `json:"resource_instance_name,omitempty"`
+
 	// The ID of the resource.
 	ResourceID *string `json:"resource_id" validate:"required"`
+
+	// The name of the resource.
+	ResourceName *string `json:"resource_name,omitempty"`
 
 	// The ID of the resource group.
 	ResourceGroupID *string `json:"resource_group_id,omitempty"`
 
+	// The name of the resource group.
+	ResourceGroupName *string `json:"resource_group_name,omitempty"`
+
 	// The ID of the organization.
 	OrganizationID *string `json:"organization_id,omitempty"`
 
+	// The name of the organization.
+	OrganizationName *string `json:"organization_name,omitempty"`
+
 	// The ID of the space.
-	Space *string `json:"space,omitempty"`
+	SpaceID *string `json:"space_id,omitempty"`
+
+	// The name of the space.
+	SpaceName *string `json:"space_name,omitempty"`
 
 	// The ID of the consumer.
 	ConsumerID *string `json:"consumer_id,omitempty"`
@@ -1469,6 +1498,9 @@ type InstanceUsage struct {
 	// The ID of the plan where the instance was provisioned and rated.
 	PlanID *string `json:"plan_id" validate:"required"`
 
+	// The name of the plan where the instance was provisioned and rated.
+	PlanName *string `json:"plan_name,omitempty"`
+
 	// The month.
 	Month *string `json:"month" validate:"required"`
 
@@ -1487,7 +1519,15 @@ func UnmarshalInstanceUsage(m map[string]json.RawMessage, result interface{}) (e
 	if err != nil {
 		return
 	}
+	err = core.UnmarshalPrimitive(m, "resource_instance_name", &obj.ResourceInstanceName)
+	if err != nil {
+		return
+	}
 	err = core.UnmarshalPrimitive(m, "resource_id", &obj.ResourceID)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "resource_name", &obj.ResourceName)
 	if err != nil {
 		return
 	}
@@ -1495,11 +1535,23 @@ func UnmarshalInstanceUsage(m map[string]json.RawMessage, result interface{}) (e
 	if err != nil {
 		return
 	}
+	err = core.UnmarshalPrimitive(m, "resource_group_name", &obj.ResourceGroupName)
+	if err != nil {
+		return
+	}
 	err = core.UnmarshalPrimitive(m, "organization_id", &obj.OrganizationID)
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalPrimitive(m, "space", &obj.Space)
+	err = core.UnmarshalPrimitive(m, "organization_name", &obj.OrganizationName)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "space_id", &obj.SpaceID)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "space_name", &obj.SpaceName)
 	if err != nil {
 		return
 	}
@@ -1528,6 +1580,10 @@ func UnmarshalInstanceUsage(m map[string]json.RawMessage, result interface{}) (e
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "plan_id", &obj.PlanID)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "plan_name", &obj.PlanName)
 	if err != nil {
 		return
 	}
@@ -1631,8 +1687,11 @@ func UnmarshalInstancesUsage(m map[string]json.RawMessage, result interface{}) (
 
 // Metric : Information about a metric.
 type Metric struct {
-	// The name of the metric.
+	// The ID of the metric.
 	Metric *string `json:"metric" validate:"required"`
+
+	// The name of the metric.
+	MetricName *string `json:"metric_name,omitempty"`
 
 	// The aggregated value for the metric.
 	Quantity *float64 `json:"quantity" validate:"required"`
@@ -1652,6 +1711,9 @@ type Metric struct {
 	// The unit that qualifies the quantity.
 	Unit *string `json:"unit,omitempty"`
 
+	// The name of the unit.
+	UnitName *string `json:"unit_name,omitempty"`
+
 	// When set to `true`, the cost is for informational purpose and is not included while calculating the plan charges.
 	NonChargeable *bool `json:"non_chargeable,omitempty"`
 
@@ -1663,6 +1725,10 @@ type Metric struct {
 func UnmarshalMetric(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(Metric)
 	err = core.UnmarshalPrimitive(m, "metric", &obj.Metric)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "metric_name", &obj.MetricName)
 	if err != nil {
 		return
 	}
@@ -1687,6 +1753,10 @@ func UnmarshalMetric(m map[string]json.RawMessage, result interface{}) (err erro
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "unit", &obj.Unit)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "unit_name", &obj.UnitName)
 	if err != nil {
 		return
 	}
@@ -1793,6 +1863,9 @@ type OrgUsage struct {
 	// The ID of the organization.
 	OrganizationID *string `json:"organization_id" validate:"required"`
 
+	// The name of the organization.
+	OrganizationName *string `json:"organization_name,omitempty"`
+
 	// The target country pricing that should be used.
 	PricingCountry *string `json:"pricing_country" validate:"required"`
 
@@ -1814,6 +1887,10 @@ func UnmarshalOrgUsage(m map[string]json.RawMessage, result interface{}) (err er
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "organization_id", &obj.OrganizationID)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "organization_name", &obj.OrganizationName)
 	if err != nil {
 		return
 	}
@@ -1842,6 +1919,9 @@ type Plan struct {
 	// The ID of the plan.
 	PlanID *string `json:"plan_id" validate:"required"`
 
+	// The name of the plan.
+	PlanName *string `json:"plan_name,omitempty"`
+
 	// The pricing region for the plan.
 	PricingRegion *string `json:"pricing_region,omitempty"`
 
@@ -1865,6 +1945,10 @@ type Plan struct {
 func UnmarshalPlan(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(Plan)
 	err = core.UnmarshalPrimitive(m, "plan_id", &obj.PlanID)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "plan_name", &obj.PlanName)
 	if err != nil {
 		return
 	}
@@ -1901,6 +1985,9 @@ type Resource struct {
 	// The ID of the resource.
 	ResourceID *string `json:"resource_id" validate:"required"`
 
+	// The name of the resource.
+	ResourceName *string `json:"resource_name,omitempty"`
+
 	// The billable charges for the account.
 	BillableCost *float64 `json:"billable_cost" validate:"required"`
 
@@ -1924,6 +2011,10 @@ type Resource struct {
 func UnmarshalResource(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(Resource)
 	err = core.UnmarshalPrimitive(m, "resource_id", &obj.ResourceID)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "resource_name", &obj.ResourceName)
 	if err != nil {
 		return
 	}
@@ -1963,6 +2054,9 @@ type ResourceGroupUsage struct {
 	// The ID of the resource group.
 	ResourceGroupID *string `json:"resource_group_id" validate:"required"`
 
+	// The name of the resource group.
+	ResourceGroupName *string `json:"resource_group_name,omitempty"`
+
 	// The target country pricing that should be used.
 	PricingCountry *string `json:"pricing_country" validate:"required"`
 
@@ -1984,6 +2078,10 @@ func UnmarshalResourceGroupUsage(m map[string]json.RawMessage, result interface{
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "resource_group_id", &obj.ResourceGroupID)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "resource_group_name", &obj.ResourceGroupName)
 	if err != nil {
 		return
 	}
