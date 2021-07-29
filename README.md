@@ -46,27 +46,27 @@ The IBM Cloud Platform Services Go SDK allows developers to programmatically int
 
 Service Name | Package name 
 --- | --- 
-[Activity Tracker](https://test.cloud.ibm.com/apidocs/atracker) | atrackerv1
-[Case Management](https://cloud.ibm.com/apidocs/case-management) | casemanagementv1
-[Catalog Management](https://cloud.ibm.com/apidocs/resource-catalog/private-catalog) | catalogmanagementv1
-[Configuration Governance](https://cloud.ibm.com/apidocs/security-compliance/config) | configurationgovernancev1
-[Enterprise Billing Units](https://cloud.ibm.com/apidocs/enterprise-apis/billing-unit) | enterprisebillingunitsv1
-[Enterprise Management](https://cloud.ibm.com/apidocs/enterprise-apis/enterprise) | enterprisemanagementv1
-[Enterprise Usage Reports](https://cloud.ibm.com/apidocs/enterprise-apis/resource-usage-reports) | enterpriseusagereportsv1
-[Global Catalog](https://cloud.ibm.com/apidocs/resource-catalog/global-catalog) | globalcatalogv1
-[Global Search](https://cloud.ibm.com/apidocs/search) | globalsearchv2
-[Global Tagging](https://cloud.ibm.com/apidocs/tagging) | globaltaggingv1
-[IAM Access Groups](https://cloud.ibm.com/apidocs/iam-access-groups) | iamaccessgroupsv2
-[IAM Identity Service](https://cloud.ibm.com/apidocs/iam-identity-token-api) | iamidentityv1
-[IAM Policy Management](https://cloud.ibm.com/apidocs/iam-policy-management) | iampolicymanagementv1
-[IBM Cloud Shell](https://cloud.ibm.com/apidocs/cloudshell) | ibmcloudshellv1
-[Open Service Broker](https://cloud.ibm.com/apidocs/resource-controller/ibm-cloud-osb-api) | openservicebrokerv1
-[Posture Management](https://cloud.ibm.com/apidocs/security-compliance/posture) | posturemanagementv1
-[Resource Controller](https://cloud.ibm.com/apidocs/resource-controller/resource-controller) | resourcecontrollerv2
-[Resource Manager](https://cloud.ibm.com/apidocs/resource-controller/resource-manager) | resourcemanagerv2
-[Usage Metering](https://cloud.ibm.com/apidocs/usage-metering) | usagemeteringv4
-[Usage Reports](https://cloud.ibm.com/apidocs/metering-reporting) | usagereportsv4
-[User Management](https://cloud.ibm.com/apidocs/user-management) | usermanagementv1
+[Activity Tracker](https://test.cloud.ibm.com/apidocs/atracker?code=go) | atrackerv1
+[Case Management](https://cloud.ibm.com/apidocs/case-management?code=go) | casemanagementv1
+[Catalog Management](https://cloud.ibm.com/apidocs/resource-catalog/private-catalog?code=go) | catalogmanagementv1
+[Configuration Governance](https://cloud.ibm.com/apidocs/security-compliance/config?code=go) | configurationgovernancev1
+[Enterprise Billing Units](https://cloud.ibm.com/apidocs/enterprise-apis/billing-unit?code=go) | enterprisebillingunitsv1
+[Enterprise Management](https://cloud.ibm.com/apidocs/enterprise-apis/enterprise?code=go) | enterprisemanagementv1
+[Enterprise Usage Reports](https://cloud.ibm.com/apidocs/enterprise-apis/resource-usage-reports?code=go) | enterpriseusagereportsv1
+[Global Catalog](https://cloud.ibm.com/apidocs/resource-catalog/global-catalog?code=go) | globalcatalogv1
+[Global Search](https://cloud.ibm.com/apidocs/search?code=go) | globalsearchv2
+[Global Tagging](https://cloud.ibm.com/apidocs/tagging?code=go) | globaltaggingv1
+[IAM Access Groups](https://cloud.ibm.com/apidocs/iam-access-groups?code=go) | iamaccessgroupsv2
+[IAM Identity Service](https://cloud.ibm.com/apidocs/iam-identity-token-api?code=go) | iamidentityv1
+[IAM Policy Management](https://cloud.ibm.com/apidocs/iam-policy-management?code=go) | iampolicymanagementv1
+[IBM Cloud Shell](https://cloud.ibm.com/apidocs/cloudshell?code=go) | ibmcloudshellv1
+[Open Service Broker](https://cloud.ibm.com/apidocs/resource-controller/ibm-cloud-osb-api?code=go) | openservicebrokerv1
+[Posture Management](https://cloud.ibm.com/apidocs/security-compliance/posture?code=go) | posturemanagementv1
+[Resource Controller](https://cloud.ibm.com/apidocs/resource-controller/resource-controller?code=go) | resourcecontrollerv2
+[Resource Manager](https://cloud.ibm.com/apidocs/resource-controller/resource-manager?code=go) | resourcemanagerv2
+[Usage Metering](https://cloud.ibm.com/apidocs/usage-metering?code=go) | usagemeteringv4
+[Usage Reports](https://cloud.ibm.com/apidocs/metering-reporting?code=go) | usagereportsv4
+[User Management](https://cloud.ibm.com/apidocs/user-management?code=go) | usermanagementv1
 
 ## Prerequisites
 
