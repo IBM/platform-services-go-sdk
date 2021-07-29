@@ -1,3 +1,10 @@
+## [0.19.2](https://github.com/IBM/platform-services-go-sdk/compare/v0.19.1...v0.19.2) (2021-07-29)
+
+
+### Bug Fixes
+
+* **usage reports:** add optional name parameters to struct ([#139](https://github.com/IBM/platform-services-go-sdk/issues/139)) ([64af32f](https://github.com/IBM/platform-services-go-sdk/commit/64af32f0d1e7696b2a878966b25ce6a2c65e9552))
+
 ## [0.19.1](https://github.com/IBM/platform-services-go-sdk/compare/v0.19.0...v0.19.1) (2021-07-09)
 
 
