@@ -15,7 +15,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 3.35.1-e449803c-20210628-211617
+ * IBM OpenAPI SDK Code Generator Version: 3.36.1-694fc13e-20210723-211159
  */
 
 // Package atrackerv1 : Operations and models for the AtrackerV1 service
@@ -34,17 +34,17 @@ import (
 	"github.com/go-openapi/strfmt"
 )
 
-// AtrackerV1 : Activity Tracking is a platform service that you can configure in each region in your account to define
+// AtrackerV1 : Activity Tracker is a platform service that you can configure in each region in your account to define
 // how auditing events are collected and stored. Events are stored in a Cloud Object Storage bucket that is also
 // available in the account.
 //
-// Version: 1.0.0
+// Version: 1.1.0
 type AtrackerV1 struct {
 	Service *core.BaseService
 }
 
 // DefaultServiceURL is the default URL to make service requests to.
-const DefaultServiceURL = "https://private.us-south.atracker.cloud.ibm.com"
+const DefaultServiceURL = "https://us-south.atracker.cloud.ibm.com"
 
 // DefaultServiceName is the default key used to find external configuration information.
 const DefaultServiceName = "atracker"
@@ -114,14 +114,10 @@ func NewAtrackerV1(options *AtrackerV1Options) (service *AtrackerV1, err error) 
 // GetServiceURLForRegion returns the service URL to be used for the specified region
 func GetServiceURLForRegion(region string) (string, error) {
 	var endpoints = map[string]string{
-		"private.us-south": "https://private.us-south.atracker.cloud.ibm.com", // The server for IBM Cloud Activity Tracking Service in the us-south region.
-		"private.us-east": "https://private.us-east.atracker.cloud.ibm.com", // The server for IBM Cloud Activity Tracking Service in the us-east region.
-		"private.au-syd": "https://private.au-syd.atracker.cloud.ibm.com", // The server for IBM Cloud Activity Tracking Service in the au-syd region.
-		"private.eu-de": "https://private.eu-de.atracker.cloud.ibm.com", // The server for IBM Cloud Activity Tracking Service in the eu-de region.
-		"private.eu-gb": "https://private.eu-gb.atracker.cloud.ibm.com", // The server for IBM Cloud Activity Tracking Service in the eu-gb region.
-		"private.in-che": "https://private.in-che.atracker.cloud.ibm.com", // The server for IBM Cloud Activity Tracking Service in the in-che region.
-		"private.jp-tok": "https://private.jp-tok.atracker.cloud.ibm.com", // The server for IBM Cloud Activity Tracking Service in the jp-tok region.
-		"private.kr-seo": "https://private.kr-seo.atracker.cloud.ibm.com", // The server for IBM Cloud Activity Tracking Service in the kr-seo region.
+		"us-south": "https://us-south.atracker.cloud.ibm.com", // The server for IBM Cloud Activity Tracker Service in the us-south region.
+		"private.us-south": "https://private.us-south.atracker.cloud.ibm.com", // The server for IBM Cloud Activity Tracker Service in the us-south region.
+		"us-east": "https://us-east.atracker.cloud.ibm.com", // The server for IBM Cloud Activity Tracker Service in the us-east region.
+		"private.us-east": "https://private.us-east.atracker.cloud.ibm.com", // The server for IBM Cloud Activity Tracker Service in the us-east region.
 	}
 
 	if url, ok := endpoints[region]; ok {
@@ -872,8 +868,8 @@ func (atracker *AtrackerV1) DeleteRouteWithContext(ctx context.Context, deleteRo
 }
 
 // GetEndpoints : Get endpoints
-// Get information about the public and private endpoints that are enabled in a region when you use the Activity
-// Tracking API.
+// Get information about the public and private endpoints that are enabled in a region when you use the Activity Tracker
+// API.
 func (atracker *AtrackerV1) GetEndpoints(getEndpointsOptions *GetEndpointsOptions) (result *Endpoints, response *core.DetailedResponse, err error) {
 	return atracker.GetEndpointsWithContext(context.Background(), getEndpointsOptions)
 }
@@ -925,7 +921,7 @@ func (atracker *AtrackerV1) GetEndpointsWithContext(ctx context.Context, getEndp
 }
 
 // PatchEndpoints : Modify endpoints
-// Configure the public endpoint availability in a region to use the Activity Tracking API. By default, the private
+// Configure the public endpoint availability in a region to use the Activity Tracker API. By default, the private
 // endpoint is enabled and cannot be disabled.
 func (atracker *AtrackerV1) PatchEndpoints(patchEndpointsOptions *PatchEndpointsOptions) (result *Endpoints, response *core.DetailedResponse, err error) {
 	return atracker.PatchEndpointsWithContext(context.Background(), patchEndpointsOptions)
@@ -991,15 +987,15 @@ func (atracker *AtrackerV1) PatchEndpointsWithContext(ctx context.Context, patch
 	return
 }
 
-// APIEndpoint : Activity Tracking API endpoint.
+// APIEndpoint : Activity Tracker API endpoint.
 type APIEndpoint struct {
-	// The public URL of Activity Tracking in a region.
+	// The public URL of Activity Tracker in a region.
 	PublicURL *string `json:"public_url" validate:"required"`
 
 	// Indicates whether or not the public endpoint is enabled in the account.
 	PublicEnabled *bool `json:"public_enabled" validate:"required"`
 
-	// The private URL of Activity Tracking. This URL cannot be disabled.
+	// The private URL of Activity Tracker. This URL cannot be disabled.
 	PrivateURL *string `json:"private_url" validate:"required"`
 
 	// The private endpoint is always enabled.
@@ -1033,13 +1029,13 @@ func UnmarshalAPIEndpoint(m map[string]json.RawMessage, result interface{}) (err
 type CreateRouteOptions struct {
 	// The name of the route. The name must be 1000 characters or less and cannot include any special characters other than
 	// `(space) - . _ :`.
-	Name *string `validate:"required"`
+	Name *string `json:"name" validate:"required"`
 
 	// Indicates whether or not all global events should be forwarded to this region.
-	ReceiveGlobalEvents *bool `validate:"required"`
+	ReceiveGlobalEvents *bool `json:"receive_global_events" validate:"required"`
 
 	// Routing rules that will be evaluated in their order of the array.
-	Rules []Rule `validate:"required"`
+	Rules []Rule `json:"rules" validate:"required"`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -1082,13 +1078,13 @@ func (options *CreateRouteOptions) SetHeaders(param map[string]string) *CreateRo
 type CreateTargetOptions struct {
 	// The name of the target. The name must be 1000 characters or less, and cannot include any special characters other
 	// than `(space) - . _ :`.
-	Name *string `validate:"required"`
+	Name *string `json:"name" validate:"required"`
 
 	// The type of the target.
-	TargetType *string `validate:"required"`
+	TargetType *string `json:"target_type" validate:"required"`
 
 	// Property values for a Cloud Object Storage Endpoint.
-	CosEndpoint *CosEndpoint `validate:"required"`
+	CosEndpoint *CosEndpoint `json:"cos_endpoint" validate:"required"`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -1136,7 +1132,7 @@ func (options *CreateTargetOptions) SetHeaders(param map[string]string) *CreateT
 // DeleteRouteOptions : The DeleteRoute options.
 type DeleteRouteOptions struct {
 	// The v4 UUID that uniquely identifies the route.
-	ID *string `validate:"required,ne="`
+	ID *string `json:"-" validate:"required,ne="`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -1164,7 +1160,7 @@ func (options *DeleteRouteOptions) SetHeaders(param map[string]string) *DeleteRo
 // DeleteTargetOptions : The DeleteTarget options.
 type DeleteTargetOptions struct {
 	// The v4 UUID that uniquely identifies the target.
-	ID *string `validate:"required,ne="`
+	ID *string `json:"-" validate:"required,ne="`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -1189,9 +1185,9 @@ func (options *DeleteTargetOptions) SetHeaders(param map[string]string) *DeleteT
 	return options
 }
 
-// Endpoints : Activity Tracking endpoints.
+// Endpoints : Activity Tracker endpoints.
 type Endpoints struct {
-	// Activity Tracking API endpoint.
+	// Activity Tracker API endpoint.
 	APIEndpoint *APIEndpoint `json:"api_endpoint" validate:"required"`
 }
 
@@ -1206,7 +1202,7 @@ func UnmarshalEndpoints(m map[string]json.RawMessage, result interface{}) (err e
 	return
 }
 
-// EndpointsRequestAPIEndpoint : Activity Tracking service API endpoint.
+// EndpointsRequestAPIEndpoint : Activity Tracker service API endpoint.
 type EndpointsRequestAPIEndpoint struct {
 	// Indicate whether or not the public endpoint is enabled in an account.
 	PublicEnabled *bool `json:"public_enabled,omitempty"`
@@ -1244,7 +1240,7 @@ func (options *GetEndpointsOptions) SetHeaders(param map[string]string) *GetEndp
 // GetRouteOptions : The GetRoute options.
 type GetRouteOptions struct {
 	// The v4 UUID that uniquely identifies the route.
-	ID *string `validate:"required,ne="`
+	ID *string `json:"-" validate:"required,ne="`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -1272,7 +1268,7 @@ func (options *GetRouteOptions) SetHeaders(param map[string]string) *GetRouteOpt
 // GetTargetOptions : The GetTarget options.
 type GetTargetOptions struct {
 	// The v4 UUID that uniquely identifies the target.
-	ID *string `validate:"required,ne="`
+	ID *string `json:"-" validate:"required,ne="`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -1335,8 +1331,8 @@ func (options *ListTargetsOptions) SetHeaders(param map[string]string) *ListTarg
 
 // PatchEndpointsOptions : The PatchEndpoints options.
 type PatchEndpointsOptions struct {
-	// Activity Tracking service API endpoint.
-	APIEndpoint *EndpointsRequestAPIEndpoint
+	// Activity Tracker service API endpoint.
+	APIEndpoint *EndpointsRequestAPIEndpoint `json:"api_endpoint,omitempty"`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -1362,17 +1358,17 @@ func (options *PatchEndpointsOptions) SetHeaders(param map[string]string) *Patch
 // ReplaceRouteOptions : The ReplaceRoute options.
 type ReplaceRouteOptions struct {
 	// The v4 UUID that uniquely identifies the route.
-	ID *string `validate:"required,ne="`
+	ID *string `json:"-" validate:"required,ne="`
 
 	// The name of the route. The name must be 1000 characters or less and cannot include any special characters other than
 	// `(space) - . _ :`.
-	Name *string `validate:"required"`
+	Name *string `json:"name" validate:"required"`
 
 	// Indicates whether or not all global events should be forwarded to this region.
-	ReceiveGlobalEvents *bool `validate:"required"`
+	ReceiveGlobalEvents *bool `json:"receive_global_events" validate:"required"`
 
 	// Routing rules that will be evaluated in their order of the array.
-	Rules []Rule `validate:"required"`
+	Rules []Rule `json:"rules" validate:"required"`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -1421,17 +1417,17 @@ func (options *ReplaceRouteOptions) SetHeaders(param map[string]string) *Replace
 // ReplaceTargetOptions : The ReplaceTarget options.
 type ReplaceTargetOptions struct {
 	// The v4 UUID that uniquely identifies the target.
-	ID *string `validate:"required,ne="`
+	ID *string `json:"-" validate:"required,ne="`
 
 	// The name of the target. The name must be 1000 characters or less, and cannot include any special characters other
 	// than `(space) - . _ :`.
-	Name *string `validate:"required"`
+	Name *string `json:"name" validate:"required"`
 
 	// The type of the target.
-	TargetType *string `validate:"required"`
+	TargetType *string `json:"target_type" validate:"required"`
 
 	// Property values for a Cloud Object Storage Endpoint.
-	CosEndpoint *CosEndpoint `validate:"required"`
+	CosEndpoint *CosEndpoint `json:"cos_endpoint" validate:"required"`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -1607,7 +1603,7 @@ type Target struct {
 	// The type of the target.
 	TargetType *string `json:"target_type" validate:"required"`
 
-	// The encryption key that is used to encrypt events before Activity Tracking services buffer them on storage. This
+	// The encryption key that is used to encrypt events before Activity Tracker services buffer them on storage. This
 	// credential is masked in the response.
 	EncryptKey *string `json:"encrypt_key,omitempty"`
 
@@ -1693,7 +1689,7 @@ func UnmarshalTargetList(m map[string]json.RawMessage, result interface{}) (err 
 // ValidateTargetOptions : The ValidateTarget options.
 type ValidateTargetOptions struct {
 	// The v4 UUID that uniquely identifies the target.
-	ID *string `validate:"required,ne="`
+	ID *string `json:"-" validate:"required,ne="`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
