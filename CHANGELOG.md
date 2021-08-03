@@ -1,3 +1,10 @@
+## [0.19.3](https://github.com/IBM/platform-services-go-sdk/compare/v0.19.2...v0.19.3) (2021-08-03)
+
+
+### Bug Fixes
+
+* **Activity Tracker:** re-gen service after recent service name change ([#142](https://github.com/IBM/platform-services-go-sdk/issues/142)) ([972853e](https://github.com/IBM/platform-services-go-sdk/commit/972853e17d68bc9d758432fc5a21a3e257fce7b8))
+
 ## [0.19.2](https://github.com/IBM/platform-services-go-sdk/compare/v0.19.1...v0.19.2) (2021-07-29)
 
 
