@@ -2,7 +2,7 @@
 
 COVERAGE = -coverprofile=coverage.txt -covermode=atomic
 
-all: test lint tidy
+all: tidy test lint
 travis-ci: test-cov lint scan-gosec tidy
 
 test:
