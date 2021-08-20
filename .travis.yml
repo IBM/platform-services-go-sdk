@@ -1,9 +1,11 @@
 language: go
 
-dist: xenial
+dist: bionic
 
 go:
 - 1.14.x
+- 1.16.x
+- 1.17.x
 
 notifications:
   email: true
@@ -41,4 +43,5 @@ deploy:
     script: npx semantic-release
     skip_cleanup: true
     on:
+      go: '1.12.x'
       branch: main
