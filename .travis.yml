@@ -43,5 +43,5 @@ deploy:
     script: npx semantic-release
     skip_cleanup: true
     on:
-      go: '1.12.x'
+      go: '1.14.x'
       branch: main
