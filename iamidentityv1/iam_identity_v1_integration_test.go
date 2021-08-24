@@ -43,9 +43,13 @@ import (
 var (
 	apikeyName    string = "Go-SDK-IT-APIKey"
 	serviceIDName string = "Go-SDK-IT-ServiceId"
+	profileName1  string = "Go-SDK-IT-Profile-1"
+	profileName2  string = "Go-SDK-IT-Profile-2"
 	accountID     string
 	iamID         string
 	iamAPIKey     string
+	claimRuleType string = "Profile-SAML"
+	realmName     string = "https://w3id.sso.ibm.com/auth/sps/samlidp2/saml20"
 
 	iamIdentityService *iamidentityv1.IamIdentityV1
 )
@@ -66,6 +70,17 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 		serviceId1     string
 		serviceIdEtag1 string
 		newDescription string = "This is an updated description"
+
+		profileId1   string
+		profileId2   string
+		profileIamId string
+		profileEtag  string
+
+		claimRuleId1  string
+		claimRuleId2  string
+		claimRuleEtag string
+
+		linkId string
 
 		accountSettingEtag string
 	)
@@ -559,6 +574,706 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 		})
 	})
 
+	Describe(`CreateProfile1 - Create trusted profile #1`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`CreateProfile(createProfileOptions *CreateProfileOptions)`, func() {
+
+			createProfileOptions := &iamidentityv1.CreateProfileOptions{
+				Name:        &profileName1,
+				Description: core.StringPtr("GoSDK test profile #1"),
+				AccountID:   &accountID,
+			}
+
+			trustedProfile, response, err := iamIdentityService.CreateProfile(createProfileOptions)
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(201))
+			Expect(trustedProfile).ToNot(BeNil())
+			fmt.Fprintf(GinkgoWriter, "CreateProfile #1 response:\n%s\n", common.ToJSON(trustedProfile))
+
+			profileId1 = *trustedProfile.ID
+			profileIamId = *trustedProfile.IamID
+			Expect(profileId1).ToNot(BeNil())
+		})
+	})
+
+	Describe(`CreateProfile2 - Create trusted profile #2`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`CreateProfile(createProfileOptions *CreateProfileOptions)`, func() {
+
+			createProfileOptions := &iamidentityv1.CreateProfileOptions{
+				Name:        &profileName2,
+				Description: core.StringPtr("GoSDK test profile #2"),
+				AccountID:   &accountID,
+			}
+
+			trustedProfile, response, err := iamIdentityService.CreateProfile(createProfileOptions)
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(201))
+			Expect(trustedProfile).ToNot(BeNil())
+			fmt.Fprintf(GinkgoWriter, "CreateProfile #1 response:\n%s\n", common.ToJSON(trustedProfile))
+
+			profileId2 = *trustedProfile.ID
+			Expect(profileId2).ToNot(BeNil())
+		})
+	})
+
+	Describe(`GetProfile - Get trusted profile`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`GetProfile(getProfileOptions *GetProfileOptions)`, func() {
+
+			getProfileOptions := &iamidentityv1.GetProfileOptions{
+				ProfileID: &profileId1,
+			}
+
+			trustedProfile, response, err := iamIdentityService.GetProfile(getProfileOptions)
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(trustedProfile).ToNot(BeNil())
+			fmt.Fprintf(GinkgoWriter, "GetProfile #1 response:\n%s\n", common.ToJSON(trustedProfile))
+
+			Expect(trustedProfile.ID).To(Equal(&profileId1))
+			Expect(trustedProfile.IamID).To(Equal(&profileIamId))
+			Expect(trustedProfile.AccountID).To(Equal(&accountID))
+			Expect(trustedProfile.Name).To(Equal(&profileName1))
+			Expect(trustedProfile.CRN).ToNot(BeNil())
+
+			profileEtag = response.GetHeaders().Get("Etag")
+			Expect(profileEtag).ToNot(BeNil())
+		})
+	})
+
+	Describe(`ListProfile - List trusted profile`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`ListProfile(listProfileOptions *ListProfileOptions)`, func() {
+
+			profiles := []iamidentityv1.TrustedProfile{}
+
+			var pageTokenPresent bool = true
+			var pageToken *string = nil
+
+			for pageTokenPresent {
+
+				listProfileOptions := &iamidentityv1.ListProfileOptions{
+					AccountID: &accountID,
+					Pagetoken: pageToken,
+					Pagesize:  core.Int64Ptr(int64(1)),
+				}
+
+				trustedProfiles, response, err := iamIdentityService.ListProfile(listProfileOptions)
+				Expect(err).To(BeNil())
+				Expect(response.StatusCode).To(Equal(200))
+				Expect(trustedProfiles).ToNot(BeNil())
+				fmt.Fprintf(GinkgoWriter, "ListProfile #1 response:\n%s\n", common.ToJSON(trustedProfiles))
+
+				for _, trustedProfile := range trustedProfiles.Profiles {
+					if profileName1 == *trustedProfile.Name || profileName2 == *trustedProfile.Name {
+						profiles = append(profiles, trustedProfile)
+					}
+				}
+
+				pageToken = getPageTokenFromURL(trustedProfiles.Next)
+				pageTokenPresent = (pageToken != nil)
+			}
+
+			Expect(len(profiles)).To(Equal(2))
+		})
+	})
+
+	Describe(`UpdateProfile - Update trusted profile`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`UpdateProfile(updateProfileOptions *UpdateProfileOptions)`, func() {
+
+			updateProfileOptions := &iamidentityv1.UpdateProfileOptions{
+				ProfileID:   &profileId1,
+				IfMatch:     &profileEtag,
+				Description: &newDescription,
+			}
+
+			trustedProfile, response, err := iamIdentityService.UpdateProfile(updateProfileOptions)
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(trustedProfile).ToNot(BeNil())
+			fmt.Fprintf(GinkgoWriter, "UpdateProfile #1 response:\n%s\n", common.ToJSON(trustedProfile))
+
+			Expect(*trustedProfile.ID).To(Equal(profileId1))
+			Expect(*trustedProfile.Description).To(Equal(newDescription))
+		})
+	})
+
+	Describe(`DeleteProfile1 - Delete trusted profile #1`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`DeleteProfile(deleteProfileOptions *DeleteProfileOptions)`, func() {
+
+			deleteProfileOptions := &iamidentityv1.DeleteProfileOptions{
+				ProfileID: &profileId1,
+			}
+
+			response, err := iamIdentityService.DeleteProfile(deleteProfileOptions)
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(204))
+
+			profile := getProfile(iamIdentityService, profileId1)
+			Expect(profile).To(BeNil())
+		})
+	})
+
+	Describe(`CreateClaimRule1 - Create claim rule #1`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`CreateClaimRule(createClaimRuleOptions *CreateClaimRuleOptions)`, func() {
+
+			profileClaimRuleConditions := new(iamidentityv1.ProfileClaimRuleConditions)
+			profileClaimRuleConditions.Claim = core.StringPtr("blueGroups")
+			profileClaimRuleConditions.Operator = core.StringPtr("EQUALS")
+			profileClaimRuleConditions.Value = core.StringPtr("\"cloud-docs-dev\"")
+
+			createClaimRuleOptions := &iamidentityv1.CreateClaimRuleOptions{
+				ProfileID:  &profileId2,
+				Type:       &claimRuleType,
+				RealmName:  &realmName,
+				Expiration: core.Int64Ptr(int64(43200)),
+				Conditions: []iamidentityv1.ProfileClaimRuleConditions{*profileClaimRuleConditions},
+			}
+
+			claimRule, response, err := iamIdentityService.CreateClaimRule(createClaimRuleOptions)
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(201))
+			Expect(claimRule).ToNot(BeNil())
+			fmt.Fprintf(GinkgoWriter, "CreateClaimRule #1 response:\n%s\n", common.ToJSON(claimRule))
+
+			claimRuleId1 = *claimRule.ID
+			Expect(claimRuleId1).ToNot(BeNil())
+		})
+	})
+
+	Describe(`CreateClaimRule2 - Create claim rule #2`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`CreateClaimRule(createClaimRuleOptions *CreateClaimRuleOptions)`, func() {
+
+			profileClaimRuleConditions := new(iamidentityv1.ProfileClaimRuleConditions)
+			profileClaimRuleConditions.Claim = core.StringPtr("blueGroups")
+			profileClaimRuleConditions.Operator = core.StringPtr("EQUALS")
+			profileClaimRuleConditions.Value = core.StringPtr("\"Europe_Group\"")
+
+			createClaimRuleOptions := &iamidentityv1.CreateClaimRuleOptions{
+				ProfileID:  &profileId2,
+				Type:       &claimRuleType,
+				RealmName:  &realmName,
+				Expiration: core.Int64Ptr(int64(43200)),
+				Conditions: []iamidentityv1.ProfileClaimRuleConditions{*profileClaimRuleConditions},
+			}
+
+			claimRule, response, err := iamIdentityService.CreateClaimRule(createClaimRuleOptions)
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(201))
+			Expect(claimRule).ToNot(BeNil())
+			fmt.Fprintf(GinkgoWriter, "CreateClaimRule #1 response:\n%s\n", common.ToJSON(claimRule))
+
+			claimRuleId2 = *claimRule.ID
+			Expect(claimRuleId2).ToNot(BeNil())
+		})
+	})
+
+	Describe(`GetClaimRule - Get claim rule`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`GetClaimRule(getClaimRuleOptions *GetClaimRuleOptions)`, func() {
+
+			getClaimRuleOptions := &iamidentityv1.GetClaimRuleOptions{
+				ProfileID: &profileId2,
+				RuleID:    &claimRuleId1,
+			}
+
+			claimRule, response, err := iamIdentityService.GetClaimRule(getClaimRuleOptions)
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(claimRule).ToNot(BeNil())
+			fmt.Fprintf(GinkgoWriter, "GetClaimRule #1 response:\n%s\n", common.ToJSON(claimRule))
+
+			claimRuleEtag = response.GetHeaders().Get("Etag")
+			Expect(claimRuleEtag).ToNot(BeNil())
+		})
+	})
+
+	Describe(`ListClaimRule - List claim rule`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`ListClaimRule(listClaimRulesOptions *ListClaimRulesOptions)`, func() {
+
+			claimRules := []iamidentityv1.ProfileClaimRule{}
+
+			listClaimRulesOptions := &iamidentityv1.ListClaimRulesOptions{
+				ProfileID: &profileId2,
+			}
+
+			claimRulesList, response, err := iamIdentityService.ListClaimRules(listClaimRulesOptions)
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(claimRulesList).ToNot(BeNil())
+			fmt.Fprintf(GinkgoWriter, "ListClaimRule #1 response:\n%s\n", common.ToJSON(claimRulesList))
+
+			for _, claimRule := range claimRulesList.Rules {
+				if claimRuleId1 == *claimRule.ID || claimRuleId2 == *claimRule.ID {
+					claimRules = append(claimRules, claimRule)
+				}
+			}
+
+			Expect(len(claimRules)).To(Equal(2))
+		})
+	})
+
+	Describe(`UpdateClaimRule - Update claim rule`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`UpdateClaimRule(updateClaimRuleOptions *UpdateClaimRuleOptions)`, func() {
+
+			profileClaimRuleConditions := new(iamidentityv1.ProfileClaimRuleConditions)
+			profileClaimRuleConditions.Claim = core.StringPtr("blueGroups")
+			profileClaimRuleConditions.Operator = core.StringPtr("EQUALS")
+			profileClaimRuleConditions.Value = core.StringPtr("\"Europe_Group\"")
+
+			updateClaimRuleOptions := &iamidentityv1.UpdateClaimRuleOptions{
+				ProfileID:  &profileId2,
+				RuleID:     &claimRuleId1,
+				IfMatch:    &claimRuleEtag,
+				Expiration: core.Int64Ptr(int64(33200)),
+				Type:       &claimRuleType,
+				RealmName:  &realmName,
+				Conditions: []iamidentityv1.ProfileClaimRuleConditions{*profileClaimRuleConditions},
+			}
+
+			claimRule, response, err := iamIdentityService.UpdateClaimRule(updateClaimRuleOptions)
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(claimRule).ToNot(BeNil())
+			fmt.Fprintf(GinkgoWriter, "UpdateProfile #1 response:\n%s\n", common.ToJSON(claimRule))
+
+		})
+	})
+
+	Describe(`DeleteClaimRule1 - Delete claim rule #1`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`DeleteClaimRule(deleteClaimRuleOptions *DeleteClaimRuleOptions)`, func() {
+
+			deleteClaimRuleOptions := &iamidentityv1.DeleteClaimRuleOptions{
+				ProfileID: &profileId2,
+				RuleID:    &claimRuleId1,
+			}
+
+			response, err := iamIdentityService.DeleteClaimRule(deleteClaimRuleOptions)
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(204))
+
+			profile := getClaimRule(iamIdentityService, profileId2, claimRuleId1)
+			Expect(profile).To(BeNil())
+		})
+	})
+
+	Describe(`DeleteClaimRule2 - Delete claim rule #2`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`DeleteClaimRule(deleteClaimRuleOptions *DeleteClaimRuleOptions)`, func() {
+
+			deleteClaimRuleOptions := &iamidentityv1.DeleteClaimRuleOptions{
+				ProfileID: &profileId2,
+				RuleID:    &claimRuleId2,
+			}
+
+			response, err := iamIdentityService.DeleteClaimRule(deleteClaimRuleOptions)
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(204))
+
+			profile := getClaimRule(iamIdentityService, profileId2, claimRuleId2)
+			Expect(profile).To(BeNil())
+		})
+	})
+
+	Describe(`CreateLink - Create link #2`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`CreateLink(createLinkOptions *CreateLinkOptions)`, func() {
+
+			createProfileLinkRequestLink := new(iamidentityv1.CreateProfileLinkRequestLink)
+			createProfileLinkRequestLink.CRN = core.StringPtr("crn:v1:staging:public:iam-identity::a/18e3020749ce4744b0b472466d61fdb4::computeresource:Fake-Compute-Resource")
+			createProfileLinkRequestLink.Namespace = core.StringPtr("default")
+			createProfileLinkRequestLink.Name = core.StringPtr("nice name")
+
+			createLinkOptions := &iamidentityv1.CreateLinkOptions{
+				ProfileID: &profileId2,
+				Name:      core.StringPtr("niceLink"),
+				CrType:    core.StringPtr("ROKS_SA"),
+				Link:      createProfileLinkRequestLink,
+			}
+
+			link, response, err := iamIdentityService.CreateLink(createLinkOptions)
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(201))
+			Expect(link).ToNot(BeNil())
+			fmt.Fprintf(GinkgoWriter, "CreateClaimRule #1 response:\n%s\n", common.ToJSON(link))
+
+			linkId = *link.ID
+			Expect(linkId).ToNot(BeNil())
+		})
+	})
+
+	Describe(`GetLink - Get link`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`GetLink(getLinkOptions *GetLinkOptions)`, func() {
+
+			getLinkOptions := &iamidentityv1.GetLinkOptions{
+				ProfileID: &profileId2,
+				LinkID:    &linkId,
+			}
+
+			link, response, err := iamIdentityService.GetLink(getLinkOptions)
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(link).ToNot(BeNil())
+			fmt.Fprintf(GinkgoWriter, "GetLink #1 response:\n%s\n", common.ToJSON(link))
+
+			Expect(link.ID).To(Equal(&linkId))
+			Expect(link.Link).ToNot(BeNil())
+		})
+	})
+
+	Describe(`ListLink - List link`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`ListLink(listLinkOptions *ListLinkOptions)`, func() {
+
+			links := []iamidentityv1.ProfileLink{}
+
+			listLinkOptions := &iamidentityv1.ListLinkOptions{
+				ProfileID: &profileId2,
+			}
+
+			linkList, response, err := iamIdentityService.ListLink(listLinkOptions)
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(linkList).ToNot(BeNil())
+			fmt.Fprintf(GinkgoWriter, "ListLink response:\n%s\n", common.ToJSON(linkList))
+
+			for _, link := range linkList.Links {
+				if linkId == *link.ID {
+					links = append(links, link)
+				}
+			}
+			Expect(len(links)).To(Equal(1))
+		})
+	})
+
+	Describe(`DeleteLink - Delete link`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`DeleteLink(deleteLinkOptions *DeleteLinkOptions)`, func() {
+
+			deleteLinkOptions := &iamidentityv1.DeleteLinkOptions{
+				ProfileID: &profileId2,
+				LinkID:    &linkId,
+			}
+
+			response, err := iamIdentityService.DeleteLink(deleteLinkOptions)
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(204))
+
+			link := getLink(iamIdentityService, profileId2, linkId)
+			Expect(link).To(BeNil())
+		})
+	})
+
+	Describe(`DeleteProfile2 - Delete trusted profile #2`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`DeleteProfile(deleteProfileOptions *DeleteProfileOptions)`, func() {
+
+			deleteProfileOptions := &iamidentityv1.DeleteProfileOptions{
+				ProfileID: &profileId2,
+			}
+
+			response, err := iamIdentityService.DeleteProfile(deleteProfileOptions)
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(204))
+
+			profile := getProfile(iamIdentityService, profileId2)
+			Expect(profile).To(BeNil())
+		})
+	})
+
+	Describe(`CreateProfileBadRequest`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`CreateProfileBadRequest(createProfileOptions *CreateProfileOptions)`, func() {
+
+			createProfileOptions := &iamidentityv1.CreateProfileOptions{
+				Name:        &profileName1,
+				Description: core.StringPtr("GoSDK test profile #1"),
+				AccountID:   core.StringPtr("InvalidID"),
+			}
+
+			trustedProfile, response, err := iamIdentityService.CreateProfile(createProfileOptions)
+
+			Expect(err).ToNot(BeNil())
+			Expect(trustedProfile).To(BeNil())
+			Expect(response.StatusCode).To(Equal(400))
+
+		})
+	})
+
+	Describe(`GetProfileNotFound`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`GetProfileNotFound(getProfileOptions *GetProfileOptions)`, func() {
+
+			getProfileOptions := &iamidentityv1.GetProfileOptions{
+				ProfileID: core.StringPtr("InvalidID"),
+			}
+
+			trustedProfile, response, err := iamIdentityService.GetProfile(getProfileOptions)
+
+			Expect(trustedProfile).To(BeNil())
+			Expect(response.StatusCode).To(Equal(404))
+			Expect(err).ToNot(BeNil())
+		})
+	})
+
+	Describe(`UpdateProfileNotFound`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`UpdateProfileNotFound(updateProfileOptions *UpdateProfileOptions)`, func() {
+
+			updateProfileOptions := &iamidentityv1.UpdateProfileOptions{
+				ProfileID:   core.StringPtr("InvalidID"),
+				IfMatch:     core.StringPtr("dummy"),
+				Description: core.StringPtr("dummy"),
+			}
+
+			trustedProfile, response, err := iamIdentityService.UpdateProfile(updateProfileOptions)
+
+			Expect(trustedProfile).To(BeNil())
+			Expect(response.StatusCode).To(Equal(404))
+			Expect(err).ToNot(BeNil())
+		})
+	})
+
+	Describe(`DeleteProfileNotFound`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`DeleteProfileNotFound(deleteProfileOptions *DeleteProfileOptions)`, func() {
+
+			deleteProfileOptions := &iamidentityv1.DeleteProfileOptions{
+				ProfileID: core.StringPtr("InvalidID"),
+			}
+
+			response, err := iamIdentityService.DeleteProfile(deleteProfileOptions)
+
+			Expect(err).ToNot(BeNil())
+			Expect(response.StatusCode).To(Equal(404))
+		})
+	})
+
+	Describe(`CreateClaimRuleNotFound`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`CreateClaimRuleNotFound(createClaimRuleOptions *CreateClaimRuleOptions)`, func() {
+
+			profileClaimRuleConditions := new(iamidentityv1.ProfileClaimRuleConditions)
+			profileClaimRuleConditions.Claim = core.StringPtr("dummy")
+			profileClaimRuleConditions.Operator = core.StringPtr("EQUALS")
+			profileClaimRuleConditions.Value = core.StringPtr("\"dummy\"")
+
+			createClaimRuleOptions := &iamidentityv1.CreateClaimRuleOptions{
+				ProfileID:  core.StringPtr("InvalidID"),
+				Type:       &claimRuleType,
+				RealmName:  &realmName,
+				Expiration: core.Int64Ptr(int64(43200)),
+				Conditions: []iamidentityv1.ProfileClaimRuleConditions{*profileClaimRuleConditions},
+			}
+
+			claimRule, response, err := iamIdentityService.CreateClaimRule(createClaimRuleOptions)
+
+			Expect(claimRule).To(BeNil())
+			Expect(response.StatusCode).To(Equal(404))
+			Expect(err).ToNot(BeNil())
+		})
+	})
+
+	Describe(`GetClaimRuleNotFound`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`GetClaimRuleNotFound(getClaimRuleOptions *GetClaimRuleOptions)`, func() {
+
+			getClaimRuleOptions := &iamidentityv1.GetClaimRuleOptions{
+				ProfileID: core.StringPtr("InvalidID"),
+				RuleID:    core.StringPtr("InvalidID"),
+			}
+
+			claimRule, response, err := iamIdentityService.GetClaimRule(getClaimRuleOptions)
+
+			Expect(claimRule).To(BeNil())
+			Expect(response.StatusCode).To(Equal(404))
+			Expect(err).ToNot(BeNil())
+		})
+	})
+
+	Describe(`UpdateClaimRuleBadRequest`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`UpdateClaimRuleBadRequest(updateClaimRuleOptions *UpdateClaimRuleOptions)`, func() {
+
+			profileClaimRuleConditions := new(iamidentityv1.ProfileClaimRuleConditions)
+			profileClaimRuleConditions.Claim = core.StringPtr("blueGroups")
+			profileClaimRuleConditions.Operator = core.StringPtr("EQUALS")
+			profileClaimRuleConditions.Value = core.StringPtr("\"Europe_Group\"")
+
+			updateClaimRuleOptions := &iamidentityv1.UpdateClaimRuleOptions{
+				ProfileID:  core.StringPtr("InvalidID"),
+				RuleID:     core.StringPtr("InvalidID"),
+				IfMatch:    core.StringPtr("dummy"),
+				Expiration: core.Int64Ptr(int64(33200)),
+				Type:       core.StringPtr(""),
+				RealmName:  core.StringPtr(""),
+				Conditions: []iamidentityv1.ProfileClaimRuleConditions{*profileClaimRuleConditions},
+			}
+
+			claimRule, response, err := iamIdentityService.UpdateClaimRule(updateClaimRuleOptions)
+
+			Expect(claimRule).To(BeNil())
+			Expect(response.StatusCode).To(Equal(400))
+			Expect(err).ToNot(BeNil())
+		})
+	})
+
+	Describe(`DeleteClaimRuleNotFound`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`DeleteClaimRuleNotFound(deleteClaimRuleOptions *DeleteClaimRuleOptions)`, func() {
+
+			deleteClaimRuleOptions := &iamidentityv1.DeleteClaimRuleOptions{
+				ProfileID: core.StringPtr("InvalidID"),
+				RuleID:    core.StringPtr("InvalidID"),
+			}
+
+			response, err := iamIdentityService.DeleteClaimRule(deleteClaimRuleOptions)
+
+			Expect(err).ToNot(BeNil())
+			Expect(response.StatusCode).To(Equal(404))
+		})
+	})
+
+	Describe(`CreateLinkBadRequest`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`CreateLinkBadRequest(createLinkOptions *CreateLinkOptions)`, func() {
+
+			createProfileLinkRequestLink := new(iamidentityv1.CreateProfileLinkRequestLink)
+			createProfileLinkRequestLink.CRN = core.StringPtr("crn:v1:staging:public:iam-identity::a/18e3020749ce4744b0b472466d61fdb4::computeresource:Fake-Compute-Resource")
+			createProfileLinkRequestLink.Namespace = core.StringPtr("default")
+			createProfileLinkRequestLink.Name = core.StringPtr("nice name")
+
+			createLinkOptions := &iamidentityv1.CreateLinkOptions{
+				ProfileID: core.StringPtr("invalidId"),
+				Name:      core.StringPtr("dummy"),
+				CrType:    core.StringPtr("dummy"),
+				Link:      createProfileLinkRequestLink,
+			}
+
+			link, response, err := iamIdentityService.CreateLink(createLinkOptions)
+
+			Expect(link).To(BeNil())
+			Expect(response.StatusCode).To(Equal(400))
+			Expect(err).ToNot(BeNil())
+		})
+	})
+
+	Describe(`GetLinkBadRequest`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`GetLinkBadRequest(getLinkOptions *GetLinkOptions)`, func() {
+
+			getLinkOptions := &iamidentityv1.GetLinkOptions{
+				ProfileID: core.StringPtr("invalidId"),
+				LinkID:    core.StringPtr("invalidId"),
+			}
+
+			link, response, err := iamIdentityService.GetLink(getLinkOptions)
+
+			Expect(link).To(BeNil())
+			Expect(response.StatusCode).To(Equal(404))
+			Expect(err).ToNot(BeNil())
+		})
+	})
+
+	Describe(`DeleteLinkNotFound`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`DeleteLinkNotFound(deleteLinkOptions *DeleteLinkOptions)`, func() {
+
+			deleteLinkOptions := &iamidentityv1.DeleteLinkOptions{
+				ProfileID: core.StringPtr("invalidId"),
+				LinkID:    core.StringPtr("invalidId"),
+			}
+
+			response, err := iamIdentityService.DeleteLink(deleteLinkOptions)
+
+			Expect(err).ToNot(BeNil())
+			Expect(response.StatusCode).To(Equal(404))
+		})
+	})
+
 	Describe(`GetAccountSettings - Get account configurations`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
@@ -648,6 +1363,32 @@ func getServiceID(iamIdentityService *iamidentityv1.IamIdentityV1, serviceID str
 	return result
 }
 
+func getProfile(service *iamidentityv1.IamIdentityV1, profileID string) *iamidentityv1.TrustedProfile {
+	getProfileOptions := &iamidentityv1.GetProfileOptions{
+		ProfileID: &profileID,
+	}
+	profile, _, _ := service.GetProfile(getProfileOptions)
+	return profile
+}
+
+func getClaimRule(service *iamidentityv1.IamIdentityV1, profileID string, claimRuleID string) *iamidentityv1.ProfileClaimRule {
+	getClaimRuleOptions := &iamidentityv1.GetClaimRuleOptions{
+		ProfileID: &profileID,
+		RuleID:    &claimRuleID,
+	}
+	claimRule, _, _ := service.GetClaimRule(getClaimRuleOptions)
+	return claimRule
+}
+
+func getLink(service *iamidentityv1.IamIdentityV1, profileID string, linkID string) *iamidentityv1.ProfileLink {
+	getLinkOptions := &iamidentityv1.GetLinkOptions{
+		ProfileID: &profileID,
+		LinkID:    &linkID,
+	}
+	link, _, _ := service.GetLink(getLinkOptions)
+	return link
+}
+
 func getPageTokenFromURL(sptr *string) *string {
 	if sptr == nil {
 		return nil
@@ -733,4 +1474,30 @@ func cleanupResources(service *iamidentityv1.IamIdentityV1) {
 			Expect(err).To(BeNil())
 		}
 	}
+
+	listProfileOptions := &iamidentityv1.ListProfileOptions{
+		AccountID: &accountID,
+	}
+
+	profileList, response, err := service.ListProfile(listProfileOptions)
+	Expect(err).To(BeNil())
+	Expect(response.StatusCode).To(Equal(200))
+
+	numProfiles := len(profileList.Profiles)
+	fmt.Fprintf(GinkgoWriter, ">>> Cleanup found %d apikeys.\n", numProfiles)
+
+	if numProfiles > 0 {
+		for _, element := range profileList.Profiles {
+			if *element.Name == profileName1 || *element.Name == profileName2 {
+				fmt.Fprintf(GinkgoWriter, ">>> Deleting profile: %s\n", *element.ID)
+				deleteProfileOptions := &iamidentityv1.DeleteProfileOptions{
+					ProfileID: element.ID,
+				}
+				response, err := service.DeleteProfile(deleteProfileOptions)
+				Expect(response).ToNot(BeNil())
+				Expect(err).To(BeNil())
+			}
+		}
+	}
+
 }
