@@ -220,6 +220,7 @@ var _ = Describe(`IamIdentityV1 Examples Tests`, func() {
 			// begin-get_api_key
 
 			getAPIKeyOptions := iamIdentityService.NewGetAPIKeyOptions(apikeyID)
+            getAPIKeyOptions.SetIncludeHistory(false)
 
 			apiKey, response, err := iamIdentityService.GetAPIKey(getAPIKeyOptions)
 			if err != nil {
@@ -479,27 +480,25 @@ var _ = Describe(`IamIdentityV1 Examples Tests`, func() {
 			Expect(profile).ToNot(BeNil())
 			Expect(profileEtag).ToNot(BeEmpty())
 		})
-		It(`ListProfile request example`, func() {
-			fmt.Println("\nListProfile() result:")
+		It(`ListProfiles request example`, func() {
+			fmt.Println("\nListProfiles() result:")
 			// begin-list_profile
 
-			listAPIKeysOptions := iamIdentityService.NewListAPIKeysOptions()
-			listAPIKeysOptions.SetAccountID(accountID)
-			listAPIKeysOptions.SetIamID(iamID)
-			listAPIKeysOptions.SetIncludeHistory(true)
+			listProfileOptions := iamIdentityService.ListProfileOptions()
+			listProfileOptions.SetAccountID(accountID),
 
-			apiKeyList, response, err := iamIdentityService.ListAPIKeys(listAPIKeysOptions)
+			trustedProfiles, response, err := iamIdentityService.ListProfile(listProfileOptions)
 			if err != nil {
 				panic(err)
 			}
-			b, _ := json.MarshalIndent(apiKeyList, "", "  ")
+			b, _ := json.MarshalIndent(trustedProfiles, "", "  ")
 			fmt.Println(string(b))
 
 			// end-list_profile
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
-			Expect(apiKeyList).ToNot(BeNil())
+			Expect(trustedProfiles).ToNot(BeNil())
 		})
 		It(`UpdateProfile request example`, func() {
 			fmt.Println("\nUpdateProfile() result:")
@@ -569,8 +568,8 @@ var _ = Describe(`IamIdentityV1 Examples Tests`, func() {
 			Expect(claimRule).ToNot(BeNil())
 			Expect(claimRuleEtag).ToNot(BeEmpty())
 		})
-		It(`ListClaimRule request example`, func() {
-			fmt.Println("\nListClaimRule() result:")
+		It(`ListClaimRules request example`, func() {
+			fmt.Println("\nListClaimRules() result:")
 			// begin-list_claimrule
 
 			listClaimRulesOptions := iamIdentityService.NewListClaimRulesOptions()
@@ -673,8 +672,8 @@ var _ = Describe(`IamIdentityV1 Examples Tests`, func() {
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(profile).ToNot(BeNil())
 		})
-		It(`ListLink request example`, func() {
-			fmt.Println("\nListLink() result:")
+		It(`ListLinks request example`, func() {
+			fmt.Println("\nListLinks() result:")
 			// begin-list_link
 
 			listLinkOptions := iamIdentityService.NewListLinkOptions(profileId)
@@ -702,7 +701,7 @@ var _ = Describe(`IamIdentityV1 Examples Tests`, func() {
 				panic(err)
 			}
 
-			// end-delete_profile
+			// end-delete_link
 			fmt.Printf("\nDeleteLink() response status code: %d\n", response.StatusCode)
 
 			Expect(err).To(BeNil())

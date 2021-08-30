@@ -651,11 +651,11 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 		})
 	})
 
-	Describe(`ListProfile - List trusted profile`, func() {
+	Describe(`ListProfiles - List trusted profile`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
 		})
-		It(`ListProfile(listProfileOptions *ListProfileOptions)`, func() {
+		It(`ListProfiles(listProfileOptions *ListProfileOptions)`, func() {
 
 			profiles := []iamidentityv1.TrustedProfile{}
 
@@ -674,7 +674,7 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 				Expect(err).To(BeNil())
 				Expect(response.StatusCode).To(Equal(200))
 				Expect(trustedProfiles).ToNot(BeNil())
-				fmt.Fprintf(GinkgoWriter, "ListProfile #1 response:\n%s\n", common.ToJSON(trustedProfiles))
+				fmt.Fprintf(GinkgoWriter, "ListProfiles #1 response:\n%s\n", common.ToJSON(trustedProfiles))
 
 				for _, trustedProfile := range trustedProfiles.Profiles {
 					if profileName1 == *trustedProfile.Name || profileName2 == *trustedProfile.Name {
@@ -819,11 +819,11 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 		})
 	})
 
-	Describe(`ListClaimRule - List claim rule`, func() {
+	Describe(`ListClaimRules - List claim rule`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
 		})
-		It(`ListClaimRule(listClaimRulesOptions *ListClaimRulesOptions)`, func() {
+		It(`ListClaimRules(listClaimRulesOptions *ListClaimRulesOptions)`, func() {
 
 			claimRules := []iamidentityv1.ProfileClaimRule{}
 
@@ -835,7 +835,7 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(claimRulesList).ToNot(BeNil())
-			fmt.Fprintf(GinkgoWriter, "ListClaimRule #1 response:\n%s\n", common.ToJSON(claimRulesList))
+			fmt.Fprintf(GinkgoWriter, "ListClaimRules #1 response:\n%s\n", common.ToJSON(claimRulesList))
 
 			for _, claimRule := range claimRulesList.Rules {
 				if claimRuleId1 == *claimRule.ID || claimRuleId2 == *claimRule.ID {
@@ -973,11 +973,11 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 		})
 	})
 
-	Describe(`ListLink - List link`, func() {
+	Describe(`ListLinks - List link`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
 		})
-		It(`ListLink(listLinkOptions *ListLinkOptions)`, func() {
+		It(`ListLinks(listLinkOptions *ListLinkOptions)`, func() {
 
 			links := []iamidentityv1.ProfileLink{}
 
