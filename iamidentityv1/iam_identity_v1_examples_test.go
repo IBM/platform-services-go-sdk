@@ -220,7 +220,8 @@ var _ = Describe(`IamIdentityV1 Examples Tests`, func() {
 			// begin-get_api_key
 
 			getAPIKeyOptions := iamIdentityService.NewGetAPIKeyOptions(apikeyID)
-            getAPIKeyOptions.SetIncludeHistory(false)
+            
+			getAPIKeyOptions.SetIncludeHistory(false)
 
 			apiKey, response, err := iamIdentityService.GetAPIKey(getAPIKeyOptions)
 			if err != nil {
