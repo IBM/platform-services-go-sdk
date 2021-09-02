@@ -1,3 +1,10 @@
+# [0.20.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.19.4...v0.20.0) (2021-09-02)
+
+
+### Features
+
+* **iam-identity:** adding trusted profiles ([#149](https://github.com/IBM/platform-services-go-sdk/issues/149)) ([e67f872](https://github.com/IBM/platform-services-go-sdk/commit/e67f872a4fa0da9c860b99f826707ea802cb673c))
+
 ## [0.19.4](https://github.com/IBM/platform-services-go-sdk/compare/v0.19.3...v0.19.4) (2021-08-18)
 
 
