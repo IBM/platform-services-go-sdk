@@ -572,7 +572,7 @@ var _ = Describe(`IamIdentityV1 Examples Tests`, func() {
 		})
 		It(`ListClaimRules request example`, func() {
 			fmt.Println("\nListClaimRules() result:")
-			// begin-list_claimRule
+			// begin-list_claimRules
 
 			listClaimRulesOptions := iamIdentityService.NewListClaimRulesOptions()
 			listClaimRulesOptions.SetProfileID(profileId)
@@ -584,7 +584,7 @@ var _ = Describe(`IamIdentityV1 Examples Tests`, func() {
 			b, _ := json.MarshalIndent(claimRulesList, "", "  ")
 			fmt.Println(string(b))
 
-			// end-list_claimRule
+			// end-list_claimRules
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
