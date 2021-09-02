@@ -15,7 +15,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 3.33.0-caf29bd0-20210603-225214
+ * IBM OpenAPI SDK Code Generator Version: 3.37.0-a85661cd-20210802-190136
  */
 
 // Package iamidentityv1 : Operations and models for the IamIdentityV1 service
@@ -686,7 +686,8 @@ func (iamIdentity *IamIdentityV1) UnlockAPIKeyWithContext(ctx context.Context, u
 
 // ListServiceIds : List service IDs
 // Returns a list of service IDs. Users can manage user API keys for themself, or service ID API keys for service IDs
-// that are bound to an entity they have access to.
+// that are bound to an entity they have access to. Note: apikey details are only included in the response when
+// creating a Service ID with an api key.
 func (iamIdentity *IamIdentityV1) ListServiceIds(listServiceIdsOptions *ListServiceIdsOptions) (result *ServiceIDList, response *core.DetailedResponse, err error) {
 	return iamIdentity.ListServiceIdsWithContext(context.Background(), listServiceIdsOptions)
 }
@@ -843,7 +844,8 @@ func (iamIdentity *IamIdentityV1) CreateServiceIDWithContext(ctx context.Context
 
 // GetServiceID : Get details of a service ID
 // Returns the details of a service ID. Users can manage user API keys for themself, or service ID API keys for service
-// IDs that are bound to an entity they have access to.
+// IDs that are bound to an entity they have access to. Note: apikey details are only included in the response when
+// creating a Service ID with an api key.
 func (iamIdentity *IamIdentityV1) GetServiceID(getServiceIDOptions *GetServiceIDOptions) (result *ServiceID, response *core.DetailedResponse, err error) {
 	return iamIdentity.GetServiceIDWithContext(context.Background(), getServiceIDOptions)
 }
@@ -910,7 +912,8 @@ func (iamIdentity *IamIdentityV1) GetServiceIDWithContext(ctx context.Context, g
 // Updates properties of a service ID. This does NOT affect existing access tokens. Their token content will stay
 // unchanged until the access token is refreshed. To update a service ID, pass the property to be modified. To delete
 // one property's value, pass the property with an empty value "".Users can manage user API keys for themself, or
-// service ID API keys for service IDs that are bound to an entity they have access to.
+// service ID API keys for service IDs that are bound to an entity they have access to.   Note: apikey details are only
+// included in the response when creating a  Service ID with an apikey.
 func (iamIdentity *IamIdentityV1) UpdateServiceID(updateServiceIDOptions *UpdateServiceIDOptions) (result *ServiceID, response *core.DetailedResponse, err error) {
 	return iamIdentity.UpdateServiceIDWithContext(context.Background(), updateServiceIDOptions)
 }
@@ -1125,6 +1128,934 @@ func (iamIdentity *IamIdentityV1) UnlockServiceIDWithContext(ctx context.Context
 	}
 
 	sdkHeaders := common.GetSdkHeaders("iam_identity", "V1", "UnlockServiceID")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	request, err := builder.Build()
+	if err != nil {
+		return
+	}
+
+	response, err = iamIdentity.Service.Request(request, nil)
+
+	return
+}
+
+// CreateProfile : Create a trusted profile
+// Creates a trusted profile for a given account ID.
+func (iamIdentity *IamIdentityV1) CreateProfile(createProfileOptions *CreateProfileOptions) (result *TrustedProfile, response *core.DetailedResponse, err error) {
+	return iamIdentity.CreateProfileWithContext(context.Background(), createProfileOptions)
+}
+
+// CreateProfileWithContext is an alternate form of the CreateProfile method which supports a Context parameter
+func (iamIdentity *IamIdentityV1) CreateProfileWithContext(ctx context.Context, createProfileOptions *CreateProfileOptions) (result *TrustedProfile, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(createProfileOptions, "createProfileOptions cannot be nil")
+	if err != nil {
+		return
+	}
+	err = core.ValidateStruct(createProfileOptions, "createProfileOptions")
+	if err != nil {
+		return
+	}
+
+	builder := core.NewRequestBuilder(core.POST)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = iamIdentity.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(iamIdentity.Service.Options.URL, `/v1/profiles`, nil)
+	if err != nil {
+		return
+	}
+
+	for headerName, headerValue := range createProfileOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("iam_identity", "V1", "CreateProfile")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Accept", "application/json")
+	builder.AddHeader("Content-Type", "application/json")
+
+	body := make(map[string]interface{})
+	if createProfileOptions.Name != nil {
+		body["name"] = createProfileOptions.Name
+	}
+	if createProfileOptions.AccountID != nil {
+		body["account_id"] = createProfileOptions.AccountID
+	}
+	if createProfileOptions.Description != nil {
+		body["description"] = createProfileOptions.Description
+	}
+	_, err = builder.SetBodyContentJSON(body)
+	if err != nil {
+		return
+	}
+
+	request, err := builder.Build()
+	if err != nil {
+		return
+	}
+
+	var rawResponse map[string]json.RawMessage
+	response, err = iamIdentity.Service.Request(request, &rawResponse)
+	if err != nil {
+		return
+	}
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalTrustedProfile)
+		if err != nil {
+			return
+		}
+		response.Result = result
+	}
+
+	return
+}
+
+// ListProfile : Get list of trusted profiles for a given account ID
+// Returns the list of trusted profiles for a given account ID.
+func (iamIdentity *IamIdentityV1) ListProfile(listProfileOptions *ListProfileOptions) (result *TrustedProfilesList, response *core.DetailedResponse, err error) {
+	return iamIdentity.ListProfileWithContext(context.Background(), listProfileOptions)
+}
+
+// ListProfileWithContext is an alternate form of the ListProfile method which supports a Context parameter
+func (iamIdentity *IamIdentityV1) ListProfileWithContext(ctx context.Context, listProfileOptions *ListProfileOptions) (result *TrustedProfilesList, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(listProfileOptions, "listProfileOptions cannot be nil")
+	if err != nil {
+		return
+	}
+	err = core.ValidateStruct(listProfileOptions, "listProfileOptions")
+	if err != nil {
+		return
+	}
+
+	builder := core.NewRequestBuilder(core.GET)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = iamIdentity.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(iamIdentity.Service.Options.URL, `/v1/profiles`, nil)
+	if err != nil {
+		return
+	}
+
+	for headerName, headerValue := range listProfileOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("iam_identity", "V1", "ListProfile")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Accept", "application/json")
+
+	builder.AddQuery("account_id", fmt.Sprint(*listProfileOptions.AccountID))
+	if listProfileOptions.Name != nil {
+		builder.AddQuery("name", fmt.Sprint(*listProfileOptions.Name))
+	}
+	if listProfileOptions.Pagesize != nil {
+		builder.AddQuery("pagesize", fmt.Sprint(*listProfileOptions.Pagesize))
+	}
+	if listProfileOptions.Sort != nil {
+		builder.AddQuery("sort", fmt.Sprint(*listProfileOptions.Sort))
+	}
+	if listProfileOptions.Order != nil {
+		builder.AddQuery("order", fmt.Sprint(*listProfileOptions.Order))
+	}
+	if listProfileOptions.IncludeHistory != nil {
+		builder.AddQuery("include_history", fmt.Sprint(*listProfileOptions.IncludeHistory))
+	}
+	if listProfileOptions.Pagetoken != nil {
+		builder.AddQuery("pagetoken", fmt.Sprint(*listProfileOptions.Pagetoken))
+	}
+
+	request, err := builder.Build()
+	if err != nil {
+		return
+	}
+
+	var rawResponse map[string]json.RawMessage
+	response, err = iamIdentity.Service.Request(request, &rawResponse)
+	if err != nil {
+		return
+	}
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalTrustedProfilesList)
+		if err != nil {
+			return
+		}
+		response.Result = result
+	}
+
+	return
+}
+
+// GetProfile : Get a trusted profile
+// Get a trusted profile.
+func (iamIdentity *IamIdentityV1) GetProfile(getProfileOptions *GetProfileOptions) (result *TrustedProfile, response *core.DetailedResponse, err error) {
+	return iamIdentity.GetProfileWithContext(context.Background(), getProfileOptions)
+}
+
+// GetProfileWithContext is an alternate form of the GetProfile method which supports a Context parameter
+func (iamIdentity *IamIdentityV1) GetProfileWithContext(ctx context.Context, getProfileOptions *GetProfileOptions) (result *TrustedProfile, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(getProfileOptions, "getProfileOptions cannot be nil")
+	if err != nil {
+		return
+	}
+	err = core.ValidateStruct(getProfileOptions, "getProfileOptions")
+	if err != nil {
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"profile-id": *getProfileOptions.ProfileID,
+	}
+
+	builder := core.NewRequestBuilder(core.GET)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = iamIdentity.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(iamIdentity.Service.Options.URL, `/v1/profiles/{profile-id}`, pathParamsMap)
+	if err != nil {
+		return
+	}
+
+	for headerName, headerValue := range getProfileOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("iam_identity", "V1", "GetProfile")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Accept", "application/json")
+
+	request, err := builder.Build()
+	if err != nil {
+		return
+	}
+
+	var rawResponse map[string]json.RawMessage
+	response, err = iamIdentity.Service.Request(request, &rawResponse)
+	if err != nil {
+		return
+	}
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalTrustedProfile)
+		if err != nil {
+			return
+		}
+		response.Result = result
+	}
+
+	return
+}
+
+// UpdateProfile : Update a trusted profile
+// Updates a trusted profile.
+func (iamIdentity *IamIdentityV1) UpdateProfile(updateProfileOptions *UpdateProfileOptions) (result *TrustedProfile, response *core.DetailedResponse, err error) {
+	return iamIdentity.UpdateProfileWithContext(context.Background(), updateProfileOptions)
+}
+
+// UpdateProfileWithContext is an alternate form of the UpdateProfile method which supports a Context parameter
+func (iamIdentity *IamIdentityV1) UpdateProfileWithContext(ctx context.Context, updateProfileOptions *UpdateProfileOptions) (result *TrustedProfile, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(updateProfileOptions, "updateProfileOptions cannot be nil")
+	if err != nil {
+		return
+	}
+	err = core.ValidateStruct(updateProfileOptions, "updateProfileOptions")
+	if err != nil {
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"profile-id": *updateProfileOptions.ProfileID,
+	}
+
+	builder := core.NewRequestBuilder(core.PUT)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = iamIdentity.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(iamIdentity.Service.Options.URL, `/v1/profiles/{profile-id}`, pathParamsMap)
+	if err != nil {
+		return
+	}
+
+	for headerName, headerValue := range updateProfileOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("iam_identity", "V1", "UpdateProfile")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Accept", "application/json")
+	builder.AddHeader("Content-Type", "application/json")
+	if updateProfileOptions.IfMatch != nil {
+		builder.AddHeader("If-Match", fmt.Sprint(*updateProfileOptions.IfMatch))
+	}
+
+	body := make(map[string]interface{})
+	if updateProfileOptions.Name != nil {
+		body["name"] = updateProfileOptions.Name
+	}
+	if updateProfileOptions.Description != nil {
+		body["description"] = updateProfileOptions.Description
+	}
+	_, err = builder.SetBodyContentJSON(body)
+	if err != nil {
+		return
+	}
+
+	request, err := builder.Build()
+	if err != nil {
+		return
+	}
+
+	var rawResponse map[string]json.RawMessage
+	response, err = iamIdentity.Service.Request(request, &rawResponse)
+	if err != nil {
+		return
+	}
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalTrustedProfile)
+		if err != nil {
+			return
+		}
+		response.Result = result
+	}
+
+	return
+}
+
+// DeleteProfile : Delete a trusted profile
+// Deletes a trusted profile.
+func (iamIdentity *IamIdentityV1) DeleteProfile(deleteProfileOptions *DeleteProfileOptions) (response *core.DetailedResponse, err error) {
+	return iamIdentity.DeleteProfileWithContext(context.Background(), deleteProfileOptions)
+}
+
+// DeleteProfileWithContext is an alternate form of the DeleteProfile method which supports a Context parameter
+func (iamIdentity *IamIdentityV1) DeleteProfileWithContext(ctx context.Context, deleteProfileOptions *DeleteProfileOptions) (response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(deleteProfileOptions, "deleteProfileOptions cannot be nil")
+	if err != nil {
+		return
+	}
+	err = core.ValidateStruct(deleteProfileOptions, "deleteProfileOptions")
+	if err != nil {
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"profile-id": *deleteProfileOptions.ProfileID,
+	}
+
+	builder := core.NewRequestBuilder(core.DELETE)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = iamIdentity.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(iamIdentity.Service.Options.URL, `/v1/profiles/{profile-id}`, pathParamsMap)
+	if err != nil {
+		return
+	}
+
+	for headerName, headerValue := range deleteProfileOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("iam_identity", "V1", "DeleteProfile")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	request, err := builder.Build()
+	if err != nil {
+		return
+	}
+
+	response, err = iamIdentity.Service.Request(request, nil)
+
+	return
+}
+
+// CreateClaimRule : Create claim rule for a trusted profile
+// Claim rule can be created for a given trusted profile, There is a limit of 20 rules allowed per trusted profile.
+func (iamIdentity *IamIdentityV1) CreateClaimRule(createClaimRuleOptions *CreateClaimRuleOptions) (result *ProfileClaimRule, response *core.DetailedResponse, err error) {
+	return iamIdentity.CreateClaimRuleWithContext(context.Background(), createClaimRuleOptions)
+}
+
+// CreateClaimRuleWithContext is an alternate form of the CreateClaimRule method which supports a Context parameter
+func (iamIdentity *IamIdentityV1) CreateClaimRuleWithContext(ctx context.Context, createClaimRuleOptions *CreateClaimRuleOptions) (result *ProfileClaimRule, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(createClaimRuleOptions, "createClaimRuleOptions cannot be nil")
+	if err != nil {
+		return
+	}
+	err = core.ValidateStruct(createClaimRuleOptions, "createClaimRuleOptions")
+	if err != nil {
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"profile-id": *createClaimRuleOptions.ProfileID,
+	}
+
+	builder := core.NewRequestBuilder(core.POST)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = iamIdentity.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(iamIdentity.Service.Options.URL, `/v1/profiles/{profile-id}/rules`, pathParamsMap)
+	if err != nil {
+		return
+	}
+
+	for headerName, headerValue := range createClaimRuleOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("iam_identity", "V1", "CreateClaimRule")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Accept", "application/json")
+	builder.AddHeader("Content-Type", "application/json")
+
+	body := make(map[string]interface{})
+	if createClaimRuleOptions.Type != nil {
+		body["type"] = createClaimRuleOptions.Type
+	}
+	if createClaimRuleOptions.Conditions != nil {
+		body["conditions"] = createClaimRuleOptions.Conditions
+	}
+	if createClaimRuleOptions.Context != nil {
+		body["context"] = createClaimRuleOptions.Context
+	}
+	if createClaimRuleOptions.Name != nil {
+		body["name"] = createClaimRuleOptions.Name
+	}
+	if createClaimRuleOptions.RealmName != nil {
+		body["realm_name"] = createClaimRuleOptions.RealmName
+	}
+	if createClaimRuleOptions.CrType != nil {
+		body["cr_type"] = createClaimRuleOptions.CrType
+	}
+	if createClaimRuleOptions.Expiration != nil {
+		body["expiration"] = createClaimRuleOptions.Expiration
+	}
+	_, err = builder.SetBodyContentJSON(body)
+	if err != nil {
+		return
+	}
+
+	request, err := builder.Build()
+	if err != nil {
+		return
+	}
+
+	var rawResponse map[string]json.RawMessage
+	response, err = iamIdentity.Service.Request(request, &rawResponse)
+	if err != nil {
+		return
+	}
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalProfileClaimRule)
+		if err != nil {
+			return
+		}
+		response.Result = result
+	}
+
+	return
+}
+
+// ListClaimRules : Get all claim rules for a given trusted profile
+// Returns list of claim rules for a trusted profile.
+func (iamIdentity *IamIdentityV1) ListClaimRules(listClaimRulesOptions *ListClaimRulesOptions) (result *ProfileClaimRuleList, response *core.DetailedResponse, err error) {
+	return iamIdentity.ListClaimRulesWithContext(context.Background(), listClaimRulesOptions)
+}
+
+// ListClaimRulesWithContext is an alternate form of the ListClaimRules method which supports a Context parameter
+func (iamIdentity *IamIdentityV1) ListClaimRulesWithContext(ctx context.Context, listClaimRulesOptions *ListClaimRulesOptions) (result *ProfileClaimRuleList, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(listClaimRulesOptions, "listClaimRulesOptions cannot be nil")
+	if err != nil {
+		return
+	}
+	err = core.ValidateStruct(listClaimRulesOptions, "listClaimRulesOptions")
+	if err != nil {
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"profile-id": *listClaimRulesOptions.ProfileID,
+	}
+
+	builder := core.NewRequestBuilder(core.GET)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = iamIdentity.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(iamIdentity.Service.Options.URL, `/v1/profiles/{profile-id}/rules`, pathParamsMap)
+	if err != nil {
+		return
+	}
+
+	for headerName, headerValue := range listClaimRulesOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("iam_identity", "V1", "ListClaimRules")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Accept", "application/json")
+
+	request, err := builder.Build()
+	if err != nil {
+		return
+	}
+
+	var rawResponse map[string]json.RawMessage
+	response, err = iamIdentity.Service.Request(request, &rawResponse)
+	if err != nil {
+		return
+	}
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalProfileClaimRuleList)
+		if err != nil {
+			return
+		}
+		response.Result = result
+	}
+
+	return
+}
+
+// GetClaimRule : Get claim rule for a trusted profile
+// Claim rule can be fetched for a given trusted profile ID and rule ID.
+func (iamIdentity *IamIdentityV1) GetClaimRule(getClaimRuleOptions *GetClaimRuleOptions) (result *ProfileClaimRule, response *core.DetailedResponse, err error) {
+	return iamIdentity.GetClaimRuleWithContext(context.Background(), getClaimRuleOptions)
+}
+
+// GetClaimRuleWithContext is an alternate form of the GetClaimRule method which supports a Context parameter
+func (iamIdentity *IamIdentityV1) GetClaimRuleWithContext(ctx context.Context, getClaimRuleOptions *GetClaimRuleOptions) (result *ProfileClaimRule, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(getClaimRuleOptions, "getClaimRuleOptions cannot be nil")
+	if err != nil {
+		return
+	}
+	err = core.ValidateStruct(getClaimRuleOptions, "getClaimRuleOptions")
+	if err != nil {
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"profile-id": *getClaimRuleOptions.ProfileID,
+		"rule-id":    *getClaimRuleOptions.RuleID,
+	}
+
+	builder := core.NewRequestBuilder(core.GET)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = iamIdentity.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(iamIdentity.Service.Options.URL, `/v1/profiles/{profile-id}/rules/{rule-id}`, pathParamsMap)
+	if err != nil {
+		return
+	}
+
+	for headerName, headerValue := range getClaimRuleOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("iam_identity", "V1", "GetClaimRule")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Accept", "application/json")
+
+	request, err := builder.Build()
+	if err != nil {
+		return
+	}
+
+	var rawResponse map[string]json.RawMessage
+	response, err = iamIdentity.Service.Request(request, &rawResponse)
+	if err != nil {
+		return
+	}
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalProfileClaimRule)
+		if err != nil {
+			return
+		}
+		response.Result = result
+	}
+
+	return
+}
+
+// UpdateClaimRule : Update claim rule for a trusted profile
+// Claim rule can be updated for a given trusted profile ID and rule ID.
+func (iamIdentity *IamIdentityV1) UpdateClaimRule(updateClaimRuleOptions *UpdateClaimRuleOptions) (result *ProfileClaimRule, response *core.DetailedResponse, err error) {
+	return iamIdentity.UpdateClaimRuleWithContext(context.Background(), updateClaimRuleOptions)
+}
+
+// UpdateClaimRuleWithContext is an alternate form of the UpdateClaimRule method which supports a Context parameter
+func (iamIdentity *IamIdentityV1) UpdateClaimRuleWithContext(ctx context.Context, updateClaimRuleOptions *UpdateClaimRuleOptions) (result *ProfileClaimRule, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(updateClaimRuleOptions, "updateClaimRuleOptions cannot be nil")
+	if err != nil {
+		return
+	}
+	err = core.ValidateStruct(updateClaimRuleOptions, "updateClaimRuleOptions")
+	if err != nil {
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"profile-id": *updateClaimRuleOptions.ProfileID,
+		"rule-id":    *updateClaimRuleOptions.RuleID,
+	}
+
+	builder := core.NewRequestBuilder(core.PUT)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = iamIdentity.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(iamIdentity.Service.Options.URL, `/v1/profiles/{profile-id}/rules/{rule-id}`, pathParamsMap)
+	if err != nil {
+		return
+	}
+
+	for headerName, headerValue := range updateClaimRuleOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("iam_identity", "V1", "UpdateClaimRule")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Accept", "application/json")
+	builder.AddHeader("Content-Type", "application/json")
+	if updateClaimRuleOptions.IfMatch != nil {
+		builder.AddHeader("If-Match", fmt.Sprint(*updateClaimRuleOptions.IfMatch))
+	}
+
+	body := make(map[string]interface{})
+	if updateClaimRuleOptions.Type != nil {
+		body["type"] = updateClaimRuleOptions.Type
+	}
+	if updateClaimRuleOptions.Conditions != nil {
+		body["conditions"] = updateClaimRuleOptions.Conditions
+	}
+	if updateClaimRuleOptions.Context != nil {
+		body["context"] = updateClaimRuleOptions.Context
+	}
+	if updateClaimRuleOptions.Name != nil {
+		body["name"] = updateClaimRuleOptions.Name
+	}
+	if updateClaimRuleOptions.RealmName != nil {
+		body["realm_name"] = updateClaimRuleOptions.RealmName
+	}
+	if updateClaimRuleOptions.CrType != nil {
+		body["cr_type"] = updateClaimRuleOptions.CrType
+	}
+	if updateClaimRuleOptions.Expiration != nil {
+		body["expiration"] = updateClaimRuleOptions.Expiration
+	}
+	_, err = builder.SetBodyContentJSON(body)
+	if err != nil {
+		return
+	}
+
+	request, err := builder.Build()
+	if err != nil {
+		return
+	}
+
+	var rawResponse map[string]json.RawMessage
+	response, err = iamIdentity.Service.Request(request, &rawResponse)
+	if err != nil {
+		return
+	}
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalProfileClaimRule)
+		if err != nil {
+			return
+		}
+		response.Result = result
+	}
+
+	return
+}
+
+// DeleteClaimRule : Delete a claim rule
+// Deletes a claim rule.
+func (iamIdentity *IamIdentityV1) DeleteClaimRule(deleteClaimRuleOptions *DeleteClaimRuleOptions) (response *core.DetailedResponse, err error) {
+	return iamIdentity.DeleteClaimRuleWithContext(context.Background(), deleteClaimRuleOptions)
+}
+
+// DeleteClaimRuleWithContext is an alternate form of the DeleteClaimRule method which supports a Context parameter
+func (iamIdentity *IamIdentityV1) DeleteClaimRuleWithContext(ctx context.Context, deleteClaimRuleOptions *DeleteClaimRuleOptions) (response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(deleteClaimRuleOptions, "deleteClaimRuleOptions cannot be nil")
+	if err != nil {
+		return
+	}
+	err = core.ValidateStruct(deleteClaimRuleOptions, "deleteClaimRuleOptions")
+	if err != nil {
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"profile-id": *deleteClaimRuleOptions.ProfileID,
+		"rule-id":    *deleteClaimRuleOptions.RuleID,
+	}
+
+	builder := core.NewRequestBuilder(core.DELETE)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = iamIdentity.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(iamIdentity.Service.Options.URL, `/v1/profiles/{profile-id}/rules/{rule-id}`, pathParamsMap)
+	if err != nil {
+		return
+	}
+
+	for headerName, headerValue := range deleteClaimRuleOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("iam_identity", "V1", "DeleteClaimRule")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	request, err := builder.Build()
+	if err != nil {
+		return
+	}
+
+	response, err = iamIdentity.Service.Request(request, nil)
+
+	return
+}
+
+// CreateLink : Create link to a trusted profile
+// Link compute resource to a trusted profile.
+func (iamIdentity *IamIdentityV1) CreateLink(createLinkOptions *CreateLinkOptions) (result *ProfileLink, response *core.DetailedResponse, err error) {
+	return iamIdentity.CreateLinkWithContext(context.Background(), createLinkOptions)
+}
+
+// CreateLinkWithContext is an alternate form of the CreateLink method which supports a Context parameter
+func (iamIdentity *IamIdentityV1) CreateLinkWithContext(ctx context.Context, createLinkOptions *CreateLinkOptions) (result *ProfileLink, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(createLinkOptions, "createLinkOptions cannot be nil")
+	if err != nil {
+		return
+	}
+	err = core.ValidateStruct(createLinkOptions, "createLinkOptions")
+	if err != nil {
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"profile-id": *createLinkOptions.ProfileID,
+	}
+
+	builder := core.NewRequestBuilder(core.POST)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = iamIdentity.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(iamIdentity.Service.Options.URL, `/v1/profiles/{profile-id}/links`, pathParamsMap)
+	if err != nil {
+		return
+	}
+
+	for headerName, headerValue := range createLinkOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("iam_identity", "V1", "CreateLink")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Accept", "application/json")
+	builder.AddHeader("Content-Type", "application/json")
+
+	body := make(map[string]interface{})
+	if createLinkOptions.CrType != nil {
+		body["cr_type"] = createLinkOptions.CrType
+	}
+	if createLinkOptions.Link != nil {
+		body["link"] = createLinkOptions.Link
+	}
+	if createLinkOptions.Name != nil {
+		body["name"] = createLinkOptions.Name
+	}
+	_, err = builder.SetBodyContentJSON(body)
+	if err != nil {
+		return
+	}
+
+	request, err := builder.Build()
+	if err != nil {
+		return
+	}
+
+	var rawResponse map[string]json.RawMessage
+	response, err = iamIdentity.Service.Request(request, &rawResponse)
+	if err != nil {
+		return
+	}
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalProfileLink)
+		if err != nil {
+			return
+		}
+		response.Result = result
+	}
+
+	return
+}
+
+// ListLink : Get list of links to a trusted profile
+// Gets list of link to a trusted profile.
+func (iamIdentity *IamIdentityV1) ListLink(listLinkOptions *ListLinkOptions) (result *ProfileLinkList, response *core.DetailedResponse, err error) {
+	return iamIdentity.ListLinkWithContext(context.Background(), listLinkOptions)
+}
+
+// ListLinkWithContext is an alternate form of the ListLink method which supports a Context parameter
+func (iamIdentity *IamIdentityV1) ListLinkWithContext(ctx context.Context, listLinkOptions *ListLinkOptions) (result *ProfileLinkList, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(listLinkOptions, "listLinkOptions cannot be nil")
+	if err != nil {
+		return
+	}
+	err = core.ValidateStruct(listLinkOptions, "listLinkOptions")
+	if err != nil {
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"profile-id": *listLinkOptions.ProfileID,
+	}
+
+	builder := core.NewRequestBuilder(core.GET)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = iamIdentity.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(iamIdentity.Service.Options.URL, `/v1/profiles/{profile-id}/links`, pathParamsMap)
+	if err != nil {
+		return
+	}
+
+	for headerName, headerValue := range listLinkOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("iam_identity", "V1", "ListLink")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Accept", "application/json")
+
+	request, err := builder.Build()
+	if err != nil {
+		return
+	}
+
+	var rawResponse map[string]json.RawMessage
+	response, err = iamIdentity.Service.Request(request, &rawResponse)
+	if err != nil {
+		return
+	}
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalProfileLinkList)
+		if err != nil {
+			return
+		}
+		response.Result = result
+	}
+
+	return
+}
+
+// GetLink : Get link to a trusted profile
+// Gets link to a trusted profile.
+func (iamIdentity *IamIdentityV1) GetLink(getLinkOptions *GetLinkOptions) (result *ProfileLink, response *core.DetailedResponse, err error) {
+	return iamIdentity.GetLinkWithContext(context.Background(), getLinkOptions)
+}
+
+// GetLinkWithContext is an alternate form of the GetLink method which supports a Context parameter
+func (iamIdentity *IamIdentityV1) GetLinkWithContext(ctx context.Context, getLinkOptions *GetLinkOptions) (result *ProfileLink, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(getLinkOptions, "getLinkOptions cannot be nil")
+	if err != nil {
+		return
+	}
+	err = core.ValidateStruct(getLinkOptions, "getLinkOptions")
+	if err != nil {
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"profile-id": *getLinkOptions.ProfileID,
+		"link-id":    *getLinkOptions.LinkID,
+	}
+
+	builder := core.NewRequestBuilder(core.GET)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = iamIdentity.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(iamIdentity.Service.Options.URL, `/v1/profiles/{profile-id}/links/{link-id}`, pathParamsMap)
+	if err != nil {
+		return
+	}
+
+	for headerName, headerValue := range getLinkOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("iam_identity", "V1", "GetLink")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Accept", "application/json")
+
+	request, err := builder.Build()
+	if err != nil {
+		return
+	}
+
+	var rawResponse map[string]json.RawMessage
+	response, err = iamIdentity.Service.Request(request, &rawResponse)
+	if err != nil {
+		return
+	}
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalProfileLink)
+		if err != nil {
+			return
+		}
+		response.Result = result
+	}
+
+	return
+}
+
+// DeleteLink : Delete link to a trusted profile
+// Deletes link to a trusted profile.
+func (iamIdentity *IamIdentityV1) DeleteLink(deleteLinkOptions *DeleteLinkOptions) (response *core.DetailedResponse, err error) {
+	return iamIdentity.DeleteLinkWithContext(context.Background(), deleteLinkOptions)
+}
+
+// DeleteLinkWithContext is an alternate form of the DeleteLink method which supports a Context parameter
+func (iamIdentity *IamIdentityV1) DeleteLinkWithContext(ctx context.Context, deleteLinkOptions *DeleteLinkOptions) (response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(deleteLinkOptions, "deleteLinkOptions cannot be nil")
+	if err != nil {
+		return
+	}
+	err = core.ValidateStruct(deleteLinkOptions, "deleteLinkOptions")
+	if err != nil {
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"profile-id": *deleteLinkOptions.ProfileID,
+		"link-id":    *deleteLinkOptions.LinkID,
+	}
+
+	builder := core.NewRequestBuilder(core.DELETE)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = iamIdentity.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(iamIdentity.Service.Options.URL, `/v1/profiles/{profile-id}/links/{link-id}`, pathParamsMap)
+	if err != nil {
+		return
+	}
+
+	for headerName, headerValue := range deleteLinkOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("iam_identity", "V1", "DeleteLink")
 	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
@@ -1759,6 +2690,248 @@ func (options *CreateAPIKeyOptions) SetHeaders(param map[string]string) *CreateA
 	return options
 }
 
+// CreateClaimRuleOptions : The CreateClaimRule options.
+type CreateClaimRuleOptions struct {
+	// ID of the trusted profile to create a claim rule.
+	ProfileID *string `json:"-" validate:"required,ne="`
+
+	// Type of the calim rule, either 'Profile-SAML' or 'Profile-CR'.
+	Type *string `json:"type" validate:"required"`
+
+	// Conditions of this claim rule.
+	Conditions []ProfileClaimRuleConditions `json:"conditions" validate:"required"`
+
+	// Context with key properties for problem determination.
+	Context *ResponseContext `json:"context,omitempty"`
+
+	// Name of the claim rule to be created or updated.
+	Name *string `json:"name,omitempty"`
+
+	// The realm name of the Idp this claim rule applies to. This field is required only if the type is specified as
+	// 'Profile-SAML'.
+	RealmName *string `json:"realm_name,omitempty"`
+
+	// The compute resource type the rule applies to, required only if type is specified as 'Profile-CR'. Valid values are
+	// VSI, IKS_SA, ROKS_SA.
+	CrType *string `json:"cr_type,omitempty"`
+
+	// Session expiration in seconds, only required if type is 'Profile-SAML'.
+	Expiration *int64 `json:"expiration,omitempty"`
+
+	// Allows users to set headers on API requests
+	Headers map[string]string
+}
+
+// NewCreateClaimRuleOptions : Instantiate CreateClaimRuleOptions
+func (*IamIdentityV1) NewCreateClaimRuleOptions(profileID string, typeVar string, conditions []ProfileClaimRuleConditions) *CreateClaimRuleOptions {
+	return &CreateClaimRuleOptions{
+		ProfileID:  core.StringPtr(profileID),
+		Type:       core.StringPtr(typeVar),
+		Conditions: conditions,
+	}
+}
+
+// SetProfileID : Allow user to set ProfileID
+func (_options *CreateClaimRuleOptions) SetProfileID(profileID string) *CreateClaimRuleOptions {
+	_options.ProfileID = core.StringPtr(profileID)
+	return _options
+}
+
+// SetType : Allow user to set Type
+func (_options *CreateClaimRuleOptions) SetType(typeVar string) *CreateClaimRuleOptions {
+	_options.Type = core.StringPtr(typeVar)
+	return _options
+}
+
+// SetConditions : Allow user to set Conditions
+func (_options *CreateClaimRuleOptions) SetConditions(conditions []ProfileClaimRuleConditions) *CreateClaimRuleOptions {
+	_options.Conditions = conditions
+	return _options
+}
+
+// SetContext : Allow user to set Context
+func (_options *CreateClaimRuleOptions) SetContext(context *ResponseContext) *CreateClaimRuleOptions {
+	_options.Context = context
+	return _options
+}
+
+// SetName : Allow user to set Name
+func (_options *CreateClaimRuleOptions) SetName(name string) *CreateClaimRuleOptions {
+	_options.Name = core.StringPtr(name)
+	return _options
+}
+
+// SetRealmName : Allow user to set RealmName
+func (_options *CreateClaimRuleOptions) SetRealmName(realmName string) *CreateClaimRuleOptions {
+	_options.RealmName = core.StringPtr(realmName)
+	return _options
+}
+
+// SetCrType : Allow user to set CrType
+func (_options *CreateClaimRuleOptions) SetCrType(crType string) *CreateClaimRuleOptions {
+	_options.CrType = core.StringPtr(crType)
+	return _options
+}
+
+// SetExpiration : Allow user to set Expiration
+func (_options *CreateClaimRuleOptions) SetExpiration(expiration int64) *CreateClaimRuleOptions {
+	_options.Expiration = core.Int64Ptr(expiration)
+	return _options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *CreateClaimRuleOptions) SetHeaders(param map[string]string) *CreateClaimRuleOptions {
+	options.Headers = param
+	return options
+}
+
+// CreateLinkOptions : The CreateLink options.
+type CreateLinkOptions struct {
+	// ID of the trusted profile.
+	ProfileID *string `json:"-" validate:"required,ne="`
+
+	// The compute resource type. Valid values are VSI, IKS_SA, ROKS_SA.
+	CrType *string `json:"cr_type" validate:"required"`
+
+	// Link details.
+	Link *CreateProfileLinkRequestLink `json:"link" validate:"required"`
+
+	// Optional name of the Link.
+	Name *string `json:"name,omitempty"`
+
+	// Allows users to set headers on API requests
+	Headers map[string]string
+}
+
+// NewCreateLinkOptions : Instantiate CreateLinkOptions
+func (*IamIdentityV1) NewCreateLinkOptions(profileID string, crType string, link *CreateProfileLinkRequestLink) *CreateLinkOptions {
+	return &CreateLinkOptions{
+		ProfileID: core.StringPtr(profileID),
+		CrType:    core.StringPtr(crType),
+		Link:      link,
+	}
+}
+
+// SetProfileID : Allow user to set ProfileID
+func (_options *CreateLinkOptions) SetProfileID(profileID string) *CreateLinkOptions {
+	_options.ProfileID = core.StringPtr(profileID)
+	return _options
+}
+
+// SetCrType : Allow user to set CrType
+func (_options *CreateLinkOptions) SetCrType(crType string) *CreateLinkOptions {
+	_options.CrType = core.StringPtr(crType)
+	return _options
+}
+
+// SetLink : Allow user to set Link
+func (_options *CreateLinkOptions) SetLink(link *CreateProfileLinkRequestLink) *CreateLinkOptions {
+	_options.Link = link
+	return _options
+}
+
+// SetName : Allow user to set Name
+func (_options *CreateLinkOptions) SetName(name string) *CreateLinkOptions {
+	_options.Name = core.StringPtr(name)
+	return _options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *CreateLinkOptions) SetHeaders(param map[string]string) *CreateLinkOptions {
+	options.Headers = param
+	return options
+}
+
+// CreateProfileLinkRequestLink : Link details.
+type CreateProfileLinkRequestLink struct {
+	// The CRN of the compute resource.
+	CRN *string `json:"crn" validate:"required"`
+
+	// The compute resource namespace, only required if cr_type is IKS_SA or ROKS_SA.
+	Namespace *string `json:"namespace" validate:"required"`
+
+	// Name of the compute resource, only required if cr_type is IKS_SA or ROKS_SA.
+	Name *string `json:"name,omitempty"`
+}
+
+// NewCreateProfileLinkRequestLink : Instantiate CreateProfileLinkRequestLink (Generic Model Constructor)
+func (*IamIdentityV1) NewCreateProfileLinkRequestLink(crn string, namespace string) (_model *CreateProfileLinkRequestLink, err error) {
+	_model = &CreateProfileLinkRequestLink{
+		CRN:       core.StringPtr(crn),
+		Namespace: core.StringPtr(namespace),
+	}
+	err = core.ValidateStruct(_model, "required parameters")
+	return
+}
+
+// UnmarshalCreateProfileLinkRequestLink unmarshals an instance of CreateProfileLinkRequestLink from the specified map of raw messages.
+func UnmarshalCreateProfileLinkRequestLink(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(CreateProfileLinkRequestLink)
+	err = core.UnmarshalPrimitive(m, "crn", &obj.CRN)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "namespace", &obj.Namespace)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// CreateProfileOptions : The CreateProfile options.
+type CreateProfileOptions struct {
+	// Name of the trusted profile. The name is checked for uniqueness. Therefore trusted profiles with the same names can
+	// not exist in the same account.
+	Name *string `json:"name" validate:"required"`
+
+	// The account ID of the trusted profile.
+	AccountID *string `json:"account_id" validate:"required"`
+
+	// The optional description of the trusted profile. The 'description' property is only available if a description was
+	// provided during creation of trusted profile.
+	Description *string `json:"description,omitempty"`
+
+	// Allows users to set headers on API requests
+	Headers map[string]string
+}
+
+// NewCreateProfileOptions : Instantiate CreateProfileOptions
+func (*IamIdentityV1) NewCreateProfileOptions(name string, accountID string) *CreateProfileOptions {
+	return &CreateProfileOptions{
+		Name:      core.StringPtr(name),
+		AccountID: core.StringPtr(accountID),
+	}
+}
+
+// SetName : Allow user to set Name
+func (_options *CreateProfileOptions) SetName(name string) *CreateProfileOptions {
+	_options.Name = core.StringPtr(name)
+	return _options
+}
+
+// SetAccountID : Allow user to set AccountID
+func (_options *CreateProfileOptions) SetAccountID(accountID string) *CreateProfileOptions {
+	_options.AccountID = core.StringPtr(accountID)
+	return _options
+}
+
+// SetDescription : Allow user to set Description
+func (_options *CreateProfileOptions) SetDescription(description string) *CreateProfileOptions {
+	_options.Description = core.StringPtr(description)
+	return _options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *CreateProfileOptions) SetHeaders(param map[string]string) *CreateProfileOptions {
+	options.Headers = param
+	return options
+}
+
 // CreateServiceIDOptions : The CreateServiceID options.
 type CreateServiceIDOptions struct {
 	// ID of the account the service ID belongs to.
@@ -1859,6 +3032,110 @@ func (_options *DeleteAPIKeyOptions) SetID(id string) *DeleteAPIKeyOptions {
 
 // SetHeaders : Allow user to set Headers
 func (options *DeleteAPIKeyOptions) SetHeaders(param map[string]string) *DeleteAPIKeyOptions {
+	options.Headers = param
+	return options
+}
+
+// DeleteClaimRuleOptions : The DeleteClaimRule options.
+type DeleteClaimRuleOptions struct {
+	// ID of the trusted profile.
+	ProfileID *string `json:"-" validate:"required,ne="`
+
+	// ID of the claim rule to delete.
+	RuleID *string `json:"-" validate:"required,ne="`
+
+	// Allows users to set headers on API requests
+	Headers map[string]string
+}
+
+// NewDeleteClaimRuleOptions : Instantiate DeleteClaimRuleOptions
+func (*IamIdentityV1) NewDeleteClaimRuleOptions(profileID string, ruleID string) *DeleteClaimRuleOptions {
+	return &DeleteClaimRuleOptions{
+		ProfileID: core.StringPtr(profileID),
+		RuleID:    core.StringPtr(ruleID),
+	}
+}
+
+// SetProfileID : Allow user to set ProfileID
+func (_options *DeleteClaimRuleOptions) SetProfileID(profileID string) *DeleteClaimRuleOptions {
+	_options.ProfileID = core.StringPtr(profileID)
+	return _options
+}
+
+// SetRuleID : Allow user to set RuleID
+func (_options *DeleteClaimRuleOptions) SetRuleID(ruleID string) *DeleteClaimRuleOptions {
+	_options.RuleID = core.StringPtr(ruleID)
+	return _options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *DeleteClaimRuleOptions) SetHeaders(param map[string]string) *DeleteClaimRuleOptions {
+	options.Headers = param
+	return options
+}
+
+// DeleteLinkOptions : The DeleteLink options.
+type DeleteLinkOptions struct {
+	// ID of the trusted profile.
+	ProfileID *string `json:"-" validate:"required,ne="`
+
+	// ID of the link.
+	LinkID *string `json:"-" validate:"required,ne="`
+
+	// Allows users to set headers on API requests
+	Headers map[string]string
+}
+
+// NewDeleteLinkOptions : Instantiate DeleteLinkOptions
+func (*IamIdentityV1) NewDeleteLinkOptions(profileID string, linkID string) *DeleteLinkOptions {
+	return &DeleteLinkOptions{
+		ProfileID: core.StringPtr(profileID),
+		LinkID:    core.StringPtr(linkID),
+	}
+}
+
+// SetProfileID : Allow user to set ProfileID
+func (_options *DeleteLinkOptions) SetProfileID(profileID string) *DeleteLinkOptions {
+	_options.ProfileID = core.StringPtr(profileID)
+	return _options
+}
+
+// SetLinkID : Allow user to set LinkID
+func (_options *DeleteLinkOptions) SetLinkID(linkID string) *DeleteLinkOptions {
+	_options.LinkID = core.StringPtr(linkID)
+	return _options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *DeleteLinkOptions) SetHeaders(param map[string]string) *DeleteLinkOptions {
+	options.Headers = param
+	return options
+}
+
+// DeleteProfileOptions : The DeleteProfile options.
+type DeleteProfileOptions struct {
+	// ID of the trusted profile.
+	ProfileID *string `json:"-" validate:"required,ne="`
+
+	// Allows users to set headers on API requests
+	Headers map[string]string
+}
+
+// NewDeleteProfileOptions : Instantiate DeleteProfileOptions
+func (*IamIdentityV1) NewDeleteProfileOptions(profileID string) *DeleteProfileOptions {
+	return &DeleteProfileOptions{
+		ProfileID: core.StringPtr(profileID),
+	}
+}
+
+// SetProfileID : Allow user to set ProfileID
+func (_options *DeleteProfileOptions) SetProfileID(profileID string) *DeleteProfileOptions {
+	_options.ProfileID = core.StringPtr(profileID)
+	return _options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *DeleteProfileOptions) SetHeaders(param map[string]string) *DeleteProfileOptions {
 	options.Headers = param
 	return options
 }
@@ -2052,6 +3329,110 @@ func (options *GetAPIKeysDetailsOptions) SetHeaders(param map[string]string) *Ge
 	return options
 }
 
+// GetClaimRuleOptions : The GetClaimRule options.
+type GetClaimRuleOptions struct {
+	// ID of the trusted profile.
+	ProfileID *string `json:"-" validate:"required,ne="`
+
+	// ID of the claim rule to get.
+	RuleID *string `json:"-" validate:"required,ne="`
+
+	// Allows users to set headers on API requests
+	Headers map[string]string
+}
+
+// NewGetClaimRuleOptions : Instantiate GetClaimRuleOptions
+func (*IamIdentityV1) NewGetClaimRuleOptions(profileID string, ruleID string) *GetClaimRuleOptions {
+	return &GetClaimRuleOptions{
+		ProfileID: core.StringPtr(profileID),
+		RuleID:    core.StringPtr(ruleID),
+	}
+}
+
+// SetProfileID : Allow user to set ProfileID
+func (_options *GetClaimRuleOptions) SetProfileID(profileID string) *GetClaimRuleOptions {
+	_options.ProfileID = core.StringPtr(profileID)
+	return _options
+}
+
+// SetRuleID : Allow user to set RuleID
+func (_options *GetClaimRuleOptions) SetRuleID(ruleID string) *GetClaimRuleOptions {
+	_options.RuleID = core.StringPtr(ruleID)
+	return _options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *GetClaimRuleOptions) SetHeaders(param map[string]string) *GetClaimRuleOptions {
+	options.Headers = param
+	return options
+}
+
+// GetLinkOptions : The GetLink options.
+type GetLinkOptions struct {
+	// ID of the trusted profile.
+	ProfileID *string `json:"-" validate:"required,ne="`
+
+	// ID of the link.
+	LinkID *string `json:"-" validate:"required,ne="`
+
+	// Allows users to set headers on API requests
+	Headers map[string]string
+}
+
+// NewGetLinkOptions : Instantiate GetLinkOptions
+func (*IamIdentityV1) NewGetLinkOptions(profileID string, linkID string) *GetLinkOptions {
+	return &GetLinkOptions{
+		ProfileID: core.StringPtr(profileID),
+		LinkID:    core.StringPtr(linkID),
+	}
+}
+
+// SetProfileID : Allow user to set ProfileID
+func (_options *GetLinkOptions) SetProfileID(profileID string) *GetLinkOptions {
+	_options.ProfileID = core.StringPtr(profileID)
+	return _options
+}
+
+// SetLinkID : Allow user to set LinkID
+func (_options *GetLinkOptions) SetLinkID(linkID string) *GetLinkOptions {
+	_options.LinkID = core.StringPtr(linkID)
+	return _options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *GetLinkOptions) SetHeaders(param map[string]string) *GetLinkOptions {
+	options.Headers = param
+	return options
+}
+
+// GetProfileOptions : The GetProfile options.
+type GetProfileOptions struct {
+	// ID of the trusted profile to get.
+	ProfileID *string `json:"-" validate:"required,ne="`
+
+	// Allows users to set headers on API requests
+	Headers map[string]string
+}
+
+// NewGetProfileOptions : Instantiate GetProfileOptions
+func (*IamIdentityV1) NewGetProfileOptions(profileID string) *GetProfileOptions {
+	return &GetProfileOptions{
+		ProfileID: core.StringPtr(profileID),
+	}
+}
+
+// SetProfileID : Allow user to set ProfileID
+func (_options *GetProfileOptions) SetProfileID(profileID string) *GetProfileOptions {
+	_options.ProfileID = core.StringPtr(profileID)
+	return _options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *GetProfileOptions) SetHeaders(param map[string]string) *GetProfileOptions {
+	options.Headers = param
+	return options
+}
+
 // GetServiceIDOptions : The GetServiceID options.
 type GetServiceIDOptions struct {
 	// Unique ID of the service ID.
@@ -2212,6 +3593,152 @@ func (options *ListAPIKeysOptions) SetHeaders(param map[string]string) *ListAPIK
 	return options
 }
 
+// ListClaimRulesOptions : The ListClaimRules options.
+type ListClaimRulesOptions struct {
+	// ID of the trusted profile.
+	ProfileID *string `json:"-" validate:"required,ne="`
+
+	// Allows users to set headers on API requests
+	Headers map[string]string
+}
+
+// NewListClaimRulesOptions : Instantiate ListClaimRulesOptions
+func (*IamIdentityV1) NewListClaimRulesOptions(profileID string) *ListClaimRulesOptions {
+	return &ListClaimRulesOptions{
+		ProfileID: core.StringPtr(profileID),
+	}
+}
+
+// SetProfileID : Allow user to set ProfileID
+func (_options *ListClaimRulesOptions) SetProfileID(profileID string) *ListClaimRulesOptions {
+	_options.ProfileID = core.StringPtr(profileID)
+	return _options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *ListClaimRulesOptions) SetHeaders(param map[string]string) *ListClaimRulesOptions {
+	options.Headers = param
+	return options
+}
+
+// ListLinkOptions : The ListLink options.
+type ListLinkOptions struct {
+	// ID of the trusted profile.
+	ProfileID *string `json:"-" validate:"required,ne="`
+
+	// Allows users to set headers on API requests
+	Headers map[string]string
+}
+
+// NewListLinkOptions : Instantiate ListLinkOptions
+func (*IamIdentityV1) NewListLinkOptions(profileID string) *ListLinkOptions {
+	return &ListLinkOptions{
+		ProfileID: core.StringPtr(profileID),
+	}
+}
+
+// SetProfileID : Allow user to set ProfileID
+func (_options *ListLinkOptions) SetProfileID(profileID string) *ListLinkOptions {
+	_options.ProfileID = core.StringPtr(profileID)
+	return _options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *ListLinkOptions) SetHeaders(param map[string]string) *ListLinkOptions {
+	options.Headers = param
+	return options
+}
+
+// ListProfileOptions : The ListProfile options.
+type ListProfileOptions struct {
+	// Account ID to query for trusted profiles.
+	AccountID *string `json:"-" validate:"required"`
+
+	// Name of the trusted profile to query.
+	Name *string `json:"-"`
+
+	// Optional size of a single page. Default is 20 items per page. Valid range is 1 to 100.
+	Pagesize *int64 `json:"-"`
+
+	// Optional sort property, valid values are name, description, created_at and modified_at. If specified, the items are
+	// sorted by the value of this property.
+	Sort *string `json:"-"`
+
+	// Optional sort order, valid values are asc and desc. Default: asc.
+	Order *string `json:"-"`
+
+	// Defines if the entity history is included in the response.
+	IncludeHistory *bool `json:"-"`
+
+	// Optional Prev or Next page token returned from a previous query execution. Default is start with first page.
+	Pagetoken *string `json:"-"`
+
+	// Allows users to set headers on API requests
+	Headers map[string]string
+}
+
+// Constants associated with the ListProfileOptions.Order property.
+// Optional sort order, valid values are asc and desc. Default: asc.
+const (
+	ListProfileOptionsOrderAscConst  = "asc"
+	ListProfileOptionsOrderDescConst = "desc"
+)
+
+// NewListProfileOptions : Instantiate ListProfileOptions
+func (*IamIdentityV1) NewListProfileOptions(accountID string) *ListProfileOptions {
+	return &ListProfileOptions{
+		AccountID: core.StringPtr(accountID),
+	}
+}
+
+// SetAccountID : Allow user to set AccountID
+func (_options *ListProfileOptions) SetAccountID(accountID string) *ListProfileOptions {
+	_options.AccountID = core.StringPtr(accountID)
+	return _options
+}
+
+// SetName : Allow user to set Name
+func (_options *ListProfileOptions) SetName(name string) *ListProfileOptions {
+	_options.Name = core.StringPtr(name)
+	return _options
+}
+
+// SetPagesize : Allow user to set Pagesize
+func (_options *ListProfileOptions) SetPagesize(pagesize int64) *ListProfileOptions {
+	_options.Pagesize = core.Int64Ptr(pagesize)
+	return _options
+}
+
+// SetSort : Allow user to set Sort
+func (_options *ListProfileOptions) SetSort(sort string) *ListProfileOptions {
+	_options.Sort = core.StringPtr(sort)
+	return _options
+}
+
+// SetOrder : Allow user to set Order
+func (_options *ListProfileOptions) SetOrder(order string) *ListProfileOptions {
+	_options.Order = core.StringPtr(order)
+	return _options
+}
+
+// SetIncludeHistory : Allow user to set IncludeHistory
+func (_options *ListProfileOptions) SetIncludeHistory(includeHistory bool) *ListProfileOptions {
+	_options.IncludeHistory = core.BoolPtr(includeHistory)
+	return _options
+}
+
+// SetPagetoken : Allow user to set Pagetoken
+func (_options *ListProfileOptions) SetPagetoken(pagetoken string) *ListProfileOptions {
+	_options.Pagetoken = core.StringPtr(pagetoken)
+	return _options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *ListProfileOptions) SetHeaders(param map[string]string) *ListProfileOptions {
+	options.Headers = param
+	return options
+}
+
 // ListServiceIdsOptions : The ListServiceIds options.
 type ListServiceIdsOptions struct {
 	// Account ID of the service ID(s) to query. This parameter is required (unless using a pagetoken).
@@ -2354,6 +3881,259 @@ func (_options *LockServiceIDOptions) SetID(id string) *LockServiceIDOptions {
 func (options *LockServiceIDOptions) SetHeaders(param map[string]string) *LockServiceIDOptions {
 	options.Headers = param
 	return options
+}
+
+// ProfileClaimRule : ProfileClaimRule struct
+type ProfileClaimRule struct {
+	// the unique identifier of the claim rule.
+	ID *string `json:"id" validate:"required"`
+
+	// version of the claim rule.
+	EntityTag *string `json:"entity_tag" validate:"required"`
+
+	// If set contains a date time string of the creation date in ISO format.
+	CreatedAt *strfmt.DateTime `json:"created_at" validate:"required"`
+
+	// If set contains a date time string of the last modification date in ISO format.
+	ModifiedAt *strfmt.DateTime `json:"modified_at,omitempty"`
+
+	// The optional claim rule name.
+	Name *string `json:"name,omitempty"`
+
+	// Type of the Calim rule, either 'Profile-SAML' or 'Profile-CR'.
+	Type *string `json:"type" validate:"required"`
+
+	// The realm name of the Idp this claim rule applies to.
+	RealmName *string `json:"realm_name,omitempty"`
+
+	// Session expiration in seconds.
+	Expiration *int64 `json:"expiration" validate:"required"`
+
+	// The compute resource type. Not required if type is Profile-SAML. Valid values are VSI, IKS_SA, ROKS_SA.
+	CrType *string `json:"cr_type,omitempty"`
+
+	// Conditions of this claim rule.
+	Conditions []ProfileClaimRuleConditions `json:"conditions" validate:"required"`
+}
+
+// UnmarshalProfileClaimRule unmarshals an instance of ProfileClaimRule from the specified map of raw messages.
+func UnmarshalProfileClaimRule(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(ProfileClaimRule)
+	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "entity_tag", &obj.EntityTag)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "created_at", &obj.CreatedAt)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "modified_at", &obj.ModifiedAt)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "type", &obj.Type)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "realm_name", &obj.RealmName)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "expiration", &obj.Expiration)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "cr_type", &obj.CrType)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "conditions", &obj.Conditions, UnmarshalProfileClaimRuleConditions)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// ProfileClaimRuleConditions : ProfileClaimRuleConditions struct
+type ProfileClaimRuleConditions struct {
+	// The claim to valuate againt.
+	Claim *string `json:"claim" validate:"required"`
+
+	// The operation to perform on the claim. valid values are EQUALS, NOT_EQUALS, EQUALS_IGNORE_CASE,
+	// NOT_EQUALS_IGNORE_CASE, CONTAINS, IN.
+	Operator *string `json:"operator" validate:"required"`
+
+	// The stringified JSON value that the claim is compared to using the operator.
+	Value *string `json:"value" validate:"required"`
+}
+
+// NewProfileClaimRuleConditions : Instantiate ProfileClaimRuleConditions (Generic Model Constructor)
+func (*IamIdentityV1) NewProfileClaimRuleConditions(claim string, operator string, value string) (_model *ProfileClaimRuleConditions, err error) {
+	_model = &ProfileClaimRuleConditions{
+		Claim:    core.StringPtr(claim),
+		Operator: core.StringPtr(operator),
+		Value:    core.StringPtr(value),
+	}
+	err = core.ValidateStruct(_model, "required parameters")
+	return
+}
+
+// UnmarshalProfileClaimRuleConditions unmarshals an instance of ProfileClaimRuleConditions from the specified map of raw messages.
+func UnmarshalProfileClaimRuleConditions(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(ProfileClaimRuleConditions)
+	err = core.UnmarshalPrimitive(m, "claim", &obj.Claim)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "operator", &obj.Operator)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "value", &obj.Value)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// ProfileClaimRuleList : ProfileClaimRuleList struct
+type ProfileClaimRuleList struct {
+	// Context with key properties for problem determination.
+	Context *ResponseContext `json:"context,omitempty"`
+
+	// List of claim rules.
+	Rules []ProfileClaimRule `json:"rules" validate:"required"`
+}
+
+// UnmarshalProfileClaimRuleList unmarshals an instance of ProfileClaimRuleList from the specified map of raw messages.
+func UnmarshalProfileClaimRuleList(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(ProfileClaimRuleList)
+	err = core.UnmarshalModel(m, "context", &obj.Context, UnmarshalResponseContext)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "rules", &obj.Rules, UnmarshalProfileClaimRule)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// ProfileLink : Link details.
+type ProfileLink struct {
+	// the unique identifier of the claim rule.
+	ID *string `json:"id" validate:"required"`
+
+	// version of the claim rule.
+	EntityTag *string `json:"entity_tag" validate:"required"`
+
+	// If set contains a date time string of the creation date in ISO format.
+	CreatedAt *strfmt.DateTime `json:"created_at" validate:"required"`
+
+	// If set contains a date time string of the last modification date in ISO format.
+	ModifiedAt *strfmt.DateTime `json:"modified_at" validate:"required"`
+
+	// Optional name of the Link.
+	Name *string `json:"name,omitempty"`
+
+	// The compute resource type. Valid values are VSI, IKS_SA, ROKS_SA.
+	CrType *string `json:"cr_type" validate:"required"`
+
+	Link *ProfileLinkLink `json:"link" validate:"required"`
+}
+
+// UnmarshalProfileLink unmarshals an instance of ProfileLink from the specified map of raw messages.
+func UnmarshalProfileLink(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(ProfileLink)
+	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "entity_tag", &obj.EntityTag)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "created_at", &obj.CreatedAt)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "modified_at", &obj.ModifiedAt)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "cr_type", &obj.CrType)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "link", &obj.Link, UnmarshalProfileLinkLink)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// ProfileLinkLink : ProfileLinkLink struct
+type ProfileLinkLink struct {
+	// The CRN of the compute resource.
+	CRN *string `json:"crn,omitempty"`
+
+	// The compute resource namespace, only required if cr_type is IKS_SA or ROKS_SA.
+	Namespace *string `json:"namespace,omitempty"`
+
+	// Name of the compute resource, only required if cr_type is IKS_SA or ROKS_SA.
+	Name *string `json:"name,omitempty"`
+}
+
+// UnmarshalProfileLinkLink unmarshals an instance of ProfileLinkLink from the specified map of raw messages.
+func UnmarshalProfileLinkLink(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(ProfileLinkLink)
+	err = core.UnmarshalPrimitive(m, "crn", &obj.CRN)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "namespace", &obj.Namespace)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// ProfileLinkList : ProfileLinkList struct
+type ProfileLinkList struct {
+	// List of links to a trusted profile.
+	Links []ProfileLink `json:"links" validate:"required"`
+}
+
+// UnmarshalProfileLinkList unmarshals an instance of ProfileLinkList from the specified map of raw messages.
+func UnmarshalProfileLinkList(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(ProfileLinkList)
+	err = core.UnmarshalModel(m, "links", &obj.Links, UnmarshalProfileLink)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
 }
 
 // ResponseContext : Context with key properties for problem determination.
@@ -2610,6 +4390,171 @@ func UnmarshalServiceIDList(m map[string]json.RawMessage, result interface{}) (e
 		return
 	}
 	err = core.UnmarshalModel(m, "serviceids", &obj.Serviceids, UnmarshalServiceID)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// TrustedProfile : Response body format for trusted profile V1 REST requests.
+type TrustedProfile struct {
+	// Context with key properties for problem determination.
+	Context *ResponseContext `json:"context,omitempty"`
+
+	// the unique identifier of the trusted profile. Example:'Profile-94497d0d-2ac3-41bf-a993-a49d1b14627c'.
+	ID *string `json:"id" validate:"required"`
+
+	// Version of the trusted profile details object. You need to specify this value when updating the trusted profile to
+	// avoid stale updates.
+	EntityTag *string `json:"entity_tag" validate:"required"`
+
+	// Cloud Resource Name of the item. Example Cloud Resource Name:
+	// 'crn:v1:bluemix:public:iam-identity:us-south:a/myaccount::profile:Profile-94497d0d-2ac3-41bf-a993-a49d1b14627c'.
+	CRN *string `json:"crn" validate:"required"`
+
+	// Name of the trusted profile. The name is checked for uniqueness. Therefore trusted profiles with the same names can
+	// not exist in the same account.
+	Name *string `json:"name" validate:"required"`
+
+	// The optional description of the trusted profile. The 'description' property is only available if a description was
+	// provided during a create of a trusted profile.
+	Description *string `json:"description,omitempty"`
+
+	// If set contains a date time string of the creation date in ISO format.
+	CreatedAt *strfmt.DateTime `json:"created_at,omitempty"`
+
+	// If set contains a date time string of the last modification date in ISO format.
+	ModifiedAt *strfmt.DateTime `json:"modified_at,omitempty"`
+
+	// The iam_id of this trusted profile.
+	IamID *string `json:"iam_id" validate:"required"`
+
+	// ID of the account that this trusted profile belong to.
+	AccountID *string `json:"account_id" validate:"required"`
+
+	// IMS acount ID of the trusted profile.
+	ImsAccountID *int64 `json:"ims_account_id,omitempty"`
+
+	// IMS user ID of the trusted profile.
+	ImsUserID *int64 `json:"ims_user_id,omitempty"`
+
+	// History of the trusted profile.
+	History []EnityHistoryRecord `json:"history,omitempty"`
+}
+
+// UnmarshalTrustedProfile unmarshals an instance of TrustedProfile from the specified map of raw messages.
+func UnmarshalTrustedProfile(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(TrustedProfile)
+	err = core.UnmarshalModel(m, "context", &obj.Context, UnmarshalResponseContext)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "entity_tag", &obj.EntityTag)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "crn", &obj.CRN)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "description", &obj.Description)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "created_at", &obj.CreatedAt)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "modified_at", &obj.ModifiedAt)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "iam_id", &obj.IamID)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "account_id", &obj.AccountID)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "ims_account_id", &obj.ImsAccountID)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "ims_user_id", &obj.ImsUserID)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "history", &obj.History, UnmarshalEnityHistoryRecord)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// TrustedProfilesList : Response body format for the List trusted profiles V1 REST request.
+type TrustedProfilesList struct {
+	// Context with key properties for problem determination.
+	Context *ResponseContext `json:"context,omitempty"`
+
+	// The offset of the current page.
+	Offset *int64 `json:"offset,omitempty"`
+
+	// Optional size of a single page. Default is 20 items per page. Valid range is 1 to 100.
+	Limit *int64 `json:"limit,omitempty"`
+
+	// Link to the first page.
+	First *string `json:"first,omitempty"`
+
+	// Link to the previous available page. If 'previous' property is not part of the response no previous page is
+	// available.
+	Previous *string `json:"previous,omitempty"`
+
+	// Link to the next available page. If 'next' property is not part of the response no next page is available.
+	Next *string `json:"next,omitempty"`
+
+	// List of trusted profiles.
+	Profiles []TrustedProfile `json:"profiles" validate:"required"`
+}
+
+// UnmarshalTrustedProfilesList unmarshals an instance of TrustedProfilesList from the specified map of raw messages.
+func UnmarshalTrustedProfilesList(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(TrustedProfilesList)
+	err = core.UnmarshalModel(m, "context", &obj.Context, UnmarshalResponseContext)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "offset", &obj.Offset)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "limit", &obj.Limit)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "first", &obj.First)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "previous", &obj.Previous)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "next", &obj.Next)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "profiles", &obj.Profiles, UnmarshalTrustedProfile)
 	if err != nil {
 		return
 	}
@@ -2889,6 +4834,183 @@ func (_options *UpdateAPIKeyOptions) SetDescription(description string) *UpdateA
 
 // SetHeaders : Allow user to set Headers
 func (options *UpdateAPIKeyOptions) SetHeaders(param map[string]string) *UpdateAPIKeyOptions {
+	options.Headers = param
+	return options
+}
+
+// UpdateClaimRuleOptions : The UpdateClaimRule options.
+type UpdateClaimRuleOptions struct {
+	// ID of the trusted profile.
+	ProfileID *string `json:"-" validate:"required,ne="`
+
+	// ID of the claim rule to update.
+	RuleID *string `json:"-" validate:"required,ne="`
+
+	// Version of the claim rule to be updated.  Specify the version that you retrived when reading list of claim rules.
+	// This value helps to identify any parallel usage of claim rule. Pass * to indicate to update any version available.
+	// This might result in stale updates.
+	IfMatch *string `json:"-" validate:"required"`
+
+	// Type of the calim rule, either 'Profile-SAML' or 'Profile-CR'.
+	Type *string `json:"type" validate:"required"`
+
+	// Conditions of this claim rule.
+	Conditions []ProfileClaimRuleConditions `json:"conditions" validate:"required"`
+
+	// Context with key properties for problem determination.
+	Context *ResponseContext `json:"context,omitempty"`
+
+	// Name of the claim rule to be created or updated.
+	Name *string `json:"name,omitempty"`
+
+	// The realm name of the Idp this claim rule applies to. This field is required only if the type is specified as
+	// 'Profile-SAML'.
+	RealmName *string `json:"realm_name,omitempty"`
+
+	// The compute resource type the rule applies to, required only if type is specified as 'Profile-CR'. Valid values are
+	// VSI, IKS_SA, ROKS_SA.
+	CrType *string `json:"cr_type,omitempty"`
+
+	// Session expiration in seconds, only required if type is 'Profile-SAML'.
+	Expiration *int64 `json:"expiration,omitempty"`
+
+	// Allows users to set headers on API requests
+	Headers map[string]string
+}
+
+// NewUpdateClaimRuleOptions : Instantiate UpdateClaimRuleOptions
+func (*IamIdentityV1) NewUpdateClaimRuleOptions(profileID string, ruleID string, ifMatch string, typeVar string, conditions []ProfileClaimRuleConditions) *UpdateClaimRuleOptions {
+	return &UpdateClaimRuleOptions{
+		ProfileID:  core.StringPtr(profileID),
+		RuleID:     core.StringPtr(ruleID),
+		IfMatch:    core.StringPtr(ifMatch),
+		Type:       core.StringPtr(typeVar),
+		Conditions: conditions,
+	}
+}
+
+// SetProfileID : Allow user to set ProfileID
+func (_options *UpdateClaimRuleOptions) SetProfileID(profileID string) *UpdateClaimRuleOptions {
+	_options.ProfileID = core.StringPtr(profileID)
+	return _options
+}
+
+// SetRuleID : Allow user to set RuleID
+func (_options *UpdateClaimRuleOptions) SetRuleID(ruleID string) *UpdateClaimRuleOptions {
+	_options.RuleID = core.StringPtr(ruleID)
+	return _options
+}
+
+// SetIfMatch : Allow user to set IfMatch
+func (_options *UpdateClaimRuleOptions) SetIfMatch(ifMatch string) *UpdateClaimRuleOptions {
+	_options.IfMatch = core.StringPtr(ifMatch)
+	return _options
+}
+
+// SetType : Allow user to set Type
+func (_options *UpdateClaimRuleOptions) SetType(typeVar string) *UpdateClaimRuleOptions {
+	_options.Type = core.StringPtr(typeVar)
+	return _options
+}
+
+// SetConditions : Allow user to set Conditions
+func (_options *UpdateClaimRuleOptions) SetConditions(conditions []ProfileClaimRuleConditions) *UpdateClaimRuleOptions {
+	_options.Conditions = conditions
+	return _options
+}
+
+// SetContext : Allow user to set Context
+func (_options *UpdateClaimRuleOptions) SetContext(context *ResponseContext) *UpdateClaimRuleOptions {
+	_options.Context = context
+	return _options
+}
+
+// SetName : Allow user to set Name
+func (_options *UpdateClaimRuleOptions) SetName(name string) *UpdateClaimRuleOptions {
+	_options.Name = core.StringPtr(name)
+	return _options
+}
+
+// SetRealmName : Allow user to set RealmName
+func (_options *UpdateClaimRuleOptions) SetRealmName(realmName string) *UpdateClaimRuleOptions {
+	_options.RealmName = core.StringPtr(realmName)
+	return _options
+}
+
+// SetCrType : Allow user to set CrType
+func (_options *UpdateClaimRuleOptions) SetCrType(crType string) *UpdateClaimRuleOptions {
+	_options.CrType = core.StringPtr(crType)
+	return _options
+}
+
+// SetExpiration : Allow user to set Expiration
+func (_options *UpdateClaimRuleOptions) SetExpiration(expiration int64) *UpdateClaimRuleOptions {
+	_options.Expiration = core.Int64Ptr(expiration)
+	return _options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *UpdateClaimRuleOptions) SetHeaders(param map[string]string) *UpdateClaimRuleOptions {
+	options.Headers = param
+	return options
+}
+
+// UpdateProfileOptions : The UpdateProfile options.
+type UpdateProfileOptions struct {
+	// ID of the trusted profile to be updated.
+	ProfileID *string `json:"-" validate:"required,ne="`
+
+	// Version of the trusted profile to be updated.  Specify the version that you retrived when reading list of trusted
+	// profiles. This value helps to identify any parallel usage of trusted profile. Pass * to indicate to update any
+	// version available. This might result in stale updates.
+	IfMatch *string `json:"-" validate:"required"`
+
+	// The name of the trusted profile to update. If specified in the request the parameter must not be empty. The name is
+	// checked for uniqueness. Failure to this will result in an Error condition.
+	Name *string `json:"name,omitempty"`
+
+	// The description of the trusted profile to update. If specified an empty description will clear the description of
+	// the trusted profile. If a non empty value is provided the trusted profile will be updated.
+	Description *string `json:"description,omitempty"`
+
+	// Allows users to set headers on API requests
+	Headers map[string]string
+}
+
+// NewUpdateProfileOptions : Instantiate UpdateProfileOptions
+func (*IamIdentityV1) NewUpdateProfileOptions(profileID string, ifMatch string) *UpdateProfileOptions {
+	return &UpdateProfileOptions{
+		ProfileID: core.StringPtr(profileID),
+		IfMatch:   core.StringPtr(ifMatch),
+	}
+}
+
+// SetProfileID : Allow user to set ProfileID
+func (_options *UpdateProfileOptions) SetProfileID(profileID string) *UpdateProfileOptions {
+	_options.ProfileID = core.StringPtr(profileID)
+	return _options
+}
+
+// SetIfMatch : Allow user to set IfMatch
+func (_options *UpdateProfileOptions) SetIfMatch(ifMatch string) *UpdateProfileOptions {
+	_options.IfMatch = core.StringPtr(ifMatch)
+	return _options
+}
+
+// SetName : Allow user to set Name
+func (_options *UpdateProfileOptions) SetName(name string) *UpdateProfileOptions {
+	_options.Name = core.StringPtr(name)
+	return _options
+}
+
+// SetDescription : Allow user to set Description
+func (_options *UpdateProfileOptions) SetDescription(description string) *UpdateProfileOptions {
+	_options.Description = core.StringPtr(description)
+	return _options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *UpdateProfileOptions) SetHeaders(param map[string]string) *UpdateProfileOptions {
 	options.Headers = param
 	return options
 }
