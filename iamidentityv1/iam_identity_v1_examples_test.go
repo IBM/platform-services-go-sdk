@@ -487,6 +487,7 @@ var _ = Describe(`IamIdentityV1 Examples Tests`, func() {
 
 			listProfileOptions := iamIdentityService.ListProfileOptions()
 			listProfileOptions.SetAccountID(accountID),
+			listProfileOptions.SetIncludeHistory("false"),
 
 			trustedProfiles, response, err := iamIdentityService.ListProfile(listProfileOptions)
 			if err != nil {
@@ -523,7 +524,7 @@ var _ = Describe(`IamIdentityV1 Examples Tests`, func() {
 		})
 		It(`CreateClaimRule request example`, func() {
 			fmt.Println("\nCreateClaimRule() result:")
-			// begin-create_claimrule
+			// begin-create_claimRule
 
 			profileClaimRuleConditions := new(iamidentityv1.ProfileClaimRuleConditions)
 			profileClaimRuleConditions.Claim = core.StringPtr("blueGroups")
@@ -541,7 +542,7 @@ var _ = Describe(`IamIdentityV1 Examples Tests`, func() {
 			fmt.Println(string(b))
 			claimRuleId = *claimRule.ID
 
-			// end-create_claimrule
+			// end-create_claimRule
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(201))
@@ -550,7 +551,7 @@ var _ = Describe(`IamIdentityV1 Examples Tests`, func() {
 		})
 		It(`GetClaimRule request example`, func() {
 			fmt.Println("\nGetClaimRule() result:")
-			// begin-get_claimrule
+			// begin-get_claimRule
 
 			getClaimRuleOptions := iamIdentityService.NewGetClaimRuleOptions(profileId, claimRuleId)
 
@@ -562,7 +563,7 @@ var _ = Describe(`IamIdentityV1 Examples Tests`, func() {
 			b, _ := json.MarshalIndent(claimRule, "", "  ")
 			fmt.Println(string(b))
 
-			// end-get_claimrule
+			// end-get_claimRule
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
@@ -571,7 +572,7 @@ var _ = Describe(`IamIdentityV1 Examples Tests`, func() {
 		})
 		It(`ListClaimRules request example`, func() {
 			fmt.Println("\nListClaimRules() result:")
-			// begin-list_claimrule
+			// begin-list_claimRule
 
 			listClaimRulesOptions := iamIdentityService.NewListClaimRulesOptions()
 			listClaimRulesOptions.SetProfileID(profileId)
@@ -583,7 +584,7 @@ var _ = Describe(`IamIdentityV1 Examples Tests`, func() {
 			b, _ := json.MarshalIndent(claimRulesList, "", "  ")
 			fmt.Println(string(b))
 
-			// end-list_claimrule
+			// end-list_claimRule
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
@@ -591,7 +592,7 @@ var _ = Describe(`IamIdentityV1 Examples Tests`, func() {
 		})
 		It(`UpdateClaimRule request example`, func() {
 			fmt.Println("\nUpdateClaimRule() result:")
-			// begin-update_claimrule
+			// begin-update_claimRule
 
 			profileClaimRuleConditions := new(iamidentityv1.ProfileClaimRuleConditions)
 			profileClaimRuleConditions.Claim = core.StringPtr("blueGroups")
@@ -607,14 +608,14 @@ var _ = Describe(`IamIdentityV1 Examples Tests`, func() {
 			b, _ := json.MarshalIndent(profile, "", "  ")
 			fmt.Println(string(b))
 
-			// end-update_claimrule
+			// end-update_claimRule
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(claimrule).ToNot(BeNil())
 		})
 		It(`DeleteClaimRule request example`, func() {
-			// begin-delete_claimrule
+			// begin-delete_claimRule
 
 			deleteClaimRuleOptions := iamIdentityService.NewDeleteClaimRuleOptions(profileId)
 
@@ -623,7 +624,7 @@ var _ = Describe(`IamIdentityV1 Examples Tests`, func() {
 				panic(err)
 			}
 
-			// end-delete_claimrule
+			// end-delete_claimRule
 			fmt.Printf("\nDeleteClaimRule() response status code: %d\n", response.StatusCode)
 
 			Expect(err).To(BeNil())
@@ -675,7 +676,7 @@ var _ = Describe(`IamIdentityV1 Examples Tests`, func() {
 		})
 		It(`ListLinks request example`, func() {
 			fmt.Println("\nListLinks() result:")
-			// begin-list_link
+			// begin-list_links
 
 			listLinkOptions := iamIdentityService.NewListLinkOptions(profileId)
 
@@ -686,7 +687,7 @@ var _ = Describe(`IamIdentityV1 Examples Tests`, func() {
 			b, _ := json.MarshalIndent(linkList, "", "  ")
 			fmt.Println(string(b))
 
-			// end-list_link
+			// end-list_links
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))

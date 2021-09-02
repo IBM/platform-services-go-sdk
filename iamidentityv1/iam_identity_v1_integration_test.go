@@ -665,9 +665,10 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 			for pageTokenPresent {
 
 				listProfileOptions := &iamidentityv1.ListProfileOptions{
-					AccountID: &accountID,
-					Pagetoken: pageToken,
-					Pagesize:  core.Int64Ptr(int64(1)),
+					AccountID:      &accountID,
+					Pagetoken:      pageToken,
+					Pagesize:       core.Int64Ptr(int64(1)),
+					IncludeHistory: core.BoolPtr(false),
 				}
 
 				trustedProfiles, response, err := iamIdentityService.ListProfile(listProfileOptions)
