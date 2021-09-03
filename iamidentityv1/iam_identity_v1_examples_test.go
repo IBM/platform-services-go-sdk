@@ -220,7 +220,7 @@ var _ = Describe(`IamIdentityV1 Examples Tests`, func() {
 			// begin-get_api_key
 
 			getAPIKeyOptions := iamIdentityService.NewGetAPIKeyOptions(apikeyID)
-            
+
 			getAPIKeyOptions.SetIncludeHistory(false)
 
 			apiKey, response, err := iamIdentityService.GetAPIKey(getAPIKeyOptions)
@@ -483,11 +483,10 @@ var _ = Describe(`IamIdentityV1 Examples Tests`, func() {
 		})
 		It(`ListProfiles request example`, func() {
 			fmt.Println("\nListProfiles() result:")
-			// begin-list_profile
+			// begin-list_profiles
 
-			listProfileOptions := iamIdentityService.ListProfileOptions()
-			listProfileOptions.SetAccountID(accountID),
-			listProfileOptions.SetIncludeHistory("false"),
+			listProfileOptions := iamIdentityService.NewListProfileOptions(accountID)
+			listProfileOptions.SetIncludeHistory(false)
 
 			trustedProfiles, response, err := iamIdentityService.ListProfile(listProfileOptions)
 			if err != nil {
@@ -496,7 +495,7 @@ var _ = Describe(`IamIdentityV1 Examples Tests`, func() {
 			b, _ := json.MarshalIndent(trustedProfiles, "", "  ")
 			fmt.Println(string(b))
 
-			// end-list_profile
+			// end-list_profiles
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
@@ -524,7 +523,7 @@ var _ = Describe(`IamIdentityV1 Examples Tests`, func() {
 		})
 		It(`CreateClaimRule request example`, func() {
 			fmt.Println("\nCreateClaimRule() result:")
-			// begin-create_claimRule
+			// begin-create_claim_rule
 
 			profileClaimRuleConditions := new(iamidentityv1.ProfileClaimRuleConditions)
 			profileClaimRuleConditions.Claim = core.StringPtr("blueGroups")
@@ -542,7 +541,7 @@ var _ = Describe(`IamIdentityV1 Examples Tests`, func() {
 			fmt.Println(string(b))
 			claimRuleId = *claimRule.ID
 
-			// end-create_claimRule
+			// end-create_claim_rule
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(201))
@@ -551,7 +550,7 @@ var _ = Describe(`IamIdentityV1 Examples Tests`, func() {
 		})
 		It(`GetClaimRule request example`, func() {
 			fmt.Println("\nGetClaimRule() result:")
-			// begin-get_claimRule
+			// begin-get_claim_rule
 
 			getClaimRuleOptions := iamIdentityService.NewGetClaimRuleOptions(profileId, claimRuleId)
 
@@ -563,7 +562,7 @@ var _ = Describe(`IamIdentityV1 Examples Tests`, func() {
 			b, _ := json.MarshalIndent(claimRule, "", "  ")
 			fmt.Println(string(b))
 
-			// end-get_claimRule
+			// end-get_claim_rule
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
@@ -572,10 +571,9 @@ var _ = Describe(`IamIdentityV1 Examples Tests`, func() {
 		})
 		It(`ListClaimRules request example`, func() {
 			fmt.Println("\nListClaimRules() result:")
-			// begin-list_claimRules
+			// begin-list_claim_rules
 
-			listClaimRulesOptions := iamIdentityService.NewListClaimRulesOptions()
-			listClaimRulesOptions.SetProfileID(profileId)
+			listClaimRulesOptions := iamIdentityService.NewListClaimRulesOptions(profileId)
 
 			claimRulesList, response, err := iamIdentityService.ListClaimRules(listClaimRulesOptions)
 			if err != nil {
@@ -584,7 +582,7 @@ var _ = Describe(`IamIdentityV1 Examples Tests`, func() {
 			b, _ := json.MarshalIndent(claimRulesList, "", "  ")
 			fmt.Println(string(b))
 
-			// end-list_claimRules
+			// end-list_claim_rules
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
@@ -592,7 +590,7 @@ var _ = Describe(`IamIdentityV1 Examples Tests`, func() {
 		})
 		It(`UpdateClaimRule request example`, func() {
 			fmt.Println("\nUpdateClaimRule() result:")
-			// begin-update_claimRule
+			// begin-update_claim_rule
 
 			profileClaimRuleConditions := new(iamidentityv1.ProfileClaimRuleConditions)
 			profileClaimRuleConditions.Claim = core.StringPtr("blueGroups")
@@ -605,26 +603,26 @@ var _ = Describe(`IamIdentityV1 Examples Tests`, func() {
 			if err != nil {
 				panic(err)
 			}
-			b, _ := json.MarshalIndent(profile, "", "  ")
+			b, _ := json.MarshalIndent(claimRule, "", "  ")
 			fmt.Println(string(b))
 
-			// end-update_claimRule
+			// end-update_claim_rule
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
-			Expect(claimrule).ToNot(BeNil())
+			Expect(claimRule).ToNot(BeNil())
 		})
 		It(`DeleteClaimRule request example`, func() {
-			// begin-delete_claimRule
+			// begin-delete_claim_rule
 
-			deleteClaimRuleOptions := iamIdentityService.NewDeleteClaimRuleOptions(profileId)
+			deleteClaimRuleOptions := iamIdentityService.NewDeleteClaimRuleOptions(profileId, claimRuleId)
 
 			response, err := iamIdentityService.DeleteClaimRule(deleteClaimRuleOptions)
 			if err != nil {
 				panic(err)
 			}
 
-			// end-delete_claimRule
+			// end-delete_claim_rule
 			fmt.Printf("\nDeleteClaimRule() response status code: %d\n", response.StatusCode)
 
 			Expect(err).To(BeNil())
@@ -672,7 +670,7 @@ var _ = Describe(`IamIdentityV1 Examples Tests`, func() {
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
-			Expect(profile).ToNot(BeNil())
+			Expect(link).ToNot(BeNil())
 		})
 		It(`ListLinks request example`, func() {
 			fmt.Println("\nListLinks() result:")
@@ -691,7 +689,7 @@ var _ = Describe(`IamIdentityV1 Examples Tests`, func() {
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
-			Expect(listList).ToNot(BeNil())
+			Expect(linkList).ToNot(BeNil())
 		})
 		It(`DeleteLink request example`, func() {
 			// begin-delete_link
