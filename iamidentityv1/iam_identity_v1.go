@@ -687,7 +687,7 @@ func (iamIdentity *IamIdentityV1) UnlockAPIKeyWithContext(ctx context.Context, u
 // ListServiceIds : List service IDs
 // Returns a list of service IDs. Users can manage user API keys for themself, or service ID API keys for service IDs
 // that are bound to an entity they have access to. Note: apikey details are only included in the response when
-// creating a Service ID with an api key.
+// creating a Service ID with an apikey.
 func (iamIdentity *IamIdentityV1) ListServiceIds(listServiceIdsOptions *ListServiceIdsOptions) (result *ServiceIDList, response *core.DetailedResponse, err error) {
 	return iamIdentity.ListServiceIdsWithContext(context.Background(), listServiceIdsOptions)
 }
@@ -845,7 +845,7 @@ func (iamIdentity *IamIdentityV1) CreateServiceIDWithContext(ctx context.Context
 // GetServiceID : Get details of a service ID
 // Returns the details of a service ID. Users can manage user API keys for themself, or service ID API keys for service
 // IDs that are bound to an entity they have access to. Note: apikey details are only included in the response when
-// creating a Service ID with an api key.
+// creating a Service ID with an apikey.
 func (iamIdentity *IamIdentityV1) GetServiceID(getServiceIDOptions *GetServiceIDOptions) (result *ServiceID, response *core.DetailedResponse, err error) {
 	return iamIdentity.GetServiceIDWithContext(context.Background(), getServiceIDOptions)
 }
@@ -1143,7 +1143,7 @@ func (iamIdentity *IamIdentityV1) UnlockServiceIDWithContext(ctx context.Context
 }
 
 // CreateProfile : Create a trusted profile
-// Creates a trusted profile for a given account ID.
+// Create a trusted profile for a given account ID.
 func (iamIdentity *IamIdentityV1) CreateProfile(createProfileOptions *CreateProfileOptions) (result *TrustedProfile, response *core.DetailedResponse, err error) {
 	return iamIdentity.CreateProfileWithContext(context.Background(), createProfileOptions)
 }
@@ -1214,19 +1214,20 @@ func (iamIdentity *IamIdentityV1) CreateProfileWithContext(ctx context.Context, 
 	return
 }
 
-// ListProfile : Get list of trusted profiles for a given account ID
-// Returns the list of trusted profiles for a given account ID.
-func (iamIdentity *IamIdentityV1) ListProfile(listProfileOptions *ListProfileOptions) (result *TrustedProfilesList, response *core.DetailedResponse, err error) {
-	return iamIdentity.ListProfileWithContext(context.Background(), listProfileOptions)
+// ListProfiles : List trusted profiles
+// List the trusted profiles in an account. The `account_id` query parameter determines the account from which to
+// retrieve the list of trusted profiles.
+func (iamIdentity *IamIdentityV1) ListProfiles(listProfilesOptions *ListProfilesOptions) (result *TrustedProfilesList, response *core.DetailedResponse, err error) {
+	return iamIdentity.ListProfilesWithContext(context.Background(), listProfilesOptions)
 }
 
-// ListProfileWithContext is an alternate form of the ListProfile method which supports a Context parameter
-func (iamIdentity *IamIdentityV1) ListProfileWithContext(ctx context.Context, listProfileOptions *ListProfileOptions) (result *TrustedProfilesList, response *core.DetailedResponse, err error) {
-	err = core.ValidateNotNil(listProfileOptions, "listProfileOptions cannot be nil")
+// ListProfilesWithContext is an alternate form of the ListProfiles method which supports a Context parameter
+func (iamIdentity *IamIdentityV1) ListProfilesWithContext(ctx context.Context, listProfilesOptions *ListProfilesOptions) (result *TrustedProfilesList, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(listProfilesOptions, "listProfilesOptions cannot be nil")
 	if err != nil {
 		return
 	}
-	err = core.ValidateStruct(listProfileOptions, "listProfileOptions")
+	err = core.ValidateStruct(listProfilesOptions, "listProfilesOptions")
 	if err != nil {
 		return
 	}
@@ -1239,34 +1240,34 @@ func (iamIdentity *IamIdentityV1) ListProfileWithContext(ctx context.Context, li
 		return
 	}
 
-	for headerName, headerValue := range listProfileOptions.Headers {
+	for headerName, headerValue := range listProfilesOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("iam_identity", "V1", "ListProfile")
+	sdkHeaders := common.GetSdkHeaders("iam_identity", "V1", "ListProfiles")
 	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
 
-	builder.AddQuery("account_id", fmt.Sprint(*listProfileOptions.AccountID))
-	if listProfileOptions.Name != nil {
-		builder.AddQuery("name", fmt.Sprint(*listProfileOptions.Name))
+	builder.AddQuery("account_id", fmt.Sprint(*listProfilesOptions.AccountID))
+	if listProfilesOptions.Name != nil {
+		builder.AddQuery("name", fmt.Sprint(*listProfilesOptions.Name))
 	}
-	if listProfileOptions.Pagesize != nil {
-		builder.AddQuery("pagesize", fmt.Sprint(*listProfileOptions.Pagesize))
+	if listProfilesOptions.Pagesize != nil {
+		builder.AddQuery("pagesize", fmt.Sprint(*listProfilesOptions.Pagesize))
 	}
-	if listProfileOptions.Sort != nil {
-		builder.AddQuery("sort", fmt.Sprint(*listProfileOptions.Sort))
+	if listProfilesOptions.Sort != nil {
+		builder.AddQuery("sort", fmt.Sprint(*listProfilesOptions.Sort))
 	}
-	if listProfileOptions.Order != nil {
-		builder.AddQuery("order", fmt.Sprint(*listProfileOptions.Order))
+	if listProfilesOptions.Order != nil {
+		builder.AddQuery("order", fmt.Sprint(*listProfilesOptions.Order))
 	}
-	if listProfileOptions.IncludeHistory != nil {
-		builder.AddQuery("include_history", fmt.Sprint(*listProfileOptions.IncludeHistory))
+	if listProfilesOptions.IncludeHistory != nil {
+		builder.AddQuery("include_history", fmt.Sprint(*listProfilesOptions.IncludeHistory))
 	}
-	if listProfileOptions.Pagetoken != nil {
-		builder.AddQuery("pagetoken", fmt.Sprint(*listProfileOptions.Pagetoken))
+	if listProfilesOptions.Pagetoken != nil {
+		builder.AddQuery("pagetoken", fmt.Sprint(*listProfilesOptions.Pagetoken))
 	}
 
 	request, err := builder.Build()
@@ -1291,7 +1292,8 @@ func (iamIdentity *IamIdentityV1) ListProfileWithContext(ctx context.Context, li
 }
 
 // GetProfile : Get a trusted profile
-// Get a trusted profile.
+// Retrieve a trusted profile by its `profile-id`. Only the trusted profile's data is returned (`name`, `description`,
+// `iam_id`, etc.), not the federated users or compute resources that qualify to apply the trusted profile.
 func (iamIdentity *IamIdentityV1) GetProfile(getProfileOptions *GetProfileOptions) (result *TrustedProfile, response *core.DetailedResponse, err error) {
 	return iamIdentity.GetProfileWithContext(context.Background(), getProfileOptions)
 }
@@ -1351,7 +1353,7 @@ func (iamIdentity *IamIdentityV1) GetProfileWithContext(ctx context.Context, get
 }
 
 // UpdateProfile : Update a trusted profile
-// Updates a trusted profile.
+// Update the name or description of an existing trusted profile.
 func (iamIdentity *IamIdentityV1) UpdateProfile(updateProfileOptions *UpdateProfileOptions) (result *TrustedProfile, response *core.DetailedResponse, err error) {
 	return iamIdentity.UpdateProfileWithContext(context.Background(), updateProfileOptions)
 }
@@ -1427,7 +1429,8 @@ func (iamIdentity *IamIdentityV1) UpdateProfileWithContext(ctx context.Context, 
 }
 
 // DeleteProfile : Delete a trusted profile
-// Deletes a trusted profile.
+// Delete a trusted profile. When you delete trusted profile, compute resources and federated users are unlinked from
+// the profile and can no longer apply the trusted profile identity.
 func (iamIdentity *IamIdentityV1) DeleteProfile(deleteProfileOptions *DeleteProfileOptions) (response *core.DetailedResponse, err error) {
 	return iamIdentity.DeleteProfileWithContext(context.Background(), deleteProfileOptions)
 }
@@ -1475,7 +1478,7 @@ func (iamIdentity *IamIdentityV1) DeleteProfileWithContext(ctx context.Context, 
 }
 
 // CreateClaimRule : Create claim rule for a trusted profile
-// Claim rule can be created for a given trusted profile, There is a limit of 20 rules allowed per trusted profile.
+// Create a claim rule for a trusted profile. There is a limit of 20 rules per trusted profile.
 func (iamIdentity *IamIdentityV1) CreateClaimRule(createClaimRuleOptions *CreateClaimRuleOptions) (result *ProfileClaimRule, response *core.DetailedResponse, err error) {
 	return iamIdentity.CreateClaimRuleWithContext(context.Background(), createClaimRuleOptions)
 }
@@ -1562,8 +1565,9 @@ func (iamIdentity *IamIdentityV1) CreateClaimRuleWithContext(ctx context.Context
 	return
 }
 
-// ListClaimRules : Get all claim rules for a given trusted profile
-// Returns list of claim rules for a trusted profile.
+// ListClaimRules : List claim rules for a trusted profile
+// Get a list of all claim rules for a trusted profile. The `profile-id` query parameter determines the profile from
+// which to retrieve the list of claim rules.
 func (iamIdentity *IamIdentityV1) ListClaimRules(listClaimRulesOptions *ListClaimRulesOptions) (result *ProfileClaimRuleList, response *core.DetailedResponse, err error) {
 	return iamIdentity.ListClaimRulesWithContext(context.Background(), listClaimRulesOptions)
 }
@@ -1622,8 +1626,8 @@ func (iamIdentity *IamIdentityV1) ListClaimRulesWithContext(ctx context.Context,
 	return
 }
 
-// GetClaimRule : Get claim rule for a trusted profile
-// Claim rule can be fetched for a given trusted profile ID and rule ID.
+// GetClaimRule : Get a claim rule for a trusted profile
+// A specific claim rule can be fetched for a given trusted profile ID and rule ID.
 func (iamIdentity *IamIdentityV1) GetClaimRule(getClaimRuleOptions *GetClaimRuleOptions) (result *ProfileClaimRule, response *core.DetailedResponse, err error) {
 	return iamIdentity.GetClaimRuleWithContext(context.Background(), getClaimRuleOptions)
 }
@@ -1641,7 +1645,7 @@ func (iamIdentity *IamIdentityV1) GetClaimRuleWithContext(ctx context.Context, g
 
 	pathParamsMap := map[string]string{
 		"profile-id": *getClaimRuleOptions.ProfileID,
-		"rule-id":    *getClaimRuleOptions.RuleID,
+		"rule-id": *getClaimRuleOptions.RuleID,
 	}
 
 	builder := core.NewRequestBuilder(core.GET)
@@ -1684,7 +1688,7 @@ func (iamIdentity *IamIdentityV1) GetClaimRuleWithContext(ctx context.Context, g
 }
 
 // UpdateClaimRule : Update claim rule for a trusted profile
-// Claim rule can be updated for a given trusted profile ID and rule ID.
+// Update a specific claim rule for a given trusted profile ID and rule ID.
 func (iamIdentity *IamIdentityV1) UpdateClaimRule(updateClaimRuleOptions *UpdateClaimRuleOptions) (result *ProfileClaimRule, response *core.DetailedResponse, err error) {
 	return iamIdentity.UpdateClaimRuleWithContext(context.Background(), updateClaimRuleOptions)
 }
@@ -1702,7 +1706,7 @@ func (iamIdentity *IamIdentityV1) UpdateClaimRuleWithContext(ctx context.Context
 
 	pathParamsMap := map[string]string{
 		"profile-id": *updateClaimRuleOptions.ProfileID,
-		"rule-id":    *updateClaimRuleOptions.RuleID,
+		"rule-id": *updateClaimRuleOptions.RuleID,
 	}
 
 	builder := core.NewRequestBuilder(core.PUT)
@@ -1776,7 +1780,8 @@ func (iamIdentity *IamIdentityV1) UpdateClaimRuleWithContext(ctx context.Context
 }
 
 // DeleteClaimRule : Delete a claim rule
-// Deletes a claim rule.
+// Delete a claim rule. When you delete a claim rule, federated user or compute resources are no longer required to meet
+// the conditions of the claim rule in order to apply the trusted profile.
 func (iamIdentity *IamIdentityV1) DeleteClaimRule(deleteClaimRuleOptions *DeleteClaimRuleOptions) (response *core.DetailedResponse, err error) {
 	return iamIdentity.DeleteClaimRuleWithContext(context.Background(), deleteClaimRuleOptions)
 }
@@ -1794,7 +1799,7 @@ func (iamIdentity *IamIdentityV1) DeleteClaimRuleWithContext(ctx context.Context
 
 	pathParamsMap := map[string]string{
 		"profile-id": *deleteClaimRuleOptions.ProfileID,
-		"rule-id":    *deleteClaimRuleOptions.RuleID,
+		"rule-id": *deleteClaimRuleOptions.RuleID,
 	}
 
 	builder := core.NewRequestBuilder(core.DELETE)
@@ -1825,7 +1830,8 @@ func (iamIdentity *IamIdentityV1) DeleteClaimRuleWithContext(ctx context.Context
 }
 
 // CreateLink : Create link to a trusted profile
-// Link compute resource to a trusted profile.
+// Create a direct link between a specific compute resource and a trusted profile, rather than creating conditions that
+// a compute resource must fulfill to apply a trusted profile.
 func (iamIdentity *IamIdentityV1) CreateLink(createLinkOptions *CreateLinkOptions) (result *ProfileLink, response *core.DetailedResponse, err error) {
 	return iamIdentity.CreateLinkWithContext(context.Background(), createLinkOptions)
 }
@@ -1900,25 +1906,25 @@ func (iamIdentity *IamIdentityV1) CreateLinkWithContext(ctx context.Context, cre
 	return
 }
 
-// ListLink : Get list of links to a trusted profile
-// Gets list of link to a trusted profile.
-func (iamIdentity *IamIdentityV1) ListLink(listLinkOptions *ListLinkOptions) (result *ProfileLinkList, response *core.DetailedResponse, err error) {
-	return iamIdentity.ListLinkWithContext(context.Background(), listLinkOptions)
+// ListLinks : List links to a trusted profile
+// Get a list of links to a trusted profile.
+func (iamIdentity *IamIdentityV1) ListLinks(listLinksOptions *ListLinksOptions) (result *ProfileLinkList, response *core.DetailedResponse, err error) {
+	return iamIdentity.ListLinksWithContext(context.Background(), listLinksOptions)
 }
 
-// ListLinkWithContext is an alternate form of the ListLink method which supports a Context parameter
-func (iamIdentity *IamIdentityV1) ListLinkWithContext(ctx context.Context, listLinkOptions *ListLinkOptions) (result *ProfileLinkList, response *core.DetailedResponse, err error) {
-	err = core.ValidateNotNil(listLinkOptions, "listLinkOptions cannot be nil")
+// ListLinksWithContext is an alternate form of the ListLinks method which supports a Context parameter
+func (iamIdentity *IamIdentityV1) ListLinksWithContext(ctx context.Context, listLinksOptions *ListLinksOptions) (result *ProfileLinkList, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(listLinksOptions, "listLinksOptions cannot be nil")
 	if err != nil {
 		return
 	}
-	err = core.ValidateStruct(listLinkOptions, "listLinkOptions")
+	err = core.ValidateStruct(listLinksOptions, "listLinksOptions")
 	if err != nil {
 		return
 	}
 
 	pathParamsMap := map[string]string{
-		"profile-id": *listLinkOptions.ProfileID,
+		"profile-id": *listLinksOptions.ProfileID,
 	}
 
 	builder := core.NewRequestBuilder(core.GET)
@@ -1929,11 +1935,11 @@ func (iamIdentity *IamIdentityV1) ListLinkWithContext(ctx context.Context, listL
 		return
 	}
 
-	for headerName, headerValue := range listLinkOptions.Headers {
+	for headerName, headerValue := range listLinksOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("iam_identity", "V1", "ListLink")
+	sdkHeaders := common.GetSdkHeaders("iam_identity", "V1", "ListLinks")
 	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
@@ -1961,7 +1967,7 @@ func (iamIdentity *IamIdentityV1) ListLinkWithContext(ctx context.Context, listL
 }
 
 // GetLink : Get link to a trusted profile
-// Gets link to a trusted profile.
+// Get a specific link to a trusted profile by `link_id`.
 func (iamIdentity *IamIdentityV1) GetLink(getLinkOptions *GetLinkOptions) (result *ProfileLink, response *core.DetailedResponse, err error) {
 	return iamIdentity.GetLinkWithContext(context.Background(), getLinkOptions)
 }
@@ -1979,7 +1985,7 @@ func (iamIdentity *IamIdentityV1) GetLinkWithContext(ctx context.Context, getLin
 
 	pathParamsMap := map[string]string{
 		"profile-id": *getLinkOptions.ProfileID,
-		"link-id":    *getLinkOptions.LinkID,
+		"link-id": *getLinkOptions.LinkID,
 	}
 
 	builder := core.NewRequestBuilder(core.GET)
@@ -2022,7 +2028,7 @@ func (iamIdentity *IamIdentityV1) GetLinkWithContext(ctx context.Context, getLin
 }
 
 // DeleteLink : Delete link to a trusted profile
-// Deletes link to a trusted profile.
+// Delete a link between a compute resource and a trusted profile.
 func (iamIdentity *IamIdentityV1) DeleteLink(deleteLinkOptions *DeleteLinkOptions) (response *core.DetailedResponse, err error) {
 	return iamIdentity.DeleteLinkWithContext(context.Background(), deleteLinkOptions)
 }
@@ -2040,7 +2046,7 @@ func (iamIdentity *IamIdentityV1) DeleteLinkWithContext(ctx context.Context, del
 
 	pathParamsMap := map[string]string{
 		"profile-id": *deleteLinkOptions.ProfileID,
-		"link-id":    *deleteLinkOptions.LinkID,
+		"link-id": *deleteLinkOptions.LinkID,
 	}
 
 	builder := core.NewRequestBuilder(core.DELETE)
@@ -2287,8 +2293,8 @@ type AccountSettingsResponse struct {
 //   * NOT_SET - to 'unset' a previous set value.
 const (
 	AccountSettingsResponseRestrictCreateServiceIDNotRestrictedConst = "NOT_RESTRICTED"
-	AccountSettingsResponseRestrictCreateServiceIDNotSetConst        = "NOT_SET"
-	AccountSettingsResponseRestrictCreateServiceIDRestrictedConst    = "RESTRICTED"
+	AccountSettingsResponseRestrictCreateServiceIDNotSetConst = "NOT_SET"
+	AccountSettingsResponseRestrictCreateServiceIDRestrictedConst = "RESTRICTED"
 )
 
 // Constants associated with the AccountSettingsResponse.RestrictCreatePlatformApikey property.
@@ -2298,8 +2304,8 @@ const (
 //   * NOT_SET - to 'unset' a previous set value.
 const (
 	AccountSettingsResponseRestrictCreatePlatformApikeyNotRestrictedConst = "NOT_RESTRICTED"
-	AccountSettingsResponseRestrictCreatePlatformApikeyNotSetConst        = "NOT_SET"
-	AccountSettingsResponseRestrictCreatePlatformApikeyRestrictedConst    = "RESTRICTED"
+	AccountSettingsResponseRestrictCreatePlatformApikeyNotSetConst = "NOT_SET"
+	AccountSettingsResponseRestrictCreatePlatformApikeyRestrictedConst = "RESTRICTED"
 )
 
 // Constants associated with the AccountSettingsResponse.Mfa property.
@@ -2311,11 +2317,11 @@ const (
 //   * LEVEL2 - TOTP-based MFA for all users
 //   * LEVEL3 - U2F MFA for all users.
 const (
-	AccountSettingsResponseMfaLevel1Const   = "LEVEL1"
-	AccountSettingsResponseMfaLevel2Const   = "LEVEL2"
-	AccountSettingsResponseMfaLevel3Const   = "LEVEL3"
-	AccountSettingsResponseMfaNoneConst     = "NONE"
-	AccountSettingsResponseMfaTotpConst     = "TOTP"
+	AccountSettingsResponseMfaLevel1Const = "LEVEL1"
+	AccountSettingsResponseMfaLevel2Const = "LEVEL2"
+	AccountSettingsResponseMfaLevel3Const = "LEVEL3"
+	AccountSettingsResponseMfaNoneConst = "NONE"
+	AccountSettingsResponseMfaTotpConst = "TOTP"
 	AccountSettingsResponseMfaTotp4allConst = "TOTP4ALL"
 )
 
@@ -2604,31 +2610,31 @@ func UnmarshalAPIKeyList(m map[string]json.RawMessage, result interface{}) (err 
 type CreateAPIKeyOptions struct {
 	// Name of the API key. The name is not checked for uniqueness. Therefore multiple names with the same value can exist.
 	// Access is done via the UUID of the API key.
-	Name *string `validate:"required"`
+	Name *string `json:"name" validate:"required"`
 
 	// The iam_id that this API key authenticates.
-	IamID *string `validate:"required"`
+	IamID *string `json:"iam_id" validate:"required"`
 
 	// The optional description of the API key. The 'description' property is only available if a description was provided
 	// during a create of an API key.
-	Description *string
+	Description *string `json:"description,omitempty"`
 
 	// The account ID of the API key.
-	AccountID *string
+	AccountID *string `json:"account_id,omitempty"`
 
 	// You can optionally passthrough the API key value for this API key. If passed, NO validation of that apiKey value is
 	// done, i.e. the value can be non-URL safe. If omitted, the API key management will create an URL safe opaque API key
 	// value. The value of the API key is checked for uniqueness. Please ensure enough variations when passing in this
 	// value.
-	Apikey *string
+	Apikey *string `json:"apikey,omitempty"`
 
 	// Send true or false to set whether the API key value is retrievable in the future by using the Get details of an API
 	// key request. If you create an API key for a user, you must specify `false` or omit the value. We don't allow storing
 	// of API keys for users.
-	StoreValue *bool
+	StoreValue *bool `json:"store_value,omitempty"`
 
 	// Indicates if the API key is locked for further write operations. False by default.
-	EntityLock *string
+	EntityLock *string `json:"-"`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -2637,7 +2643,7 @@ type CreateAPIKeyOptions struct {
 // NewCreateAPIKeyOptions : Instantiate CreateAPIKeyOptions
 func (*IamIdentityV1) NewCreateAPIKeyOptions(name string, iamID string) *CreateAPIKeyOptions {
 	return &CreateAPIKeyOptions{
-		Name:  core.StringPtr(name),
+		Name: core.StringPtr(name),
 		IamID: core.StringPtr(iamID),
 	}
 }
@@ -2725,8 +2731,8 @@ type CreateClaimRuleOptions struct {
 // NewCreateClaimRuleOptions : Instantiate CreateClaimRuleOptions
 func (*IamIdentityV1) NewCreateClaimRuleOptions(profileID string, typeVar string, conditions []ProfileClaimRuleConditions) *CreateClaimRuleOptions {
 	return &CreateClaimRuleOptions{
-		ProfileID:  core.StringPtr(profileID),
-		Type:       core.StringPtr(typeVar),
+		ProfileID: core.StringPtr(profileID),
+		Type: core.StringPtr(typeVar),
 		Conditions: conditions,
 	}
 }
@@ -2807,8 +2813,8 @@ type CreateLinkOptions struct {
 func (*IamIdentityV1) NewCreateLinkOptions(profileID string, crType string, link *CreateProfileLinkRequestLink) *CreateLinkOptions {
 	return &CreateLinkOptions{
 		ProfileID: core.StringPtr(profileID),
-		CrType:    core.StringPtr(crType),
-		Link:      link,
+		CrType: core.StringPtr(crType),
+		Link: link,
 	}
 }
 
@@ -2857,7 +2863,7 @@ type CreateProfileLinkRequestLink struct {
 // NewCreateProfileLinkRequestLink : Instantiate CreateProfileLinkRequestLink (Generic Model Constructor)
 func (*IamIdentityV1) NewCreateProfileLinkRequestLink(crn string, namespace string) (_model *CreateProfileLinkRequestLink, err error) {
 	_model = &CreateProfileLinkRequestLink{
-		CRN:       core.StringPtr(crn),
+		CRN: core.StringPtr(crn),
 		Namespace: core.StringPtr(namespace),
 	}
 	err = core.ValidateStruct(_model, "required parameters")
@@ -2903,7 +2909,7 @@ type CreateProfileOptions struct {
 // NewCreateProfileOptions : Instantiate CreateProfileOptions
 func (*IamIdentityV1) NewCreateProfileOptions(name string, accountID string) *CreateProfileOptions {
 	return &CreateProfileOptions{
-		Name:      core.StringPtr(name),
+		Name: core.StringPtr(name),
 		AccountID: core.StringPtr(accountID),
 	}
 }
@@ -2935,24 +2941,24 @@ func (options *CreateProfileOptions) SetHeaders(param map[string]string) *Create
 // CreateServiceIDOptions : The CreateServiceID options.
 type CreateServiceIDOptions struct {
 	// ID of the account the service ID belongs to.
-	AccountID *string `validate:"required"`
+	AccountID *string `json:"account_id" validate:"required"`
 
 	// Name of the Service Id. The name is not checked for uniqueness. Therefore multiple names with the same value can
 	// exist. Access is done via the UUID of the Service Id.
-	Name *string `validate:"required"`
+	Name *string `json:"name" validate:"required"`
 
 	// The optional description of the Service Id. The 'description' property is only available if a description was
 	// provided during a create of a Service Id.
-	Description *string
+	Description *string `json:"description,omitempty"`
 
 	// Optional list of CRNs (string array) which point to the services connected to the service ID.
-	UniqueInstanceCrns []string
+	UniqueInstanceCrns []string `json:"unique_instance_crns,omitempty"`
 
 	// Parameters for the API key in the Create service Id V1 REST request.
-	Apikey *APIKeyInsideCreateServiceIDRequest
+	Apikey *APIKeyInsideCreateServiceIDRequest `json:"apikey,omitempty"`
 
 	// Indicates if the service ID is locked for further write operations. False by default.
-	EntityLock *string
+	EntityLock *string `json:"-"`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -2962,7 +2968,7 @@ type CreateServiceIDOptions struct {
 func (*IamIdentityV1) NewCreateServiceIDOptions(accountID string, name string) *CreateServiceIDOptions {
 	return &CreateServiceIDOptions{
 		AccountID: core.StringPtr(accountID),
-		Name:      core.StringPtr(name),
+		Name: core.StringPtr(name),
 	}
 }
 
@@ -3011,7 +3017,7 @@ func (options *CreateServiceIDOptions) SetHeaders(param map[string]string) *Crea
 // DeleteAPIKeyOptions : The DeleteAPIKey options.
 type DeleteAPIKeyOptions struct {
 	// Unique ID of the API key.
-	ID *string `validate:"required,ne="`
+	ID *string `json:"-" validate:"required,ne="`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -3052,7 +3058,7 @@ type DeleteClaimRuleOptions struct {
 func (*IamIdentityV1) NewDeleteClaimRuleOptions(profileID string, ruleID string) *DeleteClaimRuleOptions {
 	return &DeleteClaimRuleOptions{
 		ProfileID: core.StringPtr(profileID),
-		RuleID:    core.StringPtr(ruleID),
+		RuleID: core.StringPtr(ruleID),
 	}
 }
 
@@ -3090,7 +3096,7 @@ type DeleteLinkOptions struct {
 func (*IamIdentityV1) NewDeleteLinkOptions(profileID string, linkID string) *DeleteLinkOptions {
 	return &DeleteLinkOptions{
 		ProfileID: core.StringPtr(profileID),
-		LinkID:    core.StringPtr(linkID),
+		LinkID: core.StringPtr(linkID),
 	}
 }
 
@@ -3143,7 +3149,7 @@ func (options *DeleteProfileOptions) SetHeaders(param map[string]string) *Delete
 // DeleteServiceIDOptions : The DeleteServiceID options.
 type DeleteServiceIDOptions struct {
 	// Unique ID of the service ID.
-	ID *string `validate:"required,ne="`
+	ID *string `json:"-" validate:"required,ne="`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -3223,10 +3229,10 @@ func UnmarshalEnityHistoryRecord(m map[string]json.RawMessage, result interface{
 // GetAccountSettingsOptions : The GetAccountSettings options.
 type GetAccountSettingsOptions struct {
 	// Unique ID of the account.
-	AccountID *string `validate:"required,ne="`
+	AccountID *string `json:"-" validate:"required,ne="`
 
 	// Defines if the entity history is included in the response.
-	IncludeHistory *bool
+	IncludeHistory *bool `json:"-"`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -3260,10 +3266,10 @@ func (options *GetAccountSettingsOptions) SetHeaders(param map[string]string) *G
 // GetAPIKeyOptions : The GetAPIKey options.
 type GetAPIKeyOptions struct {
 	// Unique ID of the API key.
-	ID *string `validate:"required,ne="`
+	ID *string `json:"-" validate:"required,ne="`
 
 	// Defines if the entity history is included in the response.
-	IncludeHistory *bool
+	IncludeHistory *bool `json:"-"`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -3297,10 +3303,10 @@ func (options *GetAPIKeyOptions) SetHeaders(param map[string]string) *GetAPIKeyO
 // GetAPIKeysDetailsOptions : The GetAPIKeysDetails options.
 type GetAPIKeysDetailsOptions struct {
 	// API key value.
-	IamAPIKey *string
+	IamAPIKey *string `json:"-"`
 
 	// Defines if the entity history is included in the response.
-	IncludeHistory *bool
+	IncludeHistory *bool `json:"-"`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -3345,7 +3351,7 @@ type GetClaimRuleOptions struct {
 func (*IamIdentityV1) NewGetClaimRuleOptions(profileID string, ruleID string) *GetClaimRuleOptions {
 	return &GetClaimRuleOptions{
 		ProfileID: core.StringPtr(profileID),
-		RuleID:    core.StringPtr(ruleID),
+		RuleID: core.StringPtr(ruleID),
 	}
 }
 
@@ -3383,7 +3389,7 @@ type GetLinkOptions struct {
 func (*IamIdentityV1) NewGetLinkOptions(profileID string, linkID string) *GetLinkOptions {
 	return &GetLinkOptions{
 		ProfileID: core.StringPtr(profileID),
-		LinkID:    core.StringPtr(linkID),
+		LinkID: core.StringPtr(linkID),
 	}
 }
 
@@ -3436,10 +3442,10 @@ func (options *GetProfileOptions) SetHeaders(param map[string]string) *GetProfil
 // GetServiceIDOptions : The GetServiceID options.
 type GetServiceIDOptions struct {
 	// Unique ID of the service ID.
-	ID *string `validate:"required,ne="`
+	ID *string `json:"-" validate:"required,ne="`
 
 	// Defines if the entity history is included in the response.
-	IncludeHistory *bool
+	IncludeHistory *bool `json:"-"`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -3475,33 +3481,33 @@ type ListAPIKeysOptions struct {
 	// Account ID of the API keys(s) to query. If a service IAM ID is specified in iam_id then account_id must match the
 	// account of the IAM ID. If a user IAM ID is specified in iam_id then then account_id must match the account of the
 	// Authorization token.
-	AccountID *string
+	AccountID *string `json:"-"`
 
 	// IAM ID of the API key(s) to be queried. The IAM ID may be that of a user or a service. For a user IAM ID iam_id must
 	// match the Authorization token.
-	IamID *string
+	IamID *string `json:"-"`
 
 	// Optional size of a single page. Default is 20 items per page. Valid range is 1 to 100.
-	Pagesize *int64
+	Pagesize *int64 `json:"-"`
 
 	// Optional Prev or Next page token returned from a previous query execution. Default is start with first page.
-	Pagetoken *string
+	Pagetoken *string `json:"-"`
 
 	// Optional parameter to define the scope of the queried API Keys. Can be 'entity' (default) or 'account'.
-	Scope *string
+	Scope *string `json:"-"`
 
 	// Optional parameter to filter the type of the queried API Keys. Can be 'user' or 'serviceid'.
-	Type *string
+	Type *string `json:"-"`
 
 	// Optional sort property, valid values are name, description, created_at and created_by. If specified, the items are
 	// sorted by the value of this property.
-	Sort *string
+	Sort *string `json:"-"`
 
 	// Optional sort order, valid values are asc and desc. Default: asc.
-	Order *string
+	Order *string `json:"-"`
 
 	// Defines if the entity history is included in the response.
-	IncludeHistory *bool
+	IncludeHistory *bool `json:"-"`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -3511,20 +3517,20 @@ type ListAPIKeysOptions struct {
 // Optional parameter to define the scope of the queried API Keys. Can be 'entity' (default) or 'account'.
 const (
 	ListAPIKeysOptionsScopeAccountConst = "account"
-	ListAPIKeysOptionsScopeEntityConst  = "entity"
+	ListAPIKeysOptionsScopeEntityConst = "entity"
 )
 
 // Constants associated with the ListAPIKeysOptions.Type property.
 // Optional parameter to filter the type of the queried API Keys. Can be 'user' or 'serviceid'.
 const (
 	ListAPIKeysOptionsTypeServiceidConst = "serviceid"
-	ListAPIKeysOptionsTypeUserConst      = "user"
+	ListAPIKeysOptionsTypeUserConst = "user"
 )
 
 // Constants associated with the ListAPIKeysOptions.Order property.
 // Optional sort order, valid values are asc and desc. Default: asc.
 const (
-	ListAPIKeysOptionsOrderAscConst  = "asc"
+	ListAPIKeysOptionsOrderAscConst = "asc"
 	ListAPIKeysOptionsOrderDescConst = "desc"
 )
 
@@ -3621,8 +3627,8 @@ func (options *ListClaimRulesOptions) SetHeaders(param map[string]string) *ListC
 	return options
 }
 
-// ListLinkOptions : The ListLink options.
-type ListLinkOptions struct {
+// ListLinksOptions : The ListLinks options.
+type ListLinksOptions struct {
 	// ID of the trusted profile.
 	ProfileID *string `json:"-" validate:"required,ne="`
 
@@ -3630,27 +3636,27 @@ type ListLinkOptions struct {
 	Headers map[string]string
 }
 
-// NewListLinkOptions : Instantiate ListLinkOptions
-func (*IamIdentityV1) NewListLinkOptions(profileID string) *ListLinkOptions {
-	return &ListLinkOptions{
+// NewListLinksOptions : Instantiate ListLinksOptions
+func (*IamIdentityV1) NewListLinksOptions(profileID string) *ListLinksOptions {
+	return &ListLinksOptions{
 		ProfileID: core.StringPtr(profileID),
 	}
 }
 
 // SetProfileID : Allow user to set ProfileID
-func (_options *ListLinkOptions) SetProfileID(profileID string) *ListLinkOptions {
+func (_options *ListLinksOptions) SetProfileID(profileID string) *ListLinksOptions {
 	_options.ProfileID = core.StringPtr(profileID)
 	return _options
 }
 
 // SetHeaders : Allow user to set Headers
-func (options *ListLinkOptions) SetHeaders(param map[string]string) *ListLinkOptions {
+func (options *ListLinksOptions) SetHeaders(param map[string]string) *ListLinksOptions {
 	options.Headers = param
 	return options
 }
 
-// ListProfileOptions : The ListProfile options.
-type ListProfileOptions struct {
+// ListProfilesOptions : The ListProfiles options.
+type ListProfilesOptions struct {
 	// Account ID to query for trusted profiles.
 	AccountID *string `json:"-" validate:"required"`
 
@@ -3677,64 +3683,64 @@ type ListProfileOptions struct {
 	Headers map[string]string
 }
 
-// Constants associated with the ListProfileOptions.Order property.
+// Constants associated with the ListProfilesOptions.Order property.
 // Optional sort order, valid values are asc and desc. Default: asc.
 const (
-	ListProfileOptionsOrderAscConst  = "asc"
-	ListProfileOptionsOrderDescConst = "desc"
+	ListProfilesOptionsOrderAscConst = "asc"
+	ListProfilesOptionsOrderDescConst = "desc"
 )
 
-// NewListProfileOptions : Instantiate ListProfileOptions
-func (*IamIdentityV1) NewListProfileOptions(accountID string) *ListProfileOptions {
-	return &ListProfileOptions{
+// NewListProfilesOptions : Instantiate ListProfilesOptions
+func (*IamIdentityV1) NewListProfilesOptions(accountID string) *ListProfilesOptions {
+	return &ListProfilesOptions{
 		AccountID: core.StringPtr(accountID),
 	}
 }
 
 // SetAccountID : Allow user to set AccountID
-func (_options *ListProfileOptions) SetAccountID(accountID string) *ListProfileOptions {
+func (_options *ListProfilesOptions) SetAccountID(accountID string) *ListProfilesOptions {
 	_options.AccountID = core.StringPtr(accountID)
 	return _options
 }
 
 // SetName : Allow user to set Name
-func (_options *ListProfileOptions) SetName(name string) *ListProfileOptions {
+func (_options *ListProfilesOptions) SetName(name string) *ListProfilesOptions {
 	_options.Name = core.StringPtr(name)
 	return _options
 }
 
 // SetPagesize : Allow user to set Pagesize
-func (_options *ListProfileOptions) SetPagesize(pagesize int64) *ListProfileOptions {
+func (_options *ListProfilesOptions) SetPagesize(pagesize int64) *ListProfilesOptions {
 	_options.Pagesize = core.Int64Ptr(pagesize)
 	return _options
 }
 
 // SetSort : Allow user to set Sort
-func (_options *ListProfileOptions) SetSort(sort string) *ListProfileOptions {
+func (_options *ListProfilesOptions) SetSort(sort string) *ListProfilesOptions {
 	_options.Sort = core.StringPtr(sort)
 	return _options
 }
 
 // SetOrder : Allow user to set Order
-func (_options *ListProfileOptions) SetOrder(order string) *ListProfileOptions {
+func (_options *ListProfilesOptions) SetOrder(order string) *ListProfilesOptions {
 	_options.Order = core.StringPtr(order)
 	return _options
 }
 
 // SetIncludeHistory : Allow user to set IncludeHistory
-func (_options *ListProfileOptions) SetIncludeHistory(includeHistory bool) *ListProfileOptions {
+func (_options *ListProfilesOptions) SetIncludeHistory(includeHistory bool) *ListProfilesOptions {
 	_options.IncludeHistory = core.BoolPtr(includeHistory)
 	return _options
 }
 
 // SetPagetoken : Allow user to set Pagetoken
-func (_options *ListProfileOptions) SetPagetoken(pagetoken string) *ListProfileOptions {
+func (_options *ListProfilesOptions) SetPagetoken(pagetoken string) *ListProfilesOptions {
 	_options.Pagetoken = core.StringPtr(pagetoken)
 	return _options
 }
 
 // SetHeaders : Allow user to set Headers
-func (options *ListProfileOptions) SetHeaders(param map[string]string) *ListProfileOptions {
+func (options *ListProfilesOptions) SetHeaders(param map[string]string) *ListProfilesOptions {
 	options.Headers = param
 	return options
 }
@@ -3742,26 +3748,26 @@ func (options *ListProfileOptions) SetHeaders(param map[string]string) *ListProf
 // ListServiceIdsOptions : The ListServiceIds options.
 type ListServiceIdsOptions struct {
 	// Account ID of the service ID(s) to query. This parameter is required (unless using a pagetoken).
-	AccountID *string
+	AccountID *string `json:"-"`
 
 	// Name of the service ID(s) to query. Optional.20 items per page. Valid range is 1 to 100.
-	Name *string
+	Name *string `json:"-"`
 
 	// Optional size of a single page. Default is 20 items per page. Valid range is 1 to 100.
-	Pagesize *int64
+	Pagesize *int64 `json:"-"`
 
 	// Optional Prev or Next page token returned from a previous query execution. Default is start with first page.
-	Pagetoken *string
+	Pagetoken *string `json:"-"`
 
 	// Optional sort property, valid values are name, description, created_at and modified_at. If specified, the items are
 	// sorted by the value of this property.
-	Sort *string
+	Sort *string `json:"-"`
 
 	// Optional sort order, valid values are asc and desc. Default: asc.
-	Order *string
+	Order *string `json:"-"`
 
 	// Defines if the entity history is included in the response.
-	IncludeHistory *bool
+	IncludeHistory *bool `json:"-"`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -3770,7 +3776,7 @@ type ListServiceIdsOptions struct {
 // Constants associated with the ListServiceIdsOptions.Order property.
 // Optional sort order, valid values are asc and desc. Default: asc.
 const (
-	ListServiceIdsOptionsOrderAscConst  = "asc"
+	ListServiceIdsOptionsOrderAscConst = "asc"
 	ListServiceIdsOptionsOrderDescConst = "desc"
 )
 
@@ -3830,7 +3836,7 @@ func (options *ListServiceIdsOptions) SetHeaders(param map[string]string) *ListS
 // LockAPIKeyOptions : The LockAPIKey options.
 type LockAPIKeyOptions struct {
 	// Unique ID of the API key.
-	ID *string `validate:"required,ne="`
+	ID *string `json:"-" validate:"required,ne="`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -3858,7 +3864,7 @@ func (options *LockAPIKeyOptions) SetHeaders(param map[string]string) *LockAPIKe
 // LockServiceIDOptions : The LockServiceID options.
 type LockServiceIDOptions struct {
 	// Unique ID of the service ID.
-	ID *string `validate:"required,ne="`
+	ID *string `json:"-" validate:"required,ne="`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -3965,7 +3971,7 @@ func UnmarshalProfileClaimRule(m map[string]json.RawMessage, result interface{})
 
 // ProfileClaimRuleConditions : ProfileClaimRuleConditions struct
 type ProfileClaimRuleConditions struct {
-	// The claim to valuate againt.
+	// The claim to evaluate against.
 	Claim *string `json:"claim" validate:"required"`
 
 	// The operation to perform on the claim. valid values are EQUALS, NOT_EQUALS, EQUALS_IGNORE_CASE,
@@ -3979,9 +3985,9 @@ type ProfileClaimRuleConditions struct {
 // NewProfileClaimRuleConditions : Instantiate ProfileClaimRuleConditions (Generic Model Constructor)
 func (*IamIdentityV1) NewProfileClaimRuleConditions(claim string, operator string, value string) (_model *ProfileClaimRuleConditions, err error) {
 	_model = &ProfileClaimRuleConditions{
-		Claim:    core.StringPtr(claim),
+		Claim: core.StringPtr(claim),
 		Operator: core.StringPtr(operator),
-		Value:    core.StringPtr(value),
+		Value: core.StringPtr(value),
 	}
 	err = core.ValidateStruct(_model, "required parameters")
 	return
@@ -4236,7 +4242,7 @@ type ServiceID struct {
 
 	// Version of the service ID details object. You need to specify this value when updating the service ID to avoid stale
 	// updates.
-	EntityTag *string `json:"entity_tag,omitempty"`
+	EntityTag *string `json:"entity_tag" validate:"required"`
 
 	// Cloud Resource Name of the item. Example Cloud Resource Name:
 	// 'crn:v1:bluemix:public:iam-identity:us-south:a/myaccount::serviceid:1234-5678-9012'.
@@ -4246,10 +4252,10 @@ type ServiceID struct {
 	Locked *bool `json:"locked" validate:"required"`
 
 	// If set contains a date time string of the creation date in ISO format.
-	CreatedAt *strfmt.DateTime `json:"created_at,omitempty"`
+	CreatedAt *strfmt.DateTime `json:"created_at" validate:"required"`
 
 	// If set contains a date time string of the last modification date in ISO format.
-	ModifiedAt *strfmt.DateTime `json:"modified_at,omitempty"`
+	ModifiedAt *strfmt.DateTime `json:"modified_at" validate:"required"`
 
 	// ID of the account the service ID belongs to.
 	AccountID *string `json:"account_id" validate:"required"`
@@ -4268,8 +4274,7 @@ type ServiceID struct {
 	// History of the Service ID.
 	History []EnityHistoryRecord `json:"history,omitempty"`
 
-	// Api key details for the Service ID. The apikey is only included in the response when creating a Service ID with an
-	// apikey.
+	// Response body format for API key V1 REST requests.
 	Apikey *APIKey `json:"apikey,omitempty"`
 }
 
@@ -4565,7 +4570,7 @@ func UnmarshalTrustedProfilesList(m map[string]json.RawMessage, result interface
 // UnlockAPIKeyOptions : The UnlockAPIKey options.
 type UnlockAPIKeyOptions struct {
 	// Unique ID of the API key.
-	ID *string `validate:"required,ne="`
+	ID *string `json:"-" validate:"required,ne="`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -4593,7 +4598,7 @@ func (options *UnlockAPIKeyOptions) SetHeaders(param map[string]string) *UnlockA
 // UnlockServiceIDOptions : The UnlockServiceID options.
 type UnlockServiceIDOptions struct {
 	// Unique ID of the service ID.
-	ID *string `validate:"required,ne="`
+	ID *string `json:"-" validate:"required,ne="`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -4623,25 +4628,25 @@ type UpdateAccountSettingsOptions struct {
 	// Version of the account settings to be updated. Specify the version that you  retrieved as entity_tag (ETag header)
 	// when reading the account. This value helps  identifying parallel usage of this API. Pass * to indicate to update any
 	// version  available. This might result in stale updates.
-	IfMatch *string `validate:"required"`
+	IfMatch *string `json:"-" validate:"required"`
 
 	// The id of the account to update the settings for.
-	AccountID *string `validate:"required,ne="`
+	AccountID *string `json:"-" validate:"required,ne="`
 
 	// Defines whether or not creating a Service Id is access controlled. Valid values:
 	//   * RESTRICTED - to apply access control
 	//   * NOT_RESTRICTED - to remove access control
 	//   * NOT_SET - to unset a previously set value.
-	RestrictCreateServiceID *string
+	RestrictCreateServiceID *string `json:"restrict_create_service_id,omitempty"`
 
 	// Defines whether or not creating platform API keys is access controlled. Valid values:
 	//   * RESTRICTED - to apply access control
 	//   * NOT_RESTRICTED - to remove access control
 	//   * NOT_SET - to 'unset' a previous set value.
-	RestrictCreatePlatformApikey *string
+	RestrictCreatePlatformApikey *string `json:"restrict_create_platform_apikey,omitempty"`
 
 	// Defines the IP addresses and subnets from which IAM tokens can be created for the account.
-	AllowedIPAddresses *string
+	AllowedIPAddresses *string `json:"allowed_ip_addresses,omitempty"`
 
 	// Defines the MFA trait for the account. Valid values:
 	//   * NONE - No MFA trait set
@@ -4650,22 +4655,22 @@ type UpdateAccountSettingsOptions struct {
 	//   * LEVEL1 - Email-based MFA for all users
 	//   * LEVEL2 - TOTP-based MFA for all users
 	//   * LEVEL3 - U2F MFA for all users.
-	Mfa *string
+	Mfa *string `json:"mfa,omitempty"`
 
 	// Defines the session expiration in seconds for the account. Valid values:
 	//   * Any whole number between between '900' and '86400'
 	//   * NOT_SET - To unset account setting and use service default.
-	SessionExpirationInSeconds *string
+	SessionExpirationInSeconds *string `json:"session_expiration_in_seconds,omitempty"`
 
 	// Defines the period of time in seconds in which a session will be invalidated due  to inactivity. Valid values:
 	//   * Any whole number between '900' and '7200'
 	//   * NOT_SET - To unset account setting and use service default.
-	SessionInvalidationInSeconds *string
+	SessionInvalidationInSeconds *string `json:"session_invalidation_in_seconds,omitempty"`
 
 	// Defines the max allowed sessions per identity required by the account. Value values:
 	//   * Any whole number greater than 0
 	//   * NOT_SET - To unset account setting and use service default.
-	MaxSessionsPerIdentity *string
+	MaxSessionsPerIdentity *string `json:"max_sessions_per_identity,omitempty"`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -4678,8 +4683,8 @@ type UpdateAccountSettingsOptions struct {
 //   * NOT_SET - to unset a previously set value.
 const (
 	UpdateAccountSettingsOptionsRestrictCreateServiceIDNotRestrictedConst = "NOT_RESTRICTED"
-	UpdateAccountSettingsOptionsRestrictCreateServiceIDNotSetConst        = "NOT_SET"
-	UpdateAccountSettingsOptionsRestrictCreateServiceIDRestrictedConst    = "RESTRICTED"
+	UpdateAccountSettingsOptionsRestrictCreateServiceIDNotSetConst = "NOT_SET"
+	UpdateAccountSettingsOptionsRestrictCreateServiceIDRestrictedConst = "RESTRICTED"
 )
 
 // Constants associated with the UpdateAccountSettingsOptions.RestrictCreatePlatformApikey property.
@@ -4689,8 +4694,8 @@ const (
 //   * NOT_SET - to 'unset' a previous set value.
 const (
 	UpdateAccountSettingsOptionsRestrictCreatePlatformApikeyNotRestrictedConst = "NOT_RESTRICTED"
-	UpdateAccountSettingsOptionsRestrictCreatePlatformApikeyNotSetConst        = "NOT_SET"
-	UpdateAccountSettingsOptionsRestrictCreatePlatformApikeyRestrictedConst    = "RESTRICTED"
+	UpdateAccountSettingsOptionsRestrictCreatePlatformApikeyNotSetConst = "NOT_SET"
+	UpdateAccountSettingsOptionsRestrictCreatePlatformApikeyRestrictedConst = "RESTRICTED"
 )
 
 // Constants associated with the UpdateAccountSettingsOptions.Mfa property.
@@ -4702,18 +4707,18 @@ const (
 //   * LEVEL2 - TOTP-based MFA for all users
 //   * LEVEL3 - U2F MFA for all users.
 const (
-	UpdateAccountSettingsOptionsMfaLevel1Const   = "LEVEL1"
-	UpdateAccountSettingsOptionsMfaLevel2Const   = "LEVEL2"
-	UpdateAccountSettingsOptionsMfaLevel3Const   = "LEVEL3"
-	UpdateAccountSettingsOptionsMfaNoneConst     = "NONE"
-	UpdateAccountSettingsOptionsMfaTotpConst     = "TOTP"
+	UpdateAccountSettingsOptionsMfaLevel1Const = "LEVEL1"
+	UpdateAccountSettingsOptionsMfaLevel2Const = "LEVEL2"
+	UpdateAccountSettingsOptionsMfaLevel3Const = "LEVEL3"
+	UpdateAccountSettingsOptionsMfaNoneConst = "NONE"
+	UpdateAccountSettingsOptionsMfaTotpConst = "TOTP"
 	UpdateAccountSettingsOptionsMfaTotp4allConst = "TOTP4ALL"
 )
 
 // NewUpdateAccountSettingsOptions : Instantiate UpdateAccountSettingsOptions
 func (*IamIdentityV1) NewUpdateAccountSettingsOptions(ifMatch string, accountID string) *UpdateAccountSettingsOptions {
 	return &UpdateAccountSettingsOptions{
-		IfMatch:   core.StringPtr(ifMatch),
+		IfMatch: core.StringPtr(ifMatch),
 		AccountID: core.StringPtr(accountID),
 	}
 }
@@ -4781,20 +4786,20 @@ func (options *UpdateAccountSettingsOptions) SetHeaders(param map[string]string)
 // UpdateAPIKeyOptions : The UpdateAPIKey options.
 type UpdateAPIKeyOptions struct {
 	// Unique ID of the API key to be updated.
-	ID *string `validate:"required,ne="`
+	ID *string `json:"-" validate:"required,ne="`
 
 	// Version of the API key to be updated. Specify the version that you retrieved when reading the API key. This value
 	// helps identifying parallel usage of this API. Pass * to indicate to update any version available. This might result
 	// in stale updates.
-	IfMatch *string `validate:"required"`
+	IfMatch *string `json:"-" validate:"required"`
 
 	// The name of the API key to update. If specified in the request the parameter must not be empty. The name is not
 	// checked for uniqueness. Failure to this will result in an Error condition.
-	Name *string
+	Name *string `json:"name,omitempty"`
 
 	// The description of the API key to update. If specified an empty description will clear the description of the API
 	// key. If a non empty value is provided the API key will be updated.
-	Description *string
+	Description *string `json:"description,omitempty"`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -4803,7 +4808,7 @@ type UpdateAPIKeyOptions struct {
 // NewUpdateAPIKeyOptions : Instantiate UpdateAPIKeyOptions
 func (*IamIdentityV1) NewUpdateAPIKeyOptions(id string, ifMatch string) *UpdateAPIKeyOptions {
 	return &UpdateAPIKeyOptions{
-		ID:      core.StringPtr(id),
+		ID: core.StringPtr(id),
 		IfMatch: core.StringPtr(ifMatch),
 	}
 }
@@ -4881,10 +4886,10 @@ type UpdateClaimRuleOptions struct {
 // NewUpdateClaimRuleOptions : Instantiate UpdateClaimRuleOptions
 func (*IamIdentityV1) NewUpdateClaimRuleOptions(profileID string, ruleID string, ifMatch string, typeVar string, conditions []ProfileClaimRuleConditions) *UpdateClaimRuleOptions {
 	return &UpdateClaimRuleOptions{
-		ProfileID:  core.StringPtr(profileID),
-		RuleID:     core.StringPtr(ruleID),
-		IfMatch:    core.StringPtr(ifMatch),
-		Type:       core.StringPtr(typeVar),
+		ProfileID: core.StringPtr(profileID),
+		RuleID: core.StringPtr(ruleID),
+		IfMatch: core.StringPtr(ifMatch),
+		Type: core.StringPtr(typeVar),
 		Conditions: conditions,
 	}
 }
@@ -4981,7 +4986,7 @@ type UpdateProfileOptions struct {
 func (*IamIdentityV1) NewUpdateProfileOptions(profileID string, ifMatch string) *UpdateProfileOptions {
 	return &UpdateProfileOptions{
 		ProfileID: core.StringPtr(profileID),
-		IfMatch:   core.StringPtr(ifMatch),
+		IfMatch: core.StringPtr(ifMatch),
 	}
 }
 
@@ -5018,24 +5023,24 @@ func (options *UpdateProfileOptions) SetHeaders(param map[string]string) *Update
 // UpdateServiceIDOptions : The UpdateServiceID options.
 type UpdateServiceIDOptions struct {
 	// Unique ID of the service ID to be updated.
-	ID *string `validate:"required,ne="`
+	ID *string `json:"-" validate:"required,ne="`
 
 	// Version of the service ID to be updated. Specify the version that you retrieved as entity_tag (ETag header) when
 	// reading the service ID. This value helps identifying parallel usage of this API. Pass * to indicate to update any
 	// version available. This might result in stale updates.
-	IfMatch *string `validate:"required"`
+	IfMatch *string `json:"-" validate:"required"`
 
 	// The name of the service ID to update. If specified in the request the parameter must not be empty. The name is not
 	// checked for uniqueness. Failure to this will result in an Error condition.
-	Name *string
+	Name *string `json:"name,omitempty"`
 
 	// The description of the service ID to update. If specified an empty description will clear the description of the
 	// service ID. If an non empty value is provided the service ID will be updated.
-	Description *string
+	Description *string `json:"description,omitempty"`
 
 	// List of CRNs which point to the services connected to this service ID. If specified an empty list will clear all
 	// existing unique instance crns of the service ID.
-	UniqueInstanceCrns []string
+	UniqueInstanceCrns []string `json:"unique_instance_crns,omitempty"`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -5044,7 +5049,7 @@ type UpdateServiceIDOptions struct {
 // NewUpdateServiceIDOptions : Instantiate UpdateServiceIDOptions
 func (*IamIdentityV1) NewUpdateServiceIDOptions(id string, ifMatch string) *UpdateServiceIDOptions {
 	return &UpdateServiceIDOptions{
-		ID:      core.StringPtr(id),
+		ID: core.StringPtr(id),
 		IfMatch: core.StringPtr(ifMatch),
 	}
 }

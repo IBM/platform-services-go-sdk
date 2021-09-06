@@ -485,10 +485,10 @@ var _ = Describe(`IamIdentityV1 Examples Tests`, func() {
 			fmt.Println("\nListProfiles() result:")
 			// begin-list_profiles
 
-			listProfileOptions := iamIdentityService.NewListProfileOptions(accountID)
-			listProfileOptions.SetIncludeHistory(false)
+			listProfilesOptions := iamIdentityService.NewListProfilesOptions(accountID)
+			listProfilesOptions.SetIncludeHistory(false)
 
-			trustedProfiles, response, err := iamIdentityService.ListProfile(listProfileOptions)
+			trustedProfiles, response, err := iamIdentityService.ListProfiles(listProfilesOptions)
 			if err != nil {
 				panic(err)
 			}
@@ -532,6 +532,8 @@ var _ = Describe(`IamIdentityV1 Examples Tests`, func() {
 
 			createClaimRuleOptions := iamIdentityService.NewCreateClaimRuleOptions(profileId, claimRuleType, []iamidentityv1.ProfileClaimRuleConditions{*profileClaimRuleConditions})
 			createClaimRuleOptions.SetName("claimRule")
+			createClaimRuleOptions.SetRealmName(realmName)
+			createClaimRuleOptions.SetExpiration(int64(43200))
 
 			claimRule, response, err := iamIdentityService.CreateClaimRule(createClaimRuleOptions)
 			if err != nil {
@@ -598,6 +600,8 @@ var _ = Describe(`IamIdentityV1 Examples Tests`, func() {
 			profileClaimRuleConditions.Value = core.StringPtr("\"Europe_Group\"")
 
 			updateClaimRuleOptions := iamIdentityService.NewUpdateClaimRuleOptions(profileId, claimRuleId, claimRuleEtag, claimRuleType, []iamidentityv1.ProfileClaimRuleConditions{*profileClaimRuleConditions})
+			updateClaimRuleOptions.SetRealmName(realmName)
+			updateClaimRuleOptions.SetExpiration(int64(33200))
 
 			claimRule, response, err := iamIdentityService.UpdateClaimRule(updateClaimRuleOptions)
 			if err != nil {
@@ -676,9 +680,9 @@ var _ = Describe(`IamIdentityV1 Examples Tests`, func() {
 			fmt.Println("\nListLinks() result:")
 			// begin-list_links
 
-			listLinkOptions := iamIdentityService.NewListLinkOptions(profileId)
+			listLinksOptions := iamIdentityService.NewListLinksOptions(profileId)
 
-			linkList, response, err := iamIdentityService.ListLink(listLinkOptions)
+			linkList, response, err := iamIdentityService.ListLinks(listLinksOptions)
 			if err != nil {
 				panic(err)
 			}
