@@ -1,3 +1,10 @@
+## [0.20.1](https://github.com/IBM/platform-services-go-sdk/compare/v0.20.0...v0.20.1) (2021-09-07)
+
+
+### Bug Fixes
+
+* **IAM Identity:** fix ListProfile and ListLinks operation id's ([#151](https://github.com/IBM/platform-services-go-sdk/issues/151)) ([363c08a](https://github.com/IBM/platform-services-go-sdk/commit/363c08ab35b6f133c751b2c523acbd915d5cd7be))
+
 # [0.20.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.19.4...v0.20.0) (2021-09-02)
 
 
