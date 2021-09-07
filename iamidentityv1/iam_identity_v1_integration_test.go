@@ -655,7 +655,7 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
 		})
-		It(`ListProfiles(listProfileOptions *ListProfileOptions)`, func() {
+		It(`ListProfiles(listProfilesOptions *ListProfilesOptions)`, func() {
 
 			profiles := []iamidentityv1.TrustedProfile{}
 
@@ -664,14 +664,14 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 
 			for pageTokenPresent {
 
-				listProfileOptions := &iamidentityv1.ListProfileOptions{
+				listProfilesOptions := &iamidentityv1.ListProfilesOptions{
 					AccountID:      &accountID,
 					Pagetoken:      pageToken,
 					Pagesize:       core.Int64Ptr(int64(1)),
 					IncludeHistory: core.BoolPtr(false),
 				}
 
-				trustedProfiles, response, err := iamIdentityService.ListProfile(listProfileOptions)
+				trustedProfiles, response, err := iamIdentityService.ListProfiles(listProfilesOptions)
 				Expect(err).To(BeNil())
 				Expect(response.StatusCode).To(Equal(200))
 				Expect(trustedProfiles).ToNot(BeNil())
@@ -978,20 +978,20 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
 		})
-		It(`ListLinks(listLinkOptions *ListLinkOptions)`, func() {
+		It(`ListLinks(listLinksOptions *ListLinksOptions)`, func() {
 
 			links := []iamidentityv1.ProfileLink{}
 
-			listLinkOptions := &iamidentityv1.ListLinkOptions{
+			listLinksOptions := &iamidentityv1.ListLinksOptions{
 				ProfileID: &profileId2,
 			}
 
-			linkList, response, err := iamIdentityService.ListLink(listLinkOptions)
+			linkList, response, err := iamIdentityService.ListLinks(listLinksOptions)
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(linkList).ToNot(BeNil())
-			fmt.Fprintf(GinkgoWriter, "ListLink response:\n%s\n", common.ToJSON(linkList))
+			fmt.Fprintf(GinkgoWriter, "ListLinks response:\n%s\n", common.ToJSON(linkList))
 
 			for _, link := range linkList.Links {
 				if linkId == *link.ID {
@@ -1476,11 +1476,11 @@ func cleanupResources(service *iamidentityv1.IamIdentityV1) {
 		}
 	}
 
-	listProfileOptions := &iamidentityv1.ListProfileOptions{
+	listProfilesOptions := &iamidentityv1.ListProfilesOptions{
 		AccountID: &accountID,
 	}
 
-	profileList, response, err := service.ListProfile(listProfileOptions)
+	profileList, response, err := service.ListProfiles(listProfilesOptions)
 	Expect(err).To(BeNil())
 	Expect(response.StatusCode).To(Equal(200))
 
