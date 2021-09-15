@@ -50,6 +50,7 @@ Service Name | Package name
 [Case Management](https://cloud.ibm.com/apidocs/case-management?code=go) | casemanagementv1
 [Catalog Management](https://cloud.ibm.com/apidocs/resource-catalog/private-catalog?code=go) | catalogmanagementv1
 [Configuration Governance](https://cloud.ibm.com/apidocs/security-compliance/config?code=go) | configurationgovernancev1
+[Context Based Restrictions](https://cloud.ibm.com/apidocs/context-based-restrictions?code=go) | contextbasedrestrictionsv1
 [Enterprise Billing Units](https://cloud.ibm.com/apidocs/enterprise-apis/billing-unit?code=go) | enterprisebillingunitsv1
 [Enterprise Management](https://cloud.ibm.com/apidocs/enterprise-apis/enterprise?code=go) | enterprisemanagementv1
 [Enterprise Usage Reports](https://cloud.ibm.com/apidocs/enterprise-apis/resource-usage-reports?code=go) | enterpriseusagereportsv1
