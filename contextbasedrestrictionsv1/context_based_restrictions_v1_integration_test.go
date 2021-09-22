@@ -34,7 +34,7 @@ import (
 
 var (
 	NonExistentID = "1234567890abcdef1234567890abcdef"
-	InvalidID     = "this-is-an-invalid-id"
+	InvalidID     = "this_is_an_invalid_id"
 )
 
 /**
