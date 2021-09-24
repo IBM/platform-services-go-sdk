@@ -1307,15 +1307,15 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 			})
 		})
 	})
-	Describe(`ListAvailableServiceRefTargets(listAvailableServiceRefTargetsOptions *ListAvailableServiceRefTargetsOptions) - Operation response error`, func() {
-		listAvailableServiceRefTargetsPath := "/v1/zones/serviceref_targets"
+	Describe(`ListAvailableServicerefTargets(listAvailableServicerefTargetsOptions *ListAvailableServicerefTargetsOptions) - Operation response error`, func() {
+		listAvailableServicerefTargetsPath := "/v1/zones/serviceref_targets"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(listAvailableServiceRefTargetsPath))
+					Expect(req.URL.EscapedPath()).To(Equal(listAvailableServicerefTargetsPath))
 					Expect(req.Method).To(Equal("GET"))
 					Expect(req.URL.Query()["type"]).To(Equal([]string{"all"}))
 					res.Header().Set("Content-type", "application/json")
@@ -1323,7 +1323,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 					fmt.Fprintf(res, `} this is not valid json {`)
 				}))
 			})
-			It(`Invoke ListAvailableServiceRefTargets with error: Operation response processing error`, func() {
+			It(`Invoke ListAvailableServicerefTargets with error: Operation response processing error`, func() {
 				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -1331,19 +1331,19 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(contextBasedRestrictionsService).ToNot(BeNil())
 
-				// Construct an instance of the ListAvailableServiceRefTargetsOptions model
-				listAvailableServiceRefTargetsOptionsModel := new(contextbasedrestrictionsv1.ListAvailableServiceRefTargetsOptions)
-				listAvailableServiceRefTargetsOptionsModel.Type = core.StringPtr("all")
-				listAvailableServiceRefTargetsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the ListAvailableServicerefTargetsOptions model
+				listAvailableServicerefTargetsOptionsModel := new(contextbasedrestrictionsv1.ListAvailableServicerefTargetsOptions)
+				listAvailableServicerefTargetsOptionsModel.Type = core.StringPtr("all")
+				listAvailableServicerefTargetsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
-				result, response, operationErr := contextBasedRestrictionsService.ListAvailableServiceRefTargets(listAvailableServiceRefTargetsOptionsModel)
+				result, response, operationErr := contextBasedRestrictionsService.ListAvailableServicerefTargets(listAvailableServicerefTargetsOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
 
 				// Enable retries and test again
 				contextBasedRestrictionsService.EnableRetries(0, 0)
-				result, response, operationErr = contextBasedRestrictionsService.ListAvailableServiceRefTargets(listAvailableServiceRefTargetsOptionsModel)
+				result, response, operationErr = contextBasedRestrictionsService.ListAvailableServicerefTargets(listAvailableServicerefTargetsOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).To(BeNil())
@@ -1353,15 +1353,15 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 			})
 		})
 	})
-	Describe(`ListAvailableServiceRefTargets(listAvailableServiceRefTargetsOptions *ListAvailableServiceRefTargetsOptions)`, func() {
-		listAvailableServiceRefTargetsPath := "/v1/zones/serviceref_targets"
+	Describe(`ListAvailableServicerefTargets(listAvailableServicerefTargetsOptions *ListAvailableServicerefTargetsOptions)`, func() {
+		listAvailableServicerefTargetsPath := "/v1/zones/serviceref_targets"
 		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(listAvailableServiceRefTargetsPath))
+					Expect(req.URL.EscapedPath()).To(Equal(listAvailableServicerefTargetsPath))
 					Expect(req.Method).To(Equal("GET"))
 
 					Expect(req.URL.Query()["type"]).To(Equal([]string{"all"}))
@@ -1371,10 +1371,10 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"targets": [{"service_name": "ServiceName", "service_type": "ServiceType"}]}`)
+					fmt.Fprintf(res, "%s", `{"count": 5, "targets": [{"service_name": "ServiceName", "service_type": "ServiceType"}]}`)
 				}))
 			})
-			It(`Invoke ListAvailableServiceRefTargets successfully with retries`, func() {
+			It(`Invoke ListAvailableServicerefTargets successfully with retries`, func() {
 				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -1383,21 +1383,21 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				Expect(contextBasedRestrictionsService).ToNot(BeNil())
 				contextBasedRestrictionsService.EnableRetries(0, 0)
 
-				// Construct an instance of the ListAvailableServiceRefTargetsOptions model
-				listAvailableServiceRefTargetsOptionsModel := new(contextbasedrestrictionsv1.ListAvailableServiceRefTargetsOptions)
-				listAvailableServiceRefTargetsOptionsModel.Type = core.StringPtr("all")
-				listAvailableServiceRefTargetsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the ListAvailableServicerefTargetsOptions model
+				listAvailableServicerefTargetsOptionsModel := new(contextbasedrestrictionsv1.ListAvailableServicerefTargetsOptions)
+				listAvailableServicerefTargetsOptionsModel.Type = core.StringPtr("all")
+				listAvailableServicerefTargetsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with a Context to test a timeout error
 				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
 				defer cancelFunc()
-				_, _, operationErr := contextBasedRestrictionsService.ListAvailableServiceRefTargetsWithContext(ctx, listAvailableServiceRefTargetsOptionsModel)
+				_, _, operationErr := contextBasedRestrictionsService.ListAvailableServicerefTargetsWithContext(ctx, listAvailableServicerefTargetsOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
 
 				// Disable retries and test again
 				contextBasedRestrictionsService.DisableRetries()
-				result, response, operationErr := contextBasedRestrictionsService.ListAvailableServiceRefTargets(listAvailableServiceRefTargetsOptionsModel)
+				result, response, operationErr := contextBasedRestrictionsService.ListAvailableServicerefTargets(listAvailableServicerefTargetsOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
@@ -1405,7 +1405,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				// Re-test the timeout error with retries disabled
 				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
 				defer cancelFunc2()
-				_, _, operationErr = contextBasedRestrictionsService.ListAvailableServiceRefTargetsWithContext(ctx, listAvailableServiceRefTargetsOptionsModel)
+				_, _, operationErr = contextBasedRestrictionsService.ListAvailableServicerefTargetsWithContext(ctx, listAvailableServicerefTargetsOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
 			})
@@ -1419,17 +1419,17 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 					defer GinkgoRecover()
 
 					// Verify the contents of the request
-					Expect(req.URL.EscapedPath()).To(Equal(listAvailableServiceRefTargetsPath))
+					Expect(req.URL.EscapedPath()).To(Equal(listAvailableServicerefTargetsPath))
 					Expect(req.Method).To(Equal("GET"))
 
 					Expect(req.URL.Query()["type"]).To(Equal([]string{"all"}))
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"targets": [{"service_name": "ServiceName", "service_type": "ServiceType"}]}`)
+					fmt.Fprintf(res, "%s", `{"count": 5, "targets": [{"service_name": "ServiceName", "service_type": "ServiceType"}]}`)
 				}))
 			})
-			It(`Invoke ListAvailableServiceRefTargets successfully`, func() {
+			It(`Invoke ListAvailableServicerefTargets successfully`, func() {
 				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -1438,24 +1438,24 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				Expect(contextBasedRestrictionsService).ToNot(BeNil())
 
 				// Invoke operation with nil options model (negative test)
-				result, response, operationErr := contextBasedRestrictionsService.ListAvailableServiceRefTargets(nil)
+				result, response, operationErr := contextBasedRestrictionsService.ListAvailableServicerefTargets(nil)
 				Expect(operationErr).NotTo(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
 
-				// Construct an instance of the ListAvailableServiceRefTargetsOptions model
-				listAvailableServiceRefTargetsOptionsModel := new(contextbasedrestrictionsv1.ListAvailableServiceRefTargetsOptions)
-				listAvailableServiceRefTargetsOptionsModel.Type = core.StringPtr("all")
-				listAvailableServiceRefTargetsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the ListAvailableServicerefTargetsOptions model
+				listAvailableServicerefTargetsOptionsModel := new(contextbasedrestrictionsv1.ListAvailableServicerefTargetsOptions)
+				listAvailableServicerefTargetsOptionsModel.Type = core.StringPtr("all")
+				listAvailableServicerefTargetsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
-				result, response, operationErr = contextBasedRestrictionsService.ListAvailableServiceRefTargets(listAvailableServiceRefTargetsOptionsModel)
+				result, response, operationErr = contextBasedRestrictionsService.ListAvailableServicerefTargets(listAvailableServicerefTargetsOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 				Expect(result).ToNot(BeNil())
 
 			})
-			It(`Invoke ListAvailableServiceRefTargets with error: Operation request error`, func() {
+			It(`Invoke ListAvailableServicerefTargets with error: Operation request error`, func() {
 				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -1463,14 +1463,14 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(contextBasedRestrictionsService).ToNot(BeNil())
 
-				// Construct an instance of the ListAvailableServiceRefTargetsOptions model
-				listAvailableServiceRefTargetsOptionsModel := new(contextbasedrestrictionsv1.ListAvailableServiceRefTargetsOptions)
-				listAvailableServiceRefTargetsOptionsModel.Type = core.StringPtr("all")
-				listAvailableServiceRefTargetsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the ListAvailableServicerefTargetsOptions model
+				listAvailableServicerefTargetsOptionsModel := new(contextbasedrestrictionsv1.ListAvailableServicerefTargetsOptions)
+				listAvailableServicerefTargetsOptionsModel.Type = core.StringPtr("all")
+				listAvailableServicerefTargetsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := contextBasedRestrictionsService.SetServiceURL("")
 				Expect(err).To(BeNil())
-				result, response, operationErr := contextBasedRestrictionsService.ListAvailableServiceRefTargets(listAvailableServiceRefTargetsOptionsModel)
+				result, response, operationErr := contextBasedRestrictionsService.ListAvailableServicerefTargets(listAvailableServicerefTargetsOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
 				Expect(response).To(BeNil())
@@ -1489,7 +1489,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 					res.WriteHeader(200)
 				}))
 			})
-			It(`Invoke ListAvailableServiceRefTargets successfully`, func() {
+			It(`Invoke ListAvailableServicerefTargets successfully`, func() {
 				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -1497,13 +1497,13 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(contextBasedRestrictionsService).ToNot(BeNil())
 
-				// Construct an instance of the ListAvailableServiceRefTargetsOptions model
-				listAvailableServiceRefTargetsOptionsModel := new(contextbasedrestrictionsv1.ListAvailableServiceRefTargetsOptions)
-				listAvailableServiceRefTargetsOptionsModel.Type = core.StringPtr("all")
-				listAvailableServiceRefTargetsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Construct an instance of the ListAvailableServicerefTargetsOptions model
+				listAvailableServicerefTargetsOptionsModel := new(contextbasedrestrictionsv1.ListAvailableServicerefTargetsOptions)
+				listAvailableServicerefTargetsOptionsModel.Type = core.StringPtr("all")
+				listAvailableServicerefTargetsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation
-				result, response, operationErr := contextBasedRestrictionsService.ListAvailableServiceRefTargets(listAvailableServiceRefTargetsOptionsModel)
+				result, response, operationErr := contextBasedRestrictionsService.ListAvailableServicerefTargets(listAvailableServicerefTargetsOptionsModel)
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 
@@ -3272,14 +3272,14 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				Expect(getZoneOptionsModel.TransactionID).To(Equal(core.StringPtr("testString")))
 				Expect(getZoneOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
-			It(`Invoke NewListAvailableServiceRefTargetsOptions successfully`, func() {
-				// Construct an instance of the ListAvailableServiceRefTargetsOptions model
-				listAvailableServiceRefTargetsOptionsModel := contextBasedRestrictionsService.NewListAvailableServiceRefTargetsOptions()
-				listAvailableServiceRefTargetsOptionsModel.SetType("all")
-				listAvailableServiceRefTargetsOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
-				Expect(listAvailableServiceRefTargetsOptionsModel).ToNot(BeNil())
-				Expect(listAvailableServiceRefTargetsOptionsModel.Type).To(Equal(core.StringPtr("all")))
-				Expect(listAvailableServiceRefTargetsOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			It(`Invoke NewListAvailableServicerefTargetsOptions successfully`, func() {
+				// Construct an instance of the ListAvailableServicerefTargetsOptions model
+				listAvailableServicerefTargetsOptionsModel := contextBasedRestrictionsService.NewListAvailableServicerefTargetsOptions()
+				listAvailableServicerefTargetsOptionsModel.SetType("all")
+				listAvailableServicerefTargetsOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(listAvailableServicerefTargetsOptionsModel).ToNot(BeNil())
+				Expect(listAvailableServicerefTargetsOptionsModel.Type).To(Equal(core.StringPtr("all")))
+				Expect(listAvailableServicerefTargetsOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewListRulesOptions successfully`, func() {
 				// Construct an instance of the ListRulesOptions model

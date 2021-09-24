@@ -242,12 +242,12 @@ func (contextBasedRestrictions *ContextBasedRestrictionsV1) CreateZoneWithContex
 
 // ListZones : List network zones
 // This operation lists network zones in the specified account.
-func (contextBasedRestrictions *ContextBasedRestrictionsV1) ListZones(listZonesOptions *ListZonesOptions) (result *ZonePage, response *core.DetailedResponse, err error) {
+func (contextBasedRestrictions *ContextBasedRestrictionsV1) ListZones(listZonesOptions *ListZonesOptions) (result *ZoneList, response *core.DetailedResponse, err error) {
 	return contextBasedRestrictions.ListZonesWithContext(context.Background(), listZonesOptions)
 }
 
 // ListZonesWithContext is an alternate form of the ListZones method which supports a Context parameter
-func (contextBasedRestrictions *ContextBasedRestrictionsV1) ListZonesWithContext(ctx context.Context, listZonesOptions *ListZonesOptions) (result *ZonePage, response *core.DetailedResponse, err error) {
+func (contextBasedRestrictions *ContextBasedRestrictionsV1) ListZonesWithContext(ctx context.Context, listZonesOptions *ListZonesOptions) (result *ZoneList, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(listZonesOptions, "listZonesOptions cannot be nil")
 	if err != nil {
 		return
@@ -297,7 +297,7 @@ func (contextBasedRestrictions *ContextBasedRestrictionsV1) ListZonesWithContext
 		return
 	}
 	if rawResponse != nil {
-		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalZonePage)
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalZoneList)
 		if err != nil {
 			return
 		}
@@ -509,15 +509,15 @@ func (contextBasedRestrictions *ContextBasedRestrictionsV1) DeleteZoneWithContex
 	return
 }
 
-// ListAvailableServiceRefTargets : List available service reference targets
+// ListAvailableServicerefTargets : List available service reference targets
 // This operation lists all available service reference targets.
-func (contextBasedRestrictions *ContextBasedRestrictionsV1) ListAvailableServiceRefTargets(listAvailableServiceRefTargetsOptions *ListAvailableServiceRefTargetsOptions) (result *ServiceRefTargetPage, response *core.DetailedResponse, err error) {
-	return contextBasedRestrictions.ListAvailableServiceRefTargetsWithContext(context.Background(), listAvailableServiceRefTargetsOptions)
+func (contextBasedRestrictions *ContextBasedRestrictionsV1) ListAvailableServicerefTargets(listAvailableServicerefTargetsOptions *ListAvailableServicerefTargetsOptions) (result *ServiceRefTargetList, response *core.DetailedResponse, err error) {
+	return contextBasedRestrictions.ListAvailableServicerefTargetsWithContext(context.Background(), listAvailableServicerefTargetsOptions)
 }
 
-// ListAvailableServiceRefTargetsWithContext is an alternate form of the ListAvailableServiceRefTargets method which supports a Context parameter
-func (contextBasedRestrictions *ContextBasedRestrictionsV1) ListAvailableServiceRefTargetsWithContext(ctx context.Context, listAvailableServiceRefTargetsOptions *ListAvailableServiceRefTargetsOptions) (result *ServiceRefTargetPage, response *core.DetailedResponse, err error) {
-	err = core.ValidateStruct(listAvailableServiceRefTargetsOptions, "listAvailableServiceRefTargetsOptions")
+// ListAvailableServicerefTargetsWithContext is an alternate form of the ListAvailableServicerefTargets method which supports a Context parameter
+func (contextBasedRestrictions *ContextBasedRestrictionsV1) ListAvailableServicerefTargetsWithContext(ctx context.Context, listAvailableServicerefTargetsOptions *ListAvailableServicerefTargetsOptions) (result *ServiceRefTargetList, response *core.DetailedResponse, err error) {
+	err = core.ValidateStruct(listAvailableServicerefTargetsOptions, "listAvailableServicerefTargetsOptions")
 	if err != nil {
 		return
 	}
@@ -530,18 +530,18 @@ func (contextBasedRestrictions *ContextBasedRestrictionsV1) ListAvailableService
 		return
 	}
 
-	for headerName, headerValue := range listAvailableServiceRefTargetsOptions.Headers {
+	for headerName, headerValue := range listAvailableServicerefTargetsOptions.Headers {
 		builder.AddHeader(headerName, headerValue)
 	}
 
-	sdkHeaders := common.GetSdkHeaders("context_based_restrictions", "V1", "ListAvailableServiceRefTargets")
+	sdkHeaders := common.GetSdkHeaders("context_based_restrictions", "V1", "ListAvailableServicerefTargets")
 	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
 
-	if listAvailableServiceRefTargetsOptions.Type != nil {
-		builder.AddQuery("type", fmt.Sprint(*listAvailableServiceRefTargetsOptions.Type))
+	if listAvailableServicerefTargetsOptions.Type != nil {
+		builder.AddQuery("type", fmt.Sprint(*listAvailableServicerefTargetsOptions.Type))
 	}
 
 	request, err := builder.Build()
@@ -555,7 +555,7 @@ func (contextBasedRestrictions *ContextBasedRestrictionsV1) ListAvailableService
 		return
 	}
 	if rawResponse != nil {
-		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalServiceRefTargetPage)
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalServiceRefTargetList)
 		if err != nil {
 			return
 		}
@@ -638,12 +638,12 @@ func (contextBasedRestrictions *ContextBasedRestrictionsV1) CreateRuleWithContex
 
 // ListRules : List rules
 // This operation lists rules for the specified account.
-func (contextBasedRestrictions *ContextBasedRestrictionsV1) ListRules(listRulesOptions *ListRulesOptions) (result *RulePage, response *core.DetailedResponse, err error) {
+func (contextBasedRestrictions *ContextBasedRestrictionsV1) ListRules(listRulesOptions *ListRulesOptions) (result *RuleList, response *core.DetailedResponse, err error) {
 	return contextBasedRestrictions.ListRulesWithContext(context.Background(), listRulesOptions)
 }
 
 // ListRulesWithContext is an alternate form of the ListRules method which supports a Context parameter
-func (contextBasedRestrictions *ContextBasedRestrictionsV1) ListRulesWithContext(ctx context.Context, listRulesOptions *ListRulesOptions) (result *RulePage, response *core.DetailedResponse, err error) {
+func (contextBasedRestrictions *ContextBasedRestrictionsV1) ListRulesWithContext(ctx context.Context, listRulesOptions *ListRulesOptions) (result *RuleList, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(listRulesOptions, "listRulesOptions cannot be nil")
 	if err != nil {
 		return
@@ -711,7 +711,7 @@ func (contextBasedRestrictions *ContextBasedRestrictionsV1) ListRulesWithContext
 		return
 	}
 	if rawResponse != nil {
-		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalRulePage)
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalRuleList)
 		if err != nil {
 			return
 		}
@@ -1090,7 +1090,7 @@ type Address struct {
 const (
 	AddressTypeIpaddressConst  = "ipAddress"
 	AddressTypeIprangeConst    = "ipRange"
-	AddressTypeServiceRefConst = "serviceRef"
+	AddressTypeServicerefConst = "serviceRef"
 	AddressTypeSubnetConst     = "subnet"
 	AddressTypeVPCConst        = "vpc"
 )
@@ -1462,8 +1462,8 @@ func (options *GetZoneOptions) SetHeaders(param map[string]string) *GetZoneOptio
 	return options
 }
 
-// ListAvailableServiceRefTargetsOptions : The ListAvailableServiceRefTargets options.
-type ListAvailableServiceRefTargetsOptions struct {
+// ListAvailableServicerefTargetsOptions : The ListAvailableServicerefTargets options.
+type ListAvailableServicerefTargetsOptions struct {
 	// Specifies the types of services to retrieve.
 	Type *string `json:"-"`
 
@@ -1471,26 +1471,26 @@ type ListAvailableServiceRefTargetsOptions struct {
 	Headers map[string]string
 }
 
-// Constants associated with the ListAvailableServiceRefTargetsOptions.Type property.
+// Constants associated with the ListAvailableServicerefTargetsOptions.Type property.
 // Specifies the types of services to retrieve.
 const (
-	ListAvailableServiceRefTargetsOptionsTypeAllConst             = "all"
-	ListAvailableServiceRefTargetsOptionsTypePlatformServiceConst = "platform_service"
+	ListAvailableServicerefTargetsOptionsTypeAllConst             = "all"
+	ListAvailableServicerefTargetsOptionsTypePlatformServiceConst = "platform_service"
 )
 
-// NewListAvailableServiceRefTargetsOptions : Instantiate ListAvailableServiceRefTargetsOptions
-func (*ContextBasedRestrictionsV1) NewListAvailableServiceRefTargetsOptions() *ListAvailableServiceRefTargetsOptions {
-	return &ListAvailableServiceRefTargetsOptions{}
+// NewListAvailableServicerefTargetsOptions : Instantiate ListAvailableServicerefTargetsOptions
+func (*ContextBasedRestrictionsV1) NewListAvailableServicerefTargetsOptions() *ListAvailableServicerefTargetsOptions {
+	return &ListAvailableServicerefTargetsOptions{}
 }
 
 // SetType : Allow user to set Type
-func (options *ListAvailableServiceRefTargetsOptions) SetType(typeVar string) *ListAvailableServiceRefTargetsOptions {
+func (options *ListAvailableServicerefTargetsOptions) SetType(typeVar string) *ListAvailableServicerefTargetsOptions {
 	options.Type = core.StringPtr(typeVar)
 	return options
 }
 
 // SetHeaders : Allow user to set Headers
-func (options *ListAvailableServiceRefTargetsOptions) SetHeaders(param map[string]string) *ListAvailableServiceRefTargetsOptions {
+func (options *ListAvailableServicerefTargetsOptions) SetHeaders(param map[string]string) *ListAvailableServicerefTargetsOptions {
 	options.Headers = param
 	return options
 }
@@ -2096,8 +2096,8 @@ func UnmarshalRuleContextAttribute(m map[string]json.RawMessage, result interfac
 	return
 }
 
-// RulePage : The response object of the ListRules operation.
-type RulePage struct {
+// RuleList : The response object of the ListRules operation.
+type RuleList struct {
 	// The number of returned results.
 	Count *int64 `json:"count" validate:"required"`
 
@@ -2105,9 +2105,9 @@ type RulePage struct {
 	Rules []Rule `json:"rules" validate:"required"`
 }
 
-// UnmarshalRulePage unmarshals an instance of RulePage from the specified map of raw messages.
-func UnmarshalRulePage(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(RulePage)
+// UnmarshalRuleList unmarshals an instance of RuleList from the specified map of raw messages.
+func UnmarshalRuleList(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(RuleList)
 	err = core.UnmarshalPrimitive(m, "count", &obj.Count)
 	if err != nil {
 		return
@@ -2144,15 +2144,22 @@ func UnmarshalServiceRefTarget(m map[string]json.RawMessage, result interface{})
 	return
 }
 
-// ServiceRefTargetPage : A page of service reference targets.
-type ServiceRefTargetPage struct {
+// ServiceRefTargetList : A list of service reference targets.
+type ServiceRefTargetList struct {
+	// The number of returned results.
+	Count *int64 `json:"count" validate:"required"`
+
 	// The list of service reference targets.
-	Targets []ServiceRefTarget `json:"targets,omitempty"`
+	Targets []ServiceRefTarget `json:"targets" validate:"required"`
 }
 
-// UnmarshalServiceRefTargetPage unmarshals an instance of ServiceRefTargetPage from the specified map of raw messages.
-func UnmarshalServiceRefTargetPage(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(ServiceRefTargetPage)
+// UnmarshalServiceRefTargetList unmarshals an instance of ServiceRefTargetList from the specified map of raw messages.
+func UnmarshalServiceRefTargetList(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(ServiceRefTargetList)
+	err = core.UnmarshalPrimitive(m, "count", &obj.Count)
+	if err != nil {
+		return
+	}
 	err = core.UnmarshalModel(m, "targets", &obj.Targets, UnmarshalServiceRefTarget)
 	if err != nil {
 		return
@@ -2302,8 +2309,8 @@ func UnmarshalZone(m map[string]json.RawMessage, result interface{}) (err error)
 	return
 }
 
-// ZonePage : The response object of the ListZones operation.
-type ZonePage struct {
+// ZoneList : The response object of the ListZones operation.
+type ZoneList struct {
 	// The number of returned results.
 	Count *int64 `json:"count" validate:"required"`
 
@@ -2311,9 +2318,9 @@ type ZonePage struct {
 	Zones []ZoneSummary `json:"zones" validate:"required"`
 }
 
-// UnmarshalZonePage unmarshals an instance of ZonePage from the specified map of raw messages.
-func UnmarshalZonePage(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(ZonePage)
+// UnmarshalZoneList unmarshals an instance of ZoneList from the specified map of raw messages.
+func UnmarshalZoneList(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(ZoneList)
 	err = core.UnmarshalPrimitive(m, "count", &obj.Count)
 	if err != nil {
 		return
@@ -2523,7 +2530,7 @@ type AddressServiceRef struct {
 // Constants associated with the AddressServiceRef.Type property.
 // The type of address.
 const (
-	AddressServiceRefTypeServiceRefConst = "serviceRef"
+	AddressServiceRefTypeServicerefConst = "serviceRef"
 )
 
 // NewAddressServiceRef : Instantiate AddressServiceRef (Generic Model Constructor)

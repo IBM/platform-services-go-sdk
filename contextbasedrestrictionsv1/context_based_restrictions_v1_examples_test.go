@@ -134,19 +134,19 @@ var _ = Describe(`contextbasedrestrictionsv1.ContextBasedRestrictionsV1 Examples
 			createZoneOptions.SetDescription("this is an example of zone")
 			createZoneOptions.SetAddresses([]contextbasedrestrictionsv1.AddressIntf{addressModel})
 
-			outZone, response, err := contextBasedRestrictionsService.CreateZone(createZoneOptions)
+			zone, response, err := contextBasedRestrictionsService.CreateZone(createZoneOptions)
 			if err != nil {
 				panic(err)
 			}
-			b, _ := json.MarshalIndent(outZone, "", "  ")
+			b, _ := json.MarshalIndent(zone, "", "  ")
 			fmt.Println(string(b))
 
 			// end-create_zone
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(201))
-			Expect(outZone).ToNot(BeNil())
-			zoneID = *outZone.ID
+			Expect(zone).ToNot(BeNil())
+			zoneID = *zone.ID
 
 		})
 		It(`ListZones request example`, func() {
@@ -157,18 +157,18 @@ var _ = Describe(`contextbasedrestrictionsv1.ContextBasedRestrictionsV1 Examples
 				testAccountID,
 			)
 
-			outZonePage, response, err := contextBasedRestrictionsService.ListZones(listZonesOptions)
+			zoneList, response, err := contextBasedRestrictionsService.ListZones(listZonesOptions)
 			if err != nil {
 				panic(err)
 			}
-			b, _ := json.MarshalIndent(outZonePage, "", "  ")
+			b, _ := json.MarshalIndent(zoneList, "", "  ")
 			fmt.Println(string(b))
 
 			// end-list_zones
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
-			Expect(outZonePage).ToNot(BeNil())
+			Expect(zoneList).ToNot(BeNil())
 
 		})
 		It(`GetZone request example`, func() {
@@ -179,18 +179,18 @@ var _ = Describe(`contextbasedrestrictionsv1.ContextBasedRestrictionsV1 Examples
 				zoneID,
 			)
 
-			outZone, response, err := contextBasedRestrictionsService.GetZone(getZoneOptions)
+			zone, response, err := contextBasedRestrictionsService.GetZone(getZoneOptions)
 			if err != nil {
 				panic(err)
 			}
-			b, _ := json.MarshalIndent(outZone, "", "  ")
+			b, _ := json.MarshalIndent(zone, "", "  ")
 			fmt.Println(string(b))
 
 			// end-get_zone
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
-			Expect(outZone).ToNot(BeNil())
+			Expect(zone).ToNot(BeNil())
 			zoneRev = response.Headers.Get("Etag")
 
 		})
@@ -212,38 +212,38 @@ var _ = Describe(`contextbasedrestrictionsv1.ContextBasedRestrictionsV1 Examples
 			replaceZoneOptions.SetDescription("this is an example of updated zone")
 			replaceZoneOptions.SetAddresses([]contextbasedrestrictionsv1.AddressIntf{addressModel})
 
-			outZone, response, err := contextBasedRestrictionsService.ReplaceZone(replaceZoneOptions)
+			zone, response, err := contextBasedRestrictionsService.ReplaceZone(replaceZoneOptions)
 			if err != nil {
 				panic(err)
 			}
-			b, _ := json.MarshalIndent(outZone, "", "  ")
+			b, _ := json.MarshalIndent(zone, "", "  ")
 			fmt.Println(string(b))
 
 			// end-replace_zone
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
-			Expect(outZone).ToNot(BeNil())
+			Expect(zone).ToNot(BeNil())
 
 		})
 		It(`ListAvailableServiceRefTargets request example`, func() {
 			fmt.Println("\nListAvailableServiceRefTargets() result:")
 			// begin-list_available_serviceref_targets
 
-			listAvailableServiceRefTargetsOptions := contextBasedRestrictionsService.NewListAvailableServiceRefTargetsOptions()
+			listAvailableServiceRefTargetsOptions := contextBasedRestrictionsService.NewListAvailableServicerefTargetsOptions()
 
-			serviceRefTargetPage, response, err := contextBasedRestrictionsService.ListAvailableServiceRefTargets(listAvailableServiceRefTargetsOptions)
+			serviceRefTargetList, response, err := contextBasedRestrictionsService.ListAvailableServicerefTargets(listAvailableServiceRefTargetsOptions)
 			if err != nil {
 				panic(err)
 			}
-			b, _ := json.MarshalIndent(serviceRefTargetPage, "", "  ")
+			b, _ := json.MarshalIndent(serviceRefTargetList, "", "  ")
 			fmt.Println(string(b))
 
 			// end-list_available_serviceref_targets
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
-			Expect(serviceRefTargetPage).ToNot(BeNil())
+			Expect(serviceRefTargetList).ToNot(BeNil())
 
 		})
 		It(`CreateRule request example`, func() {
@@ -283,19 +283,19 @@ var _ = Describe(`contextbasedrestrictionsv1.ContextBasedRestrictionsV1 Examples
 			createRuleOptions.SetContexts([]contextbasedrestrictionsv1.RuleContext{*ruleContextModel})
 			createRuleOptions.SetResources([]contextbasedrestrictionsv1.Resource{*resourceModel})
 
-			outRule, response, err := contextBasedRestrictionsService.CreateRule(createRuleOptions)
+			rule, response, err := contextBasedRestrictionsService.CreateRule(createRuleOptions)
 			if err != nil {
 				panic(err)
 			}
-			b, _ := json.MarshalIndent(outRule, "", "  ")
+			b, _ := json.MarshalIndent(rule, "", "  ")
 			fmt.Println(string(b))
 
 			// end-create_rule
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(201))
-			Expect(outRule).ToNot(BeNil())
-			ruleID = *outRule.ID
+			Expect(rule).ToNot(BeNil())
+			ruleID = *rule.ID
 
 		})
 		It(`ListRules request example`, func() {
@@ -306,18 +306,18 @@ var _ = Describe(`contextbasedrestrictionsv1.ContextBasedRestrictionsV1 Examples
 				testAccountID,
 			)
 
-			outRulePage, response, err := contextBasedRestrictionsService.ListRules(listRulesOptions)
+			ruleList, response, err := contextBasedRestrictionsService.ListRules(listRulesOptions)
 			if err != nil {
 				panic(err)
 			}
-			b, _ := json.MarshalIndent(outRulePage, "", "  ")
+			b, _ := json.MarshalIndent(ruleList, "", "  ")
 			fmt.Println(string(b))
 
 			// end-list_rules
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
-			Expect(outRulePage).ToNot(BeNil())
+			Expect(ruleList).ToNot(BeNil())
 		})
 		It(`GetRule request example`, func() {
 			fmt.Println("\nGetRule() result:")
@@ -327,18 +327,18 @@ var _ = Describe(`contextbasedrestrictionsv1.ContextBasedRestrictionsV1 Examples
 				ruleID,
 			)
 
-			outRule, response, err := contextBasedRestrictionsService.GetRule(getRuleOptions)
+			rule, response, err := contextBasedRestrictionsService.GetRule(getRuleOptions)
 			if err != nil {
 				panic(err)
 			}
-			b, _ := json.MarshalIndent(outRule, "", "  ")
+			b, _ := json.MarshalIndent(rule, "", "  ")
 			fmt.Println(string(b))
 
 			// end-get_rule
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
-			Expect(outRule).ToNot(BeNil())
+			Expect(rule).ToNot(BeNil())
 			ruleRev = response.Headers.Get("Etag")
 		})
 		It(`ReplaceRule request example`, func() {
@@ -381,18 +381,18 @@ var _ = Describe(`contextbasedrestrictionsv1.ContextBasedRestrictionsV1 Examples
 			replaceRuleOptions.SetContexts([]contextbasedrestrictionsv1.RuleContext{*ruleContextModel})
 			replaceRuleOptions.SetResources([]contextbasedrestrictionsv1.Resource{*resourceModel})
 
-			outRule, response, err := contextBasedRestrictionsService.ReplaceRule(replaceRuleOptions)
+			rule, response, err := contextBasedRestrictionsService.ReplaceRule(replaceRuleOptions)
 			if err != nil {
 				panic(err)
 			}
-			b, _ := json.MarshalIndent(outRule, "", "  ")
+			b, _ := json.MarshalIndent(rule, "", "  ")
 			fmt.Println(string(b))
 
 			// end-replace_rule
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
-			Expect(outRule).ToNot(BeNil())
+			Expect(rule).ToNot(BeNil())
 
 		})
 		It(`GetAccountSettings request example`, func() {
@@ -403,18 +403,18 @@ var _ = Describe(`contextbasedrestrictionsv1.ContextBasedRestrictionsV1 Examples
 				testAccountID,
 			)
 
-			outAccountSettings, response, err := contextBasedRestrictionsService.GetAccountSettings(getAccountSettingsOptions)
+			accountSettings, response, err := contextBasedRestrictionsService.GetAccountSettings(getAccountSettingsOptions)
 			if err != nil {
 				panic(err)
 			}
-			b, _ := json.MarshalIndent(outAccountSettings, "", "  ")
+			b, _ := json.MarshalIndent(accountSettings, "", "  ")
 			fmt.Println(string(b))
 
 			// end-get_account_settings
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
-			Expect(outAccountSettings).ToNot(BeNil())
+			Expect(accountSettings).ToNot(BeNil())
 
 		})
 		It(`DeleteRule request example`, func() {

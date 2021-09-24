@@ -140,12 +140,12 @@ var _ = Describe(`ContextBasedRestrictionsV1 Integration Tests`, func() {
 				TransactionID: core.StringPtr("sdk-create-zone-" + uuid.New().String()),
 			}
 
-			outZone, response, err := contextBasedRestrictionsService.CreateZone(createZoneOptions)
+			zone, response, err := contextBasedRestrictionsService.CreateZone(createZoneOptions)
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(201))
-			Expect(outZone).ToNot(BeNil())
-			zoneID = *outZone.ID
+			Expect(zone).ToNot(BeNil())
+			zoneID = *zone.ID
 		})
 	})
 
@@ -159,11 +159,11 @@ var _ = Describe(`ContextBasedRestrictionsV1 Integration Tests`, func() {
 				TransactionID: core.StringPtr("sdk-list-zones-" + uuid.New().String()),
 			}
 
-			outZonePage, response, err := contextBasedRestrictionsService.ListZones(listZonesOptions)
+			zoneList, response, err := contextBasedRestrictionsService.ListZones(listZonesOptions)
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
-			Expect(outZonePage).ToNot(BeNil())
+			Expect(zoneList).ToNot(BeNil())
 		})
 	})
 
@@ -177,11 +177,11 @@ var _ = Describe(`ContextBasedRestrictionsV1 Integration Tests`, func() {
 				TransactionID: core.StringPtr("sdk-get-zone-" + uuid.New().String()),
 			}
 
-			outZone, response, err := contextBasedRestrictionsService.GetZone(getZoneOptions)
+			zone, response, err := contextBasedRestrictionsService.GetZone(getZoneOptions)
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
-			Expect(outZone).ToNot(BeNil())
+			Expect(zone).ToNot(BeNil())
 			zoneRev = response.Headers.Get("Etag")
 		})
 	})
@@ -206,11 +206,11 @@ var _ = Describe(`ContextBasedRestrictionsV1 Integration Tests`, func() {
 				TransactionID: core.StringPtr("sdk-replace-zone-" + uuid.New().String()),
 			}
 
-			outZone, response, err := contextBasedRestrictionsService.ReplaceZone(replaceZoneOptions)
+			zone, response, err := contextBasedRestrictionsService.ReplaceZone(replaceZoneOptions)
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
-			Expect(outZone).ToNot(BeNil())
+			Expect(zone).ToNot(BeNil())
 		})
 	})
 
@@ -219,15 +219,15 @@ var _ = Describe(`ContextBasedRestrictionsV1 Integration Tests`, func() {
 			shouldSkipTest()
 		})
 		It(`ListAvailableServiceRefTargets(listAvailableServiceRefTargetsOptions *ListAvailableServiceRefTargetsOptions)`, func() {
-			listAvailableServiceRefTargetsOptions := &contextbasedrestrictionsv1.ListAvailableServiceRefTargetsOptions{
-				Type: core.StringPtr(contextbasedrestrictionsv1.ListAvailableServiceRefTargetsOptionsTypeAllConst),
+			listAvailableServiceRefTargetsOptions := &contextbasedrestrictionsv1.ListAvailableServicerefTargetsOptions{
+				Type: core.StringPtr(contextbasedrestrictionsv1.ListAvailableServicerefTargetsOptionsTypeAllConst),
 			}
 
-			serviceRefTargetPage, response, err := contextBasedRestrictionsService.ListAvailableServiceRefTargets(listAvailableServiceRefTargetsOptions)
+			serviceRefTargetList, response, err := contextBasedRestrictionsService.ListAvailableServicerefTargets(listAvailableServiceRefTargetsOptions)
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
-			Expect(serviceRefTargetPage).ToNot(BeNil())
+			Expect(serviceRefTargetList).ToNot(BeNil())
 		})
 	})
 
@@ -271,12 +271,12 @@ var _ = Describe(`ContextBasedRestrictionsV1 Integration Tests`, func() {
 				TransactionID: core.StringPtr("sdk-create-rule-" + uuid.New().String()),
 			}
 
-			outRule, response, err := contextBasedRestrictionsService.CreateRule(createRuleOptions)
+			rule, response, err := contextBasedRestrictionsService.CreateRule(createRuleOptions)
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(201))
-			Expect(outRule).ToNot(BeNil())
-			ruleID = *outRule.ID
+			Expect(rule).ToNot(BeNil())
+			ruleID = *rule.ID
 		})
 	})
 
@@ -290,11 +290,11 @@ var _ = Describe(`ContextBasedRestrictionsV1 Integration Tests`, func() {
 				TransactionID: core.StringPtr("sdk-list-rules-" + uuid.New().String()),
 			}
 
-			outRulePage, response, err := contextBasedRestrictionsService.ListRules(listRulesOptions)
+			ruleList, response, err := contextBasedRestrictionsService.ListRules(listRulesOptions)
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
-			Expect(outRulePage).ToNot(BeNil())
+			Expect(ruleList).ToNot(BeNil())
 		})
 	})
 
@@ -308,11 +308,11 @@ var _ = Describe(`ContextBasedRestrictionsV1 Integration Tests`, func() {
 				TransactionID: core.StringPtr("sdk-get-rule-" + uuid.New().String()),
 			}
 
-			outRule, response, err := contextBasedRestrictionsService.GetRule(getRuleOptions)
+			rule, response, err := contextBasedRestrictionsService.GetRule(getRuleOptions)
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
-			Expect(outRule).ToNot(BeNil())
+			Expect(rule).ToNot(BeNil())
 			ruleRev = response.Headers.Get("Etag")
 		})
 	})
@@ -359,11 +359,11 @@ var _ = Describe(`ContextBasedRestrictionsV1 Integration Tests`, func() {
 				TransactionID: core.StringPtr("sdk-replace-rule-" + uuid.New().String()),
 			}
 
-			outRule, response, err := contextBasedRestrictionsService.ReplaceRule(replaceRuleOptions)
+			rule, response, err := contextBasedRestrictionsService.ReplaceRule(replaceRuleOptions)
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
-			Expect(outRule).ToNot(BeNil())
+			Expect(rule).ToNot(BeNil())
 		})
 	})
 
@@ -377,11 +377,11 @@ var _ = Describe(`ContextBasedRestrictionsV1 Integration Tests`, func() {
 				TransactionID: core.StringPtr("sdk-get-account-settings-" + uuid.New().String()),
 			}
 
-			outAccountSettings, response, err := contextBasedRestrictionsService.GetAccountSettings(getAccountSettingsOptions)
+			accountSettings, response, err := contextBasedRestrictionsService.GetAccountSettings(getAccountSettingsOptions)
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
-			Expect(outAccountSettings).ToNot(BeNil())
+			Expect(accountSettings).ToNot(BeNil())
 		})
 	})
 
@@ -407,11 +407,11 @@ var _ = Describe(`ContextBasedRestrictionsV1 Integration Tests`, func() {
 				TransactionID: core.StringPtr("sdk-create-zone-" + uuid.New().String()),
 			}
 
-			outZone, response, err := contextBasedRestrictionsService.CreateZone(createZoneOptions)
+			zone, response, err := contextBasedRestrictionsService.CreateZone(createZoneOptions)
 
 			Expect(err).To(Not(BeNil()))
 			Expect(response.StatusCode).To(Equal(400))
-			Expect(outZone).To(BeNil())
+			Expect(zone).To(BeNil())
 		})
 	})
 
@@ -425,11 +425,11 @@ var _ = Describe(`ContextBasedRestrictionsV1 Integration Tests`, func() {
 				TransactionID: core.StringPtr("sdk-list-zones-" + uuid.New().String()),
 			}
 
-			outZonePage, response, err := contextBasedRestrictionsService.ListZones(listZonesOptions)
+			zoneList, response, err := contextBasedRestrictionsService.ListZones(listZonesOptions)
 
 			Expect(err).To(Not(BeNil()))
 			Expect(response.StatusCode).To(Equal(400))
-			Expect(outZonePage).To(BeNil())
+			Expect(zoneList).To(BeNil())
 		})
 	})
 
@@ -443,11 +443,11 @@ var _ = Describe(`ContextBasedRestrictionsV1 Integration Tests`, func() {
 				TransactionID: core.StringPtr("sdk-get-zone-" + uuid.New().String()),
 			}
 
-			outZone, response, err := contextBasedRestrictionsService.GetZone(getZoneOptions)
+			zone, response, err := contextBasedRestrictionsService.GetZone(getZoneOptions)
 
 			Expect(err).To(Not(BeNil()))
 			Expect(response.StatusCode).To(Equal(404))
-			Expect(outZone).To(BeNil())
+			Expect(zone).To(BeNil())
 
 		})
 	})
@@ -472,11 +472,11 @@ var _ = Describe(`ContextBasedRestrictionsV1 Integration Tests`, func() {
 				TransactionID: core.StringPtr("sdk-replace-zone-" + uuid.New().String()),
 			}
 
-			outZone, response, err := contextBasedRestrictionsService.ReplaceZone(replaceZoneOptions)
+			zone, response, err := contextBasedRestrictionsService.ReplaceZone(replaceZoneOptions)
 
 			Expect(err).To(Not(BeNil()))
 			Expect(response.StatusCode).To(Equal(404))
-			Expect(outZone).To(BeNil())
+			Expect(zone).To(BeNil())
 		})
 	})
 
@@ -485,15 +485,15 @@ var _ = Describe(`ContextBasedRestrictionsV1 Integration Tests`, func() {
 			shouldSkipTest()
 		})
 		It(`ListAvailableServiceRefTargets(listAvailableServiceRefTargetsOptions *ListAvailableServiceRefTargetsOptions) with 'invalid type parameter' error (400)`, func() {
-			listAvailableServiceRefTargetsOptions := &contextbasedrestrictionsv1.ListAvailableServiceRefTargetsOptions{
+			listAvailableServiceRefTargetsOptions := &contextbasedrestrictionsv1.ListAvailableServicerefTargetsOptions{
 				Type: core.StringPtr("invalid-type"),
 			}
 
-			serviceRefTargetPage, response, err := contextBasedRestrictionsService.ListAvailableServiceRefTargets(listAvailableServiceRefTargetsOptions)
+			serviceRefTargetList, response, err := contextBasedRestrictionsService.ListAvailableServicerefTargets(listAvailableServiceRefTargetsOptions)
 
 			Expect(err).To(Not(BeNil()))
 			Expect(response.StatusCode).To(Equal(400))
-			Expect(serviceRefTargetPage).To(BeNil())
+			Expect(serviceRefTargetList).To(BeNil())
 		})
 	})
 
@@ -537,11 +537,11 @@ var _ = Describe(`ContextBasedRestrictionsV1 Integration Tests`, func() {
 				TransactionID: core.StringPtr("sdk-create-rule-" + uuid.New().String()),
 			}
 
-			outRule, response, err := contextBasedRestrictionsService.CreateRule(createRuleOptions)
+			rule, response, err := contextBasedRestrictionsService.CreateRule(createRuleOptions)
 
 			Expect(err).To(Not(BeNil()))
 			Expect(response.StatusCode).To(Equal(400))
-			Expect(outRule).To(BeNil())
+			Expect(rule).To(BeNil())
 		})
 	})
 
@@ -555,11 +555,11 @@ var _ = Describe(`ContextBasedRestrictionsV1 Integration Tests`, func() {
 				TransactionID: core.StringPtr("sdk-list-rules-" + uuid.New().String()),
 			}
 
-			outRulePage, response, err := contextBasedRestrictionsService.ListRules(listRulesOptions)
+			ruleList, response, err := contextBasedRestrictionsService.ListRules(listRulesOptions)
 
 			Expect(err).To(Not(BeNil()))
 			Expect(response.StatusCode).To(Equal(400))
-			Expect(outRulePage).To(BeNil())
+			Expect(ruleList).To(BeNil())
 		})
 	})
 
@@ -573,11 +573,11 @@ var _ = Describe(`ContextBasedRestrictionsV1 Integration Tests`, func() {
 				TransactionID: core.StringPtr("sdk-get-rule-" + uuid.New().String()),
 			}
 
-			outRule, response, err := contextBasedRestrictionsService.GetRule(getRuleOptions)
+			rule, response, err := contextBasedRestrictionsService.GetRule(getRuleOptions)
 
 			Expect(err).To(Not(BeNil()))
 			Expect(response.StatusCode).To(Equal(404))
-			Expect(outRule).To(BeNil())
+			Expect(rule).To(BeNil())
 		})
 	})
 
@@ -623,11 +623,11 @@ var _ = Describe(`ContextBasedRestrictionsV1 Integration Tests`, func() {
 				TransactionID: core.StringPtr("sdk-replace-rule-" + uuid.New().String()),
 			}
 
-			outRule, response, err := contextBasedRestrictionsService.ReplaceRule(replaceRuleOptions)
+			rule, response, err := contextBasedRestrictionsService.ReplaceRule(replaceRuleOptions)
 
 			Expect(err).To(Not(BeNil()))
 			Expect(response.StatusCode).To(Equal(404))
-			Expect(outRule).To(BeNil())
+			Expect(rule).To(BeNil())
 		})
 	})
 
@@ -641,11 +641,11 @@ var _ = Describe(`ContextBasedRestrictionsV1 Integration Tests`, func() {
 				TransactionID: core.StringPtr("sdk-get-account-settings-" + uuid.New().String()),
 			}
 
-			outAccountSettings, response, err := contextBasedRestrictionsService.GetAccountSettings(getAccountSettingsOptions)
+			accountSettings, response, err := contextBasedRestrictionsService.GetAccountSettings(getAccountSettingsOptions)
 
 			Expect(err).To(Not(BeNil()))
 			Expect(response.StatusCode).To(Equal(400))
-			Expect(outAccountSettings).To(BeNil())
+			Expect(accountSettings).To(BeNil())
 		})
 	})
 
