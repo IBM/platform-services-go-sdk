@@ -34,9 +34,9 @@ import (
 	"github.com/go-openapi/strfmt"
 )
 
-// ContextBasedRestrictionsV1 : With the Context Based Restrictions Admin API, you can:
-// * Create, list, get, update, and delete zones
-// * Create, list, get, update, and delete rules
+// ContextBasedRestrictionsV1 : With the Context Based Restrictions API, you can:
+// * Create, list, get, update, and delete network zones
+// * Create, list, get, update, and delete context-based restriction rules
 // * Get account settings
 //
 // API Version: 1.0.0
@@ -112,6 +112,11 @@ func NewContextBasedRestrictionsV1(options *Options) (service *ContextBasedRestr
 	return
 }
 
+// GetServiceURLForRegion returns the service URL to be used for the specified region
+func GetServiceURLForRegion(region string) (string, error) {
+	return "", fmt.Errorf("service does not support regional URLs")
+}
+
 // Clone makes a copy of "contextBasedRestrictions" suitable for processing requests.
 func (contextBasedRestrictions *ContextBasedRestrictionsV1) Clone() *ContextBasedRestrictionsV1 {
 	if core.IsNil(contextBasedRestrictions) {
@@ -159,13 +164,13 @@ func (contextBasedRestrictions *ContextBasedRestrictionsV1) DisableRetries() {
 }
 
 // CreateZone : Create a zone
-// Creates a zone for the specified account.
-func (contextBasedRestrictions *ContextBasedRestrictionsV1) CreateZone(createZoneOptions *CreateZoneOptions) (result *OutZone, response *core.DetailedResponse, err error) {
+// This operation creates a network zone for the specified account.
+func (contextBasedRestrictions *ContextBasedRestrictionsV1) CreateZone(createZoneOptions *CreateZoneOptions) (result *Zone, response *core.DetailedResponse, err error) {
 	return contextBasedRestrictions.CreateZoneWithContext(context.Background(), createZoneOptions)
 }
 
 // CreateZoneWithContext is an alternate form of the CreateZone method which supports a Context parameter
-func (contextBasedRestrictions *ContextBasedRestrictionsV1) CreateZoneWithContext(ctx context.Context, createZoneOptions *CreateZoneOptions) (result *OutZone, response *core.DetailedResponse, err error) {
+func (contextBasedRestrictions *ContextBasedRestrictionsV1) CreateZoneWithContext(ctx context.Context, createZoneOptions *CreateZoneOptions) (result *Zone, response *core.DetailedResponse, err error) {
 	err = core.ValidateStruct(createZoneOptions, "createZoneOptions")
 	if err != nil {
 		return
@@ -225,7 +230,7 @@ func (contextBasedRestrictions *ContextBasedRestrictionsV1) CreateZoneWithContex
 		return
 	}
 	if rawResponse != nil {
-		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalOutZone)
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalZone)
 		if err != nil {
 			return
 		}
@@ -235,14 +240,14 @@ func (contextBasedRestrictions *ContextBasedRestrictionsV1) CreateZoneWithContex
 	return
 }
 
-// ListZones : List zones
-// Lists zones for the specified account.
-func (contextBasedRestrictions *ContextBasedRestrictionsV1) ListZones(listZonesOptions *ListZonesOptions) (result *OutZonePage, response *core.DetailedResponse, err error) {
+// ListZones : List network zones
+// This operation lists network zones in the specified account.
+func (contextBasedRestrictions *ContextBasedRestrictionsV1) ListZones(listZonesOptions *ListZonesOptions) (result *ZonePage, response *core.DetailedResponse, err error) {
 	return contextBasedRestrictions.ListZonesWithContext(context.Background(), listZonesOptions)
 }
 
 // ListZonesWithContext is an alternate form of the ListZones method which supports a Context parameter
-func (contextBasedRestrictions *ContextBasedRestrictionsV1) ListZonesWithContext(ctx context.Context, listZonesOptions *ListZonesOptions) (result *OutZonePage, response *core.DetailedResponse, err error) {
+func (contextBasedRestrictions *ContextBasedRestrictionsV1) ListZonesWithContext(ctx context.Context, listZonesOptions *ListZonesOptions) (result *ZonePage, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(listZonesOptions, "listZonesOptions cannot be nil")
 	if err != nil {
 		return
@@ -292,7 +297,7 @@ func (contextBasedRestrictions *ContextBasedRestrictionsV1) ListZonesWithContext
 		return
 	}
 	if rawResponse != nil {
-		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalOutZonePage)
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalZonePage)
 		if err != nil {
 			return
 		}
@@ -302,14 +307,14 @@ func (contextBasedRestrictions *ContextBasedRestrictionsV1) ListZonesWithContext
 	return
 }
 
-// GetZone : Get the specified zone
-// Gets the zone for the specified ID.
-func (contextBasedRestrictions *ContextBasedRestrictionsV1) GetZone(getZoneOptions *GetZoneOptions) (result *OutZone, response *core.DetailedResponse, err error) {
+// GetZone : Get the specified network zone
+// This operation returns the network zone for the specified ID.
+func (contextBasedRestrictions *ContextBasedRestrictionsV1) GetZone(getZoneOptions *GetZoneOptions) (result *Zone, response *core.DetailedResponse, err error) {
 	return contextBasedRestrictions.GetZoneWithContext(context.Background(), getZoneOptions)
 }
 
 // GetZoneWithContext is an alternate form of the GetZone method which supports a Context parameter
-func (contextBasedRestrictions *ContextBasedRestrictionsV1) GetZoneWithContext(ctx context.Context, getZoneOptions *GetZoneOptions) (result *OutZone, response *core.DetailedResponse, err error) {
+func (contextBasedRestrictions *ContextBasedRestrictionsV1) GetZoneWithContext(ctx context.Context, getZoneOptions *GetZoneOptions) (result *Zone, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(getZoneOptions, "getZoneOptions cannot be nil")
 	if err != nil {
 		return
@@ -355,7 +360,7 @@ func (contextBasedRestrictions *ContextBasedRestrictionsV1) GetZoneWithContext(c
 		return
 	}
 	if rawResponse != nil {
-		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalOutZone)
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalZone)
 		if err != nil {
 			return
 		}
@@ -365,14 +370,14 @@ func (contextBasedRestrictions *ContextBasedRestrictionsV1) GetZoneWithContext(c
 	return
 }
 
-// ReplaceZone : Update the specified zone
-// Updates the zone for the specified ID.
-func (contextBasedRestrictions *ContextBasedRestrictionsV1) ReplaceZone(replaceZoneOptions *ReplaceZoneOptions) (result *OutZone, response *core.DetailedResponse, err error) {
+// ReplaceZone : Update the specified network zone
+// This operation updates the network zone with the specified ID.
+func (contextBasedRestrictions *ContextBasedRestrictionsV1) ReplaceZone(replaceZoneOptions *ReplaceZoneOptions) (result *Zone, response *core.DetailedResponse, err error) {
 	return contextBasedRestrictions.ReplaceZoneWithContext(context.Background(), replaceZoneOptions)
 }
 
 // ReplaceZoneWithContext is an alternate form of the ReplaceZone method which supports a Context parameter
-func (contextBasedRestrictions *ContextBasedRestrictionsV1) ReplaceZoneWithContext(ctx context.Context, replaceZoneOptions *ReplaceZoneOptions) (result *OutZone, response *core.DetailedResponse, err error) {
+func (contextBasedRestrictions *ContextBasedRestrictionsV1) ReplaceZoneWithContext(ctx context.Context, replaceZoneOptions *ReplaceZoneOptions) (result *Zone, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(replaceZoneOptions, "replaceZoneOptions cannot be nil")
 	if err != nil {
 		return
@@ -443,7 +448,7 @@ func (contextBasedRestrictions *ContextBasedRestrictionsV1) ReplaceZoneWithConte
 		return
 	}
 	if rawResponse != nil {
-		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalOutZone)
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalZone)
 		if err != nil {
 			return
 		}
@@ -453,8 +458,8 @@ func (contextBasedRestrictions *ContextBasedRestrictionsV1) ReplaceZoneWithConte
 	return
 }
 
-// DeleteZone : Delete the specified zone
-// Deletes the zone for the specified home ID.
+// DeleteZone : Delete the specified network zone
+// This operation deletes the network zone with the specified home ID.
 func (contextBasedRestrictions *ContextBasedRestrictionsV1) DeleteZone(deleteZoneOptions *DeleteZoneOptions) (response *core.DetailedResponse, err error) {
 	return contextBasedRestrictions.DeleteZoneWithContext(context.Background(), deleteZoneOptions)
 }
@@ -505,7 +510,7 @@ func (contextBasedRestrictions *ContextBasedRestrictionsV1) DeleteZoneWithContex
 }
 
 // ListAvailableServiceRefTargets : List available service reference targets
-// Lists all available service reference targets.
+// This operation lists all available service reference targets.
 func (contextBasedRestrictions *ContextBasedRestrictionsV1) ListAvailableServiceRefTargets(listAvailableServiceRefTargetsOptions *ListAvailableServiceRefTargetsOptions) (result *ServiceRefTargetPage, response *core.DetailedResponse, err error) {
 	return contextBasedRestrictions.ListAvailableServiceRefTargetsWithContext(context.Background(), listAvailableServiceRefTargetsOptions)
 }
@@ -561,13 +566,13 @@ func (contextBasedRestrictions *ContextBasedRestrictionsV1) ListAvailableService
 }
 
 // CreateRule : Create a rule
-// Creates a rule for the specified account.
-func (contextBasedRestrictions *ContextBasedRestrictionsV1) CreateRule(createRuleOptions *CreateRuleOptions) (result *OutRule, response *core.DetailedResponse, err error) {
+// This operation creates a rule for the specified account.
+func (contextBasedRestrictions *ContextBasedRestrictionsV1) CreateRule(createRuleOptions *CreateRuleOptions) (result *Rule, response *core.DetailedResponse, err error) {
 	return contextBasedRestrictions.CreateRuleWithContext(context.Background(), createRuleOptions)
 }
 
 // CreateRuleWithContext is an alternate form of the CreateRule method which supports a Context parameter
-func (contextBasedRestrictions *ContextBasedRestrictionsV1) CreateRuleWithContext(ctx context.Context, createRuleOptions *CreateRuleOptions) (result *OutRule, response *core.DetailedResponse, err error) {
+func (contextBasedRestrictions *ContextBasedRestrictionsV1) CreateRuleWithContext(ctx context.Context, createRuleOptions *CreateRuleOptions) (result *Rule, response *core.DetailedResponse, err error) {
 	err = core.ValidateStruct(createRuleOptions, "createRuleOptions")
 	if err != nil {
 		return
@@ -621,7 +626,7 @@ func (contextBasedRestrictions *ContextBasedRestrictionsV1) CreateRuleWithContex
 		return
 	}
 	if rawResponse != nil {
-		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalOutRule)
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalRule)
 		if err != nil {
 			return
 		}
@@ -632,13 +637,13 @@ func (contextBasedRestrictions *ContextBasedRestrictionsV1) CreateRuleWithContex
 }
 
 // ListRules : List rules
-// Lists rules for the specified account.
-func (contextBasedRestrictions *ContextBasedRestrictionsV1) ListRules(listRulesOptions *ListRulesOptions) (result *OutRulePage, response *core.DetailedResponse, err error) {
+// This operation lists rules for the specified account.
+func (contextBasedRestrictions *ContextBasedRestrictionsV1) ListRules(listRulesOptions *ListRulesOptions) (result *RulePage, response *core.DetailedResponse, err error) {
 	return contextBasedRestrictions.ListRulesWithContext(context.Background(), listRulesOptions)
 }
 
 // ListRulesWithContext is an alternate form of the ListRules method which supports a Context parameter
-func (contextBasedRestrictions *ContextBasedRestrictionsV1) ListRulesWithContext(ctx context.Context, listRulesOptions *ListRulesOptions) (result *OutRulePage, response *core.DetailedResponse, err error) {
+func (contextBasedRestrictions *ContextBasedRestrictionsV1) ListRulesWithContext(ctx context.Context, listRulesOptions *ListRulesOptions) (result *RulePage, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(listRulesOptions, "listRulesOptions cannot be nil")
 	if err != nil {
 		return
@@ -706,7 +711,7 @@ func (contextBasedRestrictions *ContextBasedRestrictionsV1) ListRulesWithContext
 		return
 	}
 	if rawResponse != nil {
-		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalOutRulePage)
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalRulePage)
 		if err != nil {
 			return
 		}
@@ -717,13 +722,13 @@ func (contextBasedRestrictions *ContextBasedRestrictionsV1) ListRulesWithContext
 }
 
 // GetRule : Get the specified rule
-// Gets the rule for the specified ID.
-func (contextBasedRestrictions *ContextBasedRestrictionsV1) GetRule(getRuleOptions *GetRuleOptions) (result *OutRule, response *core.DetailedResponse, err error) {
+// This operation gets the rule for the specified ID.
+func (contextBasedRestrictions *ContextBasedRestrictionsV1) GetRule(getRuleOptions *GetRuleOptions) (result *Rule, response *core.DetailedResponse, err error) {
 	return contextBasedRestrictions.GetRuleWithContext(context.Background(), getRuleOptions)
 }
 
 // GetRuleWithContext is an alternate form of the GetRule method which supports a Context parameter
-func (contextBasedRestrictions *ContextBasedRestrictionsV1) GetRuleWithContext(ctx context.Context, getRuleOptions *GetRuleOptions) (result *OutRule, response *core.DetailedResponse, err error) {
+func (contextBasedRestrictions *ContextBasedRestrictionsV1) GetRuleWithContext(ctx context.Context, getRuleOptions *GetRuleOptions) (result *Rule, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(getRuleOptions, "getRuleOptions cannot be nil")
 	if err != nil {
 		return
@@ -769,7 +774,7 @@ func (contextBasedRestrictions *ContextBasedRestrictionsV1) GetRuleWithContext(c
 		return
 	}
 	if rawResponse != nil {
-		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalOutRule)
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalRule)
 		if err != nil {
 			return
 		}
@@ -780,13 +785,13 @@ func (contextBasedRestrictions *ContextBasedRestrictionsV1) GetRuleWithContext(c
 }
 
 // ReplaceRule : Update the specified rule
-// Updates the rule for the specified ID.
-func (contextBasedRestrictions *ContextBasedRestrictionsV1) ReplaceRule(replaceRuleOptions *ReplaceRuleOptions) (result *OutRule, response *core.DetailedResponse, err error) {
+// This operation updates the rule for the specified ID.
+func (contextBasedRestrictions *ContextBasedRestrictionsV1) ReplaceRule(replaceRuleOptions *ReplaceRuleOptions) (result *Rule, response *core.DetailedResponse, err error) {
 	return contextBasedRestrictions.ReplaceRuleWithContext(context.Background(), replaceRuleOptions)
 }
 
 // ReplaceRuleWithContext is an alternate form of the ReplaceRule method which supports a Context parameter
-func (contextBasedRestrictions *ContextBasedRestrictionsV1) ReplaceRuleWithContext(ctx context.Context, replaceRuleOptions *ReplaceRuleOptions) (result *OutRule, response *core.DetailedResponse, err error) {
+func (contextBasedRestrictions *ContextBasedRestrictionsV1) ReplaceRuleWithContext(ctx context.Context, replaceRuleOptions *ReplaceRuleOptions) (result *Rule, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(replaceRuleOptions, "replaceRuleOptions cannot be nil")
 	if err != nil {
 		return
@@ -851,7 +856,7 @@ func (contextBasedRestrictions *ContextBasedRestrictionsV1) ReplaceRuleWithConte
 		return
 	}
 	if rawResponse != nil {
-		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalOutRule)
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalRule)
 		if err != nil {
 			return
 		}
@@ -862,7 +867,7 @@ func (contextBasedRestrictions *ContextBasedRestrictionsV1) ReplaceRuleWithConte
 }
 
 // DeleteRule : Delete the specified rule
-// Deletes the rule for the specified home ID.
+// This operation deletes the rule for the specified home ID.
 func (contextBasedRestrictions *ContextBasedRestrictionsV1) DeleteRule(deleteRuleOptions *DeleteRuleOptions) (response *core.DetailedResponse, err error) {
 	return contextBasedRestrictions.DeleteRuleWithContext(context.Background(), deleteRuleOptions)
 }
@@ -913,13 +918,13 @@ func (contextBasedRestrictions *ContextBasedRestrictionsV1) DeleteRuleWithContex
 }
 
 // GetAccountSettings : Get the specified account settings
-// Gets the settings for the specified account ID.
-func (contextBasedRestrictions *ContextBasedRestrictionsV1) GetAccountSettings(getAccountSettingsOptions *GetAccountSettingsOptions) (result *OutAccountSettings, response *core.DetailedResponse, err error) {
+// This operation gets the settings for the specified account ID.
+func (contextBasedRestrictions *ContextBasedRestrictionsV1) GetAccountSettings(getAccountSettingsOptions *GetAccountSettingsOptions) (result *AccountSettings, response *core.DetailedResponse, err error) {
 	return contextBasedRestrictions.GetAccountSettingsWithContext(context.Background(), getAccountSettingsOptions)
 }
 
 // GetAccountSettingsWithContext is an alternate form of the GetAccountSettings method which supports a Context parameter
-func (contextBasedRestrictions *ContextBasedRestrictionsV1) GetAccountSettingsWithContext(ctx context.Context, getAccountSettingsOptions *GetAccountSettingsOptions) (result *OutAccountSettings, response *core.DetailedResponse, err error) {
+func (contextBasedRestrictions *ContextBasedRestrictionsV1) GetAccountSettingsWithContext(ctx context.Context, getAccountSettingsOptions *GetAccountSettingsOptions) (result *AccountSettings, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(getAccountSettingsOptions, "getAccountSettingsOptions cannot be nil")
 	if err != nil {
 		return
@@ -965,13 +970,100 @@ func (contextBasedRestrictions *ContextBasedRestrictionsV1) GetAccountSettingsWi
 		return
 	}
 	if rawResponse != nil {
-		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalOutAccountSettings)
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalAccountSettings)
 		if err != nil {
 			return
 		}
 		response.Result = result
 	}
 
+	return
+}
+
+// AccountSettings : An output account settings.
+type AccountSettings struct {
+	// The globally unique ID of the account settings.
+	ID *string `json:"id" validate:"required"`
+
+	// The account settings CRN.
+	CRN *string `json:"crn" validate:"required"`
+
+	// the max number of rules allowed for the account.
+	RuleCountLimit *int64 `json:"rule_count_limit" validate:"required"`
+
+	// the max number of zones allowed for the account.
+	ZoneCountLimit *int64 `json:"zone_count_limit" validate:"required"`
+
+	// the current number of rules used by the account.
+	CurrentRuleCount *int64 `json:"current_rule_count" validate:"required"`
+
+	// the current number of zones used by the account.
+	CurrentZoneCount *int64 `json:"current_zone_count" validate:"required"`
+
+	// The href link to the resource.
+	Href *string `json:"href" validate:"required"`
+
+	// The time the resource was created.
+	CreatedAt *strfmt.DateTime `json:"created_at" validate:"required"`
+
+	// IAM ID of the user or service which created the resource.
+	CreatedByID *string `json:"created_by_id" validate:"required"`
+
+	// The last time the resource was modified.
+	LastModifiedAt *strfmt.DateTime `json:"last_modified_at" validate:"required"`
+
+	// IAM ID of the user or service which modified the resource.
+	LastModifiedByID *string `json:"last_modified_by_id" validate:"required"`
+}
+
+// UnmarshalAccountSettings unmarshals an instance of AccountSettings from the specified map of raw messages.
+func UnmarshalAccountSettings(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(AccountSettings)
+	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "crn", &obj.CRN)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "rule_count_limit", &obj.RuleCountLimit)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "zone_count_limit", &obj.ZoneCountLimit)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "current_rule_count", &obj.CurrentRuleCount)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "current_zone_count", &obj.CurrentZoneCount)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "href", &obj.Href)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "created_at", &obj.CreatedAt)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "created_by_id", &obj.CreatedByID)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "last_modified_at", &obj.LastModifiedAt)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "last_modified_by_id", &obj.LastModifiedByID)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
 	return
 }
 
@@ -996,11 +1088,11 @@ type Address struct {
 // Constants associated with the Address.Type property.
 // The type of address.
 const (
-	AddressTypeIPAddress  = "ipAddress"
-	AddressTypeIPRange    = "ipRange"
-	AddressTypeServiceRef = "serviceRef"
-	AddressTypeSubnet     = "subnet"
-	AddressTypeVPC        = "vpc"
+	AddressTypeIpaddressConst  = "ipAddress"
+	AddressTypeIprangeConst    = "ipRange"
+	AddressTypeServiceRefConst = "serviceRef"
+	AddressTypeSubnetConst     = "subnet"
+	AddressTypeVPCConst        = "vpc"
 )
 
 func (*Address) isaAddress() bool {
@@ -1382,8 +1474,8 @@ type ListAvailableServiceRefTargetsOptions struct {
 // Constants associated with the ListAvailableServiceRefTargetsOptions.Type property.
 // Specifies the types of services to retrieve.
 const (
-	ListAvailableServiceRefTargetsOptionsTypeAll             = "all"
-	ListAvailableServiceRefTargetsOptionsTypePlatformService = "platform_service"
+	ListAvailableServiceRefTargetsOptionsTypeAllConst             = "all"
+	ListAvailableServiceRefTargetsOptionsTypePlatformServiceConst = "platform_service"
 )
 
 // NewListAvailableServiceRefTargetsOptions : Instantiate ListAvailableServiceRefTargetsOptions
@@ -1573,409 +1665,6 @@ func (options *ListZonesOptions) SetSort(sort string) *ListZonesOptions {
 func (options *ListZonesOptions) SetHeaders(param map[string]string) *ListZonesOptions {
 	options.Headers = param
 	return options
-}
-
-// OutAccountSettings : An output account settings.
-type OutAccountSettings struct {
-	// The globally unique ID of the account settings.
-	ID *string `json:"id" validate:"required"`
-
-	// The account settings CRN.
-	Crn *string `json:"crn" validate:"required"`
-
-	// the max number of rules allowed for the account.
-	RuleCountLimit *int64 `json:"rule_count_limit" validate:"required"`
-
-	// the max number of zones allowed for the account.
-	ZoneCountLimit *int64 `json:"zone_count_limit" validate:"required"`
-
-	// the current number of rules used by the account.
-	CurrentRuleCount *int64 `json:"current_rule_count" validate:"required"`
-
-	// the current number of zones used by the account.
-	CurrentZoneCount *int64 `json:"current_zone_count" validate:"required"`
-
-	// The href link to the resource.
-	Href *string `json:"href" validate:"required"`
-
-	// The time the resource was created.
-	CreatedAt *strfmt.DateTime `json:"created_at" validate:"required"`
-
-	// IAM ID of the user or service which created the resource.
-	CreatedByID *string `json:"created_by_id" validate:"required"`
-
-	// The last time the resource was modified.
-	LastModifiedAt *strfmt.DateTime `json:"last_modified_at" validate:"required"`
-
-	// IAM ID of the user or service which modified the resource.
-	LastModifiedByID *string `json:"last_modified_by_id" validate:"required"`
-}
-
-// UnmarshalOutAccountSettings unmarshals an instance of OutAccountSettings from the specified map of raw messages.
-func UnmarshalOutAccountSettings(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(OutAccountSettings)
-	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "crn", &obj.Crn)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "rule_count_limit", &obj.RuleCountLimit)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "zone_count_limit", &obj.ZoneCountLimit)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "current_rule_count", &obj.CurrentRuleCount)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "current_zone_count", &obj.CurrentZoneCount)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "href", &obj.Href)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "created_at", &obj.CreatedAt)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "created_by_id", &obj.CreatedByID)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "last_modified_at", &obj.LastModifiedAt)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "last_modified_by_id", &obj.LastModifiedByID)
-	if err != nil {
-		return
-	}
-	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
-	return
-}
-
-// OutRule : An output rule.
-type OutRule struct {
-	// The globally unique ID of the rule.
-	ID *string `json:"id" validate:"required"`
-
-	// The rule CRN.
-	Crn *string `json:"crn" validate:"required"`
-
-	// The description of the rule.
-	Description *string `json:"description,omitempty"`
-
-	// The contexts this rule applies to.
-	Contexts []RuleContext `json:"contexts" validate:"required"`
-
-	// The resources this rule apply to.
-	Resources []Resource `json:"resources" validate:"required"`
-
-	// The href link to the resource.
-	Href *string `json:"href" validate:"required"`
-
-	// The time the resource was created.
-	CreatedAt *strfmt.DateTime `json:"created_at" validate:"required"`
-
-	// IAM ID of the user or service which created the resource.
-	CreatedByID *string `json:"created_by_id" validate:"required"`
-
-	// The last time the resource was modified.
-	LastModifiedAt *strfmt.DateTime `json:"last_modified_at" validate:"required"`
-
-	// IAM ID of the user or service which modified the resource.
-	LastModifiedByID *string `json:"last_modified_by_id" validate:"required"`
-}
-
-// UnmarshalOutRule unmarshals an instance of OutRule from the specified map of raw messages.
-func UnmarshalOutRule(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(OutRule)
-	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "crn", &obj.Crn)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "description", &obj.Description)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalModel(m, "contexts", &obj.Contexts, UnmarshalRuleContext)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalModel(m, "resources", &obj.Resources, UnmarshalResource)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "href", &obj.Href)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "created_at", &obj.CreatedAt)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "created_by_id", &obj.CreatedByID)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "last_modified_at", &obj.LastModifiedAt)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "last_modified_by_id", &obj.LastModifiedByID)
-	if err != nil {
-		return
-	}
-	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
-	return
-}
-
-// OutRulePage : The response object of the ListRules operation.
-type OutRulePage struct {
-	// The number of returned results.
-	Count *int64 `json:"count" validate:"required"`
-
-	// The returned rules.
-	Rules []OutRule `json:"rules" validate:"required"`
-}
-
-// UnmarshalOutRulePage unmarshals an instance of OutRulePage from the specified map of raw messages.
-func UnmarshalOutRulePage(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(OutRulePage)
-	err = core.UnmarshalPrimitive(m, "count", &obj.Count)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalModel(m, "rules", &obj.Rules, UnmarshalOutRule)
-	if err != nil {
-		return
-	}
-	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
-	return
-}
-
-// OutZone : An output zone.
-type OutZone struct {
-	// The globally unique ID of the zone.
-	ID *string `json:"id" validate:"required"`
-
-	// The zone CRN.
-	Crn *string `json:"crn" validate:"required"`
-
-	// The name of the zone.
-	Name *string `json:"name" validate:"required"`
-
-	// The id of the account owning this zone.
-	AccountID *string `json:"account_id" validate:"required"`
-
-	// The description of the zone.
-	Description *string `json:"description,omitempty"`
-
-	// The list of addresses in the zone.
-	Addresses []AddressIntf `json:"addresses" validate:"required"`
-
-	// The list of excluded addresses in the zone.
-	Excluded []AddressIntf `json:"excluded,omitempty"`
-
-	// The href link to the resource.
-	Href *string `json:"href" validate:"required"`
-
-	// The time the resource was created.
-	CreatedAt *strfmt.DateTime `json:"created_at" validate:"required"`
-
-	// IAM ID of the user or service which created the resource.
-	CreatedByID *string `json:"created_by_id" validate:"required"`
-
-	// The last time the resource was modified.
-	LastModifiedAt *strfmt.DateTime `json:"last_modified_at" validate:"required"`
-
-	// IAM ID of the user or service which modified the resource.
-	LastModifiedByID *string `json:"last_modified_by_id" validate:"required"`
-}
-
-// UnmarshalOutZone unmarshals an instance of OutZone from the specified map of raw messages.
-func UnmarshalOutZone(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(OutZone)
-	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "crn", &obj.Crn)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "account_id", &obj.AccountID)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "description", &obj.Description)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalModel(m, "addresses", &obj.Addresses, UnmarshalAddress)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalModel(m, "excluded", &obj.Excluded, UnmarshalAddress)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "href", &obj.Href)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "created_at", &obj.CreatedAt)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "created_by_id", &obj.CreatedByID)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "last_modified_at", &obj.LastModifiedAt)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "last_modified_by_id", &obj.LastModifiedByID)
-	if err != nil {
-		return
-	}
-	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
-	return
-}
-
-// OutZonePage : The response object of the ListZones operation.
-type OutZonePage struct {
-	// The number of returned results.
-	Count *int64 `json:"count" validate:"required"`
-
-	// The returned zones.
-	Zones []OutZoneSummary `json:"zones" validate:"required"`
-}
-
-// UnmarshalOutZonePage unmarshals an instance of OutZonePage from the specified map of raw messages.
-func UnmarshalOutZonePage(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(OutZonePage)
-	err = core.UnmarshalPrimitive(m, "count", &obj.Count)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalModel(m, "zones", &obj.Zones, UnmarshalOutZoneSummary)
-	if err != nil {
-		return
-	}
-	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
-	return
-}
-
-// OutZoneSummary : An output zone summary.
-type OutZoneSummary struct {
-	// The globally unique ID of the zone.
-	ID *string `json:"id" validate:"required"`
-
-	// The zone CRN.
-	Crn *string `json:"crn" validate:"required"`
-
-	// The name of the zone.
-	Name *string `json:"name" validate:"required"`
-
-	// The description of the zone.
-	Description *string `json:"description,omitempty"`
-
-	// A preview of addresses in the zone (3 addresses maximum).
-	AddressesPreview []AddressIntf `json:"addresses_preview" validate:"required"`
-
-	// The number of addresses in the zone.
-	AddressCount *int64 `json:"address_count" validate:"required"`
-
-	// The number of excluded addresses in the zone.
-	ExcludedCount *int64 `json:"excluded_count" validate:"required"`
-
-	// The href link to the resource.
-	Href *string `json:"href" validate:"required"`
-
-	// The time the resource was created.
-	CreatedAt *strfmt.DateTime `json:"created_at" validate:"required"`
-
-	// IAM ID of the user or service which created the resource.
-	CreatedByID *string `json:"created_by_id" validate:"required"`
-
-	// The last time the resource was modified.
-	LastModifiedAt *strfmt.DateTime `json:"last_modified_at" validate:"required"`
-
-	// IAM ID of the user or service which modified the resource.
-	LastModifiedByID *string `json:"last_modified_by_id" validate:"required"`
-}
-
-// UnmarshalOutZoneSummary unmarshals an instance of OutZoneSummary from the specified map of raw messages.
-func UnmarshalOutZoneSummary(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(OutZoneSummary)
-	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "crn", &obj.Crn)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "description", &obj.Description)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalModel(m, "addresses_preview", &obj.AddressesPreview, UnmarshalAddress)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "address_count", &obj.AddressCount)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "excluded_count", &obj.ExcludedCount)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "href", &obj.Href)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "created_at", &obj.CreatedAt)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "created_by_id", &obj.CreatedByID)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "last_modified_at", &obj.LastModifiedAt)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "last_modified_by_id", &obj.LastModifiedByID)
-	if err != nil {
-		return
-	}
-	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
-	return
 }
 
 // ReplaceRuleOptions : The ReplaceRule options.
@@ -2267,6 +1956,86 @@ func UnmarshalResourceTagAttribute(m map[string]json.RawMessage, result interfac
 	return
 }
 
+// Rule : An output rule.
+type Rule struct {
+	// The globally unique ID of the rule.
+	ID *string `json:"id" validate:"required"`
+
+	// The rule CRN.
+	CRN *string `json:"crn" validate:"required"`
+
+	// The description of the rule.
+	Description *string `json:"description" validate:"required"`
+
+	// The contexts this rule applies to.
+	Contexts []RuleContext `json:"contexts" validate:"required"`
+
+	// The resources this rule apply to.
+	Resources []Resource `json:"resources" validate:"required"`
+
+	// The href link to the resource.
+	Href *string `json:"href" validate:"required"`
+
+	// The time the resource was created.
+	CreatedAt *strfmt.DateTime `json:"created_at" validate:"required"`
+
+	// IAM ID of the user or service which created the resource.
+	CreatedByID *string `json:"created_by_id" validate:"required"`
+
+	// The last time the resource was modified.
+	LastModifiedAt *strfmt.DateTime `json:"last_modified_at" validate:"required"`
+
+	// IAM ID of the user or service which modified the resource.
+	LastModifiedByID *string `json:"last_modified_by_id" validate:"required"`
+}
+
+// UnmarshalRule unmarshals an instance of Rule from the specified map of raw messages.
+func UnmarshalRule(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(Rule)
+	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "crn", &obj.CRN)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "description", &obj.Description)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "contexts", &obj.Contexts, UnmarshalRuleContext)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "resources", &obj.Resources, UnmarshalResource)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "href", &obj.Href)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "created_at", &obj.CreatedAt)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "created_by_id", &obj.CreatedByID)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "last_modified_at", &obj.LastModifiedAt)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "last_modified_by_id", &obj.LastModifiedByID)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
 // RuleContext : A rule context.
 type RuleContext struct {
 	// The attributes.
@@ -2327,10 +2096,34 @@ func UnmarshalRuleContextAttribute(m map[string]json.RawMessage, result interfac
 	return
 }
 
+// RulePage : The response object of the ListRules operation.
+type RulePage struct {
+	// The number of returned results.
+	Count *int64 `json:"count" validate:"required"`
+
+	// The returned rules.
+	Rules []Rule `json:"rules" validate:"required"`
+}
+
+// UnmarshalRulePage unmarshals an instance of RulePage from the specified map of raw messages.
+func UnmarshalRulePage(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(RulePage)
+	err = core.UnmarshalPrimitive(m, "count", &obj.Count)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "rules", &obj.Rules, UnmarshalRule)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
 // ServiceRefTarget : Summary information about a service reference target.
 type ServiceRefTarget struct {
 	// The name of the service.
-	ServiceName *string `json:"service_name,omitempty"`
+	ServiceName *string `json:"service_name" validate:"required"`
 
 	// The type of the service.
 	ServiceType *string `json:"service_type,omitempty"`
@@ -2371,7 +2164,7 @@ func UnmarshalServiceRefTargetPage(m map[string]json.RawMessage, result interfac
 // ServiceRefValue : A service reference value.
 type ServiceRefValue struct {
 	// The id of the account owning the service.
-	AccountID *string `json:"account_id,omitempty"`
+	AccountID *string `json:"account_id" validate:"required"`
 
 	// The service type.
 	ServiceType *string `json:"service_type,omitempty"`
@@ -2381,6 +2174,15 @@ type ServiceRefValue struct {
 
 	// The service instance.
 	ServiceInstance *string `json:"service_instance,omitempty"`
+}
+
+// NewServiceRefValue : Instantiate ServiceRefValue (Generic Model Constructor)
+func (*ContextBasedRestrictionsV1) NewServiceRefValue(accountID string) (_model *ServiceRefValue, err error) {
+	_model = &ServiceRefValue{
+		AccountID: core.StringPtr(accountID),
+	}
+	err = core.ValidateStruct(_model, "required parameters")
+	return
 }
 
 // UnmarshalServiceRefValue unmarshals an instance of ServiceRefValue from the specified map of raw messages.
@@ -2406,6 +2208,218 @@ func UnmarshalServiceRefValue(m map[string]json.RawMessage, result interface{}) 
 	return
 }
 
+// Zone : An output zone.
+type Zone struct {
+	// The globally unique ID of the zone.
+	ID *string `json:"id" validate:"required"`
+
+	// The zone CRN.
+	CRN *string `json:"crn" validate:"required"`
+
+	// The name of the zone.
+	Name *string `json:"name" validate:"required"`
+
+	// The id of the account owning this zone.
+	AccountID *string `json:"account_id" validate:"required"`
+
+	// The description of the zone.
+	Description *string `json:"description" validate:"required"`
+
+	// The list of addresses in the zone.
+	Addresses []AddressIntf `json:"addresses" validate:"required"`
+
+	// The list of excluded addresses in the zone.
+	Excluded []AddressIntf `json:"excluded" validate:"required"`
+
+	// The href link to the resource.
+	Href *string `json:"href" validate:"required"`
+
+	// The time the resource was created.
+	CreatedAt *strfmt.DateTime `json:"created_at" validate:"required"`
+
+	// IAM ID of the user or service which created the resource.
+	CreatedByID *string `json:"created_by_id" validate:"required"`
+
+	// The last time the resource was modified.
+	LastModifiedAt *strfmt.DateTime `json:"last_modified_at" validate:"required"`
+
+	// IAM ID of the user or service which modified the resource.
+	LastModifiedByID *string `json:"last_modified_by_id" validate:"required"`
+}
+
+// UnmarshalZone unmarshals an instance of Zone from the specified map of raw messages.
+func UnmarshalZone(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(Zone)
+	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "crn", &obj.CRN)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "account_id", &obj.AccountID)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "description", &obj.Description)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "addresses", &obj.Addresses, UnmarshalAddress)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "excluded", &obj.Excluded, UnmarshalAddress)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "href", &obj.Href)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "created_at", &obj.CreatedAt)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "created_by_id", &obj.CreatedByID)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "last_modified_at", &obj.LastModifiedAt)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "last_modified_by_id", &obj.LastModifiedByID)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// ZonePage : The response object of the ListZones operation.
+type ZonePage struct {
+	// The number of returned results.
+	Count *int64 `json:"count" validate:"required"`
+
+	// The returned zones.
+	Zones []ZoneSummary `json:"zones" validate:"required"`
+}
+
+// UnmarshalZonePage unmarshals an instance of ZonePage from the specified map of raw messages.
+func UnmarshalZonePage(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(ZonePage)
+	err = core.UnmarshalPrimitive(m, "count", &obj.Count)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "zones", &obj.Zones, UnmarshalZoneSummary)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// ZoneSummary : An output zone summary.
+type ZoneSummary struct {
+	// The globally unique ID of the zone.
+	ID *string `json:"id" validate:"required"`
+
+	// The zone CRN.
+	CRN *string `json:"crn" validate:"required"`
+
+	// The name of the zone.
+	Name *string `json:"name" validate:"required"`
+
+	// The description of the zone.
+	Description *string `json:"description,omitempty"`
+
+	// A preview of addresses in the zone (3 addresses maximum).
+	AddressesPreview []AddressIntf `json:"addresses_preview" validate:"required"`
+
+	// The number of addresses in the zone.
+	AddressCount *int64 `json:"address_count" validate:"required"`
+
+	// The number of excluded addresses in the zone.
+	ExcludedCount *int64 `json:"excluded_count" validate:"required"`
+
+	// The href link to the resource.
+	Href *string `json:"href" validate:"required"`
+
+	// The time the resource was created.
+	CreatedAt *strfmt.DateTime `json:"created_at" validate:"required"`
+
+	// IAM ID of the user or service which created the resource.
+	CreatedByID *string `json:"created_by_id" validate:"required"`
+
+	// The last time the resource was modified.
+	LastModifiedAt *strfmt.DateTime `json:"last_modified_at" validate:"required"`
+
+	// IAM ID of the user or service which modified the resource.
+	LastModifiedByID *string `json:"last_modified_by_id" validate:"required"`
+}
+
+// UnmarshalZoneSummary unmarshals an instance of ZoneSummary from the specified map of raw messages.
+func UnmarshalZoneSummary(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(ZoneSummary)
+	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "crn", &obj.CRN)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "description", &obj.Description)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "addresses_preview", &obj.AddressesPreview, UnmarshalAddress)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "address_count", &obj.AddressCount)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "excluded_count", &obj.ExcludedCount)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "href", &obj.Href)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "created_at", &obj.CreatedAt)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "created_by_id", &obj.CreatedByID)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "last_modified_at", &obj.LastModifiedAt)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "last_modified_by_id", &obj.LastModifiedByID)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
 // AddressIPAddress : A single IP address.
 // This model "extends" Address
 type AddressIPAddress struct {
@@ -2419,7 +2433,7 @@ type AddressIPAddress struct {
 // Constants associated with the AddressIPAddress.Type property.
 // The type of address.
 const (
-	AddressIPAddress_Type_Ipaddress = "ipAddress"
+	AddressIPAddressTypeIpaddressConst = "ipAddress"
 )
 
 // NewAddressIPAddress : Instantiate AddressIPAddress (Generic Model Constructor)
@@ -2464,7 +2478,7 @@ type AddressIPAddressRange struct {
 // Constants associated with the AddressIPAddressRange.Type property.
 // The type of address.
 const (
-	AddressIPAddressRange_Type_Iprange = "ipRange"
+	AddressIPAddressRangeTypeIprangeConst = "ipRange"
 )
 
 // NewAddressIPAddressRange : Instantiate AddressIPAddressRange (Generic Model Constructor)
@@ -2509,7 +2523,7 @@ type AddressServiceRef struct {
 // Constants associated with the AddressServiceRef.Type property.
 // The type of address.
 const (
-	AddressServiceRef_Type_ServiceRef = "serviceRef"
+	AddressServiceRefTypeServiceRefConst = "serviceRef"
 )
 
 // NewAddressServiceRef : Instantiate AddressServiceRef (Generic Model Constructor)
@@ -2554,7 +2568,7 @@ type AddressSubnet struct {
 // Constants associated with the AddressSubnet.Type property.
 // The type of address.
 const (
-	AddressSubnet_Type_Subnet = "subnet"
+	AddressSubnetTypeSubnetConst = "subnet"
 )
 
 // NewAddressSubnet : Instantiate AddressSubnet (Generic Model Constructor)
@@ -2599,7 +2613,7 @@ type AddressVPC struct {
 // Constants associated with the AddressVPC.Type property.
 // The type of address.
 const (
-	AddressVPC_Type_Vpc = "vpc"
+	AddressVPCTypeVPCConst = "vpc"
 )
 
 // NewAddressVPC : Instantiate AddressVPC (Generic Model Constructor)

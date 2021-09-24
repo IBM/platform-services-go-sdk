@@ -20,7 +20,6 @@ import (
 	"bytes"
 	"context"
 	"fmt"
-	"github.com/IBM/platform-services-go-sdk/contextbasedrestrictionsv1"
 	"io"
 	"io/ioutil"
 	"net/http"
@@ -29,6 +28,7 @@ import (
 	"time"
 
 	"github.com/IBM/go-sdk-core/v5/core"
+	"github.com/IBM/platform-services-go-sdk/contextbasedrestrictionsv1"
 	"github.com/go-openapi/strfmt"
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
@@ -151,7 +151,17 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 			})
 		})
 	})
-	Describe(`CreateZone(createZoneOptions *contextbasedrestrictionsv1.CreateZoneOptions) - Operation response error`, func() {
+	Describe(`Regional endpoint tests`, func() {
+		It(`GetServiceURLForRegion(region string)`, func() {
+			var url string
+			var err error
+			url, err = contextbasedrestrictionsv1.GetServiceURLForRegion("INVALID_REGION")
+			Expect(url).To(BeEmpty())
+			Expect(err).ToNot(BeNil())
+			fmt.Fprintf(GinkgoWriter, "Expected error: %s\n", err.Error())
+		})
+	})
+	Describe(`CreateZone(createZoneOptions *CreateZoneOptions) - Operation response error`, func() {
 		createZonePath := "/v1/zones"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
@@ -176,12 +186,12 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(contextBasedRestrictionsService).ToNot(BeNil())
 
-				// Construct an instance of the contextbasedrestrictionsv1.AddressIPAddress model
+				// Construct an instance of the AddressIPAddress model
 				addressModel := new(contextbasedrestrictionsv1.AddressIPAddress)
 				addressModel.Type = core.StringPtr("ipAddress")
 				addressModel.Value = core.StringPtr("169.23.56.234")
 
-				// Construct an instance of the contextbasedrestrictionsv1.CreateZoneOptions model
+				// Construct an instance of the CreateZoneOptions model
 				createZoneOptionsModel := new(contextbasedrestrictionsv1.CreateZoneOptions)
 				createZoneOptionsModel.Name = core.StringPtr("an example of zone")
 				createZoneOptionsModel.AccountID = core.StringPtr("12ab34cd56ef78ab90cd12ef34ab56cd")
@@ -208,7 +218,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 			})
 		})
 	})
-	Describe(`CreateZone(createZoneOptions *contextbasedrestrictionsv1.CreateZoneOptions)`, func() {
+	Describe(`CreateZone(createZoneOptions *CreateZoneOptions)`, func() {
 		createZonePath := "/v1/zones"
 		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
@@ -243,7 +253,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "crn": "Crn", "name": "Name", "account_id": "AccountID", "description": "Description", "addresses": [{"type": "ipAddress", "value": "Value"}], "excluded": [{"type": "ipAddress", "value": "Value"}], "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "crn": "CRN", "name": "Name", "account_id": "AccountID", "description": "Description", "addresses": [{"type": "ipAddress", "value": "Value"}], "excluded": [{"type": "ipAddress", "value": "Value"}], "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}`)
 				}))
 			})
 			It(`Invoke CreateZone successfully with retries`, func() {
@@ -255,12 +265,12 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				Expect(contextBasedRestrictionsService).ToNot(BeNil())
 				contextBasedRestrictionsService.EnableRetries(0, 0)
 
-				// Construct an instance of the contextbasedrestrictionsv1.AddressIPAddress model
+				// Construct an instance of the AddressIPAddress model
 				addressModel := new(contextbasedrestrictionsv1.AddressIPAddress)
 				addressModel.Type = core.StringPtr("ipAddress")
 				addressModel.Value = core.StringPtr("169.23.56.234")
 
-				// Construct an instance of the contextbasedrestrictionsv1.CreateZoneOptions model
+				// Construct an instance of the CreateZoneOptions model
 				createZoneOptionsModel := new(contextbasedrestrictionsv1.CreateZoneOptions)
 				createZoneOptionsModel.Name = core.StringPtr("an example of zone")
 				createZoneOptionsModel.AccountID = core.StringPtr("12ab34cd56ef78ab90cd12ef34ab56cd")
@@ -325,7 +335,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "crn": "Crn", "name": "Name", "account_id": "AccountID", "description": "Description", "addresses": [{"type": "ipAddress", "value": "Value"}], "excluded": [{"type": "ipAddress", "value": "Value"}], "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "crn": "CRN", "name": "Name", "account_id": "AccountID", "description": "Description", "addresses": [{"type": "ipAddress", "value": "Value"}], "excluded": [{"type": "ipAddress", "value": "Value"}], "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}`)
 				}))
 			})
 			It(`Invoke CreateZone successfully`, func() {
@@ -342,12 +352,12 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
 
-				// Construct an instance of the contextbasedrestrictionsv1.AddressIPAddress model
+				// Construct an instance of the AddressIPAddress model
 				addressModel := new(contextbasedrestrictionsv1.AddressIPAddress)
 				addressModel.Type = core.StringPtr("ipAddress")
 				addressModel.Value = core.StringPtr("169.23.56.234")
 
-				// Construct an instance of the contextbasedrestrictionsv1.CreateZoneOptions model
+				// Construct an instance of the CreateZoneOptions model
 				createZoneOptionsModel := new(contextbasedrestrictionsv1.CreateZoneOptions)
 				createZoneOptionsModel.Name = core.StringPtr("an example of zone")
 				createZoneOptionsModel.AccountID = core.StringPtr("12ab34cd56ef78ab90cd12ef34ab56cd")
@@ -372,12 +382,12 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(contextBasedRestrictionsService).ToNot(BeNil())
 
-				// Construct an instance of the contextbasedrestrictionsv1.AddressIPAddress model
+				// Construct an instance of the AddressIPAddress model
 				addressModel := new(contextbasedrestrictionsv1.AddressIPAddress)
 				addressModel.Type = core.StringPtr("ipAddress")
 				addressModel.Value = core.StringPtr("169.23.56.234")
 
-				// Construct an instance of the contextbasedrestrictionsv1.CreateZoneOptions model
+				// Construct an instance of the CreateZoneOptions model
 				createZoneOptionsModel := new(contextbasedrestrictionsv1.CreateZoneOptions)
 				createZoneOptionsModel.Name = core.StringPtr("an example of zone")
 				createZoneOptionsModel.AccountID = core.StringPtr("12ab34cd56ef78ab90cd12ef34ab56cd")
@@ -416,12 +426,12 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(contextBasedRestrictionsService).ToNot(BeNil())
 
-				// Construct an instance of the contextbasedrestrictionsv1.AddressIPAddress model
+				// Construct an instance of the AddressIPAddress model
 				addressModel := new(contextbasedrestrictionsv1.AddressIPAddress)
 				addressModel.Type = core.StringPtr("ipAddress")
 				addressModel.Value = core.StringPtr("169.23.56.234")
 
-				// Construct an instance of the contextbasedrestrictionsv1.CreateZoneOptions model
+				// Construct an instance of the CreateZoneOptions model
 				createZoneOptionsModel := new(contextbasedrestrictionsv1.CreateZoneOptions)
 				createZoneOptionsModel.Name = core.StringPtr("an example of zone")
 				createZoneOptionsModel.AccountID = core.StringPtr("12ab34cd56ef78ab90cd12ef34ab56cd")
@@ -444,7 +454,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 			})
 		})
 	})
-	Describe(`ListZones(listZonesOptions *contextbasedrestrictionsv1.ListZonesOptions) - Operation response error`, func() {
+	Describe(`ListZones(listZonesOptions *ListZonesOptions) - Operation response error`, func() {
 		listZonesPath := "/v1/zones"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
@@ -472,7 +482,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(contextBasedRestrictionsService).ToNot(BeNil())
 
-				// Construct an instance of the contextbasedrestrictionsv1.ListZonesOptions model
+				// Construct an instance of the ListZonesOptions model
 				listZonesOptionsModel := new(contextbasedrestrictionsv1.ListZonesOptions)
 				listZonesOptionsModel.AccountID = core.StringPtr("testString")
 				listZonesOptionsModel.TransactionID = core.StringPtr("testString")
@@ -497,7 +507,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 			})
 		})
 	})
-	Describe(`ListZones(listZonesOptions *contextbasedrestrictionsv1.ListZonesOptions)`, func() {
+	Describe(`ListZones(listZonesOptions *ListZonesOptions)`, func() {
 		listZonesPath := "/v1/zones"
 		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
@@ -519,7 +529,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"count": 5, "zones": [{"id": "ID", "crn": "Crn", "name": "Name", "description": "Description", "addresses_preview": [{"type": "ipAddress", "value": "Value"}], "address_count": 12, "excluded_count": 13, "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}]}`)
+					fmt.Fprintf(res, "%s", `{"count": 5, "zones": [{"id": "ID", "crn": "CRN", "name": "Name", "description": "Description", "addresses_preview": [{"type": "ipAddress", "value": "Value"}], "address_count": 12, "excluded_count": 13, "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}]}`)
 				}))
 			})
 			It(`Invoke ListZones successfully with retries`, func() {
@@ -531,7 +541,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				Expect(contextBasedRestrictionsService).ToNot(BeNil())
 				contextBasedRestrictionsService.EnableRetries(0, 0)
 
-				// Construct an instance of the contextbasedrestrictionsv1.ListZonesOptions model
+				// Construct an instance of the ListZonesOptions model
 				listZonesOptionsModel := new(contextbasedrestrictionsv1.ListZonesOptions)
 				listZonesOptionsModel.AccountID = core.StringPtr("testString")
 				listZonesOptionsModel.TransactionID = core.StringPtr("testString")
@@ -581,7 +591,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"count": 5, "zones": [{"id": "ID", "crn": "Crn", "name": "Name", "description": "Description", "addresses_preview": [{"type": "ipAddress", "value": "Value"}], "address_count": 12, "excluded_count": 13, "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}]}`)
+					fmt.Fprintf(res, "%s", `{"count": 5, "zones": [{"id": "ID", "crn": "CRN", "name": "Name", "description": "Description", "addresses_preview": [{"type": "ipAddress", "value": "Value"}], "address_count": 12, "excluded_count": 13, "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}]}`)
 				}))
 			})
 			It(`Invoke ListZones successfully`, func() {
@@ -598,7 +608,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
 
-				// Construct an instance of the contextbasedrestrictionsv1.ListZonesOptions model
+				// Construct an instance of the ListZonesOptions model
 				listZonesOptionsModel := new(contextbasedrestrictionsv1.ListZonesOptions)
 				listZonesOptionsModel.AccountID = core.StringPtr("testString")
 				listZonesOptionsModel.TransactionID = core.StringPtr("testString")
@@ -621,7 +631,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(contextBasedRestrictionsService).ToNot(BeNil())
 
-				// Construct an instance of the contextbasedrestrictionsv1.ListZonesOptions model
+				// Construct an instance of the ListZonesOptions model
 				listZonesOptionsModel := new(contextbasedrestrictionsv1.ListZonesOptions)
 				listZonesOptionsModel.AccountID = core.StringPtr("testString")
 				listZonesOptionsModel.TransactionID = core.StringPtr("testString")
@@ -636,7 +646,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
-				// Construct a second instance of the contextbasedrestrictionsv1.ListZonesOptions model with no property values
+				// Construct a second instance of the ListZonesOptions model with no property values
 				listZonesOptionsModelNew := new(contextbasedrestrictionsv1.ListZonesOptions)
 				// Invoke operation with invalid model (negative test)
 				result, response, operationErr = contextBasedRestrictionsService.ListZones(listZonesOptionsModelNew)
@@ -665,7 +675,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(contextBasedRestrictionsService).ToNot(BeNil())
 
-				// Construct an instance of the contextbasedrestrictionsv1.ListZonesOptions model
+				// Construct an instance of the ListZonesOptions model
 				listZonesOptionsModel := new(contextbasedrestrictionsv1.ListZonesOptions)
 				listZonesOptionsModel.AccountID = core.StringPtr("testString")
 				listZonesOptionsModel.TransactionID = core.StringPtr("testString")
@@ -686,7 +696,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 			})
 		})
 	})
-	Describe(`GetZone(getZoneOptions *contextbasedrestrictionsv1.GetZoneOptions) - Operation response error`, func() {
+	Describe(`GetZone(getZoneOptions *GetZoneOptions) - Operation response error`, func() {
 		getZonePath := "/v1/zones/testString"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
@@ -711,7 +721,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(contextBasedRestrictionsService).ToNot(BeNil())
 
-				// Construct an instance of the contextbasedrestrictionsv1.GetZoneOptions model
+				// Construct an instance of the GetZoneOptions model
 				getZoneOptionsModel := new(contextbasedrestrictionsv1.GetZoneOptions)
 				getZoneOptionsModel.ZoneID = core.StringPtr("testString")
 				getZoneOptionsModel.TransactionID = core.StringPtr("testString")
@@ -734,7 +744,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 			})
 		})
 	})
-	Describe(`GetZone(getZoneOptions *contextbasedrestrictionsv1.GetZoneOptions)`, func() {
+	Describe(`GetZone(getZoneOptions *GetZoneOptions)`, func() {
 		getZonePath := "/v1/zones/testString"
 		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
@@ -753,7 +763,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "crn": "Crn", "name": "Name", "account_id": "AccountID", "description": "Description", "addresses": [{"type": "ipAddress", "value": "Value"}], "excluded": [{"type": "ipAddress", "value": "Value"}], "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "crn": "CRN", "name": "Name", "account_id": "AccountID", "description": "Description", "addresses": [{"type": "ipAddress", "value": "Value"}], "excluded": [{"type": "ipAddress", "value": "Value"}], "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}`)
 				}))
 			})
 			It(`Invoke GetZone successfully with retries`, func() {
@@ -765,7 +775,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				Expect(contextBasedRestrictionsService).ToNot(BeNil())
 				contextBasedRestrictionsService.EnableRetries(0, 0)
 
-				// Construct an instance of the contextbasedrestrictionsv1.GetZoneOptions model
+				// Construct an instance of the GetZoneOptions model
 				getZoneOptionsModel := new(contextbasedrestrictionsv1.GetZoneOptions)
 				getZoneOptionsModel.ZoneID = core.StringPtr("testString")
 				getZoneOptionsModel.TransactionID = core.StringPtr("testString")
@@ -810,7 +820,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "crn": "Crn", "name": "Name", "account_id": "AccountID", "description": "Description", "addresses": [{"type": "ipAddress", "value": "Value"}], "excluded": [{"type": "ipAddress", "value": "Value"}], "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "crn": "CRN", "name": "Name", "account_id": "AccountID", "description": "Description", "addresses": [{"type": "ipAddress", "value": "Value"}], "excluded": [{"type": "ipAddress", "value": "Value"}], "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}`)
 				}))
 			})
 			It(`Invoke GetZone successfully`, func() {
@@ -827,7 +837,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
 
-				// Construct an instance of the contextbasedrestrictionsv1.GetZoneOptions model
+				// Construct an instance of the GetZoneOptions model
 				getZoneOptionsModel := new(contextbasedrestrictionsv1.GetZoneOptions)
 				getZoneOptionsModel.ZoneID = core.StringPtr("testString")
 				getZoneOptionsModel.TransactionID = core.StringPtr("testString")
@@ -848,7 +858,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(contextBasedRestrictionsService).ToNot(BeNil())
 
-				// Construct an instance of the contextbasedrestrictionsv1.GetZoneOptions model
+				// Construct an instance of the GetZoneOptions model
 				getZoneOptionsModel := new(contextbasedrestrictionsv1.GetZoneOptions)
 				getZoneOptionsModel.ZoneID = core.StringPtr("testString")
 				getZoneOptionsModel.TransactionID = core.StringPtr("testString")
@@ -861,7 +871,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
-				// Construct a second instance of the contextbasedrestrictionsv1.GetZoneOptions model with no property values
+				// Construct a second instance of the GetZoneOptions model with no property values
 				getZoneOptionsModelNew := new(contextbasedrestrictionsv1.GetZoneOptions)
 				// Invoke operation with invalid model (negative test)
 				result, response, operationErr = contextBasedRestrictionsService.GetZone(getZoneOptionsModelNew)
@@ -890,7 +900,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(contextBasedRestrictionsService).ToNot(BeNil())
 
-				// Construct an instance of the contextbasedrestrictionsv1.GetZoneOptions model
+				// Construct an instance of the GetZoneOptions model
 				getZoneOptionsModel := new(contextbasedrestrictionsv1.GetZoneOptions)
 				getZoneOptionsModel.ZoneID = core.StringPtr("testString")
 				getZoneOptionsModel.TransactionID = core.StringPtr("testString")
@@ -909,7 +919,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 			})
 		})
 	})
-	Describe(`ReplaceZone(replaceZoneOptions *contextbasedrestrictionsv1.ReplaceZoneOptions) - Operation response error`, func() {
+	Describe(`ReplaceZone(replaceZoneOptions *ReplaceZoneOptions) - Operation response error`, func() {
 		replaceZonePath := "/v1/zones/testString"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
@@ -936,12 +946,12 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(contextBasedRestrictionsService).ToNot(BeNil())
 
-				// Construct an instance of the contextbasedrestrictionsv1.AddressIPAddress model
+				// Construct an instance of the AddressIPAddress model
 				addressModel := new(contextbasedrestrictionsv1.AddressIPAddress)
 				addressModel.Type = core.StringPtr("ipAddress")
 				addressModel.Value = core.StringPtr("169.23.56.234")
 
-				// Construct an instance of the contextbasedrestrictionsv1.ReplaceZoneOptions model
+				// Construct an instance of the ReplaceZoneOptions model
 				replaceZoneOptionsModel := new(contextbasedrestrictionsv1.ReplaceZoneOptions)
 				replaceZoneOptionsModel.ZoneID = core.StringPtr("testString")
 				replaceZoneOptionsModel.IfMatch = core.StringPtr("testString")
@@ -970,7 +980,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 			})
 		})
 	})
-	Describe(`ReplaceZone(replaceZoneOptions *contextbasedrestrictionsv1.ReplaceZoneOptions)`, func() {
+	Describe(`ReplaceZone(replaceZoneOptions *ReplaceZoneOptions)`, func() {
 		replaceZonePath := "/v1/zones/testString"
 		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
@@ -1007,7 +1017,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "crn": "Crn", "name": "Name", "account_id": "AccountID", "description": "Description", "addresses": [{"type": "ipAddress", "value": "Value"}], "excluded": [{"type": "ipAddress", "value": "Value"}], "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "crn": "CRN", "name": "Name", "account_id": "AccountID", "description": "Description", "addresses": [{"type": "ipAddress", "value": "Value"}], "excluded": [{"type": "ipAddress", "value": "Value"}], "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}`)
 				}))
 			})
 			It(`Invoke ReplaceZone successfully with retries`, func() {
@@ -1019,12 +1029,12 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				Expect(contextBasedRestrictionsService).ToNot(BeNil())
 				contextBasedRestrictionsService.EnableRetries(0, 0)
 
-				// Construct an instance of the contextbasedrestrictionsv1.AddressIPAddress model
+				// Construct an instance of the AddressIPAddress model
 				addressModel := new(contextbasedrestrictionsv1.AddressIPAddress)
 				addressModel.Type = core.StringPtr("ipAddress")
 				addressModel.Value = core.StringPtr("169.23.56.234")
 
-				// Construct an instance of the contextbasedrestrictionsv1.ReplaceZoneOptions model
+				// Construct an instance of the ReplaceZoneOptions model
 				replaceZoneOptionsModel := new(contextbasedrestrictionsv1.ReplaceZoneOptions)
 				replaceZoneOptionsModel.ZoneID = core.StringPtr("testString")
 				replaceZoneOptionsModel.IfMatch = core.StringPtr("testString")
@@ -1093,7 +1103,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "crn": "Crn", "name": "Name", "account_id": "AccountID", "description": "Description", "addresses": [{"type": "ipAddress", "value": "Value"}], "excluded": [{"type": "ipAddress", "value": "Value"}], "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "crn": "CRN", "name": "Name", "account_id": "AccountID", "description": "Description", "addresses": [{"type": "ipAddress", "value": "Value"}], "excluded": [{"type": "ipAddress", "value": "Value"}], "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}`)
 				}))
 			})
 			It(`Invoke ReplaceZone successfully`, func() {
@@ -1110,12 +1120,12 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
 
-				// Construct an instance of the contextbasedrestrictionsv1.AddressIPAddress model
+				// Construct an instance of the AddressIPAddress model
 				addressModel := new(contextbasedrestrictionsv1.AddressIPAddress)
 				addressModel.Type = core.StringPtr("ipAddress")
 				addressModel.Value = core.StringPtr("169.23.56.234")
 
-				// Construct an instance of the contextbasedrestrictionsv1.ReplaceZoneOptions model
+				// Construct an instance of the ReplaceZoneOptions model
 				replaceZoneOptionsModel := new(contextbasedrestrictionsv1.ReplaceZoneOptions)
 				replaceZoneOptionsModel.ZoneID = core.StringPtr("testString")
 				replaceZoneOptionsModel.IfMatch = core.StringPtr("testString")
@@ -1142,12 +1152,12 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(contextBasedRestrictionsService).ToNot(BeNil())
 
-				// Construct an instance of the contextbasedrestrictionsv1.AddressIPAddress model
+				// Construct an instance of the AddressIPAddress model
 				addressModel := new(contextbasedrestrictionsv1.AddressIPAddress)
 				addressModel.Type = core.StringPtr("ipAddress")
 				addressModel.Value = core.StringPtr("169.23.56.234")
 
-				// Construct an instance of the contextbasedrestrictionsv1.ReplaceZoneOptions model
+				// Construct an instance of the ReplaceZoneOptions model
 				replaceZoneOptionsModel := new(contextbasedrestrictionsv1.ReplaceZoneOptions)
 				replaceZoneOptionsModel.ZoneID = core.StringPtr("testString")
 				replaceZoneOptionsModel.IfMatch = core.StringPtr("testString")
@@ -1166,7 +1176,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
-				// Construct a second instance of the contextbasedrestrictionsv1.ReplaceZoneOptions model with no property values
+				// Construct a second instance of the ReplaceZoneOptions model with no property values
 				replaceZoneOptionsModelNew := new(contextbasedrestrictionsv1.ReplaceZoneOptions)
 				// Invoke operation with invalid model (negative test)
 				result, response, operationErr = contextBasedRestrictionsService.ReplaceZone(replaceZoneOptionsModelNew)
@@ -1195,12 +1205,12 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(contextBasedRestrictionsService).ToNot(BeNil())
 
-				// Construct an instance of the contextbasedrestrictionsv1.AddressIPAddress model
+				// Construct an instance of the AddressIPAddress model
 				addressModel := new(contextbasedrestrictionsv1.AddressIPAddress)
 				addressModel.Type = core.StringPtr("ipAddress")
 				addressModel.Value = core.StringPtr("169.23.56.234")
 
-				// Construct an instance of the contextbasedrestrictionsv1.ReplaceZoneOptions model
+				// Construct an instance of the ReplaceZoneOptions model
 				replaceZoneOptionsModel := new(contextbasedrestrictionsv1.ReplaceZoneOptions)
 				replaceZoneOptionsModel.ZoneID = core.StringPtr("testString")
 				replaceZoneOptionsModel.IfMatch = core.StringPtr("testString")
@@ -1225,7 +1235,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 			})
 		})
 	})
-	Describe(`DeleteZone(deleteZoneOptions *contextbasedrestrictionsv1.DeleteZoneOptions)`, func() {
+	Describe(`DeleteZone(deleteZoneOptions *DeleteZoneOptions)`, func() {
 		deleteZonePath := "/v1/zones/testString"
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
@@ -1254,7 +1264,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				Expect(operationErr).NotTo(BeNil())
 				Expect(response).To(BeNil())
 
-				// Construct an instance of the contextbasedrestrictionsv1.DeleteZoneOptions model
+				// Construct an instance of the DeleteZoneOptions model
 				deleteZoneOptionsModel := new(contextbasedrestrictionsv1.DeleteZoneOptions)
 				deleteZoneOptionsModel.ZoneID = core.StringPtr("testString")
 				deleteZoneOptionsModel.TransactionID = core.StringPtr("testString")
@@ -1273,7 +1283,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(contextBasedRestrictionsService).ToNot(BeNil())
 
-				// Construct an instance of the contextbasedrestrictionsv1.DeleteZoneOptions model
+				// Construct an instance of the DeleteZoneOptions model
 				deleteZoneOptionsModel := new(contextbasedrestrictionsv1.DeleteZoneOptions)
 				deleteZoneOptionsModel.ZoneID = core.StringPtr("testString")
 				deleteZoneOptionsModel.TransactionID = core.StringPtr("testString")
@@ -1285,7 +1295,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
 				Expect(response).To(BeNil())
-				// Construct a second instance of the contextbasedrestrictionsv1.DeleteZoneOptions model with no property values
+				// Construct a second instance of the DeleteZoneOptions model with no property values
 				deleteZoneOptionsModelNew := new(contextbasedrestrictionsv1.DeleteZoneOptions)
 				// Invoke operation with invalid model (negative test)
 				response, operationErr = contextBasedRestrictionsService.DeleteZone(deleteZoneOptionsModelNew)
@@ -1297,7 +1307,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 			})
 		})
 	})
-	Describe(`ListAvailableServiceRefTargets(listAvailableServiceRefTargetsOptions *contextbasedrestrictionsv1.ListAvailableServiceRefTargetsOptions) - Operation response error`, func() {
+	Describe(`ListAvailableServiceRefTargets(listAvailableServiceRefTargetsOptions *ListAvailableServiceRefTargetsOptions) - Operation response error`, func() {
 		listAvailableServiceRefTargetsPath := "/v1/zones/serviceref_targets"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
@@ -1321,7 +1331,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(contextBasedRestrictionsService).ToNot(BeNil())
 
-				// Construct an instance of the contextbasedrestrictionsv1.ListAvailableServiceRefTargetsOptions model
+				// Construct an instance of the ListAvailableServiceRefTargetsOptions model
 				listAvailableServiceRefTargetsOptionsModel := new(contextbasedrestrictionsv1.ListAvailableServiceRefTargetsOptions)
 				listAvailableServiceRefTargetsOptionsModel.Type = core.StringPtr("all")
 				listAvailableServiceRefTargetsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
@@ -1343,7 +1353,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 			})
 		})
 	})
-	Describe(`ListAvailableServiceRefTargets(listAvailableServiceRefTargetsOptions *contextbasedrestrictionsv1.ListAvailableServiceRefTargetsOptions)`, func() {
+	Describe(`ListAvailableServiceRefTargets(listAvailableServiceRefTargetsOptions *ListAvailableServiceRefTargetsOptions)`, func() {
 		listAvailableServiceRefTargetsPath := "/v1/zones/serviceref_targets"
 		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
@@ -1373,7 +1383,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				Expect(contextBasedRestrictionsService).ToNot(BeNil())
 				contextBasedRestrictionsService.EnableRetries(0, 0)
 
-				// Construct an instance of the contextbasedrestrictionsv1.ListAvailableServiceRefTargetsOptions model
+				// Construct an instance of the ListAvailableServiceRefTargetsOptions model
 				listAvailableServiceRefTargetsOptionsModel := new(contextbasedrestrictionsv1.ListAvailableServiceRefTargetsOptions)
 				listAvailableServiceRefTargetsOptionsModel.Type = core.StringPtr("all")
 				listAvailableServiceRefTargetsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
@@ -1433,7 +1443,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
 
-				// Construct an instance of the contextbasedrestrictionsv1.ListAvailableServiceRefTargetsOptions model
+				// Construct an instance of the ListAvailableServiceRefTargetsOptions model
 				listAvailableServiceRefTargetsOptionsModel := new(contextbasedrestrictionsv1.ListAvailableServiceRefTargetsOptions)
 				listAvailableServiceRefTargetsOptionsModel.Type = core.StringPtr("all")
 				listAvailableServiceRefTargetsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
@@ -1453,7 +1463,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(contextBasedRestrictionsService).ToNot(BeNil())
 
-				// Construct an instance of the contextbasedrestrictionsv1.ListAvailableServiceRefTargetsOptions model
+				// Construct an instance of the ListAvailableServiceRefTargetsOptions model
 				listAvailableServiceRefTargetsOptionsModel := new(contextbasedrestrictionsv1.ListAvailableServiceRefTargetsOptions)
 				listAvailableServiceRefTargetsOptionsModel.Type = core.StringPtr("all")
 				listAvailableServiceRefTargetsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
@@ -1487,7 +1497,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(contextBasedRestrictionsService).ToNot(BeNil())
 
-				// Construct an instance of the contextbasedrestrictionsv1.ListAvailableServiceRefTargetsOptions model
+				// Construct an instance of the ListAvailableServiceRefTargetsOptions model
 				listAvailableServiceRefTargetsOptionsModel := new(contextbasedrestrictionsv1.ListAvailableServiceRefTargetsOptions)
 				listAvailableServiceRefTargetsOptionsModel.Type = core.StringPtr("all")
 				listAvailableServiceRefTargetsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
@@ -1530,22 +1540,22 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(contextBasedRestrictionsService).ToNot(BeNil())
 
-				// Construct an instance of the contextbasedrestrictionsv1.RuleContextAttribute model
+				// Construct an instance of the RuleContextAttribute model
 				ruleContextAttributeModel := new(contextbasedrestrictionsv1.RuleContextAttribute)
 				ruleContextAttributeModel.Name = core.StringPtr("networkZoneId")
 				ruleContextAttributeModel.Value = core.StringPtr("65810ac762004f22ac19f8f8edf70a34")
 
-				// Construct an instance of the contextbasedrestrictionsv1.RuleContext model
+				// Construct an instance of the RuleContext model
 				ruleContextModel := new(contextbasedrestrictionsv1.RuleContext)
 				ruleContextModel.Attributes = []contextbasedrestrictionsv1.RuleContextAttribute{*ruleContextAttributeModel}
 
-				// Construct an instance of the contextbasedrestrictionsv1.ResourceAttribute model
+				// Construct an instance of the ResourceAttribute model
 				resourceAttributeModel := new(contextbasedrestrictionsv1.ResourceAttribute)
 				resourceAttributeModel.Name = core.StringPtr("accountId")
 				resourceAttributeModel.Value = core.StringPtr("12ab34cd56ef78ab90cd12ef34ab56cd")
 				resourceAttributeModel.Operator = core.StringPtr("testString")
 
-				// Construct an instance of the contextbasedrestrictionsv1.ResourceTagAttribute model
+				// Construct an instance of the ResourceTagAttribute model
 				resourceTagAttributeModel := new(contextbasedrestrictionsv1.ResourceTagAttribute)
 				resourceTagAttributeModel.Name = core.StringPtr("testString")
 				resourceTagAttributeModel.Value = core.StringPtr("testString")
@@ -1616,7 +1626,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "crn": "Crn", "description": "Description", "contexts": [{"attributes": [{"name": "Name", "value": "Value"}]}], "resources": [{"attributes": [{"name": "Name", "value": "Value", "operator": "Operator"}], "tags": [{"name": "Name", "value": "Value", "operator": "Operator"}]}], "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "crn": "CRN", "description": "Description", "contexts": [{"attributes": [{"name": "Name", "value": "Value"}]}], "resources": [{"attributes": [{"name": "Name", "value": "Value", "operator": "Operator"}], "tags": [{"name": "Name", "value": "Value", "operator": "Operator"}]}], "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}`)
 				}))
 			})
 			It(`Invoke CreateRule successfully with retries`, func() {
@@ -1628,22 +1638,22 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				Expect(contextBasedRestrictionsService).ToNot(BeNil())
 				contextBasedRestrictionsService.EnableRetries(0, 0)
 
-				// Construct an instance of the contextbasedrestrictionsv1.RuleContextAttribute model
+				// Construct an instance of the RuleContextAttribute model
 				ruleContextAttributeModel := new(contextbasedrestrictionsv1.RuleContextAttribute)
 				ruleContextAttributeModel.Name = core.StringPtr("networkZoneId")
 				ruleContextAttributeModel.Value = core.StringPtr("65810ac762004f22ac19f8f8edf70a34")
 
-				// Construct an instance of the contextbasedrestrictionsv1.RuleContext model
+				// Construct an instance of the RuleContext model
 				ruleContextModel := new(contextbasedrestrictionsv1.RuleContext)
 				ruleContextModel.Attributes = []contextbasedrestrictionsv1.RuleContextAttribute{*ruleContextAttributeModel}
 
-				// Construct an instance of the contextbasedrestrictionsv1.ResourceAttribute model
+				// Construct an instance of the ResourceAttribute model
 				resourceAttributeModel := new(contextbasedrestrictionsv1.ResourceAttribute)
 				resourceAttributeModel.Name = core.StringPtr("accountId")
 				resourceAttributeModel.Value = core.StringPtr("12ab34cd56ef78ab90cd12ef34ab56cd")
 				resourceAttributeModel.Operator = core.StringPtr("testString")
 
-				// Construct an instance of the contextbasedrestrictionsv1.ResourceTagAttribute model
+				// Construct an instance of the ResourceTagAttribute model
 				resourceTagAttributeModel := new(contextbasedrestrictionsv1.ResourceTagAttribute)
 				resourceTagAttributeModel.Name = core.StringPtr("testString")
 				resourceTagAttributeModel.Value = core.StringPtr("testString")
@@ -1717,7 +1727,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "crn": "Crn", "description": "Description", "contexts": [{"attributes": [{"name": "Name", "value": "Value"}]}], "resources": [{"attributes": [{"name": "Name", "value": "Value", "operator": "Operator"}], "tags": [{"name": "Name", "value": "Value", "operator": "Operator"}]}], "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "crn": "CRN", "description": "Description", "contexts": [{"attributes": [{"name": "Name", "value": "Value"}]}], "resources": [{"attributes": [{"name": "Name", "value": "Value", "operator": "Operator"}], "tags": [{"name": "Name", "value": "Value", "operator": "Operator"}]}], "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}`)
 				}))
 			})
 			It(`Invoke CreateRule successfully`, func() {
@@ -1734,22 +1744,22 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
 
-				// Construct an instance of the contextbasedrestrictionsv1.RuleContextAttribute model
+				// Construct an instance of the RuleContextAttribute model
 				ruleContextAttributeModel := new(contextbasedrestrictionsv1.RuleContextAttribute)
 				ruleContextAttributeModel.Name = core.StringPtr("networkZoneId")
 				ruleContextAttributeModel.Value = core.StringPtr("65810ac762004f22ac19f8f8edf70a34")
 
-				// Construct an instance of the contextbasedrestrictionsv1.RuleContext model
+				// Construct an instance of the RuleContext model
 				ruleContextModel := new(contextbasedrestrictionsv1.RuleContext)
 				ruleContextModel.Attributes = []contextbasedrestrictionsv1.RuleContextAttribute{*ruleContextAttributeModel}
 
-				// Construct an instance of the contextbasedrestrictionsv1.ResourceAttribute model
+				// Construct an instance of the ResourceAttribute model
 				resourceAttributeModel := new(contextbasedrestrictionsv1.ResourceAttribute)
 				resourceAttributeModel.Name = core.StringPtr("accountId")
 				resourceAttributeModel.Value = core.StringPtr("12ab34cd56ef78ab90cd12ef34ab56cd")
 				resourceAttributeModel.Operator = core.StringPtr("testString")
 
-				// Construct an instance of the contextbasedrestrictionsv1.ResourceTagAttribute model
+				// Construct an instance of the ResourceTagAttribute model
 				resourceTagAttributeModel := new(contextbasedrestrictionsv1.ResourceTagAttribute)
 				resourceTagAttributeModel.Name = core.StringPtr("testString")
 				resourceTagAttributeModel.Value = core.StringPtr("testString")
@@ -1783,22 +1793,22 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(contextBasedRestrictionsService).ToNot(BeNil())
 
-				// Construct an instance of the contextbasedrestrictionsv1.RuleContextAttribute model
+				// Construct an instance of the RuleContextAttribute model
 				ruleContextAttributeModel := new(contextbasedrestrictionsv1.RuleContextAttribute)
 				ruleContextAttributeModel.Name = core.StringPtr("networkZoneId")
 				ruleContextAttributeModel.Value = core.StringPtr("65810ac762004f22ac19f8f8edf70a34")
 
-				// Construct an instance of the contextbasedrestrictionsv1.RuleContext model
+				// Construct an instance of the RuleContext model
 				ruleContextModel := new(contextbasedrestrictionsv1.RuleContext)
 				ruleContextModel.Attributes = []contextbasedrestrictionsv1.RuleContextAttribute{*ruleContextAttributeModel}
 
-				// Construct an instance of the contextbasedrestrictionsv1.ResourceAttribute model
+				// Construct an instance of the ResourceAttribute model
 				resourceAttributeModel := new(contextbasedrestrictionsv1.ResourceAttribute)
 				resourceAttributeModel.Name = core.StringPtr("accountId")
 				resourceAttributeModel.Value = core.StringPtr("12ab34cd56ef78ab90cd12ef34ab56cd")
 				resourceAttributeModel.Operator = core.StringPtr("testString")
 
-				// Construct an instance of the contextbasedrestrictionsv1.ResourceTagAttribute model
+				// Construct an instance of the ResourceTagAttribute model
 				resourceTagAttributeModel := new(contextbasedrestrictionsv1.ResourceTagAttribute)
 				resourceTagAttributeModel.Name = core.StringPtr("testString")
 				resourceTagAttributeModel.Value = core.StringPtr("testString")
@@ -1846,22 +1856,22 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(contextBasedRestrictionsService).ToNot(BeNil())
 
-				// Construct an instance of the contextbasedrestrictionsv1.RuleContextAttribute model
+				// Construct an instance of the RuleContextAttribute model
 				ruleContextAttributeModel := new(contextbasedrestrictionsv1.RuleContextAttribute)
 				ruleContextAttributeModel.Name = core.StringPtr("networkZoneId")
 				ruleContextAttributeModel.Value = core.StringPtr("65810ac762004f22ac19f8f8edf70a34")
 
-				// Construct an instance of the contextbasedrestrictionsv1.RuleContext model
+				// Construct an instance of the RuleContext model
 				ruleContextModel := new(contextbasedrestrictionsv1.RuleContext)
 				ruleContextModel.Attributes = []contextbasedrestrictionsv1.RuleContextAttribute{*ruleContextAttributeModel}
 
-				// Construct an instance of the contextbasedrestrictionsv1.ResourceAttribute model
+				// Construct an instance of the ResourceAttribute model
 				resourceAttributeModel := new(contextbasedrestrictionsv1.ResourceAttribute)
 				resourceAttributeModel.Name = core.StringPtr("accountId")
 				resourceAttributeModel.Value = core.StringPtr("12ab34cd56ef78ab90cd12ef34ab56cd")
 				resourceAttributeModel.Operator = core.StringPtr("testString")
 
-				// Construct an instance of the contextbasedrestrictionsv1.ResourceTagAttribute model
+				// Construct an instance of the ResourceTagAttribute model
 				resourceTagAttributeModel := new(contextbasedrestrictionsv1.ResourceTagAttribute)
 				resourceTagAttributeModel.Name = core.StringPtr("testString")
 				resourceTagAttributeModel.Value = core.StringPtr("testString")
@@ -1986,7 +1996,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"count": 5, "rules": [{"id": "ID", "crn": "Crn", "description": "Description", "contexts": [{"attributes": [{"name": "Name", "value": "Value"}]}], "resources": [{"attributes": [{"name": "Name", "value": "Value", "operator": "Operator"}], "tags": [{"name": "Name", "value": "Value", "operator": "Operator"}]}], "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}]}`)
+					fmt.Fprintf(res, "%s", `{"count": 5, "rules": [{"id": "ID", "crn": "CRN", "description": "Description", "contexts": [{"attributes": [{"name": "Name", "value": "Value"}]}], "resources": [{"attributes": [{"name": "Name", "value": "Value", "operator": "Operator"}], "tags": [{"name": "Name", "value": "Value", "operator": "Operator"}]}], "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}]}`)
 				}))
 			})
 			It(`Invoke ListRules successfully with retries`, func() {
@@ -2060,7 +2070,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"count": 5, "rules": [{"id": "ID", "crn": "Crn", "description": "Description", "contexts": [{"attributes": [{"name": "Name", "value": "Value"}]}], "resources": [{"attributes": [{"name": "Name", "value": "Value", "operator": "Operator"}], "tags": [{"name": "Name", "value": "Value", "operator": "Operator"}]}], "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}]}`)
+					fmt.Fprintf(res, "%s", `{"count": 5, "rules": [{"id": "ID", "crn": "CRN", "description": "Description", "contexts": [{"attributes": [{"name": "Name", "value": "Value"}]}], "resources": [{"attributes": [{"name": "Name", "value": "Value", "operator": "Operator"}], "tags": [{"name": "Name", "value": "Value", "operator": "Operator"}]}], "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}]}`)
 				}))
 			})
 			It(`Invoke ListRules successfully`, func() {
@@ -2250,7 +2260,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "crn": "Crn", "description": "Description", "contexts": [{"attributes": [{"name": "Name", "value": "Value"}]}], "resources": [{"attributes": [{"name": "Name", "value": "Value", "operator": "Operator"}], "tags": [{"name": "Name", "value": "Value", "operator": "Operator"}]}], "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "crn": "CRN", "description": "Description", "contexts": [{"attributes": [{"name": "Name", "value": "Value"}]}], "resources": [{"attributes": [{"name": "Name", "value": "Value", "operator": "Operator"}], "tags": [{"name": "Name", "value": "Value", "operator": "Operator"}]}], "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}`)
 				}))
 			})
 			It(`Invoke GetRule successfully with retries`, func() {
@@ -2307,7 +2317,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "crn": "Crn", "description": "Description", "contexts": [{"attributes": [{"name": "Name", "value": "Value"}]}], "resources": [{"attributes": [{"name": "Name", "value": "Value", "operator": "Operator"}], "tags": [{"name": "Name", "value": "Value", "operator": "Operator"}]}], "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "crn": "CRN", "description": "Description", "contexts": [{"attributes": [{"name": "Name", "value": "Value"}]}], "resources": [{"attributes": [{"name": "Name", "value": "Value", "operator": "Operator"}], "tags": [{"name": "Name", "value": "Value", "operator": "Operator"}]}], "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}`)
 				}))
 			})
 			It(`Invoke GetRule successfully`, func() {
@@ -2433,22 +2443,22 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(contextBasedRestrictionsService).ToNot(BeNil())
 
-				// Construct an instance of the contextbasedrestrictionsv1.RuleContextAttribute model
+				// Construct an instance of the RuleContextAttribute model
 				ruleContextAttributeModel := new(contextbasedrestrictionsv1.RuleContextAttribute)
 				ruleContextAttributeModel.Name = core.StringPtr("networkZoneId")
 				ruleContextAttributeModel.Value = core.StringPtr("76921bd873115033bd2a0909fe081b45")
 
-				// Construct an instance of the contextbasedrestrictionsv1.RuleContext model
+				// Construct an instance of the RuleContext model
 				ruleContextModel := new(contextbasedrestrictionsv1.RuleContext)
 				ruleContextModel.Attributes = []contextbasedrestrictionsv1.RuleContextAttribute{*ruleContextAttributeModel}
 
-				// Construct an instance of the contextbasedrestrictionsv1.ResourceAttribute model
+				// Construct an instance of the ResourceAttribute model
 				resourceAttributeModel := new(contextbasedrestrictionsv1.ResourceAttribute)
 				resourceAttributeModel.Name = core.StringPtr("accountId")
 				resourceAttributeModel.Value = core.StringPtr("12ab34cd56ef78ab90cd12ef34ab56cd")
 				resourceAttributeModel.Operator = core.StringPtr("testString")
 
-				// Construct an instance of the contextbasedrestrictionsv1.ResourceTagAttribute model
+				// Construct an instance of the ResourceTagAttribute model
 				resourceTagAttributeModel := new(contextbasedrestrictionsv1.ResourceTagAttribute)
 				resourceTagAttributeModel.Name = core.StringPtr("testString")
 				resourceTagAttributeModel.Value = core.StringPtr("testString")
@@ -2523,7 +2533,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "crn": "Crn", "description": "Description", "contexts": [{"attributes": [{"name": "Name", "value": "Value"}]}], "resources": [{"attributes": [{"name": "Name", "value": "Value", "operator": "Operator"}], "tags": [{"name": "Name", "value": "Value", "operator": "Operator"}]}], "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "crn": "CRN", "description": "Description", "contexts": [{"attributes": [{"name": "Name", "value": "Value"}]}], "resources": [{"attributes": [{"name": "Name", "value": "Value", "operator": "Operator"}], "tags": [{"name": "Name", "value": "Value", "operator": "Operator"}]}], "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}`)
 				}))
 			})
 			It(`Invoke ReplaceRule successfully with retries`, func() {
@@ -2535,22 +2545,22 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				Expect(contextBasedRestrictionsService).ToNot(BeNil())
 				contextBasedRestrictionsService.EnableRetries(0, 0)
 
-				// Construct an instance of the contextbasedrestrictionsv1.RuleContextAttribute model
+				// Construct an instance of the RuleContextAttribute model
 				ruleContextAttributeModel := new(contextbasedrestrictionsv1.RuleContextAttribute)
 				ruleContextAttributeModel.Name = core.StringPtr("networkZoneId")
 				ruleContextAttributeModel.Value = core.StringPtr("76921bd873115033bd2a0909fe081b45")
 
-				// Construct an instance of the contextbasedrestrictionsv1.RuleContext model
+				// Construct an instance of the RuleContext model
 				ruleContextModel := new(contextbasedrestrictionsv1.RuleContext)
 				ruleContextModel.Attributes = []contextbasedrestrictionsv1.RuleContextAttribute{*ruleContextAttributeModel}
 
-				// Construct an instance of the contextbasedrestrictionsv1.ResourceAttribute model
+				// Construct an instance of the ResourceAttribute model
 				resourceAttributeModel := new(contextbasedrestrictionsv1.ResourceAttribute)
 				resourceAttributeModel.Name = core.StringPtr("accountId")
 				resourceAttributeModel.Value = core.StringPtr("12ab34cd56ef78ab90cd12ef34ab56cd")
 				resourceAttributeModel.Operator = core.StringPtr("testString")
 
-				// Construct an instance of the contextbasedrestrictionsv1.ResourceTagAttribute model
+				// Construct an instance of the ResourceTagAttribute model
 				resourceTagAttributeModel := new(contextbasedrestrictionsv1.ResourceTagAttribute)
 				resourceTagAttributeModel.Name = core.StringPtr("testString")
 				resourceTagAttributeModel.Value = core.StringPtr("testString")
@@ -2628,7 +2638,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "crn": "Crn", "description": "Description", "contexts": [{"attributes": [{"name": "Name", "value": "Value"}]}], "resources": [{"attributes": [{"name": "Name", "value": "Value", "operator": "Operator"}], "tags": [{"name": "Name", "value": "Value", "operator": "Operator"}]}], "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "crn": "CRN", "description": "Description", "contexts": [{"attributes": [{"name": "Name", "value": "Value"}]}], "resources": [{"attributes": [{"name": "Name", "value": "Value", "operator": "Operator"}], "tags": [{"name": "Name", "value": "Value", "operator": "Operator"}]}], "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}`)
 				}))
 			})
 			It(`Invoke ReplaceRule successfully`, func() {
@@ -2645,22 +2655,22 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
 
-				// Construct an instance of the contextbasedrestrictionsv1.RuleContextAttribute model
+				// Construct an instance of the RuleContextAttribute model
 				ruleContextAttributeModel := new(contextbasedrestrictionsv1.RuleContextAttribute)
 				ruleContextAttributeModel.Name = core.StringPtr("networkZoneId")
 				ruleContextAttributeModel.Value = core.StringPtr("76921bd873115033bd2a0909fe081b45")
 
-				// Construct an instance of the contextbasedrestrictionsv1.RuleContext model
+				// Construct an instance of the RuleContext model
 				ruleContextModel := new(contextbasedrestrictionsv1.RuleContext)
 				ruleContextModel.Attributes = []contextbasedrestrictionsv1.RuleContextAttribute{*ruleContextAttributeModel}
 
-				// Construct an instance of the contextbasedrestrictionsv1.ResourceAttribute model
+				// Construct an instance of the ResourceAttribute model
 				resourceAttributeModel := new(contextbasedrestrictionsv1.ResourceAttribute)
 				resourceAttributeModel.Name = core.StringPtr("accountId")
 				resourceAttributeModel.Value = core.StringPtr("12ab34cd56ef78ab90cd12ef34ab56cd")
 				resourceAttributeModel.Operator = core.StringPtr("testString")
 
-				// Construct an instance of the contextbasedrestrictionsv1.ResourceTagAttribute model
+				// Construct an instance of the ResourceTagAttribute model
 				resourceTagAttributeModel := new(contextbasedrestrictionsv1.ResourceTagAttribute)
 				resourceTagAttributeModel.Name = core.StringPtr("testString")
 				resourceTagAttributeModel.Value = core.StringPtr("testString")
@@ -2696,22 +2706,22 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(contextBasedRestrictionsService).ToNot(BeNil())
 
-				// Construct an instance of the contextbasedrestrictionsv1.RuleContextAttribute model
+				// Construct an instance of the RuleContextAttribute model
 				ruleContextAttributeModel := new(contextbasedrestrictionsv1.RuleContextAttribute)
 				ruleContextAttributeModel.Name = core.StringPtr("networkZoneId")
 				ruleContextAttributeModel.Value = core.StringPtr("76921bd873115033bd2a0909fe081b45")
 
-				// Construct an instance of the contextbasedrestrictionsv1.RuleContext model
+				// Construct an instance of the RuleContext model
 				ruleContextModel := new(contextbasedrestrictionsv1.RuleContext)
 				ruleContextModel.Attributes = []contextbasedrestrictionsv1.RuleContextAttribute{*ruleContextAttributeModel}
 
-				// Construct an instance of the contextbasedrestrictionsv1.ResourceAttribute model
+				// Construct an instance of the ResourceAttribute model
 				resourceAttributeModel := new(contextbasedrestrictionsv1.ResourceAttribute)
 				resourceAttributeModel.Name = core.StringPtr("accountId")
 				resourceAttributeModel.Value = core.StringPtr("12ab34cd56ef78ab90cd12ef34ab56cd")
 				resourceAttributeModel.Operator = core.StringPtr("testString")
 
-				// Construct an instance of the contextbasedrestrictionsv1.ResourceTagAttribute model
+				// Construct an instance of the ResourceTagAttribute model
 				resourceTagAttributeModel := new(contextbasedrestrictionsv1.ResourceTagAttribute)
 				resourceTagAttributeModel.Name = core.StringPtr("testString")
 				resourceTagAttributeModel.Value = core.StringPtr("testString")
@@ -2768,22 +2778,22 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(contextBasedRestrictionsService).ToNot(BeNil())
 
-				// Construct an instance of the contextbasedrestrictionsv1.RuleContextAttribute model
+				// Construct an instance of the RuleContextAttribute model
 				ruleContextAttributeModel := new(contextbasedrestrictionsv1.RuleContextAttribute)
 				ruleContextAttributeModel.Name = core.StringPtr("networkZoneId")
 				ruleContextAttributeModel.Value = core.StringPtr("76921bd873115033bd2a0909fe081b45")
 
-				// Construct an instance of the contextbasedrestrictionsv1.RuleContext model
+				// Construct an instance of the RuleContext model
 				ruleContextModel := new(contextbasedrestrictionsv1.RuleContext)
 				ruleContextModel.Attributes = []contextbasedrestrictionsv1.RuleContextAttribute{*ruleContextAttributeModel}
 
-				// Construct an instance of the contextbasedrestrictionsv1.ResourceAttribute model
+				// Construct an instance of the ResourceAttribute model
 				resourceAttributeModel := new(contextbasedrestrictionsv1.ResourceAttribute)
 				resourceAttributeModel.Name = core.StringPtr("accountId")
 				resourceAttributeModel.Value = core.StringPtr("12ab34cd56ef78ab90cd12ef34ab56cd")
 				resourceAttributeModel.Operator = core.StringPtr("testString")
 
-				// Construct an instance of the contextbasedrestrictionsv1.ResourceTagAttribute model
+				// Construct an instance of the ResourceTagAttribute model
 				resourceTagAttributeModel := new(contextbasedrestrictionsv1.ResourceTagAttribute)
 				resourceTagAttributeModel.Name = core.StringPtr("testString")
 				resourceTagAttributeModel.Value = core.StringPtr("testString")
@@ -2956,7 +2966,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "crn": "Crn", "rule_count_limit": 14, "zone_count_limit": 14, "current_rule_count": 16, "current_zone_count": 16, "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "crn": "CRN", "rule_count_limit": 14, "zone_count_limit": 14, "current_rule_count": 16, "current_zone_count": 16, "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}`)
 				}))
 			})
 			It(`Invoke GetAccountSettings successfully with retries`, func() {
@@ -3013,7 +3023,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "crn": "Crn", "rule_count_limit": 14, "zone_count_limit": 14, "current_rule_count": 16, "current_zone_count": 16, "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "crn": "CRN", "rule_count_limit": 14, "zone_count_limit": 14, "current_rule_count": 16, "current_zone_count": 16, "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}`)
 				}))
 			})
 			It(`Invoke GetAccountSettings successfully`, func() {
@@ -3119,7 +3129,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				Authenticator: &core.NoAuthAuthenticator{},
 			})
 			It(`Invoke NewCreateRuleOptions successfully`, func() {
-				// Construct an instance of the contextbasedrestrictionsv1.RuleContextAttribute model
+				// Construct an instance of the RuleContextAttribute model
 				ruleContextAttributeModel := new(contextbasedrestrictionsv1.RuleContextAttribute)
 				Expect(ruleContextAttributeModel).ToNot(BeNil())
 				ruleContextAttributeModel.Name = core.StringPtr("networkZoneId")
@@ -3127,13 +3137,13 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				Expect(ruleContextAttributeModel.Name).To(Equal(core.StringPtr("networkZoneId")))
 				Expect(ruleContextAttributeModel.Value).To(Equal(core.StringPtr("65810ac762004f22ac19f8f8edf70a34")))
 
-				// Construct an instance of the contextbasedrestrictionsv1.RuleContext model
+				// Construct an instance of the RuleContext model
 				ruleContextModel := new(contextbasedrestrictionsv1.RuleContext)
 				Expect(ruleContextModel).ToNot(BeNil())
 				ruleContextModel.Attributes = []contextbasedrestrictionsv1.RuleContextAttribute{*ruleContextAttributeModel}
 				Expect(ruleContextModel.Attributes).To(Equal([]contextbasedrestrictionsv1.RuleContextAttribute{*ruleContextAttributeModel}))
 
-				// Construct an instance of the contextbasedrestrictionsv1.ResourceAttribute model
+				// Construct an instance of the ResourceAttribute model
 				resourceAttributeModel := new(contextbasedrestrictionsv1.ResourceAttribute)
 				Expect(resourceAttributeModel).ToNot(BeNil())
 				resourceAttributeModel.Name = core.StringPtr("accountId")
@@ -3143,7 +3153,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				Expect(resourceAttributeModel.Value).To(Equal(core.StringPtr("12ab34cd56ef78ab90cd12ef34ab56cd")))
 				Expect(resourceAttributeModel.Operator).To(Equal(core.StringPtr("testString")))
 
-				// Construct an instance of the contextbasedrestrictionsv1.ResourceTagAttribute model
+				// Construct an instance of the ResourceTagAttribute model
 				resourceTagAttributeModel := new(contextbasedrestrictionsv1.ResourceTagAttribute)
 				Expect(resourceTagAttributeModel).ToNot(BeNil())
 				resourceTagAttributeModel.Name = core.StringPtr("testString")
@@ -3175,8 +3185,8 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				Expect(createRuleOptionsModel.TransactionID).To(Equal(core.StringPtr("testString")))
 				Expect(createRuleOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
-			It(`Invoke Newcontextbasedrestrictionsv1.CreateZoneOptions successfully`, func() {
-				// Construct an instance of the contextbasedrestrictionsv1.AddressIPAddress model
+			It(`Invoke NewCreateZoneOptions successfully`, func() {
+				// Construct an instance of the AddressIPAddress model
 				addressModel := new(contextbasedrestrictionsv1.AddressIPAddress)
 				Expect(addressModel).ToNot(BeNil())
 				addressModel.Type = core.StringPtr("ipAddress")
@@ -3184,7 +3194,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				Expect(addressModel.Type).To(Equal(core.StringPtr("ipAddress")))
 				Expect(addressModel.Value).To(Equal(core.StringPtr("169.23.56.234")))
 
-				// Construct an instance of the contextbasedrestrictionsv1.CreateZoneOptions model
+				// Construct an instance of the CreateZoneOptions model
 				createZoneOptionsModel := contextBasedRestrictionsService.NewCreateZoneOptions()
 				createZoneOptionsModel.SetName("an example of zone")
 				createZoneOptionsModel.SetAccountID("12ab34cd56ef78ab90cd12ef34ab56cd")
@@ -3214,8 +3224,8 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				Expect(deleteRuleOptionsModel.TransactionID).To(Equal(core.StringPtr("testString")))
 				Expect(deleteRuleOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
-			It(`Invoke Newcontextbasedrestrictionsv1.DeleteZoneOptions successfully`, func() {
-				// Construct an instance of the contextbasedrestrictionsv1.DeleteZoneOptions model
+			It(`Invoke NewDeleteZoneOptions successfully`, func() {
+				// Construct an instance of the DeleteZoneOptions model
 				zoneID := "testString"
 				deleteZoneOptionsModel := contextBasedRestrictionsService.NewDeleteZoneOptions(zoneID)
 				deleteZoneOptionsModel.SetZoneID("testString")
@@ -3250,8 +3260,8 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				Expect(getRuleOptionsModel.TransactionID).To(Equal(core.StringPtr("testString")))
 				Expect(getRuleOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
-			It(`Invoke Newcontextbasedrestrictionsv1.GetZoneOptions successfully`, func() {
-				// Construct an instance of the contextbasedrestrictionsv1.GetZoneOptions model
+			It(`Invoke NewGetZoneOptions successfully`, func() {
+				// Construct an instance of the GetZoneOptions model
 				zoneID := "testString"
 				getZoneOptionsModel := contextBasedRestrictionsService.NewGetZoneOptions(zoneID)
 				getZoneOptionsModel.SetZoneID("testString")
@@ -3262,8 +3272,8 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				Expect(getZoneOptionsModel.TransactionID).To(Equal(core.StringPtr("testString")))
 				Expect(getZoneOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
-			It(`Invoke Newcontextbasedrestrictionsv1.ListAvailableServiceRefTargetsOptions successfully`, func() {
-				// Construct an instance of the contextbasedrestrictionsv1.ListAvailableServiceRefTargetsOptions model
+			It(`Invoke NewListAvailableServiceRefTargetsOptions successfully`, func() {
+				// Construct an instance of the ListAvailableServiceRefTargetsOptions model
 				listAvailableServiceRefTargetsOptionsModel := contextBasedRestrictionsService.NewListAvailableServiceRefTargetsOptions()
 				listAvailableServiceRefTargetsOptionsModel.SetType("all")
 				listAvailableServiceRefTargetsOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
@@ -3299,8 +3309,8 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				Expect(listRulesOptionsModel.Sort).To(Equal(core.StringPtr("testString")))
 				Expect(listRulesOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
-			It(`Invoke Newcontextbasedrestrictionsv1.ListZonesOptions successfully`, func() {
-				// Construct an instance of the contextbasedrestrictionsv1.ListZonesOptions model
+			It(`Invoke NewListZonesOptions successfully`, func() {
+				// Construct an instance of the ListZonesOptions model
 				accountID := "testString"
 				listZonesOptionsModel := contextBasedRestrictionsService.NewListZonesOptions(accountID)
 				listZonesOptionsModel.SetAccountID("testString")
@@ -3316,7 +3326,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				Expect(listZonesOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewReplaceRuleOptions successfully`, func() {
-				// Construct an instance of the contextbasedrestrictionsv1.RuleContextAttribute model
+				// Construct an instance of the RuleContextAttribute model
 				ruleContextAttributeModel := new(contextbasedrestrictionsv1.RuleContextAttribute)
 				Expect(ruleContextAttributeModel).ToNot(BeNil())
 				ruleContextAttributeModel.Name = core.StringPtr("networkZoneId")
@@ -3324,13 +3334,13 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				Expect(ruleContextAttributeModel.Name).To(Equal(core.StringPtr("networkZoneId")))
 				Expect(ruleContextAttributeModel.Value).To(Equal(core.StringPtr("76921bd873115033bd2a0909fe081b45")))
 
-				// Construct an instance of the contextbasedrestrictionsv1.RuleContext model
+				// Construct an instance of the RuleContext model
 				ruleContextModel := new(contextbasedrestrictionsv1.RuleContext)
 				Expect(ruleContextModel).ToNot(BeNil())
 				ruleContextModel.Attributes = []contextbasedrestrictionsv1.RuleContextAttribute{*ruleContextAttributeModel}
 				Expect(ruleContextModel.Attributes).To(Equal([]contextbasedrestrictionsv1.RuleContextAttribute{*ruleContextAttributeModel}))
 
-				// Construct an instance of the contextbasedrestrictionsv1.ResourceAttribute model
+				// Construct an instance of the ResourceAttribute model
 				resourceAttributeModel := new(contextbasedrestrictionsv1.ResourceAttribute)
 				Expect(resourceAttributeModel).ToNot(BeNil())
 				resourceAttributeModel.Name = core.StringPtr("accountId")
@@ -3340,7 +3350,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				Expect(resourceAttributeModel.Value).To(Equal(core.StringPtr("12ab34cd56ef78ab90cd12ef34ab56cd")))
 				Expect(resourceAttributeModel.Operator).To(Equal(core.StringPtr("testString")))
 
-				// Construct an instance of the contextbasedrestrictionsv1.ResourceTagAttribute model
+				// Construct an instance of the ResourceTagAttribute model
 				resourceTagAttributeModel := new(contextbasedrestrictionsv1.ResourceTagAttribute)
 				Expect(resourceTagAttributeModel).ToNot(BeNil())
 				resourceTagAttributeModel.Name = core.StringPtr("testString")
@@ -3378,8 +3388,8 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				Expect(replaceRuleOptionsModel.TransactionID).To(Equal(core.StringPtr("testString")))
 				Expect(replaceRuleOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
-			It(`Invoke Newcontextbasedrestrictionsv1.ReplaceZoneOptions successfully`, func() {
-				// Construct an instance of the contextbasedrestrictionsv1.AddressIPAddress model
+			It(`Invoke NewReplaceZoneOptions successfully`, func() {
+				// Construct an instance of the AddressIPAddress model
 				addressModel := new(contextbasedrestrictionsv1.AddressIPAddress)
 				Expect(addressModel).ToNot(BeNil())
 				addressModel.Type = core.StringPtr("ipAddress")
@@ -3387,7 +3397,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				Expect(addressModel.Type).To(Equal(core.StringPtr("ipAddress")))
 				Expect(addressModel.Value).To(Equal(core.StringPtr("169.23.56.234")))
 
-				// Construct an instance of the contextbasedrestrictionsv1.ReplaceZoneOptions model
+				// Construct an instance of the ReplaceZoneOptions model
 				zoneID := "testString"
 				ifMatch := "testString"
 				replaceZoneOptionsModel := contextBasedRestrictionsService.NewReplaceZoneOptions(zoneID, ifMatch)
@@ -3417,41 +3427,47 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				Expect(_model).ToNot(BeNil())
 				Expect(err).To(BeNil())
 			})
-			It(`Invoke Newcontextbasedrestrictionsv1.ResourceAttribute successfully`, func() {
+			It(`Invoke NewResourceAttribute successfully`, func() {
 				name := "testString"
 				value := "testString"
 				_model, err := contextBasedRestrictionsService.NewResourceAttribute(name, value)
 				Expect(_model).ToNot(BeNil())
 				Expect(err).To(BeNil())
 			})
-			It(`Invoke Newcontextbasedrestrictionsv1.ResourceTagAttribute successfully`, func() {
+			It(`Invoke NewResourceTagAttribute successfully`, func() {
 				name := "testString"
 				value := "testString"
 				_model, err := contextBasedRestrictionsService.NewResourceTagAttribute(name, value)
 				Expect(_model).ToNot(BeNil())
 				Expect(err).To(BeNil())
 			})
-			It(`Invoke Newcontextbasedrestrictionsv1.RuleContext successfully`, func() {
+			It(`Invoke NewRuleContext successfully`, func() {
 				attributes := []contextbasedrestrictionsv1.RuleContextAttribute{}
 				_model, err := contextBasedRestrictionsService.NewRuleContext(attributes)
 				Expect(_model).ToNot(BeNil())
 				Expect(err).To(BeNil())
 			})
-			It(`Invoke Newcontextbasedrestrictionsv1.RuleContextAttribute successfully`, func() {
+			It(`Invoke NewRuleContextAttribute successfully`, func() {
 				name := "testString"
 				value := "testString"
 				_model, err := contextBasedRestrictionsService.NewRuleContextAttribute(name, value)
 				Expect(_model).ToNot(BeNil())
 				Expect(err).To(BeNil())
 			})
-			It(`Invoke Newcontextbasedrestrictionsv1.AddressIPAddress successfully`, func() {
+			It(`Invoke NewServiceRefValue successfully`, func() {
+				accountID := "testString"
+				_model, err := contextBasedRestrictionsService.NewServiceRefValue(accountID)
+				Expect(_model).ToNot(BeNil())
+				Expect(err).To(BeNil())
+			})
+			It(`Invoke NewAddressIPAddress successfully`, func() {
 				typeVar := "ipAddress"
 				value := "testString"
 				_model, err := contextBasedRestrictionsService.NewAddressIPAddress(typeVar, value)
 				Expect(_model).ToNot(BeNil())
 				Expect(err).To(BeNil())
 			})
-			It(`Invoke Newcontextbasedrestrictionsv1.AddressIPAddressRange successfully`, func() {
+			It(`Invoke NewAddressIPAddressRange successfully`, func() {
 				typeVar := "ipRange"
 				value := "testString"
 				_model, err := contextBasedRestrictionsService.NewAddressIPAddressRange(typeVar, value)
@@ -3460,8 +3476,8 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 			})
 			It(`Invoke NewAddressServiceRef successfully`, func() {
 				typeVar := "serviceRef"
-				var value *contextbasedrestrictionsv1.ServiceRefValue = nil
-				_, err := contextBasedRestrictionsService.NewAddressServiceRef(typeVar, value)
+				var ref *contextbasedrestrictionsv1.ServiceRefValue = nil
+				_, err := contextBasedRestrictionsService.NewAddressServiceRef(typeVar, ref)
 				Expect(err).ToNot(BeNil())
 			})
 			It(`Invoke NewAddressSubnet successfully`, func() {

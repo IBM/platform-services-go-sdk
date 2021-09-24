@@ -220,7 +220,7 @@ var _ = Describe(`ContextBasedRestrictionsV1 Integration Tests`, func() {
 		})
 		It(`ListAvailableServiceRefTargets(listAvailableServiceRefTargetsOptions *ListAvailableServiceRefTargetsOptions)`, func() {
 			listAvailableServiceRefTargetsOptions := &contextbasedrestrictionsv1.ListAvailableServiceRefTargetsOptions{
-				Type: core.StringPtr(contextbasedrestrictionsv1.ListAvailableServiceRefTargetsOptionsTypeAll),
+				Type: core.StringPtr(contextbasedrestrictionsv1.ListAvailableServiceRefTargetsOptionsTypeAllConst),
 			}
 
 			serviceRefTargetPage, response, err := contextBasedRestrictionsService.ListAvailableServiceRefTargets(listAvailableServiceRefTargetsOptions)
