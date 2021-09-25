@@ -231,6 +231,7 @@ var _ = Describe(`ContextBasedRestrictionsV1 Integration Tests`, func() {
 			zoneList, response, err := contextBasedRestrictionsService.ListZones(listZonesOptions)
 
 			Expect(err).To(Not(BeNil()))
+			Expect(err.Error()).To(ContainSubstring("Field validation for 'AccountID' failed"))
 			Expect(response).To(BeNil())
 			Expect(zoneList).To(BeNil())
 		})
@@ -285,6 +286,7 @@ var _ = Describe(`ContextBasedRestrictionsV1 Integration Tests`, func() {
 			zone, response, err := contextBasedRestrictionsService.GetZone(getZoneOptions)
 
 			Expect(err).To(Not(BeNil()))
+			Expect(err.Error()).To(ContainSubstring("Field validation for 'ZoneID' failed"))
 			Expect(response).To(BeNil())
 			Expect(zone).To(BeNil())
 		})
@@ -359,6 +361,7 @@ var _ = Describe(`ContextBasedRestrictionsV1 Integration Tests`, func() {
 			zone, response, err := contextBasedRestrictionsService.ReplaceZone(replaceZoneOptions)
 
 			Expect(err).To(Not(BeNil()))
+			Expect(err.Error()).To(ContainSubstring("Field validation for 'IfMatch' failed"))
 			Expect(response).To(BeNil())
 			Expect(zone).To(BeNil())
 		})
@@ -581,6 +584,7 @@ var _ = Describe(`ContextBasedRestrictionsV1 Integration Tests`, func() {
 			ruleList, response, err := contextBasedRestrictionsService.ListRules(listRulesOptions)
 
 			Expect(err).To(Not(BeNil()))
+			Expect(err.Error()).To(ContainSubstring("Field validation for 'AccountID' failed"))
 			Expect(response).To(BeNil())
 			Expect(ruleList).To(BeNil())
 		})
@@ -635,6 +639,7 @@ var _ = Describe(`ContextBasedRestrictionsV1 Integration Tests`, func() {
 			rule, response, err := contextBasedRestrictionsService.GetRule(getRuleOptions)
 
 			Expect(err).To(Not(BeNil()))
+			Expect(err.Error()).To(ContainSubstring("Field validation for 'RuleID' failed"))
 			Expect(response).To(BeNil())
 			Expect(rule).To(BeNil())
 		})
@@ -752,6 +757,7 @@ var _ = Describe(`ContextBasedRestrictionsV1 Integration Tests`, func() {
 			rule, response, err := contextBasedRestrictionsService.ReplaceRule(replaceRuleOptions)
 
 			Expect(err).To(Not(BeNil()))
+			Expect(err.Error()).To(ContainSubstring("Field validation for 'IfMatch' failed"))
 			Expect(response).To(BeNil())
 			Expect(rule).To(BeNil())
 		})
@@ -926,6 +932,7 @@ var _ = Describe(`ContextBasedRestrictionsV1 Integration Tests`, func() {
 			response, err := contextBasedRestrictionsService.DeleteRule(deleteRuleOptions)
 
 			Expect(err).To(Not(BeNil()))
+			Expect(err.Error()).To(ContainSubstring("Field validation for 'RuleID' failed"))
 			Expect(response).To(BeNil())
 		})
 	})
@@ -976,6 +983,7 @@ var _ = Describe(`ContextBasedRestrictionsV1 Integration Tests`, func() {
 			response, err := contextBasedRestrictionsService.DeleteZone(deleteZoneOptions)
 
 			Expect(err).To(Not(BeNil()))
+			Expect(err.Error()).To(ContainSubstring("Field validation for 'ZoneID' failed"))
 			Expect(response).To(BeNil())
 		})
 	})
