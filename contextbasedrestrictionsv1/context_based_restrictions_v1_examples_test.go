@@ -1,3 +1,6 @@
+//go:build examples
+// +build examples
+
 /**
  * (C) Copyright IBM Corp. 2021.
  *

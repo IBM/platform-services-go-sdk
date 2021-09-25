@@ -1,3 +1,6 @@
+//go:build integration
+// +build integration
+
 /**
  * (C) Copyright IBM Corp. 2021.
  *
