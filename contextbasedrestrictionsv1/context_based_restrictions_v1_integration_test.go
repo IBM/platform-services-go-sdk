@@ -1,6 +1,3 @@
-//go:build integration
-// +build integration
-
 /**
  * (C) Copyright IBM Corp. 2021.
  *
@@ -137,7 +134,7 @@ var _ = Describe(`ContextBasedRestrictionsV1 Integration Tests`, func() {
 				AccountID:     core.StringPtr(testAccountID),
 				Description:   core.StringPtr("SDK TEST - this is an example of zone"),
 				Addresses:     []contextbasedrestrictionsv1.AddressIntf{addressModel},
-				TransactionID: core.StringPtr("sdk-create-zone-" + uuid.New().String()),
+				TransactionID: getTransactionID(),
 			}
 
 			zone, response, err := contextBasedRestrictionsService.CreateZone(createZoneOptions)
@@ -149,6 +146,58 @@ var _ = Describe(`ContextBasedRestrictionsV1 Integration Tests`, func() {
 		})
 	})
 
+	Describe(`CreateZone - Create a zone with 'duplicated name' error`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`CreateZone(createZoneOptions *CreateZoneOptions) with 'duplicated name' error (409)`, func() {
+			addressModel := &contextbasedrestrictionsv1.AddressIPAddress{
+				Type:  core.StringPtr("ipAddress"),
+				Value: core.StringPtr("169.23.56.234"),
+			}
+
+			createZoneOptions := &contextbasedrestrictionsv1.CreateZoneOptions{
+				Name:          core.StringPtr("SDK TEST - an example of zone"),
+				AccountID:     core.StringPtr(testAccountID),
+				Description:   core.StringPtr("SDK TEST - this is an example of zone"),
+				Addresses:     []contextbasedrestrictionsv1.AddressIntf{addressModel},
+				TransactionID: getTransactionID(),
+			}
+
+			zone, response, err := contextBasedRestrictionsService.CreateZone(createZoneOptions)
+
+			Expect(err).To(Not(BeNil()))
+			Expect(response.StatusCode).To(Equal(409))
+			Expect(zone).To(BeNil())
+		})
+	})
+
+	Describe(`CreateZone - Create a zone with 'invalid ip address format' error`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`CreateZone(createZoneOptions *CreateZoneOptions) with 'invalid ip address format' error (400)`, func() {
+			addressModel := &contextbasedrestrictionsv1.AddressIPAddress{
+				Type:  core.StringPtr("ipAddress"),
+				Value: core.StringPtr("169.23.56.234."),
+			}
+
+			createZoneOptions := &contextbasedrestrictionsv1.CreateZoneOptions{
+				Name:          core.StringPtr("SDK TEST - another example of zone"),
+				AccountID:     core.StringPtr(testAccountID),
+				Description:   core.StringPtr("SDK TEST - this is another example of zone"),
+				Addresses:     []contextbasedrestrictionsv1.AddressIntf{addressModel},
+				TransactionID: getTransactionID(),
+			}
+
+			zone, response, err := contextBasedRestrictionsService.CreateZone(createZoneOptions)
+
+			Expect(err).To(Not(BeNil()))
+			Expect(response.StatusCode).To(Equal(400))
+			Expect(zone).To(BeNil())
+		})
+	})
+
 	Describe(`ListZones - List zones`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
@@ -156,7 +205,7 @@ var _ = Describe(`ContextBasedRestrictionsV1 Integration Tests`, func() {
 		It(`ListZones(listZonesOptions *ListZonesOptions)`, func() {
 			listZonesOptions := &contextbasedrestrictionsv1.ListZonesOptions{
 				AccountID:     core.StringPtr(testAccountID),
-				TransactionID: core.StringPtr("sdk-list-zones-" + uuid.New().String()),
+				TransactionID: getTransactionID(),
 			}
 
 			zoneList, response, err := contextBasedRestrictionsService.ListZones(listZonesOptions)
@@ -167,6 +216,41 @@ var _ = Describe(`ContextBasedRestrictionsV1 Integration Tests`, func() {
 		})
 	})
 
+	Describe(`ListZones - List zones with 'missing AccountID parameter' error`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`ListZones(listZonesOptions *ListZonesOptions) with 'missing AccountID parameter' error`, func() {
+			listZonesOptions := &contextbasedrestrictionsv1.ListZonesOptions{
+				TransactionID: getTransactionID(),
+			}
+
+			zoneList, response, err := contextBasedRestrictionsService.ListZones(listZonesOptions)
+
+			Expect(err).To(Not(BeNil()))
+			Expect(response).To(BeNil())
+			Expect(zoneList).To(BeNil())
+		})
+	})
+
+	Describe(`ListZones - List zones with 'invalid AccountID parameter' error`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`ListZones(listZonesOptions *ListZonesOptions) with 'invalid AccountID parameter' error (400)`, func() {
+			listZonesOptions := &contextbasedrestrictionsv1.ListZonesOptions{
+				AccountID:     core.StringPtr(InvalidID),
+				TransactionID: getTransactionID(),
+			}
+
+			zoneList, response, err := contextBasedRestrictionsService.ListZones(listZonesOptions)
+
+			Expect(err).To(Not(BeNil()))
+			Expect(response.StatusCode).To(Equal(400))
+			Expect(zoneList).To(BeNil())
+		})
+	})
+
 	Describe(`GetZone - Get the specified zone`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
@@ -174,7 +258,7 @@ var _ = Describe(`ContextBasedRestrictionsV1 Integration Tests`, func() {
 		It(`GetZone(getZoneOptions *GetZoneOptions)`, func() {
 			getZoneOptions := &contextbasedrestrictionsv1.GetZoneOptions{
 				ZoneID:        core.StringPtr(zoneID),
-				TransactionID: core.StringPtr("sdk-get-zone-" + uuid.New().String()),
+				TransactionID: getTransactionID(),
 			}
 
 			zone, response, err := contextBasedRestrictionsService.GetZone(getZoneOptions)
@@ -183,6 +267,42 @@ var _ = Describe(`ContextBasedRestrictionsV1 Integration Tests`, func() {
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(zone).ToNot(BeNil())
 			zoneRev = response.Headers.Get("Etag")
+		})
+	})
+
+	Describe(`GetZone - Get zone with 'missing required ZoneID parameter' error`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`GetZone(getZoneOptions *GetZoneOptions) with 'missing required ZoneID parameter' error`, func() {
+			getZoneOptions := &contextbasedrestrictionsv1.GetZoneOptions{
+				TransactionID: getTransactionID(),
+			}
+
+			zone, response, err := contextBasedRestrictionsService.GetZone(getZoneOptions)
+
+			Expect(err).To(Not(BeNil()))
+			Expect(response).To(BeNil())
+			Expect(zone).To(BeNil())
+		})
+	})
+
+	Describe(`GetZone - Get zone with 'zone not found' error`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`GetZone(getZoneOptions *GetZoneOptions) with 'zone not found' error (404)`, func() {
+			getZoneOptions := &contextbasedrestrictionsv1.GetZoneOptions{
+				ZoneID:        core.StringPtr(NonExistentID),
+				TransactionID: getTransactionID(),
+			}
+
+			zone, response, err := contextBasedRestrictionsService.GetZone(getZoneOptions)
+
+			Expect(err).To(Not(BeNil()))
+			Expect(response.StatusCode).To(Equal(404))
+			Expect(zone).To(BeNil())
+
 		})
 	})
 
@@ -203,7 +323,7 @@ var _ = Describe(`ContextBasedRestrictionsV1 Integration Tests`, func() {
 				AccountID:     core.StringPtr(testAccountID),
 				Description:   core.StringPtr("SDK TEST - this is an example of updated zone"),
 				Addresses:     []contextbasedrestrictionsv1.AddressIntf{addressModel},
-				TransactionID: core.StringPtr("sdk-replace-zone-" + uuid.New().String()),
+				TransactionID: getTransactionID(),
 			}
 
 			zone, response, err := contextBasedRestrictionsService.ReplaceZone(replaceZoneOptions)
@@ -211,6 +331,89 @@ var _ = Describe(`ContextBasedRestrictionsV1 Integration Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(zone).ToNot(BeNil())
+		})
+	})
+
+	Describe(`ReplaceZone - Update zone with 'missing required IfMatch parameter' error`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`ReplaceZone(replaceZoneOptions *ReplaceZoneOptions) with 'missing required IfMatch parameter' error (400)`, func() {
+			addressModel := &contextbasedrestrictionsv1.AddressIPAddress{
+				Type:  core.StringPtr("ipAddress"),
+				Value: core.StringPtr("169.23.56.234"),
+			}
+
+			replaceZoneOptions := &contextbasedrestrictionsv1.ReplaceZoneOptions{
+				ZoneID:        core.StringPtr(zoneID),
+				Name:          core.StringPtr("SDK TEST - an example of zone"),
+				AccountID:     core.StringPtr(testAccountID),
+				Description:   core.StringPtr("SDK TEST - this is an example of zone"),
+				Addresses:     []contextbasedrestrictionsv1.AddressIntf{addressModel},
+				TransactionID: getTransactionID(),
+			}
+
+			zone, response, err := contextBasedRestrictionsService.ReplaceZone(replaceZoneOptions)
+
+			Expect(err).To(Not(BeNil()))
+			Expect(response).To(BeNil())
+			Expect(zone).To(BeNil())
+		})
+	})
+
+	Describe(`ReplaceZone - Update zone with 'zone not found' error`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`ReplaceZone(replaceZoneOptions *ReplaceZoneOptions) with 'zone not found' error (404)`, func() {
+			addressModel := &contextbasedrestrictionsv1.AddressIPAddress{
+				Type:  core.StringPtr("ipAddress"),
+				Value: core.StringPtr("169.23.56.234"),
+			}
+
+			replaceZoneOptions := &contextbasedrestrictionsv1.ReplaceZoneOptions{
+				ZoneID:        core.StringPtr(NonExistentID),
+				IfMatch:       core.StringPtr("abc"),
+				Name:          core.StringPtr("SDK TEST - an example of zone"),
+				AccountID:     core.StringPtr(testAccountID),
+				Description:   core.StringPtr("SDK TEST - this is an example of zone"),
+				Addresses:     []contextbasedrestrictionsv1.AddressIntf{addressModel},
+				TransactionID: getTransactionID(),
+			}
+
+			zone, response, err := contextBasedRestrictionsService.ReplaceZone(replaceZoneOptions)
+
+			Expect(err).To(Not(BeNil()))
+			Expect(response.StatusCode).To(Equal(404))
+			Expect(zone).To(BeNil())
+		})
+	})
+
+	Describe(`ReplaceZone - Update zone with 'invalid IfMath parameter' error`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`ReplaceZone(replaceZoneOptions *ReplaceZoneOptions) with 'invalid IfMath parameter' error (412)`, func() {
+			addressModel := &contextbasedrestrictionsv1.AddressIPAddress{
+				Type:  core.StringPtr("ipAddress"),
+				Value: core.StringPtr("169.23.56.234"),
+			}
+
+			replaceZoneOptions := &contextbasedrestrictionsv1.ReplaceZoneOptions{
+				ZoneID:        core.StringPtr(zoneID),
+				IfMatch:       core.StringPtr("abc"),
+				Name:          core.StringPtr("SDK TEST - an example of zone"),
+				AccountID:     core.StringPtr(testAccountID),
+				Description:   core.StringPtr("SDK TEST - this is an example of zone"),
+				Addresses:     []contextbasedrestrictionsv1.AddressIntf{addressModel},
+				TransactionID: getTransactionID(),
+			}
+
+			zone, response, err := contextBasedRestrictionsService.ReplaceZone(replaceZoneOptions)
+
+			Expect(err).To(Not(BeNil()))
+			Expect(response.StatusCode).To(Equal(412))
+			Expect(zone).To(BeNil())
 		})
 	})
 
@@ -228,6 +431,23 @@ var _ = Describe(`ContextBasedRestrictionsV1 Integration Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(serviceRefTargetList).ToNot(BeNil())
+		})
+	})
+
+	Describe(`ListAvailableServiceRefTargets - List available service reference targets with 'invalid type parameter' error`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`ListAvailableServiceRefTargets(listAvailableServiceRefTargetsOptions *ListAvailableServiceRefTargetsOptions) with 'invalid type parameter' error (400)`, func() {
+			listAvailableServiceRefTargetsOptions := &contextbasedrestrictionsv1.ListAvailableServicerefTargetsOptions{
+				Type: core.StringPtr("invalid-type"),
+			}
+
+			serviceRefTargetList, response, err := contextBasedRestrictionsService.ListAvailableServicerefTargets(listAvailableServiceRefTargetsOptions)
+
+			Expect(err).To(Not(BeNil()))
+			Expect(response.StatusCode).To(Equal(400))
+			Expect(serviceRefTargetList).To(BeNil())
 		})
 	})
 
@@ -268,7 +488,7 @@ var _ = Describe(`ContextBasedRestrictionsV1 Integration Tests`, func() {
 				Description:   core.StringPtr("SDK TEST - this is an example of rule"),
 				Contexts:      []contextbasedrestrictionsv1.RuleContext{*ruleContextModel},
 				Resources:     []contextbasedrestrictionsv1.Resource{*resourceModel},
-				TransactionID: core.StringPtr("sdk-create-rule-" + uuid.New().String()),
+				TransactionID: getTransactionID(),
 			}
 
 			rule, response, err := contextBasedRestrictionsService.CreateRule(createRuleOptions)
@@ -280,6 +500,54 @@ var _ = Describe(`ContextBasedRestrictionsV1 Integration Tests`, func() {
 		})
 	})
 
+	Describe(`CreateRule - Create a rule with 'service not cbr enabled' error`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`CreateRule(createRuleOptions *CreateRuleOptions) with 'service not cbr enabled' error (400)`, func() {
+			ruleContextAttributeModel := &contextbasedrestrictionsv1.RuleContextAttribute{
+				Name:  core.StringPtr("networkZoneId"),
+				Value: core.StringPtr(zoneID),
+			}
+
+			ruleContextModel := &contextbasedrestrictionsv1.RuleContext{
+				Attributes: []contextbasedrestrictionsv1.RuleContextAttribute{*ruleContextAttributeModel},
+			}
+
+			resourceModel := &contextbasedrestrictionsv1.Resource{
+				Attributes: []contextbasedrestrictionsv1.ResourceAttribute{
+					{
+						Name:  core.StringPtr("accountId"),
+						Value: core.StringPtr(testAccountID),
+					},
+					{
+						Name:  core.StringPtr("serviceName"),
+						Value: core.StringPtr("cbr-not-enabled"),
+					},
+				},
+				Tags: []contextbasedrestrictionsv1.ResourceTagAttribute{
+					{
+						Name:  core.StringPtr("tagName"),
+						Value: core.StringPtr("tagValue"),
+					},
+				},
+			}
+
+			createRuleOptions := &contextbasedrestrictionsv1.CreateRuleOptions{
+				Description:   core.StringPtr("SDK TEST - this is an example of rule"),
+				Contexts:      []contextbasedrestrictionsv1.RuleContext{*ruleContextModel},
+				Resources:     []contextbasedrestrictionsv1.Resource{*resourceModel},
+				TransactionID: getTransactionID(),
+			}
+
+			rule, response, err := contextBasedRestrictionsService.CreateRule(createRuleOptions)
+
+			Expect(err).To(Not(BeNil()))
+			Expect(response.StatusCode).To(Equal(400))
+			Expect(rule).To(BeNil())
+		})
+	})
+
 	Describe(`ListRules - List rules`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
@@ -287,7 +555,7 @@ var _ = Describe(`ContextBasedRestrictionsV1 Integration Tests`, func() {
 		It(`ListRules(listRulesOptions *ListRulesOptions)`, func() {
 			listRulesOptions := &contextbasedrestrictionsv1.ListRulesOptions{
 				AccountID:     core.StringPtr(testAccountID),
-				TransactionID: core.StringPtr("sdk-list-rules-" + uuid.New().String()),
+				TransactionID: getTransactionID(),
 			}
 
 			ruleList, response, err := contextBasedRestrictionsService.ListRules(listRulesOptions)
@@ -298,6 +566,41 @@ var _ = Describe(`ContextBasedRestrictionsV1 Integration Tests`, func() {
 		})
 	})
 
+	Describe(`ListRules - List rules with 'missing required AccountID parameter' error`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`ListRules(listRulesOptions *ListRulesOptions) with 'missing required AccountID parameter' error (400)`, func() {
+			listRulesOptions := &contextbasedrestrictionsv1.ListRulesOptions{
+				TransactionID: getTransactionID(),
+			}
+
+			ruleList, response, err := contextBasedRestrictionsService.ListRules(listRulesOptions)
+
+			Expect(err).To(Not(BeNil()))
+			Expect(response).To(BeNil())
+			Expect(ruleList).To(BeNil())
+		})
+	})
+
+	Describe(`ListRules - List rules with 'invalid AccountID parameter' error`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`ListRules(listRulesOptions *ListRulesOptions) with 'invalid AccountID parameter' error (400)`, func() {
+			listRulesOptions := &contextbasedrestrictionsv1.ListRulesOptions{
+				AccountID:     core.StringPtr(InvalidID),
+				TransactionID: getTransactionID(),
+			}
+
+			ruleList, response, err := contextBasedRestrictionsService.ListRules(listRulesOptions)
+
+			Expect(err).To(Not(BeNil()))
+			Expect(response.StatusCode).To(Equal(400))
+			Expect(ruleList).To(BeNil())
+		})
+	})
+
 	Describe(`GetRule - Get the specified rule`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
@@ -305,7 +608,7 @@ var _ = Describe(`ContextBasedRestrictionsV1 Integration Tests`, func() {
 		It(`GetRule(getRuleOptions *GetRuleOptions)`, func() {
 			getRuleOptions := &contextbasedrestrictionsv1.GetRuleOptions{
 				RuleID:        core.StringPtr(ruleID),
-				TransactionID: core.StringPtr("sdk-get-rule-" + uuid.New().String()),
+				TransactionID: getTransactionID(),
 			}
 
 			rule, response, err := contextBasedRestrictionsService.GetRule(getRuleOptions)
@@ -314,6 +617,41 @@ var _ = Describe(`ContextBasedRestrictionsV1 Integration Tests`, func() {
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(rule).ToNot(BeNil())
 			ruleRev = response.Headers.Get("Etag")
+		})
+	})
+
+	Describe(`GetRule - Get rule with 'missing required RuleID parameter' error`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`GetRule(getRuleOptions *GetRuleOptions) with 'missing required RuleID parameter' error`, func() {
+			getRuleOptions := &contextbasedrestrictionsv1.GetRuleOptions{
+				TransactionID: getTransactionID(),
+			}
+
+			rule, response, err := contextBasedRestrictionsService.GetRule(getRuleOptions)
+
+			Expect(err).To(Not(BeNil()))
+			Expect(response).To(BeNil())
+			Expect(rule).To(BeNil())
+		})
+	})
+
+	Describe(`GetRule - Get rule with 'rule not found' error`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`GetRule(getRuleOptions *GetRuleOptions) with 'rule not found' error (404)`, func() {
+			getRuleOptions := &contextbasedrestrictionsv1.GetRuleOptions{
+				RuleID:        core.StringPtr(NonExistentID),
+				TransactionID: getTransactionID(),
+			}
+
+			rule, response, err := contextBasedRestrictionsService.GetRule(getRuleOptions)
+
+			Expect(err).To(Not(BeNil()))
+			Expect(response.StatusCode).To(Equal(404))
+			Expect(rule).To(BeNil())
 		})
 	})
 
@@ -356,7 +694,7 @@ var _ = Describe(`ContextBasedRestrictionsV1 Integration Tests`, func() {
 				Description:   core.StringPtr("SDK TEST - this is an example of updated rule"),
 				Contexts:      []contextbasedrestrictionsv1.RuleContext{*ruleContextModel},
 				Resources:     []contextbasedrestrictionsv1.Resource{*resourceModel},
-				TransactionID: core.StringPtr("sdk-replace-rule-" + uuid.New().String()),
+				TransactionID: getTransactionID(),
 			}
 
 			rule, response, err := contextBasedRestrictionsService.ReplaceRule(replaceRuleOptions)
@@ -367,141 +705,11 @@ var _ = Describe(`ContextBasedRestrictionsV1 Integration Tests`, func() {
 		})
 	})
 
-	Describe(`GetAccountSettings - Get the specified account settings`, func() {
+	Describe(`ReplaceRule - Update rule with 'missing required IfMatch parameter' error`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
 		})
-		It(`GetAccountSettings(getAccountSettingsOptions *GetAccountSettingsOptions)`, func() {
-			getAccountSettingsOptions := &contextbasedrestrictionsv1.GetAccountSettingsOptions{
-				AccountID:     core.StringPtr(testAccountID),
-				TransactionID: core.StringPtr("sdk-get-account-settings-" + uuid.New().String()),
-			}
-
-			accountSettings, response, err := contextBasedRestrictionsService.GetAccountSettings(getAccountSettingsOptions)
-
-			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(200))
-			Expect(accountSettings).ToNot(BeNil())
-		})
-	})
-
-	//
-	// Requests with errors
-	//
-
-	Describe(`CreateZone - Create a zone with 'invalid ip address format' error`, func() {
-		BeforeEach(func() {
-			shouldSkipTest()
-		})
-		It(`CreateZone(createZoneOptions *CreateZoneOptions) with 'invalid ip address format' error (400)`, func() {
-			addressModel := &contextbasedrestrictionsv1.AddressIPAddress{
-				Type:  core.StringPtr("ipAddress"),
-				Value: core.StringPtr("169.23.56.234."),
-			}
-
-			createZoneOptions := &contextbasedrestrictionsv1.CreateZoneOptions{
-				Name:          core.StringPtr("SDK TEST - an example of zone"),
-				AccountID:     core.StringPtr(testAccountID),
-				Description:   core.StringPtr("SDK TEST - this is an example of zone"),
-				Addresses:     []contextbasedrestrictionsv1.AddressIntf{addressModel},
-				TransactionID: core.StringPtr("sdk-create-zone-" + uuid.New().String()),
-			}
-
-			zone, response, err := contextBasedRestrictionsService.CreateZone(createZoneOptions)
-
-			Expect(err).To(Not(BeNil()))
-			Expect(response.StatusCode).To(Equal(400))
-			Expect(zone).To(BeNil())
-		})
-	})
-
-	Describe(`ListZones - List zones with 'invalid account id parameter' error`, func() {
-		BeforeEach(func() {
-			shouldSkipTest()
-		})
-		It(`ListZones(listZonesOptions *ListZonesOptions) with 'invalid account id parameter' error (400)`, func() {
-			listZonesOptions := &contextbasedrestrictionsv1.ListZonesOptions{
-				AccountID:     core.StringPtr(InvalidID),
-				TransactionID: core.StringPtr("sdk-list-zones-" + uuid.New().String()),
-			}
-
-			zoneList, response, err := contextBasedRestrictionsService.ListZones(listZonesOptions)
-
-			Expect(err).To(Not(BeNil()))
-			Expect(response.StatusCode).To(Equal(400))
-			Expect(zoneList).To(BeNil())
-		})
-	})
-
-	Describe(`GetZone - Get the specified zone with 'zone not found' error`, func() {
-		BeforeEach(func() {
-			shouldSkipTest()
-		})
-		It(`GetZone(getZoneOptions *GetZoneOptions) with 'zone not found' error (404)`, func() {
-			getZoneOptions := &contextbasedrestrictionsv1.GetZoneOptions{
-				ZoneID:        core.StringPtr(NonExistentID),
-				TransactionID: core.StringPtr("sdk-get-zone-" + uuid.New().String()),
-			}
-
-			zone, response, err := contextBasedRestrictionsService.GetZone(getZoneOptions)
-
-			Expect(err).To(Not(BeNil()))
-			Expect(response.StatusCode).To(Equal(404))
-			Expect(zone).To(BeNil())
-
-		})
-	})
-
-	Describe(`ReplaceZone - Update the specified zone with 'zone not found' error`, func() {
-		BeforeEach(func() {
-			shouldSkipTest()
-		})
-		It(`ReplaceZone(replaceZoneOptions *ReplaceZoneOptions) with 'zone not found' error (404)`, func() {
-			addressModel := &contextbasedrestrictionsv1.AddressIPAddress{
-				Type:  core.StringPtr("ipAddress"),
-				Value: core.StringPtr("169.23.56.234"),
-			}
-
-			replaceZoneOptions := &contextbasedrestrictionsv1.ReplaceZoneOptions{
-				ZoneID:        core.StringPtr(NonExistentID),
-				IfMatch:       core.StringPtr("abc"),
-				Name:          core.StringPtr("SDK TEST - an example of zone"),
-				AccountID:     core.StringPtr(testAccountID),
-				Description:   core.StringPtr("SDK TEST - this is an example of zone"),
-				Addresses:     []contextbasedrestrictionsv1.AddressIntf{addressModel},
-				TransactionID: core.StringPtr("sdk-replace-zone-" + uuid.New().String()),
-			}
-
-			zone, response, err := contextBasedRestrictionsService.ReplaceZone(replaceZoneOptions)
-
-			Expect(err).To(Not(BeNil()))
-			Expect(response.StatusCode).To(Equal(404))
-			Expect(zone).To(BeNil())
-		})
-	})
-
-	Describe(`ListAvailableServiceRefTargets - List available service reference targets with 'invalid type parameter' error`, func() {
-		BeforeEach(func() {
-			shouldSkipTest()
-		})
-		It(`ListAvailableServiceRefTargets(listAvailableServiceRefTargetsOptions *ListAvailableServiceRefTargetsOptions) with 'invalid type parameter' error (400)`, func() {
-			listAvailableServiceRefTargetsOptions := &contextbasedrestrictionsv1.ListAvailableServicerefTargetsOptions{
-				Type: core.StringPtr("invalid-type"),
-			}
-
-			serviceRefTargetList, response, err := contextBasedRestrictionsService.ListAvailableServicerefTargets(listAvailableServiceRefTargetsOptions)
-
-			Expect(err).To(Not(BeNil()))
-			Expect(response.StatusCode).To(Equal(400))
-			Expect(serviceRefTargetList).To(BeNil())
-		})
-	})
-
-	Describe(`CreateRule - Create a rule with 'service not cbr enabled' error`, func() {
-		BeforeEach(func() {
-			shouldSkipTest()
-		})
-		It(`CreateRule(createRuleOptions *CreateRuleOptions) with 'service not cbr enabled' error (400)`, func() {
+		It(`ReplaceRule(replaceRuleOptions *ReplaceRuleOptions) with 'missing required IfMatch parameter' error (400)`, func() {
 			ruleContextAttributeModel := &contextbasedrestrictionsv1.RuleContextAttribute{
 				Name:  core.StringPtr("networkZoneId"),
 				Value: core.StringPtr(zoneID),
@@ -519,69 +727,34 @@ var _ = Describe(`ContextBasedRestrictionsV1 Integration Tests`, func() {
 					},
 					{
 						Name:  core.StringPtr("serviceName"),
-						Value: core.StringPtr("cbr-not-enabled"),
+						Value: core.StringPtr(testServiceName),
 					},
 				},
 				Tags: []contextbasedrestrictionsv1.ResourceTagAttribute{
 					{
 						Name:  core.StringPtr("tagName"),
-						Value: core.StringPtr("tagValue"),
+						Value: core.StringPtr("updatedTagValue"),
 					},
 				},
 			}
 
-			createRuleOptions := &contextbasedrestrictionsv1.CreateRuleOptions{
+			replaceRuleOptions := &contextbasedrestrictionsv1.ReplaceRuleOptions{
+				RuleID:        core.StringPtr(ruleID),
 				Description:   core.StringPtr("SDK TEST - this is an example of rule"),
 				Contexts:      []contextbasedrestrictionsv1.RuleContext{*ruleContextModel},
 				Resources:     []contextbasedrestrictionsv1.Resource{*resourceModel},
-				TransactionID: core.StringPtr("sdk-create-rule-" + uuid.New().String()),
+				TransactionID: getTransactionID(),
 			}
 
-			rule, response, err := contextBasedRestrictionsService.CreateRule(createRuleOptions)
+			rule, response, err := contextBasedRestrictionsService.ReplaceRule(replaceRuleOptions)
 
 			Expect(err).To(Not(BeNil()))
-			Expect(response.StatusCode).To(Equal(400))
+			Expect(response).To(BeNil())
 			Expect(rule).To(BeNil())
 		})
 	})
 
-	Describe(`ListRules - List rules with 'invalid account id parameter' error`, func() {
-		BeforeEach(func() {
-			shouldSkipTest()
-		})
-		It(`ListRules(listRulesOptions *ListRulesOptions) with 'invalid account id parameter' error (400)`, func() {
-			listRulesOptions := &contextbasedrestrictionsv1.ListRulesOptions{
-				AccountID:     core.StringPtr(InvalidID),
-				TransactionID: core.StringPtr("sdk-list-rules-" + uuid.New().String()),
-			}
-
-			ruleList, response, err := contextBasedRestrictionsService.ListRules(listRulesOptions)
-
-			Expect(err).To(Not(BeNil()))
-			Expect(response.StatusCode).To(Equal(400))
-			Expect(ruleList).To(BeNil())
-		})
-	})
-
-	Describe(`GetRule - Get the specified rule with error with 'rule not found' error`, func() {
-		BeforeEach(func() {
-			shouldSkipTest()
-		})
-		It(`GetRule(getRuleOptions *GetRuleOptions) with 'rule not found' error (404)`, func() {
-			getRuleOptions := &contextbasedrestrictionsv1.GetRuleOptions{
-				RuleID:        core.StringPtr(NonExistentID),
-				TransactionID: core.StringPtr("sdk-get-rule-" + uuid.New().String()),
-			}
-
-			rule, response, err := contextBasedRestrictionsService.GetRule(getRuleOptions)
-
-			Expect(err).To(Not(BeNil()))
-			Expect(response.StatusCode).To(Equal(404))
-			Expect(rule).To(BeNil())
-		})
-	})
-
-	Describe(`ReplaceRule - Update the specified rule with error with 'rule not found' error`, func() {
+	Describe(`ReplaceRule - Update rule with 'rule not found' error`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
 		})
@@ -603,7 +776,7 @@ var _ = Describe(`ContextBasedRestrictionsV1 Integration Tests`, func() {
 					},
 					{
 						Name:  core.StringPtr("serviceName"),
-						Value: core.StringPtr("cbr-not-enabled"),
+						Value: core.StringPtr(testServiceName),
 					},
 				},
 				Tags: []contextbasedrestrictionsv1.ResourceTagAttribute{
@@ -620,7 +793,7 @@ var _ = Describe(`ContextBasedRestrictionsV1 Integration Tests`, func() {
 				Description:   core.StringPtr("SDK TEST - this is an example of rule"),
 				Contexts:      []contextbasedrestrictionsv1.RuleContext{*ruleContextModel},
 				Resources:     []contextbasedrestrictionsv1.Resource{*resourceModel},
-				TransactionID: core.StringPtr("sdk-replace-rule-" + uuid.New().String()),
+				TransactionID: getTransactionID(),
 			}
 
 			rule, response, err := contextBasedRestrictionsService.ReplaceRule(replaceRuleOptions)
@@ -631,14 +804,82 @@ var _ = Describe(`ContextBasedRestrictionsV1 Integration Tests`, func() {
 		})
 	})
 
-	Describe(`GetAccountSettings - Get the specified account settings with 'invalid account id parameter' error`, func() {
+	Describe(`ReplaceRule - Update rule with 'invalid IfMatch parameter' error`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
 		})
-		It(`GetAccountSettings(getAccountSettingsOptions *GetAccountSettingsOptions) with 'invalid account id parameter' error (400)`, func() {
+		It(`ReplaceRule(replaceRuleOptions *ReplaceRuleOptions) with 'invalid IfMatch parameter' error (412)`, func() {
+			ruleContextAttributeModel := &contextbasedrestrictionsv1.RuleContextAttribute{
+				Name:  core.StringPtr("networkZoneId"),
+				Value: core.StringPtr(zoneID),
+			}
+
+			ruleContextModel := &contextbasedrestrictionsv1.RuleContext{
+				Attributes: []contextbasedrestrictionsv1.RuleContextAttribute{*ruleContextAttributeModel},
+			}
+
+			resourceModel := &contextbasedrestrictionsv1.Resource{
+				Attributes: []contextbasedrestrictionsv1.ResourceAttribute{
+					{
+						Name:  core.StringPtr("accountId"),
+						Value: core.StringPtr(testAccountID),
+					},
+					{
+						Name:  core.StringPtr("serviceName"),
+						Value: core.StringPtr(testServiceName),
+					},
+				},
+				Tags: []contextbasedrestrictionsv1.ResourceTagAttribute{
+					{
+						Name:  core.StringPtr("tagName"),
+						Value: core.StringPtr("updatedTagValue"),
+					},
+				},
+			}
+
+			replaceRuleOptions := &contextbasedrestrictionsv1.ReplaceRuleOptions{
+				RuleID:        core.StringPtr(ruleID),
+				IfMatch:       core.StringPtr("abc"),
+				Description:   core.StringPtr("SDK TEST - this is an example of rule"),
+				Contexts:      []contextbasedrestrictionsv1.RuleContext{*ruleContextModel},
+				Resources:     []contextbasedrestrictionsv1.Resource{*resourceModel},
+				TransactionID: getTransactionID(),
+			}
+
+			rule, response, err := contextBasedRestrictionsService.ReplaceRule(replaceRuleOptions)
+
+			Expect(err).To(Not(BeNil()))
+			Expect(response.StatusCode).To(Equal(412))
+			Expect(rule).To(BeNil())
+		})
+	})
+
+	Describe(`GetAccountSettings - Get the specified account settings`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`GetAccountSettings(getAccountSettingsOptions *GetAccountSettingsOptions)`, func() {
+			getAccountSettingsOptions := &contextbasedrestrictionsv1.GetAccountSettingsOptions{
+				AccountID:     core.StringPtr(testAccountID),
+				TransactionID: getTransactionID(),
+			}
+
+			accountSettings, response, err := contextBasedRestrictionsService.GetAccountSettings(getAccountSettingsOptions)
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(accountSettings).ToNot(BeNil())
+		})
+	})
+
+	Describe(`GetAccountSettings - Get account settings with 'invalid AccountID parameter' error`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`GetAccountSettings(getAccountSettingsOptions *GetAccountSettingsOptions) with 'invalid AccountID parameter' error (400)`, func() {
 			getAccountSettingsOptions := &contextbasedrestrictionsv1.GetAccountSettingsOptions{
 				AccountID:     core.StringPtr(InvalidID),
-				TransactionID: core.StringPtr("sdk-get-account-settings-" + uuid.New().String()),
+				TransactionID: getTransactionID(),
 			}
 
 			accountSettings, response, err := contextBasedRestrictionsService.GetAccountSettings(getAccountSettingsOptions)
@@ -646,40 +887,6 @@ var _ = Describe(`ContextBasedRestrictionsV1 Integration Tests`, func() {
 			Expect(err).To(Not(BeNil()))
 			Expect(response.StatusCode).To(Equal(400))
 			Expect(accountSettings).To(BeNil())
-		})
-	})
-
-	Describe(`DeleteRule - Delete the specified rule with 'rule not found' error`, func() {
-		BeforeEach(func() {
-			shouldSkipTest()
-		})
-		It(`DeleteRule(deleteRuleOptions *DeleteRuleOptions) with 'rule not found' error (404)`, func() {
-			deleteRuleOptions := &contextbasedrestrictionsv1.DeleteRuleOptions{
-				RuleID:        core.StringPtr(NonExistentID),
-				TransactionID: core.StringPtr("sdk-delete-rule-" + uuid.New().String()),
-			}
-
-			response, err := contextBasedRestrictionsService.DeleteRule(deleteRuleOptions)
-
-			Expect(err).To(Not(BeNil()))
-			Expect(response.StatusCode).To(Equal(404))
-		})
-	})
-
-	Describe(`DeleteZone - Delete the specified zone with 'zone not found' error`, func() {
-		BeforeEach(func() {
-			shouldSkipTest()
-		})
-		It(`DeleteZone(deleteZoneOptions *DeleteZoneOptions) with 'zone not found' error (404)`, func() {
-			deleteZoneOptions := &contextbasedrestrictionsv1.DeleteZoneOptions{
-				ZoneID:        core.StringPtr(NonExistentID),
-				TransactionID: core.StringPtr("sdk-delete-zone-" + uuid.New().String()),
-			}
-
-			response, err := contextBasedRestrictionsService.DeleteZone(deleteZoneOptions)
-
-			Expect(err).To(Not(BeNil()))
-			Expect(response.StatusCode).To(Equal(404))
 		})
 	})
 
@@ -694,13 +901,46 @@ var _ = Describe(`ContextBasedRestrictionsV1 Integration Tests`, func() {
 		It(`DeleteRule(deleteRuleOptions *DeleteRuleOptions)`, func() {
 			deleteRuleOptions := &contextbasedrestrictionsv1.DeleteRuleOptions{
 				RuleID:        core.StringPtr(ruleID),
-				TransactionID: core.StringPtr("sdk-delete-rule-" + uuid.New().String()),
+				TransactionID: getTransactionID(),
 			}
 
 			response, err := contextBasedRestrictionsService.DeleteRule(deleteRuleOptions)
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(204))
+		})
+	})
+
+	Describe(`DeleteRule - Delete rule with 'missing required RuleID parameter' error`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`DeleteRule(deleteRuleOptions *DeleteRuleOptions) with 'missing required RuleID parameter' error`, func() {
+			deleteRuleOptions := &contextbasedrestrictionsv1.DeleteRuleOptions{
+				TransactionID: getTransactionID(),
+			}
+
+			response, err := contextBasedRestrictionsService.DeleteRule(deleteRuleOptions)
+
+			Expect(err).To(Not(BeNil()))
+			Expect(response).To(BeNil())
+		})
+	})
+
+	Describe(`DeleteRule - Delete rule with 'rule not found' error`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`DeleteRule(deleteRuleOptions *DeleteRuleOptions) with 'rule not found' error (404)`, func() {
+			deleteRuleOptions := &contextbasedrestrictionsv1.DeleteRuleOptions{
+				RuleID:        core.StringPtr(NonExistentID),
+				TransactionID: getTransactionID(),
+			}
+
+			response, err := contextBasedRestrictionsService.DeleteRule(deleteRuleOptions)
+
+			Expect(err).To(Not(BeNil()))
+			Expect(response.StatusCode).To(Equal(404))
 		})
 	})
 
@@ -711,7 +951,7 @@ var _ = Describe(`ContextBasedRestrictionsV1 Integration Tests`, func() {
 		It(`DeleteZone(deleteZoneOptions *DeleteZoneOptions)`, func() {
 			deleteZoneOptions := &contextbasedrestrictionsv1.DeleteZoneOptions{
 				ZoneID:        core.StringPtr(zoneID),
-				TransactionID: core.StringPtr("sdk-delete-zone-" + uuid.New().String()),
+				TransactionID: getTransactionID(),
 			}
 
 			response, err := contextBasedRestrictionsService.DeleteZone(deleteZoneOptions)
@@ -720,8 +960,45 @@ var _ = Describe(`ContextBasedRestrictionsV1 Integration Tests`, func() {
 			Expect(response.StatusCode).To(Equal(204))
 		})
 	})
+
+	Describe(`DeleteZone - Delete zone with 'missing required ZoneID parameter' error`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`DeleteZone(deleteZoneOptions *DeleteZoneOptions) with 'missing required ZoneID parameter' error`, func() {
+			deleteZoneOptions := &contextbasedrestrictionsv1.DeleteZoneOptions{
+				TransactionID: getTransactionID(),
+			}
+
+			response, err := contextBasedRestrictionsService.DeleteZone(deleteZoneOptions)
+
+			Expect(err).To(Not(BeNil()))
+			Expect(response).To(BeNil())
+		})
+	})
+
+	Describe(`DeleteZone - Delete zone with 'zone not found' error`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`DeleteZone(deleteZoneOptions *DeleteZoneOptions) with 'zone not found' error (404)`, func() {
+			deleteZoneOptions := &contextbasedrestrictionsv1.DeleteZoneOptions{
+				ZoneID:        core.StringPtr(NonExistentID),
+				TransactionID: getTransactionID(),
+			}
+
+			response, err := contextBasedRestrictionsService.DeleteZone(deleteZoneOptions)
+
+			Expect(err).To(Not(BeNil()))
+			Expect(response.StatusCode).To(Equal(404))
+		})
+	})
 })
 
 //
 // Utility functions are declared in the unit test file
 //
+
+func getTransactionID() *string {
+	return core.StringPtr("sdk-test-" + uuid.New().String())
+}

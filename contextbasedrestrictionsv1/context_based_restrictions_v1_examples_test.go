@@ -1,6 +1,3 @@
-//go:build examples
-// +build examples
-
 /**
  * (C) Copyright IBM Corp. 2021.
  *
@@ -131,7 +128,7 @@ var _ = Describe(`contextbasedrestrictionsv1.ContextBasedRestrictionsV1 Examples
 			createZoneOptions := contextBasedRestrictionsService.NewCreateZoneOptions()
 			createZoneOptions.SetName("SDK TEST - an example of zone")
 			createZoneOptions.SetAccountID(testAccountID)
-			createZoneOptions.SetDescription("this is an example of zone")
+			createZoneOptions.SetDescription("SDK TEST - this is an example of zone")
 			createZoneOptions.SetAddresses([]contextbasedrestrictionsv1.AddressIntf{addressModel})
 
 			zone, response, err := contextBasedRestrictionsService.CreateZone(createZoneOptions)
@@ -209,7 +206,7 @@ var _ = Describe(`contextbasedrestrictionsv1.ContextBasedRestrictionsV1 Examples
 			)
 			replaceZoneOptions.SetName("SDK TEST - an example of updated zone")
 			replaceZoneOptions.SetAccountID(testAccountID)
-			replaceZoneOptions.SetDescription("this is an example of updated zone")
+			replaceZoneOptions.SetDescription("SDK TEST - this is an example of updated zone")
 			replaceZoneOptions.SetAddresses([]contextbasedrestrictionsv1.AddressIntf{addressModel})
 
 			zone, response, err := contextBasedRestrictionsService.ReplaceZone(replaceZoneOptions)
@@ -377,7 +374,7 @@ var _ = Describe(`contextbasedrestrictionsv1.ContextBasedRestrictionsV1 Examples
 				ruleID,
 				ruleRev,
 			)
-			replaceRuleOptions.SetDescription("this is an example of updated rule")
+			replaceRuleOptions.SetDescription("SDK TEST - this is an example of updated rule")
 			replaceRuleOptions.SetContexts([]contextbasedrestrictionsv1.RuleContext{*ruleContextModel})
 			replaceRuleOptions.SetResources([]contextbasedrestrictionsv1.Resource{*resourceModel})
 
