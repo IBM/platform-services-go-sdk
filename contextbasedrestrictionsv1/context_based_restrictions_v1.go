@@ -2223,6 +2223,12 @@ type Zone struct {
 	// The zone CRN.
 	CRN *string `json:"crn" validate:"required"`
 
+	// The number of addresses in the zone.
+	AddressCount *int64 `json:"address_count" validate:"required"`
+
+	// The number of excluded addresses in the zone.
+	ExcludedCount *int64 `json:"excluded_count" validate:"required"`
+
 	// The name of the zone.
 	Name *string `json:"name" validate:"required"`
 
@@ -2262,6 +2268,14 @@ func UnmarshalZone(m map[string]json.RawMessage, result interface{}) (err error)
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "crn", &obj.CRN)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "address_count", &obj.AddressCount)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "excluded_count", &obj.ExcludedCount)
 	if err != nil {
 		return
 	}

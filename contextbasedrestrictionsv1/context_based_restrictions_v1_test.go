@@ -253,7 +253,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "crn": "CRN", "name": "Name", "account_id": "AccountID", "description": "Description", "addresses": [{"type": "ipAddress", "value": "Value"}], "excluded": [{"type": "ipAddress", "value": "Value"}], "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "crn": "CRN", "address_count": 12, "excluded_count": 13, "name": "Name", "account_id": "AccountID", "description": "Description", "addresses": [{"type": "ipAddress", "value": "Value"}], "excluded": [{"type": "ipAddress", "value": "Value"}], "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}`)
 				}))
 			})
 			It(`Invoke CreateZone successfully with retries`, func() {
@@ -335,7 +335,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "crn": "CRN", "name": "Name", "account_id": "AccountID", "description": "Description", "addresses": [{"type": "ipAddress", "value": "Value"}], "excluded": [{"type": "ipAddress", "value": "Value"}], "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "crn": "CRN", "address_count": 12, "excluded_count": 13, "name": "Name", "account_id": "AccountID", "description": "Description", "addresses": [{"type": "ipAddress", "value": "Value"}], "excluded": [{"type": "ipAddress", "value": "Value"}], "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}`)
 				}))
 			})
 			It(`Invoke CreateZone successfully`, func() {
@@ -763,7 +763,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "crn": "CRN", "name": "Name", "account_id": "AccountID", "description": "Description", "addresses": [{"type": "ipAddress", "value": "Value"}], "excluded": [{"type": "ipAddress", "value": "Value"}], "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "crn": "CRN", "address_count": 12, "excluded_count": 13, "name": "Name", "account_id": "AccountID", "description": "Description", "addresses": [{"type": "ipAddress", "value": "Value"}], "excluded": [{"type": "ipAddress", "value": "Value"}], "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}`)
 				}))
 			})
 			It(`Invoke GetZone successfully with retries`, func() {
@@ -820,7 +820,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "crn": "CRN", "name": "Name", "account_id": "AccountID", "description": "Description", "addresses": [{"type": "ipAddress", "value": "Value"}], "excluded": [{"type": "ipAddress", "value": "Value"}], "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "crn": "CRN", "address_count": 12, "excluded_count": 13, "name": "Name", "account_id": "AccountID", "description": "Description", "addresses": [{"type": "ipAddress", "value": "Value"}], "excluded": [{"type": "ipAddress", "value": "Value"}], "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}`)
 				}))
 			})
 			It(`Invoke GetZone successfully`, func() {
@@ -1017,7 +1017,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "crn": "CRN", "name": "Name", "account_id": "AccountID", "description": "Description", "addresses": [{"type": "ipAddress", "value": "Value"}], "excluded": [{"type": "ipAddress", "value": "Value"}], "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "crn": "CRN", "address_count": 12, "excluded_count": 13, "name": "Name", "account_id": "AccountID", "description": "Description", "addresses": [{"type": "ipAddress", "value": "Value"}], "excluded": [{"type": "ipAddress", "value": "Value"}], "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}`)
 				}))
 			})
 			It(`Invoke ReplaceZone successfully with retries`, func() {
@@ -1103,7 +1103,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "crn": "CRN", "name": "Name", "account_id": "AccountID", "description": "Description", "addresses": [{"type": "ipAddress", "value": "Value"}], "excluded": [{"type": "ipAddress", "value": "Value"}], "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "crn": "CRN", "address_count": 12, "excluded_count": 13, "name": "Name", "account_id": "AccountID", "description": "Description", "addresses": [{"type": "ipAddress", "value": "Value"}], "excluded": [{"type": "ipAddress", "value": "Value"}], "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}`)
 				}))
 			})
 			It(`Invoke ReplaceZone successfully`, func() {
