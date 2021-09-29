@@ -51,8 +51,8 @@ var (
 	contextBasedRestrictionsService *contextbasedrestrictionsv1.ContextBasedRestrictionsV1
 	config                          map[string]string
 	configLoaded                    bool = false
-	testAccountID                   string
-	testServiceName                 string
+	accountID                       string
+	serviceName                     string
 	zoneID                          string
 	zoneRev                         string
 	ruleID                          string
@@ -80,13 +80,13 @@ var _ = Describe(`contextbasedrestrictionsv1.ContextBasedRestrictionsV1 Examples
 				Skip("Error loading service properties, skipping tests: " + err.Error())
 			}
 
-			testAccountID = config["TEST_ACCOUNT_ID"]
-			if testAccountID == "" {
+			accountID = config["TEST_ACCOUNT_ID"]
+			if accountID == "" {
 				Skip("Unable to load TEST_ACCOUNT_ID configuration property, skipping tests")
 			}
 
-			testServiceName = config["TEST_SERVICE_NAME"]
-			if testServiceName == "" {
+			serviceName = config["TEST_SERVICE_NAME"]
+			if serviceName == "" {
 				Skip("Unable to load TEST_SERVICE_NAME configuration property, skipping tests")
 			}
 
@@ -132,7 +132,7 @@ var _ = Describe(`contextbasedrestrictionsv1.ContextBasedRestrictionsV1 Examples
 
 			createZoneOptions := contextBasedRestrictionsService.NewCreateZoneOptions()
 			createZoneOptions.SetName("SDK TEST - an example of zone")
-			createZoneOptions.SetAccountID(testAccountID)
+			createZoneOptions.SetAccountID(accountID)
 			createZoneOptions.SetDescription("SDK TEST - this is an example of zone")
 			createZoneOptions.SetAddresses([]contextbasedrestrictionsv1.AddressIntf{addressModel})
 
@@ -156,7 +156,7 @@ var _ = Describe(`contextbasedrestrictionsv1.ContextBasedRestrictionsV1 Examples
 			// begin-list_zones
 
 			listZonesOptions := contextBasedRestrictionsService.NewListZonesOptions(
-				testAccountID,
+				accountID,
 			)
 
 			zoneList, response, err := contextBasedRestrictionsService.ListZones(listZonesOptions)
@@ -210,7 +210,7 @@ var _ = Describe(`contextbasedrestrictionsv1.ContextBasedRestrictionsV1 Examples
 				zoneRev,
 			)
 			replaceZoneOptions.SetName("SDK TEST - an example of updated zone")
-			replaceZoneOptions.SetAccountID(testAccountID)
+			replaceZoneOptions.SetAccountID(accountID)
 			replaceZoneOptions.SetDescription("SDK TEST - this is an example of updated zone")
 			replaceZoneOptions.SetAddresses([]contextbasedrestrictionsv1.AddressIntf{addressModel})
 
@@ -265,11 +265,11 @@ var _ = Describe(`contextbasedrestrictionsv1.ContextBasedRestrictionsV1 Examples
 				Attributes: []contextbasedrestrictionsv1.ResourceAttribute{
 					{
 						Name:  core.StringPtr("accountId"),
-						Value: core.StringPtr(testAccountID),
+						Value: core.StringPtr(accountID),
 					},
 					{
 						Name:  core.StringPtr("serviceName"),
-						Value: core.StringPtr(testServiceName),
+						Value: core.StringPtr(serviceName),
 					},
 				},
 				Tags: []contextbasedrestrictionsv1.ResourceTagAttribute{
@@ -305,7 +305,7 @@ var _ = Describe(`contextbasedrestrictionsv1.ContextBasedRestrictionsV1 Examples
 			// begin-list_rules
 
 			listRulesOptions := contextBasedRestrictionsService.NewListRulesOptions(
-				testAccountID,
+				accountID,
 			)
 
 			ruleList, response, err := contextBasedRestrictionsService.ListRules(listRulesOptions)
@@ -360,11 +360,11 @@ var _ = Describe(`contextbasedrestrictionsv1.ContextBasedRestrictionsV1 Examples
 				Attributes: []contextbasedrestrictionsv1.ResourceAttribute{
 					{
 						Name:  core.StringPtr("accountId"),
-						Value: core.StringPtr(testAccountID),
+						Value: core.StringPtr(accountID),
 					},
 					{
 						Name:  core.StringPtr("serviceName"),
-						Value: core.StringPtr(testServiceName),
+						Value: core.StringPtr(serviceName),
 					},
 				},
 				Tags: []contextbasedrestrictionsv1.ResourceTagAttribute{
@@ -402,7 +402,7 @@ var _ = Describe(`contextbasedrestrictionsv1.ContextBasedRestrictionsV1 Examples
 			// begin-get_account_settings
 
 			getAccountSettingsOptions := contextBasedRestrictionsService.NewGetAccountSettingsOptions(
-				testAccountID,
+				accountID,
 			)
 
 			accountSettings, response, err := contextBasedRestrictionsService.GetAccountSettings(getAccountSettingsOptions)
