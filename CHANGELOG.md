@@ -1,3 +1,10 @@
+# [0.21.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.20.1...v0.21.0) (2021-10-01)
+
+
+### Features
+
+* **Context-Based Restrictions:** add service sdk, tests, and examples ([#153](https://github.com/IBM/platform-services-go-sdk/issues/153)) ([802d160](https://github.com/IBM/platform-services-go-sdk/commit/802d160618470a84991cf5a636f90ed4f87c84f5))
+
 ## [0.20.1](https://github.com/IBM/platform-services-go-sdk/compare/v0.20.0...v0.20.1) (2021-09-07)
 
 
