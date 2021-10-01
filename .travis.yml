@@ -16,9 +16,7 @@ env:
 
 before_install:
   - sudo apt-get update
-  - sudo apt-get install python
-  - nvm install 12
-  - npm install -g npm@6.x
+  - pyenv global 3.8
 
 install:
   - curl -sfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh| sh -s -- -b $(go env GOPATH)/bin v1.41.1
@@ -32,11 +30,13 @@ after_success:
   - build/publishCodeCoverage.sh
 
 before_deploy:
-  - pip install --user bump2version
+  - nvm install 14
+  - npm install -g npm@6.x
   - npm install @semantic-release/changelog
   - npm install @semantic-release/exec
   - npm install @semantic-release/git
   - npm install @semantic-release/github
+  - pip install --user bump2version
 
 deploy:
   - provider: script
