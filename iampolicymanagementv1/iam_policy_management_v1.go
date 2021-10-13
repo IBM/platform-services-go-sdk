@@ -15,7 +15,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 3.29.1-b338fb38-20210313-010605
+ * IBM OpenAPI SDK Code Generator Version: 3.39.0-748eb4ca-20210917-165907
  */
 
 // Package iampolicymanagementv1 : Operations and models for the IamPolicyManagementV1 service
@@ -25,17 +25,18 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"github.com/IBM/go-sdk-core/v5/core"
-	common "github.com/IBM/platform-services-go-sdk/common"
-	"github.com/go-openapi/strfmt"
 	"net/http"
 	"reflect"
 	"time"
+
+	"github.com/IBM/go-sdk-core/v5/core"
+	common "github.com/IBM/platform-services-go-sdk/common"
+	"github.com/go-openapi/strfmt"
 )
 
 // IamPolicyManagementV1 : IAM Policy Management API
 //
-// Version: 1.0.1
+// API Version: 1.0.1
 type IamPolicyManagementV1 struct {
 	Service *core.BaseService
 }
@@ -240,11 +241,13 @@ func (iamPolicyManagement *IamPolicyManagementV1) ListPoliciesWithContext(ctx co
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalPolicyList)
-	if err != nil {
-		return
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalPolicyList)
+		if err != nil {
+			return
+		}
+		response.Result = result
 	}
-	response.Result = result
 
 	return
 }
@@ -276,6 +279,18 @@ func (iamPolicyManagement *IamPolicyManagementV1) ListPoliciesWithContext(ctx co
 // greater to the target resource in order to grant the role. The resource attributes must be a subset of a service's or
 // the platform's supported attributes. Both the policy subject and the policy resource must include the
 // **`serviceName`** and **`accountId`** attributes.
+//
+// ### Attribute Operators
+//
+// Currently, only the `stringEquals` and the `stringMatch` operators are available. Resource attributes may support one
+// or both operators.  For more information, see [how to assign access by using wildcards
+// policies](https://cloud.ibm.com/docs/account?topic=account-wildcard).
+//
+// ### Attribute Validations
+//
+// Policy attribute values must be between 1 and 1,000 characters in length. If location related attributes like
+// geography, country, metro, region, satellite, and locationvalues are supported by the service, they are validated
+// against Global Catalog locations.
 func (iamPolicyManagement *IamPolicyManagementV1) CreatePolicy(createPolicyOptions *CreatePolicyOptions) (result *Policy, response *core.DetailedResponse, err error) {
 	return iamPolicyManagement.CreatePolicyWithContext(context.Background(), createPolicyOptions)
 }
@@ -344,11 +359,13 @@ func (iamPolicyManagement *IamPolicyManagementV1) CreatePolicyWithContext(ctx co
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalPolicy)
-	if err != nil {
-		return
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalPolicy)
+		if err != nil {
+			return
+		}
+		response.Result = result
 	}
-	response.Result = result
 
 	return
 }
@@ -377,6 +394,18 @@ func (iamPolicyManagement *IamPolicyManagementV1) CreatePolicyWithContext(ctx co
 // greater to the target resource in order to grant the role. The resource attributes must be a subset of a service's or
 // the platform's supported attributes. Both the policy subject and the policy resource must include the
 // **`serviceName`** and **`accountId`** attributes.
+//
+// ### Attribute Operators
+//
+// Currently, only the `stringEquals` and the `stringMatch` operators are available. Resource attributes might support
+// one or both operators.  For more information, see [how to assign access by using wildcards
+// policies](https://cloud.ibm.com/docs/account?topic=account-wildcard).
+//
+// ### Attribute Validations
+//
+// Policy attribute values must be between 1 and 1,000 characters in length. If location related attributes like
+// geography, country, metro, region, satellite, and locationvalues are supported by the service, they are validated
+// against Global Catalog locations.
 func (iamPolicyManagement *IamPolicyManagementV1) UpdatePolicy(updatePolicyOptions *UpdatePolicyOptions) (result *Policy, response *core.DetailedResponse, err error) {
 	return iamPolicyManagement.UpdatePolicyWithContext(context.Background(), updatePolicyOptions)
 }
@@ -449,11 +478,13 @@ func (iamPolicyManagement *IamPolicyManagementV1) UpdatePolicyWithContext(ctx co
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalPolicy)
-	if err != nil {
-		return
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalPolicy)
+		if err != nil {
+			return
+		}
+		response.Result = result
 	}
-	response.Result = result
 
 	return
 }
@@ -507,11 +538,13 @@ func (iamPolicyManagement *IamPolicyManagementV1) GetPolicyWithContext(ctx conte
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalPolicy)
-	if err != nil {
-		return
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalPolicy)
+		if err != nil {
+			return
+		}
+		response.Result = result
 	}
-	response.Result = result
 
 	return
 }
@@ -628,20 +661,22 @@ func (iamPolicyManagement *IamPolicyManagementV1) PatchPolicyWithContext(ctx con
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalPolicy)
-	if err != nil {
-		return
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalPolicy)
+		if err != nil {
+			return
+		}
+		response.Result = result
 	}
-	response.Result = result
 
 	return
 }
 
 // ListRoles : Get roles by filters
 // Get roles based on the filters. While managing roles, you may want to retrieve roles and filter by usages. This can
-// be done through query parameters. Currently, we only support the following attributes: account_id, and service_name.
-// Only roles that match the filter and that the caller has read access to are returned. If the caller does not have
-// read access to any roles an empty array is returned.
+// be done through query parameters. Currently, we only support the following attributes: account_id, service_name,
+// source_service_name and policy_type. Only roles that match the filter and that the caller has read access to are
+// returned. If the caller does not have read access to any roles an empty array is returned.
 func (iamPolicyManagement *IamPolicyManagementV1) ListRoles(listRolesOptions *ListRolesOptions) (result *RoleList, response *core.DetailedResponse, err error) {
 	return iamPolicyManagement.ListRolesWithContext(context.Background(), listRolesOptions)
 }
@@ -680,6 +715,12 @@ func (iamPolicyManagement *IamPolicyManagementV1) ListRolesWithContext(ctx conte
 	if listRolesOptions.ServiceName != nil {
 		builder.AddQuery("service_name", fmt.Sprint(*listRolesOptions.ServiceName))
 	}
+	if listRolesOptions.SourceServiceName != nil {
+		builder.AddQuery("source_service_name", fmt.Sprint(*listRolesOptions.SourceServiceName))
+	}
+	if listRolesOptions.PolicyType != nil {
+		builder.AddQuery("policy_type", fmt.Sprint(*listRolesOptions.PolicyType))
+	}
 
 	request, err := builder.Build()
 	if err != nil {
@@ -691,11 +732,13 @@ func (iamPolicyManagement *IamPolicyManagementV1) ListRolesWithContext(ctx conte
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalRoleList)
-	if err != nil {
-		return
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalRoleList)
+		if err != nil {
+			return
+		}
+		response.Result = result
 	}
-	response.Result = result
 
 	return
 }
@@ -776,11 +819,13 @@ func (iamPolicyManagement *IamPolicyManagementV1) CreateRoleWithContext(ctx cont
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalCustomRole)
-	if err != nil {
-		return
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalCustomRole)
+		if err != nil {
+			return
+		}
+		response.Result = result
 	}
-	response.Result = result
 
 	return
 }
@@ -854,11 +899,13 @@ func (iamPolicyManagement *IamPolicyManagementV1) UpdateRoleWithContext(ctx cont
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalCustomRole)
-	if err != nil {
-		return
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalCustomRole)
+		if err != nil {
+			return
+		}
+		response.Result = result
 	}
-	response.Result = result
 
 	return
 }
@@ -912,11 +959,13 @@ func (iamPolicyManagement *IamPolicyManagementV1) GetRoleWithContext(ctx context
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalCustomRole)
-	if err != nil {
-		return
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalCustomRole)
+		if err != nil {
+			return
+		}
+		response.Result = result
 	}
-	response.Result = result
 
 	return
 }
@@ -972,22 +1021,33 @@ func (iamPolicyManagement *IamPolicyManagementV1) DeleteRoleWithContext(ctx cont
 // CreatePolicyOptions : The CreatePolicy options.
 type CreatePolicyOptions struct {
 	// The policy type; either 'access' or 'authorization'.
-	Type *string `validate:"required"`
+	Type *string `json:"type" validate:"required"`
 
 	// The subjects associated with a policy.
-	Subjects []PolicySubject `validate:"required"`
+	Subjects []PolicySubject `json:"subjects" validate:"required"`
 
 	// A set of role cloud resource names (CRNs) granted by the policy.
-	Roles []PolicyRole `validate:"required"`
+	Roles []PolicyRole `json:"roles" validate:"required"`
 
 	// The resources associated with a policy.
-	Resources []PolicyResource `validate:"required"`
+	Resources []PolicyResource `json:"resources" validate:"required"`
 
 	// Customer-defined description.
-	Description *string
+	Description *string `json:"description,omitempty"`
 
-	// Translation language code.
-	AcceptLanguage *string
+	// Language code for translations
+	// * `default` - English
+	// * `de` -  German (Standard)
+	// * `en` - English
+	// * `es` - Spanish (Spain)
+	// * `fr` - French (Standard)
+	// * `it` - Italian (Standard)
+	// * `ja` - Japanese
+	// * `ko` - Korean
+	// * `pt-br` - Portuguese (Brazil)
+	// * `zh-cn` - Chinese (Simplified, PRC)
+	// * `zh-tw` - (Chinese, Taiwan).
+	AcceptLanguage *string `json:"Accept-Language,omitempty"`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -1004,39 +1064,39 @@ func (*IamPolicyManagementV1) NewCreatePolicyOptions(typeVar string, subjects []
 }
 
 // SetType : Allow user to set Type
-func (options *CreatePolicyOptions) SetType(typeVar string) *CreatePolicyOptions {
-	options.Type = core.StringPtr(typeVar)
-	return options
+func (_options *CreatePolicyOptions) SetType(typeVar string) *CreatePolicyOptions {
+	_options.Type = core.StringPtr(typeVar)
+	return _options
 }
 
 // SetSubjects : Allow user to set Subjects
-func (options *CreatePolicyOptions) SetSubjects(subjects []PolicySubject) *CreatePolicyOptions {
-	options.Subjects = subjects
-	return options
+func (_options *CreatePolicyOptions) SetSubjects(subjects []PolicySubject) *CreatePolicyOptions {
+	_options.Subjects = subjects
+	return _options
 }
 
 // SetRoles : Allow user to set Roles
-func (options *CreatePolicyOptions) SetRoles(roles []PolicyRole) *CreatePolicyOptions {
-	options.Roles = roles
-	return options
+func (_options *CreatePolicyOptions) SetRoles(roles []PolicyRole) *CreatePolicyOptions {
+	_options.Roles = roles
+	return _options
 }
 
 // SetResources : Allow user to set Resources
-func (options *CreatePolicyOptions) SetResources(resources []PolicyResource) *CreatePolicyOptions {
-	options.Resources = resources
-	return options
+func (_options *CreatePolicyOptions) SetResources(resources []PolicyResource) *CreatePolicyOptions {
+	_options.Resources = resources
+	return _options
 }
 
 // SetDescription : Allow user to set Description
-func (options *CreatePolicyOptions) SetDescription(description string) *CreatePolicyOptions {
-	options.Description = core.StringPtr(description)
-	return options
+func (_options *CreatePolicyOptions) SetDescription(description string) *CreatePolicyOptions {
+	_options.Description = core.StringPtr(description)
+	return _options
 }
 
 // SetAcceptLanguage : Allow user to set AcceptLanguage
-func (options *CreatePolicyOptions) SetAcceptLanguage(acceptLanguage string) *CreatePolicyOptions {
-	options.AcceptLanguage = core.StringPtr(acceptLanguage)
-	return options
+func (_options *CreatePolicyOptions) SetAcceptLanguage(acceptLanguage string) *CreatePolicyOptions {
+	_options.AcceptLanguage = core.StringPtr(acceptLanguage)
+	return _options
 }
 
 // SetHeaders : Allow user to set Headers
@@ -1048,25 +1108,37 @@ func (options *CreatePolicyOptions) SetHeaders(param map[string]string) *CreateP
 // CreateRoleOptions : The CreateRole options.
 type CreateRoleOptions struct {
 	// The display name of the role that is shown in the console.
-	DisplayName *string `validate:"required"`
+	DisplayName *string `json:"display_name" validate:"required"`
 
-	// The actions of the role.
-	Actions []string `validate:"required"`
+	// The actions of the role. Please refer to [IAM roles and
+	// actions](https://cloud.ibm.com/docs/account?topic=account-iam-service-roles-actions).
+	Actions []string `json:"actions" validate:"required"`
 
 	// The name of the role that is used in the CRN. Can only be alphanumeric and has to be capitalized.
-	Name *string `validate:"required"`
+	Name *string `json:"name" validate:"required"`
 
 	// The account GUID.
-	AccountID *string `validate:"required"`
+	AccountID *string `json:"account_id" validate:"required"`
 
 	// The service name.
-	ServiceName *string `validate:"required"`
+	ServiceName *string `json:"service_name" validate:"required"`
 
 	// The description of the role.
-	Description *string
+	Description *string `json:"description,omitempty"`
 
-	// Translation language code.
-	AcceptLanguage *string
+	// Language code for translations
+	// * `default` - English
+	// * `de` -  German (Standard)
+	// * `en` - English
+	// * `es` - Spanish (Spain)
+	// * `fr` - French (Standard)
+	// * `it` - Italian (Standard)
+	// * `ja` - Japanese
+	// * `ko` - Korean
+	// * `pt-br` - Portuguese (Brazil)
+	// * `zh-cn` - Chinese (Simplified, PRC)
+	// * `zh-tw` - (Chinese, Taiwan).
+	AcceptLanguage *string `json:"Accept-Language,omitempty"`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -1084,45 +1156,45 @@ func (*IamPolicyManagementV1) NewCreateRoleOptions(displayName string, actions [
 }
 
 // SetDisplayName : Allow user to set DisplayName
-func (options *CreateRoleOptions) SetDisplayName(displayName string) *CreateRoleOptions {
-	options.DisplayName = core.StringPtr(displayName)
-	return options
+func (_options *CreateRoleOptions) SetDisplayName(displayName string) *CreateRoleOptions {
+	_options.DisplayName = core.StringPtr(displayName)
+	return _options
 }
 
 // SetActions : Allow user to set Actions
-func (options *CreateRoleOptions) SetActions(actions []string) *CreateRoleOptions {
-	options.Actions = actions
-	return options
+func (_options *CreateRoleOptions) SetActions(actions []string) *CreateRoleOptions {
+	_options.Actions = actions
+	return _options
 }
 
 // SetName : Allow user to set Name
-func (options *CreateRoleOptions) SetName(name string) *CreateRoleOptions {
-	options.Name = core.StringPtr(name)
-	return options
+func (_options *CreateRoleOptions) SetName(name string) *CreateRoleOptions {
+	_options.Name = core.StringPtr(name)
+	return _options
 }
 
 // SetAccountID : Allow user to set AccountID
-func (options *CreateRoleOptions) SetAccountID(accountID string) *CreateRoleOptions {
-	options.AccountID = core.StringPtr(accountID)
-	return options
+func (_options *CreateRoleOptions) SetAccountID(accountID string) *CreateRoleOptions {
+	_options.AccountID = core.StringPtr(accountID)
+	return _options
 }
 
 // SetServiceName : Allow user to set ServiceName
-func (options *CreateRoleOptions) SetServiceName(serviceName string) *CreateRoleOptions {
-	options.ServiceName = core.StringPtr(serviceName)
-	return options
+func (_options *CreateRoleOptions) SetServiceName(serviceName string) *CreateRoleOptions {
+	_options.ServiceName = core.StringPtr(serviceName)
+	return _options
 }
 
 // SetDescription : Allow user to set Description
-func (options *CreateRoleOptions) SetDescription(description string) *CreateRoleOptions {
-	options.Description = core.StringPtr(description)
-	return options
+func (_options *CreateRoleOptions) SetDescription(description string) *CreateRoleOptions {
+	_options.Description = core.StringPtr(description)
+	return _options
 }
 
 // SetAcceptLanguage : Allow user to set AcceptLanguage
-func (options *CreateRoleOptions) SetAcceptLanguage(acceptLanguage string) *CreateRoleOptions {
-	options.AcceptLanguage = core.StringPtr(acceptLanguage)
-	return options
+func (_options *CreateRoleOptions) SetAcceptLanguage(acceptLanguage string) *CreateRoleOptions {
+	_options.AcceptLanguage = core.StringPtr(acceptLanguage)
+	return _options
 }
 
 // SetHeaders : Allow user to set Headers
@@ -1134,7 +1206,7 @@ func (options *CreateRoleOptions) SetHeaders(param map[string]string) *CreateRol
 // DeletePolicyOptions : The DeletePolicy options.
 type DeletePolicyOptions struct {
 	// The policy ID.
-	PolicyID *string `validate:"required,ne="`
+	PolicyID *string `json:"policy_id" validate:"required,ne="`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -1148,9 +1220,9 @@ func (*IamPolicyManagementV1) NewDeletePolicyOptions(policyID string) *DeletePol
 }
 
 // SetPolicyID : Allow user to set PolicyID
-func (options *DeletePolicyOptions) SetPolicyID(policyID string) *DeletePolicyOptions {
-	options.PolicyID = core.StringPtr(policyID)
-	return options
+func (_options *DeletePolicyOptions) SetPolicyID(policyID string) *DeletePolicyOptions {
+	_options.PolicyID = core.StringPtr(policyID)
+	return _options
 }
 
 // SetHeaders : Allow user to set Headers
@@ -1162,7 +1234,7 @@ func (options *DeletePolicyOptions) SetHeaders(param map[string]string) *DeleteP
 // DeleteRoleOptions : The DeleteRole options.
 type DeleteRoleOptions struct {
 	// The role ID.
-	RoleID *string `validate:"required,ne="`
+	RoleID *string `json:"role_id" validate:"required,ne="`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -1176,9 +1248,9 @@ func (*IamPolicyManagementV1) NewDeleteRoleOptions(roleID string) *DeleteRoleOpt
 }
 
 // SetRoleID : Allow user to set RoleID
-func (options *DeleteRoleOptions) SetRoleID(roleID string) *DeleteRoleOptions {
-	options.RoleID = core.StringPtr(roleID)
-	return options
+func (_options *DeleteRoleOptions) SetRoleID(roleID string) *DeleteRoleOptions {
+	_options.RoleID = core.StringPtr(roleID)
+	return _options
 }
 
 // SetHeaders : Allow user to set Headers
@@ -1190,7 +1262,7 @@ func (options *DeleteRoleOptions) SetHeaders(param map[string]string) *DeleteRol
 // GetPolicyOptions : The GetPolicy options.
 type GetPolicyOptions struct {
 	// The policy ID.
-	PolicyID *string `validate:"required,ne="`
+	PolicyID *string `json:"policy_id" validate:"required,ne="`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -1204,9 +1276,9 @@ func (*IamPolicyManagementV1) NewGetPolicyOptions(policyID string) *GetPolicyOpt
 }
 
 // SetPolicyID : Allow user to set PolicyID
-func (options *GetPolicyOptions) SetPolicyID(policyID string) *GetPolicyOptions {
-	options.PolicyID = core.StringPtr(policyID)
-	return options
+func (_options *GetPolicyOptions) SetPolicyID(policyID string) *GetPolicyOptions {
+	_options.PolicyID = core.StringPtr(policyID)
+	return _options
 }
 
 // SetHeaders : Allow user to set Headers
@@ -1218,7 +1290,7 @@ func (options *GetPolicyOptions) SetHeaders(param map[string]string) *GetPolicyO
 // GetRoleOptions : The GetRole options.
 type GetRoleOptions struct {
 	// The role ID.
-	RoleID *string `validate:"required,ne="`
+	RoleID *string `json:"role_id" validate:"required,ne="`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -1232,9 +1304,9 @@ func (*IamPolicyManagementV1) NewGetRoleOptions(roleID string) *GetRoleOptions {
 }
 
 // SetRoleID : Allow user to set RoleID
-func (options *GetRoleOptions) SetRoleID(roleID string) *GetRoleOptions {
-	options.RoleID = core.StringPtr(roleID)
-	return options
+func (_options *GetRoleOptions) SetRoleID(roleID string) *GetRoleOptions {
+	_options.RoleID = core.StringPtr(roleID)
+	return _options
 }
 
 // SetHeaders : Allow user to set Headers
@@ -1246,41 +1318,105 @@ func (options *GetRoleOptions) SetHeaders(param map[string]string) *GetRoleOptio
 // ListPoliciesOptions : The ListPolicies options.
 type ListPoliciesOptions struct {
 	// The account GUID in which the policies belong to.
-	AccountID *string `validate:"required"`
+	AccountID *string `json:"account_id" validate:"required"`
 
-	// Translation language code.
-	AcceptLanguage *string
+	// Language code for translations
+	// * `default` - English
+	// * `de` -  German (Standard)
+	// * `en` - English
+	// * `es` - Spanish (Spain)
+	// * `fr` - French (Standard)
+	// * `it` - Italian (Standard)
+	// * `ja` - Japanese
+	// * `ko` - Korean
+	// * `pt-br` - Portuguese (Brazil)
+	// * `zh-cn` - Chinese (Simplified, PRC)
+	// * `zh-tw` - (Chinese, Taiwan).
+	AcceptLanguage *string `json:"Accept-Language,omitempty"`
 
-	// The IAM ID used to identify the subject.
-	IamID *string
+	// Optional IAM ID used to identify the subject.
+	IamID *string `json:"iam_id,omitempty"`
 
-	// The access group id.
-	AccessGroupID *string
+	// Optional access group id.
+	AccessGroupID *string `json:"access_group_id,omitempty"`
 
-	// The type of policy (access or authorization).
-	Type *string
+	// Optional type of policy.
+	Type *string `json:"type,omitempty"`
 
-	// The type of service.
-	ServiceType *string
+	// Optional type of service.
+	ServiceType *string `json:"service_type,omitempty"`
 
-	// The name of the access management tag in the policy.
-	TagName *string
+	// Optional name of the access management tag in the policy.
+	TagName *string `json:"tag_name,omitempty"`
 
-	// The value of the access management tag in the policy.
-	TagValue *string
+	// Optional value of the access management tag in the policy.
+	TagValue *string `json:"tag_value,omitempty"`
 
-	// Sort the results by any of the top level policy fields (id, created_at, created_by_id, last_modified_at, etc).
-	Sort *string
+	// Optional top level policy field to sort results. Ascending sort is default. Descending sort available by prepending
+	// '-' to field. Example '-last_modified_at'.
+	Sort *string `json:"sort,omitempty"`
 
-	// Include additional data per policy returned [include_last_permit, display].
-	Format *string
+	// Include additional data per policy returned
+	// * `include_last_permit` - returns details of when the policy last granted a permit decision and the number of times
+	// it has done so
+	// * `display` - returns the list of all actions included in each of the policy roles.
+	Format *string `json:"format,omitempty"`
 
-	// The state of the policy, 'active' or 'deleted'.
-	State *string
+	// The state of the policy.
+	// * `active` - returns active policies
+	// * `deleted` - returns non-active policies.
+	State *string `json:"state,omitempty"`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
 }
+
+// Constants associated with the ListPoliciesOptions.Type property.
+// Optional type of policy.
+const (
+	ListPoliciesOptionsTypeAccessConst = "access"
+	ListPoliciesOptionsTypeAuthorizationConst = "authorization"
+)
+
+// Constants associated with the ListPoliciesOptions.ServiceType property.
+// Optional type of service.
+const (
+	ListPoliciesOptionsServiceTypePlatformServiceConst = "platform_service"
+	ListPoliciesOptionsServiceTypeServiceConst = "service"
+)
+
+// Constants associated with the ListPoliciesOptions.Sort property.
+// Optional top level policy field to sort results. Ascending sort is default. Descending sort available by prepending
+// '-' to field. Example '-last_modified_at'.
+const (
+	ListPoliciesOptionsSortCreatedAtConst = "created_at"
+	ListPoliciesOptionsSortCreatedByIDConst = "created_by_id"
+	ListPoliciesOptionsSortHrefConst = "href"
+	ListPoliciesOptionsSortIDConst = "id"
+	ListPoliciesOptionsSortLastModifiedAtConst = "last_modified_at"
+	ListPoliciesOptionsSortLastModifiedByIDConst = "last_modified_by_id"
+	ListPoliciesOptionsSortStateConst = "state"
+	ListPoliciesOptionsSortTypeConst = "type"
+)
+
+// Constants associated with the ListPoliciesOptions.Format property.
+// Include additional data per policy returned
+// * `include_last_permit` - returns details of when the policy last granted a permit decision and the number of times
+// it has done so
+// * `display` - returns the list of all actions included in each of the policy roles.
+const (
+	ListPoliciesOptionsFormatDisplayConst = "display"
+	ListPoliciesOptionsFormatIncludeLastPermitConst = "include_last_permit"
+)
+
+// Constants associated with the ListPoliciesOptions.State property.
+// The state of the policy.
+// * `active` - returns active policies
+// * `deleted` - returns non-active policies.
+const (
+	ListPoliciesOptionsStateActiveConst = "active"
+	ListPoliciesOptionsStateDeletedConst = "deleted"
+)
 
 // NewListPoliciesOptions : Instantiate ListPoliciesOptions
 func (*IamPolicyManagementV1) NewListPoliciesOptions(accountID string) *ListPoliciesOptions {
@@ -1290,69 +1426,69 @@ func (*IamPolicyManagementV1) NewListPoliciesOptions(accountID string) *ListPoli
 }
 
 // SetAccountID : Allow user to set AccountID
-func (options *ListPoliciesOptions) SetAccountID(accountID string) *ListPoliciesOptions {
-	options.AccountID = core.StringPtr(accountID)
-	return options
+func (_options *ListPoliciesOptions) SetAccountID(accountID string) *ListPoliciesOptions {
+	_options.AccountID = core.StringPtr(accountID)
+	return _options
 }
 
 // SetAcceptLanguage : Allow user to set AcceptLanguage
-func (options *ListPoliciesOptions) SetAcceptLanguage(acceptLanguage string) *ListPoliciesOptions {
-	options.AcceptLanguage = core.StringPtr(acceptLanguage)
-	return options
+func (_options *ListPoliciesOptions) SetAcceptLanguage(acceptLanguage string) *ListPoliciesOptions {
+	_options.AcceptLanguage = core.StringPtr(acceptLanguage)
+	return _options
 }
 
 // SetIamID : Allow user to set IamID
-func (options *ListPoliciesOptions) SetIamID(iamID string) *ListPoliciesOptions {
-	options.IamID = core.StringPtr(iamID)
-	return options
+func (_options *ListPoliciesOptions) SetIamID(iamID string) *ListPoliciesOptions {
+	_options.IamID = core.StringPtr(iamID)
+	return _options
 }
 
 // SetAccessGroupID : Allow user to set AccessGroupID
-func (options *ListPoliciesOptions) SetAccessGroupID(accessGroupID string) *ListPoliciesOptions {
-	options.AccessGroupID = core.StringPtr(accessGroupID)
-	return options
+func (_options *ListPoliciesOptions) SetAccessGroupID(accessGroupID string) *ListPoliciesOptions {
+	_options.AccessGroupID = core.StringPtr(accessGroupID)
+	return _options
 }
 
 // SetType : Allow user to set Type
-func (options *ListPoliciesOptions) SetType(typeVar string) *ListPoliciesOptions {
-	options.Type = core.StringPtr(typeVar)
-	return options
+func (_options *ListPoliciesOptions) SetType(typeVar string) *ListPoliciesOptions {
+	_options.Type = core.StringPtr(typeVar)
+	return _options
 }
 
 // SetServiceType : Allow user to set ServiceType
-func (options *ListPoliciesOptions) SetServiceType(serviceType string) *ListPoliciesOptions {
-	options.ServiceType = core.StringPtr(serviceType)
-	return options
+func (_options *ListPoliciesOptions) SetServiceType(serviceType string) *ListPoliciesOptions {
+	_options.ServiceType = core.StringPtr(serviceType)
+	return _options
 }
 
 // SetTagName : Allow user to set TagName
-func (options *ListPoliciesOptions) SetTagName(tagName string) *ListPoliciesOptions {
-	options.TagName = core.StringPtr(tagName)
-	return options
+func (_options *ListPoliciesOptions) SetTagName(tagName string) *ListPoliciesOptions {
+	_options.TagName = core.StringPtr(tagName)
+	return _options
 }
 
 // SetTagValue : Allow user to set TagValue
-func (options *ListPoliciesOptions) SetTagValue(tagValue string) *ListPoliciesOptions {
-	options.TagValue = core.StringPtr(tagValue)
-	return options
+func (_options *ListPoliciesOptions) SetTagValue(tagValue string) *ListPoliciesOptions {
+	_options.TagValue = core.StringPtr(tagValue)
+	return _options
 }
 
 // SetSort : Allow user to set Sort
-func (options *ListPoliciesOptions) SetSort(sort string) *ListPoliciesOptions {
-	options.Sort = core.StringPtr(sort)
-	return options
+func (_options *ListPoliciesOptions) SetSort(sort string) *ListPoliciesOptions {
+	_options.Sort = core.StringPtr(sort)
+	return _options
 }
 
 // SetFormat : Allow user to set Format
-func (options *ListPoliciesOptions) SetFormat(format string) *ListPoliciesOptions {
-	options.Format = core.StringPtr(format)
-	return options
+func (_options *ListPoliciesOptions) SetFormat(format string) *ListPoliciesOptions {
+	_options.Format = core.StringPtr(format)
+	return _options
 }
 
 // SetState : Allow user to set State
-func (options *ListPoliciesOptions) SetState(state string) *ListPoliciesOptions {
-	options.State = core.StringPtr(state)
-	return options
+func (_options *ListPoliciesOptions) SetState(state string) *ListPoliciesOptions {
+	_options.State = core.StringPtr(state)
+	return _options
 }
 
 // SetHeaders : Allow user to set Headers
@@ -1363,14 +1499,31 @@ func (options *ListPoliciesOptions) SetHeaders(param map[string]string) *ListPol
 
 // ListRolesOptions : The ListRoles options.
 type ListRolesOptions struct {
-	// Translation language code.
-	AcceptLanguage *string
+	// Language code for translations
+	// * `default` - English
+	// * `de` -  German (Standard)
+	// * `en` - English
+	// * `es` - Spanish (Spain)
+	// * `fr` - French (Standard)
+	// * `it` - Italian (Standard)
+	// * `ja` - Japanese
+	// * `ko` - Korean
+	// * `pt-br` - Portuguese (Brazil)
+	// * `zh-cn` - Chinese (Simplified, PRC)
+	// * `zh-tw` - (Chinese, Taiwan).
+	AcceptLanguage *string `json:"Accept-Language,omitempty"`
 
-	// The account GUID in which the roles belong to.
-	AccountID *string
+	// Optional account GUID in which the roles belong to.
+	AccountID *string `json:"account_id,omitempty"`
 
-	// The name of service.
-	ServiceName *string
+	// Optional name of IAM enabled service.
+	ServiceName *string `json:"service_name,omitempty"`
+
+	// Optional name of source IAM enabled service.
+	SourceServiceName *string `json:"source_service_name,omitempty"`
+
+	// Optional Policy Type.
+	PolicyType *string `json:"policy_type,omitempty"`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -1382,21 +1535,33 @@ func (*IamPolicyManagementV1) NewListRolesOptions() *ListRolesOptions {
 }
 
 // SetAcceptLanguage : Allow user to set AcceptLanguage
-func (options *ListRolesOptions) SetAcceptLanguage(acceptLanguage string) *ListRolesOptions {
-	options.AcceptLanguage = core.StringPtr(acceptLanguage)
-	return options
+func (_options *ListRolesOptions) SetAcceptLanguage(acceptLanguage string) *ListRolesOptions {
+	_options.AcceptLanguage = core.StringPtr(acceptLanguage)
+	return _options
 }
 
 // SetAccountID : Allow user to set AccountID
-func (options *ListRolesOptions) SetAccountID(accountID string) *ListRolesOptions {
-	options.AccountID = core.StringPtr(accountID)
-	return options
+func (_options *ListRolesOptions) SetAccountID(accountID string) *ListRolesOptions {
+	_options.AccountID = core.StringPtr(accountID)
+	return _options
 }
 
 // SetServiceName : Allow user to set ServiceName
-func (options *ListRolesOptions) SetServiceName(serviceName string) *ListRolesOptions {
-	options.ServiceName = core.StringPtr(serviceName)
-	return options
+func (_options *ListRolesOptions) SetServiceName(serviceName string) *ListRolesOptions {
+	_options.ServiceName = core.StringPtr(serviceName)
+	return _options
+}
+
+// SetSourceServiceName : Allow user to set SourceServiceName
+func (_options *ListRolesOptions) SetSourceServiceName(sourceServiceName string) *ListRolesOptions {
+	_options.SourceServiceName = core.StringPtr(sourceServiceName)
+	return _options
+}
+
+// SetPolicyType : Allow user to set PolicyType
+func (_options *ListRolesOptions) SetPolicyType(policyType string) *ListRolesOptions {
+	_options.PolicyType = core.StringPtr(policyType)
+	return _options
 }
 
 // SetHeaders : Allow user to set Headers
@@ -1408,18 +1573,25 @@ func (options *ListRolesOptions) SetHeaders(param map[string]string) *ListRolesO
 // PatchPolicyOptions : The PatchPolicy options.
 type PatchPolicyOptions struct {
 	// The policy ID.
-	PolicyID *string `validate:"required,ne="`
+	PolicyID *string `json:"policy_id" validate:"required,ne="`
 
 	// The revision number for updating a policy and must match the ETag value of the existing policy. The Etag can be
 	// retrieved using the GET /v1/policies/{policy_id} API and looking at the ETag response header.
-	IfMatch *string `validate:"required"`
+	IfMatch *string `json:"If-Match" validate:"required"`
 
-	// The policy state; either 'active' or 'deleted'.
-	State *string
+	// The policy state.
+	State *string `json:"state,omitempty"`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
 }
+
+// Constants associated with the PatchPolicyOptions.State property.
+// The policy state.
+const (
+	PatchPolicyOptionsStateActiveConst = "active"
+	PatchPolicyOptionsStateDeletedConst = "deleted"
+)
 
 // NewPatchPolicyOptions : Instantiate PatchPolicyOptions
 func (*IamPolicyManagementV1) NewPatchPolicyOptions(policyID string, ifMatch string) *PatchPolicyOptions {
@@ -1430,21 +1602,21 @@ func (*IamPolicyManagementV1) NewPatchPolicyOptions(policyID string, ifMatch str
 }
 
 // SetPolicyID : Allow user to set PolicyID
-func (options *PatchPolicyOptions) SetPolicyID(policyID string) *PatchPolicyOptions {
-	options.PolicyID = core.StringPtr(policyID)
-	return options
+func (_options *PatchPolicyOptions) SetPolicyID(policyID string) *PatchPolicyOptions {
+	_options.PolicyID = core.StringPtr(policyID)
+	return _options
 }
 
 // SetIfMatch : Allow user to set IfMatch
-func (options *PatchPolicyOptions) SetIfMatch(ifMatch string) *PatchPolicyOptions {
-	options.IfMatch = core.StringPtr(ifMatch)
-	return options
+func (_options *PatchPolicyOptions) SetIfMatch(ifMatch string) *PatchPolicyOptions {
+	_options.IfMatch = core.StringPtr(ifMatch)
+	return _options
 }
 
 // SetState : Allow user to set State
-func (options *PatchPolicyOptions) SetState(state string) *PatchPolicyOptions {
-	options.State = core.StringPtr(state)
-	return options
+func (_options *PatchPolicyOptions) SetState(state string) *PatchPolicyOptions {
+	_options.State = core.StringPtr(state)
+	return _options
 }
 
 // SetHeaders : Allow user to set Headers
@@ -1456,26 +1628,26 @@ func (options *PatchPolicyOptions) SetHeaders(param map[string]string) *PatchPol
 // UpdatePolicyOptions : The UpdatePolicy options.
 type UpdatePolicyOptions struct {
 	// The policy ID.
-	PolicyID *string `validate:"required,ne="`
+	PolicyID *string `json:"policy_id" validate:"required,ne="`
 
 	// The revision number for updating a policy and must match the ETag value of the existing policy. The Etag can be
 	// retrieved using the GET /v1/policies/{policy_id} API and looking at the ETag response header.
-	IfMatch *string `validate:"required"`
+	IfMatch *string `json:"If-Match" validate:"required"`
 
 	// The policy type; either 'access' or 'authorization'.
-	Type *string `validate:"required"`
+	Type *string `json:"type" validate:"required"`
 
 	// The subjects associated with a policy.
-	Subjects []PolicySubject `validate:"required"`
+	Subjects []PolicySubject `json:"subjects" validate:"required"`
 
 	// A set of role cloud resource names (CRNs) granted by the policy.
-	Roles []PolicyRole `validate:"required"`
+	Roles []PolicyRole `json:"roles" validate:"required"`
 
 	// The resources associated with a policy.
-	Resources []PolicyResource `validate:"required"`
+	Resources []PolicyResource `json:"resources" validate:"required"`
 
 	// Customer-defined description.
-	Description *string
+	Description *string `json:"description,omitempty"`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -1494,45 +1666,45 @@ func (*IamPolicyManagementV1) NewUpdatePolicyOptions(policyID string, ifMatch st
 }
 
 // SetPolicyID : Allow user to set PolicyID
-func (options *UpdatePolicyOptions) SetPolicyID(policyID string) *UpdatePolicyOptions {
-	options.PolicyID = core.StringPtr(policyID)
-	return options
+func (_options *UpdatePolicyOptions) SetPolicyID(policyID string) *UpdatePolicyOptions {
+	_options.PolicyID = core.StringPtr(policyID)
+	return _options
 }
 
 // SetIfMatch : Allow user to set IfMatch
-func (options *UpdatePolicyOptions) SetIfMatch(ifMatch string) *UpdatePolicyOptions {
-	options.IfMatch = core.StringPtr(ifMatch)
-	return options
+func (_options *UpdatePolicyOptions) SetIfMatch(ifMatch string) *UpdatePolicyOptions {
+	_options.IfMatch = core.StringPtr(ifMatch)
+	return _options
 }
 
 // SetType : Allow user to set Type
-func (options *UpdatePolicyOptions) SetType(typeVar string) *UpdatePolicyOptions {
-	options.Type = core.StringPtr(typeVar)
-	return options
+func (_options *UpdatePolicyOptions) SetType(typeVar string) *UpdatePolicyOptions {
+	_options.Type = core.StringPtr(typeVar)
+	return _options
 }
 
 // SetSubjects : Allow user to set Subjects
-func (options *UpdatePolicyOptions) SetSubjects(subjects []PolicySubject) *UpdatePolicyOptions {
-	options.Subjects = subjects
-	return options
+func (_options *UpdatePolicyOptions) SetSubjects(subjects []PolicySubject) *UpdatePolicyOptions {
+	_options.Subjects = subjects
+	return _options
 }
 
 // SetRoles : Allow user to set Roles
-func (options *UpdatePolicyOptions) SetRoles(roles []PolicyRole) *UpdatePolicyOptions {
-	options.Roles = roles
-	return options
+func (_options *UpdatePolicyOptions) SetRoles(roles []PolicyRole) *UpdatePolicyOptions {
+	_options.Roles = roles
+	return _options
 }
 
 // SetResources : Allow user to set Resources
-func (options *UpdatePolicyOptions) SetResources(resources []PolicyResource) *UpdatePolicyOptions {
-	options.Resources = resources
-	return options
+func (_options *UpdatePolicyOptions) SetResources(resources []PolicyResource) *UpdatePolicyOptions {
+	_options.Resources = resources
+	return _options
 }
 
 // SetDescription : Allow user to set Description
-func (options *UpdatePolicyOptions) SetDescription(description string) *UpdatePolicyOptions {
-	options.Description = core.StringPtr(description)
-	return options
+func (_options *UpdatePolicyOptions) SetDescription(description string) *UpdatePolicyOptions {
+	_options.Description = core.StringPtr(description)
+	return _options
 }
 
 // SetHeaders : Allow user to set Headers
@@ -1544,20 +1716,21 @@ func (options *UpdatePolicyOptions) SetHeaders(param map[string]string) *UpdateP
 // UpdateRoleOptions : The UpdateRole options.
 type UpdateRoleOptions struct {
 	// The role ID.
-	RoleID *string `validate:"required,ne="`
+	RoleID *string `json:"role_id" validate:"required,ne="`
 
 	// The revision number for updating a role and must match the ETag value of the existing role. The Etag can be
 	// retrieved using the GET /v2/roles/{role_id} API and looking at the ETag response header.
-	IfMatch *string `validate:"required"`
+	IfMatch *string `json:"If-Match" validate:"required"`
 
 	// The display name of the role that is shown in the console.
-	DisplayName *string
+	DisplayName *string `json:"display_name,omitempty"`
 
 	// The description of the role.
-	Description *string
+	Description *string `json:"description,omitempty"`
 
-	// The actions of the role.
-	Actions []string
+	// The actions of the role. Please refer to [IAM roles and
+	// actions](https://cloud.ibm.com/docs/account?topic=account-iam-service-roles-actions).
+	Actions []string `json:"actions,omitempty"`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -1572,33 +1745,33 @@ func (*IamPolicyManagementV1) NewUpdateRoleOptions(roleID string, ifMatch string
 }
 
 // SetRoleID : Allow user to set RoleID
-func (options *UpdateRoleOptions) SetRoleID(roleID string) *UpdateRoleOptions {
-	options.RoleID = core.StringPtr(roleID)
-	return options
+func (_options *UpdateRoleOptions) SetRoleID(roleID string) *UpdateRoleOptions {
+	_options.RoleID = core.StringPtr(roleID)
+	return _options
 }
 
 // SetIfMatch : Allow user to set IfMatch
-func (options *UpdateRoleOptions) SetIfMatch(ifMatch string) *UpdateRoleOptions {
-	options.IfMatch = core.StringPtr(ifMatch)
-	return options
+func (_options *UpdateRoleOptions) SetIfMatch(ifMatch string) *UpdateRoleOptions {
+	_options.IfMatch = core.StringPtr(ifMatch)
+	return _options
 }
 
 // SetDisplayName : Allow user to set DisplayName
-func (options *UpdateRoleOptions) SetDisplayName(displayName string) *UpdateRoleOptions {
-	options.DisplayName = core.StringPtr(displayName)
-	return options
+func (_options *UpdateRoleOptions) SetDisplayName(displayName string) *UpdateRoleOptions {
+	_options.DisplayName = core.StringPtr(displayName)
+	return _options
 }
 
 // SetDescription : Allow user to set Description
-func (options *UpdateRoleOptions) SetDescription(description string) *UpdateRoleOptions {
-	options.Description = core.StringPtr(description)
-	return options
+func (_options *UpdateRoleOptions) SetDescription(description string) *UpdateRoleOptions {
+	_options.Description = core.StringPtr(description)
+	return _options
 }
 
 // SetActions : Allow user to set Actions
-func (options *UpdateRoleOptions) SetActions(actions []string) *UpdateRoleOptions {
-	options.Actions = actions
-	return options
+func (_options *UpdateRoleOptions) SetActions(actions []string) *UpdateRoleOptions {
+	_options.Actions = actions
+	return _options
 }
 
 // SetHeaders : Allow user to set Headers
@@ -1609,7 +1782,7 @@ func (options *UpdateRoleOptions) SetHeaders(param map[string]string) *UpdateRol
 
 // CustomRole : An additional set of properties associated with a role.
 type CustomRole struct {
-	// The role ID.
+	// The role ID. Composed of hexadecimal characters.
 	ID *string `json:"id,omitempty"`
 
 	// The display name of the role that is shown in the console.
@@ -1618,10 +1791,12 @@ type CustomRole struct {
 	// The description of the role.
 	Description *string `json:"description,omitempty"`
 
-	// The actions of the role.
+	// The actions of the role. Please refer to [IAM roles and
+	// actions](https://cloud.ibm.com/docs/account?topic=account-iam-service-roles-actions).
 	Actions []string `json:"actions,omitempty"`
 
-	// The role CRN.
+	// The role Cloud Resource Name (CRN). Example CRN:
+	// 'crn:v1:ibmcloud:public:iam-access-management::a/exampleAccountId::customRole:ExampleRoleName'.
 	CRN *string `json:"crn,omitempty"`
 
 	// The name of the role that is used in the CRN. Can only be alphanumeric and has to be capitalized.
@@ -1743,9 +1918,16 @@ type Policy struct {
 	// The iam ID of the entity that last modified the policy.
 	LastModifiedByID *string `json:"last_modified_by_id,omitempty"`
 
-	// The policy state; either 'active' or 'deleted'.
+	// The policy state.
 	State *string `json:"state,omitempty"`
 }
+
+// Constants associated with the Policy.State property.
+// The policy state.
+const (
+	PolicyStateActiveConst = "active"
+	PolicyStateDeletedConst = "deleted"
+)
 
 // UnmarshalPolicy unmarshals an instance of Policy from the specified map of raw messages.
 func UnmarshalPolicy(m map[string]json.RawMessage, result interface{}) (err error) {
@@ -1845,7 +2027,7 @@ func UnmarshalPolicyResource(m map[string]json.RawMessage, result interface{}) (
 
 // PolicyRole : A role associated with a policy.
 type PolicyRole struct {
-	// The role cloud resource name granted by the policy.
+	// The role Cloud Resource Name (CRN) granted by the policy. Example CRN: 'crn:v1:bluemix:public:iam::::role:Editor'.
 	RoleID *string `json:"role_id" validate:"required"`
 
 	// The display name of the role.
@@ -1856,11 +2038,11 @@ type PolicyRole struct {
 }
 
 // NewPolicyRole : Instantiate PolicyRole (Generic Model Constructor)
-func (*IamPolicyManagementV1) NewPolicyRole(roleID string) (model *PolicyRole, err error) {
-	model = &PolicyRole{
+func (*IamPolicyManagementV1) NewPolicyRole(roleID string) (_model *PolicyRole, err error) {
+	_model = &PolicyRole{
 		RoleID: core.StringPtr(roleID),
 	}
-	err = core.ValidateStruct(model, "required parameters")
+	err = core.ValidateStruct(_model, "required parameters")
 	return
 }
 
@@ -1913,12 +2095,12 @@ type ResourceAttribute struct {
 }
 
 // NewResourceAttribute : Instantiate ResourceAttribute (Generic Model Constructor)
-func (*IamPolicyManagementV1) NewResourceAttribute(name string, value string) (model *ResourceAttribute, err error) {
-	model = &ResourceAttribute{
+func (*IamPolicyManagementV1) NewResourceAttribute(name string, value string) (_model *ResourceAttribute, err error) {
+	_model = &ResourceAttribute{
 		Name: core.StringPtr(name),
 		Value: core.StringPtr(value),
 	}
-	err = core.ValidateStruct(model, "required parameters")
+	err = core.ValidateStruct(_model, "required parameters")
 	return
 }
 
@@ -1954,12 +2136,12 @@ type ResourceTag struct {
 }
 
 // NewResourceTag : Instantiate ResourceTag (Generic Model Constructor)
-func (*IamPolicyManagementV1) NewResourceTag(name string, value string) (model *ResourceTag, err error) {
-	model = &ResourceTag{
+func (*IamPolicyManagementV1) NewResourceTag(name string, value string) (_model *ResourceTag, err error) {
+	_model = &ResourceTag{
 		Name: core.StringPtr(name),
 		Value: core.StringPtr(value),
 	}
-	err = core.ValidateStruct(model, "required parameters")
+	err = core.ValidateStruct(_model, "required parameters")
 	return
 }
 
@@ -1990,10 +2172,12 @@ type Role struct {
 	// The description of the role.
 	Description *string `json:"description,omitempty"`
 
-	// The actions of the role.
+	// The actions of the role. Please refer to [IAM roles and
+	// actions](https://cloud.ibm.com/docs/account?topic=account-iam-service-roles-actions).
 	Actions []string `json:"actions,omitempty"`
 
-	// The role CRN.
+	// The role Cloud Resource Name (CRN). Example CRN:
+	// 'crn:v1:ibmcloud:public:iam-access-management::a/exampleAccountId::customRole:ExampleRoleName'.
 	CRN *string `json:"crn,omitempty"`
 }
 
@@ -2061,12 +2245,12 @@ type SubjectAttribute struct {
 }
 
 // NewSubjectAttribute : Instantiate SubjectAttribute (Generic Model Constructor)
-func (*IamPolicyManagementV1) NewSubjectAttribute(name string, value string) (model *SubjectAttribute, err error) {
-	model = &SubjectAttribute{
+func (*IamPolicyManagementV1) NewSubjectAttribute(name string, value string) (_model *SubjectAttribute, err error) {
+	_model = &SubjectAttribute{
 		Name: core.StringPtr(name),
 		Value: core.StringPtr(value),
 	}
-	err = core.ValidateStruct(model, "required parameters")
+	err = core.ValidateStruct(_model, "required parameters")
 	return
 }
 
