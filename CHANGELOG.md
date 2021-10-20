@@ -1,3 +1,10 @@
+# [0.22.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.21.0...v0.22.0) (2021-10-20)
+
+
+### Features
+
+* **IAM Policy Management:** support of new query params for v2/roles ([#156](https://github.com/IBM/platform-services-go-sdk/issues/156)) ([770827d](https://github.com/IBM/platform-services-go-sdk/commit/770827da59cfd1b888a6aa1dba11d3d83a1f89d7))
+
 # [0.21.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.20.1...v0.21.0) (2021-10-01)
 
 
