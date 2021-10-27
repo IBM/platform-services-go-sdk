@@ -1,3 +1,10 @@
+## [0.22.2](https://github.com/IBM/platform-services-go-sdk/compare/v0.22.1...v0.22.2) (2021-10-27)
+
+
+### Bug Fixes
+
+* **Resource Manager:** update resource manager endpoint URL ([#158](https://github.com/IBM/platform-services-go-sdk/issues/158)) ([96d5153](https://github.com/IBM/platform-services-go-sdk/commit/96d5153a1a4faa5987c41f278e45ed8ce5d81cd1))
+
 ## [0.22.1](https://github.com/IBM/platform-services-go-sdk/compare/v0.22.0...v0.22.1) (2021-10-27)
 
 
