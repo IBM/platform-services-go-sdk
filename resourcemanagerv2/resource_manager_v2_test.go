@@ -67,13 +67,14 @@ var _ = Describe(`ResourceManagerV2`, func() {
 		Context(`Using external config, construct service client instances`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"RESOURCE_MANAGER_URL":       "https://resourcemanagerv2/api",
+				"RESOURCE_MANAGER_URL": "https://resourcemanagerv2/api",
 				"RESOURCE_MANAGER_AUTH_TYPE": "noauth",
 			}
 
 			It(`Create service client using external config successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				resourceManagerService, serviceErr := resourcemanagerv2.NewResourceManagerV2UsingExternalConfig(&resourcemanagerv2.ResourceManagerV2Options{})
+				resourceManagerService, serviceErr := resourcemanagerv2.NewResourceManagerV2UsingExternalConfig(&resourcemanagerv2.ResourceManagerV2Options{
+				})
 				Expect(resourceManagerService).ToNot(BeNil())
 				Expect(serviceErr).To(BeNil())
 				ClearTestEnvironment(testEnvironment)
@@ -102,7 +103,8 @@ var _ = Describe(`ResourceManagerV2`, func() {
 			})
 			It(`Create service client using external config and set url programatically successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				resourceManagerService, serviceErr := resourcemanagerv2.NewResourceManagerV2UsingExternalConfig(&resourcemanagerv2.ResourceManagerV2Options{})
+				resourceManagerService, serviceErr := resourcemanagerv2.NewResourceManagerV2UsingExternalConfig(&resourcemanagerv2.ResourceManagerV2Options{
+				})
 				err := resourceManagerService.SetServiceURL("https://testService/api")
 				Expect(err).To(BeNil())
 				Expect(resourceManagerService).ToNot(BeNil())
@@ -120,12 +122,13 @@ var _ = Describe(`ResourceManagerV2`, func() {
 		Context(`Using external config, construct service client instances with error: Invalid Auth`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"RESOURCE_MANAGER_URL":       "https://resourcemanagerv2/api",
+				"RESOURCE_MANAGER_URL": "https://resourcemanagerv2/api",
 				"RESOURCE_MANAGER_AUTH_TYPE": "someOtherAuth",
 			}
 
 			SetTestEnvironment(testEnvironment)
-			resourceManagerService, serviceErr := resourcemanagerv2.NewResourceManagerV2UsingExternalConfig(&resourcemanagerv2.ResourceManagerV2Options{})
+			resourceManagerService, serviceErr := resourcemanagerv2.NewResourceManagerV2UsingExternalConfig(&resourcemanagerv2.ResourceManagerV2Options{
+			})
 
 			It(`Instantiate service client with error`, func() {
 				Expect(resourceManagerService).To(BeNil())
@@ -136,7 +139,7 @@ var _ = Describe(`ResourceManagerV2`, func() {
 		Context(`Using external config, construct service client instances with error: Invalid URL`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"RESOURCE_MANAGER_AUTH_TYPE": "NOAuth",
+				"RESOURCE_MANAGER_AUTH_TYPE":   "NOAuth",
 			}
 
 			SetTestEnvironment(testEnvironment)
@@ -162,8 +165,8 @@ var _ = Describe(`ResourceManagerV2`, func() {
 		})
 	})
 	Describe(`ListResourceGroups(listResourceGroupsOptions *ListResourceGroupsOptions) - Operation response error`, func() {
-		listResourceGroupsPath := "/resource_groups"
-		Context(`Using mock server endpoint`, func() {
+		listResourceGroupsPath := "/v2/resource_groups"
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
@@ -215,9 +218,8 @@ var _ = Describe(`ResourceManagerV2`, func() {
 			})
 		})
 	})
-
 	Describe(`ListResourceGroups(listResourceGroupsOptions *ListResourceGroupsOptions)`, func() {
-		listResourceGroupsPath := "/resource_groups"
+		listResourceGroupsPath := "/v2/resource_groups"
 		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
@@ -363,10 +365,48 @@ var _ = Describe(`ResourceManagerV2`, func() {
 				testServer.Close()
 			})
 		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke ListResourceGroups successfully`, func() {
+				resourceManagerService, serviceErr := resourcemanagerv2.NewResourceManagerV2(&resourcemanagerv2.ResourceManagerV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(resourceManagerService).ToNot(BeNil())
+
+				// Construct an instance of the ListResourceGroupsOptions model
+				listResourceGroupsOptionsModel := new(resourcemanagerv2.ListResourceGroupsOptions)
+				listResourceGroupsOptionsModel.AccountID = core.StringPtr("testString")
+				listResourceGroupsOptionsModel.Date = core.StringPtr("testString")
+				listResourceGroupsOptionsModel.Name = core.StringPtr("testString")
+				listResourceGroupsOptionsModel.Default = core.BoolPtr(true)
+				listResourceGroupsOptionsModel.IncludeDeleted = core.BoolPtr(true)
+				listResourceGroupsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := resourceManagerService.ListResourceGroups(listResourceGroupsOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
 	})
 	Describe(`CreateResourceGroup(createResourceGroupOptions *CreateResourceGroupOptions) - Operation response error`, func() {
-		createResourceGroupPath := "/resource_groups"
-		Context(`Using mock server endpoint`, func() {
+		createResourceGroupPath := "/v2/resource_groups"
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
@@ -410,9 +450,8 @@ var _ = Describe(`ResourceManagerV2`, func() {
 			})
 		})
 	})
-
 	Describe(`CreateResourceGroup(createResourceGroupOptions *CreateResourceGroupOptions)`, func() {
-		createResourceGroupPath := "/resource_groups"
+		createResourceGroupPath := "/v2/resource_groups"
 		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
@@ -571,10 +610,45 @@ var _ = Describe(`ResourceManagerV2`, func() {
 				testServer.Close()
 			})
 		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(201)
+				}))
+			})
+			It(`Invoke CreateResourceGroup successfully`, func() {
+				resourceManagerService, serviceErr := resourcemanagerv2.NewResourceManagerV2(&resourcemanagerv2.ResourceManagerV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(resourceManagerService).ToNot(BeNil())
+
+				// Construct an instance of the CreateResourceGroupOptions model
+				createResourceGroupOptionsModel := new(resourcemanagerv2.CreateResourceGroupOptions)
+				createResourceGroupOptionsModel.Name = core.StringPtr("test1")
+				createResourceGroupOptionsModel.AccountID = core.StringPtr("25eba2a9-beef-450b-82cf-f5ad5e36c6dd")
+				createResourceGroupOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := resourceManagerService.CreateResourceGroup(createResourceGroupOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
 	})
 	Describe(`GetResourceGroup(getResourceGroupOptions *GetResourceGroupOptions) - Operation response error`, func() {
-		getResourceGroupPath := "/resource_groups/testString"
-		Context(`Using mock server endpoint`, func() {
+		getResourceGroupPath := "/v2/resource_groups/testString"
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
@@ -617,9 +691,8 @@ var _ = Describe(`ResourceManagerV2`, func() {
 			})
 		})
 	})
-
 	Describe(`GetResourceGroup(getResourceGroupOptions *GetResourceGroupOptions)`, func() {
-		getResourceGroupPath := "/resource_groups/testString"
+		getResourceGroupPath := "/v2/resource_groups/testString"
 		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
@@ -750,10 +823,44 @@ var _ = Describe(`ResourceManagerV2`, func() {
 				testServer.Close()
 			})
 		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke GetResourceGroup successfully`, func() {
+				resourceManagerService, serviceErr := resourcemanagerv2.NewResourceManagerV2(&resourcemanagerv2.ResourceManagerV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(resourceManagerService).ToNot(BeNil())
+
+				// Construct an instance of the GetResourceGroupOptions model
+				getResourceGroupOptionsModel := new(resourcemanagerv2.GetResourceGroupOptions)
+				getResourceGroupOptionsModel.ID = core.StringPtr("testString")
+				getResourceGroupOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := resourceManagerService.GetResourceGroup(getResourceGroupOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
 	})
 	Describe(`UpdateResourceGroup(updateResourceGroupOptions *UpdateResourceGroupOptions) - Operation response error`, func() {
-		updateResourceGroupPath := "/resource_groups/testString"
-		Context(`Using mock server endpoint`, func() {
+		updateResourceGroupPath := "/v2/resource_groups/testString"
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
@@ -798,9 +905,8 @@ var _ = Describe(`ResourceManagerV2`, func() {
 			})
 		})
 	})
-
 	Describe(`UpdateResourceGroup(updateResourceGroupOptions *UpdateResourceGroupOptions)`, func() {
-		updateResourceGroupPath := "/resource_groups/testString"
+		updateResourceGroupPath := "/v2/resource_groups/testString"
 		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
@@ -969,10 +1075,45 @@ var _ = Describe(`ResourceManagerV2`, func() {
 				testServer.Close()
 			})
 		})
-	})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
 
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke UpdateResourceGroup successfully`, func() {
+				resourceManagerService, serviceErr := resourcemanagerv2.NewResourceManagerV2(&resourcemanagerv2.ResourceManagerV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(resourceManagerService).ToNot(BeNil())
+
+				// Construct an instance of the UpdateResourceGroupOptions model
+				updateResourceGroupOptionsModel := new(resourcemanagerv2.UpdateResourceGroupOptions)
+				updateResourceGroupOptionsModel.ID = core.StringPtr("testString")
+				updateResourceGroupOptionsModel.Name = core.StringPtr("testString")
+				updateResourceGroupOptionsModel.State = core.StringPtr("testString")
+				updateResourceGroupOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := resourceManagerService.UpdateResourceGroup(updateResourceGroupOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
 	Describe(`DeleteResourceGroup(deleteResourceGroupOptions *DeleteResourceGroupOptions)`, func() {
-		deleteResourceGroupPath := "/resource_groups/testString"
+		deleteResourceGroupPath := "/v2/resource_groups/testString"
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
@@ -1039,134 +1180,9 @@ var _ = Describe(`ResourceManagerV2`, func() {
 			})
 		})
 	})
-	Describe(`Service constructor tests`, func() {
-		It(`Instantiate service client`, func() {
-			resourceManagerService, serviceErr := resourcemanagerv2.NewResourceManagerV2(&resourcemanagerv2.ResourceManagerV2Options{
-				Authenticator: &core.NoAuthAuthenticator{},
-			})
-			Expect(resourceManagerService).ToNot(BeNil())
-			Expect(serviceErr).To(BeNil())
-		})
-		It(`Instantiate service client with error: Invalid URL`, func() {
-			resourceManagerService, serviceErr := resourcemanagerv2.NewResourceManagerV2(&resourcemanagerv2.ResourceManagerV2Options{
-				URL: "{BAD_URL_STRING",
-			})
-			Expect(resourceManagerService).To(BeNil())
-			Expect(serviceErr).ToNot(BeNil())
-		})
-		It(`Instantiate service client with error: Invalid Auth`, func() {
-			resourceManagerService, serviceErr := resourcemanagerv2.NewResourceManagerV2(&resourcemanagerv2.ResourceManagerV2Options{
-				URL: "https://resourcemanagerv2/api",
-				Authenticator: &core.BasicAuthenticator{
-					Username: "",
-					Password: "",
-				},
-			})
-			Expect(resourceManagerService).To(BeNil())
-			Expect(serviceErr).ToNot(BeNil())
-		})
-	})
-	Describe(`Service constructor tests using external config`, func() {
-		Context(`Using external config, construct service client instances`, func() {
-			// Map containing environment variables used in testing.
-			var testEnvironment = map[string]string{
-				"RESOURCE_MANAGER_URL":       "https://resourcemanagerv2/api",
-				"RESOURCE_MANAGER_AUTH_TYPE": "noauth",
-			}
-
-			It(`Create service client using external config successfully`, func() {
-				SetTestEnvironment(testEnvironment)
-				resourceManagerService, serviceErr := resourcemanagerv2.NewResourceManagerV2UsingExternalConfig(&resourcemanagerv2.ResourceManagerV2Options{})
-				Expect(resourceManagerService).ToNot(BeNil())
-				Expect(serviceErr).To(BeNil())
-				ClearTestEnvironment(testEnvironment)
-
-				clone := resourceManagerService.Clone()
-				Expect(clone).ToNot(BeNil())
-				Expect(clone.Service != resourceManagerService.Service).To(BeTrue())
-				Expect(clone.GetServiceURL()).To(Equal(resourceManagerService.GetServiceURL()))
-				Expect(clone.Service.Options.Authenticator).To(Equal(resourceManagerService.Service.Options.Authenticator))
-			})
-			It(`Create service client using external config and set url from constructor successfully`, func() {
-				SetTestEnvironment(testEnvironment)
-				resourceManagerService, serviceErr := resourcemanagerv2.NewResourceManagerV2UsingExternalConfig(&resourcemanagerv2.ResourceManagerV2Options{
-					URL: "https://testService/api",
-				})
-				Expect(resourceManagerService).ToNot(BeNil())
-				Expect(serviceErr).To(BeNil())
-				Expect(resourceManagerService.Service.GetServiceURL()).To(Equal("https://testService/api"))
-				ClearTestEnvironment(testEnvironment)
-
-				clone := resourceManagerService.Clone()
-				Expect(clone).ToNot(BeNil())
-				Expect(clone.Service != resourceManagerService.Service).To(BeTrue())
-				Expect(clone.GetServiceURL()).To(Equal(resourceManagerService.GetServiceURL()))
-				Expect(clone.Service.Options.Authenticator).To(Equal(resourceManagerService.Service.Options.Authenticator))
-			})
-			It(`Create service client using external config and set url programatically successfully`, func() {
-				SetTestEnvironment(testEnvironment)
-				resourceManagerService, serviceErr := resourcemanagerv2.NewResourceManagerV2UsingExternalConfig(&resourcemanagerv2.ResourceManagerV2Options{})
-				err := resourceManagerService.SetServiceURL("https://testService/api")
-				Expect(err).To(BeNil())
-				Expect(resourceManagerService).ToNot(BeNil())
-				Expect(serviceErr).To(BeNil())
-				Expect(resourceManagerService.Service.GetServiceURL()).To(Equal("https://testService/api"))
-				ClearTestEnvironment(testEnvironment)
-
-				clone := resourceManagerService.Clone()
-				Expect(clone).ToNot(BeNil())
-				Expect(clone.Service != resourceManagerService.Service).To(BeTrue())
-				Expect(clone.GetServiceURL()).To(Equal(resourceManagerService.GetServiceURL()))
-				Expect(clone.Service.Options.Authenticator).To(Equal(resourceManagerService.Service.Options.Authenticator))
-			})
-		})
-		Context(`Using external config, construct service client instances with error: Invalid Auth`, func() {
-			// Map containing environment variables used in testing.
-			var testEnvironment = map[string]string{
-				"RESOURCE_MANAGER_URL":       "https://resourcemanagerv2/api",
-				"RESOURCE_MANAGER_AUTH_TYPE": "someOtherAuth",
-			}
-
-			SetTestEnvironment(testEnvironment)
-			resourceManagerService, serviceErr := resourcemanagerv2.NewResourceManagerV2UsingExternalConfig(&resourcemanagerv2.ResourceManagerV2Options{})
-
-			It(`Instantiate service client with error`, func() {
-				Expect(resourceManagerService).To(BeNil())
-				Expect(serviceErr).ToNot(BeNil())
-				ClearTestEnvironment(testEnvironment)
-			})
-		})
-		Context(`Using external config, construct service client instances with error: Invalid URL`, func() {
-			// Map containing environment variables used in testing.
-			var testEnvironment = map[string]string{
-				"RESOURCE_MANAGER_AUTH_TYPE": "NOAuth",
-			}
-
-			SetTestEnvironment(testEnvironment)
-			resourceManagerService, serviceErr := resourcemanagerv2.NewResourceManagerV2UsingExternalConfig(&resourcemanagerv2.ResourceManagerV2Options{
-				URL: "{BAD_URL_STRING",
-			})
-
-			It(`Instantiate service client with error`, func() {
-				Expect(resourceManagerService).To(BeNil())
-				Expect(serviceErr).ToNot(BeNil())
-				ClearTestEnvironment(testEnvironment)
-			})
-		})
-	})
-	Describe(`Regional endpoint tests`, func() {
-		It(`GetServiceURLForRegion(region string)`, func() {
-			var url string
-			var err error
-			url, err = resourcemanagerv2.GetServiceURLForRegion("INVALID_REGION")
-			Expect(url).To(BeEmpty())
-			Expect(err).ToNot(BeNil())
-			fmt.Fprintf(GinkgoWriter, "Expected error: %s\n", err.Error())
-		})
-	})
 	Describe(`ListQuotaDefinitions(listQuotaDefinitionsOptions *ListQuotaDefinitionsOptions) - Operation response error`, func() {
-		listQuotaDefinitionsPath := "/quota_definitions"
-		Context(`Using mock server endpoint`, func() {
+		listQuotaDefinitionsPath := "/v2/quota_definitions"
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
@@ -1208,9 +1224,8 @@ var _ = Describe(`ResourceManagerV2`, func() {
 			})
 		})
 	})
-
 	Describe(`ListQuotaDefinitions(listQuotaDefinitionsOptions *ListQuotaDefinitionsOptions)`, func() {
-		listQuotaDefinitionsPath := "/quota_definitions"
+		listQuotaDefinitionsPath := "/v2/quota_definitions"
 		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
@@ -1331,10 +1346,43 @@ var _ = Describe(`ResourceManagerV2`, func() {
 				testServer.Close()
 			})
 		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke ListQuotaDefinitions successfully`, func() {
+				resourceManagerService, serviceErr := resourcemanagerv2.NewResourceManagerV2(&resourcemanagerv2.ResourceManagerV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(resourceManagerService).ToNot(BeNil())
+
+				// Construct an instance of the ListQuotaDefinitionsOptions model
+				listQuotaDefinitionsOptionsModel := new(resourcemanagerv2.ListQuotaDefinitionsOptions)
+				listQuotaDefinitionsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := resourceManagerService.ListQuotaDefinitions(listQuotaDefinitionsOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
 	})
 	Describe(`GetQuotaDefinition(getQuotaDefinitionOptions *GetQuotaDefinitionOptions) - Operation response error`, func() {
-		getQuotaDefinitionPath := "/quota_definitions/testString"
-		Context(`Using mock server endpoint`, func() {
+		getQuotaDefinitionPath := "/v2/quota_definitions/testString"
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
@@ -1377,9 +1425,8 @@ var _ = Describe(`ResourceManagerV2`, func() {
 			})
 		})
 	})
-
 	Describe(`GetQuotaDefinition(getQuotaDefinitionOptions *GetQuotaDefinitionOptions)`, func() {
-		getQuotaDefinitionPath := "/quota_definitions/testString"
+		getQuotaDefinitionPath := "/v2/quota_definitions/testString"
 		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
@@ -1510,6 +1557,40 @@ var _ = Describe(`ResourceManagerV2`, func() {
 				testServer.Close()
 			})
 		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke GetQuotaDefinition successfully`, func() {
+				resourceManagerService, serviceErr := resourcemanagerv2.NewResourceManagerV2(&resourcemanagerv2.ResourceManagerV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(resourceManagerService).ToNot(BeNil())
+
+				// Construct an instance of the GetQuotaDefinitionOptions model
+				getQuotaDefinitionOptionsModel := new(resourcemanagerv2.GetQuotaDefinitionOptions)
+				getQuotaDefinitionOptionsModel.ID = core.StringPtr("testString")
+				getQuotaDefinitionOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := resourceManagerService.GetQuotaDefinition(getQuotaDefinitionOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
 	})
 	Describe(`Model constructor tests`, func() {
 		Context(`Using a service client instance`, func() {
@@ -1612,11 +1693,11 @@ var _ = Describe(`ResourceManagerV2`, func() {
 			Expect(mockReader).ToNot(BeNil())
 		})
 		It(`Invoke CreateMockDate() successfully`, func() {
-			mockDate := CreateMockDate()
+			mockDate := CreateMockDate("2019-01-01")
 			Expect(mockDate).ToNot(BeNil())
 		})
 		It(`Invoke CreateMockDateTime() successfully`, func() {
-			mockDateTime := CreateMockDateTime()
+			mockDateTime := CreateMockDateTime("2019-01-01T12:00:00.000Z")
 			Expect(mockDateTime).ToNot(BeNil())
 		})
 	})
@@ -1641,13 +1722,19 @@ func CreateMockReader(mockData string) io.ReadCloser {
 	return ioutil.NopCloser(bytes.NewReader([]byte(mockData)))
 }
 
-func CreateMockDate() *strfmt.Date {
-	d := strfmt.Date(time.Date(2009, time.November, 10, 23, 0, 0, 0, time.UTC))
+func CreateMockDate(mockData string) *strfmt.Date {
+	d, err := core.ParseDate(mockData)
+	if err != nil {
+		return nil
+	}
 	return &d
 }
 
-func CreateMockDateTime() *strfmt.DateTime {
-	d := strfmt.DateTime(time.Date(2009, time.November, 10, 23, 0, 0, 0, time.UTC))
+func CreateMockDateTime(mockData string) *strfmt.DateTime {
+	d, err := core.ParseDateTime(mockData)
+	if err != nil {
+		return nil
+	}
 	return &d
 }
 
