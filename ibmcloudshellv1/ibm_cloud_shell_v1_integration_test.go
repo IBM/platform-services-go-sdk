@@ -20,7 +20,9 @@ package ibmcloudshellv1_test
 
 import (
 	"fmt"
+	"log"
 	"os"
+	"time"
 
 	"github.com/IBM/go-sdk-core/v5/core"
 	"github.com/IBM/platform-services-go-sdk/ibmcloudshellv1"
@@ -91,6 +93,10 @@ var _ = Describe(`IBMCloudShellV1 Integration Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(ibmCloudShellService).ToNot(BeNil())
 			Expect(ibmCloudShellService.Service.Options.URL).To(Equal(serviceURL))
+
+			goLogger := log.New(GinkgoWriter, "", log.LstdFlags)
+			core.SetLogger(core.NewLogger(core.LevelDebug, goLogger, goLogger))
+			ibmCloudShellService.EnableRetries(4, 30*time.Second)
 		})
 	})
 
