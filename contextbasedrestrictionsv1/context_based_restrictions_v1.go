@@ -35,11 +35,11 @@ import (
 )
 
 // ContextBasedRestrictionsV1 : With the Context Based Restrictions API, you can:
-// * Create, list, get, update, and delete network zones
-// * Create, list, get, update, and delete context-based restriction rules
+// * Create, list, get, replace, and delete network zones
+// * Create, list, get, replace, and delete context-based restriction rules
 // * Get account settings
 //
-// API Version: 1.0.0
+// API Version: 1.0.1
 type ContextBasedRestrictionsV1 struct {
 	Service *core.BaseService
 }
@@ -163,7 +163,7 @@ func (contextBasedRestrictions *ContextBasedRestrictionsV1) DisableRetries() {
 	contextBasedRestrictions.Service.DisableRetries()
 }
 
-// CreateZone : Create a zone
+// CreateZone : Create a network zone
 // This operation creates a network zone for the specified account.
 func (contextBasedRestrictions *ContextBasedRestrictionsV1) CreateZone(createZoneOptions *CreateZoneOptions) (result *Zone, response *core.DetailedResponse, err error) {
 	return contextBasedRestrictions.CreateZoneWithContext(context.Background(), createZoneOptions)
@@ -194,6 +194,9 @@ func (contextBasedRestrictions *ContextBasedRestrictionsV1) CreateZoneWithContex
 	}
 	builder.AddHeader("Accept", "application/json")
 	builder.AddHeader("Content-Type", "application/json")
+	if createZoneOptions.XCorrelationID != nil {
+		builder.AddHeader("X-Correlation-Id", fmt.Sprint(*createZoneOptions.XCorrelationID))
+	}
 	if createZoneOptions.TransactionID != nil {
 		builder.AddHeader("Transaction-Id", fmt.Sprint(*createZoneOptions.TransactionID))
 	}
@@ -274,6 +277,9 @@ func (contextBasedRestrictions *ContextBasedRestrictionsV1) ListZonesWithContext
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
+	if listZonesOptions.XCorrelationID != nil {
+		builder.AddHeader("X-Correlation-Id", fmt.Sprint(*listZonesOptions.XCorrelationID))
+	}
 	if listZonesOptions.TransactionID != nil {
 		builder.AddHeader("Transaction-Id", fmt.Sprint(*listZonesOptions.TransactionID))
 	}
@@ -307,8 +313,8 @@ func (contextBasedRestrictions *ContextBasedRestrictionsV1) ListZonesWithContext
 	return
 }
 
-// GetZone : Get the specified network zone
-// This operation returns the network zone for the specified ID.
+// GetZone : Get a network zone
+// This operation retrieves the network zone identified by the specified zone ID.
 func (contextBasedRestrictions *ContextBasedRestrictionsV1) GetZone(getZoneOptions *GetZoneOptions) (result *Zone, response *core.DetailedResponse, err error) {
 	return contextBasedRestrictions.GetZoneWithContext(context.Background(), getZoneOptions)
 }
@@ -345,6 +351,9 @@ func (contextBasedRestrictions *ContextBasedRestrictionsV1) GetZoneWithContext(c
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
+	if getZoneOptions.XCorrelationID != nil {
+		builder.AddHeader("X-Correlation-Id", fmt.Sprint(*getZoneOptions.XCorrelationID))
+	}
 	if getZoneOptions.TransactionID != nil {
 		builder.AddHeader("Transaction-Id", fmt.Sprint(*getZoneOptions.TransactionID))
 	}
@@ -370,8 +379,9 @@ func (contextBasedRestrictions *ContextBasedRestrictionsV1) GetZoneWithContext(c
 	return
 }
 
-// ReplaceZone : Update the specified network zone
-// This operation updates the network zone with the specified ID.
+// ReplaceZone : Replace a network zone
+// This operation replaces the network zone identified by the specified zone ID. Partial updates are not supported. The
+// entire network zone object must be replaced.
 func (contextBasedRestrictions *ContextBasedRestrictionsV1) ReplaceZone(replaceZoneOptions *ReplaceZoneOptions) (result *Zone, response *core.DetailedResponse, err error) {
 	return contextBasedRestrictions.ReplaceZoneWithContext(context.Background(), replaceZoneOptions)
 }
@@ -411,6 +421,9 @@ func (contextBasedRestrictions *ContextBasedRestrictionsV1) ReplaceZoneWithConte
 	builder.AddHeader("Content-Type", "application/json")
 	if replaceZoneOptions.IfMatch != nil {
 		builder.AddHeader("If-Match", fmt.Sprint(*replaceZoneOptions.IfMatch))
+	}
+	if replaceZoneOptions.XCorrelationID != nil {
+		builder.AddHeader("X-Correlation-Id", fmt.Sprint(*replaceZoneOptions.XCorrelationID))
 	}
 	if replaceZoneOptions.TransactionID != nil {
 		builder.AddHeader("Transaction-Id", fmt.Sprint(*replaceZoneOptions.TransactionID))
@@ -458,8 +471,8 @@ func (contextBasedRestrictions *ContextBasedRestrictionsV1) ReplaceZoneWithConte
 	return
 }
 
-// DeleteZone : Delete the specified network zone
-// This operation deletes the network zone with the specified home ID.
+// DeleteZone : Delete a network zone
+// This operation deletes the network zone identified by the specified zone ID.
 func (contextBasedRestrictions *ContextBasedRestrictionsV1) DeleteZone(deleteZoneOptions *DeleteZoneOptions) (response *core.DetailedResponse, err error) {
 	return contextBasedRestrictions.DeleteZoneWithContext(context.Background(), deleteZoneOptions)
 }
@@ -494,6 +507,9 @@ func (contextBasedRestrictions *ContextBasedRestrictionsV1) DeleteZoneWithContex
 	sdkHeaders := common.GetSdkHeaders("context_based_restrictions", "V1", "DeleteZone")
 	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
+	}
+	if deleteZoneOptions.XCorrelationID != nil {
+		builder.AddHeader("X-Correlation-Id", fmt.Sprint(*deleteZoneOptions.XCorrelationID))
 	}
 	if deleteZoneOptions.TransactionID != nil {
 		builder.AddHeader("Transaction-Id", fmt.Sprint(*deleteZoneOptions.TransactionID))
@@ -539,6 +555,12 @@ func (contextBasedRestrictions *ContextBasedRestrictionsV1) ListAvailableService
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
+	if listAvailableServicerefTargetsOptions.XCorrelationID != nil {
+		builder.AddHeader("X-Correlation-Id", fmt.Sprint(*listAvailableServicerefTargetsOptions.XCorrelationID))
+	}
+	if listAvailableServicerefTargetsOptions.TransactionID != nil {
+		builder.AddHeader("Transaction-Id", fmt.Sprint(*listAvailableServicerefTargetsOptions.TransactionID))
+	}
 
 	if listAvailableServicerefTargetsOptions.Type != nil {
 		builder.AddQuery("type", fmt.Sprint(*listAvailableServicerefTargetsOptions.Type))
@@ -596,6 +618,9 @@ func (contextBasedRestrictions *ContextBasedRestrictionsV1) CreateRuleWithContex
 	}
 	builder.AddHeader("Accept", "application/json")
 	builder.AddHeader("Content-Type", "application/json")
+	if createRuleOptions.XCorrelationID != nil {
+		builder.AddHeader("X-Correlation-Id", fmt.Sprint(*createRuleOptions.XCorrelationID))
+	}
 	if createRuleOptions.TransactionID != nil {
 		builder.AddHeader("Transaction-Id", fmt.Sprint(*createRuleOptions.TransactionID))
 	}
@@ -637,7 +662,7 @@ func (contextBasedRestrictions *ContextBasedRestrictionsV1) CreateRuleWithContex
 }
 
 // ListRules : List rules
-// This operation lists rules for the specified account.
+// This operation lists rules in the specified account.
 func (contextBasedRestrictions *ContextBasedRestrictionsV1) ListRules(listRulesOptions *ListRulesOptions) (result *RuleList, response *core.DetailedResponse, err error) {
 	return contextBasedRestrictions.ListRulesWithContext(context.Background(), listRulesOptions)
 }
@@ -670,6 +695,9 @@ func (contextBasedRestrictions *ContextBasedRestrictionsV1) ListRulesWithContext
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
+	if listRulesOptions.XCorrelationID != nil {
+		builder.AddHeader("X-Correlation-Id", fmt.Sprint(*listRulesOptions.XCorrelationID))
+	}
 	if listRulesOptions.TransactionID != nil {
 		builder.AddHeader("Transaction-Id", fmt.Sprint(*listRulesOptions.TransactionID))
 	}
@@ -721,8 +749,8 @@ func (contextBasedRestrictions *ContextBasedRestrictionsV1) ListRulesWithContext
 	return
 }
 
-// GetRule : Get the specified rule
-// This operation gets the rule for the specified ID.
+// GetRule : Get a rule
+// This operation retrieves the rule identified by the specified rule ID.
 func (contextBasedRestrictions *ContextBasedRestrictionsV1) GetRule(getRuleOptions *GetRuleOptions) (result *Rule, response *core.DetailedResponse, err error) {
 	return contextBasedRestrictions.GetRuleWithContext(context.Background(), getRuleOptions)
 }
@@ -759,6 +787,9 @@ func (contextBasedRestrictions *ContextBasedRestrictionsV1) GetRuleWithContext(c
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
+	if getRuleOptions.XCorrelationID != nil {
+		builder.AddHeader("X-Correlation-Id", fmt.Sprint(*getRuleOptions.XCorrelationID))
+	}
 	if getRuleOptions.TransactionID != nil {
 		builder.AddHeader("Transaction-Id", fmt.Sprint(*getRuleOptions.TransactionID))
 	}
@@ -784,8 +815,9 @@ func (contextBasedRestrictions *ContextBasedRestrictionsV1) GetRuleWithContext(c
 	return
 }
 
-// ReplaceRule : Update the specified rule
-// This operation updates the rule for the specified ID.
+// ReplaceRule : Replace a rule
+// This operation replaces the rule identified by the specified rule ID. Partial updates are not supported. The entire
+// rule object must be replaced.
 func (contextBasedRestrictions *ContextBasedRestrictionsV1) ReplaceRule(replaceRuleOptions *ReplaceRuleOptions) (result *Rule, response *core.DetailedResponse, err error) {
 	return contextBasedRestrictions.ReplaceRuleWithContext(context.Background(), replaceRuleOptions)
 }
@@ -825,6 +857,9 @@ func (contextBasedRestrictions *ContextBasedRestrictionsV1) ReplaceRuleWithConte
 	builder.AddHeader("Content-Type", "application/json")
 	if replaceRuleOptions.IfMatch != nil {
 		builder.AddHeader("If-Match", fmt.Sprint(*replaceRuleOptions.IfMatch))
+	}
+	if replaceRuleOptions.XCorrelationID != nil {
+		builder.AddHeader("X-Correlation-Id", fmt.Sprint(*replaceRuleOptions.XCorrelationID))
 	}
 	if replaceRuleOptions.TransactionID != nil {
 		builder.AddHeader("Transaction-Id", fmt.Sprint(*replaceRuleOptions.TransactionID))
@@ -866,8 +901,8 @@ func (contextBasedRestrictions *ContextBasedRestrictionsV1) ReplaceRuleWithConte
 	return
 }
 
-// DeleteRule : Delete the specified rule
-// This operation deletes the rule for the specified home ID.
+// DeleteRule : Delete a rule
+// This operation deletes the rule identified by the specified rule ID.
 func (contextBasedRestrictions *ContextBasedRestrictionsV1) DeleteRule(deleteRuleOptions *DeleteRuleOptions) (response *core.DetailedResponse, err error) {
 	return contextBasedRestrictions.DeleteRuleWithContext(context.Background(), deleteRuleOptions)
 }
@@ -903,6 +938,9 @@ func (contextBasedRestrictions *ContextBasedRestrictionsV1) DeleteRuleWithContex
 	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
+	if deleteRuleOptions.XCorrelationID != nil {
+		builder.AddHeader("X-Correlation-Id", fmt.Sprint(*deleteRuleOptions.XCorrelationID))
+	}
 	if deleteRuleOptions.TransactionID != nil {
 		builder.AddHeader("Transaction-Id", fmt.Sprint(*deleteRuleOptions.TransactionID))
 	}
@@ -917,8 +955,8 @@ func (contextBasedRestrictions *ContextBasedRestrictionsV1) DeleteRuleWithContex
 	return
 }
 
-// GetAccountSettings : Get the specified account settings
-// This operation gets the settings for the specified account ID.
+// GetAccountSettings : Get account settings
+// This operation retrieves the settings for the specified account ID.
 func (contextBasedRestrictions *ContextBasedRestrictionsV1) GetAccountSettings(getAccountSettingsOptions *GetAccountSettingsOptions) (result *AccountSettings, response *core.DetailedResponse, err error) {
 	return contextBasedRestrictions.GetAccountSettingsWithContext(context.Background(), getAccountSettingsOptions)
 }
@@ -955,6 +993,9 @@ func (contextBasedRestrictions *ContextBasedRestrictionsV1) GetAccountSettingsWi
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
+	if getAccountSettingsOptions.XCorrelationID != nil {
+		builder.AddHeader("X-Correlation-Id", fmt.Sprint(*getAccountSettingsOptions.XCorrelationID))
+	}
 	if getAccountSettingsOptions.TransactionID != nil {
 		builder.AddHeader("Transaction-Id", fmt.Sprint(*getAccountSettingsOptions.TransactionID))
 	}
@@ -1143,10 +1184,14 @@ type CreateRuleOptions struct {
 	// The resources this rule apply to.
 	Resources []Resource `json:"resources,omitempty"`
 
-	// The UUID that is used to correlate and track transactions. If you omit this field, the service generates and sends a
-	// transaction ID in the response.
-	// **Note:** To help with debugging, we strongly recommend that you generate and supply a `Transaction-Id` with each
-	// request.
+	// The supplied or generated value of this header is logged for a request and repeated in a response header for the
+	// corresponding response. The same value is used for downstream requests and retries of those requests. If a value of
+	// this headers is not supplied in a request, the service generates a random (version 4) UUID.
+	XCorrelationID *string `json:"-"`
+
+	// The `Transaction-Id` header behaves as the `X-Correlation-Id` header. It is supported for backward compatibility
+	// with other IBM platform services that support the `Transaction-Id` header only. If both `X-Correlation-Id` and
+	// `Transaction-Id` are provided, `X-Correlation-Id` has the precedence over `Transaction-Id`.
 	TransactionID *string `json:"-"`
 
 	// Allows users to set headers on API requests
@@ -1176,6 +1221,12 @@ func (options *CreateRuleOptions) SetResources(resources []Resource) *CreateRule
 	return options
 }
 
+// SetXCorrelationID : Allow user to set XCorrelationID
+func (options *CreateRuleOptions) SetXCorrelationID(xCorrelationID string) *CreateRuleOptions {
+	options.XCorrelationID = core.StringPtr(xCorrelationID)
+	return options
+}
+
 // SetTransactionID : Allow user to set TransactionID
 func (options *CreateRuleOptions) SetTransactionID(transactionID string) *CreateRuleOptions {
 	options.TransactionID = core.StringPtr(transactionID)
@@ -1202,13 +1253,18 @@ type CreateZoneOptions struct {
 	// The list of addresses in the zone.
 	Addresses []AddressIntf `json:"addresses,omitempty"`
 
-	// The list of excluded addresses in the zone.
+	// The list of excluded addresses in the zone. Only addresses of type `ipAddress`, `ipRange`, and `subnet` can be
+	// excluded.
 	Excluded []AddressIntf `json:"excluded,omitempty"`
 
-	// The UUID that is used to correlate and track transactions. If you omit this field, the service generates and sends a
-	// transaction ID in the response.
-	// **Note:** To help with debugging, we strongly recommend that you generate and supply a `Transaction-Id` with each
-	// request.
+	// The supplied or generated value of this header is logged for a request and repeated in a response header for the
+	// corresponding response. The same value is used for downstream requests and retries of those requests. If a value of
+	// this headers is not supplied in a request, the service generates a random (version 4) UUID.
+	XCorrelationID *string `json:"-"`
+
+	// The `Transaction-Id` header behaves as the `X-Correlation-Id` header. It is supported for backward compatibility
+	// with other IBM platform services that support the `Transaction-Id` header only. If both `X-Correlation-Id` and
+	// `Transaction-Id` are provided, `X-Correlation-Id` has the precedence over `Transaction-Id`.
 	TransactionID *string `json:"-"`
 
 	// Allows users to set headers on API requests
@@ -1250,6 +1306,12 @@ func (options *CreateZoneOptions) SetExcluded(excluded []AddressIntf) *CreateZon
 	return options
 }
 
+// SetXCorrelationID : Allow user to set XCorrelationID
+func (options *CreateZoneOptions) SetXCorrelationID(xCorrelationID string) *CreateZoneOptions {
+	options.XCorrelationID = core.StringPtr(xCorrelationID)
+	return options
+}
+
 // SetTransactionID : Allow user to set TransactionID
 func (options *CreateZoneOptions) SetTransactionID(transactionID string) *CreateZoneOptions {
 	options.TransactionID = core.StringPtr(transactionID)
@@ -1267,10 +1329,14 @@ type DeleteRuleOptions struct {
 	// The ID of a rule.
 	RuleID *string `json:"-" validate:"required,ne="`
 
-	// The UUID that is used to correlate and track transactions. If you omit this field, the service generates and sends a
-	// transaction ID in the response.
-	// **Note:** To help with debugging, we strongly recommend that you generate and supply a `Transaction-Id` with each
-	// request.
+	// The supplied or generated value of this header is logged for a request and repeated in a response header for the
+	// corresponding response. The same value is used for downstream requests and retries of those requests. If a value of
+	// this headers is not supplied in a request, the service generates a random (version 4) UUID.
+	XCorrelationID *string `json:"-"`
+
+	// The `Transaction-Id` header behaves as the `X-Correlation-Id` header. It is supported for backward compatibility
+	// with other IBM platform services that support the `Transaction-Id` header only. If both `X-Correlation-Id` and
+	// `Transaction-Id` are provided, `X-Correlation-Id` has the precedence over `Transaction-Id`.
 	TransactionID *string `json:"-"`
 
 	// Allows users to set headers on API requests
@@ -1287,6 +1353,12 @@ func (*ContextBasedRestrictionsV1) NewDeleteRuleOptions(ruleID string) *DeleteRu
 // SetRuleID : Allow user to set RuleID
 func (options *DeleteRuleOptions) SetRuleID(ruleID string) *DeleteRuleOptions {
 	options.RuleID = core.StringPtr(ruleID)
+	return options
+}
+
+// SetXCorrelationID : Allow user to set XCorrelationID
+func (options *DeleteRuleOptions) SetXCorrelationID(xCorrelationID string) *DeleteRuleOptions {
+	options.XCorrelationID = core.StringPtr(xCorrelationID)
 	return options
 }
 
@@ -1307,10 +1379,14 @@ type DeleteZoneOptions struct {
 	// The ID of a zone.
 	ZoneID *string `json:"-" validate:"required,ne="`
 
-	// The UUID that is used to correlate and track transactions. If you omit this field, the service generates and sends a
-	// transaction ID in the response.
-	// **Note:** To help with debugging, we strongly recommend that you generate and supply a `Transaction-Id` with each
-	// request.
+	// The supplied or generated value of this header is logged for a request and repeated in a response header for the
+	// corresponding response. The same value is used for downstream requests and retries of those requests. If a value of
+	// this headers is not supplied in a request, the service generates a random (version 4) UUID.
+	XCorrelationID *string `json:"-"`
+
+	// The `Transaction-Id` header behaves as the `X-Correlation-Id` header. It is supported for backward compatibility
+	// with other IBM platform services that support the `Transaction-Id` header only. If both `X-Correlation-Id` and
+	// `Transaction-Id` are provided, `X-Correlation-Id` has the precedence over `Transaction-Id`.
 	TransactionID *string `json:"-"`
 
 	// Allows users to set headers on API requests
@@ -1327,6 +1403,12 @@ func (*ContextBasedRestrictionsV1) NewDeleteZoneOptions(zoneID string) *DeleteZo
 // SetZoneID : Allow user to set ZoneID
 func (options *DeleteZoneOptions) SetZoneID(zoneID string) *DeleteZoneOptions {
 	options.ZoneID = core.StringPtr(zoneID)
+	return options
+}
+
+// SetXCorrelationID : Allow user to set XCorrelationID
+func (options *DeleteZoneOptions) SetXCorrelationID(xCorrelationID string) *DeleteZoneOptions {
+	options.XCorrelationID = core.StringPtr(xCorrelationID)
 	return options
 }
 
@@ -1347,10 +1429,14 @@ type GetAccountSettingsOptions struct {
 	// The ID of the account the settings are for.
 	AccountID *string `json:"-" validate:"required,ne="`
 
-	// The UUID that is used to correlate and track transactions. If you omit this field, the service generates and sends a
-	// transaction ID in the response.
-	// **Note:** To help with debugging, we strongly recommend that you generate and supply a `Transaction-Id` with each
-	// request.
+	// The supplied or generated value of this header is logged for a request and repeated in a response header for the
+	// corresponding response. The same value is used for downstream requests and retries of those requests. If a value of
+	// this headers is not supplied in a request, the service generates a random (version 4) UUID.
+	XCorrelationID *string `json:"-"`
+
+	// The `Transaction-Id` header behaves as the `X-Correlation-Id` header. It is supported for backward compatibility
+	// with other IBM platform services that support the `Transaction-Id` header only. If both `X-Correlation-Id` and
+	// `Transaction-Id` are provided, `X-Correlation-Id` has the precedence over `Transaction-Id`.
 	TransactionID *string `json:"-"`
 
 	// Allows users to set headers on API requests
@@ -1367,6 +1453,12 @@ func (*ContextBasedRestrictionsV1) NewGetAccountSettingsOptions(accountID string
 // SetAccountID : Allow user to set AccountID
 func (options *GetAccountSettingsOptions) SetAccountID(accountID string) *GetAccountSettingsOptions {
 	options.AccountID = core.StringPtr(accountID)
+	return options
+}
+
+// SetXCorrelationID : Allow user to set XCorrelationID
+func (options *GetAccountSettingsOptions) SetXCorrelationID(xCorrelationID string) *GetAccountSettingsOptions {
+	options.XCorrelationID = core.StringPtr(xCorrelationID)
 	return options
 }
 
@@ -1387,10 +1479,14 @@ type GetRuleOptions struct {
 	// The ID of a rule.
 	RuleID *string `json:"-" validate:"required,ne="`
 
-	// The UUID that is used to correlate and track transactions. If you omit this field, the service generates and sends a
-	// transaction ID in the response.
-	// **Note:** To help with debugging, we strongly recommend that you generate and supply a `Transaction-Id` with each
-	// request.
+	// The supplied or generated value of this header is logged for a request and repeated in a response header for the
+	// corresponding response. The same value is used for downstream requests and retries of those requests. If a value of
+	// this headers is not supplied in a request, the service generates a random (version 4) UUID.
+	XCorrelationID *string `json:"-"`
+
+	// The `Transaction-Id` header behaves as the `X-Correlation-Id` header. It is supported for backward compatibility
+	// with other IBM platform services that support the `Transaction-Id` header only. If both `X-Correlation-Id` and
+	// `Transaction-Id` are provided, `X-Correlation-Id` has the precedence over `Transaction-Id`.
 	TransactionID *string `json:"-"`
 
 	// Allows users to set headers on API requests
@@ -1407,6 +1503,12 @@ func (*ContextBasedRestrictionsV1) NewGetRuleOptions(ruleID string) *GetRuleOpti
 // SetRuleID : Allow user to set RuleID
 func (options *GetRuleOptions) SetRuleID(ruleID string) *GetRuleOptions {
 	options.RuleID = core.StringPtr(ruleID)
+	return options
+}
+
+// SetXCorrelationID : Allow user to set XCorrelationID
+func (options *GetRuleOptions) SetXCorrelationID(xCorrelationID string) *GetRuleOptions {
+	options.XCorrelationID = core.StringPtr(xCorrelationID)
 	return options
 }
 
@@ -1427,10 +1529,14 @@ type GetZoneOptions struct {
 	// The ID of a zone.
 	ZoneID *string `json:"-" validate:"required,ne="`
 
-	// The UUID that is used to correlate and track transactions. If you omit this field, the service generates and sends a
-	// transaction ID in the response.
-	// **Note:** To help with debugging, we strongly recommend that you generate and supply a `Transaction-Id` with each
-	// request.
+	// The supplied or generated value of this header is logged for a request and repeated in a response header for the
+	// corresponding response. The same value is used for downstream requests and retries of those requests. If a value of
+	// this headers is not supplied in a request, the service generates a random (version 4) UUID.
+	XCorrelationID *string `json:"-"`
+
+	// The `Transaction-Id` header behaves as the `X-Correlation-Id` header. It is supported for backward compatibility
+	// with other IBM platform services that support the `Transaction-Id` header only. If both `X-Correlation-Id` and
+	// `Transaction-Id` are provided, `X-Correlation-Id` has the precedence over `Transaction-Id`.
 	TransactionID *string `json:"-"`
 
 	// Allows users to set headers on API requests
@@ -1450,6 +1556,12 @@ func (options *GetZoneOptions) SetZoneID(zoneID string) *GetZoneOptions {
 	return options
 }
 
+// SetXCorrelationID : Allow user to set XCorrelationID
+func (options *GetZoneOptions) SetXCorrelationID(xCorrelationID string) *GetZoneOptions {
+	options.XCorrelationID = core.StringPtr(xCorrelationID)
+	return options
+}
+
 // SetTransactionID : Allow user to set TransactionID
 func (options *GetZoneOptions) SetTransactionID(transactionID string) *GetZoneOptions {
 	options.TransactionID = core.StringPtr(transactionID)
@@ -1464,6 +1576,16 @@ func (options *GetZoneOptions) SetHeaders(param map[string]string) *GetZoneOptio
 
 // ListAvailableServicerefTargetsOptions : The ListAvailableServicerefTargets options.
 type ListAvailableServicerefTargetsOptions struct {
+	// The supplied or generated value of this header is logged for a request and repeated in a response header for the
+	// corresponding response. The same value is used for downstream requests and retries of those requests. If a value of
+	// this headers is not supplied in a request, the service generates a random (version 4) UUID.
+	XCorrelationID *string `json:"-"`
+
+	// The `Transaction-Id` header behaves as the `X-Correlation-Id` header. It is supported for backward compatibility
+	// with other IBM platform services that support the `Transaction-Id` header only. If both `X-Correlation-Id` and
+	// `Transaction-Id` are provided, `X-Correlation-Id` has the precedence over `Transaction-Id`.
+	TransactionID *string `json:"-"`
+
 	// Specifies the types of services to retrieve.
 	Type *string `json:"-"`
 
@@ -1483,6 +1605,18 @@ func (*ContextBasedRestrictionsV1) NewListAvailableServicerefTargetsOptions() *L
 	return &ListAvailableServicerefTargetsOptions{}
 }
 
+// SetXCorrelationID : Allow user to set XCorrelationID
+func (options *ListAvailableServicerefTargetsOptions) SetXCorrelationID(xCorrelationID string) *ListAvailableServicerefTargetsOptions {
+	options.XCorrelationID = core.StringPtr(xCorrelationID)
+	return options
+}
+
+// SetTransactionID : Allow user to set TransactionID
+func (options *ListAvailableServicerefTargetsOptions) SetTransactionID(transactionID string) *ListAvailableServicerefTargetsOptions {
+	options.TransactionID = core.StringPtr(transactionID)
+	return options
+}
+
 // SetType : Allow user to set Type
 func (options *ListAvailableServicerefTargetsOptions) SetType(typeVar string) *ListAvailableServicerefTargetsOptions {
 	options.Type = core.StringPtr(typeVar)
@@ -1500,10 +1634,14 @@ type ListRulesOptions struct {
 	// The ID of the managing account.
 	AccountID *string `json:"-" validate:"required"`
 
-	// The UUID that is used to correlate and track transactions. If you omit this field, the service generates and sends a
-	// transaction ID in the response.
-	// **Note:** To help with debugging, we strongly recommend that you generate and supply a `Transaction-Id` with each
-	// request.
+	// The supplied or generated value of this header is logged for a request and repeated in a response header for the
+	// corresponding response. The same value is used for downstream requests and retries of those requests. If a value of
+	// this headers is not supplied in a request, the service generates a random (version 4) UUID.
+	XCorrelationID *string `json:"-"`
+
+	// The `Transaction-Id` header behaves as the `X-Correlation-Id` header. It is supported for backward compatibility
+	// with other IBM platform services that support the `Transaction-Id` header only. If both `X-Correlation-Id` and
+	// `Transaction-Id` are provided, `X-Correlation-Id` has the precedence over `Transaction-Id`.
 	TransactionID *string `json:"-"`
 
 	// The `region` resource attribute.
@@ -1545,6 +1683,12 @@ func (*ContextBasedRestrictionsV1) NewListRulesOptions(accountID string) *ListRu
 // SetAccountID : Allow user to set AccountID
 func (options *ListRulesOptions) SetAccountID(accountID string) *ListRulesOptions {
 	options.AccountID = core.StringPtr(accountID)
+	return options
+}
+
+// SetXCorrelationID : Allow user to set XCorrelationID
+func (options *ListRulesOptions) SetXCorrelationID(xCorrelationID string) *ListRulesOptions {
+	options.XCorrelationID = core.StringPtr(xCorrelationID)
 	return options
 }
 
@@ -1613,10 +1757,14 @@ type ListZonesOptions struct {
 	// The ID of the managing account.
 	AccountID *string `json:"-" validate:"required"`
 
-	// The UUID that is used to correlate and track transactions. If you omit this field, the service generates and sends a
-	// transaction ID in the response.
-	// **Note:** To help with debugging, we strongly recommend that you generate and supply a `Transaction-Id` with each
-	// request.
+	// The supplied or generated value of this header is logged for a request and repeated in a response header for the
+	// corresponding response. The same value is used for downstream requests and retries of those requests. If a value of
+	// this headers is not supplied in a request, the service generates a random (version 4) UUID.
+	XCorrelationID *string `json:"-"`
+
+	// The `Transaction-Id` header behaves as the `X-Correlation-Id` header. It is supported for backward compatibility
+	// with other IBM platform services that support the `Transaction-Id` header only. If both `X-Correlation-Id` and
+	// `Transaction-Id` are provided, `X-Correlation-Id` has the precedence over `Transaction-Id`.
 	TransactionID *string `json:"-"`
 
 	// The name of the zone.
@@ -1640,6 +1788,12 @@ func (*ContextBasedRestrictionsV1) NewListZonesOptions(accountID string) *ListZo
 // SetAccountID : Allow user to set AccountID
 func (options *ListZonesOptions) SetAccountID(accountID string) *ListZonesOptions {
 	options.AccountID = core.StringPtr(accountID)
+	return options
+}
+
+// SetXCorrelationID : Allow user to set XCorrelationID
+func (options *ListZonesOptions) SetXCorrelationID(xCorrelationID string) *ListZonesOptions {
+	options.XCorrelationID = core.StringPtr(xCorrelationID)
 	return options
 }
 
@@ -1685,10 +1839,14 @@ type ReplaceRuleOptions struct {
 	// The resources this rule apply to.
 	Resources []Resource `json:"resources,omitempty"`
 
-	// The UUID that is used to correlate and track transactions. If you omit this field, the service generates and sends a
-	// transaction ID in the response.
-	// **Note:** To help with debugging, we strongly recommend that you generate and supply a `Transaction-Id` with each
-	// request.
+	// The supplied or generated value of this header is logged for a request and repeated in a response header for the
+	// corresponding response. The same value is used for downstream requests and retries of those requests. If a value of
+	// this headers is not supplied in a request, the service generates a random (version 4) UUID.
+	XCorrelationID *string `json:"-"`
+
+	// The `Transaction-Id` header behaves as the `X-Correlation-Id` header. It is supported for backward compatibility
+	// with other IBM platform services that support the `Transaction-Id` header only. If both `X-Correlation-Id` and
+	// `Transaction-Id` are provided, `X-Correlation-Id` has the precedence over `Transaction-Id`.
 	TransactionID *string `json:"-"`
 
 	// Allows users to set headers on API requests
@@ -1733,6 +1891,12 @@ func (options *ReplaceRuleOptions) SetResources(resources []Resource) *ReplaceRu
 	return options
 }
 
+// SetXCorrelationID : Allow user to set XCorrelationID
+func (options *ReplaceRuleOptions) SetXCorrelationID(xCorrelationID string) *ReplaceRuleOptions {
+	options.XCorrelationID = core.StringPtr(xCorrelationID)
+	return options
+}
+
 // SetTransactionID : Allow user to set TransactionID
 func (options *ReplaceRuleOptions) SetTransactionID(transactionID string) *ReplaceRuleOptions {
 	options.TransactionID = core.StringPtr(transactionID)
@@ -1766,13 +1930,18 @@ type ReplaceZoneOptions struct {
 	// The list of addresses in the zone.
 	Addresses []AddressIntf `json:"addresses,omitempty"`
 
-	// The list of excluded addresses in the zone.
+	// The list of excluded addresses in the zone. Only addresses of type `ipAddress`, `ipRange`, and `subnet` can be
+	// excluded.
 	Excluded []AddressIntf `json:"excluded,omitempty"`
 
-	// The UUID that is used to correlate and track transactions. If you omit this field, the service generates and sends a
-	// transaction ID in the response.
-	// **Note:** To help with debugging, we strongly recommend that you generate and supply a `Transaction-Id` with each
-	// request.
+	// The supplied or generated value of this header is logged for a request and repeated in a response header for the
+	// corresponding response. The same value is used for downstream requests and retries of those requests. If a value of
+	// this headers is not supplied in a request, the service generates a random (version 4) UUID.
+	XCorrelationID *string `json:"-"`
+
+	// The `Transaction-Id` header behaves as the `X-Correlation-Id` header. It is supported for backward compatibility
+	// with other IBM platform services that support the `Transaction-Id` header only. If both `X-Correlation-Id` and
+	// `Transaction-Id` are provided, `X-Correlation-Id` has the precedence over `Transaction-Id`.
 	TransactionID *string `json:"-"`
 
 	// Allows users to set headers on API requests
@@ -1826,6 +1995,12 @@ func (options *ReplaceZoneOptions) SetAddresses(addresses []AddressIntf) *Replac
 // SetExcluded : Allow user to set Excluded
 func (options *ReplaceZoneOptions) SetExcluded(excluded []AddressIntf) *ReplaceZoneOptions {
 	options.Excluded = excluded
+	return options
+}
+
+// SetXCorrelationID : Allow user to set XCorrelationID
+func (options *ReplaceZoneOptions) SetXCorrelationID(xCorrelationID string) *ReplaceZoneOptions {
+	options.XCorrelationID = core.StringPtr(xCorrelationID)
 	return options
 }
 
@@ -2241,7 +2416,8 @@ type Zone struct {
 	// The list of addresses in the zone.
 	Addresses []AddressIntf `json:"addresses" validate:"required"`
 
-	// The list of excluded addresses in the zone.
+	// The list of excluded addresses in the zone. Only addresses of type `ipAddress`, `ipRange`, and `subnet` can be
+	// excluded.
 	Excluded []AddressIntf `json:"excluded" validate:"required"`
 
 	// The href link to the resource.
