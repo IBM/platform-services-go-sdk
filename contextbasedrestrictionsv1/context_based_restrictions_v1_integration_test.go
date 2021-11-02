@@ -960,8 +960,9 @@ var _ = Describe(`ContextBasedRestrictionsV1 Integration Tests`, func() {
 		})
 		It(`DeleteZone(deleteZoneOptions *DeleteZoneOptions)`, func() {
 			deleteZoneOptions := &contextbasedrestrictionsv1.DeleteZoneOptions{
-				ZoneID:        core.StringPtr(zoneID),
-				TransactionID: getTransactionID(),
+				ZoneID: core.StringPtr(zoneID),
+				// Using the standard X-Correlation-Id header in this case
+				XCorrelationID: getTransactionID(),
 			}
 
 			response, err := contextBasedRestrictionsService.DeleteZone(deleteZoneOptions)
