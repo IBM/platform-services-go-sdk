@@ -8,7 +8,7 @@
 [![CLA assistant](https://cla-assistant.io/readme/badge/IBM/platform-services-go-sdk)](https://cla-assistant.io/IBM/platform-services-go-sdk)
 
 
-# IBM Cloud Platform Services Go SDK Version 0.22.2
+# IBM Cloud Platform Services Go SDK Version 0.22.3
 
 Go client library to interact with various
 [IBM Cloud Platform Service APIs](https://cloud.ibm.com/docs?tab=api-docs&category=platform_services).
@@ -79,7 +79,7 @@ Service Name | Package name
 * Go version 1.14 or above.
 
 ## Installation
-The current version of this SDK: 0.22.2
+The current version of this SDK: 0.22.3
 
 ### Go modules  
 If your application uses Go modules for dependency management (recommended), just add an import for each service 
