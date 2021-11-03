@@ -1,3 +1,10 @@
+## [0.22.3](https://github.com/IBM/platform-services-go-sdk/compare/v0.22.2...v0.22.3) (2021-11-03)
+
+
+### Bug Fixes
+
+* **Context-Based Restrictions:** add support for the X-Correlation-Id header ([#164](https://github.com/IBM/platform-services-go-sdk/issues/164)) ([9540cd0](https://github.com/IBM/platform-services-go-sdk/commit/9540cd00a961c9a1c40fe6deeb4c05f18a953de5))
+
 ## [0.22.2](https://github.com/IBM/platform-services-go-sdk/compare/v0.22.1...v0.22.2) (2021-10-27)
 
 
