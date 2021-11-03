@@ -171,6 +171,8 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 					// Verify the contents of the request
 					Expect(req.URL.EscapedPath()).To(Equal(createZonePath))
 					Expect(req.Method).To(Equal("POST"))
+					Expect(req.Header["X-Correlation-Id"]).ToNot(BeNil())
+					Expect(req.Header["X-Correlation-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					Expect(req.Header["Transaction-Id"]).ToNot(BeNil())
 					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					res.Header().Set("Content-type", "application/json")
@@ -198,6 +200,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				createZoneOptionsModel.Description = core.StringPtr("this is an example of zone")
 				createZoneOptionsModel.Addresses = []contextbasedrestrictionsv1.AddressIntf{addressModel}
 				createZoneOptionsModel.Excluded = []contextbasedrestrictionsv1.AddressIntf{addressModel}
+				createZoneOptionsModel.XCorrelationID = core.StringPtr("testString")
 				createZoneOptionsModel.TransactionID = core.StringPtr("testString")
 				createZoneOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
@@ -245,6 +248,8 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 					}
 					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
 
+					Expect(req.Header["X-Correlation-Id"]).ToNot(BeNil())
+					Expect(req.Header["X-Correlation-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					Expect(req.Header["Transaction-Id"]).ToNot(BeNil())
 					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					// Sleep a short time to support a timeout test
@@ -277,6 +282,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				createZoneOptionsModel.Description = core.StringPtr("this is an example of zone")
 				createZoneOptionsModel.Addresses = []contextbasedrestrictionsv1.AddressIntf{addressModel}
 				createZoneOptionsModel.Excluded = []contextbasedrestrictionsv1.AddressIntf{addressModel}
+				createZoneOptionsModel.XCorrelationID = core.StringPtr("testString")
 				createZoneOptionsModel.TransactionID = core.StringPtr("testString")
 				createZoneOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
@@ -330,6 +336,8 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 					}
 					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
 
+					Expect(req.Header["X-Correlation-Id"]).ToNot(BeNil())
+					Expect(req.Header["X-Correlation-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					Expect(req.Header["Transaction-Id"]).ToNot(BeNil())
 					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					// Set mock response
@@ -364,6 +372,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				createZoneOptionsModel.Description = core.StringPtr("this is an example of zone")
 				createZoneOptionsModel.Addresses = []contextbasedrestrictionsv1.AddressIntf{addressModel}
 				createZoneOptionsModel.Excluded = []contextbasedrestrictionsv1.AddressIntf{addressModel}
+				createZoneOptionsModel.XCorrelationID = core.StringPtr("testString")
 				createZoneOptionsModel.TransactionID = core.StringPtr("testString")
 				createZoneOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
@@ -394,6 +403,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				createZoneOptionsModel.Description = core.StringPtr("this is an example of zone")
 				createZoneOptionsModel.Addresses = []contextbasedrestrictionsv1.AddressIntf{addressModel}
 				createZoneOptionsModel.Excluded = []contextbasedrestrictionsv1.AddressIntf{addressModel}
+				createZoneOptionsModel.XCorrelationID = core.StringPtr("testString")
 				createZoneOptionsModel.TransactionID = core.StringPtr("testString")
 				createZoneOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
@@ -438,6 +448,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				createZoneOptionsModel.Description = core.StringPtr("this is an example of zone")
 				createZoneOptionsModel.Addresses = []contextbasedrestrictionsv1.AddressIntf{addressModel}
 				createZoneOptionsModel.Excluded = []contextbasedrestrictionsv1.AddressIntf{addressModel}
+				createZoneOptionsModel.XCorrelationID = core.StringPtr("testString")
 				createZoneOptionsModel.TransactionID = core.StringPtr("testString")
 				createZoneOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
@@ -464,6 +475,8 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 					// Verify the contents of the request
 					Expect(req.URL.EscapedPath()).To(Equal(listZonesPath))
 					Expect(req.Method).To(Equal("GET"))
+					Expect(req.Header["X-Correlation-Id"]).ToNot(BeNil())
+					Expect(req.Header["X-Correlation-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					Expect(req.Header["Transaction-Id"]).ToNot(BeNil())
 					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"testString"}))
@@ -485,6 +498,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				// Construct an instance of the ListZonesOptions model
 				listZonesOptionsModel := new(contextbasedrestrictionsv1.ListZonesOptions)
 				listZonesOptionsModel.AccountID = core.StringPtr("testString")
+				listZonesOptionsModel.XCorrelationID = core.StringPtr("testString")
 				listZonesOptionsModel.TransactionID = core.StringPtr("testString")
 				listZonesOptionsModel.Name = core.StringPtr("testString")
 				listZonesOptionsModel.Sort = core.StringPtr("testString")
@@ -518,6 +532,8 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 					Expect(req.URL.EscapedPath()).To(Equal(listZonesPath))
 					Expect(req.Method).To(Equal("GET"))
 
+					Expect(req.Header["X-Correlation-Id"]).ToNot(BeNil())
+					Expect(req.Header["X-Correlation-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					Expect(req.Header["Transaction-Id"]).ToNot(BeNil())
 					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"testString"}))
@@ -544,6 +560,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				// Construct an instance of the ListZonesOptions model
 				listZonesOptionsModel := new(contextbasedrestrictionsv1.ListZonesOptions)
 				listZonesOptionsModel.AccountID = core.StringPtr("testString")
+				listZonesOptionsModel.XCorrelationID = core.StringPtr("testString")
 				listZonesOptionsModel.TransactionID = core.StringPtr("testString")
 				listZonesOptionsModel.Name = core.StringPtr("testString")
 				listZonesOptionsModel.Sort = core.StringPtr("testString")
@@ -583,6 +600,8 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 					Expect(req.URL.EscapedPath()).To(Equal(listZonesPath))
 					Expect(req.Method).To(Equal("GET"))
 
+					Expect(req.Header["X-Correlation-Id"]).ToNot(BeNil())
+					Expect(req.Header["X-Correlation-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					Expect(req.Header["Transaction-Id"]).ToNot(BeNil())
 					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"testString"}))
@@ -611,6 +630,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				// Construct an instance of the ListZonesOptions model
 				listZonesOptionsModel := new(contextbasedrestrictionsv1.ListZonesOptions)
 				listZonesOptionsModel.AccountID = core.StringPtr("testString")
+				listZonesOptionsModel.XCorrelationID = core.StringPtr("testString")
 				listZonesOptionsModel.TransactionID = core.StringPtr("testString")
 				listZonesOptionsModel.Name = core.StringPtr("testString")
 				listZonesOptionsModel.Sort = core.StringPtr("testString")
@@ -634,6 +654,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				// Construct an instance of the ListZonesOptions model
 				listZonesOptionsModel := new(contextbasedrestrictionsv1.ListZonesOptions)
 				listZonesOptionsModel.AccountID = core.StringPtr("testString")
+				listZonesOptionsModel.XCorrelationID = core.StringPtr("testString")
 				listZonesOptionsModel.TransactionID = core.StringPtr("testString")
 				listZonesOptionsModel.Name = core.StringPtr("testString")
 				listZonesOptionsModel.Sort = core.StringPtr("testString")
@@ -678,6 +699,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				// Construct an instance of the ListZonesOptions model
 				listZonesOptionsModel := new(contextbasedrestrictionsv1.ListZonesOptions)
 				listZonesOptionsModel.AccountID = core.StringPtr("testString")
+				listZonesOptionsModel.XCorrelationID = core.StringPtr("testString")
 				listZonesOptionsModel.TransactionID = core.StringPtr("testString")
 				listZonesOptionsModel.Name = core.StringPtr("testString")
 				listZonesOptionsModel.Sort = core.StringPtr("testString")
@@ -706,6 +728,8 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 					// Verify the contents of the request
 					Expect(req.URL.EscapedPath()).To(Equal(getZonePath))
 					Expect(req.Method).To(Equal("GET"))
+					Expect(req.Header["X-Correlation-Id"]).ToNot(BeNil())
+					Expect(req.Header["X-Correlation-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					Expect(req.Header["Transaction-Id"]).ToNot(BeNil())
 					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					res.Header().Set("Content-type", "application/json")
@@ -724,6 +748,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				// Construct an instance of the GetZoneOptions model
 				getZoneOptionsModel := new(contextbasedrestrictionsv1.GetZoneOptions)
 				getZoneOptionsModel.ZoneID = core.StringPtr("testString")
+				getZoneOptionsModel.XCorrelationID = core.StringPtr("testString")
 				getZoneOptionsModel.TransactionID = core.StringPtr("testString")
 				getZoneOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
@@ -755,6 +780,8 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 					Expect(req.URL.EscapedPath()).To(Equal(getZonePath))
 					Expect(req.Method).To(Equal("GET"))
 
+					Expect(req.Header["X-Correlation-Id"]).ToNot(BeNil())
+					Expect(req.Header["X-Correlation-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					Expect(req.Header["Transaction-Id"]).ToNot(BeNil())
 					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					// Sleep a short time to support a timeout test
@@ -778,6 +805,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				// Construct an instance of the GetZoneOptions model
 				getZoneOptionsModel := new(contextbasedrestrictionsv1.GetZoneOptions)
 				getZoneOptionsModel.ZoneID = core.StringPtr("testString")
+				getZoneOptionsModel.XCorrelationID = core.StringPtr("testString")
 				getZoneOptionsModel.TransactionID = core.StringPtr("testString")
 				getZoneOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
@@ -815,6 +843,8 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 					Expect(req.URL.EscapedPath()).To(Equal(getZonePath))
 					Expect(req.Method).To(Equal("GET"))
 
+					Expect(req.Header["X-Correlation-Id"]).ToNot(BeNil())
+					Expect(req.Header["X-Correlation-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					Expect(req.Header["Transaction-Id"]).ToNot(BeNil())
 					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					// Set mock response
@@ -840,6 +870,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				// Construct an instance of the GetZoneOptions model
 				getZoneOptionsModel := new(contextbasedrestrictionsv1.GetZoneOptions)
 				getZoneOptionsModel.ZoneID = core.StringPtr("testString")
+				getZoneOptionsModel.XCorrelationID = core.StringPtr("testString")
 				getZoneOptionsModel.TransactionID = core.StringPtr("testString")
 				getZoneOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
@@ -861,6 +892,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				// Construct an instance of the GetZoneOptions model
 				getZoneOptionsModel := new(contextbasedrestrictionsv1.GetZoneOptions)
 				getZoneOptionsModel.ZoneID = core.StringPtr("testString")
+				getZoneOptionsModel.XCorrelationID = core.StringPtr("testString")
 				getZoneOptionsModel.TransactionID = core.StringPtr("testString")
 				getZoneOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
@@ -903,6 +935,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				// Construct an instance of the GetZoneOptions model
 				getZoneOptionsModel := new(contextbasedrestrictionsv1.GetZoneOptions)
 				getZoneOptionsModel.ZoneID = core.StringPtr("testString")
+				getZoneOptionsModel.XCorrelationID = core.StringPtr("testString")
 				getZoneOptionsModel.TransactionID = core.StringPtr("testString")
 				getZoneOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
@@ -931,6 +964,8 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 					Expect(req.Method).To(Equal("PUT"))
 					Expect(req.Header["If-Match"]).ToNot(BeNil())
 					Expect(req.Header["If-Match"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
+					Expect(req.Header["X-Correlation-Id"]).ToNot(BeNil())
+					Expect(req.Header["X-Correlation-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					Expect(req.Header["Transaction-Id"]).ToNot(BeNil())
 					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					res.Header().Set("Content-type", "application/json")
@@ -960,6 +995,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				replaceZoneOptionsModel.Description = core.StringPtr("this is an example of zone")
 				replaceZoneOptionsModel.Addresses = []contextbasedrestrictionsv1.AddressIntf{addressModel}
 				replaceZoneOptionsModel.Excluded = []contextbasedrestrictionsv1.AddressIntf{addressModel}
+				replaceZoneOptionsModel.XCorrelationID = core.StringPtr("testString")
 				replaceZoneOptionsModel.TransactionID = core.StringPtr("testString")
 				replaceZoneOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
@@ -1009,6 +1045,8 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 
 					Expect(req.Header["If-Match"]).ToNot(BeNil())
 					Expect(req.Header["If-Match"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
+					Expect(req.Header["X-Correlation-Id"]).ToNot(BeNil())
+					Expect(req.Header["X-Correlation-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					Expect(req.Header["Transaction-Id"]).ToNot(BeNil())
 					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					// Sleep a short time to support a timeout test
@@ -1043,6 +1081,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				replaceZoneOptionsModel.Description = core.StringPtr("this is an example of zone")
 				replaceZoneOptionsModel.Addresses = []contextbasedrestrictionsv1.AddressIntf{addressModel}
 				replaceZoneOptionsModel.Excluded = []contextbasedrestrictionsv1.AddressIntf{addressModel}
+				replaceZoneOptionsModel.XCorrelationID = core.StringPtr("testString")
 				replaceZoneOptionsModel.TransactionID = core.StringPtr("testString")
 				replaceZoneOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
@@ -1098,6 +1137,8 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 
 					Expect(req.Header["If-Match"]).ToNot(BeNil())
 					Expect(req.Header["If-Match"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
+					Expect(req.Header["X-Correlation-Id"]).ToNot(BeNil())
+					Expect(req.Header["X-Correlation-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					Expect(req.Header["Transaction-Id"]).ToNot(BeNil())
 					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					// Set mock response
@@ -1134,6 +1175,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				replaceZoneOptionsModel.Description = core.StringPtr("this is an example of zone")
 				replaceZoneOptionsModel.Addresses = []contextbasedrestrictionsv1.AddressIntf{addressModel}
 				replaceZoneOptionsModel.Excluded = []contextbasedrestrictionsv1.AddressIntf{addressModel}
+				replaceZoneOptionsModel.XCorrelationID = core.StringPtr("testString")
 				replaceZoneOptionsModel.TransactionID = core.StringPtr("testString")
 				replaceZoneOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
@@ -1166,6 +1208,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				replaceZoneOptionsModel.Description = core.StringPtr("this is an example of zone")
 				replaceZoneOptionsModel.Addresses = []contextbasedrestrictionsv1.AddressIntf{addressModel}
 				replaceZoneOptionsModel.Excluded = []contextbasedrestrictionsv1.AddressIntf{addressModel}
+				replaceZoneOptionsModel.XCorrelationID = core.StringPtr("testString")
 				replaceZoneOptionsModel.TransactionID = core.StringPtr("testString")
 				replaceZoneOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
@@ -1219,6 +1262,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				replaceZoneOptionsModel.Description = core.StringPtr("this is an example of zone")
 				replaceZoneOptionsModel.Addresses = []contextbasedrestrictionsv1.AddressIntf{addressModel}
 				replaceZoneOptionsModel.Excluded = []contextbasedrestrictionsv1.AddressIntf{addressModel}
+				replaceZoneOptionsModel.XCorrelationID = core.StringPtr("testString")
 				replaceZoneOptionsModel.TransactionID = core.StringPtr("testString")
 				replaceZoneOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
@@ -1246,6 +1290,8 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 					Expect(req.URL.EscapedPath()).To(Equal(deleteZonePath))
 					Expect(req.Method).To(Equal("DELETE"))
 
+					Expect(req.Header["X-Correlation-Id"]).ToNot(BeNil())
+					Expect(req.Header["X-Correlation-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					Expect(req.Header["Transaction-Id"]).ToNot(BeNil())
 					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					res.WriteHeader(204)
@@ -1267,6 +1313,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				// Construct an instance of the DeleteZoneOptions model
 				deleteZoneOptionsModel := new(contextbasedrestrictionsv1.DeleteZoneOptions)
 				deleteZoneOptionsModel.ZoneID = core.StringPtr("testString")
+				deleteZoneOptionsModel.XCorrelationID = core.StringPtr("testString")
 				deleteZoneOptionsModel.TransactionID = core.StringPtr("testString")
 				deleteZoneOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
@@ -1286,6 +1333,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				// Construct an instance of the DeleteZoneOptions model
 				deleteZoneOptionsModel := new(contextbasedrestrictionsv1.DeleteZoneOptions)
 				deleteZoneOptionsModel.ZoneID = core.StringPtr("testString")
+				deleteZoneOptionsModel.XCorrelationID = core.StringPtr("testString")
 				deleteZoneOptionsModel.TransactionID = core.StringPtr("testString")
 				deleteZoneOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
@@ -1317,6 +1365,10 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 					// Verify the contents of the request
 					Expect(req.URL.EscapedPath()).To(Equal(listAvailableServicerefTargetsPath))
 					Expect(req.Method).To(Equal("GET"))
+					Expect(req.Header["X-Correlation-Id"]).ToNot(BeNil())
+					Expect(req.Header["X-Correlation-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
+					Expect(req.Header["Transaction-Id"]).ToNot(BeNil())
+					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					Expect(req.URL.Query()["type"]).To(Equal([]string{"all"}))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
@@ -1333,6 +1385,8 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 
 				// Construct an instance of the ListAvailableServicerefTargetsOptions model
 				listAvailableServicerefTargetsOptionsModel := new(contextbasedrestrictionsv1.ListAvailableServicerefTargetsOptions)
+				listAvailableServicerefTargetsOptionsModel.XCorrelationID = core.StringPtr("testString")
+				listAvailableServicerefTargetsOptionsModel.TransactionID = core.StringPtr("testString")
 				listAvailableServicerefTargetsOptionsModel.Type = core.StringPtr("all")
 				listAvailableServicerefTargetsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
@@ -1364,6 +1418,10 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 					Expect(req.URL.EscapedPath()).To(Equal(listAvailableServicerefTargetsPath))
 					Expect(req.Method).To(Equal("GET"))
 
+					Expect(req.Header["X-Correlation-Id"]).ToNot(BeNil())
+					Expect(req.Header["X-Correlation-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
+					Expect(req.Header["Transaction-Id"]).ToNot(BeNil())
+					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					Expect(req.URL.Query()["type"]).To(Equal([]string{"all"}))
 					// Sleep a short time to support a timeout test
 					time.Sleep(100 * time.Millisecond)
@@ -1385,6 +1443,8 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 
 				// Construct an instance of the ListAvailableServicerefTargetsOptions model
 				listAvailableServicerefTargetsOptionsModel := new(contextbasedrestrictionsv1.ListAvailableServicerefTargetsOptions)
+				listAvailableServicerefTargetsOptionsModel.XCorrelationID = core.StringPtr("testString")
+				listAvailableServicerefTargetsOptionsModel.TransactionID = core.StringPtr("testString")
 				listAvailableServicerefTargetsOptionsModel.Type = core.StringPtr("all")
 				listAvailableServicerefTargetsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
@@ -1422,6 +1482,10 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 					Expect(req.URL.EscapedPath()).To(Equal(listAvailableServicerefTargetsPath))
 					Expect(req.Method).To(Equal("GET"))
 
+					Expect(req.Header["X-Correlation-Id"]).ToNot(BeNil())
+					Expect(req.Header["X-Correlation-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
+					Expect(req.Header["Transaction-Id"]).ToNot(BeNil())
+					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					Expect(req.URL.Query()["type"]).To(Equal([]string{"all"}))
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
@@ -1445,6 +1509,8 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 
 				// Construct an instance of the ListAvailableServicerefTargetsOptions model
 				listAvailableServicerefTargetsOptionsModel := new(contextbasedrestrictionsv1.ListAvailableServicerefTargetsOptions)
+				listAvailableServicerefTargetsOptionsModel.XCorrelationID = core.StringPtr("testString")
+				listAvailableServicerefTargetsOptionsModel.TransactionID = core.StringPtr("testString")
 				listAvailableServicerefTargetsOptionsModel.Type = core.StringPtr("all")
 				listAvailableServicerefTargetsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
@@ -1465,6 +1531,8 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 
 				// Construct an instance of the ListAvailableServicerefTargetsOptions model
 				listAvailableServicerefTargetsOptionsModel := new(contextbasedrestrictionsv1.ListAvailableServicerefTargetsOptions)
+				listAvailableServicerefTargetsOptionsModel.XCorrelationID = core.StringPtr("testString")
+				listAvailableServicerefTargetsOptionsModel.TransactionID = core.StringPtr("testString")
 				listAvailableServicerefTargetsOptionsModel.Type = core.StringPtr("all")
 				listAvailableServicerefTargetsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
@@ -1499,6 +1567,8 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 
 				// Construct an instance of the ListAvailableServicerefTargetsOptions model
 				listAvailableServicerefTargetsOptionsModel := new(contextbasedrestrictionsv1.ListAvailableServicerefTargetsOptions)
+				listAvailableServicerefTargetsOptionsModel.XCorrelationID = core.StringPtr("testString")
+				listAvailableServicerefTargetsOptionsModel.TransactionID = core.StringPtr("testString")
 				listAvailableServicerefTargetsOptionsModel.Type = core.StringPtr("all")
 				listAvailableServicerefTargetsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
@@ -1525,6 +1595,8 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 					// Verify the contents of the request
 					Expect(req.URL.EscapedPath()).To(Equal(createRulePath))
 					Expect(req.Method).To(Equal("POST"))
+					Expect(req.Header["X-Correlation-Id"]).ToNot(BeNil())
+					Expect(req.Header["X-Correlation-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					Expect(req.Header["Transaction-Id"]).ToNot(BeNil())
 					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					res.Header().Set("Content-type", "application/json")
@@ -1571,6 +1643,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				createRuleOptionsModel.Description = core.StringPtr("this is an example of rule")
 				createRuleOptionsModel.Contexts = []contextbasedrestrictionsv1.RuleContext{*ruleContextModel}
 				createRuleOptionsModel.Resources = []contextbasedrestrictionsv1.Resource{*resourceModel}
+				createRuleOptionsModel.XCorrelationID = core.StringPtr("testString")
 				createRuleOptionsModel.TransactionID = core.StringPtr("testString")
 				createRuleOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
@@ -1618,6 +1691,8 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 					}
 					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
 
+					Expect(req.Header["X-Correlation-Id"]).ToNot(BeNil())
+					Expect(req.Header["X-Correlation-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					Expect(req.Header["Transaction-Id"]).ToNot(BeNil())
 					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					// Sleep a short time to support a timeout test
@@ -1669,6 +1744,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				createRuleOptionsModel.Description = core.StringPtr("this is an example of rule")
 				createRuleOptionsModel.Contexts = []contextbasedrestrictionsv1.RuleContext{*ruleContextModel}
 				createRuleOptionsModel.Resources = []contextbasedrestrictionsv1.Resource{*resourceModel}
+				createRuleOptionsModel.XCorrelationID = core.StringPtr("testString")
 				createRuleOptionsModel.TransactionID = core.StringPtr("testString")
 				createRuleOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
@@ -1722,6 +1798,8 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 					}
 					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
 
+					Expect(req.Header["X-Correlation-Id"]).ToNot(BeNil())
+					Expect(req.Header["X-Correlation-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					Expect(req.Header["Transaction-Id"]).ToNot(BeNil())
 					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					// Set mock response
@@ -1775,6 +1853,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				createRuleOptionsModel.Description = core.StringPtr("this is an example of rule")
 				createRuleOptionsModel.Contexts = []contextbasedrestrictionsv1.RuleContext{*ruleContextModel}
 				createRuleOptionsModel.Resources = []contextbasedrestrictionsv1.Resource{*resourceModel}
+				createRuleOptionsModel.XCorrelationID = core.StringPtr("testString")
 				createRuleOptionsModel.TransactionID = core.StringPtr("testString")
 				createRuleOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
@@ -1824,6 +1903,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				createRuleOptionsModel.Description = core.StringPtr("this is an example of rule")
 				createRuleOptionsModel.Contexts = []contextbasedrestrictionsv1.RuleContext{*ruleContextModel}
 				createRuleOptionsModel.Resources = []contextbasedrestrictionsv1.Resource{*resourceModel}
+				createRuleOptionsModel.XCorrelationID = core.StringPtr("testString")
 				createRuleOptionsModel.TransactionID = core.StringPtr("testString")
 				createRuleOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
@@ -1887,6 +1967,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				createRuleOptionsModel.Description = core.StringPtr("this is an example of rule")
 				createRuleOptionsModel.Contexts = []contextbasedrestrictionsv1.RuleContext{*ruleContextModel}
 				createRuleOptionsModel.Resources = []contextbasedrestrictionsv1.Resource{*resourceModel}
+				createRuleOptionsModel.XCorrelationID = core.StringPtr("testString")
 				createRuleOptionsModel.TransactionID = core.StringPtr("testString")
 				createRuleOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
@@ -1913,6 +1994,8 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 					// Verify the contents of the request
 					Expect(req.URL.EscapedPath()).To(Equal(listRulesPath))
 					Expect(req.Method).To(Equal("GET"))
+					Expect(req.Header["X-Correlation-Id"]).ToNot(BeNil())
+					Expect(req.Header["X-Correlation-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					Expect(req.Header["Transaction-Id"]).ToNot(BeNil())
 					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"testString"}))
@@ -1940,6 +2023,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				// Construct an instance of the ListRulesOptions model
 				listRulesOptionsModel := new(contextbasedrestrictionsv1.ListRulesOptions)
 				listRulesOptionsModel.AccountID = core.StringPtr("testString")
+				listRulesOptionsModel.XCorrelationID = core.StringPtr("testString")
 				listRulesOptionsModel.TransactionID = core.StringPtr("testString")
 				listRulesOptionsModel.Region = core.StringPtr("testString")
 				listRulesOptionsModel.Resource = core.StringPtr("testString")
@@ -1979,6 +2063,8 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 					Expect(req.URL.EscapedPath()).To(Equal(listRulesPath))
 					Expect(req.Method).To(Equal("GET"))
 
+					Expect(req.Header["X-Correlation-Id"]).ToNot(BeNil())
+					Expect(req.Header["X-Correlation-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					Expect(req.Header["Transaction-Id"]).ToNot(BeNil())
 					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"testString"}))
@@ -2011,6 +2097,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				// Construct an instance of the ListRulesOptions model
 				listRulesOptionsModel := new(contextbasedrestrictionsv1.ListRulesOptions)
 				listRulesOptionsModel.AccountID = core.StringPtr("testString")
+				listRulesOptionsModel.XCorrelationID = core.StringPtr("testString")
 				listRulesOptionsModel.TransactionID = core.StringPtr("testString")
 				listRulesOptionsModel.Region = core.StringPtr("testString")
 				listRulesOptionsModel.Resource = core.StringPtr("testString")
@@ -2056,6 +2143,8 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 					Expect(req.URL.EscapedPath()).To(Equal(listRulesPath))
 					Expect(req.Method).To(Equal("GET"))
 
+					Expect(req.Header["X-Correlation-Id"]).ToNot(BeNil())
+					Expect(req.Header["X-Correlation-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					Expect(req.Header["Transaction-Id"]).ToNot(BeNil())
 					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"testString"}))
@@ -2090,6 +2179,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				// Construct an instance of the ListRulesOptions model
 				listRulesOptionsModel := new(contextbasedrestrictionsv1.ListRulesOptions)
 				listRulesOptionsModel.AccountID = core.StringPtr("testString")
+				listRulesOptionsModel.XCorrelationID = core.StringPtr("testString")
 				listRulesOptionsModel.TransactionID = core.StringPtr("testString")
 				listRulesOptionsModel.Region = core.StringPtr("testString")
 				listRulesOptionsModel.Resource = core.StringPtr("testString")
@@ -2119,6 +2209,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				// Construct an instance of the ListRulesOptions model
 				listRulesOptionsModel := new(contextbasedrestrictionsv1.ListRulesOptions)
 				listRulesOptionsModel.AccountID = core.StringPtr("testString")
+				listRulesOptionsModel.XCorrelationID = core.StringPtr("testString")
 				listRulesOptionsModel.TransactionID = core.StringPtr("testString")
 				listRulesOptionsModel.Region = core.StringPtr("testString")
 				listRulesOptionsModel.Resource = core.StringPtr("testString")
@@ -2169,6 +2260,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				// Construct an instance of the ListRulesOptions model
 				listRulesOptionsModel := new(contextbasedrestrictionsv1.ListRulesOptions)
 				listRulesOptionsModel.AccountID = core.StringPtr("testString")
+				listRulesOptionsModel.XCorrelationID = core.StringPtr("testString")
 				listRulesOptionsModel.TransactionID = core.StringPtr("testString")
 				listRulesOptionsModel.Region = core.StringPtr("testString")
 				listRulesOptionsModel.Resource = core.StringPtr("testString")
@@ -2203,6 +2295,8 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 					// Verify the contents of the request
 					Expect(req.URL.EscapedPath()).To(Equal(getRulePath))
 					Expect(req.Method).To(Equal("GET"))
+					Expect(req.Header["X-Correlation-Id"]).ToNot(BeNil())
+					Expect(req.Header["X-Correlation-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					Expect(req.Header["Transaction-Id"]).ToNot(BeNil())
 					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					res.Header().Set("Content-type", "application/json")
@@ -2221,6 +2315,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				// Construct an instance of the GetRuleOptions model
 				getRuleOptionsModel := new(contextbasedrestrictionsv1.GetRuleOptions)
 				getRuleOptionsModel.RuleID = core.StringPtr("testString")
+				getRuleOptionsModel.XCorrelationID = core.StringPtr("testString")
 				getRuleOptionsModel.TransactionID = core.StringPtr("testString")
 				getRuleOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
@@ -2252,6 +2347,8 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 					Expect(req.URL.EscapedPath()).To(Equal(getRulePath))
 					Expect(req.Method).To(Equal("GET"))
 
+					Expect(req.Header["X-Correlation-Id"]).ToNot(BeNil())
+					Expect(req.Header["X-Correlation-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					Expect(req.Header["Transaction-Id"]).ToNot(BeNil())
 					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					// Sleep a short time to support a timeout test
@@ -2275,6 +2372,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				// Construct an instance of the GetRuleOptions model
 				getRuleOptionsModel := new(contextbasedrestrictionsv1.GetRuleOptions)
 				getRuleOptionsModel.RuleID = core.StringPtr("testString")
+				getRuleOptionsModel.XCorrelationID = core.StringPtr("testString")
 				getRuleOptionsModel.TransactionID = core.StringPtr("testString")
 				getRuleOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
@@ -2312,6 +2410,8 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 					Expect(req.URL.EscapedPath()).To(Equal(getRulePath))
 					Expect(req.Method).To(Equal("GET"))
 
+					Expect(req.Header["X-Correlation-Id"]).ToNot(BeNil())
+					Expect(req.Header["X-Correlation-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					Expect(req.Header["Transaction-Id"]).ToNot(BeNil())
 					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					// Set mock response
@@ -2337,6 +2437,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				// Construct an instance of the GetRuleOptions model
 				getRuleOptionsModel := new(contextbasedrestrictionsv1.GetRuleOptions)
 				getRuleOptionsModel.RuleID = core.StringPtr("testString")
+				getRuleOptionsModel.XCorrelationID = core.StringPtr("testString")
 				getRuleOptionsModel.TransactionID = core.StringPtr("testString")
 				getRuleOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
@@ -2358,6 +2459,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				// Construct an instance of the GetRuleOptions model
 				getRuleOptionsModel := new(contextbasedrestrictionsv1.GetRuleOptions)
 				getRuleOptionsModel.RuleID = core.StringPtr("testString")
+				getRuleOptionsModel.XCorrelationID = core.StringPtr("testString")
 				getRuleOptionsModel.TransactionID = core.StringPtr("testString")
 				getRuleOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
@@ -2400,6 +2502,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				// Construct an instance of the GetRuleOptions model
 				getRuleOptionsModel := new(contextbasedrestrictionsv1.GetRuleOptions)
 				getRuleOptionsModel.RuleID = core.StringPtr("testString")
+				getRuleOptionsModel.XCorrelationID = core.StringPtr("testString")
 				getRuleOptionsModel.TransactionID = core.StringPtr("testString")
 				getRuleOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
@@ -2428,6 +2531,8 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 					Expect(req.Method).To(Equal("PUT"))
 					Expect(req.Header["If-Match"]).ToNot(BeNil())
 					Expect(req.Header["If-Match"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
+					Expect(req.Header["X-Correlation-Id"]).ToNot(BeNil())
+					Expect(req.Header["X-Correlation-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					Expect(req.Header["Transaction-Id"]).ToNot(BeNil())
 					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					res.Header().Set("Content-type", "application/json")
@@ -2476,6 +2581,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				replaceRuleOptionsModel.Description = core.StringPtr("this is an example of rule")
 				replaceRuleOptionsModel.Contexts = []contextbasedrestrictionsv1.RuleContext{*ruleContextModel}
 				replaceRuleOptionsModel.Resources = []contextbasedrestrictionsv1.Resource{*resourceModel}
+				replaceRuleOptionsModel.XCorrelationID = core.StringPtr("testString")
 				replaceRuleOptionsModel.TransactionID = core.StringPtr("testString")
 				replaceRuleOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
@@ -2525,6 +2631,8 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 
 					Expect(req.Header["If-Match"]).ToNot(BeNil())
 					Expect(req.Header["If-Match"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
+					Expect(req.Header["X-Correlation-Id"]).ToNot(BeNil())
+					Expect(req.Header["X-Correlation-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					Expect(req.Header["Transaction-Id"]).ToNot(BeNil())
 					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					// Sleep a short time to support a timeout test
@@ -2578,6 +2686,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				replaceRuleOptionsModel.Description = core.StringPtr("this is an example of rule")
 				replaceRuleOptionsModel.Contexts = []contextbasedrestrictionsv1.RuleContext{*ruleContextModel}
 				replaceRuleOptionsModel.Resources = []contextbasedrestrictionsv1.Resource{*resourceModel}
+				replaceRuleOptionsModel.XCorrelationID = core.StringPtr("testString")
 				replaceRuleOptionsModel.TransactionID = core.StringPtr("testString")
 				replaceRuleOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
@@ -2633,6 +2742,8 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 
 					Expect(req.Header["If-Match"]).ToNot(BeNil())
 					Expect(req.Header["If-Match"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
+					Expect(req.Header["X-Correlation-Id"]).ToNot(BeNil())
+					Expect(req.Header["X-Correlation-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					Expect(req.Header["Transaction-Id"]).ToNot(BeNil())
 					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					// Set mock response
@@ -2688,6 +2799,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				replaceRuleOptionsModel.Description = core.StringPtr("this is an example of rule")
 				replaceRuleOptionsModel.Contexts = []contextbasedrestrictionsv1.RuleContext{*ruleContextModel}
 				replaceRuleOptionsModel.Resources = []contextbasedrestrictionsv1.Resource{*resourceModel}
+				replaceRuleOptionsModel.XCorrelationID = core.StringPtr("testString")
 				replaceRuleOptionsModel.TransactionID = core.StringPtr("testString")
 				replaceRuleOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
@@ -2739,6 +2851,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				replaceRuleOptionsModel.Description = core.StringPtr("this is an example of rule")
 				replaceRuleOptionsModel.Contexts = []contextbasedrestrictionsv1.RuleContext{*ruleContextModel}
 				replaceRuleOptionsModel.Resources = []contextbasedrestrictionsv1.Resource{*resourceModel}
+				replaceRuleOptionsModel.XCorrelationID = core.StringPtr("testString")
 				replaceRuleOptionsModel.TransactionID = core.StringPtr("testString")
 				replaceRuleOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
@@ -2811,6 +2924,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				replaceRuleOptionsModel.Description = core.StringPtr("this is an example of rule")
 				replaceRuleOptionsModel.Contexts = []contextbasedrestrictionsv1.RuleContext{*ruleContextModel}
 				replaceRuleOptionsModel.Resources = []contextbasedrestrictionsv1.Resource{*resourceModel}
+				replaceRuleOptionsModel.XCorrelationID = core.StringPtr("testString")
 				replaceRuleOptionsModel.TransactionID = core.StringPtr("testString")
 				replaceRuleOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
@@ -2838,6 +2952,8 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 					Expect(req.URL.EscapedPath()).To(Equal(deleteRulePath))
 					Expect(req.Method).To(Equal("DELETE"))
 
+					Expect(req.Header["X-Correlation-Id"]).ToNot(BeNil())
+					Expect(req.Header["X-Correlation-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					Expect(req.Header["Transaction-Id"]).ToNot(BeNil())
 					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					res.WriteHeader(204)
@@ -2859,6 +2975,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				// Construct an instance of the DeleteRuleOptions model
 				deleteRuleOptionsModel := new(contextbasedrestrictionsv1.DeleteRuleOptions)
 				deleteRuleOptionsModel.RuleID = core.StringPtr("testString")
+				deleteRuleOptionsModel.XCorrelationID = core.StringPtr("testString")
 				deleteRuleOptionsModel.TransactionID = core.StringPtr("testString")
 				deleteRuleOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
@@ -2878,6 +2995,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				// Construct an instance of the DeleteRuleOptions model
 				deleteRuleOptionsModel := new(contextbasedrestrictionsv1.DeleteRuleOptions)
 				deleteRuleOptionsModel.RuleID = core.StringPtr("testString")
+				deleteRuleOptionsModel.XCorrelationID = core.StringPtr("testString")
 				deleteRuleOptionsModel.TransactionID = core.StringPtr("testString")
 				deleteRuleOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
@@ -2909,6 +3027,8 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 					// Verify the contents of the request
 					Expect(req.URL.EscapedPath()).To(Equal(getAccountSettingsPath))
 					Expect(req.Method).To(Equal("GET"))
+					Expect(req.Header["X-Correlation-Id"]).ToNot(BeNil())
+					Expect(req.Header["X-Correlation-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					Expect(req.Header["Transaction-Id"]).ToNot(BeNil())
 					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					res.Header().Set("Content-type", "application/json")
@@ -2927,6 +3047,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				// Construct an instance of the GetAccountSettingsOptions model
 				getAccountSettingsOptionsModel := new(contextbasedrestrictionsv1.GetAccountSettingsOptions)
 				getAccountSettingsOptionsModel.AccountID = core.StringPtr("testString")
+				getAccountSettingsOptionsModel.XCorrelationID = core.StringPtr("testString")
 				getAccountSettingsOptionsModel.TransactionID = core.StringPtr("testString")
 				getAccountSettingsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
@@ -2958,6 +3079,8 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 					Expect(req.URL.EscapedPath()).To(Equal(getAccountSettingsPath))
 					Expect(req.Method).To(Equal("GET"))
 
+					Expect(req.Header["X-Correlation-Id"]).ToNot(BeNil())
+					Expect(req.Header["X-Correlation-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					Expect(req.Header["Transaction-Id"]).ToNot(BeNil())
 					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					// Sleep a short time to support a timeout test
@@ -2981,6 +3104,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				// Construct an instance of the GetAccountSettingsOptions model
 				getAccountSettingsOptionsModel := new(contextbasedrestrictionsv1.GetAccountSettingsOptions)
 				getAccountSettingsOptionsModel.AccountID = core.StringPtr("testString")
+				getAccountSettingsOptionsModel.XCorrelationID = core.StringPtr("testString")
 				getAccountSettingsOptionsModel.TransactionID = core.StringPtr("testString")
 				getAccountSettingsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
@@ -3018,6 +3142,8 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 					Expect(req.URL.EscapedPath()).To(Equal(getAccountSettingsPath))
 					Expect(req.Method).To(Equal("GET"))
 
+					Expect(req.Header["X-Correlation-Id"]).ToNot(BeNil())
+					Expect(req.Header["X-Correlation-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					Expect(req.Header["Transaction-Id"]).ToNot(BeNil())
 					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					// Set mock response
@@ -3043,6 +3169,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				// Construct an instance of the GetAccountSettingsOptions model
 				getAccountSettingsOptionsModel := new(contextbasedrestrictionsv1.GetAccountSettingsOptions)
 				getAccountSettingsOptionsModel.AccountID = core.StringPtr("testString")
+				getAccountSettingsOptionsModel.XCorrelationID = core.StringPtr("testString")
 				getAccountSettingsOptionsModel.TransactionID = core.StringPtr("testString")
 				getAccountSettingsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
@@ -3064,6 +3191,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				// Construct an instance of the GetAccountSettingsOptions model
 				getAccountSettingsOptionsModel := new(contextbasedrestrictionsv1.GetAccountSettingsOptions)
 				getAccountSettingsOptionsModel.AccountID = core.StringPtr("testString")
+				getAccountSettingsOptionsModel.XCorrelationID = core.StringPtr("testString")
 				getAccountSettingsOptionsModel.TransactionID = core.StringPtr("testString")
 				getAccountSettingsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
@@ -3106,6 +3234,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				// Construct an instance of the GetAccountSettingsOptions model
 				getAccountSettingsOptionsModel := new(contextbasedrestrictionsv1.GetAccountSettingsOptions)
 				getAccountSettingsOptionsModel.AccountID = core.StringPtr("testString")
+				getAccountSettingsOptionsModel.XCorrelationID = core.StringPtr("testString")
 				getAccountSettingsOptionsModel.TransactionID = core.StringPtr("testString")
 				getAccountSettingsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
@@ -3176,12 +3305,14 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				createRuleOptionsModel.SetDescription("this is an example of rule")
 				createRuleOptionsModel.SetContexts([]contextbasedrestrictionsv1.RuleContext{*ruleContextModel})
 				createRuleOptionsModel.SetResources([]contextbasedrestrictionsv1.Resource{*resourceModel})
+				createRuleOptionsModel.SetXCorrelationID("testString")
 				createRuleOptionsModel.SetTransactionID("testString")
 				createRuleOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(createRuleOptionsModel).ToNot(BeNil())
 				Expect(createRuleOptionsModel.Description).To(Equal(core.StringPtr("this is an example of rule")))
 				Expect(createRuleOptionsModel.Contexts).To(Equal([]contextbasedrestrictionsv1.RuleContext{*ruleContextModel}))
 				Expect(createRuleOptionsModel.Resources).To(Equal([]contextbasedrestrictionsv1.Resource{*resourceModel}))
+				Expect(createRuleOptionsModel.XCorrelationID).To(Equal(core.StringPtr("testString")))
 				Expect(createRuleOptionsModel.TransactionID).To(Equal(core.StringPtr("testString")))
 				Expect(createRuleOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
@@ -3201,6 +3332,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				createZoneOptionsModel.SetDescription("this is an example of zone")
 				createZoneOptionsModel.SetAddresses([]contextbasedrestrictionsv1.AddressIntf{addressModel})
 				createZoneOptionsModel.SetExcluded([]contextbasedrestrictionsv1.AddressIntf{addressModel})
+				createZoneOptionsModel.SetXCorrelationID("testString")
 				createZoneOptionsModel.SetTransactionID("testString")
 				createZoneOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(createZoneOptionsModel).ToNot(BeNil())
@@ -3209,6 +3341,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				Expect(createZoneOptionsModel.Description).To(Equal(core.StringPtr("this is an example of zone")))
 				Expect(createZoneOptionsModel.Addresses).To(Equal([]contextbasedrestrictionsv1.AddressIntf{addressModel}))
 				Expect(createZoneOptionsModel.Excluded).To(Equal([]contextbasedrestrictionsv1.AddressIntf{addressModel}))
+				Expect(createZoneOptionsModel.XCorrelationID).To(Equal(core.StringPtr("testString")))
 				Expect(createZoneOptionsModel.TransactionID).To(Equal(core.StringPtr("testString")))
 				Expect(createZoneOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
@@ -3217,10 +3350,12 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				ruleID := "testString"
 				deleteRuleOptionsModel := contextBasedRestrictionsService.NewDeleteRuleOptions(ruleID)
 				deleteRuleOptionsModel.SetRuleID("testString")
+				deleteRuleOptionsModel.SetXCorrelationID("testString")
 				deleteRuleOptionsModel.SetTransactionID("testString")
 				deleteRuleOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(deleteRuleOptionsModel).ToNot(BeNil())
 				Expect(deleteRuleOptionsModel.RuleID).To(Equal(core.StringPtr("testString")))
+				Expect(deleteRuleOptionsModel.XCorrelationID).To(Equal(core.StringPtr("testString")))
 				Expect(deleteRuleOptionsModel.TransactionID).To(Equal(core.StringPtr("testString")))
 				Expect(deleteRuleOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
@@ -3229,10 +3364,12 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				zoneID := "testString"
 				deleteZoneOptionsModel := contextBasedRestrictionsService.NewDeleteZoneOptions(zoneID)
 				deleteZoneOptionsModel.SetZoneID("testString")
+				deleteZoneOptionsModel.SetXCorrelationID("testString")
 				deleteZoneOptionsModel.SetTransactionID("testString")
 				deleteZoneOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(deleteZoneOptionsModel).ToNot(BeNil())
 				Expect(deleteZoneOptionsModel.ZoneID).To(Equal(core.StringPtr("testString")))
+				Expect(deleteZoneOptionsModel.XCorrelationID).To(Equal(core.StringPtr("testString")))
 				Expect(deleteZoneOptionsModel.TransactionID).To(Equal(core.StringPtr("testString")))
 				Expect(deleteZoneOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
@@ -3241,10 +3378,12 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				accountID := "testString"
 				getAccountSettingsOptionsModel := contextBasedRestrictionsService.NewGetAccountSettingsOptions(accountID)
 				getAccountSettingsOptionsModel.SetAccountID("testString")
+				getAccountSettingsOptionsModel.SetXCorrelationID("testString")
 				getAccountSettingsOptionsModel.SetTransactionID("testString")
 				getAccountSettingsOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(getAccountSettingsOptionsModel).ToNot(BeNil())
 				Expect(getAccountSettingsOptionsModel.AccountID).To(Equal(core.StringPtr("testString")))
+				Expect(getAccountSettingsOptionsModel.XCorrelationID).To(Equal(core.StringPtr("testString")))
 				Expect(getAccountSettingsOptionsModel.TransactionID).To(Equal(core.StringPtr("testString")))
 				Expect(getAccountSettingsOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
@@ -3253,10 +3392,12 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				ruleID := "testString"
 				getRuleOptionsModel := contextBasedRestrictionsService.NewGetRuleOptions(ruleID)
 				getRuleOptionsModel.SetRuleID("testString")
+				getRuleOptionsModel.SetXCorrelationID("testString")
 				getRuleOptionsModel.SetTransactionID("testString")
 				getRuleOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(getRuleOptionsModel).ToNot(BeNil())
 				Expect(getRuleOptionsModel.RuleID).To(Equal(core.StringPtr("testString")))
+				Expect(getRuleOptionsModel.XCorrelationID).To(Equal(core.StringPtr("testString")))
 				Expect(getRuleOptionsModel.TransactionID).To(Equal(core.StringPtr("testString")))
 				Expect(getRuleOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
@@ -3265,19 +3406,25 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				zoneID := "testString"
 				getZoneOptionsModel := contextBasedRestrictionsService.NewGetZoneOptions(zoneID)
 				getZoneOptionsModel.SetZoneID("testString")
+				getZoneOptionsModel.SetXCorrelationID("testString")
 				getZoneOptionsModel.SetTransactionID("testString")
 				getZoneOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(getZoneOptionsModel).ToNot(BeNil())
 				Expect(getZoneOptionsModel.ZoneID).To(Equal(core.StringPtr("testString")))
+				Expect(getZoneOptionsModel.XCorrelationID).To(Equal(core.StringPtr("testString")))
 				Expect(getZoneOptionsModel.TransactionID).To(Equal(core.StringPtr("testString")))
 				Expect(getZoneOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewListAvailableServicerefTargetsOptions successfully`, func() {
 				// Construct an instance of the ListAvailableServicerefTargetsOptions model
 				listAvailableServicerefTargetsOptionsModel := contextBasedRestrictionsService.NewListAvailableServicerefTargetsOptions()
+				listAvailableServicerefTargetsOptionsModel.SetXCorrelationID("testString")
+				listAvailableServicerefTargetsOptionsModel.SetTransactionID("testString")
 				listAvailableServicerefTargetsOptionsModel.SetType("all")
 				listAvailableServicerefTargetsOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(listAvailableServicerefTargetsOptionsModel).ToNot(BeNil())
+				Expect(listAvailableServicerefTargetsOptionsModel.XCorrelationID).To(Equal(core.StringPtr("testString")))
+				Expect(listAvailableServicerefTargetsOptionsModel.TransactionID).To(Equal(core.StringPtr("testString")))
 				Expect(listAvailableServicerefTargetsOptionsModel.Type).To(Equal(core.StringPtr("all")))
 				Expect(listAvailableServicerefTargetsOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
@@ -3286,6 +3433,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				accountID := "testString"
 				listRulesOptionsModel := contextBasedRestrictionsService.NewListRulesOptions(accountID)
 				listRulesOptionsModel.SetAccountID("testString")
+				listRulesOptionsModel.SetXCorrelationID("testString")
 				listRulesOptionsModel.SetTransactionID("testString")
 				listRulesOptionsModel.SetRegion("testString")
 				listRulesOptionsModel.SetResource("testString")
@@ -3298,6 +3446,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				listRulesOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(listRulesOptionsModel).ToNot(BeNil())
 				Expect(listRulesOptionsModel.AccountID).To(Equal(core.StringPtr("testString")))
+				Expect(listRulesOptionsModel.XCorrelationID).To(Equal(core.StringPtr("testString")))
 				Expect(listRulesOptionsModel.TransactionID).To(Equal(core.StringPtr("testString")))
 				Expect(listRulesOptionsModel.Region).To(Equal(core.StringPtr("testString")))
 				Expect(listRulesOptionsModel.Resource).To(Equal(core.StringPtr("testString")))
@@ -3314,12 +3463,14 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				accountID := "testString"
 				listZonesOptionsModel := contextBasedRestrictionsService.NewListZonesOptions(accountID)
 				listZonesOptionsModel.SetAccountID("testString")
+				listZonesOptionsModel.SetXCorrelationID("testString")
 				listZonesOptionsModel.SetTransactionID("testString")
 				listZonesOptionsModel.SetName("testString")
 				listZonesOptionsModel.SetSort("testString")
 				listZonesOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(listZonesOptionsModel).ToNot(BeNil())
 				Expect(listZonesOptionsModel.AccountID).To(Equal(core.StringPtr("testString")))
+				Expect(listZonesOptionsModel.XCorrelationID).To(Equal(core.StringPtr("testString")))
 				Expect(listZonesOptionsModel.TransactionID).To(Equal(core.StringPtr("testString")))
 				Expect(listZonesOptionsModel.Name).To(Equal(core.StringPtr("testString")))
 				Expect(listZonesOptionsModel.Sort).To(Equal(core.StringPtr("testString")))
@@ -3377,6 +3528,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				replaceRuleOptionsModel.SetDescription("this is an example of rule")
 				replaceRuleOptionsModel.SetContexts([]contextbasedrestrictionsv1.RuleContext{*ruleContextModel})
 				replaceRuleOptionsModel.SetResources([]contextbasedrestrictionsv1.Resource{*resourceModel})
+				replaceRuleOptionsModel.SetXCorrelationID("testString")
 				replaceRuleOptionsModel.SetTransactionID("testString")
 				replaceRuleOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(replaceRuleOptionsModel).ToNot(BeNil())
@@ -3385,6 +3537,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				Expect(replaceRuleOptionsModel.Description).To(Equal(core.StringPtr("this is an example of rule")))
 				Expect(replaceRuleOptionsModel.Contexts).To(Equal([]contextbasedrestrictionsv1.RuleContext{*ruleContextModel}))
 				Expect(replaceRuleOptionsModel.Resources).To(Equal([]contextbasedrestrictionsv1.Resource{*resourceModel}))
+				Expect(replaceRuleOptionsModel.XCorrelationID).To(Equal(core.StringPtr("testString")))
 				Expect(replaceRuleOptionsModel.TransactionID).To(Equal(core.StringPtr("testString")))
 				Expect(replaceRuleOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
@@ -3408,6 +3561,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				replaceZoneOptionsModel.SetDescription("this is an example of zone")
 				replaceZoneOptionsModel.SetAddresses([]contextbasedrestrictionsv1.AddressIntf{addressModel})
 				replaceZoneOptionsModel.SetExcluded([]contextbasedrestrictionsv1.AddressIntf{addressModel})
+				replaceZoneOptionsModel.SetXCorrelationID("testString")
 				replaceZoneOptionsModel.SetTransactionID("testString")
 				replaceZoneOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(replaceZoneOptionsModel).ToNot(BeNil())
@@ -3418,6 +3572,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				Expect(replaceZoneOptionsModel.Description).To(Equal(core.StringPtr("this is an example of zone")))
 				Expect(replaceZoneOptionsModel.Addresses).To(Equal([]contextbasedrestrictionsv1.AddressIntf{addressModel}))
 				Expect(replaceZoneOptionsModel.Excluded).To(Equal([]contextbasedrestrictionsv1.AddressIntf{addressModel}))
+				Expect(replaceZoneOptionsModel.XCorrelationID).To(Equal(core.StringPtr("testString")))
 				Expect(replaceZoneOptionsModel.TransactionID).To(Equal(core.StringPtr("testString")))
 				Expect(replaceZoneOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
