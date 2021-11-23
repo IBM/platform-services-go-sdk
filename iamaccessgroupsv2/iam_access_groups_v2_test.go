@@ -165,7 +165,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 		})
 	})
 	Describe(`CreateAccessGroup(createAccessGroupOptions *CreateAccessGroupOptions) - Operation response error`, func() {
-		createAccessGroupPath := "/groups"
+		createAccessGroupPath := "/v2/groups"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
@@ -216,7 +216,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 		})
 	})
 	Describe(`CreateAccessGroup(createAccessGroupOptions *CreateAccessGroupOptions)`, func() {
-		createAccessGroupPath := "/groups"
+		createAccessGroupPath := "/v2/groups"
 		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
@@ -433,7 +433,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 		})
 	})
 	Describe(`ListAccessGroups(listAccessGroupsOptions *ListAccessGroupsOptions) - Operation response error`, func() {
-		listAccessGroupsPath := "/groups"
+		listAccessGroupsPath := "/v2/groups"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
@@ -448,7 +448,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 					Expect(req.URL.Query()["iam_id"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(38))}))
 					Expect(req.URL.Query()["offset"]).To(Equal([]string{fmt.Sprint(int64(38))}))
-					Expect(req.URL.Query()["sort"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["sort"]).To(Equal([]string{"name"}))
 					// TODO: Add check for show_federated query parameter
 					// TODO: Add check for hide_public_access query parameter
 					res.Header().Set("Content-type", "application/json")
@@ -471,9 +471,9 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				listAccessGroupsOptionsModel.IamID = core.StringPtr("testString")
 				listAccessGroupsOptionsModel.Limit = core.Int64Ptr(int64(38))
 				listAccessGroupsOptionsModel.Offset = core.Int64Ptr(int64(38))
-				listAccessGroupsOptionsModel.Sort = core.StringPtr("testString")
-				listAccessGroupsOptionsModel.ShowFederated = core.BoolPtr(true)
-				listAccessGroupsOptionsModel.HidePublicAccess = core.BoolPtr(true)
+				listAccessGroupsOptionsModel.Sort = core.StringPtr("name")
+				listAccessGroupsOptionsModel.ShowFederated = core.BoolPtr(false)
+				listAccessGroupsOptionsModel.HidePublicAccess = core.BoolPtr(false)
 				listAccessGroupsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
 				result, response, operationErr := iamAccessGroupsService.ListAccessGroups(listAccessGroupsOptionsModel)
@@ -494,7 +494,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 		})
 	})
 	Describe(`ListAccessGroups(listAccessGroupsOptions *ListAccessGroupsOptions)`, func() {
-		listAccessGroupsPath := "/groups"
+		listAccessGroupsPath := "/v2/groups"
 		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
@@ -510,7 +510,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 					Expect(req.URL.Query()["iam_id"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(38))}))
 					Expect(req.URL.Query()["offset"]).To(Equal([]string{fmt.Sprint(int64(38))}))
-					Expect(req.URL.Query()["sort"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["sort"]).To(Equal([]string{"name"}))
 					// TODO: Add check for show_federated query parameter
 					// TODO: Add check for hide_public_access query parameter
 					// Sleep a short time to support a timeout test
@@ -538,9 +538,9 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				listAccessGroupsOptionsModel.IamID = core.StringPtr("testString")
 				listAccessGroupsOptionsModel.Limit = core.Int64Ptr(int64(38))
 				listAccessGroupsOptionsModel.Offset = core.Int64Ptr(int64(38))
-				listAccessGroupsOptionsModel.Sort = core.StringPtr("testString")
-				listAccessGroupsOptionsModel.ShowFederated = core.BoolPtr(true)
-				listAccessGroupsOptionsModel.HidePublicAccess = core.BoolPtr(true)
+				listAccessGroupsOptionsModel.Sort = core.StringPtr("name")
+				listAccessGroupsOptionsModel.ShowFederated = core.BoolPtr(false)
+				listAccessGroupsOptionsModel.HidePublicAccess = core.BoolPtr(false)
 				listAccessGroupsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with a Context to test a timeout error
@@ -583,7 +583,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 					Expect(req.URL.Query()["iam_id"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(38))}))
 					Expect(req.URL.Query()["offset"]).To(Equal([]string{fmt.Sprint(int64(38))}))
-					Expect(req.URL.Query()["sort"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["sort"]).To(Equal([]string{"name"}))
 					// TODO: Add check for show_federated query parameter
 					// TODO: Add check for hide_public_access query parameter
 					// Set mock response
@@ -613,9 +613,9 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				listAccessGroupsOptionsModel.IamID = core.StringPtr("testString")
 				listAccessGroupsOptionsModel.Limit = core.Int64Ptr(int64(38))
 				listAccessGroupsOptionsModel.Offset = core.Int64Ptr(int64(38))
-				listAccessGroupsOptionsModel.Sort = core.StringPtr("testString")
-				listAccessGroupsOptionsModel.ShowFederated = core.BoolPtr(true)
-				listAccessGroupsOptionsModel.HidePublicAccess = core.BoolPtr(true)
+				listAccessGroupsOptionsModel.Sort = core.StringPtr("name")
+				listAccessGroupsOptionsModel.ShowFederated = core.BoolPtr(false)
+				listAccessGroupsOptionsModel.HidePublicAccess = core.BoolPtr(false)
 				listAccessGroupsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
@@ -640,9 +640,9 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				listAccessGroupsOptionsModel.IamID = core.StringPtr("testString")
 				listAccessGroupsOptionsModel.Limit = core.Int64Ptr(int64(38))
 				listAccessGroupsOptionsModel.Offset = core.Int64Ptr(int64(38))
-				listAccessGroupsOptionsModel.Sort = core.StringPtr("testString")
-				listAccessGroupsOptionsModel.ShowFederated = core.BoolPtr(true)
-				listAccessGroupsOptionsModel.HidePublicAccess = core.BoolPtr(true)
+				listAccessGroupsOptionsModel.Sort = core.StringPtr("name")
+				listAccessGroupsOptionsModel.ShowFederated = core.BoolPtr(false)
+				listAccessGroupsOptionsModel.HidePublicAccess = core.BoolPtr(false)
 				listAccessGroupsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := iamAccessGroupsService.SetServiceURL("")
@@ -688,9 +688,9 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				listAccessGroupsOptionsModel.IamID = core.StringPtr("testString")
 				listAccessGroupsOptionsModel.Limit = core.Int64Ptr(int64(38))
 				listAccessGroupsOptionsModel.Offset = core.Int64Ptr(int64(38))
-				listAccessGroupsOptionsModel.Sort = core.StringPtr("testString")
-				listAccessGroupsOptionsModel.ShowFederated = core.BoolPtr(true)
-				listAccessGroupsOptionsModel.HidePublicAccess = core.BoolPtr(true)
+				listAccessGroupsOptionsModel.Sort = core.StringPtr("name")
+				listAccessGroupsOptionsModel.ShowFederated = core.BoolPtr(false)
+				listAccessGroupsOptionsModel.HidePublicAccess = core.BoolPtr(false)
 				listAccessGroupsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation
@@ -746,7 +746,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 	})
 	})
 	Describe(`GetAccessGroup(getAccessGroupOptions *GetAccessGroupOptions) - Operation response error`, func() {
-		getAccessGroupPath := "/groups/testString"
+		getAccessGroupPath := "/v2/groups/testString"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
@@ -775,7 +775,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				getAccessGroupOptionsModel := new(iamaccessgroupsv2.GetAccessGroupOptions)
 				getAccessGroupOptionsModel.AccessGroupID = core.StringPtr("testString")
 				getAccessGroupOptionsModel.TransactionID = core.StringPtr("testString")
-				getAccessGroupOptionsModel.ShowFederated = core.BoolPtr(true)
+				getAccessGroupOptionsModel.ShowFederated = core.BoolPtr(false)
 				getAccessGroupOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
 				result, response, operationErr := iamAccessGroupsService.GetAccessGroup(getAccessGroupOptionsModel)
@@ -796,7 +796,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 		})
 	})
 	Describe(`GetAccessGroup(getAccessGroupOptions *GetAccessGroupOptions)`, func() {
-		getAccessGroupPath := "/groups/testString"
+		getAccessGroupPath := "/v2/groups/testString"
 		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
@@ -831,7 +831,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				getAccessGroupOptionsModel := new(iamaccessgroupsv2.GetAccessGroupOptions)
 				getAccessGroupOptionsModel.AccessGroupID = core.StringPtr("testString")
 				getAccessGroupOptionsModel.TransactionID = core.StringPtr("testString")
-				getAccessGroupOptionsModel.ShowFederated = core.BoolPtr(true)
+				getAccessGroupOptionsModel.ShowFederated = core.BoolPtr(false)
 				getAccessGroupOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with a Context to test a timeout error
@@ -895,7 +895,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				getAccessGroupOptionsModel := new(iamaccessgroupsv2.GetAccessGroupOptions)
 				getAccessGroupOptionsModel.AccessGroupID = core.StringPtr("testString")
 				getAccessGroupOptionsModel.TransactionID = core.StringPtr("testString")
-				getAccessGroupOptionsModel.ShowFederated = core.BoolPtr(true)
+				getAccessGroupOptionsModel.ShowFederated = core.BoolPtr(false)
 				getAccessGroupOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
@@ -917,7 +917,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				getAccessGroupOptionsModel := new(iamaccessgroupsv2.GetAccessGroupOptions)
 				getAccessGroupOptionsModel.AccessGroupID = core.StringPtr("testString")
 				getAccessGroupOptionsModel.TransactionID = core.StringPtr("testString")
-				getAccessGroupOptionsModel.ShowFederated = core.BoolPtr(true)
+				getAccessGroupOptionsModel.ShowFederated = core.BoolPtr(false)
 				getAccessGroupOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := iamAccessGroupsService.SetServiceURL("")
@@ -960,7 +960,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				getAccessGroupOptionsModel := new(iamaccessgroupsv2.GetAccessGroupOptions)
 				getAccessGroupOptionsModel.AccessGroupID = core.StringPtr("testString")
 				getAccessGroupOptionsModel.TransactionID = core.StringPtr("testString")
-				getAccessGroupOptionsModel.ShowFederated = core.BoolPtr(true)
+				getAccessGroupOptionsModel.ShowFederated = core.BoolPtr(false)
 				getAccessGroupOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation
@@ -977,7 +977,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 		})
 	})
 	Describe(`UpdateAccessGroup(updateAccessGroupOptions *UpdateAccessGroupOptions) - Operation response error`, func() {
-		updateAccessGroupPath := "/groups/testString"
+		updateAccessGroupPath := "/v2/groups/testString"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
@@ -1030,7 +1030,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 		})
 	})
 	Describe(`UpdateAccessGroup(updateAccessGroupOptions *UpdateAccessGroupOptions)`, func() {
-		updateAccessGroupPath := "/groups/testString"
+		updateAccessGroupPath := "/v2/groups/testString"
 		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
@@ -1253,7 +1253,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 		})
 	})
 	Describe(`DeleteAccessGroup(deleteAccessGroupOptions *DeleteAccessGroupOptions)`, func() {
-		deleteAccessGroupPath := "/groups/testString"
+		deleteAccessGroupPath := "/v2/groups/testString"
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
@@ -1286,7 +1286,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				deleteAccessGroupOptionsModel := new(iamaccessgroupsv2.DeleteAccessGroupOptions)
 				deleteAccessGroupOptionsModel.AccessGroupID = core.StringPtr("testString")
 				deleteAccessGroupOptionsModel.TransactionID = core.StringPtr("testString")
-				deleteAccessGroupOptionsModel.Force = core.BoolPtr(true)
+				deleteAccessGroupOptionsModel.Force = core.BoolPtr(false)
 				deleteAccessGroupOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
@@ -1306,7 +1306,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				deleteAccessGroupOptionsModel := new(iamaccessgroupsv2.DeleteAccessGroupOptions)
 				deleteAccessGroupOptionsModel.AccessGroupID = core.StringPtr("testString")
 				deleteAccessGroupOptionsModel.TransactionID = core.StringPtr("testString")
-				deleteAccessGroupOptionsModel.Force = core.BoolPtr(true)
+				deleteAccessGroupOptionsModel.Force = core.BoolPtr(false)
 				deleteAccessGroupOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := iamAccessGroupsService.SetServiceURL("")
@@ -1328,7 +1328,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 		})
 	})
 	Describe(`IsMemberOfAccessGroup(isMemberOfAccessGroupOptions *IsMemberOfAccessGroupOptions)`, func() {
-		isMemberOfAccessGroupPath := "/groups/testString/members/testString"
+		isMemberOfAccessGroupPath := "/v2/groups/testString/members/testString"
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
@@ -1402,7 +1402,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 		})
 	})
 	Describe(`AddMembersToAccessGroup(addMembersToAccessGroupOptions *AddMembersToAccessGroupOptions) - Operation response error`, func() {
-		addMembersToAccessGroupPath := "/groups/testString/members"
+		addMembersToAccessGroupPath := "/v2/groups/testString/members"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
@@ -1456,7 +1456,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 		})
 	})
 	Describe(`AddMembersToAccessGroup(addMembersToAccessGroupOptions *AddMembersToAccessGroupOptions)`, func() {
-		addMembersToAccessGroupPath := "/groups/testString/members"
+		addMembersToAccessGroupPath := "/v2/groups/testString/members"
 		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
@@ -1687,7 +1687,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 		})
 	})
 	Describe(`ListAccessGroupMembers(listAccessGroupMembersOptions *ListAccessGroupMembersOptions) - Operation response error`, func() {
-		listAccessGroupMembersPath := "/groups/testString/members"
+		listAccessGroupMembersPath := "/v2/groups/testString/members"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
@@ -1723,7 +1723,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				listAccessGroupMembersOptionsModel.Limit = core.Int64Ptr(int64(38))
 				listAccessGroupMembersOptionsModel.Offset = core.Int64Ptr(int64(38))
 				listAccessGroupMembersOptionsModel.Type = core.StringPtr("testString")
-				listAccessGroupMembersOptionsModel.Verbose = core.BoolPtr(true)
+				listAccessGroupMembersOptionsModel.Verbose = core.BoolPtr(false)
 				listAccessGroupMembersOptionsModel.Sort = core.StringPtr("testString")
 				listAccessGroupMembersOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
@@ -1745,7 +1745,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 		})
 	})
 	Describe(`ListAccessGroupMembers(listAccessGroupMembersOptions *ListAccessGroupMembersOptions)`, func() {
-		listAccessGroupMembersPath := "/groups/testString/members"
+		listAccessGroupMembersPath := "/v2/groups/testString/members"
 		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
@@ -1787,7 +1787,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				listAccessGroupMembersOptionsModel.Limit = core.Int64Ptr(int64(38))
 				listAccessGroupMembersOptionsModel.Offset = core.Int64Ptr(int64(38))
 				listAccessGroupMembersOptionsModel.Type = core.StringPtr("testString")
-				listAccessGroupMembersOptionsModel.Verbose = core.BoolPtr(true)
+				listAccessGroupMembersOptionsModel.Verbose = core.BoolPtr(false)
 				listAccessGroupMembersOptionsModel.Sort = core.StringPtr("testString")
 				listAccessGroupMembersOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
@@ -1859,7 +1859,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				listAccessGroupMembersOptionsModel.Limit = core.Int64Ptr(int64(38))
 				listAccessGroupMembersOptionsModel.Offset = core.Int64Ptr(int64(38))
 				listAccessGroupMembersOptionsModel.Type = core.StringPtr("testString")
-				listAccessGroupMembersOptionsModel.Verbose = core.BoolPtr(true)
+				listAccessGroupMembersOptionsModel.Verbose = core.BoolPtr(false)
 				listAccessGroupMembersOptionsModel.Sort = core.StringPtr("testString")
 				listAccessGroupMembersOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
@@ -1885,7 +1885,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				listAccessGroupMembersOptionsModel.Limit = core.Int64Ptr(int64(38))
 				listAccessGroupMembersOptionsModel.Offset = core.Int64Ptr(int64(38))
 				listAccessGroupMembersOptionsModel.Type = core.StringPtr("testString")
-				listAccessGroupMembersOptionsModel.Verbose = core.BoolPtr(true)
+				listAccessGroupMembersOptionsModel.Verbose = core.BoolPtr(false)
 				listAccessGroupMembersOptionsModel.Sort = core.StringPtr("testString")
 				listAccessGroupMembersOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
@@ -1932,7 +1932,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				listAccessGroupMembersOptionsModel.Limit = core.Int64Ptr(int64(38))
 				listAccessGroupMembersOptionsModel.Offset = core.Int64Ptr(int64(38))
 				listAccessGroupMembersOptionsModel.Type = core.StringPtr("testString")
-				listAccessGroupMembersOptionsModel.Verbose = core.BoolPtr(true)
+				listAccessGroupMembersOptionsModel.Verbose = core.BoolPtr(false)
 				listAccessGroupMembersOptionsModel.Sort = core.StringPtr("testString")
 				listAccessGroupMembersOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
@@ -1989,7 +1989,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 	})
 	})
 	Describe(`RemoveMemberFromAccessGroup(removeMemberFromAccessGroupOptions *RemoveMemberFromAccessGroupOptions)`, func() {
-		removeMemberFromAccessGroupPath := "/groups/testString/members/testString"
+		removeMemberFromAccessGroupPath := "/v2/groups/testString/members/testString"
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
@@ -2063,7 +2063,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 		})
 	})
 	Describe(`RemoveMembersFromAccessGroup(removeMembersFromAccessGroupOptions *RemoveMembersFromAccessGroupOptions) - Operation response error`, func() {
-		removeMembersFromAccessGroupPath := "/groups/testString/members/delete"
+		removeMembersFromAccessGroupPath := "/v2/groups/testString/members/delete"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
@@ -2112,7 +2112,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 		})
 	})
 	Describe(`RemoveMembersFromAccessGroup(removeMembersFromAccessGroupOptions *RemoveMembersFromAccessGroupOptions)`, func() {
-		removeMembersFromAccessGroupPath := "/groups/testString/members/delete"
+		removeMembersFromAccessGroupPath := "/v2/groups/testString/members/delete"
 		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
@@ -2323,7 +2323,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 		})
 	})
 	Describe(`RemoveMemberFromAllAccessGroups(removeMemberFromAllAccessGroupsOptions *RemoveMemberFromAllAccessGroupsOptions) - Operation response error`, func() {
-		removeMemberFromAllAccessGroupsPath := "/groups/_allgroups/members/testString"
+		removeMemberFromAllAccessGroupsPath := "/v2/groups/_allgroups/members/testString"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
@@ -2373,7 +2373,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 		})
 	})
 	Describe(`RemoveMemberFromAllAccessGroups(removeMemberFromAllAccessGroupsOptions *RemoveMemberFromAllAccessGroupsOptions)`, func() {
-		removeMemberFromAllAccessGroupsPath := "/groups/_allgroups/members/testString"
+		removeMemberFromAllAccessGroupsPath := "/v2/groups/_allgroups/members/testString"
 		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
@@ -2554,7 +2554,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 		})
 	})
 	Describe(`AddMemberToMultipleAccessGroups(addMemberToMultipleAccessGroupsOptions *AddMemberToMultipleAccessGroupsOptions) - Operation response error`, func() {
-		addMemberToMultipleAccessGroupsPath := "/groups/_allgroups/members/testString"
+		addMemberToMultipleAccessGroupsPath := "/v2/groups/_allgroups/members/testString"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
@@ -2606,7 +2606,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 		})
 	})
 	Describe(`AddMemberToMultipleAccessGroups(addMemberToMultipleAccessGroupsOptions *AddMemberToMultipleAccessGroupsOptions)`, func() {
-		addMemberToMultipleAccessGroupsPath := "/groups/_allgroups/members/testString"
+		addMemberToMultipleAccessGroupsPath := "/v2/groups/_allgroups/members/testString"
 		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
@@ -2827,7 +2827,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 		})
 	})
 	Describe(`AddAccessGroupRule(addAccessGroupRuleOptions *AddAccessGroupRuleOptions) - Operation response error`, func() {
-		addAccessGroupRulePath := "/groups/testString/rules"
+		addAccessGroupRulePath := "/v2/groups/testString/rules"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
@@ -2885,7 +2885,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 		})
 	})
 	Describe(`AddAccessGroupRule(addAccessGroupRuleOptions *AddAccessGroupRuleOptions)`, func() {
-		addAccessGroupRulePath := "/groups/testString/rules"
+		addAccessGroupRulePath := "/v2/groups/testString/rules"
 		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
@@ -3132,7 +3132,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 		})
 	})
 	Describe(`ListAccessGroupRules(listAccessGroupRulesOptions *ListAccessGroupRulesOptions) - Operation response error`, func() {
-		listAccessGroupRulesPath := "/groups/testString/rules"
+		listAccessGroupRulesPath := "/v2/groups/testString/rules"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
@@ -3180,7 +3180,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 		})
 	})
 	Describe(`ListAccessGroupRules(listAccessGroupRulesOptions *ListAccessGroupRulesOptions)`, func() {
-		listAccessGroupRulesPath := "/groups/testString/rules"
+		listAccessGroupRulesPath := "/v2/groups/testString/rules"
 		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
@@ -3355,7 +3355,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 		})
 	})
 	Describe(`GetAccessGroupRule(getAccessGroupRuleOptions *GetAccessGroupRuleOptions) - Operation response error`, func() {
-		getAccessGroupRulePath := "/groups/testString/rules/testString"
+		getAccessGroupRulePath := "/v2/groups/testString/rules/testString"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
@@ -3404,7 +3404,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 		})
 	})
 	Describe(`GetAccessGroupRule(getAccessGroupRuleOptions *GetAccessGroupRuleOptions)`, func() {
-		getAccessGroupRulePath := "/groups/testString/rules/testString"
+		getAccessGroupRulePath := "/v2/groups/testString/rules/testString"
 		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
@@ -3583,7 +3583,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 		})
 	})
 	Describe(`ReplaceAccessGroupRule(replaceAccessGroupRuleOptions *ReplaceAccessGroupRuleOptions) - Operation response error`, func() {
-		replaceAccessGroupRulePath := "/groups/testString/rules/testString"
+		replaceAccessGroupRulePath := "/v2/groups/testString/rules/testString"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
@@ -3645,7 +3645,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 		})
 	})
 	Describe(`ReplaceAccessGroupRule(replaceAccessGroupRuleOptions *ReplaceAccessGroupRuleOptions)`, func() {
-		replaceAccessGroupRulePath := "/groups/testString/rules/testString"
+		replaceAccessGroupRulePath := "/v2/groups/testString/rules/testString"
 		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
@@ -3904,7 +3904,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 		})
 	})
 	Describe(`RemoveAccessGroupRule(removeAccessGroupRuleOptions *RemoveAccessGroupRuleOptions)`, func() {
-		removeAccessGroupRulePath := "/groups/testString/rules/testString"
+		removeAccessGroupRulePath := "/v2/groups/testString/rules/testString"
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
@@ -3978,7 +3978,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 		})
 	})
 	Describe(`GetAccountSettings(getAccountSettingsOptions *GetAccountSettingsOptions) - Operation response error`, func() {
-		getAccountSettingsPath := "/groups/settings"
+		getAccountSettingsPath := "/v2/groups/settings"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
@@ -4027,7 +4027,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 		})
 	})
 	Describe(`GetAccountSettings(getAccountSettingsOptions *GetAccountSettingsOptions)`, func() {
-		getAccountSettingsPath := "/groups/settings"
+		getAccountSettingsPath := "/v2/groups/settings"
 		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
@@ -4204,7 +4204,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 		})
 	})
 	Describe(`UpdateAccountSettings(updateAccountSettingsOptions *UpdateAccountSettingsOptions) - Operation response error`, func() {
-		updateAccountSettingsPath := "/groups/settings"
+		updateAccountSettingsPath := "/v2/groups/settings"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
@@ -4254,7 +4254,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 		})
 	})
 	Describe(`UpdateAccountSettings(updateAccountSettingsOptions *UpdateAccountSettingsOptions)`, func() {
-		updateAccountSettingsPath := "/groups/settings"
+		updateAccountSettingsPath := "/v2/groups/settings"
 		Context(`Using mock server endpoint with timeout`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
@@ -4576,12 +4576,12 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				deleteAccessGroupOptionsModel := iamAccessGroupsService.NewDeleteAccessGroupOptions(accessGroupID)
 				deleteAccessGroupOptionsModel.SetAccessGroupID("testString")
 				deleteAccessGroupOptionsModel.SetTransactionID("testString")
-				deleteAccessGroupOptionsModel.SetForce(true)
+				deleteAccessGroupOptionsModel.SetForce(false)
 				deleteAccessGroupOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(deleteAccessGroupOptionsModel).ToNot(BeNil())
 				Expect(deleteAccessGroupOptionsModel.AccessGroupID).To(Equal(core.StringPtr("testString")))
 				Expect(deleteAccessGroupOptionsModel.TransactionID).To(Equal(core.StringPtr("testString")))
-				Expect(deleteAccessGroupOptionsModel.Force).To(Equal(core.BoolPtr(true)))
+				Expect(deleteAccessGroupOptionsModel.Force).To(Equal(core.BoolPtr(false)))
 				Expect(deleteAccessGroupOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewGetAccessGroupOptions successfully`, func() {
@@ -4590,12 +4590,12 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				getAccessGroupOptionsModel := iamAccessGroupsService.NewGetAccessGroupOptions(accessGroupID)
 				getAccessGroupOptionsModel.SetAccessGroupID("testString")
 				getAccessGroupOptionsModel.SetTransactionID("testString")
-				getAccessGroupOptionsModel.SetShowFederated(true)
+				getAccessGroupOptionsModel.SetShowFederated(false)
 				getAccessGroupOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(getAccessGroupOptionsModel).ToNot(BeNil())
 				Expect(getAccessGroupOptionsModel.AccessGroupID).To(Equal(core.StringPtr("testString")))
 				Expect(getAccessGroupOptionsModel.TransactionID).To(Equal(core.StringPtr("testString")))
-				Expect(getAccessGroupOptionsModel.ShowFederated).To(Equal(core.BoolPtr(true)))
+				Expect(getAccessGroupOptionsModel.ShowFederated).To(Equal(core.BoolPtr(false)))
 				Expect(getAccessGroupOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewGetAccessGroupRuleOptions successfully`, func() {
@@ -4649,7 +4649,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				listAccessGroupMembersOptionsModel.SetLimit(int64(38))
 				listAccessGroupMembersOptionsModel.SetOffset(int64(38))
 				listAccessGroupMembersOptionsModel.SetType("testString")
-				listAccessGroupMembersOptionsModel.SetVerbose(true)
+				listAccessGroupMembersOptionsModel.SetVerbose(false)
 				listAccessGroupMembersOptionsModel.SetSort("testString")
 				listAccessGroupMembersOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(listAccessGroupMembersOptionsModel).ToNot(BeNil())
@@ -4658,7 +4658,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				Expect(listAccessGroupMembersOptionsModel.Limit).To(Equal(core.Int64Ptr(int64(38))))
 				Expect(listAccessGroupMembersOptionsModel.Offset).To(Equal(core.Int64Ptr(int64(38))))
 				Expect(listAccessGroupMembersOptionsModel.Type).To(Equal(core.StringPtr("testString")))
-				Expect(listAccessGroupMembersOptionsModel.Verbose).To(Equal(core.BoolPtr(true)))
+				Expect(listAccessGroupMembersOptionsModel.Verbose).To(Equal(core.BoolPtr(false)))
 				Expect(listAccessGroupMembersOptionsModel.Sort).To(Equal(core.StringPtr("testString")))
 				Expect(listAccessGroupMembersOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
@@ -4683,9 +4683,9 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				listAccessGroupsOptionsModel.SetIamID("testString")
 				listAccessGroupsOptionsModel.SetLimit(int64(38))
 				listAccessGroupsOptionsModel.SetOffset(int64(38))
-				listAccessGroupsOptionsModel.SetSort("testString")
-				listAccessGroupsOptionsModel.SetShowFederated(true)
-				listAccessGroupsOptionsModel.SetHidePublicAccess(true)
+				listAccessGroupsOptionsModel.SetSort("name")
+				listAccessGroupsOptionsModel.SetShowFederated(false)
+				listAccessGroupsOptionsModel.SetHidePublicAccess(false)
 				listAccessGroupsOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(listAccessGroupsOptionsModel).ToNot(BeNil())
 				Expect(listAccessGroupsOptionsModel.AccountID).To(Equal(core.StringPtr("testString")))
@@ -4693,9 +4693,9 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				Expect(listAccessGroupsOptionsModel.IamID).To(Equal(core.StringPtr("testString")))
 				Expect(listAccessGroupsOptionsModel.Limit).To(Equal(core.Int64Ptr(int64(38))))
 				Expect(listAccessGroupsOptionsModel.Offset).To(Equal(core.Int64Ptr(int64(38))))
-				Expect(listAccessGroupsOptionsModel.Sort).To(Equal(core.StringPtr("testString")))
-				Expect(listAccessGroupsOptionsModel.ShowFederated).To(Equal(core.BoolPtr(true)))
-				Expect(listAccessGroupsOptionsModel.HidePublicAccess).To(Equal(core.BoolPtr(true)))
+				Expect(listAccessGroupsOptionsModel.Sort).To(Equal(core.StringPtr("name")))
+				Expect(listAccessGroupsOptionsModel.ShowFederated).To(Equal(core.BoolPtr(false)))
+				Expect(listAccessGroupsOptionsModel.HidePublicAccess).To(Equal(core.BoolPtr(false)))
 				Expect(listAccessGroupsOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewRemoveAccessGroupRuleOptions successfully`, func() {
