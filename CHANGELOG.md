@@ -1,3 +1,10 @@
+## [0.22.5](https://github.com/IBM/platform-services-go-sdk/compare/v0.22.4...v0.22.5) (2021-11-25)
+
+
+### Bug Fixes
+
+* bump go core to avoid snyk vulnerability alert ([#170](https://github.com/IBM/platform-services-go-sdk/issues/170)) ([881fb38](https://github.com/IBM/platform-services-go-sdk/commit/881fb38449736da1802b9fa879fa48b5a17591c2))
+
 ## [0.22.4](https://github.com/IBM/platform-services-go-sdk/compare/v0.22.3...v0.22.4) (2021-11-11)
 
 
