@@ -1,3 +1,10 @@
+## [0.22.6](https://github.com/IBM/platform-services-go-sdk/compare/v0.22.5...v0.22.6) (2021-12-03)
+
+
+### Bug Fixes
+
+* **IAM Access Groups:** update service after service url adjustment ([#169](https://github.com/IBM/platform-services-go-sdk/issues/169)) ([219fb73](https://github.com/IBM/platform-services-go-sdk/commit/219fb73f700def9c331f625e65fb5c769848efbf))
+
 ## [0.22.5](https://github.com/IBM/platform-services-go-sdk/compare/v0.22.4...v0.22.5) (2021-11-25)
 
 
