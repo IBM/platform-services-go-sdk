@@ -9536,19 +9536,19 @@ func (options *InstallVersionOptions) SetHeaders(param map[string]string) *Insta
 	return options
 }
 
-// JSONPatchOperation : A JSONPatch document as defined by RFC 6902.
+// JSONPatchOperation : This model represents an individual patch operation to be performed on a JSON document, as defined by RFC 6902.
 type JSONPatchOperation struct {
 	// The operation to be performed.
 	Op *string `json:"op" validate:"required"`
 
-	// A JSON-Pointer.
+	// The JSON Pointer that identifies the field that is the target of the operation.
 	Path *string `json:"path" validate:"required"`
 
-	// The value to be used within the operations.
-	Value interface{} `json:"value,omitempty"`
-
-	// A string containing a JSON Pointer value.
+	// The JSON Pointer that identifies the field that is the source of the operation.
 	From *string `json:"from,omitempty"`
+
+	// The value to be used within the operation.
+	Value interface{} `json:"value,omitempty"`
 }
 
 // Constants associated with the JSONPatchOperation.Op property.
@@ -9583,11 +9583,11 @@ func UnmarshalJSONPatchOperation(m map[string]json.RawMessage, result interface{
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalPrimitive(m, "value", &obj.Value)
+	err = core.UnmarshalPrimitive(m, "from", &obj.From)
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalPrimitive(m, "from", &obj.From)
+	err = core.UnmarshalPrimitive(m, "value", &obj.Value)
 	if err != nil {
 		return
 	}
@@ -10573,6 +10573,255 @@ func UnmarshalOffering(m map[string]json.RawMessage, result interface{}) (err er
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+func (*CatalogManagementV1) NewOfferingPatch(offering *Offering) (_patch []JSONPatchOperation) {
+	if (offering.ID != nil) {
+		_patch = append(_patch, JSONPatchOperation{
+			Op: core.StringPtr(JSONPatchOperationOpAddConst),
+			Path: core.StringPtr("/id"),
+			Value: offering.ID,
+		})
+	}
+	if (offering.Rev != nil) {
+		_patch = append(_patch, JSONPatchOperation{
+			Op: core.StringPtr(JSONPatchOperationOpAddConst),
+			Path: core.StringPtr("/_rev"),
+			Value: offering.Rev,
+		})
+	}
+	if (offering.URL != nil) {
+		_patch = append(_patch, JSONPatchOperation{
+			Op: core.StringPtr(JSONPatchOperationOpAddConst),
+			Path: core.StringPtr("/url"),
+			Value: offering.URL,
+		})
+	}
+	if (offering.CRN != nil) {
+		_patch = append(_patch, JSONPatchOperation{
+			Op: core.StringPtr(JSONPatchOperationOpAddConst),
+			Path: core.StringPtr("/crn"),
+			Value: offering.CRN,
+		})
+	}
+	if (offering.Label != nil) {
+		_patch = append(_patch, JSONPatchOperation{
+			Op: core.StringPtr(JSONPatchOperationOpAddConst),
+			Path: core.StringPtr("/label"),
+			Value: offering.Label,
+		})
+	}
+	if (offering.Name != nil) {
+		_patch = append(_patch, JSONPatchOperation{
+			Op: core.StringPtr(JSONPatchOperationOpAddConst),
+			Path: core.StringPtr("/name"),
+			Value: offering.Name,
+		})
+	}
+	if (offering.OfferingIconURL != nil) {
+		_patch = append(_patch, JSONPatchOperation{
+			Op: core.StringPtr(JSONPatchOperationOpAddConst),
+			Path: core.StringPtr("/offering_icon_url"),
+			Value: offering.OfferingIconURL,
+		})
+	}
+	if (offering.OfferingDocsURL != nil) {
+		_patch = append(_patch, JSONPatchOperation{
+			Op: core.StringPtr(JSONPatchOperationOpAddConst),
+			Path: core.StringPtr("/offering_docs_url"),
+			Value: offering.OfferingDocsURL,
+		})
+	}
+	if (offering.OfferingSupportURL != nil) {
+		_patch = append(_patch, JSONPatchOperation{
+			Op: core.StringPtr(JSONPatchOperationOpAddConst),
+			Path: core.StringPtr("/offering_support_url"),
+			Value: offering.OfferingSupportURL,
+		})
+	}
+	if (offering.Tags != nil) {
+		_patch = append(_patch, JSONPatchOperation{
+			Op: core.StringPtr(JSONPatchOperationOpAddConst),
+			Path: core.StringPtr("/tags"),
+			Value: offering.Tags,
+		})
+	}
+	if (offering.Keywords != nil) {
+		_patch = append(_patch, JSONPatchOperation{
+			Op: core.StringPtr(JSONPatchOperationOpAddConst),
+			Path: core.StringPtr("/keywords"),
+			Value: offering.Keywords,
+		})
+	}
+	if (offering.Rating != nil) {
+		_patch = append(_patch, JSONPatchOperation{
+			Op: core.StringPtr(JSONPatchOperationOpAddConst),
+			Path: core.StringPtr("/rating"),
+			Value: offering.Rating,
+		})
+	}
+	if (offering.Created != nil) {
+		_patch = append(_patch, JSONPatchOperation{
+			Op: core.StringPtr(JSONPatchOperationOpAddConst),
+			Path: core.StringPtr("/created"),
+			Value: offering.Created,
+		})
+	}
+	if (offering.Updated != nil) {
+		_patch = append(_patch, JSONPatchOperation{
+			Op: core.StringPtr(JSONPatchOperationOpAddConst),
+			Path: core.StringPtr("/updated"),
+			Value: offering.Updated,
+		})
+	}
+	if (offering.ShortDescription != nil) {
+		_patch = append(_patch, JSONPatchOperation{
+			Op: core.StringPtr(JSONPatchOperationOpAddConst),
+			Path: core.StringPtr("/short_description"),
+			Value: offering.ShortDescription,
+		})
+	}
+	if (offering.LongDescription != nil) {
+		_patch = append(_patch, JSONPatchOperation{
+			Op: core.StringPtr(JSONPatchOperationOpAddConst),
+			Path: core.StringPtr("/long_description"),
+			Value: offering.LongDescription,
+		})
+	}
+	if (offering.Features != nil) {
+		_patch = append(_patch, JSONPatchOperation{
+			Op: core.StringPtr(JSONPatchOperationOpAddConst),
+			Path: core.StringPtr("/features"),
+			Value: offering.Features,
+		})
+	}
+	if (offering.Kinds != nil) {
+		_patch = append(_patch, JSONPatchOperation{
+			Op: core.StringPtr(JSONPatchOperationOpAddConst),
+			Path: core.StringPtr("/kinds"),
+			Value: offering.Kinds,
+		})
+	}
+	if (offering.PermitRequestIBMPublicPublish != nil) {
+		_patch = append(_patch, JSONPatchOperation{
+			Op: core.StringPtr(JSONPatchOperationOpAddConst),
+			Path: core.StringPtr("/permit_request_ibm_public_publish"),
+			Value: offering.PermitRequestIBMPublicPublish,
+		})
+	}
+	if (offering.IBMPublishApproved != nil) {
+		_patch = append(_patch, JSONPatchOperation{
+			Op: core.StringPtr(JSONPatchOperationOpAddConst),
+			Path: core.StringPtr("/ibm_publish_approved"),
+			Value: offering.IBMPublishApproved,
+		})
+	}
+	if (offering.PublicPublishApproved != nil) {
+		_patch = append(_patch, JSONPatchOperation{
+			Op: core.StringPtr(JSONPatchOperationOpAddConst),
+			Path: core.StringPtr("/public_publish_approved"),
+			Value: offering.PublicPublishApproved,
+		})
+	}
+	if (offering.PublicOriginalCRN != nil) {
+		_patch = append(_patch, JSONPatchOperation{
+			Op: core.StringPtr(JSONPatchOperationOpAddConst),
+			Path: core.StringPtr("/public_original_crn"),
+			Value: offering.PublicOriginalCRN,
+		})
+	}
+	if (offering.PublishPublicCRN != nil) {
+		_patch = append(_patch, JSONPatchOperation{
+			Op: core.StringPtr(JSONPatchOperationOpAddConst),
+			Path: core.StringPtr("/publish_public_crn"),
+			Value: offering.PublishPublicCRN,
+		})
+	}
+	if (offering.PortalApprovalRecord != nil) {
+		_patch = append(_patch, JSONPatchOperation{
+			Op: core.StringPtr(JSONPatchOperationOpAddConst),
+			Path: core.StringPtr("/portal_approval_record"),
+			Value: offering.PortalApprovalRecord,
+		})
+	}
+	if (offering.PortalUIURL != nil) {
+		_patch = append(_patch, JSONPatchOperation{
+			Op: core.StringPtr(JSONPatchOperationOpAddConst),
+			Path: core.StringPtr("/portal_ui_url"),
+			Value: offering.PortalUIURL,
+		})
+	}
+	if (offering.CatalogID != nil) {
+		_patch = append(_patch, JSONPatchOperation{
+			Op: core.StringPtr(JSONPatchOperationOpAddConst),
+			Path: core.StringPtr("/catalog_id"),
+			Value: offering.CatalogID,
+		})
+	}
+	if (offering.CatalogName != nil) {
+		_patch = append(_patch, JSONPatchOperation{
+			Op: core.StringPtr(JSONPatchOperationOpAddConst),
+			Path: core.StringPtr("/catalog_name"),
+			Value: offering.CatalogName,
+		})
+	}
+	if (offering.Metadata != nil) {
+		_patch = append(_patch, JSONPatchOperation{
+			Op: core.StringPtr(JSONPatchOperationOpAddConst),
+			Path: core.StringPtr("/metadata"),
+			Value: offering.Metadata,
+		})
+	}
+	if (offering.Disclaimer != nil) {
+		_patch = append(_patch, JSONPatchOperation{
+			Op: core.StringPtr(JSONPatchOperationOpAddConst),
+			Path: core.StringPtr("/disclaimer"),
+			Value: offering.Disclaimer,
+		})
+	}
+	if (offering.Hidden != nil) {
+		_patch = append(_patch, JSONPatchOperation{
+			Op: core.StringPtr(JSONPatchOperationOpAddConst),
+			Path: core.StringPtr("/hidden"),
+			Value: offering.Hidden,
+		})
+	}
+	if (offering.Provider != nil) {
+		_patch = append(_patch, JSONPatchOperation{
+			Op: core.StringPtr(JSONPatchOperationOpAddConst),
+			Path: core.StringPtr("/provider"),
+			Value: offering.Provider,
+		})
+	}
+	if (offering.ProviderInfo != nil) {
+		_patch = append(_patch, JSONPatchOperation{
+			Op: core.StringPtr(JSONPatchOperationOpAddConst),
+			Path: core.StringPtr("/provider_info"),
+			Value: offering.ProviderInfo,
+		})
+	}
+	if (offering.RepoInfo != nil) {
+		_patch = append(_patch, JSONPatchOperation{
+			Op: core.StringPtr(JSONPatchOperationOpAddConst),
+			Path: core.StringPtr("/repo_info"),
+			Value: offering.RepoInfo,
+		})
+	}
+	if (offering.Support != nil) {
+		_patch = append(_patch, JSONPatchOperation{
+			Op: core.StringPtr(JSONPatchOperationOpAddConst),
+			Path: core.StringPtr("/support"),
+			Value: offering.Support,
+		})
+	}
+	if (offering.Media != nil) {
+		_patch = append(_patch, JSONPatchOperation{
+			Op: core.StringPtr(JSONPatchOperationOpAddConst),
+			Path: core.StringPtr("/media"),
+			Value: offering.Media,
+		})
+	}
 	return
 }
 
@@ -13087,6 +13336,7 @@ type UpdateOfferingOptions struct {
 	// Offering etag contained in quotes.
 	IfMatch *string `json:"If-Match" validate:"required"`
 
+	// Array of patch operations as defined in RFC 6902.
 	Updates []JSONPatchOperation `json:"updates,omitempty"`
 
 	// Allows users to set headers on API requests

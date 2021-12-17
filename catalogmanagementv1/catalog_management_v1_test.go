@@ -32,6 +32,7 @@ import (
 	"github.com/go-openapi/strfmt"
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
+	. "github.com/onsi/gomega/gstruct"
 )
 
 var _ = Describe(`CatalogManagementV1`, func() {
@@ -6899,8 +6900,8 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				jsonPatchOperationModel := new(catalogmanagementv1.JSONPatchOperation)
 				jsonPatchOperationModel.Op = core.StringPtr("add")
 				jsonPatchOperationModel.Path = core.StringPtr("testString")
-				jsonPatchOperationModel.Value = map[string]interface{}{"anyKey": "anyValue"}
 				jsonPatchOperationModel.From = core.StringPtr("testString")
+				jsonPatchOperationModel.Value = core.StringPtr("testString")
 
 				// Construct an instance of the UpdateOfferingOptions model
 				updateOfferingOptionsModel := new(catalogmanagementv1.UpdateOfferingOptions)
@@ -6978,8 +6979,8 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				jsonPatchOperationModel := new(catalogmanagementv1.JSONPatchOperation)
 				jsonPatchOperationModel.Op = core.StringPtr("add")
 				jsonPatchOperationModel.Path = core.StringPtr("testString")
-				jsonPatchOperationModel.Value = map[string]interface{}{"anyKey": "anyValue"}
 				jsonPatchOperationModel.From = core.StringPtr("testString")
+				jsonPatchOperationModel.Value = core.StringPtr("testString")
 
 				// Construct an instance of the UpdateOfferingOptions model
 				updateOfferingOptionsModel := new(catalogmanagementv1.UpdateOfferingOptions)
@@ -7065,8 +7066,8 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				jsonPatchOperationModel := new(catalogmanagementv1.JSONPatchOperation)
 				jsonPatchOperationModel.Op = core.StringPtr("add")
 				jsonPatchOperationModel.Path = core.StringPtr("testString")
-				jsonPatchOperationModel.Value = map[string]interface{}{"anyKey": "anyValue"}
 				jsonPatchOperationModel.From = core.StringPtr("testString")
+				jsonPatchOperationModel.Value = core.StringPtr("testString")
 
 				// Construct an instance of the UpdateOfferingOptions model
 				updateOfferingOptionsModel := new(catalogmanagementv1.UpdateOfferingOptions)
@@ -7095,8 +7096,8 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				jsonPatchOperationModel := new(catalogmanagementv1.JSONPatchOperation)
 				jsonPatchOperationModel.Op = core.StringPtr("add")
 				jsonPatchOperationModel.Path = core.StringPtr("testString")
-				jsonPatchOperationModel.Value = map[string]interface{}{"anyKey": "anyValue"}
 				jsonPatchOperationModel.From = core.StringPtr("testString")
+				jsonPatchOperationModel.Value = core.StringPtr("testString")
 
 				// Construct an instance of the UpdateOfferingOptions model
 				updateOfferingOptionsModel := new(catalogmanagementv1.UpdateOfferingOptions)
@@ -7146,8 +7147,8 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				jsonPatchOperationModel := new(catalogmanagementv1.JSONPatchOperation)
 				jsonPatchOperationModel.Op = core.StringPtr("add")
 				jsonPatchOperationModel.Path = core.StringPtr("testString")
-				jsonPatchOperationModel.Value = map[string]interface{}{"anyKey": "anyValue"}
 				jsonPatchOperationModel.From = core.StringPtr("testString")
+				jsonPatchOperationModel.Value = core.StringPtr("testString")
 
 				// Construct an instance of the UpdateOfferingOptions model
 				updateOfferingOptionsModel := new(catalogmanagementv1.UpdateOfferingOptions)
@@ -18187,6 +18188,429 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				Expect(listOperatorsOptionsModel.VersionLocatorID).To(Equal(core.StringPtr("testString")))
 				Expect(listOperatorsOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
+			It(`Invoke NewOfferingPatch successfully`, func() {
+				// Construct an instance of the Rating model
+				ratingModel := new(catalogmanagementv1.Rating)
+				ratingModel.OneStarCount = core.Int64Ptr(int64(38))
+				ratingModel.TwoStarCount = core.Int64Ptr(int64(38))
+				ratingModel.ThreeStarCount = core.Int64Ptr(int64(38))
+				ratingModel.FourStarCount = core.Int64Ptr(int64(38))
+
+				// Construct an instance of the Feature model
+				featureModel := new(catalogmanagementv1.Feature)
+				featureModel.Title = core.StringPtr("testString")
+				featureModel.Description = core.StringPtr("testString")
+
+				// Construct an instance of the Configuration model
+				configurationModel := new(catalogmanagementv1.Configuration)
+				configurationModel.Key = core.StringPtr("testString")
+				configurationModel.Type = core.StringPtr("testString")
+				configurationModel.DefaultValue = core.StringPtr("testString")
+				configurationModel.ValueConstraint = core.StringPtr("testString")
+				configurationModel.Description = core.StringPtr("testString")
+				configurationModel.Required = core.BoolPtr(true)
+				configurationModel.Options = []interface{}{"testString"}
+				configurationModel.Hidden = core.BoolPtr(true)
+
+				// Construct an instance of the Validation model
+				validationModel := new(catalogmanagementv1.Validation)
+				validationModel.Validated = CreateMockDateTime("2019-01-01T12:00:00.000Z")
+				validationModel.Requested = CreateMockDateTime("2019-01-01T12:00:00.000Z")
+				validationModel.State = core.StringPtr("testString")
+				validationModel.LastOperation = core.StringPtr("testString")
+				validationModel.Target = make(map[string]interface{})
+
+				// Construct an instance of the Resource model
+				resourceModel := new(catalogmanagementv1.Resource)
+				resourceModel.Type = core.StringPtr("mem")
+				resourceModel.Value = core.StringPtr("testString")
+
+				// Construct an instance of the Script model
+				scriptModel := new(catalogmanagementv1.Script)
+				scriptModel.Instructions = core.StringPtr("testString")
+				scriptModel.Script = core.StringPtr("testString")
+				scriptModel.ScriptPermission = core.StringPtr("testString")
+				scriptModel.DeleteScript = core.StringPtr("testString")
+				scriptModel.Scope = core.StringPtr("testString")
+
+				// Construct an instance of the VersionEntitlement model
+				versionEntitlementModel := new(catalogmanagementv1.VersionEntitlement)
+				versionEntitlementModel.ProviderName = core.StringPtr("testString")
+				versionEntitlementModel.ProviderID = core.StringPtr("testString")
+				versionEntitlementModel.ProductID = core.StringPtr("testString")
+				versionEntitlementModel.PartNumbers = []string{"testString"}
+				versionEntitlementModel.ImageRepoName = core.StringPtr("testString")
+
+				// Construct an instance of the License model
+				licenseModel := new(catalogmanagementv1.License)
+				licenseModel.ID = core.StringPtr("testString")
+				licenseModel.Name = core.StringPtr("testString")
+				licenseModel.Type = core.StringPtr("testString")
+				licenseModel.URL = core.StringPtr("testString")
+				licenseModel.Description = core.StringPtr("testString")
+
+				// Construct an instance of the State model
+				stateModel := new(catalogmanagementv1.State)
+				stateModel.Current = core.StringPtr("testString")
+				stateModel.CurrentEntered = CreateMockDateTime("2019-01-01T12:00:00.000Z")
+				stateModel.Pending = core.StringPtr("testString")
+				stateModel.PendingRequested = CreateMockDateTime("2019-01-01T12:00:00.000Z")
+				stateModel.Previous = core.StringPtr("testString")
+
+				// Construct an instance of the Version model
+				versionModel := new(catalogmanagementv1.Version)
+				versionModel.ID = core.StringPtr("testString")
+				versionModel.Rev = core.StringPtr("testString")
+				versionModel.CRN = core.StringPtr("testString")
+				versionModel.Version = core.StringPtr("testString")
+				versionModel.Sha = core.StringPtr("testString")
+				versionModel.Created = CreateMockDateTime("2019-01-01T12:00:00.000Z")
+				versionModel.Updated = CreateMockDateTime("2019-01-01T12:00:00.000Z")
+				versionModel.OfferingID = core.StringPtr("testString")
+				versionModel.CatalogID = core.StringPtr("testString")
+				versionModel.KindID = core.StringPtr("testString")
+				versionModel.Tags = []string{"testString"}
+				versionModel.RepoURL = core.StringPtr("testString")
+				versionModel.SourceURL = core.StringPtr("testString")
+				versionModel.TgzURL = core.StringPtr("testString")
+				versionModel.Configuration = []catalogmanagementv1.Configuration{*configurationModel}
+				versionModel.Metadata = make(map[string]interface{})
+				versionModel.Validation = validationModel
+				versionModel.RequiredResources = []catalogmanagementv1.Resource{*resourceModel}
+				versionModel.SingleInstance = core.BoolPtr(true)
+				versionModel.Install = scriptModel
+				versionModel.PreInstall = []catalogmanagementv1.Script{*scriptModel}
+				versionModel.Entitlement = versionEntitlementModel
+				versionModel.Licenses = []catalogmanagementv1.License{*licenseModel}
+				versionModel.ImageManifestURL = core.StringPtr("testString")
+				versionModel.Deprecated = core.BoolPtr(true)
+				versionModel.PackageVersion = core.StringPtr("testString")
+				versionModel.State = stateModel
+				versionModel.VersionLocator = core.StringPtr("testString")
+				versionModel.ConsoleURL = core.StringPtr("testString")
+				versionModel.LongDescription = core.StringPtr("testString")
+				versionModel.WhitelistedAccounts = []string{"testString"}
+
+				// Construct an instance of the Deployment model
+				deploymentModel := new(catalogmanagementv1.Deployment)
+				deploymentModel.ID = core.StringPtr("testString")
+				deploymentModel.Label = core.StringPtr("testString")
+				deploymentModel.Name = core.StringPtr("testString")
+				deploymentModel.ShortDescription = core.StringPtr("testString")
+				deploymentModel.LongDescription = core.StringPtr("testString")
+				deploymentModel.Metadata = make(map[string]interface{})
+				deploymentModel.Tags = []string{"testString"}
+				deploymentModel.Created = CreateMockDateTime("2019-01-01T12:00:00.000Z")
+				deploymentModel.Updated = CreateMockDateTime("2019-01-01T12:00:00.000Z")
+
+				// Construct an instance of the Plan model
+				planModel := new(catalogmanagementv1.Plan)
+				planModel.ID = core.StringPtr("testString")
+				planModel.Label = core.StringPtr("testString")
+				planModel.Name = core.StringPtr("testString")
+				planModel.ShortDescription = core.StringPtr("testString")
+				planModel.LongDescription = core.StringPtr("testString")
+				planModel.Metadata = make(map[string]interface{})
+				planModel.Tags = []string{"testString"}
+				planModel.AdditionalFeatures = []catalogmanagementv1.Feature{*featureModel}
+				planModel.Created = CreateMockDateTime("2019-01-01T12:00:00.000Z")
+				planModel.Updated = CreateMockDateTime("2019-01-01T12:00:00.000Z")
+				planModel.Deployments = []catalogmanagementv1.Deployment{*deploymentModel}
+
+				// Construct an instance of the Kind model
+				kindModel := new(catalogmanagementv1.Kind)
+				kindModel.ID = core.StringPtr("testString")
+				kindModel.FormatKind = core.StringPtr("testString")
+				kindModel.TargetKind = core.StringPtr("testString")
+				kindModel.Metadata = make(map[string]interface{})
+				kindModel.InstallDescription = core.StringPtr("testString")
+				kindModel.Tags = []string{"testString"}
+				kindModel.AdditionalFeatures = []catalogmanagementv1.Feature{*featureModel}
+				kindModel.Created = CreateMockDateTime("2019-01-01T12:00:00.000Z")
+				kindModel.Updated = CreateMockDateTime("2019-01-01T12:00:00.000Z")
+				kindModel.Versions = []catalogmanagementv1.Version{*versionModel}
+				kindModel.Plans = []catalogmanagementv1.Plan{*planModel}
+
+				// Construct an instance of the ProviderInfo model
+				providerInfoModel := new(catalogmanagementv1.ProviderInfo)
+				providerInfoModel.ID = core.StringPtr("testString")
+				providerInfoModel.Name = core.StringPtr("testString")
+
+				// Construct an instance of the RepoInfo model
+				repoInfoModel := new(catalogmanagementv1.RepoInfo)
+				repoInfoModel.Token = core.StringPtr("testString")
+				repoInfoModel.Type = core.StringPtr("testString")
+
+				// Construct an instance of the Support model
+				supportModel := new(catalogmanagementv1.Support)
+				supportModel.URL = core.StringPtr("testString")
+				supportModel.Process = core.StringPtr("testString")
+				supportModel.Locations = []string{"testString"}
+
+				// Construct an instance of the MediaItem model
+				mediaItemModel := new(catalogmanagementv1.MediaItem)
+				mediaItemModel.URL = core.StringPtr("testString")
+				mediaItemModel.Caption = core.StringPtr("testString")
+				mediaItemModel.Type = core.StringPtr("testString")
+				mediaItemModel.ThumbnailURL = core.StringPtr("testString")
+
+				// Construct an instance of the Offering model
+				offering := new(catalogmanagementv1.Offering)
+				offering.ID = core.StringPtr("testString")
+				offering.Rev = core.StringPtr("testString")
+				offering.URL = core.StringPtr("testString")
+				offering.CRN = core.StringPtr("testString")
+				offering.Label = core.StringPtr("testString")
+				offering.Name = core.StringPtr("testString")
+				offering.OfferingIconURL = core.StringPtr("testString")
+				offering.OfferingDocsURL = core.StringPtr("testString")
+				offering.OfferingSupportURL = core.StringPtr("testString")
+				offering.Tags = []string{"testString"}
+				offering.Keywords = []string{"testString"}
+				offering.Rating = ratingModel
+				offering.Created = CreateMockDateTime("2019-01-01T12:00:00.000Z")
+				offering.Updated = CreateMockDateTime("2019-01-01T12:00:00.000Z")
+				offering.ShortDescription = core.StringPtr("testString")
+				offering.LongDescription = core.StringPtr("testString")
+				offering.Features = []catalogmanagementv1.Feature{*featureModel}
+				offering.Kinds = []catalogmanagementv1.Kind{*kindModel}
+				offering.PermitRequestIBMPublicPublish = core.BoolPtr(true)
+				offering.IBMPublishApproved = core.BoolPtr(true)
+				offering.PublicPublishApproved = core.BoolPtr(true)
+				offering.PublicOriginalCRN = core.StringPtr("testString")
+				offering.PublishPublicCRN = core.StringPtr("testString")
+				offering.PortalApprovalRecord = core.StringPtr("testString")
+				offering.PortalUIURL = core.StringPtr("testString")
+				offering.CatalogID = core.StringPtr("testString")
+				offering.CatalogName = core.StringPtr("testString")
+				offering.Metadata = make(map[string]interface{})
+				offering.Disclaimer = core.StringPtr("testString")
+				offering.Hidden = core.BoolPtr(true)
+				offering.Provider = core.StringPtr("testString")
+				offering.ProviderInfo = providerInfoModel
+				offering.RepoInfo = repoInfoModel
+				offering.Support = supportModel
+				offering.Media = []catalogmanagementv1.MediaItem{*mediaItemModel}
+
+				offeringPatch := catalogManagementService.NewOfferingPatch(offering)
+				Expect(offeringPatch).ToNot(BeNil())
+
+				_path := func(op interface{}) string {
+					return *op.(catalogmanagementv1.JSONPatchOperation).Path
+				}
+				Expect(offeringPatch).To(MatchAllElements(_path, Elements{
+				"/id": MatchAllFields(Fields{
+					"Op": PointTo(Equal(catalogmanagementv1.JSONPatchOperationOpAddConst)),
+					"Path": PointTo(Equal("/id")),
+					"From": BeNil(),
+					"Value": Equal(offering.ID),
+					}),
+				"/_rev": MatchAllFields(Fields{
+					"Op": PointTo(Equal(catalogmanagementv1.JSONPatchOperationOpAddConst)),
+					"Path": PointTo(Equal("/_rev")),
+					"From": BeNil(),
+					"Value": Equal(offering.Rev),
+					}),
+				"/url": MatchAllFields(Fields{
+					"Op": PointTo(Equal(catalogmanagementv1.JSONPatchOperationOpAddConst)),
+					"Path": PointTo(Equal("/url")),
+					"From": BeNil(),
+					"Value": Equal(offering.URL),
+					}),
+				"/crn": MatchAllFields(Fields{
+					"Op": PointTo(Equal(catalogmanagementv1.JSONPatchOperationOpAddConst)),
+					"Path": PointTo(Equal("/crn")),
+					"From": BeNil(),
+					"Value": Equal(offering.CRN),
+					}),
+				"/label": MatchAllFields(Fields{
+					"Op": PointTo(Equal(catalogmanagementv1.JSONPatchOperationOpAddConst)),
+					"Path": PointTo(Equal("/label")),
+					"From": BeNil(),
+					"Value": Equal(offering.Label),
+					}),
+				"/name": MatchAllFields(Fields{
+					"Op": PointTo(Equal(catalogmanagementv1.JSONPatchOperationOpAddConst)),
+					"Path": PointTo(Equal("/name")),
+					"From": BeNil(),
+					"Value": Equal(offering.Name),
+					}),
+				"/offering_icon_url": MatchAllFields(Fields{
+					"Op": PointTo(Equal(catalogmanagementv1.JSONPatchOperationOpAddConst)),
+					"Path": PointTo(Equal("/offering_icon_url")),
+					"From": BeNil(),
+					"Value": Equal(offering.OfferingIconURL),
+					}),
+				"/offering_docs_url": MatchAllFields(Fields{
+					"Op": PointTo(Equal(catalogmanagementv1.JSONPatchOperationOpAddConst)),
+					"Path": PointTo(Equal("/offering_docs_url")),
+					"From": BeNil(),
+					"Value": Equal(offering.OfferingDocsURL),
+					}),
+				"/offering_support_url": MatchAllFields(Fields{
+					"Op": PointTo(Equal(catalogmanagementv1.JSONPatchOperationOpAddConst)),
+					"Path": PointTo(Equal("/offering_support_url")),
+					"From": BeNil(),
+					"Value": Equal(offering.OfferingSupportURL),
+					}),
+				"/tags": MatchAllFields(Fields{
+					"Op": PointTo(Equal(catalogmanagementv1.JSONPatchOperationOpAddConst)),
+					"Path": PointTo(Equal("/tags")),
+					"From": BeNil(),
+					"Value": Equal(offering.Tags),
+					}),
+				"/keywords": MatchAllFields(Fields{
+					"Op": PointTo(Equal(catalogmanagementv1.JSONPatchOperationOpAddConst)),
+					"Path": PointTo(Equal("/keywords")),
+					"From": BeNil(),
+					"Value": Equal(offering.Keywords),
+					}),
+				"/rating": MatchAllFields(Fields{
+					"Op": PointTo(Equal(catalogmanagementv1.JSONPatchOperationOpAddConst)),
+					"Path": PointTo(Equal("/rating")),
+					"From": BeNil(),
+					"Value": Equal(offering.Rating),
+					}),
+				"/created": MatchAllFields(Fields{
+					"Op": PointTo(Equal(catalogmanagementv1.JSONPatchOperationOpAddConst)),
+					"Path": PointTo(Equal("/created")),
+					"From": BeNil(),
+					"Value": Equal(offering.Created),
+					}),
+				"/updated": MatchAllFields(Fields{
+					"Op": PointTo(Equal(catalogmanagementv1.JSONPatchOperationOpAddConst)),
+					"Path": PointTo(Equal("/updated")),
+					"From": BeNil(),
+					"Value": Equal(offering.Updated),
+					}),
+				"/short_description": MatchAllFields(Fields{
+					"Op": PointTo(Equal(catalogmanagementv1.JSONPatchOperationOpAddConst)),
+					"Path": PointTo(Equal("/short_description")),
+					"From": BeNil(),
+					"Value": Equal(offering.ShortDescription),
+					}),
+				"/long_description": MatchAllFields(Fields{
+					"Op": PointTo(Equal(catalogmanagementv1.JSONPatchOperationOpAddConst)),
+					"Path": PointTo(Equal("/long_description")),
+					"From": BeNil(),
+					"Value": Equal(offering.LongDescription),
+					}),
+				"/features": MatchAllFields(Fields{
+					"Op": PointTo(Equal(catalogmanagementv1.JSONPatchOperationOpAddConst)),
+					"Path": PointTo(Equal("/features")),
+					"From": BeNil(),
+					"Value": Equal(offering.Features),
+					}),
+				"/kinds": MatchAllFields(Fields{
+					"Op": PointTo(Equal(catalogmanagementv1.JSONPatchOperationOpAddConst)),
+					"Path": PointTo(Equal("/kinds")),
+					"From": BeNil(),
+					"Value": Equal(offering.Kinds),
+					}),
+				"/permit_request_ibm_public_publish": MatchAllFields(Fields{
+					"Op": PointTo(Equal(catalogmanagementv1.JSONPatchOperationOpAddConst)),
+					"Path": PointTo(Equal("/permit_request_ibm_public_publish")),
+					"From": BeNil(),
+					"Value": Equal(offering.PermitRequestIBMPublicPublish),
+					}),
+				"/ibm_publish_approved": MatchAllFields(Fields{
+					"Op": PointTo(Equal(catalogmanagementv1.JSONPatchOperationOpAddConst)),
+					"Path": PointTo(Equal("/ibm_publish_approved")),
+					"From": BeNil(),
+					"Value": Equal(offering.IBMPublishApproved),
+					}),
+				"/public_publish_approved": MatchAllFields(Fields{
+					"Op": PointTo(Equal(catalogmanagementv1.JSONPatchOperationOpAddConst)),
+					"Path": PointTo(Equal("/public_publish_approved")),
+					"From": BeNil(),
+					"Value": Equal(offering.PublicPublishApproved),
+					}),
+				"/public_original_crn": MatchAllFields(Fields{
+					"Op": PointTo(Equal(catalogmanagementv1.JSONPatchOperationOpAddConst)),
+					"Path": PointTo(Equal("/public_original_crn")),
+					"From": BeNil(),
+					"Value": Equal(offering.PublicOriginalCRN),
+					}),
+				"/publish_public_crn": MatchAllFields(Fields{
+					"Op": PointTo(Equal(catalogmanagementv1.JSONPatchOperationOpAddConst)),
+					"Path": PointTo(Equal("/publish_public_crn")),
+					"From": BeNil(),
+					"Value": Equal(offering.PublishPublicCRN),
+					}),
+				"/portal_approval_record": MatchAllFields(Fields{
+					"Op": PointTo(Equal(catalogmanagementv1.JSONPatchOperationOpAddConst)),
+					"Path": PointTo(Equal("/portal_approval_record")),
+					"From": BeNil(),
+					"Value": Equal(offering.PortalApprovalRecord),
+					}),
+				"/portal_ui_url": MatchAllFields(Fields{
+					"Op": PointTo(Equal(catalogmanagementv1.JSONPatchOperationOpAddConst)),
+					"Path": PointTo(Equal("/portal_ui_url")),
+					"From": BeNil(),
+					"Value": Equal(offering.PortalUIURL),
+					}),
+				"/catalog_id": MatchAllFields(Fields{
+					"Op": PointTo(Equal(catalogmanagementv1.JSONPatchOperationOpAddConst)),
+					"Path": PointTo(Equal("/catalog_id")),
+					"From": BeNil(),
+					"Value": Equal(offering.CatalogID),
+					}),
+				"/catalog_name": MatchAllFields(Fields{
+					"Op": PointTo(Equal(catalogmanagementv1.JSONPatchOperationOpAddConst)),
+					"Path": PointTo(Equal("/catalog_name")),
+					"From": BeNil(),
+					"Value": Equal(offering.CatalogName),
+					}),
+				"/metadata": MatchAllFields(Fields{
+					"Op": PointTo(Equal(catalogmanagementv1.JSONPatchOperationOpAddConst)),
+					"Path": PointTo(Equal("/metadata")),
+					"From": BeNil(),
+					"Value": Equal(offering.Metadata),
+					}),
+				"/disclaimer": MatchAllFields(Fields{
+					"Op": PointTo(Equal(catalogmanagementv1.JSONPatchOperationOpAddConst)),
+					"Path": PointTo(Equal("/disclaimer")),
+					"From": BeNil(),
+					"Value": Equal(offering.Disclaimer),
+					}),
+				"/hidden": MatchAllFields(Fields{
+					"Op": PointTo(Equal(catalogmanagementv1.JSONPatchOperationOpAddConst)),
+					"Path": PointTo(Equal("/hidden")),
+					"From": BeNil(),
+					"Value": Equal(offering.Hidden),
+					}),
+				"/provider": MatchAllFields(Fields{
+					"Op": PointTo(Equal(catalogmanagementv1.JSONPatchOperationOpAddConst)),
+					"Path": PointTo(Equal("/provider")),
+					"From": BeNil(),
+					"Value": Equal(offering.Provider),
+					}),
+				"/provider_info": MatchAllFields(Fields{
+					"Op": PointTo(Equal(catalogmanagementv1.JSONPatchOperationOpAddConst)),
+					"Path": PointTo(Equal("/provider_info")),
+					"From": BeNil(),
+					"Value": Equal(offering.ProviderInfo),
+					}),
+				"/repo_info": MatchAllFields(Fields{
+					"Op": PointTo(Equal(catalogmanagementv1.JSONPatchOperationOpAddConst)),
+					"Path": PointTo(Equal("/repo_info")),
+					"From": BeNil(),
+					"Value": Equal(offering.RepoInfo),
+					}),
+				"/support": MatchAllFields(Fields{
+					"Op": PointTo(Equal(catalogmanagementv1.JSONPatchOperationOpAddConst)),
+					"Path": PointTo(Equal("/support")),
+					"From": BeNil(),
+					"Value": Equal(offering.Support),
+					}),
+				"/media": MatchAllFields(Fields{
+					"Op": PointTo(Equal(catalogmanagementv1.JSONPatchOperationOpAddConst)),
+					"Path": PointTo(Equal("/media")),
+					"From": BeNil(),
+					"Value": Equal(offering.Media),
+					}),
+				}))
+			})
 			It(`Invoke NewPreinstallVersionOptions successfully`, func() {
 				// Construct an instance of the DeployRequestBodySchematics model
 				deployRequestBodySchematicsModel := new(catalogmanagementv1.DeployRequestBodySchematics)
@@ -19092,12 +19516,12 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				Expect(jsonPatchOperationModel).ToNot(BeNil())
 				jsonPatchOperationModel.Op = core.StringPtr("add")
 				jsonPatchOperationModel.Path = core.StringPtr("testString")
-				jsonPatchOperationModel.Value = map[string]interface{}{"anyKey": "anyValue"}
 				jsonPatchOperationModel.From = core.StringPtr("testString")
+				jsonPatchOperationModel.Value = core.StringPtr("testString")
 				Expect(jsonPatchOperationModel.Op).To(Equal(core.StringPtr("add")))
 				Expect(jsonPatchOperationModel.Path).To(Equal(core.StringPtr("testString")))
-				Expect(jsonPatchOperationModel.Value).To(Equal(map[string]interface{}{"anyKey": "anyValue"}))
 				Expect(jsonPatchOperationModel.From).To(Equal(core.StringPtr("testString")))
+				Expect(jsonPatchOperationModel.Value).To(Equal(core.StringPtr("testString")))
 
 				// Construct an instance of the UpdateOfferingOptions model
 				catalogIdentifier := "testString"

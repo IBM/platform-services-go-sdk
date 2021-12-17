@@ -609,23 +609,20 @@ var _ = Describe(`CatalogManagementV1 Integration Tests`, func() {
 			Expect(*offering.ID).To(Equal(offeringID))
 			Expect(*offering.CatalogID).To(Equal(catalogID))
 
-			ifMatch := "\"" + *offering.Rev + "\""
-			op := "replace"
-			path := "/name"
 			updatedOfferingName := "updated-offering-name-by-go-sdk-patch"
-			patchDocument := &catalogmanagementv1.JSONPatchOperation{
-				Op:    &op,
-				Path:  &path,
-				Value: &updatedOfferingName,
+			updatedOffering := &catalogmanagementv1.Offering{
+				Name: &updatedOfferingName,
 			}
-			updates := []catalogmanagementv1.JSONPatchOperation{
-				*patchDocument,
-			}
+
+			patchDocuments := catalogManagementServiceAuthorized.NewOfferingPatch(updatedOffering)
+
+			ifMatch := "\"" + *offering.Rev + "\""
+
 			updateOfferingOptions := &catalogmanagementv1.UpdateOfferingOptions{
 				CatalogIdentifier: &catalogID,
 				OfferingID:        &offeringID,
 				IfMatch:           &ifMatch,
-				Updates:           updates,
+				Updates:           patchDocuments,
 			}
 
 			offering, response, err = catalogManagementServiceAuthorized.UpdateOffering(updateOfferingOptions)
