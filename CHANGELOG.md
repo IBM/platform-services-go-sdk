@@ -1,3 +1,10 @@
+## [0.22.7](https://github.com/IBM/platform-services-go-sdk/compare/v0.22.6...v0.22.7) (2021-12-17)
+
+
+### Bug Fixes
+
+* **Catalog Management:** update service to add patch operation ([#172](https://github.com/IBM/platform-services-go-sdk/issues/172)) ([d33171e](https://github.com/IBM/platform-services-go-sdk/commit/d33171ec7d7983aff2f64bc82d7c05fce499f461))
+
 ## [0.22.6](https://github.com/IBM/platform-services-go-sdk/compare/v0.22.5...v0.22.6) (2021-12-03)
 
 
