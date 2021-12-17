@@ -7908,7 +7908,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 		})
 	})
 	Describe(`DeprecateOffering(deprecateOfferingOptions *DeprecateOfferingOptions)`, func() {
-		deprecateOfferingPath := "/catalogs/testString/offerings/testString/deprecate/%7Bapproved%7D"
+		deprecateOfferingPath := "/catalogs/testString/offerings/testString/deprecate/true"
 		Context(`Using mock server endpoint`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
