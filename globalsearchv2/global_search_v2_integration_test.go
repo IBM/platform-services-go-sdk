@@ -20,6 +20,7 @@ package globalsearchv2_test
 
 import (
 	"fmt"
+	"log"
 	"os"
 
 	"github.com/IBM/go-sdk-core/v5/core"
@@ -91,6 +92,9 @@ var _ = Describe(`GlobalSearchV2 Integration Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(globalSearchService).ToNot(BeNil())
 			Expect(globalSearchService.Service.Options.URL).To(Equal(serviceURL))
+
+			goLogger := log.New(GinkgoWriter, "", log.LstdFlags)
+			core.SetLogger(core.NewLogger(core.LevelDebug, goLogger, goLogger))
 		})
 	})
 
