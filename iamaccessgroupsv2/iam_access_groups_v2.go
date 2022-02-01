@@ -1,5 +1,5 @@
 /**
- * (C) Copyright IBM Corp. 2021.
+ * (C) Copyright IBM Corp. 2022.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,7 +15,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 3.43.0-49eab5c7-20211117-152138
+ * IBM OpenAPI SDK Code Generator Version: 3.43.4-432d779b-20220119-173927
  */
 
 // Package iamaccessgroupsv2 : Operations and models for the IamAccessGroupsV2 service
@@ -582,10 +582,11 @@ func (iamAccessGroups *IamAccessGroupsV2) IsMemberOfAccessGroupWithContext(ctx c
 }
 
 // AddMembersToAccessGroup : Add members to an access group
-// Use this API to add users (`IBMid-...`) or service IDs (`iam-ServiceId-...`) to an access group. Any member added
-// gains access to resources defined in the group's policies. To revoke a given user's access, simply remove them from
-// the group. There is no limit to the number of members one group can have, but each `iam_id` can only be added to 50
-// groups. Additionally, this API request payload can add up to 50 members per call.
+// Use this API to add users (`IBMid-...`), service IDs (`iam-ServiceId-...`) or trusted profiles (`iam-Profile-...`) to
+// an access group. Any member added gains access to resources defined in the group's policies. To revoke a given
+// members's access, simply remove them from the group. There is no limit to the number of members one group can have,
+// but each `iam_id` can only be added to 50 groups. Additionally, this API request payload can add up to 50 members per
+// call.
 func (iamAccessGroups *IamAccessGroupsV2) AddMembersToAccessGroup(addMembersToAccessGroupOptions *AddMembersToAccessGroupOptions) (result *AddGroupMembersResponse, response *core.DetailedResponse, err error) {
 	return iamAccessGroups.AddMembersToAccessGroupWithContext(context.Background(), addMembersToAccessGroupOptions)
 }
@@ -659,9 +660,9 @@ func (iamAccessGroups *IamAccessGroupsV2) AddMembersToAccessGroupWithContext(ctx
 
 // ListAccessGroupMembers : List access group members
 // List all members of a given group using this API. Parameters for pagination and sorting can be used to filter the
-// results. The most useful query parameter may be the `verbose` flag. If `verbose=true`, user and service ID names will
-// be retrieved for each `iam_id`. If performance is a concern, leave the `verbose` parameter off so that name
-// information does not get retrieved.
+// results. The most useful query parameter may be the `verbose` flag. If `verbose=true`, user, service ID and trusted
+// profile names will be retrieved for each `iam_id`. If performance is a concern, leave the `verbose` parameter off so
+// that name information does not get retrieved.
 func (iamAccessGroups *IamAccessGroupsV2) ListAccessGroupMembers(listAccessGroupMembersOptions *ListAccessGroupMembersOptions) (result *GroupMembersList, response *core.DetailedResponse, err error) {
 	return iamAccessGroups.ListAccessGroupMembersWithContext(context.Background(), listAccessGroupMembersOptions)
 }
@@ -1621,10 +1622,10 @@ func (options *AddAccessGroupRuleOptions) SetHeaders(param map[string]string) *A
 
 // AddGroupMembersRequestMembersItem : AddGroupMembersRequestMembersItem struct
 type AddGroupMembersRequestMembersItem struct {
-	// The IBMid or Service Id of the member.
+	// The IBMid, Service Id or Profile Id of the member.
 	IamID *string `json:"iam_id" validate:"required"`
 
-	// The type of the member, must be either "user" or "service".
+	// The type of the member, must be either "user", "service" or "trusted profile".
 	Type *string `json:"type" validate:"required"`
 }
 
@@ -1739,7 +1740,7 @@ type AddMemberToMultipleAccessGroupsOptions struct {
 	// The IAM identifier.
 	IamID *string `json:"iam_id" validate:"required,ne="`
 
-	// The type of the member, must be either "user" or "service".
+	// The type of the member, must be either "user", "service" or "trusted profile".
 	Type *string `json:"type,omitempty"`
 
 	// The ids of the access groups a given member is to be added to.
@@ -2637,7 +2638,7 @@ type ListAccessGroupMembersOptions struct {
 	// Filter the results by member type.
 	Type *string `json:"type,omitempty"`
 
-	// Return user's email and name for each user id or the name for each service id.
+	// Return user's email and name for each user id or the name for each service id or trusted profile.
 	Verbose *bool `json:"verbose,omitempty"`
 
 	// If verbose is true, sort the results by id, name, or email.
@@ -2753,7 +2754,7 @@ type ListAccessGroupsOptions struct {
 	// choose. If no transaction ID is passed in, then a random ID is generated.
 	TransactionID *string `json:"Transaction-Id,omitempty"`
 
-	// Return groups for member id (IBMid or Service Id).
+	// Return groups for member id (IBMid, Service Id or Profile Id).
 	IamID *string `json:"iam_id,omitempty"`
 
 	// Return up to this limit of results where limit is between 0 and 100.
