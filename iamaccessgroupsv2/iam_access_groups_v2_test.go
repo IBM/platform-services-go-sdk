@@ -1,5 +1,5 @@
 /**
- * (C) Copyright IBM Corp. 2021.
+ * (C) Copyright IBM Corp. 2022.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -2090,7 +2090,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				// Construct an instance of the RemoveMembersFromAccessGroupOptions model
 				removeMembersFromAccessGroupOptionsModel := new(iamaccessgroupsv2.RemoveMembersFromAccessGroupOptions)
 				removeMembersFromAccessGroupOptionsModel.AccessGroupID = core.StringPtr("testString")
-				removeMembersFromAccessGroupOptionsModel.Members = []string{"IBMId-user1", "iam-ServiceId-123"}
+				removeMembersFromAccessGroupOptionsModel.Members = []string{"IBMId-user1", "iam-ServiceId-123", "iam-Profile-123"}
 				removeMembersFromAccessGroupOptionsModel.TransactionID = core.StringPtr("testString")
 				removeMembersFromAccessGroupOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
@@ -2161,7 +2161,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				// Construct an instance of the RemoveMembersFromAccessGroupOptions model
 				removeMembersFromAccessGroupOptionsModel := new(iamaccessgroupsv2.RemoveMembersFromAccessGroupOptions)
 				removeMembersFromAccessGroupOptionsModel.AccessGroupID = core.StringPtr("testString")
-				removeMembersFromAccessGroupOptionsModel.Members = []string{"IBMId-user1", "iam-ServiceId-123"}
+				removeMembersFromAccessGroupOptionsModel.Members = []string{"IBMId-user1", "iam-ServiceId-123", "iam-Profile-123"}
 				removeMembersFromAccessGroupOptionsModel.TransactionID = core.StringPtr("testString")
 				removeMembersFromAccessGroupOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
@@ -2240,7 +2240,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				// Construct an instance of the RemoveMembersFromAccessGroupOptions model
 				removeMembersFromAccessGroupOptionsModel := new(iamaccessgroupsv2.RemoveMembersFromAccessGroupOptions)
 				removeMembersFromAccessGroupOptionsModel.AccessGroupID = core.StringPtr("testString")
-				removeMembersFromAccessGroupOptionsModel.Members = []string{"IBMId-user1", "iam-ServiceId-123"}
+				removeMembersFromAccessGroupOptionsModel.Members = []string{"IBMId-user1", "iam-ServiceId-123", "iam-Profile-123"}
 				removeMembersFromAccessGroupOptionsModel.TransactionID = core.StringPtr("testString")
 				removeMembersFromAccessGroupOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
@@ -2262,7 +2262,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				// Construct an instance of the RemoveMembersFromAccessGroupOptions model
 				removeMembersFromAccessGroupOptionsModel := new(iamaccessgroupsv2.RemoveMembersFromAccessGroupOptions)
 				removeMembersFromAccessGroupOptionsModel.AccessGroupID = core.StringPtr("testString")
-				removeMembersFromAccessGroupOptionsModel.Members = []string{"IBMId-user1", "iam-ServiceId-123"}
+				removeMembersFromAccessGroupOptionsModel.Members = []string{"IBMId-user1", "iam-ServiceId-123", "iam-Profile-123"}
 				removeMembersFromAccessGroupOptionsModel.TransactionID = core.StringPtr("testString")
 				removeMembersFromAccessGroupOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
@@ -2305,7 +2305,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				// Construct an instance of the RemoveMembersFromAccessGroupOptions model
 				removeMembersFromAccessGroupOptionsModel := new(iamaccessgroupsv2.RemoveMembersFromAccessGroupOptions)
 				removeMembersFromAccessGroupOptionsModel.AccessGroupID = core.StringPtr("testString")
-				removeMembersFromAccessGroupOptionsModel.Members = []string{"IBMId-user1", "iam-ServiceId-123"}
+				removeMembersFromAccessGroupOptionsModel.Members = []string{"IBMId-user1", "iam-ServiceId-123", "iam-Profile-123"}
 				removeMembersFromAccessGroupOptionsModel.TransactionID = core.StringPtr("testString")
 				removeMembersFromAccessGroupOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
@@ -4748,12 +4748,12 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				accessGroupID := "testString"
 				removeMembersFromAccessGroupOptionsModel := iamAccessGroupsService.NewRemoveMembersFromAccessGroupOptions(accessGroupID)
 				removeMembersFromAccessGroupOptionsModel.SetAccessGroupID("testString")
-				removeMembersFromAccessGroupOptionsModel.SetMembers([]string{"IBMId-user1", "iam-ServiceId-123"})
+				removeMembersFromAccessGroupOptionsModel.SetMembers([]string{"IBMId-user1", "iam-ServiceId-123", "iam-Profile-123"})
 				removeMembersFromAccessGroupOptionsModel.SetTransactionID("testString")
 				removeMembersFromAccessGroupOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(removeMembersFromAccessGroupOptionsModel).ToNot(BeNil())
 				Expect(removeMembersFromAccessGroupOptionsModel.AccessGroupID).To(Equal(core.StringPtr("testString")))
-				Expect(removeMembersFromAccessGroupOptionsModel.Members).To(Equal([]string{"IBMId-user1", "iam-ServiceId-123"}))
+				Expect(removeMembersFromAccessGroupOptionsModel.Members).To(Equal([]string{"IBMId-user1", "iam-ServiceId-123", "iam-Profile-123"}))
 				Expect(removeMembersFromAccessGroupOptionsModel.TransactionID).To(Equal(core.StringPtr("testString")))
 				Expect(removeMembersFromAccessGroupOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
