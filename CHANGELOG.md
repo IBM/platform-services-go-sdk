@@ -1,3 +1,10 @@
+## [0.22.8](https://github.com/IBM/platform-services-go-sdk/compare/v0.22.7...v0.22.8) (2022-02-07)
+
+
+### Bug Fixes
+
+* **IAM Access Groups:** add trusted profile as member ([#174](https://github.com/IBM/platform-services-go-sdk/issues/174)) ([1b6e894](https://github.com/IBM/platform-services-go-sdk/commit/1b6e89450d780bea03ca7f60b373ba29e3e2e89c))
+
 ## [0.22.7](https://github.com/IBM/platform-services-go-sdk/compare/v0.22.6...v0.22.7) (2021-12-17)
 
 
