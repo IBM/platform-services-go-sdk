@@ -57,6 +57,7 @@ var (
 
 	apikeyName    string = "Example-ApiKey"
 	serviceIDName string = "Example-ServiceId"
+	profileName   string = "Example-Profile"
 	accountID     string
 	iamID         string
 	iamAPIKey     string
@@ -66,6 +67,15 @@ var (
 
 	svcID     string
 	svcIDEtag string
+
+	profileId     string
+	profileIamId  string
+	profileEtag   string
+	claimRuleId   string
+	claimRuleEtag string
+	claimRuleType string = "Profile-SAML"
+	realmName     string = "https://w3id.sso.ibm.com/auth/sps/samlidp2/saml20"
+	linkId        string
 
 	accountSettingEtag string
 )
@@ -210,6 +220,8 @@ var _ = Describe(`IamIdentityV1 Examples Tests`, func() {
 			// begin-get_api_key
 
 			getAPIKeyOptions := iamIdentityService.NewGetAPIKeyOptions(apikeyID)
+
+			getAPIKeyOptions.SetIncludeHistory(false)
 
 			apiKey, response, err := iamIdentityService.GetAPIKey(getAPIKeyOptions)
 			if err != nil {
@@ -422,6 +434,295 @@ var _ = Describe(`IamIdentityV1 Examples Tests`, func() {
 
 			// end-delete_service_id
 			fmt.Printf("\nDeleteServiceID() response status code: %d\n", response.StatusCode)
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(204))
+		})
+		It(`CreateProfile request example`, func() {
+			fmt.Println("\nCreateProfile() result:")
+			// begin-create_profile
+
+			createProfileOptions := iamIdentityService.NewCreateProfileOptions(profileName, accountID)
+			createProfileOptions.SetDescription("Example Profile")
+
+			profile, response, err := iamIdentityService.CreateProfile(createProfileOptions)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(profile, "", "  ")
+			fmt.Println(string(b))
+			profileId = *profile.ID
+
+			// end-create_profile
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(201))
+			Expect(profile).ToNot(BeNil())
+			Expect(profileId).ToNot(BeNil())
+		})
+		It(`GetProfile request example`, func() {
+			fmt.Println("\nGetProfile() result:")
+			// begin-get_profile
+
+			getProfileOptions := iamIdentityService.NewGetProfileOptions(profileId)
+
+			profile, response, err := iamIdentityService.GetProfile(getProfileOptions)
+			if err != nil {
+				panic(err)
+			}
+			profileEtag = response.GetHeaders().Get("Etag")
+			b, _ := json.MarshalIndent(profile, "", "  ")
+			fmt.Println(string(b))
+
+			// end-get_profile
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(profile).ToNot(BeNil())
+			Expect(profileEtag).ToNot(BeEmpty())
+		})
+		It(`ListProfiles request example`, func() {
+			fmt.Println("\nListProfiles() result:")
+			// begin-list_profiles
+
+			listProfilesOptions := iamIdentityService.NewListProfilesOptions(accountID)
+			listProfilesOptions.SetIncludeHistory(false)
+
+			trustedProfiles, response, err := iamIdentityService.ListProfiles(listProfilesOptions)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(trustedProfiles, "", "  ")
+			fmt.Println(string(b))
+
+			// end-list_profiles
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(trustedProfiles).ToNot(BeNil())
+		})
+		It(`UpdateProfile request example`, func() {
+			fmt.Println("\nUpdateProfile() result:")
+			// begin-update_profile
+
+			updateProfileOptions := iamIdentityService.NewUpdateProfileOptions(profileId, profileEtag)
+			updateProfileOptions.SetDescription("This is an updated description")
+
+			profile, response, err := iamIdentityService.UpdateProfile(updateProfileOptions)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(profile, "", "  ")
+			fmt.Println(string(b))
+
+			// end-update_profile
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(profile).ToNot(BeNil())
+		})
+		It(`CreateClaimRule request example`, func() {
+			fmt.Println("\nCreateClaimRule() result:")
+			// begin-create_claim_rule
+
+			profileClaimRuleConditions := new(iamidentityv1.ProfileClaimRuleConditions)
+			profileClaimRuleConditions.Claim = core.StringPtr("blueGroups")
+			profileClaimRuleConditions.Operator = core.StringPtr("EQUALS")
+			profileClaimRuleConditions.Value = core.StringPtr("\"cloud-docs-dev\"")
+
+			createClaimRuleOptions := iamIdentityService.NewCreateClaimRuleOptions(profileId, claimRuleType, []iamidentityv1.ProfileClaimRuleConditions{*profileClaimRuleConditions})
+			createClaimRuleOptions.SetName("claimRule")
+			createClaimRuleOptions.SetRealmName(realmName)
+			createClaimRuleOptions.SetExpiration(int64(43200))
+
+			claimRule, response, err := iamIdentityService.CreateClaimRule(createClaimRuleOptions)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(claimRule, "", "  ")
+			fmt.Println(string(b))
+			claimRuleId = *claimRule.ID
+
+			// end-create_claim_rule
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(201))
+			Expect(claimRule).ToNot(BeNil())
+			Expect(claimRuleId).ToNot(BeNil())
+		})
+		It(`GetClaimRule request example`, func() {
+			fmt.Println("\nGetClaimRule() result:")
+			// begin-get_claim_rule
+
+			getClaimRuleOptions := iamIdentityService.NewGetClaimRuleOptions(profileId, claimRuleId)
+
+			claimRule, response, err := iamIdentityService.GetClaimRule(getClaimRuleOptions)
+			if err != nil {
+				panic(err)
+			}
+			claimRuleEtag = response.GetHeaders().Get("Etag")
+			b, _ := json.MarshalIndent(claimRule, "", "  ")
+			fmt.Println(string(b))
+
+			// end-get_claim_rule
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(claimRule).ToNot(BeNil())
+			Expect(claimRuleEtag).ToNot(BeEmpty())
+		})
+		It(`ListClaimRules request example`, func() {
+			fmt.Println("\nListClaimRules() result:")
+			// begin-list_claim_rules
+
+			listClaimRulesOptions := iamIdentityService.NewListClaimRulesOptions(profileId)
+
+			claimRulesList, response, err := iamIdentityService.ListClaimRules(listClaimRulesOptions)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(claimRulesList, "", "  ")
+			fmt.Println(string(b))
+
+			// end-list_claim_rules
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(claimRulesList).ToNot(BeNil())
+		})
+		It(`UpdateClaimRule request example`, func() {
+			fmt.Println("\nUpdateClaimRule() result:")
+			// begin-update_claim_rule
+
+			profileClaimRuleConditions := new(iamidentityv1.ProfileClaimRuleConditions)
+			profileClaimRuleConditions.Claim = core.StringPtr("blueGroups")
+			profileClaimRuleConditions.Operator = core.StringPtr("EQUALS")
+			profileClaimRuleConditions.Value = core.StringPtr("\"Europe_Group\"")
+
+			updateClaimRuleOptions := iamIdentityService.NewUpdateClaimRuleOptions(profileId, claimRuleId, claimRuleEtag, claimRuleType, []iamidentityv1.ProfileClaimRuleConditions{*profileClaimRuleConditions})
+			updateClaimRuleOptions.SetRealmName(realmName)
+			updateClaimRuleOptions.SetExpiration(int64(33200))
+
+			claimRule, response, err := iamIdentityService.UpdateClaimRule(updateClaimRuleOptions)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(claimRule, "", "  ")
+			fmt.Println(string(b))
+
+			// end-update_claim_rule
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(claimRule).ToNot(BeNil())
+		})
+		It(`DeleteClaimRule request example`, func() {
+			// begin-delete_claim_rule
+
+			deleteClaimRuleOptions := iamIdentityService.NewDeleteClaimRuleOptions(profileId, claimRuleId)
+
+			response, err := iamIdentityService.DeleteClaimRule(deleteClaimRuleOptions)
+			if err != nil {
+				panic(err)
+			}
+
+			// end-delete_claim_rule
+			fmt.Printf("\nDeleteClaimRule() response status code: %d\n", response.StatusCode)
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(204))
+		})
+		It(`CreateLink request example`, func() {
+			fmt.Println("\nCreateLink() result:")
+			// begin-create_link
+
+			createProfileLinkRequestLink := new(iamidentityv1.CreateProfileLinkRequestLink)
+			createProfileLinkRequestLink.CRN = core.StringPtr("crn:v1:staging:public:iam-identity::a/18e3020749ce4744b0b472466d61fdb4::computeresource:Fake-Compute-Resource")
+			createProfileLinkRequestLink.Namespace = core.StringPtr("default")
+			createProfileLinkRequestLink.Name = core.StringPtr("niceName")
+
+			createLinkOptions := iamIdentityService.NewCreateLinkOptions(profileId, "ROKS_SA", createProfileLinkRequestLink)
+			createLinkOptions.SetName("niceLink")
+
+			link, response, err := iamIdentityService.CreateLink(createLinkOptions)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(link, "", "  ")
+			fmt.Println(string(b))
+			linkId = *link.ID
+
+			// end-create_link
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(201))
+			Expect(link).ToNot(BeNil())
+			Expect(linkId).ToNot(BeNil())
+		})
+		It(`GetLink request example`, func() {
+			fmt.Println("\nGetLink() result:")
+			// begin-get_link
+
+			getLinkOptions := iamIdentityService.NewGetLinkOptions(profileId, linkId)
+
+			link, response, err := iamIdentityService.GetLink(getLinkOptions)
+			if err != nil {
+				panic(err)
+			}
+
+			// end-get_link
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(link).ToNot(BeNil())
+		})
+		It(`ListLinks request example`, func() {
+			fmt.Println("\nListLinks() result:")
+			// begin-list_links
+
+			listLinksOptions := iamIdentityService.NewListLinksOptions(profileId)
+
+			linkList, response, err := iamIdentityService.ListLinks(listLinksOptions)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(linkList, "", "  ")
+			fmt.Println(string(b))
+
+			// end-list_links
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(linkList).ToNot(BeNil())
+		})
+		It(`DeleteLink request example`, func() {
+			// begin-delete_link
+
+			deleteLinkOptions := iamIdentityService.NewDeleteLinkOptions(profileId, linkId)
+
+			response, err := iamIdentityService.DeleteLink(deleteLinkOptions)
+			if err != nil {
+				panic(err)
+			}
+
+			// end-delete_link
+			fmt.Printf("\nDeleteLink() response status code: %d\n", response.StatusCode)
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(204))
+		})
+		It(`DeleteProfile request example`, func() {
+			// begin-delete_profile
+
+			deleteProfileOptions := iamIdentityService.NewDeleteProfileOptions(profileId)
+
+			response, err := iamIdentityService.DeleteProfile(deleteProfileOptions)
+			if err != nil {
+				panic(err)
+			}
+
+			// end-delete_profile
+			fmt.Printf("\nDeleteProfile() response status code: %d\n", response.StatusCode)
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(204))

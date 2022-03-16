@@ -1,3 +1,185 @@
+## [0.22.9](https://github.com/IBM/platform-services-go-sdk/compare/v0.22.8...v0.22.9) (2022-03-16)
+
+
+### Bug Fixes
+
+* bump go core to 5.9.2 ([#177](https://github.com/IBM/platform-services-go-sdk/issues/177)) ([947e233](https://github.com/IBM/platform-services-go-sdk/commit/947e233a3aa52816ea26c28912fdc439977d72c5))
+
+## [0.22.8](https://github.com/IBM/platform-services-go-sdk/compare/v0.22.7...v0.22.8) (2022-02-07)
+
+
+### Bug Fixes
+
+* **IAM Access Groups:** add trusted profile as member ([#174](https://github.com/IBM/platform-services-go-sdk/issues/174)) ([1b6e894](https://github.com/IBM/platform-services-go-sdk/commit/1b6e89450d780bea03ca7f60b373ba29e3e2e89c))
+
+## [0.22.7](https://github.com/IBM/platform-services-go-sdk/compare/v0.22.6...v0.22.7) (2021-12-17)
+
+
+### Bug Fixes
+
+* **Catalog Management:** update service to add patch operation ([#172](https://github.com/IBM/platform-services-go-sdk/issues/172)) ([d33171e](https://github.com/IBM/platform-services-go-sdk/commit/d33171ec7d7983aff2f64bc82d7c05fce499f461))
+
+## [0.22.6](https://github.com/IBM/platform-services-go-sdk/compare/v0.22.5...v0.22.6) (2021-12-03)
+
+
+### Bug Fixes
+
+* **IAM Access Groups:** update service after service url adjustment ([#169](https://github.com/IBM/platform-services-go-sdk/issues/169)) ([219fb73](https://github.com/IBM/platform-services-go-sdk/commit/219fb73f700def9c331f625e65fb5c769848efbf))
+
+## [0.22.5](https://github.com/IBM/platform-services-go-sdk/compare/v0.22.4...v0.22.5) (2021-11-25)
+
+
+### Bug Fixes
+
+* bump go core to avoid snyk vulnerability alert ([#170](https://github.com/IBM/platform-services-go-sdk/issues/170)) ([881fb38](https://github.com/IBM/platform-services-go-sdk/commit/881fb38449736da1802b9fa879fa48b5a17591c2))
+
+## [0.22.4](https://github.com/IBM/platform-services-go-sdk/compare/v0.22.3...v0.22.4) (2021-11-11)
+
+
+### Bug Fixes
+
+* bump go core to 5.8.0 ([#165](https://github.com/IBM/platform-services-go-sdk/issues/165)) ([d73fb3c](https://github.com/IBM/platform-services-go-sdk/commit/d73fb3cef4a599added3cb152276c51c943b5952))
+
+## [0.22.3](https://github.com/IBM/platform-services-go-sdk/compare/v0.22.2...v0.22.3) (2021-11-03)
+
+
+### Bug Fixes
+
+* **Context-Based Restrictions:** add support for the X-Correlation-Id header ([#164](https://github.com/IBM/platform-services-go-sdk/issues/164)) ([9540cd0](https://github.com/IBM/platform-services-go-sdk/commit/9540cd00a961c9a1c40fe6deeb4c05f18a953de5))
+
+## [0.22.2](https://github.com/IBM/platform-services-go-sdk/compare/v0.22.1...v0.22.2) (2021-10-27)
+
+
+### Bug Fixes
+
+* **Resource Manager:** update resource manager endpoint URL ([#158](https://github.com/IBM/platform-services-go-sdk/issues/158)) ([96d5153](https://github.com/IBM/platform-services-go-sdk/commit/96d5153a1a4faa5987c41f278e45ed8ce5d81cd1))
+
+## [0.22.1](https://github.com/IBM/platform-services-go-sdk/compare/v0.22.0...v0.22.1) (2021-10-27)
+
+
+### Bug Fixes
+
+* **build:** bump go core to 5.7.2 ([#157](https://github.com/IBM/platform-services-go-sdk/issues/157)) ([aeca83d](https://github.com/IBM/platform-services-go-sdk/commit/aeca83dc3ed9838caba6b41b53ce9b26571d1359))
+
+# [0.22.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.21.0...v0.22.0) (2021-10-20)
+
+
+### Features
+
+* **IAM Policy Management:** support of new query params for v2/roles ([#156](https://github.com/IBM/platform-services-go-sdk/issues/156)) ([770827d](https://github.com/IBM/platform-services-go-sdk/commit/770827da59cfd1b888a6aa1dba11d3d83a1f89d7))
+
+# [0.21.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.20.1...v0.21.0) (2021-10-01)
+
+
+### Features
+
+* **Context-Based Restrictions:** add service sdk, tests, and examples ([#153](https://github.com/IBM/platform-services-go-sdk/issues/153)) ([802d160](https://github.com/IBM/platform-services-go-sdk/commit/802d160618470a84991cf5a636f90ed4f87c84f5))
+
+## [0.20.1](https://github.com/IBM/platform-services-go-sdk/compare/v0.20.0...v0.20.1) (2021-09-07)
+
+
+### Bug Fixes
+
+* **IAM Identity:** fix ListProfile and ListLinks operation id's ([#151](https://github.com/IBM/platform-services-go-sdk/issues/151)) ([363c08a](https://github.com/IBM/platform-services-go-sdk/commit/363c08ab35b6f133c751b2c523acbd915d5cd7be))
+
+# [0.20.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.19.4...v0.20.0) (2021-09-02)
+
+
+### Features
+
+* **iam-identity:** adding trusted profiles ([#149](https://github.com/IBM/platform-services-go-sdk/issues/149)) ([e67f872](https://github.com/IBM/platform-services-go-sdk/commit/e67f872a4fa0da9c860b99f826707ea802cb673c))
+
+## [0.19.4](https://github.com/IBM/platform-services-go-sdk/compare/v0.19.3...v0.19.4) (2021-08-18)
+
+
+### Bug Fixes
+
+* bump go core version to 5.6.3 ([#145](https://github.com/IBM/platform-services-go-sdk/issues/145)) ([c96c45f](https://github.com/IBM/platform-services-go-sdk/commit/c96c45f144549f3a1861871ec225d79e2b33f293))
+
+## [0.19.3](https://github.com/IBM/platform-services-go-sdk/compare/v0.19.2...v0.19.3) (2021-08-03)
+
+
+### Bug Fixes
+
+* **Activity Tracker:** re-gen service after recent service name change ([#142](https://github.com/IBM/platform-services-go-sdk/issues/142)) ([972853e](https://github.com/IBM/platform-services-go-sdk/commit/972853e17d68bc9d758432fc5a21a3e257fce7b8))
+
+## [0.19.2](https://github.com/IBM/platform-services-go-sdk/compare/v0.19.1...v0.19.2) (2021-07-29)
+
+
+### Bug Fixes
+
+* **usage reports:** add optional name parameters to struct ([#139](https://github.com/IBM/platform-services-go-sdk/issues/139)) ([64af32f](https://github.com/IBM/platform-services-go-sdk/commit/64af32f0d1e7696b2a878966b25ce6a2c65e9552))
+
+## [0.19.1](https://github.com/IBM/platform-services-go-sdk/compare/v0.19.0...v0.19.1) (2021-07-09)
+
+
+### Bug Fixes
+
+* **activity tracker:** re-gen service after recent API changes ([#135](https://github.com/IBM/platform-services-go-sdk/issues/135)) ([7723b9e](https://github.com/IBM/platform-services-go-sdk/commit/7723b9ef922072998e8f3899a215379a589cb8cb))
+
+# [0.19.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.18.21...v0.19.0) (2021-06-29)
+
+
+### Features
+
+* **cloudshell:** add service, tests and examples to project ([7fd66dc](https://github.com/IBM/platform-services-go-sdk/commit/7fd66dc3b499f18727fa11435e1a49d394f752cd))
+
+## [0.18.21](https://github.com/IBM/platform-services-go-sdk/compare/v0.18.20...v0.18.21) (2021-06-28)
+
+
+### Bug Fixes
+
+* **catalog-management:** update cat mgmt sdk examples after recent api changes ([404bc50](https://github.com/IBM/platform-services-go-sdk/commit/404bc502eb6343005d9b2ebb07e7c0af48ef7004))
+
+## [0.18.20](https://github.com/IBM/platform-services-go-sdk/compare/v0.18.19...v0.18.20) (2021-06-28)
+
+
+### Bug Fixes
+
+* **catalog-management:** update catalog mgmt service sdk after recent api changes ([8e1e1b4](https://github.com/IBM/platform-services-go-sdk/commit/8e1e1b462e725691de50abecafe55f72d3ee83fc))
+
+## [0.18.19](https://github.com/IBM/platform-services-go-sdk/compare/v0.18.18...v0.18.19) (2021-06-25)
+
+
+### Bug Fixes
+
+* **IAM Access Groups:** update service after recent api changes ([#133](https://github.com/IBM/platform-services-go-sdk/issues/133)) ([0b54331](https://github.com/IBM/platform-services-go-sdk/commit/0b54331b42b62f2313f450f674b6d60dde6ea1d6))
+
+## [0.18.18](https://github.com/IBM/platform-services-go-sdk/compare/v0.18.17...v0.18.18) (2021-06-15)
+
+
+### Bug Fixes
+
+* **IAM Identity:** re-gen service after recent API changes ([#129](https://github.com/IBM/platform-services-go-sdk/issues/129)) ([c1b4418](https://github.com/IBM/platform-services-go-sdk/commit/c1b44189948b59ff2aabf30b47490245e47e8dd1))
+
+## [0.18.17](https://github.com/IBM/platform-services-go-sdk/compare/v0.18.16...v0.18.17) (2021-06-14)
+
+
+### Bug Fixes
+
+* **Activity Tracker:** re-gen service after recent API changes and hand edits for examples and IT ([#128](https://github.com/IBM/platform-services-go-sdk/issues/128)) ([5c5f4ac](https://github.com/IBM/platform-services-go-sdk/commit/5c5f4ac7c4dcb03fe29a17d0dbaa23ec0a60da6e))
+
+## [0.18.16](https://github.com/IBM/platform-services-go-sdk/compare/v0.18.15...v0.18.16) (2021-06-09)
+
+
+### Bug Fixes
+
+* **Catalog Management:** add metadata and lastoperation to offering instance ([#126](https://github.com/IBM/platform-services-go-sdk/issues/126)) ([097f824](https://github.com/IBM/platform-services-go-sdk/commit/097f8245c323b080c011003ca45528e397e309fe))
+
+## [0.18.15](https://github.com/IBM/platform-services-go-sdk/compare/v0.18.14...v0.18.15) (2021-06-07)
+
+
+### Bug Fixes
+
+* **Catalog Management:** add channel and install plan to catalog management offering instance ([#125](https://github.com/IBM/platform-services-go-sdk/issues/125)) ([9f5a90c](https://github.com/IBM/platform-services-go-sdk/commit/9f5a90c7e9654c427d54fc823866ebe688b609c3))
+
+## [0.18.14](https://github.com/IBM/platform-services-go-sdk/compare/v0.18.13...v0.18.14) (2021-06-01)
+
+
+### Bug Fixes
+
+* **Resource Controller:** update service after recent api changes ([#123](https://github.com/IBM/platform-services-go-sdk/issues/123)) ([a7f14ee](https://github.com/IBM/platform-services-go-sdk/commit/a7f14ee285ced3c4ec52b4b56e6cf9011d234b54))
+
 ## [0.18.13](https://github.com/IBM/platform-services-go-sdk/compare/v0.18.12...v0.18.13) (2021-05-14)
 
 

@@ -11,3 +11,7 @@ Before that, please search for similar issues. It's possible that someone has al
 # General Information
 For general guidance on contributing to this project, please see
 [this link](https://github.com/IBM/ibm-cloud-sdk-common/blob/main/CONTRIBUTING_go.md)
+
+# Updating an existing service within the SDK
+For instructions on updating an existing service within the SDK, please see
+[this link](update_service.md)

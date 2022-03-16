@@ -1,14 +1,13 @@
-[![Build Status](https://travis-ci.com/IBM/platform-services-go-sdk.svg?branch=main)](https://travis-ci.com/IBM/platform-services-go-sdk)
+[![Build Status](https://app.travis-ci.com/IBM/platform-services-go-sdk.svg?branch=main)](https://app.travis-ci.com/IBM/platform-services-go-sdk)
 [![Release](https://img.shields.io/github/v/release/IBM/platform-services-go-sdk)](https://github.com/IBM/platform-services-go-sdk/releases/latest)
 [![Go Reference](https://pkg.go.dev/badge/github.com/IBM/platform-services-go-sdk.svg)](https://pkg.go.dev/github.com/IBM/platform-services-go-sdk)
 ![GitHub go.mod Go version](https://img.shields.io/github/go-mod/go-version/IBM/platform-services-go-sdk)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
-[![codecov](https://codecov.io/gh/IBM/platform-services-go-sdk/branch/main/graph/badge.svg)](https://codecov.io/gh/IBM/platform-services-go-sdk)
 [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
 [![CLA assistant](https://cla-assistant.io/readme/badge/IBM/platform-services-go-sdk)](https://cla-assistant.io/IBM/platform-services-go-sdk)
 
 
-# IBM Cloud Platform Services Go SDK Version 0.18.13
+# IBM Cloud Platform Services Go SDK Version 0.22.9
 
 Go client library to interact with various
 [IBM Cloud Platform Service APIs](https://cloud.ibm.com/docs?tab=api-docs&category=platform_services).
@@ -46,26 +45,28 @@ The IBM Cloud Platform Services Go SDK allows developers to programmatically int
 
 Service Name | Package name 
 --- | --- 
-[Activity Tracker](https://test.cloud.ibm.com/apidocs/atracker) | atrackerv1
-[Case Management](https://cloud.ibm.com/apidocs/case-management) | casemanagementv1
-[Catalog Management](https://cloud.ibm.com/apidocs/resource-catalog/private-catalog) | catalogmanagementv1
-[Configuration Governance](https://cloud.ibm.com/apidocs/security-compliance/config) | configurationgovernancev1
-[Enterprise Billing Units](https://cloud.ibm.com/apidocs/enterprise-apis/billing-unit) | enterprisebillingunitsv1
-[Enterprise Management](https://cloud.ibm.com/apidocs/enterprise-apis/enterprise) | enterprisemanagementv1
-[Enterprise Usage Reports](https://cloud.ibm.com/apidocs/enterprise-apis/resource-usage-reports) | enterpriseusagereportsv1
-[Global Catalog](https://cloud.ibm.com/apidocs/resource-catalog/global-catalog) | globalcatalogv1
-[Global Search](https://cloud.ibm.com/apidocs/search) | globalsearchv2
-[Global Tagging](https://cloud.ibm.com/apidocs/tagging) | globaltaggingv1
-[IAM Access Groups](https://cloud.ibm.com/apidocs/iam-access-groups) | iamaccessgroupsv2
-[IAM Identity Service](https://cloud.ibm.com/apidocs/iam-identity-token-api) | iamidentityv1
-[IAM Policy Management](https://cloud.ibm.com/apidocs/iam-policy-management) | iampolicymanagementv1
-[Open Service Broker](https://cloud.ibm.com/apidocs/resource-controller/ibm-cloud-osb-api) | openservicebrokerv1
-[Posture Management](https://cloud.ibm.com/apidocs/security-compliance/posture) | posturemanagementv1
-[Resource Controller](https://cloud.ibm.com/apidocs/resource-controller/resource-controller) | resourcecontrollerv2
-[Resource Manager](https://cloud.ibm.com/apidocs/resource-controller/resource-manager) | resourcemanagerv2
-[Usage Metering](https://cloud.ibm.com/apidocs/usage-metering) | usagemeteringv4
-[Usage Reports](https://cloud.ibm.com/apidocs/metering-reporting) | usagereportsv4
-[User Management](https://cloud.ibm.com/apidocs/user-management) | usermanagementv1
+[Activity Tracker](https://cloud.ibm.com/apidocs/atracker?code=go) | atrackerv1
+[Case Management](https://cloud.ibm.com/apidocs/case-management?code=go) | casemanagementv1
+[Catalog Management](https://cloud.ibm.com/apidocs/resource-catalog/private-catalog?code=go) | catalogmanagementv1
+[Configuration Governance](https://cloud.ibm.com/apidocs/security-compliance/config?code=go) | configurationgovernancev1
+[Context Based Restrictions](https://cloud.ibm.com/apidocs/context-based-restrictions?code=go) | contextbasedrestrictionsv1
+[Enterprise Billing Units](https://cloud.ibm.com/apidocs/enterprise-apis/billing-unit?code=go) | enterprisebillingunitsv1
+[Enterprise Management](https://cloud.ibm.com/apidocs/enterprise-apis/enterprise?code=go) | enterprisemanagementv1
+[Enterprise Usage Reports](https://cloud.ibm.com/apidocs/enterprise-apis/resource-usage-reports?code=go) | enterpriseusagereportsv1
+[Global Catalog](https://cloud.ibm.com/apidocs/resource-catalog/global-catalog?code=go) | globalcatalogv1
+[Global Search](https://cloud.ibm.com/apidocs/search?code=go) | globalsearchv2
+[Global Tagging](https://cloud.ibm.com/apidocs/tagging?code=go) | globaltaggingv1
+[IAM Access Groups](https://cloud.ibm.com/apidocs/iam-access-groups?code=go) | iamaccessgroupsv2
+[IAM Identity Service](https://cloud.ibm.com/apidocs/iam-identity-token-api?code=go) | iamidentityv1
+[IAM Policy Management](https://cloud.ibm.com/apidocs/iam-policy-management?code=go) | iampolicymanagementv1
+[IBM Cloud Shell](https://cloud.ibm.com/apidocs/cloudshell?code=go) | ibmcloudshellv1
+[Open Service Broker](https://cloud.ibm.com/apidocs/resource-controller/ibm-cloud-osb-api?code=go) | openservicebrokerv1
+[Posture Management](https://cloud.ibm.com/apidocs/security-compliance/posture?code=go) | posturemanagementv1
+[Resource Controller](https://cloud.ibm.com/apidocs/resource-controller/resource-controller?code=go) | resourcecontrollerv2
+[Resource Manager](https://cloud.ibm.com/apidocs/resource-controller/resource-manager?code=go) | resourcemanagerv2
+[Usage Metering](https://cloud.ibm.com/apidocs/usage-metering?code=go) | usagemeteringv4
+[Usage Reports](https://cloud.ibm.com/apidocs/metering-reporting?code=go) | usagereportsv4
+[User Management](https://cloud.ibm.com/apidocs/user-management?code=go) | usermanagementv1
 
 ## Prerequisites
 
@@ -74,10 +75,10 @@ Service Name | Package name
 * An [IBM Cloud][ibm-cloud-onboarding] account.
 * An IAM API key to allow the SDK to access your account. Create one
 [here](https://cloud.ibm.com/iam/apikeys).
-* Go version 1.12 or above.
+* Go version 1.14 or above.
 
 ## Installation
-The current version of this SDK: 0.18.13
+The current version of this SDK: 0.22.9
 
 ### Go modules  
 If your application uses Go modules for dependency management (recommended), just add an import for each service 

@@ -1,5 +1,5 @@
 /**
- * (C) Copyright IBM Corp. 2021.
+ * (C) Copyright IBM Corp. 2022.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,7 +15,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 3.29.1-b338fb38-20210313-010605
+ * IBM OpenAPI SDK Code Generator Version: 3.43.4-432d779b-20220119-173927
  */
 
 // Package iamaccessgroupsv2 : Operations and models for the IamAccessGroupsV2 service
@@ -27,6 +27,7 @@ import (
 	"fmt"
 	"net/http"
 	"reflect"
+	"strconv"
 	"time"
 
 	"github.com/IBM/go-sdk-core/v5/core"
@@ -37,13 +38,13 @@ import (
 // IamAccessGroupsV2 : The IAM Access Groups API allows for the management of access groups (Create, Read, Update,
 // Delete) as well as the management of memberships and rules within the group container.
 //
-// Version: 1.0
+// API Version: 2.0
 type IamAccessGroupsV2 struct {
 	Service *core.BaseService
 }
 
 // DefaultServiceURL is the default URL to make service requests to.
-const DefaultServiceURL = "https://iam.cloud.ibm.com/v2"
+const DefaultServiceURL = "https://iam.cloud.ibm.com"
 
 // DefaultServiceName is the default key used to find external configuration information.
 const DefaultServiceName = "iam_access_groups"
@@ -184,7 +185,7 @@ func (iamAccessGroups *IamAccessGroupsV2) CreateAccessGroupWithContext(ctx conte
 	builder := core.NewRequestBuilder(core.POST)
 	builder = builder.WithContext(ctx)
 	builder.EnableGzipCompression = iamAccessGroups.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(iamAccessGroups.Service.Options.URL, `/groups`, nil)
+	_, err = builder.ResolveRequestURL(iamAccessGroups.Service.Options.URL, `/v2/groups`, nil)
 	if err != nil {
 		return
 	}
@@ -227,11 +228,13 @@ func (iamAccessGroups *IamAccessGroupsV2) CreateAccessGroupWithContext(ctx conte
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalGroup)
-	if err != nil {
-		return
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalGroup)
+		if err != nil {
+			return
+		}
+		response.Result = result
 	}
-	response.Result = result
 
 	return
 }
@@ -259,7 +262,7 @@ func (iamAccessGroups *IamAccessGroupsV2) ListAccessGroupsWithContext(ctx contex
 	builder := core.NewRequestBuilder(core.GET)
 	builder = builder.WithContext(ctx)
 	builder.EnableGzipCompression = iamAccessGroups.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(iamAccessGroups.Service.Options.URL, `/groups`, nil)
+	_, err = builder.ResolveRequestURL(iamAccessGroups.Service.Options.URL, `/v2/groups`, nil)
 	if err != nil {
 		return
 	}
@@ -307,11 +310,13 @@ func (iamAccessGroups *IamAccessGroupsV2) ListAccessGroupsWithContext(ctx contex
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalGroupsList)
-	if err != nil {
-		return
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalGroupsList)
+		if err != nil {
+			return
+		}
+		response.Result = result
 	}
-	response.Result = result
 
 	return
 }
@@ -342,7 +347,7 @@ func (iamAccessGroups *IamAccessGroupsV2) GetAccessGroupWithContext(ctx context.
 	builder := core.NewRequestBuilder(core.GET)
 	builder = builder.WithContext(ctx)
 	builder.EnableGzipCompression = iamAccessGroups.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(iamAccessGroups.Service.Options.URL, `/groups/{access_group_id}`, pathParamsMap)
+	_, err = builder.ResolveRequestURL(iamAccessGroups.Service.Options.URL, `/v2/groups/{access_group_id}`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -374,11 +379,13 @@ func (iamAccessGroups *IamAccessGroupsV2) GetAccessGroupWithContext(ctx context.
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalGroup)
-	if err != nil {
-		return
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalGroup)
+		if err != nil {
+			return
+		}
+		response.Result = result
 	}
-	response.Result = result
 
 	return
 }
@@ -408,7 +415,7 @@ func (iamAccessGroups *IamAccessGroupsV2) UpdateAccessGroupWithContext(ctx conte
 	builder := core.NewRequestBuilder(core.PATCH)
 	builder = builder.WithContext(ctx)
 	builder.EnableGzipCompression = iamAccessGroups.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(iamAccessGroups.Service.Options.URL, `/groups/{access_group_id}`, pathParamsMap)
+	_, err = builder.ResolveRequestURL(iamAccessGroups.Service.Options.URL, `/v2/groups/{access_group_id}`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -452,11 +459,13 @@ func (iamAccessGroups *IamAccessGroupsV2) UpdateAccessGroupWithContext(ctx conte
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalGroup)
-	if err != nil {
-		return
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalGroup)
+		if err != nil {
+			return
+		}
+		response.Result = result
 	}
-	response.Result = result
 
 	return
 }
@@ -487,7 +496,7 @@ func (iamAccessGroups *IamAccessGroupsV2) DeleteAccessGroupWithContext(ctx conte
 	builder := core.NewRequestBuilder(core.DELETE)
 	builder = builder.WithContext(ctx)
 	builder.EnableGzipCompression = iamAccessGroups.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(iamAccessGroups.Service.Options.URL, `/groups/{access_group_id}`, pathParamsMap)
+	_, err = builder.ResolveRequestURL(iamAccessGroups.Service.Options.URL, `/v2/groups/{access_group_id}`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -539,13 +548,13 @@ func (iamAccessGroups *IamAccessGroupsV2) IsMemberOfAccessGroupWithContext(ctx c
 
 	pathParamsMap := map[string]string{
 		"access_group_id": *isMemberOfAccessGroupOptions.AccessGroupID,
-		"iam_id":          *isMemberOfAccessGroupOptions.IamID,
+		"iam_id": *isMemberOfAccessGroupOptions.IamID,
 	}
 
 	builder := core.NewRequestBuilder(core.HEAD)
 	builder = builder.WithContext(ctx)
 	builder.EnableGzipCompression = iamAccessGroups.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(iamAccessGroups.Service.Options.URL, `/groups/{access_group_id}/members/{iam_id}`, pathParamsMap)
+	_, err = builder.ResolveRequestURL(iamAccessGroups.Service.Options.URL, `/v2/groups/{access_group_id}/members/{iam_id}`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -573,10 +582,11 @@ func (iamAccessGroups *IamAccessGroupsV2) IsMemberOfAccessGroupWithContext(ctx c
 }
 
 // AddMembersToAccessGroup : Add members to an access group
-// Use this API to add users (`IBMid-...`) or service IDs (`iam-ServiceId-...`) to an access group. Any member added
-// gains access to resources defined in the group's policies. To revoke a given user's access, simply remove them from
-// the group. There is no limit to the number of members one group can have, but each `iam_id` can only be added to 50
-// groups. Additionally, this API request payload can add up to 50 members per call.
+// Use this API to add users (`IBMid-...`), service IDs (`iam-ServiceId-...`) or trusted profiles (`iam-Profile-...`) to
+// an access group. Any member added gains access to resources defined in the group's policies. To revoke a given
+// members's access, simply remove them from the group. There is no limit to the number of members one group can have,
+// but each `iam_id` can only be added to 50 groups. Additionally, this API request payload can add up to 50 members per
+// call.
 func (iamAccessGroups *IamAccessGroupsV2) AddMembersToAccessGroup(addMembersToAccessGroupOptions *AddMembersToAccessGroupOptions) (result *AddGroupMembersResponse, response *core.DetailedResponse, err error) {
 	return iamAccessGroups.AddMembersToAccessGroupWithContext(context.Background(), addMembersToAccessGroupOptions)
 }
@@ -599,7 +609,7 @@ func (iamAccessGroups *IamAccessGroupsV2) AddMembersToAccessGroupWithContext(ctx
 	builder := core.NewRequestBuilder(core.PUT)
 	builder = builder.WithContext(ctx)
 	builder.EnableGzipCompression = iamAccessGroups.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(iamAccessGroups.Service.Options.URL, `/groups/{access_group_id}/members`, pathParamsMap)
+	_, err = builder.ResolveRequestURL(iamAccessGroups.Service.Options.URL, `/v2/groups/{access_group_id}/members`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -637,20 +647,22 @@ func (iamAccessGroups *IamAccessGroupsV2) AddMembersToAccessGroupWithContext(ctx
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalAddGroupMembersResponse)
-	if err != nil {
-		return
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalAddGroupMembersResponse)
+		if err != nil {
+			return
+		}
+		response.Result = result
 	}
-	response.Result = result
 
 	return
 }
 
 // ListAccessGroupMembers : List access group members
 // List all members of a given group using this API. Parameters for pagination and sorting can be used to filter the
-// results. The most useful query parameter may be the `verbose` flag. If `verbose=true`, user and service ID names will
-// be retrieved for each `iam_id`. If performance is a concern, leave the `verbose` parameter off so that name
-// information does not get retrieved.
+// results. The most useful query parameter may be the `verbose` flag. If `verbose=true`, user, service ID and trusted
+// profile names will be retrieved for each `iam_id`. If performance is a concern, leave the `verbose` parameter off so
+// that name information does not get retrieved.
 func (iamAccessGroups *IamAccessGroupsV2) ListAccessGroupMembers(listAccessGroupMembersOptions *ListAccessGroupMembersOptions) (result *GroupMembersList, response *core.DetailedResponse, err error) {
 	return iamAccessGroups.ListAccessGroupMembersWithContext(context.Background(), listAccessGroupMembersOptions)
 }
@@ -673,7 +685,7 @@ func (iamAccessGroups *IamAccessGroupsV2) ListAccessGroupMembersWithContext(ctx 
 	builder := core.NewRequestBuilder(core.GET)
 	builder = builder.WithContext(ctx)
 	builder.EnableGzipCompression = iamAccessGroups.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(iamAccessGroups.Service.Options.URL, `/groups/{access_group_id}/members`, pathParamsMap)
+	_, err = builder.ResolveRequestURL(iamAccessGroups.Service.Options.URL, `/v2/groups/{access_group_id}/members`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -717,11 +729,13 @@ func (iamAccessGroups *IamAccessGroupsV2) ListAccessGroupMembersWithContext(ctx 
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalGroupMembersList)
-	if err != nil {
-		return
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalGroupMembersList)
+		if err != nil {
+			return
+		}
+		response.Result = result
 	}
-	response.Result = result
 
 	return
 }
@@ -746,13 +760,13 @@ func (iamAccessGroups *IamAccessGroupsV2) RemoveMemberFromAccessGroupWithContext
 
 	pathParamsMap := map[string]string{
 		"access_group_id": *removeMemberFromAccessGroupOptions.AccessGroupID,
-		"iam_id":          *removeMemberFromAccessGroupOptions.IamID,
+		"iam_id": *removeMemberFromAccessGroupOptions.IamID,
 	}
 
 	builder := core.NewRequestBuilder(core.DELETE)
 	builder = builder.WithContext(ctx)
 	builder.EnableGzipCompression = iamAccessGroups.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(iamAccessGroups.Service.Options.URL, `/groups/{access_group_id}/members/{iam_id}`, pathParamsMap)
+	_, err = builder.ResolveRequestURL(iamAccessGroups.Service.Options.URL, `/v2/groups/{access_group_id}/members/{iam_id}`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -805,7 +819,7 @@ func (iamAccessGroups *IamAccessGroupsV2) RemoveMembersFromAccessGroupWithContex
 	builder := core.NewRequestBuilder(core.POST)
 	builder = builder.WithContext(ctx)
 	builder.EnableGzipCompression = iamAccessGroups.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(iamAccessGroups.Service.Options.URL, `/groups/{access_group_id}/members/delete`, pathParamsMap)
+	_, err = builder.ResolveRequestURL(iamAccessGroups.Service.Options.URL, `/v2/groups/{access_group_id}/members/delete`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -843,11 +857,13 @@ func (iamAccessGroups *IamAccessGroupsV2) RemoveMembersFromAccessGroupWithContex
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalDeleteGroupBulkMembersResponse)
-	if err != nil {
-		return
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalDeleteGroupBulkMembersResponse)
+		if err != nil {
+			return
+		}
+		response.Result = result
 	}
-	response.Result = result
 
 	return
 }
@@ -878,7 +894,7 @@ func (iamAccessGroups *IamAccessGroupsV2) RemoveMemberFromAllAccessGroupsWithCon
 	builder := core.NewRequestBuilder(core.DELETE)
 	builder = builder.WithContext(ctx)
 	builder.EnableGzipCompression = iamAccessGroups.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(iamAccessGroups.Service.Options.URL, `/groups/_allgroups/members/{iam_id}`, pathParamsMap)
+	_, err = builder.ResolveRequestURL(iamAccessGroups.Service.Options.URL, `/v2/groups/_allgroups/members/{iam_id}`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -908,11 +924,13 @@ func (iamAccessGroups *IamAccessGroupsV2) RemoveMemberFromAllAccessGroupsWithCon
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalDeleteFromAllGroupsResponse)
-	if err != nil {
-		return
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalDeleteFromAllGroupsResponse)
+		if err != nil {
+			return
+		}
+		response.Result = result
 	}
-	response.Result = result
 
 	return
 }
@@ -942,7 +960,7 @@ func (iamAccessGroups *IamAccessGroupsV2) AddMemberToMultipleAccessGroupsWithCon
 	builder := core.NewRequestBuilder(core.PUT)
 	builder = builder.WithContext(ctx)
 	builder.EnableGzipCompression = iamAccessGroups.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(iamAccessGroups.Service.Options.URL, `/groups/_allgroups/members/{iam_id}`, pathParamsMap)
+	_, err = builder.ResolveRequestURL(iamAccessGroups.Service.Options.URL, `/v2/groups/_allgroups/members/{iam_id}`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -985,11 +1003,13 @@ func (iamAccessGroups *IamAccessGroupsV2) AddMemberToMultipleAccessGroupsWithCon
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalAddMembershipMultipleGroupsResponse)
-	if err != nil {
-		return
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalAddMembershipMultipleGroupsResponse)
+		if err != nil {
+			return
+		}
+		response.Result = result
 	}
-	response.Result = result
 
 	return
 }
@@ -1022,7 +1042,7 @@ func (iamAccessGroups *IamAccessGroupsV2) AddAccessGroupRuleWithContext(ctx cont
 	builder := core.NewRequestBuilder(core.POST)
 	builder = builder.WithContext(ctx)
 	builder.EnableGzipCompression = iamAccessGroups.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(iamAccessGroups.Service.Options.URL, `/groups/{access_group_id}/rules`, pathParamsMap)
+	_, err = builder.ResolveRequestURL(iamAccessGroups.Service.Options.URL, `/v2/groups/{access_group_id}/rules`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -1069,11 +1089,13 @@ func (iamAccessGroups *IamAccessGroupsV2) AddAccessGroupRuleWithContext(ctx cont
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalRule)
-	if err != nil {
-		return
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalRule)
+		if err != nil {
+			return
+		}
+		response.Result = result
 	}
-	response.Result = result
 
 	return
 }
@@ -1103,7 +1125,7 @@ func (iamAccessGroups *IamAccessGroupsV2) ListAccessGroupRulesWithContext(ctx co
 	builder := core.NewRequestBuilder(core.GET)
 	builder = builder.WithContext(ctx)
 	builder.EnableGzipCompression = iamAccessGroups.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(iamAccessGroups.Service.Options.URL, `/groups/{access_group_id}/rules`, pathParamsMap)
+	_, err = builder.ResolveRequestURL(iamAccessGroups.Service.Options.URL, `/v2/groups/{access_group_id}/rules`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -1131,11 +1153,13 @@ func (iamAccessGroups *IamAccessGroupsV2) ListAccessGroupRulesWithContext(ctx co
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalRulesList)
-	if err != nil {
-		return
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalRulesList)
+		if err != nil {
+			return
+		}
+		response.Result = result
 	}
-	response.Result = result
 
 	return
 }
@@ -1160,13 +1184,13 @@ func (iamAccessGroups *IamAccessGroupsV2) GetAccessGroupRuleWithContext(ctx cont
 
 	pathParamsMap := map[string]string{
 		"access_group_id": *getAccessGroupRuleOptions.AccessGroupID,
-		"rule_id":         *getAccessGroupRuleOptions.RuleID,
+		"rule_id": *getAccessGroupRuleOptions.RuleID,
 	}
 
 	builder := core.NewRequestBuilder(core.GET)
 	builder = builder.WithContext(ctx)
 	builder.EnableGzipCompression = iamAccessGroups.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(iamAccessGroups.Service.Options.URL, `/groups/{access_group_id}/rules/{rule_id}`, pathParamsMap)
+	_, err = builder.ResolveRequestURL(iamAccessGroups.Service.Options.URL, `/v2/groups/{access_group_id}/rules/{rule_id}`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -1194,11 +1218,13 @@ func (iamAccessGroups *IamAccessGroupsV2) GetAccessGroupRuleWithContext(ctx cont
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalRule)
-	if err != nil {
-		return
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalRule)
+		if err != nil {
+			return
+		}
+		response.Result = result
 	}
-	response.Result = result
 
 	return
 }
@@ -1223,13 +1249,13 @@ func (iamAccessGroups *IamAccessGroupsV2) ReplaceAccessGroupRuleWithContext(ctx 
 
 	pathParamsMap := map[string]string{
 		"access_group_id": *replaceAccessGroupRuleOptions.AccessGroupID,
-		"rule_id":         *replaceAccessGroupRuleOptions.RuleID,
+		"rule_id": *replaceAccessGroupRuleOptions.RuleID,
 	}
 
 	builder := core.NewRequestBuilder(core.PUT)
 	builder = builder.WithContext(ctx)
 	builder.EnableGzipCompression = iamAccessGroups.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(iamAccessGroups.Service.Options.URL, `/groups/{access_group_id}/rules/{rule_id}`, pathParamsMap)
+	_, err = builder.ResolveRequestURL(iamAccessGroups.Service.Options.URL, `/v2/groups/{access_group_id}/rules/{rule_id}`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -1279,11 +1305,13 @@ func (iamAccessGroups *IamAccessGroupsV2) ReplaceAccessGroupRuleWithContext(ctx 
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalRule)
-	if err != nil {
-		return
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalRule)
+		if err != nil {
+			return
+		}
+		response.Result = result
 	}
-	response.Result = result
 
 	return
 }
@@ -1308,13 +1336,13 @@ func (iamAccessGroups *IamAccessGroupsV2) RemoveAccessGroupRuleWithContext(ctx c
 
 	pathParamsMap := map[string]string{
 		"access_group_id": *removeAccessGroupRuleOptions.AccessGroupID,
-		"rule_id":         *removeAccessGroupRuleOptions.RuleID,
+		"rule_id": *removeAccessGroupRuleOptions.RuleID,
 	}
 
 	builder := core.NewRequestBuilder(core.DELETE)
 	builder = builder.WithContext(ctx)
 	builder.EnableGzipCompression = iamAccessGroups.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(iamAccessGroups.Service.Options.URL, `/groups/{access_group_id}/rules/{rule_id}`, pathParamsMap)
+	_, err = builder.ResolveRequestURL(iamAccessGroups.Service.Options.URL, `/v2/groups/{access_group_id}/rules/{rule_id}`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -1361,7 +1389,7 @@ func (iamAccessGroups *IamAccessGroupsV2) GetAccountSettingsWithContext(ctx cont
 	builder := core.NewRequestBuilder(core.GET)
 	builder = builder.WithContext(ctx)
 	builder.EnableGzipCompression = iamAccessGroups.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(iamAccessGroups.Service.Options.URL, `/groups/settings`, nil)
+	_, err = builder.ResolveRequestURL(iamAccessGroups.Service.Options.URL, `/v2/groups/settings`, nil)
 	if err != nil {
 		return
 	}
@@ -1391,11 +1419,13 @@ func (iamAccessGroups *IamAccessGroupsV2) GetAccountSettingsWithContext(ctx cont
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalAccountSettings)
-	if err != nil {
-		return
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalAccountSettings)
+		if err != nil {
+			return
+		}
+		response.Result = result
 	}
-	response.Result = result
 
 	return
 }
@@ -1422,7 +1452,7 @@ func (iamAccessGroups *IamAccessGroupsV2) UpdateAccountSettingsWithContext(ctx c
 	builder := core.NewRequestBuilder(core.PATCH)
 	builder = builder.WithContext(ctx)
 	builder.EnableGzipCompression = iamAccessGroups.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(iamAccessGroups.Service.Options.URL, `/groups/settings`, nil)
+	_, err = builder.ResolveRequestURL(iamAccessGroups.Service.Options.URL, `/v2/groups/settings`, nil)
 	if err != nil {
 		return
 	}
@@ -1462,11 +1492,13 @@ func (iamAccessGroups *IamAccessGroupsV2) UpdateAccountSettingsWithContext(ctx c
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalAccountSettings)
-	if err != nil {
-		return
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalAccountSettings)
+		if err != nil {
+			return
+		}
+		response.Result = result
 	}
-	response.Result = result
 
 	return
 }
@@ -1513,24 +1545,24 @@ func UnmarshalAccountSettings(m map[string]json.RawMessage, result interface{}) 
 // AddAccessGroupRuleOptions : The AddAccessGroupRule options.
 type AddAccessGroupRuleOptions struct {
 	// The access group identifier.
-	AccessGroupID *string `validate:"required,ne="`
+	AccessGroupID *string `json:"access_group_id" validate:"required,ne="`
 
 	// The number of hours that the rule lives for.
-	Expiration *int64 `validate:"required"`
+	Expiration *int64 `json:"expiration" validate:"required"`
 
 	// The url of the identity provider.
-	RealmName *string `validate:"required"`
+	RealmName *string `json:"realm_name" validate:"required"`
 
 	// A list of conditions the rule must satisfy.
-	Conditions []RuleConditions `validate:"required"`
+	Conditions []RuleConditions `json:"conditions" validate:"required"`
 
 	// The name of the rule.
-	Name *string
+	Name *string `json:"name,omitempty"`
 
 	// An optional transaction ID can be passed to your request, which can be useful for tracking calls through multiple
 	// services by using one identifier. The header key must be set to Transaction-Id and the value is anything that you
 	// choose. If no transaction ID is passed in, then a random ID is generated.
-	TransactionID *string
+	TransactionID *string `json:"Transaction-Id,omitempty"`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -1540,46 +1572,46 @@ type AddAccessGroupRuleOptions struct {
 func (*IamAccessGroupsV2) NewAddAccessGroupRuleOptions(accessGroupID string, expiration int64, realmName string, conditions []RuleConditions) *AddAccessGroupRuleOptions {
 	return &AddAccessGroupRuleOptions{
 		AccessGroupID: core.StringPtr(accessGroupID),
-		Expiration:    core.Int64Ptr(expiration),
-		RealmName:     core.StringPtr(realmName),
-		Conditions:    conditions,
+		Expiration: core.Int64Ptr(expiration),
+		RealmName: core.StringPtr(realmName),
+		Conditions: conditions,
 	}
 }
 
 // SetAccessGroupID : Allow user to set AccessGroupID
-func (options *AddAccessGroupRuleOptions) SetAccessGroupID(accessGroupID string) *AddAccessGroupRuleOptions {
-	options.AccessGroupID = core.StringPtr(accessGroupID)
-	return options
+func (_options *AddAccessGroupRuleOptions) SetAccessGroupID(accessGroupID string) *AddAccessGroupRuleOptions {
+	_options.AccessGroupID = core.StringPtr(accessGroupID)
+	return _options
 }
 
 // SetExpiration : Allow user to set Expiration
-func (options *AddAccessGroupRuleOptions) SetExpiration(expiration int64) *AddAccessGroupRuleOptions {
-	options.Expiration = core.Int64Ptr(expiration)
-	return options
+func (_options *AddAccessGroupRuleOptions) SetExpiration(expiration int64) *AddAccessGroupRuleOptions {
+	_options.Expiration = core.Int64Ptr(expiration)
+	return _options
 }
 
 // SetRealmName : Allow user to set RealmName
-func (options *AddAccessGroupRuleOptions) SetRealmName(realmName string) *AddAccessGroupRuleOptions {
-	options.RealmName = core.StringPtr(realmName)
-	return options
+func (_options *AddAccessGroupRuleOptions) SetRealmName(realmName string) *AddAccessGroupRuleOptions {
+	_options.RealmName = core.StringPtr(realmName)
+	return _options
 }
 
 // SetConditions : Allow user to set Conditions
-func (options *AddAccessGroupRuleOptions) SetConditions(conditions []RuleConditions) *AddAccessGroupRuleOptions {
-	options.Conditions = conditions
-	return options
+func (_options *AddAccessGroupRuleOptions) SetConditions(conditions []RuleConditions) *AddAccessGroupRuleOptions {
+	_options.Conditions = conditions
+	return _options
 }
 
 // SetName : Allow user to set Name
-func (options *AddAccessGroupRuleOptions) SetName(name string) *AddAccessGroupRuleOptions {
-	options.Name = core.StringPtr(name)
-	return options
+func (_options *AddAccessGroupRuleOptions) SetName(name string) *AddAccessGroupRuleOptions {
+	_options.Name = core.StringPtr(name)
+	return _options
 }
 
 // SetTransactionID : Allow user to set TransactionID
-func (options *AddAccessGroupRuleOptions) SetTransactionID(transactionID string) *AddAccessGroupRuleOptions {
-	options.TransactionID = core.StringPtr(transactionID)
-	return options
+func (_options *AddAccessGroupRuleOptions) SetTransactionID(transactionID string) *AddAccessGroupRuleOptions {
+	_options.TransactionID = core.StringPtr(transactionID)
+	return _options
 }
 
 // SetHeaders : Allow user to set Headers
@@ -1590,20 +1622,20 @@ func (options *AddAccessGroupRuleOptions) SetHeaders(param map[string]string) *A
 
 // AddGroupMembersRequestMembersItem : AddGroupMembersRequestMembersItem struct
 type AddGroupMembersRequestMembersItem struct {
-	// The IBMid or Service Id of the member.
+	// The IBMid, Service Id or Profile Id of the member.
 	IamID *string `json:"iam_id" validate:"required"`
 
-	// The type of the member, must be either "user" or "service".
+	// The type of the member, must be either "user", "service" or "trusted profile".
 	Type *string `json:"type" validate:"required"`
 }
 
 // NewAddGroupMembersRequestMembersItem : Instantiate AddGroupMembersRequestMembersItem (Generic Model Constructor)
-func (*IamAccessGroupsV2) NewAddGroupMembersRequestMembersItem(iamID string, typeVar string) (model *AddGroupMembersRequestMembersItem, err error) {
-	model = &AddGroupMembersRequestMembersItem{
+func (*IamAccessGroupsV2) NewAddGroupMembersRequestMembersItem(iamID string, typeVar string) (_model *AddGroupMembersRequestMembersItem, err error) {
+	_model = &AddGroupMembersRequestMembersItem{
 		IamID: core.StringPtr(iamID),
-		Type:  core.StringPtr(typeVar),
+		Type: core.StringPtr(typeVar),
 	}
-	err = core.ValidateStruct(model, "required parameters")
+	err = core.ValidateStruct(_model, "required parameters")
 	return
 }
 
@@ -1703,21 +1735,21 @@ type AddMemberToMultipleAccessGroupsOptions struct {
 	// Account ID of the API keys(s) to query. If a service IAM ID is specified in iam_id then account_id must match the
 	// account of the IAM ID. If a user IAM ID is specified in iam_id then then account_id must match the account of the
 	// Authorization token.
-	AccountID *string `validate:"required"`
+	AccountID *string `json:"account_id" validate:"required"`
 
 	// The IAM identifier.
-	IamID *string `validate:"required,ne="`
+	IamID *string `json:"iam_id" validate:"required,ne="`
 
-	// The type of the member, must be either "user" or "service".
-	Type *string
+	// The type of the member, must be either "user", "service" or "trusted profile".
+	Type *string `json:"type,omitempty"`
 
 	// The ids of the access groups a given member is to be added to.
-	Groups []string
+	Groups []string `json:"groups,omitempty"`
 
 	// An optional transaction ID can be passed to your request, which can be useful for tracking calls through multiple
 	// services by using one identifier. The header key must be set to Transaction-Id and the value is anything that you
 	// choose. If no transaction ID is passed in, then a random ID is generated.
-	TransactionID *string
+	TransactionID *string `json:"Transaction-Id,omitempty"`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -1727,38 +1759,38 @@ type AddMemberToMultipleAccessGroupsOptions struct {
 func (*IamAccessGroupsV2) NewAddMemberToMultipleAccessGroupsOptions(accountID string, iamID string) *AddMemberToMultipleAccessGroupsOptions {
 	return &AddMemberToMultipleAccessGroupsOptions{
 		AccountID: core.StringPtr(accountID),
-		IamID:     core.StringPtr(iamID),
+		IamID: core.StringPtr(iamID),
 	}
 }
 
 // SetAccountID : Allow user to set AccountID
-func (options *AddMemberToMultipleAccessGroupsOptions) SetAccountID(accountID string) *AddMemberToMultipleAccessGroupsOptions {
-	options.AccountID = core.StringPtr(accountID)
-	return options
+func (_options *AddMemberToMultipleAccessGroupsOptions) SetAccountID(accountID string) *AddMemberToMultipleAccessGroupsOptions {
+	_options.AccountID = core.StringPtr(accountID)
+	return _options
 }
 
 // SetIamID : Allow user to set IamID
-func (options *AddMemberToMultipleAccessGroupsOptions) SetIamID(iamID string) *AddMemberToMultipleAccessGroupsOptions {
-	options.IamID = core.StringPtr(iamID)
-	return options
+func (_options *AddMemberToMultipleAccessGroupsOptions) SetIamID(iamID string) *AddMemberToMultipleAccessGroupsOptions {
+	_options.IamID = core.StringPtr(iamID)
+	return _options
 }
 
 // SetType : Allow user to set Type
-func (options *AddMemberToMultipleAccessGroupsOptions) SetType(typeVar string) *AddMemberToMultipleAccessGroupsOptions {
-	options.Type = core.StringPtr(typeVar)
-	return options
+func (_options *AddMemberToMultipleAccessGroupsOptions) SetType(typeVar string) *AddMemberToMultipleAccessGroupsOptions {
+	_options.Type = core.StringPtr(typeVar)
+	return _options
 }
 
 // SetGroups : Allow user to set Groups
-func (options *AddMemberToMultipleAccessGroupsOptions) SetGroups(groups []string) *AddMemberToMultipleAccessGroupsOptions {
-	options.Groups = groups
-	return options
+func (_options *AddMemberToMultipleAccessGroupsOptions) SetGroups(groups []string) *AddMemberToMultipleAccessGroupsOptions {
+	_options.Groups = groups
+	return _options
 }
 
 // SetTransactionID : Allow user to set TransactionID
-func (options *AddMemberToMultipleAccessGroupsOptions) SetTransactionID(transactionID string) *AddMemberToMultipleAccessGroupsOptions {
-	options.TransactionID = core.StringPtr(transactionID)
-	return options
+func (_options *AddMemberToMultipleAccessGroupsOptions) SetTransactionID(transactionID string) *AddMemberToMultipleAccessGroupsOptions {
+	_options.TransactionID = core.StringPtr(transactionID)
+	return _options
 }
 
 // SetHeaders : Allow user to set Headers
@@ -1770,15 +1802,15 @@ func (options *AddMemberToMultipleAccessGroupsOptions) SetHeaders(param map[stri
 // AddMembersToAccessGroupOptions : The AddMembersToAccessGroup options.
 type AddMembersToAccessGroupOptions struct {
 	// The access group identifier.
-	AccessGroupID *string `validate:"required,ne="`
+	AccessGroupID *string `json:"access_group_id" validate:"required,ne="`
 
 	// An array of member objects to add to an access group.
-	Members []AddGroupMembersRequestMembersItem
+	Members []AddGroupMembersRequestMembersItem `json:"members,omitempty"`
 
 	// An optional transaction ID can be passed to your request, which can be useful for tracking calls through multiple
 	// services by using one identifier. The header key must be set to Transaction-Id and the value is anything that you
 	// choose. If no transaction ID is passed in, then a random ID is generated.
-	TransactionID *string
+	TransactionID *string `json:"Transaction-Id,omitempty"`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -1792,21 +1824,21 @@ func (*IamAccessGroupsV2) NewAddMembersToAccessGroupOptions(accessGroupID string
 }
 
 // SetAccessGroupID : Allow user to set AccessGroupID
-func (options *AddMembersToAccessGroupOptions) SetAccessGroupID(accessGroupID string) *AddMembersToAccessGroupOptions {
-	options.AccessGroupID = core.StringPtr(accessGroupID)
-	return options
+func (_options *AddMembersToAccessGroupOptions) SetAccessGroupID(accessGroupID string) *AddMembersToAccessGroupOptions {
+	_options.AccessGroupID = core.StringPtr(accessGroupID)
+	return _options
 }
 
 // SetMembers : Allow user to set Members
-func (options *AddMembersToAccessGroupOptions) SetMembers(members []AddGroupMembersRequestMembersItem) *AddMembersToAccessGroupOptions {
-	options.Members = members
-	return options
+func (_options *AddMembersToAccessGroupOptions) SetMembers(members []AddGroupMembersRequestMembersItem) *AddMembersToAccessGroupOptions {
+	_options.Members = members
+	return _options
 }
 
 // SetTransactionID : Allow user to set TransactionID
-func (options *AddMembersToAccessGroupOptions) SetTransactionID(transactionID string) *AddMembersToAccessGroupOptions {
-	options.TransactionID = core.StringPtr(transactionID)
-	return options
+func (_options *AddMembersToAccessGroupOptions) SetTransactionID(transactionID string) *AddMembersToAccessGroupOptions {
+	_options.TransactionID = core.StringPtr(transactionID)
+	return _options
 }
 
 // SetHeaders : Allow user to set Headers
@@ -1882,19 +1914,19 @@ type CreateAccessGroupOptions struct {
 	// Account ID of the API keys(s) to query. If a service IAM ID is specified in iam_id then account_id must match the
 	// account of the IAM ID. If a user IAM ID is specified in iam_id then then account_id must match the account of the
 	// Authorization token.
-	AccountID *string `validate:"required"`
+	AccountID *string `json:"account_id" validate:"required"`
 
-	// Assign the specified name to the access group. This field is case-sensitive and has a limit of 100 characters. The
+	// Assign the specified name to the access group. This field is case-insensitive and has a limit of 100 characters. The
 	// group name has to be unique within an account.
-	Name *string `validate:"required"`
+	Name *string `json:"name" validate:"required"`
 
 	// Assign an optional description for the access group. This field has a limit of 250 characters.
-	Description *string
+	Description *string `json:"description,omitempty"`
 
 	// An optional transaction ID can be passed to your request, which can be useful for tracking calls through multiple
 	// services by using one identifier. The header key must be set to Transaction-Id and the value is anything that you
 	// choose. If no transaction ID is passed in, then a random ID is generated.
-	TransactionID *string
+	TransactionID *string `json:"Transaction-Id,omitempty"`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -1904,32 +1936,32 @@ type CreateAccessGroupOptions struct {
 func (*IamAccessGroupsV2) NewCreateAccessGroupOptions(accountID string, name string) *CreateAccessGroupOptions {
 	return &CreateAccessGroupOptions{
 		AccountID: core.StringPtr(accountID),
-		Name:      core.StringPtr(name),
+		Name: core.StringPtr(name),
 	}
 }
 
 // SetAccountID : Allow user to set AccountID
-func (options *CreateAccessGroupOptions) SetAccountID(accountID string) *CreateAccessGroupOptions {
-	options.AccountID = core.StringPtr(accountID)
-	return options
+func (_options *CreateAccessGroupOptions) SetAccountID(accountID string) *CreateAccessGroupOptions {
+	_options.AccountID = core.StringPtr(accountID)
+	return _options
 }
 
 // SetName : Allow user to set Name
-func (options *CreateAccessGroupOptions) SetName(name string) *CreateAccessGroupOptions {
-	options.Name = core.StringPtr(name)
-	return options
+func (_options *CreateAccessGroupOptions) SetName(name string) *CreateAccessGroupOptions {
+	_options.Name = core.StringPtr(name)
+	return _options
 }
 
 // SetDescription : Allow user to set Description
-func (options *CreateAccessGroupOptions) SetDescription(description string) *CreateAccessGroupOptions {
-	options.Description = core.StringPtr(description)
-	return options
+func (_options *CreateAccessGroupOptions) SetDescription(description string) *CreateAccessGroupOptions {
+	_options.Description = core.StringPtr(description)
+	return _options
 }
 
 // SetTransactionID : Allow user to set TransactionID
-func (options *CreateAccessGroupOptions) SetTransactionID(transactionID string) *CreateAccessGroupOptions {
-	options.TransactionID = core.StringPtr(transactionID)
-	return options
+func (_options *CreateAccessGroupOptions) SetTransactionID(transactionID string) *CreateAccessGroupOptions {
+	_options.TransactionID = core.StringPtr(transactionID)
+	return _options
 }
 
 // SetHeaders : Allow user to set Headers
@@ -1941,15 +1973,15 @@ func (options *CreateAccessGroupOptions) SetHeaders(param map[string]string) *Cr
 // DeleteAccessGroupOptions : The DeleteAccessGroup options.
 type DeleteAccessGroupOptions struct {
 	// The access group identifier.
-	AccessGroupID *string `validate:"required,ne="`
+	AccessGroupID *string `json:"access_group_id" validate:"required,ne="`
 
 	// An optional transaction ID can be passed to your request, which can be useful for tracking calls through multiple
 	// services by using one identifier. The header key must be set to Transaction-Id and the value is anything that you
 	// choose. If no transaction ID is passed in, then a random ID is generated.
-	TransactionID *string
+	TransactionID *string `json:"Transaction-Id,omitempty"`
 
 	// If force is true, delete the group as well as its associated members and rules.
-	Force *bool
+	Force *bool `json:"force,omitempty"`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -1963,21 +1995,21 @@ func (*IamAccessGroupsV2) NewDeleteAccessGroupOptions(accessGroupID string) *Del
 }
 
 // SetAccessGroupID : Allow user to set AccessGroupID
-func (options *DeleteAccessGroupOptions) SetAccessGroupID(accessGroupID string) *DeleteAccessGroupOptions {
-	options.AccessGroupID = core.StringPtr(accessGroupID)
-	return options
+func (_options *DeleteAccessGroupOptions) SetAccessGroupID(accessGroupID string) *DeleteAccessGroupOptions {
+	_options.AccessGroupID = core.StringPtr(accessGroupID)
+	return _options
 }
 
 // SetTransactionID : Allow user to set TransactionID
-func (options *DeleteAccessGroupOptions) SetTransactionID(transactionID string) *DeleteAccessGroupOptions {
-	options.TransactionID = core.StringPtr(transactionID)
-	return options
+func (_options *DeleteAccessGroupOptions) SetTransactionID(transactionID string) *DeleteAccessGroupOptions {
+	_options.TransactionID = core.StringPtr(transactionID)
+	return _options
 }
 
 // SetForce : Allow user to set Force
-func (options *DeleteAccessGroupOptions) SetForce(force bool) *DeleteAccessGroupOptions {
-	options.Force = core.BoolPtr(force)
-	return options
+func (_options *DeleteAccessGroupOptions) SetForce(force bool) *DeleteAccessGroupOptions {
+	_options.Force = core.BoolPtr(force)
+	return _options
 }
 
 // SetHeaders : Allow user to set Headers
@@ -2139,16 +2171,16 @@ func UnmarshalError(m map[string]json.RawMessage, result interface{}) (err error
 // GetAccessGroupOptions : The GetAccessGroup options.
 type GetAccessGroupOptions struct {
 	// The access group identifier.
-	AccessGroupID *string `validate:"required,ne="`
+	AccessGroupID *string `json:"access_group_id" validate:"required,ne="`
 
 	// An optional transaction ID can be passed to your request, which can be useful for tracking calls through multiple
 	// services by using one identifier. The header key must be set to Transaction-Id and the value is anything that you
 	// choose. If no transaction ID is passed in, then a random ID is generated.
-	TransactionID *string
+	TransactionID *string `json:"Transaction-Id,omitempty"`
 
 	// If show_federated is true, the group will return an is_federated value that is set to true if rules exist for the
 	// group.
-	ShowFederated *bool
+	ShowFederated *bool `json:"show_federated,omitempty"`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -2162,21 +2194,21 @@ func (*IamAccessGroupsV2) NewGetAccessGroupOptions(accessGroupID string) *GetAcc
 }
 
 // SetAccessGroupID : Allow user to set AccessGroupID
-func (options *GetAccessGroupOptions) SetAccessGroupID(accessGroupID string) *GetAccessGroupOptions {
-	options.AccessGroupID = core.StringPtr(accessGroupID)
-	return options
+func (_options *GetAccessGroupOptions) SetAccessGroupID(accessGroupID string) *GetAccessGroupOptions {
+	_options.AccessGroupID = core.StringPtr(accessGroupID)
+	return _options
 }
 
 // SetTransactionID : Allow user to set TransactionID
-func (options *GetAccessGroupOptions) SetTransactionID(transactionID string) *GetAccessGroupOptions {
-	options.TransactionID = core.StringPtr(transactionID)
-	return options
+func (_options *GetAccessGroupOptions) SetTransactionID(transactionID string) *GetAccessGroupOptions {
+	_options.TransactionID = core.StringPtr(transactionID)
+	return _options
 }
 
 // SetShowFederated : Allow user to set ShowFederated
-func (options *GetAccessGroupOptions) SetShowFederated(showFederated bool) *GetAccessGroupOptions {
-	options.ShowFederated = core.BoolPtr(showFederated)
-	return options
+func (_options *GetAccessGroupOptions) SetShowFederated(showFederated bool) *GetAccessGroupOptions {
+	_options.ShowFederated = core.BoolPtr(showFederated)
+	return _options
 }
 
 // SetHeaders : Allow user to set Headers
@@ -2188,15 +2220,15 @@ func (options *GetAccessGroupOptions) SetHeaders(param map[string]string) *GetAc
 // GetAccessGroupRuleOptions : The GetAccessGroupRule options.
 type GetAccessGroupRuleOptions struct {
 	// The access group identifier.
-	AccessGroupID *string `validate:"required,ne="`
+	AccessGroupID *string `json:"access_group_id" validate:"required,ne="`
 
 	// The rule to get.
-	RuleID *string `validate:"required,ne="`
+	RuleID *string `json:"rule_id" validate:"required,ne="`
 
 	// An optional transaction ID can be passed to your request, which can be useful for tracking calls through multiple
 	// services by using one identifier. The header key must be set to Transaction-Id and the value is anything that you
 	// choose. If no transaction ID is passed in, then a random ID is generated.
-	TransactionID *string
+	TransactionID *string `json:"Transaction-Id,omitempty"`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -2206,26 +2238,26 @@ type GetAccessGroupRuleOptions struct {
 func (*IamAccessGroupsV2) NewGetAccessGroupRuleOptions(accessGroupID string, ruleID string) *GetAccessGroupRuleOptions {
 	return &GetAccessGroupRuleOptions{
 		AccessGroupID: core.StringPtr(accessGroupID),
-		RuleID:        core.StringPtr(ruleID),
+		RuleID: core.StringPtr(ruleID),
 	}
 }
 
 // SetAccessGroupID : Allow user to set AccessGroupID
-func (options *GetAccessGroupRuleOptions) SetAccessGroupID(accessGroupID string) *GetAccessGroupRuleOptions {
-	options.AccessGroupID = core.StringPtr(accessGroupID)
-	return options
+func (_options *GetAccessGroupRuleOptions) SetAccessGroupID(accessGroupID string) *GetAccessGroupRuleOptions {
+	_options.AccessGroupID = core.StringPtr(accessGroupID)
+	return _options
 }
 
 // SetRuleID : Allow user to set RuleID
-func (options *GetAccessGroupRuleOptions) SetRuleID(ruleID string) *GetAccessGroupRuleOptions {
-	options.RuleID = core.StringPtr(ruleID)
-	return options
+func (_options *GetAccessGroupRuleOptions) SetRuleID(ruleID string) *GetAccessGroupRuleOptions {
+	_options.RuleID = core.StringPtr(ruleID)
+	return _options
 }
 
 // SetTransactionID : Allow user to set TransactionID
-func (options *GetAccessGroupRuleOptions) SetTransactionID(transactionID string) *GetAccessGroupRuleOptions {
-	options.TransactionID = core.StringPtr(transactionID)
-	return options
+func (_options *GetAccessGroupRuleOptions) SetTransactionID(transactionID string) *GetAccessGroupRuleOptions {
+	_options.TransactionID = core.StringPtr(transactionID)
+	return _options
 }
 
 // SetHeaders : Allow user to set Headers
@@ -2239,12 +2271,12 @@ type GetAccountSettingsOptions struct {
 	// Account ID of the API keys(s) to query. If a service IAM ID is specified in iam_id then account_id must match the
 	// account of the IAM ID. If a user IAM ID is specified in iam_id then then account_id must match the account of the
 	// Authorization token.
-	AccountID *string `validate:"required"`
+	AccountID *string `json:"account_id" validate:"required"`
 
 	// An optional transaction ID can be passed to your request, which can be useful for tracking calls through multiple
 	// services by using one identifier. The header key must be set to Transaction-Id and the value is anything that you
 	// choose. If no transaction ID is passed in, then a random ID is generated.
-	TransactionID *string
+	TransactionID *string `json:"Transaction-Id,omitempty"`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -2258,15 +2290,15 @@ func (*IamAccessGroupsV2) NewGetAccountSettingsOptions(accountID string) *GetAcc
 }
 
 // SetAccountID : Allow user to set AccountID
-func (options *GetAccountSettingsOptions) SetAccountID(accountID string) *GetAccountSettingsOptions {
-	options.AccountID = core.StringPtr(accountID)
-	return options
+func (_options *GetAccountSettingsOptions) SetAccountID(accountID string) *GetAccountSettingsOptions {
+	_options.AccountID = core.StringPtr(accountID)
+	return _options
 }
 
 // SetTransactionID : Allow user to set TransactionID
-func (options *GetAccountSettingsOptions) SetTransactionID(transactionID string) *GetAccountSettingsOptions {
-	options.TransactionID = core.StringPtr(transactionID)
-	return options
+func (_options *GetAccountSettingsOptions) SetTransactionID(transactionID string) *GetAccountSettingsOptions {
+	_options.TransactionID = core.StringPtr(transactionID)
+	return _options
 }
 
 // SetHeaders : Allow user to set Headers
@@ -2421,6 +2453,23 @@ func UnmarshalGroupMembersList(m map[string]json.RawMessage, result interface{})
 	return
 }
 
+// Retrieve the value to be passed to a request to access the next page of results
+func (resp *GroupMembersList) GetNextOffset() (*int64, error) {
+	if core.IsNil(resp.Next) {
+		return nil, nil
+	}
+	offset, err := core.GetQueryParam(resp.Next.Href, "offset")
+	if err != nil || offset == nil {
+		return nil, err
+	}
+	var offsetValue int64
+	offsetValue, err = strconv.ParseInt(*offset, 10, 64)
+	if err != nil {
+		return nil, err
+	}
+	return core.Int64Ptr(offsetValue), nil
+}
+
 // GroupsList : The list of access groups returned as part of a response.
 type GroupsList struct {
 	// Limit on how many items can be returned.
@@ -2487,6 +2536,23 @@ func UnmarshalGroupsList(m map[string]json.RawMessage, result interface{}) (err 
 	return
 }
 
+// Retrieve the value to be passed to a request to access the next page of results
+func (resp *GroupsList) GetNextOffset() (*int64, error) {
+	if core.IsNil(resp.Next) {
+		return nil, nil
+	}
+	offset, err := core.GetQueryParam(resp.Next.Href, "offset")
+	if err != nil || offset == nil {
+		return nil, err
+	}
+	var offsetValue int64
+	offsetValue, err = strconv.ParseInt(*offset, 10, 64)
+	if err != nil {
+		return nil, err
+	}
+	return core.Int64Ptr(offsetValue), nil
+}
+
 // HrefStruct : A link object.
 type HrefStruct struct {
 	// A string containing the link’s URL.
@@ -2507,15 +2573,15 @@ func UnmarshalHrefStruct(m map[string]json.RawMessage, result interface{}) (err 
 // IsMemberOfAccessGroupOptions : The IsMemberOfAccessGroup options.
 type IsMemberOfAccessGroupOptions struct {
 	// The access group identifier.
-	AccessGroupID *string `validate:"required,ne="`
+	AccessGroupID *string `json:"access_group_id" validate:"required,ne="`
 
 	// The IAM identifier.
-	IamID *string `validate:"required,ne="`
+	IamID *string `json:"iam_id" validate:"required,ne="`
 
 	// An optional transaction ID can be passed to your request, which can be useful for tracking calls through multiple
 	// services by using one identifier. The header key must be set to Transaction-Id and the value is anything that you
 	// choose. If no transaction ID is passed in, then a random ID is generated.
-	TransactionID *string
+	TransactionID *string `json:"Transaction-Id,omitempty"`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -2525,26 +2591,26 @@ type IsMemberOfAccessGroupOptions struct {
 func (*IamAccessGroupsV2) NewIsMemberOfAccessGroupOptions(accessGroupID string, iamID string) *IsMemberOfAccessGroupOptions {
 	return &IsMemberOfAccessGroupOptions{
 		AccessGroupID: core.StringPtr(accessGroupID),
-		IamID:         core.StringPtr(iamID),
+		IamID: core.StringPtr(iamID),
 	}
 }
 
 // SetAccessGroupID : Allow user to set AccessGroupID
-func (options *IsMemberOfAccessGroupOptions) SetAccessGroupID(accessGroupID string) *IsMemberOfAccessGroupOptions {
-	options.AccessGroupID = core.StringPtr(accessGroupID)
-	return options
+func (_options *IsMemberOfAccessGroupOptions) SetAccessGroupID(accessGroupID string) *IsMemberOfAccessGroupOptions {
+	_options.AccessGroupID = core.StringPtr(accessGroupID)
+	return _options
 }
 
 // SetIamID : Allow user to set IamID
-func (options *IsMemberOfAccessGroupOptions) SetIamID(iamID string) *IsMemberOfAccessGroupOptions {
-	options.IamID = core.StringPtr(iamID)
-	return options
+func (_options *IsMemberOfAccessGroupOptions) SetIamID(iamID string) *IsMemberOfAccessGroupOptions {
+	_options.IamID = core.StringPtr(iamID)
+	return _options
 }
 
 // SetTransactionID : Allow user to set TransactionID
-func (options *IsMemberOfAccessGroupOptions) SetTransactionID(transactionID string) *IsMemberOfAccessGroupOptions {
-	options.TransactionID = core.StringPtr(transactionID)
-	return options
+func (_options *IsMemberOfAccessGroupOptions) SetTransactionID(transactionID string) *IsMemberOfAccessGroupOptions {
+	_options.TransactionID = core.StringPtr(transactionID)
+	return _options
 }
 
 // SetHeaders : Allow user to set Headers
@@ -2556,27 +2622,27 @@ func (options *IsMemberOfAccessGroupOptions) SetHeaders(param map[string]string)
 // ListAccessGroupMembersOptions : The ListAccessGroupMembers options.
 type ListAccessGroupMembersOptions struct {
 	// The access group identifier.
-	AccessGroupID *string `validate:"required,ne="`
+	AccessGroupID *string `json:"access_group_id" validate:"required,ne="`
 
 	// An optional transaction ID can be passed to your request, which can be useful for tracking calls through multiple
 	// services by using one identifier. The header key must be set to Transaction-Id and the value is anything that you
 	// choose. If no transaction ID is passed in, then a random ID is generated.
-	TransactionID *string
+	TransactionID *string `json:"Transaction-Id,omitempty"`
 
 	// Return up to this limit of results where limit is between 0 and 100.
-	Limit *int64
+	Limit *int64 `json:"limit,omitempty"`
 
 	// The offset of the first result item to be returned.
-	Offset *int64
+	Offset *int64 `json:"offset,omitempty"`
 
 	// Filter the results by member type.
-	Type *string
+	Type *string `json:"type,omitempty"`
 
-	// Return user's email and name for each user id or the name for each service id.
-	Verbose *bool
+	// Return user's email and name for each user id or the name for each service id or trusted profile.
+	Verbose *bool `json:"verbose,omitempty"`
 
 	// If verbose is true, sort the results by id, name, or email.
-	Sort *string
+	Sort *string `json:"sort,omitempty"`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -2590,45 +2656,45 @@ func (*IamAccessGroupsV2) NewListAccessGroupMembersOptions(accessGroupID string)
 }
 
 // SetAccessGroupID : Allow user to set AccessGroupID
-func (options *ListAccessGroupMembersOptions) SetAccessGroupID(accessGroupID string) *ListAccessGroupMembersOptions {
-	options.AccessGroupID = core.StringPtr(accessGroupID)
-	return options
+func (_options *ListAccessGroupMembersOptions) SetAccessGroupID(accessGroupID string) *ListAccessGroupMembersOptions {
+	_options.AccessGroupID = core.StringPtr(accessGroupID)
+	return _options
 }
 
 // SetTransactionID : Allow user to set TransactionID
-func (options *ListAccessGroupMembersOptions) SetTransactionID(transactionID string) *ListAccessGroupMembersOptions {
-	options.TransactionID = core.StringPtr(transactionID)
-	return options
+func (_options *ListAccessGroupMembersOptions) SetTransactionID(transactionID string) *ListAccessGroupMembersOptions {
+	_options.TransactionID = core.StringPtr(transactionID)
+	return _options
 }
 
 // SetLimit : Allow user to set Limit
-func (options *ListAccessGroupMembersOptions) SetLimit(limit int64) *ListAccessGroupMembersOptions {
-	options.Limit = core.Int64Ptr(limit)
-	return options
+func (_options *ListAccessGroupMembersOptions) SetLimit(limit int64) *ListAccessGroupMembersOptions {
+	_options.Limit = core.Int64Ptr(limit)
+	return _options
 }
 
 // SetOffset : Allow user to set Offset
-func (options *ListAccessGroupMembersOptions) SetOffset(offset int64) *ListAccessGroupMembersOptions {
-	options.Offset = core.Int64Ptr(offset)
-	return options
+func (_options *ListAccessGroupMembersOptions) SetOffset(offset int64) *ListAccessGroupMembersOptions {
+	_options.Offset = core.Int64Ptr(offset)
+	return _options
 }
 
 // SetType : Allow user to set Type
-func (options *ListAccessGroupMembersOptions) SetType(typeVar string) *ListAccessGroupMembersOptions {
-	options.Type = core.StringPtr(typeVar)
-	return options
+func (_options *ListAccessGroupMembersOptions) SetType(typeVar string) *ListAccessGroupMembersOptions {
+	_options.Type = core.StringPtr(typeVar)
+	return _options
 }
 
 // SetVerbose : Allow user to set Verbose
-func (options *ListAccessGroupMembersOptions) SetVerbose(verbose bool) *ListAccessGroupMembersOptions {
-	options.Verbose = core.BoolPtr(verbose)
-	return options
+func (_options *ListAccessGroupMembersOptions) SetVerbose(verbose bool) *ListAccessGroupMembersOptions {
+	_options.Verbose = core.BoolPtr(verbose)
+	return _options
 }
 
 // SetSort : Allow user to set Sort
-func (options *ListAccessGroupMembersOptions) SetSort(sort string) *ListAccessGroupMembersOptions {
-	options.Sort = core.StringPtr(sort)
-	return options
+func (_options *ListAccessGroupMembersOptions) SetSort(sort string) *ListAccessGroupMembersOptions {
+	_options.Sort = core.StringPtr(sort)
+	return _options
 }
 
 // SetHeaders : Allow user to set Headers
@@ -2640,12 +2706,12 @@ func (options *ListAccessGroupMembersOptions) SetHeaders(param map[string]string
 // ListAccessGroupRulesOptions : The ListAccessGroupRules options.
 type ListAccessGroupRulesOptions struct {
 	// The access group identifier.
-	AccessGroupID *string `validate:"required,ne="`
+	AccessGroupID *string `json:"access_group_id" validate:"required,ne="`
 
 	// An optional transaction ID can be passed to your request, which can be useful for tracking calls through multiple
 	// services by using one identifier. The header key must be set to Transaction-Id and the value is anything that you
 	// choose. If no transaction ID is passed in, then a random ID is generated.
-	TransactionID *string
+	TransactionID *string `json:"Transaction-Id,omitempty"`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -2659,15 +2725,15 @@ func (*IamAccessGroupsV2) NewListAccessGroupRulesOptions(accessGroupID string) *
 }
 
 // SetAccessGroupID : Allow user to set AccessGroupID
-func (options *ListAccessGroupRulesOptions) SetAccessGroupID(accessGroupID string) *ListAccessGroupRulesOptions {
-	options.AccessGroupID = core.StringPtr(accessGroupID)
-	return options
+func (_options *ListAccessGroupRulesOptions) SetAccessGroupID(accessGroupID string) *ListAccessGroupRulesOptions {
+	_options.AccessGroupID = core.StringPtr(accessGroupID)
+	return _options
 }
 
 // SetTransactionID : Allow user to set TransactionID
-func (options *ListAccessGroupRulesOptions) SetTransactionID(transactionID string) *ListAccessGroupRulesOptions {
-	options.TransactionID = core.StringPtr(transactionID)
-	return options
+func (_options *ListAccessGroupRulesOptions) SetTransactionID(transactionID string) *ListAccessGroupRulesOptions {
+	_options.TransactionID = core.StringPtr(transactionID)
+	return _options
 }
 
 // SetHeaders : Allow user to set Headers
@@ -2681,31 +2747,31 @@ type ListAccessGroupsOptions struct {
 	// Account ID of the API keys(s) to query. If a service IAM ID is specified in iam_id then account_id must match the
 	// account of the IAM ID. If a user IAM ID is specified in iam_id then then account_id must match the account of the
 	// Authorization token.
-	AccountID *string `validate:"required"`
+	AccountID *string `json:"account_id" validate:"required"`
 
 	// An optional transaction ID can be passed to your request, which can be useful for tracking calls through multiple
 	// services by using one identifier. The header key must be set to Transaction-Id and the value is anything that you
 	// choose. If no transaction ID is passed in, then a random ID is generated.
-	TransactionID *string
+	TransactionID *string `json:"Transaction-Id,omitempty"`
 
-	// Return groups for member id (IBMid or Service Id).
-	IamID *string
+	// Return groups for member id (IBMid, Service Id or Profile Id).
+	IamID *string `json:"iam_id,omitempty"`
 
 	// Return up to this limit of results where limit is between 0 and 100.
-	Limit *int64
+	Limit *int64 `json:"limit,omitempty"`
 
 	// The offset of the first result item to be returned.
-	Offset *int64
+	Offset *int64 `json:"offset,omitempty"`
 
 	// Sort the results by id, name, description, or is_federated flag.
-	Sort *string
+	Sort *string `json:"sort,omitempty"`
 
 	// If show_federated is true, each group listed will return an is_federated value that is set to true if rules exist
 	// for the group.
-	ShowFederated *bool
+	ShowFederated *bool `json:"show_federated,omitempty"`
 
 	// If hide_public_access is true, do not include the Public Access Group in the results.
-	HidePublicAccess *bool
+	HidePublicAccess *bool `json:"hide_public_access,omitempty"`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -2719,51 +2785,51 @@ func (*IamAccessGroupsV2) NewListAccessGroupsOptions(accountID string) *ListAcce
 }
 
 // SetAccountID : Allow user to set AccountID
-func (options *ListAccessGroupsOptions) SetAccountID(accountID string) *ListAccessGroupsOptions {
-	options.AccountID = core.StringPtr(accountID)
-	return options
+func (_options *ListAccessGroupsOptions) SetAccountID(accountID string) *ListAccessGroupsOptions {
+	_options.AccountID = core.StringPtr(accountID)
+	return _options
 }
 
 // SetTransactionID : Allow user to set TransactionID
-func (options *ListAccessGroupsOptions) SetTransactionID(transactionID string) *ListAccessGroupsOptions {
-	options.TransactionID = core.StringPtr(transactionID)
-	return options
+func (_options *ListAccessGroupsOptions) SetTransactionID(transactionID string) *ListAccessGroupsOptions {
+	_options.TransactionID = core.StringPtr(transactionID)
+	return _options
 }
 
 // SetIamID : Allow user to set IamID
-func (options *ListAccessGroupsOptions) SetIamID(iamID string) *ListAccessGroupsOptions {
-	options.IamID = core.StringPtr(iamID)
-	return options
+func (_options *ListAccessGroupsOptions) SetIamID(iamID string) *ListAccessGroupsOptions {
+	_options.IamID = core.StringPtr(iamID)
+	return _options
 }
 
 // SetLimit : Allow user to set Limit
-func (options *ListAccessGroupsOptions) SetLimit(limit int64) *ListAccessGroupsOptions {
-	options.Limit = core.Int64Ptr(limit)
-	return options
+func (_options *ListAccessGroupsOptions) SetLimit(limit int64) *ListAccessGroupsOptions {
+	_options.Limit = core.Int64Ptr(limit)
+	return _options
 }
 
 // SetOffset : Allow user to set Offset
-func (options *ListAccessGroupsOptions) SetOffset(offset int64) *ListAccessGroupsOptions {
-	options.Offset = core.Int64Ptr(offset)
-	return options
+func (_options *ListAccessGroupsOptions) SetOffset(offset int64) *ListAccessGroupsOptions {
+	_options.Offset = core.Int64Ptr(offset)
+	return _options
 }
 
 // SetSort : Allow user to set Sort
-func (options *ListAccessGroupsOptions) SetSort(sort string) *ListAccessGroupsOptions {
-	options.Sort = core.StringPtr(sort)
-	return options
+func (_options *ListAccessGroupsOptions) SetSort(sort string) *ListAccessGroupsOptions {
+	_options.Sort = core.StringPtr(sort)
+	return _options
 }
 
 // SetShowFederated : Allow user to set ShowFederated
-func (options *ListAccessGroupsOptions) SetShowFederated(showFederated bool) *ListAccessGroupsOptions {
-	options.ShowFederated = core.BoolPtr(showFederated)
-	return options
+func (_options *ListAccessGroupsOptions) SetShowFederated(showFederated bool) *ListAccessGroupsOptions {
+	_options.ShowFederated = core.BoolPtr(showFederated)
+	return _options
 }
 
 // SetHidePublicAccess : Allow user to set HidePublicAccess
-func (options *ListAccessGroupsOptions) SetHidePublicAccess(hidePublicAccess bool) *ListAccessGroupsOptions {
-	options.HidePublicAccess = core.BoolPtr(hidePublicAccess)
-	return options
+func (_options *ListAccessGroupsOptions) SetHidePublicAccess(hidePublicAccess bool) *ListAccessGroupsOptions {
+	_options.HidePublicAccess = core.BoolPtr(hidePublicAccess)
+	return _options
 }
 
 // SetHeaders : Allow user to set Headers
@@ -2841,15 +2907,15 @@ func UnmarshalListGroupMembersResponseMember(m map[string]json.RawMessage, resul
 // RemoveAccessGroupRuleOptions : The RemoveAccessGroupRule options.
 type RemoveAccessGroupRuleOptions struct {
 	// The access group identifier.
-	AccessGroupID *string `validate:"required,ne="`
+	AccessGroupID *string `json:"access_group_id" validate:"required,ne="`
 
 	// The rule to get.
-	RuleID *string `validate:"required,ne="`
+	RuleID *string `json:"rule_id" validate:"required,ne="`
 
 	// An optional transaction ID can be passed to your request, which can be useful for tracking calls through multiple
 	// services by using one identifier. The header key must be set to Transaction-Id and the value is anything that you
 	// choose. If no transaction ID is passed in, then a random ID is generated.
-	TransactionID *string
+	TransactionID *string `json:"Transaction-Id,omitempty"`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -2859,26 +2925,26 @@ type RemoveAccessGroupRuleOptions struct {
 func (*IamAccessGroupsV2) NewRemoveAccessGroupRuleOptions(accessGroupID string, ruleID string) *RemoveAccessGroupRuleOptions {
 	return &RemoveAccessGroupRuleOptions{
 		AccessGroupID: core.StringPtr(accessGroupID),
-		RuleID:        core.StringPtr(ruleID),
+		RuleID: core.StringPtr(ruleID),
 	}
 }
 
 // SetAccessGroupID : Allow user to set AccessGroupID
-func (options *RemoveAccessGroupRuleOptions) SetAccessGroupID(accessGroupID string) *RemoveAccessGroupRuleOptions {
-	options.AccessGroupID = core.StringPtr(accessGroupID)
-	return options
+func (_options *RemoveAccessGroupRuleOptions) SetAccessGroupID(accessGroupID string) *RemoveAccessGroupRuleOptions {
+	_options.AccessGroupID = core.StringPtr(accessGroupID)
+	return _options
 }
 
 // SetRuleID : Allow user to set RuleID
-func (options *RemoveAccessGroupRuleOptions) SetRuleID(ruleID string) *RemoveAccessGroupRuleOptions {
-	options.RuleID = core.StringPtr(ruleID)
-	return options
+func (_options *RemoveAccessGroupRuleOptions) SetRuleID(ruleID string) *RemoveAccessGroupRuleOptions {
+	_options.RuleID = core.StringPtr(ruleID)
+	return _options
 }
 
 // SetTransactionID : Allow user to set TransactionID
-func (options *RemoveAccessGroupRuleOptions) SetTransactionID(transactionID string) *RemoveAccessGroupRuleOptions {
-	options.TransactionID = core.StringPtr(transactionID)
-	return options
+func (_options *RemoveAccessGroupRuleOptions) SetTransactionID(transactionID string) *RemoveAccessGroupRuleOptions {
+	_options.TransactionID = core.StringPtr(transactionID)
+	return _options
 }
 
 // SetHeaders : Allow user to set Headers
@@ -2890,15 +2956,15 @@ func (options *RemoveAccessGroupRuleOptions) SetHeaders(param map[string]string)
 // RemoveMemberFromAccessGroupOptions : The RemoveMemberFromAccessGroup options.
 type RemoveMemberFromAccessGroupOptions struct {
 	// The access group identifier.
-	AccessGroupID *string `validate:"required,ne="`
+	AccessGroupID *string `json:"access_group_id" validate:"required,ne="`
 
 	// The IAM identifier.
-	IamID *string `validate:"required,ne="`
+	IamID *string `json:"iam_id" validate:"required,ne="`
 
 	// An optional transaction ID can be passed to your request, which can be useful for tracking calls through multiple
 	// services by using one identifier. The header key must be set to Transaction-Id and the value is anything that you
 	// choose. If no transaction ID is passed in, then a random ID is generated.
-	TransactionID *string
+	TransactionID *string `json:"Transaction-Id,omitempty"`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -2908,26 +2974,26 @@ type RemoveMemberFromAccessGroupOptions struct {
 func (*IamAccessGroupsV2) NewRemoveMemberFromAccessGroupOptions(accessGroupID string, iamID string) *RemoveMemberFromAccessGroupOptions {
 	return &RemoveMemberFromAccessGroupOptions{
 		AccessGroupID: core.StringPtr(accessGroupID),
-		IamID:         core.StringPtr(iamID),
+		IamID: core.StringPtr(iamID),
 	}
 }
 
 // SetAccessGroupID : Allow user to set AccessGroupID
-func (options *RemoveMemberFromAccessGroupOptions) SetAccessGroupID(accessGroupID string) *RemoveMemberFromAccessGroupOptions {
-	options.AccessGroupID = core.StringPtr(accessGroupID)
-	return options
+func (_options *RemoveMemberFromAccessGroupOptions) SetAccessGroupID(accessGroupID string) *RemoveMemberFromAccessGroupOptions {
+	_options.AccessGroupID = core.StringPtr(accessGroupID)
+	return _options
 }
 
 // SetIamID : Allow user to set IamID
-func (options *RemoveMemberFromAccessGroupOptions) SetIamID(iamID string) *RemoveMemberFromAccessGroupOptions {
-	options.IamID = core.StringPtr(iamID)
-	return options
+func (_options *RemoveMemberFromAccessGroupOptions) SetIamID(iamID string) *RemoveMemberFromAccessGroupOptions {
+	_options.IamID = core.StringPtr(iamID)
+	return _options
 }
 
 // SetTransactionID : Allow user to set TransactionID
-func (options *RemoveMemberFromAccessGroupOptions) SetTransactionID(transactionID string) *RemoveMemberFromAccessGroupOptions {
-	options.TransactionID = core.StringPtr(transactionID)
-	return options
+func (_options *RemoveMemberFromAccessGroupOptions) SetTransactionID(transactionID string) *RemoveMemberFromAccessGroupOptions {
+	_options.TransactionID = core.StringPtr(transactionID)
+	return _options
 }
 
 // SetHeaders : Allow user to set Headers
@@ -2941,15 +3007,15 @@ type RemoveMemberFromAllAccessGroupsOptions struct {
 	// Account ID of the API keys(s) to query. If a service IAM ID is specified in iam_id then account_id must match the
 	// account of the IAM ID. If a user IAM ID is specified in iam_id then then account_id must match the account of the
 	// Authorization token.
-	AccountID *string `validate:"required"`
+	AccountID *string `json:"account_id" validate:"required"`
 
 	// The IAM identifier.
-	IamID *string `validate:"required,ne="`
+	IamID *string `json:"iam_id" validate:"required,ne="`
 
 	// An optional transaction ID can be passed to your request, which can be useful for tracking calls through multiple
 	// services by using one identifier. The header key must be set to Transaction-Id and the value is anything that you
 	// choose. If no transaction ID is passed in, then a random ID is generated.
-	TransactionID *string
+	TransactionID *string `json:"Transaction-Id,omitempty"`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -2959,26 +3025,26 @@ type RemoveMemberFromAllAccessGroupsOptions struct {
 func (*IamAccessGroupsV2) NewRemoveMemberFromAllAccessGroupsOptions(accountID string, iamID string) *RemoveMemberFromAllAccessGroupsOptions {
 	return &RemoveMemberFromAllAccessGroupsOptions{
 		AccountID: core.StringPtr(accountID),
-		IamID:     core.StringPtr(iamID),
+		IamID: core.StringPtr(iamID),
 	}
 }
 
 // SetAccountID : Allow user to set AccountID
-func (options *RemoveMemberFromAllAccessGroupsOptions) SetAccountID(accountID string) *RemoveMemberFromAllAccessGroupsOptions {
-	options.AccountID = core.StringPtr(accountID)
-	return options
+func (_options *RemoveMemberFromAllAccessGroupsOptions) SetAccountID(accountID string) *RemoveMemberFromAllAccessGroupsOptions {
+	_options.AccountID = core.StringPtr(accountID)
+	return _options
 }
 
 // SetIamID : Allow user to set IamID
-func (options *RemoveMemberFromAllAccessGroupsOptions) SetIamID(iamID string) *RemoveMemberFromAllAccessGroupsOptions {
-	options.IamID = core.StringPtr(iamID)
-	return options
+func (_options *RemoveMemberFromAllAccessGroupsOptions) SetIamID(iamID string) *RemoveMemberFromAllAccessGroupsOptions {
+	_options.IamID = core.StringPtr(iamID)
+	return _options
 }
 
 // SetTransactionID : Allow user to set TransactionID
-func (options *RemoveMemberFromAllAccessGroupsOptions) SetTransactionID(transactionID string) *RemoveMemberFromAllAccessGroupsOptions {
-	options.TransactionID = core.StringPtr(transactionID)
-	return options
+func (_options *RemoveMemberFromAllAccessGroupsOptions) SetTransactionID(transactionID string) *RemoveMemberFromAllAccessGroupsOptions {
+	_options.TransactionID = core.StringPtr(transactionID)
+	return _options
 }
 
 // SetHeaders : Allow user to set Headers
@@ -2990,15 +3056,15 @@ func (options *RemoveMemberFromAllAccessGroupsOptions) SetHeaders(param map[stri
 // RemoveMembersFromAccessGroupOptions : The RemoveMembersFromAccessGroup options.
 type RemoveMembersFromAccessGroupOptions struct {
 	// The access group identifier.
-	AccessGroupID *string `validate:"required,ne="`
+	AccessGroupID *string `json:"access_group_id" validate:"required,ne="`
 
 	// The `iam_id`s to remove from the access group. This field has a limit of 50 `iam_id`s.
-	Members []string
+	Members []string `json:"members,omitempty"`
 
 	// An optional transaction ID can be passed to your request, which can be useful for tracking calls through multiple
 	// services by using one identifier. The header key must be set to Transaction-Id and the value is anything that you
 	// choose. If no transaction ID is passed in, then a random ID is generated.
-	TransactionID *string
+	TransactionID *string `json:"Transaction-Id,omitempty"`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -3012,21 +3078,21 @@ func (*IamAccessGroupsV2) NewRemoveMembersFromAccessGroupOptions(accessGroupID s
 }
 
 // SetAccessGroupID : Allow user to set AccessGroupID
-func (options *RemoveMembersFromAccessGroupOptions) SetAccessGroupID(accessGroupID string) *RemoveMembersFromAccessGroupOptions {
-	options.AccessGroupID = core.StringPtr(accessGroupID)
-	return options
+func (_options *RemoveMembersFromAccessGroupOptions) SetAccessGroupID(accessGroupID string) *RemoveMembersFromAccessGroupOptions {
+	_options.AccessGroupID = core.StringPtr(accessGroupID)
+	return _options
 }
 
 // SetMembers : Allow user to set Members
-func (options *RemoveMembersFromAccessGroupOptions) SetMembers(members []string) *RemoveMembersFromAccessGroupOptions {
-	options.Members = members
-	return options
+func (_options *RemoveMembersFromAccessGroupOptions) SetMembers(members []string) *RemoveMembersFromAccessGroupOptions {
+	_options.Members = members
+	return _options
 }
 
 // SetTransactionID : Allow user to set TransactionID
-func (options *RemoveMembersFromAccessGroupOptions) SetTransactionID(transactionID string) *RemoveMembersFromAccessGroupOptions {
-	options.TransactionID = core.StringPtr(transactionID)
-	return options
+func (_options *RemoveMembersFromAccessGroupOptions) SetTransactionID(transactionID string) *RemoveMembersFromAccessGroupOptions {
+	_options.TransactionID = core.StringPtr(transactionID)
+	return _options
 }
 
 // SetHeaders : Allow user to set Headers
@@ -3038,30 +3104,30 @@ func (options *RemoveMembersFromAccessGroupOptions) SetHeaders(param map[string]
 // ReplaceAccessGroupRuleOptions : The ReplaceAccessGroupRule options.
 type ReplaceAccessGroupRuleOptions struct {
 	// The access group identifier.
-	AccessGroupID *string `validate:"required,ne="`
+	AccessGroupID *string `json:"access_group_id" validate:"required,ne="`
 
 	// The rule to get.
-	RuleID *string `validate:"required,ne="`
+	RuleID *string `json:"rule_id" validate:"required,ne="`
 
 	// The current revision number of the rule being updated. This can be found in the Get Rule response ETag header.
-	IfMatch *string `validate:"required"`
+	IfMatch *string `json:"If-Match" validate:"required"`
 
 	// The number of hours that the rule lives for.
-	Expiration *int64 `validate:"required"`
+	Expiration *int64 `json:"expiration" validate:"required"`
 
 	// The url of the identity provider.
-	RealmName *string `validate:"required"`
+	RealmName *string `json:"realm_name" validate:"required"`
 
 	// A list of conditions the rule must satisfy.
-	Conditions []RuleConditions `validate:"required"`
+	Conditions []RuleConditions `json:"conditions" validate:"required"`
 
 	// The name of the rule.
-	Name *string
+	Name *string `json:"name,omitempty"`
 
 	// An optional transaction ID can be passed to your request, which can be useful for tracking calls through multiple
 	// services by using one identifier. The header key must be set to Transaction-Id and the value is anything that you
 	// choose. If no transaction ID is passed in, then a random ID is generated.
-	TransactionID *string
+	TransactionID *string `json:"Transaction-Id,omitempty"`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -3071,60 +3137,60 @@ type ReplaceAccessGroupRuleOptions struct {
 func (*IamAccessGroupsV2) NewReplaceAccessGroupRuleOptions(accessGroupID string, ruleID string, ifMatch string, expiration int64, realmName string, conditions []RuleConditions) *ReplaceAccessGroupRuleOptions {
 	return &ReplaceAccessGroupRuleOptions{
 		AccessGroupID: core.StringPtr(accessGroupID),
-		RuleID:        core.StringPtr(ruleID),
-		IfMatch:       core.StringPtr(ifMatch),
-		Expiration:    core.Int64Ptr(expiration),
-		RealmName:     core.StringPtr(realmName),
-		Conditions:    conditions,
+		RuleID: core.StringPtr(ruleID),
+		IfMatch: core.StringPtr(ifMatch),
+		Expiration: core.Int64Ptr(expiration),
+		RealmName: core.StringPtr(realmName),
+		Conditions: conditions,
 	}
 }
 
 // SetAccessGroupID : Allow user to set AccessGroupID
-func (options *ReplaceAccessGroupRuleOptions) SetAccessGroupID(accessGroupID string) *ReplaceAccessGroupRuleOptions {
-	options.AccessGroupID = core.StringPtr(accessGroupID)
-	return options
+func (_options *ReplaceAccessGroupRuleOptions) SetAccessGroupID(accessGroupID string) *ReplaceAccessGroupRuleOptions {
+	_options.AccessGroupID = core.StringPtr(accessGroupID)
+	return _options
 }
 
 // SetRuleID : Allow user to set RuleID
-func (options *ReplaceAccessGroupRuleOptions) SetRuleID(ruleID string) *ReplaceAccessGroupRuleOptions {
-	options.RuleID = core.StringPtr(ruleID)
-	return options
+func (_options *ReplaceAccessGroupRuleOptions) SetRuleID(ruleID string) *ReplaceAccessGroupRuleOptions {
+	_options.RuleID = core.StringPtr(ruleID)
+	return _options
 }
 
 // SetIfMatch : Allow user to set IfMatch
-func (options *ReplaceAccessGroupRuleOptions) SetIfMatch(ifMatch string) *ReplaceAccessGroupRuleOptions {
-	options.IfMatch = core.StringPtr(ifMatch)
-	return options
+func (_options *ReplaceAccessGroupRuleOptions) SetIfMatch(ifMatch string) *ReplaceAccessGroupRuleOptions {
+	_options.IfMatch = core.StringPtr(ifMatch)
+	return _options
 }
 
 // SetExpiration : Allow user to set Expiration
-func (options *ReplaceAccessGroupRuleOptions) SetExpiration(expiration int64) *ReplaceAccessGroupRuleOptions {
-	options.Expiration = core.Int64Ptr(expiration)
-	return options
+func (_options *ReplaceAccessGroupRuleOptions) SetExpiration(expiration int64) *ReplaceAccessGroupRuleOptions {
+	_options.Expiration = core.Int64Ptr(expiration)
+	return _options
 }
 
 // SetRealmName : Allow user to set RealmName
-func (options *ReplaceAccessGroupRuleOptions) SetRealmName(realmName string) *ReplaceAccessGroupRuleOptions {
-	options.RealmName = core.StringPtr(realmName)
-	return options
+func (_options *ReplaceAccessGroupRuleOptions) SetRealmName(realmName string) *ReplaceAccessGroupRuleOptions {
+	_options.RealmName = core.StringPtr(realmName)
+	return _options
 }
 
 // SetConditions : Allow user to set Conditions
-func (options *ReplaceAccessGroupRuleOptions) SetConditions(conditions []RuleConditions) *ReplaceAccessGroupRuleOptions {
-	options.Conditions = conditions
-	return options
+func (_options *ReplaceAccessGroupRuleOptions) SetConditions(conditions []RuleConditions) *ReplaceAccessGroupRuleOptions {
+	_options.Conditions = conditions
+	return _options
 }
 
 // SetName : Allow user to set Name
-func (options *ReplaceAccessGroupRuleOptions) SetName(name string) *ReplaceAccessGroupRuleOptions {
-	options.Name = core.StringPtr(name)
-	return options
+func (_options *ReplaceAccessGroupRuleOptions) SetName(name string) *ReplaceAccessGroupRuleOptions {
+	_options.Name = core.StringPtr(name)
+	return _options
 }
 
 // SetTransactionID : Allow user to set TransactionID
-func (options *ReplaceAccessGroupRuleOptions) SetTransactionID(transactionID string) *ReplaceAccessGroupRuleOptions {
-	options.TransactionID = core.StringPtr(transactionID)
-	return options
+func (_options *ReplaceAccessGroupRuleOptions) SetTransactionID(transactionID string) *ReplaceAccessGroupRuleOptions {
+	_options.TransactionID = core.StringPtr(transactionID)
+	return _options
 }
 
 // SetHeaders : Allow user to set Headers
@@ -3235,22 +3301,22 @@ type RuleConditions struct {
 // Constants associated with the RuleConditions.Operator property.
 // The operation to perform on the claim.
 const (
-	RuleConditionsOperatorContainsConst            = "CONTAINS"
-	RuleConditionsOperatorEqualsConst              = "EQUALS"
-	RuleConditionsOperatorEqualsIgnoreCaseConst    = "EQUALS_IGNORE_CASE"
-	RuleConditionsOperatorInConst                  = "IN"
-	RuleConditionsOperatorNotEqualsConst           = "NOT_EQUALS"
+	RuleConditionsOperatorContainsConst = "CONTAINS"
+	RuleConditionsOperatorEqualsConst = "EQUALS"
+	RuleConditionsOperatorEqualsIgnoreCaseConst = "EQUALS_IGNORE_CASE"
+	RuleConditionsOperatorInConst = "IN"
+	RuleConditionsOperatorNotEqualsConst = "NOT_EQUALS"
 	RuleConditionsOperatorNotEqualsIgnoreCaseConst = "NOT_EQUALS_IGNORE_CASE"
 )
 
 // NewRuleConditions : Instantiate RuleConditions (Generic Model Constructor)
-func (*IamAccessGroupsV2) NewRuleConditions(claim string, operator string, value string) (model *RuleConditions, err error) {
-	model = &RuleConditions{
-		Claim:    core.StringPtr(claim),
+func (*IamAccessGroupsV2) NewRuleConditions(claim string, operator string, value string) (_model *RuleConditions, err error) {
+	_model = &RuleConditions{
+		Claim: core.StringPtr(claim),
 		Operator: core.StringPtr(operator),
-		Value:    core.StringPtr(value),
+		Value: core.StringPtr(value),
 	}
-	err = core.ValidateStruct(model, "required parameters")
+	err = core.ValidateStruct(_model, "required parameters")
 	return
 }
 
@@ -3293,23 +3359,23 @@ func UnmarshalRulesList(m map[string]json.RawMessage, result interface{}) (err e
 // UpdateAccessGroupOptions : The UpdateAccessGroup options.
 type UpdateAccessGroupOptions struct {
 	// The access group identifier.
-	AccessGroupID *string `validate:"required,ne="`
+	AccessGroupID *string `json:"access_group_id" validate:"required,ne="`
 
 	// The current revision number of the group being updated. This can be found in the Create/Get access group response
 	// ETag header.
-	IfMatch *string `validate:"required"`
+	IfMatch *string `json:"If-Match" validate:"required"`
 
-	// Assign the specified name to the access group. This field is case-sensitive and has a limit of 100 characters. The
+	// Assign the specified name to the access group. This field is case-insensitive and has a limit of 100 characters. The
 	// group name has to be unique within an account.
-	Name *string
+	Name *string `json:"name,omitempty"`
 
 	// Assign an optional description for the access group. This field has a limit of 250 characters.
-	Description *string
+	Description *string `json:"description,omitempty"`
 
 	// An optional transaction ID can be passed to your request, which can be useful for tracking calls through multiple
 	// services by using one identifier. The header key must be set to Transaction-Id and the value is anything that you
 	// choose. If no transaction ID is passed in, then a random ID is generated.
-	TransactionID *string
+	TransactionID *string `json:"Transaction-Id,omitempty"`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -3319,38 +3385,38 @@ type UpdateAccessGroupOptions struct {
 func (*IamAccessGroupsV2) NewUpdateAccessGroupOptions(accessGroupID string, ifMatch string) *UpdateAccessGroupOptions {
 	return &UpdateAccessGroupOptions{
 		AccessGroupID: core.StringPtr(accessGroupID),
-		IfMatch:       core.StringPtr(ifMatch),
+		IfMatch: core.StringPtr(ifMatch),
 	}
 }
 
 // SetAccessGroupID : Allow user to set AccessGroupID
-func (options *UpdateAccessGroupOptions) SetAccessGroupID(accessGroupID string) *UpdateAccessGroupOptions {
-	options.AccessGroupID = core.StringPtr(accessGroupID)
-	return options
+func (_options *UpdateAccessGroupOptions) SetAccessGroupID(accessGroupID string) *UpdateAccessGroupOptions {
+	_options.AccessGroupID = core.StringPtr(accessGroupID)
+	return _options
 }
 
 // SetIfMatch : Allow user to set IfMatch
-func (options *UpdateAccessGroupOptions) SetIfMatch(ifMatch string) *UpdateAccessGroupOptions {
-	options.IfMatch = core.StringPtr(ifMatch)
-	return options
+func (_options *UpdateAccessGroupOptions) SetIfMatch(ifMatch string) *UpdateAccessGroupOptions {
+	_options.IfMatch = core.StringPtr(ifMatch)
+	return _options
 }
 
 // SetName : Allow user to set Name
-func (options *UpdateAccessGroupOptions) SetName(name string) *UpdateAccessGroupOptions {
-	options.Name = core.StringPtr(name)
-	return options
+func (_options *UpdateAccessGroupOptions) SetName(name string) *UpdateAccessGroupOptions {
+	_options.Name = core.StringPtr(name)
+	return _options
 }
 
 // SetDescription : Allow user to set Description
-func (options *UpdateAccessGroupOptions) SetDescription(description string) *UpdateAccessGroupOptions {
-	options.Description = core.StringPtr(description)
-	return options
+func (_options *UpdateAccessGroupOptions) SetDescription(description string) *UpdateAccessGroupOptions {
+	_options.Description = core.StringPtr(description)
+	return _options
 }
 
 // SetTransactionID : Allow user to set TransactionID
-func (options *UpdateAccessGroupOptions) SetTransactionID(transactionID string) *UpdateAccessGroupOptions {
-	options.TransactionID = core.StringPtr(transactionID)
-	return options
+func (_options *UpdateAccessGroupOptions) SetTransactionID(transactionID string) *UpdateAccessGroupOptions {
+	_options.TransactionID = core.StringPtr(transactionID)
+	return _options
 }
 
 // SetHeaders : Allow user to set Headers
@@ -3364,16 +3430,16 @@ type UpdateAccountSettingsOptions struct {
 	// Account ID of the API keys(s) to query. If a service IAM ID is specified in iam_id then account_id must match the
 	// account of the IAM ID. If a user IAM ID is specified in iam_id then then account_id must match the account of the
 	// Authorization token.
-	AccountID *string `validate:"required"`
+	AccountID *string `json:"account_id" validate:"required"`
 
 	// This flag controls the public access feature within the account. It is set to true by default. Note: When this flag
 	// is set to false, all policies within the account attached to the Public Access group will be deleted.
-	PublicAccessEnabled *bool
+	PublicAccessEnabled *bool `json:"public_access_enabled,omitempty"`
 
 	// An optional transaction ID can be passed to your request, which can be useful for tracking calls through multiple
 	// services by using one identifier. The header key must be set to Transaction-Id and the value is anything that you
 	// choose. If no transaction ID is passed in, then a random ID is generated.
-	TransactionID *string
+	TransactionID *string `json:"Transaction-Id,omitempty"`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -3387,21 +3453,21 @@ func (*IamAccessGroupsV2) NewUpdateAccountSettingsOptions(accountID string) *Upd
 }
 
 // SetAccountID : Allow user to set AccountID
-func (options *UpdateAccountSettingsOptions) SetAccountID(accountID string) *UpdateAccountSettingsOptions {
-	options.AccountID = core.StringPtr(accountID)
-	return options
+func (_options *UpdateAccountSettingsOptions) SetAccountID(accountID string) *UpdateAccountSettingsOptions {
+	_options.AccountID = core.StringPtr(accountID)
+	return _options
 }
 
 // SetPublicAccessEnabled : Allow user to set PublicAccessEnabled
-func (options *UpdateAccountSettingsOptions) SetPublicAccessEnabled(publicAccessEnabled bool) *UpdateAccountSettingsOptions {
-	options.PublicAccessEnabled = core.BoolPtr(publicAccessEnabled)
-	return options
+func (_options *UpdateAccountSettingsOptions) SetPublicAccessEnabled(publicAccessEnabled bool) *UpdateAccountSettingsOptions {
+	_options.PublicAccessEnabled = core.BoolPtr(publicAccessEnabled)
+	return _options
 }
 
 // SetTransactionID : Allow user to set TransactionID
-func (options *UpdateAccountSettingsOptions) SetTransactionID(transactionID string) *UpdateAccountSettingsOptions {
-	options.TransactionID = core.StringPtr(transactionID)
-	return options
+func (_options *UpdateAccountSettingsOptions) SetTransactionID(transactionID string) *UpdateAccountSettingsOptions {
+	_options.TransactionID = core.StringPtr(transactionID)
+	return _options
 }
 
 // SetHeaders : Allow user to set Headers

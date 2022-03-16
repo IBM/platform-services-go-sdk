@@ -15,7 +15,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-8af3411e-20210219-150013
+ * IBM OpenAPI SDK Code Generator Version: 3.36.1-694fc13e-20210723-211159
  */
 
 // Package atrackerv1 : Operations and models for the AtrackerV1 service
@@ -25,24 +25,26 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"github.com/IBM/go-sdk-core/v5/core"
-	common "github.com/IBM/platform-services-go-sdk/common"
 	"net/http"
 	"reflect"
 	"time"
+
+	"github.com/IBM/go-sdk-core/v5/core"
+	common "github.com/IBM/platform-services-go-sdk/common"
+	"github.com/go-openapi/strfmt"
 )
 
-// AtrackerV1 : IBM Cloud Activity Tracking Service (ATracker Service for short) is an activity tracker configuration
-// service for your application events as well as events from IBM services under your account. It is designed to enable
-// you to route  activity tracker events to your designated Cloud Object Storage location in different regions.
+// AtrackerV1 : Activity Tracker is a platform service that you can configure in each region in your account to define
+// how auditing events are collected and stored. Events are stored in a Cloud Object Storage bucket that is also
+// available in the account.
 //
-// Version: 1.0.0
+// Version: 1.1.0
 type AtrackerV1 struct {
 	Service *core.BaseService
 }
 
 // DefaultServiceURL is the default URL to make service requests to.
-const DefaultServiceURL = "https://private.us-south.atracker.cloud.ibm.com"
+const DefaultServiceURL = "https://us-south.atracker.cloud.ibm.com"
 
 // DefaultServiceName is the default key used to find external configuration information.
 const DefaultServiceName = "atracker"
@@ -112,14 +114,10 @@ func NewAtrackerV1(options *AtrackerV1Options) (service *AtrackerV1, err error) 
 // GetServiceURLForRegion returns the service URL to be used for the specified region
 func GetServiceURLForRegion(region string) (string, error) {
 	var endpoints = map[string]string{
-		"private.us-south": "https://private.us-south.atracker.cloud.ibm.com", // The server for IBM Cloud Activity Tracking Service in the us-south region.
-		"private.us-east": "https://private.us-east.atracker.cloud.ibm.com", // The server for IBM Cloud Activity Tracking Service in the us-east region.
-		"private.au-syd": "https://private.au-syd.atracker.cloud.ibm.com", // The server for IBM Cloud Activity Tracking Service in the au-syd region.
-		"private.eu-de": "https://private.eu-de.atracker.cloud.ibm.com", // The server for IBM Cloud Activity Tracking Service in the eu-de region.
-		"private.eu-gb": "https://private.eu-gb.atracker.cloud.ibm.com", // The server for IBM Cloud Activity Tracking Service in the eu-gb region.
-		"private.in-che": "https://private.in-che.atracker.cloud.ibm.com", // The server for IBM Cloud Activity Tracking Service in the in-che region.
-		"private.jp-tok": "https://private.jp-tok.atracker.cloud.ibm.com", // The server for IBM Cloud Activity Tracking Service in the jp-tok region.
-		"private.kr-seo": "https://private.kr-seo.atracker.cloud.ibm.com", // The server for IBM Cloud Activity Tracking Service in the kr-seo region.
+		"us-south": "https://us-south.atracker.cloud.ibm.com", // The server for IBM Cloud Activity Tracker Service in the us-south region.
+		"private.us-south": "https://private.us-south.atracker.cloud.ibm.com", // The server for IBM Cloud Activity Tracker Service in the us-south region.
+		"us-east": "https://us-east.atracker.cloud.ibm.com", // The server for IBM Cloud Activity Tracker Service in the us-east region.
+		"private.us-east": "https://private.us-east.atracker.cloud.ibm.com", // The server for IBM Cloud Activity Tracker Service in the us-east region.
 	}
 
 	if url, ok := endpoints[region]; ok {
@@ -174,11 +172,11 @@ func (atracker *AtrackerV1) DisableRetries() {
 	atracker.Service.DisableRetries()
 }
 
-// CreateTarget : Create a Cloud Object Storage target for a region
-// Creates a new Cloud Object Storage (COS) target with specified COS endpoint information and credentials.  Commonly
-// the COS endpoint should be on the same region as ATracker Services where this API is invoked. The  Target definition
-// could only be referenced by the routing rules defined in the same region through the same  API endpoint. If a COS
-// endpoint to be used across multiple regions, you must define a target for each region's API endpoint.
+// CreateTarget : Create a target
+// Creates a Cloud Object Storage (COS) target that includes information about the COS endpoint and the credentials to
+// access the bucket. You must define a COS target per region.  Notice that although you can use the same COS bucket for
+// collecting auditing events in your account across multiple regions, you should consider defining a bucket in each
+// region to reduce performance and network latency issues. You can define up to 16 targets per region.
 func (atracker *AtrackerV1) CreateTarget(createTargetOptions *CreateTargetOptions) (result *Target, response *core.DetailedResponse, err error) {
 	return atracker.CreateTargetWithContext(context.Background(), createTargetOptions)
 }
@@ -238,17 +236,19 @@ func (atracker *AtrackerV1) CreateTargetWithContext(ctx context.Context, createT
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalTarget)
-	if err != nil {
-		return
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalTarget)
+		if err != nil {
+			return
+		}
+		response.Result = result
 	}
-	response.Result = result
 
 	return
 }
 
-// ListTargets : List Cloud Object Storage targets for the region
-// List all Cloud Object Storage (COS) targets defined under this region.
+// ListTargets : List targets
+// List all Cloud Object Storage (COS) targets that are defined in a region.
 func (atracker *AtrackerV1) ListTargets(listTargetsOptions *ListTargetsOptions) (result *TargetList, response *core.DetailedResponse, err error) {
 	return atracker.ListTargetsWithContext(context.Background(), listTargetsOptions)
 }
@@ -288,17 +288,19 @@ func (atracker *AtrackerV1) ListTargetsWithContext(ctx context.Context, listTarg
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalTargetList)
-	if err != nil {
-		return
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalTargetList)
+		if err != nil {
+			return
+		}
+		response.Result = result
 	}
-	response.Result = result
 
 	return
 }
 
-// GetTarget : Retrieve a target
-// Retrieves a target and its details by specifying the ID of the target.
+// GetTarget : Get details of a target
+// Retrieve the configuration details of a target.
 func (atracker *AtrackerV1) GetTarget(getTargetOptions *GetTargetOptions) (result *Target, response *core.DetailedResponse, err error) {
 	return atracker.GetTargetWithContext(context.Background(), getTargetOptions)
 }
@@ -346,17 +348,19 @@ func (atracker *AtrackerV1) GetTargetWithContext(ctx context.Context, getTargetO
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalTarget)
-	if err != nil {
-		return
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalTarget)
+		if err != nil {
+			return
+		}
+		response.Result = result
 	}
-	response.Result = result
 
 	return
 }
 
 // ReplaceTarget : Update a target
-// Update a target details by specifying the ID of the target.
+// Update the configuration details of a target.
 func (atracker *AtrackerV1) ReplaceTarget(replaceTargetOptions *ReplaceTargetOptions) (result *Target, response *core.DetailedResponse, err error) {
 	return atracker.ReplaceTargetWithContext(context.Background(), replaceTargetOptions)
 }
@@ -420,23 +424,25 @@ func (atracker *AtrackerV1) ReplaceTargetWithContext(ctx context.Context, replac
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalTarget)
-	if err != nil {
-		return
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalTarget)
+		if err != nil {
+			return
+		}
+		response.Result = result
 	}
-	response.Result = result
 
 	return
 }
 
 // DeleteTarget : Delete a target
-// Deletes a target by specifying the ID of the target.
-func (atracker *AtrackerV1) DeleteTarget(deleteTargetOptions *DeleteTargetOptions) (response *core.DetailedResponse, err error) {
+// Delete a target.
+func (atracker *AtrackerV1) DeleteTarget(deleteTargetOptions *DeleteTargetOptions) (result *WarningReport, response *core.DetailedResponse, err error) {
 	return atracker.DeleteTargetWithContext(context.Background(), deleteTargetOptions)
 }
 
 // DeleteTargetWithContext is an alternate form of the DeleteTarget method which supports a Context parameter
-func (atracker *AtrackerV1) DeleteTargetWithContext(ctx context.Context, deleteTargetOptions *DeleteTargetOptions) (response *core.DetailedResponse, err error) {
+func (atracker *AtrackerV1) DeleteTargetWithContext(ctx context.Context, deleteTargetOptions *DeleteTargetOptions) (result *WarningReport, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(deleteTargetOptions, "deleteTargetOptions cannot be nil")
 	if err != nil {
 		return
@@ -466,21 +472,95 @@ func (atracker *AtrackerV1) DeleteTargetWithContext(ctx context.Context, deleteT
 	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
+	builder.AddHeader("Accept", "application/json")
 
 	request, err := builder.Build()
 	if err != nil {
 		return
 	}
 
-	response, err = atracker.Service.Request(request, nil)
+	var rawResponse map[string]json.RawMessage
+	response, err = atracker.Service.Request(request, &rawResponse)
+	if err != nil {
+		return
+	}
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalWarningReport)
+		if err != nil {
+			return
+		}
+		response.Result = result
+	}
 
 	return
 }
 
-// CreateRoute : Create a Route for the region
-// Creates a route with rules defined how to route AT events to targets for a region.  For each account and region, only
-// one route could be defined. A route could contain multiple rules which enable atracker service to match incoming AT
-// events based on the source crn and forward the events to customer configured targets.
+// ValidateTarget : Validate a target
+// Validate a target by checking the credentials to write to the bucket. The result is included as additional data of
+// the target in the section "cos_write_status".
+func (atracker *AtrackerV1) ValidateTarget(validateTargetOptions *ValidateTargetOptions) (result *Target, response *core.DetailedResponse, err error) {
+	return atracker.ValidateTargetWithContext(context.Background(), validateTargetOptions)
+}
+
+// ValidateTargetWithContext is an alternate form of the ValidateTarget method which supports a Context parameter
+func (atracker *AtrackerV1) ValidateTargetWithContext(ctx context.Context, validateTargetOptions *ValidateTargetOptions) (result *Target, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(validateTargetOptions, "validateTargetOptions cannot be nil")
+	if err != nil {
+		return
+	}
+	err = core.ValidateStruct(validateTargetOptions, "validateTargetOptions")
+	if err != nil {
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"id": *validateTargetOptions.ID,
+	}
+
+	builder := core.NewRequestBuilder(core.POST)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = atracker.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(atracker.Service.Options.URL, `/api/v1/targets/{id}/validate`, pathParamsMap)
+	if err != nil {
+		return
+	}
+
+	for headerName, headerValue := range validateTargetOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("atracker", "V1", "ValidateTarget")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Accept", "application/json")
+
+	request, err := builder.Build()
+	if err != nil {
+		return
+	}
+
+	var rawResponse map[string]json.RawMessage
+	response, err = atracker.Service.Request(request, &rawResponse)
+	if err != nil {
+		return
+	}
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalTarget)
+		if err != nil {
+			return
+		}
+		response.Result = result
+	}
+
+	return
+}
+
+// CreateRoute : Create a route
+// Create a route to define the rule that specifies how to manage auditing events in a region.  You can define 1 route
+// only per region. You can configure 1 target only per route. To define how to manage global events, that is, auditing
+// events in your account that are not region specific, you must configure 1 route in your account to collect and route
+// global events. You must set the receive_global_events field to true.
 func (atracker *AtrackerV1) CreateRoute(createRouteOptions *CreateRouteOptions) (result *Route, response *core.DetailedResponse, err error) {
 	return atracker.CreateRouteWithContext(context.Background(), createRouteOptions)
 }
@@ -540,17 +620,19 @@ func (atracker *AtrackerV1) CreateRouteWithContext(ctx context.Context, createRo
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalRoute)
-	if err != nil {
-		return
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalRoute)
+		if err != nil {
+			return
+		}
+		response.Result = result
 	}
-	response.Result = result
 
 	return
 }
 
-// ListRoutes : List routes for the region
-// List routes defined under this region.
+// ListRoutes : List routes
+// List the route that is configured in a region.
 func (atracker *AtrackerV1) ListRoutes(listRoutesOptions *ListRoutesOptions) (result *RouteList, response *core.DetailedResponse, err error) {
 	return atracker.ListRoutesWithContext(context.Background(), listRoutesOptions)
 }
@@ -590,17 +672,19 @@ func (atracker *AtrackerV1) ListRoutesWithContext(ctx context.Context, listRoute
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalRouteList)
-	if err != nil {
-		return
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalRouteList)
+		if err != nil {
+			return
+		}
+		response.Result = result
 	}
-	response.Result = result
 
 	return
 }
 
-// GetRoute : Retrieve a route
-// Retrieves a route and its details by specifying the ID of the route.
+// GetRoute : Get details of a route
+// Get the configuration details of a route.
 func (atracker *AtrackerV1) GetRoute(getRouteOptions *GetRouteOptions) (result *Route, response *core.DetailedResponse, err error) {
 	return atracker.GetRouteWithContext(context.Background(), getRouteOptions)
 }
@@ -648,17 +732,19 @@ func (atracker *AtrackerV1) GetRouteWithContext(ctx context.Context, getRouteOpt
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalRoute)
-	if err != nil {
-		return
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalRoute)
+		if err != nil {
+			return
+		}
+		response.Result = result
 	}
-	response.Result = result
 
 	return
 }
 
-// ReplaceRoute : Replace a route
-// Replace a route details by specifying the ID of the route.
+// ReplaceRoute : Update a route
+// Update the configuration details of a route.
 func (atracker *AtrackerV1) ReplaceRoute(replaceRouteOptions *ReplaceRouteOptions) (result *Route, response *core.DetailedResponse, err error) {
 	return atracker.ReplaceRouteWithContext(context.Background(), replaceRouteOptions)
 }
@@ -722,17 +808,19 @@ func (atracker *AtrackerV1) ReplaceRouteWithContext(ctx context.Context, replace
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalRoute)
-	if err != nil {
-		return
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalRoute)
+		if err != nil {
+			return
+		}
+		response.Result = result
 	}
-	response.Result = result
 
 	return
 }
 
 // DeleteRoute : Delete a route
-// Deletes a route by specifying the ID of the route.
+// Deletes a route.
 func (atracker *AtrackerV1) DeleteRoute(deleteRouteOptions *DeleteRouteOptions) (response *core.DetailedResponse, err error) {
 	return atracker.DeleteRouteWithContext(context.Background(), deleteRouteOptions)
 }
@@ -779,17 +867,175 @@ func (atracker *AtrackerV1) DeleteRouteWithContext(ctx context.Context, deleteRo
 	return
 }
 
+// GetEndpoints : Get endpoints
+// Get information about the public and private endpoints that are enabled in a region when you use the Activity Tracker
+// API.
+func (atracker *AtrackerV1) GetEndpoints(getEndpointsOptions *GetEndpointsOptions) (result *Endpoints, response *core.DetailedResponse, err error) {
+	return atracker.GetEndpointsWithContext(context.Background(), getEndpointsOptions)
+}
+
+// GetEndpointsWithContext is an alternate form of the GetEndpoints method which supports a Context parameter
+func (atracker *AtrackerV1) GetEndpointsWithContext(ctx context.Context, getEndpointsOptions *GetEndpointsOptions) (result *Endpoints, response *core.DetailedResponse, err error) {
+	err = core.ValidateStruct(getEndpointsOptions, "getEndpointsOptions")
+	if err != nil {
+		return
+	}
+
+	builder := core.NewRequestBuilder(core.GET)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = atracker.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(atracker.Service.Options.URL, `/api/v1/endpoints`, nil)
+	if err != nil {
+		return
+	}
+
+	for headerName, headerValue := range getEndpointsOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("atracker", "V1", "GetEndpoints")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Accept", "application/json")
+
+	request, err := builder.Build()
+	if err != nil {
+		return
+	}
+
+	var rawResponse map[string]json.RawMessage
+	response, err = atracker.Service.Request(request, &rawResponse)
+	if err != nil {
+		return
+	}
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalEndpoints)
+		if err != nil {
+			return
+		}
+		response.Result = result
+	}
+
+	return
+}
+
+// PatchEndpoints : Modify endpoints
+// Configure the public endpoint availability in a region to use the Activity Tracker API. By default, the private
+// endpoint is enabled and cannot be disabled.
+func (atracker *AtrackerV1) PatchEndpoints(patchEndpointsOptions *PatchEndpointsOptions) (result *Endpoints, response *core.DetailedResponse, err error) {
+	return atracker.PatchEndpointsWithContext(context.Background(), patchEndpointsOptions)
+}
+
+// PatchEndpointsWithContext is an alternate form of the PatchEndpoints method which supports a Context parameter
+func (atracker *AtrackerV1) PatchEndpointsWithContext(ctx context.Context, patchEndpointsOptions *PatchEndpointsOptions) (result *Endpoints, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(patchEndpointsOptions, "patchEndpointsOptions cannot be nil")
+	if err != nil {
+		return
+	}
+	err = core.ValidateStruct(patchEndpointsOptions, "patchEndpointsOptions")
+	if err != nil {
+		return
+	}
+
+	builder := core.NewRequestBuilder(core.PATCH)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = atracker.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(atracker.Service.Options.URL, `/api/v1/endpoints`, nil)
+	if err != nil {
+		return
+	}
+
+	for headerName, headerValue := range patchEndpointsOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("atracker", "V1", "PatchEndpoints")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Accept", "application/json")
+	builder.AddHeader("Content-Type", "application/json")
+
+	body := make(map[string]interface{})
+	if patchEndpointsOptions.APIEndpoint != nil {
+		body["api_endpoint"] = patchEndpointsOptions.APIEndpoint
+	}
+	_, err = builder.SetBodyContentJSON(body)
+	if err != nil {
+		return
+	}
+
+	request, err := builder.Build()
+	if err != nil {
+		return
+	}
+
+	var rawResponse map[string]json.RawMessage
+	response, err = atracker.Service.Request(request, &rawResponse)
+	if err != nil {
+		return
+	}
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalEndpoints)
+		if err != nil {
+			return
+		}
+		response.Result = result
+	}
+
+	return
+}
+
+// APIEndpoint : Activity Tracker API endpoint.
+type APIEndpoint struct {
+	// The public URL of Activity Tracker in a region.
+	PublicURL *string `json:"public_url" validate:"required"`
+
+	// Indicates whether or not the public endpoint is enabled in the account.
+	PublicEnabled *bool `json:"public_enabled" validate:"required"`
+
+	// The private URL of Activity Tracker. This URL cannot be disabled.
+	PrivateURL *string `json:"private_url" validate:"required"`
+
+	// The private endpoint is always enabled.
+	PrivateEnabled *bool `json:"private_enabled,omitempty"`
+}
+
+// UnmarshalAPIEndpoint unmarshals an instance of APIEndpoint from the specified map of raw messages.
+func UnmarshalAPIEndpoint(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(APIEndpoint)
+	err = core.UnmarshalPrimitive(m, "public_url", &obj.PublicURL)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "public_enabled", &obj.PublicEnabled)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "private_url", &obj.PrivateURL)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "private_enabled", &obj.PrivateEnabled)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
 // CreateRouteOptions : The CreateRoute options.
 type CreateRouteOptions struct {
-	// The name of the route. Must be 180 characters or less and cannot include any special characters other than `(space)
-	// - . _ :`.
-	Name *string `validate:"required"`
+	// The name of the route. The name must be 1000 characters or less and cannot include any special characters other than
+	// `(space) - . _ :`.
+	Name *string `json:"name" validate:"required"`
 
-	// Whether or not all global events should be forwarded to this region.
-	ReceiveGlobalEvents *bool `validate:"required"`
+	// Indicates whether or not all global events should be forwarded to this region.
+	ReceiveGlobalEvents *bool `json:"receive_global_events" validate:"required"`
 
 	// Routing rules that will be evaluated in their order of the array.
-	Rules []Rule `validate:"required"`
+	Rules []Rule `json:"rules" validate:"required"`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -805,21 +1051,21 @@ func (*AtrackerV1) NewCreateRouteOptions(name string, receiveGlobalEvents bool, 
 }
 
 // SetName : Allow user to set Name
-func (options *CreateRouteOptions) SetName(name string) *CreateRouteOptions {
-	options.Name = core.StringPtr(name)
-	return options
+func (_options *CreateRouteOptions) SetName(name string) *CreateRouteOptions {
+	_options.Name = core.StringPtr(name)
+	return _options
 }
 
 // SetReceiveGlobalEvents : Allow user to set ReceiveGlobalEvents
-func (options *CreateRouteOptions) SetReceiveGlobalEvents(receiveGlobalEvents bool) *CreateRouteOptions {
-	options.ReceiveGlobalEvents = core.BoolPtr(receiveGlobalEvents)
-	return options
+func (_options *CreateRouteOptions) SetReceiveGlobalEvents(receiveGlobalEvents bool) *CreateRouteOptions {
+	_options.ReceiveGlobalEvents = core.BoolPtr(receiveGlobalEvents)
+	return _options
 }
 
 // SetRules : Allow user to set Rules
-func (options *CreateRouteOptions) SetRules(rules []Rule) *CreateRouteOptions {
-	options.Rules = rules
-	return options
+func (_options *CreateRouteOptions) SetRules(rules []Rule) *CreateRouteOptions {
+	_options.Rules = rules
+	return _options
 }
 
 // SetHeaders : Allow user to set Headers
@@ -830,14 +1076,15 @@ func (options *CreateRouteOptions) SetHeaders(param map[string]string) *CreateRo
 
 // CreateTargetOptions : The CreateTarget options.
 type CreateTargetOptions struct {
-	// The name of the target. Must be 256 characters or less.
-	Name *string `validate:"required"`
+	// The name of the target. The name must be 1000 characters or less, and cannot include any special characters other
+	// than `(space) - . _ :`.
+	Name *string `json:"name" validate:"required"`
 
 	// The type of the target.
-	TargetType *string `validate:"required"`
+	TargetType *string `json:"target_type" validate:"required"`
 
 	// Property values for a Cloud Object Storage Endpoint.
-	CosEndpoint *CosEndpoint `validate:"required"`
+	CosEndpoint *CosEndpoint `json:"cos_endpoint" validate:"required"`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -859,21 +1106,21 @@ func (*AtrackerV1) NewCreateTargetOptions(name string, targetType string, cosEnd
 }
 
 // SetName : Allow user to set Name
-func (options *CreateTargetOptions) SetName(name string) *CreateTargetOptions {
-	options.Name = core.StringPtr(name)
-	return options
+func (_options *CreateTargetOptions) SetName(name string) *CreateTargetOptions {
+	_options.Name = core.StringPtr(name)
+	return _options
 }
 
 // SetTargetType : Allow user to set TargetType
-func (options *CreateTargetOptions) SetTargetType(targetType string) *CreateTargetOptions {
-	options.TargetType = core.StringPtr(targetType)
-	return options
+func (_options *CreateTargetOptions) SetTargetType(targetType string) *CreateTargetOptions {
+	_options.TargetType = core.StringPtr(targetType)
+	return _options
 }
 
 // SetCosEndpoint : Allow user to set CosEndpoint
-func (options *CreateTargetOptions) SetCosEndpoint(cosEndpoint *CosEndpoint) *CreateTargetOptions {
-	options.CosEndpoint = cosEndpoint
-	return options
+func (_options *CreateTargetOptions) SetCosEndpoint(cosEndpoint *CosEndpoint) *CreateTargetOptions {
+	_options.CosEndpoint = cosEndpoint
+	return _options
 }
 
 // SetHeaders : Allow user to set Headers
@@ -885,7 +1132,7 @@ func (options *CreateTargetOptions) SetHeaders(param map[string]string) *CreateT
 // DeleteRouteOptions : The DeleteRoute options.
 type DeleteRouteOptions struct {
 	// The v4 UUID that uniquely identifies the route.
-	ID *string `validate:"required,ne="`
+	ID *string `json:"-" validate:"required,ne="`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -899,9 +1146,9 @@ func (*AtrackerV1) NewDeleteRouteOptions(id string) *DeleteRouteOptions {
 }
 
 // SetID : Allow user to set ID
-func (options *DeleteRouteOptions) SetID(id string) *DeleteRouteOptions {
-	options.ID = core.StringPtr(id)
-	return options
+func (_options *DeleteRouteOptions) SetID(id string) *DeleteRouteOptions {
+	_options.ID = core.StringPtr(id)
+	return _options
 }
 
 // SetHeaders : Allow user to set Headers
@@ -913,7 +1160,7 @@ func (options *DeleteRouteOptions) SetHeaders(param map[string]string) *DeleteRo
 // DeleteTargetOptions : The DeleteTarget options.
 type DeleteTargetOptions struct {
 	// The v4 UUID that uniquely identifies the target.
-	ID *string `validate:"required,ne="`
+	ID *string `json:"-" validate:"required,ne="`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -927,9 +1174,9 @@ func (*AtrackerV1) NewDeleteTargetOptions(id string) *DeleteTargetOptions {
 }
 
 // SetID : Allow user to set ID
-func (options *DeleteTargetOptions) SetID(id string) *DeleteTargetOptions {
-	options.ID = core.StringPtr(id)
-	return options
+func (_options *DeleteTargetOptions) SetID(id string) *DeleteTargetOptions {
+	_options.ID = core.StringPtr(id)
+	return _options
 }
 
 // SetHeaders : Allow user to set Headers
@@ -938,10 +1185,62 @@ func (options *DeleteTargetOptions) SetHeaders(param map[string]string) *DeleteT
 	return options
 }
 
+// Endpoints : Activity Tracker endpoints.
+type Endpoints struct {
+	// Activity Tracker API endpoint.
+	APIEndpoint *APIEndpoint `json:"api_endpoint" validate:"required"`
+}
+
+// UnmarshalEndpoints unmarshals an instance of Endpoints from the specified map of raw messages.
+func UnmarshalEndpoints(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(Endpoints)
+	err = core.UnmarshalModel(m, "api_endpoint", &obj.APIEndpoint, UnmarshalAPIEndpoint)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// EndpointsRequestAPIEndpoint : Activity Tracker service API endpoint.
+type EndpointsRequestAPIEndpoint struct {
+	// Indicate whether or not the public endpoint is enabled in an account.
+	PublicEnabled *bool `json:"public_enabled,omitempty"`
+}
+
+// UnmarshalEndpointsRequestAPIEndpoint unmarshals an instance of EndpointsRequestAPIEndpoint from the specified map of raw messages.
+func UnmarshalEndpointsRequestAPIEndpoint(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(EndpointsRequestAPIEndpoint)
+	err = core.UnmarshalPrimitive(m, "public_enabled", &obj.PublicEnabled)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// GetEndpointsOptions : The GetEndpoints options.
+type GetEndpointsOptions struct {
+
+	// Allows users to set headers on API requests
+	Headers map[string]string
+}
+
+// NewGetEndpointsOptions : Instantiate GetEndpointsOptions
+func (*AtrackerV1) NewGetEndpointsOptions() *GetEndpointsOptions {
+	return &GetEndpointsOptions{}
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *GetEndpointsOptions) SetHeaders(param map[string]string) *GetEndpointsOptions {
+	options.Headers = param
+	return options
+}
+
 // GetRouteOptions : The GetRoute options.
 type GetRouteOptions struct {
 	// The v4 UUID that uniquely identifies the route.
-	ID *string `validate:"required,ne="`
+	ID *string `json:"-" validate:"required,ne="`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -955,9 +1254,9 @@ func (*AtrackerV1) NewGetRouteOptions(id string) *GetRouteOptions {
 }
 
 // SetID : Allow user to set ID
-func (options *GetRouteOptions) SetID(id string) *GetRouteOptions {
-	options.ID = core.StringPtr(id)
-	return options
+func (_options *GetRouteOptions) SetID(id string) *GetRouteOptions {
+	_options.ID = core.StringPtr(id)
+	return _options
 }
 
 // SetHeaders : Allow user to set Headers
@@ -969,7 +1268,7 @@ func (options *GetRouteOptions) SetHeaders(param map[string]string) *GetRouteOpt
 // GetTargetOptions : The GetTarget options.
 type GetTargetOptions struct {
 	// The v4 UUID that uniquely identifies the target.
-	ID *string `validate:"required,ne="`
+	ID *string `json:"-" validate:"required,ne="`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -983,9 +1282,9 @@ func (*AtrackerV1) NewGetTargetOptions(id string) *GetTargetOptions {
 }
 
 // SetID : Allow user to set ID
-func (options *GetTargetOptions) SetID(id string) *GetTargetOptions {
-	options.ID = core.StringPtr(id)
-	return options
+func (_options *GetTargetOptions) SetID(id string) *GetTargetOptions {
+	_options.ID = core.StringPtr(id)
+	return _options
 }
 
 // SetHeaders : Allow user to set Headers
@@ -1030,20 +1329,46 @@ func (options *ListTargetsOptions) SetHeaders(param map[string]string) *ListTarg
 	return options
 }
 
+// PatchEndpointsOptions : The PatchEndpoints options.
+type PatchEndpointsOptions struct {
+	// Activity Tracker service API endpoint.
+	APIEndpoint *EndpointsRequestAPIEndpoint `json:"api_endpoint,omitempty"`
+
+	// Allows users to set headers on API requests
+	Headers map[string]string
+}
+
+// NewPatchEndpointsOptions : Instantiate PatchEndpointsOptions
+func (*AtrackerV1) NewPatchEndpointsOptions() *PatchEndpointsOptions {
+	return &PatchEndpointsOptions{}
+}
+
+// SetAPIEndpoint : Allow user to set APIEndpoint
+func (_options *PatchEndpointsOptions) SetAPIEndpoint(apiEndpoint *EndpointsRequestAPIEndpoint) *PatchEndpointsOptions {
+	_options.APIEndpoint = apiEndpoint
+	return _options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *PatchEndpointsOptions) SetHeaders(param map[string]string) *PatchEndpointsOptions {
+	options.Headers = param
+	return options
+}
+
 // ReplaceRouteOptions : The ReplaceRoute options.
 type ReplaceRouteOptions struct {
 	// The v4 UUID that uniquely identifies the route.
-	ID *string `validate:"required,ne="`
+	ID *string `json:"-" validate:"required,ne="`
 
-	// The name of the route. Must be 180 characters or less and cannot include any special characters other than `(space)
-	// - . _ :`.
-	Name *string `validate:"required"`
+	// The name of the route. The name must be 1000 characters or less and cannot include any special characters other than
+	// `(space) - . _ :`.
+	Name *string `json:"name" validate:"required"`
 
-	// Whether or not all global events should be forwarded to this region.
-	ReceiveGlobalEvents *bool `validate:"required"`
+	// Indicates whether or not all global events should be forwarded to this region.
+	ReceiveGlobalEvents *bool `json:"receive_global_events" validate:"required"`
 
 	// Routing rules that will be evaluated in their order of the array.
-	Rules []Rule `validate:"required"`
+	Rules []Rule `json:"rules" validate:"required"`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -1060,27 +1385,27 @@ func (*AtrackerV1) NewReplaceRouteOptions(id string, name string, receiveGlobalE
 }
 
 // SetID : Allow user to set ID
-func (options *ReplaceRouteOptions) SetID(id string) *ReplaceRouteOptions {
-	options.ID = core.StringPtr(id)
-	return options
+func (_options *ReplaceRouteOptions) SetID(id string) *ReplaceRouteOptions {
+	_options.ID = core.StringPtr(id)
+	return _options
 }
 
 // SetName : Allow user to set Name
-func (options *ReplaceRouteOptions) SetName(name string) *ReplaceRouteOptions {
-	options.Name = core.StringPtr(name)
-	return options
+func (_options *ReplaceRouteOptions) SetName(name string) *ReplaceRouteOptions {
+	_options.Name = core.StringPtr(name)
+	return _options
 }
 
 // SetReceiveGlobalEvents : Allow user to set ReceiveGlobalEvents
-func (options *ReplaceRouteOptions) SetReceiveGlobalEvents(receiveGlobalEvents bool) *ReplaceRouteOptions {
-	options.ReceiveGlobalEvents = core.BoolPtr(receiveGlobalEvents)
-	return options
+func (_options *ReplaceRouteOptions) SetReceiveGlobalEvents(receiveGlobalEvents bool) *ReplaceRouteOptions {
+	_options.ReceiveGlobalEvents = core.BoolPtr(receiveGlobalEvents)
+	return _options
 }
 
 // SetRules : Allow user to set Rules
-func (options *ReplaceRouteOptions) SetRules(rules []Rule) *ReplaceRouteOptions {
-	options.Rules = rules
-	return options
+func (_options *ReplaceRouteOptions) SetRules(rules []Rule) *ReplaceRouteOptions {
+	_options.Rules = rules
+	return _options
 }
 
 // SetHeaders : Allow user to set Headers
@@ -1092,16 +1417,17 @@ func (options *ReplaceRouteOptions) SetHeaders(param map[string]string) *Replace
 // ReplaceTargetOptions : The ReplaceTarget options.
 type ReplaceTargetOptions struct {
 	// The v4 UUID that uniquely identifies the target.
-	ID *string `validate:"required,ne="`
+	ID *string `json:"-" validate:"required,ne="`
 
-	// The name of the target. Must be 256 characters or less.
-	Name *string `validate:"required"`
+	// The name of the target. The name must be 1000 characters or less, and cannot include any special characters other
+	// than `(space) - . _ :`.
+	Name *string `json:"name" validate:"required"`
 
 	// The type of the target.
-	TargetType *string `validate:"required"`
+	TargetType *string `json:"target_type" validate:"required"`
 
 	// Property values for a Cloud Object Storage Endpoint.
-	CosEndpoint *CosEndpoint `validate:"required"`
+	CosEndpoint *CosEndpoint `json:"cos_endpoint" validate:"required"`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -1124,27 +1450,27 @@ func (*AtrackerV1) NewReplaceTargetOptions(id string, name string, targetType st
 }
 
 // SetID : Allow user to set ID
-func (options *ReplaceTargetOptions) SetID(id string) *ReplaceTargetOptions {
-	options.ID = core.StringPtr(id)
-	return options
+func (_options *ReplaceTargetOptions) SetID(id string) *ReplaceTargetOptions {
+	_options.ID = core.StringPtr(id)
+	return _options
 }
 
 // SetName : Allow user to set Name
-func (options *ReplaceTargetOptions) SetName(name string) *ReplaceTargetOptions {
-	options.Name = core.StringPtr(name)
-	return options
+func (_options *ReplaceTargetOptions) SetName(name string) *ReplaceTargetOptions {
+	_options.Name = core.StringPtr(name)
+	return _options
 }
 
 // SetTargetType : Allow user to set TargetType
-func (options *ReplaceTargetOptions) SetTargetType(targetType string) *ReplaceTargetOptions {
-	options.TargetType = core.StringPtr(targetType)
-	return options
+func (_options *ReplaceTargetOptions) SetTargetType(targetType string) *ReplaceTargetOptions {
+	_options.TargetType = core.StringPtr(targetType)
+	return _options
 }
 
 // SetCosEndpoint : Allow user to set CosEndpoint
-func (options *ReplaceTargetOptions) SetCosEndpoint(cosEndpoint *CosEndpoint) *ReplaceTargetOptions {
-	options.CosEndpoint = cosEndpoint
-	return options
+func (_options *ReplaceTargetOptions) SetCosEndpoint(cosEndpoint *CosEndpoint) *ReplaceTargetOptions {
+	_options.CosEndpoint = cosEndpoint
+	return _options
 }
 
 // SetHeaders : Allow user to set Headers
@@ -1155,23 +1481,29 @@ func (options *ReplaceTargetOptions) SetHeaders(param map[string]string) *Replac
 
 // Route : The route resource.
 type Route struct {
-	// The uuid of this route resource.
+	// The uuid of the route resource.
 	ID *string `json:"id" validate:"required"`
 
-	// The name of this route.
+	// The name of the route.
 	Name *string `json:"name" validate:"required"`
 
-	// The crn of this route type resource.
+	// The crn of the route resource.
 	CRN *string `json:"crn" validate:"required"`
 
-	// The version of this route.
+	// The version of the route.
 	Version *int64 `json:"version,omitempty"`
 
-	// Whether or not all global events should be forwarded to this region.
+	// Indicates whether or not all global events should be forwarded to this region.
 	ReceiveGlobalEvents *bool `json:"receive_global_events" validate:"required"`
 
 	// The routing rules that will be evaluated in their order of the array.
 	Rules []Rule `json:"rules" validate:"required"`
+
+	// The timestamp of the route creation time.
+	Created *strfmt.DateTime `json:"created,omitempty"`
+
+	// The timestamp of the route last updated time.
+	Updated *strfmt.DateTime `json:"updated,omitempty"`
 }
 
 // UnmarshalRoute unmarshals an instance of Route from the specified map of raw messages.
@@ -1201,6 +1533,14 @@ func UnmarshalRoute(m map[string]json.RawMessage, result interface{}) (err error
 	if err != nil {
 		return
 	}
+	err = core.UnmarshalPrimitive(m, "created", &obj.Created)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "updated", &obj.Updated)
+	if err != nil {
+		return
+	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
 	return
 }
@@ -1224,16 +1564,16 @@ func UnmarshalRouteList(m map[string]json.RawMessage, result interface{}) (err e
 
 // Rule : The request payload to create a regional route.
 type Rule struct {
-	// The target ID List. Only one target id is supported.
+	// The target ID List. Only 1 target id is supported.
 	TargetIds []string `json:"target_ids" validate:"required"`
 }
 
 // NewRule : Instantiate Rule (Generic Model Constructor)
-func (*AtrackerV1) NewRule(targetIds []string) (model *Rule, err error) {
-	model = &Rule{
+func (*AtrackerV1) NewRule(targetIds []string) (_model *Rule, err error) {
+	_model = &Rule{
 		TargetIds: targetIds,
 	}
-	err = core.ValidateStruct(model, "required parameters")
+	err = core.ValidateStruct(_model, "required parameters")
 	return
 }
 
@@ -1248,31 +1588,40 @@ func UnmarshalRule(m map[string]json.RawMessage, result interface{}) (err error)
 	return
 }
 
-// Target : Property values for a target in response. Credentials associated with the target are encrypted and masked as REDACTED
-// in the response.
+// Target : Property values for a target in the response. Credentials associated with the target are encrypted and masked as
+// REDACTED in the response.
 type Target struct {
-	// The uuid of this target resource.
+	// The uuid of the target resource.
 	ID *string `json:"id" validate:"required"`
 
-	// The name of this target resource.
+	// The name of the target resource.
 	Name *string `json:"name" validate:"required"`
 
-	// The crn of this target type resource.
+	// The crn of the target resource.
 	CRN *string `json:"crn" validate:"required"`
 
-	// The type of this target.
+	// The type of the target.
 	TargetType *string `json:"target_type" validate:"required"`
 
-	// The encryption key used to encrypt events before ATracker services buffer them on storage. This credential will be
-	// masked in the response.
+	// The encryption key that is used to encrypt events before Activity Tracker services buffer them on storage. This
+	// credential is masked in the response.
 	EncryptKey *string `json:"encrypt_key,omitempty"`
 
 	// Property values for a Cloud Object Storage Endpoint.
 	CosEndpoint *CosEndpoint `json:"cos_endpoint,omitempty"`
+
+	// The status of the write attempt with the provided cos_endpoint parameters.
+	CosWriteStatus *CosWriteStatus `json:"cos_write_status,omitempty"`
+
+	// The timestamp of the target creation time.
+	Created *strfmt.DateTime `json:"created,omitempty"`
+
+	// The timestamp of the target last updated time.
+	Updated *strfmt.DateTime `json:"updated,omitempty"`
 }
 
 // Constants associated with the Target.TargetType property.
-// The type of this target.
+// The type of the target.
 const (
 	TargetTargetTypeCloudObjectStorageConst = "cloud_object_storage"
 )
@@ -1304,6 +1653,18 @@ func UnmarshalTarget(m map[string]json.RawMessage, result interface{}) (err erro
 	if err != nil {
 		return
 	}
+	err = core.UnmarshalModel(m, "cos_write_status", &obj.CosWriteStatus, UnmarshalCosWriteStatus)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "created", &obj.Created)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "updated", &obj.Updated)
+	if err != nil {
+		return
+	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
 	return
 }
@@ -1325,30 +1686,114 @@ func UnmarshalTargetList(m map[string]json.RawMessage, result interface{}) (err 
 	return
 }
 
+// ValidateTargetOptions : The ValidateTarget options.
+type ValidateTargetOptions struct {
+	// The v4 UUID that uniquely identifies the target.
+	ID *string `json:"-" validate:"required,ne="`
+
+	// Allows users to set headers on API requests
+	Headers map[string]string
+}
+
+// NewValidateTargetOptions : Instantiate ValidateTargetOptions
+func (*AtrackerV1) NewValidateTargetOptions(id string) *ValidateTargetOptions {
+	return &ValidateTargetOptions{
+		ID: core.StringPtr(id),
+	}
+}
+
+// SetID : Allow user to set ID
+func (_options *ValidateTargetOptions) SetID(id string) *ValidateTargetOptions {
+	_options.ID = core.StringPtr(id)
+	return _options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *ValidateTargetOptions) SetHeaders(param map[string]string) *ValidateTargetOptions {
+	options.Headers = param
+	return options
+}
+
+// Warning : The warning object.
+type Warning struct {
+	// The warning code.
+	Code *string `json:"code,omitempty"`
+
+	// The warning message.
+	Message *string `json:"message,omitempty"`
+}
+
+// UnmarshalWarning unmarshals an instance of Warning from the specified map of raw messages.
+func UnmarshalWarning(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(Warning)
+	err = core.UnmarshalPrimitive(m, "code", &obj.Code)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "message", &obj.Message)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// WarningReport : Description of a warning that occurred in a service request.
+type WarningReport struct {
+	// The status code.
+	StatusCode *int64 `json:"status_code,omitempty"`
+
+	// The transaction-id of the API request.
+	Trace *string `json:"trace,omitempty"`
+
+	// The warning array triggered by the API request.
+	Warnings []Warning `json:"warnings,omitempty"`
+}
+
+// UnmarshalWarningReport unmarshals an instance of WarningReport from the specified map of raw messages.
+func UnmarshalWarningReport(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(WarningReport)
+	err = core.UnmarshalPrimitive(m, "status_code", &obj.StatusCode)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "trace", &obj.Trace)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "warnings", &obj.Warnings, UnmarshalWarning)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
 // CosEndpoint : Property values for a Cloud Object Storage Endpoint.
 type CosEndpoint struct {
-	// The host name of this COS endpoint.
+	// The host name of the Cloud Object Storage endpoint.
 	Endpoint *string `json:"endpoint" validate:"required"`
 
-	// The CRN of this COS instance.
+	// The CRN of the Cloud Object Storage instance.
 	TargetCRN *string `json:"target_crn" validate:"required"`
 
-	// The bucket name under this COS instance.
+	// The bucket name under the Cloud Object Storage instance.
 	Bucket *string `json:"bucket" validate:"required"`
 
-	// The IAM Api key that have writer access to this cos instance. This credential will be masked in the response.
+	// The IAM API key that has writer access to the Cloud Object Storage instance. This credential is masked in the
+	// response.
 	APIKey *string `json:"api_key" validate:"required"`
 }
 
 // NewCosEndpoint : Instantiate CosEndpoint (Generic Model Constructor)
-func (*AtrackerV1) NewCosEndpoint(endpoint string, targetCRN string, bucket string, apiKey string) (model *CosEndpoint, err error) {
-	model = &CosEndpoint{
+func (*AtrackerV1) NewCosEndpoint(endpoint string, targetCRN string, bucket string, apiKey string) (_model *CosEndpoint, err error) {
+	_model = &CosEndpoint{
 		Endpoint: core.StringPtr(endpoint),
 		TargetCRN: core.StringPtr(targetCRN),
 		Bucket: core.StringPtr(bucket),
 		APIKey: core.StringPtr(apiKey),
 	}
-	err = core.ValidateStruct(model, "required parameters")
+	err = core.ValidateStruct(_model, "required parameters")
 	return
 }
 
@@ -1368,6 +1813,37 @@ func UnmarshalCosEndpoint(m map[string]json.RawMessage, result interface{}) (err
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "api_key", &obj.APIKey)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// CosWriteStatus : The status of the write attempt with the provided cos_endpoint parameters.
+type CosWriteStatus struct {
+	// The status such as failed or success.
+	Status *string `json:"status,omitempty"`
+
+	// The timestamp of the failure.
+	LastFailure *strfmt.DateTime `json:"last_failure,omitempty"`
+
+	// Detailed description of the cause of the failure.
+	ReasonForLastFailure *string `json:"reason_for_last_failure,omitempty"`
+}
+
+// UnmarshalCosWriteStatus unmarshals an instance of CosWriteStatus from the specified map of raw messages.
+func UnmarshalCosWriteStatus(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(CosWriteStatus)
+	err = core.UnmarshalPrimitive(m, "status", &obj.Status)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "last_failure", &obj.LastFailure)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "reason_for_last_failure", &obj.ReasonForLastFailure)
 	if err != nil {
 		return
 	}

@@ -2,8 +2,8 @@
 
 COVERAGE = -coverprofile=coverage.txt -covermode=atomic
 
-all: test lint tidy
-travis-ci: test-cov lint tidy
+all: tidy test lint
+travis-ci: test-cov lint scan-gosec tidy
 
 test:
 	go test `go list ./...`
@@ -19,6 +19,9 @@ test-int-cov:
 
 lint:
 	golangci-lint run
+
+scan-gosec:
+	gosec ./...
 
 tidy:
 	go mod tidy

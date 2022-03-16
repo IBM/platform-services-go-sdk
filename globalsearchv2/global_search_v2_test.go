@@ -67,13 +67,14 @@ var _ = Describe(`GlobalSearchV2`, func() {
 		Context(`Using external config, construct service client instances`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"GLOBAL_SEARCH_URL":       "https://globalsearchv2/api",
+				"GLOBAL_SEARCH_URL": "https://globalsearchv2/api",
 				"GLOBAL_SEARCH_AUTH_TYPE": "noauth",
 			}
 
 			It(`Create service client using external config successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				globalSearchService, serviceErr := globalsearchv2.NewGlobalSearchV2UsingExternalConfig(&globalsearchv2.GlobalSearchV2Options{})
+				globalSearchService, serviceErr := globalsearchv2.NewGlobalSearchV2UsingExternalConfig(&globalsearchv2.GlobalSearchV2Options{
+				})
 				Expect(globalSearchService).ToNot(BeNil())
 				Expect(serviceErr).To(BeNil())
 				ClearTestEnvironment(testEnvironment)
@@ -102,7 +103,8 @@ var _ = Describe(`GlobalSearchV2`, func() {
 			})
 			It(`Create service client using external config and set url programatically successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				globalSearchService, serviceErr := globalsearchv2.NewGlobalSearchV2UsingExternalConfig(&globalsearchv2.GlobalSearchV2Options{})
+				globalSearchService, serviceErr := globalsearchv2.NewGlobalSearchV2UsingExternalConfig(&globalsearchv2.GlobalSearchV2Options{
+				})
 				err := globalSearchService.SetServiceURL("https://testService/api")
 				Expect(err).To(BeNil())
 				Expect(globalSearchService).ToNot(BeNil())
@@ -120,12 +122,13 @@ var _ = Describe(`GlobalSearchV2`, func() {
 		Context(`Using external config, construct service client instances with error: Invalid Auth`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"GLOBAL_SEARCH_URL":       "https://globalsearchv2/api",
+				"GLOBAL_SEARCH_URL": "https://globalsearchv2/api",
 				"GLOBAL_SEARCH_AUTH_TYPE": "someOtherAuth",
 			}
 
 			SetTestEnvironment(testEnvironment)
-			globalSearchService, serviceErr := globalsearchv2.NewGlobalSearchV2UsingExternalConfig(&globalsearchv2.GlobalSearchV2Options{})
+			globalSearchService, serviceErr := globalsearchv2.NewGlobalSearchV2UsingExternalConfig(&globalsearchv2.GlobalSearchV2Options{
+			})
 
 			It(`Instantiate service client with error`, func() {
 				Expect(globalSearchService).To(BeNil())
@@ -136,7 +139,7 @@ var _ = Describe(`GlobalSearchV2`, func() {
 		Context(`Using external config, construct service client instances with error: Invalid URL`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"GLOBAL_SEARCH_AUTH_TYPE": "NOAuth",
+				"GLOBAL_SEARCH_AUTH_TYPE":   "NOAuth",
 			}
 
 			SetTestEnvironment(testEnvironment)
@@ -163,7 +166,7 @@ var _ = Describe(`GlobalSearchV2`, func() {
 	})
 	Describe(`Search(searchOptions *SearchOptions) - Operation response error`, func() {
 		searchPath := "/v3/resources/search"
-		Context(`Using mock server endpoint`, func() {
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
@@ -218,7 +221,6 @@ var _ = Describe(`GlobalSearchV2`, func() {
 			})
 		})
 	})
-
 	Describe(`Search(searchOptions *SearchOptions)`, func() {
 		searchPath := "/v3/resources/search"
 		Context(`Using mock server endpoint with timeout`, func() {
@@ -407,135 +409,51 @@ var _ = Describe(`GlobalSearchV2`, func() {
 				testServer.Close()
 			})
 		})
-	})
-	Describe(`Service constructor tests`, func() {
-		It(`Instantiate service client`, func() {
-			globalSearchService, serviceErr := globalsearchv2.NewGlobalSearchV2(&globalsearchv2.GlobalSearchV2Options{
-				Authenticator: &core.NoAuthAuthenticator{},
-			})
-			Expect(globalSearchService).ToNot(BeNil())
-			Expect(serviceErr).To(BeNil())
-		})
-		It(`Instantiate service client with error: Invalid URL`, func() {
-			globalSearchService, serviceErr := globalsearchv2.NewGlobalSearchV2(&globalsearchv2.GlobalSearchV2Options{
-				URL: "{BAD_URL_STRING",
-			})
-			Expect(globalSearchService).To(BeNil())
-			Expect(serviceErr).ToNot(BeNil())
-		})
-		It(`Instantiate service client with error: Invalid Auth`, func() {
-			globalSearchService, serviceErr := globalsearchv2.NewGlobalSearchV2(&globalsearchv2.GlobalSearchV2Options{
-				URL: "https://globalsearchv2/api",
-				Authenticator: &core.BasicAuthenticator{
-					Username: "",
-					Password: "",
-				},
-			})
-			Expect(globalSearchService).To(BeNil())
-			Expect(serviceErr).ToNot(BeNil())
-		})
-	})
-	Describe(`Service constructor tests using external config`, func() {
-		Context(`Using external config, construct service client instances`, func() {
-			// Map containing environment variables used in testing.
-			var testEnvironment = map[string]string{
-				"GLOBAL_SEARCH_URL":       "https://globalsearchv2/api",
-				"GLOBAL_SEARCH_AUTH_TYPE": "noauth",
-			}
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
 
-			It(`Create service client using external config successfully`, func() {
-				SetTestEnvironment(testEnvironment)
-				globalSearchService, serviceErr := globalsearchv2.NewGlobalSearchV2UsingExternalConfig(&globalsearchv2.GlobalSearchV2Options{})
-				Expect(globalSearchService).ToNot(BeNil())
-				Expect(serviceErr).To(BeNil())
-				ClearTestEnvironment(testEnvironment)
-
-				clone := globalSearchService.Clone()
-				Expect(clone).ToNot(BeNil())
-				Expect(clone.Service != globalSearchService.Service).To(BeTrue())
-				Expect(clone.GetServiceURL()).To(Equal(globalSearchService.GetServiceURL()))
-				Expect(clone.Service.Options.Authenticator).To(Equal(globalSearchService.Service.Options.Authenticator))
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
 			})
-			It(`Create service client using external config and set url from constructor successfully`, func() {
-				SetTestEnvironment(testEnvironment)
-				globalSearchService, serviceErr := globalsearchv2.NewGlobalSearchV2UsingExternalConfig(&globalsearchv2.GlobalSearchV2Options{
-					URL: "https://testService/api",
+			It(`Invoke Search successfully`, func() {
+				globalSearchService, serviceErr := globalsearchv2.NewGlobalSearchV2(&globalsearchv2.GlobalSearchV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
 				})
-				Expect(globalSearchService).ToNot(BeNil())
 				Expect(serviceErr).To(BeNil())
-				Expect(globalSearchService.Service.GetServiceURL()).To(Equal("https://testService/api"))
-				ClearTestEnvironment(testEnvironment)
-
-				clone := globalSearchService.Clone()
-				Expect(clone).ToNot(BeNil())
-				Expect(clone.Service != globalSearchService.Service).To(BeTrue())
-				Expect(clone.GetServiceURL()).To(Equal(globalSearchService.GetServiceURL()))
-				Expect(clone.Service.Options.Authenticator).To(Equal(globalSearchService.Service.Options.Authenticator))
-			})
-			It(`Create service client using external config and set url programatically successfully`, func() {
-				SetTestEnvironment(testEnvironment)
-				globalSearchService, serviceErr := globalsearchv2.NewGlobalSearchV2UsingExternalConfig(&globalsearchv2.GlobalSearchV2Options{})
-				err := globalSearchService.SetServiceURL("https://testService/api")
-				Expect(err).To(BeNil())
 				Expect(globalSearchService).ToNot(BeNil())
-				Expect(serviceErr).To(BeNil())
-				Expect(globalSearchService.Service.GetServiceURL()).To(Equal("https://testService/api"))
-				ClearTestEnvironment(testEnvironment)
 
-				clone := globalSearchService.Clone()
-				Expect(clone).ToNot(BeNil())
-				Expect(clone.Service != globalSearchService.Service).To(BeTrue())
-				Expect(clone.GetServiceURL()).To(Equal(globalSearchService.GetServiceURL()))
-				Expect(clone.Service.Options.Authenticator).To(Equal(globalSearchService.Service.Options.Authenticator))
+				// Construct an instance of the SearchOptions model
+				searchOptionsModel := new(globalsearchv2.SearchOptions)
+				searchOptionsModel.Query = core.StringPtr("testString")
+				searchOptionsModel.Fields = []string{"testString"}
+				searchOptionsModel.SearchCursor = core.StringPtr("testString")
+				searchOptionsModel.TransactionID = core.StringPtr("testString")
+				searchOptionsModel.AccountID = core.StringPtr("testString")
+				searchOptionsModel.Limit = core.Int64Ptr(int64(1))
+				searchOptionsModel.Timeout = core.Int64Ptr(int64(0))
+				searchOptionsModel.Sort = []string{"testString"}
+				searchOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := globalSearchService.Search(searchOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
 			})
-		})
-		Context(`Using external config, construct service client instances with error: Invalid Auth`, func() {
-			// Map containing environment variables used in testing.
-			var testEnvironment = map[string]string{
-				"GLOBAL_SEARCH_URL":       "https://globalsearchv2/api",
-				"GLOBAL_SEARCH_AUTH_TYPE": "someOtherAuth",
-			}
-
-			SetTestEnvironment(testEnvironment)
-			globalSearchService, serviceErr := globalsearchv2.NewGlobalSearchV2UsingExternalConfig(&globalsearchv2.GlobalSearchV2Options{})
-
-			It(`Instantiate service client with error`, func() {
-				Expect(globalSearchService).To(BeNil())
-				Expect(serviceErr).ToNot(BeNil())
-				ClearTestEnvironment(testEnvironment)
+			AfterEach(func() {
+				testServer.Close()
 			})
-		})
-		Context(`Using external config, construct service client instances with error: Invalid URL`, func() {
-			// Map containing environment variables used in testing.
-			var testEnvironment = map[string]string{
-				"GLOBAL_SEARCH_AUTH_TYPE": "NOAuth",
-			}
-
-			SetTestEnvironment(testEnvironment)
-			globalSearchService, serviceErr := globalsearchv2.NewGlobalSearchV2UsingExternalConfig(&globalsearchv2.GlobalSearchV2Options{
-				URL: "{BAD_URL_STRING",
-			})
-
-			It(`Instantiate service client with error`, func() {
-				Expect(globalSearchService).To(BeNil())
-				Expect(serviceErr).ToNot(BeNil())
-				ClearTestEnvironment(testEnvironment)
-			})
-		})
-	})
-	Describe(`Regional endpoint tests`, func() {
-		It(`GetServiceURLForRegion(region string)`, func() {
-			var url string
-			var err error
-			url, err = globalsearchv2.GetServiceURLForRegion("INVALID_REGION")
-			Expect(url).To(BeEmpty())
-			Expect(err).ToNot(BeNil())
-			fmt.Fprintf(GinkgoWriter, "Expected error: %s\n", err.Error())
 		})
 	})
 	Describe(`GetSupportedTypes(getSupportedTypesOptions *GetSupportedTypesOptions) - Operation response error`, func() {
 		getSupportedTypesPath := "/v2/resources/supported_types"
-		Context(`Using mock server endpoint`, func() {
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
 			BeforeEach(func() {
 				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 					defer GinkgoRecover()
@@ -577,7 +495,6 @@ var _ = Describe(`GlobalSearchV2`, func() {
 			})
 		})
 	})
-
 	Describe(`GetSupportedTypes(getSupportedTypesOptions *GetSupportedTypesOptions)`, func() {
 		getSupportedTypesPath := "/v2/resources/supported_types"
 		Context(`Using mock server endpoint with timeout`, func() {
@@ -700,6 +617,39 @@ var _ = Describe(`GlobalSearchV2`, func() {
 				testServer.Close()
 			})
 		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke GetSupportedTypes successfully`, func() {
+				globalSearchService, serviceErr := globalsearchv2.NewGlobalSearchV2(&globalsearchv2.GlobalSearchV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(globalSearchService).ToNot(BeNil())
+
+				// Construct an instance of the GetSupportedTypesOptions model
+				getSupportedTypesOptionsModel := new(globalsearchv2.GetSupportedTypesOptions)
+				getSupportedTypesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := globalSearchService.GetSupportedTypes(getSupportedTypesOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
 	})
 	Describe(`Model constructor tests`, func() {
 		Context(`Using a service client instance`, func() {
@@ -753,11 +703,11 @@ var _ = Describe(`GlobalSearchV2`, func() {
 			Expect(mockReader).ToNot(BeNil())
 		})
 		It(`Invoke CreateMockDate() successfully`, func() {
-			mockDate := CreateMockDate()
+			mockDate := CreateMockDate("2019-01-01")
 			Expect(mockDate).ToNot(BeNil())
 		})
 		It(`Invoke CreateMockDateTime() successfully`, func() {
-			mockDateTime := CreateMockDateTime()
+			mockDateTime := CreateMockDateTime("2019-01-01T12:00:00.000Z")
 			Expect(mockDateTime).ToNot(BeNil())
 		})
 	})
@@ -782,13 +732,19 @@ func CreateMockReader(mockData string) io.ReadCloser {
 	return ioutil.NopCloser(bytes.NewReader([]byte(mockData)))
 }
 
-func CreateMockDate() *strfmt.Date {
-	d := strfmt.Date(time.Date(2009, time.November, 10, 23, 0, 0, 0, time.UTC))
+func CreateMockDate(mockData string) *strfmt.Date {
+	d, err := core.ParseDate(mockData)
+	if err != nil {
+		return nil
+	}
 	return &d
 }
 
-func CreateMockDateTime() *strfmt.DateTime {
-	d := strfmt.DateTime(time.Date(2009, time.November, 10, 23, 0, 0, 0, time.UTC))
+func CreateMockDateTime(mockData string) *strfmt.DateTime {
+	d, err := core.ParseDateTime(mockData)
+	if err != nil {
+		return nil
+	}
 	return &d
 }
 

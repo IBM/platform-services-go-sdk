@@ -2090,12 +2090,15 @@ var _ = Describe(`CatalogManagementV1 Integration Tests (New)`, func() {
 			offeringInstanceOptions.SetClusterNamespaces([]string{"sdk-test"})
 			offeringInstanceOptions.SetSchematicsWorkspaceID("test-id")
 			offeringInstanceOptions.SetResourceGroupID("24a205592b2845c7a992efa55fe33ee0")
+			offeringInstanceOptions.SetChannel("stable")
+			offeringInstanceOptions.SetInstallPlan("automatic")
 
 			offeringInstance, response, err := catalogManagementService.CreateOfferingInstance(offeringInstanceOptions)
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(202))
 			Expect(offeringInstance).ToNot(BeNil())
+			Expect(*offeringInstance.LastOperation.State).To(Equal("in progress"))
 			fmt.Fprintf(GinkgoWriter, "CreateOfferingInstance() result:\n%s\n", common.ToJSON(offeringInstance))
 
 			Expect(offeringInstance.ID).ToNot(BeNil())
@@ -2117,6 +2120,7 @@ var _ = Describe(`CatalogManagementV1 Integration Tests (New)`, func() {
 
 			offeringInstance, response, err := catalogManagementService.GetOfferingInstance(getOfferingInstanceOptions)
 
+			Expect(offeringInstance.Metadata).ToNot(BeNil())
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(offeringInstance).ToNot(BeNil())
@@ -2141,6 +2145,8 @@ var _ = Describe(`CatalogManagementV1 Integration Tests (New)`, func() {
 			putOfferingInstanceOptions.SetClusterID(targetClusterID)
 			putOfferingInstanceOptions.SetClusterRegion("us-south")
 			putOfferingInstanceOptions.SetClusterNamespaces([]string{"sdk-test"})
+			putOfferingInstanceOptions.SetChannel("beta")
+			putOfferingInstanceOptions.SetInstallPlan("manual")
 
 			offeringInstance, response, err := catalogManagementService.PutOfferingInstance(putOfferingInstanceOptions)
 

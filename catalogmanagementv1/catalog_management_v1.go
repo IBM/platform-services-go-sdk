@@ -15,7 +15,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 3.31.0-902c9336-20210504-161156
+ * IBM OpenAPI SDK Code Generator Version: 3.43.0-49eab5c7-20211117-152138
  */
 
 // Package catalogmanagementv1 : Operations and models for the CatalogManagementV1 service
@@ -25,8 +25,10 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"io"
 	"net/http"
 	"reflect"
+	"strings"
 	"time"
 
 	"github.com/IBM/go-sdk-core/v5/core"
@@ -37,7 +39,7 @@ import (
 // CatalogManagementV1 : This is the API to use for managing private catalogs for IBM Cloud. Private catalogs provide a
 // way to centrally manage access to products in the IBM Cloud catalog and your own catalogs.
 //
-// Version: 1.0
+// API Version: 1.0
 type CatalogManagementV1 struct {
 	Service *core.BaseService
 }
@@ -1086,8 +1088,17 @@ func (catalogManagement *CatalogManagementV1) CreateOfferingWithContext(ctx cont
 	if createOfferingOptions.Provider != nil {
 		body["provider"] = createOfferingOptions.Provider
 	}
+	if createOfferingOptions.ProviderInfo != nil {
+		body["provider_info"] = createOfferingOptions.ProviderInfo
+	}
 	if createOfferingOptions.RepoInfo != nil {
 		body["repo_info"] = createOfferingOptions.RepoInfo
+	}
+	if createOfferingOptions.Support != nil {
+		body["support"] = createOfferingOptions.Support
+	}
+	if createOfferingOptions.Media != nil {
+		body["media"] = createOfferingOptions.Media
 	}
 	_, err = builder.SetBodyContentJSON(body)
 	if err != nil {
@@ -1431,6 +1442,13 @@ func (catalogManagement *CatalogManagementV1) GetOfferingWithContext(ctx context
 	}
 	builder.AddHeader("Accept", "application/json")
 
+	if getOfferingOptions.Type != nil {
+		builder.AddQuery("type", fmt.Sprint(*getOfferingOptions.Type))
+	}
+	if getOfferingOptions.Digest != nil {
+		builder.AddQuery("digest", fmt.Sprint(*getOfferingOptions.Digest))
+	}
+
 	request, err := builder.Build()
 	if err != nil {
 		return
@@ -1587,10 +1605,89 @@ func (catalogManagement *CatalogManagementV1) ReplaceOfferingWithContext(ctx con
 	if replaceOfferingOptions.Provider != nil {
 		body["provider"] = replaceOfferingOptions.Provider
 	}
+	if replaceOfferingOptions.ProviderInfo != nil {
+		body["provider_info"] = replaceOfferingOptions.ProviderInfo
+	}
 	if replaceOfferingOptions.RepoInfo != nil {
 		body["repo_info"] = replaceOfferingOptions.RepoInfo
 	}
+	if replaceOfferingOptions.Support != nil {
+		body["support"] = replaceOfferingOptions.Support
+	}
+	if replaceOfferingOptions.Media != nil {
+		body["media"] = replaceOfferingOptions.Media
+	}
 	_, err = builder.SetBodyContentJSON(body)
+	if err != nil {
+		return
+	}
+
+	request, err := builder.Build()
+	if err != nil {
+		return
+	}
+
+	var rawResponse map[string]json.RawMessage
+	response, err = catalogManagement.Service.Request(request, &rawResponse)
+	if err != nil {
+		return
+	}
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalOffering)
+		if err != nil {
+			return
+		}
+		response.Result = result
+	}
+
+	return
+}
+
+// UpdateOffering : Update offering
+// Update an offering.
+func (catalogManagement *CatalogManagementV1) UpdateOffering(updateOfferingOptions *UpdateOfferingOptions) (result *Offering, response *core.DetailedResponse, err error) {
+	return catalogManagement.UpdateOfferingWithContext(context.Background(), updateOfferingOptions)
+}
+
+// UpdateOfferingWithContext is an alternate form of the UpdateOffering method which supports a Context parameter
+func (catalogManagement *CatalogManagementV1) UpdateOfferingWithContext(ctx context.Context, updateOfferingOptions *UpdateOfferingOptions) (result *Offering, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(updateOfferingOptions, "updateOfferingOptions cannot be nil")
+	if err != nil {
+		return
+	}
+	err = core.ValidateStruct(updateOfferingOptions, "updateOfferingOptions")
+	if err != nil {
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"catalog_identifier": *updateOfferingOptions.CatalogIdentifier,
+		"offering_id": *updateOfferingOptions.OfferingID,
+	}
+
+	builder := core.NewRequestBuilder(core.PATCH)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = catalogManagement.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(catalogManagement.Service.Options.URL, `/catalogs/{catalog_identifier}/offerings/{offering_id}`, pathParamsMap)
+	if err != nil {
+		return
+	}
+
+	for headerName, headerValue := range updateOfferingOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "UpdateOffering")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Accept", "application/json")
+	builder.AddHeader("Content-Type", "application/json-patch+json")
+	if updateOfferingOptions.IfMatch != nil {
+		builder.AddHeader("If-Match", fmt.Sprint(*updateOfferingOptions.IfMatch))
+	}
+
+	_, err = builder.SetBodyContentJSON(updateOfferingOptions.Updates)
 	if err != nil {
 		return
 	}
@@ -1798,7 +1895,7 @@ func (catalogManagement *CatalogManagementV1) ReplaceOfferingIconWithContext(ctx
 // automatically be disapproved. if disapprove `allow_request` then all rights to publish will be removed. This is
 // because the process steps always go first through `allow` to `ibm` and then to `public`. `ibm` cannot be skipped.
 // Only users with Approval IAM authority can use this. Approvers should use the catalog and offering id from the public
-// catalog since they wouldn't have access to the private offering.'.
+// catalog since they wouldn't have access to the private offering.
 func (catalogManagement *CatalogManagementV1) UpdateOfferingIBM(updateOfferingIBMOptions *UpdateOfferingIBMOptions) (result *ApprovalResult, response *core.DetailedResponse, err error) {
 	return catalogManagement.UpdateOfferingIBMWithContext(context.Background(), updateOfferingIBMOptions)
 }
@@ -1860,6 +1957,69 @@ func (catalogManagement *CatalogManagementV1) UpdateOfferingIBMWithContext(ctx c
 	return
 }
 
+// DeprecateOffering : Allows offering to be deprecated
+// Approve or disapprove the offering to be deprecated.
+func (catalogManagement *CatalogManagementV1) DeprecateOffering(deprecateOfferingOptions *DeprecateOfferingOptions) (response *core.DetailedResponse, err error) {
+	return catalogManagement.DeprecateOfferingWithContext(context.Background(), deprecateOfferingOptions)
+}
+
+// DeprecateOfferingWithContext is an alternate form of the DeprecateOffering method which supports a Context parameter
+func (catalogManagement *CatalogManagementV1) DeprecateOfferingWithContext(ctx context.Context, deprecateOfferingOptions *DeprecateOfferingOptions) (response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(deprecateOfferingOptions, "deprecateOfferingOptions cannot be nil")
+	if err != nil {
+		return
+	}
+	err = core.ValidateStruct(deprecateOfferingOptions, "deprecateOfferingOptions")
+	if err != nil {
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"catalog_identifier": *deprecateOfferingOptions.CatalogIdentifier,
+		"offering_id": *deprecateOfferingOptions.OfferingID,
+		"setting": *deprecateOfferingOptions.Setting,
+	}
+
+	builder := core.NewRequestBuilder(core.POST)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = catalogManagement.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(catalogManagement.Service.Options.URL, `/catalogs/{catalog_identifier}/offerings/{offering_id}/deprecate/{setting}`, pathParamsMap)
+	if err != nil {
+		return
+	}
+
+	for headerName, headerValue := range deprecateOfferingOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "DeprecateOffering")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Content-Type", "application/json")
+
+	body := make(map[string]interface{})
+	if deprecateOfferingOptions.Description != nil {
+		body["description"] = deprecateOfferingOptions.Description
+	}
+	if deprecateOfferingOptions.DaysUntilDeprecate != nil {
+		body["days_until_deprecate"] = deprecateOfferingOptions.DaysUntilDeprecate
+	}
+	_, err = builder.SetBodyContentJSON(body)
+	if err != nil {
+		return
+	}
+
+	request, err := builder.Build()
+	if err != nil {
+		return
+	}
+
+	response, err = catalogManagement.Service.Request(request, nil)
+
+	return
+}
+
 // GetOfferingUpdates : Get version updates
 // Get available updates for the specified version.
 func (catalogManagement *CatalogManagementV1) GetOfferingUpdates(getOfferingUpdatesOptions *GetOfferingUpdatesOptions) (result []VersionUpdateDescriptor, response *core.DetailedResponse, err error) {
@@ -1899,8 +2059,14 @@ func (catalogManagement *CatalogManagementV1) GetOfferingUpdatesWithContext(ctx 
 		builder.AddHeader(headerName, headerValue)
 	}
 	builder.AddHeader("Accept", "application/json")
+	if getOfferingUpdatesOptions.XAuthRefreshToken != nil {
+		builder.AddHeader("X-Auth-Refresh-Token", fmt.Sprint(*getOfferingUpdatesOptions.XAuthRefreshToken))
+	}
 
 	builder.AddQuery("kind", fmt.Sprint(*getOfferingUpdatesOptions.Kind))
+	if getOfferingUpdatesOptions.Target != nil {
+		builder.AddQuery("target", fmt.Sprint(*getOfferingUpdatesOptions.Target))
+	}
 	if getOfferingUpdatesOptions.Version != nil {
 		builder.AddQuery("version", fmt.Sprint(*getOfferingUpdatesOptions.Version))
 	}
@@ -1915,6 +2081,18 @@ func (catalogManagement *CatalogManagementV1) GetOfferingUpdatesWithContext(ctx 
 	}
 	if getOfferingUpdatesOptions.Namespace != nil {
 		builder.AddQuery("namespace", fmt.Sprint(*getOfferingUpdatesOptions.Namespace))
+	}
+	if getOfferingUpdatesOptions.Sha != nil {
+		builder.AddQuery("sha", fmt.Sprint(*getOfferingUpdatesOptions.Sha))
+	}
+	if getOfferingUpdatesOptions.Channel != nil {
+		builder.AddQuery("channel", fmt.Sprint(*getOfferingUpdatesOptions.Channel))
+	}
+	if getOfferingUpdatesOptions.Namespaces != nil {
+		builder.AddQuery("namespaces", strings.Join(getOfferingUpdatesOptions.Namespaces, ","))
+	}
+	if getOfferingUpdatesOptions.AllNamespaces != nil {
+		builder.AddQuery("all_namespaces", fmt.Sprint(*getOfferingUpdatesOptions.AllNamespaces))
 	}
 
 	request, err := builder.Build()
@@ -1934,6 +2112,71 @@ func (catalogManagement *CatalogManagementV1) GetOfferingUpdatesWithContext(ctx 
 		}
 		response.Result = result
 	}
+
+	return
+}
+
+// GetOfferingSource : Get offering source
+// Get an offering's source.  This request requires authorization, even for public offerings.
+func (catalogManagement *CatalogManagementV1) GetOfferingSource(getOfferingSourceOptions *GetOfferingSourceOptions) (result io.ReadCloser, response *core.DetailedResponse, err error) {
+	return catalogManagement.GetOfferingSourceWithContext(context.Background(), getOfferingSourceOptions)
+}
+
+// GetOfferingSourceWithContext is an alternate form of the GetOfferingSource method which supports a Context parameter
+func (catalogManagement *CatalogManagementV1) GetOfferingSourceWithContext(ctx context.Context, getOfferingSourceOptions *GetOfferingSourceOptions) (result io.ReadCloser, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(getOfferingSourceOptions, "getOfferingSourceOptions cannot be nil")
+	if err != nil {
+		return
+	}
+	err = core.ValidateStruct(getOfferingSourceOptions, "getOfferingSourceOptions")
+	if err != nil {
+		return
+	}
+
+	builder := core.NewRequestBuilder(core.GET)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = catalogManagement.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(catalogManagement.Service.Options.URL, `/offering/source`, nil)
+	if err != nil {
+		return
+	}
+
+	for headerName, headerValue := range getOfferingSourceOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "GetOfferingSource")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Accept", "application/yaml")
+	if getOfferingSourceOptions.Accept != nil {
+		builder.AddHeader("Accept", fmt.Sprint(*getOfferingSourceOptions.Accept))
+	}
+
+	builder.AddQuery("version", fmt.Sprint(*getOfferingSourceOptions.Version))
+	if getOfferingSourceOptions.CatalogID != nil {
+		builder.AddQuery("catalogID", fmt.Sprint(*getOfferingSourceOptions.CatalogID))
+	}
+	if getOfferingSourceOptions.Name != nil {
+		builder.AddQuery("name", fmt.Sprint(*getOfferingSourceOptions.Name))
+	}
+	if getOfferingSourceOptions.ID != nil {
+		builder.AddQuery("id", fmt.Sprint(*getOfferingSourceOptions.ID))
+	}
+	if getOfferingSourceOptions.Kind != nil {
+		builder.AddQuery("kind", fmt.Sprint(*getOfferingSourceOptions.Kind))
+	}
+	if getOfferingSourceOptions.Channel != nil {
+		builder.AddQuery("channel", fmt.Sprint(*getOfferingSourceOptions.Channel))
+	}
+
+	request, err := builder.Build()
+	if err != nil {
+		return
+	}
+
+	response, err = catalogManagement.Service.Request(request, &result)
 
 	return
 }
@@ -2098,7 +2341,7 @@ func (catalogManagement *CatalogManagementV1) GetOfferingContainerImagesWithCont
 	return
 }
 
-// DeprecateVersion : Deprecate version
+// DeprecateVersion : Deprecate version immediately
 // Deprecate the specified version.
 func (catalogManagement *CatalogManagementV1) DeprecateVersion(deprecateVersionOptions *DeprecateVersionOptions) (response *core.DetailedResponse, err error) {
 	return catalogManagement.DeprecateVersionWithContext(context.Background(), deprecateVersionOptions)
@@ -2134,6 +2377,68 @@ func (catalogManagement *CatalogManagementV1) DeprecateVersionWithContext(ctx co
 	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "DeprecateVersion")
 	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
+	}
+
+	request, err := builder.Build()
+	if err != nil {
+		return
+	}
+
+	response, err = catalogManagement.Service.Request(request, nil)
+
+	return
+}
+
+// SetDeprecateVersion : Sets version to be deprecated in a certain time period
+// Set or cancel the version to be deprecated.
+func (catalogManagement *CatalogManagementV1) SetDeprecateVersion(setDeprecateVersionOptions *SetDeprecateVersionOptions) (response *core.DetailedResponse, err error) {
+	return catalogManagement.SetDeprecateVersionWithContext(context.Background(), setDeprecateVersionOptions)
+}
+
+// SetDeprecateVersionWithContext is an alternate form of the SetDeprecateVersion method which supports a Context parameter
+func (catalogManagement *CatalogManagementV1) SetDeprecateVersionWithContext(ctx context.Context, setDeprecateVersionOptions *SetDeprecateVersionOptions) (response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(setDeprecateVersionOptions, "setDeprecateVersionOptions cannot be nil")
+	if err != nil {
+		return
+	}
+	err = core.ValidateStruct(setDeprecateVersionOptions, "setDeprecateVersionOptions")
+	if err != nil {
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"version_loc_id": *setDeprecateVersionOptions.VersionLocID,
+		"setting": *setDeprecateVersionOptions.Setting,
+	}
+
+	builder := core.NewRequestBuilder(core.POST)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = catalogManagement.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(catalogManagement.Service.Options.URL, `/versions/{version_loc_id}/deprecate/{setting}`, pathParamsMap)
+	if err != nil {
+		return
+	}
+
+	for headerName, headerValue := range setDeprecateVersionOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("catalog_management", "V1", "SetDeprecateVersion")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Content-Type", "application/json")
+
+	body := make(map[string]interface{})
+	if setDeprecateVersionOptions.Description != nil {
+		body["description"] = setDeprecateVersionOptions.Description
+	}
+	if setDeprecateVersionOptions.DaysUntilDeprecate != nil {
+		body["days_until_deprecate"] = setDeprecateVersionOptions.DaysUntilDeprecate
+	}
+	_, err = builder.SetBodyContentJSON(body)
+	if err != nil {
+		return
 	}
 
 	request, err := builder.Build()
@@ -4677,6 +4982,18 @@ func (catalogManagement *CatalogManagementV1) CreateOfferingInstanceWithContext(
 	if createOfferingInstanceOptions.ResourceGroupID != nil {
 		body["resource_group_id"] = createOfferingInstanceOptions.ResourceGroupID
 	}
+	if createOfferingInstanceOptions.InstallPlan != nil {
+		body["install_plan"] = createOfferingInstanceOptions.InstallPlan
+	}
+	if createOfferingInstanceOptions.Channel != nil {
+		body["channel"] = createOfferingInstanceOptions.Channel
+	}
+	if createOfferingInstanceOptions.Metadata != nil {
+		body["metadata"] = createOfferingInstanceOptions.Metadata
+	}
+	if createOfferingInstanceOptions.LastOperation != nil {
+		body["last_operation"] = createOfferingInstanceOptions.LastOperation
+	}
 	_, err = builder.SetBodyContentJSON(body)
 	if err != nil {
 		return
@@ -4852,6 +5169,18 @@ func (catalogManagement *CatalogManagementV1) PutOfferingInstanceWithContext(ctx
 	if putOfferingInstanceOptions.ResourceGroupID != nil {
 		body["resource_group_id"] = putOfferingInstanceOptions.ResourceGroupID
 	}
+	if putOfferingInstanceOptions.InstallPlan != nil {
+		body["install_plan"] = putOfferingInstanceOptions.InstallPlan
+	}
+	if putOfferingInstanceOptions.Channel != nil {
+		body["channel"] = putOfferingInstanceOptions.Channel
+	}
+	if putOfferingInstanceOptions.Metadata != nil {
+		body["metadata"] = putOfferingInstanceOptions.Metadata
+	}
+	if putOfferingInstanceOptions.LastOperation != nil {
+		body["last_operation"] = putOfferingInstanceOptions.LastOperation
+	}
 	_, err = builder.SetBodyContentJSON(body)
 	if err != nil {
 		return
@@ -4980,10 +5309,10 @@ func UnmarshalAccount(m map[string]json.RawMessage, result interface{}) (err err
 // AccountPublishObjectOptions : The AccountPublishObject options.
 type AccountPublishObjectOptions struct {
 	// Catalog identifier.
-	CatalogIdentifier *string `validate:"required,ne="`
+	CatalogIdentifier *string `json:"catalog_identifier" validate:"required,ne="`
 
 	// Object identifier.
-	ObjectIdentifier *string `validate:"required,ne="`
+	ObjectIdentifier *string `json:"object_identifier" validate:"required,ne="`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -4998,15 +5327,15 @@ func (*CatalogManagementV1) NewAccountPublishObjectOptions(catalogIdentifier str
 }
 
 // SetCatalogIdentifier : Allow user to set CatalogIdentifier
-func (options *AccountPublishObjectOptions) SetCatalogIdentifier(catalogIdentifier string) *AccountPublishObjectOptions {
-	options.CatalogIdentifier = core.StringPtr(catalogIdentifier)
-	return options
+func (_options *AccountPublishObjectOptions) SetCatalogIdentifier(catalogIdentifier string) *AccountPublishObjectOptions {
+	_options.CatalogIdentifier = core.StringPtr(catalogIdentifier)
+	return _options
 }
 
 // SetObjectIdentifier : Allow user to set ObjectIdentifier
-func (options *AccountPublishObjectOptions) SetObjectIdentifier(objectIdentifier string) *AccountPublishObjectOptions {
-	options.ObjectIdentifier = core.StringPtr(objectIdentifier)
-	return options
+func (_options *AccountPublishObjectOptions) SetObjectIdentifier(objectIdentifier string) *AccountPublishObjectOptions {
+	_options.ObjectIdentifier = core.StringPtr(objectIdentifier)
+	return _options
 }
 
 // SetHeaders : Allow user to set Headers
@@ -5018,7 +5347,7 @@ func (options *AccountPublishObjectOptions) SetHeaders(param map[string]string) 
 // AccountPublishVersionOptions : The AccountPublishVersion options.
 type AccountPublishVersionOptions struct {
 	// A dotted value of `catalogID`.`versionID`.
-	VersionLocID *string `validate:"required,ne="`
+	VersionLocID *string `json:"version_loc_id" validate:"required,ne="`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -5032,9 +5361,9 @@ func (*CatalogManagementV1) NewAccountPublishVersionOptions(versionLocID string)
 }
 
 // SetVersionLocID : Allow user to set VersionLocID
-func (options *AccountPublishVersionOptions) SetVersionLocID(versionLocID string) *AccountPublishVersionOptions {
-	options.VersionLocID = core.StringPtr(versionLocID)
-	return options
+func (_options *AccountPublishVersionOptions) SetVersionLocID(versionLocID string) *AccountPublishVersionOptions {
+	_options.VersionLocID = core.StringPtr(versionLocID)
+	return _options
 }
 
 // SetHeaders : Allow user to set Headers
@@ -5119,13 +5448,13 @@ func UnmarshalAccumulatedFiltersCatalogFiltersItemCatalog(m map[string]json.RawM
 // AddObjectAccessListOptions : The AddObjectAccessList options.
 type AddObjectAccessListOptions struct {
 	// Catalog identifier.
-	CatalogIdentifier *string `validate:"required,ne="`
+	CatalogIdentifier *string `json:"catalog_identifier" validate:"required,ne="`
 
 	// Object identifier.
-	ObjectIdentifier *string `validate:"required,ne="`
+	ObjectIdentifier *string `json:"object_identifier" validate:"required,ne="`
 
 	// A list of accounts to add.
-	Accounts []string `validate:"required"`
+	Accounts []string `json:"accounts" validate:"required"`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -5141,21 +5470,21 @@ func (*CatalogManagementV1) NewAddObjectAccessListOptions(catalogIdentifier stri
 }
 
 // SetCatalogIdentifier : Allow user to set CatalogIdentifier
-func (options *AddObjectAccessListOptions) SetCatalogIdentifier(catalogIdentifier string) *AddObjectAccessListOptions {
-	options.CatalogIdentifier = core.StringPtr(catalogIdentifier)
-	return options
+func (_options *AddObjectAccessListOptions) SetCatalogIdentifier(catalogIdentifier string) *AddObjectAccessListOptions {
+	_options.CatalogIdentifier = core.StringPtr(catalogIdentifier)
+	return _options
 }
 
 // SetObjectIdentifier : Allow user to set ObjectIdentifier
-func (options *AddObjectAccessListOptions) SetObjectIdentifier(objectIdentifier string) *AddObjectAccessListOptions {
-	options.ObjectIdentifier = core.StringPtr(objectIdentifier)
-	return options
+func (_options *AddObjectAccessListOptions) SetObjectIdentifier(objectIdentifier string) *AddObjectAccessListOptions {
+	_options.ObjectIdentifier = core.StringPtr(objectIdentifier)
+	return _options
 }
 
 // SetAccounts : Allow user to set Accounts
-func (options *AddObjectAccessListOptions) SetAccounts(accounts []string) *AddObjectAccessListOptions {
-	options.Accounts = accounts
-	return options
+func (_options *AddObjectAccessListOptions) SetAccounts(accounts []string) *AddObjectAccessListOptions {
+	_options.Accounts = accounts
+	return _options
 }
 
 // SetHeaders : Allow user to set Headers
@@ -5653,7 +5982,7 @@ func UnmarshalClusterInfo(m map[string]json.RawMessage, result interface{}) (err
 // CommitVersionOptions : The CommitVersion options.
 type CommitVersionOptions struct {
 	// A dotted value of `catalogID`.`versionID`.
-	VersionLocID *string `validate:"required,ne="`
+	VersionLocID *string `json:"version_loc_id" validate:"required,ne="`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -5667,9 +5996,9 @@ func (*CatalogManagementV1) NewCommitVersionOptions(versionLocID string) *Commit
 }
 
 // SetVersionLocID : Allow user to set VersionLocID
-func (options *CommitVersionOptions) SetVersionLocID(versionLocID string) *CommitVersionOptions {
-	options.VersionLocID = core.StringPtr(versionLocID)
-	return options
+func (_options *CommitVersionOptions) SetVersionLocID(versionLocID string) *CommitVersionOptions {
+	_options.VersionLocID = core.StringPtr(versionLocID)
+	return _options
 }
 
 // SetHeaders : Allow user to set Headers
@@ -5748,16 +6077,16 @@ func UnmarshalConfiguration(m map[string]json.RawMessage, result interface{}) (e
 // CopyVersionOptions : The CopyVersion options.
 type CopyVersionOptions struct {
 	// A dotted value of `catalogID`.`versionID`.
-	VersionLocID *string `validate:"required,ne="`
+	VersionLocID *string `json:"version_loc_id" validate:"required,ne="`
 
 	// Tags array.
-	Tags []string
+	Tags []string `json:"tags,omitempty"`
 
 	// Target kinds.  Current valid values are 'iks', 'roks', 'vcenter', and 'terraform'.
-	TargetKinds []string
+	TargetKinds []string `json:"target_kinds,omitempty"`
 
 	// byte array representing the content to be imported.  Only supported for OVA images at this time.
-	Content *[]byte
+	Content *[]byte `json:"content,omitempty"`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -5771,27 +6100,27 @@ func (*CatalogManagementV1) NewCopyVersionOptions(versionLocID string) *CopyVers
 }
 
 // SetVersionLocID : Allow user to set VersionLocID
-func (options *CopyVersionOptions) SetVersionLocID(versionLocID string) *CopyVersionOptions {
-	options.VersionLocID = core.StringPtr(versionLocID)
-	return options
+func (_options *CopyVersionOptions) SetVersionLocID(versionLocID string) *CopyVersionOptions {
+	_options.VersionLocID = core.StringPtr(versionLocID)
+	return _options
 }
 
 // SetTags : Allow user to set Tags
-func (options *CopyVersionOptions) SetTags(tags []string) *CopyVersionOptions {
-	options.Tags = tags
-	return options
+func (_options *CopyVersionOptions) SetTags(tags []string) *CopyVersionOptions {
+	_options.Tags = tags
+	return _options
 }
 
 // SetTargetKinds : Allow user to set TargetKinds
-func (options *CopyVersionOptions) SetTargetKinds(targetKinds []string) *CopyVersionOptions {
-	options.TargetKinds = targetKinds
-	return options
+func (_options *CopyVersionOptions) SetTargetKinds(targetKinds []string) *CopyVersionOptions {
+	_options.TargetKinds = targetKinds
+	return _options
 }
 
 // SetContent : Allow user to set Content
-func (options *CopyVersionOptions) SetContent(content []byte) *CopyVersionOptions {
-	options.Content = &content
-	return options
+func (_options *CopyVersionOptions) SetContent(content []byte) *CopyVersionOptions {
+	_options.Content = &content
+	return _options
 }
 
 // SetHeaders : Allow user to set Headers
@@ -5803,43 +6132,43 @@ func (options *CopyVersionOptions) SetHeaders(param map[string]string) *CopyVers
 // CreateCatalogOptions : The CreateCatalog options.
 type CreateCatalogOptions struct {
 	// Unique ID.
-	ID *string
+	ID *string `json:"id,omitempty"`
 
 	// Cloudant revision.
-	Rev *string
+	Rev *string `json:"_rev,omitempty"`
 
 	// Display Name in the requested language.
-	Label *string
+	Label *string `json:"label,omitempty"`
 
 	// Description in the requested language.
-	ShortDescription *string
+	ShortDescription *string `json:"short_description,omitempty"`
 
 	// URL for an icon associated with this catalog.
-	CatalogIconURL *string
+	CatalogIconURL *string `json:"catalog_icon_url,omitempty"`
 
 	// List of tags associated with this catalog.
-	Tags []string
+	Tags []string `json:"tags,omitempty"`
 
 	// List of features associated with this catalog.
-	Features []Feature
+	Features []Feature `json:"features,omitempty"`
 
 	// Denotes whether a catalog is disabled.
-	Disabled *bool
+	Disabled *bool `json:"disabled,omitempty"`
 
 	// Resource group id the catalog is owned by.
-	ResourceGroupID *string
+	ResourceGroupID *string `json:"resource_group_id,omitempty"`
 
 	// Account that owns catalog.
-	OwningAccount *string
+	OwningAccount *string `json:"owning_account,omitempty"`
 
 	// Filters for account and catalog filters.
-	CatalogFilters *Filters
+	CatalogFilters *Filters `json:"catalog_filters,omitempty"`
 
 	// Feature information.
-	SyndicationSettings *SyndicationResource
+	SyndicationSettings *SyndicationResource `json:"syndication_settings,omitempty"`
 
 	// Kind of catalog. Supported kinds are offering and vpe.
-	Kind *string
+	Kind *string `json:"kind,omitempty"`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -5851,81 +6180,81 @@ func (*CatalogManagementV1) NewCreateCatalogOptions() *CreateCatalogOptions {
 }
 
 // SetID : Allow user to set ID
-func (options *CreateCatalogOptions) SetID(id string) *CreateCatalogOptions {
-	options.ID = core.StringPtr(id)
-	return options
+func (_options *CreateCatalogOptions) SetID(id string) *CreateCatalogOptions {
+	_options.ID = core.StringPtr(id)
+	return _options
 }
 
 // SetRev : Allow user to set Rev
-func (options *CreateCatalogOptions) SetRev(rev string) *CreateCatalogOptions {
-	options.Rev = core.StringPtr(rev)
-	return options
+func (_options *CreateCatalogOptions) SetRev(rev string) *CreateCatalogOptions {
+	_options.Rev = core.StringPtr(rev)
+	return _options
 }
 
 // SetLabel : Allow user to set Label
-func (options *CreateCatalogOptions) SetLabel(label string) *CreateCatalogOptions {
-	options.Label = core.StringPtr(label)
-	return options
+func (_options *CreateCatalogOptions) SetLabel(label string) *CreateCatalogOptions {
+	_options.Label = core.StringPtr(label)
+	return _options
 }
 
 // SetShortDescription : Allow user to set ShortDescription
-func (options *CreateCatalogOptions) SetShortDescription(shortDescription string) *CreateCatalogOptions {
-	options.ShortDescription = core.StringPtr(shortDescription)
-	return options
+func (_options *CreateCatalogOptions) SetShortDescription(shortDescription string) *CreateCatalogOptions {
+	_options.ShortDescription = core.StringPtr(shortDescription)
+	return _options
 }
 
 // SetCatalogIconURL : Allow user to set CatalogIconURL
-func (options *CreateCatalogOptions) SetCatalogIconURL(catalogIconURL string) *CreateCatalogOptions {
-	options.CatalogIconURL = core.StringPtr(catalogIconURL)
-	return options
+func (_options *CreateCatalogOptions) SetCatalogIconURL(catalogIconURL string) *CreateCatalogOptions {
+	_options.CatalogIconURL = core.StringPtr(catalogIconURL)
+	return _options
 }
 
 // SetTags : Allow user to set Tags
-func (options *CreateCatalogOptions) SetTags(tags []string) *CreateCatalogOptions {
-	options.Tags = tags
-	return options
+func (_options *CreateCatalogOptions) SetTags(tags []string) *CreateCatalogOptions {
+	_options.Tags = tags
+	return _options
 }
 
 // SetFeatures : Allow user to set Features
-func (options *CreateCatalogOptions) SetFeatures(features []Feature) *CreateCatalogOptions {
-	options.Features = features
-	return options
+func (_options *CreateCatalogOptions) SetFeatures(features []Feature) *CreateCatalogOptions {
+	_options.Features = features
+	return _options
 }
 
 // SetDisabled : Allow user to set Disabled
-func (options *CreateCatalogOptions) SetDisabled(disabled bool) *CreateCatalogOptions {
-	options.Disabled = core.BoolPtr(disabled)
-	return options
+func (_options *CreateCatalogOptions) SetDisabled(disabled bool) *CreateCatalogOptions {
+	_options.Disabled = core.BoolPtr(disabled)
+	return _options
 }
 
 // SetResourceGroupID : Allow user to set ResourceGroupID
-func (options *CreateCatalogOptions) SetResourceGroupID(resourceGroupID string) *CreateCatalogOptions {
-	options.ResourceGroupID = core.StringPtr(resourceGroupID)
-	return options
+func (_options *CreateCatalogOptions) SetResourceGroupID(resourceGroupID string) *CreateCatalogOptions {
+	_options.ResourceGroupID = core.StringPtr(resourceGroupID)
+	return _options
 }
 
 // SetOwningAccount : Allow user to set OwningAccount
-func (options *CreateCatalogOptions) SetOwningAccount(owningAccount string) *CreateCatalogOptions {
-	options.OwningAccount = core.StringPtr(owningAccount)
-	return options
+func (_options *CreateCatalogOptions) SetOwningAccount(owningAccount string) *CreateCatalogOptions {
+	_options.OwningAccount = core.StringPtr(owningAccount)
+	return _options
 }
 
 // SetCatalogFilters : Allow user to set CatalogFilters
-func (options *CreateCatalogOptions) SetCatalogFilters(catalogFilters *Filters) *CreateCatalogOptions {
-	options.CatalogFilters = catalogFilters
-	return options
+func (_options *CreateCatalogOptions) SetCatalogFilters(catalogFilters *Filters) *CreateCatalogOptions {
+	_options.CatalogFilters = catalogFilters
+	return _options
 }
 
 // SetSyndicationSettings : Allow user to set SyndicationSettings
-func (options *CreateCatalogOptions) SetSyndicationSettings(syndicationSettings *SyndicationResource) *CreateCatalogOptions {
-	options.SyndicationSettings = syndicationSettings
-	return options
+func (_options *CreateCatalogOptions) SetSyndicationSettings(syndicationSettings *SyndicationResource) *CreateCatalogOptions {
+	_options.SyndicationSettings = syndicationSettings
+	return _options
 }
 
 // SetKind : Allow user to set Kind
-func (options *CreateCatalogOptions) SetKind(kind string) *CreateCatalogOptions {
-	options.Kind = core.StringPtr(kind)
-	return options
+func (_options *CreateCatalogOptions) SetKind(kind string) *CreateCatalogOptions {
+	_options.Kind = core.StringPtr(kind)
+	return _options
 }
 
 // SetHeaders : Allow user to set Headers
@@ -5937,13 +6266,13 @@ func (options *CreateCatalogOptions) SetHeaders(param map[string]string) *Create
 // CreateObjectAccessOptions : The CreateObjectAccess options.
 type CreateObjectAccessOptions struct {
 	// Catalog identifier.
-	CatalogIdentifier *string `validate:"required,ne="`
+	CatalogIdentifier *string `json:"catalog_identifier" validate:"required,ne="`
 
 	// Object identifier.
-	ObjectIdentifier *string `validate:"required,ne="`
+	ObjectIdentifier *string `json:"object_identifier" validate:"required,ne="`
 
 	// Account identifier.
-	AccountIdentifier *string `validate:"required,ne="`
+	AccountIdentifier *string `json:"account_identifier" validate:"required,ne="`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -5959,21 +6288,21 @@ func (*CatalogManagementV1) NewCreateObjectAccessOptions(catalogIdentifier strin
 }
 
 // SetCatalogIdentifier : Allow user to set CatalogIdentifier
-func (options *CreateObjectAccessOptions) SetCatalogIdentifier(catalogIdentifier string) *CreateObjectAccessOptions {
-	options.CatalogIdentifier = core.StringPtr(catalogIdentifier)
-	return options
+func (_options *CreateObjectAccessOptions) SetCatalogIdentifier(catalogIdentifier string) *CreateObjectAccessOptions {
+	_options.CatalogIdentifier = core.StringPtr(catalogIdentifier)
+	return _options
 }
 
 // SetObjectIdentifier : Allow user to set ObjectIdentifier
-func (options *CreateObjectAccessOptions) SetObjectIdentifier(objectIdentifier string) *CreateObjectAccessOptions {
-	options.ObjectIdentifier = core.StringPtr(objectIdentifier)
-	return options
+func (_options *CreateObjectAccessOptions) SetObjectIdentifier(objectIdentifier string) *CreateObjectAccessOptions {
+	_options.ObjectIdentifier = core.StringPtr(objectIdentifier)
+	return _options
 }
 
 // SetAccountIdentifier : Allow user to set AccountIdentifier
-func (options *CreateObjectAccessOptions) SetAccountIdentifier(accountIdentifier string) *CreateObjectAccessOptions {
-	options.AccountIdentifier = core.StringPtr(accountIdentifier)
-	return options
+func (_options *CreateObjectAccessOptions) SetAccountIdentifier(accountIdentifier string) *CreateObjectAccessOptions {
+	_options.AccountIdentifier = core.StringPtr(accountIdentifier)
+	return _options
 }
 
 // SetHeaders : Allow user to set Headers
@@ -5985,64 +6314,64 @@ func (options *CreateObjectAccessOptions) SetHeaders(param map[string]string) *C
 // CreateObjectOptions : The CreateObject options.
 type CreateObjectOptions struct {
 	// Catalog identifier.
-	CatalogIdentifier *string `validate:"required,ne="`
+	CatalogIdentifier *string `json:"catalog_identifier" validate:"required,ne="`
 
 	// unique id.
-	ID *string
+	ID *string `json:"id,omitempty"`
 
 	// The programmatic name of this offering.
-	Name *string
+	Name *string `json:"name,omitempty"`
 
 	// Cloudant revision.
-	Rev *string
+	Rev *string `json:"_rev,omitempty"`
 
 	// The crn for this specific object.
-	CRN *string
+	CRN *string `json:"crn,omitempty"`
 
 	// The url for this specific object.
-	URL *string
+	URL *string `json:"url,omitempty"`
 
 	// The parent for this specific object.
-	ParentID *string
+	ParentID *string `json:"parent_id,omitempty"`
 
 	// Translated display name in the requested language.
-	LabelI18n *string
+	LabelI18n *string `json:"label_i18n,omitempty"`
 
 	// Display name in the requested language.
-	Label *string
+	Label *string `json:"label,omitempty"`
 
 	// List of tags associated with this catalog.
-	Tags []string
+	Tags []string `json:"tags,omitempty"`
 
 	// The date and time this catalog was created.
-	Created *strfmt.DateTime
+	Created *strfmt.DateTime `json:"created,omitempty"`
 
 	// The date and time this catalog was last updated.
-	Updated *strfmt.DateTime
+	Updated *strfmt.DateTime `json:"updated,omitempty"`
 
 	// Short description in the requested language.
-	ShortDescription *string
+	ShortDescription *string `json:"short_description,omitempty"`
 
 	// Short description translation.
-	ShortDescriptionI18n *string
+	ShortDescriptionI18n *string `json:"short_description_i18n,omitempty"`
 
 	// Kind of object.
-	Kind *string
+	Kind *string `json:"kind,omitempty"`
 
 	// Publish information.
-	Publish *PublishObject
+	Publish *PublishObject `json:"publish,omitempty"`
 
 	// Offering state.
-	State *State
+	State *State `json:"state,omitempty"`
 
 	// The id of the catalog containing this offering.
-	CatalogID *string
+	CatalogID *string `json:"catalog_id,omitempty"`
 
 	// The name of the catalog.
-	CatalogName *string
+	CatalogName *string `json:"catalog_name,omitempty"`
 
 	// Map of data values for this object.
-	Data map[string]interface{}
+	Data map[string]interface{} `json:"data,omitempty"`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -6056,123 +6385,123 @@ func (*CatalogManagementV1) NewCreateObjectOptions(catalogIdentifier string) *Cr
 }
 
 // SetCatalogIdentifier : Allow user to set CatalogIdentifier
-func (options *CreateObjectOptions) SetCatalogIdentifier(catalogIdentifier string) *CreateObjectOptions {
-	options.CatalogIdentifier = core.StringPtr(catalogIdentifier)
-	return options
+func (_options *CreateObjectOptions) SetCatalogIdentifier(catalogIdentifier string) *CreateObjectOptions {
+	_options.CatalogIdentifier = core.StringPtr(catalogIdentifier)
+	return _options
 }
 
 // SetID : Allow user to set ID
-func (options *CreateObjectOptions) SetID(id string) *CreateObjectOptions {
-	options.ID = core.StringPtr(id)
-	return options
+func (_options *CreateObjectOptions) SetID(id string) *CreateObjectOptions {
+	_options.ID = core.StringPtr(id)
+	return _options
 }
 
 // SetName : Allow user to set Name
-func (options *CreateObjectOptions) SetName(name string) *CreateObjectOptions {
-	options.Name = core.StringPtr(name)
-	return options
+func (_options *CreateObjectOptions) SetName(name string) *CreateObjectOptions {
+	_options.Name = core.StringPtr(name)
+	return _options
 }
 
 // SetRev : Allow user to set Rev
-func (options *CreateObjectOptions) SetRev(rev string) *CreateObjectOptions {
-	options.Rev = core.StringPtr(rev)
-	return options
+func (_options *CreateObjectOptions) SetRev(rev string) *CreateObjectOptions {
+	_options.Rev = core.StringPtr(rev)
+	return _options
 }
 
 // SetCRN : Allow user to set CRN
-func (options *CreateObjectOptions) SetCRN(crn string) *CreateObjectOptions {
-	options.CRN = core.StringPtr(crn)
-	return options
+func (_options *CreateObjectOptions) SetCRN(crn string) *CreateObjectOptions {
+	_options.CRN = core.StringPtr(crn)
+	return _options
 }
 
 // SetURL : Allow user to set URL
-func (options *CreateObjectOptions) SetURL(url string) *CreateObjectOptions {
-	options.URL = core.StringPtr(url)
-	return options
+func (_options *CreateObjectOptions) SetURL(url string) *CreateObjectOptions {
+	_options.URL = core.StringPtr(url)
+	return _options
 }
 
 // SetParentID : Allow user to set ParentID
-func (options *CreateObjectOptions) SetParentID(parentID string) *CreateObjectOptions {
-	options.ParentID = core.StringPtr(parentID)
-	return options
+func (_options *CreateObjectOptions) SetParentID(parentID string) *CreateObjectOptions {
+	_options.ParentID = core.StringPtr(parentID)
+	return _options
 }
 
 // SetLabelI18n : Allow user to set LabelI18n
-func (options *CreateObjectOptions) SetLabelI18n(labelI18n string) *CreateObjectOptions {
-	options.LabelI18n = core.StringPtr(labelI18n)
-	return options
+func (_options *CreateObjectOptions) SetLabelI18n(labelI18n string) *CreateObjectOptions {
+	_options.LabelI18n = core.StringPtr(labelI18n)
+	return _options
 }
 
 // SetLabel : Allow user to set Label
-func (options *CreateObjectOptions) SetLabel(label string) *CreateObjectOptions {
-	options.Label = core.StringPtr(label)
-	return options
+func (_options *CreateObjectOptions) SetLabel(label string) *CreateObjectOptions {
+	_options.Label = core.StringPtr(label)
+	return _options
 }
 
 // SetTags : Allow user to set Tags
-func (options *CreateObjectOptions) SetTags(tags []string) *CreateObjectOptions {
-	options.Tags = tags
-	return options
+func (_options *CreateObjectOptions) SetTags(tags []string) *CreateObjectOptions {
+	_options.Tags = tags
+	return _options
 }
 
 // SetCreated : Allow user to set Created
-func (options *CreateObjectOptions) SetCreated(created *strfmt.DateTime) *CreateObjectOptions {
-	options.Created = created
-	return options
+func (_options *CreateObjectOptions) SetCreated(created *strfmt.DateTime) *CreateObjectOptions {
+	_options.Created = created
+	return _options
 }
 
 // SetUpdated : Allow user to set Updated
-func (options *CreateObjectOptions) SetUpdated(updated *strfmt.DateTime) *CreateObjectOptions {
-	options.Updated = updated
-	return options
+func (_options *CreateObjectOptions) SetUpdated(updated *strfmt.DateTime) *CreateObjectOptions {
+	_options.Updated = updated
+	return _options
 }
 
 // SetShortDescription : Allow user to set ShortDescription
-func (options *CreateObjectOptions) SetShortDescription(shortDescription string) *CreateObjectOptions {
-	options.ShortDescription = core.StringPtr(shortDescription)
-	return options
+func (_options *CreateObjectOptions) SetShortDescription(shortDescription string) *CreateObjectOptions {
+	_options.ShortDescription = core.StringPtr(shortDescription)
+	return _options
 }
 
 // SetShortDescriptionI18n : Allow user to set ShortDescriptionI18n
-func (options *CreateObjectOptions) SetShortDescriptionI18n(shortDescriptionI18n string) *CreateObjectOptions {
-	options.ShortDescriptionI18n = core.StringPtr(shortDescriptionI18n)
-	return options
+func (_options *CreateObjectOptions) SetShortDescriptionI18n(shortDescriptionI18n string) *CreateObjectOptions {
+	_options.ShortDescriptionI18n = core.StringPtr(shortDescriptionI18n)
+	return _options
 }
 
 // SetKind : Allow user to set Kind
-func (options *CreateObjectOptions) SetKind(kind string) *CreateObjectOptions {
-	options.Kind = core.StringPtr(kind)
-	return options
+func (_options *CreateObjectOptions) SetKind(kind string) *CreateObjectOptions {
+	_options.Kind = core.StringPtr(kind)
+	return _options
 }
 
 // SetPublish : Allow user to set Publish
-func (options *CreateObjectOptions) SetPublish(publish *PublishObject) *CreateObjectOptions {
-	options.Publish = publish
-	return options
+func (_options *CreateObjectOptions) SetPublish(publish *PublishObject) *CreateObjectOptions {
+	_options.Publish = publish
+	return _options
 }
 
 // SetState : Allow user to set State
-func (options *CreateObjectOptions) SetState(state *State) *CreateObjectOptions {
-	options.State = state
-	return options
+func (_options *CreateObjectOptions) SetState(state *State) *CreateObjectOptions {
+	_options.State = state
+	return _options
 }
 
 // SetCatalogID : Allow user to set CatalogID
-func (options *CreateObjectOptions) SetCatalogID(catalogID string) *CreateObjectOptions {
-	options.CatalogID = core.StringPtr(catalogID)
-	return options
+func (_options *CreateObjectOptions) SetCatalogID(catalogID string) *CreateObjectOptions {
+	_options.CatalogID = core.StringPtr(catalogID)
+	return _options
 }
 
 // SetCatalogName : Allow user to set CatalogName
-func (options *CreateObjectOptions) SetCatalogName(catalogName string) *CreateObjectOptions {
-	options.CatalogName = core.StringPtr(catalogName)
-	return options
+func (_options *CreateObjectOptions) SetCatalogName(catalogName string) *CreateObjectOptions {
+	_options.CatalogName = core.StringPtr(catalogName)
+	return _options
 }
 
 // SetData : Allow user to set Data
-func (options *CreateObjectOptions) SetData(data map[string]interface{}) *CreateObjectOptions {
-	options.Data = data
-	return options
+func (_options *CreateObjectOptions) SetData(data map[string]interface{}) *CreateObjectOptions {
+	_options.Data = data
+	return _options
 }
 
 // SetHeaders : Allow user to set Headers
@@ -6184,52 +6513,65 @@ func (options *CreateObjectOptions) SetHeaders(param map[string]string) *CreateO
 // CreateOfferingInstanceOptions : The CreateOfferingInstance options.
 type CreateOfferingInstanceOptions struct {
 	// IAM Refresh token.
-	XAuthRefreshToken *string `validate:"required"`
+	XAuthRefreshToken *string `json:"X-Auth-Refresh-Token" validate:"required"`
 
 	// provisioned instance ID (part of the CRN).
-	ID *string
+	ID *string `json:"id,omitempty"`
 
 	// Cloudant revision.
-	Rev *string
+	Rev *string `json:"_rev,omitempty"`
 
 	// url reference to this object.
-	URL *string
+	URL *string `json:"url,omitempty"`
 
 	// platform CRN for this instance.
-	CRN *string
+	CRN *string `json:"crn,omitempty"`
 
 	// the label for this instance.
-	Label *string
+	Label *string `json:"label,omitempty"`
 
 	// Catalog ID this instance was created from.
-	CatalogID *string
+	CatalogID *string `json:"catalog_id,omitempty"`
 
 	// Offering ID this instance was created from.
-	OfferingID *string
+	OfferingID *string `json:"offering_id,omitempty"`
 
 	// the format this instance has (helm, operator, ova...).
-	KindFormat *string
+	KindFormat *string `json:"kind_format,omitempty"`
 
 	// The version this instance was installed from (not version id).
-	Version *string
+	Version *string `json:"version,omitempty"`
 
 	// Cluster ID.
-	ClusterID *string
+	ClusterID *string `json:"cluster_id,omitempty"`
 
 	// Cluster region (e.g., us-south).
-	ClusterRegion *string
+	ClusterRegion *string `json:"cluster_region,omitempty"`
 
 	// List of target namespaces to install into.
-	ClusterNamespaces []string
+	ClusterNamespaces []string `json:"cluster_namespaces,omitempty"`
 
 	// designate to install into all namespaces.
-	ClusterAllNamespaces *bool
+	ClusterAllNamespaces *bool `json:"cluster_all_namespaces,omitempty"`
 
 	// Id of the schematics workspace, for offering instances provisioned through schematics.
-	SchematicsWorkspaceID *string
+	SchematicsWorkspaceID *string `json:"schematics_workspace_id,omitempty"`
 
 	// Id of the resource group to provision the offering instance into.
-	ResourceGroupID *string
+	ResourceGroupID *string `json:"resource_group_id,omitempty"`
+
+	// Type of install plan (also known as approval strategy) for operator subscriptions. Can be either automatic, which
+	// automatically upgrades operators to the latest in a channel, or manual, which requires approval on the cluster.
+	InstallPlan *string `json:"install_plan,omitempty"`
+
+	// Channel to pin the operator subscription to.
+	Channel *string `json:"channel,omitempty"`
+
+	// Map of metadata values for this offering instance.
+	Metadata map[string]interface{} `json:"metadata,omitempty"`
+
+	// the last operation performed and status.
+	LastOperation *OfferingInstanceLastOperation `json:"last_operation,omitempty"`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -6243,99 +6585,123 @@ func (*CatalogManagementV1) NewCreateOfferingInstanceOptions(xAuthRefreshToken s
 }
 
 // SetXAuthRefreshToken : Allow user to set XAuthRefreshToken
-func (options *CreateOfferingInstanceOptions) SetXAuthRefreshToken(xAuthRefreshToken string) *CreateOfferingInstanceOptions {
-	options.XAuthRefreshToken = core.StringPtr(xAuthRefreshToken)
-	return options
+func (_options *CreateOfferingInstanceOptions) SetXAuthRefreshToken(xAuthRefreshToken string) *CreateOfferingInstanceOptions {
+	_options.XAuthRefreshToken = core.StringPtr(xAuthRefreshToken)
+	return _options
 }
 
 // SetID : Allow user to set ID
-func (options *CreateOfferingInstanceOptions) SetID(id string) *CreateOfferingInstanceOptions {
-	options.ID = core.StringPtr(id)
-	return options
+func (_options *CreateOfferingInstanceOptions) SetID(id string) *CreateOfferingInstanceOptions {
+	_options.ID = core.StringPtr(id)
+	return _options
 }
 
 // SetRev : Allow user to set Rev
-func (options *CreateOfferingInstanceOptions) SetRev(rev string) *CreateOfferingInstanceOptions {
-	options.Rev = core.StringPtr(rev)
-	return options
+func (_options *CreateOfferingInstanceOptions) SetRev(rev string) *CreateOfferingInstanceOptions {
+	_options.Rev = core.StringPtr(rev)
+	return _options
 }
 
 // SetURL : Allow user to set URL
-func (options *CreateOfferingInstanceOptions) SetURL(url string) *CreateOfferingInstanceOptions {
-	options.URL = core.StringPtr(url)
-	return options
+func (_options *CreateOfferingInstanceOptions) SetURL(url string) *CreateOfferingInstanceOptions {
+	_options.URL = core.StringPtr(url)
+	return _options
 }
 
 // SetCRN : Allow user to set CRN
-func (options *CreateOfferingInstanceOptions) SetCRN(crn string) *CreateOfferingInstanceOptions {
-	options.CRN = core.StringPtr(crn)
-	return options
+func (_options *CreateOfferingInstanceOptions) SetCRN(crn string) *CreateOfferingInstanceOptions {
+	_options.CRN = core.StringPtr(crn)
+	return _options
 }
 
 // SetLabel : Allow user to set Label
-func (options *CreateOfferingInstanceOptions) SetLabel(label string) *CreateOfferingInstanceOptions {
-	options.Label = core.StringPtr(label)
-	return options
+func (_options *CreateOfferingInstanceOptions) SetLabel(label string) *CreateOfferingInstanceOptions {
+	_options.Label = core.StringPtr(label)
+	return _options
 }
 
 // SetCatalogID : Allow user to set CatalogID
-func (options *CreateOfferingInstanceOptions) SetCatalogID(catalogID string) *CreateOfferingInstanceOptions {
-	options.CatalogID = core.StringPtr(catalogID)
-	return options
+func (_options *CreateOfferingInstanceOptions) SetCatalogID(catalogID string) *CreateOfferingInstanceOptions {
+	_options.CatalogID = core.StringPtr(catalogID)
+	return _options
 }
 
 // SetOfferingID : Allow user to set OfferingID
-func (options *CreateOfferingInstanceOptions) SetOfferingID(offeringID string) *CreateOfferingInstanceOptions {
-	options.OfferingID = core.StringPtr(offeringID)
-	return options
+func (_options *CreateOfferingInstanceOptions) SetOfferingID(offeringID string) *CreateOfferingInstanceOptions {
+	_options.OfferingID = core.StringPtr(offeringID)
+	return _options
 }
 
 // SetKindFormat : Allow user to set KindFormat
-func (options *CreateOfferingInstanceOptions) SetKindFormat(kindFormat string) *CreateOfferingInstanceOptions {
-	options.KindFormat = core.StringPtr(kindFormat)
-	return options
+func (_options *CreateOfferingInstanceOptions) SetKindFormat(kindFormat string) *CreateOfferingInstanceOptions {
+	_options.KindFormat = core.StringPtr(kindFormat)
+	return _options
 }
 
 // SetVersion : Allow user to set Version
-func (options *CreateOfferingInstanceOptions) SetVersion(version string) *CreateOfferingInstanceOptions {
-	options.Version = core.StringPtr(version)
-	return options
+func (_options *CreateOfferingInstanceOptions) SetVersion(version string) *CreateOfferingInstanceOptions {
+	_options.Version = core.StringPtr(version)
+	return _options
 }
 
 // SetClusterID : Allow user to set ClusterID
-func (options *CreateOfferingInstanceOptions) SetClusterID(clusterID string) *CreateOfferingInstanceOptions {
-	options.ClusterID = core.StringPtr(clusterID)
-	return options
+func (_options *CreateOfferingInstanceOptions) SetClusterID(clusterID string) *CreateOfferingInstanceOptions {
+	_options.ClusterID = core.StringPtr(clusterID)
+	return _options
 }
 
 // SetClusterRegion : Allow user to set ClusterRegion
-func (options *CreateOfferingInstanceOptions) SetClusterRegion(clusterRegion string) *CreateOfferingInstanceOptions {
-	options.ClusterRegion = core.StringPtr(clusterRegion)
-	return options
+func (_options *CreateOfferingInstanceOptions) SetClusterRegion(clusterRegion string) *CreateOfferingInstanceOptions {
+	_options.ClusterRegion = core.StringPtr(clusterRegion)
+	return _options
 }
 
 // SetClusterNamespaces : Allow user to set ClusterNamespaces
-func (options *CreateOfferingInstanceOptions) SetClusterNamespaces(clusterNamespaces []string) *CreateOfferingInstanceOptions {
-	options.ClusterNamespaces = clusterNamespaces
-	return options
+func (_options *CreateOfferingInstanceOptions) SetClusterNamespaces(clusterNamespaces []string) *CreateOfferingInstanceOptions {
+	_options.ClusterNamespaces = clusterNamespaces
+	return _options
 }
 
 // SetClusterAllNamespaces : Allow user to set ClusterAllNamespaces
-func (options *CreateOfferingInstanceOptions) SetClusterAllNamespaces(clusterAllNamespaces bool) *CreateOfferingInstanceOptions {
-	options.ClusterAllNamespaces = core.BoolPtr(clusterAllNamespaces)
-	return options
+func (_options *CreateOfferingInstanceOptions) SetClusterAllNamespaces(clusterAllNamespaces bool) *CreateOfferingInstanceOptions {
+	_options.ClusterAllNamespaces = core.BoolPtr(clusterAllNamespaces)
+	return _options
 }
 
 // SetSchematicsWorkspaceID : Allow user to set SchematicsWorkspaceID
-func (options *CreateOfferingInstanceOptions) SetSchematicsWorkspaceID(schematicsWorkspaceID string) *CreateOfferingInstanceOptions {
-	options.SchematicsWorkspaceID = core.StringPtr(schematicsWorkspaceID)
-	return options
+func (_options *CreateOfferingInstanceOptions) SetSchematicsWorkspaceID(schematicsWorkspaceID string) *CreateOfferingInstanceOptions {
+	_options.SchematicsWorkspaceID = core.StringPtr(schematicsWorkspaceID)
+	return _options
 }
 
 // SetResourceGroupID : Allow user to set ResourceGroupID
-func (options *CreateOfferingInstanceOptions) SetResourceGroupID(resourceGroupID string) *CreateOfferingInstanceOptions {
-	options.ResourceGroupID = core.StringPtr(resourceGroupID)
-	return options
+func (_options *CreateOfferingInstanceOptions) SetResourceGroupID(resourceGroupID string) *CreateOfferingInstanceOptions {
+	_options.ResourceGroupID = core.StringPtr(resourceGroupID)
+	return _options
+}
+
+// SetInstallPlan : Allow user to set InstallPlan
+func (_options *CreateOfferingInstanceOptions) SetInstallPlan(installPlan string) *CreateOfferingInstanceOptions {
+	_options.InstallPlan = core.StringPtr(installPlan)
+	return _options
+}
+
+// SetChannel : Allow user to set Channel
+func (_options *CreateOfferingInstanceOptions) SetChannel(channel string) *CreateOfferingInstanceOptions {
+	_options.Channel = core.StringPtr(channel)
+	return _options
+}
+
+// SetMetadata : Allow user to set Metadata
+func (_options *CreateOfferingInstanceOptions) SetMetadata(metadata map[string]interface{}) *CreateOfferingInstanceOptions {
+	_options.Metadata = metadata
+	return _options
+}
+
+// SetLastOperation : Allow user to set LastOperation
+func (_options *CreateOfferingInstanceOptions) SetLastOperation(lastOperation *OfferingInstanceLastOperation) *CreateOfferingInstanceOptions {
+	_options.LastOperation = lastOperation
+	return _options
 }
 
 // SetHeaders : Allow user to set Headers
@@ -6347,103 +6713,113 @@ func (options *CreateOfferingInstanceOptions) SetHeaders(param map[string]string
 // CreateOfferingOptions : The CreateOffering options.
 type CreateOfferingOptions struct {
 	// Catalog identifier.
-	CatalogIdentifier *string `validate:"required,ne="`
+	CatalogIdentifier *string `json:"catalog_identifier" validate:"required,ne="`
 
 	// unique id.
-	ID *string
+	ID *string `json:"id,omitempty"`
 
 	// Cloudant revision.
-	Rev *string
+	Rev *string `json:"_rev,omitempty"`
 
 	// The url for this specific offering.
-	URL *string
+	URL *string `json:"url,omitempty"`
 
 	// The crn for this specific offering.
-	CRN *string
+	CRN *string `json:"crn,omitempty"`
 
 	// Display Name in the requested language.
-	Label *string
+	Label *string `json:"label,omitempty"`
 
 	// The programmatic name of this offering.
-	Name *string
+	Name *string `json:"name,omitempty"`
 
 	// URL for an icon associated with this offering.
-	OfferingIconURL *string
+	OfferingIconURL *string `json:"offering_icon_url,omitempty"`
 
 	// URL for an additional docs with this offering.
-	OfferingDocsURL *string
+	OfferingDocsURL *string `json:"offering_docs_url,omitempty"`
 
-	// URL to be displayed in the Consumption UI for getting support on this offering.
-	OfferingSupportURL *string
+	// [deprecated] - Use offering.support instead.  URL to be displayed in the Consumption UI for getting support on this
+	// offering.
+	OfferingSupportURL *string `json:"offering_support_url,omitempty"`
 
 	// List of tags associated with this catalog.
-	Tags []string
+	Tags []string `json:"tags,omitempty"`
 
 	// List of keywords associated with offering, typically used to search for it.
-	Keywords []string
+	Keywords []string `json:"keywords,omitempty"`
 
 	// Repository info for offerings.
-	Rating *Rating
+	Rating *Rating `json:"rating,omitempty"`
 
 	// The date and time this catalog was created.
-	Created *strfmt.DateTime
+	Created *strfmt.DateTime `json:"created,omitempty"`
 
 	// The date and time this catalog was last updated.
-	Updated *strfmt.DateTime
+	Updated *strfmt.DateTime `json:"updated,omitempty"`
 
 	// Short description in the requested language.
-	ShortDescription *string
+	ShortDescription *string `json:"short_description,omitempty"`
 
 	// Long description in the requested language.
-	LongDescription *string
+	LongDescription *string `json:"long_description,omitempty"`
 
 	// list of features associated with this offering.
-	Features []Feature
+	Features []Feature `json:"features,omitempty"`
 
 	// Array of kind.
-	Kinds []Kind
+	Kinds []Kind `json:"kinds,omitempty"`
 
 	// Is it permitted to request publishing to IBM or Public.
-	PermitRequestIBMPublicPublish *bool
+	PermitRequestIBMPublicPublish *bool `json:"permit_request_ibm_public_publish,omitempty"`
 
 	// Indicates if this offering has been approved for use by all IBMers.
-	IBMPublishApproved *bool
+	IBMPublishApproved *bool `json:"ibm_publish_approved,omitempty"`
 
 	// Indicates if this offering has been approved for use by all IBM Cloud users.
-	PublicPublishApproved *bool
+	PublicPublishApproved *bool `json:"public_publish_approved,omitempty"`
 
 	// The original offering CRN that this publish entry came from.
-	PublicOriginalCRN *string
+	PublicOriginalCRN *string `json:"public_original_crn,omitempty"`
 
 	// The crn of the public catalog entry of this offering.
-	PublishPublicCRN *string
+	PublishPublicCRN *string `json:"publish_public_crn,omitempty"`
 
 	// The portal's approval record ID.
-	PortalApprovalRecord *string
+	PortalApprovalRecord *string `json:"portal_approval_record,omitempty"`
 
 	// The portal UI URL.
-	PortalUIURL *string
+	PortalUIURL *string `json:"portal_ui_url,omitempty"`
 
 	// The id of the catalog containing this offering.
-	CatalogID *string
+	CatalogID *string `json:"catalog_id,omitempty"`
 
 	// The name of the catalog.
-	CatalogName *string
+	CatalogName *string `json:"catalog_name,omitempty"`
 
 	// Map of metadata values for this offering.
-	Metadata map[string]interface{}
+	Metadata map[string]interface{} `json:"metadata,omitempty"`
 
 	// A disclaimer for this offering.
-	Disclaimer *string
+	Disclaimer *string `json:"disclaimer,omitempty"`
 
 	// Determine if this offering should be displayed in the Consumption UI.
-	Hidden *bool
+	Hidden *bool `json:"hidden,omitempty"`
 
-	// Provider of this offering.
-	Provider *string
+	// Deprecated - Provider of this offering.
+	Provider *string `json:"provider,omitempty"`
+
+	// Information on the provider for this offering, or omitted if no provider information is given.
+	ProviderInfo *ProviderInfo `json:"provider_info,omitempty"`
 
 	// Repository info for offerings.
-	RepoInfo *RepoInfo
+	RepoInfo *RepoInfo `json:"repo_info,omitempty"`
+
+	// Offering Support information.
+	Support *Support `json:"support,omitempty"`
+
+	// A list of media items related to this offering.
+	Media []MediaItem `json:"media,omitempty"`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -6457,201 +6833,219 @@ func (*CatalogManagementV1) NewCreateOfferingOptions(catalogIdentifier string) *
 }
 
 // SetCatalogIdentifier : Allow user to set CatalogIdentifier
-func (options *CreateOfferingOptions) SetCatalogIdentifier(catalogIdentifier string) *CreateOfferingOptions {
-	options.CatalogIdentifier = core.StringPtr(catalogIdentifier)
-	return options
+func (_options *CreateOfferingOptions) SetCatalogIdentifier(catalogIdentifier string) *CreateOfferingOptions {
+	_options.CatalogIdentifier = core.StringPtr(catalogIdentifier)
+	return _options
 }
 
 // SetID : Allow user to set ID
-func (options *CreateOfferingOptions) SetID(id string) *CreateOfferingOptions {
-	options.ID = core.StringPtr(id)
-	return options
+func (_options *CreateOfferingOptions) SetID(id string) *CreateOfferingOptions {
+	_options.ID = core.StringPtr(id)
+	return _options
 }
 
 // SetRev : Allow user to set Rev
-func (options *CreateOfferingOptions) SetRev(rev string) *CreateOfferingOptions {
-	options.Rev = core.StringPtr(rev)
-	return options
+func (_options *CreateOfferingOptions) SetRev(rev string) *CreateOfferingOptions {
+	_options.Rev = core.StringPtr(rev)
+	return _options
 }
 
 // SetURL : Allow user to set URL
-func (options *CreateOfferingOptions) SetURL(url string) *CreateOfferingOptions {
-	options.URL = core.StringPtr(url)
-	return options
+func (_options *CreateOfferingOptions) SetURL(url string) *CreateOfferingOptions {
+	_options.URL = core.StringPtr(url)
+	return _options
 }
 
 // SetCRN : Allow user to set CRN
-func (options *CreateOfferingOptions) SetCRN(crn string) *CreateOfferingOptions {
-	options.CRN = core.StringPtr(crn)
-	return options
+func (_options *CreateOfferingOptions) SetCRN(crn string) *CreateOfferingOptions {
+	_options.CRN = core.StringPtr(crn)
+	return _options
 }
 
 // SetLabel : Allow user to set Label
-func (options *CreateOfferingOptions) SetLabel(label string) *CreateOfferingOptions {
-	options.Label = core.StringPtr(label)
-	return options
+func (_options *CreateOfferingOptions) SetLabel(label string) *CreateOfferingOptions {
+	_options.Label = core.StringPtr(label)
+	return _options
 }
 
 // SetName : Allow user to set Name
-func (options *CreateOfferingOptions) SetName(name string) *CreateOfferingOptions {
-	options.Name = core.StringPtr(name)
-	return options
+func (_options *CreateOfferingOptions) SetName(name string) *CreateOfferingOptions {
+	_options.Name = core.StringPtr(name)
+	return _options
 }
 
 // SetOfferingIconURL : Allow user to set OfferingIconURL
-func (options *CreateOfferingOptions) SetOfferingIconURL(offeringIconURL string) *CreateOfferingOptions {
-	options.OfferingIconURL = core.StringPtr(offeringIconURL)
-	return options
+func (_options *CreateOfferingOptions) SetOfferingIconURL(offeringIconURL string) *CreateOfferingOptions {
+	_options.OfferingIconURL = core.StringPtr(offeringIconURL)
+	return _options
 }
 
 // SetOfferingDocsURL : Allow user to set OfferingDocsURL
-func (options *CreateOfferingOptions) SetOfferingDocsURL(offeringDocsURL string) *CreateOfferingOptions {
-	options.OfferingDocsURL = core.StringPtr(offeringDocsURL)
-	return options
+func (_options *CreateOfferingOptions) SetOfferingDocsURL(offeringDocsURL string) *CreateOfferingOptions {
+	_options.OfferingDocsURL = core.StringPtr(offeringDocsURL)
+	return _options
 }
 
 // SetOfferingSupportURL : Allow user to set OfferingSupportURL
-func (options *CreateOfferingOptions) SetOfferingSupportURL(offeringSupportURL string) *CreateOfferingOptions {
-	options.OfferingSupportURL = core.StringPtr(offeringSupportURL)
-	return options
+func (_options *CreateOfferingOptions) SetOfferingSupportURL(offeringSupportURL string) *CreateOfferingOptions {
+	_options.OfferingSupportURL = core.StringPtr(offeringSupportURL)
+	return _options
 }
 
 // SetTags : Allow user to set Tags
-func (options *CreateOfferingOptions) SetTags(tags []string) *CreateOfferingOptions {
-	options.Tags = tags
-	return options
+func (_options *CreateOfferingOptions) SetTags(tags []string) *CreateOfferingOptions {
+	_options.Tags = tags
+	return _options
 }
 
 // SetKeywords : Allow user to set Keywords
-func (options *CreateOfferingOptions) SetKeywords(keywords []string) *CreateOfferingOptions {
-	options.Keywords = keywords
-	return options
+func (_options *CreateOfferingOptions) SetKeywords(keywords []string) *CreateOfferingOptions {
+	_options.Keywords = keywords
+	return _options
 }
 
 // SetRating : Allow user to set Rating
-func (options *CreateOfferingOptions) SetRating(rating *Rating) *CreateOfferingOptions {
-	options.Rating = rating
-	return options
+func (_options *CreateOfferingOptions) SetRating(rating *Rating) *CreateOfferingOptions {
+	_options.Rating = rating
+	return _options
 }
 
 // SetCreated : Allow user to set Created
-func (options *CreateOfferingOptions) SetCreated(created *strfmt.DateTime) *CreateOfferingOptions {
-	options.Created = created
-	return options
+func (_options *CreateOfferingOptions) SetCreated(created *strfmt.DateTime) *CreateOfferingOptions {
+	_options.Created = created
+	return _options
 }
 
 // SetUpdated : Allow user to set Updated
-func (options *CreateOfferingOptions) SetUpdated(updated *strfmt.DateTime) *CreateOfferingOptions {
-	options.Updated = updated
-	return options
+func (_options *CreateOfferingOptions) SetUpdated(updated *strfmt.DateTime) *CreateOfferingOptions {
+	_options.Updated = updated
+	return _options
 }
 
 // SetShortDescription : Allow user to set ShortDescription
-func (options *CreateOfferingOptions) SetShortDescription(shortDescription string) *CreateOfferingOptions {
-	options.ShortDescription = core.StringPtr(shortDescription)
-	return options
+func (_options *CreateOfferingOptions) SetShortDescription(shortDescription string) *CreateOfferingOptions {
+	_options.ShortDescription = core.StringPtr(shortDescription)
+	return _options
 }
 
 // SetLongDescription : Allow user to set LongDescription
-func (options *CreateOfferingOptions) SetLongDescription(longDescription string) *CreateOfferingOptions {
-	options.LongDescription = core.StringPtr(longDescription)
-	return options
+func (_options *CreateOfferingOptions) SetLongDescription(longDescription string) *CreateOfferingOptions {
+	_options.LongDescription = core.StringPtr(longDescription)
+	return _options
 }
 
 // SetFeatures : Allow user to set Features
-func (options *CreateOfferingOptions) SetFeatures(features []Feature) *CreateOfferingOptions {
-	options.Features = features
-	return options
+func (_options *CreateOfferingOptions) SetFeatures(features []Feature) *CreateOfferingOptions {
+	_options.Features = features
+	return _options
 }
 
 // SetKinds : Allow user to set Kinds
-func (options *CreateOfferingOptions) SetKinds(kinds []Kind) *CreateOfferingOptions {
-	options.Kinds = kinds
-	return options
+func (_options *CreateOfferingOptions) SetKinds(kinds []Kind) *CreateOfferingOptions {
+	_options.Kinds = kinds
+	return _options
 }
 
 // SetPermitRequestIBMPublicPublish : Allow user to set PermitRequestIBMPublicPublish
-func (options *CreateOfferingOptions) SetPermitRequestIBMPublicPublish(permitRequestIBMPublicPublish bool) *CreateOfferingOptions {
-	options.PermitRequestIBMPublicPublish = core.BoolPtr(permitRequestIBMPublicPublish)
-	return options
+func (_options *CreateOfferingOptions) SetPermitRequestIBMPublicPublish(permitRequestIBMPublicPublish bool) *CreateOfferingOptions {
+	_options.PermitRequestIBMPublicPublish = core.BoolPtr(permitRequestIBMPublicPublish)
+	return _options
 }
 
 // SetIBMPublishApproved : Allow user to set IBMPublishApproved
-func (options *CreateOfferingOptions) SetIBMPublishApproved(ibmPublishApproved bool) *CreateOfferingOptions {
-	options.IBMPublishApproved = core.BoolPtr(ibmPublishApproved)
-	return options
+func (_options *CreateOfferingOptions) SetIBMPublishApproved(ibmPublishApproved bool) *CreateOfferingOptions {
+	_options.IBMPublishApproved = core.BoolPtr(ibmPublishApproved)
+	return _options
 }
 
 // SetPublicPublishApproved : Allow user to set PublicPublishApproved
-func (options *CreateOfferingOptions) SetPublicPublishApproved(publicPublishApproved bool) *CreateOfferingOptions {
-	options.PublicPublishApproved = core.BoolPtr(publicPublishApproved)
-	return options
+func (_options *CreateOfferingOptions) SetPublicPublishApproved(publicPublishApproved bool) *CreateOfferingOptions {
+	_options.PublicPublishApproved = core.BoolPtr(publicPublishApproved)
+	return _options
 }
 
 // SetPublicOriginalCRN : Allow user to set PublicOriginalCRN
-func (options *CreateOfferingOptions) SetPublicOriginalCRN(publicOriginalCRN string) *CreateOfferingOptions {
-	options.PublicOriginalCRN = core.StringPtr(publicOriginalCRN)
-	return options
+func (_options *CreateOfferingOptions) SetPublicOriginalCRN(publicOriginalCRN string) *CreateOfferingOptions {
+	_options.PublicOriginalCRN = core.StringPtr(publicOriginalCRN)
+	return _options
 }
 
 // SetPublishPublicCRN : Allow user to set PublishPublicCRN
-func (options *CreateOfferingOptions) SetPublishPublicCRN(publishPublicCRN string) *CreateOfferingOptions {
-	options.PublishPublicCRN = core.StringPtr(publishPublicCRN)
-	return options
+func (_options *CreateOfferingOptions) SetPublishPublicCRN(publishPublicCRN string) *CreateOfferingOptions {
+	_options.PublishPublicCRN = core.StringPtr(publishPublicCRN)
+	return _options
 }
 
 // SetPortalApprovalRecord : Allow user to set PortalApprovalRecord
-func (options *CreateOfferingOptions) SetPortalApprovalRecord(portalApprovalRecord string) *CreateOfferingOptions {
-	options.PortalApprovalRecord = core.StringPtr(portalApprovalRecord)
-	return options
+func (_options *CreateOfferingOptions) SetPortalApprovalRecord(portalApprovalRecord string) *CreateOfferingOptions {
+	_options.PortalApprovalRecord = core.StringPtr(portalApprovalRecord)
+	return _options
 }
 
 // SetPortalUIURL : Allow user to set PortalUIURL
-func (options *CreateOfferingOptions) SetPortalUIURL(portalUIURL string) *CreateOfferingOptions {
-	options.PortalUIURL = core.StringPtr(portalUIURL)
-	return options
+func (_options *CreateOfferingOptions) SetPortalUIURL(portalUIURL string) *CreateOfferingOptions {
+	_options.PortalUIURL = core.StringPtr(portalUIURL)
+	return _options
 }
 
 // SetCatalogID : Allow user to set CatalogID
-func (options *CreateOfferingOptions) SetCatalogID(catalogID string) *CreateOfferingOptions {
-	options.CatalogID = core.StringPtr(catalogID)
-	return options
+func (_options *CreateOfferingOptions) SetCatalogID(catalogID string) *CreateOfferingOptions {
+	_options.CatalogID = core.StringPtr(catalogID)
+	return _options
 }
 
 // SetCatalogName : Allow user to set CatalogName
-func (options *CreateOfferingOptions) SetCatalogName(catalogName string) *CreateOfferingOptions {
-	options.CatalogName = core.StringPtr(catalogName)
-	return options
+func (_options *CreateOfferingOptions) SetCatalogName(catalogName string) *CreateOfferingOptions {
+	_options.CatalogName = core.StringPtr(catalogName)
+	return _options
 }
 
 // SetMetadata : Allow user to set Metadata
-func (options *CreateOfferingOptions) SetMetadata(metadata map[string]interface{}) *CreateOfferingOptions {
-	options.Metadata = metadata
-	return options
+func (_options *CreateOfferingOptions) SetMetadata(metadata map[string]interface{}) *CreateOfferingOptions {
+	_options.Metadata = metadata
+	return _options
 }
 
 // SetDisclaimer : Allow user to set Disclaimer
-func (options *CreateOfferingOptions) SetDisclaimer(disclaimer string) *CreateOfferingOptions {
-	options.Disclaimer = core.StringPtr(disclaimer)
-	return options
+func (_options *CreateOfferingOptions) SetDisclaimer(disclaimer string) *CreateOfferingOptions {
+	_options.Disclaimer = core.StringPtr(disclaimer)
+	return _options
 }
 
 // SetHidden : Allow user to set Hidden
-func (options *CreateOfferingOptions) SetHidden(hidden bool) *CreateOfferingOptions {
-	options.Hidden = core.BoolPtr(hidden)
-	return options
+func (_options *CreateOfferingOptions) SetHidden(hidden bool) *CreateOfferingOptions {
+	_options.Hidden = core.BoolPtr(hidden)
+	return _options
 }
 
 // SetProvider : Allow user to set Provider
-func (options *CreateOfferingOptions) SetProvider(provider string) *CreateOfferingOptions {
-	options.Provider = core.StringPtr(provider)
-	return options
+func (_options *CreateOfferingOptions) SetProvider(provider string) *CreateOfferingOptions {
+	_options.Provider = core.StringPtr(provider)
+	return _options
+}
+
+// SetProviderInfo : Allow user to set ProviderInfo
+func (_options *CreateOfferingOptions) SetProviderInfo(providerInfo *ProviderInfo) *CreateOfferingOptions {
+	_options.ProviderInfo = providerInfo
+	return _options
 }
 
 // SetRepoInfo : Allow user to set RepoInfo
-func (options *CreateOfferingOptions) SetRepoInfo(repoInfo *RepoInfo) *CreateOfferingOptions {
-	options.RepoInfo = repoInfo
-	return options
+func (_options *CreateOfferingOptions) SetRepoInfo(repoInfo *RepoInfo) *CreateOfferingOptions {
+	_options.RepoInfo = repoInfo
+	return _options
+}
+
+// SetSupport : Allow user to set Support
+func (_options *CreateOfferingOptions) SetSupport(support *Support) *CreateOfferingOptions {
+	_options.Support = support
+	return _options
+}
+
+// SetMedia : Allow user to set Media
+func (_options *CreateOfferingOptions) SetMedia(media []MediaItem) *CreateOfferingOptions {
+	_options.Media = media
+	return _options
 }
 
 // SetHeaders : Allow user to set Headers
@@ -6663,7 +7057,7 @@ func (options *CreateOfferingOptions) SetHeaders(param map[string]string) *Creat
 // DeleteCatalogOptions : The DeleteCatalog options.
 type DeleteCatalogOptions struct {
 	// Catalog identifier.
-	CatalogIdentifier *string `validate:"required,ne="`
+	CatalogIdentifier *string `json:"catalog_identifier" validate:"required,ne="`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -6677,9 +7071,9 @@ func (*CatalogManagementV1) NewDeleteCatalogOptions(catalogIdentifier string) *D
 }
 
 // SetCatalogIdentifier : Allow user to set CatalogIdentifier
-func (options *DeleteCatalogOptions) SetCatalogIdentifier(catalogIdentifier string) *DeleteCatalogOptions {
-	options.CatalogIdentifier = core.StringPtr(catalogIdentifier)
-	return options
+func (_options *DeleteCatalogOptions) SetCatalogIdentifier(catalogIdentifier string) *DeleteCatalogOptions {
+	_options.CatalogIdentifier = core.StringPtr(catalogIdentifier)
+	return _options
 }
 
 // SetHeaders : Allow user to set Headers
@@ -6691,13 +7085,13 @@ func (options *DeleteCatalogOptions) SetHeaders(param map[string]string) *Delete
 // DeleteObjectAccessListOptions : The DeleteObjectAccessList options.
 type DeleteObjectAccessListOptions struct {
 	// Catalog identifier.
-	CatalogIdentifier *string `validate:"required,ne="`
+	CatalogIdentifier *string `json:"catalog_identifier" validate:"required,ne="`
 
 	// Object identifier.
-	ObjectIdentifier *string `validate:"required,ne="`
+	ObjectIdentifier *string `json:"object_identifier" validate:"required,ne="`
 
 	// A list of accounts to delete.  An entry with star["*"] will remove all accounts.
-	Accounts []string `validate:"required"`
+	Accounts []string `json:"accounts" validate:"required"`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -6713,21 +7107,21 @@ func (*CatalogManagementV1) NewDeleteObjectAccessListOptions(catalogIdentifier s
 }
 
 // SetCatalogIdentifier : Allow user to set CatalogIdentifier
-func (options *DeleteObjectAccessListOptions) SetCatalogIdentifier(catalogIdentifier string) *DeleteObjectAccessListOptions {
-	options.CatalogIdentifier = core.StringPtr(catalogIdentifier)
-	return options
+func (_options *DeleteObjectAccessListOptions) SetCatalogIdentifier(catalogIdentifier string) *DeleteObjectAccessListOptions {
+	_options.CatalogIdentifier = core.StringPtr(catalogIdentifier)
+	return _options
 }
 
 // SetObjectIdentifier : Allow user to set ObjectIdentifier
-func (options *DeleteObjectAccessListOptions) SetObjectIdentifier(objectIdentifier string) *DeleteObjectAccessListOptions {
-	options.ObjectIdentifier = core.StringPtr(objectIdentifier)
-	return options
+func (_options *DeleteObjectAccessListOptions) SetObjectIdentifier(objectIdentifier string) *DeleteObjectAccessListOptions {
+	_options.ObjectIdentifier = core.StringPtr(objectIdentifier)
+	return _options
 }
 
 // SetAccounts : Allow user to set Accounts
-func (options *DeleteObjectAccessListOptions) SetAccounts(accounts []string) *DeleteObjectAccessListOptions {
-	options.Accounts = accounts
-	return options
+func (_options *DeleteObjectAccessListOptions) SetAccounts(accounts []string) *DeleteObjectAccessListOptions {
+	_options.Accounts = accounts
+	return _options
 }
 
 // SetHeaders : Allow user to set Headers
@@ -6739,13 +7133,13 @@ func (options *DeleteObjectAccessListOptions) SetHeaders(param map[string]string
 // DeleteObjectAccessOptions : The DeleteObjectAccess options.
 type DeleteObjectAccessOptions struct {
 	// Catalog identifier.
-	CatalogIdentifier *string `validate:"required,ne="`
+	CatalogIdentifier *string `json:"catalog_identifier" validate:"required,ne="`
 
 	// Object identifier.
-	ObjectIdentifier *string `validate:"required,ne="`
+	ObjectIdentifier *string `json:"object_identifier" validate:"required,ne="`
 
 	// Account identifier.
-	AccountIdentifier *string `validate:"required,ne="`
+	AccountIdentifier *string `json:"account_identifier" validate:"required,ne="`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -6761,21 +7155,21 @@ func (*CatalogManagementV1) NewDeleteObjectAccessOptions(catalogIdentifier strin
 }
 
 // SetCatalogIdentifier : Allow user to set CatalogIdentifier
-func (options *DeleteObjectAccessOptions) SetCatalogIdentifier(catalogIdentifier string) *DeleteObjectAccessOptions {
-	options.CatalogIdentifier = core.StringPtr(catalogIdentifier)
-	return options
+func (_options *DeleteObjectAccessOptions) SetCatalogIdentifier(catalogIdentifier string) *DeleteObjectAccessOptions {
+	_options.CatalogIdentifier = core.StringPtr(catalogIdentifier)
+	return _options
 }
 
 // SetObjectIdentifier : Allow user to set ObjectIdentifier
-func (options *DeleteObjectAccessOptions) SetObjectIdentifier(objectIdentifier string) *DeleteObjectAccessOptions {
-	options.ObjectIdentifier = core.StringPtr(objectIdentifier)
-	return options
+func (_options *DeleteObjectAccessOptions) SetObjectIdentifier(objectIdentifier string) *DeleteObjectAccessOptions {
+	_options.ObjectIdentifier = core.StringPtr(objectIdentifier)
+	return _options
 }
 
 // SetAccountIdentifier : Allow user to set AccountIdentifier
-func (options *DeleteObjectAccessOptions) SetAccountIdentifier(accountIdentifier string) *DeleteObjectAccessOptions {
-	options.AccountIdentifier = core.StringPtr(accountIdentifier)
-	return options
+func (_options *DeleteObjectAccessOptions) SetAccountIdentifier(accountIdentifier string) *DeleteObjectAccessOptions {
+	_options.AccountIdentifier = core.StringPtr(accountIdentifier)
+	return _options
 }
 
 // SetHeaders : Allow user to set Headers
@@ -6787,10 +7181,10 @@ func (options *DeleteObjectAccessOptions) SetHeaders(param map[string]string) *D
 // DeleteObjectOptions : The DeleteObject options.
 type DeleteObjectOptions struct {
 	// Catalog identifier.
-	CatalogIdentifier *string `validate:"required,ne="`
+	CatalogIdentifier *string `json:"catalog_identifier" validate:"required,ne="`
 
 	// Object identifier.
-	ObjectIdentifier *string `validate:"required,ne="`
+	ObjectIdentifier *string `json:"object_identifier" validate:"required,ne="`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -6805,15 +7199,15 @@ func (*CatalogManagementV1) NewDeleteObjectOptions(catalogIdentifier string, obj
 }
 
 // SetCatalogIdentifier : Allow user to set CatalogIdentifier
-func (options *DeleteObjectOptions) SetCatalogIdentifier(catalogIdentifier string) *DeleteObjectOptions {
-	options.CatalogIdentifier = core.StringPtr(catalogIdentifier)
-	return options
+func (_options *DeleteObjectOptions) SetCatalogIdentifier(catalogIdentifier string) *DeleteObjectOptions {
+	_options.CatalogIdentifier = core.StringPtr(catalogIdentifier)
+	return _options
 }
 
 // SetObjectIdentifier : Allow user to set ObjectIdentifier
-func (options *DeleteObjectOptions) SetObjectIdentifier(objectIdentifier string) *DeleteObjectOptions {
-	options.ObjectIdentifier = core.StringPtr(objectIdentifier)
-	return options
+func (_options *DeleteObjectOptions) SetObjectIdentifier(objectIdentifier string) *DeleteObjectOptions {
+	_options.ObjectIdentifier = core.StringPtr(objectIdentifier)
+	return _options
 }
 
 // SetHeaders : Allow user to set Headers
@@ -6825,10 +7219,10 @@ func (options *DeleteObjectOptions) SetHeaders(param map[string]string) *DeleteO
 // DeleteOfferingInstanceOptions : The DeleteOfferingInstance options.
 type DeleteOfferingInstanceOptions struct {
 	// Version Instance identifier.
-	InstanceIdentifier *string `validate:"required,ne="`
+	InstanceIdentifier *string `json:"instance_identifier" validate:"required,ne="`
 
 	// IAM Refresh token.
-	XAuthRefreshToken *string `validate:"required"`
+	XAuthRefreshToken *string `json:"X-Auth-Refresh-Token" validate:"required"`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -6843,15 +7237,15 @@ func (*CatalogManagementV1) NewDeleteOfferingInstanceOptions(instanceIdentifier 
 }
 
 // SetInstanceIdentifier : Allow user to set InstanceIdentifier
-func (options *DeleteOfferingInstanceOptions) SetInstanceIdentifier(instanceIdentifier string) *DeleteOfferingInstanceOptions {
-	options.InstanceIdentifier = core.StringPtr(instanceIdentifier)
-	return options
+func (_options *DeleteOfferingInstanceOptions) SetInstanceIdentifier(instanceIdentifier string) *DeleteOfferingInstanceOptions {
+	_options.InstanceIdentifier = core.StringPtr(instanceIdentifier)
+	return _options
 }
 
 // SetXAuthRefreshToken : Allow user to set XAuthRefreshToken
-func (options *DeleteOfferingInstanceOptions) SetXAuthRefreshToken(xAuthRefreshToken string) *DeleteOfferingInstanceOptions {
-	options.XAuthRefreshToken = core.StringPtr(xAuthRefreshToken)
-	return options
+func (_options *DeleteOfferingInstanceOptions) SetXAuthRefreshToken(xAuthRefreshToken string) *DeleteOfferingInstanceOptions {
+	_options.XAuthRefreshToken = core.StringPtr(xAuthRefreshToken)
+	return _options
 }
 
 // SetHeaders : Allow user to set Headers
@@ -6863,10 +7257,10 @@ func (options *DeleteOfferingInstanceOptions) SetHeaders(param map[string]string
 // DeleteOfferingOptions : The DeleteOffering options.
 type DeleteOfferingOptions struct {
 	// Catalog identifier.
-	CatalogIdentifier *string `validate:"required,ne="`
+	CatalogIdentifier *string `json:"catalog_identifier" validate:"required,ne="`
 
 	// Offering identification.
-	OfferingID *string `validate:"required,ne="`
+	OfferingID *string `json:"offering_id" validate:"required,ne="`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -6881,15 +7275,15 @@ func (*CatalogManagementV1) NewDeleteOfferingOptions(catalogIdentifier string, o
 }
 
 // SetCatalogIdentifier : Allow user to set CatalogIdentifier
-func (options *DeleteOfferingOptions) SetCatalogIdentifier(catalogIdentifier string) *DeleteOfferingOptions {
-	options.CatalogIdentifier = core.StringPtr(catalogIdentifier)
-	return options
+func (_options *DeleteOfferingOptions) SetCatalogIdentifier(catalogIdentifier string) *DeleteOfferingOptions {
+	_options.CatalogIdentifier = core.StringPtr(catalogIdentifier)
+	return _options
 }
 
 // SetOfferingID : Allow user to set OfferingID
-func (options *DeleteOfferingOptions) SetOfferingID(offeringID string) *DeleteOfferingOptions {
-	options.OfferingID = core.StringPtr(offeringID)
-	return options
+func (_options *DeleteOfferingOptions) SetOfferingID(offeringID string) *DeleteOfferingOptions {
+	_options.OfferingID = core.StringPtr(offeringID)
+	return _options
 }
 
 // SetHeaders : Allow user to set Headers
@@ -6901,16 +7295,16 @@ func (options *DeleteOfferingOptions) SetHeaders(param map[string]string) *Delet
 // DeleteOperatorsOptions : The DeleteOperators options.
 type DeleteOperatorsOptions struct {
 	// IAM Refresh token.
-	XAuthRefreshToken *string `validate:"required"`
+	XAuthRefreshToken *string `json:"X-Auth-Refresh-Token" validate:"required"`
 
 	// Cluster identification.
-	ClusterID *string `validate:"required"`
+	ClusterID *string `json:"cluster_id" validate:"required"`
 
 	// Cluster region.
-	Region *string `validate:"required"`
+	Region *string `json:"region" validate:"required"`
 
 	// A dotted value of `catalogID`.`versionID`.
-	VersionLocatorID *string `validate:"required"`
+	VersionLocatorID *string `json:"version_locator_id" validate:"required"`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -6927,27 +7321,27 @@ func (*CatalogManagementV1) NewDeleteOperatorsOptions(xAuthRefreshToken string, 
 }
 
 // SetXAuthRefreshToken : Allow user to set XAuthRefreshToken
-func (options *DeleteOperatorsOptions) SetXAuthRefreshToken(xAuthRefreshToken string) *DeleteOperatorsOptions {
-	options.XAuthRefreshToken = core.StringPtr(xAuthRefreshToken)
-	return options
+func (_options *DeleteOperatorsOptions) SetXAuthRefreshToken(xAuthRefreshToken string) *DeleteOperatorsOptions {
+	_options.XAuthRefreshToken = core.StringPtr(xAuthRefreshToken)
+	return _options
 }
 
 // SetClusterID : Allow user to set ClusterID
-func (options *DeleteOperatorsOptions) SetClusterID(clusterID string) *DeleteOperatorsOptions {
-	options.ClusterID = core.StringPtr(clusterID)
-	return options
+func (_options *DeleteOperatorsOptions) SetClusterID(clusterID string) *DeleteOperatorsOptions {
+	_options.ClusterID = core.StringPtr(clusterID)
+	return _options
 }
 
 // SetRegion : Allow user to set Region
-func (options *DeleteOperatorsOptions) SetRegion(region string) *DeleteOperatorsOptions {
-	options.Region = core.StringPtr(region)
-	return options
+func (_options *DeleteOperatorsOptions) SetRegion(region string) *DeleteOperatorsOptions {
+	_options.Region = core.StringPtr(region)
+	return _options
 }
 
 // SetVersionLocatorID : Allow user to set VersionLocatorID
-func (options *DeleteOperatorsOptions) SetVersionLocatorID(versionLocatorID string) *DeleteOperatorsOptions {
-	options.VersionLocatorID = core.StringPtr(versionLocatorID)
-	return options
+func (_options *DeleteOperatorsOptions) SetVersionLocatorID(versionLocatorID string) *DeleteOperatorsOptions {
+	_options.VersionLocatorID = core.StringPtr(versionLocatorID)
+	return _options
 }
 
 // SetHeaders : Allow user to set Headers
@@ -6959,7 +7353,7 @@ func (options *DeleteOperatorsOptions) SetHeaders(param map[string]string) *Dele
 // DeleteVersionOptions : The DeleteVersion options.
 type DeleteVersionOptions struct {
 	// A dotted value of `catalogID`.`versionID`.
-	VersionLocID *string `validate:"required,ne="`
+	VersionLocID *string `json:"version_loc_id" validate:"required,ne="`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -6973,9 +7367,9 @@ func (*CatalogManagementV1) NewDeleteVersionOptions(versionLocID string) *Delete
 }
 
 // SetVersionLocID : Allow user to set VersionLocID
-func (options *DeleteVersionOptions) SetVersionLocID(versionLocID string) *DeleteVersionOptions {
-	options.VersionLocID = core.StringPtr(versionLocID)
-	return options
+func (_options *DeleteVersionOptions) SetVersionLocID(versionLocID string) *DeleteVersionOptions {
+	_options.VersionLocID = core.StringPtr(versionLocID)
+	return _options
 }
 
 // SetHeaders : Allow user to set Headers
@@ -6987,22 +7381,22 @@ func (options *DeleteVersionOptions) SetHeaders(param map[string]string) *Delete
 // DeployOperatorsOptions : The DeployOperators options.
 type DeployOperatorsOptions struct {
 	// IAM Refresh token.
-	XAuthRefreshToken *string `validate:"required"`
+	XAuthRefreshToken *string `json:"X-Auth-Refresh-Token" validate:"required"`
 
 	// Cluster ID.
-	ClusterID *string
+	ClusterID *string `json:"cluster_id,omitempty"`
 
 	// Cluster region.
-	Region *string
+	Region *string `json:"region,omitempty"`
 
 	// Kube namespaces to deploy Operator(s) to.
-	Namespaces []string
+	Namespaces []string `json:"namespaces,omitempty"`
 
 	// Denotes whether to install Operator(s) globally.
-	AllNamespaces *bool
+	AllNamespaces *bool `json:"all_namespaces,omitempty"`
 
 	// A dotted value of `catalogID`.`versionID`.
-	VersionLocatorID *string
+	VersionLocatorID *string `json:"version_locator_id,omitempty"`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -7016,39 +7410,39 @@ func (*CatalogManagementV1) NewDeployOperatorsOptions(xAuthRefreshToken string) 
 }
 
 // SetXAuthRefreshToken : Allow user to set XAuthRefreshToken
-func (options *DeployOperatorsOptions) SetXAuthRefreshToken(xAuthRefreshToken string) *DeployOperatorsOptions {
-	options.XAuthRefreshToken = core.StringPtr(xAuthRefreshToken)
-	return options
+func (_options *DeployOperatorsOptions) SetXAuthRefreshToken(xAuthRefreshToken string) *DeployOperatorsOptions {
+	_options.XAuthRefreshToken = core.StringPtr(xAuthRefreshToken)
+	return _options
 }
 
 // SetClusterID : Allow user to set ClusterID
-func (options *DeployOperatorsOptions) SetClusterID(clusterID string) *DeployOperatorsOptions {
-	options.ClusterID = core.StringPtr(clusterID)
-	return options
+func (_options *DeployOperatorsOptions) SetClusterID(clusterID string) *DeployOperatorsOptions {
+	_options.ClusterID = core.StringPtr(clusterID)
+	return _options
 }
 
 // SetRegion : Allow user to set Region
-func (options *DeployOperatorsOptions) SetRegion(region string) *DeployOperatorsOptions {
-	options.Region = core.StringPtr(region)
-	return options
+func (_options *DeployOperatorsOptions) SetRegion(region string) *DeployOperatorsOptions {
+	_options.Region = core.StringPtr(region)
+	return _options
 }
 
 // SetNamespaces : Allow user to set Namespaces
-func (options *DeployOperatorsOptions) SetNamespaces(namespaces []string) *DeployOperatorsOptions {
-	options.Namespaces = namespaces
-	return options
+func (_options *DeployOperatorsOptions) SetNamespaces(namespaces []string) *DeployOperatorsOptions {
+	_options.Namespaces = namespaces
+	return _options
 }
 
 // SetAllNamespaces : Allow user to set AllNamespaces
-func (options *DeployOperatorsOptions) SetAllNamespaces(allNamespaces bool) *DeployOperatorsOptions {
-	options.AllNamespaces = core.BoolPtr(allNamespaces)
-	return options
+func (_options *DeployOperatorsOptions) SetAllNamespaces(allNamespaces bool) *DeployOperatorsOptions {
+	_options.AllNamespaces = core.BoolPtr(allNamespaces)
+	return _options
 }
 
 // SetVersionLocatorID : Allow user to set VersionLocatorID
-func (options *DeployOperatorsOptions) SetVersionLocatorID(versionLocatorID string) *DeployOperatorsOptions {
-	options.VersionLocatorID = core.StringPtr(versionLocatorID)
-	return options
+func (_options *DeployOperatorsOptions) SetVersionLocatorID(versionLocatorID string) *DeployOperatorsOptions {
+	_options.VersionLocatorID = core.StringPtr(versionLocatorID)
+	return _options
 }
 
 // SetHeaders : Allow user to set Headers
@@ -7168,10 +7562,83 @@ func UnmarshalDeployment(m map[string]json.RawMessage, result interface{}) (err 
 	return
 }
 
+// DeprecateOfferingOptions : The DeprecateOffering options.
+type DeprecateOfferingOptions struct {
+	// Catalog identifier.
+	CatalogIdentifier *string `json:"catalog_identifier" validate:"required,ne="`
+
+	// Offering identification.
+	OfferingID *string `json:"offering_id" validate:"required,ne="`
+
+	// Set deprecation (true) or cancel deprecation (false).
+	Setting *string `json:"setting" validate:"required,ne="`
+
+	// Additional information that users can provide to be displayed in deprecation notification.
+	Description *string `json:"description,omitempty"`
+
+	// Specifies the amount of days until product is not available in catalog.
+	DaysUntilDeprecate *int64 `json:"days_until_deprecate,omitempty"`
+
+	// Allows users to set headers on API requests
+	Headers map[string]string
+}
+
+// Constants associated with the DeprecateOfferingOptions.Setting property.
+// Set deprecation (true) or cancel deprecation (false).
+const (
+	DeprecateOfferingOptionsSettingFalseConst = "false"
+	DeprecateOfferingOptionsSettingTrueConst = "true"
+)
+
+// NewDeprecateOfferingOptions : Instantiate DeprecateOfferingOptions
+func (*CatalogManagementV1) NewDeprecateOfferingOptions(catalogIdentifier string, offeringID string, setting string) *DeprecateOfferingOptions {
+	return &DeprecateOfferingOptions{
+		CatalogIdentifier: core.StringPtr(catalogIdentifier),
+		OfferingID: core.StringPtr(offeringID),
+		Setting: core.StringPtr(setting),
+	}
+}
+
+// SetCatalogIdentifier : Allow user to set CatalogIdentifier
+func (_options *DeprecateOfferingOptions) SetCatalogIdentifier(catalogIdentifier string) *DeprecateOfferingOptions {
+	_options.CatalogIdentifier = core.StringPtr(catalogIdentifier)
+	return _options
+}
+
+// SetOfferingID : Allow user to set OfferingID
+func (_options *DeprecateOfferingOptions) SetOfferingID(offeringID string) *DeprecateOfferingOptions {
+	_options.OfferingID = core.StringPtr(offeringID)
+	return _options
+}
+
+// SetSetting : Allow user to set Setting
+func (_options *DeprecateOfferingOptions) SetSetting(setting string) *DeprecateOfferingOptions {
+	_options.Setting = core.StringPtr(setting)
+	return _options
+}
+
+// SetDescription : Allow user to set Description
+func (_options *DeprecateOfferingOptions) SetDescription(description string) *DeprecateOfferingOptions {
+	_options.Description = core.StringPtr(description)
+	return _options
+}
+
+// SetDaysUntilDeprecate : Allow user to set DaysUntilDeprecate
+func (_options *DeprecateOfferingOptions) SetDaysUntilDeprecate(daysUntilDeprecate int64) *DeprecateOfferingOptions {
+	_options.DaysUntilDeprecate = core.Int64Ptr(daysUntilDeprecate)
+	return _options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *DeprecateOfferingOptions) SetHeaders(param map[string]string) *DeprecateOfferingOptions {
+	options.Headers = param
+	return options
+}
+
 // DeprecateVersionOptions : The DeprecateVersion options.
 type DeprecateVersionOptions struct {
 	// A dotted value of `catalogID`.`versionID`.
-	VersionLocID *string `validate:"required,ne="`
+	VersionLocID *string `json:"version_loc_id" validate:"required,ne="`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -7185,9 +7652,9 @@ func (*CatalogManagementV1) NewDeprecateVersionOptions(versionLocID string) *Dep
 }
 
 // SetVersionLocID : Allow user to set VersionLocID
-func (options *DeprecateVersionOptions) SetVersionLocID(versionLocID string) *DeprecateVersionOptions {
-	options.VersionLocID = core.StringPtr(versionLocID)
-	return options
+func (_options *DeprecateVersionOptions) SetVersionLocID(versionLocID string) *DeprecateVersionOptions {
+	_options.VersionLocID = core.StringPtr(versionLocID)
+	return _options
 }
 
 // SetHeaders : Allow user to set Headers
@@ -7292,7 +7759,7 @@ func (options *GetCatalogAccountAuditOptions) SetHeaders(param map[string]string
 // GetCatalogAccountFiltersOptions : The GetCatalogAccountFilters options.
 type GetCatalogAccountFiltersOptions struct {
 	// catalog id. Narrow down filters to the account and just the one catalog.
-	Catalog *string
+	Catalog *string `json:"catalog,omitempty"`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -7304,9 +7771,9 @@ func (*CatalogManagementV1) NewGetCatalogAccountFiltersOptions() *GetCatalogAcco
 }
 
 // SetCatalog : Allow user to set Catalog
-func (options *GetCatalogAccountFiltersOptions) SetCatalog(catalog string) *GetCatalogAccountFiltersOptions {
-	options.Catalog = core.StringPtr(catalog)
-	return options
+func (_options *GetCatalogAccountFiltersOptions) SetCatalog(catalog string) *GetCatalogAccountFiltersOptions {
+	_options.Catalog = core.StringPtr(catalog)
+	return _options
 }
 
 // SetHeaders : Allow user to set Headers
@@ -7336,7 +7803,7 @@ func (options *GetCatalogAccountOptions) SetHeaders(param map[string]string) *Ge
 // GetCatalogAuditOptions : The GetCatalogAudit options.
 type GetCatalogAuditOptions struct {
 	// Catalog identifier.
-	CatalogIdentifier *string `validate:"required,ne="`
+	CatalogIdentifier *string `json:"catalog_identifier" validate:"required,ne="`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -7350,9 +7817,9 @@ func (*CatalogManagementV1) NewGetCatalogAuditOptions(catalogIdentifier string) 
 }
 
 // SetCatalogIdentifier : Allow user to set CatalogIdentifier
-func (options *GetCatalogAuditOptions) SetCatalogIdentifier(catalogIdentifier string) *GetCatalogAuditOptions {
-	options.CatalogIdentifier = core.StringPtr(catalogIdentifier)
-	return options
+func (_options *GetCatalogAuditOptions) SetCatalogIdentifier(catalogIdentifier string) *GetCatalogAuditOptions {
+	_options.CatalogIdentifier = core.StringPtr(catalogIdentifier)
+	return _options
 }
 
 // SetHeaders : Allow user to set Headers
@@ -7364,7 +7831,7 @@ func (options *GetCatalogAuditOptions) SetHeaders(param map[string]string) *GetC
 // GetCatalogOptions : The GetCatalog options.
 type GetCatalogOptions struct {
 	// Catalog identifier.
-	CatalogIdentifier *string `validate:"required,ne="`
+	CatalogIdentifier *string `json:"catalog_identifier" validate:"required,ne="`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -7378,9 +7845,9 @@ func (*CatalogManagementV1) NewGetCatalogOptions(catalogIdentifier string) *GetC
 }
 
 // SetCatalogIdentifier : Allow user to set CatalogIdentifier
-func (options *GetCatalogOptions) SetCatalogIdentifier(catalogIdentifier string) *GetCatalogOptions {
-	options.CatalogIdentifier = core.StringPtr(catalogIdentifier)
-	return options
+func (_options *GetCatalogOptions) SetCatalogIdentifier(catalogIdentifier string) *GetCatalogOptions {
+	_options.CatalogIdentifier = core.StringPtr(catalogIdentifier)
+	return _options
 }
 
 // SetHeaders : Allow user to set Headers
@@ -7392,13 +7859,13 @@ func (options *GetCatalogOptions) SetHeaders(param map[string]string) *GetCatalo
 // GetClusterOptions : The GetCluster options.
 type GetClusterOptions struct {
 	// ID of the cluster.
-	ClusterID *string `validate:"required,ne="`
+	ClusterID *string `json:"cluster_id" validate:"required,ne="`
 
 	// Region of the cluster.
-	Region *string `validate:"required"`
+	Region *string `json:"region" validate:"required"`
 
 	// IAM Refresh token.
-	XAuthRefreshToken *string `validate:"required"`
+	XAuthRefreshToken *string `json:"X-Auth-Refresh-Token" validate:"required"`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -7414,21 +7881,21 @@ func (*CatalogManagementV1) NewGetClusterOptions(clusterID string, region string
 }
 
 // SetClusterID : Allow user to set ClusterID
-func (options *GetClusterOptions) SetClusterID(clusterID string) *GetClusterOptions {
-	options.ClusterID = core.StringPtr(clusterID)
-	return options
+func (_options *GetClusterOptions) SetClusterID(clusterID string) *GetClusterOptions {
+	_options.ClusterID = core.StringPtr(clusterID)
+	return _options
 }
 
 // SetRegion : Allow user to set Region
-func (options *GetClusterOptions) SetRegion(region string) *GetClusterOptions {
-	options.Region = core.StringPtr(region)
-	return options
+func (_options *GetClusterOptions) SetRegion(region string) *GetClusterOptions {
+	_options.Region = core.StringPtr(region)
+	return _options
 }
 
 // SetXAuthRefreshToken : Allow user to set XAuthRefreshToken
-func (options *GetClusterOptions) SetXAuthRefreshToken(xAuthRefreshToken string) *GetClusterOptions {
-	options.XAuthRefreshToken = core.StringPtr(xAuthRefreshToken)
-	return options
+func (_options *GetClusterOptions) SetXAuthRefreshToken(xAuthRefreshToken string) *GetClusterOptions {
+	_options.XAuthRefreshToken = core.StringPtr(xAuthRefreshToken)
+	return _options
 }
 
 // SetHeaders : Allow user to set Headers
@@ -7441,25 +7908,25 @@ func (options *GetClusterOptions) SetHeaders(param map[string]string) *GetCluste
 type GetConsumptionOfferingsOptions struct {
 	// true - Strip down the content of what is returned. For example don't return the readme. Makes the result much
 	// smaller. Defaults to false.
-	Digest *bool
+	Digest *bool `json:"digest,omitempty"`
 
 	// catalog id. Narrow search down to just a particular catalog. It will apply the catalog's public filters to the
 	// public catalog offerings on the result.
-	Catalog *string
+	Catalog *string `json:"catalog,omitempty"`
 
 	// What should be selected. Default is 'all' which will return both public and private offerings. 'public' returns only
 	// the public offerings and 'private' returns only the private offerings.
-	Select *string
+	Select *string `json:"select,omitempty"`
 
 	// true - include offerings which have been marked as hidden. The default is false and hidden offerings are not
 	// returned.
-	IncludeHidden *bool
+	IncludeHidden *bool `json:"includeHidden,omitempty"`
 
 	// number or results to return.
-	Limit *int64
+	Limit *int64 `json:"limit,omitempty"`
 
 	// number of results to skip before returning values.
-	Offset *int64
+	Offset *int64 `json:"offset,omitempty"`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -7480,39 +7947,39 @@ func (*CatalogManagementV1) NewGetConsumptionOfferingsOptions() *GetConsumptionO
 }
 
 // SetDigest : Allow user to set Digest
-func (options *GetConsumptionOfferingsOptions) SetDigest(digest bool) *GetConsumptionOfferingsOptions {
-	options.Digest = core.BoolPtr(digest)
-	return options
+func (_options *GetConsumptionOfferingsOptions) SetDigest(digest bool) *GetConsumptionOfferingsOptions {
+	_options.Digest = core.BoolPtr(digest)
+	return _options
 }
 
 // SetCatalog : Allow user to set Catalog
-func (options *GetConsumptionOfferingsOptions) SetCatalog(catalog string) *GetConsumptionOfferingsOptions {
-	options.Catalog = core.StringPtr(catalog)
-	return options
+func (_options *GetConsumptionOfferingsOptions) SetCatalog(catalog string) *GetConsumptionOfferingsOptions {
+	_options.Catalog = core.StringPtr(catalog)
+	return _options
 }
 
 // SetSelect : Allow user to set Select
-func (options *GetConsumptionOfferingsOptions) SetSelect(selectVar string) *GetConsumptionOfferingsOptions {
-	options.Select = core.StringPtr(selectVar)
-	return options
+func (_options *GetConsumptionOfferingsOptions) SetSelect(selectVar string) *GetConsumptionOfferingsOptions {
+	_options.Select = core.StringPtr(selectVar)
+	return _options
 }
 
 // SetIncludeHidden : Allow user to set IncludeHidden
-func (options *GetConsumptionOfferingsOptions) SetIncludeHidden(includeHidden bool) *GetConsumptionOfferingsOptions {
-	options.IncludeHidden = core.BoolPtr(includeHidden)
-	return options
+func (_options *GetConsumptionOfferingsOptions) SetIncludeHidden(includeHidden bool) *GetConsumptionOfferingsOptions {
+	_options.IncludeHidden = core.BoolPtr(includeHidden)
+	return _options
 }
 
 // SetLimit : Allow user to set Limit
-func (options *GetConsumptionOfferingsOptions) SetLimit(limit int64) *GetConsumptionOfferingsOptions {
-	options.Limit = core.Int64Ptr(limit)
-	return options
+func (_options *GetConsumptionOfferingsOptions) SetLimit(limit int64) *GetConsumptionOfferingsOptions {
+	_options.Limit = core.Int64Ptr(limit)
+	return _options
 }
 
 // SetOffset : Allow user to set Offset
-func (options *GetConsumptionOfferingsOptions) SetOffset(offset int64) *GetConsumptionOfferingsOptions {
-	options.Offset = core.Int64Ptr(offset)
-	return options
+func (_options *GetConsumptionOfferingsOptions) SetOffset(offset int64) *GetConsumptionOfferingsOptions {
+	_options.Offset = core.Int64Ptr(offset)
+	return _options
 }
 
 // SetHeaders : Allow user to set Headers
@@ -7524,19 +7991,19 @@ func (options *GetConsumptionOfferingsOptions) SetHeaders(param map[string]strin
 // GetNamespacesOptions : The GetNamespaces options.
 type GetNamespacesOptions struct {
 	// ID of the cluster.
-	ClusterID *string `validate:"required,ne="`
+	ClusterID *string `json:"cluster_id" validate:"required,ne="`
 
 	// Cluster region.
-	Region *string `validate:"required"`
+	Region *string `json:"region" validate:"required"`
 
 	// IAM Refresh token.
-	XAuthRefreshToken *string `validate:"required"`
+	XAuthRefreshToken *string `json:"X-Auth-Refresh-Token" validate:"required"`
 
 	// The maximum number of results to return.
-	Limit *int64
+	Limit *int64 `json:"limit,omitempty"`
 
 	// The number of results to skip before returning values.
-	Offset *int64
+	Offset *int64 `json:"offset,omitempty"`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -7552,33 +8019,33 @@ func (*CatalogManagementV1) NewGetNamespacesOptions(clusterID string, region str
 }
 
 // SetClusterID : Allow user to set ClusterID
-func (options *GetNamespacesOptions) SetClusterID(clusterID string) *GetNamespacesOptions {
-	options.ClusterID = core.StringPtr(clusterID)
-	return options
+func (_options *GetNamespacesOptions) SetClusterID(clusterID string) *GetNamespacesOptions {
+	_options.ClusterID = core.StringPtr(clusterID)
+	return _options
 }
 
 // SetRegion : Allow user to set Region
-func (options *GetNamespacesOptions) SetRegion(region string) *GetNamespacesOptions {
-	options.Region = core.StringPtr(region)
-	return options
+func (_options *GetNamespacesOptions) SetRegion(region string) *GetNamespacesOptions {
+	_options.Region = core.StringPtr(region)
+	return _options
 }
 
 // SetXAuthRefreshToken : Allow user to set XAuthRefreshToken
-func (options *GetNamespacesOptions) SetXAuthRefreshToken(xAuthRefreshToken string) *GetNamespacesOptions {
-	options.XAuthRefreshToken = core.StringPtr(xAuthRefreshToken)
-	return options
+func (_options *GetNamespacesOptions) SetXAuthRefreshToken(xAuthRefreshToken string) *GetNamespacesOptions {
+	_options.XAuthRefreshToken = core.StringPtr(xAuthRefreshToken)
+	return _options
 }
 
 // SetLimit : Allow user to set Limit
-func (options *GetNamespacesOptions) SetLimit(limit int64) *GetNamespacesOptions {
-	options.Limit = core.Int64Ptr(limit)
-	return options
+func (_options *GetNamespacesOptions) SetLimit(limit int64) *GetNamespacesOptions {
+	_options.Limit = core.Int64Ptr(limit)
+	return _options
 }
 
 // SetOffset : Allow user to set Offset
-func (options *GetNamespacesOptions) SetOffset(offset int64) *GetNamespacesOptions {
-	options.Offset = core.Int64Ptr(offset)
-	return options
+func (_options *GetNamespacesOptions) SetOffset(offset int64) *GetNamespacesOptions {
+	_options.Offset = core.Int64Ptr(offset)
+	return _options
 }
 
 // SetHeaders : Allow user to set Headers
@@ -7590,16 +8057,16 @@ func (options *GetNamespacesOptions) SetHeaders(param map[string]string) *GetNam
 // GetObjectAccessListOptions : The GetObjectAccessList options.
 type GetObjectAccessListOptions struct {
 	// Catalog identifier.
-	CatalogIdentifier *string `validate:"required,ne="`
+	CatalogIdentifier *string `json:"catalog_identifier" validate:"required,ne="`
 
 	// Object identifier.
-	ObjectIdentifier *string `validate:"required,ne="`
+	ObjectIdentifier *string `json:"object_identifier" validate:"required,ne="`
 
 	// The maximum number of results to return.
-	Limit *int64
+	Limit *int64 `json:"limit,omitempty"`
 
 	// The number of results to skip before returning values.
-	Offset *int64
+	Offset *int64 `json:"offset,omitempty"`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -7614,27 +8081,27 @@ func (*CatalogManagementV1) NewGetObjectAccessListOptions(catalogIdentifier stri
 }
 
 // SetCatalogIdentifier : Allow user to set CatalogIdentifier
-func (options *GetObjectAccessListOptions) SetCatalogIdentifier(catalogIdentifier string) *GetObjectAccessListOptions {
-	options.CatalogIdentifier = core.StringPtr(catalogIdentifier)
-	return options
+func (_options *GetObjectAccessListOptions) SetCatalogIdentifier(catalogIdentifier string) *GetObjectAccessListOptions {
+	_options.CatalogIdentifier = core.StringPtr(catalogIdentifier)
+	return _options
 }
 
 // SetObjectIdentifier : Allow user to set ObjectIdentifier
-func (options *GetObjectAccessListOptions) SetObjectIdentifier(objectIdentifier string) *GetObjectAccessListOptions {
-	options.ObjectIdentifier = core.StringPtr(objectIdentifier)
-	return options
+func (_options *GetObjectAccessListOptions) SetObjectIdentifier(objectIdentifier string) *GetObjectAccessListOptions {
+	_options.ObjectIdentifier = core.StringPtr(objectIdentifier)
+	return _options
 }
 
 // SetLimit : Allow user to set Limit
-func (options *GetObjectAccessListOptions) SetLimit(limit int64) *GetObjectAccessListOptions {
-	options.Limit = core.Int64Ptr(limit)
-	return options
+func (_options *GetObjectAccessListOptions) SetLimit(limit int64) *GetObjectAccessListOptions {
+	_options.Limit = core.Int64Ptr(limit)
+	return _options
 }
 
 // SetOffset : Allow user to set Offset
-func (options *GetObjectAccessListOptions) SetOffset(offset int64) *GetObjectAccessListOptions {
-	options.Offset = core.Int64Ptr(offset)
-	return options
+func (_options *GetObjectAccessListOptions) SetOffset(offset int64) *GetObjectAccessListOptions {
+	_options.Offset = core.Int64Ptr(offset)
+	return _options
 }
 
 // SetHeaders : Allow user to set Headers
@@ -7646,13 +8113,13 @@ func (options *GetObjectAccessListOptions) SetHeaders(param map[string]string) *
 // GetObjectAccessOptions : The GetObjectAccess options.
 type GetObjectAccessOptions struct {
 	// Catalog identifier.
-	CatalogIdentifier *string `validate:"required,ne="`
+	CatalogIdentifier *string `json:"catalog_identifier" validate:"required,ne="`
 
 	// Object identifier.
-	ObjectIdentifier *string `validate:"required,ne="`
+	ObjectIdentifier *string `json:"object_identifier" validate:"required,ne="`
 
 	// Account identifier.
-	AccountIdentifier *string `validate:"required,ne="`
+	AccountIdentifier *string `json:"account_identifier" validate:"required,ne="`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -7668,21 +8135,21 @@ func (*CatalogManagementV1) NewGetObjectAccessOptions(catalogIdentifier string, 
 }
 
 // SetCatalogIdentifier : Allow user to set CatalogIdentifier
-func (options *GetObjectAccessOptions) SetCatalogIdentifier(catalogIdentifier string) *GetObjectAccessOptions {
-	options.CatalogIdentifier = core.StringPtr(catalogIdentifier)
-	return options
+func (_options *GetObjectAccessOptions) SetCatalogIdentifier(catalogIdentifier string) *GetObjectAccessOptions {
+	_options.CatalogIdentifier = core.StringPtr(catalogIdentifier)
+	return _options
 }
 
 // SetObjectIdentifier : Allow user to set ObjectIdentifier
-func (options *GetObjectAccessOptions) SetObjectIdentifier(objectIdentifier string) *GetObjectAccessOptions {
-	options.ObjectIdentifier = core.StringPtr(objectIdentifier)
-	return options
+func (_options *GetObjectAccessOptions) SetObjectIdentifier(objectIdentifier string) *GetObjectAccessOptions {
+	_options.ObjectIdentifier = core.StringPtr(objectIdentifier)
+	return _options
 }
 
 // SetAccountIdentifier : Allow user to set AccountIdentifier
-func (options *GetObjectAccessOptions) SetAccountIdentifier(accountIdentifier string) *GetObjectAccessOptions {
-	options.AccountIdentifier = core.StringPtr(accountIdentifier)
-	return options
+func (_options *GetObjectAccessOptions) SetAccountIdentifier(accountIdentifier string) *GetObjectAccessOptions {
+	_options.AccountIdentifier = core.StringPtr(accountIdentifier)
+	return _options
 }
 
 // SetHeaders : Allow user to set Headers
@@ -7694,10 +8161,10 @@ func (options *GetObjectAccessOptions) SetHeaders(param map[string]string) *GetO
 // GetObjectAuditOptions : The GetObjectAudit options.
 type GetObjectAuditOptions struct {
 	// Catalog identifier.
-	CatalogIdentifier *string `validate:"required,ne="`
+	CatalogIdentifier *string `json:"catalog_identifier" validate:"required,ne="`
 
 	// Object identifier.
-	ObjectIdentifier *string `validate:"required,ne="`
+	ObjectIdentifier *string `json:"object_identifier" validate:"required,ne="`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -7712,15 +8179,15 @@ func (*CatalogManagementV1) NewGetObjectAuditOptions(catalogIdentifier string, o
 }
 
 // SetCatalogIdentifier : Allow user to set CatalogIdentifier
-func (options *GetObjectAuditOptions) SetCatalogIdentifier(catalogIdentifier string) *GetObjectAuditOptions {
-	options.CatalogIdentifier = core.StringPtr(catalogIdentifier)
-	return options
+func (_options *GetObjectAuditOptions) SetCatalogIdentifier(catalogIdentifier string) *GetObjectAuditOptions {
+	_options.CatalogIdentifier = core.StringPtr(catalogIdentifier)
+	return _options
 }
 
 // SetObjectIdentifier : Allow user to set ObjectIdentifier
-func (options *GetObjectAuditOptions) SetObjectIdentifier(objectIdentifier string) *GetObjectAuditOptions {
-	options.ObjectIdentifier = core.StringPtr(objectIdentifier)
-	return options
+func (_options *GetObjectAuditOptions) SetObjectIdentifier(objectIdentifier string) *GetObjectAuditOptions {
+	_options.ObjectIdentifier = core.StringPtr(objectIdentifier)
+	return _options
 }
 
 // SetHeaders : Allow user to set Headers
@@ -7732,10 +8199,10 @@ func (options *GetObjectAuditOptions) SetHeaders(param map[string]string) *GetOb
 // GetObjectOptions : The GetObject options.
 type GetObjectOptions struct {
 	// Catalog identifier.
-	CatalogIdentifier *string `validate:"required,ne="`
+	CatalogIdentifier *string `json:"catalog_identifier" validate:"required,ne="`
 
 	// Object identifier.
-	ObjectIdentifier *string `validate:"required,ne="`
+	ObjectIdentifier *string `json:"object_identifier" validate:"required,ne="`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -7750,15 +8217,15 @@ func (*CatalogManagementV1) NewGetObjectOptions(catalogIdentifier string, object
 }
 
 // SetCatalogIdentifier : Allow user to set CatalogIdentifier
-func (options *GetObjectOptions) SetCatalogIdentifier(catalogIdentifier string) *GetObjectOptions {
-	options.CatalogIdentifier = core.StringPtr(catalogIdentifier)
-	return options
+func (_options *GetObjectOptions) SetCatalogIdentifier(catalogIdentifier string) *GetObjectOptions {
+	_options.CatalogIdentifier = core.StringPtr(catalogIdentifier)
+	return _options
 }
 
 // SetObjectIdentifier : Allow user to set ObjectIdentifier
-func (options *GetObjectOptions) SetObjectIdentifier(objectIdentifier string) *GetObjectOptions {
-	options.ObjectIdentifier = core.StringPtr(objectIdentifier)
-	return options
+func (_options *GetObjectOptions) SetObjectIdentifier(objectIdentifier string) *GetObjectOptions {
+	_options.ObjectIdentifier = core.StringPtr(objectIdentifier)
+	return _options
 }
 
 // SetHeaders : Allow user to set Headers
@@ -7770,7 +8237,7 @@ func (options *GetObjectOptions) SetHeaders(param map[string]string) *GetObjectO
 // GetOfferingAboutOptions : The GetOfferingAbout options.
 type GetOfferingAboutOptions struct {
 	// A dotted value of `catalogID`.`versionID`.
-	VersionLocID *string `validate:"required,ne="`
+	VersionLocID *string `json:"version_loc_id" validate:"required,ne="`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -7784,9 +8251,9 @@ func (*CatalogManagementV1) NewGetOfferingAboutOptions(versionLocID string) *Get
 }
 
 // SetVersionLocID : Allow user to set VersionLocID
-func (options *GetOfferingAboutOptions) SetVersionLocID(versionLocID string) *GetOfferingAboutOptions {
-	options.VersionLocID = core.StringPtr(versionLocID)
-	return options
+func (_options *GetOfferingAboutOptions) SetVersionLocID(versionLocID string) *GetOfferingAboutOptions {
+	_options.VersionLocID = core.StringPtr(versionLocID)
+	return _options
 }
 
 // SetHeaders : Allow user to set Headers
@@ -7798,10 +8265,10 @@ func (options *GetOfferingAboutOptions) SetHeaders(param map[string]string) *Get
 // GetOfferingAuditOptions : The GetOfferingAudit options.
 type GetOfferingAuditOptions struct {
 	// Catalog identifier.
-	CatalogIdentifier *string `validate:"required,ne="`
+	CatalogIdentifier *string `json:"catalog_identifier" validate:"required,ne="`
 
 	// Offering identifier.
-	OfferingID *string `validate:"required,ne="`
+	OfferingID *string `json:"offering_id" validate:"required,ne="`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -7816,15 +8283,15 @@ func (*CatalogManagementV1) NewGetOfferingAuditOptions(catalogIdentifier string,
 }
 
 // SetCatalogIdentifier : Allow user to set CatalogIdentifier
-func (options *GetOfferingAuditOptions) SetCatalogIdentifier(catalogIdentifier string) *GetOfferingAuditOptions {
-	options.CatalogIdentifier = core.StringPtr(catalogIdentifier)
-	return options
+func (_options *GetOfferingAuditOptions) SetCatalogIdentifier(catalogIdentifier string) *GetOfferingAuditOptions {
+	_options.CatalogIdentifier = core.StringPtr(catalogIdentifier)
+	return _options
 }
 
 // SetOfferingID : Allow user to set OfferingID
-func (options *GetOfferingAuditOptions) SetOfferingID(offeringID string) *GetOfferingAuditOptions {
-	options.OfferingID = core.StringPtr(offeringID)
-	return options
+func (_options *GetOfferingAuditOptions) SetOfferingID(offeringID string) *GetOfferingAuditOptions {
+	_options.OfferingID = core.StringPtr(offeringID)
+	return _options
 }
 
 // SetHeaders : Allow user to set Headers
@@ -7836,7 +8303,7 @@ func (options *GetOfferingAuditOptions) SetHeaders(param map[string]string) *Get
 // GetOfferingContainerImagesOptions : The GetOfferingContainerImages options.
 type GetOfferingContainerImagesOptions struct {
 	// A dotted value of `catalogID`.`versionID`.
-	VersionLocID *string `validate:"required,ne="`
+	VersionLocID *string `json:"version_loc_id" validate:"required,ne="`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -7850,9 +8317,9 @@ func (*CatalogManagementV1) NewGetOfferingContainerImagesOptions(versionLocID st
 }
 
 // SetVersionLocID : Allow user to set VersionLocID
-func (options *GetOfferingContainerImagesOptions) SetVersionLocID(versionLocID string) *GetOfferingContainerImagesOptions {
-	options.VersionLocID = core.StringPtr(versionLocID)
-	return options
+func (_options *GetOfferingContainerImagesOptions) SetVersionLocID(versionLocID string) *GetOfferingContainerImagesOptions {
+	_options.VersionLocID = core.StringPtr(versionLocID)
+	return _options
 }
 
 // SetHeaders : Allow user to set Headers
@@ -7864,7 +8331,7 @@ func (options *GetOfferingContainerImagesOptions) SetHeaders(param map[string]st
 // GetOfferingInstanceOptions : The GetOfferingInstance options.
 type GetOfferingInstanceOptions struct {
 	// Version Instance identifier.
-	InstanceIdentifier *string `validate:"required,ne="`
+	InstanceIdentifier *string `json:"instance_identifier" validate:"required,ne="`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -7878,9 +8345,9 @@ func (*CatalogManagementV1) NewGetOfferingInstanceOptions(instanceIdentifier str
 }
 
 // SetInstanceIdentifier : Allow user to set InstanceIdentifier
-func (options *GetOfferingInstanceOptions) SetInstanceIdentifier(instanceIdentifier string) *GetOfferingInstanceOptions {
-	options.InstanceIdentifier = core.StringPtr(instanceIdentifier)
-	return options
+func (_options *GetOfferingInstanceOptions) SetInstanceIdentifier(instanceIdentifier string) *GetOfferingInstanceOptions {
+	_options.InstanceIdentifier = core.StringPtr(instanceIdentifier)
+	return _options
 }
 
 // SetHeaders : Allow user to set Headers
@@ -7892,10 +8359,10 @@ func (options *GetOfferingInstanceOptions) SetHeaders(param map[string]string) *
 // GetOfferingLicenseOptions : The GetOfferingLicense options.
 type GetOfferingLicenseOptions struct {
 	// A dotted value of `catalogID`.`versionID`.
-	VersionLocID *string `validate:"required,ne="`
+	VersionLocID *string `json:"version_loc_id" validate:"required,ne="`
 
 	// The ID of the license, which maps to the file name in the 'licenses' directory of this verions tgz file.
-	LicenseID *string `validate:"required,ne="`
+	LicenseID *string `json:"license_id" validate:"required,ne="`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -7910,15 +8377,15 @@ func (*CatalogManagementV1) NewGetOfferingLicenseOptions(versionLocID string, li
 }
 
 // SetVersionLocID : Allow user to set VersionLocID
-func (options *GetOfferingLicenseOptions) SetVersionLocID(versionLocID string) *GetOfferingLicenseOptions {
-	options.VersionLocID = core.StringPtr(versionLocID)
-	return options
+func (_options *GetOfferingLicenseOptions) SetVersionLocID(versionLocID string) *GetOfferingLicenseOptions {
+	_options.VersionLocID = core.StringPtr(versionLocID)
+	return _options
 }
 
 // SetLicenseID : Allow user to set LicenseID
-func (options *GetOfferingLicenseOptions) SetLicenseID(licenseID string) *GetOfferingLicenseOptions {
-	options.LicenseID = core.StringPtr(licenseID)
-	return options
+func (_options *GetOfferingLicenseOptions) SetLicenseID(licenseID string) *GetOfferingLicenseOptions {
+	_options.LicenseID = core.StringPtr(licenseID)
+	return _options
 }
 
 // SetHeaders : Allow user to set Headers
@@ -7930,10 +8397,16 @@ func (options *GetOfferingLicenseOptions) SetHeaders(param map[string]string) *G
 // GetOfferingOptions : The GetOffering options.
 type GetOfferingOptions struct {
 	// Catalog identifier.
-	CatalogIdentifier *string `validate:"required,ne="`
+	CatalogIdentifier *string `json:"catalog_identifier" validate:"required,ne="`
 
 	// Offering identification.
-	OfferingID *string `validate:"required,ne="`
+	OfferingID *string `json:"offering_id" validate:"required,ne="`
+
+	// Offering Parameter Type.  Valid values are 'name' or 'id'.  Default is 'id'.
+	Type *string `json:"type,omitempty"`
+
+	// Return the digest format of the specified offering.  Default is false.
+	Digest *bool `json:"digest,omitempty"`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -7948,15 +8421,27 @@ func (*CatalogManagementV1) NewGetOfferingOptions(catalogIdentifier string, offe
 }
 
 // SetCatalogIdentifier : Allow user to set CatalogIdentifier
-func (options *GetOfferingOptions) SetCatalogIdentifier(catalogIdentifier string) *GetOfferingOptions {
-	options.CatalogIdentifier = core.StringPtr(catalogIdentifier)
-	return options
+func (_options *GetOfferingOptions) SetCatalogIdentifier(catalogIdentifier string) *GetOfferingOptions {
+	_options.CatalogIdentifier = core.StringPtr(catalogIdentifier)
+	return _options
 }
 
 // SetOfferingID : Allow user to set OfferingID
-func (options *GetOfferingOptions) SetOfferingID(offeringID string) *GetOfferingOptions {
-	options.OfferingID = core.StringPtr(offeringID)
-	return options
+func (_options *GetOfferingOptions) SetOfferingID(offeringID string) *GetOfferingOptions {
+	_options.OfferingID = core.StringPtr(offeringID)
+	return _options
+}
+
+// SetType : Allow user to set Type
+func (_options *GetOfferingOptions) SetType(typeVar string) *GetOfferingOptions {
+	_options.Type = core.StringPtr(typeVar)
+	return _options
+}
+
+// SetDigest : Allow user to set Digest
+func (_options *GetOfferingOptions) SetDigest(digest bool) *GetOfferingOptions {
+	_options.Digest = core.BoolPtr(digest)
+	return _options
 }
 
 // SetHeaders : Allow user to set Headers
@@ -7965,91 +8450,228 @@ func (options *GetOfferingOptions) SetHeaders(param map[string]string) *GetOffer
 	return options
 }
 
+// GetOfferingSourceOptions : The GetOfferingSource options.
+type GetOfferingSourceOptions struct {
+	// The version being requested.
+	Version *string `json:"version" validate:"required"`
+
+	// The type of the response: application/yaml, application/json, or application/x-gzip.
+	Accept *string `json:"Accept,omitempty"`
+
+	// Catlaog ID.  If not specified, this value will default to the public catalog.
+	CatalogID *string `json:"catalogID,omitempty"`
+
+	// Offering name.  An offering name or ID must be specified.
+	Name *string `json:"name,omitempty"`
+
+	// Offering id.  An offering name or ID must be specified.
+	ID *string `json:"id,omitempty"`
+
+	// The kind of offering (e.g. helm, ova, terraform...).
+	Kind *string `json:"kind,omitempty"`
+
+	// The channel value of the specified version.
+	Channel *string `json:"channel,omitempty"`
+
+	// Allows users to set headers on API requests
+	Headers map[string]string
+}
+
+// NewGetOfferingSourceOptions : Instantiate GetOfferingSourceOptions
+func (*CatalogManagementV1) NewGetOfferingSourceOptions(version string) *GetOfferingSourceOptions {
+	return &GetOfferingSourceOptions{
+		Version: core.StringPtr(version),
+	}
+}
+
+// SetVersion : Allow user to set Version
+func (_options *GetOfferingSourceOptions) SetVersion(version string) *GetOfferingSourceOptions {
+	_options.Version = core.StringPtr(version)
+	return _options
+}
+
+// SetAccept : Allow user to set Accept
+func (_options *GetOfferingSourceOptions) SetAccept(accept string) *GetOfferingSourceOptions {
+	_options.Accept = core.StringPtr(accept)
+	return _options
+}
+
+// SetCatalogID : Allow user to set CatalogID
+func (_options *GetOfferingSourceOptions) SetCatalogID(catalogID string) *GetOfferingSourceOptions {
+	_options.CatalogID = core.StringPtr(catalogID)
+	return _options
+}
+
+// SetName : Allow user to set Name
+func (_options *GetOfferingSourceOptions) SetName(name string) *GetOfferingSourceOptions {
+	_options.Name = core.StringPtr(name)
+	return _options
+}
+
+// SetID : Allow user to set ID
+func (_options *GetOfferingSourceOptions) SetID(id string) *GetOfferingSourceOptions {
+	_options.ID = core.StringPtr(id)
+	return _options
+}
+
+// SetKind : Allow user to set Kind
+func (_options *GetOfferingSourceOptions) SetKind(kind string) *GetOfferingSourceOptions {
+	_options.Kind = core.StringPtr(kind)
+	return _options
+}
+
+// SetChannel : Allow user to set Channel
+func (_options *GetOfferingSourceOptions) SetChannel(channel string) *GetOfferingSourceOptions {
+	_options.Channel = core.StringPtr(channel)
+	return _options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *GetOfferingSourceOptions) SetHeaders(param map[string]string) *GetOfferingSourceOptions {
+	options.Headers = param
+	return options
+}
+
 // GetOfferingUpdatesOptions : The GetOfferingUpdates options.
 type GetOfferingUpdatesOptions struct {
 	// Catalog identifier.
-	CatalogIdentifier *string `validate:"required,ne="`
+	CatalogIdentifier *string `json:"catalog_identifier" validate:"required,ne="`
 
 	// Offering identification.
-	OfferingID *string `validate:"required,ne="`
+	OfferingID *string `json:"offering_id" validate:"required,ne="`
 
 	// The kind of offering (e.g, helm, ova, terraform ...).
-	Kind *string `validate:"required"`
+	Kind *string `json:"kind" validate:"required"`
+
+	// IAM Refresh token.
+	XAuthRefreshToken *string `json:"X-Auth-Refresh-Token" validate:"required"`
+
+	// The target kind of the currently installed version (e.g. iks, roks, etc).
+	Target *string `json:"target,omitempty"`
 
 	// optionaly provide an existing version to check updates for if one is not given, all version will be returned.
-	Version *string
+	Version *string `json:"version,omitempty"`
 
 	// The id of the cluster where this version was installed.
-	ClusterID *string
+	ClusterID *string `json:"cluster_id,omitempty"`
 
 	// The region of the cluster where this version was installed.
-	Region *string
+	Region *string `json:"region,omitempty"`
 
 	// The resource group id of the cluster where this version was installed.
-	ResourceGroupID *string
+	ResourceGroupID *string `json:"resource_group_id,omitempty"`
 
 	// The namespace of the cluster where this version was installed.
-	Namespace *string
+	Namespace *string `json:"namespace,omitempty"`
+
+	// The sha value of the currently installed version.
+	Sha *string `json:"sha,omitempty"`
+
+	// Optionally provide the channel value of the currently installed version.
+	Channel *string `json:"channel,omitempty"`
+
+	// Optionally provide a list of namespaces used for the currently installed version.
+	Namespaces []string `json:"namespaces,omitempty"`
+
+	// Optionally indicate that the current version was installed in all namespaces.
+	AllNamespaces *bool `json:"all_namespaces,omitempty"`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
 }
 
 // NewGetOfferingUpdatesOptions : Instantiate GetOfferingUpdatesOptions
-func (*CatalogManagementV1) NewGetOfferingUpdatesOptions(catalogIdentifier string, offeringID string, kind string) *GetOfferingUpdatesOptions {
+func (*CatalogManagementV1) NewGetOfferingUpdatesOptions(catalogIdentifier string, offeringID string, kind string, xAuthRefreshToken string) *GetOfferingUpdatesOptions {
 	return &GetOfferingUpdatesOptions{
 		CatalogIdentifier: core.StringPtr(catalogIdentifier),
 		OfferingID: core.StringPtr(offeringID),
 		Kind: core.StringPtr(kind),
+		XAuthRefreshToken: core.StringPtr(xAuthRefreshToken),
 	}
 }
 
 // SetCatalogIdentifier : Allow user to set CatalogIdentifier
-func (options *GetOfferingUpdatesOptions) SetCatalogIdentifier(catalogIdentifier string) *GetOfferingUpdatesOptions {
-	options.CatalogIdentifier = core.StringPtr(catalogIdentifier)
-	return options
+func (_options *GetOfferingUpdatesOptions) SetCatalogIdentifier(catalogIdentifier string) *GetOfferingUpdatesOptions {
+	_options.CatalogIdentifier = core.StringPtr(catalogIdentifier)
+	return _options
 }
 
 // SetOfferingID : Allow user to set OfferingID
-func (options *GetOfferingUpdatesOptions) SetOfferingID(offeringID string) *GetOfferingUpdatesOptions {
-	options.OfferingID = core.StringPtr(offeringID)
-	return options
+func (_options *GetOfferingUpdatesOptions) SetOfferingID(offeringID string) *GetOfferingUpdatesOptions {
+	_options.OfferingID = core.StringPtr(offeringID)
+	return _options
 }
 
 // SetKind : Allow user to set Kind
-func (options *GetOfferingUpdatesOptions) SetKind(kind string) *GetOfferingUpdatesOptions {
-	options.Kind = core.StringPtr(kind)
-	return options
+func (_options *GetOfferingUpdatesOptions) SetKind(kind string) *GetOfferingUpdatesOptions {
+	_options.Kind = core.StringPtr(kind)
+	return _options
+}
+
+// SetXAuthRefreshToken : Allow user to set XAuthRefreshToken
+func (_options *GetOfferingUpdatesOptions) SetXAuthRefreshToken(xAuthRefreshToken string) *GetOfferingUpdatesOptions {
+	_options.XAuthRefreshToken = core.StringPtr(xAuthRefreshToken)
+	return _options
+}
+
+// SetTarget : Allow user to set Target
+func (_options *GetOfferingUpdatesOptions) SetTarget(target string) *GetOfferingUpdatesOptions {
+	_options.Target = core.StringPtr(target)
+	return _options
 }
 
 // SetVersion : Allow user to set Version
-func (options *GetOfferingUpdatesOptions) SetVersion(version string) *GetOfferingUpdatesOptions {
-	options.Version = core.StringPtr(version)
-	return options
+func (_options *GetOfferingUpdatesOptions) SetVersion(version string) *GetOfferingUpdatesOptions {
+	_options.Version = core.StringPtr(version)
+	return _options
 }
 
 // SetClusterID : Allow user to set ClusterID
-func (options *GetOfferingUpdatesOptions) SetClusterID(clusterID string) *GetOfferingUpdatesOptions {
-	options.ClusterID = core.StringPtr(clusterID)
-	return options
+func (_options *GetOfferingUpdatesOptions) SetClusterID(clusterID string) *GetOfferingUpdatesOptions {
+	_options.ClusterID = core.StringPtr(clusterID)
+	return _options
 }
 
 // SetRegion : Allow user to set Region
-func (options *GetOfferingUpdatesOptions) SetRegion(region string) *GetOfferingUpdatesOptions {
-	options.Region = core.StringPtr(region)
-	return options
+func (_options *GetOfferingUpdatesOptions) SetRegion(region string) *GetOfferingUpdatesOptions {
+	_options.Region = core.StringPtr(region)
+	return _options
 }
 
 // SetResourceGroupID : Allow user to set ResourceGroupID
-func (options *GetOfferingUpdatesOptions) SetResourceGroupID(resourceGroupID string) *GetOfferingUpdatesOptions {
-	options.ResourceGroupID = core.StringPtr(resourceGroupID)
-	return options
+func (_options *GetOfferingUpdatesOptions) SetResourceGroupID(resourceGroupID string) *GetOfferingUpdatesOptions {
+	_options.ResourceGroupID = core.StringPtr(resourceGroupID)
+	return _options
 }
 
 // SetNamespace : Allow user to set Namespace
-func (options *GetOfferingUpdatesOptions) SetNamespace(namespace string) *GetOfferingUpdatesOptions {
-	options.Namespace = core.StringPtr(namespace)
-	return options
+func (_options *GetOfferingUpdatesOptions) SetNamespace(namespace string) *GetOfferingUpdatesOptions {
+	_options.Namespace = core.StringPtr(namespace)
+	return _options
+}
+
+// SetSha : Allow user to set Sha
+func (_options *GetOfferingUpdatesOptions) SetSha(sha string) *GetOfferingUpdatesOptions {
+	_options.Sha = core.StringPtr(sha)
+	return _options
+}
+
+// SetChannel : Allow user to set Channel
+func (_options *GetOfferingUpdatesOptions) SetChannel(channel string) *GetOfferingUpdatesOptions {
+	_options.Channel = core.StringPtr(channel)
+	return _options
+}
+
+// SetNamespaces : Allow user to set Namespaces
+func (_options *GetOfferingUpdatesOptions) SetNamespaces(namespaces []string) *GetOfferingUpdatesOptions {
+	_options.Namespaces = namespaces
+	return _options
+}
+
+// SetAllNamespaces : Allow user to set AllNamespaces
+func (_options *GetOfferingUpdatesOptions) SetAllNamespaces(allNamespaces bool) *GetOfferingUpdatesOptions {
+	_options.AllNamespaces = core.BoolPtr(allNamespaces)
+	return _options
 }
 
 // SetHeaders : Allow user to set Headers
@@ -8061,7 +8683,7 @@ func (options *GetOfferingUpdatesOptions) SetHeaders(param map[string]string) *G
 // GetOfferingWorkingCopyOptions : The GetOfferingWorkingCopy options.
 type GetOfferingWorkingCopyOptions struct {
 	// A dotted value of `catalogID`.`versionID`.
-	VersionLocID *string `validate:"required,ne="`
+	VersionLocID *string `json:"version_loc_id" validate:"required,ne="`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -8075,9 +8697,9 @@ func (*CatalogManagementV1) NewGetOfferingWorkingCopyOptions(versionLocID string
 }
 
 // SetVersionLocID : Allow user to set VersionLocID
-func (options *GetOfferingWorkingCopyOptions) SetVersionLocID(versionLocID string) *GetOfferingWorkingCopyOptions {
-	options.VersionLocID = core.StringPtr(versionLocID)
-	return options
+func (_options *GetOfferingWorkingCopyOptions) SetVersionLocID(versionLocID string) *GetOfferingWorkingCopyOptions {
+	_options.VersionLocID = core.StringPtr(versionLocID)
+	return _options
 }
 
 // SetHeaders : Allow user to set Headers
@@ -8089,7 +8711,7 @@ func (options *GetOfferingWorkingCopyOptions) SetHeaders(param map[string]string
 // GetOverrideValuesOptions : The GetOverrideValues options.
 type GetOverrideValuesOptions struct {
 	// A dotted value of `catalogID`.`versionID`.
-	VersionLocID *string `validate:"required,ne="`
+	VersionLocID *string `json:"version_loc_id" validate:"required,ne="`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -8103,9 +8725,9 @@ func (*CatalogManagementV1) NewGetOverrideValuesOptions(versionLocID string) *Ge
 }
 
 // SetVersionLocID : Allow user to set VersionLocID
-func (options *GetOverrideValuesOptions) SetVersionLocID(versionLocID string) *GetOverrideValuesOptions {
-	options.VersionLocID = core.StringPtr(versionLocID)
-	return options
+func (_options *GetOverrideValuesOptions) SetVersionLocID(versionLocID string) *GetOverrideValuesOptions {
+	_options.VersionLocID = core.StringPtr(versionLocID)
+	return _options
 }
 
 // SetHeaders : Allow user to set Headers
@@ -8117,19 +8739,19 @@ func (options *GetOverrideValuesOptions) SetHeaders(param map[string]string) *Ge
 // GetPreinstallOptions : The GetPreinstall options.
 type GetPreinstallOptions struct {
 	// A dotted value of `catalogID`.`versionID`.
-	VersionLocID *string `validate:"required,ne="`
+	VersionLocID *string `json:"version_loc_id" validate:"required,ne="`
 
 	// IAM Refresh token.
-	XAuthRefreshToken *string `validate:"required"`
+	XAuthRefreshToken *string `json:"X-Auth-Refresh-Token" validate:"required"`
 
 	// ID of the cluster.
-	ClusterID *string
+	ClusterID *string `json:"cluster_id,omitempty"`
 
 	// Cluster region.
-	Region *string
+	Region *string `json:"region,omitempty"`
 
 	// Required if the version's pre-install scope is `namespace`.
-	Namespace *string
+	Namespace *string `json:"namespace,omitempty"`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -8144,33 +8766,33 @@ func (*CatalogManagementV1) NewGetPreinstallOptions(versionLocID string, xAuthRe
 }
 
 // SetVersionLocID : Allow user to set VersionLocID
-func (options *GetPreinstallOptions) SetVersionLocID(versionLocID string) *GetPreinstallOptions {
-	options.VersionLocID = core.StringPtr(versionLocID)
-	return options
+func (_options *GetPreinstallOptions) SetVersionLocID(versionLocID string) *GetPreinstallOptions {
+	_options.VersionLocID = core.StringPtr(versionLocID)
+	return _options
 }
 
 // SetXAuthRefreshToken : Allow user to set XAuthRefreshToken
-func (options *GetPreinstallOptions) SetXAuthRefreshToken(xAuthRefreshToken string) *GetPreinstallOptions {
-	options.XAuthRefreshToken = core.StringPtr(xAuthRefreshToken)
-	return options
+func (_options *GetPreinstallOptions) SetXAuthRefreshToken(xAuthRefreshToken string) *GetPreinstallOptions {
+	_options.XAuthRefreshToken = core.StringPtr(xAuthRefreshToken)
+	return _options
 }
 
 // SetClusterID : Allow user to set ClusterID
-func (options *GetPreinstallOptions) SetClusterID(clusterID string) *GetPreinstallOptions {
-	options.ClusterID = core.StringPtr(clusterID)
-	return options
+func (_options *GetPreinstallOptions) SetClusterID(clusterID string) *GetPreinstallOptions {
+	_options.ClusterID = core.StringPtr(clusterID)
+	return _options
 }
 
 // SetRegion : Allow user to set Region
-func (options *GetPreinstallOptions) SetRegion(region string) *GetPreinstallOptions {
-	options.Region = core.StringPtr(region)
-	return options
+func (_options *GetPreinstallOptions) SetRegion(region string) *GetPreinstallOptions {
+	_options.Region = core.StringPtr(region)
+	return _options
 }
 
 // SetNamespace : Allow user to set Namespace
-func (options *GetPreinstallOptions) SetNamespace(namespace string) *GetPreinstallOptions {
-	options.Namespace = core.StringPtr(namespace)
-	return options
+func (_options *GetPreinstallOptions) SetNamespace(namespace string) *GetPreinstallOptions {
+	_options.Namespace = core.StringPtr(namespace)
+	return _options
 }
 
 // SetHeaders : Allow user to set Headers
@@ -8182,10 +8804,10 @@ func (options *GetPreinstallOptions) SetHeaders(param map[string]string) *GetPre
 // GetValidationStatusOptions : The GetValidationStatus options.
 type GetValidationStatusOptions struct {
 	// A dotted value of `catalogID`.`versionID`.
-	VersionLocID *string `validate:"required,ne="`
+	VersionLocID *string `json:"version_loc_id" validate:"required,ne="`
 
 	// IAM Refresh token.
-	XAuthRefreshToken *string `validate:"required"`
+	XAuthRefreshToken *string `json:"X-Auth-Refresh-Token" validate:"required"`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -8200,15 +8822,15 @@ func (*CatalogManagementV1) NewGetValidationStatusOptions(versionLocID string, x
 }
 
 // SetVersionLocID : Allow user to set VersionLocID
-func (options *GetValidationStatusOptions) SetVersionLocID(versionLocID string) *GetValidationStatusOptions {
-	options.VersionLocID = core.StringPtr(versionLocID)
-	return options
+func (_options *GetValidationStatusOptions) SetVersionLocID(versionLocID string) *GetValidationStatusOptions {
+	_options.VersionLocID = core.StringPtr(versionLocID)
+	return _options
 }
 
 // SetXAuthRefreshToken : Allow user to set XAuthRefreshToken
-func (options *GetValidationStatusOptions) SetXAuthRefreshToken(xAuthRefreshToken string) *GetValidationStatusOptions {
-	options.XAuthRefreshToken = core.StringPtr(xAuthRefreshToken)
-	return options
+func (_options *GetValidationStatusOptions) SetXAuthRefreshToken(xAuthRefreshToken string) *GetValidationStatusOptions {
+	_options.XAuthRefreshToken = core.StringPtr(xAuthRefreshToken)
+	return _options
 }
 
 // SetHeaders : Allow user to set Headers
@@ -8220,7 +8842,7 @@ func (options *GetValidationStatusOptions) SetHeaders(param map[string]string) *
 // GetVersionOptions : The GetVersion options.
 type GetVersionOptions struct {
 	// A dotted value of `catalogID`.`versionID`.
-	VersionLocID *string `validate:"required,ne="`
+	VersionLocID *string `json:"version_loc_id" validate:"required,ne="`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -8234,9 +8856,9 @@ func (*CatalogManagementV1) NewGetVersionOptions(versionLocID string) *GetVersio
 }
 
 // SetVersionLocID : Allow user to set VersionLocID
-func (options *GetVersionOptions) SetVersionLocID(versionLocID string) *GetVersionOptions {
-	options.VersionLocID = core.StringPtr(versionLocID)
-	return options
+func (_options *GetVersionOptions) SetVersionLocID(versionLocID string) *GetVersionOptions {
+	_options.VersionLocID = core.StringPtr(versionLocID)
+	return _options
 }
 
 // SetHeaders : Allow user to set Headers
@@ -8272,10 +8894,10 @@ func UnmarshalIDFilter(m map[string]json.RawMessage, result interface{}) (err er
 // IBMPublishObjectOptions : The IBMPublishObject options.
 type IBMPublishObjectOptions struct {
 	// Catalog identifier.
-	CatalogIdentifier *string `validate:"required,ne="`
+	CatalogIdentifier *string `json:"catalog_identifier" validate:"required,ne="`
 
 	// Object identifier.
-	ObjectIdentifier *string `validate:"required,ne="`
+	ObjectIdentifier *string `json:"object_identifier" validate:"required,ne="`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -8290,15 +8912,15 @@ func (*CatalogManagementV1) NewIBMPublishObjectOptions(catalogIdentifier string,
 }
 
 // SetCatalogIdentifier : Allow user to set CatalogIdentifier
-func (options *IBMPublishObjectOptions) SetCatalogIdentifier(catalogIdentifier string) *IBMPublishObjectOptions {
-	options.CatalogIdentifier = core.StringPtr(catalogIdentifier)
-	return options
+func (_options *IBMPublishObjectOptions) SetCatalogIdentifier(catalogIdentifier string) *IBMPublishObjectOptions {
+	_options.CatalogIdentifier = core.StringPtr(catalogIdentifier)
+	return _options
 }
 
 // SetObjectIdentifier : Allow user to set ObjectIdentifier
-func (options *IBMPublishObjectOptions) SetObjectIdentifier(objectIdentifier string) *IBMPublishObjectOptions {
-	options.ObjectIdentifier = core.StringPtr(objectIdentifier)
-	return options
+func (_options *IBMPublishObjectOptions) SetObjectIdentifier(objectIdentifier string) *IBMPublishObjectOptions {
+	_options.ObjectIdentifier = core.StringPtr(objectIdentifier)
+	return _options
 }
 
 // SetHeaders : Allow user to set Headers
@@ -8310,7 +8932,7 @@ func (options *IBMPublishObjectOptions) SetHeaders(param map[string]string) *IBM
 // IBMPublishVersionOptions : The IBMPublishVersion options.
 type IBMPublishVersionOptions struct {
 	// A dotted value of `catalogID`.`versionID`.
-	VersionLocID *string `validate:"required,ne="`
+	VersionLocID *string `json:"version_loc_id" validate:"required,ne="`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -8324,9 +8946,9 @@ func (*CatalogManagementV1) NewIBMPublishVersionOptions(versionLocID string) *IB
 }
 
 // SetVersionLocID : Allow user to set VersionLocID
-func (options *IBMPublishVersionOptions) SetVersionLocID(versionLocID string) *IBMPublishVersionOptions {
-	options.VersionLocID = core.StringPtr(versionLocID)
-	return options
+func (_options *IBMPublishVersionOptions) SetVersionLocID(versionLocID string) *IBMPublishVersionOptions {
+	_options.VersionLocID = core.StringPtr(versionLocID)
+	return _options
 }
 
 // SetHeaders : Allow user to set Headers
@@ -8379,37 +9001,37 @@ func UnmarshalImageManifest(m map[string]json.RawMessage, result interface{}) (e
 // ImportOfferingOptions : The ImportOffering options.
 type ImportOfferingOptions struct {
 	// Catalog identifier.
-	CatalogIdentifier *string `validate:"required,ne="`
+	CatalogIdentifier *string `json:"catalog_identifier" validate:"required,ne="`
 
 	// Tags array.
-	Tags []string
+	Tags []string `json:"tags,omitempty"`
 
 	// Target kinds.  Current valid values are 'iks', 'roks', 'vcenter', and 'terraform'.
-	TargetKinds []string
+	TargetKinds []string `json:"target_kinds,omitempty"`
 
 	// byte array representing the content to be imported.  Only supported for OVA images at this time.
-	Content *[]byte
+	Content *[]byte `json:"content,omitempty"`
 
 	// URL path to zip location.  If not specified, must provide content in this post body.
-	Zipurl *string
+	Zipurl *string `json:"zipurl,omitempty"`
 
 	// Re-use the specified offeringID during import.
-	OfferingID *string
+	OfferingID *string `json:"offeringID,omitempty"`
 
 	// The semver value for this new version.
-	TargetVersion *string
+	TargetVersion *string `json:"targetVersion,omitempty"`
 
 	// Add all possible configuration items when creating this version.
-	IncludeConfig *bool
+	IncludeConfig *bool `json:"includeConfig,omitempty"`
 
 	// Indicates that the current terraform template is used to install a VSI Image.
-	IsVsi *bool
+	IsVsi *bool `json:"isVSI,omitempty"`
 
 	// The type of repository containing this version.  Valid values are 'public_git' or 'enterprise_git'.
-	RepoType *string
+	RepoType *string `json:"repoType,omitempty"`
 
 	// Authentication token used to access the specified zip file.
-	XAuthToken *string
+	XAuthToken *string `json:"X-Auth-Token,omitempty"`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -8423,69 +9045,69 @@ func (*CatalogManagementV1) NewImportOfferingOptions(catalogIdentifier string) *
 }
 
 // SetCatalogIdentifier : Allow user to set CatalogIdentifier
-func (options *ImportOfferingOptions) SetCatalogIdentifier(catalogIdentifier string) *ImportOfferingOptions {
-	options.CatalogIdentifier = core.StringPtr(catalogIdentifier)
-	return options
+func (_options *ImportOfferingOptions) SetCatalogIdentifier(catalogIdentifier string) *ImportOfferingOptions {
+	_options.CatalogIdentifier = core.StringPtr(catalogIdentifier)
+	return _options
 }
 
 // SetTags : Allow user to set Tags
-func (options *ImportOfferingOptions) SetTags(tags []string) *ImportOfferingOptions {
-	options.Tags = tags
-	return options
+func (_options *ImportOfferingOptions) SetTags(tags []string) *ImportOfferingOptions {
+	_options.Tags = tags
+	return _options
 }
 
 // SetTargetKinds : Allow user to set TargetKinds
-func (options *ImportOfferingOptions) SetTargetKinds(targetKinds []string) *ImportOfferingOptions {
-	options.TargetKinds = targetKinds
-	return options
+func (_options *ImportOfferingOptions) SetTargetKinds(targetKinds []string) *ImportOfferingOptions {
+	_options.TargetKinds = targetKinds
+	return _options
 }
 
 // SetContent : Allow user to set Content
-func (options *ImportOfferingOptions) SetContent(content []byte) *ImportOfferingOptions {
-	options.Content = &content
-	return options
+func (_options *ImportOfferingOptions) SetContent(content []byte) *ImportOfferingOptions {
+	_options.Content = &content
+	return _options
 }
 
 // SetZipurl : Allow user to set Zipurl
-func (options *ImportOfferingOptions) SetZipurl(zipurl string) *ImportOfferingOptions {
-	options.Zipurl = core.StringPtr(zipurl)
-	return options
+func (_options *ImportOfferingOptions) SetZipurl(zipurl string) *ImportOfferingOptions {
+	_options.Zipurl = core.StringPtr(zipurl)
+	return _options
 }
 
 // SetOfferingID : Allow user to set OfferingID
-func (options *ImportOfferingOptions) SetOfferingID(offeringID string) *ImportOfferingOptions {
-	options.OfferingID = core.StringPtr(offeringID)
-	return options
+func (_options *ImportOfferingOptions) SetOfferingID(offeringID string) *ImportOfferingOptions {
+	_options.OfferingID = core.StringPtr(offeringID)
+	return _options
 }
 
 // SetTargetVersion : Allow user to set TargetVersion
-func (options *ImportOfferingOptions) SetTargetVersion(targetVersion string) *ImportOfferingOptions {
-	options.TargetVersion = core.StringPtr(targetVersion)
-	return options
+func (_options *ImportOfferingOptions) SetTargetVersion(targetVersion string) *ImportOfferingOptions {
+	_options.TargetVersion = core.StringPtr(targetVersion)
+	return _options
 }
 
 // SetIncludeConfig : Allow user to set IncludeConfig
-func (options *ImportOfferingOptions) SetIncludeConfig(includeConfig bool) *ImportOfferingOptions {
-	options.IncludeConfig = core.BoolPtr(includeConfig)
-	return options
+func (_options *ImportOfferingOptions) SetIncludeConfig(includeConfig bool) *ImportOfferingOptions {
+	_options.IncludeConfig = core.BoolPtr(includeConfig)
+	return _options
 }
 
 // SetIsVsi : Allow user to set IsVsi
-func (options *ImportOfferingOptions) SetIsVsi(isVsi bool) *ImportOfferingOptions {
-	options.IsVsi = core.BoolPtr(isVsi)
-	return options
+func (_options *ImportOfferingOptions) SetIsVsi(isVsi bool) *ImportOfferingOptions {
+	_options.IsVsi = core.BoolPtr(isVsi)
+	return _options
 }
 
 // SetRepoType : Allow user to set RepoType
-func (options *ImportOfferingOptions) SetRepoType(repoType string) *ImportOfferingOptions {
-	options.RepoType = core.StringPtr(repoType)
-	return options
+func (_options *ImportOfferingOptions) SetRepoType(repoType string) *ImportOfferingOptions {
+	_options.RepoType = core.StringPtr(repoType)
+	return _options
 }
 
 // SetXAuthToken : Allow user to set XAuthToken
-func (options *ImportOfferingOptions) SetXAuthToken(xAuthToken string) *ImportOfferingOptions {
-	options.XAuthToken = core.StringPtr(xAuthToken)
-	return options
+func (_options *ImportOfferingOptions) SetXAuthToken(xAuthToken string) *ImportOfferingOptions {
+	_options.XAuthToken = core.StringPtr(xAuthToken)
+	return _options
 }
 
 // SetHeaders : Allow user to set Headers
@@ -8497,34 +9119,34 @@ func (options *ImportOfferingOptions) SetHeaders(param map[string]string) *Impor
 // ImportOfferingVersionOptions : The ImportOfferingVersion options.
 type ImportOfferingVersionOptions struct {
 	// Catalog identifier.
-	CatalogIdentifier *string `validate:"required,ne="`
+	CatalogIdentifier *string `json:"catalog_identifier" validate:"required,ne="`
 
 	// Offering identification.
-	OfferingID *string `validate:"required,ne="`
+	OfferingID *string `json:"offering_id" validate:"required,ne="`
 
 	// Tags array.
-	Tags []string
+	Tags []string `json:"tags,omitempty"`
 
 	// Target kinds.  Current valid values are 'iks', 'roks', 'vcenter', and 'terraform'.
-	TargetKinds []string
+	TargetKinds []string `json:"target_kinds,omitempty"`
 
 	// byte array representing the content to be imported.  Only supported for OVA images at this time.
-	Content *[]byte
+	Content *[]byte `json:"content,omitempty"`
 
 	// URL path to zip location.  If not specified, must provide content in the body of this call.
-	Zipurl *string
+	Zipurl *string `json:"zipurl,omitempty"`
 
 	// The semver value for this new version, if not found in the zip url package content.
-	TargetVersion *string
+	TargetVersion *string `json:"targetVersion,omitempty"`
 
 	// Add all possible configuration values to this version when importing.
-	IncludeConfig *bool
+	IncludeConfig *bool `json:"includeConfig,omitempty"`
 
 	// Indicates that the current terraform template is used to install a VSI Image.
-	IsVsi *bool
+	IsVsi *bool `json:"isVSI,omitempty"`
 
 	// The type of repository containing this version.  Valid values are 'public_git' or 'enterprise_git'.
-	RepoType *string
+	RepoType *string `json:"repoType,omitempty"`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -8539,63 +9161,63 @@ func (*CatalogManagementV1) NewImportOfferingVersionOptions(catalogIdentifier st
 }
 
 // SetCatalogIdentifier : Allow user to set CatalogIdentifier
-func (options *ImportOfferingVersionOptions) SetCatalogIdentifier(catalogIdentifier string) *ImportOfferingVersionOptions {
-	options.CatalogIdentifier = core.StringPtr(catalogIdentifier)
-	return options
+func (_options *ImportOfferingVersionOptions) SetCatalogIdentifier(catalogIdentifier string) *ImportOfferingVersionOptions {
+	_options.CatalogIdentifier = core.StringPtr(catalogIdentifier)
+	return _options
 }
 
 // SetOfferingID : Allow user to set OfferingID
-func (options *ImportOfferingVersionOptions) SetOfferingID(offeringID string) *ImportOfferingVersionOptions {
-	options.OfferingID = core.StringPtr(offeringID)
-	return options
+func (_options *ImportOfferingVersionOptions) SetOfferingID(offeringID string) *ImportOfferingVersionOptions {
+	_options.OfferingID = core.StringPtr(offeringID)
+	return _options
 }
 
 // SetTags : Allow user to set Tags
-func (options *ImportOfferingVersionOptions) SetTags(tags []string) *ImportOfferingVersionOptions {
-	options.Tags = tags
-	return options
+func (_options *ImportOfferingVersionOptions) SetTags(tags []string) *ImportOfferingVersionOptions {
+	_options.Tags = tags
+	return _options
 }
 
 // SetTargetKinds : Allow user to set TargetKinds
-func (options *ImportOfferingVersionOptions) SetTargetKinds(targetKinds []string) *ImportOfferingVersionOptions {
-	options.TargetKinds = targetKinds
-	return options
+func (_options *ImportOfferingVersionOptions) SetTargetKinds(targetKinds []string) *ImportOfferingVersionOptions {
+	_options.TargetKinds = targetKinds
+	return _options
 }
 
 // SetContent : Allow user to set Content
-func (options *ImportOfferingVersionOptions) SetContent(content []byte) *ImportOfferingVersionOptions {
-	options.Content = &content
-	return options
+func (_options *ImportOfferingVersionOptions) SetContent(content []byte) *ImportOfferingVersionOptions {
+	_options.Content = &content
+	return _options
 }
 
 // SetZipurl : Allow user to set Zipurl
-func (options *ImportOfferingVersionOptions) SetZipurl(zipurl string) *ImportOfferingVersionOptions {
-	options.Zipurl = core.StringPtr(zipurl)
-	return options
+func (_options *ImportOfferingVersionOptions) SetZipurl(zipurl string) *ImportOfferingVersionOptions {
+	_options.Zipurl = core.StringPtr(zipurl)
+	return _options
 }
 
 // SetTargetVersion : Allow user to set TargetVersion
-func (options *ImportOfferingVersionOptions) SetTargetVersion(targetVersion string) *ImportOfferingVersionOptions {
-	options.TargetVersion = core.StringPtr(targetVersion)
-	return options
+func (_options *ImportOfferingVersionOptions) SetTargetVersion(targetVersion string) *ImportOfferingVersionOptions {
+	_options.TargetVersion = core.StringPtr(targetVersion)
+	return _options
 }
 
 // SetIncludeConfig : Allow user to set IncludeConfig
-func (options *ImportOfferingVersionOptions) SetIncludeConfig(includeConfig bool) *ImportOfferingVersionOptions {
-	options.IncludeConfig = core.BoolPtr(includeConfig)
-	return options
+func (_options *ImportOfferingVersionOptions) SetIncludeConfig(includeConfig bool) *ImportOfferingVersionOptions {
+	_options.IncludeConfig = core.BoolPtr(includeConfig)
+	return _options
 }
 
 // SetIsVsi : Allow user to set IsVsi
-func (options *ImportOfferingVersionOptions) SetIsVsi(isVsi bool) *ImportOfferingVersionOptions {
-	options.IsVsi = core.BoolPtr(isVsi)
-	return options
+func (_options *ImportOfferingVersionOptions) SetIsVsi(isVsi bool) *ImportOfferingVersionOptions {
+	_options.IsVsi = core.BoolPtr(isVsi)
+	return _options
 }
 
 // SetRepoType : Allow user to set RepoType
-func (options *ImportOfferingVersionOptions) SetRepoType(repoType string) *ImportOfferingVersionOptions {
-	options.RepoType = core.StringPtr(repoType)
-	return options
+func (_options *ImportOfferingVersionOptions) SetRepoType(repoType string) *ImportOfferingVersionOptions {
+	_options.RepoType = core.StringPtr(repoType)
+	return _options
 }
 
 // SetHeaders : Allow user to set Headers
@@ -8752,53 +9374,53 @@ func UnmarshalInstallStatusRelease(m map[string]json.RawMessage, result interfac
 // InstallVersionOptions : The InstallVersion options.
 type InstallVersionOptions struct {
 	// A dotted value of `catalogID`.`versionID`.
-	VersionLocID *string `validate:"required,ne="`
+	VersionLocID *string `json:"version_loc_id" validate:"required,ne="`
 
 	// IAM Refresh token.
-	XAuthRefreshToken *string `validate:"required"`
+	XAuthRefreshToken *string `json:"X-Auth-Refresh-Token" validate:"required"`
 
 	// Cluster ID.
-	ClusterID *string
+	ClusterID *string `json:"cluster_id,omitempty"`
 
 	// Cluster region.
-	Region *string
+	Region *string `json:"region,omitempty"`
 
 	// Kube namespace.
-	Namespace *string
+	Namespace *string `json:"namespace,omitempty"`
 
 	// Object containing Helm chart override values.  To use a secret for items of type password, specify a JSON encoded
 	// value of $ref:#/components/schemas/SecretInstance, prefixed with `cmsm_v1:`.
-	OverrideValues map[string]interface{}
+	OverrideValues map[string]interface{} `json:"override_values,omitempty"`
 
 	// Entitlement API Key for this offering.
-	EntitlementApikey *string
+	EntitlementApikey *string `json:"entitlement_apikey,omitempty"`
 
 	// Schematics workspace configuration.
-	Schematics *DeployRequestBodySchematics
+	Schematics *DeployRequestBodySchematics `json:"schematics,omitempty"`
 
 	// Script.
-	Script *string
+	Script *string `json:"script,omitempty"`
 
 	// Script ID.
-	ScriptID *string
+	ScriptID *string `json:"script_id,omitempty"`
 
 	// A dotted value of `catalogID`.`versionID`.
-	VersionLocatorID *string
+	VersionLocatorID *string `json:"version_locator_id,omitempty"`
 
 	// VCenter ID.
-	VcenterID *string
+	VcenterID *string `json:"vcenter_id,omitempty"`
 
 	// VCenter User.
-	VcenterUser *string
+	VcenterUser *string `json:"vcenter_user,omitempty"`
 
 	// VCenter Password.
-	VcenterPassword *string
+	VcenterPassword *string `json:"vcenter_password,omitempty"`
 
 	// VCenter Location.
-	VcenterLocation *string
+	VcenterLocation *string `json:"vcenter_location,omitempty"`
 
 	// VCenter Datastore.
-	VcenterDatastore *string
+	VcenterDatastore *string `json:"vcenter_datastore,omitempty"`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -8813,105 +9435,164 @@ func (*CatalogManagementV1) NewInstallVersionOptions(versionLocID string, xAuthR
 }
 
 // SetVersionLocID : Allow user to set VersionLocID
-func (options *InstallVersionOptions) SetVersionLocID(versionLocID string) *InstallVersionOptions {
-	options.VersionLocID = core.StringPtr(versionLocID)
-	return options
+func (_options *InstallVersionOptions) SetVersionLocID(versionLocID string) *InstallVersionOptions {
+	_options.VersionLocID = core.StringPtr(versionLocID)
+	return _options
 }
 
 // SetXAuthRefreshToken : Allow user to set XAuthRefreshToken
-func (options *InstallVersionOptions) SetXAuthRefreshToken(xAuthRefreshToken string) *InstallVersionOptions {
-	options.XAuthRefreshToken = core.StringPtr(xAuthRefreshToken)
-	return options
+func (_options *InstallVersionOptions) SetXAuthRefreshToken(xAuthRefreshToken string) *InstallVersionOptions {
+	_options.XAuthRefreshToken = core.StringPtr(xAuthRefreshToken)
+	return _options
 }
 
 // SetClusterID : Allow user to set ClusterID
-func (options *InstallVersionOptions) SetClusterID(clusterID string) *InstallVersionOptions {
-	options.ClusterID = core.StringPtr(clusterID)
-	return options
+func (_options *InstallVersionOptions) SetClusterID(clusterID string) *InstallVersionOptions {
+	_options.ClusterID = core.StringPtr(clusterID)
+	return _options
 }
 
 // SetRegion : Allow user to set Region
-func (options *InstallVersionOptions) SetRegion(region string) *InstallVersionOptions {
-	options.Region = core.StringPtr(region)
-	return options
+func (_options *InstallVersionOptions) SetRegion(region string) *InstallVersionOptions {
+	_options.Region = core.StringPtr(region)
+	return _options
 }
 
 // SetNamespace : Allow user to set Namespace
-func (options *InstallVersionOptions) SetNamespace(namespace string) *InstallVersionOptions {
-	options.Namespace = core.StringPtr(namespace)
-	return options
+func (_options *InstallVersionOptions) SetNamespace(namespace string) *InstallVersionOptions {
+	_options.Namespace = core.StringPtr(namespace)
+	return _options
 }
 
 // SetOverrideValues : Allow user to set OverrideValues
-func (options *InstallVersionOptions) SetOverrideValues(overrideValues map[string]interface{}) *InstallVersionOptions {
-	options.OverrideValues = overrideValues
-	return options
+func (_options *InstallVersionOptions) SetOverrideValues(overrideValues map[string]interface{}) *InstallVersionOptions {
+	_options.OverrideValues = overrideValues
+	return _options
 }
 
 // SetEntitlementApikey : Allow user to set EntitlementApikey
-func (options *InstallVersionOptions) SetEntitlementApikey(entitlementApikey string) *InstallVersionOptions {
-	options.EntitlementApikey = core.StringPtr(entitlementApikey)
-	return options
+func (_options *InstallVersionOptions) SetEntitlementApikey(entitlementApikey string) *InstallVersionOptions {
+	_options.EntitlementApikey = core.StringPtr(entitlementApikey)
+	return _options
 }
 
 // SetSchematics : Allow user to set Schematics
-func (options *InstallVersionOptions) SetSchematics(schematics *DeployRequestBodySchematics) *InstallVersionOptions {
-	options.Schematics = schematics
-	return options
+func (_options *InstallVersionOptions) SetSchematics(schematics *DeployRequestBodySchematics) *InstallVersionOptions {
+	_options.Schematics = schematics
+	return _options
 }
 
 // SetScript : Allow user to set Script
-func (options *InstallVersionOptions) SetScript(script string) *InstallVersionOptions {
-	options.Script = core.StringPtr(script)
-	return options
+func (_options *InstallVersionOptions) SetScript(script string) *InstallVersionOptions {
+	_options.Script = core.StringPtr(script)
+	return _options
 }
 
 // SetScriptID : Allow user to set ScriptID
-func (options *InstallVersionOptions) SetScriptID(scriptID string) *InstallVersionOptions {
-	options.ScriptID = core.StringPtr(scriptID)
-	return options
+func (_options *InstallVersionOptions) SetScriptID(scriptID string) *InstallVersionOptions {
+	_options.ScriptID = core.StringPtr(scriptID)
+	return _options
 }
 
 // SetVersionLocatorID : Allow user to set VersionLocatorID
-func (options *InstallVersionOptions) SetVersionLocatorID(versionLocatorID string) *InstallVersionOptions {
-	options.VersionLocatorID = core.StringPtr(versionLocatorID)
-	return options
+func (_options *InstallVersionOptions) SetVersionLocatorID(versionLocatorID string) *InstallVersionOptions {
+	_options.VersionLocatorID = core.StringPtr(versionLocatorID)
+	return _options
 }
 
 // SetVcenterID : Allow user to set VcenterID
-func (options *InstallVersionOptions) SetVcenterID(vcenterID string) *InstallVersionOptions {
-	options.VcenterID = core.StringPtr(vcenterID)
-	return options
+func (_options *InstallVersionOptions) SetVcenterID(vcenterID string) *InstallVersionOptions {
+	_options.VcenterID = core.StringPtr(vcenterID)
+	return _options
 }
 
 // SetVcenterUser : Allow user to set VcenterUser
-func (options *InstallVersionOptions) SetVcenterUser(vcenterUser string) *InstallVersionOptions {
-	options.VcenterUser = core.StringPtr(vcenterUser)
-	return options
+func (_options *InstallVersionOptions) SetVcenterUser(vcenterUser string) *InstallVersionOptions {
+	_options.VcenterUser = core.StringPtr(vcenterUser)
+	return _options
 }
 
 // SetVcenterPassword : Allow user to set VcenterPassword
-func (options *InstallVersionOptions) SetVcenterPassword(vcenterPassword string) *InstallVersionOptions {
-	options.VcenterPassword = core.StringPtr(vcenterPassword)
-	return options
+func (_options *InstallVersionOptions) SetVcenterPassword(vcenterPassword string) *InstallVersionOptions {
+	_options.VcenterPassword = core.StringPtr(vcenterPassword)
+	return _options
 }
 
 // SetVcenterLocation : Allow user to set VcenterLocation
-func (options *InstallVersionOptions) SetVcenterLocation(vcenterLocation string) *InstallVersionOptions {
-	options.VcenterLocation = core.StringPtr(vcenterLocation)
-	return options
+func (_options *InstallVersionOptions) SetVcenterLocation(vcenterLocation string) *InstallVersionOptions {
+	_options.VcenterLocation = core.StringPtr(vcenterLocation)
+	return _options
 }
 
 // SetVcenterDatastore : Allow user to set VcenterDatastore
-func (options *InstallVersionOptions) SetVcenterDatastore(vcenterDatastore string) *InstallVersionOptions {
-	options.VcenterDatastore = core.StringPtr(vcenterDatastore)
-	return options
+func (_options *InstallVersionOptions) SetVcenterDatastore(vcenterDatastore string) *InstallVersionOptions {
+	_options.VcenterDatastore = core.StringPtr(vcenterDatastore)
+	return _options
 }
 
 // SetHeaders : Allow user to set Headers
 func (options *InstallVersionOptions) SetHeaders(param map[string]string) *InstallVersionOptions {
 	options.Headers = param
 	return options
+}
+
+// JSONPatchOperation : This model represents an individual patch operation to be performed on a JSON document, as defined by RFC 6902.
+type JSONPatchOperation struct {
+	// The operation to be performed.
+	Op *string `json:"op" validate:"required"`
+
+	// The JSON Pointer that identifies the field that is the target of the operation.
+	Path *string `json:"path" validate:"required"`
+
+	// The JSON Pointer that identifies the field that is the source of the operation.
+	From *string `json:"from,omitempty"`
+
+	// The value to be used within the operation.
+	Value interface{} `json:"value,omitempty"`
+}
+
+// Constants associated with the JSONPatchOperation.Op property.
+// The operation to be performed.
+const (
+	JSONPatchOperationOpAddConst = "add"
+	JSONPatchOperationOpCopyConst = "copy"
+	JSONPatchOperationOpMoveConst = "move"
+	JSONPatchOperationOpRemoveConst = "remove"
+	JSONPatchOperationOpReplaceConst = "replace"
+	JSONPatchOperationOpTestConst = "test"
+)
+
+// NewJSONPatchOperation : Instantiate JSONPatchOperation (Generic Model Constructor)
+func (*CatalogManagementV1) NewJSONPatchOperation(op string, path string) (_model *JSONPatchOperation, err error) {
+	_model = &JSONPatchOperation{
+		Op: core.StringPtr(op),
+		Path: core.StringPtr(path),
+	}
+	err = core.ValidateStruct(_model, "required parameters")
+	return
+}
+
+// UnmarshalJSONPatchOperation unmarshals an instance of JSONPatchOperation from the specified map of raw messages.
+func UnmarshalJSONPatchOperation(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(JSONPatchOperation)
+	err = core.UnmarshalPrimitive(m, "op", &obj.Op)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "path", &obj.Path)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "from", &obj.From)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "value", &obj.Value)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
 }
 
 // Kind : Offering kind.
@@ -9067,21 +9748,21 @@ func (options *ListCatalogsOptions) SetHeaders(param map[string]string) *ListCat
 // ListObjectsOptions : The ListObjects options.
 type ListObjectsOptions struct {
 	// Catalog identifier.
-	CatalogIdentifier *string `validate:"required,ne="`
+	CatalogIdentifier *string `json:"catalog_identifier" validate:"required,ne="`
 
 	// The number of results to return.
-	Limit *int64
+	Limit *int64 `json:"limit,omitempty"`
 
 	// The number of results to skip before returning values.
-	Offset *int64
+	Offset *int64 `json:"offset,omitempty"`
 
 	// Only return results that contain the specified string.
-	Name *string
+	Name *string `json:"name,omitempty"`
 
 	// The field on which the output is sorted. Sorts by default by **label** property. Available fields are **name**,
 	// **label**, **created**, and **updated**. By adding **-** (i.e. **-label**) in front of the query string, you can
 	// specify descending order. Default is ascending order.
-	Sort *string
+	Sort *string `json:"sort,omitempty"`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -9095,33 +9776,33 @@ func (*CatalogManagementV1) NewListObjectsOptions(catalogIdentifier string) *Lis
 }
 
 // SetCatalogIdentifier : Allow user to set CatalogIdentifier
-func (options *ListObjectsOptions) SetCatalogIdentifier(catalogIdentifier string) *ListObjectsOptions {
-	options.CatalogIdentifier = core.StringPtr(catalogIdentifier)
-	return options
+func (_options *ListObjectsOptions) SetCatalogIdentifier(catalogIdentifier string) *ListObjectsOptions {
+	_options.CatalogIdentifier = core.StringPtr(catalogIdentifier)
+	return _options
 }
 
 // SetLimit : Allow user to set Limit
-func (options *ListObjectsOptions) SetLimit(limit int64) *ListObjectsOptions {
-	options.Limit = core.Int64Ptr(limit)
-	return options
+func (_options *ListObjectsOptions) SetLimit(limit int64) *ListObjectsOptions {
+	_options.Limit = core.Int64Ptr(limit)
+	return _options
 }
 
 // SetOffset : Allow user to set Offset
-func (options *ListObjectsOptions) SetOffset(offset int64) *ListObjectsOptions {
-	options.Offset = core.Int64Ptr(offset)
-	return options
+func (_options *ListObjectsOptions) SetOffset(offset int64) *ListObjectsOptions {
+	_options.Offset = core.Int64Ptr(offset)
+	return _options
 }
 
 // SetName : Allow user to set Name
-func (options *ListObjectsOptions) SetName(name string) *ListObjectsOptions {
-	options.Name = core.StringPtr(name)
-	return options
+func (_options *ListObjectsOptions) SetName(name string) *ListObjectsOptions {
+	_options.Name = core.StringPtr(name)
+	return _options
 }
 
 // SetSort : Allow user to set Sort
-func (options *ListObjectsOptions) SetSort(sort string) *ListObjectsOptions {
-	options.Sort = core.StringPtr(sort)
-	return options
+func (_options *ListObjectsOptions) SetSort(sort string) *ListObjectsOptions {
+	_options.Sort = core.StringPtr(sort)
+	return _options
 }
 
 // SetHeaders : Allow user to set Headers
@@ -9133,25 +9814,25 @@ func (options *ListObjectsOptions) SetHeaders(param map[string]string) *ListObje
 // ListOfferingsOptions : The ListOfferings options.
 type ListOfferingsOptions struct {
 	// Catalog identifier.
-	CatalogIdentifier *string `validate:"required,ne="`
+	CatalogIdentifier *string `json:"catalog_identifier" validate:"required,ne="`
 
 	// true - Strip down the content of what is returned. For example don't return the readme. Makes the result much
 	// smaller. Defaults to false.
-	Digest *bool
+	Digest *bool `json:"digest,omitempty"`
 
 	// The maximum number of results to return.
-	Limit *int64
+	Limit *int64 `json:"limit,omitempty"`
 
 	// The number of results to skip before returning values.
-	Offset *int64
+	Offset *int64 `json:"offset,omitempty"`
 
 	// Only return results that contain the specified string.
-	Name *string
+	Name *string `json:"name,omitempty"`
 
 	// The field on which the output is sorted. Sorts by default by **label** property. Available fields are **name**,
 	// **label**, **created**, and **updated**. By adding **-** (i.e. **-label**) in front of the query string, you can
 	// specify descending order. Default is ascending order.
-	Sort *string
+	Sort *string `json:"sort,omitempty"`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -9165,39 +9846,39 @@ func (*CatalogManagementV1) NewListOfferingsOptions(catalogIdentifier string) *L
 }
 
 // SetCatalogIdentifier : Allow user to set CatalogIdentifier
-func (options *ListOfferingsOptions) SetCatalogIdentifier(catalogIdentifier string) *ListOfferingsOptions {
-	options.CatalogIdentifier = core.StringPtr(catalogIdentifier)
-	return options
+func (_options *ListOfferingsOptions) SetCatalogIdentifier(catalogIdentifier string) *ListOfferingsOptions {
+	_options.CatalogIdentifier = core.StringPtr(catalogIdentifier)
+	return _options
 }
 
 // SetDigest : Allow user to set Digest
-func (options *ListOfferingsOptions) SetDigest(digest bool) *ListOfferingsOptions {
-	options.Digest = core.BoolPtr(digest)
-	return options
+func (_options *ListOfferingsOptions) SetDigest(digest bool) *ListOfferingsOptions {
+	_options.Digest = core.BoolPtr(digest)
+	return _options
 }
 
 // SetLimit : Allow user to set Limit
-func (options *ListOfferingsOptions) SetLimit(limit int64) *ListOfferingsOptions {
-	options.Limit = core.Int64Ptr(limit)
-	return options
+func (_options *ListOfferingsOptions) SetLimit(limit int64) *ListOfferingsOptions {
+	_options.Limit = core.Int64Ptr(limit)
+	return _options
 }
 
 // SetOffset : Allow user to set Offset
-func (options *ListOfferingsOptions) SetOffset(offset int64) *ListOfferingsOptions {
-	options.Offset = core.Int64Ptr(offset)
-	return options
+func (_options *ListOfferingsOptions) SetOffset(offset int64) *ListOfferingsOptions {
+	_options.Offset = core.Int64Ptr(offset)
+	return _options
 }
 
 // SetName : Allow user to set Name
-func (options *ListOfferingsOptions) SetName(name string) *ListOfferingsOptions {
-	options.Name = core.StringPtr(name)
-	return options
+func (_options *ListOfferingsOptions) SetName(name string) *ListOfferingsOptions {
+	_options.Name = core.StringPtr(name)
+	return _options
 }
 
 // SetSort : Allow user to set Sort
-func (options *ListOfferingsOptions) SetSort(sort string) *ListOfferingsOptions {
-	options.Sort = core.StringPtr(sort)
-	return options
+func (_options *ListOfferingsOptions) SetSort(sort string) *ListOfferingsOptions {
+	_options.Sort = core.StringPtr(sort)
+	return _options
 }
 
 // SetHeaders : Allow user to set Headers
@@ -9209,16 +9890,16 @@ func (options *ListOfferingsOptions) SetHeaders(param map[string]string) *ListOf
 // ListOperatorsOptions : The ListOperators options.
 type ListOperatorsOptions struct {
 	// IAM Refresh token.
-	XAuthRefreshToken *string `validate:"required"`
+	XAuthRefreshToken *string `json:"X-Auth-Refresh-Token" validate:"required"`
 
 	// Cluster identification.
-	ClusterID *string `validate:"required"`
+	ClusterID *string `json:"cluster_id" validate:"required"`
 
 	// Cluster region.
-	Region *string `validate:"required"`
+	Region *string `json:"region" validate:"required"`
 
 	// A dotted value of `catalogID`.`versionID`.
-	VersionLocatorID *string `validate:"required"`
+	VersionLocatorID *string `json:"version_locator_id" validate:"required"`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -9235,33 +9916,71 @@ func (*CatalogManagementV1) NewListOperatorsOptions(xAuthRefreshToken string, cl
 }
 
 // SetXAuthRefreshToken : Allow user to set XAuthRefreshToken
-func (options *ListOperatorsOptions) SetXAuthRefreshToken(xAuthRefreshToken string) *ListOperatorsOptions {
-	options.XAuthRefreshToken = core.StringPtr(xAuthRefreshToken)
-	return options
+func (_options *ListOperatorsOptions) SetXAuthRefreshToken(xAuthRefreshToken string) *ListOperatorsOptions {
+	_options.XAuthRefreshToken = core.StringPtr(xAuthRefreshToken)
+	return _options
 }
 
 // SetClusterID : Allow user to set ClusterID
-func (options *ListOperatorsOptions) SetClusterID(clusterID string) *ListOperatorsOptions {
-	options.ClusterID = core.StringPtr(clusterID)
-	return options
+func (_options *ListOperatorsOptions) SetClusterID(clusterID string) *ListOperatorsOptions {
+	_options.ClusterID = core.StringPtr(clusterID)
+	return _options
 }
 
 // SetRegion : Allow user to set Region
-func (options *ListOperatorsOptions) SetRegion(region string) *ListOperatorsOptions {
-	options.Region = core.StringPtr(region)
-	return options
+func (_options *ListOperatorsOptions) SetRegion(region string) *ListOperatorsOptions {
+	_options.Region = core.StringPtr(region)
+	return _options
 }
 
 // SetVersionLocatorID : Allow user to set VersionLocatorID
-func (options *ListOperatorsOptions) SetVersionLocatorID(versionLocatorID string) *ListOperatorsOptions {
-	options.VersionLocatorID = core.StringPtr(versionLocatorID)
-	return options
+func (_options *ListOperatorsOptions) SetVersionLocatorID(versionLocatorID string) *ListOperatorsOptions {
+	_options.VersionLocatorID = core.StringPtr(versionLocatorID)
+	return _options
 }
 
 // SetHeaders : Allow user to set Headers
 func (options *ListOperatorsOptions) SetHeaders(param map[string]string) *ListOperatorsOptions {
 	options.Headers = param
 	return options
+}
+
+// MediaItem : Offering Media information.
+type MediaItem struct {
+	// URL of the specified media item.
+	URL *string `json:"url,omitempty"`
+
+	// Caption for this media item.
+	Caption *string `json:"caption,omitempty"`
+
+	// Type of this media item.
+	Type *string `json:"type,omitempty"`
+
+	// Thumbnail URL for this media item.
+	ThumbnailURL *string `json:"thumbnail_url,omitempty"`
+}
+
+// UnmarshalMediaItem unmarshals an instance of MediaItem from the specified map of raw messages.
+func UnmarshalMediaItem(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(MediaItem)
+	err = core.UnmarshalPrimitive(m, "url", &obj.URL)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "caption", &obj.Caption)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "type", &obj.Type)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "thumbnail_url", &obj.ThumbnailURL)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
 }
 
 // NamespaceSearchResult : Paginated list of namespace search results.
@@ -9627,7 +10346,8 @@ type Offering struct {
 	// URL for an additional docs with this offering.
 	OfferingDocsURL *string `json:"offering_docs_url,omitempty"`
 
-	// URL to be displayed in the Consumption UI for getting support on this offering.
+	// [deprecated] - Use offering.support instead.  URL to be displayed in the Consumption UI for getting support on this
+	// offering.
 	OfferingSupportURL *string `json:"offering_support_url,omitempty"`
 
 	// List of tags associated with this catalog.
@@ -9693,11 +10413,20 @@ type Offering struct {
 	// Determine if this offering should be displayed in the Consumption UI.
 	Hidden *bool `json:"hidden,omitempty"`
 
-	// Provider of this offering.
+	// Deprecated - Provider of this offering.
 	Provider *string `json:"provider,omitempty"`
+
+	// Information on the provider for this offering, or omitted if no provider information is given.
+	ProviderInfo *ProviderInfo `json:"provider_info,omitempty"`
 
 	// Repository info for offerings.
 	RepoInfo *RepoInfo `json:"repo_info,omitempty"`
+
+	// Offering Support information.
+	Support *Support `json:"support,omitempty"`
+
+	// A list of media items related to this offering.
+	Media []MediaItem `json:"media,omitempty"`
 }
 
 // UnmarshalOffering unmarshals an instance of Offering from the specified map of raw messages.
@@ -9827,11 +10556,272 @@ func UnmarshalOffering(m map[string]json.RawMessage, result interface{}) (err er
 	if err != nil {
 		return
 	}
+	err = core.UnmarshalModel(m, "provider_info", &obj.ProviderInfo, UnmarshalProviderInfo)
+	if err != nil {
+		return
+	}
 	err = core.UnmarshalModel(m, "repo_info", &obj.RepoInfo, UnmarshalRepoInfo)
 	if err != nil {
 		return
 	}
+	err = core.UnmarshalModel(m, "support", &obj.Support, UnmarshalSupport)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "media", &obj.Media, UnmarshalMediaItem)
+	if err != nil {
+		return
+	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+func (*CatalogManagementV1) NewOfferingPatch(offering *Offering) (_patch []JSONPatchOperation) {
+	if (offering.ID != nil) {
+		_patch = append(_patch, JSONPatchOperation{
+			Op: core.StringPtr(JSONPatchOperationOpAddConst),
+			Path: core.StringPtr("/id"),
+			Value: offering.ID,
+		})
+	}
+	if (offering.Rev != nil) {
+		_patch = append(_patch, JSONPatchOperation{
+			Op: core.StringPtr(JSONPatchOperationOpAddConst),
+			Path: core.StringPtr("/_rev"),
+			Value: offering.Rev,
+		})
+	}
+	if (offering.URL != nil) {
+		_patch = append(_patch, JSONPatchOperation{
+			Op: core.StringPtr(JSONPatchOperationOpAddConst),
+			Path: core.StringPtr("/url"),
+			Value: offering.URL,
+		})
+	}
+	if (offering.CRN != nil) {
+		_patch = append(_patch, JSONPatchOperation{
+			Op: core.StringPtr(JSONPatchOperationOpAddConst),
+			Path: core.StringPtr("/crn"),
+			Value: offering.CRN,
+		})
+	}
+	if (offering.Label != nil) {
+		_patch = append(_patch, JSONPatchOperation{
+			Op: core.StringPtr(JSONPatchOperationOpAddConst),
+			Path: core.StringPtr("/label"),
+			Value: offering.Label,
+		})
+	}
+	if (offering.Name != nil) {
+		_patch = append(_patch, JSONPatchOperation{
+			Op: core.StringPtr(JSONPatchOperationOpAddConst),
+			Path: core.StringPtr("/name"),
+			Value: offering.Name,
+		})
+	}
+	if (offering.OfferingIconURL != nil) {
+		_patch = append(_patch, JSONPatchOperation{
+			Op: core.StringPtr(JSONPatchOperationOpAddConst),
+			Path: core.StringPtr("/offering_icon_url"),
+			Value: offering.OfferingIconURL,
+		})
+	}
+	if (offering.OfferingDocsURL != nil) {
+		_patch = append(_patch, JSONPatchOperation{
+			Op: core.StringPtr(JSONPatchOperationOpAddConst),
+			Path: core.StringPtr("/offering_docs_url"),
+			Value: offering.OfferingDocsURL,
+		})
+	}
+	if (offering.OfferingSupportURL != nil) {
+		_patch = append(_patch, JSONPatchOperation{
+			Op: core.StringPtr(JSONPatchOperationOpAddConst),
+			Path: core.StringPtr("/offering_support_url"),
+			Value: offering.OfferingSupportURL,
+		})
+	}
+	if (offering.Tags != nil) {
+		_patch = append(_patch, JSONPatchOperation{
+			Op: core.StringPtr(JSONPatchOperationOpAddConst),
+			Path: core.StringPtr("/tags"),
+			Value: offering.Tags,
+		})
+	}
+	if (offering.Keywords != nil) {
+		_patch = append(_patch, JSONPatchOperation{
+			Op: core.StringPtr(JSONPatchOperationOpAddConst),
+			Path: core.StringPtr("/keywords"),
+			Value: offering.Keywords,
+		})
+	}
+	if (offering.Rating != nil) {
+		_patch = append(_patch, JSONPatchOperation{
+			Op: core.StringPtr(JSONPatchOperationOpAddConst),
+			Path: core.StringPtr("/rating"),
+			Value: offering.Rating,
+		})
+	}
+	if (offering.Created != nil) {
+		_patch = append(_patch, JSONPatchOperation{
+			Op: core.StringPtr(JSONPatchOperationOpAddConst),
+			Path: core.StringPtr("/created"),
+			Value: offering.Created,
+		})
+	}
+	if (offering.Updated != nil) {
+		_patch = append(_patch, JSONPatchOperation{
+			Op: core.StringPtr(JSONPatchOperationOpAddConst),
+			Path: core.StringPtr("/updated"),
+			Value: offering.Updated,
+		})
+	}
+	if (offering.ShortDescription != nil) {
+		_patch = append(_patch, JSONPatchOperation{
+			Op: core.StringPtr(JSONPatchOperationOpAddConst),
+			Path: core.StringPtr("/short_description"),
+			Value: offering.ShortDescription,
+		})
+	}
+	if (offering.LongDescription != nil) {
+		_patch = append(_patch, JSONPatchOperation{
+			Op: core.StringPtr(JSONPatchOperationOpAddConst),
+			Path: core.StringPtr("/long_description"),
+			Value: offering.LongDescription,
+		})
+	}
+	if (offering.Features != nil) {
+		_patch = append(_patch, JSONPatchOperation{
+			Op: core.StringPtr(JSONPatchOperationOpAddConst),
+			Path: core.StringPtr("/features"),
+			Value: offering.Features,
+		})
+	}
+	if (offering.Kinds != nil) {
+		_patch = append(_patch, JSONPatchOperation{
+			Op: core.StringPtr(JSONPatchOperationOpAddConst),
+			Path: core.StringPtr("/kinds"),
+			Value: offering.Kinds,
+		})
+	}
+	if (offering.PermitRequestIBMPublicPublish != nil) {
+		_patch = append(_patch, JSONPatchOperation{
+			Op: core.StringPtr(JSONPatchOperationOpAddConst),
+			Path: core.StringPtr("/permit_request_ibm_public_publish"),
+			Value: offering.PermitRequestIBMPublicPublish,
+		})
+	}
+	if (offering.IBMPublishApproved != nil) {
+		_patch = append(_patch, JSONPatchOperation{
+			Op: core.StringPtr(JSONPatchOperationOpAddConst),
+			Path: core.StringPtr("/ibm_publish_approved"),
+			Value: offering.IBMPublishApproved,
+		})
+	}
+	if (offering.PublicPublishApproved != nil) {
+		_patch = append(_patch, JSONPatchOperation{
+			Op: core.StringPtr(JSONPatchOperationOpAddConst),
+			Path: core.StringPtr("/public_publish_approved"),
+			Value: offering.PublicPublishApproved,
+		})
+	}
+	if (offering.PublicOriginalCRN != nil) {
+		_patch = append(_patch, JSONPatchOperation{
+			Op: core.StringPtr(JSONPatchOperationOpAddConst),
+			Path: core.StringPtr("/public_original_crn"),
+			Value: offering.PublicOriginalCRN,
+		})
+	}
+	if (offering.PublishPublicCRN != nil) {
+		_patch = append(_patch, JSONPatchOperation{
+			Op: core.StringPtr(JSONPatchOperationOpAddConst),
+			Path: core.StringPtr("/publish_public_crn"),
+			Value: offering.PublishPublicCRN,
+		})
+	}
+	if (offering.PortalApprovalRecord != nil) {
+		_patch = append(_patch, JSONPatchOperation{
+			Op: core.StringPtr(JSONPatchOperationOpAddConst),
+			Path: core.StringPtr("/portal_approval_record"),
+			Value: offering.PortalApprovalRecord,
+		})
+	}
+	if (offering.PortalUIURL != nil) {
+		_patch = append(_patch, JSONPatchOperation{
+			Op: core.StringPtr(JSONPatchOperationOpAddConst),
+			Path: core.StringPtr("/portal_ui_url"),
+			Value: offering.PortalUIURL,
+		})
+	}
+	if (offering.CatalogID != nil) {
+		_patch = append(_patch, JSONPatchOperation{
+			Op: core.StringPtr(JSONPatchOperationOpAddConst),
+			Path: core.StringPtr("/catalog_id"),
+			Value: offering.CatalogID,
+		})
+	}
+	if (offering.CatalogName != nil) {
+		_patch = append(_patch, JSONPatchOperation{
+			Op: core.StringPtr(JSONPatchOperationOpAddConst),
+			Path: core.StringPtr("/catalog_name"),
+			Value: offering.CatalogName,
+		})
+	}
+	if (offering.Metadata != nil) {
+		_patch = append(_patch, JSONPatchOperation{
+			Op: core.StringPtr(JSONPatchOperationOpAddConst),
+			Path: core.StringPtr("/metadata"),
+			Value: offering.Metadata,
+		})
+	}
+	if (offering.Disclaimer != nil) {
+		_patch = append(_patch, JSONPatchOperation{
+			Op: core.StringPtr(JSONPatchOperationOpAddConst),
+			Path: core.StringPtr("/disclaimer"),
+			Value: offering.Disclaimer,
+		})
+	}
+	if (offering.Hidden != nil) {
+		_patch = append(_patch, JSONPatchOperation{
+			Op: core.StringPtr(JSONPatchOperationOpAddConst),
+			Path: core.StringPtr("/hidden"),
+			Value: offering.Hidden,
+		})
+	}
+	if (offering.Provider != nil) {
+		_patch = append(_patch, JSONPatchOperation{
+			Op: core.StringPtr(JSONPatchOperationOpAddConst),
+			Path: core.StringPtr("/provider"),
+			Value: offering.Provider,
+		})
+	}
+	if (offering.ProviderInfo != nil) {
+		_patch = append(_patch, JSONPatchOperation{
+			Op: core.StringPtr(JSONPatchOperationOpAddConst),
+			Path: core.StringPtr("/provider_info"),
+			Value: offering.ProviderInfo,
+		})
+	}
+	if (offering.RepoInfo != nil) {
+		_patch = append(_patch, JSONPatchOperation{
+			Op: core.StringPtr(JSONPatchOperationOpAddConst),
+			Path: core.StringPtr("/repo_info"),
+			Value: offering.RepoInfo,
+		})
+	}
+	if (offering.Support != nil) {
+		_patch = append(_patch, JSONPatchOperation{
+			Op: core.StringPtr(JSONPatchOperationOpAddConst),
+			Path: core.StringPtr("/support"),
+			Value: offering.Support,
+		})
+	}
+	if (offering.Media != nil) {
+		_patch = append(_patch, JSONPatchOperation{
+			Op: core.StringPtr(JSONPatchOperationOpAddConst),
+			Path: core.StringPtr("/media"),
+			Value: offering.Media,
+		})
+	}
 	return
 }
 
@@ -9881,6 +10871,19 @@ type OfferingInstance struct {
 
 	// Id of the resource group to provision the offering instance into.
 	ResourceGroupID *string `json:"resource_group_id,omitempty"`
+
+	// Type of install plan (also known as approval strategy) for operator subscriptions. Can be either automatic, which
+	// automatically upgrades operators to the latest in a channel, or manual, which requires approval on the cluster.
+	InstallPlan *string `json:"install_plan,omitempty"`
+
+	// Channel to pin the operator subscription to.
+	Channel *string `json:"channel,omitempty"`
+
+	// Map of metadata values for this offering instance.
+	Metadata map[string]interface{} `json:"metadata,omitempty"`
+
+	// the last operation performed and status.
+	LastOperation *OfferingInstanceLastOperation `json:"last_operation,omitempty"`
 }
 
 // UnmarshalOfferingInstance unmarshals an instance of OfferingInstance from the specified map of raw messages.
@@ -9943,6 +10946,67 @@ func UnmarshalOfferingInstance(m map[string]json.RawMessage, result interface{})
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "resource_group_id", &obj.ResourceGroupID)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "install_plan", &obj.InstallPlan)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "channel", &obj.Channel)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "metadata", &obj.Metadata)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "last_operation", &obj.LastOperation, UnmarshalOfferingInstanceLastOperation)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// OfferingInstanceLastOperation : the last operation performed and status.
+type OfferingInstanceLastOperation struct {
+	// last operation performed.
+	Operation *string `json:"operation,omitempty"`
+
+	// state after the last operation performed.
+	State *string `json:"state,omitempty"`
+
+	// additional information about the last operation.
+	Message *string `json:"message,omitempty"`
+
+	// transaction id from the last operation.
+	TransactionID *string `json:"transaction_id,omitempty"`
+
+	// Date and time last updated.
+	Updated *string `json:"updated,omitempty"`
+}
+
+// UnmarshalOfferingInstanceLastOperation unmarshals an instance of OfferingInstanceLastOperation from the specified map of raw messages.
+func UnmarshalOfferingInstanceLastOperation(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(OfferingInstanceLastOperation)
+	err = core.UnmarshalPrimitive(m, "operation", &obj.Operation)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "state", &obj.State)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "message", &obj.Message)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "transaction_id", &obj.TransactionID)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "updated", &obj.Updated)
 	if err != nil {
 		return
 	}
@@ -10179,53 +11243,53 @@ func UnmarshalPlan(m map[string]json.RawMessage, result interface{}) (err error)
 // PreinstallVersionOptions : The PreinstallVersion options.
 type PreinstallVersionOptions struct {
 	// A dotted value of `catalogID`.`versionID`.
-	VersionLocID *string `validate:"required,ne="`
+	VersionLocID *string `json:"version_loc_id" validate:"required,ne="`
 
 	// IAM Refresh token.
-	XAuthRefreshToken *string `validate:"required"`
+	XAuthRefreshToken *string `json:"X-Auth-Refresh-Token" validate:"required"`
 
 	// Cluster ID.
-	ClusterID *string
+	ClusterID *string `json:"cluster_id,omitempty"`
 
 	// Cluster region.
-	Region *string
+	Region *string `json:"region,omitempty"`
 
 	// Kube namespace.
-	Namespace *string
+	Namespace *string `json:"namespace,omitempty"`
 
 	// Object containing Helm chart override values.  To use a secret for items of type password, specify a JSON encoded
 	// value of $ref:#/components/schemas/SecretInstance, prefixed with `cmsm_v1:`.
-	OverrideValues map[string]interface{}
+	OverrideValues map[string]interface{} `json:"override_values,omitempty"`
 
 	// Entitlement API Key for this offering.
-	EntitlementApikey *string
+	EntitlementApikey *string `json:"entitlement_apikey,omitempty"`
 
 	// Schematics workspace configuration.
-	Schematics *DeployRequestBodySchematics
+	Schematics *DeployRequestBodySchematics `json:"schematics,omitempty"`
 
 	// Script.
-	Script *string
+	Script *string `json:"script,omitempty"`
 
 	// Script ID.
-	ScriptID *string
+	ScriptID *string `json:"script_id,omitempty"`
 
 	// A dotted value of `catalogID`.`versionID`.
-	VersionLocatorID *string
+	VersionLocatorID *string `json:"version_locator_id,omitempty"`
 
 	// VCenter ID.
-	VcenterID *string
+	VcenterID *string `json:"vcenter_id,omitempty"`
 
 	// VCenter User.
-	VcenterUser *string
+	VcenterUser *string `json:"vcenter_user,omitempty"`
 
 	// VCenter Password.
-	VcenterPassword *string
+	VcenterPassword *string `json:"vcenter_password,omitempty"`
 
 	// VCenter Location.
-	VcenterLocation *string
+	VcenterLocation *string `json:"vcenter_location,omitempty"`
 
 	// VCenter Datastore.
-	VcenterDatastore *string
+	VcenterDatastore *string `json:"vcenter_datastore,omitempty"`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -10240,99 +11304,99 @@ func (*CatalogManagementV1) NewPreinstallVersionOptions(versionLocID string, xAu
 }
 
 // SetVersionLocID : Allow user to set VersionLocID
-func (options *PreinstallVersionOptions) SetVersionLocID(versionLocID string) *PreinstallVersionOptions {
-	options.VersionLocID = core.StringPtr(versionLocID)
-	return options
+func (_options *PreinstallVersionOptions) SetVersionLocID(versionLocID string) *PreinstallVersionOptions {
+	_options.VersionLocID = core.StringPtr(versionLocID)
+	return _options
 }
 
 // SetXAuthRefreshToken : Allow user to set XAuthRefreshToken
-func (options *PreinstallVersionOptions) SetXAuthRefreshToken(xAuthRefreshToken string) *PreinstallVersionOptions {
-	options.XAuthRefreshToken = core.StringPtr(xAuthRefreshToken)
-	return options
+func (_options *PreinstallVersionOptions) SetXAuthRefreshToken(xAuthRefreshToken string) *PreinstallVersionOptions {
+	_options.XAuthRefreshToken = core.StringPtr(xAuthRefreshToken)
+	return _options
 }
 
 // SetClusterID : Allow user to set ClusterID
-func (options *PreinstallVersionOptions) SetClusterID(clusterID string) *PreinstallVersionOptions {
-	options.ClusterID = core.StringPtr(clusterID)
-	return options
+func (_options *PreinstallVersionOptions) SetClusterID(clusterID string) *PreinstallVersionOptions {
+	_options.ClusterID = core.StringPtr(clusterID)
+	return _options
 }
 
 // SetRegion : Allow user to set Region
-func (options *PreinstallVersionOptions) SetRegion(region string) *PreinstallVersionOptions {
-	options.Region = core.StringPtr(region)
-	return options
+func (_options *PreinstallVersionOptions) SetRegion(region string) *PreinstallVersionOptions {
+	_options.Region = core.StringPtr(region)
+	return _options
 }
 
 // SetNamespace : Allow user to set Namespace
-func (options *PreinstallVersionOptions) SetNamespace(namespace string) *PreinstallVersionOptions {
-	options.Namespace = core.StringPtr(namespace)
-	return options
+func (_options *PreinstallVersionOptions) SetNamespace(namespace string) *PreinstallVersionOptions {
+	_options.Namespace = core.StringPtr(namespace)
+	return _options
 }
 
 // SetOverrideValues : Allow user to set OverrideValues
-func (options *PreinstallVersionOptions) SetOverrideValues(overrideValues map[string]interface{}) *PreinstallVersionOptions {
-	options.OverrideValues = overrideValues
-	return options
+func (_options *PreinstallVersionOptions) SetOverrideValues(overrideValues map[string]interface{}) *PreinstallVersionOptions {
+	_options.OverrideValues = overrideValues
+	return _options
 }
 
 // SetEntitlementApikey : Allow user to set EntitlementApikey
-func (options *PreinstallVersionOptions) SetEntitlementApikey(entitlementApikey string) *PreinstallVersionOptions {
-	options.EntitlementApikey = core.StringPtr(entitlementApikey)
-	return options
+func (_options *PreinstallVersionOptions) SetEntitlementApikey(entitlementApikey string) *PreinstallVersionOptions {
+	_options.EntitlementApikey = core.StringPtr(entitlementApikey)
+	return _options
 }
 
 // SetSchematics : Allow user to set Schematics
-func (options *PreinstallVersionOptions) SetSchematics(schematics *DeployRequestBodySchematics) *PreinstallVersionOptions {
-	options.Schematics = schematics
-	return options
+func (_options *PreinstallVersionOptions) SetSchematics(schematics *DeployRequestBodySchematics) *PreinstallVersionOptions {
+	_options.Schematics = schematics
+	return _options
 }
 
 // SetScript : Allow user to set Script
-func (options *PreinstallVersionOptions) SetScript(script string) *PreinstallVersionOptions {
-	options.Script = core.StringPtr(script)
-	return options
+func (_options *PreinstallVersionOptions) SetScript(script string) *PreinstallVersionOptions {
+	_options.Script = core.StringPtr(script)
+	return _options
 }
 
 // SetScriptID : Allow user to set ScriptID
-func (options *PreinstallVersionOptions) SetScriptID(scriptID string) *PreinstallVersionOptions {
-	options.ScriptID = core.StringPtr(scriptID)
-	return options
+func (_options *PreinstallVersionOptions) SetScriptID(scriptID string) *PreinstallVersionOptions {
+	_options.ScriptID = core.StringPtr(scriptID)
+	return _options
 }
 
 // SetVersionLocatorID : Allow user to set VersionLocatorID
-func (options *PreinstallVersionOptions) SetVersionLocatorID(versionLocatorID string) *PreinstallVersionOptions {
-	options.VersionLocatorID = core.StringPtr(versionLocatorID)
-	return options
+func (_options *PreinstallVersionOptions) SetVersionLocatorID(versionLocatorID string) *PreinstallVersionOptions {
+	_options.VersionLocatorID = core.StringPtr(versionLocatorID)
+	return _options
 }
 
 // SetVcenterID : Allow user to set VcenterID
-func (options *PreinstallVersionOptions) SetVcenterID(vcenterID string) *PreinstallVersionOptions {
-	options.VcenterID = core.StringPtr(vcenterID)
-	return options
+func (_options *PreinstallVersionOptions) SetVcenterID(vcenterID string) *PreinstallVersionOptions {
+	_options.VcenterID = core.StringPtr(vcenterID)
+	return _options
 }
 
 // SetVcenterUser : Allow user to set VcenterUser
-func (options *PreinstallVersionOptions) SetVcenterUser(vcenterUser string) *PreinstallVersionOptions {
-	options.VcenterUser = core.StringPtr(vcenterUser)
-	return options
+func (_options *PreinstallVersionOptions) SetVcenterUser(vcenterUser string) *PreinstallVersionOptions {
+	_options.VcenterUser = core.StringPtr(vcenterUser)
+	return _options
 }
 
 // SetVcenterPassword : Allow user to set VcenterPassword
-func (options *PreinstallVersionOptions) SetVcenterPassword(vcenterPassword string) *PreinstallVersionOptions {
-	options.VcenterPassword = core.StringPtr(vcenterPassword)
-	return options
+func (_options *PreinstallVersionOptions) SetVcenterPassword(vcenterPassword string) *PreinstallVersionOptions {
+	_options.VcenterPassword = core.StringPtr(vcenterPassword)
+	return _options
 }
 
 // SetVcenterLocation : Allow user to set VcenterLocation
-func (options *PreinstallVersionOptions) SetVcenterLocation(vcenterLocation string) *PreinstallVersionOptions {
-	options.VcenterLocation = core.StringPtr(vcenterLocation)
-	return options
+func (_options *PreinstallVersionOptions) SetVcenterLocation(vcenterLocation string) *PreinstallVersionOptions {
+	_options.VcenterLocation = core.StringPtr(vcenterLocation)
+	return _options
 }
 
 // SetVcenterDatastore : Allow user to set VcenterDatastore
-func (options *PreinstallVersionOptions) SetVcenterDatastore(vcenterDatastore string) *PreinstallVersionOptions {
-	options.VcenterDatastore = core.StringPtr(vcenterDatastore)
-	return options
+func (_options *PreinstallVersionOptions) SetVcenterDatastore(vcenterDatastore string) *PreinstallVersionOptions {
+	_options.VcenterDatastore = core.StringPtr(vcenterDatastore)
+	return _options
 }
 
 // SetHeaders : Allow user to set Headers
@@ -10341,13 +11405,37 @@ func (options *PreinstallVersionOptions) SetHeaders(param map[string]string) *Pr
 	return options
 }
 
+// ProviderInfo : Information on the provider for this offering, or omitted if no provider information is given.
+type ProviderInfo struct {
+	// The id of this provider.
+	ID *string `json:"id,omitempty"`
+
+	// The name of this provider.
+	Name *string `json:"name,omitempty"`
+}
+
+// UnmarshalProviderInfo unmarshals an instance of ProviderInfo from the specified map of raw messages.
+func UnmarshalProviderInfo(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(ProviderInfo)
+	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
 // PublicPublishObjectOptions : The PublicPublishObject options.
 type PublicPublishObjectOptions struct {
 	// Catalog identifier.
-	CatalogIdentifier *string `validate:"required,ne="`
+	CatalogIdentifier *string `json:"catalog_identifier" validate:"required,ne="`
 
 	// Object identifier.
-	ObjectIdentifier *string `validate:"required,ne="`
+	ObjectIdentifier *string `json:"object_identifier" validate:"required,ne="`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -10362,15 +11450,15 @@ func (*CatalogManagementV1) NewPublicPublishObjectOptions(catalogIdentifier stri
 }
 
 // SetCatalogIdentifier : Allow user to set CatalogIdentifier
-func (options *PublicPublishObjectOptions) SetCatalogIdentifier(catalogIdentifier string) *PublicPublishObjectOptions {
-	options.CatalogIdentifier = core.StringPtr(catalogIdentifier)
-	return options
+func (_options *PublicPublishObjectOptions) SetCatalogIdentifier(catalogIdentifier string) *PublicPublishObjectOptions {
+	_options.CatalogIdentifier = core.StringPtr(catalogIdentifier)
+	return _options
 }
 
 // SetObjectIdentifier : Allow user to set ObjectIdentifier
-func (options *PublicPublishObjectOptions) SetObjectIdentifier(objectIdentifier string) *PublicPublishObjectOptions {
-	options.ObjectIdentifier = core.StringPtr(objectIdentifier)
-	return options
+func (_options *PublicPublishObjectOptions) SetObjectIdentifier(objectIdentifier string) *PublicPublishObjectOptions {
+	_options.ObjectIdentifier = core.StringPtr(objectIdentifier)
+	return _options
 }
 
 // SetHeaders : Allow user to set Headers
@@ -10382,7 +11470,7 @@ func (options *PublicPublishObjectOptions) SetHeaders(param map[string]string) *
 // PublicPublishVersionOptions : The PublicPublishVersion options.
 type PublicPublishVersionOptions struct {
 	// A dotted value of `catalogID`.`versionID`.
-	VersionLocID *string `validate:"required,ne="`
+	VersionLocID *string `json:"version_loc_id" validate:"required,ne="`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -10396,9 +11484,9 @@ func (*CatalogManagementV1) NewPublicPublishVersionOptions(versionLocID string) 
 }
 
 // SetVersionLocID : Allow user to set VersionLocID
-func (options *PublicPublishVersionOptions) SetVersionLocID(versionLocID string) *PublicPublishVersionOptions {
-	options.VersionLocID = core.StringPtr(versionLocID)
-	return options
+func (_options *PublicPublishVersionOptions) SetVersionLocID(versionLocID string) *PublicPublishVersionOptions {
+	_options.VersionLocID = core.StringPtr(versionLocID)
+	return _options
 }
 
 // SetHeaders : Allow user to set Headers
@@ -10455,55 +11543,68 @@ func UnmarshalPublishObject(m map[string]json.RawMessage, result interface{}) (e
 // PutOfferingInstanceOptions : The PutOfferingInstance options.
 type PutOfferingInstanceOptions struct {
 	// Version Instance identifier.
-	InstanceIdentifier *string `validate:"required,ne="`
+	InstanceIdentifier *string `json:"instance_identifier" validate:"required,ne="`
 
 	// IAM Refresh token.
-	XAuthRefreshToken *string `validate:"required"`
+	XAuthRefreshToken *string `json:"X-Auth-Refresh-Token" validate:"required"`
 
 	// provisioned instance ID (part of the CRN).
-	ID *string
+	ID *string `json:"id,omitempty"`
 
 	// Cloudant revision.
-	Rev *string
+	Rev *string `json:"_rev,omitempty"`
 
 	// url reference to this object.
-	URL *string
+	URL *string `json:"url,omitempty"`
 
 	// platform CRN for this instance.
-	CRN *string
+	CRN *string `json:"crn,omitempty"`
 
 	// the label for this instance.
-	Label *string
+	Label *string `json:"label,omitempty"`
 
 	// Catalog ID this instance was created from.
-	CatalogID *string
+	CatalogID *string `json:"catalog_id,omitempty"`
 
 	// Offering ID this instance was created from.
-	OfferingID *string
+	OfferingID *string `json:"offering_id,omitempty"`
 
 	// the format this instance has (helm, operator, ova...).
-	KindFormat *string
+	KindFormat *string `json:"kind_format,omitempty"`
 
 	// The version this instance was installed from (not version id).
-	Version *string
+	Version *string `json:"version,omitempty"`
 
 	// Cluster ID.
-	ClusterID *string
+	ClusterID *string `json:"cluster_id,omitempty"`
 
 	// Cluster region (e.g., us-south).
-	ClusterRegion *string
+	ClusterRegion *string `json:"cluster_region,omitempty"`
 
 	// List of target namespaces to install into.
-	ClusterNamespaces []string
+	ClusterNamespaces []string `json:"cluster_namespaces,omitempty"`
 
 	// designate to install into all namespaces.
-	ClusterAllNamespaces *bool
+	ClusterAllNamespaces *bool `json:"cluster_all_namespaces,omitempty"`
 
 	// Id of the schematics workspace, for offering instances provisioned through schematics.
-	SchematicsWorkspaceID *string
+	SchematicsWorkspaceID *string `json:"schematics_workspace_id,omitempty"`
 
 	// Id of the resource group to provision the offering instance into.
-	ResourceGroupID *string
+	ResourceGroupID *string `json:"resource_group_id,omitempty"`
+
+	// Type of install plan (also known as approval strategy) for operator subscriptions. Can be either automatic, which
+	// automatically upgrades operators to the latest in a channel, or manual, which requires approval on the cluster.
+	InstallPlan *string `json:"install_plan,omitempty"`
+
+	// Channel to pin the operator subscription to.
+	Channel *string `json:"channel,omitempty"`
+
+	// Map of metadata values for this offering instance.
+	Metadata map[string]interface{} `json:"metadata,omitempty"`
+
+	// the last operation performed and status.
+	LastOperation *OfferingInstanceLastOperation `json:"last_operation,omitempty"`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -10518,105 +11619,129 @@ func (*CatalogManagementV1) NewPutOfferingInstanceOptions(instanceIdentifier str
 }
 
 // SetInstanceIdentifier : Allow user to set InstanceIdentifier
-func (options *PutOfferingInstanceOptions) SetInstanceIdentifier(instanceIdentifier string) *PutOfferingInstanceOptions {
-	options.InstanceIdentifier = core.StringPtr(instanceIdentifier)
-	return options
+func (_options *PutOfferingInstanceOptions) SetInstanceIdentifier(instanceIdentifier string) *PutOfferingInstanceOptions {
+	_options.InstanceIdentifier = core.StringPtr(instanceIdentifier)
+	return _options
 }
 
 // SetXAuthRefreshToken : Allow user to set XAuthRefreshToken
-func (options *PutOfferingInstanceOptions) SetXAuthRefreshToken(xAuthRefreshToken string) *PutOfferingInstanceOptions {
-	options.XAuthRefreshToken = core.StringPtr(xAuthRefreshToken)
-	return options
+func (_options *PutOfferingInstanceOptions) SetXAuthRefreshToken(xAuthRefreshToken string) *PutOfferingInstanceOptions {
+	_options.XAuthRefreshToken = core.StringPtr(xAuthRefreshToken)
+	return _options
 }
 
 // SetID : Allow user to set ID
-func (options *PutOfferingInstanceOptions) SetID(id string) *PutOfferingInstanceOptions {
-	options.ID = core.StringPtr(id)
-	return options
+func (_options *PutOfferingInstanceOptions) SetID(id string) *PutOfferingInstanceOptions {
+	_options.ID = core.StringPtr(id)
+	return _options
 }
 
 // SetRev : Allow user to set Rev
-func (options *PutOfferingInstanceOptions) SetRev(rev string) *PutOfferingInstanceOptions {
-	options.Rev = core.StringPtr(rev)
-	return options
+func (_options *PutOfferingInstanceOptions) SetRev(rev string) *PutOfferingInstanceOptions {
+	_options.Rev = core.StringPtr(rev)
+	return _options
 }
 
 // SetURL : Allow user to set URL
-func (options *PutOfferingInstanceOptions) SetURL(url string) *PutOfferingInstanceOptions {
-	options.URL = core.StringPtr(url)
-	return options
+func (_options *PutOfferingInstanceOptions) SetURL(url string) *PutOfferingInstanceOptions {
+	_options.URL = core.StringPtr(url)
+	return _options
 }
 
 // SetCRN : Allow user to set CRN
-func (options *PutOfferingInstanceOptions) SetCRN(crn string) *PutOfferingInstanceOptions {
-	options.CRN = core.StringPtr(crn)
-	return options
+func (_options *PutOfferingInstanceOptions) SetCRN(crn string) *PutOfferingInstanceOptions {
+	_options.CRN = core.StringPtr(crn)
+	return _options
 }
 
 // SetLabel : Allow user to set Label
-func (options *PutOfferingInstanceOptions) SetLabel(label string) *PutOfferingInstanceOptions {
-	options.Label = core.StringPtr(label)
-	return options
+func (_options *PutOfferingInstanceOptions) SetLabel(label string) *PutOfferingInstanceOptions {
+	_options.Label = core.StringPtr(label)
+	return _options
 }
 
 // SetCatalogID : Allow user to set CatalogID
-func (options *PutOfferingInstanceOptions) SetCatalogID(catalogID string) *PutOfferingInstanceOptions {
-	options.CatalogID = core.StringPtr(catalogID)
-	return options
+func (_options *PutOfferingInstanceOptions) SetCatalogID(catalogID string) *PutOfferingInstanceOptions {
+	_options.CatalogID = core.StringPtr(catalogID)
+	return _options
 }
 
 // SetOfferingID : Allow user to set OfferingID
-func (options *PutOfferingInstanceOptions) SetOfferingID(offeringID string) *PutOfferingInstanceOptions {
-	options.OfferingID = core.StringPtr(offeringID)
-	return options
+func (_options *PutOfferingInstanceOptions) SetOfferingID(offeringID string) *PutOfferingInstanceOptions {
+	_options.OfferingID = core.StringPtr(offeringID)
+	return _options
 }
 
 // SetKindFormat : Allow user to set KindFormat
-func (options *PutOfferingInstanceOptions) SetKindFormat(kindFormat string) *PutOfferingInstanceOptions {
-	options.KindFormat = core.StringPtr(kindFormat)
-	return options
+func (_options *PutOfferingInstanceOptions) SetKindFormat(kindFormat string) *PutOfferingInstanceOptions {
+	_options.KindFormat = core.StringPtr(kindFormat)
+	return _options
 }
 
 // SetVersion : Allow user to set Version
-func (options *PutOfferingInstanceOptions) SetVersion(version string) *PutOfferingInstanceOptions {
-	options.Version = core.StringPtr(version)
-	return options
+func (_options *PutOfferingInstanceOptions) SetVersion(version string) *PutOfferingInstanceOptions {
+	_options.Version = core.StringPtr(version)
+	return _options
 }
 
 // SetClusterID : Allow user to set ClusterID
-func (options *PutOfferingInstanceOptions) SetClusterID(clusterID string) *PutOfferingInstanceOptions {
-	options.ClusterID = core.StringPtr(clusterID)
-	return options
+func (_options *PutOfferingInstanceOptions) SetClusterID(clusterID string) *PutOfferingInstanceOptions {
+	_options.ClusterID = core.StringPtr(clusterID)
+	return _options
 }
 
 // SetClusterRegion : Allow user to set ClusterRegion
-func (options *PutOfferingInstanceOptions) SetClusterRegion(clusterRegion string) *PutOfferingInstanceOptions {
-	options.ClusterRegion = core.StringPtr(clusterRegion)
-	return options
+func (_options *PutOfferingInstanceOptions) SetClusterRegion(clusterRegion string) *PutOfferingInstanceOptions {
+	_options.ClusterRegion = core.StringPtr(clusterRegion)
+	return _options
 }
 
 // SetClusterNamespaces : Allow user to set ClusterNamespaces
-func (options *PutOfferingInstanceOptions) SetClusterNamespaces(clusterNamespaces []string) *PutOfferingInstanceOptions {
-	options.ClusterNamespaces = clusterNamespaces
-	return options
+func (_options *PutOfferingInstanceOptions) SetClusterNamespaces(clusterNamespaces []string) *PutOfferingInstanceOptions {
+	_options.ClusterNamespaces = clusterNamespaces
+	return _options
 }
 
 // SetClusterAllNamespaces : Allow user to set ClusterAllNamespaces
-func (options *PutOfferingInstanceOptions) SetClusterAllNamespaces(clusterAllNamespaces bool) *PutOfferingInstanceOptions {
-	options.ClusterAllNamespaces = core.BoolPtr(clusterAllNamespaces)
-	return options
+func (_options *PutOfferingInstanceOptions) SetClusterAllNamespaces(clusterAllNamespaces bool) *PutOfferingInstanceOptions {
+	_options.ClusterAllNamespaces = core.BoolPtr(clusterAllNamespaces)
+	return _options
 }
 
 // SetSchematicsWorkspaceID : Allow user to set SchematicsWorkspaceID
-func (options *PutOfferingInstanceOptions) SetSchematicsWorkspaceID(schematicsWorkspaceID string) *PutOfferingInstanceOptions {
-	options.SchematicsWorkspaceID = core.StringPtr(schematicsWorkspaceID)
-	return options
+func (_options *PutOfferingInstanceOptions) SetSchematicsWorkspaceID(schematicsWorkspaceID string) *PutOfferingInstanceOptions {
+	_options.SchematicsWorkspaceID = core.StringPtr(schematicsWorkspaceID)
+	return _options
 }
 
 // SetResourceGroupID : Allow user to set ResourceGroupID
-func (options *PutOfferingInstanceOptions) SetResourceGroupID(resourceGroupID string) *PutOfferingInstanceOptions {
-	options.ResourceGroupID = core.StringPtr(resourceGroupID)
-	return options
+func (_options *PutOfferingInstanceOptions) SetResourceGroupID(resourceGroupID string) *PutOfferingInstanceOptions {
+	_options.ResourceGroupID = core.StringPtr(resourceGroupID)
+	return _options
+}
+
+// SetInstallPlan : Allow user to set InstallPlan
+func (_options *PutOfferingInstanceOptions) SetInstallPlan(installPlan string) *PutOfferingInstanceOptions {
+	_options.InstallPlan = core.StringPtr(installPlan)
+	return _options
+}
+
+// SetChannel : Allow user to set Channel
+func (_options *PutOfferingInstanceOptions) SetChannel(channel string) *PutOfferingInstanceOptions {
+	_options.Channel = core.StringPtr(channel)
+	return _options
+}
+
+// SetMetadata : Allow user to set Metadata
+func (_options *PutOfferingInstanceOptions) SetMetadata(metadata map[string]interface{}) *PutOfferingInstanceOptions {
+	_options.Metadata = metadata
+	return _options
+}
+
+// SetLastOperation : Allow user to set LastOperation
+func (_options *PutOfferingInstanceOptions) SetLastOperation(lastOperation *OfferingInstanceLastOperation) *PutOfferingInstanceOptions {
+	_options.LastOperation = lastOperation
+	return _options
 }
 
 // SetHeaders : Allow user to set Headers
@@ -10666,28 +11791,28 @@ func UnmarshalRating(m map[string]json.RawMessage, result interface{}) (err erro
 // ReloadOfferingOptions : The ReloadOffering options.
 type ReloadOfferingOptions struct {
 	// Catalog identifier.
-	CatalogIdentifier *string `validate:"required,ne="`
+	CatalogIdentifier *string `json:"catalog_identifier" validate:"required,ne="`
 
 	// Offering identification.
-	OfferingID *string `validate:"required,ne="`
+	OfferingID *string `json:"offering_id" validate:"required,ne="`
 
 	// The semver value for this new version.
-	TargetVersion *string `validate:"required"`
+	TargetVersion *string `json:"targetVersion" validate:"required"`
 
 	// Tags array.
-	Tags []string
+	Tags []string `json:"tags,omitempty"`
 
 	// Target kinds.  Current valid values are 'iks', 'roks', 'vcenter', and 'terraform'.
-	TargetKinds []string
+	TargetKinds []string `json:"target_kinds,omitempty"`
 
 	// byte array representing the content to be imported.  Only supported for OVA images at this time.
-	Content *[]byte
+	Content *[]byte `json:"content,omitempty"`
 
 	// URL path to zip location.  If not specified, must provide content in this post body.
-	Zipurl *string
+	Zipurl *string `json:"zipurl,omitempty"`
 
 	// The type of repository containing this version.  Valid values are 'public_git' or 'enterprise_git'.
-	RepoType *string
+	RepoType *string `json:"repoType,omitempty"`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -10703,51 +11828,51 @@ func (*CatalogManagementV1) NewReloadOfferingOptions(catalogIdentifier string, o
 }
 
 // SetCatalogIdentifier : Allow user to set CatalogIdentifier
-func (options *ReloadOfferingOptions) SetCatalogIdentifier(catalogIdentifier string) *ReloadOfferingOptions {
-	options.CatalogIdentifier = core.StringPtr(catalogIdentifier)
-	return options
+func (_options *ReloadOfferingOptions) SetCatalogIdentifier(catalogIdentifier string) *ReloadOfferingOptions {
+	_options.CatalogIdentifier = core.StringPtr(catalogIdentifier)
+	return _options
 }
 
 // SetOfferingID : Allow user to set OfferingID
-func (options *ReloadOfferingOptions) SetOfferingID(offeringID string) *ReloadOfferingOptions {
-	options.OfferingID = core.StringPtr(offeringID)
-	return options
+func (_options *ReloadOfferingOptions) SetOfferingID(offeringID string) *ReloadOfferingOptions {
+	_options.OfferingID = core.StringPtr(offeringID)
+	return _options
 }
 
 // SetTargetVersion : Allow user to set TargetVersion
-func (options *ReloadOfferingOptions) SetTargetVersion(targetVersion string) *ReloadOfferingOptions {
-	options.TargetVersion = core.StringPtr(targetVersion)
-	return options
+func (_options *ReloadOfferingOptions) SetTargetVersion(targetVersion string) *ReloadOfferingOptions {
+	_options.TargetVersion = core.StringPtr(targetVersion)
+	return _options
 }
 
 // SetTags : Allow user to set Tags
-func (options *ReloadOfferingOptions) SetTags(tags []string) *ReloadOfferingOptions {
-	options.Tags = tags
-	return options
+func (_options *ReloadOfferingOptions) SetTags(tags []string) *ReloadOfferingOptions {
+	_options.Tags = tags
+	return _options
 }
 
 // SetTargetKinds : Allow user to set TargetKinds
-func (options *ReloadOfferingOptions) SetTargetKinds(targetKinds []string) *ReloadOfferingOptions {
-	options.TargetKinds = targetKinds
-	return options
+func (_options *ReloadOfferingOptions) SetTargetKinds(targetKinds []string) *ReloadOfferingOptions {
+	_options.TargetKinds = targetKinds
+	return _options
 }
 
 // SetContent : Allow user to set Content
-func (options *ReloadOfferingOptions) SetContent(content []byte) *ReloadOfferingOptions {
-	options.Content = &content
-	return options
+func (_options *ReloadOfferingOptions) SetContent(content []byte) *ReloadOfferingOptions {
+	_options.Content = &content
+	return _options
 }
 
 // SetZipurl : Allow user to set Zipurl
-func (options *ReloadOfferingOptions) SetZipurl(zipurl string) *ReloadOfferingOptions {
-	options.Zipurl = core.StringPtr(zipurl)
-	return options
+func (_options *ReloadOfferingOptions) SetZipurl(zipurl string) *ReloadOfferingOptions {
+	_options.Zipurl = core.StringPtr(zipurl)
+	return _options
 }
 
 // SetRepoType : Allow user to set RepoType
-func (options *ReloadOfferingOptions) SetRepoType(repoType string) *ReloadOfferingOptions {
-	options.RepoType = core.StringPtr(repoType)
-	return options
+func (_options *ReloadOfferingOptions) SetRepoType(repoType string) *ReloadOfferingOptions {
+	_options.RepoType = core.StringPtr(repoType)
+	return _options
 }
 
 // SetHeaders : Allow user to set Headers
@@ -10759,46 +11884,46 @@ func (options *ReloadOfferingOptions) SetHeaders(param map[string]string) *Reloa
 // ReplaceCatalogOptions : The ReplaceCatalog options.
 type ReplaceCatalogOptions struct {
 	// Catalog identifier.
-	CatalogIdentifier *string `validate:"required,ne="`
+	CatalogIdentifier *string `json:"catalog_identifier" validate:"required,ne="`
 
 	// Unique ID.
-	ID *string
+	ID *string `json:"id,omitempty"`
 
 	// Cloudant revision.
-	Rev *string
+	Rev *string `json:"_rev,omitempty"`
 
 	// Display Name in the requested language.
-	Label *string
+	Label *string `json:"label,omitempty"`
 
 	// Description in the requested language.
-	ShortDescription *string
+	ShortDescription *string `json:"short_description,omitempty"`
 
 	// URL for an icon associated with this catalog.
-	CatalogIconURL *string
+	CatalogIconURL *string `json:"catalog_icon_url,omitempty"`
 
 	// List of tags associated with this catalog.
-	Tags []string
+	Tags []string `json:"tags,omitempty"`
 
 	// List of features associated with this catalog.
-	Features []Feature
+	Features []Feature `json:"features,omitempty"`
 
 	// Denotes whether a catalog is disabled.
-	Disabled *bool
+	Disabled *bool `json:"disabled,omitempty"`
 
 	// Resource group id the catalog is owned by.
-	ResourceGroupID *string
+	ResourceGroupID *string `json:"resource_group_id,omitempty"`
 
 	// Account that owns catalog.
-	OwningAccount *string
+	OwningAccount *string `json:"owning_account,omitempty"`
 
 	// Filters for account and catalog filters.
-	CatalogFilters *Filters
+	CatalogFilters *Filters `json:"catalog_filters,omitempty"`
 
 	// Feature information.
-	SyndicationSettings *SyndicationResource
+	SyndicationSettings *SyndicationResource `json:"syndication_settings,omitempty"`
 
 	// Kind of catalog. Supported kinds are offering and vpe.
-	Kind *string
+	Kind *string `json:"kind,omitempty"`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -10812,87 +11937,87 @@ func (*CatalogManagementV1) NewReplaceCatalogOptions(catalogIdentifier string) *
 }
 
 // SetCatalogIdentifier : Allow user to set CatalogIdentifier
-func (options *ReplaceCatalogOptions) SetCatalogIdentifier(catalogIdentifier string) *ReplaceCatalogOptions {
-	options.CatalogIdentifier = core.StringPtr(catalogIdentifier)
-	return options
+func (_options *ReplaceCatalogOptions) SetCatalogIdentifier(catalogIdentifier string) *ReplaceCatalogOptions {
+	_options.CatalogIdentifier = core.StringPtr(catalogIdentifier)
+	return _options
 }
 
 // SetID : Allow user to set ID
-func (options *ReplaceCatalogOptions) SetID(id string) *ReplaceCatalogOptions {
-	options.ID = core.StringPtr(id)
-	return options
+func (_options *ReplaceCatalogOptions) SetID(id string) *ReplaceCatalogOptions {
+	_options.ID = core.StringPtr(id)
+	return _options
 }
 
 // SetRev : Allow user to set Rev
-func (options *ReplaceCatalogOptions) SetRev(rev string) *ReplaceCatalogOptions {
-	options.Rev = core.StringPtr(rev)
-	return options
+func (_options *ReplaceCatalogOptions) SetRev(rev string) *ReplaceCatalogOptions {
+	_options.Rev = core.StringPtr(rev)
+	return _options
 }
 
 // SetLabel : Allow user to set Label
-func (options *ReplaceCatalogOptions) SetLabel(label string) *ReplaceCatalogOptions {
-	options.Label = core.StringPtr(label)
-	return options
+func (_options *ReplaceCatalogOptions) SetLabel(label string) *ReplaceCatalogOptions {
+	_options.Label = core.StringPtr(label)
+	return _options
 }
 
 // SetShortDescription : Allow user to set ShortDescription
-func (options *ReplaceCatalogOptions) SetShortDescription(shortDescription string) *ReplaceCatalogOptions {
-	options.ShortDescription = core.StringPtr(shortDescription)
-	return options
+func (_options *ReplaceCatalogOptions) SetShortDescription(shortDescription string) *ReplaceCatalogOptions {
+	_options.ShortDescription = core.StringPtr(shortDescription)
+	return _options
 }
 
 // SetCatalogIconURL : Allow user to set CatalogIconURL
-func (options *ReplaceCatalogOptions) SetCatalogIconURL(catalogIconURL string) *ReplaceCatalogOptions {
-	options.CatalogIconURL = core.StringPtr(catalogIconURL)
-	return options
+func (_options *ReplaceCatalogOptions) SetCatalogIconURL(catalogIconURL string) *ReplaceCatalogOptions {
+	_options.CatalogIconURL = core.StringPtr(catalogIconURL)
+	return _options
 }
 
 // SetTags : Allow user to set Tags
-func (options *ReplaceCatalogOptions) SetTags(tags []string) *ReplaceCatalogOptions {
-	options.Tags = tags
-	return options
+func (_options *ReplaceCatalogOptions) SetTags(tags []string) *ReplaceCatalogOptions {
+	_options.Tags = tags
+	return _options
 }
 
 // SetFeatures : Allow user to set Features
-func (options *ReplaceCatalogOptions) SetFeatures(features []Feature) *ReplaceCatalogOptions {
-	options.Features = features
-	return options
+func (_options *ReplaceCatalogOptions) SetFeatures(features []Feature) *ReplaceCatalogOptions {
+	_options.Features = features
+	return _options
 }
 
 // SetDisabled : Allow user to set Disabled
-func (options *ReplaceCatalogOptions) SetDisabled(disabled bool) *ReplaceCatalogOptions {
-	options.Disabled = core.BoolPtr(disabled)
-	return options
+func (_options *ReplaceCatalogOptions) SetDisabled(disabled bool) *ReplaceCatalogOptions {
+	_options.Disabled = core.BoolPtr(disabled)
+	return _options
 }
 
 // SetResourceGroupID : Allow user to set ResourceGroupID
-func (options *ReplaceCatalogOptions) SetResourceGroupID(resourceGroupID string) *ReplaceCatalogOptions {
-	options.ResourceGroupID = core.StringPtr(resourceGroupID)
-	return options
+func (_options *ReplaceCatalogOptions) SetResourceGroupID(resourceGroupID string) *ReplaceCatalogOptions {
+	_options.ResourceGroupID = core.StringPtr(resourceGroupID)
+	return _options
 }
 
 // SetOwningAccount : Allow user to set OwningAccount
-func (options *ReplaceCatalogOptions) SetOwningAccount(owningAccount string) *ReplaceCatalogOptions {
-	options.OwningAccount = core.StringPtr(owningAccount)
-	return options
+func (_options *ReplaceCatalogOptions) SetOwningAccount(owningAccount string) *ReplaceCatalogOptions {
+	_options.OwningAccount = core.StringPtr(owningAccount)
+	return _options
 }
 
 // SetCatalogFilters : Allow user to set CatalogFilters
-func (options *ReplaceCatalogOptions) SetCatalogFilters(catalogFilters *Filters) *ReplaceCatalogOptions {
-	options.CatalogFilters = catalogFilters
-	return options
+func (_options *ReplaceCatalogOptions) SetCatalogFilters(catalogFilters *Filters) *ReplaceCatalogOptions {
+	_options.CatalogFilters = catalogFilters
+	return _options
 }
 
 // SetSyndicationSettings : Allow user to set SyndicationSettings
-func (options *ReplaceCatalogOptions) SetSyndicationSettings(syndicationSettings *SyndicationResource) *ReplaceCatalogOptions {
-	options.SyndicationSettings = syndicationSettings
-	return options
+func (_options *ReplaceCatalogOptions) SetSyndicationSettings(syndicationSettings *SyndicationResource) *ReplaceCatalogOptions {
+	_options.SyndicationSettings = syndicationSettings
+	return _options
 }
 
 // SetKind : Allow user to set Kind
-func (options *ReplaceCatalogOptions) SetKind(kind string) *ReplaceCatalogOptions {
-	options.Kind = core.StringPtr(kind)
-	return options
+func (_options *ReplaceCatalogOptions) SetKind(kind string) *ReplaceCatalogOptions {
+	_options.Kind = core.StringPtr(kind)
+	return _options
 }
 
 // SetHeaders : Allow user to set Headers
@@ -10904,67 +12029,67 @@ func (options *ReplaceCatalogOptions) SetHeaders(param map[string]string) *Repla
 // ReplaceObjectOptions : The ReplaceObject options.
 type ReplaceObjectOptions struct {
 	// Catalog identifier.
-	CatalogIdentifier *string `validate:"required,ne="`
+	CatalogIdentifier *string `json:"catalog_identifier" validate:"required,ne="`
 
 	// Object identifier.
-	ObjectIdentifier *string `validate:"required,ne="`
+	ObjectIdentifier *string `json:"object_identifier" validate:"required,ne="`
 
 	// unique id.
-	ID *string
+	ID *string `json:"id,omitempty"`
 
 	// The programmatic name of this offering.
-	Name *string
+	Name *string `json:"name,omitempty"`
 
 	// Cloudant revision.
-	Rev *string
+	Rev *string `json:"_rev,omitempty"`
 
 	// The crn for this specific object.
-	CRN *string
+	CRN *string `json:"crn,omitempty"`
 
 	// The url for this specific object.
-	URL *string
+	URL *string `json:"url,omitempty"`
 
 	// The parent for this specific object.
-	ParentID *string
+	ParentID *string `json:"parent_id,omitempty"`
 
 	// Translated display name in the requested language.
-	LabelI18n *string
+	LabelI18n *string `json:"label_i18n,omitempty"`
 
 	// Display name in the requested language.
-	Label *string
+	Label *string `json:"label,omitempty"`
 
 	// List of tags associated with this catalog.
-	Tags []string
+	Tags []string `json:"tags,omitempty"`
 
 	// The date and time this catalog was created.
-	Created *strfmt.DateTime
+	Created *strfmt.DateTime `json:"created,omitempty"`
 
 	// The date and time this catalog was last updated.
-	Updated *strfmt.DateTime
+	Updated *strfmt.DateTime `json:"updated,omitempty"`
 
 	// Short description in the requested language.
-	ShortDescription *string
+	ShortDescription *string `json:"short_description,omitempty"`
 
 	// Short description translation.
-	ShortDescriptionI18n *string
+	ShortDescriptionI18n *string `json:"short_description_i18n,omitempty"`
 
 	// Kind of object.
-	Kind *string
+	Kind *string `json:"kind,omitempty"`
 
 	// Publish information.
-	Publish *PublishObject
+	Publish *PublishObject `json:"publish,omitempty"`
 
 	// Offering state.
-	State *State
+	State *State `json:"state,omitempty"`
 
 	// The id of the catalog containing this offering.
-	CatalogID *string
+	CatalogID *string `json:"catalog_id,omitempty"`
 
 	// The name of the catalog.
-	CatalogName *string
+	CatalogName *string `json:"catalog_name,omitempty"`
 
 	// Map of data values for this object.
-	Data map[string]interface{}
+	Data map[string]interface{} `json:"data,omitempty"`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -10979,129 +12104,129 @@ func (*CatalogManagementV1) NewReplaceObjectOptions(catalogIdentifier string, ob
 }
 
 // SetCatalogIdentifier : Allow user to set CatalogIdentifier
-func (options *ReplaceObjectOptions) SetCatalogIdentifier(catalogIdentifier string) *ReplaceObjectOptions {
-	options.CatalogIdentifier = core.StringPtr(catalogIdentifier)
-	return options
+func (_options *ReplaceObjectOptions) SetCatalogIdentifier(catalogIdentifier string) *ReplaceObjectOptions {
+	_options.CatalogIdentifier = core.StringPtr(catalogIdentifier)
+	return _options
 }
 
 // SetObjectIdentifier : Allow user to set ObjectIdentifier
-func (options *ReplaceObjectOptions) SetObjectIdentifier(objectIdentifier string) *ReplaceObjectOptions {
-	options.ObjectIdentifier = core.StringPtr(objectIdentifier)
-	return options
+func (_options *ReplaceObjectOptions) SetObjectIdentifier(objectIdentifier string) *ReplaceObjectOptions {
+	_options.ObjectIdentifier = core.StringPtr(objectIdentifier)
+	return _options
 }
 
 // SetID : Allow user to set ID
-func (options *ReplaceObjectOptions) SetID(id string) *ReplaceObjectOptions {
-	options.ID = core.StringPtr(id)
-	return options
+func (_options *ReplaceObjectOptions) SetID(id string) *ReplaceObjectOptions {
+	_options.ID = core.StringPtr(id)
+	return _options
 }
 
 // SetName : Allow user to set Name
-func (options *ReplaceObjectOptions) SetName(name string) *ReplaceObjectOptions {
-	options.Name = core.StringPtr(name)
-	return options
+func (_options *ReplaceObjectOptions) SetName(name string) *ReplaceObjectOptions {
+	_options.Name = core.StringPtr(name)
+	return _options
 }
 
 // SetRev : Allow user to set Rev
-func (options *ReplaceObjectOptions) SetRev(rev string) *ReplaceObjectOptions {
-	options.Rev = core.StringPtr(rev)
-	return options
+func (_options *ReplaceObjectOptions) SetRev(rev string) *ReplaceObjectOptions {
+	_options.Rev = core.StringPtr(rev)
+	return _options
 }
 
 // SetCRN : Allow user to set CRN
-func (options *ReplaceObjectOptions) SetCRN(crn string) *ReplaceObjectOptions {
-	options.CRN = core.StringPtr(crn)
-	return options
+func (_options *ReplaceObjectOptions) SetCRN(crn string) *ReplaceObjectOptions {
+	_options.CRN = core.StringPtr(crn)
+	return _options
 }
 
 // SetURL : Allow user to set URL
-func (options *ReplaceObjectOptions) SetURL(url string) *ReplaceObjectOptions {
-	options.URL = core.StringPtr(url)
-	return options
+func (_options *ReplaceObjectOptions) SetURL(url string) *ReplaceObjectOptions {
+	_options.URL = core.StringPtr(url)
+	return _options
 }
 
 // SetParentID : Allow user to set ParentID
-func (options *ReplaceObjectOptions) SetParentID(parentID string) *ReplaceObjectOptions {
-	options.ParentID = core.StringPtr(parentID)
-	return options
+func (_options *ReplaceObjectOptions) SetParentID(parentID string) *ReplaceObjectOptions {
+	_options.ParentID = core.StringPtr(parentID)
+	return _options
 }
 
 // SetLabelI18n : Allow user to set LabelI18n
-func (options *ReplaceObjectOptions) SetLabelI18n(labelI18n string) *ReplaceObjectOptions {
-	options.LabelI18n = core.StringPtr(labelI18n)
-	return options
+func (_options *ReplaceObjectOptions) SetLabelI18n(labelI18n string) *ReplaceObjectOptions {
+	_options.LabelI18n = core.StringPtr(labelI18n)
+	return _options
 }
 
 // SetLabel : Allow user to set Label
-func (options *ReplaceObjectOptions) SetLabel(label string) *ReplaceObjectOptions {
-	options.Label = core.StringPtr(label)
-	return options
+func (_options *ReplaceObjectOptions) SetLabel(label string) *ReplaceObjectOptions {
+	_options.Label = core.StringPtr(label)
+	return _options
 }
 
 // SetTags : Allow user to set Tags
-func (options *ReplaceObjectOptions) SetTags(tags []string) *ReplaceObjectOptions {
-	options.Tags = tags
-	return options
+func (_options *ReplaceObjectOptions) SetTags(tags []string) *ReplaceObjectOptions {
+	_options.Tags = tags
+	return _options
 }
 
 // SetCreated : Allow user to set Created
-func (options *ReplaceObjectOptions) SetCreated(created *strfmt.DateTime) *ReplaceObjectOptions {
-	options.Created = created
-	return options
+func (_options *ReplaceObjectOptions) SetCreated(created *strfmt.DateTime) *ReplaceObjectOptions {
+	_options.Created = created
+	return _options
 }
 
 // SetUpdated : Allow user to set Updated
-func (options *ReplaceObjectOptions) SetUpdated(updated *strfmt.DateTime) *ReplaceObjectOptions {
-	options.Updated = updated
-	return options
+func (_options *ReplaceObjectOptions) SetUpdated(updated *strfmt.DateTime) *ReplaceObjectOptions {
+	_options.Updated = updated
+	return _options
 }
 
 // SetShortDescription : Allow user to set ShortDescription
-func (options *ReplaceObjectOptions) SetShortDescription(shortDescription string) *ReplaceObjectOptions {
-	options.ShortDescription = core.StringPtr(shortDescription)
-	return options
+func (_options *ReplaceObjectOptions) SetShortDescription(shortDescription string) *ReplaceObjectOptions {
+	_options.ShortDescription = core.StringPtr(shortDescription)
+	return _options
 }
 
 // SetShortDescriptionI18n : Allow user to set ShortDescriptionI18n
-func (options *ReplaceObjectOptions) SetShortDescriptionI18n(shortDescriptionI18n string) *ReplaceObjectOptions {
-	options.ShortDescriptionI18n = core.StringPtr(shortDescriptionI18n)
-	return options
+func (_options *ReplaceObjectOptions) SetShortDescriptionI18n(shortDescriptionI18n string) *ReplaceObjectOptions {
+	_options.ShortDescriptionI18n = core.StringPtr(shortDescriptionI18n)
+	return _options
 }
 
 // SetKind : Allow user to set Kind
-func (options *ReplaceObjectOptions) SetKind(kind string) *ReplaceObjectOptions {
-	options.Kind = core.StringPtr(kind)
-	return options
+func (_options *ReplaceObjectOptions) SetKind(kind string) *ReplaceObjectOptions {
+	_options.Kind = core.StringPtr(kind)
+	return _options
 }
 
 // SetPublish : Allow user to set Publish
-func (options *ReplaceObjectOptions) SetPublish(publish *PublishObject) *ReplaceObjectOptions {
-	options.Publish = publish
-	return options
+func (_options *ReplaceObjectOptions) SetPublish(publish *PublishObject) *ReplaceObjectOptions {
+	_options.Publish = publish
+	return _options
 }
 
 // SetState : Allow user to set State
-func (options *ReplaceObjectOptions) SetState(state *State) *ReplaceObjectOptions {
-	options.State = state
-	return options
+func (_options *ReplaceObjectOptions) SetState(state *State) *ReplaceObjectOptions {
+	_options.State = state
+	return _options
 }
 
 // SetCatalogID : Allow user to set CatalogID
-func (options *ReplaceObjectOptions) SetCatalogID(catalogID string) *ReplaceObjectOptions {
-	options.CatalogID = core.StringPtr(catalogID)
-	return options
+func (_options *ReplaceObjectOptions) SetCatalogID(catalogID string) *ReplaceObjectOptions {
+	_options.CatalogID = core.StringPtr(catalogID)
+	return _options
 }
 
 // SetCatalogName : Allow user to set CatalogName
-func (options *ReplaceObjectOptions) SetCatalogName(catalogName string) *ReplaceObjectOptions {
-	options.CatalogName = core.StringPtr(catalogName)
-	return options
+func (_options *ReplaceObjectOptions) SetCatalogName(catalogName string) *ReplaceObjectOptions {
+	_options.CatalogName = core.StringPtr(catalogName)
+	return _options
 }
 
 // SetData : Allow user to set Data
-func (options *ReplaceObjectOptions) SetData(data map[string]interface{}) *ReplaceObjectOptions {
-	options.Data = data
-	return options
+func (_options *ReplaceObjectOptions) SetData(data map[string]interface{}) *ReplaceObjectOptions {
+	_options.Data = data
+	return _options
 }
 
 // SetHeaders : Allow user to set Headers
@@ -11113,13 +12238,13 @@ func (options *ReplaceObjectOptions) SetHeaders(param map[string]string) *Replac
 // ReplaceOfferingIconOptions : The ReplaceOfferingIcon options.
 type ReplaceOfferingIconOptions struct {
 	// Catalog identifier.
-	CatalogIdentifier *string `validate:"required,ne="`
+	CatalogIdentifier *string `json:"catalog_identifier" validate:"required,ne="`
 
 	// Offering identification.
-	OfferingID *string `validate:"required,ne="`
+	OfferingID *string `json:"offering_id" validate:"required,ne="`
 
 	// Name of the file name that is being uploaded.
-	FileName *string `validate:"required,ne="`
+	FileName *string `json:"file_name" validate:"required,ne="`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -11135,21 +12260,21 @@ func (*CatalogManagementV1) NewReplaceOfferingIconOptions(catalogIdentifier stri
 }
 
 // SetCatalogIdentifier : Allow user to set CatalogIdentifier
-func (options *ReplaceOfferingIconOptions) SetCatalogIdentifier(catalogIdentifier string) *ReplaceOfferingIconOptions {
-	options.CatalogIdentifier = core.StringPtr(catalogIdentifier)
-	return options
+func (_options *ReplaceOfferingIconOptions) SetCatalogIdentifier(catalogIdentifier string) *ReplaceOfferingIconOptions {
+	_options.CatalogIdentifier = core.StringPtr(catalogIdentifier)
+	return _options
 }
 
 // SetOfferingID : Allow user to set OfferingID
-func (options *ReplaceOfferingIconOptions) SetOfferingID(offeringID string) *ReplaceOfferingIconOptions {
-	options.OfferingID = core.StringPtr(offeringID)
-	return options
+func (_options *ReplaceOfferingIconOptions) SetOfferingID(offeringID string) *ReplaceOfferingIconOptions {
+	_options.OfferingID = core.StringPtr(offeringID)
+	return _options
 }
 
 // SetFileName : Allow user to set FileName
-func (options *ReplaceOfferingIconOptions) SetFileName(fileName string) *ReplaceOfferingIconOptions {
-	options.FileName = core.StringPtr(fileName)
-	return options
+func (_options *ReplaceOfferingIconOptions) SetFileName(fileName string) *ReplaceOfferingIconOptions {
+	_options.FileName = core.StringPtr(fileName)
+	return _options
 }
 
 // SetHeaders : Allow user to set Headers
@@ -11161,106 +12286,116 @@ func (options *ReplaceOfferingIconOptions) SetHeaders(param map[string]string) *
 // ReplaceOfferingOptions : The ReplaceOffering options.
 type ReplaceOfferingOptions struct {
 	// Catalog identifier.
-	CatalogIdentifier *string `validate:"required,ne="`
+	CatalogIdentifier *string `json:"catalog_identifier" validate:"required,ne="`
 
 	// Offering identification.
-	OfferingID *string `validate:"required,ne="`
+	OfferingID *string `json:"offering_id" validate:"required,ne="`
 
 	// unique id.
-	ID *string
+	ID *string `json:"id,omitempty"`
 
 	// Cloudant revision.
-	Rev *string
+	Rev *string `json:"_rev,omitempty"`
 
 	// The url for this specific offering.
-	URL *string
+	URL *string `json:"url,omitempty"`
 
 	// The crn for this specific offering.
-	CRN *string
+	CRN *string `json:"crn,omitempty"`
 
 	// Display Name in the requested language.
-	Label *string
+	Label *string `json:"label,omitempty"`
 
 	// The programmatic name of this offering.
-	Name *string
+	Name *string `json:"name,omitempty"`
 
 	// URL for an icon associated with this offering.
-	OfferingIconURL *string
+	OfferingIconURL *string `json:"offering_icon_url,omitempty"`
 
 	// URL for an additional docs with this offering.
-	OfferingDocsURL *string
+	OfferingDocsURL *string `json:"offering_docs_url,omitempty"`
 
-	// URL to be displayed in the Consumption UI for getting support on this offering.
-	OfferingSupportURL *string
+	// [deprecated] - Use offering.support instead.  URL to be displayed in the Consumption UI for getting support on this
+	// offering.
+	OfferingSupportURL *string `json:"offering_support_url,omitempty"`
 
 	// List of tags associated with this catalog.
-	Tags []string
+	Tags []string `json:"tags,omitempty"`
 
 	// List of keywords associated with offering, typically used to search for it.
-	Keywords []string
+	Keywords []string `json:"keywords,omitempty"`
 
 	// Repository info for offerings.
-	Rating *Rating
+	Rating *Rating `json:"rating,omitempty"`
 
 	// The date and time this catalog was created.
-	Created *strfmt.DateTime
+	Created *strfmt.DateTime `json:"created,omitempty"`
 
 	// The date and time this catalog was last updated.
-	Updated *strfmt.DateTime
+	Updated *strfmt.DateTime `json:"updated,omitempty"`
 
 	// Short description in the requested language.
-	ShortDescription *string
+	ShortDescription *string `json:"short_description,omitempty"`
 
 	// Long description in the requested language.
-	LongDescription *string
+	LongDescription *string `json:"long_description,omitempty"`
 
 	// list of features associated with this offering.
-	Features []Feature
+	Features []Feature `json:"features,omitempty"`
 
 	// Array of kind.
-	Kinds []Kind
+	Kinds []Kind `json:"kinds,omitempty"`
 
 	// Is it permitted to request publishing to IBM or Public.
-	PermitRequestIBMPublicPublish *bool
+	PermitRequestIBMPublicPublish *bool `json:"permit_request_ibm_public_publish,omitempty"`
 
 	// Indicates if this offering has been approved for use by all IBMers.
-	IBMPublishApproved *bool
+	IBMPublishApproved *bool `json:"ibm_publish_approved,omitempty"`
 
 	// Indicates if this offering has been approved for use by all IBM Cloud users.
-	PublicPublishApproved *bool
+	PublicPublishApproved *bool `json:"public_publish_approved,omitempty"`
 
 	// The original offering CRN that this publish entry came from.
-	PublicOriginalCRN *string
+	PublicOriginalCRN *string `json:"public_original_crn,omitempty"`
 
 	// The crn of the public catalog entry of this offering.
-	PublishPublicCRN *string
+	PublishPublicCRN *string `json:"publish_public_crn,omitempty"`
 
 	// The portal's approval record ID.
-	PortalApprovalRecord *string
+	PortalApprovalRecord *string `json:"portal_approval_record,omitempty"`
 
 	// The portal UI URL.
-	PortalUIURL *string
+	PortalUIURL *string `json:"portal_ui_url,omitempty"`
 
 	// The id of the catalog containing this offering.
-	CatalogID *string
+	CatalogID *string `json:"catalog_id,omitempty"`
 
 	// The name of the catalog.
-	CatalogName *string
+	CatalogName *string `json:"catalog_name,omitempty"`
 
 	// Map of metadata values for this offering.
-	Metadata map[string]interface{}
+	Metadata map[string]interface{} `json:"metadata,omitempty"`
 
 	// A disclaimer for this offering.
-	Disclaimer *string
+	Disclaimer *string `json:"disclaimer,omitempty"`
 
 	// Determine if this offering should be displayed in the Consumption UI.
-	Hidden *bool
+	Hidden *bool `json:"hidden,omitempty"`
 
-	// Provider of this offering.
-	Provider *string
+	// Deprecated - Provider of this offering.
+	Provider *string `json:"provider,omitempty"`
+
+	// Information on the provider for this offering, or omitted if no provider information is given.
+	ProviderInfo *ProviderInfo `json:"provider_info,omitempty"`
 
 	// Repository info for offerings.
-	RepoInfo *RepoInfo
+	RepoInfo *RepoInfo `json:"repo_info,omitempty"`
+
+	// Offering Support information.
+	Support *Support `json:"support,omitempty"`
+
+	// A list of media items related to this offering.
+	Media []MediaItem `json:"media,omitempty"`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -11275,207 +12410,225 @@ func (*CatalogManagementV1) NewReplaceOfferingOptions(catalogIdentifier string, 
 }
 
 // SetCatalogIdentifier : Allow user to set CatalogIdentifier
-func (options *ReplaceOfferingOptions) SetCatalogIdentifier(catalogIdentifier string) *ReplaceOfferingOptions {
-	options.CatalogIdentifier = core.StringPtr(catalogIdentifier)
-	return options
+func (_options *ReplaceOfferingOptions) SetCatalogIdentifier(catalogIdentifier string) *ReplaceOfferingOptions {
+	_options.CatalogIdentifier = core.StringPtr(catalogIdentifier)
+	return _options
 }
 
 // SetOfferingID : Allow user to set OfferingID
-func (options *ReplaceOfferingOptions) SetOfferingID(offeringID string) *ReplaceOfferingOptions {
-	options.OfferingID = core.StringPtr(offeringID)
-	return options
+func (_options *ReplaceOfferingOptions) SetOfferingID(offeringID string) *ReplaceOfferingOptions {
+	_options.OfferingID = core.StringPtr(offeringID)
+	return _options
 }
 
 // SetID : Allow user to set ID
-func (options *ReplaceOfferingOptions) SetID(id string) *ReplaceOfferingOptions {
-	options.ID = core.StringPtr(id)
-	return options
+func (_options *ReplaceOfferingOptions) SetID(id string) *ReplaceOfferingOptions {
+	_options.ID = core.StringPtr(id)
+	return _options
 }
 
 // SetRev : Allow user to set Rev
-func (options *ReplaceOfferingOptions) SetRev(rev string) *ReplaceOfferingOptions {
-	options.Rev = core.StringPtr(rev)
-	return options
+func (_options *ReplaceOfferingOptions) SetRev(rev string) *ReplaceOfferingOptions {
+	_options.Rev = core.StringPtr(rev)
+	return _options
 }
 
 // SetURL : Allow user to set URL
-func (options *ReplaceOfferingOptions) SetURL(url string) *ReplaceOfferingOptions {
-	options.URL = core.StringPtr(url)
-	return options
+func (_options *ReplaceOfferingOptions) SetURL(url string) *ReplaceOfferingOptions {
+	_options.URL = core.StringPtr(url)
+	return _options
 }
 
 // SetCRN : Allow user to set CRN
-func (options *ReplaceOfferingOptions) SetCRN(crn string) *ReplaceOfferingOptions {
-	options.CRN = core.StringPtr(crn)
-	return options
+func (_options *ReplaceOfferingOptions) SetCRN(crn string) *ReplaceOfferingOptions {
+	_options.CRN = core.StringPtr(crn)
+	return _options
 }
 
 // SetLabel : Allow user to set Label
-func (options *ReplaceOfferingOptions) SetLabel(label string) *ReplaceOfferingOptions {
-	options.Label = core.StringPtr(label)
-	return options
+func (_options *ReplaceOfferingOptions) SetLabel(label string) *ReplaceOfferingOptions {
+	_options.Label = core.StringPtr(label)
+	return _options
 }
 
 // SetName : Allow user to set Name
-func (options *ReplaceOfferingOptions) SetName(name string) *ReplaceOfferingOptions {
-	options.Name = core.StringPtr(name)
-	return options
+func (_options *ReplaceOfferingOptions) SetName(name string) *ReplaceOfferingOptions {
+	_options.Name = core.StringPtr(name)
+	return _options
 }
 
 // SetOfferingIconURL : Allow user to set OfferingIconURL
-func (options *ReplaceOfferingOptions) SetOfferingIconURL(offeringIconURL string) *ReplaceOfferingOptions {
-	options.OfferingIconURL = core.StringPtr(offeringIconURL)
-	return options
+func (_options *ReplaceOfferingOptions) SetOfferingIconURL(offeringIconURL string) *ReplaceOfferingOptions {
+	_options.OfferingIconURL = core.StringPtr(offeringIconURL)
+	return _options
 }
 
 // SetOfferingDocsURL : Allow user to set OfferingDocsURL
-func (options *ReplaceOfferingOptions) SetOfferingDocsURL(offeringDocsURL string) *ReplaceOfferingOptions {
-	options.OfferingDocsURL = core.StringPtr(offeringDocsURL)
-	return options
+func (_options *ReplaceOfferingOptions) SetOfferingDocsURL(offeringDocsURL string) *ReplaceOfferingOptions {
+	_options.OfferingDocsURL = core.StringPtr(offeringDocsURL)
+	return _options
 }
 
 // SetOfferingSupportURL : Allow user to set OfferingSupportURL
-func (options *ReplaceOfferingOptions) SetOfferingSupportURL(offeringSupportURL string) *ReplaceOfferingOptions {
-	options.OfferingSupportURL = core.StringPtr(offeringSupportURL)
-	return options
+func (_options *ReplaceOfferingOptions) SetOfferingSupportURL(offeringSupportURL string) *ReplaceOfferingOptions {
+	_options.OfferingSupportURL = core.StringPtr(offeringSupportURL)
+	return _options
 }
 
 // SetTags : Allow user to set Tags
-func (options *ReplaceOfferingOptions) SetTags(tags []string) *ReplaceOfferingOptions {
-	options.Tags = tags
-	return options
+func (_options *ReplaceOfferingOptions) SetTags(tags []string) *ReplaceOfferingOptions {
+	_options.Tags = tags
+	return _options
 }
 
 // SetKeywords : Allow user to set Keywords
-func (options *ReplaceOfferingOptions) SetKeywords(keywords []string) *ReplaceOfferingOptions {
-	options.Keywords = keywords
-	return options
+func (_options *ReplaceOfferingOptions) SetKeywords(keywords []string) *ReplaceOfferingOptions {
+	_options.Keywords = keywords
+	return _options
 }
 
 // SetRating : Allow user to set Rating
-func (options *ReplaceOfferingOptions) SetRating(rating *Rating) *ReplaceOfferingOptions {
-	options.Rating = rating
-	return options
+func (_options *ReplaceOfferingOptions) SetRating(rating *Rating) *ReplaceOfferingOptions {
+	_options.Rating = rating
+	return _options
 }
 
 // SetCreated : Allow user to set Created
-func (options *ReplaceOfferingOptions) SetCreated(created *strfmt.DateTime) *ReplaceOfferingOptions {
-	options.Created = created
-	return options
+func (_options *ReplaceOfferingOptions) SetCreated(created *strfmt.DateTime) *ReplaceOfferingOptions {
+	_options.Created = created
+	return _options
 }
 
 // SetUpdated : Allow user to set Updated
-func (options *ReplaceOfferingOptions) SetUpdated(updated *strfmt.DateTime) *ReplaceOfferingOptions {
-	options.Updated = updated
-	return options
+func (_options *ReplaceOfferingOptions) SetUpdated(updated *strfmt.DateTime) *ReplaceOfferingOptions {
+	_options.Updated = updated
+	return _options
 }
 
 // SetShortDescription : Allow user to set ShortDescription
-func (options *ReplaceOfferingOptions) SetShortDescription(shortDescription string) *ReplaceOfferingOptions {
-	options.ShortDescription = core.StringPtr(shortDescription)
-	return options
+func (_options *ReplaceOfferingOptions) SetShortDescription(shortDescription string) *ReplaceOfferingOptions {
+	_options.ShortDescription = core.StringPtr(shortDescription)
+	return _options
 }
 
 // SetLongDescription : Allow user to set LongDescription
-func (options *ReplaceOfferingOptions) SetLongDescription(longDescription string) *ReplaceOfferingOptions {
-	options.LongDescription = core.StringPtr(longDescription)
-	return options
+func (_options *ReplaceOfferingOptions) SetLongDescription(longDescription string) *ReplaceOfferingOptions {
+	_options.LongDescription = core.StringPtr(longDescription)
+	return _options
 }
 
 // SetFeatures : Allow user to set Features
-func (options *ReplaceOfferingOptions) SetFeatures(features []Feature) *ReplaceOfferingOptions {
-	options.Features = features
-	return options
+func (_options *ReplaceOfferingOptions) SetFeatures(features []Feature) *ReplaceOfferingOptions {
+	_options.Features = features
+	return _options
 }
 
 // SetKinds : Allow user to set Kinds
-func (options *ReplaceOfferingOptions) SetKinds(kinds []Kind) *ReplaceOfferingOptions {
-	options.Kinds = kinds
-	return options
+func (_options *ReplaceOfferingOptions) SetKinds(kinds []Kind) *ReplaceOfferingOptions {
+	_options.Kinds = kinds
+	return _options
 }
 
 // SetPermitRequestIBMPublicPublish : Allow user to set PermitRequestIBMPublicPublish
-func (options *ReplaceOfferingOptions) SetPermitRequestIBMPublicPublish(permitRequestIBMPublicPublish bool) *ReplaceOfferingOptions {
-	options.PermitRequestIBMPublicPublish = core.BoolPtr(permitRequestIBMPublicPublish)
-	return options
+func (_options *ReplaceOfferingOptions) SetPermitRequestIBMPublicPublish(permitRequestIBMPublicPublish bool) *ReplaceOfferingOptions {
+	_options.PermitRequestIBMPublicPublish = core.BoolPtr(permitRequestIBMPublicPublish)
+	return _options
 }
 
 // SetIBMPublishApproved : Allow user to set IBMPublishApproved
-func (options *ReplaceOfferingOptions) SetIBMPublishApproved(ibmPublishApproved bool) *ReplaceOfferingOptions {
-	options.IBMPublishApproved = core.BoolPtr(ibmPublishApproved)
-	return options
+func (_options *ReplaceOfferingOptions) SetIBMPublishApproved(ibmPublishApproved bool) *ReplaceOfferingOptions {
+	_options.IBMPublishApproved = core.BoolPtr(ibmPublishApproved)
+	return _options
 }
 
 // SetPublicPublishApproved : Allow user to set PublicPublishApproved
-func (options *ReplaceOfferingOptions) SetPublicPublishApproved(publicPublishApproved bool) *ReplaceOfferingOptions {
-	options.PublicPublishApproved = core.BoolPtr(publicPublishApproved)
-	return options
+func (_options *ReplaceOfferingOptions) SetPublicPublishApproved(publicPublishApproved bool) *ReplaceOfferingOptions {
+	_options.PublicPublishApproved = core.BoolPtr(publicPublishApproved)
+	return _options
 }
 
 // SetPublicOriginalCRN : Allow user to set PublicOriginalCRN
-func (options *ReplaceOfferingOptions) SetPublicOriginalCRN(publicOriginalCRN string) *ReplaceOfferingOptions {
-	options.PublicOriginalCRN = core.StringPtr(publicOriginalCRN)
-	return options
+func (_options *ReplaceOfferingOptions) SetPublicOriginalCRN(publicOriginalCRN string) *ReplaceOfferingOptions {
+	_options.PublicOriginalCRN = core.StringPtr(publicOriginalCRN)
+	return _options
 }
 
 // SetPublishPublicCRN : Allow user to set PublishPublicCRN
-func (options *ReplaceOfferingOptions) SetPublishPublicCRN(publishPublicCRN string) *ReplaceOfferingOptions {
-	options.PublishPublicCRN = core.StringPtr(publishPublicCRN)
-	return options
+func (_options *ReplaceOfferingOptions) SetPublishPublicCRN(publishPublicCRN string) *ReplaceOfferingOptions {
+	_options.PublishPublicCRN = core.StringPtr(publishPublicCRN)
+	return _options
 }
 
 // SetPortalApprovalRecord : Allow user to set PortalApprovalRecord
-func (options *ReplaceOfferingOptions) SetPortalApprovalRecord(portalApprovalRecord string) *ReplaceOfferingOptions {
-	options.PortalApprovalRecord = core.StringPtr(portalApprovalRecord)
-	return options
+func (_options *ReplaceOfferingOptions) SetPortalApprovalRecord(portalApprovalRecord string) *ReplaceOfferingOptions {
+	_options.PortalApprovalRecord = core.StringPtr(portalApprovalRecord)
+	return _options
 }
 
 // SetPortalUIURL : Allow user to set PortalUIURL
-func (options *ReplaceOfferingOptions) SetPortalUIURL(portalUIURL string) *ReplaceOfferingOptions {
-	options.PortalUIURL = core.StringPtr(portalUIURL)
-	return options
+func (_options *ReplaceOfferingOptions) SetPortalUIURL(portalUIURL string) *ReplaceOfferingOptions {
+	_options.PortalUIURL = core.StringPtr(portalUIURL)
+	return _options
 }
 
 // SetCatalogID : Allow user to set CatalogID
-func (options *ReplaceOfferingOptions) SetCatalogID(catalogID string) *ReplaceOfferingOptions {
-	options.CatalogID = core.StringPtr(catalogID)
-	return options
+func (_options *ReplaceOfferingOptions) SetCatalogID(catalogID string) *ReplaceOfferingOptions {
+	_options.CatalogID = core.StringPtr(catalogID)
+	return _options
 }
 
 // SetCatalogName : Allow user to set CatalogName
-func (options *ReplaceOfferingOptions) SetCatalogName(catalogName string) *ReplaceOfferingOptions {
-	options.CatalogName = core.StringPtr(catalogName)
-	return options
+func (_options *ReplaceOfferingOptions) SetCatalogName(catalogName string) *ReplaceOfferingOptions {
+	_options.CatalogName = core.StringPtr(catalogName)
+	return _options
 }
 
 // SetMetadata : Allow user to set Metadata
-func (options *ReplaceOfferingOptions) SetMetadata(metadata map[string]interface{}) *ReplaceOfferingOptions {
-	options.Metadata = metadata
-	return options
+func (_options *ReplaceOfferingOptions) SetMetadata(metadata map[string]interface{}) *ReplaceOfferingOptions {
+	_options.Metadata = metadata
+	return _options
 }
 
 // SetDisclaimer : Allow user to set Disclaimer
-func (options *ReplaceOfferingOptions) SetDisclaimer(disclaimer string) *ReplaceOfferingOptions {
-	options.Disclaimer = core.StringPtr(disclaimer)
-	return options
+func (_options *ReplaceOfferingOptions) SetDisclaimer(disclaimer string) *ReplaceOfferingOptions {
+	_options.Disclaimer = core.StringPtr(disclaimer)
+	return _options
 }
 
 // SetHidden : Allow user to set Hidden
-func (options *ReplaceOfferingOptions) SetHidden(hidden bool) *ReplaceOfferingOptions {
-	options.Hidden = core.BoolPtr(hidden)
-	return options
+func (_options *ReplaceOfferingOptions) SetHidden(hidden bool) *ReplaceOfferingOptions {
+	_options.Hidden = core.BoolPtr(hidden)
+	return _options
 }
 
 // SetProvider : Allow user to set Provider
-func (options *ReplaceOfferingOptions) SetProvider(provider string) *ReplaceOfferingOptions {
-	options.Provider = core.StringPtr(provider)
-	return options
+func (_options *ReplaceOfferingOptions) SetProvider(provider string) *ReplaceOfferingOptions {
+	_options.Provider = core.StringPtr(provider)
+	return _options
+}
+
+// SetProviderInfo : Allow user to set ProviderInfo
+func (_options *ReplaceOfferingOptions) SetProviderInfo(providerInfo *ProviderInfo) *ReplaceOfferingOptions {
+	_options.ProviderInfo = providerInfo
+	return _options
 }
 
 // SetRepoInfo : Allow user to set RepoInfo
-func (options *ReplaceOfferingOptions) SetRepoInfo(repoInfo *RepoInfo) *ReplaceOfferingOptions {
-	options.RepoInfo = repoInfo
-	return options
+func (_options *ReplaceOfferingOptions) SetRepoInfo(repoInfo *RepoInfo) *ReplaceOfferingOptions {
+	_options.RepoInfo = repoInfo
+	return _options
+}
+
+// SetSupport : Allow user to set Support
+func (_options *ReplaceOfferingOptions) SetSupport(support *Support) *ReplaceOfferingOptions {
+	_options.Support = support
+	return _options
+}
+
+// SetMedia : Allow user to set Media
+func (_options *ReplaceOfferingOptions) SetMedia(media []MediaItem) *ReplaceOfferingOptions {
+	_options.Media = media
+	return _options
 }
 
 // SetHeaders : Allow user to set Headers
@@ -11487,22 +12640,22 @@ func (options *ReplaceOfferingOptions) SetHeaders(param map[string]string) *Repl
 // ReplaceOperatorsOptions : The ReplaceOperators options.
 type ReplaceOperatorsOptions struct {
 	// IAM Refresh token.
-	XAuthRefreshToken *string `validate:"required"`
+	XAuthRefreshToken *string `json:"X-Auth-Refresh-Token" validate:"required"`
 
 	// Cluster ID.
-	ClusterID *string
+	ClusterID *string `json:"cluster_id,omitempty"`
 
 	// Cluster region.
-	Region *string
+	Region *string `json:"region,omitempty"`
 
 	// Kube namespaces to deploy Operator(s) to.
-	Namespaces []string
+	Namespaces []string `json:"namespaces,omitempty"`
 
 	// Denotes whether to install Operator(s) globally.
-	AllNamespaces *bool
+	AllNamespaces *bool `json:"all_namespaces,omitempty"`
 
 	// A dotted value of `catalogID`.`versionID`.
-	VersionLocatorID *string
+	VersionLocatorID *string `json:"version_locator_id,omitempty"`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -11516,39 +12669,39 @@ func (*CatalogManagementV1) NewReplaceOperatorsOptions(xAuthRefreshToken string)
 }
 
 // SetXAuthRefreshToken : Allow user to set XAuthRefreshToken
-func (options *ReplaceOperatorsOptions) SetXAuthRefreshToken(xAuthRefreshToken string) *ReplaceOperatorsOptions {
-	options.XAuthRefreshToken = core.StringPtr(xAuthRefreshToken)
-	return options
+func (_options *ReplaceOperatorsOptions) SetXAuthRefreshToken(xAuthRefreshToken string) *ReplaceOperatorsOptions {
+	_options.XAuthRefreshToken = core.StringPtr(xAuthRefreshToken)
+	return _options
 }
 
 // SetClusterID : Allow user to set ClusterID
-func (options *ReplaceOperatorsOptions) SetClusterID(clusterID string) *ReplaceOperatorsOptions {
-	options.ClusterID = core.StringPtr(clusterID)
-	return options
+func (_options *ReplaceOperatorsOptions) SetClusterID(clusterID string) *ReplaceOperatorsOptions {
+	_options.ClusterID = core.StringPtr(clusterID)
+	return _options
 }
 
 // SetRegion : Allow user to set Region
-func (options *ReplaceOperatorsOptions) SetRegion(region string) *ReplaceOperatorsOptions {
-	options.Region = core.StringPtr(region)
-	return options
+func (_options *ReplaceOperatorsOptions) SetRegion(region string) *ReplaceOperatorsOptions {
+	_options.Region = core.StringPtr(region)
+	return _options
 }
 
 // SetNamespaces : Allow user to set Namespaces
-func (options *ReplaceOperatorsOptions) SetNamespaces(namespaces []string) *ReplaceOperatorsOptions {
-	options.Namespaces = namespaces
-	return options
+func (_options *ReplaceOperatorsOptions) SetNamespaces(namespaces []string) *ReplaceOperatorsOptions {
+	_options.Namespaces = namespaces
+	return _options
 }
 
 // SetAllNamespaces : Allow user to set AllNamespaces
-func (options *ReplaceOperatorsOptions) SetAllNamespaces(allNamespaces bool) *ReplaceOperatorsOptions {
-	options.AllNamespaces = core.BoolPtr(allNamespaces)
-	return options
+func (_options *ReplaceOperatorsOptions) SetAllNamespaces(allNamespaces bool) *ReplaceOperatorsOptions {
+	_options.AllNamespaces = core.BoolPtr(allNamespaces)
+	return _options
 }
 
 // SetVersionLocatorID : Allow user to set VersionLocatorID
-func (options *ReplaceOperatorsOptions) SetVersionLocatorID(versionLocatorID string) *ReplaceOperatorsOptions {
-	options.VersionLocatorID = core.StringPtr(versionLocatorID)
-	return options
+func (_options *ReplaceOperatorsOptions) SetVersionLocatorID(versionLocatorID string) *ReplaceOperatorsOptions {
+	_options.VersionLocatorID = core.StringPtr(versionLocatorID)
+	return _options
 }
 
 // SetHeaders : Allow user to set Headers
@@ -11664,19 +12817,19 @@ func UnmarshalScript(m map[string]json.RawMessage, result interface{}) (err erro
 // SearchObjectsOptions : The SearchObjects options.
 type SearchObjectsOptions struct {
 	// Lucene query string.
-	Query *string `validate:"required"`
+	Query *string `json:"query" validate:"required"`
 
 	// The maximum number of results to return.
-	Limit *int64
+	Limit *int64 `json:"limit,omitempty"`
 
 	// The number of results to skip before returning values.
-	Offset *int64
+	Offset *int64 `json:"offset,omitempty"`
 
 	// When true, hide private objects that correspond to public or IBM published objects.
-	Collapse *bool
+	Collapse *bool `json:"collapse,omitempty"`
 
 	// Display a digests of search results, has default value of true.
-	Digest *bool
+	Digest *bool `json:"digest,omitempty"`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -11690,33 +12843,33 @@ func (*CatalogManagementV1) NewSearchObjectsOptions(query string) *SearchObjects
 }
 
 // SetQuery : Allow user to set Query
-func (options *SearchObjectsOptions) SetQuery(query string) *SearchObjectsOptions {
-	options.Query = core.StringPtr(query)
-	return options
+func (_options *SearchObjectsOptions) SetQuery(query string) *SearchObjectsOptions {
+	_options.Query = core.StringPtr(query)
+	return _options
 }
 
 // SetLimit : Allow user to set Limit
-func (options *SearchObjectsOptions) SetLimit(limit int64) *SearchObjectsOptions {
-	options.Limit = core.Int64Ptr(limit)
-	return options
+func (_options *SearchObjectsOptions) SetLimit(limit int64) *SearchObjectsOptions {
+	_options.Limit = core.Int64Ptr(limit)
+	return _options
 }
 
 // SetOffset : Allow user to set Offset
-func (options *SearchObjectsOptions) SetOffset(offset int64) *SearchObjectsOptions {
-	options.Offset = core.Int64Ptr(offset)
-	return options
+func (_options *SearchObjectsOptions) SetOffset(offset int64) *SearchObjectsOptions {
+	_options.Offset = core.Int64Ptr(offset)
+	return _options
 }
 
 // SetCollapse : Allow user to set Collapse
-func (options *SearchObjectsOptions) SetCollapse(collapse bool) *SearchObjectsOptions {
-	options.Collapse = core.BoolPtr(collapse)
-	return options
+func (_options *SearchObjectsOptions) SetCollapse(collapse bool) *SearchObjectsOptions {
+	_options.Collapse = core.BoolPtr(collapse)
+	return _options
 }
 
 // SetDigest : Allow user to set Digest
-func (options *SearchObjectsOptions) SetDigest(digest bool) *SearchObjectsOptions {
-	options.Digest = core.BoolPtr(digest)
-	return options
+func (_options *SearchObjectsOptions) SetDigest(digest bool) *SearchObjectsOptions {
+	_options.Digest = core.BoolPtr(digest)
+	return _options
 }
 
 // SetHeaders : Allow user to set Headers
@@ -11725,13 +12878,76 @@ func (options *SearchObjectsOptions) SetHeaders(param map[string]string) *Search
 	return options
 }
 
+// SetDeprecateVersionOptions : The SetDeprecateVersion options.
+type SetDeprecateVersionOptions struct {
+	// A dotted value of `catalogID`.`versionID`.
+	VersionLocID *string `json:"version_loc_id" validate:"required,ne="`
+
+	// Set deprecation (true) or cancel deprecation (false).
+	Setting *string `json:"setting" validate:"required,ne="`
+
+	// Additional information that users can provide to be displayed in deprecation notification.
+	Description *string `json:"description,omitempty"`
+
+	// Specifies the amount of days until product is not available in catalog.
+	DaysUntilDeprecate *int64 `json:"days_until_deprecate,omitempty"`
+
+	// Allows users to set headers on API requests
+	Headers map[string]string
+}
+
+// Constants associated with the SetDeprecateVersionOptions.Setting property.
+// Set deprecation (true) or cancel deprecation (false).
+const (
+	SetDeprecateVersionOptionsSettingFalseConst = "false"
+	SetDeprecateVersionOptionsSettingTrueConst = "true"
+)
+
+// NewSetDeprecateVersionOptions : Instantiate SetDeprecateVersionOptions
+func (*CatalogManagementV1) NewSetDeprecateVersionOptions(versionLocID string, setting string) *SetDeprecateVersionOptions {
+	return &SetDeprecateVersionOptions{
+		VersionLocID: core.StringPtr(versionLocID),
+		Setting: core.StringPtr(setting),
+	}
+}
+
+// SetVersionLocID : Allow user to set VersionLocID
+func (_options *SetDeprecateVersionOptions) SetVersionLocID(versionLocID string) *SetDeprecateVersionOptions {
+	_options.VersionLocID = core.StringPtr(versionLocID)
+	return _options
+}
+
+// SetSetting : Allow user to set Setting
+func (_options *SetDeprecateVersionOptions) SetSetting(setting string) *SetDeprecateVersionOptions {
+	_options.Setting = core.StringPtr(setting)
+	return _options
+}
+
+// SetDescription : Allow user to set Description
+func (_options *SetDeprecateVersionOptions) SetDescription(description string) *SetDeprecateVersionOptions {
+	_options.Description = core.StringPtr(description)
+	return _options
+}
+
+// SetDaysUntilDeprecate : Allow user to set DaysUntilDeprecate
+func (_options *SetDeprecateVersionOptions) SetDaysUntilDeprecate(daysUntilDeprecate int64) *SetDeprecateVersionOptions {
+	_options.DaysUntilDeprecate = core.Int64Ptr(daysUntilDeprecate)
+	return _options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *SetDeprecateVersionOptions) SetHeaders(param map[string]string) *SetDeprecateVersionOptions {
+	options.Headers = param
+	return options
+}
+
 // SharedPublishObjectOptions : The SharedPublishObject options.
 type SharedPublishObjectOptions struct {
 	// Catalog identifier.
-	CatalogIdentifier *string `validate:"required,ne="`
+	CatalogIdentifier *string `json:"catalog_identifier" validate:"required,ne="`
 
 	// Object identifier.
-	ObjectIdentifier *string `validate:"required,ne="`
+	ObjectIdentifier *string `json:"object_identifier" validate:"required,ne="`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -11746,15 +12962,15 @@ func (*CatalogManagementV1) NewSharedPublishObjectOptions(catalogIdentifier stri
 }
 
 // SetCatalogIdentifier : Allow user to set CatalogIdentifier
-func (options *SharedPublishObjectOptions) SetCatalogIdentifier(catalogIdentifier string) *SharedPublishObjectOptions {
-	options.CatalogIdentifier = core.StringPtr(catalogIdentifier)
-	return options
+func (_options *SharedPublishObjectOptions) SetCatalogIdentifier(catalogIdentifier string) *SharedPublishObjectOptions {
+	_options.CatalogIdentifier = core.StringPtr(catalogIdentifier)
+	return _options
 }
 
 // SetObjectIdentifier : Allow user to set ObjectIdentifier
-func (options *SharedPublishObjectOptions) SetObjectIdentifier(objectIdentifier string) *SharedPublishObjectOptions {
-	options.ObjectIdentifier = core.StringPtr(objectIdentifier)
-	return options
+func (_options *SharedPublishObjectOptions) SetObjectIdentifier(objectIdentifier string) *SharedPublishObjectOptions {
+	_options.ObjectIdentifier = core.StringPtr(objectIdentifier)
+	return _options
 }
 
 // SetHeaders : Allow user to set Headers
@@ -11801,6 +13017,37 @@ func UnmarshalState(m map[string]json.RawMessage, result interface{}) (err error
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "previous", &obj.Previous)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// Support : Offering Support information.
+type Support struct {
+	// URL to be displayed in the Consumption UI for getting support on this offering.
+	URL *string `json:"url,omitempty"`
+
+	// Support process as provided by an ISV.
+	Process *string `json:"process,omitempty"`
+
+	// A list of country codes indicating where support is provided.
+	Locations []string `json:"locations,omitempty"`
+}
+
+// UnmarshalSupport unmarshals an instance of Support from the specified map of raw messages.
+func UnmarshalSupport(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(Support)
+	err = core.UnmarshalPrimitive(m, "url", &obj.URL)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "process", &obj.Process)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "locations", &obj.Locations)
 	if err != nil {
 		return
 	}
@@ -11963,13 +13210,13 @@ func UnmarshalSyndicationResource(m map[string]json.RawMessage, result interface
 // UpdateCatalogAccountOptions : The UpdateCatalogAccount options.
 type UpdateCatalogAccountOptions struct {
 	// Account identification.
-	ID *string
+	ID *string `json:"id,omitempty"`
 
 	// Hide the public catalog in this account.
-	HideIBMCloudCatalog *bool
+	HideIBMCloudCatalog *bool `json:"hide_IBM_cloud_catalog,omitempty"`
 
 	// Filters for account and catalog filters.
-	AccountFilters *Filters
+	AccountFilters *Filters `json:"account_filters,omitempty"`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -11981,21 +13228,21 @@ func (*CatalogManagementV1) NewUpdateCatalogAccountOptions() *UpdateCatalogAccou
 }
 
 // SetID : Allow user to set ID
-func (options *UpdateCatalogAccountOptions) SetID(id string) *UpdateCatalogAccountOptions {
-	options.ID = core.StringPtr(id)
-	return options
+func (_options *UpdateCatalogAccountOptions) SetID(id string) *UpdateCatalogAccountOptions {
+	_options.ID = core.StringPtr(id)
+	return _options
 }
 
 // SetHideIBMCloudCatalog : Allow user to set HideIBMCloudCatalog
-func (options *UpdateCatalogAccountOptions) SetHideIBMCloudCatalog(hideIBMCloudCatalog bool) *UpdateCatalogAccountOptions {
-	options.HideIBMCloudCatalog = core.BoolPtr(hideIBMCloudCatalog)
-	return options
+func (_options *UpdateCatalogAccountOptions) SetHideIBMCloudCatalog(hideIBMCloudCatalog bool) *UpdateCatalogAccountOptions {
+	_options.HideIBMCloudCatalog = core.BoolPtr(hideIBMCloudCatalog)
+	return _options
 }
 
 // SetAccountFilters : Allow user to set AccountFilters
-func (options *UpdateCatalogAccountOptions) SetAccountFilters(accountFilters *Filters) *UpdateCatalogAccountOptions {
-	options.AccountFilters = accountFilters
-	return options
+func (_options *UpdateCatalogAccountOptions) SetAccountFilters(accountFilters *Filters) *UpdateCatalogAccountOptions {
+	_options.AccountFilters = accountFilters
+	return _options
 }
 
 // SetHeaders : Allow user to set Headers
@@ -12007,16 +13254,16 @@ func (options *UpdateCatalogAccountOptions) SetHeaders(param map[string]string) 
 // UpdateOfferingIBMOptions : The UpdateOfferingIBM options.
 type UpdateOfferingIBMOptions struct {
 	// Catalog identifier.
-	CatalogIdentifier *string `validate:"required,ne="`
+	CatalogIdentifier *string `json:"catalog_identifier" validate:"required,ne="`
 
 	// Offering identification.
-	OfferingID *string `validate:"required,ne="`
+	OfferingID *string `json:"offering_id" validate:"required,ne="`
 
 	// Type of approval, ibm or public.
-	ApprovalType *string `validate:"required,ne="`
+	ApprovalType *string `json:"approval_type" validate:"required,ne="`
 
 	// Approve (true) or disapprove (false).
-	Approved *string `validate:"required,ne="`
+	Approved *string `json:"approved" validate:"required,ne="`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -12027,6 +13274,7 @@ type UpdateOfferingIBMOptions struct {
 const (
 	UpdateOfferingIBMOptionsApprovalTypeAllowRequestConst = "allow_request"
 	UpdateOfferingIBMOptionsApprovalTypeIBMConst = "ibm"
+	UpdateOfferingIBMOptionsApprovalTypePcManagedConst = "pc_managed"
 	UpdateOfferingIBMOptionsApprovalTypePublicConst = "public"
 )
 
@@ -12048,27 +13296,27 @@ func (*CatalogManagementV1) NewUpdateOfferingIBMOptions(catalogIdentifier string
 }
 
 // SetCatalogIdentifier : Allow user to set CatalogIdentifier
-func (options *UpdateOfferingIBMOptions) SetCatalogIdentifier(catalogIdentifier string) *UpdateOfferingIBMOptions {
-	options.CatalogIdentifier = core.StringPtr(catalogIdentifier)
-	return options
+func (_options *UpdateOfferingIBMOptions) SetCatalogIdentifier(catalogIdentifier string) *UpdateOfferingIBMOptions {
+	_options.CatalogIdentifier = core.StringPtr(catalogIdentifier)
+	return _options
 }
 
 // SetOfferingID : Allow user to set OfferingID
-func (options *UpdateOfferingIBMOptions) SetOfferingID(offeringID string) *UpdateOfferingIBMOptions {
-	options.OfferingID = core.StringPtr(offeringID)
-	return options
+func (_options *UpdateOfferingIBMOptions) SetOfferingID(offeringID string) *UpdateOfferingIBMOptions {
+	_options.OfferingID = core.StringPtr(offeringID)
+	return _options
 }
 
 // SetApprovalType : Allow user to set ApprovalType
-func (options *UpdateOfferingIBMOptions) SetApprovalType(approvalType string) *UpdateOfferingIBMOptions {
-	options.ApprovalType = core.StringPtr(approvalType)
-	return options
+func (_options *UpdateOfferingIBMOptions) SetApprovalType(approvalType string) *UpdateOfferingIBMOptions {
+	_options.ApprovalType = core.StringPtr(approvalType)
+	return _options
 }
 
 // SetApproved : Allow user to set Approved
-func (options *UpdateOfferingIBMOptions) SetApproved(approved string) *UpdateOfferingIBMOptions {
-	options.Approved = core.StringPtr(approved)
-	return options
+func (_options *UpdateOfferingIBMOptions) SetApproved(approved string) *UpdateOfferingIBMOptions {
+	_options.Approved = core.StringPtr(approved)
+	return _options
 }
 
 // SetHeaders : Allow user to set Headers
@@ -12077,56 +13325,113 @@ func (options *UpdateOfferingIBMOptions) SetHeaders(param map[string]string) *Up
 	return options
 }
 
+// UpdateOfferingOptions : The UpdateOffering options.
+type UpdateOfferingOptions struct {
+	// Catalog identifier.
+	CatalogIdentifier *string `json:"catalog_identifier" validate:"required,ne="`
+
+	// Offering identification.
+	OfferingID *string `json:"offering_id" validate:"required,ne="`
+
+	// Offering etag contained in quotes.
+	IfMatch *string `json:"If-Match" validate:"required"`
+
+	// Array of patch operations as defined in RFC 6902.
+	Updates []JSONPatchOperation `json:"updates,omitempty"`
+
+	// Allows users to set headers on API requests
+	Headers map[string]string
+}
+
+// NewUpdateOfferingOptions : Instantiate UpdateOfferingOptions
+func (*CatalogManagementV1) NewUpdateOfferingOptions(catalogIdentifier string, offeringID string, ifMatch string) *UpdateOfferingOptions {
+	return &UpdateOfferingOptions{
+		CatalogIdentifier: core.StringPtr(catalogIdentifier),
+		OfferingID: core.StringPtr(offeringID),
+		IfMatch: core.StringPtr(ifMatch),
+	}
+}
+
+// SetCatalogIdentifier : Allow user to set CatalogIdentifier
+func (_options *UpdateOfferingOptions) SetCatalogIdentifier(catalogIdentifier string) *UpdateOfferingOptions {
+	_options.CatalogIdentifier = core.StringPtr(catalogIdentifier)
+	return _options
+}
+
+// SetOfferingID : Allow user to set OfferingID
+func (_options *UpdateOfferingOptions) SetOfferingID(offeringID string) *UpdateOfferingOptions {
+	_options.OfferingID = core.StringPtr(offeringID)
+	return _options
+}
+
+// SetIfMatch : Allow user to set IfMatch
+func (_options *UpdateOfferingOptions) SetIfMatch(ifMatch string) *UpdateOfferingOptions {
+	_options.IfMatch = core.StringPtr(ifMatch)
+	return _options
+}
+
+// SetUpdates : Allow user to set Updates
+func (_options *UpdateOfferingOptions) SetUpdates(updates []JSONPatchOperation) *UpdateOfferingOptions {
+	_options.Updates = updates
+	return _options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *UpdateOfferingOptions) SetHeaders(param map[string]string) *UpdateOfferingOptions {
+	options.Headers = param
+	return options
+}
+
 // ValidateInstallOptions : The ValidateInstall options.
 type ValidateInstallOptions struct {
 	// A dotted value of `catalogID`.`versionID`.
-	VersionLocID *string `validate:"required,ne="`
+	VersionLocID *string `json:"version_loc_id" validate:"required,ne="`
 
 	// IAM Refresh token.
-	XAuthRefreshToken *string `validate:"required"`
+	XAuthRefreshToken *string `json:"X-Auth-Refresh-Token" validate:"required"`
 
 	// Cluster ID.
-	ClusterID *string
+	ClusterID *string `json:"cluster_id,omitempty"`
 
 	// Cluster region.
-	Region *string
+	Region *string `json:"region,omitempty"`
 
 	// Kube namespace.
-	Namespace *string
+	Namespace *string `json:"namespace,omitempty"`
 
 	// Object containing Helm chart override values.  To use a secret for items of type password, specify a JSON encoded
 	// value of $ref:#/components/schemas/SecretInstance, prefixed with `cmsm_v1:`.
-	OverrideValues map[string]interface{}
+	OverrideValues map[string]interface{} `json:"override_values,omitempty"`
 
 	// Entitlement API Key for this offering.
-	EntitlementApikey *string
+	EntitlementApikey *string `json:"entitlement_apikey,omitempty"`
 
 	// Schematics workspace configuration.
-	Schematics *DeployRequestBodySchematics
+	Schematics *DeployRequestBodySchematics `json:"schematics,omitempty"`
 
 	// Script.
-	Script *string
+	Script *string `json:"script,omitempty"`
 
 	// Script ID.
-	ScriptID *string
+	ScriptID *string `json:"script_id,omitempty"`
 
 	// A dotted value of `catalogID`.`versionID`.
-	VersionLocatorID *string
+	VersionLocatorID *string `json:"version_locator_id,omitempty"`
 
 	// VCenter ID.
-	VcenterID *string
+	VcenterID *string `json:"vcenter_id,omitempty"`
 
 	// VCenter User.
-	VcenterUser *string
+	VcenterUser *string `json:"vcenter_user,omitempty"`
 
 	// VCenter Password.
-	VcenterPassword *string
+	VcenterPassword *string `json:"vcenter_password,omitempty"`
 
 	// VCenter Location.
-	VcenterLocation *string
+	VcenterLocation *string `json:"vcenter_location,omitempty"`
 
 	// VCenter Datastore.
-	VcenterDatastore *string
+	VcenterDatastore *string `json:"vcenter_datastore,omitempty"`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
@@ -12141,99 +13446,99 @@ func (*CatalogManagementV1) NewValidateInstallOptions(versionLocID string, xAuth
 }
 
 // SetVersionLocID : Allow user to set VersionLocID
-func (options *ValidateInstallOptions) SetVersionLocID(versionLocID string) *ValidateInstallOptions {
-	options.VersionLocID = core.StringPtr(versionLocID)
-	return options
+func (_options *ValidateInstallOptions) SetVersionLocID(versionLocID string) *ValidateInstallOptions {
+	_options.VersionLocID = core.StringPtr(versionLocID)
+	return _options
 }
 
 // SetXAuthRefreshToken : Allow user to set XAuthRefreshToken
-func (options *ValidateInstallOptions) SetXAuthRefreshToken(xAuthRefreshToken string) *ValidateInstallOptions {
-	options.XAuthRefreshToken = core.StringPtr(xAuthRefreshToken)
-	return options
+func (_options *ValidateInstallOptions) SetXAuthRefreshToken(xAuthRefreshToken string) *ValidateInstallOptions {
+	_options.XAuthRefreshToken = core.StringPtr(xAuthRefreshToken)
+	return _options
 }
 
 // SetClusterID : Allow user to set ClusterID
-func (options *ValidateInstallOptions) SetClusterID(clusterID string) *ValidateInstallOptions {
-	options.ClusterID = core.StringPtr(clusterID)
-	return options
+func (_options *ValidateInstallOptions) SetClusterID(clusterID string) *ValidateInstallOptions {
+	_options.ClusterID = core.StringPtr(clusterID)
+	return _options
 }
 
 // SetRegion : Allow user to set Region
-func (options *ValidateInstallOptions) SetRegion(region string) *ValidateInstallOptions {
-	options.Region = core.StringPtr(region)
-	return options
+func (_options *ValidateInstallOptions) SetRegion(region string) *ValidateInstallOptions {
+	_options.Region = core.StringPtr(region)
+	return _options
 }
 
 // SetNamespace : Allow user to set Namespace
-func (options *ValidateInstallOptions) SetNamespace(namespace string) *ValidateInstallOptions {
-	options.Namespace = core.StringPtr(namespace)
-	return options
+func (_options *ValidateInstallOptions) SetNamespace(namespace string) *ValidateInstallOptions {
+	_options.Namespace = core.StringPtr(namespace)
+	return _options
 }
 
 // SetOverrideValues : Allow user to set OverrideValues
-func (options *ValidateInstallOptions) SetOverrideValues(overrideValues map[string]interface{}) *ValidateInstallOptions {
-	options.OverrideValues = overrideValues
-	return options
+func (_options *ValidateInstallOptions) SetOverrideValues(overrideValues map[string]interface{}) *ValidateInstallOptions {
+	_options.OverrideValues = overrideValues
+	return _options
 }
 
 // SetEntitlementApikey : Allow user to set EntitlementApikey
-func (options *ValidateInstallOptions) SetEntitlementApikey(entitlementApikey string) *ValidateInstallOptions {
-	options.EntitlementApikey = core.StringPtr(entitlementApikey)
-	return options
+func (_options *ValidateInstallOptions) SetEntitlementApikey(entitlementApikey string) *ValidateInstallOptions {
+	_options.EntitlementApikey = core.StringPtr(entitlementApikey)
+	return _options
 }
 
 // SetSchematics : Allow user to set Schematics
-func (options *ValidateInstallOptions) SetSchematics(schematics *DeployRequestBodySchematics) *ValidateInstallOptions {
-	options.Schematics = schematics
-	return options
+func (_options *ValidateInstallOptions) SetSchematics(schematics *DeployRequestBodySchematics) *ValidateInstallOptions {
+	_options.Schematics = schematics
+	return _options
 }
 
 // SetScript : Allow user to set Script
-func (options *ValidateInstallOptions) SetScript(script string) *ValidateInstallOptions {
-	options.Script = core.StringPtr(script)
-	return options
+func (_options *ValidateInstallOptions) SetScript(script string) *ValidateInstallOptions {
+	_options.Script = core.StringPtr(script)
+	return _options
 }
 
 // SetScriptID : Allow user to set ScriptID
-func (options *ValidateInstallOptions) SetScriptID(scriptID string) *ValidateInstallOptions {
-	options.ScriptID = core.StringPtr(scriptID)
-	return options
+func (_options *ValidateInstallOptions) SetScriptID(scriptID string) *ValidateInstallOptions {
+	_options.ScriptID = core.StringPtr(scriptID)
+	return _options
 }
 
 // SetVersionLocatorID : Allow user to set VersionLocatorID
-func (options *ValidateInstallOptions) SetVersionLocatorID(versionLocatorID string) *ValidateInstallOptions {
-	options.VersionLocatorID = core.StringPtr(versionLocatorID)
-	return options
+func (_options *ValidateInstallOptions) SetVersionLocatorID(versionLocatorID string) *ValidateInstallOptions {
+	_options.VersionLocatorID = core.StringPtr(versionLocatorID)
+	return _options
 }
 
 // SetVcenterID : Allow user to set VcenterID
-func (options *ValidateInstallOptions) SetVcenterID(vcenterID string) *ValidateInstallOptions {
-	options.VcenterID = core.StringPtr(vcenterID)
-	return options
+func (_options *ValidateInstallOptions) SetVcenterID(vcenterID string) *ValidateInstallOptions {
+	_options.VcenterID = core.StringPtr(vcenterID)
+	return _options
 }
 
 // SetVcenterUser : Allow user to set VcenterUser
-func (options *ValidateInstallOptions) SetVcenterUser(vcenterUser string) *ValidateInstallOptions {
-	options.VcenterUser = core.StringPtr(vcenterUser)
-	return options
+func (_options *ValidateInstallOptions) SetVcenterUser(vcenterUser string) *ValidateInstallOptions {
+	_options.VcenterUser = core.StringPtr(vcenterUser)
+	return _options
 }
 
 // SetVcenterPassword : Allow user to set VcenterPassword
-func (options *ValidateInstallOptions) SetVcenterPassword(vcenterPassword string) *ValidateInstallOptions {
-	options.VcenterPassword = core.StringPtr(vcenterPassword)
-	return options
+func (_options *ValidateInstallOptions) SetVcenterPassword(vcenterPassword string) *ValidateInstallOptions {
+	_options.VcenterPassword = core.StringPtr(vcenterPassword)
+	return _options
 }
 
 // SetVcenterLocation : Allow user to set VcenterLocation
-func (options *ValidateInstallOptions) SetVcenterLocation(vcenterLocation string) *ValidateInstallOptions {
-	options.VcenterLocation = core.StringPtr(vcenterLocation)
-	return options
+func (_options *ValidateInstallOptions) SetVcenterLocation(vcenterLocation string) *ValidateInstallOptions {
+	_options.VcenterLocation = core.StringPtr(vcenterLocation)
+	return _options
 }
 
 // SetVcenterDatastore : Allow user to set VcenterDatastore
-func (options *ValidateInstallOptions) SetVcenterDatastore(vcenterDatastore string) *ValidateInstallOptions {
-	options.VcenterDatastore = core.StringPtr(vcenterDatastore)
-	return options
+func (_options *ValidateInstallOptions) SetVcenterDatastore(vcenterDatastore string) *ValidateInstallOptions {
+	_options.VcenterDatastore = core.StringPtr(vcenterDatastore)
+	return _options
 }
 
 // SetHeaders : Allow user to set Headers
@@ -12576,6 +13881,9 @@ type VersionUpdateDescriptor struct {
 	// Version of package.
 	PackageVersion *string `json:"package_version,omitempty"`
 
+	// The SHA value of this version.
+	Sha *string `json:"sha,omitempty"`
+
 	// true if the current version can be upgraded to this version, false otherwise.
 	CanUpdate *bool `json:"can_update,omitempty"`
 
@@ -12604,6 +13912,10 @@ func UnmarshalVersionUpdateDescriptor(m map[string]json.RawMessage, result inter
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "package_version", &obj.PackageVersion)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "sha", &obj.Sha)
 	if err != nil {
 		return
 	}
