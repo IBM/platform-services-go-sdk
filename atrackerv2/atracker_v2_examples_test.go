@@ -1,3 +1,4 @@
+//go:build examples
 // +build examples
 
 /**
@@ -46,13 +47,13 @@ const externalConfigFile = "../atracker_v2.env"
 
 var (
 	atrackerService *atrackerv2.AtrackerV2
-	config       map[string]string
-	configLoaded bool = false
+	config          map[string]string
+	configLoaded    bool = false
 )
 
 // Globlal variables to hold link values
 var (
-	routeIDLink string
+	routeIDLink  string
 	targetIDLink string
 )
 
@@ -112,9 +113,18 @@ var _ = Describe(`AtrackerV2 Examples Tests`, func() {
 			fmt.Println("\nCreateTarget() result:")
 			// begin-create_target
 
+			cosEndpointPrototypeModel := &atrackerv2.CosEndpointPrototype{
+				Endpoint:                core.StringPtr("s3.private.us-east.cloud-object-storage.appdomain.cloud"),
+				TargetCRN:               core.StringPtr("crn:v1:bluemix:public:cloud-object-storage:global:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::"),
+				Bucket:                  core.StringPtr("my-atracker-bucket"),
+				APIKey:                  core.StringPtr("xxxxxxxxxxxxxx"),
+				ServiceToServiceEnabled: core.BoolPtr(false),
+			}
+
 			createTargetOptions := atrackerService.NewCreateTargetOptions(
 				"my-cos-target",
 				"cloud_object_storage",
+				cosEndpointPrototypeModel,
 			)
 
 			target, response, err := atrackerService.CreateTarget(createTargetOptions)
@@ -138,12 +148,13 @@ var _ = Describe(`AtrackerV2 Examples Tests`, func() {
 			// begin-create_route
 
 			rulePrototypeModel := &atrackerv2.RulePrototype{
-				TargetIds: []string{"c3af557f-fb0e-4476-85c3-0889e7fe7bc4"},
+				TargetIds: []string{targetIDLink},
+				Locations: []string{"us-south"},
 			}
 
 			createRouteOptions := atrackerService.NewCreateRouteOptions(
 				"my-route",
-				[]atrackerv2.RulePrototype{*"testString"},
+				[]atrackerv2.RulePrototype{*rulePrototypeModel},
 			)
 
 			route, response, err := atrackerService.CreateRoute(createRouteOptions)
@@ -208,10 +219,19 @@ var _ = Describe(`AtrackerV2 Examples Tests`, func() {
 			fmt.Println("\nReplaceTarget() result:")
 			// begin-replace_target
 
+			cosEndpointPrototypeModel := &atrackerv2.CosEndpointPrototype{
+				Endpoint:                core.StringPtr("s3.private.us-east.cloud-object-storage.appdomain.cloud"),
+				TargetCRN:               core.StringPtr("crn:v1:bluemix:public:cloud-object-storage:global:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::"),
+				Bucket:                  core.StringPtr("my-atracker-bucket"),
+				APIKey:                  core.StringPtr("xxxxxxxxxxxxxx"),
+				ServiceToServiceEnabled: core.BoolPtr(true),
+			}
+
 			replaceTargetOptions := atrackerService.NewReplaceTargetOptions(
 				targetIDLink,
-				"my-cos-target",
+				"my-cos-target-modified",
 				"cloud_object_storage",
+				cosEndpointPrototypeModel,
 			)
 
 			target, response, err := atrackerService.ReplaceTarget(replaceTargetOptions)
@@ -297,13 +317,14 @@ var _ = Describe(`AtrackerV2 Examples Tests`, func() {
 			// begin-replace_route
 
 			rulePrototypeModel := &atrackerv2.RulePrototype{
-				TargetIds: []string{"c3af557f-fb0e-4476-85c3-0889e7fe7bc4"},
+				TargetIds: []string{targetIDLink},
+				Locations: []string{"us-south"},
 			}
 
 			replaceRouteOptions := atrackerService.NewReplaceRouteOptions(
 				routeIDLink,
-				"my-route",
-				[]atrackerv2.RulePrototype{*"testString"},
+				"my-route-modified",
+				[]atrackerv2.RulePrototype{*rulePrototypeModel},
 			)
 
 			route, response, err := atrackerService.ReplaceRoute(replaceRouteOptions)
@@ -344,7 +365,9 @@ var _ = Describe(`AtrackerV2 Examples Tests`, func() {
 			fmt.Println("\nPutSettings() result:")
 			// begin-put_settings
 
-			putSettingsOptions := atrackerService.NewPutSettingsOptions()
+			putSettingsOptions := atrackerService.NewPutSettingsOptions(
+				"us-south",
+			)
 
 			settings, response, err := atrackerService.PutSettings(putSettingsOptions)
 			if err != nil {
@@ -400,6 +423,27 @@ var _ = Describe(`AtrackerV2 Examples Tests`, func() {
 			Expect(migration).ToNot(BeNil())
 
 		})
+		It(`DeleteRoute request example`, func() {
+			// begin-delete_route
+
+			deleteRouteOptions := atrackerService.NewDeleteRouteOptions(
+				routeIDLink,
+			)
+
+			response, err := atrackerService.DeleteRoute(deleteRouteOptions)
+			if err != nil {
+				panic(err)
+			}
+			if response.StatusCode != 204 {
+				fmt.Printf("\nUnexpected response status code received from DeleteRoute(): %d\n", response.StatusCode)
+			}
+
+			// end-delete_route
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(204))
+
+		})
 		It(`DeleteTarget request example`, func() {
 			fmt.Println("\nDeleteTarget() result:")
 			// begin-delete_target
@@ -420,27 +464,6 @@ var _ = Describe(`AtrackerV2 Examples Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(warningReport).ToNot(BeNil())
-
-		})
-		It(`DeleteRoute request example`, func() {
-			// begin-delete_route
-
-			deleteRouteOptions := atrackerService.NewDeleteRouteOptions(
-				routeIDLink,
-			)
-
-			response, err := atrackerService.DeleteRoute(deleteRouteOptions)
-			if err != nil {
-				panic(err)
-			}
-			if response.StatusCode != 204 {
-				fmt.Printf("\nUnexpected response status code received from DeleteRoute(): %d\n", response.StatusCode)
-			}
-
-			// end-delete_route
-
-			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(204))
 
 		})
 	})

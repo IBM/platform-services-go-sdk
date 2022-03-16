@@ -172,7 +172,6 @@ var _ = Describe(`AtrackerV2 Integration Tests`, func() {
 			Expect(target).ToNot(BeNil())
 
 			targetIDLink2 = *target.ID
-
 		})
 
 		It(`Returns 400 when backend input validation fails`, func() {
@@ -635,7 +634,7 @@ var _ = Describe(`AtrackerV2 Integration Tests`, func() {
 		It(`PutSettings(putSettingsOptions *PutSettingsOptions)`, func() {
 
 			putSettingsOptions := &atrackerv2.PutSettingsOptions{
-				DefaultTargets:         []string{targetIDLink2},
+				DefaultTargets:         []string{targetIDLink},
 				PermittedTargetRegions: []string{"us-south"},
 				MetadataRegionPrimary:  core.StringPtr("us-south"),
 				MetadataRegionBackup:   core.StringPtr("us-south"),
@@ -664,7 +663,6 @@ var _ = Describe(`AtrackerV2 Integration Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(201))
 			Expect(settings).ToNot(BeNil())
-
 		})
 
 		It(`Returns 403 when user is not authorized`, func() {
@@ -681,7 +679,6 @@ var _ = Describe(`AtrackerV2 Integration Tests`, func() {
 
 			Expect(err).NotTo(BeNil())
 			Expect(response.StatusCode).To(Equal(403))
-
 		})
 	})
 
@@ -786,19 +783,6 @@ var _ = Describe(`AtrackerV2 Integration Tests`, func() {
 
 			deleteTargetOptions := &atrackerv2.DeleteTargetOptions{
 				ID: &targetIDLink,
-			}
-
-			warningReport, response, err := atrackerService.DeleteTarget(deleteTargetOptions)
-
-			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(200))
-			Expect(warningReport).ToNot(BeNil())
-		})
-
-		It(`DeleteTarget(deleteTargetOptions *DeleteTargetOptions)`, func() {
-
-			deleteTargetOptions := &atrackerv2.DeleteTargetOptions{
-				ID: &targetIDLink2,
 			}
 
 			warningReport, response, err := atrackerService.DeleteTarget(deleteTargetOptions)

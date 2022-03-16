@@ -113,12 +113,12 @@ func NewAtrackerV2(options *AtrackerV2Options) (service *AtrackerV2, err error) 
 // GetServiceURLForRegion returns the service URL to be used for the specified region
 func GetServiceURLForRegion(region string) (string, error) {
 	var endpoints = map[string]string{
-		"us-south": "https://us-south.atracker.cloud.ibm.com", // The server for IBM Cloud Activity Tracker Service in the us-south region.
+		"us-south":         "https://us-south.atracker.cloud.ibm.com",         // The server for IBM Cloud Activity Tracker Service in the us-south region.
 		"private.us-south": "https://private.us-south.atracker.cloud.ibm.com", // The server for IBM Cloud Activity Tracker Service in the us-south region.
-		"us-east": "https://us-east.atracker.cloud.ibm.com", // The server for IBM Cloud Activity Tracker Service in the us-east region.
-		"private.us-east": "https://private.us-east.atracker.cloud.ibm.com", // The server for IBM Cloud Activity Tracker Service in the us-east region.
-		"eu-de": "https://eu-de.atracker.cloud.ibm.com", // The server for IBM Cloud Activity Tracker Service in the eu-de region.
-		"private.eu-de": "https://private.eu-de.atracker.cloud.ibm.com", // The server for IBM Cloud Activity Tracker Service in the eu-de region.
+		"us-east":          "https://us-east.atracker.cloud.ibm.com",          // The server for IBM Cloud Activity Tracker Service in the us-east region.
+		"private.us-east":  "https://private.us-east.atracker.cloud.ibm.com",  // The server for IBM Cloud Activity Tracker Service in the us-east region.
+		"eu-de":            "https://eu-de.atracker.cloud.ibm.com",            // The server for IBM Cloud Activity Tracker Service in the eu-de region.
+		"private.eu-de":    "https://private.eu-de.atracker.cloud.ibm.com",    // The server for IBM Cloud Activity Tracker Service in the eu-de region.
 	}
 
 	if url, ok := endpoints[region]; ok {
@@ -1182,9 +1182,9 @@ type CosEndpointPrototype struct {
 // NewCosEndpointPrototype : Instantiate CosEndpointPrototype (Generic Model Constructor)
 func (*AtrackerV2) NewCosEndpointPrototype(endpoint string, targetCRN string, bucket string) (_model *CosEndpointPrototype, err error) {
 	_model = &CosEndpointPrototype{
-		Endpoint: core.StringPtr(endpoint),
+		Endpoint:  core.StringPtr(endpoint),
 		TargetCRN: core.StringPtr(targetCRN),
-		Bucket: core.StringPtr(bucket),
+		Bucket:    core.StringPtr(bucket),
 	}
 	err = core.ValidateStruct(_model, "required parameters")
 	return
@@ -1233,7 +1233,7 @@ type CreateRouteOptions struct {
 // NewCreateRouteOptions : Instantiate CreateRouteOptions
 func (*AtrackerV2) NewCreateRouteOptions(name string, rules []RulePrototype) *CreateRouteOptions {
 	return &CreateRouteOptions{
-		Name: core.StringPtr(name),
+		Name:  core.StringPtr(name),
 		Rules: rules,
 	}
 }
@@ -1285,14 +1285,15 @@ type CreateTargetOptions struct {
 // logdna_endpoint.
 const (
 	CreateTargetOptionsTargetTypeCloudObjectStorageConst = "cloud_object_storage"
-	CreateTargetOptionsTargetTypeLogdnaConst = "logdna"
+	CreateTargetOptionsTargetTypeLogdnaConst             = "logdna"
 )
 
 // NewCreateTargetOptions : Instantiate CreateTargetOptions
-func (*AtrackerV2) NewCreateTargetOptions(name string, targetType string) *CreateTargetOptions {
+func (*AtrackerV2) NewCreateTargetOptions(name string, targetType string, cosEndpoint *CosEndpointPrototype) *CreateTargetOptions {
 	return &CreateTargetOptions{
-		Name: core.StringPtr(name),
-		TargetType: core.StringPtr(targetType),
+		Name:        core.StringPtr(name),
+		TargetType:  core.StringPtr(targetType),
+		CosEndpoint: cosEndpoint,
 	}
 }
 
@@ -1568,7 +1569,7 @@ type LogdnaEndpointPrototype struct {
 // NewLogdnaEndpointPrototype : Instantiate LogdnaEndpointPrototype (Generic Model Constructor)
 func (*AtrackerV2) NewLogdnaEndpointPrototype(targetCRN string, ingestionKey string) (_model *LogdnaEndpointPrototype, err error) {
 	_model = &LogdnaEndpointPrototype{
-		TargetCRN: core.StringPtr(targetCRN),
+		TargetCRN:    core.StringPtr(targetCRN),
 		IngestionKey: core.StringPtr(ingestionKey),
 	}
 	err = core.ValidateStruct(_model, "required parameters")
@@ -1605,10 +1606,10 @@ type Migration struct {
 // Constants associated with the Migration.Status property.
 // Overall status of the migration.
 const (
-	MigrationStatusCompletedConst = "completed"
-	MigrationStatusFailedConst = "failed"
+	MigrationStatusCompletedConst  = "completed"
+	MigrationStatusFailedConst     = "failed"
 	MigrationStatusInProgressConst = "in_progress"
-	MigrationStatusPendingConst = "pending"
+	MigrationStatusPendingConst    = "pending"
 )
 
 // UnmarshalMigration unmarshals an instance of Migration from the specified map of raw messages.
@@ -1638,6 +1639,9 @@ type MigrationItem struct {
 	// Migration item id.
 	ID *string `json:"id" validate:"required"`
 
+	// the region where the resource is defined.
+	Region *string `json:"region" validate:"required"`
+
 	// Migration item status.
 	Status *string `json:"status" validate:"required"`
 
@@ -1652,17 +1656,17 @@ type MigrationItem struct {
 // Type of the migration item.
 const (
 	MigrationItemResourceTypePrivateEndpointConst = "private_endpoint"
-	MigrationItemResourceTypeRouteConst = "route"
-	MigrationItemResourceTypeTargetConst = "target"
+	MigrationItemResourceTypeRouteConst           = "route"
+	MigrationItemResourceTypeTargetConst          = "target"
 )
 
 // Constants associated with the MigrationItem.Status property.
 // Migration item status.
 const (
-	MigrationItemStatusCompletedConst = "completed"
-	MigrationItemStatusFailedConst = "failed"
+	MigrationItemStatusCompletedConst  = "completed"
+	MigrationItemStatusFailedConst     = "failed"
 	MigrationItemStatusInProgressConst = "in_progress"
-	MigrationItemStatusPendingConst = "pending"
+	MigrationItemStatusPendingConst    = "pending"
 )
 
 // UnmarshalMigrationItem unmarshals an instance of MigrationItem from the specified map of raw messages.
@@ -1673,6 +1677,10 @@ func UnmarshalMigrationItem(m map[string]json.RawMessage, result interface{}) (e
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "region", &obj.Region)
 	if err != nil {
 		return
 	}
@@ -1712,15 +1720,15 @@ func (options *PostMigrationOptions) SetHeaders(param map[string]string) *PostMi
 
 // PutSettingsOptions : The PutSettings options.
 type PutSettingsOptions struct {
+	// To store all your meta data in a single region.
+	MetadataRegionPrimary *string `json:"metadata_region_primary" validate:"required"`
+
 	// The target ID List. In the event that no routing rule causes the event to be sent to a target, these targets will
 	// receive the event.
 	DefaultTargets []string `json:"default_targets,omitempty"`
 
 	// If present then only these regions may be used to define a target.
 	PermittedTargetRegions []string `json:"permitted_target_regions,omitempty"`
-
-	// To store all your meta data in a single region.
-	MetadataRegionPrimary *string `json:"metadata_region_primary,omitempty"`
 
 	// Provide a back up region to store meta data.
 	MetadataRegionBackup *string `json:"metadata_region_backup,omitempty"`
@@ -1733,8 +1741,16 @@ type PutSettingsOptions struct {
 }
 
 // NewPutSettingsOptions : Instantiate PutSettingsOptions
-func (*AtrackerV2) NewPutSettingsOptions() *PutSettingsOptions {
-	return &PutSettingsOptions{}
+func (*AtrackerV2) NewPutSettingsOptions(metadataRegionPrimary string) *PutSettingsOptions {
+	return &PutSettingsOptions{
+		MetadataRegionPrimary: core.StringPtr(metadataRegionPrimary),
+	}
+}
+
+// SetMetadataRegionPrimary : Allow user to set MetadataRegionPrimary
+func (_options *PutSettingsOptions) SetMetadataRegionPrimary(metadataRegionPrimary string) *PutSettingsOptions {
+	_options.MetadataRegionPrimary = core.StringPtr(metadataRegionPrimary)
+	return _options
 }
 
 // SetDefaultTargets : Allow user to set DefaultTargets
@@ -1746,12 +1762,6 @@ func (_options *PutSettingsOptions) SetDefaultTargets(defaultTargets []string) *
 // SetPermittedTargetRegions : Allow user to set PermittedTargetRegions
 func (_options *PutSettingsOptions) SetPermittedTargetRegions(permittedTargetRegions []string) *PutSettingsOptions {
 	_options.PermittedTargetRegions = permittedTargetRegions
-	return _options
-}
-
-// SetMetadataRegionPrimary : Allow user to set MetadataRegionPrimary
-func (_options *PutSettingsOptions) SetMetadataRegionPrimary(metadataRegionPrimary string) *PutSettingsOptions {
-	_options.MetadataRegionPrimary = core.StringPtr(metadataRegionPrimary)
 	return _options
 }
 
@@ -1792,8 +1802,8 @@ type ReplaceRouteOptions struct {
 // NewReplaceRouteOptions : Instantiate ReplaceRouteOptions
 func (*AtrackerV2) NewReplaceRouteOptions(id string, name string, rules []RulePrototype) *ReplaceRouteOptions {
 	return &ReplaceRouteOptions{
-		ID: core.StringPtr(id),
-		Name: core.StringPtr(name),
+		ID:    core.StringPtr(id),
+		Name:  core.StringPtr(name),
 		Rules: rules,
 	}
 }
@@ -1854,15 +1864,16 @@ type ReplaceTargetOptions struct {
 // logdna_endpoint.
 const (
 	ReplaceTargetOptionsTargetTypeCloudObjectStorageConst = "cloud_object_storage"
-	ReplaceTargetOptionsTargetTypeLogdnaConst = "logdna"
+	ReplaceTargetOptionsTargetTypeLogdnaConst             = "logdna"
 )
 
 // NewReplaceTargetOptions : Instantiate ReplaceTargetOptions
-func (*AtrackerV2) NewReplaceTargetOptions(id string, name string, targetType string) *ReplaceTargetOptions {
+func (*AtrackerV2) NewReplaceTargetOptions(id string, name string, targetType string, cosEndpoint *CosEndpointPrototype) *ReplaceTargetOptions {
 	return &ReplaceTargetOptions{
-		ID: core.StringPtr(id),
-		Name: core.StringPtr(name),
-		TargetType: core.StringPtr(targetType),
+		ID:          core.StringPtr(id),
+		Name:        core.StringPtr(name),
+		TargetType:  core.StringPtr(targetType),
+		CosEndpoint: cosEndpoint,
 	}
 }
 
@@ -1932,6 +1943,9 @@ type Route struct {
 
 	// The timestamp of the route last updated time.
 	UpdatedAt *strfmt.DateTime `json:"updated_at" validate:"required"`
+
+	// The API version of the route.
+	APIVersion *int64 `json:"api_version" validate:"required"`
 }
 
 // UnmarshalRoute unmarshals an instance of Route from the specified map of raw messages.
@@ -1962,6 +1976,10 @@ func UnmarshalRoute(m map[string]json.RawMessage, result interface{}) (err error
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "updated_at", &obj.UpdatedAt)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "api_version", &obj.APIVersion)
 	if err != nil {
 		return
 	}
@@ -2064,6 +2082,9 @@ type Settings struct {
 
 	// If you set this true then you cannot access api through public network.
 	PrivateAPIEndpointOnly *bool `json:"private_api_endpoint_only" validate:"required"`
+
+	// The lowest API version of targets or routes that customer might have under his or her account.
+	APIVersion *int64 `json:"api_version" validate:"required"`
 }
 
 // UnmarshalSettings unmarshals an instance of Settings from the specified map of raw messages.
@@ -2086,6 +2107,10 @@ func UnmarshalSettings(m map[string]json.RawMessage, result interface{}) (err er
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "private_api_endpoint_only", &obj.PrivateAPIEndpointOnly)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "api_version", &obj.APIVersion)
 	if err != nil {
 		return
 	}
@@ -2130,13 +2155,16 @@ type Target struct {
 
 	// The timestamp of the target last updated time.
 	UpdatedAt *strfmt.DateTime `json:"updated_at" validate:"required"`
+
+	// The API version of the target.
+	APIVersion *int64 `json:"api_version" validate:"required"`
 }
 
 // Constants associated with the Target.TargetType property.
 // The type of the target.
 const (
 	TargetTargetTypeCloudObjectStorageConst = "cloud_object_storage"
-	TargetTargetTypeLogdnaConst = "logdna"
+	TargetTargetTypeLogdnaConst             = "logdna"
 )
 
 // UnmarshalTarget unmarshals an instance of Target from the specified map of raw messages.
@@ -2183,6 +2211,10 @@ func UnmarshalTarget(m map[string]json.RawMessage, result interface{}) (err erro
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "updated_at", &obj.UpdatedAt)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "api_version", &obj.APIVersion)
 	if err != nil {
 		return
 	}
