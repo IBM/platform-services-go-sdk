@@ -1,7 +1,7 @@
 // +build examples
 
 /**
- * (C) Copyright IBM Corp. 2020.
+ * (C) Copyright IBM Corp. 2022.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -30,59 +30,58 @@ import (
 )
 
 //
-// This file provides an example of how to use the IAM Access Groups service.
+// This file provides an example of how to use the iam-access-groups service.
 //
 // The following configuration properties are assumed to be defined:
-//
-// IAM_ACCESS_GROUPS_URL=<service url>
-// IAM_ACCESS_GROUPS_AUTHTYPE=iam
-// IAM_ACCESS_GROUPS_APIKEY=<your iam apikey>
-// IAM_ACCESS_GROUPS_AUTH_URL=<IAM token service URL - omit this if using the production environment>
-// IAM_ACCESS_GROUPS_TEST_ACCOUNT_ID=<id of an account used for testing>
+// IAM_ACCESS_GROUPS_URL=<service base url>
+// IAM_ACCESS_GROUPS_AUTH_TYPE=iam
+// IAM_ACCESS_GROUPS_APIKEY=<IAM apikey>
+// IAM_ACCESS_GROUPS_AUTH_URL=<IAM token service base URL - omit this if using the production environment>
 //
 // These configuration properties can be exported as environment variables, or stored
 // in a configuration file and then:
 // export IBM_CREDENTIALS_FILE=<name of configuration file>
 //
-const externalConfigFile = "../iam_access_groups.env"
-
-var (
-	iamAccessGroupsService *iamaccessgroupsv2.IamAccessGroupsV2
-	config                 map[string]string
-	configLoaded           bool = false
-
-	testAccountID       string
-	testGroupEtag       string
-	testGroupID         string
-	testClaimRuleID     string
-	testClaimRuleEtag   string
-	testAccountSettings *iamaccessgroupsv2.AccountSettings
-)
-
-func shouldSkipTest() {
-	if !configLoaded {
-		Skip("External configuration is not available, skipping tests...")
-	}
-}
-
 var _ = Describe(`IamAccessGroupsV2 Examples Tests`, func() {
+
+	const externalConfigFile = "../iam_access_groups_v2.env"
+
+	var (
+		iamAccessGroupsService *iamaccessgroupsv2.IamAccessGroupsV2
+		config                 map[string]string
+
+		// Variables to hold link values
+		accessGroupETagLink string
+		accessGroupIDLink   string
+		testAccountID       string
+		testProfileID       string
+		testClaimRuleID     string
+		testClaimRuleEtag   string
+	)
+
+	var shouldSkipTest = func() {
+		Skip("External configuration is not available, skipping examples...")
+	}
+
 	Describe(`External configuration`, func() {
 		It("Successfully load the configuration", func() {
 			var err error
 			_, err = os.Stat(externalConfigFile)
 			if err != nil {
-				Skip("External configuration file not found, skipping tests: " + err.Error())
+				Skip("External configuration file not found, skipping examples: " + err.Error())
 			}
 
 			os.Setenv("IBM_CREDENTIALS_FILE", externalConfigFile)
 			config, err = core.GetServiceProperties(iamaccessgroupsv2.DefaultServiceName)
 			if err != nil {
-				Skip("Error loading service properties, skipping tests: " + err.Error())
+				Skip("Error loading service properties, skipping examples: " + err.Error())
+			} else if len(config) == 0 {
+				Skip("Unable to load service properties, skipping examples")
 			}
 
 			testAccountID = config["TEST_ACCOUNT_ID"]
-
-			configLoaded = len(config) > 0
+			testProfileID = config["TEST_PROFILE_ID"]
+			shouldSkipTest = func() {}
 		})
 	})
 
@@ -117,8 +116,12 @@ var _ = Describe(`IamAccessGroupsV2 Examples Tests`, func() {
 			fmt.Println("\nCreateAccessGroup() result:")
 			// begin-create_access_group
 
-			createAccessGroupOptions := iamAccessGroupsService.NewCreateAccessGroupOptions(testAccountID, "Managers")
+			createAccessGroupOptions := iamAccessGroupsService.NewCreateAccessGroupOptions(
+				testAccountID,
+				"Managers",
+			)
 			createAccessGroupOptions.SetDescription("Group for managers")
+
 			group, response, err := iamAccessGroupsService.CreateAccessGroup(createAccessGroupOptions)
 			if err != nil {
 				panic(err)
@@ -132,13 +135,18 @@ var _ = Describe(`IamAccessGroupsV2 Examples Tests`, func() {
 			Expect(response.StatusCode).To(Equal(201))
 			Expect(group).ToNot(BeNil())
 
-			testGroupID = *group.ID
+			accessGroupIDLink = *group.ID
+			fmt.Fprintf(GinkgoWriter, "Saved accessGroupIDLink value: %v\n", accessGroupIDLink)
+
 		})
 		It(`GetAccessGroup request example`, func() {
-			// begin-get_access_group
 			fmt.Println("\nGetAccessGroup() result:")
+			// begin-get_access_group
 
-			getAccessGroupOptions := iamAccessGroupsService.NewGetAccessGroupOptions(testGroupID)
+			getAccessGroupOptions := iamAccessGroupsService.NewGetAccessGroupOptions(
+				accessGroupIDLink,
+			)
+
 			group, response, err := iamAccessGroupsService.GetAccessGroup(getAccessGroupOptions)
 			if err != nil {
 				panic(err)
@@ -152,15 +160,21 @@ var _ = Describe(`IamAccessGroupsV2 Examples Tests`, func() {
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(group).ToNot(BeNil())
 
-			testGroupEtag = response.GetHeaders().Get("ETag")
+			accessGroupETagLink = response.Headers.Get("ETag")
+			fmt.Fprintf(GinkgoWriter, "Saved accessGroupETagLink value: %v\n", accessGroupETagLink)
+
 		})
 		It(`UpdateAccessGroup request example`, func() {
 			fmt.Println("\nUpdateAccessGroup() result:")
 			// begin-update_access_group
 
-			updateAccessGroupOptions := iamAccessGroupsService.NewUpdateAccessGroupOptions(testGroupID, testGroupEtag)
+			updateAccessGroupOptions := iamAccessGroupsService.NewUpdateAccessGroupOptions(
+				accessGroupIDLink,
+				accessGroupETagLink,
+			)
 			updateAccessGroupOptions.SetName("Awesome Managers")
-			updateAccessGroupOptions.SetDescription("Group for awesome managers")
+			updateAccessGroupOptions.SetDescription("Group for awesome managers.")
+
 			group, response, err := iamAccessGroupsService.UpdateAccessGroup(updateAccessGroupOptions)
 			if err != nil {
 				panic(err)
@@ -173,12 +187,16 @@ var _ = Describe(`IamAccessGroupsV2 Examples Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(group).ToNot(BeNil())
+
 		})
 		It(`ListAccessGroups request example`, func() {
 			fmt.Println("\nListAccessGroups() result:")
 			// begin-list_access_groups
 
-			listAccessGroupsOptions := iamAccessGroupsService.NewListAccessGroupsOptions(testAccountID)
+			listAccessGroupsOptions := iamAccessGroupsService.NewListAccessGroupsOptions(
+				testAccountID,
+			)
+
 			groupsList, response, err := iamAccessGroupsService.ListAccessGroups(listAccessGroupsOptions)
 			if err != nil {
 				panic(err)
@@ -191,6 +209,7 @@ var _ = Describe(`IamAccessGroupsV2 Examples Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(groupsList).ToNot(BeNil())
+
 		})
 		It(`AddMembersToAccessGroup request example`, func() {
 			fmt.Println("\nAddMembersToAccessGroup() result:")
@@ -205,9 +224,17 @@ var _ = Describe(`IamAccessGroupsV2 Examples Tests`, func() {
 					IamID: core.StringPtr("iam-ServiceId-123"),
 					Type:  core.StringPtr("service"),
 				},
+				iamaccessgroupsv2.AddGroupMembersRequestMembersItem{
+					IamID: core.StringPtr(testProfileID),
+					Type:  core.StringPtr("profile"),
+				},
 			}
-			addMembersToAccessGroupOptions := iamAccessGroupsService.NewAddMembersToAccessGroupOptions(testGroupID)
+
+			addMembersToAccessGroupOptions := iamAccessGroupsService.NewAddMembersToAccessGroupOptions(
+				accessGroupIDLink,
+			)
 			addMembersToAccessGroupOptions.SetMembers(groupMembers)
+
 			addGroupMembersResponse, response, err := iamAccessGroupsService.AddMembersToAccessGroup(addMembersToAccessGroupOptions)
 			if err != nil {
 				panic(err)
@@ -220,27 +247,38 @@ var _ = Describe(`IamAccessGroupsV2 Examples Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(207))
 			Expect(addGroupMembersResponse).ToNot(BeNil())
+
 		})
 		It(`IsMemberOfAccessGroup request example`, func() {
 			// begin-is_member_of_access_group
 
-			isMemberOfAccessGroupOptions := iamAccessGroupsService.NewIsMemberOfAccessGroupOptions(testGroupID, "IBMid-user1")
+			isMemberOfAccessGroupOptions := iamAccessGroupsService.NewIsMemberOfAccessGroupOptions(
+				accessGroupIDLink,
+				"IBMid-user1",
+			)
+
 			response, err := iamAccessGroupsService.IsMemberOfAccessGroup(isMemberOfAccessGroupOptions)
 			if err != nil {
 				panic(err)
 			}
+			if response.StatusCode != 204 {
+				fmt.Printf("\nUnexpected response status code received from IsMemberOfAccessGroup(): %d\n", response.StatusCode)
+			}
 
 			// end-is_member_of_access_group
-			fmt.Printf("\nIsMemberOfAccessGroup() response status code: %d\n", response.StatusCode)
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(204))
+
 		})
 		It(`ListAccessGroupMembers request example`, func() {
 			fmt.Println("\nListAccessGroupMembers() result:")
 			// begin-list_access_group_members
 
-			listAccessGroupMembersOptions := iamAccessGroupsService.NewListAccessGroupMembersOptions(testGroupID)
+			listAccessGroupMembersOptions := iamAccessGroupsService.NewListAccessGroupMembersOptions(
+				accessGroupIDLink,
+			)
+
 			groupMembersList, response, err := iamAccessGroupsService.ListAccessGroupMembers(listAccessGroupMembersOptions)
 			if err != nil {
 				panic(err)
@@ -253,48 +291,86 @@ var _ = Describe(`IamAccessGroupsV2 Examples Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(groupMembersList).ToNot(BeNil())
+
 		})
 		It(`RemoveMemberFromAccessGroup request example`, func() {
 			// begin-remove_member_from_access_group
 
-			removeMemberFromAccessGroupOptions := iamAccessGroupsService.NewRemoveMemberFromAccessGroupOptions(testGroupID, "IBMid-user1")
+			removeMemberFromAccessGroupOptions := iamAccessGroupsService.NewRemoveMemberFromAccessGroupOptions(
+				accessGroupIDLink,
+				"IBMid-user1",
+			)
+
 			response, err := iamAccessGroupsService.RemoveMemberFromAccessGroup(removeMemberFromAccessGroupOptions)
 			if err != nil {
 				panic(err)
 			}
+			if response.StatusCode != 204 {
+				fmt.Printf("\nUnexpected response status code received from RemoveMemberFromAccessGroup(): %d\n", response.StatusCode)
+			}
 
 			// end-remove_member_from_access_group
-			fmt.Printf("\nRemoveMemberFromAccessGroup() response status code: %d\n:", response.StatusCode)
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(204))
-		})
-		It(`RemoveMembersFromAccessGroup request example`, func() {
-			fmt.Println("\nRemoveMembersFromAccessGroup() result:")
-			// begin-remove_members_from_access_group
 
-			removeMembersFromAccessGroupOptions := iamAccessGroupsService.NewRemoveMembersFromAccessGroupOptions(testGroupID)
-			removeMembersFromAccessGroupOptions.SetMembers([]string{"iam-ServiceId-123"})
-			deleteGroupBulkMembersResponse, response, err := iamAccessGroupsService.RemoveMembersFromAccessGroup(removeMembersFromAccessGroupOptions)
+		})
+		It(`RemoveMemberFromAccessGroup request example`, func() {
+			// begin-remove_member_from_access_group
+
+			removeMemberFromAccessGroupOptions := iamAccessGroupsService.NewRemoveMemberFromAccessGroupOptions(
+				accessGroupIDLink,
+				"iam-ServiceId-123",
+			)
+
+			response, err := iamAccessGroupsService.RemoveMemberFromAccessGroup(removeMemberFromAccessGroupOptions)
 			if err != nil {
 				panic(err)
 			}
-			b, _ := json.MarshalIndent(deleteGroupBulkMembersResponse, "", "  ")
-			fmt.Println(string(b))
+			if response.StatusCode != 204 {
+				fmt.Printf("\nUnexpected response status code received from RemoveMemberFromAccessGroup(): %d\n", response.StatusCode)
+			}
 
-			// end-remove_members_from_access_group
+			// end-remove_member_from_access_group
 
 			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(207))
-			Expect(deleteGroupBulkMembersResponse).ToNot(BeNil())
+			Expect(response.StatusCode).To(Equal(204))
+
+		})
+		It(`RemoveMemberFromAccessGroup request example`, func() {
+			// begin-remove_member_from_access_group
+
+			removeMemberFromAccessGroupOptions := iamAccessGroupsService.NewRemoveMemberFromAccessGroupOptions(
+				accessGroupIDLink,
+				testProfileID,
+			)
+
+			response, err := iamAccessGroupsService.RemoveMemberFromAccessGroup(removeMemberFromAccessGroupOptions)
+			if err != nil {
+				panic(err)
+			}
+			if response.StatusCode != 204 {
+				fmt.Printf("\nUnexpected response status code received from RemoveMemberFromAccessGroup(): %d\n", response.StatusCode)
+			}
+
+			// end-remove_member_from_access_group
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(204))
+
 		})
 		It(`AddMemberToMultipleAccessGroups request example`, func() {
 			fmt.Println("\nAddMemberToMultipleAccessGroups() result:")
 			// begin-add_member_to_multiple_access_groups
 
-			addMemberToMultipleAccessGroupsOptions := iamAccessGroupsService.NewAddMemberToMultipleAccessGroupsOptions(testAccountID, "IBMid-user1")
+			addMemberToMultipleAccessGroupsOptions := iamAccessGroupsService.NewAddMemberToMultipleAccessGroupsOptions(
+				testAccountID,
+				"IBMid-user1",
+			)
+
 			addMemberToMultipleAccessGroupsOptions.SetType("user")
-			addMemberToMultipleAccessGroupsOptions.SetGroups([]string{testGroupID})
+			addMemberToMultipleAccessGroupsOptions.SetGroups([]string{accessGroupIDLink})
+
 			addMembershipMultipleGroupsResponse, response, err := iamAccessGroupsService.AddMemberToMultipleAccessGroups(addMemberToMultipleAccessGroupsOptions)
 			if err != nil {
 				panic(err)
@@ -307,12 +383,17 @@ var _ = Describe(`IamAccessGroupsV2 Examples Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(207))
 			Expect(addMembershipMultipleGroupsResponse).ToNot(BeNil())
+
 		})
 		It(`RemoveMemberFromAllAccessGroups request example`, func() {
 			fmt.Println("\nRemoveMemberFromAllAccessGroups() result:")
 			// begin-remove_member_from_all_access_groups
 
-			removeMemberFromAllAccessGroupsOptions := iamAccessGroupsService.NewRemoveMemberFromAllAccessGroupsOptions(testAccountID, "IBMid-user1")
+			removeMemberFromAllAccessGroupsOptions := iamAccessGroupsService.NewRemoveMemberFromAllAccessGroupsOptions(
+				testAccountID,
+				"IBMid-user1",
+			)
+
 			deleteFromAllGroupsResponse, response, err := iamAccessGroupsService.RemoveMemberFromAllAccessGroups(removeMemberFromAllAccessGroupsOptions)
 			if err != nil {
 				panic(err)
@@ -325,23 +406,26 @@ var _ = Describe(`IamAccessGroupsV2 Examples Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(207))
 			Expect(deleteFromAllGroupsResponse).ToNot(BeNil())
+
 		})
 		It(`AddAccessGroupRule request example`, func() {
 			fmt.Println("\nAddAccessGroupRule() result:")
 			// begin-add_access_group_rule
 
-			ruleConditionsModel := iamaccessgroupsv2.RuleConditions{
+			ruleConditionsModel := &iamaccessgroupsv2.RuleConditions{
 				Claim:    core.StringPtr("isManager"),
 				Operator: core.StringPtr("EQUALS"),
 				Value:    core.StringPtr("true"),
 			}
+
 			addAccessGroupRuleOptions := iamAccessGroupsService.NewAddAccessGroupRuleOptions(
-				testGroupID,
+				accessGroupIDLink,
 				int64(12),
 				"https://idp.example.org/SAML2",
-				[]iamaccessgroupsv2.RuleConditions{ruleConditionsModel},
+				[]iamaccessgroupsv2.RuleConditions{*ruleConditionsModel},
 			)
 			addAccessGroupRuleOptions.SetName("Manager group rule")
+
 			rule, response, err := iamAccessGroupsService.AddAccessGroupRule(addAccessGroupRuleOptions)
 			if err != nil {
 				panic(err)
@@ -354,14 +438,17 @@ var _ = Describe(`IamAccessGroupsV2 Examples Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(201))
 			Expect(rule).ToNot(BeNil())
-
 			testClaimRuleID = *rule.ID
 		})
 		It(`GetAccessGroupRule request example`, func() {
 			fmt.Println("\nGetAccessGroupRule() result:")
 			// begin-get_access_group_rule
 
-			getAccessGroupRuleOptions := iamAccessGroupsService.NewGetAccessGroupRuleOptions(testGroupID, testClaimRuleID)
+			getAccessGroupRuleOptions := iamAccessGroupsService.NewGetAccessGroupRuleOptions(
+				accessGroupIDLink,
+				testClaimRuleID,
+			)
+
 			rule, response, err := iamAccessGroupsService.GetAccessGroupRule(getAccessGroupRuleOptions)
 			if err != nil {
 				panic(err)
@@ -381,20 +468,22 @@ var _ = Describe(`IamAccessGroupsV2 Examples Tests`, func() {
 			fmt.Println("\nReplaceAccessGroupRule() result:")
 			// begin-replace_access_group_rule
 
-			ruleConditionsModel := iamaccessgroupsv2.RuleConditions{
+			ruleConditionsModel := &iamaccessgroupsv2.RuleConditions{
 				Claim:    core.StringPtr("isManager"),
 				Operator: core.StringPtr("EQUALS"),
 				Value:    core.StringPtr("true"),
 			}
+
 			replaceAccessGroupRuleOptions := iamAccessGroupsService.NewReplaceAccessGroupRuleOptions(
-				testGroupID,
+				accessGroupIDLink,
 				testClaimRuleID,
 				testClaimRuleEtag,
-				int64(24),
+				int64(12),
 				"https://idp.example.org/SAML2",
-				[]iamaccessgroupsv2.RuleConditions{ruleConditionsModel},
+				[]iamaccessgroupsv2.RuleConditions{*ruleConditionsModel},
 			)
 			replaceAccessGroupRuleOptions.SetName("Manager group rule")
+
 			rule, response, err := iamAccessGroupsService.ReplaceAccessGroupRule(replaceAccessGroupRuleOptions)
 			if err != nil {
 				panic(err)
@@ -407,12 +496,16 @@ var _ = Describe(`IamAccessGroupsV2 Examples Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(rule).ToNot(BeNil())
+
 		})
 		It(`ListAccessGroupRules request example`, func() {
 			fmt.Println("\nListAccessGroupRules() result:")
 			// begin-list_access_group_rules
 
-			listAccessGroupRulesOptions := iamAccessGroupsService.NewListAccessGroupRulesOptions(testGroupID)
+			listAccessGroupRulesOptions := iamAccessGroupsService.NewListAccessGroupRulesOptions(
+				accessGroupIDLink,
+			)
+
 			rulesList, response, err := iamAccessGroupsService.ListAccessGroupRules(listAccessGroupRulesOptions)
 			if err != nil {
 				panic(err)
@@ -430,23 +523,33 @@ var _ = Describe(`IamAccessGroupsV2 Examples Tests`, func() {
 		It(`RemoveAccessGroupRule request example`, func() {
 			// begin-remove_access_group_rule
 
-			removeAccessGroupRuleOptions := iamAccessGroupsService.NewRemoveAccessGroupRuleOptions(testGroupID, testClaimRuleID)
+			removeAccessGroupRuleOptions := iamAccessGroupsService.NewRemoveAccessGroupRuleOptions(
+				accessGroupIDLink,
+				testClaimRuleID,
+			)
+
 			response, err := iamAccessGroupsService.RemoveAccessGroupRule(removeAccessGroupRuleOptions)
 			if err != nil {
 				panic(err)
 			}
+			if response.StatusCode != 204 {
+				fmt.Printf("\nUnexpected response status code received from RemoveAccessGroupRule(): %d\n", response.StatusCode)
+			}
 
 			// end-remove_access_group_rule
-			fmt.Printf("\nRemoveAccessGroupRule() response status code: %d\n", response.StatusCode)
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(204))
+
 		})
 		It(`GetAccountSettings request example`, func() {
 			fmt.Println("\nGetAccountSettings() result:")
 			// begin-get_account_settings
 
-			getAccountSettingsOptions := iamAccessGroupsService.NewGetAccountSettingsOptions(testAccountID)
+			getAccountSettingsOptions := iamAccessGroupsService.NewGetAccountSettingsOptions(
+				testAccountID,
+			)
+
 			accountSettings, response, err := iamAccessGroupsService.GetAccountSettings(getAccountSettingsOptions)
 			if err != nil {
 				panic(err)
@@ -460,14 +563,16 @@ var _ = Describe(`IamAccessGroupsV2 Examples Tests`, func() {
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(accountSettings).ToNot(BeNil())
 
-			testAccountSettings = accountSettings
 		})
 		It(`UpdateAccountSettings request example`, func() {
 			fmt.Println("\nUpdateAccountSettings() result:")
 			// begin-update_account_settings
 
-			updateAccountSettingsOptions := iamAccessGroupsService.NewUpdateAccountSettingsOptions(testAccountID)
+			updateAccountSettingsOptions := iamAccessGroupsService.NewUpdateAccountSettingsOptions(
+				testAccountID,
+			)
 			updateAccountSettingsOptions.SetPublicAccessEnabled(true)
+
 			accountSettings, response, err := iamAccessGroupsService.UpdateAccountSettings(updateAccountSettingsOptions)
 			if err != nil {
 				panic(err)
@@ -480,21 +585,28 @@ var _ = Describe(`IamAccessGroupsV2 Examples Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(accountSettings).ToNot(BeNil())
+
 		})
 		It(`DeleteAccessGroup request example`, func() {
 			// begin-delete_access_group
 
-			deleteAccessGroupOptions := iamAccessGroupsService.NewDeleteAccessGroupOptions(testGroupID)
+			deleteAccessGroupOptions := iamAccessGroupsService.NewDeleteAccessGroupOptions(
+				accessGroupIDLink,
+			)
+
 			response, err := iamAccessGroupsService.DeleteAccessGroup(deleteAccessGroupOptions)
 			if err != nil {
 				panic(err)
 			}
+			if response.StatusCode != 204 {
+				fmt.Printf("\nUnexpected response status code received from DeleteAccessGroup(): %d\n", response.StatusCode)
+			}
 
 			// end-delete_access_group
-			fmt.Printf("\nDeleteAccessGroup() response status code: %d\n", response.StatusCode)
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(204))
+
 		})
 	})
 })
