@@ -1,3 +1,10 @@
+## [0.22.10](https://github.com/IBM/platform-services-go-sdk/compare/v0.22.9...v0.22.10) (2022-03-17)
+
+
+### Bug Fixes
+
+* bump go core to 5.9.3 ([#178](https://github.com/IBM/platform-services-go-sdk/issues/178)) ([1ffa4a2](https://github.com/IBM/platform-services-go-sdk/commit/1ffa4a27317b71e9a54ac927d038945740209738))
+
 ## [0.22.9](https://github.com/IBM/platform-services-go-sdk/compare/v0.22.8...v0.22.9) (2022-03-16)
 
 
