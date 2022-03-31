@@ -1401,7 +1401,7 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 				Reference: &reportId,
 			}
             
-            for {
+            for i := 0; i < 30; i++ {
 			  report, response, err := iamIdentityService.GetReport(getReportOptions)
 			  Expect(err).To(BeNil())
               if response.StatusCode != 204 {
@@ -1420,6 +1420,7 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
                 Expect(report.Profiles).ToNot(BeNil())
                 break
               }
+              time.Sleep(1 * time.Second)
             }
 		})
 	})
