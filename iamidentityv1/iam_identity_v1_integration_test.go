@@ -1402,10 +1402,14 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 			}
             
 <<<<<<< HEAD
+<<<<<<< HEAD
             for i := 0; i < 30; i++ {
 =======
             for {
 >>>>>>> 5ed5a0f... Add support for IAM Identity inactivity reports
+=======
+            for i := 0; i < 30; i++ {
+>>>>>>> 1c363ea... Address review comments
 			  report, response, err := iamIdentityService.GetReport(getReportOptions)
 			  Expect(err).To(BeNil())
               if response.StatusCode != 204 {
@@ -1425,9 +1429,13 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
                 break
               }
 <<<<<<< HEAD
+<<<<<<< HEAD
               time.Sleep(1 * time.Second)
 =======
 >>>>>>> 5ed5a0f... Add support for IAM Identity inactivity reports
+=======
+              time.Sleep(1 * time.Second)
+>>>>>>> 1c363ea... Address review comments
             }
 		})
 	})
