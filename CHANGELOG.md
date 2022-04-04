@@ -1,3 +1,10 @@
+# [0.23.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.22.11...v0.23.0) (2022-04-04)
+
+
+### Features
+
+* **IAM Access Groups:** add support for dynamic membership ([#179](https://github.com/IBM/platform-services-go-sdk/issues/179)) ([f2c9d65](https://github.com/IBM/platform-services-go-sdk/commit/f2c9d650c0f2548904f797edc5d8451e45569e15))
+
 ## [0.22.11](https://github.com/IBM/platform-services-go-sdk/compare/v0.22.10...v0.22.11) (2022-03-23)
 
 
