@@ -179,7 +179,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"testString"}))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, `} this is not valid json {`)
+					fmt.Fprint(res, `} this is not valid json {`)
 				}))
 			})
 			It(`Invoke CreateAccessGroup with error: Operation response processing error`, func() {
@@ -251,7 +251,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "description": "Description", "account_id": "AccountID", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "href": "Href", "is_federated": false}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "description": "Description", "account_id": "AccountID", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "href": "Href", "is_federated": false, "membership_type": "MembershipType"}`)
 				}))
 			})
 			It(`Invoke CreateAccessGroup successfully with retries`, func() {
@@ -327,7 +327,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "description": "Description", "account_id": "AccountID", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "href": "Href", "is_federated": false}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "description": "Description", "account_id": "AccountID", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "href": "Href", "is_federated": false, "membership_type": "MembershipType"}`)
 				}))
 			})
 			It(`Invoke CreateAccessGroup successfully`, func() {
@@ -446,6 +446,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["iam_id"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["membership_type"]).To(Equal([]string{"static"}))
 					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(38))}))
 					Expect(req.URL.Query()["offset"]).To(Equal([]string{fmt.Sprint(int64(38))}))
 					Expect(req.URL.Query()["sort"]).To(Equal([]string{"name"}))
@@ -453,7 +454,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 					// TODO: Add check for hide_public_access query parameter
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, `} this is not valid json {`)
+					fmt.Fprint(res, `} this is not valid json {`)
 				}))
 			})
 			It(`Invoke ListAccessGroups with error: Operation response processing error`, func() {
@@ -469,6 +470,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				listAccessGroupsOptionsModel.AccountID = core.StringPtr("testString")
 				listAccessGroupsOptionsModel.TransactionID = core.StringPtr("testString")
 				listAccessGroupsOptionsModel.IamID = core.StringPtr("testString")
+				listAccessGroupsOptionsModel.MembershipType = core.StringPtr("static")
 				listAccessGroupsOptionsModel.Limit = core.Int64Ptr(int64(38))
 				listAccessGroupsOptionsModel.Offset = core.Int64Ptr(int64(38))
 				listAccessGroupsOptionsModel.Sort = core.StringPtr("name")
@@ -508,6 +510,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["iam_id"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["membership_type"]).To(Equal([]string{"static"}))
 					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(38))}))
 					Expect(req.URL.Query()["offset"]).To(Equal([]string{fmt.Sprint(int64(38))}))
 					Expect(req.URL.Query()["sort"]).To(Equal([]string{"name"}))
@@ -519,7 +522,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"limit": 5, "offset": 6, "total_count": 10, "first": {"href": "Href"}, "previous": {"href": "Href"}, "next": {"href": "Href"}, "last": {"href": "Href"}, "groups": [{"id": "ID", "name": "Name", "description": "Description", "account_id": "AccountID", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "href": "Href", "is_federated": false}]}`)
+					fmt.Fprintf(res, "%s", `{"limit": 5, "offset": 6, "total_count": 10, "first": {"href": "Href"}, "previous": {"href": "Href"}, "next": {"href": "Href"}, "last": {"href": "Href"}, "groups": [{"id": "ID", "name": "Name", "description": "Description", "account_id": "AccountID", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "href": "Href", "is_federated": false, "membership_type": "MembershipType"}]}`)
 				}))
 			})
 			It(`Invoke ListAccessGroups successfully with retries`, func() {
@@ -536,6 +539,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				listAccessGroupsOptionsModel.AccountID = core.StringPtr("testString")
 				listAccessGroupsOptionsModel.TransactionID = core.StringPtr("testString")
 				listAccessGroupsOptionsModel.IamID = core.StringPtr("testString")
+				listAccessGroupsOptionsModel.MembershipType = core.StringPtr("static")
 				listAccessGroupsOptionsModel.Limit = core.Int64Ptr(int64(38))
 				listAccessGroupsOptionsModel.Offset = core.Int64Ptr(int64(38))
 				listAccessGroupsOptionsModel.Sort = core.StringPtr("name")
@@ -581,6 +585,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["iam_id"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["membership_type"]).To(Equal([]string{"static"}))
 					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(38))}))
 					Expect(req.URL.Query()["offset"]).To(Equal([]string{fmt.Sprint(int64(38))}))
 					Expect(req.URL.Query()["sort"]).To(Equal([]string{"name"}))
@@ -589,7 +594,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"limit": 5, "offset": 6, "total_count": 10, "first": {"href": "Href"}, "previous": {"href": "Href"}, "next": {"href": "Href"}, "last": {"href": "Href"}, "groups": [{"id": "ID", "name": "Name", "description": "Description", "account_id": "AccountID", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "href": "Href", "is_federated": false}]}`)
+					fmt.Fprintf(res, "%s", `{"limit": 5, "offset": 6, "total_count": 10, "first": {"href": "Href"}, "previous": {"href": "Href"}, "next": {"href": "Href"}, "last": {"href": "Href"}, "groups": [{"id": "ID", "name": "Name", "description": "Description", "account_id": "AccountID", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "href": "Href", "is_federated": false, "membership_type": "MembershipType"}]}`)
 				}))
 			})
 			It(`Invoke ListAccessGroups successfully`, func() {
@@ -611,6 +616,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				listAccessGroupsOptionsModel.AccountID = core.StringPtr("testString")
 				listAccessGroupsOptionsModel.TransactionID = core.StringPtr("testString")
 				listAccessGroupsOptionsModel.IamID = core.StringPtr("testString")
+				listAccessGroupsOptionsModel.MembershipType = core.StringPtr("static")
 				listAccessGroupsOptionsModel.Limit = core.Int64Ptr(int64(38))
 				listAccessGroupsOptionsModel.Offset = core.Int64Ptr(int64(38))
 				listAccessGroupsOptionsModel.Sort = core.StringPtr("name")
@@ -638,6 +644,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				listAccessGroupsOptionsModel.AccountID = core.StringPtr("testString")
 				listAccessGroupsOptionsModel.TransactionID = core.StringPtr("testString")
 				listAccessGroupsOptionsModel.IamID = core.StringPtr("testString")
+				listAccessGroupsOptionsModel.MembershipType = core.StringPtr("static")
 				listAccessGroupsOptionsModel.Limit = core.Int64Ptr(int64(38))
 				listAccessGroupsOptionsModel.Offset = core.Int64Ptr(int64(38))
 				listAccessGroupsOptionsModel.Sort = core.StringPtr("name")
@@ -686,6 +693,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				listAccessGroupsOptionsModel.AccountID = core.StringPtr("testString")
 				listAccessGroupsOptionsModel.TransactionID = core.StringPtr("testString")
 				listAccessGroupsOptionsModel.IamID = core.StringPtr("testString")
+				listAccessGroupsOptionsModel.MembershipType = core.StringPtr("static")
 				listAccessGroupsOptionsModel.Limit = core.Int64Ptr(int64(38))
 				listAccessGroupsOptionsModel.Offset = core.Int64Ptr(int64(38))
 				listAccessGroupsOptionsModel.Sort = core.StringPtr("name")
@@ -760,7 +768,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 					// TODO: Add check for show_federated query parameter
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, `} this is not valid json {`)
+					fmt.Fprint(res, `} this is not valid json {`)
 				}))
 			})
 			It(`Invoke GetAccessGroup with error: Operation response processing error`, func() {
@@ -815,7 +823,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "description": "Description", "account_id": "AccountID", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "href": "Href", "is_federated": false}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "description": "Description", "account_id": "AccountID", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "href": "Href", "is_federated": false, "membership_type": "MembershipType"}`)
 				}))
 			})
 			It(`Invoke GetAccessGroup successfully with retries`, func() {
@@ -874,7 +882,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "description": "Description", "account_id": "AccountID", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "href": "Href", "is_federated": false}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "description": "Description", "account_id": "AccountID", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "href": "Href", "is_federated": false, "membership_type": "MembershipType"}`)
 				}))
 			})
 			It(`Invoke GetAccessGroup successfully`, func() {
@@ -992,7 +1000,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, `} this is not valid json {`)
+					fmt.Fprint(res, `} this is not valid json {`)
 				}))
 			})
 			It(`Invoke UpdateAccessGroup with error: Operation response processing error`, func() {
@@ -1066,7 +1074,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "description": "Description", "account_id": "AccountID", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "href": "Href", "is_federated": false}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "description": "Description", "account_id": "AccountID", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "href": "Href", "is_federated": false, "membership_type": "MembershipType"}`)
 				}))
 			})
 			It(`Invoke UpdateAccessGroup successfully with retries`, func() {
@@ -1144,7 +1152,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "description": "Description", "account_id": "AccountID", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "href": "Href", "is_federated": false}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "name": "Name", "description": "Description", "account_id": "AccountID", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID", "href": "Href", "is_federated": false, "membership_type": "MembershipType"}`)
 				}))
 			})
 			It(`Invoke UpdateAccessGroup successfully`, func() {
@@ -1415,7 +1423,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(207)
-					fmt.Fprintf(res, `} this is not valid json {`)
+					fmt.Fprint(res, `} this is not valid json {`)
 				}))
 			})
 			It(`Invoke AddMembersToAccessGroup with error: Operation response processing error`, func() {
@@ -1698,6 +1706,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 					Expect(req.Method).To(Equal("GET"))
 					Expect(req.Header["Transaction-Id"]).ToNot(BeNil())
 					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
+					Expect(req.URL.Query()["membership_type"]).To(Equal([]string{"static"}))
 					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(38))}))
 					Expect(req.URL.Query()["offset"]).To(Equal([]string{fmt.Sprint(int64(38))}))
 					Expect(req.URL.Query()["type"]).To(Equal([]string{"testString"}))
@@ -1705,7 +1714,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 					Expect(req.URL.Query()["sort"]).To(Equal([]string{"testString"}))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, `} this is not valid json {`)
+					fmt.Fprint(res, `} this is not valid json {`)
 				}))
 			})
 			It(`Invoke ListAccessGroupMembers with error: Operation response processing error`, func() {
@@ -1720,6 +1729,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				listAccessGroupMembersOptionsModel := new(iamaccessgroupsv2.ListAccessGroupMembersOptions)
 				listAccessGroupMembersOptionsModel.AccessGroupID = core.StringPtr("testString")
 				listAccessGroupMembersOptionsModel.TransactionID = core.StringPtr("testString")
+				listAccessGroupMembersOptionsModel.MembershipType = core.StringPtr("static")
 				listAccessGroupMembersOptionsModel.Limit = core.Int64Ptr(int64(38))
 				listAccessGroupMembersOptionsModel.Offset = core.Int64Ptr(int64(38))
 				listAccessGroupMembersOptionsModel.Type = core.StringPtr("testString")
@@ -1757,6 +1767,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 
 					Expect(req.Header["Transaction-Id"]).ToNot(BeNil())
 					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
+					Expect(req.URL.Query()["membership_type"]).To(Equal([]string{"static"}))
 					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(38))}))
 					Expect(req.URL.Query()["offset"]).To(Equal([]string{fmt.Sprint(int64(38))}))
 					Expect(req.URL.Query()["type"]).To(Equal([]string{"testString"}))
@@ -1768,7 +1779,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"limit": 5, "offset": 6, "total_count": 10, "first": {"href": "Href"}, "previous": {"href": "Href"}, "next": {"href": "Href"}, "last": {"href": "Href"}, "members": [{"iam_id": "IamID", "type": "Type", "name": "Name", "email": "Email", "description": "Description", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID"}]}`)
+					fmt.Fprintf(res, "%s", `{"limit": 5, "offset": 6, "total_count": 10, "first": {"href": "Href"}, "previous": {"href": "Href"}, "next": {"href": "Href"}, "last": {"href": "Href"}, "members": [{"iam_id": "IamID", "type": "Type", "membership_type": "MembershipType", "name": "Name", "email": "Email", "description": "Description", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID"}]}`)
 				}))
 			})
 			It(`Invoke ListAccessGroupMembers successfully with retries`, func() {
@@ -1784,6 +1795,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				listAccessGroupMembersOptionsModel := new(iamaccessgroupsv2.ListAccessGroupMembersOptions)
 				listAccessGroupMembersOptionsModel.AccessGroupID = core.StringPtr("testString")
 				listAccessGroupMembersOptionsModel.TransactionID = core.StringPtr("testString")
+				listAccessGroupMembersOptionsModel.MembershipType = core.StringPtr("static")
 				listAccessGroupMembersOptionsModel.Limit = core.Int64Ptr(int64(38))
 				listAccessGroupMembersOptionsModel.Offset = core.Int64Ptr(int64(38))
 				listAccessGroupMembersOptionsModel.Type = core.StringPtr("testString")
@@ -1827,6 +1839,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 
 					Expect(req.Header["Transaction-Id"]).ToNot(BeNil())
 					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
+					Expect(req.URL.Query()["membership_type"]).To(Equal([]string{"static"}))
 					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(38))}))
 					Expect(req.URL.Query()["offset"]).To(Equal([]string{fmt.Sprint(int64(38))}))
 					Expect(req.URL.Query()["type"]).To(Equal([]string{"testString"}))
@@ -1835,7 +1848,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"limit": 5, "offset": 6, "total_count": 10, "first": {"href": "Href"}, "previous": {"href": "Href"}, "next": {"href": "Href"}, "last": {"href": "Href"}, "members": [{"iam_id": "IamID", "type": "Type", "name": "Name", "email": "Email", "description": "Description", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID"}]}`)
+					fmt.Fprintf(res, "%s", `{"limit": 5, "offset": 6, "total_count": 10, "first": {"href": "Href"}, "previous": {"href": "Href"}, "next": {"href": "Href"}, "last": {"href": "Href"}, "members": [{"iam_id": "IamID", "type": "Type", "membership_type": "MembershipType", "name": "Name", "email": "Email", "description": "Description", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID"}]}`)
 				}))
 			})
 			It(`Invoke ListAccessGroupMembers successfully`, func() {
@@ -1856,6 +1869,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				listAccessGroupMembersOptionsModel := new(iamaccessgroupsv2.ListAccessGroupMembersOptions)
 				listAccessGroupMembersOptionsModel.AccessGroupID = core.StringPtr("testString")
 				listAccessGroupMembersOptionsModel.TransactionID = core.StringPtr("testString")
+				listAccessGroupMembersOptionsModel.MembershipType = core.StringPtr("static")
 				listAccessGroupMembersOptionsModel.Limit = core.Int64Ptr(int64(38))
 				listAccessGroupMembersOptionsModel.Offset = core.Int64Ptr(int64(38))
 				listAccessGroupMembersOptionsModel.Type = core.StringPtr("testString")
@@ -1882,6 +1896,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				listAccessGroupMembersOptionsModel := new(iamaccessgroupsv2.ListAccessGroupMembersOptions)
 				listAccessGroupMembersOptionsModel.AccessGroupID = core.StringPtr("testString")
 				listAccessGroupMembersOptionsModel.TransactionID = core.StringPtr("testString")
+				listAccessGroupMembersOptionsModel.MembershipType = core.StringPtr("static")
 				listAccessGroupMembersOptionsModel.Limit = core.Int64Ptr(int64(38))
 				listAccessGroupMembersOptionsModel.Offset = core.Int64Ptr(int64(38))
 				listAccessGroupMembersOptionsModel.Type = core.StringPtr("testString")
@@ -1929,6 +1944,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				listAccessGroupMembersOptionsModel := new(iamaccessgroupsv2.ListAccessGroupMembersOptions)
 				listAccessGroupMembersOptionsModel.AccessGroupID = core.StringPtr("testString")
 				listAccessGroupMembersOptionsModel.TransactionID = core.StringPtr("testString")
+				listAccessGroupMembersOptionsModel.MembershipType = core.StringPtr("static")
 				listAccessGroupMembersOptionsModel.Limit = core.Int64Ptr(int64(38))
 				listAccessGroupMembersOptionsModel.Offset = core.Int64Ptr(int64(38))
 				listAccessGroupMembersOptionsModel.Type = core.StringPtr("testString")
@@ -2076,7 +2092,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(207)
-					fmt.Fprintf(res, `} this is not valid json {`)
+					fmt.Fprint(res, `} this is not valid json {`)
 				}))
 			})
 			It(`Invoke RemoveMembersFromAccessGroup with error: Operation response processing error`, func() {
@@ -2337,7 +2353,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"testString"}))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(207)
-					fmt.Fprintf(res, `} this is not valid json {`)
+					fmt.Fprint(res, `} this is not valid json {`)
 				}))
 			})
 			It(`Invoke RemoveMemberFromAllAccessGroups with error: Operation response processing error`, func() {
@@ -2568,7 +2584,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"testString"}))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(207)
-					fmt.Fprintf(res, `} this is not valid json {`)
+					fmt.Fprint(res, `} this is not valid json {`)
 				}))
 			})
 			It(`Invoke AddMemberToMultipleAccessGroups with error: Operation response processing error`, func() {
@@ -2840,7 +2856,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, `} this is not valid json {`)
+					fmt.Fprint(res, `} this is not valid json {`)
 				}))
 			})
 			It(`Invoke AddAccessGroupRule with error: Operation response processing error`, func() {
@@ -3145,7 +3161,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, `} this is not valid json {`)
+					fmt.Fprint(res, `} this is not valid json {`)
 				}))
 			})
 			It(`Invoke ListAccessGroupRules with error: Operation response processing error`, func() {
@@ -3368,7 +3384,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, `} this is not valid json {`)
+					fmt.Fprint(res, `} this is not valid json {`)
 				}))
 			})
 			It(`Invoke GetAccessGroupRule with error: Operation response processing error`, func() {
@@ -3598,7 +3614,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, `} this is not valid json {`)
+					fmt.Fprint(res, `} this is not valid json {`)
 				}))
 			})
 			It(`Invoke ReplaceAccessGroupRule with error: Operation response processing error`, func() {
@@ -3992,7 +4008,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"testString"}))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, `} this is not valid json {`)
+					fmt.Fprint(res, `} this is not valid json {`)
 				}))
 			})
 			It(`Invoke GetAccountSettings with error: Operation response processing error`, func() {
@@ -4218,7 +4234,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 					Expect(req.URL.Query()["account_id"]).To(Equal([]string{"testString"}))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, `} this is not valid json {`)
+					fmt.Fprint(res, `} this is not valid json {`)
 				}))
 			})
 			It(`Invoke UpdateAccountSettings with error: Operation response processing error`, func() {
@@ -4646,6 +4662,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				listAccessGroupMembersOptionsModel := iamAccessGroupsService.NewListAccessGroupMembersOptions(accessGroupID)
 				listAccessGroupMembersOptionsModel.SetAccessGroupID("testString")
 				listAccessGroupMembersOptionsModel.SetTransactionID("testString")
+				listAccessGroupMembersOptionsModel.SetMembershipType("static")
 				listAccessGroupMembersOptionsModel.SetLimit(int64(38))
 				listAccessGroupMembersOptionsModel.SetOffset(int64(38))
 				listAccessGroupMembersOptionsModel.SetType("testString")
@@ -4655,6 +4672,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				Expect(listAccessGroupMembersOptionsModel).ToNot(BeNil())
 				Expect(listAccessGroupMembersOptionsModel.AccessGroupID).To(Equal(core.StringPtr("testString")))
 				Expect(listAccessGroupMembersOptionsModel.TransactionID).To(Equal(core.StringPtr("testString")))
+				Expect(listAccessGroupMembersOptionsModel.MembershipType).To(Equal(core.StringPtr("static")))
 				Expect(listAccessGroupMembersOptionsModel.Limit).To(Equal(core.Int64Ptr(int64(38))))
 				Expect(listAccessGroupMembersOptionsModel.Offset).To(Equal(core.Int64Ptr(int64(38))))
 				Expect(listAccessGroupMembersOptionsModel.Type).To(Equal(core.StringPtr("testString")))
@@ -4681,6 +4699,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				listAccessGroupsOptionsModel.SetAccountID("testString")
 				listAccessGroupsOptionsModel.SetTransactionID("testString")
 				listAccessGroupsOptionsModel.SetIamID("testString")
+				listAccessGroupsOptionsModel.SetMembershipType("static")
 				listAccessGroupsOptionsModel.SetLimit(int64(38))
 				listAccessGroupsOptionsModel.SetOffset(int64(38))
 				listAccessGroupsOptionsModel.SetSort("name")
@@ -4691,6 +4710,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				Expect(listAccessGroupsOptionsModel.AccountID).To(Equal(core.StringPtr("testString")))
 				Expect(listAccessGroupsOptionsModel.TransactionID).To(Equal(core.StringPtr("testString")))
 				Expect(listAccessGroupsOptionsModel.IamID).To(Equal(core.StringPtr("testString")))
+				Expect(listAccessGroupsOptionsModel.MembershipType).To(Equal(core.StringPtr("static")))
 				Expect(listAccessGroupsOptionsModel.Limit).To(Equal(core.Int64Ptr(int64(38))))
 				Expect(listAccessGroupsOptionsModel.Offset).To(Equal(core.Int64Ptr(int64(38))))
 				Expect(listAccessGroupsOptionsModel.Sort).To(Equal(core.StringPtr("name")))
