@@ -1,3 +1,10 @@
+# [0.24.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.23.0...v0.24.0) (2022-04-06)
+
+
+### Features
+
+* **IAM Identity:** add support for inactivity reports ([#181](https://github.com/IBM/platform-services-go-sdk/issues/181)) ([b332e0e](https://github.com/IBM/platform-services-go-sdk/commit/b332e0e0e7ecd1b8bee6766550e5df9199dbadc5))
+
 # [0.23.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.22.11...v0.23.0) (2022-04-04)
 
 
