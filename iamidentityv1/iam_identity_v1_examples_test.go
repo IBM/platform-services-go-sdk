@@ -222,6 +222,7 @@ var _ = Describe(`IamIdentityV1 Examples Tests`, func() {
 			getAPIKeyOptions := iamIdentityService.NewGetAPIKeyOptions(apikeyID)
 
 			getAPIKeyOptions.SetIncludeHistory(false)
+			getAPIKeyOptions.SetIncludeActivity(false)
 
 			apiKey, response, err := iamIdentityService.GetAPIKey(getAPIKeyOptions)
 			if err != nil {
@@ -333,6 +334,8 @@ var _ = Describe(`IamIdentityV1 Examples Tests`, func() {
 			// begin-get_service_id
 
 			getServiceIDOptions := iamIdentityService.NewGetServiceIDOptions(svcID)
+
+			getServiceIDOptions.SetIncludeActivity(false)
 
 			serviceID, response, err := iamIdentityService.GetServiceID(getServiceIDOptions)
 			if err != nil {
@@ -465,6 +468,8 @@ var _ = Describe(`IamIdentityV1 Examples Tests`, func() {
 			// begin-get_profile
 
 			getProfileOptions := iamIdentityService.NewGetProfileOptions(profileId)
+
+			getProfileOptions.SetIncludeActivity(false)
 
 			profile, response, err := iamIdentityService.GetProfile(getProfileOptions)
 			if err != nil {
@@ -781,8 +786,8 @@ var _ = Describe(`IamIdentityV1 Examples Tests`, func() {
 			// begin-create_report
 
 			createReportOptions := iamIdentityService.NewCreateReportOptions(accountID)
-            createReportOptions.SetType("inactive")
-            createReportOptions.SetDuration("120")
+			createReportOptions.SetType("inactive")
+			createReportOptions.SetDuration("120")
 
 			report, response, err := iamIdentityService.CreateReport(createReportOptions)
 			if err != nil {
@@ -801,7 +806,7 @@ var _ = Describe(`IamIdentityV1 Examples Tests`, func() {
 			fmt.Println("\nGetReport() result:")
 			// begin-get_report
 
-			getReportOptions := iamIdentityService.NewGetReportOptions(accountID,"latest")
+			getReportOptions := iamIdentityService.NewGetReportOptions(accountID, "latest")
 
 			report, response, err := iamIdentityService.GetReport(getReportOptions)
 			if err != nil {

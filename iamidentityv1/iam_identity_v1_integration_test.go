@@ -83,8 +83,8 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 		linkId string
 
 		accountSettingEtag string
-        
-		reportId      string
+
+		reportId string
 	)
 
 	var shouldSkipTest = func() {
@@ -204,7 +204,7 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 			getAPIKeyOptions := &iamidentityv1.GetAPIKeyOptions{
 				ID:              &apikeyId1,
 				IncludeHistory:  core.BoolPtr(true),
-                IncludeActivity: core.BoolPtr(true),
+				IncludeActivity: core.BoolPtr(true),
 			}
 
 			apiKey, response, err := iamIdentityService.GetAPIKey(getAPIKeyOptions)
@@ -445,7 +445,7 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 			getServiceIDOptions := &iamidentityv1.GetServiceIDOptions{
 				ID:              &serviceId1,
 				IncludeHistory:  core.BoolPtr(true),
-                IncludeActivity: core.BoolPtr(true),
+				IncludeActivity: core.BoolPtr(true),
 			}
 
 			serviceID, response, err := iamIdentityService.GetServiceID(getServiceIDOptions)
@@ -1346,7 +1346,7 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 			fmt.Fprintf(GinkgoWriter, "UpdateAccountSettings response:\n%s\n", common.ToJSON(accountSettingsResponse))
 		})
 	})
-    
+
 	Describe(`CreateInactivityReport - Create an inactivity report`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
@@ -1354,9 +1354,9 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 		It(`CreateReport(createReportOptions *CreateReportOptions)`, func() {
 
 			createReportOptions := &iamidentityv1.CreateReportOptions{
-				AccountID:   &accountID,
-				Type:        core.StringPtr("inactive"),
-				Duration:    core.StringPtr("120"),
+				AccountID: &accountID,
+				Type:      core.StringPtr("inactive"),
+				Duration:  core.StringPtr("120"),
 			}
 
 			reportRef, response, err := iamIdentityService.CreateReport(createReportOptions)
@@ -1370,23 +1370,23 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 			Expect(reportId).ToNot(BeNil())
 		})
 	})
-    
+
 	Describe(`GetInactivityReportIncomplete - Get an incomplete inactivity report`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
 		})
-        It(`GetReport(getReportOptions *GetReportOptions)`, func() {
-            Expect(reportId).ToNot(BeEmpty())
-            getReportOptions := &iamidentityv1.GetReportOptions{
-              AccountID: &accountID,
-              Reference: &reportId,
-            }
+		It(`GetReport(getReportOptions *GetReportOptions)`, func() {
+			Expect(reportId).ToNot(BeEmpty())
+			getReportOptions := &iamidentityv1.GetReportOptions{
+				AccountID: &accountID,
+				Reference: &reportId,
+			}
 
-            report, response, err := iamIdentityService.GetReport(getReportOptions)
+			report, response, err := iamIdentityService.GetReport(getReportOptions)
 
-            Expect(err).To(BeNil())
-            Expect(response.StatusCode).To(Equal(204))
-            Expect(report).To(BeNil())
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(204))
+			Expect(report).To(BeNil())
 		})
 	})
 
@@ -1400,46 +1400,31 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 				AccountID: &accountID,
 				Reference: &reportId,
 			}
-            
-<<<<<<< HEAD
-<<<<<<< HEAD
-            for i := 0; i < 30; i++ {
-=======
-            for {
->>>>>>> 5ed5a0f... Add support for IAM Identity inactivity reports
-=======
-            for i := 0; i < 30; i++ {
->>>>>>> 1c363ea... Address review comments
-			  report, response, err := iamIdentityService.GetReport(getReportOptions)
-			  Expect(err).To(BeNil())
-              if response.StatusCode != 204 {
-                Expect(response.StatusCode).To(Equal(200))
-                Expect(report).ToNot(BeNil())
-                Expect(report.CreatedBy).ToNot(BeNil())
-                Expect(*report.CreatedBy).To(Equal(iamID))
-                Expect(report.Reference).ToNot(BeNil())
-                Expect(*report.Reference).To(Equal(reportId))
-                Expect(report.ReportDuration).ToNot(BeNil())
-                Expect(report.ReportStartTime).ToNot(BeNil())
-                Expect(report.ReportEndTime).ToNot(BeNil())
-                Expect(report.Users).ToNot(BeNil())
-                Expect(report.Apikeys).ToNot(BeNil())
-                Expect(report.Serviceids).ToNot(BeNil())
-                Expect(report.Profiles).ToNot(BeNil())
-                break
-              }
-<<<<<<< HEAD
-<<<<<<< HEAD
-              time.Sleep(1 * time.Second)
-=======
->>>>>>> 5ed5a0f... Add support for IAM Identity inactivity reports
-=======
-              time.Sleep(1 * time.Second)
->>>>>>> 1c363ea... Address review comments
-            }
+
+			for i := 0; i < 30; i++ {
+				report, response, err := iamIdentityService.GetReport(getReportOptions)
+				Expect(err).To(BeNil())
+				if response.StatusCode != 204 {
+					Expect(response.StatusCode).To(Equal(200))
+					Expect(report).ToNot(BeNil())
+					Expect(report.CreatedBy).ToNot(BeNil())
+					Expect(*report.CreatedBy).To(Equal(iamID))
+					Expect(report.Reference).ToNot(BeNil())
+					Expect(*report.Reference).To(Equal(reportId))
+					Expect(report.ReportDuration).ToNot(BeNil())
+					Expect(report.ReportStartTime).ToNot(BeNil())
+					Expect(report.ReportEndTime).ToNot(BeNil())
+					Expect(report.Users).ToNot(BeNil())
+					Expect(report.Apikeys).ToNot(BeNil())
+					Expect(report.Serviceids).ToNot(BeNil())
+					Expect(report.Profiles).ToNot(BeNil())
+					break
+				}
+				time.Sleep(1 * time.Second)
+			}
 		})
 	})
-    
+
 	Describe(`GetInactivityReportNotFound`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
@@ -1458,7 +1443,6 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 			Expect(err).ToNot(BeNil())
 		})
 	})
-    
 })
 
 var _ = AfterSuite(func() {
