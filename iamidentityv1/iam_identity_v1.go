@@ -1655,7 +1655,7 @@ func (iamIdentity *IamIdentityV1) GetClaimRuleWithContext(ctx context.Context, g
 
 	pathParamsMap := map[string]string{
 		"profile-id": *getClaimRuleOptions.ProfileID,
-		"rule-id": *getClaimRuleOptions.RuleID,
+		"rule-id":    *getClaimRuleOptions.RuleID,
 	}
 
 	builder := core.NewRequestBuilder(core.GET)
@@ -1716,7 +1716,7 @@ func (iamIdentity *IamIdentityV1) UpdateClaimRuleWithContext(ctx context.Context
 
 	pathParamsMap := map[string]string{
 		"profile-id": *updateClaimRuleOptions.ProfileID,
-		"rule-id": *updateClaimRuleOptions.RuleID,
+		"rule-id":    *updateClaimRuleOptions.RuleID,
 	}
 
 	builder := core.NewRequestBuilder(core.PUT)
@@ -1809,7 +1809,7 @@ func (iamIdentity *IamIdentityV1) DeleteClaimRuleWithContext(ctx context.Context
 
 	pathParamsMap := map[string]string{
 		"profile-id": *deleteClaimRuleOptions.ProfileID,
-		"rule-id": *deleteClaimRuleOptions.RuleID,
+		"rule-id":    *deleteClaimRuleOptions.RuleID,
 	}
 
 	builder := core.NewRequestBuilder(core.DELETE)
@@ -1995,7 +1995,7 @@ func (iamIdentity *IamIdentityV1) GetLinkWithContext(ctx context.Context, getLin
 
 	pathParamsMap := map[string]string{
 		"profile-id": *getLinkOptions.ProfileID,
-		"link-id": *getLinkOptions.LinkID,
+		"link-id":    *getLinkOptions.LinkID,
 	}
 
 	builder := core.NewRequestBuilder(core.GET)
@@ -2056,7 +2056,7 @@ func (iamIdentity *IamIdentityV1) DeleteLinkWithContext(ctx context.Context, del
 
 	pathParamsMap := map[string]string{
 		"profile-id": *deleteLinkOptions.ProfileID,
-		"link-id": *deleteLinkOptions.LinkID,
+		"link-id":    *deleteLinkOptions.LinkID,
 	}
 
 	builder := core.NewRequestBuilder(core.DELETE)
@@ -2260,13 +2260,13 @@ func (iamIdentity *IamIdentityV1) CreateReportWithContext(ctx context.Context, c
 	}
 
 	pathParamsMap := map[string]string{
-		"account-id": *createReportOptions.AccountID,
+		"account_id": *createReportOptions.AccountID,
 	}
 
 	builder := core.NewRequestBuilder(core.POST)
 	builder = builder.WithContext(ctx)
 	builder.EnableGzipCompression = iamIdentity.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(iamIdentity.Service.Options.URL, `/v1/activity/accounts/{account-id}/report`, pathParamsMap)
+	_, err = builder.ResolveRequestURL(iamIdentity.Service.Options.URL, `/v1/activity/accounts/{account_id}/report`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -2327,14 +2327,14 @@ func (iamIdentity *IamIdentityV1) GetReportWithContext(ctx context.Context, getR
 	}
 
 	pathParamsMap := map[string]string{
-		"account-id": *getReportOptions.AccountID,
-		"reference": *getReportOptions.Reference,
+		"account_id": *getReportOptions.AccountID,
+		"reference":  *getReportOptions.Reference,
 	}
 
 	builder := core.NewRequestBuilder(core.GET)
 	builder = builder.WithContext(ctx)
 	builder.EnableGzipCompression = iamIdentity.GetEnableGzipCompression()
-	_, err = builder.ResolveRequestURL(iamIdentity.Service.Options.URL, `/v1/activity/accounts/{account-id}/report/{reference}`, pathParamsMap)
+	_, err = builder.ResolveRequestURL(iamIdentity.Service.Options.URL, `/v1/activity/accounts/{account_id}/report/{reference}`, pathParamsMap)
 	if err != nil {
 		return
 	}
@@ -2431,8 +2431,8 @@ type AccountSettingsResponse struct {
 //   * NOT_SET - to 'unset' a previous set value.
 const (
 	AccountSettingsResponseRestrictCreateServiceIDNotRestrictedConst = "NOT_RESTRICTED"
-	AccountSettingsResponseRestrictCreateServiceIDNotSetConst = "NOT_SET"
-	AccountSettingsResponseRestrictCreateServiceIDRestrictedConst = "RESTRICTED"
+	AccountSettingsResponseRestrictCreateServiceIDNotSetConst        = "NOT_SET"
+	AccountSettingsResponseRestrictCreateServiceIDRestrictedConst    = "RESTRICTED"
 )
 
 // Constants associated with the AccountSettingsResponse.RestrictCreatePlatformApikey property.
@@ -2442,8 +2442,8 @@ const (
 //   * NOT_SET - to 'unset' a previous set value.
 const (
 	AccountSettingsResponseRestrictCreatePlatformApikeyNotRestrictedConst = "NOT_RESTRICTED"
-	AccountSettingsResponseRestrictCreatePlatformApikeyNotSetConst = "NOT_SET"
-	AccountSettingsResponseRestrictCreatePlatformApikeyRestrictedConst = "RESTRICTED"
+	AccountSettingsResponseRestrictCreatePlatformApikeyNotSetConst        = "NOT_SET"
+	AccountSettingsResponseRestrictCreatePlatformApikeyRestrictedConst    = "RESTRICTED"
 )
 
 // Constants associated with the AccountSettingsResponse.Mfa property.
@@ -2455,11 +2455,11 @@ const (
 //   * LEVEL2 - TOTP-based MFA for all users
 //   * LEVEL3 - U2F MFA for all users.
 const (
-	AccountSettingsResponseMfaLevel1Const = "LEVEL1"
-	AccountSettingsResponseMfaLevel2Const = "LEVEL2"
-	AccountSettingsResponseMfaLevel3Const = "LEVEL3"
-	AccountSettingsResponseMfaNoneConst = "NONE"
-	AccountSettingsResponseMfaTotpConst = "TOTP"
+	AccountSettingsResponseMfaLevel1Const   = "LEVEL1"
+	AccountSettingsResponseMfaLevel2Const   = "LEVEL2"
+	AccountSettingsResponseMfaLevel3Const   = "LEVEL3"
+	AccountSettingsResponseMfaNoneConst     = "NONE"
+	AccountSettingsResponseMfaTotpConst     = "TOTP"
 	AccountSettingsResponseMfaTotp4allConst = "TOTP4ALL"
 )
 
@@ -2811,7 +2811,7 @@ type CreateAPIKeyOptions struct {
 // NewCreateAPIKeyOptions : Instantiate CreateAPIKeyOptions
 func (*IamIdentityV1) NewCreateAPIKeyOptions(name string, iamID string) *CreateAPIKeyOptions {
 	return &CreateAPIKeyOptions{
-		Name: core.StringPtr(name),
+		Name:  core.StringPtr(name),
 		IamID: core.StringPtr(iamID),
 	}
 }
@@ -2899,8 +2899,8 @@ type CreateClaimRuleOptions struct {
 // NewCreateClaimRuleOptions : Instantiate CreateClaimRuleOptions
 func (*IamIdentityV1) NewCreateClaimRuleOptions(profileID string, typeVar string, conditions []ProfileClaimRuleConditions) *CreateClaimRuleOptions {
 	return &CreateClaimRuleOptions{
-		ProfileID: core.StringPtr(profileID),
-		Type: core.StringPtr(typeVar),
+		ProfileID:  core.StringPtr(profileID),
+		Type:       core.StringPtr(typeVar),
 		Conditions: conditions,
 	}
 }
@@ -2981,8 +2981,8 @@ type CreateLinkOptions struct {
 func (*IamIdentityV1) NewCreateLinkOptions(profileID string, crType string, link *CreateProfileLinkRequestLink) *CreateLinkOptions {
 	return &CreateLinkOptions{
 		ProfileID: core.StringPtr(profileID),
-		CrType: core.StringPtr(crType),
-		Link: link,
+		CrType:    core.StringPtr(crType),
+		Link:      link,
 	}
 }
 
@@ -3031,7 +3031,7 @@ type CreateProfileLinkRequestLink struct {
 // NewCreateProfileLinkRequestLink : Instantiate CreateProfileLinkRequestLink (Generic Model Constructor)
 func (*IamIdentityV1) NewCreateProfileLinkRequestLink(crn string, namespace string) (_model *CreateProfileLinkRequestLink, err error) {
 	_model = &CreateProfileLinkRequestLink{
-		CRN: core.StringPtr(crn),
+		CRN:       core.StringPtr(crn),
 		Namespace: core.StringPtr(namespace),
 	}
 	err = core.ValidateStruct(_model, "required parameters")
@@ -3077,7 +3077,7 @@ type CreateProfileOptions struct {
 // NewCreateProfileOptions : Instantiate CreateProfileOptions
 func (*IamIdentityV1) NewCreateProfileOptions(name string, accountID string) *CreateProfileOptions {
 	return &CreateProfileOptions{
-		Name: core.StringPtr(name),
+		Name:      core.StringPtr(name),
 		AccountID: core.StringPtr(accountID),
 	}
 }
@@ -3109,7 +3109,7 @@ func (options *CreateProfileOptions) SetHeaders(param map[string]string) *Create
 // CreateReportOptions : The CreateReport options.
 type CreateReportOptions struct {
 	// ID of the account.
-	AccountID *string `json:"account-id" validate:"required,ne="`
+	AccountID *string `json:"account_id" validate:"required,ne="`
 
 	// Optional report type, supported value is 'inactive' - List all identities that have not authenticated within the
 	// time indicated by duration.
@@ -3183,7 +3183,7 @@ type CreateServiceIDOptions struct {
 func (*IamIdentityV1) NewCreateServiceIDOptions(accountID string, name string) *CreateServiceIDOptions {
 	return &CreateServiceIDOptions{
 		AccountID: core.StringPtr(accountID),
-		Name: core.StringPtr(name),
+		Name:      core.StringPtr(name),
 	}
 }
 
@@ -3273,7 +3273,7 @@ type DeleteClaimRuleOptions struct {
 func (*IamIdentityV1) NewDeleteClaimRuleOptions(profileID string, ruleID string) *DeleteClaimRuleOptions {
 	return &DeleteClaimRuleOptions{
 		ProfileID: core.StringPtr(profileID),
-		RuleID: core.StringPtr(ruleID),
+		RuleID:    core.StringPtr(ruleID),
 	}
 }
 
@@ -3311,7 +3311,7 @@ type DeleteLinkOptions struct {
 func (*IamIdentityV1) NewDeleteLinkOptions(profileID string, linkID string) *DeleteLinkOptions {
 	return &DeleteLinkOptions{
 		ProfileID: core.StringPtr(profileID),
-		LinkID: core.StringPtr(linkID),
+		LinkID:    core.StringPtr(linkID),
 	}
 }
 
@@ -3607,7 +3607,7 @@ type GetClaimRuleOptions struct {
 func (*IamIdentityV1) NewGetClaimRuleOptions(profileID string, ruleID string) *GetClaimRuleOptions {
 	return &GetClaimRuleOptions{
 		ProfileID: core.StringPtr(profileID),
-		RuleID: core.StringPtr(ruleID),
+		RuleID:    core.StringPtr(ruleID),
 	}
 }
 
@@ -3645,7 +3645,7 @@ type GetLinkOptions struct {
 func (*IamIdentityV1) NewGetLinkOptions(profileID string, linkID string) *GetLinkOptions {
 	return &GetLinkOptions{
 		ProfileID: core.StringPtr(profileID),
-		LinkID: core.StringPtr(linkID),
+		LinkID:    core.StringPtr(linkID),
 	}
 }
 
@@ -3708,7 +3708,7 @@ func (options *GetProfileOptions) SetHeaders(param map[string]string) *GetProfil
 // GetReportOptions : The GetReport options.
 type GetReportOptions struct {
 	// ID of the account.
-	AccountID *string `json:"account-id" validate:"required,ne="`
+	AccountID *string `json:"account_id" validate:"required,ne="`
 
 	// Reference for the report to be generated, You can use 'latest' to get the latest report for the given account.
 	Reference *string `json:"reference" validate:"required,ne="`
@@ -3831,20 +3831,20 @@ type ListAPIKeysOptions struct {
 // Optional parameter to define the scope of the queried API keys. Can be 'entity' (default) or 'account'.
 const (
 	ListAPIKeysOptionsScopeAccountConst = "account"
-	ListAPIKeysOptionsScopeEntityConst = "entity"
+	ListAPIKeysOptionsScopeEntityConst  = "entity"
 )
 
 // Constants associated with the ListAPIKeysOptions.Type property.
 // Optional parameter to filter the type of the queried API keys. Can be 'user' or 'serviceid'.
 const (
 	ListAPIKeysOptionsTypeServiceidConst = "serviceid"
-	ListAPIKeysOptionsTypeUserConst = "user"
+	ListAPIKeysOptionsTypeUserConst      = "user"
 )
 
 // Constants associated with the ListAPIKeysOptions.Order property.
 // Optional sort order, valid values are asc and desc. Default: asc.
 const (
-	ListAPIKeysOptionsOrderAscConst = "asc"
+	ListAPIKeysOptionsOrderAscConst  = "asc"
 	ListAPIKeysOptionsOrderDescConst = "desc"
 )
 
@@ -4000,7 +4000,7 @@ type ListProfilesOptions struct {
 // Constants associated with the ListProfilesOptions.Order property.
 // Optional sort order, valid values are asc and desc. Default: asc.
 const (
-	ListProfilesOptionsOrderAscConst = "asc"
+	ListProfilesOptionsOrderAscConst  = "asc"
 	ListProfilesOptionsOrderDescConst = "desc"
 )
 
@@ -4090,7 +4090,7 @@ type ListServiceIdsOptions struct {
 // Constants associated with the ListServiceIdsOptions.Order property.
 // Optional sort order, valid values are asc and desc. Default: asc.
 const (
-	ListServiceIdsOptionsOrderAscConst = "asc"
+	ListServiceIdsOptionsOrderAscConst  = "asc"
 	ListServiceIdsOptionsOrderDescConst = "desc"
 )
 
@@ -4299,9 +4299,9 @@ type ProfileClaimRuleConditions struct {
 // NewProfileClaimRuleConditions : Instantiate ProfileClaimRuleConditions (Generic Model Constructor)
 func (*IamIdentityV1) NewProfileClaimRuleConditions(claim string, operator string, value string) (_model *ProfileClaimRuleConditions, err error) {
 	_model = &ProfileClaimRuleConditions{
-		Claim: core.StringPtr(claim),
+		Claim:    core.StringPtr(claim),
 		Operator: core.StringPtr(operator),
-		Value: core.StringPtr(value),
+		Value:    core.StringPtr(value),
 	}
 	err = core.ValidateStruct(_model, "required parameters")
 	return
@@ -5099,8 +5099,8 @@ type UpdateAccountSettingsOptions struct {
 //   * NOT_SET - to unset a previously set value.
 const (
 	UpdateAccountSettingsOptionsRestrictCreateServiceIDNotRestrictedConst = "NOT_RESTRICTED"
-	UpdateAccountSettingsOptionsRestrictCreateServiceIDNotSetConst = "NOT_SET"
-	UpdateAccountSettingsOptionsRestrictCreateServiceIDRestrictedConst = "RESTRICTED"
+	UpdateAccountSettingsOptionsRestrictCreateServiceIDNotSetConst        = "NOT_SET"
+	UpdateAccountSettingsOptionsRestrictCreateServiceIDRestrictedConst    = "RESTRICTED"
 )
 
 // Constants associated with the UpdateAccountSettingsOptions.RestrictCreatePlatformApikey property.
@@ -5110,8 +5110,8 @@ const (
 //   * NOT_SET - to 'unset' a previous set value.
 const (
 	UpdateAccountSettingsOptionsRestrictCreatePlatformApikeyNotRestrictedConst = "NOT_RESTRICTED"
-	UpdateAccountSettingsOptionsRestrictCreatePlatformApikeyNotSetConst = "NOT_SET"
-	UpdateAccountSettingsOptionsRestrictCreatePlatformApikeyRestrictedConst = "RESTRICTED"
+	UpdateAccountSettingsOptionsRestrictCreatePlatformApikeyNotSetConst        = "NOT_SET"
+	UpdateAccountSettingsOptionsRestrictCreatePlatformApikeyRestrictedConst    = "RESTRICTED"
 )
 
 // Constants associated with the UpdateAccountSettingsOptions.Mfa property.
@@ -5123,18 +5123,18 @@ const (
 //   * LEVEL2 - TOTP-based MFA for all users
 //   * LEVEL3 - U2F MFA for all users.
 const (
-	UpdateAccountSettingsOptionsMfaLevel1Const = "LEVEL1"
-	UpdateAccountSettingsOptionsMfaLevel2Const = "LEVEL2"
-	UpdateAccountSettingsOptionsMfaLevel3Const = "LEVEL3"
-	UpdateAccountSettingsOptionsMfaNoneConst = "NONE"
-	UpdateAccountSettingsOptionsMfaTotpConst = "TOTP"
+	UpdateAccountSettingsOptionsMfaLevel1Const   = "LEVEL1"
+	UpdateAccountSettingsOptionsMfaLevel2Const   = "LEVEL2"
+	UpdateAccountSettingsOptionsMfaLevel3Const   = "LEVEL3"
+	UpdateAccountSettingsOptionsMfaNoneConst     = "NONE"
+	UpdateAccountSettingsOptionsMfaTotpConst     = "TOTP"
 	UpdateAccountSettingsOptionsMfaTotp4allConst = "TOTP4ALL"
 )
 
 // NewUpdateAccountSettingsOptions : Instantiate UpdateAccountSettingsOptions
 func (*IamIdentityV1) NewUpdateAccountSettingsOptions(ifMatch string, accountID string) *UpdateAccountSettingsOptions {
 	return &UpdateAccountSettingsOptions{
-		IfMatch: core.StringPtr(ifMatch),
+		IfMatch:   core.StringPtr(ifMatch),
 		AccountID: core.StringPtr(accountID),
 	}
 }
@@ -5224,7 +5224,7 @@ type UpdateAPIKeyOptions struct {
 // NewUpdateAPIKeyOptions : Instantiate UpdateAPIKeyOptions
 func (*IamIdentityV1) NewUpdateAPIKeyOptions(id string, ifMatch string) *UpdateAPIKeyOptions {
 	return &UpdateAPIKeyOptions{
-		ID: core.StringPtr(id),
+		ID:      core.StringPtr(id),
 		IfMatch: core.StringPtr(ifMatch),
 	}
 }
@@ -5302,10 +5302,10 @@ type UpdateClaimRuleOptions struct {
 // NewUpdateClaimRuleOptions : Instantiate UpdateClaimRuleOptions
 func (*IamIdentityV1) NewUpdateClaimRuleOptions(profileID string, ruleID string, ifMatch string, typeVar string, conditions []ProfileClaimRuleConditions) *UpdateClaimRuleOptions {
 	return &UpdateClaimRuleOptions{
-		ProfileID: core.StringPtr(profileID),
-		RuleID: core.StringPtr(ruleID),
-		IfMatch: core.StringPtr(ifMatch),
-		Type: core.StringPtr(typeVar),
+		ProfileID:  core.StringPtr(profileID),
+		RuleID:     core.StringPtr(ruleID),
+		IfMatch:    core.StringPtr(ifMatch),
+		Type:       core.StringPtr(typeVar),
 		Conditions: conditions,
 	}
 }
@@ -5402,7 +5402,7 @@ type UpdateProfileOptions struct {
 func (*IamIdentityV1) NewUpdateProfileOptions(profileID string, ifMatch string) *UpdateProfileOptions {
 	return &UpdateProfileOptions{
 		ProfileID: core.StringPtr(profileID),
-		IfMatch: core.StringPtr(ifMatch),
+		IfMatch:   core.StringPtr(ifMatch),
 	}
 }
 
@@ -5465,7 +5465,7 @@ type UpdateServiceIDOptions struct {
 // NewUpdateServiceIDOptions : Instantiate UpdateServiceIDOptions
 func (*IamIdentityV1) NewUpdateServiceIDOptions(id string, ifMatch string) *UpdateServiceIDOptions {
 	return &UpdateServiceIDOptions{
-		ID: core.StringPtr(id),
+		ID:      core.StringPtr(id),
 		IfMatch: core.StringPtr(ifMatch),
 	}
 }

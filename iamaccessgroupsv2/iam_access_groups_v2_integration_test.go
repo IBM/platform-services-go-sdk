@@ -32,7 +32,7 @@ import (
 	"github.com/IBM/platform-services-go-sdk/iamaccessgroupsv2"
 )
 
-const externalConfigFile = "../iam_access_groups.env"
+const externalConfigFile = "../iam_access_groups_v2.env"
 
 var (
 	service      *iamaccessgroupsv2.IamAccessGroupsV2
