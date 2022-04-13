@@ -637,7 +637,6 @@ var _ = Describe(`AtrackerV2 Integration Tests`, func() {
 				DefaultTargets:         []string{targetIDLink},
 				PermittedTargetRegions: []string{"us-south"},
 				MetadataRegionPrimary:  core.StringPtr("us-south"),
-				MetadataRegionBackup:   core.StringPtr("us-south"),
 				PrivateAPIEndpointOnly: core.BoolPtr(false),
 			}
 
@@ -654,7 +653,6 @@ var _ = Describe(`AtrackerV2 Integration Tests`, func() {
 				DefaultTargets:         []string{},
 				PermittedTargetRegions: []string{"us-south"},
 				MetadataRegionPrimary:  core.StringPtr("us-south"),
-				MetadataRegionBackup:   core.StringPtr("us-south"),
 				PrivateAPIEndpointOnly: core.BoolPtr(false),
 			}
 
@@ -671,7 +669,6 @@ var _ = Describe(`AtrackerV2 Integration Tests`, func() {
 				DefaultTargets:         []string{targetIDLink2},
 				PermittedTargetRegions: []string{"us-south"},
 				MetadataRegionPrimary:  core.StringPtr("us-south"),
-				MetadataRegionBackup:   core.StringPtr("us-south"),
 				PrivateAPIEndpointOnly: core.BoolPtr(false),
 			}
 
@@ -779,18 +776,6 @@ var _ = Describe(`AtrackerV2 Integration Tests`, func() {
 		BeforeEach(func() {
 			shouldSkipTest()
 		})
-		It(`DeleteTarget(deleteTargetOptions *DeleteTargetOptions)`, func() {
-
-			deleteTargetOptions := &atrackerv2.DeleteTargetOptions{
-				ID: &targetIDLink,
-			}
-
-			warningReport, response, err := atrackerService.DeleteTarget(deleteTargetOptions)
-
-			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(200))
-			Expect(warningReport).ToNot(BeNil())
-		})
 
 		It(`Returns 403 when user is not authorized`, func() {
 
@@ -802,6 +787,19 @@ var _ = Describe(`AtrackerV2 Integration Tests`, func() {
 
 			Expect(err).NotTo(BeNil())
 			Expect(response.StatusCode).To(Equal(403))
+		})
+
+		It(`DeleteTarget(deleteTargetOptions *DeleteTargetOptions)`, func() {
+
+			deleteTargetOptions := &atrackerv2.DeleteTargetOptions{
+				ID: &targetIDLink,
+			}
+
+			warningReport, response, err := atrackerService.DeleteTarget(deleteTargetOptions)
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(warningReport).ToNot(BeNil())
 		})
 
 		It(`Returns 404 when target id is not found`, func() {

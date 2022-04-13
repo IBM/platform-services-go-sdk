@@ -2794,7 +2794,7 @@ var _ = Describe(`AtrackerV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"default_targets": ["c3af557f-fb0e-4476-85c3-0889e7fe7bc4"], "permitted_target_regions": ["us-south"], "metadata_region_primary": "us-south", "metadata_region_backup": "us-south", "private_api_endpoint_only": false, "api_version": 2}`)
+					fmt.Fprintf(res, "%s", `{"default_targets": ["c3af557f-fb0e-4476-85c3-0889e7fe7bc4"], "permitted_target_regions": ["us-south"], "metadata_region_primary": "us-south", "private_api_endpoint_only": false, "api_version": 2}`)
 				}))
 			})
 			It(`Invoke GetSettings successfully with retries`, func() {
@@ -2847,7 +2847,7 @@ var _ = Describe(`AtrackerV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"default_targets": ["c3af557f-fb0e-4476-85c3-0889e7fe7bc4"], "permitted_target_regions": ["us-south"], "metadata_region_primary": "us-south", "metadata_region_backup": "us-south", "private_api_endpoint_only": false, "api_version": 2}`)
+					fmt.Fprintf(res, "%s", `{"default_targets": ["c3af557f-fb0e-4476-85c3-0889e7fe7bc4"], "permitted_target_regions": ["us-south"], "metadata_region_primary": "us-south", "private_api_endpoint_only": false, "api_version": 2}`)
 				}))
 			})
 			It(`Invoke GetSettings successfully`, func() {
@@ -2958,11 +2958,10 @@ var _ = Describe(`AtrackerV2`, func() {
 
 				// Construct an instance of the PutSettingsOptions model
 				putSettingsOptionsModel := new(atrackerv2.PutSettingsOptions)
+				putSettingsOptionsModel.MetadataRegionPrimary = core.StringPtr("us-south")
+				putSettingsOptionsModel.PrivateAPIEndpointOnly = core.BoolPtr(false)
 				putSettingsOptionsModel.DefaultTargets = []string{"c3af557f-fb0e-4476-85c3-0889e7fe7bc4"}
 				putSettingsOptionsModel.PermittedTargetRegions = []string{"us-south"}
-				putSettingsOptionsModel.MetadataRegionPrimary = core.StringPtr("us-south")
-				putSettingsOptionsModel.MetadataRegionBackup = core.StringPtr("us-south")
-				putSettingsOptionsModel.PrivateAPIEndpointOnly = core.BoolPtr(false)
 				putSettingsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
 				result, response, operationErr := atrackerService.PutSettings(putSettingsOptionsModel)
@@ -3015,7 +3014,7 @@ var _ = Describe(`AtrackerV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"default_targets": ["c3af557f-fb0e-4476-85c3-0889e7fe7bc4"], "permitted_target_regions": ["us-south"], "metadata_region_primary": "us-south", "metadata_region_backup": "us-south", "private_api_endpoint_only": false, "api_version": 2}`)
+					fmt.Fprintf(res, "%s", `{"default_targets": ["c3af557f-fb0e-4476-85c3-0889e7fe7bc4"], "permitted_target_regions": ["us-south"], "metadata_region_primary": "us-south", "private_api_endpoint_only": false, "api_version": 2}`)
 				}))
 			})
 			It(`Invoke PutSettings successfully with retries`, func() {
@@ -3029,11 +3028,10 @@ var _ = Describe(`AtrackerV2`, func() {
 
 				// Construct an instance of the PutSettingsOptions model
 				putSettingsOptionsModel := new(atrackerv2.PutSettingsOptions)
+				putSettingsOptionsModel.MetadataRegionPrimary = core.StringPtr("us-south")
+				putSettingsOptionsModel.PrivateAPIEndpointOnly = core.BoolPtr(false)
 				putSettingsOptionsModel.DefaultTargets = []string{"c3af557f-fb0e-4476-85c3-0889e7fe7bc4"}
 				putSettingsOptionsModel.PermittedTargetRegions = []string{"us-south"}
-				putSettingsOptionsModel.MetadataRegionPrimary = core.StringPtr("us-south")
-				putSettingsOptionsModel.MetadataRegionBackup = core.StringPtr("us-south")
-				putSettingsOptionsModel.PrivateAPIEndpointOnly = core.BoolPtr(false)
 				putSettingsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with a Context to test a timeout error
@@ -3089,7 +3087,7 @@ var _ = Describe(`AtrackerV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"default_targets": ["c3af557f-fb0e-4476-85c3-0889e7fe7bc4"], "permitted_target_regions": ["us-south"], "metadata_region_primary": "us-south", "metadata_region_backup": "us-south", "private_api_endpoint_only": false, "api_version": 2}`)
+					fmt.Fprintf(res, "%s", `{"default_targets": ["c3af557f-fb0e-4476-85c3-0889e7fe7bc4"], "permitted_target_regions": ["us-south"], "metadata_region_primary": "us-south", "private_api_endpoint_only": false, "api_version": 2}`)
 				}))
 			})
 			It(`Invoke PutSettings successfully`, func() {
@@ -3108,11 +3106,10 @@ var _ = Describe(`AtrackerV2`, func() {
 
 				// Construct an instance of the PutSettingsOptions model
 				putSettingsOptionsModel := new(atrackerv2.PutSettingsOptions)
+				putSettingsOptionsModel.MetadataRegionPrimary = core.StringPtr("us-south")
+				putSettingsOptionsModel.PrivateAPIEndpointOnly = core.BoolPtr(false)
 				putSettingsOptionsModel.DefaultTargets = []string{"c3af557f-fb0e-4476-85c3-0889e7fe7bc4"}
 				putSettingsOptionsModel.PermittedTargetRegions = []string{"us-south"}
-				putSettingsOptionsModel.MetadataRegionPrimary = core.StringPtr("us-south")
-				putSettingsOptionsModel.MetadataRegionBackup = core.StringPtr("us-south")
-				putSettingsOptionsModel.PrivateAPIEndpointOnly = core.BoolPtr(false)
 				putSettingsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
@@ -3122,7 +3119,7 @@ var _ = Describe(`AtrackerV2`, func() {
 				Expect(result).ToNot(BeNil())
 
 			})
-			It(`Invoke PutSettings with error: Operation request error`, func() {
+			It(`Invoke PutSettings with error: Operation validation and request error`, func() {
 				atrackerService, serviceErr := atrackerv2.NewAtrackerV2(&atrackerv2.AtrackerV2Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
@@ -3132,11 +3129,10 @@ var _ = Describe(`AtrackerV2`, func() {
 
 				// Construct an instance of the PutSettingsOptions model
 				putSettingsOptionsModel := new(atrackerv2.PutSettingsOptions)
+				putSettingsOptionsModel.MetadataRegionPrimary = core.StringPtr("us-south")
+				putSettingsOptionsModel.PrivateAPIEndpointOnly = core.BoolPtr(false)
 				putSettingsOptionsModel.DefaultTargets = []string{"c3af557f-fb0e-4476-85c3-0889e7fe7bc4"}
 				putSettingsOptionsModel.PermittedTargetRegions = []string{"us-south"}
-				putSettingsOptionsModel.MetadataRegionPrimary = core.StringPtr("us-south")
-				putSettingsOptionsModel.MetadataRegionBackup = core.StringPtr("us-south")
-				putSettingsOptionsModel.PrivateAPIEndpointOnly = core.BoolPtr(false)
 				putSettingsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := atrackerService.SetServiceURL("")
@@ -3144,6 +3140,13 @@ var _ = Describe(`AtrackerV2`, func() {
 				result, response, operationErr := atrackerService.PutSettings(putSettingsOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+				// Construct a second instance of the PutSettingsOptions model with no property values
+				putSettingsOptionsModelNew := new(atrackerv2.PutSettingsOptions)
+				// Invoke operation with invalid model (negative test)
+				result, response, operationErr = atrackerService.PutSettings(putSettingsOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
 			})
@@ -3170,11 +3173,10 @@ var _ = Describe(`AtrackerV2`, func() {
 
 				// Construct an instance of the PutSettingsOptions model
 				putSettingsOptionsModel := new(atrackerv2.PutSettingsOptions)
+				putSettingsOptionsModel.MetadataRegionPrimary = core.StringPtr("us-south")
+				putSettingsOptionsModel.PrivateAPIEndpointOnly = core.BoolPtr(false)
 				putSettingsOptionsModel.DefaultTargets = []string{"c3af557f-fb0e-4476-85c3-0889e7fe7bc4"}
 				putSettingsOptionsModel.PermittedTargetRegions = []string{"us-south"}
-				putSettingsOptionsModel.MetadataRegionPrimary = core.StringPtr("us-south")
-				putSettingsOptionsModel.MetadataRegionBackup = core.StringPtr("us-south")
-				putSettingsOptionsModel.PrivateAPIEndpointOnly = core.BoolPtr(false)
 				putSettingsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation
@@ -3756,19 +3758,18 @@ var _ = Describe(`AtrackerV2`, func() {
 			It(`Invoke NewPutSettingsOptions successfully`, func() {
 				// Construct an instance of the PutSettingsOptions model
 				putSettingsOptionsMetadataRegionPrimary := "us-south"
-				putSettingsOptionsModel := atrackerService.NewPutSettingsOptions(putSettingsOptionsMetadataRegionPrimary)
+				putSettingsOptionsPrivateAPIEndpointOnly := false
+				putSettingsOptionsModel := atrackerService.NewPutSettingsOptions(putSettingsOptionsMetadataRegionPrimary, putSettingsOptionsPrivateAPIEndpointOnly)
+				putSettingsOptionsModel.SetMetadataRegionPrimary("us-south")
+				putSettingsOptionsModel.SetPrivateAPIEndpointOnly(false)
 				putSettingsOptionsModel.SetDefaultTargets([]string{"c3af557f-fb0e-4476-85c3-0889e7fe7bc4"})
 				putSettingsOptionsModel.SetPermittedTargetRegions([]string{"us-south"})
-				putSettingsOptionsModel.SetMetadataRegionPrimary("us-south")
-				putSettingsOptionsModel.SetMetadataRegionBackup("us-south")
-				putSettingsOptionsModel.SetPrivateAPIEndpointOnly(false)
 				putSettingsOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(putSettingsOptionsModel).ToNot(BeNil())
+				Expect(putSettingsOptionsModel.MetadataRegionPrimary).To(Equal(core.StringPtr("us-south")))
+				Expect(putSettingsOptionsModel.PrivateAPIEndpointOnly).To(Equal(core.BoolPtr(false)))
 				Expect(putSettingsOptionsModel.DefaultTargets).To(Equal([]string{"c3af557f-fb0e-4476-85c3-0889e7fe7bc4"}))
 				Expect(putSettingsOptionsModel.PermittedTargetRegions).To(Equal([]string{"us-south"}))
-				Expect(putSettingsOptionsModel.MetadataRegionPrimary).To(Equal(core.StringPtr("us-south")))
-				Expect(putSettingsOptionsModel.MetadataRegionBackup).To(Equal(core.StringPtr("us-south")))
-				Expect(putSettingsOptionsModel.PrivateAPIEndpointOnly).To(Equal(core.BoolPtr(false)))
 				Expect(putSettingsOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewReplaceRouteOptions successfully`, func() {
@@ -3822,8 +3823,7 @@ var _ = Describe(`AtrackerV2`, func() {
 				id := "testString"
 				replaceTargetOptionsName := "my-cos-target"
 				replaceTargetOptionsTargetType := "cloud_object_storage"
-				var replaceTargetOptionsCosEndpoint *atrackerv2.CosEndpointPrototype = nil
-				replaceTargetOptionsModel := atrackerService.NewReplaceTargetOptions(id, replaceTargetOptionsName, replaceTargetOptionsTargetType, replaceTargetOptionsCosEndpoint)
+				replaceTargetOptionsModel := atrackerService.NewReplaceTargetOptions(id, replaceTargetOptionsName, replaceTargetOptionsTargetType)
 				replaceTargetOptionsModel.SetID("testString")
 				replaceTargetOptionsModel.SetName("my-cos-target")
 				replaceTargetOptionsModel.SetTargetType("cloud_object_storage")

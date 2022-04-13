@@ -219,19 +219,10 @@ var _ = Describe(`AtrackerV2 Examples Tests`, func() {
 			fmt.Println("\nReplaceTarget() result:")
 			// begin-replace_target
 
-			cosEndpointPrototypeModel := &atrackerv2.CosEndpointPrototype{
-				Endpoint:                core.StringPtr("s3.private.us-east.cloud-object-storage.appdomain.cloud"),
-				TargetCRN:               core.StringPtr("crn:v1:bluemix:public:cloud-object-storage:global:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::"),
-				Bucket:                  core.StringPtr("my-atracker-bucket"),
-				APIKey:                  core.StringPtr("xxxxxxxxxxxxxx"),
-				ServiceToServiceEnabled: core.BoolPtr(true),
-			}
-
 			replaceTargetOptions := atrackerService.NewReplaceTargetOptions(
 				targetIDLink,
-				"my-cos-target-modified",
+				"my-cos-target",
 				"cloud_object_storage",
-				cosEndpointPrototypeModel,
 			)
 
 			target, response, err := atrackerService.ReplaceTarget(replaceTargetOptions)
@@ -323,7 +314,7 @@ var _ = Describe(`AtrackerV2 Examples Tests`, func() {
 
 			replaceRouteOptions := atrackerService.NewReplaceRouteOptions(
 				routeIDLink,
-				"my-route-modified",
+				"my-route",
 				[]atrackerv2.RulePrototype{*rulePrototypeModel},
 			)
 
@@ -367,6 +358,7 @@ var _ = Describe(`AtrackerV2 Examples Tests`, func() {
 
 			putSettingsOptions := atrackerService.NewPutSettingsOptions(
 				"us-south",
+				false,
 			)
 
 			settings, response, err := atrackerService.PutSettings(putSettingsOptions)

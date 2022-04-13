@@ -967,20 +967,17 @@ func (atracker *AtrackerV2) PutSettingsWithContext(ctx context.Context, putSetti
 	builder.AddHeader("Content-Type", "application/json")
 
 	body := make(map[string]interface{})
+	if putSettingsOptions.MetadataRegionPrimary != nil {
+		body["metadata_region_primary"] = putSettingsOptions.MetadataRegionPrimary
+	}
+	if putSettingsOptions.PrivateAPIEndpointOnly != nil {
+		body["private_api_endpoint_only"] = putSettingsOptions.PrivateAPIEndpointOnly
+	}
 	if putSettingsOptions.DefaultTargets != nil {
 		body["default_targets"] = putSettingsOptions.DefaultTargets
 	}
 	if putSettingsOptions.PermittedTargetRegions != nil {
 		body["permitted_target_regions"] = putSettingsOptions.PermittedTargetRegions
-	}
-	if putSettingsOptions.MetadataRegionPrimary != nil {
-		body["metadata_region_primary"] = putSettingsOptions.MetadataRegionPrimary
-	}
-	if putSettingsOptions.MetadataRegionBackup != nil {
-		body["metadata_region_backup"] = putSettingsOptions.MetadataRegionBackup
-	}
-	if putSettingsOptions.PrivateAPIEndpointOnly != nil {
-		body["private_api_endpoint_only"] = putSettingsOptions.PrivateAPIEndpointOnly
 	}
 	_, err = builder.SetBodyContentJSON(body)
 	if err != nil {
@@ -1606,10 +1603,13 @@ type Migration struct {
 // Constants associated with the Migration.Status property.
 // Overall status of the migration.
 const (
-	MigrationStatusCompletedConst  = "completed"
-	MigrationStatusFailedConst     = "failed"
-	MigrationStatusInProgressConst = "in_progress"
-	MigrationStatusPendingConst    = "pending"
+	MigrationStatusCanceledConst    = "canceled"
+	MigrationStatusCompletedConst   = "completed"
+	MigrationStatusFailedConst      = "failed"
+	MigrationStatusInProgressConst  = "in_progress"
+	MigrationStatusNotRequiredConst = "not_required"
+	MigrationStatusNotStartedConst  = "not_started"
+	MigrationStatusPendingConst     = "pending"
 )
 
 // UnmarshalMigration unmarshals an instance of Migration from the specified map of raw messages.
@@ -1723,6 +1723,9 @@ type PutSettingsOptions struct {
 	// To store all your meta data in a single region.
 	MetadataRegionPrimary *string `json:"metadata_region_primary" validate:"required"`
 
+	// If you set this true then you cannot access api through public network.
+	PrivateAPIEndpointOnly *bool `json:"private_api_endpoint_only" validate:"required"`
+
 	// The target ID List. In the event that no routing rule causes the event to be sent to a target, these targets will
 	// receive the event.
 	DefaultTargets []string `json:"default_targets,omitempty"`
@@ -1730,26 +1733,27 @@ type PutSettingsOptions struct {
 	// If present then only these regions may be used to define a target.
 	PermittedTargetRegions []string `json:"permitted_target_regions,omitempty"`
 
-	// Provide a back up region to store meta data.
-	MetadataRegionBackup *string `json:"metadata_region_backup,omitempty"`
-
-	// If you set this true then you cannot access api through public network.
-	PrivateAPIEndpointOnly *bool `json:"private_api_endpoint_only,omitempty"`
-
 	// Allows users to set headers on API requests
 	Headers map[string]string
 }
 
 // NewPutSettingsOptions : Instantiate PutSettingsOptions
-func (*AtrackerV2) NewPutSettingsOptions(metadataRegionPrimary string) *PutSettingsOptions {
+func (*AtrackerV2) NewPutSettingsOptions(metadataRegionPrimary string, privateAPIEndpointOnly bool) *PutSettingsOptions {
 	return &PutSettingsOptions{
-		MetadataRegionPrimary: core.StringPtr(metadataRegionPrimary),
+		MetadataRegionPrimary:  core.StringPtr(metadataRegionPrimary),
+		PrivateAPIEndpointOnly: core.BoolPtr(privateAPIEndpointOnly),
 	}
 }
 
 // SetMetadataRegionPrimary : Allow user to set MetadataRegionPrimary
 func (_options *PutSettingsOptions) SetMetadataRegionPrimary(metadataRegionPrimary string) *PutSettingsOptions {
 	_options.MetadataRegionPrimary = core.StringPtr(metadataRegionPrimary)
+	return _options
+}
+
+// SetPrivateAPIEndpointOnly : Allow user to set PrivateAPIEndpointOnly
+func (_options *PutSettingsOptions) SetPrivateAPIEndpointOnly(privateAPIEndpointOnly bool) *PutSettingsOptions {
+	_options.PrivateAPIEndpointOnly = core.BoolPtr(privateAPIEndpointOnly)
 	return _options
 }
 
@@ -1762,18 +1766,6 @@ func (_options *PutSettingsOptions) SetDefaultTargets(defaultTargets []string) *
 // SetPermittedTargetRegions : Allow user to set PermittedTargetRegions
 func (_options *PutSettingsOptions) SetPermittedTargetRegions(permittedTargetRegions []string) *PutSettingsOptions {
 	_options.PermittedTargetRegions = permittedTargetRegions
-	return _options
-}
-
-// SetMetadataRegionBackup : Allow user to set MetadataRegionBackup
-func (_options *PutSettingsOptions) SetMetadataRegionBackup(metadataRegionBackup string) *PutSettingsOptions {
-	_options.MetadataRegionBackup = core.StringPtr(metadataRegionBackup)
-	return _options
-}
-
-// SetPrivateAPIEndpointOnly : Allow user to set PrivateAPIEndpointOnly
-func (_options *PutSettingsOptions) SetPrivateAPIEndpointOnly(privateAPIEndpointOnly bool) *PutSettingsOptions {
-	_options.PrivateAPIEndpointOnly = core.BoolPtr(privateAPIEndpointOnly)
 	return _options
 }
 
@@ -1868,12 +1860,11 @@ const (
 )
 
 // NewReplaceTargetOptions : Instantiate ReplaceTargetOptions
-func (*AtrackerV2) NewReplaceTargetOptions(id string, name string, targetType string, cosEndpoint *CosEndpointPrototype) *ReplaceTargetOptions {
+func (*AtrackerV2) NewReplaceTargetOptions(id string, name string, targetType string) *ReplaceTargetOptions {
 	return &ReplaceTargetOptions{
-		ID:          core.StringPtr(id),
-		Name:        core.StringPtr(name),
-		TargetType:  core.StringPtr(targetType),
-		CosEndpoint: cosEndpoint,
+		ID:         core.StringPtr(id),
+		Name:       core.StringPtr(name),
+		TargetType: core.StringPtr(targetType),
 	}
 }
 
@@ -2065,7 +2056,7 @@ func UnmarshalRulePrototype(m map[string]json.RawMessage, result interface{}) (e
 	return
 }
 
-// Settings : Activity Tracker settings request.
+// Settings : Activity Tracker settings response.
 type Settings struct {
 	// The target ID List. In the event that no routing rule causes the event to be sent to a target, these targets will
 	// receive the event.
@@ -2076,9 +2067,6 @@ type Settings struct {
 
 	// To store all your meta data in a single region.
 	MetadataRegionPrimary *string `json:"metadata_region_primary,omitempty"`
-
-	// Provide a back up region to store meta data.
-	MetadataRegionBackup *string `json:"metadata_region_backup,omitempty"`
 
 	// If you set this true then you cannot access api through public network.
 	PrivateAPIEndpointOnly *bool `json:"private_api_endpoint_only" validate:"required"`
@@ -2099,10 +2087,6 @@ func UnmarshalSettings(m map[string]json.RawMessage, result interface{}) (err er
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "metadata_region_primary", &obj.MetadataRegionPrimary)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "metadata_region_backup", &obj.MetadataRegionBackup)
 	if err != nil {
 		return
 	}
