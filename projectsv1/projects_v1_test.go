@@ -28,10 +28,10 @@ import (
 	"time"
 
 	"github.com/IBM/go-sdk-core/v5/core"
+	"github.com/IBM/platform-services-go-sdk/projectsv1"
 	"github.com/go-openapi/strfmt"
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
-	"github.ibm.com/ibmcloud/platform-services-go-sdk/projectsv1"
 )
 
 var _ = Describe(`ProjectsV1`, func() {
@@ -3186,17 +3186,17 @@ var _ = Describe(`ProjectsV1`, func() {
 				name := "testString"
 				typeVar := "schematics_blueprint"
 				input := []projectsv1.InputVariable{}
-				_model, err := projectsService.NewConfigSchematicsBlueprintProperty(name, typeVar, input)
-				Expect(_model).ToNot(BeNil())
-				Expect(err).To(BeNil())
+				var blueprint *projectsv1.SchematicsBlueprint = nil
+				_, err := projectsService.NewConfigSchematicsBlueprintProperty(name, typeVar, input, blueprint)
+				Expect(err).ToNot(BeNil())
 			})
 			It(`Invoke NewConfigTerraformTemplateProperty successfully`, func() {
 				name := "testString"
 				typeVar := "terraform_template"
 				input := []projectsv1.InputVariable{}
-				_model, err := projectsService.NewConfigTerraformTemplateProperty(name, typeVar, input)
-				Expect(_model).ToNot(BeNil())
-				Expect(err).To(BeNil())
+				var blueprint *projectsv1.TerraformTemplate = nil
+				_, err := projectsService.NewConfigTerraformTemplateProperty(name, typeVar, input, blueprint)
+				Expect(err).ToNot(BeNil())
 			})
 		})
 	})

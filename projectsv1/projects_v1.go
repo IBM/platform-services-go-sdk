@@ -15,7 +15,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 3.46.1-a5569134-20220316-164819
+ * IBM OpenAPI SDK Code Generator Version: 3.48.0-e80b60a1-20220414-145125
  */
 
 // Package projectsv1 : Operations and models for the ProjectsV1 service
@@ -31,7 +31,7 @@ import (
 	"time"
 
 	"github.com/IBM/go-sdk-core/v5/core"
-	common "github.ibm.com/ibmcloud/platform-services-go-sdk/common"
+	common "github.com/IBM/platform-services-go-sdk/common"
 )
 
 // ProjectsV1 : This document is the **REST API specification** for the Projects Service. The Projects service provides
@@ -1773,10 +1773,7 @@ type Config struct {
 	Input []InputVariable `json:"input,omitempty"`
 
 	// A Terraform blueprint to use for provisioning a set of project resources.
-	TerraformTemplate *TerraformTemplate `json:"terraform_template,omitempty"`
-
-	// A Schematics blueprint to use for provisioning a set of project resources.
-	SchematicsBlueprint *SchematicsBlueprint `json:"schematics_blueprint,omitempty"`
+	Blueprint *TerraformTemplate `json:"blueprint,omitempty"`
 }
 
 // Constants associated with the Config.Type property.
@@ -1818,11 +1815,7 @@ func UnmarshalConfig(m map[string]json.RawMessage, result interface{}) (err erro
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(m, "terraform_template", &obj.TerraformTemplate, UnmarshalTerraformTemplate)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalModel(m, "schematics_blueprint", &obj.SchematicsBlueprint, UnmarshalSchematicsBlueprint)
+	err = core.UnmarshalModel(m, "blueprint", &obj.Blueprint, UnmarshalTerraformTemplate)
 	if err != nil {
 		return
 	}
@@ -2606,7 +2599,7 @@ type ConfigSchematicsBlueprintProperty struct {
 	Input []InputVariable `json:"input" validate:"required"`
 
 	// A Schematics blueprint to use for provisioning a set of project resources.
-	SchematicsBlueprint *SchematicsBlueprint `json:"schematics_blueprint,omitempty"`
+	Blueprint *SchematicsBlueprint `json:"blueprint" validate:"required"`
 }
 
 // Constants associated with the ConfigSchematicsBlueprintProperty.Type property.
@@ -2615,11 +2608,12 @@ const (
 )
 
 // NewConfigSchematicsBlueprintProperty : Instantiate ConfigSchematicsBlueprintProperty (Generic Model Constructor)
-func (*ProjectsV1) NewConfigSchematicsBlueprintProperty(name string, typeVar string, input []InputVariable) (_model *ConfigSchematicsBlueprintProperty, err error) {
+func (*ProjectsV1) NewConfigSchematicsBlueprintProperty(name string, typeVar string, input []InputVariable, blueprint *SchematicsBlueprint) (_model *ConfigSchematicsBlueprintProperty, err error) {
 	_model = &ConfigSchematicsBlueprintProperty{
 		Name: core.StringPtr(name),
 		Type: core.StringPtr(typeVar),
 		Input: input,
+		Blueprint: blueprint,
 	}
 	err = core.ValidateStruct(_model, "required parameters")
 	return
@@ -2652,7 +2646,7 @@ func UnmarshalConfigSchematicsBlueprintProperty(m map[string]json.RawMessage, re
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(m, "schematics_blueprint", &obj.SchematicsBlueprint, UnmarshalSchematicsBlueprint)
+	err = core.UnmarshalModel(m, "blueprint", &obj.Blueprint, UnmarshalSchematicsBlueprint)
 	if err != nil {
 		return
 	}
@@ -2674,7 +2668,7 @@ type ConfigTerraformTemplateProperty struct {
 	Input []InputVariable `json:"input" validate:"required"`
 
 	// A Terraform blueprint to use for provisioning a set of project resources.
-	TerraformTemplate *TerraformTemplate `json:"terraform_template,omitempty"`
+	Blueprint *TerraformTemplate `json:"blueprint" validate:"required"`
 }
 
 // Constants associated with the ConfigTerraformTemplateProperty.Type property.
@@ -2683,11 +2677,12 @@ const (
 )
 
 // NewConfigTerraformTemplateProperty : Instantiate ConfigTerraformTemplateProperty (Generic Model Constructor)
-func (*ProjectsV1) NewConfigTerraformTemplateProperty(name string, typeVar string, input []InputVariable) (_model *ConfigTerraformTemplateProperty, err error) {
+func (*ProjectsV1) NewConfigTerraformTemplateProperty(name string, typeVar string, input []InputVariable, blueprint *TerraformTemplate) (_model *ConfigTerraformTemplateProperty, err error) {
 	_model = &ConfigTerraformTemplateProperty{
 		Name: core.StringPtr(name),
 		Type: core.StringPtr(typeVar),
 		Input: input,
+		Blueprint: blueprint,
 	}
 	err = core.ValidateStruct(_model, "required parameters")
 	return
@@ -2720,7 +2715,7 @@ func UnmarshalConfigTerraformTemplateProperty(m map[string]json.RawMessage, resu
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(m, "terraform_template", &obj.TerraformTemplate, UnmarshalTerraformTemplate)
+	err = core.UnmarshalModel(m, "blueprint", &obj.Blueprint, UnmarshalTerraformTemplate)
 	if err != nil {
 		return
 	}
