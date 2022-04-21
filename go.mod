@@ -1,4 +1,4 @@
-module github.com/IBM/platform-services-go-sdk
+module github.com/damianovesperini/platform-services-go-sdk
 
 go 1.14
 
