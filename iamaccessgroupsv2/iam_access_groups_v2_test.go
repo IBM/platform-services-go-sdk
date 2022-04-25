@@ -21,7 +21,6 @@ import (
 	"context"
 	"fmt"
 	"io"
-	"io/ioutil"
 	"net/http"
 	"net/http/httptest"
 	"os"
@@ -67,14 +66,13 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 		Context(`Using external config, construct service client instances`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"IAM_ACCESS_GROUPS_URL": "https://iamaccessgroupsv2/api",
+				"IAM_ACCESS_GROUPS_URL":       "https://iamaccessgroupsv2/api",
 				"IAM_ACCESS_GROUPS_AUTH_TYPE": "noauth",
 			}
 
 			It(`Create service client using external config successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				iamAccessGroupsService, serviceErr := iamaccessgroupsv2.NewIamAccessGroupsV2UsingExternalConfig(&iamaccessgroupsv2.IamAccessGroupsV2Options{
-				})
+				iamAccessGroupsService, serviceErr := iamaccessgroupsv2.NewIamAccessGroupsV2UsingExternalConfig(&iamaccessgroupsv2.IamAccessGroupsV2Options{})
 				Expect(iamAccessGroupsService).ToNot(BeNil())
 				Expect(serviceErr).To(BeNil())
 				ClearTestEnvironment(testEnvironment)
@@ -103,8 +101,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 			})
 			It(`Create service client using external config and set url programatically successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				iamAccessGroupsService, serviceErr := iamaccessgroupsv2.NewIamAccessGroupsV2UsingExternalConfig(&iamaccessgroupsv2.IamAccessGroupsV2Options{
-				})
+				iamAccessGroupsService, serviceErr := iamaccessgroupsv2.NewIamAccessGroupsV2UsingExternalConfig(&iamaccessgroupsv2.IamAccessGroupsV2Options{})
 				err := iamAccessGroupsService.SetServiceURL("https://testService/api")
 				Expect(err).To(BeNil())
 				Expect(iamAccessGroupsService).ToNot(BeNil())
@@ -122,13 +119,12 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 		Context(`Using external config, construct service client instances with error: Invalid Auth`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"IAM_ACCESS_GROUPS_URL": "https://iamaccessgroupsv2/api",
+				"IAM_ACCESS_GROUPS_URL":       "https://iamaccessgroupsv2/api",
 				"IAM_ACCESS_GROUPS_AUTH_TYPE": "someOtherAuth",
 			}
 
 			SetTestEnvironment(testEnvironment)
-			iamAccessGroupsService, serviceErr := iamaccessgroupsv2.NewIamAccessGroupsV2UsingExternalConfig(&iamaccessgroupsv2.IamAccessGroupsV2Options{
-			})
+			iamAccessGroupsService, serviceErr := iamaccessgroupsv2.NewIamAccessGroupsV2UsingExternalConfig(&iamaccessgroupsv2.IamAccessGroupsV2Options{})
 
 			It(`Instantiate service client with error`, func() {
 				Expect(iamAccessGroupsService).To(BeNil())
@@ -139,7 +135,7 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 		Context(`Using external config, construct service client instances with error: Invalid URL`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"IAM_ACCESS_GROUPS_AUTH_TYPE":   "NOAuth",
+				"IAM_ACCESS_GROUPS_AUTH_TYPE": "NOAuth",
 			}
 
 			SetTestEnvironment(testEnvironment)
@@ -713,45 +709,45 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				testServer.Close()
 			})
 		})
-	Context(`Test pagination helper method on response`, func() {
-		It(`Invoke GetNextOffset successfully`, func() {
-			responseObject := new(iamaccessgroupsv2.GroupsList)
-			nextObject := new(iamaccessgroupsv2.HrefStruct)
-			nextObject.Href = core.StringPtr("ibm.com?offset=135")
-			responseObject.Next = nextObject
+		Context(`Test pagination helper method on response`, func() {
+			It(`Invoke GetNextOffset successfully`, func() {
+				responseObject := new(iamaccessgroupsv2.GroupsList)
+				nextObject := new(iamaccessgroupsv2.HrefStruct)
+				nextObject.Href = core.StringPtr("ibm.com?offset=135")
+				responseObject.Next = nextObject
 
-			value, err := responseObject.GetNextOffset()
-			Expect(err).To(BeNil())
-			Expect(value).To(Equal(core.Int64Ptr(int64(135))))
-		})
-		It(`Invoke GetNextOffset without a "Next" property in the response`, func() {
-			responseObject := new(iamaccessgroupsv2.GroupsList)
+				value, err := responseObject.GetNextOffset()
+				Expect(err).To(BeNil())
+				Expect(value).To(Equal(core.Int64Ptr(int64(135))))
+			})
+			It(`Invoke GetNextOffset without a "Next" property in the response`, func() {
+				responseObject := new(iamaccessgroupsv2.GroupsList)
 
-			value, err := responseObject.GetNextOffset()
-			Expect(err).To(BeNil())
-			Expect(value).To(BeNil())
-		})
-		It(`Invoke GetNextOffset without any query params in the "Next" URL`, func() {
-			responseObject := new(iamaccessgroupsv2.GroupsList)
-			nextObject := new(iamaccessgroupsv2.HrefStruct)
-			nextObject.Href = core.StringPtr("ibm.com")
-			responseObject.Next = nextObject
+				value, err := responseObject.GetNextOffset()
+				Expect(err).To(BeNil())
+				Expect(value).To(BeNil())
+			})
+			It(`Invoke GetNextOffset without any query params in the "Next" URL`, func() {
+				responseObject := new(iamaccessgroupsv2.GroupsList)
+				nextObject := new(iamaccessgroupsv2.HrefStruct)
+				nextObject.Href = core.StringPtr("ibm.com")
+				responseObject.Next = nextObject
 
-			value, err := responseObject.GetNextOffset()
-			Expect(err).To(BeNil())
-			Expect(value).To(BeNil())
-		})
-		It(`Invoke GetNextOffset with a non-integer query param in the "Next" URL`, func() {
-			responseObject := new(iamaccessgroupsv2.GroupsList)
-			nextObject := new(iamaccessgroupsv2.HrefStruct)
-			nextObject.Href = core.StringPtr("ibm.com?offset=tiger")
-			responseObject.Next = nextObject
+				value, err := responseObject.GetNextOffset()
+				Expect(err).To(BeNil())
+				Expect(value).To(BeNil())
+			})
+			It(`Invoke GetNextOffset with a non-integer query param in the "Next" URL`, func() {
+				responseObject := new(iamaccessgroupsv2.GroupsList)
+				nextObject := new(iamaccessgroupsv2.HrefStruct)
+				nextObject.Href = core.StringPtr("ibm.com?offset=tiger")
+				responseObject.Next = nextObject
 
-			value, err := responseObject.GetNextOffset()
-			Expect(err).NotTo(BeNil())
-			Expect(value).To(BeNil())
+				value, err := responseObject.GetNextOffset()
+				Expect(err).NotTo(BeNil())
+				Expect(value).To(BeNil())
+			})
 		})
-	})
 	})
 	Describe(`GetAccessGroup(getAccessGroupOptions *GetAccessGroupOptions) - Operation response error`, func() {
 		getAccessGroupPath := "/v2/groups/testString"
@@ -1964,45 +1960,45 @@ var _ = Describe(`IamAccessGroupsV2`, func() {
 				testServer.Close()
 			})
 		})
-	Context(`Test pagination helper method on response`, func() {
-		It(`Invoke GetNextOffset successfully`, func() {
-			responseObject := new(iamaccessgroupsv2.GroupMembersList)
-			nextObject := new(iamaccessgroupsv2.HrefStruct)
-			nextObject.Href = core.StringPtr("ibm.com?offset=135")
-			responseObject.Next = nextObject
+		Context(`Test pagination helper method on response`, func() {
+			It(`Invoke GetNextOffset successfully`, func() {
+				responseObject := new(iamaccessgroupsv2.GroupMembersList)
+				nextObject := new(iamaccessgroupsv2.HrefStruct)
+				nextObject.Href = core.StringPtr("ibm.com?offset=135")
+				responseObject.Next = nextObject
 
-			value, err := responseObject.GetNextOffset()
-			Expect(err).To(BeNil())
-			Expect(value).To(Equal(core.Int64Ptr(int64(135))))
-		})
-		It(`Invoke GetNextOffset without a "Next" property in the response`, func() {
-			responseObject := new(iamaccessgroupsv2.GroupMembersList)
+				value, err := responseObject.GetNextOffset()
+				Expect(err).To(BeNil())
+				Expect(value).To(Equal(core.Int64Ptr(int64(135))))
+			})
+			It(`Invoke GetNextOffset without a "Next" property in the response`, func() {
+				responseObject := new(iamaccessgroupsv2.GroupMembersList)
 
-			value, err := responseObject.GetNextOffset()
-			Expect(err).To(BeNil())
-			Expect(value).To(BeNil())
-		})
-		It(`Invoke GetNextOffset without any query params in the "Next" URL`, func() {
-			responseObject := new(iamaccessgroupsv2.GroupMembersList)
-			nextObject := new(iamaccessgroupsv2.HrefStruct)
-			nextObject.Href = core.StringPtr("ibm.com")
-			responseObject.Next = nextObject
+				value, err := responseObject.GetNextOffset()
+				Expect(err).To(BeNil())
+				Expect(value).To(BeNil())
+			})
+			It(`Invoke GetNextOffset without any query params in the "Next" URL`, func() {
+				responseObject := new(iamaccessgroupsv2.GroupMembersList)
+				nextObject := new(iamaccessgroupsv2.HrefStruct)
+				nextObject.Href = core.StringPtr("ibm.com")
+				responseObject.Next = nextObject
 
-			value, err := responseObject.GetNextOffset()
-			Expect(err).To(BeNil())
-			Expect(value).To(BeNil())
-		})
-		It(`Invoke GetNextOffset with a non-integer query param in the "Next" URL`, func() {
-			responseObject := new(iamaccessgroupsv2.GroupMembersList)
-			nextObject := new(iamaccessgroupsv2.HrefStruct)
-			nextObject.Href = core.StringPtr("ibm.com?offset=tiger")
-			responseObject.Next = nextObject
+				value, err := responseObject.GetNextOffset()
+				Expect(err).To(BeNil())
+				Expect(value).To(BeNil())
+			})
+			It(`Invoke GetNextOffset with a non-integer query param in the "Next" URL`, func() {
+				responseObject := new(iamaccessgroupsv2.GroupMembersList)
+				nextObject := new(iamaccessgroupsv2.HrefStruct)
+				nextObject.Href = core.StringPtr("ibm.com?offset=tiger")
+				responseObject.Next = nextObject
 
-			value, err := responseObject.GetNextOffset()
-			Expect(err).NotTo(BeNil())
-			Expect(value).To(BeNil())
+				value, err := responseObject.GetNextOffset()
+				Expect(err).NotTo(BeNil())
+				Expect(value).To(BeNil())
+			})
 		})
-	})
 	})
 	Describe(`RemoveMemberFromAccessGroup(removeMemberFromAccessGroupOptions *RemoveMemberFromAccessGroupOptions)`, func() {
 		removeMemberFromAccessGroupPath := "/v2/groups/testString/members/testString"
@@ -4899,7 +4895,7 @@ func CreateMockUUID(mockData string) *strfmt.UUID {
 }
 
 func CreateMockReader(mockData string) io.ReadCloser {
-	return ioutil.NopCloser(bytes.NewReader([]byte(mockData)))
+	return io.NopCloser(bytes.NewReader([]byte(mockData)))
 }
 
 func CreateMockDate(mockData string) *strfmt.Date {

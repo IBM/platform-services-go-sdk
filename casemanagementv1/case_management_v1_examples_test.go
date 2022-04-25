@@ -1,3 +1,4 @@
+//go:build examples
 // +build examples
 
 /**
@@ -22,7 +23,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
+	"io"
 	"os"
 	"strings"
 
@@ -320,7 +321,7 @@ var _ = Describe(`CaseManagementV1 Examples Tests`, func() {
 
 			exampleFileContent := "This is the content of the file to upload."
 
-			exampleFile, _ := caseManagementService.NewFileWithMetadata(ioutil.NopCloser(strings.NewReader(exampleFileContent)))
+			exampleFile, _ := caseManagementService.NewFileWithMetadata(io.NopCloser(strings.NewReader(exampleFileContent)))
 			exampleFile.Filename = core.StringPtr("example.log")
 			exampleFile.ContentType = core.StringPtr("application/octet-stream")
 
