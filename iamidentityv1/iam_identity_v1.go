@@ -15,7 +15,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 3.46.1-a5569134-20220316-164819
+ * IBM OpenAPI SDK Code Generator Version: 3.47.0-60650593-20220330-200002
  */
 
 // Package iamidentityv1 : Operations and models for the IamIdentityV1 service
@@ -2774,6 +2774,120 @@ func UnmarshalAPIKeyList(m map[string]json.RawMessage, result interface{}) (err 
 	return
 }
 
+// ApikeyActivity : Apikeys activity details.
+type ApikeyActivity struct {
+	// Unique id of the apikey.
+	ID *string `json:"id" validate:"required"`
+
+	// Name provided during creation of the apikey.
+	Name *string `json:"name,omitempty"`
+
+	// Type of the apikey. Supported values are `serviceid` and `user`.
+	Type *string `json:"type" validate:"required"`
+
+	// serviceid details will be present if type is `serviceid`.
+	Serviceid *ApikeyActivityServiceid `json:"serviceid,omitempty"`
+
+	// user details will be present if type is `user`.
+	User *ApikeyActivityUser `json:"user,omitempty"`
+
+	// Time when the apikey was last authenticated.
+	LastAuthn *string `json:"last_authn,omitempty"`
+}
+
+// UnmarshalApikeyActivity unmarshals an instance of ApikeyActivity from the specified map of raw messages.
+func UnmarshalApikeyActivity(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(ApikeyActivity)
+	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "type", &obj.Type)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "serviceid", &obj.Serviceid, UnmarshalApikeyActivityServiceid)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "user", &obj.User, UnmarshalApikeyActivityUser)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "last_authn", &obj.LastAuthn)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// ApikeyActivityServiceid : serviceid details will be present if type is `serviceid`.
+type ApikeyActivityServiceid struct {
+	// Unique identifier of this Service Id.
+	ID *string `json:"id,omitempty"`
+
+	// Name provided during creation of the serviceid.
+	Name *string `json:"name,omitempty"`
+}
+
+// UnmarshalApikeyActivityServiceid unmarshals an instance of ApikeyActivityServiceid from the specified map of raw messages.
+func UnmarshalApikeyActivityServiceid(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(ApikeyActivityServiceid)
+	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// ApikeyActivityUser : user details will be present if type is `user`.
+type ApikeyActivityUser struct {
+	// IAMid of the user.
+	IamID *string `json:"iam_id,omitempty"`
+
+	// Name of the user.
+	Name *string `json:"name,omitempty"`
+
+	// Username of the user.
+	Username *string `json:"username,omitempty"`
+
+	// Email of the user.
+	Email *string `json:"email,omitempty"`
+}
+
+// UnmarshalApikeyActivityUser unmarshals an instance of ApikeyActivityUser from the specified map of raw messages.
+func UnmarshalApikeyActivityUser(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(ApikeyActivityUser)
+	err = core.UnmarshalPrimitive(m, "iam_id", &obj.IamID)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "username", &obj.Username)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "email", &obj.Email)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
 // CreateAPIKeyOptions : The CreateAPIKey options.
 type CreateAPIKeyOptions struct {
 	// Name of the API key. The name is not checked for uniqueness. Therefore multiple names with the same value can exist.
@@ -4477,7 +4591,7 @@ type Report struct {
 	Users []UserActivity `json:"users,omitempty"`
 
 	// List of apikeys.
-	Apikeys []EntityActivity `json:"apikeys,omitempty"`
+	Apikeys []ApikeyActivity `json:"apikeys,omitempty"`
 
 	// List of serviceids.
 	Serviceids []EntityActivity `json:"serviceids,omitempty"`
@@ -4513,7 +4627,7 @@ func UnmarshalReport(m map[string]json.RawMessage, result interface{}) (err erro
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(m, "apikeys", &obj.Apikeys, UnmarshalEntityActivity)
+	err = core.UnmarshalModel(m, "apikeys", &obj.Apikeys, UnmarshalApikeyActivity)
 	if err != nil {
 		return
 	}
@@ -5511,8 +5625,14 @@ type UserActivity struct {
 	// IAMid of the user.
 	IamID *string `json:"iam_id" validate:"required"`
 
+	// Name of the user.
+	Name *string `json:"name,omitempty"`
+
 	// Username of the user.
 	Username *string `json:"username" validate:"required"`
+
+	// Email of the user.
+	Email *string `json:"email,omitempty"`
 
 	// Time when the user was last authenticated.
 	LastAuthn *string `json:"last_authn,omitempty"`
@@ -5525,7 +5645,15 @@ func UnmarshalUserActivity(m map[string]json.RawMessage, result interface{}) (er
 	if err != nil {
 		return
 	}
+	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
+	if err != nil {
+		return
+	}
 	err = core.UnmarshalPrimitive(m, "username", &obj.Username)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "email", &obj.Email)
 	if err != nil {
 		return
 	}
