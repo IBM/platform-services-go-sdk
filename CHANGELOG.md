@@ -1,3 +1,10 @@
+## [0.24.1](https://github.com/IBM/platform-services-go-sdk/compare/v0.24.0...v0.24.1) (2022-04-26)
+
+
+### Bug Fixes
+
+* **IAM Identity:** update report schema and fix ITs ([#185](https://github.com/IBM/platform-services-go-sdk/issues/185)) ([dda28af](https://github.com/IBM/platform-services-go-sdk/commit/dda28af1b0627aa733ab7288c564b429dcd8dc04))
+
 # [0.24.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.23.0...v0.24.0) (2022-04-06)
 
 
