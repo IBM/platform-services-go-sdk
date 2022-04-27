@@ -21,6 +21,7 @@ import (
 	"context"
 	"fmt"
 	"io"
+	"io/ioutil"
 	"net/http"
 	"net/http/httptest"
 	"os"
@@ -67,13 +68,14 @@ var _ = Describe(`CatalogManagementV1`, func() {
 		Context(`Using external config, construct service client instances`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"CATALOG_MANAGEMENT_URL":       "https://catalogmanagementv1/api",
+				"CATALOG_MANAGEMENT_URL": "https://catalogmanagementv1/api",
 				"CATALOG_MANAGEMENT_AUTH_TYPE": "noauth",
 			}
 
 			It(`Create service client using external config successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				catalogManagementService, serviceErr := catalogmanagementv1.NewCatalogManagementV1UsingExternalConfig(&catalogmanagementv1.CatalogManagementV1Options{})
+				catalogManagementService, serviceErr := catalogmanagementv1.NewCatalogManagementV1UsingExternalConfig(&catalogmanagementv1.CatalogManagementV1Options{
+				})
 				Expect(catalogManagementService).ToNot(BeNil())
 				Expect(serviceErr).To(BeNil())
 				ClearTestEnvironment(testEnvironment)
@@ -102,7 +104,8 @@ var _ = Describe(`CatalogManagementV1`, func() {
 			})
 			It(`Create service client using external config and set url programatically successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				catalogManagementService, serviceErr := catalogmanagementv1.NewCatalogManagementV1UsingExternalConfig(&catalogmanagementv1.CatalogManagementV1Options{})
+				catalogManagementService, serviceErr := catalogmanagementv1.NewCatalogManagementV1UsingExternalConfig(&catalogmanagementv1.CatalogManagementV1Options{
+				})
 				err := catalogManagementService.SetServiceURL("https://testService/api")
 				Expect(err).To(BeNil())
 				Expect(catalogManagementService).ToNot(BeNil())
@@ -120,12 +123,13 @@ var _ = Describe(`CatalogManagementV1`, func() {
 		Context(`Using external config, construct service client instances with error: Invalid Auth`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"CATALOG_MANAGEMENT_URL":       "https://catalogmanagementv1/api",
+				"CATALOG_MANAGEMENT_URL": "https://catalogmanagementv1/api",
 				"CATALOG_MANAGEMENT_AUTH_TYPE": "someOtherAuth",
 			}
 
 			SetTestEnvironment(testEnvironment)
-			catalogManagementService, serviceErr := catalogmanagementv1.NewCatalogManagementV1UsingExternalConfig(&catalogmanagementv1.CatalogManagementV1Options{})
+			catalogManagementService, serviceErr := catalogmanagementv1.NewCatalogManagementV1UsingExternalConfig(&catalogmanagementv1.CatalogManagementV1Options{
+			})
 
 			It(`Instantiate service client with error`, func() {
 				Expect(catalogManagementService).To(BeNil())
@@ -136,7 +140,7 @@ var _ = Describe(`CatalogManagementV1`, func() {
 		Context(`Using external config, construct service client instances with error: Invalid URL`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"CATALOG_MANAGEMENT_AUTH_TYPE": "NOAuth",
+				"CATALOG_MANAGEMENT_AUTH_TYPE":   "NOAuth",
 			}
 
 			SetTestEnvironment(testEnvironment)
@@ -8507,9 +8511,10 @@ var _ = Describe(`CatalogManagementV1`, func() {
 				Expect(operationErr).To(BeNil())
 				Expect(response).ToNot(BeNil())
 
+
 				// Verify empty byte buffer.
 				Expect(result).ToNot(BeNil())
-				buffer, operationErr := io.ReadAll(result)
+				buffer, operationErr := ioutil.ReadAll(result)
 				Expect(operationErr).To(BeNil())
 				Expect(buffer).ToNot(BeNil())
 				Expect(len(buffer)).To(Equal(0))
@@ -18394,215 +18399,215 @@ var _ = Describe(`CatalogManagementV1`, func() {
 					return *op.(catalogmanagementv1.JSONPatchOperation).Path
 				}
 				Expect(offeringPatch).To(MatchAllElements(_path, Elements{
-					"/id": MatchAllFields(Fields{
-						"Op":    PointTo(Equal(catalogmanagementv1.JSONPatchOperationOpAddConst)),
-						"Path":  PointTo(Equal("/id")),
-						"From":  BeNil(),
-						"Value": Equal(offering.ID),
+				"/id": MatchAllFields(Fields{
+					"Op": PointTo(Equal(catalogmanagementv1.JSONPatchOperationOpAddConst)),
+					"Path": PointTo(Equal("/id")),
+					"From": BeNil(),
+					"Value": Equal(offering.ID),
 					}),
-					"/_rev": MatchAllFields(Fields{
-						"Op":    PointTo(Equal(catalogmanagementv1.JSONPatchOperationOpAddConst)),
-						"Path":  PointTo(Equal("/_rev")),
-						"From":  BeNil(),
-						"Value": Equal(offering.Rev),
+				"/_rev": MatchAllFields(Fields{
+					"Op": PointTo(Equal(catalogmanagementv1.JSONPatchOperationOpAddConst)),
+					"Path": PointTo(Equal("/_rev")),
+					"From": BeNil(),
+					"Value": Equal(offering.Rev),
 					}),
-					"/url": MatchAllFields(Fields{
-						"Op":    PointTo(Equal(catalogmanagementv1.JSONPatchOperationOpAddConst)),
-						"Path":  PointTo(Equal("/url")),
-						"From":  BeNil(),
-						"Value": Equal(offering.URL),
+				"/url": MatchAllFields(Fields{
+					"Op": PointTo(Equal(catalogmanagementv1.JSONPatchOperationOpAddConst)),
+					"Path": PointTo(Equal("/url")),
+					"From": BeNil(),
+					"Value": Equal(offering.URL),
 					}),
-					"/crn": MatchAllFields(Fields{
-						"Op":    PointTo(Equal(catalogmanagementv1.JSONPatchOperationOpAddConst)),
-						"Path":  PointTo(Equal("/crn")),
-						"From":  BeNil(),
-						"Value": Equal(offering.CRN),
+				"/crn": MatchAllFields(Fields{
+					"Op": PointTo(Equal(catalogmanagementv1.JSONPatchOperationOpAddConst)),
+					"Path": PointTo(Equal("/crn")),
+					"From": BeNil(),
+					"Value": Equal(offering.CRN),
 					}),
-					"/label": MatchAllFields(Fields{
-						"Op":    PointTo(Equal(catalogmanagementv1.JSONPatchOperationOpAddConst)),
-						"Path":  PointTo(Equal("/label")),
-						"From":  BeNil(),
-						"Value": Equal(offering.Label),
+				"/label": MatchAllFields(Fields{
+					"Op": PointTo(Equal(catalogmanagementv1.JSONPatchOperationOpAddConst)),
+					"Path": PointTo(Equal("/label")),
+					"From": BeNil(),
+					"Value": Equal(offering.Label),
 					}),
-					"/name": MatchAllFields(Fields{
-						"Op":    PointTo(Equal(catalogmanagementv1.JSONPatchOperationOpAddConst)),
-						"Path":  PointTo(Equal("/name")),
-						"From":  BeNil(),
-						"Value": Equal(offering.Name),
+				"/name": MatchAllFields(Fields{
+					"Op": PointTo(Equal(catalogmanagementv1.JSONPatchOperationOpAddConst)),
+					"Path": PointTo(Equal("/name")),
+					"From": BeNil(),
+					"Value": Equal(offering.Name),
 					}),
-					"/offering_icon_url": MatchAllFields(Fields{
-						"Op":    PointTo(Equal(catalogmanagementv1.JSONPatchOperationOpAddConst)),
-						"Path":  PointTo(Equal("/offering_icon_url")),
-						"From":  BeNil(),
-						"Value": Equal(offering.OfferingIconURL),
+				"/offering_icon_url": MatchAllFields(Fields{
+					"Op": PointTo(Equal(catalogmanagementv1.JSONPatchOperationOpAddConst)),
+					"Path": PointTo(Equal("/offering_icon_url")),
+					"From": BeNil(),
+					"Value": Equal(offering.OfferingIconURL),
 					}),
-					"/offering_docs_url": MatchAllFields(Fields{
-						"Op":    PointTo(Equal(catalogmanagementv1.JSONPatchOperationOpAddConst)),
-						"Path":  PointTo(Equal("/offering_docs_url")),
-						"From":  BeNil(),
-						"Value": Equal(offering.OfferingDocsURL),
+				"/offering_docs_url": MatchAllFields(Fields{
+					"Op": PointTo(Equal(catalogmanagementv1.JSONPatchOperationOpAddConst)),
+					"Path": PointTo(Equal("/offering_docs_url")),
+					"From": BeNil(),
+					"Value": Equal(offering.OfferingDocsURL),
 					}),
-					"/offering_support_url": MatchAllFields(Fields{
-						"Op":    PointTo(Equal(catalogmanagementv1.JSONPatchOperationOpAddConst)),
-						"Path":  PointTo(Equal("/offering_support_url")),
-						"From":  BeNil(),
-						"Value": Equal(offering.OfferingSupportURL),
+				"/offering_support_url": MatchAllFields(Fields{
+					"Op": PointTo(Equal(catalogmanagementv1.JSONPatchOperationOpAddConst)),
+					"Path": PointTo(Equal("/offering_support_url")),
+					"From": BeNil(),
+					"Value": Equal(offering.OfferingSupportURL),
 					}),
-					"/tags": MatchAllFields(Fields{
-						"Op":    PointTo(Equal(catalogmanagementv1.JSONPatchOperationOpAddConst)),
-						"Path":  PointTo(Equal("/tags")),
-						"From":  BeNil(),
-						"Value": Equal(offering.Tags),
+				"/tags": MatchAllFields(Fields{
+					"Op": PointTo(Equal(catalogmanagementv1.JSONPatchOperationOpAddConst)),
+					"Path": PointTo(Equal("/tags")),
+					"From": BeNil(),
+					"Value": Equal(offering.Tags),
 					}),
-					"/keywords": MatchAllFields(Fields{
-						"Op":    PointTo(Equal(catalogmanagementv1.JSONPatchOperationOpAddConst)),
-						"Path":  PointTo(Equal("/keywords")),
-						"From":  BeNil(),
-						"Value": Equal(offering.Keywords),
+				"/keywords": MatchAllFields(Fields{
+					"Op": PointTo(Equal(catalogmanagementv1.JSONPatchOperationOpAddConst)),
+					"Path": PointTo(Equal("/keywords")),
+					"From": BeNil(),
+					"Value": Equal(offering.Keywords),
 					}),
-					"/rating": MatchAllFields(Fields{
-						"Op":    PointTo(Equal(catalogmanagementv1.JSONPatchOperationOpAddConst)),
-						"Path":  PointTo(Equal("/rating")),
-						"From":  BeNil(),
-						"Value": Equal(offering.Rating),
+				"/rating": MatchAllFields(Fields{
+					"Op": PointTo(Equal(catalogmanagementv1.JSONPatchOperationOpAddConst)),
+					"Path": PointTo(Equal("/rating")),
+					"From": BeNil(),
+					"Value": Equal(offering.Rating),
 					}),
-					"/created": MatchAllFields(Fields{
-						"Op":    PointTo(Equal(catalogmanagementv1.JSONPatchOperationOpAddConst)),
-						"Path":  PointTo(Equal("/created")),
-						"From":  BeNil(),
-						"Value": Equal(offering.Created),
+				"/created": MatchAllFields(Fields{
+					"Op": PointTo(Equal(catalogmanagementv1.JSONPatchOperationOpAddConst)),
+					"Path": PointTo(Equal("/created")),
+					"From": BeNil(),
+					"Value": Equal(offering.Created),
 					}),
-					"/updated": MatchAllFields(Fields{
-						"Op":    PointTo(Equal(catalogmanagementv1.JSONPatchOperationOpAddConst)),
-						"Path":  PointTo(Equal("/updated")),
-						"From":  BeNil(),
-						"Value": Equal(offering.Updated),
+				"/updated": MatchAllFields(Fields{
+					"Op": PointTo(Equal(catalogmanagementv1.JSONPatchOperationOpAddConst)),
+					"Path": PointTo(Equal("/updated")),
+					"From": BeNil(),
+					"Value": Equal(offering.Updated),
 					}),
-					"/short_description": MatchAllFields(Fields{
-						"Op":    PointTo(Equal(catalogmanagementv1.JSONPatchOperationOpAddConst)),
-						"Path":  PointTo(Equal("/short_description")),
-						"From":  BeNil(),
-						"Value": Equal(offering.ShortDescription),
+				"/short_description": MatchAllFields(Fields{
+					"Op": PointTo(Equal(catalogmanagementv1.JSONPatchOperationOpAddConst)),
+					"Path": PointTo(Equal("/short_description")),
+					"From": BeNil(),
+					"Value": Equal(offering.ShortDescription),
 					}),
-					"/long_description": MatchAllFields(Fields{
-						"Op":    PointTo(Equal(catalogmanagementv1.JSONPatchOperationOpAddConst)),
-						"Path":  PointTo(Equal("/long_description")),
-						"From":  BeNil(),
-						"Value": Equal(offering.LongDescription),
+				"/long_description": MatchAllFields(Fields{
+					"Op": PointTo(Equal(catalogmanagementv1.JSONPatchOperationOpAddConst)),
+					"Path": PointTo(Equal("/long_description")),
+					"From": BeNil(),
+					"Value": Equal(offering.LongDescription),
 					}),
-					"/features": MatchAllFields(Fields{
-						"Op":    PointTo(Equal(catalogmanagementv1.JSONPatchOperationOpAddConst)),
-						"Path":  PointTo(Equal("/features")),
-						"From":  BeNil(),
-						"Value": Equal(offering.Features),
+				"/features": MatchAllFields(Fields{
+					"Op": PointTo(Equal(catalogmanagementv1.JSONPatchOperationOpAddConst)),
+					"Path": PointTo(Equal("/features")),
+					"From": BeNil(),
+					"Value": Equal(offering.Features),
 					}),
-					"/kinds": MatchAllFields(Fields{
-						"Op":    PointTo(Equal(catalogmanagementv1.JSONPatchOperationOpAddConst)),
-						"Path":  PointTo(Equal("/kinds")),
-						"From":  BeNil(),
-						"Value": Equal(offering.Kinds),
+				"/kinds": MatchAllFields(Fields{
+					"Op": PointTo(Equal(catalogmanagementv1.JSONPatchOperationOpAddConst)),
+					"Path": PointTo(Equal("/kinds")),
+					"From": BeNil(),
+					"Value": Equal(offering.Kinds),
 					}),
-					"/permit_request_ibm_public_publish": MatchAllFields(Fields{
-						"Op":    PointTo(Equal(catalogmanagementv1.JSONPatchOperationOpAddConst)),
-						"Path":  PointTo(Equal("/permit_request_ibm_public_publish")),
-						"From":  BeNil(),
-						"Value": Equal(offering.PermitRequestIBMPublicPublish),
+				"/permit_request_ibm_public_publish": MatchAllFields(Fields{
+					"Op": PointTo(Equal(catalogmanagementv1.JSONPatchOperationOpAddConst)),
+					"Path": PointTo(Equal("/permit_request_ibm_public_publish")),
+					"From": BeNil(),
+					"Value": Equal(offering.PermitRequestIBMPublicPublish),
 					}),
-					"/ibm_publish_approved": MatchAllFields(Fields{
-						"Op":    PointTo(Equal(catalogmanagementv1.JSONPatchOperationOpAddConst)),
-						"Path":  PointTo(Equal("/ibm_publish_approved")),
-						"From":  BeNil(),
-						"Value": Equal(offering.IBMPublishApproved),
+				"/ibm_publish_approved": MatchAllFields(Fields{
+					"Op": PointTo(Equal(catalogmanagementv1.JSONPatchOperationOpAddConst)),
+					"Path": PointTo(Equal("/ibm_publish_approved")),
+					"From": BeNil(),
+					"Value": Equal(offering.IBMPublishApproved),
 					}),
-					"/public_publish_approved": MatchAllFields(Fields{
-						"Op":    PointTo(Equal(catalogmanagementv1.JSONPatchOperationOpAddConst)),
-						"Path":  PointTo(Equal("/public_publish_approved")),
-						"From":  BeNil(),
-						"Value": Equal(offering.PublicPublishApproved),
+				"/public_publish_approved": MatchAllFields(Fields{
+					"Op": PointTo(Equal(catalogmanagementv1.JSONPatchOperationOpAddConst)),
+					"Path": PointTo(Equal("/public_publish_approved")),
+					"From": BeNil(),
+					"Value": Equal(offering.PublicPublishApproved),
 					}),
-					"/public_original_crn": MatchAllFields(Fields{
-						"Op":    PointTo(Equal(catalogmanagementv1.JSONPatchOperationOpAddConst)),
-						"Path":  PointTo(Equal("/public_original_crn")),
-						"From":  BeNil(),
-						"Value": Equal(offering.PublicOriginalCRN),
+				"/public_original_crn": MatchAllFields(Fields{
+					"Op": PointTo(Equal(catalogmanagementv1.JSONPatchOperationOpAddConst)),
+					"Path": PointTo(Equal("/public_original_crn")),
+					"From": BeNil(),
+					"Value": Equal(offering.PublicOriginalCRN),
 					}),
-					"/publish_public_crn": MatchAllFields(Fields{
-						"Op":    PointTo(Equal(catalogmanagementv1.JSONPatchOperationOpAddConst)),
-						"Path":  PointTo(Equal("/publish_public_crn")),
-						"From":  BeNil(),
-						"Value": Equal(offering.PublishPublicCRN),
+				"/publish_public_crn": MatchAllFields(Fields{
+					"Op": PointTo(Equal(catalogmanagementv1.JSONPatchOperationOpAddConst)),
+					"Path": PointTo(Equal("/publish_public_crn")),
+					"From": BeNil(),
+					"Value": Equal(offering.PublishPublicCRN),
 					}),
-					"/portal_approval_record": MatchAllFields(Fields{
-						"Op":    PointTo(Equal(catalogmanagementv1.JSONPatchOperationOpAddConst)),
-						"Path":  PointTo(Equal("/portal_approval_record")),
-						"From":  BeNil(),
-						"Value": Equal(offering.PortalApprovalRecord),
+				"/portal_approval_record": MatchAllFields(Fields{
+					"Op": PointTo(Equal(catalogmanagementv1.JSONPatchOperationOpAddConst)),
+					"Path": PointTo(Equal("/portal_approval_record")),
+					"From": BeNil(),
+					"Value": Equal(offering.PortalApprovalRecord),
 					}),
-					"/portal_ui_url": MatchAllFields(Fields{
-						"Op":    PointTo(Equal(catalogmanagementv1.JSONPatchOperationOpAddConst)),
-						"Path":  PointTo(Equal("/portal_ui_url")),
-						"From":  BeNil(),
-						"Value": Equal(offering.PortalUIURL),
+				"/portal_ui_url": MatchAllFields(Fields{
+					"Op": PointTo(Equal(catalogmanagementv1.JSONPatchOperationOpAddConst)),
+					"Path": PointTo(Equal("/portal_ui_url")),
+					"From": BeNil(),
+					"Value": Equal(offering.PortalUIURL),
 					}),
-					"/catalog_id": MatchAllFields(Fields{
-						"Op":    PointTo(Equal(catalogmanagementv1.JSONPatchOperationOpAddConst)),
-						"Path":  PointTo(Equal("/catalog_id")),
-						"From":  BeNil(),
-						"Value": Equal(offering.CatalogID),
+				"/catalog_id": MatchAllFields(Fields{
+					"Op": PointTo(Equal(catalogmanagementv1.JSONPatchOperationOpAddConst)),
+					"Path": PointTo(Equal("/catalog_id")),
+					"From": BeNil(),
+					"Value": Equal(offering.CatalogID),
 					}),
-					"/catalog_name": MatchAllFields(Fields{
-						"Op":    PointTo(Equal(catalogmanagementv1.JSONPatchOperationOpAddConst)),
-						"Path":  PointTo(Equal("/catalog_name")),
-						"From":  BeNil(),
-						"Value": Equal(offering.CatalogName),
+				"/catalog_name": MatchAllFields(Fields{
+					"Op": PointTo(Equal(catalogmanagementv1.JSONPatchOperationOpAddConst)),
+					"Path": PointTo(Equal("/catalog_name")),
+					"From": BeNil(),
+					"Value": Equal(offering.CatalogName),
 					}),
-					"/metadata": MatchAllFields(Fields{
-						"Op":    PointTo(Equal(catalogmanagementv1.JSONPatchOperationOpAddConst)),
-						"Path":  PointTo(Equal("/metadata")),
-						"From":  BeNil(),
-						"Value": Equal(offering.Metadata),
+				"/metadata": MatchAllFields(Fields{
+					"Op": PointTo(Equal(catalogmanagementv1.JSONPatchOperationOpAddConst)),
+					"Path": PointTo(Equal("/metadata")),
+					"From": BeNil(),
+					"Value": Equal(offering.Metadata),
 					}),
-					"/disclaimer": MatchAllFields(Fields{
-						"Op":    PointTo(Equal(catalogmanagementv1.JSONPatchOperationOpAddConst)),
-						"Path":  PointTo(Equal("/disclaimer")),
-						"From":  BeNil(),
-						"Value": Equal(offering.Disclaimer),
+				"/disclaimer": MatchAllFields(Fields{
+					"Op": PointTo(Equal(catalogmanagementv1.JSONPatchOperationOpAddConst)),
+					"Path": PointTo(Equal("/disclaimer")),
+					"From": BeNil(),
+					"Value": Equal(offering.Disclaimer),
 					}),
-					"/hidden": MatchAllFields(Fields{
-						"Op":    PointTo(Equal(catalogmanagementv1.JSONPatchOperationOpAddConst)),
-						"Path":  PointTo(Equal("/hidden")),
-						"From":  BeNil(),
-						"Value": Equal(offering.Hidden),
+				"/hidden": MatchAllFields(Fields{
+					"Op": PointTo(Equal(catalogmanagementv1.JSONPatchOperationOpAddConst)),
+					"Path": PointTo(Equal("/hidden")),
+					"From": BeNil(),
+					"Value": Equal(offering.Hidden),
 					}),
-					"/provider": MatchAllFields(Fields{
-						"Op":    PointTo(Equal(catalogmanagementv1.JSONPatchOperationOpAddConst)),
-						"Path":  PointTo(Equal("/provider")),
-						"From":  BeNil(),
-						"Value": Equal(offering.Provider),
+				"/provider": MatchAllFields(Fields{
+					"Op": PointTo(Equal(catalogmanagementv1.JSONPatchOperationOpAddConst)),
+					"Path": PointTo(Equal("/provider")),
+					"From": BeNil(),
+					"Value": Equal(offering.Provider),
 					}),
-					"/provider_info": MatchAllFields(Fields{
-						"Op":    PointTo(Equal(catalogmanagementv1.JSONPatchOperationOpAddConst)),
-						"Path":  PointTo(Equal("/provider_info")),
-						"From":  BeNil(),
-						"Value": Equal(offering.ProviderInfo),
+				"/provider_info": MatchAllFields(Fields{
+					"Op": PointTo(Equal(catalogmanagementv1.JSONPatchOperationOpAddConst)),
+					"Path": PointTo(Equal("/provider_info")),
+					"From": BeNil(),
+					"Value": Equal(offering.ProviderInfo),
 					}),
-					"/repo_info": MatchAllFields(Fields{
-						"Op":    PointTo(Equal(catalogmanagementv1.JSONPatchOperationOpAddConst)),
-						"Path":  PointTo(Equal("/repo_info")),
-						"From":  BeNil(),
-						"Value": Equal(offering.RepoInfo),
+				"/repo_info": MatchAllFields(Fields{
+					"Op": PointTo(Equal(catalogmanagementv1.JSONPatchOperationOpAddConst)),
+					"Path": PointTo(Equal("/repo_info")),
+					"From": BeNil(),
+					"Value": Equal(offering.RepoInfo),
 					}),
-					"/support": MatchAllFields(Fields{
-						"Op":    PointTo(Equal(catalogmanagementv1.JSONPatchOperationOpAddConst)),
-						"Path":  PointTo(Equal("/support")),
-						"From":  BeNil(),
-						"Value": Equal(offering.Support),
+				"/support": MatchAllFields(Fields{
+					"Op": PointTo(Equal(catalogmanagementv1.JSONPatchOperationOpAddConst)),
+					"Path": PointTo(Equal("/support")),
+					"From": BeNil(),
+					"Value": Equal(offering.Support),
 					}),
-					"/media": MatchAllFields(Fields{
-						"Op":    PointTo(Equal(catalogmanagementv1.JSONPatchOperationOpAddConst)),
-						"Path":  PointTo(Equal("/media")),
-						"From":  BeNil(),
-						"Value": Equal(offering.Media),
+				"/media": MatchAllFields(Fields{
+					"Op": PointTo(Equal(catalogmanagementv1.JSONPatchOperationOpAddConst)),
+					"Path": PointTo(Equal("/media")),
+					"From": BeNil(),
+					"Value": Equal(offering.Media),
 					}),
 				}))
 			})
@@ -19630,7 +19635,7 @@ func CreateMockUUID(mockData string) *strfmt.UUID {
 }
 
 func CreateMockReader(mockData string) io.ReadCloser {
-	return io.NopCloser(bytes.NewReader([]byte(mockData)))
+	return ioutil.NopCloser(bytes.NewReader([]byte(mockData)))
 }
 
 func CreateMockDate(mockData string) *strfmt.Date {

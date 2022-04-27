@@ -21,6 +21,7 @@ import (
 	"context"
 	"fmt"
 	"io"
+	"io/ioutil"
 	"net/http"
 	"net/http/httptest"
 	"os"
@@ -66,13 +67,14 @@ var _ = Describe(`AtrackerV1`, func() {
 		Context(`Using external config, construct service client instances`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"ATRACKER_URL":       "https://atrackerv1/api",
+				"ATRACKER_URL": "https://atrackerv1/api",
 				"ATRACKER_AUTH_TYPE": "noauth",
 			}
 
 			It(`Create service client using external config successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				atrackerService, serviceErr := atrackerv1.NewAtrackerV1UsingExternalConfig(&atrackerv1.AtrackerV1Options{})
+				atrackerService, serviceErr := atrackerv1.NewAtrackerV1UsingExternalConfig(&atrackerv1.AtrackerV1Options{
+				})
 				Expect(atrackerService).ToNot(BeNil())
 				Expect(serviceErr).To(BeNil())
 				ClearTestEnvironment(testEnvironment)
@@ -101,7 +103,8 @@ var _ = Describe(`AtrackerV1`, func() {
 			})
 			It(`Create service client using external config and set url programatically successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				atrackerService, serviceErr := atrackerv1.NewAtrackerV1UsingExternalConfig(&atrackerv1.AtrackerV1Options{})
+				atrackerService, serviceErr := atrackerv1.NewAtrackerV1UsingExternalConfig(&atrackerv1.AtrackerV1Options{
+				})
 				err := atrackerService.SetServiceURL("https://testService/api")
 				Expect(err).To(BeNil())
 				Expect(atrackerService).ToNot(BeNil())
@@ -119,12 +122,13 @@ var _ = Describe(`AtrackerV1`, func() {
 		Context(`Using external config, construct service client instances with error: Invalid Auth`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"ATRACKER_URL":       "https://atrackerv1/api",
+				"ATRACKER_URL": "https://atrackerv1/api",
 				"ATRACKER_AUTH_TYPE": "someOtherAuth",
 			}
 
 			SetTestEnvironment(testEnvironment)
-			atrackerService, serviceErr := atrackerv1.NewAtrackerV1UsingExternalConfig(&atrackerv1.AtrackerV1Options{})
+			atrackerService, serviceErr := atrackerv1.NewAtrackerV1UsingExternalConfig(&atrackerv1.AtrackerV1Options{
+			})
 
 			It(`Instantiate service client with error`, func() {
 				Expect(atrackerService).To(BeNil())
@@ -135,7 +139,7 @@ var _ = Describe(`AtrackerV1`, func() {
 		Context(`Using external config, construct service client instances with error: Invalid URL`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"ATRACKER_AUTH_TYPE": "NOAuth",
+				"ATRACKER_AUTH_TYPE":   "NOAuth",
 			}
 
 			SetTestEnvironment(testEnvironment)
@@ -3340,7 +3344,7 @@ func CreateMockUUID(mockData string) *strfmt.UUID {
 }
 
 func CreateMockReader(mockData string) io.ReadCloser {
-	return io.NopCloser(bytes.NewReader([]byte(mockData)))
+	return ioutil.NopCloser(bytes.NewReader([]byte(mockData)))
 }
 
 func CreateMockDate(mockData string) *strfmt.Date {

@@ -21,6 +21,7 @@ import (
 	"context"
 	"fmt"
 	"io"
+	"io/ioutil"
 	"net/http"
 	"net/http/httptest"
 	"os"
@@ -429,7 +430,7 @@ func CreateMockUUID(mockData string) *strfmt.UUID {
 }
 
 func CreateMockReader(mockData string) io.ReadCloser {
-	return io.NopCloser(bytes.NewReader([]byte(mockData)))
+	return ioutil.NopCloser(bytes.NewReader([]byte(mockData)))
 }
 
 func CreateMockDate() *strfmt.Date {

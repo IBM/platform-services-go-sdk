@@ -1,4 +1,3 @@
-//go:build integration
 // +build integration
 
 /**
@@ -22,7 +21,7 @@ package globalcatalogv1_test
 import (
 	"bytes"
 	"fmt"
-	"io"
+	"io/ioutil"
 	"log"
 	"os"
 	"strings"
@@ -205,11 +204,11 @@ var _ = Describe("Global Catalog - Integration Tests", func() {
 		deleteChild = service.NewDeleteCatalogEntryOptions(idChild)
 
 		defaultChild.SetParentID(id)
-		defaultArtifact.SetArtifact(io.NopCloser(strings.NewReader(artifact)))
-		uploadArtifactList.SetArtifact(io.NopCloser(strings.NewReader(artifact)))
-		uploadArtifactCreate.SetArtifact(io.NopCloser(strings.NewReader(artifact)))
-		uploadArtifactCreateFailure.SetArtifact(io.NopCloser(strings.NewReader(artifact)))
-		uploadArtifactDelete.SetArtifact(io.NopCloser(strings.NewReader(artifact)))
+		defaultArtifact.SetArtifact(ioutil.NopCloser(strings.NewReader(artifact)))
+		uploadArtifactList.SetArtifact(ioutil.NopCloser(strings.NewReader(artifact)))
+		uploadArtifactCreate.SetArtifact(ioutil.NopCloser(strings.NewReader(artifact)))
+		uploadArtifactCreateFailure.SetArtifact(ioutil.NopCloser(strings.NewReader(artifact)))
+		uploadArtifactDelete.SetArtifact(ioutil.NopCloser(strings.NewReader(artifact)))
 		forceDelete.SetForce(true)
 	})
 

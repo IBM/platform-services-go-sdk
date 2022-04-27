@@ -21,6 +21,7 @@ import (
 	"context"
 	"fmt"
 	"io"
+	"io/ioutil"
 	"net/http"
 	"net/http/httptest"
 	"os"
@@ -66,13 +67,14 @@ var _ = Describe(`ResourceManagerV2`, func() {
 		Context(`Using external config, construct service client instances`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"RESOURCE_MANAGER_URL":       "https://resourcemanagerv2/api",
+				"RESOURCE_MANAGER_URL": "https://resourcemanagerv2/api",
 				"RESOURCE_MANAGER_AUTH_TYPE": "noauth",
 			}
 
 			It(`Create service client using external config successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				resourceManagerService, serviceErr := resourcemanagerv2.NewResourceManagerV2UsingExternalConfig(&resourcemanagerv2.ResourceManagerV2Options{})
+				resourceManagerService, serviceErr := resourcemanagerv2.NewResourceManagerV2UsingExternalConfig(&resourcemanagerv2.ResourceManagerV2Options{
+				})
 				Expect(resourceManagerService).ToNot(BeNil())
 				Expect(serviceErr).To(BeNil())
 				ClearTestEnvironment(testEnvironment)
@@ -101,7 +103,8 @@ var _ = Describe(`ResourceManagerV2`, func() {
 			})
 			It(`Create service client using external config and set url programatically successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				resourceManagerService, serviceErr := resourcemanagerv2.NewResourceManagerV2UsingExternalConfig(&resourcemanagerv2.ResourceManagerV2Options{})
+				resourceManagerService, serviceErr := resourcemanagerv2.NewResourceManagerV2UsingExternalConfig(&resourcemanagerv2.ResourceManagerV2Options{
+				})
 				err := resourceManagerService.SetServiceURL("https://testService/api")
 				Expect(err).To(BeNil())
 				Expect(resourceManagerService).ToNot(BeNil())
@@ -119,12 +122,13 @@ var _ = Describe(`ResourceManagerV2`, func() {
 		Context(`Using external config, construct service client instances with error: Invalid Auth`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"RESOURCE_MANAGER_URL":       "https://resourcemanagerv2/api",
+				"RESOURCE_MANAGER_URL": "https://resourcemanagerv2/api",
 				"RESOURCE_MANAGER_AUTH_TYPE": "someOtherAuth",
 			}
 
 			SetTestEnvironment(testEnvironment)
-			resourceManagerService, serviceErr := resourcemanagerv2.NewResourceManagerV2UsingExternalConfig(&resourcemanagerv2.ResourceManagerV2Options{})
+			resourceManagerService, serviceErr := resourcemanagerv2.NewResourceManagerV2UsingExternalConfig(&resourcemanagerv2.ResourceManagerV2Options{
+			})
 
 			It(`Instantiate service client with error`, func() {
 				Expect(resourceManagerService).To(BeNil())
@@ -135,7 +139,7 @@ var _ = Describe(`ResourceManagerV2`, func() {
 		Context(`Using external config, construct service client instances with error: Invalid URL`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"RESOURCE_MANAGER_AUTH_TYPE": "NOAuth",
+				"RESOURCE_MANAGER_AUTH_TYPE":   "NOAuth",
 			}
 
 			SetTestEnvironment(testEnvironment)
@@ -1715,7 +1719,7 @@ func CreateMockUUID(mockData string) *strfmt.UUID {
 }
 
 func CreateMockReader(mockData string) io.ReadCloser {
-	return io.NopCloser(bytes.NewReader([]byte(mockData)))
+	return ioutil.NopCloser(bytes.NewReader([]byte(mockData)))
 }
 
 func CreateMockDate(mockData string) *strfmt.Date {
