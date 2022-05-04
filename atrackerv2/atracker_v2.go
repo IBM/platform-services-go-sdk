@@ -119,6 +119,8 @@ func GetServiceURLForRegion(region string) (string, error) {
 		"private.us-east":  "https://private.us-east.atracker.cloud.ibm.com",  // The server for IBM Cloud Activity Tracker Service in the us-east region.
 		"eu-de":            "https://eu-de.atracker.cloud.ibm.com",            // The server for IBM Cloud Activity Tracker Service in the eu-de region.
 		"private.eu-de":    "https://private.eu-de.atracker.cloud.ibm.com",    // The server for IBM Cloud Activity Tracker Service in the eu-de region.
+		"eu-gb":            "https://eu-gb.atracker.cloud.ibm.com",            // The public server for IBM Cloud Activity Tracker Service in the eu-gb region.
+		"private.eu-gb":    "https://private.eu-gb.atracker.cloud.ibm.com",    // The private server for IBM Cloud Activity Tracker Service in the eu-gb region.
 	}
 
 	if url, ok := endpoints[region]; ok {
