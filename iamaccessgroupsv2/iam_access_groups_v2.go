@@ -15,7 +15,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 3.43.4-432d779b-20220119-173927
+ * IBM OpenAPI SDK Code Generator Version: 3.46.1-a5569134-20220316-164819
  */
 
 // Package iamaccessgroupsv2 : Operations and models for the IamAccessGroupsV2 service
@@ -284,6 +284,9 @@ func (iamAccessGroups *IamAccessGroupsV2) ListAccessGroupsWithContext(ctx contex
 	if listAccessGroupsOptions.IamID != nil {
 		builder.AddQuery("iam_id", fmt.Sprint(*listAccessGroupsOptions.IamID))
 	}
+	if listAccessGroupsOptions.MembershipType != nil {
+		builder.AddQuery("membership_type", fmt.Sprint(*listAccessGroupsOptions.MembershipType))
+	}
 	if listAccessGroupsOptions.Limit != nil {
 		builder.AddQuery("limit", fmt.Sprint(*listAccessGroupsOptions.Limit))
 	}
@@ -528,9 +531,9 @@ func (iamAccessGroups *IamAccessGroupsV2) DeleteAccessGroupWithContext(ctx conte
 }
 
 // IsMemberOfAccessGroup : Check membership in an access group
-// This HEAD operation determines if a given `iam_id` is present in a group. No response body is returned with this
-// request. If the membership exists, a `204 - No Content` status code is returned. If the membership or the group does
-// not exist, a `404 - Not Found` status code is returned.
+// This HEAD operation determines if a given `iam_id` is present in a group either explicitly or via dynamic rules. No
+// response body is returned with this request. If the membership exists, a `204 - No Content` status code is returned.
+// If the membership or the group does not exist, a `404 - Not Found` status code is returned.
 func (iamAccessGroups *IamAccessGroupsV2) IsMemberOfAccessGroup(isMemberOfAccessGroupOptions *IsMemberOfAccessGroupOptions) (response *core.DetailedResponse, err error) {
 	return iamAccessGroups.IsMemberOfAccessGroupWithContext(context.Background(), isMemberOfAccessGroupOptions)
 }
@@ -703,6 +706,9 @@ func (iamAccessGroups *IamAccessGroupsV2) ListAccessGroupMembersWithContext(ctx 
 		builder.AddHeader("Transaction-Id", fmt.Sprint(*listAccessGroupMembersOptions.TransactionID))
 	}
 
+	if listAccessGroupMembersOptions.MembershipType != nil {
+		builder.AddQuery("membership_type", fmt.Sprint(*listAccessGroupMembersOptions.MembershipType))
+	}
 	if listAccessGroupMembersOptions.Limit != nil {
 		builder.AddQuery("limit", fmt.Sprint(*listAccessGroupMembersOptions.Limit))
 	}
@@ -742,7 +748,8 @@ func (iamAccessGroups *IamAccessGroupsV2) ListAccessGroupMembersWithContext(ctx 
 
 // RemoveMemberFromAccessGroup : Delete member from an access group
 // Remove one member from a group using this API. If the operation is successful, only a `204 - No Content` response
-// with no body is returned. However, if any error occurs, the standard error format will be returned.
+// with no body is returned. However, if any error occurs, the standard error format will be returned. Dynamic member
+// cannot be deleted using this API. Dynamic rules needs to be adjusted to delete dynamic members.
 func (iamAccessGroups *IamAccessGroupsV2) RemoveMemberFromAccessGroup(removeMemberFromAccessGroupOptions *RemoveMemberFromAccessGroupOptions) (response *core.DetailedResponse, err error) {
 	return iamAccessGroups.RemoveMemberFromAccessGroupWithContext(context.Background(), removeMemberFromAccessGroupOptions)
 }
@@ -796,7 +803,8 @@ func (iamAccessGroups *IamAccessGroupsV2) RemoveMemberFromAccessGroupWithContext
 // RemoveMembersFromAccessGroup : Delete members from an access group
 // Remove multiple members from a group using this API. On a successful call, this API will always return 207. It is the
 // caller's responsibility to iterate across the body to determine successful deletion of each member. This API request
-// payload can delete up to 50 members per call.
+// payload can delete up to 50 members per call. This API doesnt delete dynamic members accessing the access group via
+// dynamic rules.
 func (iamAccessGroups *IamAccessGroupsV2) RemoveMembersFromAccessGroup(removeMembersFromAccessGroupOptions *RemoveMembersFromAccessGroupOptions) (result *DeleteGroupBulkMembersResponse, response *core.DetailedResponse, err error) {
 	return iamAccessGroups.RemoveMembersFromAccessGroupWithContext(context.Background(), removeMembersFromAccessGroupOptions)
 }
@@ -1622,7 +1630,7 @@ func (options *AddAccessGroupRuleOptions) SetHeaders(param map[string]string) *A
 
 // AddGroupMembersRequestMembersItem : AddGroupMembersRequestMembersItem struct
 type AddGroupMembersRequestMembersItem struct {
-	// The IBMid, Service Id or Profile Id of the member.
+	// The IBMid, service ID or trusted profile ID of the member.
 	IamID *string `json:"iam_id" validate:"required"`
 
 	// The type of the member, must be either "user", "service" or "trusted profile".
@@ -2338,6 +2346,9 @@ type Group struct {
 
 	// This is set to true if rules exist for the group.
 	IsFederated *bool `json:"is_federated,omitempty"`
+
+	// Type of the membership. `static` or `dynamic`.
+	MembershipType *string `json:"membership_type,omitempty"`
 }
 
 // UnmarshalGroup unmarshals an instance of Group from the specified map of raw messages.
@@ -2380,6 +2391,10 @@ func UnmarshalGroup(m map[string]json.RawMessage, result interface{}) (err error
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "is_federated", &obj.IsFederated)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "membership_type", &obj.MembershipType)
 	if err != nil {
 		return
 	}
@@ -2629,6 +2644,11 @@ type ListAccessGroupMembersOptions struct {
 	// choose. If no transaction ID is passed in, then a random ID is generated.
 	TransactionID *string `json:"Transaction-Id,omitempty"`
 
+	// Filters members by membership type. Membership type can be either `static`, `dynamic` or `all`. `static` lists those
+	// members explicitly added to the access group, `dynamic` lists those members part of access group via dynamic rules
+	// at the moment. `all` lists both static and dynamic members.
+	MembershipType *string `json:"membership_type,omitempty"`
+
 	// Return up to this limit of results where limit is between 0 and 100.
 	Limit *int64 `json:"limit,omitempty"`
 
@@ -2638,7 +2658,7 @@ type ListAccessGroupMembersOptions struct {
 	// Filter the results by member type.
 	Type *string `json:"type,omitempty"`
 
-	// Return user's email and name for each user id or the name for each service id or trusted profile.
+	// Return user's email and name for each user ID or the name for each service ID or trusted profile.
 	Verbose *bool `json:"verbose,omitempty"`
 
 	// If verbose is true, sort the results by id, name, or email.
@@ -2664,6 +2684,12 @@ func (_options *ListAccessGroupMembersOptions) SetAccessGroupID(accessGroupID st
 // SetTransactionID : Allow user to set TransactionID
 func (_options *ListAccessGroupMembersOptions) SetTransactionID(transactionID string) *ListAccessGroupMembersOptions {
 	_options.TransactionID = core.StringPtr(transactionID)
+	return _options
+}
+
+// SetMembershipType : Allow user to set MembershipType
+func (_options *ListAccessGroupMembersOptions) SetMembershipType(membershipType string) *ListAccessGroupMembersOptions {
+	_options.MembershipType = core.StringPtr(membershipType)
 	return _options
 }
 
@@ -2754,8 +2780,14 @@ type ListAccessGroupsOptions struct {
 	// choose. If no transaction ID is passed in, then a random ID is generated.
 	TransactionID *string `json:"Transaction-Id,omitempty"`
 
-	// Return groups for member id (IBMid, Service Id or Profile Id).
+	// Return groups for member ID (IBMid, service ID or trusted profile ID).
 	IamID *string `json:"iam_id,omitempty"`
+
+	// Membership type need to be specified along with iam_id and must be either `static`, `dynamic` or `all`. If
+	// membership type is `static`, members explicitly added to the group will be shown. If membership type is `dynamic`,
+	// members accessing the access group at the moment via dynamic rules will be shown. If membership type is `all`, both
+	// static and dynamic members will be shown.
+	MembershipType *string `json:"membership_type,omitempty"`
 
 	// Return up to this limit of results where limit is between 0 and 100.
 	Limit *int64 `json:"limit,omitempty"`
@@ -2802,6 +2834,12 @@ func (_options *ListAccessGroupsOptions) SetIamID(iamID string) *ListAccessGroup
 	return _options
 }
 
+// SetMembershipType : Allow user to set MembershipType
+func (_options *ListAccessGroupsOptions) SetMembershipType(membershipType string) *ListAccessGroupsOptions {
+	_options.MembershipType = core.StringPtr(membershipType)
+	return _options
+}
+
 // SetLimit : Allow user to set Limit
 func (_options *ListAccessGroupsOptions) SetLimit(limit int64) *ListAccessGroupsOptions {
 	_options.Limit = core.Int64Ptr(limit)
@@ -2843,8 +2881,11 @@ type ListGroupMembersResponseMember struct {
 	// The IBMid or Service Id of the member.
 	IamID *string `json:"iam_id,omitempty"`
 
-	// The member type - either `user` or `service`.
+	// The member type - either `user`, `service` or `profile`.
 	Type *string `json:"type,omitempty"`
+
+	// The membership type - either `static` or `dynamic`.
+	MembershipType *string `json:"membership_type,omitempty"`
 
 	// The user's or service id's name.
 	Name *string `json:"name,omitempty"`
@@ -2873,6 +2914,10 @@ func UnmarshalListGroupMembersResponseMember(m map[string]json.RawMessage, resul
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "type", &obj.Type)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "membership_type", &obj.MembershipType)
 	if err != nil {
 		return
 	}

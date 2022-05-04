@@ -83,6 +83,8 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 		linkId string
 
 		accountSettingEtag string
+
+		reportId string
 	)
 
 	var shouldSkipTest = func() {
@@ -200,8 +202,9 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 			Expect(apikeyId1).ToNot(BeNil())
 
 			getAPIKeyOptions := &iamidentityv1.GetAPIKeyOptions{
-				ID:             &apikeyId1,
-				IncludeHistory: core.BoolPtr(true),
+				ID:              &apikeyId1,
+				IncludeHistory:  core.BoolPtr(true),
+				IncludeActivity: core.BoolPtr(true),
 			}
 
 			apiKey, response, err := iamIdentityService.GetAPIKey(getAPIKeyOptions)
@@ -220,6 +223,8 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 			Expect(*apiKey.Locked).To(BeFalse())
 			Expect(*apiKey.CRN).ToNot(BeNil())
 			Expect(apiKey.History).ToNot(BeEmpty())
+			Expect(apiKey.Activity).ToNot(BeNil())
+			Expect(apiKey.Activity.AuthnCount).ToNot(BeNil())
 
 			// Grab the Etag value from the response for use in the update operation.
 			apikeyEtag1 = response.GetHeaders().Get("Etag")
@@ -438,8 +443,9 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 		It(`GetServiceID(getServiceIdOptions *GetServiceIdOptions)`, func() {
 			Expect(serviceId1).ToNot(BeEmpty())
 			getServiceIDOptions := &iamidentityv1.GetServiceIDOptions{
-				ID:             &serviceId1,
-				IncludeHistory: core.BoolPtr(true),
+				ID:              &serviceId1,
+				IncludeHistory:  core.BoolPtr(true),
+				IncludeActivity: core.BoolPtr(true),
 			}
 
 			serviceID, response, err := iamIdentityService.GetServiceID(getServiceIDOptions)
@@ -452,6 +458,8 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 			Expect(*serviceID.Name).To(Equal(serviceIDName))
 			Expect(*serviceID.Description).To(Equal("GoSDK test serviceId"))
 			Expect(serviceID.History).ToNot(BeEmpty())
+			Expect(serviceID.Activity).ToNot(BeNil())
+			Expect(serviceID.Activity.AuthnCount).ToNot(BeNil())
 
 			// Grab the Etag value from the response for use in the update operation.
 			serviceIdEtag1 = response.GetHeaders().Get("Etag")
@@ -928,7 +936,7 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 		It(`CreateLink(createLinkOptions *CreateLinkOptions)`, func() {
 
 			createProfileLinkRequestLink := new(iamidentityv1.CreateProfileLinkRequestLink)
-			createProfileLinkRequestLink.CRN = core.StringPtr("crn:v1:staging:public:iam-identity::a/18e3020749ce4744b0b472466d61fdb4::computeresource:Fake-Compute-Resource")
+			createProfileLinkRequestLink.CRN = core.StringPtr("crn:v1:staging:public:iam-identity::a/" + accountID + "::computeresource:Fake-Compute-Resource")
 			createProfileLinkRequestLink.Namespace = core.StringPtr("default")
 			createProfileLinkRequestLink.Name = core.StringPtr("nice name")
 
@@ -1219,7 +1227,7 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 		It(`CreateLinkBadRequest(createLinkOptions *CreateLinkOptions)`, func() {
 
 			createProfileLinkRequestLink := new(iamidentityv1.CreateProfileLinkRequestLink)
-			createProfileLinkRequestLink.CRN = core.StringPtr("crn:v1:staging:public:iam-identity::a/18e3020749ce4744b0b472466d61fdb4::computeresource:Fake-Compute-Resource")
+			createProfileLinkRequestLink.CRN = core.StringPtr("crn:v1:staging:public:iam-identity::a/" + accountID + "::computeresource:Fake-Compute-Resource")
 			createProfileLinkRequestLink.Namespace = core.StringPtr("default")
 			createProfileLinkRequestLink.Name = core.StringPtr("nice name")
 
@@ -1293,7 +1301,6 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 			Expect(accountSettingsResponse).ToNot(BeNil())
 			Expect(accountSettingsResponse.History).ToNot(BeNil())
 			Expect(accountSettingsResponse.EntityTag).ToNot(BeNil())
-			Expect(accountSettingsResponse.AllowedIPAddresses).To(BeNil())
 			Expect(accountSettingsResponse.RestrictCreateServiceID).ToNot(BeNil())
 			Expect(accountSettingsResponse.RestrictCreatePlatformApikey).ToNot(BeNil())
 			Expect(accountSettingsResponse.SessionExpirationInSeconds).ToNot(BeNil())
@@ -1330,7 +1337,6 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 			Expect(accountSettingsResponse).ToNot(BeNil())
 			Expect(accountSettingsResponse.History).ToNot(BeNil())
 			Expect(accountSettingsResponse.EntityTag).ToNot(Equal(accountSettingEtag))
-			Expect(accountSettingsResponse.AllowedIPAddresses).To(BeNil())
 			Expect(accountSettingsResponse.Mfa).To(Equal(accountSettingsRequestOptions.Mfa))
 			Expect(accountSettingsResponse.AccountID).To(Equal(accountSettingsRequestOptions.AccountID))
 			Expect(accountSettingsResponse.RestrictCreateServiceID).To(Equal(accountSettingsRequestOptions.RestrictCreateServiceID))
@@ -1338,6 +1344,103 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 			Expect(accountSettingsResponse.SessionInvalidationInSeconds).To(Equal(accountSettingsRequestOptions.SessionInvalidationInSeconds))
 			Expect(accountSettingsResponse.SessionExpirationInSeconds).To(Equal(accountSettingsRequestOptions.SessionExpirationInSeconds))
 			fmt.Fprintf(GinkgoWriter, "UpdateAccountSettings response:\n%s\n", common.ToJSON(accountSettingsResponse))
+		})
+	})
+
+	Describe(`CreateInactivityReport - Create an inactivity report`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`CreateReport(createReportOptions *CreateReportOptions)`, func() {
+
+			createReportOptions := &iamidentityv1.CreateReportOptions{
+				AccountID: &accountID,
+				Type:      core.StringPtr("inactive"),
+				Duration:  core.StringPtr("120"),
+			}
+
+			reportRef, response, err := iamIdentityService.CreateReport(createReportOptions)
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(202))
+			Expect(reportRef).ToNot(BeNil())
+			fmt.Fprintf(GinkgoWriter, "CreateReport response:\n%s\n", common.ToJSON(reportRef))
+
+			reportId = *reportRef.Reference
+			Expect(reportId).ToNot(BeNil())
+		})
+	})
+
+	Describe(`GetInactivityReportIncomplete - Get an incomplete inactivity report`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`GetReport(getReportOptions *GetReportOptions)`, func() {
+			Expect(reportId).ToNot(BeEmpty())
+			getReportOptions := &iamidentityv1.GetReportOptions{
+				AccountID: &accountID,
+				Reference: &reportId,
+			}
+
+			report, response, err := iamIdentityService.GetReport(getReportOptions)
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(204))
+			Expect(report).To(BeNil())
+		})
+	})
+
+	Describe(`GetInactivityReportComplete - Get a complete inactivity report`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`GetReport(getReportOptions *GetReportOptions)`, func() {
+			Expect(reportId).ToNot(BeEmpty())
+			getReportOptions := &iamidentityv1.GetReportOptions{
+				AccountID: &accountID,
+				Reference: &reportId,
+			}
+
+			for i := 0; i < 30; i++ {
+				report, response, err := iamIdentityService.GetReport(getReportOptions)
+				Expect(err).To(BeNil())
+				if response.StatusCode != 204 {
+					Expect(response.StatusCode).To(Equal(200))
+					Expect(report).ToNot(BeNil())
+					Expect(report.CreatedBy).ToNot(BeNil())
+					Expect(*report.CreatedBy).To(Equal(iamID))
+					Expect(report.Reference).ToNot(BeNil())
+					Expect(*report.Reference).To(Equal(reportId))
+					Expect(report.ReportDuration).ToNot(BeNil())
+					Expect(report.ReportStartTime).ToNot(BeNil())
+					Expect(report.ReportEndTime).ToNot(BeNil())
+					Expect(report.Users).ToNot(BeNil())
+					Expect(report.Apikeys).ToNot(BeNil())
+					Expect(report.Serviceids).ToNot(BeNil())
+					Expect(report.Profiles).ToNot(BeNil())
+					break
+				}
+				time.Sleep(1 * time.Second)
+			}
+		})
+	})
+
+	Describe(`GetInactivityReportNotFound`, func() {
+		BeforeEach(func() {
+			shouldSkipTest()
+		})
+		It(`GetReportNotFound(getReportOptions *GetReportOptions)`, func() {
+
+			getReportOptions := &iamidentityv1.GetReportOptions{
+				AccountID: &accountID,
+				Reference: core.StringPtr("1234567890"),
+			}
+
+			report, response, err := iamIdentityService.GetReport(getReportOptions)
+
+			Expect(report).To(BeNil())
+			Expect(response.StatusCode).To(Equal(404))
+			Expect(err).ToNot(BeNil())
 		})
 	})
 })

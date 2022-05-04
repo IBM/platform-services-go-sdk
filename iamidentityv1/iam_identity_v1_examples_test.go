@@ -222,6 +222,7 @@ var _ = Describe(`IamIdentityV1 Examples Tests`, func() {
 			getAPIKeyOptions := iamIdentityService.NewGetAPIKeyOptions(apikeyID)
 
 			getAPIKeyOptions.SetIncludeHistory(false)
+			getAPIKeyOptions.SetIncludeActivity(false)
 
 			apiKey, response, err := iamIdentityService.GetAPIKey(getAPIKeyOptions)
 			if err != nil {
@@ -333,6 +334,8 @@ var _ = Describe(`IamIdentityV1 Examples Tests`, func() {
 			// begin-get_service_id
 
 			getServiceIDOptions := iamIdentityService.NewGetServiceIDOptions(svcID)
+
+			getServiceIDOptions.SetIncludeActivity(false)
 
 			serviceID, response, err := iamIdentityService.GetServiceID(getServiceIDOptions)
 			if err != nil {
@@ -465,6 +468,8 @@ var _ = Describe(`IamIdentityV1 Examples Tests`, func() {
 			// begin-get_profile
 
 			getProfileOptions := iamIdentityService.NewGetProfileOptions(profileId)
+
+			getProfileOptions.SetIncludeActivity(false)
 
 			profile, response, err := iamIdentityService.GetProfile(getProfileOptions)
 			if err != nil {
@@ -637,7 +642,7 @@ var _ = Describe(`IamIdentityV1 Examples Tests`, func() {
 			// begin-create_link
 
 			createProfileLinkRequestLink := new(iamidentityv1.CreateProfileLinkRequestLink)
-			createProfileLinkRequestLink.CRN = core.StringPtr("crn:v1:staging:public:iam-identity::a/18e3020749ce4744b0b472466d61fdb4::computeresource:Fake-Compute-Resource")
+			createProfileLinkRequestLink.CRN = core.StringPtr("crn:v1:staging:public:iam-identity::a/" + accountID + "::computeresource:Fake-Compute-Resource")
 			createProfileLinkRequestLink.Namespace = core.StringPtr("default")
 			createProfileLinkRequestLink.Name = core.StringPtr("niceName")
 
@@ -775,6 +780,46 @@ var _ = Describe(`IamIdentityV1 Examples Tests`, func() {
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(accountSettingsResponse).ToNot(BeNil())
+		})
+		It(`CreateReport request example`, func() {
+			fmt.Println("\nCreateReport() result:")
+			// begin-create_report
+
+			createReportOptions := iamIdentityService.NewCreateReportOptions(accountID)
+			createReportOptions.SetType("inactive")
+			createReportOptions.SetDuration("120")
+
+			report, response, err := iamIdentityService.CreateReport(createReportOptions)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(report, "", "  ")
+			fmt.Println(string(b))
+
+			// end-create_report
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(202))
+			Expect(report).ToNot(BeNil())
+		})
+		It(`GetReport request example`, func() {
+			fmt.Println("\nGetReport() result:")
+			// begin-get_report
+
+			getReportOptions := iamIdentityService.NewGetReportOptions(accountID, "latest")
+
+			report, response, err := iamIdentityService.GetReport(getReportOptions)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(report, "", "  ")
+			fmt.Println(string(b))
+
+			// end-get_report
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(report).ToNot(BeNil())
 		})
 	})
 })
