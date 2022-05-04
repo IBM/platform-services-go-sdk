@@ -1,3 +1,10 @@
+# [0.25.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.24.1...v0.25.0) (2022-05-04)
+
+
+### Features
+
+* **Activity Tracker:** add new atracker v2 service to project ([#175](https://github.com/IBM/platform-services-go-sdk/issues/175)) ([5caec67](https://github.com/IBM/platform-services-go-sdk/commit/5caec67e65bf4a9e4a4f3af08b8619d99a9ab7b3))
+
 ## [0.24.1](https://github.com/IBM/platform-services-go-sdk/compare/v0.24.0...v0.24.1) (2022-04-26)
 
 
