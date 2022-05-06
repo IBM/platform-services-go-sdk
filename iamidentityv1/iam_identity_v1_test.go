@@ -6832,7 +6832,7 @@ var _ = Describe(`IamIdentityV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"created_by": "CreatedBy", "reference": "Reference", "report_duration": "ReportDuration", "report_start_time": "ReportStartTime", "report_end_time": "ReportEndTime", "users": [{"iam_id": "IamID", "username": "Username", "last_authn": "LastAuthn"}], "apikeys": [{"id": "ID", "name": "Name", "last_authn": "LastAuthn"}], "serviceids": [{"id": "ID", "name": "Name", "last_authn": "LastAuthn"}], "profiles": [{"id": "ID", "name": "Name", "last_authn": "LastAuthn"}]}`)
+					fmt.Fprintf(res, "%s", `{"created_by": "CreatedBy", "reference": "Reference", "report_duration": "ReportDuration", "report_start_time": "ReportStartTime", "report_end_time": "ReportEndTime", "users": [{"iam_id": "IamID", "name": "Name", "username": "Username", "email": "Email", "last_authn": "LastAuthn"}], "apikeys": [{"id": "ID", "name": "Name", "type": "Type", "serviceid": {"id": "ID", "name": "Name"}, "user": {"iam_id": "IamID", "name": "Name", "username": "Username", "email": "Email"}, "last_authn": "LastAuthn"}], "serviceids": [{"id": "ID", "name": "Name", "last_authn": "LastAuthn"}], "profiles": [{"id": "ID", "name": "Name", "last_authn": "LastAuthn"}]}`)
 				}))
 			})
 			It(`Invoke GetReport successfully with retries`, func() {
@@ -6887,7 +6887,7 @@ var _ = Describe(`IamIdentityV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"created_by": "CreatedBy", "reference": "Reference", "report_duration": "ReportDuration", "report_start_time": "ReportStartTime", "report_end_time": "ReportEndTime", "users": [{"iam_id": "IamID", "username": "Username", "last_authn": "LastAuthn"}], "apikeys": [{"id": "ID", "name": "Name", "last_authn": "LastAuthn"}], "serviceids": [{"id": "ID", "name": "Name", "last_authn": "LastAuthn"}], "profiles": [{"id": "ID", "name": "Name", "last_authn": "LastAuthn"}]}`)
+					fmt.Fprintf(res, "%s", `{"created_by": "CreatedBy", "reference": "Reference", "report_duration": "ReportDuration", "report_start_time": "ReportStartTime", "report_end_time": "ReportEndTime", "users": [{"iam_id": "IamID", "name": "Name", "username": "Username", "email": "Email", "last_authn": "LastAuthn"}], "apikeys": [{"id": "ID", "name": "Name", "type": "Type", "serviceid": {"id": "ID", "name": "Name"}, "user": {"iam_id": "IamID", "name": "Name", "username": "Username", "email": "Email"}, "last_authn": "LastAuthn"}], "serviceids": [{"id": "ID", "name": "Name", "last_authn": "LastAuthn"}], "profiles": [{"id": "ID", "name": "Name", "last_authn": "LastAuthn"}]}`)
 				}))
 			})
 			It(`Invoke GetReport successfully`, func() {

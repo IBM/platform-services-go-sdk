@@ -7,7 +7,7 @@
 [![CLA assistant](https://cla-assistant.io/readme/badge/IBM/platform-services-go-sdk)](https://cla-assistant.io/IBM/platform-services-go-sdk)
 
 
-# IBM Cloud Platform Services Go SDK Version 0.24.0
+# IBM Cloud Platform Services Go SDK Version 0.25.0
 
 Go client library to interact with various
 [IBM Cloud Platform Service APIs](https://cloud.ibm.com/docs?tab=api-docs&category=platform_services).
@@ -45,7 +45,8 @@ The IBM Cloud Platform Services Go SDK allows developers to programmatically int
 
 Service Name | Package name 
 --- | --- 
-[Activity Tracker](https://cloud.ibm.com/apidocs/atracker?code=go) | atrackerv1
+[Activity Tracker](https://cloud.ibm.com/apidocs/atracker/atracker-v2) | atrackerv2
+[Activity Tracker v1 [deprecated]](https://cloud.ibm.com/apidocs/atracker/atracker-v1) | atrackerv1
 [Case Management](https://cloud.ibm.com/apidocs/case-management?code=go) | casemanagementv1
 [Catalog Management](https://cloud.ibm.com/apidocs/resource-catalog/private-catalog?code=go) | catalogmanagementv1
 [Configuration Governance](https://cloud.ibm.com/apidocs/security-compliance/config?code=go) | configurationgovernancev1
@@ -75,10 +76,10 @@ Service Name | Package name
 * An [IBM Cloud][ibm-cloud-onboarding] account.
 * An IAM API key to allow the SDK to access your account. Create one
 [here](https://cloud.ibm.com/iam/apikeys).
-* Go version 1.14 or above.
+* Go version 1.16 or above.
 
 ## Installation
-The current version of this SDK: 0.24.0
+The current version of this SDK: 0.25.0
 
 ### Go modules  
 If your application uses Go modules for dependency management (recommended), just add an import for each service 
