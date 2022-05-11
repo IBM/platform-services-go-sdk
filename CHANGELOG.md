@@ -1,3 +1,10 @@
+## [0.25.1](https://github.com/IBM/platform-services-go-sdk/compare/v0.25.0...v0.25.1) (2022-05-11)
+
+
+### Bug Fixes
+
+* **ATracker V2:** re-gen service after recent API changes ([#188](https://github.com/IBM/platform-services-go-sdk/issues/188)) ([25d7447](https://github.com/IBM/platform-services-go-sdk/commit/25d7447d30f65823984061db38c7d3fcd624413a))
+
 # [0.25.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.24.1...v0.25.0) (2022-05-04)
 
 
