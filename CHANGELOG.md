@@ -1,3 +1,45 @@
+# [0.25.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.24.1...v0.25.0) (2022-05-04)
+
+
+### Features
+
+* **Activity Tracker:** add new atracker v2 service to project ([#175](https://github.com/IBM/platform-services-go-sdk/issues/175)) ([5caec67](https://github.com/IBM/platform-services-go-sdk/commit/5caec67e65bf4a9e4a4f3af08b8619d99a9ab7b3))
+
+## [0.24.1](https://github.com/IBM/platform-services-go-sdk/compare/v0.24.0...v0.24.1) (2022-04-26)
+
+
+### Bug Fixes
+
+* **IAM Identity:** update report schema and fix ITs ([#185](https://github.com/IBM/platform-services-go-sdk/issues/185)) ([dda28af](https://github.com/IBM/platform-services-go-sdk/commit/dda28af1b0627aa733ab7288c564b429dcd8dc04))
+
+# [0.24.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.23.0...v0.24.0) (2022-04-06)
+
+
+### Features
+
+* **IAM Identity:** add support for inactivity reports ([#181](https://github.com/IBM/platform-services-go-sdk/issues/181)) ([b332e0e](https://github.com/IBM/platform-services-go-sdk/commit/b332e0e0e7ecd1b8bee6766550e5df9199dbadc5))
+
+# [0.23.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.22.11...v0.23.0) (2022-04-04)
+
+
+### Features
+
+* **IAM Access Groups:** add support for dynamic membership ([#179](https://github.com/IBM/platform-services-go-sdk/issues/179)) ([f2c9d65](https://github.com/IBM/platform-services-go-sdk/commit/f2c9d650c0f2548904f797edc5d8451e45569e15))
+
+## [0.22.11](https://github.com/IBM/platform-services-go-sdk/compare/v0.22.10...v0.22.11) (2022-03-23)
+
+
+### Bug Fixes
+
+* bump go core to 5.9.5 ([#180](https://github.com/IBM/platform-services-go-sdk/issues/180)) ([e02cf9a](https://github.com/IBM/platform-services-go-sdk/commit/e02cf9a12f043f4e8ccb94fdfdd68bd9b49eeaea))
+
+## [0.22.10](https://github.com/IBM/platform-services-go-sdk/compare/v0.22.9...v0.22.10) (2022-03-17)
+
+
+### Bug Fixes
+
+* bump go core to 5.9.3 ([#178](https://github.com/IBM/platform-services-go-sdk/issues/178)) ([1ffa4a2](https://github.com/IBM/platform-services-go-sdk/commit/1ffa4a27317b71e9a54ac927d038945740209738))
+
 ## [0.22.9](https://github.com/IBM/platform-services-go-sdk/compare/v0.22.8...v0.22.9) (2022-03-16)
 
 

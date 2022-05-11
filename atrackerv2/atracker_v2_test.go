@@ -296,6 +296,7 @@ var _ = Describe(`AtrackerV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
+
 					fmt.Fprintf(res, "%s", `{"id": "f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "name": "a-cos-target-us-south", "crn": "crn:v1:bluemix:public:atracker:us-south:a/11111111111111111111111111111111:b6eec08b-5201-08ca-451b-cd71523e3626:target:f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "target_type": "cloud_object_storage", "region": "us-south", "cos_endpoint": {"endpoint": "s3.private.us-east.cloud-object-storage.appdomain.cloud", "target_crn": "crn:v1:bluemix:public:cloud-object-storage:global:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::", "bucket": "my-atracker-bucket", "service_to_service_enabled": true}, "logdna_endpoint": {"target_crn": "crn:v1:bluemix:public:logdna:us-south:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::"}, "write_status": {"status": "success", "last_failure": "2021-05-18T20:15:12.353Z", "reason_for_last_failure": "Provided API key could not be found"}, "created_at": "2021-05-18T20:15:12.353Z", "updated_at": "2021-05-18T20:15:12.353Z", "api_version": 2}`)
 				}))
 			})
@@ -383,6 +384,7 @@ var _ = Describe(`AtrackerV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
+
 					fmt.Fprintf(res, "%s", `{"id": "f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "name": "a-cos-target-us-south", "crn": "crn:v1:bluemix:public:atracker:us-south:a/11111111111111111111111111111111:b6eec08b-5201-08ca-451b-cd71523e3626:target:f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "target_type": "cloud_object_storage", "region": "us-south", "cos_endpoint": {"endpoint": "s3.private.us-east.cloud-object-storage.appdomain.cloud", "target_crn": "crn:v1:bluemix:public:cloud-object-storage:global:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::", "bucket": "my-atracker-bucket", "service_to_service_enabled": true}, "logdna_endpoint": {"target_crn": "crn:v1:bluemix:public:logdna:us-south:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::"}, "write_status": {"status": "success", "last_failure": "2021-05-18T20:15:12.353Z", "reason_for_last_failure": "Provided API key could not be found"}, "created_at": "2021-05-18T20:15:12.353Z", "updated_at": "2021-05-18T20:15:12.353Z", "api_version": 2}`)
 				}))
 			})
@@ -649,7 +651,9 @@ var _ = Describe(`AtrackerV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
+
 					fmt.Fprintf(res, "%s", `{"targets": [{"id": "f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "name": "a-cos-target-us-south", "crn": "crn:v1:bluemix:public:atracker:us-south:a/11111111111111111111111111111111:b6eec08b-5201-08ca-451b-cd71523e3626:target:f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "target_type": "cloud_object_storage", "region": "us-south", "cos_endpoint": {"endpoint": "s3.private.us-east.cloud-object-storage.appdomain.cloud", "target_crn": "crn:v1:bluemix:public:cloud-object-storage:global:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::", "bucket": "my-atracker-bucket", "service_to_service_enabled": true}, "logdna_endpoint": {"target_crn": "crn:v1:bluemix:public:logdna:us-south:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::"}, "write_status": {"status": "success", "last_failure": "2021-05-18T20:15:12.353Z", "reason_for_last_failure": "Provided API key could not be found"}, "created_at": "2021-05-18T20:15:12.353Z", "updated_at": "2021-05-18T20:15:12.353Z", "api_version": 2}]}`)
+
 				}))
 			})
 			It(`Invoke ListTargets successfully`, func() {
@@ -801,6 +805,7 @@ var _ = Describe(`AtrackerV2`, func() {
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
 					fmt.Fprintf(res, "%s", `{"id": "f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "name": "a-cos-target-us-south", "crn": "crn:v1:bluemix:public:atracker:us-south:a/11111111111111111111111111111111:b6eec08b-5201-08ca-451b-cd71523e3626:target:f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "target_type": "cloud_object_storage", "region": "us-south", "cos_endpoint": {"endpoint": "s3.private.us-east.cloud-object-storage.appdomain.cloud", "target_crn": "crn:v1:bluemix:public:cloud-object-storage:global:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::", "bucket": "my-atracker-bucket", "service_to_service_enabled": true}, "logdna_endpoint": {"target_crn": "crn:v1:bluemix:public:logdna:us-south:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::"}, "write_status": {"status": "success", "last_failure": "2021-05-18T20:15:12.353Z", "reason_for_last_failure": "Provided API key could not be found"}, "created_at": "2021-05-18T20:15:12.353Z", "updated_at": "2021-05-18T20:15:12.353Z", "api_version": 2}`)
+
 				}))
 			})
 			It(`Invoke GetTarget successfully with retries`, func() {
@@ -855,6 +860,7 @@ var _ = Describe(`AtrackerV2`, func() {
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
 					fmt.Fprintf(res, "%s", `{"id": "f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "name": "a-cos-target-us-south", "crn": "crn:v1:bluemix:public:atracker:us-south:a/11111111111111111111111111111111:b6eec08b-5201-08ca-451b-cd71523e3626:target:f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "target_type": "cloud_object_storage", "region": "us-south", "cos_endpoint": {"endpoint": "s3.private.us-east.cloud-object-storage.appdomain.cloud", "target_crn": "crn:v1:bluemix:public:cloud-object-storage:global:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::", "bucket": "my-atracker-bucket", "service_to_service_enabled": true}, "logdna_endpoint": {"target_crn": "crn:v1:bluemix:public:logdna:us-south:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::"}, "write_status": {"status": "success", "last_failure": "2021-05-18T20:15:12.353Z", "reason_for_last_failure": "Provided API key could not be found"}, "created_at": "2021-05-18T20:15:12.353Z", "updated_at": "2021-05-18T20:15:12.353Z", "api_version": 2}`)
+
 				}))
 			})
 			It(`Invoke GetTarget successfully`, func() {
@@ -1045,6 +1051,7 @@ var _ = Describe(`AtrackerV2`, func() {
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
 					fmt.Fprintf(res, "%s", `{"id": "f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "name": "a-cos-target-us-south", "crn": "crn:v1:bluemix:public:atracker:us-south:a/11111111111111111111111111111111:b6eec08b-5201-08ca-451b-cd71523e3626:target:f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "target_type": "cloud_object_storage", "region": "us-south", "cos_endpoint": {"endpoint": "s3.private.us-east.cloud-object-storage.appdomain.cloud", "target_crn": "crn:v1:bluemix:public:cloud-object-storage:global:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::", "bucket": "my-atracker-bucket", "service_to_service_enabled": true}, "logdna_endpoint": {"target_crn": "crn:v1:bluemix:public:logdna:us-south:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::"}, "write_status": {"status": "success", "last_failure": "2021-05-18T20:15:12.353Z", "reason_for_last_failure": "Provided API key could not be found"}, "created_at": "2021-05-18T20:15:12.353Z", "updated_at": "2021-05-18T20:15:12.353Z", "api_version": 2}`)
+
 				}))
 			})
 			It(`Invoke ReplaceTarget successfully with retries`, func() {
@@ -1131,6 +1138,7 @@ var _ = Describe(`AtrackerV2`, func() {
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
 					fmt.Fprintf(res, "%s", `{"id": "f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "name": "a-cos-target-us-south", "crn": "crn:v1:bluemix:public:atracker:us-south:a/11111111111111111111111111111111:b6eec08b-5201-08ca-451b-cd71523e3626:target:f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "target_type": "cloud_object_storage", "region": "us-south", "cos_endpoint": {"endpoint": "s3.private.us-east.cloud-object-storage.appdomain.cloud", "target_crn": "crn:v1:bluemix:public:cloud-object-storage:global:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::", "bucket": "my-atracker-bucket", "service_to_service_enabled": true}, "logdna_endpoint": {"target_crn": "crn:v1:bluemix:public:logdna:us-south:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::"}, "write_status": {"status": "success", "last_failure": "2021-05-18T20:15:12.353Z", "reason_for_last_failure": "Provided API key could not be found"}, "created_at": "2021-05-18T20:15:12.353Z", "updated_at": "2021-05-18T20:15:12.353Z", "api_version": 2}`)
+
 				}))
 			})
 			It(`Invoke ReplaceTarget successfully`, func() {
@@ -1166,6 +1174,7 @@ var _ = Describe(`AtrackerV2`, func() {
 				replaceTargetOptionsModel.Name = core.StringPtr("my-cos-target")
 				replaceTargetOptionsModel.CosEndpoint = cosEndpointPrototypeModel
 				replaceTargetOptionsModel.LogdnaEndpoint = logdnaEndpointPrototypeModel
+
 				replaceTargetOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
@@ -1549,6 +1558,7 @@ var _ = Describe(`AtrackerV2`, func() {
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
 					fmt.Fprintf(res, "%s", `{"id": "f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "name": "a-cos-target-us-south", "crn": "crn:v1:bluemix:public:atracker:us-south:a/11111111111111111111111111111111:b6eec08b-5201-08ca-451b-cd71523e3626:target:f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "target_type": "cloud_object_storage", "region": "us-south", "cos_endpoint": {"endpoint": "s3.private.us-east.cloud-object-storage.appdomain.cloud", "target_crn": "crn:v1:bluemix:public:cloud-object-storage:global:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::", "bucket": "my-atracker-bucket", "service_to_service_enabled": true}, "logdna_endpoint": {"target_crn": "crn:v1:bluemix:public:logdna:us-south:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::"}, "write_status": {"status": "success", "last_failure": "2021-05-18T20:15:12.353Z", "reason_for_last_failure": "Provided API key could not be found"}, "created_at": "2021-05-18T20:15:12.353Z", "updated_at": "2021-05-18T20:15:12.353Z", "api_version": 2}`)
+
 				}))
 			})
 			It(`Invoke ValidateTarget successfully with retries`, func() {
@@ -1603,6 +1613,7 @@ var _ = Describe(`AtrackerV2`, func() {
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
 					fmt.Fprintf(res, "%s", `{"id": "f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "name": "a-cos-target-us-south", "crn": "crn:v1:bluemix:public:atracker:us-south:a/11111111111111111111111111111111:b6eec08b-5201-08ca-451b-cd71523e3626:target:f7dcfae6-e7c5-08ca-451b-fdfa696c9bb6", "target_type": "cloud_object_storage", "region": "us-south", "cos_endpoint": {"endpoint": "s3.private.us-east.cloud-object-storage.appdomain.cloud", "target_crn": "crn:v1:bluemix:public:cloud-object-storage:global:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::", "bucket": "my-atracker-bucket", "service_to_service_enabled": true}, "logdna_endpoint": {"target_crn": "crn:v1:bluemix:public:logdna:us-south:a/11111111111111111111111111111111:22222222-2222-2222-2222-222222222222::"}, "write_status": {"status": "success", "last_failure": "2021-05-18T20:15:12.353Z", "reason_for_last_failure": "Provided API key could not be found"}, "created_at": "2021-05-18T20:15:12.353Z", "updated_at": "2021-05-18T20:15:12.353Z", "api_version": 2}`)
+
 				}))
 			})
 			It(`Invoke ValidateTarget successfully`, func() {
@@ -1783,6 +1794,7 @@ var _ = Describe(`AtrackerV2`, func() {
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
 					fmt.Fprintf(res, "%s", `{"id": "c3af557f-fb0e-4476-85c3-0889e7fe7bc4", "name": "my-route", "crn": "crn:v1:bluemix:public:atracker:global:a/11111111111111111111111111111111:b6eec08b-5201-08ca-451b-cd71523e3626:route:c3af557f-fb0e-4476-85c3-0889e7fe7bc4", "version": 0, "rules": [{"target_ids": ["c3af557f-fb0e-4476-85c3-0889e7fe7bc4"], "locations": ["us-south"]}], "created_at": "2021-05-18T20:15:12.353Z", "updated_at": "2021-05-18T20:15:12.353Z", "api_version": 2, "message": "Route was created successfully."}`)
+
 				}))
 			})
 			It(`Invoke CreateRoute successfully with retries`, func() {
@@ -1859,6 +1871,7 @@ var _ = Describe(`AtrackerV2`, func() {
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
 					fmt.Fprintf(res, "%s", `{"id": "c3af557f-fb0e-4476-85c3-0889e7fe7bc4", "name": "my-route", "crn": "crn:v1:bluemix:public:atracker:global:a/11111111111111111111111111111111:b6eec08b-5201-08ca-451b-cd71523e3626:route:c3af557f-fb0e-4476-85c3-0889e7fe7bc4", "version": 0, "rules": [{"target_ids": ["c3af557f-fb0e-4476-85c3-0889e7fe7bc4"], "locations": ["us-south"]}], "created_at": "2021-05-18T20:15:12.353Z", "updated_at": "2021-05-18T20:15:12.353Z", "api_version": 2, "message": "Route was created successfully."}`)
+
 				}))
 			})
 			It(`Invoke CreateRoute successfully`, func() {
@@ -2037,6 +2050,7 @@ var _ = Describe(`AtrackerV2`, func() {
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
 					fmt.Fprintf(res, "%s", `{"routes": [{"id": "c3af557f-fb0e-4476-85c3-0889e7fe7bc4", "name": "my-route", "crn": "crn:v1:bluemix:public:atracker:global:a/11111111111111111111111111111111:b6eec08b-5201-08ca-451b-cd71523e3626:route:c3af557f-fb0e-4476-85c3-0889e7fe7bc4", "version": 0, "rules": [{"target_ids": ["c3af557f-fb0e-4476-85c3-0889e7fe7bc4"], "locations": ["us-south"]}], "created_at": "2021-05-18T20:15:12.353Z", "updated_at": "2021-05-18T20:15:12.353Z", "api_version": 2, "message": "Route was created successfully."}]}`)
+
 				}))
 			})
 			It(`Invoke ListRoutes successfully with retries`, func() {
@@ -2092,6 +2106,7 @@ var _ = Describe(`AtrackerV2`, func() {
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
 					fmt.Fprintf(res, "%s", `{"routes": [{"id": "c3af557f-fb0e-4476-85c3-0889e7fe7bc4", "name": "my-route", "crn": "crn:v1:bluemix:public:atracker:global:a/11111111111111111111111111111111:b6eec08b-5201-08ca-451b-cd71523e3626:route:c3af557f-fb0e-4476-85c3-0889e7fe7bc4", "version": 0, "rules": [{"target_ids": ["c3af557f-fb0e-4476-85c3-0889e7fe7bc4"], "locations": ["us-south"]}], "created_at": "2021-05-18T20:15:12.353Z", "updated_at": "2021-05-18T20:15:12.353Z", "api_version": 2, "message": "Route was created successfully."}]}`)
+
 				}))
 			})
 			It(`Invoke ListRoutes successfully`, func() {
@@ -2243,6 +2258,7 @@ var _ = Describe(`AtrackerV2`, func() {
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
 					fmt.Fprintf(res, "%s", `{"id": "c3af557f-fb0e-4476-85c3-0889e7fe7bc4", "name": "my-route", "crn": "crn:v1:bluemix:public:atracker:global:a/11111111111111111111111111111111:b6eec08b-5201-08ca-451b-cd71523e3626:route:c3af557f-fb0e-4476-85c3-0889e7fe7bc4", "version": 0, "rules": [{"target_ids": ["c3af557f-fb0e-4476-85c3-0889e7fe7bc4"], "locations": ["us-south"]}], "created_at": "2021-05-18T20:15:12.353Z", "updated_at": "2021-05-18T20:15:12.353Z", "api_version": 2, "message": "Route was created successfully."}`)
+
 				}))
 			})
 			It(`Invoke GetRoute successfully with retries`, func() {
@@ -2297,6 +2313,7 @@ var _ = Describe(`AtrackerV2`, func() {
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
 					fmt.Fprintf(res, "%s", `{"id": "c3af557f-fb0e-4476-85c3-0889e7fe7bc4", "name": "my-route", "crn": "crn:v1:bluemix:public:atracker:global:a/11111111111111111111111111111111:b6eec08b-5201-08ca-451b-cd71523e3626:route:c3af557f-fb0e-4476-85c3-0889e7fe7bc4", "version": 0, "rules": [{"target_ids": ["c3af557f-fb0e-4476-85c3-0889e7fe7bc4"], "locations": ["us-south"]}], "created_at": "2021-05-18T20:15:12.353Z", "updated_at": "2021-05-18T20:15:12.353Z", "api_version": 2, "message": "Route was created successfully."}`)
+
 				}))
 			})
 			It(`Invoke GetRoute successfully`, func() {
@@ -2478,6 +2495,7 @@ var _ = Describe(`AtrackerV2`, func() {
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
 					fmt.Fprintf(res, "%s", `{"id": "c3af557f-fb0e-4476-85c3-0889e7fe7bc4", "name": "my-route", "crn": "crn:v1:bluemix:public:atracker:global:a/11111111111111111111111111111111:b6eec08b-5201-08ca-451b-cd71523e3626:route:c3af557f-fb0e-4476-85c3-0889e7fe7bc4", "version": 0, "rules": [{"target_ids": ["c3af557f-fb0e-4476-85c3-0889e7fe7bc4"], "locations": ["us-south"]}], "created_at": "2021-05-18T20:15:12.353Z", "updated_at": "2021-05-18T20:15:12.353Z", "api_version": 2, "message": "Route was created successfully."}`)
+
 				}))
 			})
 			It(`Invoke ReplaceRoute successfully with retries`, func() {
@@ -2555,6 +2573,7 @@ var _ = Describe(`AtrackerV2`, func() {
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
 					fmt.Fprintf(res, "%s", `{"id": "c3af557f-fb0e-4476-85c3-0889e7fe7bc4", "name": "my-route", "crn": "crn:v1:bluemix:public:atracker:global:a/11111111111111111111111111111111:b6eec08b-5201-08ca-451b-cd71523e3626:route:c3af557f-fb0e-4476-85c3-0889e7fe7bc4", "version": 0, "rules": [{"target_ids": ["c3af557f-fb0e-4476-85c3-0889e7fe7bc4"], "locations": ["us-south"]}], "created_at": "2021-05-18T20:15:12.353Z", "updated_at": "2021-05-18T20:15:12.353Z", "api_version": 2, "message": "Route was created successfully."}`)
+
 				}))
 			})
 			It(`Invoke ReplaceRoute successfully`, func() {
@@ -3260,6 +3279,7 @@ var _ = Describe(`AtrackerV2`, func() {
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
 					fmt.Fprintf(res, "%s", `{"progress": 8, "status": "pending", "migration_items": [{"resource_type": "target", "id": "c3af557f-fb0e-4476-85c3-0889e7fe7bc4", "region": "us-south", "status": "not_started", "detailed_status": ["migration of this resource is successful."], "error": "Error"}]}`)
+
 				}))
 			})
 			It(`Invoke PostMigration successfully with retries`, func() {
@@ -3313,6 +3333,7 @@ var _ = Describe(`AtrackerV2`, func() {
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
 					fmt.Fprintf(res, "%s", `{"progress": 8, "status": "pending", "migration_items": [{"resource_type": "target", "id": "c3af557f-fb0e-4476-85c3-0889e7fe7bc4", "region": "us-south", "status": "not_started", "detailed_status": ["migration of this resource is successful."], "error": "Error"}]}`)
+
 				}))
 			})
 			It(`Invoke PostMigration successfully`, func() {
@@ -3460,6 +3481,7 @@ var _ = Describe(`AtrackerV2`, func() {
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
 					fmt.Fprintf(res, "%s", `{"progress": 8, "status": "pending", "migration_items": [{"resource_type": "target", "id": "c3af557f-fb0e-4476-85c3-0889e7fe7bc4", "region": "us-south", "status": "not_started", "detailed_status": ["migration of this resource is successful."], "error": "Error"}]}`)
+
 				}))
 			})
 			It(`Invoke GetMigration successfully with retries`, func() {
@@ -3513,6 +3535,7 @@ var _ = Describe(`AtrackerV2`, func() {
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
 					fmt.Fprintf(res, "%s", `{"progress": 8, "status": "pending", "migration_items": [{"resource_type": "target", "id": "c3af557f-fb0e-4476-85c3-0889e7fe7bc4", "region": "us-south", "status": "not_started", "detailed_status": ["migration of this resource is successful."], "error": "Error"}]}`)
+
 				}))
 			})
 			It(`Invoke GetMigration successfully`, func() {

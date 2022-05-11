@@ -360,7 +360,6 @@ var _ = Describe(`AtrackerV2 Integration Tests`, func() {
 				APIKey:                  core.StringPtr("xxxxxxxxxxxxxx"),
 				ServiceToServiceEnabled: core.BoolPtr(true),
 			}
-
 			replaceTargetOptions := &atrackerv2.ReplaceTargetOptions{
 				ID:          &targetIDLink,
 				Name:        core.StringPtr("my-cos-target-modified"),
@@ -373,7 +372,6 @@ var _ = Describe(`AtrackerV2 Integration Tests`, func() {
 			Expect(response.StatusCode).To(Equal(200))
 			Expect(target).ToNot(BeNil())
 		})
-
 	})
 
 	It(`Returns 404 when target id is not found`, func() {
@@ -786,12 +784,10 @@ var _ = Describe(`AtrackerV2 Integration Tests`, func() {
 			}
 
 			_, response, err := atrackerService.DeleteTarget(deleteTargetOptions)
-
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(200))
 		})
 	})
-
 })
 
 //

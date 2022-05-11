@@ -1146,7 +1146,6 @@ func UnmarshalCosEndpoint(m map[string]json.RawMessage, result interface{}) (err
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
 	return
 }
-
 // CosEndpointPrototype : Property values for a Cloud Object Storage Endpoint in requests.
 type CosEndpointPrototype struct {
 	// The host name of the Cloud Object Storage endpoint.
@@ -1253,8 +1252,8 @@ type CreateTargetOptions struct {
 	// The type of the target. It can be cloud_object_storage or logdna. Based on this type you must include cos_endpoint
 	// or logdna_endpoint.
 	TargetType *string `json:"target_type" validate:"required"`
-
-	// Property values for a Cloud Object Storage Endpoint in requests.
+	
+  // Property values for a Cloud Object Storage Endpoint in requests.
 	CosEndpoint *CosEndpointPrototype `json:"cos_endpoint,omitempty"`
 
 	// Property values for a LogDNA Endpoint in requests.
@@ -2029,6 +2028,7 @@ type Settings struct {
 	PermittedTargetRegions []string `json:"permitted_target_regions" validate:"required"`
 
 	// To store all your meta data in a single region.
+
 	MetadataRegionPrimary *string `json:"metadata_region_primary" validate:"required"`
 
 	// If you set this true then you cannot access api through public network.

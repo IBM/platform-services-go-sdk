@@ -170,7 +170,6 @@ var _ = Describe(`AtrackerV2 Examples Tests`, func() {
 
 			routeIDLink = *route.ID
 			fmt.Fprintf(GinkgoWriter, "Saved routeIDLink value: %v\n", routeIDLink)
-
 		})
 		It(`ListTargets request example`, func() {
 			fmt.Println("\nListTargets() result:")
