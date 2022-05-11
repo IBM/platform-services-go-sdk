@@ -15,7 +15,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 3.45.1-632ec580-20220210-190638
+ * IBM OpenAPI SDK Code Generator Version: 3.49.0-be9b22fb-20220504-154308
  */
 
 // Package atrackerv2 : Operations and models for the AtrackerV2 service
@@ -119,8 +119,10 @@ func GetServiceURLForRegion(region string) (string, error) {
 		"private.us-east":  "https://private.us-east.atracker.cloud.ibm.com",  // The server for IBM Cloud Activity Tracker Service in the us-east region.
 		"eu-de":            "https://eu-de.atracker.cloud.ibm.com",            // The server for IBM Cloud Activity Tracker Service in the eu-de region.
 		"private.eu-de":    "https://private.eu-de.atracker.cloud.ibm.com",    // The server for IBM Cloud Activity Tracker Service in the eu-de region.
-		"eu-gb":            "https://eu-gb.atracker.cloud.ibm.com",            // The public server for IBM Cloud Activity Tracker Service in the eu-gb region.
-		"private.eu-gb":    "https://private.eu-gb.atracker.cloud.ibm.com",    // The private server for IBM Cloud Activity Tracker Service in the eu-gb region.
+		"eu-gb":            "https://eu-gb.atracker.cloud.ibm.com",            // The server for IBM Cloud Activity Tracker Service in the eu-gb region.
+		"private.eu-gb":    "https://private.eu-gb.atracker.cloud.ibm.com",    // The server for IBM Cloud Activity Tracker Service in the eu-gb region.
+		"au-syd":           "https://au-syd.atracker.cloud.ibm.com",           // The server for IBM Cloud Activity Tracker Service in the au-syd region.
+		"private.au-syd":   "https://private.au-syd.atracker.cloud.ibm.com",   // The server for IBM Cloud Activity Tracker Service in the au-syd region.
 	}
 
 	if url, ok := endpoints[region]; ok {
@@ -415,17 +417,11 @@ func (atracker *AtrackerV2) ReplaceTargetWithContext(ctx context.Context, replac
 	if replaceTargetOptions.Name != nil {
 		body["name"] = replaceTargetOptions.Name
 	}
-	if replaceTargetOptions.TargetType != nil {
-		body["target_type"] = replaceTargetOptions.TargetType
-	}
 	if replaceTargetOptions.CosEndpoint != nil {
 		body["cos_endpoint"] = replaceTargetOptions.CosEndpoint
 	}
 	if replaceTargetOptions.LogdnaEndpoint != nil {
 		body["logdna_endpoint"] = replaceTargetOptions.LogdnaEndpoint
-	}
-	if replaceTargetOptions.Region != nil {
-		body["region"] = replaceTargetOptions.Region
 	}
 	_, err = builder.SetBodyContentJSON(body)
 	if err != nil {
@@ -1007,8 +1003,8 @@ func (atracker *AtrackerV2) PutSettingsWithContext(ctx context.Context, putSetti
 	return
 }
 
-// PostMigration : Migrate v1 atracker resources to v2 atracker resources
-// Migrate all v1 atracker targets and routes to v2 atracker targets and routes under an IBM account.
+// PostMigration : Migrate Activity Tracker Event Routing configurations from v1 to v2
+// Migrate all v1 Activity Tracker Event Routing targets and routes to v2 under an IBM account.
 func (atracker *AtrackerV2) PostMigration(postMigrationOptions *PostMigrationOptions) (result *Migration, response *core.DetailedResponse, err error) {
 	return atracker.PostMigrationWithContext(context.Background(), postMigrationOptions)
 }
@@ -1059,8 +1055,9 @@ func (atracker *AtrackerV2) PostMigrationWithContext(ctx context.Context, postMi
 	return
 }
 
-// GetMigration : get migration status
-// retrieve migration process and status.
+// GetMigration : Get the migration status
+// Retrieve the status of the migration process.  This can be used after the POST /migration to monitor the progress of
+// the migration process.
 func (atracker *AtrackerV2) GetMigration(getMigrationOptions *GetMigrationOptions) (result *Migration, response *core.DetailedResponse, err error) {
 	return atracker.GetMigrationWithContext(context.Background(), getMigrationOptions)
 }
@@ -1111,7 +1108,7 @@ func (atracker *AtrackerV2) GetMigrationWithContext(ctx context.Context, getMigr
 	return
 }
 
-// CosEndpoint : Property values for a Cloud Object Storage Endpoint.
+// CosEndpoint : Property values for a Cloud Object Storage Endpoint in responses.
 type CosEndpoint struct {
 	// The host name of the Cloud Object Storage endpoint.
 	Endpoint *string `json:"endpoint" validate:"required"`
@@ -1121,10 +1118,6 @@ type CosEndpoint struct {
 
 	// The bucket name under the Cloud Object Storage instance.
 	Bucket *string `json:"bucket" validate:"required"`
-
-	// The IAM API key that has writer access to the Cloud Object Storage instance. This credential is masked in the
-	// response. This is required if service_to_service is not enabled.
-	APIKey *string `json:"api_key,omitempty"`
 
 	// ATracker service is enabled to support service to service authentication. If service to service is enabled then set
 	// this flag is true and do not supply apikey.
@@ -1146,10 +1139,6 @@ func UnmarshalCosEndpoint(m map[string]json.RawMessage, result interface{}) (err
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalPrimitive(m, "api_key", &obj.APIKey)
-	if err != nil {
-		return
-	}
 	err = core.UnmarshalPrimitive(m, "service_to_service_enabled", &obj.ServiceToServiceEnabled)
 	if err != nil {
 		return
@@ -1158,7 +1147,7 @@ func UnmarshalCosEndpoint(m map[string]json.RawMessage, result interface{}) (err
 	return
 }
 
-// CosEndpointPrototype : Property values for a Cloud Object Storage Endpoint.
+// CosEndpointPrototype : Property values for a Cloud Object Storage Endpoint in requests.
 type CosEndpointPrototype struct {
 	// The host name of the Cloud Object Storage endpoint.
 	Endpoint *string `json:"endpoint" validate:"required"`
@@ -1265,10 +1254,10 @@ type CreateTargetOptions struct {
 	// or logdna_endpoint.
 	TargetType *string `json:"target_type" validate:"required"`
 
-	// Property values for a Cloud Object Storage Endpoint.
+	// Property values for a Cloud Object Storage Endpoint in requests.
 	CosEndpoint *CosEndpointPrototype `json:"cos_endpoint,omitempty"`
 
-	// Property values for a LogDNA Endpoint.
+	// Property values for a LogDNA Endpoint in requests.
 	LogdnaEndpoint *LogdnaEndpointPrototype `json:"logdna_endpoint,omitempty"`
 
 	// Include this optional field if you want to create a target in a different region other than the one you are
@@ -1532,13 +1521,10 @@ func (options *ListTargetsOptions) SetHeaders(param map[string]string) *ListTarg
 	return options
 }
 
-// LogdnaEndpoint : Property values for a LogDNA Endpoint.
+// LogdnaEndpoint : Property values for a LogDNA Endpoint in responses.
 type LogdnaEndpoint struct {
 	// The CRN of the LogDNA instance.
 	TargetCRN *string `json:"target_crn" validate:"required"`
-
-	// The LogDNA ingestion key is used for routing logs to a specific LogDNA instance.
-	IngestionKey *string `json:"ingestion_key" validate:"required"`
 }
 
 // UnmarshalLogdnaEndpoint unmarshals an instance of LogdnaEndpoint from the specified map of raw messages.
@@ -1548,15 +1534,11 @@ func UnmarshalLogdnaEndpoint(m map[string]json.RawMessage, result interface{}) (
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalPrimitive(m, "ingestion_key", &obj.IngestionKey)
-	if err != nil {
-		return
-	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
 	return
 }
 
-// LogdnaEndpointPrototype : Property values for a LogDNA Endpoint.
+// LogdnaEndpointPrototype : Property values for a LogDNA Endpoint in requests.
 type LogdnaEndpointPrototype struct {
 	// The CRN of the LogDNA instance.
 	TargetCRN *string `json:"target_crn" validate:"required"`
@@ -1590,20 +1572,20 @@ func UnmarshalLogdnaEndpointPrototype(m map[string]json.RawMessage, result inter
 	return
 }
 
-// Migration : Atracker migration response.
+// Migration : The Activity Tracker Event Routing migration response contains an overall status of the migration process.
 type Migration struct {
-	// Overall migration progress in percentage.
+	// The overall migration progress as a percentage.
 	Progress *int64 `json:"progress" validate:"required"`
 
-	// Overall status of the migration.
+	// The overall status of the migration.
 	Status *string `json:"status" validate:"required"`
 
-	// Migration item lists.
+	// List containing the migration status for each of the routes and targets that are or will be migrated.
 	MigrationItems []MigrationItem `json:"migration_items" validate:"required"`
 }
 
 // Constants associated with the Migration.Status property.
-// Overall status of the migration.
+// The overall status of the migration.
 const (
 	MigrationStatusCanceledConst    = "canceled"
 	MigrationStatusCompletedConst   = "completed"
@@ -1633,21 +1615,22 @@ func UnmarshalMigration(m map[string]json.RawMessage, result interface{}) (err e
 	return
 }
 
-// MigrationItem : Atracker migration item.
+// MigrationItem : The Activity Tracker Event Routing migration status for an individual route or target.
 type MigrationItem struct {
-	// Type of the migration item.
+	// The type of the resource being migrated.
 	ResourceType *string `json:"resource_type" validate:"required"`
 
-	// Migration item id.
+	// The uuid of the route or target.
 	ID *string `json:"id" validate:"required"`
 
-	// the region where the resource is defined.
+	// The region where the resource is defined.
 	Region *string `json:"region" validate:"required"`
 
-	// Migration item status.
+	// The status of the migration for this resource.
 	Status *string `json:"status" validate:"required"`
 
-	// detailed status of this migration.
+	// The detailed status message of the migration for this resource.  In the event of a failure this will contain the
+	// details as to why the migration failed for this resource.
 	DetailedStatus []string `json:"detailed_status" validate:"required"`
 
 	// Migration error encountered.
@@ -1655,7 +1638,7 @@ type MigrationItem struct {
 }
 
 // Constants associated with the MigrationItem.ResourceType property.
-// Type of the migration item.
+// The type of the resource being migrated.
 const (
 	MigrationItemResourceTypePrivateEndpointConst = "private_endpoint"
 	MigrationItemResourceTypeRouteConst           = "route"
@@ -1663,11 +1646,12 @@ const (
 )
 
 // Constants associated with the MigrationItem.Status property.
-// Migration item status.
+// The status of the migration for this resource.
 const (
 	MigrationItemStatusCompletedConst  = "completed"
 	MigrationItemStatusFailedConst     = "failed"
 	MigrationItemStatusInProgressConst = "in_progress"
+	MigrationItemStatusNotStartedConst = "not_started"
 	MigrationItemStatusPendingConst    = "pending"
 )
 
@@ -1833,40 +1817,22 @@ type ReplaceTargetOptions struct {
 
 	// The name of the target. The name must be 1000 characters or less, and cannot include any special characters other
 	// than `(space) - . _ :`.
-	Name *string `json:"name" validate:"required"`
+	Name *string `json:"name,omitempty"`
 
-	// The type of the target. It can be cloud_object_storage or logdna. Based on this type you must include cos_endpoint
-	// or logdna_endpoint.
-	TargetType *string `json:"target_type" validate:"required"`
-
-	// Property values for a Cloud Object Storage Endpoint.
+	// Property values for a Cloud Object Storage Endpoint in requests.
 	CosEndpoint *CosEndpointPrototype `json:"cos_endpoint,omitempty"`
 
-	// Property values for a LogDNA Endpoint.
+	// Property values for a LogDNA Endpoint in requests.
 	LogdnaEndpoint *LogdnaEndpointPrototype `json:"logdna_endpoint,omitempty"`
-
-	// Include this optional field if you want to create a target in a different region other than the one you are
-	// connected.
-	Region *string `json:"region,omitempty"`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
 }
 
-// Constants associated with the ReplaceTargetOptions.TargetType property.
-// The type of the target. It can be cloud_object_storage or logdna. Based on this type you must include cos_endpoint or
-// logdna_endpoint.
-const (
-	ReplaceTargetOptionsTargetTypeCloudObjectStorageConst = "cloud_object_storage"
-	ReplaceTargetOptionsTargetTypeLogdnaConst             = "logdna"
-)
-
 // NewReplaceTargetOptions : Instantiate ReplaceTargetOptions
-func (*AtrackerV2) NewReplaceTargetOptions(id string, name string, targetType string) *ReplaceTargetOptions {
+func (*AtrackerV2) NewReplaceTargetOptions(id string) *ReplaceTargetOptions {
 	return &ReplaceTargetOptions{
-		ID:         core.StringPtr(id),
-		Name:       core.StringPtr(name),
-		TargetType: core.StringPtr(targetType),
+		ID: core.StringPtr(id),
 	}
 }
 
@@ -1882,12 +1848,6 @@ func (_options *ReplaceTargetOptions) SetName(name string) *ReplaceTargetOptions
 	return _options
 }
 
-// SetTargetType : Allow user to set TargetType
-func (_options *ReplaceTargetOptions) SetTargetType(targetType string) *ReplaceTargetOptions {
-	_options.TargetType = core.StringPtr(targetType)
-	return _options
-}
-
 // SetCosEndpoint : Allow user to set CosEndpoint
 func (_options *ReplaceTargetOptions) SetCosEndpoint(cosEndpoint *CosEndpointPrototype) *ReplaceTargetOptions {
 	_options.CosEndpoint = cosEndpoint
@@ -1897,12 +1857,6 @@ func (_options *ReplaceTargetOptions) SetCosEndpoint(cosEndpoint *CosEndpointPro
 // SetLogdnaEndpoint : Allow user to set LogdnaEndpoint
 func (_options *ReplaceTargetOptions) SetLogdnaEndpoint(logdnaEndpoint *LogdnaEndpointPrototype) *ReplaceTargetOptions {
 	_options.LogdnaEndpoint = logdnaEndpoint
-	return _options
-}
-
-// SetRegion : Allow user to set Region
-func (_options *ReplaceTargetOptions) SetRegion(region string) *ReplaceTargetOptions {
-	_options.Region = core.StringPtr(region)
 	return _options
 }
 
@@ -1939,6 +1893,9 @@ type Route struct {
 
 	// The API version of the route.
 	APIVersion *int64 `json:"api_version" validate:"required"`
+
+	// An optional message containing information about the route.
+	Message *string `json:"message,omitempty"`
 }
 
 // UnmarshalRoute unmarshals an instance of Route from the specified map of raw messages.
@@ -1973,6 +1930,10 @@ func UnmarshalRoute(m map[string]json.RawMessage, result interface{}) (err error
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "api_version", &obj.APIVersion)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "message", &obj.Message)
 	if err != nil {
 		return
 	}
@@ -2058,7 +2019,7 @@ func UnmarshalRulePrototype(m map[string]json.RawMessage, result interface{}) (e
 	return
 }
 
-// Settings : Activity Tracker settings response.
+// Settings : Activity Tracker Event Routing settings response.
 type Settings struct {
 	// The target ID List. In the event that no routing rule causes the event to be sent to a target, these targets will
 	// receive the event.
@@ -2068,7 +2029,7 @@ type Settings struct {
 	PermittedTargetRegions []string `json:"permitted_target_regions" validate:"required"`
 
 	// To store all your meta data in a single region.
-	MetadataRegionPrimary *string `json:"metadata_region_primary,omitempty"`
+	MetadataRegionPrimary *string `json:"metadata_region_primary" validate:"required"`
 
 	// If you set this true then you cannot access api through public network.
 	PrivateAPIEndpointOnly *bool `json:"private_api_endpoint_only" validate:"required"`
@@ -2104,8 +2065,7 @@ func UnmarshalSettings(m map[string]json.RawMessage, result interface{}) (err er
 	return
 }
 
-// Target : Property values for a target in the response. Credentials associated with the target are encrypted and masked as
-// REDACTED in the response.
+// Target : Property values for a target in responses.
 type Target struct {
 	// The uuid of the target resource.
 	ID *string `json:"id" validate:"required"`
@@ -2123,14 +2083,10 @@ type Target struct {
 	// connected.
 	Region *string `json:"region,omitempty"`
 
-	// The encryption key that is used to encrypt events before Activity Tracker services buffer them on storage. This
-	// credential is masked in the response.
-	EncryptionKey *string `json:"encryption_key,omitempty"`
-
-	// Property values for a Cloud Object Storage Endpoint.
+	// Property values for a Cloud Object Storage Endpoint in responses.
 	CosEndpoint *CosEndpoint `json:"cos_endpoint,omitempty"`
 
-	// Property values for a LogDNA Endpoint.
+	// Property values for a LogDNA Endpoint in responses.
 	LogdnaEndpoint *LogdnaEndpoint `json:"logdna_endpoint,omitempty"`
 
 	// The status of the write attempt to the target with the provided endpoint parameters.
@@ -2173,10 +2129,6 @@ func UnmarshalTarget(m map[string]json.RawMessage, result interface{}) (err erro
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "region", &obj.Region)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "encryption_key", &obj.EncryptionKey)
 	if err != nil {
 		return
 	}
@@ -2280,13 +2232,13 @@ func UnmarshalWarning(m map[string]json.RawMessage, result interface{}) (err err
 // WarningReport : Description of a warning that occurred in a service request.
 type WarningReport struct {
 	// The status code.
-	StatusCode *int64 `json:"status_code" validate:"required"`
+	StatusCode *int64 `json:"status_code,omitempty"`
 
 	// The transaction-id of the API request.
-	Trace *string `json:"trace" validate:"required"`
+	Trace *string `json:"trace,omitempty"`
 
 	// The warning array triggered by the API request.
-	Warnings []Warning `json:"warnings" validate:"required"`
+	Warnings []Warning `json:"warnings,omitempty"`
 }
 
 // UnmarshalWarningReport unmarshals an instance of WarningReport from the specified map of raw messages.

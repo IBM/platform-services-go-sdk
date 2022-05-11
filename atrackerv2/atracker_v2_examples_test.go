@@ -43,42 +43,40 @@ import (
 // in a configuration file and then:
 // export IBM_CREDENTIALS_FILE=<name of configuration file>
 //
-const externalConfigFile = "../atracker_v2.env"
-
-var (
-	atrackerService *atrackerv2.AtrackerV2
-	config          map[string]string
-	configLoaded    bool = false
-)
-
-// Globlal variables to hold link values
-var (
-	routeIDLink  string
-	targetIDLink string
-)
-
-func shouldSkipTest() {
-	if !configLoaded {
-		Skip("External configuration is not available, skipping tests...")
-	}
-}
-
 var _ = Describe(`AtrackerV2 Examples Tests`, func() {
+
+	const externalConfigFile = "../atracker_v2.env"
+
+	var (
+		atrackerService *atrackerv2.AtrackerV2
+		config          map[string]string
+
+		// Variables to hold link values
+		routeIDLink  string
+		targetIDLink string
+	)
+
+	var shouldSkipTest = func() {
+		Skip("External configuration is not available, skipping examples...")
+	}
+
 	Describe(`External configuration`, func() {
 		It("Successfully load the configuration", func() {
 			var err error
 			_, err = os.Stat(externalConfigFile)
 			if err != nil {
-				Skip("External configuration file not found, skipping tests: " + err.Error())
+				Skip("External configuration file not found, skipping examples: " + err.Error())
 			}
 
 			os.Setenv("IBM_CREDENTIALS_FILE", externalConfigFile)
 			config, err = core.GetServiceProperties(atrackerv2.DefaultServiceName)
 			if err != nil {
-				Skip("Error loading service properties, skipping tests: " + err.Error())
+				Skip("Error loading service properties, skipping examples: " + err.Error())
+			} else if len(config) == 0 {
+				Skip("Unable to load service properties, skipping examples")
 			}
 
-			configLoaded = len(config) > 0
+			shouldSkipTest = func() {}
 		})
 	})
 
@@ -120,7 +118,6 @@ var _ = Describe(`AtrackerV2 Examples Tests`, func() {
 				APIKey:                  core.StringPtr("xxxxxxxxxxxxxx"),
 				ServiceToServiceEnabled: core.BoolPtr(false),
 			}
-
 			createTargetOptions := atrackerService.NewCreateTargetOptions(
 				"my-cos-target",
 				"cloud_object_storage",
@@ -141,6 +138,7 @@ var _ = Describe(`AtrackerV2 Examples Tests`, func() {
 			Expect(target).ToNot(BeNil())
 
 			targetIDLink = *target.ID
+			fmt.Fprintf(GinkgoWriter, "Saved targetIDLink value: %v\n", targetIDLink)
 
 		})
 		It(`CreateRoute request example`, func() {
@@ -171,6 +169,7 @@ var _ = Describe(`AtrackerV2 Examples Tests`, func() {
 			Expect(route).ToNot(BeNil())
 
 			routeIDLink = *route.ID
+			fmt.Fprintf(GinkgoWriter, "Saved routeIDLink value: %v\n", routeIDLink)
 
 		})
 		It(`ListTargets request example`, func() {
@@ -221,8 +220,6 @@ var _ = Describe(`AtrackerV2 Examples Tests`, func() {
 
 			replaceTargetOptions := atrackerService.NewReplaceTargetOptions(
 				targetIDLink,
-				"my-cos-target",
-				"cloud_object_storage",
 			)
 
 			target, response, err := atrackerService.ReplaceTarget(replaceTargetOptions)
@@ -454,8 +451,8 @@ var _ = Describe(`AtrackerV2 Examples Tests`, func() {
 			// end-delete_target
 
 			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(200))
-			Expect(warningReport).ToNot(BeNil())
+			Expect(response.StatusCode).To(Equal(204))
+			Expect(warningReport).To(BeNil())
 
 		})
 	})
