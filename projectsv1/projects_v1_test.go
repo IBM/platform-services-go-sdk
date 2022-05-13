@@ -3195,7 +3195,7 @@ var _ = Describe(`ProjectsV1`, func() {
 				updateProjectConfigStatusOptionsModel := new(projectsv1.UpdateProjectConfigStatusOptions)
 				updateProjectConfigStatusOptionsModel.ID = core.StringPtr("b0a2c11d-926c-4653-a15b-ed17d7b34b22")
 				updateProjectConfigStatusOptionsModel.ConfigName = core.StringPtr("example")
-				updateProjectConfigStatusOptionsModel.Status = core.StringPtr("on_error")
+				updateProjectConfigStatusOptionsModel.Status = core.StringPtr("in_error")
 				updateProjectConfigStatusOptionsModel.Message = core.StringPtr("Config installation failed")
 				updateProjectConfigStatusOptionsModel.PipelineRun = core.StringPtr("https://url.to.somewhere.failed.install")
 				updateProjectConfigStatusOptionsModel.SchematicsResourceID = core.StringPtr("eu-de.workspace.schematicstestkshama.240ff36b")
@@ -3274,7 +3274,7 @@ var _ = Describe(`ProjectsV1`, func() {
 				updateProjectConfigStatusOptionsModel := new(projectsv1.UpdateProjectConfigStatusOptions)
 				updateProjectConfigStatusOptionsModel.ID = core.StringPtr("b0a2c11d-926c-4653-a15b-ed17d7b34b22")
 				updateProjectConfigStatusOptionsModel.ConfigName = core.StringPtr("example")
-				updateProjectConfigStatusOptionsModel.Status = core.StringPtr("on_error")
+				updateProjectConfigStatusOptionsModel.Status = core.StringPtr("in_error")
 				updateProjectConfigStatusOptionsModel.Message = core.StringPtr("Config installation failed")
 				updateProjectConfigStatusOptionsModel.PipelineRun = core.StringPtr("https://url.to.somewhere.failed.install")
 				updateProjectConfigStatusOptionsModel.SchematicsResourceID = core.StringPtr("eu-de.workspace.schematicstestkshama.240ff36b")
@@ -3361,7 +3361,7 @@ var _ = Describe(`ProjectsV1`, func() {
 				updateProjectConfigStatusOptionsModel := new(projectsv1.UpdateProjectConfigStatusOptions)
 				updateProjectConfigStatusOptionsModel.ID = core.StringPtr("b0a2c11d-926c-4653-a15b-ed17d7b34b22")
 				updateProjectConfigStatusOptionsModel.ConfigName = core.StringPtr("example")
-				updateProjectConfigStatusOptionsModel.Status = core.StringPtr("on_error")
+				updateProjectConfigStatusOptionsModel.Status = core.StringPtr("in_error")
 				updateProjectConfigStatusOptionsModel.Message = core.StringPtr("Config installation failed")
 				updateProjectConfigStatusOptionsModel.PipelineRun = core.StringPtr("https://url.to.somewhere.failed.install")
 				updateProjectConfigStatusOptionsModel.SchematicsResourceID = core.StringPtr("eu-de.workspace.schematicstestkshama.240ff36b")
@@ -3393,7 +3393,7 @@ var _ = Describe(`ProjectsV1`, func() {
 				updateProjectConfigStatusOptionsModel := new(projectsv1.UpdateProjectConfigStatusOptions)
 				updateProjectConfigStatusOptionsModel.ID = core.StringPtr("b0a2c11d-926c-4653-a15b-ed17d7b34b22")
 				updateProjectConfigStatusOptionsModel.ConfigName = core.StringPtr("example")
-				updateProjectConfigStatusOptionsModel.Status = core.StringPtr("on_error")
+				updateProjectConfigStatusOptionsModel.Status = core.StringPtr("in_error")
 				updateProjectConfigStatusOptionsModel.Message = core.StringPtr("Config installation failed")
 				updateProjectConfigStatusOptionsModel.PipelineRun = core.StringPtr("https://url.to.somewhere.failed.install")
 				updateProjectConfigStatusOptionsModel.SchematicsResourceID = core.StringPtr("eu-de.workspace.schematicstestkshama.240ff36b")
@@ -3446,7 +3446,7 @@ var _ = Describe(`ProjectsV1`, func() {
 				updateProjectConfigStatusOptionsModel := new(projectsv1.UpdateProjectConfigStatusOptions)
 				updateProjectConfigStatusOptionsModel.ID = core.StringPtr("b0a2c11d-926c-4653-a15b-ed17d7b34b22")
 				updateProjectConfigStatusOptionsModel.ConfigName = core.StringPtr("example")
-				updateProjectConfigStatusOptionsModel.Status = core.StringPtr("on_error")
+				updateProjectConfigStatusOptionsModel.Status = core.StringPtr("in_error")
 				updateProjectConfigStatusOptionsModel.Message = core.StringPtr("Config installation failed")
 				updateProjectConfigStatusOptionsModel.PipelineRun = core.StringPtr("https://url.to.somewhere.failed.install")
 				updateProjectConfigStatusOptionsModel.SchematicsResourceID = core.StringPtr("eu-de.workspace.schematicstestkshama.240ff36b")
@@ -4463,12 +4463,12 @@ var _ = Describe(`ProjectsV1`, func() {
 				// Construct an instance of the UpdateProjectConfigStatusOptions model
 				id := "b0a2c11d-926c-4653-a15b-ed17d7b34b22"
 				configName := "example"
-				updateProjectConfigStatusOptionsStatus := "on_error"
+				updateProjectConfigStatusOptionsStatus := "in_error"
 				updateProjectConfigStatusOptionsMessage := "Config installation failed"
 				updateProjectConfigStatusOptionsModel := projectsService.NewUpdateProjectConfigStatusOptions(id, configName, updateProjectConfigStatusOptionsStatus, updateProjectConfigStatusOptionsMessage)
 				updateProjectConfigStatusOptionsModel.SetID("b0a2c11d-926c-4653-a15b-ed17d7b34b22")
 				updateProjectConfigStatusOptionsModel.SetConfigName("example")
-				updateProjectConfigStatusOptionsModel.SetStatus("on_error")
+				updateProjectConfigStatusOptionsModel.SetStatus("in_error")
 				updateProjectConfigStatusOptionsModel.SetMessage("Config installation failed")
 				updateProjectConfigStatusOptionsModel.SetPipelineRun("https://url.to.somewhere.failed.install")
 				updateProjectConfigStatusOptionsModel.SetSchematicsResourceID("eu-de.workspace.schematicstestkshama.240ff36b")
@@ -4477,7 +4477,7 @@ var _ = Describe(`ProjectsV1`, func() {
 				Expect(updateProjectConfigStatusOptionsModel).ToNot(BeNil())
 				Expect(updateProjectConfigStatusOptionsModel.ID).To(Equal(core.StringPtr("b0a2c11d-926c-4653-a15b-ed17d7b34b22")))
 				Expect(updateProjectConfigStatusOptionsModel.ConfigName).To(Equal(core.StringPtr("example")))
-				Expect(updateProjectConfigStatusOptionsModel.Status).To(Equal(core.StringPtr("on_error")))
+				Expect(updateProjectConfigStatusOptionsModel.Status).To(Equal(core.StringPtr("in_error")))
 				Expect(updateProjectConfigStatusOptionsModel.Message).To(Equal(core.StringPtr("Config installation failed")))
 				Expect(updateProjectConfigStatusOptionsModel.PipelineRun).To(Equal(core.StringPtr("https://url.to.somewhere.failed.install")))
 				Expect(updateProjectConfigStatusOptionsModel.SchematicsResourceID).To(Equal(core.StringPtr("eu-de.workspace.schematicstestkshama.240ff36b")))
