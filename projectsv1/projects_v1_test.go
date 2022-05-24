@@ -28,10 +28,10 @@ import (
 	"time"
 
 	"github.com/IBM/go-sdk-core/v5/core"
-	"github.com/IBM/platform-services-go-sdk/projectsv1"
 	"github.com/go-openapi/strfmt"
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
+	"github.ibm.com/ibmcloud/platform-services-go-sdk/projectsv1"
 )
 
 var _ = Describe(`ProjectsV1`, func() {
@@ -214,6 +214,7 @@ var _ = Describe(`ProjectsV1`, func() {
 				createProjectOptionsModel.Name = core.StringPtr("acme-microservice")
 				createProjectOptionsModel.ApiKey = core.StringPtr("4fiiIFIIN)C#$)_$DFDFxx)00")
 				createProjectOptionsModel.Description = core.StringPtr("A microservice to deploy on top of ACME infrastructure")
+				createProjectOptionsModel.Location = core.StringPtr("us-south")
 				createProjectOptionsModel.RepoURL = core.StringPtr("testString")
 				createProjectOptionsModel.Configs = []projectsv1.ProjectConfigIntf{projectConfigModel}
 				createProjectOptionsModel.Dashboard = projectPrototypeDashboardModel
@@ -269,7 +270,7 @@ var _ = Describe(`ProjectsV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(202)
-					fmt.Fprintf(res, "%s", `{"name": "Name", "description": "Description", "id": "ID", "crn": "Crn", "created_by": "CreatedBy", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "repo_url": "RepoURL", "href": "Href", "configs": [{"name": "Name", "labels": ["Labels"], "output": [{"name": "Name", "description": "Description", "value": "anyValue"}], "type": "manual", "external_resources_account": "ExternalResourcesAccount"}], "dashboard": {"widgets": [{"name": "Name"}]}}`)
+					fmt.Fprintf(res, "%s", `{"name": "Name", "description": "Description", "location": "us-south", "id": "ID", "crn": "Crn", "created_by": "CreatedBy", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "repo_url": "RepoURL", "href": "Href", "configs": [{"name": "Name", "labels": ["Labels"], "output": [{"name": "Name", "description": "Description", "value": "anyValue"}], "type": "manual", "external_resources_account": "ExternalResourcesAccount"}], "dashboard": {"widgets": [{"name": "Name"}]}}`)
 				}))
 			})
 			It(`Invoke CreateProject successfully with retries`, func() {
@@ -308,6 +309,7 @@ var _ = Describe(`ProjectsV1`, func() {
 				createProjectOptionsModel.Name = core.StringPtr("acme-microservice")
 				createProjectOptionsModel.ApiKey = core.StringPtr("4fiiIFIIN)C#$)_$DFDFxx)00")
 				createProjectOptionsModel.Description = core.StringPtr("A microservice to deploy on top of ACME infrastructure")
+				createProjectOptionsModel.Location = core.StringPtr("us-south")
 				createProjectOptionsModel.RepoURL = core.StringPtr("testString")
 				createProjectOptionsModel.Configs = []projectsv1.ProjectConfigIntf{projectConfigModel}
 				createProjectOptionsModel.Dashboard = projectPrototypeDashboardModel
@@ -366,7 +368,7 @@ var _ = Describe(`ProjectsV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(202)
-					fmt.Fprintf(res, "%s", `{"name": "Name", "description": "Description", "id": "ID", "crn": "Crn", "created_by": "CreatedBy", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "repo_url": "RepoURL", "href": "Href", "configs": [{"name": "Name", "labels": ["Labels"], "output": [{"name": "Name", "description": "Description", "value": "anyValue"}], "type": "manual", "external_resources_account": "ExternalResourcesAccount"}], "dashboard": {"widgets": [{"name": "Name"}]}}`)
+					fmt.Fprintf(res, "%s", `{"name": "Name", "description": "Description", "location": "us-south", "id": "ID", "crn": "Crn", "created_by": "CreatedBy", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "repo_url": "RepoURL", "href": "Href", "configs": [{"name": "Name", "labels": ["Labels"], "output": [{"name": "Name", "description": "Description", "value": "anyValue"}], "type": "manual", "external_resources_account": "ExternalResourcesAccount"}], "dashboard": {"widgets": [{"name": "Name"}]}}`)
 				}))
 			})
 			It(`Invoke CreateProject successfully`, func() {
@@ -410,6 +412,7 @@ var _ = Describe(`ProjectsV1`, func() {
 				createProjectOptionsModel.Name = core.StringPtr("acme-microservice")
 				createProjectOptionsModel.ApiKey = core.StringPtr("4fiiIFIIN)C#$)_$DFDFxx)00")
 				createProjectOptionsModel.Description = core.StringPtr("A microservice to deploy on top of ACME infrastructure")
+				createProjectOptionsModel.Location = core.StringPtr("us-south")
 				createProjectOptionsModel.RepoURL = core.StringPtr("testString")
 				createProjectOptionsModel.Configs = []projectsv1.ProjectConfigIntf{projectConfigModel}
 				createProjectOptionsModel.Dashboard = projectPrototypeDashboardModel
@@ -457,6 +460,7 @@ var _ = Describe(`ProjectsV1`, func() {
 				createProjectOptionsModel.Name = core.StringPtr("acme-microservice")
 				createProjectOptionsModel.ApiKey = core.StringPtr("4fiiIFIIN)C#$)_$DFDFxx)00")
 				createProjectOptionsModel.Description = core.StringPtr("A microservice to deploy on top of ACME infrastructure")
+				createProjectOptionsModel.Location = core.StringPtr("us-south")
 				createProjectOptionsModel.RepoURL = core.StringPtr("testString")
 				createProjectOptionsModel.Configs = []projectsv1.ProjectConfigIntf{projectConfigModel}
 				createProjectOptionsModel.Dashboard = projectPrototypeDashboardModel
@@ -525,6 +529,7 @@ var _ = Describe(`ProjectsV1`, func() {
 				createProjectOptionsModel.Name = core.StringPtr("acme-microservice")
 				createProjectOptionsModel.ApiKey = core.StringPtr("4fiiIFIIN)C#$)_$DFDFxx)00")
 				createProjectOptionsModel.Description = core.StringPtr("A microservice to deploy on top of ACME infrastructure")
+				createProjectOptionsModel.Location = core.StringPtr("us-south")
 				createProjectOptionsModel.RepoURL = core.StringPtr("testString")
 				createProjectOptionsModel.Configs = []projectsv1.ProjectConfigIntf{projectConfigModel}
 				createProjectOptionsModel.Dashboard = projectPrototypeDashboardModel
@@ -610,7 +615,7 @@ var _ = Describe(`ProjectsV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"limit": 1, "total_count": 0, "first": {"href": "Href", "start": "Start"}, "last": {"href": "Href", "start": "Start"}, "previous": {"href": "Href", "start": "Start"}, "next": {"href": "Href", "start": "Start"}, "projects": [{"name": "Name", "description": "Description", "id": "ID", "crn": "Crn", "created_by": "CreatedBy", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "repo_url": "RepoURL", "href": "Href", "configs": [{"name": "Name", "labels": ["Labels"], "output": [{"name": "Name", "description": "Description", "value": "anyValue"}], "type": "manual", "external_resources_account": "ExternalResourcesAccount"}], "dashboard": {"widgets": [{"name": "Name"}]}}]}`)
+					fmt.Fprintf(res, "%s", `{"limit": 1, "total_count": 0, "first": {"href": "Href", "start": "Start"}, "last": {"href": "Href", "start": "Start"}, "previous": {"href": "Href", "start": "Start"}, "next": {"href": "Href", "start": "Start"}, "projects": [{"name": "Name", "description": "Description", "location": "us-south", "id": "ID", "crn": "Crn", "created_by": "CreatedBy", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "repo_url": "RepoURL", "href": "Href", "configs": [{"name": "Name", "labels": ["Labels"], "output": [{"name": "Name", "description": "Description", "value": "anyValue"}], "type": "manual", "external_resources_account": "ExternalResourcesAccount"}], "dashboard": {"widgets": [{"name": "Name"}]}}]}`)
 				}))
 			})
 			It(`Invoke ListProjects successfully with retries`, func() {
@@ -667,7 +672,7 @@ var _ = Describe(`ProjectsV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"limit": 1, "total_count": 0, "first": {"href": "Href", "start": "Start"}, "last": {"href": "Href", "start": "Start"}, "previous": {"href": "Href", "start": "Start"}, "next": {"href": "Href", "start": "Start"}, "projects": [{"name": "Name", "description": "Description", "id": "ID", "crn": "Crn", "created_by": "CreatedBy", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "repo_url": "RepoURL", "href": "Href", "configs": [{"name": "Name", "labels": ["Labels"], "output": [{"name": "Name", "description": "Description", "value": "anyValue"}], "type": "manual", "external_resources_account": "ExternalResourcesAccount"}], "dashboard": {"widgets": [{"name": "Name"}]}}]}`)
+					fmt.Fprintf(res, "%s", `{"limit": 1, "total_count": 0, "first": {"href": "Href", "start": "Start"}, "last": {"href": "Href", "start": "Start"}, "previous": {"href": "Href", "start": "Start"}, "next": {"href": "Href", "start": "Start"}, "projects": [{"name": "Name", "description": "Description", "location": "us-south", "id": "ID", "crn": "Crn", "created_by": "CreatedBy", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "repo_url": "RepoURL", "href": "Href", "configs": [{"name": "Name", "labels": ["Labels"], "output": [{"name": "Name", "description": "Description", "value": "anyValue"}], "type": "manual", "external_resources_account": "ExternalResourcesAccount"}], "dashboard": {"widgets": [{"name": "Name"}]}}]}`)
 				}))
 			})
 			It(`Invoke ListProjects successfully`, func() {
@@ -840,7 +845,7 @@ var _ = Describe(`ProjectsV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"name": "Name", "description": "Description", "id": "ID", "crn": "Crn", "created_by": "CreatedBy", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "repo_url": "RepoURL", "href": "Href", "configs": [{"name": "Name", "labels": ["Labels"], "output": [{"name": "Name", "description": "Description", "value": "anyValue"}], "type": "manual", "external_resources_account": "ExternalResourcesAccount"}], "dashboard": {"widgets": [{"name": "Name"}]}}`)
+					fmt.Fprintf(res, "%s", `{"name": "Name", "description": "Description", "location": "us-south", "id": "ID", "crn": "Crn", "created_by": "CreatedBy", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "repo_url": "RepoURL", "href": "Href", "configs": [{"name": "Name", "labels": ["Labels"], "output": [{"name": "Name", "description": "Description", "value": "anyValue"}], "type": "manual", "external_resources_account": "ExternalResourcesAccount"}], "dashboard": {"widgets": [{"name": "Name"}]}}`)
 				}))
 			})
 			It(`Invoke GetProject successfully with retries`, func() {
@@ -894,7 +899,7 @@ var _ = Describe(`ProjectsV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"name": "Name", "description": "Description", "id": "ID", "crn": "Crn", "created_by": "CreatedBy", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "repo_url": "RepoURL", "href": "Href", "configs": [{"name": "Name", "labels": ["Labels"], "output": [{"name": "Name", "description": "Description", "value": "anyValue"}], "type": "manual", "external_resources_account": "ExternalResourcesAccount"}], "dashboard": {"widgets": [{"name": "Name"}]}}`)
+					fmt.Fprintf(res, "%s", `{"name": "Name", "description": "Description", "location": "us-south", "id": "ID", "crn": "Crn", "created_by": "CreatedBy", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "repo_url": "RepoURL", "href": "Href", "configs": [{"name": "Name", "labels": ["Labels"], "output": [{"name": "Name", "description": "Description", "value": "anyValue"}], "type": "manual", "external_resources_account": "ExternalResourcesAccount"}], "dashboard": {"widgets": [{"name": "Name"}]}}`)
 				}))
 			})
 			It(`Invoke GetProject successfully`, func() {
@@ -1042,6 +1047,7 @@ var _ = Describe(`ProjectsV1`, func() {
 				updateProjectOptionsModel.ID = core.StringPtr("testString")
 				updateProjectOptionsModel.NewName = core.StringPtr("acme-microservice")
 				updateProjectOptionsModel.NewDescription = core.StringPtr("A microservice to deploy on top of ACME infrastructure")
+				updateProjectOptionsModel.NewLocation = core.StringPtr("us-south")
 				updateProjectOptionsModel.NewID = core.StringPtr("testString")
 				updateProjectOptionsModel.NewCrn = core.StringPtr("testString")
 				updateProjectOptionsModel.NewCreatedBy = core.StringPtr("testString")
@@ -1106,7 +1112,7 @@ var _ = Describe(`ProjectsV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"name": "Name", "description": "Description", "id": "ID", "crn": "Crn", "created_by": "CreatedBy", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "repo_url": "RepoURL", "href": "Href", "configs": [{"name": "Name", "labels": ["Labels"], "output": [{"name": "Name", "description": "Description", "value": "anyValue"}], "type": "manual", "external_resources_account": "ExternalResourcesAccount"}], "dashboard": {"widgets": [{"name": "Name"}]}}`)
+					fmt.Fprintf(res, "%s", `{"name": "Name", "description": "Description", "location": "us-south", "id": "ID", "crn": "Crn", "created_by": "CreatedBy", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "repo_url": "RepoURL", "href": "Href", "configs": [{"name": "Name", "labels": ["Labels"], "output": [{"name": "Name", "description": "Description", "value": "anyValue"}], "type": "manual", "external_resources_account": "ExternalResourcesAccount"}], "dashboard": {"widgets": [{"name": "Name"}]}}`)
 				}))
 			})
 			It(`Invoke UpdateProject successfully with retries`, func() {
@@ -1145,6 +1151,7 @@ var _ = Describe(`ProjectsV1`, func() {
 				updateProjectOptionsModel.ID = core.StringPtr("testString")
 				updateProjectOptionsModel.NewName = core.StringPtr("acme-microservice")
 				updateProjectOptionsModel.NewDescription = core.StringPtr("A microservice to deploy on top of ACME infrastructure")
+				updateProjectOptionsModel.NewLocation = core.StringPtr("us-south")
 				updateProjectOptionsModel.NewID = core.StringPtr("testString")
 				updateProjectOptionsModel.NewCrn = core.StringPtr("testString")
 				updateProjectOptionsModel.NewCreatedBy = core.StringPtr("testString")
@@ -1212,7 +1219,7 @@ var _ = Describe(`ProjectsV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"name": "Name", "description": "Description", "id": "ID", "crn": "Crn", "created_by": "CreatedBy", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "repo_url": "RepoURL", "href": "Href", "configs": [{"name": "Name", "labels": ["Labels"], "output": [{"name": "Name", "description": "Description", "value": "anyValue"}], "type": "manual", "external_resources_account": "ExternalResourcesAccount"}], "dashboard": {"widgets": [{"name": "Name"}]}}`)
+					fmt.Fprintf(res, "%s", `{"name": "Name", "description": "Description", "location": "us-south", "id": "ID", "crn": "Crn", "created_by": "CreatedBy", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "repo_url": "RepoURL", "href": "Href", "configs": [{"name": "Name", "labels": ["Labels"], "output": [{"name": "Name", "description": "Description", "value": "anyValue"}], "type": "manual", "external_resources_account": "ExternalResourcesAccount"}], "dashboard": {"widgets": [{"name": "Name"}]}}`)
 				}))
 			})
 			It(`Invoke UpdateProject successfully`, func() {
@@ -1256,6 +1263,7 @@ var _ = Describe(`ProjectsV1`, func() {
 				updateProjectOptionsModel.ID = core.StringPtr("testString")
 				updateProjectOptionsModel.NewName = core.StringPtr("acme-microservice")
 				updateProjectOptionsModel.NewDescription = core.StringPtr("A microservice to deploy on top of ACME infrastructure")
+				updateProjectOptionsModel.NewLocation = core.StringPtr("us-south")
 				updateProjectOptionsModel.NewID = core.StringPtr("testString")
 				updateProjectOptionsModel.NewCrn = core.StringPtr("testString")
 				updateProjectOptionsModel.NewCreatedBy = core.StringPtr("testString")
@@ -1310,6 +1318,7 @@ var _ = Describe(`ProjectsV1`, func() {
 				updateProjectOptionsModel.ID = core.StringPtr("testString")
 				updateProjectOptionsModel.NewName = core.StringPtr("acme-microservice")
 				updateProjectOptionsModel.NewDescription = core.StringPtr("A microservice to deploy on top of ACME infrastructure")
+				updateProjectOptionsModel.NewLocation = core.StringPtr("us-south")
 				updateProjectOptionsModel.NewID = core.StringPtr("testString")
 				updateProjectOptionsModel.NewCrn = core.StringPtr("testString")
 				updateProjectOptionsModel.NewCreatedBy = core.StringPtr("testString")
@@ -1385,6 +1394,7 @@ var _ = Describe(`ProjectsV1`, func() {
 				updateProjectOptionsModel.ID = core.StringPtr("testString")
 				updateProjectOptionsModel.NewName = core.StringPtr("acme-microservice")
 				updateProjectOptionsModel.NewDescription = core.StringPtr("A microservice to deploy on top of ACME infrastructure")
+				updateProjectOptionsModel.NewLocation = core.StringPtr("us-south")
 				updateProjectOptionsModel.NewID = core.StringPtr("testString")
 				updateProjectOptionsModel.NewCrn = core.StringPtr("testString")
 				updateProjectOptionsModel.NewCreatedBy = core.StringPtr("testString")
@@ -1798,7 +1808,7 @@ var _ = Describe(`ProjectsV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"project_id": "ProjectID", "href": "Href", "services_status": {"toolchain": {"id": "ID", "status": "not_installed", "message": "Message", "schematics_resource_id": "SchematicsResourceID"}, "schematics": {"id": "ID", "status": "not_installed", "message": "Message", "schematics_resource_id": "SchematicsResourceID"}, "git_repo": {"id": "ID", "status": "not_installed", "message": "Message", "schematics_resource_id": "SchematicsResourceID"}}, "computed_statuses": {"mapKey": "anyValue"}}`)
+					fmt.Fprintf(res, "%s", `{"project_id": "ProjectID", "href": "Href", "status": "pending_create", "messages": ["Messages"], "services_status": {"toolchain": {"id": "ID", "status": "not_installed", "messages": ["Messages"], "schematics_resource_id": "SchematicsResourceID"}, "schematics": {"id": "ID", "status": "not_installed", "messages": ["Messages"], "schematics_resource_id": "SchematicsResourceID"}, "git_repo": {"id": "ID", "status": "not_installed", "messages": ["Messages"], "schematics_resource_id": "SchematicsResourceID"}}, "computed_statuses": {"mapKey": "anyValue"}}`)
 				}))
 			})
 			It(`Invoke GetProjectStatus successfully with retries`, func() {
@@ -1852,7 +1862,7 @@ var _ = Describe(`ProjectsV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"project_id": "ProjectID", "href": "Href", "services_status": {"toolchain": {"id": "ID", "status": "not_installed", "message": "Message", "schematics_resource_id": "SchematicsResourceID"}, "schematics": {"id": "ID", "status": "not_installed", "message": "Message", "schematics_resource_id": "SchematicsResourceID"}, "git_repo": {"id": "ID", "status": "not_installed", "message": "Message", "schematics_resource_id": "SchematicsResourceID"}}, "computed_statuses": {"mapKey": "anyValue"}}`)
+					fmt.Fprintf(res, "%s", `{"project_id": "ProjectID", "href": "Href", "status": "pending_create", "messages": ["Messages"], "services_status": {"toolchain": {"id": "ID", "status": "not_installed", "messages": ["Messages"], "schematics_resource_id": "SchematicsResourceID"}, "schematics": {"id": "ID", "status": "not_installed", "messages": ["Messages"], "schematics_resource_id": "SchematicsResourceID"}, "git_repo": {"id": "ID", "status": "not_installed", "messages": ["Messages"], "schematics_resource_id": "SchematicsResourceID"}}, "computed_statuses": {"mapKey": "anyValue"}}`)
 				}))
 			})
 			It(`Invoke GetProjectStatus successfully`, func() {
@@ -1975,7 +1985,7 @@ var _ = Describe(`ProjectsV1`, func() {
 				serviceStatusModel := new(projectsv1.ServiceStatus)
 				serviceStatusModel.ID = core.StringPtr("crn:v1:staging:public:toolchain::a/57ebb30d47d544a9b1a7df1fd8d69557:043d386e-f9db-4846-a6a7-ac939469ed11::")
 				serviceStatusModel.Status = core.StringPtr("install_in_progress")
-				serviceStatusModel.Message = core.StringPtr("Installing Project Toolchain")
+				serviceStatusModel.Messages = []string{"Installing Project Toolchain"}
 				serviceStatusModel.SchematicsResourceID = core.StringPtr("eu-de.workspace.schematicstestkshama.240ff36b")
 
 				// Construct an instance of the ServicesStatus model
@@ -1987,6 +1997,8 @@ var _ = Describe(`ProjectsV1`, func() {
 				// Construct an instance of the UpdateProjectStatusOptions model
 				updateProjectStatusOptionsModel := new(projectsv1.UpdateProjectStatusOptions)
 				updateProjectStatusOptionsModel.ID = core.StringPtr("234234324-3444-4556-224232432")
+				updateProjectStatusOptionsModel.Status = core.StringPtr("pending_create")
+				updateProjectStatusOptionsModel.Messages = []string{"testString"}
 				updateProjectStatusOptionsModel.ServicesStatus = servicesStatusModel
 				updateProjectStatusOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
@@ -2040,7 +2052,7 @@ var _ = Describe(`ProjectsV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"project_id": "ProjectID", "href": "Href", "services_status": {"toolchain": {"id": "ID", "status": "not_installed", "message": "Message", "schematics_resource_id": "SchematicsResourceID"}, "schematics": {"id": "ID", "status": "not_installed", "message": "Message", "schematics_resource_id": "SchematicsResourceID"}, "git_repo": {"id": "ID", "status": "not_installed", "message": "Message", "schematics_resource_id": "SchematicsResourceID"}}, "computed_statuses": {"mapKey": "anyValue"}}`)
+					fmt.Fprintf(res, "%s", `{"project_id": "ProjectID", "href": "Href", "status": "pending_create", "messages": ["Messages"], "services_status": {"toolchain": {"id": "ID", "status": "not_installed", "messages": ["Messages"], "schematics_resource_id": "SchematicsResourceID"}, "schematics": {"id": "ID", "status": "not_installed", "messages": ["Messages"], "schematics_resource_id": "SchematicsResourceID"}, "git_repo": {"id": "ID", "status": "not_installed", "messages": ["Messages"], "schematics_resource_id": "SchematicsResourceID"}}, "computed_statuses": {"mapKey": "anyValue"}}`)
 				}))
 			})
 			It(`Invoke UpdateProjectStatus successfully with retries`, func() {
@@ -2056,7 +2068,7 @@ var _ = Describe(`ProjectsV1`, func() {
 				serviceStatusModel := new(projectsv1.ServiceStatus)
 				serviceStatusModel.ID = core.StringPtr("crn:v1:staging:public:toolchain::a/57ebb30d47d544a9b1a7df1fd8d69557:043d386e-f9db-4846-a6a7-ac939469ed11::")
 				serviceStatusModel.Status = core.StringPtr("install_in_progress")
-				serviceStatusModel.Message = core.StringPtr("Installing Project Toolchain")
+				serviceStatusModel.Messages = []string{"Installing Project Toolchain"}
 				serviceStatusModel.SchematicsResourceID = core.StringPtr("eu-de.workspace.schematicstestkshama.240ff36b")
 
 				// Construct an instance of the ServicesStatus model
@@ -2068,6 +2080,8 @@ var _ = Describe(`ProjectsV1`, func() {
 				// Construct an instance of the UpdateProjectStatusOptions model
 				updateProjectStatusOptionsModel := new(projectsv1.UpdateProjectStatusOptions)
 				updateProjectStatusOptionsModel.ID = core.StringPtr("234234324-3444-4556-224232432")
+				updateProjectStatusOptionsModel.Status = core.StringPtr("pending_create")
+				updateProjectStatusOptionsModel.Messages = []string{"testString"}
 				updateProjectStatusOptionsModel.ServicesStatus = servicesStatusModel
 				updateProjectStatusOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
@@ -2124,7 +2138,7 @@ var _ = Describe(`ProjectsV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"project_id": "ProjectID", "href": "Href", "services_status": {"toolchain": {"id": "ID", "status": "not_installed", "message": "Message", "schematics_resource_id": "SchematicsResourceID"}, "schematics": {"id": "ID", "status": "not_installed", "message": "Message", "schematics_resource_id": "SchematicsResourceID"}, "git_repo": {"id": "ID", "status": "not_installed", "message": "Message", "schematics_resource_id": "SchematicsResourceID"}}, "computed_statuses": {"mapKey": "anyValue"}}`)
+					fmt.Fprintf(res, "%s", `{"project_id": "ProjectID", "href": "Href", "status": "pending_create", "messages": ["Messages"], "services_status": {"toolchain": {"id": "ID", "status": "not_installed", "messages": ["Messages"], "schematics_resource_id": "SchematicsResourceID"}, "schematics": {"id": "ID", "status": "not_installed", "messages": ["Messages"], "schematics_resource_id": "SchematicsResourceID"}, "git_repo": {"id": "ID", "status": "not_installed", "messages": ["Messages"], "schematics_resource_id": "SchematicsResourceID"}}, "computed_statuses": {"mapKey": "anyValue"}}`)
 				}))
 			})
 			It(`Invoke UpdateProjectStatus successfully`, func() {
@@ -2145,7 +2159,7 @@ var _ = Describe(`ProjectsV1`, func() {
 				serviceStatusModel := new(projectsv1.ServiceStatus)
 				serviceStatusModel.ID = core.StringPtr("crn:v1:staging:public:toolchain::a/57ebb30d47d544a9b1a7df1fd8d69557:043d386e-f9db-4846-a6a7-ac939469ed11::")
 				serviceStatusModel.Status = core.StringPtr("install_in_progress")
-				serviceStatusModel.Message = core.StringPtr("Installing Project Toolchain")
+				serviceStatusModel.Messages = []string{"Installing Project Toolchain"}
 				serviceStatusModel.SchematicsResourceID = core.StringPtr("eu-de.workspace.schematicstestkshama.240ff36b")
 
 				// Construct an instance of the ServicesStatus model
@@ -2157,6 +2171,8 @@ var _ = Describe(`ProjectsV1`, func() {
 				// Construct an instance of the UpdateProjectStatusOptions model
 				updateProjectStatusOptionsModel := new(projectsv1.UpdateProjectStatusOptions)
 				updateProjectStatusOptionsModel.ID = core.StringPtr("234234324-3444-4556-224232432")
+				updateProjectStatusOptionsModel.Status = core.StringPtr("pending_create")
+				updateProjectStatusOptionsModel.Messages = []string{"testString"}
 				updateProjectStatusOptionsModel.ServicesStatus = servicesStatusModel
 				updateProjectStatusOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
@@ -2179,7 +2195,7 @@ var _ = Describe(`ProjectsV1`, func() {
 				serviceStatusModel := new(projectsv1.ServiceStatus)
 				serviceStatusModel.ID = core.StringPtr("crn:v1:staging:public:toolchain::a/57ebb30d47d544a9b1a7df1fd8d69557:043d386e-f9db-4846-a6a7-ac939469ed11::")
 				serviceStatusModel.Status = core.StringPtr("install_in_progress")
-				serviceStatusModel.Message = core.StringPtr("Installing Project Toolchain")
+				serviceStatusModel.Messages = []string{"Installing Project Toolchain"}
 				serviceStatusModel.SchematicsResourceID = core.StringPtr("eu-de.workspace.schematicstestkshama.240ff36b")
 
 				// Construct an instance of the ServicesStatus model
@@ -2191,6 +2207,8 @@ var _ = Describe(`ProjectsV1`, func() {
 				// Construct an instance of the UpdateProjectStatusOptions model
 				updateProjectStatusOptionsModel := new(projectsv1.UpdateProjectStatusOptions)
 				updateProjectStatusOptionsModel.ID = core.StringPtr("234234324-3444-4556-224232432")
+				updateProjectStatusOptionsModel.Status = core.StringPtr("pending_create")
+				updateProjectStatusOptionsModel.Messages = []string{"testString"}
 				updateProjectStatusOptionsModel.ServicesStatus = servicesStatusModel
 				updateProjectStatusOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
@@ -2234,7 +2252,7 @@ var _ = Describe(`ProjectsV1`, func() {
 				serviceStatusModel := new(projectsv1.ServiceStatus)
 				serviceStatusModel.ID = core.StringPtr("crn:v1:staging:public:toolchain::a/57ebb30d47d544a9b1a7df1fd8d69557:043d386e-f9db-4846-a6a7-ac939469ed11::")
 				serviceStatusModel.Status = core.StringPtr("install_in_progress")
-				serviceStatusModel.Message = core.StringPtr("Installing Project Toolchain")
+				serviceStatusModel.Messages = []string{"Installing Project Toolchain"}
 				serviceStatusModel.SchematicsResourceID = core.StringPtr("eu-de.workspace.schematicstestkshama.240ff36b")
 
 				// Construct an instance of the ServicesStatus model
@@ -2246,6 +2264,8 @@ var _ = Describe(`ProjectsV1`, func() {
 				// Construct an instance of the UpdateProjectStatusOptions model
 				updateProjectStatusOptionsModel := new(projectsv1.UpdateProjectStatusOptions)
 				updateProjectStatusOptionsModel.ID = core.StringPtr("234234324-3444-4556-224232432")
+				updateProjectStatusOptionsModel.Status = core.StringPtr("pending_create")
+				updateProjectStatusOptionsModel.Messages = []string{"testString"}
 				updateProjectStatusOptionsModel.ServicesStatus = servicesStatusModel
 				updateProjectStatusOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
@@ -2795,7 +2815,7 @@ var _ = Describe(`ProjectsV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"project_id": "ProjectID", "href": "Href", "config_statuses": [{"href": "Href", "name": "Name", "status": "not_installed", "message": "Message", "pipeline_run": "PipelineRun", "schematics_resource_id": "SchematicsResourceID", "computed_statuses": {"mapKey": "anyValue"}, "output": [{"name": "Name", "description": "Description", "value": "anyValue"}]}]}`)
+					fmt.Fprintf(res, "%s", `{"project_id": "ProjectID", "href": "Href", "config_statuses": [{"href": "Href", "name": "Name", "status": "not_installed", "messages": ["Messages"], "pipeline_run": "PipelineRun", "schematics_resource_id": "SchematicsResourceID", "computed_statuses": {"mapKey": "anyValue"}, "output": [{"name": "Name", "description": "Description", "value": "anyValue"}]}]}`)
 				}))
 			})
 			It(`Invoke ListProjectConfigStatuses successfully with retries`, func() {
@@ -2849,7 +2869,7 @@ var _ = Describe(`ProjectsV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"project_id": "ProjectID", "href": "Href", "config_statuses": [{"href": "Href", "name": "Name", "status": "not_installed", "message": "Message", "pipeline_run": "PipelineRun", "schematics_resource_id": "SchematicsResourceID", "computed_statuses": {"mapKey": "anyValue"}, "output": [{"name": "Name", "description": "Description", "value": "anyValue"}]}]}`)
+					fmt.Fprintf(res, "%s", `{"project_id": "ProjectID", "href": "Href", "config_statuses": [{"href": "Href", "name": "Name", "status": "not_installed", "messages": ["Messages"], "pipeline_run": "PipelineRun", "schematics_resource_id": "SchematicsResourceID", "computed_statuses": {"mapKey": "anyValue"}, "output": [{"name": "Name", "description": "Description", "value": "anyValue"}]}]}`)
 				}))
 			})
 			It(`Invoke ListProjectConfigStatuses successfully`, func() {
@@ -3008,7 +3028,7 @@ var _ = Describe(`ProjectsV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"href": "Href", "name": "Name", "status": "not_installed", "message": "Message", "pipeline_run": "PipelineRun", "schematics_resource_id": "SchematicsResourceID", "computed_statuses": {"mapKey": "anyValue"}, "output": [{"name": "Name", "description": "Description", "value": "anyValue"}]}`)
+					fmt.Fprintf(res, "%s", `{"href": "Href", "name": "Name", "status": "not_installed", "messages": ["Messages"], "pipeline_run": "PipelineRun", "schematics_resource_id": "SchematicsResourceID", "computed_statuses": {"mapKey": "anyValue"}, "output": [{"name": "Name", "description": "Description", "value": "anyValue"}]}`)
 				}))
 			})
 			It(`Invoke GetProjectConfigStatus successfully with retries`, func() {
@@ -3063,7 +3083,7 @@ var _ = Describe(`ProjectsV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"href": "Href", "name": "Name", "status": "not_installed", "message": "Message", "pipeline_run": "PipelineRun", "schematics_resource_id": "SchematicsResourceID", "computed_statuses": {"mapKey": "anyValue"}, "output": [{"name": "Name", "description": "Description", "value": "anyValue"}]}`)
+					fmt.Fprintf(res, "%s", `{"href": "Href", "name": "Name", "status": "not_installed", "messages": ["Messages"], "pipeline_run": "PipelineRun", "schematics_resource_id": "SchematicsResourceID", "computed_statuses": {"mapKey": "anyValue"}, "output": [{"name": "Name", "description": "Description", "value": "anyValue"}]}`)
 				}))
 			})
 			It(`Invoke GetProjectConfigStatus successfully`, func() {
@@ -3196,7 +3216,7 @@ var _ = Describe(`ProjectsV1`, func() {
 				updateProjectConfigStatusOptionsModel.ID = core.StringPtr("b0a2c11d-926c-4653-a15b-ed17d7b34b22")
 				updateProjectConfigStatusOptionsModel.ConfigName = core.StringPtr("example")
 				updateProjectConfigStatusOptionsModel.Status = core.StringPtr("in_error")
-				updateProjectConfigStatusOptionsModel.Message = core.StringPtr("Config installation failed")
+				updateProjectConfigStatusOptionsModel.Messages = []string{"Config installation failed"}
 				updateProjectConfigStatusOptionsModel.PipelineRun = core.StringPtr("https://url.to.somewhere.failed.install")
 				updateProjectConfigStatusOptionsModel.SchematicsResourceID = core.StringPtr("eu-de.workspace.schematicstestkshama.240ff36b")
 				updateProjectConfigStatusOptionsModel.Output = []projectsv1.OutputValue{*outputValueModel}
@@ -3252,7 +3272,7 @@ var _ = Describe(`ProjectsV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"href": "Href", "name": "Name", "status": "not_installed", "message": "Message", "pipeline_run": "PipelineRun", "schematics_resource_id": "SchematicsResourceID", "computed_statuses": {"mapKey": "anyValue"}, "output": [{"name": "Name", "description": "Description", "value": "anyValue"}]}`)
+					fmt.Fprintf(res, "%s", `{"href": "Href", "name": "Name", "status": "not_installed", "messages": ["Messages"], "pipeline_run": "PipelineRun", "schematics_resource_id": "SchematicsResourceID", "computed_statuses": {"mapKey": "anyValue"}, "output": [{"name": "Name", "description": "Description", "value": "anyValue"}]}`)
 				}))
 			})
 			It(`Invoke UpdateProjectConfigStatus successfully with retries`, func() {
@@ -3275,7 +3295,7 @@ var _ = Describe(`ProjectsV1`, func() {
 				updateProjectConfigStatusOptionsModel.ID = core.StringPtr("b0a2c11d-926c-4653-a15b-ed17d7b34b22")
 				updateProjectConfigStatusOptionsModel.ConfigName = core.StringPtr("example")
 				updateProjectConfigStatusOptionsModel.Status = core.StringPtr("in_error")
-				updateProjectConfigStatusOptionsModel.Message = core.StringPtr("Config installation failed")
+				updateProjectConfigStatusOptionsModel.Messages = []string{"Config installation failed"}
 				updateProjectConfigStatusOptionsModel.PipelineRun = core.StringPtr("https://url.to.somewhere.failed.install")
 				updateProjectConfigStatusOptionsModel.SchematicsResourceID = core.StringPtr("eu-de.workspace.schematicstestkshama.240ff36b")
 				updateProjectConfigStatusOptionsModel.Output = []projectsv1.OutputValue{*outputValueModel}
@@ -3334,7 +3354,7 @@ var _ = Describe(`ProjectsV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"href": "Href", "name": "Name", "status": "not_installed", "message": "Message", "pipeline_run": "PipelineRun", "schematics_resource_id": "SchematicsResourceID", "computed_statuses": {"mapKey": "anyValue"}, "output": [{"name": "Name", "description": "Description", "value": "anyValue"}]}`)
+					fmt.Fprintf(res, "%s", `{"href": "Href", "name": "Name", "status": "not_installed", "messages": ["Messages"], "pipeline_run": "PipelineRun", "schematics_resource_id": "SchematicsResourceID", "computed_statuses": {"mapKey": "anyValue"}, "output": [{"name": "Name", "description": "Description", "value": "anyValue"}]}`)
 				}))
 			})
 			It(`Invoke UpdateProjectConfigStatus successfully`, func() {
@@ -3362,7 +3382,7 @@ var _ = Describe(`ProjectsV1`, func() {
 				updateProjectConfigStatusOptionsModel.ID = core.StringPtr("b0a2c11d-926c-4653-a15b-ed17d7b34b22")
 				updateProjectConfigStatusOptionsModel.ConfigName = core.StringPtr("example")
 				updateProjectConfigStatusOptionsModel.Status = core.StringPtr("in_error")
-				updateProjectConfigStatusOptionsModel.Message = core.StringPtr("Config installation failed")
+				updateProjectConfigStatusOptionsModel.Messages = []string{"Config installation failed"}
 				updateProjectConfigStatusOptionsModel.PipelineRun = core.StringPtr("https://url.to.somewhere.failed.install")
 				updateProjectConfigStatusOptionsModel.SchematicsResourceID = core.StringPtr("eu-de.workspace.schematicstestkshama.240ff36b")
 				updateProjectConfigStatusOptionsModel.Output = []projectsv1.OutputValue{*outputValueModel}
@@ -3394,7 +3414,7 @@ var _ = Describe(`ProjectsV1`, func() {
 				updateProjectConfigStatusOptionsModel.ID = core.StringPtr("b0a2c11d-926c-4653-a15b-ed17d7b34b22")
 				updateProjectConfigStatusOptionsModel.ConfigName = core.StringPtr("example")
 				updateProjectConfigStatusOptionsModel.Status = core.StringPtr("in_error")
-				updateProjectConfigStatusOptionsModel.Message = core.StringPtr("Config installation failed")
+				updateProjectConfigStatusOptionsModel.Messages = []string{"Config installation failed"}
 				updateProjectConfigStatusOptionsModel.PipelineRun = core.StringPtr("https://url.to.somewhere.failed.install")
 				updateProjectConfigStatusOptionsModel.SchematicsResourceID = core.StringPtr("eu-de.workspace.schematicstestkshama.240ff36b")
 				updateProjectConfigStatusOptionsModel.Output = []projectsv1.OutputValue{*outputValueModel}
@@ -3447,7 +3467,7 @@ var _ = Describe(`ProjectsV1`, func() {
 				updateProjectConfigStatusOptionsModel.ID = core.StringPtr("b0a2c11d-926c-4653-a15b-ed17d7b34b22")
 				updateProjectConfigStatusOptionsModel.ConfigName = core.StringPtr("example")
 				updateProjectConfigStatusOptionsModel.Status = core.StringPtr("in_error")
-				updateProjectConfigStatusOptionsModel.Message = core.StringPtr("Config installation failed")
+				updateProjectConfigStatusOptionsModel.Messages = []string{"Config installation failed"}
 				updateProjectConfigStatusOptionsModel.PipelineRun = core.StringPtr("https://url.to.somewhere.failed.install")
 				updateProjectConfigStatusOptionsModel.SchematicsResourceID = core.StringPtr("eu-de.workspace.schematicstestkshama.240ff36b")
 				updateProjectConfigStatusOptionsModel.Output = []projectsv1.OutputValue{*outputValueModel}
@@ -4217,6 +4237,7 @@ var _ = Describe(`ProjectsV1`, func() {
 				createProjectOptionsModel.SetName("acme-microservice")
 				createProjectOptionsModel.SetApiKey("4fiiIFIIN)C#$)_$DFDFxx)00")
 				createProjectOptionsModel.SetDescription("A microservice to deploy on top of ACME infrastructure")
+				createProjectOptionsModel.SetLocation("us-south")
 				createProjectOptionsModel.SetRepoURL("testString")
 				createProjectOptionsModel.SetConfigs([]projectsv1.ProjectConfigIntf{projectConfigModel})
 				createProjectOptionsModel.SetDashboard(projectPrototypeDashboardModel)
@@ -4225,6 +4246,7 @@ var _ = Describe(`ProjectsV1`, func() {
 				Expect(createProjectOptionsModel.Name).To(Equal(core.StringPtr("acme-microservice")))
 				Expect(createProjectOptionsModel.ApiKey).To(Equal(core.StringPtr("4fiiIFIIN)C#$)_$DFDFxx)00")))
 				Expect(createProjectOptionsModel.Description).To(Equal(core.StringPtr("A microservice to deploy on top of ACME infrastructure")))
+				Expect(createProjectOptionsModel.Location).To(Equal(core.StringPtr("us-south")))
 				Expect(createProjectOptionsModel.RepoURL).To(Equal(core.StringPtr("testString")))
 				Expect(createProjectOptionsModel.Configs).To(Equal([]projectsv1.ProjectConfigIntf{projectConfigModel}))
 				Expect(createProjectOptionsModel.Dashboard).To(Equal(projectPrototypeDashboardModel))
@@ -4384,8 +4406,7 @@ var _ = Describe(`ProjectsV1`, func() {
 			It(`Invoke NewServiceStatus successfully`, func() {
 				id := "testString"
 				status := "not_installed"
-				message := "testString"
-				_model, err := projectsService.NewServiceStatus(id, status, message)
+				_model, err := projectsService.NewServiceStatus(id, status)
 				Expect(_model).ToNot(BeNil())
 				Expect(err).To(BeNil())
 			})
@@ -4464,12 +4485,11 @@ var _ = Describe(`ProjectsV1`, func() {
 				id := "b0a2c11d-926c-4653-a15b-ed17d7b34b22"
 				configName := "example"
 				updateProjectConfigStatusOptionsStatus := "in_error"
-				updateProjectConfigStatusOptionsMessage := "Config installation failed"
-				updateProjectConfigStatusOptionsModel := projectsService.NewUpdateProjectConfigStatusOptions(id, configName, updateProjectConfigStatusOptionsStatus, updateProjectConfigStatusOptionsMessage)
+				updateProjectConfigStatusOptionsModel := projectsService.NewUpdateProjectConfigStatusOptions(id, configName, updateProjectConfigStatusOptionsStatus)
 				updateProjectConfigStatusOptionsModel.SetID("b0a2c11d-926c-4653-a15b-ed17d7b34b22")
 				updateProjectConfigStatusOptionsModel.SetConfigName("example")
 				updateProjectConfigStatusOptionsModel.SetStatus("in_error")
-				updateProjectConfigStatusOptionsModel.SetMessage("Config installation failed")
+				updateProjectConfigStatusOptionsModel.SetMessages([]string{"Config installation failed"})
 				updateProjectConfigStatusOptionsModel.SetPipelineRun("https://url.to.somewhere.failed.install")
 				updateProjectConfigStatusOptionsModel.SetSchematicsResourceID("eu-de.workspace.schematicstestkshama.240ff36b")
 				updateProjectConfigStatusOptionsModel.SetOutput([]projectsv1.OutputValue{*outputValueModel})
@@ -4478,7 +4498,7 @@ var _ = Describe(`ProjectsV1`, func() {
 				Expect(updateProjectConfigStatusOptionsModel.ID).To(Equal(core.StringPtr("b0a2c11d-926c-4653-a15b-ed17d7b34b22")))
 				Expect(updateProjectConfigStatusOptionsModel.ConfigName).To(Equal(core.StringPtr("example")))
 				Expect(updateProjectConfigStatusOptionsModel.Status).To(Equal(core.StringPtr("in_error")))
-				Expect(updateProjectConfigStatusOptionsModel.Message).To(Equal(core.StringPtr("Config installation failed")))
+				Expect(updateProjectConfigStatusOptionsModel.Messages).To(Equal([]string{"Config installation failed"}))
 				Expect(updateProjectConfigStatusOptionsModel.PipelineRun).To(Equal(core.StringPtr("https://url.to.somewhere.failed.install")))
 				Expect(updateProjectConfigStatusOptionsModel.SchematicsResourceID).To(Equal(core.StringPtr("eu-de.workspace.schematicstestkshama.240ff36b")))
 				Expect(updateProjectConfigStatusOptionsModel.Output).To(Equal([]projectsv1.OutputValue{*outputValueModel}))
@@ -4528,6 +4548,7 @@ var _ = Describe(`ProjectsV1`, func() {
 				updateProjectOptionsModel.SetID("testString")
 				updateProjectOptionsModel.SetNewName("acme-microservice")
 				updateProjectOptionsModel.SetNewDescription("A microservice to deploy on top of ACME infrastructure")
+				updateProjectOptionsModel.SetNewLocation("us-south")
 				updateProjectOptionsModel.SetNewID("testString")
 				updateProjectOptionsModel.SetNewCrn("testString")
 				updateProjectOptionsModel.SetNewCreatedBy("testString")
@@ -4543,6 +4564,7 @@ var _ = Describe(`ProjectsV1`, func() {
 				Expect(updateProjectOptionsModel.ID).To(Equal(core.StringPtr("testString")))
 				Expect(updateProjectOptionsModel.NewName).To(Equal(core.StringPtr("acme-microservice")))
 				Expect(updateProjectOptionsModel.NewDescription).To(Equal(core.StringPtr("A microservice to deploy on top of ACME infrastructure")))
+				Expect(updateProjectOptionsModel.NewLocation).To(Equal(core.StringPtr("us-south")))
 				Expect(updateProjectOptionsModel.NewID).To(Equal(core.StringPtr("testString")))
 				Expect(updateProjectOptionsModel.NewCrn).To(Equal(core.StringPtr("testString")))
 				Expect(updateProjectOptionsModel.NewCreatedBy).To(Equal(core.StringPtr("testString")))
@@ -4561,11 +4583,11 @@ var _ = Describe(`ProjectsV1`, func() {
 				Expect(serviceStatusModel).ToNot(BeNil())
 				serviceStatusModel.ID = core.StringPtr("crn:v1:staging:public:toolchain::a/57ebb30d47d544a9b1a7df1fd8d69557:043d386e-f9db-4846-a6a7-ac939469ed11::")
 				serviceStatusModel.Status = core.StringPtr("install_in_progress")
-				serviceStatusModel.Message = core.StringPtr("Installing Project Toolchain")
+				serviceStatusModel.Messages = []string{"Installing Project Toolchain"}
 				serviceStatusModel.SchematicsResourceID = core.StringPtr("eu-de.workspace.schematicstestkshama.240ff36b")
 				Expect(serviceStatusModel.ID).To(Equal(core.StringPtr("crn:v1:staging:public:toolchain::a/57ebb30d47d544a9b1a7df1fd8d69557:043d386e-f9db-4846-a6a7-ac939469ed11::")))
 				Expect(serviceStatusModel.Status).To(Equal(core.StringPtr("install_in_progress")))
-				Expect(serviceStatusModel.Message).To(Equal(core.StringPtr("Installing Project Toolchain")))
+				Expect(serviceStatusModel.Messages).To(Equal([]string{"Installing Project Toolchain"}))
 				Expect(serviceStatusModel.SchematicsResourceID).To(Equal(core.StringPtr("eu-de.workspace.schematicstestkshama.240ff36b")))
 
 				// Construct an instance of the ServicesStatus model
@@ -4580,13 +4602,19 @@ var _ = Describe(`ProjectsV1`, func() {
 
 				// Construct an instance of the UpdateProjectStatusOptions model
 				id := "234234324-3444-4556-224232432"
+				updateProjectStatusOptionsStatus := "pending_create"
+				updateProjectStatusOptionsMessages := []string{"testString"}
 				var updateProjectStatusOptionsServicesStatus *projectsv1.ServicesStatus = nil
-				updateProjectStatusOptionsModel := projectsService.NewUpdateProjectStatusOptions(id, updateProjectStatusOptionsServicesStatus)
+				updateProjectStatusOptionsModel := projectsService.NewUpdateProjectStatusOptions(id, updateProjectStatusOptionsStatus, updateProjectStatusOptionsMessages, updateProjectStatusOptionsServicesStatus)
 				updateProjectStatusOptionsModel.SetID("234234324-3444-4556-224232432")
+				updateProjectStatusOptionsModel.SetStatus("pending_create")
+				updateProjectStatusOptionsModel.SetMessages([]string{"testString"})
 				updateProjectStatusOptionsModel.SetServicesStatus(servicesStatusModel)
 				updateProjectStatusOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(updateProjectStatusOptionsModel).ToNot(BeNil())
 				Expect(updateProjectStatusOptionsModel.ID).To(Equal(core.StringPtr("234234324-3444-4556-224232432")))
+				Expect(updateProjectStatusOptionsModel.Status).To(Equal(core.StringPtr("pending_create")))
+				Expect(updateProjectStatusOptionsModel.Messages).To(Equal([]string{"testString"}))
 				Expect(updateProjectStatusOptionsModel.ServicesStatus).To(Equal(servicesStatusModel))
 				Expect(updateProjectStatusOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
