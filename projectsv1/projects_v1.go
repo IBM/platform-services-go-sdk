@@ -30,8 +30,8 @@ import (
 	"time"
 
 	"github.com/IBM/go-sdk-core/v5/core"
-	common "github.com/IBM/platform-services-go-sdk/common"
 	"github.com/go-openapi/strfmt"
+	common "github.ibm.com/ibmcloud/platform-services-go-sdk/common"
 )
 
 // ProjectsV1 : This document is the **REST API specification** for the Projects Service. The Projects service provides
@@ -207,6 +207,9 @@ func (projects *ProjectsV1) CreateProjectWithContext(ctx context.Context, create
 	}
 	if createProjectOptions.Description != nil {
 		body["description"] = createProjectOptions.Description
+	}
+	if createProjectOptions.Location != nil {
+		body["location"] = createProjectOptions.Location
 	}
 	if createProjectOptions.RepoURL != nil {
 		body["repo_url"] = createProjectOptions.RepoURL
@@ -411,6 +414,9 @@ func (projects *ProjectsV1) UpdateProjectWithContext(ctx context.Context, update
 	}
 	if updateProjectOptions.NewDescription != nil {
 		body["description"] = updateProjectOptions.NewDescription
+	}
+	if updateProjectOptions.NewLocation != nil {
+		body["location"] = updateProjectOptions.NewLocation
 	}
 	if updateProjectOptions.NewID != nil {
 		body["id"] = updateProjectOptions.NewID
@@ -793,6 +799,12 @@ func (projects *ProjectsV1) UpdateProjectStatusWithContext(ctx context.Context, 
 	builder.AddHeader("Content-Type", "application/json")
 
 	body := make(map[string]interface{})
+	if updateProjectStatusOptions.Status != nil {
+		body["status"] = updateProjectStatusOptions.Status
+	}
+	if updateProjectStatusOptions.Messages != nil {
+		body["messages"] = updateProjectStatusOptions.Messages
+	}
 	if updateProjectStatusOptions.ServicesStatus != nil {
 		body["services_status"] = updateProjectStatusOptions.ServicesStatus
 	}
@@ -1120,8 +1132,8 @@ func (projects *ProjectsV1) UpdateProjectConfigStatusWithContext(ctx context.Con
 	if updateProjectConfigStatusOptions.Status != nil {
 		body["status"] = updateProjectConfigStatusOptions.Status
 	}
-	if updateProjectConfigStatusOptions.Message != nil {
-		body["message"] = updateProjectConfigStatusOptions.Message
+	if updateProjectConfigStatusOptions.Messages != nil {
+		body["messages"] = updateProjectConfigStatusOptions.Messages
 	}
 	if updateProjectConfigStatusOptions.PipelineRun != nil {
 		body["pipeline_run"] = updateProjectConfigStatusOptions.PipelineRun
@@ -1391,6 +1403,8 @@ type CreateProjectOptions struct {
 	// A project's descriptive text.
 	Description *string `json:"description,omitempty"`
 
+	Location *string `json:"location,omitempty"`
+
 	RepoURL *string `json:"repo_url,omitempty"`
 
 	Configs []ProjectConfigIntf `json:"configs,omitempty"`
@@ -1400,6 +1414,15 @@ type CreateProjectOptions struct {
 	// Allows users to set headers on API requests
 	Headers map[string]string
 }
+
+// Constants associated with the CreateProjectOptions.Location property.
+const (
+	CreateProjectOptions_Location_AuSyd = "au-syd"
+	CreateProjectOptions_Location_EuDe = "eu-de"
+	CreateProjectOptions_Location_EuGb = "eu-gb"
+	CreateProjectOptions_Location_UsEast = "us-east"
+	CreateProjectOptions_Location_UsSouth = "us-south"
+)
 
 // NewCreateProjectOptions : Instantiate CreateProjectOptions
 func (*ProjectsV1) NewCreateProjectOptions(name string, apiKey string) *CreateProjectOptions {
@@ -1424,6 +1447,12 @@ func (_options *CreateProjectOptions) SetApiKey(apiKey string) *CreateProjectOpt
 // SetDescription : Allow user to set Description
 func (_options *CreateProjectOptions) SetDescription(description string) *CreateProjectOptions {
 	_options.Description = core.StringPtr(description)
+	return _options
+}
+
+// SetLocation : Allow user to set Location
+func (_options *CreateProjectOptions) SetLocation(location string) *CreateProjectOptions {
+	_options.Location = core.StringPtr(location)
 	return _options
 }
 
@@ -2024,6 +2053,8 @@ type Project struct {
 	// A project descriptive text.
 	Description *string `json:"description,omitempty"`
 
+	Location *string `json:"location,omitempty"`
+
 	ID *string `json:"id,omitempty"`
 
 	// An IBM Cloud Resource Name, which uniquely identify a resource.
@@ -2048,6 +2079,15 @@ type Project struct {
 	Dashboard *ProjectDashboard `json:"dashboard,omitempty"`
 }
 
+// Constants associated with the Project.Location property.
+const (
+	Project_Location_AuSyd = "au-syd"
+	Project_Location_EuDe = "eu-de"
+	Project_Location_EuGb = "eu-gb"
+	Project_Location_UsEast = "us-east"
+	Project_Location_UsSouth = "us-south"
+)
+
 // NewProject : Instantiate Project (Generic Model Constructor)
 func (*ProjectsV1) NewProject(name string) (_model *Project, err error) {
 	_model = &Project{
@@ -2065,6 +2105,10 @@ func UnmarshalProject(m map[string]json.RawMessage, result interface{}) (err err
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "description", &obj.Description)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "location", &obj.Location)
 	if err != nil {
 		return
 	}
@@ -2248,8 +2292,7 @@ type ProjectConfigStatus struct {
 
 	Status *string `json:"status" validate:"required"`
 
-	// A detailed status message when applicable.
-	Message *string `json:"message" validate:"required"`
+	Messages []string `json:"messages,omitempty"`
 
 	PipelineRun *string `json:"pipeline_run,omitempty"`
 
@@ -2292,7 +2335,7 @@ func UnmarshalProjectConfigStatus(m map[string]json.RawMessage, result interface
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalPrimitive(m, "message", &obj.Message)
+	err = core.UnmarshalPrimitive(m, "messages", &obj.Messages)
 	if err != nil {
 		return
 	}
@@ -2400,11 +2443,24 @@ type ProjectStatus struct {
 
 	Href *string `json:"href" validate:"required"`
 
+	Status *string `json:"status" validate:"required"`
+
+	Messages []string `json:"messages" validate:"required"`
+
 	// Project plumbing services and their status.
 	ServicesStatus *ServicesStatus `json:"services_status" validate:"required"`
 
 	ComputedStatuses map[string]interface{} `json:"computed_statuses,omitempty"`
 }
+
+// Constants associated with the ProjectStatus.Status property.
+const (
+	ProjectStatus_Status_CreateFailed = "create_failed"
+	ProjectStatus_Status_CreateInProgress = "create_in_progress"
+	ProjectStatus_Status_PendingCreate = "pending_create"
+	ProjectStatus_Status_PendingPr = "pending_pr"
+	ProjectStatus_Status_Ready = "ready"
+)
 
 // UnmarshalProjectStatus unmarshals an instance of ProjectStatus from the specified map of raw messages.
 func UnmarshalProjectStatus(m map[string]json.RawMessage, result interface{}) (err error) {
@@ -2414,6 +2470,14 @@ func UnmarshalProjectStatus(m map[string]json.RawMessage, result interface{}) (e
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "href", &obj.Href)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "status", &obj.Status)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "messages", &obj.Messages)
 	if err != nil {
 		return
 	}
@@ -2480,8 +2544,7 @@ type ServiceStatus struct {
 
 	Status *string `json:"status" validate:"required"`
 
-	// A detailed status message when applicable.
-	Message *string `json:"message" validate:"required"`
+	Messages []string `json:"messages,omitempty"`
 
 	SchematicsResourceID *string `json:"schematics_resource_id,omitempty"`
 }
@@ -2504,11 +2567,10 @@ const (
 )
 
 // NewServiceStatus : Instantiate ServiceStatus (Generic Model Constructor)
-func (*ProjectsV1) NewServiceStatus(id string, status string, message string) (_model *ServiceStatus, err error) {
+func (*ProjectsV1) NewServiceStatus(id string, status string) (_model *ServiceStatus, err error) {
 	_model = &ServiceStatus{
 		ID: core.StringPtr(id),
 		Status: core.StringPtr(status),
-		Message: core.StringPtr(message),
 	}
 	err = core.ValidateStruct(_model, "required parameters")
 	return
@@ -2525,7 +2587,7 @@ func UnmarshalServiceStatus(m map[string]json.RawMessage, result interface{}) (e
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalPrimitive(m, "message", &obj.Message)
+	err = core.UnmarshalPrimitive(m, "messages", &obj.Messages)
 	if err != nil {
 		return
 	}
@@ -2774,8 +2836,7 @@ type UpdateProjectConfigStatusOptions struct {
 
 	Status *string `json:"status" validate:"required"`
 
-	// A detailed status message when applicable.
-	Message *string `json:"message" validate:"required"`
+	Messages []string `json:"messages,omitempty"`
 
 	PipelineRun *string `json:"pipeline_run,omitempty"`
 
@@ -2805,12 +2866,11 @@ const (
 )
 
 // NewUpdateProjectConfigStatusOptions : Instantiate UpdateProjectConfigStatusOptions
-func (*ProjectsV1) NewUpdateProjectConfigStatusOptions(id string, configName string, status string, message string) *UpdateProjectConfigStatusOptions {
+func (*ProjectsV1) NewUpdateProjectConfigStatusOptions(id string, configName string, status string) *UpdateProjectConfigStatusOptions {
 	return &UpdateProjectConfigStatusOptions{
 		ID: core.StringPtr(id),
 		ConfigName: core.StringPtr(configName),
 		Status: core.StringPtr(status),
-		Message: core.StringPtr(message),
 	}
 }
 
@@ -2832,9 +2892,9 @@ func (_options *UpdateProjectConfigStatusOptions) SetStatus(status string) *Upda
 	return _options
 }
 
-// SetMessage : Allow user to set Message
-func (_options *UpdateProjectConfigStatusOptions) SetMessage(message string) *UpdateProjectConfigStatusOptions {
-	_options.Message = core.StringPtr(message)
+// SetMessages : Allow user to set Messages
+func (_options *UpdateProjectConfigStatusOptions) SetMessages(messages []string) *UpdateProjectConfigStatusOptions {
+	_options.Messages = messages
 	return _options
 }
 
@@ -2873,6 +2933,8 @@ type UpdateProjectOptions struct {
 	// A project descriptive text.
 	NewDescription *string `json:"description,omitempty"`
 
+	NewLocation *string `json:"location,omitempty"`
+
 	NewID *string `json:"id,omitempty"`
 
 	// An IBM Cloud Resource Name, which uniquely identify a resource.
@@ -2904,6 +2966,15 @@ type UpdateProjectOptions struct {
 	// Allows users to set headers on API requests
 	Headers map[string]string
 }
+
+// Constants associated with the UpdateProjectOptions.NewLocation property.
+const (
+	UpdateProjectOptions_NewLocation_AuSyd = "au-syd"
+	UpdateProjectOptions_NewLocation_EuDe = "eu-de"
+	UpdateProjectOptions_NewLocation_EuGb = "eu-gb"
+	UpdateProjectOptions_NewLocation_UsEast = "us-east"
+	UpdateProjectOptions_NewLocation_UsSouth = "us-south"
+)
 
 // Constants associated with the UpdateProjectOptions.Prefer property.
 // Set this header to control the return of the Project. If return=minimal is set, a successful response has a 201
@@ -2937,6 +3008,12 @@ func (_options *UpdateProjectOptions) SetNewName(newName string) *UpdateProjectO
 // SetNewDescription : Allow user to set NewDescription
 func (_options *UpdateProjectOptions) SetNewDescription(newDescription string) *UpdateProjectOptions {
 	_options.NewDescription = core.StringPtr(newDescription)
+	return _options
+}
+
+// SetNewLocation : Allow user to set NewLocation
+func (_options *UpdateProjectOptions) SetNewLocation(newLocation string) *UpdateProjectOptions {
+	_options.NewLocation = core.StringPtr(newLocation)
 	return _options
 }
 
@@ -3011,6 +3088,10 @@ type UpdateProjectStatusOptions struct {
 	// The id of the project, which uniquely identifies it.
 	ID *string `json:"id" validate:"required,ne="`
 
+	Status *string `json:"status" validate:"required"`
+
+	Messages []string `json:"messages" validate:"required"`
+
 	// Project plumbing services and their status.
 	ServicesStatus *ServicesStatus `json:"services_status" validate:"required"`
 
@@ -3018,10 +3099,21 @@ type UpdateProjectStatusOptions struct {
 	Headers map[string]string
 }
 
+// Constants associated with the UpdateProjectStatusOptions.Status property.
+const (
+	UpdateProjectStatusOptions_Status_CreateFailed = "create_failed"
+	UpdateProjectStatusOptions_Status_CreateInProgress = "create_in_progress"
+	UpdateProjectStatusOptions_Status_PendingCreate = "pending_create"
+	UpdateProjectStatusOptions_Status_PendingPr = "pending_pr"
+	UpdateProjectStatusOptions_Status_Ready = "ready"
+)
+
 // NewUpdateProjectStatusOptions : Instantiate UpdateProjectStatusOptions
-func (*ProjectsV1) NewUpdateProjectStatusOptions(id string, servicesStatus *ServicesStatus) *UpdateProjectStatusOptions {
+func (*ProjectsV1) NewUpdateProjectStatusOptions(id string, status string, messages []string, servicesStatus *ServicesStatus) *UpdateProjectStatusOptions {
 	return &UpdateProjectStatusOptions{
 		ID: core.StringPtr(id),
+		Status: core.StringPtr(status),
+		Messages: messages,
 		ServicesStatus: servicesStatus,
 	}
 }
@@ -3029,6 +3121,18 @@ func (*ProjectsV1) NewUpdateProjectStatusOptions(id string, servicesStatus *Serv
 // SetID : Allow user to set ID
 func (_options *UpdateProjectStatusOptions) SetID(id string) *UpdateProjectStatusOptions {
 	_options.ID = core.StringPtr(id)
+	return _options
+}
+
+// SetStatus : Allow user to set Status
+func (_options *UpdateProjectStatusOptions) SetStatus(status string) *UpdateProjectStatusOptions {
+	_options.Status = core.StringPtr(status)
+	return _options
+}
+
+// SetMessages : Allow user to set Messages
+func (_options *UpdateProjectStatusOptions) SetMessages(messages []string) *UpdateProjectStatusOptions {
+	_options.Messages = messages
 	return _options
 }
 
