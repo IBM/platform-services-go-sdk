@@ -1,3 +1,4 @@
+//go:build examples
 // +build examples
 
 /**
@@ -51,33 +52,33 @@ import (
 // in a configuration file and then:
 // export IBM_CREDENTIALS_FILE=<name of configuration file>
 //
-const externalConfigFile = "../open_service_broker.env"
-
-var (
-	openServiceBrokerService *openservicebrokerv1.OpenServiceBrokerV1
-	config                   map[string]string
-	configLoaded             bool = false
-
-	instanceId  string
-	orgGUID     string
-	planId      string
-	serviceId   string
-	spaceGUID   string
-	accountId   string
-	bindingId   string
-	appGUID     string
-	initiatorId string = "null"
-	reasonCode  string = "IBMCLOUD_ACCT_SUSPEND"
-	operation   string = "Privision_45"
-)
-
-func shouldSkipTest() {
-	if !configLoaded {
-		Skip("External configuration is not available, skipping tests...")
-	}
-}
 
 var _ = Describe(`OpenServiceBrokerV1 Examples Tests`, func() {
+	const externalConfigFile = "../open_service_broker.env"
+
+	var (
+		openServiceBrokerService *openservicebrokerv1.OpenServiceBrokerV1
+		config                   map[string]string
+		configLoaded             bool = false
+
+		instanceId  string
+		orgGUID     string
+		planId      string
+		serviceId   string
+		spaceGUID   string
+		accountId   string
+		bindingId   string
+		appGUID     string
+		initiatorId string = "null"
+		operation   string = "Privision_45"
+	)
+
+	var shouldSkipTest = func() {
+		if !configLoaded {
+			Skip("External configuration is not available, skipping tests...")
+		}
+	}
+
 	Describe(`External configuration`, func() {
 		It("Successfully load the configuration", func() {
 			var err error

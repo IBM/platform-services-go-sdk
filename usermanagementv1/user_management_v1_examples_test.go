@@ -1,3 +1,4 @@
+//go:build examples
 // +build examples
 
 /**
@@ -30,30 +31,31 @@ import (
 	. "github.com/onsi/gomega"
 )
 
-const externalConfigFile = "../user_management.env"
-
-var (
-	userManagementService      *usermanagementv1.UserManagementV1
-	userManagementAdminService *usermanagementv1.UserManagementV1
-	config                     map[string]string
-	configLoaded               bool = false
-
-	accountID     string
-	userID        string
-	memberEmail   string
-	viewerRoleID  string
-	accessGroupID string
-
-	deleteUserID string
-)
-
-func shouldSkipTest() {
-	if !configLoaded {
-		Skip("External configuration is not available, skipping tests...")
-	}
-}
-
 var _ = Describe(`UserManagementV1 Examples Tests`, func() {
+
+	const externalConfigFile = "../user_management.env"
+
+	var (
+		userManagementService      *usermanagementv1.UserManagementV1
+		userManagementAdminService *usermanagementv1.UserManagementV1
+		config                     map[string]string
+		configLoaded               bool = false
+
+		accountID     string
+		userID        string
+		memberEmail   string
+		viewerRoleID  string
+		accessGroupID string
+
+		deleteUserID string
+	)
+
+	var shouldSkipTest = func() {
+		if !configLoaded {
+			Skip("External configuration is not available, skipping tests...")
+		}
+	}
+
 	Describe(`External configuration`, func() {
 		It("Successfully load the configuration", func() {
 			var err error

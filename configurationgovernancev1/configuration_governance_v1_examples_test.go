@@ -1,3 +1,4 @@
+//go:build examples
 // +build examples
 
 /**
@@ -48,40 +49,39 @@ import (
 // in a configuration file and then:
 // export IBM_CREDENTIALS_FILE=<name of configuration file>
 //
-const externalConfigFile = "../configuration_governance.env"
-
-var (
-	configurationGovernanceService *configurationgovernancev1.ConfigurationGovernanceV1
-	config                         map[string]string
-	configLoaded                   bool = false
-
-	// Test-related configuration properties.
-	accountID         string
-	serviceName       string
-	enterpriseScopeID string
-	subacctScopeID    string
-
-	transactionID string = uuid.New().String()
-)
-
-// Global variables to hold various values shared between operations
-var (
-	ruleIDLink           string
-	ruleToUpdateLink     *configurationgovernancev1.Rule
-	ruleToUpdateEtagLink string
-
-	attachmentIDLink           string
-	attachmentToUpdateLink     *configurationgovernancev1.Attachment
-	attachmentToUpdateEtagLink string
-)
-
-func shouldSkipTest() {
-	if !configLoaded {
-		Skip("External configuration is not available, skipping tests...")
-	}
-}
 
 var _ = Describe(`ConfigurationGovernanceV1 Examples Tests`, func() {
+	const externalConfigFile = "../configuration_governance.env"
+
+	var (
+		configurationGovernanceService *configurationgovernancev1.ConfigurationGovernanceV1
+		config                         map[string]string
+		configLoaded                   bool = false
+
+		// Test-related configuration properties.
+		accountID         string
+		serviceName       string
+		enterpriseScopeID string
+		subacctScopeID    string
+	)
+
+	// Global variables to hold various values shared between operations
+	var (
+		ruleIDLink           string
+		ruleToUpdateLink     *configurationgovernancev1.Rule
+		ruleToUpdateEtagLink string
+
+		attachmentIDLink           string
+		attachmentToUpdateLink     *configurationgovernancev1.Attachment
+		attachmentToUpdateEtagLink string
+	)
+
+	var shouldSkipTest = func() {
+		if !configLoaded {
+			Skip("External configuration is not available, skipping tests...")
+		}
+	}
+
 	Describe(`External configuration`, func() {
 		It("Successfully load the configuration", func() {
 			var err error

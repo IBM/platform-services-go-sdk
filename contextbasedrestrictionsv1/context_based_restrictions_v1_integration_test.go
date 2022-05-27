@@ -32,11 +32,6 @@ import (
 	. "github.com/onsi/gomega"
 )
 
-var (
-	NonExistentID = "1234567890abcdef1234567890abcdef"
-	InvalidID     = "this_is_an_invalid_id"
-)
-
 /**
  * This file contains an integration test for the contextbasedrestrictionsv1 package.
  *
@@ -48,6 +43,11 @@ var (
 var _ = Describe(`ContextBasedRestrictionsV1 Integration Tests`, func() {
 
 	const externalConfigFile = "../context_based_restrictions_v1.env"
+
+	const (
+		NonExistentID = "1234567890abcdef1234567890abcdef"
+		InvalidID     = "this_is_an_invalid_id"
+	)
 
 	var (
 		err                             error

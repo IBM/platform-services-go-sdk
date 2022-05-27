@@ -1,3 +1,4 @@
+//go:build examples
 // +build examples
 
 /**
@@ -45,30 +46,31 @@ import (
 // in a configuration file and then:
 // export IBM_CREDENTIALS_FILE=<name of configuration file>
 //
-const externalConfigFile = "../posture_management.env"
-
-var (
-	postureManagementService *posturemanagementv1.PostureManagementV1
-	config                   map[string]string
-	configLoaded             bool = false
-
-	accountID   string
-	profileName string
-	scopesName  string
-
-	profileID string
-	scopeID   string
-
-	groupProfileID = "0"
-)
-
-func shouldSkipTest() {
-	if !configLoaded {
-		Skip("External configuration is not available, skipping tests...")
-	}
-}
 
 var _ = Describe(`PostureManagementV1 Examples Tests`, func() {
+	const externalConfigFile = "../posture_management.env"
+
+	var (
+		postureManagementService *posturemanagementv1.PostureManagementV1
+		config                   map[string]string
+		configLoaded             bool = false
+
+		accountID   string
+		profileName string
+		scopesName  string
+
+		profileID string
+		scopeID   string
+
+		groupProfileID = "0"
+	)
+
+	var shouldSkipTest = func() {
+		if !configLoaded {
+			Skip("External configuration is not available, skipping tests...")
+		}
+	}
+
 	Describe(`External configuration`, func() {
 		It("Successfully load the configuration", func() {
 			var err error

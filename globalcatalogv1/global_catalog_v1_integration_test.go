@@ -1,3 +1,4 @@
+//go:build integration
 // +build integration
 
 /**
@@ -35,47 +36,47 @@ import (
 	. "github.com/onsi/gomega"
 )
 
-const (
-	externalConfigFile    = "../global_catalog.env"
-	visibilityRestriction = "private"
-	artifact              = `{"someKey": "someValue"}`
-)
-
-var (
-	service                     *globalcatalogv1.GlobalCatalogV1
-	defaultCreate               *globalcatalogv1.CreateCatalogEntryOptions
-	defaultDelete               *globalcatalogv1.DeleteCatalogEntryOptions
-	forceDelete                 *globalcatalogv1.DeleteCatalogEntryOptions
-	defaultGet                  *globalcatalogv1.GetCatalogEntryOptions
-	defaultUpdate               *globalcatalogv1.UpdateCatalogEntryOptions
-	defaultList                 *globalcatalogv1.ListCatalogEntriesOptions
-	defaultChild                *globalcatalogv1.CreateCatalogEntryOptions
-	getChild                    *globalcatalogv1.GetChildObjectsOptions
-	deleteChild                 *globalcatalogv1.DeleteCatalogEntryOptions
-	defaultRestore              *globalcatalogv1.RestoreCatalogEntryOptions
-	bogusRestore                *globalcatalogv1.RestoreCatalogEntryOptions
-	getVisibility               *globalcatalogv1.GetVisibilityOptions
-	updateVisibility            *globalcatalogv1.UpdateVisibilityOptions
-	getPricing                  *globalcatalogv1.GetPricingOptions
-	defaultArtifact             *globalcatalogv1.UploadArtifactOptions
-	uploadArtifactList          *globalcatalogv1.UploadArtifactOptions
-	uploadArtifactCreate        *globalcatalogv1.UploadArtifactOptions
-	uploadArtifactCreateFailure *globalcatalogv1.UploadArtifactOptions
-	uploadArtifactDelete        *globalcatalogv1.UploadArtifactOptions
-	listArtifacts               *globalcatalogv1.ListArtifactsOptions
-	getArtifact                 *globalcatalogv1.GetArtifactOptions
-	deleteArtifact              *globalcatalogv1.DeleteArtifactOptions
-	config                      map[string]string
-	configLoaded                bool = false
-)
-
-func shouldSkipTest() {
-	if !configLoaded {
-		Skip("External configuration is not available, skipping...")
-	}
-}
-
 var _ = Describe("Global Catalog - Integration Tests", func() {
+
+	const (
+		externalConfigFile    = "../global_catalog.env"
+		visibilityRestriction = "private"
+		artifact              = `{"someKey": "someValue"}`
+	)
+
+	var (
+		service                     *globalcatalogv1.GlobalCatalogV1
+		defaultCreate               *globalcatalogv1.CreateCatalogEntryOptions
+		defaultDelete               *globalcatalogv1.DeleteCatalogEntryOptions
+		forceDelete                 *globalcatalogv1.DeleteCatalogEntryOptions
+		defaultGet                  *globalcatalogv1.GetCatalogEntryOptions
+		defaultUpdate               *globalcatalogv1.UpdateCatalogEntryOptions
+		defaultList                 *globalcatalogv1.ListCatalogEntriesOptions
+		defaultChild                *globalcatalogv1.CreateCatalogEntryOptions
+		getChild                    *globalcatalogv1.GetChildObjectsOptions
+		defaultRestore              *globalcatalogv1.RestoreCatalogEntryOptions
+		bogusRestore                *globalcatalogv1.RestoreCatalogEntryOptions
+		getVisibility               *globalcatalogv1.GetVisibilityOptions
+		updateVisibility            *globalcatalogv1.UpdateVisibilityOptions
+		getPricing                  *globalcatalogv1.GetPricingOptions
+		defaultArtifact             *globalcatalogv1.UploadArtifactOptions
+		uploadArtifactList          *globalcatalogv1.UploadArtifactOptions
+		uploadArtifactCreate        *globalcatalogv1.UploadArtifactOptions
+		uploadArtifactCreateFailure *globalcatalogv1.UploadArtifactOptions
+		uploadArtifactDelete        *globalcatalogv1.UploadArtifactOptions
+		listArtifacts               *globalcatalogv1.ListArtifactsOptions
+		getArtifact                 *globalcatalogv1.GetArtifactOptions
+		deleteArtifact              *globalcatalogv1.DeleteArtifactOptions
+		config                      map[string]string
+		configLoaded                bool = false
+	)
+
+	var shouldSkipTest = func() {
+		if !configLoaded {
+			Skip("External configuration is not available, skipping...")
+		}
+	}
+
 	It("Successfully load the configuration", func() {
 		var err error
 		_, err = os.Stat(externalConfigFile)
@@ -201,7 +202,6 @@ var _ = Describe("Global Catalog - Integration Tests", func() {
 		listArtifacts = service.NewListArtifactsOptions(id)
 		getArtifact = service.NewGetArtifactOptions(id, artifactId)
 		deleteArtifact = service.NewDeleteArtifactOptions(id, artifactId)
-		deleteChild = service.NewDeleteCatalogEntryOptions(idChild)
 
 		defaultChild.SetParentID(id)
 		defaultArtifact.SetArtifact(ioutil.NopCloser(strings.NewReader(artifact)))
@@ -216,13 +216,13 @@ var _ = Describe("Global Catalog - Integration Tests", func() {
 		JustBeforeEach(func() {
 			shouldSkipTest()
 
-			service.DeleteCatalogEntry(forceDelete)
+			_, _ = service.DeleteCatalogEntry(forceDelete)
 		})
 
 		JustAfterEach(func() {
 			shouldSkipTest()
 
-			service.DeleteCatalogEntry(forceDelete)
+			_, _ = service.DeleteCatalogEntry(forceDelete)
 		})
 
 		It("Create a catalog entry", func() {
@@ -244,7 +244,7 @@ var _ = Describe("Global Catalog - Integration Tests", func() {
 		It("Get a catalog entry", func() {
 			shouldSkipTest()
 
-			service.CreateCatalogEntry(defaultCreate)
+			_, _, _ = service.CreateCatalogEntry(defaultCreate)
 			result, detailedResponse, err := service.GetCatalogEntry(defaultGet)
 			Expect(err).To(BeNil())
 			Expect(detailedResponse.StatusCode).To(Equal(200))
@@ -261,7 +261,7 @@ var _ = Describe("Global Catalog - Integration Tests", func() {
 		It("Update a catalog entry", func() {
 			shouldSkipTest()
 
-			service.CreateCatalogEntry(defaultCreate)
+			_, _, _ = service.CreateCatalogEntry(defaultCreate)
 			result, detailedResponse, err := service.UpdateCatalogEntry(defaultUpdate)
 			Expect(err).To(BeNil())
 			Expect(detailedResponse.StatusCode).To(Equal(200))
@@ -278,7 +278,7 @@ var _ = Describe("Global Catalog - Integration Tests", func() {
 		It("Delete a catalog entry", func() {
 			shouldSkipTest()
 
-			service.CreateCatalogEntry(defaultCreate)
+			_, _, _ = service.CreateCatalogEntry(defaultCreate)
 			detailedResponse, err := service.DeleteCatalogEntry(forceDelete)
 			Expect(err).To(BeNil())
 			Expect(detailedResponse.StatusCode).To(Equal(200))
@@ -287,8 +287,8 @@ var _ = Describe("Global Catalog - Integration Tests", func() {
 		It("Fail to get a catalog entry after deletion", func() {
 			shouldSkipTest()
 
-			service.CreateCatalogEntry(defaultCreate)
-			service.DeleteCatalogEntry(forceDelete)
+			_, _, _ = service.CreateCatalogEntry(defaultCreate)
+			_, _ = service.DeleteCatalogEntry(forceDelete)
 
 			_, detailedResponse, err := service.GetCatalogEntry(defaultGet)
 			Expect(err).NotTo(BeNil())
@@ -322,7 +322,7 @@ var _ = Describe("Global Catalog - Integration Tests", func() {
 		It("Fail to create a catalog entry that already exists", func() {
 			shouldSkipTest()
 
-			service.CreateCatalogEntry(defaultCreate)
+			_, _, _ = service.CreateCatalogEntry(defaultCreate)
 
 			_, detailedResponse, err := service.CreateCatalogEntry(defaultCreate)
 			Expect(err).NotTo(BeNil())
@@ -348,8 +348,8 @@ var _ = Describe("Global Catalog - Integration Tests", func() {
 
 			shouldSkipTest()
 
-			service.CreateCatalogEntry(defaultCreate)
-			service.CreateCatalogEntry(defaultChild)
+			_, _, _ = service.CreateCatalogEntry(defaultCreate)
+			_, _, _ = service.CreateCatalogEntry(defaultChild)
 
 			result, detailedResponse, err := service.GetChildObjects(getChild)
 			Expect(err).To(BeNil())
@@ -377,8 +377,8 @@ var _ = Describe("Global Catalog - Integration Tests", func() {
 		It("Restore a catalog entry", func() {
 			shouldSkipTest()
 
-			service.CreateCatalogEntry(defaultCreate)
-			service.DeleteCatalogEntry(defaultDelete)
+			_, _, _ = service.CreateCatalogEntry(defaultCreate)
+			_, _ = service.DeleteCatalogEntry(defaultDelete)
 
 			detailedResponseRestore, errRestore := service.RestoreCatalogEntry(defaultRestore)
 			Expect(errRestore).To(BeNil())
@@ -406,7 +406,7 @@ var _ = Describe("Global Catalog - Integration Tests", func() {
 		It("Get visibility for catalog entry", func() {
 			shouldSkipTest()
 
-			service.CreateCatalogEntry(defaultCreate)
+			_, _, _ = service.CreateCatalogEntry(defaultCreate)
 
 			result, detailedResponse, err := service.GetVisibility(getVisibility)
 			Expect(err).To(BeNil())
@@ -427,7 +427,7 @@ var _ = Describe("Global Catalog - Integration Tests", func() {
 		It("Update visibility for catalog entry", func() {
 			shouldSkipTest()
 
-			service.CreateCatalogEntry(defaultCreate)
+			_, _, _ = service.CreateCatalogEntry(defaultCreate)
 
 			detailedResponse, err := service.UpdateVisibility(updateVisibility)
 			Expect(err).NotTo(BeNil())
@@ -445,13 +445,13 @@ var _ = Describe("Global Catalog - Integration Tests", func() {
 		It("Fail to get pricing", func() {
 			shouldSkipTest()
 
-			service.CreateCatalogEntry(defaultCreate)
+			_, _, _ = service.CreateCatalogEntry(defaultCreate)
 
 			_, detailedResponseExists, errExists := service.GetPricing(getPricing)
 			Expect(errExists).NotTo(BeNil())
 			Expect(detailedResponseExists.StatusCode).To(Equal(404))
 
-			service.DeleteCatalogEntry(forceDelete)
+			_, _ = service.DeleteCatalogEntry(forceDelete)
 
 			_, detailedResponseNotExists, errNotExists := service.GetPricing(getPricing)
 			Expect(errNotExists).NotTo(BeNil())
@@ -464,8 +464,8 @@ var _ = Describe("Global Catalog - Integration Tests", func() {
 
 			shouldSkipTest()
 
-			service.CreateCatalogEntry(defaultCreate)
-			service.UploadArtifact(uploadArtifactList)
+			_, _, _ = service.CreateCatalogEntry(defaultCreate)
+			_, _ = service.UploadArtifact(uploadArtifactList)
 
 			result, detailedResponse, err := service.ListArtifacts(listArtifacts)
 			Expect(err).To(BeNil())
@@ -493,28 +493,28 @@ var _ = Describe("Global Catalog - Integration Tests", func() {
 		It("Get artifact for a catalog entry", func() {
 			shouldSkipTest()
 
-			service.CreateCatalogEntry(defaultCreate)
-			service.UploadArtifact(defaultArtifact)
+			_, _, _ = service.CreateCatalogEntry(defaultCreate)
+			_, _ = service.UploadArtifact(defaultArtifact)
 
 			result, detailedResponse, err := service.GetArtifact(getArtifact)
 			Expect(result).NotTo(BeNil())
 			Expect(err).To(BeNil())
 			Expect(detailedResponse.StatusCode).To(Equal(200))
 			buf := new(bytes.Buffer)
-			buf.ReadFrom(result)
+			_, _ = buf.ReadFrom(result)
 			Expect(buf.String()).To(Equal(artifact))
 		})
 
 		It("Fail to get artifacts that do not exists", func() {
 			shouldSkipTest()
 
-			service.CreateCatalogEntry(defaultCreate)
+			_, _, _ = service.CreateCatalogEntry(defaultCreate)
 
 			_, detailedResponseExists, errExists := service.GetArtifact(getArtifact)
 			Expect(errExists).NotTo(BeNil())
 			Expect(detailedResponseExists.StatusCode).To(Equal(404))
 
-			service.DeleteCatalogEntry(forceDelete)
+			_, _ = service.DeleteCatalogEntry(forceDelete)
 
 			_, detailedResponseNotExists, errNotExists := service.GetArtifact(getArtifact)
 			Expect(errNotExists).NotTo(BeNil())
@@ -524,7 +524,7 @@ var _ = Describe("Global Catalog - Integration Tests", func() {
 		It("Create artifact for a catalog entry", func() {
 			shouldSkipTest()
 
-			service.CreateCatalogEntry(defaultCreate)
+			_, _, _ = service.CreateCatalogEntry(defaultCreate)
 
 			detailedResponse, err := service.UploadArtifact(uploadArtifactCreate)
 			Expect(err).To(BeNil())
@@ -542,8 +542,8 @@ var _ = Describe("Global Catalog - Integration Tests", func() {
 		It("Delete artifact for a catalog entry", func() {
 			shouldSkipTest()
 
-			service.CreateCatalogEntry(defaultCreate)
-			service.UploadArtifact(uploadArtifactDelete)
+			_, _, _ = service.CreateCatalogEntry(defaultCreate)
+			_, _ = service.UploadArtifact(uploadArtifactDelete)
 
 			detailedResponse, err := service.DeleteArtifact(deleteArtifact)
 			Expect(err).To(BeNil())

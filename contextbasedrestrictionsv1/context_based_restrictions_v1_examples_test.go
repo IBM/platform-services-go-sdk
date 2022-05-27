@@ -45,27 +45,28 @@ import (
 // in a configuration file and then:
 // export IBM_CREDENTIALS_FILE=<name of configuration file>
 //
-const externalConfigFile = "../context_based_restrictions_v1.env"
-
-var (
-	contextBasedRestrictionsService *contextbasedrestrictionsv1.ContextBasedRestrictionsV1
-	config                          map[string]string
-	configLoaded                    bool = false
-	accountID                       string
-	serviceName                     string
-	zoneID                          string
-	zoneRev                         string
-	ruleID                          string
-	ruleRev                         string
-)
-
-func shouldSkipTest() {
-	if !configLoaded {
-		Skip("External configuration is not available, skipping tests...")
-	}
-}
 
 var _ = Describe(`contextbasedrestrictionsv1.ContextBasedRestrictionsV1 Examples Tests`, func() {
+	const externalConfigFile = "../context_based_restrictions_v1.env"
+
+	var (
+		contextBasedRestrictionsService *contextbasedrestrictionsv1.ContextBasedRestrictionsV1
+		config                          map[string]string
+		configLoaded                    bool = false
+		accountID                       string
+		serviceName                     string
+		zoneID                          string
+		zoneRev                         string
+		ruleID                          string
+		ruleRev                         string
+	)
+
+	var shouldSkipTest = func() {
+		if !configLoaded {
+			Skip("External configuration is not available, skipping tests...")
+		}
+	}
+
 	Describe(`External configuration`, func() {
 		It("Successfully load the configuration", func() {
 			var err error

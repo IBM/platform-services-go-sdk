@@ -1,3 +1,4 @@
+//go:build examples
 // +build examples
 
 /**
@@ -43,22 +44,23 @@ import (
 // in a configuration file and then:
 // export IBM_CREDENTIALS_FILE=<name of configuration file>
 //
-const externalConfigFile = "../ibm_cloud_shell_v1.env"
-
-var (
-	ibmCloudShellService *ibmcloudshellv1.IBMCloudShellV1
-	config               map[string]string
-	configLoaded         bool = false
-	accountID            string
-)
-
-func shouldSkipTest() {
-	if !configLoaded {
-		Skip("External configuration is not available, skipping tests...")
-	}
-}
 
 var _ = Describe(`IBMCloudShellV1 Examples Tests`, func() {
+	const externalConfigFile = "../ibm_cloud_shell_v1.env"
+
+	var (
+		ibmCloudShellService *ibmcloudshellv1.IBMCloudShellV1
+		config               map[string]string
+		configLoaded         bool = false
+		accountID            string
+	)
+
+	var shouldSkipTest = func() {
+		if !configLoaded {
+			Skip("External configuration is not available, skipping tests...")
+		}
+	}
+
 	Describe(`External configuration`, func() {
 		It("Successfully load the configuration", func() {
 			var err error
@@ -111,9 +113,7 @@ var _ = Describe(`IBMCloudShellV1 Examples Tests`, func() {
 			fmt.Println("\nGetAccountSettings() result:")
 			// begin-get_account_settings
 
-			getAccountSettingsOptions := ibmCloudShellService.NewGetAccountSettingsOptions(
-				AccountID: &accountID,
-			)
+			getAccountSettingsOptions := ibmCloudShellService.NewGetAccountSettingsOptions(accountID)
 
 			accountSettings, response, err := ibmCloudShellService.GetAccountSettings(getAccountSettingsOptions)
 			if err != nil {
@@ -161,7 +161,7 @@ var _ = Describe(`IBMCloudShellV1 Examples Tests`, func() {
 
 			updateAccountSettingsOptions := &ibmcloudshellv1.UpdateAccountSettingsOptions{
 				AccountID:                &accountID,
-				Rev:                      core.StringPtr(fmt.Sprintf("130-%s", &accountID)),
+				Rev:                      core.StringPtr(fmt.Sprintf("130-%s", accountID)),
 				DefaultEnableNewFeatures: core.BoolPtr(false),
 				DefaultEnableNewRegions:  core.BoolPtr(true),
 				Enabled:                  core.BoolPtr(true),

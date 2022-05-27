@@ -1,3 +1,4 @@
+//go:build examples
 // +build examples
 
 /**
@@ -45,24 +46,25 @@ import (
 // in a configuration file and then:
 // export IBM_CREDENTIALS_FILE=<name of configuration file>
 //
-const externalConfigFile = "../enterprise_billing_units.env"
-
-var (
-	enterpriseBillingUnitsService *enterprisebillingunitsv1.EnterpriseBillingUnitsV1
-	config                        map[string]string
-	configLoaded                  bool = false
-
-	enterpriseID  string
-	billingUnitID string
-)
-
-func shouldSkipTest() {
-	if !configLoaded {
-		Skip("External configuration is not available, skipping tests...")
-	}
-}
 
 var _ = Describe(`EnterpriseBillingUnitsV1 Examples Tests`, func() {
+	const externalConfigFile = "../enterprise_billing_units.env"
+
+	var (
+		enterpriseBillingUnitsService *enterprisebillingunitsv1.EnterpriseBillingUnitsV1
+		config                        map[string]string
+		configLoaded                  bool = false
+
+		enterpriseID  string
+		billingUnitID string
+	)
+
+	var shouldSkipTest = func() {
+		if !configLoaded {
+			Skip("External configuration is not available, skipping tests...")
+		}
+	}
+
 	Describe(`External configuration`, func() {
 		It("Successfully load the configuration", func() {
 			var err error
