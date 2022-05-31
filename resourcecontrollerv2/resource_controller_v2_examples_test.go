@@ -1,3 +1,4 @@
+//go:build examples
 // +build examples
 
 /**
@@ -49,41 +50,41 @@ import (
 // in a configuration file and then:
 // export IBM_CREDENTIALS_FILE=<name of configuration file>
 //
-const externalConfigFile = "../resource_controller.env"
-
-var (
-	resourceControllerService *resourcecontrollerv2.ResourceControllerV2
-	config                    map[string]string
-	configLoaded              bool = false
-
-	instanceGUID               string
-	aliasGUID                  string
-	bindingGUID                string
-	instanceKeyGUID            string
-	resourceGroup              string
-	resourcePlanID             string
-	accountID                  string
-	aliasTargetCRN             string
-	bindingTargetCRN           string
-	reclamationID              string
-	resourceInstanceName       string = "RcSdkInstance1Go"
-	resourceInstanceUpdateName string = "RcSdkInstanceUpdate1Go"
-	aliasName                  string = "RcSdkAlias1Go"
-	aliasUpdateName            string = "RcSdkAliasUpdate1Go"
-	bindingName                string = "RcSdkBinding1Go"
-	bindingUpdateName          string = "RcSdkBindingUpdate1Go"
-	keyName                    string = "RcSdkKey1Go"
-	keyUpdateName              string = "RcSdkKeyUpdate1Go"
-	targetRegion               string = "global"
-)
-
-func shouldSkipTest() {
-	if !configLoaded {
-		Skip("External configuration is not available, skipping tests...")
-	}
-}
 
 var _ = Describe(`ResourceControllerV2 Examples Tests`, func() {
+	const externalConfigFile = "../resource_controller.env"
+
+	var (
+		resourceControllerService *resourcecontrollerv2.ResourceControllerV2
+		config                    map[string]string
+		configLoaded              bool = false
+
+		instanceGUID               string
+		aliasGUID                  string
+		bindingGUID                string
+		instanceKeyGUID            string
+		resourceGroup              string
+		resourcePlanID             string
+		accountID                  string
+		aliasTargetCRN             string
+		bindingTargetCRN           string
+		reclamationID              string
+		resourceInstanceName       string = "RcSdkInstance1Go"
+		resourceInstanceUpdateName string = "RcSdkInstanceUpdate1Go"
+		aliasName                  string = "RcSdkAlias1Go"
+		aliasUpdateName            string = "RcSdkAliasUpdate1Go"
+		bindingName                string = "RcSdkBinding1Go"
+		bindingUpdateName          string = "RcSdkBindingUpdate1Go"
+		keyName                    string = "RcSdkKey1Go"
+		keyUpdateName              string = "RcSdkKeyUpdate1Go"
+		targetRegion               string = "global"
+	)
+
+	var shouldSkipTest = func() {
+		if !configLoaded {
+			Skip("External configuration is not available, skipping tests...")
+		}
+	}
 	Describe(`External configuration`, func() {
 		It("Successfully load the configuration", func() {
 			var err error

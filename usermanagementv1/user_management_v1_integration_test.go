@@ -1,3 +1,4 @@
+//go:build integration
 // +build integration
 
 /**
@@ -193,9 +194,7 @@ var _ = Describe(`UserManagementV1 Integration Tests`, func() {
 				Expect(result).ToNot(BeNil())
 				// fmt.Fprintf(GinkgoWriter, "ListUsers() result:\n%s\n", common.ToJSON(result))
 
-				for _, userProfile := range result.Resources {
-					results = append(results, userProfile)
-				}
+				results = append(results, result.Resources...)
 
 				if result.NextURL != nil {
 					pageStart = getStartTokenFromURL(result.NextURL)

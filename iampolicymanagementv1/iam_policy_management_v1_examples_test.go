@@ -1,3 +1,4 @@
+//go:build examples
 // +build examples
 
 /**
@@ -21,11 +22,12 @@ package iampolicymanagementv1_test
 import (
 	"encoding/json"
 	"fmt"
+	"os"
+
 	"github.com/IBM/go-sdk-core/v5/core"
 	"github.com/IBM/platform-services-go-sdk/iampolicymanagementv1"
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
-	"os"
 )
 
 //
@@ -44,30 +46,31 @@ import (
 // export IBM_CREDENTIALS_FILE=<name of config file>
 //
 // Location of our config file.
-const externalConfigFile = "../iam_policy_management.env"
-
-var (
-	// TODO: Align
-	iamPolicyManagementService *iampolicymanagementv1.IamPolicyManagementV1
-	config                     map[string]string
-	configLoaded               bool = false
-
-	exampleUserID         = "IBMid-user1"
-	exampleServiceName    = "iam-groups"
-	exampleAccountID      string
-	examplePolicyID       string
-	examplePolicyETag     string
-	exampleCustomRoleID   string
-	exampleCustomRoleETag string
-)
-
-func shouldSkipTest() {
-	if !configLoaded {
-		Skip("External configuration is not available, skipping tests...")
-	}
-}
 
 var _ = Describe(`IamPolicyManagementV1 Examples Tests`, func() {
+	const externalConfigFile = "../iam_policy_management.env"
+
+	var (
+		// TODO: Align
+		iamPolicyManagementService *iampolicymanagementv1.IamPolicyManagementV1
+		config                     map[string]string
+		configLoaded               bool = false
+
+		exampleUserID         = "IBMid-user1"
+		exampleServiceName    = "iam-groups"
+		exampleAccountID      string
+		examplePolicyID       string
+		examplePolicyETag     string
+		exampleCustomRoleID   string
+		exampleCustomRoleETag string
+	)
+
+	var shouldSkipTest = func() {
+		if !configLoaded {
+			Skip("External configuration is not available, skipping tests...")
+		}
+	}
+
 	Describe(`External configuration`, func() {
 		It("Successfully load the configuration", func() {
 			var err error

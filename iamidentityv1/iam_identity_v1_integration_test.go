@@ -1,3 +1,4 @@
+//go:build integration
 // +build integration
 
 /**
@@ -40,28 +41,25 @@ import (
  * The integration test will automatically skip tests if the required config file is not available.
  */
 
-var (
-	apikeyName    string = "Go-SDK-IT-APIKey"
-	serviceIDName string = "Go-SDK-IT-ServiceId"
-	profileName1  string = "Go-SDK-IT-Profile-1"
-	profileName2  string = "Go-SDK-IT-Profile-2"
-	accountID     string
-	iamID         string
-	iamAPIKey     string
-	claimRuleType string = "Profile-SAML"
-	realmName     string = "https://w3id.sso.ibm.com/auth/sps/samlidp2/saml20"
-
-	iamIdentityService *iamidentityv1.IamIdentityV1
-)
-
 var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 
 	const externalConfigFile = "../iam_identity.env"
 
 	var (
-		err        error
-		serviceURL string
-		config     map[string]string
+		apikeyName    string = "Go-SDK-IT-APIKey"
+		serviceIDName string = "Go-SDK-IT-ServiceId"
+		profileName1  string = "Go-SDK-IT-Profile-1"
+		profileName2  string = "Go-SDK-IT-Profile-2"
+		accountID     string
+		iamID         string
+		iamAPIKey     string
+		claimRuleType string = "Profile-SAML"
+		realmName     string = "https://w3id.sso.ibm.com/auth/sps/samlidp2/saml20"
+
+		iamIdentityService *iamidentityv1.IamIdentityV1
+		err                error
+		serviceURL         string
+		config             map[string]string
 
 		apikeyId1   string
 		apikeyId2   string
@@ -141,7 +139,7 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 		})
 		It("Successfully setup the environment for tests", func() {
 			fmt.Fprintln(GinkgoWriter, "Setup...")
-			cleanupResources(iamIdentityService)
+			cleanupResources(iamIdentityService, accountID, iamID, apikeyName, serviceIDName, profileName1, profileName2)
 			fmt.Fprintln(GinkgoWriter, "Finished setup.")
 		})
 	})
@@ -1443,12 +1441,12 @@ var _ = Describe(`IamIdentityV1 Integration Tests`, func() {
 			Expect(err).ToNot(BeNil())
 		})
 	})
-})
 
-var _ = AfterSuite(func() {
-	fmt.Println("\nBeginning teardown.")
-	cleanupResources(iamIdentityService)
-	fmt.Println("Finished teardown.")
+	AfterSuite(func() {
+		fmt.Println("\nBeginning teardown.")
+		cleanupResources(iamIdentityService, accountID, iamID, apikeyName, serviceIDName, profileName1, profileName2)
+		fmt.Println("Finished teardown.")
+	})
 })
 
 func getAPIkey(service *iamidentityv1.IamIdentityV1, apikeyID string) *iamidentityv1.APIKey {
@@ -1524,7 +1522,7 @@ func getPageTokenFromURL(sptr *string) *string {
 	return &token
 }
 
-func cleanupResources(service *iamidentityv1.IamIdentityV1) {
+func cleanupResources(service *iamidentityv1.IamIdentityV1, accountID string, iamID string, apikeyName string, serviceIDName string, profileName1 string, profileName2 string) {
 	if service == nil {
 		panic("'service' cannot be nil!")
 	}
@@ -1562,7 +1560,7 @@ func cleanupResources(service *iamidentityv1.IamIdentityV1) {
 		Pagesize:  core.Int64Ptr(int64(100)),
 	}
 
-	serviceIDList, response, err := service.ListServiceIds(listServiceIdsOptions)
+	serviceIDList, _, _ := service.ListServiceIds(listServiceIdsOptions)
 
 	numServiceIds := len(serviceIDList.Serviceids)
 	fmt.Fprintf(GinkgoWriter, ">>> Cleanup found %d serviceIDs.\n", numServiceIds)

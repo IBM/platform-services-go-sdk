@@ -1,3 +1,4 @@
+//go:build integration
 // +build integration
 
 /**
@@ -28,26 +29,27 @@ import (
 	. "github.com/onsi/gomega"
 )
 
-const externalConfigFile = "../resource_manager.env"
-
-var (
-	service            *resourcemanagerv2.ResourceManagerV2
-	altService         *resourcemanagerv2.ResourceManagerV2
-	err                error
-	config             map[string]string
-	testQuotaID        string
-	testUserAccountID  string
-	newResourceGroupID string
-	configLoaded       bool = false
-)
-
-func shouldSkipTest() {
-	if !configLoaded {
-		Skip("External configuration is not available, skipping...")
-	}
-}
-
 var _ = Describe("Resource Manager - Integration Tests", func() {
+
+	const externalConfigFile = "../resource_manager.env"
+
+	var (
+		service            *resourcemanagerv2.ResourceManagerV2
+		altService         *resourcemanagerv2.ResourceManagerV2
+		err                error
+		config             map[string]string
+		testQuotaID        string
+		testUserAccountID  string
+		newResourceGroupID string
+		configLoaded       bool = false
+	)
+
+	var shouldSkipTest = func() {
+		if !configLoaded {
+			Skip("External configuration is not available, skipping...")
+		}
+	}
+
 	It("Successfully load the configuration", func() {
 		_, err = os.Stat(externalConfigFile)
 		if err == nil {

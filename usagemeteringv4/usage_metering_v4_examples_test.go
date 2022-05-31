@@ -1,3 +1,4 @@
+//go:build examples
 // +build examples
 
 /**
@@ -44,21 +45,22 @@ import (
 // in a configuration file and then:
 // export IBM_CREDENTIALS_FILE=<name of configuration file>
 //
-const externalConfigFile = "../usage_metering.env"
-
-var (
-	usageMeteringService *usagemeteringv4.UsageMeteringV4
-	config               map[string]string
-	configLoaded         bool = false
-)
-
-func shouldSkipTest() {
-	if !configLoaded {
-		Skip("External configuration is not available, skipping tests...")
-	}
-}
 
 var _ = Describe(`UsageMeteringV4 Examples Tests`, func() {
+	const externalConfigFile = "../usage_metering.env"
+
+	var (
+		usageMeteringService *usagemeteringv4.UsageMeteringV4
+		config               map[string]string
+		configLoaded         bool = false
+	)
+
+	var shouldSkipTest = func() {
+		if !configLoaded {
+			Skip("External configuration is not available, skipping tests...")
+		}
+	}
+
 	Describe(`External configuration`, func() {
 		It("Successfully load the configuration", func() {
 			var err error

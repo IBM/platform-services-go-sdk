@@ -1,3 +1,4 @@
+//go:build integration
 // +build integration
 
 /**
@@ -32,35 +33,35 @@ import (
 	"github.com/IBM/platform-services-go-sdk/iamaccessgroupsv2"
 )
 
-const externalConfigFile = "../iam_access_groups_v2.env"
-
-var (
-	service      *iamaccessgroupsv2.IamAccessGroupsV2
-	err          error
-	config       map[string]string
-	configLoaded bool = false
-
-	testAccountID        string
-	testGroupName        string = "SDK Test Group - Golang"
-	testGroupDescription string = "This group is used for integration test purposes. It can be deleted at any time."
-	testGroupEtag        string
-	testGroupID          string
-	testUserID           string = "IBMid-" + strconv.Itoa(rand.Intn(100000))
-	testClaimRuleID      string
-	testClaimRuleEtag    string
-	testAccountSettings  *iamaccessgroupsv2.AccountSettings
-
-	userType   string = "user"
-	etagHeader string = "Etag"
-)
-
-func shouldSkipTest() {
-	if !configLoaded {
-		Skip("External configuration is not available, skipping...")
-	}
-}
-
 var _ = Describe("IAM Access Groups - Integration Tests", func() {
+	const externalConfigFile = "../iam_access_groups_v2.env"
+
+	var (
+		service      *iamaccessgroupsv2.IamAccessGroupsV2
+		err          error
+		config       map[string]string
+		configLoaded bool = false
+
+		testAccountID        string
+		testGroupName        string = "SDK Test Group - Golang"
+		testGroupDescription string = "This group is used for integration test purposes. It can be deleted at any time."
+		testGroupEtag        string
+		testGroupID          string
+		testUserID           string = "IBMid-" + strconv.Itoa(rand.Intn(100000))
+		testClaimRuleID      string
+		testClaimRuleEtag    string
+		testAccountSettings  *iamaccessgroupsv2.AccountSettings
+
+		userType   string = "user"
+		etagHeader string = "Etag"
+	)
+
+	var shouldSkipTest = func() {
+		if !configLoaded {
+			Skip("External configuration is not available, skipping...")
+		}
+	}
+
 	It("Successfully load the configuration", func() {
 		err = os.Setenv("IBM_CREDENTIALS_FILE", externalConfigFile)
 		if err != nil {
@@ -410,37 +411,36 @@ var _ = Describe("IAM Access Groups - Integration Tests", func() {
 		})
 	})
 
-})
+	// clean up all test groups
+	AfterSuite(func() {
+		if !configLoaded {
+			return
+		}
 
-// clean up all test groups
-var _ = AfterSuite(func() {
-	if !configLoaded {
-		return
-	}
+		// list all groups in the account (minus the public access group)
+		options := service.NewListAccessGroupsOptions(testAccountID)
+		options.SetHidePublicAccess(true)
+		result, detailedResponse, err := service.ListAccessGroups(options)
+		Expect(err).To(BeNil())
+		Expect(detailedResponse.StatusCode).To(Equal(200))
 
-	// list all groups in the account (minus the public access group)
-	options := service.NewListAccessGroupsOptions(testAccountID)
-	options.SetHidePublicAccess(true)
-	result, detailedResponse, err := service.ListAccessGroups(options)
-	Expect(err).To(BeNil())
-	Expect(detailedResponse.StatusCode).To(Equal(200))
+		// iterate across the groups
+		for _, group := range result.Groups {
 
-	// iterate across the groups
-	for _, group := range result.Groups {
+			// force delete the test group (or any test groups older than 5 minutes)
+			if *group.Name == testGroupName {
 
-		// force delete the test group (or any test groups older than 5 minutes)
-		if *group.Name == testGroupName {
+				createdAt := time.Time(*group.CreatedAt)
+				fiveMinutesAgo := time.Now().Add(-(time.Duration(5) * time.Minute))
 
-			createdAt := time.Time(*group.CreatedAt)
-			fiveMinutesAgo := time.Now().Add(-(time.Duration(5) * time.Minute))
-
-			if *group.ID == testGroupID || createdAt.Before(fiveMinutesAgo) {
-				options := service.NewDeleteAccessGroupOptions(*group.ID)
-				options.SetForce(true)
-				detailedResponse, err := service.DeleteAccessGroup(options)
-				Expect(err).To(BeNil())
-				Expect(detailedResponse.StatusCode).To(Equal(204))
+				if *group.ID == testGroupID || createdAt.Before(fiveMinutesAgo) {
+					options := service.NewDeleteAccessGroupOptions(*group.ID)
+					options.SetForce(true)
+					detailedResponse, err := service.DeleteAccessGroup(options)
+					Expect(err).To(BeNil())
+					Expect(detailedResponse.StatusCode).To(Equal(204))
+				}
 			}
 		}
-	}
+	})
 })

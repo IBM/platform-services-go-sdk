@@ -1,3 +1,4 @@
+//go:build integration2
 // +build integration2
 
 /**
@@ -32,32 +33,32 @@ import (
 	. "github.com/onsi/gomega"
 )
 
-const (
-	externalConfigFile   = "../catalog_mgmt.env"
-	expectedShortDesc    = "test"
-	expectedURL          = "https://cm.globalcatalog.test.cloud.ibm.com/api/v1-beta/catalogs/%s"
-	expectedOfferingsURL = "https://cm.globalcatalog.test.cloud.ibm.com/api/v1-beta/catalogs/%s/offerings"
-	fakeName             = "bogus"
-	fakeVersionLocator   = "bogus.bogus"
-	expectedOfferingName = "test-offering"
-	expectedOfferingURL  = "https://cm.globalcatalog.test.cloud.ibm.com/api/v1-beta/catalogs/%s/offerings/%s"
-)
-
-var (
-	service       *catalogmanagementv1.CatalogManagementV1
-	gitToken      string
-	accountID     string
-	configLoaded  bool = false
-	expectedLabel      = fmt.Sprintf("integration-test-%d", time.Now().Unix())
-)
-
-func shouldSkipTest() {
-	if !configLoaded {
-		Skip("External configuration is not available, skipping...")
-	}
-}
-
 var _ = Describe("Catalog Management - Integration Tests (OLD)", func() {
+	const (
+		externalConfigFile   = "../catalog_mgmt.env"
+		expectedShortDesc    = "test"
+		expectedURL          = "https://cm.globalcatalog.test.cloud.ibm.com/api/v1-beta/catalogs/%s"
+		expectedOfferingsURL = "https://cm.globalcatalog.test.cloud.ibm.com/api/v1-beta/catalogs/%s/offerings"
+		fakeName             = "bogus"
+		fakeVersionLocator   = "bogus.bogus"
+		expectedOfferingName = "test-offering"
+		expectedOfferingURL  = "https://cm.globalcatalog.test.cloud.ibm.com/api/v1-beta/catalogs/%s/offerings/%s"
+	)
+
+	var (
+		service       *catalogmanagementv1.CatalogManagementV1
+		gitToken      string
+		accountID     string
+		configLoaded  bool = false
+		expectedLabel      = fmt.Sprintf("integration-test-%d", time.Now().Unix())
+	)
+
+	var shouldSkipTest = func() {
+		if !configLoaded {
+			Skip("External configuration is not available, skipping...")
+		}
+	}
+
 	It("Successfully load the configuration", func() {
 		if _, err := os.Stat(externalConfigFile); err == nil {
 			if err = os.Setenv("IBM_CREDENTIALS_FILE", externalConfigFile); err == nil {

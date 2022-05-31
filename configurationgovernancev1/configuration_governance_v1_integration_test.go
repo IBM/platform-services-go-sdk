@@ -1,3 +1,4 @@
+//go:build integration
 // +build integration
 
 /**
@@ -40,10 +41,6 @@ import (
  * The integration test will automatically skip tests if the required config file is not available.
  */
 
-const verbose bool = true
-
-var transactionID string
-
 var _ = Describe(`ConfigurationGovernanceV1 Integration Tests`, func() {
 
 	const externalConfigFile = "../configuration_governance.env"
@@ -81,6 +78,8 @@ var _ = Describe(`ConfigurationGovernanceV1 Integration Tests`, func() {
 		attachment1     *Attachment
 		attachmentEtag1 string
 		attachmentID2   string
+
+		transactionID string
 	)
 
 	var shouldSkipTest = func() {
@@ -247,7 +246,7 @@ var _ = Describe(`ConfigurationGovernanceV1 Integration Tests`, func() {
 
 		It("Successfully setup the environment for tests", func() {
 			fmt.Fprintln(GinkgoWriter, "Setup...")
-			cleanRules(service, accountID, TestLabel)
+			cleanRules(service, accountID, TestLabel, transactionID)
 			fmt.Fprintln(GinkgoWriter, "Finished setup.")
 		})
 	})
@@ -543,11 +542,12 @@ var _ = Describe(`ConfigurationGovernanceV1 Integration Tests`, func() {
 
 			ruleList, response, err := service.ListRules(listRulesOptions)
 			Expect(err).To(BeNil())
+			Expect(response).ToNot(BeNil())
 			Expect(ruleList).ToNot(BeNil())
 			Expect(*ruleList.TotalCount).To(Equal(int64(1)))
 
 			// Next, make sure we can't do a get on the deleted rule.
-			rule := getRule(service, ruleID2)
+			rule := getRule(service, ruleID2, transactionID)
 			Expect(rule).To(BeNil())
 		})
 		It(`Fail to delete rule with invalid rule id`, func() {
@@ -598,7 +598,7 @@ var _ = Describe(`ConfigurationGovernanceV1 Integration Tests`, func() {
 			Expect(attachmentID1).ToNot(BeNil())
 
 			// Now retrieve the rule and make sure the number_of_attachments is 1.
-			rule := getRule(service, ruleID1)
+			rule := getRule(service, ruleID1, transactionID)
 			Expect(rule).ToNot(BeNil())
 			Expect(rule.NumberOfAttachments).ToNot(BeNil())
 			Expect(*rule.NumberOfAttachments).To(Equal(int64(1)))
@@ -632,7 +632,7 @@ var _ = Describe(`ConfigurationGovernanceV1 Integration Tests`, func() {
 			Expect(attachmentID2).ToNot(BeEmpty())
 
 			// Now retrieve the rule and make sure the number_of_attachments is 1.
-			rule := getRule(service, ruleID1)
+			rule := getRule(service, ruleID1, transactionID)
 			Expect(rule).ToNot(BeNil())
 			Expect(rule.NumberOfAttachments).ToNot(BeNil())
 			Expect(*rule.NumberOfAttachments).To(Equal(int64(2)))
@@ -861,13 +861,13 @@ var _ = Describe(`ConfigurationGovernanceV1 Integration Tests`, func() {
 		})
 		It(`Clean rules`, func() {
 			fmt.Fprintln(GinkgoWriter, "Teardown...")
-			cleanRules(service, accountID, TestLabel)
+			cleanRules(service, accountID, TestLabel, transactionID)
 			fmt.Fprintln(GinkgoWriter, "Finished teardown.")
 		})
 	})
 })
 
-func cleanRules(service *ConfigurationGovernanceV1, accountID string, label string) {
+func cleanRules(service *ConfigurationGovernanceV1, accountID string, label string, transactionID string) {
 	fmt.Fprintln(GinkgoWriter, "Cleaning rules...")
 
 	listRulesOptions := &ListRulesOptions{
@@ -905,7 +905,7 @@ func cleanRules(service *ConfigurationGovernanceV1, accountID string, label stri
 	fmt.Fprintln(GinkgoWriter, "Finished cleaning rules...")
 }
 
-func getRule(service *ConfigurationGovernanceV1, ruleID string) (rule *Rule) {
+func getRule(service *ConfigurationGovernanceV1, ruleID string, transactionID string) (rule *Rule) {
 	rule, _, _ = service.GetRule(&GetRuleOptions{
 		RuleID:        core.StringPtr(ruleID),
 		TransactionID: &transactionID,
