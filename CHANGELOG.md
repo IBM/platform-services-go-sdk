@@ -1,3 +1,10 @@
+## [0.25.2](https://github.com/IBM/platform-services-go-sdk/compare/v0.25.1...v0.25.2) (2022-05-31)
+
+
+### Bug Fixes
+
+* bump deps, fix lint errors ([#190](https://github.com/IBM/platform-services-go-sdk/issues/190)) ([073cdb2](https://github.com/IBM/platform-services-go-sdk/commit/073cdb275fef3d3982a5cf1351adc01c71dda0a4))
+
 ## [0.25.1](https://github.com/IBM/platform-services-go-sdk/compare/v0.25.0...v0.25.1) (2022-05-11)
 
 
