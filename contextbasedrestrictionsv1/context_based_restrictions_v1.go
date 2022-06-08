@@ -50,15 +50,15 @@ const DefaultServiceURL = "https://cbr.cloud.ibm.com"
 // DefaultServiceName is the default key used to find external configuration information.
 const DefaultServiceName = "context_based_restrictions"
 
-// ContextBasedRestrictionsV1Options : Service options
-type ContextBasedRestrictionsV1Options struct {
+// Options : Service options
+type Options struct {
 	ServiceName   string
 	URL           string
 	Authenticator core.Authenticator
 }
 
 // NewContextBasedRestrictionsV1UsingExternalConfig : constructs an instance of ContextBasedRestrictionsV1 with passed in options and external configuration.
-func NewContextBasedRestrictionsV1UsingExternalConfig(options *ContextBasedRestrictionsV1Options) (contextBasedRestrictions *ContextBasedRestrictionsV1, err error) {
+func NewContextBasedRestrictionsV1UsingExternalConfig(options *Options) (contextBasedRestrictions *ContextBasedRestrictionsV1, err error) {
 	if options.ServiceName == "" {
 		options.ServiceName = DefaultServiceName
 	}
@@ -87,7 +87,7 @@ func NewContextBasedRestrictionsV1UsingExternalConfig(options *ContextBasedRestr
 }
 
 // NewContextBasedRestrictionsV1 : constructs an instance of ContextBasedRestrictionsV1 with passed in options.
-func NewContextBasedRestrictionsV1(options *ContextBasedRestrictionsV1Options) (service *ContextBasedRestrictionsV1, err error) {
+func NewContextBasedRestrictionsV1(options *Options) (service *ContextBasedRestrictionsV1, err error) {
 	serviceOptions := &core.ServiceOptions{
 		URL:           DefaultServiceURL,
 		Authenticator: options.Authenticator,
@@ -1216,9 +1216,9 @@ type CreateRuleOptions struct {
 //  * `disabled` - The restrictions are disabled. Nothing is enforced or reported.
 //  * `report` - The restrictions are evaluated and reported, but not enforced.
 const (
-	CreateRuleOptionsEnforcementModeDisabledConst = "disabled"
-	CreateRuleOptionsEnforcementModeEnabledConst  = "enabled"
-	CreateRuleOptionsEnforcementModeReportConst   = "report"
+	RuleOptionsEnforcementModeDisabledConst = "disabled"
+	RuleOptionsEnforcementModeEnabledConst  = "enabled"
+	RuleOptionsEnforcementModeReportConst   = "report"
 )
 
 // NewCreateRuleOptions : Instantiate CreateRuleOptions
@@ -1888,17 +1888,6 @@ type ReplaceRuleOptions struct {
 	Headers map[string]string
 }
 
-// Constants associated with the ReplaceRuleOptions.EnforcementMode property.
-// The rule enforcement mode:
-//  * `enabled` - The restrictions are enforced and reported. This is the default.
-//  * `disabled` - The restrictions are disabled. Nothing is enforced or reported.
-//  * `report` - The restrictions are evaluated and reported, but not enforced.
-const (
-	ReplaceRuleOptionsEnforcementModeDisabledConst = "disabled"
-	ReplaceRuleOptionsEnforcementModeEnabledConst  = "enabled"
-	ReplaceRuleOptionsEnforcementModeReportConst   = "report"
-)
-
 // NewReplaceRuleOptions : Instantiate ReplaceRuleOptions
 func (*ContextBasedRestrictionsV1) NewReplaceRuleOptions(ruleID string, ifMatch string) *ReplaceRuleOptions {
 	return &ReplaceRuleOptions{
@@ -2222,17 +2211,6 @@ type Rule struct {
 	LastModifiedByID *string `json:"last_modified_by_id" validate:"required"`
 }
 
-// Constants associated with the Rule.EnforcementMode property.
-// The rule enforcement mode:
-//  * `enabled` - The restrictions are enforced and reported. This is the default.
-//  * `disabled` - The restrictions are disabled. Nothing is enforced or reported.
-//  * `report` - The restrictions are evaluated and reported, but not enforced.
-const (
-	RuleEnforcementModeDisabledConst = "disabled"
-	RuleEnforcementModeEnabledConst  = "enabled"
-	RuleEnforcementModeReportConst   = "report"
-)
-
 // UnmarshalRule unmarshals an instance of Rule from the specified map of raw messages.
 func UnmarshalRule(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(Rule)
@@ -2429,6 +2407,15 @@ type ServiceRefValue struct {
 
 	// The service instance.
 	ServiceInstance *string `json:"service_instance,omitempty"`
+}
+
+// NewServiceRefValue : Instantiate ServiceRefValue (Generic Model Constructor)
+func (*ContextBasedRestrictionsV1) NewServiceRefValue(accountID string) (_model *ServiceRefValue, err error) {
+	_model = &ServiceRefValue{
+		AccountID: core.StringPtr(accountID),
+	}
+	err = core.ValidateStruct(_model, "required parameters")
+	return
 }
 
 // UnmarshalServiceRefValue unmarshals an instance of ServiceRefValue from the specified map of raw messages.

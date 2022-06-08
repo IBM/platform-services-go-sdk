@@ -108,7 +108,7 @@ var _ = Describe(`ContextBasedRestrictionsV1 Examples Tests`, func() {
 
 			// begin-common
 
-			contextBasedRestrictionsServiceOptions := &contextbasedrestrictionsv1.ContextBasedRestrictionsV1Options{}
+			contextBasedRestrictionsServiceOptions := &contextbasedrestrictionsv1.Options{}
 
 			contextBasedRestrictionsService, err = contextbasedrestrictionsv1.NewContextBasedRestrictionsV1UsingExternalConfig(contextBasedRestrictionsServiceOptions)
 

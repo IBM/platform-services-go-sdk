@@ -110,7 +110,7 @@ var _ = Describe(`ContextBasedRestrictionsV1 Integration Tests`, func() {
 			shouldSkipTest()
 		})
 		It("Successfully construct the service client instance", func() {
-			contextBasedRestrictionsServiceOptions := &contextbasedrestrictionsv1.ContextBasedRestrictionsV1Options{}
+			contextBasedRestrictionsServiceOptions := &contextbasedrestrictionsv1.Options{}
 			contextBasedRestrictionsService, err = contextbasedrestrictionsv1.NewContextBasedRestrictionsV1UsingExternalConfig(contextBasedRestrictionsServiceOptions)
 
 			Expect(err).To(BeNil())
@@ -491,11 +491,11 @@ var _ = Describe(`ContextBasedRestrictionsV1 Integration Tests`, func() {
 			}
 
 			createRuleOptions := &contextbasedrestrictionsv1.CreateRuleOptions{
-				Description:   core.StringPtr("this is an example of rule"),
-				Contexts:      []contextbasedrestrictionsv1.RuleContext{*ruleContextModel},
-				Resources:     []contextbasedrestrictionsv1.Resource{*resourceModel},
-				EnforcementMode: core.StringPtr(contextbasedrestrictionsv1.ReplaceRuleOptionsEnforcementModeEnabledConst),
-				TransactionID: getTransactionID(),
+				Description:     core.StringPtr("this is an example of rule"),
+				Contexts:        []contextbasedrestrictionsv1.RuleContext{*ruleContextModel},
+				Resources:       []contextbasedrestrictionsv1.Resource{*resourceModel},
+				EnforcementMode: core.StringPtr(contextbasedrestrictionsv1.RuleOptionsEnforcementModeEnabledConst),
+				TransactionID:   getTransactionID(),
 			}
 
 			rule, response, err := contextBasedRestrictionsService.CreateRule(createRuleOptions)
