@@ -38,21 +38,21 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 	var testServer *httptest.Server
 	Describe(`Service constructor tests`, func() {
 		It(`Instantiate service client`, func() {
-			contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.Options{
+			contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.ContextBasedRestrictionsV1Options{
 				Authenticator: &core.NoAuthAuthenticator{},
 			})
 			Expect(contextBasedRestrictionsService).ToNot(BeNil())
 			Expect(serviceErr).To(BeNil())
 		})
 		It(`Instantiate service client with error: Invalid URL`, func() {
-			contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.Options{
+			contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.ContextBasedRestrictionsV1Options{
 				URL: "{BAD_URL_STRING",
 			})
 			Expect(contextBasedRestrictionsService).To(BeNil())
 			Expect(serviceErr).ToNot(BeNil())
 		})
 		It(`Instantiate service client with error: Invalid Auth`, func() {
-			contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.Options{
+			contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.ContextBasedRestrictionsV1Options{
 				URL: "https://contextbasedrestrictionsv1/api",
 				Authenticator: &core.BasicAuthenticator{
 					Username: "",
@@ -73,7 +73,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 
 			It(`Create service client using external config successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1UsingExternalConfig(&contextbasedrestrictionsv1.Options{})
+				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1UsingExternalConfig(&contextbasedrestrictionsv1.ContextBasedRestrictionsV1Options{})
 				Expect(contextBasedRestrictionsService).ToNot(BeNil())
 				Expect(serviceErr).To(BeNil())
 				ClearTestEnvironment(testEnvironment)
@@ -86,7 +86,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 			})
 			It(`Create service client using external config and set url from constructor successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1UsingExternalConfig(&contextbasedrestrictionsv1.Options{
+				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1UsingExternalConfig(&contextbasedrestrictionsv1.ContextBasedRestrictionsV1Options{
 					URL: "https://testService/api",
 				})
 				Expect(contextBasedRestrictionsService).ToNot(BeNil())
@@ -102,7 +102,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 			})
 			It(`Create service client using external config and set url programatically successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1UsingExternalConfig(&contextbasedrestrictionsv1.Options{})
+				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1UsingExternalConfig(&contextbasedrestrictionsv1.ContextBasedRestrictionsV1Options{})
 				err := contextBasedRestrictionsService.SetServiceURL("https://testService/api")
 				Expect(err).To(BeNil())
 				Expect(contextBasedRestrictionsService).ToNot(BeNil())
@@ -125,7 +125,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 			}
 
 			SetTestEnvironment(testEnvironment)
-			contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1UsingExternalConfig(&contextbasedrestrictionsv1.Options{})
+			contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1UsingExternalConfig(&contextbasedrestrictionsv1.ContextBasedRestrictionsV1Options{})
 
 			It(`Instantiate service client with error`, func() {
 				Expect(contextBasedRestrictionsService).To(BeNil())
@@ -140,7 +140,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 			}
 
 			SetTestEnvironment(testEnvironment)
-			contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1UsingExternalConfig(&contextbasedrestrictionsv1.Options{
+			contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1UsingExternalConfig(&contextbasedrestrictionsv1.ContextBasedRestrictionsV1Options{
 				URL: "{BAD_URL_STRING",
 			})
 
@@ -181,7 +181,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				}))
 			})
 			It(`Invoke CreateZone with error: Operation response processing error`, func() {
-				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.Options{
+				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.ContextBasedRestrictionsV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
@@ -262,7 +262,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				}))
 			})
 			It(`Invoke CreateZone successfully with retries`, func() {
-				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.Options{
+				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.ContextBasedRestrictionsV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
@@ -347,7 +347,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				}))
 			})
 			It(`Invoke CreateZone successfully`, func() {
-				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.Options{
+				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.ContextBasedRestrictionsV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
@@ -384,7 +384,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 
 			})
 			It(`Invoke CreateZone with error: Operation request error`, func() {
-				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.Options{
+				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.ContextBasedRestrictionsV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
@@ -429,7 +429,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				}))
 			})
 			It(`Invoke CreateZone successfully`, func() {
-				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.Options{
+				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.ContextBasedRestrictionsV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
@@ -488,7 +488,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				}))
 			})
 			It(`Invoke ListZones with error: Operation response processing error`, func() {
-				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.Options{
+				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.ContextBasedRestrictionsV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
@@ -549,7 +549,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				}))
 			})
 			It(`Invoke ListZones successfully with retries`, func() {
-				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.Options{
+				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.ContextBasedRestrictionsV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
@@ -614,7 +614,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				}))
 			})
 			It(`Invoke ListZones successfully`, func() {
-				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.Options{
+				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.ContextBasedRestrictionsV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
@@ -644,7 +644,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 
 			})
 			It(`Invoke ListZones with error: Operation validation and request error`, func() {
-				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.Options{
+				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.ContextBasedRestrictionsV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
@@ -689,7 +689,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				}))
 			})
 			It(`Invoke ListZones successfully`, func() {
-				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.Options{
+				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.ContextBasedRestrictionsV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
@@ -738,7 +738,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				}))
 			})
 			It(`Invoke GetZone with error: Operation response processing error`, func() {
-				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.Options{
+				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.ContextBasedRestrictionsV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
@@ -794,7 +794,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				}))
 			})
 			It(`Invoke GetZone successfully with retries`, func() {
-				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.Options{
+				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.ContextBasedRestrictionsV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
@@ -854,7 +854,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				}))
 			})
 			It(`Invoke GetZone successfully`, func() {
-				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.Options{
+				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.ContextBasedRestrictionsV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
@@ -882,7 +882,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 
 			})
 			It(`Invoke GetZone with error: Operation validation and request error`, func() {
-				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.Options{
+				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.ContextBasedRestrictionsV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
@@ -925,7 +925,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				}))
 			})
 			It(`Invoke GetZone successfully`, func() {
-				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.Options{
+				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.ContextBasedRestrictionsV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
@@ -974,7 +974,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				}))
 			})
 			It(`Invoke ReplaceZone with error: Operation response processing error`, func() {
-				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.Options{
+				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.ContextBasedRestrictionsV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
@@ -1059,7 +1059,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				}))
 			})
 			It(`Invoke ReplaceZone successfully with retries`, func() {
-				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.Options{
+				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.ContextBasedRestrictionsV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
@@ -1148,7 +1148,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				}))
 			})
 			It(`Invoke ReplaceZone successfully`, func() {
-				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.Options{
+				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.ContextBasedRestrictionsV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
@@ -1187,7 +1187,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 
 			})
 			It(`Invoke ReplaceZone with error: Operation validation and request error`, func() {
-				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.Options{
+				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.ContextBasedRestrictionsV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
@@ -1241,7 +1241,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				}))
 			})
 			It(`Invoke ReplaceZone successfully`, func() {
-				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.Options{
+				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.ContextBasedRestrictionsV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
@@ -1298,7 +1298,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				}))
 			})
 			It(`Invoke DeleteZone successfully`, func() {
-				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.Options{
+				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.ContextBasedRestrictionsV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
@@ -1323,7 +1323,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				Expect(response).ToNot(BeNil())
 			})
 			It(`Invoke DeleteZone with error: Operation validation and request error`, func() {
-				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.Options{
+				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.ContextBasedRestrictionsV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
@@ -1376,7 +1376,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				}))
 			})
 			It(`Invoke ListAvailableServicerefTargets with error: Operation response processing error`, func() {
-				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.Options{
+				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.ContextBasedRestrictionsV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
@@ -1433,7 +1433,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				}))
 			})
 			It(`Invoke ListAvailableServicerefTargets successfully with retries`, func() {
-				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.Options{
+				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.ContextBasedRestrictionsV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
@@ -1494,7 +1494,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				}))
 			})
 			It(`Invoke ListAvailableServicerefTargets successfully`, func() {
-				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.Options{
+				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.ContextBasedRestrictionsV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
@@ -1522,7 +1522,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 
 			})
 			It(`Invoke ListAvailableServicerefTargets with error: Operation request error`, func() {
-				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.Options{
+				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.ContextBasedRestrictionsV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
@@ -1558,7 +1558,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				}))
 			})
 			It(`Invoke ListAvailableServicerefTargets successfully`, func() {
-				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.Options{
+				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.ContextBasedRestrictionsV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
@@ -1605,7 +1605,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				}))
 			})
 			It(`Invoke CreateRule with error: Operation response processing error`, func() {
-				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.Options{
+				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.ContextBasedRestrictionsV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
@@ -1706,7 +1706,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				}))
 			})
 			It(`Invoke CreateRule successfully with retries`, func() {
-				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.Options{
+				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.ContextBasedRestrictionsV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
@@ -1811,7 +1811,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				}))
 			})
 			It(`Invoke CreateRule successfully`, func() {
-				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.Options{
+				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.ContextBasedRestrictionsV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
@@ -1868,7 +1868,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 
 			})
 			It(`Invoke CreateRule with error: Operation request error`, func() {
-				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.Options{
+				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.ContextBasedRestrictionsV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
@@ -1933,7 +1933,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				}))
 			})
 			It(`Invoke CreateRule successfully`, func() {
-				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.Options{
+				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.ContextBasedRestrictionsV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
@@ -2018,7 +2018,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				}))
 			})
 			It(`Invoke ListRules with error: Operation response processing error`, func() {
-				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.Options{
+				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.ContextBasedRestrictionsV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
@@ -2091,7 +2091,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				}))
 			})
 			It(`Invoke ListRules successfully with retries`, func() {
-				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.Options{
+				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.ContextBasedRestrictionsV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
@@ -2168,7 +2168,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				}))
 			})
 			It(`Invoke ListRules successfully`, func() {
-				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.Options{
+				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.ContextBasedRestrictionsV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
@@ -2204,7 +2204,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 
 			})
 			It(`Invoke ListRules with error: Operation validation and request error`, func() {
-				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.Options{
+				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.ContextBasedRestrictionsV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
@@ -2255,7 +2255,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				}))
 			})
 			It(`Invoke ListRules successfully`, func() {
-				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.Options{
+				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.ContextBasedRestrictionsV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
@@ -2310,7 +2310,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				}))
 			})
 			It(`Invoke GetRule with error: Operation response processing error`, func() {
-				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.Options{
+				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.ContextBasedRestrictionsV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
@@ -2366,7 +2366,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				}))
 			})
 			It(`Invoke GetRule successfully with retries`, func() {
-				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.Options{
+				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.ContextBasedRestrictionsV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
@@ -2426,7 +2426,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				}))
 			})
 			It(`Invoke GetRule successfully`, func() {
-				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.Options{
+				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.ContextBasedRestrictionsV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
@@ -2454,7 +2454,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 
 			})
 			It(`Invoke GetRule with error: Operation validation and request error`, func() {
-				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.Options{
+				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.ContextBasedRestrictionsV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
@@ -2497,7 +2497,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				}))
 			})
 			It(`Invoke GetRule successfully`, func() {
-				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.Options{
+				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.ContextBasedRestrictionsV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
@@ -2546,7 +2546,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				}))
 			})
 			It(`Invoke ReplaceRule with error: Operation response processing error`, func() {
-				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.Options{
+				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.ContextBasedRestrictionsV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
@@ -2651,7 +2651,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				}))
 			})
 			It(`Invoke ReplaceRule successfully with retries`, func() {
-				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.Options{
+				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.ContextBasedRestrictionsV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
@@ -2760,7 +2760,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				}))
 			})
 			It(`Invoke ReplaceRule successfully`, func() {
-				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.Options{
+				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.ContextBasedRestrictionsV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
@@ -2819,7 +2819,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 
 			})
 			It(`Invoke ReplaceRule with error: Operation validation and request error`, func() {
-				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.Options{
+				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.ContextBasedRestrictionsV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
@@ -2893,7 +2893,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				}))
 			})
 			It(`Invoke ReplaceRule successfully`, func() {
-				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.Options{
+				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.ContextBasedRestrictionsV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
@@ -2970,7 +2970,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				}))
 			})
 			It(`Invoke DeleteRule successfully`, func() {
-				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.Options{
+				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.ContextBasedRestrictionsV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
@@ -2995,7 +2995,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				Expect(response).ToNot(BeNil())
 			})
 			It(`Invoke DeleteRule with error: Operation validation and request error`, func() {
-				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.Options{
+				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.ContextBasedRestrictionsV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
@@ -3047,7 +3047,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				}))
 			})
 			It(`Invoke GetAccountSettings with error: Operation response processing error`, func() {
-				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.Options{
+				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.ContextBasedRestrictionsV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
@@ -3103,7 +3103,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				}))
 			})
 			It(`Invoke GetAccountSettings successfully with retries`, func() {
-				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.Options{
+				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.ContextBasedRestrictionsV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
@@ -3163,7 +3163,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				}))
 			})
 			It(`Invoke GetAccountSettings successfully`, func() {
-				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.Options{
+				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.ContextBasedRestrictionsV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
@@ -3191,7 +3191,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 
 			})
 			It(`Invoke GetAccountSettings with error: Operation validation and request error`, func() {
-				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.Options{
+				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.ContextBasedRestrictionsV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
@@ -3234,7 +3234,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				}))
 			})
 			It(`Invoke GetAccountSettings successfully`, func() {
-				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.Options{
+				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.ContextBasedRestrictionsV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
@@ -3263,7 +3263,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 	})
 	Describe(`Model constructor tests`, func() {
 		Context(`Using a service client instance`, func() {
-			contextBasedRestrictionsService, _ := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.Options{
+			contextBasedRestrictionsService, _ := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.ContextBasedRestrictionsV1Options{
 				URL:           "http://contextbasedrestrictionsv1modelgenerator.com",
 				Authenticator: &core.NoAuthAuthenticator{},
 			})

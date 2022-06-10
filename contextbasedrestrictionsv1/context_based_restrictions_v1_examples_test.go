@@ -108,7 +108,7 @@ var _ = Describe(`ContextBasedRestrictionsV1 Examples Tests`, func() {
 
 			// begin-common
 
-			contextBasedRestrictionsServiceOptions := &contextbasedrestrictionsv1.Options{}
+			contextBasedRestrictionsServiceOptions := &contextbasedrestrictionsv1.ContextBasedRestrictionsV1Options{}
 
 			contextBasedRestrictionsService, err = contextbasedrestrictionsv1.NewContextBasedRestrictionsV1UsingExternalConfig(contextBasedRestrictionsServiceOptions)
 
@@ -289,7 +289,7 @@ var _ = Describe(`ContextBasedRestrictionsV1 Examples Tests`, func() {
 			createRuleOptions.SetDescription("this is an example of rule")
 			createRuleOptions.SetContexts([]contextbasedrestrictionsv1.RuleContext{*ruleContextModel})
 			createRuleOptions.SetResources([]contextbasedrestrictionsv1.Resource{*resourceModel})
-
+			createRuleOptions.SetEnforcementMode(contextbasedrestrictionsv1.CreateRuleOptionsEnforcementModeEnabledConst)
 			rule, response, err := contextBasedRestrictionsService.CreateRule(createRuleOptions)
 			if err != nil {
 				panic(err)
@@ -387,6 +387,7 @@ var _ = Describe(`ContextBasedRestrictionsV1 Examples Tests`, func() {
 			replaceRuleOptions.SetDescription("this is an example of rule")
 			replaceRuleOptions.SetContexts([]contextbasedrestrictionsv1.RuleContext{*ruleContextModel})
 			replaceRuleOptions.SetResources([]contextbasedrestrictionsv1.Resource{*resourceModel})
+			replaceRuleOptions.SetEnforcementMode(contextbasedrestrictionsv1.ReplaceRuleOptionsEnforcementModeDisabledConst)
 
 			rule, response, err := contextBasedRestrictionsService.ReplaceRule(replaceRuleOptions)
 			if err != nil {
