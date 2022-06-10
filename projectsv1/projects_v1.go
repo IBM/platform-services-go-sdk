@@ -30,8 +30,8 @@ import (
 	"time"
 
 	"github.com/IBM/go-sdk-core/v5/core"
+	common "github.com/IBM/platform-services-go-sdk/common"
 	"github.com/go-openapi/strfmt"
-	common "github.com/ibmcloud/platform-services-go-sdk/common"
 )
 
 // ProjectsV1 : This document is the **REST API specification** for the Projects Service. The Projects service provides
