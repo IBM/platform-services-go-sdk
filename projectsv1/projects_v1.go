@@ -852,7 +852,7 @@ func (projects *ProjectsV1) GetProjectComputedStatusWithContext(ctx context.Cont
 	}
 
 	pathParamsMap := map[string]string{
-		"id":              *getProjectComputedStatusOptions.ID,
+		"id": *getProjectComputedStatusOptions.ID,
 		"computed_status": *getProjectComputedStatusOptions.ComputedStatus,
 	}
 
@@ -913,7 +913,7 @@ func (projects *ProjectsV1) UpdateProjectComputedStatusWithContext(ctx context.C
 	}
 
 	pathParamsMap := map[string]string{
-		"id":              *updateProjectComputedStatusOptions.ID,
+		"id": *updateProjectComputedStatusOptions.ID,
 		"computed_status": *updateProjectComputedStatusOptions.ComputedStatus,
 	}
 
@@ -1044,7 +1044,7 @@ func (projects *ProjectsV1) GetProjectConfigStatusWithContext(ctx context.Contex
 	}
 
 	pathParamsMap := map[string]string{
-		"id":          *getProjectConfigStatusOptions.ID,
+		"id": *getProjectConfigStatusOptions.ID,
 		"config_name": *getProjectConfigStatusOptions.ConfigName,
 	}
 
@@ -1105,7 +1105,7 @@ func (projects *ProjectsV1) UpdateProjectConfigStatusWithContext(ctx context.Con
 	}
 
 	pathParamsMap := map[string]string{
-		"id":          *updateProjectConfigStatusOptions.ID,
+		"id": *updateProjectConfigStatusOptions.ID,
 		"config_name": *updateProjectConfigStatusOptions.ConfigName,
 	}
 
@@ -1188,8 +1188,8 @@ func (projects *ProjectsV1) GetProjectConfigComputedStatusWithContext(ctx contex
 	}
 
 	pathParamsMap := map[string]string{
-		"id":              *getProjectConfigComputedStatusOptions.ID,
-		"config_name":     *getProjectConfigComputedStatusOptions.ConfigName,
+		"id": *getProjectConfigComputedStatusOptions.ID,
+		"config_name": *getProjectConfigComputedStatusOptions.ConfigName,
 		"computed_status": *getProjectConfigComputedStatusOptions.ComputedStatus,
 	}
 
@@ -1250,8 +1250,8 @@ func (projects *ProjectsV1) UpdateProjectConfigComputedStatusWithContext(ctx con
 	}
 
 	pathParamsMap := map[string]string{
-		"id":              *updateProjectConfigComputedStatusOptions.ID,
-		"config_name":     *updateProjectConfigComputedStatusOptions.ConfigName,
+		"id": *updateProjectConfigComputedStatusOptions.ID,
+		"config_name": *updateProjectConfigComputedStatusOptions.ConfigName,
 		"computed_status": *updateProjectConfigComputedStatusOptions.ComputedStatus,
 	}
 
@@ -1355,6 +1355,61 @@ func (projects *ProjectsV1) GetHealthWithContext(ctx context.Context, getHealthO
 	return
 }
 
+// Notify : Notify a project change
+// Notify the Projects Service that something has changed in a Project status.
+func (projects *ProjectsV1) Notify(notifyOptions *NotifyOptions) (response *core.DetailedResponse, err error) {
+	return projects.NotifyWithContext(context.Background(), notifyOptions)
+}
+
+// NotifyWithContext is an alternate form of the Notify method which supports a Context parameter
+func (projects *ProjectsV1) NotifyWithContext(ctx context.Context, notifyOptions *NotifyOptions) (response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(notifyOptions, "notifyOptions cannot be nil")
+	if err != nil {
+		return
+	}
+	err = core.ValidateStruct(notifyOptions, "notifyOptions")
+	if err != nil {
+		return
+	}
+
+	builder := core.NewRequestBuilder(core.POST)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = projects.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(projects.Service.Options.URL, `/v1/notify`, nil)
+	if err != nil {
+		return
+	}
+
+	for headerName, headerValue := range notifyOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("projects", "V1", "Notify")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Accept", "application/json")
+	builder.AddHeader("Content-Type", "application/json")
+
+	body := make(map[string]interface{})
+	if notifyOptions.ID != nil {
+		body["id"] = notifyOptions.ID
+	}
+	_, err = builder.SetBodyContentJSON(body)
+	if err != nil {
+		return
+	}
+
+	request, err := builder.Build()
+	if err != nil {
+		return
+	}
+
+	response, err = projects.Service.Request(request, nil)
+
+	return
+}
+
 // CheckProjectOptions : The CheckProject options.
 type CheckProjectOptions struct {
 	// The id of the project, which uniquely identifies it.
@@ -1417,17 +1472,17 @@ type CreateProjectOptions struct {
 
 // Constants associated with the CreateProjectOptions.Location property.
 const (
-	CreateProjectOptions_Location_AuSyd   = "au-syd"
-	CreateProjectOptions_Location_EuDe    = "eu-de"
-	CreateProjectOptions_Location_EuGb    = "eu-gb"
-	CreateProjectOptions_Location_UsEast  = "us-east"
+	CreateProjectOptions_Location_AuSyd = "au-syd"
+	CreateProjectOptions_Location_EuDe = "eu-de"
+	CreateProjectOptions_Location_EuGb = "eu-gb"
+	CreateProjectOptions_Location_UsEast = "us-east"
 	CreateProjectOptions_Location_UsSouth = "us-south"
 )
 
 // NewCreateProjectOptions : Instantiate CreateProjectOptions
 func (*ProjectsV1) NewCreateProjectOptions(name string, apiKey string) *CreateProjectOptions {
 	return &CreateProjectOptions{
-		Name:   core.StringPtr(name),
+		Name: core.StringPtr(name),
 		ApiKey: core.StringPtr(apiKey),
 	}
 }
@@ -1549,7 +1604,7 @@ type GetProjectComputedStatusOptions struct {
 // NewGetProjectComputedStatusOptions : Instantiate GetProjectComputedStatusOptions
 func (*ProjectsV1) NewGetProjectComputedStatusOptions(id string, computedStatus string) *GetProjectComputedStatusOptions {
 	return &GetProjectComputedStatusOptions{
-		ID:             core.StringPtr(id),
+		ID: core.StringPtr(id),
 		ComputedStatus: core.StringPtr(computedStatus),
 	}
 }
@@ -1590,8 +1645,8 @@ type GetProjectConfigComputedStatusOptions struct {
 // NewGetProjectConfigComputedStatusOptions : Instantiate GetProjectConfigComputedStatusOptions
 func (*ProjectsV1) NewGetProjectConfigComputedStatusOptions(id string, configName string, computedStatus string) *GetProjectConfigComputedStatusOptions {
 	return &GetProjectConfigComputedStatusOptions{
-		ID:             core.StringPtr(id),
-		ConfigName:     core.StringPtr(configName),
+		ID: core.StringPtr(id),
+		ConfigName: core.StringPtr(configName),
 		ComputedStatus: core.StringPtr(computedStatus),
 	}
 }
@@ -1635,7 +1690,7 @@ type GetProjectConfigStatusOptions struct {
 // NewGetProjectConfigStatusOptions : Instantiate GetProjectConfigStatusOptions
 func (*ProjectsV1) NewGetProjectConfigStatusOptions(id string, configName string) *GetProjectConfigStatusOptions {
 	return &GetProjectConfigStatusOptions{
-		ID:         core.StringPtr(id),
+		ID: core.StringPtr(id),
 		ConfigName: core.StringPtr(configName),
 	}
 }
@@ -1769,14 +1824,14 @@ type InputVariable struct {
 // Constants associated with the InputVariable.Type property.
 // The variable type.
 const (
-	InputVariable_Type_Bool   = "bool"
-	InputVariable_Type_List   = "list"
-	InputVariable_Type_Map    = "map"
+	InputVariable_Type_Bool = "bool"
+	InputVariable_Type_List = "list"
+	InputVariable_Type_Map = "map"
 	InputVariable_Type_Number = "number"
 	InputVariable_Type_Object = "object"
-	InputVariable_Type_Set    = "set"
+	InputVariable_Type_Set = "set"
 	InputVariable_Type_String = "string"
-	InputVariable_Type_Tuple  = "tuple"
+	InputVariable_Type_Tuple = "tuple"
 )
 
 // NewInputVariable : Instantiate InputVariable (Generic Model Constructor)
@@ -1983,6 +2038,34 @@ func (resp *ListProjectsResponse) GetNextStart() (*string, error) {
 	return resp.Next.Start, nil
 }
 
+// NotifyOptions : The Notify options.
+type NotifyOptions struct {
+	// The project id.
+	ID *string `json:"id" validate:"required"`
+
+	// Allows users to set headers on API requests
+	Headers map[string]string
+}
+
+// NewNotifyOptions : Instantiate NotifyOptions
+func (*ProjectsV1) NewNotifyOptions(id string) *NotifyOptions {
+	return &NotifyOptions{
+		ID: core.StringPtr(id),
+	}
+}
+
+// SetID : Allow user to set ID
+func (_options *NotifyOptions) SetID(id string) *NotifyOptions {
+	_options.ID = core.StringPtr(id)
+	return _options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *NotifyOptions) SetHeaders(param map[string]string) *NotifyOptions {
+	options.Headers = param
+	return options
+}
+
 // OutputValue : OutputValue struct
 type OutputValue struct {
 	// The output value name.
@@ -2081,10 +2164,10 @@ type Project struct {
 
 // Constants associated with the Project.Location property.
 const (
-	Project_Location_AuSyd   = "au-syd"
-	Project_Location_EuDe    = "eu-de"
-	Project_Location_EuGb    = "eu-gb"
-	Project_Location_UsEast  = "us-east"
+	Project_Location_AuSyd = "au-syd"
+	Project_Location_EuDe = "eu-de"
+	Project_Location_EuGb = "eu-gb"
+	Project_Location_UsEast = "us-east"
 	Project_Location_UsSouth = "us-south"
 )
 
@@ -2209,7 +2292,6 @@ type ProjectConfig struct {
 const (
 	ProjectConfig_Type_Manual = "manual"
 )
-
 func (*ProjectConfig) isaProjectConfig() bool {
 	return true
 }
@@ -2306,19 +2388,19 @@ type ProjectConfigStatus struct {
 
 // Constants associated with the ProjectConfigStatus.Status property.
 const (
-	ProjectConfigStatus_Status_CheckInProgress     = "check_in_progress"
-	ProjectConfigStatus_Status_CheckSubmitted      = "check_submitted"
-	ProjectConfigStatus_Status_InError             = "in_error"
-	ProjectConfigStatus_Status_InstallInProgress   = "install_in_progress"
-	ProjectConfigStatus_Status_InstallSubmitted    = "install_submitted"
-	ProjectConfigStatus_Status_Installed           = "installed"
-	ProjectConfigStatus_Status_NotInstalled        = "not_installed"
-	ProjectConfigStatus_Status_PendingCheck        = "pending_check"
-	ProjectConfigStatus_Status_PendingInstall      = "pending_install"
-	ProjectConfigStatus_Status_PendingUninstall    = "pending_uninstall"
-	ProjectConfigStatus_Status_ToReinstall         = "to_reinstall"
+	ProjectConfigStatus_Status_CheckInProgress = "check_in_progress"
+	ProjectConfigStatus_Status_CheckSubmitted = "check_submitted"
+	ProjectConfigStatus_Status_InError = "in_error"
+	ProjectConfigStatus_Status_InstallInProgress = "install_in_progress"
+	ProjectConfigStatus_Status_InstallSubmitted = "install_submitted"
+	ProjectConfigStatus_Status_Installed = "installed"
+	ProjectConfigStatus_Status_NotInstalled = "not_installed"
+	ProjectConfigStatus_Status_PendingCheck = "pending_check"
+	ProjectConfigStatus_Status_PendingInstall = "pending_install"
+	ProjectConfigStatus_Status_PendingUninstall = "pending_uninstall"
+	ProjectConfigStatus_Status_ToReinstall = "to_reinstall"
 	ProjectConfigStatus_Status_UninstallInProgress = "uninstall_in_progress"
-	ProjectConfigStatus_Status_UninstallSubmitted  = "uninstall_submitted"
+	ProjectConfigStatus_Status_UninstallSubmitted = "uninstall_submitted"
 )
 
 // UnmarshalProjectConfigStatus unmarshals an instance of ProjectConfigStatus from the specified map of raw messages.
@@ -2456,11 +2538,11 @@ type ProjectStatus struct {
 
 // Constants associated with the ProjectStatus.Status property.
 const (
-	ProjectStatus_Status_CreateFailed     = "create_failed"
+	ProjectStatus_Status_CreateFailed = "create_failed"
 	ProjectStatus_Status_CreateInProgress = "create_in_progress"
-	ProjectStatus_Status_PendingCreate    = "pending_create"
-	ProjectStatus_Status_PendingPr        = "pending_pr"
-	ProjectStatus_Status_Ready            = "ready"
+	ProjectStatus_Status_PendingCreate = "pending_create"
+	ProjectStatus_Status_PendingPr = "pending_pr"
+	ProjectStatus_Status_Ready = "ready"
 )
 
 // UnmarshalProjectStatus unmarshals an instance of ProjectStatus from the specified map of raw messages.
@@ -2508,7 +2590,7 @@ type SchematicsBlueprint struct {
 // NewSchematicsBlueprint : Instantiate SchematicsBlueprint (Generic Model Constructor)
 func (*ProjectsV1) NewSchematicsBlueprint(repoURL string, definitionFile string) (_model *SchematicsBlueprint, err error) {
 	_model = &SchematicsBlueprint{
-		RepoURL:        core.StringPtr(repoURL),
+		RepoURL: core.StringPtr(repoURL),
 		DefinitionFile: core.StringPtr(definitionFile),
 	}
 	err = core.ValidateStruct(_model, "required parameters")
@@ -2552,25 +2634,25 @@ type ServiceStatus struct {
 
 // Constants associated with the ServiceStatus.Status property.
 const (
-	ServiceStatus_Status_CheckInProgress     = "check_in_progress"
-	ServiceStatus_Status_CheckSubmitted      = "check_submitted"
-	ServiceStatus_Status_InError             = "in_error"
-	ServiceStatus_Status_InstallInProgress   = "install_in_progress"
-	ServiceStatus_Status_InstallSubmitted    = "install_submitted"
-	ServiceStatus_Status_Installed           = "installed"
-	ServiceStatus_Status_NotInstalled        = "not_installed"
-	ServiceStatus_Status_PendingCheck        = "pending_check"
-	ServiceStatus_Status_PendingInstall      = "pending_install"
-	ServiceStatus_Status_PendingUninstall    = "pending_uninstall"
-	ServiceStatus_Status_ToReinstall         = "to_reinstall"
+	ServiceStatus_Status_CheckInProgress = "check_in_progress"
+	ServiceStatus_Status_CheckSubmitted = "check_submitted"
+	ServiceStatus_Status_InError = "in_error"
+	ServiceStatus_Status_InstallInProgress = "install_in_progress"
+	ServiceStatus_Status_InstallSubmitted = "install_submitted"
+	ServiceStatus_Status_Installed = "installed"
+	ServiceStatus_Status_NotInstalled = "not_installed"
+	ServiceStatus_Status_PendingCheck = "pending_check"
+	ServiceStatus_Status_PendingInstall = "pending_install"
+	ServiceStatus_Status_PendingUninstall = "pending_uninstall"
+	ServiceStatus_Status_ToReinstall = "to_reinstall"
 	ServiceStatus_Status_UninstallInProgress = "uninstall_in_progress"
-	ServiceStatus_Status_UninstallSubmitted  = "uninstall_submitted"
+	ServiceStatus_Status_UninstallSubmitted = "uninstall_submitted"
 )
 
 // NewServiceStatus : Instantiate ServiceStatus (Generic Model Constructor)
 func (*ProjectsV1) NewServiceStatus(id string, status string) (_model *ServiceStatus, err error) {
 	_model = &ServiceStatus{
-		ID:     core.StringPtr(id),
+		ID: core.StringPtr(id),
 		Status: core.StringPtr(status),
 	}
 	err = core.ValidateStruct(_model, "required parameters")
@@ -2615,7 +2697,7 @@ type ServicesStatus struct {
 // NewServicesStatus : Instantiate ServicesStatus (Generic Model Constructor)
 func (*ProjectsV1) NewServicesStatus(toolchain *ServiceStatus, schematics *ServiceStatus) (_model *ServicesStatus, err error) {
 	_model = &ServicesStatus{
-		Toolchain:  toolchain,
+		Toolchain: toolchain,
 		Schematics: schematics,
 	}
 	err = core.ValidateStruct(_model, "required parameters")
@@ -2655,7 +2737,7 @@ type TerraformTemplate struct {
 // NewTerraformTemplate : Instantiate TerraformTemplate (Generic Model Constructor)
 func (*ProjectsV1) NewTerraformTemplate(repoURL string, terraformVersion string) (_model *TerraformTemplate, err error) {
 	_model = &TerraformTemplate{
-		RepoURL:          core.StringPtr(repoURL),
+		RepoURL: core.StringPtr(repoURL),
 		TerraformVersion: core.StringPtr(terraformVersion),
 	}
 	err = core.ValidateStruct(_model, "required parameters")
@@ -2739,8 +2821,8 @@ type UpdateProjectComputedStatusOptions struct {
 // NewUpdateProjectComputedStatusOptions : Instantiate UpdateProjectComputedStatusOptions
 func (*ProjectsV1) NewUpdateProjectComputedStatusOptions(id string, computedStatus string, computedStatuses map[string]interface{}) *UpdateProjectComputedStatusOptions {
 	return &UpdateProjectComputedStatusOptions{
-		ID:               core.StringPtr(id),
-		ComputedStatus:   core.StringPtr(computedStatus),
+		ID: core.StringPtr(id),
+		ComputedStatus: core.StringPtr(computedStatus),
 		ComputedStatuses: computedStatuses,
 	}
 }
@@ -2790,10 +2872,10 @@ type UpdateProjectConfigComputedStatusOptions struct {
 // NewUpdateProjectConfigComputedStatusOptions : Instantiate UpdateProjectConfigComputedStatusOptions
 func (*ProjectsV1) NewUpdateProjectConfigComputedStatusOptions(id string, configName string, computedStatus string, requestBody map[string]interface{}) *UpdateProjectConfigComputedStatusOptions {
 	return &UpdateProjectConfigComputedStatusOptions{
-		ID:             core.StringPtr(id),
-		ConfigName:     core.StringPtr(configName),
+		ID: core.StringPtr(id),
+		ConfigName: core.StringPtr(configName),
 		ComputedStatus: core.StringPtr(computedStatus),
-		RequestBody:    requestBody,
+		RequestBody: requestBody,
 	}
 }
 
@@ -2851,27 +2933,27 @@ type UpdateProjectConfigStatusOptions struct {
 
 // Constants associated with the UpdateProjectConfigStatusOptions.Status property.
 const (
-	UpdateProjectConfigStatusOptions_Status_CheckInProgress     = "check_in_progress"
-	UpdateProjectConfigStatusOptions_Status_CheckSubmitted      = "check_submitted"
-	UpdateProjectConfigStatusOptions_Status_InError             = "in_error"
-	UpdateProjectConfigStatusOptions_Status_InstallInProgress   = "install_in_progress"
-	UpdateProjectConfigStatusOptions_Status_InstallSubmitted    = "install_submitted"
-	UpdateProjectConfigStatusOptions_Status_Installed           = "installed"
-	UpdateProjectConfigStatusOptions_Status_NotInstalled        = "not_installed"
-	UpdateProjectConfigStatusOptions_Status_PendingCheck        = "pending_check"
-	UpdateProjectConfigStatusOptions_Status_PendingInstall      = "pending_install"
-	UpdateProjectConfigStatusOptions_Status_PendingUninstall    = "pending_uninstall"
-	UpdateProjectConfigStatusOptions_Status_ToReinstall         = "to_reinstall"
+	UpdateProjectConfigStatusOptions_Status_CheckInProgress = "check_in_progress"
+	UpdateProjectConfigStatusOptions_Status_CheckSubmitted = "check_submitted"
+	UpdateProjectConfigStatusOptions_Status_InError = "in_error"
+	UpdateProjectConfigStatusOptions_Status_InstallInProgress = "install_in_progress"
+	UpdateProjectConfigStatusOptions_Status_InstallSubmitted = "install_submitted"
+	UpdateProjectConfigStatusOptions_Status_Installed = "installed"
+	UpdateProjectConfigStatusOptions_Status_NotInstalled = "not_installed"
+	UpdateProjectConfigStatusOptions_Status_PendingCheck = "pending_check"
+	UpdateProjectConfigStatusOptions_Status_PendingInstall = "pending_install"
+	UpdateProjectConfigStatusOptions_Status_PendingUninstall = "pending_uninstall"
+	UpdateProjectConfigStatusOptions_Status_ToReinstall = "to_reinstall"
 	UpdateProjectConfigStatusOptions_Status_UninstallInProgress = "uninstall_in_progress"
-	UpdateProjectConfigStatusOptions_Status_UninstallSubmitted  = "uninstall_submitted"
+	UpdateProjectConfigStatusOptions_Status_UninstallSubmitted = "uninstall_submitted"
 )
 
 // NewUpdateProjectConfigStatusOptions : Instantiate UpdateProjectConfigStatusOptions
 func (*ProjectsV1) NewUpdateProjectConfigStatusOptions(id string, configName string, status string) *UpdateProjectConfigStatusOptions {
 	return &UpdateProjectConfigStatusOptions{
-		ID:         core.StringPtr(id),
+		ID: core.StringPtr(id),
 		ConfigName: core.StringPtr(configName),
-		Status:     core.StringPtr(status),
+		Status: core.StringPtr(status),
 	}
 }
 
@@ -2970,10 +3052,10 @@ type UpdateProjectOptions struct {
 
 // Constants associated with the UpdateProjectOptions.NewLocation property.
 const (
-	UpdateProjectOptions_NewLocation_AuSyd   = "au-syd"
-	UpdateProjectOptions_NewLocation_EuDe    = "eu-de"
-	UpdateProjectOptions_NewLocation_EuGb    = "eu-gb"
-	UpdateProjectOptions_NewLocation_UsEast  = "us-east"
+	UpdateProjectOptions_NewLocation_AuSyd = "au-syd"
+	UpdateProjectOptions_NewLocation_EuDe = "eu-de"
+	UpdateProjectOptions_NewLocation_EuGb = "eu-gb"
+	UpdateProjectOptions_NewLocation_UsEast = "us-east"
 	UpdateProjectOptions_NewLocation_UsSouth = "us-south"
 )
 
@@ -2982,14 +3064,14 @@ const (
 // Created or 204 No Content status and includes no body. If return=representation is set, a successful response
 // includes the updated Project. Default includes no body.
 const (
-	UpdateProjectOptions_Prefer_ReturnMinimal        = "return=minimal"
+	UpdateProjectOptions_Prefer_ReturnMinimal = "return=minimal"
 	UpdateProjectOptions_Prefer_ReturnRepresentation = "return=representation"
 )
 
 // NewUpdateProjectOptions : Instantiate UpdateProjectOptions
 func (*ProjectsV1) NewUpdateProjectOptions(id string, newName string) *UpdateProjectOptions {
 	return &UpdateProjectOptions{
-		ID:      core.StringPtr(id),
+		ID: core.StringPtr(id),
 		NewName: core.StringPtr(newName),
 	}
 }
@@ -3102,19 +3184,19 @@ type UpdateProjectStatusOptions struct {
 
 // Constants associated with the UpdateProjectStatusOptions.Status property.
 const (
-	UpdateProjectStatusOptions_Status_CreateFailed     = "create_failed"
+	UpdateProjectStatusOptions_Status_CreateFailed = "create_failed"
 	UpdateProjectStatusOptions_Status_CreateInProgress = "create_in_progress"
-	UpdateProjectStatusOptions_Status_PendingCreate    = "pending_create"
-	UpdateProjectStatusOptions_Status_PendingPr        = "pending_pr"
-	UpdateProjectStatusOptions_Status_Ready            = "ready"
+	UpdateProjectStatusOptions_Status_PendingCreate = "pending_create"
+	UpdateProjectStatusOptions_Status_PendingPr = "pending_pr"
+	UpdateProjectStatusOptions_Status_Ready = "ready"
 )
 
 // NewUpdateProjectStatusOptions : Instantiate UpdateProjectStatusOptions
 func (*ProjectsV1) NewUpdateProjectStatusOptions(id string, status string, messages []string, servicesStatus *ServicesStatus) *UpdateProjectStatusOptions {
 	return &UpdateProjectStatusOptions{
-		ID:             core.StringPtr(id),
-		Status:         core.StringPtr(status),
-		Messages:       messages,
+		ID: core.StringPtr(id),
+		Status: core.StringPtr(status),
+		Messages: messages,
 		ServicesStatus: servicesStatus,
 	}
 }
@@ -3260,8 +3342,8 @@ const (
 // NewProjectConfigSchematicsBlueprintProperty : Instantiate ProjectConfigSchematicsBlueprintProperty (Generic Model Constructor)
 func (*ProjectsV1) NewProjectConfigSchematicsBlueprintProperty(name string, typeVar string, input []InputVariable) (_model *ProjectConfigSchematicsBlueprintProperty, err error) {
 	_model = &ProjectConfigSchematicsBlueprintProperty{
-		Name:  core.StringPtr(name),
-		Type:  core.StringPtr(typeVar),
+		Name: core.StringPtr(name),
+		Type: core.StringPtr(typeVar),
 		Input: input,
 	}
 	err = core.ValidateStruct(_model, "required parameters")
@@ -3328,8 +3410,8 @@ const (
 // NewProjectConfigTerraformTemplateProperty : Instantiate ProjectConfigTerraformTemplateProperty (Generic Model Constructor)
 func (*ProjectsV1) NewProjectConfigTerraformTemplateProperty(name string, typeVar string, input []InputVariable) (_model *ProjectConfigTerraformTemplateProperty, err error) {
 	_model = &ProjectConfigTerraformTemplateProperty{
-		Name:  core.StringPtr(name),
-		Type:  core.StringPtr(typeVar),
+		Name: core.StringPtr(name),
+		Type: core.StringPtr(typeVar),
 		Input: input,
 	}
 	err = core.ValidateStruct(_model, "required parameters")

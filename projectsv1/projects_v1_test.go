@@ -28,10 +28,10 @@ import (
 	"time"
 
 	"github.com/IBM/go-sdk-core/v5/core"
+	"github.com/IBM/platform-services-go-sdk/projectsv1"
 	"github.com/go-openapi/strfmt"
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
-	"github.ibm.com/ibmcloud/platform-services-go-sdk/projectsv1"
 )
 
 var _ = Describe(`ProjectsV1`, func() {
@@ -212,7 +212,7 @@ var _ = Describe(`ProjectsV1`, func() {
 				// Construct an instance of the CreateProjectOptions model
 				createProjectOptionsModel := new(projectsv1.CreateProjectOptions)
 				createProjectOptionsModel.Name = core.StringPtr("acme-microservice")
-				createProjectOptionsModel.ApiKey = core.StringPtr("4fiiIFIIN)C#$)_$DFDFxx)00")
+				createProjectOptionsModel.ApiKey = core.StringPtr("<PUT HERE YOUR VALID PERSONAL APIKEY>")
 				createProjectOptionsModel.Description = core.StringPtr("A microservice to deploy on top of ACME infrastructure")
 				createProjectOptionsModel.Location = core.StringPtr("us-south")
 				createProjectOptionsModel.RepoURL = core.StringPtr("testString")
@@ -307,7 +307,7 @@ var _ = Describe(`ProjectsV1`, func() {
 				// Construct an instance of the CreateProjectOptions model
 				createProjectOptionsModel := new(projectsv1.CreateProjectOptions)
 				createProjectOptionsModel.Name = core.StringPtr("acme-microservice")
-				createProjectOptionsModel.ApiKey = core.StringPtr("4fiiIFIIN)C#$)_$DFDFxx)00")
+				createProjectOptionsModel.ApiKey = core.StringPtr("<PUT HERE YOUR VALID PERSONAL APIKEY>")
 				createProjectOptionsModel.Description = core.StringPtr("A microservice to deploy on top of ACME infrastructure")
 				createProjectOptionsModel.Location = core.StringPtr("us-south")
 				createProjectOptionsModel.RepoURL = core.StringPtr("testString")
@@ -410,7 +410,7 @@ var _ = Describe(`ProjectsV1`, func() {
 				// Construct an instance of the CreateProjectOptions model
 				createProjectOptionsModel := new(projectsv1.CreateProjectOptions)
 				createProjectOptionsModel.Name = core.StringPtr("acme-microservice")
-				createProjectOptionsModel.ApiKey = core.StringPtr("4fiiIFIIN)C#$)_$DFDFxx)00")
+				createProjectOptionsModel.ApiKey = core.StringPtr("<PUT HERE YOUR VALID PERSONAL APIKEY>")
 				createProjectOptionsModel.Description = core.StringPtr("A microservice to deploy on top of ACME infrastructure")
 				createProjectOptionsModel.Location = core.StringPtr("us-south")
 				createProjectOptionsModel.RepoURL = core.StringPtr("testString")
@@ -458,7 +458,7 @@ var _ = Describe(`ProjectsV1`, func() {
 				// Construct an instance of the CreateProjectOptions model
 				createProjectOptionsModel := new(projectsv1.CreateProjectOptions)
 				createProjectOptionsModel.Name = core.StringPtr("acme-microservice")
-				createProjectOptionsModel.ApiKey = core.StringPtr("4fiiIFIIN)C#$)_$DFDFxx)00")
+				createProjectOptionsModel.ApiKey = core.StringPtr("<PUT HERE YOUR VALID PERSONAL APIKEY>")
 				createProjectOptionsModel.Description = core.StringPtr("A microservice to deploy on top of ACME infrastructure")
 				createProjectOptionsModel.Location = core.StringPtr("us-south")
 				createProjectOptionsModel.RepoURL = core.StringPtr("testString")
@@ -527,7 +527,7 @@ var _ = Describe(`ProjectsV1`, func() {
 				// Construct an instance of the CreateProjectOptions model
 				createProjectOptionsModel := new(projectsv1.CreateProjectOptions)
 				createProjectOptionsModel.Name = core.StringPtr("acme-microservice")
-				createProjectOptionsModel.ApiKey = core.StringPtr("4fiiIFIIN)C#$)_$DFDFxx)00")
+				createProjectOptionsModel.ApiKey = core.StringPtr("<PUT HERE YOUR VALID PERSONAL APIKEY>")
 				createProjectOptionsModel.Description = core.StringPtr("A microservice to deploy on top of ACME infrastructure")
 				createProjectOptionsModel.Location = core.StringPtr("us-south")
 				createProjectOptionsModel.RepoURL = core.StringPtr("testString")
@@ -4175,6 +4175,90 @@ var _ = Describe(`ProjectsV1`, func() {
 			})
 		})
 	})
+	Describe(`Notify(notifyOptions *NotifyOptions)`, func() {
+		notifyPath := "/v1/notify"
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(notifyPath))
+					Expect(req.Method).To(Equal("POST"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
+					res.WriteHeader(202)
+				}))
+			})
+			It(`Invoke Notify successfully`, func() {
+				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(projectsService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				response, operationErr := projectsService.Notify(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+
+				// Construct an instance of the NotifyOptions model
+				notifyOptionsModel := new(projectsv1.NotifyOptions)
+				notifyOptionsModel.ID = core.StringPtr("bccbb195-fff4-4d7e-9078-61b06adc02ab")
+				notifyOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				response, operationErr = projectsService.Notify(notifyOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+			})
+			It(`Invoke Notify with error: Operation validation and request error`, func() {
+				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(projectsService).ToNot(BeNil())
+
+				// Construct an instance of the NotifyOptions model
+				notifyOptionsModel := new(projectsv1.NotifyOptions)
+				notifyOptionsModel.ID = core.StringPtr("bccbb195-fff4-4d7e-9078-61b06adc02ab")
+				notifyOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := projectsService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				response, operationErr := projectsService.Notify(notifyOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				// Construct a second instance of the NotifyOptions model with no property values
+				notifyOptionsModelNew := new(projectsv1.NotifyOptions)
+				// Invoke operation with invalid model (negative test)
+				response, operationErr = projectsService.Notify(notifyOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
 	Describe(`Model constructor tests`, func() {
 		Context(`Using a service client instance`, func() {
 			projectsService, _ := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
@@ -4232,10 +4316,10 @@ var _ = Describe(`ProjectsV1`, func() {
 
 				// Construct an instance of the CreateProjectOptions model
 				createProjectOptionsName := "acme-microservice"
-				createProjectOptionsApiKey := "4fiiIFIIN)C#$)_$DFDFxx)00"
+				createProjectOptionsApiKey := "<PUT HERE YOUR VALID PERSONAL APIKEY>"
 				createProjectOptionsModel := projectsService.NewCreateProjectOptions(createProjectOptionsName, createProjectOptionsApiKey)
 				createProjectOptionsModel.SetName("acme-microservice")
-				createProjectOptionsModel.SetApiKey("4fiiIFIIN)C#$)_$DFDFxx)00")
+				createProjectOptionsModel.SetApiKey("<PUT HERE YOUR VALID PERSONAL APIKEY>")
 				createProjectOptionsModel.SetDescription("A microservice to deploy on top of ACME infrastructure")
 				createProjectOptionsModel.SetLocation("us-south")
 				createProjectOptionsModel.SetRepoURL("testString")
@@ -4244,7 +4328,7 @@ var _ = Describe(`ProjectsV1`, func() {
 				createProjectOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(createProjectOptionsModel).ToNot(BeNil())
 				Expect(createProjectOptionsModel.Name).To(Equal(core.StringPtr("acme-microservice")))
-				Expect(createProjectOptionsModel.ApiKey).To(Equal(core.StringPtr("4fiiIFIIN)C#$)_$DFDFxx)00")))
+				Expect(createProjectOptionsModel.ApiKey).To(Equal(core.StringPtr("<PUT HERE YOUR VALID PERSONAL APIKEY>")))
 				Expect(createProjectOptionsModel.Description).To(Equal(core.StringPtr("A microservice to deploy on top of ACME infrastructure")))
 				Expect(createProjectOptionsModel.Location).To(Equal(core.StringPtr("us-south")))
 				Expect(createProjectOptionsModel.RepoURL).To(Equal(core.StringPtr("testString")))
@@ -4371,6 +4455,16 @@ var _ = Describe(`ProjectsV1`, func() {
 				Expect(listProjectsOptionsModel.Start).To(Equal(core.StringPtr("testString")))
 				Expect(listProjectsOptionsModel.Limit).To(Equal(core.Int64Ptr(int64(1))))
 				Expect(listProjectsOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
+			It(`Invoke NewNotifyOptions successfully`, func() {
+				// Construct an instance of the NotifyOptions model
+				notifyOptionsID := "bccbb195-fff4-4d7e-9078-61b06adc02ab"
+				notifyOptionsModel := projectsService.NewNotifyOptions(notifyOptionsID)
+				notifyOptionsModel.SetID("bccbb195-fff4-4d7e-9078-61b06adc02ab")
+				notifyOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(notifyOptionsModel).ToNot(BeNil())
+				Expect(notifyOptionsModel.ID).To(Equal(core.StringPtr("bccbb195-fff4-4d7e-9078-61b06adc02ab")))
+				Expect(notifyOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewOutputValue successfully`, func() {
 				name := "testString"
