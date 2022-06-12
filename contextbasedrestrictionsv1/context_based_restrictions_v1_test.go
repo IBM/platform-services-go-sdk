@@ -2586,7 +2586,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				replaceRuleOptionsModel.Description = core.StringPtr("this is an example of rule")
 				replaceRuleOptionsModel.Contexts = []contextbasedrestrictionsv1.RuleContext{*ruleContextModel}
 				replaceRuleOptionsModel.Resources = []contextbasedrestrictionsv1.Resource{*resourceModel}
-				replaceRuleOptionsModel.EnforcementMode = core.StringPtr("enabled")
+				replaceRuleOptionsModel.EnforcementMode = core.StringPtr("disabled")
 				replaceRuleOptionsModel.XCorrelationID = core.StringPtr("testString")
 				replaceRuleOptionsModel.TransactionID = core.StringPtr("testString")
 				replaceRuleOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
@@ -2692,7 +2692,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				replaceRuleOptionsModel.Description = core.StringPtr("this is an example of rule")
 				replaceRuleOptionsModel.Contexts = []contextbasedrestrictionsv1.RuleContext{*ruleContextModel}
 				replaceRuleOptionsModel.Resources = []contextbasedrestrictionsv1.Resource{*resourceModel}
-				replaceRuleOptionsModel.EnforcementMode = core.StringPtr("enabled")
+				replaceRuleOptionsModel.EnforcementMode = core.StringPtr("disabled")
 				replaceRuleOptionsModel.XCorrelationID = core.StringPtr("testString")
 				replaceRuleOptionsModel.TransactionID = core.StringPtr("testString")
 				replaceRuleOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
@@ -2806,7 +2806,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				replaceRuleOptionsModel.Description = core.StringPtr("this is an example of rule")
 				replaceRuleOptionsModel.Contexts = []contextbasedrestrictionsv1.RuleContext{*ruleContextModel}
 				replaceRuleOptionsModel.Resources = []contextbasedrestrictionsv1.Resource{*resourceModel}
-				replaceRuleOptionsModel.EnforcementMode = core.StringPtr("enabled")
+				replaceRuleOptionsModel.EnforcementMode = core.StringPtr("disabled")
 				replaceRuleOptionsModel.XCorrelationID = core.StringPtr("testString")
 				replaceRuleOptionsModel.TransactionID = core.StringPtr("testString")
 				replaceRuleOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
@@ -2859,7 +2859,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				replaceRuleOptionsModel.Description = core.StringPtr("this is an example of rule")
 				replaceRuleOptionsModel.Contexts = []contextbasedrestrictionsv1.RuleContext{*ruleContextModel}
 				replaceRuleOptionsModel.Resources = []contextbasedrestrictionsv1.Resource{*resourceModel}
-				replaceRuleOptionsModel.EnforcementMode = core.StringPtr("enabled")
+				replaceRuleOptionsModel.EnforcementMode = core.StringPtr("disabled")
 				replaceRuleOptionsModel.XCorrelationID = core.StringPtr("testString")
 				replaceRuleOptionsModel.TransactionID = core.StringPtr("testString")
 				replaceRuleOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
@@ -2933,7 +2933,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				replaceRuleOptionsModel.Description = core.StringPtr("this is an example of rule")
 				replaceRuleOptionsModel.Contexts = []contextbasedrestrictionsv1.RuleContext{*ruleContextModel}
 				replaceRuleOptionsModel.Resources = []contextbasedrestrictionsv1.Resource{*resourceModel}
-				replaceRuleOptionsModel.EnforcementMode = core.StringPtr("enabled")
+				replaceRuleOptionsModel.EnforcementMode = core.StringPtr("disabled")
 				replaceRuleOptionsModel.XCorrelationID = core.StringPtr("testString")
 				replaceRuleOptionsModel.TransactionID = core.StringPtr("testString")
 				replaceRuleOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
@@ -3540,7 +3540,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				replaceRuleOptionsModel.SetDescription("this is an example of rule")
 				replaceRuleOptionsModel.SetContexts([]contextbasedrestrictionsv1.RuleContext{*ruleContextModel})
 				replaceRuleOptionsModel.SetResources([]contextbasedrestrictionsv1.Resource{*resourceModel})
-				replaceRuleOptionsModel.SetEnforcementMode("enabled")
+				replaceRuleOptionsModel.SetEnforcementMode("disabled")
 				replaceRuleOptionsModel.SetXCorrelationID("testString")
 				replaceRuleOptionsModel.SetTransactionID("testString")
 				replaceRuleOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
@@ -3550,7 +3550,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				Expect(replaceRuleOptionsModel.Description).To(Equal(core.StringPtr("this is an example of rule")))
 				Expect(replaceRuleOptionsModel.Contexts).To(Equal([]contextbasedrestrictionsv1.RuleContext{*ruleContextModel}))
 				Expect(replaceRuleOptionsModel.Resources).To(Equal([]contextbasedrestrictionsv1.Resource{*resourceModel}))
-				Expect(replaceRuleOptionsModel.EnforcementMode).To(Equal(core.StringPtr("enabled")))
+				Expect(replaceRuleOptionsModel.EnforcementMode).To(Equal(core.StringPtr("disabled")))
 				Expect(replaceRuleOptionsModel.XCorrelationID).To(Equal(core.StringPtr("testString")))
 				Expect(replaceRuleOptionsModel.TransactionID).To(Equal(core.StringPtr("testString")))
 				Expect(replaceRuleOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
