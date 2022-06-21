@@ -15,7 +15,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 3.48.0-e80b60a1-20220414-145125
+ * IBM OpenAPI SDK Code Generator Version: 3.51.0-5b8b699d-20220613-200818
  */
 
 // Package projectsv1 : Operations and models for the ProjectsV1 service
@@ -197,19 +197,23 @@ func (projects *ProjectsV1) CreateProjectWithContext(ctx context.Context, create
 	}
 	builder.AddHeader("Accept", "application/json")
 	builder.AddHeader("Content-Type", "application/json")
+	if createProjectOptions.XIamApi != nil {
+		builder.AddHeader("X-Iam-Api", fmt.Sprint(*createProjectOptions.XIamApi))
+	}
+
+	if createProjectOptions.ResourceGroup != nil {
+		builder.AddQuery("resource_group", fmt.Sprint(*createProjectOptions.ResourceGroup))
+	}
+	if createProjectOptions.Location != nil {
+		builder.AddQuery("location", fmt.Sprint(*createProjectOptions.Location))
+	}
 
 	body := make(map[string]interface{})
 	if createProjectOptions.Name != nil {
 		body["name"] = createProjectOptions.Name
 	}
-	if createProjectOptions.ApiKey != nil {
-		body["api_key"] = createProjectOptions.ApiKey
-	}
 	if createProjectOptions.Description != nil {
 		body["description"] = createProjectOptions.Description
-	}
-	if createProjectOptions.Location != nil {
-		body["location"] = createProjectOptions.Location
 	}
 	if createProjectOptions.RepoURL != nil {
 		body["repo_url"] = createProjectOptions.RepoURL
@@ -404,6 +408,9 @@ func (projects *ProjectsV1) UpdateProjectWithContext(ctx context.Context, update
 	}
 	builder.AddHeader("Accept", "application/json")
 	builder.AddHeader("Content-Type", "application/json")
+	if updateProjectOptions.XIamApi != nil {
+		builder.AddHeader("X-Iam-Api", fmt.Sprint(*updateProjectOptions.XIamApi))
+	}
 	if updateProjectOptions.Prefer != nil {
 		builder.AddHeader("Prefer", fmt.Sprint(*updateProjectOptions.Prefer))
 	}
@@ -414,9 +421,6 @@ func (projects *ProjectsV1) UpdateProjectWithContext(ctx context.Context, update
 	}
 	if updateProjectOptions.NewDescription != nil {
 		body["description"] = updateProjectOptions.NewDescription
-	}
-	if updateProjectOptions.NewLocation != nil {
-		body["location"] = updateProjectOptions.NewLocation
 	}
 	if updateProjectOptions.NewID != nil {
 		body["id"] = updateProjectOptions.NewID
@@ -1452,13 +1456,8 @@ type CreateProjectOptions struct {
 	// The project name.
 	Name *string `json:"name" validate:"required"`
 
-	// A valid IAM api key with the permissions to manage the plumbing services; Schematics and Toolchain.
-	ApiKey *string `json:"api_key" validate:"required"`
-
 	// A project's descriptive text.
 	Description *string `json:"description,omitempty"`
-
-	Location *string `json:"location,omitempty"`
 
 	RepoURL *string `json:"repo_url,omitempty"`
 
@@ -1466,24 +1465,20 @@ type CreateProjectOptions struct {
 
 	Dashboard *ProjectPrototypeDashboard `json:"dashboard,omitempty"`
 
+	XIamApi *string `json:"X-Iam-Api,omitempty"`
+
+	ResourceGroup *string `json:"resource_group,omitempty"`
+
+	Location *string `json:"location,omitempty"`
+
 	// Allows users to set headers on API requests
 	Headers map[string]string
 }
 
-// Constants associated with the CreateProjectOptions.Location property.
-const (
-	CreateProjectOptions_Location_AuSyd = "au-syd"
-	CreateProjectOptions_Location_EuDe = "eu-de"
-	CreateProjectOptions_Location_EuGb = "eu-gb"
-	CreateProjectOptions_Location_UsEast = "us-east"
-	CreateProjectOptions_Location_UsSouth = "us-south"
-)
-
 // NewCreateProjectOptions : Instantiate CreateProjectOptions
-func (*ProjectsV1) NewCreateProjectOptions(name string, apiKey string) *CreateProjectOptions {
+func (*ProjectsV1) NewCreateProjectOptions(name string) *CreateProjectOptions {
 	return &CreateProjectOptions{
 		Name: core.StringPtr(name),
-		ApiKey: core.StringPtr(apiKey),
 	}
 }
 
@@ -1493,21 +1488,9 @@ func (_options *CreateProjectOptions) SetName(name string) *CreateProjectOptions
 	return _options
 }
 
-// SetApiKey : Allow user to set ApiKey
-func (_options *CreateProjectOptions) SetApiKey(apiKey string) *CreateProjectOptions {
-	_options.ApiKey = core.StringPtr(apiKey)
-	return _options
-}
-
 // SetDescription : Allow user to set Description
 func (_options *CreateProjectOptions) SetDescription(description string) *CreateProjectOptions {
 	_options.Description = core.StringPtr(description)
-	return _options
-}
-
-// SetLocation : Allow user to set Location
-func (_options *CreateProjectOptions) SetLocation(location string) *CreateProjectOptions {
-	_options.Location = core.StringPtr(location)
 	return _options
 }
 
@@ -1526,6 +1509,24 @@ func (_options *CreateProjectOptions) SetConfigs(configs []ProjectConfigIntf) *C
 // SetDashboard : Allow user to set Dashboard
 func (_options *CreateProjectOptions) SetDashboard(dashboard *ProjectPrototypeDashboard) *CreateProjectOptions {
 	_options.Dashboard = dashboard
+	return _options
+}
+
+// SetXIamApi : Allow user to set XIamApi
+func (_options *CreateProjectOptions) SetXIamApi(xIamApi string) *CreateProjectOptions {
+	_options.XIamApi = core.StringPtr(xIamApi)
+	return _options
+}
+
+// SetResourceGroup : Allow user to set ResourceGroup
+func (_options *CreateProjectOptions) SetResourceGroup(resourceGroup string) *CreateProjectOptions {
+	_options.ResourceGroup = core.StringPtr(resourceGroup)
+	return _options
+}
+
+// SetLocation : Allow user to set Location
+func (_options *CreateProjectOptions) SetLocation(location string) *CreateProjectOptions {
+	_options.Location = core.StringPtr(location)
 	return _options
 }
 
@@ -2075,7 +2076,7 @@ type OutputValue struct {
 	Description *string `json:"description,omitempty"`
 
 	// The output value.
-	Value interface{} `json:"value,omitempty"`
+	Value []string `json:"value,omitempty"`
 }
 
 // NewOutputValue : Instantiate OutputValue (Generic Model Constructor)
@@ -2136,8 +2137,6 @@ type Project struct {
 	// A project descriptive text.
 	Description *string `json:"description,omitempty"`
 
-	Location *string `json:"location,omitempty"`
-
 	ID *string `json:"id,omitempty"`
 
 	// An IBM Cloud Resource Name, which uniquely identify a resource.
@@ -2162,15 +2161,6 @@ type Project struct {
 	Dashboard *ProjectDashboard `json:"dashboard,omitempty"`
 }
 
-// Constants associated with the Project.Location property.
-const (
-	Project_Location_AuSyd = "au-syd"
-	Project_Location_EuDe = "eu-de"
-	Project_Location_EuGb = "eu-gb"
-	Project_Location_UsEast = "us-east"
-	Project_Location_UsSouth = "us-south"
-)
-
 // NewProject : Instantiate Project (Generic Model Constructor)
 func (*ProjectsV1) NewProject(name string) (_model *Project, err error) {
 	_model = &Project{
@@ -2188,10 +2178,6 @@ func UnmarshalProject(m map[string]json.RawMessage, result interface{}) (err err
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "description", &obj.Description)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "location", &obj.Location)
 	if err != nil {
 		return
 	}
@@ -2621,11 +2607,14 @@ func UnmarshalSchematicsBlueprint(m map[string]json.RawMessage, result interface
 }
 
 // ServiceStatus : The deployment status of a plumbing service.
+// Models which "extend" this model:
+// - ServiceStatusCRN
+// - ServiceStatusIdentifier
 type ServiceStatus struct {
 	// An IBM Cloud Resource Name, which uniquely identify a resource.
-	ID *string `json:"id" validate:"required"`
+	ID *string `json:"id,omitempty"`
 
-	Status *string `json:"status" validate:"required"`
+	Status *string `json:"status,omitempty"`
 
 	Messages []string `json:"messages,omitempty"`
 
@@ -2648,15 +2637,12 @@ const (
 	ServiceStatus_Status_UninstallInProgress = "uninstall_in_progress"
 	ServiceStatus_Status_UninstallSubmitted = "uninstall_submitted"
 )
+func (*ServiceStatus) isaServiceStatus() bool {
+	return true
+}
 
-// NewServiceStatus : Instantiate ServiceStatus (Generic Model Constructor)
-func (*ProjectsV1) NewServiceStatus(id string, status string) (_model *ServiceStatus, err error) {
-	_model = &ServiceStatus{
-		ID: core.StringPtr(id),
-		Status: core.StringPtr(status),
-	}
-	err = core.ValidateStruct(_model, "required parameters")
-	return
+type ServiceStatusIntf interface {
+	isaServiceStatus() bool
 }
 
 // UnmarshalServiceStatus unmarshals an instance of ServiceStatus from the specified map of raw messages.
@@ -2685,23 +2671,13 @@ func UnmarshalServiceStatus(m map[string]json.RawMessage, result interface{}) (e
 // ServicesStatus : Project plumbing services and their status.
 type ServicesStatus struct {
 	// The deployment status of a plumbing service.
-	Toolchain *ServiceStatus `json:"toolchain" validate:"required"`
+	Toolchain ServiceStatusIntf `json:"toolchain,omitempty"`
 
 	// The deployment status of a plumbing service.
-	Schematics *ServiceStatus `json:"schematics" validate:"required"`
+	Schematics ServiceStatusIntf `json:"schematics,omitempty"`
 
 	// The deployment status of a plumbing service.
-	GitRepo *ServiceStatus `json:"git_repo,omitempty"`
-}
-
-// NewServicesStatus : Instantiate ServicesStatus (Generic Model Constructor)
-func (*ProjectsV1) NewServicesStatus(toolchain *ServiceStatus, schematics *ServiceStatus) (_model *ServicesStatus, err error) {
-	_model = &ServicesStatus{
-		Toolchain: toolchain,
-		Schematics: schematics,
-	}
-	err = core.ValidateStruct(_model, "required parameters")
-	return
+	GitRepo ServiceStatusIntf `json:"git_repo,omitempty"`
 }
 
 // UnmarshalServicesStatus unmarshals an instance of ServicesStatus from the specified map of raw messages.
@@ -3007,6 +2983,8 @@ func (options *UpdateProjectConfigStatusOptions) SetHeaders(param map[string]str
 
 // UpdateProjectOptions : The UpdateProject options.
 type UpdateProjectOptions struct {
+	XIamApi *string `json:"X-Iam-Api" validate:"required"`
+
 	// The id of the project, which uniquely identifies it.
 	ID *string `json:"-" validate:"required,ne="`
 
@@ -3015,8 +2993,6 @@ type UpdateProjectOptions struct {
 
 	// A project descriptive text.
 	NewDescription *string `json:"description,omitempty"`
-
-	NewLocation *string `json:"location,omitempty"`
 
 	NewID *string `json:"id,omitempty"`
 
@@ -3050,15 +3026,6 @@ type UpdateProjectOptions struct {
 	Headers map[string]string
 }
 
-// Constants associated with the UpdateProjectOptions.NewLocation property.
-const (
-	UpdateProjectOptions_NewLocation_AuSyd = "au-syd"
-	UpdateProjectOptions_NewLocation_EuDe = "eu-de"
-	UpdateProjectOptions_NewLocation_EuGb = "eu-gb"
-	UpdateProjectOptions_NewLocation_UsEast = "us-east"
-	UpdateProjectOptions_NewLocation_UsSouth = "us-south"
-)
-
 // Constants associated with the UpdateProjectOptions.Prefer property.
 // Set this header to control the return of the Project. If return=minimal is set, a successful response has a 201
 // Created or 204 No Content status and includes no body. If return=representation is set, a successful response
@@ -3069,11 +3036,18 @@ const (
 )
 
 // NewUpdateProjectOptions : Instantiate UpdateProjectOptions
-func (*ProjectsV1) NewUpdateProjectOptions(id string, newName string) *UpdateProjectOptions {
+func (*ProjectsV1) NewUpdateProjectOptions(xIamApi string, id string, newName string) *UpdateProjectOptions {
 	return &UpdateProjectOptions{
+		XIamApi: core.StringPtr(xIamApi),
 		ID: core.StringPtr(id),
 		NewName: core.StringPtr(newName),
 	}
+}
+
+// SetXIamApi : Allow user to set XIamApi
+func (_options *UpdateProjectOptions) SetXIamApi(xIamApi string) *UpdateProjectOptions {
+	_options.XIamApi = core.StringPtr(xIamApi)
+	return _options
 }
 
 // SetID : Allow user to set ID
@@ -3091,12 +3065,6 @@ func (_options *UpdateProjectOptions) SetNewName(newName string) *UpdateProjectO
 // SetNewDescription : Allow user to set NewDescription
 func (_options *UpdateProjectOptions) SetNewDescription(newDescription string) *UpdateProjectOptions {
 	_options.NewDescription = core.StringPtr(newDescription)
-	return _options
-}
-
-// SetNewLocation : Allow user to set NewLocation
-func (_options *UpdateProjectOptions) SetNewLocation(newLocation string) *UpdateProjectOptions {
-	_options.NewLocation = core.StringPtr(newLocation)
 	return _options
 }
 
@@ -3451,4 +3419,220 @@ func UnmarshalProjectConfigTerraformTemplateProperty(m map[string]json.RawMessag
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
 	return
+}
+
+// ServiceStatusCRN : The deployment status of a plumbing service.
+// This model "extends" ServiceStatus
+type ServiceStatusCRN struct {
+	// An IBM Cloud Resource Name, which uniquely identify a resource.
+	ID *string `json:"id" validate:"required"`
+
+	Status *string `json:"status" validate:"required"`
+
+	Messages []string `json:"messages" validate:"required"`
+
+	SchematicsResourceID *string `json:"schematics_resource_id,omitempty"`
+}
+
+// Constants associated with the ServiceStatusCRN.Status property.
+const (
+	ServiceStatusCRN_Status_CheckInProgress = "check_in_progress"
+	ServiceStatusCRN_Status_CheckSubmitted = "check_submitted"
+	ServiceStatusCRN_Status_InError = "in_error"
+	ServiceStatusCRN_Status_InstallInProgress = "install_in_progress"
+	ServiceStatusCRN_Status_InstallSubmitted = "install_submitted"
+	ServiceStatusCRN_Status_Installed = "installed"
+	ServiceStatusCRN_Status_NotInstalled = "not_installed"
+	ServiceStatusCRN_Status_PendingCheck = "pending_check"
+	ServiceStatusCRN_Status_PendingInstall = "pending_install"
+	ServiceStatusCRN_Status_PendingUninstall = "pending_uninstall"
+	ServiceStatusCRN_Status_ToReinstall = "to_reinstall"
+	ServiceStatusCRN_Status_UninstallInProgress = "uninstall_in_progress"
+	ServiceStatusCRN_Status_UninstallSubmitted = "uninstall_submitted"
+)
+
+// NewServiceStatusCRN : Instantiate ServiceStatusCRN (Generic Model Constructor)
+func (*ProjectsV1) NewServiceStatusCRN(id string, status string, messages []string) (_model *ServiceStatusCRN, err error) {
+	_model = &ServiceStatusCRN{
+		ID: core.StringPtr(id),
+		Status: core.StringPtr(status),
+		Messages: messages,
+	}
+	err = core.ValidateStruct(_model, "required parameters")
+	return
+}
+
+func (*ServiceStatusCRN) isaServiceStatus() bool {
+	return true
+}
+
+// UnmarshalServiceStatusCRN unmarshals an instance of ServiceStatusCRN from the specified map of raw messages.
+func UnmarshalServiceStatusCRN(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(ServiceStatusCRN)
+	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "status", &obj.Status)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "messages", &obj.Messages)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "schematics_resource_id", &obj.SchematicsResourceID)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// ServiceStatusIdentifier : The deployment status of a plumbing service.
+// This model "extends" ServiceStatus
+type ServiceStatusIdentifier struct {
+	ID *string `json:"id" validate:"required"`
+
+	Status *string `json:"status" validate:"required"`
+
+	Messages []string `json:"messages" validate:"required"`
+
+	SchematicsResourceID *string `json:"schematics_resource_id,omitempty"`
+}
+
+// Constants associated with the ServiceStatusIdentifier.Status property.
+const (
+	ServiceStatusIdentifier_Status_CheckInProgress = "check_in_progress"
+	ServiceStatusIdentifier_Status_CheckSubmitted = "check_submitted"
+	ServiceStatusIdentifier_Status_InError = "in_error"
+	ServiceStatusIdentifier_Status_InstallInProgress = "install_in_progress"
+	ServiceStatusIdentifier_Status_InstallSubmitted = "install_submitted"
+	ServiceStatusIdentifier_Status_Installed = "installed"
+	ServiceStatusIdentifier_Status_NotInstalled = "not_installed"
+	ServiceStatusIdentifier_Status_PendingCheck = "pending_check"
+	ServiceStatusIdentifier_Status_PendingInstall = "pending_install"
+	ServiceStatusIdentifier_Status_PendingUninstall = "pending_uninstall"
+	ServiceStatusIdentifier_Status_ToReinstall = "to_reinstall"
+	ServiceStatusIdentifier_Status_UninstallInProgress = "uninstall_in_progress"
+	ServiceStatusIdentifier_Status_UninstallSubmitted = "uninstall_submitted"
+)
+
+// NewServiceStatusIdentifier : Instantiate ServiceStatusIdentifier (Generic Model Constructor)
+func (*ProjectsV1) NewServiceStatusIdentifier(id string, status string, messages []string) (_model *ServiceStatusIdentifier, err error) {
+	_model = &ServiceStatusIdentifier{
+		ID: core.StringPtr(id),
+		Status: core.StringPtr(status),
+		Messages: messages,
+	}
+	err = core.ValidateStruct(_model, "required parameters")
+	return
+}
+
+func (*ServiceStatusIdentifier) isaServiceStatus() bool {
+	return true
+}
+
+// UnmarshalServiceStatusIdentifier unmarshals an instance of ServiceStatusIdentifier from the specified map of raw messages.
+func UnmarshalServiceStatusIdentifier(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(ServiceStatusIdentifier)
+	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "status", &obj.Status)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "messages", &obj.Messages)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "schematics_resource_id", &obj.SchematicsResourceID)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+//
+// ProjectsPager can be used to simplify the use of the "ListProjects" method.
+// 
+type ProjectsPager struct {
+	hasNext bool
+	options *ListProjectsOptions
+	client  *ProjectsV1
+	pageContext struct {
+		next *string
+	}
+}
+
+// NewProjectsPager returns a new ProjectsPager instance.
+func (projects *ProjectsV1) NewProjectsPager(options *ListProjectsOptions) (pager *ProjectsPager, err error) {
+	if options.Start != nil && *options.Start != "" {
+		err = fmt.Errorf("the 'options.Start' field should not be set")
+		return
+	}
+
+	var optionsCopy ListProjectsOptions = *options
+	pager = &ProjectsPager{
+		hasNext: true,
+		options: &optionsCopy,
+		client:  projects,
+	}
+	return
+}
+
+// HasNext returns true if there are potentially more results to be retrieved.
+func (pager *ProjectsPager) HasNext() bool {
+	return pager.hasNext
+}
+
+// GetNextWithContext returns the next page of results using the specified Context.
+func (pager *ProjectsPager) GetNextWithContext(ctx context.Context) (page []Project, err error) {
+	if !pager.HasNext() {
+		return nil, fmt.Errorf("no more results available")
+	}
+
+	pager.options.Start = pager.pageContext.next
+
+	result, _, err := pager.client.ListProjectsWithContext(ctx, pager.options)
+	if err != nil {
+		return
+	}
+
+	var next *string
+	if result.Next != nil {
+		next = result.Next.Start
+	}
+	pager.pageContext.next = next
+	pager.hasNext = (pager.pageContext.next != nil)
+	page = result.Projects
+
+	return
+}
+
+// GetAllWithContext returns all results by invoking GetNextWithContext() repeatedly
+// until all pages of results have been retrieved.
+func (pager *ProjectsPager) GetAllWithContext(ctx context.Context) (allItems []Project, err error) {
+	for pager.HasNext() {
+		var nextPage []Project
+		nextPage, err = pager.GetNextWithContext(ctx)
+		if err != nil {
+			return
+		}
+		allItems = append(allItems, nextPage...)
+	}
+	return
+}
+
+// GetNext invokes GetNextWithContext() using context.Background() as the Context parameter.
+func (pager *ProjectsPager) GetNext() (page []Project, err error) {
+	return pager.GetNextWithContext(context.Background())
+}
+
+// GetAll invokes GetAllWithContext() using context.Background() as the Context parameter.
+func (pager *ProjectsPager) GetAll() (allItems []Project, err error) {
+	return pager.GetAllWithContext(context.Background())
 }
