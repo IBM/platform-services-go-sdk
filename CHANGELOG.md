@@ -1,3 +1,10 @@
+# [0.26.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.25.2...v0.26.0) (2022-06-23)
+
+
+### Features
+
+* **Context based Restrictions:**  enforcement mode support ([#191](https://github.com/IBM/platform-services-go-sdk/issues/191)) ([f049e95](https://github.com/IBM/platform-services-go-sdk/commit/f049e95e0a4ede1811b4dd7c3cef0d7bbd75f88c))
+
 ## [0.25.2](https://github.com/IBM/platform-services-go-sdk/compare/v0.25.1...v0.25.2) (2022-05-31)
 
 
