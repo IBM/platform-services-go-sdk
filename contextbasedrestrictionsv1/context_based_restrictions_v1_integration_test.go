@@ -2,7 +2,7 @@
 // +build integration
 
 /**
- * (C) Copyright IBM Corp. 2021.
+ * (C) Copyright IBM Corp. 2022.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -110,7 +110,7 @@ var _ = Describe(`ContextBasedRestrictionsV1 Integration Tests`, func() {
 			shouldSkipTest()
 		})
 		It("Successfully construct the service client instance", func() {
-			contextBasedRestrictionsServiceOptions := &contextbasedrestrictionsv1.Options{}
+			contextBasedRestrictionsServiceOptions := &contextbasedrestrictionsv1.ContextBasedRestrictionsV1Options{}
 			contextBasedRestrictionsService, err = contextbasedrestrictionsv1.NewContextBasedRestrictionsV1UsingExternalConfig(contextBasedRestrictionsServiceOptions)
 
 			Expect(err).To(BeNil())
@@ -133,9 +133,9 @@ var _ = Describe(`ContextBasedRestrictionsV1 Integration Tests`, func() {
 			}
 
 			createZoneOptions := &contextbasedrestrictionsv1.CreateZoneOptions{
-				Name:          core.StringPtr("SDK TEST - an example of zone"),
+				Name:          core.StringPtr("an example of zone"),
 				AccountID:     core.StringPtr(testAccountID),
-				Description:   core.StringPtr("SDK TEST - this is an example of zone"),
+				Description:   core.StringPtr("this is an example of zone"),
 				Addresses:     []contextbasedrestrictionsv1.AddressIntf{addressModel},
 				TransactionID: getTransactionID(),
 			}
@@ -160,9 +160,9 @@ var _ = Describe(`ContextBasedRestrictionsV1 Integration Tests`, func() {
 			}
 
 			createZoneOptions := &contextbasedrestrictionsv1.CreateZoneOptions{
-				Name:          core.StringPtr("SDK TEST - an example of zone"),
+				Name:          core.StringPtr("an example of zone"),
 				AccountID:     core.StringPtr(testAccountID),
-				Description:   core.StringPtr("SDK TEST - this is an example of zone"),
+				Description:   core.StringPtr("this is an example of zone"),
 				Addresses:     []contextbasedrestrictionsv1.AddressIntf{addressModel},
 				TransactionID: getTransactionID(),
 			}
@@ -186,9 +186,9 @@ var _ = Describe(`ContextBasedRestrictionsV1 Integration Tests`, func() {
 			}
 
 			createZoneOptions := &contextbasedrestrictionsv1.CreateZoneOptions{
-				Name:          core.StringPtr("SDK TEST - another example of zone"),
+				Name:          core.StringPtr("another example of zone"),
 				AccountID:     core.StringPtr(testAccountID),
-				Description:   core.StringPtr("SDK TEST - this is another example of zone"),
+				Description:   core.StringPtr("this is another example of zone"),
 				Addresses:     []contextbasedrestrictionsv1.AddressIntf{addressModel},
 				TransactionID: getTransactionID(),
 			}
@@ -324,9 +324,9 @@ var _ = Describe(`ContextBasedRestrictionsV1 Integration Tests`, func() {
 			replaceZoneOptions := &contextbasedrestrictionsv1.ReplaceZoneOptions{
 				ZoneID:        core.StringPtr(zoneID),
 				IfMatch:       core.StringPtr(zoneRev),
-				Name:          core.StringPtr("SDK TEST - an example of updated zone"),
+				Name:          core.StringPtr("an example of updated zone"),
 				AccountID:     core.StringPtr(testAccountID),
-				Description:   core.StringPtr("SDK TEST - this is an example of updated zone"),
+				Description:   core.StringPtr("this is an example of updated zone"),
 				Addresses:     []contextbasedrestrictionsv1.AddressIntf{addressModel},
 				TransactionID: getTransactionID(),
 			}
@@ -351,9 +351,9 @@ var _ = Describe(`ContextBasedRestrictionsV1 Integration Tests`, func() {
 
 			replaceZoneOptions := &contextbasedrestrictionsv1.ReplaceZoneOptions{
 				ZoneID:        core.StringPtr(zoneID),
-				Name:          core.StringPtr("SDK TEST - an example of zone"),
+				Name:          core.StringPtr("an example of zone"),
 				AccountID:     core.StringPtr(testAccountID),
-				Description:   core.StringPtr("SDK TEST - this is an example of zone"),
+				Description:   core.StringPtr("this is an example of zone"),
 				Addresses:     []contextbasedrestrictionsv1.AddressIntf{addressModel},
 				TransactionID: getTransactionID(),
 			}
@@ -380,9 +380,9 @@ var _ = Describe(`ContextBasedRestrictionsV1 Integration Tests`, func() {
 			replaceZoneOptions := &contextbasedrestrictionsv1.ReplaceZoneOptions{
 				ZoneID:        core.StringPtr(NonExistentID),
 				IfMatch:       core.StringPtr("abc"),
-				Name:          core.StringPtr("SDK TEST - an example of zone"),
+				Name:          core.StringPtr("an example of zone"),
 				AccountID:     core.StringPtr(testAccountID),
-				Description:   core.StringPtr("SDK TEST - this is an example of zone"),
+				Description:   core.StringPtr("this is an example of zone"),
 				Addresses:     []contextbasedrestrictionsv1.AddressIntf{addressModel},
 				TransactionID: getTransactionID(),
 			}
@@ -408,9 +408,9 @@ var _ = Describe(`ContextBasedRestrictionsV1 Integration Tests`, func() {
 			replaceZoneOptions := &contextbasedrestrictionsv1.ReplaceZoneOptions{
 				ZoneID:        core.StringPtr(zoneID),
 				IfMatch:       core.StringPtr("abc"),
-				Name:          core.StringPtr("SDK TEST - an example of zone"),
+				Name:          core.StringPtr("an example of zone"),
 				AccountID:     core.StringPtr(testAccountID),
-				Description:   core.StringPtr("SDK TEST - this is an example of zone"),
+				Description:   core.StringPtr("this is an example of zone"),
 				Addresses:     []contextbasedrestrictionsv1.AddressIntf{addressModel},
 				TransactionID: getTransactionID(),
 			}
@@ -491,10 +491,11 @@ var _ = Describe(`ContextBasedRestrictionsV1 Integration Tests`, func() {
 			}
 
 			createRuleOptions := &contextbasedrestrictionsv1.CreateRuleOptions{
-				Description:   core.StringPtr("SDK TEST - this is an example of rule"),
-				Contexts:      []contextbasedrestrictionsv1.RuleContext{*ruleContextModel},
-				Resources:     []contextbasedrestrictionsv1.Resource{*resourceModel},
-				TransactionID: getTransactionID(),
+				Description:     core.StringPtr("this is an example of rule"),
+				Contexts:        []contextbasedrestrictionsv1.RuleContext{*ruleContextModel},
+				Resources:       []contextbasedrestrictionsv1.Resource{*resourceModel},
+				EnforcementMode: core.StringPtr(contextbasedrestrictionsv1.CreateRuleOptionsEnforcementModeEnabledConst),
+				TransactionID:   getTransactionID(),
 			}
 
 			rule, response, err := contextBasedRestrictionsService.CreateRule(createRuleOptions)
@@ -540,10 +541,11 @@ var _ = Describe(`ContextBasedRestrictionsV1 Integration Tests`, func() {
 			}
 
 			createRuleOptions := &contextbasedrestrictionsv1.CreateRuleOptions{
-				Description:   core.StringPtr("SDK TEST - this is an example of rule"),
-				Contexts:      []contextbasedrestrictionsv1.RuleContext{*ruleContextModel},
-				Resources:     []contextbasedrestrictionsv1.Resource{*resourceModel},
-				TransactionID: getTransactionID(),
+				Description:     core.StringPtr("this is an example of rule"),
+				Contexts:        []contextbasedrestrictionsv1.RuleContext{*ruleContextModel},
+				Resources:       []contextbasedrestrictionsv1.Resource{*resourceModel},
+				EnforcementMode: core.StringPtr(contextbasedrestrictionsv1.CreateRuleOptionsEnforcementModeReportConst),
+				TransactionID:   getTransactionID(),
 			}
 
 			rule, response, err := contextBasedRestrictionsService.CreateRule(createRuleOptions)
@@ -697,12 +699,13 @@ var _ = Describe(`ContextBasedRestrictionsV1 Integration Tests`, func() {
 			}
 
 			replaceRuleOptions := &contextbasedrestrictionsv1.ReplaceRuleOptions{
-				RuleID:        core.StringPtr(ruleID),
-				IfMatch:       core.StringPtr(ruleRev),
-				Description:   core.StringPtr("SDK TEST - this is an example of updated rule"),
-				Contexts:      []contextbasedrestrictionsv1.RuleContext{*ruleContextModel},
-				Resources:     []contextbasedrestrictionsv1.Resource{*resourceModel},
-				TransactionID: getTransactionID(),
+				RuleID:          core.StringPtr(ruleID),
+				IfMatch:         core.StringPtr(ruleRev),
+				Description:     core.StringPtr("this is an example of updated rule"),
+				Contexts:        []contextbasedrestrictionsv1.RuleContext{*ruleContextModel},
+				Resources:       []contextbasedrestrictionsv1.Resource{*resourceModel},
+				EnforcementMode: core.StringPtr(contextbasedrestrictionsv1.ReplaceRuleOptionsEnforcementModeDisabledConst),
+				TransactionID:   getTransactionID(),
 			}
 
 			rule, response, err := contextBasedRestrictionsService.ReplaceRule(replaceRuleOptions)
@@ -747,11 +750,12 @@ var _ = Describe(`ContextBasedRestrictionsV1 Integration Tests`, func() {
 			}
 
 			replaceRuleOptions := &contextbasedrestrictionsv1.ReplaceRuleOptions{
-				RuleID:        core.StringPtr(ruleID),
-				Description:   core.StringPtr("SDK TEST - this is an example of rule"),
-				Contexts:      []contextbasedrestrictionsv1.RuleContext{*ruleContextModel},
-				Resources:     []contextbasedrestrictionsv1.Resource{*resourceModel},
-				TransactionID: getTransactionID(),
+				RuleID:          core.StringPtr(ruleID),
+				Description:     core.StringPtr("this is an example of rule"),
+				Contexts:        []contextbasedrestrictionsv1.RuleContext{*ruleContextModel},
+				Resources:       []contextbasedrestrictionsv1.Resource{*resourceModel},
+				EnforcementMode: core.StringPtr(contextbasedrestrictionsv1.ReplaceRuleOptionsEnforcementModeDisabledConst),
+				TransactionID:   getTransactionID(),
 			}
 
 			rule, response, err := contextBasedRestrictionsService.ReplaceRule(replaceRuleOptions)
@@ -797,12 +801,13 @@ var _ = Describe(`ContextBasedRestrictionsV1 Integration Tests`, func() {
 			}
 
 			replaceRuleOptions := &contextbasedrestrictionsv1.ReplaceRuleOptions{
-				RuleID:        core.StringPtr(NonExistentID),
-				IfMatch:       core.StringPtr("abc"),
-				Description:   core.StringPtr("SDK TEST - this is an example of rule"),
-				Contexts:      []contextbasedrestrictionsv1.RuleContext{*ruleContextModel},
-				Resources:     []contextbasedrestrictionsv1.Resource{*resourceModel},
-				TransactionID: getTransactionID(),
+				RuleID:          core.StringPtr(NonExistentID),
+				IfMatch:         core.StringPtr("abc"),
+				Description:     core.StringPtr("this is an example of rule"),
+				Contexts:        []contextbasedrestrictionsv1.RuleContext{*ruleContextModel},
+				Resources:       []contextbasedrestrictionsv1.Resource{*resourceModel},
+				EnforcementMode: core.StringPtr(contextbasedrestrictionsv1.ReplaceRuleOptionsEnforcementModeDisabledConst),
+				TransactionID:   getTransactionID(),
 			}
 
 			rule, response, err := contextBasedRestrictionsService.ReplaceRule(replaceRuleOptions)
@@ -847,12 +852,13 @@ var _ = Describe(`ContextBasedRestrictionsV1 Integration Tests`, func() {
 			}
 
 			replaceRuleOptions := &contextbasedrestrictionsv1.ReplaceRuleOptions{
-				RuleID:        core.StringPtr(ruleID),
-				IfMatch:       core.StringPtr("abc"),
-				Description:   core.StringPtr("SDK TEST - this is an example of rule"),
-				Contexts:      []contextbasedrestrictionsv1.RuleContext{*ruleContextModel},
-				Resources:     []contextbasedrestrictionsv1.Resource{*resourceModel},
-				TransactionID: getTransactionID(),
+				RuleID:          core.StringPtr(ruleID),
+				IfMatch:         core.StringPtr("abc"),
+				Description:     core.StringPtr("this is an example of rule"),
+				Contexts:        []contextbasedrestrictionsv1.RuleContext{*ruleContextModel},
+				Resources:       []contextbasedrestrictionsv1.Resource{*resourceModel},
+				EnforcementMode: core.StringPtr(contextbasedrestrictionsv1.ReplaceRuleOptionsEnforcementModeDisabledConst),
+				TransactionID:   getTransactionID(),
 			}
 
 			rule, response, err := contextBasedRestrictionsService.ReplaceRule(replaceRuleOptions)

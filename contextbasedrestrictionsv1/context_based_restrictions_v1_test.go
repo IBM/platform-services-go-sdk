@@ -1,5 +1,5 @@
 /**
- * (C) Copyright IBM Corp. 2021.
+ * (C) Copyright IBM Corp. 2022.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -38,21 +38,21 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 	var testServer *httptest.Server
 	Describe(`Service constructor tests`, func() {
 		It(`Instantiate service client`, func() {
-			contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.Options{
+			contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.ContextBasedRestrictionsV1Options{
 				Authenticator: &core.NoAuthAuthenticator{},
 			})
 			Expect(contextBasedRestrictionsService).ToNot(BeNil())
 			Expect(serviceErr).To(BeNil())
 		})
 		It(`Instantiate service client with error: Invalid URL`, func() {
-			contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.Options{
+			contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.ContextBasedRestrictionsV1Options{
 				URL: "{BAD_URL_STRING",
 			})
 			Expect(contextBasedRestrictionsService).To(BeNil())
 			Expect(serviceErr).ToNot(BeNil())
 		})
 		It(`Instantiate service client with error: Invalid Auth`, func() {
-			contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.Options{
+			contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.ContextBasedRestrictionsV1Options{
 				URL: "https://contextbasedrestrictionsv1/api",
 				Authenticator: &core.BasicAuthenticator{
 					Username: "",
@@ -73,7 +73,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 
 			It(`Create service client using external config successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1UsingExternalConfig(&contextbasedrestrictionsv1.Options{})
+				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1UsingExternalConfig(&contextbasedrestrictionsv1.ContextBasedRestrictionsV1Options{})
 				Expect(contextBasedRestrictionsService).ToNot(BeNil())
 				Expect(serviceErr).To(BeNil())
 				ClearTestEnvironment(testEnvironment)
@@ -86,7 +86,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 			})
 			It(`Create service client using external config and set url from constructor successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1UsingExternalConfig(&contextbasedrestrictionsv1.Options{
+				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1UsingExternalConfig(&contextbasedrestrictionsv1.ContextBasedRestrictionsV1Options{
 					URL: "https://testService/api",
 				})
 				Expect(contextBasedRestrictionsService).ToNot(BeNil())
@@ -102,7 +102,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 			})
 			It(`Create service client using external config and set url programatically successfully`, func() {
 				SetTestEnvironment(testEnvironment)
-				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1UsingExternalConfig(&contextbasedrestrictionsv1.Options{})
+				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1UsingExternalConfig(&contextbasedrestrictionsv1.ContextBasedRestrictionsV1Options{})
 				err := contextBasedRestrictionsService.SetServiceURL("https://testService/api")
 				Expect(err).To(BeNil())
 				Expect(contextBasedRestrictionsService).ToNot(BeNil())
@@ -125,7 +125,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 			}
 
 			SetTestEnvironment(testEnvironment)
-			contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1UsingExternalConfig(&contextbasedrestrictionsv1.Options{})
+			contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1UsingExternalConfig(&contextbasedrestrictionsv1.ContextBasedRestrictionsV1Options{})
 
 			It(`Instantiate service client with error`, func() {
 				Expect(contextBasedRestrictionsService).To(BeNil())
@@ -140,7 +140,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 			}
 
 			SetTestEnvironment(testEnvironment)
-			contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1UsingExternalConfig(&contextbasedrestrictionsv1.Options{
+			contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1UsingExternalConfig(&contextbasedrestrictionsv1.ContextBasedRestrictionsV1Options{
 				URL: "{BAD_URL_STRING",
 			})
 
@@ -177,11 +177,11 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, `} this is not valid json {`)
+					fmt.Fprint(res, `} this is not valid json {`)
 				}))
 			})
 			It(`Invoke CreateZone with error: Operation response processing error`, func() {
-				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.Options{
+				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.ContextBasedRestrictionsV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
@@ -262,7 +262,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				}))
 			})
 			It(`Invoke CreateZone successfully with retries`, func() {
-				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.Options{
+				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.ContextBasedRestrictionsV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
@@ -347,7 +347,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				}))
 			})
 			It(`Invoke CreateZone successfully`, func() {
-				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.Options{
+				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.ContextBasedRestrictionsV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
@@ -384,7 +384,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 
 			})
 			It(`Invoke CreateZone with error: Operation request error`, func() {
-				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.Options{
+				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.ContextBasedRestrictionsV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
@@ -429,7 +429,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				}))
 			})
 			It(`Invoke CreateZone successfully`, func() {
-				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.Options{
+				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.ContextBasedRestrictionsV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
@@ -484,11 +484,11 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 					Expect(req.URL.Query()["sort"]).To(Equal([]string{"testString"}))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, `} this is not valid json {`)
+					fmt.Fprint(res, `} this is not valid json {`)
 				}))
 			})
 			It(`Invoke ListZones with error: Operation response processing error`, func() {
-				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.Options{
+				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.ContextBasedRestrictionsV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
@@ -549,7 +549,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				}))
 			})
 			It(`Invoke ListZones successfully with retries`, func() {
-				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.Options{
+				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.ContextBasedRestrictionsV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
@@ -614,7 +614,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				}))
 			})
 			It(`Invoke ListZones successfully`, func() {
-				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.Options{
+				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.ContextBasedRestrictionsV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
@@ -644,7 +644,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 
 			})
 			It(`Invoke ListZones with error: Operation validation and request error`, func() {
-				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.Options{
+				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.ContextBasedRestrictionsV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
@@ -689,7 +689,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				}))
 			})
 			It(`Invoke ListZones successfully`, func() {
-				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.Options{
+				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.ContextBasedRestrictionsV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
@@ -734,11 +734,11 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, `} this is not valid json {`)
+					fmt.Fprint(res, `} this is not valid json {`)
 				}))
 			})
 			It(`Invoke GetZone with error: Operation response processing error`, func() {
-				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.Options{
+				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.ContextBasedRestrictionsV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
@@ -794,7 +794,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				}))
 			})
 			It(`Invoke GetZone successfully with retries`, func() {
-				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.Options{
+				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.ContextBasedRestrictionsV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
@@ -854,7 +854,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				}))
 			})
 			It(`Invoke GetZone successfully`, func() {
-				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.Options{
+				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.ContextBasedRestrictionsV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
@@ -882,7 +882,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 
 			})
 			It(`Invoke GetZone with error: Operation validation and request error`, func() {
-				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.Options{
+				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.ContextBasedRestrictionsV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
@@ -925,7 +925,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				}))
 			})
 			It(`Invoke GetZone successfully`, func() {
-				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.Options{
+				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.ContextBasedRestrictionsV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
@@ -970,11 +970,11 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, `} this is not valid json {`)
+					fmt.Fprint(res, `} this is not valid json {`)
 				}))
 			})
 			It(`Invoke ReplaceZone with error: Operation response processing error`, func() {
-				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.Options{
+				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.ContextBasedRestrictionsV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
@@ -1059,7 +1059,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				}))
 			})
 			It(`Invoke ReplaceZone successfully with retries`, func() {
-				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.Options{
+				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.ContextBasedRestrictionsV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
@@ -1148,7 +1148,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				}))
 			})
 			It(`Invoke ReplaceZone successfully`, func() {
-				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.Options{
+				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.ContextBasedRestrictionsV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
@@ -1187,7 +1187,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 
 			})
 			It(`Invoke ReplaceZone with error: Operation validation and request error`, func() {
-				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.Options{
+				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.ContextBasedRestrictionsV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
@@ -1241,7 +1241,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				}))
 			})
 			It(`Invoke ReplaceZone successfully`, func() {
-				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.Options{
+				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.ContextBasedRestrictionsV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
@@ -1298,7 +1298,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				}))
 			})
 			It(`Invoke DeleteZone successfully`, func() {
-				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.Options{
+				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.ContextBasedRestrictionsV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
@@ -1323,7 +1323,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				Expect(response).ToNot(BeNil())
 			})
 			It(`Invoke DeleteZone with error: Operation validation and request error`, func() {
-				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.Options{
+				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.ContextBasedRestrictionsV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
@@ -1372,11 +1372,11 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 					Expect(req.URL.Query()["type"]).To(Equal([]string{"all"}))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, `} this is not valid json {`)
+					fmt.Fprint(res, `} this is not valid json {`)
 				}))
 			})
 			It(`Invoke ListAvailableServicerefTargets with error: Operation response processing error`, func() {
-				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.Options{
+				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.ContextBasedRestrictionsV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
@@ -1433,7 +1433,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				}))
 			})
 			It(`Invoke ListAvailableServicerefTargets successfully with retries`, func() {
-				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.Options{
+				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.ContextBasedRestrictionsV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
@@ -1494,7 +1494,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				}))
 			})
 			It(`Invoke ListAvailableServicerefTargets successfully`, func() {
-				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.Options{
+				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.ContextBasedRestrictionsV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
@@ -1522,7 +1522,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 
 			})
 			It(`Invoke ListAvailableServicerefTargets with error: Operation request error`, func() {
-				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.Options{
+				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.ContextBasedRestrictionsV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
@@ -1558,7 +1558,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				}))
 			})
 			It(`Invoke ListAvailableServicerefTargets successfully`, func() {
-				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.Options{
+				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.ContextBasedRestrictionsV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
@@ -1601,11 +1601,11 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, `} this is not valid json {`)
+					fmt.Fprint(res, `} this is not valid json {`)
 				}))
 			})
 			It(`Invoke CreateRule with error: Operation response processing error`, func() {
-				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.Options{
+				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.ContextBasedRestrictionsV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
@@ -1643,6 +1643,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				createRuleOptionsModel.Description = core.StringPtr("this is an example of rule")
 				createRuleOptionsModel.Contexts = []contextbasedrestrictionsv1.RuleContext{*ruleContextModel}
 				createRuleOptionsModel.Resources = []contextbasedrestrictionsv1.Resource{*resourceModel}
+				createRuleOptionsModel.EnforcementMode = core.StringPtr("enabled")
 				createRuleOptionsModel.XCorrelationID = core.StringPtr("testString")
 				createRuleOptionsModel.TransactionID = core.StringPtr("testString")
 				createRuleOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
@@ -1701,11 +1702,11 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "crn": "CRN", "description": "Description", "contexts": [{"attributes": [{"name": "Name", "value": "Value"}]}], "resources": [{"attributes": [{"name": "Name", "value": "Value", "operator": "Operator"}], "tags": [{"name": "Name", "value": "Value", "operator": "Operator"}]}], "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "crn": "CRN", "description": "Description", "contexts": [{"attributes": [{"name": "Name", "value": "Value"}]}], "resources": [{"attributes": [{"name": "Name", "value": "Value", "operator": "Operator"}], "tags": [{"name": "Name", "value": "Value", "operator": "Operator"}]}], "enforcement_mode": "enabled", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}`)
 				}))
 			})
 			It(`Invoke CreateRule successfully with retries`, func() {
-				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.Options{
+				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.ContextBasedRestrictionsV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
@@ -1744,6 +1745,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				createRuleOptionsModel.Description = core.StringPtr("this is an example of rule")
 				createRuleOptionsModel.Contexts = []contextbasedrestrictionsv1.RuleContext{*ruleContextModel}
 				createRuleOptionsModel.Resources = []contextbasedrestrictionsv1.Resource{*resourceModel}
+				createRuleOptionsModel.EnforcementMode = core.StringPtr("enabled")
 				createRuleOptionsModel.XCorrelationID = core.StringPtr("testString")
 				createRuleOptionsModel.TransactionID = core.StringPtr("testString")
 				createRuleOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
@@ -1805,11 +1807,11 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "crn": "CRN", "description": "Description", "contexts": [{"attributes": [{"name": "Name", "value": "Value"}]}], "resources": [{"attributes": [{"name": "Name", "value": "Value", "operator": "Operator"}], "tags": [{"name": "Name", "value": "Value", "operator": "Operator"}]}], "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "crn": "CRN", "description": "Description", "contexts": [{"attributes": [{"name": "Name", "value": "Value"}]}], "resources": [{"attributes": [{"name": "Name", "value": "Value", "operator": "Operator"}], "tags": [{"name": "Name", "value": "Value", "operator": "Operator"}]}], "enforcement_mode": "enabled", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}`)
 				}))
 			})
 			It(`Invoke CreateRule successfully`, func() {
-				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.Options{
+				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.ContextBasedRestrictionsV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
@@ -1853,6 +1855,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				createRuleOptionsModel.Description = core.StringPtr("this is an example of rule")
 				createRuleOptionsModel.Contexts = []contextbasedrestrictionsv1.RuleContext{*ruleContextModel}
 				createRuleOptionsModel.Resources = []contextbasedrestrictionsv1.Resource{*resourceModel}
+				createRuleOptionsModel.EnforcementMode = core.StringPtr("enabled")
 				createRuleOptionsModel.XCorrelationID = core.StringPtr("testString")
 				createRuleOptionsModel.TransactionID = core.StringPtr("testString")
 				createRuleOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
@@ -1865,7 +1868,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 
 			})
 			It(`Invoke CreateRule with error: Operation request error`, func() {
-				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.Options{
+				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.ContextBasedRestrictionsV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
@@ -1903,6 +1906,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				createRuleOptionsModel.Description = core.StringPtr("this is an example of rule")
 				createRuleOptionsModel.Contexts = []contextbasedrestrictionsv1.RuleContext{*ruleContextModel}
 				createRuleOptionsModel.Resources = []contextbasedrestrictionsv1.Resource{*resourceModel}
+				createRuleOptionsModel.EnforcementMode = core.StringPtr("enabled")
 				createRuleOptionsModel.XCorrelationID = core.StringPtr("testString")
 				createRuleOptionsModel.TransactionID = core.StringPtr("testString")
 				createRuleOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
@@ -1929,7 +1933,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				}))
 			})
 			It(`Invoke CreateRule successfully`, func() {
-				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.Options{
+				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.ContextBasedRestrictionsV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
@@ -1967,6 +1971,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				createRuleOptionsModel.Description = core.StringPtr("this is an example of rule")
 				createRuleOptionsModel.Contexts = []contextbasedrestrictionsv1.RuleContext{*ruleContextModel}
 				createRuleOptionsModel.Resources = []contextbasedrestrictionsv1.Resource{*resourceModel}
+				createRuleOptionsModel.EnforcementMode = core.StringPtr("enabled")
 				createRuleOptionsModel.XCorrelationID = core.StringPtr("testString")
 				createRuleOptionsModel.TransactionID = core.StringPtr("testString")
 				createRuleOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
@@ -2009,11 +2014,11 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 					Expect(req.URL.Query()["sort"]).To(Equal([]string{"testString"}))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, `} this is not valid json {`)
+					fmt.Fprint(res, `} this is not valid json {`)
 				}))
 			})
 			It(`Invoke ListRules with error: Operation response processing error`, func() {
-				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.Options{
+				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.ContextBasedRestrictionsV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
@@ -2082,11 +2087,11 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"count": 5, "rules": [{"id": "ID", "crn": "CRN", "description": "Description", "contexts": [{"attributes": [{"name": "Name", "value": "Value"}]}], "resources": [{"attributes": [{"name": "Name", "value": "Value", "operator": "Operator"}], "tags": [{"name": "Name", "value": "Value", "operator": "Operator"}]}], "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}]}`)
+					fmt.Fprintf(res, "%s", `{"count": 5, "rules": [{"id": "ID", "crn": "CRN", "description": "Description", "contexts": [{"attributes": [{"name": "Name", "value": "Value"}]}], "resources": [{"attributes": [{"name": "Name", "value": "Value", "operator": "Operator"}], "tags": [{"name": "Name", "value": "Value", "operator": "Operator"}]}], "enforcement_mode": "enabled", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}]}`)
 				}))
 			})
 			It(`Invoke ListRules successfully with retries`, func() {
-				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.Options{
+				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.ContextBasedRestrictionsV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
@@ -2159,11 +2164,11 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"count": 5, "rules": [{"id": "ID", "crn": "CRN", "description": "Description", "contexts": [{"attributes": [{"name": "Name", "value": "Value"}]}], "resources": [{"attributes": [{"name": "Name", "value": "Value", "operator": "Operator"}], "tags": [{"name": "Name", "value": "Value", "operator": "Operator"}]}], "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}]}`)
+					fmt.Fprintf(res, "%s", `{"count": 5, "rules": [{"id": "ID", "crn": "CRN", "description": "Description", "contexts": [{"attributes": [{"name": "Name", "value": "Value"}]}], "resources": [{"attributes": [{"name": "Name", "value": "Value", "operator": "Operator"}], "tags": [{"name": "Name", "value": "Value", "operator": "Operator"}]}], "enforcement_mode": "enabled", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}]}`)
 				}))
 			})
 			It(`Invoke ListRules successfully`, func() {
-				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.Options{
+				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.ContextBasedRestrictionsV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
@@ -2199,7 +2204,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 
 			})
 			It(`Invoke ListRules with error: Operation validation and request error`, func() {
-				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.Options{
+				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.ContextBasedRestrictionsV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
@@ -2250,7 +2255,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				}))
 			})
 			It(`Invoke ListRules successfully`, func() {
-				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.Options{
+				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.ContextBasedRestrictionsV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
@@ -2301,11 +2306,11 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, `} this is not valid json {`)
+					fmt.Fprint(res, `} this is not valid json {`)
 				}))
 			})
 			It(`Invoke GetRule with error: Operation response processing error`, func() {
-				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.Options{
+				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.ContextBasedRestrictionsV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
@@ -2357,11 +2362,11 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "crn": "CRN", "description": "Description", "contexts": [{"attributes": [{"name": "Name", "value": "Value"}]}], "resources": [{"attributes": [{"name": "Name", "value": "Value", "operator": "Operator"}], "tags": [{"name": "Name", "value": "Value", "operator": "Operator"}]}], "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "crn": "CRN", "description": "Description", "contexts": [{"attributes": [{"name": "Name", "value": "Value"}]}], "resources": [{"attributes": [{"name": "Name", "value": "Value", "operator": "Operator"}], "tags": [{"name": "Name", "value": "Value", "operator": "Operator"}]}], "enforcement_mode": "enabled", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}`)
 				}))
 			})
 			It(`Invoke GetRule successfully with retries`, func() {
-				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.Options{
+				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.ContextBasedRestrictionsV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
@@ -2417,11 +2422,11 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "crn": "CRN", "description": "Description", "contexts": [{"attributes": [{"name": "Name", "value": "Value"}]}], "resources": [{"attributes": [{"name": "Name", "value": "Value", "operator": "Operator"}], "tags": [{"name": "Name", "value": "Value", "operator": "Operator"}]}], "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "crn": "CRN", "description": "Description", "contexts": [{"attributes": [{"name": "Name", "value": "Value"}]}], "resources": [{"attributes": [{"name": "Name", "value": "Value", "operator": "Operator"}], "tags": [{"name": "Name", "value": "Value", "operator": "Operator"}]}], "enforcement_mode": "enabled", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}`)
 				}))
 			})
 			It(`Invoke GetRule successfully`, func() {
-				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.Options{
+				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.ContextBasedRestrictionsV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
@@ -2449,7 +2454,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 
 			})
 			It(`Invoke GetRule with error: Operation validation and request error`, func() {
-				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.Options{
+				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.ContextBasedRestrictionsV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
@@ -2492,7 +2497,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				}))
 			})
 			It(`Invoke GetRule successfully`, func() {
-				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.Options{
+				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.ContextBasedRestrictionsV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
@@ -2537,11 +2542,11 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, `} this is not valid json {`)
+					fmt.Fprint(res, `} this is not valid json {`)
 				}))
 			})
 			It(`Invoke ReplaceRule with error: Operation response processing error`, func() {
-				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.Options{
+				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.ContextBasedRestrictionsV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
@@ -2581,6 +2586,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				replaceRuleOptionsModel.Description = core.StringPtr("this is an example of rule")
 				replaceRuleOptionsModel.Contexts = []contextbasedrestrictionsv1.RuleContext{*ruleContextModel}
 				replaceRuleOptionsModel.Resources = []contextbasedrestrictionsv1.Resource{*resourceModel}
+				replaceRuleOptionsModel.EnforcementMode = core.StringPtr("disabled")
 				replaceRuleOptionsModel.XCorrelationID = core.StringPtr("testString")
 				replaceRuleOptionsModel.TransactionID = core.StringPtr("testString")
 				replaceRuleOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
@@ -2641,11 +2647,11 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "crn": "CRN", "description": "Description", "contexts": [{"attributes": [{"name": "Name", "value": "Value"}]}], "resources": [{"attributes": [{"name": "Name", "value": "Value", "operator": "Operator"}], "tags": [{"name": "Name", "value": "Value", "operator": "Operator"}]}], "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "crn": "CRN", "description": "Description", "contexts": [{"attributes": [{"name": "Name", "value": "Value"}]}], "resources": [{"attributes": [{"name": "Name", "value": "Value", "operator": "Operator"}], "tags": [{"name": "Name", "value": "Value", "operator": "Operator"}]}], "enforcement_mode": "enabled", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}`)
 				}))
 			})
 			It(`Invoke ReplaceRule successfully with retries`, func() {
-				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.Options{
+				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.ContextBasedRestrictionsV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
@@ -2686,6 +2692,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				replaceRuleOptionsModel.Description = core.StringPtr("this is an example of rule")
 				replaceRuleOptionsModel.Contexts = []contextbasedrestrictionsv1.RuleContext{*ruleContextModel}
 				replaceRuleOptionsModel.Resources = []contextbasedrestrictionsv1.Resource{*resourceModel}
+				replaceRuleOptionsModel.EnforcementMode = core.StringPtr("disabled")
 				replaceRuleOptionsModel.XCorrelationID = core.StringPtr("testString")
 				replaceRuleOptionsModel.TransactionID = core.StringPtr("testString")
 				replaceRuleOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
@@ -2749,11 +2756,11 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "crn": "CRN", "description": "Description", "contexts": [{"attributes": [{"name": "Name", "value": "Value"}]}], "resources": [{"attributes": [{"name": "Name", "value": "Value", "operator": "Operator"}], "tags": [{"name": "Name", "value": "Value", "operator": "Operator"}]}], "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "crn": "CRN", "description": "Description", "contexts": [{"attributes": [{"name": "Name", "value": "Value"}]}], "resources": [{"attributes": [{"name": "Name", "value": "Value", "operator": "Operator"}], "tags": [{"name": "Name", "value": "Value", "operator": "Operator"}]}], "enforcement_mode": "enabled", "href": "Href", "created_at": "2019-01-01T12:00:00.000Z", "created_by_id": "CreatedByID", "last_modified_at": "2019-01-01T12:00:00.000Z", "last_modified_by_id": "LastModifiedByID"}`)
 				}))
 			})
 			It(`Invoke ReplaceRule successfully`, func() {
-				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.Options{
+				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.ContextBasedRestrictionsV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
@@ -2799,6 +2806,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				replaceRuleOptionsModel.Description = core.StringPtr("this is an example of rule")
 				replaceRuleOptionsModel.Contexts = []contextbasedrestrictionsv1.RuleContext{*ruleContextModel}
 				replaceRuleOptionsModel.Resources = []contextbasedrestrictionsv1.Resource{*resourceModel}
+				replaceRuleOptionsModel.EnforcementMode = core.StringPtr("disabled")
 				replaceRuleOptionsModel.XCorrelationID = core.StringPtr("testString")
 				replaceRuleOptionsModel.TransactionID = core.StringPtr("testString")
 				replaceRuleOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
@@ -2811,7 +2819,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 
 			})
 			It(`Invoke ReplaceRule with error: Operation validation and request error`, func() {
-				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.Options{
+				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.ContextBasedRestrictionsV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
@@ -2851,6 +2859,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				replaceRuleOptionsModel.Description = core.StringPtr("this is an example of rule")
 				replaceRuleOptionsModel.Contexts = []contextbasedrestrictionsv1.RuleContext{*ruleContextModel}
 				replaceRuleOptionsModel.Resources = []contextbasedrestrictionsv1.Resource{*resourceModel}
+				replaceRuleOptionsModel.EnforcementMode = core.StringPtr("disabled")
 				replaceRuleOptionsModel.XCorrelationID = core.StringPtr("testString")
 				replaceRuleOptionsModel.TransactionID = core.StringPtr("testString")
 				replaceRuleOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
@@ -2884,7 +2893,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				}))
 			})
 			It(`Invoke ReplaceRule successfully`, func() {
-				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.Options{
+				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.ContextBasedRestrictionsV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
@@ -2924,6 +2933,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				replaceRuleOptionsModel.Description = core.StringPtr("this is an example of rule")
 				replaceRuleOptionsModel.Contexts = []contextbasedrestrictionsv1.RuleContext{*ruleContextModel}
 				replaceRuleOptionsModel.Resources = []contextbasedrestrictionsv1.Resource{*resourceModel}
+				replaceRuleOptionsModel.EnforcementMode = core.StringPtr("disabled")
 				replaceRuleOptionsModel.XCorrelationID = core.StringPtr("testString")
 				replaceRuleOptionsModel.TransactionID = core.StringPtr("testString")
 				replaceRuleOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
@@ -2960,7 +2970,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				}))
 			})
 			It(`Invoke DeleteRule successfully`, func() {
-				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.Options{
+				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.ContextBasedRestrictionsV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
@@ -2985,7 +2995,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				Expect(response).ToNot(BeNil())
 			})
 			It(`Invoke DeleteRule with error: Operation validation and request error`, func() {
-				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.Options{
+				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.ContextBasedRestrictionsV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
@@ -3033,11 +3043,11 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 					Expect(req.Header["Transaction-Id"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, `} this is not valid json {`)
+					fmt.Fprint(res, `} this is not valid json {`)
 				}))
 			})
 			It(`Invoke GetAccountSettings with error: Operation response processing error`, func() {
-				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.Options{
+				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.ContextBasedRestrictionsV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
@@ -3093,7 +3103,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				}))
 			})
 			It(`Invoke GetAccountSettings successfully with retries`, func() {
-				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.Options{
+				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.ContextBasedRestrictionsV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
@@ -3153,7 +3163,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				}))
 			})
 			It(`Invoke GetAccountSettings successfully`, func() {
-				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.Options{
+				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.ContextBasedRestrictionsV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
@@ -3181,7 +3191,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 
 			})
 			It(`Invoke GetAccountSettings with error: Operation validation and request error`, func() {
-				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.Options{
+				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.ContextBasedRestrictionsV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
@@ -3224,7 +3234,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				}))
 			})
 			It(`Invoke GetAccountSettings successfully`, func() {
-				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.Options{
+				contextBasedRestrictionsService, serviceErr := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.ContextBasedRestrictionsV1Options{
 					URL:           testServer.URL,
 					Authenticator: &core.NoAuthAuthenticator{},
 				})
@@ -3253,7 +3263,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 	})
 	Describe(`Model constructor tests`, func() {
 		Context(`Using a service client instance`, func() {
-			contextBasedRestrictionsService, _ := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.Options{
+			contextBasedRestrictionsService, _ := contextbasedrestrictionsv1.NewContextBasedRestrictionsV1(&contextbasedrestrictionsv1.ContextBasedRestrictionsV1Options{
 				URL:           "http://contextbasedrestrictionsv1modelgenerator.com",
 				Authenticator: &core.NoAuthAuthenticator{},
 			})
@@ -3305,6 +3315,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				createRuleOptionsModel.SetDescription("this is an example of rule")
 				createRuleOptionsModel.SetContexts([]contextbasedrestrictionsv1.RuleContext{*ruleContextModel})
 				createRuleOptionsModel.SetResources([]contextbasedrestrictionsv1.Resource{*resourceModel})
+				createRuleOptionsModel.SetEnforcementMode("enabled")
 				createRuleOptionsModel.SetXCorrelationID("testString")
 				createRuleOptionsModel.SetTransactionID("testString")
 				createRuleOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
@@ -3312,6 +3323,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				Expect(createRuleOptionsModel.Description).To(Equal(core.StringPtr("this is an example of rule")))
 				Expect(createRuleOptionsModel.Contexts).To(Equal([]contextbasedrestrictionsv1.RuleContext{*ruleContextModel}))
 				Expect(createRuleOptionsModel.Resources).To(Equal([]contextbasedrestrictionsv1.Resource{*resourceModel}))
+				Expect(createRuleOptionsModel.EnforcementMode).To(Equal(core.StringPtr("enabled")))
 				Expect(createRuleOptionsModel.XCorrelationID).To(Equal(core.StringPtr("testString")))
 				Expect(createRuleOptionsModel.TransactionID).To(Equal(core.StringPtr("testString")))
 				Expect(createRuleOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
@@ -3528,6 +3540,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				replaceRuleOptionsModel.SetDescription("this is an example of rule")
 				replaceRuleOptionsModel.SetContexts([]contextbasedrestrictionsv1.RuleContext{*ruleContextModel})
 				replaceRuleOptionsModel.SetResources([]contextbasedrestrictionsv1.Resource{*resourceModel})
+				replaceRuleOptionsModel.SetEnforcementMode("disabled")
 				replaceRuleOptionsModel.SetXCorrelationID("testString")
 				replaceRuleOptionsModel.SetTransactionID("testString")
 				replaceRuleOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
@@ -3537,6 +3550,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				Expect(replaceRuleOptionsModel.Description).To(Equal(core.StringPtr("this is an example of rule")))
 				Expect(replaceRuleOptionsModel.Contexts).To(Equal([]contextbasedrestrictionsv1.RuleContext{*ruleContextModel}))
 				Expect(replaceRuleOptionsModel.Resources).To(Equal([]contextbasedrestrictionsv1.Resource{*resourceModel}))
+				Expect(replaceRuleOptionsModel.EnforcementMode).To(Equal(core.StringPtr("disabled")))
 				Expect(replaceRuleOptionsModel.XCorrelationID).To(Equal(core.StringPtr("testString")))
 				Expect(replaceRuleOptionsModel.TransactionID).To(Equal(core.StringPtr("testString")))
 				Expect(replaceRuleOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
