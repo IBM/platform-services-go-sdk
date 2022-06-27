@@ -121,9 +121,8 @@ var _ = Describe(`AtrackerV2 Examples Tests`, func() {
 			createTargetOptions := atrackerService.NewCreateTargetOptions(
 				"my-cos-target",
 				"cloud_object_storage",
-				cosEndpointPrototypeModel,
 			)
-
+			createTargetOptions.SetCosEndpoint(&cosEndpointPrototypeModel)
 			target, response, err := atrackerService.CreateTarget(createTargetOptions)
 			if err != nil {
 				panic(err)
@@ -146,8 +145,7 @@ var _ = Describe(`AtrackerV2 Examples Tests`, func() {
 			// begin-create_route
 
 			rulePrototypeModel := &atrackerv2.RulePrototype{
-				TargetIds: []string{targetIDLink},
-				Locations: []string{"us-south"},
+				TargetIds: []string{"c3af557f-fb0e-4476-85c3-0889e7fe7bc4"},
 			}
 
 			createRouteOptions := atrackerService.NewCreateRouteOptions(
@@ -170,6 +168,7 @@ var _ = Describe(`AtrackerV2 Examples Tests`, func() {
 
 			routeIDLink = *route.ID
 			fmt.Fprintf(GinkgoWriter, "Saved routeIDLink value: %v\n", routeIDLink)
+
 		})
 		It(`ListTargets request example`, func() {
 			fmt.Println("\nListTargets() result:")
@@ -304,8 +303,7 @@ var _ = Describe(`AtrackerV2 Examples Tests`, func() {
 			// begin-replace_route
 
 			rulePrototypeModel := &atrackerv2.RulePrototype{
-				TargetIds: []string{targetIDLink},
-				Locations: []string{"us-south"},
+				TargetIds: []string{"c3af557f-fb0e-4476-85c3-0889e7fe7bc4"},
 			}
 
 			replaceRouteOptions := atrackerService.NewReplaceRouteOptions(
@@ -411,6 +409,28 @@ var _ = Describe(`AtrackerV2 Examples Tests`, func() {
 			Expect(migration).ToNot(BeNil())
 
 		})
+		It(`DeleteTarget request example`, func() {
+			fmt.Println("\nDeleteTarget() result:")
+			// begin-delete_target
+
+			deleteTargetOptions := atrackerService.NewDeleteTargetOptions(
+				targetIDLink,
+			)
+
+			warningReport, response, err := atrackerService.DeleteTarget(deleteTargetOptions)
+			if err != nil {
+				panic(err)
+			}
+			b, _ := json.MarshalIndent(warningReport, "", "  ")
+			fmt.Println(string(b))
+
+			// end-delete_target
+
+			Expect(err).To(BeNil())
+			Expect(response.StatusCode).To(Equal(200))
+			Expect(warningReport).ToNot(BeNil())
+
+		})
 		It(`DeleteRoute request example`, func() {
 			// begin-delete_route
 
@@ -430,28 +450,6 @@ var _ = Describe(`AtrackerV2 Examples Tests`, func() {
 
 			Expect(err).To(BeNil())
 			Expect(response.StatusCode).To(Equal(204))
-
-		})
-		It(`DeleteTarget request example`, func() {
-			fmt.Println("\nDeleteTarget() result:")
-			// begin-delete_target
-
-			deleteTargetOptions := atrackerService.NewDeleteTargetOptions(
-				targetIDLink,
-			)
-
-			warningReport, response, err := atrackerService.DeleteTarget(deleteTargetOptions)
-			if err != nil {
-				panic(err)
-			}
-			b, _ := json.MarshalIndent(warningReport, "", "  ")
-			fmt.Println(string(b))
-
-			// end-delete_target
-
-			Expect(err).To(BeNil())
-			Expect(response.StatusCode).To(Equal(204))
-			Expect(warningReport).To(BeNil())
 
 		})
 	})
