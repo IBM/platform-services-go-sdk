@@ -1,3 +1,10 @@
+## [0.26.1](https://github.com/IBM/platform-services-go-sdk/compare/v0.26.0...v0.26.1) (2022-06-27)
+
+
+### Bug Fixes
+
+* **Activity Tracker:** re-gen service after adding new region (eu-de and au-syd) ([#192](https://github.com/IBM/platform-services-go-sdk/issues/192)) ([9934d70](https://github.com/IBM/platform-services-go-sdk/commit/9934d7012202d0ab48604804baa9fb87f786cb2d))
+
 # [0.26.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.25.2...v0.26.0) (2022-06-23)
 
 
