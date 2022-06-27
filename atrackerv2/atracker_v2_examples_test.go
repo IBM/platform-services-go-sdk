@@ -122,7 +122,7 @@ var _ = Describe(`AtrackerV2 Examples Tests`, func() {
 				"my-cos-target",
 				"cloud_object_storage",
 			)
-			createTargetOptions.SetCosEndpoint(&cosEndpointPrototypeModel)
+			createTargetOptions.SetCosEndpoint(cosEndpointPrototypeModel)
 			target, response, err := atrackerService.CreateTarget(createTargetOptions)
 			if err != nil {
 				panic(err)
