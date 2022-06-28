@@ -217,7 +217,6 @@ var _ = Describe(`ProjectsV1`, func() {
 				createProjectOptionsModel := new(projectsv1.CreateProjectOptions)
 				createProjectOptionsModel.Name = core.StringPtr("acme-microservice")
 				createProjectOptionsModel.Description = core.StringPtr("A microservice to deploy on top of ACME infrastructure")
-				createProjectOptionsModel.RepoURL = core.StringPtr("testString")
 				createProjectOptionsModel.Configs = []projectsv1.ProjectConfigIntf{projectConfigModel}
 				createProjectOptionsModel.Dashboard = projectPrototypeDashboardModel
 				createProjectOptionsModel.XIamApi = core.StringPtr("testString")
@@ -279,7 +278,7 @@ var _ = Describe(`ProjectsV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(202)
-					fmt.Fprintf(res, "%s", `{"name": "Name", "description": "Description", "id": "ID", "crn": "Crn", "created_by": "CreatedBy", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "repo_url": "RepoURL", "href": "Href", "configs": [{"name": "Name", "labels": ["Labels"], "output": [{"name": "Name", "description": "Description", "value": ["Value"]}], "type": "manual", "external_resources_account": "ExternalResourcesAccount"}], "dashboard": {"widgets": [{"name": "Name"}]}}`)
+					fmt.Fprintf(res, "%s", `{"name": "Name", "id": "ID", "crn": "Crn", "location": "us-south", "resource_group": "ResourceGroup"}`)
 				}))
 			})
 			It(`Invoke CreateProject successfully with retries`, func() {
@@ -317,7 +316,6 @@ var _ = Describe(`ProjectsV1`, func() {
 				createProjectOptionsModel := new(projectsv1.CreateProjectOptions)
 				createProjectOptionsModel.Name = core.StringPtr("acme-microservice")
 				createProjectOptionsModel.Description = core.StringPtr("A microservice to deploy on top of ACME infrastructure")
-				createProjectOptionsModel.RepoURL = core.StringPtr("testString")
 				createProjectOptionsModel.Configs = []projectsv1.ProjectConfigIntf{projectConfigModel}
 				createProjectOptionsModel.Dashboard = projectPrototypeDashboardModel
 				createProjectOptionsModel.XIamApi = core.StringPtr("testString")
@@ -382,7 +380,7 @@ var _ = Describe(`ProjectsV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(202)
-					fmt.Fprintf(res, "%s", `{"name": "Name", "description": "Description", "id": "ID", "crn": "Crn", "created_by": "CreatedBy", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "repo_url": "RepoURL", "href": "Href", "configs": [{"name": "Name", "labels": ["Labels"], "output": [{"name": "Name", "description": "Description", "value": ["Value"]}], "type": "manual", "external_resources_account": "ExternalResourcesAccount"}], "dashboard": {"widgets": [{"name": "Name"}]}}`)
+					fmt.Fprintf(res, "%s", `{"name": "Name", "id": "ID", "crn": "Crn", "location": "us-south", "resource_group": "ResourceGroup"}`)
 				}))
 			})
 			It(`Invoke CreateProject successfully`, func() {
@@ -425,7 +423,6 @@ var _ = Describe(`ProjectsV1`, func() {
 				createProjectOptionsModel := new(projectsv1.CreateProjectOptions)
 				createProjectOptionsModel.Name = core.StringPtr("acme-microservice")
 				createProjectOptionsModel.Description = core.StringPtr("A microservice to deploy on top of ACME infrastructure")
-				createProjectOptionsModel.RepoURL = core.StringPtr("testString")
 				createProjectOptionsModel.Configs = []projectsv1.ProjectConfigIntf{projectConfigModel}
 				createProjectOptionsModel.Dashboard = projectPrototypeDashboardModel
 				createProjectOptionsModel.XIamApi = core.StringPtr("testString")
@@ -474,7 +471,6 @@ var _ = Describe(`ProjectsV1`, func() {
 				createProjectOptionsModel := new(projectsv1.CreateProjectOptions)
 				createProjectOptionsModel.Name = core.StringPtr("acme-microservice")
 				createProjectOptionsModel.Description = core.StringPtr("A microservice to deploy on top of ACME infrastructure")
-				createProjectOptionsModel.RepoURL = core.StringPtr("testString")
 				createProjectOptionsModel.Configs = []projectsv1.ProjectConfigIntf{projectConfigModel}
 				createProjectOptionsModel.Dashboard = projectPrototypeDashboardModel
 				createProjectOptionsModel.XIamApi = core.StringPtr("testString")
@@ -544,7 +540,6 @@ var _ = Describe(`ProjectsV1`, func() {
 				createProjectOptionsModel := new(projectsv1.CreateProjectOptions)
 				createProjectOptionsModel.Name = core.StringPtr("acme-microservice")
 				createProjectOptionsModel.Description = core.StringPtr("A microservice to deploy on top of ACME infrastructure")
-				createProjectOptionsModel.RepoURL = core.StringPtr("testString")
 				createProjectOptionsModel.Configs = []projectsv1.ProjectConfigIntf{projectConfigModel}
 				createProjectOptionsModel.Dashboard = projectPrototypeDashboardModel
 				createProjectOptionsModel.XIamApi = core.StringPtr("testString")
@@ -632,7 +627,7 @@ var _ = Describe(`ProjectsV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"limit": 1, "total_count": 0, "first": {"href": "Href", "start": "Start"}, "last": {"href": "Href", "start": "Start"}, "previous": {"href": "Href", "start": "Start"}, "next": {"href": "Href", "start": "Start"}, "projects": [{"name": "Name", "description": "Description", "id": "ID", "crn": "Crn", "created_by": "CreatedBy", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "repo_url": "RepoURL", "href": "Href", "configs": [{"name": "Name", "labels": ["Labels"], "output": [{"name": "Name", "description": "Description", "value": ["Value"]}], "type": "manual", "external_resources_account": "ExternalResourcesAccount"}], "dashboard": {"widgets": [{"name": "Name"}]}}]}`)
+					fmt.Fprintf(res, "%s", `{"limit": 1, "total_count": 0, "first": {"href": "Href", "start": "Start"}, "last": {"href": "Href", "start": "Start"}, "previous": {"href": "Href", "start": "Start"}, "next": {"href": "Href", "start": "Start"}, "projects": [{"name": "Name", "id": "ID", "crn": "Crn", "location": "us-south", "resource_group": "ResourceGroup", "state": "CREATING"}]}`)
 				}))
 			})
 			It(`Invoke ListProjects successfully with retries`, func() {
@@ -689,7 +684,7 @@ var _ = Describe(`ProjectsV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"limit": 1, "total_count": 0, "first": {"href": "Href", "start": "Start"}, "last": {"href": "Href", "start": "Start"}, "previous": {"href": "Href", "start": "Start"}, "next": {"href": "Href", "start": "Start"}, "projects": [{"name": "Name", "description": "Description", "id": "ID", "crn": "Crn", "created_by": "CreatedBy", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "repo_url": "RepoURL", "href": "Href", "configs": [{"name": "Name", "labels": ["Labels"], "output": [{"name": "Name", "description": "Description", "value": ["Value"]}], "type": "manual", "external_resources_account": "ExternalResourcesAccount"}], "dashboard": {"widgets": [{"name": "Name"}]}}]}`)
+					fmt.Fprintf(res, "%s", `{"limit": 1, "total_count": 0, "first": {"href": "Href", "start": "Start"}, "last": {"href": "Href", "start": "Start"}, "previous": {"href": "Href", "start": "Start"}, "next": {"href": "Href", "start": "Start"}, "projects": [{"name": "Name", "id": "ID", "crn": "Crn", "location": "us-south", "resource_group": "ResourceGroup", "state": "CREATING"}]}`)
 				}))
 			})
 			It(`Invoke ListProjects successfully`, func() {
@@ -814,9 +809,9 @@ var _ = Describe(`ProjectsV1`, func() {
 					res.WriteHeader(200)
 					requestNumber++
 					if requestNumber == 1 {
-						fmt.Fprintf(res, "%s", `{"next":{"start":"1"},"projects":[{"name":"Name","description":"Description","id":"ID","crn":"Crn","created_by":"CreatedBy","created_at":"2019-01-01T12:00:00.000Z","updated_at":"2019-01-01T12:00:00.000Z","repo_url":"RepoURL","href":"Href","configs":[{"name":"Name","labels":["Labels"],"output":[{"name":"Name","description":"Description","value":["Value"]}],"type":"manual","external_resources_account":"ExternalResourcesAccount"}],"dashboard":{"widgets":[{"name":"Name"}]}}],"total_count":2,"limit":1}`)
+						fmt.Fprintf(res, "%s", `{"next":{"start":"1"},"projects":[{"name":"Name","id":"ID","crn":"Crn","location":"us-south","resource_group":"ResourceGroup","state":"CREATING"}],"total_count":2,"limit":1}`)
 					} else if requestNumber == 2 {
-						fmt.Fprintf(res, "%s", `{"projects":[{"name":"Name","description":"Description","id":"ID","crn":"Crn","created_by":"CreatedBy","created_at":"2019-01-01T12:00:00.000Z","updated_at":"2019-01-01T12:00:00.000Z","repo_url":"RepoURL","href":"Href","configs":[{"name":"Name","labels":["Labels"],"output":[{"name":"Name","description":"Description","value":["Value"]}],"type":"manual","external_resources_account":"ExternalResourcesAccount"}],"dashboard":{"widgets":[{"name":"Name"}]}}],"total_count":2,"limit":1}`)
+						fmt.Fprintf(res, "%s", `{"projects":[{"name":"Name","id":"ID","crn":"Crn","location":"us-south","resource_group":"ResourceGroup","state":"CREATING"}],"total_count":2,"limit":1}`)
 					} else {
 						res.WriteHeader(400)
 					}
@@ -838,7 +833,7 @@ var _ = Describe(`ProjectsV1`, func() {
 				Expect(err).To(BeNil())
 				Expect(pager).ToNot(BeNil())
 
-				var allResults []projectsv1.Project
+				var allResults []projectsv1.ProjectListResponse
 				for pager.HasNext() {
 					nextPage, err := pager.GetNext()
 					Expect(err).To(BeNil())
@@ -932,7 +927,7 @@ var _ = Describe(`ProjectsV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"name": "Name", "description": "Description", "id": "ID", "crn": "Crn", "created_by": "CreatedBy", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "repo_url": "RepoURL", "href": "Href", "configs": [{"name": "Name", "labels": ["Labels"], "output": [{"name": "Name", "description": "Description", "value": ["Value"]}], "type": "manual", "external_resources_account": "ExternalResourcesAccount"}], "dashboard": {"widgets": [{"name": "Name"}]}}`)
+					fmt.Fprintf(res, "%s", `{"name": "Name", "id": "ID", "crn": "Crn", "location": "us-south", "resource_group": "ResourceGroup", "state": "CREATING", "description": "Description", "configs": [{"name": "Name", "labels": ["Labels"], "output": [{"name": "Name", "description": "Description", "value": ["Value"]}], "type": "manual", "external_resources_account": "ExternalResourcesAccount"}], "dashboard": {"widgets": [{"name": "Name"}]}, "active_prs": [{"branch": "Branch", "url": "URL"}], "history": [{"timestamp": "2019-01-01T12:00:00.000Z", "code": "Code", "type": "git_repo"}]}`)
 				}))
 			})
 			It(`Invoke GetProject successfully with retries`, func() {
@@ -986,7 +981,7 @@ var _ = Describe(`ProjectsV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"name": "Name", "description": "Description", "id": "ID", "crn": "Crn", "created_by": "CreatedBy", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "repo_url": "RepoURL", "href": "Href", "configs": [{"name": "Name", "labels": ["Labels"], "output": [{"name": "Name", "description": "Description", "value": ["Value"]}], "type": "manual", "external_resources_account": "ExternalResourcesAccount"}], "dashboard": {"widgets": [{"name": "Name"}]}}`)
+					fmt.Fprintf(res, "%s", `{"name": "Name", "id": "ID", "crn": "Crn", "location": "us-south", "resource_group": "ResourceGroup", "state": "CREATING", "description": "Description", "configs": [{"name": "Name", "labels": ["Labels"], "output": [{"name": "Name", "description": "Description", "value": ["Value"]}], "type": "manual", "external_resources_account": "ExternalResourcesAccount"}], "dashboard": {"widgets": [{"name": "Name"}]}, "active_prs": [{"branch": "Branch", "url": "URL"}], "history": [{"timestamp": "2019-01-01T12:00:00.000Z", "code": "Code", "type": "git_repo"}]}`)
 				}))
 			})
 			It(`Invoke GetProject successfully`, func() {
@@ -1092,10 +1087,6 @@ var _ = Describe(`ProjectsV1`, func() {
 					// Verify the contents of the request
 					Expect(req.URL.EscapedPath()).To(Equal(updateProjectPath))
 					Expect(req.Method).To(Equal("PUT"))
-					Expect(req.Header["X-Iam-Api"]).ToNot(BeNil())
-					Expect(req.Header["X-Iam-Api"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
-					Expect(req.Header["Prefer"]).ToNot(BeNil())
-					Expect(req.Header["Prefer"][0]).To(Equal(fmt.Sprintf("%v", "return=minimal")))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
 					fmt.Fprint(res, `} this is not valid json {`)
@@ -1127,26 +1118,17 @@ var _ = Describe(`ProjectsV1`, func() {
 				widgetModel := new(projectsv1.Widget)
 				widgetModel.Name = core.StringPtr("project-properties")
 
-				// Construct an instance of the ProjectDashboard model
-				projectDashboardModel := new(projectsv1.ProjectDashboard)
-				projectDashboardModel.Widgets = []projectsv1.Widget{*widgetModel}
+				// Construct an instance of the ProjectPrototypeDashboard model
+				projectPrototypeDashboardModel := new(projectsv1.ProjectPrototypeDashboard)
+				projectPrototypeDashboardModel.Widgets = []projectsv1.Widget{*widgetModel}
 
 				// Construct an instance of the UpdateProjectOptions model
 				updateProjectOptionsModel := new(projectsv1.UpdateProjectOptions)
-				updateProjectOptionsModel.XIamApi = core.StringPtr("testString")
 				updateProjectOptionsModel.ID = core.StringPtr("testString")
-				updateProjectOptionsModel.NewName = core.StringPtr("acme-microservice")
-				updateProjectOptionsModel.NewDescription = core.StringPtr("A microservice to deploy on top of ACME infrastructure")
-				updateProjectOptionsModel.NewID = core.StringPtr("testString")
-				updateProjectOptionsModel.NewCrn = core.StringPtr("testString")
-				updateProjectOptionsModel.NewCreatedBy = core.StringPtr("testString")
-				updateProjectOptionsModel.NewCreatedAt = CreateMockDateTime("2019-01-01T12:00:00.000Z")
-				updateProjectOptionsModel.NewUpdatedAt = CreateMockDateTime("2019-01-01T12:00:00.000Z")
-				updateProjectOptionsModel.NewRepoURL = core.StringPtr("testString")
-				updateProjectOptionsModel.NewHref = core.StringPtr("testString")
-				updateProjectOptionsModel.NewConfigs = []projectsv1.ProjectConfigIntf{projectConfigModel}
-				updateProjectOptionsModel.NewDashboard = projectDashboardModel
-				updateProjectOptionsModel.Prefer = core.StringPtr("return=minimal")
+				updateProjectOptionsModel.Name = core.StringPtr("acme-microservice")
+				updateProjectOptionsModel.Description = core.StringPtr("A microservice to deploy on top of ACME infrastructure")
+				updateProjectOptionsModel.Configs = []projectsv1.ProjectConfigIntf{projectConfigModel}
+				updateProjectOptionsModel.Dashboard = projectPrototypeDashboardModel
 				updateProjectOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
 				result, response, operationErr := projectsService.UpdateProject(updateProjectOptionsModel)
@@ -1193,17 +1175,13 @@ var _ = Describe(`ProjectsV1`, func() {
 					}
 					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
 
-					Expect(req.Header["X-Iam-Api"]).ToNot(BeNil())
-					Expect(req.Header["X-Iam-Api"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
-					Expect(req.Header["Prefer"]).ToNot(BeNil())
-					Expect(req.Header["Prefer"][0]).To(Equal(fmt.Sprintf("%v", "return=minimal")))
 					// Sleep a short time to support a timeout test
 					time.Sleep(100 * time.Millisecond)
 
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"name": "Name", "description": "Description", "id": "ID", "crn": "Crn", "created_by": "CreatedBy", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "repo_url": "RepoURL", "href": "Href", "configs": [{"name": "Name", "labels": ["Labels"], "output": [{"name": "Name", "description": "Description", "value": ["Value"]}], "type": "manual", "external_resources_account": "ExternalResourcesAccount"}], "dashboard": {"widgets": [{"name": "Name"}]}}`)
+					fmt.Fprintf(res, "%s", `{"branch": "Branch", "url": "URL"}`)
 				}))
 			})
 			It(`Invoke UpdateProject successfully with retries`, func() {
@@ -1233,26 +1211,17 @@ var _ = Describe(`ProjectsV1`, func() {
 				widgetModel := new(projectsv1.Widget)
 				widgetModel.Name = core.StringPtr("project-properties")
 
-				// Construct an instance of the ProjectDashboard model
-				projectDashboardModel := new(projectsv1.ProjectDashboard)
-				projectDashboardModel.Widgets = []projectsv1.Widget{*widgetModel}
+				// Construct an instance of the ProjectPrototypeDashboard model
+				projectPrototypeDashboardModel := new(projectsv1.ProjectPrototypeDashboard)
+				projectPrototypeDashboardModel.Widgets = []projectsv1.Widget{*widgetModel}
 
 				// Construct an instance of the UpdateProjectOptions model
 				updateProjectOptionsModel := new(projectsv1.UpdateProjectOptions)
-				updateProjectOptionsModel.XIamApi = core.StringPtr("testString")
 				updateProjectOptionsModel.ID = core.StringPtr("testString")
-				updateProjectOptionsModel.NewName = core.StringPtr("acme-microservice")
-				updateProjectOptionsModel.NewDescription = core.StringPtr("A microservice to deploy on top of ACME infrastructure")
-				updateProjectOptionsModel.NewID = core.StringPtr("testString")
-				updateProjectOptionsModel.NewCrn = core.StringPtr("testString")
-				updateProjectOptionsModel.NewCreatedBy = core.StringPtr("testString")
-				updateProjectOptionsModel.NewCreatedAt = CreateMockDateTime("2019-01-01T12:00:00.000Z")
-				updateProjectOptionsModel.NewUpdatedAt = CreateMockDateTime("2019-01-01T12:00:00.000Z")
-				updateProjectOptionsModel.NewRepoURL = core.StringPtr("testString")
-				updateProjectOptionsModel.NewHref = core.StringPtr("testString")
-				updateProjectOptionsModel.NewConfigs = []projectsv1.ProjectConfigIntf{projectConfigModel}
-				updateProjectOptionsModel.NewDashboard = projectDashboardModel
-				updateProjectOptionsModel.Prefer = core.StringPtr("return=minimal")
+				updateProjectOptionsModel.Name = core.StringPtr("acme-microservice")
+				updateProjectOptionsModel.Description = core.StringPtr("A microservice to deploy on top of ACME infrastructure")
+				updateProjectOptionsModel.Configs = []projectsv1.ProjectConfigIntf{projectConfigModel}
+				updateProjectOptionsModel.Dashboard = projectPrototypeDashboardModel
 				updateProjectOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with a Context to test a timeout error
@@ -1305,14 +1274,10 @@ var _ = Describe(`ProjectsV1`, func() {
 					}
 					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
 
-					Expect(req.Header["X-Iam-Api"]).ToNot(BeNil())
-					Expect(req.Header["X-Iam-Api"][0]).To(Equal(fmt.Sprintf("%v", "testString")))
-					Expect(req.Header["Prefer"]).ToNot(BeNil())
-					Expect(req.Header["Prefer"][0]).To(Equal(fmt.Sprintf("%v", "return=minimal")))
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"name": "Name", "description": "Description", "id": "ID", "crn": "Crn", "created_by": "CreatedBy", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "repo_url": "RepoURL", "href": "Href", "configs": [{"name": "Name", "labels": ["Labels"], "output": [{"name": "Name", "description": "Description", "value": ["Value"]}], "type": "manual", "external_resources_account": "ExternalResourcesAccount"}], "dashboard": {"widgets": [{"name": "Name"}]}}`)
+					fmt.Fprintf(res, "%s", `{"branch": "Branch", "url": "URL"}`)
 				}))
 			})
 			It(`Invoke UpdateProject successfully`, func() {
@@ -1347,26 +1312,17 @@ var _ = Describe(`ProjectsV1`, func() {
 				widgetModel := new(projectsv1.Widget)
 				widgetModel.Name = core.StringPtr("project-properties")
 
-				// Construct an instance of the ProjectDashboard model
-				projectDashboardModel := new(projectsv1.ProjectDashboard)
-				projectDashboardModel.Widgets = []projectsv1.Widget{*widgetModel}
+				// Construct an instance of the ProjectPrototypeDashboard model
+				projectPrototypeDashboardModel := new(projectsv1.ProjectPrototypeDashboard)
+				projectPrototypeDashboardModel.Widgets = []projectsv1.Widget{*widgetModel}
 
 				// Construct an instance of the UpdateProjectOptions model
 				updateProjectOptionsModel := new(projectsv1.UpdateProjectOptions)
-				updateProjectOptionsModel.XIamApi = core.StringPtr("testString")
 				updateProjectOptionsModel.ID = core.StringPtr("testString")
-				updateProjectOptionsModel.NewName = core.StringPtr("acme-microservice")
-				updateProjectOptionsModel.NewDescription = core.StringPtr("A microservice to deploy on top of ACME infrastructure")
-				updateProjectOptionsModel.NewID = core.StringPtr("testString")
-				updateProjectOptionsModel.NewCrn = core.StringPtr("testString")
-				updateProjectOptionsModel.NewCreatedBy = core.StringPtr("testString")
-				updateProjectOptionsModel.NewCreatedAt = CreateMockDateTime("2019-01-01T12:00:00.000Z")
-				updateProjectOptionsModel.NewUpdatedAt = CreateMockDateTime("2019-01-01T12:00:00.000Z")
-				updateProjectOptionsModel.NewRepoURL = core.StringPtr("testString")
-				updateProjectOptionsModel.NewHref = core.StringPtr("testString")
-				updateProjectOptionsModel.NewConfigs = []projectsv1.ProjectConfigIntf{projectConfigModel}
-				updateProjectOptionsModel.NewDashboard = projectDashboardModel
-				updateProjectOptionsModel.Prefer = core.StringPtr("return=minimal")
+				updateProjectOptionsModel.Name = core.StringPtr("acme-microservice")
+				updateProjectOptionsModel.Description = core.StringPtr("A microservice to deploy on top of ACME infrastructure")
+				updateProjectOptionsModel.Configs = []projectsv1.ProjectConfigIntf{projectConfigModel}
+				updateProjectOptionsModel.Dashboard = projectPrototypeDashboardModel
 				updateProjectOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
@@ -1402,26 +1358,17 @@ var _ = Describe(`ProjectsV1`, func() {
 				widgetModel := new(projectsv1.Widget)
 				widgetModel.Name = core.StringPtr("project-properties")
 
-				// Construct an instance of the ProjectDashboard model
-				projectDashboardModel := new(projectsv1.ProjectDashboard)
-				projectDashboardModel.Widgets = []projectsv1.Widget{*widgetModel}
+				// Construct an instance of the ProjectPrototypeDashboard model
+				projectPrototypeDashboardModel := new(projectsv1.ProjectPrototypeDashboard)
+				projectPrototypeDashboardModel.Widgets = []projectsv1.Widget{*widgetModel}
 
 				// Construct an instance of the UpdateProjectOptions model
 				updateProjectOptionsModel := new(projectsv1.UpdateProjectOptions)
-				updateProjectOptionsModel.XIamApi = core.StringPtr("testString")
 				updateProjectOptionsModel.ID = core.StringPtr("testString")
-				updateProjectOptionsModel.NewName = core.StringPtr("acme-microservice")
-				updateProjectOptionsModel.NewDescription = core.StringPtr("A microservice to deploy on top of ACME infrastructure")
-				updateProjectOptionsModel.NewID = core.StringPtr("testString")
-				updateProjectOptionsModel.NewCrn = core.StringPtr("testString")
-				updateProjectOptionsModel.NewCreatedBy = core.StringPtr("testString")
-				updateProjectOptionsModel.NewCreatedAt = CreateMockDateTime("2019-01-01T12:00:00.000Z")
-				updateProjectOptionsModel.NewUpdatedAt = CreateMockDateTime("2019-01-01T12:00:00.000Z")
-				updateProjectOptionsModel.NewRepoURL = core.StringPtr("testString")
-				updateProjectOptionsModel.NewHref = core.StringPtr("testString")
-				updateProjectOptionsModel.NewConfigs = []projectsv1.ProjectConfigIntf{projectConfigModel}
-				updateProjectOptionsModel.NewDashboard = projectDashboardModel
-				updateProjectOptionsModel.Prefer = core.StringPtr("return=minimal")
+				updateProjectOptionsModel.Name = core.StringPtr("acme-microservice")
+				updateProjectOptionsModel.Description = core.StringPtr("A microservice to deploy on top of ACME infrastructure")
+				updateProjectOptionsModel.Configs = []projectsv1.ProjectConfigIntf{projectConfigModel}
+				updateProjectOptionsModel.Dashboard = projectPrototypeDashboardModel
 				updateProjectOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := projectsService.SetServiceURL("")
@@ -1478,26 +1425,17 @@ var _ = Describe(`ProjectsV1`, func() {
 				widgetModel := new(projectsv1.Widget)
 				widgetModel.Name = core.StringPtr("project-properties")
 
-				// Construct an instance of the ProjectDashboard model
-				projectDashboardModel := new(projectsv1.ProjectDashboard)
-				projectDashboardModel.Widgets = []projectsv1.Widget{*widgetModel}
+				// Construct an instance of the ProjectPrototypeDashboard model
+				projectPrototypeDashboardModel := new(projectsv1.ProjectPrototypeDashboard)
+				projectPrototypeDashboardModel.Widgets = []projectsv1.Widget{*widgetModel}
 
 				// Construct an instance of the UpdateProjectOptions model
 				updateProjectOptionsModel := new(projectsv1.UpdateProjectOptions)
-				updateProjectOptionsModel.XIamApi = core.StringPtr("testString")
 				updateProjectOptionsModel.ID = core.StringPtr("testString")
-				updateProjectOptionsModel.NewName = core.StringPtr("acme-microservice")
-				updateProjectOptionsModel.NewDescription = core.StringPtr("A microservice to deploy on top of ACME infrastructure")
-				updateProjectOptionsModel.NewID = core.StringPtr("testString")
-				updateProjectOptionsModel.NewCrn = core.StringPtr("testString")
-				updateProjectOptionsModel.NewCreatedBy = core.StringPtr("testString")
-				updateProjectOptionsModel.NewCreatedAt = CreateMockDateTime("2019-01-01T12:00:00.000Z")
-				updateProjectOptionsModel.NewUpdatedAt = CreateMockDateTime("2019-01-01T12:00:00.000Z")
-				updateProjectOptionsModel.NewRepoURL = core.StringPtr("testString")
-				updateProjectOptionsModel.NewHref = core.StringPtr("testString")
-				updateProjectOptionsModel.NewConfigs = []projectsv1.ProjectConfigIntf{projectConfigModel}
-				updateProjectOptionsModel.NewDashboard = projectDashboardModel
-				updateProjectOptionsModel.Prefer = core.StringPtr("return=minimal")
+				updateProjectOptionsModel.Name = core.StringPtr("acme-microservice")
+				updateProjectOptionsModel.Description = core.StringPtr("A microservice to deploy on top of ACME infrastructure")
+				updateProjectOptionsModel.Configs = []projectsv1.ProjectConfigIntf{projectConfigModel}
+				updateProjectOptionsModel.Dashboard = projectPrototypeDashboardModel
 				updateProjectOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation
@@ -1839,6 +1777,140 @@ var _ = Describe(`ProjectsV1`, func() {
 			})
 		})
 	})
+	Describe(`ValidateProject(validateProjectOptions *ValidateProjectOptions)`, func() {
+		validateProjectPath := "/v1/projects/validate"
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(validateProjectPath))
+					Expect(req.Method).To(Equal("POST"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke ValidateProject successfully`, func() {
+				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(projectsService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				response, operationErr := projectsService.ValidateProject(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+
+				// Construct an instance of the OutputValue model
+				outputValueModel := new(projectsv1.OutputValue)
+				outputValueModel.Name = core.StringPtr("tags")
+				outputValueModel.Description = core.StringPtr("testString")
+				outputValueModel.Value = []string{"project:ghost", "type:infrastructure"}
+
+				// Construct an instance of the ProjectConfigManualProperty model
+				projectConfigModel := new(projectsv1.ProjectConfigManualProperty)
+				projectConfigModel.Name = core.StringPtr("common-variables")
+				projectConfigModel.Labels = []string{"testString"}
+				projectConfigModel.Output = []projectsv1.OutputValue{*outputValueModel}
+				projectConfigModel.Type = core.StringPtr("manual")
+				projectConfigModel.ExternalResourcesAccount = core.StringPtr("e5ed08b9203bad3e4b6f57f0d1675a88")
+
+				// Construct an instance of the Widget model
+				widgetModel := new(projectsv1.Widget)
+				widgetModel.Name = core.StringPtr("project-properties")
+
+				// Construct an instance of the ProjectPrototypeDashboard model
+				projectPrototypeDashboardModel := new(projectsv1.ProjectPrototypeDashboard)
+				projectPrototypeDashboardModel.Widgets = []projectsv1.Widget{*widgetModel}
+
+				// Construct an instance of the ValidateProjectOptions model
+				validateProjectOptionsModel := new(projectsv1.ValidateProjectOptions)
+				validateProjectOptionsModel.Name = core.StringPtr("acme-microservice")
+				validateProjectOptionsModel.Description = core.StringPtr("A microservice to deploy on top of ACME infrastructure")
+				validateProjectOptionsModel.Configs = []projectsv1.ProjectConfigIntf{projectConfigModel}
+				validateProjectOptionsModel.Dashboard = projectPrototypeDashboardModel
+				validateProjectOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				response, operationErr = projectsService.ValidateProject(validateProjectOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+			})
+			It(`Invoke ValidateProject with error: Operation validation and request error`, func() {
+				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(projectsService).ToNot(BeNil())
+
+				// Construct an instance of the OutputValue model
+				outputValueModel := new(projectsv1.OutputValue)
+				outputValueModel.Name = core.StringPtr("tags")
+				outputValueModel.Description = core.StringPtr("testString")
+				outputValueModel.Value = []string{"project:ghost", "type:infrastructure"}
+
+				// Construct an instance of the ProjectConfigManualProperty model
+				projectConfigModel := new(projectsv1.ProjectConfigManualProperty)
+				projectConfigModel.Name = core.StringPtr("common-variables")
+				projectConfigModel.Labels = []string{"testString"}
+				projectConfigModel.Output = []projectsv1.OutputValue{*outputValueModel}
+				projectConfigModel.Type = core.StringPtr("manual")
+				projectConfigModel.ExternalResourcesAccount = core.StringPtr("e5ed08b9203bad3e4b6f57f0d1675a88")
+
+				// Construct an instance of the Widget model
+				widgetModel := new(projectsv1.Widget)
+				widgetModel.Name = core.StringPtr("project-properties")
+
+				// Construct an instance of the ProjectPrototypeDashboard model
+				projectPrototypeDashboardModel := new(projectsv1.ProjectPrototypeDashboard)
+				projectPrototypeDashboardModel.Widgets = []projectsv1.Widget{*widgetModel}
+
+				// Construct an instance of the ValidateProjectOptions model
+				validateProjectOptionsModel := new(projectsv1.ValidateProjectOptions)
+				validateProjectOptionsModel.Name = core.StringPtr("acme-microservice")
+				validateProjectOptionsModel.Description = core.StringPtr("A microservice to deploy on top of ACME infrastructure")
+				validateProjectOptionsModel.Configs = []projectsv1.ProjectConfigIntf{projectConfigModel}
+				validateProjectOptionsModel.Dashboard = projectPrototypeDashboardModel
+				validateProjectOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := projectsService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				response, operationErr := projectsService.ValidateProject(validateProjectOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				// Construct a second instance of the ValidateProjectOptions model with no property values
+				validateProjectOptionsModelNew := new(projectsv1.ValidateProjectOptions)
+				// Invoke operation with invalid model (negative test)
+				response, operationErr = projectsService.ValidateProject(validateProjectOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
 	Describe(`GetProjectStatus(getProjectStatusOptions *GetProjectStatusOptions) - Operation response error`, func() {
 		getProjectStatusPath := "/v1/projects/234234324-3444-4556-224232432/status"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
@@ -1901,7 +1973,7 @@ var _ = Describe(`ProjectsV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"project_id": "ProjectID", "href": "Href", "status": "pending_create", "messages": ["Messages"], "services_status": {"toolchain": {"id": "ID", "status": "not_installed", "messages": ["Messages"], "schematics_resource_id": "SchematicsResourceID"}, "schematics": {"id": "ID", "status": "not_installed", "messages": ["Messages"], "schematics_resource_id": "SchematicsResourceID"}, "git_repo": {"id": "ID", "status": "not_installed", "messages": ["Messages"], "schematics_resource_id": "SchematicsResourceID"}}, "computed_statuses": {"mapKey": "anyValue"}}`)
+					fmt.Fprintf(res, "%s", `{"project_id": "ProjectID", "href": "Href", "crn": "Crn", "name": "Name", "location": "us-south", "resource_group": "ResourceGroup", "state": "CREATING", "git_repo": {"url": "URL", "branch": "Branch", "project_id": "ProjectID"}, "toolchain": {"crn": "Crn", "guid": "Guid"}, "schematics": {"cart_order_id": "CartOrderID", "workspace_id": "WorkspaceID", "cart_item_name": "CartItemName"}, "credentials": {"api_key_ref": "ApiKeyRef"}, "configs": [{"name": "Name", "labels": ["Labels"], "output": [{"name": "Name", "description": "Description", "value": ["Value"]}], "type": "manual", "external_resources_account": "ExternalResourcesAccount"}], "dashboard": {"widgets": [{"name": "Name"}]}, "computed_statuses": {"mapKey": "anyValue"}, "active_prs": [{"branch": "Branch", "url": "URL"}], "history": [{"timestamp": "2019-01-01T12:00:00.000Z", "code": "Code", "type": "git_repo"}]}`)
 				}))
 			})
 			It(`Invoke GetProjectStatus successfully with retries`, func() {
@@ -1955,7 +2027,7 @@ var _ = Describe(`ProjectsV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"project_id": "ProjectID", "href": "Href", "status": "pending_create", "messages": ["Messages"], "services_status": {"toolchain": {"id": "ID", "status": "not_installed", "messages": ["Messages"], "schematics_resource_id": "SchematicsResourceID"}, "schematics": {"id": "ID", "status": "not_installed", "messages": ["Messages"], "schematics_resource_id": "SchematicsResourceID"}, "git_repo": {"id": "ID", "status": "not_installed", "messages": ["Messages"], "schematics_resource_id": "SchematicsResourceID"}}, "computed_statuses": {"mapKey": "anyValue"}}`)
+					fmt.Fprintf(res, "%s", `{"project_id": "ProjectID", "href": "Href", "crn": "Crn", "name": "Name", "location": "us-south", "resource_group": "ResourceGroup", "state": "CREATING", "git_repo": {"url": "URL", "branch": "Branch", "project_id": "ProjectID"}, "toolchain": {"crn": "Crn", "guid": "Guid"}, "schematics": {"cart_order_id": "CartOrderID", "workspace_id": "WorkspaceID", "cart_item_name": "CartItemName"}, "credentials": {"api_key_ref": "ApiKeyRef"}, "configs": [{"name": "Name", "labels": ["Labels"], "output": [{"name": "Name", "description": "Description", "value": ["Value"]}], "type": "manual", "external_resources_account": "ExternalResourcesAccount"}], "dashboard": {"widgets": [{"name": "Name"}]}, "computed_statuses": {"mapKey": "anyValue"}, "active_prs": [{"branch": "Branch", "url": "URL"}], "history": [{"timestamp": "2019-01-01T12:00:00.000Z", "code": "Code", "type": "git_repo"}]}`)
 				}))
 			})
 			It(`Invoke GetProjectStatus successfully`, func() {
@@ -2074,25 +2146,37 @@ var _ = Describe(`ProjectsV1`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(projectsService).ToNot(BeNil())
 
-				// Construct an instance of the ServiceStatusCRN model
-				serviceStatusModel := new(projectsv1.ServiceStatusCRN)
-				serviceStatusModel.ID = core.StringPtr("crn:v1:staging:public:toolchain::a/57ebb30d47d544a9b1a7df1fd8d69557:043d386e-f9db-4846-a6a7-ac939469ed11::")
-				serviceStatusModel.Status = core.StringPtr("install_in_progress")
-				serviceStatusModel.Messages = []string{"Installing Project Toolchain"}
-				serviceStatusModel.SchematicsResourceID = core.StringPtr("eu-de.workspace.schematicstestkshama.240ff36b")
+				// Construct an instance of the History model
+				historyModel := new(projectsv1.History)
+				historyModel.Timestamp = CreateMockDateTime("2022-05-13T12:25:00Z")
+				historyModel.Code = core.StringPtr("ISB005I")
+				historyModel.Type = core.StringPtr("schematics")
 
-				// Construct an instance of the ServicesStatus model
-				servicesStatusModel := new(projectsv1.ServicesStatus)
-				servicesStatusModel.Toolchain = serviceStatusModel
-				servicesStatusModel.Schematics = serviceStatusModel
-				servicesStatusModel.GitRepo = serviceStatusModel
+				// Construct an instance of the ServiceInfoGit model
+				serviceInfoGitModel := new(projectsv1.ServiceInfoGit)
+				serviceInfoGitModel.URL = core.StringPtr("testString")
+				serviceInfoGitModel.Branch = core.StringPtr("testString")
+				serviceInfoGitModel.ProjectID = core.StringPtr("testString")
+
+				// Construct an instance of the ServiceInfoToolchain model
+				serviceInfoToolchainModel := new(projectsv1.ServiceInfoToolchain)
+				serviceInfoToolchainModel.Crn = core.StringPtr("testString")
+				serviceInfoToolchainModel.Guid = core.StringPtr("testString")
+
+				// Construct an instance of the ServiceInfoSchematics model
+				serviceInfoSchematicsModel := new(projectsv1.ServiceInfoSchematics)
+				serviceInfoSchematicsModel.CartOrderID = core.StringPtr("us-south.cartOrder.5fbc28c0-87fd-42f5-b2fa-d98d28d6ea96-local.d807263d")
+				serviceInfoSchematicsModel.WorkspaceID = core.StringPtr("crn:v1:staging:public:schematics:us-south:a/d44e54841dfe41ee869659f80bddd075:459a39a6-3bc3-4524-aaa8-fb693d96b79e:workspace:us-south.workspace.projects-service.a482a249")
+				serviceInfoSchematicsModel.CartItemName = core.StringPtr("name")
 
 				// Construct an instance of the UpdateProjectStatusOptions model
 				updateProjectStatusOptionsModel := new(projectsv1.UpdateProjectStatusOptions)
 				updateProjectStatusOptionsModel.ID = core.StringPtr("234234324-3444-4556-224232432")
-				updateProjectStatusOptionsModel.Status = core.StringPtr("create_in_progress")
-				updateProjectStatusOptionsModel.Messages = []string{"Project is being created"}
-				updateProjectStatusOptionsModel.ServicesStatus = servicesStatusModel
+				updateProjectStatusOptionsModel.State = core.StringPtr("UPDATING")
+				updateProjectStatusOptionsModel.History = []projectsv1.History{*historyModel}
+				updateProjectStatusOptionsModel.GitRepo = serviceInfoGitModel
+				updateProjectStatusOptionsModel.Toolchain = serviceInfoToolchainModel
+				updateProjectStatusOptionsModel.Schematics = serviceInfoSchematicsModel
 				updateProjectStatusOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
 				result, response, operationErr := projectsService.UpdateProjectStatus(updateProjectStatusOptionsModel)
@@ -2145,7 +2229,7 @@ var _ = Describe(`ProjectsV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"project_id": "ProjectID", "href": "Href", "status": "pending_create", "messages": ["Messages"], "services_status": {"toolchain": {"id": "ID", "status": "not_installed", "messages": ["Messages"], "schematics_resource_id": "SchematicsResourceID"}, "schematics": {"id": "ID", "status": "not_installed", "messages": ["Messages"], "schematics_resource_id": "SchematicsResourceID"}, "git_repo": {"id": "ID", "status": "not_installed", "messages": ["Messages"], "schematics_resource_id": "SchematicsResourceID"}}, "computed_statuses": {"mapKey": "anyValue"}}`)
+					fmt.Fprintf(res, "%s", `{"project_id": "ProjectID", "href": "Href", "crn": "Crn", "name": "Name", "location": "us-south", "resource_group": "ResourceGroup", "state": "CREATING", "git_repo": {"url": "URL", "branch": "Branch", "project_id": "ProjectID"}, "toolchain": {"crn": "Crn", "guid": "Guid"}, "schematics": {"cart_order_id": "CartOrderID", "workspace_id": "WorkspaceID", "cart_item_name": "CartItemName"}, "credentials": {"api_key_ref": "ApiKeyRef"}, "configs": [{"name": "Name", "labels": ["Labels"], "output": [{"name": "Name", "description": "Description", "value": ["Value"]}], "type": "manual", "external_resources_account": "ExternalResourcesAccount"}], "dashboard": {"widgets": [{"name": "Name"}]}, "computed_statuses": {"mapKey": "anyValue"}, "active_prs": [{"branch": "Branch", "url": "URL"}], "history": [{"timestamp": "2019-01-01T12:00:00.000Z", "code": "Code", "type": "git_repo"}]}`)
 				}))
 			})
 			It(`Invoke UpdateProjectStatus successfully with retries`, func() {
@@ -2157,25 +2241,37 @@ var _ = Describe(`ProjectsV1`, func() {
 				Expect(projectsService).ToNot(BeNil())
 				projectsService.EnableRetries(0, 0)
 
-				// Construct an instance of the ServiceStatusCRN model
-				serviceStatusModel := new(projectsv1.ServiceStatusCRN)
-				serviceStatusModel.ID = core.StringPtr("crn:v1:staging:public:toolchain::a/57ebb30d47d544a9b1a7df1fd8d69557:043d386e-f9db-4846-a6a7-ac939469ed11::")
-				serviceStatusModel.Status = core.StringPtr("install_in_progress")
-				serviceStatusModel.Messages = []string{"Installing Project Toolchain"}
-				serviceStatusModel.SchematicsResourceID = core.StringPtr("eu-de.workspace.schematicstestkshama.240ff36b")
+				// Construct an instance of the History model
+				historyModel := new(projectsv1.History)
+				historyModel.Timestamp = CreateMockDateTime("2022-05-13T12:25:00Z")
+				historyModel.Code = core.StringPtr("ISB005I")
+				historyModel.Type = core.StringPtr("schematics")
 
-				// Construct an instance of the ServicesStatus model
-				servicesStatusModel := new(projectsv1.ServicesStatus)
-				servicesStatusModel.Toolchain = serviceStatusModel
-				servicesStatusModel.Schematics = serviceStatusModel
-				servicesStatusModel.GitRepo = serviceStatusModel
+				// Construct an instance of the ServiceInfoGit model
+				serviceInfoGitModel := new(projectsv1.ServiceInfoGit)
+				serviceInfoGitModel.URL = core.StringPtr("testString")
+				serviceInfoGitModel.Branch = core.StringPtr("testString")
+				serviceInfoGitModel.ProjectID = core.StringPtr("testString")
+
+				// Construct an instance of the ServiceInfoToolchain model
+				serviceInfoToolchainModel := new(projectsv1.ServiceInfoToolchain)
+				serviceInfoToolchainModel.Crn = core.StringPtr("testString")
+				serviceInfoToolchainModel.Guid = core.StringPtr("testString")
+
+				// Construct an instance of the ServiceInfoSchematics model
+				serviceInfoSchematicsModel := new(projectsv1.ServiceInfoSchematics)
+				serviceInfoSchematicsModel.CartOrderID = core.StringPtr("us-south.cartOrder.5fbc28c0-87fd-42f5-b2fa-d98d28d6ea96-local.d807263d")
+				serviceInfoSchematicsModel.WorkspaceID = core.StringPtr("crn:v1:staging:public:schematics:us-south:a/d44e54841dfe41ee869659f80bddd075:459a39a6-3bc3-4524-aaa8-fb693d96b79e:workspace:us-south.workspace.projects-service.a482a249")
+				serviceInfoSchematicsModel.CartItemName = core.StringPtr("name")
 
 				// Construct an instance of the UpdateProjectStatusOptions model
 				updateProjectStatusOptionsModel := new(projectsv1.UpdateProjectStatusOptions)
 				updateProjectStatusOptionsModel.ID = core.StringPtr("234234324-3444-4556-224232432")
-				updateProjectStatusOptionsModel.Status = core.StringPtr("create_in_progress")
-				updateProjectStatusOptionsModel.Messages = []string{"Project is being created"}
-				updateProjectStatusOptionsModel.ServicesStatus = servicesStatusModel
+				updateProjectStatusOptionsModel.State = core.StringPtr("UPDATING")
+				updateProjectStatusOptionsModel.History = []projectsv1.History{*historyModel}
+				updateProjectStatusOptionsModel.GitRepo = serviceInfoGitModel
+				updateProjectStatusOptionsModel.Toolchain = serviceInfoToolchainModel
+				updateProjectStatusOptionsModel.Schematics = serviceInfoSchematicsModel
 				updateProjectStatusOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with a Context to test a timeout error
@@ -2231,7 +2327,7 @@ var _ = Describe(`ProjectsV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"project_id": "ProjectID", "href": "Href", "status": "pending_create", "messages": ["Messages"], "services_status": {"toolchain": {"id": "ID", "status": "not_installed", "messages": ["Messages"], "schematics_resource_id": "SchematicsResourceID"}, "schematics": {"id": "ID", "status": "not_installed", "messages": ["Messages"], "schematics_resource_id": "SchematicsResourceID"}, "git_repo": {"id": "ID", "status": "not_installed", "messages": ["Messages"], "schematics_resource_id": "SchematicsResourceID"}}, "computed_statuses": {"mapKey": "anyValue"}}`)
+					fmt.Fprintf(res, "%s", `{"project_id": "ProjectID", "href": "Href", "crn": "Crn", "name": "Name", "location": "us-south", "resource_group": "ResourceGroup", "state": "CREATING", "git_repo": {"url": "URL", "branch": "Branch", "project_id": "ProjectID"}, "toolchain": {"crn": "Crn", "guid": "Guid"}, "schematics": {"cart_order_id": "CartOrderID", "workspace_id": "WorkspaceID", "cart_item_name": "CartItemName"}, "credentials": {"api_key_ref": "ApiKeyRef"}, "configs": [{"name": "Name", "labels": ["Labels"], "output": [{"name": "Name", "description": "Description", "value": ["Value"]}], "type": "manual", "external_resources_account": "ExternalResourcesAccount"}], "dashboard": {"widgets": [{"name": "Name"}]}, "computed_statuses": {"mapKey": "anyValue"}, "active_prs": [{"branch": "Branch", "url": "URL"}], "history": [{"timestamp": "2019-01-01T12:00:00.000Z", "code": "Code", "type": "git_repo"}]}`)
 				}))
 			})
 			It(`Invoke UpdateProjectStatus successfully`, func() {
@@ -2248,25 +2344,37 @@ var _ = Describe(`ProjectsV1`, func() {
 				Expect(response).To(BeNil())
 				Expect(result).To(BeNil())
 
-				// Construct an instance of the ServiceStatusCRN model
-				serviceStatusModel := new(projectsv1.ServiceStatusCRN)
-				serviceStatusModel.ID = core.StringPtr("crn:v1:staging:public:toolchain::a/57ebb30d47d544a9b1a7df1fd8d69557:043d386e-f9db-4846-a6a7-ac939469ed11::")
-				serviceStatusModel.Status = core.StringPtr("install_in_progress")
-				serviceStatusModel.Messages = []string{"Installing Project Toolchain"}
-				serviceStatusModel.SchematicsResourceID = core.StringPtr("eu-de.workspace.schematicstestkshama.240ff36b")
+				// Construct an instance of the History model
+				historyModel := new(projectsv1.History)
+				historyModel.Timestamp = CreateMockDateTime("2022-05-13T12:25:00Z")
+				historyModel.Code = core.StringPtr("ISB005I")
+				historyModel.Type = core.StringPtr("schematics")
 
-				// Construct an instance of the ServicesStatus model
-				servicesStatusModel := new(projectsv1.ServicesStatus)
-				servicesStatusModel.Toolchain = serviceStatusModel
-				servicesStatusModel.Schematics = serviceStatusModel
-				servicesStatusModel.GitRepo = serviceStatusModel
+				// Construct an instance of the ServiceInfoGit model
+				serviceInfoGitModel := new(projectsv1.ServiceInfoGit)
+				serviceInfoGitModel.URL = core.StringPtr("testString")
+				serviceInfoGitModel.Branch = core.StringPtr("testString")
+				serviceInfoGitModel.ProjectID = core.StringPtr("testString")
+
+				// Construct an instance of the ServiceInfoToolchain model
+				serviceInfoToolchainModel := new(projectsv1.ServiceInfoToolchain)
+				serviceInfoToolchainModel.Crn = core.StringPtr("testString")
+				serviceInfoToolchainModel.Guid = core.StringPtr("testString")
+
+				// Construct an instance of the ServiceInfoSchematics model
+				serviceInfoSchematicsModel := new(projectsv1.ServiceInfoSchematics)
+				serviceInfoSchematicsModel.CartOrderID = core.StringPtr("us-south.cartOrder.5fbc28c0-87fd-42f5-b2fa-d98d28d6ea96-local.d807263d")
+				serviceInfoSchematicsModel.WorkspaceID = core.StringPtr("crn:v1:staging:public:schematics:us-south:a/d44e54841dfe41ee869659f80bddd075:459a39a6-3bc3-4524-aaa8-fb693d96b79e:workspace:us-south.workspace.projects-service.a482a249")
+				serviceInfoSchematicsModel.CartItemName = core.StringPtr("name")
 
 				// Construct an instance of the UpdateProjectStatusOptions model
 				updateProjectStatusOptionsModel := new(projectsv1.UpdateProjectStatusOptions)
 				updateProjectStatusOptionsModel.ID = core.StringPtr("234234324-3444-4556-224232432")
-				updateProjectStatusOptionsModel.Status = core.StringPtr("create_in_progress")
-				updateProjectStatusOptionsModel.Messages = []string{"Project is being created"}
-				updateProjectStatusOptionsModel.ServicesStatus = servicesStatusModel
+				updateProjectStatusOptionsModel.State = core.StringPtr("UPDATING")
+				updateProjectStatusOptionsModel.History = []projectsv1.History{*historyModel}
+				updateProjectStatusOptionsModel.GitRepo = serviceInfoGitModel
+				updateProjectStatusOptionsModel.Toolchain = serviceInfoToolchainModel
+				updateProjectStatusOptionsModel.Schematics = serviceInfoSchematicsModel
 				updateProjectStatusOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
@@ -2284,25 +2392,37 @@ var _ = Describe(`ProjectsV1`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(projectsService).ToNot(BeNil())
 
-				// Construct an instance of the ServiceStatusCRN model
-				serviceStatusModel := new(projectsv1.ServiceStatusCRN)
-				serviceStatusModel.ID = core.StringPtr("crn:v1:staging:public:toolchain::a/57ebb30d47d544a9b1a7df1fd8d69557:043d386e-f9db-4846-a6a7-ac939469ed11::")
-				serviceStatusModel.Status = core.StringPtr("install_in_progress")
-				serviceStatusModel.Messages = []string{"Installing Project Toolchain"}
-				serviceStatusModel.SchematicsResourceID = core.StringPtr("eu-de.workspace.schematicstestkshama.240ff36b")
+				// Construct an instance of the History model
+				historyModel := new(projectsv1.History)
+				historyModel.Timestamp = CreateMockDateTime("2022-05-13T12:25:00Z")
+				historyModel.Code = core.StringPtr("ISB005I")
+				historyModel.Type = core.StringPtr("schematics")
 
-				// Construct an instance of the ServicesStatus model
-				servicesStatusModel := new(projectsv1.ServicesStatus)
-				servicesStatusModel.Toolchain = serviceStatusModel
-				servicesStatusModel.Schematics = serviceStatusModel
-				servicesStatusModel.GitRepo = serviceStatusModel
+				// Construct an instance of the ServiceInfoGit model
+				serviceInfoGitModel := new(projectsv1.ServiceInfoGit)
+				serviceInfoGitModel.URL = core.StringPtr("testString")
+				serviceInfoGitModel.Branch = core.StringPtr("testString")
+				serviceInfoGitModel.ProjectID = core.StringPtr("testString")
+
+				// Construct an instance of the ServiceInfoToolchain model
+				serviceInfoToolchainModel := new(projectsv1.ServiceInfoToolchain)
+				serviceInfoToolchainModel.Crn = core.StringPtr("testString")
+				serviceInfoToolchainModel.Guid = core.StringPtr("testString")
+
+				// Construct an instance of the ServiceInfoSchematics model
+				serviceInfoSchematicsModel := new(projectsv1.ServiceInfoSchematics)
+				serviceInfoSchematicsModel.CartOrderID = core.StringPtr("us-south.cartOrder.5fbc28c0-87fd-42f5-b2fa-d98d28d6ea96-local.d807263d")
+				serviceInfoSchematicsModel.WorkspaceID = core.StringPtr("crn:v1:staging:public:schematics:us-south:a/d44e54841dfe41ee869659f80bddd075:459a39a6-3bc3-4524-aaa8-fb693d96b79e:workspace:us-south.workspace.projects-service.a482a249")
+				serviceInfoSchematicsModel.CartItemName = core.StringPtr("name")
 
 				// Construct an instance of the UpdateProjectStatusOptions model
 				updateProjectStatusOptionsModel := new(projectsv1.UpdateProjectStatusOptions)
 				updateProjectStatusOptionsModel.ID = core.StringPtr("234234324-3444-4556-224232432")
-				updateProjectStatusOptionsModel.Status = core.StringPtr("create_in_progress")
-				updateProjectStatusOptionsModel.Messages = []string{"Project is being created"}
-				updateProjectStatusOptionsModel.ServicesStatus = servicesStatusModel
+				updateProjectStatusOptionsModel.State = core.StringPtr("UPDATING")
+				updateProjectStatusOptionsModel.History = []projectsv1.History{*historyModel}
+				updateProjectStatusOptionsModel.GitRepo = serviceInfoGitModel
+				updateProjectStatusOptionsModel.Toolchain = serviceInfoToolchainModel
+				updateProjectStatusOptionsModel.Schematics = serviceInfoSchematicsModel
 				updateProjectStatusOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := projectsService.SetServiceURL("")
@@ -2341,25 +2461,37 @@ var _ = Describe(`ProjectsV1`, func() {
 				Expect(serviceErr).To(BeNil())
 				Expect(projectsService).ToNot(BeNil())
 
-				// Construct an instance of the ServiceStatusCRN model
-				serviceStatusModel := new(projectsv1.ServiceStatusCRN)
-				serviceStatusModel.ID = core.StringPtr("crn:v1:staging:public:toolchain::a/57ebb30d47d544a9b1a7df1fd8d69557:043d386e-f9db-4846-a6a7-ac939469ed11::")
-				serviceStatusModel.Status = core.StringPtr("install_in_progress")
-				serviceStatusModel.Messages = []string{"Installing Project Toolchain"}
-				serviceStatusModel.SchematicsResourceID = core.StringPtr("eu-de.workspace.schematicstestkshama.240ff36b")
+				// Construct an instance of the History model
+				historyModel := new(projectsv1.History)
+				historyModel.Timestamp = CreateMockDateTime("2022-05-13T12:25:00Z")
+				historyModel.Code = core.StringPtr("ISB005I")
+				historyModel.Type = core.StringPtr("schematics")
 
-				// Construct an instance of the ServicesStatus model
-				servicesStatusModel := new(projectsv1.ServicesStatus)
-				servicesStatusModel.Toolchain = serviceStatusModel
-				servicesStatusModel.Schematics = serviceStatusModel
-				servicesStatusModel.GitRepo = serviceStatusModel
+				// Construct an instance of the ServiceInfoGit model
+				serviceInfoGitModel := new(projectsv1.ServiceInfoGit)
+				serviceInfoGitModel.URL = core.StringPtr("testString")
+				serviceInfoGitModel.Branch = core.StringPtr("testString")
+				serviceInfoGitModel.ProjectID = core.StringPtr("testString")
+
+				// Construct an instance of the ServiceInfoToolchain model
+				serviceInfoToolchainModel := new(projectsv1.ServiceInfoToolchain)
+				serviceInfoToolchainModel.Crn = core.StringPtr("testString")
+				serviceInfoToolchainModel.Guid = core.StringPtr("testString")
+
+				// Construct an instance of the ServiceInfoSchematics model
+				serviceInfoSchematicsModel := new(projectsv1.ServiceInfoSchematics)
+				serviceInfoSchematicsModel.CartOrderID = core.StringPtr("us-south.cartOrder.5fbc28c0-87fd-42f5-b2fa-d98d28d6ea96-local.d807263d")
+				serviceInfoSchematicsModel.WorkspaceID = core.StringPtr("crn:v1:staging:public:schematics:us-south:a/d44e54841dfe41ee869659f80bddd075:459a39a6-3bc3-4524-aaa8-fb693d96b79e:workspace:us-south.workspace.projects-service.a482a249")
+				serviceInfoSchematicsModel.CartItemName = core.StringPtr("name")
 
 				// Construct an instance of the UpdateProjectStatusOptions model
 				updateProjectStatusOptionsModel := new(projectsv1.UpdateProjectStatusOptions)
 				updateProjectStatusOptionsModel.ID = core.StringPtr("234234324-3444-4556-224232432")
-				updateProjectStatusOptionsModel.Status = core.StringPtr("create_in_progress")
-				updateProjectStatusOptionsModel.Messages = []string{"Project is being created"}
-				updateProjectStatusOptionsModel.ServicesStatus = servicesStatusModel
+				updateProjectStatusOptionsModel.State = core.StringPtr("UPDATING")
+				updateProjectStatusOptionsModel.History = []projectsv1.History{*historyModel}
+				updateProjectStatusOptionsModel.GitRepo = serviceInfoGitModel
+				updateProjectStatusOptionsModel.Toolchain = serviceInfoToolchainModel
+				updateProjectStatusOptionsModel.Schematics = serviceInfoSchematicsModel
 				updateProjectStatusOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation
@@ -2908,7 +3040,7 @@ var _ = Describe(`ProjectsV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"project_id": "ProjectID", "href": "Href", "config_statuses": [{"href": "Href", "name": "Name", "status": "not_installed", "messages": ["Messages"], "pipeline_run": "PipelineRun", "schematics_resource_id": "SchematicsResourceID", "computed_statuses": {"mapKey": "anyValue"}, "output": [{"name": "Name", "description": "Description", "value": ["Value"]}]}]}`)
+					fmt.Fprintf(res, "%s", `{"project_id": "ProjectID", "href": "Href", "config_statuses": [{"href": "Href", "name": "Name", "status": "INSTALLING", "messages": ["Messages"], "pipeline_run": "PipelineRun", "schematics_resource_id": "SchematicsResourceID", "computed_statuses": {"mapKey": "anyValue"}, "output": [{"name": "Name", "description": "Description", "value": ["Value"]}]}]}`)
 				}))
 			})
 			It(`Invoke ListProjectConfigStatuses successfully with retries`, func() {
@@ -2962,7 +3094,7 @@ var _ = Describe(`ProjectsV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"project_id": "ProjectID", "href": "Href", "config_statuses": [{"href": "Href", "name": "Name", "status": "not_installed", "messages": ["Messages"], "pipeline_run": "PipelineRun", "schematics_resource_id": "SchematicsResourceID", "computed_statuses": {"mapKey": "anyValue"}, "output": [{"name": "Name", "description": "Description", "value": ["Value"]}]}]}`)
+					fmt.Fprintf(res, "%s", `{"project_id": "ProjectID", "href": "Href", "config_statuses": [{"href": "Href", "name": "Name", "status": "INSTALLING", "messages": ["Messages"], "pipeline_run": "PipelineRun", "schematics_resource_id": "SchematicsResourceID", "computed_statuses": {"mapKey": "anyValue"}, "output": [{"name": "Name", "description": "Description", "value": ["Value"]}]}]}`)
 				}))
 			})
 			It(`Invoke ListProjectConfigStatuses successfully`, func() {
@@ -3121,7 +3253,7 @@ var _ = Describe(`ProjectsV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"href": "Href", "name": "Name", "status": "not_installed", "messages": ["Messages"], "pipeline_run": "PipelineRun", "schematics_resource_id": "SchematicsResourceID", "computed_statuses": {"mapKey": "anyValue"}, "output": [{"name": "Name", "description": "Description", "value": ["Value"]}]}`)
+					fmt.Fprintf(res, "%s", `{"href": "Href", "name": "Name", "status": "INSTALLING", "messages": ["Messages"], "pipeline_run": "PipelineRun", "schematics_resource_id": "SchematicsResourceID", "computed_statuses": {"mapKey": "anyValue"}, "output": [{"name": "Name", "description": "Description", "value": ["Value"]}]}`)
 				}))
 			})
 			It(`Invoke GetProjectConfigStatus successfully with retries`, func() {
@@ -3176,7 +3308,7 @@ var _ = Describe(`ProjectsV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"href": "Href", "name": "Name", "status": "not_installed", "messages": ["Messages"], "pipeline_run": "PipelineRun", "schematics_resource_id": "SchematicsResourceID", "computed_statuses": {"mapKey": "anyValue"}, "output": [{"name": "Name", "description": "Description", "value": ["Value"]}]}`)
+					fmt.Fprintf(res, "%s", `{"href": "Href", "name": "Name", "status": "INSTALLING", "messages": ["Messages"], "pipeline_run": "PipelineRun", "schematics_resource_id": "SchematicsResourceID", "computed_statuses": {"mapKey": "anyValue"}, "output": [{"name": "Name", "description": "Description", "value": ["Value"]}]}`)
 				}))
 			})
 			It(`Invoke GetProjectConfigStatus successfully`, func() {
@@ -3308,7 +3440,7 @@ var _ = Describe(`ProjectsV1`, func() {
 				updateProjectConfigStatusOptionsModel := new(projectsv1.UpdateProjectConfigStatusOptions)
 				updateProjectConfigStatusOptionsModel.ID = core.StringPtr("b0a2c11d-926c-4653-a15b-ed17d7b34b22")
 				updateProjectConfigStatusOptionsModel.ConfigName = core.StringPtr("example")
-				updateProjectConfigStatusOptionsModel.Status = core.StringPtr("in_error")
+				updateProjectConfigStatusOptionsModel.Status = core.StringPtr("UPDATING_FAILED")
 				updateProjectConfigStatusOptionsModel.Messages = []string{"Config installation failed"}
 				updateProjectConfigStatusOptionsModel.PipelineRun = core.StringPtr("https://url.to.somewhere.failed.install")
 				updateProjectConfigStatusOptionsModel.SchematicsResourceID = core.StringPtr("eu-de.workspace.schematicstestkshama.240ff36b")
@@ -3365,7 +3497,7 @@ var _ = Describe(`ProjectsV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"href": "Href", "name": "Name", "status": "not_installed", "messages": ["Messages"], "pipeline_run": "PipelineRun", "schematics_resource_id": "SchematicsResourceID", "computed_statuses": {"mapKey": "anyValue"}, "output": [{"name": "Name", "description": "Description", "value": ["Value"]}]}`)
+					fmt.Fprintf(res, "%s", `{"href": "Href", "name": "Name", "status": "INSTALLING", "messages": ["Messages"], "pipeline_run": "PipelineRun", "schematics_resource_id": "SchematicsResourceID", "computed_statuses": {"mapKey": "anyValue"}, "output": [{"name": "Name", "description": "Description", "value": ["Value"]}]}`)
 				}))
 			})
 			It(`Invoke UpdateProjectConfigStatus successfully with retries`, func() {
@@ -3387,7 +3519,7 @@ var _ = Describe(`ProjectsV1`, func() {
 				updateProjectConfigStatusOptionsModel := new(projectsv1.UpdateProjectConfigStatusOptions)
 				updateProjectConfigStatusOptionsModel.ID = core.StringPtr("b0a2c11d-926c-4653-a15b-ed17d7b34b22")
 				updateProjectConfigStatusOptionsModel.ConfigName = core.StringPtr("example")
-				updateProjectConfigStatusOptionsModel.Status = core.StringPtr("in_error")
+				updateProjectConfigStatusOptionsModel.Status = core.StringPtr("UPDATING_FAILED")
 				updateProjectConfigStatusOptionsModel.Messages = []string{"Config installation failed"}
 				updateProjectConfigStatusOptionsModel.PipelineRun = core.StringPtr("https://url.to.somewhere.failed.install")
 				updateProjectConfigStatusOptionsModel.SchematicsResourceID = core.StringPtr("eu-de.workspace.schematicstestkshama.240ff36b")
@@ -3447,7 +3579,7 @@ var _ = Describe(`ProjectsV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"href": "Href", "name": "Name", "status": "not_installed", "messages": ["Messages"], "pipeline_run": "PipelineRun", "schematics_resource_id": "SchematicsResourceID", "computed_statuses": {"mapKey": "anyValue"}, "output": [{"name": "Name", "description": "Description", "value": ["Value"]}]}`)
+					fmt.Fprintf(res, "%s", `{"href": "Href", "name": "Name", "status": "INSTALLING", "messages": ["Messages"], "pipeline_run": "PipelineRun", "schematics_resource_id": "SchematicsResourceID", "computed_statuses": {"mapKey": "anyValue"}, "output": [{"name": "Name", "description": "Description", "value": ["Value"]}]}`)
 				}))
 			})
 			It(`Invoke UpdateProjectConfigStatus successfully`, func() {
@@ -3474,7 +3606,7 @@ var _ = Describe(`ProjectsV1`, func() {
 				updateProjectConfigStatusOptionsModel := new(projectsv1.UpdateProjectConfigStatusOptions)
 				updateProjectConfigStatusOptionsModel.ID = core.StringPtr("b0a2c11d-926c-4653-a15b-ed17d7b34b22")
 				updateProjectConfigStatusOptionsModel.ConfigName = core.StringPtr("example")
-				updateProjectConfigStatusOptionsModel.Status = core.StringPtr("in_error")
+				updateProjectConfigStatusOptionsModel.Status = core.StringPtr("UPDATING_FAILED")
 				updateProjectConfigStatusOptionsModel.Messages = []string{"Config installation failed"}
 				updateProjectConfigStatusOptionsModel.PipelineRun = core.StringPtr("https://url.to.somewhere.failed.install")
 				updateProjectConfigStatusOptionsModel.SchematicsResourceID = core.StringPtr("eu-de.workspace.schematicstestkshama.240ff36b")
@@ -3506,7 +3638,7 @@ var _ = Describe(`ProjectsV1`, func() {
 				updateProjectConfigStatusOptionsModel := new(projectsv1.UpdateProjectConfigStatusOptions)
 				updateProjectConfigStatusOptionsModel.ID = core.StringPtr("b0a2c11d-926c-4653-a15b-ed17d7b34b22")
 				updateProjectConfigStatusOptionsModel.ConfigName = core.StringPtr("example")
-				updateProjectConfigStatusOptionsModel.Status = core.StringPtr("in_error")
+				updateProjectConfigStatusOptionsModel.Status = core.StringPtr("UPDATING_FAILED")
 				updateProjectConfigStatusOptionsModel.Messages = []string{"Config installation failed"}
 				updateProjectConfigStatusOptionsModel.PipelineRun = core.StringPtr("https://url.to.somewhere.failed.install")
 				updateProjectConfigStatusOptionsModel.SchematicsResourceID = core.StringPtr("eu-de.workspace.schematicstestkshama.240ff36b")
@@ -3559,7 +3691,7 @@ var _ = Describe(`ProjectsV1`, func() {
 				updateProjectConfigStatusOptionsModel := new(projectsv1.UpdateProjectConfigStatusOptions)
 				updateProjectConfigStatusOptionsModel.ID = core.StringPtr("b0a2c11d-926c-4653-a15b-ed17d7b34b22")
 				updateProjectConfigStatusOptionsModel.ConfigName = core.StringPtr("example")
-				updateProjectConfigStatusOptionsModel.Status = core.StringPtr("in_error")
+				updateProjectConfigStatusOptionsModel.Status = core.StringPtr("UPDATING_FAILED")
 				updateProjectConfigStatusOptionsModel.Messages = []string{"Config installation failed"}
 				updateProjectConfigStatusOptionsModel.PipelineRun = core.StringPtr("https://url.to.somewhere.failed.install")
 				updateProjectConfigStatusOptionsModel.SchematicsResourceID = core.StringPtr("eu-de.workspace.schematicstestkshama.240ff36b")
@@ -4352,6 +4484,182 @@ var _ = Describe(`ProjectsV1`, func() {
 			})
 		})
 	})
+	Describe(`RegisterPullRequest(registerPullRequestOptions *RegisterPullRequestOptions)`, func() {
+		registerPullRequestPath := "/v1/projects/testString/pullrequest"
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(registerPullRequestPath))
+					Expect(req.Method).To(Equal("POST"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke RegisterPullRequest successfully`, func() {
+				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(projectsService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				response, operationErr := projectsService.RegisterPullRequest(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+
+				// Construct an instance of the RegisterPullRequestOptions model
+				registerPullRequestOptionsModel := new(projectsv1.RegisterPullRequestOptions)
+				registerPullRequestOptionsModel.ID = core.StringPtr("testString")
+				registerPullRequestOptionsModel.Branch = core.StringPtr("test")
+				registerPullRequestOptionsModel.URL = core.StringPtr("https://dev.us-south.git.test.cloud.ibm.com/org/projects-poc/-/merge_requests/1")
+				registerPullRequestOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				response, operationErr = projectsService.RegisterPullRequest(registerPullRequestOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+			})
+			It(`Invoke RegisterPullRequest with error: Operation validation and request error`, func() {
+				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(projectsService).ToNot(BeNil())
+
+				// Construct an instance of the RegisterPullRequestOptions model
+				registerPullRequestOptionsModel := new(projectsv1.RegisterPullRequestOptions)
+				registerPullRequestOptionsModel.ID = core.StringPtr("testString")
+				registerPullRequestOptionsModel.Branch = core.StringPtr("test")
+				registerPullRequestOptionsModel.URL = core.StringPtr("https://dev.us-south.git.test.cloud.ibm.com/org/projects-poc/-/merge_requests/1")
+				registerPullRequestOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := projectsService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				response, operationErr := projectsService.RegisterPullRequest(registerPullRequestOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				// Construct a second instance of the RegisterPullRequestOptions model with no property values
+				registerPullRequestOptionsModelNew := new(projectsv1.RegisterPullRequestOptions)
+				// Invoke operation with invalid model (negative test)
+				response, operationErr = projectsService.RegisterPullRequest(registerPullRequestOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`DeregisterPullRequest(deregisterPullRequestOptions *DeregisterPullRequestOptions)`, func() {
+		deregisterPullRequestPath := "/v1/projects/testString/pullrequest"
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(deregisterPullRequestPath))
+					Expect(req.Method).To(Equal("DELETE"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
+					res.WriteHeader(204)
+				}))
+			})
+			It(`Invoke DeregisterPullRequest successfully`, func() {
+				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(projectsService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				response, operationErr := projectsService.DeregisterPullRequest(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+
+				// Construct an instance of the DeregisterPullRequestOptions model
+				deregisterPullRequestOptionsModel := new(projectsv1.DeregisterPullRequestOptions)
+				deregisterPullRequestOptionsModel.ID = core.StringPtr("testString")
+				deregisterPullRequestOptionsModel.Branch = core.StringPtr("test")
+				deregisterPullRequestOptionsModel.URL = core.StringPtr("https://dev.us-south.git.test.cloud.ibm.com/org/projects-poc/-/merge_requests/1")
+				deregisterPullRequestOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				response, operationErr = projectsService.DeregisterPullRequest(deregisterPullRequestOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+			})
+			It(`Invoke DeregisterPullRequest with error: Operation validation and request error`, func() {
+				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(projectsService).ToNot(BeNil())
+
+				// Construct an instance of the DeregisterPullRequestOptions model
+				deregisterPullRequestOptionsModel := new(projectsv1.DeregisterPullRequestOptions)
+				deregisterPullRequestOptionsModel.ID = core.StringPtr("testString")
+				deregisterPullRequestOptionsModel.Branch = core.StringPtr("test")
+				deregisterPullRequestOptionsModel.URL = core.StringPtr("https://dev.us-south.git.test.cloud.ibm.com/org/projects-poc/-/merge_requests/1")
+				deregisterPullRequestOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := projectsService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				response, operationErr := projectsService.DeregisterPullRequest(deregisterPullRequestOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				// Construct a second instance of the DeregisterPullRequestOptions model with no property values
+				deregisterPullRequestOptionsModelNew := new(projectsv1.DeregisterPullRequestOptions)
+				// Invoke operation with invalid model (negative test)
+				response, operationErr = projectsService.DeregisterPullRequest(deregisterPullRequestOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
 	Describe(`Model constructor tests`, func() {
 		Context(`Using a service client instance`, func() {
 			projectsService, _ := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
@@ -4412,7 +4720,6 @@ var _ = Describe(`ProjectsV1`, func() {
 				createProjectOptionsModel := projectsService.NewCreateProjectOptions(createProjectOptionsName)
 				createProjectOptionsModel.SetName("acme-microservice")
 				createProjectOptionsModel.SetDescription("A microservice to deploy on top of ACME infrastructure")
-				createProjectOptionsModel.SetRepoURL("testString")
 				createProjectOptionsModel.SetConfigs([]projectsv1.ProjectConfigIntf{projectConfigModel})
 				createProjectOptionsModel.SetDashboard(projectPrototypeDashboardModel)
 				createProjectOptionsModel.SetXIamApi("testString")
@@ -4422,7 +4729,6 @@ var _ = Describe(`ProjectsV1`, func() {
 				Expect(createProjectOptionsModel).ToNot(BeNil())
 				Expect(createProjectOptionsModel.Name).To(Equal(core.StringPtr("acme-microservice")))
 				Expect(createProjectOptionsModel.Description).To(Equal(core.StringPtr("A microservice to deploy on top of ACME infrastructure")))
-				Expect(createProjectOptionsModel.RepoURL).To(Equal(core.StringPtr("testString")))
 				Expect(createProjectOptionsModel.Configs).To(Equal([]projectsv1.ProjectConfigIntf{projectConfigModel}))
 				Expect(createProjectOptionsModel.Dashboard).To(Equal(projectPrototypeDashboardModel))
 				Expect(createProjectOptionsModel.XIamApi).To(Equal(core.StringPtr("testString")))
@@ -4439,6 +4745,20 @@ var _ = Describe(`ProjectsV1`, func() {
 				Expect(deleteProjectOptionsModel).ToNot(BeNil())
 				Expect(deleteProjectOptionsModel.ID).To(Equal(core.StringPtr("testString")))
 				Expect(deleteProjectOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
+			It(`Invoke NewDeregisterPullRequestOptions successfully`, func() {
+				// Construct an instance of the DeregisterPullRequestOptions model
+				id := "testString"
+				deregisterPullRequestOptionsModel := projectsService.NewDeregisterPullRequestOptions(id)
+				deregisterPullRequestOptionsModel.SetID("testString")
+				deregisterPullRequestOptionsModel.SetBranch("test")
+				deregisterPullRequestOptionsModel.SetURL("https://dev.us-south.git.test.cloud.ibm.com/org/projects-poc/-/merge_requests/1")
+				deregisterPullRequestOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(deregisterPullRequestOptionsModel).ToNot(BeNil())
+				Expect(deregisterPullRequestOptionsModel.ID).To(Equal(core.StringPtr("testString")))
+				Expect(deregisterPullRequestOptionsModel.Branch).To(Equal(core.StringPtr("test")))
+				Expect(deregisterPullRequestOptionsModel.URL).To(Equal(core.StringPtr("https://dev.us-south.git.test.cloud.ibm.com/org/projects-poc/-/merge_requests/1")))
+				Expect(deregisterPullRequestOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewGetHealthOptions successfully`, func() {
 				// Construct an instance of the GetHealthOptions model
@@ -4566,23 +4886,25 @@ var _ = Describe(`ProjectsV1`, func() {
 				Expect(_model).ToNot(BeNil())
 				Expect(err).To(BeNil())
 			})
-			It(`Invoke NewProject successfully`, func() {
-				name := "testString"
-				_model, err := projectsService.NewProject(name)
-				Expect(_model).ToNot(BeNil())
-				Expect(err).To(BeNil())
-			})
-			It(`Invoke NewProjectDashboard successfully`, func() {
-				widgets := []projectsv1.Widget{}
-				_model, err := projectsService.NewProjectDashboard(widgets)
-				Expect(_model).ToNot(BeNil())
-				Expect(err).To(BeNil())
-			})
 			It(`Invoke NewProjectPrototypeDashboard successfully`, func() {
 				widgets := []projectsv1.Widget{}
 				_model, err := projectsService.NewProjectPrototypeDashboard(widgets)
 				Expect(_model).ToNot(BeNil())
 				Expect(err).To(BeNil())
+			})
+			It(`Invoke NewRegisterPullRequestOptions successfully`, func() {
+				// Construct an instance of the RegisterPullRequestOptions model
+				id := "testString"
+				registerPullRequestOptionsModel := projectsService.NewRegisterPullRequestOptions(id)
+				registerPullRequestOptionsModel.SetID("testString")
+				registerPullRequestOptionsModel.SetBranch("test")
+				registerPullRequestOptionsModel.SetURL("https://dev.us-south.git.test.cloud.ibm.com/org/projects-poc/-/merge_requests/1")
+				registerPullRequestOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(registerPullRequestOptionsModel).ToNot(BeNil())
+				Expect(registerPullRequestOptionsModel.ID).To(Equal(core.StringPtr("testString")))
+				Expect(registerPullRequestOptionsModel.Branch).To(Equal(core.StringPtr("test")))
+				Expect(registerPullRequestOptionsModel.URL).To(Equal(core.StringPtr("https://dev.us-south.git.test.cloud.ibm.com/org/projects-poc/-/merge_requests/1")))
+				Expect(registerPullRequestOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewSchematicsBlueprint successfully`, func() {
 				repoURL := "testString"
@@ -4659,11 +4981,12 @@ var _ = Describe(`ProjectsV1`, func() {
 				// Construct an instance of the UpdateProjectConfigStatusOptions model
 				id := "b0a2c11d-926c-4653-a15b-ed17d7b34b22"
 				configName := "example"
-				updateProjectConfigStatusOptionsStatus := "in_error"
-				updateProjectConfigStatusOptionsModel := projectsService.NewUpdateProjectConfigStatusOptions(id, configName, updateProjectConfigStatusOptionsStatus)
+				updateProjectConfigStatusOptionsStatus := "UPDATING_FAILED"
+				updateProjectConfigStatusOptionsMessages := []string{"Config installation failed"}
+				updateProjectConfigStatusOptionsModel := projectsService.NewUpdateProjectConfigStatusOptions(id, configName, updateProjectConfigStatusOptionsStatus, updateProjectConfigStatusOptionsMessages)
 				updateProjectConfigStatusOptionsModel.SetID("b0a2c11d-926c-4653-a15b-ed17d7b34b22")
 				updateProjectConfigStatusOptionsModel.SetConfigName("example")
-				updateProjectConfigStatusOptionsModel.SetStatus("in_error")
+				updateProjectConfigStatusOptionsModel.SetStatus("UPDATING_FAILED")
 				updateProjectConfigStatusOptionsModel.SetMessages([]string{"Config installation failed"})
 				updateProjectConfigStatusOptionsModel.SetPipelineRun("https://url.to.somewhere.failed.install")
 				updateProjectConfigStatusOptionsModel.SetSchematicsResourceID("eu-de.workspace.schematicstestkshama.240ff36b")
@@ -4672,7 +4995,7 @@ var _ = Describe(`ProjectsV1`, func() {
 				Expect(updateProjectConfigStatusOptionsModel).ToNot(BeNil())
 				Expect(updateProjectConfigStatusOptionsModel.ID).To(Equal(core.StringPtr("b0a2c11d-926c-4653-a15b-ed17d7b34b22")))
 				Expect(updateProjectConfigStatusOptionsModel.ConfigName).To(Equal(core.StringPtr("example")))
-				Expect(updateProjectConfigStatusOptionsModel.Status).To(Equal(core.StringPtr("in_error")))
+				Expect(updateProjectConfigStatusOptionsModel.Status).To(Equal(core.StringPtr("UPDATING_FAILED")))
 				Expect(updateProjectConfigStatusOptionsModel.Messages).To(Equal([]string{"Config installation failed"}))
 				Expect(updateProjectConfigStatusOptionsModel.PipelineRun).To(Equal(core.StringPtr("https://url.to.somewhere.failed.install")))
 				Expect(updateProjectConfigStatusOptionsModel.SchematicsResourceID).To(Equal(core.StringPtr("eu-de.workspace.schematicstestkshama.240ff36b")))
@@ -4710,89 +5033,141 @@ var _ = Describe(`ProjectsV1`, func() {
 				widgetModel.Name = core.StringPtr("project-properties")
 				Expect(widgetModel.Name).To(Equal(core.StringPtr("project-properties")))
 
-				// Construct an instance of the ProjectDashboard model
-				projectDashboardModel := new(projectsv1.ProjectDashboard)
-				Expect(projectDashboardModel).ToNot(BeNil())
-				projectDashboardModel.Widgets = []projectsv1.Widget{*widgetModel}
-				Expect(projectDashboardModel.Widgets).To(Equal([]projectsv1.Widget{*widgetModel}))
+				// Construct an instance of the ProjectPrototypeDashboard model
+				projectPrototypeDashboardModel := new(projectsv1.ProjectPrototypeDashboard)
+				Expect(projectPrototypeDashboardModel).ToNot(BeNil())
+				projectPrototypeDashboardModel.Widgets = []projectsv1.Widget{*widgetModel}
+				Expect(projectPrototypeDashboardModel.Widgets).To(Equal([]projectsv1.Widget{*widgetModel}))
 
 				// Construct an instance of the UpdateProjectOptions model
-				xIamApi := "testString"
 				id := "testString"
-				updateProjectOptionsNewName := "acme-microservice"
-				updateProjectOptionsModel := projectsService.NewUpdateProjectOptions(xIamApi, id, updateProjectOptionsNewName)
-				updateProjectOptionsModel.SetXIamApi("testString")
+				updateProjectOptionsName := "acme-microservice"
+				updateProjectOptionsModel := projectsService.NewUpdateProjectOptions(id, updateProjectOptionsName)
 				updateProjectOptionsModel.SetID("testString")
-				updateProjectOptionsModel.SetNewName("acme-microservice")
-				updateProjectOptionsModel.SetNewDescription("A microservice to deploy on top of ACME infrastructure")
-				updateProjectOptionsModel.SetNewID("testString")
-				updateProjectOptionsModel.SetNewCrn("testString")
-				updateProjectOptionsModel.SetNewCreatedBy("testString")
-				updateProjectOptionsModel.SetNewCreatedAt(CreateMockDateTime("2019-01-01T12:00:00.000Z"))
-				updateProjectOptionsModel.SetNewUpdatedAt(CreateMockDateTime("2019-01-01T12:00:00.000Z"))
-				updateProjectOptionsModel.SetNewRepoURL("testString")
-				updateProjectOptionsModel.SetNewHref("testString")
-				updateProjectOptionsModel.SetNewConfigs([]projectsv1.ProjectConfigIntf{projectConfigModel})
-				updateProjectOptionsModel.SetNewDashboard(projectDashboardModel)
-				updateProjectOptionsModel.SetPrefer("return=minimal")
+				updateProjectOptionsModel.SetName("acme-microservice")
+				updateProjectOptionsModel.SetDescription("A microservice to deploy on top of ACME infrastructure")
+				updateProjectOptionsModel.SetConfigs([]projectsv1.ProjectConfigIntf{projectConfigModel})
+				updateProjectOptionsModel.SetDashboard(projectPrototypeDashboardModel)
 				updateProjectOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(updateProjectOptionsModel).ToNot(BeNil())
-				Expect(updateProjectOptionsModel.XIamApi).To(Equal(core.StringPtr("testString")))
 				Expect(updateProjectOptionsModel.ID).To(Equal(core.StringPtr("testString")))
-				Expect(updateProjectOptionsModel.NewName).To(Equal(core.StringPtr("acme-microservice")))
-				Expect(updateProjectOptionsModel.NewDescription).To(Equal(core.StringPtr("A microservice to deploy on top of ACME infrastructure")))
-				Expect(updateProjectOptionsModel.NewID).To(Equal(core.StringPtr("testString")))
-				Expect(updateProjectOptionsModel.NewCrn).To(Equal(core.StringPtr("testString")))
-				Expect(updateProjectOptionsModel.NewCreatedBy).To(Equal(core.StringPtr("testString")))
-				Expect(updateProjectOptionsModel.NewCreatedAt).To(Equal(CreateMockDateTime("2019-01-01T12:00:00.000Z")))
-				Expect(updateProjectOptionsModel.NewUpdatedAt).To(Equal(CreateMockDateTime("2019-01-01T12:00:00.000Z")))
-				Expect(updateProjectOptionsModel.NewRepoURL).To(Equal(core.StringPtr("testString")))
-				Expect(updateProjectOptionsModel.NewHref).To(Equal(core.StringPtr("testString")))
-				Expect(updateProjectOptionsModel.NewConfigs).To(Equal([]projectsv1.ProjectConfigIntf{projectConfigModel}))
-				Expect(updateProjectOptionsModel.NewDashboard).To(Equal(projectDashboardModel))
-				Expect(updateProjectOptionsModel.Prefer).To(Equal(core.StringPtr("return=minimal")))
+				Expect(updateProjectOptionsModel.Name).To(Equal(core.StringPtr("acme-microservice")))
+				Expect(updateProjectOptionsModel.Description).To(Equal(core.StringPtr("A microservice to deploy on top of ACME infrastructure")))
+				Expect(updateProjectOptionsModel.Configs).To(Equal([]projectsv1.ProjectConfigIntf{projectConfigModel}))
+				Expect(updateProjectOptionsModel.Dashboard).To(Equal(projectPrototypeDashboardModel))
 				Expect(updateProjectOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewUpdateProjectStatusOptions successfully`, func() {
-				// Construct an instance of the ServiceStatusCRN model
-				serviceStatusModel := new(projectsv1.ServiceStatusCRN)
-				Expect(serviceStatusModel).ToNot(BeNil())
-				serviceStatusModel.ID = core.StringPtr("crn:v1:staging:public:toolchain::a/57ebb30d47d544a9b1a7df1fd8d69557:043d386e-f9db-4846-a6a7-ac939469ed11::")
-				serviceStatusModel.Status = core.StringPtr("install_in_progress")
-				serviceStatusModel.Messages = []string{"Installing Project Toolchain"}
-				serviceStatusModel.SchematicsResourceID = core.StringPtr("eu-de.workspace.schematicstestkshama.240ff36b")
-				Expect(serviceStatusModel.ID).To(Equal(core.StringPtr("crn:v1:staging:public:toolchain::a/57ebb30d47d544a9b1a7df1fd8d69557:043d386e-f9db-4846-a6a7-ac939469ed11::")))
-				Expect(serviceStatusModel.Status).To(Equal(core.StringPtr("install_in_progress")))
-				Expect(serviceStatusModel.Messages).To(Equal([]string{"Installing Project Toolchain"}))
-				Expect(serviceStatusModel.SchematicsResourceID).To(Equal(core.StringPtr("eu-de.workspace.schematicstestkshama.240ff36b")))
+				// Construct an instance of the History model
+				historyModel := new(projectsv1.History)
+				Expect(historyModel).ToNot(BeNil())
+				historyModel.Timestamp = CreateMockDateTime("2022-05-13T12:25:00Z")
+				historyModel.Code = core.StringPtr("ISB005I")
+				historyModel.Type = core.StringPtr("schematics")
+				Expect(historyModel.Timestamp).To(Equal(CreateMockDateTime("2022-05-13T12:25:00Z")))
+				Expect(historyModel.Code).To(Equal(core.StringPtr("ISB005I")))
+				Expect(historyModel.Type).To(Equal(core.StringPtr("schematics")))
 
-				// Construct an instance of the ServicesStatus model
-				servicesStatusModel := new(projectsv1.ServicesStatus)
-				Expect(servicesStatusModel).ToNot(BeNil())
-				servicesStatusModel.Toolchain = serviceStatusModel
-				servicesStatusModel.Schematics = serviceStatusModel
-				servicesStatusModel.GitRepo = serviceStatusModel
-				Expect(servicesStatusModel.Toolchain).To(Equal(serviceStatusModel))
-				Expect(servicesStatusModel.Schematics).To(Equal(serviceStatusModel))
-				Expect(servicesStatusModel.GitRepo).To(Equal(serviceStatusModel))
+				// Construct an instance of the ServiceInfoGit model
+				serviceInfoGitModel := new(projectsv1.ServiceInfoGit)
+				Expect(serviceInfoGitModel).ToNot(BeNil())
+				serviceInfoGitModel.URL = core.StringPtr("testString")
+				serviceInfoGitModel.Branch = core.StringPtr("testString")
+				serviceInfoGitModel.ProjectID = core.StringPtr("testString")
+				Expect(serviceInfoGitModel.URL).To(Equal(core.StringPtr("testString")))
+				Expect(serviceInfoGitModel.Branch).To(Equal(core.StringPtr("testString")))
+				Expect(serviceInfoGitModel.ProjectID).To(Equal(core.StringPtr("testString")))
+
+				// Construct an instance of the ServiceInfoToolchain model
+				serviceInfoToolchainModel := new(projectsv1.ServiceInfoToolchain)
+				Expect(serviceInfoToolchainModel).ToNot(BeNil())
+				serviceInfoToolchainModel.Crn = core.StringPtr("testString")
+				serviceInfoToolchainModel.Guid = core.StringPtr("testString")
+				Expect(serviceInfoToolchainModel.Crn).To(Equal(core.StringPtr("testString")))
+				Expect(serviceInfoToolchainModel.Guid).To(Equal(core.StringPtr("testString")))
+
+				// Construct an instance of the ServiceInfoSchematics model
+				serviceInfoSchematicsModel := new(projectsv1.ServiceInfoSchematics)
+				Expect(serviceInfoSchematicsModel).ToNot(BeNil())
+				serviceInfoSchematicsModel.CartOrderID = core.StringPtr("us-south.cartOrder.5fbc28c0-87fd-42f5-b2fa-d98d28d6ea96-local.d807263d")
+				serviceInfoSchematicsModel.WorkspaceID = core.StringPtr("crn:v1:staging:public:schematics:us-south:a/d44e54841dfe41ee869659f80bddd075:459a39a6-3bc3-4524-aaa8-fb693d96b79e:workspace:us-south.workspace.projects-service.a482a249")
+				serviceInfoSchematicsModel.CartItemName = core.StringPtr("name")
+				Expect(serviceInfoSchematicsModel.CartOrderID).To(Equal(core.StringPtr("us-south.cartOrder.5fbc28c0-87fd-42f5-b2fa-d98d28d6ea96-local.d807263d")))
+				Expect(serviceInfoSchematicsModel.WorkspaceID).To(Equal(core.StringPtr("crn:v1:staging:public:schematics:us-south:a/d44e54841dfe41ee869659f80bddd075:459a39a6-3bc3-4524-aaa8-fb693d96b79e:workspace:us-south.workspace.projects-service.a482a249")))
+				Expect(serviceInfoSchematicsModel.CartItemName).To(Equal(core.StringPtr("name")))
 
 				// Construct an instance of the UpdateProjectStatusOptions model
 				id := "234234324-3444-4556-224232432"
-				updateProjectStatusOptionsStatus := "create_in_progress"
-				updateProjectStatusOptionsMessages := []string{"Project is being created"}
-				var updateProjectStatusOptionsServicesStatus *projectsv1.ServicesStatus = nil
-				updateProjectStatusOptionsModel := projectsService.NewUpdateProjectStatusOptions(id, updateProjectStatusOptionsStatus, updateProjectStatusOptionsMessages, updateProjectStatusOptionsServicesStatus)
+				updateProjectStatusOptionsState := "UPDATING"
+				updateProjectStatusOptionsHistory := []projectsv1.History{}
+				updateProjectStatusOptionsModel := projectsService.NewUpdateProjectStatusOptions(id, updateProjectStatusOptionsState, updateProjectStatusOptionsHistory)
 				updateProjectStatusOptionsModel.SetID("234234324-3444-4556-224232432")
-				updateProjectStatusOptionsModel.SetStatus("create_in_progress")
-				updateProjectStatusOptionsModel.SetMessages([]string{"Project is being created"})
-				updateProjectStatusOptionsModel.SetServicesStatus(servicesStatusModel)
+				updateProjectStatusOptionsModel.SetState("UPDATING")
+				updateProjectStatusOptionsModel.SetHistory([]projectsv1.History{*historyModel})
+				updateProjectStatusOptionsModel.SetGitRepo(serviceInfoGitModel)
+				updateProjectStatusOptionsModel.SetToolchain(serviceInfoToolchainModel)
+				updateProjectStatusOptionsModel.SetSchematics(serviceInfoSchematicsModel)
 				updateProjectStatusOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(updateProjectStatusOptionsModel).ToNot(BeNil())
 				Expect(updateProjectStatusOptionsModel.ID).To(Equal(core.StringPtr("234234324-3444-4556-224232432")))
-				Expect(updateProjectStatusOptionsModel.Status).To(Equal(core.StringPtr("create_in_progress")))
-				Expect(updateProjectStatusOptionsModel.Messages).To(Equal([]string{"Project is being created"}))
-				Expect(updateProjectStatusOptionsModel.ServicesStatus).To(Equal(servicesStatusModel))
+				Expect(updateProjectStatusOptionsModel.State).To(Equal(core.StringPtr("UPDATING")))
+				Expect(updateProjectStatusOptionsModel.History).To(Equal([]projectsv1.History{*historyModel}))
+				Expect(updateProjectStatusOptionsModel.GitRepo).To(Equal(serviceInfoGitModel))
+				Expect(updateProjectStatusOptionsModel.Toolchain).To(Equal(serviceInfoToolchainModel))
+				Expect(updateProjectStatusOptionsModel.Schematics).To(Equal(serviceInfoSchematicsModel))
 				Expect(updateProjectStatusOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
+			It(`Invoke NewValidateProjectOptions successfully`, func() {
+				// Construct an instance of the OutputValue model
+				outputValueModel := new(projectsv1.OutputValue)
+				Expect(outputValueModel).ToNot(BeNil())
+				outputValueModel.Name = core.StringPtr("tags")
+				outputValueModel.Description = core.StringPtr("testString")
+				outputValueModel.Value = []string{"project:ghost", "type:infrastructure"}
+				Expect(outputValueModel.Name).To(Equal(core.StringPtr("tags")))
+				Expect(outputValueModel.Description).To(Equal(core.StringPtr("testString")))
+				Expect(outputValueModel.Value).To(Equal([]string{"project:ghost", "type:infrastructure"}))
+
+				// Construct an instance of the ProjectConfigManualProperty model
+				projectConfigModel := new(projectsv1.ProjectConfigManualProperty)
+				Expect(projectConfigModel).ToNot(BeNil())
+				projectConfigModel.Name = core.StringPtr("common-variables")
+				projectConfigModel.Labels = []string{"testString"}
+				projectConfigModel.Output = []projectsv1.OutputValue{*outputValueModel}
+				projectConfigModel.Type = core.StringPtr("manual")
+				projectConfigModel.ExternalResourcesAccount = core.StringPtr("e5ed08b9203bad3e4b6f57f0d1675a88")
+				Expect(projectConfigModel.Name).To(Equal(core.StringPtr("common-variables")))
+				Expect(projectConfigModel.Labels).To(Equal([]string{"testString"}))
+				Expect(projectConfigModel.Output).To(Equal([]projectsv1.OutputValue{*outputValueModel}))
+				Expect(projectConfigModel.Type).To(Equal(core.StringPtr("manual")))
+				Expect(projectConfigModel.ExternalResourcesAccount).To(Equal(core.StringPtr("e5ed08b9203bad3e4b6f57f0d1675a88")))
+
+				// Construct an instance of the Widget model
+				widgetModel := new(projectsv1.Widget)
+				Expect(widgetModel).ToNot(BeNil())
+				widgetModel.Name = core.StringPtr("project-properties")
+				Expect(widgetModel.Name).To(Equal(core.StringPtr("project-properties")))
+
+				// Construct an instance of the ProjectPrototypeDashboard model
+				projectPrototypeDashboardModel := new(projectsv1.ProjectPrototypeDashboard)
+				Expect(projectPrototypeDashboardModel).ToNot(BeNil())
+				projectPrototypeDashboardModel.Widgets = []projectsv1.Widget{*widgetModel}
+				Expect(projectPrototypeDashboardModel.Widgets).To(Equal([]projectsv1.Widget{*widgetModel}))
+
+				// Construct an instance of the ValidateProjectOptions model
+				validateProjectOptionsName := "acme-microservice"
+				validateProjectOptionsModel := projectsService.NewValidateProjectOptions(validateProjectOptionsName)
+				validateProjectOptionsModel.SetName("acme-microservice")
+				validateProjectOptionsModel.SetDescription("A microservice to deploy on top of ACME infrastructure")
+				validateProjectOptionsModel.SetConfigs([]projectsv1.ProjectConfigIntf{projectConfigModel})
+				validateProjectOptionsModel.SetDashboard(projectPrototypeDashboardModel)
+				validateProjectOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(validateProjectOptionsModel).ToNot(BeNil())
+				Expect(validateProjectOptionsModel.Name).To(Equal(core.StringPtr("acme-microservice")))
+				Expect(validateProjectOptionsModel.Description).To(Equal(core.StringPtr("A microservice to deploy on top of ACME infrastructure")))
+				Expect(validateProjectOptionsModel.Configs).To(Equal([]projectsv1.ProjectConfigIntf{projectConfigModel}))
+				Expect(validateProjectOptionsModel.Dashboard).To(Equal(projectPrototypeDashboardModel))
+				Expect(validateProjectOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewWidget successfully`, func() {
 				name := "testString"
@@ -4820,22 +5195,6 @@ var _ = Describe(`ProjectsV1`, func() {
 				typeVar := "terraform_template"
 				input := []projectsv1.InputVariable{}
 				_model, err := projectsService.NewProjectConfigTerraformTemplateProperty(name, typeVar, input)
-				Expect(_model).ToNot(BeNil())
-				Expect(err).To(BeNil())
-			})
-			It(`Invoke NewServiceStatusCRN successfully`, func() {
-				id := "testString"
-				status := "not_installed"
-				messages := []string{"testString"}
-				_model, err := projectsService.NewServiceStatusCRN(id, status, messages)
-				Expect(_model).ToNot(BeNil())
-				Expect(err).To(BeNil())
-			})
-			It(`Invoke NewServiceStatusIdentifier successfully`, func() {
-				id := "testString"
-				status := "not_installed"
-				messages := []string{"testString"}
-				_model, err := projectsService.NewServiceStatusIdentifier(id, status, messages)
 				Expect(_model).ToNot(BeNil())
 				Expect(err).To(BeNil())
 			})

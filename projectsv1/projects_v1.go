@@ -164,12 +164,12 @@ func (projects *ProjectsV1) DisableRetries() {
 // CreateProject : Create a Project
 // Create a new Project, which asynchronously setup the tools to manage it and creates the initial Pull Request on the
 // Project git repo. After approving the PR, the user can deploy the resources that the Project configures.
-func (projects *ProjectsV1) CreateProject(createProjectOptions *CreateProjectOptions) (result *Project, response *core.DetailedResponse, err error) {
+func (projects *ProjectsV1) CreateProject(createProjectOptions *CreateProjectOptions) (result *ProjectResponse, response *core.DetailedResponse, err error) {
 	return projects.CreateProjectWithContext(context.Background(), createProjectOptions)
 }
 
 // CreateProjectWithContext is an alternate form of the CreateProject method which supports a Context parameter
-func (projects *ProjectsV1) CreateProjectWithContext(ctx context.Context, createProjectOptions *CreateProjectOptions) (result *Project, response *core.DetailedResponse, err error) {
+func (projects *ProjectsV1) CreateProjectWithContext(ctx context.Context, createProjectOptions *CreateProjectOptions) (result *ProjectResponse, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(createProjectOptions, "createProjectOptions cannot be nil")
 	if err != nil {
 		return
@@ -215,9 +215,6 @@ func (projects *ProjectsV1) CreateProjectWithContext(ctx context.Context, create
 	if createProjectOptions.Description != nil {
 		body["description"] = createProjectOptions.Description
 	}
-	if createProjectOptions.RepoURL != nil {
-		body["repo_url"] = createProjectOptions.RepoURL
-	}
 	if createProjectOptions.Configs != nil {
 		body["configs"] = createProjectOptions.Configs
 	}
@@ -240,7 +237,7 @@ func (projects *ProjectsV1) CreateProjectWithContext(ctx context.Context, create
 		return
 	}
 	if rawResponse != nil {
-		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalProject)
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalProjectResponse)
 		if err != nil {
 			return
 		}
@@ -311,12 +308,12 @@ func (projects *ProjectsV1) ListProjectsWithContext(ctx context.Context, listPro
 
 // GetProject : Get project by id
 // Get a project definition document by id.
-func (projects *ProjectsV1) GetProject(getProjectOptions *GetProjectOptions) (result *Project, response *core.DetailedResponse, err error) {
+func (projects *ProjectsV1) GetProject(getProjectOptions *GetProjectOptions) (result *GetProjectResponse, response *core.DetailedResponse, err error) {
 	return projects.GetProjectWithContext(context.Background(), getProjectOptions)
 }
 
 // GetProjectWithContext is an alternate form of the GetProject method which supports a Context parameter
-func (projects *ProjectsV1) GetProjectWithContext(ctx context.Context, getProjectOptions *GetProjectOptions) (result *Project, response *core.DetailedResponse, err error) {
+func (projects *ProjectsV1) GetProjectWithContext(ctx context.Context, getProjectOptions *GetProjectOptions) (result *GetProjectResponse, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(getProjectOptions, "getProjectOptions cannot be nil")
 	if err != nil {
 		return
@@ -359,7 +356,7 @@ func (projects *ProjectsV1) GetProjectWithContext(ctx context.Context, getProjec
 		return
 	}
 	if rawResponse != nil {
-		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalProject)
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalGetProjectResponse)
 		if err != nil {
 			return
 		}
@@ -371,12 +368,12 @@ func (projects *ProjectsV1) GetProjectWithContext(ctx context.Context, getProjec
 
 // UpdateProject : Update a project by id
 // Update a project.
-func (projects *ProjectsV1) UpdateProject(updateProjectOptions *UpdateProjectOptions) (result *Project, response *core.DetailedResponse, err error) {
+func (projects *ProjectsV1) UpdateProject(updateProjectOptions *UpdateProjectOptions) (result *PullRequest, response *core.DetailedResponse, err error) {
 	return projects.UpdateProjectWithContext(context.Background(), updateProjectOptions)
 }
 
 // UpdateProjectWithContext is an alternate form of the UpdateProject method which supports a Context parameter
-func (projects *ProjectsV1) UpdateProjectWithContext(ctx context.Context, updateProjectOptions *UpdateProjectOptions) (result *Project, response *core.DetailedResponse, err error) {
+func (projects *ProjectsV1) UpdateProjectWithContext(ctx context.Context, updateProjectOptions *UpdateProjectOptions) (result *PullRequest, response *core.DetailedResponse, err error) {
 	err = core.ValidateNotNil(updateProjectOptions, "updateProjectOptions cannot be nil")
 	if err != nil {
 		return
@@ -408,46 +405,19 @@ func (projects *ProjectsV1) UpdateProjectWithContext(ctx context.Context, update
 	}
 	builder.AddHeader("Accept", "application/json")
 	builder.AddHeader("Content-Type", "application/json")
-	if updateProjectOptions.XIamApi != nil {
-		builder.AddHeader("X-Iam-Api", fmt.Sprint(*updateProjectOptions.XIamApi))
-	}
-	if updateProjectOptions.Prefer != nil {
-		builder.AddHeader("Prefer", fmt.Sprint(*updateProjectOptions.Prefer))
-	}
 
 	body := make(map[string]interface{})
-	if updateProjectOptions.NewName != nil {
-		body["name"] = updateProjectOptions.NewName
+	if updateProjectOptions.Name != nil {
+		body["name"] = updateProjectOptions.Name
 	}
-	if updateProjectOptions.NewDescription != nil {
-		body["description"] = updateProjectOptions.NewDescription
+	if updateProjectOptions.Description != nil {
+		body["description"] = updateProjectOptions.Description
 	}
-	if updateProjectOptions.NewID != nil {
-		body["id"] = updateProjectOptions.NewID
+	if updateProjectOptions.Configs != nil {
+		body["configs"] = updateProjectOptions.Configs
 	}
-	if updateProjectOptions.NewCrn != nil {
-		body["crn"] = updateProjectOptions.NewCrn
-	}
-	if updateProjectOptions.NewCreatedBy != nil {
-		body["created_by"] = updateProjectOptions.NewCreatedBy
-	}
-	if updateProjectOptions.NewCreatedAt != nil {
-		body["created_at"] = updateProjectOptions.NewCreatedAt
-	}
-	if updateProjectOptions.NewUpdatedAt != nil {
-		body["updated_at"] = updateProjectOptions.NewUpdatedAt
-	}
-	if updateProjectOptions.NewRepoURL != nil {
-		body["repo_url"] = updateProjectOptions.NewRepoURL
-	}
-	if updateProjectOptions.NewHref != nil {
-		body["href"] = updateProjectOptions.NewHref
-	}
-	if updateProjectOptions.NewConfigs != nil {
-		body["configs"] = updateProjectOptions.NewConfigs
-	}
-	if updateProjectOptions.NewDashboard != nil {
-		body["dashboard"] = updateProjectOptions.NewDashboard
+	if updateProjectOptions.Dashboard != nil {
+		body["dashboard"] = updateProjectOptions.Dashboard
 	}
 	_, err = builder.SetBodyContentJSON(body)
 	if err != nil {
@@ -465,7 +435,7 @@ func (projects *ProjectsV1) UpdateProjectWithContext(ctx context.Context, update
 		return
 	}
 	if rawResponse != nil {
-		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalProject)
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalPullRequest)
 		if err != nil {
 			return
 		}
@@ -701,6 +671,69 @@ func (projects *ProjectsV1) CheckProjectWithContext(ctx context.Context, checkPr
 	return
 }
 
+// ValidateProject : Validate the project for correctness
+// Validates the project for correctness.
+func (projects *ProjectsV1) ValidateProject(validateProjectOptions *ValidateProjectOptions) (response *core.DetailedResponse, err error) {
+	return projects.ValidateProjectWithContext(context.Background(), validateProjectOptions)
+}
+
+// ValidateProjectWithContext is an alternate form of the ValidateProject method which supports a Context parameter
+func (projects *ProjectsV1) ValidateProjectWithContext(ctx context.Context, validateProjectOptions *ValidateProjectOptions) (response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(validateProjectOptions, "validateProjectOptions cannot be nil")
+	if err != nil {
+		return
+	}
+	err = core.ValidateStruct(validateProjectOptions, "validateProjectOptions")
+	if err != nil {
+		return
+	}
+
+	builder := core.NewRequestBuilder(core.POST)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = projects.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(projects.Service.Options.URL, `/v1/projects/validate`, nil)
+	if err != nil {
+		return
+	}
+
+	for headerName, headerValue := range validateProjectOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("projects", "V1", "ValidateProject")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Content-Type", "application/json")
+
+	body := make(map[string]interface{})
+	if validateProjectOptions.Name != nil {
+		body["name"] = validateProjectOptions.Name
+	}
+	if validateProjectOptions.Description != nil {
+		body["description"] = validateProjectOptions.Description
+	}
+	if validateProjectOptions.Configs != nil {
+		body["configs"] = validateProjectOptions.Configs
+	}
+	if validateProjectOptions.Dashboard != nil {
+		body["dashboard"] = validateProjectOptions.Dashboard
+	}
+	_, err = builder.SetBodyContentJSON(body)
+	if err != nil {
+		return
+	}
+
+	request, err := builder.Build()
+	if err != nil {
+		return
+	}
+
+	response, err = projects.Service.Request(request, nil)
+
+	return
+}
+
 // GetProjectStatus : Get project status information
 // Returns the detailed project status, including all the config statuses and all the computed statuses sent by external
 // tools.
@@ -803,14 +836,20 @@ func (projects *ProjectsV1) UpdateProjectStatusWithContext(ctx context.Context, 
 	builder.AddHeader("Content-Type", "application/json")
 
 	body := make(map[string]interface{})
-	if updateProjectStatusOptions.Status != nil {
-		body["status"] = updateProjectStatusOptions.Status
+	if updateProjectStatusOptions.State != nil {
+		body["state"] = updateProjectStatusOptions.State
 	}
-	if updateProjectStatusOptions.Messages != nil {
-		body["messages"] = updateProjectStatusOptions.Messages
+	if updateProjectStatusOptions.History != nil {
+		body["history"] = updateProjectStatusOptions.History
 	}
-	if updateProjectStatusOptions.ServicesStatus != nil {
-		body["services_status"] = updateProjectStatusOptions.ServicesStatus
+	if updateProjectStatusOptions.GitRepo != nil {
+		body["git_repo"] = updateProjectStatusOptions.GitRepo
+	}
+	if updateProjectStatusOptions.Toolchain != nil {
+		body["toolchain"] = updateProjectStatusOptions.Toolchain
+	}
+	if updateProjectStatusOptions.Schematics != nil {
+		body["schematics"] = updateProjectStatusOptions.Schematics
 	}
 	_, err = builder.SetBodyContentJSON(body)
 	if err != nil {
@@ -1414,6 +1453,150 @@ func (projects *ProjectsV1) NotifyWithContext(ctx context.Context, notifyOptions
 	return
 }
 
+// RegisterPullRequest : Register a pull request
+// Registers a pull request on the associated git repo of the project.
+func (projects *ProjectsV1) RegisterPullRequest(registerPullRequestOptions *RegisterPullRequestOptions) (response *core.DetailedResponse, err error) {
+	return projects.RegisterPullRequestWithContext(context.Background(), registerPullRequestOptions)
+}
+
+// RegisterPullRequestWithContext is an alternate form of the RegisterPullRequest method which supports a Context parameter
+func (projects *ProjectsV1) RegisterPullRequestWithContext(ctx context.Context, registerPullRequestOptions *RegisterPullRequestOptions) (response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(registerPullRequestOptions, "registerPullRequestOptions cannot be nil")
+	if err != nil {
+		return
+	}
+	err = core.ValidateStruct(registerPullRequestOptions, "registerPullRequestOptions")
+	if err != nil {
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"id": *registerPullRequestOptions.ID,
+	}
+
+	builder := core.NewRequestBuilder(core.POST)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = projects.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(projects.Service.Options.URL, `/v1/projects/{id}/pullrequest`, pathParamsMap)
+	if err != nil {
+		return
+	}
+
+	for headerName, headerValue := range registerPullRequestOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("projects", "V1", "RegisterPullRequest")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Content-Type", "application/json")
+
+	body := make(map[string]interface{})
+	if registerPullRequestOptions.Branch != nil {
+		body["branch"] = registerPullRequestOptions.Branch
+	}
+	if registerPullRequestOptions.URL != nil {
+		body["url"] = registerPullRequestOptions.URL
+	}
+	_, err = builder.SetBodyContentJSON(body)
+	if err != nil {
+		return
+	}
+
+	request, err := builder.Build()
+	if err != nil {
+		return
+	}
+
+	response, err = projects.Service.Request(request, nil)
+
+	return
+}
+
+// DeregisterPullRequest : Deregister a pull request
+// Deregisters a pull request on the associated git repo of the project.
+func (projects *ProjectsV1) DeregisterPullRequest(deregisterPullRequestOptions *DeregisterPullRequestOptions) (response *core.DetailedResponse, err error) {
+	return projects.DeregisterPullRequestWithContext(context.Background(), deregisterPullRequestOptions)
+}
+
+// DeregisterPullRequestWithContext is an alternate form of the DeregisterPullRequest method which supports a Context parameter
+func (projects *ProjectsV1) DeregisterPullRequestWithContext(ctx context.Context, deregisterPullRequestOptions *DeregisterPullRequestOptions) (response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(deregisterPullRequestOptions, "deregisterPullRequestOptions cannot be nil")
+	if err != nil {
+		return
+	}
+	err = core.ValidateStruct(deregisterPullRequestOptions, "deregisterPullRequestOptions")
+	if err != nil {
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"id": *deregisterPullRequestOptions.ID,
+	}
+
+	builder := core.NewRequestBuilder(core.DELETE)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = projects.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(projects.Service.Options.URL, `/v1/projects/{id}/pullrequest`, pathParamsMap)
+	if err != nil {
+		return
+	}
+
+	for headerName, headerValue := range deregisterPullRequestOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("projects", "V1", "DeregisterPullRequest")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Content-Type", "application/json")
+
+	body := make(map[string]interface{})
+	if deregisterPullRequestOptions.Branch != nil {
+		body["branch"] = deregisterPullRequestOptions.Branch
+	}
+	if deregisterPullRequestOptions.URL != nil {
+		body["url"] = deregisterPullRequestOptions.URL
+	}
+	_, err = builder.SetBodyContentJSON(body)
+	if err != nil {
+		return
+	}
+
+	request, err := builder.Build()
+	if err != nil {
+		return
+	}
+
+	response, err = projects.Service.Request(request, nil)
+
+	return
+}
+
+// ActivePR : Info about an active pull request (source branch and url).
+type ActivePR struct {
+	Branch *string `json:"branch,omitempty"`
+
+	URL *string `json:"url,omitempty"`
+}
+
+// UnmarshalActivePR unmarshals an instance of ActivePR from the specified map of raw messages.
+func UnmarshalActivePR(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(ActivePR)
+	err = core.UnmarshalPrimitive(m, "branch", &obj.Branch)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "url", &obj.URL)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
 // CheckProjectOptions : The CheckProject options.
 type CheckProjectOptions struct {
 	// The id of the project, which uniquely identifies it.
@@ -1459,8 +1642,6 @@ type CreateProjectOptions struct {
 	// A project's descriptive text.
 	Description *string `json:"description,omitempty"`
 
-	RepoURL *string `json:"repo_url,omitempty"`
-
 	Configs []ProjectConfigIntf `json:"configs,omitempty"`
 
 	Dashboard *ProjectPrototypeDashboard `json:"dashboard,omitempty"`
@@ -1491,12 +1672,6 @@ func (_options *CreateProjectOptions) SetName(name string) *CreateProjectOptions
 // SetDescription : Allow user to set Description
 func (_options *CreateProjectOptions) SetDescription(description string) *CreateProjectOptions {
 	_options.Description = core.StringPtr(description)
-	return _options
-}
-
-// SetRepoURL : Allow user to set RepoURL
-func (_options *CreateProjectOptions) SetRepoURL(repoURL string) *CreateProjectOptions {
-	_options.RepoURL = core.StringPtr(repoURL)
 	return _options
 }
 
@@ -1560,6 +1735,51 @@ func (_options *DeleteProjectOptions) SetID(id string) *DeleteProjectOptions {
 
 // SetHeaders : Allow user to set Headers
 func (options *DeleteProjectOptions) SetHeaders(param map[string]string) *DeleteProjectOptions {
+	options.Headers = param
+	return options
+}
+
+// DeregisterPullRequestOptions : The DeregisterPullRequest options.
+type DeregisterPullRequestOptions struct {
+	// The id of the project, which uniquely identifies it.
+	ID *string `json:"id" validate:"required,ne="`
+
+	// The name of the branch.
+	Branch *string `json:"branch,omitempty"`
+
+	URL *string `json:"url,omitempty"`
+
+	// Allows users to set headers on API requests
+	Headers map[string]string
+}
+
+// NewDeregisterPullRequestOptions : Instantiate DeregisterPullRequestOptions
+func (*ProjectsV1) NewDeregisterPullRequestOptions(id string) *DeregisterPullRequestOptions {
+	return &DeregisterPullRequestOptions{
+		ID: core.StringPtr(id),
+	}
+}
+
+// SetID : Allow user to set ID
+func (_options *DeregisterPullRequestOptions) SetID(id string) *DeregisterPullRequestOptions {
+	_options.ID = core.StringPtr(id)
+	return _options
+}
+
+// SetBranch : Allow user to set Branch
+func (_options *DeregisterPullRequestOptions) SetBranch(branch string) *DeregisterPullRequestOptions {
+	_options.Branch = core.StringPtr(branch)
+	return _options
+}
+
+// SetURL : Allow user to set URL
+func (_options *DeregisterPullRequestOptions) SetURL(url string) *DeregisterPullRequestOptions {
+	_options.URL = core.StringPtr(url)
+	return _options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *DeregisterPullRequestOptions) SetHeaders(param map[string]string) *DeregisterPullRequestOptions {
 	options.Headers = param
 	return options
 }
@@ -1742,6 +1962,120 @@ func (options *GetProjectOptions) SetHeaders(param map[string]string) *GetProjec
 	return options
 }
 
+// GetProjectResponse : GetProjectResponse struct
+type GetProjectResponse struct {
+	// The project name.
+	Name *string `json:"name" validate:"required"`
+
+	ID *string `json:"id,omitempty"`
+
+	// An IBM Cloud Resource Name, which uniquely identify a resource.
+	Crn *string `json:"crn,omitempty"`
+
+	Location *string `json:"location,omitempty"`
+
+	// The resource group id (or Default for the default resource group).
+	ResourceGroup *string `json:"resource_group,omitempty"`
+
+	State *string `json:"state,omitempty"`
+
+	// A project descriptive text.
+	Description *string `json:"description,omitempty"`
+
+	Configs []ProjectConfigIntf `json:"configs,omitempty"`
+
+	Dashboard *GetProjectResponseDashboard `json:"dashboard,omitempty"`
+
+	ActivePrs []ActivePR `json:"active_prs,omitempty"`
+
+	History []History `json:"history,omitempty"`
+}
+
+// Constants associated with the GetProjectResponse.Location property.
+const (
+	GetProjectResponse_Location_AuSyd = "au-syd"
+	GetProjectResponse_Location_EuDe = "eu-de"
+	GetProjectResponse_Location_EuGb = "eu-gb"
+	GetProjectResponse_Location_UsEast = "us-east"
+	GetProjectResponse_Location_UsSouth = "us-south"
+)
+
+// Constants associated with the GetProjectResponse.State property.
+const (
+	GetProjectResponse_State_Creating = "CREATING"
+	GetProjectResponse_State_CreatingFailed = "CREATING_FAILED"
+	GetProjectResponse_State_Ready = "READY"
+	GetProjectResponse_State_Updating = "UPDATING"
+	GetProjectResponse_State_UpdatingFailed = "UPDATING_FAILED"
+)
+
+// UnmarshalGetProjectResponse unmarshals an instance of GetProjectResponse from the specified map of raw messages.
+func UnmarshalGetProjectResponse(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(GetProjectResponse)
+	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "crn", &obj.Crn)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "location", &obj.Location)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "resource_group", &obj.ResourceGroup)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "state", &obj.State)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "description", &obj.Description)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "configs", &obj.Configs, UnmarshalProjectConfig)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "dashboard", &obj.Dashboard, UnmarshalGetProjectResponseDashboard)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "active_prs", &obj.ActivePrs, UnmarshalActivePR)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "history", &obj.History, UnmarshalHistory)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// GetProjectResponseDashboard : GetProjectResponseDashboard struct
+type GetProjectResponseDashboard struct {
+	Widgets []Widget `json:"widgets" validate:"required"`
+}
+
+// UnmarshalGetProjectResponseDashboard unmarshals an instance of GetProjectResponseDashboard from the specified map of raw messages.
+func UnmarshalGetProjectResponseDashboard(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(GetProjectResponseDashboard)
+	err = core.UnmarshalModel(m, "widgets", &obj.Widgets, UnmarshalWidget)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
 // GetProjectStatusOptions : The GetProjectStatus options.
 type GetProjectStatusOptions struct {
 	// The id of the project, which uniquely identifies it.
@@ -1794,6 +2128,44 @@ func UnmarshalHealth(m map[string]json.RawMessage, result interface{}) (err erro
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "dependencies", &obj.Dependencies)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// History : History struct
+type History struct {
+	// A date/time value in the format YYYY-MM-DDTHH:mm:ssZ or YYYY-MM-DDTHH:mm:ss.sssZ, matching the date-time format as
+	// specified by RFC 3339.
+	Timestamp *strfmt.DateTime `json:"timestamp,omitempty"`
+
+	Code *string `json:"code,omitempty"`
+
+	Type *string `json:"type,omitempty"`
+}
+
+// Constants associated with the History.Type property.
+const (
+	History_Type_GitRepo = "git_repo"
+	History_Type_Project = "project"
+	History_Type_Schematics = "schematics"
+	History_Type_Toolchain = "toolchain"
+)
+
+// UnmarshalHistory unmarshals an instance of History from the specified map of raw messages.
+func UnmarshalHistory(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(History)
+	err = core.UnmarshalPrimitive(m, "timestamp", &obj.Timestamp)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "code", &obj.Code)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "type", &obj.Type)
 	if err != nil {
 		return
 	}
@@ -1993,7 +2365,7 @@ type ListProjectsResponse struct {
 	Next *PaginationLink `json:"next,omitempty"`
 
 	// An array of projects.
-	Projects []Project `json:"projects,omitempty"`
+	Projects []ProjectListResponse `json:"projects,omitempty"`
 }
 
 // UnmarshalListProjectsResponse unmarshals an instance of ListProjectsResponse from the specified map of raw messages.
@@ -2023,7 +2395,7 @@ func UnmarshalListProjectsResponse(m map[string]json.RawMessage, result interfac
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(m, "projects", &obj.Projects, UnmarshalProject)
+	err = core.UnmarshalModel(m, "projects", &obj.Projects, UnmarshalProjectListResponse)
 	if err != nil {
 		return
 	}
@@ -2122,98 +2494,6 @@ func UnmarshalPaginationLink(m map[string]json.RawMessage, result interface{}) (
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "start", &obj.Start)
-	if err != nil {
-		return
-	}
-	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
-	return
-}
-
-// Project : Project struct
-type Project struct {
-	// The project name.
-	Name *string `json:"name" validate:"required"`
-
-	// A project descriptive text.
-	Description *string `json:"description,omitempty"`
-
-	ID *string `json:"id,omitempty"`
-
-	// An IBM Cloud Resource Name, which uniquely identify a resource.
-	Crn *string `json:"crn,omitempty"`
-
-	CreatedBy *string `json:"created_by,omitempty"`
-
-	// A date/time value in the format YYYY-MM-DDTHH:mm:ssZ or YYYY-MM-DDTHH:mm:ss.sssZ, matching the date-time format as
-	// specified by RFC 3339.
-	CreatedAt *strfmt.DateTime `json:"created_at,omitempty"`
-
-	// A date/time value in the format YYYY-MM-DDTHH:mm:ssZ or YYYY-MM-DDTHH:mm:ss.sssZ, matching the date-time format as
-	// specified by RFC 3339.
-	UpdatedAt *strfmt.DateTime `json:"updated_at,omitempty"`
-
-	RepoURL *string `json:"repo_url,omitempty"`
-
-	Href *string `json:"href,omitempty"`
-
-	Configs []ProjectConfigIntf `json:"configs,omitempty"`
-
-	Dashboard *ProjectDashboard `json:"dashboard,omitempty"`
-}
-
-// NewProject : Instantiate Project (Generic Model Constructor)
-func (*ProjectsV1) NewProject(name string) (_model *Project, err error) {
-	_model = &Project{
-		Name: core.StringPtr(name),
-	}
-	err = core.ValidateStruct(_model, "required parameters")
-	return
-}
-
-// UnmarshalProject unmarshals an instance of Project from the specified map of raw messages.
-func UnmarshalProject(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(Project)
-	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "description", &obj.Description)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "crn", &obj.Crn)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "created_by", &obj.CreatedBy)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "created_at", &obj.CreatedAt)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "updated_at", &obj.UpdatedAt)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "repo_url", &obj.RepoURL)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "href", &obj.Href)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalModel(m, "configs", &obj.Configs, UnmarshalProjectConfig)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalModel(m, "dashboard", &obj.Dashboard, UnmarshalProjectDashboard)
 	if err != nil {
 		return
 	}
@@ -2361,7 +2641,7 @@ type ProjectConfigStatus struct {
 
 	Status *string `json:"status" validate:"required"`
 
-	Messages []string `json:"messages,omitempty"`
+	Messages []string `json:"messages" validate:"required"`
 
 	PipelineRun *string `json:"pipeline_run,omitempty"`
 
@@ -2374,19 +2654,11 @@ type ProjectConfigStatus struct {
 
 // Constants associated with the ProjectConfigStatus.Status property.
 const (
-	ProjectConfigStatus_Status_CheckInProgress = "check_in_progress"
-	ProjectConfigStatus_Status_CheckSubmitted = "check_submitted"
-	ProjectConfigStatus_Status_InError = "in_error"
-	ProjectConfigStatus_Status_InstallInProgress = "install_in_progress"
-	ProjectConfigStatus_Status_InstallSubmitted = "install_submitted"
-	ProjectConfigStatus_Status_Installed = "installed"
-	ProjectConfigStatus_Status_NotInstalled = "not_installed"
-	ProjectConfigStatus_Status_PendingCheck = "pending_check"
-	ProjectConfigStatus_Status_PendingInstall = "pending_install"
-	ProjectConfigStatus_Status_PendingUninstall = "pending_uninstall"
-	ProjectConfigStatus_Status_ToReinstall = "to_reinstall"
-	ProjectConfigStatus_Status_UninstallInProgress = "uninstall_in_progress"
-	ProjectConfigStatus_Status_UninstallSubmitted = "uninstall_submitted"
+	ProjectConfigStatus_Status_Installing = "INSTALLING"
+	ProjectConfigStatus_Status_InstallingFailed = "INSTALLING_FAILED"
+	ProjectConfigStatus_Status_Ready = "READY"
+	ProjectConfigStatus_Status_Updating = "UPDATING"
+	ProjectConfigStatus_Status_UpdatingFailed = "UPDATING_FAILED"
 )
 
 // UnmarshalProjectConfigStatus unmarshals an instance of ProjectConfigStatus from the specified map of raw messages.
@@ -2456,24 +2728,66 @@ func UnmarshalProjectConfigStatuses(m map[string]json.RawMessage, result interfa
 	return
 }
 
-// ProjectDashboard : ProjectDashboard struct
-type ProjectDashboard struct {
-	Widgets []Widget `json:"widgets" validate:"required"`
+// ProjectListResponse : ProjectListResponse struct
+type ProjectListResponse struct {
+	// The project name.
+	Name *string `json:"name,omitempty"`
+
+	ID *string `json:"id,omitempty"`
+
+	// An IBM Cloud Resource Name, which uniquely identify a resource.
+	Crn *string `json:"crn,omitempty"`
+
+	Location *string `json:"location,omitempty"`
+
+	// The resource group id (or Default for the default resource group).
+	ResourceGroup *string `json:"resource_group,omitempty"`
+
+	State *string `json:"state,omitempty"`
 }
 
-// NewProjectDashboard : Instantiate ProjectDashboard (Generic Model Constructor)
-func (*ProjectsV1) NewProjectDashboard(widgets []Widget) (_model *ProjectDashboard, err error) {
-	_model = &ProjectDashboard{
-		Widgets: widgets,
+// Constants associated with the ProjectListResponse.Location property.
+const (
+	ProjectListResponse_Location_AuSyd = "au-syd"
+	ProjectListResponse_Location_EuDe = "eu-de"
+	ProjectListResponse_Location_EuGb = "eu-gb"
+	ProjectListResponse_Location_UsEast = "us-east"
+	ProjectListResponse_Location_UsSouth = "us-south"
+)
+
+// Constants associated with the ProjectListResponse.State property.
+const (
+	ProjectListResponse_State_Creating = "CREATING"
+	ProjectListResponse_State_CreatingFailed = "CREATING_FAILED"
+	ProjectListResponse_State_Ready = "READY"
+	ProjectListResponse_State_Updating = "UPDATING"
+	ProjectListResponse_State_UpdatingFailed = "UPDATING_FAILED"
+)
+
+// UnmarshalProjectListResponse unmarshals an instance of ProjectListResponse from the specified map of raw messages.
+func UnmarshalProjectListResponse(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(ProjectListResponse)
+	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
+	if err != nil {
+		return
 	}
-	err = core.ValidateStruct(_model, "required parameters")
-	return
-}
-
-// UnmarshalProjectDashboard unmarshals an instance of ProjectDashboard from the specified map of raw messages.
-func UnmarshalProjectDashboard(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(ProjectDashboard)
-	err = core.UnmarshalModel(m, "widgets", &obj.Widgets, UnmarshalWidget)
+	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "crn", &obj.Crn)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "location", &obj.Location)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "resource_group", &obj.ResourceGroup)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "state", &obj.State)
 	if err != nil {
 		return
 	}
@@ -2506,29 +2820,115 @@ func UnmarshalProjectPrototypeDashboard(m map[string]json.RawMessage, result int
 	return
 }
 
+// ProjectResponse : ProjectResponse struct
+type ProjectResponse struct {
+	// The project name.
+	Name *string `json:"name,omitempty"`
+
+	ID *string `json:"id,omitempty"`
+
+	// An IBM Cloud Resource Name, which uniquely identify a resource.
+	Crn *string `json:"crn,omitempty"`
+
+	Location *string `json:"location,omitempty"`
+
+	// The resource group id (or Default for the default resource group).
+	ResourceGroup *string `json:"resource_group,omitempty"`
+}
+
+// Constants associated with the ProjectResponse.Location property.
+const (
+	ProjectResponse_Location_AuSyd = "au-syd"
+	ProjectResponse_Location_EuDe = "eu-de"
+	ProjectResponse_Location_EuGb = "eu-gb"
+	ProjectResponse_Location_UsEast = "us-east"
+	ProjectResponse_Location_UsSouth = "us-south"
+)
+
+// UnmarshalProjectResponse unmarshals an instance of ProjectResponse from the specified map of raw messages.
+func UnmarshalProjectResponse(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(ProjectResponse)
+	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "crn", &obj.Crn)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "location", &obj.Location)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "resource_group", &obj.ResourceGroup)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
 // ProjectStatus : The project status, including plumbing services and computed statuses information.
 type ProjectStatus struct {
 	ProjectID *string `json:"project_id" validate:"required"`
 
-	Href *string `json:"href" validate:"required"`
+	Href *string `json:"href,omitempty"`
 
-	Status *string `json:"status" validate:"required"`
+	// An IBM Cloud Resource Name, which uniquely identify a resource.
+	Crn *string `json:"crn" validate:"required"`
 
-	Messages []string `json:"messages" validate:"required"`
+	// The project name.
+	Name *string `json:"name" validate:"required"`
 
-	// Project plumbing services and their status.
-	ServicesStatus *ServicesStatus `json:"services_status" validate:"required"`
+	Location *string `json:"location" validate:"required"`
+
+	// The resource group id (or Default for the default resource group).
+	ResourceGroup *string `json:"resource_group" validate:"required"`
+
+	State *string `json:"state" validate:"required"`
+
+	// Project plumbing service info.
+	GitRepo *ServiceInfoGit `json:"git_repo,omitempty"`
+
+	// Project plumbing service info.
+	Toolchain *ServiceInfoToolchain `json:"toolchain,omitempty"`
+
+	// Project plumbing service info.
+	Schematics *ServiceInfoSchematics `json:"schematics,omitempty"`
+
+	Credentials *ProjectStatusCredentials `json:"credentials,omitempty"`
+
+	Configs []ProjectConfigIntf `json:"configs,omitempty"`
+
+	Dashboard *ProjectStatusDashboard `json:"dashboard,omitempty"`
 
 	ComputedStatuses map[string]interface{} `json:"computed_statuses,omitempty"`
+
+	ActivePrs []ActivePR `json:"active_prs,omitempty"`
+
+	History []History `json:"history,omitempty"`
 }
 
-// Constants associated with the ProjectStatus.Status property.
+// Constants associated with the ProjectStatus.Location property.
 const (
-	ProjectStatus_Status_CreateFailed = "create_failed"
-	ProjectStatus_Status_CreateInProgress = "create_in_progress"
-	ProjectStatus_Status_PendingCreate = "pending_create"
-	ProjectStatus_Status_PendingPr = "pending_pr"
-	ProjectStatus_Status_Ready = "ready"
+	ProjectStatus_Location_AuSyd = "au-syd"
+	ProjectStatus_Location_EuDe = "eu-de"
+	ProjectStatus_Location_EuGb = "eu-gb"
+	ProjectStatus_Location_UsEast = "us-east"
+	ProjectStatus_Location_UsSouth = "us-south"
+)
+
+// Constants associated with the ProjectStatus.State property.
+const (
+	ProjectStatus_State_Creating = "CREATING"
+	ProjectStatus_State_CreatingFailed = "CREATING_FAILED"
+	ProjectStatus_State_Ready = "READY"
+	ProjectStatus_State_Updating = "UPDATING"
+	ProjectStatus_State_UpdatingFailed = "UPDATING_FAILED"
 )
 
 // UnmarshalProjectStatus unmarshals an instance of ProjectStatus from the specified map of raw messages.
@@ -2542,15 +2942,47 @@ func UnmarshalProjectStatus(m map[string]json.RawMessage, result interface{}) (e
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalPrimitive(m, "status", &obj.Status)
+	err = core.UnmarshalPrimitive(m, "crn", &obj.Crn)
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalPrimitive(m, "messages", &obj.Messages)
+	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(m, "services_status", &obj.ServicesStatus, UnmarshalServicesStatus)
+	err = core.UnmarshalPrimitive(m, "location", &obj.Location)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "resource_group", &obj.ResourceGroup)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "state", &obj.State)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "git_repo", &obj.GitRepo, UnmarshalServiceInfoGit)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "toolchain", &obj.Toolchain, UnmarshalServiceInfoToolchain)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "schematics", &obj.Schematics, UnmarshalServiceInfoSchematics)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "credentials", &obj.Credentials, UnmarshalProjectStatusCredentials)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "configs", &obj.Configs, UnmarshalProjectConfig)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "dashboard", &obj.Dashboard, UnmarshalProjectStatusDashboard)
 	if err != nil {
 		return
 	}
@@ -2558,8 +2990,117 @@ func UnmarshalProjectStatus(m map[string]json.RawMessage, result interface{}) (e
 	if err != nil {
 		return
 	}
+	err = core.UnmarshalModel(m, "active_prs", &obj.ActivePrs, UnmarshalActivePR)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "history", &obj.History, UnmarshalHistory)
+	if err != nil {
+		return
+	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
 	return
+}
+
+// ProjectStatusCredentials : ProjectStatusCredentials struct
+type ProjectStatusCredentials struct {
+	// A valid IAM api key with the permissions to manage the plumbing services (Schematics and Toolchain).
+	ApiKeyRef *string `json:"api_key_ref,omitempty"`
+}
+
+// UnmarshalProjectStatusCredentials unmarshals an instance of ProjectStatusCredentials from the specified map of raw messages.
+func UnmarshalProjectStatusCredentials(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(ProjectStatusCredentials)
+	err = core.UnmarshalPrimitive(m, "api_key_ref", &obj.ApiKeyRef)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// ProjectStatusDashboard : ProjectStatusDashboard struct
+type ProjectStatusDashboard struct {
+	Widgets []Widget `json:"widgets" validate:"required"`
+}
+
+// UnmarshalProjectStatusDashboard unmarshals an instance of ProjectStatusDashboard from the specified map of raw messages.
+func UnmarshalProjectStatusDashboard(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(ProjectStatusDashboard)
+	err = core.UnmarshalModel(m, "widgets", &obj.Widgets, UnmarshalWidget)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// PullRequest : PullRequest struct
+type PullRequest struct {
+	// The name of the branch.
+	Branch *string `json:"branch,omitempty"`
+
+	URL *string `json:"url,omitempty"`
+}
+
+// UnmarshalPullRequest unmarshals an instance of PullRequest from the specified map of raw messages.
+func UnmarshalPullRequest(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(PullRequest)
+	err = core.UnmarshalPrimitive(m, "branch", &obj.Branch)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "url", &obj.URL)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// RegisterPullRequestOptions : The RegisterPullRequest options.
+type RegisterPullRequestOptions struct {
+	// The id of the project, which uniquely identifies it.
+	ID *string `json:"id" validate:"required,ne="`
+
+	// The name of the branch.
+	Branch *string `json:"branch,omitempty"`
+
+	URL *string `json:"url,omitempty"`
+
+	// Allows users to set headers on API requests
+	Headers map[string]string
+}
+
+// NewRegisterPullRequestOptions : Instantiate RegisterPullRequestOptions
+func (*ProjectsV1) NewRegisterPullRequestOptions(id string) *RegisterPullRequestOptions {
+	return &RegisterPullRequestOptions{
+		ID: core.StringPtr(id),
+	}
+}
+
+// SetID : Allow user to set ID
+func (_options *RegisterPullRequestOptions) SetID(id string) *RegisterPullRequestOptions {
+	_options.ID = core.StringPtr(id)
+	return _options
+}
+
+// SetBranch : Allow user to set Branch
+func (_options *RegisterPullRequestOptions) SetBranch(branch string) *RegisterPullRequestOptions {
+	_options.Branch = core.StringPtr(branch)
+	return _options
+}
+
+// SetURL : Allow user to set URL
+func (_options *RegisterPullRequestOptions) SetURL(url string) *RegisterPullRequestOptions {
+	_options.URL = core.StringPtr(url)
+	return _options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *RegisterPullRequestOptions) SetHeaders(param map[string]string) *RegisterPullRequestOptions {
+	options.Headers = param
+	return options
 }
 
 // SchematicsBlueprint : A Schematics blueprint to use for provisioning a set of project resources.
@@ -2606,61 +3147,27 @@ func UnmarshalSchematicsBlueprint(m map[string]json.RawMessage, result interface
 	return
 }
 
-// ServiceStatus : The deployment status of a plumbing service.
-// Models which "extend" this model:
-// - ServiceStatusCRN
-// - ServiceStatusIdentifier
-type ServiceStatus struct {
-	// An IBM Cloud Resource Name, which uniquely identify a resource.
-	ID *string `json:"id,omitempty"`
+// ServiceInfoGit : Project plumbing service info.
+type ServiceInfoGit struct {
+	URL *string `json:"url,omitempty"`
 
-	Status *string `json:"status,omitempty"`
+	Branch *string `json:"branch,omitempty"`
 
-	Messages []string `json:"messages,omitempty"`
-
-	SchematicsResourceID *string `json:"schematics_resource_id,omitempty"`
+	ProjectID *string `json:"project_id,omitempty"`
 }
 
-// Constants associated with the ServiceStatus.Status property.
-const (
-	ServiceStatus_Status_CheckInProgress = "check_in_progress"
-	ServiceStatus_Status_CheckSubmitted = "check_submitted"
-	ServiceStatus_Status_InError = "in_error"
-	ServiceStatus_Status_InstallInProgress = "install_in_progress"
-	ServiceStatus_Status_InstallSubmitted = "install_submitted"
-	ServiceStatus_Status_Installed = "installed"
-	ServiceStatus_Status_NotInstalled = "not_installed"
-	ServiceStatus_Status_PendingCheck = "pending_check"
-	ServiceStatus_Status_PendingInstall = "pending_install"
-	ServiceStatus_Status_PendingUninstall = "pending_uninstall"
-	ServiceStatus_Status_ToReinstall = "to_reinstall"
-	ServiceStatus_Status_UninstallInProgress = "uninstall_in_progress"
-	ServiceStatus_Status_UninstallSubmitted = "uninstall_submitted"
-)
-func (*ServiceStatus) isaServiceStatus() bool {
-	return true
-}
-
-type ServiceStatusIntf interface {
-	isaServiceStatus() bool
-}
-
-// UnmarshalServiceStatus unmarshals an instance of ServiceStatus from the specified map of raw messages.
-func UnmarshalServiceStatus(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(ServiceStatus)
-	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
+// UnmarshalServiceInfoGit unmarshals an instance of ServiceInfoGit from the specified map of raw messages.
+func UnmarshalServiceInfoGit(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(ServiceInfoGit)
+	err = core.UnmarshalPrimitive(m, "url", &obj.URL)
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalPrimitive(m, "status", &obj.Status)
+	err = core.UnmarshalPrimitive(m, "branch", &obj.Branch)
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalPrimitive(m, "messages", &obj.Messages)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "schematics_resource_id", &obj.SchematicsResourceID)
+	err = core.UnmarshalPrimitive(m, "project_id", &obj.ProjectID)
 	if err != nil {
 		return
 	}
@@ -2668,30 +3175,51 @@ func UnmarshalServiceStatus(m map[string]json.RawMessage, result interface{}) (e
 	return
 }
 
-// ServicesStatus : Project plumbing services and their status.
-type ServicesStatus struct {
-	// The deployment status of a plumbing service.
-	Toolchain ServiceStatusIntf `json:"toolchain,omitempty"`
+// ServiceInfoSchematics : Project plumbing service info.
+type ServiceInfoSchematics struct {
+	CartOrderID *string `json:"cart_order_id,omitempty"`
 
-	// The deployment status of a plumbing service.
-	Schematics ServiceStatusIntf `json:"schematics,omitempty"`
+	// An IBM Cloud Resource Name, which uniquely identify a resource.
+	WorkspaceID *string `json:"workspace_id,omitempty"`
 
-	// The deployment status of a plumbing service.
-	GitRepo ServiceStatusIntf `json:"git_repo,omitempty"`
+	CartItemName *string `json:"cart_item_name,omitempty"`
 }
 
-// UnmarshalServicesStatus unmarshals an instance of ServicesStatus from the specified map of raw messages.
-func UnmarshalServicesStatus(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(ServicesStatus)
-	err = core.UnmarshalModel(m, "toolchain", &obj.Toolchain, UnmarshalServiceStatus)
+// UnmarshalServiceInfoSchematics unmarshals an instance of ServiceInfoSchematics from the specified map of raw messages.
+func UnmarshalServiceInfoSchematics(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(ServiceInfoSchematics)
+	err = core.UnmarshalPrimitive(m, "cart_order_id", &obj.CartOrderID)
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(m, "schematics", &obj.Schematics, UnmarshalServiceStatus)
+	err = core.UnmarshalPrimitive(m, "workspace_id", &obj.WorkspaceID)
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(m, "git_repo", &obj.GitRepo, UnmarshalServiceStatus)
+	err = core.UnmarshalPrimitive(m, "cart_item_name", &obj.CartItemName)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// ServiceInfoToolchain : Project plumbing service info.
+type ServiceInfoToolchain struct {
+	// An IBM Cloud Resource Name, which uniquely identify a resource.
+	Crn *string `json:"crn,omitempty"`
+
+	Guid *string `json:"guid,omitempty"`
+}
+
+// UnmarshalServiceInfoToolchain unmarshals an instance of ServiceInfoToolchain from the specified map of raw messages.
+func UnmarshalServiceInfoToolchain(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(ServiceInfoToolchain)
+	err = core.UnmarshalPrimitive(m, "crn", &obj.Crn)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "guid", &obj.Guid)
 	if err != nil {
 		return
 	}
@@ -2895,7 +3423,7 @@ type UpdateProjectConfigStatusOptions struct {
 
 	Status *string `json:"status" validate:"required"`
 
-	Messages []string `json:"messages,omitempty"`
+	Messages []string `json:"messages" validate:"required"`
 
 	PipelineRun *string `json:"pipeline_run,omitempty"`
 
@@ -2909,27 +3437,20 @@ type UpdateProjectConfigStatusOptions struct {
 
 // Constants associated with the UpdateProjectConfigStatusOptions.Status property.
 const (
-	UpdateProjectConfigStatusOptions_Status_CheckInProgress = "check_in_progress"
-	UpdateProjectConfigStatusOptions_Status_CheckSubmitted = "check_submitted"
-	UpdateProjectConfigStatusOptions_Status_InError = "in_error"
-	UpdateProjectConfigStatusOptions_Status_InstallInProgress = "install_in_progress"
-	UpdateProjectConfigStatusOptions_Status_InstallSubmitted = "install_submitted"
-	UpdateProjectConfigStatusOptions_Status_Installed = "installed"
-	UpdateProjectConfigStatusOptions_Status_NotInstalled = "not_installed"
-	UpdateProjectConfigStatusOptions_Status_PendingCheck = "pending_check"
-	UpdateProjectConfigStatusOptions_Status_PendingInstall = "pending_install"
-	UpdateProjectConfigStatusOptions_Status_PendingUninstall = "pending_uninstall"
-	UpdateProjectConfigStatusOptions_Status_ToReinstall = "to_reinstall"
-	UpdateProjectConfigStatusOptions_Status_UninstallInProgress = "uninstall_in_progress"
-	UpdateProjectConfigStatusOptions_Status_UninstallSubmitted = "uninstall_submitted"
+	UpdateProjectConfigStatusOptions_Status_Installing = "INSTALLING"
+	UpdateProjectConfigStatusOptions_Status_InstallingFailed = "INSTALLING_FAILED"
+	UpdateProjectConfigStatusOptions_Status_Ready = "READY"
+	UpdateProjectConfigStatusOptions_Status_Updating = "UPDATING"
+	UpdateProjectConfigStatusOptions_Status_UpdatingFailed = "UPDATING_FAILED"
 )
 
 // NewUpdateProjectConfigStatusOptions : Instantiate UpdateProjectConfigStatusOptions
-func (*ProjectsV1) NewUpdateProjectConfigStatusOptions(id string, configName string, status string) *UpdateProjectConfigStatusOptions {
+func (*ProjectsV1) NewUpdateProjectConfigStatusOptions(id string, configName string, status string, messages []string) *UpdateProjectConfigStatusOptions {
 	return &UpdateProjectConfigStatusOptions{
 		ID: core.StringPtr(id),
 		ConfigName: core.StringPtr(configName),
 		Status: core.StringPtr(status),
+		Messages: messages,
 	}
 }
 
@@ -2983,71 +3504,29 @@ func (options *UpdateProjectConfigStatusOptions) SetHeaders(param map[string]str
 
 // UpdateProjectOptions : The UpdateProject options.
 type UpdateProjectOptions struct {
-	XIamApi *string `json:"X-Iam-Api" validate:"required"`
-
 	// The id of the project, which uniquely identifies it.
-	ID *string `json:"-" validate:"required,ne="`
+	ID *string `json:"id" validate:"required,ne="`
 
 	// The project name.
-	NewName *string `json:"name" validate:"required"`
+	Name *string `json:"name" validate:"required"`
 
-	// A project descriptive text.
-	NewDescription *string `json:"description,omitempty"`
+	// A project's descriptive text.
+	Description *string `json:"description,omitempty"`
 
-	NewID *string `json:"id,omitempty"`
+	Configs []ProjectConfigIntf `json:"configs,omitempty"`
 
-	// An IBM Cloud Resource Name, which uniquely identify a resource.
-	NewCrn *string `json:"crn,omitempty"`
-
-	NewCreatedBy *string `json:"created_by,omitempty"`
-
-	// A date/time value in the format YYYY-MM-DDTHH:mm:ssZ or YYYY-MM-DDTHH:mm:ss.sssZ, matching the date-time format as
-	// specified by RFC 3339.
-	NewCreatedAt *strfmt.DateTime `json:"created_at,omitempty"`
-
-	// A date/time value in the format YYYY-MM-DDTHH:mm:ssZ or YYYY-MM-DDTHH:mm:ss.sssZ, matching the date-time format as
-	// specified by RFC 3339.
-	NewUpdatedAt *strfmt.DateTime `json:"updated_at,omitempty"`
-
-	NewRepoURL *string `json:"repo_url,omitempty"`
-
-	NewHref *string `json:"href,omitempty"`
-
-	NewConfigs []ProjectConfigIntf `json:"configs,omitempty"`
-
-	NewDashboard *ProjectDashboard `json:"dashboard,omitempty"`
-
-	// Set this header to control the return of the Project. If return=minimal is set, a successful response has a 201
-	// Created or 204 No Content status and includes no body. If return=representation is set, a successful response
-	// includes the updated Project. Default includes no body.
-	Prefer *string `json:"Prefer,omitempty"`
+	Dashboard *ProjectPrototypeDashboard `json:"dashboard,omitempty"`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
 }
 
-// Constants associated with the UpdateProjectOptions.Prefer property.
-// Set this header to control the return of the Project. If return=minimal is set, a successful response has a 201
-// Created or 204 No Content status and includes no body. If return=representation is set, a successful response
-// includes the updated Project. Default includes no body.
-const (
-	UpdateProjectOptions_Prefer_ReturnMinimal = "return=minimal"
-	UpdateProjectOptions_Prefer_ReturnRepresentation = "return=representation"
-)
-
 // NewUpdateProjectOptions : Instantiate UpdateProjectOptions
-func (*ProjectsV1) NewUpdateProjectOptions(xIamApi string, id string, newName string) *UpdateProjectOptions {
+func (*ProjectsV1) NewUpdateProjectOptions(id string, name string) *UpdateProjectOptions {
 	return &UpdateProjectOptions{
-		XIamApi: core.StringPtr(xIamApi),
 		ID: core.StringPtr(id),
-		NewName: core.StringPtr(newName),
+		Name: core.StringPtr(name),
 	}
-}
-
-// SetXIamApi : Allow user to set XIamApi
-func (_options *UpdateProjectOptions) SetXIamApi(xIamApi string) *UpdateProjectOptions {
-	_options.XIamApi = core.StringPtr(xIamApi)
-	return _options
 }
 
 // SetID : Allow user to set ID
@@ -3056,75 +3535,27 @@ func (_options *UpdateProjectOptions) SetID(id string) *UpdateProjectOptions {
 	return _options
 }
 
-// SetNewName : Allow user to set NewName
-func (_options *UpdateProjectOptions) SetNewName(newName string) *UpdateProjectOptions {
-	_options.NewName = core.StringPtr(newName)
+// SetName : Allow user to set Name
+func (_options *UpdateProjectOptions) SetName(name string) *UpdateProjectOptions {
+	_options.Name = core.StringPtr(name)
 	return _options
 }
 
-// SetNewDescription : Allow user to set NewDescription
-func (_options *UpdateProjectOptions) SetNewDescription(newDescription string) *UpdateProjectOptions {
-	_options.NewDescription = core.StringPtr(newDescription)
+// SetDescription : Allow user to set Description
+func (_options *UpdateProjectOptions) SetDescription(description string) *UpdateProjectOptions {
+	_options.Description = core.StringPtr(description)
 	return _options
 }
 
-// SetNewID : Allow user to set NewID
-func (_options *UpdateProjectOptions) SetNewID(newID string) *UpdateProjectOptions {
-	_options.NewID = core.StringPtr(newID)
+// SetConfigs : Allow user to set Configs
+func (_options *UpdateProjectOptions) SetConfigs(configs []ProjectConfigIntf) *UpdateProjectOptions {
+	_options.Configs = configs
 	return _options
 }
 
-// SetNewCrn : Allow user to set NewCrn
-func (_options *UpdateProjectOptions) SetNewCrn(newCrn string) *UpdateProjectOptions {
-	_options.NewCrn = core.StringPtr(newCrn)
-	return _options
-}
-
-// SetNewCreatedBy : Allow user to set NewCreatedBy
-func (_options *UpdateProjectOptions) SetNewCreatedBy(newCreatedBy string) *UpdateProjectOptions {
-	_options.NewCreatedBy = core.StringPtr(newCreatedBy)
-	return _options
-}
-
-// SetNewCreatedAt : Allow user to set NewCreatedAt
-func (_options *UpdateProjectOptions) SetNewCreatedAt(newCreatedAt *strfmt.DateTime) *UpdateProjectOptions {
-	_options.NewCreatedAt = newCreatedAt
-	return _options
-}
-
-// SetNewUpdatedAt : Allow user to set NewUpdatedAt
-func (_options *UpdateProjectOptions) SetNewUpdatedAt(newUpdatedAt *strfmt.DateTime) *UpdateProjectOptions {
-	_options.NewUpdatedAt = newUpdatedAt
-	return _options
-}
-
-// SetNewRepoURL : Allow user to set NewRepoURL
-func (_options *UpdateProjectOptions) SetNewRepoURL(newRepoURL string) *UpdateProjectOptions {
-	_options.NewRepoURL = core.StringPtr(newRepoURL)
-	return _options
-}
-
-// SetNewHref : Allow user to set NewHref
-func (_options *UpdateProjectOptions) SetNewHref(newHref string) *UpdateProjectOptions {
-	_options.NewHref = core.StringPtr(newHref)
-	return _options
-}
-
-// SetNewConfigs : Allow user to set NewConfigs
-func (_options *UpdateProjectOptions) SetNewConfigs(newConfigs []ProjectConfigIntf) *UpdateProjectOptions {
-	_options.NewConfigs = newConfigs
-	return _options
-}
-
-// SetNewDashboard : Allow user to set NewDashboard
-func (_options *UpdateProjectOptions) SetNewDashboard(newDashboard *ProjectDashboard) *UpdateProjectOptions {
-	_options.NewDashboard = newDashboard
-	return _options
-}
-
-// SetPrefer : Allow user to set Prefer
-func (_options *UpdateProjectOptions) SetPrefer(prefer string) *UpdateProjectOptions {
-	_options.Prefer = core.StringPtr(prefer)
+// SetDashboard : Allow user to set Dashboard
+func (_options *UpdateProjectOptions) SetDashboard(dashboard *ProjectPrototypeDashboard) *UpdateProjectOptions {
+	_options.Dashboard = dashboard
 	return _options
 }
 
@@ -3139,33 +3570,38 @@ type UpdateProjectStatusOptions struct {
 	// The id of the project, which uniquely identifies it.
 	ID *string `json:"id" validate:"required,ne="`
 
-	Status *string `json:"status" validate:"required"`
+	State *string `json:"state" validate:"required"`
 
-	Messages []string `json:"messages" validate:"required"`
+	History []History `json:"history" validate:"required"`
 
-	// Project plumbing services and their status.
-	ServicesStatus *ServicesStatus `json:"services_status" validate:"required"`
+	// Project plumbing service info.
+	GitRepo *ServiceInfoGit `json:"git_repo,omitempty"`
+
+	// Project plumbing service info.
+	Toolchain *ServiceInfoToolchain `json:"toolchain,omitempty"`
+
+	// Project plumbing service info.
+	Schematics *ServiceInfoSchematics `json:"schematics,omitempty"`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
 }
 
-// Constants associated with the UpdateProjectStatusOptions.Status property.
+// Constants associated with the UpdateProjectStatusOptions.State property.
 const (
-	UpdateProjectStatusOptions_Status_CreateFailed = "create_failed"
-	UpdateProjectStatusOptions_Status_CreateInProgress = "create_in_progress"
-	UpdateProjectStatusOptions_Status_PendingCreate = "pending_create"
-	UpdateProjectStatusOptions_Status_PendingPr = "pending_pr"
-	UpdateProjectStatusOptions_Status_Ready = "ready"
+	UpdateProjectStatusOptions_State_Creating = "CREATING"
+	UpdateProjectStatusOptions_State_CreatingFailed = "CREATING_FAILED"
+	UpdateProjectStatusOptions_State_Ready = "READY"
+	UpdateProjectStatusOptions_State_Updating = "UPDATING"
+	UpdateProjectStatusOptions_State_UpdatingFailed = "UPDATING_FAILED"
 )
 
 // NewUpdateProjectStatusOptions : Instantiate UpdateProjectStatusOptions
-func (*ProjectsV1) NewUpdateProjectStatusOptions(id string, status string, messages []string, servicesStatus *ServicesStatus) *UpdateProjectStatusOptions {
+func (*ProjectsV1) NewUpdateProjectStatusOptions(id string, state string, history []History) *UpdateProjectStatusOptions {
 	return &UpdateProjectStatusOptions{
 		ID: core.StringPtr(id),
-		Status: core.StringPtr(status),
-		Messages: messages,
-		ServicesStatus: servicesStatus,
+		State: core.StringPtr(state),
+		History: history,
 	}
 }
 
@@ -3175,26 +3611,91 @@ func (_options *UpdateProjectStatusOptions) SetID(id string) *UpdateProjectStatu
 	return _options
 }
 
-// SetStatus : Allow user to set Status
-func (_options *UpdateProjectStatusOptions) SetStatus(status string) *UpdateProjectStatusOptions {
-	_options.Status = core.StringPtr(status)
+// SetState : Allow user to set State
+func (_options *UpdateProjectStatusOptions) SetState(state string) *UpdateProjectStatusOptions {
+	_options.State = core.StringPtr(state)
 	return _options
 }
 
-// SetMessages : Allow user to set Messages
-func (_options *UpdateProjectStatusOptions) SetMessages(messages []string) *UpdateProjectStatusOptions {
-	_options.Messages = messages
+// SetHistory : Allow user to set History
+func (_options *UpdateProjectStatusOptions) SetHistory(history []History) *UpdateProjectStatusOptions {
+	_options.History = history
 	return _options
 }
 
-// SetServicesStatus : Allow user to set ServicesStatus
-func (_options *UpdateProjectStatusOptions) SetServicesStatus(servicesStatus *ServicesStatus) *UpdateProjectStatusOptions {
-	_options.ServicesStatus = servicesStatus
+// SetGitRepo : Allow user to set GitRepo
+func (_options *UpdateProjectStatusOptions) SetGitRepo(gitRepo *ServiceInfoGit) *UpdateProjectStatusOptions {
+	_options.GitRepo = gitRepo
+	return _options
+}
+
+// SetToolchain : Allow user to set Toolchain
+func (_options *UpdateProjectStatusOptions) SetToolchain(toolchain *ServiceInfoToolchain) *UpdateProjectStatusOptions {
+	_options.Toolchain = toolchain
+	return _options
+}
+
+// SetSchematics : Allow user to set Schematics
+func (_options *UpdateProjectStatusOptions) SetSchematics(schematics *ServiceInfoSchematics) *UpdateProjectStatusOptions {
+	_options.Schematics = schematics
 	return _options
 }
 
 // SetHeaders : Allow user to set Headers
 func (options *UpdateProjectStatusOptions) SetHeaders(param map[string]string) *UpdateProjectStatusOptions {
+	options.Headers = param
+	return options
+}
+
+// ValidateProjectOptions : The ValidateProject options.
+type ValidateProjectOptions struct {
+	// The project name.
+	Name *string `json:"name" validate:"required"`
+
+	// A project's descriptive text.
+	Description *string `json:"description,omitempty"`
+
+	Configs []ProjectConfigIntf `json:"configs,omitempty"`
+
+	Dashboard *ProjectPrototypeDashboard `json:"dashboard,omitempty"`
+
+	// Allows users to set headers on API requests
+	Headers map[string]string
+}
+
+// NewValidateProjectOptions : Instantiate ValidateProjectOptions
+func (*ProjectsV1) NewValidateProjectOptions(name string) *ValidateProjectOptions {
+	return &ValidateProjectOptions{
+		Name: core.StringPtr(name),
+	}
+}
+
+// SetName : Allow user to set Name
+func (_options *ValidateProjectOptions) SetName(name string) *ValidateProjectOptions {
+	_options.Name = core.StringPtr(name)
+	return _options
+}
+
+// SetDescription : Allow user to set Description
+func (_options *ValidateProjectOptions) SetDescription(description string) *ValidateProjectOptions {
+	_options.Description = core.StringPtr(description)
+	return _options
+}
+
+// SetConfigs : Allow user to set Configs
+func (_options *ValidateProjectOptions) SetConfigs(configs []ProjectConfigIntf) *ValidateProjectOptions {
+	_options.Configs = configs
+	return _options
+}
+
+// SetDashboard : Allow user to set Dashboard
+func (_options *ValidateProjectOptions) SetDashboard(dashboard *ProjectPrototypeDashboard) *ValidateProjectOptions {
+	_options.Dashboard = dashboard
+	return _options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *ValidateProjectOptions) SetHeaders(param map[string]string) *ValidateProjectOptions {
 	options.Headers = param
 	return options
 }
@@ -3421,141 +3922,6 @@ func UnmarshalProjectConfigTerraformTemplateProperty(m map[string]json.RawMessag
 	return
 }
 
-// ServiceStatusCRN : The deployment status of a plumbing service.
-// This model "extends" ServiceStatus
-type ServiceStatusCRN struct {
-	// An IBM Cloud Resource Name, which uniquely identify a resource.
-	ID *string `json:"id" validate:"required"`
-
-	Status *string `json:"status" validate:"required"`
-
-	Messages []string `json:"messages" validate:"required"`
-
-	SchematicsResourceID *string `json:"schematics_resource_id,omitempty"`
-}
-
-// Constants associated with the ServiceStatusCRN.Status property.
-const (
-	ServiceStatusCRN_Status_CheckInProgress = "check_in_progress"
-	ServiceStatusCRN_Status_CheckSubmitted = "check_submitted"
-	ServiceStatusCRN_Status_InError = "in_error"
-	ServiceStatusCRN_Status_InstallInProgress = "install_in_progress"
-	ServiceStatusCRN_Status_InstallSubmitted = "install_submitted"
-	ServiceStatusCRN_Status_Installed = "installed"
-	ServiceStatusCRN_Status_NotInstalled = "not_installed"
-	ServiceStatusCRN_Status_PendingCheck = "pending_check"
-	ServiceStatusCRN_Status_PendingInstall = "pending_install"
-	ServiceStatusCRN_Status_PendingUninstall = "pending_uninstall"
-	ServiceStatusCRN_Status_ToReinstall = "to_reinstall"
-	ServiceStatusCRN_Status_UninstallInProgress = "uninstall_in_progress"
-	ServiceStatusCRN_Status_UninstallSubmitted = "uninstall_submitted"
-)
-
-// NewServiceStatusCRN : Instantiate ServiceStatusCRN (Generic Model Constructor)
-func (*ProjectsV1) NewServiceStatusCRN(id string, status string, messages []string) (_model *ServiceStatusCRN, err error) {
-	_model = &ServiceStatusCRN{
-		ID: core.StringPtr(id),
-		Status: core.StringPtr(status),
-		Messages: messages,
-	}
-	err = core.ValidateStruct(_model, "required parameters")
-	return
-}
-
-func (*ServiceStatusCRN) isaServiceStatus() bool {
-	return true
-}
-
-// UnmarshalServiceStatusCRN unmarshals an instance of ServiceStatusCRN from the specified map of raw messages.
-func UnmarshalServiceStatusCRN(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(ServiceStatusCRN)
-	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "status", &obj.Status)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "messages", &obj.Messages)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "schematics_resource_id", &obj.SchematicsResourceID)
-	if err != nil {
-		return
-	}
-	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
-	return
-}
-
-// ServiceStatusIdentifier : The deployment status of a plumbing service.
-// This model "extends" ServiceStatus
-type ServiceStatusIdentifier struct {
-	ID *string `json:"id" validate:"required"`
-
-	Status *string `json:"status" validate:"required"`
-
-	Messages []string `json:"messages" validate:"required"`
-
-	SchematicsResourceID *string `json:"schematics_resource_id,omitempty"`
-}
-
-// Constants associated with the ServiceStatusIdentifier.Status property.
-const (
-	ServiceStatusIdentifier_Status_CheckInProgress = "check_in_progress"
-	ServiceStatusIdentifier_Status_CheckSubmitted = "check_submitted"
-	ServiceStatusIdentifier_Status_InError = "in_error"
-	ServiceStatusIdentifier_Status_InstallInProgress = "install_in_progress"
-	ServiceStatusIdentifier_Status_InstallSubmitted = "install_submitted"
-	ServiceStatusIdentifier_Status_Installed = "installed"
-	ServiceStatusIdentifier_Status_NotInstalled = "not_installed"
-	ServiceStatusIdentifier_Status_PendingCheck = "pending_check"
-	ServiceStatusIdentifier_Status_PendingInstall = "pending_install"
-	ServiceStatusIdentifier_Status_PendingUninstall = "pending_uninstall"
-	ServiceStatusIdentifier_Status_ToReinstall = "to_reinstall"
-	ServiceStatusIdentifier_Status_UninstallInProgress = "uninstall_in_progress"
-	ServiceStatusIdentifier_Status_UninstallSubmitted = "uninstall_submitted"
-)
-
-// NewServiceStatusIdentifier : Instantiate ServiceStatusIdentifier (Generic Model Constructor)
-func (*ProjectsV1) NewServiceStatusIdentifier(id string, status string, messages []string) (_model *ServiceStatusIdentifier, err error) {
-	_model = &ServiceStatusIdentifier{
-		ID: core.StringPtr(id),
-		Status: core.StringPtr(status),
-		Messages: messages,
-	}
-	err = core.ValidateStruct(_model, "required parameters")
-	return
-}
-
-func (*ServiceStatusIdentifier) isaServiceStatus() bool {
-	return true
-}
-
-// UnmarshalServiceStatusIdentifier unmarshals an instance of ServiceStatusIdentifier from the specified map of raw messages.
-func UnmarshalServiceStatusIdentifier(m map[string]json.RawMessage, result interface{}) (err error) {
-	obj := new(ServiceStatusIdentifier)
-	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "status", &obj.Status)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "messages", &obj.Messages)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "schematics_resource_id", &obj.SchematicsResourceID)
-	if err != nil {
-		return
-	}
-	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
-	return
-}
-
 //
 // ProjectsPager can be used to simplify the use of the "ListProjects" method.
 // 
@@ -3590,7 +3956,7 @@ func (pager *ProjectsPager) HasNext() bool {
 }
 
 // GetNextWithContext returns the next page of results using the specified Context.
-func (pager *ProjectsPager) GetNextWithContext(ctx context.Context) (page []Project, err error) {
+func (pager *ProjectsPager) GetNextWithContext(ctx context.Context) (page []ProjectListResponse, err error) {
 	if !pager.HasNext() {
 		return nil, fmt.Errorf("no more results available")
 	}
@@ -3615,9 +3981,9 @@ func (pager *ProjectsPager) GetNextWithContext(ctx context.Context) (page []Proj
 
 // GetAllWithContext returns all results by invoking GetNextWithContext() repeatedly
 // until all pages of results have been retrieved.
-func (pager *ProjectsPager) GetAllWithContext(ctx context.Context) (allItems []Project, err error) {
+func (pager *ProjectsPager) GetAllWithContext(ctx context.Context) (allItems []ProjectListResponse, err error) {
 	for pager.HasNext() {
-		var nextPage []Project
+		var nextPage []ProjectListResponse
 		nextPage, err = pager.GetNextWithContext(ctx)
 		if err != nil {
 			return
@@ -3628,11 +3994,11 @@ func (pager *ProjectsPager) GetAllWithContext(ctx context.Context) (allItems []P
 }
 
 // GetNext invokes GetNextWithContext() using context.Background() as the Context parameter.
-func (pager *ProjectsPager) GetNext() (page []Project, err error) {
+func (pager *ProjectsPager) GetNext() (page []ProjectListResponse, err error) {
 	return pager.GetNextWithContext(context.Background())
 }
 
 // GetAll invokes GetAllWithContext() using context.Background() as the Context parameter.
-func (pager *ProjectsPager) GetAll() (allItems []Project, err error) {
+func (pager *ProjectsPager) GetAll() (allItems []ProjectListResponse, err error) {
 	return pager.GetAllWithContext(context.Background())
 }
