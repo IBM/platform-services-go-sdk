@@ -2277,7 +2277,7 @@ var _ = Describe(`ProjectsV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"project_id": "ProjectID", "href": "Href", "crn": "Crn", "name": "Name", "location": "us-south", "resource_group": "ResourceGroup", "state": "CREATING", "git_repo": {"url": "URL", "branch": "Branch", "project_id": "ProjectID"}, "toolchain": {"crn": "Crn", "guid": "Guid"}, "schematics": {"cart_order_id": "CartOrderID", "workspace_id": "WorkspaceID", "cart_item_name": "CartItemName"}, "credentials": {"api_key_ref": "ApiKeyRef"}, "configs": [{"name": "Name", "labels": ["Labels"], "output": [{"name": "Name", "description": "Description", "value": ["Value"]}], "type": "manual", "external_resources_account": "ExternalResourcesAccount"}], "dashboard": {"widgets": [{"name": "Name"}]}, "computed_statuses": {"mapKey": "anyValue"}, "active_prs": [{"branch": "Branch", "url": "URL"}], "history": [{"timestamp": "2019-01-01T12:00:00.000Z", "code": "Code", "type": "git_repo"}]}`)
+					fmt.Fprintf(res, "%s", `{"project_id": "ProjectID", "href": "Href", "project_crn": "ProjectCrn", "project_name": "ProjectName", "location": "us-south", "resource_group": "ResourceGroup", "state": "CREATING", "git_repo": {"url": "URL", "branch": "Branch", "project_id": "ProjectID"}, "toolchain": {"crn": "Crn", "guid": "Guid"}, "schematics": {"cart_order_id": "CartOrderID", "workspace_id": "WorkspaceID", "cart_item_name": "CartItemName"}, "credentials": {"api_key_ref": "ApiKeyRef"}, "configs": [{"name": "Name", "labels": ["Labels"], "output": [{"name": "Name", "description": "Description", "value": ["Value"]}], "type": "manual", "external_resources_account": "ExternalResourcesAccount"}], "dashboard": {"widgets": [{"name": "Name"}]}, "computed_statuses": {"mapKey": "anyValue"}, "active_prs": [{"branch": "Branch", "url": "URL"}], "history": [{"timestamp": "2019-01-01T12:00:00.000Z", "code": "Code", "type": "git_repo"}]}`)
 				}))
 			})
 			It(`Invoke GetProjectStatus successfully with retries`, func() {
@@ -2331,7 +2331,7 @@ var _ = Describe(`ProjectsV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"project_id": "ProjectID", "href": "Href", "crn": "Crn", "name": "Name", "location": "us-south", "resource_group": "ResourceGroup", "state": "CREATING", "git_repo": {"url": "URL", "branch": "Branch", "project_id": "ProjectID"}, "toolchain": {"crn": "Crn", "guid": "Guid"}, "schematics": {"cart_order_id": "CartOrderID", "workspace_id": "WorkspaceID", "cart_item_name": "CartItemName"}, "credentials": {"api_key_ref": "ApiKeyRef"}, "configs": [{"name": "Name", "labels": ["Labels"], "output": [{"name": "Name", "description": "Description", "value": ["Value"]}], "type": "manual", "external_resources_account": "ExternalResourcesAccount"}], "dashboard": {"widgets": [{"name": "Name"}]}, "computed_statuses": {"mapKey": "anyValue"}, "active_prs": [{"branch": "Branch", "url": "URL"}], "history": [{"timestamp": "2019-01-01T12:00:00.000Z", "code": "Code", "type": "git_repo"}]}`)
+					fmt.Fprintf(res, "%s", `{"project_id": "ProjectID", "href": "Href", "project_crn": "ProjectCrn", "project_name": "ProjectName", "location": "us-south", "resource_group": "ResourceGroup", "state": "CREATING", "git_repo": {"url": "URL", "branch": "Branch", "project_id": "ProjectID"}, "toolchain": {"crn": "Crn", "guid": "Guid"}, "schematics": {"cart_order_id": "CartOrderID", "workspace_id": "WorkspaceID", "cart_item_name": "CartItemName"}, "credentials": {"api_key_ref": "ApiKeyRef"}, "configs": [{"name": "Name", "labels": ["Labels"], "output": [{"name": "Name", "description": "Description", "value": ["Value"]}], "type": "manual", "external_resources_account": "ExternalResourcesAccount"}], "dashboard": {"widgets": [{"name": "Name"}]}, "computed_statuses": {"mapKey": "anyValue"}, "active_prs": [{"branch": "Branch", "url": "URL"}], "history": [{"timestamp": "2019-01-01T12:00:00.000Z", "code": "Code", "type": "git_repo"}]}`)
 				}))
 			})
 			It(`Invoke GetProjectStatus successfully`, func() {
@@ -2533,7 +2533,7 @@ var _ = Describe(`ProjectsV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"project_id": "ProjectID", "href": "Href", "crn": "Crn", "name": "Name", "location": "us-south", "resource_group": "ResourceGroup", "state": "CREATING", "git_repo": {"url": "URL", "branch": "Branch", "project_id": "ProjectID"}, "toolchain": {"crn": "Crn", "guid": "Guid"}, "schematics": {"cart_order_id": "CartOrderID", "workspace_id": "WorkspaceID", "cart_item_name": "CartItemName"}, "credentials": {"api_key_ref": "ApiKeyRef"}, "configs": [{"name": "Name", "labels": ["Labels"], "output": [{"name": "Name", "description": "Description", "value": ["Value"]}], "type": "manual", "external_resources_account": "ExternalResourcesAccount"}], "dashboard": {"widgets": [{"name": "Name"}]}, "computed_statuses": {"mapKey": "anyValue"}, "active_prs": [{"branch": "Branch", "url": "URL"}], "history": [{"timestamp": "2019-01-01T12:00:00.000Z", "code": "Code", "type": "git_repo"}]}`)
+					fmt.Fprintf(res, "%s", `{"project_id": "ProjectID", "href": "Href", "project_crn": "ProjectCrn", "project_name": "ProjectName", "location": "us-south", "resource_group": "ResourceGroup", "state": "CREATING", "git_repo": {"url": "URL", "branch": "Branch", "project_id": "ProjectID"}, "toolchain": {"crn": "Crn", "guid": "Guid"}, "schematics": {"cart_order_id": "CartOrderID", "workspace_id": "WorkspaceID", "cart_item_name": "CartItemName"}, "credentials": {"api_key_ref": "ApiKeyRef"}, "configs": [{"name": "Name", "labels": ["Labels"], "output": [{"name": "Name", "description": "Description", "value": ["Value"]}], "type": "manual", "external_resources_account": "ExternalResourcesAccount"}], "dashboard": {"widgets": [{"name": "Name"}]}, "computed_statuses": {"mapKey": "anyValue"}, "active_prs": [{"branch": "Branch", "url": "URL"}], "history": [{"timestamp": "2019-01-01T12:00:00.000Z", "code": "Code", "type": "git_repo"}]}`)
 				}))
 			})
 			It(`Invoke UpdateProjectStatus successfully with retries`, func() {
@@ -2631,7 +2631,7 @@ var _ = Describe(`ProjectsV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"project_id": "ProjectID", "href": "Href", "crn": "Crn", "name": "Name", "location": "us-south", "resource_group": "ResourceGroup", "state": "CREATING", "git_repo": {"url": "URL", "branch": "Branch", "project_id": "ProjectID"}, "toolchain": {"crn": "Crn", "guid": "Guid"}, "schematics": {"cart_order_id": "CartOrderID", "workspace_id": "WorkspaceID", "cart_item_name": "CartItemName"}, "credentials": {"api_key_ref": "ApiKeyRef"}, "configs": [{"name": "Name", "labels": ["Labels"], "output": [{"name": "Name", "description": "Description", "value": ["Value"]}], "type": "manual", "external_resources_account": "ExternalResourcesAccount"}], "dashboard": {"widgets": [{"name": "Name"}]}, "computed_statuses": {"mapKey": "anyValue"}, "active_prs": [{"branch": "Branch", "url": "URL"}], "history": [{"timestamp": "2019-01-01T12:00:00.000Z", "code": "Code", "type": "git_repo"}]}`)
+					fmt.Fprintf(res, "%s", `{"project_id": "ProjectID", "href": "Href", "project_crn": "ProjectCrn", "project_name": "ProjectName", "location": "us-south", "resource_group": "ResourceGroup", "state": "CREATING", "git_repo": {"url": "URL", "branch": "Branch", "project_id": "ProjectID"}, "toolchain": {"crn": "Crn", "guid": "Guid"}, "schematics": {"cart_order_id": "CartOrderID", "workspace_id": "WorkspaceID", "cart_item_name": "CartItemName"}, "credentials": {"api_key_ref": "ApiKeyRef"}, "configs": [{"name": "Name", "labels": ["Labels"], "output": [{"name": "Name", "description": "Description", "value": ["Value"]}], "type": "manual", "external_resources_account": "ExternalResourcesAccount"}], "dashboard": {"widgets": [{"name": "Name"}]}, "computed_statuses": {"mapKey": "anyValue"}, "active_prs": [{"branch": "Branch", "url": "URL"}], "history": [{"timestamp": "2019-01-01T12:00:00.000Z", "code": "Code", "type": "git_repo"}]}`)
 				}))
 			})
 			It(`Invoke UpdateProjectStatus successfully`, func() {
@@ -4887,22 +4887,7 @@ var _ = Describe(`ProjectsV1`, func() {
 					Expect(req.URL.EscapedPath()).To(Equal(deregisterPullRequestPath))
 					Expect(req.Method).To(Equal("DELETE"))
 
-					// For gzip-disabled operation, verify Content-Encoding is not set.
-					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
-
-					// If there is a body, then make sure we can read it
-					bodyBuf := new(bytes.Buffer)
-					if req.Header.Get("Content-Encoding") == "gzip" {
-						body, err := core.NewGzipDecompressionReader(req.Body)
-						Expect(err).To(BeNil())
-						_, err = bodyBuf.ReadFrom(body)
-						Expect(err).To(BeNil())
-					} else {
-						_, err := bodyBuf.ReadFrom(req.Body)
-						Expect(err).To(BeNil())
-					}
-					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
-
+					Expect(req.URL.Query()["url"]).To(Equal([]string{"testString"}))
 					res.WriteHeader(204)
 				}))
 			})
@@ -4922,8 +4907,7 @@ var _ = Describe(`ProjectsV1`, func() {
 				// Construct an instance of the DeregisterPullRequestOptions model
 				deregisterPullRequestOptionsModel := new(projectsv1.DeregisterPullRequestOptions)
 				deregisterPullRequestOptionsModel.ID = core.StringPtr("testString")
-				deregisterPullRequestOptionsModel.Branch = core.StringPtr("test")
-				deregisterPullRequestOptionsModel.URL = core.StringPtr("https://dev.us-south.git.test.cloud.ibm.com/org/projects-poc/-/merge_requests/1")
+				deregisterPullRequestOptionsModel.URL = core.StringPtr("testString")
 				deregisterPullRequestOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
@@ -4942,8 +4926,7 @@ var _ = Describe(`ProjectsV1`, func() {
 				// Construct an instance of the DeregisterPullRequestOptions model
 				deregisterPullRequestOptionsModel := new(projectsv1.DeregisterPullRequestOptions)
 				deregisterPullRequestOptionsModel.ID = core.StringPtr("testString")
-				deregisterPullRequestOptionsModel.Branch = core.StringPtr("test")
-				deregisterPullRequestOptionsModel.URL = core.StringPtr("https://dev.us-south.git.test.cloud.ibm.com/org/projects-poc/-/merge_requests/1")
+				deregisterPullRequestOptionsModel.URL = core.StringPtr("testString")
 				deregisterPullRequestOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := projectsService.SetServiceURL("")
@@ -5053,15 +5036,14 @@ var _ = Describe(`ProjectsV1`, func() {
 			It(`Invoke NewDeregisterPullRequestOptions successfully`, func() {
 				// Construct an instance of the DeregisterPullRequestOptions model
 				id := "testString"
-				deregisterPullRequestOptionsModel := projectsService.NewDeregisterPullRequestOptions(id)
+				url := "testString"
+				deregisterPullRequestOptionsModel := projectsService.NewDeregisterPullRequestOptions(id, url)
 				deregisterPullRequestOptionsModel.SetID("testString")
-				deregisterPullRequestOptionsModel.SetBranch("test")
-				deregisterPullRequestOptionsModel.SetURL("https://dev.us-south.git.test.cloud.ibm.com/org/projects-poc/-/merge_requests/1")
+				deregisterPullRequestOptionsModel.SetURL("testString")
 				deregisterPullRequestOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(deregisterPullRequestOptionsModel).ToNot(BeNil())
 				Expect(deregisterPullRequestOptionsModel.ID).To(Equal(core.StringPtr("testString")))
-				Expect(deregisterPullRequestOptionsModel.Branch).To(Equal(core.StringPtr("test")))
-				Expect(deregisterPullRequestOptionsModel.URL).To(Equal(core.StringPtr("https://dev.us-south.git.test.cloud.ibm.com/org/projects-poc/-/merge_requests/1")))
+				Expect(deregisterPullRequestOptionsModel.URL).To(Equal(core.StringPtr("testString")))
 				Expect(deregisterPullRequestOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewGetHealthOptions successfully`, func() {

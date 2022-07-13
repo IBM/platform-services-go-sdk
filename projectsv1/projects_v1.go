@@ -15,7 +15,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 3.48.0-e80b60a1-20220414-145125
+ * IBM OpenAPI SDK Code Generator Version: 3.52.0-8345f809-20220627-220000
  */
 
 // Package projectsv1 : Operations and models for the ProjectsV1 service
@@ -1630,19 +1630,8 @@ func (projects *ProjectsV1) DeregisterPullRequestWithContext(ctx context.Context
 	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
-	builder.AddHeader("Content-Type", "application/json")
 
-	body := make(map[string]interface{})
-	if deregisterPullRequestOptions.Branch != nil {
-		body["branch"] = deregisterPullRequestOptions.Branch
-	}
-	if deregisterPullRequestOptions.URL != nil {
-		body["url"] = deregisterPullRequestOptions.URL
-	}
-	_, err = builder.SetBodyContentJSON(body)
-	if err != nil {
-		return
-	}
+	builder.AddQuery("url", fmt.Sprint(*deregisterPullRequestOptions.URL))
 
 	request, err := builder.Build()
 	if err != nil {
@@ -1823,31 +1812,24 @@ type DeregisterPullRequestOptions struct {
 	// The id of the project, which uniquely identifies it.
 	ID *string `json:"id" validate:"required,ne="`
 
-	// The name of the branch.
-	Branch *string `json:"branch,omitempty"`
-
-	URL *string `json:"url,omitempty"`
+	// The url of the PR, which uniquely identifies it.
+	URL *string `json:"url" validate:"required"`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
 }
 
 // NewDeregisterPullRequestOptions : Instantiate DeregisterPullRequestOptions
-func (*ProjectsV1) NewDeregisterPullRequestOptions(id string) *DeregisterPullRequestOptions {
+func (*ProjectsV1) NewDeregisterPullRequestOptions(id string, url string) *DeregisterPullRequestOptions {
 	return &DeregisterPullRequestOptions{
 		ID: core.StringPtr(id),
+		URL: core.StringPtr(url),
 	}
 }
 
 // SetID : Allow user to set ID
 func (_options *DeregisterPullRequestOptions) SetID(id string) *DeregisterPullRequestOptions {
 	_options.ID = core.StringPtr(id)
-	return _options
-}
-
-// SetBranch : Allow user to set Branch
-func (_options *DeregisterPullRequestOptions) SetBranch(branch string) *DeregisterPullRequestOptions {
-	_options.Branch = core.StringPtr(branch)
 	return _options
 }
 
@@ -2959,10 +2941,10 @@ type ProjectStatus struct {
 	Href *string `json:"href,omitempty"`
 
 	// An IBM Cloud Resource Name, which uniquely identify a resource.
-	Crn *string `json:"crn" validate:"required"`
+	ProjectCrn *string `json:"project_crn,omitempty"`
 
 	// The project name.
-	Name *string `json:"name" validate:"required"`
+	ProjectName *string `json:"project_name,omitempty"`
 
 	Location *string `json:"location" validate:"required"`
 
@@ -3022,11 +3004,11 @@ func UnmarshalProjectStatus(m map[string]json.RawMessage, result interface{}) (e
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalPrimitive(m, "crn", &obj.Crn)
+	err = core.UnmarshalPrimitive(m, "project_crn", &obj.ProjectCrn)
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
+	err = core.UnmarshalPrimitive(m, "project_name", &obj.ProjectName)
 	if err != nil {
 		return
 	}
@@ -4000,4 +3982,84 @@ func UnmarshalProjectConfigTerraformTemplateProperty(m map[string]json.RawMessag
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
 	return
+}
+//
+// ProjectsPager can be used to simplify the use of the "ListProjects" method.
+//
+type ProjectsPager struct {
+	hasNext bool
+	options *ListProjectsOptions
+	client  *ProjectsV1
+	pageContext struct {
+		next *string
+	}
+}
+
+// NewProjectsPager returns a new ProjectsPager instance.
+func (projects *ProjectsV1) NewProjectsPager(options *ListProjectsOptions) (pager *ProjectsPager, err error) {
+	if options.Start != nil && *options.Start != "" {
+		err = fmt.Errorf("the 'options.Start' field should not be set")
+		return
+	}
+
+	var optionsCopy ListProjectsOptions = *options
+	pager = &ProjectsPager{
+		hasNext: true,
+		options: &optionsCopy,
+		client:  projects,
+	}
+	return
+}
+
+// HasNext returns true if there are potentially more results to be retrieved.
+func (pager *ProjectsPager) HasNext() bool {
+	return pager.hasNext
+}
+
+// GetNextWithContext returns the next page of results using the specified Context.
+func (pager *ProjectsPager) GetNextWithContext(ctx context.Context) (page []ProjectListResponse, err error) {
+	if !pager.HasNext() {
+		return nil, fmt.Errorf("no more results available")
+	}
+
+	pager.options.Start = pager.pageContext.next
+
+	result, _, err := pager.client.ListProjectsWithContext(ctx, pager.options)
+	if err != nil {
+		return
+	}
+
+	var next *string
+	if result.Next != nil {
+		next = result.Next.Start
+	}
+	pager.pageContext.next = next
+	pager.hasNext = (pager.pageContext.next != nil)
+	page = result.Projects
+
+	return
+}
+
+// GetAllWithContext returns all results by invoking GetNextWithContext() repeatedly
+// until all pages of results have been retrieved.
+func (pager *ProjectsPager) GetAllWithContext(ctx context.Context) (allItems []ProjectListResponse, err error) {
+	for pager.HasNext() {
+		var nextPage []ProjectListResponse
+		nextPage, err = pager.GetNextWithContext(ctx)
+		if err != nil {
+			return
+		}
+		allItems = append(allItems, nextPage...)
+	}
+	return
+}
+
+// GetNext invokes GetNextWithContext() using context.Background() as the Context parameter.
+func (pager *ProjectsPager) GetNext() (page []ProjectListResponse, err error) {
+	return pager.GetNextWithContext(context.Background())
+}
+
+// GetAll invokes GetAllWithContext() using context.Background() as the Context parameter.
+func (pager *ProjectsPager) GetAll() (allItems []ProjectListResponse, err error) {
+	return pager.GetAllWithContext(context.Background())
 }
