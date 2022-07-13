@@ -2941,10 +2941,10 @@ type ProjectStatus struct {
 	Href *string `json:"href,omitempty"`
 
 	// An IBM Cloud Resource Name, which uniquely identify a resource.
-	Crn *string `json:"crn" validate:"required"`
+	ProjectCrn *string `json:"project_crn,omitempty"`
 
 	// The project name.
-	Name *string `json:"name" validate:"required"`
+	ProjectName *string `json:"project_name,omitempty"`
 
 	Location *string `json:"location" validate:"required"`
 
@@ -3004,11 +3004,11 @@ func UnmarshalProjectStatus(m map[string]json.RawMessage, result interface{}) (e
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalPrimitive(m, "crn", &obj.Crn)
+	err = core.UnmarshalPrimitive(m, "project_crn", &obj.ProjectCrn)
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
+	err = core.UnmarshalPrimitive(m, "project_name", &obj.ProjectName)
 	if err != nil {
 		return
 	}
