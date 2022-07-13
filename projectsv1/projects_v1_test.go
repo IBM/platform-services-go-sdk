@@ -927,7 +927,7 @@ var _ = Describe(`ProjectsV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"name": "Name", "id": "ID", "crn": "Crn", "location": "us-south", "resource_group": "ResourceGroup", "state": "CREATING", "description": "Description", "configs": [{"name": "Name", "labels": ["Labels"], "output": [{"name": "Name", "description": "Description", "value": ["Value"]}], "type": "manual", "external_resources_account": "ExternalResourcesAccount"}], "dashboard": {"widgets": [{"name": "Name"}]}, "active_prs": [{"branch": "Branch", "url": "URL"}], "history": [{"timestamp": "2019-01-01T12:00:00.000Z", "code": "Code", "type": "git_repo"}]}`)
+					fmt.Fprintf(res, "%s", `{"name": "Name", "description": "Description", "configs": [{"name": "Name", "labels": ["Labels"], "output": [{"name": "Name", "description": "Description", "value": ["Value"]}], "type": "manual", "external_resources_account": "ExternalResourcesAccount"}], "dashboard": {"widgets": [{"name": "Name"}]}}`)
 				}))
 			})
 			It(`Invoke GetProject successfully with retries`, func() {
@@ -981,7 +981,7 @@ var _ = Describe(`ProjectsV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"name": "Name", "id": "ID", "crn": "Crn", "location": "us-south", "resource_group": "ResourceGroup", "state": "CREATING", "description": "Description", "configs": [{"name": "Name", "labels": ["Labels"], "output": [{"name": "Name", "description": "Description", "value": ["Value"]}], "type": "manual", "external_resources_account": "ExternalResourcesAccount"}], "dashboard": {"widgets": [{"name": "Name"}]}, "active_prs": [{"branch": "Branch", "url": "URL"}], "history": [{"timestamp": "2019-01-01T12:00:00.000Z", "code": "Code", "type": "git_repo"}]}`)
+					fmt.Fprintf(res, "%s", `{"name": "Name", "description": "Description", "configs": [{"name": "Name", "labels": ["Labels"], "output": [{"name": "Name", "description": "Description", "value": ["Value"]}], "type": "manual", "external_resources_account": "ExternalResourcesAccount"}], "dashboard": {"widgets": [{"name": "Name"}]}}`)
 				}))
 			})
 			It(`Invoke GetProject successfully`, func() {
@@ -1771,6 +1771,380 @@ var _ = Describe(`ProjectsV1`, func() {
 				response, operationErr = projectsService.CheckProject(checkProjectOptionsModelNew)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`MergeProject(mergeProjectOptions *MergeProjectOptions) - Operation response error`, func() {
+		mergeProjectPath := "/v1/projects/testString/merge"
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(mergeProjectPath))
+					Expect(req.Method).To(Equal("POST"))
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(202)
+					fmt.Fprint(res, `} this is not valid json {`)
+				}))
+			})
+			It(`Invoke MergeProject with error: Operation response processing error`, func() {
+				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(projectsService).ToNot(BeNil())
+
+				// Construct an instance of the OutputValue model
+				outputValueModel := new(projectsv1.OutputValue)
+				outputValueModel.Name = core.StringPtr("tags")
+				outputValueModel.Description = core.StringPtr("testString")
+				outputValueModel.Value = []string{"project:ghost", "type:infrastructure"}
+
+				// Construct an instance of the ProjectConfigManualProperty model
+				projectConfigModel := new(projectsv1.ProjectConfigManualProperty)
+				projectConfigModel.Name = core.StringPtr("common-variables")
+				projectConfigModel.Labels = []string{"testString"}
+				projectConfigModel.Output = []projectsv1.OutputValue{*outputValueModel}
+				projectConfigModel.Type = core.StringPtr("manual")
+				projectConfigModel.ExternalResourcesAccount = core.StringPtr("e5ed08b9203bad3e4b6f57f0d1675a88")
+
+				// Construct an instance of the Widget model
+				widgetModel := new(projectsv1.Widget)
+				widgetModel.Name = core.StringPtr("project-properties")
+
+				// Construct an instance of the ProjectPrototypeDashboard model
+				projectPrototypeDashboardModel := new(projectsv1.ProjectPrototypeDashboard)
+				projectPrototypeDashboardModel.Widgets = []projectsv1.Widget{*widgetModel}
+
+				// Construct an instance of the MergeProjectOptions model
+				mergeProjectOptionsModel := new(projectsv1.MergeProjectOptions)
+				mergeProjectOptionsModel.ID = core.StringPtr("testString")
+				mergeProjectOptionsModel.Name = core.StringPtr("acme-microservice")
+				mergeProjectOptionsModel.Description = core.StringPtr("A microservice to deploy on top of ACME infrastructure")
+				mergeProjectOptionsModel.Configs = []projectsv1.ProjectConfigIntf{projectConfigModel}
+				mergeProjectOptionsModel.Dashboard = projectPrototypeDashboardModel
+				mergeProjectOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Expect response parsing to fail since we are receiving a text/plain response
+				result, response, operationErr := projectsService.MergeProject(mergeProjectOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				projectsService.EnableRetries(0, 0)
+				result, response, operationErr = projectsService.MergeProject(mergeProjectOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`MergeProject(mergeProjectOptions *MergeProjectOptions)`, func() {
+		mergeProjectPath := "/v1/projects/testString/merge"
+		Context(`Using mock server endpoint with timeout`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(mergeProjectPath))
+					Expect(req.Method).To(Equal("POST"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
+					// Sleep a short time to support a timeout test
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(202)
+					fmt.Fprintf(res, "%s", `{"name": "Name", "id": "ID", "crn": "Crn", "location": "us-south", "resource_group": "ResourceGroup"}`)
+				}))
+			})
+			It(`Invoke MergeProject successfully with retries`, func() {
+				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(projectsService).ToNot(BeNil())
+				projectsService.EnableRetries(0, 0)
+
+				// Construct an instance of the OutputValue model
+				outputValueModel := new(projectsv1.OutputValue)
+				outputValueModel.Name = core.StringPtr("tags")
+				outputValueModel.Description = core.StringPtr("testString")
+				outputValueModel.Value = []string{"project:ghost", "type:infrastructure"}
+
+				// Construct an instance of the ProjectConfigManualProperty model
+				projectConfigModel := new(projectsv1.ProjectConfigManualProperty)
+				projectConfigModel.Name = core.StringPtr("common-variables")
+				projectConfigModel.Labels = []string{"testString"}
+				projectConfigModel.Output = []projectsv1.OutputValue{*outputValueModel}
+				projectConfigModel.Type = core.StringPtr("manual")
+				projectConfigModel.ExternalResourcesAccount = core.StringPtr("e5ed08b9203bad3e4b6f57f0d1675a88")
+
+				// Construct an instance of the Widget model
+				widgetModel := new(projectsv1.Widget)
+				widgetModel.Name = core.StringPtr("project-properties")
+
+				// Construct an instance of the ProjectPrototypeDashboard model
+				projectPrototypeDashboardModel := new(projectsv1.ProjectPrototypeDashboard)
+				projectPrototypeDashboardModel.Widgets = []projectsv1.Widget{*widgetModel}
+
+				// Construct an instance of the MergeProjectOptions model
+				mergeProjectOptionsModel := new(projectsv1.MergeProjectOptions)
+				mergeProjectOptionsModel.ID = core.StringPtr("testString")
+				mergeProjectOptionsModel.Name = core.StringPtr("acme-microservice")
+				mergeProjectOptionsModel.Description = core.StringPtr("A microservice to deploy on top of ACME infrastructure")
+				mergeProjectOptionsModel.Configs = []projectsv1.ProjectConfigIntf{projectConfigModel}
+				mergeProjectOptionsModel.Dashboard = projectPrototypeDashboardModel
+				mergeProjectOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := projectsService.MergeProjectWithContext(ctx, mergeProjectOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				projectsService.DisableRetries()
+				result, response, operationErr := projectsService.MergeProject(mergeProjectOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = projectsService.MergeProjectWithContext(ctx, mergeProjectOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(mergeProjectPath))
+					Expect(req.Method).To(Equal("POST"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(202)
+					fmt.Fprintf(res, "%s", `{"name": "Name", "id": "ID", "crn": "Crn", "location": "us-south", "resource_group": "ResourceGroup"}`)
+				}))
+			})
+			It(`Invoke MergeProject successfully`, func() {
+				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(projectsService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				result, response, operationErr := projectsService.MergeProject(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+
+				// Construct an instance of the OutputValue model
+				outputValueModel := new(projectsv1.OutputValue)
+				outputValueModel.Name = core.StringPtr("tags")
+				outputValueModel.Description = core.StringPtr("testString")
+				outputValueModel.Value = []string{"project:ghost", "type:infrastructure"}
+
+				// Construct an instance of the ProjectConfigManualProperty model
+				projectConfigModel := new(projectsv1.ProjectConfigManualProperty)
+				projectConfigModel.Name = core.StringPtr("common-variables")
+				projectConfigModel.Labels = []string{"testString"}
+				projectConfigModel.Output = []projectsv1.OutputValue{*outputValueModel}
+				projectConfigModel.Type = core.StringPtr("manual")
+				projectConfigModel.ExternalResourcesAccount = core.StringPtr("e5ed08b9203bad3e4b6f57f0d1675a88")
+
+				// Construct an instance of the Widget model
+				widgetModel := new(projectsv1.Widget)
+				widgetModel.Name = core.StringPtr("project-properties")
+
+				// Construct an instance of the ProjectPrototypeDashboard model
+				projectPrototypeDashboardModel := new(projectsv1.ProjectPrototypeDashboard)
+				projectPrototypeDashboardModel.Widgets = []projectsv1.Widget{*widgetModel}
+
+				// Construct an instance of the MergeProjectOptions model
+				mergeProjectOptionsModel := new(projectsv1.MergeProjectOptions)
+				mergeProjectOptionsModel.ID = core.StringPtr("testString")
+				mergeProjectOptionsModel.Name = core.StringPtr("acme-microservice")
+				mergeProjectOptionsModel.Description = core.StringPtr("A microservice to deploy on top of ACME infrastructure")
+				mergeProjectOptionsModel.Configs = []projectsv1.ProjectConfigIntf{projectConfigModel}
+				mergeProjectOptionsModel.Dashboard = projectPrototypeDashboardModel
+				mergeProjectOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				result, response, operationErr = projectsService.MergeProject(mergeProjectOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+			})
+			It(`Invoke MergeProject with error: Operation validation and request error`, func() {
+				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(projectsService).ToNot(BeNil())
+
+				// Construct an instance of the OutputValue model
+				outputValueModel := new(projectsv1.OutputValue)
+				outputValueModel.Name = core.StringPtr("tags")
+				outputValueModel.Description = core.StringPtr("testString")
+				outputValueModel.Value = []string{"project:ghost", "type:infrastructure"}
+
+				// Construct an instance of the ProjectConfigManualProperty model
+				projectConfigModel := new(projectsv1.ProjectConfigManualProperty)
+				projectConfigModel.Name = core.StringPtr("common-variables")
+				projectConfigModel.Labels = []string{"testString"}
+				projectConfigModel.Output = []projectsv1.OutputValue{*outputValueModel}
+				projectConfigModel.Type = core.StringPtr("manual")
+				projectConfigModel.ExternalResourcesAccount = core.StringPtr("e5ed08b9203bad3e4b6f57f0d1675a88")
+
+				// Construct an instance of the Widget model
+				widgetModel := new(projectsv1.Widget)
+				widgetModel.Name = core.StringPtr("project-properties")
+
+				// Construct an instance of the ProjectPrototypeDashboard model
+				projectPrototypeDashboardModel := new(projectsv1.ProjectPrototypeDashboard)
+				projectPrototypeDashboardModel.Widgets = []projectsv1.Widget{*widgetModel}
+
+				// Construct an instance of the MergeProjectOptions model
+				mergeProjectOptionsModel := new(projectsv1.MergeProjectOptions)
+				mergeProjectOptionsModel.ID = core.StringPtr("testString")
+				mergeProjectOptionsModel.Name = core.StringPtr("acme-microservice")
+				mergeProjectOptionsModel.Description = core.StringPtr("A microservice to deploy on top of ACME infrastructure")
+				mergeProjectOptionsModel.Configs = []projectsv1.ProjectConfigIntf{projectConfigModel}
+				mergeProjectOptionsModel.Dashboard = projectPrototypeDashboardModel
+				mergeProjectOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := projectsService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				result, response, operationErr := projectsService.MergeProject(mergeProjectOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+				// Construct a second instance of the MergeProjectOptions model with no property values
+				mergeProjectOptionsModelNew := new(projectsv1.MergeProjectOptions)
+				// Invoke operation with invalid model (negative test)
+				result, response, operationErr = projectsService.MergeProject(mergeProjectOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(202)
+				}))
+			})
+			It(`Invoke MergeProject successfully`, func() {
+				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(projectsService).ToNot(BeNil())
+
+				// Construct an instance of the OutputValue model
+				outputValueModel := new(projectsv1.OutputValue)
+				outputValueModel.Name = core.StringPtr("tags")
+				outputValueModel.Description = core.StringPtr("testString")
+				outputValueModel.Value = []string{"project:ghost", "type:infrastructure"}
+
+				// Construct an instance of the ProjectConfigManualProperty model
+				projectConfigModel := new(projectsv1.ProjectConfigManualProperty)
+				projectConfigModel.Name = core.StringPtr("common-variables")
+				projectConfigModel.Labels = []string{"testString"}
+				projectConfigModel.Output = []projectsv1.OutputValue{*outputValueModel}
+				projectConfigModel.Type = core.StringPtr("manual")
+				projectConfigModel.ExternalResourcesAccount = core.StringPtr("e5ed08b9203bad3e4b6f57f0d1675a88")
+
+				// Construct an instance of the Widget model
+				widgetModel := new(projectsv1.Widget)
+				widgetModel.Name = core.StringPtr("project-properties")
+
+				// Construct an instance of the ProjectPrototypeDashboard model
+				projectPrototypeDashboardModel := new(projectsv1.ProjectPrototypeDashboard)
+				projectPrototypeDashboardModel.Widgets = []projectsv1.Widget{*widgetModel}
+
+				// Construct an instance of the MergeProjectOptions model
+				mergeProjectOptionsModel := new(projectsv1.MergeProjectOptions)
+				mergeProjectOptionsModel.ID = core.StringPtr("testString")
+				mergeProjectOptionsModel.Name = core.StringPtr("acme-microservice")
+				mergeProjectOptionsModel.Description = core.StringPtr("A microservice to deploy on top of ACME infrastructure")
+				mergeProjectOptionsModel.Configs = []projectsv1.ProjectConfigIntf{projectConfigModel}
+				mergeProjectOptionsModel.Dashboard = projectPrototypeDashboardModel
+				mergeProjectOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := projectsService.MergeProject(mergeProjectOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
 			})
 			AfterEach(func() {
 				testServer.Close()
@@ -4583,22 +4957,7 @@ var _ = Describe(`ProjectsV1`, func() {
 					Expect(req.URL.EscapedPath()).To(Equal(deregisterPullRequestPath))
 					Expect(req.Method).To(Equal("DELETE"))
 
-					// For gzip-disabled operation, verify Content-Encoding is not set.
-					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
-
-					// If there is a body, then make sure we can read it
-					bodyBuf := new(bytes.Buffer)
-					if req.Header.Get("Content-Encoding") == "gzip" {
-						body, err := core.NewGzipDecompressionReader(req.Body)
-						Expect(err).To(BeNil())
-						_, err = bodyBuf.ReadFrom(body)
-						Expect(err).To(BeNil())
-					} else {
-						_, err := bodyBuf.ReadFrom(req.Body)
-						Expect(err).To(BeNil())
-					}
-					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
-
+					Expect(req.URL.Query()["url"]).To(Equal([]string{"testString"}))
 					res.WriteHeader(204)
 				}))
 			})
@@ -4618,8 +4977,7 @@ var _ = Describe(`ProjectsV1`, func() {
 				// Construct an instance of the DeregisterPullRequestOptions model
 				deregisterPullRequestOptionsModel := new(projectsv1.DeregisterPullRequestOptions)
 				deregisterPullRequestOptionsModel.ID = core.StringPtr("testString")
-				deregisterPullRequestOptionsModel.Branch = core.StringPtr("test")
-				deregisterPullRequestOptionsModel.URL = core.StringPtr("https://dev.us-south.git.test.cloud.ibm.com/org/projects-poc/-/merge_requests/1")
+				deregisterPullRequestOptionsModel.URL = core.StringPtr("testString")
 				deregisterPullRequestOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
@@ -4638,8 +4996,7 @@ var _ = Describe(`ProjectsV1`, func() {
 				// Construct an instance of the DeregisterPullRequestOptions model
 				deregisterPullRequestOptionsModel := new(projectsv1.DeregisterPullRequestOptions)
 				deregisterPullRequestOptionsModel.ID = core.StringPtr("testString")
-				deregisterPullRequestOptionsModel.Branch = core.StringPtr("test")
-				deregisterPullRequestOptionsModel.URL = core.StringPtr("https://dev.us-south.git.test.cloud.ibm.com/org/projects-poc/-/merge_requests/1")
+				deregisterPullRequestOptionsModel.URL = core.StringPtr("testString")
 				deregisterPullRequestOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := projectsService.SetServiceURL("")
@@ -4749,15 +5106,14 @@ var _ = Describe(`ProjectsV1`, func() {
 			It(`Invoke NewDeregisterPullRequestOptions successfully`, func() {
 				// Construct an instance of the DeregisterPullRequestOptions model
 				id := "testString"
-				deregisterPullRequestOptionsModel := projectsService.NewDeregisterPullRequestOptions(id)
+				url := "testString"
+				deregisterPullRequestOptionsModel := projectsService.NewDeregisterPullRequestOptions(id, url)
 				deregisterPullRequestOptionsModel.SetID("testString")
-				deregisterPullRequestOptionsModel.SetBranch("test")
-				deregisterPullRequestOptionsModel.SetURL("https://dev.us-south.git.test.cloud.ibm.com/org/projects-poc/-/merge_requests/1")
+				deregisterPullRequestOptionsModel.SetURL("testString")
 				deregisterPullRequestOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(deregisterPullRequestOptionsModel).ToNot(BeNil())
 				Expect(deregisterPullRequestOptionsModel.ID).To(Equal(core.StringPtr("testString")))
-				Expect(deregisterPullRequestOptionsModel.Branch).To(Equal(core.StringPtr("test")))
-				Expect(deregisterPullRequestOptionsModel.URL).To(Equal(core.StringPtr("https://dev.us-south.git.test.cloud.ibm.com/org/projects-poc/-/merge_requests/1")))
+				Expect(deregisterPullRequestOptionsModel.URL).To(Equal(core.StringPtr("testString")))
 				Expect(deregisterPullRequestOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewGetHealthOptions successfully`, func() {
@@ -4869,6 +5225,61 @@ var _ = Describe(`ProjectsV1`, func() {
 				Expect(listProjectsOptionsModel.Start).To(Equal(core.StringPtr("testString")))
 				Expect(listProjectsOptionsModel.Limit).To(Equal(core.Int64Ptr(int64(10))))
 				Expect(listProjectsOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
+			It(`Invoke NewMergeProjectOptions successfully`, func() {
+				// Construct an instance of the OutputValue model
+				outputValueModel := new(projectsv1.OutputValue)
+				Expect(outputValueModel).ToNot(BeNil())
+				outputValueModel.Name = core.StringPtr("tags")
+				outputValueModel.Description = core.StringPtr("testString")
+				outputValueModel.Value = []string{"project:ghost", "type:infrastructure"}
+				Expect(outputValueModel.Name).To(Equal(core.StringPtr("tags")))
+				Expect(outputValueModel.Description).To(Equal(core.StringPtr("testString")))
+				Expect(outputValueModel.Value).To(Equal([]string{"project:ghost", "type:infrastructure"}))
+
+				// Construct an instance of the ProjectConfigManualProperty model
+				projectConfigModel := new(projectsv1.ProjectConfigManualProperty)
+				Expect(projectConfigModel).ToNot(BeNil())
+				projectConfigModel.Name = core.StringPtr("common-variables")
+				projectConfigModel.Labels = []string{"testString"}
+				projectConfigModel.Output = []projectsv1.OutputValue{*outputValueModel}
+				projectConfigModel.Type = core.StringPtr("manual")
+				projectConfigModel.ExternalResourcesAccount = core.StringPtr("e5ed08b9203bad3e4b6f57f0d1675a88")
+				Expect(projectConfigModel.Name).To(Equal(core.StringPtr("common-variables")))
+				Expect(projectConfigModel.Labels).To(Equal([]string{"testString"}))
+				Expect(projectConfigModel.Output).To(Equal([]projectsv1.OutputValue{*outputValueModel}))
+				Expect(projectConfigModel.Type).To(Equal(core.StringPtr("manual")))
+				Expect(projectConfigModel.ExternalResourcesAccount).To(Equal(core.StringPtr("e5ed08b9203bad3e4b6f57f0d1675a88")))
+
+				// Construct an instance of the Widget model
+				widgetModel := new(projectsv1.Widget)
+				Expect(widgetModel).ToNot(BeNil())
+				widgetModel.Name = core.StringPtr("project-properties")
+				Expect(widgetModel.Name).To(Equal(core.StringPtr("project-properties")))
+
+				// Construct an instance of the ProjectPrototypeDashboard model
+				projectPrototypeDashboardModel := new(projectsv1.ProjectPrototypeDashboard)
+				Expect(projectPrototypeDashboardModel).ToNot(BeNil())
+				projectPrototypeDashboardModel.Widgets = []projectsv1.Widget{*widgetModel}
+				Expect(projectPrototypeDashboardModel.Widgets).To(Equal([]projectsv1.Widget{*widgetModel}))
+
+				// Construct an instance of the MergeProjectOptions model
+				id := "testString"
+				mergeProjectOptionsName := "acme-microservice"
+				mergeProjectOptionsModel := projectsService.NewMergeProjectOptions(id, mergeProjectOptionsName)
+				mergeProjectOptionsModel.SetID("testString")
+				mergeProjectOptionsModel.SetName("acme-microservice")
+				mergeProjectOptionsModel.SetDescription("A microservice to deploy on top of ACME infrastructure")
+				mergeProjectOptionsModel.SetConfigs([]projectsv1.ProjectConfigIntf{projectConfigModel})
+				mergeProjectOptionsModel.SetDashboard(projectPrototypeDashboardModel)
+				mergeProjectOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(mergeProjectOptionsModel).ToNot(BeNil())
+				Expect(mergeProjectOptionsModel.ID).To(Equal(core.StringPtr("testString")))
+				Expect(mergeProjectOptionsModel.Name).To(Equal(core.StringPtr("acme-microservice")))
+				Expect(mergeProjectOptionsModel.Description).To(Equal(core.StringPtr("A microservice to deploy on top of ACME infrastructure")))
+				Expect(mergeProjectOptionsModel.Configs).To(Equal([]projectsv1.ProjectConfigIntf{projectConfigModel}))
+				Expect(mergeProjectOptionsModel.Dashboard).To(Equal(projectPrototypeDashboardModel))
+				Expect(mergeProjectOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewNotifyOptions successfully`, func() {
 				// Construct an instance of the NotifyOptions model
