@@ -734,6 +734,81 @@ func (projects *ProjectsV1) ValidateProjectWithContext(ctx context.Context, vali
 	return
 }
 
+// InitProjectConfig : Initialize the configs from a catalog solution
+// Initialize the configs from a catalog solution.
+func (projects *ProjectsV1) InitProjectConfig(initProjectConfigOptions *InitProjectConfigOptions) (result ProjectConfigIntf, response *core.DetailedResponse, err error) {
+	return projects.InitProjectConfigWithContext(context.Background(), initProjectConfigOptions)
+}
+
+// InitProjectConfigWithContext is an alternate form of the InitProjectConfig method which supports a Context parameter
+func (projects *ProjectsV1) InitProjectConfigWithContext(ctx context.Context, initProjectConfigOptions *InitProjectConfigOptions) (result ProjectConfigIntf, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(initProjectConfigOptions, "initProjectConfigOptions cannot be nil")
+	if err != nil {
+		return
+	}
+	err = core.ValidateStruct(initProjectConfigOptions, "initProjectConfigOptions")
+	if err != nil {
+		return
+	}
+
+	builder := core.NewRequestBuilder(core.POST)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = projects.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(projects.Service.Options.URL, `/v1/projects/init_config`, nil)
+	if err != nil {
+		return
+	}
+
+	for headerName, headerValue := range initProjectConfigOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("projects", "V1", "InitProjectConfig")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Accept", "application/json")
+	builder.AddHeader("Content-Type", "application/json")
+
+	body := make(map[string]interface{})
+	if initProjectConfigOptions.LocatorID != nil {
+		body["locator_id"] = initProjectConfigOptions.LocatorID
+	}
+	if initProjectConfigOptions.ConfigName != nil {
+		body["config_name"] = initProjectConfigOptions.ConfigName
+	}
+	if initProjectConfigOptions.Description != nil {
+		body["description"] = initProjectConfigOptions.Description
+	}
+	if initProjectConfigOptions.Labels != nil {
+		body["labels"] = initProjectConfigOptions.Labels
+	}
+	_, err = builder.SetBodyContentJSON(body)
+	if err != nil {
+		return
+	}
+
+	request, err := builder.Build()
+	if err != nil {
+		return
+	}
+
+	var rawResponse map[string]json.RawMessage
+	response, err = projects.Service.Request(request, &rawResponse)
+	if err != nil {
+		return
+	}
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalProjectConfig)
+		if err != nil {
+			return
+		}
+		response.Result = result
+	}
+
+	return
+}
+
 // GetProjectStatus : Get project status information
 // Returns the detailed project status, including all the config statuses and all the computed statuses sent by external
 // tools.
@@ -2173,19 +2248,71 @@ func UnmarshalHistory(m map[string]json.RawMessage, result interface{}) (err err
 	return
 }
 
+// InitProjectConfigOptions : The InitProjectConfig options.
+type InitProjectConfigOptions struct {
+	// The version_locator of the offer. It is a dotted value of catalogID.versionID.
+	LocatorID *string `json:"locator_id" validate:"required"`
+
+	// The config name.
+	ConfigName *string `json:"config_name" validate:"required"`
+
+	// The config description.
+	Description *string `json:"description,omitempty"`
+
+	Labels []string `json:"labels,omitempty"`
+
+	// Allows users to set headers on API requests
+	Headers map[string]string
+}
+
+// NewInitProjectConfigOptions : Instantiate InitProjectConfigOptions
+func (*ProjectsV1) NewInitProjectConfigOptions(locatorID string, configName string) *InitProjectConfigOptions {
+	return &InitProjectConfigOptions{
+		LocatorID: core.StringPtr(locatorID),
+		ConfigName: core.StringPtr(configName),
+	}
+}
+
+// SetLocatorID : Allow user to set LocatorID
+func (_options *InitProjectConfigOptions) SetLocatorID(locatorID string) *InitProjectConfigOptions {
+	_options.LocatorID = core.StringPtr(locatorID)
+	return _options
+}
+
+// SetConfigName : Allow user to set ConfigName
+func (_options *InitProjectConfigOptions) SetConfigName(configName string) *InitProjectConfigOptions {
+	_options.ConfigName = core.StringPtr(configName)
+	return _options
+}
+
+// SetDescription : Allow user to set Description
+func (_options *InitProjectConfigOptions) SetDescription(description string) *InitProjectConfigOptions {
+	_options.Description = core.StringPtr(description)
+	return _options
+}
+
+// SetLabels : Allow user to set Labels
+func (_options *InitProjectConfigOptions) SetLabels(labels []string) *InitProjectConfigOptions {
+	_options.Labels = labels
+	return _options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *InitProjectConfigOptions) SetHeaders(param map[string]string) *InitProjectConfigOptions {
+	options.Headers = param
+	return options
+}
+
 // InputVariable : InputVariable struct
 type InputVariable struct {
 	// The variable name.
 	Name *string `json:"name" validate:"required"`
 
-	// A descriptive of the variable.
-	Description *string `json:"description,omitempty"`
-
 	// The variable type.
-	Type *string `json:"type,omitempty"`
+	Type *string `json:"type" validate:"required"`
 
-	// Whether the variable is a secret.
-	Sensitive *bool `json:"sensitive,omitempty"`
+	// Whether the variable is required or not.
+	Required *bool `json:"required,omitempty"`
 
 	// The variable value.
 	Value interface{} `json:"value,omitempty"`
@@ -2197,20 +2324,21 @@ type InputVariable struct {
 // Constants associated with the InputVariable.Type property.
 // The variable type.
 const (
-	InputVariable_Type_Bool = "bool"
-	InputVariable_Type_List = "list"
-	InputVariable_Type_Map = "map"
+	InputVariable_Type_Array = "array"
+	InputVariable_Type_Boolean = "boolean"
+	InputVariable_Type_Float = "float"
+	InputVariable_Type_Int = "int"
 	InputVariable_Type_Number = "number"
 	InputVariable_Type_Object = "object"
-	InputVariable_Type_Set = "set"
+	InputVariable_Type_Password = "password"
 	InputVariable_Type_String = "string"
-	InputVariable_Type_Tuple = "tuple"
 )
 
 // NewInputVariable : Instantiate InputVariable (Generic Model Constructor)
-func (*ProjectsV1) NewInputVariable(name string) (_model *InputVariable, err error) {
+func (*ProjectsV1) NewInputVariable(name string, typeVar string) (_model *InputVariable, err error) {
 	_model = &InputVariable{
 		Name: core.StringPtr(name),
+		Type: core.StringPtr(typeVar),
 	}
 	err = core.ValidateStruct(_model, "required parameters")
 	return
@@ -2223,15 +2351,11 @@ func UnmarshalInputVariable(m map[string]json.RawMessage, result interface{}) (e
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalPrimitive(m, "description", &obj.Description)
-	if err != nil {
-		return
-	}
 	err = core.UnmarshalPrimitive(m, "type", &obj.Type)
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalPrimitive(m, "sensitive", &obj.Sensitive)
+	err = core.UnmarshalPrimitive(m, "required", &obj.Required)
 	if err != nil {
 		return
 	}
@@ -2541,6 +2665,9 @@ type ProjectConfig struct {
 
 	Output []OutputValue `json:"output,omitempty"`
 
+	// A project config description.
+	Description *string `json:"description,omitempty"`
+
 	Type *string `json:"type,omitempty"`
 
 	ExternalResourcesAccount *string `json:"external_resources_account,omitempty"`
@@ -2548,10 +2675,10 @@ type ProjectConfig struct {
 	Input []InputVariable `json:"input,omitempty"`
 
 	// A Terraform blueprint to use for provisioning a set of project resources.
-	TerraformTemplate *TerraformTemplate `json:"terraform_template,omitempty"`
+	Template *TerraformTemplate `json:"template,omitempty"`
 
 	// A Schematics blueprint to use for provisioning a set of project resources.
-	SchematicsBlueprint *SchematicsBlueprint `json:"schematics_blueprint,omitempty"`
+	Blueprint *SchematicsBlueprint `json:"blueprint,omitempty"`
 }
 
 // Constants associated with the ProjectConfig.Type property.
@@ -2581,6 +2708,10 @@ func UnmarshalProjectConfig(m map[string]json.RawMessage, result interface{}) (e
 	if err != nil {
 		return
 	}
+	err = core.UnmarshalPrimitive(m, "description", &obj.Description)
+	if err != nil {
+		return
+	}
 	err = core.UnmarshalPrimitive(m, "type", &obj.Type)
 	if err != nil {
 		return
@@ -2593,11 +2724,11 @@ func UnmarshalProjectConfig(m map[string]json.RawMessage, result interface{}) (e
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(m, "terraform_template", &obj.TerraformTemplate, UnmarshalTerraformTemplate)
+	err = core.UnmarshalModel(m, "template", &obj.Template, UnmarshalTerraformTemplate)
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(m, "schematics_blueprint", &obj.SchematicsBlueprint, UnmarshalSchematicsBlueprint)
+	err = core.UnmarshalModel(m, "blueprint", &obj.Blueprint, UnmarshalSchematicsBlueprint)
 	if err != nil {
 		return
 	}
@@ -2879,10 +3010,10 @@ type ProjectStatus struct {
 	Href *string `json:"href,omitempty"`
 
 	// An IBM Cloud Resource Name, which uniquely identify a resource.
-	Crn *string `json:"crn" validate:"required"`
+	ProjectCrn *string `json:"project_crn" validate:"required"`
 
 	// The project name.
-	Name *string `json:"name" validate:"required"`
+	ProjectName *string `json:"project_name" validate:"required"`
 
 	Location *string `json:"location" validate:"required"`
 
@@ -2942,11 +3073,11 @@ func UnmarshalProjectStatus(m map[string]json.RawMessage, result interface{}) (e
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalPrimitive(m, "crn", &obj.Crn)
+	err = core.UnmarshalPrimitive(m, "project_crn", &obj.ProjectCrn)
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
+	err = core.UnmarshalPrimitive(m, "project_name", &obj.ProjectName)
 	if err != nil {
 		return
 	}
@@ -3229,20 +3360,14 @@ func UnmarshalServiceInfoToolchain(m map[string]json.RawMessage, result interfac
 
 // TerraformTemplate : A Terraform blueprint to use for provisioning a set of project resources.
 type TerraformTemplate struct {
-	RepoURL *string `json:"repo_url" validate:"required"`
-
-	CatalogRef *string `json:"catalog_ref,omitempty"`
-
-	TerraformVersion *string `json:"terraform_version" validate:"required"`
-
-	PersonalAccessToken *string `json:"personal_access_token,omitempty"`
+	// The version_locator of the offer. It is a dotted value of catalogID.versionID.
+	LocatorID *string `json:"locator_id" validate:"required"`
 }
 
 // NewTerraformTemplate : Instantiate TerraformTemplate (Generic Model Constructor)
-func (*ProjectsV1) NewTerraformTemplate(repoURL string, terraformVersion string) (_model *TerraformTemplate, err error) {
+func (*ProjectsV1) NewTerraformTemplate(locatorID string) (_model *TerraformTemplate, err error) {
 	_model = &TerraformTemplate{
-		RepoURL: core.StringPtr(repoURL),
-		TerraformVersion: core.StringPtr(terraformVersion),
+		LocatorID: core.StringPtr(locatorID),
 	}
 	err = core.ValidateStruct(_model, "required parameters")
 	return
@@ -3251,19 +3376,7 @@ func (*ProjectsV1) NewTerraformTemplate(repoURL string, terraformVersion string)
 // UnmarshalTerraformTemplate unmarshals an instance of TerraformTemplate from the specified map of raw messages.
 func UnmarshalTerraformTemplate(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(TerraformTemplate)
-	err = core.UnmarshalPrimitive(m, "repo_url", &obj.RepoURL)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "catalog_ref", &obj.CatalogRef)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "terraform_version", &obj.TerraformVersion)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "personal_access_token", &obj.PersonalAccessToken)
+	err = core.UnmarshalPrimitive(m, "locator_id", &obj.LocatorID)
 	if err != nil {
 		return
 	}
@@ -3735,6 +3848,9 @@ type ProjectConfigManualProperty struct {
 
 	Output []OutputValue `json:"output,omitempty"`
 
+	// A project config description.
+	Description *string `json:"description,omitempty"`
+
 	Type *string `json:"type" validate:"required"`
 
 	ExternalResourcesAccount *string `json:"external_resources_account,omitempty"`
@@ -3774,6 +3890,10 @@ func UnmarshalProjectConfigManualProperty(m map[string]json.RawMessage, result i
 	if err != nil {
 		return
 	}
+	err = core.UnmarshalPrimitive(m, "description", &obj.Description)
+	if err != nil {
+		return
+	}
 	err = core.UnmarshalPrimitive(m, "type", &obj.Type)
 	if err != nil {
 		return
@@ -3795,12 +3915,15 @@ type ProjectConfigSchematicsBlueprintProperty struct {
 
 	Output []OutputValue `json:"output,omitempty"`
 
+	// A project config description.
+	Description *string `json:"description,omitempty"`
+
 	Type *string `json:"type" validate:"required"`
 
 	Input []InputVariable `json:"input" validate:"required"`
 
 	// A Schematics blueprint to use for provisioning a set of project resources.
-	SchematicsBlueprint *SchematicsBlueprint `json:"schematics_blueprint,omitempty"`
+	Blueprint *SchematicsBlueprint `json:"blueprint" validate:"required"`
 }
 
 // Constants associated with the ProjectConfigSchematicsBlueprintProperty.Type property.
@@ -3809,11 +3932,12 @@ const (
 )
 
 // NewProjectConfigSchematicsBlueprintProperty : Instantiate ProjectConfigSchematicsBlueprintProperty (Generic Model Constructor)
-func (*ProjectsV1) NewProjectConfigSchematicsBlueprintProperty(name string, typeVar string, input []InputVariable) (_model *ProjectConfigSchematicsBlueprintProperty, err error) {
+func (*ProjectsV1) NewProjectConfigSchematicsBlueprintProperty(name string, typeVar string, input []InputVariable, blueprint *SchematicsBlueprint) (_model *ProjectConfigSchematicsBlueprintProperty, err error) {
 	_model = &ProjectConfigSchematicsBlueprintProperty{
 		Name: core.StringPtr(name),
 		Type: core.StringPtr(typeVar),
 		Input: input,
+		Blueprint: blueprint,
 	}
 	err = core.ValidateStruct(_model, "required parameters")
 	return
@@ -3838,6 +3962,10 @@ func UnmarshalProjectConfigSchematicsBlueprintProperty(m map[string]json.RawMess
 	if err != nil {
 		return
 	}
+	err = core.UnmarshalPrimitive(m, "description", &obj.Description)
+	if err != nil {
+		return
+	}
 	err = core.UnmarshalPrimitive(m, "type", &obj.Type)
 	if err != nil {
 		return
@@ -3846,7 +3974,7 @@ func UnmarshalProjectConfigSchematicsBlueprintProperty(m map[string]json.RawMess
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(m, "schematics_blueprint", &obj.SchematicsBlueprint, UnmarshalSchematicsBlueprint)
+	err = core.UnmarshalModel(m, "blueprint", &obj.Blueprint, UnmarshalSchematicsBlueprint)
 	if err != nil {
 		return
 	}
@@ -3863,12 +3991,15 @@ type ProjectConfigTerraformTemplateProperty struct {
 
 	Output []OutputValue `json:"output,omitempty"`
 
+	// A project config description.
+	Description *string `json:"description,omitempty"`
+
 	Type *string `json:"type" validate:"required"`
 
 	Input []InputVariable `json:"input" validate:"required"`
 
 	// A Terraform blueprint to use for provisioning a set of project resources.
-	TerraformTemplate *TerraformTemplate `json:"terraform_template,omitempty"`
+	Template *TerraformTemplate `json:"template" validate:"required"`
 }
 
 // Constants associated with the ProjectConfigTerraformTemplateProperty.Type property.
@@ -3877,11 +4008,12 @@ const (
 )
 
 // NewProjectConfigTerraformTemplateProperty : Instantiate ProjectConfigTerraformTemplateProperty (Generic Model Constructor)
-func (*ProjectsV1) NewProjectConfigTerraformTemplateProperty(name string, typeVar string, input []InputVariable) (_model *ProjectConfigTerraformTemplateProperty, err error) {
+func (*ProjectsV1) NewProjectConfigTerraformTemplateProperty(name string, typeVar string, input []InputVariable, template *TerraformTemplate) (_model *ProjectConfigTerraformTemplateProperty, err error) {
 	_model = &ProjectConfigTerraformTemplateProperty{
 		Name: core.StringPtr(name),
 		Type: core.StringPtr(typeVar),
 		Input: input,
+		Template: template,
 	}
 	err = core.ValidateStruct(_model, "required parameters")
 	return
@@ -3906,6 +4038,10 @@ func UnmarshalProjectConfigTerraformTemplateProperty(m map[string]json.RawMessag
 	if err != nil {
 		return
 	}
+	err = core.UnmarshalPrimitive(m, "description", &obj.Description)
+	if err != nil {
+		return
+	}
 	err = core.UnmarshalPrimitive(m, "type", &obj.Type)
 	if err != nil {
 		return
@@ -3914,7 +4050,7 @@ func UnmarshalProjectConfigTerraformTemplateProperty(m map[string]json.RawMessag
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalModel(m, "terraform_template", &obj.TerraformTemplate, UnmarshalTerraformTemplate)
+	err = core.UnmarshalModel(m, "template", &obj.Template, UnmarshalTerraformTemplate)
 	if err != nil {
 		return
 	}
