@@ -44,7 +44,7 @@ type ResourceControllerV2 struct {
 }
 
 // DefaultServiceURL is the default URL to make service requests to.
-const DefaultServiceURL = "https://resource-controller.cloud.ibm.com"
+const DefaultServiceURL = "https://resource-controller.test.cloud.ibm.com"
 
 // DefaultServiceName is the default key used to find external configuration information.
 const DefaultServiceName = "resource_controller"
@@ -1937,7 +1937,7 @@ func (resourceController *ResourceControllerV2) RunReclamationActionWithContext(
 	}
 
 	pathParamsMap := map[string]string{
-		"id": *runReclamationActionOptions.ID,
+		"id":          *runReclamationActionOptions.ID,
 		"action_name": *runReclamationActionOptions.ActionName,
 	}
 
@@ -2012,7 +2012,7 @@ type CreateResourceAliasOptions struct {
 // NewCreateResourceAliasOptions : Instantiate CreateResourceAliasOptions
 func (*ResourceControllerV2) NewCreateResourceAliasOptions(name string, source string, target string) *CreateResourceAliasOptions {
 	return &CreateResourceAliasOptions{
-		Name: core.StringPtr(name),
+		Name:   core.StringPtr(name),
 		Source: core.StringPtr(source),
 		Target: core.StringPtr(target),
 	}
@@ -2146,9 +2146,9 @@ type CreateResourceInstanceOptions struct {
 // NewCreateResourceInstanceOptions : Instantiate CreateResourceInstanceOptions
 func (*ResourceControllerV2) NewCreateResourceInstanceOptions(name string, target string, resourceGroup string, resourcePlanID string) *CreateResourceInstanceOptions {
 	return &CreateResourceInstanceOptions{
-		Name: core.StringPtr(name),
-		Target: core.StringPtr(target),
-		ResourceGroup: core.StringPtr(resourceGroup),
+		Name:           core.StringPtr(name),
+		Target:         core.StringPtr(target),
+		ResourceGroup:  core.StringPtr(resourceGroup),
 		ResourcePlanID: core.StringPtr(resourcePlanID),
 	}
 }
@@ -2229,7 +2229,7 @@ type CreateResourceKeyOptions struct {
 // NewCreateResourceKeyOptions : Instantiate CreateResourceKeyOptions
 func (*ResourceControllerV2) NewCreateResourceKeyOptions(name string, source string) *CreateResourceKeyOptions {
 	return &CreateResourceKeyOptions{
-		Name: core.StringPtr(name),
+		Name:   core.StringPtr(name),
 		Source: core.StringPtr(source),
 	}
 }
@@ -2995,9 +2995,9 @@ type ListResourceInstancesOptions struct {
 // Constants associated with the ListResourceInstancesOptions.State property.
 // The state of the instance. If not specified, instances in state `active` and `provisioning` are returned.
 const (
-	ListResourceInstancesOptionsStateActiveConst = "active"
+	ListResourceInstancesOptionsStateActiveConst       = "active"
 	ListResourceInstancesOptionsStateProvisioningConst = "provisioning"
-	ListResourceInstancesOptionsStateRemovedConst = "removed"
+	ListResourceInstancesOptionsStateRemovedConst      = "removed"
 )
 
 // NewListResourceInstancesOptions : Instantiate ListResourceInstancesOptions
@@ -4477,7 +4477,7 @@ type RunReclamationActionOptions struct {
 // NewRunReclamationActionOptions : Instantiate RunReclamationActionOptions
 func (*ResourceControllerV2) NewRunReclamationActionOptions(id string, actionName string) *RunReclamationActionOptions {
 	return &RunReclamationActionOptions{
-		ID: core.StringPtr(id),
+		ID:         core.StringPtr(id),
 		ActionName: core.StringPtr(actionName),
 	}
 }
@@ -4556,7 +4556,7 @@ type UpdateResourceAliasOptions struct {
 // NewUpdateResourceAliasOptions : Instantiate UpdateResourceAliasOptions
 func (*ResourceControllerV2) NewUpdateResourceAliasOptions(id string, name string) *UpdateResourceAliasOptions {
 	return &UpdateResourceAliasOptions{
-		ID: core.StringPtr(id),
+		ID:   core.StringPtr(id),
 		Name: core.StringPtr(name),
 	}
 }
@@ -4595,7 +4595,7 @@ type UpdateResourceBindingOptions struct {
 // NewUpdateResourceBindingOptions : Instantiate UpdateResourceBindingOptions
 func (*ResourceControllerV2) NewUpdateResourceBindingOptions(id string, name string) *UpdateResourceBindingOptions {
 	return &UpdateResourceBindingOptions{
-		ID: core.StringPtr(id),
+		ID:   core.StringPtr(id),
 		Name: core.StringPtr(name),
 	}
 }
@@ -4700,7 +4700,7 @@ type UpdateResourceKeyOptions struct {
 // NewUpdateResourceKeyOptions : Instantiate UpdateResourceKeyOptions
 func (*ResourceControllerV2) NewUpdateResourceKeyOptions(id string, name string) *UpdateResourceKeyOptions {
 	return &UpdateResourceKeyOptions{
-		ID: core.StringPtr(id),
+		ID:   core.StringPtr(id),
 		Name: core.StringPtr(name),
 	}
 }
