@@ -1,3 +1,4 @@
+//go:build examples
 // +build examples
 
 /**
@@ -45,48 +46,46 @@ import (
 // in a configuration file and then:
 // export IBM_CREDENTIALS_FILE=<name of configuration file>
 //
-const externalConfigFile = "../iam_identity.env"
-
-var (
-	iamIdentityService *iamidentityv1.IamIdentityV1
-	config             map[string]string
-	configLoaded       bool = false
-
-	err        error
-	serviceURL string
-
-	apikeyName    string = "Example-ApiKey"
-	serviceIDName string = "Example-ServiceId"
-	profileName   string = "Example-Profile"
-	accountID     string
-	iamID         string
-	iamAPIKey     string
-
-	apikeyID   string
-	apikeyEtag string
-
-	svcID     string
-	svcIDEtag string
-
-	profileId     string
-	profileIamId  string
-	profileEtag   string
-	claimRuleId   string
-	claimRuleEtag string
-	claimRuleType string = "Profile-SAML"
-	realmName     string = "https://w3id.sso.ibm.com/auth/sps/samlidp2/saml20"
-	linkId        string
-
-	accountSettingEtag string
-)
-
-func shouldSkipTest() {
-	if !configLoaded {
-		Skip("External configuration is not available, skipping tests...")
-	}
-}
 
 var _ = Describe(`IamIdentityV1 Examples Tests`, func() {
+	const externalConfigFile = "../iam_identity.env"
+
+	var (
+		iamIdentityService *iamidentityv1.IamIdentityV1
+		config             map[string]string
+		configLoaded       bool = false
+
+		serviceURL string
+
+		apikeyName    string = "Example-ApiKey"
+		serviceIDName string = "Example-ServiceId"
+		profileName   string = "Example-Profile"
+		accountID     string
+		iamID         string
+		iamAPIKey     string
+
+		apikeyID   string
+		apikeyEtag string
+
+		svcID     string
+		svcIDEtag string
+
+		profileId     string
+		profileEtag   string
+		claimRuleId   string
+		claimRuleEtag string
+		claimRuleType string = "Profile-SAML"
+		realmName     string = "https://w3id.sso.ibm.com/auth/sps/samlidp2/saml20"
+		linkId        string
+
+		accountSettingEtag string
+	)
+
+	var shouldSkipTest = func() {
+		if !configLoaded {
+			Skip("External configuration is not available, skipping tests...")
+		}
+	}
 	Describe(`External configuration`, func() {
 		It("Successfully load the configuration", func() {
 			var err error

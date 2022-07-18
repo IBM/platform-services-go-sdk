@@ -1,3 +1,4 @@
+//go:build integration
 // +build integration
 
 /**
@@ -34,35 +35,35 @@ import (
 	"github.com/IBM/platform-services-go-sdk/iampolicymanagementv1"
 )
 
-const externalConfigFile = "../iam_policy_management.env"
-
-var (
-	service      *iampolicymanagementv1.IamPolicyManagementV1
-	err          error
-	config       map[string]string
-	configLoaded bool = false
-
-	testAccountID     string
-	etagHeader        string = "ETag"
-	testPolicyETag    string = ""
-	testPolicyId      string = ""
-	testUserId        string = "IBMid-GoSDK" + strconv.Itoa(rand.Intn(100000))
-	testViewerRoleCrn string = "crn:v1:bluemix:public:iam::::role:Viewer"
-	testEditorRoleCrn string = "crn:v1:bluemix:public:iam::::role:Editor"
-	testServiceName   string = "iam-groups"
-
-	testCustomRoleId   string = ""
-	testCustomRoleETag string = ""
-	testCustomRoleName string = "TestGoRole" + strconv.Itoa(rand.Intn(100000))
-)
-
-func shouldSkipTest() {
-	if !configLoaded {
-		Skip("External configuration is not available, skipping...")
-	}
-}
-
 var _ = Describe("IAM Policy Management - Integration Tests", func() {
+	const externalConfigFile = "../iam_policy_management.env"
+
+	var (
+		service      *iampolicymanagementv1.IamPolicyManagementV1
+		err          error
+		config       map[string]string
+		configLoaded bool = false
+
+		testAccountID     string
+		etagHeader        string = "ETag"
+		testPolicyETag    string = ""
+		testPolicyId      string = ""
+		testUserId        string = "IBMid-GoSDK" + strconv.Itoa(rand.Intn(100000))
+		testViewerRoleCrn string = "crn:v1:bluemix:public:iam::::role:Viewer"
+		testEditorRoleCrn string = "crn:v1:bluemix:public:iam::::role:Editor"
+		testServiceName   string = "iam-groups"
+
+		testCustomRoleId   string = ""
+		testCustomRoleETag string = ""
+		testCustomRoleName string = "TestGoRole" + strconv.Itoa(rand.Intn(100000))
+	)
+
+	var shouldSkipTest = func() {
+		if !configLoaded {
+			Skip("External configuration is not available, skipping...")
+		}
+	}
+
 	It("Successfully load the configuration", func() {
 		err = os.Setenv("IBM_CREDENTIALS_FILE", externalConfigFile)
 		if err != nil {
@@ -373,67 +374,66 @@ var _ = Describe("IAM Policy Management - Integration Tests", func() {
 		})
 	})
 
-})
-
-// clean up all test groups
-var _ = AfterSuite(func() {
-	if !configLoaded {
-		return
-	}
-
-	fmt.Fprintf(GinkgoWriter, "Cleaning up test groups...\n")
-
-	// list all policies in the account
-	policyOptions := service.NewListPoliciesOptions(testAccountID)
-	policyOptions.SetIamID(testUserId)
-	policyResult, policyDetailedResponse, err := service.ListPolicies(policyOptions)
-	Expect(err).To(BeNil())
-	Expect(policyDetailedResponse.StatusCode).To(Equal(200))
-
-	for _, policy := range policyResult.Policies {
-
-		// delete the test policy (or any test policy older than 5 minutes)
-		createdAt, err := time.Parse(time.RFC3339, policy.CreatedAt.String())
-		if err != nil {
-			fmt.Fprintf(GinkgoWriter, "time.Parse error occurred: %v\n", err)
-			fmt.Fprintf(GinkgoWriter, "Cleanup of policy (%v) failed\n", *policy.ID)
-			continue
+	// clean up all test groups
+	AfterSuite(func() {
+		if !configLoaded {
+			return
 		}
-		fiveMinutesAgo := time.Now().Add(-(time.Duration(5) * time.Minute))
 
-		if *policy.ID == testPolicyId || createdAt.Before(fiveMinutesAgo) {
-			options := service.NewDeletePolicyOptions(*policy.ID)
-			detailedResponse, err := service.DeletePolicy(options)
-			Expect(err).To(BeNil())
-			Expect(detailedResponse.StatusCode).To(Equal(204))
+		fmt.Fprintf(GinkgoWriter, "Cleaning up test groups...\n")
+
+		// list all policies in the account
+		policyOptions := service.NewListPoliciesOptions(testAccountID)
+		policyOptions.SetIamID(testUserId)
+		policyResult, policyDetailedResponse, err := service.ListPolicies(policyOptions)
+		Expect(err).To(BeNil())
+		Expect(policyDetailedResponse.StatusCode).To(Equal(200))
+
+		for _, policy := range policyResult.Policies {
+
+			// delete the test policy (or any test policy older than 5 minutes)
+			createdAt, err := time.Parse(time.RFC3339, policy.CreatedAt.String())
+			if err != nil {
+				fmt.Fprintf(GinkgoWriter, "time.Parse error occurred: %v\n", err)
+				fmt.Fprintf(GinkgoWriter, "Cleanup of policy (%v) failed\n", *policy.ID)
+				continue
+			}
+			fiveMinutesAgo := time.Now().Add(-(time.Duration(5) * time.Minute))
+
+			if *policy.ID == testPolicyId || createdAt.Before(fiveMinutesAgo) {
+				options := service.NewDeletePolicyOptions(*policy.ID)
+				detailedResponse, err := service.DeletePolicy(options)
+				Expect(err).To(BeNil())
+				Expect(detailedResponse.StatusCode).To(Equal(204))
+			}
 		}
-	}
 
-	// List all custom roles in the account
-	roleOptions := service.NewListRolesOptions()
-	roleOptions.SetAccountID(testAccountID)
-	roleResult, roleDetailedResponse, err := service.ListRoles(roleOptions)
-	Expect(err).To(BeNil())
-	Expect(roleDetailedResponse.StatusCode).To(Equal(200))
+		// List all custom roles in the account
+		roleOptions := service.NewListRolesOptions()
+		roleOptions.SetAccountID(testAccountID)
+		roleResult, roleDetailedResponse, err := service.ListRoles(roleOptions)
+		Expect(err).To(BeNil())
+		Expect(roleDetailedResponse.StatusCode).To(Equal(200))
 
-	for _, role := range roleResult.CustomRoles {
+		for _, role := range roleResult.CustomRoles {
 
-		// delete the role (or any test role older than 5 minutes)
-		createdAt, err := time.Parse(time.RFC3339, role.CreatedAt.String())
-		if err != nil {
-			fmt.Fprintf(GinkgoWriter, "time.Parse error occurred: %v\n", err)
-			fmt.Fprintf(GinkgoWriter, "Cleanup of role (%v) failed\n", *role.ID)
-			continue
+			// delete the role (or any test role older than 5 minutes)
+			createdAt, err := time.Parse(time.RFC3339, role.CreatedAt.String())
+			if err != nil {
+				fmt.Fprintf(GinkgoWriter, "time.Parse error occurred: %v\n", err)
+				fmt.Fprintf(GinkgoWriter, "Cleanup of role (%v) failed\n", *role.ID)
+				continue
+			}
+			fiveMinutesAgo := time.Now().Add(-(time.Duration(5) * time.Minute))
+
+			if *role.ID == testCustomRoleId || createdAt.Before(fiveMinutesAgo) {
+				options := service.NewDeleteRoleOptions(*role.ID)
+				detailedResponse, err := service.DeleteRole(options)
+				Expect(err).To(BeNil())
+				Expect(detailedResponse.StatusCode).To(Equal(204))
+			}
 		}
-		fiveMinutesAgo := time.Now().Add(-(time.Duration(5) * time.Minute))
 
-		if *role.ID == testCustomRoleId || createdAt.Before(fiveMinutesAgo) {
-			options := service.NewDeleteRoleOptions(*role.ID)
-			detailedResponse, err := service.DeleteRole(options)
-			Expect(err).To(BeNil())
-			Expect(detailedResponse.StatusCode).To(Equal(204))
-		}
-	}
-
-	fmt.Fprintf(GinkgoWriter, "Cleanup finished!\n")
+		fmt.Fprintf(GinkgoWriter, "Cleanup finished!\n")
+	})
 })

@@ -1,4 +1,7 @@
 # Makefile to build the project
+GO=go
+LINT=golangci-lint
+GOSEC=gosec
 
 COVERAGE = -coverprofile=coverage.txt -covermode=atomic
 
@@ -6,22 +9,22 @@ all: tidy test lint
 travis-ci: test-cov lint scan-gosec tidy
 
 test:
-	go test `go list ./...`
+	${GO} test `${GO} list ./...`
 
 test-cov:
-	go test `go list ./...` ${COVERAGE}
+	${GO} test `${GO} list ./...` ${COVERAGE}
 
 test-int:
-	go test `go list ./...` -tags=integration
+	${GO} test `${GO} list ./...` -tags=integration
 
 test-int-cov:
-	go test `go list ./...` -tags=integration ${COVERAGE}
+	${GO} test `${GO} list ./...` -tags=integration ${COVERAGE}
 
 lint:
-	golangci-lint run
+	${LINT} run --build-tags=integration,examples
 
 scan-gosec:
-	gosec ./...
+	${GOSEC} ./...
 
 tidy:
-	go mod tidy
+	${GO} mod tidy

@@ -1,3 +1,4 @@
+//go:build integration
 // +build integration
 
 /**
@@ -40,15 +41,14 @@ import (
  * The integration test will automatically skip tests if the required config file is not available.
  */
 
-const (
-	externalConfigFile = "../global_tagging.env"
-	sdkLabel           = "go-sdk"
-)
-
-var resourceCRN string
-
 var _ = Describe(`GlobalTaggingV1 Integration Tests`, func() {
 
+	const (
+		externalConfigFile = "../global_tagging.env"
+		sdkLabel           = "go-sdk"
+	)
+
+	var resourceCRN string
 	var (
 		err                  error
 		globalTaggingService *globaltaggingv1.GlobalTaggingV1
@@ -113,7 +113,7 @@ var _ = Describe(`GlobalTaggingV1 Integration Tests`, func() {
 
 		It("Successfully setup the environment for tests", func() {
 			fmt.Fprintln(GinkgoWriter, "Setup...")
-			cleanTags(globalTaggingService)
+			cleanTags(globalTaggingService, resourceCRN, sdkLabel)
 			fmt.Fprintln(GinkgoWriter, "Finished setup.")
 		})
 	})
@@ -448,7 +448,7 @@ var _ = Describe(`GlobalTaggingV1 Integration Tests`, func() {
 		})
 		It(`Clean rules`, func() {
 			fmt.Fprintln(GinkgoWriter, "Teardown...")
-			cleanTags(globalTaggingService)
+			cleanTags(globalTaggingService, resourceCRN, sdkLabel)
 			fmt.Fprintln(GinkgoWriter, "Finished teardown.")
 		})
 	})
@@ -537,7 +537,7 @@ func listTagsWithLabel(service *globaltaggingv1.GlobalTaggingV1, tagType string,
 	return tagNames
 }
 
-func cleanTags(service *globaltaggingv1.GlobalTaggingV1) {
+func cleanTags(service *globaltaggingv1.GlobalTaggingV1, resourceCRN string, sdkLabel string) {
 	// Detach all user and access tags that contain our label.
 	userTags := getTagNamesForResource(service, resourceCRN, "user")
 	for _, tagName := range userTags {

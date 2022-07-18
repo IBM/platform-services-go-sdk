@@ -1,3 +1,4 @@
+//go:build examples
 // +build examples
 
 /**
@@ -49,22 +50,23 @@ import (
 // in a configuration file and then:
 // export IBM_CREDENTIALS_FILE=<name of configuration file>
 //
-const externalConfigFile = "../global_catalog.env"
-
-var (
-	globalCatalogService *globalcatalogv1.GlobalCatalogV1
-	config               map[string]string
-	configLoaded         bool = false
-	catalogEntryID       string
-)
-
-func shouldSkipTest() {
-	if !configLoaded {
-		Skip("External configuration is not available, skipping tests...")
-	}
-}
 
 var _ = Describe(`GlobalCatalogV1 Examples Tests`, func() {
+	const externalConfigFile = "../global_catalog.env"
+
+	var (
+		globalCatalogService *globalcatalogv1.GlobalCatalogV1
+		config               map[string]string
+		configLoaded         bool = false
+		catalogEntryID       string
+	)
+
+	var shouldSkipTest = func() {
+		if !configLoaded {
+			Skip("External configuration is not available, skipping tests...")
+		}
+	}
+
 	Describe(`External configuration`, func() {
 		It("Successfully load the configuration", func() {
 			var err error
@@ -479,7 +481,7 @@ var _ = Describe(`GlobalCatalogV1 Examples Tests`, func() {
 			if result != nil {
 				defer result.Close()
 				buf := new(bytes.Buffer)
-				buf.ReadFrom(result)
+				_, _ = buf.ReadFrom(result)
 				fmt.Println(buf.String())
 			}
 

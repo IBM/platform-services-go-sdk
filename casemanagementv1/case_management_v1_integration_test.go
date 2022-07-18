@@ -1,3 +1,4 @@
+//go:build integration
 // +build integration
 
 /**
@@ -35,54 +36,50 @@ import (
 	common "github.com/IBM/platform-services-go-sdk/common"
 )
 
-const externalConfigFile = "../case_management.env"
+var _ = Describe("Case Management - Integration Tests", func() {
+	const externalConfigFile = "../case_management.env"
 
-var (
-	service *casemanagementv1.CaseManagementV1
-	err     error
+	var (
+		service *casemanagementv1.CaseManagementV1
+		err     error
 
-	configLoaded bool = false
+		config map[string]string
 
-	caseNumber   string
-	commentValue = "Test comment"
+		caseNumber   string
+		commentValue = "Test comment"
 
-	// Configured resource CRN to use in tests.
-	resourceCRN string
+		// Configured resource CRN to use in tests.
+		resourceCRN string
 
-	// Model instances needed by the tests.
-	resourcePayload  []casemanagementv1.ResourcePayload
-	watchlistPayload *casemanagementv1.Watchlist
-)
+		// Model instances needed by the tests.
+		resourcePayload  []casemanagementv1.ResourcePayload
+		watchlistPayload *casemanagementv1.Watchlist
+	)
 
-func shouldSkipTest() {
-	if !configLoaded {
+	var shouldSkipTest = func() {
 		Skip("External configuration is not available, skipping...")
 	}
-}
 
-var _ = Describe("Case Management - Integration Tests", func() {
 	It("Successfully load the configuration", func() {
-		var config map[string]string
-		if _, fileErr := os.Stat(externalConfigFile); fileErr == nil {
-			os.Setenv("IBM_CREDENTIALS_FILE", externalConfigFile)
-			config, _ = core.GetServiceProperties(casemanagementv1.DefaultServiceName)
-			if len(config) > 0 {
-				configLoaded = true
-			}
-
-			if configLoaded {
-
-			}
+		_, err = os.Stat(externalConfigFile)
+		if err != nil {
+			Skip("External configuration file not found, skipping tests: " + err.Error())
 		}
 
-		if !configLoaded {
-			Skip("External configuration could not be loaded, skipping...")
+		os.Setenv("IBM_CREDENTIALS_FILE", externalConfigFile)
+		config, err = core.GetServiceProperties(casemanagementv1.DefaultServiceName)
+		if err != nil {
+			Skip("Error loading service properties, skipping tests: " + err.Error())
+		}
+		serviceURL := config["URL"]
+		if serviceURL == "" {
+			Skip("Unable to load service URL configuration property, skipping tests")
 		}
 
 		resourceCRN = config["RESOURCE_CRN"]
-		if resourceCRN == "" {
-			Skip("RESOURCE_CRN configuration property not found, skipping...")
-		}
+		Expect(resourceCRN).ToNot(BeEmpty())
+
+		shouldSkipTest = func() {}
 
 		// Initialize required model instances.
 		resourcePayload = []casemanagementv1.ResourcePayload{casemanagementv1.ResourcePayload{

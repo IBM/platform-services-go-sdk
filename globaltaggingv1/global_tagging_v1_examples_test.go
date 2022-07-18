@@ -1,3 +1,4 @@
+//go:build examples
 // +build examples
 
 /**
@@ -44,23 +45,24 @@ import (
 // in a configuration file and then:
 // export IBM_CREDENTIALS_FILE=<name of configuration file>
 //
-const externalConfigFile = "../global_tagging.env"
-
-var (
-	globalTaggingService *globaltaggingv1.GlobalTaggingV1
-	config               map[string]string
-	configLoaded         bool = false
-
-	resourceCRN string
-)
-
-func shouldSkipTest() {
-	if !configLoaded {
-		Skip("External configuration is not available, skipping tests...")
-	}
-}
 
 var _ = Describe(`GlobalTaggingV1 Examples Tests`, func() {
+	const externalConfigFile = "../global_tagging.env"
+
+	var (
+		globalTaggingService *globaltaggingv1.GlobalTaggingV1
+		config               map[string]string
+		configLoaded         bool = false
+
+		resourceCRN string
+	)
+
+	var shouldSkipTest = func() {
+		if !configLoaded {
+			Skip("External configuration is not available, skipping tests...")
+		}
+	}
+
 	Describe(`External configuration`, func() {
 		It("Successfully load the configuration", func() {
 			var err error

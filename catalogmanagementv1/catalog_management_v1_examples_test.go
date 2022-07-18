@@ -1,3 +1,4 @@
+//go:build examples
 // +build examples
 
 /**
@@ -45,30 +46,31 @@ import (
 // in a configuration file and then:
 // export IBM_CREDENTIALS_FILE=<name of configuration file>
 //
-const externalConfigFile = "../catalog_mgmt.env"
-
-var (
-	catalogManagementService  *catalogmanagementv1.CatalogManagementV1
-	config                    map[string]string
-	configLoaded              bool = false
-	accountID                 string
-	bearerToken               string
-	gitAuthTokenForPublicRepo string
-	catalogID                 string
-	offeringID                string
-	clusterID                 string
-	objectID                  string
-	offeringInstanceID        string
-	versionLocatorID          string
-)
-
-func shouldSkipTest() {
-	if !configLoaded {
-		Skip("External configuration is not available, skipping tests...")
-	}
-}
 
 var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
+	const externalConfigFile = "../catalog_mgmt.env"
+
+	var (
+		catalogManagementService  *catalogmanagementv1.CatalogManagementV1
+		config                    map[string]string
+		configLoaded              bool = false
+		accountID                 string
+		bearerToken               string
+		gitAuthTokenForPublicRepo string
+		catalogID                 string
+		offeringID                string
+		clusterID                 string
+		objectID                  string
+		offeringInstanceID        string
+		versionLocatorID          string
+	)
+
+	var shouldSkipTest = func() {
+		if !configLoaded {
+			Skip("External configuration is not available, skipping tests...")
+		}
+	}
+
 	Describe(`External configuration`, func() {
 		It("Successfully load the configuration", func() {
 			var err error
@@ -105,7 +107,7 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 
 			catalogManagementServiceOptions := &catalogmanagementv1.CatalogManagementV1Options{}
 
-			catalogManagementService, err = catalogmanagementv1.NewCatalogManagementV1UsingExternalConfig(catalogManagementServiceOptions)
+			catalogManagementService, err := catalogmanagementv1.NewCatalogManagementV1UsingExternalConfig(catalogManagementServiceOptions)
 
 			if err != nil {
 				panic(err)
@@ -652,6 +654,7 @@ var _ = Describe(`CatalogManagementV1 Examples Tests`, func() {
 				catalogID,
 				offeringID,
 				"roks",
+				"",
 			)
 			getOfferingUpdatesOptions.Version = core.StringPtr("0.0.2")
 			getOfferingUpdatesOptions.ClusterID = &clusterID

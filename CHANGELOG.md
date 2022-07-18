@@ -1,3 +1,31 @@
+## [0.26.1](https://github.com/IBM/platform-services-go-sdk/compare/v0.26.0...v0.26.1) (2022-06-27)
+
+
+### Bug Fixes
+
+* **Activity Tracker:** re-gen service after adding new region (eu-de and au-syd) ([#192](https://github.com/IBM/platform-services-go-sdk/issues/192)) ([9934d70](https://github.com/IBM/platform-services-go-sdk/commit/9934d7012202d0ab48604804baa9fb87f786cb2d))
+
+# [0.26.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.25.2...v0.26.0) (2022-06-23)
+
+
+### Features
+
+* **Context based Restrictions:**  enforcement mode support ([#191](https://github.com/IBM/platform-services-go-sdk/issues/191)) ([f049e95](https://github.com/IBM/platform-services-go-sdk/commit/f049e95e0a4ede1811b4dd7c3cef0d7bbd75f88c))
+
+## [0.25.2](https://github.com/IBM/platform-services-go-sdk/compare/v0.25.1...v0.25.2) (2022-05-31)
+
+
+### Bug Fixes
+
+* bump deps, fix lint errors ([#190](https://github.com/IBM/platform-services-go-sdk/issues/190)) ([073cdb2](https://github.com/IBM/platform-services-go-sdk/commit/073cdb275fef3d3982a5cf1351adc01c71dda0a4))
+
+## [0.25.1](https://github.com/IBM/platform-services-go-sdk/compare/v0.25.0...v0.25.1) (2022-05-11)
+
+
+### Bug Fixes
+
+* **ATracker V2:** re-gen service after recent API changes ([#188](https://github.com/IBM/platform-services-go-sdk/issues/188)) ([25d7447](https://github.com/IBM/platform-services-go-sdk/commit/25d7447d30f65823984061db38c7d3fcd624413a))
+
 # [0.25.0](https://github.com/IBM/platform-services-go-sdk/compare/v0.24.1...v0.25.0) (2022-05-04)
 
 

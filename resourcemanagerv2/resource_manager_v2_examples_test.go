@@ -1,3 +1,4 @@
+//go:build examples
 // +build examples
 
 /**
@@ -49,27 +50,28 @@ import (
 // in a configuration file and then:
 // export IBM_CREDENTIALS_FILE=<name of configuration file>
 //
-const externalConfigFile = "../resource_manager.env"
-
-var (
-	resourceManagerService       *resourcemanagerv2.ResourceManagerV2
-	deleteResourceManagerService *resourcemanagerv2.ResourceManagerV2
-	config                       map[string]string
-	configLoaded                 bool = false
-
-	exampleQuotaID       string
-	exampleUserAccountID string
-
-	resourceGroupID string
-)
-
-func shouldSkipTest() {
-	if !configLoaded {
-		Skip("External configuration is not available, skipping tests...")
-	}
-}
 
 var _ = Describe(`ResourceManagerV2 Examples Tests`, func() {
+	const externalConfigFile = "../resource_manager.env"
+
+	var (
+		resourceManagerService       *resourcemanagerv2.ResourceManagerV2
+		deleteResourceManagerService *resourcemanagerv2.ResourceManagerV2
+		config                       map[string]string
+		configLoaded                 bool = false
+
+		exampleQuotaID       string
+		exampleUserAccountID string
+
+		resourceGroupID string
+	)
+
+	var shouldSkipTest = func() {
+		if !configLoaded {
+			Skip("External configuration is not available, skipping tests...")
+		}
+	}
+
 	Describe(`External configuration`, func() {
 		It("Successfully load the configuration", func() {
 			var err error
