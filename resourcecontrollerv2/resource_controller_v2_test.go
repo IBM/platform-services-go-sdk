@@ -1,5 +1,7 @@
+// +build unit
+
 /**
- * (C) Copyright IBM Corp. 2021.
+ * (C) Copyright IBM Corp. 2022.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -67,7 +69,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 		Context(`Using external config, construct service client instances`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"RESOURCE_CONTROLLER_URL":       "https://resource-controller.test.cloud.ibm.com",
+				"RESOURCE_CONTROLLER_URL":       "https://resourcecontrollerv2/api",
 				"RESOURCE_CONTROLLER_AUTH_TYPE": "noauth",
 			}
 
@@ -120,7 +122,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 		Context(`Using external config, construct service client instances with error: Invalid Auth`, func() {
 			// Map containing environment variables used in testing.
 			var testEnvironment = map[string]string{
-				"RESOURCE_CONTROLLER_URL":       "https://resource-controller.test.cloud.ibm.com",
+				"RESOURCE_CONTROLLER_URL":       "https://resourcecontrollerv2/api",
 				"RESOURCE_CONTROLLER_AUTH_TYPE": "someOtherAuth",
 			}
 
@@ -181,11 +183,11 @@ var _ = Describe(`ResourceControllerV2`, func() {
 					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(100))}))
 					Expect(req.URL.Query()["start"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["state"]).To(Equal([]string{"active"}))
-					Expect(req.URL.Query()["updated_from"]).To(Equal([]string{"2019-01-08T00:00:00.000Z"}))
-					Expect(req.URL.Query()["updated_to"]).To(Equal([]string{"2019-01-08T00:00:00.000Z"}))
+					Expect(req.URL.Query()["updated_from"]).To(Equal([]string{"2021-01-01"}))
+					Expect(req.URL.Query()["updated_to"]).To(Equal([]string{"2021-01-01"}))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, `} this is not valid json {`)
+					fmt.Fprint(res, `} this is not valid json {`)
 				}))
 			})
 			It(`Invoke ListResourceInstances with error: Operation response processing error`, func() {
@@ -208,8 +210,8 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				listResourceInstancesOptionsModel.Limit = core.Int64Ptr(int64(100))
 				listResourceInstancesOptionsModel.Start = core.StringPtr("testString")
 				listResourceInstancesOptionsModel.State = core.StringPtr("active")
-				listResourceInstancesOptionsModel.UpdatedFrom = core.StringPtr("2019-01-08T00:00:00.000Z")
-				listResourceInstancesOptionsModel.UpdatedTo = core.StringPtr("2019-01-08T00:00:00.000Z")
+				listResourceInstancesOptionsModel.UpdatedFrom = core.StringPtr("2021-01-01")
+				listResourceInstancesOptionsModel.UpdatedTo = core.StringPtr("2021-01-01")
 				listResourceInstancesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
 				result, response, operationErr := resourceControllerService.ListResourceInstances(listResourceInstancesOptionsModel)
@@ -250,15 +252,15 @@ var _ = Describe(`ResourceControllerV2`, func() {
 					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(100))}))
 					Expect(req.URL.Query()["start"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["state"]).To(Equal([]string{"active"}))
-					Expect(req.URL.Query()["updated_from"]).To(Equal([]string{"2019-01-08T00:00:00.000Z"}))
-					Expect(req.URL.Query()["updated_to"]).To(Equal([]string{"2019-01-08T00:00:00.000Z"}))
+					Expect(req.URL.Query()["updated_from"]).To(Equal([]string{"2021-01-01"}))
+					Expect(req.URL.Query()["updated_to"]).To(Equal([]string{"2021-01-01"}))
 					// Sleep a short time to support a timeout test
 					time.Sleep(100 * time.Millisecond)
 
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"rows_count": 9, "next_url": "NextURL", "resources": [{"id": "ID", "guid": "GUID", "url": "URL", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "deleted_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "updated_by": "UpdatedBy", "deleted_by": "DeletedBy", "scheduled_reclaim_at": "2019-01-01T12:00:00.000Z", "restored_at": "2019-01-01T12:00:00.000Z", "restored_by": "RestoredBy", "scheduled_reclaim_by": "ScheduledReclaimBy", "name": "Name", "region_id": "RegionID", "account_id": "AccountID", "reseller_channel_id": "ResellerChannelID", "resource_plan_id": "ResourcePlanID", "resource_group_id": "ResourceGroupID", "resource_group_crn": "ResourceGroupCRN", "target_crn": "TargetCRN", "parameters": {"mapKey": "anyValue"}, "allow_cleanup": true, "crn": "CRN", "state": "State", "type": "Type", "sub_type": "SubType", "resource_id": "ResourceID", "dashboard_url": "DashboardURL", "last_operation": {"mapKey": "anyValue"}, "resource_aliases_url": "ResourceAliasesURL", "resource_bindings_url": "ResourceBindingsURL", "resource_keys_url": "ResourceKeysURL", "plan_history": [{"resource_plan_id": "ResourcePlanID", "start_date": "2019-01-01T12:00:00.000Z", "requestor_id": "RequestorID"}], "migrated": true, "extensions": {"mapKey": "anyValue"}, "controlled_by": "ControlledBy", "locked": true}]}`)
+					fmt.Fprintf(res, "%s", `{"rows_count": 9, "next_url": "NextURL", "resources": [{"id": "ID", "guid": "GUID", "url": "URL", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "deleted_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "updated_by": "UpdatedBy", "deleted_by": "DeletedBy", "scheduled_reclaim_at": "2019-01-01T12:00:00.000Z", "restored_at": "2019-01-01T12:00:00.000Z", "restored_by": "RestoredBy", "scheduled_reclaim_by": "ScheduledReclaimBy", "name": "Name", "region_id": "RegionID", "account_id": "AccountID", "reseller_channel_id": "ResellerChannelID", "resource_plan_id": "ResourcePlanID", "resource_group_id": "ResourceGroupID", "resource_group_crn": "ResourceGroupCRN", "target_crn": "TargetCRN", "parameters": {"mapKey": "anyValue"}, "allow_cleanup": true, "crn": "CRN", "state": "active", "type": "Type", "sub_type": "SubType", "resource_id": "ResourceID", "dashboard_url": "DashboardURL", "last_operation": {"type": "Type", "state": "in progress", "sub_type": "SubType", "async": false, "description": "Description", "reason_code": "ReasonCode", "poll_after": 9, "cancelable": true, "poll": true}, "resource_aliases_url": "ResourceAliasesURL", "resource_bindings_url": "ResourceBindingsURL", "resource_keys_url": "ResourceKeysURL", "plan_history": [{"resource_plan_id": "ResourcePlanID", "start_date": "2019-01-01T12:00:00.000Z", "requestor_id": "RequestorID"}], "migrated": true, "extensions": {"mapKey": "anyValue"}, "controlled_by": "ControlledBy", "locked": true}]}`)
 				}))
 			})
 			It(`Invoke ListResourceInstances successfully with retries`, func() {
@@ -282,8 +284,8 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				listResourceInstancesOptionsModel.Limit = core.Int64Ptr(int64(100))
 				listResourceInstancesOptionsModel.Start = core.StringPtr("testString")
 				listResourceInstancesOptionsModel.State = core.StringPtr("active")
-				listResourceInstancesOptionsModel.UpdatedFrom = core.StringPtr("2019-01-08T00:00:00.000Z")
-				listResourceInstancesOptionsModel.UpdatedTo = core.StringPtr("2019-01-08T00:00:00.000Z")
+				listResourceInstancesOptionsModel.UpdatedFrom = core.StringPtr("2021-01-01")
+				listResourceInstancesOptionsModel.UpdatedTo = core.StringPtr("2021-01-01")
 				listResourceInstancesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with a Context to test a timeout error
@@ -330,12 +332,12 @@ var _ = Describe(`ResourceControllerV2`, func() {
 					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(100))}))
 					Expect(req.URL.Query()["start"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["state"]).To(Equal([]string{"active"}))
-					Expect(req.URL.Query()["updated_from"]).To(Equal([]string{"2019-01-08T00:00:00.000Z"}))
-					Expect(req.URL.Query()["updated_to"]).To(Equal([]string{"2019-01-08T00:00:00.000Z"}))
+					Expect(req.URL.Query()["updated_from"]).To(Equal([]string{"2021-01-01"}))
+					Expect(req.URL.Query()["updated_to"]).To(Equal([]string{"2021-01-01"}))
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"rows_count": 9, "next_url": "NextURL", "resources": [{"id": "ID", "guid": "GUID", "url": "URL", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "deleted_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "updated_by": "UpdatedBy", "deleted_by": "DeletedBy", "scheduled_reclaim_at": "2019-01-01T12:00:00.000Z", "restored_at": "2019-01-01T12:00:00.000Z", "restored_by": "RestoredBy", "scheduled_reclaim_by": "ScheduledReclaimBy", "name": "Name", "region_id": "RegionID", "account_id": "AccountID", "reseller_channel_id": "ResellerChannelID", "resource_plan_id": "ResourcePlanID", "resource_group_id": "ResourceGroupID", "resource_group_crn": "ResourceGroupCRN", "target_crn": "TargetCRN", "parameters": {"mapKey": "anyValue"}, "allow_cleanup": true, "crn": "CRN", "state": "State", "type": "Type", "sub_type": "SubType", "resource_id": "ResourceID", "dashboard_url": "DashboardURL", "last_operation": {"mapKey": "anyValue"}, "resource_aliases_url": "ResourceAliasesURL", "resource_bindings_url": "ResourceBindingsURL", "resource_keys_url": "ResourceKeysURL", "plan_history": [{"resource_plan_id": "ResourcePlanID", "start_date": "2019-01-01T12:00:00.000Z", "requestor_id": "RequestorID"}], "migrated": true, "extensions": {"mapKey": "anyValue"}, "controlled_by": "ControlledBy", "locked": true}]}`)
+					fmt.Fprintf(res, "%s", `{"rows_count": 9, "next_url": "NextURL", "resources": [{"id": "ID", "guid": "GUID", "url": "URL", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "deleted_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "updated_by": "UpdatedBy", "deleted_by": "DeletedBy", "scheduled_reclaim_at": "2019-01-01T12:00:00.000Z", "restored_at": "2019-01-01T12:00:00.000Z", "restored_by": "RestoredBy", "scheduled_reclaim_by": "ScheduledReclaimBy", "name": "Name", "region_id": "RegionID", "account_id": "AccountID", "reseller_channel_id": "ResellerChannelID", "resource_plan_id": "ResourcePlanID", "resource_group_id": "ResourceGroupID", "resource_group_crn": "ResourceGroupCRN", "target_crn": "TargetCRN", "parameters": {"mapKey": "anyValue"}, "allow_cleanup": true, "crn": "CRN", "state": "active", "type": "Type", "sub_type": "SubType", "resource_id": "ResourceID", "dashboard_url": "DashboardURL", "last_operation": {"type": "Type", "state": "in progress", "sub_type": "SubType", "async": false, "description": "Description", "reason_code": "ReasonCode", "poll_after": 9, "cancelable": true, "poll": true}, "resource_aliases_url": "ResourceAliasesURL", "resource_bindings_url": "ResourceBindingsURL", "resource_keys_url": "ResourceKeysURL", "plan_history": [{"resource_plan_id": "ResourcePlanID", "start_date": "2019-01-01T12:00:00.000Z", "requestor_id": "RequestorID"}], "migrated": true, "extensions": {"mapKey": "anyValue"}, "controlled_by": "ControlledBy", "locked": true}]}`)
 				}))
 			})
 			It(`Invoke ListResourceInstances successfully`, func() {
@@ -364,8 +366,8 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				listResourceInstancesOptionsModel.Limit = core.Int64Ptr(int64(100))
 				listResourceInstancesOptionsModel.Start = core.StringPtr("testString")
 				listResourceInstancesOptionsModel.State = core.StringPtr("active")
-				listResourceInstancesOptionsModel.UpdatedFrom = core.StringPtr("2019-01-08T00:00:00.000Z")
-				listResourceInstancesOptionsModel.UpdatedTo = core.StringPtr("2019-01-08T00:00:00.000Z")
+				listResourceInstancesOptionsModel.UpdatedFrom = core.StringPtr("2021-01-01")
+				listResourceInstancesOptionsModel.UpdatedTo = core.StringPtr("2021-01-01")
 				listResourceInstancesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
@@ -395,8 +397,8 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				listResourceInstancesOptionsModel.Limit = core.Int64Ptr(int64(100))
 				listResourceInstancesOptionsModel.Start = core.StringPtr("testString")
 				listResourceInstancesOptionsModel.State = core.StringPtr("active")
-				listResourceInstancesOptionsModel.UpdatedFrom = core.StringPtr("2019-01-08T00:00:00.000Z")
-				listResourceInstancesOptionsModel.UpdatedTo = core.StringPtr("2019-01-08T00:00:00.000Z")
+				listResourceInstancesOptionsModel.UpdatedFrom = core.StringPtr("2021-01-01")
+				listResourceInstancesOptionsModel.UpdatedTo = core.StringPtr("2021-01-01")
 				listResourceInstancesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := resourceControllerService.SetServiceURL("")
@@ -440,8 +442,8 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				listResourceInstancesOptionsModel.Limit = core.Int64Ptr(int64(100))
 				listResourceInstancesOptionsModel.Start = core.StringPtr("testString")
 				listResourceInstancesOptionsModel.State = core.StringPtr("active")
-				listResourceInstancesOptionsModel.UpdatedFrom = core.StringPtr("2019-01-08T00:00:00.000Z")
-				listResourceInstancesOptionsModel.UpdatedTo = core.StringPtr("2019-01-08T00:00:00.000Z")
+				listResourceInstancesOptionsModel.UpdatedFrom = core.StringPtr("2021-01-01")
+				listResourceInstancesOptionsModel.UpdatedTo = core.StringPtr("2021-01-01")
 				listResourceInstancesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation
@@ -468,10 +470,10 @@ var _ = Describe(`ResourceControllerV2`, func() {
 					Expect(req.URL.EscapedPath()).To(Equal(createResourceInstancePath))
 					Expect(req.Method).To(Equal("POST"))
 					Expect(req.Header["Entity-Lock"]).ToNot(BeNil())
-					Expect(req.Header["Entity-Lock"][0]).To(Equal(fmt.Sprintf("%v", true)))
+					Expect(req.Header["Entity-Lock"][0]).To(Equal(fmt.Sprintf("%v", false)))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, `} this is not valid json {`)
+					fmt.Fprint(res, `} this is not valid json {`)
 				}))
 			})
 			It(`Invoke CreateResourceInstance with error: Operation response processing error`, func() {
@@ -484,14 +486,14 @@ var _ = Describe(`ResourceControllerV2`, func() {
 
 				// Construct an instance of the CreateResourceInstanceOptions model
 				createResourceInstanceOptionsModel := new(resourcecontrollerv2.CreateResourceInstanceOptions)
-				createResourceInstanceOptionsModel.Name = core.StringPtr("my-instance")
-				createResourceInstanceOptionsModel.Target = core.StringPtr("bluemix-us-south")
-				createResourceInstanceOptionsModel.ResourceGroup = core.StringPtr("5c49eabc-f5e8-5881-a37e-2d100a33b3df")
-				createResourceInstanceOptionsModel.ResourcePlanID = core.StringPtr("cloudant-standard")
+				createResourceInstanceOptionsModel.Name = core.StringPtr("ExampleResourceInstance")
+				createResourceInstanceOptionsModel.Target = core.StringPtr("global")
+				createResourceInstanceOptionsModel.ResourceGroup = core.StringPtr("13aa3ee48c3b44ddb64c05c79f7ab8ef")
+				createResourceInstanceOptionsModel.ResourcePlanID = core.StringPtr("a10e4960-3685-11e9-b210-d663bd873d93")
 				createResourceInstanceOptionsModel.Tags = []string{"testString"}
-				createResourceInstanceOptionsModel.AllowCleanup = core.BoolPtr(true)
+				createResourceInstanceOptionsModel.AllowCleanup = core.BoolPtr(false)
 				createResourceInstanceOptionsModel.Parameters = make(map[string]interface{})
-				createResourceInstanceOptionsModel.EntityLock = core.BoolPtr(true)
+				createResourceInstanceOptionsModel.EntityLock = core.BoolPtr(false)
 				createResourceInstanceOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
 				result, response, operationErr := resourceControllerService.CreateResourceInstance(createResourceInstanceOptionsModel)
@@ -539,14 +541,14 @@ var _ = Describe(`ResourceControllerV2`, func() {
 					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
 
 					Expect(req.Header["Entity-Lock"]).ToNot(BeNil())
-					Expect(req.Header["Entity-Lock"][0]).To(Equal(fmt.Sprintf("%v", true)))
+					Expect(req.Header["Entity-Lock"][0]).To(Equal(fmt.Sprintf("%v", false)))
 					// Sleep a short time to support a timeout test
 					time.Sleep(100 * time.Millisecond)
 
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "guid": "GUID", "url": "URL", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "deleted_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "updated_by": "UpdatedBy", "deleted_by": "DeletedBy", "scheduled_reclaim_at": "2019-01-01T12:00:00.000Z", "restored_at": "2019-01-01T12:00:00.000Z", "restored_by": "RestoredBy", "scheduled_reclaim_by": "ScheduledReclaimBy", "name": "Name", "region_id": "RegionID", "account_id": "AccountID", "reseller_channel_id": "ResellerChannelID", "resource_plan_id": "ResourcePlanID", "resource_group_id": "ResourceGroupID", "resource_group_crn": "ResourceGroupCRN", "target_crn": "TargetCRN", "parameters": {"mapKey": "anyValue"}, "allow_cleanup": true, "crn": "CRN", "state": "State", "type": "Type", "sub_type": "SubType", "resource_id": "ResourceID", "dashboard_url": "DashboardURL", "last_operation": {"mapKey": "anyValue"}, "resource_aliases_url": "ResourceAliasesURL", "resource_bindings_url": "ResourceBindingsURL", "resource_keys_url": "ResourceKeysURL", "plan_history": [{"resource_plan_id": "ResourcePlanID", "start_date": "2019-01-01T12:00:00.000Z", "requestor_id": "RequestorID"}], "migrated": true, "extensions": {"mapKey": "anyValue"}, "controlled_by": "ControlledBy", "locked": true}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "guid": "GUID", "url": "URL", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "deleted_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "updated_by": "UpdatedBy", "deleted_by": "DeletedBy", "scheduled_reclaim_at": "2019-01-01T12:00:00.000Z", "restored_at": "2019-01-01T12:00:00.000Z", "restored_by": "RestoredBy", "scheduled_reclaim_by": "ScheduledReclaimBy", "name": "Name", "region_id": "RegionID", "account_id": "AccountID", "reseller_channel_id": "ResellerChannelID", "resource_plan_id": "ResourcePlanID", "resource_group_id": "ResourceGroupID", "resource_group_crn": "ResourceGroupCRN", "target_crn": "TargetCRN", "parameters": {"mapKey": "anyValue"}, "allow_cleanup": true, "crn": "CRN", "state": "active", "type": "Type", "sub_type": "SubType", "resource_id": "ResourceID", "dashboard_url": "DashboardURL", "last_operation": {"type": "Type", "state": "in progress", "sub_type": "SubType", "async": false, "description": "Description", "reason_code": "ReasonCode", "poll_after": 9, "cancelable": true, "poll": true}, "resource_aliases_url": "ResourceAliasesURL", "resource_bindings_url": "ResourceBindingsURL", "resource_keys_url": "ResourceKeysURL", "plan_history": [{"resource_plan_id": "ResourcePlanID", "start_date": "2019-01-01T12:00:00.000Z", "requestor_id": "RequestorID"}], "migrated": true, "extensions": {"mapKey": "anyValue"}, "controlled_by": "ControlledBy", "locked": true}`)
 				}))
 			})
 			It(`Invoke CreateResourceInstance successfully with retries`, func() {
@@ -560,14 +562,14 @@ var _ = Describe(`ResourceControllerV2`, func() {
 
 				// Construct an instance of the CreateResourceInstanceOptions model
 				createResourceInstanceOptionsModel := new(resourcecontrollerv2.CreateResourceInstanceOptions)
-				createResourceInstanceOptionsModel.Name = core.StringPtr("my-instance")
-				createResourceInstanceOptionsModel.Target = core.StringPtr("bluemix-us-south")
-				createResourceInstanceOptionsModel.ResourceGroup = core.StringPtr("5c49eabc-f5e8-5881-a37e-2d100a33b3df")
-				createResourceInstanceOptionsModel.ResourcePlanID = core.StringPtr("cloudant-standard")
+				createResourceInstanceOptionsModel.Name = core.StringPtr("ExampleResourceInstance")
+				createResourceInstanceOptionsModel.Target = core.StringPtr("global")
+				createResourceInstanceOptionsModel.ResourceGroup = core.StringPtr("13aa3ee48c3b44ddb64c05c79f7ab8ef")
+				createResourceInstanceOptionsModel.ResourcePlanID = core.StringPtr("a10e4960-3685-11e9-b210-d663bd873d93")
 				createResourceInstanceOptionsModel.Tags = []string{"testString"}
-				createResourceInstanceOptionsModel.AllowCleanup = core.BoolPtr(true)
+				createResourceInstanceOptionsModel.AllowCleanup = core.BoolPtr(false)
 				createResourceInstanceOptionsModel.Parameters = make(map[string]interface{})
-				createResourceInstanceOptionsModel.EntityLock = core.BoolPtr(true)
+				createResourceInstanceOptionsModel.EntityLock = core.BoolPtr(false)
 				createResourceInstanceOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with a Context to test a timeout error
@@ -621,11 +623,11 @@ var _ = Describe(`ResourceControllerV2`, func() {
 					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
 
 					Expect(req.Header["Entity-Lock"]).ToNot(BeNil())
-					Expect(req.Header["Entity-Lock"][0]).To(Equal(fmt.Sprintf("%v", true)))
+					Expect(req.Header["Entity-Lock"][0]).To(Equal(fmt.Sprintf("%v", false)))
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "guid": "GUID", "url": "URL", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "deleted_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "updated_by": "UpdatedBy", "deleted_by": "DeletedBy", "scheduled_reclaim_at": "2019-01-01T12:00:00.000Z", "restored_at": "2019-01-01T12:00:00.000Z", "restored_by": "RestoredBy", "scheduled_reclaim_by": "ScheduledReclaimBy", "name": "Name", "region_id": "RegionID", "account_id": "AccountID", "reseller_channel_id": "ResellerChannelID", "resource_plan_id": "ResourcePlanID", "resource_group_id": "ResourceGroupID", "resource_group_crn": "ResourceGroupCRN", "target_crn": "TargetCRN", "parameters": {"mapKey": "anyValue"}, "allow_cleanup": true, "crn": "CRN", "state": "State", "type": "Type", "sub_type": "SubType", "resource_id": "ResourceID", "dashboard_url": "DashboardURL", "last_operation": {"mapKey": "anyValue"}, "resource_aliases_url": "ResourceAliasesURL", "resource_bindings_url": "ResourceBindingsURL", "resource_keys_url": "ResourceKeysURL", "plan_history": [{"resource_plan_id": "ResourcePlanID", "start_date": "2019-01-01T12:00:00.000Z", "requestor_id": "RequestorID"}], "migrated": true, "extensions": {"mapKey": "anyValue"}, "controlled_by": "ControlledBy", "locked": true}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "guid": "GUID", "url": "URL", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "deleted_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "updated_by": "UpdatedBy", "deleted_by": "DeletedBy", "scheduled_reclaim_at": "2019-01-01T12:00:00.000Z", "restored_at": "2019-01-01T12:00:00.000Z", "restored_by": "RestoredBy", "scheduled_reclaim_by": "ScheduledReclaimBy", "name": "Name", "region_id": "RegionID", "account_id": "AccountID", "reseller_channel_id": "ResellerChannelID", "resource_plan_id": "ResourcePlanID", "resource_group_id": "ResourceGroupID", "resource_group_crn": "ResourceGroupCRN", "target_crn": "TargetCRN", "parameters": {"mapKey": "anyValue"}, "allow_cleanup": true, "crn": "CRN", "state": "active", "type": "Type", "sub_type": "SubType", "resource_id": "ResourceID", "dashboard_url": "DashboardURL", "last_operation": {"type": "Type", "state": "in progress", "sub_type": "SubType", "async": false, "description": "Description", "reason_code": "ReasonCode", "poll_after": 9, "cancelable": true, "poll": true}, "resource_aliases_url": "ResourceAliasesURL", "resource_bindings_url": "ResourceBindingsURL", "resource_keys_url": "ResourceKeysURL", "plan_history": [{"resource_plan_id": "ResourcePlanID", "start_date": "2019-01-01T12:00:00.000Z", "requestor_id": "RequestorID"}], "migrated": true, "extensions": {"mapKey": "anyValue"}, "controlled_by": "ControlledBy", "locked": true}`)
 				}))
 			})
 			It(`Invoke CreateResourceInstance successfully`, func() {
@@ -644,14 +646,14 @@ var _ = Describe(`ResourceControllerV2`, func() {
 
 				// Construct an instance of the CreateResourceInstanceOptions model
 				createResourceInstanceOptionsModel := new(resourcecontrollerv2.CreateResourceInstanceOptions)
-				createResourceInstanceOptionsModel.Name = core.StringPtr("my-instance")
-				createResourceInstanceOptionsModel.Target = core.StringPtr("bluemix-us-south")
-				createResourceInstanceOptionsModel.ResourceGroup = core.StringPtr("5c49eabc-f5e8-5881-a37e-2d100a33b3df")
-				createResourceInstanceOptionsModel.ResourcePlanID = core.StringPtr("cloudant-standard")
+				createResourceInstanceOptionsModel.Name = core.StringPtr("ExampleResourceInstance")
+				createResourceInstanceOptionsModel.Target = core.StringPtr("global")
+				createResourceInstanceOptionsModel.ResourceGroup = core.StringPtr("13aa3ee48c3b44ddb64c05c79f7ab8ef")
+				createResourceInstanceOptionsModel.ResourcePlanID = core.StringPtr("a10e4960-3685-11e9-b210-d663bd873d93")
 				createResourceInstanceOptionsModel.Tags = []string{"testString"}
-				createResourceInstanceOptionsModel.AllowCleanup = core.BoolPtr(true)
+				createResourceInstanceOptionsModel.AllowCleanup = core.BoolPtr(false)
 				createResourceInstanceOptionsModel.Parameters = make(map[string]interface{})
-				createResourceInstanceOptionsModel.EntityLock = core.BoolPtr(true)
+				createResourceInstanceOptionsModel.EntityLock = core.BoolPtr(false)
 				createResourceInstanceOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
@@ -671,14 +673,14 @@ var _ = Describe(`ResourceControllerV2`, func() {
 
 				// Construct an instance of the CreateResourceInstanceOptions model
 				createResourceInstanceOptionsModel := new(resourcecontrollerv2.CreateResourceInstanceOptions)
-				createResourceInstanceOptionsModel.Name = core.StringPtr("my-instance")
-				createResourceInstanceOptionsModel.Target = core.StringPtr("bluemix-us-south")
-				createResourceInstanceOptionsModel.ResourceGroup = core.StringPtr("5c49eabc-f5e8-5881-a37e-2d100a33b3df")
-				createResourceInstanceOptionsModel.ResourcePlanID = core.StringPtr("cloudant-standard")
+				createResourceInstanceOptionsModel.Name = core.StringPtr("ExampleResourceInstance")
+				createResourceInstanceOptionsModel.Target = core.StringPtr("global")
+				createResourceInstanceOptionsModel.ResourceGroup = core.StringPtr("13aa3ee48c3b44ddb64c05c79f7ab8ef")
+				createResourceInstanceOptionsModel.ResourcePlanID = core.StringPtr("a10e4960-3685-11e9-b210-d663bd873d93")
 				createResourceInstanceOptionsModel.Tags = []string{"testString"}
-				createResourceInstanceOptionsModel.AllowCleanup = core.BoolPtr(true)
+				createResourceInstanceOptionsModel.AllowCleanup = core.BoolPtr(false)
 				createResourceInstanceOptionsModel.Parameters = make(map[string]interface{})
-				createResourceInstanceOptionsModel.EntityLock = core.BoolPtr(true)
+				createResourceInstanceOptionsModel.EntityLock = core.BoolPtr(false)
 				createResourceInstanceOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := resourceControllerService.SetServiceURL("")
@@ -719,14 +721,14 @@ var _ = Describe(`ResourceControllerV2`, func() {
 
 				// Construct an instance of the CreateResourceInstanceOptions model
 				createResourceInstanceOptionsModel := new(resourcecontrollerv2.CreateResourceInstanceOptions)
-				createResourceInstanceOptionsModel.Name = core.StringPtr("my-instance")
-				createResourceInstanceOptionsModel.Target = core.StringPtr("bluemix-us-south")
-				createResourceInstanceOptionsModel.ResourceGroup = core.StringPtr("5c49eabc-f5e8-5881-a37e-2d100a33b3df")
-				createResourceInstanceOptionsModel.ResourcePlanID = core.StringPtr("cloudant-standard")
+				createResourceInstanceOptionsModel.Name = core.StringPtr("ExampleResourceInstance")
+				createResourceInstanceOptionsModel.Target = core.StringPtr("global")
+				createResourceInstanceOptionsModel.ResourceGroup = core.StringPtr("13aa3ee48c3b44ddb64c05c79f7ab8ef")
+				createResourceInstanceOptionsModel.ResourcePlanID = core.StringPtr("a10e4960-3685-11e9-b210-d663bd873d93")
 				createResourceInstanceOptionsModel.Tags = []string{"testString"}
-				createResourceInstanceOptionsModel.AllowCleanup = core.BoolPtr(true)
+				createResourceInstanceOptionsModel.AllowCleanup = core.BoolPtr(false)
 				createResourceInstanceOptionsModel.Parameters = make(map[string]interface{})
-				createResourceInstanceOptionsModel.EntityLock = core.BoolPtr(true)
+				createResourceInstanceOptionsModel.EntityLock = core.BoolPtr(false)
 				createResourceInstanceOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation
@@ -754,7 +756,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 					Expect(req.Method).To(Equal("GET"))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, `} this is not valid json {`)
+					fmt.Fprint(res, `} this is not valid json {`)
 				}))
 			})
 			It(`Invoke GetResourceInstance with error: Operation response processing error`, func() {
@@ -804,7 +806,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "guid": "GUID", "url": "URL", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "deleted_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "updated_by": "UpdatedBy", "deleted_by": "DeletedBy", "scheduled_reclaim_at": "2019-01-01T12:00:00.000Z", "restored_at": "2019-01-01T12:00:00.000Z", "restored_by": "RestoredBy", "scheduled_reclaim_by": "ScheduledReclaimBy", "name": "Name", "region_id": "RegionID", "account_id": "AccountID", "reseller_channel_id": "ResellerChannelID", "resource_plan_id": "ResourcePlanID", "resource_group_id": "ResourceGroupID", "resource_group_crn": "ResourceGroupCRN", "target_crn": "TargetCRN", "parameters": {"mapKey": "anyValue"}, "allow_cleanup": true, "crn": "CRN", "state": "State", "type": "Type", "sub_type": "SubType", "resource_id": "ResourceID", "dashboard_url": "DashboardURL", "last_operation": {"mapKey": "anyValue"}, "resource_aliases_url": "ResourceAliasesURL", "resource_bindings_url": "ResourceBindingsURL", "resource_keys_url": "ResourceKeysURL", "plan_history": [{"resource_plan_id": "ResourcePlanID", "start_date": "2019-01-01T12:00:00.000Z", "requestor_id": "RequestorID"}], "migrated": true, "extensions": {"mapKey": "anyValue"}, "controlled_by": "ControlledBy", "locked": true}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "guid": "GUID", "url": "URL", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "deleted_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "updated_by": "UpdatedBy", "deleted_by": "DeletedBy", "scheduled_reclaim_at": "2019-01-01T12:00:00.000Z", "restored_at": "2019-01-01T12:00:00.000Z", "restored_by": "RestoredBy", "scheduled_reclaim_by": "ScheduledReclaimBy", "name": "Name", "region_id": "RegionID", "account_id": "AccountID", "reseller_channel_id": "ResellerChannelID", "resource_plan_id": "ResourcePlanID", "resource_group_id": "ResourceGroupID", "resource_group_crn": "ResourceGroupCRN", "target_crn": "TargetCRN", "parameters": {"mapKey": "anyValue"}, "allow_cleanup": true, "crn": "CRN", "state": "active", "type": "Type", "sub_type": "SubType", "resource_id": "ResourceID", "dashboard_url": "DashboardURL", "last_operation": {"type": "Type", "state": "in progress", "sub_type": "SubType", "async": false, "description": "Description", "reason_code": "ReasonCode", "poll_after": 9, "cancelable": true, "poll": true}, "resource_aliases_url": "ResourceAliasesURL", "resource_bindings_url": "ResourceBindingsURL", "resource_keys_url": "ResourceKeysURL", "plan_history": [{"resource_plan_id": "ResourcePlanID", "start_date": "2019-01-01T12:00:00.000Z", "requestor_id": "RequestorID"}], "migrated": true, "extensions": {"mapKey": "anyValue"}, "controlled_by": "ControlledBy", "locked": true}`)
 				}))
 			})
 			It(`Invoke GetResourceInstance successfully with retries`, func() {
@@ -858,7 +860,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "guid": "GUID", "url": "URL", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "deleted_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "updated_by": "UpdatedBy", "deleted_by": "DeletedBy", "scheduled_reclaim_at": "2019-01-01T12:00:00.000Z", "restored_at": "2019-01-01T12:00:00.000Z", "restored_by": "RestoredBy", "scheduled_reclaim_by": "ScheduledReclaimBy", "name": "Name", "region_id": "RegionID", "account_id": "AccountID", "reseller_channel_id": "ResellerChannelID", "resource_plan_id": "ResourcePlanID", "resource_group_id": "ResourceGroupID", "resource_group_crn": "ResourceGroupCRN", "target_crn": "TargetCRN", "parameters": {"mapKey": "anyValue"}, "allow_cleanup": true, "crn": "CRN", "state": "State", "type": "Type", "sub_type": "SubType", "resource_id": "ResourceID", "dashboard_url": "DashboardURL", "last_operation": {"mapKey": "anyValue"}, "resource_aliases_url": "ResourceAliasesURL", "resource_bindings_url": "ResourceBindingsURL", "resource_keys_url": "ResourceKeysURL", "plan_history": [{"resource_plan_id": "ResourcePlanID", "start_date": "2019-01-01T12:00:00.000Z", "requestor_id": "RequestorID"}], "migrated": true, "extensions": {"mapKey": "anyValue"}, "controlled_by": "ControlledBy", "locked": true}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "guid": "GUID", "url": "URL", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "deleted_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "updated_by": "UpdatedBy", "deleted_by": "DeletedBy", "scheduled_reclaim_at": "2019-01-01T12:00:00.000Z", "restored_at": "2019-01-01T12:00:00.000Z", "restored_by": "RestoredBy", "scheduled_reclaim_by": "ScheduledReclaimBy", "name": "Name", "region_id": "RegionID", "account_id": "AccountID", "reseller_channel_id": "ResellerChannelID", "resource_plan_id": "ResourcePlanID", "resource_group_id": "ResourceGroupID", "resource_group_crn": "ResourceGroupCRN", "target_crn": "TargetCRN", "parameters": {"mapKey": "anyValue"}, "allow_cleanup": true, "crn": "CRN", "state": "active", "type": "Type", "sub_type": "SubType", "resource_id": "ResourceID", "dashboard_url": "DashboardURL", "last_operation": {"type": "Type", "state": "in progress", "sub_type": "SubType", "async": false, "description": "Description", "reason_code": "ReasonCode", "poll_after": 9, "cancelable": true, "poll": true}, "resource_aliases_url": "ResourceAliasesURL", "resource_bindings_url": "ResourceBindingsURL", "resource_keys_url": "ResourceKeysURL", "plan_history": [{"resource_plan_id": "ResourcePlanID", "start_date": "2019-01-01T12:00:00.000Z", "requestor_id": "RequestorID"}], "migrated": true, "extensions": {"mapKey": "anyValue"}, "controlled_by": "ControlledBy", "locked": true}`)
 				}))
 			})
 			It(`Invoke GetResourceInstance successfully`, func() {
@@ -985,7 +987,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				// Construct an instance of the DeleteResourceInstanceOptions model
 				deleteResourceInstanceOptionsModel := new(resourcecontrollerv2.DeleteResourceInstanceOptions)
 				deleteResourceInstanceOptionsModel.ID = core.StringPtr("testString")
-				deleteResourceInstanceOptionsModel.Recursive = core.BoolPtr(true)
+				deleteResourceInstanceOptionsModel.Recursive = core.BoolPtr(false)
 				deleteResourceInstanceOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
@@ -1004,7 +1006,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				// Construct an instance of the DeleteResourceInstanceOptions model
 				deleteResourceInstanceOptionsModel := new(resourcecontrollerv2.DeleteResourceInstanceOptions)
 				deleteResourceInstanceOptionsModel.ID = core.StringPtr("testString")
-				deleteResourceInstanceOptionsModel.Recursive = core.BoolPtr(true)
+				deleteResourceInstanceOptionsModel.Recursive = core.BoolPtr(false)
 				deleteResourceInstanceOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := resourceControllerService.SetServiceURL("")
@@ -1037,7 +1039,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 					Expect(req.Method).To(Equal("PATCH"))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, `} this is not valid json {`)
+					fmt.Fprint(res, `} this is not valid json {`)
 				}))
 			})
 			It(`Invoke UpdateResourceInstance with error: Operation response processing error`, func() {
@@ -1051,9 +1053,9 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				// Construct an instance of the UpdateResourceInstanceOptions model
 				updateResourceInstanceOptionsModel := new(resourcecontrollerv2.UpdateResourceInstanceOptions)
 				updateResourceInstanceOptionsModel.ID = core.StringPtr("testString")
-				updateResourceInstanceOptionsModel.Name = core.StringPtr("my-new-instance-name")
+				updateResourceInstanceOptionsModel.Name = core.StringPtr("UpdatedExampleResourceInstance")
 				updateResourceInstanceOptionsModel.Parameters = make(map[string]interface{})
-				updateResourceInstanceOptionsModel.ResourcePlanID = core.StringPtr("a8dff6d3-d287-4668-a81d-c87c55c2656d")
+				updateResourceInstanceOptionsModel.ResourcePlanID = core.StringPtr("testString")
 				updateResourceInstanceOptionsModel.AllowCleanup = core.BoolPtr(true)
 				updateResourceInstanceOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
@@ -1107,7 +1109,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "guid": "GUID", "url": "URL", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "deleted_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "updated_by": "UpdatedBy", "deleted_by": "DeletedBy", "scheduled_reclaim_at": "2019-01-01T12:00:00.000Z", "restored_at": "2019-01-01T12:00:00.000Z", "restored_by": "RestoredBy", "scheduled_reclaim_by": "ScheduledReclaimBy", "name": "Name", "region_id": "RegionID", "account_id": "AccountID", "reseller_channel_id": "ResellerChannelID", "resource_plan_id": "ResourcePlanID", "resource_group_id": "ResourceGroupID", "resource_group_crn": "ResourceGroupCRN", "target_crn": "TargetCRN", "parameters": {"mapKey": "anyValue"}, "allow_cleanup": true, "crn": "CRN", "state": "State", "type": "Type", "sub_type": "SubType", "resource_id": "ResourceID", "dashboard_url": "DashboardURL", "last_operation": {"mapKey": "anyValue"}, "resource_aliases_url": "ResourceAliasesURL", "resource_bindings_url": "ResourceBindingsURL", "resource_keys_url": "ResourceKeysURL", "plan_history": [{"resource_plan_id": "ResourcePlanID", "start_date": "2019-01-01T12:00:00.000Z", "requestor_id": "RequestorID"}], "migrated": true, "extensions": {"mapKey": "anyValue"}, "controlled_by": "ControlledBy", "locked": true}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "guid": "GUID", "url": "URL", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "deleted_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "updated_by": "UpdatedBy", "deleted_by": "DeletedBy", "scheduled_reclaim_at": "2019-01-01T12:00:00.000Z", "restored_at": "2019-01-01T12:00:00.000Z", "restored_by": "RestoredBy", "scheduled_reclaim_by": "ScheduledReclaimBy", "name": "Name", "region_id": "RegionID", "account_id": "AccountID", "reseller_channel_id": "ResellerChannelID", "resource_plan_id": "ResourcePlanID", "resource_group_id": "ResourceGroupID", "resource_group_crn": "ResourceGroupCRN", "target_crn": "TargetCRN", "parameters": {"mapKey": "anyValue"}, "allow_cleanup": true, "crn": "CRN", "state": "active", "type": "Type", "sub_type": "SubType", "resource_id": "ResourceID", "dashboard_url": "DashboardURL", "last_operation": {"type": "Type", "state": "in progress", "sub_type": "SubType", "async": false, "description": "Description", "reason_code": "ReasonCode", "poll_after": 9, "cancelable": true, "poll": true}, "resource_aliases_url": "ResourceAliasesURL", "resource_bindings_url": "ResourceBindingsURL", "resource_keys_url": "ResourceKeysURL", "plan_history": [{"resource_plan_id": "ResourcePlanID", "start_date": "2019-01-01T12:00:00.000Z", "requestor_id": "RequestorID"}], "migrated": true, "extensions": {"mapKey": "anyValue"}, "controlled_by": "ControlledBy", "locked": true}`)
 				}))
 			})
 			It(`Invoke UpdateResourceInstance successfully with retries`, func() {
@@ -1122,9 +1124,9 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				// Construct an instance of the UpdateResourceInstanceOptions model
 				updateResourceInstanceOptionsModel := new(resourcecontrollerv2.UpdateResourceInstanceOptions)
 				updateResourceInstanceOptionsModel.ID = core.StringPtr("testString")
-				updateResourceInstanceOptionsModel.Name = core.StringPtr("my-new-instance-name")
+				updateResourceInstanceOptionsModel.Name = core.StringPtr("UpdatedExampleResourceInstance")
 				updateResourceInstanceOptionsModel.Parameters = make(map[string]interface{})
-				updateResourceInstanceOptionsModel.ResourcePlanID = core.StringPtr("a8dff6d3-d287-4668-a81d-c87c55c2656d")
+				updateResourceInstanceOptionsModel.ResourcePlanID = core.StringPtr("testString")
 				updateResourceInstanceOptionsModel.AllowCleanup = core.BoolPtr(true)
 				updateResourceInstanceOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
@@ -1181,7 +1183,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "guid": "GUID", "url": "URL", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "deleted_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "updated_by": "UpdatedBy", "deleted_by": "DeletedBy", "scheduled_reclaim_at": "2019-01-01T12:00:00.000Z", "restored_at": "2019-01-01T12:00:00.000Z", "restored_by": "RestoredBy", "scheduled_reclaim_by": "ScheduledReclaimBy", "name": "Name", "region_id": "RegionID", "account_id": "AccountID", "reseller_channel_id": "ResellerChannelID", "resource_plan_id": "ResourcePlanID", "resource_group_id": "ResourceGroupID", "resource_group_crn": "ResourceGroupCRN", "target_crn": "TargetCRN", "parameters": {"mapKey": "anyValue"}, "allow_cleanup": true, "crn": "CRN", "state": "State", "type": "Type", "sub_type": "SubType", "resource_id": "ResourceID", "dashboard_url": "DashboardURL", "last_operation": {"mapKey": "anyValue"}, "resource_aliases_url": "ResourceAliasesURL", "resource_bindings_url": "ResourceBindingsURL", "resource_keys_url": "ResourceKeysURL", "plan_history": [{"resource_plan_id": "ResourcePlanID", "start_date": "2019-01-01T12:00:00.000Z", "requestor_id": "RequestorID"}], "migrated": true, "extensions": {"mapKey": "anyValue"}, "controlled_by": "ControlledBy", "locked": true}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "guid": "GUID", "url": "URL", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "deleted_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "updated_by": "UpdatedBy", "deleted_by": "DeletedBy", "scheduled_reclaim_at": "2019-01-01T12:00:00.000Z", "restored_at": "2019-01-01T12:00:00.000Z", "restored_by": "RestoredBy", "scheduled_reclaim_by": "ScheduledReclaimBy", "name": "Name", "region_id": "RegionID", "account_id": "AccountID", "reseller_channel_id": "ResellerChannelID", "resource_plan_id": "ResourcePlanID", "resource_group_id": "ResourceGroupID", "resource_group_crn": "ResourceGroupCRN", "target_crn": "TargetCRN", "parameters": {"mapKey": "anyValue"}, "allow_cleanup": true, "crn": "CRN", "state": "active", "type": "Type", "sub_type": "SubType", "resource_id": "ResourceID", "dashboard_url": "DashboardURL", "last_operation": {"type": "Type", "state": "in progress", "sub_type": "SubType", "async": false, "description": "Description", "reason_code": "ReasonCode", "poll_after": 9, "cancelable": true, "poll": true}, "resource_aliases_url": "ResourceAliasesURL", "resource_bindings_url": "ResourceBindingsURL", "resource_keys_url": "ResourceKeysURL", "plan_history": [{"resource_plan_id": "ResourcePlanID", "start_date": "2019-01-01T12:00:00.000Z", "requestor_id": "RequestorID"}], "migrated": true, "extensions": {"mapKey": "anyValue"}, "controlled_by": "ControlledBy", "locked": true}`)
 				}))
 			})
 			It(`Invoke UpdateResourceInstance successfully`, func() {
@@ -1201,9 +1203,9 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				// Construct an instance of the UpdateResourceInstanceOptions model
 				updateResourceInstanceOptionsModel := new(resourcecontrollerv2.UpdateResourceInstanceOptions)
 				updateResourceInstanceOptionsModel.ID = core.StringPtr("testString")
-				updateResourceInstanceOptionsModel.Name = core.StringPtr("my-new-instance-name")
+				updateResourceInstanceOptionsModel.Name = core.StringPtr("UpdatedExampleResourceInstance")
 				updateResourceInstanceOptionsModel.Parameters = make(map[string]interface{})
-				updateResourceInstanceOptionsModel.ResourcePlanID = core.StringPtr("a8dff6d3-d287-4668-a81d-c87c55c2656d")
+				updateResourceInstanceOptionsModel.ResourcePlanID = core.StringPtr("testString")
 				updateResourceInstanceOptionsModel.AllowCleanup = core.BoolPtr(true)
 				updateResourceInstanceOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
@@ -1225,9 +1227,9 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				// Construct an instance of the UpdateResourceInstanceOptions model
 				updateResourceInstanceOptionsModel := new(resourcecontrollerv2.UpdateResourceInstanceOptions)
 				updateResourceInstanceOptionsModel.ID = core.StringPtr("testString")
-				updateResourceInstanceOptionsModel.Name = core.StringPtr("my-new-instance-name")
+				updateResourceInstanceOptionsModel.Name = core.StringPtr("UpdatedExampleResourceInstance")
 				updateResourceInstanceOptionsModel.Parameters = make(map[string]interface{})
-				updateResourceInstanceOptionsModel.ResourcePlanID = core.StringPtr("a8dff6d3-d287-4668-a81d-c87c55c2656d")
+				updateResourceInstanceOptionsModel.ResourcePlanID = core.StringPtr("testString")
 				updateResourceInstanceOptionsModel.AllowCleanup = core.BoolPtr(true)
 				updateResourceInstanceOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
@@ -1270,9 +1272,9 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				// Construct an instance of the UpdateResourceInstanceOptions model
 				updateResourceInstanceOptionsModel := new(resourcecontrollerv2.UpdateResourceInstanceOptions)
 				updateResourceInstanceOptionsModel.ID = core.StringPtr("testString")
-				updateResourceInstanceOptionsModel.Name = core.StringPtr("my-new-instance-name")
+				updateResourceInstanceOptionsModel.Name = core.StringPtr("UpdatedExampleResourceInstance")
 				updateResourceInstanceOptionsModel.Parameters = make(map[string]interface{})
-				updateResourceInstanceOptionsModel.ResourcePlanID = core.StringPtr("a8dff6d3-d287-4668-a81d-c87c55c2656d")
+				updateResourceInstanceOptionsModel.ResourcePlanID = core.StringPtr("testString")
 				updateResourceInstanceOptionsModel.AllowCleanup = core.BoolPtr(true)
 				updateResourceInstanceOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
@@ -1303,7 +1305,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 					Expect(req.URL.Query()["start"]).To(Equal([]string{"testString"}))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, `} this is not valid json {`)
+					fmt.Fprint(res, `} this is not valid json {`)
 				}))
 			})
 			It(`Invoke ListResourceAliasesForInstance with error: Operation response processing error`, func() {
@@ -1531,7 +1533,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 					Expect(req.URL.Query()["start"]).To(Equal([]string{"testString"}))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, `} this is not valid json {`)
+					fmt.Fprint(res, `} this is not valid json {`)
 				}))
 			})
 			It(`Invoke ListResourceKeysForInstance with error: Operation response processing error`, func() {
@@ -1757,7 +1759,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 					Expect(req.Method).To(Equal("POST"))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, `} this is not valid json {`)
+					fmt.Fprint(res, `} this is not valid json {`)
 				}))
 			})
 			It(`Invoke LockResourceInstance with error: Operation response processing error`, func() {
@@ -1807,7 +1809,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "guid": "GUID", "url": "URL", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "deleted_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "updated_by": "UpdatedBy", "deleted_by": "DeletedBy", "scheduled_reclaim_at": "2019-01-01T12:00:00.000Z", "restored_at": "2019-01-01T12:00:00.000Z", "restored_by": "RestoredBy", "scheduled_reclaim_by": "ScheduledReclaimBy", "name": "Name", "region_id": "RegionID", "account_id": "AccountID", "reseller_channel_id": "ResellerChannelID", "resource_plan_id": "ResourcePlanID", "resource_group_id": "ResourceGroupID", "resource_group_crn": "ResourceGroupCRN", "target_crn": "TargetCRN", "parameters": {"mapKey": "anyValue"}, "allow_cleanup": true, "crn": "CRN", "state": "State", "type": "Type", "sub_type": "SubType", "resource_id": "ResourceID", "dashboard_url": "DashboardURL", "last_operation": {"mapKey": "anyValue"}, "resource_aliases_url": "ResourceAliasesURL", "resource_bindings_url": "ResourceBindingsURL", "resource_keys_url": "ResourceKeysURL", "plan_history": [{"resource_plan_id": "ResourcePlanID", "start_date": "2019-01-01T12:00:00.000Z", "requestor_id": "RequestorID"}], "migrated": true, "extensions": {"mapKey": "anyValue"}, "controlled_by": "ControlledBy", "locked": true}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "guid": "GUID", "url": "URL", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "deleted_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "updated_by": "UpdatedBy", "deleted_by": "DeletedBy", "scheduled_reclaim_at": "2019-01-01T12:00:00.000Z", "restored_at": "2019-01-01T12:00:00.000Z", "restored_by": "RestoredBy", "scheduled_reclaim_by": "ScheduledReclaimBy", "name": "Name", "region_id": "RegionID", "account_id": "AccountID", "reseller_channel_id": "ResellerChannelID", "resource_plan_id": "ResourcePlanID", "resource_group_id": "ResourceGroupID", "resource_group_crn": "ResourceGroupCRN", "target_crn": "TargetCRN", "parameters": {"mapKey": "anyValue"}, "allow_cleanup": true, "crn": "CRN", "state": "active", "type": "Type", "sub_type": "SubType", "resource_id": "ResourceID", "dashboard_url": "DashboardURL", "last_operation": {"type": "Type", "state": "in progress", "sub_type": "SubType", "async": false, "description": "Description", "reason_code": "ReasonCode", "poll_after": 9, "cancelable": true, "poll": true}, "resource_aliases_url": "ResourceAliasesURL", "resource_bindings_url": "ResourceBindingsURL", "resource_keys_url": "ResourceKeysURL", "plan_history": [{"resource_plan_id": "ResourcePlanID", "start_date": "2019-01-01T12:00:00.000Z", "requestor_id": "RequestorID"}], "migrated": true, "extensions": {"mapKey": "anyValue"}, "controlled_by": "ControlledBy", "locked": true}`)
 				}))
 			})
 			It(`Invoke LockResourceInstance successfully with retries`, func() {
@@ -1861,7 +1863,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "guid": "GUID", "url": "URL", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "deleted_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "updated_by": "UpdatedBy", "deleted_by": "DeletedBy", "scheduled_reclaim_at": "2019-01-01T12:00:00.000Z", "restored_at": "2019-01-01T12:00:00.000Z", "restored_by": "RestoredBy", "scheduled_reclaim_by": "ScheduledReclaimBy", "name": "Name", "region_id": "RegionID", "account_id": "AccountID", "reseller_channel_id": "ResellerChannelID", "resource_plan_id": "ResourcePlanID", "resource_group_id": "ResourceGroupID", "resource_group_crn": "ResourceGroupCRN", "target_crn": "TargetCRN", "parameters": {"mapKey": "anyValue"}, "allow_cleanup": true, "crn": "CRN", "state": "State", "type": "Type", "sub_type": "SubType", "resource_id": "ResourceID", "dashboard_url": "DashboardURL", "last_operation": {"mapKey": "anyValue"}, "resource_aliases_url": "ResourceAliasesURL", "resource_bindings_url": "ResourceBindingsURL", "resource_keys_url": "ResourceKeysURL", "plan_history": [{"resource_plan_id": "ResourcePlanID", "start_date": "2019-01-01T12:00:00.000Z", "requestor_id": "RequestorID"}], "migrated": true, "extensions": {"mapKey": "anyValue"}, "controlled_by": "ControlledBy", "locked": true}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "guid": "GUID", "url": "URL", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "deleted_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "updated_by": "UpdatedBy", "deleted_by": "DeletedBy", "scheduled_reclaim_at": "2019-01-01T12:00:00.000Z", "restored_at": "2019-01-01T12:00:00.000Z", "restored_by": "RestoredBy", "scheduled_reclaim_by": "ScheduledReclaimBy", "name": "Name", "region_id": "RegionID", "account_id": "AccountID", "reseller_channel_id": "ResellerChannelID", "resource_plan_id": "ResourcePlanID", "resource_group_id": "ResourceGroupID", "resource_group_crn": "ResourceGroupCRN", "target_crn": "TargetCRN", "parameters": {"mapKey": "anyValue"}, "allow_cleanup": true, "crn": "CRN", "state": "active", "type": "Type", "sub_type": "SubType", "resource_id": "ResourceID", "dashboard_url": "DashboardURL", "last_operation": {"type": "Type", "state": "in progress", "sub_type": "SubType", "async": false, "description": "Description", "reason_code": "ReasonCode", "poll_after": 9, "cancelable": true, "poll": true}, "resource_aliases_url": "ResourceAliasesURL", "resource_bindings_url": "ResourceBindingsURL", "resource_keys_url": "ResourceKeysURL", "plan_history": [{"resource_plan_id": "ResourcePlanID", "start_date": "2019-01-01T12:00:00.000Z", "requestor_id": "RequestorID"}], "migrated": true, "extensions": {"mapKey": "anyValue"}, "controlled_by": "ControlledBy", "locked": true}`)
 				}))
 			})
 			It(`Invoke LockResourceInstance successfully`, func() {
@@ -1969,7 +1971,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 					Expect(req.Method).To(Equal("DELETE"))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, `} this is not valid json {`)
+					fmt.Fprint(res, `} this is not valid json {`)
 				}))
 			})
 			It(`Invoke UnlockResourceInstance with error: Operation response processing error`, func() {
@@ -2019,7 +2021,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "guid": "GUID", "url": "URL", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "deleted_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "updated_by": "UpdatedBy", "deleted_by": "DeletedBy", "scheduled_reclaim_at": "2019-01-01T12:00:00.000Z", "restored_at": "2019-01-01T12:00:00.000Z", "restored_by": "RestoredBy", "scheduled_reclaim_by": "ScheduledReclaimBy", "name": "Name", "region_id": "RegionID", "account_id": "AccountID", "reseller_channel_id": "ResellerChannelID", "resource_plan_id": "ResourcePlanID", "resource_group_id": "ResourceGroupID", "resource_group_crn": "ResourceGroupCRN", "target_crn": "TargetCRN", "parameters": {"mapKey": "anyValue"}, "allow_cleanup": true, "crn": "CRN", "state": "State", "type": "Type", "sub_type": "SubType", "resource_id": "ResourceID", "dashboard_url": "DashboardURL", "last_operation": {"mapKey": "anyValue"}, "resource_aliases_url": "ResourceAliasesURL", "resource_bindings_url": "ResourceBindingsURL", "resource_keys_url": "ResourceKeysURL", "plan_history": [{"resource_plan_id": "ResourcePlanID", "start_date": "2019-01-01T12:00:00.000Z", "requestor_id": "RequestorID"}], "migrated": true, "extensions": {"mapKey": "anyValue"}, "controlled_by": "ControlledBy", "locked": true}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "guid": "GUID", "url": "URL", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "deleted_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "updated_by": "UpdatedBy", "deleted_by": "DeletedBy", "scheduled_reclaim_at": "2019-01-01T12:00:00.000Z", "restored_at": "2019-01-01T12:00:00.000Z", "restored_by": "RestoredBy", "scheduled_reclaim_by": "ScheduledReclaimBy", "name": "Name", "region_id": "RegionID", "account_id": "AccountID", "reseller_channel_id": "ResellerChannelID", "resource_plan_id": "ResourcePlanID", "resource_group_id": "ResourceGroupID", "resource_group_crn": "ResourceGroupCRN", "target_crn": "TargetCRN", "parameters": {"mapKey": "anyValue"}, "allow_cleanup": true, "crn": "CRN", "state": "active", "type": "Type", "sub_type": "SubType", "resource_id": "ResourceID", "dashboard_url": "DashboardURL", "last_operation": {"type": "Type", "state": "in progress", "sub_type": "SubType", "async": false, "description": "Description", "reason_code": "ReasonCode", "poll_after": 9, "cancelable": true, "poll": true}, "resource_aliases_url": "ResourceAliasesURL", "resource_bindings_url": "ResourceBindingsURL", "resource_keys_url": "ResourceKeysURL", "plan_history": [{"resource_plan_id": "ResourcePlanID", "start_date": "2019-01-01T12:00:00.000Z", "requestor_id": "RequestorID"}], "migrated": true, "extensions": {"mapKey": "anyValue"}, "controlled_by": "ControlledBy", "locked": true}`)
 				}))
 			})
 			It(`Invoke UnlockResourceInstance successfully with retries`, func() {
@@ -2073,7 +2075,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, "%s", `{"id": "ID", "guid": "GUID", "url": "URL", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "deleted_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "updated_by": "UpdatedBy", "deleted_by": "DeletedBy", "scheduled_reclaim_at": "2019-01-01T12:00:00.000Z", "restored_at": "2019-01-01T12:00:00.000Z", "restored_by": "RestoredBy", "scheduled_reclaim_by": "ScheduledReclaimBy", "name": "Name", "region_id": "RegionID", "account_id": "AccountID", "reseller_channel_id": "ResellerChannelID", "resource_plan_id": "ResourcePlanID", "resource_group_id": "ResourceGroupID", "resource_group_crn": "ResourceGroupCRN", "target_crn": "TargetCRN", "parameters": {"mapKey": "anyValue"}, "allow_cleanup": true, "crn": "CRN", "state": "State", "type": "Type", "sub_type": "SubType", "resource_id": "ResourceID", "dashboard_url": "DashboardURL", "last_operation": {"mapKey": "anyValue"}, "resource_aliases_url": "ResourceAliasesURL", "resource_bindings_url": "ResourceBindingsURL", "resource_keys_url": "ResourceKeysURL", "plan_history": [{"resource_plan_id": "ResourcePlanID", "start_date": "2019-01-01T12:00:00.000Z", "requestor_id": "RequestorID"}], "migrated": true, "extensions": {"mapKey": "anyValue"}, "controlled_by": "ControlledBy", "locked": true}`)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "guid": "GUID", "url": "URL", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "deleted_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "updated_by": "UpdatedBy", "deleted_by": "DeletedBy", "scheduled_reclaim_at": "2019-01-01T12:00:00.000Z", "restored_at": "2019-01-01T12:00:00.000Z", "restored_by": "RestoredBy", "scheduled_reclaim_by": "ScheduledReclaimBy", "name": "Name", "region_id": "RegionID", "account_id": "AccountID", "reseller_channel_id": "ResellerChannelID", "resource_plan_id": "ResourcePlanID", "resource_group_id": "ResourceGroupID", "resource_group_crn": "ResourceGroupCRN", "target_crn": "TargetCRN", "parameters": {"mapKey": "anyValue"}, "allow_cleanup": true, "crn": "CRN", "state": "active", "type": "Type", "sub_type": "SubType", "resource_id": "ResourceID", "dashboard_url": "DashboardURL", "last_operation": {"type": "Type", "state": "in progress", "sub_type": "SubType", "async": false, "description": "Description", "reason_code": "ReasonCode", "poll_after": 9, "cancelable": true, "poll": true}, "resource_aliases_url": "ResourceAliasesURL", "resource_bindings_url": "ResourceBindingsURL", "resource_keys_url": "ResourceKeysURL", "plan_history": [{"resource_plan_id": "ResourcePlanID", "start_date": "2019-01-01T12:00:00.000Z", "requestor_id": "RequestorID"}], "migrated": true, "extensions": {"mapKey": "anyValue"}, "controlled_by": "ControlledBy", "locked": true}`)
 				}))
 			})
 			It(`Invoke UnlockResourceInstance successfully`, func() {
@@ -2169,6 +2171,218 @@ var _ = Describe(`ResourceControllerV2`, func() {
 			})
 		})
 	})
+	Describe(`CancelLastopResourceInstance(cancelLastopResourceInstanceOptions *CancelLastopResourceInstanceOptions) - Operation response error`, func() {
+		cancelLastopResourceInstancePath := "/v2/resource_instances/testString/last_operation"
+		Context(`Using mock server endpoint with invalid JSON response`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(cancelLastopResourceInstancePath))
+					Expect(req.Method).To(Equal("DELETE"))
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprint(res, `} this is not valid json {`)
+				}))
+			})
+			It(`Invoke CancelLastopResourceInstance with error: Operation response processing error`, func() {
+				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(resourceControllerService).ToNot(BeNil())
+
+				// Construct an instance of the CancelLastopResourceInstanceOptions model
+				cancelLastopResourceInstanceOptionsModel := new(resourcecontrollerv2.CancelLastopResourceInstanceOptions)
+				cancelLastopResourceInstanceOptionsModel.ID = core.StringPtr("testString")
+				cancelLastopResourceInstanceOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Expect response parsing to fail since we are receiving a text/plain response
+				result, response, operationErr := resourceControllerService.CancelLastopResourceInstance(cancelLastopResourceInstanceOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+
+				// Enable retries and test again
+				resourceControllerService.EnableRetries(0, 0)
+				result, response, operationErr = resourceControllerService.CancelLastopResourceInstance(cancelLastopResourceInstanceOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
+	Describe(`CancelLastopResourceInstance(cancelLastopResourceInstanceOptions *CancelLastopResourceInstanceOptions)`, func() {
+		cancelLastopResourceInstancePath := "/v2/resource_instances/testString/last_operation"
+		Context(`Using mock server endpoint with timeout`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(cancelLastopResourceInstancePath))
+					Expect(req.Method).To(Equal("DELETE"))
+
+					// Sleep a short time to support a timeout test
+					time.Sleep(100 * time.Millisecond)
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "guid": "GUID", "url": "URL", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "deleted_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "updated_by": "UpdatedBy", "deleted_by": "DeletedBy", "scheduled_reclaim_at": "2019-01-01T12:00:00.000Z", "restored_at": "2019-01-01T12:00:00.000Z", "restored_by": "RestoredBy", "scheduled_reclaim_by": "ScheduledReclaimBy", "name": "Name", "region_id": "RegionID", "account_id": "AccountID", "reseller_channel_id": "ResellerChannelID", "resource_plan_id": "ResourcePlanID", "resource_group_id": "ResourceGroupID", "resource_group_crn": "ResourceGroupCRN", "target_crn": "TargetCRN", "parameters": {"mapKey": "anyValue"}, "allow_cleanup": true, "crn": "CRN", "state": "active", "type": "Type", "sub_type": "SubType", "resource_id": "ResourceID", "dashboard_url": "DashboardURL", "last_operation": {"type": "Type", "state": "in progress", "sub_type": "SubType", "async": false, "description": "Description", "reason_code": "ReasonCode", "poll_after": 9, "cancelable": true, "poll": true}, "resource_aliases_url": "ResourceAliasesURL", "resource_bindings_url": "ResourceBindingsURL", "resource_keys_url": "ResourceKeysURL", "plan_history": [{"resource_plan_id": "ResourcePlanID", "start_date": "2019-01-01T12:00:00.000Z", "requestor_id": "RequestorID"}], "migrated": true, "extensions": {"mapKey": "anyValue"}, "controlled_by": "ControlledBy", "locked": true}`)
+				}))
+			})
+			It(`Invoke CancelLastopResourceInstance successfully with retries`, func() {
+				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(resourceControllerService).ToNot(BeNil())
+				resourceControllerService.EnableRetries(0, 0)
+
+				// Construct an instance of the CancelLastopResourceInstanceOptions model
+				cancelLastopResourceInstanceOptionsModel := new(resourcecontrollerv2.CancelLastopResourceInstanceOptions)
+				cancelLastopResourceInstanceOptionsModel.ID = core.StringPtr("testString")
+				cancelLastopResourceInstanceOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with a Context to test a timeout error
+				ctx, cancelFunc := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc()
+				_, _, operationErr := resourceControllerService.CancelLastopResourceInstanceWithContext(ctx, cancelLastopResourceInstanceOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+
+				// Disable retries and test again
+				resourceControllerService.DisableRetries()
+				result, response, operationErr := resourceControllerService.CancelLastopResourceInstance(cancelLastopResourceInstanceOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+				// Re-test the timeout error with retries disabled
+				ctx, cancelFunc2 := context.WithTimeout(context.Background(), 80*time.Millisecond)
+				defer cancelFunc2()
+				_, _, operationErr = resourceControllerService.CancelLastopResourceInstanceWithContext(ctx, cancelLastopResourceInstanceOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring("deadline exceeded"))
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(cancelLastopResourceInstancePath))
+					Expect(req.Method).To(Equal("DELETE"))
+
+					// Set mock response
+					res.Header().Set("Content-type", "application/json")
+					res.WriteHeader(200)
+					fmt.Fprintf(res, "%s", `{"id": "ID", "guid": "GUID", "url": "URL", "created_at": "2019-01-01T12:00:00.000Z", "updated_at": "2019-01-01T12:00:00.000Z", "deleted_at": "2019-01-01T12:00:00.000Z", "created_by": "CreatedBy", "updated_by": "UpdatedBy", "deleted_by": "DeletedBy", "scheduled_reclaim_at": "2019-01-01T12:00:00.000Z", "restored_at": "2019-01-01T12:00:00.000Z", "restored_by": "RestoredBy", "scheduled_reclaim_by": "ScheduledReclaimBy", "name": "Name", "region_id": "RegionID", "account_id": "AccountID", "reseller_channel_id": "ResellerChannelID", "resource_plan_id": "ResourcePlanID", "resource_group_id": "ResourceGroupID", "resource_group_crn": "ResourceGroupCRN", "target_crn": "TargetCRN", "parameters": {"mapKey": "anyValue"}, "allow_cleanup": true, "crn": "CRN", "state": "active", "type": "Type", "sub_type": "SubType", "resource_id": "ResourceID", "dashboard_url": "DashboardURL", "last_operation": {"type": "Type", "state": "in progress", "sub_type": "SubType", "async": false, "description": "Description", "reason_code": "ReasonCode", "poll_after": 9, "cancelable": true, "poll": true}, "resource_aliases_url": "ResourceAliasesURL", "resource_bindings_url": "ResourceBindingsURL", "resource_keys_url": "ResourceKeysURL", "plan_history": [{"resource_plan_id": "ResourcePlanID", "start_date": "2019-01-01T12:00:00.000Z", "requestor_id": "RequestorID"}], "migrated": true, "extensions": {"mapKey": "anyValue"}, "controlled_by": "ControlledBy", "locked": true}`)
+				}))
+			})
+			It(`Invoke CancelLastopResourceInstance successfully`, func() {
+				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(resourceControllerService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				result, response, operationErr := resourceControllerService.CancelLastopResourceInstance(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+
+				// Construct an instance of the CancelLastopResourceInstanceOptions model
+				cancelLastopResourceInstanceOptionsModel := new(resourcecontrollerv2.CancelLastopResourceInstanceOptions)
+				cancelLastopResourceInstanceOptionsModel.ID = core.StringPtr("testString")
+				cancelLastopResourceInstanceOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				result, response, operationErr = resourceControllerService.CancelLastopResourceInstance(cancelLastopResourceInstanceOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+				Expect(result).ToNot(BeNil())
+
+			})
+			It(`Invoke CancelLastopResourceInstance with error: Operation validation and request error`, func() {
+				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(resourceControllerService).ToNot(BeNil())
+
+				// Construct an instance of the CancelLastopResourceInstanceOptions model
+				cancelLastopResourceInstanceOptionsModel := new(resourcecontrollerv2.CancelLastopResourceInstanceOptions)
+				cancelLastopResourceInstanceOptionsModel.ID = core.StringPtr("testString")
+				cancelLastopResourceInstanceOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := resourceControllerService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				result, response, operationErr := resourceControllerService.CancelLastopResourceInstance(cancelLastopResourceInstanceOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+				// Construct a second instance of the CancelLastopResourceInstanceOptions model with no property values
+				cancelLastopResourceInstanceOptionsModelNew := new(resourcecontrollerv2.CancelLastopResourceInstanceOptions)
+				// Invoke operation with invalid model (negative test)
+				result, response, operationErr = resourceControllerService.CancelLastopResourceInstance(cancelLastopResourceInstanceOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+		Context(`Using mock server endpoint with missing response body`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Set success status code with no respoonse body
+					res.WriteHeader(200)
+				}))
+			})
+			It(`Invoke CancelLastopResourceInstance successfully`, func() {
+				resourceControllerService, serviceErr := resourcecontrollerv2.NewResourceControllerV2(&resourcecontrollerv2.ResourceControllerV2Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(resourceControllerService).ToNot(BeNil())
+
+				// Construct an instance of the CancelLastopResourceInstanceOptions model
+				cancelLastopResourceInstanceOptionsModel := new(resourcecontrollerv2.CancelLastopResourceInstanceOptions)
+				cancelLastopResourceInstanceOptionsModel.ID = core.StringPtr("testString")
+				cancelLastopResourceInstanceOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation
+				result, response, operationErr := resourceControllerService.CancelLastopResourceInstance(cancelLastopResourceInstanceOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+
+				// Verify a nil result
+				Expect(result).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
 	Describe(`ListResourceKeys(listResourceKeysOptions *ListResourceKeysOptions) - Operation response error`, func() {
 		listResourceKeysPath := "/v2/resource_keys"
 		Context(`Using mock server endpoint with invalid JSON response`, func() {
@@ -2185,11 +2399,11 @@ var _ = Describe(`ResourceControllerV2`, func() {
 					Expect(req.URL.Query()["resource_id"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(100))}))
 					Expect(req.URL.Query()["start"]).To(Equal([]string{"testString"}))
-					Expect(req.URL.Query()["updated_from"]).To(Equal([]string{"2019-01-08T00:00:00.000Z"}))
-					Expect(req.URL.Query()["updated_to"]).To(Equal([]string{"2019-01-08T00:00:00.000Z"}))
+					Expect(req.URL.Query()["updated_from"]).To(Equal([]string{"2021-01-01"}))
+					Expect(req.URL.Query()["updated_to"]).To(Equal([]string{"2021-01-01"}))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, `} this is not valid json {`)
+					fmt.Fprint(res, `} this is not valid json {`)
 				}))
 			})
 			It(`Invoke ListResourceKeys with error: Operation response processing error`, func() {
@@ -2208,8 +2422,8 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				listResourceKeysOptionsModel.ResourceID = core.StringPtr("testString")
 				listResourceKeysOptionsModel.Limit = core.Int64Ptr(int64(100))
 				listResourceKeysOptionsModel.Start = core.StringPtr("testString")
-				listResourceKeysOptionsModel.UpdatedFrom = core.StringPtr("2019-01-08T00:00:00.000Z")
-				listResourceKeysOptionsModel.UpdatedTo = core.StringPtr("2019-01-08T00:00:00.000Z")
+				listResourceKeysOptionsModel.UpdatedFrom = core.StringPtr("2021-01-01")
+				listResourceKeysOptionsModel.UpdatedTo = core.StringPtr("2021-01-01")
 				listResourceKeysOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
 				result, response, operationErr := resourceControllerService.ListResourceKeys(listResourceKeysOptionsModel)
@@ -2246,8 +2460,8 @@ var _ = Describe(`ResourceControllerV2`, func() {
 					Expect(req.URL.Query()["resource_id"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(100))}))
 					Expect(req.URL.Query()["start"]).To(Equal([]string{"testString"}))
-					Expect(req.URL.Query()["updated_from"]).To(Equal([]string{"2019-01-08T00:00:00.000Z"}))
-					Expect(req.URL.Query()["updated_to"]).To(Equal([]string{"2019-01-08T00:00:00.000Z"}))
+					Expect(req.URL.Query()["updated_from"]).To(Equal([]string{"2021-01-01"}))
+					Expect(req.URL.Query()["updated_to"]).To(Equal([]string{"2021-01-01"}))
 					// Sleep a short time to support a timeout test
 					time.Sleep(100 * time.Millisecond)
 
@@ -2274,8 +2488,8 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				listResourceKeysOptionsModel.ResourceID = core.StringPtr("testString")
 				listResourceKeysOptionsModel.Limit = core.Int64Ptr(int64(100))
 				listResourceKeysOptionsModel.Start = core.StringPtr("testString")
-				listResourceKeysOptionsModel.UpdatedFrom = core.StringPtr("2019-01-08T00:00:00.000Z")
-				listResourceKeysOptionsModel.UpdatedTo = core.StringPtr("2019-01-08T00:00:00.000Z")
+				listResourceKeysOptionsModel.UpdatedFrom = core.StringPtr("2021-01-01")
+				listResourceKeysOptionsModel.UpdatedTo = core.StringPtr("2021-01-01")
 				listResourceKeysOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with a Context to test a timeout error
@@ -2318,8 +2532,8 @@ var _ = Describe(`ResourceControllerV2`, func() {
 					Expect(req.URL.Query()["resource_id"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(100))}))
 					Expect(req.URL.Query()["start"]).To(Equal([]string{"testString"}))
-					Expect(req.URL.Query()["updated_from"]).To(Equal([]string{"2019-01-08T00:00:00.000Z"}))
-					Expect(req.URL.Query()["updated_to"]).To(Equal([]string{"2019-01-08T00:00:00.000Z"}))
+					Expect(req.URL.Query()["updated_from"]).To(Equal([]string{"2021-01-01"}))
+					Expect(req.URL.Query()["updated_to"]).To(Equal([]string{"2021-01-01"}))
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
@@ -2348,8 +2562,8 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				listResourceKeysOptionsModel.ResourceID = core.StringPtr("testString")
 				listResourceKeysOptionsModel.Limit = core.Int64Ptr(int64(100))
 				listResourceKeysOptionsModel.Start = core.StringPtr("testString")
-				listResourceKeysOptionsModel.UpdatedFrom = core.StringPtr("2019-01-08T00:00:00.000Z")
-				listResourceKeysOptionsModel.UpdatedTo = core.StringPtr("2019-01-08T00:00:00.000Z")
+				listResourceKeysOptionsModel.UpdatedFrom = core.StringPtr("2021-01-01")
+				listResourceKeysOptionsModel.UpdatedTo = core.StringPtr("2021-01-01")
 				listResourceKeysOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
@@ -2375,8 +2589,8 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				listResourceKeysOptionsModel.ResourceID = core.StringPtr("testString")
 				listResourceKeysOptionsModel.Limit = core.Int64Ptr(int64(100))
 				listResourceKeysOptionsModel.Start = core.StringPtr("testString")
-				listResourceKeysOptionsModel.UpdatedFrom = core.StringPtr("2019-01-08T00:00:00.000Z")
-				listResourceKeysOptionsModel.UpdatedTo = core.StringPtr("2019-01-08T00:00:00.000Z")
+				listResourceKeysOptionsModel.UpdatedFrom = core.StringPtr("2021-01-01")
+				listResourceKeysOptionsModel.UpdatedTo = core.StringPtr("2021-01-01")
 				listResourceKeysOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := resourceControllerService.SetServiceURL("")
@@ -2416,8 +2630,8 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				listResourceKeysOptionsModel.ResourceID = core.StringPtr("testString")
 				listResourceKeysOptionsModel.Limit = core.Int64Ptr(int64(100))
 				listResourceKeysOptionsModel.Start = core.StringPtr("testString")
-				listResourceKeysOptionsModel.UpdatedFrom = core.StringPtr("2019-01-08T00:00:00.000Z")
-				listResourceKeysOptionsModel.UpdatedTo = core.StringPtr("2019-01-08T00:00:00.000Z")
+				listResourceKeysOptionsModel.UpdatedFrom = core.StringPtr("2021-01-01")
+				listResourceKeysOptionsModel.UpdatedTo = core.StringPtr("2021-01-01")
 				listResourceKeysOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation
@@ -2445,7 +2659,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 					Expect(req.Method).To(Equal("POST"))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, `} this is not valid json {`)
+					fmt.Fprint(res, `} this is not valid json {`)
 				}))
 			})
 			It(`Invoke CreateResourceKey with error: Operation response processing error`, func() {
@@ -2459,12 +2673,12 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				// Construct an instance of the ResourceKeyPostParameters model
 				resourceKeyPostParametersModel := new(resourcecontrollerv2.ResourceKeyPostParameters)
 				resourceKeyPostParametersModel.ServiceidCRN = core.StringPtr("crn:v1:bluemix:public:iam-identity::a/9fceaa56d1ab84893af6b9eec5ab81bb::serviceid:ServiceId-fe4c29b5-db13-410a-bacc-b5779a03d393")
-				resourceKeyPostParametersModel.SetProperty("foo", core.StringPtr("testString"))
+				resourceKeyPostParametersModel.SetProperty("exampleParameter", core.StringPtr("exampleValue"))
 
 				// Construct an instance of the CreateResourceKeyOptions model
 				createResourceKeyOptionsModel := new(resourcecontrollerv2.CreateResourceKeyOptions)
-				createResourceKeyOptionsModel.Name = core.StringPtr("my-key")
-				createResourceKeyOptionsModel.Source = core.StringPtr("25eba2a9-beef-450b-82cf-f5ad5e36c6dd")
+				createResourceKeyOptionsModel.Name = core.StringPtr("ExampleResourceKey")
+				createResourceKeyOptionsModel.Source = core.StringPtr("381fd51a-f251-4f95-aff4-2b03fa8caa63")
 				createResourceKeyOptionsModel.Parameters = resourceKeyPostParametersModel
 				createResourceKeyOptionsModel.Role = core.StringPtr("Writer")
 				createResourceKeyOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
@@ -2534,12 +2748,12 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				// Construct an instance of the ResourceKeyPostParameters model
 				resourceKeyPostParametersModel := new(resourcecontrollerv2.ResourceKeyPostParameters)
 				resourceKeyPostParametersModel.ServiceidCRN = core.StringPtr("crn:v1:bluemix:public:iam-identity::a/9fceaa56d1ab84893af6b9eec5ab81bb::serviceid:ServiceId-fe4c29b5-db13-410a-bacc-b5779a03d393")
-				resourceKeyPostParametersModel.SetProperty("foo", core.StringPtr("testString"))
+				resourceKeyPostParametersModel.SetProperty("exampleParameter", core.StringPtr("exampleValue"))
 
 				// Construct an instance of the CreateResourceKeyOptions model
 				createResourceKeyOptionsModel := new(resourcecontrollerv2.CreateResourceKeyOptions)
-				createResourceKeyOptionsModel.Name = core.StringPtr("my-key")
-				createResourceKeyOptionsModel.Source = core.StringPtr("25eba2a9-beef-450b-82cf-f5ad5e36c6dd")
+				createResourceKeyOptionsModel.Name = core.StringPtr("ExampleResourceKey")
+				createResourceKeyOptionsModel.Source = core.StringPtr("381fd51a-f251-4f95-aff4-2b03fa8caa63")
 				createResourceKeyOptionsModel.Parameters = resourceKeyPostParametersModel
 				createResourceKeyOptionsModel.Role = core.StringPtr("Writer")
 				createResourceKeyOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
@@ -2617,12 +2831,12 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				// Construct an instance of the ResourceKeyPostParameters model
 				resourceKeyPostParametersModel := new(resourcecontrollerv2.ResourceKeyPostParameters)
 				resourceKeyPostParametersModel.ServiceidCRN = core.StringPtr("crn:v1:bluemix:public:iam-identity::a/9fceaa56d1ab84893af6b9eec5ab81bb::serviceid:ServiceId-fe4c29b5-db13-410a-bacc-b5779a03d393")
-				resourceKeyPostParametersModel.SetProperty("foo", core.StringPtr("testString"))
+				resourceKeyPostParametersModel.SetProperty("exampleParameter", core.StringPtr("exampleValue"))
 
 				// Construct an instance of the CreateResourceKeyOptions model
 				createResourceKeyOptionsModel := new(resourcecontrollerv2.CreateResourceKeyOptions)
-				createResourceKeyOptionsModel.Name = core.StringPtr("my-key")
-				createResourceKeyOptionsModel.Source = core.StringPtr("25eba2a9-beef-450b-82cf-f5ad5e36c6dd")
+				createResourceKeyOptionsModel.Name = core.StringPtr("ExampleResourceKey")
+				createResourceKeyOptionsModel.Source = core.StringPtr("381fd51a-f251-4f95-aff4-2b03fa8caa63")
 				createResourceKeyOptionsModel.Parameters = resourceKeyPostParametersModel
 				createResourceKeyOptionsModel.Role = core.StringPtr("Writer")
 				createResourceKeyOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
@@ -2645,12 +2859,12 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				// Construct an instance of the ResourceKeyPostParameters model
 				resourceKeyPostParametersModel := new(resourcecontrollerv2.ResourceKeyPostParameters)
 				resourceKeyPostParametersModel.ServiceidCRN = core.StringPtr("crn:v1:bluemix:public:iam-identity::a/9fceaa56d1ab84893af6b9eec5ab81bb::serviceid:ServiceId-fe4c29b5-db13-410a-bacc-b5779a03d393")
-				resourceKeyPostParametersModel.SetProperty("foo", core.StringPtr("testString"))
+				resourceKeyPostParametersModel.SetProperty("exampleParameter", core.StringPtr("exampleValue"))
 
 				// Construct an instance of the CreateResourceKeyOptions model
 				createResourceKeyOptionsModel := new(resourcecontrollerv2.CreateResourceKeyOptions)
-				createResourceKeyOptionsModel.Name = core.StringPtr("my-key")
-				createResourceKeyOptionsModel.Source = core.StringPtr("25eba2a9-beef-450b-82cf-f5ad5e36c6dd")
+				createResourceKeyOptionsModel.Name = core.StringPtr("ExampleResourceKey")
+				createResourceKeyOptionsModel.Source = core.StringPtr("381fd51a-f251-4f95-aff4-2b03fa8caa63")
 				createResourceKeyOptionsModel.Parameters = resourceKeyPostParametersModel
 				createResourceKeyOptionsModel.Role = core.StringPtr("Writer")
 				createResourceKeyOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
@@ -2694,12 +2908,12 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				// Construct an instance of the ResourceKeyPostParameters model
 				resourceKeyPostParametersModel := new(resourcecontrollerv2.ResourceKeyPostParameters)
 				resourceKeyPostParametersModel.ServiceidCRN = core.StringPtr("crn:v1:bluemix:public:iam-identity::a/9fceaa56d1ab84893af6b9eec5ab81bb::serviceid:ServiceId-fe4c29b5-db13-410a-bacc-b5779a03d393")
-				resourceKeyPostParametersModel.SetProperty("foo", core.StringPtr("testString"))
+				resourceKeyPostParametersModel.SetProperty("exampleParameter", core.StringPtr("exampleValue"))
 
 				// Construct an instance of the CreateResourceKeyOptions model
 				createResourceKeyOptionsModel := new(resourcecontrollerv2.CreateResourceKeyOptions)
-				createResourceKeyOptionsModel.Name = core.StringPtr("my-key")
-				createResourceKeyOptionsModel.Source = core.StringPtr("25eba2a9-beef-450b-82cf-f5ad5e36c6dd")
+				createResourceKeyOptionsModel.Name = core.StringPtr("ExampleResourceKey")
+				createResourceKeyOptionsModel.Source = core.StringPtr("381fd51a-f251-4f95-aff4-2b03fa8caa63")
 				createResourceKeyOptionsModel.Parameters = resourceKeyPostParametersModel
 				createResourceKeyOptionsModel.Role = core.StringPtr("Writer")
 				createResourceKeyOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
@@ -2729,7 +2943,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 					Expect(req.Method).To(Equal("GET"))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, `} this is not valid json {`)
+					fmt.Fprint(res, `} this is not valid json {`)
 				}))
 			})
 			It(`Invoke GetResourceKey with error: Operation response processing error`, func() {
@@ -3009,7 +3223,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 					Expect(req.Method).To(Equal("PATCH"))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, `} this is not valid json {`)
+					fmt.Fprint(res, `} this is not valid json {`)
 				}))
 			})
 			It(`Invoke UpdateResourceKey with error: Operation response processing error`, func() {
@@ -3023,7 +3237,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				// Construct an instance of the UpdateResourceKeyOptions model
 				updateResourceKeyOptionsModel := new(resourcecontrollerv2.UpdateResourceKeyOptions)
 				updateResourceKeyOptionsModel.ID = core.StringPtr("testString")
-				updateResourceKeyOptionsModel.Name = core.StringPtr("my-new-key-name")
+				updateResourceKeyOptionsModel.Name = core.StringPtr("UpdatedExampleResourceKey")
 				updateResourceKeyOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
 				result, response, operationErr := resourceControllerService.UpdateResourceKey(updateResourceKeyOptionsModel)
@@ -3091,7 +3305,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				// Construct an instance of the UpdateResourceKeyOptions model
 				updateResourceKeyOptionsModel := new(resourcecontrollerv2.UpdateResourceKeyOptions)
 				updateResourceKeyOptionsModel.ID = core.StringPtr("testString")
-				updateResourceKeyOptionsModel.Name = core.StringPtr("my-new-key-name")
+				updateResourceKeyOptionsModel.Name = core.StringPtr("UpdatedExampleResourceKey")
 				updateResourceKeyOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with a Context to test a timeout error
@@ -3167,7 +3381,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				// Construct an instance of the UpdateResourceKeyOptions model
 				updateResourceKeyOptionsModel := new(resourcecontrollerv2.UpdateResourceKeyOptions)
 				updateResourceKeyOptionsModel.ID = core.StringPtr("testString")
-				updateResourceKeyOptionsModel.Name = core.StringPtr("my-new-key-name")
+				updateResourceKeyOptionsModel.Name = core.StringPtr("UpdatedExampleResourceKey")
 				updateResourceKeyOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
@@ -3188,7 +3402,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				// Construct an instance of the UpdateResourceKeyOptions model
 				updateResourceKeyOptionsModel := new(resourcecontrollerv2.UpdateResourceKeyOptions)
 				updateResourceKeyOptionsModel.ID = core.StringPtr("testString")
-				updateResourceKeyOptionsModel.Name = core.StringPtr("my-new-key-name")
+				updateResourceKeyOptionsModel.Name = core.StringPtr("UpdatedExampleResourceKey")
 				updateResourceKeyOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := resourceControllerService.SetServiceURL("")
@@ -3230,7 +3444,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				// Construct an instance of the UpdateResourceKeyOptions model
 				updateResourceKeyOptionsModel := new(resourcecontrollerv2.UpdateResourceKeyOptions)
 				updateResourceKeyOptionsModel.ID = core.StringPtr("testString")
-				updateResourceKeyOptionsModel.Name = core.StringPtr("my-new-key-name")
+				updateResourceKeyOptionsModel.Name = core.StringPtr("UpdatedExampleResourceKey")
 				updateResourceKeyOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation
@@ -3263,11 +3477,11 @@ var _ = Describe(`ResourceControllerV2`, func() {
 					Expect(req.URL.Query()["region_binding_id"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(100))}))
 					Expect(req.URL.Query()["start"]).To(Equal([]string{"testString"}))
-					Expect(req.URL.Query()["updated_from"]).To(Equal([]string{"2019-01-08T00:00:00.000Z"}))
-					Expect(req.URL.Query()["updated_to"]).To(Equal([]string{"2019-01-08T00:00:00.000Z"}))
+					Expect(req.URL.Query()["updated_from"]).To(Equal([]string{"2021-01-01"}))
+					Expect(req.URL.Query()["updated_to"]).To(Equal([]string{"2021-01-01"}))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, `} this is not valid json {`)
+					fmt.Fprint(res, `} this is not valid json {`)
 				}))
 			})
 			It(`Invoke ListResourceBindings with error: Operation response processing error`, func() {
@@ -3287,8 +3501,8 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				listResourceBindingsOptionsModel.RegionBindingID = core.StringPtr("testString")
 				listResourceBindingsOptionsModel.Limit = core.Int64Ptr(int64(100))
 				listResourceBindingsOptionsModel.Start = core.StringPtr("testString")
-				listResourceBindingsOptionsModel.UpdatedFrom = core.StringPtr("2019-01-08T00:00:00.000Z")
-				listResourceBindingsOptionsModel.UpdatedTo = core.StringPtr("2019-01-08T00:00:00.000Z")
+				listResourceBindingsOptionsModel.UpdatedFrom = core.StringPtr("2021-01-01")
+				listResourceBindingsOptionsModel.UpdatedTo = core.StringPtr("2021-01-01")
 				listResourceBindingsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
 				result, response, operationErr := resourceControllerService.ListResourceBindings(listResourceBindingsOptionsModel)
@@ -3326,8 +3540,8 @@ var _ = Describe(`ResourceControllerV2`, func() {
 					Expect(req.URL.Query()["region_binding_id"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(100))}))
 					Expect(req.URL.Query()["start"]).To(Equal([]string{"testString"}))
-					Expect(req.URL.Query()["updated_from"]).To(Equal([]string{"2019-01-08T00:00:00.000Z"}))
-					Expect(req.URL.Query()["updated_to"]).To(Equal([]string{"2019-01-08T00:00:00.000Z"}))
+					Expect(req.URL.Query()["updated_from"]).To(Equal([]string{"2021-01-01"}))
+					Expect(req.URL.Query()["updated_to"]).To(Equal([]string{"2021-01-01"}))
 					// Sleep a short time to support a timeout test
 					time.Sleep(100 * time.Millisecond)
 
@@ -3355,8 +3569,8 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				listResourceBindingsOptionsModel.RegionBindingID = core.StringPtr("testString")
 				listResourceBindingsOptionsModel.Limit = core.Int64Ptr(int64(100))
 				listResourceBindingsOptionsModel.Start = core.StringPtr("testString")
-				listResourceBindingsOptionsModel.UpdatedFrom = core.StringPtr("2019-01-08T00:00:00.000Z")
-				listResourceBindingsOptionsModel.UpdatedTo = core.StringPtr("2019-01-08T00:00:00.000Z")
+				listResourceBindingsOptionsModel.UpdatedFrom = core.StringPtr("2021-01-01")
+				listResourceBindingsOptionsModel.UpdatedTo = core.StringPtr("2021-01-01")
 				listResourceBindingsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with a Context to test a timeout error
@@ -3400,8 +3614,8 @@ var _ = Describe(`ResourceControllerV2`, func() {
 					Expect(req.URL.Query()["region_binding_id"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(100))}))
 					Expect(req.URL.Query()["start"]).To(Equal([]string{"testString"}))
-					Expect(req.URL.Query()["updated_from"]).To(Equal([]string{"2019-01-08T00:00:00.000Z"}))
-					Expect(req.URL.Query()["updated_to"]).To(Equal([]string{"2019-01-08T00:00:00.000Z"}))
+					Expect(req.URL.Query()["updated_from"]).To(Equal([]string{"2021-01-01"}))
+					Expect(req.URL.Query()["updated_to"]).To(Equal([]string{"2021-01-01"}))
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
@@ -3431,8 +3645,8 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				listResourceBindingsOptionsModel.RegionBindingID = core.StringPtr("testString")
 				listResourceBindingsOptionsModel.Limit = core.Int64Ptr(int64(100))
 				listResourceBindingsOptionsModel.Start = core.StringPtr("testString")
-				listResourceBindingsOptionsModel.UpdatedFrom = core.StringPtr("2019-01-08T00:00:00.000Z")
-				listResourceBindingsOptionsModel.UpdatedTo = core.StringPtr("2019-01-08T00:00:00.000Z")
+				listResourceBindingsOptionsModel.UpdatedFrom = core.StringPtr("2021-01-01")
+				listResourceBindingsOptionsModel.UpdatedTo = core.StringPtr("2021-01-01")
 				listResourceBindingsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
@@ -3459,8 +3673,8 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				listResourceBindingsOptionsModel.RegionBindingID = core.StringPtr("testString")
 				listResourceBindingsOptionsModel.Limit = core.Int64Ptr(int64(100))
 				listResourceBindingsOptionsModel.Start = core.StringPtr("testString")
-				listResourceBindingsOptionsModel.UpdatedFrom = core.StringPtr("2019-01-08T00:00:00.000Z")
-				listResourceBindingsOptionsModel.UpdatedTo = core.StringPtr("2019-01-08T00:00:00.000Z")
+				listResourceBindingsOptionsModel.UpdatedFrom = core.StringPtr("2021-01-01")
+				listResourceBindingsOptionsModel.UpdatedTo = core.StringPtr("2021-01-01")
 				listResourceBindingsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := resourceControllerService.SetServiceURL("")
@@ -3501,8 +3715,8 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				listResourceBindingsOptionsModel.RegionBindingID = core.StringPtr("testString")
 				listResourceBindingsOptionsModel.Limit = core.Int64Ptr(int64(100))
 				listResourceBindingsOptionsModel.Start = core.StringPtr("testString")
-				listResourceBindingsOptionsModel.UpdatedFrom = core.StringPtr("2019-01-08T00:00:00.000Z")
-				listResourceBindingsOptionsModel.UpdatedTo = core.StringPtr("2019-01-08T00:00:00.000Z")
+				listResourceBindingsOptionsModel.UpdatedFrom = core.StringPtr("2021-01-01")
+				listResourceBindingsOptionsModel.UpdatedTo = core.StringPtr("2021-01-01")
 				listResourceBindingsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation
@@ -3530,7 +3744,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 					Expect(req.Method).To(Equal("POST"))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, `} this is not valid json {`)
+					fmt.Fprint(res, `} this is not valid json {`)
 				}))
 			})
 			It(`Invoke CreateResourceBinding with error: Operation response processing error`, func() {
@@ -3544,13 +3758,13 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				// Construct an instance of the ResourceBindingPostParameters model
 				resourceBindingPostParametersModel := new(resourcecontrollerv2.ResourceBindingPostParameters)
 				resourceBindingPostParametersModel.ServiceidCRN = core.StringPtr("crn:v1:bluemix:public:iam-identity::a/9fceaa56d1ab84893af6b9eec5ab81bb::serviceid:ServiceId-fe4c29b5-db13-410a-bacc-b5779a03d393")
-				resourceBindingPostParametersModel.SetProperty("foo", core.StringPtr("testString"))
+				resourceBindingPostParametersModel.SetProperty("exampleParameter", core.StringPtr("exampleValue"))
 
 				// Construct an instance of the CreateResourceBindingOptions model
 				createResourceBindingOptionsModel := new(resourcecontrollerv2.CreateResourceBindingOptions)
-				createResourceBindingOptionsModel.Source = core.StringPtr("25eba2a9-beef-450b-82cf-f5ad5e36c6dd")
-				createResourceBindingOptionsModel.Target = core.StringPtr("crn:v1:bluemix:public:cf:us-south:s/0ba4dba0-a120-4a1e-a124-5a249a904b76::cf-application:a1caa40b-2c24-4da8-8267-ac2c1a42ad0c")
-				createResourceBindingOptionsModel.Name = core.StringPtr("my-binding")
+				createResourceBindingOptionsModel.Source = core.StringPtr("faaec9d8-ec64-44d8-ab83-868632fac6a2")
+				createResourceBindingOptionsModel.Target = core.StringPtr("crn:v1:staging:public:bluemix:us-south:s/e1773b6e-17b4-40c8-b5ed-d2a1c4b620d7::cf-application:8d9457e0-1303-4f32-b4b3-5525575f6205")
+				createResourceBindingOptionsModel.Name = core.StringPtr("ExampleResourceBinding")
 				createResourceBindingOptionsModel.Parameters = resourceBindingPostParametersModel
 				createResourceBindingOptionsModel.Role = core.StringPtr("Writer")
 				createResourceBindingOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
@@ -3620,13 +3834,13 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				// Construct an instance of the ResourceBindingPostParameters model
 				resourceBindingPostParametersModel := new(resourcecontrollerv2.ResourceBindingPostParameters)
 				resourceBindingPostParametersModel.ServiceidCRN = core.StringPtr("crn:v1:bluemix:public:iam-identity::a/9fceaa56d1ab84893af6b9eec5ab81bb::serviceid:ServiceId-fe4c29b5-db13-410a-bacc-b5779a03d393")
-				resourceBindingPostParametersModel.SetProperty("foo", core.StringPtr("testString"))
+				resourceBindingPostParametersModel.SetProperty("exampleParameter", core.StringPtr("exampleValue"))
 
 				// Construct an instance of the CreateResourceBindingOptions model
 				createResourceBindingOptionsModel := new(resourcecontrollerv2.CreateResourceBindingOptions)
-				createResourceBindingOptionsModel.Source = core.StringPtr("25eba2a9-beef-450b-82cf-f5ad5e36c6dd")
-				createResourceBindingOptionsModel.Target = core.StringPtr("crn:v1:bluemix:public:cf:us-south:s/0ba4dba0-a120-4a1e-a124-5a249a904b76::cf-application:a1caa40b-2c24-4da8-8267-ac2c1a42ad0c")
-				createResourceBindingOptionsModel.Name = core.StringPtr("my-binding")
+				createResourceBindingOptionsModel.Source = core.StringPtr("faaec9d8-ec64-44d8-ab83-868632fac6a2")
+				createResourceBindingOptionsModel.Target = core.StringPtr("crn:v1:staging:public:bluemix:us-south:s/e1773b6e-17b4-40c8-b5ed-d2a1c4b620d7::cf-application:8d9457e0-1303-4f32-b4b3-5525575f6205")
+				createResourceBindingOptionsModel.Name = core.StringPtr("ExampleResourceBinding")
 				createResourceBindingOptionsModel.Parameters = resourceBindingPostParametersModel
 				createResourceBindingOptionsModel.Role = core.StringPtr("Writer")
 				createResourceBindingOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
@@ -3704,13 +3918,13 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				// Construct an instance of the ResourceBindingPostParameters model
 				resourceBindingPostParametersModel := new(resourcecontrollerv2.ResourceBindingPostParameters)
 				resourceBindingPostParametersModel.ServiceidCRN = core.StringPtr("crn:v1:bluemix:public:iam-identity::a/9fceaa56d1ab84893af6b9eec5ab81bb::serviceid:ServiceId-fe4c29b5-db13-410a-bacc-b5779a03d393")
-				resourceBindingPostParametersModel.SetProperty("foo", core.StringPtr("testString"))
+				resourceBindingPostParametersModel.SetProperty("exampleParameter", core.StringPtr("exampleValue"))
 
 				// Construct an instance of the CreateResourceBindingOptions model
 				createResourceBindingOptionsModel := new(resourcecontrollerv2.CreateResourceBindingOptions)
-				createResourceBindingOptionsModel.Source = core.StringPtr("25eba2a9-beef-450b-82cf-f5ad5e36c6dd")
-				createResourceBindingOptionsModel.Target = core.StringPtr("crn:v1:bluemix:public:cf:us-south:s/0ba4dba0-a120-4a1e-a124-5a249a904b76::cf-application:a1caa40b-2c24-4da8-8267-ac2c1a42ad0c")
-				createResourceBindingOptionsModel.Name = core.StringPtr("my-binding")
+				createResourceBindingOptionsModel.Source = core.StringPtr("faaec9d8-ec64-44d8-ab83-868632fac6a2")
+				createResourceBindingOptionsModel.Target = core.StringPtr("crn:v1:staging:public:bluemix:us-south:s/e1773b6e-17b4-40c8-b5ed-d2a1c4b620d7::cf-application:8d9457e0-1303-4f32-b4b3-5525575f6205")
+				createResourceBindingOptionsModel.Name = core.StringPtr("ExampleResourceBinding")
 				createResourceBindingOptionsModel.Parameters = resourceBindingPostParametersModel
 				createResourceBindingOptionsModel.Role = core.StringPtr("Writer")
 				createResourceBindingOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
@@ -3733,13 +3947,13 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				// Construct an instance of the ResourceBindingPostParameters model
 				resourceBindingPostParametersModel := new(resourcecontrollerv2.ResourceBindingPostParameters)
 				resourceBindingPostParametersModel.ServiceidCRN = core.StringPtr("crn:v1:bluemix:public:iam-identity::a/9fceaa56d1ab84893af6b9eec5ab81bb::serviceid:ServiceId-fe4c29b5-db13-410a-bacc-b5779a03d393")
-				resourceBindingPostParametersModel.SetProperty("foo", core.StringPtr("testString"))
+				resourceBindingPostParametersModel.SetProperty("exampleParameter", core.StringPtr("exampleValue"))
 
 				// Construct an instance of the CreateResourceBindingOptions model
 				createResourceBindingOptionsModel := new(resourcecontrollerv2.CreateResourceBindingOptions)
-				createResourceBindingOptionsModel.Source = core.StringPtr("25eba2a9-beef-450b-82cf-f5ad5e36c6dd")
-				createResourceBindingOptionsModel.Target = core.StringPtr("crn:v1:bluemix:public:cf:us-south:s/0ba4dba0-a120-4a1e-a124-5a249a904b76::cf-application:a1caa40b-2c24-4da8-8267-ac2c1a42ad0c")
-				createResourceBindingOptionsModel.Name = core.StringPtr("my-binding")
+				createResourceBindingOptionsModel.Source = core.StringPtr("faaec9d8-ec64-44d8-ab83-868632fac6a2")
+				createResourceBindingOptionsModel.Target = core.StringPtr("crn:v1:staging:public:bluemix:us-south:s/e1773b6e-17b4-40c8-b5ed-d2a1c4b620d7::cf-application:8d9457e0-1303-4f32-b4b3-5525575f6205")
+				createResourceBindingOptionsModel.Name = core.StringPtr("ExampleResourceBinding")
 				createResourceBindingOptionsModel.Parameters = resourceBindingPostParametersModel
 				createResourceBindingOptionsModel.Role = core.StringPtr("Writer")
 				createResourceBindingOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
@@ -3783,13 +3997,13 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				// Construct an instance of the ResourceBindingPostParameters model
 				resourceBindingPostParametersModel := new(resourcecontrollerv2.ResourceBindingPostParameters)
 				resourceBindingPostParametersModel.ServiceidCRN = core.StringPtr("crn:v1:bluemix:public:iam-identity::a/9fceaa56d1ab84893af6b9eec5ab81bb::serviceid:ServiceId-fe4c29b5-db13-410a-bacc-b5779a03d393")
-				resourceBindingPostParametersModel.SetProperty("foo", core.StringPtr("testString"))
+				resourceBindingPostParametersModel.SetProperty("exampleParameter", core.StringPtr("exampleValue"))
 
 				// Construct an instance of the CreateResourceBindingOptions model
 				createResourceBindingOptionsModel := new(resourcecontrollerv2.CreateResourceBindingOptions)
-				createResourceBindingOptionsModel.Source = core.StringPtr("25eba2a9-beef-450b-82cf-f5ad5e36c6dd")
-				createResourceBindingOptionsModel.Target = core.StringPtr("crn:v1:bluemix:public:cf:us-south:s/0ba4dba0-a120-4a1e-a124-5a249a904b76::cf-application:a1caa40b-2c24-4da8-8267-ac2c1a42ad0c")
-				createResourceBindingOptionsModel.Name = core.StringPtr("my-binding")
+				createResourceBindingOptionsModel.Source = core.StringPtr("faaec9d8-ec64-44d8-ab83-868632fac6a2")
+				createResourceBindingOptionsModel.Target = core.StringPtr("crn:v1:staging:public:bluemix:us-south:s/e1773b6e-17b4-40c8-b5ed-d2a1c4b620d7::cf-application:8d9457e0-1303-4f32-b4b3-5525575f6205")
+				createResourceBindingOptionsModel.Name = core.StringPtr("ExampleResourceBinding")
 				createResourceBindingOptionsModel.Parameters = resourceBindingPostParametersModel
 				createResourceBindingOptionsModel.Role = core.StringPtr("Writer")
 				createResourceBindingOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
@@ -3819,7 +4033,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 					Expect(req.Method).To(Equal("GET"))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, `} this is not valid json {`)
+					fmt.Fprint(res, `} this is not valid json {`)
 				}))
 			})
 			It(`Invoke GetResourceBinding with error: Operation response processing error`, func() {
@@ -4099,7 +4313,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 					Expect(req.Method).To(Equal("PATCH"))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, `} this is not valid json {`)
+					fmt.Fprint(res, `} this is not valid json {`)
 				}))
 			})
 			It(`Invoke UpdateResourceBinding with error: Operation response processing error`, func() {
@@ -4113,7 +4327,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				// Construct an instance of the UpdateResourceBindingOptions model
 				updateResourceBindingOptionsModel := new(resourcecontrollerv2.UpdateResourceBindingOptions)
 				updateResourceBindingOptionsModel.ID = core.StringPtr("testString")
-				updateResourceBindingOptionsModel.Name = core.StringPtr("my-new-binding-name")
+				updateResourceBindingOptionsModel.Name = core.StringPtr("UpdatedExampleResourceBinding")
 				updateResourceBindingOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
 				result, response, operationErr := resourceControllerService.UpdateResourceBinding(updateResourceBindingOptionsModel)
@@ -4181,7 +4395,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				// Construct an instance of the UpdateResourceBindingOptions model
 				updateResourceBindingOptionsModel := new(resourcecontrollerv2.UpdateResourceBindingOptions)
 				updateResourceBindingOptionsModel.ID = core.StringPtr("testString")
-				updateResourceBindingOptionsModel.Name = core.StringPtr("my-new-binding-name")
+				updateResourceBindingOptionsModel.Name = core.StringPtr("UpdatedExampleResourceBinding")
 				updateResourceBindingOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with a Context to test a timeout error
@@ -4257,7 +4471,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				// Construct an instance of the UpdateResourceBindingOptions model
 				updateResourceBindingOptionsModel := new(resourcecontrollerv2.UpdateResourceBindingOptions)
 				updateResourceBindingOptionsModel.ID = core.StringPtr("testString")
-				updateResourceBindingOptionsModel.Name = core.StringPtr("my-new-binding-name")
+				updateResourceBindingOptionsModel.Name = core.StringPtr("UpdatedExampleResourceBinding")
 				updateResourceBindingOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
@@ -4278,7 +4492,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				// Construct an instance of the UpdateResourceBindingOptions model
 				updateResourceBindingOptionsModel := new(resourcecontrollerv2.UpdateResourceBindingOptions)
 				updateResourceBindingOptionsModel.ID = core.StringPtr("testString")
-				updateResourceBindingOptionsModel.Name = core.StringPtr("my-new-binding-name")
+				updateResourceBindingOptionsModel.Name = core.StringPtr("UpdatedExampleResourceBinding")
 				updateResourceBindingOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := resourceControllerService.SetServiceURL("")
@@ -4320,7 +4534,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				// Construct an instance of the UpdateResourceBindingOptions model
 				updateResourceBindingOptionsModel := new(resourcecontrollerv2.UpdateResourceBindingOptions)
 				updateResourceBindingOptionsModel.ID = core.StringPtr("testString")
-				updateResourceBindingOptionsModel.Name = core.StringPtr("my-new-binding-name")
+				updateResourceBindingOptionsModel.Name = core.StringPtr("UpdatedExampleResourceBinding")
 				updateResourceBindingOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation
@@ -4354,11 +4568,11 @@ var _ = Describe(`ResourceControllerV2`, func() {
 					Expect(req.URL.Query()["resource_group_id"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(100))}))
 					Expect(req.URL.Query()["start"]).To(Equal([]string{"testString"}))
-					Expect(req.URL.Query()["updated_from"]).To(Equal([]string{"2019-01-08T00:00:00.000Z"}))
-					Expect(req.URL.Query()["updated_to"]).To(Equal([]string{"2019-01-08T00:00:00.000Z"}))
+					Expect(req.URL.Query()["updated_from"]).To(Equal([]string{"2021-01-01"}))
+					Expect(req.URL.Query()["updated_to"]).To(Equal([]string{"2021-01-01"}))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, `} this is not valid json {`)
+					fmt.Fprint(res, `} this is not valid json {`)
 				}))
 			})
 			It(`Invoke ListResourceAliases with error: Operation response processing error`, func() {
@@ -4379,8 +4593,8 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				listResourceAliasesOptionsModel.ResourceGroupID = core.StringPtr("testString")
 				listResourceAliasesOptionsModel.Limit = core.Int64Ptr(int64(100))
 				listResourceAliasesOptionsModel.Start = core.StringPtr("testString")
-				listResourceAliasesOptionsModel.UpdatedFrom = core.StringPtr("2019-01-08T00:00:00.000Z")
-				listResourceAliasesOptionsModel.UpdatedTo = core.StringPtr("2019-01-08T00:00:00.000Z")
+				listResourceAliasesOptionsModel.UpdatedFrom = core.StringPtr("2021-01-01")
+				listResourceAliasesOptionsModel.UpdatedTo = core.StringPtr("2021-01-01")
 				listResourceAliasesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
 				result, response, operationErr := resourceControllerService.ListResourceAliases(listResourceAliasesOptionsModel)
@@ -4419,8 +4633,8 @@ var _ = Describe(`ResourceControllerV2`, func() {
 					Expect(req.URL.Query()["resource_group_id"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(100))}))
 					Expect(req.URL.Query()["start"]).To(Equal([]string{"testString"}))
-					Expect(req.URL.Query()["updated_from"]).To(Equal([]string{"2019-01-08T00:00:00.000Z"}))
-					Expect(req.URL.Query()["updated_to"]).To(Equal([]string{"2019-01-08T00:00:00.000Z"}))
+					Expect(req.URL.Query()["updated_from"]).To(Equal([]string{"2021-01-01"}))
+					Expect(req.URL.Query()["updated_to"]).To(Equal([]string{"2021-01-01"}))
 					// Sleep a short time to support a timeout test
 					time.Sleep(100 * time.Millisecond)
 
@@ -4449,8 +4663,8 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				listResourceAliasesOptionsModel.ResourceGroupID = core.StringPtr("testString")
 				listResourceAliasesOptionsModel.Limit = core.Int64Ptr(int64(100))
 				listResourceAliasesOptionsModel.Start = core.StringPtr("testString")
-				listResourceAliasesOptionsModel.UpdatedFrom = core.StringPtr("2019-01-08T00:00:00.000Z")
-				listResourceAliasesOptionsModel.UpdatedTo = core.StringPtr("2019-01-08T00:00:00.000Z")
+				listResourceAliasesOptionsModel.UpdatedFrom = core.StringPtr("2021-01-01")
+				listResourceAliasesOptionsModel.UpdatedTo = core.StringPtr("2021-01-01")
 				listResourceAliasesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with a Context to test a timeout error
@@ -4495,8 +4709,8 @@ var _ = Describe(`ResourceControllerV2`, func() {
 					Expect(req.URL.Query()["resource_group_id"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["limit"]).To(Equal([]string{fmt.Sprint(int64(100))}))
 					Expect(req.URL.Query()["start"]).To(Equal([]string{"testString"}))
-					Expect(req.URL.Query()["updated_from"]).To(Equal([]string{"2019-01-08T00:00:00.000Z"}))
-					Expect(req.URL.Query()["updated_to"]).To(Equal([]string{"2019-01-08T00:00:00.000Z"}))
+					Expect(req.URL.Query()["updated_from"]).To(Equal([]string{"2021-01-01"}))
+					Expect(req.URL.Query()["updated_to"]).To(Equal([]string{"2021-01-01"}))
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
@@ -4527,8 +4741,8 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				listResourceAliasesOptionsModel.ResourceGroupID = core.StringPtr("testString")
 				listResourceAliasesOptionsModel.Limit = core.Int64Ptr(int64(100))
 				listResourceAliasesOptionsModel.Start = core.StringPtr("testString")
-				listResourceAliasesOptionsModel.UpdatedFrom = core.StringPtr("2019-01-08T00:00:00.000Z")
-				listResourceAliasesOptionsModel.UpdatedTo = core.StringPtr("2019-01-08T00:00:00.000Z")
+				listResourceAliasesOptionsModel.UpdatedFrom = core.StringPtr("2021-01-01")
+				listResourceAliasesOptionsModel.UpdatedTo = core.StringPtr("2021-01-01")
 				listResourceAliasesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
@@ -4556,8 +4770,8 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				listResourceAliasesOptionsModel.ResourceGroupID = core.StringPtr("testString")
 				listResourceAliasesOptionsModel.Limit = core.Int64Ptr(int64(100))
 				listResourceAliasesOptionsModel.Start = core.StringPtr("testString")
-				listResourceAliasesOptionsModel.UpdatedFrom = core.StringPtr("2019-01-08T00:00:00.000Z")
-				listResourceAliasesOptionsModel.UpdatedTo = core.StringPtr("2019-01-08T00:00:00.000Z")
+				listResourceAliasesOptionsModel.UpdatedFrom = core.StringPtr("2021-01-01")
+				listResourceAliasesOptionsModel.UpdatedTo = core.StringPtr("2021-01-01")
 				listResourceAliasesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := resourceControllerService.SetServiceURL("")
@@ -4599,8 +4813,8 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				listResourceAliasesOptionsModel.ResourceGroupID = core.StringPtr("testString")
 				listResourceAliasesOptionsModel.Limit = core.Int64Ptr(int64(100))
 				listResourceAliasesOptionsModel.Start = core.StringPtr("testString")
-				listResourceAliasesOptionsModel.UpdatedFrom = core.StringPtr("2019-01-08T00:00:00.000Z")
-				listResourceAliasesOptionsModel.UpdatedTo = core.StringPtr("2019-01-08T00:00:00.000Z")
+				listResourceAliasesOptionsModel.UpdatedFrom = core.StringPtr("2021-01-01")
+				listResourceAliasesOptionsModel.UpdatedTo = core.StringPtr("2021-01-01")
 				listResourceAliasesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation
@@ -4628,7 +4842,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 					Expect(req.Method).To(Equal("POST"))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(201)
-					fmt.Fprintf(res, `} this is not valid json {`)
+					fmt.Fprint(res, `} this is not valid json {`)
 				}))
 			})
 			It(`Invoke CreateResourceAlias with error: Operation response processing error`, func() {
@@ -4641,12 +4855,11 @@ var _ = Describe(`ResourceControllerV2`, func() {
 
 				// Construct an instance of the CreateResourceAliasOptions model
 				createResourceAliasOptionsModel := new(resourcecontrollerv2.CreateResourceAliasOptions)
-				createResourceAliasOptionsModel.Name = core.StringPtr("my-alias")
-				createResourceAliasOptionsModel.Source = core.StringPtr("a8dff6d3-d287-4668-a81d-c87c55c2656d")
-				createResourceAliasOptionsModel.Target = core.StringPtr("crn:v1:bluemix:public:cf:us-south:o/5e939cd5-6377-4383-b9e0-9db22cd11753::cf-space:66c8b915-101a-406c-a784-e6636676e4f5")
+				createResourceAliasOptionsModel.Name = core.StringPtr("ExampleResourceAlias")
+				createResourceAliasOptionsModel.Source = core.StringPtr("381fd51a-f251-4f95-aff4-2b03fa8caa63")
+				createResourceAliasOptionsModel.Target = core.StringPtr("crn:v1:bluemix:public:bluemix:us-south:o/d35d4f0e-5076-4c89-9361-2522894b6548::cf-space:e1773b6e-17b4-40c8-b5ed-d2a1c4b620d7")
 				createResourceAliasOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
-				fmt.Println(createResourceAliasOptionsModel.Source)
 				result, response, operationErr := resourceControllerService.CreateResourceAlias(createResourceAliasOptionsModel)
 				Expect(operationErr).ToNot(BeNil())
 				Expect(response).ToNot(BeNil())
@@ -4711,9 +4924,9 @@ var _ = Describe(`ResourceControllerV2`, func() {
 
 				// Construct an instance of the CreateResourceAliasOptions model
 				createResourceAliasOptionsModel := new(resourcecontrollerv2.CreateResourceAliasOptions)
-				createResourceAliasOptionsModel.Name = core.StringPtr("my-alias")
-				createResourceAliasOptionsModel.Source = core.StringPtr("a8dff6d3-d287-4668-a81d-c87c55c2656d")
-				createResourceAliasOptionsModel.Target = core.StringPtr("crn:v1:bluemix:public:cf:us-south:o/5e939cd5-6377-4383-b9e0-9db22cd11753::cf-space:66c8b915-101a-406c-a784-e6636676e4f5")
+				createResourceAliasOptionsModel.Name = core.StringPtr("ExampleResourceAlias")
+				createResourceAliasOptionsModel.Source = core.StringPtr("381fd51a-f251-4f95-aff4-2b03fa8caa63")
+				createResourceAliasOptionsModel.Target = core.StringPtr("crn:v1:bluemix:public:bluemix:us-south:o/d35d4f0e-5076-4c89-9361-2522894b6548::cf-space:e1773b6e-17b4-40c8-b5ed-d2a1c4b620d7")
 				createResourceAliasOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with a Context to test a timeout error
@@ -4788,9 +5001,9 @@ var _ = Describe(`ResourceControllerV2`, func() {
 
 				// Construct an instance of the CreateResourceAliasOptions model
 				createResourceAliasOptionsModel := new(resourcecontrollerv2.CreateResourceAliasOptions)
-				createResourceAliasOptionsModel.Name = core.StringPtr("my-alias")
-				createResourceAliasOptionsModel.Source = core.StringPtr("a8dff6d3-d287-4668-a81d-c87c55c2656d")
-				createResourceAliasOptionsModel.Target = core.StringPtr("crn:v1:bluemix:public:cf:us-south:o/5e939cd5-6377-4383-b9e0-9db22cd11753::cf-space:66c8b915-101a-406c-a784-e6636676e4f5")
+				createResourceAliasOptionsModel.Name = core.StringPtr("ExampleResourceAlias")
+				createResourceAliasOptionsModel.Source = core.StringPtr("381fd51a-f251-4f95-aff4-2b03fa8caa63")
+				createResourceAliasOptionsModel.Target = core.StringPtr("crn:v1:bluemix:public:bluemix:us-south:o/d35d4f0e-5076-4c89-9361-2522894b6548::cf-space:e1773b6e-17b4-40c8-b5ed-d2a1c4b620d7")
 				createResourceAliasOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
@@ -4810,9 +5023,9 @@ var _ = Describe(`ResourceControllerV2`, func() {
 
 				// Construct an instance of the CreateResourceAliasOptions model
 				createResourceAliasOptionsModel := new(resourcecontrollerv2.CreateResourceAliasOptions)
-				createResourceAliasOptionsModel.Name = core.StringPtr("my-alias")
-				createResourceAliasOptionsModel.Source = core.StringPtr("a8dff6d3-d287-4668-a81d-c87c55c2656d")
-				createResourceAliasOptionsModel.Target = core.StringPtr("crn:v1:bluemix:public:cf:us-south:o/5e939cd5-6377-4383-b9e0-9db22cd11753::cf-space:66c8b915-101a-406c-a784-e6636676e4f5")
+				createResourceAliasOptionsModel.Name = core.StringPtr("ExampleResourceAlias")
+				createResourceAliasOptionsModel.Source = core.StringPtr("381fd51a-f251-4f95-aff4-2b03fa8caa63")
+				createResourceAliasOptionsModel.Target = core.StringPtr("crn:v1:bluemix:public:bluemix:us-south:o/d35d4f0e-5076-4c89-9361-2522894b6548::cf-space:e1773b6e-17b4-40c8-b5ed-d2a1c4b620d7")
 				createResourceAliasOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := resourceControllerService.SetServiceURL("")
@@ -4853,9 +5066,9 @@ var _ = Describe(`ResourceControllerV2`, func() {
 
 				// Construct an instance of the CreateResourceAliasOptions model
 				createResourceAliasOptionsModel := new(resourcecontrollerv2.CreateResourceAliasOptions)
-				createResourceAliasOptionsModel.Name = core.StringPtr("my-alias")
-				createResourceAliasOptionsModel.Source = core.StringPtr("a8dff6d3-d287-4668-a81d-c87c55c2656d")
-				createResourceAliasOptionsModel.Target = core.StringPtr("crn:v1:bluemix:public:cf:us-south:o/5e939cd5-6377-4383-b9e0-9db22cd11753::cf-space:66c8b915-101a-406c-a784-e6636676e4f5")
+				createResourceAliasOptionsModel.Name = core.StringPtr("ExampleResourceAlias")
+				createResourceAliasOptionsModel.Source = core.StringPtr("381fd51a-f251-4f95-aff4-2b03fa8caa63")
+				createResourceAliasOptionsModel.Target = core.StringPtr("crn:v1:bluemix:public:bluemix:us-south:o/d35d4f0e-5076-4c89-9361-2522894b6548::cf-space:e1773b6e-17b4-40c8-b5ed-d2a1c4b620d7")
 				createResourceAliasOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation
@@ -4883,7 +5096,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 					Expect(req.Method).To(Equal("GET"))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, `} this is not valid json {`)
+					fmt.Fprint(res, `} this is not valid json {`)
 				}))
 			})
 			It(`Invoke GetResourceAlias with error: Operation response processing error`, func() {
@@ -5094,6 +5307,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 					Expect(req.URL.EscapedPath()).To(Equal(deleteResourceAliasPath))
 					Expect(req.Method).To(Equal("DELETE"))
 
+					// TODO: Add check for recursive query parameter
 					res.WriteHeader(204)
 				}))
 			})
@@ -5113,6 +5327,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				// Construct an instance of the DeleteResourceAliasOptions model
 				deleteResourceAliasOptionsModel := new(resourcecontrollerv2.DeleteResourceAliasOptions)
 				deleteResourceAliasOptionsModel.ID = core.StringPtr("testString")
+				deleteResourceAliasOptionsModel.Recursive = core.BoolPtr(false)
 				deleteResourceAliasOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
@@ -5131,6 +5346,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				// Construct an instance of the DeleteResourceAliasOptions model
 				deleteResourceAliasOptionsModel := new(resourcecontrollerv2.DeleteResourceAliasOptions)
 				deleteResourceAliasOptionsModel.ID = core.StringPtr("testString")
+				deleteResourceAliasOptionsModel.Recursive = core.BoolPtr(false)
 				deleteResourceAliasOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := resourceControllerService.SetServiceURL("")
@@ -5163,7 +5379,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 					Expect(req.Method).To(Equal("PATCH"))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, `} this is not valid json {`)
+					fmt.Fprint(res, `} this is not valid json {`)
 				}))
 			})
 			It(`Invoke UpdateResourceAlias with error: Operation response processing error`, func() {
@@ -5177,7 +5393,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				// Construct an instance of the UpdateResourceAliasOptions model
 				updateResourceAliasOptionsModel := new(resourcecontrollerv2.UpdateResourceAliasOptions)
 				updateResourceAliasOptionsModel.ID = core.StringPtr("testString")
-				updateResourceAliasOptionsModel.Name = core.StringPtr("my-new-alias-name")
+				updateResourceAliasOptionsModel.Name = core.StringPtr("UpdatedExampleResourceAlias")
 				updateResourceAliasOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
 				result, response, operationErr := resourceControllerService.UpdateResourceAlias(updateResourceAliasOptionsModel)
@@ -5245,7 +5461,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				// Construct an instance of the UpdateResourceAliasOptions model
 				updateResourceAliasOptionsModel := new(resourcecontrollerv2.UpdateResourceAliasOptions)
 				updateResourceAliasOptionsModel.ID = core.StringPtr("testString")
-				updateResourceAliasOptionsModel.Name = core.StringPtr("my-new-alias-name")
+				updateResourceAliasOptionsModel.Name = core.StringPtr("UpdatedExampleResourceAlias")
 				updateResourceAliasOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with a Context to test a timeout error
@@ -5321,7 +5537,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				// Construct an instance of the UpdateResourceAliasOptions model
 				updateResourceAliasOptionsModel := new(resourcecontrollerv2.UpdateResourceAliasOptions)
 				updateResourceAliasOptionsModel.ID = core.StringPtr("testString")
-				updateResourceAliasOptionsModel.Name = core.StringPtr("my-new-alias-name")
+				updateResourceAliasOptionsModel.Name = core.StringPtr("UpdatedExampleResourceAlias")
 				updateResourceAliasOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
@@ -5342,7 +5558,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				// Construct an instance of the UpdateResourceAliasOptions model
 				updateResourceAliasOptionsModel := new(resourcecontrollerv2.UpdateResourceAliasOptions)
 				updateResourceAliasOptionsModel.ID = core.StringPtr("testString")
-				updateResourceAliasOptionsModel.Name = core.StringPtr("my-new-alias-name")
+				updateResourceAliasOptionsModel.Name = core.StringPtr("UpdatedExampleResourceAlias")
 				updateResourceAliasOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := resourceControllerService.SetServiceURL("")
@@ -5384,7 +5600,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				// Construct an instance of the UpdateResourceAliasOptions model
 				updateResourceAliasOptionsModel := new(resourcecontrollerv2.UpdateResourceAliasOptions)
 				updateResourceAliasOptionsModel.ID = core.StringPtr("testString")
-				updateResourceAliasOptionsModel.Name = core.StringPtr("my-new-alias-name")
+				updateResourceAliasOptionsModel.Name = core.StringPtr("UpdatedExampleResourceAlias")
 				updateResourceAliasOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation
@@ -5414,7 +5630,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 					Expect(req.URL.Query()["start"]).To(Equal([]string{"testString"}))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, `} this is not valid json {`)
+					fmt.Fprint(res, `} this is not valid json {`)
 				}))
 			})
 			It(`Invoke ListResourceBindingsForAlias with error: Operation response processing error`, func() {
@@ -5642,7 +5858,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 					Expect(req.URL.Query()["resource_instance_id"]).To(Equal([]string{"testString"}))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, `} this is not valid json {`)
+					fmt.Fprint(res, `} this is not valid json {`)
 				}))
 			})
 			It(`Invoke ListReclamations with error: Operation response processing error`, func() {
@@ -5856,7 +6072,7 @@ var _ = Describe(`ResourceControllerV2`, func() {
 					Expect(req.Method).To(Equal("POST"))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
-					fmt.Fprintf(res, `} this is not valid json {`)
+					fmt.Fprint(res, `} this is not valid json {`)
 				}))
 			})
 			It(`Invoke RunReclamationAction with error: Operation response processing error`, func() {
@@ -6109,20 +6325,30 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				URL:           "http://resourcecontrollerv2modelgenerator.com",
 				Authenticator: &core.NoAuthAuthenticator{},
 			})
+			It(`Invoke NewCancelLastopResourceInstanceOptions successfully`, func() {
+				// Construct an instance of the CancelLastopResourceInstanceOptions model
+				id := "testString"
+				cancelLastopResourceInstanceOptionsModel := resourceControllerService.NewCancelLastopResourceInstanceOptions(id)
+				cancelLastopResourceInstanceOptionsModel.SetID("testString")
+				cancelLastopResourceInstanceOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(cancelLastopResourceInstanceOptionsModel).ToNot(BeNil())
+				Expect(cancelLastopResourceInstanceOptionsModel.ID).To(Equal(core.StringPtr("testString")))
+				Expect(cancelLastopResourceInstanceOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
 			It(`Invoke NewCreateResourceAliasOptions successfully`, func() {
 				// Construct an instance of the CreateResourceAliasOptions model
-				createResourceAliasOptionsName := "my-alias"
-				createResourceAliasOptionsSource := "a8dff6d3-d287-4668-a81d-c87c55c2656d"
-				createResourceAliasOptionsTarget := "crn:v1:bluemix:public:cf:us-south:o/5e939cd5-6377-4383-b9e0-9db22cd11753::cf-space:66c8b915-101a-406c-a784-e6636676e4f5"
+				createResourceAliasOptionsName := "ExampleResourceAlias"
+				createResourceAliasOptionsSource := "381fd51a-f251-4f95-aff4-2b03fa8caa63"
+				createResourceAliasOptionsTarget := "crn:v1:bluemix:public:bluemix:us-south:o/d35d4f0e-5076-4c89-9361-2522894b6548::cf-space:e1773b6e-17b4-40c8-b5ed-d2a1c4b620d7"
 				createResourceAliasOptionsModel := resourceControllerService.NewCreateResourceAliasOptions(createResourceAliasOptionsName, createResourceAliasOptionsSource, createResourceAliasOptionsTarget)
-				createResourceAliasOptionsModel.SetName("my-alias")
-				createResourceAliasOptionsModel.SetSource("a8dff6d3-d287-4668-a81d-c87c55c2656d")
-				createResourceAliasOptionsModel.SetTarget("crn:v1:bluemix:public:cf:us-south:o/5e939cd5-6377-4383-b9e0-9db22cd11753::cf-space:66c8b915-101a-406c-a784-e6636676e4f5")
+				createResourceAliasOptionsModel.SetName("ExampleResourceAlias")
+				createResourceAliasOptionsModel.SetSource("381fd51a-f251-4f95-aff4-2b03fa8caa63")
+				createResourceAliasOptionsModel.SetTarget("crn:v1:bluemix:public:bluemix:us-south:o/d35d4f0e-5076-4c89-9361-2522894b6548::cf-space:e1773b6e-17b4-40c8-b5ed-d2a1c4b620d7")
 				createResourceAliasOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(createResourceAliasOptionsModel).ToNot(BeNil())
-				Expect(createResourceAliasOptionsModel.Name).To(Equal(core.StringPtr("my-alias")))
-				Expect(createResourceAliasOptionsModel.Source).To(Equal(core.StringPtr("a8dff6d3-d287-4668-a81d-c87c55c2656d")))
-				Expect(createResourceAliasOptionsModel.Target).To(Equal(core.StringPtr("crn:v1:bluemix:public:cf:us-south:o/5e939cd5-6377-4383-b9e0-9db22cd11753::cf-space:66c8b915-101a-406c-a784-e6636676e4f5")))
+				Expect(createResourceAliasOptionsModel.Name).To(Equal(core.StringPtr("ExampleResourceAlias")))
+				Expect(createResourceAliasOptionsModel.Source).To(Equal(core.StringPtr("381fd51a-f251-4f95-aff4-2b03fa8caa63")))
+				Expect(createResourceAliasOptionsModel.Target).To(Equal(core.StringPtr("crn:v1:bluemix:public:bluemix:us-south:o/d35d4f0e-5076-4c89-9361-2522894b6548::cf-space:e1773b6e-17b4-40c8-b5ed-d2a1c4b620d7")))
 				Expect(createResourceAliasOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewCreateResourceBindingOptions successfully`, func() {
@@ -6130,54 +6356,63 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				resourceBindingPostParametersModel := new(resourcecontrollerv2.ResourceBindingPostParameters)
 				Expect(resourceBindingPostParametersModel).ToNot(BeNil())
 				resourceBindingPostParametersModel.ServiceidCRN = core.StringPtr("crn:v1:bluemix:public:iam-identity::a/9fceaa56d1ab84893af6b9eec5ab81bb::serviceid:ServiceId-fe4c29b5-db13-410a-bacc-b5779a03d393")
-				resourceBindingPostParametersModel.SetProperty("foo", core.StringPtr("testString"))
+				resourceBindingPostParametersModel.SetProperty("exampleParameter", core.StringPtr("exampleValue"))
 				Expect(resourceBindingPostParametersModel.ServiceidCRN).To(Equal(core.StringPtr("crn:v1:bluemix:public:iam-identity::a/9fceaa56d1ab84893af6b9eec5ab81bb::serviceid:ServiceId-fe4c29b5-db13-410a-bacc-b5779a03d393")))
 				Expect(resourceBindingPostParametersModel.GetProperties()).ToNot(BeEmpty())
-				Expect(resourceBindingPostParametersModel.GetProperty("foo")).To(Equal(core.StringPtr("testString")))
+				Expect(resourceBindingPostParametersModel.GetProperty("exampleParameter")).To(Equal(core.StringPtr("exampleValue")))
+
+				resourceBindingPostParametersModel.SetProperties(nil)
+				Expect(resourceBindingPostParametersModel.GetProperties()).To(BeEmpty())
+
+				resourceBindingPostParametersModelExpectedMap := make(map[string]interface{})
+				resourceBindingPostParametersModelExpectedMap["exampleParameter"] = core.StringPtr("exampleValue")
+				resourceBindingPostParametersModel.SetProperties(resourceBindingPostParametersModelExpectedMap)
+				resourceBindingPostParametersModelActualMap := resourceBindingPostParametersModel.GetProperties()
+				Expect(resourceBindingPostParametersModelActualMap).To(Equal(resourceBindingPostParametersModelExpectedMap))
 
 				// Construct an instance of the CreateResourceBindingOptions model
-				createResourceBindingOptionsSource := "25eba2a9-beef-450b-82cf-f5ad5e36c6dd"
-				createResourceBindingOptionsTarget := "crn:v1:bluemix:public:cf:us-south:s/0ba4dba0-a120-4a1e-a124-5a249a904b76::cf-application:a1caa40b-2c24-4da8-8267-ac2c1a42ad0c"
+				createResourceBindingOptionsSource := "faaec9d8-ec64-44d8-ab83-868632fac6a2"
+				createResourceBindingOptionsTarget := "crn:v1:staging:public:bluemix:us-south:s/e1773b6e-17b4-40c8-b5ed-d2a1c4b620d7::cf-application:8d9457e0-1303-4f32-b4b3-5525575f6205"
 				createResourceBindingOptionsModel := resourceControllerService.NewCreateResourceBindingOptions(createResourceBindingOptionsSource, createResourceBindingOptionsTarget)
-				createResourceBindingOptionsModel.SetSource("25eba2a9-beef-450b-82cf-f5ad5e36c6dd")
-				createResourceBindingOptionsModel.SetTarget("crn:v1:bluemix:public:cf:us-south:s/0ba4dba0-a120-4a1e-a124-5a249a904b76::cf-application:a1caa40b-2c24-4da8-8267-ac2c1a42ad0c")
-				createResourceBindingOptionsModel.SetName("my-binding")
+				createResourceBindingOptionsModel.SetSource("faaec9d8-ec64-44d8-ab83-868632fac6a2")
+				createResourceBindingOptionsModel.SetTarget("crn:v1:staging:public:bluemix:us-south:s/e1773b6e-17b4-40c8-b5ed-d2a1c4b620d7::cf-application:8d9457e0-1303-4f32-b4b3-5525575f6205")
+				createResourceBindingOptionsModel.SetName("ExampleResourceBinding")
 				createResourceBindingOptionsModel.SetParameters(resourceBindingPostParametersModel)
 				createResourceBindingOptionsModel.SetRole("Writer")
 				createResourceBindingOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(createResourceBindingOptionsModel).ToNot(BeNil())
-				Expect(createResourceBindingOptionsModel.Source).To(Equal(core.StringPtr("25eba2a9-beef-450b-82cf-f5ad5e36c6dd")))
-				Expect(createResourceBindingOptionsModel.Target).To(Equal(core.StringPtr("crn:v1:bluemix:public:cf:us-south:s/0ba4dba0-a120-4a1e-a124-5a249a904b76::cf-application:a1caa40b-2c24-4da8-8267-ac2c1a42ad0c")))
-				Expect(createResourceBindingOptionsModel.Name).To(Equal(core.StringPtr("my-binding")))
+				Expect(createResourceBindingOptionsModel.Source).To(Equal(core.StringPtr("faaec9d8-ec64-44d8-ab83-868632fac6a2")))
+				Expect(createResourceBindingOptionsModel.Target).To(Equal(core.StringPtr("crn:v1:staging:public:bluemix:us-south:s/e1773b6e-17b4-40c8-b5ed-d2a1c4b620d7::cf-application:8d9457e0-1303-4f32-b4b3-5525575f6205")))
+				Expect(createResourceBindingOptionsModel.Name).To(Equal(core.StringPtr("ExampleResourceBinding")))
 				Expect(createResourceBindingOptionsModel.Parameters).To(Equal(resourceBindingPostParametersModel))
 				Expect(createResourceBindingOptionsModel.Role).To(Equal(core.StringPtr("Writer")))
 				Expect(createResourceBindingOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewCreateResourceInstanceOptions successfully`, func() {
 				// Construct an instance of the CreateResourceInstanceOptions model
-				createResourceInstanceOptionsName := "my-instance"
-				createResourceInstanceOptionsTarget := "bluemix-us-south"
-				createResourceInstanceOptionsResourceGroup := "5c49eabc-f5e8-5881-a37e-2d100a33b3df"
-				createResourceInstanceOptionsResourcePlanID := "cloudant-standard"
+				createResourceInstanceOptionsName := "ExampleResourceInstance"
+				createResourceInstanceOptionsTarget := "global"
+				createResourceInstanceOptionsResourceGroup := "13aa3ee48c3b44ddb64c05c79f7ab8ef"
+				createResourceInstanceOptionsResourcePlanID := "a10e4960-3685-11e9-b210-d663bd873d93"
 				createResourceInstanceOptionsModel := resourceControllerService.NewCreateResourceInstanceOptions(createResourceInstanceOptionsName, createResourceInstanceOptionsTarget, createResourceInstanceOptionsResourceGroup, createResourceInstanceOptionsResourcePlanID)
-				createResourceInstanceOptionsModel.SetName("my-instance")
-				createResourceInstanceOptionsModel.SetTarget("bluemix-us-south")
-				createResourceInstanceOptionsModel.SetResourceGroup("5c49eabc-f5e8-5881-a37e-2d100a33b3df")
-				createResourceInstanceOptionsModel.SetResourcePlanID("cloudant-standard")
+				createResourceInstanceOptionsModel.SetName("ExampleResourceInstance")
+				createResourceInstanceOptionsModel.SetTarget("global")
+				createResourceInstanceOptionsModel.SetResourceGroup("13aa3ee48c3b44ddb64c05c79f7ab8ef")
+				createResourceInstanceOptionsModel.SetResourcePlanID("a10e4960-3685-11e9-b210-d663bd873d93")
 				createResourceInstanceOptionsModel.SetTags([]string{"testString"})
-				createResourceInstanceOptionsModel.SetAllowCleanup(true)
+				createResourceInstanceOptionsModel.SetAllowCleanup(false)
 				createResourceInstanceOptionsModel.SetParameters(make(map[string]interface{}))
-				createResourceInstanceOptionsModel.SetEntityLock(true)
+				createResourceInstanceOptionsModel.SetEntityLock(false)
 				createResourceInstanceOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(createResourceInstanceOptionsModel).ToNot(BeNil())
-				Expect(createResourceInstanceOptionsModel.Name).To(Equal(core.StringPtr("my-instance")))
-				Expect(createResourceInstanceOptionsModel.Target).To(Equal(core.StringPtr("bluemix-us-south")))
-				Expect(createResourceInstanceOptionsModel.ResourceGroup).To(Equal(core.StringPtr("5c49eabc-f5e8-5881-a37e-2d100a33b3df")))
-				Expect(createResourceInstanceOptionsModel.ResourcePlanID).To(Equal(core.StringPtr("cloudant-standard")))
+				Expect(createResourceInstanceOptionsModel.Name).To(Equal(core.StringPtr("ExampleResourceInstance")))
+				Expect(createResourceInstanceOptionsModel.Target).To(Equal(core.StringPtr("global")))
+				Expect(createResourceInstanceOptionsModel.ResourceGroup).To(Equal(core.StringPtr("13aa3ee48c3b44ddb64c05c79f7ab8ef")))
+				Expect(createResourceInstanceOptionsModel.ResourcePlanID).To(Equal(core.StringPtr("a10e4960-3685-11e9-b210-d663bd873d93")))
 				Expect(createResourceInstanceOptionsModel.Tags).To(Equal([]string{"testString"}))
-				Expect(createResourceInstanceOptionsModel.AllowCleanup).To(Equal(core.BoolPtr(true)))
+				Expect(createResourceInstanceOptionsModel.AllowCleanup).To(Equal(core.BoolPtr(false)))
 				Expect(createResourceInstanceOptionsModel.Parameters).To(Equal(make(map[string]interface{})))
-				Expect(createResourceInstanceOptionsModel.EntityLock).To(Equal(core.BoolPtr(true)))
+				Expect(createResourceInstanceOptionsModel.EntityLock).To(Equal(core.BoolPtr(false)))
 				Expect(createResourceInstanceOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewCreateResourceKeyOptions successfully`, func() {
@@ -6185,23 +6420,32 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				resourceKeyPostParametersModel := new(resourcecontrollerv2.ResourceKeyPostParameters)
 				Expect(resourceKeyPostParametersModel).ToNot(BeNil())
 				resourceKeyPostParametersModel.ServiceidCRN = core.StringPtr("crn:v1:bluemix:public:iam-identity::a/9fceaa56d1ab84893af6b9eec5ab81bb::serviceid:ServiceId-fe4c29b5-db13-410a-bacc-b5779a03d393")
-				resourceKeyPostParametersModel.SetProperty("foo", core.StringPtr("testString"))
+				resourceKeyPostParametersModel.SetProperty("exampleParameter", core.StringPtr("exampleValue"))
 				Expect(resourceKeyPostParametersModel.ServiceidCRN).To(Equal(core.StringPtr("crn:v1:bluemix:public:iam-identity::a/9fceaa56d1ab84893af6b9eec5ab81bb::serviceid:ServiceId-fe4c29b5-db13-410a-bacc-b5779a03d393")))
 				Expect(resourceKeyPostParametersModel.GetProperties()).ToNot(BeEmpty())
-				Expect(resourceKeyPostParametersModel.GetProperty("foo")).To(Equal(core.StringPtr("testString")))
+				Expect(resourceKeyPostParametersModel.GetProperty("exampleParameter")).To(Equal(core.StringPtr("exampleValue")))
+
+				resourceKeyPostParametersModel.SetProperties(nil)
+				Expect(resourceKeyPostParametersModel.GetProperties()).To(BeEmpty())
+
+				resourceKeyPostParametersModelExpectedMap := make(map[string]interface{})
+				resourceKeyPostParametersModelExpectedMap["exampleParameter"] = core.StringPtr("exampleValue")
+				resourceKeyPostParametersModel.SetProperties(resourceKeyPostParametersModelExpectedMap)
+				resourceKeyPostParametersModelActualMap := resourceKeyPostParametersModel.GetProperties()
+				Expect(resourceKeyPostParametersModelActualMap).To(Equal(resourceKeyPostParametersModelExpectedMap))
 
 				// Construct an instance of the CreateResourceKeyOptions model
-				createResourceKeyOptionsName := "my-key"
-				createResourceKeyOptionsSource := "25eba2a9-beef-450b-82cf-f5ad5e36c6dd"
+				createResourceKeyOptionsName := "ExampleResourceKey"
+				createResourceKeyOptionsSource := "381fd51a-f251-4f95-aff4-2b03fa8caa63"
 				createResourceKeyOptionsModel := resourceControllerService.NewCreateResourceKeyOptions(createResourceKeyOptionsName, createResourceKeyOptionsSource)
-				createResourceKeyOptionsModel.SetName("my-key")
-				createResourceKeyOptionsModel.SetSource("25eba2a9-beef-450b-82cf-f5ad5e36c6dd")
+				createResourceKeyOptionsModel.SetName("ExampleResourceKey")
+				createResourceKeyOptionsModel.SetSource("381fd51a-f251-4f95-aff4-2b03fa8caa63")
 				createResourceKeyOptionsModel.SetParameters(resourceKeyPostParametersModel)
 				createResourceKeyOptionsModel.SetRole("Writer")
 				createResourceKeyOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(createResourceKeyOptionsModel).ToNot(BeNil())
-				Expect(createResourceKeyOptionsModel.Name).To(Equal(core.StringPtr("my-key")))
-				Expect(createResourceKeyOptionsModel.Source).To(Equal(core.StringPtr("25eba2a9-beef-450b-82cf-f5ad5e36c6dd")))
+				Expect(createResourceKeyOptionsModel.Name).To(Equal(core.StringPtr("ExampleResourceKey")))
+				Expect(createResourceKeyOptionsModel.Source).To(Equal(core.StringPtr("381fd51a-f251-4f95-aff4-2b03fa8caa63")))
 				Expect(createResourceKeyOptionsModel.Parameters).To(Equal(resourceKeyPostParametersModel))
 				Expect(createResourceKeyOptionsModel.Role).To(Equal(core.StringPtr("Writer")))
 				Expect(createResourceKeyOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
@@ -6211,9 +6455,11 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				id := "testString"
 				deleteResourceAliasOptionsModel := resourceControllerService.NewDeleteResourceAliasOptions(id)
 				deleteResourceAliasOptionsModel.SetID("testString")
+				deleteResourceAliasOptionsModel.SetRecursive(false)
 				deleteResourceAliasOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(deleteResourceAliasOptionsModel).ToNot(BeNil())
 				Expect(deleteResourceAliasOptionsModel.ID).To(Equal(core.StringPtr("testString")))
+				Expect(deleteResourceAliasOptionsModel.Recursive).To(Equal(core.BoolPtr(false)))
 				Expect(deleteResourceAliasOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewDeleteResourceBindingOptions successfully`, func() {
@@ -6231,11 +6477,11 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				id := "testString"
 				deleteResourceInstanceOptionsModel := resourceControllerService.NewDeleteResourceInstanceOptions(id)
 				deleteResourceInstanceOptionsModel.SetID("testString")
-				deleteResourceInstanceOptionsModel.SetRecursive(true)
+				deleteResourceInstanceOptionsModel.SetRecursive(false)
 				deleteResourceInstanceOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(deleteResourceInstanceOptionsModel).ToNot(BeNil())
 				Expect(deleteResourceInstanceOptionsModel.ID).To(Equal(core.StringPtr("testString")))
-				Expect(deleteResourceInstanceOptionsModel.Recursive).To(Equal(core.BoolPtr(true)))
+				Expect(deleteResourceInstanceOptionsModel.Recursive).To(Equal(core.BoolPtr(false)))
 				Expect(deleteResourceInstanceOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewDeleteResourceKeyOptions successfully`, func() {
@@ -6324,8 +6570,8 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				listResourceAliasesOptionsModel.SetResourceGroupID("testString")
 				listResourceAliasesOptionsModel.SetLimit(int64(100))
 				listResourceAliasesOptionsModel.SetStart("testString")
-				listResourceAliasesOptionsModel.SetUpdatedFrom("2019-01-08T00:00:00.000Z")
-				listResourceAliasesOptionsModel.SetUpdatedTo("2019-01-08T00:00:00.000Z")
+				listResourceAliasesOptionsModel.SetUpdatedFrom("2021-01-01")
+				listResourceAliasesOptionsModel.SetUpdatedTo("2021-01-01")
 				listResourceAliasesOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(listResourceAliasesOptionsModel).ToNot(BeNil())
 				Expect(listResourceAliasesOptionsModel.GUID).To(Equal(core.StringPtr("testString")))
@@ -6336,8 +6582,8 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				Expect(listResourceAliasesOptionsModel.ResourceGroupID).To(Equal(core.StringPtr("testString")))
 				Expect(listResourceAliasesOptionsModel.Limit).To(Equal(core.Int64Ptr(int64(100))))
 				Expect(listResourceAliasesOptionsModel.Start).To(Equal(core.StringPtr("testString")))
-				Expect(listResourceAliasesOptionsModel.UpdatedFrom).To(Equal(core.StringPtr("2019-01-08T00:00:00.000Z")))
-				Expect(listResourceAliasesOptionsModel.UpdatedTo).To(Equal(core.StringPtr("2019-01-08T00:00:00.000Z")))
+				Expect(listResourceAliasesOptionsModel.UpdatedFrom).To(Equal(core.StringPtr("2021-01-01")))
+				Expect(listResourceAliasesOptionsModel.UpdatedTo).To(Equal(core.StringPtr("2021-01-01")))
 				Expect(listResourceAliasesOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewListResourceBindingsForAliasOptions successfully`, func() {
@@ -6364,8 +6610,8 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				listResourceBindingsOptionsModel.SetRegionBindingID("testString")
 				listResourceBindingsOptionsModel.SetLimit(int64(100))
 				listResourceBindingsOptionsModel.SetStart("testString")
-				listResourceBindingsOptionsModel.SetUpdatedFrom("2019-01-08T00:00:00.000Z")
-				listResourceBindingsOptionsModel.SetUpdatedTo("2019-01-08T00:00:00.000Z")
+				listResourceBindingsOptionsModel.SetUpdatedFrom("2021-01-01")
+				listResourceBindingsOptionsModel.SetUpdatedTo("2021-01-01")
 				listResourceBindingsOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(listResourceBindingsOptionsModel).ToNot(BeNil())
 				Expect(listResourceBindingsOptionsModel.GUID).To(Equal(core.StringPtr("testString")))
@@ -6375,8 +6621,8 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				Expect(listResourceBindingsOptionsModel.RegionBindingID).To(Equal(core.StringPtr("testString")))
 				Expect(listResourceBindingsOptionsModel.Limit).To(Equal(core.Int64Ptr(int64(100))))
 				Expect(listResourceBindingsOptionsModel.Start).To(Equal(core.StringPtr("testString")))
-				Expect(listResourceBindingsOptionsModel.UpdatedFrom).To(Equal(core.StringPtr("2019-01-08T00:00:00.000Z")))
-				Expect(listResourceBindingsOptionsModel.UpdatedTo).To(Equal(core.StringPtr("2019-01-08T00:00:00.000Z")))
+				Expect(listResourceBindingsOptionsModel.UpdatedFrom).To(Equal(core.StringPtr("2021-01-01")))
+				Expect(listResourceBindingsOptionsModel.UpdatedTo).To(Equal(core.StringPtr("2021-01-01")))
 				Expect(listResourceBindingsOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewListResourceInstancesOptions successfully`, func() {
@@ -6392,8 +6638,8 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				listResourceInstancesOptionsModel.SetLimit(int64(100))
 				listResourceInstancesOptionsModel.SetStart("testString")
 				listResourceInstancesOptionsModel.SetState("active")
-				listResourceInstancesOptionsModel.SetUpdatedFrom("2019-01-08T00:00:00.000Z")
-				listResourceInstancesOptionsModel.SetUpdatedTo("2019-01-08T00:00:00.000Z")
+				listResourceInstancesOptionsModel.SetUpdatedFrom("2021-01-01")
+				listResourceInstancesOptionsModel.SetUpdatedTo("2021-01-01")
 				listResourceInstancesOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(listResourceInstancesOptionsModel).ToNot(BeNil())
 				Expect(listResourceInstancesOptionsModel.GUID).To(Equal(core.StringPtr("testString")))
@@ -6406,8 +6652,8 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				Expect(listResourceInstancesOptionsModel.Limit).To(Equal(core.Int64Ptr(int64(100))))
 				Expect(listResourceInstancesOptionsModel.Start).To(Equal(core.StringPtr("testString")))
 				Expect(listResourceInstancesOptionsModel.State).To(Equal(core.StringPtr("active")))
-				Expect(listResourceInstancesOptionsModel.UpdatedFrom).To(Equal(core.StringPtr("2019-01-08T00:00:00.000Z")))
-				Expect(listResourceInstancesOptionsModel.UpdatedTo).To(Equal(core.StringPtr("2019-01-08T00:00:00.000Z")))
+				Expect(listResourceInstancesOptionsModel.UpdatedFrom).To(Equal(core.StringPtr("2021-01-01")))
+				Expect(listResourceInstancesOptionsModel.UpdatedTo).To(Equal(core.StringPtr("2021-01-01")))
 				Expect(listResourceInstancesOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewListResourceKeysForInstanceOptions successfully`, func() {
@@ -6433,8 +6679,8 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				listResourceKeysOptionsModel.SetResourceID("testString")
 				listResourceKeysOptionsModel.SetLimit(int64(100))
 				listResourceKeysOptionsModel.SetStart("testString")
-				listResourceKeysOptionsModel.SetUpdatedFrom("2019-01-08T00:00:00.000Z")
-				listResourceKeysOptionsModel.SetUpdatedTo("2019-01-08T00:00:00.000Z")
+				listResourceKeysOptionsModel.SetUpdatedFrom("2021-01-01")
+				listResourceKeysOptionsModel.SetUpdatedTo("2021-01-01")
 				listResourceKeysOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(listResourceKeysOptionsModel).ToNot(BeNil())
 				Expect(listResourceKeysOptionsModel.GUID).To(Equal(core.StringPtr("testString")))
@@ -6443,8 +6689,8 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				Expect(listResourceKeysOptionsModel.ResourceID).To(Equal(core.StringPtr("testString")))
 				Expect(listResourceKeysOptionsModel.Limit).To(Equal(core.Int64Ptr(int64(100))))
 				Expect(listResourceKeysOptionsModel.Start).To(Equal(core.StringPtr("testString")))
-				Expect(listResourceKeysOptionsModel.UpdatedFrom).To(Equal(core.StringPtr("2019-01-08T00:00:00.000Z")))
-				Expect(listResourceKeysOptionsModel.UpdatedTo).To(Equal(core.StringPtr("2019-01-08T00:00:00.000Z")))
+				Expect(listResourceKeysOptionsModel.UpdatedFrom).To(Equal(core.StringPtr("2021-01-01")))
+				Expect(listResourceKeysOptionsModel.UpdatedTo).To(Equal(core.StringPtr("2021-01-01")))
 				Expect(listResourceKeysOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewLockResourceInstanceOptions successfully`, func() {
@@ -6487,27 +6733,27 @@ var _ = Describe(`ResourceControllerV2`, func() {
 			It(`Invoke NewUpdateResourceAliasOptions successfully`, func() {
 				// Construct an instance of the UpdateResourceAliasOptions model
 				id := "testString"
-				updateResourceAliasOptionsName := "my-new-alias-name"
+				updateResourceAliasOptionsName := "UpdatedExampleResourceAlias"
 				updateResourceAliasOptionsModel := resourceControllerService.NewUpdateResourceAliasOptions(id, updateResourceAliasOptionsName)
 				updateResourceAliasOptionsModel.SetID("testString")
-				updateResourceAliasOptionsModel.SetName("my-new-alias-name")
+				updateResourceAliasOptionsModel.SetName("UpdatedExampleResourceAlias")
 				updateResourceAliasOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(updateResourceAliasOptionsModel).ToNot(BeNil())
 				Expect(updateResourceAliasOptionsModel.ID).To(Equal(core.StringPtr("testString")))
-				Expect(updateResourceAliasOptionsModel.Name).To(Equal(core.StringPtr("my-new-alias-name")))
+				Expect(updateResourceAliasOptionsModel.Name).To(Equal(core.StringPtr("UpdatedExampleResourceAlias")))
 				Expect(updateResourceAliasOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewUpdateResourceBindingOptions successfully`, func() {
 				// Construct an instance of the UpdateResourceBindingOptions model
 				id := "testString"
-				updateResourceBindingOptionsName := "my-new-binding-name"
+				updateResourceBindingOptionsName := "UpdatedExampleResourceBinding"
 				updateResourceBindingOptionsModel := resourceControllerService.NewUpdateResourceBindingOptions(id, updateResourceBindingOptionsName)
 				updateResourceBindingOptionsModel.SetID("testString")
-				updateResourceBindingOptionsModel.SetName("my-new-binding-name")
+				updateResourceBindingOptionsModel.SetName("UpdatedExampleResourceBinding")
 				updateResourceBindingOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(updateResourceBindingOptionsModel).ToNot(BeNil())
 				Expect(updateResourceBindingOptionsModel.ID).To(Equal(core.StringPtr("testString")))
-				Expect(updateResourceBindingOptionsModel.Name).To(Equal(core.StringPtr("my-new-binding-name")))
+				Expect(updateResourceBindingOptionsModel.Name).To(Equal(core.StringPtr("UpdatedExampleResourceBinding")))
 				Expect(updateResourceBindingOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewUpdateResourceInstanceOptions successfully`, func() {
@@ -6515,30 +6761,30 @@ var _ = Describe(`ResourceControllerV2`, func() {
 				id := "testString"
 				updateResourceInstanceOptionsModel := resourceControllerService.NewUpdateResourceInstanceOptions(id)
 				updateResourceInstanceOptionsModel.SetID("testString")
-				updateResourceInstanceOptionsModel.SetName("my-new-instance-name")
+				updateResourceInstanceOptionsModel.SetName("UpdatedExampleResourceInstance")
 				updateResourceInstanceOptionsModel.SetParameters(make(map[string]interface{}))
-				updateResourceInstanceOptionsModel.SetResourcePlanID("a8dff6d3-d287-4668-a81d-c87c55c2656d")
+				updateResourceInstanceOptionsModel.SetResourcePlanID("testString")
 				updateResourceInstanceOptionsModel.SetAllowCleanup(true)
 				updateResourceInstanceOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(updateResourceInstanceOptionsModel).ToNot(BeNil())
 				Expect(updateResourceInstanceOptionsModel.ID).To(Equal(core.StringPtr("testString")))
-				Expect(updateResourceInstanceOptionsModel.Name).To(Equal(core.StringPtr("my-new-instance-name")))
+				Expect(updateResourceInstanceOptionsModel.Name).To(Equal(core.StringPtr("UpdatedExampleResourceInstance")))
 				Expect(updateResourceInstanceOptionsModel.Parameters).To(Equal(make(map[string]interface{})))
-				Expect(updateResourceInstanceOptionsModel.ResourcePlanID).To(Equal(core.StringPtr("a8dff6d3-d287-4668-a81d-c87c55c2656d")))
+				Expect(updateResourceInstanceOptionsModel.ResourcePlanID).To(Equal(core.StringPtr("testString")))
 				Expect(updateResourceInstanceOptionsModel.AllowCleanup).To(Equal(core.BoolPtr(true)))
 				Expect(updateResourceInstanceOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewUpdateResourceKeyOptions successfully`, func() {
 				// Construct an instance of the UpdateResourceKeyOptions model
 				id := "testString"
-				updateResourceKeyOptionsName := "my-new-key-name"
+				updateResourceKeyOptionsName := "UpdatedExampleResourceKey"
 				updateResourceKeyOptionsModel := resourceControllerService.NewUpdateResourceKeyOptions(id, updateResourceKeyOptionsName)
 				updateResourceKeyOptionsModel.SetID("testString")
-				updateResourceKeyOptionsModel.SetName("my-new-key-name")
+				updateResourceKeyOptionsModel.SetName("UpdatedExampleResourceKey")
 				updateResourceKeyOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(updateResourceKeyOptionsModel).ToNot(BeNil())
 				Expect(updateResourceKeyOptionsModel.ID).To(Equal(core.StringPtr("testString")))
-				Expect(updateResourceKeyOptionsModel.Name).To(Equal(core.StringPtr("my-new-key-name")))
+				Expect(updateResourceKeyOptionsModel.Name).To(Equal(core.StringPtr("UpdatedExampleResourceKey")))
 				Expect(updateResourceKeyOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 		})
