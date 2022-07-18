@@ -15,7 +15,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 3.51.0-5b8b699d-20220613-200818
+ * IBM OpenAPI SDK Code Generator Version: 3.52.0-8345f809-20220627-220000
  */
 
 // Package projectsv1 : Operations and models for the ProjectsV1 service
@@ -199,6 +199,9 @@ func (projects *ProjectsV1) CreateProjectWithContext(ctx context.Context, create
 	builder.AddHeader("Content-Type", "application/json")
 	if createProjectOptions.XIamApi != nil {
 		builder.AddHeader("X-Iam-Api", fmt.Sprint(*createProjectOptions.XIamApi))
+	}
+	if createProjectOptions.Prefer != nil {
+		builder.AddHeader("prefer", fmt.Sprint(*createProjectOptions.Prefer))
 	}
 
 	if createProjectOptions.ResourceGroup != nil {
@@ -671,6 +674,85 @@ func (projects *ProjectsV1) CheckProjectWithContext(ctx context.Context, checkPr
 	return
 }
 
+// MergeProject : Merge a Project Definition
+// Update project status when a PR merge happens. Install or update existing configs.
+func (projects *ProjectsV1) MergeProject(mergeProjectOptions *MergeProjectOptions) (result *ProjectResponse, response *core.DetailedResponse, err error) {
+	return projects.MergeProjectWithContext(context.Background(), mergeProjectOptions)
+}
+
+// MergeProjectWithContext is an alternate form of the MergeProject method which supports a Context parameter
+func (projects *ProjectsV1) MergeProjectWithContext(ctx context.Context, mergeProjectOptions *MergeProjectOptions) (result *ProjectResponse, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(mergeProjectOptions, "mergeProjectOptions cannot be nil")
+	if err != nil {
+		return
+	}
+	err = core.ValidateStruct(mergeProjectOptions, "mergeProjectOptions")
+	if err != nil {
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"id": *mergeProjectOptions.ID,
+	}
+
+	builder := core.NewRequestBuilder(core.POST)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = projects.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(projects.Service.Options.URL, `/v1/projects/{id}/merge`, pathParamsMap)
+	if err != nil {
+		return
+	}
+
+	for headerName, headerValue := range mergeProjectOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("projects", "V1", "MergeProject")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Accept", "application/json")
+	builder.AddHeader("Content-Type", "application/json")
+
+	body := make(map[string]interface{})
+	if mergeProjectOptions.Name != nil {
+		body["name"] = mergeProjectOptions.Name
+	}
+	if mergeProjectOptions.Description != nil {
+		body["description"] = mergeProjectOptions.Description
+	}
+	if mergeProjectOptions.Configs != nil {
+		body["configs"] = mergeProjectOptions.Configs
+	}
+	if mergeProjectOptions.Dashboard != nil {
+		body["dashboard"] = mergeProjectOptions.Dashboard
+	}
+	_, err = builder.SetBodyContentJSON(body)
+	if err != nil {
+		return
+	}
+
+	request, err := builder.Build()
+	if err != nil {
+		return
+	}
+
+	var rawResponse map[string]json.RawMessage
+	response, err = projects.Service.Request(request, &rawResponse)
+	if err != nil {
+		return
+	}
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalProjectResponse)
+		if err != nil {
+			return
+		}
+		response.Result = result
+	}
+
+	return
+}
+
 // ValidateProject : Validate the project for correctness
 // Validates the project for correctness.
 func (projects *ProjectsV1) ValidateProject(validateProjectOptions *ValidateProjectOptions) (response *core.DetailedResponse, err error) {
@@ -800,6 +882,79 @@ func (projects *ProjectsV1) InitProjectConfigWithContext(ctx context.Context, in
 	}
 	if rawResponse != nil {
 		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalProjectConfig)
+		if err != nil {
+			return
+		}
+		response.Result = result
+	}
+
+	return
+}
+
+// ConfigChanges : Detect changes in project configs
+// Detect changes in project configs.
+func (projects *ProjectsV1) ConfigChanges(configChangesOptions *ConfigChangesOptions) (result *ProjectConfigChangesResponse, response *core.DetailedResponse, err error) {
+	return projects.ConfigChangesWithContext(context.Background(), configChangesOptions)
+}
+
+// ConfigChangesWithContext is an alternate form of the ConfigChanges method which supports a Context parameter
+func (projects *ProjectsV1) ConfigChangesWithContext(ctx context.Context, configChangesOptions *ConfigChangesOptions) (result *ProjectConfigChangesResponse, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(configChangesOptions, "configChangesOptions cannot be nil")
+	if err != nil {
+		return
+	}
+	err = core.ValidateStruct(configChangesOptions, "configChangesOptions")
+	if err != nil {
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"id": *configChangesOptions.ID,
+	}
+
+	builder := core.NewRequestBuilder(core.POST)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = projects.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(projects.Service.Options.URL, `/v1/projects/{id}/config_changes`, pathParamsMap)
+	if err != nil {
+		return
+	}
+
+	for headerName, headerValue := range configChangesOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("projects", "V1", "ConfigChanges")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Accept", "application/json")
+	builder.AddHeader("Content-Type", "application/json")
+
+	body := make(map[string]interface{})
+	if configChangesOptions.Source != nil {
+		body["source"] = configChangesOptions.Source
+	}
+	if configChangesOptions.Target != nil {
+		body["target"] = configChangesOptions.Target
+	}
+	_, err = builder.SetBodyContentJSON(body)
+	if err != nil {
+		return
+	}
+
+	request, err := builder.Build()
+	if err != nil {
+		return
+	}
+
+	var rawResponse map[string]json.RawMessage
+	response, err = projects.Service.Request(request, &rawResponse)
+	if err != nil {
+		return
+	}
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalProjectConfigChangesResponse)
 		if err != nil {
 			return
 		}
@@ -1626,19 +1781,8 @@ func (projects *ProjectsV1) DeregisterPullRequestWithContext(ctx context.Context
 	for headerName, headerValue := range sdkHeaders {
 		builder.AddHeader(headerName, headerValue)
 	}
-	builder.AddHeader("Content-Type", "application/json")
 
-	body := make(map[string]interface{})
-	if deregisterPullRequestOptions.Branch != nil {
-		body["branch"] = deregisterPullRequestOptions.Branch
-	}
-	if deregisterPullRequestOptions.URL != nil {
-		body["url"] = deregisterPullRequestOptions.URL
-	}
-	_, err = builder.SetBodyContentJSON(body)
-	if err != nil {
-		return
-	}
+	builder.AddQuery("url", fmt.Sprint(*deregisterPullRequestOptions.URL))
 
 	request, err := builder.Build()
 	if err != nil {
@@ -1709,6 +1853,51 @@ func (options *CheckProjectOptions) SetHeaders(param map[string]string) *CheckPr
 	return options
 }
 
+// ConfigChangesOptions : The ConfigChanges options.
+type ConfigChangesOptions struct {
+	// The id of the project, which uniquely identifies it.
+	ID *string `json:"id" validate:"required,ne="`
+
+	Source *ProjectPrototype `json:"source" validate:"required"`
+
+	Target *ProjectPrototype `json:"target,omitempty"`
+
+	// Allows users to set headers on API requests
+	Headers map[string]string
+}
+
+// NewConfigChangesOptions : Instantiate ConfigChangesOptions
+func (*ProjectsV1) NewConfigChangesOptions(id string, source *ProjectPrototype) *ConfigChangesOptions {
+	return &ConfigChangesOptions{
+		ID: core.StringPtr(id),
+		Source: source,
+	}
+}
+
+// SetID : Allow user to set ID
+func (_options *ConfigChangesOptions) SetID(id string) *ConfigChangesOptions {
+	_options.ID = core.StringPtr(id)
+	return _options
+}
+
+// SetSource : Allow user to set Source
+func (_options *ConfigChangesOptions) SetSource(source *ProjectPrototype) *ConfigChangesOptions {
+	_options.Source = source
+	return _options
+}
+
+// SetTarget : Allow user to set Target
+func (_options *ConfigChangesOptions) SetTarget(target *ProjectPrototype) *ConfigChangesOptions {
+	_options.Target = target
+	return _options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *ConfigChangesOptions) SetHeaders(param map[string]string) *ConfigChangesOptions {
+	options.Headers = param
+	return options
+}
+
 // CreateProjectOptions : The CreateProject options.
 type CreateProjectOptions struct {
 	// The project name.
@@ -1722,6 +1911,9 @@ type CreateProjectOptions struct {
 	Dashboard *ProjectPrototypeDashboard `json:"dashboard,omitempty"`
 
 	XIamApi *string `json:"X-Iam-Api,omitempty"`
+
+	// Specifying the optional "return=representation" includes the original input payload in the successful response.
+	Prefer *string `json:"prefer,omitempty"`
 
 	ResourceGroup *string `json:"resource_group,omitempty"`
 
@@ -1765,6 +1957,12 @@ func (_options *CreateProjectOptions) SetDashboard(dashboard *ProjectPrototypeDa
 // SetXIamApi : Allow user to set XIamApi
 func (_options *CreateProjectOptions) SetXIamApi(xIamApi string) *CreateProjectOptions {
 	_options.XIamApi = core.StringPtr(xIamApi)
+	return _options
+}
+
+// SetPrefer : Allow user to set Prefer
+func (_options *CreateProjectOptions) SetPrefer(prefer string) *CreateProjectOptions {
+	_options.Prefer = core.StringPtr(prefer)
 	return _options
 }
 
@@ -1819,31 +2017,24 @@ type DeregisterPullRequestOptions struct {
 	// The id of the project, which uniquely identifies it.
 	ID *string `json:"id" validate:"required,ne="`
 
-	// The name of the branch.
-	Branch *string `json:"branch,omitempty"`
-
-	URL *string `json:"url,omitempty"`
+	// The url of the PR, which uniquely identifies it.
+	URL *string `json:"url" validate:"required"`
 
 	// Allows users to set headers on API requests
 	Headers map[string]string
 }
 
 // NewDeregisterPullRequestOptions : Instantiate DeregisterPullRequestOptions
-func (*ProjectsV1) NewDeregisterPullRequestOptions(id string) *DeregisterPullRequestOptions {
+func (*ProjectsV1) NewDeregisterPullRequestOptions(id string, url string) *DeregisterPullRequestOptions {
 	return &DeregisterPullRequestOptions{
 		ID: core.StringPtr(id),
+		URL: core.StringPtr(url),
 	}
 }
 
 // SetID : Allow user to set ID
 func (_options *DeregisterPullRequestOptions) SetID(id string) *DeregisterPullRequestOptions {
 	_options.ID = core.StringPtr(id)
-	return _options
-}
-
-// SetBranch : Allow user to set Branch
-func (_options *DeregisterPullRequestOptions) SetBranch(branch string) *DeregisterPullRequestOptions {
-	_options.Branch = core.StringPtr(branch)
 	return _options
 }
 
@@ -2042,72 +2233,18 @@ type GetProjectResponse struct {
 	// The project name.
 	Name *string `json:"name" validate:"required"`
 
-	ID *string `json:"id,omitempty"`
-
-	// An IBM Cloud Resource Name, which uniquely identify a resource.
-	Crn *string `json:"crn,omitempty"`
-
-	Location *string `json:"location,omitempty"`
-
-	// The resource group id (or Default for the default resource group).
-	ResourceGroup *string `json:"resource_group,omitempty"`
-
-	State *string `json:"state,omitempty"`
-
-	// A project descriptive text.
+	// A project's descriptive text.
 	Description *string `json:"description,omitempty"`
 
 	Configs []ProjectConfigIntf `json:"configs,omitempty"`
 
 	Dashboard *GetProjectResponseDashboard `json:"dashboard,omitempty"`
-
-	ActivePrs []ActivePR `json:"active_prs,omitempty"`
-
-	History []History `json:"history,omitempty"`
 }
-
-// Constants associated with the GetProjectResponse.Location property.
-const (
-	GetProjectResponse_Location_AuSyd = "au-syd"
-	GetProjectResponse_Location_EuDe = "eu-de"
-	GetProjectResponse_Location_EuGb = "eu-gb"
-	GetProjectResponse_Location_UsEast = "us-east"
-	GetProjectResponse_Location_UsSouth = "us-south"
-)
-
-// Constants associated with the GetProjectResponse.State property.
-const (
-	GetProjectResponse_State_Creating = "CREATING"
-	GetProjectResponse_State_CreatingFailed = "CREATING_FAILED"
-	GetProjectResponse_State_Ready = "READY"
-	GetProjectResponse_State_Updating = "UPDATING"
-	GetProjectResponse_State_UpdatingFailed = "UPDATING_FAILED"
-)
 
 // UnmarshalGetProjectResponse unmarshals an instance of GetProjectResponse from the specified map of raw messages.
 func UnmarshalGetProjectResponse(m map[string]json.RawMessage, result interface{}) (err error) {
 	obj := new(GetProjectResponse)
 	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "id", &obj.ID)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "crn", &obj.Crn)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "location", &obj.Location)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "resource_group", &obj.ResourceGroup)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "state", &obj.State)
 	if err != nil {
 		return
 	}
@@ -2120,14 +2257,6 @@ func UnmarshalGetProjectResponse(m map[string]json.RawMessage, result interface{
 		return
 	}
 	err = core.UnmarshalModel(m, "dashboard", &obj.Dashboard, UnmarshalGetProjectResponseDashboard)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalModel(m, "active_prs", &obj.ActivePrs, UnmarshalActivePR)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalModel(m, "history", &obj.History, UnmarshalHistory)
 	if err != nil {
 		return
 	}
@@ -2535,6 +2664,69 @@ func (resp *ListProjectsResponse) GetNextStart() (*string, error) {
 	return resp.Next.Start, nil
 }
 
+// MergeProjectOptions : The MergeProject options.
+type MergeProjectOptions struct {
+	// The id of the project, which uniquely identifies it.
+	ID *string `json:"id" validate:"required,ne="`
+
+	// The project name.
+	Name *string `json:"name" validate:"required"`
+
+	// A project's descriptive text.
+	Description *string `json:"description,omitempty"`
+
+	Configs []ProjectConfigIntf `json:"configs,omitempty"`
+
+	Dashboard *ProjectPrototypeDashboard `json:"dashboard,omitempty"`
+
+	// Allows users to set headers on API requests
+	Headers map[string]string
+}
+
+// NewMergeProjectOptions : Instantiate MergeProjectOptions
+func (*ProjectsV1) NewMergeProjectOptions(id string, name string) *MergeProjectOptions {
+	return &MergeProjectOptions{
+		ID: core.StringPtr(id),
+		Name: core.StringPtr(name),
+	}
+}
+
+// SetID : Allow user to set ID
+func (_options *MergeProjectOptions) SetID(id string) *MergeProjectOptions {
+	_options.ID = core.StringPtr(id)
+	return _options
+}
+
+// SetName : Allow user to set Name
+func (_options *MergeProjectOptions) SetName(name string) *MergeProjectOptions {
+	_options.Name = core.StringPtr(name)
+	return _options
+}
+
+// SetDescription : Allow user to set Description
+func (_options *MergeProjectOptions) SetDescription(description string) *MergeProjectOptions {
+	_options.Description = core.StringPtr(description)
+	return _options
+}
+
+// SetConfigs : Allow user to set Configs
+func (_options *MergeProjectOptions) SetConfigs(configs []ProjectConfigIntf) *MergeProjectOptions {
+	_options.Configs = configs
+	return _options
+}
+
+// SetDashboard : Allow user to set Dashboard
+func (_options *MergeProjectOptions) SetDashboard(dashboard *ProjectPrototypeDashboard) *MergeProjectOptions {
+	_options.Dashboard = dashboard
+	return _options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *MergeProjectOptions) SetHeaders(param map[string]string) *MergeProjectOptions {
+	options.Headers = param
+	return options
+}
+
 // NotifyOptions : The Notify options.
 type NotifyOptions struct {
 	// The project id.
@@ -2736,6 +2928,34 @@ func UnmarshalProjectConfig(m map[string]json.RawMessage, result interface{}) (e
 	return
 }
 
+// ProjectConfigChangesResponse : ProjectConfigChangesResponse struct
+type ProjectConfigChangesResponse struct {
+	Added []string `json:"added" validate:"required"`
+
+	Deleted []string `json:"deleted" validate:"required"`
+
+	Changed []string `json:"changed" validate:"required"`
+}
+
+// UnmarshalProjectConfigChangesResponse unmarshals an instance of ProjectConfigChangesResponse from the specified map of raw messages.
+func UnmarshalProjectConfigChangesResponse(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(ProjectConfigChangesResponse)
+	err = core.UnmarshalPrimitive(m, "added", &obj.Added)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "deleted", &obj.Deleted)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "changed", &obj.Changed)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
 // ProjectConfigComputedStatus : ProjectConfigComputedStatus struct
 type ProjectConfigComputedStatus struct {
 	Href *string `json:"href" validate:"required"`
@@ -2866,25 +3086,10 @@ type ProjectListResponse struct {
 
 	ID *string `json:"id,omitempty"`
 
-	// An IBM Cloud Resource Name, which uniquely identify a resource.
-	Crn *string `json:"crn,omitempty"`
-
-	Location *string `json:"location,omitempty"`
-
-	// The resource group id (or Default for the default resource group).
-	ResourceGroup *string `json:"resource_group,omitempty"`
+	Definition *GetProjectResponse `json:"definition,omitempty"`
 
 	State *string `json:"state,omitempty"`
 }
-
-// Constants associated with the ProjectListResponse.Location property.
-const (
-	ProjectListResponse_Location_AuSyd = "au-syd"
-	ProjectListResponse_Location_EuDe = "eu-de"
-	ProjectListResponse_Location_EuGb = "eu-gb"
-	ProjectListResponse_Location_UsEast = "us-east"
-	ProjectListResponse_Location_UsSouth = "us-south"
-)
 
 // Constants associated with the ProjectListResponse.State property.
 const (
@@ -2906,19 +3111,56 @@ func UnmarshalProjectListResponse(m map[string]json.RawMessage, result interface
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalPrimitive(m, "crn", &obj.Crn)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "location", &obj.Location)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "resource_group", &obj.ResourceGroup)
+	err = core.UnmarshalModel(m, "definition", &obj.Definition, UnmarshalGetProjectResponse)
 	if err != nil {
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "state", &obj.State)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// ProjectPrototype : ProjectPrototype struct
+type ProjectPrototype struct {
+	// The project name.
+	Name *string `json:"name" validate:"required"`
+
+	// A project's descriptive text.
+	Description *string `json:"description,omitempty"`
+
+	Configs []ProjectConfigIntf `json:"configs,omitempty"`
+
+	Dashboard *ProjectPrototypeDashboard `json:"dashboard,omitempty"`
+}
+
+// NewProjectPrototype : Instantiate ProjectPrototype (Generic Model Constructor)
+func (*ProjectsV1) NewProjectPrototype(name string) (_model *ProjectPrototype, err error) {
+	_model = &ProjectPrototype{
+		Name: core.StringPtr(name),
+	}
+	err = core.ValidateStruct(_model, "required parameters")
+	return
+}
+
+// UnmarshalProjectPrototype unmarshals an instance of ProjectPrototype from the specified map of raw messages.
+func UnmarshalProjectPrototype(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(ProjectPrototype)
+	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "description", &obj.Description)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "configs", &obj.Configs, UnmarshalProjectConfig)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalModel(m, "dashboard", &obj.Dashboard, UnmarshalProjectPrototypeDashboard)
 	if err != nil {
 		return
 	}
@@ -2958,23 +3200,8 @@ type ProjectResponse struct {
 
 	ID *string `json:"id,omitempty"`
 
-	// An IBM Cloud Resource Name, which uniquely identify a resource.
-	Crn *string `json:"crn,omitempty"`
-
-	Location *string `json:"location,omitempty"`
-
-	// The resource group id (or Default for the default resource group).
-	ResourceGroup *string `json:"resource_group,omitempty"`
+	Definition *GetProjectResponse `json:"definition,omitempty"`
 }
-
-// Constants associated with the ProjectResponse.Location property.
-const (
-	ProjectResponse_Location_AuSyd = "au-syd"
-	ProjectResponse_Location_EuDe = "eu-de"
-	ProjectResponse_Location_EuGb = "eu-gb"
-	ProjectResponse_Location_UsEast = "us-east"
-	ProjectResponse_Location_UsSouth = "us-south"
-)
 
 // UnmarshalProjectResponse unmarshals an instance of ProjectResponse from the specified map of raw messages.
 func UnmarshalProjectResponse(m map[string]json.RawMessage, result interface{}) (err error) {
@@ -2987,15 +3214,7 @@ func UnmarshalProjectResponse(m map[string]json.RawMessage, result interface{}) 
 	if err != nil {
 		return
 	}
-	err = core.UnmarshalPrimitive(m, "crn", &obj.Crn)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "location", &obj.Location)
-	if err != nil {
-		return
-	}
-	err = core.UnmarshalPrimitive(m, "resource_group", &obj.ResourceGroup)
+	err = core.UnmarshalModel(m, "definition", &obj.Definition, UnmarshalGetProjectResponse)
 	if err != nil {
 		return
 	}
@@ -4060,7 +4279,7 @@ func UnmarshalProjectConfigTerraformTemplateProperty(m map[string]json.RawMessag
 
 //
 // ProjectsPager can be used to simplify the use of the "ListProjects" method.
-// 
+//
 type ProjectsPager struct {
 	hasNext bool
 	options *ListProjectsOptions
