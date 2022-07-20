@@ -348,6 +348,10 @@ func (projects *ProjectsV1) GetProjectWithContext(ctx context.Context, getProjec
 	}
 	builder.AddHeader("Accept", "application/json")
 
+	if getProjectOptions.Branch != nil {
+		builder.AddQuery("branch", fmt.Sprint(*getProjectOptions.Branch))
+	}
+
 	request, err := builder.Build()
 	if err != nil {
 		return
@@ -492,6 +496,85 @@ func (projects *ProjectsV1) DeleteProjectWithContext(ctx context.Context, delete
 	}
 
 	response, err = projects.Service.Request(request, nil)
+
+	return
+}
+
+// PlanProject : Run a plan job on one or more configurations in project
+// Run a plan job on one or more configurations in project.
+func (projects *ProjectsV1) PlanProject(planProjectOptions *PlanProjectOptions) (result *PlanProjectResponse, response *core.DetailedResponse, err error) {
+	return projects.PlanProjectWithContext(context.Background(), planProjectOptions)
+}
+
+// PlanProjectWithContext is an alternate form of the PlanProject method which supports a Context parameter
+func (projects *ProjectsV1) PlanProjectWithContext(ctx context.Context, planProjectOptions *PlanProjectOptions) (result *PlanProjectResponse, response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(planProjectOptions, "planProjectOptions cannot be nil")
+	if err != nil {
+		return
+	}
+	err = core.ValidateStruct(planProjectOptions, "planProjectOptions")
+	if err != nil {
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"id": *planProjectOptions.ID,
+	}
+
+	builder := core.NewRequestBuilder(core.POST)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = projects.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(projects.Service.Options.URL, `/v1/projects/{id}/plan`, pathParamsMap)
+	if err != nil {
+		return
+	}
+
+	for headerName, headerValue := range planProjectOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("projects", "V1", "PlanProject")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Accept", "application/json")
+	builder.AddHeader("Content-Type", "application/json")
+
+	body := make(map[string]interface{})
+	if planProjectOptions.ConfigNames != nil {
+		body["config_names"] = planProjectOptions.ConfigNames
+	}
+	if planProjectOptions.ProjectDefinition != nil {
+		body["project_definition"] = planProjectOptions.ProjectDefinition
+	}
+	if planProjectOptions.Pipeline != nil {
+		body["pipeline"] = planProjectOptions.Pipeline
+	}
+	if planProjectOptions.PullRequest != nil {
+		body["pull_request"] = planProjectOptions.PullRequest
+	}
+	_, err = builder.SetBodyContentJSON(body)
+	if err != nil {
+		return
+	}
+
+	request, err := builder.Build()
+	if err != nil {
+		return
+	}
+
+	var rawResponse map[string]json.RawMessage
+	response, err = projects.Service.Request(request, &rawResponse)
+	if err != nil {
+		return
+	}
+	if rawResponse != nil {
+		err = core.UnmarshalModel(rawResponse, "", &result, UnmarshalPlanProjectResponse)
+		if err != nil {
+			return
+		}
+		response.Result = result
+	}
 
 	return
 }
@@ -2205,6 +2288,9 @@ type GetProjectOptions struct {
 	// The id of the project, which uniquely identifies it.
 	ID *string `json:"id" validate:"required,ne="`
 
+	// Set this parameter if you want to get the project definition from a specific branch.
+	Branch *string `json:"branch,omitempty"`
+
 	// Allows users to set headers on API requests
 	Headers map[string]string
 }
@@ -2219,6 +2305,12 @@ func (*ProjectsV1) NewGetProjectOptions(id string) *GetProjectOptions {
 // SetID : Allow user to set ID
 func (_options *GetProjectOptions) SetID(id string) *GetProjectOptions {
 	_options.ID = core.StringPtr(id)
+	return _options
+}
+
+// SetBranch : Allow user to set Branch
+func (_options *GetProjectOptions) SetBranch(branch string) *GetProjectOptions {
+	_options.Branch = core.StringPtr(branch)
 	return _options
 }
 
@@ -2810,6 +2902,122 @@ func UnmarshalPaginationLink(m map[string]json.RawMessage, result interface{}) (
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "start", &obj.Start)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// PlanProjectOptions : The PlanProject options.
+type PlanProjectOptions struct {
+	// The id of the project, which uniquely identifies it.
+	ID *string `json:"id" validate:"required,ne="`
+
+	// The configs to run a plan. If omit or empty, a plan will run on all the configs.
+	ConfigNames []string `json:"config_names,omitempty"`
+
+	ProjectDefinition *ProjectPrototype `json:"project_definition,omitempty"`
+
+	Pipeline *string `json:"pipeline,omitempty"`
+
+	PullRequest *string `json:"pull_request,omitempty"`
+
+	// Allows users to set headers on API requests
+	Headers map[string]string
+}
+
+// Constants associated with the PlanProjectOptions.Pipeline property.
+const (
+	PlanProjectOptions_Pipeline_Check = "check"
+)
+
+// NewPlanProjectOptions : Instantiate PlanProjectOptions
+func (*ProjectsV1) NewPlanProjectOptions(id string) *PlanProjectOptions {
+	return &PlanProjectOptions{
+		ID: core.StringPtr(id),
+	}
+}
+
+// SetID : Allow user to set ID
+func (_options *PlanProjectOptions) SetID(id string) *PlanProjectOptions {
+	_options.ID = core.StringPtr(id)
+	return _options
+}
+
+// SetConfigNames : Allow user to set ConfigNames
+func (_options *PlanProjectOptions) SetConfigNames(configNames []string) *PlanProjectOptions {
+	_options.ConfigNames = configNames
+	return _options
+}
+
+// SetProjectDefinition : Allow user to set ProjectDefinition
+func (_options *PlanProjectOptions) SetProjectDefinition(projectDefinition *ProjectPrototype) *PlanProjectOptions {
+	_options.ProjectDefinition = projectDefinition
+	return _options
+}
+
+// SetPipeline : Allow user to set Pipeline
+func (_options *PlanProjectOptions) SetPipeline(pipeline string) *PlanProjectOptions {
+	_options.Pipeline = core.StringPtr(pipeline)
+	return _options
+}
+
+// SetPullRequest : Allow user to set PullRequest
+func (_options *PlanProjectOptions) SetPullRequest(pullRequest string) *PlanProjectOptions {
+	_options.PullRequest = core.StringPtr(pullRequest)
+	return _options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *PlanProjectOptions) SetHeaders(param map[string]string) *PlanProjectOptions {
+	options.Headers = param
+	return options
+}
+
+// PlanProjectResponse : PlanProjectResponse struct
+type PlanProjectResponse struct {
+	Configs []PlanProjectResponseConfigsItem `json:"configs,omitempty"`
+}
+
+// UnmarshalPlanProjectResponse unmarshals an instance of PlanProjectResponse from the specified map of raw messages.
+func UnmarshalPlanProjectResponse(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(PlanProjectResponse)
+	err = core.UnmarshalModel(m, "configs", &obj.Configs, UnmarshalPlanProjectResponseConfigsItem)
+	if err != nil {
+		return
+	}
+	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
+	return
+}
+
+// PlanProjectResponseConfigsItem : PlanProjectResponseConfigsItem struct
+type PlanProjectResponseConfigsItem struct {
+	Name *string `json:"name,omitempty"`
+
+	Job *string `json:"job,omitempty"`
+
+	Workspace *string `json:"workspace,omitempty"`
+
+	CartOrder *string `json:"cart_order,omitempty"`
+}
+
+// UnmarshalPlanProjectResponseConfigsItem unmarshals an instance of PlanProjectResponseConfigsItem from the specified map of raw messages.
+func UnmarshalPlanProjectResponseConfigsItem(m map[string]json.RawMessage, result interface{}) (err error) {
+	obj := new(PlanProjectResponseConfigsItem)
+	err = core.UnmarshalPrimitive(m, "name", &obj.Name)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "job", &obj.Job)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "workspace", &obj.Workspace)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "cart_order", &obj.CartOrder)
 	if err != nil {
 		return
 	}
@@ -4139,7 +4347,7 @@ type ProjectConfigSchematicsBlueprintProperty struct {
 
 	Type *string `json:"type" validate:"required"`
 
-	Input []InputVariable `json:"input" validate:"required"`
+	Input []InputVariable `json:"input,omitempty"`
 
 	// A Schematics blueprint to use for provisioning a set of project resources.
 	Blueprint *SchematicsBlueprint `json:"blueprint" validate:"required"`
@@ -4151,11 +4359,10 @@ const (
 )
 
 // NewProjectConfigSchematicsBlueprintProperty : Instantiate ProjectConfigSchematicsBlueprintProperty (Generic Model Constructor)
-func (*ProjectsV1) NewProjectConfigSchematicsBlueprintProperty(name string, typeVar string, input []InputVariable, blueprint *SchematicsBlueprint) (_model *ProjectConfigSchematicsBlueprintProperty, err error) {
+func (*ProjectsV1) NewProjectConfigSchematicsBlueprintProperty(name string, typeVar string, blueprint *SchematicsBlueprint) (_model *ProjectConfigSchematicsBlueprintProperty, err error) {
 	_model = &ProjectConfigSchematicsBlueprintProperty{
 		Name: core.StringPtr(name),
 		Type: core.StringPtr(typeVar),
-		Input: input,
 		Blueprint: blueprint,
 	}
 	err = core.ValidateStruct(_model, "required parameters")
@@ -4215,7 +4422,7 @@ type ProjectConfigTerraformTemplateProperty struct {
 
 	Type *string `json:"type" validate:"required"`
 
-	Input []InputVariable `json:"input" validate:"required"`
+	Input []InputVariable `json:"input,omitempty"`
 
 	// A Terraform blueprint to use for provisioning a set of project resources.
 	Template *TerraformTemplate `json:"template" validate:"required"`
@@ -4227,11 +4434,10 @@ const (
 )
 
 // NewProjectConfigTerraformTemplateProperty : Instantiate ProjectConfigTerraformTemplateProperty (Generic Model Constructor)
-func (*ProjectsV1) NewProjectConfigTerraformTemplateProperty(name string, typeVar string, input []InputVariable, template *TerraformTemplate) (_model *ProjectConfigTerraformTemplateProperty, err error) {
+func (*ProjectsV1) NewProjectConfigTerraformTemplateProperty(name string, typeVar string, template *TerraformTemplate) (_model *ProjectConfigTerraformTemplateProperty, err error) {
 	_model = &ProjectConfigTerraformTemplateProperty{
 		Name: core.StringPtr(name),
 		Type: core.StringPtr(typeVar),
-		Input: input,
 		Template: template,
 	}
 	err = core.ValidateStruct(_model, "required parameters")
