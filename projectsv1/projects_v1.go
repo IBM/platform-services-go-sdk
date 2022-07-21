@@ -1877,6 +1877,75 @@ func (projects *ProjectsV1) DeregisterPullRequestWithContext(ctx context.Context
 	return
 }
 
+// UpdatePullRequestConfigs : Updates configs associated to the given pull request
+// Updates configs referenced by a pull request. Dereference the pull request from the configs if the pull request is
+// merged. Otherwise remove the configs from the project status document.
+func (projects *ProjectsV1) UpdatePullRequestConfigs(updatePullRequestConfigsOptions *UpdatePullRequestConfigsOptions) (response *core.DetailedResponse, err error) {
+	return projects.UpdatePullRequestConfigsWithContext(context.Background(), updatePullRequestConfigsOptions)
+}
+
+// UpdatePullRequestConfigsWithContext is an alternate form of the UpdatePullRequestConfigs method which supports a Context parameter
+func (projects *ProjectsV1) UpdatePullRequestConfigsWithContext(ctx context.Context, updatePullRequestConfigsOptions *UpdatePullRequestConfigsOptions) (response *core.DetailedResponse, err error) {
+	err = core.ValidateNotNil(updatePullRequestConfigsOptions, "updatePullRequestConfigsOptions cannot be nil")
+	if err != nil {
+		return
+	}
+	err = core.ValidateStruct(updatePullRequestConfigsOptions, "updatePullRequestConfigsOptions")
+	if err != nil {
+		return
+	}
+
+	pathParamsMap := map[string]string{
+		"id": *updatePullRequestConfigsOptions.ID,
+	}
+
+	builder := core.NewRequestBuilder(core.PATCH)
+	builder = builder.WithContext(ctx)
+	builder.EnableGzipCompression = projects.GetEnableGzipCompression()
+	_, err = builder.ResolveRequestURL(projects.Service.Options.URL, `/v1/projects/{id}/pullrequest/configs`, pathParamsMap)
+	if err != nil {
+		return
+	}
+
+	for headerName, headerValue := range updatePullRequestConfigsOptions.Headers {
+		builder.AddHeader(headerName, headerValue)
+	}
+
+	sdkHeaders := common.GetSdkHeaders("projects", "V1", "UpdatePullRequestConfigs")
+	for headerName, headerValue := range sdkHeaders {
+		builder.AddHeader(headerName, headerValue)
+	}
+	builder.AddHeader("Content-Type", "application/json")
+
+	if updatePullRequestConfigsOptions.State != nil {
+		builder.AddQuery("state", fmt.Sprint(*updatePullRequestConfigsOptions.State))
+	}
+
+	body := make(map[string]interface{})
+	if updatePullRequestConfigsOptions.PullRequest != nil {
+		body["pull_request"] = updatePullRequestConfigsOptions.PullRequest
+	}
+	if updatePullRequestConfigsOptions.ProjectDefinitionBefore != nil {
+		body["project_definition_before"] = updatePullRequestConfigsOptions.ProjectDefinitionBefore
+	}
+	if updatePullRequestConfigsOptions.ProjectDefinitionAfter != nil {
+		body["project_definition_after"] = updatePullRequestConfigsOptions.ProjectDefinitionAfter
+	}
+	_, err = builder.SetBodyContentJSON(body)
+	if err != nil {
+		return
+	}
+
+	request, err := builder.Build()
+	if err != nil {
+		return
+	}
+
+	response, err = projects.Service.Request(request, nil)
+
+	return
+}
+
 // ActivePR : Info about an active pull request (source branch and url).
 type ActivePR struct {
 	Branch *string `json:"branch,omitempty"`
@@ -3000,6 +3069,18 @@ type PlanProjectResponseConfigsItem struct {
 	Workspace *string `json:"workspace,omitempty"`
 
 	CartOrder *string `json:"cart_order,omitempty"`
+
+	// The error returned by fetching catalog.
+	CatalogError *string `json:"catalog_error,omitempty"`
+
+	// The error status code returned by fetching catalog.
+	CatalogStatusCode *int64 `json:"catalog_status_code,omitempty"`
+
+	// The error returned by schematics.
+	SchematicsError *string `json:"schematics_error,omitempty"`
+
+	// The error status code returned by schematics.
+	SchematicsStatusCode *int64 `json:"schematics_status_code,omitempty"`
 }
 
 // UnmarshalPlanProjectResponseConfigsItem unmarshals an instance of PlanProjectResponseConfigsItem from the specified map of raw messages.
@@ -3018,6 +3099,22 @@ func UnmarshalPlanProjectResponseConfigsItem(m map[string]json.RawMessage, resul
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "cart_order", &obj.CartOrder)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "catalog_error", &obj.CatalogError)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "catalog_status_code", &obj.CatalogStatusCode)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "schematics_error", &obj.SchematicsError)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "schematics_status_code", &obj.SchematicsStatusCode)
 	if err != nil {
 		return
 	}
@@ -4183,6 +4280,75 @@ func (_options *UpdateProjectStatusOptions) SetSchematics(schematics *ServiceInf
 
 // SetHeaders : Allow user to set Headers
 func (options *UpdateProjectStatusOptions) SetHeaders(param map[string]string) *UpdateProjectStatusOptions {
+	options.Headers = param
+	return options
+}
+
+// UpdatePullRequestConfigsOptions : The UpdatePullRequestConfigs options.
+type UpdatePullRequestConfigsOptions struct {
+	// The id of the project, which uniquely identifies it.
+	ID *string `json:"id" validate:"required,ne="`
+
+	PullRequest *string `json:"pull_request" validate:"required"`
+
+	ProjectDefinitionBefore *ProjectPrototype `json:"project_definition_before,omitempty"`
+
+	ProjectDefinitionAfter *ProjectPrototype `json:"project_definition_after,omitempty"`
+
+	// The state of the PR.
+	State *string `json:"state,omitempty"`
+
+	// Allows users to set headers on API requests
+	Headers map[string]string
+}
+
+// Constants associated with the UpdatePullRequestConfigsOptions.State property.
+// The state of the PR.
+const (
+	UpdatePullRequestConfigsOptions_State_Close = "close"
+	UpdatePullRequestConfigsOptions_State_Merge = "merge"
+)
+
+// NewUpdatePullRequestConfigsOptions : Instantiate UpdatePullRequestConfigsOptions
+func (*ProjectsV1) NewUpdatePullRequestConfigsOptions(id string, pullRequest string) *UpdatePullRequestConfigsOptions {
+	return &UpdatePullRequestConfigsOptions{
+		ID: core.StringPtr(id),
+		PullRequest: core.StringPtr(pullRequest),
+	}
+}
+
+// SetID : Allow user to set ID
+func (_options *UpdatePullRequestConfigsOptions) SetID(id string) *UpdatePullRequestConfigsOptions {
+	_options.ID = core.StringPtr(id)
+	return _options
+}
+
+// SetPullRequest : Allow user to set PullRequest
+func (_options *UpdatePullRequestConfigsOptions) SetPullRequest(pullRequest string) *UpdatePullRequestConfigsOptions {
+	_options.PullRequest = core.StringPtr(pullRequest)
+	return _options
+}
+
+// SetProjectDefinitionBefore : Allow user to set ProjectDefinitionBefore
+func (_options *UpdatePullRequestConfigsOptions) SetProjectDefinitionBefore(projectDefinitionBefore *ProjectPrototype) *UpdatePullRequestConfigsOptions {
+	_options.ProjectDefinitionBefore = projectDefinitionBefore
+	return _options
+}
+
+// SetProjectDefinitionAfter : Allow user to set ProjectDefinitionAfter
+func (_options *UpdatePullRequestConfigsOptions) SetProjectDefinitionAfter(projectDefinitionAfter *ProjectPrototype) *UpdatePullRequestConfigsOptions {
+	_options.ProjectDefinitionAfter = projectDefinitionAfter
+	return _options
+}
+
+// SetState : Allow user to set State
+func (_options *UpdatePullRequestConfigsOptions) SetState(state string) *UpdatePullRequestConfigsOptions {
+	_options.State = core.StringPtr(state)
+	return _options
+}
+
+// SetHeaders : Allow user to set Headers
+func (options *UpdatePullRequestConfigsOptions) SetHeaders(param map[string]string) *UpdatePullRequestConfigsOptions {
 	options.Headers = param
 	return options
 }

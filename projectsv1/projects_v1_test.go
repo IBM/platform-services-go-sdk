@@ -1660,7 +1660,7 @@ var _ = Describe(`ProjectsV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(202)
-					fmt.Fprintf(res, "%s", `{"configs": [{"name": "Name", "job": "Job", "workspace": "Workspace", "cart_order": "CartOrder"}]}`)
+					fmt.Fprintf(res, "%s", `{"configs": [{"name": "Name", "job": "Job", "workspace": "Workspace", "cart_order": "CartOrder", "catalog_error": "CatalogError", "catalog_status_code": 17, "schematics_error": "SchematicsError", "schematics_status_code": 20}]}`)
 				}))
 			})
 			It(`Invoke PlanProject successfully with retries`, func() {
@@ -1764,7 +1764,7 @@ var _ = Describe(`ProjectsV1`, func() {
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(202)
-					fmt.Fprintf(res, "%s", `{"configs": [{"name": "Name", "job": "Job", "workspace": "Workspace", "cart_order": "CartOrder"}]}`)
+					fmt.Fprintf(res, "%s", `{"configs": [{"name": "Name", "job": "Job", "workspace": "Workspace", "cart_order": "CartOrder", "catalog_error": "CatalogError", "catalog_status_code": 17, "schematics_error": "SchematicsError", "schematics_status_code": 20}]}`)
 				}))
 			})
 			It(`Invoke PlanProject successfully`, func() {
@@ -6130,6 +6130,159 @@ var _ = Describe(`ProjectsV1`, func() {
 			})
 		})
 	})
+	Describe(`UpdatePullRequestConfigs(updatePullRequestConfigsOptions *UpdatePullRequestConfigsOptions)`, func() {
+		updatePullRequestConfigsPath := "/v1/projects/testString/pullrequest/configs"
+		Context(`Using mock server endpoint`, func() {
+			BeforeEach(func() {
+				testServer = httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+					defer GinkgoRecover()
+
+					// Verify the contents of the request
+					Expect(req.URL.EscapedPath()).To(Equal(updatePullRequestConfigsPath))
+					Expect(req.Method).To(Equal("PATCH"))
+
+					// For gzip-disabled operation, verify Content-Encoding is not set.
+					Expect(req.Header.Get("Content-Encoding")).To(BeEmpty())
+
+					// If there is a body, then make sure we can read it
+					bodyBuf := new(bytes.Buffer)
+					if req.Header.Get("Content-Encoding") == "gzip" {
+						body, err := core.NewGzipDecompressionReader(req.Body)
+						Expect(err).To(BeNil())
+						_, err = bodyBuf.ReadFrom(body)
+						Expect(err).To(BeNil())
+					} else {
+						_, err := bodyBuf.ReadFrom(req.Body)
+						Expect(err).To(BeNil())
+					}
+					fmt.Fprintf(GinkgoWriter, "  Request body: %s", bodyBuf.String())
+
+					Expect(req.URL.Query()["state"]).To(Equal([]string{"merge"}))
+					res.WriteHeader(204)
+				}))
+			})
+			It(`Invoke UpdatePullRequestConfigs successfully`, func() {
+				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(projectsService).ToNot(BeNil())
+
+				// Invoke operation with nil options model (negative test)
+				response, operationErr := projectsService.UpdatePullRequestConfigs(nil)
+				Expect(operationErr).NotTo(BeNil())
+				Expect(response).To(BeNil())
+
+				// Construct an instance of the OutputValue model
+				outputValueModel := new(projectsv1.OutputValue)
+				outputValueModel.Name = core.StringPtr("tags")
+				outputValueModel.Description = core.StringPtr("testString")
+				outputValueModel.Value = []string{"project:ghost", "type:infrastructure"}
+
+				// Construct an instance of the ProjectConfigManualProperty model
+				projectConfigModel := new(projectsv1.ProjectConfigManualProperty)
+				projectConfigModel.Name = core.StringPtr("common-variables")
+				projectConfigModel.Labels = []string{"testString"}
+				projectConfigModel.Output = []projectsv1.OutputValue{*outputValueModel}
+				projectConfigModel.Description = core.StringPtr("testString")
+				projectConfigModel.Type = core.StringPtr("manual")
+				projectConfigModel.ExternalResourcesAccount = core.StringPtr("e5ed08b9203bad3e4b6f57f0d1675a88")
+
+				// Construct an instance of the Widget model
+				widgetModel := new(projectsv1.Widget)
+				widgetModel.Name = core.StringPtr("project-properties")
+
+				// Construct an instance of the ProjectPrototypeDashboard model
+				projectPrototypeDashboardModel := new(projectsv1.ProjectPrototypeDashboard)
+				projectPrototypeDashboardModel.Widgets = []projectsv1.Widget{*widgetModel}
+
+				// Construct an instance of the ProjectPrototype model
+				projectPrototypeModel := new(projectsv1.ProjectPrototype)
+				projectPrototypeModel.Name = core.StringPtr("acme-microservice")
+				projectPrototypeModel.Description = core.StringPtr("A microservice to deploy on top of ACME infrastructure")
+				projectPrototypeModel.Configs = []projectsv1.ProjectConfigIntf{projectConfigModel}
+				projectPrototypeModel.Dashboard = projectPrototypeDashboardModel
+
+				// Construct an instance of the UpdatePullRequestConfigsOptions model
+				updatePullRequestConfigsOptionsModel := new(projectsv1.UpdatePullRequestConfigsOptions)
+				updatePullRequestConfigsOptionsModel.ID = core.StringPtr("testString")
+				updatePullRequestConfigsOptionsModel.PullRequest = core.StringPtr("https://dev.us-south.git.test.cloud.ibm.com/org/projects-poc/-/merge_requests/1")
+				updatePullRequestConfigsOptionsModel.ProjectDefinitionBefore = projectPrototypeModel
+				updatePullRequestConfigsOptionsModel.ProjectDefinitionAfter = projectPrototypeModel
+				updatePullRequestConfigsOptionsModel.State = core.StringPtr("merge")
+				updatePullRequestConfigsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+
+				// Invoke operation with valid options model (positive test)
+				response, operationErr = projectsService.UpdatePullRequestConfigs(updatePullRequestConfigsOptionsModel)
+				Expect(operationErr).To(BeNil())
+				Expect(response).ToNot(BeNil())
+			})
+			It(`Invoke UpdatePullRequestConfigs with error: Operation validation and request error`, func() {
+				projectsService, serviceErr := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
+					URL:           testServer.URL,
+					Authenticator: &core.NoAuthAuthenticator{},
+				})
+				Expect(serviceErr).To(BeNil())
+				Expect(projectsService).ToNot(BeNil())
+
+				// Construct an instance of the OutputValue model
+				outputValueModel := new(projectsv1.OutputValue)
+				outputValueModel.Name = core.StringPtr("tags")
+				outputValueModel.Description = core.StringPtr("testString")
+				outputValueModel.Value = []string{"project:ghost", "type:infrastructure"}
+
+				// Construct an instance of the ProjectConfigManualProperty model
+				projectConfigModel := new(projectsv1.ProjectConfigManualProperty)
+				projectConfigModel.Name = core.StringPtr("common-variables")
+				projectConfigModel.Labels = []string{"testString"}
+				projectConfigModel.Output = []projectsv1.OutputValue{*outputValueModel}
+				projectConfigModel.Description = core.StringPtr("testString")
+				projectConfigModel.Type = core.StringPtr("manual")
+				projectConfigModel.ExternalResourcesAccount = core.StringPtr("e5ed08b9203bad3e4b6f57f0d1675a88")
+
+				// Construct an instance of the Widget model
+				widgetModel := new(projectsv1.Widget)
+				widgetModel.Name = core.StringPtr("project-properties")
+
+				// Construct an instance of the ProjectPrototypeDashboard model
+				projectPrototypeDashboardModel := new(projectsv1.ProjectPrototypeDashboard)
+				projectPrototypeDashboardModel.Widgets = []projectsv1.Widget{*widgetModel}
+
+				// Construct an instance of the ProjectPrototype model
+				projectPrototypeModel := new(projectsv1.ProjectPrototype)
+				projectPrototypeModel.Name = core.StringPtr("acme-microservice")
+				projectPrototypeModel.Description = core.StringPtr("A microservice to deploy on top of ACME infrastructure")
+				projectPrototypeModel.Configs = []projectsv1.ProjectConfigIntf{projectConfigModel}
+				projectPrototypeModel.Dashboard = projectPrototypeDashboardModel
+
+				// Construct an instance of the UpdatePullRequestConfigsOptions model
+				updatePullRequestConfigsOptionsModel := new(projectsv1.UpdatePullRequestConfigsOptions)
+				updatePullRequestConfigsOptionsModel.ID = core.StringPtr("testString")
+				updatePullRequestConfigsOptionsModel.PullRequest = core.StringPtr("https://dev.us-south.git.test.cloud.ibm.com/org/projects-poc/-/merge_requests/1")
+				updatePullRequestConfigsOptionsModel.ProjectDefinitionBefore = projectPrototypeModel
+				updatePullRequestConfigsOptionsModel.ProjectDefinitionAfter = projectPrototypeModel
+				updatePullRequestConfigsOptionsModel.State = core.StringPtr("merge")
+				updatePullRequestConfigsOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
+				// Invoke operation with empty URL (negative test)
+				err := projectsService.SetServiceURL("")
+				Expect(err).To(BeNil())
+				response, operationErr := projectsService.UpdatePullRequestConfigs(updatePullRequestConfigsOptionsModel)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(operationErr.Error()).To(ContainSubstring(core.ERRORMSG_SERVICE_URL_MISSING))
+				Expect(response).To(BeNil())
+				// Construct a second instance of the UpdatePullRequestConfigsOptions model with no property values
+				updatePullRequestConfigsOptionsModelNew := new(projectsv1.UpdatePullRequestConfigsOptions)
+				// Invoke operation with invalid model (negative test)
+				response, operationErr = projectsService.UpdatePullRequestConfigs(updatePullRequestConfigsOptionsModelNew)
+				Expect(operationErr).ToNot(BeNil())
+				Expect(response).To(BeNil())
+			})
+			AfterEach(func() {
+				testServer.Close()
+			})
+		})
+	})
 	Describe(`Model constructor tests`, func() {
 		Context(`Using a service client instance`, func() {
 			projectsService, _ := projectsv1.NewProjectsV1(&projectsv1.ProjectsV1Options{
@@ -6806,6 +6959,75 @@ var _ = Describe(`ProjectsV1`, func() {
 				Expect(updateProjectStatusOptionsModel.Toolchain).To(Equal(serviceInfoToolchainModel))
 				Expect(updateProjectStatusOptionsModel.Schematics).To(Equal(serviceInfoSchematicsModel))
 				Expect(updateProjectStatusOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
+			})
+			It(`Invoke NewUpdatePullRequestConfigsOptions successfully`, func() {
+				// Construct an instance of the OutputValue model
+				outputValueModel := new(projectsv1.OutputValue)
+				Expect(outputValueModel).ToNot(BeNil())
+				outputValueModel.Name = core.StringPtr("tags")
+				outputValueModel.Description = core.StringPtr("testString")
+				outputValueModel.Value = []string{"project:ghost", "type:infrastructure"}
+				Expect(outputValueModel.Name).To(Equal(core.StringPtr("tags")))
+				Expect(outputValueModel.Description).To(Equal(core.StringPtr("testString")))
+				Expect(outputValueModel.Value).To(Equal([]string{"project:ghost", "type:infrastructure"}))
+
+				// Construct an instance of the ProjectConfigManualProperty model
+				projectConfigModel := new(projectsv1.ProjectConfigManualProperty)
+				Expect(projectConfigModel).ToNot(BeNil())
+				projectConfigModel.Name = core.StringPtr("common-variables")
+				projectConfigModel.Labels = []string{"testString"}
+				projectConfigModel.Output = []projectsv1.OutputValue{*outputValueModel}
+				projectConfigModel.Description = core.StringPtr("testString")
+				projectConfigModel.Type = core.StringPtr("manual")
+				projectConfigModel.ExternalResourcesAccount = core.StringPtr("e5ed08b9203bad3e4b6f57f0d1675a88")
+				Expect(projectConfigModel.Name).To(Equal(core.StringPtr("common-variables")))
+				Expect(projectConfigModel.Labels).To(Equal([]string{"testString"}))
+				Expect(projectConfigModel.Output).To(Equal([]projectsv1.OutputValue{*outputValueModel}))
+				Expect(projectConfigModel.Description).To(Equal(core.StringPtr("testString")))
+				Expect(projectConfigModel.Type).To(Equal(core.StringPtr("manual")))
+				Expect(projectConfigModel.ExternalResourcesAccount).To(Equal(core.StringPtr("e5ed08b9203bad3e4b6f57f0d1675a88")))
+
+				// Construct an instance of the Widget model
+				widgetModel := new(projectsv1.Widget)
+				Expect(widgetModel).ToNot(BeNil())
+				widgetModel.Name = core.StringPtr("project-properties")
+				Expect(widgetModel.Name).To(Equal(core.StringPtr("project-properties")))
+
+				// Construct an instance of the ProjectPrototypeDashboard model
+				projectPrototypeDashboardModel := new(projectsv1.ProjectPrototypeDashboard)
+				Expect(projectPrototypeDashboardModel).ToNot(BeNil())
+				projectPrototypeDashboardModel.Widgets = []projectsv1.Widget{*widgetModel}
+				Expect(projectPrototypeDashboardModel.Widgets).To(Equal([]projectsv1.Widget{*widgetModel}))
+
+				// Construct an instance of the ProjectPrototype model
+				projectPrototypeModel := new(projectsv1.ProjectPrototype)
+				Expect(projectPrototypeModel).ToNot(BeNil())
+				projectPrototypeModel.Name = core.StringPtr("acme-microservice")
+				projectPrototypeModel.Description = core.StringPtr("A microservice to deploy on top of ACME infrastructure")
+				projectPrototypeModel.Configs = []projectsv1.ProjectConfigIntf{projectConfigModel}
+				projectPrototypeModel.Dashboard = projectPrototypeDashboardModel
+				Expect(projectPrototypeModel.Name).To(Equal(core.StringPtr("acme-microservice")))
+				Expect(projectPrototypeModel.Description).To(Equal(core.StringPtr("A microservice to deploy on top of ACME infrastructure")))
+				Expect(projectPrototypeModel.Configs).To(Equal([]projectsv1.ProjectConfigIntf{projectConfigModel}))
+				Expect(projectPrototypeModel.Dashboard).To(Equal(projectPrototypeDashboardModel))
+
+				// Construct an instance of the UpdatePullRequestConfigsOptions model
+				id := "testString"
+				updatePullRequestConfigsOptionsPullRequest := "https://dev.us-south.git.test.cloud.ibm.com/org/projects-poc/-/merge_requests/1"
+				updatePullRequestConfigsOptionsModel := projectsService.NewUpdatePullRequestConfigsOptions(id, updatePullRequestConfigsOptionsPullRequest)
+				updatePullRequestConfigsOptionsModel.SetID("testString")
+				updatePullRequestConfigsOptionsModel.SetPullRequest("https://dev.us-south.git.test.cloud.ibm.com/org/projects-poc/-/merge_requests/1")
+				updatePullRequestConfigsOptionsModel.SetProjectDefinitionBefore(projectPrototypeModel)
+				updatePullRequestConfigsOptionsModel.SetProjectDefinitionAfter(projectPrototypeModel)
+				updatePullRequestConfigsOptionsModel.SetState("merge")
+				updatePullRequestConfigsOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
+				Expect(updatePullRequestConfigsOptionsModel).ToNot(BeNil())
+				Expect(updatePullRequestConfigsOptionsModel.ID).To(Equal(core.StringPtr("testString")))
+				Expect(updatePullRequestConfigsOptionsModel.PullRequest).To(Equal(core.StringPtr("https://dev.us-south.git.test.cloud.ibm.com/org/projects-poc/-/merge_requests/1")))
+				Expect(updatePullRequestConfigsOptionsModel.ProjectDefinitionBefore).To(Equal(projectPrototypeModel))
+				Expect(updatePullRequestConfigsOptionsModel.ProjectDefinitionAfter).To(Equal(projectPrototypeModel))
+				Expect(updatePullRequestConfigsOptionsModel.State).To(Equal(core.StringPtr("merge")))
+				Expect(updatePullRequestConfigsOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewValidateProjectOptions successfully`, func() {
 				// Construct an instance of the OutputValue model
