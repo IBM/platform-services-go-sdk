@@ -43,7 +43,7 @@ type ProjectsV1 struct {
 }
 
 // DefaultServiceURL is the default URL to make service requests to.
-const DefaultServiceURL = "http://localhost:9989"
+const DefaultServiceURL = "https://projects-api.projects-stage-us-south-c-324a0a89696c3783407d3a435ca143c0-0001.us-south.containers.appdomain.cloud"
 
 // DefaultServiceName is the default key used to find external configuration information.
 const DefaultServiceName = "projects"
