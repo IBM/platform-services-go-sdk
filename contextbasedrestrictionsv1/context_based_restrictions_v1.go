@@ -2449,6 +2449,9 @@ type ServiceRefValue struct {
 
 	// The service instance.
 	ServiceInstance *string `json:"service_instance,omitempty"`
+
+	// The location.
+	Location *string `json:"location,omitempty"`
 }
 
 // NewServiceRefValue : Instantiate ServiceRefValue (Generic Model Constructor)
@@ -2476,6 +2479,10 @@ func UnmarshalServiceRefValue(m map[string]json.RawMessage, result interface{}) 
 		return
 	}
 	err = core.UnmarshalPrimitive(m, "service_instance", &obj.ServiceInstance)
+	if err != nil {
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "location", &obj.Location)
 	if err != nil {
 		return
 	}
