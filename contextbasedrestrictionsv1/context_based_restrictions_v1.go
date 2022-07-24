@@ -15,7 +15,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 3.50.0-af9e48c4-20220523-163800
+ * IBM OpenAPI SDK Code Generator Version: 3.53.0-9710cac3-20220713-193508
  */
 
 // Package contextbasedrestrictionsv1 : Operations and models for the ContextBasedRestrictionsV1 service
@@ -729,6 +729,9 @@ func (contextBasedRestrictions *ContextBasedRestrictionsV1) ListRulesWithContext
 	}
 	if listRulesOptions.Sort != nil {
 		builder.AddQuery("sort", fmt.Sprint(*listRulesOptions.Sort))
+	}
+	if listRulesOptions.EnforcementMode != nil {
+		builder.AddQuery("enforcement_mode", fmt.Sprint(*listRulesOptions.EnforcementMode))
 	}
 
 	request, err := builder.Build()
@@ -1698,9 +1701,20 @@ type ListRulesOptions struct {
 	// [Sorting](https://cloud.ibm.com/docs/api-handbook?topic=api-handbook-sorting).
 	Sort *string `json:"sort,omitempty"`
 
+	// The rule's `enforcement_mode` attribute.
+	EnforcementMode *string `json:"enforcement_mode,omitempty"`
+
 	// Allows users to set headers on API requests
 	Headers map[string]string
 }
+
+// Constants associated with the ListRulesOptions.EnforcementMode property.
+// The rule's `enforcement_mode` attribute.
+const (
+	ListRulesOptionsEnforcementModeDisabledConst = "disabled"
+	ListRulesOptionsEnforcementModeEnabledConst  = "enabled"
+	ListRulesOptionsEnforcementModeReportConst   = "report"
+)
 
 // NewListRulesOptions : Instantiate ListRulesOptions
 func (*ContextBasedRestrictionsV1) NewListRulesOptions(accountID string) *ListRulesOptions {
@@ -1772,6 +1786,12 @@ func (_options *ListRulesOptions) SetZoneID(zoneID string) *ListRulesOptions {
 // SetSort : Allow user to set Sort
 func (_options *ListRulesOptions) SetSort(sort string) *ListRulesOptions {
 	_options.Sort = core.StringPtr(sort)
+	return _options
+}
+
+// SetEnforcementMode : Allow user to set EnforcementMode
+func (_options *ListRulesOptions) SetEnforcementMode(enforcementMode string) *ListRulesOptions {
+	_options.EnforcementMode = core.StringPtr(enforcementMode)
 	return _options
 }
 

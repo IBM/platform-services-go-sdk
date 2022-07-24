@@ -2012,6 +2012,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 					Expect(req.URL.Query()["service_type"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["zone_id"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["sort"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["enforcement_mode"]).To(Equal([]string{"enabled"}))
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
 					fmt.Fprint(res, `} this is not valid json {`)
@@ -2038,6 +2039,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				listRulesOptionsModel.ServiceType = core.StringPtr("testString")
 				listRulesOptionsModel.ZoneID = core.StringPtr("testString")
 				listRulesOptionsModel.Sort = core.StringPtr("testString")
+				listRulesOptionsModel.EnforcementMode = core.StringPtr("enabled")
 				listRulesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Expect response parsing to fail since we are receiving a text/plain response
 				result, response, operationErr := contextBasedRestrictionsService.ListRules(listRulesOptionsModel)
@@ -2081,6 +2083,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 					Expect(req.URL.Query()["service_type"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["zone_id"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["sort"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["enforcement_mode"]).To(Equal([]string{"enabled"}))
 					// Sleep a short time to support a timeout test
 					time.Sleep(100 * time.Millisecond)
 
@@ -2112,6 +2115,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				listRulesOptionsModel.ServiceType = core.StringPtr("testString")
 				listRulesOptionsModel.ZoneID = core.StringPtr("testString")
 				listRulesOptionsModel.Sort = core.StringPtr("testString")
+				listRulesOptionsModel.EnforcementMode = core.StringPtr("enabled")
 				listRulesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with a Context to test a timeout error
@@ -2161,6 +2165,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 					Expect(req.URL.Query()["service_type"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["zone_id"]).To(Equal([]string{"testString"}))
 					Expect(req.URL.Query()["sort"]).To(Equal([]string{"testString"}))
+					Expect(req.URL.Query()["enforcement_mode"]).To(Equal([]string{"enabled"}))
 					// Set mock response
 					res.Header().Set("Content-type", "application/json")
 					res.WriteHeader(200)
@@ -2194,6 +2199,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				listRulesOptionsModel.ServiceType = core.StringPtr("testString")
 				listRulesOptionsModel.ZoneID = core.StringPtr("testString")
 				listRulesOptionsModel.Sort = core.StringPtr("testString")
+				listRulesOptionsModel.EnforcementMode = core.StringPtr("enabled")
 				listRulesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation with valid options model (positive test)
@@ -2224,6 +2230,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				listRulesOptionsModel.ServiceType = core.StringPtr("testString")
 				listRulesOptionsModel.ZoneID = core.StringPtr("testString")
 				listRulesOptionsModel.Sort = core.StringPtr("testString")
+				listRulesOptionsModel.EnforcementMode = core.StringPtr("enabled")
 				listRulesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 				// Invoke operation with empty URL (negative test)
 				err := contextBasedRestrictionsService.SetServiceURL("")
@@ -2275,6 +2282,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				listRulesOptionsModel.ServiceType = core.StringPtr("testString")
 				listRulesOptionsModel.ZoneID = core.StringPtr("testString")
 				listRulesOptionsModel.Sort = core.StringPtr("testString")
+				listRulesOptionsModel.EnforcementMode = core.StringPtr("enabled")
 				listRulesOptionsModel.Headers = map[string]string{"x-custom-header": "x-custom-value"}
 
 				// Invoke operation
@@ -3455,6 +3463,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				listRulesOptionsModel.SetServiceType("testString")
 				listRulesOptionsModel.SetZoneID("testString")
 				listRulesOptionsModel.SetSort("testString")
+				listRulesOptionsModel.SetEnforcementMode("enabled")
 				listRulesOptionsModel.SetHeaders(map[string]string{"foo": "bar"})
 				Expect(listRulesOptionsModel).ToNot(BeNil())
 				Expect(listRulesOptionsModel.AccountID).To(Equal(core.StringPtr("testString")))
@@ -3468,6 +3477,7 @@ var _ = Describe(`ContextBasedRestrictionsV1`, func() {
 				Expect(listRulesOptionsModel.ServiceType).To(Equal(core.StringPtr("testString")))
 				Expect(listRulesOptionsModel.ZoneID).To(Equal(core.StringPtr("testString")))
 				Expect(listRulesOptionsModel.Sort).To(Equal(core.StringPtr("testString")))
+				Expect(listRulesOptionsModel.EnforcementMode).To(Equal(core.StringPtr("enabled")))
 				Expect(listRulesOptionsModel.Headers).To(Equal(map[string]string{"foo": "bar"}))
 			})
 			It(`Invoke NewListZonesOptions successfully`, func() {
